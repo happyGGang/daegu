@@ -1,0 +1,90 @@
+@charset "utf-8";
+@import url("../../../common/css/type19.css");
+
+.main3 .mb3 .box{padding-right:0;width:auto}
+.subpage > .section{border-bottom:1px solid #ddd}
+
+.color1{color:#6c8e04}
+.color2{color:#16404e}
+
+/* 시설현황 */
+.floor li{padding:0 0 10px}
+.floor li,
+.floor li p{font-size:0;line-height:0;display:inline-block;zoom:1;*display:inline}
+.floor li p{border:1px solid #d8d3c4}
+
+/* 실별안내 */
+#photo_list{overflow:hidden;background:#f7f7f7;padding:3%}
+#photo_list .pic{float:left;width:196px}
+#photo_list .data_info{float:left;width:100%;margin-right:-196px}
+#photo_list .data_info .box{margin-right:196px;padding-left:15px}
+@media all and (max-width:580px){
+	#photo_list .pic{width:100%;text-align:center}
+	#photo_list .data_info,
+	#photo_list .data_info .box{margin:0;padding:0}
+}
+
+/* 주부독서회 */
+.cont312{background:url('../img/contents/img312.jpg') no-repeat right bottom}
+@media all and (max-width:850px){
+	.cont312{padding-bottom:18%;background-position:center bottom}
+}
+@media all and (max-width:440px){
+	.cont312{background-size:100% auto}
+}
+
+/* 인사말 */
+.greeting .t1{font-size:190%;letter-spacing:-1px;padding: 20px 0 25px 35px;border-bottom: 1px solid #cdcdcd;width: 400px}
+.greeting .box{padding:20px 260px 60px 0;background:url('/resources/homepage/yj/img/contents/greeting_bg.jpg') no-repeat right 50%}
+
+.greeting .gtxt{padding:20px;background:url('/resources/homepage/yj/img/contents/introd_botm_bg.jpg') no-repeat right bottom}
+.greeting .txt p{padding:0 0 10px;font-size:105%}
+.greeting .sign{padding:15px 0 0;font-size:120%}
+.greeting .sign span{color:#888;display:inline-block;zoom:1;*display:inline;vertical-align:middle}
+.greeting .sign span.name{margin-left:5px}
+
+@media all and (max-width:767px){
+	.greeting .t1{background-position:right 0;background-size:15%}
+	.greeting .box{padding-right:5%;background:none}
+}
+@media all and (max-width:400px){
+	.greeting .t1{background-position:right bottom;background:none}
+}
+
+/* 인사말 추가 20170114hjh*/
+.greeting{background:url('/resources/homepage/yj/img/contents/introd_bg.gif') no-repeat left top}
+
+/* 공무원헌장 */
+.civil-wrap{border:1px solid #ddd;padding:3%}
+.civil-box{background:#f5f9fc url('/resources/homepage/yj/img/contents/civil_bg_bottom.jpg') no-repeat right bottom;border-radius:5px;overflow:hidden}
+.civil-wrap .box{background:url('/resources/homepage/yj/img/contents/civil_bg_top.jpg') no-repeat 0 0;padding:10% 7%;color:#222}
+.civil-wrap ul{padding:0 0 15px}
+.civil-wrap li{font-size:110%;padding:3px 0;line-height:130%}
+.civil-wrap ol li{font-size:120%;background:url('/resources/homepage/yj/img/contents/hana.png') no-repeat 0 center;padding:3% 0 3% 55px;background-size:50px 50px}
+
+/* 배너모음*/
+.banner_more{text-align:center}
+.banner_more li{display:inline-block;margin:10px 5px;width:150px}
+.banner_more li img{border:1px solid #ccc}
+
+/* 뷰어다운로드 */
+.viewer_down li div{padding:7px 0 0}
+
+/* 접속기록안내 */
+#memberInfo{position:absolute;width:22%;left:98%;top:40%;background:#fff;margin-left:-37%;box-shadow:0px 1px 7px 0px rgba(0,0,0,0.5);z-index: 9;}
+#memberInfo .inbox{positioㅔ개n:relative;border:1px solid #ccc;padding:10px;}
+#memberInfo .inbox dt{font-weight:bold;font-family:verdana;padding-bottom: 10px;}
+#memberInfo .inbox dd{padding:3px 0}
+a#closeMemberInfo{position:absolute;right:7px;top:5px;font-size:120%}
+#line{width: 160px;}
+div.loginInfo{padding-top: 8px;padding-bottom: 15px;}
+span.fontRed{color: red;}
+span.fontBlue{color: rgb(27,104,199);font-weight: bold;}
+div.memberCon{background-color: rgb(240,240,240);border-radius: 1em;}
+div.memberCon2{padding-top: 12px;padding-left: 10px;padding-right: 10px; padding-bottom: 28px;}
+a.btnStyle{float: right;margin-top: 6px;}
+#loginIcon{padding-top: 13px;padding-left:10px;}
+.boxnImg{ float: left; }
+.box2_1 { float: left; width: 34%; }
+.box3_1 { float: left; width: 38%; border-left: 1px solid #ddd; }
+.boxn { padding-top: 1%; padding-bottom: 1%; padding-left: 5%; }

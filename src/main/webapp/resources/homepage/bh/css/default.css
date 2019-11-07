@@ -1,0 +1,110 @@
+@charset "utf-8";
+@import url("../../../common/css/type29.css");
+
+.color1{color:#1d568e}
+.color2{color:#f8b62c}
+
+.main-img{position:absolute;top:0;left:0;width:100%;height:100%;background:#f2f2f2;z-index:5}
+.main-img li{background-position:center 0}
+.main-img .bx-wrapper, .main-img .bx-viewport, .main-img ul, .main-img li{height:100%!important}
+
+.main-img .main_txt p{font-size:310%}
+.main-img .main_txt span{font-size:150%;letter-spacing:1px;padding-bottom:5px}
+
+.main .like_book{background:url('/resources/homepage/bh/img/like_book_bg.jpg') no-repeat center 0}
+.main .like_book li{overflow:hidden;padding:30px 0;padding-right:1px}
+.main .like_book .item{font-size:105%}
+.main .like_book .item strong.sbj{font-size:120%}
+.main .like_book .item label{font-weight:bold}
+.main .like_book .thumb{float:left;width:19%}
+.main .like_book .item{float:left;width:100%;margin-right:-19%}
+.main .like_book .item .box{margin-right:19%;padding-left:2%}
+.main .like_book .item p{padding:5px 0}
+.main .like_book .item p.snipet{color:#666;padding-bottom:20px;line-height:160%;font-size:13px}
+.main .like_book .item .more{background:#f1b247;color:#fff;font-size:120%;font-weight:bold;display:inline-block;zoom:1;*display:inline;padding:10px 7%}
+.main .like_book .item .more:hover,
+.main .like_book .item .more:focus{background:#efaa3f}
+.main .like_book .bx-wrapper{position:relative;width:auto!important;padding:0 5%}
+.main .like_book .bx-pager{display:none}
+.main .like_book .bx-controls-direction a.disabled{opacity:0.3;z-index:0}
+.main .like_book .bx-controls-direction a{opacity:0.5;font-size:0;line-height:0;position:absolute;top:0;height:100%;left:0;width:28px;background:url('/resources/homepage/bh/img/btn_bx1.gif') no-repeat 0 center}
+.main .like_book .bx-controls-direction a:hover,
+.main .like_book .bx-controls-direction a:focus{opacity:1}
+.main .like_book .bx-controls-direction a.bx-next{right:0;left:inherit;background-position:right center}
+
+.main .libClosed .inBox,
+.main .libClosed .inBox1{padding:14px 0}
+.main .libClosed .inBox{padding-top:8px}
+.main .libClosed dl dd{padding-bottom:0;padding-top:2px;font-size:115%}
+.main .libClosed p{font-size:120%}
+.main .libClosed span{font-size:100%}
+.main .libClosed .bt-next,
+.main .libClosed .bt-prev{top:12px}
+.main .libClosed .box{height:265px;overflow-y:auto}
+
+.sub-visual{background-image:url('../img/main1.jpg')}
+
+.doc-body ul.con>li.btn_li{background-position:0 14px}
+.doc-body ul.con>li.btn_li a.btn{padding:4px 13px}
+
+/* 인사말 */
+.greeting{background:url('../img/contents/greeting.jpg') no-repeat right bottom}
+.greeting_intro{background:url('/resources/common/img/contents/body/greeting_intro.png') no-repeat 0 0}
+.greeting .t1{font-size:190%;letter-spacing:-1px;padding:20px 0 25px 35px;border-bottom:1px solid #cdcdcd;width:400px}
+.greeting .t1 span{font-size:50%;color:#9ac4e4;letter-spacing:0.5px;display:block;line-height:120%;padding:10px 0 0}
+.greeting .box{padding:20px 260px 0px 0}
+.greeting .gtxt{padding:20px;background:url('../img/contents/introd_botm_bg.png') no-repeat right bottom}
+.greeting .txt p{padding:0 0 10px;font-size:105%;line-height:180%}
+.greeting .sign{padding:15px 100px 0 0;font-size:120%}
+.greeting .sign span{color:#888;display:inline-block;zoom:1;*display:inline;vertical-align:middle;line-height:130%;margin:3px 0}
+.greeting .sign span.name{margin-left:5px}
+@media all and (max-width:900px){
+	.greeting .box{padding-right:35%}
+}
+@media all and (max-width:767px){
+	.greeting{background:none}
+	.greeting .t1{width:auto}
+	.greeting .box{padding-right:5%;background:none}
+}
+@media all and (max-width:400px){
+	.greeting .t1{padding:20px 0 25px 25px}
+	.greeting .gtxt{padding:2%}
+}
+
+/* 연혁 */
+.history-head{padding-bottom:20px}
+.history-head .t1{color:#424c87}
+.history-head .t2 strong{color:#f1b247;font-weight:800}
+.history .history_year,
+.history_wrap .history_con .box ul{padding:18px 0}
+.history_wrap .history_con .box ul li{padding:3px 0}
+.history .history_year{padding-left:2%;padding-top:25px}
+.history .history_year span{display:block;font-size:0;line-height:0}
+.history .history_year span em{font-size:32px;line-height:26px;font-style:normal}
+.history .history_year span em.y1{color:#4c4c4c}
+.history .history_year span em.y2{color:#5e8e17}
+
+
+/* 접속기록안내 */
+#memberInfo{position:absolute;width:22%;left:98%;top:36%;background:#fff;margin-left:-33%;box-shadow:0px 1px 7px 0px rgba(0,0,0,0.5);z-index: 9;}
+#memberInfo .inbox{position:relative;border:1px solid #ccc;padding:10px;}
+#memberInfo .inbox dt{font-weight:bold;font-family:verdana;padding-bottom: 10px;}
+#memberInfo .inbox dd{padding:3px 0}
+a#closeMemberInfo{position:absolute;right:7px;top:5px;font-size:120%}
+#line{width: 160px;}
+div.loginInfo{padding-top: 8px;padding-bottom: 15px;}
+span.fontRed{color: red;}
+span.fontBlue{color: rgb(27,104,199);font-weight: bold;}
+div.memberCon{background-color: rgb(240,240,240);border-radius: 1em;}
+div.memberCon2{padding-top: 12px;padding-left: 10px;padding-right: 10px; padding-bottom: 28px;}
+a.btnStyle{float: right;margin-top: 6px;}
+#loginIcon{padding-top: 13px;padding-left:10px;}
+.boxnImg{ float: left; }
+.box2_1 { float: left; width: 34%; }
+.box3_1 { float: left; width: 38%; border-left: 1px solid #ddd; }
+.boxn { padding-top: 1%; padding-bottom: 1%; padding-left: 5%; }
+
+
+@media all and (max-width:1000px){
+	.main .libClosed .box{height:auto}
+}

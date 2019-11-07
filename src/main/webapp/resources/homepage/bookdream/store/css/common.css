@@ -1,0 +1,66 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+/* tag Definition */
+address { font-style: normal; display: block; color: #575757;} /* 주소 */
+cite { display: block; font-style: normal; }	/* 인용문 */
+del { text-decoration: line-through; } /* 삭제 */
+strong { font-weight: bold; } /* 강조 */
+em { font-style: normal; } /* 강조 */
+dfn { font-style: normal; } /* 정의 - 용어설명 */
+cite { font-style: normal; } /* 인용출처 */
+blockquote { margin: 0; padding: 0; } /* 인용block */
+sup { font-size: .92em; } /* 위첨자 */
+sub { font-size: .92em; } /* 아래첨자 */
+fieldset{ margin:0; padding:0; border:0 }
+legend {
+	padding:0;
+	font-size:0;
+	line-height:0;
+}
+hr{display:none;}	/* 수평선 - 레이아웃구분용 */
+form, blockquote, dl, dt, dd { margin: 0; padding: 0; }
+img, input.type-image { border: 0 none; }
+optgroup label{ font-style:normal; font-weight:normal; }
+ul, li, ol{ list-style:none; margin:0; padding:0px; }
+noscript{display:none}
+html, body { margin: 0; padding: 0; }
+
+/*INPUT*/
+textarea {border:1px solid #e1e1e1; line-height:140%; width:98%; }
+input, select, textarea, button {  vertical-align: top; font-size: 1em; color: #575757; font-family: "NanumGothic", "돋움", "굴림", sans-serif;}
+select {border: 1px solid #cdcdcd;  background: #fff;  margin-bottom: 2px; border-radius: 5px;  height: 24px;  line-height: 24px;}
+
+
+
+/* 페이징 */
+.pagenation {
+	/*text-align: center;
+	overflow: hidden;*/
+	padding: 15px 0;
+}
+.pagenation ul{
+	margin:0;
+}
+.pagenation ul li{
+	margin: 0 5px;
+	float: left;
+}
+.pagenation ul li a{
+    font-family: tahoma;
+    font-size: 12px;
+    padding: 2px 8px;
+    border: 1px solid #ddd;    background: #fff;
+    display: inline-block;
+    text-align: center;
+    color: #555;
+}
+.pagenation ul li.this{
+}
+.pagenation ul li.this a{
+	color:#fff;
+	  border: 1px solid #677D17;
+	  background: #98B22E;
+}

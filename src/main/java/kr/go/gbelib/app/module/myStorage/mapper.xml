@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.module.myStorage.MyStorageDao">
+	
+	<select id="getMyStorageTreeList" resultType="kr.go.gbelib.app.module.myStorage.MyStorage">
+		SELECT * FROM
+		(
+			SELECT 
+				-1 AS PARENT_STORAGE_IDX,
+		   		0 AS STORAGE_IDX,
+		      	'보관함' AS STORAGE_NAME
+			FROM DUAL
+			UNION ALL
+			SELECT
+	      		PARENT_STORAGE_IDX, 
+	      		STORAGE_IDX, 
+	      		STORAGE_NAME 
+			FROM
+				MY_STORAGE
+			WHERE HOMEPAGE_ID = #{homepage_id}
+			AND	MEMBER_KEY = #{member_key}
+		)
+		CONNECT BY PRIOR STORAGE_IDX = PARENT_STORAGE_IDX
+		START WITH STORAGE_IDX = 0
+		ORDER SIBLINGS BY STORAGE_NAME 
+	</select>
+	
+	<select id="getMyStorageOne" resultType="kr.go.gbelib.app.module.myStorage.MyStorage">
+		SELECT
+			HOMEPAGE_ID, STORAGE_IDX, PARENT_STORAGE_IDX, STORAGE_NAME
+		FROM
+			MY_STORAGE
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND MEMBER_KEY = #{member_key} AND STORAGE_IDX = #{storage_idx}
+	</select>
+	
+	<insert id="addMyStorage">
+		<selectKey keyProperty="storage_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(STORAGE_IDX),0)+1 FROM MY_STORAGE WHERE HOMEPAGE_ID = #{homepage_id} AND MEMBER_KEY = #{member_key}
+		</selectKey>
+		INSERT INTO MY_STORAGE
+		(
+			HOMEPAGE_ID, MEMBER_KEY, STORAGE_IDX, PARENT_STORAGE_IDX, STORAGE_NAME
+		) VALUES
+		(
+			#{homepage_id}, #{member_key}, #{storage_idx}, #{parent_storage_idx}, #{storage_name}
+		)
+	</insert>
+	
+	<update id="modifyMyStorage">
+		UPDATE 
+			MY_STORAGE 
+		SET
+			STORAGE_NAME = #{storage_name}
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND MEMBER_KEY = #{member_key} AND STORAGE_IDX = #{storage_idx}			
+	</update>
+	
+	<delete id="deleteMyStorage">
+		DELETE FROM MY_STORAGE 
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND MEMBER_KEY = #{member_key} AND STORAGE_IDX = #{storage_idx}
+	</delete>
+	
+	<select id="getChildCount" resultType="int">
+		SELECT COUNT(*)
+		FROM MY_STORAGE
+		WHERE HOMEPAGE_ID = #{homepage_id} AND MEMBER_KEY = #{member_key} AND PARENT_STORAGE_IDX = #{storage_idx}
+	</select>
+	
+	<update id="moveMyStorage">
+		UPDATE MY_STORAGE
+		SET PARENT_STORAGE_IDX = #{parent_storage_idx}
+		WHERE HOMEPAGE_ID = #{homepage_id} AND MEMBER_KEY = #{member_key} AND STORAGE_IDX = #{storage_idx}
+	</update>
+	
+	<select id="getStorageCount" resultType="int">
+		SELECT COUNT(*)
+		FROM MY_STORAGE
+		WHERE HOMEPAGE_ID = #{homepage_id} AND MEMBER_KEY = #{member_key}
+	</select>
+	
+</mapper>

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.module.boardHistory.BoardHistoryDao">
+
+	<sql id="where">
+		( A.add_id = #{boardMember.web_id} OR A.add_id = #{boardMember.member_id} )
+	AND	A.delete_yn = 'N'
+	AND	A.group_depth = 0
+	 <if test="(search_type!=null and search_type!='') and (search_text!=null and search_text!='')">
+        	AND
+	        <choose>
+	            <when test="search_type == 'title+content'">
+	                (title LIKE '%'||#{search_text}||'%' OR DBMS_LOB.INSTR(CONTENT, #{search_text}) > 0)
+				</when>
+	            <when test="search_type == 'content'">
+	                (DBMS_LOB.INSTR(CONTENT, #{search_text}) > 0)
+				</when>
+				<when test="search_type == 'title'">
+				    ${search_type} LIKE '%'||#{search_text}||'%'
+				</when>
+				<otherwise>
+					${search_type} LIKE '%'||#{search_text}||'%'
+				</otherwise>
+	        </choose>
+        </if>
+	</sql>
+
+	<sql id="commentWhere">
+		( A.user_id = #{boardMember.web_id} OR A.user_id = #{boardMember.member_id} )
+	AND	A.delete_yn = 'N'
+	AND	B.delete_yn = 'N'
+	AND	A.board_idx = B.board_idx
+	 <if test="(search_type!=null and search_type!='') and (search_text!=null and search_text!='')">
+	        <choose>
+	            <when test="search_type == 'content'">
+	               AND (DBMS_LOB.INSTR(A.COMMENT_CONTENT, #{search_text}) > 0)
+				</when>
+				<when test="search_type == 'title+content'">
+				</when>
+				<when test="search_type == 'title'">
+				</when>
+				<otherwise>
+				 AND	A.${search_type} LIKE '%'||#{search_text}||'%'
+				</otherwise>
+	        </choose>
+        </if>
+	</sql>
+
+	<select id="getBoardHistoryCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_BOARD A
+		WHERE
+			<include refid="where" />
+	</select>
+
+	<select id="getBoardHistoryList" resultType="kr.co.whalesoft.app.board.Board">
+		${pagingTop}
+		SELECT
+			(
+				SELECT
+					H.context_path
+				FROM
+					CMS_HOMEPAGE H, CMS_BOARD_MANAGE M
+				WHERE
+					H.homepage_id = M.homepage_id
+				AND	M.manage_idx = A.manage_idx
+			) AS imsi_v_18,
+			(
+				SELECT
+					H.homepage_name
+				FROM
+					CMS_HOMEPAGE H, CMS_BOARD_MANAGE M
+				WHERE
+					H.homepage_id = M.homepage_id
+				AND	M.manage_idx = A.manage_idx
+			) AS imsi_v_19,
+			(
+				SELECT
+					M.board_name
+				FROM
+					CMS_HOMEPAGE H, CMS_BOARD_MANAGE M
+				WHERE
+					H.homepage_id = M.homepage_id
+				AND	M.manage_idx = A.manage_idx
+			) AS imsi_v_20,
+			(
+				SELECT
+					MAX(H.menu_idx)
+				FROM
+					CMS_MENU H, CMS_BOARD_MANAGE M
+				WHERE
+					H.homepage_id = M.homepage_id
+				AND	M.manage_idx = A.manage_idx
+				AND	H.manage_idx = M.manage_idx
+				AND H.menu_type = 'BOARD'
+			) AS imsi_n_1,
+			A.manage_idx, A.board_idx, A.title, A.secret_yn, A.add_date
+		FROM
+			CMS_BOARD A
+		WHERE
+			<include refid="where" />
+		ORDER BY
+			board_idx DESC
+		${pagingBottom}
+	</select>
+
+	<select id="getReplyHistoryCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_BOARD_COMMENT A, CMS_BOARD B
+		WHERE
+			<include refid="commentWhere" />
+	</select>
+
+	<select id="getReplyHistoryList" resultType="kr.co.whalesoft.app.board.boardComment.BoardComment">
+		${pagingTop}
+		SELECT
+			(
+				SELECT
+					H.context_path
+				FROM
+					CMS_HOMEPAGE H, CMS_BOARD_MANAGE M
+				WHERE
+					H.homepage_id = M.homepage_id
+				AND	M.manage_idx = B.manage_idx
+			) AS imsi_v_18,
+			(
+				SELECT
+					H.homepage_name
+				FROM
+					CMS_HOMEPAGE H, CMS_BOARD_MANAGE M
+				WHERE
+					H.homepage_id = M.homepage_id
+				AND	M.manage_idx = B.manage_idx
+			) AS imsi_v_19,
+			(
+				SELECT
+					M.board_name
+				FROM
+					CMS_HOMEPAGE H, CMS_BOARD_MANAGE M
+				WHERE
+					H.homepage_id = M.homepage_id
+				AND	M.manage_idx = B.manage_idx
+			) AS imsi_v_20,
+			(
+				SELECT
+					MAX(H.menu_idx)
+				FROM
+					CMS_MENU H, CMS_BOARD_MANAGE M
+				WHERE
+					H.homepage_id = M.homepage_id
+				AND	M.manage_idx = B.manage_idx
+				AND	H.manage_idx = M.manage_idx
+				AND H.menu_type = 'BOARD'
+			) AS imsi_n_1,
+			A.*, B.manage_idx
+		FROM
+			CMS_BOARD_COMMENT A, CMS_BOARD B
+		WHERE
+			<include refid="commentWhere" />
+		ORDER BY
+			comment_idx DESC
+		${pagingBottom}
+	</select>
+	
+	<sql id="elibCommentWhere">
+		AND a.book_idx = b.book_idx
+		AND ( a.member_id = #{boardMember.web_id} OR a.member_id = #{boardMember.member_id} )
+        <if test="(search_type!=null and search_type!='') and (search_text!=null and search_text!='')">
+	        <choose>
+	            <when test="search_type == 'content'">
+	                AND	a.user_comment LIKE '%'||#{search_text}||'%'
+				</when>
+				<when test="search_type == 'title'">
+				    AND	b.book_name LIKE '%'||#{search_text}||'%'
+				</when>
+				<otherwise>
+					AND	a.user_comment LIKE '%'||#{search_text}||'%'
+				</otherwise>
+	        </choose>
+        </if>
+	</sql>
+	
+	<select id="getElibCommentHistoryCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			ELIB_COMMENT a, ELIB_BOOK b
+		WHERE 1=1
+		<include refid="elibCommentWhere" />
+	</select>
+
+	<select id="getElibCommentHistoryList" resultType="kr.go.gbelib.app.cms.module.elib.comment.Comment">
+		${pagingTop}
+		SELECT
+			a.comment_idx, TO_CHAR(a.regdt, 'YYYY.MM.DD') AS regdt, a.book_idx, a.user_idx, a.member_id, a.user_comment,
+			b.book_name, b.author_name, b.book_pubname, b.type,
+			DECODE(b.type, 'EBK', 14, 'ADO', 19, 'WEB', 27) AS menu_idx
+		FROM
+			ELIB_COMMENT a, ELIB_BOOK b
+		WHERE 1=1
+		<include refid="elibCommentWhere" />
+		ORDER BY comment_idx DESC
+		${pagingBottom}
+	</select>
+	
+</mapper>

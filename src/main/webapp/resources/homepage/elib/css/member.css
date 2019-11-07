@@ -1,0 +1,14 @@
+@CHARSET "EUC-KR";
+
+/* 성명변경 도움말 */
+.planView{position:absolute;width:24%;left:82%;top:31%;background:#fff;margin-left:-40%;box-shadow:0px 1px 7px 0px rgba(0,0,0,0.5);}
+.planView .inbox{position:relative;border:1px solid #ccc;padding:10px;}
+.planView .inbox dt{font-weight:bold;font-family:verdana;padding-bottom: 10px;}
+.planView .inbox dd{padding:3px 0}
+a#closePopup{position:absolute;right:5px;top:0;font-size:120%}
+
+#certTypeDiv{position:absolute;width:14%;left:82%;top:31%;background:#fff;margin-left:-40%;box-shadow:0px 1px 7px 0px rgba(0,0,0,0.5);}
+#certTypeDiv .inbox{position:relative;border:1px solid #ccc;padding:10px;}
+#certTypeDiv .inbox dt{font-weight:bold;font-family:verdana;padding-bottom: 10px;}
+#certTypeDiv .inbox dd{padding:3px 0}
+a#closePopup2{position:absolute;right:5px;top:0;font-size:120%}

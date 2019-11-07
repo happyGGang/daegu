@@ -1,0 +1,130 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<ul class="num">
+	<li><fmt:formatNumber value="${homepageAccessResult[0].total_count}" type="number"/></li>
+	<li><fmt:formatNumber value="${(homepageAccessResult[0].total_count / 6) * 5}" pattern="0"/></li>
+	<li><fmt:formatNumber value="${(homepageAccessResult[0].total_count / 6) * 4}" pattern="0"/></li>
+	<li><fmt:formatNumber value="${(homepageAccessResult[0].total_count / 6) * 3}" pattern="0"/></li>
+	<li><fmt:formatNumber value="${(homepageAccessResult[0].total_count / 6) * 2}" pattern="0"/></li>
+	<li><fmt:formatNumber value="${(homepageAccessResult[0].total_count / 6) * 1}" pattern="0"/></li>
+	<li>0</li>
+</ul>
+<div class="graphWrap">
+	<ul class="graph">
+		<c:forEach var="i" varStatus="status" items="${homepageAccessResult}">
+			<li>
+				<div class="chart-info">
+					<div class="barWrap">
+						<div class="gauge" style="height:${i.result_count / homepageAccessResult[0].total_count * 100}%;">
+							<div class="gauge_ly"><p><em>${i.result_count}</em> 명</p></div>
+						</div>
+					</div>
+					<c:choose>
+						<c:when test="${homepageAccess.date_type == 'TIME'}">
+							<p class="txt">
+								${status.index}시
+								<c:choose>
+									<c:when test="${homepageAccess.search_type eq 'OS'}"><br/> ${i.operating_system}</c:when>
+									<c:when test="${homepageAccess.search_type eq 'BROWSER'}"><br/> ${i.browser_type}</c:when>
+								</c:choose>
+							</p>
+						</c:when>
+						<c:when test="${homepageAccess.date_type == 'DAY'}">
+							<p class="txt">
+								${i.result_date}
+								<c:choose>
+									<c:when test="${homepageAccess.search_type eq 'OS'}"><br/> ${i.operating_system}</c:when>
+									<c:when test="${homepageAccess.search_type eq 'BROWSER'}"><br/> ${i.browser_type}</c:when>
+								</c:choose>
+							</p>
+						</c:when>
+						<c:when test="${homepageAccess.date_type == 'MONTH'}">
+							<p class="txt">
+								${i.result_date}
+								<c:choose>
+									<c:when test="${homepageAccess.search_type eq 'OS'}"><br/> ${i.operating_system}</c:when>
+									<c:when test="${homepageAccess.search_type eq 'BROWSER'}"><br/> ${i.browser_type}</c:when>
+								</c:choose>
+							</p>
+						</c:when>
+						<c:when test="${homepageAccess.date_type == 'YEAR'}">
+							<p class="txt">
+								${i.result_date}
+								<c:choose>
+									<c:when test="${homepageAccess.search_type eq 'OS'}"><br/> ${i.operating_system}</c:when>
+									<c:when test="${homepageAccess.search_type eq 'BROWSER'}"><br/> ${i.browser_type}</c:when>
+								</c:choose>
+							</p>
+						</c:when>
+					</c:choose>
+				</div>
+			</li>
+		</c:forEach>
+	</ul>
+</div>
+
+
+<div style="clear:both">&nbsp;</div>
+<br/>
+
+<table id="accessTableData" class="chartData">
+<thead>
+	<tr>
+		<c:choose>
+			<c:when test="${homepageAccess.date_type == 'TIME'}">
+				<th width="200">시간</th>
+			</c:when>
+			<c:when test="${homepageAccess.date_type == 'DAY'}">
+				<th width="200">일</th>
+			</c:when>
+			<c:when test="${homepageAccess.date_type == 'MONTH'}">
+				<th width="200">월</th>
+			</c:when>
+			<c:when test="${homepageAccess.date_type == 'YEAR'}">
+				<th width="200">년</th>
+			</c:when>
+		</c:choose>
+
+		<th colspan="2">접속자 수</th>
+		<!-- <th colspan="2">로그인 수</th> -->
+	</tr>
+</thead>
+<tbody>
+	<c:forEach var="i" varStatus="status" items="${homepageAccessResult}">
+		<%-- <tr<% if(j%2==0){ %> class="even"<% } %>> --%>
+		<tr>
+			<td class="left">${i.result_date}
+				<c:choose>
+					<c:when test="${homepageAccess.search_type eq 'OS'}"> / ${i.operating_system}</c:when>
+					<c:when test="${homepageAccess.search_type eq 'BROWSER'}"> / ${i.browser_type}</c:when>
+					<c:when test="${homepageAccess.search_type eq 'DEVICE'}"> / ${i.access_system}</c:when>
+				</c:choose>
+			</td>
+			<td style="width:250px" class="ratioBar">
+				<c:if test="${homepageAccessResult[0].total_count ne 0}">
+					<p style="width:${i.result_count / homepageAccessResult[0].total_count * 100}%"></p>
+				</c:if>
+			</td>
+			<td style="width:150px" class="ratio left">
+				<c:if test="${homepageAccessResult[0].total_count ne 0}">
+					${i.result_count}<em>(<fmt:formatNumber value="${i.result_count / homepageAccessResult[0].total_count * 100}" pattern="0"/>%)</em>
+				</c:if>
+				<c:if test="${homepageAccessResult[0].total_count eq 0}">
+				0<em>(0%)</em>
+				</c:if>
+			</td>
+			<!-- <td style="width:250px" class="ratioBar"><p style="width:80%"></p></td>
+			<td style="width:150px" class="ratio left">4321 <em>(10%)</em></td> -->
+		</tr>
+	</c:forEach>
+</tbody>
+<tfoot>
+	<tr>
+		<th>합계</th>
+		<td colspan="2">${homepageAccessResult[0].total_count}<em>(100%)</em></td>
+		<!-- <td colspan="2">4321 <em>(100%)</em></td> -->
+	</tr>
+</tfoot>
+</table>

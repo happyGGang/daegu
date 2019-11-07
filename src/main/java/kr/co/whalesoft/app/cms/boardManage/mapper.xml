@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.boardManage.BoardManageDao">
+	
+	<sql id="where">
+		<if test="(board_type!=null and board_type!='')">
+			AND board_type = #{board_type}
+		</if>
+        <if test="(search_type!=null and search_type!='') and (search_text!=null and search_text!='')">
+        <choose>
+            <when test="search_type == 'board_name'">
+                AND board_name LIKE '%'||#{search_text}||'%'
+			</when>
+        </choose>
+        </if>
+    </sql>
+
+	<select id="getBoardManageCount" resultType="int">
+	    SELECT
+	    	COUNT(*)
+	    FROM
+	    	CMS_BOARD_MANAGE
+	    WHERE
+	    	(homepage_id = #{homepage_id} or homepage_id_second = #{homepage_id})
+	    <include refid="where"/>
+	</select>
+    
+    <select id="getBoardManage" resultType="kr.co.whalesoft.app.cms.boardManage.BoardManage">
+    	${pagingTop}
+	    SELECT * FROM
+	    (
+			SELECT
+				homepage_id,
+				manage_idx, board_name, getCodeNameToRemark('CMS', 'C0000',board_type) as board_type, board_skin, board_use_yn, add_date, category_use_yn, category1
+			FROM
+				CMS_BOARD_MANAGE
+			WHERE
+				(homepage_id = #{homepage_id} or homepage_id_second = #{homepage_id})
+			<include refid="where"/>
+		)				
+		ORDER BY manage_idx DESC
+		${pagingBottom}
+    </select>
+    
+    <select id="getBoardManageByAdminIdCount" resultType="int">
+	    SELECT
+	    	COUNT(*)
+	    FROM
+	    	CMS_BOARD_MANAGE
+	    WHERE
+	    	homepage_id = #{homepage_id} AND
+			admin_id = #{admin_id}
+	    <include refid="where"/>
+	</select>
+    
+    <select id="getBoardManageByAdminId" resultType="kr.co.whalesoft.app.cms.boardManage.BoardManage">
+    	${pagingTop}
+	    SELECT * FROM
+	    (
+			SELECT
+				homepage_id,
+				manage_idx, board_name, board_type, board_skin, board_use_yn, add_date
+			FROM
+				CMS_BOARD_MANAGE
+			WHERE
+				homepage_id = #{homepage_id} AND
+				admin_id = #{admin_id}
+			<include refid="where"/>
+		)				
+		ORDER BY manage_idx DESC
+		${pagingBottom}
+    </select>
+    
+    <select id="getBoardManageOne" resultType="kr.co.whalesoft.app.cms.boardManage.BoardManage">
+		SELECT
+			homepage_id,
+			manage_idx, board_name, board_type, board_skin, record_count, new_date_count, request_code,
+			ip_use_yn, reply_use_yn, reply_list_yn, comment_use_yn, secret_use_yn, editor_use_yn, 
+			board_use_yn, add_html_use_yn, top_html, bottom_html, content_html, add_date, modify_date,
+			view_auth, add_auth, edit_auth, delete_auth, admin_auth, admin_id,  
+			file_use_yn, file_count, file_size_total, file_ban_ext, category_use_yn, 
+			category1, category2, category3, category4, category5,
+			rss_yn, recommend_yn, ebook_yn, charge_sms_receive_yn, write_sms_receive_yn,
+			charge_email_receive_yn, write_email_receive_yn, board_email_send_yn, satisfy_yn, board_etc1,
+			add_only_yn, approval_yn, push_send_yn, anonymize_yn
+		FROM
+			CMS_BOARD_MANAGE
+		WHERE
+			manage_idx = #{manage_idx}
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(homepage_id)">
+			AND (homepage_id = #{homepage_id} OR homepage_id_second = #{homepage_id})
+		</if>
+    </select>
+    
+    <insert id="addBoardManage">
+    	<selectKey keyProperty="manage_idx" resultType="int" order="BEFORE">
+		    SELECT NVL(MAX(manage_idx),0)+1 FROM CMS_BOARD_MANAGE
+		</selectKey>
+    	INSERT INTO CMS_BOARD_MANAGE
+		(
+			homepage_id, manage_idx, board_name, board_type, board_skin, record_count,
+			new_date_count, ip_use_yn, reply_use_yn, reply_list_yn, comment_use_yn, secret_use_yn,
+			editor_use_yn, board_use_yn, add_html_use_yn, top_html, content_html,
+			bottom_html, add_date, modify_date, add_auth, view_auth, edit_auth,
+			delete_auth, admin_auth, admin_id, file_use_yn, file_count,
+			file_size_total, file_ban_ext, category_use_yn, 
+			category1, category2, category3, category4, category5,
+			rss_yn, recommend_yn, ebook_yn, charge_sms_receive_yn, write_sms_receive_yn,
+			charge_email_receive_yn, write_email_receive_yn, board_email_send_yn, satisfy_yn, board_etc1,
+			add_only_yn, approval_yn, push_send_yn, request_code, anonymize_yn
+		) 
+			VALUES
+		(
+			#{homepage_id}, #{manage_idx}, #{board_name}, #{board_type}, #{board_type}, #{record_count}, 
+			#{new_date_count}, #{ip_use_yn}, #{reply_use_yn}, #{reply_list_yn}, #{comment_use_yn}, #{secret_use_yn},
+			#{editor_use_yn}, #{board_use_yn}, #{add_html_use_yn}, #{top_html}, #{content_html},
+			#{bottom_html}, SYSDATE, SYSDATE, #{view_auth}, #{add_auth}, #{edit_auth},
+			#{delete_auth}, #{admin_auth}, #{admin_id}, #{file_use_yn}, #{file_count},
+			#{file_size_total}, #{file_ban_ext}, #{category_use_yn},
+			#{category1}, #{category2}, #{category3}, #{category4}, #{category5},
+			#{rss_yn}, #{recommend_yn}, #{ebook_yn}, #{charge_sms_receive_yn}, #{write_sms_receive_yn}, 
+			#{charge_email_receive_yn}, #{write_email_receive_yn}, #{board_email_send_yn}, #{satisfy_yn}, #{board_etc1},
+			#{add_only_yn}, #{approval_yn}, #{push_send_yn}, #{request_code}, #{anonymize_yn}
+		)
+    </insert>
+    
+    <update id="modifyBoardManage">
+    	UPDATE CMS_BOARD_MANAGE SET
+	    	board_name = #{board_name},
+	    	board_type = #{board_type},
+	    	board_skin = #{board_type},
+	    	record_count = #{record_count},
+	    	new_date_count = #{new_date_count},
+	    	ip_use_yn = #{ip_use_yn},
+	    	reply_use_yn = #{reply_use_yn},
+	    	reply_list_yn = #{reply_list_yn},
+	    	comment_use_yn = #{comment_use_yn},
+	    	secret_use_yn = #{secret_use_yn},
+	    	editor_use_yn = #{editor_use_yn},
+	    	board_use_yn = #{board_use_yn},
+	    	add_html_use_yn = #{add_html_use_yn},
+	    	approval_yn = #{approval_yn},
+	    	top_html = #{top_html},
+	    	content_html = #{content_html},
+	    	bottom_html = #{bottom_html},
+	    	view_auth = #{view_auth},
+	    	add_auth = #{add_auth},
+	    	edit_auth = #{edit_auth},
+	    	delete_auth = #{delete_auth},
+	    	admin_auth = #{admin_auth},
+	    	admin_id = #{admin_id},
+	    	file_use_yn = #{file_use_yn},
+	    	file_count = #{file_count},
+	    	file_size_total = #{file_size_total},
+	    	file_ban_ext = #{file_ban_ext},
+	    	request_code = #{request_code},
+			category_use_yn = #{category_use_yn},
+			category1 = #{category1},
+			category2 = #{category2},
+			category3 = #{category3},
+			category4 = #{category4},
+			category5 = #{category5},
+			rss_yn = #{rss_yn},
+			recommend_yn = #{recommend_yn},
+			ebook_yn = #{ebook_yn},
+			charge_sms_receive_yn = #{charge_sms_receive_yn},
+			write_sms_receive_yn = #{write_sms_receive_yn},
+			charge_email_receive_yn = #{charge_email_receive_yn}, 
+			write_email_receive_yn = #{write_email_receive_yn},
+			board_email_send_yn = #{board_email_send_yn},
+			satisfy_yn = #{satisfy_yn},
+			board_etc1 = #{board_etc1},
+			add_only_yn = #{add_only_yn},
+			modify_date = SYSDATE,
+			push_send_yn = #{push_send_yn},
+			anonymize_yn = #{anonymize_yn}
+		WHERE
+			homepage_id = #{homepage_id} AND
+			manage_idx = #{manage_idx}
+    </update>
+    
+    <update id="modifyBoardManageByAdminId">
+    	UPDATE CMS_BOARD_MANAGE SET
+	    	add_html_use_yn = #{add_html_use_yn},
+	    	top_html = #{top_html},
+	    	content_html = #{content_html},
+	    	bottom_html = #{bottom_html},
+			modify_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id} AND
+			manage_idx = #{manage_idx}
+    </update>
+    
+    <update id="modifyBoardAuth">
+    	UPDATE CMS_BOARD_MANAGE SET
+			view_auth = #{view_auth},
+			add_auth = #{add_auth},
+			edit_auth = #{edit_auth},
+			delete_auth = #{delete_auth},
+			admin_auth = #{admin_auth},
+			modify_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id} AND
+			manage_idx = #{manage_idx}
+    </update>
+    
+    <!-- 메뉴에서 게시판 목록 사용함 -->
+    <select id="getBoardManageAll" resultType="kr.co.whalesoft.app.cms.boardManage.BoardManage">
+    	SELECT    
+			homepage_id, manage_idx, board_name, getCodeNameToRemark('CMS','C0000',board_type) as board_type, board_skin
+		FROM
+			CMS_BOARD_MANAGE
+		WHERE
+			homepage_id = #{homepage_id} AND
+			board_use_yn = 'Y'
+		ORDER BY manage_idx DESC
+    </select>
+    
+    <!-- 게시판 복사. 이동목록으로 사용함 -->
+    <select id="getBoardManageAllParam" resultType="kr.co.whalesoft.app.cms.boardManage.BoardManage">
+		SELECT
+			a.manage_idx, a.board_name, getCodeNameToRemark('CMS','C0000',a.board_type) as board_type, a.board_skin,
+			b.menu_idx, a.homepage_id
+		FROM
+			CMS_BOARD_MANAGE a, CMS_MENU b
+		WHERE 1=1
+			AND a.homepage_id = b.homepage_id
+			AND a.manage_idx = b.manage_idx
+			AND b.menu_type = 'BOARD'
+			AND a.homepage_id = #{homepage_id}
+			AND a.board_type = #{board_type}
+			AND a.manage_idx != #{manage_idx}
+		ORDER BY a.manage_idx DESC
+    </select>
+    
+    <select id="getMyAdminBoardManage" resultType="string">
+    	SELECT homepage_id FROM CMS_BOARD_MANAGE WHERE admin_id = #{admin_id}
+    </select>
+	
+	
+    <!-- 테마도서에서 게시판 목록 사용함 -->
+    <select id="getThemeBookBoardManage" resultType="kr.co.whalesoft.app.cms.boardManage.BoardManage">
+    	SELECT    
+			homepage_id, manage_idx, board_name
+		FROM
+			CMS_BOARD_MANAGE
+		WHERE
+			homepage_id = #{homepage_id}	AND
+			board_type = 'THEMEBOOK'		AND
+			board_use_yn = 'Y'
+		ORDER BY manage_idx DESC
+    </select>
+</mapper>

@@ -1,0 +1,162 @@
+@charset "utf-8";
+@import url("../../../common/css/type11.css");
+
+/* Gnb */
+.Gnb .g-menu{width:94%}
+.Gnb .sns{width:4%}
+.Gnb .sns i.yellow{display:block;background:#f9d600 url('../img/icon_yellow.gif') no-repeat center center;font-size:0;line-height:0;vertical-align:middle}
+
+.Gnb{background:#e54413}
+.Gnb .gnb-menu>li{width:14.28%}
+.Gnb .gnb-menu>li.on>a,
+.Gnb .gnb-menu>li>a:hover,
+.Gnb .gnb-menu>li>a:focus{color:#000}
+.Gnb .gnb-menu>li.ss>a{font-size:14px}
+
+.Gnb .gnb-menu>li.menu3>ul>li.first{margin-left:85px}
+.Gnb .gnb-menu>li.menu5>ul{text-align:center}
+
+/* 서브페이지 */
+.sub-visual{background-image:url('../img/subBg.jpg');color:#2e2f2f}
+.doc-title.doc-title,
+.lnb h2{border-color:#faa54b}
+.doc-title h3,
+.lnb h2 b{border-color:#e54413}
+.lnb ul ul li.active > a{background-color:#e54413}
+.lnb ul li > a:hover,
+.lnb ul ul ul li.active > a,
+.lnb ul ul ul li.active > a:hover{color:#e54413}
+
+/* 콘텐츠 */
+.doc-body table tbody .thead th,
+.doc-body table thead th{background:#f6f6f6}
+.doc-body h2 .fs11{font-size:70%;font-weight:normal;color:#666;letter-spacing:0}
+.doc-body table.bbs .fa-floppy-o{color:#333}
+
+/* 연혁 */
+.history-head .t1{color:#e54413}
+.history-head .t2 b{color:#faa54b}
+
+/* 층별배치도 */
+.floor{margin-top:8px;padding:20px 7px 7px;text-align:center;border:1px solid #ccc;border-radius:10px;background:#fafafa}
+.floor b{font-weight:800;font-size:150%;padding:0 0 10px;display:block}
+.floor p{border-radius:5px;overflow:hidden}
+
+/* 찾아오시는 길 */
+.locateMap p{background:#fff;border-radius:5px;padding:10px 5px;text-align:center}
+
+/* 기관CI */
+.ciinfo p{display:inline-block;margin:3%}
+.ciicon{font-size:0;line-height:0}
+.ciicon li{display:inline-block;width:10%;padding:0 0 10px;text-align:center}
+.ciicon li span{display:block;position:relative;top:-5px}
+.ciinfo2{padding:10px 0 0;overflow:hidden}
+.ciinfo2>div{float:left}
+.ciinfo2 .t1{width:23.5%}
+.ciinfo2 .t2{width:100%;margin-right:-23.5%}
+.ciinfo2 .t2 p{margin-right:23.5%}
+.ciinfo2 p{padding:2.3% 0 0 10px}
+
+/* 접속기록안내 */
+#memberInfo{position:absolute;width:22%;left:98%;top:38%;background:#fff;margin-left:-35%;box-shadow:0px 1px 7px 0px rgba(0,0,0,0.5);z-index: 9;}
+#memberInfo .inbox{position:relative;border:1px solid #ccc;padding:10px;}
+#memberInfo .inbox dt{font-weight:bold;font-family:verdana;padding-bottom: 10px;}
+#memberInfo .inbox dd{padding:3px 0}
+a#closeMemberInfo{position:absolute;right:7px;top:5px;font-size:120%}
+#line{width: 160px;}
+div.loginInfo{padding-top: 8px;padding-bottom: 15px;}
+span.fontRed{color: red;}
+span.fontBlue{color: rgb(27,104,199);font-weight: bold;}
+div.memberCon{background-color: rgb(240,240,240);border-radius: 1em;}
+div.memberCon2{padding-top: 12px;padding-left: 10px;padding-right: 10px; padding-bottom: 28px;}
+a.btnStyle{float: right;margin-top: 6px;}
+#loginIcon{padding-top: 13px;padding-left:10px;}
+.boxnImg{ float: left; }
+.box2_1 { float: left; width: 34%; }
+.box3_1 { float: left; width: 38%; border-left: 1px solid #ddd; }
+.boxn { padding-top: 1%; padding-bottom: 1%; padding-left: 5%; }
+
+
+@media screen and (max-width:1000px){
+	.ciicon li{width:14.28%}
+}
+@media screen and (max-width:767px){
+	.ciicon li{width:16.66%}
+	.ciinfo2 .t1{width:30%}
+	.ciinfo2 .t2{margin-right:-30%}
+	.ciinfo2 .t2 p{margin-right:30%}
+}
+@media screen and (max-width:550px){
+	.ciicon li{width:20%}
+}
+
+/* 서비스 절차 */
+.service-step td.aa{background:#f7e9e0;border-color:#e4bca7}
+.service-step td.aa b.a1{color:#de410a}
+.service-step td.aa p.a2{color:#333;font-size:110%;font-weight:bold;letter-spacing:-1px;padding:3px 0 0}
+
+/* 탭메뉴 */
+.tabmenu li{text-align:center}
+.tab-menu li.active a{color:#a35402}
+.tabmenu li.active a{background-color:#b05705}
+.tab-menu li.active a,
+.tabmenu li.active a,
+.tab-menu>ul,
+.tabmenu>ul{border-color:#a35402}
+
+/* 영일독서단 */
+.con2141 .t1{font-size:0;line-height:0}
+.con2141 .t2{padding:8px;border:1px solid #ccc;color:#ffdab9}
+.con2141 .t2>div{background:#1d0b09 url('../img/contents/img2-14-1-2.jpg') no-repeat center center;overflow:hidden}
+.con2141 .t2>div>p{float:right;width:40%;text-align:center;padding:8% 5% 13%;font-size:150%}
+.con2141 .t2>div>p>span{display:block}
+@media screen and (max-width:600px){
+	.con2141 .t2>div>p{font-size:130%}
+	.con2141 .t2>div>p>span{display:inline}
+}
+.yi-pic p{font-size:0;line-height:0;padding:5px;border:1px solid #ccc;background:#fcfcfc}
+table.yidoc td.photo{font-size:0;line-height:0;text-align:center}
+
+/* 자료실소개 */
+#guide_img,
+.guide_wrap{overflow:hidden}
+.guide_wrap #guide_img{float:left;width:250px}
+.guide_wrap .guide_con{float:left;width:100%;margin-right:-250px}
+.guide_wrap .guide_con .box{margin-right:250px;padding-left:15px}
+@media screen and (max-width:767px){
+	.guide_wrap #guide_img{width:30%}
+	.guide_wrap .guide_con{margin-right:-30%}
+	.guide_wrap .guide_con .box{margin-right:30%}
+}
+
+/* 인사말 */
+.greeting{padding:45px 9% 0;background:url('/resources/common/img/contents/introd_tbg.jpg') no-repeat left top}
+.greeting .t1{font-size:160%;letter-spacing:-1px}
+.greeting .t1 .tb1{color:#ff990b;font-size: 130%;}
+.greeting .t1 .tb2{color:#d32c2c;font-size: 120%;}
+.greeting .t1 .tb3{color:#ff6767;font-size: 120%;}
+.greeting .txt p{padding:0 0 15px}
+.greeting .sign{font-size:110%;letter-spacing:-1px;color:#888;text-align:right}
+.greeting .sign .name{font-size:130%;letter-spacing:1px;font-weight:800;color:#222}
+
+
+/* 도서관협력망서비스 20170114hjh*/
+.info_bg01{ border: 1px solid #ddd;background: url(/resources/homepage/yi/img/contents/new_hjh/libco01_01tbg.gif) no-repeat left top;
+padding:20px 15px 20px 215px; margin-bottom:25px;height:90px;}
+.info_stit01{color: #0668b3 !important;background: url(/resources/homepage/yi/img/contents/new_hjh/libco01_02ico.gif) no-repeat 0px;padding-left: 30px !important;}
+.info_prod{background-color: #f8f8f8; padding: 20px 0 11px; margin: 0 auto 0px 30px;}
+
+.info_bg02{ border: 1px solid #ddd;background: url(/resources/homepage/yi/img/contents/new_hjh/libco02_01tbg.gif) no-repeat left top;
+padding:20px 15px 20px 215px; margin-bottom:25px;}
+.info_stit02{color: #f37200 !important;background: url(/resources/homepage/yi/img/contents/new_hjh/libco02_02ico.gif) no-repeat 0px;padding-left: 30px !important;}
+
+.info_bg03{ border: 1px solid #ddd;background: url(/resources/homepage/yi/img/contents/new_hjh/libco03_01tbg.gif) no-repeat left top;
+padding:20px 15px 20px 215px; margin-bottom:25px;}
+.info_stit03{color: #4f8c05 !important;background: url(/resources/homepage/yi/img/contents/new_hjh/libco03_02ico.gif) no-repeat 0px;padding-left: 30px !important;}
+
+.libco_sp40{margin-left:35px}
+
+
+/* 도서관서비스 20170115hjh*/
+.circle_tbg01{ border: 1px solid #ddd;background: url(/resources/homepage/yi/img/contents/new_hjh/circle_tbg.jpg) no-repeat left top;
+padding:20px 15px 20px 215px; margin-bottom:25px}

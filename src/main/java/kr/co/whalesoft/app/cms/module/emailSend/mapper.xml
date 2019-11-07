@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.module.emailSend.EmailSendDao">
+
+	<!-- 강좌관련 쿼리 -->
+	<select id="getTeachCategoryGroup" resultType="kr.co.whalesoft.app.cms.module.smsSend.SmsSend">
+		SELECT
+			GROUP_IDX AS CODE_ID_2, GROUP_NAME AS CODE_NAME_2 
+		FROM
+			TEACH_CATEGORY_GROUP
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND DELETE_YN = 'N'
+			 
+		ORDER BY
+			GROUP_IDX
+	</select>
+	
+	<select id="getTeachCategoryDetail" resultType="kr.co.whalesoft.app.cms.module.smsSend.SmsSend"> 
+		SELECT
+			CATEGORY_IDX AS CODE_ID_3, CATEGORY_NAME AS CODE_NAME_3
+		FROM
+			TEACH_CATEGORY a
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND GROUP_IDX = #{codeList_2} AND DELETE_YN = 'N'			 
+		ORDER BY
+			CATEGORY_IDX ASC
+	</select>
+	
+	<select id="getTeachList" resultType="kr.co.whalesoft.app.cms.module.smsSend.SmsSend">
+		SELECT
+			a.TEACH_IDX as CODE_ID_4, a.TEACH_NAME AS CODE_NAME_4 
+		FROM
+			TEACH a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d
+		WHERE a.HOMEPAGE_ID = b.HOMEPAGE_ID(+)
+			AND a.TEACHER_IDX = b.TEACHER_IDX(+)
+			AND a.HOMEPAGE_ID = c.HOMEPAGE_ID(+) 
+			AND a.GROUP_IDX = c.GROUP_IDX(+)
+			AND a.CATEGORY_IDX = c.CATEGORY_IDX(+)
+			AND a.HOMEPAGE_ID = d.HOMEPAGE_ID(+)
+			AND a.GROUP_IDX = d.GROUP_IDX(+)
+			AND a.HOMEPAGE_ID = #{homepage_id}	 
+			AND a.GROUP_IDX = #{codeList_2}
+			AND a.CATEGORY_IDX = #{codeList_3}	 
+			AND a.DELETE_YN = 'N'
+		ORDER BY
+			a.GROUP_IDX,
+			a.CATEGORY_IDX,
+			a.PRINT_SEQ ASC
+	</select>
+	
+	<select id="getTeachApplyList" resultType="kr.co.whalesoft.app.cms.module.smsSend.SmsSend">		
+		SELECT A.*,
+			CASE
+				WHEN A.CNT = 0 
+				THEN '2'
+				WHEN (A.ATTEND_CNT/A.CNT)*100 >= 70
+				THEN '1'
+				ELSE '2'		
+			END AS STUDENT_STATUS
+		FROM (
+				SELECT 
+					a.STUDENT_IDX, a.STUDENT_NAME as MEMBER_NAME, a.STUDENT_ADDRESS, a.STUDENT_ADDRESS_DETAIL, a.STUDENT_BIRTH, a.STUDENT_OLD, REGEXP_REPLACE(a.APPLICANT_CELL_PHONE,'([[:digit:]]{3})([[:digit:]]{3,4})([[:digit:]]{4})','\1-\2-\3') AS MEMBER_PHONE
+					, (SELECT TEACH_COUNT FROM TEACH WHERE HOMEPAGE_ID = a.HOMEPAGE_ID AND GROUP_IDX = a.GROUP_IDX AND CATEGORY_IDX = a.CATEGORY_IDX AND TEACH_IDX = a.TEACH_IDX) AS CNT
+					, (SELECT NVL(SUM(DECODE(status, '1', 1, '2', 1, 0)) - TRUNC(SUM(DECODE(status, '2', 1, 0))/3), 0) FROM TEACH_BOOK
+						WHERE HOMEPAGE_ID = a.HOMEPAGE_ID AND GROUP_IDX = a.GROUP_IDX AND CATEGORY_IDX = a.CATEGORY_IDX AND TEACH_IDX = a.TEACH_IDX AND STUDENT_IDX = a.STUDENT_IDX) as ATTEND_CNT,
+						a.MEMBER_ID, a.member_key
+				FROM
+					STUDENT a
+				WHERE 
+					a.DELETE_YN 		= 'N' 
+					AND a.HOMEPAGE_ID 	= #{homepage_id}
+					<if test="codeList_2 != null and codeList_2 != ''">
+						AND a.GROUP_IDX 	= #{codeList_2}
+					</if> 
+					<if test="codeList_3 != null and codeList_3 != ''">
+						AND a.CATEGORY_IDX 	= #{codeList_3} 
+					</if>
+					<if test="codeList_4 != null and codeList_4 != ''">
+						AND a.TEACH_IDX 	= #{codeList_4}
+					</if>	
+					<if test="apply_status == 1">
+						AND a.APPLY_STATUS 	= '1'
+					</if>
+					<if test="apply_status == 2">
+						AND a.APPLY_STATUS 	= '2'
+					</if>
+					<if test="apply_status == 3">
+						AND a.APPLY_STATUS 	= '99'
+					</if>
+				ORDER BY a.ADD_DATE DESC					
+			  ) A		
+	</select>
+	
+	<select id="getTeacherList" resultType="kr.co.whalesoft.app.cms.module.smsSend.SmsSend">		
+		SELECT
+			B.TEACHER_NAME as member_name, B.TEACHER_CELL_PHONE as member_phone
+		FROM 
+			TEACH A, TEACHER B
+		WHERE
+			A.HOMEPAGE_ID = B.HOMEPAGE_ID AND
+			A.TEACHER_IDX = B.TEACHER_IDX AND
+			A.HOMEPAGE_ID = #{homepage_id} AND
+			A.GROUP_IDX = #{codeList_2} AND
+			A.CATEGORY_IDX = #{codeList_3} AND
+			A.TEACH_IDX = #{codeList_4} AND
+			A.DELETE_YN = 'N'
+	</select>
+	
+	<!-- 견학/체험 신청 -->
+	<select id="getExcursionsList" resultType="kr.co.whalesoft.app.cms.module.smsSend.SmsSend">
+		SELECT
+			A.EXCURSIONS_IDX AS CODE_ID_5,
+			TO_CHAR(TO_DATE(A.START_DATE,'YYYY-MM-DD'),'DD') || '일' AS CODE_NAME_5
+		FROM
+			CMS_EXCURSIONS A
+		WHERE 1=1
+			AND A.HOMEPAGE_ID = #{homepage_id}
+			AND TO_CHAR(TO_DATE(A.START_DATE,'YYYY-MM-DD'),'YYYY') = #{codeList_3} 
+			AND TO_CHAR(TO_DATE(A.START_DATE,'YYYY-MM-DD'),'MM') = #{codeList_4}
+	</select>
+	
+	<select id="getExcursionsApplyList" resultType="kr.co.whalesoft.app.cms.module.smsSend.SmsSend">
+		SELECT			 			
+			APPLICANT_NAME AS MEMBER_NAME,
+			APPLICANT_TEL AS MEMBER_PHONE,
+			AGENCY_NAME AS IMSI_V_1,
+			APPLICANT_MEMBER_ID AS MEMBER_ID,
+			MEMBER_KEY								 	
+		FROM 
+			CMS_EXCURSIONS_APPLY
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} 
+	 		<if test="codeList_3 != null and codeList_3 != ''">
+				AND TO_CHAR(TO_DATE(START_DATE,'YYYY-MM-DD'),'YYYY') = #{codeList_3}	
+			</if> 
+			<if test="codeList_4 != null and codeList_4 != ''">
+				AND TO_CHAR(TO_DATE(START_DATE,'YYYY-MM-DD'),'MM') = #{codeList_4}	 
+			</if>
+			<if test="codeList_5 != null and codeList_5 != ''">
+				AND EXCURSIONS_IDX = #{codeList_5}	
+			</if>
+			<if test="apply_status == 1">
+				AND APPLY_STATE = 3
+			</if>
+			<if test="apply_status == 2">
+				AND APPLY_STATE = 1
+			</if>
+	 		
+	</select>
+	
+	<!-- 현장지원 신청 -->
+	<select id="getSupportList" resultType="kr.co.whalesoft.app.cms.module.smsSend.SmsSend">
+		 SELECT			 
+			TO_CHAR(HOPE_REQ_DT, 'DD') AS CODE_NAME_4,
+			TO_CHAR(HOPE_REQ_DT, 'DD') AS CODE_ID_4	
+		FROM 
+			FIELD_SUPPORT
+		WHERE 
+			1=1
+			AND HOMEPAGE_ID = #{homepage_id}		
+			AND DELETE_YN = 'N'		 	 		
+			AND TO_CHAR(hope_req_dt,'YYYY') = #{codeList_2}
+			AND TO_CHAR(hope_req_dt,'MM') = #{codeList_3}
+		GROUP BY HOPE_REQ_DT
+	</select>
+	
+	<select id="getSupportApplyList" resultType="kr.co.whalesoft.app.cms.module.smsSend.SmsSend">
+		SELECT
+			REQUER_NAME AS MEMBER_NAME,
+			REQUER_TEL AS MEMBER_PHONE,
+			REQ_NAME AS IMSI_V_1,
+			REQ_ID AS MEMBER_ID,
+			MEMBER_KEYT
+		FROM 
+			FIELD_SUPPORT
+		WHERE 1=1
+			AND HOMEPAGE_ID = #{homepage_id}		
+			AND DELETE_YN = 'N' 	 		
+			AND TO_CHAR(hope_req_dt,'YYYY') = #{codeList_2}
+			AND TO_CHAR(hope_req_dt,'MM') = #{codeList_3}
+			AND TO_CHAR(hope_req_dt,'DD') = #{codeList_4}
+			<if test="apply_status == 1">
+				AND PROCESS_STATE = 'Y'
+			</if>
+			<if test="apply_status == 2">
+				AND PROCESS_STATE = 'N'
+			</if>
+			
+	</select>
+	
+	<!-- 시설물이용신청 관리 -->
+	<select id="getFacilityList" resultType="kr.co.whalesoft.app.cms.module.smsSend.SmsSend">
+		SELECT
+			FACILITY_IDX AS CODE_ID_2,
+			FACILITY_NAME AS CODE_NAME_2
+		FROM
+			FACILITY
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND 
+			DELETE_YN = 'N'	 
+		ORDER BY
+			FACILITY_IDX ASC
+	</select>
+	
+	<select id="getFacilityApplyList" resultType="kr.co.whalesoft.app.cms.module.smsSend.SmsSend">
+		SELECT
+			A.FACILITY_NAME AS MEMBER_NAME,
+			B.APPLY_PHONE AS MEMBER_PHONE,
+			B.APPLY_ID AS MEMBER_ID,
+			B.MEMBER_KEY
+		FROM
+			FACILITY A, FACILITY_REQ B
+		WHERE
+			A.HOMEPAGE_ID = B.HOMEPAGE_ID AND
+			A.FACILITY_IDX = B.FACILITY_IDX AND 
+			A.HOMEPAGE_ID = #{homepage_id} AND 
+			B.DELETE_YN = 'N'
+			<if test="apply_status == 1">
+				AND B.APPLY_STATE = 'Y' 
+			</if>
+			<if test="apply_status == 2">
+				AND B.APPLY_STATE = 'N' 
+			</if>			
+			<if test="codeList_2 != null and codeList_2 != ''">
+				AND A.FACILITY_IDX = #{codeList_2}
+			</if>
+			 				 
+		ORDER BY
+			B.REQ_IDX ASC
+	</select>
+	
+	<!-- 사물함신청현황 -->
+	<select id="getLockerPreList" resultType="kr.co.whalesoft.app.cms.module.smsSend.SmsSend">
+		SELECT 
+			A.LOCKER_PRE_IDX AS CODE_ID_2, A.LOCKER_PRE_NAME AS CODE_NAME_2
+		FROM 
+			LOCKER_PRE A
+		WHERE A.HOMEPAGE_ID = 'h19' AND
+			  A.DELETE_YN = 'N'				
+		ORDER BY 
+			A.APPLY_START_DATE DESC
+	</select>
+	
+	<select id="getLockerApplyList" resultType="kr.co.whalesoft.app.cms.module.smsSend.SmsSend">
+		SELECT 
+			REQ_NAME AS MEMBER_NAME, 
+			REGEXP_REPLACE(CELL_PHONE,'([[:digit:]]{3})([[:digit:]]{3,4})([[:digit:]]{4})','\1-\2-\3') AS MEMBER_PHONE,
+			APPLY_ID AS MEMBER_ID,
+			MEMBER_KEY
+		FROM 
+			LOCKER_REQ
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND 
+			DELETE_YN = 'N' 
+			<if test="codeList_2 != null and codeList_2 != ''">
+				AND LOCKER_PRE_IDX = #{codeList_2} 
+			</if> 
+			<if test="apply_status == 1">
+				AND LOCKER_IDX IS NOT NULL
+			</if>
+			<if test="apply_status == 2">
+				AND LOCKER_IDX IS NULL
+			</if>
+		ORDER BY 
+			REQ_IDX
+	</select>
+	
+	<!-- 강사신청 -->
+	<select id="getTeacherReqApplyList" resultType="kr.co.whalesoft.app.cms.module.smsSend.SmsSend">
+		SELECT
+			TEACHER_NAME AS MEMBER_NAME,
+			TEACHER_CELL_PHONE AS MEMBER_PHONE,
+			TEACHER_ID AS MEMBER_ID,
+			MEMBER_KEY
+		FROM
+			TEACHER_REQ_MANAGE
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND 
+			DELETE_YN = 'N' AND
+			TO_DATE(ADD_DATE,'YYYY-MM-DD') BETWEEN TO_DATE(#{start_date},'YYYY-MM-DD') AND TO_DATE(#{end_date}, 'YYYY-MM-DD') 
+			<if test="apply_status == 1">
+				AND CONFIRM_YN = 'Y'
+			</if>
+			<if test="apply_status == 2">
+				AND CONFIRM_YN = 'N'
+			</if>
+		ORDER BY
+			TEACHER_NAME ASC
+	</select>
+	
+	<!-- 공통 -->
+	<select id="getYearList" resultType="kr.co.whalesoft.app.cms.module.smsSend.SmsSend">
+		SELECT LEVEL AS CODE_ID, LEVEL || '년' AS CODE_NAME
+			FROM DUAL
+		WHERE
+			LEVEL <![CDATA[>]]> TO_CHAR(SYSDATE,'YYYY')-14
+		CONNECT BY 
+			LEVEL <![CDATA[<=]]> TO_NUMBER(TO_CHAR(SYSDATE, 'YYYY'))
+		ORDER BY LEVEL DESC
+	</select>
+	
+	<select id="getSmsBoxList" resultType="kr.co.whalesoft.app.cms.module.smsSend.SmsSend">
+		${pagingTop}
+		SELECT
+			BOX_IDX AS IMSI_V_1, TITLE AS IMSI_V_2, CONTENTS AS IMSI_V_3, TO_CHAR(ADD_DATE,'YYYY-MM-DD') AS IMSI_V_4
+		FROM
+			CMS_SMS_BOX
+		WHERE
+			1=1 AND
+			HOMEPAGE_ID = #{homepage_id} AND
+			DELETE_YN = 'N' AND
+			USE_YN = 'Y'
+			<if test="search_text != null and search_text != ''">
+				AND ${search_type} like '%' || #{search_text} || '%'
+			</if>
+		ORDER BY 
+			ADD_DATE
+		${pagingBottom}
+	</select>
+	
+</mapper>

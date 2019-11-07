@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.themeBook.ThemeBookDao">
+	
+	<select id="getThemeBookList" resultType="kr.go.gbelib.app.cms.module.themeBook.ThemeBook">
+		SELECT
+			homepage_id, manage_idx, board_name, subject, remark,
+			yearmonth, add_date, add_id, modify_date, modify_id
+		FROM
+			(
+			SELECT
+				a.homepage_id, a.manage_idx, b.board_name, a.subject, a.remark,
+				a.yearmonth, a.add_date, a.add_id, a.modify_date, a.modify_id, a.category1
+			FROM
+				THEME_BOOK a, CMS_BOARD_MANAGE b
+			WHERE
+				a.homepage_id = #{homepage_id}
+			AND	a.manage_idx = #{manage_idx}
+			AND	a.manage_idx = b.manage_idx
+			AND	a.yearmonth LIKE  #{searchYear} || '%'
+			AND	a.category1 = #{category1}
+			) a,
+			(
+			SELECT 
+				TO_CHAR(ADD_MONTHS(TO_DATE(#{searchYear}||'01', 'YYYYMM'),(LEVEL - 1)), 'YYYY-MM') AS YMD 
+			FROM
+				DUAL
+			CONNECT BY
+				ADD_MONTHS(TO_DATE(#{searchYear}||'01', 'YYYYMM'),(LEVEL - 1)) <![CDATA[<=]]> TO_DATE(#{searchYear}||'12', 'YYYYMM')
+			) b
+		WHERE
+			a.yearmonth(+) = b.ymd
+		ORDER BY
+			YMD 
+	</select>
+	
+	<select id="getThemeBookOne" resultType="kr.go.gbelib.app.cms.module.themeBook.ThemeBook">
+		SELECT
+			a.homepage_id, a.manage_idx, b.board_name, a.subject, a.remark,
+			a.yearmonth, a.add_date, a.add_id, a.modify_date, a.modify_id, a.category1
+		FROM
+			THEME_BOOK a, CMS_BOARD_MANAGE b
+		WHERE
+			a.homepage_id = #{homepage_id}
+		AND	a.manage_idx = #{manage_idx}
+		AND	a.manage_idx = b.manage_idx
+		AND	yearmonth = #{yearmonth}
+		AND	a.category1 = #{category1}
+	</select>
+	
+	<insert id="addThemeBook">
+		INSERT INTO
+			THEME_BOOK
+		(
+			homepage_id, manage_idx, yearmonth, subject, remark,
+			add_date, add_id, modify_date, modify_id, category1
+		) VALUES
+		( 
+			#{homepage_id}, #{manage_idx}, #{yearmonth}, #{subject}, #{remark},
+			SYSDATE, #{cud_id}, SYSDATE, #{cud_id}, #{category1}
+		)
+	</insert>
+	
+	<update id="modifyThemeBook">
+		UPDATE
+			THEME_BOOK
+		SET
+			subject = #{subject},
+			remark = #{remark},
+			modify_date = SYSDATE,
+			modify_id = #{cud_id}
+		WHERE
+			homepage_id = #{homepage_id} 
+		AND	manage_idx = #{manage_idx}
+		AND	yearmonth = #{yearmonth}
+		AND	category1 = #{category1}
+	</update>
+	
+	<delete id="deleteThemeBook">
+		DELETE FROM
+			THEME_BOOK
+		WHERE
+			homepage_id = #{homepage_id} 
+		AND	manage_idx = #{manage_idx}
+		AND	yearmonth = #{yearmonth}
+		AND	category1 = #{category1}
+	</delete>
+</mapper>

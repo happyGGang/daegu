@@ -1,0 +1,20 @@
+@charset "utf-8";
+ 
+/* paging */
+.paging { position:relative; float:left; display:inline; width:100%; height:36px; padding:0; text-align:center; z-index:0; margin-bottom:10px; }
+.paging * { margin:0 auto; padding:0; }
+.paging a, .paging strong { _position:relative; width:26px; height:26px; display:inline-block; text-align:center; margin:0 3px; padding:5px 0 0 0; color:#333; text-decoration:none !important; line-height:normal; font:bold 11px Tahoma, Serif;  }
+.paging a:hover { text-decoration:none !important; }
+.paging a.LChild { background:none; padding-right:0; }
+.paging a.prev { background:none; padding:0; position:absolute; top:0; left:160px;  }
+.paging a.prev_end { background:none; padding:0; position:absolute; top:0; left:130px;  }
+.paging a.next { background:none; padding:0; position:absolute; right:160px; }
+.paging a.next_end {background:none; padding:0; position:absolute; right:130px; top:0; }
+
+/* Paging : type01 */
+.paging strong, .paging a:hover  { color:#fff !important; background:url('/resources/cms/survey/img/bg_paging.png') 1px top no-repeat; }
+.paging.type01 .go_first { display:inline-block; width:25px; height:25px; font-size:0; line-height:0; background:url('/resources/cms/survey/img/btn_first.png') no-repeat; }
+.paging.type01 .go_prev { display:inline-block; width:25px; height:25px;  font-size:0; line-height:0; background:url('/resources/cms/survey/img/btn_prev.png') no-repeat; }
+.paging.type01 .go_next { display:inline-block; width:25px; height:25px; font-size:0; line-height:0; background:url('/resources/cms/survey/img/btn_next.png') no-repeat; }
+.paging.type01 .go_last { display:inline-block; width:25px; height:25px;  font-size:0; line-height:0; background:url('/resources/cms/survey/img/btn_last.png') no-repeat; }
+.paging a.prev:hover, .paging a.prev_end:hover, .paging a.next:hover,.paging a.next_end:hover { background:none; }

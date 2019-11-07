@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.elib.code.ElibCodeDao">
+	
+	<select id="getProviders" resultType="kr.go.gbelib.app.cms.module.elib.code.ElibCode">
+		SELECT
+			comp_idx, comp_name, com_code, type, user_cnt, TO_CHAR(license_sdate, 'YYYY-MM-DD') AS license_sdate, TO_CHAR(license_edate, 'YYYY-MM-DD') AS license_edate, copyright, use_yn
+		FROM
+			ELIB_COMPANY
+		WHERE
+			use_yn = 'Y'
+		<if test="type != null and type != ''">
+		AND INSTR(type, #{type}) > 0
+		</if>
+	</select>
+	
+	<select id="getCompListCntCms" resultType="int">
+		SELECT
+			COUNT(*) AS cnt
+		FROM
+			ELIB_COMPANY
+		WHERE 1=1
+		<if test="type != null and type != ''">
+		AND INSTR(type, #{type}) > 0
+		</if>
+	</select>
+	
+	<select id="getCompListCms" resultType="kr.go.gbelib.app.cms.module.elib.code.ElibCode">
+		SELECT
+			comp_idx, comp_name, com_code, type, user_cnt, TO_CHAR(license_sdate, 'YYYY-MM-DD') AS license_sdate, TO_CHAR(license_edate, 'YYYY-MM-DD') AS license_edate, copyright, use_yn
+		FROM
+			ELIB_COMPANY
+		WHERE 1=1
+		<if test="type != null and type != ''">
+		AND INSTR(type, #{type}) > 0
+		</if>
+	</select>
+	
+	<select id="getCompListCnt" resultType="int">
+		SELECT
+			COUNT(*) AS cnt
+		FROM
+			ELIB_COMPANY
+		WHERE 1=1
+		AND use_yn = 'Y'
+		<if test="type != null and type != ''">
+		AND INSTR(type, #{type}) > 0
+		</if>
+	</select>
+	
+	<select id="getComp" resultType="kr.go.gbelib.app.cms.module.elib.code.ElibCode">
+		SELECT
+			comp_name, com_code, type, user_cnt, TO_CHAR(license_sdate, 'YYYY-MM-DD') AS license_sdate, TO_CHAR(license_edate, 'YYYY-MM-DD') AS license_edate, copyright, use_yn
+		FROM
+			ELIB_COMPANY
+		WHERE
+			comp_idx = #{comp_idx}
+	</select>
+	
+	<select id="getCompList" resultType="kr.go.gbelib.app.cms.module.elib.code.ElibCode">
+		SELECT
+			comp_idx, comp_name, com_code, type, user_cnt, TO_CHAR(license_sdate, 'YYYY-MM-DD') AS license_sdate, TO_CHAR(license_edate, 'YYYY-MM-DD') AS license_edate, copyright, use_yn
+		FROM
+			ELIB_COMPANY
+		WHERE 1=1
+		AND use_yn = 'Y'
+		<if test="type != null and type != ''">
+		AND INSTR(type, #{type}) > 0
+		</if>
+	</select>
+	
+	<select id="getCompWithCntList" resultType="kr.go.gbelib.app.cms.module.elib.code.ElibCode">
+		SELECT
+			a.comp_name, a.com_code, a.type,
+			(
+				SELECT COUNT(*)
+				FROM ELIB_BOOK b
+				WHERE b.use_yn != 'N'
+				AND b.com_code = a.com_code
+				AND INSTR(b.type, #{type}) > 0
+				<if test="approved_yn != null and approved_yn != ''">
+				AND b.approved_yn = #{approved_yn}
+				</if>
+			) AS cnt,
+			use_yn
+		FROM
+			ELIB_COMPANY a
+		WHERE 1=1
+		AND use_yn = 'Y'
+		<if test="type != null and type != ''">
+		AND INSTR(a.type, #{type}) > 0
+		</if>
+	</select>
+	
+	<select id="getLibraryList" resultType="kr.go.gbelib.app.cms.module.elib.code.ElibCode">
+		SELECT
+			homepage_id, CASE WHEN homepage_code = '9999999' THEN '통합' ELSE homepage_name END AS library_name, SUBSTR(homepage_code, 1, 8) AS library_code
+		FROM
+			CMS_HOMEPAGE
+	</select>
+	
+	<insert id="addComp">
+		<selectKey keyProperty="comp_idx" order="BEFORE" resultType="int">
+			SELECT NVL(MAX(comp_idx),0)+1 FROM ELIB_COMPANY
+		</selectKey>
+
+		INSERT INTO ELIB_COMPANY (
+			comp_idx, com_code, comp_name, type, user_cnt,
+			license_sdate, license_edate, copyright, use_yn,
+			add_id, add_date
+		) VALUES (
+			#{comp_idx}, #{com_code}, #{comp_name}, #{type}, #{user_cnt},
+			TO_DATE(#{license_sdate}, 'YYYY-MM-DD'), TO_DATE(#{license_edate}, 'YYYY-MM-DD'), #{copyright}, #{use_yn},
+			#{add_id}, SYSDATE
+		)
+	</insert>
+	
+	<update id="modifyComp">
+		UPDATE ELIB_COMPANY SET
+			com_code = #{com_code}
+			,comp_name = #{comp_name}
+			,type = #{type}
+			,user_cnt = #{user_cnt}
+			,license_sdate = TO_DATE(#{license_sdate}, 'YYYY-MM-DD')
+			,license_edate = TO_DATE(#{license_edate}, 'YYYY-MM-DD')
+			,copyright = #{copyright}
+			<choose>
+			<when test="use_yn == null or use_yn == ''">
+			,use_yn = 'N'
+			</when>
+			<otherwise>
+			,use_yn = 'Y'
+			</otherwise>
+			</choose>
+			,mod_id = #{mod_id}
+			,mod_date = SYSDATE
+		WHERE
+			comp_idx = #{comp_idx}
+	</update>
+	
+	<delete id="deleteComp">
+		DELETE FROM ELIB_COMPANY WHERE comp_idx = #{comp_idx}
+	</delete>
+	
+</mapper>

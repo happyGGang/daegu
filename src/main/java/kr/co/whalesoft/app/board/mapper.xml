@@ -1,0 +1,1857 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.board.BoardDao">
+
+	<sql id="where">
+		AND (
+			(notice_start_date IS NULL AND notice_end_date IS NULL)
+			OR
+			notice_start_date <![CDATA[<=]]> TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+			OR
+			notice_end_date >= TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+			OR
+			(notice_start_date <![CDATA[<=]]> TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND notice_end_date >= TO_CHAR(SYSDATE, 'YYYY-MM-DD'))
+		)
+
+		<choose>
+			<when test="manage_idx == 563 and (category1 == null or category1 == '')">
+					AND category1 != '0000'
+					AND category1 != '0040'
+			</when>
+			<otherwise>
+				<if test="category1 != null and category1 != ''">
+					AND category1 = #{category1}
+				</if>
+				<if test="category2 != null and category2 != ''">
+					AND category2 = #{category2}
+				</if>
+				<if test="category3 != null and category3 != ''">
+					AND category3 = #{category3}
+				</if>
+				<if test="category4 != null and category4 != ''">
+					AND category4 = #{category4}
+				</if>
+				<if test="category5 != null and category5 != ''">
+					AND category5 = #{category5}
+				</if>
+			</otherwise>
+		</choose>
+
+
+		<if test="imsi_v_3 != null and imsi_v_3 != ''">
+			AND imsi_v_3 = #{imsi_v_3}
+		</if>
+		<if test='reply_list_yn == "N"'>
+			AND parent_idx = 0
+		</if>
+        <if test="(search_type!=null and search_type!='') and (search_text!=null and search_text!='')">
+        	AND
+	        <choose>
+	            <when test="search_type == 'title+content'">
+	                (title LIKE '%'||#{search_text}||'%' OR DBMS_LOB.INSTR(CONTENT, #{search_text}) > 0)
+				</when>
+	            <when test="search_type == 'content'">
+	                (DBMS_LOB.INSTR(CONTENT, #{search_text}) > 0)
+				</when>
+				<when test="search_type == 'title'">
+				    ${search_type} LIKE '%'||#{search_text}||'%'
+				</when>
+				<otherwise>
+					${search_type} LIKE '%'||#{search_text}||'%'
+				</otherwise>
+	        </choose>
+        </if>
+        <if test="searchStartDate != null and searchStartDate != ''">
+			AND	add_date >= TO_DATE(#{searchStartDate}, 'YYYY-MM-DD')
+		</if>
+		<if test="searchEndDate != null and searchEndDate != ''">
+			AND	add_date <![CDATA[<=]]> TO_DATE(#{searchEndDate}, 'YYYY-MM-DD')+1
+		</if>
+		<if test="request_state != null and request_state != ''">
+			AND	request_state = #{request_state}
+		</if>
+    </sql>
+
+	<select id="getBoard" resultType="kr.co.whalesoft.app.board.Board">
+		SELECT
+			manage_idx, board_idx, group_idx, parent_idx, group_depth,
+			view_count, notice_yn, title, add_id, content,
+			user_name, user_ip, delete_yn, add_date, modify_date,
+			file_count, preview_img, secret_yn, --content_summary,
+			category1, category2, category3, category4, category5,
+			getCodeIdToCodeName(#{homepage_id},#{category1Manage},category1) as category1_name,
+			getCodeIdToCodeName(#{homepage_id},#{category2Manage},category2) as category2_name,
+			getCodeIdToCodeName(#{homepage_id},#{category3Manage},category3) as category3_name,
+			getCodeIdToCodeName(#{homepage_id},#{category4Manage},category4) as category4_name,
+			getCodeIdToCodeName(#{homepage_id},#{category5Manage},category5) as category5_name,
+			file_download_count,
+			imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5,
+			TRUNC(TO_CHAR(SYSDATE,'yyyyMMdd')) - TRUNC(TO_CHAR(add_date,'yyyyMMdd')) AS date_gap,
+			(
+				SELECT COUNT(*)
+				FROM CMS_BOARD_COMMENT a
+				WHERE a.board_idx = CMS_BOARD_T.board_idx AND
+				a.delete_yn = 'N'
+			) AS comment_count
+			<if test='(manage_idx == 521 or manage_idx == 523 ) and delete_yn == "N"'>
+			,
+			(
+				SELECT
+					H.homepage_alias
+				FROM
+					CMS_HOMEPAGE H, CMS_BOARD_MANAGE M
+				WHERE
+					H.homepage_id = M.homepage_id
+				AND	M.manage_idx = CMS_BOARD_T.manage_idx
+			) AS imsi_v_20,
+			(
+				SELECT
+					MOD(TO_NUMBER(REPLACE(homepage_id, 'h', '')),8)+1
+				FROM
+					CMS_BOARD_MANAGE M
+				WHERE
+					M.manage_idx = CMS_BOARD_T.manage_idx
+			) AS imsi_n_1,
+			(
+				SELECT
+					H.context_path
+				FROM
+					CMS_HOMEPAGE H, CMS_BOARD_MANAGE M
+				WHERE
+					H.homepage_id = M.homepage_id
+				AND	M.manage_idx = CMS_BOARD_T.manage_idx
+			) AS imsi_v_19,
+			(
+				SELECT
+					MAX(H.menu_idx)
+				FROM
+					CMS_MENU H, CMS_BOARD_MANAGE M
+				WHERE
+					H.homepage_id = M.homepage_id
+				AND	M.manage_idx = CMS_BOARD_T.manage_idx
+				AND	H.manage_idx = M.manage_idx
+				AND H.menu_type = 'BOARD'
+			) AS imsi_n_2
+			</if>
+			FROM
+		(
+			${pagingTop}
+			SELECT A.*
+			FROM
+			(
+				SELECT
+					manage_idx, board_idx, group_idx, parent_idx, group_depth,
+					view_count, notice_yn, title, add_id, content,
+					user_name, user_ip, delete_yn, add_date, modify_date,
+					file_count, preview_img, secret_yn, file_download_count, --content_summary,
+					category1, category2, category3, category4, category5,
+					imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5
+				FROM
+					CMS_BOARD
+				WHERE
+					<choose>
+						<when test='(manage_idx == 521 or manage_idx == 523) and delete_yn == "N"'>
+					manage_idx in (
+									SELECT
+										manage_idx
+									FROM
+										cms_board_manage
+									WHERE
+										<if test="manage_idx == 521">
+										board_type = 'NOTICE'
+										<if test="homepage_id != null and homepage_id != 'h1'">
+										AND	homepage_id = #{homepage_id}
+										</if>
+										</if>
+										<if test="manage_idx == 523">
+										board_type = 'NEWS'
+										<if test="homepage_id != null and homepage_id != 'h1'">
+										AND	homepage_id = #{homepage_id}
+										</if>
+										</if>
+									)
+						</when>
+						<otherwise>
+					manage_idx = #{manage_idx}
+						</otherwise>
+					</choose>
+				AND	delete_yn = #{delete_yn}
+				<include refid="where"/>
+			 ) A
+			START WITH A.parent_idx = 0
+	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
+	    	<if test='(manage_idx == 521 or manage_idx == 523) and delete_yn == "N"'>
+			ORDER SIBLINGS BY A.add_date DESC
+	    	</if>
+	    	<if test='manage_idx != 521 and manage_idx != 523'>
+	    		<trim prefix="ORDER SIBLINGS BY">
+	    			A.add_date DESC, A.board_idx DESC
+<!-- 	    			<if test="sortField != null and sortField != ''">  A.${sortField} ${sortType} </if> -->
+<!-- 	    			<if test="sortField == null and sortField == ''">  A.group_idx DESC, A.board_idx DESC </if> -->
+	    		</trim>
+	    	</if>
+			${pagingBottom}
+		) CMS_BOARD_T
+	</select>
+
+
+	<select id="getDeleteBoard" resultType="kr.co.whalesoft.app.board.Board">
+		SELECT
+			CMS_BOARD_T.*,
+			TRUNC(TO_CHAR(SYSDATE,'yyyyMMdd')) - TRUNC(TO_CHAR(add_date,'yyyyMMdd')) AS date_gap,
+			(
+				SELECT COUNT(*)
+				FROM CMS_BOARD_COMMENT a
+				WHERE a.board_idx = CMS_BOARD_T.board_idx AND
+				a.delete_yn = 'N'
+			) AS comment_count
+			FROM
+		(
+			${pagingTop}
+			SELECT A.*
+			FROM
+			(
+				SELECT
+					manage_idx, board_idx, group_idx, parent_idx, group_depth,
+					view_count, notice_yn, title, add_id, content,
+					user_name, user_ip, delete_yn, add_date, modify_date,
+					file_count, preview_img, secret_yn, content_summary,
+					category1, category2, category3, category4, category5,request_state,
+					getCodeIdToCodeName(#{homepage_id},#{category1Manage},category1) as category1_name,
+					getCodeIdToCodeName(#{homepage_id},#{category2Manage},category2) as category2_name,
+					getCodeIdToCodeName(#{homepage_id},#{category3Manage},category3) as category3_name,
+					getCodeIdToCodeName(#{homepage_id},#{category4Manage},category4) as category4_name,
+					getCodeIdToCodeName(#{homepage_id},#{category5Manage},category5) as category5_name,
+					getCodeIdToCodeName('CMS',#{request_code},request_state) as request_state_str
+				FROM
+					CMS_BOARD
+				WHERE
+					manage_idx = #{manage_idx}
+				AND
+					delete_yn = #{delete_yn}
+				<include refid="where"/>
+			 ) A
+			ORDER BY A.add_date DESC
+			${pagingBottom}
+		) CMS_BOARD_T
+	</select>
+
+	<select id="getQnABoard" resultType="kr.co.whalesoft.app.board.Board">
+		SELECT
+			CMS_BOARD_T.*,
+			TRUNC(TO_CHAR(SYSDATE,'yyyyMMdd')) - TRUNC(TO_CHAR(add_date,'yyyyMMdd')) AS date_gap,
+			(
+				SELECT COUNT(*)
+				FROM CMS_BOARD_COMMENT a
+				WHERE a.board_idx = CMS_BOARD_T.board_idx AND
+				a.delete_yn = 'N'
+			) AS comment_count
+			FROM
+		(
+			${pagingTop}
+			SELECT A.*
+			FROM
+			(
+				SELECT
+					manage_idx, board_idx, group_idx, parent_idx, group_depth,
+					view_count, notice_yn, title, add_id, content,
+					user_name, user_ip, delete_yn, add_date, modify_date,
+					file_count, preview_img, secret_yn, content_summary, file_download_count,
+					category1, category2, category3, category4, category5,request_state,
+					getCodeIdToCodeName(#{homepage_id},#{category1Manage},category1) as category1_name,
+					getCodeIdToCodeName(#{homepage_id},#{category2Manage},category2) as category2_name,
+					getCodeIdToCodeName(#{homepage_id},#{category3Manage},category3) as category3_name,
+					getCodeIdToCodeName(#{homepage_id},#{category4Manage},category4) as category4_name,
+					getCodeIdToCodeName(#{homepage_id},#{category5Manage},category5) as category5_name,
+					getCodeIdToCodeName('CMS',#{request_code},request_state) as request_state_str
+				FROM
+					CMS_BOARD
+				WHERE
+					manage_idx = #{manage_idx}
+				AND
+					delete_yn = #{delete_yn}
+				<include refid="where"/>
+			 ) A
+			START WITH A.parent_idx = 0
+	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
+			ORDER SIBLINGS BY A.group_idx DESC, A.board_idx DESC
+			${pagingBottom}
+		) CMS_BOARD_T
+	</select>
+
+	<select id="getLostCardBoard" resultType="kr.co.whalesoft.app.board.Board">
+		SELECT
+			CMS_BOARD_T.*,
+			TRUNC(TO_CHAR(SYSDATE,'yyyyMMdd')) - TRUNC(TO_CHAR(add_date,'yyyyMMdd')) AS date_gap,
+			(
+				SELECT COUNT(*)
+				FROM CMS_BOARD_COMMENT a
+				WHERE a.board_idx = CMS_BOARD_T.board_idx AND
+				a.delete_yn = 'N'
+			) AS comment_count
+			FROM
+		(
+			${pagingTop}
+			SELECT A.*
+			FROM
+			(
+				SELECT
+					manage_idx, board_idx, group_idx, parent_idx, group_depth,
+					view_count, notice_yn, title, add_id, content,
+					user_name, user_ip, delete_yn, add_date, modify_date,
+					file_count, preview_img, secret_yn, content_summary, file_download_count,
+					category1, category2, category3, category4, category5,request_state,
+					getCodeIdToCodeName(#{homepage_id},#{category1Manage},category1) as category1_name,
+					getCodeIdToCodeName(#{homepage_id},#{category2Manage},category2) as category2_name,
+					getCodeIdToCodeName(#{homepage_id},#{category3Manage},category3) as category3_name,
+					getCodeIdToCodeName(#{homepage_id},#{category4Manage},category4) as category4_name,
+					getCodeIdToCodeName(#{homepage_id},#{category5Manage},category5) as category5_name,
+					getCodeIdToCodeName('CMS',#{request_code},request_state) as request_state_str
+				FROM
+					CMS_BOARD
+				WHERE
+					manage_idx = #{manage_idx}
+				AND
+					delete_yn = #{delete_yn}
+				<include refid="where"/>
+			 ) A
+			START WITH A.parent_idx = 0
+	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
+			ORDER SIBLINGS BY A.group_idx DESC, A.board_idx DESC
+			${pagingBottom}
+		) CMS_BOARD_T
+	</select>
+	
+	<select id="getBOOKBoard" resultType="kr.co.whalesoft.app.board.Board">
+		SELECT
+			CMS_BOARD_T.*,
+			TRUNC(TO_CHAR(SYSDATE,'yyyyMMdd')) - TRUNC(TO_CHAR(add_date,'yyyyMMdd')) AS date_gap,
+			(
+				SELECT COUNT(*)
+				FROM CMS_BOARD_COMMENT a
+				WHERE a.board_idx = CMS_BOARD_T.board_idx AND
+				a.delete_yn = 'N'
+			) AS comment_count
+			FROM
+		(
+			${pagingTop}
+			SELECT A.*
+			FROM
+			(
+				SELECT
+					manage_idx, board_idx, group_idx, parent_idx, group_depth,
+					view_count, notice_yn, title, add_id, content,
+					user_name, user_ip, delete_yn, add_date, modify_date,
+					category1, category2, category3, category4, category5,
+					file_count, preview_img, secret_yn, content_summary, file_download_count,
+					imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5,
+					imsi_v_6, imsi_v_7, imsi_v_8, imsi_v_9, imsi_v_10,
+					imsi_v_11,imsi_v_12,imsi_v_13,imsi_v_14,imsi_v_15,
+					imsi_v_16,imsi_v_17,imsi_v_18,imsi_v_19,imsi_v_20
+				FROM
+					CMS_BOARD
+				WHERE
+					manage_idx = #{manage_idx} AND
+					delete_yn = #{delete_yn}
+					<if test="plan_date != null and plan_date != ''">
+					AND imsi_v_1 = #{plan_date}
+					</if>
+					<include refid="where"/>
+			 ) A
+			START WITH A.parent_idx = 0
+	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
+			ORDER SIBLINGS BY A.group_idx DESC, A.board_idx DESC
+			${pagingBottom}
+		) CMS_BOARD_T
+	</select>
+
+	<select id="getMovieBoard" resultType="kr.co.whalesoft.app.board.Board">
+		SELECT
+			CMS_BOARD_T.*,
+			TRUNC(TO_CHAR(SYSDATE,'yyyyMMdd')) - TRUNC(TO_CHAR(add_date,'yyyyMMdd')) AS date_gap,
+			(
+				SELECT COUNT(*)
+				FROM CMS_BOARD_COMMENT a
+				WHERE a.board_idx = CMS_BOARD_T.board_idx AND
+				a.delete_yn = 'N'
+			) AS comment_count
+			<if test='manage_idx == 236 and delete_yn == "N"'>
+			,
+			(
+				SELECT
+					H.homepage_name
+				FROM
+					CMS_HOMEPAGE H, CMS_BOARD_MANAGE M
+				WHERE
+					H.homepage_id = M.homepage_id
+				AND	M.manage_idx = CMS_BOARD_T.manage_idx
+			) AS imsi_v_18,
+			(
+				SELECT
+					H.homepage_alias
+				FROM
+					CMS_HOMEPAGE H, CMS_BOARD_MANAGE M
+				WHERE
+					H.homepage_id = M.homepage_id
+				AND	M.manage_idx = CMS_BOARD_T.manage_idx
+			) AS imsi_v_20,
+			(
+				SELECT
+					MOD(TO_NUMBER(REPLACE(homepage_id, 'h', '')),8)+1
+				FROM
+					CMS_BOARD_MANAGE M
+				WHERE
+					M.manage_idx = CMS_BOARD_T.manage_idx
+			) AS imsi_n_1,
+			(
+				SELECT
+					H.context_path
+				FROM
+					CMS_HOMEPAGE H, CMS_BOARD_MANAGE M
+				WHERE
+					H.homepage_id = M.homepage_id
+				AND	M.manage_idx = CMS_BOARD_T.manage_idx
+			) AS imsi_v_19,
+			(
+				SELECT
+					MAX(H.menu_idx)
+				FROM
+					CMS_MENU H, CMS_BOARD_MANAGE M
+				WHERE
+					H.homepage_id = M.homepage_id
+				AND	M.manage_idx = CMS_BOARD_T.manage_idx
+				AND	H.manage_idx = M.manage_idx
+				AND H.menu_type = 'BOARD'
+			) AS imsi_n_2
+			</if>
+			FROM
+		(
+			${pagingTop}
+			SELECT A.*
+			FROM
+			(
+				SELECT
+					manage_idx, board_idx, group_idx, parent_idx, group_depth,
+					view_count, notice_yn, title, add_id, content,
+					user_name, user_ip, delete_yn, add_date, modify_date,
+					file_count, preview_img, secret_yn, content_summary, file_download_count,
+					category1, category2, category3, category4, category5,
+					imsi_v_1,
+					case when length(imsi_v_2) = 1 then '0'||imsi_v_2 else imsi_v_2 end imsi_v_2,
+					imsi_v_3,
+					case when length(imsi_v_4) = 1 then '0'||imsi_v_4 else imsi_v_4 end imsi_v_4,
+					imsi_v_5,
+					imsi_v_6, imsi_v_7, imsi_v_8, imsi_v_9, imsi_v_10,
+					imsi_v_11,imsi_v_12,imsi_v_13,imsi_v_14,imsi_v_15,
+					imsi_v_16,imsi_v_17
+				FROM
+					CMS_BOARD
+				WHERE
+					<choose>
+						<when test='manage_idx == 236 and delete_yn == "N"'>
+					manage_idx in (
+									SELECT
+										manage_idx
+									FROM
+										cms_board_manage
+									WHERE
+										board_type = 'MOVIE'
+									<if test="homepage_id != null and homepage_id != ''">
+									AND	homepage_id = #{homepage_id}
+									</if>
+									)
+						</when>
+						<otherwise>
+					manage_idx = #{manage_idx}
+						</otherwise>
+					</choose>
+					AND
+					delete_yn = #{delete_yn} AND
+					imsi_v_1 = #{plan_date}
+					<include refid="where"/>
+			 ) A
+			START WITH A.parent_idx = 0
+	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
+			ORDER SIBLINGS BY A.group_idx DESC, A.board_idx DESC
+			${pagingBottom}
+		) CMS_BOARD_T
+		order by to_date(imsi_v_1, 'YYYY-MM'), to_number(imsi_v_2)
+	</select>
+
+	<select id="getBoardTitle" resultType="kr.co.whalesoft.app.board.Board">
+		SELECT TITLE, MENU_IDX
+		FROM (
+			SELECT B.MENU_NAME as TITLE, MIN(MENU_IDX) AS MENU_IDX
+			FROM CMS_BOARD A, CMS_MENU B
+			WHERE A.MANAGE_IDX = #{manage_idx}
+			AND   A.MANAGE_IDX = B.MANAGE_IDX
+      	GROUP BY B.MENU_NAME
+			ORDER BY MENU_IDX ASC
+		)WHERE ROWNUM = 1
+	</select>
+
+	<select id="selectBoardToMainOrderBy" resultType="kr.co.whalesoft.app.board.Board">
+		<foreach collection="managerList" item="item" index="index" open="(SELECT * FROM(" close="))ORDER BY ADD_DATE DESC" separator="UNION ALL">
+			SELECT * FROM (
+	            SELECT
+	                BOARD_IDX,
+	                MANAGE_IDX,
+	                GROUP_IDX,
+	                PARENT_IDX,
+	                GROUP_DEPTH,
+	                TITLE,
+				    CONTENT,
+				    PREVIEW_IMG,
+				    USER_NAME,
+				    CATEGORY1,
+				    NOTICE_YN,
+				    EBOOK_URL,
+				    NOTICE_START_DATE,
+				    NOTICE_END_DATE,
+				    VIEW_COUNT,
+				    FILE_COUNT,
+				    DELETE_ID,
+				    DELETE_DATE,
+				    ADD_ID,
+				    ADD_DATE,
+				    0 as comment_count
+	            FROM
+	                CMS_BOARD
+	            WHERE
+	            	MANAGE_IDX = #{item}
+	                AND DELETE_DATE IS NULL
+	            ORDER BY
+	                ADD_DATE DESC
+	        ) WHERE ROWNUM <![CDATA[<=]]> 5
+		</foreach>
+	</select>
+
+	<select id="getCustomBoard" resultType="kr.co.whalesoft.app.board.Board">
+		SELECT
+			CMS_BOARD_T.*,
+			TRUNC(TO_CHAR(SYSDATE,'yyyyMMdd')) - TRUNC(TO_CHAR(add_date,'yyyyMMdd')) AS date_gap,
+			(
+				SELECT COUNT(*)
+				FROM CMS_BOARD_COMMENT a
+				WHERE a.board_idx = CMS_BOARD_T.board_idx AND
+				a.delete_yn = 'N'
+			) AS comment_count
+			FROM
+		(
+			${pagingTop}
+			SELECT A.*
+			FROM
+			(
+			SELECT
+				manage_idx, board_idx, group_idx, parent_idx, group_depth,
+				add_date, file_count, file_download_count
+				<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(board_field_list)">
+				<foreach item="item" collection="board_field_list">
+				<if test="item != 'add_date'">
+				, ${item}
+				</if>
+				</foreach>
+				</if>
+			FROM
+				CMS_BOARD
+			WHERE
+				manage_idx = #{manage_idx} AND
+				delete_yn = #{delete_yn}
+				<include refid="where"/>
+			) A
+			START WITH A.parent_idx = 0
+	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
+			ORDER SIBLINGS BY A.group_idx DESC, A.board_idx DESC
+			${pagingBottom}
+		) CMS_BOARD_T
+	</select>
+
+	<select id="getCustomQnaBoard" resultType="kr.co.whalesoft.app.board.Board">
+		SELECT
+			CMS_BOARD_T.*,
+			TRUNC(TO_CHAR(SYSDATE,'yyyyMMdd')) - TRUNC(TO_CHAR(add_date,'yyyyMMdd')) AS date_gap,
+			(
+				SELECT COUNT(*)
+				FROM CMS_BOARD_COMMENT a
+				WHERE a.board_idx = CMS_BOARD_T.board_idx AND
+				a.delete_yn = 'N'
+			) AS comment_count
+			FROM
+		(
+			${pagingTop}
+			SELECT A.*
+			FROM
+			(
+			SELECT
+				manage_idx, board_idx, group_idx, parent_idx, group_depth,
+				add_date, file_count, file_download_count
+				<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(board_field_list)">
+				<foreach item="item" collection="board_field_list">
+				<if test="item != 'add_date'">
+				, ${item}
+				</if>
+				</foreach>
+				</if>
+			FROM
+				CMS_BOARD
+			WHERE
+				manage_idx = #{manage_idx} AND
+				delete_yn = #{delete_yn} AND
+				group_depth = 0
+				<include refid="where"/>
+			) A
+			START WITH A.parent_idx = 0
+	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
+			ORDER SIBLINGS BY A.group_idx DESC, A.board_idx DESC
+			${pagingBottom}
+		) CMS_BOARD_T
+	</select>
+
+	<select id="getBoardByMain" resultType="kr.co.whalesoft.app.board.Board">
+		${pagingTop}
+		SELECT
+			TRUNC(TO_CHAR(SYSDATE,'yyyyMMdd')) - TRUNC(TO_CHAR(add_date,'yyyyMMdd')) AS date_gap,
+			(select new_date_count from CMS_BOARD_MANAGE where manage_idx = #{manage_idx}) AS new_date_count,
+			manage_idx, board_idx, group_idx, view_count, notice_yn,
+			title, add_id, add_date, preview_img, REGEXP_REPLACE(content_summary,'&lt;[^>]*>','') as content_summary,
+			imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5,
+			imsi_v_6, imsi_v_7, imsi_v_8, imsi_v_9, imsi_v_10
+		FROM
+			CMS_BOARD
+		WHERE
+			manage_idx = #{manage_idx} AND
+			delete_yn = 'N'
+			<if test="dept_cd != null and dept_cd == 'BOOK'">
+			AND	imsi_v_1 = TO_CHAR(SYSDATE, 'YYYY-MM')
+			</if>
+		ORDER BY board_idx DESC
+		${pagingBottom}
+	</select>
+
+	<select id="getBoardByMainAll" resultType="kr.co.whalesoft.app.board.Board">
+		SELECT * FROM (
+			SELECT
+				decode(manage_idx,1,'geic',2,'geic',23,'geiclib',31,'geiclib',300,'geic') as context_path,
+				decode(manage_idx,1,'52',2,'20',23,'160',31,'149',300,'111') as menu_idx,
+				manage_idx, board_idx, group_idx, view_count, notice_yn,
+				title, add_id, add_date, preview_img, REGEXP_REPLACE(content_summary,'&lt;[^>]*>','') as content_summary
+			FROM
+				CMS_BOARD
+			WHERE
+				manage_idx IN ('1','2','23','31','300') AND
+				delete_yn = 'N' AND
+				notice_yn = 'Y' AND
+				(notice_start_date <![CDATA[<=]]> TO_CHAR(SYSDATE,'yyyy-MM-dd') OR notice_start_date IS NULL) AND
+				(notice_end_date <![CDATA[>=]]> TO_CHAR(SYSDATE,'yyyy-MM-dd') OR notice_end_date IS NULL)
+			ORDER BY dbms_random.value
+			) WHERE rownum &lt;= 4
+	</select>
+
+	<select id="getBoardByDepMain" resultType="kr.co.whalesoft.app.board.Board">
+		${pagingTop}
+		SELECT
+		  a.manage_idx, a.board_idx, a.group_idx, a.view_count, a.notice_yn,
+		  a.title, a.add_id, a.add_date, a.preview_img, b.menu_idx
+		FROM
+		  CMS_BOARD a, CMS_MENU b
+		WHERE
+		  a.manage_idx = b.manage_idx AND
+		  a.manage_idx = #{manage_idx} AND
+		  a.delete_yn = 'N' AND
+		  a.group_depth = 0 AND
+		  a.category1 = #{dept_cd} AND
+		  b.dept_cd = #{dept_cd}
+		ORDER BY board_idx DESC
+		${pagingBottom}
+	</select>
+
+	<select id="getQnaBoardByDepMain" resultType="kr.co.whalesoft.app.board.Board">
+		${pagingTop}
+		SELECT
+		  a.manage_idx, a.board_idx, a.group_idx, a.view_count, a.notice_yn,
+		  a.title, a.add_id, a.add_date, a.preview_img, b.menu_idx
+		FROM
+		  CMS_BOARD a, CMS_MENU b
+		WHERE
+		  a.manage_idx = b.manage_idx AND
+		  a.manage_idx = #{manage_idx} AND
+		  a.delete_yn = 'N' AND
+		  a.group_depth = 0 AND
+		  a.category1 = #{dept_cd} AND
+		  b.dept_cd = #{dept_cd}
+		ORDER BY board_idx DESC
+		${pagingBottom}
+	</select>
+
+	<select id="getAllHomepageBoardListByMain" resultType="kr.co.whalesoft.app.board.Board">
+		SELECT
+			CMS_BOARD_T.*,
+			(
+				SELECT
+					H.context_path
+				FROM
+					CMS_HOMEPAGE H, CMS_BOARD_MANAGE M
+				WHERE
+					H.homepage_id = M.homepage_id
+				AND	M.manage_idx = CMS_BOARD_T.manage_idx
+			) AS imsi_v_19,
+			(
+				SELECT
+					H.homepage_alias
+				FROM
+					CMS_HOMEPAGE H, CMS_BOARD_MANAGE M
+				WHERE
+					H.homepage_id = M.homepage_id
+				AND	M.manage_idx = CMS_BOARD_T.manage_idx
+			) AS imsi_v_20,
+			(
+				SELECT
+					MAX(H.menu_idx)
+				FROM
+					CMS_MENU H, CMS_BOARD_MANAGE M
+				WHERE
+					H.homepage_id = M.homepage_id
+				AND	M.manage_idx = CMS_BOARD_T.manage_idx
+				AND	H.manage_idx = M.manage_idx
+				AND H.menu_type = 'BOARD'
+			) AS imsi_n_2,
+			(
+				SELECT
+					homepage_id
+				FROM
+					CMS_BOARD_MANAGE M
+				WHERE
+					M.manage_idx = CMS_BOARD_T.manage_idx
+			) AS homepage_id,
+			(
+				SELECT
+					MOD(TO_NUMBER(REPLACE(homepage_id, 'h', '')),4)+1
+				FROM
+					CMS_BOARD_MANAGE M
+				WHERE
+					M.manage_idx = CMS_BOARD_T.manage_idx
+			) AS imsi_n_1
+			FROM
+		(
+			${pagingTop}
+			SELECT A.*
+			FROM
+			(
+				SELECT
+					manage_idx, board_idx, title, add_date
+				FROM
+					CMS_BOARD
+				WHERE
+					manage_idx in (
+									SELECT
+										manage_idx
+									FROM
+										cms_board_manage
+									WHERE
+										board_type = 'NOTICE'
+									)
+				AND	delete_yn = 'N'
+			 ) A
+			ORDER BY A.add_date desc
+			${pagingBottom}
+		) CMS_BOARD_T
+		WHERE RNUM <![CDATA[<]]> 6
+	</select>
+
+	<select id="getBoardCount" resultType="int" >
+		SELECT COUNT(*) FROM CMS_BOARD
+		WHERE
+			<choose>
+				<when test='(manage_idx == 521 or manage_idx == 523) and delete_yn == "N"'>
+			manage_idx in (
+							SELECT
+								manage_idx
+							FROM
+								cms_board_manage
+							WHERE
+								<if test="manage_idx == 521">
+								board_type = 'NOTICE'
+								<if test="homepage_id != null and homepage_id != 'h1'">
+								AND	homepage_id = #{homepage_id}
+								</if>
+								</if>
+								<if test="manage_idx == 523">
+								board_type = 'NEWS'
+								<if test="homepage_id != null and homepage_id != 'h1'">
+								AND	homepage_id = #{homepage_id}
+								</if>
+								</if>
+							)
+				</when>
+				<otherwise>
+			manage_idx = #{manage_idx}
+				</otherwise>
+			</choose>
+		AND	delete_yn = #{delete_yn}
+		<include refid="where"/>
+	</select>
+
+	<select id="getDeleteBoardCount" resultType="int" >
+		SELECT COUNT(*) FROM CMS_BOARD
+		WHERE
+			manage_idx = #{manage_idx}
+		AND	delete_yn = 'Y'
+		<include refid="where"/>
+	</select>
+
+
+
+	<select id="getQnABoardCount" resultType="int">
+		SELECT COUNT(*) FROM CMS_BOARD
+		WHERE
+			manage_idx = #{manage_idx} AND
+			<if test='reply_list_yn == "N"'>
+			group_depth = 0 AND
+			</if>
+			delete_yn = #{delete_yn}
+			<include refid="where"/>
+	</select>
+
+	<select id="getBOOKBoardCount" resultType="int">
+		SELECT COUNT(*) FROM CMS_BOARD
+		WHERE
+			<choose>
+				<when test='manage_idx == 236 and delete_yn == "N"'>
+			manage_idx in (
+							SELECT
+								manage_idx
+							FROM
+								cms_board_manage
+							WHERE
+								board_type = 'MOVIE'
+							<if test="homepage_id != null and homepage_id != ''">
+							AND	homepage_id = #{homepage_id}
+							</if>
+							) AND
+				</when>
+				<otherwise>
+			manage_idx = #{manage_idx} AND
+				</otherwise>
+			</choose>
+			group_depth = 0 AND
+			delete_yn = #{delete_yn}
+			<if test="plan_date != null and plan_date != ''">
+			AND imsi_v_1 = #{plan_date}
+			</if>
+			<include refid="where"/>
+	</select>
+
+	<select id="getReplyCount" resultType="int">
+		SELECT COUNT(*) FROM CMS_BOARD
+		WHERE
+			delete_yn = 'N' AND
+			parent_idx = #{board_idx}
+	</select>
+
+	<select id="getBoardNotice" resultType="kr.co.whalesoft.app.board.Board">
+		SELECT
+			TRUNC(TO_CHAR(SYSDATE,'yyyyMMdd')) - TRUNC(TO_CHAR(add_date,'yyyyMMdd')) AS date_gap,
+			manage_idx, board_idx, group_idx, parent_idx, group_depth,
+			view_count, notice_yn, title, add_id,
+			user_name, user_ip, delete_yn, add_date, modify_date,
+			secret_yn, preview_img, file_count, content_summary,
+			category1, category2, category3, category4, category5
+		FROM
+			CMS_BOARD
+		WHERE
+			manage_idx = #{manage_idx} AND
+			delete_yn = #{delete_yn} AND
+			group_depth = 0 AND
+			notice_yn = 'Y' AND
+			(notice_start_date <![CDATA[<=]]> TO_CHAR(SYSDATE,'yyyy-MM-dd') OR notice_start_date IS NULL) AND
+			(notice_end_date <![CDATA[>=]]> TO_CHAR(SYSDATE,'yyyy-MM-dd') OR notice_end_date IS NULL)
+		ORDER BY board_idx DESC
+	</select>
+
+	<select id="getBoardNotice2" resultType="kr.co.whalesoft.app.board.Board">
+		SELECT
+			TRUNC(TO_CHAR(SYSDATE,'yyyyMMdd')) - TRUNC(TO_CHAR(add_date,'yyyyMMdd')) AS date_gap,
+			manage_idx, board_idx, group_idx, parent_idx, group_depth,
+			view_count, notice_yn, title, add_id,
+			user_name, user_ip, delete_yn, add_date, modify_date,
+			secret_yn, preview_img, file_count, content_summary,
+			category1, category2
+		FROM
+			CMS_BOARD
+		WHERE
+			manage_idx = 521 AND
+			delete_yn = 'N' AND
+			group_depth = 0 AND
+			imsi_v_1 = 'Y' AND
+			(notice_start_date <![CDATA[<=]]> TO_CHAR(SYSDATE,'yyyy-MM-dd') OR notice_start_date IS NULL) AND
+			(notice_end_date <![CDATA[>=]]> TO_CHAR(SYSDATE,'yyyy-MM-dd') OR notice_end_date IS NULL)
+		ORDER BY board_idx DESC
+	</select>
+
+	<select id="getBoardNews2" resultType="kr.co.whalesoft.app.board.Board">
+		SELECT
+			TRUNC(TO_CHAR(SYSDATE,'yyyyMMdd')) - TRUNC(TO_CHAR(add_date,'yyyyMMdd')) AS date_gap,
+			manage_idx, board_idx, group_idx, parent_idx, group_depth,
+			view_count, notice_yn, title, add_id,
+			user_name, user_ip, delete_yn, add_date, modify_date,
+			secret_yn, preview_img, file_count, content_summary,
+			category1, category2
+		FROM
+			CMS_BOARD
+		WHERE
+			manage_idx = 523 AND
+			delete_yn = 'N' AND
+			group_depth = 0 AND
+			imsi_v_1 = 'Y' AND
+			(notice_start_date <![CDATA[<=]]> TO_CHAR(SYSDATE,'yyyy-MM-dd') OR notice_start_date IS NULL) AND
+			(notice_end_date <![CDATA[>=]]> TO_CHAR(SYSDATE,'yyyy-MM-dd') OR notice_end_date IS NULL)
+		ORDER BY board_idx DESC
+	</select>
+
+	<select id="getBoardOne" resultType="kr.co.whalesoft.app.board.Board">
+		SELECT
+			manage_idx, board_idx, group_idx, parent_idx, group_depth,
+			view_count, notice_yn, notice_start_date, notice_end_date,
+			title, content, add_id,
+			user_name, user_email, user_phone, user_homepage, user_password,
+			user_ip, user_email_receive_yn, user_sms_receive_yn, delete_yn, add_date,
+			modify_date,secret_yn, preview_img, file_count, content_summary,
+			category1, category2, category3, category4, category5, request_state,
+			getCodeIdToCodeName(#{homepage_id},#{category1Manage},category1) as category1_name,
+			getCodeIdToCodeName(#{homepage_id},#{category2Manage},category2) as category2_name,
+			getCodeIdToCodeName(#{homepage_id},#{category3Manage},category3) as category3_name,
+			getCodeIdToCodeName(#{homepage_id},#{category4Manage},category4) as category4_name,
+			getCodeIdToCodeName(#{homepage_id},#{category5Manage},category5) as category5_name,
+			getCodeIdToCodeName('CMS',#{request_code},request_state) as request_state_str,
+			file_download_count, recommend_count,
+			recommend_email_receive_count, report_state, ebook_url,
+			approval_count, contrary_count,
+			imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5,
+			imsi_v_6, imsi_v_7, imsi_v_8, imsi_v_9, imsi_v_10,
+			imsi_v_11,imsi_v_12,imsi_v_13,imsi_v_14,imsi_v_15,
+			imsi_v_16,imsi_v_17,imsi_v_18,imsi_v_19,imsi_v_20,
+			imsi_d_1, imsi_d_2 ,imsi_d_3, imsi_d_4, imsi_d_5,
+			imsi_n_1, imsi_n_2, imsi_n_3, imsi_n_4, imsi_n_5
+		FROM
+			CMS_BOARD
+		WHERE
+			board_idx = #{board_idx} AND
+			delete_yn = #{delete_yn}
+	</select>
+
+	<select id="getMoviewBoardOne" resultType="kr.co.whalesoft.app.board.Board">
+		SELECT
+			manage_idx, board_idx, group_idx, parent_idx, group_depth,
+			view_count, notice_yn, notice_start_date, notice_end_date,
+			title, content, add_id,
+			user_name, user_email, user_phone, user_homepage, user_password,
+			user_ip, user_email_receive_yn, user_sms_receive_yn, delete_yn, add_date,
+			modify_date,secret_yn, preview_img, file_count, content_summary,
+			category1, category2, category3, category4, category5, file_download_count, recommend_count,
+			recommend_email_receive_count, report_state, ebook_url,
+			approval_count, contrary_count,
+			imsi_v_1 || '-' || case when length(imsi_v_2) = 1 then '0'||imsi_v_2 else imsi_v_2 end
+<!-- 			imsi_v_1 || ' ' || imsi_v_2 || ' (' ||to_char(to_date(imsi_v_1, 'YYYY-MM-DD'), 'dy') || ')' as  -->
+			imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5,
+			imsi_v_6, imsi_v_7, imsi_v_8, imsi_v_9, imsi_v_10,
+			imsi_v_11,imsi_v_12,imsi_v_13,imsi_v_14,imsi_v_15,
+			imsi_v_16,imsi_v_17,imsi_v_18,imsi_v_19,imsi_v_20,
+			imsi_d_1, imsi_d_2 ,imsi_d_3, imsi_d_4, imsi_d_5,
+			imsi_n_1, imsi_n_2, imsi_n_3, imsi_n_4, imsi_n_5
+		FROM
+			CMS_BOARD
+		WHERE
+			manage_idx = #{manage_idx} AND
+			board_idx = #{board_idx} AND
+			delete_yn = #{delete_yn}
+	</select>
+
+	<select id="getPrevBoardOne" resultType="kr.co.whalesoft.app.board.Board">
+	    SELECT
+			board_idx, title, user_name, add_date
+		FROM
+			CMS_BOARD
+		WHERE
+			manage_idx = #{manage_idx}
+		AND
+			board_idx IN
+		(
+			SELECT MAX(board_idx) FROM CMS_BOARD
+			WHERE
+				manage_idx = #{manage_idx} AND
+				delete_yn = #{delete_yn} AND
+				board_idx &lt; #{board_idx}
+		)
+	</select>
+
+	<select id="getNextBoardOne" resultType="kr.co.whalesoft.app.board.Board">
+	    SELECT
+			board_idx, title, user_name, add_date
+		FROM
+			CMS_BOARD
+		WHERE
+			manage_idx = #{manage_idx}
+		AND
+			board_idx IN
+		(
+			SELECT
+				MIN(board_idx) FROM CMS_BOARD
+			WHERE
+				manage_idx = #{manage_idx} AND
+				delete_yn = #{delete_yn} AND
+				board_idx > #{board_idx}
+		)
+	</select>
+
+	<update id="addViewCount">
+		UPDATE CMS_BOARD SET
+			view_count = NVL(view_count, 0) + 1
+		WHERE
+			manage_idx = #{manage_idx} AND
+			board_idx = #{board_idx}
+	</update>
+
+	<update id="addParentBoardUpdate">
+		UPDATE CMS_BOARD SET
+			category2 = #{category2}
+		WHERE
+			manage_idx = #{manage_idx}
+		AND (
+				parent_idx = #{parent_idx}
+			OR  board_idx = #{parent_idx}
+			)
+	</update>
+
+	<select id="getBoardIdx" resultType="int">
+		SELECT CMS_BOARD_IDX_SEQ.NEXTVAL FROM DUAL
+	</select>
+
+	<insert id="addBoard">
+		INSERT INTO CMS_BOARD
+		(
+			manage_idx, board_idx, group_idx, parent_idx, group_depth,
+			notice_yn, notice_start_date, notice_end_date,
+			title, content, content_summary, delete_yn,
+			user_name, add_id, user_ip, add_date, secret_yn, ilus_user_seq, ilus_user_id,
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_password)">user_password,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_homepage)">user_homepage,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_phone)">user_phone,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_email)">user_email,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(request_state)">request_state,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(preview_img)">preview_img,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category1)">category1,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category2)">category2,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category3)">category3,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category4)">category4,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category5)">category5,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_1)">imsi_v_1,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_2)">imsi_v_2,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_3)">imsi_v_3,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_4)">imsi_v_4,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_5)">imsi_v_5,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_6)">imsi_v_6,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_7)">imsi_v_7,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_8)">imsi_v_8,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_9)">imsi_v_9,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_10)">imsi_v_10,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_11)">imsi_v_11,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_12)">imsi_v_12,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_13)">imsi_v_13,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_14)">imsi_v_14,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_15)">imsi_v_15,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_16)">imsi_v_16,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_17)">imsi_v_17,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_18)">imsi_v_18,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_19)">imsi_v_19,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_20)">imsi_v_20,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_1)">imsi_d_1,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_2)">imsi_d_2,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_3)">imsi_d_3,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_4)">imsi_d_4,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_5)">imsi_d_5,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_1)">imsi_n_1,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_2)">imsi_n_2,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_3)">imsi_n_3,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_4)">imsi_n_4,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_5)">imsi_n_5</if>
+		) VALUES
+		(
+			#{manage_idx}, #{board_idx}, #{group_idx}, #{parent_idx}, #{group_depth},
+			#{notice_yn}, #{notice_start_date}, #{notice_end_date},
+			#{title}, #{content}, #{content_summary}, 'N',
+			#{user_name}, #{add_id}, #{user_ip}, SYSDATE, #{secret_yn}, #{ilus_user_seq}, #{ilus_user_id},
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_password)">#{user_password},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_homepage)">#{user_homepage},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_phone)">#{user_phone},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_email)">#{user_email},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(request_state)">#{request_state},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(preview_img)">#{preview_img},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category1)">#{category1},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category2)">#{category2},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category3)">#{category3},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category4)">#{category4},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category5)">#{category5},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_1)">#{imsi_v_1},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_2)">#{imsi_v_2},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_3)">#{imsi_v_3},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_4)">#{imsi_v_4},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_5)">#{imsi_v_5},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_6)">#{imsi_v_6},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_7)">#{imsi_v_7},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_8)">#{imsi_v_8},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_9)">#{imsi_v_9},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_10)">#{imsi_v_10},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_11)">#{imsi_v_11},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_12)">#{imsi_v_12},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_13)">#{imsi_v_13},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_14)">#{imsi_v_14},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_15)">#{imsi_v_15},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_16)">#{imsi_v_16},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_17)">#{imsi_v_17},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_18)">#{imsi_v_18},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_19)">#{imsi_v_19},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_20)">#{imsi_v_20},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_1)">#{imsi_d_1},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_2)">#{imsi_d_2},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_3)">#{imsi_d_3},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_4)">#{imsi_d_4},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_5)">#{imsi_d_5},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_1)">#{imsi_n_1},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_2)">#{imsi_n_2},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_3)">#{imsi_n_3},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_4)">#{imsi_n_4},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_5)">#{imsi_n_5}</if>
+		)
+	</insert>
+
+	<update id="modifyBoard">
+		UPDATE CMS_BOARD SET
+			modify_date = SYSDATE,
+			modify_id = #{modify_id}
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_password)">,user_password = #{user_password}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_homepage)">,user_homepage = #{user_homepage}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_name)">,user_name = #{user_name}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_phone)">,user_phone = #{user_phone}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_email)">,user_email = #{user_email}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(secret_yn)">,secret_yn = #{secret_yn}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(notice_yn)">,notice_yn = #{notice_yn}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(notice_start_date)">,notice_start_date = #{notice_start_date}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(notice_end_date)">,notice_end_date = #{notice_end_date}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(title)">,title = #{title}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(content)">,content = #{content}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(content_summary)">,content_summary = #{content_summary}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_email_receive_yn)">,user_email_receive_yn = #{user_email_receive_yn}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_sms_receive_yn)">,user_sms_receive_yn = #{user_sms_receive_yn}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(ebook_url)">,ebook_url = #{ebook_url}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(request_state)">,request_state = #{request_state}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(preview_img)">,preview_img = #{preview_img}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category1)">,category1 = #{category1}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category2)">,category2 = #{category2}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category3)">,category3 = #{category3}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category4)">,category4 = #{category4}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category5)">,category5 = #{category5}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_1)">,imsi_v_1 = #{imsi_v_1}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_2)">,imsi_v_2 = #{imsi_v_2}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_3)">,imsi_v_3 = #{imsi_v_3}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_4)">,imsi_v_4 = #{imsi_v_4}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_5)">,imsi_v_5 = #{imsi_v_5}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_6)">,imsi_v_6 = #{imsi_v_6}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_7)">,imsi_v_7 = #{imsi_v_7}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_8)">,imsi_v_8 = #{imsi_v_8}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_9)">,imsi_v_9 = #{imsi_v_9}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_10)">,imsi_v_10 = #{imsi_v_10}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_11)">,imsi_v_11 = #{imsi_v_11}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_12)">,imsi_v_12 = #{imsi_v_12}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_13)">,imsi_v_13 = #{imsi_v_13}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_14)">,imsi_v_14 = #{imsi_v_14}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_15)">,imsi_v_15 = #{imsi_v_15}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_16)">,imsi_v_16 = #{imsi_v_16}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_17)">,imsi_v_17 = #{imsi_v_17}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_18)">,imsi_v_18 = #{imsi_v_18}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_19)">,imsi_v_19 = #{imsi_v_19}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_20)">,imsi_v_20 = #{imsi_v_20}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_1)">,imsi_d_1 = #{imsi_d_1}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_2)">,imsi_d_2 = #{imsi_d_2}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_3)">,imsi_d_3 = #{imsi_d_3}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_4)">,imsi_d_4 = #{imsi_d_4}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_5)">,imsi_d_5 = #{imsi_d_5}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_1)">,imsi_n_1 = #{imsi_n_1}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_2)">,imsi_n_2 = #{imsi_n_2}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_3)">,imsi_n_3 = #{imsi_n_3}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_4)">,imsi_n_4 = #{imsi_n_4}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_5)">,imsi_n_5 = #{imsi_n_5}</if>
+		WHERE
+			manage_idx = #{manage_idx} AND
+			board_idx = #{board_idx}
+	</update>
+
+	<update id="modifyQnaBoard">
+		UPDATE CMS_BOARD SET
+			request_state = #{request_state}
+		WHERE
+			manage_idx = #{manage_idx} AND
+			board_idx = #{group_idx}
+	</update>
+	
+	<update id="modifyLostCardBoard">
+		UPDATE CMS_BOARD SET
+			<choose>
+				<when test="request_state != 'null'">
+					request_state = (SELECT REQUEST_STATE FROM CMS_BOARD WHERE manage_idx = #{manage_idx} AND group_idx = #{group_idx} AND board_idx = #{board_idx})
+				</when>
+				<otherwise>
+					request_state = #{request_state}
+				</otherwise>
+			</choose>
+		WHERE
+			manage_idx = #{manage_idx} 
+		AND	board_idx = #{group_idx}
+	</update>
+
+	<update id="modifyBoardFileCount">
+		UPDATE CMS_BOARD SET
+			file_count = #{file_count}
+		WHERE
+			board_idx = #{board_idx}
+	</update>
+
+	<update id="deleteBoard">
+		UPDATE CMS_BOARD SET
+			delete_yn = 'Y',
+			delete_id = #{delete_id},
+			delete_date = SYSDATE
+		WHERE
+			manage_idx = #{manage_idx} AND
+			board_idx = #{board_idx}
+	</update>
+
+	<update id="recoveryBoard">
+		UPDATE CMS_BOARD SET
+			delete_yn = 'N',
+			delete_date = NULL
+		WHERE
+			manage_idx = #{manage_idx} AND
+			board_idx IN
+			<foreach collection="boardIdxArray" item="i" open="(" close=")" separator=",">
+			#{i}
+			</foreach>
+	</update>
+
+	<update id="moveBoard">
+		UPDATE CMS_BOARD SET
+			manage_idx = #{target_manage_idx}
+		WHERE
+			group_idx = #{group_idx}
+	</update>
+
+	<!-- 나의 민원보기 -->
+	<select id="getMyCivilList" resultType="kr.co.whalesoft.app.board.Board">
+		SELECT
+			A.manage_idx,
+			A.parent_idx,
+			A.board_idx,
+			A.group_idx,
+			A.file_count,
+			A.title,
+			A.imsi_v_1,
+			A.imsi_v_2,
+			A.user_name,
+			A.add_date,
+			A.imsi_v_3,
+			A.imsi_v_4,
+			FS_FN_CODENAME('A0068',A.imsi_v_5) AS imsi_v_5,
+			0 AS COMMENT_COUNT ,
+			SUBSTR(B.board_name, INSTR(B.board_name,'>',-1, 1) +2, LENGTH(B.board_name)) AS board_name
+		FROM
+			CMS_BOARD A, CMS_BOARD_MANAGE B
+		WHERE
+			--A.manage_idx IN ('347', '127', '129', '130', '131', '132', '6', '134', '110', '299', '310','324','325', '128', '328')
+			A.manage_idx IN (select manage_idx from cms_board_manage where board_type = 'CUSTOM_QNA' AND board_use_yn = 'Y')
+			AND A.delete_date IS NULL
+			AND A.manage_idx = B.manage_idx
+			AND A.add_id = #{add_id}
+			AND A.group_depth = 0
+		ORDER BY
+			B.board_name ASC, A.add_date DESC
+	</select>
+
+	<!-- 기록관 파일 마이그레이션 -->
+	<select id="selectArchBoard" resultType="kr.co.whalesoft.app.board.Board">
+		SELECT a.manage_idx, a.board_idx, a.board_table, a.b_num, a.b_file1, a.b_file2, a.b_file3, a.b_file4, a.b_file5, b.board_type as board_mode
+		FROM CMS_BOARD a, CMS_BOARD_MANAGE b
+		WHERE
+  			a.manage_idx = b.manage_idx AND
+			a.board_table = 'board_11'
+		ORDER BY
+			board_table ASC, board_idx ASC
+		<!-- a.board_table IS NOT NULL -->
+	</select>
+
+	<update id="modifyPreviewImg">
+		UPDATE CMS_BOARD SET
+		preview_img =
+		(
+  			SELECT
+  				real_file_name
+  			FROM
+  			(
+  				SELECT
+  					real_file_name
+  				FROM
+  					CMS_BOARD_FILE
+  				WHERE
+  					board_idx = #{board_idx} AND
+  					lower(file_ext_name) IN ('.jpg', '.jpeg', '.gif', '.bmp', '.png')
+  				 ORDER BY file_idx
+  			) WHERE rownum = 1
+		) WHERE board_idx = #{board_idx}
+	</update>
+
+	<update id="updatePreviewImg">
+		UPDATE
+			CMS_BOARD
+		SET
+			preview_img = #{preview_img}
+		WHERE
+			board_idx = #{board_idx}
+	</update>
+
+	<update id="modifyApprovalCount">
+		UPDATE
+			CMS_BOARD
+		SET
+			approval_count = NVL(approval_count, 0) + 1
+		WHERE
+			board_idx = #{board_idx}
+	</update>
+
+	<update id="modifyContraryCount">
+		UPDATE
+			CMS_BOARD
+		SET
+			contrary_count = NVL(contrary_count, 0) + 1
+		WHERE
+			board_idx = #{board_idx}
+	</update>
+
+	<select id="getBoardMovie" resultType="kr.co.whalesoft.app.board.Board">
+		SELECT
+			(select menu_idx from cms_menu
+			where manage_idx = a.manage_idx
+			and menu_type = 'BOARD') as menu_idx, a.*
+		FROM (
+			SELECT
+				*
+			FROM
+				CMS_BOARD
+			WHERE
+				imsi_v_1 IS NOT NULL
+			AND imsi_v_1 = #{imsi_v_1}
+			AND manage_idx = (
+								SELECT manage_idx FROM CMS_BOARD_MANAGE
+								WHERE board_type = 'MOVIE'
+								AND homepage_id = #{homepage_id}
+								AND DELETE_YN = 'N'
+								)
+			) a
+	</select>
+
+	<select id="checkPassword" resultType="int">
+		SELECT COUNT(*)
+		FROM CMS_BOARD
+		WHERE MANAGE_IDX = #{manage_idx} AND BOARD_IDX = #{board_idx} AND USER_PASSWORD = #{user_password}
+	</select>
+
+	<!--영화상영 일별 통계 -->
+	<select id="getBoardStatus" resultType="kr.co.whalesoft.app.cms.module.calendarStatus.CalendarStatus">
+		SELECT DISTINCT(START_DATE), SUM(COUNT) AS IMSI_V1
+			FROM (
+				SELECT
+					(IMSI_V_1 || '-' || IMSI_V_2) AS START_DATE,
+					COUNT(*) OVER(PARTITION BY A.BOARD_IDX) AS COUNT
+				FROM
+					CMS_BOARD A,
+					CMS_BOARD_MANAGE B
+				WHERE
+					A.MANAGE_IDX = B.MANAGE_IDX AND
+					A.DELETE_YN = 'N' AND
+					B.BOARD_TYPE = 'MOVIE' AND
+					B.HOMEPAGE_ID = #{homepage_id}
+			)
+		WHERE
+			START_DATE BETWEEN TO_DATE(#{start_date},'yyyy-mm-dd') AND TO_DATE(#{end_date}, 'yyyy-mm-dd')
+		GROUP BY ROLLUP(START_DATE)
+		ORDER BY START_DATE DESC
+	</select>
+
+	<!--영화상영 월별 통계 -->
+	<select id="getBoardMonthStatus" resultType="kr.co.whalesoft.app.cms.module.calendarStatus.CalendarStatus">
+		SELECT DISTINCT(START_DATE), SUM(COUNT) AS IMSI_V1
+			FROM (
+				SELECT
+					IMSI_V_1 AS START_DATE,
+					COUNT(*) OVER(PARTITION BY A.BOARD_IDX) AS COUNT
+				FROM
+					CMS_BOARD A,
+					CMS_BOARD_MANAGE B
+				WHERE
+					A.MANAGE_IDX = B.MANAGE_IDX AND
+					A.DELETE_YN = 'N' AND
+					B.BOARD_TYPE = 'MOVIE' AND
+					B.HOMEPAGE_ID = #{homepage_id}
+			)
+		WHERE
+			SUBSTR(START_DATE,0,4) = #{start_year}
+		GROUP BY ROLLUP(START_DATE)
+		ORDER BY START_DATE DESC
+	</select>
+
+	<!--영화상영 연도별 통계 -->
+	<select id="getBoardYearStatus" resultType="kr.co.whalesoft.app.cms.module.calendarStatus.CalendarStatus">
+		SELECT DISTINCT(START_DATE), SUM(COUNT) AS IMSI_V1
+			FROM (
+				SELECT
+					SUBSTR(IMSI_V_1,0,4) AS START_DATE,
+					COUNT(*) OVER(PARTITION BY A.BOARD_IDX) AS COUNT
+				FROM
+					CMS_BOARD A,
+					CMS_BOARD_MANAGE B
+				WHERE
+					A.MANAGE_IDX = B.MANAGE_IDX AND
+					A.DELETE_YN = 'N' AND
+					B.BOARD_TYPE = 'MOVIE' AND
+					B.HOMEPAGE_ID = #{homepage_id}
+			)
+		WHERE
+			SUBSTR(START_DATE,0,4) BETWEEN #{start_year} and #{end_year}
+		GROUP BY ROLLUP(START_DATE)
+		ORDER BY START_DATE DESC
+	</select>
+
+	<!--게시판 첨부파일 다운로드 통계 -->
+	<select id="getBoardFileAccess" resultType="kr.co.whalesoft.app.cms.module.boardFileAccess.BoardFileAccess">
+		SELECT
+			BOARD_NAME, SUM(COUNT) AS COUNT
+		FROM
+			(
+			SELECT
+				A.MANAGE_IDX, A.BOARD_NAME,
+				(SELECT COUNT(B.FILE_DOWNLOAD_COUNT) FROM CMS_BOARD B WHERE A.MANAGE_IDX = B.MANAGE_IDX AND B.DELETE_YN = 'N') AS COUNT
+			FROM
+				CMS_BOARD_MANAGE A
+			WHERE
+				A.HOMEPAGE_ID = #{homepage_id} AND
+				A.BOARD_USE_YN = 'Y'
+			)
+		GROUP BY ROLLUP(BOARD_NAME)
+		ORDER BY BOARD_NAME DESC
+	</select>
+
+	<select id="getQnABoardOne" resultType="kr.co.whalesoft.app.board.Board">
+		SELECT
+			manage_idx, board_idx, group_idx, parent_idx, group_depth,
+			view_count, notice_yn, notice_start_date, notice_end_date,
+			title, content, add_id,
+			user_name, user_email, user_phone, user_homepage, user_password,
+			user_ip, user_email_receive_yn, user_sms_receive_yn, delete_yn, add_date,
+			modify_date,secret_yn, preview_img, file_count, content_summary,
+			category1, category2, category3, category4, category5, file_download_count, recommend_count,
+			recommend_email_receive_count, report_state, ebook_url,
+			imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5,
+			imsi_v_6, imsi_v_7, imsi_v_8, imsi_v_9, imsi_v_10,
+			imsi_v_11,imsi_v_12,imsi_v_13,imsi_v_14,imsi_v_15,
+			imsi_v_16,imsi_v_17,imsi_v_18,imsi_v_19,imsi_v_20,
+			imsi_d_1, imsi_d_2 ,imsi_d_3, imsi_d_4, imsi_d_5,
+			imsi_n_1, imsi_n_2, imsi_n_3, imsi_n_4, imsi_n_5
+		FROM
+			CMS_BOARD
+		WHERE
+			manage_idx = #{manage_idx} AND
+			group_idx = #{group_idx} AND
+			board_idx != #{board_idx} AND
+			delete_yn = #{delete_yn}
+		ORDER BY
+			board_idx ASC
+	</select>
+
+	<select id="getBoardApi" resultType="kr.co.whalesoft.app.board.Board">
+		SELECT
+			CMS_BOARD_T.*,
+			(
+				SELECT menu_idx
+				FROM CMS_MENU a
+				WHERE a.manage_idx = CMS_BOARD_T.manage_idx AND
+				a.menu_type = 'BOARD'
+			) AS menu_idx
+			<if test='manage_idx == 521'>
+			,
+			(
+				SELECT
+					H.homepage_alias
+				FROM
+					CMS_HOMEPAGE H, CMS_BOARD_MANAGE M
+				WHERE
+					H.homepage_id = M.homepage_id
+				AND	M.manage_idx = CMS_BOARD_T.manage_idx
+			) AS imsi_v_20,
+			(
+				SELECT
+					MOD(TO_NUMBER(REPLACE(homepage_id, 'h', '')),8)+1
+				FROM
+					CMS_BOARD_MANAGE M
+				WHERE
+					M.manage_idx = CMS_BOARD_T.manage_idx
+			) AS imsi_n_1,
+			(
+				SELECT
+					H.context_path
+				FROM
+					CMS_HOMEPAGE H, CMS_BOARD_MANAGE M
+				WHERE
+					H.homepage_id = M.homepage_id
+				AND	M.manage_idx = CMS_BOARD_T.manage_idx
+			) AS imsi_v_19,
+			(
+				SELECT
+					MAX(H.menu_idx)
+				FROM
+					CMS_MENU H, CMS_BOARD_MANAGE M
+				WHERE
+					H.homepage_id = M.homepage_id
+				AND	M.manage_idx = CMS_BOARD_T.manage_idx
+				AND	H.manage_idx = M.manage_idx
+				AND H.menu_type = 'BOARD'
+			) AS imsi_n_2
+			</if>
+			FROM
+		(
+			${pagingTop}
+			SELECT A.*
+			FROM
+			(
+				SELECT
+					manage_idx, board_idx, group_idx, parent_idx, group_depth,
+					view_count, notice_yn, title, add_id, content,
+					user_name, user_ip, delete_yn, add_date, modify_date,
+					file_count, preview_img, secret_yn, content_summary,
+					category1, category2, category3, category4, category5,
+					imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5
+				FROM
+					CMS_BOARD
+				WHERE
+					<choose>
+						<when test='manage_idx == 521'>
+					manage_idx in (
+									SELECT
+										manage_idx
+									FROM
+										cms_board_manage
+									WHERE
+										board_type = 'NOTICE'
+									)
+						</when>
+						<otherwise>
+					manage_idx = #{manage_idx}
+						</otherwise>
+					</choose>
+
+				AND	delete_yn = #{delete_yn}
+					<include refid="where"/>
+
+
+
+			 ) A
+			START WITH A.parent_idx = 0
+	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
+			ORDER SIBLINGS BY A.group_idx DESC, A.board_idx DESC
+			${pagingBottom}
+		) CMS_BOARD_T
+	</select>
+	
+	<!-- 카운트 -->
+	<select id="checkLostCardBoard" resultType="int">
+		SELECT
+      		COUNT(*)
+      	FROM
+     	 (
+     	  SELECT 
+        	REQUEST_STATE
+      	  FROM 
+        	CMS_BOARD 
+      	  WHERE add_id = #{add_id}
+      	  AND manage_idx = #{manage_idx}
+      	  AND delete_yn = 'N'
+     	  AND GROUP_DEPTH = 0
+     	 )
+      	WHERE REQUEST_STATE = '0' 
+      	OR	REQUEST_STATE = '1'
+	</select>
+
+	<delete id="dropBoard">
+		DELETE	FROM
+			CMS_BOARD
+		WHERE
+			manage_idx = #{manage_idx} AND
+			board_idx IN
+			<foreach collection="boardIdxArray" item="i" open="(" close=")" separator=",">
+			#{i}
+			</foreach>
+	</delete>
+
+	<select id ="getBoardAccessResult" resultType="kr.co.whalesoft.app.cms.module.boardAccess.BoardAccess">
+		SELECT manage_idx, RESULT_DATE, SUM(RESULT_COUNT) AS RESULT_COUNT
+		FROM (
+			SELECT 0 as manage_idx,
+	    	<if test="date_type == 'DAY'">
+				TO_CHAR(TO_DATE(#{start_date},'yyyy-mm-dd') + ((LEVEL-1)),'yyyy-mm-dd') AS result_date, 0 AS result_count
+	    	</if>
+	    	<if test="date_type == 'MONTH'">
+				TO_CHAR(ADD_MONTHS(TO_DATE(#{start_year}||'-01', 'yyyy-mm'), LEVEL - 1),'yyyy-mm') AS result_date, 0 AS result_count
+	    	</if>
+	    	<if test="date_type == 'YEAR'">
+				TO_CHAR(ADD_MONTHS(TO_DATE(#{start_year}, 'yyyy'), (LEVEL - 1)*12),'yyyy') AS result_date, 0 AS result_count
+	    	</if>
+			FROM DUAL
+			CONNECT BY LEVEL &lt;= <if test="date_type == 'TIME'">24</if><if test="date_type == 'DAY'">(TO_DATE(#{end_date}) - TO_DATE(#{start_date}) + 1)</if><if test="date_type == 'MONTH'">12</if><if test="date_type == 'YEAR'">#{year_count}</if>
+			UNION
+			SELECT
+				manage_idx,
+			<if test="date_type == 'DAY'">
+				TO_CHAR(add_date, 'yyyy-mm-dd') AS result_date, COUNT(*) AS result_count
+			</if>
+			<if test="date_type == 'MONTH'">
+				TO_CHAR(add_date, 'yyyy-mm') AS result_date, COUNT(*) AS result_count
+			</if>
+			<if test="date_type == 'YEAR'">
+				TO_CHAR(add_date, 'yyyy') AS result_date, COUNT(*) AS result_count
+			</if>
+			FROM CMS_BOARD
+			WHERE 1=1
+			<if test="homepage_id != 'ALL'">
+				AND manage_idx in (select manage_idx from cms_board_manage where homepage_id = 'h1')
+			</if>
+			<if test="date_type == 'DAY'">
+				AND add_date BETWEEN TO_DATE(#{start_date}||' 00:00:00', 'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(#{end_date}||' 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
+			</if>
+			<if test="date_type == 'MONTH'">
+				AND add_date BETWEEN TO_DATE(#{start_year}||'-01-01 00:00:00', 'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(#{start_year}||'-12-31 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
+			</if>
+			<if test="date_type == 'YEAR'">
+				AND add_date BETWEEN TO_DATE(#{start_year}||'-01-01 00:00:00', 'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(#{end_year}||'-12-31 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
+			</if>
+			GROUP BY
+				manage_idx,
+			<if test="date_type == 'DAY'">
+				TO_CHAR(add_date, 'yyyy-mm-dd')
+			</if>
+			<if test="date_type == 'MONTH'">
+				TO_CHAR(add_date, 'yyyy-mm')
+			</if>
+			<if test="date_type == 'YEAR'">
+				TO_CHAR(add_date, 'yyyy')
+			</if>
+		)
+		GROUP BY manage_idx, result_date
+		ORDER BY manage_idx, result_date ASC
+    </select>
+
+    <select id="getTotalSearchByTypeCount" resultType="int">
+		SELECT COUNT(*)
+		FROM
+		(
+			SELECT
+				manage_idx
+			FROM
+				CMS_BOARD
+			WHERE
+
+				manage_idx in (
+								SELECT
+									manage_idx
+								FROM
+									cms_board_manage
+								WHERE
+
+									board_type = 'NOTICE'
+								)
+			<if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
+				AND add_date BETWEEN TO_DATE(#{start_date}, 'YYYY-MM-DD') AND TO_DATE(#{end_date}, 'YYYY-MM-DD')
+			</if>
+		AND	delete_yn = 'N'
+        <if test="search_text != null and search_text != ''">
+       	AND title LIKE '%'||#{search_text}||'%'
+       	</if>
+       	<if test="searchKeyword1 != null and searchKeyword1 != ''">
+		AND title LIKE '%'||#{searchKeyword1}||'%'
+		</if>
+		<if test="searchKeyword2 != null and searchKeyword2 != '' and logicFunction1 != null and logicFunction1 != ''">
+		${logicFunction1} title LIKE '%'||#{searchKeyword2}||'%'
+		</if>
+		<if test="searchKeyword3 != null and searchKeyword3 != '' and logicFunction2 != null and logicFunction2 != ''">
+		${logicFunction2} title LIKE '%'||#{searchKeyword3}||'%'
+		</if>
+		<if test="searchKeyword4 != null and searchKeyword4 != '' and logicFunction3 != null and logicFunction3 != ''">
+		${logicFunction3} title LIKE '%'||#{searchKeyword4}||'%'
+		</if>
+
+       	) A
+    </select>
+    <select id="getTotalSearchByType" resultType="kr.co.whalesoft.app.board.Board">
+    ${pagingTop}
+		SELECT
+			CMS_BOARD_T.*,
+			(
+				SELECT
+					H.homepage_alias
+				FROM
+					CMS_HOMEPAGE H, CMS_BOARD_MANAGE M
+				WHERE
+					H.homepage_id = M.homepage_id
+				AND	M.manage_idx = CMS_BOARD_T.manage_idx
+			) AS imsi_v_20,
+			(
+				SELECT
+					MOD(TO_NUMBER(REPLACE(homepage_id, 'h', '')),8)+1
+				FROM
+					CMS_BOARD_MANAGE M
+				WHERE
+					M.manage_idx = CMS_BOARD_T.manage_idx
+			) AS imsi_n_1,
+			(
+				SELECT
+					H.context_path
+				FROM
+					CMS_HOMEPAGE H, CMS_BOARD_MANAGE M
+				WHERE
+					H.homepage_id = M.homepage_id
+				AND	M.manage_idx = CMS_BOARD_T.manage_idx
+			) AS imsi_v_19,
+			(
+				SELECT
+					MAX(H.menu_idx)
+				FROM
+					CMS_MENU H, CMS_BOARD_MANAGE M
+				WHERE
+					H.homepage_id = M.homepage_id
+				AND	M.manage_idx = CMS_BOARD_T.manage_idx
+				AND	H.manage_idx = M.manage_idx
+				AND H.menu_type = 'BOARD'
+			) AS imsi_n_2
+
+			FROM
+		(
+			SELECT A.*
+			FROM
+			(
+				SELECT
+					manage_idx, board_idx, group_idx, parent_idx, group_depth,
+					view_count, notice_yn, title, add_id, content,
+					user_name, user_ip, delete_yn, add_date, modify_date,
+					file_count, preview_img, secret_yn, content_summary,
+					category1, category2, category3, category4, category5,
+					imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5
+				FROM
+					CMS_BOARD
+				WHERE
+
+					manage_idx in (
+									SELECT
+										manage_idx
+									FROM
+										cms_board_manage
+									WHERE
+
+										board_type = 'NOTICE'
+
+
+									)
+				<if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
+					AND add_date BETWEEN TO_DATE(#{start_date}, 'YYYY-MM-DD') AND TO_DATE(#{end_date}, 'YYYY-MM-DD')
+				</if>
+			AND	delete_yn = 'N'
+
+        	<if test="search_text != null and search_text != ''">
+	       	AND title LIKE '%'||#{search_text}||'%'
+	       	</if>
+	       	<if test="searchKeyword1 != null and searchKeyword1 != ''">
+			AND title LIKE '%'||#{searchKeyword1}||'%'
+			</if>
+			<if test="searchKeyword2 != null and searchKeyword2 != '' and logicFunction1 != null and logicFunction1 != ''">
+			${logicFunction1} title LIKE '%'||#{searchKeyword2}||'%'
+			</if>
+			<if test="searchKeyword3 != null and searchKeyword3 != '' and logicFunction2 != null and logicFunction2 != ''">
+			${logicFunction2} title LIKE '%'||#{searchKeyword3}||'%'
+			</if>
+			<if test="searchKeyword4 != null and searchKeyword4 != '' and logicFunction3 != null and logicFunction3 != ''">
+			${logicFunction3} title LIKE '%'||#{searchKeyword4}||'%'
+			</if>
+        	) A
+			START WITH A.parent_idx = 0
+	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
+
+			ORDER SIBLINGS BY A.add_date DESC
+		) CMS_BOARD_T
+		${pagingBottom}
+    </select>
+
+    <update id="moveBoardCategory">
+    	UPDATE
+    		CMS_BOARD
+    	SET
+    		category1 = #{target_category}
+    	WHERE
+    		board_idx = #{board_idx}
+    </update>
+
+    <select id="getRequestBoardStateCount" resultType="hashMap">
+    SELECT
+    	request_state, COUNT(*) as cnt
+	FROM
+		CMS_BOARD
+	WHERE
+		manage_idx = 563
+	<if test="category1 != null and category1 != ''">
+	AND category1 = #{category1}
+	</if>
+	AND	group_depth = 0
+	AND delete_yn = 'N'
+	AND category1 != '0000'
+	AND category1 != '0040'
+	GROUP BY
+	<if test="category1 != null and category1 != ''">
+		category1,
+	</if>
+		request_state
+    </select>
+
+    <select id="getBoardRelayExcel" resultType="kr.co.whalesoft.app.board.Board">
+    	<![CDATA[
+    	SELECT
+			title,
+			REGEXP_REPLACE(content, '<[^>]*>|\&([^;])*;', '') AS content,
+			user_name,
+			getcodeidtocodename('h2', 'B0004', category1) AS category1,
+			getcodeidtocodename('h2', 'B0005', category2) AS category2,
+			getcodeidtocodename('h2', 'B0006',category3) AS category3,
+			TO_CHAR(add_date, 'YYYY-MM-DD') AS imsi_v_2
+		FROM
+			CMS_BOARD
+		WHERE
+			manage_idx = 149
+		AND	TO_CHAR(add_date, 'YYYY') = #{imsi_v_1}
+		AND	delete_yn = 'N'
+		ORDER BY
+			add_date
+		]]>
+    </select>
+    
+   	<update id="addFileDownloadCount">
+		UPDATE CMS_BOARD SET
+			file_download_count = file_download_count + 1
+		WHERE
+			board_idx = #{board_idx}
+	</update>
+	
+	
+
+</mapper>

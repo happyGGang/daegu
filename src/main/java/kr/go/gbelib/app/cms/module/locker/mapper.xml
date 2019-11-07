@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.locker.LockerDao">
+	
+	<select id="getLockerAll" resultType="kr.go.gbelib.app.cms.module.locker.Locker">
+		${pagingTop}
+		SELECT 
+			HOMEPAGE_ID, LOCKER_IDX, LOCKER_NAME, LOCKER_DESC, 
+			STATUS, ADD_DATE, ADD_ID, MOD_DATE, MOD_ID, LOCKER_PRE_IDX
+		FROM 
+			LOCKER
+		WHERE HOMEPAGE_ID = #{homepage_id} AND DELETE_YN = 'N' AND LOCKER_PRE_IDX = #{locker_pre_idx}
+			<if test="search_text != null and search_text != ''">
+				AND LOCKER_NAME LIKE '%'||#{search_text}||'%'
+			</if>
+			<if test="status != null and status != ''">
+				AND STATUS = #{status}
+			</if>
+		ORDER BY 
+			LOCKER_IDX DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getLocker" resultType="kr.go.gbelib.app.cms.module.locker.Locker">
+			SELECT 
+				A.HOMEPAGE_ID, A.LOCKER_IDX, A.LOCKER_NAME, A.LOCKER_DESC, 
+				A.STATUS, A.ADD_DATE, A.ADD_ID, A.MOD_DATE, A.MOD_ID, A.LOCKER_PRE_IDX, B.APPLY_ID, B.REQ_NAME, B.REQ_IDX, B.MEMBER_KEY
+			FROM 
+				LOCKER A
+			LEFT OUTER JOIN 
+				LOCKER_REQ B
+			ON 
+				A.LOCKER_IDX = B.LOCKER_IDX AND
+			   	A.HOMEPAGE_ID = B.HOMEPAGE_ID AND
+			   	A.LOCKER_PRE_IDX = B.LOCKER_PRE_IDX AND
+			   	B.DELETE_YN = 'N'
+			   	
+			WHERE 				
+				A.HOMEPAGE_ID = #{homepage_id} AND 
+				A.DELETE_YN = 'N' AND
+				A.LOCKER_PRE_IDX = #{locker_pre_idx}
+				<if test="search_text != null and search_text != ''">
+					AND A.LOCKER_NAME LIKE '%'||#{search_text}||'%'
+				</if>
+				<if test="status != null and status != ''">
+					AND A.STATUS = #{status}
+				</if>
+			ORDER BY 
+				A.LOCKER_IDX
+	</select>
+	
+	<select id="getLockerAddFlag" resultType="kr.go.gbelib.app.cms.module.locker.Locker">
+		SELECT
+			HOMEPAGE_ID, REQ_IDX,REQ_NAME, PHONE,CELL_PHONE,
+			APPLY_ID,LOCKER_IDX,ADD_DATE,ADD_ID,MOD_DATE,MOD_ID,DELETE_YN, LOCKER_PRE_IDX, MEMBER_KEY
+		FROM
+			LOCKER_REQ
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND
+			LOCKER_PRE_IDX = #{locker_pre_idx} AND
+			MEMBER_KEY = #{member_key} AND
+			DELETE_YN = 'N'
+	</select>
+	
+	<select id="getLockerCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			LOCKER
+		WHERE HOMEPAGE_ID = #{homepage_id} AND DELETE_YN = 'N' AND LOCKER_PRE_IDX = #{locker_pre_idx}
+		<if test="search_text != null and search_text != ''">
+			AND LOCKER_NAME LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="status != null and status != ''">
+			AND STATUS = #{status}
+		</if>
+		ORDER BY 
+			LOCKER_IDX DESC
+	</select>
+	
+	<select id="getLockerOne" resultType="kr.go.gbelib.app.cms.module.locker.Locker">
+		SELECT
+			HOMEPAGE_ID, LOCKER_IDX, LOCKER_NAME, LOCKER_DESC, 
+			STATUS, ADD_DATE, ADD_ID, MOD_DATE, MOD_ID, LOCKER_PRE_IDX
+		FROM
+			LOCKER
+		WHERE HOMEPAGE_ID = #{homepage_id} AND LOCKER_IDX = #{locker_idx} AND LOCKER_PRE_IDX = #{locker_pre_idx}
+	</select>
+	
+	<insert id="addLocker">
+		<selectKey keyProperty="locker_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(locker_idx),0)+1 FROM LOCKER WHERE HOMEPAGE_ID = #{homepage_id} AND LOCKER_PRE_IDX = #{locker_pre_idx}
+		</selectKey>
+	
+		INSERT INTO LOCKER
+		(
+			HOMEPAGE_ID, LOCKER_IDX, LOCKER_NAME, LOCKER_DESC, 
+			STATUS, ADD_DATE, ADD_ID, LOCKER_PRE_IDX
+		) VALUES (
+			#{homepage_id}, #{locker_idx}, #{locker_name}, #{locker_desc},
+			#{status}, SYSDATE, #{add_id}, #{locker_pre_idx}
+		)
+	</insert>
+	
+	<update id="modifyLocekr">
+		UPDATE 
+			LOCKER 
+		SET
+			LOCKER_PRE_IDX  = #{locker_pre_idx},
+			LOCKER_IDX		= #{locker_idx},
+			LOCKER_NAME 	= #{locker_name}, 
+			LOCKER_DESC 	= #{locker_desc}, 
+			STATUS 			= #{status}, 
+			MOD_ID			= #{mod_id},
+			MOD_DATE		= SYSDATE
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND LOCKER_IDX = #{locker_idx} AND DELETE_YN = 'N' AND LOCKER_PRE_IDX = #{locker_pre_idx}
+	</update>
+	
+	<update id="updateLockerStatus">
+		UPDATE
+			LOCKER
+		SET
+			STATUS 			= #{status},
+			MOD_ID			= #{mod_id},
+			MOD_DATE		= SYSDATE
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND LOCKER_IDX = #{locker_idx} AND DELETE_YN = 'N' AND LOCKER_PRE_IDX = #{locker_pre_idx}
+	</update>
+	
+	<delete id="deleteLocker">
+		UPDATE 
+			LOCKER 
+		SET 
+			DELETE_YN = 'Y'
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND LOCKER_IDX = #{locker_idx} AND LOCKER_PRE_IDX = #{locker_pre_idx}
+	</delete>
+	
+	<select id="getLockerAllByExcel" resultType="kr.go.gbelib.app.cms.module.locker.Locker">
+		SELECT 
+			HOMEPAGE_ID, LOCKER_IDX, LOCKER_NAME, LOCKER_DESC, 
+			STATUS, ADD_DATE, ADD_ID, MOD_DATE, MOD_ID, LOCKER_PRE_IDX
+		FROM 
+			LOCKER
+		WHERE HOMEPAGE_ID = #{homepage_id} AND DELETE_YN = 'N' AND LOCKER_PRE_IDX = #{locker_pre_idx}
+			<if test="search_text != null and search_text != ''">
+				AND LOCKER_NAME LIKE '%'||#{search_text}||'%'
+			</if>
+		ORDER BY 
+			LOCKER_IDX
+	</select>
+	
+	<!--사물함 통계 -->
+	<select id="getLockerStatus" resultType="kr.co.whalesoft.app.cms.module.calendarStatus.CalendarStatus">
+		SELECT 
+			START_DATE, SUM(IMSI_V1) AS IMSI_V1, SUM(IMSI_V2) AS IMSI_V2, SUM(IMSI_V2) AS IMSI_V3
+		FROM
+			(
+				SELECT
+					A.START_DATE || '~' || A.END_DATE AS START_DATE,
+					(SELECT COUNT(*) FROM LOCKER B WHERE B.LOCKER_PRE_IDX = A.LOCKER_PRE_IDX AND B.HOMEPAGE_ID = A.HOMEPAGE_ID AND B.DELETE_YN = 'N' ) AS IMSI_V1,
+					(SELECT COUNT(*) FROM LOCKER_REQ B WHERE B.LOCKER_PRE_IDX = A.LOCKER_PRE_IDX AND B.HOMEPAGE_ID = A.HOMEPAGE_ID AND B.DELETE_YN = 'N' ) AS IMSI_V2,
+					(SELECT COUNT(*) FROM LOCKER_REQ WHERE LOCKER_PRE_IDX = A.LOCKER_PRE_IDX AND HOMEPAGE_ID = A.HOMEPAGE_ID AND DELETE_YN = 'N' AND LOCKER_IDX != NULL) AS IMSI_V3
+				FROM
+				LOCKER_PRE A
+				WHERE 
+					A.DELETE_YN = 'N' AND
+					A.HOMEPAGE_ID = #{homepage_id} AND 
+					TO_DATE(A.START_DATE, 'yyyy-mm-dd') BETWEEN TO_DATE(#{start_date},'yyyy-mm-dd') AND TO_DATE(#{end_date}, 'yyyy-mm-dd')
+				ORDER BY A.START_DATE	
+			)
+		GROUP BY ROLLUP(START_DATE)
+		ORDER BY START_DATE DESC
+	</select>
+	
+	<select id="checkLockerStatus" resultType="int">
+		SELECT STATUS
+		FROM LOCKER
+		WHERE HOMEPAGE_ID = #{homepage_id} AND LOCKER_PRE_IDX = #{locker_pre_idx} AND LOCKER_IDX = #{locker_idx}
+	</select>
+	
+</mapper>

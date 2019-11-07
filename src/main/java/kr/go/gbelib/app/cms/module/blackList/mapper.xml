@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.blackList.BlackListDao">
+
+	<select id="getBlackListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			BLACKLIST
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+	</select>
+
+	<select id="getBlackListList" resultType="kr.go.gbelib.app.cms.module.blackList.BlackList">
+		${pagingTop}
+			SELECT
+				(select homepage_name from cms_homepage a where a.homepage_id = blacklist.homepage_id) as homepage_name,
+				homepage_id, black_idx, member_id, black_type, reason, delete_yn,
+				add_date, add_id, mod_date, mod_id, member_name, member_key
+			FROM
+				BLACKLIST
+			WHERE
+				homepage_id = #{homepage_id}
+				<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
+					AND	${search_type} LIKE '%'||#{search_text}||'%'
+				</if>
+		${pagingBottom}
+	</select>
+
+	<select id="getBlackListOne" resultType="kr.go.gbelib.app.cms.module.blackList.BlackList">
+		SELECT
+			homepage_id, black_idx, member_id, black_type, reason, delete_yn,
+			add_date, add_id, mod_date, mod_id, member_name, member_key
+		FROM
+			BLACKLIST
+		WHERE
+			homepage_id = #{homepage_id}
+			<choose>
+				<when test="black_idx > 0">
+					AND black_idx = #{black_idx}
+				</when>
+				<otherwise>
+					AND member_key = #{member_key}
+				</otherwise>
+			</choose>
+	</select>
+
+	<select id="checkBlackList" resultType="kr.go.gbelib.app.cms.module.blackList.BlackList">
+		SELECT
+			black_type
+		FROM
+			BLACKLIST
+		WHERE
+			homepage_id = #{homepage_id} AND
+			member_key = #{member_key}
+	</select>
+
+	<select id="checkSaveBlackList" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			BLACKLIST
+		WHERE
+			homepage_id = #{homepage_id} AND
+			member_key = #{member_key}
+	</select>
+
+	<insert id="addBlackList">
+		<selectKey keyProperty="black_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(black_idx),0)+1 FROM BLACKLIST WHERE HOMEPAGE_ID = #{homepage_id}
+		</selectKey>
+
+		INSERT INTO
+			BLACKLIST
+		(
+			homepage_id, black_idx, member_id, reason, black_type, delete_yn, add_date, add_id, mod_date, mod_id, member_name, member_key
+		) VALUES
+		(
+			#{homepage_id}, #{black_idx}, #{member_id}, #{reason}, #{black_type}, 'N', SYSDATE, #{add_id}, SYSDATE, #{mod_id}, #{member_name}, #{member_key}
+		)
+	</insert>
+
+	<update id="modifyBlackList">
+		UPDATE
+			BLACKLIST
+		SET
+			black_type = #{black_type},
+			reason = #{reason},
+			mod_date = SYSDATE,
+			mod_id = #{mod_id}
+		WHERE
+			homepage_id = #{homepage_id} AND black_idx = #{black_idx}
+	</update>
+
+	<delete id="deleteBlackList">
+		DELETE FROM
+			BLACKLIST
+		WHERE
+			homepage_id = #{homepage_id}
+			<choose>
+				<when test="black_idx > 0">
+					AND black_idx = #{black_idx}
+				</when>
+				<otherwise>
+					AND member_key = #{member_key}
+				</otherwise>
+			</choose>
+
+	</delete>
+</mapper>

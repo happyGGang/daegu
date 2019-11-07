@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.adminMenu.AdminMenuDao">
+
+    <select id="getAdminMenuTreeList" resultType="kr.co.whalesoft.app.cms.adminMenu.AdminMenu">
+		SELECT * FROM
+		(
+			SELECT
+	      		0 AS menu_idx,
+	      		-1 AS parent_menu_idx,
+	      		'' AS menu_url,
+	      		'최상위' AS menu_name,
+	      		0 AS print_seq,
+	      		'ROOT' AS menu_type,
+	      		1 AS load_on_demand
+	  		FROM DUAL
+	  		UNION ALL
+			SELECT
+				menu_idx,
+				parent_menu_idx,
+				menu_url,
+				menu_name,
+				print_seq,
+				menu_type,
+			CASE WHEN
+	    		menu_type = 'FOLDER' THEN 1 ELSE 0
+	    	END AS
+	    		load_on_demand
+	    	FROM CMS_ADMIN_MENU
+    	)
+		CONNECT BY PRIOR menu_idx = parent_menu_idx
+		START WITH parent_menu_idx = -1
+		ORDER SIBLINGS BY print_seq
+	</select>
+
+	<select id="getAdminMenuList" resultType="kr.co.whalesoft.app.cms.adminMenu.AdminMenu">
+		SELECT
+			level AS menu_level, A.*,
+			(SELECT link_url FROM WB_MODULE_MNGT B WHERE A.module_idx = B.module_idx) AS link_url
+		FROM
+		(
+			SELECT
+				menu_idx,
+				parent_menu_idx,
+				menu_url,
+				menu_name,
+				menu_desc,
+				print_seq,
+				menu_type,
+				group_idx,
+				module_idx,
+				view_yn,
+			CASE
+	    	WHEN
+	    		menu_type = 'FOLDER' THEN 1 ELSE 0
+	    	END AS
+	    		load_on_demand
+	    	FROM
+	    		(
+	    			SELECT
+	    				*
+	    			FROM (
+							SELECT
+								(
+									SELECT LISTAGG(auth_id,',') WITHIN GROUP (ORDER BY auth_id)
+									FROM CMS_ADMIN_MENU_AUTH b
+									WHERE (b.menu_idx = A.menu_idx)
+									GROUP BY menu_idx) AS auth_list,
+									(select min(auth_id) from cms_admin_menu_auth c where a.menu_idx = c.menu_idx group by menu_idx) as auth_id,
+								 a.*
+							FROM
+								CMS_ADMIN_MENU a
+						)
+					WHERE
+						instr(auth_list, #{auth_id}, 1) > 0 OR auth_list IS NULL OR auth_id >= ${auth_id}
+
+				)
+	    		CMS_ADMIN_MENU
+	    	WHERE
+	    		use_yn = 'Y'
+	    	AND	view_yn != 'N'
+	    	AND	admin_access_yn = 'N'
+			<if test="menu_idx_list != null">
+				AND menu_idx_list IN
+				(
+					SELECT menu_idx FROM CMS_ADMIN_MENU_AUTH WHERE grp_seqno IN
+					<foreach open="(" close=")" separator="," item="item" collection="menu_idx_list">
+					#{item}
+					</foreach>
+				)
+			</if>
+    	) A
+		CONNECT BY PRIOR menu_idx = parent_menu_idx
+		START WITH parent_menu_idx = 0
+		ORDER SIBLINGS BY print_seq
+	</select>
+
+	<select id="getAdminMenuListNew" resultType="kr.co.whalesoft.app.cms.adminMenu.AdminMenu">
+		SELECT
+			level AS menu_level, A.*,
+			(SELECT link_url FROM WB_MODULE_MNGT B WHERE A.module_idx = B.module_idx) AS link_url
+		FROM
+		(
+			SELECT
+				menu_idx,
+				parent_menu_idx,
+				menu_url,
+				menu_name,
+				menu_desc,
+				print_seq,
+				menu_type,
+				group_idx,
+				module_idx,
+				view_yn,
+			CASE
+	    	WHEN
+	    		menu_type = 'FOLDER' THEN 1 ELSE 0
+	    	END AS
+	    		load_on_demand
+	    	FROM
+	    		CMS_ADMIN_MENU
+	    	WHERE
+	    		use_yn = 'Y'
+			AND	view_yn != 'N'
+			<if test='admin_access_yn == "N"'>
+			AND	admin_access_yn = #{admin_access_yn}
+			</if>
+    	) A
+    	<if test="authgroupIdxList != null and authgroupIdxList.size != 0">
+    	WHERE (
+				menu_idx in (
+							SELECT	menu_idx
+							FROM	WB_MEMBER_GROUP_AUTH
+							WHERE
+								member_group_idx IN
+								<foreach collection="authgroupIdxList" item="i" open="(" close=")" separator=",">
+								#{i}
+								</foreach>
+							AND	module_type = 'CMS'
+							)
+				OR
+				menu_idx in (
+							SELECT	parent_menu_idx
+							FROM	CMS_ADMIN_MENU
+							WHERE	menu_idx IN
+											(
+											SELECT	menu_idx
+											FROM	WB_MEMBER_GROUP_AUTH
+											WHERE
+												member_group_idx IN
+												<foreach collection="authgroupIdxList" item="i" open="(" close=")" separator=",">
+												#{i}
+												</foreach>
+											AND	module_type = 'CMS')
+							)
+				OR
+				menu_idx in (
+							SELECT	parent_menu_idx
+							FROM	CMS_ADMIN_MENU
+							WHERE	menu_idx IN
+											(
+											SELECT	parent_menu_idx
+											FROM	CMS_ADMIN_MENU
+											WHERE	menu_idx IN
+															(
+															SELECT	menu_idx
+															FROM	WB_MEMBER_GROUP_AUTH
+															WHERE
+																member_group_idx IN
+																<foreach collection="authgroupIdxList" item="i" open="(" close=")" separator=",">
+																#{i}
+																</foreach>
+															AND	module_type = 'CMS')
+											)
+							)
+
+			)
+    	</if>
+		CONNECT BY PRIOR menu_idx = parent_menu_idx
+		START WITH parent_menu_idx = 0
+		ORDER SIBLINGS BY print_seq
+	</select>
+
+	<select id="getAdminMenuOneByIdx" resultType="kr.co.whalesoft.app.cms.adminMenu.AdminMenu">
+		SELECT
+			menu_idx, group_idx, parent_menu_idx, menu_url, menu_name, menu_desc,
+			menu_full_path_name, menu_type, print_seq, use_yn, view_yn, admin_access_yn,
+			menu_auth, add_date, modify_date, css_type, module_idx
+		FROM
+			CMS_ADMIN_MENU
+		WHERE
+			menu_idx = #{menu_idx}
+	</select>
+
+	<select id="getAdminMenuOneByUrl" resultType="kr.co.whalesoft.app.cms.adminMenu.AdminMenu">
+		SELECT
+			menu_idx, group_idx, parent_menu_idx, menu_url, menu_name, menu_desc,
+			menu_full_path_name, menu_type, print_seq, use_yn, view_yn, admin_access_yn,
+			menu_auth, add_date, modify_date, css_type, module_idx
+		FROM
+			CMS_ADMIN_MENU
+		WHERE
+			menu_url = #{menu_url}
+	</select>
+
+	<select id="getParentAdminMenuOne" resultType="kr.co.whalesoft.app.cms.adminMenu.AdminMenu">
+		SELECT
+			menu_idx, group_idx, parent_menu_idx, menu_url, menu_name, menu_desc,
+			menu_full_path_name, menu_type, print_seq, use_yn, view_yn, admin_access_yn,
+			menu_auth, add_date, modify_date, css_type, module_idx
+		FROM
+			CMS_ADMIN_MENU
+		WHERE
+			menu_idx = (SELECT parent_menu_idx FROM CMS_ADMIN_MENU WHERE menu_idx = #{menu_idx})
+	</select>
+
+	<!-- 메뉴데이터 등록 -->
+	<insert id="addAdminMenu">
+		<selectKey keyProperty="menu_idx" resultType="int" order="BEFORE">
+		    SELECT NVL(MAX(menu_idx),0)+1 FROM CMS_ADMIN_MENU
+		</selectKey>
+		INSERT INTO CMS_ADMIN_MENU
+		(
+			menu_idx, parent_menu_idx, menu_url, menu_name, menu_desc, menu_type,
+			use_yn, view_yn, print_seq, add_date, modify_date, module_idx,
+			group_idx, menu_full_path_name
+		)
+			VALUES
+		(
+			#{menu_idx} , #{parent_menu_idx}, #{menu_url}, #{menu_name}, #{menu_desc}, #{menu_type},
+			#{use_yn}, #{view_yn}, #{print_seq}, SYSDATE, SYSDATE, #{module_idx},
+		<choose>
+		<when test="group_idx == 0">
+			#{menu_idx}, #{menu_name}
+		</when>
+		<otherwise>
+			#{group_idx},
+			(
+				SELECT
+	                LTRIM(SYS_CONNECT_BY_PATH(menu_name,' > '),' >') || ' > ' || #{menu_name} AS menu_full_path_name
+				FROM
+					CMS_ADMIN_MENU
+                WHERE menu_idx = #{parent_menu_idx}
+				CONNECT BY PRIOR menu_idx = parent_menu_idx
+				START WITH parent_menu_idx = 0
+			)
+		</otherwise>
+		</choose>
+		)
+	</insert>
+
+	<!-- 메뉴데이터 수정 -->
+	<update id="modifyAdminMenu">
+		UPDATE CMS_ADMIN_MENU SET
+			menu_url = #{menu_url},
+			menu_name = #{menu_name},
+			menu_desc = #{menu_desc},
+			menu_type = #{menu_type},
+			<if test='menu_type == "module"'>
+			module_idx = #{module_idx},
+			</if>
+			use_yn = #{use_yn},
+			view_yn = #{view_yn},
+			admin_access_yn = #{admin_access_yn},
+			print_seq = #{print_seq},
+			modify_date = SYSDATE,
+			menu_full_path_name =
+			<choose>
+			<when test="parent_menu_idx == 0">
+				#{menu_name}
+			</when>
+			<otherwise>
+			(
+				SELECT
+	                LTRIM(SYS_CONNECT_BY_PATH(menu_name,' > '),' >') || ' > ' || #{menu_name} AS menu_full_path_name
+				FROM
+					CMS_ADMIN_MENU
+                WHERE menu_idx = #{parent_menu_idx}
+				CONNECT BY PRIOR menu_idx = parent_menu_idx
+				START WITH parent_menu_idx = 0
+			)
+			</otherwise>
+			</choose>
+		WHERE
+			menu_idx = #{menu_idx}
+	</update>
+
+	<update id="modifyParentAdminMenu">
+		UPDATE CMS_ADMIN_MENU SET
+			parent_menu_idx = #{move_target_menu_idx},
+			group_idx = NVL((SELECT group_idx FROM CMS_ADMIN_MENU WHERE menu_idx = #{move_target_menu_idx}), 0),
+			modify_date = SYSDATE
+		WHERE
+			menu_idx = #{menu_idx}
+	</update>
+
+	<!-- 메뉴삭제 -->
+	<delete id="deleteAdminMenu">
+	    DELETE CMS_ADMIN_MENU
+	    WHERE
+	    	menu_idx = #{menu_idx}
+	</delete>
+
+	<select id="getAdminMenuAuth" resultType="string">
+		SELECT
+			auth_id
+		FROM
+			CMS_ADMIN_MENU_AUTH
+		WHERE
+			menu_idx = #{menu_idx}
+	</select>
+
+	<insert id="addAdminMenuAuth">
+		INSERT INTO CMS_ADMIN_MENU_AUTH
+		(
+			menu_idx, auth_id
+		) VALUES
+		(
+			#{menu_idx}, #{auth_id}
+		)
+	</insert>
+
+	<delete id="deleteAdminMenuAuth">
+		DELETE FROM CMS_ADMIN_MENU_AUTH
+		WHERE
+			menu_idx = #{menu_idx}
+	</delete>
+
+	<select id="getAdminMenuAuthByUrl" resultType="String">
+		SELECT auth_id
+    	FROM
+			CMS_ADMIN_MENU a,
+			CMS_ADMIN_MENU_AUTH b
+		WHERE
+			a.menu_idx = b.menu_idx AND
+			a.menu_url = #{menu_url}
+	</select>
+
+	<select id="getNextPrintSeq" resultType="int">
+		SELECT
+			NVL(max(print_seq),0)+10
+		FROM
+			CMS_ADMIN_MENU
+		WHERE
+			parent_menu_idx = #{menu_idx}
+	</select>
+
+	<select id="getLastChildMenuList">
+		SELECT
+			MENU_IDX, GROUP_IDX, PARENT_MENU_IDX, MENU_URL, MENU_NAME, MENU_DESC,
+			MENU_FULL_PATH_NAME, MENU_TYPE, PRINT_SEQ, USE_YN, VIEW_YN, admin_access_yn,
+			MENU_AUTH, ADD_DATE, MODIFY_DATE, CSS_TYPE, module_idx
+		FROM
+			CMS_ADMIN_MENU
+		WHERE TRIM(MENU_URL) IS NOT NULL
+	</select>
+
+
+	<select id="getAdminMenuTreeListWithAuth" resultType="kr.co.whalesoft.app.cms.adminMenu.AdminMenu">
+		SELECT
+			level AS menu_level, A.*
+		FROM
+		(
+			SELECT
+	      		0 AS menu_idx,
+	      		-1 AS parent_menu_idx,
+	      		'' AS menu_url,
+	      		'최상위' AS menu_name,
+	      		0 AS print_seq,
+	      		'ROOT' AS menu_type,
+	      		0 as module_idx,
+	      		1 AS load_on_demand,
+	      		'' AS moduleName,
+	      		'' auth_group_id
+	  		FROM DUAL
+	  		UNION ALL
+			SELECT
+				menu_idx,
+				parent_menu_idx,
+				menu_url,
+				menu_name,
+				print_seq,
+				menu_type,
+				a.module_idx,
+			CASE WHEN
+	    		menu_type = 'FOLDER' THEN 1 ELSE 0
+	    	END AS
+	    		load_on_demand,
+	    		module_name AS moduleName,
+	      		auth_group_id
+	    	FROM CMS_ADMIN_MENU a, WB_MODULE_MNGT b
+	    	WHERE
+	    		view_yn = 'Y'
+	    	AND	use_yn = 'Y'
+	    	AND admin_access_yn != 'Y'
+	    	AND	A.module_idx = b.module_idx(+)
+	    	AND	module_type(+) = 'CMS'
+    	) A
+		CONNECT BY PRIOR menu_idx = parent_menu_idx
+		START WITH parent_menu_idx = -1
+		ORDER SIBLINGS BY print_seq
+	</select>
+</mapper>

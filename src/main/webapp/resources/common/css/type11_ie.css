@@ -1,0 +1,15 @@
+@charset "utf-8"; 
+
+#header .search_link .qu_txt,
+#header .search_link h3,
+#header .search_link label,
+.Gnb .g-menu,
+.Gnb .sns,
+.Gnb .gnb-menu>li>.SubMenu>li,
+.main .qmenu li,
+.main1 .bx-pager .bx-pager-item,
+.main .lt_photo li,
+.main .popupzone .bx-pager-item,
+.greeting .sign span{zoom:1;*display:inline}
+.tnb .mmode.curation {width: 35px;height: 35px;float: right;margin-top: 7px;}
+.tnb .mmode.curation img{width: 35px;height: 35px;}

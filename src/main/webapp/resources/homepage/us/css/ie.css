@@ -1,0 +1,6 @@
+@charset "utf-8";
+@import url("../../../common/css/ie.css");
+@import url("../../../common/css/type11_ie.css");
+
+.main .like_book2 h3 a,
+.main .like_book2 h3 span{zoom:1;*display:inline}

@@ -1,0 +1,38 @@
+@charset "utf-8";
+
+body{background:#293649;font-size:14px}
+
+.wrap{position:fixed;width:800px;height:630px;left:50%;margin-left:-400px;top:50%;margin-top:-300px}
+.login-box{display:table;width:100%;height:600px;background:#fff;overflow:hidden;border-radius:6px}
+.login-box .info,
+.login-box .form{display:table-cell;width:300px;vertical-align:middle}
+.login-box .form{width:500px;background:#fbfbfb;text-align:center}
+.login-box .container{display:inline-block;zoom:1;display:inline}
+
+.login-box .info{background:url('../img/login_img.jpg') no-repeat 0 0;vertical-align:top;font-family:'Nanum Gothic'}
+.login-box .info .box{padding:30px}
+.login-box .info dt{font-size:24px;color:#0059ac;padding:10px 0 15px;color:#fff;line-height:100%}
+.login-box .info dt b{font-weight:800}
+.login-box .info dd img{width:30px}
+.login-box .info ul{margin-left:15px}
+.login-box .info li{list-style:outside disc;font-size:13px;padding:0 0 5px;color:#fff}
+
+.login-box .form .title{color:#bbb;font-size:24px}
+.login-box .form .title h1{line-height:100%;padding: 0px!important;margin: 0px;margin-bottom: 20px;}
+.login-box .form .title b{font-size:23px;font-weight:600;color:#4c4c4c;display:block;line-height:150%;font-family: sans-serif;text-shadow: #d6c5c5 0.2px 0px;}
+.login-box .form .title i{display:inline-block;zoom:1;*display:inline;padding: 3px;border:2px solid rgba(0,0,0,0.1);border-radius:50%;width:46px;height:46px;line-height:46px;margin-bottom: 19px;}
+.login-box .form fieldset{background:#f2f2f2;border:1px solid #ccc;border-radius:5px;margin:0 auto;padding:25px 0;width:300px;margin-bottom: 20px;}
+.login-box .form .input-group{border:1px solid rgba(0,0,0,0.1);margin:3px 0;border-radius:3px;overflow:hidden}
+.login-box .form .input-group span{display:block;float:left;width:46px;text-align:center;color:#888}
+.login-box .form .input-group input{display:block;float: right;width: 162px;border:none;outline:none;padding: 0px 10px 0px 10px;}
+.login-box .form .input-group span,
+.login-box .form .input-group input{line-height:34px;height:34px;background:#fff;}
+.login-box .form .form-group.button{margin:20px 0;margin-top: 30px;margin-bottom: 10px;}
+.login-box .form .input-group,
+.login-box .form .form-group.button{margin-left:35px;margin-right:35px}
+.login-box .form button{background:#82b440;color:#fff;width:100%;line-height:40px;display:block;border-radius:3px;font-size: 14px;letter-spacing: -1px;}
+.login-box .form .input-group .fa{padding-top: 10px;}
+
+.copyright{text-align:center}
+.copyright,
+.copyright a{color:#949aa4;font-size:12px;line-height:20px;padding-top:10px}

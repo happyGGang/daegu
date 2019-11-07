@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd 
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+	
+	<context:component-scan base-package="kr.co.whalesoft.framework.aop"></context:component-scan>
+	
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	
+	<!-- transaction manager order 2 is process to together @Service and Transaction  -->
+	<tx:annotation-driven proxy-target-class="true" order="2"/>
+	
+	<context:property-placeholder location="classpath:jdbc.properties" />
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="kr.co.whalesoft.app"></property>
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="kr.go.gbelib.app"></property>
+	</bean>
+	
+	<!-- <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+	    <qualifier value="master" />
+  		<constructor-arg index="0" ref="sqlSessionFactoryBean" />
+	</bean> -->
+	
+	<!-- Transaction Manager -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- define the SqlSessionFactory -->
+	
+	
+	<bean id="sqlSessionFactoryBean" class="kr.co.whalesoft.framework.mybatis.RefreshableSqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:mybatisConfig.xml"/>
+ 		<property name="mapperLocations">
+ 			<list>
+ 				<value>classpath:kr/co/whalesoft/app/**/mapper.xml</value>
+ 				<value>classpath:kr/go/gbelib/app/**/mapper.xml</value>
+ 			</list>
+ 		</property>
+ 		<property name="interval" value="5000"/>
+	</bean>
+	
+	<bean id="dataSourceRef" class="kr.co.whalesoft.framework.dataSource.RoutingDataSource">
+	    <property name="targetDataSources">
+			<map key-type="kr.co.whalesoft.framework.dataSource.DataSourceType">
+			    <entry key="MASTER" value-ref="dataSource_master"/>
+			    <entry key="SLAVE1" value-ref="dataSource_slave"/>
+			    <entry key="SLAVE2" value-ref="dataSource_slave2"/>
+			</map>
+		</property>
+		<!-- Default DataSource -->
+		<property name="defaultTargetDataSource" ref="dataSource_master"/>
+	</bean>
+	
+	<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+        <constructor-arg ref="dataSourceRef" />
+        <property name="logFormatter">
+            <bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+                <property name="loggingType" value="MULTI_LINE" />
+<!--                 <property name="margin" value="19" /> -->
+                <property name="sqlPrefix" value="SQL   :::::  "/>
+            </bean>
+        </property>
+    </bean>
+	
+	<bean id="parentDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" abstract="true">
+	</bean>
+	
+	<!-- db dataSource  -->
+	<beans profile="localServer">
+		<bean id="dataSource_master" parent="parentDataSource">
+			<property name="driverClassName" value="${localServer.driverClassName}"></property>
+			<property name="url" value="${localServer.url}"></property>
+			<property name="username" value="${localServer.username}"></property>
+			<property name="password" value="${localServer.password}"></property>
+		</bean>
+		<bean id="dataSource_slave" parent="parentDataSource">
+			<property name="driverClassName" value="${localServer2.driverClassName}"></property>
+			<property name="url" value="${localServer2.url}"></property>
+			<property name="username" value="${localServer2.username}"></property>
+			<property name="password" value="${localServer2.password}"></property>
+		</bean>
+		<bean id="dataSource_slave2" parent="parentDataSource">
+			<property name="driverClassName" value="${localServer3.driverClassName}"></property>
+			<property name="url" value="${localServer3.url}"></property>
+			<property name="username" value="${localServer3.username}"></property>
+			<property name="password" value="${localServer3.password}"></property>
+		</bean>
+	</beans> 
+	
+	<beans profile="devServer">
+		<bean id="dataSource_master" class="org.apache.commons.dbcp.BasicDataSource">
+			<property name="driverClassName" value="${devServer.driverClassName}"></property>
+			<property name="url" value="${devServer.url}"></property>
+			<property name="username" value="${devServer.username}"></property>
+			<property name="password" value="${devServer.password}"></property>
+		</bean>
+	</beans>
+	
+	<beans profile="realServer">
+		<jee:jndi-lookup id="dataSource_master" jndi-name="gbe_jndi" />
+	</beans>
+</beans>

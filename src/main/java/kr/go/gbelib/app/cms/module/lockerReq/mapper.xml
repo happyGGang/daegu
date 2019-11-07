@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.lockerReq.LockerReqDao">
+	
+	<select id="getLockerUnassignReq" resultType="kr.go.gbelib.app.cms.module.lockerReq.LockerReq">
+		SELECT 
+			HOMEPAGE_ID, REQ_IDX,REQ_NAME, PHONE,CELL_PHONE,
+			APPLY_ID,LOCKER_IDX,ADD_DATE,ADD_ID,MOD_DATE,MOD_ID,DELETE_YN, LOCKER_PRE_IDX,MEMBER_KEY,
+			(SELECT COUNT(*) FROM BLACKLIST A WHERE A.HOMEPAGE_ID = LOCKER_REQ.HOMEPAGE_ID AND A.MEMBER_ID = LOCKER_REQ.APPLY_ID AND A.DELETE_YN = 'N') AS BLACK_COUNT
+		FROM 
+			LOCKER_REQ
+		WHERE HOMEPAGE_ID = #{homepage_id} AND DELETE_YN = 'N' AND LOCKER_PRE_IDX = #{locker_pre_idx} AND LOCKER_IDX is null
+		<if test="search_text != null and search_text != ''">
+			AND req_name LIKE '%'||#{search_text}||'%'
+		</if>
+		ORDER BY 
+			REQ_IDX
+	</select>
+	
+	<select id="getLockerReqListAll" resultType="kr.go.gbelib.app.cms.module.lockerReq.LockerReq">
+		SELECT 
+			(SELECT HOMEPAGE_NAME FROM CMS_HOMEPAGE C WHERE C.HOMEPAGE_ID = A.HOMEPAGE_ID) AS HOMEPAGE_NAME,
+			A.HOMEPAGE_ID, A.REQ_IDX,REQ_NAME, A.PHONE,A.CELL_PHONE,
+			A.APPLY_ID,A.LOCKER_IDX, A.ADD_DATE, A.ADD_ID, A.MOD_DATE,
+			A.MOD_ID, A.DELETE_YN, A.LOCKER_PRE_IDX, B.LOCKER_PRE_NAME,
+			B.START_DATE, B.END_DATE, A.MEMBER_KEY, C.LOCKER_NAME
+		FROM 
+			LOCKER_REQ A, LOCKER_PRE B, LOCKER C
+		WHERE
+			A.HOMEPAGE_ID = B.HOMEPAGE_ID AND
+			A.LOCKER_PRE_IDX = B.LOCKER_PRE_IDX AND
+			A.HOMEPAGE_ID = C.HOMEPAGE_ID AND
+			A.LOCKER_PRE_IDX = C.LOCKER_PRE_IDX AND
+			A.LOCKER_IDX = C.LOCKER_IDX AND
+			A.HOMEPAGE_ID = #{homepage_id} AND 
+			A.DELETE_YN = 'N' AND 
+			A.LOCKER_PRE_IDX = #{locker_pre_idx}
+		<if test="search_text != null and search_text != ''">
+			AND A.REQ_NAME LIKE '%'||#{search_text}||'%'
+		</if>
+		ORDER BY 
+			LPAD(C.LOCKER_NAME, 50)
+	</select>
+	
+	<select id="getLockerReq" resultType="kr.go.gbelib.app.cms.module.lockerReq.LockerReq">
+		SELECT 
+			HOMEPAGE_ID, REQ_IDX,REQ_NAME, PHONE,CELL_PHONE,
+			APPLY_ID,LOCKER_IDX,ADD_DATE,ADD_ID,MOD_DATE,MOD_ID,DELETE_YN, LOCKER_PRE_IDX,
+			(SELECT COUNT(*) FROM BLACKLIST A WHERE A.HOMEPAGE_ID = LOCKER_REQ.HOMEPAGE_ID AND A.MEMBER_ID = LOCKER_REQ.APPLY_ID AND A.DELETE_YN = 'N') AS BLACK_COUNT,
+			MEMBER_KEY,
+			(SELECT COUNT(*) FROM BLACKLIST WHERE HOMEPAGE_ID = LOCKER_REQ.HOMEPAGE_ID AND MEMBER_KEY = LOCKER_REQ.MEMBER_KEY AND INSTR(BLACK_TYPE, '20') != 0) as isBlackList
+		FROM 
+			LOCKER_REQ
+		WHERE HOMEPAGE_ID = #{homepage_id} AND DELETE_YN = 'N' AND LOCKER_PRE_IDX = #{locker_pre_idx}
+		<if test="search_text != null and search_text != ''">
+			AND req_name LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="locker_status == 'assing'">
+			AND locker_idx is not null
+		</if>
+		<if test="locker_status == 'unassing'">
+			AND locker_idx is null
+		</if>
+		ORDER BY 
+			LOCKER_IDX
+	</select>
+	
+	<select id="getLockerReqCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			LOCKER_REQ
+		WHERE HOMEPAGE_ID = #{homepage_id} AND DELETE_YN = 'N' AND LOCKER_PRE_IDX = #{locker_pre_idx}
+		<if test="search_text != null and search_text != ''">
+			AND req_name LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="locker_status == 'assing'">
+			AND locker_idx is not null
+		</if>
+		<if test="locker_status == 'unassing'">
+			AND locker_idx is null
+		</if>
+		ORDER BY 
+			REQ_IDX
+	</select>
+	
+	<select id="getLockerReqOne" resultType="kr.go.gbelib.app.cms.module.lockerReq.LockerReq">
+		SELECT
+			HOMEPAGE_ID, REQ_IDX,REQ_NAME, PHONE,CELL_PHONE,
+			APPLY_ID,LOCKER_IDX,ADD_DATE,ADD_ID,MOD_DATE,MOD_ID,DELETE_YN, LOCKER_PRE_IDX, MEMBER_KEY
+		FROM
+			LOCKER_REQ
+		WHERE HOMEPAGE_ID = #{homepage_id} AND REQ_IDX = #{req_idx} AND LOCKER_PRE_IDX = #{locker_pre_idx}
+	</select>
+	
+	<select id="getBlackListCheck" resultType="int">		
+		SELECT 
+			COUNT(*) 
+		FROM 
+			BLACKLIST 
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND 
+			MEMBER_KEY = #{member_key}
+	</select>
+	
+	<select id="getLockerApplyCheck" resultType="int">
+		SELECT 
+			COUNT(*) 
+		FROM 
+			LOCKER_REQ 
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND 
+			LOCKER_PRE_IDX = #{locker_pre_idx} AND 
+			MEMBER_KEY = #{member_key} AND 
+			DELETE_YN = 'N'
+	</select>
+	
+	<insert id="addLockerReq">
+		<selectKey keyProperty="req_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(REQ_IDX),0)+1 FROM LOCKER_REQ WHERE HOMEPAGE_ID = #{homepage_id}
+		</selectKey>
+	
+		INSERT INTO LOCKER_REQ
+		(
+			HOMEPAGE_ID, REQ_IDX,REQ_NAME, PHONE,CELL_PHONE,
+			APPLY_ID,LOCKER_IDX,ADD_DATE,ADD_ID,MOD_DATE,MOD_ID,DELETE_YN, LOCKER_PRE_IDX, MEMBER_KEY, SELF_INFO_YN
+		) VALUES (
+			#{homepage_id}, #{req_idx}, #{req_name}, #{phone},
+			#{cell_phone}, #{apply_id},
+			<choose>
+				<when test="locker_idx > 0">
+					#{locker_idx},	
+				</when>
+				<otherwise>
+				NULL,
+				</otherwise>
+			</choose> 
+			 
+			SYSDATE, #{add_id},
+			SYSDATE, #{add_id}, 'N', #{locker_pre_idx}, #{member_key}, #{self_info_yn}
+		)
+	</insert>
+	
+	<update id="modifyLocekrReq">
+		UPDATE 
+			LOCKER_REQ
+		SET
+			LOCKER_IDX			= #{locker_idx},
+			REQ_IDX 			= #{req_idx}, 
+			REQ_NAME 			= #{req_name}, 
+			<if test="phone != null and phone != ''">
+			PHONE 				= #{phone},
+			</if>
+			<if test="cell_phone != null and cell_phone != ''">
+			CELL_PHONE 			= #{cell_phone},
+			</if> 
+			APPLY_ID			= #{apply_id},
+			MOD_ID				= #{mod_id},
+			LOCKER_PRE_IDX 		= #{locker_pre_idx},
+			MOD_DATE			= SYSDATE
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND REQ_IDX = #{req_idx} AND LOCKER_PRE_IDX = #{locker_pre_idx}
+	</update>
+	
+	<update id="modifyLocekr">
+		UPDATE 
+			LOCKER 
+		SET			 
+			STATUS 			= 2, 
+			MOD_ID			= #{mod_id},
+			MOD_DATE		= SYSDATE
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND LOCKER_IDX = #{locker_idx} AND LOCKER_PRE_IDX = #{locker_pre_idx} AND DELETE_YN = 'N'
+	</update>
+	
+	<update id="clearLocker">
+		UPDATE 
+			LOCKER 
+		SET			 
+			STATUS = 1 			
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND LOCKER_PRE_IDX = #{locker_pre_idx} AND DELETE_YN = 'N'
+	</update>
+	
+	<update id="clearLockerReq">
+		UPDATE 
+			LOCKER_REQ 
+		SET			 
+			LOCKER_IDX = NULL 			
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND LOCKER_PRE_IDX = #{locker_pre_idx} AND DELETE_YN = 'N'
+	</update>
+	
+	<update id="assingLocker">
+		UPDATE
+			LOCKER_REQ
+		SET
+			LOCKER_IDX = #{locker_idx}
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND LOCKER_PRE_IDX = #{locker_pre_idx} AND MEMBER_KEY = #{member_key}
+	</update>
+	
+	<update id="unassingLocker">
+		UPDATE
+			LOCKER_REQ
+		SET
+			LOCKER_IDX = null
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND LOCKER_PRE_IDX = #{locker_pre_idx}  AND LOCKER_IDX = #{locker_idx}
+	</update>
+	
+	<delete id="deleteReqLocker">
+		UPDATE 
+   			LOCKER_REQ
+   		SET 
+   			DELETE_YN = 'Y'		
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND REQ_IDX = #{req_idx}  AND  LOCKER_PRE_IDX = #{locker_pre_idx}
+	</delete>
+	
+	<select id="getHistoryOfLockerReq" resultType="kr.go.gbelib.app.cms.module.lockerReq.LockerReq">
+		SELECT a.HOMEPAGE_ID, a.REQ_IDX, TO_CHAR(a.ADD_DATE,'yyyy-mm-dd') as ADD_DATE, a.DELETE_YN
+			,b.LOCKER_IDX, b.LOCKER_NAME, c.START_DATE, c.END_DATE, c.LOCKER_PRE_TYPE
+		FROM LOCKER_REQ a, LOCKER b, LOCKER_PRE c
+		WHERE a.homepage_id = b.homepage_id(+)
+			AND a.locker_pre_idx = b.locker_pre_idx(+)
+			AND a.locker_idx = b.locker_idx(+)
+			AND a.homepage_id = c.homepage_id(+)
+			AND a.locker_pre_idx = c.locker_pre_idx(+)
+			AND a.HOMEPAGE_ID = #{homepage_id}
+			AND a.MEMBER_KEY = #{member_key}
+		ORDER BY a.ADD_DATE DESC
+	</select>
+	
+</mapper>

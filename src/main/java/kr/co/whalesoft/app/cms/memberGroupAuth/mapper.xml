@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.memberGroupAuth.MemberGroupAuthDao">
+	
+	<delete id="deleteMemberGroupAuth">
+		DELETE
+			WB_MEMBER_GROUP_AUTH
+		WHERE
+			member_group_idx = #{member_group_idx}
+		AND	module_type = #{moduleType}
+		AND	auth_code_id IN ('C','R','U','D') 
+	</delete>
+	
+	<insert id="addMemberGroupAuth">
+		INSERT INTO
+			WB_MEMBER_GROUP_AUTH
+		(
+			member_group_idx, site_id, menu_idx, module_idx, auth_code_id, module_type,
+			add_dttm, add_id
+		)
+			VALUES
+		(
+			#{member_group_idx}, #{site_id}, #{menu_idx}, #{module_idx}, #{auth_code_id}, #{moduleType},
+			SYSDATE, #{cud_id}
+		)
+	</insert>
+	
+	<select id="getAuthCodeList" resultType="string">
+		SELECT
+			menu_idx || '_' || module_idx || '_' || auth_code_id
+		FROM
+			WB_MEMBER_GROUP_AUTH
+		WHERE
+			member_group_idx = #{member_group_idx}
+		AND	module_type = #{moduleType}
+	</select>
+	
+	<select id="getMemberGroupAuthSite" resultType="string">
+		SELECT
+			homepage_id || '_' || menu_idx || '_' || module_idx || '_' || auth_code_id
+		FROM
+			WB_MEMBER_GROUP_AUTH
+		WHERE
+			member_group_idx = #{member_group_idx}
+		AND	module_type = #{moduleType}
+	</select>
+	
+	<select id="getHomepageList" resultType="kr.co.whalesoft.app.cms.homepage.Homepage">
+		SELECT
+			*
+		FROM
+			CMS_HOMEPAGE
+		WHERE
+			homepage_id IN 
+			(
+				SELECT
+					site_id
+				FROM
+					WB_MEMBER_GROUP A, WB_MEMBER_GROUP_SUBORD B
+				WHERE
+					a.member_group_idx = b.member_group_idx
+				AND	b.member_id = #{member_id}
+			)
+		ORDER BY homepage_name
+	</select>
+	
+	<select id="getHomepageListByMemberGroup" resultType="kr.co.whalesoft.app.cms.homepage.Homepage">
+		SELECT
+			DISTINCT A.*
+		FROM
+			CMS_HOMEPAGE A, WB_MEMBER_GROUP_AUTH B
+		WHERE
+			A.homepage_id = B.site_id(+)
+		<if test="member_group_idx > 0">
+		AND	b.member_group_idx(+) = #{member_group_idx}
+		</if>
+		AND	A.homepage_id = #{homepage_id}
+		ORDER BY homepage_name
+	</select>
+	
+	<delete id="deleteMemberGroupAuthModule">
+		DELETE
+			WB_MEMBER_GROUP_AUTH
+		WHERE
+			member_group_idx = #{member_group_idx}
+		AND	module_type = #{moduleType}
+		AND	auth_code_id NOT IN ('C','R','U','D')
+	</delete>
+	
+	<select id="getAuthCodeCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			WB_MEMBER_GROUP_AUTH
+		WHERE
+			member_group_idx = #{member_group_idx}
+	</select>
+	
+	
+	<delete id="deleteMemberGroupAuth2">
+		DELETE
+			WB_MEMBER_GROUP_SUBORD
+		WHERE
+			member_id = #{member_id}
+		<if test='homepage_id != null and homepage_id != "" and homepage_id != "CMS"'>
+		AND	member_group_idx IN ( SELECT member_group_idx FROM WB_MEMBER_GROUP WHERE site_id = #{homepage_id} )
+		</if>
+	</delete>
+	
+	<select id="getMemberGroupIdxList" resultType="int">
+		SELECT
+			A.member_group_idx
+		FROM
+			WB_MEMBER_GROUP_SUBORD A, WB_MEMBER_GROUP_AUTH B
+		WHERE
+			A.member_group_idx = B.member_group_idx
+		AND	A.member_id = #{member_id}
+		<if test="homepage_id != null and homepage_id != ''">
+		AND B.site_id = #{homepage_id}
+		</if>
+		GROUP BY A.member_group_idx
+	</select>
+	
+	
+	<select id="getAuthGroupIdxList2" resultType="int">
+		SELECT
+			A.member_group_idx
+		FROM
+			WB_MEMBER_GROUP_SUBORD A
+		WHERE
+			member_id = #{member_id}
+		GROUP BY A.member_group_idx
+	</select>
+	
+	<select id="getAdminGroupCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			WB_MEMBER_GROUP A, WB_MEMBER_GROUP_SUBORD B
+		WHERE
+			A.member_group_idx = B.member_group_idx
+		AND	B.member_id = #{member_id}
+		AND	A.admin_yn = 'Y'
+	</select>
+	
+	<select id="getSiteAdminGroupCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			WB_MEMBER_GROUP A, WB_MEMBER_GROUP_SUBORD B
+		WHERE
+			A.member_group_idx = B.member_group_idx
+		AND	B.member_id = #{member_id}
+		AND	A.admin_group_yn = 'Y'
+	</select>
+	
+	<select id="getSiteAdminAuthCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			WB_MEMBER_GROUP_AUTH A, WB_MEMBER_GROUP_SUBORD B
+		WHERE
+			A.member_group_idx = B.member_group_idx
+		AND member_id = #{member_id}
+		AND module_type = 'CMS'
+	</select>
+	
+	<select id="getPmsGroupCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			WB_MEMBER_GROUP A, WB_MEMBER_GROUP_SUBORD B
+		WHERE
+			A.member_group_idx = B.member_group_idx
+		AND	B.member_id = #{member_id}
+		AND	(A.member_group_idx = 7 or A.member_group_idx = 606)
+	</select>
+	
+	<insert id="addMemberGroupSubord">
+		INSERT INTO
+			WB_MEMBER_GROUP_SUBORD
+		(
+			member_id, member_group_idx, add_dttm, add_id
+		)
+			VALUES
+		(
+			#{member_id}, #{member_group_idx}, SYSDATE, #{cud_id}
+		)
+	</insert>
+</mapper>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.push.PushDao">
+	
+	<select id="getPushList" resultType="kr.go.gbelib.app.cms.module.push.Push">
+		${pagingTop}
+			SELECT
+				TID, LIB_CODE, PUSH_TYPE, PUSH_MSG, PUSH_URL, PUSH_STATUS, PUSH_RESERVE_DATE, PUSH_REGDATE,
+				PUSH_MODDATE, PUSH_REG_ID, PUSH_REG_NM, PUSH_REG_IP, PUSH_MOD_ID, PUSH_MOD_NM, PUSH_MOD_IP, PUSH_TARGET
+				, (SELECT MIN(HOMEPAGE_NAME) FROM CMS_HOMEPAGE WHERE substr(HOMEPAGE_CODE, 0, 8) = a.LIB_CODE GROUP BY HOMEPAGE_CODE) AS LIB_NAME
+			FROM
+				gbesearch.CHT_PUSHMANAGE_TBL a
+			WHERE 1 = 1 AND PUSH_TARGET = '0'
+				<if test="lib_code != 'admin'">
+			 		AND LIB_CODE = #{lib_code}
+			 	</if>
+				<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' "> 
+					AND	${search_type} LIKE '%'||#{search_text}||'%'
+				</if>
+			ORDER BY TID desc
+		${pagingBottom}
+	</select>
+	
+	<select id="getPushListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			gbesearch.CHT_PUSHMANAGE_TBL a
+		WHERE 1 = 1 AND PUSH_TARGET = '0'
+			<if test="lib_code != 'admin'">
+		 		AND LIB_CODE = #{lib_code}
+		 	</if>
+			<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' "> 
+				AND	${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+	</select>
+	
+	<select id="getPushOne" resultType="kr.go.gbelib.app.cms.module.push.Push">
+		SELECT
+			TID, LIB_CODE, PUSH_TYPE, PUSH_MSG, PUSH_URL, PUSH_STATUS, PUSH_RESERVE_DATE, PUSH_REGDATE,
+			PUSH_MODDATE, PUSH_REG_ID, PUSH_REG_NM, PUSH_REG_IP, PUSH_MOD_ID, PUSH_MOD_NM, PUSH_MOD_IP, PUSH_TARGET
+		FROM
+			gbesearch.CHT_PUSHMANAGE_TBL
+		WHERE
+			TID = #{tid}
+	</select>
+	
+	<insert id="addPush">
+		<selectKey keyProperty="tid" resultType="int" order="BEFORE">
+			SELECT gbesearch.SEQ_CHT_PUSHMANAGE.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO gbesearch.CHT_PUSHMANAGE_TBL
+		(
+			TID, LIB_CODE, PUSH_TYPE, PUSH_MSG, PUSH_URL, PUSH_RESERVE_DATE, PUSH_REGDATE, 
+			PUSH_REG_ID, PUSH_REG_NM, PUSH_REG_IP, PUSH_TARGET, PUSH_STATUS
+			
+		) VALUES
+		( 
+			#{tid}, #{lib_code}, #{push_type}, #{push_msg}, #{push_url}, #{push_reserve_date}, SYSDATE, 
+			#{push_reg_id}, #{push_reg_nm}, #{push_reg_ip}, '0', #{push_status}
+		)
+	</insert>
+	
+	<update id="modifyPush">
+		UPDATE
+			gbesearch.CHT_PUSHMANAGE_TBL
+		SET
+			LIB_CODE			= #{lib_code}, 
+			PUSH_TYPE 			= #{push_type}, 
+			PUSH_MSG 			= #{push_msg}, 
+			PUSH_URL 			= #{push_url}, 
+			PUSH_RESERVE_DATE 	= #{push_reserve_date}, 
+			PUSH_MODDATE 		= SYSDATE, 
+			PUSH_MOD_ID			= #{push_mod_id}, 
+			PUSH_MOD_NM			= #{push_mod_nm}, 
+			PUSH_MOD_IP			= #{push_mod_ip},
+			PUSH_STATUS			= #{push_status}
+		WHERE
+			TID = #{tid}
+	</update>
+	
+	<update id="deletePushFile">
+		UPDATE
+			gbesearch.CHT_PUSHMANAGE_TBL
+		SET
+			PUSH_URL = ''
+		WHERE 
+			TID = #{tid}
+	</update>
+	
+</mapper>

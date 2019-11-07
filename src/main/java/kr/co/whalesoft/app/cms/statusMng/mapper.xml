@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.statusMng.StatusMngDao">
+
+	<select id="getstatusMngList" resultType="kr.co.whalesoft.app.cms.statusMng.StatusMng">
+		SELECT
+			a.homepage_id, a.div_idx, a.div_name, a.col_cnt, b.status_idx,
+  			b.rating, b.max_cnt, b.cur_cnt, a.div_print_seq, b.print_seq
+		FROM
+			STATUS_DIV a, STATUS_CNT b
+		WHERE
+			a.homepage_id = b.homepage_id
+		AND	a.div_idx = b.div_idx
+		AND	a.homepage_id = #{homepage_id}
+		ORDER BY a.div_print_seq ASC, b.print_seq ASC
+	</select>
+	
+	<select id="getStatusMngCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			STATUS_DIV a, STATUS_CNT b
+		WHERE
+			a.homepage_id = b.homepage_id
+		AND	a.div_idx = b.div_idx
+		AND	a.homepage_id = #{homepage_id}
+	</select>
+
+	<select id="getDivList" resultType="kr.co.whalesoft.app.cms.statusMng.StatusMng">
+		SELECT
+			homepage_id, div_idx, div_name, col_cnt, div_print_seq,
+			add_id, add_date, mod_id, mod_date
+		FROM
+			STATUS_DIV
+		WHERE
+			homepage_id = #{homepage_id}
+		ORDER BY div_print_seq ASC
+	</select>
+	
+	<select id="getStatusList" resultType="kr.co.whalesoft.app.cms.statusMng.StatusMng">
+		SELECT
+			a.homepage_id, a.div_idx, a.div_print_seq, status_idx, rating, max_cnt,
+			cur_cnt, print_seq, b.add_id, b.add_date, b.mod_id, b.mod_date
+		FROM
+			STATUS_DIV a, STATUS_CNT b
+		WHERE
+			a.homepage_id = b.homepage_id
+		AND a.div_idx = b.div_idx
+		AND a.homepage_id = #{homepage_id}
+		ORDER BY div_print_seq ASC, print_seq ASC
+	</select>
+	
+	<select id="getStatusMngOne" resultType="kr.co.whalesoft.app.cms.statusMng.StatusMng">
+		SELECT
+			homepage_id, div_idx, status_idx, rating, max_cnt,
+			print_seq, cur_cnt, add_id, add_date, mod_id, mod_date
+		FROM
+			STATUS_CNT
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	status_idx = #{status_idx}
+	</select>
+	
+	<select id="getDivNextPrintSeq" resultType="int">
+		SELECT
+			NVL(MAX(div_print_seq), 0)+10
+		FROM
+			STATUS_DIV
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+	
+	<insert id="addStatusDiv">
+		<selectKey keyProperty="div_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(div_idx), 0)+1 FROM STATUS_DIV WHERE homepage_id = #{homepage_id}
+		</selectKey>
+		INSERT INTO STATUS_DIV
+		(
+			homepage_id, div_idx, div_name, col_cnt, div_print_seq,
+			add_id, add_date
+		)
+		VALUES
+		(
+			#{homepage_id}, #{div_idx}, #{div_name}, #{col_cnt}, #{div_print_seq},
+			#{add_id}, SYSDATE
+		)
+	</insert>
+	
+	<update id="modifyStatusDiv">
+		UPDATE
+			STATUS_DIV
+		SET
+			div_name = #{div_name},
+			div_print_seq = #{div_print_seq},
+			mod_id = #{mod_id},
+			mod_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	div_idx = #{div_idx}
+	</update>
+	
+	<select id="getNextPrintSeq" resultType="int">
+		SELECT
+			NVL(MAX(print_seq), 0)+10
+		FROM
+			STATUS_CNT
+		WHERE
+			homepage_id=#{homepage_id}
+	</select>
+	
+	<insert id="addStatusCnt">
+		<selectKey keyProperty="status_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(status_idx), 0)+1 FROM STATUS_CNT WHERE homepage_id = #{homepage_id}
+		</selectKey>
+		INSERT INTO STATUS_CNT
+		(
+			homepage_id, div_idx, status_idx, rating, max_cnt,
+			print_seq, cur_cnt, add_id, add_date
+		)
+		VALUES
+		(
+			#{homepage_id}, #{div_idx}, #{status_idx}, #{rating}, #{max_cnt},
+			#{print_seq}, #{cur_cnt}, #{add_id}, SYSDATE
+		)
+	</insert>
+	
+	<update id="modifyStatusCnt">
+		UPDATE
+			STATUS_CNT
+		SET
+			div_idx = #{div_idx},
+			rating = #{rating},
+			max_cnt = #{max_cnt},
+			cur_cnt = #{cur_cnt},
+			print_seq = #{print_seq},
+			mod_id = #{mod_id},
+			mod_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	status_idx = #{status_idx}
+	</update>
+	
+	<update id="modifyRatingCnt">
+		UPDATE
+			STATUS_DIV a
+		SET
+			col_cnt=(
+					SELECT
+						COUNT(*)
+					FROM
+						STATUS_CNT
+					WHERE
+						homepage_id = #{homepage_id}
+					AND	div_idx = a.div_idx
+					)
+		WHERE
+			homepage_id = #{homepage_id}
+	</update>
+	
+	<delete id="statusMngDel">
+		DELETE FROM
+			STATUS_DIV
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	div_idx = #{div_idx}
+	</delete>
+	
+	<delete id="deleteDivAll">
+		DELETE FROM
+			STATUS_CNT
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	div_idx = #{div_idx}
+	</delete>
+	
+	<select id="getChartDivList" resultType="kr.co.whalesoft.app.cms.statusMng.StatusMng">
+		SELECT
+			a.homepage_id, a.div_idx, div_name, col_cnt, div_print_seq
+		FROM
+			STATUS_DIV a, STATUS_CNT b
+		WHERE
+			a.homepage_id = b.homepage_id
+		AND	a.div_idx = b.div_idx
+		AND	a.homepage_id = #{homepage_id}
+		GROUP BY a.homepage_id, a.div_idx, div_name, col_cnt, div_print_seq
+		ORDER BY div_print_seq ASC
+	</select>
+	
+	<delete id="statusMngCnt">
+		DELETE FROM
+			STATUS_CNT
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	status_idx = #{status_idx}
+	</delete>
+	
+	<select id="getTotalCant" resultType="kr.co.whalesoft.app.cms.statusMng.StatusMng">
+		SELECT
+			SUM(max_cnt) AS max_cnt, SUM(cur_cnt) AS cur_cnt
+		FROM
+			STATUS_CNT
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+
+</mapper>

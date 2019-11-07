@@ -1,0 +1,56 @@
+
+.subpage_title {position:relative;background:#2d2e32;color:#fff;box-sizing:border-box;padding:10px 0 10px 18px}
+.subpage_title h4 {font-size:23px;color:#fff;padding:0}
+.subpage_title a {position:absolute;right:0;top:0}
+.subpage_title a img {height:55px}
+
+.alarm_list {width:94%;margin:10px auto}
+.alarm_list ul{}
+.alarm_list ul li {display:block;position:relative;background:#e4e4e4;padding:18px;margin:0 0 5px 0;box-sizing:border-box}
+.alarm_list ul li p.book_status {font-weight:bold;font-size:20px;color:#000}
+.alarm_list ul li p.book_title {font-weight:500;font-size:14px;color:#1b1b1b}
+.alarm_list ul li p.date {font-weight:500;font-size:14px;color:#9c9c9c}
+.alarm_list ul li a {position:absolute;right:18px;top:40px }
+
+.btn-section {text-align:center;padding:10px 0}
+.btn-section a.btn {width:45%;text-align:Center;font-size:16px;border-radius:0;padding:10px 0;color:#1b1b1b}
+.btn-section a.btn.btn01 {background:#3ea7e9;color:#fff}
+
+.isbn-section dt {background:url('../img/isbn_nfc_bg.png') center top;width:100%;height:auto;text-align:Center;padding:0;margin:0}
+.isbn-section dd {padding:18px 0;background:#fff;color:#1b1b1b;text-align:center;font-weight:600}
+
+.mobilecard-section {padding:100px 18px 100px}
+.mobilecard-section .contents {}
+.mobilecard-section .contents li.info {position:relative;padding:23px 0 23px 25px;box-sizing:border-box;}
+.mobilecard-section .contents li.info img.qr {position:absolute;right:18px;top:15px;width:60px}
+.mobilecard-section .contents li.info span {display:inline-block}
+.mobilecard-section .contents li.info span:first-child {width:20%;font-weight:800;color:#000}
+.mobilecard-section .contents li.code {width:100%;height:auto;text-align:Center;padding:0;margin:0}
+.mobilecard-section .contents li.code img {width:90%;}
+.mobilecard-section dt {width:100%;height:auto;text-align:Center;padding:0;margin:0}
+.mobilecard-section dt img {width:60%}
+.mobilecard-section dd {padding:18px 0;background:#fff;color:#1b1b1b;text-align:center;font-weight:600}
+.mobilecard-section dd div.name {font-weight:bold;font-size:20px;color:#000}
+.mobilecard-section dd div.userno {font-weight:500;font-size:14px;color:#1b1b1b}
+.mobilecard-section dd div.date {font-weight:500;font-size:14px;color:#9c9c9c}
+
+.configutaion-section {width:100%;margin:0}
+.configutaion-section .personal-section {}
+.configutaion-section .personal-section dt {padding:14px 0 14px 18px;color:#fff;background:#3762a6 url('../img/configuration_bg.png') center bottom;box-sizing:border-box;border-bottom:1px solid #d2d2d2;}
+.configutaion-section .personal-section dd {padding:7px 0 7px 49px;}
+.configutaion-section .personal-section dd span{display:inline-block;}
+.configutaion-section .personal-section dd span:first-child {width:30%;font-weight:800;color:#0092aa}
+.configutaion-section .personal-section dd span:last-child  {}
+.configutaion-section li {display:block;position:relative;padding:18px 0 18px 18px;box-sizing:border-box;border-bottom:1px solid #d2d2d2;}
+.configutaion-section li:first-child {border-top:1px solid #d2d2d2}
+.configutaion-section li a {position:absolute;right:18px;top:14px}
+.configutaion-section li a.arrow-icon {top:18px}
+
+.mylibrary-btn-section {overflow:hidden}
+.mylibrary-btn-section li {display:inline-block;float:left;width:20%;background:#3b597d;text-align:center}
+.mylibrary-btn-section li a {display:block;color:#fff;text-align:center;font-size:12px;padding:7px 0;letter-spacing:-1px;border-top:3px solid #3b597d;border-bottom:3px solid #3b597d}
+.mylibrary-btn-section li a:hover {color:#f8614c;border-top:3px solid #f8614c}
+.mylibrary-btn-section li a.on {color:#f8614c;border-top:3px solid #f8614c}
+.mylibrary-btn-section li a img {width:40px}
+
+.book-list h4 {width:100%;text-align:center;color:#fff}

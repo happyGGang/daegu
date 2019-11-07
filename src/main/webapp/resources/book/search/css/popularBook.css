@@ -1,0 +1,294 @@
+@CHARSET "UTF-8";
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td { margin:0; padding:0; }
+body, input, textarea, select, button, table { /*font-size:14px;*/ line-height:1.25em; font-family:'나눔고딕', NanumGothic, Helvetica, AppleGothic, Sans-serif, ngwoff, ngeot, '굴림', gulrem; }
+html, body { height: 100%; padding:0; margin:0; }
+img, fieldset { border:0; }
+ul, ol { list-style:none; }
+em, address { font-style:normal; }
+a { text-decoration:none; }
+a:hover, a:active, a:focus { text-decoration:underline; }
+
+.popularBook {
+	width : 100%;
+	position : relative;
+}
+
+.ageBox {
+	width : 100%;
+	height : 40px;
+	position : relative;
+	border-top : 1px solid lightgray;
+	border-bottom : 1px solid lightgray;
+}
+
+.age {
+	margin : 0;
+	padding : 0;
+	width : 100%;
+	height : 35px;
+}
+
+.age li {
+	display : inline-block;
+	width : 10%;
+	height : 38px;
+	text-align : center;
+	position : relative;
+}
+
+.age li:hover {border-bottom : 3px solid #ff8c00;}
+/* .age li:active {border-bottom : 3px solid #ff8c00;} */
+
+.age li a {
+	display : block;
+	font-size : 16px;
+	font-weight : bold;
+	margin-top : 7px;
+	text-decoration : none;
+}
+
+#ageIndexSeven {
+	width : 100%;
+	height : 1450px;
+	display : block;
+	background-color : #f5f5f5;
+}
+
+#ageIndexEight {
+	width : 100%;
+	height : 1450px;
+	display : none;
+	background-color : #f5f5f5;
+}
+
+#ageIndexTeen {
+	width : 100%;
+	height : 1450px;
+	display : none;
+	background-color : #f5f5f5;
+}
+
+#ageIndexTwenty {
+	width : 100%;
+	height : 1450px;
+	display : none;
+	background-color : #f5f5f5;
+}
+
+#ageIndexThirty {
+	width : 100%;
+	height : 1450px;
+	display : none;
+	background-color : #f5f5f5;
+}
+
+#ageIndexForty {
+	width : 100%;
+	height : 1450px;
+	display : none;
+	background-color : #f5f5f5;
+}
+
+#ageIndexFifty {
+	width : 100%;
+	height : 1450px;
+	display : none;
+	background-color : #f5f5f5;
+}
+
+#ageIndexSixty {
+	width : 100%;
+	height : 1450px;
+	display : none;
+	background-color : #f5f5f5;
+}
+
+#ageIndexSeventy {
+	width : 100%;
+	height : 1450px;
+	display : none;
+	background-color : #f5f5f5;
+}
+
+.ageImg {
+	width : 100%;
+	margin : 0;
+	position : relative;
+}
+
+.ageImg li {
+	display : inline-block;
+	width : 147px;
+	height : 260px;
+	position : relative;
+	padding-right : 2%;
+}
+
+.ageImg li a {
+	padding-top : 150px;
+	text-decoration : none;
+}
+
+.bookImg {
+	width : 100%;
+	height : 210px;
+	position : absolute;
+	top : 10px;
+	left : 10px;
+}
+
+.ImgBox {
+	width : 80%;
+	height : 175px;
+	position : absolute;
+	top : 17px;
+	left : 7px;
+	border : 2px solid lightgray;
+}
+
+.ImgBox img {
+	display : block;
+	vertical-align : middle;
+	width : 100%;
+	height : 100%;
+}
+
+.underBar {
+	width : 90%;
+	height : 10px;
+	border-radius : 10px;
+	border : 1px solid lightgray;
+	position : absolute;
+	bottom: 2px;
+	box-shadow :  0 3px 10px gray;
+	background-color : white;
+}
+
+.bookTitle {
+	width : 100%;
+	height : 30px;
+	position : absolute;
+	left : 5%;
+	bottom: 0;
+}
+
+#s1 {
+	width : 10%!important;
+	height : 16px;
+	border : 2px solid orange;
+	display : block;
+	font-size : 13px;
+	text-align : center;
+	color : orange;
+	font-weight : bold;
+	padding-bottom : 5px;
+}
+
+#s2 {
+	width : 85%;
+	height : 40px;
+	font-size : 13px;
+	font-weight : bold;
+	position : absolute;
+	top : 0;
+	right : 0;
+	display:block;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	border : 1px solid none;
+}
+
+.rankBook {
+	width : 95%;
+	padding: 20px;
+}
+
+.rankBook ul {
+	width : 100%;
+	margin : 0;
+	padding : 0;
+	border-top : 2px solid gray;
+	border-bottom : 2px solid lightgray;
+}
+
+.rankBook ul table {
+	width : 100%;
+	padding: 10px;
+	border-bottom : none;
+	border-left : none;
+	border-right : none;
+	background-color : white;
+}
+
+.rankBook ul table tr {
+	padding-right:0;
+	padding-bottom:0;
+}
+
+.rankList li {
+	position: relative;
+}
+
+.rankBook .rankList table tr td span {
+	display : block;
+	width : 300px;
+	height : 25px;
+	overflow : hidden;
+	white-space : nowrap;
+	text-overflow : ellipsis;
+}
+
+@media all and (min-width:1148px) {
+	.rankList li {float:left; width:50%;}
+}
+
+@media (max-width:1148px) and (min-width:891px){
+	.rankList li {width:100%; float:left;}
+	#ageIndexSeven {height:2050px}
+	#ageIndexEight {height:1785px}
+	#ageIndexTeen {height:1785px}
+	#ageIndexTwenty {height:1785px}
+	#ageIndexThirty {height:1785px}
+	#ageIndexForty {height:1785px}
+	#ageIndexFifty {height:1785px}
+	#ageIndexSixty {height:1785px}
+	#ageIndexSeventy {height:1785px}
+	#s1 {font-size:11px; width:10%!important}
+}
+
+@media all and (max-width:890px) {
+	.rankBook {display:none}
+	#ageIndexSeven {height:auto}
+	#ageIndexEight {height:auto}
+	#ageIndexTeen {height:auto}
+	#ageIndexTwenty {height:auto}
+	#ageIndexThirty {height:auto}
+	#ageIndexForty {height:auto}
+	#ageIndexFifty {height:auto}
+	#ageIndexSixty {height:auto}
+	#ageIndexSeventy {height:auto}
+}
+
+@media all and (max-width:600px) {
+	.age li a {font-size:15px}
+}
+
+@media all and (max-width:540px) {
+	.age li a {font-size:13px}
+}
+
+@media all and (max-width:540px) {
+	.age li a {font-size:11px}
+}
+
+@media all and (max-width:420px) {
+	.ageBox {height:80px}
+	.ageBox ul {height:80px}
+	.ageBox ul li {width:20%}
+}
+
+@media all and (max-width:364px) {
+	.age li a {font-size:9px}
+}

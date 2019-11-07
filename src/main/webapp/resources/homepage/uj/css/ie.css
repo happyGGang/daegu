@@ -1,0 +1,6 @@
+@charset "utf-8";
+@import url("../../../common/css/ie.css");
+
+#main-spot .search-box button,
+#main-spot .search-box input{*margin-top:2px}
+#main-spot .search-box input{height:36px}

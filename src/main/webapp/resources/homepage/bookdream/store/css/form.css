@@ -1,0 +1,55 @@
+/* 버튼 영역 */
+.btn_menu {
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+	margin:5px 0;
+	padding: 5px 0 0;
+	left: 0;
+	top: 0;
+	z-index: 1;
+}
+
+.btn_menu ul {
+	margin:0;
+	padding: 0;
+}
+
+.btn_menu ul li {
+	display:inline;
+	margin: 0;
+	padding: 0;
+}
+
+.btn_menu .left {
+	float: left;
+	padding: 0 0 0 11px;
+}
+.btn_menu .center {
+	margin:0 auto;
+	text-align:center;
+}
+
+
+.btn_menu .right {
+	float: right;
+	padding: 0 7px 0 0;
+}
+
+/* 라디오버튼(공통사용) */
+.radio { 
+	border:0 none;
+	background:#FFFFFF;
+	height:16Px;
+	margin-bottom:2px;
+	vertical-align:middle;
+}
+
+/*체크박스(공통사용) */
+.chk { 
+	border:0 none;
+	background:#FFFFFF;
+	height:16Px;
+	margin-bottom:2px;
+	vertical-align:middle;
+}

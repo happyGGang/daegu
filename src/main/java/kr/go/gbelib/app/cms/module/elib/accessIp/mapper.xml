@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.elib.accessIp.ElibAccessIpDao">
+
+	<select id="getAccessIpCnt" resultType="int">
+		SELECT
+			COUNT(*) AS cnt
+		FROM
+			ELIB_BANNED_IP
+	</select>
+	
+	<select id="getAccessIp" resultType="kr.go.gbelib.app.cms.module.elib.accessIp.ElibAccessIp">
+		${pagingTop}
+		SELECT
+			access_idx, access_ip, use_yn, ban_yn, remark, add_date, add_id
+		FROM
+			ELIB_BANNED_IP
+		ORDER BY
+			add_date DESC
+		${pagingBottom}
+	</select>	
+	
+	<select id="getAccessIpOne" resultType="kr.go.gbelib.app.cms.module.elib.accessIp.ElibAccessIp">
+		SELECT
+			access_idx, access_ip, use_yn, ban_yn, remark, add_date, add_id
+		FROM
+			ELIB_BANNED_IP
+		WHERE
+			access_idx = #{access_idx}
+	</select>
+	
+	<insert id="addAccessIp">
+		<selectKey keyProperty="access_idx" resultType="int" order="BEFORE">
+		    SELECT NVL(MAX(access_idx),0)+1 FROM ELIB_BANNED_IP
+		</selectKey>
+		
+		INSERT INTO ELIB_BANNED_IP
+		(
+			access_idx, access_ip, use_yn, ban_yn, remark, add_date, add_id
+		) VALUES
+		(
+			#{access_idx}, #{access_ip}, #{use_yn}, #{ban_yn}, #{remark}, SYSDATE, #{add_id}
+		)
+	</insert>
+	
+	<update id="modifyAccessIp">
+		UPDATE 
+			ELIB_BANNED_IP 
+		SET
+			access_ip = #{access_ip},
+			use_yn = #{use_yn},
+			ban_yn = #{ban_yn},
+			remark = #{remark},
+			mod_date = SYSDATE,
+			mod_id = #{mod_id}
+		WHERE
+			access_idx = #{access_idx}
+	</update>
+	
+	<delete id="deleteAccessIp">
+		DELETE FROM ELIB_BANNED_IP WHERE access_idx = #{access_idx} 
+	</delete>
+	
+	<select id="getBannedIpCnt" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			ELIB_BANNED_IP
+		WHERE
+			use_yn = 'Y'
+		AND access_ip = #{access_ip}
+	</select>
+	
+</mapper>

@@ -1,0 +1,215 @@
+/* 테이블_달력 */
+.calendar {
+	position:relative;
+	float:left;
+	width:100%;
+}
+.calendar h2 {
+	float:left;
+	margin:0;
+	padding:0 0 0 23px;
+}
+.calendar .date {
+	float:right;
+	margin:0;
+	padding:0;
+	line-height:30px;
+	font-weight: bold;
+}
+.calendar .date span.today {
+	color:#f01679;
+	font-weight: bold;
+}
+table.tstyle_calendar { 
+	border-collapse: collapse; 
+	width: 100%; 
+	margin:.3em 0 .5em 0px; 
+	border: solid #537688; 
+	border-width: 2px 0 0 0;
+	text-align:right;
+}
+table.tstyle_calendar caption {
+	text-indent: -2000px; 
+	height: 0; 
+	margin: 0; 
+	padding: 0; 
+	font-size: 0; 
+	line-height: 0; 
+	overflow:hidden; 
+}
+table.tstyle_calendar thead.line {
+	border: solid #b51212; 
+	border-width: 2px 0 0 0;
+}
+table.tstyle_calendar th, table.tstyle_calendar td { 
+	padding: 5px 6px 3px 6px; 
+	line-height:140%; 
+}
+table.tstyle_calendar th { 
+	background-color:#3d5778;
+	font-weight: bold; 
+	color:#FFF; 
+	text-align: center; 
+	vertical-align: middle;
+	border: 1px solid #2b4260;
+}
+table.tstyle_calendar img.prev { 
+	padding-top:5px;
+	vertical-align:middle;
+	margin-right:10px;
+	line-height:1.5em;
+}
+table.tstyle_calendar span.month { 
+	vertical-align:middle;
+	font-size:1.5em;
+	line-height:1.5em;
+}
+table.tstyle_calendar img.next { 
+	padding-top:5px;
+	vertical-align: middle;
+	margin-left:10px;
+	line-height:1.5em;
+}
+table.tstyle_calendar th.sun { 
+	color:#ec2626;
+}
+table.tstyle_calendar th.sat { 
+	color:#00679d;
+}
+table.tstyle_calendar tbody th { 
+	background: #eaf5f6;
+	font-weight: bold;
+	border: 1px solid #aac7d2; 
+	color:#000000;
+}
+table.tstyle_calendar tbody td { 
+	width:14%;
+	height:100px;
+}
+table.tstyle_calendar td { 
+	background: #fbfbfb; 
+	border: 1px solid #d5d5d5;
+	vertical-align:top;
+}
+table.tstyle_calendar td.day { 
+	clear:right;
+	float:right;
+	margin:0;
+	padding:0;
+	vertical-align:top;
+}
+table.tstyle_calendar td.con { 
+	clear:right;
+	float:right;
+	margin:0;
+	padding:0;
+	vertical-align:top;
+}
+table.tstyle_calendar .today { 
+	background:#3d5778;
+}
+.tstyle_calendar .today a:link, 
+.tstyle_calendar .today a:visited, 
+.tstyle_calendar .today a:active { 
+	color:#FFF;
+	font-weight: bold;
+}
+.tstyle_calendar .today a:hover {
+	color:#FFF;
+	font-weight:bold;
+}
+
+.tstyle_calendar a:link, 
+.tstyle_calendar a:visited, 
+.tstyle_calendar a:active {
+	color:#000;
+}
+.tstyle_calendar a:hover {
+	color:#000;
+	font-weight:bold;
+}
+
+.tstyle_calendar .sun a:link, 
+.tstyle_calendar .sun a:visited, 
+.tstyle_calendar .sun a:active {
+	color:#ec2626;
+}
+.tstyle_calendar .sun a:hover {
+	color:#ec2626;
+	font-weight:bold;
+}
+
+.tstyle_calendar .sat a:link, 
+.tstyle_calendar .sat a:visited, 
+.tstyle_calendar .sat a:active {
+	color:#00679d;
+}
+.tstyle_calendar .sat a:hover {
+	color:#00679d;
+	font-weight:bold;
+}
+
+.tstyle_calendar .holiday a:link, 
+.tstyle_calendar .holiday a:visited, 
+.tstyle_calendar .holiday a:active {
+	color:#FF0000;
+}
+.tstyle_calendar .holiday a:hover {
+	color:#FF0000;
+	font-weight:bold;
+}
+
+table.tstyle_calendar tfoot td { 
+	background: #abadb3; 
+	font-weight: normal; 
+	text-align: center; 
+	vertical-align: middle;
+}
+table.tstyle_calendar td.item { 
+	background: #f4f4f4;
+	font-weight: bold;
+}
+table.tstyle_calendar td.bg { 
+	background: #f4f4f4;
+}
+table.tstyle_calendar td input { 
+	border:1px solid #cdcdcd;
+	background:#f9f9f9;
+	height:16Px;
+	margin-bottom:2px;
+	vertical-align:middle;
+}
+
+/* 타이틀 - 버튼 혼합 영역 */
+.mix_area {
+	position: relative;
+	display:inline;
+	float:left;
+	width:100%;
+	margin:0;
+	padding:0;
+}
+.mix_area h3 { 
+	float:left;
+	margin:0.8em 0 0.4em 0; 
+}
+.mix_area .btn {
+	position: absolute;
+	left:0;
+	top:0;
+	float:left;
+	text-align:right;
+	width: 100%;
+	margin:0;
+	padding:0;
+}
+.mix_area .btn ul {
+	margin:0;
+	padding: 0;
+}
+
+.mix_area .btn ul li {
+	display:inline;
+	margin: 0;
+	padding: 0;
+}

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.category.CategoryDao">
+	
+	<select id="getCategoryListAll" resultType="kr.go.gbelib.app.cms.module.category.Category">
+		SELECT
+			HOMEPAGE_ID, GROUP_IDX, CATEGORY_IDX, CATEGORY_NAME, PRINT_SEQ, USE_YN,
+			(SELECT GROUP_NAME FROM TEACH_CATEGORY_GROUP WHERE HOMEPAGE_ID = a.HOMEPAGE_ID AND GROUP_IDX = a.GROUP_IDX) AS GROUP_NAME,
+			req_limit_yn, req_limit_type, req_limit_count
+		FROM
+			TEACH_CATEGORY a
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id}
+		AND large_category_idx = #{large_category_idx} 
+		AND delete_yn = 'N'
+			<if test="group_idx > 0">
+			AND GROUP_IDX = #{group_idx} 
+			</if>
+		ORDER BY
+			PRINT_SEQ DESC, add_date desc
+	</select>
+	
+	<select id="getCategoryList" resultType="kr.go.gbelib.app.cms.module.category.Category">
+		${pagingTop}
+			SELECT
+				homepage_id, group_idx, category_idx, category_name, print_seq, use_yn,
+				(SELECT group_name FROM TEACH_CATEGORY_GROUP WHERE homepage_id = a.homepage_id AND group_idx = a.group_idx) AS group_name,
+				(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx) AS large_category_name,
+				req_limit_yn, req_limit_type, req_limit_count, large_category_idx
+			FROM
+				TEACH_CATEGORY a
+			WHERE 
+				homepage_id = #{homepage_id} 
+			AND large_category_idx = #{large_category_idx} 
+			AND group_idx = #{group_idx} 
+			AND delete_yn = 'N'
+				<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
+				AND ${search_type} LIKE '%'||#{search_text}||'%'
+				</if>
+			ORDER BY
+				print_seq DESC, add_date desc
+		${pagingBottom}
+	</select>
+	
+	<select id="getCategoryListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			TEACH_CATEGORY
+		WHERE 
+			homepage_id = #{homepage_id} 
+		AND large_category_idx = #{large_category_idx} 
+		AND group_idx = #{group_idx} 
+		AND delete_yn = 'N'
+			<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
+			AND ${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+		ORDER BY
+			print_seq DESC
+	</select>
+	
+	<select id="getCategoryOne" resultType="kr.go.gbelib.app.cms.module.category.Category">
+		SELECT
+			homepage_id, group_idx, category_idx, category_name, print_seq, use_yn,
+			(SELECT group_name FROM TEACH_CATEGORY_GROUP WHERE homepage_id = a.homepage_id AND group_idx = a.group_idx) AS group_name,
+			(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx) AS large_category_name,
+			req_limit_yn, req_limit_type, req_limit_count, large_category_idx
+		FROM
+			TEACH_CATEGORY a
+		WHERE 
+			homepage_id = #{homepage_id}
+		AND large_category_idx = #{large_category_idx} 
+		AND group_idx = #{group_idx} 
+		AND category_idx = #{category_idx} 
+		AND delete_yn = 'N'
+	</select>
+	
+	<insert id="addCategory">
+		<selectKey keyProperty="category_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(category_idx),0)+1 FROM TEACH_CATEGORY WHERE HOMEPAGE_ID = #{homepage_id} AND GROUP_IDX = #{group_idx} 
+		</selectKey>
+	
+		INSERT INTO TEACH_CATEGORY
+		(
+			HOMEPAGE_ID, GROUP_IDX, CATEGORY_IDX, CATEGORY_NAME, PRINT_SEQ, USE_YN, ADD_DATE, ADD_ID,
+			req_limit_yn, req_limit_type, req_limit_count, large_category_idx
+		) VALUES (
+			#{homepage_id}, #{group_idx}, #{category_idx}, #{category_name}, #{print_seq}, #{use_yn}, SYSDATE, #{add_id},
+			#{req_limit_yn}, #{req_limit_type}, #{req_limit_count}, #{large_category_idx}
+		)
+	</insert>
+	
+	<update id="modifyCategory">
+		UPDATE 
+			TEACH_CATEGORY
+		SET
+			GROUP_IDX = #{group_idx}, 
+			CATEGORY_NAME = #{category_name}, 
+			PRINT_SEQ = #{print_seq}, 
+			USE_YN = #{use_yn},
+			MOD_DATE = SYSDATE,
+			MOD_ID = #{mod_id},
+			req_limit_yn = #{req_limit_yn}, 
+			req_limit_type = #{req_limit_type}, 
+			req_limit_count = #{req_limit_count}
+		WHERE 
+			homepage_id = #{homepage_id}
+		AND large_category_idx = #{large_category_idx} 
+		AND group_idx = #{group_idx} 
+		AND category_idx = #{category_idx} 
+		AND delete_yn = 'N'
+	</update>
+	
+	<delete id="deleteCategory">
+		UPDATE 
+			TEACH_CATEGORY
+		SET
+			DELETE_YN = 'Y'
+		WHERE 
+			homepage_id = #{homepage_id}
+		AND large_category_idx = #{large_category_idx} 
+		AND group_idx = #{group_idx} 
+		AND category_idx = #{category_idx} 
+		AND delete_yn = 'N'
+	</delete>
+	
+	<select id="getPrintMaxValue" resultType="int">
+		SELECT
+			NVL(MAX(PRINT_SEQ),0)+1
+		FROM
+			TEACH_CATEGORY
+		WHERE 
+			homepage_id = #{homepage_id}
+		AND large_category_idx = #{large_category_idx} 
+		AND group_idx = #{group_idx} 
+		AND category_idx = #{category_idx} 
+		AND delete_yn = 'N'
+	</select>
+	
+	<select id="checkTeachInCategory" resultType="int">
+		SELECT COUNT(*)
+		FROM
+			TEACH
+		WHERE 
+			homepage_id = #{homepage_id}
+		AND large_category_idx = #{large_category_idx} 
+		AND group_idx = #{group_idx} 
+		AND category_idx = #{category_idx} 
+		AND delete_yn = 'N'
+	</select>
+	
+	<select id="getReqLimitTotal" resultType="kr.go.gbelib.app.cms.module.category.Category">
+		SELECT
+			NVL(SUM(req_limit_count), 0) as req_limit_count, COUNT(*) as cnt
+		FROM
+			TEACH_CATEGORY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	group_idx = #{group_idx}
+		AND	req_limit_yn = 'Y'
+		AND	category_idx != #{category_idx}
+	</select>
+	
+</mapper>

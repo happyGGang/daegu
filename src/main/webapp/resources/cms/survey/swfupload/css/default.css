@@ -1,0 +1,41 @@
+@charset "utf-8";
+/* ------------------------------------------------------------
+ * Name      : default.css
+ * Desc      : 내친구교육넷 설문조사 > Smart Uploader CSS Style
+ * Created   : 2013-12-12
+ * Updated   : 2015-02-05
+ * Author    : Whale Soft
+ ------------------------------------------------------------ */
+
+/* fileAttach */
+#attach_area { width:710px; margin:10px 0 0 0; padding:0; background:url('/survey/resources/swfupload/img/bg_attach.gif') repeat-x; display:relative;  }
+#attach_area h4 { position:relative; width:135px; padding:4px 0 5px 18px; font-size:13px !important; color:#fff; background:url('/survey/resources/swfupload/img/tit_attach.gif') no-repeat;  }
+#attach_area .fileUploader, #attach_area .fileResult {  padding:0; margin-top:10px; }
+#attach_area .fileUploader .preview, #attach_area .fileUploader .thumb  { width:104px; height:94px; margin:0 10px; background:url('/survey/resources/swfupload/img/bg_preview.gif') no-repeat; text-align:center;  float:left; position:relative; }
+#attach_area .fileUploader .thumb { float:left; background:url('/survey/resources/swfupload/img/bg_thumb.gif') no-repeat; }
+#attach_area .fileUploader .preview span, #attach_area .fileUploader .thumb span { display:inline-block; width:88px; height:78px; margin:7px 0 0 0;  }
+#attach_area .fileUploader .fileListArea { float:left; width:370px; position:relative; }
+#attach_area .fileUploader .fileListArea input { width:98%; height:90px; border:1px solid #d4d4d4; }
+#attach_area .fileUploader .fileListArea  select { width:98%; height:94px; border:1px solid #d4d4d4; z-index:100;  }
+
+#attach_area .fileUploader .file_info { width:240px; float:left; overflow:hidden; position:relative; left:220px; *left:0; margin:0 0 0 -220px; *margin-left:0; } 
+#attach_area .fileUploader .file_info .fileUploadControl span { display:inline-block; zoom:1; *display:inline; font-size:0; margin-left:0; line-height:100%; }
+#attach_area .fileUploader .file_info .fileUploadControl .btn_add { width:63px; height:26px; background:url('/survey/resources/swfupload/img/btn_add_file.gif') no-repeat; vertical-align:middle; }
+#attach_area .fileUploader .file_info .fileUploadControl .btn_del { width:63px; height:26px; background:url('/survey/resources/swfupload/img/btn_select_del.gif') no-repeat; vertical-align:middle; }
+#attach_area .fileUploader .file_info .fileUploadControl .btn_put { width:87px; height:26px; background:url('/survey/resources/swfupload/img/blue/btn_in_editor.gif') no-repeat; vertical-align:middle; }
+#attach_area .fileUploader .file_info .fileUploadControl .btn_preview { width:103px; height:26px; background:url('/survey/resources/swfupload/img/btn_preview.gif') no-repeat; vertical-align:middle; }
+#attach_area .fileUploader .file_info .fileUploadControl .btn_chooseThumb { width:79px; height:26px; background:url('/survey/resources/swfupload/img/btn_chooseThumb.gif') no-repeat; vertical-align:middle; }
+
+#attach_area .fileUploader .file_info .file_attach_info { float:left; font-size:11px; margin-top:5px;  }
+#attach_area .fileUploader .file_info span { font-size:11px; margin-left:3px; line-height:150%;  }
+#attach_area .fileUploader .file_info span strong { color:#333; }
+ 
+#attach_area .fileResult { clear:both; /* width:10%; */  *width:100%; padding-top:15px; position:relative; }
+#attach_area .fileResult .rate { float:left; width:123px; text-align:center; position:releative; *padding-top:7px;  }
+ 
+.loading {  width:380px; *width:390px; float:left; } 
+.dsc_loading_no { position:relative; float:left; *text-align:left; *padding-top:5px;  }
+.dsc_loading_no .no { display:none }
+.progress {  font-size:11px; color:#e8af05; font-family:verdana; font-weight:bold; font-style:normal; }
+.loading .progress_bar { width:358px; height:14px; padding:5px 7px 5px 5px; background:url('/survey/resources/swfupload/img/bg_progress.gif') no-repeat; *position:absolute; *top:20px; *left:130px; }
+.loading .progress_bar span { display:block; height:4px; background:url('/survey/resources/swfupload/img/img_progress.gif') 0 repeat; border-left:1px solid #be8f00; border-right:1px solid #be8f00; font-size:0 }

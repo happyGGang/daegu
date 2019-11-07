@@ -1,0 +1,244 @@
+@charset "utf-8";
+/* ------------------------------------------------------------
+ * Name      : sms.css
+ * Desc      : 내친구교육넷 Text Message Service CSS Style
+ * Created   : 2014-12-03
+ * Updated   : 2015-04-14
+ * Author    : Whale Soft
+ ------------------------------------------------------------ */
+ 
+*  table th, table td{font-family:Dotum}
+
+/* 문자서비스 홈 */
+/* 문자서비스 홈 > Left Area */
+#MD .MD_SMS_LT{width:202px;position:relative;float:left}
+#MD .MD_SMS_LT #lnb{width:202px;margin-bottom:10px;float:left}
+#MD .MD_SMS_LT #lnb .h2_SMS_01{height:76px;background:url('/resources/cms/smsSend/img/lnb_top.gif') no-repeat;font-size:0;line-height:0; }
+#MD .MD_SMS_LT #lnb .menu{background:url('/resources/cms/smsSend/img/bg_lnb.gif') repeat-y;padding:20px 0 25px}
+#MD .MD_SMS_LT #lnb .menu li{background:url('/resources/cms/smsSend/img/bullet_01.gif') 33px 10px no-repeat;padding-left:44px;font-weight:bold;margin:3px 0}
+#MD .MD_SMS_LT #lnb .menu li a{text-decoration:none}
+#MD .MD_SMS_LT #lnb .menu li a:hover{color:#258cc4 !important}
+#MD .MD_SMS_LT #lnb .lnbBot{height:14px;background:url('/resources/cms/smsSend/img/lnb_bot.gif') no-repeat;font-size:0;line-height:0;margin-top:-3px}
+
+#MD .MD_SMS_LT .infoArea{clear:both;margin-bottom:20px}
+#MD .MD_SMS_LT .infoArea li{border-bottom:1px solid #e9e9e9;font-family:dotum;letter-spacing:-0.7pt;font-size:11px;font-weight:bold;color:#525252;line-height:130%}
+#MD .MD_SMS_LT .infoArea .message{background:url('/resources/cms/smsSend/img/ico_message.gif') left 4px no-repeat;padding:0 0 0 25px}
+#MD .MD_SMS_LT .infoArea .point{background:url('/resources/cms/smsSend/img/ico_point.gif') left 4px no-repeat;padding:0 0 0 25px}
+#MD .MD_SMS_LT .infoArea .info{background:url('/resources/cms/smsSend/img/ico_info.gif') left 4px no-repeat;padding:5px 0 0 25px;border:none}
+#MD .MD_SMS_LT .infoArea li span{display:inline-block;padding:4px 0 3px}
+#MD .MD_SMS_LT .infoArea li .em{color:#dc0032;margin:0 3px 0 2px} 
+#MD .MD_SMS_LT .infoArea .detail li{border-bottom:none}
+#MD .MD_SMS_LT .infoArea .detail li span{padding:1px 0}
+#MD .MD_SMS_LT .infoArea .btn_change{width:60px;height:18px;background:url('/resources/cms/smsSend/img/btn_change.gif') left 4px no-repeat;font-size:0;line-height:0;float:right;*position:absolute}
+
+#MD .MD_SMS_LT .banArea{margin-bottom:30px}
+#MD .MD_SMS_LT .banArea li{margin-bottom:9px}
+
+/* 문자서비스 홈 > Right Area > 휴대폰 */
+#MD .MD_RT{width:780px;background:url('/resources/cms/smsSend/img/MD_RT_bg.gif') repeat-x}
+#MD .MD_RT .MD_top h3{font-family:NanumGothic;font-weight:bold;font-size:2em;padding:5px 0 0 20px;color:#333}
+#MD .MD_RT .MD_top ul.where{position:relative;float:right;top:36px;background:url('/resources/cms/smsSend/img/ico_home.gif') no-repeat;padding-left:25px;}
+.MD_sms{position:relative}
+.MD_sms span, .MD_sms textarea{font-family:Dotum;font-size:12px}
+.MD_sms .mobile{position:relative;width:211px;height:438px;background:url('/resources/cms/smsSend/img/mobile.gif') no-repeat}
+.MD_sms .mobile .tabs{position:relative;margin:39px 0 8px 8px}
+.MD_sms .mobile .tabs li{float:left}
+.MD_sms .mobile textarea{position:relative;background:none;border:none;width:170px;height:212px;padding:8px;margin:0 0 8px 10px;overflow-y:auto}
+/* .MD_sms .mobile textarea{position:relative;background:none;border:none;width:170px;height:212px;color:#fff;padding:8px;margin:0 0 8px 10px;overflow-y:auto} */
+.MD_sms .mobile .mobile_bot{position:relative;margin:0 0 0 8px;width:186px}
+.MD_sms .mobile .mobile_bot .info_byte{position:absolute;right:0;top:0}
+.MD_sms .mobile .mobile_bot .info_byte strong{color:#87ace7}
+.MD_sms .mobile .mobile_bot .expect{padding:5px 0 2px;border-bottom:1px solid #f9f9f9;margin-bottom:7px}
+.MD_sms .mobile .mobile_bot .expect span{font-weight:bold;height:20px;padding:3px 0 3px 17px}
+.MD_sms .mobile .mobile_bot .info_person{color:#55b940;background:url('/resources/cms/smsSend/img/ico_person.gif')  no-repeat;margin-right:15px;  }
+.MD_sms .mobile .mobile_bot .info_point{color:#333;background:url('/resources/cms/smsSend/img/ico_money.gif') no-repeat}
+.MD_sms .mobile .mobile_bot .info_point .em{color:#ff771c;padding-left:0}
+.MD_sms .mobile .mobile_bot .sendBtns li{float:left;margin:0 3px 2px 0;*margin-right:0}
+
+/* 문자서비스 홈 > Right Area > 휴대폰 > 특수문자 */
+.MD_sms .mobile .viewSpecial{position:absolute;width:184px;height:284px;top:10px;border-radius:20px 20px 0 0 ;-webkit-border-radius:20px 20px 0 0;-moz-border-radius:20px 20px 0 0;border:2px solid #174da3;background:#fff}
+.MD_sms .mobile .viewSpecial h4{background:#174da3;border-radius:15px 15px 0 0 ;-webkit-border-radius:15px 15px 0 0;-moz-border-radius:15px 15px 0 0;padding:4px 0 5px 7px;color:#fff;font-weight:bold;position:relative} 
+.MD_sms .mobile .viewSpecial .btn_close{position:absolute;right:9px;top:9px}
+.MD_sms .mobile .viewSpecial .special_letters{background:#8db1d2;height:70px;}
+.MD_sms .mobile .viewSpecial .special_letters li{float:left;padding:3px 0 0 2px;width:13px;font-family:Dotum;font-size:12px;line-height:150%}
+.MD_sms .mobile .viewSpecial .special_letters li a, .MD_sms .mobile .viewSpecial .special_letters li a:hover{color:#fff;text-decoration:none}
+.MD_sms .mobile .viewSpecial .special_letters li a{display:block;padding:0 2px}
+.MD_sms .mobile .viewSpecial .emoticon{padding-left:1px}
+.MD_sms .mobile .viewSpecial .emoticon li{float:left;border:1px solid #dedede;width:60px;margin:-1px 0 0 -1px;text-align:center;font-family:Dotum;font-size:12px;letter-spacing:-0.2pt}
+.MD_sms .mobile .viewSpecial .emoticon li.combine{width:121px}
+.MD_sms .mobile .viewSpecial .emoticon li a{text-decoration:none}
+
+/* 문자서비스 홈 > Right Area > 전송목록 */
+.MD_sms .listBox{float:right;background:#e6f5fd;border:1px solid #d4e1e8;border-radius:20px;-webkit-border-radius:20px;-moz-border-radius:20px;width:535px;height:405px;padding:10px}
+.sendList{float:left;position:relative;width:243px;height:405px;margin-left:7px}
+.sendList dl{float:left;margin:0 10px 10px 0}
+.sendList dl dt, .sendList dl dd, .sendList dl dd input, .delBtn a{font-family:Dotum;font-size:12px}
+.sendList dl dt{color:#1f3b8c;font-weight:bold}
+.sendList dl dd input[type="text"]{width:92px;border:none;padding:0 0 0 6px;letter-spacing:-0.2pt;height:22px}
+.sendList dl dd input.disable{background:#6f87bb;color:#fff}
+.sendList dl.getNum{margin-right:0}
+.sendList .btn_putNum{position:absolute;right:5px;top:21px}
+.list, .group_list{scrollbar-base-color: #000;  /* 아래의 6가지 스타일을 하나로 통합 한것 */
+scrollbar-face-color: #ebf4fc;  /* bar 의 표면색 */
+scrollbar-track-color: #bad8f6;  /* 스크롤 트랙의 색 */
+scrollbar-highlight-color: #97c4f1;  /* 밝게 빛나는 좌상단 모서리 */
+scrollbar-3dlight-color: #97c4f1;  /* 좌상단 모서리 아래부분 */
+scrollbar-shadow-color: #97c4f1;  /* 그림자 지는 우하단 */
+scrollbar-darkshadow-color: #97c4f1;  /* 그림자 우하단 */
+scrollbar-arrow-color: #679de9;  /* 삼각형부분 */ }
+.list, .group_list ul li span{display:inline-block}
+.sendList .list{clear:both;border:1px solid #cadee9;width:235px;height:321px;overflow-y:scroll;background:#fff}
+.list table{width:100%;letter-spacing:-0.7pt}
+.list table thead th{background:#3162aa;font-size:11px;text-align:center;color:#fff;padding:3px 0 2px;letter-spacing:-0.8pt}
+.list table tbody td{text-align:center;padding:3px 0 2px;color:#999;background:#fff}
+.list table tbody td.nickname{color:#2c539e;font-weight:bold;letter-spacing:-0.5pt;padding-top:4px}
+.list table tbody td span{display:inline-block;zoom:1;*display:inline;vertical-align:middle;margin-left:4px;letter-spacing:-0.3pt}
+.sendList .delBtn{width:100%;text-align:center;padding:5px 0 0 0;position:relative}
+.sendList .delBtn a.button{color:#fff;font-size:11px;text-decoration:none;padding:2px 12px 1px;position:relative;display:inline-block;
+-webkit-transition:border-color .218s;-moz-transition:border .218s;-o-transition:border-color .218s;transition:border-color .218s;
+-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;margin:0 3px;letter-spacing:-1pt;background:#3162aa}
+.delBtn a.button:hover{background:#27498f;color:#fff !important}
+.delBtn a.button:active{color:#fff;background:#a9c1eb}
+
+/* 전송문자 > 전화번호 입력 */
+.openText{width:235px;height:322px;*height:328px;background:#fff;border:1px solid #cadee9;position:absolute;top:53px;left:0}
+.openText p{padding:3px 0;background:#5f98e5}
+.openText p span{display:inline-block;zoom:1;*display:inline;color:#fff;font-weight:bold;font-size:11px;letter-spacing:-0.8pt;text-align:center}
+.openText textarea{width:225px;height:252px;background:url('/resources/cms/smsSend/img/cell.gif');border:none;padding:0 5px;color:#333;line-height:180%}
+.openText .btn_complete{background:#194f91;text-align:center;padding:9px 0 10px}
+
+/* 문자서비스 홈 > Right Area > 전화번호 이동 버튼 */
+.moveBtn{width:35px;text-align:center;float:left;margin-top:190px;margin-right:5px;}
+.moveBtn li{margin:2px 0}
+
+/* 문자서비스 홈 > Right Area > 그룹 및 주소록 */
+.addressList{float:left;position:relative}
+.addressSet{position:absolute;top:-3px;right:0;display:inline-block;zoom:1;*display:inline;width:91px;height:23px;font-size:0 !important;background:url('/resources/cms/smsSend/img/btn_settingAddress.gif') no-repeat}
+.addressSet:hover{background:url('/resources/cms/smsSend/img/btn_settingAddress_on.gif') no-repeat}
+.group h4, .address h4{color:#1f3b8c;font-weight:bold;font-family:Dotum;letter-spacing:-0.5pt}
+.group .list, .address .list{border:1px solid #cadee9;width:235px;overflow-y:scroll;background:#fff;padding-top:3px}
+.group .list{clear:both;height:90px;margin-bottom:10px}
+.group .list li{font-family:Dotum;font-size:12px;background:url('/resources/cms/smsSend/img/ico_group.gif')  10px 4px no-repeat;padding-left:29px}
+.group .list li a{text-decoration:none}
+.group .list li.on a{font-weight:bold;color:#2c539e}
+.address .list{padding-top:0;height:260px}
+
+/* 문자서비스 홈 > 이모티콘 모음 */
+.MD_emoticon{clear:both;margin-bottom:10px;padding-top:20px}
+.MD_emoticon .emo_search{position:relative;width:100%;height:74px;background:url('/resources/cms/smsSend/img/bg_emoticon.gif') no-repeat}
+.MD_emoticon .emo_search .fieldset{margin-left:180px;padding-top:30px}
+.MD_emoticon .emo_search .fieldset .tit{font-size:1.1em;font-weight:bold;color:#333;float:left;margin-right:10px}
+.MD_emoticon .emo_search .search_area{position:relative;width:303px}
+.MD_emoticon .emo_search .search_area input{position:relative;background:#fff;border:1px solid #cad4da;border-radius:10px;-webkit-border-radius:10px;-moz-border-radius:10px;padding:0 30px 0 10px} 
+.MD_emoticon .emo_search .search_area .btn_search{position:absolute;top:2px;right:-50px;display:inline-block;zoom:1;*display:inline;width:20px;height:18px;background:url('/resources/cms/smsSend/img/btn_search.gif') no-repeat;font-size:0;line-height:0}
+
+.MD_emoticon .tabMenu{width:100%;height:42px;background:#1e78ad;margin-bottom:2px}
+.MD_emoticon .tabMenu li{float:left}
+.MD_emoticon .tabMenu li a{display:block;padding:10px 30px;color:#fff;font-weight:bold;text-decoration:none}
+.MD_emoticon .tabMenu li.on a{background:#0f5287;color:#fff !important}
+.MD_emoticon .tabMenu li a:hover{color:#fffdc6 !important}
+.MD_emoticon .emoBox{clear:both;background:#fcfdfe;border:1px dashed #dbdbdc;height:175px}
+.MD_emoticon .emoBox li{float:left;padding:20px 0 0 30px;width:158px; } 
+.MD_emoticon .emoBox li .screen{background:url('/resources/cms/smsSend/img/screen.gif') no-repeat;width:254px;height:136px}
+.MD_emoticon .emoBox li .screen textarea{width:122px;height:87px;background:none;border:none;margin:30px 0 0 15px;font-family:Dotum;font-size:12px;cursor:pointer;line-height:120%;overflow:hidden}
+
+/* 서브페이지 */
+.MD_sub{position:relative;width:734px;margin:0 auto} 
+
+/* 주소록 */
+.MD_sub .address_tit{position:relative;width:100%;height:83px;background:url('/resources/cms/smsSend/img/address_tit.gif') no-repeat;margin-bottom:17px; } 
+.MD_sub .address_tit ul{margin:0 0 0 190px;padding:19px 0 0 0}
+.MD_sub .address_tit ul li{font-weight:bold}
+.MD_sub .address_tit ul li.em{color:#0075b4}
+
+.MD_sub .address_search{position:relative;background:#f0f9fe;border:1px solid #d4e1e8;padding:10px 15px;margin-bottom:17px;border-radius:10px;-webkit-border-radius:10px;-moz-border-radius:10px}
+.MD_sub .address_search span{float:left;margin-right:7px;vertical-align:middle}
+.MD_sub .address_search .tit{font-weight:bold;padding-top:3px}
+.MD_sub .address_search .txt1{float:left;font-size:0.9em;margin-right:5px}
+
+/* 주소록 > 그룹 */
+.MD_sub .group_list{float:left}
+.MD_sub .group_list ul{width:260px;height:445px;overflow-y:scroll;border:3px solid #daecf6;padding:0}
+.MD_sub .group_list li{margin:0}
+.MD_sub .group_list li.on{background:#e5f5fc}
+.MD_sub .group_list li a{display:block;padding:3px 0 5px 0;text-decoration:none}
+.MD_sub .group_list li p{margin-left:5px;font-family:Dotum;font-size:12px;background:url('/resources/cms/smsSend/img/ico_group_step.gif') 10px 7px no-repeat;padding-left:35px; }
+.MD_sub .group_list li:first-child p{margin:0;background:url('/resources/cms/smsSend/img/ico_group.gif') 10px 7px no-repeat;padding-left:29px;}
+.MD_sub .group_list li.on p{font-weight:bold; }
+.MD_sub .group_list li.on p a{color:#5f98e5}
+
+.MD_sub .delBtn.type01{width:100%;text-align:center;padding:5px 0 0 0;position:relative}
+.MD_sub .delBtn.type01 a.button{color:#fff;font-size:11px;text-decoration:none;padding:2px 8px 1px;position:relative;display:inline-block;zoom:1;*display:inline;
+-webkit-transition:border-color .218s;-moz-transition:border .218s;-o-transition:border-color .218s;transition:border-color .218s;
+-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;margin:0 1px;letter-spacing:-1pt;background:#81a4e1}
+.MD_sub .delBtn.type01 a.button:hover{background:#385dae;color:#fff !important}
+.MD_sub .delBtn.type01 a.button:active{color:#fff;background:#a9c1eb}
+
+
+/* 주소록 > 그룹별 주소록 */
+.MD_sub .group_address{float:right;width:455px}
+.MD_sub .group_address h4 {padding:0 0 3px 0}
+.MD_sub .group_address h4 .name{color:#0dbca1;font-weight:bold}
+.MD_sub .group_address .search{background:#def4fb;border:1px solid #c2e0e7;margin-bottom:9px}
+.MD_sub .group_address .search .fieldset{padding:10px 0 10px 0;margin-left:15px}
+.MD_sub .group_address .search .btn_search{margin-left:3px}
+
+.MD_sub .group_address .list{}
+.MD_sub .group_address .address_list{width:100%;background:url('/resources/cms/smsSend/img/address_bar.gif') no-repeat;border-bottom:2px solid #4298cc;margin-bottom:10px}
+.MD_sub .group_address .address_list thead th{color:#fff;text-align:center;padding:7px 0 6px;background:none}
+.MD_sub .group_address .address_list tbody td{text-align:center;padding:2px 0 2px;letter-spacing:-1pt;border-bottom:1px solid #f5f5f5}
+.MD_sub .group_address .address_list tbody td.nickname{color:#70c9ec}
+.MD_sub .group_address .list .paging{}
+.MD_sub .group_address .list .paging a.prev{background:none;padding:0;position:absolute;top:0;left:27px; }
+.MD_sub .group_address .list .paging a.prev_end{background:none;padding:0;position:absolute;top:0;left:0; }
+.MD_sub .group_address .list .paging a.next{background:none;padding:0;position:absolute;right:27px}
+.MD_sub .group_address .list .paging a.next_end {background:none;padding:0;position:absolute;right:0;top:0}
+.MD_sub .group_address .list .paging a, .paging strong{margin:0 2px}
+
+.MD_sub .delBtn{width:100%;text-align:center;padding:5px 0 0 0;position:relative}
+.MD_sub .delBtn a.button{color:#fff;font-size:11px;text-decoration:none;padding:2px 8px 1px;position:relative;display:inline-block;zoom:1;*display:inline; 
+-webkit-transition:border-color .218s;-moz-transition:border .218s;-o-transition:border-color .218s;transition:border-color .218s;
+-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;margin:0 1px;letter-spacing:-1pt;background:#7a8ca4}
+.MD_sub .delBtn a.button:hover{background:#3e4e67;color:#fff !important}
+.MD_sub .delBtn a.button:active{color:#fff;background:#a9c1eb}
+
+/* 보낸메시지함 */
+.MD_sub .send_tit{position:relative;width:100%;height:83px;background:url('/resources/cms/smsSend/img/send_tit.gif') no-repeat;margin-bottom:17px; } 
+.MD_sub .send_tit ul{margin:0 0 0 190px;padding:32px 0 0 0}
+.MD_sub .send_tit ul li{font-weight:bold}
+.MD_sub .send_tit ul .em{color:#0075b4}
+.MD_sub .totalNum{float:left;padding:6px 0 0 0}
+.MD_sub .totalNum strong{color:#0095d1} 
+.MD_sub .delBtn.type01.sent{width:300px;float:right;text-align:right;margin-bottom:10px}
+
+.MD_sub .msgBox{clear:both;background:#fcfdfe;border:1px dashed #dbdbdc;margin-bottom:10px}
+.MD_sub .msgBox ul li{float:left;padding:20px 0 0 20px;width:158px} 
+.MD_sub .msgBox ul li .screen{background:url('/resources/cms/smsSend/img/screen.gif') no-repeat;width:254px;height:156px;margin-bottom:5px}
+.MD_sub .msgBox ul li .screen textarea{width:122px;height:87px;background:none;border:none;margin:30px 0 0 15px;font-family:Dotum;font-size:12px;cursor:pointer;line-height:120%;overflow:hidden;text-align:left}
+.MD_sub .msgBox ul li .screen p{width:152px;text-align:center;padding-top:19px}
+.MD_sub .msgBox .sent_info{ }
+.MD_sub .msgBox .sent_info li{width:150px;padding:0;text-align:center;font-family:Dotum;font-size:12px;letter-spacing:-0.2pt;margin:2px 0;line-height:130%;color:#11577c;height:13px}
+.MD_sub .msgBox .sent_info li.receiver{color:#429dcc}
+
+/* 예약메시지함 */
+.MD_sub .reservation_tit{position:relative;width:100%;height:83px;background:url('/resources/cms/smsSend/img/reservation_tit.gif') no-repeat;margin-bottom:17px} 
+.MD_sub .reservation_tit ul{margin:0 0 0 160px;padding:32px 0 0 0}
+.MD_sub .reservation_tit ul li{font-weight:bold}
+.MD_sub .reservation_tit ul .em{color:#0075b4}
+
+/* 문자 팝업 */
+#txtMessage_wrap{width:665px;padding:10px 0}
+#txtMessage_wrap .leftArea{width:436px;float:left}
+#txtMessage_wrap .leftArea .MD_emoticon{width:394px;margin:0 auto;padding:0}
+#txtMessage_wrap .leftArea .MD_emoticon .emo_top{position:relative;width:100%;height:86px;background:url('/resources/cms/smsSend/img/bg_emoticon_1.gif') no-repeat;margin-bottom:3px}
+#txtMessage_wrap .leftArea .MD_emoticon .emo_top .fieldset{margin-left:145px;padding-top:11px}
+#txtMessage_wrap .leftArea .MD_emoticon .emo_top .search_area{position:relative;width:222px}
+#txtMessage_wrap .leftArea .MD_emoticon .emo_top .search_area input{position:relative;background:#fff;border:1px solid #cad4da;border-radius:10px;-webkit-border-radius:10px;-moz-border-radius:10px;padding:0 30px 0 10px} 
+#txtMessage_wrap .leftArea .MD_emoticon .emo_top .search_area .btn_search{position:absolute;top:2px;right:6px;display:inline-block;zoom:1;*display:inline;width:20px;height:18px;background:url('/resources/cms/smsSend/img/btn_search.gif') no-repeat;font-size:0;line-height:0}
+#txtMessage_wrap .leftArea .MD_emoticon .emo_top .category{margin:6px 0 0 145px;width:230px}
+#txtMessage_wrap .leftArea .MD_emoticon .emoBox{width:392px;height:300px; }
+#txtMessage_wrap .leftArea .MD_emoticon .emoBox li{float:left;padding:10px 0 0 25px;width:166px; } 
+#txtMessage_wrap .leftArea .MD_emoticon .emoBox li .screen{width:154px;background:url('/resources/cms/smsSend/img/screen.gif') no-repeat}
+#txtMessage_wrap .leftArea .MD_emoticon .emoBox li .screen textarea{width:122px;height:87px;background:none;border:none;margin:30px 0 0 15px;font-family:Dotum;font-size:12px;cursor:pointer;line-height:120%;overflow:hidden}
+
+#txtMessage_wrap .rightArea{float:left}

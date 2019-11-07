@@ -1,0 +1,92 @@
+@charset "utf-8";
+@import url("../../../common/css/type26.css");
+
+.main{background:url('../img/main_bg.jpg') no-repeat center 0}
+.main2 .mb2 a{background-image:url('../img/quick02_bg.jpg')}
+.main2 .mb2 a:hover{background-image:url('../img/quick02_bg_on.jpg')}
+@media all and (max-width:1000px){
+	.main1{background:url('../img/main_bg.jpg') no-repeat 0 0}
+}
+
+.doc-body h2 strong.t1{color:#f60}
+
+/* 이메일주소 무단수집 거부 */
+.nomail{overflow:hidden}
+.nomail h2{margin-top:0;padding-bottom:0}
+.nomail>div{background:url('/resources/homepage/gw/img/contents/nomailBg.gif') no-repeat 7% center}
+.nomail>div>p{padding:15px 0 15px 14%}
+@media all and (max-width:767px){
+	.nomail>div{background:none}
+	.nomail>div>p{padding-left:0}
+}
+
+/*행사안내*/
+.culture{background:url('../img/contents/w_icon2.gif') no-repeat 20px;padding:20px 0 20px 160px}
+@media all and (max-width:400px){
+	.culture{background:none;padding:0px}
+}
+
+/*사이버강좌*/
+.doc-body .cyber{background:url('../img/contents/brick_bg.jpg') repeat center 0;padding:7% 2%}
+.doc-body .cyber a{display:inline-block;zoom:1;*display:inline;margin:25px 20px}
+
+/* 인사말 */
+.greeting .t1{font-size:190%;letter-spacing:-1px;padding: 20px 0 25px 35px;border-bottom: 1px solid #cdcdcd;width: 400px}
+.greeting .box{padding:20px 260px 60px 0;background:url('../img/contents/in_imgbg.gif') no-repeat right 50%}
+.greeting .gtxt{padding:30px;background:url('../img/contents/introd_botm_bg.jpg') no-repeat right bottom}
+.greeting .txt p{padding:0 0 10px;font-size:105%}
+.greeting .sign{padding:15px 0 0;font-size:120%}
+.greeting .sign span{color:#888;display:inline-block;zoom:1;*display:inline;vertical-align:middle}
+.greeting .sign span.name{margin-left:5px}
+@media all and (max-width:767px){
+	.greeting .t1{background-position:right 0;background-size:15%}
+	.greeting .box{padding-right:5%;background:none}
+}
+@media all and (max-width:400px){
+	.greeting .t1{background-position:right bottom;background:none}
+}
+
+/* 인사말 추가 20170114hjh*/
+.greeting{background:url('../img/contents/introd_bg.gif') no-repeat left top}
+
+/* 연혁 */
+/* .history{background:url('../img/contents/history_bg1.gif') no-repeat 40px 50px;padding:10px 0 20px 400px}
+.history>ul>li{color:#103da0;font-weight:bold}
+.history>ul>li>strong{font-size:110%;font-weight:800}
+.history>ul>li>ul>li{color:#585858;font-weight:normal}
+.history p{margin:0 0 15px}
+@media all and (max-width:1000px){
+	.history{background:url('../img/contents/history_bg1.gif') no-repeat right 50px;padding:4% 0 4% 4%}
+}@media all and (max-width:580px){
+	.history{background:none}
+} */
+/* 연혁 */
+.history-head{padding-bottom:20px;padding-top:10px;background-image:url('../img/contents/history_bg.gif')}
+.history-head .t1{color:#424c87}
+.history-head .t2 strong{color:#64a890;font-weight:800}
+.history .history_year{padding-top:15px;padding-bottom:15px}
+.history .history_year span{display:block;font-size:0;line-height:0}
+.history .history_year span em{font-size:32px;line-height:26px;font-style:normal}
+.history .history_year span em.y1,
+.history .history_year span em.y2{color:#64a890}
+
+/* 접속기록안내 */
+#memberInfo{position:absolute;width:22%;left:98%;top:26%;background:#fff;margin-left:-37%;box-shadow:0px 1px 7px 0px rgba(0,0,0,0.5);z-index: 9;}
+#memberInfo .inbox{position:relative;border:1px solid #ccc;padding:10px;}
+#memberInfo .inbox dt{font-weight:bold;font-family:verdana;padding-bottom: 10px;}
+#memberInfo .inbox dd{padding:3px 0}
+a#closeMemberInfo{position:absolute;right:7px;top:5px;font-size:120%}
+#line{width: 160px;}
+div.loginInfo{padding-top: 8px;padding-bottom: 15px;}
+span.fontRed{color: red;}
+span.fontBlue{color: rgb(27,104,199);font-weight: bold;}
+div.memberCon{background-color: rgb(240,240,240);border-radius: 1em;}
+div.memberCon2{padding-top: 12px;padding-left: 10px;padding-right: 10px; padding-bottom: 28px;}
+a.btnStyle{float: right;margin-top: 6px;}
+#loginIcon{padding-top: 13px;padding-left:10px;}
+.boxnImg{ float: left; }
+.box2_1 { float: left; width: 34%; }
+.box3_1 { float: left; width: 38%; border-left: 1px solid #ddd; }
+.boxn { padding-top: 1%; padding-bottom: 1%; padding-left: 5%; }
+
+

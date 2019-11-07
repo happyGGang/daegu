@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.module.survey.statistics.StatisticsDao">
+
+	<select id="getStatistics" resultType="kr.co.whalesoft.app.cms.module.survey.statistics.Statistics">
+		SELECT a.*, CASE 
+              WHEN (quest_type = 'ONE' OR quest_type = 'MULTI' OR quest_type = 'DESCRIPTION') AND cnt > 0
+              THEN ROUND((cnt/( SELECT COUNT(*) FROM CMS_SURVEY_ANSWER_DETAIL b WHERE a.survey_idx = b.survey_idx AND a.quest_idx = b.quest_idx )) * 100,2)
+              WHEN (quest_type = 'ONE' OR quest_type = 'MULTI' OR quest_type = 'DESCRIPTION') AND cnt = 0
+              THEN 0
+              WHEN (quest_type = 'MATRIX') AND cnt > 0
+              THEN ROUND((cnt/( SELECT COUNT(*) FROM CMS_SURVEY_ANSWER_MATRIX b WHERE a.survey_idx = b.survey_idx AND a.quest_idx = b.quest_idx AND a.matrix_idx = b.matrix_idx)) * 100,2)
+              WHEN (quest_type = 'MATRIX') AND cnt = 0
+              THEN 0
+              
+            ELSE 0
+            END ratio
+		FROM
+		(
+		  SELECT a.*, CASE WHEN (quest_type = 'ONE' OR quest_type = 'MULTI') 
+		              THEN (SELECT COUNT(*) FROM CMS_SURVEY_ANSWER_DETAIL b WHERE a.survey_idx = b.survey_idx AND a.quest_idx = b.quest_idx AND a.quest_detail_order = b.choice_answer )
+		              WHEN (quest_type = 'DESCRIPTION')
+					  THEN (SELECT COUNT(*) FROM CMS_SURVEY_ANSWER_DETAIL b WHERE a.survey_idx = b.survey_idx AND a.quest_idx = b.quest_idx)
+		              ELSE (SELECT COUNT(*) FROM CMS_SURVEY_ANSWER_MATRIX b WHERE a.survey_idx = b.survey_idx AND a.quest_idx = b.quest_idx AND a.matrix_idx = b.matrix_idx AND a.quest_detail_order = b.matrix_answer) 
+		              END cnt 
+		  FROM
+		  (
+		  SELECT a.survey_idx, a.quest_idx, a.quest_type, a.quest_content, a.quest_auth, a.quest_detail_free_yn, a.quest_order, a.quest_count, 
+		        b.quest_detail_idx, b.quest_detail_order, b.quest_detail_title, 
+		        c.matrix_idx, c.matrix_order, c.matrix_title
+		  FROM CMS_SURVEY_QUEST a, CMS_SURVEY_QUEST_DETAIL b, CMS_SURVEY_QUEST_matrix c
+		  WHERE a.survey_idx = #{survey_idx}
+		  AND a.homepage_id = #{homepage_id}
+		  AND a.homepage_id = b.homepage_id(+)
+		  AND a.survey_idx = b.survey_idx(+)
+		  AND a.quest_idx = b.quest_idx(+)
+		  AND a.survey_idx = c.survey_idx(+)
+		  AND a.quest_idx = c.quest_idx(+)
+		  ORDER BY a.quest_order, b.quest_detail_order, c.matrix_order
+		  ) a
+		) a
+	</select>
+	
+	<select id="getQuestDetailStatistics" resultType="kr.co.whalesoft.app.cms.module.survey.questDetail.QuestDetail">
+		SELECT 
+			a.*, CASE
+					WHEN cnt > 0 
+					THEN ROUND((cnt/(SELECT COUNT(*) FROM CMS_SURVEY_ANSWER_DETAIL b WHERE a.survey_idx = b.survey_idx AND a.quest_idx = b.quest_idx )) * 100,2) ELSE 0 
+				END ratio,
+			(( SELECT COUNT(*) FROM CMS_SURVEY_ANSWER_DETAIL b WHERE a.survey_idx = b.survey_idx AND a.quest_idx = b.quest_idx )) AS total_cnt
+		FROM 
+		(
+			SELECT 
+				a.*, 
+				(SELECT COUNT(*) FROM CMS_SURVEY_ANSWER_DETAIL b WHERE a.survey_idx = b.survey_idx AND a.quest_idx = b.quest_idx AND a.quest_detail_order = b.choice_answer) AS cnt 
+			FROM 
+				CMS_SURVEY_QUEST_DETAIL a
+			WHERE 
+				survey_idx = #{survey_idx}
+			AND	quest_idx = #{quest_idx}
+			AND homepage_id = #{homepage_id}
+			ORDER BY quest_detail_order
+		) a
+	</select>
+	
+	<select id="getQuestDetailDescriptionStatistics" resultType="kr.co.whalesoft.app.cms.module.survey.questDetail.QuestDetail">
+		SELECT COUNT(*) AS total_cnt
+		FROM
+			CMS_SURVEY_ANSWER_DETAIL
+		WHERE
+			survey_idx = #{survey_idx}
+		AND	quest_idx = #{quest_idx}
+		AND homepage_id = #{homepage_id}
+		AND	short_answer IS NOT NULL
+	</select>
+	
+	<select id="getQuestMatrix" resultType="kr.co.whalesoft.app.cms.module.survey.questMatrix.QuestMatrix">
+		SELECT
+			homepage_id, survey_idx, quest_idx, matrix_idx, matrix_order, matrix_title, 
+			add_date, add_user_id
+		FROM
+			CMS_SURVEY_QUEST_MATRIX
+		WHERE
+			survey_idx = #{survey_idx}
+		AND	quest_idx = #{quest_idx}
+		AND homepage_id = #{homepage_id}
+		ORDER BY
+			matrix_order
+	</select>
+	
+	<select id="getQuestMatrixStatistics" resultType="kr.co.whalesoft.app.cms.module.survey.statistics.Statistics">
+		SELECT a.*,
+			CASE WHEN cnt > 0 THEN
+					ROUND( (cnt/(SELECT COUNT(*) FROM CMS_SURVEY_ANSWER_MATRIX WHERE survey_idx = #{survey_idx} AND quest_idx = #{quest_idx} AND matrix_idx = #{matrix_idx}) ) * 100,2) 
+				ELSE
+					0	
+			END ratio
+		FROM
+		(
+			SELECT 
+				(SELECT COUNT(*) FROM CMS_SURVEY_ANSWER_MATRIX c WHERE b.quest_detail_order = c.matrix_answer 
+					AND b.survey_idx = c.survey_idx AND b.quest_idx = c.quest_idx AND a.matrix_idx = c.matrix_idx
+				) AS cnt
+			FROM
+				CMS_SURVEY_QUEST_DETAIL b, CMS_SURVEY_QUEST_MATRIX a
+			WHERE 
+				b.quest_idx = a.quest_idx
+			AND b.homepage_id = a.homepage_id
+			AND b.survey_idx  = a.survey_idx
+			AND a.matrix_idx  = #{matrix_idx}
+			AND a.survey_idx  = #{survey_idx}
+			AND a.quest_idx   = #{quest_idx}
+			AND a.homepage_id = #{homepage_id}
+			ORDER BY b.quest_detail_order
+		) a
+	</select>
+	
+	<select id="getDescriptionList" resultType="kr.co.whalesoft.app.cms.module.survey.answer.Answer">
+		SELECT 
+			homepage_id, survey_idx, quest_idx, answer_idx, add_user_id, add_date,
+			short_answer
+		FROM 
+			CMS_SURVEY_ANSWER_DETAIL
+		WHERE 
+			survey_idx  = #{survey_idx}
+		AND homepage_id = #{homepage_id}
+		AND quest_idx   = #{quest_idx}
+		AND (choice_answer = 99 or choice_answer = 0)
+		AND	short_answer IS NOT NULL
+		ORDER BY answer_idx
+	</select>
+	
+	<update id="updateChosenYn">
+		UPDATE CMS_SURVEY_ANSWER_USER SET
+			chosen_yn = 'Y'
+		WHERE
+			survey_idx = #{survey_idx}
+		AND homepage_id = #{homepage_id}
+		AND chosen_yn = 'N'
+		AND member_key IN
+		<foreach collection="chosenAnswerList" item="i" open="(" close=")" separator=",">
+		#{i}
+		</foreach>
+	</update>
+	
+	<select id="getAnswersPerUser" resultType="kr.co.whalesoft.app.cms.module.survey.statistics.Statistics">
+		SELECT
+			quest_idx,
+			LISTAGG(choice_answer, ',') WITHIN GROUP (ORDER BY answer_idx) AS choice_answer,
+			MIN(short_answer) AS short_answer
+		FROM
+			CMS_SURVEY_ANSWER_DETAIL
+		WHERE
+			survey_idx = #{survey_idx}
+		AND	add_user_id = #{add_user_id}
+		GROUP BY quest_idx
+		ORDER BY quest_idx
+	</select>
+	
+	<select id="getSelectedUsersCnt" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_SURVEY_ANSWER_USER
+		WHERE
+			survey_idx = #{survey_idx}
+		AND homepage_id = #{homepage_id}
+		AND chosen_yn = 'Y'
+	</select>
+	
+</mapper>

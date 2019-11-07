@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.quickMenu.QuickMenuDao">
+	
+	<select id="getQuickMenuListAll" resultType="kr.co.whalesoft.app.cms.quickMenu.QuickMenu">
+		SELECT
+			HOMEPAGE_ID, QUICK_IDX, MENU_NAME, LINK_URL, LINK_TARGET, ICON_FILE_NAME, REAL_FILE_NAME, FILE_EXTENSION, FILE_SIZE, VIEW_YN, LINK_USE_YN, PRINT_SEQ, TO_CHAR(ADD_DATE, 'yyyy-mm-dd') AS ADD_DATE
+		FROM
+			CMS_QUICK_MENU
+		WHERE HOMEPAGE_ID = #{homepage_id} AND VIEW_YN = 'Y'
+			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+		ORDER BY
+			PRINT_SEQ ASC
+	</select>
+	
+	<select id="getQuickMenuList" resultType="kr.co.whalesoft.app.cms.quickMenu.QuickMenu">
+		${pagingTop}
+			SELECT
+				HOMEPAGE_ID, QUICK_IDX, MENU_NAME, LINK_URL, LINK_TARGET, ICON_FILE_NAME, REAL_FILE_NAME, FILE_EXTENSION, FILE_SIZE, VIEW_YN, LINK_USE_YN, PRINT_SEQ, TO_CHAR(ADD_DATE, 'yyyy-mm-dd') AS ADD_DATE
+			FROM
+				CMS_QUICK_MENU
+			WHERE HOMEPAGE_ID = #{homepage_id}
+				<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+				AND	${search_type} LIKE '%'||#{search_text}||'%'
+				</if>
+			ORDER BY
+				PRINT_SEQ ASC
+		${pagingBottom}
+	</select>
+	
+	<select id="getQuickMenuListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_QUICK_MENU
+		WHERE HOMEPAGE_ID = #{homepage_id}
+			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+		ORDER BY
+			QUICK_IDX ASC
+	</select>
+	
+	<select id="getQuickMenuOne" resultType="kr.co.whalesoft.app.cms.quickMenu.QuickMenu">
+		SELECT
+			HOMEPAGE_ID, QUICK_IDX, MENU_NAME, LINK_URL, LINK_TARGET, ICON_FILE_NAME, REAL_FILE_NAME, FILE_EXTENSION, FILE_SIZE, VIEW_YN, LINK_USE_YN, PRINT_SEQ, TO_CHAR(ADD_DATE, 'yyyy-mm-dd') AS ADD_DATE
+		FROM
+			CMS_QUICK_MENU
+		WHERE HOMEPAGE_ID = #{homepage_id} AND QUICK_IDX = #{quick_idx}
+	</select>
+	
+	<insert id="addQuickMenu">
+		<selectKey keyProperty="quick_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(QUICK_IDX),0)+1 FROM CMS_QUICK_MENU WHERE HOMEPAGE_ID = #{homepage_id}
+		</selectKey>
+	
+		INSERT INTO CMS_QUICK_MENU
+		(
+			HOMEPAGE_ID, QUICK_IDX, MENU_NAME, LINK_URL, LINK_TARGET, ICON_FILE_NAME, REAL_FILE_NAME, FILE_EXTENSION, FILE_SIZE, VIEW_YN, LINK_USE_YN, PRINT_SEQ, ADD_DATE
+		) VALUES (
+			#{homepage_id}, #{quick_idx}, #{menu_name}, #{link_url}, #{link_target}, #{icon_file_name}, #{real_file_name}, #{file_extension}, #{file_size}, #{view_yn}, #{link_use_yn}, #{print_seq}, SYSDATE
+		)
+	</insert>
+	
+	<update id="modifyQuickMenu">
+		UPDATE 
+			CMS_QUICK_MENU
+		SET
+			MENU_NAME = #{menu_name},
+			LINK_URL = #{link_url},  
+			LINK_TARGET = #{link_target}, 
+			<if test="real_file_name != null and real_file_name != ''">
+			ICON_FILE_NAME = #{icon_file_name},
+			REAL_FILE_NAME = #{real_file_name}, 
+			FILE_EXTENSION = #{file_extension}, 
+			FILE_SIZE = #{file_size}, 
+			</if>
+			VIEW_YN = #{view_yn}, 
+			LINK_USE_YN = #{link_use_yn},
+			PRINT_SEQ = #{print_seq}
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND QUICK_IDX = #{quick_idx} 
+	</update>
+	
+	<delete id="deleteQuickMenu">
+		DELETE FROM CMS_QUICK_MENU
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND QUICK_IDX = #{quick_idx}
+	</delete>
+	
+</mapper>

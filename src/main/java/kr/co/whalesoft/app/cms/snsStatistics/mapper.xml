@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.snsStatistics.SnsStatisticsDao">
+	
+	<select id="getSnsStatistics" resultType="kr.co.whalesoft.app.cms.snsStatistics.SnsStatistics">
+		SELECT LEVEL AS MENU_LEVEL, A.* FROM
+		(
+			SELECT 
+				a.HOMEPAGE_ID,
+				a.MENU_IDX,
+				a.PARENT_MENU_IDX,
+				a.MENU_NAME,
+				a.PRINT_SEQ,
+				a.GROUP_IDX,
+				a.VIEW_YN,
+				a.MOBILE_VIEW_YN,
+				NVL(b.TWITTER, 0) AS TWITTER,
+				NVL(b.FACEBOOK, 0) AS FACEBOOK,
+				NVL(b.KAKAOSTORY, 0) AS KAKAOSTORY
+	    	FROM CMS_MENU a, (SELECT HOMEPAGE_ID, MENU_IDX, SUM(TWITTER) AS TWITTER, SUM(FACEBOOK) AS FACEBOOK, SUM(KAKAOSTORY) AS KAKAOSTORY
+	    						FROM SNS_ACCESS_HISTORY
+	    						WHERE 1=1
+	    						AND HOMEPAGE_ID = #{homepage_id}
+	    						<if test="startDate != null and startDate != '' and endDate != null and endDate != ''">
+	    						AND ACCESS_DATE BETWEEN #{startDate} AND #{endDate}
+	    						</if>
+	    						GROUP BY HOMEPAGE_ID, MENU_IDX) b
+	    	WHERE 
+	    		a.HOMEPAGE_ID = b.HOMEPAGE_ID(+)
+	    		AND a.MENU_IDX = b.MENU_IDX(+) 
+	    		AND a.HOMEPAGE_ID = #{homepage_id}
+	    		AND a.USE_YN = 'Y'
+				AND (a.VIEW_YN != 'N' OR a.MOBILE_VIEW_YN != 'N')
+			
+    	) A
+		CONNECT BY PRIOR MENU_IDX = PARENT_MENU_IDX 
+		START WITH PARENT_MENU_IDX = 0
+		ORDER SIBLINGS BY PRINT_SEQ
+	</select>
+</mapper>

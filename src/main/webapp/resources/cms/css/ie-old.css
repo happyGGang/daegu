@@ -1,0 +1,24 @@
+@charset "utf-8";
+/*
+ * 제작자 : 장지은(whale2041@gmail.com)
+ * 작성일 : 2016-08-25
+ * 마지막 수정일 :2016-09-12
+ * ie8 이하
+ */
+
+button{overflow:visible}
+
+.ui-widget.ui-widget-content{border:1px solid #ddd}
+.ui-selectmenu-menu{max-height:360px;overflow-y:auto;overflow-x:hidden}
+.search button{padding-top:4px;padding-bottom:5px}
+.search a.btn{padding-bottom:5px}
+.lock-button{border:2px solid #ccc}
+
+.group-menu .set-area .subImgView div,
+.group-menu .set-area .subImgView img{width:100%}
+.group-menu .set-area .subImgView div{margin-left:-6px}
+
+.ui-dialog .ui-dialog-content{width:100%;overflow-x:hidden;overflow-y:auto}
+.ui-dialog .ui-dialog-titlebar-close{top:50%;height:21px;width:21px;right:10px;background:#f6f6f6 url('../img/ui-icon-555-close.png') no-repeat center center}
+.ui-dialog .ui-dialog-titlebar-close:hover{border-color:#ccc;background-color:#fdfdfd}
+.ui-widget-overlay{filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#5c000000', endColorstr='#5c000000')}

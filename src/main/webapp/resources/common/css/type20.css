@@ -1,0 +1,316 @@
+@charset "utf-8"; 	
+
+/* 스타일 */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td,address
+{font-size:13px}
+body{overflow-x:hidden}
+
+a:hover,
+a:focus{color:#2b74c0}
+
+.tnb,
+.Gnb{z-index:inherit}
+.popupWrap{z-index:6}
+
+/* header */
+.tnb{overflow:hidden;}
+.tnb h1 {float:left}
+.tnb h1{height:50px}
+.tnb .util{text-align:right}
+.tnb .util .box{padding:12px 0 0 0}
+.tnb .util .box a{margin:0 6px}
+.tnb .util .txt-bar{margin:0 1%}
+.mmode.curation {width: 35px;height: 35px;float: right;/* position: relative; *//* display: inline-block; *//* top: -39px; *//* right: 0px; */margin-top: 6px;}
+.mmode.curation img{width: 35px;height: 35px;}
+
+#header h1{font-size:0;line-height:0;margin-top:10px;position:relative;width:280px}
+#header{height:140px;background:url('../img/type20/main_bg.jpg') no-repeat 0 -5px;border-top:5px solid #d6d6d6}
+#container{z-index:2}
+#container.main{overflow:visible}
+
+.main_bg{background:url('../img/type20/main_bg.jpg') no-repeat 0 0}
+.main{background:url('../img/type20/main_conbg01.png') no-repeat center 40px}
+
+/* Gnb */
+.Gnb{text-align:right;width:100%;height:90px;overflow:inherit;position:relative;margin-top:-40px}
+.Gnb .gnb-menu{position:relative;padding:0;margin:0}
+.Gnb .gnb-menu>li{padding:0 1.5%;text-align:center;position:static;height:30px;margin:10px 0}
+.Gnb .gnb-menu>li>a{padding:5px;font-size:17px;color:#222;font-weight:bold}
+.Gnb .gnb-menu>li>ul{display:none;margin-top:0px;background:#666;text-align:left;border:0;padding-right:1%}
+.Gnb .gnb-menu>li>ul>li{white-space:nowrap}
+.Gnb .gnb-menu>li.active>ul{display:inline-block;zoom:1;*display:inline}
+.Gnb .gnb-menu>li>.SubMenu>li{width:auto}
+.Gnb .gnb-menu>li>.SubMenu>li,
+.Gnb .gnb-menu>li>.SubMenu>li>a{color:#fff;display:inline-block;zoom:1;*display:inline;padding:0px 2px}
+.Gnb .gnb-menu>li>.SubMenu>li>a{font-size:13px}
+.Gnb .gnb-menu>li>.SubMenu>li>a:hover,
+.Gnb .gnb-menu>li>.SubMenu>li>a:focus{background:none;color:#f04e43}
+.Gnb .gnb-menu>li.active>a,
+.Gnb .gnb-menu>li>a:hover,
+.Gnb .gnb-menu>li>a:focus{color:#f04d43}
+.Gnb .mask,
+.Gnb .gnb-menu>li>.SubMenu{padding:0 1%;width:70%;height:30px;line-height:30px}
+.Gnb .gnb-menu>li>.SubMenu{left:inherit;right:0;background:#575dab;border-radius:30px;width:auto}
+.Gnb .gnb-menu>li.menu1>.SubMenu{margin-right:25%}
+.Gnb .gnb-menu>li.menu2>.SubMenu{margin-right:20%}
+.Gnb .gnb-menu>li.menu3>.SubMenu{margin-right:0}
+.Gnb .gnb-menu>li.menu4>.SubMenu{margin-right:0}
+.Gnb .gnb-menu>li.menu5>.SubMenu{margin-right:0}
+.Gnb .gnb-menu>li.menu6>.SubMenu{margin-right:0}
+
+.main1 h3{font-weight:bold}
+.main1 .b_l{width:99%}
+.main1 .mb1{width:99%;overflow:hidden;height:160px;display:block;zoom:1;*display:inline;background:url('../img/type20/banner_bg.gif') repeat}
+.main1 .b_l,
+.main1 .mb1,
+.main1 .q-menu{border:1px solid #e3e3e3;border-radius:10px;background-color:#fff;}
+.main1 .b_l li a{color:#4c4c4c}
+.main1 .b_l li span,
+.main1 .b_l li a,
+.main1 .b_l li i{display:block}
+.main1 .b_l li .box{height:100%;background:url('../img/type20/banner_icon.png') no-repeat 90% 50%}
+.main1 .mb1 a{padding:25px;font-size:190%;letter-spacing:-1px}
+.main1 .mb1 b{font-weight:bold}
+.main1 .mb1 span{font-size:15px;padding:10px 0 10px 0;font-weight:bold}
+.main1 .mb1 i{font-size:12px;font-weight:bold;color:#7a7a7a;font-style:normal;line-height:150%;margin-right:90px}
+.main1 .mb1 a{color:#fff}
+
+.main .q-menu{clear:both;height:252px;width:99%;margin-top:20px;margin-bottom:20px}
+.main .q-menu .box{position:relative;overflow:hidden;padding:10px 13px 0px}
+.main .q-menu h3{font-weight:bold;font-size:18px;padding-bottom:5px}
+.main .q-menu .bx-wrapper{width:auto!important;margin:0 50px!important;position:static}
+.main .q-menu li{display:block;float:left;zoom:1;*display:inline;text-align:center;letter-spacing:-1px;font-size:11px;width:32%;font-weight:bold}
+.main .q-menu li.qm2,
+.main .q-menu li.qm5,
+.main .q-menu li.qm8{width:36%}
+.main .q-menu li a{background:url('../img/type20/qm1.gif') no-repeat center 0;display:block;color:#4c4c4c;padding-top:40px;width:100%;line-height:110%;border-left:1px solid #e3e3e3;border-top:1px solid #e3e3e3}
+.main .q-menu li.qm1 a,
+.main .q-menu li.qm2 a,
+.main .q-menu li.qm3 a{border-top-width:0}
+.main .q-menu li.qm1 a,
+.main .q-menu li.qm4 a,
+.main .q-menu li.qm7 a{border-left-width:0}
+.main .q-menu li a:hover,
+.main .q-menu li a:focus{color:#f04e43}
+.main .q-menu li span{display:block;height:26px;vertical-align:bottom;padding-top:5px}
+.main .q-menu .bx-controls{display:none}
+.main .q-menu .bx-controls .bx-pager,
+.main .q-menu .bx-controls .bx-controls-auto{display:none}
+.main .q-menu .bx-controls .bx-prev,
+.main .q-menu .bx-controls .bx-next{position:absolute;top:0;width:60px;font-size:0;line-height:0}
+.main .q-menu .bx-controls .bx-prev,
+.main .q-menu .bx-controls .bx-next,
+.main .q-menu li{height:65px}
+
+.main .calendar{position:relative;overflow:hidden;padding:10px 0 15px}
+.main .calendar h3{position:absolute;top:11px;left:17px;font-size:18px;font-weight:bold;letter-spacing:-1px}
+.main .today{position:absolute;bottom:20px;left:17px;width:20%}
+.main .today span{display:block;font-size:10px;margin-bottom:-10px}
+.main .today p{display:block;font-size:35px;font-weight:bold}
+.main .today i{clear:both;font-style:normal;display:block;float:left;border-radius:50%;width:9px;height:9px;margin:5px 5px 0 0}
+.main .today i.t01{background:#b8b8b8}
+.main .today i.t02{background:#da0505}
+.main .today i.t03{background:#005ec8}
+.main .today em{font-style:normal;display:block;float:left;font-size:11px}
+.main #calendar{padding:0 17px}
+.main #calendar .cal-func{width:75%;margin:0 0 5px;float:right;text-align:right}
+.main #calendar .cal-func a,
+.main #calendar .cal-func b,
+.main #calendar .cal-func b span,
+.main #calendar .cal-func b em{vertical-align:middle;display:inline-block;zoom:1;*display:inline;font-style:normal;color:#282c31;font-size:16px!important;letter-spacing:-1px}
+.main #calendar .cal-func b em{color:#f26532!important;margin:0 3px}
+.main #calendar .cal-tbl{width:75%;border:0;float:right}
+.main #calendar .cal-tbl thead th{border-top-width:0px;border-bottom:0;border-right-width:0px;border-left:0px;color:#818181}
+.main #calendar .cal-tbl th,
+.main #calendar .cal-tbl td{text-align:center;font-family:'vardana',arial;font-size:9px;font-weight:normal;padding:1px 0px;border:0}
+.main #calendar .cal-tbl td{font-weight:800}
+.main #calendar table th{font-size:7px!important;letter-spacing:0}
+.main #calendar table td div{font-size:11px!important;letter-spacing:0px}
+.main #calendar table td  div,
+.main #calendar table td  a{color:#818181}
+.main #calendar table td.active{background:#b8b8b8}
+.main #calendar table td.active div{color:#fff!important}
+.main #calendar table th.sun{color:#da0505!important;font-size:7.5px!important}
+.main #calendar table th.sat{color:#2a5d9a!important;font-size:7.5px!important}
+.main #calendar table td.point1 div{color:#da0505;font-size:11px!important}
+.main #calendar table td.point2 div{color:#005ec8;font-size:11px!important}
+
+.main #calendar .cal-func .btn{font-size:30px!important;font-weight:bold;height:30px;padding:0 0 0 4px;margin-left:0px;color:#d3d3d3;background:none;font-weight:bold;border:0px;-webkit-border-radius:3px;-moz-border-radius:3px}
+.main #calendar .cal-func .btn:active{border:0px solid #0059ac;background:#1f6db6;color:#818181}
+.main #calendar #planList{width:65%;padding:7px 5%;color:#818181;margin-top:10px;float:right;background:#efefef}
+.main #calendar #planList p{font-size:11px!important}
+.main #calendar #planList .date1 span{border-radius:4px;background:#8c8383;font-weight:bold;color:#fff;padding:2px 5px;margin-right:5px;font-size:10px}
+.main #calendar #planList .date2{color:#f26532;padding-top:2px}
+
+.main_visual{position:relative;height:500px}
+.main_visual .bx-wrapper,
+.main_visual .bx-viewport,
+.main_visual .bx-controls,
+.main_visual ul,
+.main_visual li{width:100%;height:100%}
+.main_visual li{font-size:0;line-height:0;position:relative;background:url('../img/type20/main_img.png') no-repeat 20px 80px}
+.main_visual li div.box{float:right;width:65%;padding:0 5% 0 45px;background:url('../img/type20/star_img.png') no-repeat left 5%}
+.main_visual .box .t1 span{color:#4b4b4b;font-size:34px;letter-spacing:-3px;line-height:150%;padding-bottom:3px;border-bottom:1px solid #e5e5e5}
+.main_visual .bx-pager{position:absolute;left:5%;bottom:5%}
+.main_visual .bx-pager .bx-pager-item{display:inline-block;zoom:1;*display:inline;font-size:0;line-height:0;padding:0 3px}
+.main_visual .bx-pager a{display:none;border-radius:50%;width:12px;height:12px;border:1px solid #4a667a}
+.main_visual .bx-pager a:hover,
+.main_visual .bx-pager a:focus{background:#fff}
+.main_visual .bx-pager a.active{background:rgba(52,144,186,0.9);border:1px solid rgba(52,144,186,0.9)}
+.main_visual .bx-controls .bx-prev,
+.main_visual .bx-controls .bx-next{display:none}
+.main_visual .bx-viewport{position:relative;z-index:10}
+.main_visual .bx-controls{position:absolute;z-index:11;top:0}
+
+.main_visual,.main1,.main2,.main3{overflow:hidden}
+.main1{float:left;width:25%}
+.main2{float:left;width:21%}
+.main_visual{float:left;width:54%}
+.main3 .news{float:left;width:50%}
+.main3{clear:both;background:url('../img/type20/main_conbg02.jpg') no-repeat center top}
+
+.main2 .popupzone{position:relative;width:100%}
+.main2 .popupzone,
+.main2 .popupzone li{border-radius:10px;overflow:hidden;background:#fdcd7c}
+.main2 .popupzone a{display:block;font-size:0;line-height:0}
+.main2 .popupzone .bx-controls{position:absolute;top:0;right:5%;z-index:150}
+.main2 .popupzone .bx-pager .bx-pager-item{display:inline-block;zoom:1;*display:inline;font-size:0;line-height:0;padding:0 2px}
+.main2 .popupzone .bx-pager a{display:block;width:10px;height:10px;background:#525252;border-radius:50%}
+.main2 .popupzone .bx-pager a:hover,
+.main2 .popupzone .bx-pager a:focus{background:#fc8d4a}
+.main2 .popupzone .bx-pager a.active{background:#f36959}
+.main2 .popupzone .bx-prev,
+.main2 .popupzone .bx-next{display:none}
+
+.main2 .banner{background:#fff;padding-bottom:20px;border:1px solid #e3e3e3;border-radius:10px;margin-top:20px;margin-bottom:20px}
+.main .banner-wrap>.banner-t{float:left;width:100%;padding:20px}
+.main .banner-wrap>.banner-t>h3{float:left;line-height:22px;height:22px;font-size:20px;font-weight:bold;padding-right:10px}
+.main .banner-wrap>.banner-t>.control{padding:0px 0 0 1px}
+.main .banner-wrap>.banner-t>.control a{width:20px;height:20px;line-height:18px;border-radius:50%;margin-left:1px;color:#a1a1a1}
+
+.main .like_book{height:160px;position:relative;letter-spacing:-1px;float:right;width:45%}
+.main .like_book .bx-wrapper{padding:0 30px!important}
+.main .like_book .bx-viewport{height:auto!important}
+.main .like_book li a{display:block;text-align:center;width:80px;margin:0 auto}
+.main .like_book li span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;resize:horizontal}
+.main .like_book .bx-pager{display:none}
+.main .like_book .bx-wrapper{position:relative}
+.main .like_book .bx-prev,
+.main .like_book .bx-next{top:0;font-size:0;line-height:0;position:absolute;height:100%;width:25px;background:url('../img/type20/bookbtl.gif') no-repeat center center}
+.main .like_book .bx-prev{left:0}
+.main .like_book .bx-next{right:0;background-image:url('../img/type20/bookbtr.gif')}
+
+.main3 h3{padding:20px 0 0 30px;height:25px;font-size:18px;font-weight:bold;line-height:23px}
+.main3 ul{padding:15px 0}
+.main3 .box{height:165px}
+.main .news .notice{background:url('../img/type20/news_icon02.png') no-repeat 0 5px}
+.main .news li{/*background:url('../img/type20/news_icon01.png') no-repeat 0 5px*/;padding:2px 35px 2px 15px}
+.main .news h3{padding-left:35px;background:url('../img/type20/news_icon.png') no-repeat 0 20px}
+.main3>div>div{position:relative}
+.main3 .more{font-size:0;line-height:0;position:absolute;background:url('../img/type20/more_bt.png') no-repeat 0 0;width:28px;height:28px}
+.main .news .more{right:0;top:22px}
+.main .like_book .more{right:9%;top:22px}
+
+#footer{padding:30px 0 50px;border-top:1px solid #e4e4e4;margin-top:-1px;position:relative;z-index:1;background:#f5f5f5 url('../img/type20/footer_bg.gif') repeat-x 0 0}
+#footer .section{font-size:0;line-height:0;position:relative}
+#footer .section .site_link{position:absolute;right:0;top:0}
+#footer .section .site_link div div{width:200px}
+#footer .section .site_link > div{margin-bottom:5px}
+#footer .section .site_link a,
+#footer .section .site_link span{border-radius:0}
+#footer .section .site_link span{line-height:30px}
+#footer .section .site_link a.btn{padding:5px 10px;background:#8f8f8f;border-color:#8f8f8f;color:#fff}
+#footer .section .site_link a.btn:hover,
+#footer .section .site_link a.btn:focus{background:#4f4f4f}
+#footer .info a,
+#footer .info span{vertical-align:middle}
+#footer .info .bar{margin:0 3px}
+#footer .info a b{color:#095eb6}
+#footer address em,
+#footer address span{font-size:12px}
+#footer address{padding:5px 0 0 0}
+#footer address em{font-style:normal;margin-right:10px}
+#footer address span{font-size:11px}
+
+/* 시설현황 층별안내도 */
+.floorInfo{padding:3%}
+.floorInfo .tab-menu ul{margin:0}
+.floorInfo .tab-menu li a{font-size:14px;line-height:20px;height:20px}
+.floorInfo .box .floorImg{padding:0 0 0 10px}
+.floorInfo .box .floorImg p{border:1px dashed #bbb;padding:3%;margin-left:2%;background:#f3f3f3}
+@media all and (max-width:500px){
+	.floorInfo .tab-menu ul{margin-top:0}
+	.floorInfo .box .floorImg{padding:0 4px;margin-top:10px}
+	.floorInfo .box .floorImg p{margin:0;padding:0;border:0;background:none}
+}
+
+@media all and (max-width:1140px){
+	.main .banner-wrap>.banner-t>h3{font-size:15px}
+	.main .banner-wrap>.banner-t{padding:18px}
+}
+@media all and (max-width:1000px){
+	.main_bg{background:none}
+	.tnb .section{position:relative}
+
+	#header h1{position:relative;height:auto;margin-top:0}
+	#header h1 img{display:block}
+	#header h1{float:left;width:100%;top:8px;z-index:1}
+	#header h1 a{width:50%}
+	.m-menu a{display:inline-block;text-align:center;vertical-align:middle;z-index:2}
+	.m-menu a i{font-size:30px;width:45px;height:45px;line-height:45px}
+
+	#header{position:relative;overflow:hidden;height:65px}
+	.tnb{padding:10px;position:absolute;right:0;top:0;width:120px;height:45px}
+	.tnb .util,
+	.banner,
+	.Gnb{display:none}
+	.mmode{display:block; float: right;}
+
+	#header,
+	.main{background:url('../img/type20/main_bg.jpg') no-repeat 0 0}
+	.main{background-position:0 -65px}
+	.main1{width:98%;margin:500px 1% 15px}
+	.main1 .mb1{width:30%;height:290px;float:left}
+	.main1 .b_l li .box{height:100%;background-position:90% 70%}
+	.main .q-menu{height:290px;background:#fff;margin-bottom:0}
+	.main .q-menu .section{height:250px;padding:18px 20px}
+
+	.main2{position:absolute;width:239px;right:3%;top:210px}
+
+	.main_visual{position:absolute;height:490px;width:100%}
+	.main_visual li div.box{width:55%;padding:7% 0 0 45px;background-position:left center}
+
+	.main .like_book{position:relative;letter-spacing:-1px;float:right;width:45%;margin-right:20px}
+	#footer .section .site_link{display:none}
+	#footer .section{background:none}
+	#footer .info{padding:0}
+	#footer address{padding:5px 0 0 0}
+}
+
+@media all and (max-width:767px){	
+	.main_visual li{background-position:center 80px}
+	.main_visual li div.box{width:80%}
+
+	.main1{width:100%;margin:500px 0 15px}
+	.main1 .mb1{width:auto;height:160px;float:none}
+	.main1 .b_l{overflow:hidden;}
+	.main1 .b_l li .box{height:100%;background-position:90% 50%}
+
+	.main .q-menu{margin-top:10px;clear:both;overflow:hidden;width:auto;height:auto;float:none}
+	.main .q-menu .section{height:200px;padding:10px}
+
+	.main .like_book{height:420px;position:relative;letter-spacing:-1px;float:right;width:100%;float:none;clear:both}
+	.main .like_book h3{padding-left:0}
+	.main .like_book .bx-prev,
+	.main .like_book .bx-next{top:0;font-size:0;line-height:0;position:absolute;height:100%;width:25px;background-color:#fff}
+	.main .like_book .more{right:0}
+	
+	.main3{width:100%;height:420px;background-position:center top}
+	.main .news{width:100%}
+	
+	.main2{position:relative;margin:0 auto;height:auto;right:0;top:0px;margin-bottom:15px;float:none}
+}
+@media all and (max-width:400px){
+	#header h1 img{height:38px;margin:5px 0}
+	.main .news span{display:none}
+}

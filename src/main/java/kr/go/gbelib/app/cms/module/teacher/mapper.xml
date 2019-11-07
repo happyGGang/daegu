@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.teacher.TeacherDao">
+	
+	<select id="getTeacherListAll" resultType="kr.go.gbelib.app.cms.module.teacher.Teacher">
+		SELECT
+			HOMEPAGE_ID, TEACHER_IDX, TEACHER_ID, MEMBER_KEY, TEACHER_NAME, TEACHER_SUBJECT_NAME, STAGE, TEACHER_BIRTH, 
+			TEACHER_SEX, TEACHER_PHONE, TEACHER_CELL_PHONE, TEACHER_EMAIL, TEACHER_NATIONALITY, TEACHER_ZIPCODE, TEACHER_ADDRESS, 
+			TEACHER_HISTORY, TEACHER_HISTORY_MANAGE, TO_CHAR(ADD_DATE, 'yyyy-mm-dd') AS ADD_DATE, FILE_NAME, REAL_FILE_NAME, FILE_EXTENSION, FILE_SIZE
+		FROM
+			TEACHER
+		WHERE HOMEPAGE_ID = #{homepage_id} AND DELETE_YN = 'N'
+		ORDER BY
+			TEACHER_IDX DESC
+	</select>
+	
+	<select id="getTeacherList" resultType="kr.go.gbelib.app.cms.module.teacher.Teacher">
+		${pagingTop}
+			SELECT
+				HOMEPAGE_ID, TEACHER_IDX, TEACHER_ID, MEMBER_KEY, TEACHER_NAME, TEACHER_SUBJECT_NAME, STAGE, TEACHER_BIRTH, 
+				TEACHER_SEX, TEACHER_PHONE, TEACHER_CELL_PHONE, TEACHER_EMAIL, TEACHER_NATIONALITY, TEACHER_ZIPCODE, TEACHER_ADDRESS, 
+				TEACHER_HISTORY, TEACHER_HISTORY_MANAGE, TO_CHAR(ADD_DATE, 'yyyy-mm-dd') AS ADD_DATE, FILE_NAME, REAL_FILE_NAME, FILE_EXTENSION, FILE_SIZE
+			FROM
+				TEACHER
+			WHERE HOMEPAGE_ID = #{homepage_id} AND DELETE_YN = 'N'
+			<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' "> 
+				AND	${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+			ORDER BY
+				TEACHER_IDX DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getTeacherListCount" resultType="int">
+		SELECT COUNT(*)
+		FROM
+			TEACHER
+		WHERE HOMEPAGE_ID = #{homepage_id} AND DELETE_YN = 'N'
+		<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' "> 
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		ORDER BY
+			TEACHER_IDX DESC
+	</select>
+	
+	<select id="getTeacherOne" resultType="kr.go.gbelib.app.cms.module.teacher.Teacher">
+		SELECT
+			HOMEPAGE_ID, TEACHER_IDX, TEACHER_ID, MEMBER_KEY, TEACHER_NAME, TEACHER_SUBJECT_NAME, STAGE, TEACHER_BIRTH, 
+			TEACHER_SEX, TEACHER_PHONE, TEACHER_CELL_PHONE, TEACHER_EMAIL, TEACHER_NATIONALITY, TEACHER_ZIPCODE, TEACHER_ADDRESS, 
+			TEACHER_HISTORY, TEACHER_HISTORY_MANAGE, TEACHER_HISTORY_MANAGE2, FILE_NAME, REAL_FILE_NAME, FILE_EXTENSION, FILE_SIZE,
+			(SELECT HOMEPAGE_NAME FROM CMS_HOMEPAGE WHERE HOMEPAGE_ID = #{homepage_id}) AS HOMEPAGE_NAME
+		FROM
+			TEACHER
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND TEACHER_IDX = #{teacher_idx} AND DELETE_YN = 'N'
+	</select>
+	
+	<select id="checkTeacher" resultType="kr.go.gbelib.app.cms.module.teacher.Teacher">
+		SELECT 
+			TEACHER_IDX
+		FROM 
+			TEACHER 
+		WHERE HOMEPAGE_ID = #{homepage_id}
+			AND MEMBER_KEY = #{member_key}
+			AND DELETE_YN = 'N'
+	</select>
+	
+	<select id="checkTeacher2" resultType="kr.go.gbelib.app.cms.module.teacher.Teacher">
+		SELECT 
+			NVL(MAX(TEACHER_IDX), 0) AS teacher_idx
+		FROM 
+			TEACHER 
+		WHERE 
+			MEMBER_KEY = #{member_key}
+		AND DELETE_YN = 'N'
+	</select>
+	
+	<insert id="addTeacher">
+		<selectKey keyProperty="teacher_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(TEACHER_IDX),0)+1 FROM TEACHER WHERE HOMEPAGE_ID = #{homepage_id}
+		</selectKey>
+	
+		INSERT INTO TEACHER
+		(
+			HOMEPAGE_ID, TEACHER_IDX, TEACHER_ID, MEMBER_KEY, TEACHER_NAME, TEACHER_SUBJECT_NAME, STAGE, TEACHER_BIRTH, 
+			TEACHER_SEX, TEACHER_PHONE, TEACHER_CELL_PHONE, TEACHER_EMAIL, TEACHER_NATIONALITY, TEACHER_ZIPCODE, TEACHER_ADDRESS, 
+			TEACHER_HISTORY, TEACHER_HISTORY_MANAGE, ADD_DATE, ADD_ID, DELETE_YN, FILE_NAME, REAL_FILE_NAME, FILE_EXTENSION, FILE_SIZE
+		) VALUES
+		(
+			#{homepage_id}, #{teacher_idx}, #{teacher_id}, #{member_key}, #{teacher_name}, #{teacher_subject_name}, #{stage}, #{teacher_birth}, 
+			#{teacher_sex}, #{teacher_phone}, #{teacher_cell_phone}, #{teacher_email}, #{teacher_nationality}, #{teacher_zipcode}, #{teacher_address}, 
+			#{teacher_history}, #{teacher_history_manage}, SYSDATE, #{add_id}, 'N', #{file_name}, #{real_file_name}, #{file_extension}, #{file_size}
+		)
+	</insert>
+	
+	<update id="modifyTeacher">
+		UPDATE 
+			TEACHER 
+		SET
+			TEACHER_SUBJECT_NAME 	= #{teacher_subject_name}, 
+			STAGE 					= #{stage},
+			TEACHER_SEX 			= #{teacher_sex}, 
+			TEACHER_PHONE 			= #{teacher_phone}, 
+			TEACHER_CELL_PHONE 		= #{teacher_cell_phone},
+			TEACHER_EMAIL			= #{teacher_email}, 
+			TEACHER_NATIONALITY 	= #{teacher_nationality}, 
+			TEACHER_ZIPCODE		 	= #{teacher_zipcode},
+			TEACHER_ADDRESS 		= #{teacher_address}, 
+			TEACHER_HISTORY 		= #{teacher_history},
+			TEACHER_HISTORY_MANAGE	= #{teacher_history_manage},
+			MOD_ID					= #{mod_id},
+			MOD_DATE				= SYSDATE,
+			FILE_NAME				= #{file_name}, 
+			REAL_FILE_NAME			= #{real_file_name}, 
+			FILE_EXTENSION			= #{file_extension}, 
+			FILE_SIZE				= #{file_size}
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND TEACHER_IDX = #{teacher_idx} AND DELETE_YN = 'N'
+	</update>
+	
+	<delete id="deleteTeacher">
+		UPDATE 
+			TEACHER 
+		SET 
+			DELETE_YN = 'Y'
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND TEACHER_IDX = #{teacher_idx} 
+	</delete>
+	
+	<select id="getExcelList" resultType="kr.go.gbelib.app.cms.module.teacher.Teacher">
+		SELECT 
+			a.teacher_idx, a.TEACHER_NAME, a.TEACHER_BIRTH, a.TEACHER_SEX, a.TEACHER_PHONE, a.TEACHER_CELL_PHONE, a.TEACHER_EMAIL, a.TEACHER_ADDRESS, b.TEACH_NAME, b.TEACH_COUNT, a.TEACHER_HISTORY
+			, b.START_DATE, b.END_DATE, b.START_TIME, b.END_TIME
+			, (ROUND((TO_DATE(b.END_TIME, 'HH24:MI')-TO_DATE(b.START_TIME, 'HH24:MI'))*24*60/60, 1) * b.TEACH_COUNT) AS TOTAL_TIME
+			, (SELECT CATEGORY_NAME FROM TEACH_CATEGORY WHERE HOMEPAGE_ID = b.HOMEPAGE_ID AND GROUP_IDX = b.GROUP_IDX AND CATEGORY_IDX = b.CATEGORY_IDX) AS CATEGORY_NAME
+			, (SELECT GROUP_NAME FROM TEACH_CATEGORY_GROUP WHERE HOMEPAGE_ID = b.HOMEPAGE_ID AND GROUP_IDX = b.GROUP_IDX) AS GROUP_NAME
+			, TEACHER_HISTORY_MANAGE, TEACHER_HISTORY_MANAGE2
+		FROM 
+			TEACHER a, TEACH b
+		WHERE 
+			a.HOMEPAGE_ID = b.HOMEPAGE_ID
+			AND a.TEACHER_IDX = b.TEACHER_IDX
+			AND a.HOMEPAGE_ID = #{homepage_id} 
+	</select>
+	
+	<select id="getHistoryList" resultType="kr.go.gbelib.app.cms.module.teacher.Teacher">
+		SELECT 
+			a.TEACHER_NAME, a.TEACHER_BIRTH, a.TEACHER_SEX, a.TEACHER_PHONE, a.TEACHER_CELL_PHONE, a.TEACHER_EMAIL, a.TEACHER_ADDRESS, b.TEACH_NAME, b.TEACH_COUNT, a.TEACHER_HISTORY
+			, b.START_DATE, b.END_DATE, b.START_TIME, b.END_TIME
+			, (ROUND((TO_DATE(b.END_TIME, 'HH24:MI')-TO_DATE(b.START_TIME, 'HH24:MI'))*24*60/60, 1) * b.TEACH_COUNT) AS TOTAL_TIME
+			, (SELECT CATEGORY_NAME FROM TEACH_CATEGORY WHERE HOMEPAGE_ID = b.HOMEPAGE_ID AND GROUP_IDX = b.GROUP_IDX AND CATEGORY_IDX = b.CATEGORY_IDX) AS CATEGORY_NAME
+			, (SELECT GROUP_NAME FROM TEACH_CATEGORY_GROUP WHERE HOMEPAGE_ID = b.HOMEPAGE_ID AND GROUP_IDX = b.GROUP_IDX) AS GROUP_NAME
+			, TEACHER_HISTORY_MANAGE, TEACHER_HISTORY_MANAGE2
+		FROM 
+			TEACHER a, TEACH b
+		WHERE 
+			a.HOMEPAGE_ID = b.HOMEPAGE_ID
+			AND a.TEACHER_IDX = b.TEACHER_IDX
+			AND a.HOMEPAGE_ID = #{homepage_id} 
+			AND a.TEACHER_IDX = #{teacher_idx}
+	</select>
+
+	<select id="getCertSeq" resultType="int">
+		SELECT CMS_TEACHER_CERT_SEQ.NEXTVAL FROM DUAL
+	</select>
+	
+	<select id="getCertHistoryList" resultType="kr.go.gbelib.app.cms.module.teacher.Teacher">
+		SELECT 
+			a.TEACHER_NAME, b.TEACH_NAME, b.TEACH_COUNT, a.TEACHER_HISTORY, a.TEACHER_HISTORY_MANAGE
+			, b.START_DATE, b.END_DATE, b.START_TIME, b.END_TIME
+			, (ROUND((TO_DATE(b.END_TIME, 'HH24:MI')-TO_DATE(b.START_TIME, 'HH24:MI'))*24*60/60, 1) * b.TEACH_COUNT) AS TOTAL_TIME
+			, #{cert_seq_num} AS CERT_SEQ_NUM
+		FROM 
+			TEACHER a, TEACH b
+		WHERE 
+			a.HOMEPAGE_ID = b.HOMEPAGE_ID
+			AND a.TEACHER_IDX = b.TEACHER_IDX
+			AND a.HOMEPAGE_ID = #{homepage_id} 
+			AND a.TEACHER_IDX = #{teacher_idx}
+	</select>
+	
+	<update id="modifyManageHistory">
+		UPDATE TEACHER
+		SET TEACHER_HISTORY_MANAGE = #{teacher_history_manage}, TEACHER_HISTORY_MANAGE2 = #{teacher_history_manage2} 
+		WHERE HOMEPAGE_ID = #{homepage_id} AND TEACHER_IDX = #{teacher_idx}
+	</update>
+	
+	<select id="getTeacherAgreeOne" resultType="kr.go.gbelib.app.cms.module.teacher.Teacher">
+		SELECT
+			*
+		FROM
+			TEACHER_AGREE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	member_key = #{member_key}
+	</select>
+	
+	<insert id="addTeacherAgree">
+		INSERT INTO
+			TEACHER_AGREE
+		SELECT
+			homepage_id, teacher_idx, teacher_id, member_key, teacher_name, 
+			teacher_subject_name, stage, teacher_birth, teacher_sex, teacher_phone, 
+			teacher_cell_phone, teacher_nationality, teacher_zipcode, teacher_address, teacher_history, 
+			file_name, real_file_name, file_extension, file_size, confirm_yn, 
+			add_date, add_id, mod_date, mod_id, delete_yn, 
+			self_info_yn, teacher_history_manage, teacher_email, teacher_history_manage2, 
+			SYSDATE
+		FROM
+			TEACHER
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	member_key = #{member_key}
+	</insert>
+	
+	<delete id="deleteTeacherAgree">
+		DELETE FROM
+			TEACHER_AGREE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	member_key = #{member_key}
+	</delete>
+</mapper>

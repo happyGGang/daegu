@@ -1,0 +1,313 @@
+package kr.go.gbelib.app.module.teach;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import kr.co.whalesoft.app.cms.code.CodeService;
+import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.menu.Menu;
+import kr.co.whalesoft.app.cms.menu.MenuService;
+import kr.co.whalesoft.app.cms.site.Site;
+import kr.co.whalesoft.app.cms.site.SiteService;
+import kr.co.whalesoft.framework.base.BaseController;
+import kr.co.whalesoft.framework.exception.AuthException;
+import kr.co.whalesoft.framework.utils.AttachmentUtils;
+import kr.co.whalesoft.framework.utils.JsonResponse;
+import kr.go.gbelib.app.cms.module.category.Category;
+import kr.go.gbelib.app.cms.module.category.CategoryService;
+import kr.go.gbelib.app.cms.module.category.group.CategoryGroup;
+import kr.go.gbelib.app.cms.module.category.group.CategoryGroupService;
+import kr.go.gbelib.app.cms.module.teach.Teach;
+import kr.go.gbelib.app.cms.module.teach.TeachService;
+import kr.go.gbelib.app.cms.module.teach.student.StudentService;
+import kr.go.gbelib.app.cms.module.teach.teachCode.TeachCodeService;
+import kr.go.gbelib.app.cms.module.teach.teachCode2.TeachCode2;
+import kr.go.gbelib.app.cms.module.teach.teachCode2.TeachCode2Service;
+
+@Controller(value="userTeach")
+@RequestMapping(value = {"/{homepagePath}/module/teach"})
+public class TeachController extends BaseController{
+
+	private String basePath = "/homepage/%s/module/teach/";
+	
+	@Autowired
+	private TeachService teachService;
+
+	@Autowired
+	private CategoryService categoryService;
+
+	@Autowired
+	private CategoryGroupService categoryGroupService;
+	
+	@Autowired
+	private SiteService siteService;
+	
+	@Autowired
+	private StudentService studentService;
+	
+	@Autowired
+	private MenuService menuService;
+	
+	@Autowired
+	private CodeService codeService;
+	
+	@Autowired
+	private TeachCodeService teachCodeService;
+	
+	@Autowired
+	private TeachCode2Service teachCode2Service;
+	
+	@ModelAttribute("siteList")
+	public List<Site> getAreaCdList(HttpServletRequest request) {
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+		return siteService.getSiteListAll(new Site(homepage.getHomepage_id()));
+	}
+	
+	@RequestMapping(value = {"/index.*"})
+	public String index(Model model, Teach teach, HttpServletRequest request, HttpServletResponse response) throws AuthException {
+		checkAuth("R", model, request, "소속도서관에서 신청하시기 바랍니다.");
+		
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+		if ( isLogin(request) && getSessionMemberLoginType(request).equals("HOMEPAGE") ) {
+			teach.setMember_key(getSessionUserSeqNo(request));
+		}
+		
+		if ( homepage.getHomepage_id().equals("h1") ) {
+			if (StringUtils.isEmpty(teach.getHomepage_id())) {
+				teach.setHomepage_id(homepage.getHomepage_id());
+			}
+			if (teach.getProgram_age_div_arr() != null && teach.getProgram_age_div_arr().size() > 0) {
+				teach.setProgram_age_div(StringUtils.join(teach.getProgram_age_div_arr(), "|"));
+			}
+			teachService.setPaging(model, teachService.getTeachListForAllHomepageCount(teach), teach);
+			model.addAttribute("teachList", teachService.getTeachListForAllHomepage(teach));
+			model.addAttribute("teach", teach);
+			if (!teach.getHomepage_id().equals("h1")) {
+				model.addAttribute("groupList", categoryGroupService.getCategoryGroupListAll(new CategoryGroup(teach.getHomepage_id())));
+				model.addAttribute("categoryList", categoryService.getCategoryListAll(new Category(teach.getHomepage_id(), teach.getGroup_idx())));
+			}
+			
+			//프로그램 주제구분
+			TeachCode2 teachCode2 = new TeachCode2(1);
+			model.addAttribute("teachSubjectCodeList", teachCode2Service.getSubcategories(teachCode2));
+			
+			//프로그램 연령구분
+			teachCode2.setTeach_code(8);
+			model.addAttribute("teachAgeDivCodeList", teachCode2Service.getSubcategories(teachCode2));
+
+			//강좌대분류
+			teachCode2.setTeach_code(15);
+			model.addAttribute("teachLargeCategoryList", teachCode2Service.getSubcategories(teachCode2));
+			return String.format(basePath, homepage.getFolder()) + "index_all";
+		}
+		else {
+			teach.setHomepage_id(homepage.getHomepage_id());
+			model.addAttribute("teach", teach);
+			model.addAttribute("teachList", teachService.getTeachListForUser(teach));
+			model.addAttribute("myTeachListMenuIdx", menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 13)));//수강신청내역 menu_idx
+			model.addAttribute("categoryList", categoryService.getCategoryListAll(new Category(homepage.getHomepage_id())));
+			return String.format(basePath, homepage.getFolder()) + "index";
+		}
+	}
+	
+	@RequestMapping(value = {"/edit.*"})
+	public String edit(Model model, Teach teach, HttpServletRequest request) throws AuthException {
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+		
+		String calendarPath = "/homepage/" + homepage.getFolder() + "/module/calendarManage/"; 
+		
+		teach.setHomepage_id(homepage.getHomepage_id());
+		if ( teach.getEditMode().equals("MODIFY") ) {
+			checkAuth("U", model, request, "소속도서관에서 신청하시기 바랍니다.");
+			int menu_idx = teach.getMenu_idx();
+			teach = teachService.getTeachOne(teach);
+			teach.setMenu_idx(menu_idx);
+			model.addAttribute("teach", teach);
+		} else {
+			checkAuth("C", model, request, "소속도서관에서 신청하시기 바랍니다.");
+			model.addAttribute("teach", teach);
+		}	
+				
+		return calendarPath + "teachEdit";
+	}
+	
+	@RequestMapping(value = {"/detail.*"})
+	public String detail(Model model, Teach teach, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+		
+		if ( !"h1".equals(homepage.getHomepage_id()) ) {
+			teach.setHomepage_id(homepage.getHomepage_id());
+		}
+		
+		int menu_idx = teach.getMenu_idx();
+		
+		teach = teachService.getTeachDetailForUser(teach);
+		if ( teach == null ) {
+			teachService.alertMessage("해당 강좌 정보가 없습니다.", request, response);
+			return null;
+		}
+		teach.setMenu_idx(menu_idx);
+		
+		model.addAttribute("teach", teach);
+		
+		return String.format(basePath, homepage.getFolder()) + "detail";
+	}
+	
+	@RequestMapping(value = {"/applyList.*"})
+	public String applyList(Model model, Teach teach, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+		
+		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			teach.setBefore_url(String.format("http://www.gbelib.kr/%s/module/teach/applyList.do?menu_idx=%s", homepage.getContext_path(), teach.getMenu_idx()));
+			teachService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://www.gbelib.kr/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), teach.getMenu_idx(), teach.getBefore_url()), request, response);
+			return null;
+		}
+		
+		teach.setHomepage_id(homepage.getHomepage_id());
+		if (isLogin(request)) {
+			teach.setMember_key(getSessionUserSeqNo(request));
+		}
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		if (StringUtils.isEmpty(teach.getSearchDateFrom())) {
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.MONTH, -1);
+			teach.setSearchDateFrom(sdf.format(cal.getTime()));
+		}
+		if (StringUtils.isEmpty(teach.getSearchDateTo())) {
+			teach.setSearchDateTo(sdf.format(new Date()));
+		}
+		
+		model.addAttribute("statusCode", codeService.getCode("CMS", "C0005"));
+		
+		if (teach.getSearchStatus().equals("Y")) {
+			model.addAttribute("teachList", teachService.getApplyList(teach));
+		} else {
+			model.addAttribute("teachList", studentService.getCertificateListByDate(teach));
+		}
+
+		return String.format(basePath, homepage.getFolder()) + "applyList";
+	}
+	
+	@RequestMapping(value = "/download/{homepage_id}/{group_idx}/{category_idx}/{teach_idx}.*", method = RequestMethod.GET)
+	@ResponseBody
+    public ResponseEntity<byte[]> getFile(@PathVariable("homepage_id") String homepage_id, @PathVariable("group_idx") int group_idx, @PathVariable("category_idx") int category_idx, @PathVariable("teach_idx") int teach_idx, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Teach teach = teachService.getTeachOne(new Teach(homepage_id, group_idx, category_idx, teach_idx));
+		HttpHeaders responseHeaders = new HttpHeaders();
+		byte[] bytes = null;
+
+		if(teach == null) {
+			responseHeaders.setContentType(MediaType.valueOf("text/html"));
+			teachService.alertMessage("파일이 존재하지 않습니다.", request, response);
+			return null;
+		}
+		
+		String filePath = teachService.getRootPath()+ "/" + homepage_id + "/" + teach.getReal_file_name();
+		File file = new File(filePath);
+		
+//		if(file.length() > 0) {
+//			bytes = FileCopyUtils.copyToByteArray(file);
+//		} else {
+//			responseHeaders.setHeader("Content-type", "text/html");
+//			teachService.alertMessage("파일이 존재하지 않습니다.", request, responseHeaders);
+//			return null;
+//		}
+		
+		if(file.length() > 0) {
+			bytes = FileCopyUtils.copyToByteArray(file);
+		} else {
+			responseHeaders.setContentType(MediaType.valueOf("text/html"));
+			teachService.alertMessage("파일이 존재하지 않습니다.", request, response);
+			return null;
+		}
+		
+//		String fileName = "";
+		String fileName = String.format("%s.%s", teach.getPlan_file_name(),teach.getFile_extension() );
+//		String fileName = boardFile.getFile_name().substring(0,boardFile.getFile_name().lastIndexOf("."));
+		String fileType = teach.getFile_extension().toUpperCase();
+//		String fullFilename = fileName+"."+fileType;
+		
+//		response.setHeader("Content-Length", Long.toString(file.length()));
+//	    response.setHeader("Content-Transfer-Encoding", "binary");
+//	    response.setHeader("Content-Type", "application/octet-stream");
+//	    response.setHeader("Content-Disposition", "attachment;fileName=\"" + fileName + "\";");
+	    
+		responseHeaders.set("Content-Disposition", AttachmentUtils.getContentDisposition(fileName, request.getHeader("user-agent")));
+		responseHeaders.setPragma("no-cache;");
+		responseHeaders.setExpires(-1);
+//		responseHeaders.setContentLength(file.length());
+		responseHeaders.setContentType(MediaType.valueOf(AttachmentUtils.getContentType(fileType)));
+		responseHeaders.setContentLength(bytes.length);
+		
+	    return new ResponseEntity<byte[]>(bytes, responseHeaders, HttpStatus.OK);
+    }
+	
+	@RequestMapping(value = {"/excelDownload.*"})
+	public TeachApplySearchView excelDownload(Model model, Teach teach, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+		
+		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			teach.setBefore_url(String.format("http://www.gbelib.kr/%s/module/teach/applyList.do?menu_idx=%s", homepage.getContext_path(), teach.getMenu_idx()));
+			teachService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://www.gbelib.kr/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), teach.getMenu_idx(), teach.getBefore_url()), request, response);
+			return null;
+		}
+		
+		teach.setHomepage_id(homepage.getHomepage_id());
+		teach.setMember_key(getSessionUserSeqNo(request));
+		
+		model.addAttribute("teachList", teachService.getApplyList(teach));
+
+		return new TeachApplySearchView();
+	}
+	
+	@RequestMapping (value = { "/getGroupList.*" })
+	public @ResponseBody JsonResponse getGroupList(Teach teach, BindingResult result, HttpServletRequest request) {
+
+		JsonResponse res = new JsonResponse(request);
+
+		if ( !result.hasErrors() ) {
+			res.setData(categoryGroupService.getCategoryGroupListAll(new CategoryGroup(teach.getHomepage_id())));
+		}
+		else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+
+		return res;
+	}
+	
+	@RequestMapping (value = { "/getCategoryList.*" })
+	public @ResponseBody JsonResponse getCategoryList(Teach teach, BindingResult result, HttpServletRequest request) {
+		
+		JsonResponse res = new JsonResponse(request);
+		
+		if ( !result.hasErrors() ) {
+			res.setData(categoryService.getCategoryListAll(new Category(teach.getHomepage_id(), teach.getGroup_idx())));
+		}
+		else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+		
+		return res;
+	}
+	
+}

@@ -1,0 +1,196 @@
+@charset "utf-8";	 
+
+/* 스타일 */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td,address
+{font-size:13px}
+
+a:hover,
+a:focus{color:#3073c1}
+
+body{background:url('../img/lbg.gif') repeat-y}
+
+#wrap.section{margin:0;overflow:hidden}
+#header,
+#container{float:left;zoom:1}
+#header{width:300px;background:#3073c1}
+#container{width:100%;clear:none;margin-right:-300px}
+#container>.container{margin-right:300px;background:#fff}
+
+
+/* header */
+#header .logo{background:#252525;padding:48px 8% 30px 0}
+#header .logo h1{font-size:26px;line-height:28px;padding-bottom:15px}
+#header .logo h1 a{color:#fff}
+#header .logo p{display:block;font-size:12px;line-height:15px;color:#eee}
+
+#header .logo,
+#header .Gnb,
+#header .call,
+#header .footer{padding-left:20%}
+
+/* Gnb */
+.Gnb{padding:30px 0 40px;width:auto}
+.Gnb>.g-menu>ul{overflow:hidden}
+
+.Gnb li.s a{position:relative}
+.Gnb li.s i{position:absolute;top:50%;right:15px;margin-top:-7px}
+.Gnb li.s li i.fa-external-link{position:relative;right:0;top:0;margin:0 0 0 5px}
+.Gnb li.s li i{color:#fff}
+.Gnb li.s li a:hover i,
+.Gnb li.s li a:focus i{color:#fff}
+.Gnb a{display:block;color:#fff}
+.Gnb a span{display:inline-block;zoom:1;*display:inline}
+.Gnb>.g-menu>ul>li{border-bottom:1px solid #3f7dc5;background:url('../img/Gnb-arr-white.gif') no-repeat 95% 8px}
+.Gnb>.g-menu>ul>li>a{font-size:14px;font-weight:bold}
+.Gnb>.g-menu>ul>li>ul{padding:5px 0 10px;border-top:1px solid #3f7dc5}
+.Gnb>.g-menu>ul>li>ul>li>ul{padding:0 0 10px}
+.Gnb>.g-menu>ul>li>a{padding:5px 20px 5px 15px;position:relative}
+.Gnb>.g-menu>ul>li>ul>li>a{padding:1px 20px 1px 30px;background:url('../img/Gnb-arr.gif') no-repeat 20px 12px;font-weight:bold;font-size:14px}
+.Gnb>.g-menu>ul>li>ul>li>ul>li>a{padding:5px 20px 4px 35px}
+.Gnb>.g-menu>ul>li>ul{display:none}
+.Gnb>.g-menu>ul>li.active>ul{display:block}
+.Gnb li li ul{display:none}
+.Gnb li li.active ul{display:block}
+.Gnb a.newWin>span{display:inline-block;zoom:1;*display:inline;padding-right:15px}
+.Gnb>.g-menu>ul>li.s>a>i.fa-angle-right{display:none}
+.Gnb>.g-menu>ul>li>ul{padding:5px 0 10px}
+.Gnb ul li.active > a{color:#fff;position:relative}
+.Gnb ul li.active > a:hover{color:#fac960}
+.Gnb ul ul li.active > a{color:#fac960}
+.Gnb ul li > a:hover,
+.Gnb ul ul ul li.active > a,
+.Gnb ul ul ul li.active > a:hover{color:#fac960}
+
+.call{color:#fff;font-weight:bold;line-height:100%}
+.call span{font-size:17px}
+.call p{font-size:29px;letter-spacing:-2px}
+.call em{font-size:11px;font-style:normal}
+
+.footer{display:none;padding:10px 0 30px;position:relative;color:#fff}
+.footer .foo_line{margin:20px 0;width:20px;height:1px;background:#fff}
+.footer .info a{display:block;margin-bottom:10px}
+.footer .info a,
+.footer .info span{vertical-align:middle;color:#fff;letter-spacing:-0.5px;line-height:110%}
+.footer address em,
+.footer address span{font-size:12px}
+.footer address{padding:10px 20% 0 0;color:#adc1e1;line-height:130%}
+.footer address em{font-style:normal;margin-right:10px;line-height:140%;display:block}
+.footer address span{display:block;font-size:11px;padding-top:15px}
+#header .footer{display:block}
+
+.tnb{padding:10px;overflow:hidden;text-align:right;padding-right:15px}
+.tnb,
+.container_box{border-right:1px solid #ddd}
+.container_box{padding:20px 5%;background:#fff}
+.subpage{overflow:hidden}
+.subpage .doc{margin:0}
+
+.sc_tab h3 a{color:#403e3e;font-size:14px;height:36px;line-height:36px;border:1px solid #d5d5d5;width:15.99%;border-bottom-width:0;text-align:center}
+.sc_tab h3 a.active{color:#1b1b1b;background:#d3d3d3;font-weight:bold}
+.sc_tab h3 a{float:left;display:block;zoom:1;*display:inline;vertical-align:middle;margin-left:0.5%}
+.sc_tab h3 a:first-child{margin-left:0}
+
+.sc_tab ul{font-size:0;line-height:0}
+.sc_tab li{width:16.66%;text-align:center}
+.sc_tab li{display:inline-block;zoom:1;*display:inline}
+.sc_tab li a{height:36px;line-height:36px;border:1px solid #d5d5d5;border-bottom-width:0;display:block;margin-left:5px}
+.sc_tab li a:hover,
+.sc_tab li a:focus,
+.sc_tab li.active a{background:#d3d3d3;font-weight:bold;color:#222}
+.sc_tab li.first a{margin-left:0}
+
+/* 검색 */
+.search_m{clear:both;background:#434343;padding:10px 12px;margin-bottom:37px;overflow:hidden}
+.search_m > form > fieldset > span,
+.search_m > form > fieldset > input,
+.search_m > form > fieldset > button{display:inline-block;zoom:1;*display:inline;margin:2px 0!important}
+.search_m form{display:block!important;float:right}
+.search_m .selection{text-align:left}
+.search_m input{margin-right:2px;vertical-align:middle;width:220px;border-radius:0;border:0;padding:1px 0;padding-left:10px}
+.search_m input.text{background-color:#fff}
+.search_m input.text.ui-calendar{width:100px}
+.search_m button{font-size:10.5px;background:#fac960;color:#fff;font-weight:bold;padding:6px 10px 6px;line-height:16px;display:inline-block;zoom:1;*display:inline;position:relative;margin-right:0.1em;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:2px;cursor:pointer;vertical-align:middle;text-align:center;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;overflow:visible}
+.search_m button i{margin-right:5px}
+.search_m button i,
+.search_m button span{display:inline-block;vertical-align:middle}
+.search_m button span{display:inline-block;zoom:1;*display:inline}
+.search_m .select2-container--default .select2-selection--single{background-color: #eee;border:0;border-radius:0}
+
+/* 기본 테이블 */
+table th,
+table td{font-size:85%!important}
+table td.red_{color:#e86666}
+
+/*  */
+.bbs-result{margin-left:0}
+.bbs-result em{font-size:11px;line-height:16px}
+
+.wrapper-bbs{padding: 10px 0 10px}
+
+.bbs-notice{border-radius:0;padding:15px;margin-bottom:15px;overflow:hidden}
+.bbs-notice p{display:block;float:left;font-size:11px}
+.bbs-notice p.tit{margin-top:7px;font-size:12px;font-weight:bold;background:url('../img/icon_img.gif')no-repeat left 2px;width:18%;box-sizing:border-box;padding:2px 0 5px 30px;height:100%}
+.bbs-notice p.con{width:73%;padding:0 20px;border-left:1px solid #e1e1e1}
+
+/* 테이블 버튼 */
+.sc_tabCon .btn{font-size:100%!important;padding:0px 5px;color:#fff;width:45px}
+.sc_tabCon .btn01{background:#c3c0b1;border:1px solid #c3c0b1}
+.sc_tabCon .btn02{background:#f57071;border:1px solid #f57071}
+.sc_tabCon .btn03{background:#7b7b7b;border:1px solid #7b7b7b}
+.sc_tabCon .btn04{background:#65b3cb;border:1px solid #65b3cb}
+.sc_tabCon .f_r{float:right;text-align:center;font-size:90%}
+
+@media all and (max-width:1000px){
+	.mmm1{display:none}
+	#header .logo{padding:10px 0 10px 3%}
+	#header .logo h1{font-size:25px;padding-bottom:5px}
+
+	body{background:none}
+
+	.m-menu{position:absolute;top:50%;margin-top:-22px;right:3%;z-index:5}
+	.m-menu a{display:inline-block;zoom:1;*display:inline;text-align:center;vertical-align:middle}
+	.m-menu a i{font-size:30px;width:45px;height:45px;line-height:45px;color:#fff}
+	.sc_tab li{width:33.33%}
+	.sc_tab li a{border-bottom-width:1px;margin-bottom:5px}
+	.sc_tab li.fourth a{margin-left:0}
+
+	.search_m input{width:170px}
+	.search_m form{float:none;text-align:center}
+	.section{margin:0}
+	.subpage{border-left-width:0}
+	.section.wrap{border-right-width:0}
+	.footer{display:block;background:#3073c1;padding:20px 3%}
+	.tnb,
+	.Gnb,
+	.call,
+	#header .footer{display:none}
+	#container .footer .info a,
+	#container .footer address em{margin-right:13px;display:inline-block}
+	#header,
+	#container,
+	#container .container{float:none;width:auto;margin:0}
+	.container_box{border-right-width:0}
+
+	.bbs-notice{height:auto}
+	.bbs-notice p{display:inline-block;float:none}
+	.bbs-notice p.tit{width:100%;height:auto}
+	.bbs-notice p.con{width:90%;padding:15px 20px;border-width:0px}
+
+	.mmode{display:block}
+}
+@media all and (max-width:850px){
+	.sc_tab>.box{margin:0}
+	.sc_tab li a strong{font-size:27px}
+	.banner-wrap{display:none}
+}
+@media (max-width:767px){
+	.sc_tab h3 a{width:32.4%;font-size:12px}
+}
+
+@media (max-width:360px){
+	.sc_tab li{width:50%}
+	.sc_tab li:nth-child(3n) a,
+	.sc_tab li:nth-child(5n) a{margin-left:0}
+	.sc_tab li:nth-child(4n) a,
+	.sc_tab li:nth-child(6n) a{margin-left:5px}
+}

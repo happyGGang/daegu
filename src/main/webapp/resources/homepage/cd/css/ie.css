@@ -1,0 +1,12 @@
+@charset "utf-8";
+@import url("../../../common/css/ie.css");
+@import url("../../../common/css/type11_ie.css");
+
+.main .libClosed dl dt,
+.ciInfo>div p,
+.signature>div li,
+.floor li,
+.floor li p,
+.greeting .sign span,
+.club-photo.party .tit p,
+.go_youth .box{zoom:1;*display:inline}

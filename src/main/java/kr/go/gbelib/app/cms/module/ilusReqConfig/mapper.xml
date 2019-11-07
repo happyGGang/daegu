@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.ilusReqConfig.ILUSReqConfigDao">
+	
+	<sql id="field">
+		homepage_id, ilus_req_idx, ilus_req_code, loca_code, loca_name, sub_loca_code,
+		TO_CHAR(str_date, 'yyyy-MM-dd') AS str_date, TO_CHAR(end_date, 'yyyy-MM-dd') AS end_date, TO_CHAR(str_date, 'HH24:mi') AS str_time, TO_CHAR(end_date, 'HH24:mi') AS end_time,
+		res_msg, use_yn, add_date, add_id, mod_date, mod_id
+	</sql>
+	
+	<select id="getConfigList" resultType="kr.go.gbelib.app.cms.module.ilusReqConfig.ILUSReqConfig">
+		SELECT
+			<include refid="field"/>,
+			CASE WHEN str_date <![CDATA[<=]]> SYSDATE
+				AND end_date <![CDATA[>=]]> SYSDATE
+				AND use_yn = 'Y' THEN '1' ELSE '0' END AS date_chk
+		FROM
+			ILUS_REQ_CONFIG
+		WHERE
+			homepage_id = #{homepage_id}
+		AND sub_loca_code = #{sub_loca_code}
+		ORDER BY ilus_req_code ASC
+	</select>
+	
+	<select id="getILUSReqConfigCommon" resultType="kr.go.gbelib.app.cms.module.ilusReqConfig.ILUSReqConfig">
+		SELECT
+			loca_code, loca_name, sub_loca_code
+		FROM
+			ILUS_REQ_CONFIG
+		WHERE
+			homepage_id = #{homepage_id}
+		AND sub_loca_code = #{sub_loca_code}
+		group by loca_code, loca_name, sub_loca_code
+	</select>
+	
+	<select id="getSubLocaCodes" resultType="String">
+		SELECT
+		  sub_loca_code
+		FROM
+		  ILUS_REQ_CONFIG
+		WHERE
+		  homepage_id = #{homepage_id}
+		GROUP BY sub_loca_code
+	</select>
+	
+	<select id="getILUSReqConfigOne" resultType="kr.go.gbelib.app.cms.module.ilusReqConfig.ILUSReqConfig">
+		SELECT
+			<include refid="field"/>
+		FROM
+			ILUS_REQ_CONFIG
+		WHERE
+			homepage_id = #{homepage_id}
+		AND sub_loca_code = #{sub_loca_code}
+		ORDER BY ilus_req_code ASC
+	</select>
+	
+	<select id="getSubLacaList" resultType="String">
+		SELECT
+			REGEXP_REPLACE(LISTAGG(sub_loca_code, ',') WITHIN GROUP(ORDER BY sub_loca_code), '([^,]+)(,\1)+', '\1')
+		FROM
+			ILUS_REQ_CONFIG
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+	
+	<insert id="addILUSReqConfig">
+		<selectKey keyProperty="ilus_req_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(ilus_req_idx),0)+1 FROM ILUS_REQ_CONFIG WHERE homepage_id = #{homepage_id}
+		</selectKey>
+		INSERT INTO ILUS_REQ_CONFIG
+		(
+			homepage_id, ilus_req_idx, ilus_req_code, loca_code, loca_name,
+			sub_loca_code, str_date, end_date, res_msg,
+			use_yn, add_date, add_id
+		)
+		VALUES
+		(
+			#{homepage_id}, #{ilus_req_idx}, #{ilus_req_code}, #{loca_code}, #{loca_name},
+			#{sub_loca_code}, TO_DATE(#{str_date}, 'yyyy-MM-dd HH24:mi'), TO_DATE(#{end_date}, 'yyyy-MM-dd HH24:mi'), #{res_msg},
+			#{use_yn}, SYSDATE, #{add_id}
+		)
+	</insert>
+	
+	<update id="modILUSReqConfig">
+		UPDATE
+			ILUS_REQ_CONFIG
+		SET
+			str_date = TO_DATE(#{str_date}, 'yyyy-MM-dd HH24:mi'),
+			end_date = TO_DATE(#{end_date}, 'yyyy-MM-dd HH24:mi'),
+			res_msg = #{res_msg},
+			use_yn = #{use_yn},
+			mod_date = SYSDATE,
+			mod_id = #{mod_id}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	sub_loca_code = #{sub_loca_code}
+		AND ilus_req_code = #{ilus_req_code}
+	</update>
+	
+	<select id="getILUSReqIdx" resultType="int">
+		SELECT
+			NVL(MAX(ilus_req_idx),0)+1
+		FROM
+			ILUS_REQ_CONFIG
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+	
+	<update id="mergeILUSReqConfig">
+		MERGE INTO
+			ILUS_REQ_CONFIG
+		USING DUAL
+		ON
+			(homepage_id = #{homepage_id} AND sub_loca_code = #{sub_loca_code} AND ilus_req_code = #{ilus_req_code})
+		WHEN MATCHED THEN
+			UPDATE SET
+				<choose>
+				<when test="(str_date != null and str_date != '') and (end_date != null and end_date != '')">
+				str_date = TO_DATE(#{str_date}, 'yyyy-MM-dd HH24:mi'),
+				end_date = TO_DATE(#{end_date}, 'yyyy-MM-dd HH24:mi'),
+				</when>
+				<otherwise>
+				str_date = null,
+				end_date = null,
+				</otherwise>
+				</choose>
+				res_msg = #{res_msg},
+				use_yn = #{use_yn},
+				mod_date = SYSDATE,
+				mod_id = #{add_id}
+			WHERE
+				homepage_id = #{homepage_id}
+			AND	sub_loca_code = #{sub_loca_code}
+			AND ilus_req_code = #{ilus_req_code}
+		WHEN NOT MATCHED THEN
+			INSERT
+			(
+				homepage_id, ilus_req_idx, ilus_req_code, loca_code, loca_name, sub_loca_code,
+				str_date, end_date, res_msg, use_yn, add_date, add_id
+			)
+			VALUES
+			(
+				#{homepage_id}, #{ilus_req_idx}, #{ilus_req_code}, #{loca_code}, #{loca_name}, #{sub_loca_code},
+				<choose>
+				<when test="(str_date != null and str_date != '') and (end_date != null and end_date != '')"> 
+				TO_DATE(#{str_date}, 'yyyy-MM-dd HH24:mi'), TO_DATE(#{end_date}, 'yyyy-MM-dd HH24:mi'),
+				</when>
+				<otherwise>
+				null, null,
+				</otherwise>
+				</choose>
+				#{res_msg}, #{use_yn}, SYSDATE, #{add_id}
+			)
+	</update>
+	
+	<delete id="deleteILUSReqConfig">
+		DELETE FROM
+			ILUS_REQ_CONFIG
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	sub_loca_code = #{sub_loca_code}
+	</delete>
+	
+	<select id="getILUSReqConfigInfo" resultType="kr.go.gbelib.app.cms.module.ilusReqConfig.ILUSReqConfig">
+		SELECT
+			<include refid="field"/>
+		FROM
+			ILUS_REQ_CONFIG
+		WHERE
+			ilus_req_code = #{ilus_req_code}
+		AND	loca_code = #{loca_code}
+		AND	sub_loca_code = #{sub_loca_code}
+		AND	str_date <![CDATA[<=]]> SYSDATE
+		AND	end_date <![CDATA[>=]]> SYSDATE
+		AND	use_yn = 'Y'
+	</select>
+	
+</mapper>

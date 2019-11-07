@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.module.quizReq.QuizReqDao">
+	
+	<select id="getQuizReqList" resultType="kr.co.whalesoft.app.cms.module.quizReq.QuizReq">
+		${pagingTop}
+		SELECT
+			homepage_id, quiz_idx, quiz_req_idx, quiz_answer, name,
+			school, hak, ban, phone, zip_code,
+			address, winner_yn, add_ip, add_id, to_char(add_date, 'yyyy-mm-dd hh24:mi:ss') as add_date,
+			chosen_yn
+		FROM
+			QUIZ_REQ
+		WHERE 
+			homepage_id = #{homepage_id} AND quiz_idx = #{quiz_idx}
+			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+		ORDER BY
+			quiz_req_idx
+		${pagingBottom}
+	</select>
+	
+	<select id="getQuizReqListAll" resultType="kr.co.whalesoft.app.cms.module.quizReq.QuizReq">
+		SELECT
+			homepage_id, quiz_idx, quiz_req_idx, quiz_answer, name,
+			school, hak, ban, phone, zip_code,
+			address, winner_yn, add_ip, add_id, to_char(add_date, 'yyyy-mm-dd hh24:mi:ss') as add_date,
+			chosen_yn
+		FROM
+			QUIZ_REQ
+		WHERE 
+			homepage_id = #{homepage_id} AND quiz_idx = #{quiz_idx}
+		ORDER BY
+			quiz_req_idx
+	</select>
+	
+	<select id="getShuffledQuizReqList" resultType="kr.co.whalesoft.app.cms.module.quizReq.QuizReq">
+		SELECT
+			*
+		FROM (
+			SELECT
+				homepage_id, quiz_idx, quiz_req_idx, quiz_answer, name,
+				school, hak, ban, phone, zip_code,
+				address, winner_yn, add_ip, add_id, to_char(add_date, 'yyyy-mm-dd hh24:mi:ss') as add_date,
+				chosen_yn, DBMS_RANDOM.VALUE AS rand
+			FROM
+				QUIZ_REQ
+			WHERE 
+				homepage_id = #{homepage_id} AND quiz_idx = #{quiz_idx}
+			ORDER BY
+				quiz_req_idx
+		)
+		ORDER BY rand
+	</select>
+	
+	<select id="getQuizReqListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			QUIZ_REQ
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND QUIZ_IDX = #{quiz_idx}
+			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+		ORDER BY
+			QUIZ_REQ_IDX
+	</select>
+	
+	<select id="getQuizReqOne" resultType="kr.co.whalesoft.app.cms.module.quizReq.QuizReq">
+		SELECT
+			HOMEPAGE_ID, QUIZ_IDX, QUIZ_REQ_IDX, QUIZ_ANSWER, NAME, SCHOOL, HAK, BAN, PHONE, ZIP_CODE, ADDRESS, WINNER_YN, ADD_IP, ADD_ID, ADD_DATE, CHOSEN_YN
+		FROM
+			QUIZ_REQ
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND QUIZ_IDX = #{quiz_idx} AND QUIZ_REQ_IDX = #{quiz_req_idx}
+	</select>
+	
+	<insert id="addQuizReq">
+		<selectKey keyProperty="quiz_req_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(QUIZ_REQ_IDX),0)+1 FROM QUIZ_REQ WHERE HOMEPAGE_ID = #{homepage_id} AND QUIZ_IDX = #{quiz_idx}
+		</selectKey>
+	
+		INSERT INTO QUIZ_REQ
+		(
+			HOMEPAGE_ID, QUIZ_IDX, QUIZ_REQ_IDX, QUIZ_ANSWER, NAME, SCHOOL, HAK, BAN, PHONE, ZIP_CODE, ADDRESS, WINNER_YN, ADD_IP, ADD_ID, ADD_DATE, CHOSEN_YN
+		) VALUES (
+			#{homepage_id}, #{quiz_idx}, #{quiz_req_idx}, #{quiz_answer}, #{name}, #{school}, #{hak}, #{ban}, #{phone}, #{zip_code}, #{address}, #{winner_yn}, #{add_ip}, #{add_id}, SYSDATE, 'N'
+		)
+	</insert>
+	
+	<update id="modifyWinner">
+		UPDATE 
+			QUIZ_REQ
+		SET
+			WINNER_YN = #{winner_yn} 
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND QUIZ_IDX = #{quiz_idx} AND QUIZ_REQ_IDX = #{quiz_req_idx} 
+	</update>
+	
+	<select id="checkReqByMemberId" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			QUIZ_REQ
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND QUIZ_IDX = #{quiz_idx} AND ADD_ID = #{add_id}
+	</select>
+	
+	<update id="modifyChosenYn">
+		UPDATE 
+			QUIZ_REQ
+		SET
+			chosen_yn = #{chosen_yn}
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND QUIZ_IDX = #{quiz_idx} AND QUIZ_REQ_IDX = #{quiz_req_idx}
+	</update>
+	
+	<update id="deletePersonalData">
+		UPDATE QUIZ_REQ SET
+			add_id = NULL,
+			name = NULL,
+			ban = 0,
+			phone = NULL
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND QUIZ_IDX = #{quiz_idx} 
+	</update>
+	
+</mapper>

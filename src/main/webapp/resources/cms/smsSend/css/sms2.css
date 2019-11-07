@@ -1,0 +1,63 @@
+@charset "utf-8";
+/* ------------------------------------------------------------
+ * Name      : sms.css
+ * Desc      : 내친구교육넷 Text Message Service CSS Style
+ * Created   : 2014-12-03
+ * Updated   : 2015-04-14
+ * Author    : Whale Soft
+ ------------------------------------------------------------ */
+ 
+/* 문자서비스 홈 > Right Area > 전송목록 */
+.listBox{background:#e6f5fd;border:1px solid #d4e1e8;border-radius:20px;-webkit-border-radius:20px;-moz-border-radius:20px;width:535px;height:440px;padding:10px}
+.sendList{float:left;position:relative;width:243px;height:440px;margin-left:7px}
+.sendList dl{float:left;margin:0 10px 10px 0}
+.sendList dl dt, .sendList dl dd, .sendList dl dd input, .delBtn a{font-family:Dotum;font-size:12px}
+.sendList dl dt{color:#1f3b8c;font-weight:bold}
+.sendList dl dd input[type="text"]{width:92px;border:none;padding:0 0 0 6px;letter-spacing:-0.2pt;height:22px}
+.sendList dl dd input.disable{background:#6f87bb;color:#fff}
+.sendList dl.getNum{margin-right:0}
+.sendList .btn_putNum{position:absolute;right:73px;top:13px}
+.list, .group_list{scrollbar-base-color: #000;  /* 아래의 6가지 스타일을 하나로 통합 한것 */
+scrollbar-face-color: #ebf4fc;  /* bar 의 표면색 */
+scrollbar-track-color: #bad8f6;  /* 스크롤 트랙의 색 */
+scrollbar-highlight-color: #97c4f1;  /* 밝게 빛나는 좌상단 모서리 */
+scrollbar-3dlight-color: #97c4f1;  /* 좌상단 모서리 아래부분 */
+scrollbar-shadow-color: #97c4f1;  /* 그림자 지는 우하단 */
+scrollbar-darkshadow-color: #97c4f1;  /* 그림자 우하단 */
+scrollbar-arrow-color: #679de9;  /* 삼각형부분 */ }
+.list, .group_list ul li span{display:inline-block}
+.sendList .list{clear:both;border:1px solid #cadee9;width:235px;height:321px;overflow-y:scroll;background:#fff}
+.list table{width:100%;letter-spacing:-0.7pt}
+.list table thead th{background:#3162aa;font-size:11px;text-align:center;color:#fff;padding:3px 0 2px;letter-spacing:-0.8pt}
+.list table tbody td{text-align:center;padding:3px 0 2px;color:#999;background:#fff}
+.list table tbody td.nickname{color:#2c539e;font-weight:bold;letter-spacing:-0.5pt;padding-top:4px}
+.list table tbody td span{display:inline-block;zoom:1;*display:inline;vertical-align:middle;margin-left:4px;letter-spacing:-0.3pt}
+.sendList .delBtn{width:100%;text-align:center;padding:5px 0 0 0;position:relative}
+.sendList .delBtn a.button{color:#fff;font-size:11px;text-decoration:none;padding:2px 12px 1px;position:relative;display:inline-block;
+-webkit-transition:border-color .218s;-moz-transition:border .218s;-o-transition:border-color .218s;transition:border-color .218s;
+-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;margin:0 3px;letter-spacing:-1pt;background:#3162aa}
+.delBtn a.button:hover{background:#27498f;color:#fff !important}
+.delBtn a.button:active{color:#fff;background:#a9c1eb}
+
+/* 전송문자 > 전화번호 입력 */
+.openText{width:235px;height:322px;*height:328px;background:#fff;border:1px solid #cadee9;position:absolute;top:53px;left:0}
+.openText p{padding:3px 0;background:#5f98e5}
+.openText p span{display:inline-block;zoom:1;*display:inline;color:#fff;font-weight:bold;font-size:11px;letter-spacing:-0.8pt;text-align:center}
+.openText textarea{width:225px;height:252px;background:url('/resources/cms/smsSend/img/cell.gif');border:none;padding:0 5px;color:#333;line-height:180%}
+.openText .btn_complete{background:#194f91;text-align:center;padding:9px 0 10px}
+
+/* 문자서비스 홈 > Right Area > 전화번호 이동 버튼 */
+.moveBtn{width:35px;text-align:center;float:left;margin-top:190px;margin-right:5px;}
+.moveBtn li{margin:2px 0}
+
+/* 문자서비스 홈 > Right Area > 그룹 및 주소록 */
+.addressList{float:left;position:relative}
+.addressSet{position:absolute;top:-3px;right:0;display:inline-block;zoom:1;*display:inline;width:91px;height:23px;font-size:0 !important;background:url('/resources/cms/smsSend/img/btn_settingAddress.gif') no-repeat}
+.addressSet:hover{background:url('/resources/cms/smsSend/img/btn_settingAddress_on.gif') no-repeat}
+.group h4, .address h4{color:#1f3b8c;font-weight:bold;font-family:Dotum;letter-spacing:-0.5pt}
+.group .list, .address .list{border:1px solid #cadee9;width:235px;overflow-y:scroll;background:#fff;padding-top:3px}
+.group .list{clear:both;height:90px;margin-bottom:10px}
+.group .list li{font-family:Dotum;font-size:12px;background:url('/resources/cms/smsSend/img/ico_group.gif')  10px 4px no-repeat;padding-left:29px}
+.group .list li a{text-decoration:none}
+.group .list li.on a{font-weight:bold;color:#2c539e}
+.address .list{padding-top:0;height:260px}

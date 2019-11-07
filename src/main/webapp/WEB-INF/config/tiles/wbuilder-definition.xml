@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+	<definition name="/wbuilder/*/*/*/*_ajax" templateExpression="/WEB-INF/views/app/wbuilder/{1}/{2}/{3}/{4}.jsp" />
+	
+	<definition name="/wbuilder/*/*/*_ajax" templateExpression="/WEB-INF/views/app/wbuilder/{1}/{2}/{3}.jsp" />
+	
+	<definition name="/wbuilder/*/*_ajax" templateExpression="/WEB-INF/views/app/wbuilder/{1}/{2}.jsp" />
+
+	<definition name="wBuilderLayout" templateExpression="/WEB-INF/views/app/wbuilder/layout/layout.jsp">
+	</definition>
+	
+	<definition name="/wbuilder/*/*/*/*" extends="wBuilderLayout">
+ 		<put-attribute name="body" expression="/WEB-INF/views/app/wbuilder/{1}/{2}/{3}/{4}.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/wbuilder/*/*/*" extends="wBuilderLayout">
+ 		<put-attribute name="body" expression="/WEB-INF/views/app/wbuilder/{1}/{2}/{3}.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/wbuilder/*/*" extends="wBuilderLayout">
+ 		<put-attribute name="body" expression="/WEB-INF/views/app/wbuilder/{1}/{2}.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/wbuilder/*" extends="wBuilderLayout">
+ 		<put-attribute name="body" expression="/WEB-INF/views/app/wbuilder/{1}.jsp"></put-attribute>
+	</definition>
+	
+</tiles-definitions>

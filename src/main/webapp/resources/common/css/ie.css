@@ -1,0 +1,49 @@
+@charset "utf-8";
+
+html*input{margin:-1px 0}
+
+.m-menu a,
+.login-body button,
+.login-body .login button i,
+.login-body .login button span,
+.login-body .login .form-etc .find a,
+.fileUploader .file_attach_info p,
+.category span.ca,
+.bbs-result,
+table.bbs em.new,
+.share i,
+.share a,
+.share span,
+.share dt,
+.share dd,
+.bbs_webzine.elib span,
+.bbs_webzine.elib .list-body .flexbox span,
+.elib_cate .box a,
+.bbs-view .bbs-comment .bcl-header .btn-init,
+.bbs-view .bbs-comment .bcl .bcl-box .bcl-btns a,
+.bbs-view .bbs-comment .bcl .bcl-box .bcl-btns span,
+.search label,
+.search button,
+.search button i,
+.search button span,
+.checkbox-original input,
+.checkbox-original label,
+.checkbox-original em,
+.bbs_gallery .meta a,
+.bbs_webzine .meta a,
+.bbs_gallery .meta span,
+.bbs_gallery .meta label,
+.bbs_webzine .meta abbr,
+.bbs_webzine .meta abbr,
+.bbs_webzine.movie .flexbox a,
+.bbs_webzine.movie .meta p label,
+.bbs_webzine.movie .meta p .published{zoom:1;*display:inline}
+
+table.bbs .reply i.fa-reply{filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=0.5)}
+
+table.bbs td.process.finish i{*zoom:expression(this.runtimeStyle['zoom'] = '1',this.innerHTML = '\f00c')}
+table.bbs td.process.wait i{*zoom:expression(this.runtimeStyle['zoom'] = '1',this.innerHTML = '\f017')}
+table.bbs td.process.accept i{*zoom:expression(this.runtimeStyle['zoom'] = '1',this.innerHTML = '\f197')}
+
+.select2-container--classic .select2-selection--single .select2-selection__arrow{filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFEEEEEE', endColorstr='#FFCCCCCC', GradientType=0)}
+.select2-container--classic.select2-container--open.select2-container--above .select2-selection--single{filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFEEEEEE', GradientType=0)}

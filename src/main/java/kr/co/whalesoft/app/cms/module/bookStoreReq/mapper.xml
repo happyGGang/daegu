@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.module.bookStoreReq.BookStoreReqDao">
+	
+	<select id="getBookStoreReqList" resultType="kr.co.whalesoft.app.cms.module.bookStoreReq.BookStoreReq">
+		${pagingTop}
+		SELECT
+			REQ_IDX, LOAN_SEQ, MEMBER_NAME, STORE_NAME, ADD_ID, 
+			TO_CHAR(ADD_DATE,'YYYY-MM-DD') AS ADD_DATE, MODIFY_ID, MODIFY_DATE
+		FROM 
+			BOOK_STORE_REQ
+		WHERE
+			1=1
+			<if test="search_text != null and search_text != ''">
+			AND ${search_type} like '%' || #{search_text} || '%'
+			</if>
+		ORDER BY ADD_DATE DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getBookStoreReqOne" resultType="kr.co.whalesoft.app.cms.module.bookStoreReq.BookStoreReq">
+		SELECT
+			REQ_IDX, LOAN_SEQ, MEMBER_NAME, STORE_NAME, ADD_ID, ADD_DATE, MODIFY_ID, MODIFY_DATE
+		FROM 
+			BOOK_STORE_REQ
+		WHERE
+			REQ_IDX = #{req_idx}
+	</select>
+	
+	<select id="getBookStoreReqListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM 
+			BOOK_STORE_REQ
+		WHERE
+			1=1
+			<if test="search_text != null and search_text != ''">
+			AND ${search_type} like '%' || #{search_text} || '%'
+			</if>
+	</select>
+
+	<select id="getBookStoreReqCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM 
+			BOOK_STORE_REQ
+		WHERE
+			LOAN_SEQ = #{loan_seq}
+	</select>
+	
+	<insert id="addBookStoreReq">
+	
+		<selectKey keyProperty="req_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(REQ_IDX),0)+1 FROM BOOK_STORE_REQ
+		</selectKey>
+	
+		INSERT INTO BOOK_STORE_REQ (
+			REQ_IDX, LOAN_SEQ, MEMBER_NAME, STORE_NAME, ADD_ID, ADD_DATE, MODIFY_ID, MODIFY_DATE
+		) VALUES (
+			#{req_idx}, #{loan_seq}, #{member_name}, #{store_name}, #{add_id}, sysdate, #{add_id}, sysdate
+		)
+	</insert>
+	
+	<update id="modifyBookStoreReq">
+		UPDATE 
+			BOOK_STORE_REQ
+		SET
+			loan_seq = #{loan_seq},
+			member_name = #{member_name},
+			store_name = #{store_name},
+			modify_id = #{add_id},
+			modify_date = sysdate
+		WHERE
+			req_idx = #{req_idx}				
+	</update>
+	
+	<delete id="deleteBookStoreReq">
+		DELETE FROM
+			BOOK_STORE_REQ		
+		WHERE
+			REQ_IDX = #{req_idx}
+	</delete>
+	
+
+</mapper>

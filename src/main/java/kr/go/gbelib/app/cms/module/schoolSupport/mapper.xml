@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.schoolSupport.SchoolSupportDao">
+	
+	<select id="getSupportListAll" resultType="kr.go.gbelib.app.cms.module.schoolSupport.SchoolSupport">
+		SELECT
+			HOMEPAGE_ID, SUPPORT_IDX, SUPPORT_STATUS, AREA_CODE, SCHOOL_NAME,
+			SUPPORT_REQ_FIRST, SUPPORT_REQ_SECOND, FIRST_START_DATE, FIRST_END_DATE, SECOND_START_DATE, SECOND_END_DATE, 
+			SUPPORT_REQ_DESC, MEMBER_POSITION, MEMBER_ID, MEMBER_KEY, MEMBER_NAME, MEMBER_PHONE, MEMBER_CELL_PHONE, 
+			TOTAL_BOOK_COUNT, PROGRAM_NAME, PERCENT, PARENT_COUNT, STAFF_COUNT, MANAGER_COUNT, MANAGER_TYPE,
+			ADD_DATE, ADD_ID, MOD_DATE, MOD_ID, DELETE_YN
+		FROM
+			SCHOOL_SUPPORT
+		WHERE HOMEPAGE_ID = #{homepage_id} AND DELETE_YN = 'N'
+			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+				AND	${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+		ORDER BY
+			SUPPORT_DATE
+	</select>
+	
+	<select id="getSupportList" resultType="kr.go.gbelib.app.cms.module.schoolSupport.SchoolSupport">
+		SELECT
+			HOMEPAGE_ID, SUPPORT_IDX, SUPPORT_STATUS, AREA_CODE, SCHOOL_NAME,
+			SUPPORT_REQ_FIRST, SUPPORT_REQ_SECOND, FIRST_START_DATE, FIRST_END_DATE, SECOND_START_DATE, SECOND_END_DATE, 
+			SUPPORT_REQ_DESC, MEMBER_POSITION, MEMBER_ID, MEMBER_KEY, MEMBER_NAME, MEMBER_PHONE, MEMBER_CELL_PHONE, 
+			TOTAL_BOOK_COUNT, PROGRAM_NAME, PERCENT, PARENT_COUNT, STAFF_COUNT, MANAGER_COUNT, MANAGER_TYPE,
+			ADD_DATE, ADD_ID, MOD_DATE, MOD_ID, DELETE_YN
+		FROM
+			SCHOOL_SUPPORT
+		WHERE HOMEPAGE_ID = #{homepage_id} 
+			AND DELETE_YN = 'N'
+			AND SUPPORT_STATUS IN ('1', '2', '3') 
+			AND (FIRST_START_DATE like #{support_year}||'%' 
+				OR FIRST_END_DATE like #{support_year}||'%' 
+				OR SECOND_START_DATE like #{support_year}||'%' 
+				OR SECOND_END_DATE like #{support_year}||'%')
+			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+				AND	${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+		ORDER BY
+			FIRST_START_DATE
+	</select>
+	
+	<select id="getSupportListByStatusCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			SCHOOL_SUPPORT
+		WHERE HOMEPAGE_ID = #{homepage_id} 
+			AND DELETE_YN = 'N'
+			AND SUPPORT_STATUS = #{support_status} 
+			AND (FIRST_START_DATE like #{plan_date}||'%' 
+				OR FIRST_END_DATE like #{plan_date}||'%' 
+				OR SECOND_START_DATE like #{plan_date}||'%' 
+				OR SECOND_END_DATE like #{plan_date}||'%')
+			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+				AND	${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+		ORDER BY
+			ADD_DATE
+	</select>
+	
+	<select id="getSupportListByStatus" resultType="kr.go.gbelib.app.cms.module.schoolSupport.SchoolSupport">
+	${pagingTop}
+		SELECT
+			HOMEPAGE_ID, SUPPORT_IDX, SUPPORT_STATUS, AREA_CODE, SCHOOL_NAME,
+			SUPPORT_REQ_FIRST, SUPPORT_REQ_SECOND, FIRST_START_DATE, FIRST_END_DATE, SECOND_START_DATE, SECOND_END_DATE, 
+			SUPPORT_REQ_DESC, MEMBER_POSITION, MEMBER_ID, MEMBER_KEY, MEMBER_NAME, MEMBER_PHONE, MEMBER_CELL_PHONE, 
+			TOTAL_BOOK_COUNT, PROGRAM_NAME, PERCENT, PARENT_COUNT, STAFF_COUNT, MANAGER_COUNT, MANAGER_TYPE,
+			ADD_DATE, ADD_ID, MOD_DATE, MOD_ID, DELETE_YN
+		FROM
+			SCHOOL_SUPPORT
+		WHERE HOMEPAGE_ID = #{homepage_id} 
+			AND DELETE_YN = 'N'
+			AND SUPPORT_STATUS = #{support_status} 
+			AND (FIRST_START_DATE like #{support_year}||'%' 
+				OR FIRST_END_DATE like #{support_year}||'%' 
+				OR SECOND_START_DATE like #{support_year}||'%' 
+				OR SECOND_END_DATE like #{support_year}||'%')
+			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+				AND	${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+		ORDER BY
+			ADD_DATE
+		${pagingBottom}
+	</select>
+	
+	<select id="getSupportOne" resultType="kr.go.gbelib.app.cms.module.schoolSupport.SchoolSupport">
+		SELECT
+			HOMEPAGE_ID, SUPPORT_IDX, SUPPORT_STATUS, AREA_CODE, SCHOOL_NAME,
+			SUPPORT_REQ_FIRST, SUPPORT_REQ_SECOND, FIRST_START_DATE, FIRST_END_DATE, SECOND_START_DATE, SECOND_END_DATE, 
+			SUPPORT_REQ_DESC, MEMBER_POSITION, MEMBER_ID, MEMBER_KEY, MEMBER_NAME, MEMBER_PHONE, MEMBER_CELL_PHONE, 
+			TOTAL_BOOK_COUNT, PROGRAM_NAME, PERCENT, PARENT_COUNT, STAFF_COUNT, MANAGER_COUNT, MANAGER_TYPE,
+			ADD_DATE, ADD_ID, MOD_DATE, MOD_ID, DELETE_YN
+		FROM
+			SCHOOL_SUPPORT
+		WHERE HOMEPAGE_ID = #{homepage_id} AND SUPPORT_IDX = #{support_idx}
+	</select>
+	
+	<insert id="addSupport" parameterType="HashMap">
+		<selectKey keyProperty="support_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(SUPPORT_IDX),0)+1 FROM SCHOOL_SUPPORT WHERE HOMEPAGE_ID = #{homepage_id}
+		</selectKey>
+		INSERT INTO SCHOOL_SUPPORT (
+			HOMEPAGE_ID, SUPPORT_IDX, SUPPORT_STATUS, AREA_CODE, SCHOOL_NAME,
+			SUPPORT_REQ_FIRST, SUPPORT_REQ_SECOND, FIRST_START_DATE, FIRST_END_DATE, SECOND_START_DATE, SECOND_END_DATE, 
+			SUPPORT_REQ_DESC, MEMBER_POSITION, MEMBER_ID, MEMBER_KEY, MEMBER_NAME, MEMBER_PHONE, MEMBER_CELL_PHONE, 
+			TOTAL_BOOK_COUNT, PROGRAM_NAME, PERCENT, PARENT_COUNT, STAFF_COUNT, MANAGER_COUNT, MANAGER_TYPE,
+			ADD_DATE, ADD_ID, MOD_DATE, MOD_ID, DELETE_YN
+		) VALUES (
+			#{homepage_id}, #{support_idx}, #{support_status}, #{area_code}, #{school_name},
+			#{support_req_first}, #{support_req_second}, #{first_start_date}, #{first_end_date}, #{second_start_date}, #{second_end_date}, 
+			#{support_req_desc}, #{member_position}, #{member_id}, #{member_key}, #{member_name}, #{member_phone}, #{member_cell_phone}, 
+			#{total_book_count}, #{program_name}, #{percent}, #{parent_count}, #{staff_count}, #{manager_count}, #{manager_type},
+			SYSDATE, #{add_id}, SYSDATE, #{mod_id}, 'N'
+		)
+	</insert>
+	
+	<update id="modifySupport">
+		UPDATE 
+			SCHOOL_SUPPORT 
+		SET			
+			SUPPORT_STATUS = #{support_status}, 
+			AREA_CODE = #{area_code}, 
+			SCHOOL_NAME = #{school_name},
+			SUPPORT_REQ_FIRST = #{support_req_first}, 
+			<!-- SUPPORT_REQ_SECOND = #{support_req_second}, --> 
+			FIRST_START_DATE = #{first_start_date}, 
+			FIRST_END_DATE = #{first_end_date}, 
+			<!-- SECOND_START_DATE = #{second_start_date}, 
+			SECOND_END_DATE = #{second_end_date}, 
+			SUPPORT_REQ_DESC = #{support_req_desc},
+			MEMBER_POSITION = #{member_position},
+			MEMBER_ID = #{member_id}, 
+			MEMBER_KEY = #{member_key}, 
+			MEMBER_NAME = #{member_name}, 
+			MEMBER_PHONE = #{member_phone}, 
+			MEMBER_CELL_PHONE = #{member_cell_phone}, 
+			TOTAL_BOOK_COUNT = #{total_book_count}, 
+			PROGRAM_NAME = #{program_name}, 
+			PERCENT = #{percent}, 
+			PARENT_COUNT = #{parent_count}, 
+			STAFF_COUNT = #{staff_count}, 
+			MANAGER_COUNT = #{manager_count}, 
+			MANAGER_TYPE = #{manager_type}, -->
+			MOD_DATE = SYSDATE, 
+			MOD_ID = #{mod_id} 
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND SUPPORT_IDX = #{support_idx}
+	</update>
+	
+	<delete id="deleteSupport">
+		UPDATE
+			SCHOOL_SUPPORT
+		SET 
+			DELETE_YN = 'Y'
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND SUPPORT_IDX = #{support_idx}
+	</delete>
+	
+	<select id="getCalendar" resultType="kr.go.gbelib.app.cms.module.schoolSupport.SchoolSupport">
+		SELECT 
+			MIN( DECODE( TO_CHAR(DAYS, 'D'), 1, TO_CHAR(DAYS, 'FMDD'))) as SUN,
+			MIN( DECODE( TO_CHAR(DAYS, 'D'), 2, TO_CHAR(DAYS, 'FMDD'))) as MON,
+			MIN( DECODE( TO_CHAR(DAYS, 'D'), 3, TO_CHAR(DAYS, 'FMDD'))) as TUE,
+			MIN( DECODE( TO_CHAR(DAYS, 'D'), 4, TO_CHAR(DAYS, 'FMDD'))) as WED,
+			MIN( DECODE( TO_CHAR(DAYS, 'D'), 5, TO_CHAR(DAYS, 'FMDD'))) as THU,
+			MIN( DECODE( TO_CHAR(DAYS, 'D'), 6, TO_CHAR(DAYS, 'FMDD'))) as FRI,
+			MIN( DECODE( TO_CHAR(DAYS, 'D'), 7, TO_CHAR(DAYS, 'FMDD'))) as SAT
+   		FROM
+		(
+			SELECT 
+			(A.BASE_MON + ROWNUM -1) AS days, 
+			A.BASE_MON, 
+			((TRUNC(BASE_MON + ROWNUM - 1, 'D') - TRUNC(TRUNC(BASE_MON + ROWNUM - 1, 'Y'), 'D')) / 7 + 1) AS WEEK_NUM FROM (SELECT TO_DATE (#{plan_date}, 'yyyy-MM') BASE_MON FROM DUAL) A, DICTIONARY B
+		) C
+		
+		WHERE C.DAYS <![CDATA[ <= ]]> LAST_DAY(BASE_MON)
+  		GROUP BY WEEK_NUM
+  		ORDER BY WEEK_NUM 
+	</select>
+	
+	<select id="getSupportListByExcel" resultType="kr.go.gbelib.app.cms.module.schoolSupport.SchoolSupport">
+		SELECT
+			HOMEPAGE_ID, SUPPORT_IDX, SUPPORT_STATUS, AREA_CODE, SCHOOL_NAME,
+			SUPPORT_REQ_FIRST, SUPPORT_REQ_SECOND, FIRST_START_DATE, FIRST_END_DATE, SECOND_START_DATE, SECOND_END_DATE, 
+			SUPPORT_REQ_DESC, MEMBER_POSITION, MEMBER_ID, MEMBER_KEY, MEMBER_NAME, MEMBER_PHONE, MEMBER_CELL_PHONE, 
+			TOTAL_BOOK_COUNT, PROGRAM_NAME, PERCENT, PARENT_COUNT, STAFF_COUNT, MANAGER_COUNT, MANAGER_TYPE,
+			ADD_DATE, ADD_ID, MOD_DATE, MOD_ID, DELETE_YN
+		FROM
+			SCHOOL_SUPPORT
+		WHERE HOMEPAGE_ID = #{homepage_id} 
+			AND DELETE_YN = 'N'
+			AND SUPPORT_STATUS IN ('1', '2', '3') 
+			AND (FIRST_START_DATE like #{support_year}||'%' 
+				OR FIRST_END_DATE like #{support_year}||'%' 
+				OR SECOND_START_DATE like #{support_year}||'%' 
+				OR SECOND_END_DATE like #{support_year}||'%')
+			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+				AND	${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+		ORDER BY
+			FIRST_START_DATE
+	</select>
+	
+</mapper>

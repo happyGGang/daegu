@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.module.excursions.ExcursionsDao">
+	<!-- 견학신청 컬럼  -->
+	<sql id="field">
+		homepage_id, excursions_idx, apply_yn, start_date, start_time,
+		end_date, end_time, apply_start_date, apply_start_time, apply_end_date, apply_end_time, max_apply, add_date, date_type
+	</sql>
+	
+	<!-- 견학신청 list -->
+	<select id="getExcursions" resultType="kr.co.whalesoft.app.cms.module.excursions.Excursions">
+		SELECT
+			A.homepage_id, A.excursions_idx, A.start_date, A.start_time,
+			A.end_date, A.end_time,A.apply_start_date, A.apply_start_time, A.apply_end_date, A.apply_end_time, A.max_apply, A.add_date, A.date_type,
+			(SELECT CODE_NAME FROM CMS_CODE B WHERE B.HOMEPAGE_ID = A.HOMEPAGE_ID AND B.CODE_ID = A.DATE_TYPE AND B.GROUP_ID = 'H0001') AS CODE_NAME,
+			(SELECT COUNT(*) FROM CMS_CALENDAR_MANAGE B WHERE A.HOMEPAGE_ID = B.HOMEPAGE_ID AND A.HOMEPAGE_ID = #{homepage_id} AND B.DATE_TYPE = '1' AND B.DELETE_YN = 'N' AND A.START_DATE <![CDATA[<=]]> B.END_DATE AND A.END_DATE <![CDATA[>=]]> B.START_DATE) AS CLOSED_DAY,
+			(SELECT COUNT(*) FROM CMS_EXCURSIONS_APPLY C WHERE A.HOMEPAGE_ID = C.HOMEPAGE_ID AND A.HOMEPAGE_ID = #{homepage_id} AND A.excursions_idx = C.excursions_idx) AS APPLY_COUNT,
+			case when A.apply_start_date is null 
+			then apply_yn
+			when SYSDATE between to_date(A.apply_start_date || ' ' || A.apply_start_time, 'yyyy-mm-dd hh24:mi') and to_date(A.apply_end_date || ' ' || A.apply_end_time, 'yyyy-mm-dd hh24:mi')
+			then 'Y'
+			else 'N'	
+			end as apply_yn
+		FROM 
+			CMS_EXCURSIONS A
+		WHERE 1=1
+			AND A.HOMEPAGE_ID = #{homepage_id}
+		<if test="date_type != null and date_type != ''">
+	 		AND A.DATE_TYPE = #{date_type}	 		
+		 </if>	 
+		<if test="plan_date != null and plan_date != ''">
+	 		AND (substr(A.start_date,1,7) = #{plan_date}
+	 		OR substr(A.end_date,1,7) = #{plan_date})
+		 </if>
+	</select>
+	
+	<select id="getExcursionsOne" resultType="kr.co.whalesoft.app.cms.module.excursions.Excursions">
+		SELECT
+			<include refid="field" />,
+			(SELECT COUNT(*) FROM CMS_EXCURSIONS_APPLY WHERE HOMEPAGE_ID = A.HOMEPAGE_ID AND EXCURSIONS_IDX = A.EXCURSIONS_IDX) AS APPLY_COUNT	
+		FROM 
+			CMS_EXCURSIONS A
+		WHERE
+			HOMEPAGE_ID = #{homepage_id}
+			AND excursions_idx = #{excursions_idx}
+	</select>
+	
+	<select id="getExcursionsuDateCheck" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_EXCURSIONS
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND
+			excursions_idx = #{excursions_idx} AND
+			APPLY_YN = 'Y' AND
+			(START_DATE <![CDATA[<=]]> #{start_date} AND END_DATE <![CDATA[>=]]> #{start_date}) AND
+			(END_DATE <![CDATA[>=]]> #{start_date} AND START_DATE <![CDATA[<=]]> #{start_date}) AND
+			(TO_DATE(START_DATE || START_TIME, 'YYYY-MM-DDHH24:MI') <![CDATA[<=]]> TO_DATE(END_DATE || #{end_time}, 'YYYY-MM-DDHH24:MI') AND 
+			 TO_DATE(END_DATE || END_TIME, 'YYYY-MM-DDHH24:MI') <![CDATA[>=]]> TO_DATE(END_DATE || #{end_time}, 'YYYY-MM-DDHH24:MI')) AND		
+		 	(TO_DATE(END_DATE || END_TIME, 'YYYY-MM-DDHH24:MI') <![CDATA[>=]]> TO_DATE(START_DATE || #{start_time}, 'YYYY-MM-DDHH24:MI') AND 
+			 TO_DATE(START_DATE || START_TIME, 'YYYY-MM-DDHH24:MI') <![CDATA[<=]]> TO_DATE(START_DATE || #{start_time}, 'YYYY-MM-DDHH24:MI'))
+	</select>
+	
+	<!-- 견학신청 등록 -->
+	<insert id="addExcursions">
+		INSERT INTO CMS_EXCURSIONS (
+		   		<include refid="field" />
+	   )VALUES (
+	   		#{homepage_id}, (SELECT NVL(MAX(excursions_idx),0)+1 FROM CMS_EXCURSIONS), #{apply_yn}, #{start_date}, #{start_time},
+	   		#{end_date}, #{end_time}, #{apply_start_date}, #{apply_start_time}, #{apply_end_date}, #{apply_end_time}, #{max_apply}, SYSDATE, #{date_type}
+		)
+	</insert>
+	
+	<update id="modifyExcursions">
+		UPDATE
+			CMS_EXCURSIONS
+		SET
+			apply_yn = #{apply_yn},
+			start_date = #{start_date}, 
+			start_time = #{start_time},
+			end_date = #{end_date}, 
+			end_time = #{end_time}, 
+			apply_start_date = #{apply_start_date},
+			apply_start_time = #{apply_start_time},
+			apply_end_date = #{apply_end_date},
+			apply_end_time = #{apply_end_time}, 
+			max_apply = #{max_apply},
+			date_type = #{date_type}
+		WHERE
+		 	excursions_idx = #{excursions_idx} AND
+		 	homepage_id = #{homepage_id}
+	</update>
+	
+	<delete id="deleteExcursions">
+		DELETE FROM
+			CMS_EXCURSIONS
+		WHERE
+		 	excursions_idx = #{excursions_idx} and
+		 	homepage_id = #{homepage_id}
+	</delete>
+	
+	<select id="getCalendar" resultType="kr.co.whalesoft.app.cms.module.excursions.Excursions">
+		SELECT 
+			MIN( DECODE( TO_CHAR(DAYS, 'D'), 1, TO_CHAR(DAYS, 'FMDD'))) as SUN,
+			MIN( DECODE( TO_CHAR(DAYS, 'D'), 2, TO_CHAR(DAYS, 'FMDD'))) as MON,
+			MIN( DECODE( TO_CHAR(DAYS, 'D'), 3, TO_CHAR(DAYS, 'FMDD'))) as TUE,
+			MIN( DECODE( TO_CHAR(DAYS, 'D'), 4, TO_CHAR(DAYS, 'FMDD'))) as WED,
+			MIN( DECODE( TO_CHAR(DAYS, 'D'), 5, TO_CHAR(DAYS, 'FMDD'))) as THU,
+			MIN( DECODE( TO_CHAR(DAYS, 'D'), 6, TO_CHAR(DAYS, 'FMDD'))) as FRI,
+			MIN( DECODE( TO_CHAR(DAYS, 'D'), 7, TO_CHAR(DAYS, 'FMDD'))) as SAT
+   		FROM
+		(
+			SELECT 
+			(A.BASE_MON + ROWNUM -1) AS days, 
+			A.BASE_MON, 
+			((TRUNC(BASE_MON + ROWNUM - 1, 'D') - TRUNC(TRUNC(BASE_MON + ROWNUM - 1, 'Y'), 'D')) / 7 + 1) AS WEEK_NUM FROM (SELECT TO_DATE (#{plan_date}, 'yyyy-MM') BASE_MON FROM DUAL) A, DICTIONARY B
+		) C
+		
+		WHERE C.DAYS <![CDATA[ <= ]]> LAST_DAY(BASE_MON)
+  		GROUP BY WEEK_NUM
+  		ORDER BY WEEK_NUM 
+	</select>
+	
+	<select id="countExcursions" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM 
+			CMS_EXCURSIONS
+		WHERE 
+			1=1 AND
+			HOMEPAGE_ID = #{homepage_id} AND
+			DATE_TYPE = #{date_type} AND
+			START_DATE = #{start_date} AND
+			((START_TIME <![CDATA[ < ]]> #{start_time} AND END_TIME > #{start_time}) 
+			OR
+			(START_TIME <![CDATA[ < ]]> #{end_time} AND END_TIME > #{end_time}))
+	</select>
+	
+	<select id="countClosedExcursions" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM 
+			CMS_CALENDAR_MANAGE
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id}	 
+	 		AND DELETE_YN = 'N'
+	 		AND DATE_TYPE = '1'
+	 		AND START_DATE BETWEEN #{start_date} AND #{end_date}
+
+	</select>
+	
+	<!--견학 일별 통계 -->
+	<select id="getExcursionsStatus" resultType="kr.co.whalesoft.app.cms.module.calendarStatus.CalendarStatus">
+		SELECT 
+			TO_CHAR(START_DATE, 'YYYY-MM-DD') AS START_DATE, SUM(IMSI_V1) AS IMSI_V1, SUM(IMSI_V2) AS IMSI_V2, SUM(IMSI_V3) AS IMSI_V3, SUM(IMSI_V4) AS IMSI_V4, SUM(IMSI_V1+IMSI_V2+IMSI_V3+IMSI_V4) AS IMSI_V5
+		FROM (
+			SELECT DISTINCT(START_DATE + LEVEL -1) AS START_DATE, IMSI_V1, IMSI_V2, IMSI_V3, IMSI_V4
+				FROM (
+					SELECT
+						TO_DATE(A.START_DATE, 'YYYY-MM-DD') AS START_DATE,
+						TO_DATE(A.END_DATE, 'YYYY-MM-DD') AS END_DATE,
+						(SELECT COUNT(*) FROM CMS_EXCURSIONS_APPLY B WHERE B.EXCURSIONS_IDX = A.EXCURSIONS_IDX AND B.HOMEPAGE_ID = A.HOMEPAGE_ID AND B.APPLY_STATE = 1 ) AS IMSI_V1,
+						(SELECT COUNT(*) FROM CMS_EXCURSIONS_APPLY B WHERE B.EXCURSIONS_IDX = A.EXCURSIONS_IDX AND B.HOMEPAGE_ID = A.HOMEPAGE_ID AND B.APPLY_STATE = 2 ) AS IMSI_V2,
+						(SELECT COUNT(*) FROM CMS_EXCURSIONS_APPLY B WHERE B.EXCURSIONS_IDX = A.EXCURSIONS_IDX AND B.HOMEPAGE_ID = A.HOMEPAGE_ID AND B.APPLY_STATE = 3 ) AS IMSI_V3,
+						(SELECT COUNT(*) FROM CMS_EXCURSIONS_APPLY B WHERE B.EXCURSIONS_IDX = A.EXCURSIONS_IDX AND B.HOMEPAGE_ID = A.HOMEPAGE_ID ) AS IMSI_V4
+					FROM CMS_EXCURSIONS A
+					WHERE
+					A.HOMEPAGE_ID = #{homepage_id}
+				)
+			CONNECT BY START_DATE + LEVEL -1   <![CDATA[ <= ]]>   END_DATE
+			order by start_date desc
+			) 
+		WHERE				
+			START_DATE BETWEEN TO_DATE(#{start_date},'yyyy-mm-dd') AND TO_DATE(#{end_date}, 'yyyy-mm-dd')
+		GROUP BY  ROLLUP (START_DATE )
+		ORDER BY START_DATE DESC
+	</select>
+	
+	<!--견학 월별 통계 -->
+	<select id="getExcursionsMonthStatus" resultType="kr.co.whalesoft.app.cms.module.calendarStatus.CalendarStatus">
+		SELECT 
+			START_DATE, SUM(IMSI_V1) AS IMSI_V1, SUM(IMSI_V2) AS IMSI_V2, SUM(IMSI_V3) AS IMSI_V3, SUM(IMSI_V4) AS IMSI_V4, SUM(IMSI_V1+IMSI_V2+IMSI_V3+IMSI_V4) AS IMSI_V5
+		FROM 
+			(
+			SELECT 
+				TO_CHAR(START_DATE, 'YYYY-MM') AS START_DATE, SUM(IMSI_V1) AS IMSI_V1, SUM(IMSI_V2) AS IMSI_V2, SUM(IMSI_V3) AS IMSI_V3, SUM(IMSI_V4) AS IMSI_V4
+			FROM (
+				SELECT DISTINCT(START_DATE + LEVEL -1) AS START_DATE, IMSI_V1,IMSI_V2,IMSI_V3,IMSI_V4
+					FROM (
+						SELECT
+							TO_DATE(A.START_DATE, 'YYYY-MM-DD') AS START_DATE,
+							TO_DATE(A.END_DATE, 'YYYY-MM-DD') AS END_DATE,
+							(SELECT COUNT(*) FROM CMS_EXCURSIONS_APPLY B WHERE B.EXCURSIONS_IDX = A.EXCURSIONS_IDX AND B.HOMEPAGE_ID = A.HOMEPAGE_ID AND B.APPLY_STATE = 1 ) AS IMSI_V1,
+							(SELECT COUNT(*) FROM CMS_EXCURSIONS_APPLY B WHERE B.EXCURSIONS_IDX = A.EXCURSIONS_IDX AND B.HOMEPAGE_ID = A.HOMEPAGE_ID AND B.APPLY_STATE = 2 ) AS IMSI_V2,
+							(SELECT COUNT(*) FROM CMS_EXCURSIONS_APPLY B WHERE B.EXCURSIONS_IDX = A.EXCURSIONS_IDX AND B.HOMEPAGE_ID = A.HOMEPAGE_ID AND B.APPLY_STATE = 3 ) AS IMSI_V3,
+							(SELECT COUNT(*) FROM CMS_EXCURSIONS_APPLY B WHERE B.EXCURSIONS_IDX = A.EXCURSIONS_IDX AND B.HOMEPAGE_ID = A.HOMEPAGE_ID ) AS IMSI_V4
+						FROM CMS_EXCURSIONS A
+						WHERE
+						A.HOMEPAGE_ID = #{homepage_id}
+					)
+				CONNECT BY START_DATE + LEVEL -1   <![CDATA[ <= ]]>   END_DATE
+				order by start_date desc
+				) 
+			WHERE				
+				TO_CHAR(START_DATE,'YYYY') = #{start_year}
+			GROUP BY  ROLLUP (START_DATE)
+			)
+		GROUP BY START_DATE, IMSI_V1, IMSI_V2, IMSI_V3, IMSI_V4
+		ORDER BY START_DATE DESC	
+	</select>	
+	
+	<!--견학 연도별 통계 -->
+	<select id="getExcursionsYearStatus" resultType="kr.co.whalesoft.app.cms.module.calendarStatus.CalendarStatus">
+		SELECT 
+			START_DATE, SUM(IMSI_V1) AS IMSI_V1, SUM(IMSI_V2) AS IMSI_V2, SUM(IMSI_V3) AS IMSI_V3, SUM(IMSI_V4) AS IMSI_V4, SUM(IMSI_V1+IMSI_V2+IMSI_V3+IMSI_V4) AS IMSI_V5
+		FROM 
+			(
+			SELECT 
+				TO_CHAR(START_DATE, 'YYYY') AS START_DATE, SUM(IMSI_V1) AS IMSI_V1, SUM(IMSI_V2) AS IMSI_V2, SUM(IMSI_V3) AS IMSI_V3, SUM(IMSI_V4) AS IMSI_V4
+			FROM (
+				SELECT DISTINCT(START_DATE + LEVEL -1) AS START_DATE, IMSI_V1,IMSI_V2,IMSI_V3,IMSI_V4
+					FROM (
+						SELECT
+							TO_DATE(A.START_DATE, 'YYYY-MM-DD') AS START_DATE,
+							TO_DATE(A.END_DATE, 'YYYY-MM-DD') AS END_DATE,
+							(SELECT COUNT(*) FROM CMS_EXCURSIONS_APPLY B WHERE B.EXCURSIONS_IDX = A.EXCURSIONS_IDX AND B.HOMEPAGE_ID = A.HOMEPAGE_ID AND B.APPLY_STATE = 1 ) AS IMSI_V1,
+							(SELECT COUNT(*) FROM CMS_EXCURSIONS_APPLY B WHERE B.EXCURSIONS_IDX = A.EXCURSIONS_IDX AND B.HOMEPAGE_ID = A.HOMEPAGE_ID AND B.APPLY_STATE = 2 ) AS IMSI_V2,
+							(SELECT COUNT(*) FROM CMS_EXCURSIONS_APPLY B WHERE B.EXCURSIONS_IDX = A.EXCURSIONS_IDX AND B.HOMEPAGE_ID = A.HOMEPAGE_ID AND B.APPLY_STATE = 3 ) AS IMSI_V3,
+							(SELECT COUNT(*) FROM CMS_EXCURSIONS_APPLY B WHERE B.EXCURSIONS_IDX = A.EXCURSIONS_IDX AND B.HOMEPAGE_ID = A.HOMEPAGE_ID ) AS IMSI_V4
+						FROM CMS_EXCURSIONS A
+						WHERE
+						A.HOMEPAGE_ID = #{homepage_id}
+					)
+				CONNECT BY START_DATE + LEVEL -1   <![CDATA[ <= ]]>   END_DATE
+				order by start_date desc
+				) 
+			WHERE				
+				TO_CHAR(START_DATE,'YYYY') BETWEEN #{start_year} and #{end_year}				
+			GROUP BY  START_DATE
+			)
+		GROUP BY ROLLUP (START_DATE)
+		ORDER BY START_DATE DESC	
+	</select>
+		
+</mapper>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.menu.menuAccess.MenuAccessDao">
+
+	<update id="updateMenuAccess">
+		MERGE INTO 
+			CMS_MENU_ACCESS a
+		USING dual
+		ON 
+			(a.homepage_id = #{homepage_id} AND a.menu_idx = #{menu_idx} AND a.access_date = TO_CHAR(SYSDATE, 'yyyyMMdd'))
+		WHEN MATCHED THEN
+			UPDATE SET 
+				a.access_count = a.access_count+1
+		WHEN NOT MATCHED THEN
+			INSERT
+			(
+				homepage_id, menu_idx, access_date, access_count
+			) VALUES
+			(
+				#{homepage_id}, #{menu_idx}, TO_CHAR(sysdate, 'yyyyMMdd'), 1
+			)
+    </update>
+	
+	<select id="getMenuAccessCount" resultType="kr.co.whalesoft.app.cms.menu.menuAccess.MenuAccess">
+		SELECT 
+			b.menu_idx, NVL(a.access_count, 0) AS access_count, b.menu_name, level AS menu_level
+		FROM
+		(
+			SELECT 
+			  	menu_idx, SUM(access_count) AS access_count
+			FROM 
+			  	CMS_MENU_ACCESS
+			WHERE 
+			  	homepage_id = #{homepage_id} AND
+			  	TO_DATE(access_date, 'yyyy-MM-dd') >= TO_DATE(#{start_date},'yyyy-MM-dd') AND 
+			  	TO_DATE(access_date, 'yyyy-MM-dd') &lt;= TO_DATE(#{end_date},'yyyy-MM-dd')
+			GROUP BY menu_idx
+		) a,
+		(
+			SELECT
+		  		menu_idx, group_idx, parent_menu_idx, menu_name
+			FROM
+		  		CMS_MENU
+			WHERE
+				homepage_id = #{homepage_id}
+		) b
+		WHERE
+			a.menu_idx(+) = b.menu_idx
+		CONNECT BY PRIOR
+		  	b.menu_idx  = b.parent_menu_idx
+		START WITH 
+		  	b.parent_menu_idx = 0
+		ORDER BY 
+		  	group_idx, menu_idx
+	</select>
+	
+</mapper>

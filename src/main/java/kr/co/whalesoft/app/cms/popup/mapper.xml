@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.popup.PopupDao">
+    
+    <select id="getPopup" resultType="kr.co.whalesoft.app.cms.popup.Popup">
+		${pagingTop}
+		SELECT
+			homepage_id,
+			popup_idx, popup_name, html, html_use_yn, popup_type, link_url, 
+			use_yn, print_seq, width, height, x_position, 
+			y_position, img_file_name, real_file_name, file_extension, file_size, add_date, link_target,
+			start_date, end_date, common_yn
+		FROM
+			CMS_POPUP
+		WHERE
+			homepage_id = #{homepage_id}
+			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+		ORDER BY 
+			popup_type, add_date DESC
+		
+		${pagingBottom}
+	</select>
+
+	<select id="getPopupAll" resultType="kr.co.whalesoft.app.cms.popup.Popup">
+		SELECT
+			homepage_id,
+			popup_idx, popup_name, html, html_use_yn, popup_type, link_url, 
+			use_yn, print_seq, width, height, x_position, 
+			y_position, img_file_name, real_file_name, file_extension, file_size, add_date, link_target,
+			start_date, end_date, common_yn
+		FROM
+			CMS_POPUP
+		WHERE
+			(homepage_id = #{homepage_id} OR (homepage_id = 'h1' AND common_yn = 'Y')) 
+			AND use_yn = 'Y' 
+			AND start_date <![CDATA[<=]]> TO_CHAR(SYSDATE, 'yyyy-mm-dd') AND end_date >= TO_CHAR(SYSDATE, 'yyyy-mm-dd')
+		ORDER BY print_seq ASC, add_date DESC
+	</select>
+	
+	<select id="getPopupCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_POPUP
+		WHERE
+			homepage_id = #{homepage_id}
+			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+    </select>
+	
+	<select id="getPopupOne" resultType="kr.co.whalesoft.app.cms.popup.Popup">
+		SELECT
+			homepage_id,
+			popup_idx, popup_name, html, html_use_yn, popup_type, link_url, 
+			use_yn, print_seq, width, height, x_position, 
+			y_position, img_file_name, real_file_name, file_extension, file_size, add_date, link_target,
+			start_date, end_date, common_yn
+		FROM
+			CMS_POPUP
+		WHERE
+			homepage_id = #{homepage_id} AND
+			popup_idx = #{popup_idx}
+	</select>
+	
+	<insert id="addPopup">
+		<selectKey keyProperty="popup_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(popup_idx),0)+1 FROM CMS_POPUP WHERE homepage_id = #{homepage_id}
+		</selectKey>
+		INSERT INTO CMS_POPUP
+		(
+			homepage_id,
+			popup_idx, popup_name, html, html_use_yn, popup_type, link_url, 
+			use_yn, print_seq, width, height, x_position, 
+			y_position, add_date, link_target, start_date, end_date, common_yn
+			<if test="real_file_name != null and real_file_name != ''">
+			, img_file_name, real_file_name, file_extension, file_size
+			</if>
+		) VALUES
+		(
+			#{homepage_id},
+			#{popup_idx}, #{popup_name}, #{html}, #{html_use_yn}, #{popup_type}, #{link_url},
+			#{use_yn}, #{print_seq}, #{width}, #{height}, #{x_position},
+			#{y_position}, SYSDATE, #{link_target}, #{start_date}, #{end_date}, #{common_yn}
+			<if test="real_file_name != null and real_file_name != ''">
+			, #{img_file_name}, #{real_file_name}, #{file_extension}, #{file_size}
+			</if>
+		)
+	</insert>
+	
+	<update id="modifyPopup">
+		UPDATE CMS_POPUP SET
+			popup_name = #{popup_name}, 
+			html = #{html}, 
+			html_use_yn = #{html_use_yn},
+			popup_type = #{popup_type}, 
+			link_url = #{link_url},
+			use_yn = #{use_yn},
+			print_seq = #{print_seq},
+			width = #{width},
+			height = #{height},
+			x_position = #{x_position},
+			y_position = #{y_position},
+			link_target = #{link_target},
+			start_date = #{start_date}, 
+			end_date = #{end_date},
+			common_yn = #{common_yn}
+			<if test="real_file_name != null and real_file_name != ''">
+			,img_file_name = #{img_file_name}, 
+			real_file_name = #{real_file_name}, 
+			file_extension = #{file_extension}, 
+			file_size = #{file_size}
+			</if>
+		WHERE
+			homepage_id = #{homepage_id} AND
+			popup_idx = #{popup_idx} 
+	</update>
+	
+	<delete id="deletePopup">
+		DELETE FROM CMS_POPUP
+		WHERE
+			homepage_id = #{homepage_id} AND
+			popup_idx = #{popup_idx}
+	</delete>
+    
+</mapper>

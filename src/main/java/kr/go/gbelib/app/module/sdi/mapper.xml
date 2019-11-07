@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.module.sdi.SdiDao">
+
+	<!-- SDI서비스 list -->
+	<select id="getSdi" resultType="kr.go.gbelib.app.module.sdi.Sdi">
+		SELECT
+			HOMEPAGE_ID, SDI_IDX, MEMBER_KEY, TYPE, KEYWORD, ADD_ID, ADD_DATE, MODIFY_ID, MODIFY_DATE,
+			(SELECT A.CODE_NAME FROM CMS_CODE A WHERE A.GROUP_ID = 'C0011' AND A.CODE_ID = SDI.TYPE) AS TYPE_NAME
+		FROM
+			SDI
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND
+			MEMBER_KEY = #{member_key}	
+	</select>
+	
+	<select id="getSdiOne" resultType="kr.go.gbelib.app.module.sdi.Sdi">
+		SELECT
+			HOMEPAGE_ID, SDI_IDX, MEMBER_KEY, TYPE, KEYWORD, ADD_ID, ADD_DATE, MODIFY_ID, MODIFY_DATE
+		FROM
+			SDI
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND
+			MEMBER_KEY = #{member_key} AND
+			SDI_IDX = #{sdi_idx}	
+	</select>
+	
+	<insert id="insertSdi">
+		<selectKey keyProperty="sdi_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(sdi_idx),0)+1 FROM SDI WHERE HOMEPAGE_ID = #{homepage_id} AND MEMBER_KEY = #{member_key}
+		</selectKey>
+	
+		INSERT INTO SDI (HOMEPAGE_ID, SDI_IDX, MEMBER_KEY, TYPE, KEYWORD, ADD_ID, ADD_DATE, MODIFY_ID, MODIFY_DATE)
+		VALUES(#{homepage_id},#{sdi_idx},#{member_key},#{type},#{keyword},#{add_id},sysdate,#{modify_id},sysdate)
+	</insert>
+	
+	<update id="modifySdi">
+		UPDATE SDI
+		SET
+			TYPE = #{type},
+			KEYWORD = #{keyword},
+			MODIFY_ID = #{modify_id},
+			MODIFY_DATE = SYSDATE
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND
+			MEMBER_KEY = #{member_key} AND
+			SDI_IDX = #{sdi_idx}
+	</update>
+	
+	<delete id="deleteSdi">
+		DELETE FROM SDI
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND
+			MEMBER_KEY = #{member_key} AND
+			SDI_IDX = #{sdi_idx}
+	</delete>
+	
+	
+
+
+</mapper>

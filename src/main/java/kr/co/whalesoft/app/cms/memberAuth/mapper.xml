@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.memberAuth.MemberAuthDao">
+
+	<select id="getMemberAuthIn" resultType="kr.co.whalesoft.app.cms.memberAuth.MemberAuth">
+		SELECT 
+			a.MEMBER_ID, a.MEMBER_NAME,
+			(SELECT LISTAGG(AUTH_ID,',') WITHIN GROUP (ORDER BY TO_NUMBER(AUTH_ID)) FROM CMS_MEMBER_AUTH WHERE MEMBER_ID = a.MEMBER_ID GROUP BY MEMBER_ID) AS AUTH_ID
+		FROM
+			CMS_MEMBER a
+	</select>
+
+	<select id="getMemberAuthNotIn" resultType="kr.co.whalesoft.app.cms.memberAuth.MemberAuth">
+		SELECT
+  			MEMBER_ID, MEMBER_NAME, AUTH_ID
+		FROM
+  			CMS_MEMBER
+		WHERE
+  			MEMBER_ID NOT IN (SELECT MEMBER_ID FROM CMS_MEMBER_AUTH WHERE HOMEPAGE_ID = #{homepage_id})
+	</select>
+
+	<insert id="addMemberAuth">
+		INSERT INTO CMS_MEMBER_AUTH
+		(
+			MEMBER_ID, AUTH_ID
+		) VALUES
+		(
+			#{member_id}, #{auth_id}
+		)
+	</insert>
+
+	<update id="modifyMemberAuth">
+		UPDATE CMS_MEMBER_AUTH
+		SET
+			AUTH_ID = #{auth_id}
+		WHERE HOMEPAGE_ID = #{homepage_id} AND MEMBER_ID = #{member_id}
+	</update>
+
+	<delete id="deleteMemberAuth">
+		DELETE FROM CMS_MEMBER_AUTH
+		WHERE
+			MEMBER_ID = #{member_id}
+	</delete>
+	
+	<delete id="deleteMemberAuthByAuthId">
+		DELETE FROM CMS_MEMBER_AUTH
+		WHERE
+			MEMBER_ID = #{member_id} AND AUTH_ID = #{auth_id}
+	</delete>
+	
+	
+</mapper>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.module.smsBox.SmsBoxDao">
+
+	<select id="getSmsBoxCnt" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_SMS_BOX
+		WHERE
+			1=1 AND
+			HOMEPAGE_ID = #{homepage_id} AND
+			DELETE_YN = 'N' AND
+			USE_YN = 'Y'
+			<if test="search_text != null and search_text != ''">
+				AND ${search_type} like '%' || #{search_text} || '%'
+			</if>
+	</select>
+	
+	<select id="getSmsBoxList" resultType="kr.co.whalesoft.app.cms.module.smsBox.SmsBox">
+		${pagingTop}
+		SELECT
+			HOMEPAGE_ID, BOX_IDX, TITLE, CONTENTS, USE_YN, DELETE_YN, ADD_ID, TO_CHAR(ADD_DATE,'YYYY-MM-DD') AS ADD_DATE, MODIFY_ID, MODIFY_DATE
+		FROM
+			CMS_SMS_BOX
+		WHERE
+			1=1 AND
+			HOMEPAGE_ID = #{homepage_id} AND
+			DELETE_YN = 'N'
+			<if test="search_text != null and search_text != ''">
+				AND ${search_type} like '%' || #{search_text} || '%'
+			</if>
+		ORDER BY 
+			ADD_DATE DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getSmsBoxListOne" resultType="kr.co.whalesoft.app.cms.module.smsBox.SmsBox">
+		SELECT
+			HOMEPAGE_ID, BOX_IDX, TITLE, CONTENTS, USE_YN, DELETE_YN, ADD_ID, ADD_DATE, MODIFY_ID, MODIFY_DATE
+		FROM
+			CMS_SMS_BOX
+		WHERE
+			1=1 AND
+			box_idx = #{box_idx} AND
+			HOMEPAGE_ID = #{homepage_id}
+	</select>
+	
+	<insert id="addSmsBox">
+		<selectKey keyProperty="box_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(BOX_IDX),0)+1 FROM CMS_SMS_BOX
+		</selectKey>
+	
+		INSERT INTO CMS_SMS_BOX (
+			HOMEPAGE_ID, BOX_IDX, TITLE, CONTENTS, USE_YN, DELETE_YN, ADD_ID, ADD_DATE, MODIFY_ID, MODIFY_DATE
+		) VALUES (
+			#{homepage_id}, #{box_idx}, #{title}, #{contents}, #{use_yn}, 'N', #{add_id}, SYSDATE, #{modify_id}, SYSDATE
+		)
+	</insert>
+	
+	<update id="modifySmsBox">
+		UPDATE
+			CMS_SMS_BOX
+		SET
+			TITLE = #{title},
+			CONTENTS = #{contents},
+			USE_YN = #{use_yn},
+			MODIFY_ID = #{add_id},
+			MODIFY_DATE = SYSDATE
+		WHERE
+			BOX_IDX = #{box_idx} AND
+			HOMEPAGE_ID = #{homepage_id}
+	</update>	
+	
+	<update id="deleteSmsBox">
+		UPDATE
+			CMS_SMS_BOX
+		SET
+			DELETE_YN = 'Y',
+			MODIFY_ID = #{add_id},
+			MODIFY_DATE = SYSDATE
+		WHERE
+			BOX_IDX = #{box_idx} AND 
+			HOMEPAGE_ID = #{homepage_id}
+	</update>
+</mapper>

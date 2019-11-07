@@ -1,0 +1,290 @@
+
+* {
+	outline: none;
+}
+
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: #4f5e67;
+	font-family: NanumGothic,dotum,Arial;
+	font-size: 11px;
+	color: #5f5f5f;
+}
+
+#wrapper {
+	height: 100%;
+	min-width: 900px;
+	position: relative;
+	top: 0;
+	left: 0;
+	background:none;
+}
+
+#login_wrapper {
+	background:url(../img/login_wrapper_bg.gif) repeat-x;
+	height: 396px;
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	left: 0;
+	margin-top: -198px;
+}
+
+#login_wrapper form {
+	margin: 0;
+	padding: 0;
+	width: 336px;
+	margin: 0 auto;
+}
+
+#login_wrapper fieldset {
+	margin: 0;
+	padding: 80px 0 0;
+	border: 0;
+	position: relative;
+	top: 0;
+	left: 0;
+}
+
+
+#logo {
+	display: block;
+	float:none;
+	margin: 0;
+	padding: 0;
+	width: 336px;
+	height: 119px;
+}
+#logo a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	margin:0;
+	padding:30px 0 0 0;_padding:0;
+	_line-height:100px;
+	overflow: hidden;
+	/*text-indent: -3000px;*/
+	background:url(../img/logo_bg.gif) no-repeat;
+	font-size:1.2em;
+	color: #246c3f;
+	text-decoration:none;
+	text-align:center;
+}
+#logo span {
+	font-weight:bold;
+	position:absolute;
+	left:128px;
+	top:140px;
+	margin:0;
+	padding:10px 0 0 0;
+	font-size:14px;
+	color:#000;
+	text-align:center;
+}
+
+.formular {
+	width: 336px;
+	min-height: 117px;
+	margin:0;
+	padding:0;
+	background:url(../img/form_bg.gif) no-repeat left top;
+}
+
+
+
+.formular_inner {
+	width: 292px;
+	margin: 0 0 0 23px;
+	vertical-align: middle;
+	position: relative;
+	top: 0;
+	left: 0;
+	
+}
+
+.formular label {
+	width: 100%;
+	overflow: hidden;
+	display: block;
+	padding: 13px 0 0 0;
+}
+.formular label label.item {
+	float:left;
+	width:60px;
+	margin:0;
+	padding:0;
+}
+
+/*
+.formular label.inline {
+	width: auto;
+	margin: 0 0 0 86px;
+	padding: 6px 0 0;
+}
+*/
+
+.formular label strong {
+	float: left;
+	white-space: nowrap;
+	color: #3a3a3a;
+	line-height: 25px;
+	font-size: 13px;
+}
+
+.input_wrapper {
+	display: block;
+	float: right;
+	border: 1px solid #d3d3d3;
+	background:url(../img/input_bg.png) repeat;
+	margin:0;
+	padding: 2px 3px;
+	width:220px;
+	
+}
+
+.input_wrapper input {
+	margin: 0;
+	padding: 0;
+	background: transparent;
+	border: 0;
+	font-family: Arial;
+	font-size: 15px;
+	display: block;
+	width: 100%;
+	height: 25px;
+	line-height: 25px;
+	font-weight: bold;
+}
+
+input.checkbox {
+	vertical-align: middle;
+}
+
+.form_menu {
+	margin: 0 0 0 110px;
+	padding: 0;
+	width: 225px;
+	overflow: hidden;
+	position: absolute;
+	left: 0;
+	top: 96px;
+}
+
+.form_menu li {
+	float: left;
+	list-style: none;
+	padding: 0 4px 0 0;
+}
+
+
+.button input {
+	opacity: 0;
+	filter: alpha(opacity=0);
+	width: 1000px;
+	height: 1000px;
+	position: absolute;
+	top: -100px;
+	left: -100px;
+	display: block;
+	cursor: pointer;
+}
+
+.button {
+	display: block;
+	position: relative;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	background:url(../img/submit_middle.gif) repeat-x;
+	height: 32px;
+	line-height: 32px;
+	font-size: 16px;
+	font-weight: bold;
+	color: #4E9669;
+	float: left;
+	
+	
+}
+
+.button:hover {
+	text-decoration: underline;
+}
+
+.button  span {
+	background:url(../img/submit_left.gif) no-repeat;
+	display: block;
+	float: left;
+}
+
+.button  span span {
+	background:url(../img/submit_right.gif) no-repeat right top;
+	display: block;
+	padding: 0 14px;
+	float: left;
+}
+
+.form_menu a:link,
+.form_menu a:visited,
+.form_menu a:active
+ {
+	display: block;
+	background:url(../img/lk_middle.gif) repeat-x;
+	line-height: 27px;
+	color: #708592;
+	text-decoration: none;
+	float: left;
+}
+
+.form_menu a:hover {
+	text-decoration: underline;
+}
+
+.form_menu a span {
+	display: block;
+	background:url(../img/lk_left.gif) no-repeat;
+	float: left;
+}
+
+.form_menu a span span {
+	display: block;
+	background:url(../img/lk_right.gif) no-repeat right top;
+	padding: 0 10px;
+	float: left;
+	cursor: pointer;
+	
+}
+
+.error {
+	position: absolute;
+	top: 49px;
+	left: 50%;
+	margin-left: -164px;
+	height: 26px;
+	line-height: 26px;
+	background:url(../img/error_bg.gif) no-repeat;
+	width: 328px;
+	color: #96a3a9;
+}
+
+.error_inner {
+	padding: 0 9px 0 31px;
+	background:url(../img/error_ico.gif) no-repeat 9px center;
+	
+}
+
+.error strong {
+	color: #f1b500;
+	font-size: 12px;
+	padding: 0 6px 0 0;
+}
+
+.error span {
+	padding: 0 0 0 5px;
+}
+
+

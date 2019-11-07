@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.accountLock.AccountLockDao">
+
+	<select id="getAccountLockList" resultType="kr.co.whalesoft.app.cms.accountLock.AccountLock">
+		${pagingTop}
+		SELECT
+			account_lock_idx, homepage_id, member_id, login_type, count,
+			TO_CHAR(last_fail_date, 'YYYY-MM-DD HH24:MI:SS') AS last_fail_date, last_fail_ip
+		FROM
+			CMS_ACCOUNT_LOCK
+		WHERE 1=1
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="homepage_id != null and homepage_id != '' and homepage_id != 'CMS'">
+		AND homepage_id = #{homepage_id}
+		</if>
+		ORDER BY
+			last_fail_date DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getAccountLockCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_ACCOUNT_LOCK
+		WHERE 1=1
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="homepage_id != null and homepage_id != '' and homepage_id != 'CMS'">
+		AND homepage_id = #{homepage_id}
+		</if>
+		ORDER BY
+			ACCOUNT_LOCK_IDX DESC
+	</select>
+	
+	<select id="getAccountLock" resultType="kr.co.whalesoft.app.cms.accountLock.AccountLock">
+		SELECT
+			account_lock_idx, homepage_id, member_id, login_type, count,
+			TO_CHAR(last_fail_date, 'YYYY-MM-DD HH24:MI:SS') AS last_fail_date, last_fail_ip
+		FROM
+			CMS_ACCOUNT_LOCK
+		WHERE
+			MEMBER_ID = #{member_id}
+	</select>
+	
+	<insert id="addAccountLock">
+		<selectKey keyProperty="account_lock_idx" resultType="int" order="BEFORE">
+			SELECT ACCOUNT_LOCK_IDX_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO CMS_ACCOUNT_LOCK (
+			account_lock_idx, homepage_id, member_id, login_type, count,
+			last_fail_date, last_fail_ip
+		) VALUES (
+			#{account_lock_idx}, #{homepage_id}, #{member_id}, #{login_type}, #{count},
+			#{last_fail_date}, #{last_fail_ip}
+		)
+	</insert>
+	
+	<update id="loginFailed">
+		MERGE INTO 
+			CMS_ACCOUNT_LOCK a
+		USING dual
+		ON
+			(a.member_id = #{member_id})
+		WHEN MATCHED THEN
+			UPDATE SET
+				a.login_type = #{login_type},
+				a.homepage_id = #{homepage_id},
+				a.count = a.count + 1,
+				a.last_fail_date = SYSDATE,
+				a.last_fail_ip = #{last_fail_ip}
+		WHEN NOT MATCHED THEN
+			INSERT (
+				account_lock_idx, homepage_id, member_id, login_type, count,
+				last_fail_date, last_fail_ip
+			) VALUES (
+				ACCOUNT_LOCK_IDX_SEQ.NEXTVAL, #{homepage_id}, #{member_id}, #{login_type}, 1,
+				SYSDATE, #{last_fail_ip}
+			)
+	</update>
+	
+	<update id="loginSucceeded">
+		DELETE FROM CMS_ACCOUNT_LOCK WHERE member_id = #{member_id}
+	</update>
+	
+	<select id="isLocked" resultType="int">
+		SELECT COUNT(*)
+		FROM
+			CMS_ACCOUNT_LOCK
+		WHERE
+			member_id = #{member_id}
+		AND count >= 5
+		AND (SYSDATE - last_fail_date)*24*60 &lt; 10
+	</select>
+	
+	<delete id="deleteAccountLock">
+		DELETE FROM CMS_ACCOUNT_LOCK WHERE member_id = #{member_id}
+	</delete>
+	
+	<select id="checkMemberId" resultType="int">
+		SELECT COUNT(*) FROM CMS_ACCOUNT_LOCK WHERE member_id = #{member_id}
+	</select>
+	
+	<select id="getAttemptCount" resultType="int">
+		SELECT NVL(COUNT, 0) FROM CMS_ACCOUNT_LOCK WHERE member_id = #{member_id}
+	</select>
+	
+</mapper>

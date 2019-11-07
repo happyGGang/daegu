@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.module.quiz.QuizDao">
+	
+	<select id="getQuizListAll" resultType="kr.co.whalesoft.app.cms.module.quiz.Quiz">
+		SELECT
+			HOMEPAGE_ID, QUIZ_IDX, QUIZ_TYPE, QUIZ_NAME, QUIZ_YEAR, QUIZ_MONTH, BOOK_NAME, BOOK_AUTHOR, BOOK_PUBLISHER,
+			CALL_NO, BOOK_DESC, QUIZ_START_DATE, QUIZ_END_DATE, IMG_FILE_NAME, REAL_FILE_NAME, FILE_EXTENSION, FILE_SIZE,
+			TOP_HTML, BOTTOM_HTML, DELETE_YN, ADD_DATE, ADD_ID, MOD_DATE, MOD_ID,
+			(SELECT COUNT(*) FROM QUIZ_REQ WHERE HOMEPAGE_ID = a.HOMEPAGE_ID AND QUIZ_IDX = a.QUIZ_IDX) AS QUIZ_REQ_COUNT
+		FROM
+			QUIZ a
+		WHERE HOMEPAGE_ID = #{homepage_id} AND DELETE_YN = 'N'
+			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+		ORDER BY
+			QUIZ_IDX
+	</select>
+	
+	<select id="getQuizList" resultType="kr.co.whalesoft.app.cms.module.quiz.Quiz">
+		${pagingTop}
+			SELECT
+				HOMEPAGE_ID, QUIZ_IDX, QUIZ_TYPE, QUIZ_NAME, QUIZ_YEAR, QUIZ_MONTH, BOOK_NAME, BOOK_AUTHOR, BOOK_PUBLISHER,
+				CALL_NO, BOOK_DESC, QUIZ_START_DATE, QUIZ_END_DATE, IMG_FILE_NAME, REAL_FILE_NAME, FILE_EXTENSION, FILE_SIZE,
+				TOP_HTML, BOTTOM_HTML, DELETE_YN, ADD_DATE, ADD_ID, MOD_DATE, MOD_ID,
+				(SELECT COUNT(*) FROM QUIZ_REQ WHERE HOMEPAGE_ID = a.HOMEPAGE_ID AND QUIZ_IDX = a.QUIZ_IDX) AS QUIZ_REQ_COUNT,
+				SELECT_CNT
+			FROM
+				QUIZ a
+			WHERE HOMEPAGE_ID = #{homepage_id} AND DELETE_YN = 'N'
+				<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+				AND	${search_type} LIKE '%'||#{search_text}||'%'
+				</if>
+			ORDER BY
+				QUIZ_IDX
+		${pagingBottom}
+	</select>
+	
+	<select id="getQuizListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			QUIZ
+		WHERE HOMEPAGE_ID = #{homepage_id} AND DELETE_YN = 'N'
+			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+		ORDER BY
+			QUIZ_IDX
+	</select>
+	
+	<select id="getQuizOne" resultType="kr.co.whalesoft.app.cms.module.quiz.Quiz">
+		SELECT
+			HOMEPAGE_ID, QUIZ_IDX, QUIZ_TYPE, QUIZ_NAME, QUIZ_YEAR, QUIZ_MONTH, BOOK_NAME, BOOK_AUTHOR, BOOK_PUBLISHER,
+			CALL_NO, BOOK_DESC, QUIZ_START_DATE, QUIZ_END_DATE, IMG_FILE_NAME, REAL_FILE_NAME, FILE_EXTENSION, FILE_SIZE,
+			TOP_HTML, BOTTOM_HTML, DELETE_YN, ADD_DATE, ADD_ID, MOD_DATE, MOD_ID, SCHOOL_YN, BAN_YN, HAK_YN,
+			(SELECT COUNT(*) FROM QUIZ_REQ WHERE HOMEPAGE_ID = a.HOMEPAGE_ID AND QUIZ_IDX = a.QUIZ_IDX) AS QUIZ_REQ_COUNT,
+			SELECT_CNT
+		FROM
+			QUIZ a
+		WHERE HOMEPAGE_ID = #{homepage_id} AND QUIZ_IDX = #{quiz_idx} AND DELETE_YN = 'N'
+	</select>
+	
+	<select id="getAreadyQuizOne" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			QUIZ a
+		WHERE
+			HOMEPAGE_ID = #{homepage_id}
+		AND QUIZ_TYPE = #{quiz_type}
+		AND DELETE_YN = 'N'
+		AND QUIZ_YEAR = #{quiz_year}
+		AND	QUIZ_MONTH = #{quiz_month}
+	</select>
+	
+	<insert id="addQuiz">
+		<selectKey keyProperty="quiz_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(QUIZ_IDX),0)+1 FROM QUIZ WHERE HOMEPAGE_ID = #{homepage_id}
+		</selectKey>
+	
+		INSERT INTO QUIZ
+		(
+			HOMEPAGE_ID, QUIZ_IDX, QUIZ_TYPE, QUIZ_NAME, QUIZ_YEAR, QUIZ_MONTH, BOOK_NAME, BOOK_AUTHOR, BOOK_PUBLISHER,
+			CALL_NO, BOOK_DESC, QUIZ_START_DATE, QUIZ_END_DATE, IMG_FILE_NAME, REAL_FILE_NAME, FILE_EXTENSION, FILE_SIZE,
+			TOP_HTML, BOTTOM_HTML, DELETE_YN, ADD_DATE, ADD_ID, SCHOOL_YN, BAN_YN, HAK_YN, SELECT_CNT
+		) VALUES (
+			#{homepage_id}, #{quiz_idx}, #{quiz_type}, #{quiz_name}, #{quiz_year}, #{quiz_month}, #{book_name}, #{book_author}, #{book_publisher},
+			#{call_no}, #{book_desc}, #{quiz_start_date}, #{quiz_end_date}, #{img_file_name}, #{real_file_name}, #{file_extension}, #{file_size},
+			#{top_html}, #{bottom_html}, 'N', SYSDATE, #{add_id}, #{school_yn}, #{ban_yn}, #{hak_yn}, 0
+		)
+	</insert>
+	
+	<update id="modifyQuiz">
+		UPDATE 
+			QUIZ 
+		SET
+			QUIZ_NAME 		= #{quiz_name},
+			QUIZ_YEAR 		= #{quiz_year}, 
+			QUIZ_MONTH 		= #{quiz_month}, 
+			QUIZ_TYPE 		= #{quiz_type}, 
+			BOOK_NAME 		= #{book_name}, 
+			BOOK_AUTHOR 	= #{book_author}, 
+			BOOK_PUBLISHER 	= #{book_publisher},
+			CALL_NO 		= #{call_no}, 
+			BOOK_DESC 		= #{book_desc},
+			QUIZ_START_DATE = #{quiz_start_date}, 
+			QUIZ_END_DATE 	= #{quiz_end_date},
+			<if test="real_file_name != null and real_file_name != '' ">
+			IMG_FILE_NAME 	= #{img_file_name}, 
+			REAL_FILE_NAME 	= #{real_file_name}, 
+			FILE_EXTENSION 	= #{file_extension}, 
+			FILE_SIZE 		= #{file_size},
+			</if> 
+			TOP_HTML 		= #{top_html}, 
+			BOTTOM_HTML		= #{bottom_html}, 
+			MOD_DATE 		= SYSDATE, 
+			MOD_ID 			= #{mod_id},
+			SCHOOL_YN       = #{school_yn},
+			BAN_YN          = #{ban_yn},
+			HAK_YN          = #{hak_yn}
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND QUIZ_IDX = #{quiz_idx} AND DELETE_YN = 'N'
+	</update>
+	
+	<delete id="deleteQuiz">
+		UPDATE QUIZ
+		SET DELETE_YN = 'Y',
+			MOD_DATE = SYSDATE, 
+			MOD_ID = #{mod_id}
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND QUIZ_IDX = #{quiz_idx}
+	</delete>
+	
+	<select id="getQuizUser" resultType="kr.co.whalesoft.app.cms.module.quiz.Quiz">
+		SELECT
+			HOMEPAGE_ID, QUIZ_IDX, QUIZ_TYPE, QUIZ_NAME, QUIZ_YEAR, QUIZ_MONTH, BOOK_NAME, BOOK_AUTHOR, BOOK_PUBLISHER,
+			CALL_NO, BOOK_DESC, QUIZ_START_DATE, QUIZ_END_DATE, IMG_FILE_NAME, REAL_FILE_NAME, FILE_EXTENSION, FILE_SIZE,
+			TOP_HTML, BOTTOM_HTML, DELETE_YN, ADD_DATE, ADD_ID, MOD_DATE, MOD_ID, SCHOOL_YN, BAN_YN, HAK_YN,
+			(SELECT COUNT(*) FROM QUIZ_REQ WHERE HOMEPAGE_ID = a.HOMEPAGE_ID AND QUIZ_IDX = a.QUIZ_IDX) AS QUIZ_REQ_COUNT,
+			SELECT_CNT
+		FROM
+			QUIZ a
+		WHERE HOMEPAGE_ID = #{homepage_id} 
+			AND QUIZ_YEAR = #{quiz_year} 
+			AND QUIZ_MONTH = #{quiz_month}
+			AND QUIZ_TYPE = #{quiz_type} 
+			AND DELETE_YN = 'N'
+	</select>
+	
+	<select id="getQuizCntOfValidDate" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			QUIZ
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id}
+		AND QUIZ_IDX = #{quiz_idx}
+		AND DELETE_YN = 'N'
+		AND QUIZ_START_DATE &lt;= TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') &lt;= QUIZ_END_DATE
+	</select>
+	
+	<update id="increaseSelectCnt">
+		UPDATE QUIZ SET
+			select_cnt = select_cnt + 1
+		WHERE
+			homepage_id = #{homepage_id}
+		AND quiz_idx = #{quiz_idx}
+		AND delete_yn = 'N'
+	</update>
+	
+</mapper>

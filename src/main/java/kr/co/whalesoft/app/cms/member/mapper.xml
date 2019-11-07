@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.member.MemberDao">
+
+	<select id="getMember" resultType="kr.co.whalesoft.app.cms.member.Member">
+		${pagingTop}
+			SELECT
+				A.HOMEPAGE_ID, A.MEMBER_ID, A.MEMBER_NAME, A.PHONE, A.LINK_MEMBER_YN,
+				A.add_date
+			FROM
+				CMS_MEMBER A
+			WHERE 1=1
+				<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+					AND	A.${search_type} LIKE '%'||#{search_text}||'%'
+				</if>
+			ORDER BY
+				A.ADD_DATE DESC
+		${pagingBottom}
+	</select>
+
+	<select id="getMemberCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_MEMBER A
+		WHERE 1=1
+			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+				AND	A.${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+		ORDER BY
+			A.ADD_DATE ASC
+	</select>
+
+	<select id="getMemberOne" resultType="kr.co.whalesoft.app.cms.member.Member">
+		SELECT
+			A.HOMEPAGE_ID, A.MEMBER_ID, A.MEMBER_NAME, A.MEMBER_PW, A.BIRTH_DAY, A.EMAIL,
+			A.ZIPCODE, A.ADDRESS1, A.ADDRESS2, A.PHONE, A.CELL_PHONE,
+			A.SMS_SERVICE_YN, A.EMAIL_SERVICE_YN, A.ADD_IP, A.ADD_DATE,
+			A.PW_CHANGE_DATE, A.LAST_LOGIN, A.LINK_MEMBER_YN, 'CMS' AS LOGINTYPE
+		FROM
+			CMS_MEMBER A
+		WHERE
+			A.MEMBER_ID = #{member_id}
+	</select>
+
+	<insert id="addMember">
+		INSERT INTO
+			CMS_MEMBER
+		(
+			HOMEPAGE_ID, MEMBER_ID, MEMBER_NAME, MEMBER_PW, BIRTH_DAY, EMAIL,
+			ZIPCODE, ADDRESS1, ADDRESS2, PHONE, CELL_PHONE,
+			SMS_SERVICE_YN, EMAIL_SERVICE_YN, ADD_IP, ADD_DATE,
+			PW_CHANGE_DATE, LAST_LOGIN, LINK_MEMBER_YN
+		) VALUES
+		(
+			#{homepage_id}, #{member_id}, #{member_name}, #{member_pw}, #{birth_day}, #{email},
+			#{zipcode}, #{address1}, #{address2}, #{phone}, #{cell_phone},
+			#{sms_service_yn}, #{email_service_yn}, #{add_ip}, SYSDATE,
+			SYSDATE, SYSDATE, #{link_member_yn}
+		)
+	</insert>
+
+	<update id="modifyMember">
+		UPDATE
+			CMS_MEMBER
+		SET
+			<if test="member_pw != null and member_pw != '' " >
+			MEMBER_PW 	= #{member_pw},
+			</if>
+			MEMBER_NAME 		= #{member_name},
+			homepage_id 		= #{homepage_id},
+			EMAIL 		= #{email},
+			ZIPCODE 	= #{zipcode},
+			ADDRESS1 	= #{address1},
+			ADDRESS2 	= #{address2},
+			PHONE 		= #{phone},
+			CELL_PHONE 	= #{cell_phone},
+			SMS_SERVICE_YN = #{sms_service_yn},
+			EMAIL_SERVICE_YN = #{email_service_yn}
+		WHERE
+			MEMBER_ID = #{member_id}
+	</update>
+
+	<delete id="deleteMember">
+		DELETE FROM
+			CMS_MEMBER
+		WHERE
+			MEMBER_ID = #{member_id}
+	</delete>
+
+	<select id="getMemberListNotAuth" resultType="kr.co.whalesoft.app.cms.member.Member">
+		SELECT MEMBER_ID, MEMBER_NAME
+		FROM CMS_MEMBER
+		WHERE MEMBER_ID NOT IN (select member_id from CMS_MEMBER_AUTH where AUTH_ID = #{search_auth})
+			<if test="homepage_id != 'CMS'">
+				AND HOMEPAGE_ID = #{homepage_id}
+			</if>
+		ORDER BY MEMBER_ID
+	</select>
+
+	<select id="getMemberListInAuth" resultType="kr.co.whalesoft.app.cms.member.Member">
+		SELECT MEMBER_ID, MEMBER_NAME, PHONE, CELL_PHONE, EMAIL
+		FROM CMS_MEMBER
+		WHERE MEMBER_ID IN (select member_id from CMS_MEMBER_AUTH where AUTH_ID = #{search_auth})
+			<if test="homepage_id != 'CMS'">
+				AND HOMEPAGE_ID = #{homepage_id}
+			</if>
+		ORDER BY MEMBER_ID
+	</select>
+
+	<select id="getMemberListInAuthCount" resultType="int">
+		SELECT COUNT(*)
+		FROM CMS_MEMBER
+		WHERE MEMBER_ID IN (select member_id from CMS_MEMBER_AUTH where AUTH_ID = #{search_auth})
+			<if test="homepage_id != 'CMS'">
+				AND HOMEPAGE_ID = #{homepage_id}
+			</if>
+		ORDER BY MEMBER_ID
+	</select>
+
+	<select id="checkMemberId" resultType="int">
+		SELECT COUNT(*) FROM CMS_MEMBER WHERE MEMBER_ID = #{member_id}
+	</select>
+
+	<select id="checkMemberAuthInHomepage" resultType="int">
+		SELECT COUNT(*)
+		FROM CMS_MEMBER a,(SELECT MEMBER_ID, MIN(TO_NUMBER(AUTH_ID)) AS AUTH_ID
+							FROM CMS_MEMBER_AUTH
+							GROUP BY MEMBER_ID) b
+		WHERE a.MEMBER_ID = b.MEMBER_ID
+			AND a.HOMEPAGE_ID = #{homepage_id} AND b.AUTH_ID = #{auth_id}
+	</select>
+
+	<insert id="integrationMember">
+		insert into INTEGRATION_MEMBER
+		(ORIGIN_MEMBER_ID, CHANGE_MEMBER_ID, ORIGIN_SEQ_NO, CHANGE_SEQ_NO, ADD_DATE)
+		values
+		(#{integrationIdList}, #{integrationId}, #{integrationSeqNoList}, #{integrationSeqNo}, sysdate)
+	</insert>
+
+	<select id="getDlsMemberCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			DLS_MEMBER
+		WHERE
+			dls_id = #{dls_id}
+	</select>
+
+	<insert id="addDlsMember">
+		<selectKey keyProperty="dls_member_idx" order="BEFORE" resultType="int">
+			SELECT NVL(MAX(dls_member_idx),0)+1 FROM DLS_MEMBER
+		</selectKey>
+		INSERT	INTO
+			DLS_MEMBER
+		(
+			dls_member_idx, dls_id, lib_id, web_id, user_name,
+			user_ip, add_date
+		)
+		VALUES
+		(
+			#{dls_member_idx}, #{dls_id}, #{lib_id}, #{web_id}, #{user_name},
+			#{user_ip}, SYSDATE
+		)
+	</insert>
+
+	<insert id="addChangeNameHistory">
+		<selectKey keyProperty="idx" order="BEFORE" resultType="int">
+			SELECT NVL(MAX(idx),0)+1 FROM CHANGE_NAME_HISTORY
+		</selectKey>
+		INSERT	INTO
+			CHANGE_NAME_HISTORY
+		(
+			idx, ilus_user_id, ilus_user_seq, ilus_web_id, add_date
+		)
+		VALUES
+		(
+			#{idx}, #{user_id}, #{seq_no}, #{web_id}, SYSDATE
+		)
+	</insert>
+
+	<select id="getMemberAuth" resultType="String">
+		SELECT
+			DECODE(module_type, 'CMS', 'CMS', NVL(A.site_id, 'CMS')) || '_' || a.menu_idx || '_' || a.module_idx || '_' || a.auth_code_id
+		FROM
+			WB_MEMBER_GROUP_AUTH A, WB_MEMBER_GROUP_SUBORD B
+		WHERE
+			A.member_group_idx = B.member_group_idx
+		AND	B.member_id = #{member_id}
+		UNION ALL
+		SELECT
+			DECODE(module_type, 'CMS', 'CMS', NVL(A.site_id, 'CMS')) || '_' || a.menu_idx || '_' || a.module_idx || '_' || a.auth_code_id
+		FROM
+			WB_MEMBER_GROUP_AUTH A, WB_MEMBER_GROUP_RELATION B
+		WHERE
+			A.member_group_idx = B.relation_member_group_idx
+		AND	B.member_group_idx in ( SELECT member_group_idx FROM WB_MEMBER_GROUP_SUBORD WHERE member_id = #{member_id})
+		UNION ALL
+		SELECT
+			DECODE(module_type, 'CMS', 'CMS', NVL(A.site_id, 'CMS')) || '_' || a.menu_idx || '_' || a.module_idx || '_' || a.auth_code_id
+		FROM
+			WB_MEMBER_GROUP_AUTH A, WB_MEMBER_GROUP_RELATION B
+		WHERE
+			A.member_group_idx = B.member_group_idx
+		AND	B.relation_member_group_idx in ( SELECT member_group_idx FROM WB_MEMBER_GROUP_SUBORD WHERE member_id = #{member_id})
+	</select>
+
+	<select id="getMemberSiteAdminAuth" resultType="String">
+		SELECT
+			SITE_ID || '_A'
+		FROM
+			WB_MEMBER_GROUP A, WB_MEMBER_GROUP_SUBORD B
+		WHERE
+			A.member_group_idx = B.member_group_idx
+		AND	B.member_id = #{member_id}
+		AND A.admin_group_yn = 'Y'
+		UNION ALL
+		SELECT
+			SITE_ID || '_A'
+		FROM
+			WB_MEMBER_GROUP A, WB_MEMBER_GROUP_RELATION B
+		WHERE
+			A.member_group_idx = B.relation_member_group_idx
+		AND	B.member_group_idx in ( SELECT member_group_idx FROM WB_MEMBER_GROUP_SUBORD WHERE member_id = #{member_id})
+		AND A.admin_group_yn = 'Y'
+	</select>
+
+	<select id="getMemberManageList" resultType="kr.co.whalesoft.app.cms.member.Member">
+		SELECT
+			A.*,
+			(
+				select
+				  listagg((case  when site_id != 'CMS'
+				  THEN (SELECT homepage_alias from cms_homepage where homepage_id = site_id) || ' - ' || member_group_name
+				  else 'CMS - ' || member_group_name
+				  end), ', ') within group (order by member_group_name) as search_auth
+				from wb_member_group
+				where member_group_idx in (
+				select member_group_idx from wb_member_group_subord
+				where member_id = A.member_id
+				)
+			) as search_auth
+		FROM
+		(
+			${pagingTop}
+				SELECT DISTINCT
+					A.HOMEPAGE_ID, A.MEMBER_ID, A.MEMBER_NAME, A.PHONE, A.LINK_MEMBER_YN,
+					A.add_date
+				FROM
+					CMS_MEMBER A
+				<choose>
+				<when test='homepage_id != null and homepage_id != "" and homepage_id != "CMS"'>
+				, WB_MEMBER_GROUP_SUBORD b, WB_MEMBER_GROUP c
+				WHERE
+					a.member_id = b.member_id
+				AND b.member_group_idx = c.member_group_idx
+				AND c.site_id = #{homepage_id}
+				<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+					AND A.${search_type} LIKE '%'||#{search_text}||'%'
+				</if>
+				</when>
+				<otherwise>
+				<where>
+					<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+						AND A.${search_type} LIKE '%'||#{search_text}||'%'
+					</if>
+				</where>
+				</otherwise>
+				</choose>
+				ORDER BY
+					A.ADD_DATE DESC
+			${pagingBottom}
+		) A
+	</select>
+
+	<select id="getMemberManageCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			( SELECT DISTINCT A.HOMEPAGE_ID, A.MEMBER_ID
+		FROM
+			CMS_MEMBER A
+		<choose>
+		<when test='homepage_id != null and homepage_id != "" and homepage_id != "CMS"'>
+					, WB_MEMBER_GROUP_SUBORD b, WB_MEMBER_GROUP c
+		WHERE
+			a.member_id = b.member_id
+		AND b.member_group_idx = c.member_group_idx
+		AND c.site_id = #{homepage_id}
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND A.${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		</when>
+		<otherwise>
+		<where>
+			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+				AND A.${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+		</where>
+		</otherwise>
+		</choose>
+		)
+	</select>
+
+	<select id="getMemberListBoardAdmin" resultType="kr.co.whalesoft.app.cms.member.Member">
+		SELECT
+			DISTINCT A.*
+		FROM
+			CMS_MEMBER A, WB_MEMBER_GROUP_SUBORD B, WB_MEMBER_GROUP_AUTH C
+		WHERE
+			a.member_id = b.member_id
+		AND	b.member_group_idx = c.member_group_idx
+		AND	c.module_idx = #{manage_idx}
+		AND	c.auth_code_id = 'MBA'
+		AND	c.module_type = 'SITE'
+	</select>
+
+	<select id="getAnonymousAuth" resultType="String">
+		SELECT
+			A.site_id || '_' || a.menu_idx || '_' || a.module_idx || '_' || a.auth_code_id
+		FROM
+			WB_MEMBER_GROUP_AUTH A, WB_MEMBER_GROUP B
+		WHERE
+			A.member_group_idx = B.member_group_idx
+		AND	B.guest_group_yn ='Y'
+
+	</select>
+	
+	<update id="addMemberLastLogin">
+		MERGE INTO 
+			MEMBER_LAST_LOGIN a
+		USING dual
+		ON
+			(a.seq_no = #{seq_no})
+		WHEN MATCHED THEN
+			UPDATE SET
+				a.last_login = SYSDATE,
+				a.web_id = #{web_id},
+				a.last_login_ip = #{last_login_ip}
+		WHEN NOT MATCHED THEN
+			INSERT (
+				seq_no, last_login, last_login_ip, web_id
+			) VALUES (
+				#{seq_no}, SYSDATE, #{last_login_ip}, #{web_id}
+			)
+	</update>
+	
+</mapper>

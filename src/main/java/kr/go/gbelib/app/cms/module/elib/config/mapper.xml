@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.elib.config.ConfigDao">
+
+	<select id="getConfig" resultType="kr.go.gbelib.app.cms.module.elib.config.Config">
+		SELECT
+			user_max_lend, book_max_lend, lend_max_term, max_extention, ext_lend_term, max_reserve, book_max_reserve
+		FROM
+			ELIB_CONFIG_LEND
+		WHERE
+			config_idx = 1
+	</select>
+
+	<insert id="setConfig">
+		MERGE INTO
+			ELIB_CONFIG_LEND a
+		USING dual
+		ON
+			(a.config_idx = 1)
+		WHEN MATCHED THEN
+			UPDATE SET
+				user_max_lend = #{user_max_lend},
+				book_max_lend = #{book_max_lend},
+				lend_max_term = #{lend_max_term},
+				max_extention = #{max_extention},
+				ext_lend_term = #{ext_lend_term},
+				max_reserve = #{max_reserve},
+				book_max_reserve = #{book_max_reserve},
+				mod_id = #{mod_id},
+				mod_date = SYSDATE
+		WHEN NOT MATCHED THEN
+			INSERT
+			(
+				config_idx, user_max_lend, book_max_lend, lend_max_term, max_extention, ext_lend_term, max_reserve, book_max_reserve, mod_id, mod_date
+			) VALUES
+			(
+				1, #{user_max_lend}, #{book_max_lend}, #{lend_max_term}, #{max_extention}, #{ext_lend_term}, #{max_reserve}, #{book_max_reserve}, #{mod_id}, SYSDATE
+			)
+    </insert>
+    
+    <select id="getConfigPair" parameterType="String" resultType="String">
+    	SELECT value FROM ELIB_CONFIG WHERE name = #{name}
+    </select>
+    
+    <insert id="setConfigPair">
+		MERGE INTO
+			ELIB_CONFIG a
+		USING dual
+		ON
+			(a.name = #{name})
+		WHEN MATCHED THEN
+			UPDATE SET
+				value = #{value},
+				mod_id = #{mod_id},
+				mod_date = SYSDATE,
+				mod_ip = #{mod_ip}
+		WHEN NOT MATCHED THEN
+			INSERT (
+				name, value, mod_id, mod_date, mod_ip
+			) VALUES (
+				#{name}, #{value}, #{mod_id}, SYSDATE, #{mod_ip}
+			)
+    </insert>
+
+</mapper>

@@ -1,0 +1,15 @@
+@charset "utf-8"; 	
+
+.tnb a,
+.main4 li.lt-gall4,
+.main4 li.lt-gall5,
+.m-menu a,
+.main .popupzone .bx-pager .bx-pager-item,
+.main .popupzone li a,
+.main4 li,
+.main #planList h3,
+.main #planList span,
+.main1 .bx-pager .bx-pager-item,
+.main .qmenu li,
+.Gnb .gnb-menu>li>.SubMenu>li{zoom:1;*display:inline}
+.mmode.curation img{width: 35px;height: 35px;}

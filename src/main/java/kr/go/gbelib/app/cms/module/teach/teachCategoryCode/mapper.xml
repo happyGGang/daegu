@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.teach.teachCategoryCode.TeachCategoryCodeDao">
+    
+       <insert id="addCodeGroup">
+        INSERT INTO TEACH_CATEGORY_CODE
+        (
+        	teach_group_id, teach_code_id, teach_code_name, remark, up_teach_code_id,
+        	print_seq, add_id, modify_id
+		)
+		VALUES
+		(
+			#{teach_group_id}, '--', #{teach_code_name}, #{remark}, #{up_teach_code_id},
+			0, #{add_id}, #{modify_id}
+		)
+    </insert>
+    
+    <insert id="modifyCodeGroup">
+        UPDATE
+        	TEACH_CATEGORY_CODE
+        SET
+			teach_code_name = #{teach_code_name},
+			remark = #{remark},
+			modify_date = SYSDATE,
+			modify_id = #{modify_id}
+			<if test='up_teach_code_id != null and up_teach_code_id != ""'>
+			, teach_up_code_id = #{teach_up_code_id}
+			</if>
+		WHERE
+			teach_group_id = #{teach_group_id}
+		AND	teach_code_id = '--'
+    </insert>
+    
+       <insert id="addCode">
+        INSERT INTO TEACH_CATEGORY_CODE
+        (
+        	teach_group_id, teach_code_id, teach_code_name, remark, print_seq,
+        	add_id, modify_id
+		)
+		VALUES
+		(
+			#{teach_group_id}, #{teach_code_id}, #{teach_code_name}, #{remark}, #{print_seq},
+			#{add_id}, #{modify_id}
+		)        	
+    </insert>
+    
+    <update id="modifyCode">
+        UPDATE
+        	TEACH_CATEGORY_CODE 
+       	SET
+        	teach_code_name = #{teach_code_name}, 
+        	remark = #{remark}, 
+			print_seq = #{print_seq},
+			modify_date = SYSDATE,
+			modify_id = #{modify_id}
+		WHERE
+			teach_code_id = #{teach_code_id}
+		AND	teach_group_id = #{teach_group_id}
+    </update>
+    
+    <delete id="deleteCode">
+		DELETE
+			TEACH_CATEGORY_CODE 
+		WHERE
+			teach_code_id = #{teach_code_id}        
+    </delete>
+    
+	<!-- 대분류 전체를 가져온다. -->
+	<select id="getRootGroup" resultType="kr.go.gbelib.app.cms.module.teach.teachCategoryCode.TeachCategoryCode">
+		SELECT
+			*
+		FROM
+			TEACH_CATEGORY_CODE
+		WHERE
+			teach_group_id = 'GROUP_DIV'
+		AND	teach_code_id != '--'
+		ORDER BY print_seq
+	</select>
+	
+	<!-- 특정 대분류를 가져온다. -->
+	<select id="getRootGroupOne" resultType="kr.go.gbelib.app.cms.module.teach.teachCategoryCode.TeachCategoryCode">
+		SELECT 
+			* 
+		FROM 
+			TEACH_CATEGORY_CODE 
+		WHERE 
+			teach_group_id = 'GROUP_DIV'
+		AND	teach_code_id = #{teach_code_id}
+	</select>
+	
+	<!-- 대분류를 등록한다. -->
+	<insert id="addRootGroupCode">
+		INSERT INTO
+			TEACH_CATEGORY_CODE
+		(
+			teach_group_id, teach_code_id, teach_code_name, print_seq,
+			add_id, modify_id
+		)
+			VALUES
+		(
+			'GROUP_DIV', #{teach_code_id}, #{teach_code_name}, #{print_seq},
+			#{add_id}, #{modify_id}
+		)
+	</insert>
+	
+	<!-- 대분류를 수정한다. -->
+	<update id="modifyRootGroupCode">
+		UPDATE 
+			TEACH_CATEGORY_CODE
+		SET
+			teach_code_name = #{teach_code_name},
+			print_seq = #{print_seq},
+			modify_date = SYSDATE,
+			modify_id = #{modify_id}
+		WHERE
+			teach_code_id = #{teach_code_id}
+		AND	teach_group_id = 'GROUP_DIV'
+	</update>
+	
+	<!-- 전체 중분류를 가져온다. -->
+	<select id="getMiddleGroup" resultType="kr.go.gbelib.app.cms.module.teach.teachCategoryCode.TeachCategoryCode">
+		SELECT 
+			* 
+		FROM
+			TEACH_CATEGORY_CODE 
+		WHERE
+			teach_code_id =  <![CDATA[ '--' ]]>
+		ORDER BY up_teach_code_id
+	</select>
+	
+	<!-- 특정 중분류를 가져온다. -->
+	<select id="getMiddleGroupOne" resultType="kr.go.gbelib.app.cms.module.teach.teachCategoryCode.TeachCategoryCode">
+		SELECT 
+			* 
+		FROM
+			TEACH_CATEGORY_CODE 
+		WHERE
+			teach_code_id =  <![CDATA[ '--' ]]>
+		AND	teach_group_id = #{teach_group_id}
+	</select>
+	
+	<!-- 소분류를 가져온다. -->
+	<select id="getCode" resultType="kr.go.gbelib.app.cms.module.teach.teachCategoryCode.TeachCategoryCode">
+		SELECT 
+			teach_code_name, teach_code_id , print_seq, teach_group_id
+		FROM 
+			TEACH_CATEGORY_CODE
+		WHERE teach_group_id = #{teach_group_id}
+		AND	teach_code_id <![CDATA[ <> '--' ]]> 
+		ORDER BY print_seq
+	</select>
+</mapper>

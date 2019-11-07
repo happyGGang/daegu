@@ -1,0 +1,43 @@
+@charset "utf-8";
+
+/**************************************************************
+
+			     Last saved date : 12/12/2013
+ 			     Author : Sun-young Kim
+ 			
+**************************************************************/
+
+
+/* fileAttach */
+#attach_area { margin:10px 0 0 0; padding:0; background:url('/resources/common/jqueryFileUpload/img/bg_attach.gif') repeat-x; padding-right:220px; padding-left:114px; display:relative;  }
+#attach_area h4 { position:relative; left:-114px; width:135px; background:url('/resources/common/jqueryFileUpload/img/tit_attach.gif') no-repeat;  padding:6px 0 5px 18px; font-size:13px !important; color:#fff;  }
+#attach_area .fileUploader, #attach_area .fileResult {  padding:0; margin-top:10px; }
+#attach_area .fileUploader .preview  { width:104px; height:94px; margin:0 10px; background:url('/resources/common/jqueryFileUpload/img/bg_preview.gif') no-repeat;  text-align:center;  float:left; position:relative;left:-120px; margin-right:-114px}
+#attach_area .fileUploader .preview span { display:inline-block; width:88px; height:78px; margin:7px 0 0 0;  }
+#attach_area .fileUploader .fileListArea { float:left;  width:100%; position:relative; }
+#attach_area .fileUploader .fileListArea input { width:98%; height:90px; border:1px solid #d4d4d4; }
+#attach_area .fileUploader .fileListArea  select { width:98%; height:94px; border:1px solid #d4d4d4; z-index:100;  }
+#attach_area .fileUploader .file_info { width:217px; float:left; overflow:hidden; position:relative; left:220px; *left:0; margin:5px 0 0 -220px; *margin-left:0; } 
+#attach_area .fileUploader .file_info .fileUploadControl .btn { float:left; margin-left:1px; }
+#attach_area .fileUploader .file_info .file_attach_info { float:left; font-size:12px; margin-top:5px;  }
+#attach_area .fileUploader .file_info span { font-size:11px; margin-left:3px; line-height:150%;  }
+
+#attach_area .fileResult { clear:both; /* width:10%; */  *width:100%; padding-top:15px; position:relative; left:-124px; margin-right:-144px }
+#attach_area .fileResult .rate { float:left; width:123px; text-align:center; position:releative; *padding-top:7px;  }
+ 
+.loading {  width:380px; *width:390px; float:left; } 
+.dsc_loading_no { position:relative; float:left; *text-align:left; *padding-top:5px;  }
+.dsc_loading_no .no { display:none }
+.progress {  font-size:11px; color:#e8af05; font-family:verdana; font-weight:bold; font-style:normal; }
+.loading .progress_bar { width:358px; height:14px; padding:5px 7px 5px 5px; background:url('/resources/common/jqueryFileUpload/img/bg_progress.gif') no-repeat; *position:absolute; *top:20px; *left:130px; }
+.loading .progress_bar span { display:block; height:4px; background:url('/resources/common/jqueryFileUpload/img/img_progress.gif') 0 repeat; border-left:1px solid #be8f00; border-right:1px solid #be8f00; font-size:0 }
+
+/****************************************************************************/
+.bar {height:18px; background:green;}
+.fileinput-button {position: relative; overflow: hidden; display: inline-block;}
+.fileinput-button input {position: absolute; top: 0; right: 0; margin: 0; opacity: 0; -ms-filter: 'alpha(opacity=0)'; font-size: 200px; direction: ltr; cursor: pointer;}
+
+/* Fixes for IE < 8 */
+@media screen\9 {
+	.fileinput-button input {filter: alpha(opacity=0); font-size: 100%; height: 100%;}
+}

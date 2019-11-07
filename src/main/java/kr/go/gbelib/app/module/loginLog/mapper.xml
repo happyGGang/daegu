@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.module.loginLog.LoginLogDao">
+
+	<select id="getLoginLogCnt" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			LOGIN_LOG
+		WHERE 1=1
+		AND login_type = #{login_type}
+		AND member_id = #{member_id}
+	</select>
+
+	<select id="getLoginLogList" resultType="kr.go.gbelib.app.module.loginLog.LoginLog">
+		${pagingTop}
+		SELECT
+			idx, login_type, member_id, homepage_id, user_agent, ip,
+			TO_CHAR(login_date, 'YYYY-MM-DD HH24:MI:SS') AS login_date,
+			(SELECT z.homepage_name FROM cms_homepage z WHERE z.homepage_id = a.homepage_id) AS homepage_name
+		FROM
+			LOGIN_LOG a
+		WHERE 1=1
+		AND login_type = #{login_type}
+		AND member_id = #{member_id}
+		ORDER BY login_date DESC
+		${pagingBottom}
+	</select>
+	
+	<insert id="addLoginLog">
+		INSERT INTO LOGIN_LOG (
+			idx, login_type, member_id, homepage_id, login_date, ip, user_agent
+		) VALUES (
+			LOGIN_LOG_SEQ.NEXTVAL, #{login_type}, #{member_id}, #{homepage_id}, SYSDATE, #{ip}, #{user_agent}
+		)
+	</insert>
+	
+	<select id="getLoginLogCntCms" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			LOGIN_LOG
+		WHERE 1=1
+		<if test="login_type != null and login_type != ''">
+		AND login_type = #{login_type}
+		</if>
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+	    <if test="search_sdt != null and search_sdt != ''">
+	    AND #{search_sdt} &lt;= TO_CHAR(login_date, 'YYYY-MM-DD')
+	    </if>
+	    <if test="search_edt != null and search_edt != ''">
+	    AND TO_CHAR(login_date, 'YYYY-MM-DD') &lt;= #{search_edt}
+	    </if>
+	</select>
+	
+	<select id="getLoginLogListCms" resultType="kr.go.gbelib.app.module.loginLog.LoginLog">
+		${pagingTop}
+		SELECT
+			idx, login_type, member_id, homepage_id, user_agent, ip,
+			TO_CHAR(login_date, 'YYYY-MM-DD HH24:MI:SS') AS login_date,
+			(SELECT z.homepage_name FROM cms_homepage z WHERE z.homepage_id = a.homepage_id) AS homepage_name
+		FROM
+			LOGIN_LOG a
+		WHERE 1=1
+		<if test="login_type != null and login_type != ''">
+		AND login_type = #{login_type}
+		</if>
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+	    <if test="search_sdt != null and search_sdt != ''">
+	    AND #{search_sdt} &lt;= TO_CHAR(login_date, 'YYYY-MM-DD')
+	    </if>
+	    <if test="search_edt != null and search_edt != ''">
+	    AND TO_CHAR(login_date, 'YYYY-MM-DD') &lt;= #{search_edt}
+	    </if>
+		ORDER BY login_date DESC
+		${pagingBottom}
+	</select>
+	
+</mapper>

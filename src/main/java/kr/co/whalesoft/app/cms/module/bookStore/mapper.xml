@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.module.bookStore.BookStoreDao">
+
+	<select id="getBookStoreList" resultType="kr.co.whalesoft.app.cms.module.bookStore.BookStore">
+		${pagingTop}
+		SELECT
+			BOOKSTORE_IDX, LOAN_SEQ, LOAN_NAME, TITLE, REGIST_NUM, CLAIM_SIGN, ADD_ID, TO_CHAR(ADD_DATE,'YYYY-MM-DD') AS ADD_DATE, 
+			MODIFY_ID, MODIFY_DATE
+		FROM 
+			BOOK_STORE
+		WHERE
+			DELETE_YN = 'N'
+			<if test="search_text != null and search_text != ''">
+			AND ${search_type} like '%' || #{search_text} || '%'
+			</if>
+		ORDER BY ADD_DATE DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getBookStoreListAll" resultType="kr.co.whalesoft.app.cms.module.bookStore.BookStore">
+		SELECT
+			BOOKSTORE_IDX, LOAN_SEQ, LOAN_NAME, TITLE, REGIST_NUM, CLAIM_SIGN, ADD_ID, TO_CHAR(ADD_DATE,'YYYY-MM-DD') AS ADD_DATE, 
+			MODIFY_ID, MODIFY_DATE
+		FROM 
+			BOOK_STORE
+		WHERE
+			DELETE_YN = 'N'
+			<if test="search_text != null and search_text != ''">
+			AND ${search_type} like '%' || #{search_text} || '%'
+			</if>
+		ORDER BY ADD_DATE DESC
+	</select>
+	
+	<select id="getBookStoreOne" resultType="kr.co.whalesoft.app.cms.module.bookStore.BookStore">
+		SELECT
+			BOOKSTORE_IDX, LOAN_SEQ, LOAN_NAME, TITLE, REGIST_NUM, CLAIM_SIGN, ADD_ID, ADD_DATE, MODIFY_ID, MODIFY_DATE
+		FROM 
+			BOOK_STORE
+		WHERE
+			BOOKSTORE_IDX = #{bookstore_idx}
+	</select>
+	
+	<select id="checkApplyCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM 
+			BOOK_STORE
+		WHERE
+			DELETE_YN = 'N' AND
+			LOAN_SEQ = #{loan_seq} AND
+			LOAN_NAME = #{loan_name} AND
+			TITLE = #{title} AND
+			REGIST_NUM = #{regist_num} AND
+			CLAIM_SIGN = #{claim_sign}
+		
+	</select>
+	
+	<select id="getBookStoreListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM 
+			BOOK_STORE
+		WHERE
+			DELETE_YN = 'N'
+			<if test="search_text != null and search_text != ''">
+			AND ${search_type} like '%' || #{search_text} || '%'
+			</if>
+	</select>
+
+	<select id="getBookStoreCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM 
+			BOOK_STORE_REQ
+		WHERE
+			LOAN_SEQ = #{loan_seq}
+	</select>
+	
+	<insert id="addBookStore">
+	
+		<selectKey keyProperty="bookstore_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(BOOKSTORE_IDX),0)+1 FROM BOOK_STORE
+		</selectKey>
+	
+		INSERT INTO BOOK_STORE (
+			BOOKSTORE_IDX, LOAN_SEQ, LOAN_NAME, TITLE, REGIST_NUM, CLAIM_SIGN, ADD_ID, ADD_DATE, MODIFY_ID, MODIFY_DATE, DELETE_YN
+		) VALUES (
+			#{bookstore_idx}, #{loan_seq}, #{loan_name}, #{title}, #{regist_num}, #{claim_sign}, #{add_id}, sysdate, #{add_id}, sysdate, 'N'
+		)
+	</insert>
+	
+	<update id="modifyBookStore">
+		UPDATE 
+			BOOK_STORE
+		SET
+			loan_seq = #{loan_seq},
+			loan_name = #{loan_name},
+			title = #{title},
+			regist_num = #{regist_num},
+			claim_sign = #{claim_sign},
+			modify_id = #{add_id},
+			modify_date = sysdate
+		WHERE
+			bookstore_idx = #{bookstore_idx}				
+	</update>
+	
+	<update id="deleteBookStore">
+		UPDATE
+			BOOK_STORE
+		SET
+			DELETE_YN = 'Y'
+		WHERE
+			bookstore_idx = #{bookstore_idx}
+	</update>
+	
+	<select id="getBookStoreListUser" resultType="kr.co.whalesoft.app.cms.module.bookStore.BookStore">
+		${pagingTop}
+		SELECT
+			BOOKSTORE_IDX, LOAN_SEQ, LOAN_NAME, TITLE, REGIST_NUM, CLAIM_SIGN, ADD_ID, TO_CHAR(ADD_DATE,'YYYY-MM-DD') AS ADD_DATE, 
+			MODIFY_ID, MODIFY_DATE
+		FROM 
+			BOOK_STORE a
+		WHERE
+			DELETE_YN = 'N'
+			AND LOAN_SEQ = #{loan_seq}
+			<if test="search_text != null and search_text != ''">
+			AND ${search_type} like '%' || #{search_text} || '%'
+			</if>
+		ORDER BY a.ADD_DATE DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getBookStoreListCntUser" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM 
+			BOOK_STORE
+		WHERE
+			DELETE_YN = 'N'
+			AND LOAN_SEQ = #{loan_seq}
+			<if test="search_text != null and search_text != ''">
+			AND ${search_type} like '%' || #{search_text} || '%'
+			</if>
+	</select>
+	
+</mapper>

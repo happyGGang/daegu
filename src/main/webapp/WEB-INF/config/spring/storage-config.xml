@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="UTF-8"/>
+	</bean>
+	
+	<bean id="boardStorage" class="kr.co.whalesoft.framework.file.FileStorage">
+    	<property name="rootPath" value="/data/board"/>
+    	<property name="basedOnServletContext" value="true"/> 
+  	</bean>  	  	
+  	
+  	<bean id="boardTempStorage" class="kr.co.whalesoft.framework.file.FileStorage">
+    	<property name="rootPath" value="/data/boardTemp"/>
+    	<property name="basedOnServletContext" value="true"/> 
+  	</bean>
+	
+	<bean id="boardCommentStorage" class="kr.co.whalesoft.framework.file.FileStorage">
+    	<property name="rootPath" value="/data/boardComment"/>
+    	<property name="basedOnServletContext" value="true"/> 
+  	</bean>  	  	
+  	
+  	<bean id="boardCommentTempStorage" class="kr.co.whalesoft.framework.file.FileStorage">
+    	<property name="rootPath" value="/data/boardCommentTemp"/>
+    	<property name="basedOnServletContext" value="true"/> 
+  	</bean>
+  	
+  	<bean id="bannerStorage" class="kr.co.whalesoft.framework.file.FileStorage">
+    	<property name="rootPath" value="/data/banner"/>
+    	<property name="basedOnServletContext" value="true"/> 
+  	</bean>
+  	
+  	<bean id="popupStorage" class="kr.co.whalesoft.framework.file.FileStorage">
+    	<property name="rootPath" value="/data/popup"/>
+    	<property name="basedOnServletContext" value="true"/> 
+  	</bean>
+  	
+  	<bean id="popupZoneStorage" class="kr.co.whalesoft.framework.file.FileStorage">
+    	<property name="rootPath" value="/data/popupZone"/>
+    	<property name="basedOnServletContext" value="true"/> 
+  	</bean>
+  	
+  	<bean id="menuStorage" class="kr.co.whalesoft.framework.file.FileStorage">
+    	<property name="rootPath" value="/data/menu"/>
+    	<property name="basedOnServletContext" value="true"/> 
+  	</bean>
+  	
+  	<bean id="questImageStorage" class="kr.co.whalesoft.framework.file.FileStorage">
+    	<property name="rootPath" value="/data/questImage"/>
+    	<property name="basedOnServletContext" value="true"/> 
+  	</bean>
+  	
+  	<bean id="teachStorage" class="kr.co.whalesoft.framework.file.FileStorage">
+    	<property name="rootPath" value="/data/teach"/>
+    	<property name="basedOnServletContext" value="true"/> 
+  	</bean>
+  	
+  	<bean id="teachImgStorage" class="kr.co.whalesoft.framework.file.FileStorage">
+    	<property name="rootPath" value="/data/teach/img"/>
+    	<property name="basedOnServletContext" value="true"/> 
+  	</bean>
+  	
+  	<bean id="projectManageStorage" class="kr.co.whalesoft.framework.file.FileStorage">
+    	<property name="rootPath" value="/data/projectManage"/>
+    	<property name="basedOnServletContext" value="true"/> 
+  	</bean>
+  	
+  	<bean id="newsStorage" class="kr.co.whalesoft.framework.file.FileStorage">
+    	<property name="rootPath" value="/data/news"/>
+    	<property name="basedOnServletContext" value="true"/> 
+  	</bean>
+  	
+  	<bean id="mainImgStorage" class="kr.co.whalesoft.framework.file.FileStorage">
+    	<property name="rootPath" value="/data/mainImg"/>
+    	<property name="basedOnServletContext" value="true"/> 
+  	</bean>
+  	
+  	<bean id="quickMenuStorage" class="kr.co.whalesoft.framework.file.FileStorage">
+    	<property name="rootPath" value="/data/quickMenu"/>
+    	<property name="basedOnServletContext" value="true"/> 
+  	</bean>
+  	
+  	<bean id="quizStorage" class="kr.co.whalesoft.framework.file.FileStorage">
+    	<property name="rootPath" value="/data/quiz"/>
+    	<property name="basedOnServletContext" value="true"/> 
+  	</bean>
+  	
+  	<bean id="menuTempFileStorage" class="kr.co.whalesoft.framework.file.FileStorage">
+    	<property name="rootPath" value="/data/menuResources"/>
+    	<property name="basedOnServletContext" value="true"/> 
+  	</bean>
+  	
+  	<bean id="teacherStorage" class="kr.co.whalesoft.framework.file.FileStorage">
+    	<property name="rootPath" value="/data/teacher"/>
+    	<property name="basedOnServletContext" value="true"/> 
+  	</bean>
+  	
+  	<bean id="teachReqManageStorage" class="kr.co.whalesoft.framework.file.FileStorage">
+    	<property name="rootPath" value="/data/teachReqManage"/>
+    	<property name="basedOnServletContext" value="true"/> 
+  	</bean>
+  	
+  	<bean id="lockerPreStorage" class="kr.co.whalesoft.framework.file.FileStorage">
+    	<property name="rootPath" value="/data/lockerPre"/>
+    	<property name="basedOnServletContext" value="true"/> 
+  	</bean>
+  	
+  	<bean id="beaconStorage" class="kr.co.whalesoft.framework.file.FileStorage">
+    	<property name="rootPath" value="/data/beacon"/>
+    	<property name="basedOnServletContext" value="true"/> 
+  	</bean>
+  	
+  	<bean id="pushStorage" class="kr.co.whalesoft.framework.file.FileStorage">
+    	<property name="rootPath" value="/data/push"/>
+    	<property name="basedOnServletContext" value="true"/> 
+  	</bean>
+  	
+</beans>

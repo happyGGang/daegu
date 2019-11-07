@@ -1,0 +1,2 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<iframe src="https://www.gbelib.kr:8443/api-search/smart2.do?cmd=WORD_ADMIN_LIST&uid=admin&unm=관리자" width="100%" height="100%" style="border:0px"></iframe>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.authCode.AuthCodeDao">
+	
+	<select id="getAuthGroupTreeList" resultType="kr.co.whalesoft.app.cms.authCode.AuthCode">
+		SELECT * FROM
+		(
+			SELECT 
+				'-1' AS PARENT_AUTH_GROUP_ID,
+		   		'ROOT' AS AUTH_GROUP_ID,
+		      	'코드그룹 모음' AS AUTH_GROUP_NAME,
+		      	1 AS LOAD_ON_DEMAND
+			FROM DUAL
+			UNION ALL
+			SELECT
+	      		'ROOT' AS PARENT_AUTH_GROUP_ID, 
+	      		AUTH_GROUP_ID, 
+	      		AUTH_GROUP_NAME || '(' || auth_group_id || ')' AS AUTH_GROUP_NAME, 
+	      		0 AS LOAD_ON_DEMAND
+			FROM
+				CMS_AUTH_GROUP
+		)
+		CONNECT BY PRIOR AUTH_GROUP_ID = PARENT_AUTH_GROUP_ID
+		START WITH AUTH_GROUP_ID = 'ROOT'
+		ORDER SIBLINGS BY AUTH_GROUP_NAME
+	</select>
+	
+	<select id="getAuthGroupList" resultType="kr.co.whalesoft.app.cms.authCode.AuthCode">
+		SELECT
+			auth_group_id, auth_group_name, remark
+		FROM
+			WB_AUTH_GROUP
+		ORDER BY
+			auth_group_name
+	</select>
+	
+	<select id="getAuthGroupOne" resultType="kr.co.whalesoft.app.cms.authCode.AuthCode">
+		SELECT
+			AUTH_GROUP_ID, AUTH_GROUP_NAME, REMARK, ADD_DATE, ADD_ID
+		FROM
+			CMS_AUTH_GROUP
+		WHERE
+			AUTH_GROUP_ID = #{auth_group_id}
+	</select>
+	
+	<insert id="addAuthGroup">
+		INSERT INTO CMS_AUTH_GROUP
+		(
+			AUTH_GROUP_ID, AUTH_GROUP_NAME, REMARK, ADD_DATE, ADD_ID
+		) VALUES
+		(
+			#{auth_group_id}, #{auth_group_name}, #{remark}, SYSDATE, #{add_id}
+		)
+	</insert>
+	
+	<update id="modifyAuthGroup">
+		UPDATE 
+			CMS_AUTH_GROUP 
+		SET
+			AUTH_GROUP_NAME = #{auth_group_name},
+			REMARK = #{remark},
+			MOD_DATE = SYSDATE,
+			MOD_ID = #{mod_id}
+		WHERE
+			AUTH_GROUP_ID = #{auth_group_id}			
+	</update>
+	
+	<delete id="deleteAuthGroup">
+		DELETE FROM CMS_AUTH_GROUP 
+		WHERE
+			AUTH_GROUP_ID = #{auth_group_id}
+	</delete>
+	
+	<select id="getAuthCount" resultType="int">
+		SELECT COUNT(*) AS CNT FROM CMS_AUTH
+		WHERE
+			AUTH_GROUP_ID > 100 AND 
+			AUTH_GROUP_ID = #{auth_group_id}
+	</select>
+	
+	<select id="getAuthCode" resultType="kr.co.whalesoft.app.cms.authCode.AuthCode">
+		SELECT
+			auth_group_id, auth_code_id, auth_code_name, remark, 
+			print_seq, add_dttm, add_id
+		FROM			
+			WB_AUTH_CODE
+		WHERE
+			auth_group_id = #{auth_group_id}
+		ORDER BY
+			print_seq ASC
+	</select>
+	
+	<select id="getAuthOne" resultType="kr.co.whalesoft.app.cms.authCode.AuthCode">
+		SELECT
+			AUTH_GROUP_ID, AUTH_ID, AUTH_NAME, USE_YN, REMARK, 
+			PRINT_SEQ, ADD_DATE, ADD_ID
+		FROM			
+			CMS_AUTH
+		WHERE
+			AUTH_GROUP_ID = #{auth_group_id} AND
+			AUTH_ID = #{auth_id}
+	</select>
+	
+	<insert id="addAuth">
+		INSERT INTO CMS_AUTH
+		(
+			AUTH_GROUP_ID, AUTH_ID, AUTH_NAME, USE_YN, REMARK, 
+			PRINT_SEQ, ADD_DATE, ADD_ID
+		) VALUES
+		(
+			#{auth_group_id}, #{auth_id}, #{auth_name}, #{use_yn}, #{remark}, 
+			#{print_seq}, SYSDATE, #{add_id}
+		)
+	</insert>
+	
+	<update id="modifyAuth">
+		UPDATE 
+			CMS_AUTH 
+		SET
+			AUTH_NAME = #{auth_name}, 
+			USE_YN = #{use_yn},
+			REMARK = #{remark}, 
+			PRINT_SEQ = #{print_seq}, 
+			MOD_DATE = SYSDATE, 
+			MOD_ID = #{mod_id}
+		WHERE
+			AUTH_GROUP_ID = #{auth_group_id} AND
+			AUTH_ID = #{auth_id}
+	</update>
+	
+	<delete id="deleteAuth">
+		DELETE FROM CMS_AUTH 
+		WHERE
+			AUTH_GROUP_ID = #{auth_group_id} AND
+			AUTH_ID = #{auth_id}
+	</delete>
+	
+	<select id="getMenuAuth" resultType="kr.co.whalesoft.app.cms.authCode.AuthCode">
+		SELECT 
+  			B.AUTH_GROUP_ID, B.AUTH_GROUP_NAME, A.AUTH_ID, A.AUTH_NAME
+		FROM
+		  	CMS_AUTH A, 
+		  	CMS_AUTH_GROUP B
+		WHERE
+			A.AUTH_GROUP_ID = B.AUTH_GROUP_ID AND
+			<if test="auth_group_id != null and auth_group_id != '' ">
+			A.AUTH_GROUP_ID = #{auth_group_id} AND
+			</if>
+			A.USE_YN = 'Y' AND TO_NUMBER(A.AUTH_ID) > 200
+		ORDER BY
+		  	B.AUTH_GROUP_ID, A.AUTH_ID
+	</select>
+	
+	<select id="getNextPrintSeq" resultType="int">
+		SELECT
+			NVL(MAX(print_seq), 0) + 10
+		FROM
+			CMS_AUTH
+		WHERE
+			AUTH_GROUP_ID = #{auth_group_id}
+	</select>
+</mapper>

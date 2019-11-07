@@ -1,0 +1,71 @@
+@charset "utf-8";
+@import url("../../../common/css/type20.css");
+
+.Gnb .gnb-menu>li.menu2>.SubMenu{margin-right:42%}
+.Gnb .gnb-menu>li.menu3>.SubMenu{margin-right:28%}
+.Gnb .gnb-menu>li.menu5>.SubMenu{margin-right:5%}
+
+/* 콘텐츠 */
+.color1{color:#ff4356}
+.color2{color:#16404e}
+
+/* 시설현황 */
+.floor li{padding:0 0 10px}
+.floor li,
+.floor li p{font-size:0;line-height:0;display:inline-block;zoom:1;*display:inline}
+.floor li p{border:1px solid #d8d3c4}
+
+/* 실별안내 */
+#photo_list{overflow:hidden;background:#f7f7f7;padding:3%}
+#photo_list .pic{float:left;width:196px}
+#photo_list .data_info{float:left;width:100%;margin-right:-196px}
+#photo_list .data_info .box{margin-right:196px;padding-left:15px}
+@media all and (max-width:580px){
+	#photo_list .pic{width:100%;text-align:center}
+	#photo_list .data_info,
+	#photo_list .data_info .box{margin:0;padding:0}
+}
+
+/* 인사말 */
+.greeting .t1{font-size:190%;letter-spacing:-1px;padding: 20px 0 25px 35px;border-bottom: 1px solid #cdcdcd;width: 400px}
+.greeting .box{padding:20px 260px 60px 0;background:url('/resources/homepage/yjpg/img/contents/tree.gif') no-repeat right 50%}
+.greeting .gtxt{padding:20px}
+.greeting .txt p{padding:0 0 10px;font-size:105%}
+.greeting .sign{padding:15px 0 0;font-size:120%}
+.greeting .sign span{color:#888;display:inline-block;zoom:1;*display:inline;vertical-align:middle}
+.greeting .sign span.name{margin-left:5px}
+@media all and (max-width:767px){
+	.greeting .t1{background-position:right 0;background-size:15%}
+	.greeting .box{padding-right:5%;background:none}
+}
+@media all and (max-width:400px){
+	.greeting .t1{background-position:right bottom;background:none}
+}
+
+/* 인사말 추가 20170114hjh*/
+.greeting{background:url('/resources/homepage/yjpg/img/contents/introd_bg.gif') no-repeat left top}
+
+/* 뷰어다운로드 */
+.viewer_down li div{padding:7px 0 0}
+
+/* 접속기록안내 */
+#memberInfo{position:absolute;width:22%;left:98%;top:28%;background:#fff;margin-left:-37%;box-shadow:0px 1px 7px 0px rgba(0,0,0,0.5);z-index: 9;}
+#memberInfo .inbox{position:relative;border:1px solid #ccc;padding:10px;}
+#memberInfo .inbox dt{font-weight:bold;font-family:verdana;padding-bottom: 10px;}
+#memberInfo .inbox dd{padding:3px 0}
+a#closeMemberInfo{position:absolute;right:7px;top:5px;font-size:120%}
+#line{width: 160px;}
+div.loginInfo{padding-top: 8px;padding-bottom: 15px;}
+span.fontRed{color: red;}
+span.fontBlue{color: rgb(27,104,199);font-weight: bold;}
+div.memberCon{background-color: rgb(240,240,240);border-radius: 1em;}
+div.memberCon2{padding-top: 12px;padding-left: 10px;padding-right: 10px; padding-bottom: 28px;}
+a.btnStyle{float: right;margin-top: 6px;}
+#loginIcon{padding-top: 13px;padding-left:10px;}
+.boxnImg{ float: left; }
+.box2_1 { float: left; width: 34%; }
+.box3_1 { float: left; width: 38%; border-left: 1px solid #ddd; }
+.boxn { padding-top: 1%; padding-bottom: 1%; padding-left: 5%; }
+
+/* 하단 사이트 링크 변경*/
+#container{z-index: 1;}

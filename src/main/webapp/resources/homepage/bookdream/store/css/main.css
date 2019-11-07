@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+/* 서브 컨텐츠 영역 */
+#main_contents {
+	position:relative;
+	width:100%;
+	margin:0 auto;
+	padding:0;
+}
+#main_contents .left_menu {
+	float:left;
+	width:20%;
+}
+#main_contents .right_contnet {
+	float:right;
+	width:79%;
+}

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.board.boardComment.BoardCommentDao">
+
+	<select id="getBoardComment" resultType="kr.co.whalesoft.app.board.boardComment.BoardComment">
+		SELECT
+			board_idx, comment_idx, group_comment_idx, parent_comment_idx, group_comment_depth, 
+			comment_content, user_id, user_name, user_ip, add_date, ilus_user_id, ilus_user_seq
+		FROM
+			CMS_BOARD_COMMENT
+		WHERE
+			board_idx = #{board_idx} AND
+			delete_yn = 'N'
+<!-- 		START WITH parent_comment_idx = 0 -->
+<!-- 		CONNECT BY PRIOR comment_idx = parent_comment_idx  -->
+<!-- 		ORDER SIBLINGS BY group_comment_idx , comment_idx -->
+		ORDER BY group_comment_idx , comment_idx
+	</select>
+	
+	<select id="getBoardCommentCount" resultType="int">
+		SELECT 
+			COUNT(*) 
+		FROM 
+			CMS_BOARD_COMMENT
+		WHERE
+			board_idx = #{board_idx} AND
+			delete_yn = 'N'
+	</select>
+	
+	<insert id="addBoardComment">
+		INSERT INTO CMS_BOARD_COMMENT
+		(
+			board_idx, comment_idx, group_comment_idx, parent_comment_idx, group_comment_depth, 
+			comment_content, user_id, user_name, user_ip, delete_yn, 
+			add_date, modify_date, ilus_user_id, ilus_user_seq
+		) VALUES
+		(
+			#{board_idx}, #{comment_idx}, #{comment_idx}, #{parent_comment_idx}, #{group_comment_depth},
+			#{comment_content}, #{user_id}, #{user_name}, #{user_ip}, 'N', 
+			SYSDATE, SYSDATE, #{ilus_user_id}, #{ilus_user_seq}
+		)
+	</insert>
+	
+	<update id="modifyBoardComment">
+		UPDATE CMS_BOARD_COMMENT SET
+			comment_content = #{comment_content}, 
+			modify_date = SYSDATE
+		WHERE
+			board_idx = #{board_idx} AND
+			comment_idx = #{comment_idx} AND
+			user_id = #{user_id}
+	</update>
+	
+	<insert id="addBoardReplyComment">
+		<selectKey keyProperty="comment_idx" resultType="int" order="BEFORE">
+			SELECT CMS_BOARD_COMMENT_IDX_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+	
+		INSERT INTO CMS_BOARD_COMMENT
+		(
+			board_idx, comment_idx, group_comment_idx, parent_comment_idx, group_comment_depth, 
+			comment_content, user_id, user_name, user_ip, delete_yn, 
+			add_date, modify_date, ilus_user_id, ilus_user_seq
+		) VALUES
+		(
+			#{board_idx}, #{comment_idx}, #{group_comment_idx}, #{parent_comment_idx}, #{group_comment_depth} + 1,
+			#{comment_content}, #{user_id}, #{user_name}, #{user_ip}, 'N', 
+			SYSDATE, SYSDATE, #{ilus_user_id}, #{ilus_user_seq}
+		)
+	</insert>
+	
+	<update id="deleteBoardComment">
+		UPDATE CMS_BOARD_COMMENT SET
+			delete_yn = 'Y'
+		WHERE
+			board_idx = #{board_idx} AND
+			comment_idx = #{comment_idx}
+	</update>
+	
+	<select id="getCommentIdx" resultType="int">
+		SELECT CMS_BOARD_COMMENT_IDX_SEQ.NEXTVAL FROM DUAL
+	</select>
+	
+</mapper>

@@ -1,0 +1,186 @@
+@charset "utf-8";
+@import url("content.css");
+
+/* 시각적 설명을 위한 아래 스타일은 삭제 합니다. 여기부터 */
+#wrap{background:#fff}
+.util a{padding:5px 0}
+.select2-container{z-index:90}
+.tnb{background:#666}
+.tnb a{color:#fff}
+h1{height:39px;line-height:39px}
+#main-spot{padding:10px 0;background:#ccc}
+.mmode.m-gnb{text-align:center;padding:15px;font-size:130%}
+.mmode.m-gnb i{margin:0 0 0 8px}
+.mmode.m-gnb em{display:block;font-size:80%}
+.code-info h3{padding:0 0 10px}
+.code-info ul{line-height:130%;color:#666}
+.code-info li{list-style:inside disc;padding:5px 0;border-top:1px dashed #ccc}
+.code-info li.first{border-top:0}
+.code-info li,
+.code-info li div{font-family:consolas}
+.code-info li div{font-size:90%}
+#footer{padding:30px 0}
+#header .util{display:none}
+/* 시각적 설명을 위한 아래 스타일은 삭제 합니다. 여기까지 */
+
+#header{background:#fafafa}
+#header h1{line-height:38px}
+#header h1 a{font-size:80%;margin-left:5px}
+#header h1 a span{color:#f00}
+
+h1{font-size:160%}
+h2{font-size:140%}
+h3{font-size:120%}
+
+a:hover,
+a:focus{text-decoration:underline}
+
+nav,
+.mmode{display:none}
+.txt-bar{width:1px;height:9px;margin:0 5px;background:#e2e2e2}
+.txt-bar,
+.tnb a,
+.control a,
+#footer .info a{vertical-align:middle;display:inline-block;zoom:1;*display:inline}
+
+.section{width:970px;margin:0 auto} /* 기준 */
+.search{margin-bottom:0}
+
+.select2-container--default .select2-selection--single{border:1px solid #ccc;border-radius:3px;background:#fff}
+.select2-container--default .select2-selection--single,
+.select2-container--default .select2-selection--single .select2-selection__arrow,
+.select2-container--open .select2-selection--single .select2-selection__arrow{line-height:29px;height:29px;top:0}
+.select2-container--default .select2-selection--single .select2-selection__rendered{color:#e96142;padding-left:12px;font-size:13px}
+.select2-container--default .select2-selection--single .select2-selection__arrow b{border-color:#e96142 transparent transparent transparent!important;margin-top:-3px}
+.select2-container--open .select2-selection--single .select2-selection__arrow b{border-color:transparent transparent #e96142 transparent!important;margin-top:-3px}
+
+/* Gnb */
+.Gnb{position:absolute;left:0;overflow:hidden;width:100%;border-top:1px solid #d9d9d9;background:#fff;border-bottom:1px solid #ddd}
+.Gnb{top:119px;height:70px}
+@media screen and (max-width: 1000px){
+	#header{margin-bottom:0}
+}
+.Gnb .gnb-menu>li{height:70px;line-height:70px}
+.Gnb .gnb-menu{text-align:center;height:0;font-size:0}
+.Gnb .gnb-menu>li{position:relative;display:inline-block;zoom:1;*display:inline;vertical-align:middle;text-align:center;padding:0 40px}
+.Gnb .gnb-menu>li>a{display:block;height:100%;font-size:16px;color:#222;font-weight:bold}
+.Gnb .gnb-menu>li.ss>a{font-size:15px;color:#0d82df}
+.Gnb .gnb-menu>li.on>a,
+.Gnb .gnb-menu>li>a:hover,
+.Gnb .gnb-menu>li>a:focus{color:#0d82df}
+.Gnb .gnb-menu>li>.SubMenu{width:100%;min-height:120px;border-bottom:none;border-left:1px solid #d7d7d7}
+.Gnb .gnb-menu>li.first>.SubMenu,
+.Gnb .gnb-menu>li:first-child>.SubMenu{border-left:none}
+.Gnb .gnb-menu>li>.SubMenu>li{position:relative;clear:both;width:100%;text-align:left}
+.Gnb .gnb-menu>li>.SubMenu>li>a{display:block;margin:0;padding:4px 0 4px 15px;border:none;background:none;font-size:12px;line-height:160%;color:#333}
+.Gnb .gnb-menu>li>.SubMenu>li.on>a,
+.Gnb .gnb-menu>li>.SubMenu>li>a:hover,
+.Gnb .gnb-menu>li>.SubMenu>li>a:focus{color:#fff;text-decoration:none;background:#0d82df}
+.Gnb .gnb-menu>li>.SubMenu>li>ul{display:none}
+
+nav#menu a:not(.mm-title):hover,
+nav#menu a:not(.mm-next):hover{color:#f00}
+.mm-navbar .mm-btn{height:60px}
+.mm-navbar,
+.mm-title{height:60px}
+.mm-title{line-height:60px}
+.mm-navbar{background:#867c7a!important;border-color:#625856}
+
+#main-spot .box{background:#fff;position:relative}
+#main-spot .bx-controls{position:absolute;width:50%;height:26px;bottom:20px;right:0;z-index:100;text-align:center}
+#main-spot .bx-controls a{margin:0 4px}
+#main-spot .bx-controls .bx-pager,
+#main-spot .bx-controls .bx-pager .bx-pager-item,
+#main-spot .bx-controls .bx-controls-direction{display:inline-block;zoom:1;*display:inline;vertical-align:middle}
+#main-spot .bx-controls .bx-pager{margin-right:10px}
+#main-spot .bx-controls .bx-pager .bx-pager-item a{display:block;width:26px;height:26px;background:#999;font-size:0;line-height:0;border-radius:50%}
+#main-spot .bx-controls .bx-pager .bx-pager-item a.active{background-color:#e96142}
+
+.tabmenu{width:50%;float:left;height:260px}
+.tabmenu .new-list{position:relative;height:auto}
+.tabmenu .new-list dt{position:absolute;top:0;width:130px;height:70px;z-index:10}
+.tabmenu .new-list dt.tab01{left:0}
+.tabmenu .new-list dt.tab02{left:130px}
+.tabmenu .new-list dt.tab03{left:260px}
+.tabmenu .new-list dt.tab04{left:390px}
+.tabmenu .new-list dt a{display:block;width:100%;height:44px;padding:26px 0 0 0;letter-spacing:-1px;color:#777;font-size:20px;font-weight:600;text-align:center;text-decoration:none;background:#f2f2f2}
+.tabmenu .new-list dt a:hover,
+.tabmenu .new-list dt a:focus,
+.tabmenu .new-list dt a:hover,
+.tabmenu .new-list dt a.active{background:#fff;color:#e96142}
+.tabmenu .new-list dd{display:none;width:90%;height:auto;position:relative;padding:80px 5% 0 5%}
+.tabmenu .new-list dd ul{width:100%;padding:15px 0 0 0}
+.tabmenu .new-list dd ul li{margin:5px 0 0 0;clear:both}
+.tabmenu .new-list dd ul li span{display:inline-block;zoom:1;*display:inline;vertical-align:top}
+.tabmenu .new-list dd ul li span.subject{width:79%;float:left;text-align:left}
+.tabmenu .new-list dd ul li span.date{width:20%;float:right;text-align:right;color:#666;padding:4px 0;font-size:90%}
+.tabmenu .new-list dd ul a{display:inline-block;vertical-align:top;width:100%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;padding:4px 0}
+.tabmenu .new-list dd ul a:hover,
+.tabmenu .new-list dd ul a:active,
+.tabmenu .new-list dd ul a:focus{text-decoration:underline}
+.tabmenu .new-list dd .more_btn{display:inline-block;zoom:1;*display:inline;vertical-align:top;position:absolute;right:0px;top:0px;width:45px;height:45px;line-height:45px;background:#e96142;color:#fff;text-align:center}
+
+.popupzone{width:50%;float:left;height:260px}
+.popupzone{margin:0 0 30px 0;background:#fff}
+.popupzone .line{border:1px solid #cfcfcf;border-top:none;height:258px;position:relative}
+.popupzone h3{font-size:20px;margin:0;height:43px;padding:22px 0 0 25px}
+.popupzone ul{width:100%;height:193px;bottom:0;position:absolute;overflow:hidden}
+.popupzone ul li{position:absolute;top:0;left:0;width:100%}
+.popupzone ul li img{width:auto;height:193px;display:block}
+.popupzone .number{position:absolute;right:100px;top:23px;font-weight:600;color:#686e7b}
+.popupzone .number span{color:#fb4300}
+.popupzone .control{position:absolute;top:21px;right:10px;z-index:99}
+
+.control a{overflow:hidden;width:22px;height:20px;margin-left:1px}
+.control a.more{width:38px;font-size:13px}
+.control a.prev,
+.control a.next{text-align:center;font-size:23px}
+.control a.prev i,
+.control a.next i{position:relative;top:-2px}
+.control a.stop,
+.control a.play{background:url('../img/control_btn.png') no-repeat}
+.control a.play{background-position:-22px top}
+.control a.stop,
+.control a.play{width:0px;visibility:hidden}
+.control a.stop.active,
+.control a.play.active{width:22px;visibility:visible}
+
+.banner-roll li{margin-right:10px}
+.bottom-banner{overflow:hidden}
+.bottom-banner .banner-box,
+.bottom-banner .control{float:left}
+.bottom-banner .control{width:150px;padding:10px 0 0}
+.bottom-banner .banner-box{width:100%;margin-right:-150px}
+.bottom-banner .bx-wrapper{margin-right:150px!important}
+
+/* 서브페이지 */
+.lnb{width:250px}
+.content{margin-right:-250px}
+.doc{margin-right:250px}
+
+.doc-info ol li .fa-home{background:#fff;border-radius:50%;width:20px;text-align:center}
+.doc-info ol li{background:url('../img/doc-infoLo.gif') no-repeat 0 center;padding-left:13px;margin-left:9px}
+.doc-info ol li.first{margin-left:0}
+
+
+@media screen and (min-width:1255px){
+	.section{width:1200px}
+}
+
+@media screen and (max-width: 1000px){
+	.section{width:100%}
+	.mmode,
+	nav{display:block}
+	.doc-info ul,
+	.lnb,
+	.Gnb{display:none}
+	.doc{margin-right:0}
+}
+@media all and (max-width:767px){
+	.tabmenu,
+	.popupzone{width:100%}
+	.popupzone{clear:both}
+}
+@media all and (max-width:350px){
+	
+}

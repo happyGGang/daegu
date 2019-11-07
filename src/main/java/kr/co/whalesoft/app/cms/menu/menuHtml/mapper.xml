@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.menu.menuHtml.MenuHtmlDao">
+    
+    <select id="getMenuHtml" resultType="kr.co.whalesoft.app.cms.menu.menuHtml.MenuHtml">
+    	SELECT
+    		homepage_id, menu_idx, html_idx, html, add_id, 
+    		add_ip, add_date
+    	FROM
+    		CMS_MENU_HTML
+    	WHERE
+    		homepage_id = #{homepage_id} AND
+    		menu_idx = #{menu_idx}
+    	ORDER BY
+    		html_idx DESC
+    </select>
+    
+    <select id="getMenuHtmlStrOne" resultType="string">
+    	SELECT
+    		html
+    	FROM
+    		CMS_MENU_HTML
+    	WHERE
+    		homepage_id = #{homepage_id} AND
+    		menu_idx = #{menu_idx} AND
+    		html_idx = #{html_idx}
+	</select>
+	
+	<select id="getLastMenuHtmlOne" resultType="kr.co.whalesoft.app.cms.menu.menuHtml.MenuHtml">
+		SELECT * FROM
+		(
+			SELECT 
+				homepage_id, menu_idx, html_idx, html, add_id, 
+				add_ip, add_date 
+			FROM
+				CMS_MENU_HTML 
+			WHERE 
+				homepage_id = #{homepage_id} AND 
+				menu_idx = #{menu_idx} 
+			ORDER BY 
+				html_idx 
+			DESC
+		) WHERE ROWNUM = 1
+	</select>
+	
+	<insert id="addMenuHtml">
+		<selectKey keyProperty="html_idx" resultType="int" order="BEFORE">
+		    SELECT NVL(MAX(html_idx),0)+1 FROM CMS_MENU_HTML WHERE homepage_id = #{homepage_id} AND menu_idx = #{menu_idx}
+		</selectKey>
+		INSERT INTO CMS_MENU_HTML
+		(
+			homepage_id, menu_idx, html_idx, html, add_id, 
+			add_ip, add_date
+		) VALUES
+		(
+			#{homepage_id}, #{menu_idx}, #{html_idx}, #{html}, #{add_id}, 
+			#{add_ip}, SYSDATE
+		)
+	</insert>
+	
+	<select id="getMenuTempHtml" resultType="kr.co.whalesoft.app.cms.menu.menuHtml.MenuHtml">
+		SELECT
+			NVL(temp_html, '') AS html
+		FROM
+			CMS_MENU
+		WHERE
+			homepage_id = #{homepage_id}
+		AND menu_idx = #{menu_idx}
+	</select>
+	
+	<update id="setMenuTempHtml">
+		UPDATE CMS_MENU SET
+			temp_html = #{html}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND menu_idx = #{menu_idx}
+	</update>
+	
+	<select id="getMenuTempFile" resultType="kr.co.whalesoft.app.cms.menu.menuHtml.MenuTempFile">
+		SELECT
+			homepage_id, menu_idx, file_idx, path, orig_filename
+		FROM
+			CMS_MENU_TEMP_FILE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND menu_idx = #{menu_idx}
+		AND file_idx = #{file_idx}
+	</select>
+	
+	<select id="getTempFileList" resultType="kr.co.whalesoft.app.cms.menu.menuHtml.MenuTempFile">
+		SELECT
+			homepage_id, menu_idx, file_idx, path, orig_filename
+		FROM
+			CMS_MENU_TEMP_FILE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND menu_idx = #{menu_idx}
+	</select>
+	
+	<insert id="addMenuTempFile">
+		<selectKey keyProperty="file_idx" resultType="int" order="BEFORE">
+		    SELECT NVL(MAX(file_idx),0)+1 FROM CMS_MENU_TEMP_FILE WHERE homepage_id = #{homepage_id} AND menu_idx = #{menu_idx}
+		</selectKey>
+		INSERT INTO CMS_MENU_TEMP_FILE (
+			homepage_id, menu_idx, file_idx, path, orig_filename
+		) VALUES (
+			#{homepage_id}, #{menu_idx}, #{file_idx}, #{path}, #{orig_filename}
+		)
+	</insert>
+	
+	<delete id="deleteMenuTempFile">
+		DELETE FROM
+			CMS_MENU_TEMP_FILE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND menu_idx = #{menu_idx}
+		AND file_idx = #{file_idx}
+	</delete>
+	
+</mapper>

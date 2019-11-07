@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.boardWordFilter.BoardWordFilterDao">
+
+	<delete id="deleteBoardWordFilter">
+		DELETE FROM CMS_BOARD_WORD_FILTER
+	</delete> 
+
+	<insert id="addBoardWordFilter">
+		INSERT INTO CMS_BOARD_WORD_FILTER
+		(
+			word, use_yn, modify_date, modify_id
+		) VALUES
+		(
+			#{word}, #{use_yn}, SYSDATE, #{modify_id}
+		)
+	</insert>
+	
+	<select id="getBoardWordFilterOne" resultType="kr.co.whalesoft.app.cms.boardWordFilter.BoardWordFilter">
+		SELECT
+			word, use_yn, modify_date, modify_id
+		FROM
+			CMS_BOARD_WORD_FILTER
+		WHERE 
+			rownum = 1
+	</select>
+
+</mapper>

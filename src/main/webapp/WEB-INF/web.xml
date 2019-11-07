@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list> 
+	
+ 	<listener>
+    	<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
+	<context-param>
+    	<param-name>log4jConfigLocation</param-name>
+    	<param-value>classpath:log4j2.xml</param-value>
+	</context-param>
+	
+	<filter>
+	   	<filter-name>CharacterEncodingFilter</filter-name>
+	   	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	   	<init-param>
+	        <param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+	   	</init-param>
+	   	<init-param>
+	        <param-name>forceEncoding</param-name>
+	        <param-value>true</param-value>
+		</init-param>
+	</filter>
+	
+<!-- 	<filter> -->
+<!--      <filter-name>springSecurityFilterChain</filter-name> -->
+<!--      <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class> -->
+<!--    </filter> -->
+   
+   <filter>
+		<filter-name>xssEscapeServletFilter</filter-name>
+		<filter-class>com.navercorp.lucy.security.xss.servletfilter.XssEscapeServletFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	    <filter-name>xssEscapeServletFilter</filter-name>
+	    <url-pattern>/a</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+   
+<!--    <filter-mapping> -->
+<!--      <filter-name>springSecurityFilterChain</filter-name> -->
+<!--      <url-pattern>/*</url-pattern> -->
+<!--    </filter-mapping> -->
+	
+	
+<!-- 	<context-param> -->
+<!--         <param-name>contextConfigLocation</param-name> -->
+<!--         <param-value> -->
+<!-- 				/WEB-INF/config/spring/security-config.xml -->
+<!--         </param-value> -->
+<!--     </context-param> -->
+
+<!--     <listener> -->
+<!--     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class> -->
+<!--     </listener> -->
+	
+	
+	<!-- Processes application requests -->
+	<servlet>
+		<servlet-name>appServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+			<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>
+				/WEB-INF/config/spring/dispatcherServlet.xml
+				/WEB-INF/config/spring/dataSource-config.xml
+				/WEB-INF/config/spring/tiles-config.xml
+				/WEB-INF/config/spring/exception-config.xml
+				/WEB-INF/config/spring/storage-config.xml
+			</param-value>
+		</init-param>
+		<init-param>
+			<param-name>spring.profiles.default</param-name>
+			<param-value>realServer</param-value>
+			<!-- <param-value>localServer</param-value> -->
+			<!-- <param-value>devServer</param-value> -->
+        </init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>jsp</servlet-name>
+		<url-pattern>*.jsp</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Tag Libraries -->
+	<jsp-config>
+		<!-- <taglib>
+			<taglib-uri>/whalesoft/customTag</taglib-uri>
+			<taglib-location>/WEB-INF/config/tld/customTag.tld</taglib-location>
+		</taglib> -->
+		<taglib>
+			<taglib-uri>/whalesoft/cmsTag</taglib-uri>
+			<taglib-location>/WEB-INF/config/tld/cmsTag.tld</taglib-location>
+		</taglib>
+		<taglib>
+			<taglib-uri>/whalesoft/boardTag</taglib-uri>
+			<taglib-location>/WEB-INF/config/tld/boardTag.tld</taglib-location>
+		</taglib>
+	</jsp-config>
+
+	<error-page>
+		<error-code>403</error-code>
+		<location>/WEB-INF/views/common/exception/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/views/common/exception/notFound.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>405</error-code>
+		<location>/WEB-INF/views/common/exception/notFound.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/WEB-INF/views/common/exception/error.jsp</location>
+	</error-page>
+
+
+
+	
+	<session-config>
+    	<session-timeout>6000</session-timeout>
+  	</session-config>
+
+</web-app>

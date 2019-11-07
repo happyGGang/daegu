@@ -1,0 +1,154 @@
+@charset "utf-8";
+@import url("../../../common/css/type11.css");
+
+/* .Gnb{background:#e54413} */
+
+.main .news ul,
+.main .like_book2 ul,
+.main .popupzone{padding-top:25px}
+
+.main .libClosed li strong{display:block}
+.main .libClosed li p{font-size:12px;line-height:14px;padding-top:2px}
+.main .libClosed dt{display:inline-block;margin:3px 0;padding:1px 3px;color:#fff;background:#3a3939;font-size:12px}
+.main .libClosed dt span{color:#f5863f}
+.main .libClosed dd{font-size:0;line-height:0;}
+.main .libClosed dd span{display:inline-block;background:#f43c40;font-weight:bold;color:#fff;font-size:11px;text-align:center;width:21px;height:21px;line-height:21px;margin-right:3px;border-radius:50%}
+
+.main .like_book2 h3 span.bar{border-left:1px solid #d5d5d5;font-size:0;line-height:0;height:10px;margin:0 5px}
+.main .like_book2 h3 a,
+.main .like_book2 h3 span{display:inline-block;vertical-align:middle}
+.main .like_book2 ul{overflow:hidden}
+.main .like_book2 ul li{display:none}
+.main .like_book2 ul li.active{display:block}
+.main .like_book2 dt a{color:#f43a3d}
+.main .like_book2 .thumb,
+.main .like_book2 .snipet{float:left}
+.main .like_book2 .thumb{width:87px}
+.main .like_book2 .snipet{width:100%;margin-right:-87px}
+.main .like_book2 .snipet dl{margin-right:87px;padding-left:8px}
+.main .like_book2 .snipet dl label{font-weight:bold}
+.main .like_book2 .snipet dl dt,
+.main .like_book2 .snipet dl dd{line-height:130%}
+.main .like_book2 .snipet dl dd{padding-top:5px}
+
+.main h3 a{color:#acacac}
+.main h3 a.active{color:#4c4c4c}
+
+.main4>div,
+.main3>div>div{border:1px solid #e4e4e4;margin-left:-1px}
+.main3 .box,
+.main4 .box{height:190px}
+.main3 .lt1{width:30%}
+.main3 .lt2{width:33%}
+.main3 .lt3{width:37%}
+.main3 .lt1 .box{padding-right:0px}
+.main3 .lt1 .lib_box{height:182px;overflow-y:auto;margin-top:5px}
+
+.doc-body .faq-wrap ul.con2>li{padding:0 0 0 10px;background-position:0 8px}
+.doc-body .faq-wrap ul.con2{padding-left:0}
+
+/* 시설현황 */
+.floor li{padding:0 0 10px}
+.floor li,
+.floor li p{font-size:0;line-height:0;display:inline-block}
+.floor li p{border:1px solid #d8d3c4}
+
+/* 실별안내 */
+#photo_list{overflow:hidden;background:#f7f7f7;padding:3%}
+#photo_list .pic{float:left;width:196px}
+#photo_list .data_info{float:left;width:100%;margin-right:-196px}
+#photo_list .data_info .box{margin-right:196px;padding-left:15px}
+@media all and (max-width:580px){
+	#photo_list .pic{width:100%;text-align:center}
+	#photo_list .data_info,
+	#photo_list .data_info .box{margin:0;padding:0}
+}
+
+/* 인사말 */
+.greeting .t1 em{font-style:normal;font-size:70%}
+.greeting .color1{color:#81ba01}
+.greeting .color2{color:#006eb8}
+.greeting{background-image:url('../img/contents/greeting2.jpg');background-position:right 70%}
+@media all and (max-width:767px){
+	.greeting{background:none}
+}
+
+/* 공무원헌장 */
+.civil-wrap{border:1px solid #ddd;padding:3%}
+.civil-box{background:#f5f9fc url('/resources/homepage/ycgh/img/contents/civil_bg_bottom.jpg') no-repeat right bottom;border-radius:5px;overflow:hidden}
+.civil-wrap .box{background:url('/resources/homepage/ycgh/img/contents/civil_bg_top.jpg') no-repeat 0 0;padding:10% 7%;color:#222}
+.civil-wrap ul{padding:0 0 15px}
+.civil-wrap li{font-size:110%;padding:3px 0;line-height:130%}
+.civil-wrap ol li{font-size:120%;background:url('/resources/homepage/ycgh/img/contents/hana.png') no-repeat 0 center;padding:3% 0 3% 55px;background-size:50px 50px}
+
+/* 학습동아리 */
+.club-photo{background:#f5f5f5;padding:3%;overflow:hidden;border-radius:5px;border:1px solid #eee}
+.club-photo .box{float:left;width:50%;text-align:center}
+.club-photo .box p{font-size:0;line-height:0;padding:1%}
+
+/* 독서문화행사 */
+.club-photo.party{text-align:center}
+.club-photo.party .box{width:33.33%}
+.club-photo.party .tit{background:#fff;border:1px solid #e9e9e9;border-radius:5px;margin-bottom:10px;padding:5px}
+.club-photo.party .tit p{display:inline-block;font-size:20px;line-height:40px;height:40px;letter-spacing:-1px;padding-left:75px;background:url('../img/contents/event_photo_icon.gif') no-repeat 0 center}
+.club-photo.party .tit p b{color:#5c8e11}
+.club-photo.party .tit p b,
+.club-photo.party .tit p span{font-weight:800}
+.tabCon{padding-top:5px}
+.tabCon.event>div>table>tbody>tr>td>ul>li{background:url('../img/arr-new-list.gif') no-repeat 0 8px;padding:2px 0 2px 8px;line-height:130%}
+.tabCon.event tbody td.tdst,
+.tabCon.event tbody td.tdst2{background:#ffffef}
+.tabCon.event ul.con{padding:0 0 10px}
+.tabCon.event td.item{text-align:center}
+
+/* 자원봉사 */
+.go_youth{text-align:center}
+.go_youth .box{display:inline-block;margin:2%;width:277px;height:190px;background:url('/resources/homepage/ycgh/img/contents/btn_go_youth.gif') no-repeat 0 0}
+.go_youth .box.yc{background-image:url('/resources/homepage/ycgh/img/contents/btn_go_yc.jpg')}
+.go_youth .box a.btn{margin-top:125px}
+
+/* 접속기록안내 */
+#memberInfo{position:absolute;width:22%;left:98%;top:38%;background:#fff;margin-left:-35%;box-shadow:0px 1px 7px 0px rgba(0,0,0,0.5);z-index: 9;}
+#memberInfo .inbox{position:relative;border:1px solid #ccc;padding:10px;}
+#memberInfo .inbox dt{font-weight:bold;font-family:verdana;padding-bottom: 10px;}
+#memberInfo .inbox dd{padding:3px 0}
+a#closeMemberInfo{position:absolute;right:7px;top:5px;font-size:120%}
+#line{width: 160px;}
+div.loginInfo{padding-top: 8px;padding-bottom: 15px;}
+span.fontRed{color: red;}
+span.fontBlue{color: rgb(27,104,199);font-weight: bold;}
+div.memberCon{background-color: rgb(240,240,240);border-radius: 1em;}
+div.memberCon2{padding-top: 12px;padding-left: 10px;padding-right: 10px; padding-bottom: 28px;}
+a.btnStyle{float: right;margin-top: 6px;}
+#loginIcon{padding-top: 13px;padding-left:10px;}
+.boxnImg{ float: left; }
+.box2_1 { float: left; width: 34%; }
+.box3_1 { float: left; width: 38%; border-left: 1px solid #ddd; }
+.boxn { padding-top: 1%; padding-bottom: 1%; padding-left: 5%; }
+
+
+
+@media all and (max-width:1000px){
+	.main1,.main2,.main3,.main4{overflow:visible}
+	.main3{width:auto;float:none}
+	.main .lt1{width:37.5%}
+	.main .lt2{width:62.5%}
+	.main .lt3 .box{border-top-width:0}
+	.main .lt3,
+	.main4{width:50%;margin-top:-1px;margin-top:0}
+
+	.main3 .lt2 .box{border-left-width:0;border-right-width:0}
+	.main4 .box{border-width:0;border-left-width:1px}
+}
+@media all and (max-width:767px){
+	.main .libClosed .box{border-right-width:0;border-left-width:0;border-bottom-width:0}
+	.main4{width:100%}
+	.main3 .box,
+	.main4 .box{height:auto}
+	.main4 .box ul{margin:0}
+	.main3 .lt2 .box{border-right-width:0}
+	.main4 .box{border-left-width:0;margin-top:0}
+}
+@media all and (max-width:550px){
+	.main3 .lt2 .box{margin-left:0}
+}

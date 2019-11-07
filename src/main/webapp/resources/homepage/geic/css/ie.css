@@ -1,0 +1,24 @@
+@charset "utf-8";
+@import url("../../../common/css/ie.css");
+@import url("../../../common/css/type-center_ie.css");
+
+.cont312 dl,
+.txt-box b.large,
+.main .cal-func a,
+.main .cal-func b,
+.main .calendar .info li i,
+.main .calendar .info li span,
+.main .more,
+.main1 .news h3 a,
+.main1 .news h3 span,
+.main .qmenu li,
+.main #main-spot .bx-controls .bx-pager-item,
+.main #main-spot .bx-controls .bx-pager-item a,
+.con1-5 li,
+.org-wrap .info .infow dt,
+.roomGuide .bx-pager-item,
+.roomGuide .bx-pager-item a,
+.roomGuide ol li em b,
+ul.floorList>li>a,
+ul.floorList>li>span,
+.con16 ol li div{zoom:1;*display:inline}

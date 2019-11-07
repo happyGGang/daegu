@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.module.survey.quest.QuestDao">
+
+	<select id="getQuest" resultType="kr.co.whalesoft.app.cms.module.survey.quest.Quest">
+		SELECT 
+			homepage_id, survey_idx, quest_idx, quest_type, quest_content, quest_auth, 
+			quest_count, quest_detail_free_yn, 	quest_order, matrix_count, 
+			add_date, add_user_id, ( SELECT COUNT(*) FROM CMS_SURVEY_QUEST_DETAIL b WHERE b.survey_idx = #{survey_idx} AND b.branch_idx = a.quest_idx and b.homepage_id = a.homepage_id) AS branch,
+			required_yn
+		FROM
+			CMS_SURVEY_QUEST a
+		WHERE
+			survey_idx = #{survey_idx} and
+			homepage_id = #{homepage_id}
+		<if test='searchMode != null and searchMode == "noComment"'>
+		AND	quest_type != 'COMMENT'
+		</if>
+		<if test='userAuth != null and userAuth != "ADMIN"'>
+		AND	(quest_auth LIKE '%ALL%' OR quest_auth LIKE '%${userAuth}%')
+		</if>
+		ORDER BY
+			quest_order
+	</select>
+	
+	<select id="getQuestCnt" resultType="int">
+		SELECT 
+			COUNT(*)
+		FROM
+			CMS_SURVEY_QUEST a
+		WHERE
+			survey_idx = #{survey_idx} and
+			homepage_id = #{homepage_id}
+		AND	quest_type != 'COMMENT'
+		ORDER BY
+			quest_order
+	</select>
+	
+	<select id="getQuestOne" resultType="kr.co.whalesoft.app.cms.module.survey.quest.Quest">
+		SELECT 
+			homepage_id, survey_idx, quest_idx, quest_type, quest_content, quest_auth, 
+			quest_count, quest_detail_free_yn, quest_order, matrix_count, 
+			add_date, add_user_id, required_yn
+		FROM
+			CMS_SURVEY_QUEST
+		WHERE
+			quest_idx = #{quest_idx}
+		AND	survey_idx = #{survey_idx}
+		AND	homepage_id = #{homepage_id}
+	</select>
+	
+	<insert id="addQuest">
+		<selectKey keyProperty="quest_idx" resultType="int" order="BEFORE">
+		    SELECT NVL(MAX(quest_idx),0)+1 FROM CMS_SURVEY_QUEST WHERE survey_idx = #{survey_idx} and homepage_id = #{homepage_id}
+		</selectKey>
+		INSERT INTO CMS_SURVEY_QUEST
+		(
+			homepage_id, survey_idx, quest_idx, quest_type, quest_content, quest_auth, 
+			quest_count, quest_order, 
+			quest_detail_free_yn, matrix_count, add_date, add_user_id,
+			required_yn,
+			modify_date, modify_user_id
+		) VALUES
+		(
+			#{homepage_id}, #{survey_idx}, #{quest_idx}, #{quest_type}, #{quest_content}, NVL(#{quest_auth}, 'ALL'), 
+			#{quest_count}, (SELECT NVL(MAX(quest_order),0)+1 FROM CMS_SURVEY_QUEST WHERE survey_idx = #{survey_idx}), 
+			#{quest_detail_free_yn}, #{matrix_count}, SYSDATE, #{add_user_id},
+			#{required_yn},
+			SYSDATE, #{add_user_id}
+		)
+	</insert>
+	
+	<select id="getQuestOrderOne" resultType="int">
+		SELECT 
+			quest_order
+		FROM
+			CMS_SURVEY_QUEST
+		WHERE
+			survey_idx = #{survey_idx} AND
+			quest_idx = #{quest_idx} AND
+			homepage_id = #{homepage_id}
+	</select>
+	
+	<update id="modifyQuestOrder">
+		UPDATE
+			CMS_SURVEY_QUEST
+		SET
+			quest_order = #{quest_order},
+			modify_date = SYSDATE,
+			modify_user_id = #{modify_user_id}
+		WHERE
+			survey_idx = #{survey_idx} AND
+			quest_idx = #{quest_idx} AND
+			homepage_id = #{homepage_id}
+	</update>
+	
+	<update id="modifyQuest">
+		UPDATE CMS_SURVEY_QUEST SET 
+			quest_content = #{quest_content}, 
+			quest_auth = NVL(#{quest_auth}, 'ALL'), 
+			quest_count = #{quest_count}, 
+			matrix_count = #{matrix_count},
+			quest_detail_free_yn = #{quest_detail_free_yn},
+			required_yn = #{required_yn},
+			modify_date = SYSDATE,
+			modify_user_id = #{modify_user_id}
+		WHERE
+			quest_idx = #{quest_idx}
+		AND	survey_idx = #{survey_idx}
+		AND homepage_id = #{homepage_id}
+	</update>
+	
+	<delete id="deleteQuest">
+		DELETE CMS_SURVEY_QUEST 
+		WHERE
+			survey_idx = #{survey_idx}
+		AND	quest_idx = #{quest_idx}
+		AND homepage_id = #{homepage_id}
+	</delete>
+	
+	<select id="getQuestBranch" resultType="kr.co.whalesoft.app.cms.module.survey.quest.Quest">
+		SELECT 
+			homepage_id, survey_idx, quest_idx, quest_type, quest_content, quest_auth, 
+			quest_count, quest_detail_free_yn, 	quest_order, matrix_count, 
+			add_date, add_user_id
+		FROM
+			CMS_SURVEY_QUEST
+		WHERE
+			survey_idx = #{survey_idx}
+		AND homepage_id = #{homepage_id}
+		AND	quest_type != 'COMMENT'
+		ORDER BY
+			quest_order
+	</select>
+	
+	<update id="reOrderQuest">
+		UPDATE
+			CMS_SURVEY_QUEST
+		SET
+			quest_order = quest_order - 1,
+			modify_date = SYSDATE,
+			modify_user_id = #{modify_user_id}
+		WHERE
+			survey_idx = #{survey_idx}
+		AND	homepage_id = #{homepage_id}
+		AND	quest_order > #{quest_order}
+			
+	</update>
+	
+</mapper>

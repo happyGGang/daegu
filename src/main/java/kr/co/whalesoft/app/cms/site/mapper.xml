@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.site.SiteDao">
+	
+	<select id="getSiteListAll" resultType="kr.co.whalesoft.app.cms.site.Site">
+			SELECT
+				HOMEPAGE_ID, SITE_IDX, SITE_NAME, SITE_DESC, LINK_TARGET, PRINT_SEQ, ADD_DATE
+			FROM
+				CMS_SITE
+			WHERE HOMEPAGE_ID = #{homepage_id}
+				<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+				AND	${search_type} LIKE '%'||#{search_text}||'%'
+				</if>
+			ORDER BY
+				PRINT_SEQ ASC
+	</select>
+	
+	<select id="getSiteList" resultType="kr.co.whalesoft.app.cms.site.Site">
+		${pagingTop}
+			SELECT
+				HOMEPAGE_ID, SITE_IDX, SITE_NAME, SITE_DESC, LINK_TARGET, PRINT_SEQ, ADD_DATE
+			FROM
+				CMS_SITE
+			WHERE HOMEPAGE_ID = #{homepage_id}
+				<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+				AND	${search_type} LIKE '%'||#{search_text}||'%'
+				</if>
+			ORDER BY
+				PRINT_SEQ ASC
+		${pagingBottom}
+	</select>
+	
+	<select id="getSiteListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_SITE
+		WHERE HOMEPAGE_ID = #{homepage_id}
+			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+		ORDER BY
+			PRINT_SEQ ASC
+	</select>
+	
+	<select id="getSiteOne" resultType="kr.co.whalesoft.app.cms.site.Site">
+		SELECT
+			HOMEPAGE_ID, SITE_IDX, SITE_NAME, SITE_DESC, LINK_TARGET, PRINT_SEQ, ADD_DATE
+		FROM
+			CMS_SITE
+		WHERE HOMEPAGE_ID = #{homepage_id} AND SITE_IDX = #{site_idx}
+	</select>
+	
+	<insert id="addSite">
+		<selectKey keyProperty="site_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(SITE_IDX),0)+1 FROM CMS_SITE WHERE HOMEPAGE_ID = #{homepage_id}
+		</selectKey>
+	
+		INSERT INTO CMS_SITE
+		(
+			HOMEPAGE_ID, SITE_IDX, SITE_NAME, SITE_DESC, LINK_TARGET, PRINT_SEQ, ADD_DATE
+		) VALUES (
+			#{homepage_id}, #{site_idx}, #{site_name}, #{site_desc}, #{link_target}, #{print_seq}, SYSDATE
+		)
+	</insert>
+	
+	<update id="modifySite">
+		UPDATE 
+			CMS_SITE 
+		SET
+			SITE_NAME = #{site_name}, 
+			SITE_DESC = #{site_desc}, 
+			LINK_TARGET = #{link_target},
+			PRINT_SEQ = #{print_seq}
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND SITE_IDX = #{site_idx} 
+	</update>
+	
+	<delete id="deleteSite">
+		DELETE FROM CMS_SITE
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND SITE_IDX = #{site_idx}
+	</delete>
+	
+</mapper>

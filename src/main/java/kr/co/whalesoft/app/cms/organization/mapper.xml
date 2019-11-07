@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.organization.OrganizationDao">
+	
+	<select id="getOrganizationTreeList" resultType="kr.co.whalesoft.app.cms.organization.Organization">
+		SELECT * FROM
+		(
+			SELECT 
+				-1 AS PARENT_ORGA_IDX,
+		   		0 AS ORGA_IDX,
+		      	'조직' AS ORGA_NAME
+			FROM DUAL
+			UNION ALL
+			SELECT
+	      		PARENT_ORGA_IDX, 
+	      		ORGA_IDX, 
+	      		ORGA_NAME 
+			FROM
+				CMS_ORGANIZATION
+			WHERE HOMEPAGE_ID = #{homepage_id}
+		)
+		CONNECT BY PRIOR ORGA_IDX = PARENT_ORGA_IDX
+		START WITH ORGA_IDX = 0
+		ORDER SIBLINGS BY ORGA_NAME 
+	</select>
+	
+	<select id="getOrganizationOne" resultType="kr.co.whalesoft.app.cms.organization.Organization">
+		SELECT
+			HOMEPAGE_ID, ORGA_IDX, PARENT_ORGA_IDX, ORGA_NAME, ORGA_PHONE
+		FROM
+			CMS_ORGANIZATION
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND ORGA_IDX = #{orga_idx}
+	</select>
+	
+	<insert id="addOrganization">
+		<selectKey keyProperty="orga_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(ORGA_IDX),0)+1 FROM CMS_ORGANIZATION WHERE HOMEPAGE_ID = #{homepage_id}
+		</selectKey>
+		INSERT INTO CMS_ORGANIZATION
+		(
+			HOMEPAGE_ID, ORGA_IDX, PARENT_ORGA_IDX, ORGA_NAME, ORGA_PHONE
+		) VALUES
+		(
+			#{homepage_id}, #{orga_idx}, #{parent_orga_idx}, #{orga_name}, #{orga_phone}
+		)
+	</insert>
+	
+	<update id="modifyOrganization">
+		UPDATE 
+			CMS_ORGANIZATION 
+		SET
+			ORGA_NAME = #{orga_name},
+			ORGA_PHONE = #{orga_phone}
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND ORGA_IDX = #{orga_idx}			
+	</update>
+	
+	<delete id="deleteOrganization">
+		DELETE FROM CMS_ORGANIZATION 
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND ORGA_IDX = #{orga_idx}
+	</delete>
+	
+	<select id="getChildCount" resultType="int">
+		SELECT COUNT(*)
+		FROM CMS_ORGANIZATION
+		WHERE HOMEPAGE_ID = #{homepage_id} AND PARENT_ORGA_IDX = #{orga_idx}
+	</select>
+	
+	<update id="moveOrganization">
+		UPDATE CMS_ORGANIZATION
+		SET PARENT_ORGA_IDX = #{parent_orga_idx}
+		WHERE HOMEPAGE_ID = #{homepage_id} AND ORGA_IDX = #{orga_idx}
+		
+	</update>
+	
+</mapper>

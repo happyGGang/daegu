@@ -1,0 +1,359 @@
+package kr.co.whalesoft.app.cms.webpageAccess;
+
+import java.io.IOException;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+
+import kr.co.whalesoft.app.cms.member.Member;
+import kr.co.whalesoft.framework.userAgent.Client;
+import kr.co.whalesoft.framework.userAgent.Parser;
+import kr.co.whalesoft.framework.utils.RequestUtils;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.mobile.device.Device;
+import org.springframework.mobile.device.DeviceUtils;
+
+
+public class WebpageAccess {
+
+	private long access_idx; //접속 IDX
+	private String homepage_id; //홈페이지 ID
+	private String homepage_name; // 홈페이지 이름
+	private String browser_type; //접속 브라우져
+	private String browser_version; //브라우져 버젼
+	private String access_system; //접속기기
+	private String operating_system;
+	private String access_ip; //접속 IP
+	private String referer_url; //유입경로
+	private Date access_date; //접속시간
+	private String login_id;
+
+	private String date_type;
+	private String search_type;
+
+	private String start_date;
+	private String end_date;
+
+	private String start_month;
+	private String end_month;
+	private String month_count;
+
+	private String start_year;
+	private String end_year;
+	private String year_count;
+
+	private String result_date;
+	private long result_count;
+	private long total_count;
+	private long max_count;
+	private long min_count;
+
+	private String session_id;
+	private String member_id;
+	private String member_seq_no;
+
+	private String search_year;
+
+	public WebpageAccess() {}
+
+	public WebpageAccess(HttpServletRequest request, String homepage_id) {
+		try {
+			this.homepage_id = homepage_id;
+
+			Parser parser = new Parser();
+			Client c = parser.parse(request.getHeader("User-Agent"));
+
+			//UserAgentStringParser userAgentStringParser = UADetectorServiceFactory.getResourceModuleParser();
+
+			//UserAgent [family=CHROME, icon=chrome.png, name=Chrome, operatingSystem=OperatingSystem [family=WINDOWS, familyName=Windows, icon=windows-7.png, name=Windows 7, producer=Microsoft Corporation., producerUrl=http://www.microsoft.com/, url=http://en.wikipedia.org/wiki/Windows_7, versionNumber=VersionNumber [groups=[6, 1, ], extension=]], producer=Google Inc., producerUrl=http://www.google.com/, type=BROWSER, typeName=Browser, url=http://www.google.com/chrome, versionNumber=VersionNumber [groups=[25, 0, 1364, 172], extension=]]
+			//ReadableUserAgent ua = userAgentStringParser.parse(request.getHeader("User-Agent"));
+
+			if(c != null && c.userAgent != null && c.os != null) {
+				this.browser_type = c.userAgent.family!=null?c.userAgent.family:"ETC";
+
+				if( c.userAgent.major !=null ) {
+					this.browser_version = c.userAgent.major;
+				} else {
+					this.browser_version = "0";
+				}
+				this.operating_system = c.os.family;
+			}
+
+			this.access_ip = RequestUtils.getClientIpAddr(request)!=null?RequestUtils.getClientIpAddr(request):"";
+			this.referer_url = request.getHeader("REFERER")!=null?request.getHeader("REFERER"):"";
+
+			Device currentDevice = DeviceUtils.getCurrentDevice(request);
+
+			if(currentDevice.isMobile()) {
+				this.access_system = "MOBILE";
+			} else if(currentDevice.isTablet()) {
+				this.access_system = "TABLET";
+			} else {
+				this.access_system = "PC";
+			}
+		}
+		catch ( IOException ex ) {
+			ex.printStackTrace();
+		}
+	}
+
+	public WebpageAccess(HttpServletRequest request, String homepage_id, Member member) {
+		try {
+			this.homepage_id = homepage_id;
+
+			Parser parser = new Parser();
+			Client c = parser.parse(request.getHeader("User-Agent"));
+
+			//UserAgentStringParser userAgentStringParser = UADetectorServiceFactory.getResourceModuleParser();
+
+			//UserAgent [family=CHROME, icon=chrome.png, name=Chrome, operatingSystem=OperatingSystem [family=WINDOWS, familyName=Windows, icon=windows-7.png, name=Windows 7, producer=Microsoft Corporation., producerUrl=http://www.microsoft.com/, url=http://en.wikipedia.org/wiki/Windows_7, versionNumber=VersionNumber [groups=[6, 1, ], extension=]], producer=Google Inc., producerUrl=http://www.google.com/, type=BROWSER, typeName=Browser, url=http://www.google.com/chrome, versionNumber=VersionNumber [groups=[25, 0, 1364, 172], extension=]]
+			//ReadableUserAgent ua = userAgentStringParser.parse(request.getHeader("User-Agent"));
+
+			if(c != null && c.userAgent != null && c.os != null) {
+				this.browser_type = c.userAgent.family!=null?c.userAgent.family:"ETC";
+
+				if( c.userAgent.major !=null ) {
+					this.browser_version = c.userAgent.major;
+				} else {
+					this.browser_version = "0";
+				}
+				this.operating_system = c.os.family;
+			}
+
+			this.access_ip = RequestUtils.getClientIpAddr(request)!=null?RequestUtils.getClientIpAddr(request):"";
+			this.referer_url = request.getHeader("REFERER")!=null?request.getHeader("REFERER"):"";
+
+			Device currentDevice = DeviceUtils.getCurrentDevice(request);
+
+			if(currentDevice.isMobile()) {
+				this.access_system = "MOBILE";
+			} else if(currentDevice.isTablet()) {
+				this.access_system = "TABLET";
+			} else {
+				this.access_system = "PC";
+			}
+
+			if (member != null) {
+				if (member.isLogin()) {
+					if (StringUtils.isNotEmpty(member.getWeb_id())) {
+						this.member_id = member.getWeb_id();
+					} else {
+						this.member_id = member.getMember_id();
+					}
+					if (StringUtils.equals(member.getLoginType(), "HOMEPAGE")) {
+						this.member_seq_no = member.getSeq_no();
+					}
+				} else {
+					this.member_id = "ANONYMOUS";
+				}
+			}
+
+			this.session_id = request.getSession().getId();
+		}
+		catch ( IOException ex ) {
+			ex.printStackTrace();
+		}
+	}
+
+	public long getAccess_idx() {
+		return access_idx;
+	}
+	public void setAccess_idx(long access_idx) {
+		this.access_idx = access_idx;
+	}
+	public String getBrowser_type() {
+		return browser_type;
+	}
+	public void setBrowser_type(String browser_type) {
+		this.browser_type = browser_type;
+	}
+	public String getBrowser_version() {
+		return browser_version;
+	}
+	public void setBrowser_version(String browser_version) {
+		this.browser_version = browser_version;
+	}
+	public String getAccess_system() {
+		return access_system;
+	}
+	public void setAccess_system(String access_system) {
+		this.access_system = access_system;
+	}
+	public String getOperating_system() {
+		return operating_system;
+	}
+	public void setOperating_system(String operating_system) {
+		this.operating_system = operating_system;
+	}
+	public String getAccess_ip() {
+		return access_ip;
+	}
+	public void setAccess_ip(String access_ip) {
+		this.access_ip = access_ip;
+	}
+	public String getReferer_url() {
+		return referer_url;
+	}
+	public void setReferer_url(String referer_url) {
+		this.referer_url = referer_url;
+	}
+	public Date getAccess_date() {
+		return access_date;
+	}
+	public void setAccess_date(Date access_date) {
+		this.access_date = access_date;
+	}
+	public String getLogin_id() {
+		return login_id;
+	}
+	public void setLogin_id(String login_id) {
+		this.login_id = login_id;
+	}
+	public String getHomepage_id() {
+		return homepage_id;
+	}
+	public void setHomepage_id(String homepage_id) {
+		this.homepage_id = homepage_id;
+	}
+	public String getHomepage_name() {
+		return homepage_name;
+	}
+	public void setHomepage_name(String homepage_name) {
+		this.homepage_name = homepage_name;
+	}
+	public String getSearch_type() {
+		return search_type;
+	}
+	public void setSearch_type(String search_type) {
+		this.search_type = search_type;
+	}
+	public String getStart_date() {
+		return start_date;
+	}
+	public void setStart_date(String start_date) {
+		this.start_date = start_date;
+	}
+	public String getEnd_date() {
+		return end_date;
+	}
+	public void setEnd_date(String end_date) {
+		this.end_date = end_date;
+	}
+	public String getResult_date() {
+		return result_date;
+	}
+	public void setResult_date(String result_date) {
+		this.result_date = result_date;
+	}
+	public long getResult_count() {
+		return result_count;
+	}
+	public void setResult_count(long result_count) {
+		this.result_count = result_count;
+	}
+	public long getTotal_count() {
+		return total_count;
+	}
+	public void setTotal_count(long total_count) {
+		this.total_count = total_count;
+	}
+	public long getMax_count() {
+		return max_count;
+	}
+	public void setMax_count(long max_count) {
+		this.max_count = max_count;
+	}
+	public long getMin_count() {
+		return min_count;
+	}
+	public void setMin_count(long min_count) {
+		this.min_count = min_count;
+	}
+	public String getDate_type() {
+		return date_type;
+	}
+	public void setDate_type(String date_type) {
+		this.date_type = date_type;
+	}
+	public String getStart_year() {
+		return start_year;
+	}
+	public void setStart_year(String start_year) {
+		this.start_year = start_year;
+	}
+
+	public String getEnd_year() {
+		return end_year;
+	}
+
+	public void setEnd_year(String end_year) {
+		this.end_year = end_year;
+	}
+
+	public String getYear_count() {
+		return year_count;
+	}
+
+	public void setYear_count(String year_count) {
+		this.year_count = year_count;
+	}
+
+	public String getStart_month() {
+		return start_month;
+	}
+
+	public void setStart_month(String start_month) {
+		this.start_month = start_month;
+	}
+
+	public String getEnd_month() {
+		return end_month;
+	}
+
+	public void setEnd_month(String end_month) {
+		this.end_month = end_month;
+	}
+
+	public String getMonth_count() {
+		return month_count;
+	}
+
+	public void setMonth_count(String month_count) {
+		this.month_count = month_count;
+	}
+
+	public String getSession_id() {
+		return session_id;
+	}
+
+	public void setSession_id(String session_id) {
+		this.session_id = session_id;
+	}
+
+	public String getMember_id() {
+		return member_id;
+	}
+
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
+	}
+
+	public String getMember_seq_no() {
+		return member_seq_no;
+	}
+
+	public void setMember_seq_no(String member_seq_no) {
+		this.member_seq_no = member_seq_no;
+	}
+
+
+	public String getSearch_year() {
+		return search_year;
+	}
+
+
+	public void setSearch_year(String search_year) {
+		this.search_year = search_year;
+	}
+}

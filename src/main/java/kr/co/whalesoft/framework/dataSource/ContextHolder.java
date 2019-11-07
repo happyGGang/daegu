@@ -1,0 +1,17 @@
+package kr.co.whalesoft.framework.dataSource;
+
+/**
+* @author sidnancy81
+*/
+public class ContextHolder {
+private static final ThreadLocal<DataSourceType> contextHolder = new ThreadLocal<DataSourceType>();
+	public static void setDataSourceType(DataSourceType dataSourceType){
+		contextHolder.set(dataSourceType);
+	}
+	public static DataSourceType getDataSourceType(){
+		return contextHolder.get();
+	}
+	public static void clearDataSourceType(){
+		contextHolder.remove();
+	}
+}

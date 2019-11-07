@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.memberGroup.MemberGroupDao">
+	
+	<select id="getMemberGroupList" resultType="kr.co.whalesoft.app.cms.memberGroup.MemberGroup">
+		SELECT
+			A.*
+		FROM
+		(
+			SELECT
+				0 as member_group_idx, 
+				'CMS' AS site_id, 
+				'CMS' AS member_group_name, 
+				-1 AS parent_member_group_idx, 
+				0 AS member_group_depth,
+				'' AS remark,
+				0 AS print_seq, 
+				'Y' AS default_group_yn,
+				'N' AS admin_yn,
+				'N' AS admin_group_yn,
+				'N' AS user_group_yn,
+				'N' AS guest_group_yn
+			FROM DUAL
+			UNION ALL
+			SELECT 
+				member_group_idx, 
+				site_id, 
+				member_group_name, 
+				parent_member_group_idx, 
+				member_group_depth, 
+				remark,
+				print_seq, 
+				default_group_yn,
+				admin_yn,
+				admin_group_yn,
+				user_group_yn,
+				guest_group_yn
+	    	FROM
+	    		WB_MEMBER_GROUP a
+	    	WHERE
+	    		guest_group_yn = 'N'
+	    	<if test="site_id != null and site_id != ''">
+	    	AND
+	    		site_id = #{site_id}
+	    	</if>
+	    ) A
+	    CONNECT BY PRIOR member_group_idx = parent_member_group_idx 
+		START WITH parent_member_group_idx = -1 
+		ORDER SIBLINGS BY 
+			CASE WHEN site_id = 'CMS' THEN site_id END ASC,
+			CASE WHEN site_id != 'CMS' THEN TO_NUMBER(SUBSTR(site_id,2)) END ASC,
+			print_seq
+	</select>
+	
+	<select id="getMemberGroupOne" resultType="kr.co.whalesoft.app.cms.memberGroup.MemberGroup">
+		SELECT 
+			member_group_idx, 
+			site_id, 
+			member_group_name, 
+			parent_member_group_idx,
+			member_group_depth, 
+			remark, 
+			print_seq, 
+			default_group_yn,
+			admin_yn,
+			admin_group_yn,
+			user_group_yn,
+			guest_group_yn
+    	FROM
+    		WB_MEMBER_GROUP
+    	WHERE
+    		member_group_idx = #{member_group_idx}
+	</select>
+	
+	<select id="getSiteUserGroupOne" resultType="kr.co.whalesoft.app.cms.memberGroup.MemberGroup">
+		SELECT 
+			member_group_idx, 
+			site_id, 
+			member_group_name, 
+			parent_member_group_idx,
+			member_group_depth, 
+			remark, 
+			print_seq, 
+			default_group_yn,
+			admin_yn,
+			admin_group_yn,
+			user_group_yn,
+			guest_group_yn
+    	FROM
+    		WB_MEMBER_GROUP
+    	WHERE
+    		site_id = #{site_id}
+    	AND	default_group_yn = 'Y'
+    	AND	user_group_yn = 'Y'
+	</select>
+	
+	<insert id="addMemberGroup">
+		INSERT INTO
+			WB_MEMBER_GROUP
+		(
+			member_group_idx, site_id, member_group_name, parent_member_group_idx, member_group_depth,
+			remark, print_seq, default_group_yn, add_dttm, add_id, 
+			mod_dttm, mod_id
+		)
+		VALUES
+		(
+			WB_MEMBER_GROUP_IDX_SEQ.NEXTVAL,
+			<choose>
+			<when test="parent_member_group_idx == 0">
+			'CMS',
+			</when>
+			<otherwise>
+			(SELECT site_id FROM WB_MEMBER_GROUP WHERE member_group_idx = #{parent_member_group_idx}), 
+			</otherwise> 
+			</choose>
+			#{member_group_name}, #{parent_member_group_idx}, (SELECT NVL(MAX(member_group_depth),0)+1 FROM WB_MEMBER_GROUP WHERE member_group_idx = #{parent_member_group_idx}), 
+			#{remark}, (SELECT NVL(MAX(print_seq),0)+1 FROM WB_MEMBER_GROUP WHERE parent_member_group_idx = #{parent_member_group_idx}), 'N', SYSDATE, #{cud_id}, 
+			SYSDATE, #{cud_id}
+		)
+	</insert>
+	
+	<update id="modifyMemberGroup">
+		UPDATE
+			WB_MEMBER_GROUP
+		SET
+			member_group_name = #{member_group_name},
+			remark = #{remark}
+		WHERE
+			member_group_idx = #{member_group_idx}
+		AND	default_group_yn = 'N'
+	</update>
+	
+	<select id="getMemberGroupCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			WB_MEMBER_GROUP
+		WHERE
+			parent_member_group_idx = #{member_group_idx}
+	</select>
+	
+	<delete id="deleteMemberGroup">
+		DELETE
+			WB_MEMBER_GROUP
+		WHERE
+			member_group_idx = #{member_group_idx}
+		AND	default_group_yn = 'N'
+	</delete>
+	
+	<delete id="deleteMemberGroupRelation">
+		DELETE
+			WB_MEMBER_GROUP_RELATION
+		WHERE
+			member_group_idx = #{member_group_idx}
+	</delete>
+	
+	<insert id="addMemberGroupRelation">
+		INSERT INTO
+			WB_MEMBER_GROUP_RELATION
+		(
+			member_group_idx, relation_member_group_idx
+		)
+			VALUES
+		(
+			#{member_group_idx}, #{relation_member_group_idx}
+		)
+	</insert>
+	
+	<select id="getMemberGroupRelation" resultType="int">
+		SELECT
+			relation_member_group_idx
+		FROM
+			WB_MEMBER_GROUP_RELATION
+		WHERE
+			member_group_idx = #{member_group_idx}
+	</select>
+	
+	<select id="getMemberGroupUserGroup" resultType="kr.co.whalesoft.app.cms.memberGroup.MemberGroup">
+		SELECT 
+			member_group_idx, 
+			site_id, 
+			member_group_name, 
+			parent_member_group_idx, 
+			remark, 
+			print_seq, 
+			default_group_yn,
+			admin_yn,
+			admin_group_yn,
+			user_group_yn,
+			guest_group_yn			
+    	FROM
+    		WB_MEMBER_GROUP
+    	WHERE
+    		site_id = #{site_id}
+    	AND	user_group_yn = 'Y'
+	</select>
+</mapper>

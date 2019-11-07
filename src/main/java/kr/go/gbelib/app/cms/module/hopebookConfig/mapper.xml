@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfigDao">
+	
+	<sql id="field">
+		homepage_id, TO_CHAR(str_date, 'yyyy-MM-dd') AS str_date, TO_CHAR(end_date, 'yyyy-MM-dd') AS end_date, TO_CHAR(str_date, 'HH24:mi') AS str_time, TO_CHAR(end_date, 'HH24:mi') AS end_time, 
+		res_msg, use_yn, add_date, add_id, mod_date, mod_id
+	</sql>
+	
+	<select id="getHopebookList" resultType="kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfig">
+		SELECT
+			<include refid="field"/>,
+			CASE WHEN str_date <![CDATA[<=]]> SYSDATE
+				AND end_date <![CDATA[>=]]> SYSDATE
+				AND use_yn = 'Y' THEN '1' ELSE '0' END AS date_chk
+		FROM
+			HOPE_CONFIG
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+	
+	<select id="getHopebookConfigOne" resultType="kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfig">
+		SELECT
+			<include refid="field"/>
+		FROM
+			HOPE_CONFIG
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+	
+	<update id="addHopebookConfig">
+		MERGE INTO
+			HOPE_CONFIG a
+		USING DUAL
+		ON (homepage_id = #{homepage_id})
+		WHEN MATCHED THEN
+			UPDATE SET
+				str_date = TO_DATE(#{str_date}, 'yyyy-MM-dd HH24:mi'),
+				end_date = TO_DATE(#{end_date}, 'yyyy-MM-dd HH24:mi'),
+				res_msg = #{res_msg},
+				use_yn = #{use_yn},
+				mod_date = SYSDATE,
+				mod_id = #{add_id}
+		WHEN NOT MATCHED THEN
+			INSERT
+			(
+				homepage_id, str_date, end_date, res_msg, use_yn,
+				add_date, add_id
+			)
+			VALUES
+			(
+				#{homepage_id}, TO_DATE(#{str_date}, 'yyyy-MM-dd HH24:mi'), TO_DATE(#{end_date}, 'yyyy-MM-dd HH24:mi'), #{res_msg}, #{use_yn},
+				SYSDATE, #{add_id}
+			)
+	</update>
+	
+	<delete id="deleteHopebookConfig">
+		DELETE FROM
+			HOPE_CONFIG
+		WHERE
+			homepage_id = #{homepage_id}
+	</delete>
+	
+	<select id="getHopebookConfigInfo" resultType="kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfig">
+		SELECT
+			<include refid="field"/>
+		FROM
+			HOPE_CONFIG
+		WHERE
+			homepage_id = #{homepage_id}
+		AND str_date <![CDATA[<=]]> SYSDATE
+		AND end_date <![CDATA[>=]]> SYSDATE
+		AND use_yn = 'Y'
+	</select>
+	
+</mapper>

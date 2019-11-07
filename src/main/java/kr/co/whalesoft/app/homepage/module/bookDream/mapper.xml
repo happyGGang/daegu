@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.homepage.module.bookDream.BookDreamDao">
+
+	<select id="getTotalPrice" resultType="string">
+		SELECT
+			c_value
+		FROM
+			BOOKDREAM_CONFIG
+		WHERE
+			c_no = 8
+	</select>
+
+	<select id="getCurrentTotalPrice" resultType="int">
+		SELECT
+			NVL(SUM(r_price), 0)
+		FROM
+			BOOKDREAM_REQUEST
+		WHERE
+			TO_CHAR(r_created, 'YYYY-MM') = TO_CHAR(SYSDATE, 'YYYY-MM')
+	</select>
+
+	<select id="getDayCount" resultType="string">
+		SELECT
+			c_value
+		FROM
+			BOOKDREAM_CONFIG
+		WHERE
+			c_no = 7
+	</select>
+
+	<select id="getRequestCountByMember" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			BOOKDREAM_REQUEST
+		WHERE
+			user_no = #{user_no}
+		AND	r_src = #{r_src}
+		AND	r_state >= 0
+		AND	TO_CHAR(r_created, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
+	</select>
+
+	<select id="getPriCount" resultType="string">
+		SELECT
+			c_value
+		FROM
+			BOOKDREAM_CONFIG
+		WHERE
+			c_no = 5
+	</select>
+
+	<select id="getMonthRequestCountByMember" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			BOOKDREAM_REQUEST
+		WHERE
+			user_no = #{user_no}
+		AND	r_src = #{r_src}
+		AND	r_state >= 0
+		AND	TO_CHAR(r_created, 'YYYYMM') = TO_CHAR(SYSDATE, 'YYYYMM')
+	</select>
+
+	<select id="getRequestCountByIsbn" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			BOOKDREAM_REQUEST
+		WHERE
+			r_isbn = #{r_isbn}
+		AND	r_src = #{r_src}
+		AND	r_state >= 0
+		AND	r_state <![CDATA[<=]]> 50
+	</select>
+
+	<insert id="addBookDream">
+		<selectKey keyProperty="r_no" order="BEFORE" resultType="int">
+			SELECT NVL(MAX(r_no), 0)+1 FROM BOOKDREAM_REQUEST
+		</selectKey>
+		INSERT INTO
+			BOOKDREAM_REQUEST
+		(
+			r_no, r_src, user_no, user_id, store_no,
+			co_no, r_isbn, r_title, r_author, r_price,
+			r_pay_type, r_pay, r_image, r_publisher, r_pubdate,
+			r_name, r_hp, r_tel, r_zip, r_addr,
+			r_email, r_state, r_calc, r_payed, r_return_close,
+			r_return, r_refund, r_created, r_updated
+		)
+			VALUES
+		(
+			#{r_no}, #{r_src}, #{user_no}, #{user_id}, #{storeCode},
+			'', #{isbn}, #{title}, #{author}, #{price},
+			'', 0, #{image}, #{publisher}, #{pubdate},
+			#{r_name}, #{mobileno}, #{tellno}, #{r_zip}, #{addres},
+			#{email}, '10', <!-- #{r_calc} -->'', <!-- #{r_payed} -->'', #{r_return_close},
+			#{r_return}, #{r_refund}, SYSDATE, SYSDATE
+		)
+	</insert>
+
+	<select id="getRequestListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			BOOKDREAM_REQUEST
+		WHERE
+			r_state >= 0
+		<if test="user_no != null and user_no != '' ">
+		AND	user_no = #{user_no}
+		</if>
+		<if test="r_name != null and r_name != '' ">
+		AND	r_name = #{r_name}
+		</if>
+		<if test="store_no > 0">
+		AND	store_no = #{store_no}
+		</if>
+		<if test="search_state != null and search_state != '' ">
+		<foreach collection="search_state" item="i" open="AND r_state IN (" close=")" separator=",">
+		#{i}
+		</foreach>
+		</if>
+		<if test="search_lib != null and search_lib != '' ">
+		<foreach collection="search_lib" item="i" open="AND r_src IN (" close=")" separator=",">
+		#{i}
+		</foreach>
+		</if>
+		<if test="search_text != null and search_text != '' ">
+		AND	${search_type} LIKE '%' || #{search_text} || '%'
+		</if>
+	</select>
+
+	<select id="getRequestList" resultType="kr.co.whalesoft.app.homepage.module.bookDream.BookDream">
+		${pagingTop}
+		SELECT
+			r_no, r_src, user_no, user_id, store_no,
+			co_no, r_isbn, r_title, r_author, r_price,
+			r_pay_type, r_pay, r_image, r_publisher, r_pubdate,
+			r_name, r_tel, r_zip, r_addr,
+			r_email, r_state, r_calc, r_payed, r_return_close,
+			r_return, r_refund, r_created, r_updated,
+			(select code_name from cms_code where homepage_id='h3' and group_id = 'H0006' and code_id = r_state) as r_state_nm,
+			decode(r_src, 'andong', '안동', 'yongsang', '용상', '풍산') as r_src_nm
+			, decode(length(r_hp), 10,
+				substr(r_hp, 0, 3) || '-' || substr(r_hp, 4, 3) || '-' || substr(r_hp, 7, 4),
+				11,
+				substr(r_hp, 0, 3) || '-' || substr(r_hp, 4, 4) || '-' || substr(r_hp, 8, 4),
+				r_hp)
+			as r_hp
+		FROM
+			BOOKDREAM_REQUEST
+		WHERE
+			r_state >= 0
+		<if test="user_no != null and user_no != '' ">
+		AND	user_no = #{user_no}
+		</if>
+		<if test="r_name != null and r_name != '' ">
+		AND	r_name = #{r_name}
+		</if>
+		<if test="store_no > 0">
+		AND	store_no = #{store_no}
+		</if>
+		<if test="search_state != null and search_state != '' ">
+		<foreach collection="search_state" item="i" open="AND r_state IN (" close=")" separator=",">
+		#{i}
+		</foreach>
+		</if>
+		<if test="search_lib != null and search_lib != '' ">
+		<foreach collection="search_lib" item="i" open="AND r_src IN (" close=")" separator=",">
+		#{i}
+		</foreach>
+		</if>
+		<if test="search_text != null and search_text != '' ">
+		AND	${search_type} LIKE '%' || #{search_text} || '%'
+		</if>
+		ORDER BY
+			r_no desc
+		${pagingBottom}
+	</select>
+
+	<select id="getMyRequestListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			BOOKDREAM_REQUEST
+		WHERE
+			user_no = #{user_no}
+	</select>
+
+	<select id="getMyRequestList" resultType="kr.co.whalesoft.app.homepage.module.bookDream.BookDream">
+		${pagingTop}
+		SELECT
+			r_no, r_src, user_no, user_id, store_no,
+			co_no, r_isbn, r_title, r_author, r_price,
+			r_pay_type, r_pay, r_image, r_publisher, r_pubdate,
+			r_name, r_hp, r_tel, r_zip, r_addr,
+			r_email, r_state, r_calc, r_payed, r_return_close,
+			r_return, r_refund, r_created, r_updated,
+			(select code_name from cms_code where homepage_id='h3' and group_id = 'H0006' and code_id = r_state) as r_state_nm,
+			r_created + 5 as r_created5,
+			r_payed + 14 as r_return_close14
+		FROM
+			BOOKDREAM_REQUEST
+		WHERE
+			user_no = #{user_no}
+		ORDER BY
+			r_created desc
+		${pagingBottom}
+	</select>
+
+	<select id="getRequestListCountCMS" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			BOOKDREAM_REQUEST
+		WHERE
+			r_state >= -100
+		<if test="user_no != null and user_no != '' ">
+		AND	user_no = #{user_no}
+		</if>
+		<if test="search_lib != null and search_lib != '' ">
+		<foreach collection="search_lib" item="i" open="AND r_src IN (" close=")" separator=",">
+		#{i}
+		</foreach>
+		</if>
+		<if test="search_state != null and search_state != '' ">
+		<foreach collection="search_state" item="i" open="AND r_state IN (" close=")" separator=",">
+		#{i}
+		</foreach>
+		</if>
+		<if test="search_text != null and search_text != '' ">
+		AND	${search_type} LIKE '%' || #{search_text} || '%'
+		</if>
+		<if test="search_date != null and search_date != '' ">
+		AND	${search_date} BETWEEN TO_DATE(#{start_date}, 'YYYY-MM-DD') AND TO_DATE(#{end_date}, 'YYYY-MM-DD')+1
+		</if>
+	</select>
+
+	<select id="getRequestListCMS" resultType="kr.co.whalesoft.app.homepage.module.bookDream.BookDream">
+		${pagingTop}
+		SELECT
+			r_no, r_src, user_no, user_id, store_no,
+			co_no, r_isbn, r_title, r_author, r_price,
+			r_pay_type, r_pay, r_image, r_publisher, r_pubdate,
+			r_name, r_tel, r_zip, r_addr,
+			r_email, r_state, r_calc, r_payed, r_return_close,
+			r_return, r_refund, r_created, r_updated
+			, decode(length(r_hp), 10,
+				substr(r_hp, 0, 3) || '-' || substr(r_hp, 4, 3) || '-' || substr(r_hp, 7, 4),
+				11,
+				substr(r_hp, 0, 3) || '-' || substr(r_hp, 4, 4) || '-' || substr(r_hp, 8, 4),
+				r_hp)
+			as r_hp,
+			(select code_name from cms_code where homepage_id='h3' and group_id = 'H0005' and code_id = store_no) as storeCode
+		FROM
+			BOOKDREAM_REQUEST
+		WHERE
+			r_state >= -100
+		<if test="user_no != null and user_no != '' ">
+		AND	user_no = #{user_no}
+		</if>
+		<if test="search_lib != null and search_lib != '' ">
+		<foreach collection="search_lib" item="i" open="AND r_src IN (" close=")" separator=",">
+		#{i}
+		</foreach>
+		</if>
+		<if test="search_state != null and search_state != '' ">
+		<foreach collection="search_state" item="i" open="AND r_state IN (" close=")" separator=",">
+		#{i}
+		</foreach>
+		</if>
+		<if test="search_text != null and search_text != '' ">
+		AND	${search_type} LIKE '%' || #{search_text} || '%'
+		</if>
+		<if test="search_date != null and search_date != '' ">
+		AND	${search_date} BETWEEN TO_DATE(#{start_date}, 'YYYY-MM-DD') AND TO_DATE(#{end_date}, 'YYYY-MM-DD')+1
+		</if>
+		ORDER BY
+			${sortField} ${sortType} nulls last
+		${pagingBottom}
+	</select>
+
+	<select id="getRequestListCMS2" resultType="kr.co.whalesoft.app.homepage.module.bookDream.BookDream">
+		SELECT
+			r_no, r_src, user_no, user_id, store_no,
+			co_no, r_isbn, r_isbn as isbn, r_title, r_author, r_price,
+			r_pay_type, r_pay, r_image, r_publisher, substr(r_pubdate, 1, 4) as r_pubdate,
+			r_name, r_tel, r_zip, r_addr,
+			r_email, r_state, r_calc, r_payed, r_return_close,
+			r_return as c_name, r_refund, r_created as a_name, r_updated
+			, decode(length(r_hp), 10,
+				substr(r_hp, 0, 3) || '-' || substr(r_hp, 4, 3) || '-' || substr(r_hp, 7, 4),
+				11,
+				substr(r_hp, 0, 3) || '-' || substr(r_hp, 4, 4) || '-' || substr(r_hp, 8, 4),
+				r_hp)
+			as r_hp,
+			(select code_name from cms_code where homepage_id='h3' and group_id = 'H0005' and code_id = store_no) as storeCode
+		FROM
+			BOOKDREAM_REQUEST
+		WHERE
+			r_state >= -100
+		<if test="user_no != null and user_no != '' ">
+		AND	user_no = #{user_no}
+		</if>
+		<if test="search_lib != null and search_lib != '' ">
+		<foreach collection="search_lib" item="i" open="AND r_src IN (" close=")" separator=",">
+		#{i}
+		</foreach>
+		</if>
+		<if test="search_state != null and search_state != '' ">
+		<foreach collection="search_state" item="i" open="AND r_state IN (" close=")" separator=",">
+		#{i}
+		</foreach>
+		</if>
+		<if test="search_text != null and search_text != '' ">
+		AND	${search_type} LIKE '%' || #{search_text} || '%'
+		</if>
+		<if test="search_date != null and search_date != '' ">
+		AND	${search_date} BETWEEN TO_DATE(#{start_date}, 'YYYY-MM-DD') AND TO_DATE(#{end_date}, 'YYYY-MM-DD')+1
+		</if>
+		ORDER BY
+			${sortField} ${sortType} nulls last
+	</select>
+
+	<select id="getRequestListOne" resultType="kr.co.whalesoft.app.homepage.module.bookDream.BookDream">
+		SELECT
+			r_no, r_src, user_no, user_id, store_no,
+			co_no, r_isbn, r_title, r_author, r_price,
+			r_pay_type, r_pay, r_image, r_publisher, r_pubdate,
+			r_name, r_tel, r_zip, r_addr,
+			r_email, r_state, r_calc, r_payed, r_return_close,
+			r_return, r_refund, r_created, r_updated
+			, decode(length(r_hp), 10,
+				substr(r_hp, 0, 3) || '-' || substr(r_hp, 4, 3) || '-' || substr(r_hp, 7, 4),
+				11,
+				substr(r_hp, 0, 3) || '-' || substr(r_hp, 4, 4) || '-' || substr(r_hp, 8, 4),
+				r_hp)
+			as r_hp
+		FROM
+			BOOKDREAM_REQUEST
+		WHERE
+			r_isbn = #{r_isbn}
+		<if test="user_no != null and user_no != '' ">
+		AND	user_no = #{user_no}
+		</if>
+		ORDER BY
+			r_no
+	</select>
+
+	<select id="getBookDreamOne" resultType="kr.co.whalesoft.app.homepage.module.bookDream.BookDream">
+		SELECT
+			r_no, r_src, user_no, user_id, store_no,
+			(select code_name from cms_code where homepage_id='h3' and group_id = 'H0005' and code_id = store_no) as storeCode,
+			co_no, r_isbn, r_title, r_author, r_price,
+			r_pay_type, r_pay, r_image, r_publisher, r_pubdate,
+			r_name, r_hp, r_tel, r_zip, r_addr,
+			r_email, r_state, r_calc, r_payed, r_return_close,
+			r_return, r_refund, r_created, r_updated,
+			(select c_value from bookdream_config where c_no = 1) as fromTel,
+			(select c_value from bookdream_config where c_no = 2) as fromTel2,
+			(select c_value from bookdream_config where c_no = 3) as fromTel3,
+			d3_send_yn, dday_send_yn
+		FROM
+			BOOKDREAM_REQUEST
+		WHERE
+			r_no = #{r_no}
+	</select>
+
+	<insert id="addBookDreamHistory">
+		<selectKey keyProperty="rh_no" order="BEFORE" resultType="int">
+			SELECT NVL(MAX(rh_no), 0)+1 FROM BOOKDREAM_REQUEST_HISTORY
+		</selectKey>
+		INSERT INTO
+			BOOKDREAM_REQUEST_HISTORY
+		(
+			rh_no, r_no, rh_type, rh_set, rh_get,
+			rh_post, rh_session, rh_ip, rh_referer, rh_url,
+			rh_created, rh_state
+		)
+		VALUES
+		(
+			#{rh_no}, #{r_no}, #{rh_type}, #{rh_set}, #{rh_get},
+			#{rh_post}, #{rh_session}, #{rh_ip}, #{rh_referer}, #{rh_url},
+			SYSDATE, #{rh_set}
+		)
+	</insert>
+
+	<select id="getMyRequestOne" resultType="kr.co.whalesoft.app.homepage.module.bookDream.BookDream">
+		SELECT
+			r_no, r_src, user_no, user_id, store_no,
+			(select code_name from cms_code where homepage_id='h3' and group_id = 'H0005' and code_id = store_no) as storeCode,
+			co_no, r_isbn, r_title, r_author, r_price,
+			r_pay_type, r_pay, r_image, r_publisher, r_pubdate,
+			r_name, r_hp, r_tel, r_zip, r_addr,
+			r_email, r_state, r_calc, r_payed, r_return_close,
+			r_return, r_refund, r_created, r_updated
+		FROM
+			BOOKDREAM_REQUEST
+		WHERE
+			r_no = #{r_no}
+		AND	user_no = #{user_no}
+	</select>
+
+	<update id="modifyBookDream">
+		UPDATE
+			BOOKDREAM_REQUEST
+		SET
+			r_updated = SYSDATE
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(r_state)">,r_state = #{r_state}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(r_hp)">,r_hp = #{r_hp}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(r_email)">,r_email = #{r_email}</if>
+			<if test='r_state != null and r_state != "" and r_state == "20"'>
+				<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(r_pay)">
+			, r_pay = #{r_pay}
+				</if>
+				<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(r_pay_type)">
+			, r_pay_type = #{r_pay_type}
+				</if>
+			, r_payed = SYSDATE
+			, r_return_close = SYSDATE + 14
+			</if>
+			<if test='r_state != null and r_state != "" and r_state == "30"'>
+			, r_return = SYSDATE
+			</if>
+			<if test='r_state != null and r_state != "" and r_state == "40"'>
+			, r_refund = SYSDATE
+			</if>
+			<if test='r_state != null and r_state != "" and r_state == "50"'>
+			, r_calc = SYSDATE
+			</if>
+		WHERE
+			r_no = #{r_no}
+	</update>
+
+	<select id="getNewBookConfig" resultType="kr.co.whalesoft.app.homepage.module.bookDream.BookDream">
+		SELECT
+			c_no, c_code, c_name, c_value, c_note,
+			c_created, c_updated
+		FROM
+			BOOKDREAM_CONFIG
+		WHERE
+			c_no <![CDATA[<=]]> 13
+		OR	c_no <![CDATA[>=]]> 17
+		ORDER BY c_no
+	</select>
+
+	<update id="modifyBookDreamConfig">
+		UPDATE
+			BOOKDREAM_CONFIG
+		SET
+			c_value = #{c_value},
+			c_updated = SYSDATE
+		WHERE
+			c_no = #{c_no}
+	</update>
+
+	<select id="getNewBookStore" resultType="kr.co.whalesoft.app.homepage.module.bookDream.BookDream">
+		SELECT
+			s_no, s_id, s_pw, s_name, s_owner,
+			s_tel, s_created, s_updated
+		FROM
+			BOOKDREAM_STORE
+		ORDER BY s_no
+	</select>
+
+	<select id="getNewBookStoreOne" resultType="kr.co.whalesoft.app.homepage.module.bookDream.BookDream">
+		SELECT
+			s_no, s_id, s_pw, s_name, s_owner,
+			s_tel, s_created, s_updated
+		FROM
+			BOOKDREAM_STORE
+		WHERE
+			s_no = #{s_no}
+	</select>
+
+	<update id="modifyBookDreamStore">
+		UPDATE
+			BOOKDREAM_STORE
+		SET
+			s_name = #{s_name},
+			s_tel = #{s_tel},
+			s_owner = #{s_owner},
+			s_updated = SYSDATE
+			<if test="s_pw != null and s_pw != ''">
+			,s_pw = #{s_pw}
+			</if>
+		WHERE
+			s_no = #{s_no}
+	</update>
+
+	<delete id="deleteBookDreamStore">
+		DELETE FROM
+			BOOKDREAM_STORE
+		WHERE
+			s_no = #{s_no}
+	</delete>
+
+	<select id="getBookDreamOneHistory" resultType="kr.co.whalesoft.app.homepage.module.bookDream.BookDream">
+		SELECT
+			rh_no, r_no, rh_type, rh_set, rh_get,
+			rh_post, rh_session, rh_ip, rh_referer, rh_url,
+			rh_created, rh_state,
+			(select code_name from cms_code where homepage_id='h3' and group_id = 'H0006' and code_id = rh_state) as r_state_nm
+		FROM
+			BOOKDREAM_REQUEST_HISTORY
+		WHERE
+			r_no = #{r_no}
+		AND	rh_type != 'modify'
+		ORDER BY
+			rh_no
+	</select>
+
+	<select id="getNewBookStoreAdmin" resultType="kr.co.whalesoft.app.homepage.module.bookDream.BookDream">
+		SELECT
+			s_no, s_id, s_pw, s_name, s_owner,
+			s_tel, s_created, s_updated
+		FROM
+			BOOKDREAM_STORE
+		WHERE
+			s_id = #{s_id}
+		AND	s_pw = #{s_pw}
+	</select>
+
+	<select id="getBookDreamConfigOne" resultType="String">
+		SELECT
+			c_value
+		FROM
+			BOOKDREAM_CONFIG
+		WHERE
+			c_no = #{c_no}
+	</select>
+	
+	<select id="getBookDreamConfigByState" resultType="kr.co.whalesoft.app.homepage.module.bookDream.BookDream">
+		SELECT
+			c_no, c_code, c_name, c_value, c_note,
+			c_created, c_updated
+		FROM
+			BOOKDREAM_CONFIG
+		WHERE
+			c_state = #{r_state}
+		AND rownum = 1
+	</select>
+	
+	<select id="getD3List" resultType="kr.co.whalesoft.app.homepage.module.bookDream.BookDream">
+		select
+			r_no, r_src, user_no, user_id, store_no,
+			(select code_name from cms_code where homepage_id='h3' and group_id = 'H0005' and code_id = store_no) as storeCode,
+			co_no, r_isbn, r_title, r_author, r_price,
+			r_pay_type, r_pay, r_image, r_publisher, r_pubdate,
+			r_name, r_hp, r_tel, r_zip, r_addr,
+			r_email, r_state, r_calc, r_payed, r_return_close,
+			r_return, r_refund, r_created, r_updated,
+			(select c_value from bookdream_config where c_no = 1) as fromTel,
+			(select c_value from bookdream_config where c_no = 2) as fromTel2,
+			(select c_value from bookdream_config where c_no = 3) as fromTel3,
+			d3_send_yn, dday_send_yn
+		from
+			bookdream_request
+		where
+			r_return_close is not null
+		and TO_CHAR(r_return_close-3, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
+		and r_state = '20'
+		and d3_send_yn = 'N'
+		ORDER BY
+			r_no
+	</select>
+
+	<select id="getDdayList" resultType="kr.co.whalesoft.app.homepage.module.bookDream.BookDream">
+		SELECT
+			r_no, r_src, user_no, user_id, store_no,
+			(select code_name from cms_code where homepage_id='h3' and group_id = 'H0005' and code_id = store_no) as storeCode,
+			co_no, r_isbn, r_title, r_author, r_price,
+			r_pay_type, r_pay, r_image, r_publisher, r_pubdate,
+			r_name, r_hp, r_tel, r_zip, r_addr,
+			r_email, r_state, r_calc, r_payed, r_return_close,
+			r_return, r_refund, r_created, r_updated,
+			(select c_value from bookdream_config where c_no = 1) as fromTel,
+			(select c_value from bookdream_config where c_no = 2) as fromTel2,
+			(select c_value from bookdream_config where c_no = 3) as fromTel3,
+			d3_send_yn, dday_send_yn
+		FROM
+			BOOKDREAM_REQUEST
+		WHERE
+			r_return_close IS NOT NULL
+		AND TO_CHAR(r_return_close, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
+		AND r_state = '20'
+		AND dday_send_yn = 'N'
+		ORDER BY
+			r_no
+	</select>
+
+	<update id="sendedMessage">
+		UPDATE
+			BOOKDREAM_REQUEST
+		SET
+			d3_send_yn = #{d3_send_yn},
+			dday_send_yn = #{dday_send_yn}
+		WHERE
+			r_no = #{r_no}
+	</update>
+
+	<update id="modifyState">
+		UPDATE
+			BOOKDREAM_REQUEST
+		SET
+			r_state = #{batch}
+		WHERE
+			r_no IN
+		<foreach item="no" collection="chkOne" separator="," open="(" close=")">
+			${no}
+		</foreach>
+	</update>
+
+</mapper>

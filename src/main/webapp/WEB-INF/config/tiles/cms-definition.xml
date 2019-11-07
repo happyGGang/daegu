@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+	<definition name="/cms/index" templateExpression="/WEB-INF/views/app/cms/index.jsp" />
+	<definition name="/cms/aside" templateExpression="/WEB-INF/views/app/cms/aside.jsp" />
+	<definition name="/cms/login/index" templateExpression="/WEB-INF/views/app/cms/login/index.jsp" />
+	
+	<definition name="/cms/*/*/*/*_ajax" templateExpression="/WEB-INF/views/app/cms/{1}/{2}/{3}/{4}.jsp" />
+	
+	<definition name="/cms/*/*/*_ajax" templateExpression="/WEB-INF/views/app/cms/{1}/{2}/{3}.jsp" />
+	
+	<definition name="/cms/*/*_ajax" templateExpression="/WEB-INF/views/app/cms/{1}/{2}.jsp" />
+
+	<definition name="cmsLayout" templateExpression="/WEB-INF/views/app/cms/layout/layout.jsp">
+		<put-attribute name="header" expression="/WEB-INF/views/app/cms/layout/header.jsp" />
+  		<put-attribute name="footer" expression="/WEB-INF/views/app/cms/layout/footer.jsp" />
+	</definition>
+	
+	<definition name="/cms/*/*/*/*" extends="cmsLayout">
+ 		<put-attribute name="body" expression="/WEB-INF/views/app/cms/{1}/{2}/{3}/{4}.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/cms/*/*/*" extends="cmsLayout">
+ 		<put-attribute name="body" expression="/WEB-INF/views/app/cms/{1}/{2}/{3}.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/cms/*/*" extends="cmsLayout">
+ 		<put-attribute name="body" expression="/WEB-INF/views/app/cms/{1}/{2}.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/cms/*" extends="cmsLayout">
+ 		<put-attribute name="body" expression="/WEB-INF/views/app/cms/{1}.jsp"></put-attribute>
+	</definition>
+	
+</tiles-definitions>

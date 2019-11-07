@@ -1,0 +1,18 @@
+@charset "utf-8";
+/*
+ * 제작자 : 장지은(whale2041@gmail.com)
+ * 작성일 : 2016-09-12
+ * 마지막 수정일 :2016-09-12
+ * ie7 이하
+ */
+
+*:first-child+html select.select{vertical-align:middle;margin:0 2px}
+*:first-child+html a.btn{cursor:pointer;padding-top:4px;padding-bottom:4px}
+*:first-child+html .modal-dialog{display:none}
+*:first-child+html table.type2 label,
+*:first-child+html table.type3 label{padding-left:1px;margin-right:5px}
+*:first-child+html .menuTypeBox .radio input{margin-right:-5px}
+*:first-child+html .select2-container--default .select2-selection--single .select2-selection__rendered{line-height:26px}
+*:first-child+html .select2-container .select2-selection--single{height:27px}
+*:first-child+html .select2-search--dropdown .select2-search__field{padding-left:0;padding-right:0;margin-left:-1px;line-height:16px}
+*:first-child+html .ui-accordion .ui-accordion-header .ui-state-default .ui-icon{display:none}

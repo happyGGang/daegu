@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.boardAllSearch.BoardAllSearchDao">
+
+	<sql id="where">
+		<if test="homepage_id != null and homepage_id !=''">
+			AND
+				B.homepage_id = #{homepage_id}
+		</if>
+		<if test="manage_idx > 0">
+			AND
+				B.manage_idx = #{manage_idx}
+		</if>
+        <if test="(search_type!=null and search_type!='') and (search_text!=null and search_text!='')">
+        	AND
+	        <choose>
+	            <when test="search_type == 'title+content'">
+	                (title LIKE '%'||#{search_text}||'%' OR DBMS_LOB.INSTR(CONTENT, #{search_text}) > 0)
+				</when>
+				<when test="search_type == 'title'">
+				    ${search_type} LIKE '%'||#{search_text}||'%'
+				</when>
+				<otherwise>
+					${search_type} = #{search_text}
+				</otherwise>
+	        </choose>
+        </if>
+        <if test='hwp_only != null and hwp_only == "Y"'>
+        	AND (
+        			SELECT COUNT(*)
+        			FROM CMS_BOARD_FILE z
+        			WHERE
+        				z.board_idx = A.board_idx
+        			AND z.file_ext_name = '.hwp'
+        	) > 0
+        </if>
+        <if test='excel_only != null and excel_only == "Y"'>
+        	AND (
+        			SELECT COUNT(*)
+        			FROM CMS_BOARD_FILE z
+        			WHERE
+        				z.board_idx = A.board_idx
+        			AND z.file_ext_name IN ('.xlsx', '.xls')
+        	) > 0
+        </if>
+    </sql>
+
+	<select id="getBoard" resultType="kr.co.whalesoft.app.cms.boardAllSearch.BoardAllSearch">
+		SELECT
+			H.context_path as imsi_v_2, H.homepage_name as imsi_v_1, A.*
+		FROM
+			(
+			${pagingTop}
+			SELECT
+				A.manage_idx, A.board_idx, A.group_idx, A.parent_idx, A.group_depth,
+				A.view_count, A.notice_yn, A.title, A.add_id,
+        		A.user_name, A.user_ip, A.delete_yn, A.add_date, A.modify_date,
+				A.file_count, A.preview_img, A.secret_yn, A.content_summary,
+				A.category1, A.category2, B.homepage_id, B.board_name, B.board_type
+			FROM
+				CMS_BOARD A, CMS_BOARD_MANAGE B
+			WHERE
+				A.delete_yn = 'N'
+			AND	A.manage_idx = B.manage_idx
+				<include refid="where"/>
+	      	ORDER BY
+	      		A.add_date DESC
+	      	${pagingBottom}
+	      	) A, CMS_HOMEPAGE H
+		WHERE
+			A.homepage_id = H.homepage_id
+	</select>
+
+	<select id="getBoardCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_BOARD A, CMS_BOARD_MANAGE B
+		WHERE
+			A.delete_yn = 'N'
+		AND	A.manage_idx = B.manage_idx
+			<include refid="where"/>
+	</select>
+
+	<select id="getBoardFile" resultType="kr.co.whalesoft.app.board.boardFile.BoardFile">
+		SELECT
+			board_idx, file_idx, real_file_name, file_name, file_ext_name,
+			file_size
+		FROM
+			CMS_BOARD_FILE
+		WHERE
+			board_idx = #{board_idx}
+<!-- 		AND file_ext_name = '.hwp' -->
+		ORDER BY
+			add_date ASC
+	</select>
+
+</mapper>

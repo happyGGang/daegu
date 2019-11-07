@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.code.CodeDao">
+
+	<select id="getCodeGroupTreeList" resultType="kr.co.whalesoft.app.cms.code.Code">
+		SELECT * FROM
+		(
+			SELECT 
+				'-1' AS PARENT_GROUP_ID,
+		   		'ROOT' AS GROUP_ID,
+		      	'코드그룹 모음' AS GROUP_NAME,
+		      	'수정할 수 없습니다.' AS REMARK,
+		      	1 AS LOAD_ON_DEMAND,
+		      	'' AS HOMEPAGE_YN
+			FROM DUAL
+			UNION ALL
+			SELECT
+	      		'ROOT' AS PARENT_GROUP_ID, 
+	      		GROUP_ID, 
+	      		GROUP_NAME || '(' || GROUP_ID || ')' AS GROUP_NAME, 
+	      		REMARK, 
+	      		0 AS LOAD_ON_DEMAND,
+	      		HOMEPAGE_YN
+			FROM
+				CMS_CODE_GROUP
+			WHERE 1 = 1
+				<choose>
+					<when test="mode != null and mode != 'CMS'">
+						AND HOMEPAGE_ID = #{homepage_id}	
+					</when>
+					<otherwise>
+						AND HOMEPAGE_ID = 'CMS'
+					</otherwise>
+				</choose>
+		)
+		CONNECT BY PRIOR GROUP_ID = PARENT_GROUP_ID
+		START WITH GROUP_ID = 'ROOT'
+		ORDER SIBLINGS BY GROUP_ID
+	</select>
+	
+	<select id="getCodeGroup" resultType="kr.co.whalesoft.app.cms.code.Code">
+		SELECT
+			GROUP_ID, GROUP_NAME, REMARK, HOMEPAGE_YN
+		FROM (
+			SELECT		'00000' as group_id, '홈페이지리스트' as group_name,'없는 코드이지만 홈페이지 리스트를 코드처럼 사용하기 위해 등록' as remark,'Y' as homepage_yn
+			FROM		DUAL
+			UNION ALL
+			SELECT
+				GROUP_ID, GROUP_NAME, REMARK, HOMEPAGE_YN
+			FROM
+				CMS_CODE_GROUP
+			<if test='mode != null and mode != "CMS"'>
+			WHERE
+				HOMEPAGE_ID = #{homepage_id}	
+			</if>
+		)
+		ORDER BY
+			GROUP_ID			
+	</select>
+	
+	<select id="getCodeGroupOne" resultType="kr.co.whalesoft.app.cms.code.Code">
+		SELECT
+			GROUP_ID, GROUP_NAME, REMARK, HOMEPAGE_YN
+		FROM
+			CMS_CODE_GROUP
+		WHERE
+			<choose>
+				<when test="mode != 'CMS'">
+				(HOMEPAGE_ID = #{homepage_id} AND GROUP_ID = #{group_id})	
+				</when>
+				<otherwise>
+				(HOMEPAGE_ID = 'CMS' AND GROUP_ID = #{group_id})
+				</otherwise>
+			</choose>
+			
+			
+	</select>
+	
+	<insert id="addCodeGroup">
+		INSERT INTO CMS_CODE_GROUP
+		(
+			HOMEPAGE_ID, GROUP_ID, GROUP_NAME, HOMEPAGE_YN, ADD_DATE, 
+			ADD_ID, MODIFY_DATE, MODIFY_ID, REMARK
+		) VALUES
+		(
+			#{homepage_id}, #{group_id}, #{group_name}, #{homepage_yn}, SYSDATE,
+			#{cud_id}, SYSDATE, #{cud_id}, #{remark}
+		)
+	</insert>
+	
+	<update id="modifyCodeGroup">
+		UPDATE 
+			CMS_CODE_GROUP
+		SET
+			GROUP_NAME 	= #{group_name},
+			HOMEPAGE_YN = #{homepage_yn},
+			REMARK 		= #{remark},
+			MODIFY_DATE = SYSDATE,
+			MODIFY_ID 	= #{cud_id}
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND GROUP_ID = #{group_id}
+	</update>
+	
+	<delete id="deleteCodeGroup">
+		DELETE
+			CMS_CODE_GROUP
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND GROUP_ID = #{group_id}
+	</delete>
+	
+	<select id="getCodeCount" resultType="int">
+		SELECT COUNT(*) AS CNT FROM CMS_CODE
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND GROUP_ID = #{group_id}
+	</select>
+	
+	<select id="getCodeList" resultType="kr.co.whalesoft.app.cms.code.Code">
+		SELECT
+			HOMEPAGE_ID, GROUP_ID, CODE_ID, CODE_NAME, USE_YN, REMARK,
+			PRINT_SEQ
+		FROM
+			CMS_CODE
+		WHERE
+			(HOMEPAGE_ID = #{homepage_id} AND GROUP_ID = #{group_id})
+			OR 
+			(HOMEPAGE_ID = 'CMS' AND GROUP_ID = #{group_id})
+		ORDER BY
+			PRINT_SEQ
+	</select>
+	
+	<select id="getCode" resultType="kr.co.whalesoft.app.cms.code.Code">
+		<if test='group_id != null and group_id == "00000"'>
+			SELECT HOMEPAGE_ID, '00000' AS GROUP_ID, HOMEPAGE_ID AS CODE_ID, HOMEPAGE_NAME AS CODE_NAME, 'Y' AS USE_YN, REMARK AS REMARK, 0 AS PRINT_SEQ
+			FROM CMS_HOMEPAGE
+			WHERE HOMEPAGE_TYPE != 0
+			ORDER BY HOMEPAGE_TYPE ASC, HOMEPAGE_NAME ASC
+		</if>
+		<if test='group_id != null and group_id != "00000"'>
+		SELECT
+			HOMEPAGE_ID, GROUP_ID, CODE_ID, CODE_NAME, USE_YN, REMARK,
+			PRINT_SEQ
+		FROM
+			CMS_CODE
+		WHERE
+			(
+				(HOMEPAGE_ID = #{homepage_id} AND GROUP_ID = #{group_id}) 
+				OR 
+				(HOMEPAGE_ID = 'CMS' AND GROUP_ID = #{group_id})
+			) AND
+			USE_YN = 'Y'
+		ORDER BY
+			PRINT_SEQ
+		</if>
+	</select>
+	
+	<select id="getCodeOne" resultType="kr.co.whalesoft.app.cms.code.Code">
+		SELECT
+			HOMEPAGE_ID, GROUP_ID, CODE_ID, CODE_NAME, USE_YN, REMARK,
+			PRINT_SEQ
+		FROM
+			CMS_CODE
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND CODE_ID = #{code_id}
+		<if test="group_id != null and group_id != ''">
+		AND group_id = #{group_id}
+		</if>
+	</select>
+	
+	<insert id="addCode">
+		INSERT INTO CMS_CODE
+		(
+			HOMEPAGE_ID, GROUP_ID, CODE_ID, CODE_NAME, USE_YN, REMARK,
+			PRINT_SEQ, ADD_DATE, ADD_ID, MODIFY_DATE, MODIFY_ID
+		) VALUES
+		(
+			#{homepage_id}, #{group_id}, #{code_id}, #{code_name}, #{use_yn}, #{remark},
+			#{print_seq}, SYSDATE, #{cud_id}, SYSDATE, #{cud_id}
+		)
+	</insert>
+	
+	<update id="modifyCode">
+		UPDATE 
+			CMS_CODE 
+		SET
+			CODE_NAME 	= #{code_name},
+			USE_YN 		= #{use_yn},
+			REMARK 		= #{remark},
+			PRINT_SEQ 	= #{print_seq},
+			MODIFY_DATE = SYSDATE,
+			MODIFY_ID 	= #{cud_id}
+		WHERE
+			HOMEPAGE_ID	= #{homepage_id} AND group_id = #{group_id} AND CODE_ID = #{code_id}
+	</update>
+	
+	<delete id="deleteCode">
+		DELETE FROM CMS_CODE 
+		WHERE
+			HOMEPAGE_ID	= #{homepage_id} AND group_id = #{group_id} AND CODE_ID = #{code_id}
+	</delete>
+	
+	<select id="getNextPrintSeq" resultType="int">
+		SELECT
+			NVL(MAX(PRINT_SEQ), 0) + 10
+		FROM
+			CMS_CODE
+		WHERE
+			HOMEPAGE_ID	= #{homepage_id} AND GROUP_ID = #{group_id}
+	</select>
+	
+</mapper>

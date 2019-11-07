@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.libSvcStatistics.LibSvcStatisticsDao">
+
+	<select id="getCategoryCnt" resultType="kr.co.whalesoft.app.cms.libSvcStatistics.LibSvcStatistics">
+		SELECT
+			NVL(SUM(req_cnt), 0) AS req_cnt,
+			NVL(SUM(reg_cnt), 0) AS reg_cnt,
+			NVL(SUM(cmp_cnt), 0) AS cmp_cnt,
+			NVL(SUM(req_cnt) + SUM(reg_cnt) + SUM(cmp_cnt), 0) AS sum_cnt
+		FROM
+			(
+			SELECT
+				NVL(DECODE(request_state, '0', COUNT(request_state)), 0) AS req_cnt,
+				NVL(DECODE(request_state, '1', COUNT(request_state)), 0) AS reg_cnt,
+				NVL(DECODE(request_state, '2', COUNT(request_state)), 0) AS cmp_cnt
+			FROM
+				CMS_BOARD
+			WHERE
+				manage_idx = 563
+			AND	category1 = #{code_id}
+			<if test="homepage_id != null and homepage_id != ''">
+			AND	category2 = #{homepage_id}
+			</if>
+			<if test="(start_date != null and start_date != '') and (end_date != null and end_date != '')">
+			AND	TO_DATE(TO_CHAR(add_date, 'yyyy-MM-dd')) >= TO_DATE(#{start_date}, 'yyyy-MM-dd')
+			AND	TO_DATE(TO_CHAR(add_date, 'yyyy-MM-dd')) &lt;= TO_DATE(#{end_date}, 'yyyy-MM-dd')
+			</if>
+			GROUP BY request_state
+			)
+	</select>
+		
+	<select id="getMemberCnt" resultType="kr.co.whalesoft.app.cms.libSvcStatistics.LibSvcStatistics">
+		SELECT
+			<if test="sum_yn != 'Y'.toString()">
+			H.homepage_code "loca",
+			</if>
+			SUM(DECODE(U.GUBUN, '통합', 1, 0)) "all_member_cnt",
+			SUM(DECODE(U.GUBUN, '자관', 1, 0)) "a_member_cnt",
+			SUM(DECODE(U.GUBUN, '준회원', 1, 0)) "b_member_cnt",
+			SUM(DECODE(U.GUBUN, '탈퇴', 1, 0)) "c_member_cnt",
+			SUM(DECODE(U.GUBUN, '반입회원', 1, 0)) "d_member_cnt",
+			SUM(DECODE(U.GUBUN, '전환회원', 1, 0)) "e_member_cnt",
+			SUM(LOAN_CNT) "loan_cnt"
+		FROM
+			(
+			SELECT U.*,
+				CASE
+				WHEN U.GUBUN IN ('반입회원', '전환회원') THEN (SELECT COUNT(*) FROM GBELAS.TN_BC_USER_LOAN_STAT L WHERE L.SEQ_NO = U.SEQ_NO AND	L.LOCA = U.LOCA AND	loan_date >= #{start_date} AND	loan_date &lt;= #{end_date})
+				ELSE 0
+				END LOAN_CNT
+			FROM(
+				SELECT
+					*
+				FROM
+					GBELAS.TN_ST_USER_STAT
+				where
+					work_date >= #{start_date}
+				AND	work_date &lt;= #{end_date}
+				UNION
+				SELECT
+					*
+				FROM
+					GBELAS.TN_ST_USER_BC_STAT
+				WHERE
+					work_date >= #{start_date}
+				AND	work_date &lt;= #{end_date}
+				) U
+			) U,
+			(SELECT homepage_code, print_seq, homepage_type, homepage_name FROM CMS_HOMEPAGE WHERE homepage_type != 0) H
+		WHERE
+			U.loca(+) = H.homepage_code
+		<if test="sum_yn != 'Y'.toString()">
+		GROUP BY U.LOCA, print_seq, homepage_code, homepage_type, homepage_name
+		</if>
+		ORDER BY print_seq, homepage_type, homepage_name
+	</select>
+	
+</mapper>

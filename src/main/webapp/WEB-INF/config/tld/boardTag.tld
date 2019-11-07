@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd" version="2.0">
+
+	<description>boardTag</description>
+	<display-name>boardTag</display-name>
+	<tlib-version>1.0</tlib-version>
+	<short-name>cmsTag</short-name>
+	<uri>http://www.whalesoft.co.kr</uri>
+	
+	<tag>
+		<description>파일 확장자 리턴</description>
+		<name>file_ext</name>
+		<tag-class>kr.co.whalesoft.app.board.boardFile.BoardFileTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>file_ext</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<description>게시판 필드 출력</description>
+		<name>field_manage</name>
+		<tag-class>kr.co.whalesoft.app.cms.boardManage.fieldManage.FieldManageTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>field</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>field_type</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>field_str</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>manage_idx</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<description>게시물 목록을 가져온다.</description>
+		<name>getBoardList</name>
+		<tag-class>kr.co.whalesoft.framework.tag.board.BoardListTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>attibuteName</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>manage_idx</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>count</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+</taglib>

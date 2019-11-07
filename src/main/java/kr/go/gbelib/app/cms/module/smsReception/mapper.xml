@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.smsReception.SmsReceptionDao">
+
+	<sql id="field">
+		homepage_id, reception_idx, reception_name, reception_phone, add_id,
+		add_date, mod_id, mod_date
+	</sql>
+	
+	<select id="getSmsReceptionList" resultType="kr.go.gbelib.app.cms.module.smsReception.SmsReception">
+		SELECT
+			<include refid="field" />
+		FROM
+			SMS_RECEPTION
+		WHERE
+			homepage_id = #{homepage_id}
+		ORDER BY reception_idx DESC
+	</select>
+	
+	<select id="getSmsReceptionCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			SMS_RECEPTION
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+	
+	<select id="getSmsReceptionOne" resultType="kr.go.gbelib.app.cms.module.smsReception.SmsReception">
+		SELECT
+			<include refid="field" />
+		FROM
+			SMS_RECEPTION
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	reception_idx = #{reception_idx}
+	</select>
+	
+	<insert id="addSmsReception">
+		<selectKey keyProperty="reception_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(reception_idx), 0) + 1 FROM SMS_RECEPTION WHERE homepage_id = #{homepage_id}
+		</selectKey>
+		INSERT INTO SMS_RECEPTION
+		(
+			homepage_id, reception_idx, reception_name, reception_phone, add_id,
+			add_date
+		)
+		VALUES
+		(
+			#{homepage_id}, #{reception_idx}, #{reception_name}, #{reception_phone}, #{add_id},
+			SYSDATE
+		)
+	</insert>
+	
+	<update id="modSmsReception">
+		UPDATE SMS_RECEPTION
+		SET
+			reception_name = #{reception_name},
+			reception_phone = #{reception_phone},
+			mod_id = #{mod_id},
+			mod_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	reception_idx = #{reception_idx}
+	</update>
+	
+	<select id="getWorkIdx" resultType="int">
+		SELECT
+			NVL(MAX(work_idx), 0) + 1
+		FROM
+			RECEPTION_WORK
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	reception_idx = #{reception_idx}
+	</select>
+	
+	<update id="mergeReception">
+		MERGE INTO
+			RECEPTION_WORK a
+		USING DUAL
+		ON
+			(homepage_id = #{homepage_id} AND reception_idx = #{reception_idx} AND work_idx = #{work_idx})
+		WHEN MATCHED THEN
+			UPDATE SET
+				work_code = #{work_code},
+				reception_yn = #{reception_yn}
+		WHEN NOT MATCHED THEN
+			INSERT
+			(
+				homepage_id, reception_idx, work_idx, work_code, reception_yn
+			)
+			VALUES
+			(
+				#{homepage_id}, #{reception_idx}, #{work_idx}, #{work_code}, #{reception_yn}
+			)
+	</update>
+	
+	<select id="getReceptionWorkList" resultType="kr.go.gbelib.app.cms.module.smsReception.SmsReception">
+		SELECT
+			homepage_id, reception_idx, work_idx, work_code, reception_yn
+		FROM
+			RECEPTION_WORK
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	reception_idx = #{reception_idx}
+	</select>
+	
+	<delete id="receptionDel">
+		DELETE FROM
+			SMS_RECEPTION
+		WHERE
+			homepage_id = #{homepage_id}
+		AND reception_idx = #{reception_idx}
+	</delete>
+	
+	<delete id="receptionWorkDel">
+		DELETE FROM
+			RECEPTION_WORK
+		WHERE
+			homepage_id = #{homepage_id}
+		AND reception_idx = #{reception_idx}
+	</delete>
+	
+	<select id="getSmsReceptionMembers" resultType="kr.go.gbelib.app.cms.module.smsReception.SmsReception">
+		SELECT
+  			a.homepage_id, a.reception_idx, a.reception_name, a.reception_phone, b.work_idx,
+  			b.work_code, b.reception_yn
+		FROM
+			SMS_RECEPTION a, RECEPTION_WORK b
+		WHERE
+			a.homepage_id = b.homepage_id
+		AND	a.reception_idx = b.reception_idx
+		AND a.homepage_id = #{homepage_id}
+		AND work_code = #{work_code}
+		AND reception_yn = 'Y'
+	</select>
+	
+</mapper>

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.commonMenu.CommonMenuDao">
+    
+    <sql id="field">
+		menu_idx, parent_menu_idx, menu_url, menu_name,  
+		menu_type, print_seq, use_yn, view_yn, 
+		add_date, modify_date, group_idx, manage_idx, content_title_yn,
+		link_url
+    </sql>
+	
+	<select id="getMenuTreeList" resultType="kr.co.whalesoft.app.cms.commonMenu.CommonMenu">
+		SELECT * FROM
+		(
+			SELECT 
+	      		0 AS menu_idx,
+	      		-1 AS parent_menu_idx,
+	      		'' AS menu_url,
+	      		'최상위' as menu_name,
+	      		0 AS print_seq,
+	      		0 AS manage_idx,
+	      		'' AS board_category1,
+	      		'ROOT' AS menu_type,
+	      		1 AS load_on_demand
+	  		FROM DUAL
+	  		UNION ALL
+			SELECT 
+				menu_idx,
+				parent_menu_idx,
+				menu_url,
+				menu_name,
+				print_seq,
+				manage_idx,
+				board_category1,
+				menu_type,
+			CASE 
+	    	WHEN
+	    		menu_type = 'FOLDER' THEN 1 ELSE 0
+	    	END AS 
+	    		load_on_demand 
+	    	FROM CMS_COMMON_MENU
+    	)
+		CONNECT BY PRIOR menu_idx = parent_menu_idx 
+		START WITH parent_menu_idx = -1 
+		ORDER SIBLINGS BY print_seq
+	</select>
+	
+	<select id="getMenuTreeListCache" resultType="kr.co.whalesoft.app.cms.commonMenu.CommonMenu">
+		SELECT level as menu_level, A.* FROM
+		(
+			SELECT 
+				menu_idx,
+				parent_menu_idx,
+				menu_url,
+				menu_name,
+				print_seq,
+				menu_type,
+				group_idx,
+				manage_idx,
+				link_url,
+				view_yn,
+				menu_top_icon,
+				board_category1,
+			CASE 
+	    	WHEN 
+	    		menu_type = 'FOLDER' THEN 1 ELSE 0
+	    	END AS 
+	    		load_on_demand 
+	    	FROM CMS_COMMON_MENU
+	    	WHERE 
+	    		use_yn = 'Y' AND
+				view_yn != 'N'
+    	) A
+		CONNECT BY PRIOR menu_idx = parent_menu_idx 
+		START WITH parent_menu_idx = 0
+		ORDER SIBLINGS BY print_seq
+	</select>
+	
+	<select id="getMenuLeftTreeListCache" resultType="kr.co.whalesoft.app.cms.commonMenu.CommonMenu">
+		SELECT
+			menu_idx,
+			parent_menu_idx,
+			menu_url,
+			menu_name,
+			print_seq,
+			menu_type,
+			manage_idx,
+			link_url,
+			view_yn,
+			menu_left_icon,
+			(level) AS menu_level,
+			board_category1
+		FROM 
+			CMS_COMMON_MENU
+		WHERE
+			use_yn = 'Y' AND
+			view_yn != 'N' AND
+			group_idx = #{group_idx} 
+        CONNECT BY PRIOR menu_idx = parent_menu_idx 
+        START WITH parent_menu_idx = 0
+        ORDER SIBLINGS BY print_seq ASC
+	</select>
+	
+	<!-- 메뉴목록을 가져온다. -->
+	<select id="getMenu" resultType="kr.co.whalesoft.app.cms.commonMenu.CommonMenu">
+		SELECT 
+			menu_url as id,
+			menu_name as label
+		FROM CMS_COMMON_MENU
+		WHERE
+			parent_menu_idx = #{id}
+	</select>
+	
+	<!-- 메뉴정보를 가져온다. -->
+	<select id="getMenuOne" resultType="kr.co.whalesoft.app.cms.commonMenu.CommonMenu">
+		SELECT 
+			menu_idx, parent_menu_idx, menu_url, menu_name, group_idx,
+			menu_type, use_yn, view_yn, print_seq,  
+			add_date, modify_date, group_idx, menu_full_path_name, 
+			manage_idx, content_title_yn, menu_img, link_url, menu_top_icon,
+			menu_left_icon, board_category1
+		FROM
+			CMS_COMMON_MENU
+		WHERE
+			menu_idx = #{menu_idx}
+	</select>
+	
+	<select id="getParentMenuOne" resultType="kr.co.whalesoft.app.cms.commonMenu.CommonMenu">
+		SELECT
+			menu_idx, parent_menu_idx, menu_url , menu_name,  
+			menu_type, use_yn, view_yn, print_seq,  
+			add_date, modify_date, group_idx, menu_full_path_name, 
+			manage_idx, content_title_yn, menu_img, link_url, menu_top_icon,
+			menu_left_icon, board_category1
+		FROM CMS_COMMON_MENU
+		WHERE
+			menu_idx = (SELECT parent_menu_idx FROM CMS_COMMON_MENU WHERE menu_idx = #{menu_idx}) 
+	</select>
+	
+	<select id="getUseMenu" resultType="int">
+		SELECT COUNT(*) FROM CMS_COMMON_MENU 
+		WHERE
+			menu_idx != #{menu_idx} AND
+			menu_url = #{menu_url}
+	</select>
+	
+	<!-- 메뉴데이터 등록 -->
+	<insert id="addMenu">
+		<selectKey keyProperty="menu_idx" resultType="int" order="BEFORE">
+		    SELECT NVL(MAX(menu_idx),0)+1 FROM CMS_COMMON_MENU 
+		</selectKey>
+		INSERT INTO CMS_COMMON_MENU
+		(
+			menu_idx, parent_menu_idx, menu_url, menu_name, 
+			menu_type, use_yn, view_yn, print_seq,  
+			add_date, modify_date, manage_idx, content_title_yn, 
+			link_url, group_idx, menu_full_path_name
+			<if test="menu_img != null and menu_img != ''">
+			, menu_img
+			</if>
+			<if test="menu_top_icon != null and menu_top_icon != ''">
+			, menu_top_icon
+			</if>
+			<if test="menu_left_icon != null and menu_left_icon != ''">
+			, menu_left_icon
+			</if>
+		) 
+			VALUES
+		(
+			#{menu_idx} , #{parent_menu_idx}, #{menu_url}, #{menu_name}, 
+			#{menu_type}, #{use_yn}, #{view_yn}, #{print_seq}, 
+			SYSDATE, SYSDATE, #{manage_idx}, #{content_title_yn}, 
+			#{link_url},
+		<choose>
+		<when test="group_idx == 0">
+			#{menu_idx}, #{menu_name}
+		</when>
+		<otherwise>
+			#{group_idx},
+			(
+				SELECT 
+	                LTRIM(SYS_CONNECT_BY_PATH(menu_name,' > '),' >') || ' > ' || #{menu_name} AS menu_full_path_name
+				FROM
+					CMS_COMMON_MENU
+                WHERE menu_idx = #{parent_menu_idx}
+				CONNECT BY PRIOR menu_idx = parent_menu_idx
+				START WITH parent_menu_idx = 0 
+			) 
+		</otherwise>
+		</choose>
+		<if test="menu_img != null and menu_img != ''">
+			, #{menu_img}
+		</if>
+		<if test="menu_top_icon != null and menu_top_icon != ''">
+			, #{menu_top_icon}
+		</if>
+		<if test="menu_left_icon != null and menu_left_icon != ''">
+			, #{menu_left_icon}
+		</if>
+		)
+	</insert>
+	
+	<!-- 메뉴데이터 수정 -->
+	<update id="modifyMenu">
+		UPDATE CMS_COMMON_MENU SET
+			menu_url = #{menu_url},
+			menu_name = #{menu_name}, 
+			menu_type = #{menu_type},
+			use_yn = #{use_yn}, 
+			view_yn = #{view_yn}, 
+			print_seq = #{print_seq},
+			modify_date = SYSDATE,
+			manage_idx = #{manage_idx},
+			content_title_yn = #{content_title_yn},
+			link_url = #{link_url},
+			<if test="menu_img != null and menu_img != ''">
+			menu_img = #{menu_img},
+			</if>
+			<if test="menu_top_icon != null and menu_top_icon != ''">
+			menu_top_icon = #{menu_top_icon},
+			</if>
+			<if test="menu_left_icon != null and menu_left_icon != ''">
+			menu_left_icon = #{menu_left_icon},
+			</if>
+			menu_full_path_name =
+			<choose>
+			<when test="parent_menu_idx == 0">
+				#{menu_name}
+			</when>
+			<otherwise>
+			(
+				SELECT 
+	                LTRIM(SYS_CONNECT_BY_PATH(menu_name,' > '),' >') || ' > ' || #{menu_name} AS menu_full_path_name
+				FROM
+					CMS_COMMON_MENU
+                WHERE menu_idx = #{parent_menu_idx}
+				CONNECT BY PRIOR menu_idx = parent_menu_idx
+				START WITH parent_menu_idx = 0
+			)
+			</otherwise>
+			</choose>
+		WHERE
+			menu_idx = #{menu_idx}
+	</update>
+	
+	<update id="modifyParentMenu">
+		UPDATE CMS_COMMON_MENU SET
+			parent_menu_idx = #{move_target_menu_idx},
+			group_idx = NVL((SELECT group_idx FROM CMS_COMMON_MENU where menu_idx = #{move_target_menu_idx}), 0),
+			modify_date = SYSDATE
+		WHERE
+			menu_idx = #{menu_idx}
+	</update>
+	
+	<!-- 메뉴삭제 -->
+	<delete id="deleteMenu">
+	    DELETE CMS_COMMON_MENU 
+	    WHERE 
+	    	menu_idx = #{menu_idx}
+	</delete>
+	
+	<select id="getMenuChildCount" resultType="int">
+		SELECT COUNT(*) FROM CMS_COMMON_MENU
+		WHERE
+			parent_menu_idx = #{menu_idx}	    
+	</select>
+	
+	<!-- 메뉴 전체url과 권한을 가져온다. -->
+	<select id="getMenuChildList" resultType="kr.co.whalesoft.app.cms.commonMenu.CommonMenu">
+		SELECT 
+			menu_url,
+			menu_name 
+		FROM 
+			CMS_COMMON_MENU
+		CONNECT BY PRIOR 
+			menu_idx = parent_menu_idx 
+		START WITH 
+			parent_menu_idx = #{menu_idx} 
+		ORDER SIBLINGS BY print_seq
+	</select>
+	
+	<select id="getNextPrintSeq" resultType="int">
+		SELECT
+			NVL(MAX(print_seq), 0) + 10
+		FROM
+			CMS_COMMON_MENU
+		WHERE
+			parent_menu_idx = #{menu_idx} 
+	</select>
+	
+</mapper>

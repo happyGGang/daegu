@@ -1,0 +1,140 @@
+@charset "utf-8";
+@import url("../../../common/css/type14.css");
+
+#header h1{padding-top:15px}
+.Gnb .gnb-menu>li.menu3>ul{text-align:center}
+.Gnb .gnb-menu>li.menu3>ul>li.first{margin-left:22%}
+
+.main1 .txt{height:109px}
+.main2 .lt1, .main2 .lt2, .main2 .lt3{height:220px}
+.main2 .lt1 .box{height:189px}
+@media all and (max-width:580px){
+	.main2 .lt1 .box,
+	.main2 .lt1, .main2 .lt2, .main2 .lt3{height:auto}
+}
+.main2 .lt3 ul{padding:0 0 5px}
+.main2 .lt3 .lib-info li{padding-bottom:0}
+.main2 .lt3 .lib-info dl{padding-top:5px}
+.main2 .lt3 .lib-info dd{padding-left:16px}
+.main2 .lt3 .lib-info dd.holiday{padding:3px 0 0}
+.main2 .lt3 .lib-info dd.holiday strong{color:#ffd800;margin-right:3px}
+.main2 .lt3 .lib-info dd.holiday span em{letter-spacing:-1px;font-family:verdana;font-size:11px;display:inline-block;zoom:1;*display:inline;color:#45b1db;background:#fff;width:20px;height:20px;line-height:20px;text-align:center;border-radius:50%}
+
+/* 인사말 */
+/*.greeting .t1{font-size:190%;letter-spacing:-1px;background:url('../img/contents/greeting_bg.jpg') no-repeat right bottom}*/
+.greeting .t1{font-size:190%;letter-spacing:-1px;padding: 20px 0 25px 35px;border-bottom: 1px solid #cdcdcd;width: 400px;}
+.greeting .box{padding:20px 260px 60px 0;background:url('/resources/homepage/od/img/contents/new_yj/introd_p01.png') no-repeat right 40%}
+
+/*.greeting .gtxt{border:1px solid #ddd;border-radius:5px;background:#fcfcfc;padding:20px;}*/
+.greeting .gtxt{padding:20px;background:url('/resources/homepage/od/img/contents/new_yj/introd_botm_bg.png') no-repeat right bottom}
+.greeting .txt p{padding:0 0 10px;font-size:105%}
+.greeting .txt p b {font-size:130%; line-height:30px} 
+.greeting .sign{padding:15px 0 0;font-size:120%}
+.greeting .sign span{color:#888;display:inline-block;zoom:1;*display:inline;vertical-align:middle}
+.greeting .sign span.name{margin-left:5px}
+@media all and (max-width:767px){
+	.greeting .t1{background-position:right 0;background-size:15%}
+	.greeting .box{padding-right:5%;background:none;}
+}
+@media all and (max-width:400px){
+	.greeting .t1{background-position:right bottom;background:none;}
+}
+
+/* 인사말 추가 20170114hjh*/
+.greeting{background:url('/resources/homepage/cd/img/contents/new_hjh/introd_bg.gif') no-repeat left top;}
+
+/* 연혁 2017-01-15 수정전
+.history{background:url('../img/contents/historyBg.jpg') no-repeat right bottom}
+.history p{border-bottom:1px solid #ddd;padding-bottom:15px;margin-bottom:10px}
+.history p.tit{font-size:250%;color:#429d1f;font-weight:800;border:0;padding:0;margin:0}
+.history table,
+.history table th,
+.history table td{border:0;padding:5px 1px;vertical-align:top;background:none}
+.history table th{font-weight:800;word-break:keep-all;width:80px}
+@media all and (max-width:650px){
+	.history{background-size:25% auto;padding-bottom:10%}
+}
+@media all and (max-width:605px){
+	.history{background:none;padding:0}
+}
+*/
+
+/* CI 로고 */
+.ciBox .logo_box{background:url('../img/contents/logobg.gif');border:1px solid #808c9c;text-align:center;font-size:0;line-height:0;padding:5%}
+.ciBox .symbol{overflow:hidden;padding:5px 0}
+.ciBox .symbol p{width:60px;border:2px solid #ccc;border-radius:10px;padding:15px}
+.ciBox .symbol p,
+.ciBox .symbol ul{float:left}
+.ciBox .symbol ul{width:100%;margin-right:-94px}
+.ciBox .symbol li{margin-right:94px;padding:5px 0 10px 10px}
+.ciBox .symbol li strong{font-size:120%}
+.ciBox .imline{overflow:hidden;padding-top:5px}
+.ciBox .imline li{float:left;width:33.33%;font-size:13px;line-height:16px}
+.ciBox .imline li div{border:1px solid #d5d5d5;border-radius:7px;padding:10px;margin:0 3%;text-align:center}
+.ciBox .imline li div p{background:#53ade2;border-radius:5px;padding:5%;color:#fff;line-height:130%}
+.ciBox .imline li div span{vertical-align:middle;display:inline-block;zoom:1;*display:inline}
+.ciBox .imline li div span.t1{font-size:110%}
+.ciBox .imline li.imline2 div p{background-color:#f9c059}
+.ciBox .imline li.imline3 div p{background-color:#999}
+
+/* 콘텐츠 */
+.color1{color:#095077}
+.color2{color:#337a82}
+
+/* 접속기록안내 */
+#memberInfo{position:absolute;width:22%;left:98%;top:28%;background:#fff;margin-left:-37%;box-shadow:0px 1px 7px 0px rgba(0,0,0,0.5);z-index: 9;}
+#memberInfo .inbox{position:relative;border:1px solid #ccc;padding:10px;}
+#memberInfo .inbox dt{font-weight:bold;font-family:verdana;padding-bottom: 10px;}
+#memberInfo .inbox dd{padding:3px 0}
+a#closeMemberInfo{position:absolute;right:7px;top:5px;font-size:120%}
+#line{width: 160px;}
+div.loginInfo{padding-top: 8px;padding-bottom: 15px;}
+span.fontRed{color: red;}
+span.fontBlue{color: rgb(27,104,199);font-weight: bold;}
+div.memberCon{background-color: rgb(240,240,240);border-radius: 1em;}
+div.memberCon2{padding-top: 12px;padding-left: 10px;padding-right: 10px; padding-bottom: 28px;}
+a.btnStyle{float: right;margin-top: 6px;}
+#loginIcon{padding-top: 13px;padding-left:10px;}
+.boxnImg{ float: left; }
+.box2_1 { float: left; width: 34%; }
+.box3_1 { float: left; width: 38%; border-left: 1px solid #ddd; }
+.boxn { padding-top: 1%; padding-bottom: 1%; padding-left: 5%; }
+
+
+/* 자료실안내 */
+.room-pic{font-size:200%;line-height:100%}
+
+/* 도서관서비스 20170115hjh*/
+.service_bg04{ border: 1px solid #ddd;background: url(/resources/homepage/cd/img/contents/new_hjh/service04_01tbg.gif) no-repeat left;
+padding:20px 15px 20px 215px; margin-bottom:25px;}
+.service_stit04{color: #0668b3 !important;background: url(/resources/homepage/cd/img/contents/new_hjh/service04_02ico.gif) no-repeat 0px 14px;padding-left: 17px !important;}
+
+.service_sp40{margin-left:35px;}
+
+/* 독서회 */
+.aura{background:url('../img/contents/new_yj/cm_bg.png') no-repeat right bottom}
+@media screen and (max-width:1000px){
+	.aura{background-size:40% auto}
+}
+/* 이메일무단수집거부 */
+.emailno{padding-left:23%!important;background-image:url('../img/contents/emainno.jpg');background-position:3% 15px;background-repeat:no-repeat}
+@media all and (max-width:1000px){
+	.emailno{background-size:17% auto}
+}
+
+@media all and (max-width:1000px){
+	#header h1{padding-top:3px}
+	#header h1 img{height:43px}
+}
+
+@media all and (max-width:695px){
+	.main1 .txt{height:162px}
+}
+
+#footer { padding-bottom: 20px; }
+#footer address, #footer .info, #footer .site_link { float: none; padding-bottom: 10px; }
+#footer .info { width: auto; }
+#footer address {width: auto; }
+#footer .site_link div { display: block; }
+#footer .site_link { width: inherit; }
+#footer .section { position: relative; }

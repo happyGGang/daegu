@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:ehcache="http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+		http://www.springframework.org/schema/mvc  http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd
+		http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.1.xsd
+		">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	<context:component-scan base-package="kr.co.whalesoft.app" />
+	<context:component-scan base-package="kr.go.gbelib.app" />
+	
+	<!-- <mvc:annotation-driven>
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+				<property name="supportedMediaTypes" value="text/plain;charset=UTF-8" />
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven> -->
+	<mvc:annotation-driven />
+	
+	<mvc:default-servlet-handler />
+	
+	<!-- use @Async  -->
+	<task:annotation-driven />
+ 	
+ 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<mvc:resources location="/resources/" mapping="/resources/**" />
+	
+	<!-- Saves a locale change using a cookie -->
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver" />
+	
+	<mvc:interceptors>
+		<bean class="org.springframework.mobile.device.DeviceResolverHandlerInterceptor"/>
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
+		<bean class="kr.co.whalesoft.framework.interceptor.MDCInterceptor" />
+		<bean class="kr.co.whalesoft.framework.interceptor.AuthInterceptor" />
+		<bean class="kr.co.whalesoft.framework.interceptor.AjaxValidationInterceptor" />
+		<bean class="kr.co.whalesoft.framework.interceptor.MemberAuthInterceptor"/>
+		<bean class="kr.co.whalesoft.framework.interceptor.HomepageBaseInterceptor"/>
+		<mvc:interceptor>
+			<mvc:mapping path="/cms/**"/>
+			<mvc:mapping path="/wbuilder/**"/>
+			<mvc:mapping path="/pms/**"/>
+			<mvc:mapping path="/dms/**"/>
+			<bean class="kr.co.whalesoft.framework.interceptor.CMSBaseInterceptor"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/board/**"/>
+			<mvc:mapping path="/*/board/**"/>
+			<mvc:mapping path="/boardDelete/**"/>
+			<mvc:mapping path="/*/boardDelete/**"/>
+			<bean class="kr.co.whalesoft.framework.interceptor.BoardAuthoritiesInterceptor"/>	
+		</mvc:interceptor>
+		
+	</mvc:interceptors>
+	
+		
+	<!-- Application Message Bundle -->
+	<bean id="customPropertiesPersister" class="kr.co.whalesoft.framework.custom.spring.CustomPropertiesPersister"/>
+	<bean id="messageSource" class="kr.co.whalesoft.framework.custom.spring.CustomReloadableResourceBundleMessageSource">
+		<property name="propertiesPersister" ref="customPropertiesPersister"/>
+        <property name="basenames">
+            <list>
+                <value>**/*.properties</value>
+                <value>/WEB-INF/config/spring/validator</value>
+            </list>
+        </property>
+        <property name="cacheSeconds" value="100000" /> <!-- 0 다시읽지 않음 -->
+        <property name="defaultEncoding" value="UTF-8" /> <!-- properties 파일 작성시 UTF-8로 작성 -->
+        <property name="fallbackToSystemLocale" value="false" /> <!-- true 라면 (기본값)message_ko_KR.properties 와 message.prorperties를 참조 -->
+        <property name="useCodeAsDefaultMessage" value="true" /> <!-- 메세지가 없는 경우 기본 값 출력 운영환경에 적용  -->
+    </bean>
+    
+    <bean id="messageSourceAccessor" class="org.springframework.context.support.MessageSourceAccessor">
+        <constructor-arg ref="messageSource"/>
+    </bean>
+    
+    <bean id="messageResolver" class="kr.co.whalesoft.framework.utils.MessageResolver">
+        <property name="messageSourceAccessor" ref="messageSourceAccessor"/>
+    </bean>  
+    <!-- Application Message Bundle END-->
+    
+	
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+	
+	<ehcache:annotation-driven />
+
+  	<ehcache:config cache-manager="cacheManager">
+    	<ehcache:evict-expired-elements interval="60" />
+  	</ehcache:config>
+    
+  	<!-- ehCache bean -->
+  	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" >
+    	<property name="configLocation"  value="/WEB-INF/config/spring/ehcache-config.xml"/>
+  	</bean> 
+  	
+  	<!-- 전자도서관 자동 반납 서비스 -->
+  	<bean id="lendingAutoReturnService" class="kr.go.gbelib.app.cms.module.elib.lending.LendingAutoReturnService" />
+  	<task:scheduled-tasks>
+        <task:scheduled ref="lendingAutoReturnService" method="autoReturn" cron="0 3 0 * * *"/>
+    </task:scheduled-tasks>
+    
+    <!-- 수강취소 기간안내 서비스 -->
+  	<bean id="teachCancleScheduler" class="kr.go.gbelib.app.cms.module.teach.TeachService" />
+  	<task:scheduled-tasks>
+  		<task:scheduled ref="teachCancleScheduler" method="sendSmsTeachCancle" cron="0 0 10 * * *"/>
+  	</task:scheduled-tasks>
+	
+</beans>

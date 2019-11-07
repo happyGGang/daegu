@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.category.group.CategoryGroupDao">
+	
+	<select id="getCategoryGroupListAll" resultType="kr.go.gbelib.app.cms.module.category.group.CategoryGroup">
+		SELECT
+			homepage_id, group_idx, group_name, print_seq, use_yn, 
+			add_date, add_id, mod_date, mod_id, req_limit_yn, 
+			req_limit_type, req_limit_count, large_category_idx
+		FROM
+			TEACH_CATEGORY_GROUP
+		WHERE 
+			homepage_id = #{homepage_id} 
+		AND	large_category_idx = #{large_category_idx}
+		AND delete_yn = 'N'
+		ORDER BY
+			group_idx DESC
+	</select>
+	
+	<select id="getCategoryGroupList" resultType="kr.go.gbelib.app.cms.module.category.group.CategoryGroup">
+		SELECT
+			homepage_id, group_idx, group_name, print_seq, use_yn, 
+			add_date, add_id, mod_date, mod_id, req_limit_yn, 
+			req_limit_type, req_limit_count, large_category_idx
+		FROM
+			TEACH_CATEGORY_GROUP
+		WHERE 
+			homepage_id = #{homepage_id}
+		AND	large_category_idx = #{large_category_idx}
+		AND delete_yn = 'N'
+			<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
+			AND ${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+		ORDER BY
+			group_idx DESC
+	</select>
+	
+	<select id="getCategoryGroupListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			TEACH_CATEGORY_GROUP
+		WHERE 
+			homepage_id = #{homepage_id}
+		AND	large_category_idx = #{large_category_idx}
+		AND delete_yn = 'N'
+			<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
+			AND ${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+	</select>
+	
+	<select id="getCategoryGroupOne" resultType="kr.go.gbelib.app.cms.module.category.group.CategoryGroup">
+		SELECT
+			homepage_id, group_idx, group_name, print_seq, use_yn, 
+			add_date, add_id, mod_date, mod_id, req_limit_yn, 
+			req_limit_type, req_limit_count, large_category_idx
+		FROM
+			TEACH_CATEGORY_GROUP
+		WHERE 
+			homepage_id = #{homepage_id} 
+		AND large_category_idx = #{large_category_idx} 
+		AND group_idx = #{group_idx} 
+		AND delete_yn = 'N'
+	</select>
+	
+	<insert id="addCategoryGroup">
+		<selectKey keyProperty="group_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(group_idx),0)+1 FROM TEACH_CATEGORY_GROUP WHERE homepage_id = #{homepage_id}
+		</selectKey>
+		INSERT INTO 
+			TEACH_CATEGORY_GROUP
+		(
+			homepage_id, group_idx, group_name, print_seq, use_yn, add_date, add_id,
+			req_limit_yn, req_limit_type, req_limit_count, large_category_idx
+		) 
+			VALUES 
+		(
+			#{homepage_id}, #{group_idx}, #{group_name}, #{print_seq}, #{use_yn}, SYSDATE, #{add_id},
+			#{req_limit_yn}, #{req_limit_type}, #{req_limit_count}, #{large_category_idx}
+		)
+	</insert>
+	
+	<update id="modifyCategoryGroup">
+		UPDATE 
+			TEACH_CATEGORY_GROUP
+		SET
+			group_name 	= #{group_name}, 
+			print_seq 	= #{print_seq},
+			use_yn 		= #{use_yn},
+			mod_id 		= #{mod_id},
+			mod_date 	= SYSDATE,
+			req_limit_yn = #{req_limit_yn}, 
+			req_limit_type = #{req_limit_type}, 
+			req_limit_count = #{req_limit_count}
+		WHERE 
+			homepage_id	= #{homepage_id}
+		AND	large_category_idx = #{large_category_idx}
+		AND group_idx 	= #{group_idx} 
+		AND delete_yn 	= 'N'
+	</update>
+	
+	<delete id="deleteCategoryGroup">
+		UPDATE 
+			TEACH_CATEGORY_GROUP
+		SET
+			DELETE_YN 	= 'Y'
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	large_category_idx = #{large_category_idx}
+		AND group_idx = #{group_idx}
+	</delete>
+	
+	<select id="getPrintMaxValue" resultType="int">
+		SELECT
+			NVL(MAX(print_seq),0)+1
+		FROM
+			TEACH_CATEGORY_GROUP
+		WHERE 
+			homepage_id = #{homepage_id} 
+		AND delete_yn = 'N'
+	</select>
+	
+	<select id="checkCategoryInGroup" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			TEACH_CATEGORY
+		WHERE 
+			homepage_id 	= #{homepage_id}
+		AND group_idx 	= #{group_idx}
+		AND delete_yn = 'N'
+	</select>
+	
+	<select id="getReqLimitTotal" resultType="kr.go.gbelib.app.cms.module.category.group.CategoryGroup">
+		SELECT
+			NVL(SUM(req_limit_count), 0) as req_limit_count, COUNT(*) as cnt,
+		FROM
+			(
+				SELECT
+					CASE
+						req_limit_type = 1 
+				WHERE
+					homepage_id = #{homepage_id}
+				AND	req_limit_yn = 'Y'
+				AND	group_idx != #{group_idx} 
+			)
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	req_limit_yn = 'Y'
+		AND	group_idx != #{group_idx}
+	</select>	
+</mapper>

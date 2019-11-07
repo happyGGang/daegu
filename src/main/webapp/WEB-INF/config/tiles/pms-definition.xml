@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+	<definition name="/pms/*/*/*/*_ajax" templateExpression="/WEB-INF/views/app/pms/{1}/{2}/{3}/{4}.jsp" />
+	
+	<definition name="/pms/*/*/*_ajax" templateExpression="/WEB-INF/views/app/pms/{1}/{2}/{3}.jsp" />
+	
+	<definition name="/pms/*/*_ajax" templateExpression="/WEB-INF/views/app/pms/{1}/{2}.jsp" />
+	
+	<definition name="pmsLayout" templateExpression="/WEB-INF/views/app/pms/layout/layout.jsp">
+		<put-attribute name="header" expression="/WEB-INF/views/app/pms/layout/header.jsp" />
+  		<put-attribute name="footer" expression="/WEB-INF/views/app/pms/layout/footer.jsp" />
+	</definition>
+	
+	<definition name="/pms/*/*/*/*" extends="pmsLayout">
+ 		<put-attribute name="body" expression="/WEB-INF/views/app/pms/{1}/{2}/{3}/{4}.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/pms/*/*/*" extends="pmsLayout">
+ 		<put-attribute name="body" expression="/WEB-INF/views/app/pms/{1}/{2}/{3}.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/pms/*/*" extends="pmsLayout">
+ 		<put-attribute name="body" expression="/WEB-INF/views/app/pms/{1}/{2}.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/pms/*" extends="pmsLayout">
+ 		<put-attribute name="body" expression="/WEB-INF/views/app/pms/{1}.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/homepage/pms/board/*/*" extends="pmsLayout">
+		<put-attribute name="body" expression="/WEB-INF/views/app/board/{1}/{2}.jsp"></put-attribute>
+	</definition>
+	
+	
+	
+	
+</tiles-definitions>

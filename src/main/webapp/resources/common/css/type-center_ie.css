@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+#header .section{position:relative}
+#header .section .search,
+.tnb .tnbr{position:absolute;top:0;right:0}
+
+.ci_info li,
+.doc-head ul li,
+#footer a:hover,
+#footer a:focus,
+#footer .fcont.fc3 strong a,
+#footer .fcont.fc2 strong a,
+#footer .fcont.fc1 strong a,
+#footer .fcont.fc2 label,
+#footer .fcont.fc2 span,
+#footer .fcont,
+#header h1,
+.tnb .fsite i,
+.tnb .tnbr > a,
+.tnb .tnbr > span,
+.tnb .tnbl,
+.tnb li,
+.tnb a{zoom:1;*display:inline}

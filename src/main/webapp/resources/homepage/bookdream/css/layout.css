@@ -1,0 +1,88 @@
+@charset "utf-8";
+
+/***** 전체 레이아웃 *****/
+html{
+	height:100%;
+	/* background:url(../img/bg.jpg) repeat 0 0; */
+	background:#f5cd53;
+}
+#container{
+	width:1000px;
+	margin:0 auto;
+}
+
+/***** 상단 레이아웃 *****/
+#header{
+	overflow:hidden;
+	background:url(../img/book_top_new.png) no-repeat center bottom;
+	height:175px;
+	position:relative;
+}
+#header p.member_title{
+	position:absolute;
+	right:20px;
+	top:30px;
+	font-size:16px;
+	color:#333;
+}
+#header h1{
+	padding:20px 0 0 40px;
+	float:left;
+}
+
+/***** 네비게이션 *****/
+#navi{
+	margin:85px 20px 0 0;
+	float:right;
+}
+#navi ul li{
+	display:inline-block;
+	font-size:17px;
+	font-weight:800;
+	margin-left:30px;
+}
+#navi ul li a{
+	color:#703b19;
+}
+#navi ul li.on a{
+	color:#fff;
+	background:#703b19;
+	padding:3px 10px 5px;
+	border-radius:10px;
+}
+
+/***** 컨텐츠 레이아웃 *****/
+#body{
+	background:url(../img/book_center_new.png) repeat-y center 0;
+	padding:25px 80px;
+}
+#content1{
+	width:840px;
+}
+
+/***** 하단 레이아웃 *****/
+#footer{
+	background:url(../img/book_bottom_new.png) no-repeat center top;
+	padding:75px 0 30px;
+	overflow:hidden;
+	clear:both;
+}
+#footer img{
+    margin-left:130px;
+    float:left;
+}
+#foot_info{
+    float:left;
+    padding:7px 0 0 40px;
+    font-size:11px;
+}
+#foot_info address{
+    margin-bottom:3px;
+    color:#624619;
+}
+#foot_info address strong.pdl12{
+	padding-left:12px;
+}
+#foot_info cite{
+    color:#986F2C;
+}

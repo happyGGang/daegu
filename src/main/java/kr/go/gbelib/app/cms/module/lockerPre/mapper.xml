@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.lockerPre.LockerPreDao">
+	
+	<select id="getLockerPreAll" resultType="kr.go.gbelib.app.cms.module.lockerPre.LockerPre">
+		SELECT 
+			A.HOMEPAGE_ID, A.LOCKER_PRE_IDX, A.LOCKER_PRE_NAME, A.LOCKER_PRE_TYPE,
+			A.START_DATE, A.END_DATE, A.ADD_DATE, A.ADD_ID, A.MOD_DATE, A.MOD_ID,
+			(SELECT COUNT(*) FROM LOCKER B WHERE B.HOMEPAGE_ID = A.HOMEPAGE_ID AND B.LOCKER_PRE_IDX = A.LOCKER_PRE_IDX AND B.DELETE_YN = 'N') AS LOCKER_COUNT,
+			A.APPLY_START_DATE, A.APPLY_START_TIME, A.APPLY_END_DATE, A.APPLY_END_TIME, A.DELETE_YN
+		FROM 
+			LOCKER_PRE A
+		WHERE A.HOMEPAGE_ID = #{homepage_id} AND
+			  A.DELETE_YN = 'N'
+			<if test="search_text != null and search_text != ''">
+				AND A.LOCKER_PRE_NAME LIKE '%'||#{search_text}||'%'
+			</if>
+		ORDER BY 
+			A.LOCKER_PRE_IDX desc
+	</select>
+	
+	<select id="getLockerPre" resultType="kr.go.gbelib.app.cms.module.lockerPre.LockerPre">
+		${pagingTop}
+			SELECT 
+				A.HOMEPAGE_ID, A.LOCKER_PRE_IDX, A.LOCKER_PRE_NAME, A.LOCKER_PRE_TYPE
+				, A.START_DATE, A.END_DATE, A.ADD_DATE, A.ADD_ID, A.MOD_DATE, A.MOD_ID,
+				(SELECT COUNT(*) FROM LOCKER B WHERE B.HOMEPAGE_ID = A.HOMEPAGE_ID AND B.LOCKER_PRE_IDX = A.LOCKER_PRE_IDX AND B.DELETE_YN = 'N') AS LOCKER_COUNT,
+				A.APPLY_START_DATE, A.APPLY_START_TIME, A.APPLY_END_DATE, A.APPLY_END_TIME, A.DELETE_YN,
+				CASE 
+					WHEN A.APPLY_START_DATE || ' ' || A.APPLY_START_TIME <![CDATA[<=]]> TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') and A.APPLY_END_DATE || ' ' || A.APPLY_END_TIME <![CDATA[>=]]> TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI')
+					THEN '1'
+				END AS STATE
+			FROM 
+				LOCKER_PRE A
+			WHERE A.HOMEPAGE_ID = #{homepage_id} AND
+				  A.DELETE_YN = 'N'				
+			ORDER BY 
+				A.APPLY_START_DATE DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getLockerPreCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			LOCKER_PRE
+		WHERE HOMEPAGE_ID = #{homepage_id} AND
+			  DELETE_YN = 'N'
+		<if test="search_text != null and search_text != ''">
+			AND LOCKER_PRE_NAME LIKE '%'||#{search_text}||'%'
+		</if>		
+		ORDER BY 
+			LOCKER_PRE_IDX
+	</select>
+	
+	<select id="getLockerPreOne" resultType="kr.go.gbelib.app.cms.module.lockerPre.LockerPre">
+		SELECT 
+			A.HOMEPAGE_ID, A.LOCKER_PRE_IDX, A.LOCKER_PRE_NAME, A.LOCKER_PRE_TYPE, A.ASSIGN_START_DATE, A.ASSIGN_END_DATE,
+			A.START_DATE, A.END_DATE, A.ADD_DATE, A.ADD_ID, A.MOD_DATE, A.MOD_ID, A.IMAGE_FILE_NAME, A.REAL_FILE_NAME, A.IMAGE_FILE_SIZE, A.IMAGE_FILE_EXTENSION,
+			A.APPLY_START_DATE, A.APPLY_START_TIME, A.APPLY_END_DATE, A.APPLY_END_TIME, A.APPLY_BACKUP_COUNT, A.DELETE_YN,
+			(SELECT COUNT(*) FROM LOCKER B WHERE B.HOMEPAGE_ID = A.HOMEPAGE_ID AND B.LOCKER_PRE_IDX = A.LOCKER_PRE_IDX AND B.DELETE_YN = 'N') AS LOCKER_COUNT,
+			(SELECT COUNT(*) FROM LOCKER_REQ B WHERE B.HOMEPAGE_ID = A.HOMEPAGE_ID AND B.LOCKER_PRE_IDX = A.LOCKER_PRE_IDX AND B.DELETE_YN = 'N') AS APPLY_COUNT
+		FROM 
+			LOCKER_PRE A
+		WHERE A.HOMEPAGE_ID = #{homepage_id} AND A.LOCKER_PRE_IDX = #{locker_pre_idx} AND A.DELETE_YN = 'N'
+	</select>
+	
+	<select id="lockerPreIdx" resultType="int">
+		SELECT NVL(MAX(locker_pre_idx),0)+1 FROM LOCKER_PRE WHERE HOMEPAGE_ID = #{homepage_id}
+	</select>
+	
+	<insert id="addLockerPre">		
+		INSERT INTO LOCKER_PRE
+		(
+			HOMEPAGE_ID, LOCKER_PRE_IDX, LOCKER_PRE_NAME, LOCKER_PRE_TYPE, ASSIGN_START_DATE, ASSIGN_END_DATE,
+			START_DATE, END_DATE, ADD_DATE, ADD_ID, MOD_DATE, MOD_ID,
+			APPLY_START_DATE, APPLY_START_TIME, APPLY_END_DATE, APPLY_END_TIME, APPLY_BACKUP_COUNT, DELETE_YN
+			<if test="real_file_name != null and real_file_name != ''">
+			, IMAGE_FILE_NAME
+			, REAL_FILE_NAME
+			, IMAGE_FILE_SIZE
+			, IMAGE_FILE_EXTENSION
+			</if>
+		) VALUES (
+			#{homepage_id}, #{locker_pre_idx}, #{locker_pre_name}, #{locker_pre_type}, #{assign_start_date}, #{assign_end_date},
+			#{start_date}, #{end_date}, SYSDATE, #{add_id}, SYSDATE, #{add_id}, 
+			#{apply_start_date}, #{apply_start_time}, #{apply_end_date}, #{apply_end_time}, #{apply_backup_count}, 'N'
+			<if test="real_file_name != null and real_file_name != ''">
+			, #{image_file_name}
+			, #{real_file_name}
+			, #{image_file_size}
+			, #{image_file_extension}
+			</if>
+		)
+	</insert>
+	
+	<update id="modifyLocekrPre">
+		UPDATE 
+			LOCKER_PRE 
+		SET
+			LOCKER_PRE_IDX		= #{locker_pre_idx},
+			LOCKER_PRE_NAME 	= #{locker_pre_name},
+			LOCKER_PRE_TYPE		= #{locker_pre_type}, 
+			ASSIGN_START_DATE	= #{assign_start_date},
+			ASSIGN_END_DATE		= #{assign_end_date},
+			START_DATE 			= #{start_date}, 
+			END_DATE 			= #{end_date},
+			APPLY_START_DATE	= #{apply_start_date},
+			APPLY_START_TIME	= #{apply_start_time},
+			APPLY_END_DATE		= #{apply_end_date},
+			APPLY_END_TIME		= #{apply_end_time},
+			APPLY_BACKUP_COUNT	= #{apply_backup_count},
+			<if test="real_file_name != null and real_file_name != ''">
+			IMAGE_FILE_NAME = #{image_file_name},
+			REAL_FILE_NAME = #{real_file_name},
+			IMAGE_FILE_SIZE = #{image_file_size},
+			IMAGE_FILE_EXTENSION = #{image_file_extension},
+			</if>
+			MOD_ID				= #{mod_id},
+			MOD_DATE			= SYSDATE
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND LOCKER_PRE_IDX = #{locker_pre_idx}
+	</update>
+	
+	<delete id="deleteLockerPre">
+		UPDATE
+			LOCKER_PRE
+		SET
+			DELETE_YN = 'Y'		
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND LOCKER_PRE_IDX = #{locker_pre_idx} 
+	</delete>
+	
+	<delete id="deleteAllLockerPre">
+		UPDATE
+			LOCKER
+		SET
+			DELETE_YN = 'Y'		
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND LOCKER_PRE_IDX = #{locker_pre_idx} 
+	</delete>
+	
+	<delete id="deleteLockerReq">
+		UPDATE
+			LOCKER_REQ
+		SET
+			DELETE_YN = 'Y'		
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND LOCKER_PRE_IDX = #{locker_pre_idx} 
+	</delete>
+	
+	<select id="getMaxIdxOfLockerPre" resultType="int">
+		SELECT NVL(MAX(LOCKER_PRE_IDX),0) AS LOCKER_PRE_IDX
+		FROM LOCKER_PRE
+		WHERE HOMEPAGE_ID = #{homepage_id} AND DELETE_YN != 'Y'
+	</select>
+	
+	<update id="deleteFile">
+		UPDATE LOCKER_PRE
+		SET 
+			IMAGE_FILE_NAME = '',
+			REAL_FILE_NAME = '',
+			IMAGE_FILE_SIZE = '',
+			IMAGE_FILE_EXTENSION = ''
+		WHERE HOMEPAGE_ID = #{homepage_id}
+			AND LOCKER_PRE_IDX = #{locker_pre_idx}			
+	</update>
+	
+</mapper>

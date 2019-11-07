@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.banner.BannerDao">
+    
+    <select id="getBanner" resultType="kr.co.whalesoft.app.cms.banner.Banner">
+		${pagingTop}
+		SELECT
+			homepage_id, banner_idx, title, file_name, real_file_name, file_extension, file_size, add_date, use_yn, banner_link, print_seq
+		FROM
+			CMS_BANNER
+		WHERE
+			homepage_id = #{homepage_id}
+		ORDER BY 
+			print_seq ASC
+		${pagingBottom}
+	</select>
+
+	<select id="getBannerAll" resultType="kr.co.whalesoft.app.cms.banner.Banner">
+		SELECT
+			homepage_id, banner_idx, title, file_name, real_file_name, file_extension, file_size, add_date, use_yn, banner_link, print_seq
+		FROM
+			CMS_BANNER
+		WHERE
+			homepage_id = #{homepage_id} AND
+			use_yn = 'Y'
+		ORDER BY print_seq ASC
+	</select>
+	
+	<select id="getBannerCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_BANNER
+		WHERE
+			homepage_id = #{homepage_id}		
+    </select>
+	
+	<select id="getBannerOne" resultType="kr.co.whalesoft.app.cms.banner.Banner">
+		SELECT
+			homepage_id, banner_idx, title, file_name, real_file_name, file_extension, file_size, add_date, use_yn, banner_link, print_seq
+		FROM
+			CMS_BANNER
+		WHERE
+			homepage_id = #{homepage_id} AND
+			banner_idx = #{banner_idx}
+	</select>
+	
+	<insert id="addBanner">
+		<selectKey keyProperty="banner_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(banner_idx),0)+1 FROM CMS_BANNER WHERE homepage_id = #{homepage_id}
+		</selectKey>
+		INSERT INTO CMS_BANNER
+		(
+			homepage_id, banner_idx, title, 
+			<if test="real_file_name != null and real_file_name != ''">
+			file_name, real_file_name, file_extension, file_size,
+			</if>
+			add_date, use_yn, banner_link, print_seq
+		) VALUES
+		(
+			#{homepage_id}, #{banner_idx}, #{title}, 
+			<if test="real_file_name != null and real_file_name != ''">
+			#{file_name}, #{real_file_name}, #{file_extension}, #{file_size},
+			</if> 
+			SYSDATE, #{use_yn}, #{banner_link}, #{print_seq}				
+		)
+	</insert>
+	
+	<update id="modifyBanner">
+		UPDATE CMS_BANNER SET
+			title = #{title}, 
+			<if test="real_file_name != null and real_file_name != ''">
+			file_name = #{file_name},
+			real_file_name = #{real_file_name}, 
+			file_extension = #{file_extension}, 
+			file_size = #{file_size},
+			</if>
+			use_yn = #{use_yn},
+			banner_link = #{banner_link},
+			print_seq = #{print_seq}
+		WHERE
+			homepage_id = #{homepage_id} AND
+			banner_idx = #{banner_idx} 
+	</update>
+	
+	<delete id="deleteBanner">
+		DELETE FROM CMS_BANNER
+		WHERE
+			homepage_id = #{homepage_id} AND
+			banner_idx = #{banner_idx}
+	</delete>
+    
+</mapper>

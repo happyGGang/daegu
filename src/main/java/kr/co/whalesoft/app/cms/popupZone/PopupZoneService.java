@@ -1,0 +1,104 @@
+package kr.co.whalesoft.app.cms.popupZone;
+
+import java.io.File;
+import java.util.List;
+
+import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import kr.co.whalesoft.framework.base.BaseService;
+import kr.co.whalesoft.framework.file.FileStorage;
+
+@Service
+public class PopupZoneService extends BaseService {
+
+	@Autowired
+	private PopupZoneDao dao;
+	
+	@Autowired
+	@Qualifier("popupZoneStorage")
+	private FileStorage popupZoneStorage;
+	
+	public List<PopupZone> getPopupZone(PopupZone popupZone) {
+		return dao.getPopupZone(popupZone);
+	}
+
+	public List<PopupZone> getPopupZoneAll(PopupZone popupZone) {
+		return dao.getPopupZoneAll(popupZone);
+	} 
+	
+	public int getPopupZoneCount(PopupZone popupZone) {
+		return dao.getPopupZoneCount(popupZone);
+	}
+	
+	public PopupZone getPopupZoneOne(PopupZone popupZone) {
+		return dao.getPopupZoneOne(popupZone);
+	}
+	
+	@Transactional
+	public int addPopupZone(PopupZone popupZone, MultipartHttpServletRequest mpRequest) {
+		MultipartFile mFile = mpRequest.getFileMap().get("img_file_name_temp");
+		
+		if(mFile != null) {
+			String realFileName 	= Long.toString((System.currentTimeMillis()));
+			String fileName 		= mFile.getOriginalFilename().substring(0, mFile.getOriginalFilename().lastIndexOf("."));
+			String fileExtension 	= FilenameUtils.getExtension(mFile.getOriginalFilename());
+			String filePath 		= "/" + popupZone.getHomepage_id();
+			
+			File f = popupZoneStorage.addFile(mFile, realFileName, filePath);
+			
+			popupZone.setImg_file_name(fileName);
+			popupZone.setReal_file_name(realFileName);
+			popupZone.setFile_extension(fileExtension);
+			popupZone.setFile_size(f.length());
+		} else {
+			popupZone.setImg_file_name(null);
+		}
+		
+		return dao.addPopupZone(popupZone);
+	}
+	
+	public int modifyPopupZone(PopupZone popupZone, MultipartHttpServletRequest mpRequest) {
+		MultipartFile mFile = mpRequest.getFileMap().get("img_file_name_temp");
+		
+		if(mFile != null) {
+			String realFileName 	= Long.toString((System.currentTimeMillis()));
+			String fileName 		= mFile.getOriginalFilename().substring(0, mFile.getOriginalFilename().lastIndexOf("."));
+			String fileExtension 	= FilenameUtils.getExtension(mFile.getOriginalFilename());
+			String filePath 		= "/" + popupZone.getHomepage_id();
+			
+			File f = popupZoneStorage.addFile(mFile, realFileName, filePath);
+			
+			popupZone.setImg_file_name(fileName);
+			popupZone.setReal_file_name(realFileName);
+			popupZone.setFile_extension(fileExtension);
+			popupZone.setFile_size(f.length());
+		} else {
+			popupZone.setImg_file_name(null);
+		}
+		
+		return dao.modifyPopupZone(popupZone);
+	}
+	
+	public int deletePopupZone(PopupZone popupZone) {
+		return dao.deletePopupZone(popupZone);
+	}
+	
+	public String addImgFile(String homepage_id, MultipartHttpServletRequest mpRequest) {
+		MultipartFile mFile = mpRequest.getFileMap().get("imgFile");
+		File f 			= null;
+		String filePath = "/" + homepage_id;
+
+		if ( mFile != null ) {
+			String realFileName 	= Long.toString((System.currentTimeMillis()));
+			f = popupZoneStorage.addFile(mFile, realFileName, filePath);
+		}
+		
+		return f.getName();
+	}
+}

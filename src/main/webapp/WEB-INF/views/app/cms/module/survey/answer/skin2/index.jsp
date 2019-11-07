@@ -1,0 +1,197 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="/resources/cms/survey/css/skin2.css" rel="stylesheet" type="text/css">
+
+<script>
+$(document).ready(function() {
+	$('a.close').on('click', function(e) {
+		e.preventDefault();
+		window.close();
+	});
+	$('a.print').on('click', function(e) {
+		e.preventDefault();
+		window.print();
+	});
+});
+
+</script>
+
+<!-- s : top -->
+<c:set var="questIdx" value="0" />
+<div class="brdTop_02">
+	<div class="survey_info">
+		<h1>${survey.survey_title}</h1>
+		<div class="description">
+		${survey.survey_content}
+		</div>
+<%-- 		<p class="contact"><img src="/resources/cms/survey/img/ico_question.gif" alt="문의" /> <strong>조사문의:</strong>  ${survey.add_user_name} ( ${survey.add_user_tel} )</p> --%>
+	</div>
+</div>
+<!--// e : top -->
+
+<!-- s : contents -->
+<form:form modelAttribute="quest" onsubmit="return false;">
+<form:hidden path="survey_idx"/>
+<div class="surveyList">
+	<table class="list" summary="설문조사 문항에 대한 답변을 작성할 수 있습니다.">
+		<caption>설문조사 목록</caption>
+		<colgroup>
+			<col width="46" />
+			<col width="" />
+		</colgroup>
+		<tbody>
+		<c:forEach var="i" varStatus="status" items="${questList}">
+		<c:choose>
+		<c:when test="${i.quest_type eq 'ONE'}">
+		<tr>
+			<td class="qustionNum"><span>${questIdx + 1}</span></td>
+			<td class="qustion">${i.quest_content}</td>
+		</tr>
+		<tr id="quest_detail_group_${i.quest_idx}">
+			<td></td>
+			<td class="aL">
+				<ul class="mysurvey_list">
+				<c:forEach var="j" varStatus="status2" items="${i.quest_detail_list}">
+					<li>
+						<form:radiobutton id="questIdx_${questIdx}_${status2.count}" path="answer_list[${questIdx}].quest_idx_list" value="${status2.count}" />
+						<label for="questIdx_${questIdx}_${status2.count}">${j.quest_detail_title}</label>
+						<c:if test="${j.branch_idx ne 0}">
+						(${j.branch_idx}번 문항으로 이동)
+						</c:if>
+					</li>
+				</c:forEach>
+				<c:if test="${i.quest_detail_free_yn eq 'Y'}">
+					<li>
+						<form:radiobutton id="questIdx_${questIdx}_99" path="answer_list[${questIdx}].quest_idx_list" value="99" />
+						<label for="questIdx_${questIdx}_99">기타</label>
+						<form:input path="answer_list[${questIdx}].short_answer" size="25" maxlength="20"  style="width:80%"/>
+					</li>
+				</c:if>
+				<c:if test="${i.quest_detail_free_yn eq 'N'}">
+					<form:hidden path="answer_list[${questIdx}].short_answer" size="25" maxlength="20"/>
+				</c:if>
+				</ul>
+			</td>
+		</tr>
+		<c:set var="questIdx" value="${questIdx+1}" />
+		</c:when>
+		
+		<c:when test="${i.quest_type eq 'MULTI'}">
+		<tr>
+			<td class="qustionNum"><span>${questIdx + 1}</span></td>
+			<td class="qustion">${i.quest_content}</td>
+		</tr>
+		<tr id="quest_detail_group_${i.quest_idx}">
+			<td></td>
+			<td class="aL">
+				<ul class="mysurvey_list">
+				<c:forEach var="j" varStatus="status2" items="${i.quest_detail_list}">
+					<li>
+						<form:checkbox id="questIdx_${questIdx}_${status2.count}" path="answer_list[${questIdx}].quest_idx_list" value="${status2.count}" />
+						<label for="questIdx_${questIdx}_${status2.count}">${j.quest_detail_title}</label>
+					</li>
+				</c:forEach>
+				<c:if test="${i.quest_detail_free_yn eq 'Y'}">
+					<li>
+						<form:checkbox id="questIdx_${questIdx}_99" path="answer_list[${questIdx}].quest_idx_list" value="99" />
+						<label for="questIdx_${questIdx}_99">기타</label>
+						<form:input path="answer_list[${questIdx}].short_answer" size="25" maxlength="20"  style="width:80%"/>
+					</li>
+				</c:if>
+				<c:if test="${i.quest_detail_free_yn eq 'N'}">
+					<form:hidden path="answer_list[${questIdx}].short_answer" size="25" maxlength="20"/>
+				</c:if>
+				</ul>
+			</td>
+		</tr>
+		<c:set var="questIdx" value="${questIdx+1}" />
+		</c:when>
+		<c:when test="${i.quest_type eq 'MATRIX'}">
+		<tr>
+			<td class="qustionNum"><span>${questIdx+1}</span></td>
+			<td class="qustion">${i.quest_content}</td>
+		</tr>
+		<tr id="quest_detail_group_${i.quest_idx}">
+			<td></td>
+			<td class="aL">
+				<table class="in_tbl" summary="매트릭스형의 세부질문과 보기 내용을 확인할 수 있습니다.">
+					<caption>매트릭스형 세부질문 및 보기</caption>
+					<colgroup>
+						<col width="30" />
+						<col />
+						<col />
+						<col />
+						<col />
+						<col />
+					</colgroup>
+					<thead>
+						<tr>
+							<th scope="col" colspan="2">세부질문</th>
+							<c:forEach var="j" varStatus="status_j" items="${i.quest_detail_list}">
+							<th scope="col" >${j.quest_detail_title}</th>
+							</c:forEach>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="j" varStatus="status_j" items="${i.quest_matrix_list}">
+						<tr>
+							<td>${status_j.count})</td>
+							<td class="aL">${j.matrix_title}</td>
+						<c:forEach var="k" varStatus="status_k" begin="1" end="${fn:length(i.quest_detail_list)}">
+							<td><form:radiobutton id="questIdx_${questIdx}_${status_j.count}_${status_k.count}" path="answer_list[${questIdx}].quest_idx_list[${status_j.index}]" value="${status_k.count}" /></td>
+						</c:forEach>
+						</tr>
+						</c:forEach>
+						<form:hidden path="answer_list[${questIdx}].short_answer" size="25" maxlength="20"/>
+					</tbody>
+				</table> 
+			</td>
+		</tr>
+		<c:set var="questIdx" value="${questIdx+1}"/>
+		</c:when>
+		
+		<c:when test="${i.quest_type eq 'DESCRIPTION'}">
+		<tr>
+			<td class="qustionNum"><span>${questIdx+1}</span></td>
+			<c:set value="필수" var="required"></c:set>
+			<c:if test="${i.required_yn eq 'N'}"><c:set value="선택" var="required"></c:set></c:if>
+			<td class="qustion">${i.quest_content} (${required})</td>
+		</tr>
+		<tr id="quest_detail_group_${i.quest_idx}">
+			<td></td>
+			<td class="aL">
+				<label for="" class="screen_out">서술형문항</label>
+				<form:input path="answer_list[${questIdx}].short_answer" size="90" maxlength="100"  style="width:80%"/>
+			</td>
+		</tr>
+		<c:set var="questIdx" value="${questIdx+1}" />
+		</c:when>
+		<c:when test="${i.quest_type eq 'COMMENT'}">
+			<tr>
+				<td colspan="2" class="qustion" style="font-size: 18px; color: black; padding-bottom: 20px;">${i.quest_content}</td>
+			</tr>
+		</c:when>
+		<c:when test="${i.quest_type eq 'IMAGE'}">
+			<tr>
+				<td><span>&nbsp;</span></td>
+				<td class="qustion"><img src="${i.quest_content}" style="max-width: 730px;" alt="이미지 내용입니다."/></td>
+			</tr>
+		</c:when>
+		</c:choose>
+		</c:forEach>
+
+		</tbody>
+	</table>
+</div>
+</form:form>
+<!--// e : contents -->
+
+<!-- s : btn -->
+<div class="brdBtn">
+	<a href="#" class="button close">닫기</a>
+	<a href="#" class="button print">인쇄</a>
+</div>
+<!--// e : btn -->

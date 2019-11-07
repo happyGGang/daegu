@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.taskManage.TaskManageDao">
+	
+	<select id="getTaskTypeList" resultType="kr.co.whalesoft.app.cms.taskManage.TaskManage">
+		SELECT a.DEPT_NAME
+		FROM CMS_TASK_MANAGE a
+		WHERE a.HOMEPAGE_ID = #{homepage_id}
+		GROUP BY a.DEPT_NAME
+		ORDER BY
+		(
+			SELECT NVL(z.PRINT_SEQ, 99) FROM
+			CMS_TASK_MANAGE z
+			WHERE z.HOMEPAGE_ID = #{homepage_id}
+			AND z.DEPT_NAME = a.DEPT_NAME
+			AND ROWNUM = 1
+		) ASC
+	</select>
+	
+	<select id="getTaskListAll" resultType="kr.co.whalesoft.app.cms.taskManage.TaskManage">
+			SELECT
+				HOMEPAGE_ID, TASK_IDX, DEPT_NAME, MANAGER_NAME, RANK_NAME, TASK_DESC, PHONE, ADD_DATE, ADD_ID, MOD_DATE, MOD_ID, PRINT_SEQ
+			FROM
+				CMS_TASK_MANAGE
+			WHERE HOMEPAGE_ID = #{homepage_id}
+				<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+				AND	${search_type} LIKE '%'||#{search_text}||'%'
+				</if>
+			ORDER BY
+				PRINT_SEQ ASC
+	</select>
+	
+	<select id="getTaskList" resultType="kr.co.whalesoft.app.cms.taskManage.TaskManage">
+		${pagingTop}
+			SELECT
+				HOMEPAGE_ID, TASK_IDX, DEPT_NAME, MANAGER_NAME, RANK_NAME, TASK_DESC, PHONE, ADD_DATE, ADD_ID, MOD_DATE, MOD_ID, PRINT_SEQ
+			FROM
+				CMS_TASK_MANAGE
+			WHERE HOMEPAGE_ID = #{homepage_id}
+				<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+				AND	${search_type} LIKE '%'||#{search_text}||'%'
+				</if>
+			ORDER BY
+				PRINT_SEQ ASC
+		${pagingBottom}
+	</select>
+	
+	<select id="getTaskListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_TASK_MANAGE
+		WHERE HOMEPAGE_ID = #{homepage_id}
+			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+		ORDER BY
+			PRINT_SEQ ASC
+	</select>
+	
+	<select id="getTaskOne" resultType="kr.co.whalesoft.app.cms.taskManage.TaskManage">
+		SELECT
+			HOMEPAGE_ID, TASK_IDX, DEPT_NAME, MANAGER_NAME, RANK_NAME, TASK_DESC, PHONE, ADD_DATE, ADD_ID, MOD_DATE, MOD_ID, PRINT_SEQ
+		FROM
+			CMS_TASK_MANAGE
+		WHERE HOMEPAGE_ID = #{homepage_id} AND TASK_IDX = #{task_idx}
+	</select>
+	
+	<insert id="addTask">
+		<selectKey keyProperty="task_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(TASK_IDX),0)+1 FROM CMS_TASK_MANAGE WHERE HOMEPAGE_ID = #{homepage_id}
+		</selectKey>
+	
+		INSERT INTO CMS_TASK_MANAGE
+		(
+			HOMEPAGE_ID, TASK_IDX, DEPT_NAME, MANAGER_NAME, RANK_NAME, TASK_DESC, PHONE, ADD_DATE, ADD_ID, PRINT_SEQ
+		) VALUES (
+			#{homepage_id}, #{task_idx}, #{dept_name}, #{manager_name}, #{rank_name}, #{task_desc}, #{phone}, SYSDATE, #{add_id}, #{print_seq}
+		)
+	</insert>
+	
+	<update id="modifyTask">
+		UPDATE 
+			CMS_TASK_MANAGE 
+		SET
+			DEPT_NAME 	= #{dept_name}, 
+			RANK_NAME 	= #{rank_name}, 
+			TASK_DESC 	= #{task_desc}, 
+			MANAGER_NAME = #{manager_name},
+			PHONE 		= #{phone}, 
+			MOD_DATE 	= SYSDATE, 
+			MOD_ID 		= #{mod_id}, 
+			PRINT_SEQ 	= #{print_seq}
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND TASK_IDX = #{task_idx} 
+	</update>
+	
+	<delete id="deleteTask">
+		DELETE FROM CMS_TASK_MANAGE
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND TASK_IDX = #{task_idx}
+	</delete>
+	
+	<select id="getTaskManagerListAll" resultType="kr.co.whalesoft.app.cms.taskManage.TaskManage">
+			SELECT
+				HOMEPAGE_ID, TASK_IDX, DEPT_NAME, MANAGER_NAME, RANK_NAME, TASK_DESC, PHONE, ADD_DATE, ADD_ID, MOD_DATE, MOD_ID, PRINT_SEQ
+			FROM
+				CMS_TASK_MANAGE
+			WHERE HOMEPAGE_ID = #{homepage_id}
+				<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+				AND	${search_type} LIKE '%'||#{search_text}||'%'
+				</if>
+			ORDER BY
+				PRINT_SEQ ASC
+	</select>
+	
+	<select id="getMemberListNotInTaskManage" resultType="kr.co.whalesoft.app.cms.taskManage.TaskManage">
+		SELECT MEMBER_ID, MEMBER_NAME
+		FROM CMS_MEMBER
+		WHERE 
+			MEMBER_ID NOT IN (SELECT MEMBER_ID FROM CMS_TASK_MAPPING WHERE TASK_IDX = #{task_idx})
+			AND HOMEPAGE_ID = #{homepage_id}
+		ORDER BY MEMBER_NAME
+	</select>
+	
+	<select id="checkTaskManager" resultType="int">
+		SELECT COUNT(*)
+		FROM CMS_TASK_MAPPING
+		WHERE HOMEPAGE_ID = #{homepage_id} AND TASK_IDX = #{task_idx}
+	</select>
+
+	<insert id="addTaskManager">
+		MERGE INTO 
+			CMS_TASK_MAPPING a
+		USING dual
+		ON 
+			(a.homepage_id = #{homepage_id} AND a.task_idx = #{task_idx} AND a.manage_type = #{manage_type})
+		WHEN MATCHED THEN
+			UPDATE SET 
+				a.member_id = #{member_id}
+		WHEN NOT MATCHED THEN
+			INSERT
+			(
+				homepage_id, task_idx, member_id, manage_type
+			) VALUES
+			(
+				#{homepage_id}, #{task_idx}, #{member_id}, #{manage_type}
+			)
+	</insert>
+	
+	<delete id="deleteTaskManager">
+		DELETE FROM CMS_TASK_MAPPING
+		WHERE HOMEPAGE_ID = #{homepage_id} AND TASK_IDX = #{task_idx} AND MANAGE_TYPE = #{manage_type}
+	</delete>
+	
+	<select id="getMaxPrintSeq" resultType="int">
+		SELECT NVL(MAX(PRINT_SEQ), 0) + 1 AS PRINT_SEQ
+		FROM CMS_TASK_MANAGE
+		WHERE HOMEPAGE_ID = #{homepage_id} 
+	</select>
+</mapper>

@@ -1,0 +1,60 @@
+@charset "utf-8";
+
+/* QR코드 생성하기 */
+.qrCodeCreat{padding:20px}
+.qrCodeCreat em{font-style:normal}
+.qrCodeCreat h1{font-weight:800;padding:0 0 15px}
+.qrCodeCreat h2{font-size:130%;padding:0 0 7px}
+.qrCodeCreat ol{overflow:hidden;text-align:center;background:#f1f9ff;border:1px solid #d5dce2;border-radius:5px;padding:10px 0;margin-bottom:20px}
+.qrCodeCreat li{display:inline-block;zoom:1;*display:inline;vertical-align:middle;padding:5px 0}
+.qrCodeCreat li b,
+.qrCodeCreat li span{display:block;color:#777}
+.qrCodeCreat li b{font-size:120%;color:#c9d0d5;font-weight:800}
+.qrCodeCreat li.bar i{margin:0 15px;background:#d5dce2;color:#fff;font-size:150%;border-radius:50%;width:36px;height:36px;line-height:36px}
+.qrCodeCreat li.active span{color:#222}
+.qrCodeCreat li.active b{color:#2263b5}
+.qrCodeCreat .step1{overflow:hidden;padding-bottom:20px}
+.qrCodeCreat .step1,
+.qrCodeCreat .step2{border-bottom:2px solid #2263b5}
+.qrCodeCreat>.step1>div{float:left;width:50%}
+.qrCodeCreat>.step1>div>label{display:block;padding:135px 20px 0 30px}
+.qrCodeCreat .step1 input,
+.qrCodeCreat .step1 span.choice{vertical-align:middle}
+.qrCodeCreat .step1 span.choice{font-size:115%;font-weight:800;color:#1597e7}
+.qrCodeCreat .step1 span.radioWrap{display:inline-block;zoom:1;*display:inline}
+.qrCodeCreat .step1 label{cursor:pointer}
+.qrCodeCreat .step1 em{display:inline-block;zoom:1;*display:inline;padding:10px 0 0;color:#888;font-size:95%;line-height:120%}
+.qrCodeCreat .step1 .radio1{background:url('../img/qrIcon1.jpg') no-repeat center 0}
+.qrCodeCreat .step1 .radio2{background:url('../img/qrIcon2.jpg') no-repeat center 0}
+.qrCodeCreat .step1 .radio2 label{border-left:1px dashed #d9d9d9}
+.qrCodeCreat .btn-area{padding:15px 0 0}
+.qrCodeCreat .btn i{margin:0;font-size:115%}
+.qrCodeCreat .step2{padding-bottom:10px}
+.qrCodeCreat .step2 .field{border:1px solid #d2d2d2;font-size:0}
+.qrCodeCreat .step2 p{padding:3px 0 0}
+.qrCodeCreat .step2 input{border:none;width:100%;height:28px;line-height:28px;font-size:13px}
+.qrCodeCreat .step2 em{color:#f00}
+.qrCodeCreat .btn-area{overflow:hidden}
+.qrCodeCreat .btn-area .fl{float:left;margin-right:5px}
+.qrCodeCreat .btn-area .fr{float:right}
+.qrCodeCreat .step3 table.bbs{border-top:2px solid #2263b5}
+.qrCodeCreat .step3 td.hand input,
+.qrCodeCreat .step3 td.hand label{cursor:pointer;vertical-align:middle}
+.qrCodeCreat .step3 td.hand label{margin-right:6px;font-size:12px}
+.qrCodeCreat .step3 th,
+.qrCodeCreat .step3 td{text-align:left;padding:7px 10px}
+.qrCodeCreat .step3 td input.txt{border:1px solid #d5d5d5;width:90%}
+.qrCodeCreat .step3 .qrView{border:2px dashed #ddd;border-radius:5px;text-align:center;margin-top:8px;font-size:0}
+@media all and (max-width:450px){
+	.qrCodeCreat>.step1>div>label{padding-left:10px;padding-right:10px}
+	.qrCodeCreat li.bar i{width:30px;height:30px;line-height:30px;margin:0 5px}
+}
+@media all and (max-width:400px){
+	.qrCodeCreat>.step1>div{width:100%}
+	.qrCodeCreat>.step1>div>label{padding:0 0 0 105px;min-height:68px}
+	.qrCodeCreat .step1 .radio2{margin-top:10px}
+	.qrCodeCreat .step1 .radio2 label{border:none}
+	.qrCodeCreat .step1 .radio2,
+	.qrCodeCreat .step1 .radio1{background-position:0 center;background-size:100px}
+	.qrCodeCreat .btn{letter-spacing:-1px}
+}

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.teachSetting.TeachSettingDao">
+	
+	<select id="getTeachSettingOne" resultType="kr.go.gbelib.app.cms.module.teachSetting.TeachSetting">
+		SELECT 
+			HOMEPAGE_ID, USE_YN, TERM_TYPE, TERM_COUNT
+		FROM
+			TEACH_SETTING
+		WHERE
+			HOMEPAGE_ID = #{homepage_id}
+	</select>
+	
+	<insert id="mergeTeachSetting">
+		MERGE INTO 
+			TEACH_SETTING a
+		USING dual
+		ON 
+			(a.homepage_id = #{homepage_id})
+		WHEN MATCHED THEN
+			UPDATE SET 
+				a.USE_YN = #{use_yn}, a.TERM_TYPE = #{term_type}, a.TERM_COUNT = #{term_count}
+		WHEN NOT MATCHED THEN
+			INSERT
+			(
+				homepage_id, use_yn, term_type, term_count
+			) VALUES
+			(
+				#{homepage_id}, #{use_yn}, #{term_type}, #{term_count}
+			)
+	</insert>
+	
+</mapper>

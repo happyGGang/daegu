@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.teach.statistics.TeachStatisticsDao">
+	
+	<select id="getTeachStatistics" resultType="kr.go.gbelib.app.cms.module.teach.statistics.TeachStatistics">
+		SELECT  d.GROUP_NAME, c.CATEGORY_NAME, b.TEACHER_NAME, teach.TEACH_NAME, teach.START_DATE, teach.END_DATE, teach.TEACH_LIMIT_COUNT, teach.TEACH_BACKUP_COUNT, teach.TEACH_OFFLINE_COUNT
+			, (SELECT COUNT(*) FROM STUDENT WHERE HOMEPAGE_ID = a.HOMEPAGE_ID AND GROUP_IDX = a.GROUP_IDX AND CATEGORY_IDX = a.CATEGORY_IDX AND TEACH_IDX = a.TEACH_IDX AND DELETE_YN = 'N' AND APPLY_STATUS = '1') AS JOIN_COUNT
+			, CERT_OK_COUNT,
+			(SELECT code_name FROM TEACH_CODE2 where teach_code = a.large_category_idx) as large_category_name
+		FROM (
+			SELECT teachList.HOMEPAGE_ID, teachList.GROUP_IDX, teachList.CATEGORY_IDX, teachList.TEACH_IDX, MIN(teachList.TEACHER_IDX) AS TEACHER_IDX, COUNT(CASE WHEN ((studentList.ATTEND_CNT / teachList.TEACH_COUNT) * 100) > 70 THEN 1 END) CERT_OK_COUNT,
+					MIN(teachList.TEACH_COUNT) as TEACH_COUNT, MIN(teachList.TEACH_NAME) as TEACH_NAME, MIN(teachList.START_DATE) as START_DATE, MIN(teachList.END_DATE) as END_DATE, MIN(teachList.TEACH_LIMIT_COUNT) as TEACH_LIMIT_COUNT, MIN(teachList.TEACH_BACKUP_COUNT) as TEACH_BACKUP_COUNT, MIN(teachList.TEACH_OFFLINE_COUNT) as TEACH_OFFLINE_COUNT
+					,teachList.large_category_idx
+			FROM 
+				(
+					SELECT
+						HOMEPAGE_ID, GROUP_IDX, CATEGORY_IDX, TEACH_IDX, TEACHER_IDX, TEACH_COUNT, TEACH_NAME, START_DATE, END_DATE, TEACH_LIMIT_COUNT, TEACH_BACKUP_COUNT, TEACH_OFFLINE_COUNT
+						, large_category_idx
+					FROM
+						TEACH
+					WHERE HOMEPAGE_ID = #{homepage_id} AND DELETE_YN = 'N'
+						<if test="large_category_idx > 0">
+						AND large_category_idx = #{large_category_idx}
+						</if>
+						<if test="group_idx > 0">
+						AND GROUP_IDX = #{group_idx}
+						</if>
+						<if test="category_idx > 0">
+						AND CATEGORY_IDX = #{category_idx}
+						</if>
+						<if test="start_date != null and start_date != ''">
+						AND START_DATE >= #{start_date}
+						</if>
+						<if test="end_date != null and end_date != ''">
+						AND END_DATE &lt;= #{end_date}
+						</if>
+				) TEACHLIST,
+				(	
+					SELECT 
+						s.HOMEPAGE_ID, s.large_category_idx, s.GROUP_IDX, s.CATEGORY_IDX, s.TEACH_IDX, s.STUDENT_IDX, NVL(SUM(DECODE(t.STATUS, '1', 1, '2', 1, 0)) - TRUNC(SUM(DECODE(t.STATUS, '2', 1, 0))/3), 0) AS ATTEND_CNT
+					FROM 
+						STUDENT s, TEACH_BOOK t
+					WHERE 
+						s.HOMEPAGE_ID = t.HOMEPAGE_ID 
+						AND s.GROUP_IDX = t.GROUP_IDX 
+						AND s.CATEGORY_IDX = t.CATEGORY_IDX 
+						AND s.TEACH_IDX = t.TEACH_IDX 
+						AND s.STUDENT_IDX = t.STUDENT_IDX
+						AND s.HOMEPAGE_ID = #{homepage_id}
+						<if test="large_category_idx > 0">
+						AND s.large_category_idx = #{large_category_idx}
+						</if>
+						<if test="group_idx > 0">
+						AND s.GROUP_IDX = #{group_idx}
+						</if>
+						<if test="category_idx > 0">
+						AND s.CATEGORY_IDX = #{category_idx}
+						</if>
+					GROUP BY 
+						s.HOMEPAGE_ID, s.large_category_idx, s.GROUP_IDX, s.CATEGORY_IDX, s.TEACH_IDX, s.STUDENT_IDX
+				) studentList
+			WHERE teachList.HOMEPAGE_ID = studentList.HOMEPAGE_ID(+)
+				AND teachList.large_category_idx = studentList.large_category_idx(+)
+				AND teachList.GROUP_IDX = studentList.GROUP_IDX(+)
+				AND teachList.CATEGORY_IDX = studentList.CATEGORY_IDX(+)
+				AND teachList.TEACH_IDX = studentList.TEACH_IDX(+)
+			GROUP BY
+				teachList.HOMEPAGE_ID, teachList.large_category_idx, teachList.GROUP_IDX, teachList.CATEGORY_IDX, teachList.TEACH_IDX
+			
+			) a ,TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d, TEACH teach
+		WHERE a.HOMEPAGE_ID = b.HOMEPAGE_ID(+)
+			AND a.TEACHER_IDX = b.TEACHER_IDX(+)
+			AND a.HOMEPAGE_ID = c.HOMEPAGE_ID(+) 
+			AND a.GROUP_IDX = c.GROUP_IDX(+)
+			AND a.CATEGORY_IDX = c.CATEGORY_IDX(+)
+			AND a.HOMEPAGE_ID = d.HOMEPAGE_ID(+)
+			AND a.GROUP_IDX = d.GROUP_IDX(+)
+			AND a.HOMEPAGE_ID = teach.HOMEPAGE_ID
+			AND a.GROUP_IDX = teach.GROUP_IDX
+			AND a.CATEGORY_IDX = teach.CATEGORY_IDX
+			AND a.TEACH_IDX = teach.TEACH_IDX
+		ORDER BY a.START_DATE, a.END_DATE
+	</select>
+</mapper>

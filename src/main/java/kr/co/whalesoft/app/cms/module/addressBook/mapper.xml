@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.module.addressBook.AddressBookDao">
+	
+	<select id="getAddressTreeList" resultType="kr.co.whalesoft.app.cms.module.addressBook.AddressBook">
+		SELECT * FROM
+		(
+			SELECT 
+				-1 AS PARENT_ADDRESS_BOOK_IDX,
+		   		0 AS ADDRESS_BOOK_IDX,
+		      	'주소록' AS ADDRESS_BOOK_NAME
+			FROM DUAL
+			UNION ALL
+			SELECT
+	      		PARENT_ADDRESS_BOOK_IDX, 
+	      		ADDRESS_BOOK_IDX, 
+	      		ADDRESS_BOOK_NAME 
+			FROM
+				CMS_ADDRESS_BOOK_GROUP
+			WHERE 
+			    homepage_id = #{memberInfo.homepage_id}
+				AND MEMBER_ID = #{memberInfo.member_id}
+		)
+		CONNECT BY PRIOR ADDRESS_BOOK_IDX = PARENT_ADDRESS_BOOK_IDX
+		START WITH ADDRESS_BOOK_IDX = 0
+		ORDER SIBLINGS BY ADDRESS_BOOK_NAME 
+	</select>
+	
+	<select id="getAddressBookOne" resultType="kr.co.whalesoft.app.cms.module.addressBook.AddressBook">
+		SELECT
+			*
+		FROM
+			CMS_ADDRESS_BOOK_GROUP
+		WHERE
+			homepage_id = #{memberInfo.homepage_id}
+		AND	member_id = #{memberInfo.member_id}
+		AND	address_book_idx = #{address_book_idx}
+	</select>
+	
+	<select id="getMyItemList" resultType="kr.co.whalesoft.app.cms.module.addressBook.AddressBook">
+		SELECT 
+			address_book_idx, address_idx, address_name, address_cell_phone, address_email,
+			add_date, modify_date, ilus_user_id, ilus_user_seq, ilus_web_id
+		FROM 
+			CMS_ADDRESS_BOOK
+		WHERE 
+			homepage_id = #{memberInfo.homepage_id}
+			AND member_id = #{memberInfo.member_id}
+		AND address_book_idx = #{address_book_idx}
+		ORDER BY
+			add_date DESC	
+	</select>
+	
+	<insert id="addAddressBookGroup">
+		<selectKey keyProperty="address_book_idx" order="BEFORE" resultType="int">
+			SELECT NVL(MAX(address_book_idx),0)+1 
+			FROM CMS_ADDRESS_BOOK_GROUP 
+			WHERE homepage_id = #{memberInfo.homepage_id} AND member_id = #{memberInfo.member_id}	
+		</selectKey>
+		INSERT INTO
+			CMS_ADDRESS_BOOK_GROUP
+		(
+			homepage_id, member_id, address_book_idx, group_idx, parent_address_book_idx,
+			address_book_name, add_date, modify_date, ilus_user_id, ilus_user_seq,
+			ilus_web_id
+		)
+			VALUES
+		(
+			#{memberInfo.homepage_id}, #{memberInfo.member_id}, #{address_book_idx}, #{group_idx}, #{parent_address_book_idx},
+			#{address_book_name}, SYSDATE, SYSDATE, '', '', ''
+		)
+	</insert>
+	
+	<update id="modifyAddressBookGroup">
+		UPDATE
+			CMS_ADDRESS_BOOK_GROUP
+		SET
+			address_book_name = #{address_book_name}, 
+			modify_date = SYSDATE
+		WHERE
+			homepage_id = #{memberInfo.homepage_id} 
+		AND	member_id = #{memberInfo.member_id} 
+		AND	address_book_idx = #{address_book_idx}
+	</update>
+	
+	<delete id="deleteAddressBookGroup">
+		DELETE
+			CMS_ADDRESS_BOOK_GROUP
+		WHERE
+			homepage_id = #{memberInfo.homepage_id} 
+		AND	member_id = #{memberInfo.member_id} 
+		AND	address_book_idx = #{address_book_idx}
+	</delete>
+	
+	<select id="getChildCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_ADDRESS_BOOK_GROUP
+		WHERE
+			member_id = #{memberInfo.member_id}
+		AND	parent_address_book_idx = #{address_book_idx}
+		AND	homepage_id = #{memberInfo.homepage_id}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<insert id="addAddressBook">
+		<selectKey keyProperty="address_idx" order="BEFORE" resultType="int">
+			SELECT NVL(MAX(address_idx),0)+1 
+			FROM CMS_ADDRESS_BOOK 
+			WHERE address_book_idx = #{address_book_idx} AND member_id = #{memberInfo.member_id}
+		</selectKey>
+		INSERT INTO
+			CMS_ADDRESS_BOOK
+		(
+			address_book_idx, address_idx, address_name, address_cell_phone, address_email,
+			add_date, modify_date, ilus_user_id, ilus_user_seq, ilus_web_id, homepage_id,
+			member_id
+		)
+			VALUES
+		(
+			#{address_book_idx}, #{address_idx}, #{address_name}, #{address_cell_phone}, #{address_email},
+			SYSDATE, SYSDATE, '', '', '', #{memberInfo.homepage_id},
+			#{memberInfo.member_id}
+		)
+	</insert>
+	
+	<update id="modifyAddressBook">
+		UPDATE
+			CMS_ADDRESS_BOOK
+		SET
+			address_name = #{address_name},
+			address_cell_phone = #{address_cell_phone},
+			address_email = #{address_email}
+		WHERE
+			member_id = #{memberInfo.member_id}
+		AND	address_book_idx = #{address_book_idx}
+		AND	address_idx = #{address_idx}
+		AND	homepage_id = #{memberInfo.homepage_id}
+	</update>
+	
+	<delete id="deleteAddressBook">
+		DELETE FROM
+			CMS_ADDRESS_BOOK
+		WHERE
+			member_id = #{memberInfo.member_id}
+		AND	address_book_idx = #{address_book_idx}
+		AND	address_idx = #{address_idx}
+		AND	homepage_id = #{memberInfo.homepage_id}
+	</delete>
+	
+	<delete id="deleteAddressBookBatch">
+		DELETE FROM
+			CMS_ADDRESS_BOOK
+		WHERE
+			member_id = #{memberInfo.member_id}
+		AND	address_book_idx = #{address_book_idx}
+		AND	homepage_id = #{memberInfo.homepage_id}
+		<foreach collection="address_idx_arr" item="i" open="AND address_idx IN (" close=")" separator=",">
+		${i}
+		</foreach>
+	</delete>
+	
+	
+</mapper>

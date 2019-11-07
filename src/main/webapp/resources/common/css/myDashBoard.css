@@ -1,0 +1,176 @@
+@charset "UTF-8";
+
+.userInfoWrap {margin-bottom: 10px;}
+.userInfo .info li {float: left;font-size: 15px;display: block;margin: 0;padding: 0px;height: 28px;}
+.userInfo {width: 99%;border: 1.2px solid #d3d3d3;border-radius: 5px;margin-top: 10px;z-index: 999;}
+.userInfo ul.info {float: left;margin: 0;width: 99%;height: 120px;padding: 2.8% 5%;}
+.userInfo ul.recordValue {clear: both;float: left;width: 100%;background: #f9f9f9;border-radius: 10px;height: 148px;text-align: center;}
+.userInfo li.subject {width: 15%;background: url(/resources/common/img/dashBoard/dot_blue.png) no-repeat	1px 7px;}
+.userInfo li.content-info {width: 34%;}
+.userInfo .recordValue  li {display: inline-table;margin: 0;font-size: 12px;text-align: center;margin-left: 2%;vertical-align: middle;}
+.userInfo li.circle {width: 25%;position: relative;margin-top: 10px;margin-left: -1.5%;display: inline-block;}
+.userInfo .recordValue span.title {color: #6487ad;font-weight: bold;font-size: 15px;width: 57px;height: 32px !important;padding-bottom: 7px;position: relative;display: inline-table;text-align: center;vertical-align: middle;letter-spacing: 1px;}
+.userInfo .recordValue p {font-size: 15px;}
+.userInfo .recordValue p.orange {font-weight: bold;}
+.userInfo .circle a {display: block;padding-top: 13px;text-align: center;background: #fff;border-radius: 60px;width: 83px;height: 70px;}
+.myUtil {width: 100%;height: 130px;clear: both;position: relative;}
+.myUtil .utilBtn {width: 100%;height: 30px;}
+.myUtil .utilBtn a span{font-size: 14px;}
+.myUtil a.rightBtn {float: right;background: url('/resources/common/img/dashBoard/folder.png') no-repeat;font-size: 12px;letter-spacing: -1px;border: 1.3px solid #d3d3d3;border-radius: 3px;width: 112px;height: 25px;display: inline-block;vertical-align: middle;padding-top: 4px;margin-right: 1%;}
+.desc {width: 100%;height: 100px;position: relative;padding-top: 20px;position: relative;}
+.myUtil p {font-size: 15px;padding-bottom: 5px;}
+.notice {width: 100%;height: 200px;clear: both;margin-top: 3%;position: relative;}
+.lendData .h3Subject {height: 45px;width: 100%;}
+.notice h3 {float: left;margin: 0;}
+.notice a.more {float: right;display: table-cell;vertical-align: bottom;padding-top: 15px;}
+.notice .noticeList {padding-top: 13px;}
+.notice .noticeList li {font-size: 12px;padding-top: 6px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis}
+.notice .noticeList li {background: url('/resources/common/img/dashBoard/dot.png') no-repeat 1px	12px;}
+.notice .noticeList li span.date {float: right;font-size: 15px;}
+.notice ul.harf1 {float: left;width: 48%;}
+.myDashBoardWrap li.on {color: #326ba0;font-weight: bold;width: 10%;display: block;border-bottom: 2px solid #326ba0;}
+.notice ul.harf2 {width: 46%;float: right;}
+.notice ul.harf3 {width: 51%;float: left;margin-left:1%;}
+.notice .noticeList span.title {width: 55%;float: left;margin-left: 2%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.lendData h3 {float: left;margin: 0;}
+.lendData a.more {float: right;display: table-cell;vertical-align: bottom;padding-top: 15px;}
+.notice .h3Subject {height: 45px;width: 100%;border-bottom: 1px solid #d3d3d3;}
+.lendData {width: 100%;margin-bottom: 40px;}
+.lentbooks {width: 99%;margin-top: 3px;border: 1px solid #d3d3d3;height: auto;overflow: hidden;display: inline-block;}
+.lentbooks ul.parent li {text-align: left;}
+.lendData .lentbooks li.parentLi {float: left;font-size: 12px;width: 18%;position: relative;padding-right: 1%;margin-bottom: 4%;padding-top: 30px;}
+.lendData .lentbooks ul.parent {overflow:hidden;width: 99%;position: relative;padding-left: 4%;margin-top: 3%;height: 350px;}
+.lentbooks ul.child {display: block;height: 100%;width: 100%;}
+.lentbooks .child li.bookTitle {font-size: 15px;font-weight: bold;padding-bottom: 7px;padding-top:5px;border-bottom: 1px solid #d3d3d3;width: 100%;text-align: left;    height: 20px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+.lentbooks .child li.lentDate {padding-top: 7px;font-size: 14px;padding-bottom: 2px;width: 81%;text-align:left;}
+.lentbooks .child li.returnDate {font-size: 14px;margin-bottom: 18px;width: 81%;text-align: left;}
+.lentbooks .child li.btn {border: none !important;background: none;margin: 0;padding: 0;}
+.appData {margin-top: 50px;width: 100%;height: 300px;}
+.appDataSub {width: 130px;height: 30px;border-top: 1px solid #d3d3d3;border-bottom: 1px solid #d3d3d3;margin-top: 10px;display: inline-block;margin-left: -6px;}
+.appDataSub ul {/* width: 200px; */height: 40px;display: inline-block;}
+.appDataSub li {float: left;padding: 4px;padding-left: 10px;margin-left: 12px;font-size: 15px;}
+.appDataList {width: 100%;height: 200px;}
+.appDataList ul.harf1 {width: 48%;float: left;}
+.appDataList li {font-size: 12px;padding-top: 6px;background: url(/resources/common/img/dashBoard/dot.png) no-repeat 1px	14px;}
+.appDataList span.title {font-size: 12px !important;padding-right: 180px;padding-left: 12px;}
+.appDataList span.date {padding-right: 12px;}
+.noticeList span.state {border: 1px solid #3870a3;width: 50px;text-align: center;border-radius: 10px;background: #fff;color: #3870a3;float: right;margin-right: 3%;font-size: 13px;}
+.noticeList span.stateOn {border: 1px solid #3870a3;display: inline-block;width: 35px;text-align: center;border-radius: 10px;background: #3870a3;color: #fff;float: right;margin-right: 3%;}
+.userInfo img.combine {height: 22px;vertical-align: middle;margin-left: 8px;width: 88px;}
+.myUtil .rightBtn img.utilbutton {height: 30px;}
+.notice img.dot {display: block;width: 4px;height: 4px;}
+span.dot {float: left;display: inline-block;vertical-align: middle;height: 4px;width: 4px;}
+.notice ul a {width: 100%;}
+span.red {color: red;}
+.appData ul.harf2 {width: 44%;float: right;}
+.notice .h3Subject2 {height: 45px;width: 100%;}
+.userInfo ul .content-info a {display: inline-block;margin-left: 3px;width: 82px;border: 1.3px solid #d3d3d3;border-radius: 4px;height: 19px;}
+.content-info span.blue {padding-left: 0;letter-spacing: -1px;font-size: 11px;font-weight: bold;}
+.content-info b.arr {margin-left: 7px;color: #d3d3d3;}
+a.leftBtn {font-size: 12px;letter-spacing:-1px;border:1.3px solid #d3d3d3;border-radius: 3px;height: 25px;display: inline-block;vertical-align: middle;padding-top: 4px;}
+span.left1 {padding: 10px;color: gray;font-weight: 600;}
+b.orange {margin-left: 10px;}
+span.left2 {padding: 10px;color: gray;font-weight: 600;}
+a.leftBtn2 {font-size: 12px;letter-spacing: -1px;border: 1.3px solid #d3d3d3;border-radius: 3px;height: 25px;display: inline-block;vertical-align: middle;padding-top: 4px;}
+span.right {float: left;padding-left: 30px;font-weight: bold;color: gray;}
+.userInfo .info li span {margin-left: 10px;}
+span.title2 {
+	color: #6487ad;  font-weight: 900; font-size: 14px;  width: 100%;  height: 32px !important;
+    padding-bottom: 3px;  position: relative;  display: inline-block;  text-align: center;
+    vertical-align: middle;  letter-spacing: 1px;  padding-top: 6px;  line-height: 32px;
+}
+span.appDate {width: 85px;}
+.circle span {font-weight: 900;}
+span.gray {color: gray;}
+.desc span.orange {font-weight: 600;}
+.recoardWritten span.gray {font-weight: 600;}
+span.bookImg {width: 127px;height: 172px;}
+span.bookImg img.lendBook {width: 127px;height: 174px;}
+.recordValue {clear: both;background: #eee;height: 49%;height: 145px;z-index: -999;}
+ul.recordValue1 {width: 57%;float: left;margin-top: 3%;height: 144px;text-align: right;}
+ul.recordValue2 {width: 42%;text-align: center;float: right;margin-top: 6%;}
+.recordValue2 li.recoardWritten {width: 22%;margin-top: 0px;}
+.appDataSub.appDataSub2 {    width: 100%;    position: absolute;   top: 45px;    left: 255px;}
+.appDataSub.appDataSub3 {    position: absolute;    top: 45px;    left: 130px;}
+
+@media ( max-width : 1160px) {
+	.recordValue {	max-height: 50%;z-index: -999;}
+}
+
+@media ( max-width : 948px)
+{.userInfo {	width: 99%;}
+.userInfo ul.recordValue {	height: 54%;	position: relative;	z-index: -999;}
+.userInfo .recordValue2 .recoardWritten {	width: 21%;}
+li.content-info.content2 {	width: 50%;}
+}
+
+@media ( max-width : 864px) {
+	li.subject.subject2 {	margin-top: 1%}
+	li.content-info.content2 {	margin-top: 1%;	width: 50%}
+	li.subject.sub2 {	margin-top: 2%;}
+	li.content-info.con2 {	margin-top: 1%;}
+}
+
+@media ( max-width : 820px) {
+	.userInfo .recordValue .circle {	width: 36%;}
+	.userInfo .recordValue2 li {	width: 36% !important;	margin-top: 35px;}
+	.userInfo .recordValue1 {	padding-top:8px;text-align: center;	margin-top: 0;}
+	.userInfo .recordValue2 {	text-align: left;	margin-top: 0%;}
+	.recordValue {	height: 208px;}
+}
+
+@media ( max-width : 900px) {
+	li.hidden {	display: block !important;}
+	i.hidden-i {	display: none}
+	.userInfo li.content-info {	width: 32%;}
+}
+
+@media ( max-width : 750px) {
+	li.content-info.content2 {	width: 80%;}
+	.appDataSub {width: 100px;height: auto;border-top: 1px solid #d3d3d3;border-bottom: 1px solid #d3d3d3;margin-top: 10px;display: inline-block;margin-left: -6px;padding: 5px 0px 9px 0px;}
+	.appDataSub.appDataSub2{left: 184px!important;}
+		.appDataSub.appDataSub3{left: 100px!important;}
+}
+
+@media ( max-width : 600px) {
+	.lentbooks {	margin-top: 0 !important;}
+}
+
+@media ( max-width : 576px) {
+	.myUtil a.rightBtn {	float: left;	margin-top: 1%;	margin-right: 1%;}
+	#thirdBtn {	margin-top: 0;}
+	.desc {	margin-top: 5%;}
+	.notice {	margin-top: 15%;	height: 300px;}
+	.notice ul {	width: 100% !important;}
+	.userInfo .recordValue1  li {	width: 42% !important;	margin-left: 2% !important;	margin-top: 4% !important;}
+	.notice ul.harf3{margin-left: 0;}
+}
+
+@media ( max-width : 570px) {
+	.userInfo ul.info {	padding: 7%;height: 37%;padding-bottom: 3%;	}
+}
+
+@media ( max-width : 568px) {
+	.userInfo li.subject {width: 28%;float: left;}
+	.userInfo li.content-info {		width: 60%;}
+	.userInfo {height: 50%;	width: 99%;	}
+	.userInfo ul.recordValue {height: 9.38%;position: absolute;top: 830px;max-width: 93.5%;z-index: -999;}
+	.userInfo .recordValue2  li {width: 32% !important;	}
+	.lendData .lentbooks li.parentLi {width: 33%; margin-bottom: 6%; text-align: center; margin-top: 5%; padding: 0% 8%;}
+	.userInfo {width: 99%;	}
+	.userInfo ul.recordValue {height: 52%;	position: relative;	z-index: -999;}
+	.lentbooks .child li.btn{float:left;}
+	.lendData .lentbooks ul.parent{padding-left:0;}
+}
+
+@media ( max-width : 550px){
+	.userInfo .recordValue2 li{	margin-top:20px;}
+	.recoardWritten span.gray{display: block;}
+	.userInfo ul.info{padding-bottom: 5%;}
+}
+
+@media ( max-width : 454px) {
+#thirdBtn {margin-top: 1% !important;}
+
+}
+

@@ -1,0 +1,58 @@
+@charset "utf-8";
+@import url("../../../common/css/type21.css");
+
+.main_txt p{font-size:44px;color:#222;line-height:120%;letter-spacing:-2px}
+@media all and (max-width:767px){
+	.main_txt p{font-size:36px}
+}
+
+/* 인사말 */
+.greeting{background:url('../img/contents/greeting.jpg') no-repeat right 100%}
+.greeting_intro{background:url('/resources/common/img/contents/body/greeting_intro.png') no-repeat 0 0}
+.greeting .t1{font-size:190%;letter-spacing:-1px;padding:20px 0 25px 35px;border-bottom:1px solid #cdcdcd;width:400px}
+.greeting .t1 span{font-size:50%;color:#9ac4e4;letter-spacing:0.5px;display:block;line-height:120%;padding:10px 0 0}
+.greeting .t1 b{color:#39c}
+.greeting .box{padding:20px 260px 0px 0}
+.greeting .gtxt{padding:20px;background:url('../img/contents/greeting.png') no-repeat right bottom}
+.greeting .txt p{padding:0 0 10px;font-size:105%;line-height:180%}
+.greeting .sign{padding:15px 100px 0 0;font-size:120%}
+.greeting .sign span{color:#888;display:inline-block;zoom:1;*display:inline;vertical-align:middle}
+.greeting .sign span.name{margin-left:5px}
+@media all and (max-width:900px){
+	.greeting .box{padding-right:35%}
+}
+@media all and (max-width:767px){
+	.greeting{background:none}
+	.greeting .t1{width:auto}
+	.greeting .box{padding-right:5%;background:none}	
+}
+@media all and (max-width:400px){
+	.greeting .t1{padding:20px 0 25px 25px}
+	.greeting .gtxt{padding:2%}
+}
+
+/* 연혁 */
+.history-head{background-image:url('../img/contents/history_bg.gif')}
+@media all and (max-width:500px){
+	.history-head{background:none}
+}
+
+/* 접속기록안내 */
+#memberInfo{position:absolute;width:22%;left:100%;top:28%;background:#fff;margin-left:-37%;box-shadow:0px 1px 7px 0px rgba(0,0,0,0.5);z-index: 20;}
+#memberInfo .inbox{position:relative;border:1px solid #ccc;padding:10px;}
+#memberInfo .inbox dt{font-weight:bold;font-family:verdana;padding-bottom: 10px;}
+#memberInfo .inbox dd{padding:3px 0}
+a#closeMemberInfo{position:absolute;right:7px;top:5px;font-size:120%}
+#line{width: 160px;}
+div.loginInfo{padding-top: 8px;padding-bottom: 15px;}
+span.fontRed{color: red;}
+span.fontBlue{color: rgb(27,104,199);font-weight: bold;}
+div.memberCon{background-color: rgb(240,240,240);border-radius: 1em;}
+div.memberCon2{padding-top: 12px;padding-left: 10px;padding-right: 10px; padding-bottom: 28px;}
+a.btnStyle{float: right;margin-top: 6px;}
+#loginIcon{padding-top: 13px;padding-left:10px;}
+.boxnImg{ float: left; }
+.box2_1 { float: left; width: 34%; }
+.box3_1 { float: left; width: 38%; border-left: 1px solid #ddd; }
+.boxn { padding-top: 1%; padding-bottom: 1%; padding-left: 5%; }
+

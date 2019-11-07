@@ -1,0 +1,1373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.dataMigration.DataMigrationDao">
+
+	<select id="boardList" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			*
+		FROM
+			CMS_BOARD
+		WHERE
+			manage_idx = #{manage_idx}
+	</select>
+
+	<select id="getFileList" resultType="HashMap">
+		SELECT
+			board_idx, file_idx, real_file_name, file_name, file_ext_name,
+		FROM
+			CMS_BOARD_FILE
+		WHERE board_idx = #{board_idx}
+		ORDER BY file_idx
+	</select>
+
+	<select id="getNextBoardIdx" resultType="int">
+		SELECT CMS_BOARD_IDX_SEQ.NEXTVAL FROM DUAL
+	</select>
+
+	<select id="orgList" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			manager_seq,board_seq,group_seq,parent_seq,group_step,title,content,preview_content,preview_img,preview_img_name,user_id,user_name,user_email,user_homepage,user_phone,user_ip,board_file_count,category1,category2,category3,category4,category5,view_count,notice_yn,secret_yn,notice_start_date,notice_end_date,modify_id,delete_id,board_file_download_count,recom_count,report_state,imsi_v_1,imsi_v_2,imsi_v_3,imsi_v_4,imsi_v_5,imsi_d_1,imsi_d_2,imsi_n_1,imsi_n_2,del_dt,upt_dt,upt_dt2,crt_dt,recom_email_receive_count,user_email_receive_yn,user_sms_receive_yn,writer_auth_key
+		FROM
+			BOARD_20170109
+		WHERE
+			manager_seq = #{manager_seq}
+		ORDER BY
+			board_seq
+	</select>
+
+	<insert id="insertBoard">
+		INSERT INTO CMS_BOARD
+		(
+			manage_idx, board_idx, group_idx, parent_idx, group_depth,
+			notice_yn, notice_start_date, notice_end_date,
+			title, content, content_summary,
+			delete_yn,
+			user_name, add_id, user_ip, add_date, secret_yn,
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_email_receive_yn)">user_email_receive_yn,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_sms_receive_yn)">user_sms_receive_yn,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(modify_id)">modify_id,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(delete_id)">delete_id,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(view_count)">view_count,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(upt_dt)">modify_date,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(del_dt)">delete_date,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(preview_img)">preview_img,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(board_file_count)">file_count,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(board_file_download_count)">file_download_count,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(recom_count)">recommend_count,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(recom_email_receive_count)">recommend_email_receive_count,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(report_state)">report_state,</if>
+
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_homepage)">user_homepage,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_phone)">user_phone,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_email)">user_email,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category1)">category1,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category2)">category2,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category3)">category3,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category4)">category4,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category5)">category5,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_1)">imsi_v_1,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_2)">imsi_v_2,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_3)">imsi_v_3,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_4)">imsi_v_4,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_5)">imsi_v_5,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_1)">imsi_d_1,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_2)">imsi_d_2,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_1)">imsi_n_1,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_2)">imsi_n_2</if>
+		) VALUES
+		(
+			#{manage_idx}, #{board_idx}, #{board_idx}, #{parent_seq}, #{group_step},
+			#{notice_yn}, #{notice_start_date_str}, #{notice_end_date_str},
+			#{title}, #{content}, #{preview_content},
+			<choose>
+			<when test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(delete_id)">'Y',</when>
+			<otherwise>'N',</otherwise>
+			</choose>
+			#{user_name}, #{user_id}, #{user_ip}, #{crt_dt}, TRIM(#{secret_yn}),
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_email_receive_yn)">#{user_email_receive_yn},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_sms_receive_yn)">#{user_sms_receive_yn},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(modify_id)">#{modify_id},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(delete_id)">#{delete_id},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(view_count)">#{view_count},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(upt_dt)">#{upt_dt},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(del_dt)">#{del_dt},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(preview_img)">#{preview_img},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(board_file_count)">#{board_file_count},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(board_file_download_count)">#{board_file_download_count},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(recom_count)">#{recom_count},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(recom_email_receive_count)">#{recom_email_receive_count},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(report_state)">#{report_state},</if>
+
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_homepage)">#{user_homepage},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_phone)">#{user_phone},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_email)">#{user_email},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category1)">#{category1},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category2)">#{category2},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category3)">#{category3},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category4)">#{category4},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category5)">#{category5},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_1)">#{imsi_v_1},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_2)">#{imsi_v_2},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_3)">#{imsi_v_3},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_4)">#{imsi_v_4},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_5)">#{imsi_v_5},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_1)">#{imsi_d_1},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_2)">#{imsi_d_2},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_1)">#{imsi_n_1},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_2)">#{imsi_n_2}</if>
+		)
+	</insert>
+
+	<select id="getFileData" resultType="HashMap" >
+		SELECT
+			FILE_SEQ,BOARD_SEQ,REAL_FILE_NAME,RENAME_FILE_NAME,FILE_SIZE,FILE_EXT,FILE_ADD_DATE
+		FROM
+			BOARD_FILE
+		WHERE
+			BOARD_SEQ = #{BOARD_SEQ}
+		ORDER BY BOARD_SEQ, FILE_SEQ
+	</select>
+
+	<insert id="insertBoardFile">
+		<selectKey keyProperty="file_idx" resultType="int" order="BEFORE">
+			SELECT CMS_BOARD_FILE_IDX_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO CMS_BOARD_FILE
+		(
+			board_idx, file_idx, real_file_name, file_name, file_ext_name,
+			file_size, add_date
+		) VALUES
+		(
+			#{board_idx}, #{file_idx}, #{FILE_NAME}, #{REAL_FILE_NAME}, #{FILE_EXT},
+			#{FILE_SIZE}, #{FILE_ADD_DATE}
+		)
+	</insert>
+
+	<select id="getCommentData" resultType="HashMap">
+		SELECT
+			COMMENT_SEQ,
+			BOARD_SEQ,
+			NVL(COMMENT_ADD_USER_ID, 'admin') as COMMENT_ADD_USER_ID,
+			COMMENT_ADD_USER_NAME,
+			COMMENT_CONTENT,
+			EMOTICON,
+			COMMENT_CRT_DT
+		FROM
+			BOARD_COMMENT
+		WHERE
+			board_seq = #{board_seq}
+		ORDER BY
+			COMMENT_SEQ
+	</select>
+
+	<insert id="insertBoardComment">
+		<selectKey keyProperty="comment_idx" order="BEFORE" resultType="int">
+			SELECT CMS_BOARD_COMMENT_IDX_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO
+			CMS_BOARD_COMMENT
+		(
+			board_idx, comment_idx, group_comment_idx, parent_comment_idx, group_comment_depth,
+			comment_content, user_id, user_name, user_ip, delete_yn,
+			add_date, modify_date
+		) VALUES
+		(
+			#{board_idx}, #{comment_idx}, #{comment_idx}, 0, 0,
+<!-- 			#{COMMENT_CONTENT}, #{COMMENT_ADD_USER_ID}, #{COMMENT_ADD_USER_NAME}, '1.1.1.1', 'N',  -->
+			#{COMMENT_CONTENT}, #{COMMENT_ADD_USER_ID}, #{COMMENT_ADD_USER_NAME}, #{COMMENT_USER_IP}, 'N',
+			#{COMMENT_CRT_DT}, #{COMMENT_CRT_DT}
+		)
+	</insert>
+
+	<select id="getOrgListInfoset" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			bb_code as board_seq
+		from
+			wdb_board
+		where
+			bb_board = 1
+		order by bb_code
+
+	</select>
+
+
+
+
+
+
+
+
+
+	<!-- DK data Migration	-->
+	<!-- 	 -->
+	<!-- 	 -->
+	<!-- 	 -->
+	<!-- 	 -->
+	<select id="getFileDataDK" resultType="HashMap" >
+		SELECT
+			BF_Code as FILE_IDX,
+			BF_BB_Code as BOARD_seq,
+			BF_FileCName as REAL_FILE_NAME,
+			BF_FileOName as RENAME_FILE_NAME,
+			BF_FileExp as FILE_EXT,
+			BF_FileSize as FILE_SIZE
+		FROM
+			wdboard_files
+		WHERE
+			BF_BB_Code = #{bb_code}
+		ORDER BY BF_BB_Code, BF_Code
+	</select>
+
+	<select id="orgListDK" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			BB_Code as board_seq,
+			BB_Board as manage_idx,
+			BB_Head as group_seq,
+			BB_Parent as parent_seq,
+			BB_Depth as group_step,
+			ifnull(BB_ID, 'admin') as user_id,
+			if(BB_Category = '0', '', concat('00',BB_category)) as category1,
+<!-- 			case  -->
+<!-- 				when BB_Board=1 then '001'  -->
+<!-- 				else '002'  -->
+<!-- 			end category1, -->
+			BB_Name as user_name,
+			BB_Pass as user_password,
+			BB_Email as user_email,
+			BB_Link1 as imsi_v_1,
+			BB_Homepage as user_homepage,
+			BB_Subject as title,
+			BB_Content as content,
+			if(BB_Notice = '1', 'Y', 'N') as NOTICE_YN,
+			if(BB_Secret = '1', 'Y', 'N') as secret_yn,
+			if(BB_OPEN = '1', 'Y', 'N') as delete_yn,
+			BB_Hit as VIEW_COUNT,
+			BB_WIP as user_ip,
+			BB_MDate as modify_date,
+			BB_WDate as add_date,
+			BB_FileName as preview_img
+		FROM
+			wdb_board
+		WHERE
+			BB_Board = #{manager_seq}
+<!-- 			BB_Board in (1,2) -->
+		ORDER BY
+			BB_Code
+	</select>
+
+	<select id="orgListDK2" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			BK_Code as board_seq,
+<!-- 			case when BK_Category = '간행물' then '001' else '002' end category1, -->
+			case
+				when BK_Category = '유아' then '001'
+				when BK_Category = '어린이' then '002'
+				when bk_category = '청소년' then '003'
+				else '004' end category1,
+			BK_OFile as RENAME_FILE_NAME,
+			BK_CFile as REAL_FILE_NAME,
+			concat_ws('-', bk_year,(if (length(bk_month) = 1, concat('0',bk_month), bk_month))) as imsi_v_1,
+			BK_BName as title,
+			BK_Content as content,
+			if(BK_Open_Y = '0', '', BK_Open_Y) as imsi_v_2,
+			if(BK_Writer = '0', '', BK_Writer) as imsi_v_3,
+			if(BK_Company = '0', '', BK_Company) as imsi_v_4,
+			if(bk_position = '0', '', bk_position) as imsi_v_6,
+			if(bk_symbol = '0', '', bk_symbol) as imsi_v_7,
+			if(bk_day = '0', '', bk_day) as imsi_v_8,
+			BK_Hit as view_count,
+			BK_WDate as add_date,
+			'N' as delete_yn,
+			'N' as secret_yn
+		FROM
+			wdbook
+<!-- 			wdread -->
+		where
+			bk_bg_code = 1
+		ORDER BY
+			Bk_Code
+	</select>
+
+	<select id="orgListDK3" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			MV_Code as board_seq,
+<!-- 			case when MV_Part = '일반' then '001' when MV_Part='어린이' then '002' else '003' end category1, -->
+			concat_ws('-', MV_Year,(if (length(MV_Month) = 1, concat('0',MV_Month), MV_Month))) as imsi_v_1,
+			MV_Day as imsi_v_2,
+			MV_Hour as imsi_v_3,
+			MV_Minute as imsi_v_4,
+			MV_Time as imsi_v_5,
+			MV_OFile as RENAME_FILE_NAME,
+			MV_CFile as REAL_FILE_NAME,
+			MV_Area as imsi_v_6,
+			MV_Subject as title,
+			MV_Producer as imsi_v_7,
+			MV_Actor as imsi_v_8,
+			MV_Genre as imsi_v_9,
+			MV_Contury as imsi_v_10,
+			MV_OpenDate as imsi_v_11,
+			MV_Grade as imsi_v_12,
+			MV_ShowTime as imsi_v_13,
+			MV_MakeDate as imsi_v_14,
+			MV_Content as content,
+			MV_Hit as view_count,
+			MV_WDate as add_date,
+			'N' as delete_yn
+		FROM
+			wdmovie
+		ORDER BY
+			MV_Code
+	</select>
+
+	<select id="getCommentDK" resultType="HashMap" >
+		SELECT
+			BR_Code as comment_idx,
+			BR_BB_Code as board_idx,
+			BR_Head as group_comment_idx,
+			BR_Parent as parent_comment_idx,
+			BR_Depth as group_comment_depth,
+			BR_ID as user_id,
+			BR_Name as user_name,
+			BR_Content as comment_content,
+			BR_WIP as user_ip,
+			BR_MDate as modify_date,
+			BR_WDate as add_date
+		FROM
+			wdb_reply
+		WHERE
+			BR_BB_Code = #{bb_code}
+		AND BR_ID != '0'
+		ORDER BY
+			BR_Code
+	</select>
+
+	<select id="getReadCommentDK" resultType="HashMap" >
+		SELECT
+			BR_Code as comment_idx,
+			BR_BK_Code as board_idx,
+			BR_Head as group_comment_idx,
+			BR_Parent as parent_comment_idx,
+			BR_Depth as group_comment_depth,
+			BR_ID as user_id,
+			BR_Name as user_name,
+			BR_Content as comment_content,
+			BR_WIP as user_ip,
+			BR_MDate as modify_date,
+			BR_WDate as add_date
+		FROM
+			wdread_reply
+		WHERE
+			BR_BK_Code = #{bb_code}
+		AND BR_ID != '0'
+		ORDER BY
+			BR_Code
+	</select>
+
+	<insert id="insertBoarddk">
+		INSERT INTO CMS_BOARD
+		(
+			manage_idx, board_idx, group_idx, parent_idx, group_depth,
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(notice_yn)">notice_yn,</if>
+			title, content, content_summary,
+			delete_yn,
+			user_name, add_id, user_ip, add_date, secret_yn, file_count
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_id)">,modify_id</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(view_count)">,view_count</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(upt_dt)">,modify_date</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(preview_img)">,preview_img</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(board_file_download_count)">,file_download_count</if>
+
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_homepage)">,user_homepage</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_phone)">,user_phone</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_email)">,user_email</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category1)">,category1</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_1)">,imsi_v_1</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_2)">,imsi_v_2</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_3)">,imsi_v_3</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_4)">,imsi_v_4</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_5)">,imsi_v_5</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_6)">,imsi_v_6</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_7)">,imsi_v_7</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_8)">,imsi_v_8</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_9)">,imsi_v_9</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_10)">,imsi_v_10</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_11)">,imsi_v_11</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_12)">,imsi_v_12</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_13)">,imsi_v_13</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_14)">,imsi_v_14</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_15)">,imsi_v_15</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_16)">,imsi_v_16</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_17)">,imsi_v_17</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_18)">,imsi_v_18</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_19)">,imsi_v_19</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_20)">,imsi_v_20</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_1)">,imsi_d_1</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_2)">,imsi_d_2</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_1)">,imsi_n_1</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_2)">,imsi_n_2</if>
+		) VALUES
+		(
+			#{manage_idx}, #{board_idx}, #{group_seq}, #{parent_seq}, #{group_step},
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(notice_yn)">#{notice_yn},</if>
+			#{title}, #{content}, #{preview_content},
+			#{delete_yn},
+			#{user_name}, #{user_id}, #{user_ip}, #{crt_dt}, #{secret_yn}, #{file_count}
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_id)">,#{user_id}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(view_count)">,#{view_count}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(upt_dt)">,#{upt_dt}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(preview_img)">,#{preview_img}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(board_file_download_count)">,#{board_file_download_count}</if>
+
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_homepage)">,#{user_homepage}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_phone)">,#{user_phone}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_email)">,#{user_email}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category1)">,#{category1}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_1)">,#{imsi_v_1}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_2)">,#{imsi_v_2}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_3)">,#{imsi_v_3}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_4)">,#{imsi_v_4}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_5)">,#{imsi_v_5}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_6)">,#{imsi_v_6}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_7)">,#{imsi_v_7}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_8)">,#{imsi_v_8}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_9)">,#{imsi_v_9}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_10)">,#{imsi_v_10}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_11)">,#{imsi_v_11}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_12)">,#{imsi_v_12}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_13)">,#{imsi_v_13}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_14)">,#{imsi_v_14}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_15)">,#{imsi_v_15}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_16)">,#{imsi_v_16}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_17)">,#{imsi_v_17}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_18)">,#{imsi_v_18}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_19)">,#{imsi_v_19}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_20)">,#{imsi_v_20}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_1)">,#{imsi_d_1}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_2)">,#{imsi_d_2}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_1)">,#{imsi_n_1}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_2)">,#{imsi_n_2}</if>
+		)
+	</insert>
+
+
+	<insert id="insertBoardFiledk">
+		<selectKey keyProperty="file_idx" resultType="int" order="BEFORE">
+			SELECT CMS_BOARD_FILE_IDX_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO CMS_BOARD_FILE
+		(
+			board_idx, file_idx, real_file_name, file_name, file_ext_name,
+			file_size, add_date
+		) VALUES
+		(
+			#{board_idx}, #{file_idx}, #{FILE_NAME}, #{RENAME_FILE_NAME}, #{FILE_EXT},
+			#{FILE_SIZE}, SYSDATE
+		)
+	</insert>
+
+	<insert id="addBoardCommentdk">
+		<selectKey keyProperty="comment_idx" order="BEFORE" resultType="int">
+			SELECT CMS_BOARD_COMMENT_IDX_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO
+			CMS_BOARD_COMMENT
+		(
+			board_idx, comment_idx, group_comment_idx, parent_comment_idx, group_comment_depth,
+			comment_content, user_id, user_name, user_ip, delete_yn,
+			add_date, modify_date
+		) VALUES
+		(
+			#{board_idx}, #{comment_idx}, #{comment_idx}, 0, #{group_comment_depth},
+			#{comment_content}, #{user_id}, #{user_name}, #{user_ip}, 'N',
+			#{crt_dt}, #{upt_dt}
+		)
+	</insert>
+
+	<select id="orgListDKtheme" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			BB_Code as board_seq,
+			BB_Board as manage_idx,
+			BB_Head as group_seq,
+			BB_Parent as parent_seq,
+			BB_Depth as group_step,
+			BB_ID as user_id,
+			BB_Category as category1,
+			BB_Name as user_name,
+			BB_Pass as user_password,
+			BB_Email as user_email,
+			BB_Link1 as user_phone,
+			BB_Homepage as user_homepage,
+			BB_Subject as title,
+			BB_Content as content,
+			if(BB_Notice = '1', 'Y', 'N') as NOTICE_YN,
+			if(BB_Secret = '1', 'Y', 'N') as secret_yn,
+			BB_Hit as VIEW_COUNT,
+			BB_WIP as user_ip,
+			BB_MDate as modify_date,
+			BB_WDate as add_date,
+			BB_FileName as preview_img
+		FROM
+			wdb_board
+		WHERE
+			BB_Board = #{manager_seq}
+		ORDER BY
+			BB_Code
+	</select>
+
+	<select id="orgListDKbook" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			BB_Code as board_seq,
+			BB_Board as manage_idx,
+			BB_Head as group_seq,
+			BB_Parent as parent_seq,
+			BB_Depth as group_step,
+			BB_ID as user_id,
+			BB_Category as category1,
+			BB_Name as user_name,
+			BB_Pass as user_password,
+			BB_Email as user_email,
+			BB_Link1 as user_phone,
+			BB_Homepage as user_homepage,
+			BB_Subject as title,
+			BB_Content as content,
+			if(BB_Notice = '1', 'Y', 'N') as NOTICE_YN,
+			if(BB_Secret = '1', 'Y', 'N') as secret_yn,
+			BB_Hit as VIEW_COUNT,
+			BB_WIP as user_ip,
+			BB_MDate as modify_date,
+			BB_WDate as add_date,
+			BB_FileName as preview_img
+		FROM
+			wdb_board
+		WHERE
+			BB_Board = #{manager_seq}
+		ORDER BY
+			BB_Code
+	</select>
+
+
+
+
+
+
+
+
+	<!-- INFO data Migration	-->
+	<!-- 	 -->
+	<!-- 	 -->
+	<!-- 	 -->
+	<!-- 	 -->
+	<!-- 	 -->
+	<!-- 	 -->
+	<!-- 	 -->
+	<!-- 	 -->
+	<!-- 	 -->
+	<!-- 	 -->
+	<!-- 	 -->
+	<!-- 	 -->
+	<!-- 	 -->
+	<!-- 	 -->
+	<!-- 	 -->
+	<!-- 	 -->
+	<!-- 	 -->
+	<!-- 	 -->
+	<!-- 	 -->
+	<!-- 	 -->
+	<!-- 	 -->
+	<!-- 	 -->
+	<!-- 	 -->
+	<!-- 	 -->
+
+
+
+
+	<select id="orgListINFO" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			no as board_seq,
+			group_no as group_seq,
+			depth as group_step,
+			subject as title,
+			name as user_name,
+			id as user_id,
+			email as user_email,
+			passwd as user_password,
+			ip as user_ip,
+			cate as category1,
+			regdate as crt_dt,
+			hit as view_count,
+			if (notice = '1', 'Y', 'N') as notice_yn,
+			if (private1 = '1', 'Y', 'N') as secret_yn,
+			tel as user_phone,
+			content,
+			addfile1 as imsi_v_1,
+			addfile1_name as imsi_v_2,
+			addfile2 as imsi_v_3,
+			addfile2_name as imsi_v_4,
+			addfile3 as imsi_v_5,
+			addfile3_name as imsi_v_6,
+			addfile4 as imsi_v_7,
+			addfile4_name as imsi_v_8,
+			addfile5 as imsi_v_9,
+			addfile5_name as imsi_v_10
+		FROM
+			tbl_board_0#{manager_seq}
+		ORDER BY
+			no
+	</select>
+
+
+
+	<!-- 영덕 -->
+	<!-- 추천도서 -->
+	<select id="orgListyd1" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_no as board_seq,
+			case when b_cate = '종합자료실' then '001' else '002' end category1,
+			b_isbn as imsi_v_5,
+			b_title as title,
+			b_author as imsi_v_3,
+			b_publisher as imsi_v_4,
+			b_hit as view_count,
+			b_publisher_date as imsi_v_2,
+			concat_ws('-', b_best_year,(if (length(b_best_month) = 1, concat('0',b_best_month), b_best_month))) as imsi_v_1,
+			b_place as imsi_v_6,
+			b_book_img as imsi_v_11,
+			b_book_file as imsi_v_10,
+			b_book_info as content,
+			b_author_info as imsi_v_20
+		FROM
+			${tableName}
+		ORDER BY
+			b_no
+	</select>
+
+	<!-- 공지사항 -->
+	<select id="orgListyd" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			bbs_num as board_seq,
+			bbs_parent_num as parent_seq,
+			bbs_depth as group_depth,
+			case when bbs_notice = '1' then 'Y' else 'N' end notice_yn,
+			case when bbs_secret = '1' then 'Y' else 'N' end secret_yn,
+			bbs_hit as view_count,
+			bbs_regdate as crt_dt,
+			bbs_ip as user_ip,
+			bbs_passwd as user_password,
+			bbs_subject as title,
+			bbs_writer as user_name,
+			bbs_userid as user_id,
+			bbs_useremail as user_email,
+			bbs_contents as content,
+			'N' as delete_yn
+		FROM
+			${tableName}
+		ORDER BY
+			bbs_num
+	</select>
+
+	<!-- 포토갤러리 -->
+	<select id="orgListyd3" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			bbs_num as board_seq,
+			bbs_parent_num as parent_seq,
+			bbs_depth as group_step,
+			case when bbs_notice = '1' then 'Y' else 'N' end notice_yn,
+			case when bbs_secret = '1' then 'Y' else 'N' end secret_yn,
+			bbs_hit as view_count,
+			bbs_regdate as crt_dt,
+			bbs_ip as user_ip,
+			bbs_passwd as user_password,
+			bbs_subject as title,
+			bbs_writer as user_name,
+			bbs_userid as user_id,
+			bbs_useremail as user_email,
+			bbs_contents as content,
+			'N' as delete_yn
+		FROM
+			${tableName}
+		ORDER BY
+			bbs_num
+	</select>
+
+	<insert id="insertBoardyd">
+		INSERT INTO CMS_BOARD
+		(
+			manage_idx, board_idx, group_idx, parent_idx, group_depth,
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(notice_yn)">notice_yn,</if>
+			title, content, content_summary,
+			delete_yn,
+			user_name, add_id, user_ip, add_date, secret_yn, file_count
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(view_count)">,view_count</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(preview_img)">,preview_img</if>
+
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category1)">,category1</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_1)">,imsi_v_1</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_2)">,imsi_v_2</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_3)">,imsi_v_3</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_4)">,imsi_v_4</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_5)">,imsi_v_5</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_6)">,imsi_v_6</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_7)">,imsi_v_7</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_8)">,imsi_v_8</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_9)">,imsi_v_9</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_10)">,imsi_v_10</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_11)">,imsi_v_11</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_12)">,imsi_v_12</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_13)">,imsi_v_13</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_14)">,imsi_v_14</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_15)">,imsi_v_15</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_16)">,imsi_v_16</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_17)">,imsi_v_17</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_18)">,imsi_v_18</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_19)">,imsi_v_19</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_20)">,imsi_v_20</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_1)">,imsi_d_1</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_2)">,imsi_d_2</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_1)">,imsi_n_1</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_2)">,imsi_n_2</if>
+		) VALUES
+		(
+			#{manage_idx}, #{board_idx}, #{group_seq}, #{parent_seq}, #{group_step},
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(notice_yn)">#{notice_yn},</if>
+			#{title}, replace(#{content}, '\"', '"'), replace(#{preview_content}, '\"', '"'),
+			'N',
+			#{user_name}, #{user_id}, #{user_ip}, #{crt_dt}, #{secret_yn}, #{file_count}
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(view_count)">,#{view_count}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(preview_img)">,#{preview_img}</if>
+
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category1)">,#{category1}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_1)">,#{imsi_v_1}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_2)">,#{imsi_v_2}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_3)">,#{imsi_v_3}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_4)">,#{imsi_v_4}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_5)">,#{imsi_v_5}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_6)">,#{imsi_v_6}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_7)">,#{imsi_v_7}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_8)">,#{imsi_v_8}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_9)">,#{imsi_v_9}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_10)">,#{imsi_v_10}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_11)">,#{imsi_v_11}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_12)">,#{imsi_v_12}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_13)">,#{imsi_v_13}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_14)">,#{imsi_v_14}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_15)">,#{imsi_v_15}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_16)">,#{imsi_v_16}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_17)">,#{imsi_v_17}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_18)">,#{imsi_v_18}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_19)">,#{imsi_v_19}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_20)">,#{imsi_v_20}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_1)">,#{imsi_d_1}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_2)">,#{imsi_d_2}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_1)">,#{imsi_n_1}</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_2)">,#{imsi_n_2}</if>
+		)
+	</insert>
+
+	<select id="getFileDataYD" resultType="HashMap" >
+		SELECT
+			bbs_num as BOARD_seq,
+			bbs_filename as RENAME_FILE_NAME,
+			bbs_srcname as REAL_FILE_NAME,
+			bbs_filetype as FILE_EXT,
+			bbs_down as file_down_count
+		FROM
+			bbs_file
+		WHERE
+			bbs_num = #{board_seq}
+		and bbs_idx = 3
+		ORDER BY bbs_num
+	</select>
+
+
+
+
+
+	<select id="orgListGM" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			BB_Code as board_seq,
+			BB_Board as manage_idx,
+			BB_Head as group_seq,
+			BB_Parent as parent_seq,
+			BB_Depth as group_step,
+			ifnull(BB_ID, 'admin') as user_id,
+			if(BB_Category = '0', '', BB_category) as category1,
+			BB_Name as user_name,
+			BB_Pass as user_password,
+			BB_Email as user_email,
+			BB_Link1 as imsi_v_1,
+			BB_Homepage as user_homepage,
+			BB_Subject as title,
+			BB_Content as content,
+			if(BB_Notice = '1', 'Y', 'N') as NOTICE_YN,
+			if(BB_Secret = '1', 'Y', 'N') as secret_yn,
+			if(BB_OPEN = '1', 'Y', if(BB_ISVIEW = '1', 'Y', 'N')) as delete_yn,
+			BB_Hit as VIEW_COUNT,
+			BB_WIP as user_ip,
+			BB_MDate as modify_date,
+			BB_WDate as add_date,
+			BB_FileName as preview_img,
+			bb_nsdate as notice_start_date_str,
+			bb_nedate as notice_end_date_str
+		FROM
+			wd_board
+		WHERE
+			BB_Board = #{manager_seq}
+		ORDER BY
+			BB_Code
+	</select>
+
+	<select id="getFileDataGM" resultType="HashMap" >
+		SELECT
+			BF_Code as FILE_IDX,
+			BF_p_Code as BOARD_seq,
+			replace(BF_FileCName, '../wdBoard/upload/', '') as REAL_FILE_NAME,
+			BF_FileOName as RENAME_FILE_NAME,
+			BF_FileExp as FILE_EXT,
+			BF_FileSize as FILE_SIZE
+		FROM
+			wd_board_files
+		WHERE
+			BF_P_Code = #{bb_code}
+		AND	bf_code >= 578
+		ORDER BY BF_P_Code, BF_Code
+	</select>
+
+	<select id="orgListGM3" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			MV_Code as board_seq,
+			'' as category1,
+			concat_ws('-', MV_Year,(if (length(MV_Month) = 1, concat('0',MV_Month), MV_Month))) as imsi_v_1,
+			MV_Day as imsi_v_2,
+			MV_Hour as imsi_v_3,
+			MV_Minute as imsi_v_4,
+			MV_Time as imsi_v_5,
+			MV_OFile as RENAME_FILE_NAME,
+			MV_CFile as REAL_FILE_NAME,
+			MV_Area as imsi_v_6,
+			MV_Subject as title,
+			MV_Producer as imsi_v_7,
+			MV_Actor as imsi_v_8,
+			MV_Genre as imsi_v_9,
+			MV_Contury as imsi_v_10,
+			MV_OpenDate as imsi_v_11,
+			MV_Grade as imsi_v_12,
+			MV_ShowTime as imsi_v_13,
+			MV_MakeDate as imsi_v_14,
+			MV_Content as content,
+			MV_Hit as view_count,
+			MV_WDate as add_date,
+			'N' as delete_yn
+		FROM
+			wd_movie
+		ORDER BY
+			MV_Code
+	</select>
+
+
+	<select id="orgListGM2" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			BK_Code as board_seq,
+			case when BK_Category = '일반도서' then '001' else '002' end category1,
+<!-- 			case when BK_Category = '종합자료실' then '001' when bk_category='디지털자료실' then '002' else '003' end category1, -->
+			BK_OFile as RENAME_FILE_NAME,
+			BK_CFile as REAL_FILE_NAME,
+			concat_ws('-', bk_year,(if (length(bk_month) = 1, concat('0',bk_month), bk_month))) as imsi_v_1,
+			BK_BName as title,
+			BK_Content as content,
+			BK_Open_Y as imsi_v_2,
+			BK_Writer as imsi_v_3,
+			BK_Company as imsi_v_4,
+			bk_position as imsi_v_6,
+			bk_symbol as imsi_v_7,
+			bk_day as imsi_v_8,
+			bk_isbn as imsi_v_5,
+			BK_Hit as view_count,
+			BK_WDate as add_date,
+			'N' as delete_yn
+		FROM
+			wd_book
+		where
+			bk_bg_code = 1
+		ORDER BY
+			Bk_Code
+	</select>
+
+<!-- 	외동 추천도서 -->
+	<select id="orgListOD2" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			b_no as board_seq,
+			b_code as imsi_v_5,
+			b_title as title,
+			b_writer as imsi_v_3,
+			b_editor as imsi_v_4,
+			b_etcinfo as imsi_v_7,
+			concat_ws('-', b_best_year, b_best_month) as imsi_v_1,
+			b_book_img as REAL_FILE_NAME,
+			b_book_img as RENAME_FILE_NAME,
+			b_book_info as content,
+			b_regdate as crt_dt,
+			b_update as upt_dt,
+			case when b_cate = '1' then '001' when b_cate = '2' then '002' else '003' end category1,
+			'N' as delete_yn
+		FROM
+			book_review_list
+		WHERE
+			b_cate in ('1','2','3')
+		ORDER BY
+			b_no
+	</select>
+
+	<!-- 점촌도서관 -->
+	<select id="orgListJC" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			bbs_num as board_seq,
+			bbs_idx as manager_seq,
+			bbs_parent_num as parent_seq,
+			bbs_depth as group_step,
+			if(bbs_notice = '1', 'Y', 'N') as notice_yn,
+			'N' as delete_yn,
+			if(bbs_secret = '1', 'Y', 'N') as secret_yn,
+			bbs_hit as VIEW_COUNT,
+			bbs_regdate as crt_dt,
+<!-- 			if(lib_code = '1', '001', '002') as category1, -->
+			bbs_ip as user_ip,
+			bbs_passwd as user_password,
+			bbs_subject as title,
+			bbs_writer as user_name,
+			ifnull(bbs_userid, 'admin') as user_id,
+			if(bbs_useremail = '0', '', bbs_useremail) as user_email,
+			bbs_contents as content
+		FROM
+			${tableName}
+		ORDER BY
+			bbs_num
+	</select>
+	<select id="getFileDataJC" resultType="HashMap" >
+		SELECT
+			file_idx as FILE_IDX,
+			bbs_num as BOARD_seq,
+			bbs_filename as RENAME_FILE_NAME,
+			bbs_srcname as REAL_FILE_NAME,
+			lower(substring_index(bbs_filename, '.', -1)) as FILE_EXT
+		FROM
+			bbs_file
+		WHERE
+			bbs_idx = #{manager_seq}
+		AND	bbs_num = #{board_seq}
+		ORDER BY
+			bbs_num
+	</select>
+	<select id="orgListJCBook" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			b_no as board_seq,
+			b_title as title,
+			b_author as imsi_v_3,
+			b_publisher as imsi_v_4,
+		    b_hit as view_count,
+			if(b_place = '0', '', b_place) as imsi_v_7,
+		    concat_ws('-', b_best_year,(if (length(b_best_month) = 1, concat('0',b_best_month), b_best_month))) as imsi_v_1,
+			b_book_file as REAL_FILE_NAME,
+			b_book_img as RENAME_FILE_NAME,
+			b_book_info as content,
+			case when b_cate = '유아,어린이' then '001' else '002' end category1,
+			'N' as delete_yn,
+			'N' as secret_yn
+		FROM
+			book_review
+		ORDER BY
+			b_no
+	</select>
+	<select id="orgListJCMovie" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			no as board_seq,
+      		date_format(opendate, '%Y-%m') as imsi_v_1,
+			date_format(opendate, '%d') as imsi_v_2,
+			substring(opentime, 1, 2) as imsi_v_3,
+			substring(opentime, 4, 2) as imsi_v_4,
+			'' as imsi_v_5,
+			img as RENAME_FILE_NAME,
+			filesrc as REAL_FILE_NAME,
+			place as imsi_v_6,
+			title as title,
+			producer as imsi_v_7,
+			staff as imsi_v_8,
+			if(cate = '0', '', cate) as imsi_v_9,
+			'' as imsi_v_10,
+			'' as imsi_v_11,
+			agelimit as imsi_v_12,
+			replace(runtime, '분', '') as imsi_v_13,
+			'' as imsi_v_14,
+			if(contents = '0', '', contents) as content,
+			hit as view_count,
+			'N' as delete_yn,
+			'N' as secret_yn
+		FROM
+			movie_review
+		ORDER BY
+			no
+	</select>
+
+
+
+	<select id="orgListPG" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			no as board_seq,
+			thread as group_seq,
+			depth as group_step,
+			subject as title,
+			name as user_name,
+			ifnull(id, 'admin') as user_id,
+			email as user_email,
+			passwd as user_password,
+			ip as user_ip,
+			cate as category1,
+<!-- 			'002' as category1, -->
+			regdate as crt_dt,
+			hit as view_count,
+			if (notice = '1', 'Y', 'N') as notice_yn,
+<!-- 			'N' as notice_yn, -->
+			if (private1 = '1', 'Y', 'N') as secret_yn,
+			tel as user_phone,
+			content,
+			addfile1 as imsi_v_1,
+			addfile1_name as imsi_v_2,
+			addfile2 as imsi_v_3,
+			addfile2_name as imsi_v_4,
+			addfile3 as imsi_v_5,
+			addfile3_name as imsi_v_6,
+			addfile4 as imsi_v_7,
+			addfile4_name as imsi_v_8,
+			addfile5 as imsi_v_9,
+			addfile5_name as imsi_v_10,
+			'N' as delete_yn
+		FROM
+			tbl_board_0#{manager_seq}
+<!-- 			bbs_photo_02 -->
+		ORDER BY
+			no
+	</select>
+
+
+	<select id="orgListPGBook" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			no as board_seq,
+			thread as group_seq,
+			depth as group_step,
+			subject as title,
+			name as user_name,
+			ifnull(id, 'admin') as user_id,
+			email as user_email,
+			passwd as user_password,
+			ip as user_ip,
+<!-- 			cate as category1, -->
+			'002' as category1,
+			regdate as crt_dt,
+			hit as view_count,
+<!-- 			if (notice = '1', 'Y', 'N') as notice_yn, -->
+			'N' as notice_yn,
+			if (private1 = '1', 'Y', 'N') as secret_yn,
+			tel as user_phone,
+			content,
+			addfile1 as imsi_v_1,
+			addfile1_name as imsi_v_2,
+			addfile2 as imsi_v_3,
+			addfile2_name as imsi_v_4,
+			addfile3 as imsi_v_5,
+			addfile3_name as imsi_v_6,
+			addfile4 as imsi_v_7,
+			addfile4_name as imsi_v_8,
+			addfile5 as imsi_v_9,
+			addfile5_name as imsi_v_10,
+			'N' as delete_yn
+		FROM
+			tbl_board_#{manager_seq}
+		ORDER BY
+			no
+	</select>
+
+	<select id="orgListPG2" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			b_no as board_seq,
+			b_code as imsi_v_5,
+			b_title as title,
+			b_writer as imsi_v_3,
+			b_editor as imsi_v_4,
+			b_etcinfo as imsi_v_7,
+			concat_ws('-', b_best_year, b_best_month) as imsi_v_1,
+			b_book_img as REAL_FILE_NAME,
+			b_book_img as RENAME_FILE_NAME,
+			b_book_info as content,
+			b_regdate as crt_dt,
+			b_update as upt_dt,
+			case
+				when b_cate = '1' then '001'
+				when b_cate = '2' then '002'
+				when b_cate = '3' then '003'
+				else '004' end category1,
+			'N' as delete_yn
+		FROM
+			book_review_list
+		ORDER BY
+			b_no
+	</select>
+
+	<select id="orgGbccsList" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		select
+			BOARD_IDX as board_seq,
+			TABLE_IDX as manage_idx,
+			IDX_GRP as group_seq,
+			GRP_DEP as group_step,
+			TITLE_TEXT as title,
+			BOARD_CONTENT as content,
+			NVL(REG_USER_NAME, '이름없음') as user_name,
+			REG_USER_EMAIL as user_email,
+			REG_USER_PWD as user_pass,
+			NOTICE_YN as notice_yn,
+			DEL_YN as delete_yn,
+			'gbccsadmin' as user_id,
+			REG_DT as crt_dt,
+			NVL(MOD_DT, REG_DT) as upt_dt,
+			NVL(USE_IP, '10.168.1.1') as user_ip,
+			SEARCH_CNT as view_count,
+			TRIM(NVL(PRIVATE_YN, 'N')) as secret_yn,
+			case
+				when table_idx = 3 then '001'
+				when table_idx = 7 then '002'
+				when table_idx = 12 then '003'
+				when table_idx = 22 then '004'
+				else '005'
+			end category1
+		from t_comm_board
+		where TABLE_IDX = #{manage_idx}
+		order by board_idx
+	</select>
+
+	<select id="getGbccsFileData" resultType="HashMap">
+		select
+		  file_idx as file_idx,
+		  board_idx as board_idx,
+		  file_new_name as rename_file_name,
+		  file_old_name as real_file_name,
+		  reg_dt as file_add_date,
+		  save_folder as path
+		from
+		  t_comm_board_file_info
+		where board_idx = #{board_seq}
+		order by board_idx, file_idx
+	</select>
+
+	<select id="getGbccsCommentData" resultType="HashMap">
+	SELECT
+		CMT_IDX as comment_seq,
+		BOARD_IDX as board_idx,
+		TABLE_IDX as manage_idx,
+		CONTENT as COMMENT_CONTENT,
+		REG_DT as COMMENT_CRT_DT,
+		NVL(USE_IP, '10.168.1.1') as COMMENT_USER_IP,
+		NVL(REG_USER_NAME, '이름없음') as COMMENT_ADD_USER_NAME,
+		'gbccsadmin' as COMMENT_ADD_USER_ID
+	FROM
+		T_COMM_BOARD_CMT
+	WHERE
+		board_idx = #{board_seq}
+	ORDER BY
+		board_idx, cmt_idx
+	</select>
+
+	<select id="getTableMap" resultType="HashMap">
+		SELECT TABLE_NAME , TABLE_COMMENT
+FROM (
+    SELECT A.OWNER OWNER,
+           A.TABLE_NAME TABLE_NAME,
+           B.COMMENTS AS TABLE_COMMENT,
+           A.COLUMN_NAME,
+           C.COMMENTS AS COLUMN_COMMENT,
+           A.DATA_TYPE,
+           A.DATA_LENGTH DATA_LENGTH,
+           A.NULLABLE AS NULLABLE,
+           A.DATA_DEFAULT,
+           A.DATA_PRECISION AS PRECISION,
+           A.DATA_SCALE AS SCALE,
+           B.TABLE_TYPE,
+           A.COLUMN_ID
+    FROM   ALL_TAB_COLUMNS A,
+           ALL_TAB_COMMENTS B,
+           ALL_COL_COMMENTS C
+WHERE  A.OWNER = B.OWNER(+)
+    AND    A.TABLE_NAME = B.TABLE_NAME(+)
+    AND    A.OWNER = C.OWNER(+)
+    AND    A.TABLE_NAME = C.TABLE_NAME(+)
+    AND    A.COLUMN_NAME = C.COLUMN_NAME(+)
+    and a.owner = 'GBELIB'
+    AND    A.TABLE_NAME  IN (
+    'ACCESS_IP',
+'API_ERROR_LOG',
+'BOOK_REVIEW',
+'CERT_LOG',
+'CMS_ACCOUNT_LOCK',
+'CMS_ADDRESS_BOOK',
+'CMS_ADDRESS_BOOK_GROUP',
+'CMS_ADMIN_MENU',
+'CMS_ADMIN_MENU_AUTH',
+'CMS_AUTH',
+'CMS_AUTH_GROUP',
+'CMS_BANNER',
+'CMS_BOARD',
+'CMS_BOARD_CATEGORY_CODE',
+'CMS_BOARD_CATEGORY_GROUP',
+'CMS_BOARD_COMMENT',
+'CMS_BOARD_COMMENT_FILE',
+'CMS_BOARD_FIELD_MANAGE',
+'CMS_BOARD_FILE',
+'CMS_BOARD_IP_BLOCK',
+'CMS_BOARD_MANAGE',
+'CMS_BOARD_REGEX_FILTER',
+'CMS_BOARD_TYPE',
+'CMS_BOARD_WORD_FILTER',
+'CMS_CALENDAR_MANAGE',
+'CMS_CODE',
+'CMS_CODE_GROUP',
+'CMS_EXCURSIONS',
+'CMS_EXCURSIONS_APPLY',
+'CMS_HOMEPAGE',
+'CMS_HOMEPAGE_ACCESS',
+'CMS_HOMEPAGE_ACCESS_STATUS2',
+'CMS_LOGIN_INFO',
+'CMS_MAIN_IMG',
+'CMS_MEMBER',
+'CMS_MEMBER_AUTH',
+'CMS_MEMBER_HISTORY',
+'CMS_MENU',
+'CMS_MENU_ACCESS',
+'CMS_MENU_AUTH',
+'CMS_MENU_HTML',
+'CMS_MENU_LOG',
+'CMS_MENU_TEMP_FILE',
+'CMS_MODULE_MANAGE',
+'CMS_MODULE_TERMS',
+'CMS_NEWS',
+'CMS_ORGANIZATION',
+'CMS_PMS_STATUS',
+'CMS_POPUP',
+'CMS_POPUP_ZONE',
+'CMS_PROJECT_MANAGE',
+'CMS_QUICK_MENU',
+'CMS_SITE',
+'CMS_SMS_BOX',
+'CMS_SURVEY_ANSWER_DETAIL',
+'CMS_SURVEY_ANSWER_MATRIX',
+'CMS_SURVEY_ANSWER_USER',
+'CMS_SURVEY_BASIC',
+'CMS_SURVEY_BASIC_20190513',
+'CMS_SURVEY_QUEST',
+'CMS_SURVEY_QUEST_20190513',
+'CMS_SURVEY_QUEST_DETAIL',
+'CMS_SURVEY_QUEST_MATRIX',
+'CMS_SURVEY_STATISTICS',
+'CMS_TASK_MANAGE',
+'CMS_TASK_MAPPING',
+'CMS_TERMS',
+'DEPT_CHART',
+'DEPT_INFO',
+'DEPT_MNG',
+'ELIB_AUDIOBOOK',
+'ELIB_AUDIO_STAT',
+'ELIB_BANNED_IP',
+'ELIB_BESTBOOK',
+'ELIB_BOOK',
+'ELIB_BOOKINFO',
+'ELIB_CATEGORY',
+'ELIB_CATEGORY_BESTBOOK',
+'ELIB_COMMENT',
+'ELIB_COMPANY',
+'ELIB_CONFIG',
+'ELIB_CONFIG_LEND',
+'ELIB_COURSE',
+'ELIB_ELEARN_STAT',
+'ELIB_EXTLINK_STAT',
+'ELIB_INTEREST_BOOK',
+'ELIB_LEND',
+'ELIB_MEMBER',
+'ELIB_RECOMMEND',
+'ELIB_RESERVE',
+'ELIB_STATISTICS_TBL1',
+'ELIB_STATISTICS_TBL2',
+'ELIB_STATISTICS_TBL3',
+'ELIB_STATISTICS_TBL4',
+'FACILITY',
+'FACILITY_MANAGE',
+'FACILITY_REQ',
+'HOPE_CONFIG',
+'LAS_REQ_CONFIG',
+'INTEGRATION_MEMBER',
+'LOCKER',
+'LOCKER_PRE',
+'LOCKER_REQ',
+'LOGIN_LOG',
+'MEMBER_LAST_LOGIN',
+'MY_ITEM',
+'MY_STORAGE',
+'QUIZ',
+'QUIZ_QUESTION',
+'QUIZ_REQ',
+'RECEPTION_WORK',
+'SMS_RECEPTION',
+'SNS_ACCESS_HISTORY',
+'STATUS_CNT',
+'STATUS_DIV',
+'STUDENT',
+'TEACH',
+'TEACHER',
+'TEACHER_AGREE',
+'TEACHER_REQ_MANAGE',
+'TEACH_BLACKLIST',
+'TEACH_BOOK',
+'TEACH_BOOK_DETAIL',
+'TEACH_BOOK_TIME',
+'TEACH_CATEGORY',
+'TEACH_CATEGORY_GROUP',
+'TEACH_CODE',
+'TEACH_CODE2',
+'TEACH_HOLIDAYS',
+'TEACH_SETTING',
+'TEACH_SUB_CATEGORY',
+'THEME_BOOK',
+'USER_API_LOG',
+'WB_AUTH_CODE',
+'WB_AUTH_GROUP',
+'WB_MEMBER_GROUP',
+'WB_MEMBER_GROUP_AUTH',
+'WB_MEMBER_GROUP_RELATION',
+'WB_MEMBER_GROUP_SUBORD',
+'WB_MODULE_MNGT',
+'WB_TEACH_CLASS_CODE',
+'WORK_MNG'
+
+    )
+    ORDER BY A.OWNER ,
+           A.TABLE_NAME ,
+           A.COLUMN_NAME
+  )
+GROUP BY OWNER, TABLE_NAME, TABLE_COMMENT
+ORDER BY OWNER, TABLE_NAME
+	</select>
+
+
+	<select id="getColumns" resultType="HashMap" parameterType="HashMap">
+	select a.table_name, c.comments, a.column_id+1, a.column_name, b.comments as comm, a.data_type, a.data_length, decode(a.nullable, 'Y', 'N', 'Y') as "NOT_NULL",
+case when (
+SELECT count(*)
+FROM USER_CONSTRAINTS x, USER_CONS_COLUMNS y
+WHERE x.CONSTRAINT_NAME = y.CONSTRAINT_NAME
+AND x.TABLE_NAME = a.table_name
+AND x.CONSTRAINT_TYPE = 'P'
+and y.column_name = a.column_name
+) >= 1 then 'Y' else '' end PK
+from user_tab_columns a, user_col_comments b, user_tab_comments c
+where   a.table_name = b.table_name(+)
+and   a.table_name = c.table_name(+)
+and   a.column_name = b.column_name(+)
+and a.table_name = #{TABLE_NAME}
+order by a.table_name, a.column_id
+	</select>
+</mapper>

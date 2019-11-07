@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.module.survey.questDetail.QuestDetailDao">
+
+	<select id="getQuestDetail" resultType="kr.co.whalesoft.app.cms.module.survey.questDetail.QuestDetail">
+		SELECT
+			a.homepage_id, a.survey_idx, a.quest_idx, a.quest_detail_idx, a.quest_detail_order, 
+			a.quest_detail_title, a.add_date, a.add_user_id, a.branch_idx, b.quest_content, b.quest_order
+		FROM
+			CMS_SURVEY_QUEST_DETAIL a,
+			CMS_SURVEY_QUEST b
+		WHERE
+			a.survey_idx = #{survey_idx}
+		AND	a.homepage_id = #{homepage_id}
+		AND a.homepage_id = b.homepage_id(+)
+		AND	a.quest_idx = #{quest_idx}
+		AND	a.survey_idx = b.survey_idx(+)
+		AND	a.branch_idx = b.quest_idx(+)
+		ORDER BY
+			quest_detail_order
+	</select>
+
+	<insert id="addQuestDetail">
+		<selectKey keyProperty="quest_detail_idx" resultType="int" order="BEFORE">
+		    SELECT NVL(MAX(quest_detail_idx),0)+1 FROM CMS_SURVEY_QUEST_DETAIL WHERE survey_idx = #{survey_idx} AND quest_idx = #{quest_idx} and homepage_id = #{homepage_id}
+		</selectKey>
+		INSERT INTO CMS_SURVEY_QUEST_DETAIL
+		(
+			homepage_id, survey_idx, quest_idx, quest_detail_idx, quest_detail_order, 
+			quest_detail_title, add_date, add_user_id, branch_idx,
+			modify_date, modify_user_id
+		) VALUES
+		(
+			#{homepage_id}, #{survey_idx}, #{quest_idx}, #{quest_detail_idx}, #{quest_detail_order}, 
+			#{quest_detail_title}, SYSDATE, #{add_user_id}, #{branch_idx},
+			SYSDATE, #{add_user_id}
+		)
+	</insert>
+	
+	<delete id="deleteQuestDetail">
+		DELETE CMS_SURVEY_QUEST_DETAIL 
+		WHERE
+			survey_idx = #{survey_idx}
+		AND	quest_idx = #{quest_idx}
+		AND homepage_id = #{homepage_id}
+	</delete>
+
+</mapper>

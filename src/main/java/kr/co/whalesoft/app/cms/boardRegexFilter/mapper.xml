@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.boardRegexFilter.BoardRegexFilterDao">
+
+	<select id="getBoardRegexFilter" resultType="kr.co.whalesoft.app.cms.boardRegexFilter.BoardRegexFilter">
+		SELECT
+			regex_idx, regex_str, use_yn, remark, add_date, 
+			add_id
+		FROM
+			CMS_BOARD_REGEX_FILTER
+		ORDER BY
+			regex_idx DESC
+	</select>	
+	
+	<select id="getBoardRegexFilterOne" resultType="kr.co.whalesoft.app.cms.boardRegexFilter.BoardRegexFilter">
+		SELECT
+			regex_idx, regex_str, use_yn, remark, add_date, 
+			add_id
+		FROM
+			CMS_BOARD_REGEX_FILTER
+		WHERE
+			regex_idx = #{regex_idx}
+	</select>
+	
+	<insert id="addBoardRegexFilter">
+		<selectKey keyProperty="regex_idx" resultType="int" order="BEFORE">
+		    SELECT NVL(MAX(regex_idx),0)+1 FROM CMS_BOARD_REGEX_FILTER
+		</selectKey>
+		INSERT INTO CMS_BOARD_REGEX_FILTER
+		(
+			regex_idx, regex_str, use_yn, remark, add_date, 
+			add_id
+		) VALUES
+		(
+			#{regex_idx}, #{regex_str}, #{use_yn}, #{remark}, SYSDATE, 
+			#{add_id}
+		)
+	</insert>
+	
+	<update id="modifyBoardRegexFilter">
+		UPDATE 
+			CMS_BOARD_REGEX_FILTER 
+		SET
+			regex_str = #{regex_str},
+			use_yn = #{use_yn},
+			remark = #{remark},
+			add_date = SYSDATE,
+			add_id = #{add_id}
+		WHERE
+			regex_idx = #{regex_idx}
+	</update>
+	
+	<delete id="deleteBoardRegexFilter">
+		DELETE FROM CMS_BOARD_REGEX_FILTER WHERE regex_str = #{regex_str} 
+	</delete>
+		
+</mapper>

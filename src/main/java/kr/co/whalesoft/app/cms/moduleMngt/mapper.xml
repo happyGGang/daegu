@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.moduleMngt.ModuleMngtDao">
+	
+	<select id="getModuleMngtListAll" resultType="kr.co.whalesoft.app.cms.moduleMngt.ModuleMngt">
+		SELECT
+			module_idx, module_type, module_name, remark, link_url,
+			link_param, auth_group_id, add_dttm, add_id, mod_dttm, mod_id
+		FROM
+			WB_MODULE_MNGT
+		WHERE
+			module_type = #{module_type}
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		ORDER BY
+			module_idx DESC
+	</select>
+	
+	<select id="getModuleMngtList" resultType="kr.co.whalesoft.app.cms.moduleMngt.ModuleMngt">
+		${pagingTop}
+			SELECT
+				module_idx, module_type, module_name, remark, link_url,
+				link_param, auth_group_id, add_dttm, add_id, mod_dttm, mod_id
+			FROM
+				WB_MODULE_MNGT
+			WHERE
+				module_type = #{module_type}	
+			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+			ORDER BY
+				MODULE_IDX DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getModuleMngtListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			WB_MODULE_MNGT
+		WHERE
+			module_type = #{module_type}
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		ORDER BY
+			MODULE_IDX DESC
+	</select>
+	
+	<select id="getModuleMngtOne" resultType="kr.co.whalesoft.app.cms.moduleMngt.ModuleMngt">
+		SELECT
+			module_idx, module_type, module_name, remark, link_url,
+			link_param, auth_group_id, add_dttm, add_id, mod_dttm, mod_id
+		FROM
+			WB_MODULE_MNGT
+		WHERE MODULE_IDX = #{module_idx}
+	</select>
+	
+	<insert id="addModuleMngt">
+		<selectKey keyProperty="module_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(module_idx),0)+1 FROM WB_MODULE_MNGT
+		</selectKey>
+		INSERT INTO WB_MODULE_MNGT
+		(
+			module_idx, module_type, module_name, remark, link_url, 
+			link_param, auth_group_id, add_dttm, add_id, mod_dttm, mod_id
+		) 
+			VALUES 
+		(
+			#{module_idx}, #{module_type}, #{module_name}, #{remark}, #{link_url},
+			#{link_param}, #{auth_group_id}, SYSDATE, #{add_id}, SYSDATE, #{mod_id} 
+		)
+	</insert>
+	
+	<update id="modifyModuleMngt">
+		UPDATE 
+			WB_MODULE_MNGT 
+		SET
+			module_name = #{module_name}, 
+			remark = #{remark}, 
+			link_url	= #{link_url},
+			link_param	= #{link_param},
+			mod_dttm 	= SYSDATE,
+			mod_id		= #{mod_id}
+		WHERE 
+			MODULE_IDX = #{module_idx} 
+	</update>
+	
+	<delete id="deleteModuleMngt">
+		DELETE FROM
+			WB_MODULE_MNGT
+		WHERE
+			module_idx = #{module_idx}
+	</delete>
+	
+	<insert id="addModuleTerms">
+		INSERT INTO CMS_MODULE_TERMS
+		(
+			MODULE_IDX, TERMS_IDX
+		) VALUES (
+			#{module_idx}, #{terms_idx} 
+		)
+	</insert>
+	
+	<delete id="deleteModuleTerms">
+		DELETE FROM
+			CMS_MODULE_TERMS
+		WHERE
+			module_idx = #{module_idx}
+		AND	terms_idx = #{terms_idx}
+	</delete>
+	
+</mapper>

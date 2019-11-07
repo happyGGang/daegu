@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.module.survey.questMatrix.QuestMatrixDao">
+
+	<select id="getQuestMatrix" resultType="kr.co.whalesoft.app.cms.module.survey.questMatrix.QuestMatrix">
+		SELECT
+			homepage_id, survey_idx, quest_idx, matrix_idx, matrix_order, matrix_title, 
+			add_date, add_user_id
+		FROM
+			CMS_SURVEY_QUEST_MATRIX
+		WHERE
+			survey_idx = #{survey_idx}
+		AND	quest_idx = #{quest_idx}
+		AND homepage_id = #{homepage_id}
+		ORDER BY
+			matrix_order
+	</select>
+	
+	<insert id="addQuestMatrix">
+		<selectKey keyProperty="matrix_idx" resultType="int" order="BEFORE">
+		    SELECT NVL(MAX(matrix_idx),0)+1 FROM CMS_SURVEY_QUEST_MATRIX WHERE survey_idx = #{survey_idx} AND quest_idx = #{quest_idx} and homepage_id = #{homepage_id}
+		</selectKey>
+		INSERT INTO CMS_SURVEY_QUEST_MATRIX
+		(
+			homepage_id, survey_idx, quest_idx, matrix_idx, matrix_order, matrix_title, 
+			add_date, add_user_id, modify_date, modify_user_id
+		) VALUES
+		(
+			#{homepage_id}, #{survey_idx}, #{quest_idx}, #{matrix_idx}, #{matrix_order}, #{matrix_title}, 
+			SYSDATE, #{add_user_id}, SYSDATE, #{add_user_id}
+		)
+	</insert>
+	
+	<delete id="deleteQuestMatrix">
+		DELETE CMS_SURVEY_QUEST_MATRIX 
+		WHERE
+			survey_idx = #{survey_idx}
+		AND	quest_idx = #{quest_idx}
+		AND homepage_id = #{homepage_id}
+	</delete>
+	
+</mapper>

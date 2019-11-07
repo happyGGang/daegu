@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.menu.MenuDao">
+    
+	<select id="getMenuTreeList" resultType="kr.co.whalesoft.app.cms.menu.Menu">
+		SELECT * FROM
+		(
+			SELECT 
+	      		0 AS MENU_IDX,
+	      		-1 AS PARENT_MENU_IDX,
+	      		'' AS MENU_URL,
+	      		'' AS MENU_URL_PARAM,
+	      		'최상위' AS MENU_NAME,
+	      		0 AS PRINT_SEQ,
+	      		0 AS MANAGE_IDX,
+	      		'' AS BOARD_CATEGORY1,
+	      		'ROOT' AS MENU_TYPE,
+	      		1 AS LOAD_ON_DEMAND,
+	      		'' AS DELETE_USE_YN,
+	      		'' AS MENU_IMG
+	  		FROM DUAL
+	  		UNION ALL
+			SELECT 
+				MENU_IDX,
+				PARENT_MENU_IDX,
+				CASE MENU_TYPE 
+					WHEN 'PROGRAM' 
+						THEN (SELECT LINK_URL FROM WB_MODULE_MNGT WHERE MODULE_IDX = MANAGE_IDX) 
+						ELSE MENU_TYPE
+				END AS MENU_URL,
+				MENU_URL_PARAM,
+				MENU_NAME,
+				PRINT_SEQ,
+				MANAGE_IDX,
+				BOARD_CATEGORY1,
+				MENU_TYPE,
+			CASE 
+	    	WHEN
+	    		MENU_TYPE = 'FOLDER' THEN 1 ELSE 0
+	    	END AS 
+	    		LOAD_ON_DEMAND, 
+	    		DELETE_USE_YN,
+	    		(SELECT MENU_IMG FROM CMS_MENU WHERE HOMEPAGE_ID = #{homepage_id} AND MENU_IDX = a.GROUP_IDX) AS MENU_IMG
+	    	FROM CMS_MENU a
+	    	WHERE
+	    		HOMEPAGE_ID = #{homepage_id}
+    	)
+		CONNECT BY PRIOR MENU_IDX = PARENT_MENU_IDX 
+		START WITH PARENT_MENU_IDX = -1 
+		ORDER SIBLINGS BY PRINT_SEQ
+	</select>
+	
+	<select id="getMenuTreeListCache" resultType="kr.co.whalesoft.app.cms.menu.Menu">
+		SELECT LEVEL AS MENU_LEVEL, A.* FROM
+		(
+			SELECT 
+				HOMEPAGE_ID,
+				MENU_IDX,
+				PARENT_MENU_IDX,
+				CASE MENU_TYPE 
+					WHEN 'PROGRAM' 
+						THEN (SELECT LINK_URL FROM WB_MODULE_MNGT WHERE MODULE_IDX = MANAGE_IDX) 
+						ELSE MENU_TYPE
+				END AS MENU_URL,
+				MENU_URL_PARAM,
+				MENU_NAME,
+				PRINT_SEQ,
+				SOLO_YN,
+				MENU_TYPE,
+				GROUP_IDX,
+				MANAGE_IDX,
+				LINK_URL,
+				VIEW_YN,
+				MOBILE_VIEW_YN,
+				MENU_TOP_ICON,
+				BOARD_CATEGORY1,
+			CASE 
+	    	WHEN 
+	    		MENU_TYPE = 'FOLDER' THEN 1 ELSE 0
+	    	END AS 
+	    		LOAD_ON_DEMAND,
+	    		(SELECT MENU_IMG FROM CMS_MENU WHERE HOMEPAGE_ID = #{homepage_id} AND MENU_IDX = a.GROUP_IDX) AS MENU_IMG 
+	    	FROM CMS_MENU a
+	    	WHERE 
+	    		HOMEPAGE_ID = #{homepage_id} AND
+	    		USE_YN = 'Y' AND
+				(VIEW_YN != 'N' OR MOBILE_VIEW_YN != 'N')
+    	) A
+		CONNECT BY PRIOR MENU_IDX = PARENT_MENU_IDX 
+		START WITH PARENT_MENU_IDX = 0
+		ORDER SIBLINGS BY PRINT_SEQ
+	</select>
+	
+	<select id="getMenuLeftTreeListCache" resultType="kr.co.whalesoft.app.cms.menu.Menu">
+		SELECT level AS menu_level, A.* FROM
+		(
+			SELECT
+				HOMEPAGE_ID, 
+				MENU_IDX,
+				PARENT_MENU_IDX,
+				CASE MENU_TYPE 
+					WHEN 'PROGRAM' 
+						THEN (SELECT LINK_URL FROM WB_MODULE_MNGT WHERE MODULE_IDX = MANAGE_IDX) 
+						ELSE MENU_TYPE
+				END AS MENU_URL,
+				MENU_URL_PARAM,
+				MENU_NAME,
+				PRINT_SEQ,
+				MENU_TYPE,
+				MANAGE_IDX,
+				LINK_URL,
+				VIEW_YN,
+				MENU_LEFT_ICON,
+				BOARD_CATEGORY1,
+				(SELECT MENU_IMG FROM CMS_MENU WHERE HOMEPAGE_ID = #{homepage_id} AND MENU_IDX = a.GROUP_IDX) AS MENU_IMG
+			FROM 
+				CMS_MENU a
+			WHERE
+				HOMEPAGE_ID = #{homepage_id} AND
+				USE_YN = 'Y' AND
+				<!-- VIEW_YN != 'N' AND -->
+				GROUP_IDX = #{group_idx}
+		) A
+        CONNECT BY PRIOR MENU_IDX = PARENT_MENU_IDX 
+        START WITH PARENT_MENU_IDX = 0
+        ORDER SIBLINGS BY PRINT_SEQ ASC
+	</select>
+	
+	<select id="getElibMenuLeftTreeListCache" resultType="kr.co.whalesoft.app.cms.menu.Menu">
+		SELECT level AS menu_level, A.* FROM
+		(
+			SELECT
+				HOMEPAGE_ID, 
+				MENU_IDX,
+				PARENT_MENU_IDX,
+				CASE MENU_TYPE 
+					WHEN 'PROGRAM' 
+						THEN (SELECT LINK_URL FROM WB_MODULE_MNGT WHERE MODULE_IDX = MANAGE_IDX) 
+						ELSE MENU_TYPE
+				END AS MENU_URL,
+				MENU_URL_PARAM,
+				MENU_NAME,
+				PRINT_SEQ,
+				MENU_TYPE,
+				MANAGE_IDX,
+				LINK_URL,
+				VIEW_YN,
+				MENU_LEFT_ICON,
+				BOARD_CATEGORY1,
+				(SELECT MENU_IMG FROM CMS_MENU WHERE HOMEPAGE_ID = #{homepage_id} AND MENU_IDX = a.GROUP_IDX) AS MENU_IMG
+			FROM 
+				CMS_MENU a
+			WHERE
+				HOMEPAGE_ID = #{homepage_id} AND
+				USE_YN = 'Y' AND
+				VIEW_YN != 'N' AND
+				GROUP_IDX = #{group_idx}
+		) A
+        CONNECT BY PRIOR MENU_IDX = PARENT_MENU_IDX 
+        START WITH PARENT_MENU_IDX = 0
+        ORDER SIBLINGS BY PRINT_SEQ ASC
+	</select>
+	
+	<!-- 메뉴목록을 가져온다. -->
+	<select id="getMenu" resultType="kr.co.whalesoft.app.cms.menu.Menu">
+		SELECT 
+			CASE MENU_TYPE 
+				WHEN 'PROGRAM' 
+					THEN (SELECT LINK_URL FROM WB_MODULE_MNGT WHERE MODULE_IDX = MANAGE_IDX) 
+					ELSE MENU_TYPE
+			END as id,
+			menu_name as label
+		FROM CMS_MENU
+		WHERE
+			homepage_id = #{homepage_id} AND
+			parent_menu_idx = #{id}
+	</select>
+	
+	<!-- 메뉴정보를 가져온다. -->
+	<select id="getMenuOne" resultType="kr.co.whalesoft.app.cms.menu.Menu">
+		SELECT 
+			a.HOMEPAGE_ID,
+			a.MENU_IDX, a.PARENT_MENU_IDX, 
+			CASE a.MENU_TYPE 
+				WHEN 'PROGRAM' 
+					THEN (SELECT LINK_URL FROM WB_MODULE_MNGT WHERE MODULE_IDX = a.MANAGE_IDX) 
+					ELSE a.MENU_TYPE
+			END AS MENU_URL, 
+			a.MENU_URL_PARAM, a.MENU_NAME, a.GROUP_IDX,
+			a.MENU_TYPE, a.USE_YN, a.VIEW_YN, a.MOBILE_VIEW_YN, a.PRINT_SEQ,  
+			a.ADD_DATE, NVL(a.MOD_DATE, a.ADD_DATE) AS MOD_DATE, a.GROUP_IDX, a.MENU_FULL_PATH_NAME, 
+			a.MANAGE_IDX, a.CONTENT_TITLE_YN, a.LINK_URL, a.MENU_TOP_ICON,
+			a.MENU_LEFT_ICON, a.BOARD_CATEGORY1, a.MANAGE_VIEW_YN, 
+			a.MANAGE_ID,
+			a.SOLO_YN,
+			(SELECT MENU_IMG FROM CMS_MENU WHERE HOMEPAGE_ID = #{homepage_id} AND MENU_IDX = a.GROUP_IDX) AS MENU_IMG,
+			m.DEPT_NAME AS MANAGE_DEPT,
+			m.PHONE AS MANAGE_PHONE,
+			m.MANAGER_NAME AS MANAGE_NAME
+		FROM
+			CMS_MENU a, (SELECT HOMEPAGE_ID, TASK_IDX, DEPT_NAME, PHONE, MANAGER_NAME FROM CMS_TASK_MANAGE WHERE HOMEPAGE_ID = #{homepage_id}) m
+		WHERE 1 = 1
+			AND a.HOMEPAGE_ID = m.HOMEPAGE_ID(+)
+			AND a.TASK_IDX = m.TASK_IDX(+)
+			AND a.HOMEPAGE_ID = #{homepage_id}
+			AND a.MENU_IDX = #{menu_idx}
+	</select>
+	
+	<select id="getParentMenuOne" resultType="kr.co.whalesoft.app.cms.menu.Menu">
+		SELECT
+			HOMEPAGE_ID,
+			MENU_IDX, PARENT_MENU_IDX, 
+			CASE MENU_TYPE 
+				WHEN 'PROGRAM' 
+					THEN (SELECT LINK_URL FROM WB_MODULE_MNGT WHERE MODULE_IDX = MANAGE_IDX) 
+					ELSE MENU_TYPE
+			END AS MENU_URL,
+			MENU_URL_PARAM, MENU_NAME,  
+			MENU_TYPE, USE_YN, VIEW_YN, PRINT_SEQ,  
+			ADD_DATE, MOD_DATE, GROUP_IDX, MENU_FULL_PATH_NAME, 
+			MANAGE_IDX, CONTENT_TITLE_YN, MENU_IMG, LINK_URL, MENU_TOP_ICON,
+			MENU_LEFT_ICON, BOARD_CATEGORY1
+		FROM CMS_MENU
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND
+			MENU_IDX = (SELECT parent_menu_idx FROM CMS_MENU WHERE HOMEPAGE_ID = #{homepage_id} AND MENU_IDX = #{menu_idx}) 
+	</select>
+	
+	<select id="getUseMenu" resultType="int">
+		SELECT COUNT(*) FROM CMS_MENU 
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND
+			MENU_IDX != #{menu_idx} AND
+			MENU_URL = #{menu_url}
+	</select>
+	
+	<!-- 메뉴데이터 등록 -->
+	<insert id="addMenu">
+		<selectKey keyProperty="menu_idx" resultType="int" order="BEFORE">
+		    SELECT NVL(MAX(menu_idx),0)+1 FROM CMS_MENU WHERE homepage_id = #{homepage_id}
+		</selectKey>
+		INSERT INTO CMS_MENU
+		(
+			HOMEPAGE_ID,
+			MENU_IDX, PARENT_MENU_IDX, MENU_URL, MENU_URL_PARAM, MENU_NAME, 
+			MENU_TYPE, USE_YN, VIEW_YN,MOBILE_VIEW_YN, PRINT_SEQ,  
+			ADD_DATE, ADD_ID, MANAGE_IDX, CONTENT_TITLE_YN, 
+			LINK_URL, GROUP_IDX, MENU_FULL_PATH_NAME
+			<if test="menu_img != null and menu_img != ''">
+			, MENU_IMG
+			</if>
+			<if test="menu_top_icon != null and menu_top_icon != ''">
+			, MENU_TOP_ICON
+			</if>
+			<if test="menu_left_icon != null and menu_left_icon != ''">
+			, MENU_LEFT_ICON
+			</if>
+			, DELETE_USE_YN
+			, MANAGE_VIEW_YN
+			, TASK_IDX
+			, SOLO_YN
+			
+		) 
+			VALUES
+		(
+			#{homepage_id},
+			#{menu_idx} , #{parent_menu_idx}, #{menu_url}, #{menu_url_param}, #{menu_name}, 
+			#{menu_type}, #{use_yn}, #{view_yn}, #{mobile_view_yn}, #{print_seq}, 
+			SYSDATE, #{add_id}, #{manage_idx}, #{content_title_yn}, 
+			#{link_url},
+		<choose>
+		<when test="group_idx == 0">
+			#{menu_idx}, #{menu_name}
+		</when>
+		<otherwise>
+			#{group_idx},
+			(
+				SELECT 
+	                LTRIM(SYS_CONNECT_BY_PATH(menu_name,' > '),' >') || ' > ' || #{menu_name} AS menu_full_path_name
+				FROM
+					(select * from cms_menu where homepage_id = #{homepage_id})
+                WHERE menu_idx = #{parent_menu_idx} AND homepage_id = #{homepage_id}
+				CONNECT BY PRIOR menu_idx = parent_menu_idx and homepage_id = #{homepage_id}
+				START WITH parent_menu_idx = 0 AND homepage_id = #{homepage_id}
+			) 
+		</otherwise>
+		</choose>
+		<if test="menu_img != null and menu_img != ''">
+			, #{menu_img}
+		</if>
+		<if test="menu_top_icon != null and menu_top_icon != ''">
+			, #{menu_top_icon}
+		</if>
+		<if test="menu_left_icon != null and menu_left_icon != ''">
+			, #{menu_left_icon}
+		</if>
+		,'Y'
+		, #{manage_view_yn}
+		, #{task_idx}
+		, #{solo_yn}
+		)
+	</insert>
+	
+	<!-- 메뉴데이터 수정 -->
+	<update id="modifyMenu">
+		UPDATE CMS_MENU SET
+			MENU_URL = #{menu_url},
+			MENU_URL_PARAM = #{menu_url_param},
+			MENU_NAME = #{menu_name}, 
+			MENU_TYPE = #{menu_type},
+			USE_YN = #{use_yn}, 
+			VIEW_YN = #{view_yn}, 
+			MOBILE_VIEW_YN = #{mobile_view_yn},
+			PRINT_SEQ = #{print_seq},
+			MOD_DATE = SYSDATE,
+			MOD_ID	 = #{mod_id},
+			MANAGE_IDX = #{manage_idx},
+			CONTENT_TITLE_YN = #{content_title_yn},
+			LINK_URL = #{link_url},
+			<if test="menu_img != null and menu_img != ''">
+			MENU_IMG = #{menu_img},
+			</if>
+			<if test="menu_top_icon != null and menu_top_icon != ''">
+			MENU_TOP_ICON = #{menu_top_icon},
+			</if>
+			<if test="menu_left_icon != null and menu_left_icon != ''">
+			MENU_LEFT_ICON = #{menu_left_icon},
+			</if>
+			MENU_FULL_PATH_NAME =
+			<choose>
+			<when test="parent_menu_idx == 0">
+				#{menu_name}
+			</when>
+			<otherwise>
+			(
+				SELECT 
+	                LTRIM(SYS_CONNECT_BY_PATH(MENU_NAME,' > '),' >') || ' > ' || #{menu_name} AS MENU_FULL_PATH_NAME
+				FROM
+					(select * from cms_menu where homepage_id = #{homepage_id})
+                WHERE HOMEPAGE_ID = #{homepage_id} AND MENU_IDX = #{parent_menu_idx}
+				CONNECT BY PRIOR MENU_IDX = PARENT_MENU_IDX
+				START WITH PARENT_MENU_IDX = 0 AND HOMEPAGE_ID = #{homepage_id}
+			)
+			</otherwise>
+			</choose>
+			, MANAGE_VIEW_YN = #{manage_view_yn}
+			, TASK_IDX = #{task_idx}
+			, SOLO_YN = #{solo_yn}
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND
+			MENU_IDX = #{menu_idx}
+	</update>
+	
+	<update id="modifyParentMenu">
+		UPDATE CMS_MENU SET
+			PARENT_MENU_IDX = #{move_target_menu_idx},
+			GROUP_IDX = NVL((SELECT GROUP_IDX FROM CMS_MENU WHERE HOMEPAGE_ID = #{homepage_id} AND MENU_IDX = #{move_target_menu_idx}), #{menu_idx} ),
+			MENU_FULL_PATH_NAME = (
+				SELECT 
+	                LTRIM(SYS_CONNECT_BY_PATH(MENU_NAME,' > '),' >') || ' > ' || (select menu_name from cms_menu where homepage_id = #{homepage_id} and menu_idx = #{menu_idx}) AS MENU_FULL_PATH_NAME
+				FROM
+					(select * from cms_menu where homepage_id = #{homepage_id})
+                WHERE HOMEPAGE_ID = #{homepage_id} AND MENU_IDX = #{move_target_menu_idx}
+				CONNECT BY PRIOR MENU_IDX = PARENT_MENU_IDX
+				START WITH PARENT_MENU_IDX = 0 AND HOMEPAGE_ID = #{homepage_id}
+			),
+			MOD_DATE = SYSDATE,
+			MOD_ID = #{mod_id}
+			
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND
+			MENU_IDX = #{menu_idx}
+			
+	
+		<!-- UPDATE CMS_MENU SET
+			PARENT_MENU_IDX = #{move_target_menu_idx},
+			GROUP_IDX = NVL((SELECT GROUP_IDX FROM CMS_MENU WHERE HOMEPAGE_ID = #{homepage_id} AND MENU_IDX = #{move_target_menu_idx}), 0),
+			MOD_DATE = SYSDATE,
+			MOD_ID = #{mod_id}
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND
+			MENU_IDX = #{menu_idx} -->
+	</update>
+	
+	<update id="modifyChildMenu">
+		UPDATE 
+			CMS_MENU 
+		SET 
+			GROUP_IDX = (SELECT GROUP_IDX FROM CMS_MENU WHERE HOMEPAGE_ID = #{homepage_id} AND MENU_IDX = #{menu_idx})
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND PARENT_MENU_IDX = #{menu_idx}
+	</update>
+	
+	<!-- 메뉴삭제 -->
+	<delete id="deleteMenu">
+	    DELETE CMS_MENU 
+	    WHERE 
+	    	HOMEPAGE_ID = #{homepage_id} AND
+	    	MENU_IDX = #{menu_idx}
+	</delete>
+	
+	<select id="getMenuChildCount" resultType="int">
+		SELECT COUNT(*) FROM CMS_MENU
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND
+			PARENT_MENU_IDX = #{menu_idx}	    
+	</select>
+	
+	<!-- 메뉴 전체url과 권한을 가져온다. -->
+	<select id="getMenuChildList" resultType="kr.co.whalesoft.app.cms.menu.Menu">
+		SELECT 
+			CASE MENU_TYPE 
+				WHEN 'PROGRAM' 
+					THEN (SELECT LINK_URL FROM WB_MODULE_MNGT WHERE MODULE_IDX = MANAGE_IDX) 
+					ELSE MENU_TYPE
+			END AS MENU_URL,
+			MENU_NAME 
+		FROM 
+			CMS_MENU
+		WHERE
+			HOMEPAGE_ID = #{homepage_id}
+		CONNECT BY PRIOR 
+			MENU_IDX = PARENT_MENU_IDX 
+		START WITH 
+			PARENT_MENU_IDX = #{menu_idx} 
+		ORDER SIBLINGS BY PRINT_SEQ
+	</select>
+	
+	<select id="getMenuAuth" resultType="string">
+		SELECT
+			AUTH_ID
+		FROM
+			CMS_MENU_AUTH
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND
+			MENU_IDX = #{menu_idx}
+	</select>
+	
+	<insert id="addMenuAuth">
+		INSERT INTO CMS_MENU_AUTH
+		(
+			HOMEPAGE_ID, MENU_IDX, AUTH_ID
+		) VALUES
+		(
+			#{homepage_id}, #{menu_idx}, #{auth_id}
+		)
+	</insert>
+	
+	<delete id="deleteMenuAuth">
+		DELETE FROM CMS_MENU_AUTH
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND
+			MENU_IDX = #{menu_idx}
+	</delete>
+	
+	<select id="getNextPrintSeq" resultType="int">
+		SELECT
+			NVL(MAX(PRINT_SEQ), 0) + 10
+		FROM
+			CMS_MENU
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND PARENT_MENU_IDX = #{menu_idx} 
+	</select>
+	
+	<!-- 도서관 홈페이지 생성시 기본 메뉴 자동으로 생성  -->
+	<!-- <insert id="initCommonMenu">
+		INSERT INTO CMS_MENU (HOMEPAGE_ID, MENU_IDX, GROUP_IDX, PARENT_MENU_IDX, MENU_URL, MENU_NAME, MENU_FULL_PATH_NAME, MENU_TYPE, MANAGE_IDX, BOARD_CATEGORY1, MENU_TOP_ICON, MENU_LEFT_ICON, PRINT_SEQ, USE_YN, VIEW_YN, MENU_IMG, MENU_AUTH, ADD_DATE, MOD_DATE, CONTENT_TITLE_YN, LINK_URL, DELETE_USE_YN)
+				
+		SELECT #{homepage_id} AS HOMEPAGE_ID, MENU_IDX, GROUP_IDX, PARENT_MENU_IDX, MENU_URL, MENU_NAME, MENU_FULL_PATH_NAME, MENU_TYPE, MANAGE_IDX, BOARD_CATEGORY1, MENU_TOP_ICON, MENU_LEFT_ICON, PRINT_SEQ, USE_YN, VIEW_YN, MENU_IMG, MENU_AUTH, ADD_DATE, MODIFY_DATE, CONTENT_TITLE_YN, LINK_URL, 'N' FROM CMS_COMMON_MENU
+	</insert> -->
+	
+	<!-- 홈페이지 삭제시 메뉴 삭제 -->
+	<delete id="deleteMenusByHomepageId">
+		DELETE FROM CMS_MENU
+		WHERE HOMEPAGE_ID = #{homepage_id}
+	</delete>
+	
+	<!-- 메뉴IDX 가져오기(link_url) -->
+	<select id="getMenuIdxByLinkUrl" resultType="int">
+		SELECT
+			NVL(max(menu_idx), 0)
+		FROM
+			CMS_MENU
+		WHERE
+			homepage_id = #{homepage_id}
+		AND link_url = #{link_url}
+		AND	use_yn = 'Y'
+	</select>
+	
+	<select id="getSoloMenuList" resultType="kr.co.whalesoft.app.cms.menu.Menu">
+		SELECT LEVEL AS MENU_LEVEL, A.* FROM
+		(
+			SELECT 
+				HOMEPAGE_ID,
+				MENU_IDX,
+				PARENT_MENU_IDX,
+				CASE MENU_TYPE 
+					WHEN 'PROGRAM' 
+						THEN (SELECT LINK_URL FROM WB_MODULE_MNGT WHERE MODULE_IDX = MANAGE_IDX) 
+						ELSE MENU_TYPE
+				END AS MENU_URL,
+				MENU_URL_PARAM,
+				MENU_NAME,
+				PRINT_SEQ,
+				MENU_TYPE,
+				GROUP_IDX,
+				MANAGE_IDX,
+				LINK_URL,
+				VIEW_YN,
+				MENU_TOP_ICON,
+				BOARD_CATEGORY1,
+			CASE 
+	    	WHEN 
+	    		MENU_TYPE = 'FOLDER' THEN 1 ELSE 0
+	    	END AS 
+	    		LOAD_ON_DEMAND,
+	    		(SELECT MENU_IMG FROM CMS_MENU WHERE HOMEPAGE_ID = #{homepage_id} AND MENU_IDX = a.GROUP_IDX) AS MENU_IMG 
+	    	FROM CMS_MENU a
+	    	WHERE 
+	    		HOMEPAGE_ID = #{homepage_id} AND
+	    		SOLO_YN = 'Y' AND
+	    		USE_YN = 'Y' AND
+				VIEW_YN != 'N'
+    	) A
+		CONNECT BY PRIOR MENU_IDX = PARENT_MENU_IDX 
+		START WITH PARENT_MENU_IDX = 0
+		ORDER SIBLINGS BY PRINT_SEQ
+	</select>
+	
+	<!-- 메뉴IDX 가져오기(program - manage_idx) -->
+	<select id="getMenuIdxByProgramIdx" resultType="int">
+		SELECT
+			NVL(max(menu_idx), 0)
+		FROM
+			CMS_MENU
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	MENU_TYPE = 'PROGRAM'
+		AND manage_idx = #{menu_idx}
+		AND	use_yn = 'Y'
+	</select>
+	
+	<select id="getMenuTreeListWithAuth" resultType="kr.co.whalesoft.app.cms.menu.Menu">
+		SELECT LEVEL AS MENU_LEVEL, A.*,
+		decode(A.menu_type, 'PROGRAM', (SELECT module_name FROM WB_MODULE_MNGT B WHERE module_type = 'SITE' and A.manage_idx = b.module_idx AND A.menu_type = 'PROGRAM'),
+	                    'BOARD', (SELECT board_name FROM CMS_BOARD_MANAGE B WHERE A.manage_idx = B.manage_idx AND A.homepage_id = B.homepage_id),
+	                    'LINK', '내부링크',
+	                    'LINK_OUTER', '외부링크',
+	                    a.menu_type) AS moduleName
+		FROM
+		(
+			SELECT 
+				'' AS HOMEPAGE_ID,
+	      		0 AS MENU_IDX,
+	      		-1 AS PARENT_MENU_IDX,
+	      		'' AS MENU_URL,
+	      		'' AS MENU_URL_PARAM,
+	      		'최상위' AS MENU_NAME,
+	      		0 AS PRINT_SEQ,
+	      		0 AS MANAGE_IDX,
+	      		'' AS BOARD_CATEGORY1,
+	      		'ROOT' AS MENU_TYPE,
+	      		1 AS LOAD_ON_DEMAND,
+	      		'' AS DELETE_USE_YN,
+	      		'' AS MENU_IMG,
+	      		'' AS auth_group_id
+	  		FROM DUAL
+	  		UNION ALL
+			SELECT 
+				HOMEPAGE_ID,
+				MENU_IDX,
+				PARENT_MENU_IDX,
+				CASE MENU_TYPE 
+					WHEN 'PROGRAM' 
+						THEN (SELECT LINK_URL FROM WB_MODULE_MNGT WHERE MODULE_IDX = MANAGE_IDX) 
+						ELSE MENU_TYPE
+				END AS MENU_URL,
+				MENU_URL_PARAM,
+				MENU_NAME,
+				PRINT_SEQ,
+				MANAGE_IDX,
+				BOARD_CATEGORY1,
+				MENU_TYPE,
+				CASE 
+		    	WHEN
+		    		MENU_TYPE = 'FOLDER' THEN 1 ELSE 0
+		    	END AS 
+		    		LOAD_ON_DEMAND, 
+	    		DELETE_USE_YN,
+	    		(SELECT MENU_IMG FROM CMS_MENU WHERE HOMEPAGE_ID = #{homepage_id} AND MENU_IDX = a.GROUP_IDX) AS MENU_IMG,
+	    		CASE MENU_TYPE 
+					WHEN 'BOARD' 
+						THEN 'B0001' 
+					ELSE b.auth_group_id
+	    		END AS auth_group_id
+	    	FROM CMS_MENU a, WB_MODULE_MNGT b
+	    	WHERE
+	    		HOMEPAGE_ID = #{homepage_id}
+	    	AND	a.use_yn = 'Y'
+	    	ANd a.view_yn = 'Y'
+	    	AND	a.manage_idx = b.module_idx(+)
+	    	AND	b.module_type(+) = 'SITE'
+    	) A
+		CONNECT BY PRIOR MENU_IDX = PARENT_MENU_IDX 
+		START WITH PARENT_MENU_IDX = -1 
+		ORDER SIBLINGS BY PRINT_SEQ
+	</select>
+	
+</mapper>

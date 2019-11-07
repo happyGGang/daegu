@@ -1,0 +1,151 @@
+@charset "utf-8";
+@import url("../../../common/css/type4.css");
+
+.Gnb .gnb-menu > li{padding:0 2%}
+@media all and (max-width:1150px){
+	.Gnb .gnb-menu>li{padding:0 2%}
+}
+
+.main1 .txt .t1{font-size:44px;font-weight:bold}
+.main1 .txt .t2{font-size:30px;padding-top:0;padding-bottom:30px}
+
+.orange{color:#ed821a!important}
+
+/* 인사말 */
+.greeting{background:url('/resources/homepage/cd/img/contents/new_hjh/introd_bg.gif') no-repeat left top}
+.greeting .t1{font-size:190%;letter-spacing:-1px;padding: 20px 0 25px 35px;border-bottom: 1px solid #cdcdcd;width: 400px;}
+.greeting .t1 .color1{color:#2b4195}
+.greeting .t1 .color2{color:#f29934}
+.greeting .box{padding:20px 260px 60px 0;background:url('/resources/homepage/sj/img/contents/introd_p01.png') no-repeat right 40%}
+.greeting .gtxt{padding:20px;background:url('/resources/homepage/cd/img/contents/new_hjh/introd_botm_bg.png') no-repeat right bottom}
+.greeting .txt p{padding:0 0 10px;font-size:105%}
+.greeting .sign{padding:15px 0 0;font-size:120%}
+.greeting .sign span{color:#888;display:inline-block;zoom:1;*display:inline;vertical-align:middle}
+.greeting .sign span.name{margin-left:5px}
+@media all and (max-width:767px){
+	.greeting .t1{background-position:right 0;background-size:15%}
+	.greeting .box{padding-right:5%;background:none;}
+}
+@media all and (max-width:400px){
+	.greeting .t1{background-position:right bottom;background:none;}
+}
+
+/* 연혁 */
+.history-head{background-image:url('../img/contents/history_bg.jpg');background-position:2% center}
+@media screen and (max-width: 1000px){
+	.history-head{background-position:right 0;background-repeat:no-repeat}
+}
+@media screen and (max-width: 767px){
+	.history-head{padding:15px 0 10px}
+}
+.history-head .t1{font-size:170%;color:#888;letter-spacing:-1px}
+.history-head .t2{font-size:210%}
+.history-head .t2 .tb2{color:#0a9aa7}
+.history_wrap .history_con .box ul li span.fb1{width:140px}
+.history_wrap .history_con .box ul li span.fb2{margin-right:-140px}
+.history_wrap .history_con .box ul li span.fb2 span{margin-right:140px}
+
+/* 조직 */
+.org{position:relative;background:url('../img/contents/orgBg.gif') no-repeat center 16px;text-align:center;line-height:40px}
+.org2{background:none}
+.org .d1{width:200px;margin:0 auto 20px}
+.org .d1 p{background:#2b4195;color:#fff;font-size:16px}
+.org .d1 p,
+.org .d2 span,
+.org .d3 span,
+.org .d4 span.d4_tit{line-height:120%;padding:9px 5px}
+.org .d2 p{float:left;width:30%;margin:0 10% 35px;background:#fff;color:#2b4195}
+.org .d2 p span{display:block;border:2px solid #2b4195}
+.org .d2 a{color:#2b4195}
+.org .d2,
+.org .d3c,
+.org .d3{margin:0 auto;color:#fff}
+.org .d3 a{color:#fff}
+.org .d3 .box{float:left;width:21%;margin:0 0 40px;margin-left:18.5%}
+.org .d3 span{display:block;background:#8a8a88}
+.org .d4{float:left}
+.org .d4{width:21%;margin-left:5%}
+.org .d43{margin-left:6%}
+.org .d4 .d4_tit{display:block;background:#5e8e42;color:#fff}
+.org .d4 a{color:#fff}
+.org .d5 p{display:block;background:#fff;border:1px solid #5e8e42;color:#5e8e42}
+.org .d5 a{color:#5e8e42}
+.org2 .dd,
+.org .d5 ul{background:#f4f4f4;border:1px solid #ccc;border-top:none;padding:5px 0 5px 10px;line-height:20px;text-align:left;font-size:12px}
+.org2 div.dd{text-align:center;font-size:110%}
+.org2 ul.dd li,
+.org .d5 li{font-size:12px;color:#666;background:url('/resources/common/img/doc-arr3.gif') no-repeat 0 8px;padding-left:10px}
+.org .d5 li a{color:#666}
+.org .d5 ul ul{background:none;border:none;margin-left:-10px}
+.org .d5 ul ul li{background:url('/resources/common/img/doc-arr4.gif') no-repeat 0 9px;padding-left:10px}
+.org .first{margin-left:0!important}
+@media screen and (max-width: 1000px){
+	.org{background-size:80% 207px}
+	.org .d2 p span{letter-spacing:-1px}
+}
+@media screen and (max-width: 600px){
+	.org .d2 p{width:36%;margin:0 7% 20px}
+}
+.org2 .d2 p{float:none;width:auto;margin:0;border:2px solid #2b4195;padding:6px 5px}
+.org2 .d2 .dd{color:#666}
+.org2 .d2,
+.org2 .d3 .box{width:30%;float:none;margin:0 auto 40px}
+.org2 .d1,
+.org2 .d2{width:30%}
+.org2{position:relative}
+.org2 .d2{position:absolute;top:0;right:0}
+.org2 .d4{width:22%;margin-left:4%}
+.org2 .d2 p,
+.org2 .d3 .tit,
+.org2 .d4 .d4_tit{font-size:110%}
+.org2{background:url('../img/contents/orgBg2.gif') no-repeat center 36px}
+@media screen and (max-width: 1000px){
+	.org2 .d4{width:24%;margin-left:1%}
+	.org2{background-size:80% 229px}
+}
+@media screen and (max-width: 600px){
+	.org2{background-image:url('../img/contents/orgBg3.gif')}
+	.org2 .d3 .box{width:60%}
+	.org2 .d3c{text-align:center}
+	.org2 .d4{display:inline-block;width:48%;margin:1%!important}
+}
+
+.booki{margin-bottom:10px;display:inline-block;zoom:1;*display:inline;background:url('/resources/homepage/sj/img/contents/nabi.jpg') no-repeat right 0;padding:8px 48px 0 0}
+.booki .t1,
+.booki .t2{font-size:20px;font-weight:800}
+.booki .t1{color:#7c7160}
+.booki .t2{color:#ed821a}
+
+.dokdo_pic{float:right;padding:0 0 5px 5px}
+
+/* 디지털자료실좌석예약 20170115yj*/
+.info_bg01{ border: 1px solid #ddd;background: url(/resources/homepage/sj/img/contents/new_yj/reserve_01bg.gif) no-repeat left;padding:20px 15px 20px 215px}
+
+/* 그림책읽어주기 20170115yj*/
+.info_bg02{ border: 1px solid #ddd;background: url(/resources/homepage/sj/img/contents/new_yj/painting_01bg.gif) no-repeat left;padding:20px 15px 20px 215px}
+
+
+/* 접속기록안내 */
+#memberInfo{position:absolute;width:22%;left:98%;top:6%;background:#fff;margin-left:-37%;box-shadow:0px 1px 7px 0px rgba(0,0,0,0.5);z-index: 9;}
+#memberInfo .inbox{position:relative;border:1px solid #ccc;padding:10px;}
+#memberInfo .inbox dt{font-weight:bold;font-family:verdana;padding-bottom: 10px;}
+#memberInfo .inbox dd{padding:3px 0}
+a#closeMemberInfo{position:absolute;right:7px;top:5px;font-size:120%}
+#line{width: 160px;}
+div.loginInfo{padding-top: 8px;padding-bottom: 15px;}
+span.fontRed{color: red;}
+span.fontBlue{color: rgb(27,104,199);font-weight: bold;}
+div.memberCon{background-color: rgb(240,240,240);border-radius: 1em;}
+div.memberCon2{padding-top: 12px;padding-left: 10px;padding-right: 10px; padding-bottom: 28px;}
+a.btnStyle{float: right;margin-top: 6px;}
+#loginIcon{padding-top: 13px;padding-left:10px;}
+.boxnImg{ float: left; }
+.box2_1 { float: left; width: 34%; }
+.box3_1 { float: left; width: 38%; border-left: 1px solid #ddd; }
+.boxn { padding-top: 1%; padding-bottom: 1%; padding-left: 5%; }
+
+
+@media screen and (max-width: 500px){
+	#header h1 img{width:230px}
+	.main1 .txt .t1{font-size:40px}
+}

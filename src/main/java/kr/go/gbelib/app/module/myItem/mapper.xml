@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.module.myItem.MyItemDao">
+
+	<select id="getMyItemList" resultType="kr.go.gbelib.app.module.myItem.MyItem">
+		SELECT
+			HOMEPAGE_ID, MEMBER_KEY, STORAGE_IDX, ITEM_IDX, ITEM_NAME, AUTHOR, PUBLER, LOCA, CTRL_NO, IMG_URL, ADD_DATE, ITEM_TYPE
+		FROM
+			MY_ITEM
+		WHERE
+			HOMEPAGE_ID = #{homepage_id}
+			AND MEMBER_KEY = #{member_key}
+			AND STORAGE_IDX = #{storage_idx}
+	</select>
+
+	<select id="getMyItemOne" resultType="kr.go.gbelib.app.module.myItem.MyItem">
+		SELECT
+			HOMEPAGE_ID, MEMBER_KEY, STORAGE_IDX, ITEM_IDX, ITEM_NAME, AUTHOR, PUBLER, LOCA, CTRL_NO, IMG_URL, ADD_DATE, ITEM_TYPE
+		FROM
+			MY_ITEM
+		WHERE
+			HOMEPAGE_ID = #{homepage_id}
+			AND MEMBER_KEY = #{member_key}
+			AND STORAGE_IDX = #{storage_idx}
+	</select>
+
+	<insert id="addMyItem">
+		<selectKey keyProperty="item_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(ITEM_IDX),0)+1 FROM MY_ITEM WHERE HOMEPAGE_ID = #{homepage_id} AND MEMBER_KEY = #{member_key} AND STORAGE_IDX = #{storage_idx}
+		</selectKey>
+		INSERT INTO MY_ITEM
+		(
+			HOMEPAGE_ID, MEMBER_KEY, STORAGE_IDX, ITEM_IDX, ITEM_NAME, AUTHOR, PUBLER, LOCA, CTRL_NO, IMG_URL, ADD_DATE, ITEM_TYPE
+		) VALUES
+		(
+			#{homepage_id}, #{member_key}, #{storage_idx}, #{item_idx}, #{item_name}, #{author}, #{publer}, #{loca}, #{ctrl_no}, #{img_url}, SYSDATE, #{item_type}
+		)
+	</insert>
+
+	<delete id="deleteMyItem">
+		DELETE FROM MY_ITEM
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND MEMBER_KEY = #{member_key} AND STORAGE_IDX = #{storage_idx} AND ITEM_IDX = #{item_idx}
+	</delete>
+
+	<update id="moveMyItem">
+		UPDATE MY_STORAGE
+		SET STORAGE_IDX = #{storage_idx}
+		HOMEPAGE_ID = #{homepage_id} AND MEMBER_KEY = #{member_key} AND STORAGE_IDX = #{storage_idx} AND ITEM_IDX = #{item_idx}
+	</update>
+
+
+	<select id="getMyItemCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			MY_ITEM
+		WHERE
+			HOMEPAGE_ID = #{homepage_id}
+			AND MEMBER_KEY = #{member_key}
+	</select>
+
+</mapper>

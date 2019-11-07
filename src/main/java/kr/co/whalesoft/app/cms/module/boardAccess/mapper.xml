@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.module.boardAccess.BoardAccessDao">
+	
+	<select id="getBoardAccessCount" resultType="kr.co.whalesoft.app.cms.module.boardAccess.BoardAccess">
+	SELECT 
+		C.homepage_name, B.board_name, COUNT(*) AS count 
+	FROM 
+		CMS_BOARD A, CMS_BOARD_MANAGE B, CMS_HOMEPAGE C
+	WHERE 
+		A.manage_idx = B.manage_idx AND
+		B.homepage_id = C.homepage_id
+	<if test="homepage_id != null and homepage_id != ''">
+		AND b.homepage_id = #{homepage_id}
+	</if>
+	<if test="board_type != null and board_type != ''">
+		AND b.board_type = #{board_type}
+	</if>
+	<if test="date_type == 'DAY'">
+		AND A.add_date BETWEEN TO_DATE(#{start_date}||' 00:00:00', 'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(#{end_date}||' 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
+	</if>
+	<if test="date_type == 'MONTH'">
+		AND (TO_CHAR(A.add_date, 'yyyy-MM') <![CDATA[<=]]> #{start_year}||'-'||#{start_month} AND TO_CHAR(A.add_date, 'yyyy-MM') >= #{start_year}||'-'||#{start_month})
+	</if> 
+	<if test="date_type == 'YEAR'">
+		AND A.add_date BETWEEN TO_DATE(#{start_year}||'-01-01 00:00:00', 'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(#{end_year}||'-12-31 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
+	</if>
+	GROUP BY 
+		B.board_name, C.homepage_name
+	</select>
+	
+	<select id="getBoardAccessTotalCount" resultType="int">
+	SELECT 
+		COUNT(*) AS count 
+	FROM 
+		CMS_BOARD A, CMS_BOARD_MANAGE B, CMS_HOMEPAGE C
+	WHERE 
+		A.manage_idx = B.manage_idx AND
+		B.homepage_id = C.homepage_id
+	<if test="homepage_id != null and homepage_id != ''">
+		AND b.homepage_id = #{homepage_id}
+	</if>
+	<if test="board_type != null and board_type != ''">
+		AND b.board_type = #{board_type}
+	</if>
+	<if test="date_type == 'DAY'">
+		AND A.add_date BETWEEN TO_DATE(#{start_date}||' 00:00:00', 'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(#{end_date}||' 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
+	</if>
+	<if test="date_type == 'MONTH'">
+		AND (TO_CHAR(A.add_date, 'yyyy-MM') <![CDATA[<=]]> #{start_year}||'-'||#{start_month} AND TO_CHAR(A.add_date, 'yyyy-MM') >= #{start_year}||'-'||#{start_month})
+	</if> 
+	<if test="date_type == 'YEAR'">
+		AND A.add_date BETWEEN TO_DATE(#{start_year}||'-01-01 00:00:00', 'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(#{end_year}||'-12-31 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
+	</if>
+	</select>
+	
+</mapper>

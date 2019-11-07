@@ -1,0 +1,44 @@
+@charset "utf-8";
+@import url("../../../common/css/type10.css");
+
+.main .main_txt .t1{font-size:32px}
+.main .main_txt .t1 strong{font-size:44px}
+.main .main_txt .t2{font-size:22px;line-height:120%;padding-top:10px}
+@media all and (max-width:1100px){
+	.main .main_txt .t1{font-size:28px}
+	.main .main_txt .t1 strong{font-size:40px}
+	.main .main_txt .t2{font-size:20px}
+}
+
+/* 인사말 */
+.greeting .color1{color:#81ba01}
+.greeting .color2{color:#006eb8}
+.greeting{background-image:url('../img/contents/greeting.jpg')}
+.greeting .gtxt{background-image:url('../img/contents/greeting_bottom.png')}
+
+/* 관련법령 */
+.con93img{background:url('../img/contents/etcbook.gif') no-repeat 90% bottom;padding:0 0 35px 3%}
+.con93img li{background:url('../img/contents/iconb.gif') no-repeat 0 center;padding:2px 0 2px 13px}
+@media all and (max-width:580px){
+	.con93img{background:none}
+}
+
+/* 접속기록안내 */
+#memberInfo{position:absolute;width:22%;left:98%;top:40%;background:#fff;margin-left:-37%;box-shadow:0px 1px 7px 0px rgba(0,0,0,0.5);z-index: 9;}
+#memberInfo .inbox{position:relative;border:1px solid #ccc;padding:10px;}
+#memberInfo .inbox dt{font-weight:bold;font-family:verdana;padding-bottom: 10px;}
+#memberInfo .inbox dd{padding:3px 0}
+a#closeMemberInfo{position:absolute;right:7px;top:5px;font-size:120%}
+#line{width: 160px;}
+div.loginInfo{padding-top: 8px;padding-bottom: 15px;}
+span.fontRed{color: red;}
+span.fontBlue{color: rgb(27,104,199);font-weight: bold;}
+div.memberCon{background-color: rgb(240,240,240);border-radius: 1em;}
+div.memberCon2{padding-top: 12px;padding-left: 10px;padding-right: 10px; padding-bottom: 28px;}
+a.btnStyle{float: right;margin-top: 6px;}
+#loginIcon{padding-top: 13px;padding-left:10px;}
+.boxnImg{ float: left; }
+.box2_1 { float: left; width: 34%; }
+.box3_1 { float: left; width: 38%; border-left: 1px solid #ddd; }
+.boxn { padding-top: 1%; padding-bottom: 1%; padding-left: 5%; }
+

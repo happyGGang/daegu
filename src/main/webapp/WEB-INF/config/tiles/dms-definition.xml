@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+	<definition name="/dms/*/*/*/*_ajax" templateExpression="/WEB-INF/views/app/dms/{1}/{2}/{3}/{4}.jsp" />
+	
+	<definition name="/dms/*/*/*_ajax" templateExpression="/WEB-INF/views/app/dms/{1}/{2}/{3}.jsp" />
+	
+	<definition name="/dms/*/*_ajax" templateExpression="/WEB-INF/views/app/dms/{1}/{2}.jsp" />
+	
+	<definition name="dmsLayout" templateExpression="/WEB-INF/views/app/dms/layout/layout.jsp">
+		<put-attribute name="header" expression="/WEB-INF/views/app/dms/layout/header.jsp" />
+  		<put-attribute name="footer" expression="/WEB-INF/views/app/dms/layout/footer.jsp" />
+	</definition>
+	
+	<definition name="dmsLayoutOtherBoardEdit" templateExpression="/WEB-INF/views/app/dms/layout/layout_otherBoardEdit.jsp">
+		<put-attribute name="header" expression="/WEB-INF/views/app/dms/layout/header.jsp" />
+  		<put-attribute name="footer" expression="/WEB-INF/views/app/dms/layout/footer.jsp" />
+	</definition>
+	
+	<definition name="/dms/*/*/*/*" extends="dmsLayout">
+ 		<put-attribute name="body" expression="/WEB-INF/views/app/dms/{1}/{2}/{3}/{4}.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/dms/*/*/*" extends="dmsLayout">
+ 		<put-attribute name="body" expression="/WEB-INF/views/app/dms/{1}/{2}/{3}.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/dms/*/*" extends="dmsLayout">
+ 		<put-attribute name="body" expression="/WEB-INF/views/app/dms/{1}/{2}.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/dms/*" extends="dmsLayout">
+ 		<put-attribute name="body" expression="/WEB-INF/views/app/dms/{1}.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/homepage/dms/board/*/otherBoardEdit" extends="dmsLayoutOtherBoardEdit">
+ 		<put-attribute name="body" expression="/WEB-INF/views/app/board/{1}/otherBoardEdit.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/homepage/dms/board/*/*" extends="dmsLayout">
+		<put-attribute name="body" expression="/WEB-INF/views/app/board/{1}/{2}.jsp"></put-attribute>
+	</definition>
+	
+	
+	
+	
+	
+	
+</tiles-definitions>

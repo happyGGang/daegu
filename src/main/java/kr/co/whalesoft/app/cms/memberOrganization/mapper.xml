@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.memberOrganization.MemberOrganizationDao">
+	
+	
+	<select id="getMemberOrganization" resultType="kr.co.whalesoft.app.cms.memberOrganization.MemberOrganization">
+		SELECT
+			HOMEPAGE_ID, MEMBER_ID, ORGA_IDX
+		FROM
+			CMS_MEMBER_ORGANIZATION
+		WHERE
+			MEMBER_ID = #{member_id}
+	</select>
+	
+	<insert id="addMemberOrganization">
+		INSERT INTO CMS_MEMBER_ORGANIZATION ( HOMEPAGE_ID, MEMBER_ID, ORGA_IDX ) VALUES ( #{homepage_id}, #{member_id}, #{orga_idx} )
+	</insert>
+	
+	<delete id="deleteMemberOrganization">
+		DELETE FROM CMS_MEMBER_ORGANIZATION 
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND ORGA_IDX = #{orga_idx} AND MEMBER_ID = #{member_id}
+	</delete>
+	
+	<select id="getMemberInOrganization" resultType="kr.co.whalesoft.app.cms.memberOrganization.MemberOrganization">
+		SELECT 
+			HOMEPAGE_ID, MEMBER_ID, MEMBER_NAME, PHONE, CELL_PHONE, EMAIL
+		FROM 
+			CMS_MEMBER 
+		WHERE
+			MEMBER_ID IN (SELECT MEMBER_ID FROM CMS_MEMBER_ORGANIZATION WHERE HOMEPAGE_ID = #{homepage_id} AND ORGA_IDX = #{orga_idx})
+	</select>
+	
+	<select id="getMemberNotInOrganization" resultType="kr.co.whalesoft.app.cms.memberOrganization.MemberOrganization">
+		SELECT 
+			HOMEPAGE_ID, MEMBER_ID, MEMBER_NAME, PHONE, CELL_PHONE, EMAIL
+		FROM 
+			CMS_MEMBER 
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND 
+			MEMBER_ID NOT IN (SELECT MEMBER_ID FROM CMS_MEMBER_ORGANIZATION WHERE HOMEPAGE_ID = #{homepage_id} AND ORGA_IDX = #{orga_idx})
+			<if test="search_text != null and search_text != ''">
+				AND ( MEMBER_ID LIKE '%'||#{search_text}||'%' OR MEMBER_NAME LIKE '%'||#{search_text}||'%' )
+			</if>
+			
+	</select>
+	
+</mapper>

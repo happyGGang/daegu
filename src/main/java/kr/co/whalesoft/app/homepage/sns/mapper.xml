@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.homepage.sns.SNSAccessDao">
+	
+	<update id="mergeTwitter">
+		MERGE INTO 
+			SNS_ACCESS_HISTORY a
+		USING dual
+		ON 
+			(a.homepage_id = #{homepage_id} AND a.menu_idx = #{menu_idx} AND a.access_date = TO_CHAR(SYSDATE, 'yyyyMMdd'))
+		WHEN MATCHED THEN
+			UPDATE SET 
+				a.twitter = a.twitter+1
+		WHEN NOT MATCHED THEN
+			INSERT
+			(
+				homepage_id, menu_idx, access_date, twitter, facebook, kakaostory
+			) VALUES
+			(
+				#{homepage_id}, #{menu_idx}, TO_CHAR(sysdate, 'yyyyMMdd'), 1, 0, 0
+			)
+	</update>
+	
+	<update id="mergeFacebook">
+		MERGE INTO 
+			SNS_ACCESS_HISTORY a
+		USING dual
+		ON 
+			(a.homepage_id = #{homepage_id} AND a.menu_idx = #{menu_idx} AND a.access_date = TO_CHAR(SYSDATE, 'yyyyMMdd'))
+		WHEN MATCHED THEN
+			UPDATE SET 
+				a.facebook = a.facebook+1
+		WHEN NOT MATCHED THEN
+			INSERT
+			(
+				homepage_id, menu_idx, access_date, twitter, facebook, kakaostory
+			) VALUES
+			(
+				#{homepage_id}, #{menu_idx}, TO_CHAR(sysdate, 'yyyyMMdd'), 0, 1, 0
+			)
+	</update>
+	
+	<update id="mergeKakaostory">
+		MERGE INTO 
+			SNS_ACCESS_HISTORY a
+		USING dual
+		ON 
+			(a.homepage_id = #{homepage_id} AND a.menu_idx = #{menu_idx} AND a.access_date = TO_CHAR(SYSDATE, 'yyyyMMdd'))
+		WHEN MATCHED THEN
+			UPDATE SET 
+				a.kakaostory = a.kakaostory+1
+		WHEN NOT MATCHED THEN
+			INSERT
+			(
+				homepage_id, menu_idx, access_date, twitter, facebook, kakaostory
+			) VALUES
+			(
+				#{homepage_id}, #{menu_idx}, TO_CHAR(sysdate, 'yyyyMMdd'), 0, 0, 1
+			)
+	</update>
+	
+</mapper>

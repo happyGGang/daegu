@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.homepage.HomepageDao">
+
+	<select id="getHomepage" resultType="kr.co.whalesoft.app.cms.homepage.Homepage">
+		SELECT
+			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias, homepage_tell
+			, homepage_fax, homepage_send_tell, zipcode, address1, address2, eng_address, homepage_type, homepage_code
+			, domain, context_path, folder, remark, temp_use_yn, blog_url, facebook_url, twitter_url, kakao_url
+			, TO_CHAR(TO_DATE(temp_start_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_start_date
+			, TO_CHAR(TO_DATE(temp_end_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_end_date, print_seq
+		FROM
+			CMS_HOMEPAGE
+		ORDER BY
+			print_seq, homepage_type, homepage_name
+	</select>
+
+	<select id="getNormalHomepage" resultType="kr.co.whalesoft.app.cms.homepage.Homepage">
+		SELECT
+			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias, homepage_tell
+			, homepage_fax, homepage_send_tell, zipcode, address1, address2, eng_address, homepage_type, homepage_code
+			, domain, context_path, folder, remark, temp_use_yn, blog_url, facebook_url, twitter_url, kakao_url
+			, TO_CHAR(TO_DATE(temp_start_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_start_date
+			, TO_CHAR(TO_DATE(temp_end_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_end_date, print_seq
+		FROM
+			CMS_HOMEPAGE
+		WHERE homepage_type != '0'
+		ORDER BY
+			print_seq, homepage_type, homepage_name
+	</select>
+
+
+	<select id="getHomepageList" resultType="kr.co.whalesoft.app.cms.homepage.Homepage">
+		${pagingTop}
+		SELECT
+			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias, homepage_tell
+			, homepage_fax, homepage_send_tell, zipcode, address1, address2, eng_address, blog_url, facebook_url, twitter_url, kakao_url, homepage_type, homepage_code
+			, domain, context_path, folder, remark, temp_use_yn
+			, TO_CHAR(TO_DATE(temp_start_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_start_date
+			, TO_CHAR(TO_DATE(temp_end_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_end_date, print_seq
+		FROM
+			CMS_HOMEPAGE
+		ORDER BY
+			print_seq, homepage_type, homepage_name
+		${pagingBottom}
+	</select>
+
+	<select id="getHomepageListCount" resultType="int">
+		SELECT COUNT(*)
+		FROM CMS_HOMEPAGE
+	</select>
+
+	<select id="getHomepageID" resultType="string">
+		SELECT
+			'h' || (NVL(MAX(TO_NUMBER(REPLACE(REPLACE(homepage_id, 'h', ''), 'c', ''))),0) + 1) AS homepage_id
+		FROM
+			CMS_HOMEPAGE
+	</select>
+
+	<select id="getHomepageOne" resultType="kr.co.whalesoft.app.cms.homepage.Homepage">
+		SELECT
+			  a.homepage_id
+			, a.homepage_group
+			, a.homepage_name
+			, a.homepage_eng_name
+			, a.homepage_alias
+			, a.homepage_tell
+			, a.homepage_fax
+			, a.homepage_send_tell
+			, a.zipcode
+			, a.address1
+			, a.address2
+			, a.eng_address
+			, a.blog_url
+			, a.facebook_url
+			, a.twitter_url
+			, a.kakao_url
+			, a.homepage_type
+			, a.homepage_code
+			, a.domain
+			, a.context_path
+			, a.folder
+			, a.remark
+			, a.temp_use_yn
+			, a.temp_start_date
+			, a.temp_end_date
+			, a.mystorage_limit_count
+			, a.print_seq
+		FROM
+			CMS_HOMEPAGE a
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+
+	<select id="getHomepageOneInPath" resultType="kr.co.whalesoft.app.cms.homepage.Homepage">
+		SELECT
+			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias, homepage_tell
+			,homepage_fax, homepage_send_tell, zipcode, address1, address2, eng_address, blog_url, facebook_url, twitter_url, kakao_url, homepage_type, homepage_code
+			,domain, context_path, folder, remark, temp_use_yn, temp_start_date, temp_end_date, mystorage_limit_count, print_seq
+		FROM
+			CMS_HOMEPAGE
+		WHERE
+			<choose>
+				<when test="context_path != 'root'">
+					context_path = #{context_path}
+				</when>
+				<otherwise>
+					context_path is null
+				</otherwise>
+			</choose>
+			AND ROWNUM = 1
+	</select>
+
+	<insert id="addHomepage">
+		INSERT INTO CMS_HOMEPAGE
+		(
+			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias
+			,homepage_tell, homepage_fax, homepage_send_tell, homepage_type, homepage_code
+			,zipcode, address1, address2, eng_address, blog_url, facebook_url, twitter_url, kakao_url
+			, domain, context_path, folder, remark, mystorage_limit_count, print_seq
+		) VALUES
+		(
+			#{homepage_id}, #{homepage_group}, #{homepage_name}, #{homepage_eng_name}, #{homepage_alias}
+			,#{homepage_tell}, #{homepage_fax}, #{homepage_send_tell}, #{homepage_type}, #{homepage_code}
+			,#{zipcode}, #{address1}, #{address2}, #{eng_address}, #{blog_url}, #{facebook_url}, #{twitter_url}, #{kakao_url}
+			, #{domain}, #{context_path}, #{folder}, #{remark}, #{mystorage_limit_count}, #{print_seq}
+		)
+	</insert>
+
+	<update id="modifyHomepage">
+		UPDATE
+			CMS_HOMEPAGE
+		SET
+			homepage_group = #{homepage_group},
+			homepage_name = #{homepage_name},
+			homepage_eng_name = #{homepage_eng_name},
+			homepage_alias = #{homepage_alias},
+			homepage_tell = #{homepage_tell},
+			homepage_fax = #{homepage_fax},
+			homepage_send_tell = #{homepage_send_tell},
+			zipcode = #{zipcode},
+			address1 = #{address1},
+			address2 = #{address2},
+			eng_address = #{eng_address},
+			blog_url = #{blog_url},
+			facebook_url = #{facebook_url},
+			twitter_url = #{twitter_url},
+			kakao_url = #{kakao_url},
+			homepage_type = #{homepage_type},
+			homepage_code = #{homepage_code},
+			domain = #{domain},
+			context_path = #{context_path},
+			folder = #{folder},
+			remark = #{remark},
+			mystorage_limit_count = #{mystorage_limit_count},
+			print_seq = #{print_seq}
+		WHERE
+			homepage_id = #{homepage_id}
+	</update>
+
+	<update id="modifyHomepageApp">
+
+	</update>
+
+	<delete id="deleteHomepage">
+		DELETE FROM CMS_HOMEPAGE
+		WHERE
+			homepage_id = #{homepage_id}
+	</delete>
+
+	<update id="modifyHomepageTemp">
+		UPDATE
+			CMS_HOMEPAGE
+		SET
+			temp_use_yn = #{temp_use_yn},
+			temp_start_date = #{temp_start_date},
+			temp_end_date = #{temp_end_date}
+		WHERE
+			homepage_id = #{homepage_id}
+	</update>
+
+	<select id="getHomepageOneByCode" resultType="kr.co.whalesoft.app.cms.homepage.Homepage">
+		SELECT
+			*
+		FROM
+			CMS_HOMEPAGE
+		WHERE
+		<choose>
+		<when test='homepage_code == "00147046"'>
+			homepage_id = 'h28'
+		</when>
+		<when test='homepage_code == "00147020"'>
+			homepage_id = 'h13'
+		</when>
+		<when test='homepage_code == "00147006"'>
+			homepage_id = 'h13'
+		</when>
+		<otherwise>
+			homepage_code = #{homepage_code}
+		</otherwise>
+		</choose>
+	</select>
+
+	<select id="getMySiteList" resultType="kr.co.whalesoft.app.cms.homepage.Homepage">
+		SELECT
+			*
+		FROM
+			CMS_HOMEPAGE A, WB_MEMBER_GROUP B, WB_MEMBER_GROUP_SUBORD C
+		WHERE
+			a.homepage_id = B.site_id
+		AND	B.member_group_idx  = C.member_group_idx
+		AND	C.member_id = #{member_id}
+
+		ORDER BY homepage_name
+	</select>
+</mapper>

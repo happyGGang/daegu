@@ -1,0 +1,270 @@
+@charset "utf-8";
+
+/* 스타일 */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td,address
+{font-size:13px}
+
+a:hover,
+a:focus{color:#2568bf}
+
+.txt-bar{background-color:#777}
+
+.tnb{height:40px;text-align:right}
+.tnb a{display:inline-block;zoom:1;*display:inline;line-height:35px;margin-left:5px;font-size:12px}
+.mmode.curation {width: 35px;height: 35px;float: right;margin-top: -63px;margin-right: 43px;}
+.mmode.curation img{width: 35px;height: 35px;}
+/* header */
+#header h1{position:absolute;padding:0 15px 8px;background:#fff;top:9px}
+#header h1 a{display:block;font-size:0;line-height:0}
+
+/* Gnb */
+.Gnb{clear:both;text-align:center;height:60px;overflow:inherit;position:relative;background:#4c5365}
+.Gnb .gnb-menu{position:relative;text-align:right}
+.Gnb .gnb-menu>li{padding:0 3%;text-align:center;position:static}
+.Gnb .gnb-menu>li>a{padding:15px 0;line-height:30px;height:30px;font-size:15px;color:#fff;font-weight:bold}
+.Gnb .gnb-menu>li>ul{display:none;border:0;left:0;white-space:nowrap;text-align:right}
+.Gnb .gnb-menu>li.active>ul{display:block}
+.Gnb .gnb-menu>li>.SubMenu>li{width:auto;padding:0 5px}
+.Gnb .gnb-menu>li>.SubMenu>li{display:inline-block;zoom:1;*display:inline}
+.Gnb .gnb-menu>li>.SubMenu>li>a{font-size:13px;padding:0 5px;color:#555}
+.Gnb .gnb-menu>li>.SubMenu>li>a:hover,
+.Gnb .gnb-menu>li>.SubMenu>li>a:focus{background:none;font-weight:bold;color:#333;text-decoration:none}
+.Gnb .gnb-menu>li.on>a,
+.Gnb .gnb-menu>li>a:hover,
+.Gnb .gnb-menu>li>a:focus{color:#81eaf8}
+.Gnb .mask,
+.Gnb .gnb-menu>li>ul{width:100%;background:#b6d2e0}
+.Gnb .gnb-menu>li.menu1>ul,
+.Gnb .gnb-menu>li.menu2>ul,
+.Gnb .gnb-menu>li.menu3>ul,
+.Gnb .gnb-menu>li.menu4>ul{text-align:center}
+.Gnb .gnb-menu>li.menu3>ul>li.first{margin-left:10%}
+.Gnb .gnb-menu>li.menu4>ul>li.first{margin-left:15%}
+
+#main-spot>.section{position:relative;overflow:visible}
+#main-spot .section .txt{display:block;line-height:43px;font-weight:bold;font-size:38px;color:#333232;padding:62px 0 86px;height:75px}
+#main-spot .search-box{width:50%;position:absolute;top:337px;right:0}
+#main-spot .search-box fieldset{position:relative;zoom:1;border:3px solid #444;background:#fff;padding-left:10px;overflow:hidden}
+#main-spot .search-box input{border:0;background:#fff;width:100%;font-weight:bold}
+#main-spot .search-box input:focus{outline:none}
+#main-spot .search-box input,
+#main-spot .search-box button{height:38px;line-height:37px}
+#main-spot .search-box button{float:right;width:80px;text-align:center;background:#444;color:#fff;margin-right:-3px}
+#main-spot .search-box .box1{float:left;width:100%;margin-right:-80px}
+#main-spot .search-box .box2{margin-right:80px}
+
+.main .lt{width:25%;background:#f3f3f3;height:219px!important}
+.main .lts{width:50%;background:#fff}
+.main .mm2,
+.main .mm3,
+.main .quickMenu,
+.main .news,
+.main .popupzone,
+.main .calendar,
+.main .bannerzone,
+.main .mm4,
+.main .mm5{float:left}
+.main .lt .t1{font-size:30px;letter-spacing:-1px;font-weight:bold;line-height:200%}
+.main .lt .t2{font-size:16px}
+.main .lt.mm1 a,
+.main .lt.mm2 a,
+.main .lt.mm3 a,
+.main .lt.mm4 a,
+.main .lt.mm5 a{display:block;height:180px}
+.main .lt.mm1 a,
+.main .lt.mm2 a,
+.main .lt.mm3 a,
+.main .lt.mm4 a,
+.main .lt.mm5 a,
+.main .lts .box{padding:19px 25px}
+.main .lt a span{display:block;line-height:140%;color:#fff}
+.main .lt a:hover span{color:#eaebec}
+
+.main2 .lts{height:210px;overflow:hidden}
+
+.main .mm1{background:url('../img/type3/mm1.jpg') no-repeat;background-size:cover}
+.main .mm1 .box{background:url('../img/type3/mm1_bg.png') no-repeat 90% 90%}
+.main .mm2{background:url('../img/type3/mm2.jpg') no-repeat;background-size:cover}
+.main .mm2 .box{background:url('../img/type3/mm2_bg.png') no-repeat 0 bottom}
+.main .mm3 .box{height:110%;background:#e6e7e9 url('../img/type3/mm3.jpg') no-repeat right 0}
+.main .mm3 a span,.main .mm4 a span,.main .mm5 a span{display:block;line-height:140%;color:#464646}
+.main .mm3 a:hover span,.main .mm4 a:hover span,.main .mm5 a:hover span{color:#000}
+
+.main .bannerzone a{background:#fff;border:1px solid #ddd;display:block}
+.main .bannerzone{background:#f3f3f3}
+.main .bannerzone .box{padding:20px 0 19px 25px}
+.main .calendar{background:#ffffff;position:relative;}
+.main .mm4{background:#dbf7f6 url('../img/type3/ms1.png') no-repeat right bottom}
+.main .mm5{background:#b6d2e0 url('../img/type3/ms2.png') no-repeat 90% 80%}
+
+.main .quickMenu ul{overflow:hidden;font-size:0;line-height:0;padding-top:1px}
+.main .quickMenu li{width:33.33%;display:inline-block;zoom:1;*display:inline}
+.main .quickMenu li a{display:block;border:1px solid #ddd;border-width:0 0 1px 1px;text-align:center;background-position:center 35%;background-repeat:no-repeat;height:90px!important;box-sizing:border-box}
+.main .quickMenu li.qm1 a,
+.main .quickMenu li.qm4 a{border-left-width:0}
+.main .quickMenu li.qm4 a,
+.main .quickMenu li.qm5 a,
+.main .quickMenu li.qm6 a{border-bottom-width:0}
+.main .quickMenu li a span{font-size:13px;display:block;position:relative;top:65%}
+
+.main .news{position:relative;border-left:1px solid #f1f1f1;.border-left-width:0;box-sizing:border-box;background:#fff}
+.main .news li{padding:2px 75px 2px 10px}
+.main .news ul{padding:17px 9px 0 120px;background:url('../img/type3/new_img.jpg') no-repeat 0 40px}
+.main .news h3,.main .bannerzone h3{color:#3d3d3d;font-size:27px;font-weight:bold;padding:0 10px 0 0;letter-spacing:-2px}
+.main .banner-box{padding-top:30px}
+
+.main .news .more{right:28px;top:28px;font-size:0;line-height:0;position:absolute;background:url('../img/type3/more_bt.gif') no-repeat 0 0;width:16px;height:16px}
+
+.main .popupzone{position:relative;background:#e6e7e9}
+.main .popupzone li{text-align:center;z-index:9!important}
+.main .popupzone .bx-pager{position:absolute;right:15px;top:20px;font-size:0;line-height:0;z-index:10!important}
+.main .popupzone .bx-pager-item{padding:0 2px;display:inline-block;zoom:1;*display:inline}
+.main .popupzone .bx-pager a{display:block;border-radius:50%;width:12px;height:12px;background:#6f6f6f;font-size:0;line-height:0}
+.main .popupzone .bx-pager a.active,
+.main .popupzone .bx-pager a:hover,
+.main .popupzone .bx-pager a:focus{background:#006abe}
+.main .popupzone .bx-controls-direction a{z-index:100;font-size:0;line-height:0;top:50%;margin-top:-19px;width:38px;height:38px;position:absolute;
+background:rgba(0,0,0,0.4);
+.background:url('../img/type3/popup_btn.gif') no-repeat 0 0\9}
+.main .popupzone .bx-controls-direction a:before{content:" ";background:url('../img/type3/popup_btn.gif') no-repeat 0 0;display:block;width:38px;height:38px}
+.main .popupzone .bx-controls-direction a:hover{background:rgba(0,0,0,0.7);}
+.main .popupzone .bx-controls-direction a.bx-prev{left:0}
+.main .popupzone .bx-controls-direction a.bx-next{right:0}
+.main .popupzone .bx-controls-direction a.bx-next:before{background-position:-38px 0}
+
+/* 달력 */
+.main .calendar h3{position:absolute;top:6px;left:20px;font-size:20px;font-weight:bold;letter-spacing:-1px}
+.main .today{position:absolute;bottom:20px;left:20px;width:20%}
+.main .today span{display:block;font-size:10px;margin-bottom:-10px}
+.main .today p{display:block;font-size:35px;font-weight:bold}
+.main .today i{clear:both;font-style:normal;display:block;float:left;border-radius:50%;width:9px;height:9px;margin:5px 5px 0 0}
+.main .today i.t01{background:#b8b8b8}
+.main .today i.t02{background:#ff6600}
+.main .today i.t03{background:#76cde1}
+.main .today em{font-style:normal;display:block;float:left;font-size:11px}
+.main #calendar{padding:0px 20px}
+.main #calendar .cal-func{width:75%;margin:3px 0 3px;float:right;text-align:right}
+.main #calendar .cal-func a,
+.main #calendar .cal-func b,
+.main #calendar .cal-func b span,
+.main #calendar .cal-func b em{vertical-align:middle;display:inline-block;zoom:1;*display:inline;font-style:normal;color:#282c31;font-size:18px!important;letter-spacing:-1px}
+.main #calendar .cal-func b em{color:#f26532!important;margin:0 3px}
+.main #calendar .cal-tbl{width:75%;border:0;float:right}
+.main #calendar .cal-tbl thead th{border-top-width:0px;border-bottom:0;border-right-width:0px;border-left:0px;color:#818181}
+.main #calendar .cal-tbl th,
+.main #calendar .cal-tbl td{text-align:center;font-family:'vardana',arial;font-size:9px;font-weight:normal;padding:2px 0px;border:0}
+.main #calendar table th{font-size:7px!important;letter-spacing:0}
+.main #calendar table td div{font-size:10px!important;letter-spacing:0px}
+.main #calendar table td  div,
+.main #calendar table td  a{color:#818181}
+.main #calendar table td.active{background:#b8b8b8}
+.main #calendar table td.active div{color:#fff!important}
+.main #calendar table th.sun{color:#ff6600!important;font-size:7.5px!important}
+.main #calendar table th.sat{color:#2a5d9a!important;font-size:7.5px!important}
+.main #calendar table td.point1 div{color:#ff6600;font-size:9px!important}
+.main #calendar table td.point2 div{color:#76cde1;font-size:10px!important}
+
+.main #calendar .cal-func .btn{font-size:30px!important;font-weight:bold;height:30px;padding:0 0 0 4px;margin-left:0px;color:#d3d3d3;background:#fff;font-weight:bold;border:0px;-webkit-border-radius:3px;-moz-border-radius:3px}
+.main #calendar .cal-func .btn:active{border:0px solid #0059ac;background:#1f6db6;color:#818181}
+.main #calendar #planList{width:65%;padding:7px 5%;color:#818181;margin-top:0px;float:right;background:#efefef}
+.main #calendar #planList p{font-size:11px!important}
+.main #calendar #planList .date1 span{border-radius:4px;background:#8c8383;font-weight:bold;color:#fff;padding:2px 5px;margin-right:5px;font-size:10px}
+.main #calendar #planList .date2{color:#f26532;padding-top:2px}
+
+#footer{padding:30px 0 50px;border-top:1px solid #e4e4e4;position:relative;z-index:1}
+#footer .section{font-size:0;line-height:0;position:relative}
+#footer .section .site_link{position:absolute;right:0;top:0}
+#footer .section .site_link div div{width:200px}
+#footer .section .site_link > div{margin-bottom:5px}
+#footer .section .site_link a,
+#footer .section .site_link span{border-radius:0}
+#footer .section .site_link span{line-height:30px}
+#footer .section .site_link a.btn{padding:5px 10px;background:#1f5d97;border-color:#063866;color:#fff}
+#footer .section .site_link a.btn:hover,
+#footer .section .site_link a.btn:focus{background:#063866}
+#footer .info a,
+#footer .info span{vertical-align:middle}
+#footer .info a b{color:#1b6bb6;font-size:105%}
+#footer .info .bar{margin:0 3px}
+#footer address em,
+#footer address span{font-size:11px}
+#footer address{padding:5px 0 0 0}
+#footer address em{font-style:normal;margin-right:10px}
+#footer address span{font-size:11px}
+
+
+.main .bannerzone .box{padding:20px}
+.main .bannerzone h3{font-size:24px;padding:0 10px 15px 0;letter-spacing:-2px}
+.main .popupzone img{margin-bottom:-10px}
+.main .bannerzone{clear:both}
+
+@media all and (max-width:1000px){
+	#header{background:#4c5365}
+	.tnb .section{position:relative}
+	h1{position:absolute;top:0;left:0;width:180px}
+	h1 img{display:none}
+	.main .qmenu .bx-controls{display:block}
+	
+	#header h1{position:relative;height:auto;top:0;padding:10px;z-index:1}
+	#header h1 img{display:block;height:70px}
+	.m-menu{float:right;margin-top:-67px;z-index:2}
+	.m-menu a{display:inline-block;text-align:center;vertical-align:middle;color:#fff}
+	.m-menu a i{font-size:32px;width:45px;height:45px;line-height:45px}
+	
+	.subpage .section,
+	#footer .section{padding:0 3%}
+	.tnb,
+	.banner,
+	.Gnb{display:none}
+	.mmode{display:block}
+	
+	#main-spot .section .txt{position:absolute;display:block;line-height:120%;font-weight:bold;font-size:250%;color:#333232;top:70px;width:45%;right:0}
+	#main-spot .search-box{width:100%;position:relative;top:30px;height:100px}
+
+	.main .lt{width:50%}
+	.main .lts{width:100%;height:auto}
+	.main .news{border-top:1px solid #eee;border-bottom:1px solid #eee;padding-bottom:3px}
+	.main .news .box{padding:25px}
+	.main .popupzone img{margin-bottom:-10px}
+	
+	.main .bannerzone h3{font-size:28px;padding:0 25px 15px 0;letter-spacing:-1px}
+	
+	.main .calendar h3{font-size:23px}
+	.main #calendar .cal-func{margin:5px 0 10px}
+	.main #calendar .cal-func .btn{font-size:30px!important;padding:0 0 0 4px}
+	
+	
+	#footer .section .site_link{display:none}
+	#footer .section{background:none}
+	#footer address{padding:5px 0 0 0}
+	#footer .info{padding:0}
+}
+
+@media all and (max-width:767px){
+	#main-spot .section .txt{font-size:200%}
+}
+@media all and (max-width:580px){
+	#main-spot .search-box{width:94%;margin:0 3%}
+	#main-spot .section .txt{display:none}
+	.main .section{margin:0}
+	.main .calendar,
+	.main .bannerzone{display:none}
+	.main .news ul{padding:0;background:none}
+	.main .quickMenu li{width:50%!important}
+	.main .quickMenu li.qm1 a,
+	.main .quickMenu li.qm3 a,
+	.main .quickMenu li.qm4 a,
+	.main .quickMenu li.qm6 a{border-left-width:0}
+	
+	.main .quickMenu li.qm5 a{border-left-width:1px}
+	.main .quickMenu li.qm5 a,
+	.main .quickMenu li.qm6 a{border-bottom-width:1px}
+	.main .quickMenu li.qm6 a,
+	.main .quickMenu li.qm8 a{border-bottom-width:0}
+}
+@media all and (max-width:450px){
+	.main .lt{width:100%}
+	.main-img .section{width:90%;float:left}
+	#main-spot .main_img li .section{top:100px;text-align:center}
+	#main-spot .main_img li .section>div{padding:0 0 0 5%}
+}

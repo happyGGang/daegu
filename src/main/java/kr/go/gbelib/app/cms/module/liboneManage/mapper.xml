@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.liboneManage.LiboneManageDao">
+	
+	<insert id="insertLiboneAPIConnectError">
+		<selectKey keyProperty="error_idx" order="BEFORE" resultType="int" >
+			SELECT API_ERROR_IDX_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO
+			API_ERROR_LOG
+		(
+			error_idx, exception_message, server_ip, error_date
+		)
+		VALUES
+		(
+			#{error_idx}, #{exception_message}, #{server_ip}, SYSDATE
+		)
+	</insert>
+</mapper>

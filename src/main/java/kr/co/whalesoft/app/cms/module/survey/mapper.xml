@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.module.survey.SurveyDao">
+
+	<select id="getSurveyCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_SURVEY_BASIC
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test="search_text != null and search_text != ''">
+		AND ${search_type} like '%' || #{search_text} || '%'
+		</if>
+	</select>
+	
+	<select id="getAnswerUserCount" resultType="int">
+		SELECT
+			COUNT(*) 
+		FROM 
+			CMS_SURVEY_ANSWER_USER  
+		WHERE 
+			survey_idx = #{survey_idx}
+		AND homepage_id = #{homepage_id}
+	</select>
+
+	<select id="getUserSurveyCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_SURVEY_BASIC
+		WHERE
+			homepage_id = #{homepage_id} AND
+			survey_private_yn = 'Y'
+		<if test="search_text != null and search_text != ''">
+		AND ${search_type} like '%' || #{search_text} || '%'
+		</if>
+	</select>
+
+	<select id="getSurveyAll" resultType="kr.co.whalesoft.app.cms.module.survey.Survey">
+		SELECT
+			survey_idx, survey_title, survey_content, survey_start_date, survey_end_date,
+			CASE
+			 	WHEN SURVEY_OPEN_YN = 'N'
+			 	THEN 'N'
+				WHEN SYSDATE BETWEEN TO_DATE(survey_start_date, 'YYYY-MM-DD') AND TO_DATE(survey_end_date, 'YYYY-MM-DD')
+			 	THEN 'Y'
+				ELSE 'N'
+			END survey_open_yn, survey_private_yn, annyms_yn,
+			limit_user_yn, limit_user_id, add_date, add_user_id, (SELECT COUNT(*) FROM CMS_SURVEY_ANSWER_USER b WHERE a.survey_idx = b.survey_idx and a.homepage_id = b.homepage_id) AS answer_count,
+			add_user_tel, skin_cd, open_yn, name_yn, greetings, popup_yn,
+			select_cnt
+		FROM
+			CMS_SURVEY_BASIC a
+		WHERE
+			homepage_id = #{homepage_id}
+		ORDER BY
+
+			survey_idx DESC
+	</select>
+
+	<select id="getSurvey" resultType="kr.co.whalesoft.app.cms.module.survey.Survey">
+		${pagingTop}
+	    	SELECT * FROM
+	    	(
+				SELECT
+					survey_idx, survey_title, survey_content, survey_start_date, survey_end_date,
+					CASE
+					 	WHEN SURVEY_OPEN_YN = 'N'
+					 	THEN 'N'
+						WHEN SYSDATE BETWEEN TO_DATE(survey_start_date, 'YYYY-MM-DD') AND TO_DATE(survey_end_date, 'YYYY-MM-DD')+1
+					 	THEN 'Y'
+						ELSE 'N'
+					END survey_open_yn, survey_private_yn, annyms_yn,
+					limit_user_yn, limit_user_id, add_date, add_user_id, (SELECT COUNT(*) FROM CMS_SURVEY_ANSWER_USER b WHERE a.survey_idx = b.survey_idx and a.homepage_id = b.homepage_id) AS answer_count,
+					add_user_tel, skin_cd, open_yn, name_yn, greetings, popup_yn,
+					select_cnt
+				FROM
+					CMS_SURVEY_BASIC a
+				<trim prefix="WHERE" prefixOverrides="AND|OR">
+					homepage_id = #{homepage_id}
+				<if test="search_text != null and search_text != ''">
+				AND ${search_type} like '%' || #{search_text} || '%'
+				</if>
+				</trim>
+			ORDER BY survey_idx DESC
+			)
+		${pagingBottom}
+	</select>
+
+	<select id="getUserSurvey" resultType="kr.co.whalesoft.app.cms.module.survey.Survey">
+		${pagingTop}
+	    	SELECT * FROM
+	    	(
+				SELECT
+					survey_idx, survey_title, survey_content, survey_start_date, survey_end_date,
+					CASE
+					 	WHEN SURVEY_OPEN_YN = 'N'
+					 	THEN 'N'
+						WHEN SYSDATE BETWEEN TO_DATE(survey_start_date, 'YYYY-MM-DD') AND TO_DATE(survey_end_date, 'YYYY-MM-DD')+1
+					 	THEN 'Y'
+						ELSE 'N'
+					END survey_open_yn, survey_private_yn, annyms_yn,
+					limit_user_yn, limit_user_id, add_date, add_user_id, (SELECT COUNT(*) FROM CMS_SURVEY_ANSWER_USER b WHERE a.survey_idx = b.survey_idx and a.homepage_id = b.homepage_id) AS answer_count,
+					add_user_tel, skin_cd, open_yn, name_yn, greetings, popup_yn,
+					select_cnt
+				FROM
+					CMS_SURVEY_BASIC a
+				<trim prefix="WHERE" prefixOverrides="AND|OR">
+					homepage_id = #{homepage_id} AND
+					survey_private_yn = 'Y'
+				<if test="search_text != null and search_text != ''">
+				AND ${search_type} like '%' || #{search_text} || '%'
+				</if>
+				</trim>
+			) ORDER BY survey_idx DESC
+		${pagingBottom}
+	</select>
+
+	<select id="getSurveyOne" resultType="kr.co.whalesoft.app.cms.module.survey.Survey">
+		SELECT
+			homepage_id, survey_idx, survey_title, survey_content, survey_start_date, survey_end_date,
+<!-- 			CASE -->
+<!-- 			 	WHEN SURVEY_OPEN_YN = 'N' -->
+<!-- 			 	THEN 'N' -->
+<!-- 				WHEN SYSDATE BETWEEN TO_DATE(survey_start_date, 'YYYY-MM-DD') AND TO_DATE(survey_end_date, 'YYYY-MM-DD')+1 -->
+<!-- 			 	THEN 'Y' -->
+<!-- 				ELSE 'N' -->
+<!-- 			END survey_open_yn,  -->
+			survey_open_yn, survey_private_yn, annyms_yn,
+			limit_user_yn, limit_user_id, add_date, add_user_id, (SELECT COUNT(*) FROM CMS_SURVEY_ANSWER_USER b WHERE a.survey_idx = b.survey_idx and a.homepage_id = b.homepage_id) AS answer_count,
+<!-- 			b.user_name AS add_user_name, -->
+			add_user_id AS add_user_name, a.add_user_tel, skin_cd, open_yn, name_yn, greetings, popup_yn,
+			select_cnt
+		FROM
+			CMS_SURVEY_BASIC a
+		WHERE
+			homepage_id = #{homepage_id}
+		AND survey_idx = #{survey_idx}
+	</select>
+
+	<select id="getSurveyOneByUser" resultType="kr.co.whalesoft.app.cms.module.survey.Survey">
+		SELECT
+			homepage_id, survey_idx, survey_title, survey_content, survey_start_date, survey_end_date,
+			CASE
+			 	WHEN SURVEY_OPEN_YN = 'N'
+			 	THEN 'N'
+				WHEN SYSDATE BETWEEN TO_DATE(survey_start_date, 'YYYY-MM-DD') AND TO_DATE(survey_end_date, 'YYYY-MM-DD')+1
+			 	THEN 'Y'
+				ELSE 'N'
+			END survey_open_yn,
+			survey_open_yn, survey_private_yn, annyms_yn,
+			limit_user_yn, limit_user_id, add_date, add_user_id, (SELECT COUNT(*) FROM CMS_SURVEY_ANSWER_USER b WHERE a.survey_idx = b.survey_idx and a.homepage_id = b.homepage_id) AS answer_count,
+<!-- 			b.user_name AS add_user_name, -->
+			add_user_id AS add_user_name, a.add_user_tel, skin_cd, open_yn, name_yn, greetings, popup_yn,
+			select_cnt
+		FROM
+			CMS_SURVEY_BASIC a
+		WHERE
+			homepage_id = #{homepage_id}
+		AND survey_idx = #{survey_idx}
+	</select>
+
+	<insert id="addSurvey">
+		<selectKey keyProperty="survey_idx" resultType="int" order="BEFORE">
+		    SELECT NVL(MAX(survey_idx),0)+1 FROM CMS_SURVEY_BASIC
+		</selectKey>
+		INSERT INTO CMS_SURVEY_BASIC
+		(
+			homepage_id, survey_idx, survey_title, survey_content, survey_start_date, survey_end_date,
+			survey_open_yn, limit_user_yn, limit_user_id, add_date, add_user_id,
+			add_user_tel, skin_cd, annyms_yn,
+			modify_date, modify_user_id, open_yn, name_yn, greetings, popup_yn, survey_private_yn
+		) VALUES
+		(
+			#{homepage_id}, #{survey_idx}, #{survey_title}, #{survey_content}, #{survey_start_date}, #{survey_end_date},
+			#{survey_open_yn}, #{limit_user_yn}, #{limit_user_id}, SYSDATE, #{add_user_id},
+			#{add_user_tel}, #{skin_cd}, #{annyms_yn},
+			SYSDATE, #{add_user_id}, #{open_yn}, #{name_yn}, #{greetings}, #{popup_yn}, #{survey_private_yn}
+		)
+	</insert>
+
+	<update id="modifySurvey">
+		UPDATE CMS_SURVEY_BASIC
+		SET
+			survey_title = #{survey_title},
+			survey_content = #{survey_content},
+			survey_start_date = #{survey_start_date},
+			survey_end_date = #{survey_end_date},
+			survey_open_yn = #{survey_open_yn},
+			limit_user_yn = #{limit_user_yn},
+			limit_user_id = #{limit_user_id},
+			add_user_tel = #{add_user_tel},
+			skin_cd = #{skin_cd},
+			modify_date = SYSDATE,
+			modify_user_id = #{modify_user_id},
+			open_yn = #{open_yn},
+			name_yn = #{name_yn},
+			greetings = #{greetings},
+			popup_yn = #{popup_yn},
+			survey_private_yn = #{survey_private_yn},
+			annyms_yn = #{annyms_yn}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND survey_idx = #{survey_idx}
+	</update>
+	
+	<update id="modifySurveyDate">
+		UPDATE CMS_SURVEY_BASIC
+		SET
+			survey_start_date = #{survey_start_date},
+			survey_end_date = #{survey_end_date},
+			modify_user_id = #{modify_user_id}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND survey_idx = #{survey_idx}
+	</update>
+
+	<delete id="deleteSurvey">
+		DELETE
+			CMS_SURVEY_BASIC
+		WHERE
+			homepage_id = #{homepage_id}
+		AND survey_idx = #{survey_idx}
+	</delete>
+
+	<delete id="deleteSurveyQuest">
+		DELETE
+			CMS_SURVEY_QUEST
+		WHERE
+			homepage_id = #{homepage_id}
+		AND survey_idx = #{survey_idx}
+	</delete>
+
+	<delete id="deleteSurveyQuestDetail">
+		DELETE
+			CMS_SURVEY_QUEST_DETAIL
+		WHERE
+			homepage_id = #{homepage_id}
+		AND survey_idx = #{survey_idx}
+	</delete>
+
+	<delete id="deleteSurveyQuestMatrix">
+		DELETE
+			CMS_SURVEY_QUEST_MATRIX
+		WHERE
+			homepage_id = #{homepage_id}
+		AND survey_idx = #{survey_idx}
+	</delete>
+
+	<delete id="deleteSurveyAnswerDetail">
+		DELETE
+			CMS_SURVEY_ANSWER_DETAIL
+		WHERE
+			homepage_id = #{homepage_id}
+		AND survey_idx = #{survey_idx}
+	</delete>
+
+	<delete id="deleteSurveyAnswerUser">
+		DELETE
+			CMS_SURVEY_ANSWER_USER
+		WHERE
+			homepage_id = #{homepage_id}
+		AND survey_idx = #{survey_idx}
+	</delete>
+
+	<delete id="deleteSurveyAnswerMatrix">
+		DELETE
+			CMS_SURVEY_ANSWER_MATRIX
+		WHERE
+			homepage_id = #{homepage_id}
+		AND survey_idx = #{survey_idx}
+	</delete>
+	
+	<insert id="copySurvey">
+		INSERT INTO CMS_SURVEY_BASIC
+		(
+			HOMEPAGE_ID, SURVEY_IDX, SURVEY_TITLE, SURVEY_CONTENT, SURVEY_START_DATE, SURVEY_END_DATE,
+			SURVEY_OPEN_YN, LIMIT_USER_YN, LIMIT_USER_ID, ADD_DATE, ADD_USER_ID,
+			ADD_USER_TEL, SKIN_CD, ANNYMS_YN,
+			MODIFY_DATE, MODIFY_USER_ID, OPEN_YN, NAME_YN, GREETINGS, POPUP_YN, SURVEY_PRIVATE_YN
+		)
+		SELECT  
+			#{homepage_id}, (SELECT NVL(MAX(survey_idx),0)+1 FROM CMS_SURVEY_BASIC), SURVEY_TITLE || '_복사본', SURVEY_CONTENT, TO_CHAR(SYSDATE,'YYYY-MM-DD'), TO_CHAR(SYSDATE,'YYYY-MM-DD'),
+			'Y', LIMIT_USER_YN, LIMIT_USER_ID, SYSDATE, #{add_user_id},
+			ADD_USER_TEL, SKIN_CD, ANNYMS_YN,
+			SYSDATE, #{add_user_id}, OPEN_YN, NAME_YN, GREETINGS, POPUP_YN, 'N'
+		FROM CMS_SURVEY_BASIC
+		WHERE 
+			homepage_id = #{homepage_id}
+		AND survey_idx = #{survey_idx}
+	</insert>
+	
+	<insert id="copySurveyQuest">
+		INSERT INTO CMS_SURVEY_QUEST
+			(
+				HOMEPAGE_ID, SURVEY_IDX, QUEST_IDX, QUEST_TYPE, QUEST_CONTENT, QUEST_AUTH, 
+				QUEST_COUNT, QUEST_ORDER, 
+				QUEST_DETAIL_FREE_YN, MATRIX_COUNT, ADD_DATE, ADD_USER_ID,
+				REQUIRED_YN,
+				MODIFY_DATE, MODIFY_USER_ID
+			) 
+		SELECT  
+			#{homepage_id}, (SELECT MAX(survey_idx) FROM CMS_SURVEY_BASIC WHERE homepage_id = #{homepage_id}), 
+			QUEST_IDX, QUEST_TYPE, QUEST_CONTENT, QUEST_AUTH, QUEST_COUNT, 
+			QUEST_ORDER, QUEST_DETAIL_FREE_YN, MATRIX_COUNT, SYSDATE,
+			#{add_user_id}, REQUIRED_YN, SYSDATE, #{add_user_id}
+		FROM CMS_SURVEY_QUEST
+		WHERE 
+			homepage_id = #{homepage_id}
+		AND survey_idx = #{survey_idx}
+	</insert>
+	
+	<insert id="copySurveyQuestDetail">
+		INSERT INTO CMS_SURVEY_QUEST_DETAIL
+			(
+				HOMEPAGE_ID, SURVEY_IDX, QUEST_IDX, QUEST_DETAIL_IDX, QUEST_DETAIL_ORDER, 
+				QUEST_DETAIL_TITLE, ADD_DATE, ADD_USER_ID, BRANCH_IDX,
+				MODIFY_DATE, MODIFY_USER_ID
+			)
+	    SELECT  
+	      #{homepage_id}, (SELECT MAX(survey_idx) FROM CMS_SURVEY_BASIC WHERE homepage_id = #{homepage_id}), 
+	      QUEST_IDX, QUEST_DETAIL_IDX, QUEST_DETAIL_ORDER, QUEST_DETAIL_TITLE, SYSDATE, 
+	      #{add_user_id}, BRANCH_IDX, SYSDATE, #{add_user_id}
+	      FROM CMS_SURVEY_QUEST_DETAIL
+	    WHERE 
+	      	homepage_id = #{homepage_id}
+	    AND survey_idx = #{survey_idx}
+	</insert>
+	
+	<insert id="copySurveyQuestMatrix">
+		INSERT INTO CMS_SURVEY_QUEST_MATRIX
+			(
+				HOMEPAGE_ID, SURVEY_IDX, QUEST_IDX, MATRIX_IDX, MATRIX_ORDER, MATRIX_TITLE, 
+				ADD_DATE, ADD_USER_ID, MODIFY_DATE, MODIFY_USER_ID
+			) 
+		SELECT  
+			#{homepage_id}, (SELECT MAX(survey_idx) FROM CMS_SURVEY_BASIC where homepage_id =  #{homepage_id}),
+			QUEST_IDX, MATRIX_IDX, MATRIX_ORDER, MATRIX_TITLE, SYSDATE, #{add_user_id}, SYSDATE, #{add_user_id}
+	    FROM CMS_SURVEY_QUEST_MATRIX
+	    WHERE 
+	    	homepage_id =  #{homepage_id}
+	    AND survey_idx =  #{survey_idx}
+	</insert>
+
+	<update id="modifySurveyOpenYN">
+		UPDATE CMS_SURVEY_BASIC
+		SET
+			survey_open_yn = #{survey_open_yn}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND survey_idx = #{survey_idx}
+	</update>
+
+	<update id="modifySurveyPrivateYn">
+		UPDATE CMS_SURVEY_BASIC
+		SET
+			survey_private_yn = #{survey_private_yn}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND survey_idx = #{survey_idx}
+	</update>
+	
+	<update id="add_select_cnt">
+		UPDATE CMS_SURVEY_BASIC SET
+			select_cnt = select_cnt + 1
+		WHERE
+			homepage_id = #{homepage_id}
+		AND survey_idx = #{survey_idx}
+	</update>
+
+</mapper>

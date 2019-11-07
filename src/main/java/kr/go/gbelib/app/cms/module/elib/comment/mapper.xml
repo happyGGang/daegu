@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.elib.comment.CommentDao">
+	
+	<sql id="getComments">
+		FROM 
+			ELIB_COMMENT
+		WHERE
+			book_idx = #{book_idx}
+		ORDER BY regdt DESC
+	</sql>
+	
+	<sql id="getComments2">
+		FROM
+			ELIB_COMMENT a, ELIB_BOOK b
+		WHERE 1=1
+		AND a.book_idx = b.book_idx
+		<if test="type != null and type != ''">
+		AND b.type = #{type}
+		</if>
+		<if test="member_id != null and member_id != ''"> 
+		AND	a.member_id LIKE '%'||#{member_id}||'%'
+		</if>
+		<if test="parent_id != null and parent_id != '' and parent_id != 0">
+		AND b.parent_id = #{parent_id}
+		</if>
+		<if test="cate_id != null and cate_id != '' and cate_id != 0">
+		AND b.cate_id = #{cate_id}
+		</if>
+	    <if test="search_sdt != null and search_sdt != ''">
+	    AND TO_DATE(#{search_sdt}, 'yyyy-mm-dd') &lt;= a.regdt
+	    </if>
+	    <if test="search_edt != null and search_edt != ''">
+	    AND a.regdt &lt;= TO_DATE(#{search_edt} || ' 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
+	    </if>
+	</sql>
+	
+	<select id="getCommentListCnt" resultType="int">
+		SELECT
+			COUNT(*) AS cnt
+		<include refid="getComments"/>
+	</select>
+	
+	<select id="getCommentListCmsCnt" resultType="int">
+		SELECT
+			COUNT(*) AS cnt
+		<include refid="getComments2"/>
+	</select>
+	
+	<select id="getComment" resultType="kr.go.gbelib.app.cms.module.elib.comment.Comment">
+		SELECT
+			a.comment_idx, TO_CHAR(a.regdt, 'YYYY-MM-DD HH24:MI:SS') AS regdt, a.book_idx, a.user_idx, a.member_id, a.user_comment,
+			b.book_name, b.author_name, b.book_pubname,
+			(SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = b.cate_id) AS cate_name,
+			(SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = b.parent_id) AS parent_name
+		FROM
+			ELIB_COMMENT a, ELIB_BOOK b
+		WHERE 1=1
+		AND a.book_idx = b.book_idx
+		AND a.comment_idx = #{comment_idx}
+	</select>
+	
+	<select id="getCommentList" resultType="kr.go.gbelib.app.cms.module.elib.comment.Comment">
+		${pagingTop}
+		SELECT
+			comment_idx, TO_CHAR(regdt, 'YYYY-MM-DD') AS regdt, book_idx, user_idx, member_id, user_comment
+		<include refid="getComments"/>
+		${pagingBottom}
+	</select>
+	
+	<select id="getCommentListCms" resultType="kr.go.gbelib.app.cms.module.elib.comment.Comment">
+		${pagingTop}
+		SELECT
+			a.comment_idx, TO_CHAR(a.regdt, 'YYYY-MM-DD HH24:MI:SS') AS regdt, a.book_idx, a.user_idx, a.member_id, a.user_comment,
+			b.book_name, b.author_name, b.book_pubname,
+			(SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = b.cate_id) AS cate_name,
+			(SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = b.parent_id) AS parent_name,
+			(
+				SELECT TO_CHAR(z.lend_dt, 'YYYY-MM-DD HH24:MI:SS')
+				FROM ELIB_LEND z
+				WHERE z.lend_idx = (
+					SELECT MAX(lend_idx)
+					FROM ELIB_LEND z
+					WHERE z.member_id = a.member_id
+					AND z.book_idx = a.book_idx
+				)
+			) AS last_lend_dt,
+			(
+				SELECT TO_CHAR(z.return_dt, 'YYYY-MM-DD HH24:MI:SS')
+				FROM ELIB_LEND z
+				WHERE z.lend_idx = (
+					SELECT MAX(lend_idx)
+					FROM ELIB_LEND z
+					WHERE z.member_id = a.member_id
+					AND z.book_idx = a.book_idx
+				)
+			) AS last_return_dt
+		<include refid="getComments2"/>
+		ORDER BY a.regdt DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getCommentListAll" resultType="kr.go.gbelib.app.cms.module.elib.comment.Comment">
+		SELECT
+			a.comment_idx, TO_CHAR(a.regdt, 'YYYY-MM-DD HH24:MI:SS') AS regdt, a.book_idx, a.user_idx, a.member_id, a.user_comment,
+			b.book_name, b.author_name, b.book_pubname,
+			(SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = b.cate_id) AS cate_name,
+			(SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = b.parent_id) AS parent_name,
+			(
+				SELECT TO_CHAR(z.lend_dt, 'YYYY-MM-DD HH24:MI:SS')
+				FROM ELIB_LEND z
+				WHERE z.lend_idx = (
+					SELECT MAX(lend_idx)
+					FROM ELIB_LEND z
+					WHERE z.member_id = a.member_id
+					AND z.book_idx = a.book_idx
+				)
+			) AS last_lend_dt,
+			(
+				SELECT TO_CHAR(z.return_dt, 'YYYY-MM-DD HH24:MI:SS')
+				FROM ELIB_LEND z
+				WHERE z.lend_idx = (
+					SELECT MAX(lend_idx)
+					FROM ELIB_LEND z
+					WHERE z.member_id = a.member_id
+					AND z.book_idx = a.book_idx
+				)
+			) AS last_return_dt
+		<include refid="getComments2"/>
+		ORDER BY a.regdt DESC
+	</select>
+	
+	<insert id="addComment">
+		INSERT INTO ELIB_COMMENT (
+			comment_idx, regdt, book_idx, user_idx, member_id, user_comment
+		) VALUES (
+			ELIB_COMMENT_SEQ.NEXTVAL, SYSDATE, #{book_idx}, #{user_idx}, #{member_id}, #{user_comment}
+		)
+	</insert>
+	
+	<update id="modifyComment">
+		UPDATE ELIB_COMMENT SET
+			user_comment = #{user_comment}
+		WHERE
+			comment_idx = #{comment_idx}
+	</update>
+	
+	<delete id="deleteComment">
+		DELETE FROM ELIB_COMMENT WHERE comment_idx = #{comment_idx} AND member_id = #{member_id}
+	</delete>
+	
+	<delete id="deleteCommentCms">
+		DELETE FROM ELIB_COMMENT WHERE comment_idx = #{comment_idx}
+	</delete>
+	
+	<delete id="deleteCommentsByBook">
+		DELETE FROM ELIB_COMMENT WHERE book_idx = #{book_idx}
+	</delete>
+	
+</mapper>

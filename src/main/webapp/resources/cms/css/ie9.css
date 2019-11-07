@@ -1,0 +1,15 @@
+@charset "utf-8";
+/*
+ * 제작자 : 장지은(whale2041@gmail.com)
+ * 작성일 : 2016-09-12
+ * 마지막 수정일 :2016-09-12
+ * ie9 이하
+ */
+
+/* 테이블 스크롤 */
+.group-menu.code-config .table-scroll{height:730px;overflow-y:auto}
+.table-scroll tbody{display:inherit;height:auto}
+.table-scroll thead,
+.table-scroll tbody tr{display:inherit;width:inherit;table-layout:inherit}
+.table-scroll tbody tr{margin-top:0}
+.table-scroll thead{width:inherit}
