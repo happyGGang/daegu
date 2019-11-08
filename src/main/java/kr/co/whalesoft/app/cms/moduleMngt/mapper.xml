@@ -5,7 +5,7 @@
 	<select id="getModuleMngtListAll" resultType="kr.co.whalesoft.app.cms.moduleMngt.ModuleMngt">
 		SELECT
 			module_idx, module_type, module_name, remark, link_url,
-			link_param, auth_group_id, add_dttm, add_id, mod_dttm, mod_id
+			link_param, auth_group_id, add_date, add_id, modify_date, modify_id
 		FROM
 			WB_MODULE_MNGT
 		WHERE
@@ -21,7 +21,7 @@
 		${pagingTop}
 			SELECT
 				module_idx, module_type, module_name, remark, link_url,
-				link_param, auth_group_id, add_dttm, add_id, mod_dttm, mod_id
+				link_param, auth_group_id, add_date, add_id, modify_date, modify_id
 			FROM
 				WB_MODULE_MNGT
 			WHERE
@@ -51,7 +51,7 @@
 	<select id="getModuleMngtOne" resultType="kr.co.whalesoft.app.cms.moduleMngt.ModuleMngt">
 		SELECT
 			module_idx, module_type, module_name, remark, link_url,
-			link_param, auth_group_id, add_dttm, add_id, mod_dttm, mod_id
+			link_param, auth_group_id, add_date, add_id, modify_date, modify_id
 		FROM
 			WB_MODULE_MNGT
 		WHERE MODULE_IDX = #{module_idx}
@@ -64,12 +64,12 @@
 		INSERT INTO WB_MODULE_MNGT
 		(
 			module_idx, module_type, module_name, remark, link_url, 
-			link_param, auth_group_id, add_dttm, add_id, mod_dttm, mod_id
+			link_param, auth_group_id, add_date, add_id, modify_date, modify_id
 		) 
 			VALUES 
 		(
 			#{module_idx}, #{module_type}, #{module_name}, #{remark}, #{link_url},
-			#{link_param}, #{auth_group_id}, SYSDATE, #{add_id}, SYSDATE, #{mod_id} 
+			#{link_param}, #{auth_group_id}, SYSDATE, #{add_id}, SYSDATE, #{modify_id} 
 		)
 	</insert>
 	
@@ -81,8 +81,8 @@
 			remark = #{remark}, 
 			link_url	= #{link_url},
 			link_param	= #{link_param},
-			mod_dttm 	= SYSDATE,
-			mod_id		= #{mod_id}
+			modify_date 	= SYSDATE,
+			modify_id		= #{modify_id}
 		WHERE 
 			MODULE_IDX = #{module_idx} 
 	</update>
