@@ -185,7 +185,7 @@
 		SELECT
 			menu_idx, group_idx, parent_menu_idx, menu_url, menu_name, menu_desc,
 			menu_full_path_name, menu_type, print_seq, use_yn, view_yn, admin_access_yn,
-			menu_auth, add_date, modify_date, module_idx
+			add_date, modify_date, module_idx
 		FROM
 			CMS_ADMIN_MENU
 		WHERE
@@ -207,7 +207,7 @@
 		SELECT
 			menu_idx, group_idx, parent_menu_idx, menu_url, menu_name, menu_desc,
 			menu_full_path_name, menu_type, print_seq, use_yn, view_yn, admin_access_yn,
-			menu_auth, add_date, modify_date, module_idx
+			add_date, modify_date, module_idx
 		FROM
 			CMS_ADMIN_MENU
 		WHERE
