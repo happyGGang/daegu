@@ -185,7 +185,7 @@
 		SELECT
 			menu_idx, group_idx, parent_menu_idx, menu_url, menu_name, menu_desc,
 			menu_full_path_name, menu_type, print_seq, use_yn, view_yn, admin_access_yn,
-			menu_auth, add_date, modify_date, css_type, module_idx
+			menu_auth, add_date, modify_date, module_idx
 		FROM
 			CMS_ADMIN_MENU
 		WHERE
@@ -196,7 +196,7 @@
 		SELECT
 			menu_idx, group_idx, parent_menu_idx, menu_url, menu_name, menu_desc,
 			menu_full_path_name, menu_type, print_seq, use_yn, view_yn, admin_access_yn,
-			menu_auth, add_date, modify_date, css_type, module_idx
+			add_date, modify_date, module_idx
 		FROM
 			CMS_ADMIN_MENU
 		WHERE
@@ -207,7 +207,7 @@
 		SELECT
 			menu_idx, group_idx, parent_menu_idx, menu_url, menu_name, menu_desc,
 			menu_full_path_name, menu_type, print_seq, use_yn, view_yn, admin_access_yn,
-			menu_auth, add_date, modify_date, css_type, module_idx
+			menu_auth, add_date, modify_date, module_idx
 		FROM
 			CMS_ADMIN_MENU
 		WHERE
@@ -349,7 +349,7 @@
 		SELECT
 			MENU_IDX, GROUP_IDX, PARENT_MENU_IDX, MENU_URL, MENU_NAME, MENU_DESC,
 			MENU_FULL_PATH_NAME, MENU_TYPE, PRINT_SEQ, USE_YN, VIEW_YN, admin_access_yn,
-			MENU_AUTH, ADD_DATE, MODIFY_DATE, CSS_TYPE, module_idx
+			MENU_AUTH, ADD_DATE, MODIFY_DATE, module_idx
 		FROM
 			CMS_ADMIN_MENU
 		WHERE TRIM(MENU_URL) IS NOT NULL
