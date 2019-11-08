@@ -34,7 +34,7 @@
 		${pagingTop}
 		SELECT
 			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias, homepage_tell
-			, homepage_fax, homepage_send_tell, zipcode, address1, address2, eng_address, blog_url, facebook_url, twitter_url, kakao_url, homepage_type, homepage_code
+			, homepage_fax, homepage_send_tell, zipcode, address1, address2, eng_address, homepage_type, homepage_code
 			, domain, context_path, folder, remark, temp_use_yn
 			, TO_CHAR(TO_DATE(temp_start_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_start_date
 			, TO_CHAR(TO_DATE(temp_end_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_end_date, print_seq
@@ -94,9 +94,9 @@
 
 	<select id="getHomepageOneInPath" resultType="kr.co.whalesoft.app.cms.homepage.Homepage">
 		SELECT
-			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias, homepage_tell
-			,homepage_fax, homepage_send_tell, zipcode, address1, address2, eng_address, blog_url, facebook_url, twitter_url, kakao_url, homepage_type, homepage_code
-			,domain, context_path, folder, remark, temp_use_yn, temp_start_date, temp_end_date, mystorage_limit_count, print_seq
+			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias, homepage_tell,
+			homepage_fax, homepage_send_tell, zipcode, address1, address2, eng_address, homepage_type, homepage_code,
+			domain, context_path, folder, remark, temp_use_yn, temp_start_date, temp_end_date, print_seq
 		FROM
 			CMS_HOMEPAGE
 		WHERE
