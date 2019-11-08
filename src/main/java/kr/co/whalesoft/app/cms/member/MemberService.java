@@ -57,9 +57,9 @@ public class MemberService extends BaseService {
 	@PostConstruct
 	private void init() {
 		try {
-			RSA_PRIVATE_KEY = IOUtils.toString(Resources.getResourceAsStream("gbelib_rsa.pem"), "UTF-8");
+			RSA_PRIVATE_KEY = IOUtils.toString(Resources.getResourceAsStream("rsa.pem"), "UTF-8");
 		} catch (IOException e) {
-			System.out.println("Reading classpath:gbelib_rsa.pem failed: " + e.getMessage());
+			System.out.println("Reading classpath:rsa.pem failed: " + e.getMessage());
 		}
 		
 		Security.addProvider(new BouncyCastleProvider());
