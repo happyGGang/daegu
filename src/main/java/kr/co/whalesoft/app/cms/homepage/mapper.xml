@@ -4,11 +4,11 @@
 
 	<select id="getHomepage" resultType="kr.co.whalesoft.app.cms.homepage.Homepage">
 		SELECT
-			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias, homepage_tell
-			, homepage_fax, homepage_send_tell, zipcode, address1, address2, eng_address, homepage_type, homepage_code
-			, domain, context_path, folder, remark, temp_use_yn, blog_url, facebook_url, twitter_url, kakao_url
-			, TO_CHAR(TO_DATE(temp_start_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_start_date
-			, TO_CHAR(TO_DATE(temp_end_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_end_date, print_seq
+			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias, homepage_tell,
+			homepage_fax, homepage_send_tell, zipcode, address1, address2, eng_address, homepage_type, homepage_code,
+			domain, context_path, folder, remark, temp_use_yn,
+			TO_CHAR(TO_DATE(temp_start_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_start_date,
+			TO_CHAR(TO_DATE(temp_end_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_end_date, print_seq
 		FROM
 			CMS_HOMEPAGE
 		ORDER BY
@@ -17,11 +17,11 @@
 
 	<select id="getNormalHomepage" resultType="kr.co.whalesoft.app.cms.homepage.Homepage">
 		SELECT
-			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias, homepage_tell
-			, homepage_fax, homepage_send_tell, zipcode, address1, address2, eng_address, homepage_type, homepage_code
-			, domain, context_path, folder, remark, temp_use_yn, blog_url, facebook_url, twitter_url, kakao_url
-			, TO_CHAR(TO_DATE(temp_start_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_start_date
-			, TO_CHAR(TO_DATE(temp_end_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_end_date, print_seq
+			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias, homepage_tell,
+			homepage_fax, homepage_send_tell, zipcode, address1, address2, eng_address, homepage_type, homepage_code,
+			domain, context_path, folder, remark, temp_use_yn,
+			TO_CHAR(TO_DATE(temp_start_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_start_date,
+			TO_CHAR(TO_DATE(temp_end_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_end_date, print_seq
 		FROM
 			CMS_HOMEPAGE
 		WHERE homepage_type != '0'
@@ -33,11 +33,11 @@
 	<select id="getHomepageList" resultType="kr.co.whalesoft.app.cms.homepage.Homepage">
 		${pagingTop}
 		SELECT
-			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias, homepage_tell
-			, homepage_fax, homepage_send_tell, zipcode, address1, address2, eng_address, homepage_type, homepage_code
-			, domain, context_path, folder, remark, temp_use_yn
-			, TO_CHAR(TO_DATE(temp_start_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_start_date
-			, TO_CHAR(TO_DATE(temp_end_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_end_date, print_seq
+			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias, homepage_tell,
+			homepage_fax, homepage_send_tell, zipcode, address1, address2, eng_address, homepage_type, homepage_code,
+			domain, context_path, folder, remark, temp_use_yn,
+			TO_CHAR(TO_DATE(temp_start_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_start_date,
+			TO_CHAR(TO_DATE(temp_end_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_end_date, print_seq
 		FROM
 			CMS_HOMEPAGE
 		ORDER BY
@@ -46,8 +46,10 @@
 	</select>
 
 	<select id="getHomepageListCount" resultType="int">
-		SELECT COUNT(*)
-		FROM CMS_HOMEPAGE
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_HOMEPAGE
 	</select>
 
 	<select id="getHomepageID" resultType="string">
@@ -59,33 +61,11 @@
 
 	<select id="getHomepageOne" resultType="kr.co.whalesoft.app.cms.homepage.Homepage">
 		SELECT
-			  a.homepage_id
-			, a.homepage_group
-			, a.homepage_name
-			, a.homepage_eng_name
-			, a.homepage_alias
-			, a.homepage_tell
-			, a.homepage_fax
-			, a.homepage_send_tell
-			, a.zipcode
-			, a.address1
-			, a.address2
-			, a.eng_address
-			, a.blog_url
-			, a.facebook_url
-			, a.twitter_url
-			, a.kakao_url
-			, a.homepage_type
-			, a.homepage_code
-			, a.domain
-			, a.context_path
-			, a.folder
-			, a.remark
-			, a.temp_use_yn
-			, a.temp_start_date
-			, a.temp_end_date
-			, a.mystorage_limit_count
-			, a.print_seq
+			a.homepage_id, a.homepage_group, a.homepage_name, a.homepage_eng_name, a.homepage_alias,
+			a.homepage_tell, a.homepage_fax, a.homepage_send_tell, a.zipcode, a.address1,
+			a.address2, a.eng_address, a.homepage_type, a.homepage_code, a.domain,
+			a.context_path, a.folder, a.remark, a.temp_use_yn, a.temp_start_date,
+			a.temp_end_date, a.print_seq
 		FROM
 			CMS_HOMEPAGE a
 		WHERE
@@ -114,16 +94,16 @@
 	<insert id="addHomepage">
 		INSERT INTO CMS_HOMEPAGE
 		(
-			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias
-			,homepage_tell, homepage_fax, homepage_send_tell, homepage_type, homepage_code
-			,zipcode, address1, address2, eng_address, blog_url, facebook_url, twitter_url, kakao_url
-			, domain, context_path, folder, remark, mystorage_limit_count, print_seq
+			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias,
+			homepage_tell, homepage_fax, homepage_send_tell, homepage_type, homepage_code,
+			zipcode, address1, address2, eng_address, domain,
+			context_path, folder, remark, print_seq
 		) VALUES
 		(
-			#{homepage_id}, #{homepage_group}, #{homepage_name}, #{homepage_eng_name}, #{homepage_alias}
-			,#{homepage_tell}, #{homepage_fax}, #{homepage_send_tell}, #{homepage_type}, #{homepage_code}
-			,#{zipcode}, #{address1}, #{address2}, #{eng_address}, #{blog_url}, #{facebook_url}, #{twitter_url}, #{kakao_url}
-			, #{domain}, #{context_path}, #{folder}, #{remark}, #{mystorage_limit_count}, #{print_seq}
+			#{homepage_id}, #{homepage_group}, #{homepage_name}, #{homepage_eng_name}, #{homepage_alias},
+			#{homepage_tell}, #{homepage_fax}, #{homepage_send_tell}, #{homepage_type}, #{homepage_code},
+			#{zipcode}, #{address1}, #{address2}, #{eng_address}, #{domain},
+			#{context_path}, #{folder}, #{remark}, #{print_seq}
 		)
 	</insert>
 
@@ -142,17 +122,12 @@
 			address1 = #{address1},
 			address2 = #{address2},
 			eng_address = #{eng_address},
-			blog_url = #{blog_url},
-			facebook_url = #{facebook_url},
-			twitter_url = #{twitter_url},
-			kakao_url = #{kakao_url},
 			homepage_type = #{homepage_type},
 			homepage_code = #{homepage_code},
 			domain = #{domain},
 			context_path = #{context_path},
 			folder = #{folder},
 			remark = #{remark},
-			mystorage_limit_count = #{mystorage_limit_count},
 			print_seq = #{print_seq}
 		WHERE
 			homepage_id = #{homepage_id}
