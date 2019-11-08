@@ -33,8 +33,8 @@
 
 	<select id="getMemberOne" resultType="kr.co.whalesoft.app.cms.member.Member">
 		SELECT
-			A.HOMEPAGE_ID, A.MEMBER_ID, A.MEMBER_NAME, A.MEMBER_PW, A.BIRTH_DAY, A.EMAIL,
-			A.ZIPCODE, A.ADDRESS1, A.ADDRESS2, A.PHONE, A.CELL_PHONE,
+			A.MEMBER_ID, A.MEMBER_NAME, A.MEMBER_PW, A.BIRTH_DAY, A.EMAIL,
+			A.ZIPCODE, A.ADDRESS, A.PHONE, A.CELL_PHONE,
 			A.SMS_SERVICE_YN, A.EMAIL_SERVICE_YN, A.ADD_IP, A.ADD_DATE,
 			A.PW_CHANGE_DATE, A.LAST_LOGIN, A.LINK_MEMBER_YN, 'CMS' AS LOGINTYPE
 		FROM
@@ -47,14 +47,14 @@
 		INSERT INTO
 			CMS_MEMBER
 		(
-			HOMEPAGE_ID, MEMBER_ID, MEMBER_NAME, MEMBER_PW, BIRTH_DAY, EMAIL,
-			ZIPCODE, ADDRESS1, ADDRESS2, PHONE, CELL_PHONE,
+			MEMBER_ID, MEMBER_NAME, MEMBER_PW, BIRTH_DAY, EMAIL,
+			ZIPCODE, ADDRESS, PHONE, CELL_PHONE,
 			SMS_SERVICE_YN, EMAIL_SERVICE_YN, ADD_IP, ADD_DATE,
 			PW_CHANGE_DATE, LAST_LOGIN, LINK_MEMBER_YN
 		) VALUES
 		(
-			#{homepage_id}, #{member_id}, #{member_name}, #{member_pw}, #{birth_day}, #{email},
-			#{zipcode}, #{address1}, #{address2}, #{phone}, #{cell_phone},
+			#{member_id}, #{member_name}, #{member_pw}, #{birth_day}, #{email},
+			#{zipcode}, #{address}, #{phone}, #{cell_phone},
 			#{sms_service_yn}, #{email_service_yn}, #{add_ip}, SYSDATE,
 			SYSDATE, SYSDATE, #{link_member_yn}
 		)
@@ -68,11 +68,9 @@
 			MEMBER_PW 	= #{member_pw},
 			</if>
 			MEMBER_NAME 		= #{member_name},
-			homepage_id 		= #{homepage_id},
 			EMAIL 		= #{email},
 			ZIPCODE 	= #{zipcode},
-			ADDRESS1 	= #{address1},
-			ADDRESS2 	= #{address2},
+			ADDRESS 	= #{address},
 			PHONE 		= #{phone},
 			CELL_PHONE 	= #{cell_phone},
 			SMS_SERVICE_YN = #{sms_service_yn},
