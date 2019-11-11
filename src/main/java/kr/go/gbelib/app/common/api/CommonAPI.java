@@ -48,7 +48,10 @@ public class CommonAPI {
 	public final static String LIBONE_API_URL = ResourceBundle.getBundle("api").getString("libone.api.url");
 	public final static String NAVER_LIST_API_URL = "https://openapi.naver.com/v1/search/book.xml";
 	public final static String NAVER_DETAIL_API_URL = "https://openapi.naver.com/v1/search/book_adv.xml";
-	public final static String CURATION_API_URL = "http://q.gbelib.kr/curation/api/boardList.json";
+
+	public final static String KCMS_API_URL = ResourceBundle.getBundle("api").getString("kcms.api.url");
+	public final static String SANGHO_API_URL = ResourceBundle.getBundle("api").getString("sangho.api.url");
+
 
 	public static HttpURLConnection initConn(String urlStr) throws Exception {
 		URL url = new URL(urlStr);
@@ -61,10 +64,128 @@ public class CommonAPI {
 		return connection;
 	}
 
+	/**
+	 * 인천 통합도서관 KCMS API
+	 * @author YONGJU 2017. 12. 13.
+	 * @param requestName - 요청명
+	 * @param param 파라미터
+	 * @return
+	 */
+	public static Map<String, Object> sendKCMS(String requestName, Map<String, Object> param) {
+		HttpURLConnection connection = null;
+		Map<String, Object> resultMap = null;
+		try {
+			String apiUrl = KCMS_API_URL + requestName;
+			connection = initConn(apiUrl);
+
+			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, "UTF-8"));
+
+			if ( param != null ) {
+				Set<String> keys = param.keySet();
+				List<String> paramList = new ArrayList<String>();
+				for ( String oneKey : keys ) {
+					paramList.add(String.format("%s=%s", oneKey, param.get(oneKey)));
+				}
+				log.debug("@@@@@@@@@@@@@@@@@@ KCMS_API_URL : " + apiUrl + "?" + StringUtils.join(paramList, "&"));
+				writer.write(StringUtils.join(paramList, "&"));
+			}
+
+			writer.close();
+			wr.close();
+			wr.flush();
+
+			String result = IOUtils.toString(connection.getInputStream(), "UTF-8").trim();
+			ObjectMapper om = new ObjectMapper();
+			resultMap = om.readValue(result, new TypeReference<Map<String, Object>>(){});
+		}
+		catch ( Exception e ) {
+
+		}
+		return resultMap;
+	}
+
+	@SuppressWarnings ("unchecked")
+	public static Map<String, Object> sendSANGHO(Map<String, Object> param) {
+		HttpURLConnection connection = null;
+		Map<String, Object> resultMap = null;
+		BufferedReader br = null;
+
+		try {
+			String url = SANGHO_API_URL;
+			List<String> paramList = new ArrayList<String>();
+			if (param != null) {
+				Set<String> keys = param.keySet();
+				for (String oneKey : keys) {
+					paramList.add(String.format("%s=%s", oneKey, URLEncoder.encode(String.valueOf(param.get(oneKey)), "UTF-8")));
+				}
+			}
+
+			connection = initConn(url + "?" + StringUtils.join(paramList, "&"));
+			connection.setRequestMethod("GET");
+			int responseCode = connection.getResponseCode();
+
+			if(responseCode==200) { // 정상 호출
+				br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			} else {  // 에러 발생
+				br = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+			}
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+			while ((inputLine = br.readLine()) != null) {
+				response.append(inputLine);
+			}
+			log.debug("@@@@@@@@@@@@@@@@@@ SANGHO API : " + url + "?" + StringUtils.join(paramList, "&"));
+			try {
+				resultMap = xmlToJson(response.toString()).toMap();
+			}
+			catch ( Exception e ) {
+			}
+			resultMap = xmlToJson(response.toString()).toMap();
+			resultMap = (Map<String, Object>) resultMap.get("DATA");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (br != null) {
+					br.close();
+				}
+				if (connection != null) {
+					connection.disconnect();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return resultMap;
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	public static Document sendILUS(Map<String, Object> param) {
 		return sendILUS(param, "POST");
 	}
-	
+
 	public static final Charset UTF_8 = Charset.forName("UTF-8");
 
 	public static Document sendILUS(Map<String, Object> param, String post) {
@@ -91,7 +212,7 @@ public class CommonAPI {
 
 			DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = builderFactory.newDocumentBuilder();
-			
+
 			doc = builder.parse(response.getEntity().getContent());
 
 		} catch (Exception e) {
@@ -105,9 +226,9 @@ public class CommonAPI {
 		}
 
 		long end = System.currentTimeMillis();
-		
+
 		log.debug("@@@@@@@@@@@@@@@@@@ ILUS API TIME : " + (end-start)/1000.0);
-		
+
 		return doc;
 	}
 
@@ -143,9 +264,10 @@ public class CommonAPI {
 				result = result + "}";
 			}
 			resultMap = om.readValue(result, new TypeReference<Map<String, Object>>() {});
-			
+
 			// BR 검색 엔진에서 썸네일 주소를 이중으로 URL인코딩함. 이걸 풀어주기 위해 추가. 2019.04.03
 			try {
+				@SuppressWarnings ("unchecked")
 				List<Map<String, Object>> data = (List<Map<String, Object>>) resultMap.get("data");
 				if(data != null) {
 					for(Map<String, Object> item: data) {
@@ -156,16 +278,16 @@ public class CommonAPI {
 					}
 				}
 			} catch(Exception e) {
-				
+
 			}
-			
+
 			connection.disconnect();
 
 		} catch (Exception e) {
 
 		}
 		long end = System.currentTimeMillis();
-		
+
 		log.debug("@@@@@@@@@@@@@@@@@@ LIBONE API TIME : " + (end-start)/1000.0);
 
 		return resultMap;
@@ -457,52 +579,6 @@ public class CommonAPI {
 			return null;
 		}
 	}
-	
-	public static Map<String, Object> curation(Map<String, Object> param) {
-		long start = System.currentTimeMillis();
-		HttpURLConnection connection = null;
-		Map<String, Object> resultMap = null;
-		try {
-			connection = initConn(CURATION_API_URL);
-			connection.setRequestProperty("Accept", "text/javascript, application/javascript, application/ecmascript, application/x-ecmascript, */*; q=0.01");
-			connection.setRequestProperty("Accept-Encoding", "gzip, deflate");
-			connection.setRequestProperty("Accept-Language", "ko,en-US;q=0.9,en;q=0.8,ko-KR;q=0.7");
-
-			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, "UTF-8"));
-
-			if (param != null) {
-				Set<String> keys = param.keySet();
-				List<String> paramList = new ArrayList<String>();
-				for (String oneKey : keys) {
-					paramList.add(String.format("%s=%s", oneKey, param.get(oneKey)));
-				}
-				log.debug("@@@@@@@@@@@@@@@@@@ CURATION API : " + CURATION_API_URL + "?" + StringUtils.join(paramList, "&"));
-				writer.write(StringUtils.join(paramList, "&"));
-			}
-
-			writer.close();
-			wr.close();
-			wr.flush();
-			
-			String result = IOUtils.toString(connection.getInputStream(), "UTF-8").trim();
-		
-			result = result.substring(15, result.length()-1);
-			
-			ObjectMapper om = new ObjectMapper();
-			resultMap = om.readValue(result, new TypeReference<Map<String, Object>>() {});
-
-			connection.disconnect();
-
-		} catch (Exception e) {
-
-		}
-		long end = System.currentTimeMillis();
-		
-		log.debug("@@@@@@@@@@@@@@@@@@ CURATION API TIME : " + (end-start)/1000.0);
-
-		return resultMap;
-	}
 
 	/**
 	 * list - item - field 순서로 파싱
@@ -556,5 +632,5 @@ public class CommonAPI {
 		JSONObject json = XML.toJSONObject(xmlString);
 		return json;
 	}
-	
+
 }
