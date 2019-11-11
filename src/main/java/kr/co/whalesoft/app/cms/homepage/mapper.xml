@@ -133,10 +133,6 @@
 			homepage_id = #{homepage_id}
 	</update>
 
-	<update id="modifyHomepageApp">
-
-	</update>
-
 	<delete id="deleteHomepage">
 		DELETE FROM CMS_HOMEPAGE
 		WHERE

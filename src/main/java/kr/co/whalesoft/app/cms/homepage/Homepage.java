@@ -11,7 +11,6 @@ public class Homepage extends PagingUtils implements Serializable {
 	 */
 	private static final long serialVersionUID = -6146959548929640807L;
 
-	private String homepage_id;
 	private String homepage_group;
 	private String homepage_name;
 	private String homepage_eng_name;
@@ -42,66 +41,46 @@ public class Homepage extends PagingUtils implements Serializable {
 	private String temp_end_date_1;
 	private String temp_end_date_2;
 	private String temp_end_date_3;
-	private int mystorage_limit_count;
 	private int print_seq;
-
-
-	private int tid;
-	private String lib_name;
-	private String lib_url;
-	private String lib_picture_url;
-	private String lib_address;
-	private String lib_latitude;
-	private String lib_longitude;
-	private String lib_tel;
-	private String lib_email;
-	private String lib_holiday_info;
-	private String lib_use_time;
-	private String lib_cabinet_yn;
-	private String lib_cabinet_url;
-	private String lib_reg_cource_yn;
-	private String lib_reg_cource_url;
-	private String lib_webbooking_yn;
-	private String lib_webbooking_url;
-	private String lib_etc_yn;
-	private String lib_etc_url;
 
 	public Homepage() {}
 
 	public Homepage(String homepage_id) {
-		this.homepage_id = homepage_id;
+		super.setHomepage_id(homepage_id);
 	}
 
-	public String getHomepage_id() {
-		return homepage_id;
-	}
-	public void setHomepage_id(String homepage_id) {
-		this.homepage_id = homepage_id;
-	}
 	public String getHomepage_group() {
 		return homepage_group;
 	}
+
 	public void setHomepage_group(String homepage_group) {
 		this.homepage_group = homepage_group;
 	}
+
 	public String getHomepage_name() {
 		return homepage_name;
 	}
+
 	public void setHomepage_name(String homepage_name) {
 		this.homepage_name = homepage_name;
 	}
+
 	public String getHomepage_type() {
 		return homepage_type;
 	}
+
 	public void setHomepage_type(String homepage_type) {
 		this.homepage_type = homepage_type;
 	}
+
 	public String getDomain() {
 		return domain;
 	}
+
 	public String getDomainWithoutProtocol() {
 		return StringUtils.isEmpty(domain) ? null : domain.replaceAll("http://", "");
 	}
+
 	public String getDomain(String mode) {
 		if (StringUtils.equals(mode, "http")) {
 			return domain;
@@ -110,24 +89,31 @@ public class Homepage extends PagingUtils implements Serializable {
 		}
 		return domain;
 	}
+
 	public void setDomain(String domain) {
 		this.domain = domain;
 	}
+
 	public String getRemark() {
 		return remark;
 	}
+
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+
 	public String getContext_path() {
 		return context_path;
 	}
+
 	public void setContext_path(String context_path) {
 		this.context_path = context_path;
 	}
+
 	public String getFolder() {
 		return folder;
 	}
+
 	public void setFolder(String folder) {
 		this.folder = folder;
 	}
@@ -209,10 +195,9 @@ public class Homepage extends PagingUtils implements Serializable {
 	}
 
 	public String[] getHomepage_codeList() {
-		if ( homepage_code == null ) {
+		if (homepage_code == null) {
 			return null;
-		}
-		else {
+		} else {
 			return homepage_code.split(",");
 		}
 	}
@@ -309,166 +294,6 @@ public class Homepage extends PagingUtils implements Serializable {
 		this.kakao_url = kakao_url;
 	}
 
-	public String getLib_name() {
-		return lib_name;
-	}
-
-	public void setLib_name(String lib_name) {
-		this.lib_name = lib_name;
-	}
-
-	public String getLib_url() {
-		return lib_url;
-	}
-
-	public void setLib_url(String lib_url) {
-		this.lib_url = lib_url;
-	}
-
-	public String getLib_picture_url() {
-		return lib_picture_url;
-	}
-
-	public void setLib_picture_url(String lib_picture_url) {
-		this.lib_picture_url = lib_picture_url;
-	}
-
-	public String getLib_address() {
-		return lib_address;
-	}
-
-	public void setLib_address(String lib_address) {
-		this.lib_address = lib_address;
-	}
-
-	public String getLib_latitude() {
-		return lib_latitude;
-	}
-
-	public void setLib_latitude(String lib_latitude) {
-		this.lib_latitude = lib_latitude;
-	}
-
-	public String getLib_longitude() {
-		return lib_longitude;
-	}
-
-	public void setLib_longitude(String lib_longitude) {
-		this.lib_longitude = lib_longitude;
-	}
-
-	public String getLib_tel() {
-		return lib_tel;
-	}
-
-	public void setLib_tel(String lib_tel) {
-		this.lib_tel = lib_tel;
-	}
-
-	public String getLib_email() {
-		return lib_email;
-	}
-
-	public void setLib_email(String lib_email) {
-		this.lib_email = lib_email;
-	}
-
-	public String getLib_holiday_info() {
-		return lib_holiday_info;
-	}
-
-	public void setLib_holiday_info(String lib_holiday_info) {
-		this.lib_holiday_info = lib_holiday_info;
-	}
-
-	public String getLib_use_time() {
-		return lib_use_time;
-	}
-
-	public void setLib_use_time(String lib_use_time) {
-		this.lib_use_time = lib_use_time;
-	}
-
-	public int getTid() {
-		return tid;
-	}
-
-	public void setTid(int tid) {
-		this.tid = tid;
-	}
-
-	public String getLib_cabinet_yn() {
-		return lib_cabinet_yn;
-	}
-
-	public void setLib_cabinet_yn(String lib_cabinet_yn) {
-		this.lib_cabinet_yn = lib_cabinet_yn;
-	}
-
-	public String getLib_cabinet_url() {
-		return lib_cabinet_url;
-	}
-
-	public void setLib_cabinet_url(String lib_cabinet_url) {
-		this.lib_cabinet_url = lib_cabinet_url;
-	}
-
-	public String getLib_reg_cource_yn() {
-		return lib_reg_cource_yn;
-	}
-
-	public void setLib_reg_cource_yn(String lib_reg_cource_yn) {
-		this.lib_reg_cource_yn = lib_reg_cource_yn;
-	}
-
-	public String getLib_reg_cource_url() {
-		return lib_reg_cource_url;
-	}
-
-	public void setLib_reg_cource_url(String lib_reg_cource_url) {
-		this.lib_reg_cource_url = lib_reg_cource_url;
-	}
-
-	public String getLib_webbooking_yn() {
-		return lib_webbooking_yn;
-	}
-
-	public void setLib_webbooking_yn(String lib_webbooking_yn) {
-		this.lib_webbooking_yn = lib_webbooking_yn;
-	}
-
-	public String getLib_webbooking_url() {
-		return lib_webbooking_url;
-	}
-
-	public void setLib_webbooking_url(String lib_webbooking_url) {
-		this.lib_webbooking_url = lib_webbooking_url;
-	}
-
-	public String getLib_etc_yn() {
-		return lib_etc_yn;
-	}
-
-	public void setLib_etc_yn(String lib_etc_yn) {
-		this.lib_etc_yn = lib_etc_yn;
-	}
-
-	public String getLib_etc_url() {
-		return lib_etc_url;
-	}
-
-	public void setLib_etc_url(String lib_etc_url) {
-		this.lib_etc_url = lib_etc_url;
-	}
-
-	public int getMystorage_limit_count() {
-		return mystorage_limit_count;
-	}
-
-	public void setMystorage_limit_count(int mystorage_limit_count) {
-		this.mystorage_limit_count = mystorage_limit_count;
-	}
-
 	public String getHomepage_alias() {
 		return homepage_alias;
 	}
@@ -485,11 +310,9 @@ public class Homepage extends PagingUtils implements Serializable {
 		this.homepage_send_tell = homepage_send_tell;
 	}
 
-
 	public int getPrint_seq() {
 		return print_seq;
 	}
-
 
 	public void setPrint_seq(int print_seq) {
 		this.print_seq = print_seq;

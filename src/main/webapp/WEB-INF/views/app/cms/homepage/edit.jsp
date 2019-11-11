@@ -79,7 +79,6 @@ $(function() {
 <form:form modelAttribute="homepage" id="homepage" action="save.do" method="post" onsubmit="return false;">
 <form:hidden path="editMode"/>
 <form:hidden path="homepage_id"/>
-<form:hidden path="tid"/>
 <form:hidden path="homepage_group" value="ALL"/>
 
 <c:if test="${homepage.editMode eq 'ADD'}">
@@ -89,7 +88,6 @@ $(function() {
 	<form:hidden path="homepage_type"/>
 </c:if>
 
-<code>WEB 홈페이지 정보</code>
 <table class="type2">
 	<colgroup>
 		<col width="130"/>
@@ -214,43 +212,43 @@ $(function() {
 				<form:input path="homepage_code" cssClass="text"/>
 			</td>
 		</tr>
-		<tr>
-			<th>SNS 계정관리</th>
-			<td>
-				<table>
-					<colgroup>
-						<col width="130"/>
-						<col width="*"/>
-					</colgroup>
-					<tr align="center">
-						<td>구분</td>
-						<td>URL</td>
-					</tr>
-					<tr align="center">
-						<td>네이버블로그</td>
-						<td><form:input path="blog_url" cssStyle="width:90%;" /></td>
-					</tr>
-					<tr align="center">
-						<td>페이스북</td>
-						<td><form:input path="facebook_url" cssStyle="width:90%;"/></td>
-					</tr>
-					<tr align="center">
-						<td>트위터</td>
-						<td><form:input path="twitter_url" cssStyle="width:90%;"/></td>
-					</tr>
-					<tr align="center">
-						<td>카카오스토리</td>
-						<td><form:input path="kakao_url" cssStyle="width:90%;"/></td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-		<tr>
-			<th>사용자보관함 제한개수</th>
-			<td>
-				<form:input path="mystorage_limit_count" cssClass="text" style="width:70px;"/>
-			</td>
-		</tr>
+<!-- 		<tr> -->
+<!-- 			<th>SNS 계정관리</th> -->
+<!-- 			<td> -->
+<!-- 				<table> -->
+<%-- 					<colgroup> --%>
+<%-- 						<col width="130"/> --%>
+<%-- 						<col width="*"/> --%>
+<%-- 					</colgroup> --%>
+<!-- 					<tr align="center"> -->
+<!-- 						<td>구분</td> -->
+<!-- 						<td>URL</td> -->
+<!-- 					</tr> -->
+<!-- 					<tr align="center"> -->
+<!-- 						<td>네이버블로그</td> -->
+<%-- 						<td><form:input path="blog_url" cssStyle="width:90%;" /></td> --%>
+<!-- 					</tr> -->
+<!-- 					<tr align="center"> -->
+<!-- 						<td>페이스북</td> -->
+<%-- 						<td><form:input path="facebook_url" cssStyle="width:90%;"/></td> --%>
+<!-- 					</tr> -->
+<!-- 					<tr align="center"> -->
+<!-- 						<td>트위터</td> -->
+<%-- 						<td><form:input path="twitter_url" cssStyle="width:90%;"/></td> --%>
+<!-- 					</tr> -->
+<!-- 					<tr align="center"> -->
+<!-- 						<td>카카오스토리</td> -->
+<%-- 						<td><form:input path="kakao_url" cssStyle="width:90%;"/></td> --%>
+<!-- 					</tr> -->
+<!-- 				</table> -->
+<!-- 			</td> -->
+<!-- 		</tr> -->
+<!-- 		<tr> -->
+<!-- 			<th>사용자보관함 제한개수</th> -->
+<!-- 			<td> -->
+<%-- 				<form:input path="mystorage_limit_count" cssClass="text" style="width:70px;"/> --%>
+<!-- 			</td> -->
+<!-- 		</tr> -->
 		<c:if test="${sessionScope.member.admin}">
 		<tr>
 			<th>출력순서</th>
@@ -262,135 +260,6 @@ $(function() {
 			</td>
 		</tr>
 		</c:if>
-	</tbody>
-</table>
-<br/><code>APP 홈페이지 정보</code>
-<table class="type2">
-	<colgroup>
-		<col width="130"/>
-		<col width="*"/>
-	</colgroup>
-	<tbody>
-		<tr>
-			<th>홈페이지 명</th>
-			<td>
-				<form:input path="lib_name" cssClass="text"/>
-			</td>
-		</tr>
-		<tr>
-			<th>URL</th>
-			<td>
-				<form:input path="lib_url" cssClass="text" cssStyle="width:90%;"/>
-			</td>
-		</tr>
-		<tr>
-			<th>대표이미지URL</th>
-			<td>
-				<form:input path="lib_picture_url" cssClass="text" cssStyle="width:90%;"/>
-			</td>
-		</tr>
-		<tr>
-			<th>주소</th>
-			<td>
-				<form:input path="lib_address" cssClass="text" cssStyle="width:90%;"/>
-			</td>
-		</tr>
-		<tr>
-			<th>위도</th>
-			<td>
-				<form:input path="lib_latitude" cssClass="text" cssStyle="width:90%;"/>
-			</td>
-		</tr>
-		<tr>
-			<th>경도</th>
-			<td>
-				<form:input path="lib_longitude" cssClass="text" cssStyle="width:90%;"/>
-			</td>
-		</tr>
-		<tr>
-			<th>대표전화번호</th>
-			<td>
-				<form:input path="lib_tel" cssClass="text" cssStyle="width:90%;"/>
-			</td>
-		</tr>
-		<tr>
-			<th>이메일</th>
-			<td>
-				<form:input path="lib_email" cssClass="text" cssStyle="width:90%;"/>
-			</td>
-		</tr>
-		<tr>
-			<th>휴관일 정보</th>
-			<td>
-				<form:input path="lib_holiday_info" cssClass="text" cssStyle="width:90%;"/>
-			</td>
-		</tr>
-		<tr>
-			<th>이용시간 정보</th>
-			<td>
-				<form:input path="lib_use_time" cssClass="text" cssStyle="width:90%;"/>
-			</td>
-		</tr>
-		<tr>
-			<th>사물함 신청여부</th>
-			<td>
-				<form:select path="lib_cabinet_yn" class="selectmenu">
-					<form:option value="Y">Y</form:option>
-					<form:option value="N">N</form:option>
-				</form:select>
-			</td>
-		</tr>
-		<tr>
-			<th>사물함 신청 URL</th>
-			<td>
-				<form:input path="lib_cabinet_url" cssClass="text" cssStyle="width:90%;"/>
-			</td>
-		</tr>
-		<tr>
-			<th>문화강좌 신청여부</th>
-			<td>
-				<form:select path="lib_reg_cource_yn" class="selectmenu">
-					<form:option value="Y">Y</form:option>
-					<form:option value="N">N</form:option>
-				</form:select>
-			</td>
-		</tr>
-		<tr>
-			<th>문화강좌 신청 URL</th>
-			<td>
-				<form:input path="lib_reg_cource_url" cssClass="text" cssStyle="width:90%;"/>
-			</td>
-		</tr>
-		<tr>
-			<th>디지털자료실 좌석예약여부</th>
-			<td>
-				<form:select path="lib_webbooking_yn" class="selectmenu">
-					<form:option value="Y">Y</form:option>
-					<form:option value="N">N</form:option>
-				</form:select>
-			</td>
-		</tr>
-		<tr>
-			<th>디지털자료실 좌석예약 URL</th>
-			<td>
-				<form:input path="lib_webbooking_url" cssClass="text" cssStyle="width:90%;"/>
-			</td>
-		</tr>
-		<tr>
-			<th>기타시설이용 신청여부</th>
-			<td>
-				<form:select path="lib_etc_yn" class="selectmenu">
-					<form:option value="Y">Y</form:option>
-					<form:option value="N">N</form:option>
-				</form:select>
-			</td>
-		</tr>
-		<tr>
-			<th>기타시설 이용신청 URL</th>
-			<td>
-				<form:input path="lib_etc_url" cssClass="text" cssStyle="width:90%;"/>
-			</td>
-		</tr>
 	</tbody>
 </table>
 </form:form>
