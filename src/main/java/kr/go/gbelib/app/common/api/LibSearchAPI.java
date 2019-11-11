@@ -182,7 +182,7 @@ public class LibSearchAPI {
 		if ( StringUtils.isNotEmpty(librarySearch.getSearchEdYear()) ) {
 			param.put("searchEdYear", librarySearch.getSearchEdYear());
 		}
-		
+
 		return CommonAPI.sendLIBONE(param);
 	}
 
@@ -430,26 +430,6 @@ public class LibSearchAPI {
 		Document doc = CommonAPI.sendILUS(param);
 
 		result = CommonAPI.parseXml(doc);
-
-		return result;
-	}
-	
-	/**
-	 * 
-	 * @param 
-	 * @return Map<String, Object>
-	 */
-	public static Map<String, Object> getCuration() {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("pageIndex", "1");
-		param.put("recordCountPerPage", "10");
-		param.put("searchType", "Tags");
-		param.put("searchKeyword", "%EA%B2%BD%EC%83%81%EB%B6%81%EB%8F%84%EA%B5%90%EC%9C%A1%EC%B2%AD%EC%A0%95%EB%B3%B4%EC%84%BC%ED%84%B0");
-		param.put("orderType", "2");
-		param.put("searchOrder", "D");
-		param.put("callback", "jsonp_callback");
-
-		Map<String, Object> result = CommonAPI.curation(param);
 
 		return result;
 	}
@@ -715,7 +695,7 @@ public class LibSearchAPI {
 
 		return result;
 	}
-	
+
 	public static Map<String, Object> getMyLibraryList(String worker_id, String user_id, String vType, String vOption) {
 		return getMyLibraryList(worker_id, user_id, vType, vOption, null, null);
 	}
@@ -750,13 +730,13 @@ public class LibSearchAPI {
 			param.put("vSortKey", "INSERT_DATE");
 			param.put("vSortDir", "DESC");
 		}
-		
+
 //		if ( StringUtils.equals(vType, "CLOSE") ) {
 //			param.put("vStartPos", vStartPos);
 //			param.put("vEndPos", vEndPos);
 //			param.put("vCntYn", "Y");
 //		}
-		
+
 		Document doc = CommonAPI.sendILUS(param);
 
 		String code = CommonAPI.getElementValueByName(doc, "code");
@@ -1113,7 +1093,7 @@ public class LibSearchAPI {
 
 		return result;
 	}
-	
+
 	/**
 	 * Marc 보기
 	 *
@@ -1189,7 +1169,7 @@ public class LibSearchAPI {
 			return new ApiResponse(false, CommonAPI.getElementValueByName(doc, "message"));
 		}
 	}
-	
+
 	/**
 	 * 보존서고 신청
 	 *
@@ -1217,7 +1197,7 @@ public class LibSearchAPI {
 			return new ApiResponse(false, CommonAPI.getElementValueByName(doc, "message"));
 		}
 	}
-	
+
 	/**
 	 * 보존서고 신청 취소
 	 *
@@ -1357,7 +1337,7 @@ public class LibSearchAPI {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * 보존서고 상세내용
 	 *
@@ -1705,7 +1685,7 @@ public class LibSearchAPI {
 		// 정보센터 apikey로 호출한다.
 		return null;
 	}
-	
+
 	/**
 	 * 주제별 검색
 	 *
@@ -1724,7 +1704,7 @@ public class LibSearchAPI {
 		param.put("pageSize", librarySearch.getRowCount());
 		return CommonAPI.sendLIBONE(param);
 	}
-	
+
 	/**
 	 * ISBN에 해당하는 전자책의 마크URL 구하기
 	 *
@@ -1736,12 +1716,12 @@ public class LibSearchAPI {
 	public static String getMarcUrlByIsbn(String isbn) {
 		// 전자도서관 vLoca=00000001
 		Map<String, Object> sameBooks = (Map<String, Object>) LibSearchAPI.getSameBookList("WEB", isbn, "00000001");
-		
+
 		if(sameBooks == null) {
 			return "";
 		} else {
 			List<Map<String, Object>> sameBookList = (List<Map<String, Object>>)sameBooks.get("dsSameBookList");
-			
+
 			if(sameBookList == null || sameBookList.size() == 0) {
 				return "";
 			} else {
@@ -1750,7 +1730,7 @@ public class LibSearchAPI {
 			}
 		}
 	}
-	
+
 	/**
 	 * 전자책의 마크URL 구하기
 	 * @param vCtrl
@@ -1762,9 +1742,9 @@ public class LibSearchAPI {
 		param.put("className", "action.lnk.LnkMarcInfo");
 		param.put("vCtrl", vCtrl);
 		param.put("vDataType", "MARC XML");
-		
+
 		Document doc = CommonAPI.sendILUS(param);
-		
+
 		XPath xPath =  XPathFactory.newInstance().newXPath();
 		String path = "//list[@name=\"dsMarcView\"]/item[field[@name=\"TAG\" and text() = \"856\"]]/field[@name=\"FIELD\"]/text()";
 		XPathExpression expr = null;
@@ -1783,13 +1763,13 @@ public class LibSearchAPI {
 			return value.substring(3);
 		}
 	}
-	
+
 	public static Map<String, Object> addMarcUrls(Map<String, Object> result) {
 		List<Map<String, Object>> data = null;
 		String isbnField = "isbn";
 		String locaField = "libCode";
 		String type = "data";
-		
+
 		if(result.get("data") != null) {
 			data = (List<Map<String, Object>>) result.get("data");
 			isbnField = "isbn";
@@ -1810,12 +1790,12 @@ public class LibSearchAPI {
 			type = "dsItemDetail";
 			locaField = "LOCA";
 		} else {
-			
+
 		}
-		
+
 		if(data != null) {
 			for(Map<String, Object> item: data) {
-				
+
 				String marcUrl = "";
 				if("data".equals(type) || "dsLoanBestList".equals(type) || "dsNewBookList".equals(type)) {
 					String libCode = String.valueOf(item.get(locaField));
@@ -1830,35 +1810,35 @@ public class LibSearchAPI {
 						marcUrl = LibSearchAPI.getMarcUrl(vCtrl);
 					}
 				}
-				
+
 				if(StringUtils.isNotEmpty(marcUrl)) {
 					item.put("marc_url", marcUrl);
 				}
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * 자료실 목록 검색
-	 * 
+	 *
 	 * @param homepage_code
 	 * @return Map<String, Object>
 	 */
 	public static Map<String, Object> getSubLocaInfo(String homepage_code) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		Map<String, Object> result = null;
-		
+
 		param.put("USERID", "WEB");
 		param.put("className", "action.lnk.LnkLibInfoQry");
 		param.put("vSearchType", "0002");
 		param.put("vLocation", homepage_code);
-		
+
 		Document doc = CommonAPI.sendILUS(param);
-		
+
 		result = CommonAPI.parseXml(doc);
-		
+
 		return result;
 	}
 
@@ -1883,7 +1863,7 @@ public class LibSearchAPI {
 		}
 
 		Document doc = CommonAPI.sendILUS(param);
-		
+
 		String code = CommonAPI.getElementValueByName(doc, "code");
 		if ( "0".equals(code) ) {
 			return CommonAPI.parseXml(doc);
@@ -1892,7 +1872,7 @@ public class LibSearchAPI {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * 동일 저자 도서 리스트
 	 * @param detail
@@ -1909,10 +1889,10 @@ public class LibSearchAPI {
 				String AUTHOR = String.valueOf(detailOne.get("AUTHOR"));
 				String[] authors = StringUtils.split(AUTHOR, ";");
 				String author = authors[0].replaceFirst("(지음|감수|그림|제작|번역|역자|원작|연출|지은이|공저|강의|옮김| 글| 저| 역)", "").replaceAll("[,.(--)+\\[\\]{}()\\\\/:;]", "").trim();
-				
+
 				Map<String, Object> result = getSameAuthorBookList(author, String.valueOf(detailOne.get("LOCA")));
 				if(result == null) return null;
-				
+
 				List<Map<String, Object>> dsResult = (List<Map<String, Object>>) result.get("dsResult");
 				if(dsResult == null) {
 					return null;
