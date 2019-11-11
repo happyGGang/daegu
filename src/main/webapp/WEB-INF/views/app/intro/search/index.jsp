@@ -95,74 +95,6 @@ $(function() {
 // 		e.preventDefault();
 // 	});
 
-	<%-- 저자 더 보기 --%>
-	$('a.moreAuthor').on('click', function(e) {
-		e.preventDefault();
-		$.ajax({
-			url:'table2.do',
-			data:'allBookListStr='+$('input#allBookListStr').val() + '&viewPage=' + (authorViewPage+1),
-			type:'post',
-			success:function(html) {
-				$('a.moreAuthor').parent('p').prev('ul').append(html);
-				authorViewPage++;
-				if ((authorViewPage*5) > authorTotalCnt) {
-					$('a.moreAuthor').hide();
-				}
-			}
-		});
-	});
-
-	<%-- 출판사 더 보기 --%>
-	$('a.morePublisher').on('click', function(e) {
-		e.preventDefault();
-		$.ajax({
-			url:'table3.do',
-			data:'allBookListStr='+$('input#allBookListStr').val() + '&viewPage=' + (publisherViewPage+1),
-			type:'post',
-			success:function(html) {
-				$('a.morePublisher').parent('p').prev('ul').append(html);
-				publisherViewPage++;
-				if ((publisherViewPage*5) > publisherTotalCnt) {
-					$('a.morePublisher').hide();
-				}
-			}
-		});
-	});
-
-	<%-- 유형 더 보기 --%>
-	$('a.moreFormcode').on('click', function(e) {
-		e.preventDefault();
-		$.ajax({
-			url:'table5.do',
-			data:'allBookListStr='+$('input#allBookListStr').val() + '&viewPage=' + (formcodeViewPage+1),
-			type:'post',
-			success:function(html) {
-				$('a.moreFormcode').parent('p').prev('ul').append(html);
-				formcodeViewPage++;
-				if ((formcodeViewPage*5) > formcodeTotalCnt) {
-					$('a.moreFormcode').hide();
-				}
-			}
-		});
-	});
-
-	<%-- 연도 더 보기 --%>
-	$('a.moreYear').on('click', function(e) {
-		e.preventDefault();
-		$.ajax({
-			url:'table4.do',
-			data:'allBookListStr='+$('input#allBookListStr').val() + '&viewPage=' + (yearViewPage+1),
-			type:'post',
-			success:function(html) {
-				$('a.moreYear').parent('p').prev('ul').append(html);
-				yearViewPage++;
-				if ((yearViewPage*5) > yearTotalCnt) {
-					$('a.moreYear').hide();
-				}
-			}
-		});
-	});
-
 	$('#vk-popup').on('click', function(e) {
 		PopupVirtualKeyboard.toggle('search_text','vk');
 	});
@@ -207,41 +139,41 @@ $(function() {
 	    });
 	} */
 
-	$('#librarySearch #search_text').on('keyup',function(e){
-		 switch (e.keyCode) {
-        case 8:  // Backspace
-        case 9:  // Tab
-        case 13: // Enter
-        case 37: // Left
-        case 38: // Up
-        case 39: // Right
-        case 40: // Down
-        break;
+// 	$('#librarySearch #search_text').on('keyup',function(e){
+// 		 switch (e.keyCode) {
+//         case 8:  // Backspace
+//         case 9:  // Tab
+//         case 13: // Enter
+//         case 37: // Left
+//         case 38: // Up
+//         case 39: // Right
+//         case 40: // Down
+//         break;
 
-        default:
-       	 $.ajax({
-    	        type:'GET',
-    	        async:true,
-    	        url:'autoFill.do',
-    	        data:'searchKeyword='+encodeURIComponent($(this).val()),
-    	        success:function(response){
-    	        	var autofillArr = response.autofillArr;
-    	        	var autoFillStr = [];
-    	        	$.each(autofillArr, function(i, v) {
-    	        		autoFillStr.push('<a class="autoText">' + v.word + '</a>');
-    	        	});
-    	            $('#autoFill').html(autoFillStr.join(','));
-    	            $('a.autoText').on('click', function(e) {
-    	            	e.preventDefault();
-    	            	$('#librarySearch #search_text').val($(this).text());
-    	            	$('#librarySearch #do-search').click();
-    	            });
-    	        },
-    	        error:function(e){
-    	        }
-    	    });
-    	}
-	});
+//         default:
+//        	 $.ajax({
+//     	        type:'GET',
+//     	        async:true,
+//     	        url:'autoFill.do',
+//     	        data:'searchKeyword='+encodeURIComponent($(this).val()),
+//     	        success:function(response){
+//     	        	var autofillArr = response.autofillArr;
+//     	        	var autoFillStr = [];
+//     	        	$.each(autofillArr, function(i, v) {
+//     	        		autoFillStr.push('<a class="autoText">' + v.word + '</a>');
+//     	        	});
+//     	            $('#autoFill').html(autoFillStr.join(','));
+//     	            $('a.autoText').on('click', function(e) {
+//     	            	e.preventDefault();
+//     	            	$('#librarySearch #search_text').val($(this).text());
+//     	            	$('#librarySearch #do-search').click();
+//     	            });
+//     	        },
+//     	        error:function(e){
+//     	        }
+//     	    });
+//     	}
+// 	});
 	$('a.showSlide').on('click', function(e) {
 		e.preventDefault();
 		var bci = $(this).parents('div.bif').next('div.bci');
@@ -257,14 +189,20 @@ $(function() {
 
 	$('a.goDetail').on('click', function(e) {
 		e.preventDefault();
-		$('input#vLoca').val($(this).attr('vLoca'));
-		$('input#vCtrl').val($(this).attr('vCtrl'));
-		$('input#vImg').val($(this).attr('vImg'));
+		<c:if test="${librarySearch.booktype eq 'BOOK'}">
 		$('input#isbn').val($(this).attr('isbn'));
-		$('input#tid').val($(this).attr('tid'));
-		var formData = serializeParameter(['vLoca', 'vCtrl', 'vImg', 'isbn', 'tid', 'menu_idx']);
+		$('input#manageCode').val($(this).attr('manageCode'));
+		$('input#regNo').val($(this).attr('regNo'));
+
+		var formData = serializeParameter(['regNo', 'isbn', 'manageCode']);
+		formData += '&booktype=' + $('input[type=radio][name=booktype]:checked').val();
 		doGetLoad('detail.do', formData);
-// 		$('form#detailForm').submit();
+		</c:if>
+
+		<c:if test="${librarySearch.booktype eq 'NONBOOK'}">
+		alert('비도서자료는 상세보기를 하실 수 없습니다.');
+		return false;
+		</c:if>
 	});
 
 	if ($('input#viewPage').val() != '1') {
@@ -335,7 +273,7 @@ $(function() {
         if ('${fn:escapeXml(param.search_type)}'=='') {
                 $('select#search_type').val('L_TITLEAUTHOR');
         }
-	
+
 	$('a#sort-btn').on('click', function(e) {
 		$('#do-search').click();
 	});
@@ -348,6 +286,8 @@ $(function() {
 	<form:hidden path="vImg"/>
 	<form:hidden path="isbn"/>
 	<form:hidden path="tid"/>
+	<form:hidden path="regNo"/>
+	<form:hidden path="manageCode"/>
 </form:form>
 
 <form:form modelAttribute="librarySearch" action="index.do" method="POST">
@@ -362,30 +302,49 @@ $(function() {
 	<form:hidden path="menu_idx"/>
 	<form:hidden path="viewPage"/>
 	<div class="search-wrap">
+	<div class="booktype-box">
+		<form:radiobutton path="booktype" label="도서" value="BOOK" checked="checked"/>
+		<form:radiobutton path="booktype" label="비도서" value="NONBOOK" cssStyle="margin-left:28px;"/>
+		</div>
+		<div id="libraryList" class="bbs-notice" style="margin-bottom:15px;" >
+			<div>
+				<form:checkbox id="checkAll" path="libraryCodes" label="전체" value="ALL"  />
+			</div>
+			<div>
+				<ul>
+					<c:forEach items="${homepageList}" var="i">
+						<li>
+							<c:choose>
+								<c:when test="${fn:indexOf(librarySearch.libraryCodes, i.homepage_code)!= -1 or fn:indexOf(librarySearch.libraryCodes, 'ALL') != -1}">
+									<form:checkbox searched="true" path="libraryCodes" label="${i.homepage_name}" value="lib_${i.homepage_code}" checked="checked"/>
+								</c:when>
+								<c:otherwise>
+									<form:checkbox id="lib_${i.homepage_code}" path="libraryCodes" label="${i.homepage_name}" value="lib_${i.homepage_code}" />
+								</c:otherwise>
+							</c:choose>
+						</li>
+					</c:forEach>
+				</ul>
+			</div>
+		</div>
+
 		<c:if test="${librarySearch.search_text ne null and librarySearch.search_text ne ''}">
 		<div>
 			<form:checkbox path="sub_search" label="검색결과 내 재검색"/>
 		</div>
 		</c:if>
+
 		<div class="search-form">
-			
+
 			<div class="box">
-			
+
 			<div class="box1">
-				<select id="search_type" name="search_type" class="selectmenu" style="width:100%;font-size:105%;padding-left:12px;border:0px;">
-				    <option value="L_TITLEAUTHOR" <c:if test="${librarySearch.search_type eq 'L_TITLEAUTHOR'}">selected="selected"</c:if>>서명or저자</option>
-				    <option value="L_TITLE" <c:if test="${librarySearch.search_type eq 'L_TITLE'}">selected="selected"</c:if>>서명[전방일치]</option>
-				    <option value="L_AUTHOR" <c:if test="${librarySearch.search_type eq 'L_AUTHOR'}">selected="selected"</c:if>>저자[전방일치]</option>
-				    <option value="L_PUBLISHER" <c:if test="${librarySearch.search_type eq 'L_PUBLISHER'}">selected="selected"</c:if>>출판사[완전일치]</option>
-				    <option value="INDEXSEARCH" <c:if test="${librarySearch.search_type eq 'INDEXSEARCH'}">selected="selected"</c:if>>목차[부분일치]</option>
-				</select>
-<%--
-				<form:select path="search_type" cssStyle="width:100%;font-size:105%;padding-left:12px;border:0px;" cssClass="selectmenu" >
-					<c:forEach items="${searchCategory.data}" var="i" varStatus="status">
-					<form:option value="${fn:escapeXml(i.type)}" label="${fn:escapeXml(i.name)}"></form:option>
-					</c:forEach>
+				<form:select path="search_type" class="selectmenu" cssStyle="width:100%;margin-top:2px;font-size:105%;padding-left:3px;">
+					<form:option value="L_TITLE">서명</form:option>
+					<form:option value="L_AUTHOR">저자</form:option>
+					<form:option value="L_PUBLISHER">발행자</form:option>
+					<form:option value="L_KEYWORD">키워드</form:option>
 				</form:select>
---%>
 			</div>
 				<span><img src="/resources/book/search/img/line.jpg" style="padding-top: 5px;"></span>
 				<div class="b1">
@@ -434,7 +393,7 @@ $(function() {
 				검색결과 '<b class="og"><i>${fn:escapeXml(librarySearch.search_text)}</i></b>'에 대한 <b>${fn:escapeXml(librarySearch.viewPage)}</b>/${fn:escapeXml(result.totalPage)}페이지, 총 <b>${fn:escapeXml(result.totalCnt)}</b>건
 			</c:if>
 		</div>
-		<c:set var="showSmain" value="${librarySearch.search_text ne null and librarySearch.search_text ne ''}"></c:set>
+		<c:set var="showSmain" value="${not empty librarySearch.search_text}"></c:set>
 		<c:if test="${fn:length(result.data) < 1 and showSmain}">
 		<p style="text-align: center;">
 			<b>찾으시는 자료가 없습니다. </b>
@@ -450,22 +409,15 @@ $(function() {
 					</div>
 
 					<div class="control">
-<!-- 						<a href="#" id="addMyLib" class="btn"><span>내보관함</span><i class="fa fa-plus"></i></a> -->
-<!-- 						<select class="selectmenu" style="width:90px"> -->
-<!-- 							<option>항목선택</option> -->
-<!-- 							<option>항목선택</option> -->
-<!-- 						</select> -->
-<!-- 						<select class="selectmenu" style="width:90px"> -->
-<!-- 							<option>오름차순</option> -->
-<!-- 							<option>내림차순</option> -->
-<!-- 						</select> -->
-						<form:select path="sortField" cssClass="selectmenu l_title_option" cssStyle="width: 90px;">
-							<form:option value="PUBLISH_DATE" label="발행년도"></form:option>
+						<form:select path="sortField" cssClass="selectmenu" cssStyle="width: 90px;">
+							<form:option value="NONE" label="정렬없음"></form:option>
 							<form:option value="TITLE" label="서명"></form:option>
 							<form:option value="AUTHOR" label="저자"></form:option>
 							<form:option value="PUBLISHER" label="출판사"></form:option>
+							<form:option value="PUB_YEAR" label="발행년도"></form:option>
+							<form:option value="SHELF_DATE" label="배가일"></form:option>
 						</form:select>
-						<form:select path="sortType" cssClass="selectmenu l_title_option" cssStyle="width: 90px;">
+						<form:select path="sortType" cssClass="selectmenu" cssStyle="width: 90px;">
 							<form:option value="ASC" label="오름차순"></form:option>
 							<form:option value="DESC" label="내림차순"></form:option>
 						</form:select>
@@ -475,41 +427,353 @@ $(function() {
 							<form:option value="30" label="30건"></form:option>
 							<form:option value="40" label="40건"></form:option>
 							<form:option value="50" label="50건"></form:option>
+							<form:option value="100" label="100건"></form:option>
 						</form:select>
-						<a id="sort-btn" class="btn l_title_option" title="재정렬" tabindex="0"><i class="fa fa-sort" style="font-size:19px;color:#777"></i><span>&nbsp;재정렬&nbsp;&nbsp;</span></a>
 					</div>
 				</div>
 				<div id="search-results" class="search-results">
-					<c:forEach items="${result.data}" var="i">
+					<c:if test="${empty librarySearch.search_text}">
+					<div id="loadingLoanBest" style="text-align: center; padding-top: 105px; display: none;" >
+						<img id="loading_img" alt="loading" src="/resources/common/img/viewLoading.gif" />
+						<br/><br/>
+						대출 순위 불러오는 중
+					</div>
+					</c:if>
+					<c:forEach items="${bookSearch}" var="i">
 						<div class="row">
-							<p class="admin"><input name="print_param" type="checkbox" class="checkBook" value="${fn:escapeXml(i.libCode)}_${fn:escapeXml(i.rec_key)}_${fn:escapeXml(i.tid)}_${fn:escapeXml(i.img)}"/></p>
+							<p class="admin"><input name="print_param" type="checkbox" class="checkBook" value="${i.ST_CODE}_${i.MANAGE_CODE}"/></p>
 							<div class="thumb">
 								<c:choose>
-									<c:when test="${i.img eq '' or fn:contains(i.img, 'noimg')}">
-										<a href="#" vLoca="${fn:escapeXml(i.libCode)}" vCtrl="${fn:escapeXml(i.rec_key)}" vImg="${fn:escapeXml(i.img)}" isbn="${fn:escapeXml(i.isbn)}" tid="${fn:escapeXml(i.tid)}" class="goDetail noImg">
+									<c:when test="${i.IMAGE eq '' or fn:contains(i.IMAGE, 'noimg')}">
+										<a href="#" vLoca="${i.LIB_CODE}" vCtrl="${i.rec_key}" vImg="${i.IMAGE}" isbn="${i.ST_CODE}" tid="${i.tid}" regNo="${i.REG_NO}" manageCode="${i.MANAGE_CODE}" class="goDetail noImg">
 											<img src="/resources/common/img/noImg.gif" alt="noImage"/>
+											<span>등록된 이미지가<br/>없습니다.</span>
 										</a>
 									</c:when>
 									<c:otherwise>
-										<a href="#" vLoca="${fn:escapeXml(i.libCode)}" vCtrl="${fn:escapeXml(i.rec_key)}" vImg="${fn:escapeXml(i.img)}" isbn="${fn:escapeXml(i.isbn)}" tid="${fn:escapeXml(i.tid)}" class="goDetail">
-											<img src="${fn:escapeXml(i.img)}" alt="${fn:escapeXml(i.title)}"/>
+										<a href="#" vLoca="${i.LIB_CODE}" vCtrl="${i.rec_key}" vImg="${i.IMAGE}" isbn="${i.ST_CODE}" tid="${i.tid}" manageCode="${i.MANAGE_CODE}" regNo="${i.REG_NO}" class="goDetail">
+											<img src="${i.IMAGE}" alt="${i.TITLE_INFO }"/>
 										</a>
 									</c:otherwise>
 								</c:choose>
+
+								<c:if test="${sessionScope.member.login && sessionScope.member.member_class eq '0'}"> <!--로그인이면서 (0 : 정회원, 1 : 비회원, 2 : 준회원) MA : 북구 , MB 중앙-->
+<%-- 									<c:if test="${(i.MANAGE_CODE eq 'MA' and i.MEDIA_CODE eq 'PR' and --%>
+<%-- 									 (sessionScope.member.user_class_code eq '105' || --%>
+<%-- 									 sessionScope.member.user_class_code eq '106' || sessionScope.member.user_class_code eq '107' || --%>
+<%-- 									 sessionScope.member.user_class_code eq '108' || sessionScope.member.user_class_code eq '109' || --%>
+<%-- 									 sessionScope.member.user_class_code eq '110' || sessionScope.member.user_class_code eq '111') ) --%>
+<%-- 									 or --%>
+<%-- 									 (i.MANAGE_CODE eq 'MB' and (i.MEDIA_CODE eq 'PR' or i.MEDIA_CODE eq 'PD') and --%>
+<%-- 									 (sessionScope.member.user_class_code eq '201' || --%>
+<%-- 									 sessionScope.member.user_class_code eq '202' || sessionScope.member.user_class_code eq '203' || --%>
+<%-- 									 sessionScope.member.user_class_code eq '204' || sessionScope.member.user_class_code eq '205' || --%>
+<%-- 									 sessionScope.member.user_class_code eq '206')) --%>
+<%-- 									 }"> --%>
+									<c:if test="${
+									 (
+									 (i.MANAGE_CODE eq 'MA' and i.MEDIA_CODE eq 'PR') or
+									 (i.MANAGE_CODE eq 'MB' and (i.MEDIA_CODE eq 'PR' or i.MEDIA_CODE eq 'PD')) or
+									 (i.MANAGE_CODE eq 'MD' and i.MEDIA_CODE eq 'PR')
+									 )
+									 and
+									 (sessionScope.member.user_class_code eq '105' ||
+									 sessionScope.member.user_class_code eq '106' || sessionScope.member.user_class_code eq '107' ||
+									 sessionScope.member.user_class_code eq '108' || sessionScope.member.user_class_code eq '109' ||
+									 sessionScope.member.user_class_code eq '110' || sessionScope.member.user_class_code eq '111' ||
+									 sessionScope.member.user_class_code eq '201' ||
+									 sessionScope.member.user_class_code eq '202' || sessionScope.member.user_class_code eq '203' ||
+									 sessionScope.member.user_class_code eq '204' || sessionScope.member.user_class_code eq '205' ||
+									 sessionScope.member.user_class_code eq '206' ||
+									 sessionScope.member.user_class_code eq '301' ||
+									 sessionScope.member.user_class_code eq '302' ||
+									 sessionScope.member.user_class_code eq '303')
+									 }">
+										<c:choose>
+											<c:when test="${i.LIB_CODE eq '123007' and (i.USE_LIMIT_CODE eq 'CD' or i.USE_LIMIT_CODE eq 'IZ')}">
+											</c:when>
+											<c:when test="${i.LIB_CODE eq '123005' and (i.USE_LIMIT_CODE eq 'CD' or i.USE_LIMIT_CODE eq 'IZ')}">
+											</c:when>
+											<c:when test="${fn:indexOf(i.CALL_NO, 'R') > -1}">
+											</c:when>
+											<c:when test="${i.RESERVATION_CNT ne '0'}">
+											</c:when>
+											<c:otherwise>
+											<c:if test="${fn:length(i.RETURN_PLAN_DATE) > 1 }">
+											</c:if>
+											<c:if test="${fn:length(i.RETURN_PLAN_DATE) < 1 }">
+											<a href="#" style="font-size: 15px; margin: 5px 2px 0 0; width:103px;" class="btn btn2 addBasket" data-basket="${i.TITLE_INFO}//${i.AUTHOR}//${i.PUBLISHER}//${i.PUB_YEAR}//${i.LIB_NAME}//${i.SHELF_LOC_NAME}//${i.MAT_CODE}//${i.ST_CODE}//${i.BOOK_SIZE}//${i.PRICE}//${i.BOOK_KEY}//${librarySearch.booktype eq 'BOOK' ? 'MO' : 'NB'}//${i.MANAGE_CODE}" ><i class="fa fa-archive"></i><span>택배대출<br/>보관함 추가</span></a>
+											</c:if>
+											</c:otherwise>
+										</c:choose>
+									</c:if>
+								</c:if>
+								<c:if test="${sessionScope.member.member_id eq 'whale1'}">
+									<a href="#" style="font-size: 15px; margin: 5px 2px 0 0; width:103px;" class="btn btn2 addBasket" data-basket="${i.TITLE_INFO}//${i.AUTHOR}//${i.PUBLISHER}//${i.PUB_YEAR}//${i.LIB_NAME}//${i.SHELF_LOC_NAME}//${i.MAT_CODE}//${i.ST_CODE}//${i.BOOK_SIZE}//${i.PRICE}//${i.BOOK_KEY}//${librarySearch.booktype eq 'BOOK' ? 'MO' : 'NB'}//${i.MANAGE_CODE}" ><i class="fa fa-archive"></i><span>택배대출<br/>보관함 추가</span></a>
+								</c:if>
 							</div>
 							<div class="box">
 								<div class="item">
 									<div class="bif">
-										<c:set var="replaceStr" value="<span style='color:#ffa651'>${fn:escapeXml(librarySearch.search_text)}</span>"/>
-										<a href="#" vLoca="${fn:escapeXml(i.libCode)}" vCtrl="${fn:escapeXml(i.rec_key)}" vImg="${fn:escapeXml(i.img)}" isbn="${fn:escapeXml(i.isbn)}" tid="${fn:escapeXml(i.tid)}" class="name goDetail">${fn:replace(fn:escapeXml(i.title), fn:escapeXml(librarySearch.search_text), replaceStr)}</a>
-										<span class="txt"><span class="tit">저자: </span>${fn:replace(fn:escapeXml(i.author), fn:escapeXml(librarySearch.search_text), replaceStr)}</span><span class="bar">|</span>
-										<span class="txt"><span class="tit">발행처: </span>${fn:replace(fn:escapeXml(i.publisher), fn:escapeXml(librarySearch.search_text), replaceStr)}</span><span class="bar">|</span>
-										<span class="txt"><span class="tit">발행연도: </span>${fn:escapeXml(i.year)}</span><span class="bar">|</span>
-										<span class="txt"><span class="tit">자료이용하는 곳: </span>${fn:escapeXml(i.libName)}</span><span class="bar">|</span>
-										<span class="txt"><span class="tit">청구기호: </span>${fn:escapeXml(i.callno)}</span>
+										<c:set var="replaceStr" value="<span style='color:#ffa651'>${librarySearch.search_text}</span>"/>
+										<a href="#" vLoca="${i.LIB_CODE}" vCtrl="${i.rec_key}" vImg="${i.IMAGE}" isbn="${i.ST_CODE}" tid="${i.tid}" regNo="${i.REG_NO}" manageCode="${i.MANAGE_CODE}" class="name goDetail">${fn:replace(i.TITLE_INFO , librarySearch.search_text, replaceStr)}</a>
+										<p><font style="color:#91b015">저자명</font> : ${fn:replace(i.AUTHOR , librarySearch.search_text, replaceStr)}</p>
+										<p><font style="color:#91b015">발행자</font> : ${fn:replace(i.PUBLISHER, librarySearch.search_text, replaceStr)}, ${i.PUB_YEAR}</p>
+										<p><font style="color:#91b015">소장처</font> : ${i.LIB_NAME} / ${i.SHELF_LOC_NAME}</p>
+										<p><font style="color:#91b015">청구기호</font> : ${i.CALL_NO}</p>
+										<p><font style="color:#91b015">등록번호</font> : ${i.REG_NO}</p>
+										<c:if test="${i.APPENDIX_TOTAL_CNT > 0}">
+										<p><font style="color:#91b015">부록여부</font> : 부록있음
+											<c:if test="${not empty i.APPENDIX_INFO}">
+												<c:forEach items="${i.APPENDIX_INFO}" var="appendix_info">
+													(${appendix_info.DESCRIPTION})
+												</c:forEach>
+											</c:if>
+										</p>
+										</c:if>
+										<!--
 										<div class="stat">
-											<a href="#" class="showSlide" vLoca="${fn:escapeXml(i.libCode)}" vCtrl="${fn:escapeXml(i.rec_key)}"><span>이용가능여부</span><i class="fa fa-angle-down" aria-hidden="true"></i></a>
+											<a href="#" class="showSlide" vLoca="${i.LIB_CODE}" ><span>이용가능여부</span><i class="fa fa-sort-down"></i></a>
 										</div>
+										-->
+
+										<!--
+										<p><font style="color:#91b015">대출가능여부</font> :
+												<c:choose>
+													<c:when test="${i.RESERVATION_CNT > 1}">
+															<c:if test="${fn:length(i.RETURN_PLAN_DATE) > 1 }">
+															대출불가
+															</c:if>
+															<c:if test="${fn:length(i.RETURN_PLAN_DATE) < 1 }">
+															대출가능
+															</c:if>
+													</c:when>
+													<c:otherwise>
+															<c:if test="${fn:length(i.RETURN_PLAN_DATE) > 1 }">
+															대출불가
+															</c:if>
+															<c:if test="${fn:length(i.RETURN_PLAN_DATE) < 1 }">
+															대출가능
+															</c:if>
+													</c:otherwise>
+												</c:choose>
+										/ <font style="color:#91b015">반납예정일</font> :
+												<c:if test="${fn:length(i.RETURN_PLAN_DATE) < 1 }">
+													-
+												</c:if>
+												<c:if test="${fn:length(i.RETURN_PLAN_DATE) > 1 }">
+													${i.RETURN_PLAN_DATE}
+												</c:if>
+										</p>
+										<p><font style="color:#91b015">예약가능여부</font> :
+										<c:choose>
+											<c:when test="${i.RESERVATION_CNT eq i.RESERVATION_NUMBER}">
+												예약불가(${i.RESERVATION_CNT}/${i.RESERVATION_NUMBER})
+											</c:when>
+											<c:otherwise>
+												<c:if test="${i.RESERVATION_STATUS eq '1'}">
+													<c:if test="${i.MEDIA_CODE eq 'PR'}">
+													<a class="btn resve-req og" bookkey="${i.BOOK_KEY}" booktype="BO">예약가능</a> (${i.RESERVATION_CNT}/${i.RESERVATION_NUMBER})
+													</c:if>
+												</c:if>
+												<c:if test="${i.RESERVATION_STATUS eq '0'}">
+													예약불가(${i.RESERVATION_CNT}/${i.RESERVATION_NUMBER})
+												</c:if>
+											</c:otherwise>
+										</c:choose>
+										</p>
+										-->
+										<c:if test="${librarySearch.booktype eq 'NONBOOK'}">
+										<p><font style="color:#91b015">자료실명</font> : ${i.SHELF_LOC_NAME}</p>
+										<p><font style="color:#91b015">줄거리</font> : ${i.NONBOOK_SUMMARY}</p>
+										</c:if>
+										<table summary="도서 상태 및 등록 정보" style="text-align:center;margin-top:7px">
+										<caption>도서 상태 및 등록 정보</caption>
+										<colgroup>
+											<col width="25%">
+											<col width="25%">
+											<col width="25%">
+											<col width="25%">
+										</colgroup>
+										<thead>
+											<tr>
+												<th>대출가능여부</th>
+												<th>반납예정일</th>
+												<th>상호대차</th>
+												<th>예약가능여부</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>
+													<c:choose>
+														<c:when test="${i.LIB_CODE eq '123010' and (i.USE_LIMIT_CODE eq 'CD' or i.USE_LIMIT_CODE eq 'IZ')}">
+															<!-- 연수 대출불가설정 -->
+															대출불가(대출제한자료)
+														</c:when>
+														<c:when test="${i.LIB_CODE eq '123007' and (i.USE_LIMIT_CODE eq 'CD' or i.USE_LIMIT_CODE eq 'IZ')}">
+															<!-- 화도진 대출불가설정 -->
+															대출불가(대출제한자료)
+														</c:when>
+														<c:when test="${i.LIB_CODE eq '123009' and (i.USE_LIMIT_CODE eq 'CD' or i.USE_LIMIT_CODE eq 'IZ')}">
+															<!-- 계양 대출불가설정 -->
+															대출불가(대출제한자료)
+														</c:when>
+														<c:when test="${fn:indexOf(i.CALL_NO, 'R') > -1}">
+															<!-- 청구기호 R이 포함되면 대출불가 -->
+
+															<c:choose>
+																<c:when test="${fn:indexOf(i.CALL_NO, 'TR') > -1}">
+																	<font style="color:#91b015">대출가능<c:if test="${i.BOOK_STATUS eq '1'}">(비치중)</c:if></font>
+																</c:when>
+																<c:otherwise>
+																	대출불가
+																</c:otherwise>
+															</c:choose>
+
+														</c:when>
+														<c:when test="${i.RESERVATION_CNT ne '0'}">
+															대출불가(예약자료)
+														</c:when>
+														<c:otherwise>
+																<c:if test="${fn:length(i.RETURN_PLAN_DATE) > 1 }">
+																	대출불가<c:if test="${i.BOOK_STATUS eq '0'}">(대출중)</c:if>
+																</c:if>
+																<c:if test="${fn:length(i.RETURN_PLAN_DATE) < 1 }">
+																	<c:choose>
+																		<c:when test="${i.WORKING_STATUS eq 'BOL112N' or i.WORKING_STATUS eq 'SEL212N'}">
+																			<font style="color:#91b015">대출가능<c:if test="${i.BOOK_STATUS eq '1'}">(비치중)</c:if></font>
+																		</c:when>
+																		<c:otherwise>
+																			대출불가<c:if test="${i.BOOK_STATUS eq '0'}">(대출중)</c:if>
+																		</c:otherwise>
+																	</c:choose>
+																</c:if>
+														</c:otherwise>
+													</c:choose>
+												</td>
+												<td>
+													<c:if test="${fn:length(i.RETURN_PLAN_DATE) < 1 }">
+														-
+													</c:if>
+													<c:if test="${fn:length(i.RETURN_PLAN_DATE) > 1 }">
+														${i.RETURN_PLAN_DATE}
+													</c:if>
+												</td>
+												<td>
+															<c:choose>
+																<c:when test="${i.MANAGE_CODE eq 'MJ'}">
+																</c:when>
+																<c:otherwise>
+																	<c:choose>
+																		<c:when test="${param.booktype eq 'BOOK'}">
+																			<c:choose>
+																				<c:when test="${i.WORKING_STATUS eq 'BOL112N'}">
+																					<c:choose>
+																						<c:when test="${i.RESERVATION_CNT eq '0'}">
+																							<c:choose>
+																								<c:when test="${i.SHELF_LOC_CODE eq 'G000' || i.SHELF_LOC_CODE eq 'G002' || i.SHELF_LOC_CODE eq 'G003' || i.SHELF_LOC_CODE eq 'G006' || i.SHELF_LOC_CODE eq 'G007' || i.SHELF_LOC_CODE eq 'G008' || i.SHELF_LOC_CODE eq 'G009' || i.SHELF_LOC_CODE eq 'G011' || i.SHELF_LOC_CODE eq 'G012' || i.SHELF_LOC_CODE eq 'G022' || i.SHELF_LOC_CODE eq 'G024' || i.SHELF_LOC_CODE eq 'G025' || i.SHELF_LOC_CODE eq 'G026' || i.SHELF_LOC_CODE eq 'G027' || i.SHELF_LOC_CODE eq 'G028' || i.SHELF_LOC_CODE eq 'G029' || i.SHELF_LOC_CODE eq 'G030' || i.SHELF_LOC_CODE eq 'G032' || i.SHELF_LOC_CODE eq 'G033' || i.SHELF_LOC_CODE eq 'G049' || i.SHELF_LOC_CODE eq 'G097' || i.SHELF_LOC_CODE eq 'G098' || i.SHELF_LOC_CODE eq 'G099' || i.SHELF_LOC_CODE eq 'G999' || i.SHELF_LOC_CODE eq 'G050' || i.SHELF_LOC_CODE eq 'G100' || i.SHELF_LOC_CODE eq 'C008'}">
+
+																								</c:when>
+																								<c:otherwise>
+																									<a href="#sangho" class="sangho btn" isbn="${i.ST_CODE}" manageCode="${i.MANAGE_CODE}" regNo="${i.REG_NO}">상호대차신청</a>
+																								</c:otherwise>
+																							</c:choose>
+																						</c:when>
+																						<c:otherwise>
+
+																						</c:otherwise>
+																					</c:choose>
+																				</c:when>
+																				<c:otherwise>
+																				</c:otherwise>
+																			</c:choose>
+																		</c:when>
+																		<c:otherwise>
+																		</c:otherwise>
+																	</c:choose>
+																</c:otherwise>
+															</c:choose>
+
+												</td>
+												<td class="og">
+												<c:choose>
+													<c:when test="${i.LIB_CODE eq '123010' and (i.USE_LIMIT_CODE eq 'CD' or i.USE_LIMIT_CODE eq 'IZ')}">
+														<!-- 연수 예약불가설정 -->
+														예약불가
+													</c:when>
+													<c:when test="${i.LIB_CODE eq '123007' and (i.USE_LIMIT_CODE eq 'CD' or i.USE_LIMIT_CODE eq 'IZ')}">
+														<!-- 화도진 예약불가설정 -->
+														예약불가
+													</c:when>
+													<c:when test="${fn:indexOf(i.CALL_NO, 'R') > -1}">
+														<!-- 청구기호 R이 포함되면 대출불가 -->
+														예약불가
+													</c:when>
+													<c:when test="${param.booktype eq 'NONBOOK'
+															and (i.LIB_CODE ne '123010' and i.MEIDA_CODE ne 'PD')
+															and (i.LIB_CODE ne '123006' and i.MEIDA_CODE ne 'PD')
+															and (i.LIB_CODE ne '123005' and i.MEIDA_CODE ne 'PD')
+															and (i.LIB_CODE ne '123004' and i.MEIDA_CODE ne 'PD')}">
+														<!-- 비도서는 예약불가, 연수, 화도진 DVD는 예약가능, 20180228 화도진 DVD제외-->
+														<!-- 2018.04.10 중앙(123006) 비도서 예약 가능-->
+														<!-- 2018.04.10 주안(123005) 비도서 예약 가능-->
+														예약불가
+													</c:when>
+													<c:when test="${i.RESERVATION_CNT eq i.RESERVATION_NUMBER}">
+														<!-- 현재 예약수와 예약최대 수가 같으면 예약불가 -->
+														예약불가(${i.RESERVATION_CNT}/${i.RESERVATION_NUMBER})
+													</c:when>
+													<c:otherwise>
+														<!-- 예약수가 다른 경우 현재 대출중인지 여부 확인 -->
+														<c:choose>
+															<c:when test="${i.RESERVATION_CNT ne '0'}">
+																<!-- 대출불가상태일때 -->
+																<c:choose>
+																	<c:when test="${i.RESERVATION_CNT eq i.RESERVATION_NUMBER}">
+																		<!-- 현재 예약수와 예약최대 수가 같으면 예약불가 ex)2/2-->
+																		예약불가(${i.RESERVATION_CNT}/${i.RESERVATION_NUMBER})
+																	</c:when>
+																	<c:otherwise>
+																		<!-- 현재 예약수와 예약최대 수가 다으면 예약가능 ex) 1/2 -->
+																		<a class="btn resve-req og" bookkey="${i.BOOK_KEY}" booktype="BO">예약가능</a> (${i.RESERVATION_CNT}/${i.RESERVATION_NUMBER})
+																	</c:otherwise>
+																</c:choose>
+															</c:when>
+															<c:otherwise>
+																<c:choose>
+																	<c:when test="${fn:length(i.RETURN_PLAN_DATE) < 1 }">
+																		<!-- 대출가능상태일때 반납예정일이 없을 때 예약불가-->
+																		예약불가
+																	</c:when>
+																	<c:otherwise>
+																		<!-- 대출가능상태일때 반납예정일이 있을 때 예약가능-->
+																		<c:if test="${librarySearch.booktype eq 'BOOK'}">
+																		<a class="btn resve-req og" bookkey="${i.BOOK_KEY}" booktype="BO">예약가능</a> (${i.RESERVATION_CNT}/${i.RESERVATION_NUMBER})
+																		</c:if>
+																		<c:if test="${librarySearch.booktype eq 'NONBOOK'}">
+																		<a class="btn resve-req og" bookkey="${i.BOOK_KEY}" booktype="BO">예약가능</a> (${i.RESERVATION_CNT}/${i.RESERVATION_NUMBER})
+																		</c:if>
+																	</c:otherwise>
+																</c:choose>
+															</c:otherwise>
+														</c:choose>
+													</c:otherwise>
+												</c:choose>
+												<!--
+													<c:if test="${i.RESERVATION_STATUS eq '1'}">
+													<c:if test="${i.MEDIA_CODE eq 'PR'}">
+													<a class="btn resve-req og" bookkey="${i.BOOK_KEY}" booktype="BO">예약가능</a>(${i.RESERVATION_CNT}/${i.RESERVATION_NUMBER})
+													</c:if>
+													</c:if>
+													<c:if test="${i.RESERVATION_STATUS eq '0'}">
+													예약불가
+													</c:if>
+												-->
+												</td>
+											</tr>
+										</tbody>
+									</table>
 									</div>
 									<div class="bci" style="display: none;">
 										<!-- ajax_area -->
@@ -518,17 +782,13 @@ $(function() {
 							</div>
 						</div>
 					</c:forEach>
-
 					<jsp:include page="/WEB-INF/views/app/cms/common/paging_search.jsp" flush="false" />
-					<br/><br/><br/><b>찾으시는 도서가 없으신가요? </b> <a href="hope/req.do" class="btn btn5">희망도서 신청하기</a>
-				</div>
-				<iframe name="print_iframe" id="print_iframe"  src="?page_id=prints"  frameborder="no" style="display:;height:0px;width:0px;" ></iframe>
-				<div id="print_div"  style="height:25px"></div>
-				<c:if test="${fn:length(result.data) > 0}">
-					<div class="btn-wrap" id="btn_print_div">
-						<a href="#" id="btn_print" class="btn btn1" >청구기호 인쇄</a>
+
+					<div style="padding-top:30px ;text-align:right">
+						도서 DB 이미지 제공 : 알라딘 인터넷서점(www.aladin.co.kr) <img src="/resources/common/img/aladin_01.png" alt="alandin" align="absmiddle"/>
 					</div>
-				</c:if>
+				</div>
+				<div id="print_div"  style="height:25px"></div>
 			</div>
 
 			<div class="ws-filter" id="hotTrend" style="height: 370px; <c:if test="${fn:length(result.data) < 1 and !showSmain}">clear: both;</c:if>">

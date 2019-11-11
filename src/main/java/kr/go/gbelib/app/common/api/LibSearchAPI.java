@@ -26,7 +26,365 @@ import kr.go.gbelib.app.intro.search.LibrarySearch;
 public class LibSearchAPI {
 	protected final static Logger log = LoggerFactory.getLogger(LibSearchAPI.class);
 
-	public final static String API_TYPE = "LIBONE";
+
+	/**
+	 * KCMS API 결과 SEARCH_COUNT를 반환
+	 * API 결과가 정상인 경우에만 리턴되며 실패할경우 0을 리턴한다.
+	 * @author YONGJU 2017. 12. 13.
+	 * @param map
+	 * @return
+	 */
+	@SuppressWarnings ("unchecked")
+	public static int getSearchCount(Map<String, Object> map) {
+		int cnt = 0;
+		List<Map<String, Object>> list = null;
+
+		if (map != null && !map.isEmpty() && map.get("RESULT_MESSAGE") != null) {
+			return 0;
+		}
+
+		if (map != null && !map.isEmpty() && map.get("LIST_DATA") != null) {
+			list = new ArrayList<Map<String,Object>>();
+			list.addAll((List<Map<String, Object>>) map.get("LIST_DATA"));
+			if (list != null && list.size() > 0) {
+				Map<String, Object> countMap = list.get(0);
+				if (countMap != null && !countMap.isEmpty() && countMap.containsKey("SEARCH_COUNT")) {
+					cnt = Integer.parseInt(String.valueOf(countMap.get("SEARCH_COUNT")));
+				}
+			}
+		}
+
+		return cnt;
+	}
+
+	/**
+	 * KCMS API 결과 SEARCH_COUNT를 반환
+	 * API 결과가 정상인 경우에만 리턴되며 실패할경우 0을 리턴한다.
+	 * @author YONGJU 2017. 12. 13.
+	 * @param map
+	 * @return
+	 */
+	@SuppressWarnings ("unchecked")
+	public static int getSearchCount(Map<String, Object> map, String list_name) {
+		int cnt = 0;
+		List<Map<String, Object>> list = null;
+
+		if (map != null && !map.isEmpty() && map.get("RESULT_MESSAGE") != null) {
+			return 0;
+		}
+
+		if (map != null && !map.isEmpty() && map.get(list_name) != null) {
+			list = new ArrayList<Map<String,Object>>();
+			list.addAll((List<Map<String, Object>>) map.get(list_name));
+			if (list != null && list.size() > 0) {
+				Map<String, Object> countMap = list.get(0);
+				if (countMap != null && !countMap.isEmpty() && countMap.containsKey("SEARCH_COUNT")) {
+					cnt = Integer.parseInt(String.valueOf(countMap.get("SEARCH_COUNT")));
+				}
+			}
+		}
+
+		return cnt;
+	}
+
+	/**
+	 * KCMS API 결과 DATA를 반환
+	 * API 결과가 정상인 경우에만 리턴되며 실패할경우 null을 리턴한다.
+	 * @author YONGJU 2017. 12. 15.
+	 * @param map
+	 * @param list_name - LIST_DATA, USER_DATA 등
+	 * @return
+	 */
+	@SuppressWarnings ("unchecked")
+	public static List<Map<String, Object>> getListData(Map<String, Object> map, String list_name) {
+		List<Map<String, Object>> list = null;
+
+
+		if (map != null && !map.isEmpty() && map.get("RESULT_MESSAGE") != null) {
+			return null;
+		}
+
+		if (map != null && !map.isEmpty() && map.get(list_name) != null) {
+			list = new ArrayList<Map<String,Object>>();
+			try {
+				list.addAll((List<Map<String, Object>>) map.get(list_name));
+			} catch ( ClassCastException e ) {
+				list.add((Map<String, Object>) map.get(list_name));
+			}
+			if (list != null && list.size() > 0) {
+				Map<String, Object> countMap = list.get(0);
+				if (countMap != null && !countMap.isEmpty() && countMap.containsKey("SEARCH_COUNT")) {
+					list.remove(0);
+				}
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * KCMS API 결과 LIST_DATA를 반환
+	 * API 결과가 정상인 경우에만 리턴되며 실패할경우 null을 리턴한다.
+	 * @author YONGJU 2017. 12. 13.
+	 * @param map
+	 * @return
+	 */
+	@SuppressWarnings ("unchecked")
+	public static List<Map<String, Object>> getListData(Map<String, Object> map) {
+		List<Map<String, Object>> list = null;
+
+
+		if (map != null && !map.isEmpty() && map.get("RESULT_MESSAGE") != null) {
+			return null;
+		}
+
+		if (map != null && !map.isEmpty() && map.get("LIST_DATA") != null) {
+			list = new ArrayList<Map<String,Object>>();
+			list.addAll((List<Map<String, Object>>) map.get("LIST_DATA"));
+			if (list != null && list.size() > 0) {
+				Map<String, Object> countMap = list.get(0);
+				if (countMap != null && !countMap.isEmpty() && countMap.containsKey("SEARCH_COUNT")) {
+					list.remove(0);
+				}
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * K.API - 1
+	 * 단행본 검색 조회 (단행본 일반검색은 getBookNormal)
+	 * @author YONGJU 2017. 12. 13.
+	 * @param librarySearch
+	 * @return
+	 */
+	public static Map<String, Object> getBookNormal(LibrarySearch librarySearch) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		Map<String, Object> result = null;
+
+		param.put("search_txt", librarySearch.getSearch_text());
+		param.put("manage_code", StringUtils.join(librarySearch.getLibraryCodes(), ",").replaceAll("lib_", ""));
+		param.put("pageno", librarySearch.getViewPage());
+		param.put("display", librarySearch.getRowCount());
+		param.put("search_type", "normal");
+
+		result = CommonAPI.sendKCMS("booksearch", param);
+
+		return result;
+	}
+
+
+	/**
+	 * K.API - 2
+	 * 단행본 상세검색 조회 (단행본 일반검색은 getBookNormal)
+	 * @author YONGJU 2017. 12. 13.
+	 * @param librarySearch
+	 * @return
+	 */
+	public static Map<String, Object> getBookDetail(LibrarySearch librarySearch) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		Map<String, Object> result = null;
+
+		try {
+			//서명
+			if (StringUtils.isNotEmpty(librarySearch.getTitle())) param.put("search_title", URLEncoder.encode(librarySearch.getTitle(), "UTF-8"));
+			//저자
+			if (StringUtils.isNotEmpty(librarySearch.getAuthor())) param.put("search_author", URLEncoder.encode(librarySearch.getAuthor(), "UTF-8"));
+			//발행자
+			if (StringUtils.isNotEmpty(librarySearch.getPubler())) param.put("search_publisher", URLEncoder.encode(librarySearch.getPubler(), "UTF-8"));
+			//키워드
+			if (StringUtils.isNotEmpty(librarySearch.getKeyword())) param.put("search_keyword", URLEncoder.encode(librarySearch.getKeyword(), "UTF-8"));
+		}
+		catch ( UnsupportedEncodingException e ) {
+		}
+
+		//ISBN
+		if (StringUtils.isNotEmpty(librarySearch.getIsbn())) {
+			String isbnArr[] = librarySearch.getIsbn().split(" ");
+			String isbn = "";
+			for (int i = 0; i < isbnArr.length; i++) {
+				if (isbnArr[i].length() == 10 || isbnArr[i].length() == 13) {
+					isbn = isbnArr[i];
+				}
+			}
+			if (StringUtils.isNotEmpty(isbn)) {
+				param.put("search_isbn_issn", isbn);
+			}
+		}
+		//발행년시작 - YYYY
+		if (StringUtils.isNotEmpty(librarySearch.getSearch_start_date())) param.put("search_year_start", librarySearch.getSearch_start_date());
+		//발행년종료 - YYYY
+		if (StringUtils.isNotEmpty(librarySearch.getSearch_end_date())) param.put("search_year_end", librarySearch.getSearch_end_date());
+		//자료실코드
+		if (StringUtils.isNotEmpty(librarySearch.getShelfCode())) param.put("search_shelf", librarySearch.getShelfCode());
+		//주제부호 : 분류기호의 첫번째 숫자(0~9). 여러 개인 경우 comma(,)로 연결. ※ IDX_BO_TBL의 CLASS_NO 필드의 첫번째 숫자값으로 확인 (ex : 816.6 -> 8)
+		if (StringUtils.isNotEmpty(librarySearch.getSubjectCode())) param.put("subject_code", librarySearch.getSubjectCode());
+		//등록구분. 여러개인 경우 comma(,)로 연결
+		if (StringUtils.isNotEmpty(librarySearch.getRegCode())) param.put("reg_code", librarySearch.getRegCode());
+
+		try {
+			//자료검색용
+			param.put("manage_code", StringUtils.join(librarySearch.getLibraryCodes(), ",").replaceAll("lib_", ""));
+		} catch ( Exception e ) {
+			//신착도서 등 자료검색 제외
+			param.put("manage_code", librarySearch.getManageCode());
+		}
+
+		if(StringUtils.isNotEmpty(librarySearch.getShelf_list())) {
+			param.put("search_shelf", librarySearch.getShelf_list());
+		}
+
+		param.put("pageno", librarySearch.getViewPage());
+		param.put("display", librarySearch.getRowCount());
+		param.put("search_type", "detail");
+		param.put("reg_no", librarySearch.getRegNo());
+		if (!StringUtils.equals(librarySearch.getSortField(), "NONE")) {
+			param.put("orderby_item", librarySearch.getSortField());
+			param.put("orderby", librarySearch.getSortType());
+		}
+
+		result = CommonAPI.sendKCMS("booksearch", param);
+
+		return result;
+	}
+
+	/**
+	 * K.API - 6
+	 * 비도서 일반 검색
+	 * @author YONGJU 2018. 1. 4.
+	 * @param librarySearch
+	 * @return
+	 */
+	public static Map<String, Object> getNonBookNormal(LibrarySearch librarySearch) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		Map<String, Object> result = null;
+
+		param.put("search_txt", librarySearch.getSearch_text());
+		param.put("manage_code", StringUtils.join(librarySearch.getLibraryCodes(), ",").replaceAll("lib_", ""));
+		param.put("pageno", librarySearch.getViewPage());
+		param.put("display", librarySearch.getRowCount());
+		param.put("search_type", "normal");
+
+		result = CommonAPI.sendKCMS("nonbooksearch", param);
+
+		return result;
+	}
+
+
+	/**
+	 * K.API - 7
+	 * @author whalesoft YONGJU 2019. 11. 11.
+	 * @param librarySearch
+	 * @return
+	 */
+	public static Map<String, Object> getNonBookDetail(LibrarySearch librarySearch) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		Map<String, Object> result = null;
+
+		try {
+			//서명
+			if (StringUtils.isNotEmpty(librarySearch.getTitle())) param.put("search_title", URLEncoder.encode(librarySearch.getTitle(), "UTF-8"));
+			//저자
+			if (StringUtils.isNotEmpty(librarySearch.getAuthor())) param.put("search_author", URLEncoder.encode(librarySearch.getAuthor(), "UTF-8"));
+			//발행자
+			if (StringUtils.isNotEmpty(librarySearch.getPubler())) param.put("search_publisher", URLEncoder.encode(librarySearch.getPubler(), "UTF-8"));
+			//키워드
+			if (StringUtils.isNotEmpty(librarySearch.getKeyword())) param.put("search_keyword", URLEncoder.encode(librarySearch.getKeyword(), "UTF-8"));
+		}
+		catch ( UnsupportedEncodingException e ) {
+		}
+
+		//ISBN
+		if (StringUtils.isNotEmpty(librarySearch.getIsbn())) {
+			String isbnArr[] = librarySearch.getIsbn().split(" ");
+			String isbn = "";
+			for (int i = 0; i < isbnArr.length; i++) {
+				if (isbnArr[i].length() == 10 || isbnArr[i].length() == 13) {
+					isbn = isbnArr[i];
+				}
+			}
+			if (StringUtils.isNotEmpty(isbn)) {
+				param.put("search_isbn_issn", isbn);
+			}
+		}
+		//발행년시작 - YYYY
+		if (StringUtils.isNotEmpty(librarySearch.getSearch_start_date())) param.put("search_year_start", librarySearch.getSearch_start_date());
+		//발행년종료 - YYYY
+		if (StringUtils.isNotEmpty(librarySearch.getSearch_end_date())) param.put("search_year_end", librarySearch.getSearch_end_date());
+		//자료실코드
+		if (StringUtils.isNotEmpty(librarySearch.getShelfCode())) param.put("search_shelf", librarySearch.getShelfCode());
+		//주제부호 : 분류기호의 첫번째 숫자(0~9). 여러 개인 경우 comma(,)로 연결. ※ IDX_BO_TBL의 CLASS_NO 필드의 첫번째 숫자값으로 확인 (ex : 816.6 -> 8)
+		if (StringUtils.isNotEmpty(librarySearch.getSubjectCode())) param.put("subject_code", librarySearch.getSubjectCode());
+		//등록구분. 여러개인 경우 comma(,)로 연결
+		if (StringUtils.isNotEmpty(librarySearch.getRegCode())) param.put("reg_code", librarySearch.getRegCode());
+
+		if(StringUtils.isNotEmpty(librarySearch.getShelf_list())) {
+			param.put("search_shelf", librarySearch.getShelf_list());
+		}
+
+		try {
+			//자료검색용
+			param.put("manage_code", StringUtils.join(librarySearch.getLibraryCodes(), ",").replaceAll("lib_", ""));
+		} catch ( Exception e ) {
+			//신착도서 등 자료검색 제외
+			param.put("manage_code", librarySearch.getManageCode());
+		}
+		param.put("pageno", librarySearch.getViewPage());
+		param.put("display", librarySearch.getRowCount());
+		param.put("search_type", "detail");
+
+		if (!StringUtils.equals(librarySearch.getSortField(), "NONE")) {
+			param.put("orderby_item", librarySearch.getSortField());
+			param.put("orderby", librarySearch.getSortType());
+		}
+
+		result = CommonAPI.sendKCMS("nonbooksearch", param);
+
+		return result;
+	}
+
+	/**
+	 * K.API - 35
+	 * 단일 서지정보 조회
+	 * @author YONGJU 2018. 4. 16.
+	 * @param librarySearch
+	 * @return
+	 */
+	public static Map<String, Object> getBookInfo(LibrarySearch librarySearch) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		Map<String, Object> result = null;
+
+		param.put("manage_code", librarySearch.getManageCode());
+		param.put("book_type", librarySearch.getBooktype());
+		param.put("reg_no", librarySearch.getRegNo());
+
+		result = CommonAPI.sendKCMS("getbookinfo", param);
+
+		return result;
+	}
+
+	/**
+	 * K.API - 37
+	 * 인기검색어 10
+	 *
+	 * @author whalesoft YONGJU 2019. 11. 11.
+	 * @param manage_code 도서관부호 2자리
+	 * @return
+	 */
+	public static Map<String, Object> getHotTrendWordList(String manage_code) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("manage_code", manage_code);
+		return CommonAPI.sendKCMS("searchwordbest", param);
+	}
+
+
+	/********************************************************************************************************************/
+	/*********************************************이하 일루스 ***************************************************************/
+	/*******************************************************************************************************************/
+
+
+
 
 	/**
 	 * 검색 목록
@@ -454,23 +812,23 @@ public class LibSearchAPI {
 	 *        vLoca)
 	 * @return Map<String, Object>
 	 */
-	public static Map<String, Object> getBookDetail(LibrarySearch librarySearch) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		Map<String, Object> result = null;
-
-		param.put("USERID", "WEB");
-		param.put("className", "action.lnk.LnkSearchItemD");
-		param.put("vCtrl", StringUtils.leftPad(librarySearch.getvCtrl(), 12, "0"));
-		if ( !StringUtils.isEmpty(librarySearch.getvLoca()) ) {
-			param.put("vLoca", librarySearch.getvLoca());
-		}
-
-		Document doc = CommonAPI.sendILUS(param);
-
-		result = CommonAPI.parseXml(doc);
-
-		return result;
-	}
+//	public static Map<String, Object> getBookDetail(LibrarySearch librarySearch) {
+//		Map<String, Object> param = new HashMap<String, Object>();
+//		Map<String, Object> result = null;
+//
+//		param.put("USERID", "WEB");
+//		param.put("className", "action.lnk.LnkSearchItemD");
+//		param.put("vCtrl", StringUtils.leftPad(librarySearch.getvCtrl(), 12, "0"));
+//		if ( !StringUtils.isEmpty(librarySearch.getvLoca()) ) {
+//			param.put("vLoca", librarySearch.getvLoca());
+//		}
+//
+//		Document doc = CommonAPI.sendILUS(param);
+//
+//		result = CommonAPI.parseXml(doc);
+//
+//		return result;
+//	}
 
 	/**
 	 * 신착도서 리스트 조회

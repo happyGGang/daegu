@@ -13,18 +13,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kr.co.whalesoft.app.cms.homepage.Homepage;
-import kr.co.whalesoft.app.cms.homepage.HomepageService;
-import kr.co.whalesoft.app.cms.member.Member;
-import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManageService;
-import kr.co.whalesoft.framework.base.BaseController;
-import kr.co.whalesoft.framework.utils.JsonResponse;
-import kr.co.whalesoft.framework.utils.ValidationUtils;
-import kr.co.whalesoft.framework.utils.WebFilterCheckUtils;
-import kr.go.gbelib.app.common.api.ApiResponse;
-import kr.go.gbelib.app.common.api.CommonAPI;
-import kr.go.gbelib.app.common.api.LibSearchAPI;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +26,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.homepage.HomepageService;
+import kr.co.whalesoft.app.cms.member.Member;
+import kr.co.whalesoft.app.cms.menu.Menu;
+import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManageService;
+import kr.co.whalesoft.framework.base.BaseController;
+import kr.co.whalesoft.framework.utils.JsonResponse;
+import kr.co.whalesoft.framework.utils.ValidationUtils;
+import kr.co.whalesoft.framework.utils.WebFilterCheckUtils;
+import kr.go.gbelib.app.common.api.ApiResponse;
+import kr.go.gbelib.app.common.api.LibSearchAPI;
+
 @Controller
 @RequestMapping(value = {"/intro/{context_path}/search"})
 public class LibrarySearchController extends BaseController {
@@ -49,223 +49,107 @@ public class LibrarySearchController extends BaseController {
 
 	@Autowired
 	private HomepageService homepageService;
-	
+
 	@Autowired
 	private CalendarManageService calendarManageService;
-
-	@ModelAttribute("liboneApiUrl")
-	private String getLiboneApiUrl() {
-		return CommonAPI.LIBONE_API_URL;
-	}
-	@ModelAttribute("libraryList")
-	private Map<String, Object> getLibraryList() {
-		return service.getLibraryList();
-	}
-
-	@ModelAttribute("searchCategory")
-	private Map<String, Object> getSearchCategory() {
-		return service.getSearchCategory();
-	}
 
 	@ModelAttribute
 	public void introMenu(Model model) {
 		model.addAttribute("introMenu", "자료검색");//임시
 	}
-	
+
 	@RequestMapping(value = {"/index.*"})
 	public String index(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
-		if (StringUtils.isEmpty(librarySearch.getSearch_type())) {
-			librarySearch.setSearch_type("L_TITLE");
-		}
-
-		Map<String, Object> result	 				= null;
-		Map<String, Object> resultCountByYear 		= null;
-		Map<String, Object> resultCountByLibrary 	= null;
-		Map<String, Object> resultCountByFormCode 	= null;
-		Map<String, Object> resultCountByKDC	 	= null;
-		Map<String, Object> resultCountByPlace	 	= null;
-		Map<String, Object> resultCountByPform	 	= null;
-		Map<String, Object> resultCountByPublisher	= null;
-		Map<String, Object> resultCountByWriter	 	= null;
-
 		// 소장처 코드
-		List<String> libraryCodes = new ArrayList<String>();
-		libraryCodes.add(homepage.getHomepage_codeList()[0]);//검색대에서는 첫번째 코드만 사용한다.
-		libraryCodes.add("00000001");//검색대에서는 첫번째 코드만 사용한다.
-		librarySearch.setLibraryCodes(libraryCodes);
-
-		if ( !StringUtils.isEmpty(librarySearch.getSearch_text()) ) {
-//			librarySearch.setSearch_type("SEARCH");
-			librarySearch.setViewPage(1);
-
-			Member member = getSessionMemberInfo(request);
-			if (member.isLogin() && member.getLoginType().equals("HOMEPAGE")) {
-				if (StringUtils.isNotEmpty(member.getBirth_day()) && member.getBirth_day().length() >= 4) {
-					librarySearch.setBirth_year(member.getBirth_day().substring(0, 4));
-				}
-				if (StringUtils.isNotEmpty(member.getSex()) && member.getSex().length() == 4) {
-					librarySearch.setSex(StringUtils.equals(member.getSex(), "0001") ? "m" : "f");
-				}
-			}
-
-//			if ( librarySearch.isSub_search() ) {
-//				result = LibSearchAPI.getSubSearch(librarySearch);
-//			}
-//			else {
-//				result = LibSearchAPI.getSearch(librarySearch, 1); // API로 Request 보냄
-//			}
-			//
-			if ( librarySearch.isSub_search() ) {
-				result = LibSearchAPI.getSubSearch(librarySearch);
-			}
-			else {
-				String searchType = librarySearch.getSearch_type2();
-				if ( StringUtils.isEmpty(searchType) ) {
-					searchType = "L_TITLE";
-					librarySearch.setSortField("TITLE");
-					librarySearch.setSortType("ASC");
-				}
-				result = LibSearchAPI.getSearch(librarySearch, 1); // API로 Request 보냄
-			}
-
-			if ( result != null ) {
-				if (!StringUtils.equals(result.get("code").toString(), "0000")) {
-					service.alertMessage(result.get("msg").toString(), request, response);
-					return null;
-				}
-				String allBookListStr = result.get("allBookListStr").toString();
-				resultCountByFormCode 	= LibSearchAPI.getSearchCountByFormCode(allBookListStr, 1);//유형
-				resultCountByWriter 	= LibSearchAPI.getSearchCountByWriter(allBookListStr, 1);//저자
-				resultCountByPublisher 	= LibSearchAPI.getSearchCountByPublisher(allBookListStr, 1);//출판사
-				resultCountByYear 		= LibSearchAPI.getSearchCountByYear(allBookListStr, 1);//연도
-//				resultCountByLibrary 	= LibSearchAPI.getSearchCountByLibrary(allBookListStr);
-//				resultCountByKDC	 	= LibSearchAPI.getSearchCountByKDC(allBookListStr);
-//				resultCountByPlace	 	= LibSearchAPI.getSearchCountByPlace(allBookListStr);
-//				resultCountByPform	 	= LibSearchAPI.getSearchCountByPform(allBookListStr);
-
-				int totalCount = 0;
-				if ( result.get("totalCnt") != null ) {
-					totalCount = Integer.parseInt(result.get("totalCnt").toString());
-				}
-
-				service.setPaging(model, totalCount, librarySearch); // 페이징 처리
-				
-				LibSearchAPI.addMarcUrls(result);
-				
-				model.addAttribute("result", result); // 검색한 결과
-				model.addAttribute("resultCountByFormCode", resultCountByFormCode); // 검색한 결과의 유형별 카운트
-				model.addAttribute("resultCountByWriter", resultCountByWriter); // 검색한 결과의 저자별 카운트
-				model.addAttribute("resultCountByPublisher", resultCountByPublisher); // 검색한 결과의 출판사별 카운트
-				model.addAttribute("resultCountByYear", resultCountByYear); 		// 검색한 결과의 연도별 카운트
-//				model.addAttribute("resultCountByLibrary", resultCountByLibrary); 	// 검색한 결과의 도서관별 카운트
-//				model.addAttribute("resultCountByKDC", resultCountByKDC); 			// 검색한 결과의 주제별 카운트
-//				model.addAttribute("resultCountByPlace", resultCountByPlace); 		// 검색한 결과의 자료실별 카운트
-//				model.addAttribute("resultCountByPform", resultCountByPform); 		// 검색한 결과의 종류별 카운트
-				
-			}
+		if ( StringUtils.isEmpty(librarySearch.getManageCode()) ) {
+			librarySearch.setManageCode(homepage.getHomepage_code());
 		}
 
+		if ( librarySearch.getLibraryCodes() == null ) {
+			List<String> libraryCodes = new ArrayList<String>();
+			if ( !StringUtils.isEmpty(homepage.getHomepage_code()) ) {
+				libraryCodes.add(homepage.getHomepage_code());
+			} else {
+				libraryCodes.add("ALL");
+			}
+			librarySearch.setLibraryCodes(libraryCodes);
+		}
+
+		if ( StringUtils.isNotEmpty(librarySearch.getBooktype()) ) {
+			Map<String, Object> result = new HashMap<String, Object>();
+			if (StringUtils.equals(librarySearch.getSearch_type(), "L_TITLE")) {
+				librarySearch.setTitle(librarySearch.getSearch_text());
+			} else if (StringUtils.equals(librarySearch.getSearch_type(), "L_AUTHOR")) {
+				librarySearch.setAuthor(librarySearch.getSearch_text());
+			} else if (StringUtils.equals(librarySearch.getSearch_type(), "L_PUBLISHER")) {
+				librarySearch.setPubler(librarySearch.getSearch_text());
+			} else if (StringUtils.equals(librarySearch.getSearch_type(), "L_KEYWORD")) {
+				librarySearch.setKeyword(librarySearch.getSearch_text());
+			}
+			if ( librarySearch.getBooktype().equals("BOOK") ) {
+				result = LibSearchAPI.getBookDetail(librarySearch);
+			} else if (librarySearch.getBooktype().equals("NONBOOK")) {
+				result = LibSearchAPI.getNonBookDetail(librarySearch);
+			} else {
+//				result = LibSearchAPI.getSerialDetail(librarySearch);
+				//TODO 연속간행물 검색 추가
+			}
+
+			List<Map<String, Object>> list = null;
+
+			int count = LibSearchAPI.getSearchCount(result);
+
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
+
+			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+
+				list = LibSearchAPI.getListData(result);
+
+			}
+
+			model.addAttribute("bookSearch", list);
+
+		}
+
+
+
+
+		model.addAttribute("homepageList", homepageService.getNormalHomepage());
 		model.addAttribute("librarySearch", librarySearch);
 		model.addAttribute("homepage", homepage);
 		return basePath + "index";
 	}
 
-	@RequestMapping(value = {"/table.*"})
-	public String table(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request) {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
-
-		Map<String, Object> result = null;
-		int viewPage = 1;
-		String beforSearchType = librarySearch.getSearch_type();
-
-		if ( !StringUtils.isEmpty(librarySearch.getSearch_text()) ) {
-
-			if ( StringUtils.isEmpty(librarySearch.getSearch_type()) ) {
-				librarySearch.setSearch_type("SEARCH");
-			}
-
-			if ( librarySearch.getViewPage() > 1) { // 화면에서 페이지 버튼 클릭
-				//librarySearch.setSearch_type("GOPAGE"); // GOPAGE 사용시 검색 카테고리 바꾸면 페이징 안됨. (API가 안됨...)
-				viewPage = librarySearch.getViewPage();
-			}
-
-			// 소장처 코드
-			List<String> libraryCodes = new ArrayList<String>();
-			libraryCodes.add(homepage.getHomepage_codeList()[0]);//검색대에서는 첫번째 코드만 사용한다.
-			librarySearch.setLibraryCodes(libraryCodes);
-
-			result = LibSearchAPI.getSearch(librarySearch, viewPage); // API로 Request 보냄
-			int totalCount = 0;
-
-			if ( result != null && result.get("totalCnt") != null ) {
-				String totalCnt = result.get("totalCnt").toString();
-				if ( totalCnt != null && !totalCnt.equals("") ) {
-					totalCount = Integer.parseInt(totalCnt);
-				}
-			}
-
-			service.setPaging(model, totalCount, librarySearch); // 페이징 처리
-			
-			LibSearchAPI.addMarcUrls(result);
-
-			model.addAttribute("result", result); // 검색한 결과
-		}
-		librarySearch.setSearch_type(beforSearchType);// 페이징 할때 search_type 바뀌기 때문에 이전에 무슨 타입으로 검색 했는지 되돌리기 위해서 함.
-
-		model.addAttribute("librarySearch", librarySearch);
-		model.addAttribute("homepage", homepage);
-		return basePath + "table_ajax";
-	}
-
-	@RequestMapping(value = {"/table2.*"})
-	public String table2(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request) {
-
-		Map<String, Object> resultCountByWriter	 	= null;
-		resultCountByWriter 	= LibSearchAPI.getSearchCountByWriter(librarySearch.getAllBookListStr(), librarySearch.getViewPage());//저자
-		model.addAttribute("resultCountByWriter", resultCountByWriter); // 검색한 결과의 저자별 카운트
-
-		return basePath + "table2_ajax";
-	}
-
-	@RequestMapping(value = {"/table3.*"})
-	public String table3(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request) {
-
-		Map<String, Object> resultCountByPublisher	 	= null;
-		resultCountByPublisher 	= LibSearchAPI.getSearchCountByPublisher(librarySearch.getAllBookListStr(), librarySearch.getViewPage());//저자
-		model.addAttribute("resultCountByPublisher", resultCountByPublisher); // 검색한 결과의 출판사별 카운트
-
-		return basePath + "table3_ajax";
-	}
-
-	@RequestMapping(value = {"/table4.*"})
-	public String table4(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request) {
-
-		Map<String, Object> resultCountByYear	 	= null;
-		resultCountByYear 	= LibSearchAPI.getSearchCountByYear(librarySearch.getAllBookListStr(), librarySearch.getViewPage());//저자
-		model.addAttribute("resultCountByYear", resultCountByYear); // 검색한 결과의 연도별 카운트
-
-		return basePath + "table4_ajax";
-	}
-
-	@RequestMapping(value = {"/table5.*"})
-	public String table5(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request) {
-
-		Map<String, Object> resultCountByFormcode	 	= null;
-		resultCountByFormcode 	= LibSearchAPI.getSearchCountByFormCode(librarySearch.getAllBookListStr(), librarySearch.getViewPage());//저자
-		model.addAttribute("resultCountByFormcode", resultCountByFormcode); // 검색한 결과의 연도별 카운트
-
-		return basePath + "table5_ajax";
-	}
 
 	@RequestMapping(value = {"/hotTrend.*"})
 	public String hotTrend(Model model, LibrarySearch librarySearch, HttpServletRequest request, @PathVariable String context_path) {
-		model.addAttribute("hotTrendDailyList", LibSearchAPI.getHotTrendWordList(10, "1"));
-		model.addAttribute("hotTrendWeeklyList", LibSearchAPI.getHotTrendWordList(10, "2"));
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		Map<String, Object> hotTrendWordList = LibSearchAPI.getHotTrendWordList(homepage.getHomepage_code());
+
+		int count = LibSearchAPI.getSearchCount(hotTrendWordList);
+
+		if ( count > 0 ) {
+			model.addAttribute("hotTrendList", LibSearchAPI.getListData(hotTrendWordList));
+		}
 
 		return basePath + "hotTrend_ajax";
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	@RequestMapping(value = {"/autoFill.do"})
 	public @ResponseBody Map<String, Object> autoFill(@RequestParam("searchKeyword")String searchKeyword) {
@@ -277,71 +161,42 @@ public class LibrarySearchController extends BaseController {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 		model.addAttribute("introMenu", "도서상세정보");//임시
-
-		// 소장처 코드
-		//librarySearch.setvLoca(homepage.getHomepage_code());
-
-		Map<String, Object> result = LibSearchAPI.getBookDetail(librarySearch);
-		if("00000001".equals(librarySearch.getvLoca())) {
-			LibSearchAPI.addMarcUrls(result);
-		}
-		model.addAttribute("detail", result);
-		model.addAttribute("librarySearch", librarySearch);
 		String returnPage = "detail";
-		if (!StringUtils.isEmpty(index) && index.equals("index_")) {
-			//결과리스트에서 이용가능여부 클릭 시
-			returnPage = "index_detail_ajax";
-		} else {
-			if (StringUtils.isNotEmpty(librarySearch.getTid())) {
-				model.addAttribute("descIndex", LibSearchAPI.getDescriptionIndex(librarySearch.getTid()));
-			}
-			model.addAttribute("ageChart", LibSearchAPI.getAgeChart(librarySearch));
-			model.addAttribute("withBook", LibSearchAPI.getWithBook(librarySearch));
-			model.addAttribute("tagCloud", LibSearchAPI.getTagCloud(librarySearch));
-//			model.addAttribute("callNoBrowsing", LibSearchAPI.getCallNoBrowsingList(librarySearch.getvCtrl(), "5"));
-			try {
-				List<String> locaList = new ArrayList<String>();
-				for (Homepage home : homepageService.getHomepage()) {
-					String homepageCode = home.getHomepage_code();
-					if (StringUtils.isNotEmpty(homepageCode)) {
-						if (homepageCode.length() >= 8) {
-							locaList.add(homepageCode.substring(0, 8));
-						}
-					}
-				}
-//				locaList.add("00147046");
-				List<Map<String, Object>> dsPlaceBookList = null;
-				Map<String, Object> sameBookList = LibSearchAPI.getSameBookList("WEB", librarySearch.getIsbn(), locaList);
-				if (sameBookList != null) {
-					List<Map<String, Object>> tempSameBookList = (List<Map<String, Object>>) sameBookList.get("dsSameBookList");
-					if (tempSameBookList != null) {
-						dsPlaceBookList = new ArrayList<Map<String, Object>>();
-						for (Map<String, Object> map : tempSameBookList) {
-							Map<String, Object> searchItemD = LibSearchAPI.getBookDetail(new LibrarySearch(String.valueOf(map.get("LOCA")), String.valueOf(map.get("CTRLNO"))));
-							if (searchItemD != null) {
-								dsPlaceBookList.add(searchItemD);
-							}
-						}
-					}
-				}
-				model.addAttribute("sameBook", dsPlaceBookList);
-				if (StringUtils.isNotEmpty(librarySearch.getIsbn())) {
-					model.addAttribute("naverDetail", LibSearchAPI.getNaverDetail(librarySearch.getIsbn()));
-				}
-			} catch (Exception e) {
-			}
+
+		Map<String, Object> result = new HashMap<String, Object>();
+
+		if ( librarySearch.getBooktype() == null ) {
+			librarySearch.setBooktype("BOOK");
+		}
+
+//		if ( librarySearch.getBooktype().equals("BOOK") ) {
+//			result = LibSearchAPI.getBookDetail(librarySearch);
+//		} else {
+//			result = LibSearchAPI.getNonBookDetail(librarySearch);
+//		}
+
+		result = LibSearchAPI.getBookInfo(librarySearch);
+
+		// Map<String, Object> result = LibSearchAPI.getBookDetail(librarySearch);
+
+		model.addAttribute("librarySearch", librarySearch);
+
+		List<Map<String, Object>> list = null;
+
+		int count = LibSearchAPI.getSearchCount(result);
+
+		librarySearch.setTotalDataCount(count);
+		service.setPaging(model, count, librarySearch);
+
+		if ( count > 0 ) {
+
+			list = LibSearchAPI.getListData(result);
+			model.addAttribute("detail", list.get(0));
+
+
 		}
 		model.addAttribute("homepage", homepage);
-		model.addAttribute("isTodayClosed", calendarManageService.isTodayClosed(homepage.getHomepage_id()));
 		return basePath + returnPage;
-	}
-
-	@RequestMapping(value = {"/callNoBrowsing.*"})
-	public String callNoBrowsing(Model model, LibrarySearch librarySearch, HttpServletRequest request, @PathVariable String context_path) {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		model.addAttribute("callNoBrowsing", LibSearchAPI.getCallNoBrowsingList(librarySearch.getvCtrl(), "5"));
-
-		return String.format(basePath, homepage.getFolder()) + "callNoBrowsing_ajax";
 	}
 
 	@RequestMapping(value = {"/newBook/index.*"})
@@ -550,7 +405,7 @@ public class LibrarySearchController extends BaseController {
 				if ( !homepage.getHomepage_code().contains(",") ) {
 					librarySearch.setvLoca(homepage.getHomepage_code());
 				}
-				
+
 				StringBuilder sb = new StringBuilder();
 				sb.append(librarySearch.getEditMode() + "\n");
 				sb.append(librarySearch.getvLoca() + "\n");
@@ -644,7 +499,7 @@ public class LibrarySearchController extends BaseController {
 	public @ResponseBody JsonResponse saveResve(@PathVariable String context_path, Model model, LibrarySearch librarySearch, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		
+
 		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request)) ) {
 			try {
 				librarySearch.setBefore_url(URLEncoder.encode(request.getHeader("referer"), "UTF-8"));
