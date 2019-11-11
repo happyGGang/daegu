@@ -88,10 +88,12 @@ public class AdminMenuController extends BaseController {
 		
 		if(!result.hasErrors()) {
 			if(adminMenu.getEditMode().equals("MODIFY")) {
+				adminMenu.setModify_id(getSessionMemberId(request));
 				service.modifyAdminMenu(adminMenu);
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");
 			} else if(adminMenu.getEditMode().equals("ADD")) {
+				adminMenu.setAdd_id(getSessionMemberId(request));
 				service.addAdminMenu(adminMenu);
 				res.setValid(true);
 				res.setMessage("등록 되었습니다.");

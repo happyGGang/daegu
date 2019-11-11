@@ -222,13 +222,13 @@
 		INSERT INTO CMS_ADMIN_MENU
 		(
 			menu_idx, parent_menu_idx, menu_url, menu_name, menu_desc, menu_type,
-			use_yn, view_yn, print_seq, add_date, modify_date, module_idx,
+			use_yn, view_yn, print_seq, add_id, add_date, module_idx,
 			group_idx, menu_full_path_name
 		)
 			VALUES
 		(
 			#{menu_idx} , #{parent_menu_idx}, #{menu_url}, #{menu_name}, #{menu_desc}, #{menu_type},
-			#{use_yn}, #{view_yn}, #{print_seq}, SYSDATE, SYSDATE, #{module_idx},
+			#{use_yn}, #{view_yn}, #{print_seq}, #{add_id}, SYSDATE, #{module_idx},
 		<choose>
 		<when test="group_idx == 0">
 			#{menu_idx}, #{menu_name}
@@ -263,6 +263,7 @@
 			view_yn = #{view_yn},
 			admin_access_yn = #{admin_access_yn},
 			print_seq = #{print_seq},
+			modify_id = #{modify_id},
 			modify_date = SYSDATE,
 			menu_full_path_name =
 			<choose>

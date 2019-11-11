@@ -63,13 +63,13 @@ public class AdminMenuService extends BaseService {
 	
 	@Transactional
 	public int modifyAdminMenu(AdminMenu adminMenu) {
-		dao.deleteAdminMenuAuth(adminMenu);
-		if (adminMenu.getAuth_id_array() != null ) {
-			for (String oneAuthId : adminMenu.getAuth_id_array()) {
-				adminMenu.setAuth_id(oneAuthId);
-				dao.addAdminMenuAuth(adminMenu);
-			}	
-		}
+//		dao.deleteAdminMenuAuth(adminMenu);
+//		if (adminMenu.getAuth_id_array() != null ) {
+//			for (String oneAuthId : adminMenu.getAuth_id_array()) {
+//				adminMenu.setAuth_id(oneAuthId);
+//				dao.addAdminMenuAuth(adminMenu);
+//			}	
+//		}
 		
 		return dao.modifyAdminMenu(adminMenu);
 	}
@@ -80,7 +80,7 @@ public class AdminMenuService extends BaseService {
 	
 	@Transactional
 	public int deleteAdminMenu(AdminMenu adminMenu) {
-		dao.deleteAdminMenuAuth(adminMenu);
+//		dao.deleteAdminMenuAuth(adminMenu);
 		return dao.deleteAdminMenu(adminMenu);
 	}
 	

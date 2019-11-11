@@ -22,7 +22,9 @@ public class AdminMenu extends PagingUtils {
 	private String use_yn; // 메뉴사용여부
 	private String view_yn; // 메뉴표시여부
 	private String admin_access_yn = "N"; // 최고관리자전용여부
+	private String add_id; // 등록ID
 	private Date add_date; // 등록날짜
+	private String modify_id; // 수정ID
 	private Date modify_date; // 수정날짜
 	private String menu_full_path; // 메뉴전체경로
 	private String menu_type = "container"; // 메뉴타입 (container : 내부링크, module : 모듈, _blank : 외부링크)
@@ -155,12 +157,28 @@ public class AdminMenu extends PagingUtils {
 		this.view_yn = view_yn;
 	}
 
+	public String getAdd_id() {
+		return add_id;
+	}
+
+	public void setAdd_id(String add_id) {
+		this.add_id = add_id;
+	}
+
 	public Date getAdd_date() {
 		return add_date;
 	}
 
 	public void setAdd_date(Date add_date) {
 		this.add_date = add_date;
+	}
+
+	public String getModify_id() {
+		return modify_id;
+	}
+
+	public void setModify_id(String modify_id) {
+		this.modify_id = modify_id;
 	}
 
 	public Date getModify_date() {
@@ -197,9 +215,9 @@ public class AdminMenu extends PagingUtils {
 
 	public String[] getAuth_id_array() {
 		String[] ret = null;
-		if ( this.auth_id_array != null ) {
+		if (this.auth_id_array != null) {
 			ret = new String[this.auth_id_array.length];
-			for ( int i = 0; i < this.auth_id_array.length; i++ ) {
+			for (int i = 0; i < this.auth_id_array.length; i++) {
 				ret[i] = this.auth_id_array[i];
 			}
 		}
@@ -208,7 +226,7 @@ public class AdminMenu extends PagingUtils {
 
 	public void setAuth_id_array(String[] auth_id_array) {
 		this.auth_id_array = new String[auth_id_array.length];
-		for ( int i = 0; i < auth_id_array.length; i++ ) {
+		for (int i = 0; i < auth_id_array.length; i++) {
 			this.auth_id_array[i] = auth_id_array[i];
 		}
 	}
@@ -235,12 +253,11 @@ public class AdminMenu extends PagingUtils {
 	 * @return
 	 */
 	public List<Integer> getMenu_idx_list() {
-		if ( menu_idx_list != null ) {
+		if (menu_idx_list != null) {
 			List<Integer> arrayList = new ArrayList<Integer>();
 			arrayList.addAll(this.menu_idx_list);
 			return arrayList;
-		}
-		else {
+		} else {
 			return null;
 		}
 	}
@@ -251,7 +268,7 @@ public class AdminMenu extends PagingUtils {
 	 * @param menu_idx_list
 	 */
 	public void setMenu_idx_list(List<Integer> menu_idx_list) {
-		if ( menu_idx_list != null ) {
+		if (menu_idx_list != null) {
 			this.menu_idx_list = new ArrayList<Integer>();
 			this.menu_idx_list.addAll(menu_idx_list);
 		}
@@ -264,9 +281,9 @@ public class AdminMenu extends PagingUtils {
 	 */
 	public String[] getMenu_auth_group_arr() {
 		String[] ret = null;
-		if ( this.menu_auth_group_arr != null ) {
+		if (this.menu_auth_group_arr != null) {
 			ret = new String[this.menu_auth_group_arr.length];
-			for ( int i = 0; i < this.menu_auth_group_arr.length; i++ ) {
+			for (int i = 0; i < this.menu_auth_group_arr.length; i++) {
 				ret[i] = this.menu_auth_group_arr[i];
 			}
 		}
@@ -280,7 +297,7 @@ public class AdminMenu extends PagingUtils {
 	 */
 	public void setMenu_auth_group_arr(String[] menu_auth_group_arr) {
 		this.menu_auth_group_arr = new String[menu_auth_group_arr.length];
-		for ( int i = 0; i < menu_auth_group_arr.length; i++ ) {
+		for (int i = 0; i < menu_auth_group_arr.length; i++) {
 			this.menu_auth_group_arr[i] = menu_auth_group_arr[i];
 		}
 	}
@@ -349,11 +366,9 @@ public class AdminMenu extends PagingUtils {
 		this.auth_group_id = auth_group_id;
 	}
 
-
 	public boolean isIncludeElib() {
 		return includeElib;
 	}
-
 
 	public void setIncludeElib(boolean includeElib) {
 		this.includeElib = includeElib;
