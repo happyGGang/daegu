@@ -18,10 +18,10 @@ public class ModuleMngt extends PagingUtils {
 	private String link_url; // 링크URL
 	private String link_param; // 링크URL
 	private String auth_group_id; // 링크URL
-	private Date add_dttm; // 등록일
+	private Date add_date; // 등록일
 	private String add_id; // 등록자
-	private Date mod_dttm; // 수정일
-	private String mod_id; // 수정자
+	private Date modify_date; // 수정일
+	private String modify_id; // 수정자
 
 	private String terms_idx;
 
@@ -96,12 +96,12 @@ public class ModuleMngt extends PagingUtils {
 		this.add_id = add_id;
 	}
 
-	public String getMod_id() {
-		return mod_id;
+	public String getModify_id() {
+		return modify_id;
 	}
 
-	public void setMod_id(String mod_id) {
-		this.mod_id = mod_id;
+	public void setModify_id(String modify_id) {
+		this.modify_id = modify_id;
 	}
 
 	public String getTerms_idx() {
@@ -112,20 +112,20 @@ public class ModuleMngt extends PagingUtils {
 		this.terms_idx = terms_idx;
 	}
 
-	public Date getAdd_dttm() {
-		return add_dttm;
+	public Date getAdd_date() {
+		return add_date;
 	}
 
-	public void setAdd_dttm(Date add_dttm) {
-		this.add_dttm = add_dttm;
+	public void setAdd_date(Date add_date) {
+		this.add_date = add_date;
 	}
 
-	public Date getMod_dttm() {
-		return mod_dttm;
+	public Date getModify_date() {
+		return modify_date;
 	}
 
-	public void setMod_dttm(Date mod_dttm) {
-		this.mod_dttm = mod_dttm;
+	public void setModify_date(Date modify_date) {
+		this.modify_date = modify_date;
 	}
 
 }

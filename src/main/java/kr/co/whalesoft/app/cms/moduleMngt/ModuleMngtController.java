@@ -77,7 +77,7 @@ public class ModuleMngtController extends BaseController {
 				res.setValid(true);
 				res.setMessage("등록 되었습니다.");
 			} else if(editMode.equals("MODIFY")) {
-				moduleMngt.setMod_id(getSessionMemberId(request));
+				moduleMngt.setModify_id(getSessionMemberId(request));
 				service.modifyModuleMngt(moduleMngt);
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");
