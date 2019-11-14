@@ -54,11 +54,8 @@ public class SiteMapTag extends BodyTagSupport {
 					hasChildren.put(parent_menu_idx, true);
 				}
 			}
-			
+
 			for(Menu menu : menuList) {
-				if ( "Y".equals(menu.getSolo_yn()) ) {
-					continue;
-				}
 				if ( "N".equals(menu.getView_yn())) {
 					continue;
 				}

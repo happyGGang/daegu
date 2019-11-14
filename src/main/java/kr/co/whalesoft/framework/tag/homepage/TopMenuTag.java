@@ -14,53 +14,41 @@ import kr.co.whalesoft.framework.tag.HtmlTag;
 public class TopMenuTag extends BodyTagSupport {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private List<Menu> menuList;
-	
-	private String isSoloMenu;
+
 	private boolean isAddTitle = false;
-	
+
 	@Override
 	public int doEndTag() throws JspException {
 		HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
-		
+
 		HtmlTag ulTag = new HtmlTag("ul");
 		ulTag.setAttribute("class", "gnb-menu");
-		
+
 		HtmlTag liTag_lvl1 = null;
-		
+
 		HtmlTag ulTag_lvl2 = null;
 		HtmlTag liTag_lvl2 = null;
 		boolean check_lvl2 = false;
-		
+
 		HtmlTag ulTag_lvl3 = null;
 		HtmlTag liTag_lvl3 = null;
 		boolean check_lvl3 = false;
-		
+
 		int ulMenuCount = 1;
 		if(menuList != null) {
 			for(Menu menu : menuList) {
 				String link_url = "";
-				//독립 메뉴 일때는 독립메뉴 아닌건 건너뛴다
-				if ( "Y".equals(isSoloMenu) ) {
-					if ( !menu.getSolo_yn().equals("Y") ) {
-						continue;
-					}	
-				}
-				else {
-					if ( !menu.getSolo_yn().equals("N") ) {
-						continue;
-					}	
-				}
-				
+
 				if ( menu.getMenu_type().equals("HTML") ) {
 					link_url = "/" + homepage.getContext_path() + "/html.do?menu_idx=" + menu.getMenu_idx();
 				}
 				else if ( menu.getMenu_type().equals("PROGRAM") ) {
 					link_url = String.format("/%s%s?menu_idx=%s", homepage.getContext_path(), menu.getMenu_url(), menu.getMenu_idx());
 					if ( !StringUtils.isEmpty(menu.getMenu_url_param()) ) {
-						link_url = String.format("/%s%s?menu_idx=%s&%s", homepage.getContext_path(), menu.getMenu_url(), menu.getMenu_idx(), menu.getMenu_url_param());	
+						link_url = String.format("/%s%s?menu_idx=%s&%s", homepage.getContext_path(), menu.getMenu_url(), menu.getMenu_idx(), menu.getMenu_url_param());
 					}
 				}
 				else if ( menu.getMenu_type().equals("BOARD") ) {
@@ -79,7 +67,7 @@ public class TopMenuTag extends BodyTagSupport {
 				else {
 					link_url = String.format("/%s/html.do?menu_idx=%s", homepage.getContext_path(), menu.getMenu_idx());
 				}
-				
+
 				String targetStr = "";
 				if(menu.getMenu_level() == 1) {
 					check_lvl2 = false;
@@ -94,7 +82,7 @@ public class TopMenuTag extends BodyTagSupport {
 					liTag_lvl1.setContent("<a href=\"" + link_url + "\" " + targetStr + "><span>" + menu.getMenu_name() + "</span></a>");
 					ulTag.addSubTag(liTag_lvl1);
 					ulMenuCount += 1;
-					
+
 					if ( !"Y".equals(menu.getView_yn()) ) {
 						liTag_lvl1.setAttribute("style", "display:none");
 					}
@@ -105,9 +93,9 @@ public class TopMenuTag extends BodyTagSupport {
 						ulTag_lvl2 = new HtmlTag("ul");
 						ulTag_lvl2.setAttribute("class", "SubMenu");
 						liTag_lvl1.addSubTag(ulTag_lvl2);
-						
+
 						/*if ( isAddTitle ) {
-							ulTag_lvl2.addSubTag(titleRepo.get(menu.getParent_menu_idx()));	
+							ulTag_lvl2.addSubTag(titleRepo.get(menu.getParent_menu_idx()));
 						}*/
 					}
 					if(menu.getMenu_type().equals("LINK_OUTER")) {
@@ -139,7 +127,7 @@ public class TopMenuTag extends BodyTagSupport {
 				}
 			}
 		}
-			
+
 		try {
 			pageContext.getOut().println(ulTag.toString());
 		} catch (IOException e) {
@@ -174,12 +162,5 @@ public class TopMenuTag extends BodyTagSupport {
 		this.isAddTitle = isAddTitle;
 	}
 
-	public String getIsSoloMenu() {
-		return isSoloMenu;
-	}
 
-	public void setIsSoloMenu(String isSoloMenu) {
-		this.isSoloMenu = isSoloMenu;
-	}
-	
 }

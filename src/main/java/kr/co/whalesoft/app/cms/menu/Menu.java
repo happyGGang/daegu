@@ -62,8 +62,6 @@ public class Menu extends PagingUtils {
 
 	private String temp_yn = "N";
 
-	private String solo_yn = "N";
-
 	private String moduleName;
 	private String auth_group_id;
 
@@ -446,14 +444,6 @@ public class Menu extends PagingUtils {
 
 	public void setManage_view_yn(String manage_view_yn) {
 		this.manage_view_yn = manage_view_yn;
-	}
-
-	public String getSolo_yn() {
-		return solo_yn;
-	}
-
-	public void setSolo_yn(String solo_yn) {
-		this.solo_yn = solo_yn;
 	}
 
 	public String getMobile_view_yn() {

@@ -21,7 +21,7 @@ $(function() {
 	    },
 	    teardown: function(){
 	        window.clearInterval($.data(this,'timer'));
-	    }, 
+	    },
 	    add: function(){
 	        $.data(this, 'cache', this.value);
 	    }
@@ -32,14 +32,14 @@ $(function() {
 		var txt = $(this).val();
 		$('span.menuName').text(txt);
 	});
-	
+
 	$('input#print_seq').spinner({
 		min: 0,
 		max: 2500,
 		step: 1,
 		start: 1000
 	});
-	
+
 	//메뉴 유형 선택 시 추가 옵션 (cont2.jsp)
 	$('.menuType').each(function(i){
 		var i = i+1;
@@ -60,36 +60,36 @@ $(function() {
 		//셀렉트 메뉴에 검색 기능 사용 안함
 		minimumResultsForSearch: Infinity
 	});
-	
+
 	//HTML 등록/수정 dialog
 	$('a#modal_HTML, a#module-html').on('click', function(event) {
 		$('#dialog_HTML').load('edit_html.do?homepage_id=' + $('input#homepage_id_1').val() + '&menu_idx=${menu.menu_idx}', function( response, status, xhr ) {
 			$('div#dialog_HTML').dialog('open');
 		});
-		
+
 		$('.injected').remove();
-		
+
 		event.preventDefault();
 	});
-	
+
 	//게시판 등록/수정 dialog
 	$('a#modal_BOARD').on('click', function(event) {
 		$('#dialog_BOARD').load('edit_board.do?homepage_id=' + $('input#homepage_id_1').val() + '&menu_idx=${menu.menu_idx}&rowCount=1000', function( response, status, xhr ) {
 			$('div#dialog_BOARD').dialog('open');
 		});
-		
+
 		event.preventDefault();
 	});
-	
+
 	//게시판 등록/수정 dialog
 	$('a#modal_MODULE').on('click', function(event) {
 		$('#dialog_MODULE').load('edit_module.do?homepage_id=' + $('input#homepage_id_1').val() + '&menu_idx=${menu.menu_idx}&module_type=SITE', function( response, status, xhr ) {
 			$('div#dialog_MODULE').dialog('open');
 		});
-		
+
 		event.preventDefault();
 	});
-	
+
 	$('a#save').on('click', function(e) {
 		if(confirm('저장 하시겠습니까?')) {
 			jQuery.ajaxSettings.traditional = true;
@@ -102,14 +102,14 @@ $(function() {
 			else if ( $('[name="menu_type"]:checked').val() == 'LINK_OUTER' ) {
 				$('#link_url').val($('#input_link_outer').val());
 			}
-			
+
 			/* if ( $('#check_0').prop('checked') ) {
 				$('#content_title_yn').val('Y');
 			}
 			else {
 				$('#content_title_yn').val('N');
 			} */
-			
+
 			var option = {
 				url : "/cms/menu/save.do",
 				type : "POST",
@@ -134,28 +134,28 @@ $(function() {
 			};
 			$("#menuEdit").ajaxSubmit(option);
 		}
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('a.select-manager-btn').on('click', function(e) {
 		e.preventDefault();
 		$('div#dialog_manager').load('managerView.do?homepage_id=' + $('input#homepage_id_1').val(), function( response, status, xhr ) {
 			$('div#dialog_manager').dialog('open');
 		});
 	});
-	
+
 	$('a#authGroup').on('click', function(e) {
 		e.preventDefault();
 		$('div#dialog_manager').load('managerView.do?homepage_id=' + $('input#homepage_id_1').val(), function( response, status, xhr ) {
 			$('div#dialog_manager').dialog('open');
 		});
 	});
-	
+
 	$('a.preview-btn').on('click', function(e) {
 		//e.preventDefault();
 		if ( $('[name="menu_type"]:checked').val() == 'HTML' ) {
-			window.open("/${homepage.context_path}/html.do?menu_idx=${menu.menu_idx}");	
+			window.open("/${homepage.context_path}/html.do?menu_idx=${menu.menu_idx}");
 		}
 		else if ( $('[name="menu_type"]:checked').val() == 'BOARD' ) {
 			window.open("/${homepage.context_path}/board/index.do?menu_idx=${menu.menu_idx}&manage_idx=${boardManage.manage_idx}");
@@ -170,8 +170,8 @@ $(function() {
 			window.open("${menu.link_url}");
 		}
 	});
-	
-	
+
+
 });
 </script>
 <div id="editDisable" class="disableBox">
@@ -209,15 +209,10 @@ $(function() {
 					</c:otherwise>
 				</c:choose>
 				</td>
-				<th>독립메뉴여부</th>
-				<td>
-					<form:radiobutton path="solo_yn" value="N" label="NO"/>
-					<form:radiobutton path="solo_yn" value="Y" label="YES"/>
-				</td>
 			</tr>
 			<tr>
 				<th>메뉴 ID</th>
-				<td colspan="3">
+				<td>
 					<c:choose>
 					<c:when test="${menu.editMode eq 'MODIFY'}">${menu.menu_idx}</c:when>
 					<c:otherwise>
@@ -228,11 +223,11 @@ $(function() {
 			</tr>
 			<tr class="group first">
 				<th>메뉴명</th>
-				<td colspan="3"><form:input path="menu_name" cssClass="text menuName" cssStyle="font-size:14px;font-weight:800;" maxlength=""/></td>
+				<td><form:input path="menu_name" cssClass="text menuName" cssStyle="font-size:14px;font-weight:800;" maxlength=""/></td>
 			</tr>
 			<tr>
 				<th>메뉴명 표시</th>
-				<td colspan="3">
+				<td>
 					<div class="checkbox">
 						<form:checkbox path="content_title_yn" value="Y" label="사용함"/>
 						<p class="info">체크 해제 시 홈페이지에서 콘텐츠 상단의 메뉴명이 출력되지 않습니다.</p>
@@ -248,7 +243,7 @@ $(function() {
 			</tr>
 			<tr>
 				<th>현재 이미지</th>
-				<td colspan="3">
+				<td>
 					<c:if test="${menu.menu_img ne null and menu.menu_img ne '' }">
 						<img alt="${menu.menu_img}" src="/data/menu/${menu.homepage_id}/${menu.menu_img}">
 					</c:if>
@@ -257,7 +252,7 @@ $(function() {
 			</c:if>
 			<tr class="group">
 				<th>메뉴 노출</th>
-				<td colspan="3">
+				<td>
 					<form:select path="view_yn" cssClass="selectmenu">
 						<form:option value="Y">YES</form:option>
 						<form:option value="N">NO</form:option>
@@ -267,7 +262,7 @@ $(function() {
 			</tr>
 			<tr class="group">
 				<th>메뉴 노출(모바일)</th>
-				<td colspan="3">
+				<td>
 					<form:select path="mobile_view_yn" cssClass="selectmenu">
 						<form:option value="Y">YES</form:option>
 						<form:option value="N">NO</form:option>
@@ -277,7 +272,7 @@ $(function() {
 			</tr>
 			<tr class="group last">
 				<th>사용 여부</th>
-				<td colspan="3">
+				<td>
 					<form:select path="use_yn" cssClass="selectmenu">
 						<form:option value="Y">YES</form:option>
 						<form:option value="N">NO</form:option>
@@ -287,13 +282,13 @@ $(function() {
 			</tr>
 			<tr>
 				<th>출력 순서</th>
-				<td colspan="3">
+				<td>
 					<form:input path="print_seq" cssStyle="width:30px;" cssClass="text spinner"/>
 				</td>
 			</tr>
 			<tr>
 				<th>메뉴 유형</th>
-				<td colspan="3">
+				<td>
 					<div class="form-group menuTypeBox">
 						<div class="radio">
 							<form:radiobutton id="menu_type_NONE" path="menu_type" value="NONE"/>
@@ -333,7 +328,7 @@ $(function() {
 							<em>* 메뉴를 먼저 등록 후 HTML 편집이 가능합니다.</em>
 						</c:otherwise>
 						</c:choose>
-							
+
 						</div>
 						<div class="menuType bbs">
 							<a href="" class="btn btn1" id="modal_BOARD">게시판 종류 선택</a>
@@ -422,7 +417,7 @@ $(function() {
 			</tr>
 			<tr style="display: none;">
 				<th>메뉴 권한</th>
-				<td colspan="3">
+				<td>
 					<div class="permissionBox">
 						<a href="" class="btn btn1" id="authGroup">권한그룹 설정</a>
 					</div>
@@ -430,7 +425,7 @@ $(function() {
 			</tr>
 			<tr class="group first">
 				<th>담당자 표시</th>
-				<td colspan="3">
+				<td>
 					<form:select path="manage_view_yn" cssClass="selectmenu">
 						<form:option value="Y" label="YES" />
 						<form:option value="N" label="NO" />
@@ -439,12 +434,12 @@ $(function() {
 			</tr>
 			<tr class="group last">
 				<th>담당자 정보</th>
-				<td colspan="3">
-					<label>부서 : <form:input path="manage_dept" maxlength="20" size="20" class="text" readonly="true"/></label> 
-					<label>이름 : <form:input path="manage_name" maxlength="10" size="10" class="text" readonly="true"/></label> 
+				<td>
+					<label>부서 : <form:input path="manage_dept" maxlength="20" size="20" class="text" readonly="true"/></label>
+					<label>이름 : <form:input path="manage_name" maxlength="10" size="10" class="text" readonly="true"/></label>
 					<label>전화번호 : <form:input path="manage_phone" maxlength="13" size="13" class="text" readonly="true"/></label>
 					<form:hidden path="task_idx"/>
-					<a class="btn btn4 select-manager-btn">담당자선택</a> 
+					<a class="btn btn4 select-manager-btn">담당자선택</a>
 					<div id="dialog_manager" class="dialog-common" title="담당자 선택"></div>
 				</td>
 			</tr>
@@ -461,9 +456,9 @@ $(function() {
 		</div>
 	</div>
 	</c:if>
-	
+
 	<br/><br/>
-	
+
 	<!-- 메뉴 트리 클릭하기 전에 보여줄 영역 여기부터 -->
 	<div class="set-info">
 		<strong>메뉴 설정 안내</strong>
@@ -473,7 +468,7 @@ $(function() {
 			<li><span style="color:#2e9901;!important">홈페이지 속도를 위해 메뉴정보는 캐시로 관리되며 실제 반영까지 10분정도 소요될 수 있습니다.</span></li>
 		</ul>
 	</div>
-	
+
 		<div class="txt-center">
 	<c:if test="${authC or authU}">
 			<a href="" class="btn">취소</a>
@@ -483,7 +478,7 @@ $(function() {
 	</c:if>
 		</div>
 	<!-- 메뉴 트리 클릭하기 전에 보여줄 영역 여기까지 -->
-	
-	
+
+
 </div>
 
