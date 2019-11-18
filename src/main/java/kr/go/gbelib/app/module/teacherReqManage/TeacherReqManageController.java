@@ -61,22 +61,22 @@ public class TeacherReqManageController extends BaseController {
 
 	@Autowired
 	private SiteService siteService;
-	
+
 	@Autowired
 	private TermsService termsService;
 
 	@Autowired
 	private CodeService codeService;
-	
+
 	@ModelAttribute("siteList")
 	public List<Site> getAreaCdList(HttpServletRequest request) {
 		return siteService.getSiteListAll(new Site(getAsideHomepageId(request)));
 	}
-	
+
 	@RequestMapping(value = { "/index.*" })
 	public String index(Model model, TeacherReqManage teacher, HttpServletRequest request) {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
-		
+
 		teacher.setHomepage_id(homepage.getHomepage_id());
 		teacher.setConfirm_yn("Y");
 		int count = service.getTeacherListCount(teacher);
@@ -84,12 +84,12 @@ public class TeacherReqManageController extends BaseController {
 		model.addAttribute("teacherList", service.getTeacherList(teacher));
 		model.addAttribute("teacherListCount", count);
 //		model.addAttribute("subjectCodeList", codeService.getCode("CMS", "C0023"));
-		
+
 		List<Code> codeList = codeService.getCode("CMS", "C0023");
 		List<Code> largeCodeList = new ArrayList<Code>();
 		String tempLargeCodeName = "";
 		for ( Code code : codeList ) {
-			
+
 			int dashIndex = code.getCode_name().indexOf("-");
 			String largeCodeName = code.getCode_name().substring(0, dashIndex);
 			if (!StringUtils.equals(tempLargeCodeName, largeCodeName)) {
@@ -101,7 +101,7 @@ public class TeacherReqManageController extends BaseController {
 			}
 		}
 		model.addAttribute("largeCodeList", largeCodeList);
-		
+
 		if (StringUtils.isNotEmpty(teacher.getLargeSubjectCode())) {
 			List<Code> smallCodeList = new ArrayList<Code>();
 			for ( Code code : codeList ) {
@@ -114,11 +114,11 @@ public class TeacherReqManageController extends BaseController {
 					smallCodeList.add(tempCode);
 				}
 			}
-			model.addAttribute("smallCodeList", smallCodeList);	
+			model.addAttribute("smallCodeList", smallCodeList);
 		}
-		
+
 		model.addAttribute("locationCodeList", codeService.getCode("CMS", "C0021"));
-		
+
 		model.addAttribute("teacher", teacher);
 		return String.format(basePath, homepage.getFolder()) + "index";
 	}
@@ -132,13 +132,13 @@ public class TeacherReqManageController extends BaseController {
 			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://www.gbelib.kr/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), teacher.getMenu_idx(), teacher.getBefore_url()), request, response);
 			return null;
 		}
-		
+
 		teacher.setHomepage_id(homepage.getHomepage_id());
-		
+
 		if ( teacher.getEditMode().equals("MODIFY") ) {
 			teacher.setTeacher_id(getSessionMemberId(request));
 			TeacherReqManage getTeacher =  service.getTeacherApplyOne(teacher);
-			model.addAttribute("teacher", service.copyObjectPaging(teacher, getTeacher));	
+			model.addAttribute("teacher", service.copyObjectPaging(teacher, getTeacher));
 		}
 		else {
 			Member tempMember = getSessionMemberInfo(request);
@@ -148,13 +148,13 @@ public class TeacherReqManageController extends BaseController {
 			teacher.setTeacher_email(tempMember.getEmail());
 			model.addAttribute("teacher", teacher);
 		}
-		
-		//약관 연동부 
+
+		//약관 연동부
 		Menu menuOne = (Menu) request.getAttribute("menuOne");
 		model.addAttribute("termsList", termsService.getTermsListInModule(new Terms(menuOne.getManage_idx())));
-		model.addAttribute("prtcNotice",MemberAPI.getPrtcNoticeList("WEB"));
+//		model.addAttribute("prtcNotice",MemberAPI.getPrtcNoticeList("WEB"));
 		model.addAttribute("memberInfo", getSessionMemberInfo(request));
-		
+
 		model.addAttribute("locationCodeList", codeService.getCode("CMS", "C0021"));
 		model.addAttribute("subjectCodeList", codeService.getCode("CMS", "C0023"));
 		model.addAttribute("cellPhoneCode", codeService.getCode("CMS", "C0002"));
@@ -162,43 +162,43 @@ public class TeacherReqManageController extends BaseController {
 
 		return String.format(basePath, homepage.getFolder()) + "edit";
 	}
-	
+
 	@RequestMapping(value = { "/detail.*" }, method = RequestMethod.GET)
 	public String detail(Model model, TeacherReqManage teacher, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
-		
+
 		teacher.setHomepage_id(homepage.getHomepage_id());
-		
+
 		TeacherReqManage getTeacher =  service.getTeacherOne(teacher);
-		model.addAttribute("teacher", service.copyObjectPaging(teacher, getTeacher));	
-		
+		model.addAttribute("teacher", service.copyObjectPaging(teacher, getTeacher));
+
 		return String.format(basePath, homepage.getFolder()) + "detail";
 	}
-	
+
 	@RequestMapping(value = { "/view.*" }, method = RequestMethod.GET)
 	public String view(Model model, TeacherReqManage teacher, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
-		
+
 		//로그인 체크
 		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			teacher.setBefore_url(String.format("http://www.gbelib.kr/%s/module/teacherReqManage/index.do?menu_idx=%s", homepage.getContext_path(), teacher.getMenu_idx()));
 			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://www.gbelib.kr/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), teacher.getMenu_idx(), teacher.getBefore_url()), request, response);
 			return null;
 		}
-		
+
 		teacher.setHomepage_id(homepage.getHomepage_id());
 		teacher.setTeacher_id(getSessionMemberId(request));
-		
+
 		TeacherReqManage getTeacher =  service.getTeacherApplyOne(teacher);
-		model.addAttribute("teacher", service.copyObjectPaging(teacher, getTeacher));	
-		
+		model.addAttribute("teacher", service.copyObjectPaging(teacher, getTeacher));
+
 		return String.format(basePath, homepage.getFolder()) + "view";
 	}
-	
+
 	@RequestMapping(value = { "/apply.*" })
 	public String apply(Model model, TeacherReqManage teacher, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
-		
+
 		//로그인 체크
 		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			teacher.setBefore_url(String.format("http://www.gbelib.kr/%s/module/teacherReqManage/index.do?menu_idx=%s", homepage.getContext_path(), teacher.getMenu_idx()));
@@ -207,18 +207,18 @@ public class TeacherReqManageController extends BaseController {
 		}
 
 		teacher.setTeacher_id(getSessionMemberId(request));
-		
+
 		int count = service.getTeacherApplyListCount(teacher);
 		service.setPaging(model, count, teacher);
 		model.addAttribute("teacherList", service.getTeacherApplyList(teacher));
 		model.addAttribute("teacherListCount", count);
 //		model.addAttribute("subjectCodeList", codeService.getCode("CMS", "C0023"));
-		
+
 		List<Code> codeList = codeService.getCode("CMS", "C0023");
 		List<Code> largeCodeList = new ArrayList<Code>();
 		String tempLargeCodeName = "";
 		for ( Code code : codeList ) {
-			
+
 			int dashIndex = code.getCode_name().indexOf("-");
 			String largeCodeName = code.getCode_name().substring(0, dashIndex);
 			if (!StringUtils.equals(tempLargeCodeName, largeCodeName)) {
@@ -230,7 +230,7 @@ public class TeacherReqManageController extends BaseController {
 			}
 		}
 		model.addAttribute("largeCodeList", largeCodeList);
-		
+
 		if (StringUtils.isNotEmpty(teacher.getLargeSubjectCode())) {
 			List<Code> smallCodeList = new ArrayList<Code>();
 			for ( Code code : codeList ) {
@@ -243,9 +243,9 @@ public class TeacherReqManageController extends BaseController {
 					smallCodeList.add(tempCode);
 				}
 			}
-			model.addAttribute("smallCodeList", smallCodeList);	
+			model.addAttribute("smallCodeList", smallCodeList);
 		}
-		
+
 		model.addAttribute("teacher", teacher);
 		return String.format(basePath, homepage.getFolder()) + "apply";
 	}
@@ -253,41 +253,41 @@ public class TeacherReqManageController extends BaseController {
 	@RequestMapping(value = { "/save.*" },  method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Model model, TeacherReqManage teacher, HttpServletRequest request, HttpServletResponse response, BindingResult result) throws Exception {
 		JsonResponse res = new JsonResponse(request);
-		
+
 		if ( teacher.getEditMode().equals("ADD") ) {
 			ValidationUtils.rejectIfEmpty(result, "teacher_id", "강사ID를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "teacher_name", "이름을 입력하세요.");
 			ValidationUtils.rejectIfStringLength(result, "teacher_name", 50, "강사명");
-			
+
 			if (teacher.getOpen_file() == null) {
 				result.reject("강의계획서를 등록해주세요.");
 			}
 		}
-		
+
 		if ( teacher.getEditMode().equals("ADD") || teacher.getEditMode().equals("MODIFY")) {
 			ValidationUtils.rejectIfEmpty(result, "teacher_birth", "생년월일을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "teacher_sex", "강사성별을 선택하세요.");
 			if (StringUtils.isNotEmpty(teacher.getTeacher_cell_phone())) {
 				ValidationUtils.rejectPhone(result, "teacher_cell_phone", "휴대전화번호 형식이 잘못되었습니다.");
 			}
-			
+
 			ValidationUtils.rejectIfEmpty(result, "full_adder", "주소를 입력해주세요.");
-			
+
 			if (teacher.getFull_adder().length() < 6) {
 				result.rejectValue("full_adder", "주소 형식이 잘못되었습니다.");
 			} else {
 				teacher.setTeacher_zipcode(StringUtils.defaultString(teacher.getFull_adder()).trim().substring(0,5).trim());
 				teacher.setTeacher_address(StringUtils.defaultString(teacher.getFull_adder()).trim().substring(5,teacher.getFull_adder().length()).trim());
-				
+
 				if (teacher.getFull_adder().trim().substring(0,5).matches("^[\\d]{5}") != true ) {
 					result.rejectValue("full_adder", "우편번호를 입력해주세요.");
 				}
 			}
-			
+
 			if ( StringUtils.isNotEmpty(teacher.getTeacher_phone()) ) {
-				ValidationUtils.rejectPhone2(result, "teacher_phone", "전화번호 형식이 잘못되었습니다.");	
+				ValidationUtils.rejectPhone2(result, "teacher_phone", "전화번호 형식이 잘못되었습니다.");
 			}
-			
+
 			if (StringUtils.isNotEmpty(teacher.getTeacher_email())) {
 				ValidationUtils.rejectNotFullEmailType(result, "teacher_email", "이메일 형식이 잘못되었습니다.");
 			}
@@ -300,14 +300,14 @@ public class TeacherReqManageController extends BaseController {
 //			ValidationUtils.rejectIfStringLength(result, "teacher_nationality", 30, "국적");
 //			ValidationUtils.rejectIfStringLength(result, "teacher_zipcode", 20, "우편번호");
 			ValidationUtils.rejectIfStringLength(result, "teacher_address", 200, "주소");
-			
+
 			if ( !"Y".equals(teacher.getSelf_info_yn()) ) {
 				res.setValid(false);
 				res.setMessage("이용약관 및 개인정보의 수집·이용 동의 하여야 신청이 가능합니다.");
 				return res;
 			}
 		}
-		
+
 		if (!result.hasErrors()) {
 			if(teacher.getEditMode().equals("ADD")) {
 				if ( service.checkTeacher(teacher) != null ) {
@@ -317,7 +317,7 @@ public class TeacherReqManageController extends BaseController {
 				}
 				teacher.setAdd_id(getSessionMemberId(request));
 				String addResult = service.addTeacher(teacher, request);
-				
+
 				if (addResult != null) {
 					res.setValid(true);
 					res.setUrl(addResult);
@@ -329,7 +329,7 @@ public class TeacherReqManageController extends BaseController {
 				res.setUrl("index.do?menu_idx="+teacher.getMenu_idx());
 			} else if(teacher.getEditMode().equals("MODIFY")) {
 				teacher.setMod_id(getSessionMemberId(request));
-				
+
 				String modifyResult = service.modifyTeacher(teacher, request);
 				if (modifyResult != null) {
 					res.setValid(true);
@@ -337,10 +337,10 @@ public class TeacherReqManageController extends BaseController {
 					res.setTargetOpener(true);
 					return res;
 				}
-				
+
 				teacher.setConfirm_yn("N");
 				service.confirmTeacher(teacher);
-				
+
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");
 				res.setUrl("apply.do?menu_idx="+teacher.getMenu_idx());
@@ -352,7 +352,7 @@ public class TeacherReqManageController extends BaseController {
 
 		return res;
 	}
-	
+
 	@RequestMapping(value = "/download/{homepage_id}/{teacher_idx}.*", method = RequestMethod.GET)
 	@ResponseBody
     public ResponseEntity<byte[]> getFile(@PathVariable("homepage_id") String homepage_id, @PathVariable("teacher_idx") int teacher_idx, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -363,7 +363,7 @@ public class TeacherReqManageController extends BaseController {
 		if ( teacherReqManage != null ) {
 			String filePath = service.getRootPath()+ "/" + homepage_id + "/" + teacherReqManage.getReal_file_name();
 			File file = new File(filePath);
-			
+
 			if(file.length() > 0) {
 				bytes = FileCopyUtils.copyToByteArray(file);
 			} else {
@@ -371,27 +371,27 @@ public class TeacherReqManageController extends BaseController {
 				service.alertMessage("파일이 존재하지 않습니다.", request, response);
 				return null;
 			}
-			
+
 			String fileName = teacherReqManage.getFile_name();
 			String fileType = teacherReqManage.getFile_extension();
 			String fullFilename = fileName+"."+fileType;
-			
+
 			responseHeaders.set("Content-Disposition", AttachmentUtils.getContentDisposition(fullFilename, request.getHeader("user-agent")));
 			responseHeaders.setPragma("no-cache;");
 			responseHeaders.setExpires(-1);
 //			responseHeaders.setContentLength(file.length());
 			responseHeaders.setContentType(MediaType.valueOf(AttachmentUtils.getContentType(fileType)));
 			responseHeaders.setContentLength(bytes.length);
-			
+
 			return new ResponseEntity<byte[]>(bytes, responseHeaders, HttpStatus.OK);
-		    
+
 		} else {
 			response.setHeader("Content-type", "text/html");
 			service.alertMessage("파일이 존재하지 않습니다.", request, response);
 			return null;
 		}
     }
-    
+
 	@RequestMapping(value = "/download2/{homepage_id}/{teacher_idx}/{file_hash}.*", method = RequestMethod.GET)
 	@ResponseBody
     public void getFile2(@PathVariable("homepage_id") String homepage_id, @PathVariable("teacher_idx") int teacher_idx, @PathVariable("file_hash") String file_hash, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -403,7 +403,7 @@ public class TeacherReqManageController extends BaseController {
         	String realFileName = null;
         	String fileName = null;
         	String fileType = null;
-        	
+
         	for(Map<String, String> map: open_files) {
         		if(StringUtils.equals(map.get("file_hash"), file_hash)) {
         			realFileName = map.get("real_file_name");
@@ -412,7 +412,7 @@ public class TeacherReqManageController extends BaseController {
         			break;
         		}
         	}
-        	
+
         	if(realFileName == null) {
     			response.setHeader("Content-type", "text/html");
     			service.alertMessage("파일이 존재하지 않습니다.", request, response);
@@ -422,13 +422,13 @@ public class TeacherReqManageController extends BaseController {
         	String fullFilename = fileName+"."+fileType;
     		String filePath = service.getRootPath()+ "/" + homepage_id + "/" + realFileName;
     		File file = new File(filePath);
-    		
+
     		if(file.length() == 0) {
     			response.setHeader("Content-type", "text/html");
     			service.alertMessage("파일이 존재하지 않습니다.", request, response);
     			return;
     		}
-    		
+
     		response.setHeader("Content-Disposition", AttachmentUtils.getContentDisposition(fullFilename, request.getHeader("user-agent")));
 			response.setHeader("Content-Length", Long.toString(file.length()));
 		    response.setHeader("Pragma", "no-cache;");
@@ -436,7 +436,7 @@ public class TeacherReqManageController extends BaseController {
 		    response.setHeader("Content-Transfer-Encoding", "binary");
 		    response.setHeader("Connection", "close");
 		    response.setContentType(AttachmentUtils.getContentType(fileType));
-		    
+
     		FileCopyUtils.copy(new FileInputStream(file), response.getOutputStream());
     	} else {
     		response.setHeader("Content-type", "text/html");
@@ -444,5 +444,5 @@ public class TeacherReqManageController extends BaseController {
     		return;
     	}
     }
-	
+
 }

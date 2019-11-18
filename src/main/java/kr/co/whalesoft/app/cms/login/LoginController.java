@@ -7,8 +7,6 @@ import javax.validation.Valid;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,15 +26,15 @@ import kr.co.whalesoft.framework.base.BaseController;
 @Controller
 @RequestMapping(value = {"/cms/login","/pms/login","/dms/login"})
 public class LoginController extends BaseController {
-	
+
 	private final String basePath = "/cms/login/";
-	
+
 	@Autowired
 	private LoginService service;
-	
+
 	@Autowired
 	private AccountLockService accountLockService;
-	
+
 	@Autowired
 	private HomepageService homepageService;
 
@@ -50,17 +48,17 @@ public class LoginController extends BaseController {
 		}
 		return basePath + "index";
 	}
-	
+
 	@RequestMapping(value = {"/redirect.*"})
 	public String redirect(Model model, Menu menu) {
 		return basePath + "redirect";
 	}
-	
+
 	/**
 	 * 로그인 처리
 	 * @param member
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	@RequestMapping(value="/login.*", method=RequestMethod.POST)
 	public String loginProc(@Valid Login login,BindingResult result, HttpServletRequest request, RedirectAttributes redirectAttributes, HttpServletResponse response) throws Exception {
@@ -69,7 +67,7 @@ public class LoginController extends BaseController {
 		if (redirectPort != 443) {
 			redirectURL += ":"+redirectPort;
 		}
-		
+
 //		if(result.hasErrors()){
 //			System.out.println(result);
 //			for(ObjectError error: result.getAllErrors()){
@@ -77,30 +75,28 @@ public class LoginController extends BaseController {
 //			}
 //			return basePath + "index";
 //		}
-		
+
 		Member member = new Member();
 		member.setMember_id(login.getMember_id());
 		member.setMember_pw(login.getMember_pw());
-		
+
 		String loginResult = service.login(member, request);
 		if(loginResult.equals("LOGIN")) {
 			/**
 			 * 비밀번호 만료일자가 지난 경우 패스워드 변경유도 페이지로 이동.
 			 */
 			try {
-				if (!StringUtils.isEmpty(member.getPassword_update_date())
-						&& !StringUtils.equalsIgnoreCase(member.getPassword_update_date(), "null")
-						&& !StringUtils.isEmpty(member.getPassword_expiry_day())) {
+				if (member.getPw_change_date() != null && !StringUtils.isEmpty(member.getPassword_expiry_day())) {
 
-					DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyyMMdd");
+//					DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyyMMdd");
 
-					DateTime updateDate = fmt.parseDateTime(member.getPassword_update_date());
+					DateTime updateDate = new DateTime(member.getPw_change_date());
 					DateTime currentDate = DateTime.now();
 
 					Days daysBetween = Days.daysBetween(updateDate, currentDate);
 
 					int expiryDay = Integer.parseInt(member.getPassword_expiry_day());
-					
+
 					if (daysBetween.getDays() > expiryDay) {
 						Homepage homepage = new Homepage();
 						homepage.setHomepage_code(member.getLoca());
@@ -109,15 +105,15 @@ public class LoginController extends BaseController {
 						int menuIdx = homepageService.getMenuIdxByLinkUrl(getHomepage.getHomepage_id(), "/intro/join/changePwForm.do");
 
 						String passwordExpiry = String.format("https://gbelib.kr/%s/intro/join/passwordExpiry.do?menu_idx=%s", getHomepage.getContext_path(), menuIdx);
-						
+
 						request.getSession().setAttribute("passwordExpiry", passwordExpiry);
-						
+
 					}
 				}
 			} catch (Exception e) {
-				
+
 			}
-			
+
 			if(request.getSession().getAttribute("returnUrl") != null){
 				String returnUrl = String.valueOf(request.getSession().getAttribute("returnUrl"));
 				if (returnUrl.contains("/cms/")) {
@@ -137,10 +133,10 @@ public class LoginController extends BaseController {
 			service.alertMessage(String.format("로그인 5회 중 %d회 실패\\n아이디 또는 비밀번호를 다시 확인하세요", accountLock.getCount()), request, response);
 			return null;
 		}
-		
+
 		return redirectURL;
 	}
-	
+
 	/**
 	 * 로그아웃 처리
 	 * @param request
@@ -152,10 +148,10 @@ public class LoginController extends BaseController {
 		String redirectURL = request.getServerName();
 		service.logout(request);
 		return "redirect:http://" + redirectURL + getPath(request.getRequestURI()) + "/login/index.do";
-		
+
 	}
-	
-	
+
+
 	//접속URI를 기준으로 PMS로 갈건지 CMS로 갈건지 결정
 	public String getPath(String uri){
 		String path = "/cms";
@@ -164,10 +160,10 @@ public class LoginController extends BaseController {
 		}else if(uri.startsWith("/dms/")){
 			path = "/dms";
 		} else {
-			
+
 		}
 		return path;
 	}
-	
-	
+
+
 }

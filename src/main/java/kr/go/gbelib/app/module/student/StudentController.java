@@ -41,36 +41,36 @@ import kr.go.gbelib.app.common.api.MemberAPI;
 public class StudentController extends BaseController {
 
 	private String basePath = "/homepage/%s/module/teach/student/";
-	
+
 	@Autowired
 	private TeachService teachService;
-	
+
 	@Autowired
 	private StudentService service;
-	
+
 	@Autowired
 	private CodeService codeService;
-	
+
 	@Autowired
 	private BlackListService blackListService;
-	
+
 	@Autowired
 	private SiteService siteService;
-	
+
 	@Autowired
 	private TermsService termsService;
-	
+
 	@ModelAttribute("siteList")
 	public List<Site> getAreaCdList(HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		return siteService.getSiteListAll(new Site(homepage.getHomepage_id()));
 	}
-	
+
 	@RequestMapping(value = {"/edit.*"})
 	public String edit(Model model, Student student, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		checkAuth("R", model, request, "소속도서관에서 신청하시기 바랍니다.");
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
-		
+
 
 		//로그인 체크
 		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
@@ -79,25 +79,25 @@ public class StudentController extends BaseController {
 			return null;
 		}
 		if ( !homepage.getHomepage_id().equals("h1") ) {
-			student.setHomepage_id(homepage.getHomepage_id());	
+			student.setHomepage_id(homepage.getHomepage_id());
 		}
 		student.setMember_id(getSessionMemberId(request));
-		student.setMember_key(getSessionUserSeqNo(request));		
-		
+		student.setMember_key(getSessionUserSeqNo(request));
+
 		// 그룹당 강의 제한 개수 . ->
 		String checkResult = service.checkStudent(student);
 		if ( checkResult != null ) {
-			service.alertMessage(checkResult, request, response); 
+			service.alertMessage(checkResult, request, response);
 			return null;
 		}
-		
-		//블랙리스트 체크 
+
+		//블랙리스트 체크
 		if ( blackListService.checkBlackList(new BlackList(student.getHomepage_id(), getSessionUserSeqNo(request)), "10")) {
 			service.alertMessage("신청이 불가능합니다.\\n도서관에 문의해주세요.", request, response);
 			return null;
 		}
-		
-		//약관 연동부 
+
+		//약관 연동부
 		Menu menuOne = (Menu) request.getAttribute("menuOne");
 		model.addAttribute("termsList", termsService.getTermsListInModule(new Terms(menuOne.getManage_idx())));
 		model.addAttribute("hakList", codeService.getCode("CMS", "C0020"));
@@ -106,16 +106,16 @@ public class StudentController extends BaseController {
 		model.addAttribute("student", student);
 		model.addAttribute("cellPhoneCode", codeService.getCode("CMS", "C0002"));
 		model.addAttribute("phoneCode", codeService.getCode("CMS", "C0003"));
-		model.addAttribute("prtcNotice",MemberAPI.getPrtcNoticeList("WEB"));
+//		model.addAttribute("prtcNotice",MemberAPI.getPrtcNoticeList("WEB"));
 		model.addAttribute("traingLocationList", codeService.getCode("CMS", "C0022"));
 		return String.format(basePath, homepage.getFolder()) + "edit";
 	}
-	
+
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Model model, Student student, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
 		Teach teachOne = null;
-		
+
 		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			res.setValid(false);
 			res.setMessage("로그인 후 이용가능합니다.");
@@ -131,30 +131,30 @@ public class StudentController extends BaseController {
 			ValidationUtils.rejectIfEmpty(result, "applicant_address", "신청자 주소를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "applicant_cell_phone", "신청자 폰번호를 입력하세요.");
 			ValidationUtils.rejectPhone(result, "applicant_cell_phone", "휴대전화번호 형식이 잘못되었습니다.");
-			
+
 			teachOne = teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));
-			
+
 			if (StringUtils.equals(teachOne.getAgent_yn(), "Y")) {
 				ValidationUtils.rejectIfEmpty(result, "student_name", "수강생명을 입력하세요.");
 				ValidationUtils.rejectNumbers(result, "student_name", "수강생명에는 숫자를 입력할 수 없습니다.");
 				ValidationUtils.rejectIfEmpty(result, "student_birth", "수강생 생년월일을 입력하세요.");
 				ValidationUtils.rejectIfEmpty(result, "student_sex", "수강생 성별을 선택하세요.");
 				ValidationUtils.rejectIfEmpty(result, "student_zipcode", "수강생 우편번호를 입력하세요.");
-				ValidationUtils.rejectIfEmpty(result, "student_address", "수강생 주소를 입력하세요.");			
+				ValidationUtils.rejectIfEmpty(result, "student_address", "수강생 주소를 입력하세요.");
 			}
-			
+
 			if (StringUtils.equals(teachOne.getFamily_count_yn(), "Y")) {
-				ValidationUtils.rejectIfEmpty(result, "student_family_count", "가족인원수를 입력하세요");	
+				ValidationUtils.rejectIfEmpty(result, "student_family_count", "가족인원수를 입력하세요");
 			}
-			
+
 			if (StringUtils.equals(teachOne.getNeis_location_yn(), "Y")) {
-				ValidationUtils.rejectIfEmpty(result, "student_location_code", "나이스 지역코드를 입력하세요");	
+				ValidationUtils.rejectIfEmpty(result, "student_location_code", "나이스 지역코드를 입력하세요");
 			}
-			
+
 			if (StringUtils.equals(teachOne.getNeis_cd_yn(), "Y")) {
-				ValidationUtils.rejectIfEmpty(result, "student_neis_cd", "나이스 개인번호를 입력하세요");	
+				ValidationUtils.rejectIfEmpty(result, "student_neis_cd", "나이스 개인번호를 입력하세요");
 			}
-			
+
 			if (StringUtils.equals(teachOne.getNeis_training_num_yn(), "Y")) {
 				ValidationUtils.rejectIfEmpty(result, "student_training_num", "나이스 연수지명번호를 입력하세요.");
 				ValidationUtils.rejectIfStringLength(result, "student_training_num", 60, "나이스 연수지명번호");
@@ -170,15 +170,15 @@ public class StudentController extends BaseController {
 			if (StringUtils.equals(teachOne.getCourse_taken_yn(), "Y")) {
 				ValidationUtils.rejectIfEmpty(result, "student_course_taken_yn", "연수수강여부를 입력하세요.");
 			}
-			
+
 			if ( !student.getSelf_info_yn().equals("Y") ) {
 				res.setValid(false);
 				res.setMessage("개인정보 미동의 시 참여 하실수 없습니다.");
 				return res;
 			}
-			
+
 		}
-		
+
 		if(!result.hasErrors()) {
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.setVisibilityChecker(mapper.getSerializationConfig().getDefaultVisibilityChecker()
@@ -192,7 +192,7 @@ public class StudentController extends BaseController {
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
-			
+
 			String filterResult = WebFilterCheckUtils.webFilterCheck("신청자", "신청", body);
 			if (filterResult != null) {
 				res.setValid(false);
@@ -200,7 +200,7 @@ public class StudentController extends BaseController {
 				res.setTargetOpener(true);
 				return res;
 			}
-			
+
 			if(student.getEditMode().equals("ADD")) {
 				String webId = getSessionWebId(request);
 				if (StringUtils.isNotEmpty(webId)) {
@@ -212,7 +212,7 @@ public class StudentController extends BaseController {
 				student.setMember_key(getSessionUserSeqNo(request));
 				student.setApi_user_id(getSessionUserId(request));
 				student.setSearch_api_type("USER_ID");
-				
+
 //				String writer = quizReq.getName() + "/" + quizReq.getSchool() + "/" + quizReq.getBan();
 //				String addResult = WebFilterCheckUtils.webFilterCheck(writer, "강좌 신청", );
 //				if (addResult != null) {
@@ -221,10 +221,10 @@ public class StudentController extends BaseController {
 //					res.setTargetOpener(true);
 //					return res;
 //				}
-				
+
 				Object[] addResult = service.addStudent(student, "HOMEPAGE");
 				res.setValid((Boolean) addResult[0]);
-				
+
 				if("Y".equals(teachOne.getCancle_use_yn()) && addResult != null && addResult.length >= 3 && (Boolean) addResult[2]  == true) {
 					String strDate = teachOne.getStart_cancle_date() + " " + teachOne.getStart_cancle_time();
 					String endDate = teachOne.getEnd_cancle_date() + " " + teachOne.getEnd_cancle_time();
@@ -235,7 +235,7 @@ public class StudentController extends BaseController {
 			} else if (student.getEditMode().equals("CANCEL")) {
 				student.setMember_key(getSessionUserSeqNo(request));
 				service.cancelStudent(student);
-				
+
 				res.setValid(true);
 				res.setMessage("취소 되었습니다.");
 				res.setUrl("applyList.do");
@@ -245,16 +245,16 @@ public class StudentController extends BaseController {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
 		}
-		
+
 		return res;
 	}
-	
+
 	@RequestMapping(value = {"/certificate.*"})
 	public String certificate(Model model, Student student, HttpServletRequest request) {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
-		
+
 		model.addAttribute("certificateInfo", service.getCertificateInfo(student));
 		return String.format(basePath, homepage.getFolder()) + "certificate_ajax";
 	}
-	
+
 }

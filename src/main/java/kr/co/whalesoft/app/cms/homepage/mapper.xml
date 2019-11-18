@@ -81,8 +81,8 @@
 			CMS_HOMEPAGE
 		WHERE
 			<choose>
-				<when test="context_path != 'root'">
-					context_path = #{context_path}
+				<when test="value != 'root'">
+					context_path = #{value}
 				</when>
 				<otherwise>
 					context_path is null

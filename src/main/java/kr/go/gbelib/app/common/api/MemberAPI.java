@@ -2,12 +2,11 @@ package kr.go.gbelib.app.common.api;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -15,9 +14,374 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
 import kr.co.whalesoft.app.cms.member.Member;
+import kr.co.whalesoft.framework.utils.CalculateHashUtils;
 
 public class MemberAPI {
 	protected final static Logger log = LoggerFactory.getLogger(MemberAPI.class);
+
+
+	/**
+	 * K.API - 18
+	 * 회원정보조회
+	 *
+	 * @author YONGJU 2017. 12. 29.
+	 * @param member_id
+	 * @param member_pw
+	 */
+	public static Map<String, Object> getUserInfo(String member_id, String member_pw) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		Map<String, Object> result = null;
+
+		param.put("option", "0");
+		param.put("id", member_id);
+		param.put("password", CalculateHashUtils.calculateHashSHA256(member_pw));
+
+		result = CommonAPI.sendKCMS("userinfoview", param);
+
+		return result;
+	}
+
+	/**
+	 * K.API - 19
+	 * 회원정보수정 (아이디 비밀번호 제외 , userkey 외에 반드시 하나의 값은 필수로 입력)
+	 *
+	 * @author whalesoft YONGJU 2019. 11. 16.
+	 * @param member
+	 * @return
+	 */
+	public static boolean updateMember(Member member) {
+
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		try {
+			param.put("userkey", member.getRec_key());
+
+			if (StringUtils.isNotBlank(member.getBirth_day())) {
+				String birth[] = member.getBirth_day().split("/");
+				param.put("birthday_year", birth[0]);
+				param.put("birthday_month", birth[1]);
+				param.put("birthday_day", birth[2]);
+			}
+//			param.put("birthday_type", URLEncoder.encode("+", "UTF-8"));//+:양력, -:음력
+
+			if (StringUtils.isNotEmpty(member.getZipcode())) {
+				param.put("h_zipcode", member.getZipcode());//집우편번호
+			}
+			if (StringUtils.isNotEmpty(member.getAddress1())) {
+				param.put("h_addr1", URLEncoder.encode(member.getAddress1(), "UTF-8"));//집주소
+			}
+			if (StringUtils.isNotBlank(member.getSms_service_yn())) {
+				param.put("sms_use_yn", member.getSms_service_yn());//SMS수신여부 Y/N
+			}
+			if (StringUtils.isNotBlank(member.getEmail_service_yn())) {
+				param.put("mailing_use_yn", member.getEmail_service_yn());//이메일수신여부 Y/N
+			}
+			if (StringUtils.isNotEmpty(member.getSex())) {
+				param.put("gpin_sex", member.getSex());//성멸 0:남, 1:여
+			}
+			param.put("client_ip", member.getIn_ip());//요청IP
+			if (StringUtils.isNotEmpty(member.getCi_value())) {
+				try {
+					param.put("ipin_hash", URLEncoder.encode(member.getCi_value(), "UTF-8"));
+				} catch (UnsupportedEncodingException e) {
+				}//CI
+			}
+			//선택입력값
+			if (StringUtils.isNotEmpty(member.getPhone1()) && StringUtils.isNotEmpty(member.getPhone2()) && StringUtils.isNotEmpty(member.getPhone3())) {
+				param.put("home_exchange_phone", member.getPhone1());//집 전화번호 첫자리
+				param.put("home_phone1", member.getPhone2());//집전화번호 가운데(첫자리 있는 경우 필수)
+				param.put("home_phone2", member.getPhone3());//집전화번호 뒷자리(첫자리 있는 경우 필수)
+			}
+
+			if (StringUtils.isNotEmpty(member.getCell_phone1()) && StringUtils.isNotEmpty(member.getCell_phone2()) && StringUtils.isNotEmpty(member.getCell_phone3())) {
+				param.put("exchange_mobile", member.getCell_phone1());//휴대전화번호 첫자리
+				param.put("mobile1", member.getCell_phone2());//휴대전화번호 가운데(첫자리 있는 경우 필수)
+				param.put("mobile2", member.getCell_phone3());//휴대전화번호 가운데(첫자리 있는 경우 필수)
+			}
+
+			if (StringUtils.isNotEmpty(member.getEmail1()) && StringUtils.isNotEmpty(member.getEmail2())) {
+				param.put("email_id", member.getEmail1());//이메일 아이디
+				param.put("email_domain", member.getEmail2());//이메일 도메인(이메일 있는 경우 필수)
+			}
+
+			if (StringUtils.isNotEmpty(member.getCompany_phone1()) && StringUtils.isNotEmpty(member.getCompany_phone2()) && StringUtils.isNotEmpty(member.getCompany_phone3())) {
+				param.put("office_exchange_phone", member.getCompany_phone1());//근무지 전화번호 첫자리
+				param.put("office_phone1", member.getCompany_phone2());//근무지 전화번호 가운데(첫자리 있는 경우 필수)
+				param.put("office_phone2", member.getCompany_phone3());//근무지 전화번호 가운데(첫자리 있는 경우 필수)
+			}
+
+			if (StringUtils.isNotEmpty(member.getCompany_zipcode())) {
+				param.put("w_zipcode", member.getCompany_zipcode());//근무지 우편번호
+			}
+
+			if (StringUtils.isNotEmpty(member.getCompany_addr())) {
+				param.put("w_addr1", member.getCompany_addr());//근무지 주소
+			}
+
+			if (StringUtils.isNotEmpty(member.getCompany_name())) {
+				param.put("office_name", member.getCompany_name());//근무지 명
+			}
+
+			if (StringUtils.isNotEmpty(member.getCompany_depart())) {
+				param.put("department", member.getCompany_depart());//근무지 부서명
+			}
+
+			if (StringUtils.isNotBlank(member.getCard_password())) {
+				param.put("card_password", CalculateHashUtils.calculateHashSHA256(member.getCard_password()));//카드 비밀번호
+			}
+		} catch (Exception e) {}
+
+		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("userinfomodify", param);
+		String resultInfo = (String) sendKCMS.get("RESULT_INFO");
+
+		return resultInfo.equals("SUCCESS");
+	}
+
+	/**
+	 * K.API - 21
+	 * 회원 비밀번호 변경
+	 *
+	 * @author whalesoft YONGJU 2019. 11. 16.
+	 * @param member
+	 * @return
+	 */
+	public static boolean updateMemberPasswd(Member member) {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		String regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*])[A-Za-z\\d$!@#$%^&*]{9,20}$";
+
+		Pattern pattern = Pattern.compile(regexp);
+		Matcher matcher = pattern.matcher(member.getMemberNewPw());
+		if (!matcher.matches()) {
+			return false;
+		}
+
+		param.put("userkey", member.getRec_key());
+		param.put("password", CalculateHashUtils.calculateHashSHA256(member.getMemberNewPw()));
+		param.put("client_ip", member.getIn_ip());
+
+		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("userpasswordmodify", param);
+		String resultInfo = (String) sendKCMS.get("RESULT_INFO");
+
+		return resultInfo.equals("SUCCESS");
+	}
+
+	/**
+	 * K.API - 22
+	 *
+	 * 회원정보 입력(회원가입)
+	 *
+	 * @author whalesoft YONGJU 2019. 11. 16.
+	 * @param member
+	 * @return 성공 : 이용자KEY, 실패 : 실패사유
+	 */
+	public static Map<String, Object> addMember(Member member) {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		//필수입력값
+		param.put("id", member.getMember_id());
+		param.put("password", CalculateHashUtils.calculateHashSHA256(member.getMember_pw()));
+		param.put("name", member.getMember_name());
+		param.put("birthday_year", member.getBirth_day().substring(0, 4));
+		param.put("birthday_month", member.getBirth_day().substring(4, 6));
+		param.put("birthday_day", member.getBirth_day().substring(6, 8));
+		param.put("birthday_type", "+");//+:양력, -:음력
+		param.put("h_zipcode", member.getZipcode());//집우편번호
+		String addr = member.getAddress1();
+		if (StringUtils.isNotBlank(member.getAddress2())) {
+			addr += " "+member.getAddress2();
+		}
+		param.put("h_addr1", addr);//집주소
+		param.put("sms_use_yn", member.getSms_service_yn());//SMS수신여부 Y/N
+		param.put("mailing_use_yn", member.getEmail_service_yn());//이메일수신여부 Y/N
+		param.put("gpin_sex", member.getSex());//성멸 0:남, 1:여
+		param.put("manage_code", member.getManage_code());//도서관부호
+		if (StringUtils.isNotEmpty(member.getCi_value())) {
+			try {
+				param.put("ipin_hash", URLEncoder.encode(member.getCi_value(), "UTF-8"));
+			} catch (UnsupportedEncodingException e) {
+			}//CI
+		}
+		param.put("client_ip", member.getIn_ip());//요청IP
+
+		//선택입력값
+		if (StringUtils.isNotEmpty(member.getPhone1()) && StringUtils.isNotEmpty(member.getPhone2()) && StringUtils.isNotEmpty(member.getPhone3())) {
+			param.put("home_exchange_phone", member.getPhone1());//집 전화번호 첫자리
+			param.put("home_phone1", member.getPhone2());//집전화번호 가운데(첫자리 있는 경우 필수)
+			param.put("home_phone2", member.getPhone3());//집전화번호 뒷자리(첫자리 있는 경우 필수)
+		}
+
+		if (StringUtils.isNotEmpty(member.getCell_phone1()) && StringUtils.isNotEmpty(member.getCell_phone2()) && StringUtils.isNotEmpty(member.getCell_phone3())) {
+			param.put("exchange_mobile", member.getCell_phone1());//휴대전화번호 첫자리
+			param.put("mobile1", member.getCell_phone2());//휴대전화번호 가운데(첫자리 있는 경우 필수)
+			param.put("mobile2", member.getCell_phone3());//휴대전화번호 가운데(첫자리 있는 경우 필수)
+		}
+
+		if (StringUtils.isNotEmpty(member.getEmail1()) && StringUtils.isNotEmpty(member.getEmail2())) {
+			param.put("email_id", member.getEmail1());//이메일 아이디
+			param.put("email_domain", member.getEmail2());//이메일 도메인(이메일 있는 경우 필수)
+		}
+
+		if (StringUtils.isNotEmpty(member.getCompany_phone1()) && StringUtils.isNotEmpty(member.getCompany_phone2()) && StringUtils.isNotEmpty(member.getCompany_phone3())) {
+			param.put("office_exchange_phone", member.getCompany_phone1());//근무지 전화번호 첫자리
+			param.put("office_phone1", member.getCompany_phone2());//근무지 전화번호 가운데(첫자리 있는 경우 필수)
+			param.put("office_phone2", member.getCompany_phone3());//근무지 전화번호 가운데(첫자리 있는 경우 필수)
+		}
+
+		if (StringUtils.isNotEmpty(member.getCompany_zipcode())) {
+			param.put("w_zipcode", member.getCompany_zipcode());//근무지 우편번호
+		}
+
+		if (StringUtils.isNotEmpty(member.getCompany_addr())) {
+			param.put("w_addr1", member.getCompany_addr());//근무지 주소
+		}
+
+		if (StringUtils.isNotEmpty(member.getCompany_name())) {
+			param.put("office_name", member.getCompany_name());//근무지 명
+		}
+
+		if (StringUtils.isNotEmpty(member.getCompany_depart())) {
+			param.put("department", member.getCompany_depart());//근무지 부서명
+		}
+
+		if (StringUtils.isNotEmpty(member.getDi_value())) {
+			param.put("gpin_hash", member.getDi_value());//DI
+		}
+
+		return null;
+//		return CommonAPI.sendKCMS("userinfoinsert", param);
+	}
+
+	/**
+	 * K.API - 23
+	 *
+	 * 가입확인 및 중복조사
+	 *
+	 * @author whalesoft YONGJU 2019. 11. 16.
+	 * @param member - option 0 : member.member_id
+     * option 2 : member.user_no, member.member_name
+     * option 1or3 : member.ci_value  ※ get파라미터 전송방식의 특성상 일부 특수문자는 변환하여 전송 필요. + => %2B & => %26
+     * @param option - 0:이용자ID, 1:CI, 2:대출자번호+이름, 3:책이음 가입확인
+     * @return
+	 */
+	public static List<Map<String, Object>> checkDupUser(String option, Member member) {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		param.put("option", option);
+		try {
+			if (StringUtils.equals(option, "0")) {
+				param.put("id", member.getMember_id());
+			} else if (StringUtils.equals(option, "2")) {
+				param.put("user_no", member.getUser_no());
+				param.put("name", URLEncoder.encode(member.getMember_name(), "UTF-8"));
+			} else {
+				// option:1 or option:3
+				param.put("ipin_hash", URLEncoder.encode(member.getCi_value(), "UTF-8"));
+			}
+		} catch (UnsupportedEncodingException e) {}
+
+		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("usercheck", param);
+
+		String resultInfo = (String) sendKCMS.get("RESULT_INFO");
+		if (resultInfo.equals("SUCCESS")) {
+			List<Map<String, Object>> listData = LibSearchAPI.getListData(sendKCMS, "USER_DATA");
+			return listData;
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 *
+	 * K.API - 31
+	 *
+	 * 개인정보 수집/이용에 대한 동의정보 생성, 갱신
+	 *
+	 * @author whalesoft YONGJU 2019. 11. 16.
+	 * @param manage_code
+	 * @param rec_key
+	 * @param kl_member_yn
+	 * @return
+	 */
+	public static ApiResponse agreeInfo(String manage_code, String rec_key, String kl_member_yn) {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		param.put("manage_code", manage_code);
+		param.put("userkey", rec_key);
+		if (StringUtils.equals(kl_member_yn, "Y")) {
+			param.put("kl_agree_yn", "Y");
+		}
+
+		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("useragreeinfoinsert", param);
+
+		String code = String.valueOf(sendKCMS.get("RESULT_INFO"));
+
+		if ("SUCCESS".equals(code)) {
+			return new ApiResponse(true);
+		} else {
+			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
+		}
+	}
+
+	/**
+	 * K.API - 32
+	 *
+	 * 법정대리인 동의정보 생성, 갱신
+	 *
+	 * @author whalesoft YONGJU 2019. 11. 16.
+	 * @param userKey
+	 * @param member_name
+	 * @param manage_code
+	 * @return
+	 */
+	public static ApiResponse useragentinfoinsert(String userKey, String member_name, String manage_code) {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		// Map<String, Object> libsettinginfoview = libsettinginfoview(manage_code);
+		// List<Map<String, Object>> libSettingInfo = (List<Map<String, Object>>) libsettinginfoview.get("LIB_SETTING_INFO");
+
+		param.put("userkey", userKey);
+		try {
+			param.put("guardian_name", URLEncoder.encode(member_name, "UTF-8"));
+		} catch (UnsupportedEncodingException e) {}
+		param.put("relation", "친권자");
+		// try {
+		// param.put("lib_code", String.valueOf(libSettingInfo.get(0).get("LIB_CODE")));
+		// param.put("lib_name", String.valueOf(libSettingInfo.get(0).get("LIB_NAME")));
+		// } catch (Exception e) {
+		// }
+
+		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("useragentinfoinsert", param);
+
+		String code = String.valueOf(sendKCMS.get("RESULT_INFO"));
+
+		if ("SUCCESS".equals(code)) {
+			return new ApiResponse(true);
+		} else {
+			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	/**
 	 * API로 부터 회원정보 조회
@@ -65,888 +429,4 @@ public class MemberAPI {
 		}
 	}
 
-	/**
-	 * API로 부터 이용자 인증
-	 * @param workerId
-	 * @param member
-	 * @return Map<String, String>
-	 */
-	public static Map<String, String> getMemberCertify(String workerId, Member member) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("USERID", workerId);
-		param.put("className", "action.lnk.LnkUserCertify");
-		param.put("vType", member.getCheck_certify_type()); // EMAIL, MOBILE, WEBID, RFIDNO, SEQNO
-		param.put("vData", member.getCheck_certify_data()); // 타입에 따른 값을 넣어줘야 한다.
-
-		if ( StringUtils.isNotEmpty(member.getMember_id()) ) {
-			param.put("vWebId", member.getMember_id());
-		}
-		if ( StringUtils.isNotEmpty(member.getBirth_day()) ) {
-			param.put("vBirthd", member.getBirth_day());
-		}
-		if ( StringUtils.isNotEmpty(member.getMember_name()) ) {
-//			param.put("vUserName", URLEncoder.encode(member.getMember_name()));
-			try {
-				param.put("vUserName", URLEncoder.encode(member.getMember_name(), "UTF-8"));
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-				return null;
-			}
-		}
-
-		Document doc = CommonAPI.sendILUS(param);
-
-		String code = CommonAPI.getElementValueByName(doc, "code");
-
-		if ( "0".equals(code) ) {
-			return CommonAPI.getFieldData(doc);
-		}
-		else {
-			return null;
-		}
-	}
-
-	/**
-	 * API로 부터 비밀번호 확인
-	 * @param workerId
-	 * @param member
-	 * @return boolean
-	 */
-	public static boolean checkMemberPasswd(String workerId, Member member) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("USERID", workerId);
-		param.put("className", "action.lnk.LnkCheckUserPass");
-		param.put("vUserId", member.getUser_id());
-		param.put("vLocation", member.getLoca());
-		param.put("vUserPass", CommonAPI.getCrypt(member.getMember_pw()));
-
-		Document doc = CommonAPI.sendILUS(param);
-
-		String code = CommonAPI.getElementValueByName(doc, "code");
-
-		if ( "0".equals(code) ) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	/**
-	 * API로 부터 회원 비밀번호 변경
-	 * @param workerId WEB
-	 * @param memberId userId
-	 * @param memberPw 변경할 비밀번호
-	 * @return boolean
-	 */
-	public static boolean updateMemberPasswd(String workerId, String memberId, String memberPw) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("USERID", workerId);
-		param.put("className", "action.lnk.LnkUserPassMod");
-		param.put("vUserId", memberId);
-		param.put("vUserPass", CommonAPI.getCrypt(memberPw));
-
-		Document doc = CommonAPI.sendILUS(param);
-
-		String code = CommonAPI.getElementValueByName(doc, "code");
-
-		if ( "0".equals(code) ) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	/**
-	 * API로 부터 회원 가입
-	 * @param workerId
-	 * @param member
-	 * @return boolean
-	 */
-	public static List<Map<String, String>> addMember(String workerId, Member member) {
-		List<String> values = new ArrayList<String>();
-		values.add(String.format("%s|%s", "USER_NAME", CommonAPI.getCrypt(member.getMember_name())));
-		values.add(String.format("%s|%s", "PASSWORD", CommonAPI.getCrypt(member.getMember_pw())));
-		values.add(String.format("%s|%s", "BIRTHD", CommonAPI.getCrypt(member.getBirth_day().replaceAll("-", ""))));
-		values.add(String.format("%s|%s", "SEX", CommonAPI.getCrypt(member.getSex())));
-		if (StringUtils.isNotEmpty(member.getPhone1()) && StringUtils.isNumeric(member.getPhone1())) {
-			if (StringUtils.isNotEmpty(member.getPhone2()) && StringUtils.isNumeric(member.getPhone2())) {
-				if (StringUtils.isNotEmpty(member.getPhone3()) && StringUtils.isNumeric(member.getPhone3())) {
-					values.add(String.format("%s|%s", "TEL_NO", CommonAPI.getCrypt(String.format("%s%s%s", member.getPhone1(), member.getPhone2(), member.getPhone3()))));
-				}
-			}
-		}
-
-		values.add(String.format("%s|%s", "MOBILE_NO", CommonAPI.getCrypt(member.getCell_phone())));
-		if (StringUtils.isNotEmpty(member.getEmail())) {
-			if (!member.getEmail().equals("@")) {
-				values.add(String.format("%s|%s", "EMAIL", CommonAPI.getCrypt(member.getEmail())));
-			}
-		}
-		values.add(String.format("%s|%s", "ZIP_CODE", CommonAPI.getCrypt(member.getZipcode())));
-		values.add(String.format("%s|%s", "ADDRS", CommonAPI.getCrypt(String.format("%s", member.getAddress1()))));
-//		values.add(String.format("%s|%s", "WEB_HINT_TY", CommonAPI.getCrypt(member.getWeb_hint_ty())));
-//		values.add(String.format("%s|%s", "WEB_HINT_ANS", CommonAPI.getCrypt(member.getWeb_hint_ans())));
-		values.add(String.format("%s|%s", "DUPINFO", CommonAPI.getCrypt(member.getDi_value())));
-		values.add(String.format("%s|%s", "CONN_INFO", CommonAPI.getCrypt(member.getCi_value())));
-		if (!StringUtils.equals(member.getSms_service_yn(), "Y")) {
-			member.setSms_service_yn("N");
-		}
-		values.add(String.format("%s|%s", "SMS_CHECK", CommonAPI.getCrypt(member.getSms_service_yn())));
-		if (!StringUtils.equals(member.getEmail_service_yn(), "Y")) {
-			member.setEmail_service_yn("N");
-		}
-		values.add(String.format("%s|%s", "MAIL_CHECK", CommonAPI.getCrypt(member.getEmail_service_yn())));
-		values.add(String.format("%s|%s", "UN_AGREE_FLAG", CommonAPI.getCrypt("0001")));
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-		values.add(String.format("%s|%s", "UN_AGREE_DATE", CommonAPI.getCrypt(sdf.format(new Date()))));
-
-
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("USERID", workerId);
-		param.put("className", "action.lnk.LnkUserJoin");
-		param.put("vId", member.getMember_id());
-		param.put("vUserPos", "WEB");
-		param.put("vLocation", member.getLoca());
-//		param.put("vWorkType", "WEBID"); // null - 일련번호(기본), WEBID - USER_ID와 WEB_ID가 동일
-		param.put("value", StringUtils.join(values, "><"));
-
-		Document doc = CommonAPI.sendILUS(param);
-
-//		String code = CommonAPI.getElementValueByName(doc, "code");
-//		String msg = CommonAPI.getElementValueByName(doc, "msg");
-
-		return CommonAPI.getFieldDataList(doc);
-
-
-//		if ( "0".equals(code) ) {
-//			return CommonAPI.getFieldDataList(doc);
-//		}
-//		else {
-//			return null;
-//		}
-	}
-
-	/**
-	 * API로 부터 회원 수정
-	 * @param workerId
-	 * @param member
-	 * @return boolean
-	 */
-	public static boolean updateMember(String workerId, Member member, boolean changePw) {
-		List<String> values = new ArrayList<String>();
-		if (StringUtils.isNotEmpty(member.getPhone1()) && StringUtils.isNumeric(member.getPhone1())) {
-			if (StringUtils.isNotEmpty(member.getPhone2()) && StringUtils.isNumeric(member.getPhone2())) {
-				if (StringUtils.isNotEmpty(member.getPhone3()) && StringUtils.isNumeric(member.getPhone3())) {
-					values.add(String.format("%s|%s", "TEL_NO", CommonAPI.getCrypt(String.format("%s%s%s", member.getPhone1(), member.getPhone2(), member.getPhone3()))));
-				}
-			}
-		}
-
-		if (StringUtils.isNotEmpty(member.getBirth_day()) && member.getBirth_day().replaceAll("-", "").length() > 0) {
-			values.add(String.format("%s|%s", "BIRTHD", CommonAPI.getCrypt(member.getBirth_day().replaceAll("-", ""))));
-		}
-		if (StringUtils.isNotEmpty(member.getSex())) {
-			values.add(String.format("%s|%s", "SEX", CommonAPI.getCrypt(member.getSex())));
-		}
-		values.add(String.format("%s|%s", "MOBILE_NO", CommonAPI.getCrypt(String.format("%s%s%s", member.getCell_phone1(), member.getCell_phone2(), member.getCell_phone3()))));
-		if (StringUtils.isNotEmpty(member.getEmail())) {
-			if (!member.getEmail().equals("@")) {
-				values.add(String.format("%s|%s", "EMAIL", CommonAPI.getCrypt(member.getEmail())));
-			}
-		}
-		values.add(String.format("%s|%s", "ZIP_CODE", CommonAPI.getCrypt(member.getZipcode())));
-		values.add(String.format("%s|%s", "ADDRS", CommonAPI.getCrypt(String.format("%s",member.getAddress1()))));
-//		values.add(String.format("%s|%s", "WEB_HINT_TY", CommonAPI.getCrypt(member.getWeb_hint_ty())));
-//		values.add(String.format("%s|%s", "WEB_HINT_ANS", CommonAPI.getCrypt(member.getWeb_hint_ans())));
-
-		if (changePw) {
-			if (StringUtils.isNotEmpty(member.getMember_pw())) {
-				values.add(String.format("%s|%s", "PASSWORD", CommonAPI.getCrypt(member.getMember_pw())));
-			}
-		}
-
-		if (StringUtils.isNotEmpty(member.getCi_value())) {
-			values.add(String.format("%s|%s", "CONN_INFO", CommonAPI.getCrypt(member.getCi_value())));
-		}
-
-		if (StringUtils.isNotEmpty(member.getDi_value())) {
-			values.add(String.format("%s|%s", "DUPINFO", CommonAPI.getCrypt(member.getDi_value())));
-		}
-
-
-
-		if (StringUtils.isNotEmpty(member.getWeb_id())) {
-			values.add(String.format("%s|%s", "WEB_ID", CommonAPI.getCrypt(member.getWeb_id())));
-		}
-
-		if (StringUtils.isNotEmpty(member.getLoca())) {
-			values.add(String.format("%s|%s", "LOCA", CommonAPI.getCrypt(member.getLoca())));
-		}
-
-		if (StringUtils.isNotEmpty(member.getCard_password())) {
-			values.add(String.format("%s|%s", "CARD_PASSWORD", CommonAPI.getCrypt(CommonAPI.getCryptSimplex(member.getCard_password()))));
-		}
-
-		if (!StringUtils.equals(member.getSms_service_yn(), "Y")) {
-			member.setSms_service_yn("N");
-		}
-		values.add(String.format("%s|%s", "SMS_CHECK", CommonAPI.getCrypt(member.getSms_service_yn())));
-
-		if (!StringUtils.equals(member.getEmail_service_yn(), "Y")) {
-			member.setEmail_service_yn("N");
-		}
-		values.add(String.format("%s|%s", "MAIL_CHECK", CommonAPI.getCrypt(member.getEmail_service_yn())));
-
-		if (StringUtils.isNotEmpty(member.getUnAgreeFlag())) {
-			values.add(String.format("%s|%s", "UN_AGREE_FLAG", CommonAPI.getCrypt(member.getUnAgreeFlag())));
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-			values.add(String.format("%s|%s", "UN_AGREE_DATE", CommonAPI.getCrypt(sdf.format(new Date()))));
-		}
-
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("USERID", workerId);
-		param.put("className", "action.lnk.LnkUserInfoDMod");
-//		param.put("vUserId", StringUtils.leftPad(StringUtils.upperCase(member.getMember_id()), 12, "0"));
-		param.put("vUserId", member.getUser_id());
-		param.put("value", StringUtils.join(values, "><"));
-		Document doc = CommonAPI.sendILUS(param);
-
-		String code = CommonAPI.getElementValueByName(doc, "code");
-
-		if ( "0".equals(code) ) {
-			return true;
-		} else {
-			try {
-				log.error("@@@@@@@@@@@@@@@@ updateMember Failed : " + CommonAPI.getElementValueByName(doc, "msg"));
-			} catch ( Exception e ) {
-			}
-			return false;
-		}
-	}
-
-	/**
-	 * API로 부터 회원 수정(이름만 변경)
-	 * @param workerId
-	 * @param member
-	 * @return boolean
-	 */
-	public static boolean updateMemberName(String workerId, Member member) {
-		List<String> values = new ArrayList<String>();
-		if (StringUtils.isNotEmpty(member.getMember_name())) {
-			values.add(String.format("%s|%s", "USER_NAME", CommonAPI.getCrypt(String.format("%s",member.getMember_name()))));
-			Map<String, Object> param = new HashMap<String, Object>();
-			param.put("USERID", workerId);
-			param.put("className", "action.lnk.LnkUserInfoDMod");
-			param.put("vUserId", member.getUser_id());
-			param.put("value", StringUtils.join(values, "><"));
-			Document doc = CommonAPI.sendILUS(param);
-
-			String code = CommonAPI.getElementValueByName(doc, "code");
-
-			if ( "0".equals(code) ) {
-				return true;
-			} else {
-				try {
-					log.error("@@@@@@@@@@@@@@@@ updateMemberName Failed : " + CommonAPI.getElementValueByName(doc, "msg"));
-				} catch ( Exception e ) {
-				}
-				return false;
-			}
-		} else {
-			return false;
-		}
-
-	}
-
-	/**
-	 * API로 부터 회원 탈퇴
-	 * @param workerId
-	 * @param member
-	 * @return boolean
-	 */
-	public static Map<String, String> deleteMember(String workerId, Member member) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("USERID", workerId);
-		param.put("className", "action.lnk.LnkUserStatusMod");
-		param.put("vType", "0002"); // 0002 - 회원 탈퇴
-//		param.put("vUserId", StringUtils.leftPad(StringUtils.upperCase(member.getMember_id()), 12, "0"));
-		param.put("vUserId", member.getUser_id()); 
-
-		Document doc = CommonAPI.sendILUS(param);
-
-		String code = CommonAPI.getElementValueByName(doc, "code");
-		String message = CommonAPI.getElementValueByName(doc, "message");
-		
-		Map<String, String> result = new HashMap<String, String>();
-		result.put("code", code);
-		result.put("message", message);
-
-		if ( !"0".equals(code) ) {
-			return result;
-		} else {
-			return null;
-		}
-	}
-
-	/**
-	 * API로 부터 ID 중복 확인
-	 * @param workerId
-	 * @param member
-	 * @param type
-	 * @return boolean
-	 */
-	public static boolean checkUserId(String workerId, Member member, String type) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("USERID", workerId);
-		param.put("className", "action.lnk.LnkCheckUserId");
-		param.put("vType", type); // WEBID, USERID
-		param.put("vId", member.getMember_id());
-		//param.put("vLocation", member.getLoca());
-
-		Document doc = CommonAPI.sendILUS(param);
-
-		String code = CommonAPI.getElementValueByName(doc, "code");
-
-		if ( "0".equals(code) ) {
-			return true;
-		} else {
-			try {
-				log.error("@@@@@@@@@@@@@@@@ checkUserId Failed : " + CommonAPI.getElementValueByName(doc, "msg"));
-			} catch ( Exception e ) {
-			}
-			return false;
-		}
-	}
-
-	/**
-	 * API로 부터 이용자 중복 확인
-	 * @param workerId
-	 * @param vType : (이름,생년월일,이동전화) - 0001, 이용자ID - 0002, DUPINFO - 0003, CONN_INFO - 0004, WEB_ID - 0005
-	 * @param member.check_dup_ip(req) : 웹아이디, 0002~0005 값 선택시 필수.
-	 * @param member.member_name(req)
-	 * @param member.birth_day(req) : YYYYMMDD
-	 * @param member.cell_phone(req) : 010XXXXYYYY
-	 * @return boolean true : 중복있음, false: 중복있음
-	 */
-	public static boolean checkDupUser(String workerId, Member member, String vType, String vId) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("USERID", workerId);
-		param.put("className", "action.lnk.LnkCheckDupUser");
-		param.put("vType", vType); // 생년월일 - 0001, 이용자ID - 0002, DUPINFO - 0003, CONN_INFO - 0004, WEB_ID - 0005
-//		param.put("vId", URLEncoder.encode(vId));
-//		param.put("vUserName", URLEncoder.encode(member.getMember_name()));// 0002~0005 값 선택시 필수.
-		try {
-			if (StringUtils.isNotEmpty(vId)) {
-				param.put("vId", URLEncoder.encode(vId, "UTF-8"));
-			}
-			param.put("vUserName", URLEncoder.encode(member.getMember_name(), "UTF-8"));// 0002~0005 값 선택시 필수.
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			return true;
-		}
-		param.put("vBirthDay", member.getBirth_day().replaceAll("-", ""));
-		param.put("vMobileNo", member.getMobile_no());
-
-		Document doc = CommonAPI.sendILUS(param);
-
-		String code = CommonAPI.getElementValueByName(doc, "code");
-
-		if ( "0".equals(code) ) {
-			return false;
-//			String count = CommonAPI.getElementValueByName(doc, "count"); // 중복자 수
-//			if ( "0".equals(count) ) {
-//				return false;
-//			}
-//			else {
-//				return true;
-//			}
-		} else {
-			return true;
-		}
-	}
-
-	/**
-	 * API로 부터 이용자 중복 확인
-	 * @param workerId
-	 * @param vType : 생년월일 - 0001, 이용자ID - 0002, DUPINFO - 0003, CONN_INFO - 0004, WEB_ID - 0005
-	 * @param member.check_dup_ip(req) : 웹아이디, 0002~0005 값 선택시 필수.
-	 * @param member.member_name(req)
-	 * @param member.birth_day(req) : YYYYMMDD
-	 * @param member.cell_phone(req) : 010XXXXYYYY
-	 * @return boolean true : 중복있음, false: 중복있음
-	 */
-	public static Map<String, String> getDupUser(String workerId, Member member, String vType, String vId) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("USERID", workerId);
-		param.put("className", "action.lnk.LnkCheckDupUser");
-		param.put("vType", vType); // 생년월일 - 0001, 이용자ID - 0002, DUPINFO - 0003, CONN_INFO - 0004, WEB_ID - 0005
-//		param.put("vId", URLEncoder.encode(vId));
-//		param.put("vUserName", URLEncoder.encode(member.getMember_name()));
-		try {
-			if (StringUtils.isNotEmpty(vId)) {
-				param.put("vId", URLEncoder.encode(vId, "UTF-8"));
-			}
-			if (StringUtils.isNotEmpty(member.getMember_name())) {
-				param.put("vUserName", URLEncoder.encode(member.getMember_name(), "UTF-8"));
-			}
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if ( member.getBirth_day() != null ) {
-			param.put("vBirthDay", member.getBirth_day().replaceAll("-", ""));
-		}
-		if ( member.getMobile_no() != null ) {
-			param.put("vMobileNo", member.getMobile_no().replaceAll("-", ""));
-		}
-
-		Document doc = CommonAPI.sendILUS(param);
-
-		String code = CommonAPI.getElementValueByName(doc, "code");
-
-		if ( !"0".equals(code) ) {
-			return CommonAPI.getFieldData(doc);
-//			String count = CommonAPI.getElementValueByName(doc, "count"); // 중복자 수
-//			if ( "0".equals(count) ) {
-//				return false;
-//			}
-//			else {
-//				return true;
-//			}
-		}
-		else {
-			return null;
-		}
-	}
-
-	/**
-	 * API로 부터 이용자 중복 확인
-	 * @param workerId
-	 * @param vType : 생년월일 - 0001, 이용자ID - 0002, DUPINFO - 0003, CONN_INFO - 0004, WEB_ID - 0005
-	 * @param member.check_dup_ip(req) : 웹아이디, 0002~0005 값 선택시 필수.
-	 * @param member.member_name(req)
-	 * @param member.birth_day(req) : YYYYMMDD
-	 * @param member.cell_phone(req) : 010XXXXYYYY
-	 * @return boolean true : 중복있음, false: 중복있음
-	 */
-	public static List<Map<String, String>> getDupUserList(String workerId, Member member, String vType, String vId) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("USERID", workerId);
-		param.put("className", "action.lnk.LnkCheckDupUser");
-		param.put("vType", vType); // 생년월일 - 0001, 이용자ID - 0002, DUPINFO - 0003, CONN_INFO - 0004, WEB_ID - 0005
-//		param.put("vId", URLEncoder.encode(vId));
-//		param.put("vUserName", URLEncoder.encode(member.getMember_name()));
-		try {
-			if (StringUtils.isNotEmpty(vId)) {
-				param.put("vId", URLEncoder.encode(vId, "UTF-8"));
-			}
-			if (member.getMember_name() != null) {
-				param.put("vUserName", URLEncoder.encode(member.getMember_name(), "UTF-8"));
-			}
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if ( member.getBirth_day() != null ) {
-			param.put("vBirthDay", member.getBirth_day().replaceAll("-", ""));
-		}
-		if ( member.getMobile_no() != null ) {
-			param.put("vMobileNo", member.getMobile_no());
-		}
-
-		Document doc = CommonAPI.sendILUS(param);
-
-		String code = CommonAPI.getElementValueByName(doc, "code");
-
-		if ( !"0".equals(code) ) {
-			return CommonAPI.getFieldDataList(doc);
-//			String count = CommonAPI.getElementValueByName(doc, "count"); // 중복자 수
-//			if ( "0".equals(count) ) {
-//				return false;
-//			}
-//			else {
-//				return true;
-//			}
-		}
-		else {
-			return null;
-		}
-	}
-
-	/**
-	 * API로 부터 개인정보 동의 항목을 조회
-	 * @param workerId
-	 * @return List<Map<String, String>>
-	 */
-	public static List<Map<String, String>> getPrtcNoticeList(String workerId) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("USERID", workerId);
-		param.put("className", "action.lnk.LnkGetPrtcNoticeList");
-
-		Document doc = CommonAPI.sendILUS(param);
-
-		String code = CommonAPI.getElementValueByName(doc, "code");
-		if ( "0".equals(code) ) {
-			return CommonAPI.getFieldDataList(doc);
-		}
-		else {
-			return null;
-		}
-	}
-
-	/**
-	 * API로 부터 개인정보 동의 처리
-	 * @param workerId
-	 * @param member
-	 * @param codeList
-	 * @return boolean
-	 */
-	public static boolean agreePrtcInfo(String workerId, String vId, String vUserLoca, String[] codeList) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("USERID", workerId);
-		param.put("className", "action.lnk.LnkInsertAgreePrtcInfo");
-		param.put("vId", vId); // 0002~0005 값 선택시 필수.
-		param.put("vUserLoca", vUserLoca);
-		param.put("vCodes", StringUtils.join(codeList, "|"));
-
-		Document doc = CommonAPI.sendILUS(param);
-
-		String code = CommonAPI.getElementValueByName(doc, "code");
-		if ( "0".equals(code) ) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	/**
-	 * API로 부터 개인정보 동의 처리
-	 * @param workerId
-	 * @param member
-	 * @param codeList
-	 * @return boolean
-	 */
-	public static ApiResponse agreePrtcInfoWithGrpCode(String workerId, Member member, String vGrpCode, String[] codeList) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("USERID", workerId);
-		param.put("className", "action.lnk.LnkInsertAgreePrtcInfo");
-		param.put("vId", member.getUser_id()); // 0002~0005 값 선택시 필수.
-		param.put("vUserLoca", member.getLoca());
-		param.put("vGrpCode", vGrpCode);
-		param.put("vCodes", StringUtils.join(codeList, "|"));
-
-		Document doc = CommonAPI.sendILUS(param);
-
-		String code = CommonAPI.getElementValueByName(doc, "code");
-		if ( "0".equals(code) ) {
-			return new ApiResponse(true);
-		} else {
-			return new ApiResponse(false, CommonAPI.getElementValueByName(doc, "message"));
-		}
-	}
-
-	/**
-	 * API로 부터 웹 코드 조회
-	 * @param workerId
-	 * @return List<Map<String, String>>
-	 */
-	public static List<Map<String, String>> getCodeWeb(String workerId) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("USERID", workerId);
-		param.put("className", "action.lnk.LnkGetCodeWeb");
-		param.put("vModule", "member"); // 이용자 관리
-		param.put("vDiv", "001"); // 이용자 확인 질문
-
-		Document doc = CommonAPI.sendILUS(param);
-
-		String code = CommonAPI.getElementValueByName(doc, "code");
-
-		if ( "0".equals(code) ) {
-			return CommonAPI.getFieldDataList(doc);
-		}
-		else {
-			return null;
-		}
-	}
-
-	/**
-	 * API로 부터 소장처 정보 조회
-	 * @param workerId
-	 * @param search_type
-	 * @param search_text
-	 * @return List<Map<String, String>>
-	 */
-	public static List<Map<String, String>> getLibInfoQry(String workerId, String search_type, String search_text) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("USERID", workerId);
-		param.put("className", "action.lnk.LnkLibInfoQry");
-		param.put("vSearchType", search_type); // 0001 - 소장처, 0002 - 자료실, HOPE - 비치처 가능 소장처 리스트, OUT - 상호대차 수령처 가능 리스트
-		if (StringUtils.isNotEmpty(search_text)) {
-			param.put("vLocation", search_text); // 소장처 코드 - 자료실 리스트 시 사용
-		}
-
-		Document doc = CommonAPI.sendILUS(param);
-
-		String code = CommonAPI.getElementValueByName(doc, "code");
-
-		if ( "0".equals(code) ) {
-			return CommonAPI.getFieldDataList(doc);
-		}
-		else {
-			return null;
-		}
-	}
-
-	/**
-	 * SMS 전송
-	 * @param workerId
-	 * @param search_type
-	 * @param search_text
-	 * @return List<Map<String, String>>
-	 */
-	public static boolean sendSMS(String workerId, String vLocation, String vSmsCode, String vToPhone, String vFromPhone, String vMsg) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("USERID", workerId);
-		param.put("className", "action.lnk.LnkSmsDataInsert");
-		param.put("vLocation", vLocation); // 소장처 코드
-		param.put("vSmsCode", vSmsCode); // SMS코드
-		param.put("vToPhone", vToPhone.replaceAll("-", "")); //
-		param.put("vFromPhone", vFromPhone.replaceAll("-", "")); //
-//		param.put("vSmsCode", vSmsCode); //
-		try {
-			param.put("vMsg", URLEncoder.encode(vMsg, "UTF-8"));
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-
-		Document doc = CommonAPI.sendILUS(param);
-
-		String code = CommonAPI.getElementValueByName(doc, "code");
-
-		if ( "0".equals(code) ) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	/**
-	 * API로 부터 LAS코드 조회
-	 * @return List<Map<String, String>>
-	 */
-	public static List<Map<String, String>> getLasCode(String div_code) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("USERID", "WEB");
-		param.put("className", "action.lnk.LnkGetCode");
-		param.put("vDiv", div_code);
-
-		Document doc = CommonAPI.sendILUS(param);
-
-		String code = CommonAPI.getElementValueByName(doc, "code");
-
-		if ( "0".equals(code) ) {
-			return CommonAPI.getFieldDataList(doc);
-		}
-		else {
-			return null;
-		}
-	}
-
-	/**
-	 * API로 부터 소속코드 조회
-	 * @return List<Map<String, String>>
-	 */
-	public static List<Map<String, String>> getAgencyCode(String div_code) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("USERID", "WEB");
-		param.put("className", "action.lnk.LnkGetDept");
-		param.put("vDiv", div_code);
-
-		Document doc = CommonAPI.sendILUS(param);
-
-		String code = CommonAPI.getElementValueByName(doc, "code");
-
-		if ( "0".equals(code) ) {
-			return CommonAPI.getFieldDataList(doc);
-		}
-		else {
-			return null;
-		}
-	}
-
-	/**
-	 * API로 부터 기관코드 조회
-	 * @return List<Map<String, String>>
-	 */
-	public static List<Map<String, String>> getBelongCode(String div_code, String belong_code) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("USERID", "WEB");
-		param.put("className", "action.lnk.LnkGetDept");
-		param.put("vDiv", div_code);
-		param.put("vCode", belong_code);
-
-		Document doc = CommonAPI.sendILUS(param);
-
-		String code = CommonAPI.getElementValueByName(doc, "code");
-
-		if ( "0".equals(code) ) {
-			return CommonAPI.getFieldDataList(doc);
-		}
-		else {
-			return null;
-		}
-	}
-
-	/**
-	 * API로 부터 대출현황 조회
-	 * @return List<Map<String, String>>
-	 */
-	public static List<Map<String, String>> getLoanMemberList(String birth_day, String sex, String loca_code, String date, String user_positn) {
-		Map<String, Object> param = new HashMap<String, Object>();
-
-		List<String> values = new ArrayList<String>();
-
-		if(birth_day != null && !birth_day.equals("")) {
-			values.add(String.format("%s|%s", "BIRTHD2", birth_day));
-		}
-		if(sex != null && !sex.equals("")) {
-			values.add(String.format("%s|%s", "SEX", sex));
-		}
-		if(user_positn != null && !user_positn.equals("")) {
-			values.add(String.format("%s|%s", "USER_POSITN", user_positn));
-		}
-		
-		// 준회원, 기타회원, 탈퇴회원은 대출기간을 넣지 않는다
-		if(user_positn != null && !user_positn.equals("") && !user_positn.equals("WEB") && !user_positn.equals("0010") && !user_positn.equals("9999")) {
-			values.add(String.format("%s|%s", "LOAN_DATE", date));
-		}
-
-		param.put("USERID", "WEB");
-		param.put("className", "action.lnk.LnkUserList");
-		param.put("vLoca", loca_code);
-		param.put("vStartPos", 1);
-		param.put("vEndPos", 999999);
-		param.put("value", StringUtils.join(values, "><"));
-
-		Document doc = CommonAPI.sendILUS(param);
-
-		String code = CommonAPI.getElementValueByName(doc, "code");
-
-		if ( "0".equals(code) ) {
-			return CommonAPI.getFieldDataList(doc);
-		}
-		else {
-			return null;
-		}
-	}
-
-	public static List<Map<String, String>> addMemberRegular(String workerId, Member member) {
-		// TODO Auto-generated method stub
-		List<String> values = new ArrayList<String>();
-		values.add(String.format("%s|%s", "USER_NAME", CommonAPI.getCrypt(member.getMember_name())));
-		values.add(String.format("%s|%s", "PASSWORD", CommonAPI.getCrypt(member.getMember_pw())));
-		values.add(String.format("%s|%s", "BIRTHD", CommonAPI.getCrypt(member.getBirth_day().replaceAll("-", ""))));
-		values.add(String.format("%s|%s", "SEX", CommonAPI.getCrypt(member.getSex())));
-		if (StringUtils.isNotEmpty(member.getPhone1()) && StringUtils.isNumeric(member.getPhone1())) {
-			if (StringUtils.isNotEmpty(member.getPhone2()) && StringUtils.isNumeric(member.getPhone2())) {
-				if (StringUtils.isNotEmpty(member.getPhone3()) && StringUtils.isNumeric(member.getPhone3())) {
-					values.add(String.format("%s|%s", "TEL_NO", CommonAPI.getCrypt(String.format("%s%s%s", member.getPhone1(), member.getPhone2(), member.getPhone3()))));
-				}
-			}
-		}
-
-		values.add(String.format("%s|%s", "MOBILE_NO", CommonAPI.getCrypt(member.getCell_phone())));
-		if (StringUtils.isNotEmpty(member.getEmail())) {
-			if (!member.getEmail().equals("@")) {
-				values.add(String.format("%s|%s", "EMAIL", CommonAPI.getCrypt(member.getEmail())));
-			}
-		}
-		values.add(String.format("%s|%s", "ZIP_CODE", CommonAPI.getCrypt(member.getZipcode())));
-		values.add(String.format("%s|%s", "ADDRS", CommonAPI.getCrypt(String.format("%s", member.getAddress1()))));
-//		values.add(String.format("%s|%s", "WEB_HINT_TY", CommonAPI.getCrypt(member.getWeb_hint_ty())));
-//		values.add(String.format("%s|%s", "WEB_HINT_ANS", CommonAPI.getCrypt(member.getWeb_hint_ans())));
-		values.add(String.format("%s|%s", "DUPINFO", CommonAPI.getCrypt(member.getDi_value())));
-		values.add(String.format("%s|%s", "CONN_INFO", CommonAPI.getCrypt(member.getCi_value())));
-		if (!StringUtils.equals(member.getSms_service_yn(), "Y")) {
-			member.setSms_service_yn("N");
-		}
-		values.add(String.format("%s|%s", "SMS_CHECK", CommonAPI.getCrypt(member.getSms_service_yn())));
-		if (!StringUtils.equals(member.getEmail_service_yn(), "Y")) {
-			member.setEmail_service_yn("N");
-		}
-		values.add(String.format("%s|%s", "MAIL_CHECK", CommonAPI.getCrypt(member.getEmail_service_yn())));
-		values.add(String.format("%s|%s", "UN_AGREE_FLAG", CommonAPI.getCrypt("0001")));
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-		values.add(String.format("%s|%s", "UN_AGREE_DATE", CommonAPI.getCrypt(sdf.format(new Date()))));
-
-
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("USERID", workerId);
-		param.put("className", "action.lnk.LnkUserJoin");
-		param.put("vId", member.getMember_id());
-		param.put("vLocation", member.getLoca());
-		param.put("vUserPos", "0001");
-		param.put("vLoanCheck", "0001");
-		param.put("vStatus", "0001");
-		param.put("vTmplatCode", "00000001");
-		param.put("vWorkType", "USERID"); // null - 일련번호(기본), WEBID - USER_ID와 WEB_ID가 동일
-		param.put("value", StringUtils.join(values, "><"));
-
-		Document doc = CommonAPI.sendILUS(param);
-
-//		String code = CommonAPI.getElementValueByName(doc, "code");
-//		String msg = CommonAPI.getElementValueByName(doc, "msg");
-
-		return CommonAPI.getFieldDataList(doc);
-	}
-
-	public static boolean updateMemberRegular(String workerId, Member member, boolean b) {
-		List<String> values = new ArrayList<String>();
-
-		values.add(String.format("%s|%s", "STATUS_CODE", CommonAPI.getCrypt("0001")));
-		values.add(String.format("%s|%s", "USER_POSITN", CommonAPI.getCrypt("0001")));
-		values.add(String.format("%s|%s", "TMPLAT_CODE", CommonAPI.getCrypt("00000001")));
-		values.add(String.format("%s|%s", "LOAN_CHECK", CommonAPI.getCrypt("0001")));
-		values.add(String.format("%s|%s", "GRADE_CODE", CommonAPI.getCrypt("0002")));
-
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("USERID", workerId);
-		param.put("className", "action.lnk.LnkUserInfoDMod");
-		param.put("vUserConvert", "Y");
-		param.put("vUserId", member.getUser_id());
-		param.put("value", StringUtils.join(values, "><"));
-		Document doc = CommonAPI.sendILUS(param);
-
-		String code = CommonAPI.getElementValueByName(doc, "code");
-
-		if ( "0".equals(code) ) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	public static String getCheckBookConn(String workerId, Map<String, String> memberInfo) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("USERID", workerId);
-		param.put("className", "action.lnk.LnkBcReqUserStatus");
-		param.put("vType", "SEQNO");
-		param.put("vSeqNo", memberInfo.get("SEQ_NO"));
-		
-		Document doc = CommonAPI.sendILUS(param);
-		
-		String code = CommonAPI.getElementValueByName(doc, "code");
-		if ( "0".equals(code) ) {
-			return CommonAPI.getFieldData(doc).get("LOCAL_REQ_STATUS");
-		}
-		else {
-			return null;
-		}
-	}
 }

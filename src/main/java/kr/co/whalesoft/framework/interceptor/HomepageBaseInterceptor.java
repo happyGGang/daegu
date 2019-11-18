@@ -25,8 +25,6 @@ import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.app.cms.menu.menuAccess.MenuAccess;
 import kr.co.whalesoft.app.cms.menu.menuAccess.MenuAccessService;
-import kr.co.whalesoft.framework.utils.RequestUtils;
-import kr.go.gbelib.app.cms.module.elib.book.Book;
 import kr.go.gbelib.app.cms.module.elib.book.BookService;
 import kr.go.gbelib.app.cms.module.elib.category.ElibCategory;
 import kr.go.gbelib.app.cms.module.elib.category.ElibCategoryService;
@@ -86,10 +84,8 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 				}
 			}
 
-			Homepage reqHomepage = new Homepage();
-			reqHomepage.setContext_path(contextPath);
 			log.debug("contextPath : "+contextPath);
-			homepage = homepageService.getHomepageOneInPath(reqHomepage);
+			homepage = homepageService.getHomepageOneInPath(contextPath);
 
 			if(homepage != null) {
 
@@ -252,11 +248,9 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 				}
 
 				//Intro 에서 사용하는 Homepage 정보 가져오기
-				Homepage reqHomepage = new Homepage();
 				uri = uri.replace("/intro/", "");
 				uri = uri.substring(0,uri.indexOf("/"));
-				reqHomepage.setContext_path(uri);
-				homepage = homepageService.getHomepageOneInPath(reqHomepage);
+				homepage = homepageService.getHomepageOneInPath(uri);
 				if ( homepage != null ) {
 					request.setAttribute("homepage", homepage);
 				}

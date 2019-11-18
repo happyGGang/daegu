@@ -30,45 +30,45 @@ import kr.go.gbelib.app.common.api.PushAPI;
 @Controller
 @RequestMapping(value = {"/cms/module/lockerReq"})
 public class LockerReqController extends BaseController {
-	
+
 	private final String basePath = "/cms/module/lockerReq/";
-	
+
 	@Autowired
-	private LockerReqService service;	
-	
+	private LockerReqService service;
+
 	@Autowired
 	private LockerService lockerService;
-	
+
 	@Autowired
 	private LockerPreService lockerPreService;
-	
+
 	@Autowired
 	private CodeService codeService;
-	
+
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, LockerReq lockerReq, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 //		if ( !getSessionIsAdmin(request) ) {
-			lockerReq.setHomepage_id(getAsideHomepageId(request));	
+			lockerReq.setHomepage_id(getAsideHomepageId(request));
 //		}
-		
+
 		// 전체 사물함 설정 리스트 (상단에 셀렉트박스출력)
 		List<LockerPre> preList = lockerPreService.getLockerPreAll(new LockerPre(lockerReq.getHomepage_id()));
 		int lockerPreList = 0;
 		if ( preList != null ) {
 			lockerPreList = preList.size();
 		}
-		
+
 		// 사물함 기본설정
 		LockerPre lockerPre = lockerPreService.getLockerPreOne(new LockerPre(lockerReq.getHomepage_id(), lockerReq.getLocker_pre_idx()));
-		
+
 		// 사물함 기본설정에 따른 사물함 리스트
 		List<Locker> lockerList = lockerService.getLocker(new Locker(lockerReq.getHomepage_id(), lockerReq.getLocker_pre_idx()));
 		int count = 0 ;
 		if (lockerList != null) {
 			count = lockerList.size();
 		}
-		
+
 		model.addAttribute("lockerReq", lockerReq);
 		model.addAttribute("lockerReqCount", count);
 		model.addAttribute("lockerReqList", service.getLockerReq(lockerReq));
@@ -76,38 +76,38 @@ public class LockerReqController extends BaseController {
 		model.addAttribute("lockerPre", lockerPre);
 		model.addAttribute("lockerPreList", preList);
 		model.addAttribute("lockerPreCount", lockerPreList);
-		
+
 		return basePath + "index";
 	}
-	
+
 	@RequestMapping(value = {"/indexApply.*"})
 	public String indexApply(Model model, LockerReq lockerReq, HttpServletRequest request) {
-		
+
 		int count = service.getLockerReqCount(lockerReq);
 		LockerPre lockerPre = lockerPreService.getLockerPreOne(new LockerPre(lockerReq.getHomepage_id(), lockerReq.getLocker_pre_idx()));
-		
+
 		model.addAttribute("lockerPre", lockerPre);
 		model.addAttribute("lockerReqApply", lockerReq);
 		model.addAttribute("lockerReqApplyCount", count);
 		model.addAttribute("lockerReqApplyList", service.getLockerReq(lockerReq));
-		
+
 		return basePath + "indexApply_ajax";
 	}
-	
+
 	@RequestMapping(value = {"/memberAdd.*"})
 	public String memberAdd(Model model, LockerReq lockerReq, HttpServletRequest request) {
 		LockerPre lockerPre = new LockerPre();
-		
+
 		lockerPre.setHomepage_id(lockerReq.getHomepage_id());
-				
+
 		model.addAttribute("lockerReqApply", lockerReq);
 		model.addAttribute("lockerReqApplyCount", service.getLockerUnassignReq(lockerReq).size());
 		model.addAttribute("lockerReqApplyList", service.getLockerUnassignReq(lockerReq));
 		model.addAttribute("lockerPreList", lockerPreService.getLockerPreAll(lockerPre));
-		
+
 		return basePath + "memberAdd_ajax";
 	}
-	
+
 	@RequestMapping(value = {"/edit.*"})
 	public String edit(Model model, LockerReq lockerReq, HttpServletRequest request) throws AuthException {
 		if(lockerReq.getEditMode().equals("MODIFY")) {
@@ -117,81 +117,81 @@ public class LockerReqController extends BaseController {
 			checkAuth("C", model, request);
 			model.addAttribute("lockerReq", lockerReq);
 		}
-		
+
 		model.addAttribute("cellPhoneCode", codeService.getCode(lockerReq.getHomepage_id(), "C0002"));
 		model.addAttribute("phoneCode", codeService.getCode(lockerReq.getHomepage_id(), "C0003"));
 		model.addAttribute("lockerList", lockerService.getLockerAll(new Locker(lockerReq.getHomepage_id())));
-		
+
 		return basePath + "edit_ajax";
 	}
-	
+
 	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
 	public LockerPreSearchView excel(Model model, LockerReq lockerReq, HttpServletRequest request, HttpServletResponse response) throws Exception{
-		model.addAttribute("lockerReq", lockerReq); 		
+		model.addAttribute("lockerReq", lockerReq);
 		model.addAttribute("lockerReqResult", service.getLockerReqListAll(lockerReq));
 		return new LockerPreSearchView();
 	}
-	
+
 	@RequestMapping(value = {"/csvDownload.*"}, method = RequestMethod.POST)
 	public void csv(LockerReq lockerReq, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		List<LockerReq> lockerReqResult = service.getLockerReqListAll(lockerReq);
-		
+
 		new LockerReqXlsToCsv(lockerReqResult, request, response);
 	}
-	
+
 	@RequestMapping(value = {"/checkId.*"}, method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> checkId(Model model, LockerReq lockerReq, HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		
+
 		Member lockerReqMember = new Member();
 		lockerReqMember.setUser_id(lockerReq.getApply_id());
-		lockerReqMember.setCheck_certify_type("WEBID");
-		lockerReqMember.setCheck_certify_data(lockerReq.getApply_id());
+//		lockerReqMember.setCheck_certify_type("WEBID");
+//		lockerReqMember.setCheck_certify_data(lockerReq.getApply_id());
 
 		Map<String, String> memberInfo = null;
 		if ( lockerReq.getSearch_api_type().equals("WEBID") ) {
-			lockerReqMember.setCheck_certify_type("WEBID");
-			lockerReqMember.setCheck_certify_data(lockerReq.getApply_id());
-
-			memberInfo = MemberAPI.getMemberCertify("WEB", lockerReqMember);
-			
-			if ( memberInfo == null ) {
-				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
-				return result;
-			}
+//			lockerReqMember.setCheck_certify_type("WEBID");
+//			lockerReqMember.setCheck_certify_data(lockerReq.getApply_id());
+//
+//			memberInfo = MemberAPI.getMemberCertify("WEB", lockerReqMember);
+//
+//			if ( memberInfo == null ) {
+//				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
+//				return result;
+//			}
 		} else {
-			memberInfo = MemberAPI.getDupUser("WEB", lockerReqMember, "0002", lockerReq.getApply_id());
-			if ( memberInfo == null ) {
-				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
-				return result;
-			}
+//			memberInfo = MemberAPI.getDupUser("WEB", lockerReqMember, "0002", lockerReq.getApply_id());
+//			if ( memberInfo == null ) {
+//				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
+//				return result;
+//			}
 		}
 		result.put("memberInfo", memberInfo);
-		return result; 
+		return result;
 	}
-	
+
 	@Transactional
 	@RequestMapping(value = {"/assignment.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse assignment(Model model, LockerReq lockerReqApply, BindingResult result, HttpServletRequest request) {
-		
+
 		JsonResponse res = new JsonResponse(request);
 		String editMode = lockerReqApply.getEditMode();
-	
+
 		if(!result.hasErrors()) {
 			int targetLockerPreIdx = lockerReqApply.getLocker_pre_idx();
 			lockerReqApply.setMod_id(getSessionMemberId(request));
-			
+
 			List<Locker> lockerList = lockerService.getLocker(new Locker(lockerReqApply.getHomepage_id(), targetLockerPreIdx));
 			List<LockerReq> lockerReqList = service.getLockerReq(lockerReqApply);
-			
+
 			//사물함 상태값 clear
-			service.clearLocker(lockerReqApply); 
+			service.clearLocker(lockerReqApply);
 			service.clearLockerReq(lockerReqApply);
-			
+
 			if(editMode.equals("SEQUENCE")) {
-				
+
 				for(int i = 0; i < lockerList.size(); i++) {
-					
+
 					if(lockerReqList.size() > i) {
 						LockerReq targetLockerReq = lockerReqList.get(i);
 				    	targetLockerReq.setLocker_idx(lockerList.get(i).getLocker_idx());
@@ -202,13 +202,13 @@ public class LockerReqController extends BaseController {
 				    	//PushAPI.sendMessage(lockerReqApply.getHomepage_id(), PushAPI.SMS_TYPE_SMS, lockerReqApply.getCell_phone(), "사물함 배정이 완료 되었습니다.");
 					}
 			    }
-				
+
 				res.setValid(true);
 				res.setMessage("순차 배정되었습니다.");
-				
+
 			} else if(editMode.equals("RANDOM")) {
 				Random random = new Random();
-				
+
 				int lockerListCount = lockerList.size();
 				for ( int i = 0; i < lockerListCount; i ++ ) {
 					Locker targetLocker 		= null;
@@ -216,93 +216,93 @@ public class LockerReqController extends BaseController {
 
 					int randomLockerNumber = 0;
 					int randomLockerReqNumber = 0;
-					
+
 					if ( lockerList.size() > 0 ) {
 						if ( lockerList.size() > 1 ) {
 							randomLockerNumber = random.nextInt(lockerList.size() - 1);
-							targetLocker = lockerList.get(randomLockerNumber);	
+							targetLocker = lockerList.get(randomLockerNumber);
 						} else {
 							targetLocker = lockerList.get(0);
 						}
 
 					}
-					
+
 					if ( lockerReqList.size() > 0 ) {
-						
+
 						if ( lockerReqList.size() > 1 ) {
 							randomLockerReqNumber = random.nextInt(lockerReqList.size() - 1);
 							targetLockerReq = lockerReqList.get(randomLockerReqNumber);
 						} else {
 							targetLockerReq = lockerReqList.get(0);
-						}	
+						}
 					}
-					
+
 					if ( targetLocker != null && targetLockerReq != null ) {
 						targetLockerReq.setLocker_idx(targetLocker.getLocker_idx());
-						
+
 						//사용자 사물함 랜덤 배정
 				    	service.assingLocker(targetLockerReq);
 				    	//사물함 상태값 변경
-				    	service.modifyLocekr(targetLockerReq);	
+				    	service.modifyLocekr(targetLockerReq);
 				    	lockerList.remove(randomLockerNumber);
 				    	lockerReqList.remove(randomLockerReqNumber);
 					} else {
 						break;
 					}
 				}
-				
-				
-				
-				/*int[] lockerArr = new int[lockerList.size()];  
-			    int ran=0;    
+
+
+
+				/*int[] lockerArr = new int[lockerList.size()];
+			    int ran=0;
 			    boolean cheak;
 			    Random random = new Random();
-			    
-			    for (int i=0; i<lockerArr.length; i++) {    
-			        ran = random.nextInt(lockerList.size());    
-			        cheak = true;    
-			        for (int j=0; j<i; j++) {     
+
+			    for (int i=0; i<lockerArr.length; i++) {
+			        ran = random.nextInt(lockerList.size());
+			        cheak = true;
+			        for (int j=0; j<i; j++) {
 			            if(lockerArr[j] == ran) {
-			                i--;    
-			                cheak=false;    
+			                i--;
+			                cheak=false;
 			            }
 			        }
-			        if(cheak)   
+			        if(cheak)
 			        	lockerArr[i] = ran;
 			    }
-			    
-			    int[] lockerReqArr = new int[lockerReqList.size()];  
-			    int ranReq = 0;    
+
+			    int[] lockerReqArr = new int[lockerReqList.size()];
+			    int ranReq = 0;
 			    boolean checkReq;
 			    Random randomReq = new Random();
-			    
-			    for (int i=0; i<lockerReqArr.length; i++) {    
-			        ranReq = randomReq.nextInt(lockerReqList.size());    
-			        checkReq = true;    
-			        for (int j=0; j<i; j++) {     
+
+			    for (int i=0; i<lockerReqArr.length; i++) {
+			        ranReq = randomReq.nextInt(lockerReqList.size());
+			        checkReq = true;
+			        for (int j=0; j<i; j++) {
 			            if(lockerReqArr[j] == ranReq) {
-			                i--;    
-			                checkReq = false;    
+			                i--;
+			                checkReq = false;
 			            }
 			        }
-			        if(checkReq)   
+			        if(checkReq)
 			        	lockerReqArr[i] = ranReq;
 			    }
-			    
-			    
+
+
 			    for(int i = 0; i < lockerList.size(); i++) {
-			    	
+
 			    	if(lockerReqList.size() > i) {
-			    		
+
 			    		int num = lockerArr[i];
 			    		int num2 = lockerReqArr[i];
-			    		
+
 			    		lockerReqApply.setReq_idx(lockerReqList.get(num2).getReq_idx());
 			    		lockerReqApply.setApply_id(lockerReqList.get(num2).getApply_id());
-			    		lockerReqApply = service.getLockerReqOne(lockerReqApply);				    		
+			    		lockerReqApply = service.getLockerReqOne(lockerReqApply);
 			    		lockerReqApply.setLocker_idx(lockerList.get(num).getLocker_idx());
 			    		lockerReqApply.setLocker_pre_idx(targetLockerPreIdx);
-			    		
+
 			    		//사용자 사물함 랜덤 배정
 			    		service.modifyLocekrReq(lockerReqApply);
 			    		//사물함 상태값 변경
@@ -310,7 +310,7 @@ public class LockerReqController extends BaseController {
 			    		PushAPI.sendMessage(lockerReqApply.getHomepage_id(), PushAPI.SMS_TYPE_SMS, lockerReqApply.getCell_phone(), "사물함 배정이 완료 되었습니다.");
 			    	}
 			    }*/
-				
+
 				res.setValid(true);
 				res.setMessage("랜덤 배정되었습니다.");
 			} else if(editMode.equals("RAFFLE")) {
@@ -324,7 +324,7 @@ public class LockerReqController extends BaseController {
 						}
 					}
 				}
-				
+
 				int lockerListCount = lockerList.size();
 				for ( int i = 0; i < lockerListCount; i ++ ) {
 					Locker targetLocker 		= null;
@@ -332,91 +332,91 @@ public class LockerReqController extends BaseController {
 
 					int randomLockerNumber = 0;
 					int randomLockerReqNumber = 0;
-					
+
 					if ( lockerList.size() > 0 ) {
 						if ( lockerList.size() > 1 ) {
 							randomLockerNumber = random.nextInt(lockerList.size() - 1);
-							targetLocker = lockerList.get(randomLockerNumber);	
+							targetLocker = lockerList.get(randomLockerNumber);
 						} else {
 							targetLocker = lockerList.get(0);
 						}
 
 					}
-					
+
 					if ( lockerReqList.size() > 0 ) {
-						
+
 						if ( lockerReqList.size() > 1 ) {
 							randomLockerReqNumber = random.nextInt(lockerReqList.size() - 1);
 							targetLockerReq = lockerReqList.get(randomLockerReqNumber);
 						} else {
 							targetLockerReq = lockerReqList.get(0);
-						}	
+						}
 					}
-					
+
 					if ( targetLocker != null && targetLockerReq != null ) {
 						targetLockerReq.setLocker_idx(targetLocker.getLocker_idx());
-						
+
 						//사용자 사물함 랜덤 배정
 				    	service.assingLocker(targetLockerReq);
 				    	//사물함 상태값 변경
-				    	service.modifyLocekr(targetLockerReq);	
+				    	service.modifyLocekr(targetLockerReq);
 				    	lockerList.remove(targetLocker);
 				    	lockerReqList.remove(targetLockerReq);
 					} else {
 						break;
 					}
 				}
-				
-				
-				/*int[] lockerArr = new int[lockerList.size()];  
-			    int ran=0;    
+
+
+				/*int[] lockerArr = new int[lockerList.size()];
+			    int ran=0;
 			    boolean cheak;
 			    Random random = new Random();
-			    
-			    for (int i=0; i<lockerArr.length; i++) {    
-			        ran = random.nextInt(lockerList.size());    
-			        cheak = true;    
-			        for (int j=0; j<i; j++) {     
+
+			    for (int i=0; i<lockerArr.length; i++) {
+			        ran = random.nextInt(lockerList.size());
+			        cheak = true;
+			        for (int j=0; j<i; j++) {
 			            if(lockerArr[j] == ran) {
-			                i--;    
-			                cheak=false;    
+			                i--;
+			                cheak=false;
 			            }
 			        }
-			        if(cheak)   
+			        if(cheak)
 			        	lockerArr[i] = ran;
 			    }
-			    
-			    int[] lockerReqArr = new int[lockerReqList.size()];  
-			    int ranReq = 0;    
+
+			    int[] lockerReqArr = new int[lockerReqList.size()];
+			    int ranReq = 0;
 			    boolean cheakReq;
 			    Random randomReq = new Random();
-			    
-			    for (int i=0; i<lockerReqArr.length; i++) {    
-			        ranReq = randomReq.nextInt(lockerReqList.size());    
-			        cheakReq = true;    
-			        for (int j=0; j<i; j++) {     
+
+			    for (int i=0; i<lockerReqArr.length; i++) {
+			        ranReq = randomReq.nextInt(lockerReqList.size());
+			        cheakReq = true;
+			        for (int j=0; j<i; j++) {
 			            if(lockerReqArr[j] == ranReq) {
-			                i--;    
-			                cheakReq = false;    
+			                i--;
+			                cheakReq = false;
 			            }
 			        }
-			        if(cheakReq)   
+			        if(cheakReq)
 			        	lockerReqArr[i] = ranReq;
 			    }
-			    
-			    
+
+
 			    for(int i = 0; i < lockerList.size(); i++) {
-			    	
+
 			    	if(lockerReqList.size() > i) {
-			    		
+
 			    		int num = lockerArr[i];
-			    		int num2 = lockerReqArr[i];				    		
+			    		int num2 = lockerReqArr[i];
 			    		lockerReqApply.setReq_idx(lockerReqList.get(num2).getReq_idx());
 			    		lockerReqApply.setApply_id(lockerReqList.get(num2).getApply_id());
-			    		lockerReqApply = service.getLockerReqOne(lockerReqApply);				    		
+			    		lockerReqApply = service.getLockerReqOne(lockerReqApply);
 			    		lockerReqApply.setLocker_idx(lockerList.get(num).getLocker_idx());
 			    		lockerReqApply.setLocker_pre_idx(targetLockerPreIdx);
-			    		
+
 			    		//사용자 사물함 랜덤 배정
 			    		service.modifyLocekrReq(lockerReqApply);
 			    		//사물함 상태값 변경
@@ -424,10 +424,10 @@ public class LockerReqController extends BaseController {
 			    		PushAPI.sendMessage(lockerReqApply.getHomepage_id(), PushAPI.SMS_TYPE_SMS, lockerReqApply.getCell_phone(), "["+lockerReqList.get(num2).getLocker_pre_name()+"] 사물함 배정이 완료 되었습니다.");
 			    	}
 			    }*/
-				
+
 				res.setValid(true);
 				res.setMessage("추첨 배정되었습니다.");
-				
+
 			}
 		} else {
 			res.setValid(false);
@@ -435,10 +435,10 @@ public class LockerReqController extends BaseController {
 		}
 		return res;
 	}
-	
+
 	@RequestMapping(value = {"/assignmentOne.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse assignmentOne(Model model, LockerReq lockerReq, BindingResult result, HttpServletRequest request) {
-		
+
 		JsonResponse res = new JsonResponse(request);
 		String editMode = lockerReq.getEditMode();
 		if(!result.hasErrors()) {
@@ -449,7 +449,7 @@ public class LockerReqController extends BaseController {
 				locker.setLocker_idx(lockerReq.getLocker_idx());
 				locker.setLocker_pre_idx(lockerReq.getLocker_pre_idx());
 				locker.setMod_id(getSessionMemberId(request));
-				
+
 				if(editMode.equals("ADD")) {
 					res.setValid(true);
 					locker.setStatus("2");
@@ -462,7 +462,7 @@ public class LockerReqController extends BaseController {
 					if (service.isSmsReceive("USERID", temp.getApply_id())) {
 						PushAPI.sendMessage(getHomepageOne(lockerReq.getHomepage_id()), PushAPI.SMS_TYPE_SMS, temp.getCell_phone(), "사물함 배정이 완료 되었습니다.", getHomepageOne(lockerReq.getHomepage_id()).getHomepage_send_tell(), true);
 					}
-					
+
 				} else {
 					res.setValid(true);
 					locker.setStatus("1");
@@ -480,36 +480,36 @@ public class LockerReqController extends BaseController {
 		}
 		return res;
 	}
-	
+
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Model model, LockerReq lockerReq, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
 		String editMode = lockerReq.getEditMode();
-		
+
 		if(!lockerReq.getEditMode().equals("DELETE")) {
 			ValidationUtils.rejectIfEmpty(result, "req_name", "신청자명을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "apply_id", "신청자ID를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "phone", "전화번호를 입력하세요");
 			ValidationUtils.rejectIfEmpty(result, "cell_phone", "휴대전화번호를 입력하세요.");
-			
+
 			if(service.getBlackListCheck(lockerReq) > 0) {
 				res.setValid(false);
 				res.setMessage("블랙리스트로 등록된 회원입니다.");
 				return res;
 			}
-			
+
 			if(service.getLockerApplyCheck(lockerReq) > 0 && lockerReq.getEditMode().equals("ADD")) {
 				res.setValid(false);
 				res.setMessage("이미 사물함 신청된 회원입니다.");
 				return res;
 			}
 		}
-					
+
 		if(!result.hasErrors()) {
 			//lockerReq.setHomepage_id(getSessionHomepageId(request));
 			if(editMode.equals("ADD")) {
 				lockerReq.setAdd_id(getSessionMemberId(request));
-				service.addLockerReq(lockerReq, "CMS"); 
+				service.addLockerReq(lockerReq, "CMS");
 				res.setValid(true);
 				res.setMessage("등록 되었습니다.");
 				if (service.isSmsReceive(lockerReq.getSearch_api_type(), lockerReq.getApply_id())) {
@@ -529,7 +529,7 @@ public class LockerReqController extends BaseController {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
 		}
-		
+
 		return res;
 	}
 }

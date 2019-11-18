@@ -13,12 +13,12 @@
 </style>
 <script>
 $(document).ready(function() {
-	
+
 	$('button#do-search').on('click', function(e) {
 		e.preventDefault();
 		doAjaxLoad('div#searchBox', 'search.do', $('form#searchForm').serialize());
 	});
-	
+
 	$('input#search_text_naver').on('keyup', function(e) {
 		if (e.keyCode == '13') {
 			$('button#do-search').click();
@@ -40,10 +40,10 @@ $(document).ready(function() {
 		</div>
 	</div>
 </form:form>
-		<c:if test="${fn:length(naverResult) < 1 and not empty librarySearch.search_text}">
+		<c:if test="${naverResult.totalCount < 1 and not empty librarySearch.search_text}">
 	<div class="search_result nodata">검색된 도서가 없습니다.</div>
 		</c:if>
-		<c:if test="${fn:length(naverResult) > 0 and not empty librarySearch.search_text}">
+		<c:if test="${naverResult.totalCount > 0 and not empty librarySearch.search_text}">
 	<p class="search_result">
 		<span class="red fb">"${librarySearch.search_text}"</span>에 대한 <span class="fb"><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/> </span>개의
 		검색 결과입니다.
@@ -54,7 +54,7 @@ $(document).ready(function() {
 		<div class="smain">
 			<div class="box">
 				<div class="search-results">
-					<c:forEach items="${naverResult.rss.channel.item}" var="i" varStatus="status">
+					<c:forEach items="${naverResult.list}" var="i" varStatus="status">
 					<div class="row">
 						<div class="thumb">
 							<c:choose>
@@ -74,10 +74,10 @@ $(document).ready(function() {
 										<li>저자 : ${fn:substring(i.author, 0, 20)}<c:if test="${fn:length(i.author) > 20}">...</c:if></li>
 										<li>출판사 : ${fn:substring(i.publisher, 0, 20)}<c:if test="${fn:length(i.publisher) > 20}">...</c:if></li>
 										<li>출판일 : ${i.pubdate}</li>
-										<li>ISBN : ${i.isbn}</li>
+										<li>ISBN : ${i.isbn13}</li>
 										<li>가격 : ${i.price}</li>
 										<c:choose>
-											<c:when test="${i.already}">
+											<c:when test="${i.already13}">
 										<li class="button">
 											<span class="no" style="color: red;">소장도서(신청불가)</span>
 										</li>
@@ -85,9 +85,7 @@ $(document).ready(function() {
 											<c:otherwise>
 										<li class="button" style="background: none;">
 											<a class="btn btn1 request" index="${status.index}" href="#">선택하기</a>
-											<c:set var="title" value="${fn:replace(i.title, '<b>', '')}"></c:set>
-											<c:set var="title" value="${fn:replace(title, '</b>', '')}"></c:set>
-											<span data="${title}//${i.author}//${i.publisher}//${fn:substring(i.pubdate,0,4)}//${i.isbn}//${i.price}"></span>
+											<span data="${i.title}//${i.author}//${i.publisher}//${fn:substring(i.pubdate,0,4)}//${i.isbn13}//${i.price}"></span>
 										</li>
 											</c:otherwise>
 										</c:choose>
@@ -98,18 +96,18 @@ $(document).ready(function() {
 					</div>
 					</c:forEach>
 				</div>
-			
+
 				<div id="board_paging" class="dataTables_paginate" style="padding-bottom: 25px;">
 				<c:if test="${paging.firstPageNum > 0}">
 					<a href="" class="paginate_button previous" keyValue="${paging.firstPageNum}">처음</a>
 				</c:if>
 				<c:if test="${paging.prevPageNum > 0}">
 					<a href="" class="paginate_button previous" keyValue="${paging.prevPageNum}">이전</a>
-				</c:if>	
+				</c:if>
 					<span>
 				<c:forEach var="i" varStatus="status" begin="${paging.startPageNum}" end="${paging.endPageNum}">
 				<c:choose>
-				<c:when test="${i eq paging.viewPage}">	
+				<c:when test="${i eq paging.viewPage}">
 					<a href="" class="paginate_button current" keyValue="${i}">${i}</a>
 				</c:when>
 				<c:otherwise>
@@ -143,25 +141,25 @@ $(document).ready(function() {
 			'float' : 'left'
 		});
 		$('.item-list .images li').eq(0).mouseover();
-		
+
 		$('div#board_paging a').on('click', function(e) {
 			e.preventDefault();
 			$('input#viewPage').val($(this).attr('keyValue'));
 			doAjaxLoad('div#searchBox', 'search.do', $('form#searchForm').serialize());
 		});
-		
+
 		$('a.request').on('click', function(e) {
 			e.preventDefault();
 			var data = $(this).next('span').attr('data').split('//');
-			$('input#title').val(data[0]);
-			$('input#author').val(data[1]);
-			$('input#publer').val(data[2]);
-			$('input#publer_year').val(data[3]);
-			$('input#isbn').val(data[4]);
-			$('input#price').val(data[5]);
+			$('input#title').val(data[0].replace(/(<([^>]+)>)/ig,""));
+			$('input#author').val(data[1].replace(/(<([^>]+)>)/ig,""));
+			$('input#publer').val(data[2].replace(/(<([^>]+)>)/ig,""));
+			$('input#publer_year').val(data[3].replace(/(<([^>]+)>)/ig,""));
+			$('input#isbn').val(data[4].replace(/(<([^>]+)>)/ig,""));
+			$('input#price').val(data[5].replace(/(<([^>]+)>)/ig,""));
 			$('input#user_remark').focus();
 		});
-		$(window).resize(function() { 
+		$(window).resize(function() {
 			$('.search-results img').height($('img#refImg').width() * 0.6);
 		}).trigger('resize');
 	});

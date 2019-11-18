@@ -4,11 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.lang.time.DateUtils;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 import kr.co.whalesoft.framework.utils.StrUtil;
-
-import org.apache.commons.lang.time.DateUtils;
 
 public class Member extends PagingUtils implements Serializable {
 	/**
@@ -52,8 +51,6 @@ public class Member extends PagingUtils implements Serializable {
 	private String age;
 	private String unAgreeFlag;
 	private String unAgreeDate;
-	private String not_loan_sdate;
-	private String not_loan_edate;
 
 	private String search_auth;
 	private String search_auth_name;
@@ -79,9 +76,27 @@ public class Member extends PagingUtils implements Serializable {
 	 */
 	//web_id = member_id, password = member_pw, user_name = member_name
 	private String password_expiry_day;
-	private String password_update_date;
 	private String seq_no;
-	private String user_no; // 이용자id - 디스플레이용
+	private String user_no; // 이용자 대출번호
+	private String user_class;// 불량회원구분 (0 : 정상, 1 : 대출정지, 2 : 제적, 3 : 탈퇴)
+	private String kl_member_yn;//책이음회원여부 (Y : 책이음회원, N or null : 일반회원)
+	private String user_class_code;//신청자 대출직급정보코드
+	private String agreement_yn;//개인정보 동의정보 존재여부 (Y/N)
+	private String rec_key;//이용자KEY
+	private String agree_yn;//개인정보 재동의여부 (Y : 재동의 대상 아님, N : 동의일자가  오늘 이전이어서 재동의 필요)
+	private String cert_yn;//CI 존재여부 (Y/N)
+	private String expiredate_yn;//개인정보만료일 유무 (Y/N)
+	private String loan_stop_date; //대출정지만기일 (YYYY/MM/DD)	- 오늘 이후의 날짜로 저장되어 있는 경우에만 값이 반환되며, 그 이외에는 NULL
+	private String overdue_cnt; //대출연체 권수
+	private String local_loanable_cnt; //(해당 회원 직급의) 자관대출가능권수
+	private String unity_loanable_cnt; //(해당 회원 직급의) 통합대출가능권수
+	private String local_loan_cnt;//자관대출중권수
+	private String unity_loan_cnt;//통합대출중권수
+	private String lost_card_yn;//회원증분실여부 (Y/N)
+	private String member_class;//회원구분 (0 : 정회원, 1 : 비회원, 2 : 준회원)
+	private String user_position_code;//이용자 소속정보코드
+	private String user_manage_code;//이용자 가입도서관 관리구분코드
+
 	private String card_no;
 	private String card_password;
 	private String mobile_no; // 이용자 폰
@@ -90,26 +105,19 @@ public class Member extends PagingUtils implements Serializable {
 	private String loca; // 소장처코드
 	private String loca_name; // 소장처
 	private String user_id; //
-	private String check_certify_type; // 이용자 인증시 인증방법
-	private String check_certify_data; // 이용자 인증시 인증방법
-
-	private String web_hint_ty; // 질문
-	private String web_hint_ans; // 답변
 
 	private String di_value;
 	private String ci_value;
-
-	private String check_dup_type;
-	private String check_dup_id;
 
 	private String agree_codes;
 	private String user_position;
 	private Date agree_date;
 	private String agree_date_str;
 
-	private String company_name;
-	private String company_zipcode;
-	private String company_addr;
+	private String company_name;//근무지명
+	private String company_zipcode;//근무지우편번호
+	private String company_addr;//근무지주소
+	private String company_depart;//근무지부서명
 	private String company_phone;
 	private String company_phone1;
 	private String company_phone2;
@@ -124,10 +132,8 @@ public class Member extends PagingUtils implements Serializable {
 	private String loginMsg;
 
 	private String loginType; //CMS or HOMEPAGE
-	private String loginType2 = "id";
 
 	private String link_member_yn;  //다른시스템 계정 링크
-	private String teacher_yn;
 	/**
 	 * 회원인증변수
 	 */
@@ -143,24 +149,16 @@ public class Member extends PagingUtils implements Serializable {
 	private String integrationSeqNoList;//회원통합시 선택값
 
 	/*책 읽는 가게*/
-	private boolean bookStore;
-
 	private String langMode = "kor";
 
-	//DLS 인증
-	private int dls_member_idx;  //DLS 인증 순번
-	private String dls_id;  //DLS 아이디
-	private String lib_id;  //도서관 아이디
-	private String user_name;  //성명
-	private String user_ip;  //아이피
-	private int idx;
-
+	/*권한*/
 	private List<Integer> authGroupIdxList;//권한그룹목록
 	private List<Homepage> authorityHomepageList;//관리홈페이지리스트
 	private Map<String, Object> authMap;
 
-	//통계용
-	private String search_year;
+	//KCMS용 변수
+	private String manage_code;
+
 
 	public String getPram(String mode) {
 		StringBuffer sb = new StringBuffer();
@@ -439,35 +437,11 @@ public class Member extends PagingUtils implements Serializable {
 	public void setLoca_name(String loca_name) {
 		this.loca_name = loca_name;
 	}
-	public String getCheck_certify_type() {
-		return check_certify_type;
-	}
-	public void setCheck_certify_type(String check_certify_type) {
-		this.check_certify_type = check_certify_type;
-	}
-	public String getCheck_certify_data() {
-		return check_certify_data;
-	}
-	public void setCheck_certify_data(String check_certify_data) {
-		this.check_certify_data = check_certify_data;
-	}
 	public String getSex() {
 		return sex;
 	}
 	public void setSex(String sex) {
 		this.sex = sex;
-	}
-	public String getWeb_hint_ty() {
-		return web_hint_ty;
-	}
-	public void setWeb_hint_ty(String web_hint_ty) {
-		this.web_hint_ty = web_hint_ty;
-	}
-	public String getWeb_hint_ans() {
-		return web_hint_ans;
-	}
-	public void setWeb_hint_ans(String web_hint_ans) {
-		this.web_hint_ans = web_hint_ans;
 	}
 	public String getDi_value() {
 		return di_value;
@@ -480,18 +454,6 @@ public class Member extends PagingUtils implements Serializable {
 	}
 	public void setCi_value(String ci_value) {
 		this.ci_value = ci_value;
-	}
-	public String getCheck_dup_type() {
-		return check_dup_type;
-	}
-	public void setCheck_dup_type(String check_dup_type) {
-		this.check_dup_type = check_dup_type;
-	}
-	public String getCheck_dup_id() {
-		return check_dup_id;
-	}
-	public void setCheck_dup_id(String check_dup_id) {
-		this.check_dup_id = check_dup_id;
 	}
 	public String getAuth_id_list() {
 		return auth_id_list;
@@ -704,15 +666,6 @@ public class Member extends PagingUtils implements Serializable {
 		this.auth_name = auth_name;
 	}
 
-	public String getLoginType2() {
-		return loginType2;
-	}
-
-	public void setLoginType2(String loginType2) {
-		this.loginType2 = loginType2;
-	}
-
-
 	public int getMenu_idx() {
 		return menu_idx;
 	}
@@ -743,7 +696,12 @@ public class Member extends PagingUtils implements Serializable {
 		}*/
 //		 현재 시간 (cur)이 agree_date+2년 보다 크면 true
 //		return cur.after(DateUtils.addYears(this.agree_date, 2)); //2년
-		return cur.after(DateUtils.addYears(this.agree_date, 2)); // 테스트용
+		try {
+			return cur.after(DateUtils.addYears(this.agree_date, 2)); // 테스트용
+		} catch ( NullPointerException e ) {
+		} catch ( Exception e ) {
+		}
+		return false;
 	}
 
 	public String getUser_id() {
@@ -770,28 +728,20 @@ public class Member extends PagingUtils implements Serializable {
 		this.memberNewPw = memberNewPw;
 	}
 
-	public boolean isBookStore() {
-		return bookStore;
-	}
-
-	public void setBookStore(boolean bookStore) {
-		this.bookStore = bookStore;
-	}
-
 	@Override
 	public String toString() {
 		return String.format(
-				"Member [admin=%s, isLogin=%s, member_id=%s, member_name=%s, member_pw=%s, memberNewPw=%s, birth_day=%s, email=%s, email1=%s, email2=%s, zipcode=%s, address1=%s, address2=%s, phone=%s, phone1=%s, phone2=%s, phone3=%s, cell_phone=%s, cell_phone1=%s, cell_phone2=%s, cell_phone3=%s, sms_service_yn=%s, email_service_yn=%s, add_ip=%s, add_date=%s, pw_change_date=%s, last_login=%s, sex=%s, age=%s, search_auth=%s, search_auth_name=%s, history_idx=%s, use_yn=%s, in_ip=%s, in_date=%s, up_date=%s, auth_id=%s, auth_id_list=%s, auth_name=%s, auth_name_list=%s, modify_id=%s, modify_date=%s, modify_ip=%s, password_expiry_day=%s, seq_no=%s, user_no=%s, card_no=%s, card_password=%s, mobile_no=%s, web_id=%s, status_code=%s, loca=%s, loca_name=%s, user_id=%s, check_certify_type=%s, check_certify_data=%s, web_hint_ty=%s, web_hint_ans=%s, di_value=%s, ci_value=%s, check_dup_type=%s, check_dup_id=%s, agree_codes=%s, user_position=%s, agree_date=%s, company_name=%s, company_zipcode=%s, company_addr=%s, company_phone=%s, company_phone1=%s, company_phone2=%s, company_phone3=%s, parent_name=%s, parent_phone=%s, parent_phone1=%s, parent_phone2=%s, parent_phone3=%s, loginCode=%s, loginMsg=%s, loginType=%s, loginType2=%s, ageType=%s, certType=%s, certComplete=%s, sci_result=%s, menu_idx=%s, authgroupidlist=%s, admin=%s]",
+				"Member [admin=%s, isLogin=%s, member_id=%s, member_name=%s, member_pw=%s, memberNewPw=%s, birth_day=%s, email=%s, email1=%s, email2=%s, zipcode=%s, address1=%s, address2=%s, phone=%s, phone1=%s, phone2=%s, phone3=%s, cell_phone=%s, cell_phone1=%s, cell_phone2=%s, cell_phone3=%s, sms_service_yn=%s, email_service_yn=%s, add_ip=%s, add_date=%s, pw_change_date=%s, last_login=%s, sex=%s, age=%s, search_auth=%s, search_auth_name=%s, history_idx=%s, use_yn=%s, in_ip=%s, in_date=%s, up_date=%s, auth_id=%s, auth_id_list=%s, auth_name=%s, auth_name_list=%s, modify_id=%s, modify_date=%s, modify_ip=%s, password_expiry_day=%s, seq_no=%s, user_no=%s, card_no=%s, card_password=%s, mobile_no=%s, web_id=%s, status_code=%s, loca=%s, loca_name=%s, user_id=%s, di_value=%s, ci_value=%s, agree_codes=%s, user_position=%s, agree_date=%s, company_name=%s, company_zipcode=%s, company_addr=%s, company_phone=%s, company_phone1=%s, company_phone2=%s, company_phone3=%s, parent_name=%s, parent_phone=%s, parent_phone1=%s, parent_phone2=%s, parent_phone3=%s, loginCode=%s, loginMsg=%s, loginType=%s, ageType=%s, certType=%s, certComplete=%s, sci_result=%s, menu_idx=%s, authgroupidlist=%s, admin=%s]",
 				admin, isLogin, member_id, member_name, member_pw, memberNewPw, birth_day, email, email1, email2,
 				zipcode, address1, address2, phone, phone1, phone2, phone3, cell_phone, cell_phone1, cell_phone2,
 				cell_phone3, sms_service_yn, email_service_yn, add_ip, add_date, pw_change_date, last_login, sex, age,
 				search_auth, search_auth_name, history_idx, use_yn, in_ip, in_date, up_date, auth_id, auth_id_list,
 				auth_name, auth_name_list, modify_id, modify_date, modify_ip, password_expiry_day, seq_no, user_no,
-				card_no, card_password, mobile_no, web_id, status_code, loca, loca_name, user_id, check_certify_type,
-				check_certify_data, web_hint_ty, web_hint_ans, di_value, ci_value, check_dup_type, check_dup_id,
+				card_no, card_password, mobile_no, web_id, status_code, loca, loca_name, user_id,
+				di_value, ci_value,
 				agree_codes, user_position, agree_date, company_name, company_zipcode, company_addr, company_phone,
 				company_phone1, company_phone2, company_phone3, parent_name, parent_phone, parent_phone1, parent_phone2,
-				parent_phone3, loginCode, loginMsg, loginType, loginType2, ageType, certType, certComplete, sci_result,
+				parent_phone3, loginCode, loginMsg, loginType, ageType, certType, certComplete, sci_result,
 				menu_idx, authGroupIdxList, admin);
 	}
 
@@ -864,64 +814,6 @@ public class Member extends PagingUtils implements Serializable {
 	}
 
 
-	public int getDls_member_idx() {
-		return dls_member_idx;
-	}
-
-
-	public void setDls_member_idx(int dls_member_idx) {
-		this.dls_member_idx = dls_member_idx;
-	}
-
-
-	public String getDls_id() {
-		return dls_id;
-	}
-
-
-	public void setDls_id(String dls_id) {
-		this.dls_id = dls_id;
-	}
-
-
-	public String getLib_id() {
-		return lib_id;
-	}
-
-
-	public void setLib_id(String lib_id) {
-		this.lib_id = lib_id;
-	}
-
-
-	public String getUser_name() {
-		return user_name;
-	}
-
-
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
-	}
-
-
-	public String getUser_ip() {
-		return user_ip;
-	}
-
-
-	public void setUser_ip(String user_ip) {
-		this.user_ip = user_ip;
-	}
-
-
-	public int getIdx() {
-		return idx;
-	}
-
-
-	public void setIdx(int idx) {
-		this.idx = idx;
-	}
 
 
 	public String getLast_login_str() {
@@ -952,18 +844,6 @@ public class Member extends PagingUtils implements Serializable {
 	public void setAgree_date_str(String agree_date_str) {
 		this.agree_date_str = agree_date_str;
 	}
-
-
-	public String getTeacher_yn() {
-		return teacher_yn;
-	}
-
-
-	public void setTeacher_yn(String teacher_yn) {
-		this.teacher_yn = teacher_yn;
-	}
-
-
 
 	public List<Integer> getAuthGroupIdxList() {
 		return authGroupIdxList;
@@ -1019,46 +899,238 @@ public class Member extends PagingUtils implements Serializable {
 
 
 
-	public String getSearch_year() {
-		return search_year;
+	public String getManage_code() {
+		return manage_code;
 	}
 
 
 
-	public void setSearch_year(String search_year) {
-		this.search_year = search_year;
+	public void setManage_code(String manage_code) {
+		this.manage_code = manage_code;
 	}
 
 
 
-	public String getPassword_update_date() {
-		return password_update_date;
+	public String getUser_class() {
+		return user_class;
 	}
 
 
 
-	public void setPassword_update_date(String password_update_date) {
-		this.password_update_date = password_update_date;
+	public String getKl_member_yn() {
+		return kl_member_yn;
 	}
 
 
-	public String getNot_loan_sdate() {
-		return not_loan_sdate;
+
+	public String getUser_class_code() {
+		return user_class_code;
 	}
 
 
-	public void setNot_loan_sdate(String not_loan_sdate) {
-		this.not_loan_sdate = not_loan_sdate;
+
+	public String getAgreement_yn() {
+		return agreement_yn;
 	}
 
 
-	public String getNot_loan_edate() {
-		return not_loan_edate;
+
+	public String getRec_key() {
+		return rec_key;
 	}
 
 
-	public void setNot_loan_edate(String not_loan_edate) {
-		this.not_loan_edate = not_loan_edate;
+
+	public String getAgree_yn() {
+		return agree_yn;
+	}
+
+
+
+	public String getCert_yn() {
+		return cert_yn;
+	}
+
+
+
+	public String getExpiredate_yn() {
+		return expiredate_yn;
+	}
+
+
+
+	public void setUser_class(String user_class) {
+		this.user_class = user_class;
+	}
+
+
+
+	public void setKl_member_yn(String kl_member_yn) {
+		this.kl_member_yn = kl_member_yn;
+	}
+
+
+
+	public void setUser_class_code(String user_class_code) {
+		this.user_class_code = user_class_code;
+	}
+
+
+
+	public void setAgreement_yn(String agreement_yn) {
+		this.agreement_yn = agreement_yn;
+	}
+
+
+
+	public void setRec_key(String rec_key) {
+		this.rec_key = rec_key;
+	}
+
+
+
+	public void setAgree_yn(String agree_yn) {
+		this.agree_yn = agree_yn;
+	}
+
+
+
+	public void setCert_yn(String cert_yn) {
+		this.cert_yn = cert_yn;
+	}
+
+
+
+	public void setExpiredate_yn(String expiredate_yn) {
+		this.expiredate_yn = expiredate_yn;
+	}
+
+
+
+	public String getCompany_depart() {
+		return company_depart;
+	}
+
+
+
+	public void setCompany_depart(String company_depart) {
+		this.company_depart = company_depart;
+	}
+
+
+
+	public String getLoan_stop_date() {
+		return loan_stop_date;
+	}
+
+
+
+	public String getOverdue_cnt() {
+		return overdue_cnt;
+	}
+
+
+
+	public String getLocal_loanable_cnt() {
+		return local_loanable_cnt;
+	}
+
+
+
+	public String getUnity_loanable_cnt() {
+		return unity_loanable_cnt;
+	}
+
+
+
+	public String getLocal_loan_cnt() {
+		return local_loan_cnt;
+	}
+
+
+
+	public String getUnity_loan_cnt() {
+		return unity_loan_cnt;
+	}
+
+
+
+	public String getLost_card_yn() {
+		return lost_card_yn;
+	}
+
+
+
+	public String getMember_class() {
+		return member_class;
+	}
+
+
+
+	public void setLoan_stop_date(String loan_stop_date) {
+		this.loan_stop_date = loan_stop_date;
+	}
+
+
+
+	public void setOverdue_cnt(String overdue_cnt) {
+		this.overdue_cnt = overdue_cnt;
+	}
+
+
+
+	public void setLocal_loanable_cnt(String local_loanable_cnt) {
+		this.local_loanable_cnt = local_loanable_cnt;
+	}
+
+
+
+	public void setUnity_loanable_cnt(String unity_loanable_cnt) {
+		this.unity_loanable_cnt = unity_loanable_cnt;
+	}
+
+
+
+	public void setLocal_loan_cnt(String local_loan_cnt) {
+		this.local_loan_cnt = local_loan_cnt;
+	}
+
+
+
+	public void setUnity_loan_cnt(String unity_loan_cnt) {
+		this.unity_loan_cnt = unity_loan_cnt;
+	}
+
+
+
+	public void setLost_card_yn(String lost_card_yn) {
+		this.lost_card_yn = lost_card_yn;
+	}
+
+
+
+	public void setMember_class(String member_class) {
+		this.member_class = member_class;
+	}
+
+
+	public String getUser_position_code() {
+		return user_position_code;
+	}
+
+
+	public void setUser_position_code(String user_position_code) {
+		this.user_position_code = user_position_code;
+	}
+
+
+	public String getUser_manage_code() {
+		return user_manage_code;
+	}
+
+
+	public void setUser_manage_code(String user_manage_code) {
+		this.user_manage_code = user_manage_code;
 	}
 
 }

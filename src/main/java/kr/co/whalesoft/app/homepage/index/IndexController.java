@@ -92,13 +92,13 @@ public class IndexController extends BaseController {
 
 	@Autowired
 	private FacilityReqService facilityReqService;
-	
+
 	@Autowired
 	private BestService bestService;
-	
+
 	@Autowired
 	private BoardManageService boardManageService;
-	
+
 	@RequestMapping(value = { "index.*" })
 	public String index(Model model, HttpServletRequest request) {
 		// return doIndexProc(model, request); //대표 홈페이지 이동
@@ -199,20 +199,20 @@ public class IndexController extends BaseController {
 		return basePath + filePath + "_ajax";
 	}
 
-	@RequestMapping(value = { "/{contextPath}/newBook.*" }) 
+	@RequestMapping(value = { "/{contextPath}/newBook.*" })
 	public String newBook(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
 		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 		String startDate 	= request.getParameter("startDate");
-		
+
 		if ( StringUtils.isEmpty(startDate) ) {
 			startDate = sf.format(DateUtils.addDays(new Date(), -60));
 		}
-		
-		model.addAttribute("newBookList", LibSearchAPI.getNewBookList(new LibrarySearch(homepage.getHomepage_code(), startDate, sf.format(new Date())), "MAIN"));
+
+		model.addAttribute("newBookList", LibSearchAPI.getNewBookList(new LibrarySearch(homepage.getHomepage_code(), startDate, sf.format(new Date()))));
 		return basePath + homepage.getFolder() + "/newBook_ajax";
 	}
-	
+
 	private String doIndexProc(Model model, HttpServletRequest request, Board board) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
@@ -239,7 +239,7 @@ public class IndexController extends BaseController {
 		else if ( homepage.getHomepage_id().equals("h1") ) {
 			model.addAttribute("teachList", teachService.getMainViewTeachListForAllHomepage(new Teach(null, 5)));
 		}
-		
+
 		if (homepage.getHomepage_id().equals("h28")) {// 센터
 //			model.addAttribute("curationList", LibSearchAPI.getCuration());
 			model.addAttribute("nowSys", new Date());
@@ -253,14 +253,14 @@ public class IndexController extends BaseController {
 			model.addAttribute("news2_2List", boardService.getBoardByMain(23, 4));// 센터도서관-평생교육소식
 			model.addAttribute("h28noitceListAll", boardService.getBoardByMainAll(board));// 센터도서관-평생교육소식
 
-		} 
+		}
 		else if (homepage.getHomepage_id().equals("h27")) {// 도서관
 //			2017.08.10 도서관서비스 폐쇄
 //			model.addAttribute("h27noticeList", boardService.getBoardByMain(31, 3));// 독서문화소식
 //			model.addAttribute("h27noticeList2", boardService.getBoardByMain(23, 4));// 평생교육소식
 //			model.addAttribute("h28noticeList", boardService.getBoardByMain(1, 2));// 공지사항
 //			model.addAttribute("h27bookList", boardService.getBoardByMain(10, 6));// 공지사항
-		} 
+		}
 		else if (homepage.getHomepage_id().equals("h1")) {
 			PagingUtils pagingUtils = new PagingUtils();
 			pagingUtils.setRowCount(5);
@@ -281,19 +281,19 @@ public class IndexController extends BaseController {
 			book.setTotalDataCount(count);
 			model.addAttribute("newBookList", bestService.getNewBookList(book));
 		}
-		
+
 		log.debug("jsp Page : "+basePath + filePath);
-		
+
 		return basePath + filePath;
 	}
-	
+
 	private Map<String, Book> bestBookListToMap(List<Book> bookList) {
 		Map<String, Book> map = new HashMap<String, Book>();
-		
+
 		for(Book book: bookList) {
 			map.put(String.valueOf(book.getPrint_seq()), book);
 		}
-		
+
 		return map;
 	}
 
@@ -378,7 +378,7 @@ public class IndexController extends BaseController {
 	private Map<String, List<String>> getCalendarMarkGumi(String planDate, CalendarManage closedDay, List<CalendarManage> eventDay, List<Board> movieDay, List<Apply> applyDay, List<Teach> teachDay, List<FacilityReq> facilityDayList) throws ParseException {
 		Map<String, List<String>> planRepo = new HashMap<String, List<String>>();
 		String[] pattern = {"yyyy-MM-dd"};
-		
+
 		if( closedDay != null) {
 			String[] closedDayList = closedDay.getDd().split(",");
 			for ( String oneClose : closedDayList ) {
@@ -393,24 +393,24 @@ public class IndexController extends BaseController {
 				else {
 					closedList = new ArrayList<String>();
 				}
-				
+
 				closedList.add("[휴관일]");
 				planRepo.put(key, closedList);
 			}
 		}
-		
+
 		for (CalendarManage event : eventDay) {
 			List<String> eventList = null;
-			
+
 			String startDateStr 	= event.getStart_date();
 			String endDateStr 		= event.getEnd_date();
 			String startKey 		= event.getStart_date().substring(8,10);
 			String endKey 			= event.getEnd_date().substring(8,10);
 			SimpleDateFormat sf 	= new SimpleDateFormat("yyyy-MM-dd");
-			
+
 			Date startDate 	= DateUtils.parseDate(startDateStr, pattern);
 			Date endDate 	= DateUtils.parseDate(endDateStr, pattern);
-			
+
 			while( !DateUtils.isSameDay(startDate, endDate) ) {
 				if ( startDate.after(endDate) ) {
 					break;
@@ -431,7 +431,7 @@ public class IndexController extends BaseController {
 				    	planRepo.put(startKey, eventList);
 				    }
 			    }
-			    
+
 			    startDate = DateUtils.addDays(startDate, 1);
 			}
 			if ( endKey.startsWith("0") ) {
@@ -449,7 +449,7 @@ public class IndexController extends BaseController {
 		    }
 			planRepo.put(endKey, eventList);
 		}
-		
+
 		for (Board movie : movieDay) {
 			String key = movie.getImsi_v_2().trim();
 			if ( key.startsWith("0") ) {
@@ -462,32 +462,32 @@ public class IndexController extends BaseController {
 			else {
 				planList = new ArrayList<String>();
 			}
-			
+
 			if (!planList.contains("[휴관일]")) {
 				planList.add("[영화]" + movie.getTitle());
 		    	planRepo.put(key, planList);
 		    }
 		}
-		
-		
-		
+
+
+
 		for (Apply excursions : applyDay) {
 			List<String> excursionsList = null;
-			
+
 			String startDateStr 	= excursions.getStart_date();
 			String endDateStr 		= excursions.getEnd_date();
 			String startKey 		= excursions.getStart_date().substring(8,10);
 			String endKey 			= excursions.getEnd_date().substring(8,10);
 			SimpleDateFormat sf 	= new SimpleDateFormat("yyyy-MM-dd");
-			
+
 			Date startDate 	= DateUtils.parseDate(startDateStr, pattern);
 			Date endDate 	= DateUtils.parseDate(endDateStr, pattern);
-			
+
 			while( !DateUtils.isSameDay(startDate, endDate) ) {
 				if ( startDate.after(endDate) ) {
 					break;
 				}
-				
+
 				if ( sf.format(startDate).startsWith(planDate) ) {
 			      startKey = sf.format(startDate).substring(8, 10);
 				    if ( startKey.startsWith("0") ) {
@@ -520,7 +520,7 @@ public class IndexController extends BaseController {
 		    	planRepo.put(endKey, excursionsList);
 		    }
 		}
-		
+
 		for (Teach teach : teachDay) {
 			List<String> teachList = null;
 			String[] teachDays 	= teach.getTeach_day().split(",");
@@ -529,15 +529,15 @@ public class IndexController extends BaseController {
 			String startKey 	= teach.getStart_date().substring(8,10);
 			String endKey 		= teach.getEnd_date().substring(8,10);
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-			
+
 			Date startDate 	= DateUtils.parseDate(startDateStr, pattern);
 			Date endDate 	= DateUtils.parseDate(endDateStr, pattern);
-			
+
 			while( !DateUtils.isSameDay(startDate, endDate) ) {
 				if ( startDate.after(endDate) ) {
 					break;
 				}
-				
+
 				if ( sf.format(startDate).startsWith(planDate) ) {
 			    	 Calendar cal = Calendar.getInstance() ;
 				     cal.setTime(startDate);
@@ -569,8 +569,8 @@ public class IndexController extends BaseController {
 				    	  }
 				     }
 			     }
-			     
-			     startDate = DateUtils.addDays(startDate, 1); 
+
+			     startDate = DateUtils.addDays(startDate, 1);
 			}
 			if ( sf.format(startDate).startsWith(planDate) ) {
 				Calendar cal = Calendar.getInstance() ;
@@ -602,13 +602,13 @@ public class IndexController extends BaseController {
 			    	}
 			    }
 		    }
-			
+
 		}
-		
+
 		for (FacilityReq facility : facilityDayList) {
 			List<String> facilityList = null;
 			String key 	= facility.getUse_date().substring(8, 10);
-			
+
 		    if ( key.startsWith("0") ) {
 		    	key = key.replace("0", "");
 	  		}
@@ -618,12 +618,12 @@ public class IndexController extends BaseController {
 		    else {
 		    	facilityList = new ArrayList<String>();
 		    }
-		    
+
 		    if (!facilityList.contains("[휴관일]")) {
 		    	facilityList.add(String.format("[시설물] %s (%s)", facility.getFacility_name(), facility.getMasking_name()));
 		    	planRepo.put(key, facilityList);
 		    }
-			
+
 		}
 		return planRepo;
 	}

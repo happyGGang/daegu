@@ -54,7 +54,8 @@ public class MyDashBoardController extends BaseController{
 		}
 
 		//대출건수
-		Map<String, Object> myLibraryList = LibSearchAPI.getMyLibraryList("WEB", getSessionUserId(request), "LOAN", null);
+//		Map<String, Object> myLibraryList = LibSearchAPI.getMyLibraryList("WEB", getSessionUserId(request), "LOAN", null);
+		Map<String, Object> myLibraryList = null;
 
 		int loanCnt = 0;//소속도서관 대출건수
 		int otherLoanCnt = 0;//타도서관 대출건수
@@ -137,61 +138,61 @@ public class MyDashBoardController extends BaseController{
 		myDashBoard.setMyItemCount(myItemCount);
 
 
-		//개인공지사항
-		Map<String, Object> myNoticeList = LibSearchAPI.getMyLibraryList("WEB", getSessionUserId(request), "NOTICE", null);
-
-		if (myNoticeList != null && myNoticeList.containsKey("dsMyLibraryList")) {
-			//전체 대출 내역을 가져온다.
-			@SuppressWarnings ("unchecked")
-			List<Map<String, String>> noticeList = (List<Map<String, String>>) myNoticeList.get("dsMyLibraryList");
-			model.addAttribute("myNoticeList", noticeList);
-		}
-
-		int modifyFormMenuIdx = menuService.getMenuIdxByLinkUrl(new Menu(homepage.getHomepage_id(), "/intro/join/modifyForm.do"));
-
-		//대출중인자료
-		Map<String, Object> myLoanList = LibSearchAPI.getMyLibraryList("WEB", getSessionUserId(request), "LOAN", "0001");
-		model.addAttribute("myLoanList", myLoanList);
-		int loanMenuIdx = menuService.getMenuIdxByLinkUrl(new Menu(homepage.getHomepage_id(), "/intro/search/loan/history.do"));
-		model.addAttribute("loanMenuIdx", loanMenuIdx);
-
-		@SuppressWarnings ("unchecked")
-		List<Map<String, String>> myLoanList2 = (List<Map<String, String>>) myLoanList.get("dsMyLibraryList");
-		if (myLoanList2 != null && myLoanList2.size() > 0) {
-			for ( Map<String, String> map : myLoanList2 ) {
-				String isbn = "";
-				String ctrlNo = map.get("CTRLNO");
-				LibrarySearch ls = new LibrarySearch();
-				ls.setvCtrl(ctrlNo);
-				Map<String, Object> marcInfo = LibSearchAPI.getMarcInfo("WEB", ls);
-				@SuppressWarnings ("unchecked")
-				List<Map<String, String>> marcList = (List<Map<String, String>>) marcInfo.get("dsMarcInfo");
-				if (marcList != null && marcList.size() > 0) {
-					isbn = marcList.get(0).get("ISBN");
-					List<Map<String, Object>> naverDetail = LibSearchAPI.getNaverDetail(isbn);
-					if (naverDetail != null && naverDetail.size() > 0) {
-						map.put("image", String.valueOf(naverDetail.get(0).get("image")));
-					}
-				}
-			}
-
-		}
-
-		//희망도서내역
-		Map<String, Object> myHopeList = LibSearchAPI.getMyLibraryList("WEB", getSessionUserId(request), "HOPE", null);
-		model.addAttribute("myHopeList", myHopeList);
-		int hopeMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 12));
-		model.addAttribute("hopeMenuIdx", hopeMenuIdx);
-
-		//예약중내역
-		Map<String, Object> myReserveList = LibSearchAPI.getMyLibraryList("WEB", getSessionUserId(request), "RESVE", null);
-		model.addAttribute("myReserveList", myReserveList);
-		int reserveMenuIdx = menuService.getMenuIdxByLinkUrl(new Menu(homepage.getHomepage_id(), "/intro/search/resve/index.do"));
-		model.addAttribute("reserveMenuIdx", reserveMenuIdx);
-
-		//상호대차
-		Map<String, Object> myOutList = LibSearchAPI.getMyLibraryList("WEB", getSessionUserId(request), "OUT", null);
-		model.addAttribute("myOutList", myOutList);
+//		//개인공지사항
+//		Map<String, Object> myNoticeList = LibSearchAPI.getMyLibraryList("WEB", getSessionUserId(request), "NOTICE", null);
+//
+//		if (myNoticeList != null && myNoticeList.containsKey("dsMyLibraryList")) {
+//			//전체 대출 내역을 가져온다.
+//			@SuppressWarnings ("unchecked")
+//			List<Map<String, String>> noticeList = (List<Map<String, String>>) myNoticeList.get("dsMyLibraryList");
+//			model.addAttribute("myNoticeList", noticeList);
+//		}
+//
+//		int modifyFormMenuIdx = menuService.getMenuIdxByLinkUrl(new Menu(homepage.getHomepage_id(), "/intro/join/modifyForm.do"));
+//
+//		//대출중인자료
+//		Map<String, Object> myLoanList = LibSearchAPI.getMyLibraryList("WEB", getSessionUserId(request), "LOAN", "0001");
+//		model.addAttribute("myLoanList", myLoanList);
+//		int loanMenuIdx = menuService.getMenuIdxByLinkUrl(new Menu(homepage.getHomepage_id(), "/intro/search/loan/history.do"));
+//		model.addAttribute("loanMenuIdx", loanMenuIdx);
+//
+//		@SuppressWarnings ("unchecked")
+//		List<Map<String, String>> myLoanList2 = (List<Map<String, String>>) myLoanList.get("dsMyLibraryList");
+//		if (myLoanList2 != null && myLoanList2.size() > 0) {
+//			for ( Map<String, String> map : myLoanList2 ) {
+//				String isbn = "";
+//				String ctrlNo = map.get("CTRLNO");
+//				LibrarySearch ls = new LibrarySearch();
+//				ls.setvCtrl(ctrlNo);
+//				Map<String, Object> marcInfo = LibSearchAPI.getMarcInfo("WEB", ls);
+//				@SuppressWarnings ("unchecked")
+//				List<Map<String, String>> marcList = (List<Map<String, String>>) marcInfo.get("dsMarcInfo");
+//				if (marcList != null && marcList.size() > 0) {
+//					isbn = marcList.get(0).get("ISBN");
+//					List<Map<String, Object>> naverDetail = LibSearchAPI.getNaverDetail(isbn);
+//					if (naverDetail != null && naverDetail.size() > 0) {
+//						map.put("image", String.valueOf(naverDetail.get(0).get("image")));
+//					}
+//				}
+//			}
+//
+//		}
+//
+//		//희망도서내역
+//		Map<String, Object> myHopeList = LibSearchAPI.getMyLibraryList("WEB", getSessionUserId(request), "HOPE", null);
+//		model.addAttribute("myHopeList", myHopeList);
+//		int hopeMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 12));
+//		model.addAttribute("hopeMenuIdx", hopeMenuIdx);
+//
+//		//예약중내역
+//		Map<String, Object> myReserveList = LibSearchAPI.getMyLibraryList("WEB", getSessionUserId(request), "RESVE", null);
+//		model.addAttribute("myReserveList", myReserveList);
+//		int reserveMenuIdx = menuService.getMenuIdxByLinkUrl(new Menu(homepage.getHomepage_id(), "/intro/search/resve/index.do"));
+//		model.addAttribute("reserveMenuIdx", reserveMenuIdx);
+//
+//		//상호대차
+//		Map<String, Object> myOutList = LibSearchAPI.getMyLibraryList("WEB", getSessionUserId(request), "OUT", null);
+//		model.addAttribute("myOutList", myOutList);
 
 		myDashBoard.setHomepage_id(homepage.getHomepage_id());
 		model.addAttribute("myDashBoard", myDashBoard);
@@ -204,8 +205,8 @@ public class MyDashBoardController extends BaseController{
 		String informNo = request.getParameter("informNo");
 
 		if (StringUtils.isNotEmpty(informNo)) {
-			Map<String, Object> noticeDetail = LibSearchAPI.getNoticeDetail("WEB", informNo);
-			model.addAttribute("noticeDetail", noticeDetail);
+//			Map<String, Object> noticeDetail = LibSearchAPI.getNoticeDetail("WEB", informNo);
+//			model.addAttribute("noticeDetail", noticeDetail);
 		}
 
 		return basePath + "view_ajax";

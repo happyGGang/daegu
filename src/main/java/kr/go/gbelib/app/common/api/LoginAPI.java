@@ -1,722 +1,167 @@
 package kr.go.gbelib.app.common.api;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.net.URLEncoder;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import kr.co.whalesoft.app.cms.member.Member;
+import kr.co.whalesoft.framework.utils.CalculateHashUtils;
 
 public class LoginAPI {
+
 	protected final static Logger log = LoggerFactory.getLogger(LoginAPI.class);
 
 	/**
-	 * 로그인 API
-	 * @param id
-	 * @param pw
-	 * @return String[]
+	 * K.API - 28
+	 * 회원 로그인
+	 * @author whalesoft YONGJU 2019. 11. 15.
+	 * @param member
+	 * @return
 	 * @throws Exception
 	 */
 	public static Object login(Member member) throws Exception {
 		Map<String, Object> param = new HashMap<String, Object>();
 
-		param.put("USERID", "WEB");
-		param.put("className", "action.lnk.LnkLogin");
-//		param.put("vId", StringUtils.leftPad(StringUtils.upperCase(id), 12, "0"));
-		param.put("vId", member.getMember_id());
+		param.put("manage_code", member.getManage_code());
+		param.put("password", CalculateHashUtils.calculateHashSHA256(member.getMember_pw()));// PW는 sha256
+		param.put("id", URLEncoder.encode(member.getMember_id(), "UTF-8"));
 
+		Map<String, Object> loginMap = CommonAPI.sendKCMS("userlogin", param);
 
-//		if (member.getLoginType2().equals("id")) {
-			param.put("vPw", CommonAPI.getCrypt(member.getMember_pw()));
-//			param.put("vType", "0002"); // WEB_ID OR USER_ID 일경우 넣어줘야 함.
-//		} else {
-//			param.put("vPw", CommonAPI.getCrypt(member.getMember_name()));
-//			param.put("vType", "0003"); // WEB_ID OR USER_ID 일경우 넣어줘야 함.
-//		}
+		String resultInfo = String.valueOf(loginMap.get("RESULT_INFO"));
 
-		Document doc = CommonAPI.sendILUS(param);
+		if (StringUtils.equals(resultInfo, "SUCCESS")) {
+			@SuppressWarnings ("unchecked")
+			Map<String, Object> userMap = (Map<String, Object>) loginMap.get("USER_DATA");
+			if (userMap != null && !userMap.isEmpty()) {
+				member.setUser_no(String.valueOf(userMap.get("USER_NO")));
+				member.setUser_class(String.valueOf(userMap.get("USER_CLASS")));
+				member.setKl_member_yn(String.valueOf(userMap.get("KL_MEMBER_YN")));
+				member.setUser_class_code(String.valueOf(userMap.get("USER_CLASS_CODE")));
+				member.setAgreement_yn(String.valueOf(userMap.get("AGREEMENT_YN")));
+				member.setRec_key(String.valueOf(userMap.get("REC_KEY")));
+				member.setAgree_yn(String.valueOf(userMap.get("AGREE_YN")));
+				member.setCert_yn(String.valueOf(userMap.get("CERT_YN")));
+				member.setExpiredate_yn(String.valueOf(userMap.get("EXPIREDATE_YN")));
+				member.setMember_id(String.valueOf(userMap.get("USER_ID")));
+				member.setMember_name(String.valueOf(userMap.get("NAME")));
+				member.setLoan_stop_date(String.valueOf(userMap.get("LOAN_STOP_DATE")));
+				member.setOverdue_cnt(String.valueOf(userMap.get("OVERDUE_CNT")));
+				member.setLocal_loanable_cnt(String.valueOf(userMap.get("LOCAL_LOANABLE_CNT")));
+				member.setUnity_loanable_cnt(String.valueOf(userMap.get("UNITY_LOANABLE_CNT")));
+				member.setLocal_loan_cnt(String.valueOf(userMap.get("LOCAL_LOAN_CNT")));
+				member.setUnity_loan_cnt(String.valueOf(userMap.get("UNITY_LOAN_CNT")));
+				member.setLost_card_yn(String.valueOf(userMap.get("LOST_CARD_YN")));
+				member.setMember_class(String.valueOf(userMap.get("MEMBER_CLASS")));
+				member.setUser_position_code(String.valueOf(userMap.get("USER_POSITION_CODE")));
+				member.setUser_manage_code(String.valueOf(userMap.get("USER_MANAGE_CODE")));
+//				member.setLoca(toHomepageCode(member.getUser_manage_code()));
 
-		String code = CommonAPI.getElementValueByName(doc, "code");
+				Map<String, Object> userInfo = MemberAPI.getUserInfo(member.getMember_id(), member.getMember_pw());
+				Map<String, Object> memberInfo = null;
+				String userInfoResult = String.valueOf(userInfo.get("RESULT_INFO"));
 
-		if ( "0".equals(code) ) { // 로그인 성공
-			member.setLoginType("HOMEPAGE");
-			NodeList nodeList = doc.getElementsByTagName("field");
-			for ( int i = 0; i < nodeList.getLength(); i ++ ) {
-				Node oneNode = nodeList.item(i);
-				String nodeName = oneNode.getAttributes().getNamedItem("name").getNodeValue();
-				if ( "USER_ID".equals(nodeName) ) {
-					member.setMember_id(oneNode.getTextContent());
-					member.setUser_id(oneNode.getTextContent());// 대출번호 넘어옴 ex)1234214342532 << 숫자
-					//준회원은 *******123456 형태였다가 정회원이 되면 *******값이 숫자로 변경되어 유니크가 아니여서 member_id로 사용 못함.
-				}
-				else if ( "WEB_ID".equals(nodeName) ) {
-					//기존 회원은 web_id 자체가 없는 애들도 있어서 member_id로 활용 못함.
-					//탈퇴시 web_id는 삭제되어 재 사용이 가능해짐.
-					if (StringUtils.isNotEmpty(oneNode.getTextContent())) {
-						member.setMember_id(oneNode.getTextContent());
+				if (StringUtils.equals(userInfoResult, "SUCCESS")) {
+					memberInfo = LibSearchAPI.getListData(userInfo, "USER_DATA").get(0);
+
+					String zipcode = String.valueOf(memberInfo.get("H_ZIPCODE"));
+					if (StringUtils.isNotEmpty(zipcode) && !StringUtils.equals(zipcode, "null")) {
+						member.setZipcode(zipcode);
 					}
-					member.setWeb_id(oneNode.getTextContent());
-				}
-				else if ( "USER_NAME".equals(nodeName) ) {
-					member.setMember_name(oneNode.getTextContent());
-				}
-				else if ( "USER_NO".equals(nodeName) ) {
-					member.setUser_no(oneNode.getTextContent());
-				}
-				else if ( "PASSWORD".equals(nodeName) ) {
-					member.setMember_pw(oneNode.getTextContent());
-				}
-				else if ( "PASSWORD_EXPIRY_DAY".equals(nodeName) ) {
-					member.setPassword_expiry_day(oneNode.getTextContent());
-				}
-				else if ( "PASSWORD_UPDATE_DATE".equals(nodeName) ) {
-					member.setPassword_update_date(oneNode.getTextContent());
-				}
-				else if ( "SEQ_NO".equals(nodeName) ) {
-					member.setSeq_no(oneNode.getTextContent());
-				}
-				else if ( "CARD_NO".equals(nodeName) ) {
-					member.setCard_no(oneNode.getTextContent());
-				}
-				else if ( "MOBILE_NO".equals(nodeName) ) {
-					member.setMobile_no(oneNode.getTextContent());
 
+					String address = String.valueOf(memberInfo.get("H_ADDR1"));
+					if (StringUtils.isNotEmpty(address) && !StringUtils.equals(address, "null")) {
+						member.setAddress1(address);
+					}
 
-					String cellPhone = member.getMobile_no();
-					if ( !StringUtils.isEmpty(cellPhone) ) {
+					String handphone = String.valueOf(memberInfo.get("HANDPHONE"));
+					if (StringUtils.isNotEmpty(handphone) && !StringUtils.equals(handphone, "null")) {
+						member.setCell_phone(handphone);
 						try {
-							cellPhone = cellPhone.replaceAll("-", "");
-							Long.parseLong(cellPhone);
-							if ( cellPhone.length() > 3 ) {
-								member.setCell_phone1(cellPhone.substring(0, 3));
+							String[] handphone_arr = String.valueOf(memberInfo.get("HANDPHONE")).split("-");
+							if (String.valueOf(memberInfo.get("HANDPHONE")) != null && !String.valueOf(memberInfo.get("HANDPHONE")).equals("")) {
+								member.setCell_phone(String.valueOf(memberInfo.get("HANDPHONE")));
+							}
+							if (handphone_arr[0] != null && !handphone_arr[0].equals("null") && !handphone_arr[0].equals("")) {
+								member.setCell_phone1(handphone_arr[0]);
 							} else {
-								member.setCell_phone1(cellPhone.substring(0));
+								member.setCell_phone1("");
 							}
-
-							String phoneTemp = cellPhone.substring(3);
-							if ( phoneTemp.length() >= 8 ) {
-								member.setCell_phone2(cellPhone.substring(3, 7));
-								member.setCell_phone3(cellPhone.substring(7));
+							if (handphone_arr[1] != null && !handphone_arr[1].equals("null") && !handphone_arr[1].equals("")) {
+								member.setCell_phone2(handphone_arr[1]);
 							} else {
-								member.setCell_phone2(cellPhone.substring(3, 6));
-								member.setCell_phone3(cellPhone.substring(6));
+								member.setCell_phone2("");
 							}
-						}
-						catch (NumberFormatException e) {
-							// 숫자가 아니면 파싱안함.
-							if (cellPhone.length() >= 11) {
-								member.setCell_phone1(cellPhone.substring(0, 3));
-								member.setCell_phone2(cellPhone.substring(3, 7));
-								member.setCell_phone3(cellPhone.substring(7));
-							} else if (cellPhone.length() == 10) {
-								member.setCell_phone1(cellPhone.substring(0, 3));
-								member.setCell_phone2(cellPhone.substring(3, 6));
-								member.setCell_phone3(cellPhone.substring(6));
+							if (handphone_arr[2] != null && !handphone_arr[2].equals("null") && !handphone_arr[2].equals("")) {
+								member.setCell_phone3(handphone_arr[2]);
+							} else {
+								member.setCell_phone3("");
 							}
-						} catch (Exception e) {
-							// TODO: handle exception
-						}
+						} catch (Exception e) {}
 					}
 
-				}
-				else if ( "UN_AGREE_FLAG".equals(nodeName) ) {
-					member.setUnAgreeFlag(oneNode.getTextContent());
-				}
-				else if ( "UN_AGREE_DATE".equals(nodeName) ) {
-					member.setUnAgreeDate(oneNode.getTextContent());
-				}
-
-				else if ( "STATUS_CODE".equals(nodeName) ) {
-					String statusCode = oneNode.getTextContent();
-					if ("0001".equals(statusCode) || "0".equals(statusCode)) {
-						member.setAuth_id("20000"); //정회원
-						member.setAuth_id_list("20000");
-					}
-					else if ("0002".equals(statusCode) || "1".equals(statusCode)) {
-						member.setAuth_id("30000"); // 준회원
-						member.setAuth_id_list("30000");
-					}
-					else {
-						member.setAuth_id("9999999"); // 모르는 회원
-					}
-					member.setStatus_code(statusCode);
-				}
-				else if ( "LOCA".equals(nodeName) ) {
-					member.setLoca(oneNode.getTextContent());
-				}
-				else if ( "LOCA_NAME".equals(nodeName) ) {
-					member.setLoca_name(oneNode.getTextContent());
-				}
-				else if ( "AGREE_DATE".equals(nodeName) ) {
-					if ( !StringUtils.isEmpty(oneNode.getTextContent()) ) {
-						String[] parsePatterns = {"yyyyMMdd"};
-						Date agreeDate = DateUtils.parseDate(oneNode.getTextContent(), parsePatterns);
-						member.setAgree_date(agreeDate);
-						SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
-						member.setAgree_date_str(sdf.format(member.getAgree_date()));
-					}
-				}
-				else if ("NOT_LOAN_SDATE".equals(nodeName) ) {
-					member.setNot_loan_sdate(oneNode.getTextContent());
-				}
-				else if ("NOT_LOAN_EDATE".equals(nodeName) ) {
-					member.setNot_loan_edate(oneNode.getTextContent());
-				}
-			}
-			List<Map<String, String>> memberInfo = MemberAPI.getMemberList("WEB", member);
-			for (Map<String, String> map : memberInfo) {
-				if (StringUtils.isNotEmpty(map.get("SMS_CHECK"))) {
-					member.setSms_service_yn(map.get("SMS_CHECK"));
-				}
-				if (StringUtils.isNotEmpty(map.get("MAIL_CHECK"))) {
-					member.setEmail_service_yn(map.get("MAIL_CHECK"));
-				}
-				if (StringUtils.isNotEmpty(map.get("BIRTHD"))) {
-					member.setBirth_day(map.get("BIRTHD"));
-				}
-				if (StringUtils.isNotEmpty(map.get("SEX"))) {
-					member.setSex(map.get("SEX"));
-				}
-				if (StringUtils.isNotEmpty(map.get("EMAIL"))) {
-					member.setEmail(map.get("EMAIL"));
-				}
-				if (StringUtils.isNotEmpty(map.get("CONN_INFO"))) {
-					member.setCi_value(map.get("CONN_INFO"));
-				}
-				if (StringUtils.isNotEmpty(map.get("DUPINFO"))) {
-					member.setDi_value(map.get("DUPINFO"));
-				}
-				if (StringUtils.isNotEmpty(map.get("ADDRS"))) {
-					member.setAddress1(map.get("ADDRS"));
-				}
-				if (StringUtils.isNotEmpty(map.get("ZIP_CODE"))) {
-					member.setZipcode(map.get("ZIP_CODE"));
-				}
-				if (StringUtils.isNotEmpty(map.get("TEL_NO"))) {
-					member.setPhone(map.get("TEL_NO"));
-					String phone = member.getPhone();
-					if ( !StringUtils.isEmpty(phone) ) {
+					String phone = String.valueOf(memberInfo.get("H_PHONE"));
+					if (StringUtils.isNotEmpty(phone) && !StringUtils.equals(phone, "null")) {
+						member.setPhone(phone);
 						try {
-							phone = phone.replaceAll("-", "");
-							Long.parseLong(phone);
-							if ( phone.length() > 3 ) {
-								member.setPhone1(phone.substring(0, 3));
+							String[] phone_arr = phone.split("-");
+							if (phone_arr[0] != null && !phone_arr[0].equals("null") && !phone_arr[0].equals("")) {
+								member.setPhone1(phone_arr[0]);
 							} else {
-								member.setPhone1(phone.substring(0));
+								member.setPhone1("");
 							}
-
-							String phoneTemp = phone.substring(3);
-							if ( phoneTemp.length() >= 8 ) {
-								member.setPhone2(phone.substring(3, 7));
-								member.setPhone3(phone.substring(7));
+							if (phone_arr[1] != null && !phone_arr[1].equals("null") && !phone_arr[1].equals("")) {
+								member.setPhone2(phone_arr[1]);
 							} else {
-								member.setPhone2(phone.substring(3, 6));
-								member.setPhone3(phone.substring(6));
+								member.setPhone2("");
 							}
-						}
-						catch (NumberFormatException e) {
-							// 숫자가 아니면 파싱안함.
-							if (phone.length() >= 11) {
-								member.setPhone1(phone.substring(0, 3));
-								member.setPhone2(phone.substring(3, 7));
-								member.setPhone3(phone.substring(7));
-							} else if (phone.length() == 10) {
-								member.setPhone1(phone.substring(0, 3));
-								member.setPhone2(phone.substring(3, 6));
-								member.setPhone3(phone.substring(6));
+							if (phone_arr[2] != null && !phone_arr[2].equals("null") && !phone_arr[2].equals("")) {
+								member.setPhone3(phone_arr[2]);
+							} else {
+								member.setPhone3("");
 							}
-						} catch (Exception e) {
-							// TODO: handle exception
-						}
+						} catch (Exception e) {}
 					}
-				}
-				if (StringUtils.isNotEmpty(map.get("LOGIN_DATE"))) {
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-					member.setLast_login(sdf.parse(map.get("LOGIN_DATE")));
-					SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-					member.setLast_login_str(sdf2.format(member.getLast_login()));
-				}
-			}
 
-			return member;
-		}
-		else { // 로그인 실패
-			return new ApiResponse(false, CommonAPI.getElementValueByName(doc, "message"));
-		}
-	}
-
-	/**
-	 * 로그인API 대출자번호용
-	 * @author YONGJU 2018. 2. 20.
-	 * @param member
-	 * @return
-	 * @throws Exception
-	 */
-	public static Object login2(Member member) throws Exception {
-		Map<String, Object> param = new HashMap<String, Object>();
-
-		param.put("USERID", "WEB");
-		param.put("className", "action.lnk.LnkLogin");
-//		param.put("vId", StringUtils.leftPad(StringUtils.upperCase(id), 12, "0"));
-		param.put("vId", member.getMember_id());
-
-
-//		if (member.getLoginType2().equals("id")) {
-//		param.put("vPw", CommonAPI.getCrypt(member.getMember_pw()));
-//		param.put("vType", "0002"); // WEB_ID OR USER_ID 일경우 넣어줘야 함.
-//		} else {
-			param.put("vPw", CommonAPI.getCrypt(member.getMember_name()));
-			param.put("vType", "0003"); // WEB_ID OR USER_ID 일경우 넣어줘야 함.
-//		}
-
-		Document doc = CommonAPI.sendILUS(param);
-
-		String code = CommonAPI.getElementValueByName(doc, "code");
-
-		if ( "0".equals(code) ) { // 로그인 성공
-			member.setLoginType("HOMEPAGE");
-			NodeList nodeList = doc.getElementsByTagName("field");
-			for ( int i = 0; i < nodeList.getLength(); i ++ ) {
-				Node oneNode = nodeList.item(i);
-				String nodeName = oneNode.getAttributes().getNamedItem("name").getNodeValue();
-				if ( "USER_ID".equals(nodeName) ) {
-					member.setMember_id(oneNode.getTextContent());
-					member.setUser_id(oneNode.getTextContent());// 대출번호 넘어옴 ex)1234214342532 << 숫자
-					//준회원은 *******123456 형태였다가 정회원이 되면 *******값이 숫자로 변경되어 유니크가 아니여서 member_id로 사용 못함.
-				}
-				else if ( "WEB_ID".equals(nodeName) ) {
-					//기존 회원은 web_id 자체가 없는 애들도 있어서 member_id로 활용 못함.
-					//탈퇴시 web_id는 삭제되어 재 사용이 가능해짐.
-					if (StringUtils.isNotEmpty(oneNode.getTextContent())) {
-						member.setMember_id(oneNode.getTextContent());
-					}
-					member.setWeb_id(oneNode.getTextContent());
-				}
-				else if ( "USER_NAME".equals(nodeName) ) {
-					member.setMember_name(oneNode.getTextContent());
-				}
-				else if ( "USER_NO".equals(nodeName) ) {
-					member.setUser_no(oneNode.getTextContent());
-				}
-				else if ( "PASSWORD".equals(nodeName) ) {
-					member.setMember_pw(oneNode.getTextContent());
-				}
-				else if ( "SEQ_NO".equals(nodeName) ) {
-
-					member.setSeq_no(oneNode.getTextContent());
-				}
-				else if ( "CARD_NO".equals(nodeName) ) {
-					member.setCard_no(oneNode.getTextContent());
-				}
-				else if ( "MOBILE_NO".equals(nodeName) ) {
-					member.setMobile_no(oneNode.getTextContent());
-
-
-					String cellPhone = member.getMobile_no();
-					if ( !StringUtils.isEmpty(cellPhone) ) {
+					String email = String.valueOf(memberInfo.get("E_MAIL"));
+					if (StringUtils.isNotEmpty(email) && !StringUtils.equals(email, "null")) {
+						member.setEmail(email);
 						try {
-							cellPhone = cellPhone.replaceAll("-", "");
-							Long.parseLong(cellPhone);
-							if ( cellPhone.length() > 3 ) {
-								member.setCell_phone1(cellPhone.substring(0, 3));
+							String[] email_arr = email.split("@");
+							if (email_arr[0] != null && !email_arr[0].equals("null") && !email_arr[0].equals("")) {
+								member.setEmail1(email_arr[0]);
 							} else {
-								member.setCell_phone1(cellPhone.substring(0));
+								member.setEmail1("");
 							}
-
-							String phoneTemp = cellPhone.substring(3);
-							if ( phoneTemp.length() >= 8 ) {
-								member.setCell_phone2(cellPhone.substring(3, 7));
-								member.setCell_phone3(cellPhone.substring(7));
+							if (email_arr[1] != null && !email_arr[1].equals("null") && !email_arr[1].equals("")) {
+								member.setEmail2(email_arr[1]);
 							} else {
-								member.setCell_phone2(cellPhone.substring(3, 6));
-								member.setCell_phone3(cellPhone.substring(6));
+								member.setEmail2("");
 							}
-						}
-						catch (NumberFormatException e) {
-							// 숫자가 아니면 파싱안함.
-							if (cellPhone.length() >= 11) {
-								member.setCell_phone1(cellPhone.substring(0, 3));
-								member.setCell_phone2(cellPhone.substring(3, 7));
-								member.setCell_phone3(cellPhone.substring(7));
-							} else if (cellPhone.length() == 10) {
-								member.setCell_phone1(cellPhone.substring(0, 3));
-								member.setCell_phone2(cellPhone.substring(3, 6));
-								member.setCell_phone3(cellPhone.substring(6));
-							}
-						} catch (Exception e) {
-							// TODO: handle exception
-						}
+						} catch (Exception e) {}
 					}
 
-				}
-				else if ( "UN_AGREE_FLAG".equals(nodeName) ) {
-					member.setUnAgreeFlag(oneNode.getTextContent());
-				}
-				else if ( "UN_AGREE_DATE".equals(nodeName) ) {
-					member.setUnAgreeDate(oneNode.getTextContent());
+					String gpinSex = String.valueOf(memberInfo.get("GPIN_SEX"));
+					if (StringUtils.isNotEmpty(gpinSex) && !StringUtils.equals(gpinSex, "null")) {
+						member.setSex(gpinSex);// 성별 (0 : 남자, 1 : 여자)
+					}
+
+					String brithsday = String.valueOf(memberInfo.get("BIRTHDAY"));
+					if (StringUtils.isNotEmpty(brithsday) && !StringUtils.equals(brithsday, "null")) {
+						member.setBirth_day(brithsday.replaceAll("/", "-"));
+					}
 				}
 
-				else if ( "STATUS_CODE".equals(nodeName) ) {
-					String statusCode = oneNode.getTextContent();
-					if ("0001".equals(statusCode) || "0".equals(statusCode)) {
-						member.setAuth_id("20000"); //정회원
-						member.setAuth_id_list("20000");
-					}
-					else if ("0002".equals(statusCode) || "1".equals(statusCode)) {
-						member.setAuth_id("30000"); // 준회원
-						member.setAuth_id_list("30000");
-					}
-					else {
-						member.setAuth_id("9999999"); // 모르는 회원
-					}
-					member.setStatus_code(statusCode);
-				}
-				else if ( "LOCA".equals(nodeName) ) {
-					member.setLoca(oneNode.getTextContent());
-				}
-				else if ( "LOCA_NAME".equals(nodeName) ) {
-					member.setLoca_name(oneNode.getTextContent());
-				}
-				else if ( "AGREE_DATE".equals(nodeName) ) {
-					if ( !StringUtils.isEmpty(oneNode.getTextContent()) ) {
-						String[] parsePatterns = {"yyyyMMdd"};
-						Date agreeDate = DateUtils.parseDate(oneNode.getTextContent(), parsePatterns);
-						member.setAgree_date(agreeDate);
-						SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
-						member.setAgree_date_str(sdf.format(member.getAgree_date()));
-					}
-				}
+				return member;
 			}
-			List<Map<String, String>> memberInfo = MemberAPI.getMemberList("WEB", member);
-			for (Map<String, String> map : memberInfo) {
-				if (StringUtils.isNotEmpty(map.get("SMS_CHECK"))) {
-					member.setSms_service_yn(map.get("SMS_CHECK"));
-				}
-				if (StringUtils.isNotEmpty(map.get("MAIL_CHECK"))) {
-					member.setEmail_service_yn(map.get("MAIL_CHECK"));
-				}
-				if (StringUtils.isNotEmpty(map.get("BIRTHD"))) {
-					member.setBirth_day(map.get("BIRTHD"));
-				}
-				if (StringUtils.isNotEmpty(map.get("SEX"))) {
-					member.setSex(map.get("SEX"));
-				}
-				if (StringUtils.isNotEmpty(map.get("EMAIL"))) {
-					member.setEmail(map.get("EMAIL"));
-				}
-				if (StringUtils.isNotEmpty(map.get("CONN_INFO"))) {
-					member.setCi_value(map.get("CONN_INFO"));
-				}
-				if (StringUtils.isNotEmpty(map.get("DUPINFO"))) {
-					member.setDi_value(map.get("DUPINFO"));
-				}
-				if (StringUtils.isNotEmpty(map.get("ADDRS"))) {
-					member.setAddress1(map.get("ADDRS"));
-				}
-				if (StringUtils.isNotEmpty(map.get("ZIP_CODE"))) {
-					member.setZipcode(map.get("ZIP_CODE"));
-				}
-				if (StringUtils.isNotEmpty(map.get("TEL_NO"))) {
-					member.setPhone(map.get("TEL_NO"));
-					String phone = member.getPhone();
-					if ( !StringUtils.isEmpty(phone) ) {
-						try {
-							phone = phone.replaceAll("-", "");
-							Long.parseLong(phone);
-							if ( phone.length() > 3 ) {
-								member.setPhone1(phone.substring(0, 3));
-							} else {
-								member.setPhone1(phone.substring(0));
-							}
-
-							String phoneTemp = phone.substring(3);
-							if ( phoneTemp.length() >= 8 ) {
-								member.setPhone2(phone.substring(3, 7));
-								member.setPhone3(phone.substring(7));
-							} else {
-								member.setPhone2(phone.substring(3, 6));
-								member.setPhone3(phone.substring(6));
-							}
-						}
-						catch (NumberFormatException e) {
-							// 숫자가 아니면 파싱안함.
-							if (phone.length() >= 11) {
-								member.setPhone1(phone.substring(0, 3));
-								member.setPhone2(phone.substring(3, 7));
-								member.setPhone3(phone.substring(7));
-							} else if (phone.length() == 10) {
-								member.setPhone1(phone.substring(0, 3));
-								member.setPhone2(phone.substring(3, 6));
-								member.setPhone3(phone.substring(6));
-							}
-						} catch (Exception e) {
-							// TODO: handle exception
-						}
-					}
-				}
-				if (StringUtils.isNotEmpty(map.get("LOGIN_DATE"))) {
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-					member.setLast_login(sdf.parse(map.get("LOGIN_DATE")));
-					SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-					member.setLast_login_str(sdf2.format(member.getLast_login()));
-				}
-			}
-
-			return member;
-		}
-		else { // 로그인 실패
-			return new ApiResponse(false, CommonAPI.getElementValueByName(doc, "message"));
-		}
-	}
-
-	/**
-	 * RFID 로그인
-	 * @author YONGJU 2018. 2. 4.
-	 * @param member
-	 * @return
-	 * @throws Exception
-	 */
-	public static Object rfidLogin(Member member) throws Exception {
-		Map<String, Object> param = new HashMap<String, Object>();
-
-		param.put("USERID", "WEB");
-		param.put("className", "action.lnk.LnkRfidUserCheckAndCardPw");
-		param.put("vLocation", member.getLoca());
-		param.put("vRfidTag", member.getMember_id().toUpperCase());
-		param.put("vTagDiv", ",");
-
-		Document doc = CommonAPI.sendILUS(param);
-
-		String code = CommonAPI.getElementValueByName(doc, "code");
-
-		if ( "0".equals(code) ) { // 로그인 성공
-			member.setLoginType("HOMEPAGE");
-			NodeList nodeList = doc.getElementsByTagName("field");
-			for ( int i = 0; i < nodeList.getLength(); i ++ ) {
-				Node oneNode = nodeList.item(i);
-				String nodeName = oneNode.getAttributes().getNamedItem("name").getNodeValue();
-				if ( "USER_ID".equals(nodeName) ) {
-					member.setMember_id(oneNode.getTextContent());
-					member.setUser_id(oneNode.getTextContent());// 대출번호 넘어옴 ex)1234214342532 << 숫자
-					//준회원은 *******123456 형태였다가 정회원이 되면 *******값이 숫자로 변경되어 유니크가 아니여서 member_id로 사용 못함.
-				}
-				else if ( "WEB_ID".equals(nodeName) ) {
-					//기존 회원은 web_id 자체가 없는 애들도 있어서 member_id로 활용 못함.
-					//탈퇴시 web_id는 삭제되어 재 사용이 가능해짐.
-					if (StringUtils.isNotEmpty(oneNode.getTextContent())) {
-						member.setMember_id(oneNode.getTextContent());
-					}
-					member.setWeb_id(oneNode.getTextContent());
-				}
-				else if ( "USER_NAME".equals(nodeName) ) {
-					member.setMember_name(oneNode.getTextContent());
-				}
-				else if ( "USER_NO".equals(nodeName) ) {
-					member.setUser_no(oneNode.getTextContent());
-				}
-				else if ( "PASSWORD".equals(nodeName) ) {
-					member.setMember_pw(oneNode.getTextContent());
-				}
-				else if ( "SEQ_NO".equals(nodeName) ) {
-
-					member.setSeq_no(oneNode.getTextContent());
-				}
-				else if ( "CARD_NO".equals(nodeName) ) {
-					member.setCard_no(oneNode.getTextContent());
-				}
-				else if ( "MOBILE_NO".equals(nodeName) ) {
-					member.setMobile_no(oneNode.getTextContent());
-
-
-					String cellPhone = member.getMobile_no();
-					if ( !StringUtils.isEmpty(cellPhone) ) {
-						try {
-							cellPhone = cellPhone.replaceAll("-", "");
-							Long.parseLong(cellPhone);
-							if ( cellPhone.length() > 3 ) {
-								member.setCell_phone1(cellPhone.substring(0, 3));
-							} else {
-								member.setCell_phone1(cellPhone.substring(0));
-							}
-
-							String phoneTemp = cellPhone.substring(3);
-							if ( phoneTemp.length() >= 8 ) {
-								member.setCell_phone2(cellPhone.substring(3, 7));
-								member.setCell_phone3(cellPhone.substring(7));
-							} else {
-								member.setCell_phone2(cellPhone.substring(3, 6));
-								member.setCell_phone3(cellPhone.substring(6));
-							}
-						}
-						catch (NumberFormatException e) {
-							// 숫자가 아니면 파싱안함.
-							if (cellPhone.length() >= 11) {
-								member.setCell_phone1(cellPhone.substring(0, 3));
-								member.setCell_phone2(cellPhone.substring(3, 7));
-								member.setCell_phone3(cellPhone.substring(7));
-							} else if (cellPhone.length() == 10) {
-								member.setCell_phone1(cellPhone.substring(0, 3));
-								member.setCell_phone2(cellPhone.substring(3, 6));
-								member.setCell_phone3(cellPhone.substring(6));
-							}
-						} catch (Exception e) {
-							// TODO: handle exception
-						}
-					}
-
-				}
-				else if ( "UN_AGREE_FLAG".equals(nodeName) ) {
-					member.setUnAgreeFlag(oneNode.getTextContent());
-				}
-				else if ( "UN_AGREE_DATE".equals(nodeName) ) {
-					member.setUnAgreeDate(oneNode.getTextContent());
-				}
-
-				else if ( "STATUS_CODE".equals(nodeName) ) {
-					String statusCode = oneNode.getTextContent();
-					if ("0001".equals(statusCode) || "0".equals(statusCode)) {
-						member.setAuth_id("20000"); //정회원
-						member.setAuth_id_list("20000");
-					}
-					else if ("0002".equals(statusCode) || "1".equals(statusCode)) {
-						member.setAuth_id("30000"); // 준회원
-						member.setAuth_id_list("30000");
-					}
-					else {
-						member.setAuth_id("9999999"); // 모르는 회원
-					}
-					member.setStatus_code(statusCode);
-				}
-				else if ( "LOCA".equals(nodeName) ) {
-					member.setLoca(oneNode.getTextContent());
-				}
-				else if ( "LOCA_NAME".equals(nodeName) ) {
-					member.setLoca_name(oneNode.getTextContent());
-				}
-				else if ( "AGREE_DATE".equals(nodeName) ) {
-					if ( !StringUtils.isEmpty(oneNode.getTextContent()) ) {
-						String[] parsePatterns = {"yyyyMMdd"};
-						Date agreeDate = DateUtils.parseDate(oneNode.getTextContent(), parsePatterns);
-						member.setAgree_date(agreeDate);
-						SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
-						member.setAgree_date_str(sdf.format(member.getAgree_date()));
-					}
-				}
-			}
-			List<Map<String, String>> memberInfo = MemberAPI.getMemberList("WEB", member);
-			for (Map<String, String> map : memberInfo) {
-				if (StringUtils.isNotEmpty(map.get("SMS_CHECK"))) {
-					member.setSms_service_yn(map.get("SMS_CHECK"));
-				}
-				if (StringUtils.isNotEmpty(map.get("MAIL_CHECK"))) {
-					member.setEmail_service_yn(map.get("MAIL_CHECK"));
-				}
-				if (StringUtils.isNotEmpty(map.get("BIRTHD"))) {
-					member.setBirth_day(map.get("BIRTHD"));
-				}
-				if (StringUtils.isNotEmpty(map.get("SEX"))) {
-					member.setSex(map.get("SEX"));
-				}
-				if (StringUtils.isNotEmpty(map.get("EMAIL"))) {
-					member.setEmail(map.get("EMAIL"));
-				}
-				if (StringUtils.isNotEmpty(map.get("CONN_INFO"))) {
-					member.setCi_value(map.get("CONN_INFO"));
-				}
-				if (StringUtils.isNotEmpty(map.get("DUPINFO"))) {
-					member.setDi_value(map.get("DUPINFO"));
-				}
-				if (StringUtils.isNotEmpty(map.get("ADDRS"))) {
-					member.setAddress1(map.get("ADDRS"));
-				}
-				if (StringUtils.isNotEmpty(map.get("ZIP_CODE"))) {
-					member.setZipcode(map.get("ZIP_CODE"));
-				}
-				if (StringUtils.isNotEmpty(map.get("TEL_NO"))) {
-					member.setPhone(map.get("TEL_NO"));
-					String phone = member.getPhone();
-					if ( !StringUtils.isEmpty(phone) ) {
-						try {
-							phone = phone.replaceAll("-", "");
-							Long.parseLong(phone);
-							if ( phone.length() > 3 ) {
-								member.setPhone1(phone.substring(0, 3));
-							} else {
-								member.setPhone1(phone.substring(0));
-							}
-
-							String phoneTemp = phone.substring(3);
-							if ( phoneTemp.length() >= 8 ) {
-								member.setPhone2(phone.substring(3, 7));
-								member.setPhone3(phone.substring(7));
-							} else {
-								member.setPhone2(phone.substring(3, 6));
-								member.setPhone3(phone.substring(6));
-							}
-						}
-						catch (NumberFormatException e) {
-							// 숫자가 아니면 파싱안함.
-							if (phone.length() >= 11) {
-								member.setPhone1(phone.substring(0, 3));
-								member.setPhone2(phone.substring(3, 7));
-								member.setPhone3(phone.substring(7));
-							} else if (phone.length() == 10) {
-								member.setPhone1(phone.substring(0, 3));
-								member.setPhone2(phone.substring(3, 6));
-								member.setPhone3(phone.substring(6));
-							}
-						} catch (Exception e) {
-							// TODO: handle exception
-						}
-					}
-				}
-				if (StringUtils.isNotEmpty(map.get("LOGIN_DATE"))) {
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-					member.setLast_login(sdf.parse(map.get("LOGIN_DATE")));
-					SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-					member.setLast_login_str(sdf2.format(member.getLast_login()));
-				}
-			}
-
-			return member;
-		}
-		else { // 로그인 실패
-			return new ApiResponse(false, CommonAPI.getElementValueByName(doc, "message"));
-		}
-	}
-
-	/**
-	 * 문자열 암호화 API
-	 * @param vPw
-	 * @return String
-	 * @throws Exception
-	 */
-	public static String getCrypt(String vPw) throws Exception {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("USERID", "WEB");
-		param.put("className", "action.lnk.LnkCrypt");
-		param.put("vType", "en_duplex");
-		param.put("vText", vPw);
-		param.put("vBrowser", "Y");
-
-		Document doc = CommonAPI.sendILUS(param);
-		String code = CommonAPI.getElementValueByName(doc, "code");
-
-		if ( "0".equals(code) ) {
-			return CommonAPI.getElementValueByName(doc, "field");
-		}
-		else {
 			return null;
+		} else {
+			return loginMap;
 		}
-	}
 
+	}
 }

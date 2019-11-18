@@ -28,7 +28,7 @@ function timerIncrement() {
     idleTime = idleTime + 1;
     if (idleTime >= 5) {
 		if (document.location.href.indexOf('join/edit') < 0 && document.location.href.indexOf('join/integration3') < 0) {
-			location.href = "http://www.gbelib.kr/intro/${homepage.context_path}/index.do";
+			location.href = "/intro/${homepage.context_path}/login/logout.do";
 		}
     }
 }

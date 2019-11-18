@@ -21,36 +21,36 @@ function serializeCustom(form) {
 
 function serializeParameter(inputNames) {
 	var param = '';
-	
+
 	for(var i=0;i<inputNames.length; i++) {
 		var inputNameValue = $('input#'+inputNames[i]).val();
 		var selectNameValue = $('select#'+inputNames[i]).val();
-		
-		
+
+
 		if(inputNameValue != '' && inputNameValue != undefined) {
 			if(param != '') {
 				param += '&';
 			}
 			param += inputNames[i] + '=' + inputNameValue;
-		} 
-		
+		}
+
 		if(selectNameValue != '' && selectNameValue != undefined) {
 			if(param != '') {
 				param += '&';
 			}
 			param += inputNames[i] + '=' + selectNameValue;
-		} 
+		}
 	}
-	
+
 	return param;
-	
+
 }
 
 function doAjaxPost(form, ajaxBody) {
 	jQuery.ajaxSettings.traditional = true;
 	var formData = serializeObject(form);
 	var responseValid = false;
-	
+
     $.ajax({
         type: "POST",
         url: form.attr('action'),
@@ -60,7 +60,7 @@ function doAjaxPost(form, ajaxBody) {
         success: function(response) {
         	response = eval(response);
         	responseValid = response.valid;
-            if(response.valid) {            	
+            if(response.valid) {
                  if(response.message != null && response.message.replace(/\s/g,'').length!=0) {
                 	 alert(response.message);
                  }
@@ -78,7 +78,7 @@ function doAjaxPost(form, ajaxBody) {
                 	  */
                 	 if(ajaxBody != null && ajaxBody.replace(/\s/g,'').length!=0) {
                 		 doAjaxLoad(ajaxBody, response.url, response.data);
-                		 
+
                 	 } else {
                 		 doGetLoad(response.url, response.data);
                 	 }
@@ -88,7 +88,7 @@ function doAjaxPost(form, ajaxBody) {
 					window.open(response.url, '', 'width=500,height=510');
 					return false;
 				}
-  				
+
 				if(response.message != null && response.message.replace(/\s/g,'').length!=0) {
 					alert(response.message);
                 } else {
@@ -104,7 +104,7 @@ function doAjaxPost(form, ajaxBody) {
                 		}
                 	}
                 }
-				
+
 				if(response.url != null && response.url.replace(/\s/g,'').length!=0) {
 					if(ajaxBody != null && ajaxBody.replace(/\s/g,'').length!=0) {
 						doAjaxLoad(ajaxBody, response.url, response.data);
@@ -118,7 +118,7 @@ function doAjaxPost(form, ajaxBody) {
              alert('[' + textStatus + ']관리자에게 문의하세요. : ' + errorThrown + ', ' + jqXHR.status);
          }
     });
-    
+
     return responseValid;
 }
 
@@ -139,7 +139,7 @@ function doAjaxOption(url, formData, ajaxType) {
                 	  */
                 	 if(ajaxBody != null && ajaxBody.replace(/\s/g,'').length!=0) {
                 		 doAjaxLoad(ajaxBody, response.url);
-                		 
+
                 	 } else {
                 		 doGetLoad(response.url, response.data);
                 	 }
@@ -167,7 +167,7 @@ function doGetLoad(url, param) {
 		}
 		fullUrl = fullUrl+'?'+param;
 	}
-	
+
 	$(location).attr('href', fullUrl);
 }
 
@@ -176,23 +176,23 @@ function doAjaxLoad(ajaxBody, url, param) {
 	if(param != null && param.replace(/\s/g,'').length!=0) {
 		fullUrl = fullUrl+'?'+param;
 	}
-	
+
 	$(ajaxBody).load(fullUrl);
 }
 
 function contentPrintIE(e) {
 	try{
 		//참고로 IE 5.5 이상에서만 동작함
-		
+
 		//웹 브라우저 컨트롤 생성
 		var webBrowser = '<OBJECT ID="previewWeb" WIDTH=0 HEIGHT=0 CLASSID="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></OBJECT>';
-		
+
 		//웹 페이지에 객체 삽입
 		document.body.insertAdjacentHTML('beforeEnd', webBrowser);
-		
+
 		//ExexWB 메쏘드 실행 (7 : 미리보기 , 8 : 페이지 설정 , 6 : 인쇄하기(대화상자))
 		previewWeb.ExecWB(7, 1);
-		
+
 		//객체 해제
 		previewWeb.outerHTML = "";
 
@@ -212,14 +212,14 @@ function contentPrint(e) {
     }
 
 
-	
-	
+
+
 	//alert(navigator.appName);
 //	if(navigator.appName.indexOf("Microsoft") > -1 ) {
 //		if(navigator.appVersion.indexOf("MSIE 6") != -1) {
 //			alert('익스플로어6 버전 에서는 지원하지 않는 기능입니다.');
 //			return;
-//		} 
+//		}
 //	}
 //	window.onbeforeprint = beforePrint;
 //	window.onafterprint = afterPrint;
@@ -231,9 +231,9 @@ function contentPrint(e) {
      * 1 - open window
      * 4 - Save As
      */
-//     var PROMPT = 1; // 2 DONTPROMPTUSER 
+//     var PROMPT = 1; // 2 DONTPROMPTUSER
 //     var WebBrowser = '<OBJECT ID="WebBrowser1" WIDTH=0 HEIGHT=0 CLASSID="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></OBJECT>';
-//     document.body.insertAdjacentHTML('beforeEnd', WebBrowser); 
+//     document.body.insertAdjacentHTML('beforeEnd', WebBrowser);
 //     WebBrowser1.ExecWB(OLECMDID, PROMPT);
 //     WebBrowser1.outerHTML = "";
 }
@@ -250,9 +250,9 @@ function linkToAskNl(libcode, libname) {
 	formTag += '<input type="hidden" name="lib_name" value="'+libname+'">';
 	formTag += '<input type="hidden" name="lib_id" value="'+libcode+'">';
 	formTag += '</form>';
-	
+
 	document.body.insertAdjacentHTML('beforeEnd', formTag);
-	
+
 	$('form#linkToAskNl').submit();
 }
 
@@ -265,7 +265,7 @@ $(document).ready(function() {
 	$('a.sub-kakao').on('click', function(e) {
 		e.preventDefault();
 		//Kakao.init('3e85666c80454909276bb9d33de127c4');
-	     
+
 		var homepage_id 	= $(this).attr('keyValue1');
 		var menu_idx 		= $(this).attr('keyValue2');
 		var menu_name 		= $(this).attr('keyValue3');
@@ -278,7 +278,7 @@ $(document).ready(function() {
 	        text: txtVal
 	    });
 	});
-	
+
 	$('a.sub-twitter').on('click', function(e) {
 		e.preventDefault();
 		var homepage_id 	= $(this).attr('keyValue1');
@@ -293,31 +293,31 @@ $(document).ready(function() {
 
 	$('a.sub-facebook').on('click', function(e) {
 		e.preventDefault();
-		
+
 		var homepage_id 	= $(this).attr('keyValue1');
 		var menu_idx 		= $(this).attr('keyValue2');
 		var menu_name 		= $(this).attr('keyValue3');
 		var homepage_name 	= $(this).attr('keyValue4');
 		var txtVal 			= HTMLDecode(homepage_name + '-' + menu_name);
 		var url 			= window.location.href;
-		
+
 		$.post('/sns/access.do', { 'homepage_id' : homepage_id, 'menu_idx': menu_idx, 'type':'FACEBOOK' });
 		window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(url)+'&t='+encodeURIComponent(txtVal),'fbsharer','width=500,height=300');
-		
+
 	});
-	
+
 	$('a.sub-qrcode').on('click', function(e) {
 		e.preventDefault();
 		var size = 150;
 		var url = location.href;
 		if ( url.indexOf('/intro/search/detail.do') != -1 ) {
-			size = 150;	
+			size = 150;
 		}
-				
-		/* qrcode 사이즈 , 
-			width = 367 />9.7cm x 9.7cm 
-			width = 235 />6.2cm x 6.2cm 
-			width = 138 />3.7cm x 3.7cm 
+
+		/* qrcode 사이즈 ,
+			width = 367 />9.7cm x 9.7cm
+			width = 235 />6.2cm x 6.2cm
+			width = 138 />3.7cm x 3.7cm
 		 */
 		if ( $(this).attr('keyValue') == 'true' ) {
 			if ( url.indexOf('geiclib') != -1 || url.indexOf('geic') != -1) {
@@ -327,12 +327,12 @@ $(document).ready(function() {
 			} else {
 				$('div#container > div.section > div.content > div.doc').prepend('<div id="qrcodeView" style="position:relative ;z-index: 99999; display:none;"></div>');
 			}
-			
+
 			$('div#qrcodeView').html('');
-			
+
 			url = encodeURIComponent(url);
-			var src = 'http://chart.apis.google.com/chart?cht=qr&chof=gif&chl='+url+'&choe=UTF-8&chld=H|0&chs=' + size + 'x' + size; 
-			
+			var src = 'http://chart.apis.google.com/chart?cht=qr&chof=gif&chl='+url+'&choe=UTF-8&chld=H|0&chs=' + size + 'x' + size;
+
 			$('div#qrcodeView').html('<img style="position:absolute; right:0px;max-width:'+size+'px; max-height:'+size+'px; width:'+size+'px; height:'+size+'px;" alt="QR코드" src="' + src + '">');
 			$('div#qrcodeView').show();
 			$(this).attr('keyValue', false);
@@ -341,20 +341,20 @@ $(document).ready(function() {
 			$('div#qrcodeView').remove();
 			$(this).attr('keyValue', true);
 		}
-		
+
 	});
-	
+
 	if ( location.href.indexOf('/intro/login') != -1 || location.href.indexOf('/intro/join') != -1 ) {
 		$('a.sub-qrcode').hide();
 	}
-	
+
 	if ( location.href.indexOf('printMode=true') != -1) {
 		$('div.doc-head, div.lnb, div.doc-info, div.sub-visual, div#header, div#footer').remove();
 		contentPrintIE();
 	}
-	
-	
-	
+
+
+
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -363,12 +363,12 @@ $(document).ready(function() {
   ga('create', 'UA-92962278-1', 'auto');
   ga('send', 'pageview');
 
-  
+
 });
 
 var token = $("meta[name='_csrf']").attr("th:content");
 var header = $("meta[name='_csrf_header']").attr("th:content");
- 
+
 $(function() {
     $(document).ajaxSend(function(e, xhr, options) {
 //        xhr.setRequestHeader(header, token);

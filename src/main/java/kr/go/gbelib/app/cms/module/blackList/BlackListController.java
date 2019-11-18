@@ -86,11 +86,11 @@ public class BlackListController extends BaseController{
 		model.addAttribute("blackListResult", service.getBlackListList(blackList));
 		return new BlackListSearchView();
 	}
-	
+
 	@RequestMapping(value = {"/csvDownload.*"}, method = RequestMethod.POST)
 	public void csv(Model model, BlackList blackList, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		List<BlackList> blackListResult = service.getBlackListList(blackList);
-		
+
 		String fileName = blackListResult.get(0).getHomepage_name() + "블랙리스트 내역.csv";
 		new BlackListXlsToCsv(blackList, blackListResult, fileName, request, response);
 	}
@@ -104,22 +104,22 @@ public class BlackListController extends BaseController{
 
 		Map<String, String> memberInfo = null;
 		if ( blackList.getSearch_api_type().equals("WEBID") ) {
-			blackListMember.setCheck_certify_type("WEBID");
-			blackListMember.setCheck_certify_data(blackList.getMember_id());
-
-			memberInfo = MemberAPI.getMemberCertify("WEB", blackListMember);
-
-			if ( memberInfo == null ) {
-				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
-				return result;
-			}
+//			blackListMember.setCheck_certify_type("WEBID");
+//			blackListMember.setCheck_certify_data(blackList.getMember_id());
+//
+//			memberInfo = MemberAPI.getMemberCertify("WEB", blackListMember);
+//
+//			if ( memberInfo == null ) {
+//				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
+//				return result;
+//			}
 		}
 		else {
-			memberInfo = MemberAPI.getDupUser("WEB", blackListMember, "0002", blackList.getMember_id());
-			if ( memberInfo == null ) {
-				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
-				return result;
-			}
+//			memberInfo = MemberAPI.getDupUser("WEB", blackListMember, "0002", blackList.getMember_id());
+//			if ( memberInfo == null ) {
+//				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
+//				return result;
+//			}
 		}
 		result.put("memberInfo", memberInfo);
 		return result;

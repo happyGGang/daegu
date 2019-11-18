@@ -22,43 +22,44 @@ import kr.go.gbelib.app.common.api.MemberAPI;
 
 @Service
 public class ElibApiService2 extends BaseService {
-	
+
 	@Autowired
 	private BookService bookService;
-	
+
 	@Autowired
 	private ApiLogService apiLogService;
-	
+
 	@Autowired
 	private LendingService lendingService;
-	
+
 	@Autowired
 	private ElibMemberService elibMemberService;
-	
+
 	private Map<String, String> getMember(ElibMember elibMember) {
 		Member member = new Member();
 		member.setUser_id(elibMember.getMember_id());
-		member.setCheck_certify_type("WEBID");
-		member.setCheck_certify_data(elibMember.getMember_id());
-		Map<String, String> data = MemberAPI.getMemberCertify("WEB", member);
-		return data;
+//		member.setCheck_certify_type("WEBID");
+//		member.setCheck_certify_data(elibMember.getMember_id());
+//		Map<String, String> data = MemberAPI.getMemberCertify("WEB", member);
+//		return data;
+		return null;
 	}
-	
+
 	private int addMemberIfNotExists(Lending lending) throws ElibException {
 		ElibMember member = new ElibMember();
 		member.setMember_id(lending.getMember_id());
-		
+
 		Map<String, String> data = getMember(member);
 		if(data != null) {
 			member.setP_id(data.get("USER_ID"));
 			member.setSeq_no(data.get("SEQ_NO"));
 			member.setLibrary_code(data.get("LOCA"));
 		}
-		
+
 		Book book = bookService.getBookInfo(new Book(lending.getBook_idx()));
 		return elibMemberService.addMemberIfNotExists(member, book);
 	}
-	
+
 	public ElibXmlResult doApi(Lending lending, HttpServletRequest request, HttpServletResponse response) {
 		int xmlResult = 0;
 		String cmd = lending.getCmd();
@@ -66,7 +67,7 @@ public class ElibApiService2 extends BaseService {
 		lending.setMember_id(lending.getUser_id());
 		lending.setBook_code(lending.getBarcode());
 		lending.setDevice("S");//공급사 앱은 스마트폰으로 취급한다.
-		
+
 		if(StringUtils.isEmpty(lending.getCmd())) {
 			String errmsg = "잘못된 cmd 파라미터";
 			apiLogService.addApiLog(new ApiLog("ELIB2", "-997", errmsg, makeParamUrl(lending), request.getRemoteAddr()));
@@ -88,20 +89,20 @@ public class ElibApiService2 extends BaseService {
 			apiLogService.addApiLog(new ApiLog("ELIB2", "-993", errmsg, makeParamUrl(lending), request.getRemoteAddr()));
 			return new ElibXmlResult("false", "-993", errmsg);
 		}
-		
+
 		try {
 			Book book = new Book(lending);
 			book.setLibrary_code(lending.getLibrary_code());
 			lending.setBook_idx(bookService.getBookIdx(book));
-			
+
 			if(lending.getBook_idx() == 0) {
 				String errmsg = "해당 도서가 존재하지 않습니다.";
 				apiLogService.addApiLog(new ApiLog("ELIB2", "-992", errmsg, makeParamUrl(lending), request.getRemoteAddr()));
 				return new ElibXmlResult("false", "-992", errmsg);
 			}
-			
+
 			addMemberIfNotExists(lending);
-			
+
 			if("1".equals(cmd)) {
 				// 대출
 				xmlResult = lendingService.borrowProc(lending, false);
@@ -149,7 +150,7 @@ public class ElibApiService2 extends BaseService {
 			return new ElibXmlResult("false", "-999", errmsg + ": " + e.getMessage());
 		}
 	}
-	
+
 	private ElibXmlResult toXml(int result, String msg) {
 		if(result >= 0) {
 			return new ElibXmlResult("true");
@@ -157,7 +158,7 @@ public class ElibApiService2 extends BaseService {
 			return new ElibXmlResult("false", String.valueOf(result), msg);
 		}
 	}
-	
+
 	private String getMsg(String cmd, int ret) {
 		if("1".equals(cmd)) {
 			if(ret == -10) {
@@ -241,17 +242,17 @@ public class ElibApiService2 extends BaseService {
 			return "잘못된 cmd 파라미터";
 		}
 	}
-	
+
 	private String makeParamUrl(Lending lending) {
 		StringBuilder sb = new StringBuilder();
-		
+
 		sb.append("cmd=" + lending.getCmd());
 		sb.append("&barcode=" + lending.getBook_code());
 		sb.append("&user_id=" + lending.getMember_id());
 		sb.append("&library_code=" + lending.getLibrary_code());
 		sb.append("&com_code=" + lending.getCom_code());
-		
+
 		return sb.toString();
 	}
-	
+
 }

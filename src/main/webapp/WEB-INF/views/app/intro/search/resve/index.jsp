@@ -5,99 +5,90 @@
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
 <script type="text/javascript">
 $(function() {
-	$('a.resve-cancel').on('click', function(e) {
-		$('#resveCancelForm #editMode').val('CANCEL');
-		$('#resveCancelForm #vResveNo').val($(this).attr('vResveNo'));
-		
-		if ( doAjaxPost($('#resveCancelForm')) ) {
-			location.reload();
-		}
+
+	$('a.reserveCancel').on('click', function(e) {
 		e.preventDefault();
+		if ( confirm("예약 취소 하시겠습니까?") ) {
+			$('input#bookkey').val($(this).data('pk'));
+			if (doAjaxPost($('form#cancelForm'))) {
+				location.reload();
+			}
+		}
+
 	});
 });
 
 </script>
-<form:form id="resveCancelForm" modelAttribute="librarySearch" action="save.do">
-	<form:hidden path="editMode" value="CANCEL"/>
-	<form:hidden path="vResveNo"/>
-</form:form>
+<form id="cancelForm" action="save.do" method="post">
+	<input type="hidden" name="bookkey" id="bookkey">
+	<input type="hidden" name="editMode" value="CANCEL">
+</form>
+
+
+<!-- contents-title-->
+<div id="contents-title">
+	<h2>현재 예약중인 자료<span style="font-weight:300">를 확인하세요.</span></h2>
+</div>
+<!-- /contents-title-->
+
+<div class="DepthBtn">
+<c:set var="prefix" value="/intro/${homepage.context_path}/search/"></c:set>
+<a href="${prefix}loan/index.do" class="bBtn">대출중인도서</a>
+<a href="${prefix}loan/history.do" class="bBtn">대출내역조회</a>
+<a href="${prefix}sangho/index.do" class="bBtn">상호대차신청내역조회</a>
+<a href="${prefix}sangho/history.do" class="bBtn">상호대차이용내역조회</a>
+<a href="${prefix}resve/index.do" class="bBtn">대출예약조회</a>
+</div>
 
 <div class="book-list">
-	<c:if test="${fn:length(hopeList.dsMyLibraryList) < 1 }"> <h3>예약중인 도서 내역이 없습니다.</h3></c:if>
-	<c:forEach items="${resveList.dsMyLibraryList}" var="i"> 
+	<c:if test="${fn:length(resveList) < 1 }"> <h3>예약중인 도서 내역이 없습니다.</h3></c:if>
+	<c:forEach items="${resveList}" var="i">
 		<div class="row">
 			<div class="box">
 				<div class="item">
 					<div class="bif">
 						<div class="top">
 							<div class="b-title">
-								<div class="box"><a href="" class="name">${i.TITLE}</a></div>
+								<div class="box"><a href="" class="name">${i.TITLE_INFO}</a></div>
 							</div>
 							<div class="control">
-								<c:if test="${i.STATUS_NAME != '예약취소'}">
-								<a href="" class="btn resve-cancel" vResveNo="${i.RESVE_NO}">예약 취소</a>
+								<c:if test="${i.STATUS eq '3'}">
+								<a href="" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
 								</c:if>
 							</div>
 						</div>
-						<p class="info"><em>저자 : ${i.AUTHOR}</em> <span>/</span> <em>출판사 : ${i.PUBLER}</em> </p>
+						<p class="info"><em>저자 : ${i.AUTHOR}</em> <span>/</span> <em>출판사 : ${i.PUBLISHER}</em> </p>
 					</div>
 					<div class="bci">
 						<table summary="신청정보">
 							<tbody>
-								<tr>
-									<th>소장처명</th>
-									<td>${i.LOCA_NAME}</td>
-								</tr>
-								<tr>
-									<th>예약일</th>
-									<td>${i.RESVE_DATE}</td>
-								</tr>
-								<tr>
-									<th>예약순위</th>
-									<td>${i.RESVE_RANK}</td>
-								</tr>
-								<tr>
-									<th>예약상태</th>
-									<td>${i.STATUS_NAME}</td>
-								</tr>
-								<tr>
-									<th>예약유효일</th>
-									<td>${i.RESVE_VALID_DATE}</td>
-								</tr>
-								<tr>
-									<th>도착통보일</th>
-									<td>${i.RPT_DATE}</td>
-								</tr>
+							<tr>
+								<th>도서관명</th>
+								<td>${i.LIB_NAME}</td>
+							</tr>
+							<tr>
+								<th>예약일</th>
+								<td>${i.RESERVATION_DATE}</td>
+							</tr>
+							<tr>
+								<th>예약순위</th>
+								<td>${i.RESERVE_RANK}</td>
+							</tr>
+							<tr>
+								<th>예약만기일</th>
+								<td>${i.RESERVATION_EXPIRE_DATE }</td>
+							</tr>
 							</tbody>
 						</table>
 					</div>
 				</div>
 			</div>
 		</div>
-	
-	<%-- [저자] 						: ${i.AUTHOR} <br/> 
-	[청구기호] 					: ${i.CALL_NO} <br/>
-	[제어번호] 					: ${i.CTRLNO} <br/>
-	[대출가능일] 					: ${i.LOAN_POSBL_DATE} <br/> 
-	[소장처코드] 					: ${i.LOCA} <br/>
-	[소장처명] 					: ${i.LOCA_NAME} <br/>
-	[출판사] 						: ${i.PUBLER} <br/>
-	[통보받은 등록번호 - 자리수고정] 	: ${i.RECPT_ACSSON_NO} <br/> 
-	[통보받은 등록번호 - 디스플레이용] 	: ${i.RECPT_PRINT_ACSSON_NO} <br/>
-	[예약일] 						: ${i.RESVE_DATE} <br/>
-	[예약 일련번호]	 				: ${i.RESVE_NO} <br/>
-	[예약순위] 					: ${i.RESVE_RANK} <br/>
-	[예약상태코드] 					: ${i.RESVE_STATUS} <br/>
-	[예약시간] 					: ${i.RESVE_TIME} <br/>
-	[예약유효일] 					: ${i.RESVE_VALID_DATE} <br/>
-	[열 번호] 						: ${i.ROW_ID} <br/> 
-	[도착통보일] 					: ${i.RPT_DATE} <br/>
-	[예약상태] 					: ${i.STATUS_NAME} <br/>
-	[자료실코드] 					: ${i.SUB_LOCA} <br/>
-	[자료실명] 					: ${i.SUB_LOCA_NAME} <br/> 
-	[서명] 						: ${i.TITLE} <br/> 
-	[권호기호] 					: ${i.VOLUME_NO} <br/> --%> 
 	</c:forEach>
+
+	<!-- 페이징을 넣어주세요 : 시작 - 기존에 사용하던거 그대로 재사용해주시면 될것같아요. -->
+
+	<!-- 페이징을 넣어주세요 : 끝 -->
 </div>
 
 

@@ -36,28 +36,28 @@ public class FacilityController extends BaseController {
 
 	@Autowired
 	private FacilityService service;
-	
+
 	@Autowired
-	private FacilityReqService facilityReqService;	
-	
+	private FacilityReqService facilityReqService;
+
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, Facility facility, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 //		if ( !getSessionIsAdmin(request) ) {
-			facility.setHomepage_id(getAsideHomepageId(request));	
+			facility.setHomepage_id(getAsideHomepageId(request));
 //		}
-		
+
 		if ( StringUtils.isEmpty(facility.getPlan_date()) ) {
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM");
-			facility.setPlan_date(sf.format(new Date()));	
+			facility.setPlan_date(sf.format(new Date()));
 		}
-		
+
 		model.addAttribute("calendarList", service.getCalendar(facility));
 		model.addAttribute("facility", facility);
 		model.addAttribute("facilityRepo", service.convertToRepo(service.getFacilityList(facility)));
 		return basePath + "index";
 	}
-	
+
 	@RequestMapping(value = {"/edit.*"})
 	public String edit(Model model, Facility facility, HttpServletRequest request) throws AuthException {
 		if(facility.getEditMode().equals("MODIFY")) {
@@ -67,10 +67,10 @@ public class FacilityController extends BaseController {
 			checkAuth("C", model, request);
 			model.addAttribute("facility", facility);
 		}
-		
+
 		return basePath + "edit_ajax";
 	}
-	
+
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Model model, Facility facility, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
@@ -80,19 +80,19 @@ public class FacilityController extends BaseController {
 			if ( editMode.equals("ADD") ) {
 				ValidationUtils.rejectIfEmpty(result, "start_date", "이용 가능 기간을 선택하세요.");
 				ValidationUtils.rejectIfEmpty(result, "end_date", "이용 가능 기간을 선택하세요.");
-				
+
 			}
-			
+
 			ValidationUtils.rejectIfEmpty(result, "start_time", "이용 가능시간을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "end_time", "이용 가능시간을 입력하세요.");
-			
+
 			ValidationUtils.rejectIfEmpty(result, "apply_start_date", "신청시작일를 선택하세요.");
 			ValidationUtils.rejectIfEmpty(result, "apply_end_date", "신청종료일를 선택하세요.");
 			ValidationUtils.rejectIfEmpty(result, "apply_start_time", "신청시작시간을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "apply_end_time", "신청종료시간을 입력하세요.");
 			ValidationUtils.rejectExceptNumber(result, "limit_count", "신청 제한 수는 숫자만 입력 가능합니다.");
 			ValidationUtils.rejectIfEmpty(result, "use_yn", "사용여부를 선택하세요.");
-			
+
 			SimpleDateFormat sfTime = new SimpleDateFormat("HH:mm");
 			sfTime.setLenient(false);
 			try {
@@ -104,7 +104,7 @@ public class FacilityController extends BaseController {
 				result.reject("시간입력은 00:00 ~ 23:59 범위 입니다.");
 			}
 		}
-		
+
 		if(!result.hasErrors()) {
 			if(editMode.equals("ADD")) {
 				facility.setAdd_id(getSessionMemberId(request));
@@ -125,55 +125,55 @@ public class FacilityController extends BaseController {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
 		}
-		
+
 		return res;
 	}
-	
+
 	@RequestMapping(value = {"/editApply.*"}, method = RequestMethod.GET)
 	public String editApply(Model model, FacilityReq facilityReq) {
 		model.addAttribute("facility", service.getFacilityOne(new Facility(facilityReq.getHomepage_id(), facilityReq.getFacility_idx())));
-		
+
 		if ( facilityReq.getEditMode().equals("MODIFY") ) {
 			model.addAttribute("facilityReq", facilityReqService.copyObjectPaging(facilityReq, facilityReqService.getFacilityReqOne(facilityReq)));
-		} 
+		}
 		else {
 			model.addAttribute("facilityReq", facilityReq);
 		}
 		return basePath + "editApply_ajax";
 	}
-	
+
 	@RequestMapping(value = {"/checkId.*"}, method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> checkId(Model model, FacilityReq facilityReq, HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		
+
 		Member facilityReqMember = new Member();
 		facilityReqMember.setUser_id(facilityReq.getApply_id());
-		facilityReqMember.setCheck_certify_type("WEBID");
-		facilityReqMember.setCheck_certify_data(facilityReq.getApply_id());
+//		facilityReqMember.setCheck_certify_type("WEBID");
+//		facilityReqMember.setCheck_certify_data(facilityReq.getApply_id());
 
 		Map<String, String> memberInfo = null;
-		if ( facilityReq.getSearch_api_type().equals("WEBID") ) {  
-			facilityReqMember.setCheck_certify_type("WEBID");
-			facilityReqMember.setCheck_certify_data(facilityReq.getApply_id());
-
-			memberInfo = MemberAPI.getMemberCertify("WEB", facilityReqMember);
-			
-			if ( memberInfo == null ) {
-				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
-				return result;
-			}
+		if ( facilityReq.getSearch_api_type().equals("WEBID") ) {
+//			facilityReqMember.setCheck_certify_type("WEBID");
+//			facilityReqMember.setCheck_certify_data(facilityReq.getApply_id());
+//
+//			memberInfo = MemberAPI.getMemberCertify("WEB", facilityReqMember);
+//
+//			if ( memberInfo == null ) {
+//				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
+//				return result;
+//			}
 		}
 		else {
-			memberInfo = MemberAPI.getDupUser("WEB", facilityReqMember, "0002", facilityReq.getApply_id());
-			if ( memberInfo == null ) {
-				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
-				return result;
-			}
+//			memberInfo = MemberAPI.getDupUser("WEB", facilityReqMember, "0002", facilityReq.getApply_id());
+//			if ( memberInfo == null ) {
+//				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
+//				return result;
+//			}
 		}
 		result.put("memberInfo", memberInfo);
-		return result; 
+		return result;
 	}
-	
+
 	@RequestMapping(value = {"/saveApply.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse saveApply(Model model, FacilityReq facilityReq, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
@@ -188,11 +188,11 @@ public class FacilityController extends BaseController {
 					return res;
 				}
 			}
-			
+
 			ValidationUtils.rejectIfEmpty(result, "apply_phone", "신청자 휴대전화번호를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "apply_desc", "사용목적을 입력하세요.");
 		}
-		
+
 		if ( !result.hasErrors() ) {
 			if ( editMode.equals("ADD") ) {
 				if ( facilityReqService.checkFacilityReq(facilityReq) > 0 ) {
@@ -200,18 +200,18 @@ public class FacilityController extends BaseController {
 					res.setMessage("이미 등록된 신청자 입니다.");
 					return res;
 				}
-				
+
 				facilityReq.setAdd_id(getSessionMemberId(request));
 				facilityReqService.addFacilityReq(facilityReq);
 				res.setValid(true);
 				res.setMessage("등록 되었습니다.");
-			} 
+			}
 			else if ( editMode.equals("MODIFY") ) {
 				facilityReq.setMod_id(getSessionMemberId(request));
 				facilityReqService.modifyFacilityReq(facilityReq);
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");
-			} 
+			}
 			else if ( editMode.equals("DELETE") ) {
 				facilityReq.setMod_id(getSessionMemberId(request));
 				facilityReqService.deleteFacilityReq(facilityReq);
@@ -236,26 +236,26 @@ public class FacilityController extends BaseController {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
 		}
-		
+
 		return res;
 	}
-	
+
 	@RequestMapping(value = {"/applyList.*"}, method = RequestMethod.GET)
 	public String applyList(Model model, FacilityReq facilityReq) {
 		model.addAttribute("facilityReq", facilityReq);
 		model.addAttribute("applyList", facilityReqService.getFacilityReqList(facilityReq));
-		
+
 		return basePath + "applyList_ajax";
 	}
-	
+
 	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
 	public FacilitySearchView excelDownload(Model model, Facility facility, HttpServletRequest request, HttpServletResponse response) throws Exception{
-		model.addAttribute("facility", facility); 		
+		model.addAttribute("facility", facility);
 		model.addAttribute("facilityResult", service.getFacilityListByExcel(facility));
 		model.addAttribute("facilityReqResult", facilityReqService.getFacilityReqListByExcel(new FacilityReq(facility.getHomepage_id(), facility.getPlan_date(), facility.getExcel_type())));
 		return new FacilitySearchView();
 	}
-	
+
 	@RequestMapping(value = {"/csvDownload.*"}, method = RequestMethod.POST)
 	public void csvDownload(Model model, Facility facility, HttpServletRequest request, HttpServletResponse response) throws Exception{
 //		model.addAttribute("facility", facility);
@@ -263,8 +263,8 @@ public class FacilityController extends BaseController {
 //		model.addAttribute("facilityReqResult", facilityReqService.getFacilityReqListByExcel(new FacilityReq(facility.getHomepage_id(), facility.getPlan_date(), facility.getExcel_type())));
 		List<Facility> facilityResult = service.getFacilityListByExcel(facility);
 		List<FacilityReq> facilityReqResult = facilityReqService.getFacilityReqListByExcel(new FacilityReq(facility.getHomepage_id(), facility.getPlan_date(), facility.getExcel_type()));
-		
+
 		new FacilityXlsToCsv(facility, facilityResult, facilityReqResult, "시설물 리스트.csv", request, response);
 	}
-	
+
 }

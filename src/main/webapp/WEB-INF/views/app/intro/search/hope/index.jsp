@@ -5,95 +5,130 @@
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
 <script type="text/javascript">
 $(function() {
-	$('#req-btn').on('click', function(e) {
-		doGetLoad('req.do');
+
+	<%-- 희망도서 신청 취소 --%>
+	$('a.cancel-btn').on('click', function(e) {
 		e.preventDefault();
-	});
-	
-	$('.cancel-btn').on('click', function(e) {
-		$('#editMode').val("CANCEL");
-		$('#select_no').val($(this).attr('keyValue'));
-		if ( doAjaxPost($('#modHope')) ) {
-			location.reload();
+		if (confirm('취소하시겠습니까?')) {
+			$('#select_no').val($(this).attr('keyValue1'));
+			if ( doAjaxPost($('#cancelForm')) ) {
+				location.reload();
+			}
 		}
-		e.preventDefault();
 	});
-	
-	$('.del-btn').on('click', function(e) {
-		$('#editMode').val("DELETE");
-		$('#select_no').val($(this).attr('keyValue'));
-		if ( doAjaxPost($('#modHope')) ) {
-			
-		}
+
+	<%-- 페이징 --%>
+	$('div#board_paging a').on('click', function(e) {
 		e.preventDefault();
+		$('#viewPage').attr('value', $(this).attr('keyValue'));
+		var param = serializeCustom($('form#librarySearch'));
+		doGetLoad('index.do', param);
 	});
+
 });
 
 </script>
-<%-- <div style="padding:0 0 10px">
-	<c:if test="${view_yn}">
-		<a id="req-btn" class="btn btn5"><i class="fa fa-plus"></i><span>희망도서신청</span></a>
-	</c:if>
-</div> --%>
+<form id="cancelForm" action="save.do" method="post" onsubmit="return false;">
+	<input type="hidden" name="editMode" value="CANCEL"/>
+	<input type="hidden" id="select_no" name="select_no"/>
+</form>
+
+
+<!-- contents-title-->
+<div id="contents-title">
+	<h2>희망도서신청<span style="font-weight:300">을 하고 싶으세요?</span></h2>
+</div>
+<!-- /contents-title-->
+
+<div class="DepthBtn">
+	<a href="/intro/${homepage.context_path}/search/hope/req.do" class="bBtn">희망도서신청</a>
+	<a href="/intro/${homepage.context_path}/search/hope/index.do" class="bBtn">신청내역보기</a>
+</div>
+
+<form:form modelAttribute="librarySearch" action="index.do" method="get" onsubmit="return false;">
+<form:hidden path="viewPage"/>
 <div class="book-list">
-	<c:if test="${fn:length(hopeList.dsMyLibraryList) < 1 }"> <h3>희망도서신청 내역이 없습니다.</h3></c:if>
-	<c:forEach items="${hopeList.dsMyLibraryList}" var="i">
-		
+	<c:if test="${fn:length(hopeList) < 1 }"> <h3>희망도서신청 내역이 없습니다.</h3></c:if>
+	<c:forEach items="${hopeList}" var="i">
+
 			<div class="row">
 				<div class="box">
 					<div class="item">
 						<div class="bif">
 							<div class="top" >
 								<div class="b-title">
-									<div class="box"><a href="" class="name">${i.TITLE}</a></div>
+									<div class="box">${i.TITLE}</div>
 								</div>
 								<div class="control">
-									<c:if test="${i.CANCELABLE_YN eq 'Y'}">
-										<a href="" class="btn cancel-btn" keyValue="${i.SELECT_NO}">신청 취소</a>
+									<c:if test="${i.FURNISH_STATUS eq '1'}">
+									<a href="#" class="btn cancel-btn" title="취소" keyValue1="${i.REC_KEY}" >취소</a>
 									</c:if>
 								</div>
 							</div>
-							<p class="info"><em>저자 : ${i.AUTHOR}</em> <span>/</span> <em>출판사 : ${i.PUBLER}</em> <span>/</span> <em>출판년도 : ${i.PUBLER_YEAR}</em></p>
+							<p class="info"><em>저자 : ${i.AUTHOR}</em> <span>/</span> <em>출판사 : ${i.PUBLISHER}</em> <span>/</span> <em>출판년도 : ${i.PUBLISH_YEAR}</em></p>
 						</div>
 						<div class="bci">
 							<table summary="신청정보">
 								<tbody>
 									<tr>
-										<th>비치처</th>
-										<td>${i.LOCA_NAME}</td>
+										<th>비치도서관</th>
+										<td>${i.LIB_NAME}</td>
 									</tr>
 									<tr>
 										<th>신청일</th>
-										<td>${i.INSERT_DATE}</td>
+										<td>${i.APPLICANT_DATE}</td>
 									</tr>
 									<tr>
 										<th>처리일</th>
-										<td>${i.PROCESS_DATE}</td>
+										<td>${i.FURNISH_DATE}</td>
 									</tr>
 									<tr>
-										<th>처리결과</th>
-										<td>${i.STATUS_FLAG_DISPLAY}</td>
+										<th>비치상태</th>
+										<td>
+										<c:if test="${i.FURNISH_STATUS eq '1'}">신청</c:if>
+										<c:if test="${i.FURNISH_STATUS eq '2'}">처리중</c:if>
+										<c:if test="${i.FURNISH_STATUS eq '3'}">비치완료</c:if>
+										<c:if test="${i.FURNISH_STATUS eq '4'}">취소</c:if>
+										</td>
 									</tr>
-									<tr>
-										<th>비고사항</th>
-										<td>${i.USER_REMARK}</td>
-									</tr>
-									<c:if test="${i.CANCEL_REASON ne null and i.CANCEL_REASON ne ''}">
 									<tr>
 										<th>취소사유</th>
 										<td>${i.CANCEL_REASON}</td>
-									</tr> 
-									</c:if>
+									</tr>
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
 			</div>
-	</c:forEach>		
-</div>
+	</c:forEach>
 
-<form:form id="modHope" modelAttribute="librarySearch" method="POST" action="save.do">
-	<form:hidden path="editMode"/>
-	<form:hidden path="select_no"/>
+	<div id="board_paging" class="dataTables_paginate">
+			<c:if test="${paging.firstPageNum > 0}">
+				<a href="" class="paginate_button previous" keyValue="${paging.firstPageNum}">처음</a>
+			</c:if>
+			<c:if test="${paging.prevPageNum > 0}">
+				<a href="" class="paginate_button previous" keyValue="${paging.prevPageNum}">이전</a>
+			</c:if>
+			<span>
+				<c:forEach var="i" varStatus="status" begin="${paging.startPageNum}" end="${paging.endPageNum}">
+					<c:choose>
+						<c:when test="${i eq paging.viewPage}">
+							<a href="" class="paginate_button current" keyValue="${i}">${i}</a>
+						</c:when>
+						<c:otherwise>
+							<a href="" class="paginate_button" keyValue="${i}">${i}</a>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:if test="${paging.nextPageNum > 0}">
+					<a href="" class="paginate_button next" keyValue="${paging.nextPageNum}">다음</a>
+				</c:if>
+				<c:if test="${paging.totalPageCount ne paging.lastPageNum}">
+					<a href="" class="paginate_button next" keyValue="${paging.totalPageCount}">맨끝</a>
+				</c:if>
+			</span>
+		</div>
+</div>
 </form:form>
+

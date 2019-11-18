@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.whalesoft.app.cms.accountLock.AccountLock;
 import kr.co.whalesoft.app.cms.accountLock.AccountLockService;
-import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepageAccess.HomepageAccessService;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.member.MemberService;
@@ -42,13 +41,13 @@ public class LoginService extends BaseService {
 
 	@Autowired
 	private HomepageAccessService homepageAccessService;
-	
+
 	@Autowired
 	private AccountLockService accountLockService;
-	
+
 	@Autowired
 	private LoginLogService loginLogService;
-	
+
 	/**
 	 * 로그인 처리
 	 * @param getMember( ID, PW 정보를 담고 있는 Member 객체 )
@@ -63,7 +62,7 @@ public class LoginService extends BaseService {
 		getMember.setLoginType("CMS");
 		Member member = new Member();
 		member = memberService.getMemberOne(getMember);
-		
+
 		// 비번 틀려서 계정이 잠김
 		if("Y".equals(accountLockService.isLocked(new AccountLock(getMember, request.getRemoteAddr())))) {
 			return "LOCKED";
@@ -74,7 +73,7 @@ public class LoginService extends BaseService {
 			// 링크 회원확인
 			if( member.getLink_member_yn().equals("Y") ){
 				member.setMember_pw(orgPassword);
-				member.setLoginType2("id");
+//				member.setLoginType2("id");
 //				String auth_id = member.getAuth_id();
 //				String auth_id_list = member.getAuth_id_list();
 				Object result = LoginAPI.login(member);
@@ -105,38 +104,38 @@ public class LoginService extends BaseService {
 					String[] parsePatterns2 = {"yyyy-MM-dd"};
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
 
-					Map<String, Object> loanListTmp = LibSearchAPI.getMyLibraryList("WEB", member.getUser_id(), "LOAN", null);
-					if (loanListTmp != null) {
-						@SuppressWarnings ("unchecked")
-						List<Map<String, String>> loanList = (List<Map<String, String>>) loanListTmp.get("dsMyLibraryList");
-						if (loanList != null && loanList.size() > 0) {
-							Map<String, String> lastLoan = loanList.get(0);
-							String lastLoanDateStr = lastLoan.get("LOAN_DATE");
-							if (StringUtils.isNotEmpty(lastLoanDateStr)) {
-								lastLoanDate = DateUtils.parseDate(lastLoanDateStr, parsePatterns);
-								if (member.getAgree_date() == null) {
-									lastLoanDate = cal.getTime();
-									cal.setTime(lastLoanDate);
-									cal.add(Calendar.YEAR, 2);
-									member.setAgree_date_str(sdf.format(cal.getTime()));
-								} else {
-									if (member.getAgree_date().compareTo(lastLoanDate) < 0) {
-										lastLoanDate = member.getAgree_date();
-									}
-									cal.setTime(lastLoanDate);
-									cal.add(Calendar.YEAR, 2);
-									member.setAgree_date_str(sdf.format(cal.getTime()));
-								}
-							} else {
-								if (member.getAgree_date() != null) {
-									lastLoanDate = member.getAgree_date();
-									cal.setTime(lastLoanDate);
-									cal.add(Calendar.YEAR, 2);
-									member.setAgree_date_str(sdf.format(cal.getTime()));
-								}
-							}
-						}
-					}
+//					Map<String, Object> loanListTmp = LibSearchAPI.getMyLibraryList("WEB", member.getUser_id(), "LOAN", null);
+//					if (loanListTmp != null) {
+//						@SuppressWarnings ("unchecked")
+//						List<Map<String, String>> loanList = (List<Map<String, String>>) loanListTmp.get("dsMyLibraryList");
+//						if (loanList != null && loanList.size() > 0) {
+//							Map<String, String> lastLoan = loanList.get(0);
+//							String lastLoanDateStr = lastLoan.get("LOAN_DATE");
+//							if (StringUtils.isNotEmpty(lastLoanDateStr)) {
+//								lastLoanDate = DateUtils.parseDate(lastLoanDateStr, parsePatterns);
+//								if (member.getAgree_date() == null) {
+//									lastLoanDate = cal.getTime();
+//									cal.setTime(lastLoanDate);
+//									cal.add(Calendar.YEAR, 2);
+//									member.setAgree_date_str(sdf.format(cal.getTime()));
+//								} else {
+//									if (member.getAgree_date().compareTo(lastLoanDate) < 0) {
+//										lastLoanDate = member.getAgree_date();
+//									}
+//									cal.setTime(lastLoanDate);
+//									cal.add(Calendar.YEAR, 2);
+//									member.setAgree_date_str(sdf.format(cal.getTime()));
+//								}
+//							} else {
+//								if (member.getAgree_date() != null) {
+//									lastLoanDate = member.getAgree_date();
+//									cal.setTime(lastLoanDate);
+//									cal.add(Calendar.YEAR, 2);
+//									member.setAgree_date_str(sdf.format(cal.getTime()));
+//								}
+//							}
+//						}
+//					}
 
 					Lending lending = new Lending();
 					lending.setMember_id(member.getWeb_id());

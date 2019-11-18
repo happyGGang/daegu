@@ -39,32 +39,32 @@ import kr.go.gbelib.app.common.api.MemberAPI;
 public class StudentController extends BaseController {
 
 	private final String basePath = "/cms/module/teach/student/";
-	
+
 	private final int cert_percent = 70;	// 수료 기준 출석률
 
 	@Autowired
 	private StudentService studentService;
-	
+
 	@Autowired
 	private TeachService teachService;
-	
+
 	@Autowired
 	private CodeService codeService;
 
 	@Autowired
 	private CategoryGroupService categoryGroupService;
-	
+
 	@Autowired
 	private CategoryService categoryService;
 
 	@Autowired
 	private TeachCode2Service teachCode2Service;
-	
+
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, Student student, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 //		if ( !getSessionIsAdmin(request) ) {
-			student.setHomepage_id(getAsideHomepageId(request));	
+			student.setHomepage_id(getAsideHomepageId(request));
 //		}
 		model.addAttribute("categoryGroupList", categoryGroupService.getCategoryGroupListAll(new CategoryGroup(student.getHomepage_id(), student.getLarge_category_idx())));
 		model.addAttribute("categoryList", categoryService.getCategoryListAll(new Category(student.getHomepage_id(), student.getGroup_idx(), student.getLarge_category_idx())));
@@ -72,25 +72,25 @@ public class StudentController extends BaseController {
 		teach.setLarge_category_idx(student.getLarge_category_idx());
 		model.addAttribute("teachList", teachService.getTeachListAll(teach));
 		model.addAttribute("student", student);
-		
+
 		TeachCode2 teachCode2 = new TeachCode2(1);
 		teachCode2.setTeach_code(15);
 		model.addAttribute("teachLargeCategoryList", teachCode2Service.getSubcategories(teachCode2));
-		
+
 		return basePath + "index";
 	}
-	
+
 	@RequestMapping(value = {"/student.*"})
 	public String student(Model model, Student student, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 		student.setCert_percent(cert_percent);
 		int count = studentService.getStudentListCount(student);
 		studentService.setPaging(model, count, student);
-		
+
 		model.addAttribute("student", student);
 		Teach teach = new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx());
 		teach.setLarge_category_idx(student.getLarge_category_idx());
-				
+
 		model.addAttribute("teachInfo", teachService.getTeachOne(teach));
 		model.addAttribute("studentListCount", count);
 		model.addAttribute("studentList", studentService.getStudentList(student));
@@ -101,7 +101,7 @@ public class StudentController extends BaseController {
 		model.addAttribute("statusCode", codeRepo);
 		return basePath + "student_ajax";
 	}
-	
+
 	@RequestMapping(value = {"/edit.*"})
 	public String edit(Model model, Student student, HttpServletRequest request) throws AuthException {
 		if(student.getEditMode().equals("MODIFY")) {
@@ -115,31 +115,31 @@ public class StudentController extends BaseController {
 		model.addAttribute("statusCode", codeService.getCode("CMS", "C0005"));
 		model.addAttribute("hakList", codeService.getCode("CMS", "C0020"));
 		model.addAttribute("traingLocationList", codeService.getCode("CMS", "C0022"));
-		
+
 		return basePath + "edit_ajax";
 	}
-	
+
 	@RequestMapping(value = {"/checkId.*"}, method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> checkId(Model model, Student student, HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		
+
 		Member studentMember = new Member();
 		studentMember.setUser_id(student.getMember_id());
 		Map<String, String> memberInfo = null;
 		if ( student.getSearch_api_type().equals("WEBID") ) {
-			studentMember.setCheck_certify_type("WEBID");
-			studentMember.setCheck_certify_data(student.getMember_id());
-
-			memberInfo = MemberAPI.getMemberCertify("WEB", studentMember);
-			
-			if ( memberInfo == null ) {
-				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
-				return result;
-			} else {
-				Member member = new Member();
-				member.setUser_id(memberInfo.get("USER_ID"));
-				memberInfo = MemberAPI.getMember("WEB", member);
-			}
+//			studentMember.setCheck_certify_type("WEBID");
+//			studentMember.setCheck_certify_data(student.getMember_id());
+//
+//			memberInfo = MemberAPI.getMemberCertify("WEB", studentMember);
+//
+//			if ( memberInfo == null ) {
+//				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
+//				return result;
+//			} else {
+//				Member member = new Member();
+//				member.setUser_id(memberInfo.get("USER_ID"));
+//				memberInfo = MemberAPI.getMember("WEB", member);
+//			}
 		}
 		else {
 //			memberInfo = MemberAPI.getDupUser("WEB", studentMember, "0002", student.getMember_id());
@@ -151,22 +151,22 @@ public class StudentController extends BaseController {
 				return result;
 			}
 		}
-				
+
 		result.put("memberInfo", memberInfo);
-		return result; 
+		return result;
 	}
-	
+
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Model model, Student student, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
-		
+
 		if ( !student.getEditMode().equals("DELETE") && !student.getEditMode().equals("CANCEL") && !student.getEditMode().equals("SAVELIST")
 				&& !student.getEditMode().equals("BATCH_DELETE") && !student.getEditMode().equals("BATCH_CANCEL") ) {
 			if ( student.getEditMode().equals("ADD") ) {
 				ValidationUtils.rejectIfEmpty(result, "member_id", "신청자ID를 입력하세요.");
 				ValidationUtils.rejectIfEmpty(result, "member_key", "ID 확인을 해주세요.");
 			}
-			
+
 			ValidationUtils.rejectIfEmpty(result, "applicant_name", "신청자명을 입력하세요.");
 			ValidationUtils.rejectNumbers(result, "applicant_name", "신청자명에는 숫자를 입력할 수 없습니다.");
 			ValidationUtils.rejectIfEmpty(result, "applicant_birth", "신청자 생년월일을 입력하세요.");
@@ -175,31 +175,31 @@ public class StudentController extends BaseController {
 			ValidationUtils.rejectIfEmpty(result, "applicant_address", "신청자 주소를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "applicant_cell_phone", "신청자 휴대전화번호를 입력하세요.");
 			ValidationUtils.rejectPhone(result, "applicant_cell_phone", "폰번호 형식이 잘못되었습니다.");
-			
+
 			ValidationUtils.rejectIfEmpty(result, "student_name", "수강생명을 입력하세요.");
 			ValidationUtils.rejectNumbers(result, "student_name", "수강생명에는 숫자를 입력할 수 없습니다.");
 			ValidationUtils.rejectIfEmpty(result, "student_birth", "수강생 생년월일을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "student_sex", "수강생 성별을 선택하세요.");
 			ValidationUtils.rejectIfEmpty(result, "student_zipcode", "수강생 우편번호를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "student_address", "수강생 주소를 입력하세요.");
-			
+
 			ValidationUtils.rejectIfStringLength(result, "student_name", 20, "수강생명");
 			ValidationUtils.rejectIfStringLength(result, "student_address", 200, "수강생 주소");
 			ValidationUtils.rejectIfStringLength(result, "student_name", 20, "수강생명");
 
 			ValidationUtils.rejectIfStringLength(result, "applicant_name", 20, "신청자명");
-			
+
 			ValidationUtils.rejectIfStringLength(result, "applicant_address", 200, "신청자 주소");
-			
+
 			ValidationUtils.rejectIfStringLength(result, "applicant_cell_phone", 13, "신청자 휴대전화번호");
-			
-			
+
+
 			if ( student.getEditMode().equals("ADD") && student.getSelf_info_yn().equals("N") ) {
 				res.setValid(false);
 				res.setMessage("개인정보 미동의 시 참여 하실수 없습니다.");
 				return res;
 			}
-			
+
 			if ( student.getEditMode().equals("ADD") ) {
 				String resultMsg = studentService.checkStudent(student);
 				if ( resultMsg != null ) {
@@ -209,7 +209,7 @@ public class StudentController extends BaseController {
 				}
 			}
 		}
-		
+
 		if(!result.hasErrors()) {
 			if(student.getEditMode().equals("ADD")) {
 				student.setAdd_id(getSessionMemberId(request));
@@ -232,7 +232,7 @@ public class StudentController extends BaseController {
 				res.setValid(true);
 				res.setMessage("취소되었습니다.");
 			} else if (student.getEditMode().equals("SAVELIST")) {
-				List<Student> studentList = student.getStudentList(); 
+				List<Student> studentList = student.getStudentList();
 				for ( int i = 0; i < studentList.size(); i ++ ) {
 					Student one = studentList.get(i);
 					one.setHomepage_id(student.getHomepage_id());
@@ -240,29 +240,29 @@ public class StudentController extends BaseController {
 					one.setCategory_idx(student.getCategory_idx());
 					one.setTeach_idx(student.getTeach_idx());
 					studentList.set(i, one);
-					
+
 					Member studentMember = new Member();
 					studentMember.setUser_id(one.getMember_id());
-					studentMember.setCheck_certify_type("WEBID");
-					studentMember.setCheck_certify_data(one.getMember_id());
-					Map<String, String> memberInfo = MemberAPI.getMemberCertify("WEB", studentMember);
-					
-					if ( memberInfo != null ) {
-						String web_id 	= memberInfo.get("WEB_ID");
-						String seq_no 	= memberInfo.get("SEQ_NO");
-						
-//						one.setMember_id(web_id);
-						one.setMember_key(seq_no);
-						one.setWeb_id(web_id);
-						one.setMember_id(memberInfo.get("USER_ID"));
-					}
-					else {
-							
+//					studentMember.setCheck_certify_type("WEBID");
+//					studentMember.setCheck_certify_data(one.getMember_id());
+//					Map<String, String> memberInfo = MemberAPI.getMemberCertify("WEB", studentMember);
+
+//					if ( memberInfo != null ) {
+//						String web_id 	= memberInfo.get("WEB_ID");
+//						String seq_no 	= memberInfo.get("SEQ_NO");
+//
+////						one.setMember_id(web_id);
+//						one.setMember_key(seq_no);
+//						one.setWeb_id(web_id);
+//						one.setMember_id(memberInfo.get("USER_ID"));
+//					}
+//					else {
+
 //						memberInfo = MemberAPI.getDupUser("WEB", studentMember, "0002", one.getMember_id());
 //						if ( memberInfo != null && !memberInfo.isEmpty()) {
 //							String web_id 	= memberInfo.get("WEB_ID");
 //							String seq_no 	= memberInfo.get("SEQ_NO");
-//							
+//
 ////							one.setMember_id(web_id);
 //							one.setMember_key(seq_no);
 //							one.setWeb_id(web_id);
@@ -271,13 +271,13 @@ public class StudentController extends BaseController {
 //						else {
 //							res.setMessage(String.format("(ERROR) %s번째 신청자 : 해당 ID는 유효한 회원이 아닙니다.", i+1));
 //							res.setValid(false);
-//							return res;	
+//							return res;
 //						}
-						res.setMessage(String.format("(ERROR) %s번째 신청자 : 해당 ID는 유효한 회원이 아닙니다.", i+1));
-						res.setValid(false);
-						return res;
-					}
-					
+//						res.setMessage(String.format("(ERROR) %s번째 신청자 : 해당 ID는 유효한 회원이 아닙니다.", i+1));
+//						res.setValid(false);
+//						return res;
+//					}
+
 					String resultMsg = studentService.checkValidation(one) ;
 					if ( resultMsg != null ) {
 						res.setValid(false);
@@ -285,11 +285,11 @@ public class StudentController extends BaseController {
 						return res;
 					}
 				}
-				
+
 				List<String> resultMsg = new ArrayList<String>();
 				for ( int j = 0; j < studentList.size(); j ++ ) {
 					Student one = studentList.get(j);
-					
+
 					Object[] addResult = studentService.addStudent(one, "CMS");
 					resultMsg.add(String.format("%s번째 : %s", j+1, addResult[1]));
 				}
@@ -310,18 +310,18 @@ public class StudentController extends BaseController {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
 		}
-		
+
 		return res;
 	}
-	
+
 	@RequestMapping(value = {"/certificate.*"})
 	public String certificate(Model model, Student student, HttpServletRequest request) {
-		
+
 		model.addAttribute("certificateInfo", studentService.getCertificateInfo(student));
-		
+
 		return basePath + "certificate_ajax";
 	}
-	
+
 	@RequestMapping(value = { "/excelDownload.*" }, method = RequestMethod.POST)
 	public StudentSearchView excel(Model model, Student student, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		model.addAttribute("teach", teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx())));
@@ -329,47 +329,47 @@ public class StudentController extends BaseController {
 		model.addAttribute("studentResult", studentService.getStudentListAll(student));
 		return new StudentSearchView();
 	}
-	
+
 	@RequestMapping(value = {"/csvDownload.*"}, method = RequestMethod.POST)
 	public void csv(Model model, Student student, HttpServletRequest request, HttpServletResponse response) {
 		List<Student> teachList = studentService.getStudentListAll(student);
 		Teach teach = teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));
-		
+
 		model.addAttribute("student", student);
 		model.addAttribute("studentResult", studentService.getStudentListAll(student));
 
 		new StudentXlsToCsv(teachList, "Student.csv", teach, request, response);
 	}
-	
+
 	@RequestMapping(value = {"/excelUpload.*"}, method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> excelUpload(Model model, Student student, HttpServletRequest request, XlsUpload excel) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
-			
+
 		List<Student> list = studentService.excelUpload(student, excel);
-		
+
 		result.put("studentList", list);
 //			List<String> resultMsg = new ArrayList<String>();
-			
+
 //			int count = 1;
-			
+
 			/*for ( Student one : list ) {
 				one.setHomepage_id(student.getHomepage_id());
 				one.setGroup_idx(student.getGroup_idx());
 				one.setCategory_idx(student.getCategory_idx());
 				one.setTeach_idx(student.getTeach_idx());
-				
+
 				resultMsg.add(String.format("%s번째 : %s", count, studentService.addStudent(one, "CMS")));
 				count += 1;
 			}*/
-		
+
 		return result;
 	}
-	
+
 	@RequestMapping(value = {"/excelDownloadSample.*"}, method = RequestMethod.GET)
 	public void excelDownloadSample(Model model, Student student, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		Download down = new Download( request, response, "수강생등록Sample.xls" );
 		studentService.writeExcelDataSample( down.getOutputStream() );
 		down.close();
 	}
-	
+
 }

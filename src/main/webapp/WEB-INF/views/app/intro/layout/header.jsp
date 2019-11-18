@@ -5,19 +5,24 @@
 <meta charset="UTF-8"/>
 <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
 <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
-<title>경상북도교육청 통합도서관</title>
+<title>대구시 도서관 통합 허브시스템</title>
 <!--[if IE]>
 <meta http-equiv="x-ua-compatible" content="ie=edge"/>
 <![endif]-->
-<link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome.min.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/common/css/select2.min.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/common/css/jquery-ui-1.12.0.min.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.mmenu.css"/>
+<!--
 <link rel="stylesheet" type="text/css" href="/resources/common/css/default.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/login.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/board/css/default.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/book/intro/css/default.css"/>
+-->
+<link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/select2.min.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/jquery-ui-1.12.0.min.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.mmenu.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/book/css/common.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/common/default.css"  />
+<link rel="stylesheet" type="text/css" href="/resources/common/css/intro/default.css"  />
+
 <!--[if lte IE 7]>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome-ie7.min.css"/>
 <![endif]-->

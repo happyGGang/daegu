@@ -1,7 +1,5 @@
 package kr.go.gbelib.app.intro.search;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,28 +11,24 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.member.Member;
-import kr.co.whalesoft.app.cms.menu.Menu;
-import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManageService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
-import kr.co.whalesoft.framework.utils.WebFilterCheckUtils;
 import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 
@@ -50,18 +44,21 @@ public class LibrarySearchController extends BaseController {
 	@Autowired
 	private HomepageService homepageService;
 
-	@Autowired
-	private CalendarManageService calendarManageService;
-
-	@ModelAttribute
-	public void introMenu(Model model) {
-		model.addAttribute("introMenu", "자료검색");//임시
-	}
-
+	/**
+	 * 검색
+	 * @author whalesoft YONGJU 2019. 11. 14.
+	 * @param context_path
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = {"/index.*"})
 	public String index(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-
+		List<Homepage> normalHomepage = homepageService.getNormalHomepage();
 		// 소장처 코드
 		if ( StringUtils.isEmpty(librarySearch.getManageCode()) ) {
 			librarySearch.setManageCode(homepage.getHomepage_code());
@@ -72,58 +69,53 @@ public class LibrarySearchController extends BaseController {
 			if ( !StringUtils.isEmpty(homepage.getHomepage_code()) ) {
 				libraryCodes.add(homepage.getHomepage_code());
 			} else {
-				libraryCodes.add("ALL");
+				for (Homepage home : normalHomepage) {
+					libraryCodes.add(home.getHomepage_code());
+				}
 			}
 			librarySearch.setLibraryCodes(libraryCodes);
 		}
 
-		if ( StringUtils.isNotEmpty(librarySearch.getBooktype()) ) {
-			Map<String, Object> result = new HashMap<String, Object>();
-			if (StringUtils.equals(librarySearch.getSearch_type(), "L_TITLE")) {
-				librarySearch.setTitle(librarySearch.getSearch_text());
-			} else if (StringUtils.equals(librarySearch.getSearch_type(), "L_AUTHOR")) {
-				librarySearch.setAuthor(librarySearch.getSearch_text());
-			} else if (StringUtils.equals(librarySearch.getSearch_type(), "L_PUBLISHER")) {
-				librarySearch.setPubler(librarySearch.getSearch_text());
-			} else if (StringUtils.equals(librarySearch.getSearch_type(), "L_KEYWORD")) {
-				librarySearch.setKeyword(librarySearch.getSearch_text());
-			}
-			if ( librarySearch.getBooktype().equals("BOOK") ) {
-				result = LibSearchAPI.getBookDetail(librarySearch);
-			} else if (librarySearch.getBooktype().equals("NONBOOK")) {
-				result = LibSearchAPI.getNonBookDetail(librarySearch);
-			} else {
-//				result = LibSearchAPI.getSerialDetail(librarySearch);
-				//TODO 연속간행물 검색 추가
-			}
+		if (StringUtils.isNotEmpty(librarySearch.getBooktype())) {
+    		Map<String, Object> result = new HashMap<String, Object>();
 
-			List<Map<String, Object>> list = null;
+    		if ( librarySearch.getBooktype().equals("BOOK") ) {
+    			result = LibSearchAPI.getBookDetail(librarySearch);
+    		} else if (librarySearch.getBooktype().equals("NONBOOK")) {
+    			result = LibSearchAPI.getNonBookDetail(librarySearch);
+    		} else if (librarySearch.getBooktype().equals("SERIAL")) {
+    			result = LibSearchAPI.getSerialDetail(librarySearch);
+    		}
 
-			int count = LibSearchAPI.getSearchCount(result);
+    		List<Map<String, Object>> list = null;
 
-			librarySearch.setTotalDataCount(count);
-			service.setPaging(model, count, librarySearch);
+    		int count = LibSearchAPI.getSearchCount(result);
 
-			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+    		librarySearch.setTotalDataCount(count);
+    		service.setPaging(model, count, librarySearch);
 
-				list = LibSearchAPI.getListData(result);
+    		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+    			list = LibSearchAPI.getListData(result);
+    		}
 
-			}
-
-			model.addAttribute("bookSearch", list);
-
+    		model.addAttribute("bookSearch", list);
 		}
 
-
-
-
-		model.addAttribute("homepageList", homepageService.getNormalHomepage());
+		model.addAttribute("homepageList", normalHomepage);
 		model.addAttribute("librarySearch", librarySearch);
-		model.addAttribute("homepage", homepage);
+
 		return basePath + "index";
 	}
 
-
+	/**
+	 * 인기검색어
+	 * @author whalesoft YONGJU 2019. 11. 14.
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @param context_path
+	 * @return
+	 */
 	@RequestMapping(value = {"/hotTrend.*"})
 	public String hotTrend(Model model, LibrarySearch librarySearch, HttpServletRequest request, @PathVariable String context_path) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
@@ -138,30 +130,612 @@ public class LibrarySearchController extends BaseController {
 		return basePath + "hotTrend_ajax";
 	}
 
+	/**
+	 * 상세보기
+	 * @author whalesoft YONGJU 2019. 11. 14.
+	 * @param context_path
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @param index
+	 * @return
+	 */
+	@RequestMapping(value = {"/detail.*"})
+	public String detail(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request) {
+
+		Map<String, Object> result = new HashMap<String, Object>();
+
+		result = LibSearchAPI.getBookInfo(librarySearch);
+
+		model.addAttribute("librarySearch", librarySearch);
+
+		List<Map<String, Object>> list = null;
+
+		int count = LibSearchAPI.getSearchCount(result);
+
+		librarySearch.setTotalDataCount(count);
+		service.setPaging(model, count, librarySearch);
+
+		if ( count > 0 ) {
+			list = LibSearchAPI.getListData(result);
+			Map<String, Object> map = list.get(0);
 
 
+			librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
+			librarySearch.setRegNo(String.valueOf(map.get("REG_NO")));
+			librarySearch.setLibCode(String.valueOf(map.get("LIB_CODE")));
+			librarySearch.setSpeciesKey(String.valueOf(map.get("SPECIES_KEY")));
 
+			Map<String, Object> sanghoReqYn = LibSearchAPI.sanghoReqYn(librarySearch);
+			@SuppressWarnings ("unchecked")
+			Map<String, Object> sanghoReqYnResult = (Map<String, Object>) sanghoReqYn.get("ITEM");
 
+			map.put("SANGHO_REQ_YN", "N");
+			if (sanghoReqYnResult.containsKey("RESULT") && String.valueOf(sanghoReqYnResult.get("RESULT")).equals("OK")) {
+				// 정상 신청가능
+				map.put("SANGHO_REQ_YN", "Y");
+			}
 
+			model.addAttribute("detail", map);
+		}
 
-
-
-
-
-
-
-
-	@RequestMapping(value = {"/autoFill.do"})
-	public @ResponseBody Map<String, Object> autoFill(@RequestParam("searchKeyword")String searchKeyword) {
-		return LibSearchAPI.getAutoFill(searchKeyword);
+		return basePath + "detail";
 	}
 
-	@RequestMapping(value = {"/{index}detail.*"})
-	public String detail(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, @PathVariable("index") String index) {
+	/**
+	 * 신착도서
+	 * @author whalesoft YONGJU 2019. 11. 14.
+	 * @param context_path
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = {"/newBook/index.*"})
+	public String getNewBookList(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request) {
+
+		//접속 도서관 확인
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		if (StringUtils.isEmpty(librarySearch.getManageCode())) {
+			librarySearch.setManageCode(homepage.getHomepage_code());
+		}
+
+		//기본값 '1달 전'
+		if (StringUtils.isEmpty(librarySearch.getSearch_type())) {
+			librarySearch.setSearch_type("3");
+		}
+
+		//검색기간 설정
+		if ( StringUtils.isEmpty(librarySearch.getSearch_start_date()) ) {
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+
+			int beforeDays = -30;
+			if (librarySearch.getSearch_type().equals("1")) {
+				//1주전
+				beforeDays = -7;
+			} else if (librarySearch.getSearch_type().equals("2")) {
+				//2주전
+				beforeDays = -14;
+			} else if (librarySearch.getSearch_type().equals("3")) {
+				//1달전
+				beforeDays = -30;
+			}
+			librarySearch.setSearch_start_date(sf.format(DateUtils.addDays(new Date(), beforeDays)));
+			librarySearch.setSearch_end_date(sf.format(new Date()));
+		}
+
+		//서지형태 분류코드 설정.
+		//기본값 도서 "0"
+		//0 : 단행, 1: 연속간행물, 2:비도서
+		if (StringUtils.isEmpty(librarySearch.getBooktype())) {
+			librarySearch.setBooktype("0");
+		}
+
+		Map<String, Object> result = LibSearchAPI.getNewBookList(librarySearch);
+		List<Map<String, Object>> list = null;
+
+		int count = LibSearchAPI.getSearchCount(result);
+
+		librarySearch.setTotalDataCount(count);
+		service.setPaging(model, count, librarySearch);
+
+		if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+
+			list = LibSearchAPI.getListData(result);
+			for (Map<String, Object> map : list) {
+				if (map.containsKey("ISBN")) {
+					LibrarySearch book = new LibrarySearch();
+					book.setIsbn(String.valueOf(map.get("ISBN")));
+					book.setManageCode(librarySearch.getManageCode());
+					book.setRowCount(1);
+					Map<String, Object> bookDetail = null;
+					if (librarySearch.getBooktype().equals("0")) {
+						// 도서 상세정보
+						bookDetail = LibSearchAPI.getBookDetail(book);
+					} else if (librarySearch.getBooktype().equals("1")) {
+						// 간행물 상세정보
+						bookDetail = LibSearchAPI.getSerialDetail(book);
+					} else if (librarySearch.getBooktype().equals("2")) {
+						// 비도서 상세정보
+						bookDetail = LibSearchAPI.getNonBookDetail(book);
+					}
+					List<Map<String, Object>> detailList = LibSearchAPI.getListData(bookDetail);
+					if (detailList != null && detailList.size() > 0) {
+						map.put("IMAGE", detailList.get(0).get("IMAGE"));
+					}
+				}
+			}
+		}
+
+		model.addAttribute("newBookList", list);
+		model.addAttribute("librarySearch", librarySearch);
+		return basePath + "newBook/index";
+	}
+
+	/**
+	 * 대출베스트
+	 * @author whalesoft YONGJU 2019. 11. 14.
+	 * @param context_path
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = {"/bestBook/index.*"})
+	public String bestBookList(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		if (StringUtils.isEmpty(librarySearch.getManageCode())) {
+			librarySearch.setManageCode(homepage.getHomepage_code());
+		}
+
+		//서지형태 분류코드 설정.
+		//기본값 도서 "0"
+		//0 : 단행, 1: 연속간행물, 2:비도서
+		if (StringUtils.isEmpty(librarySearch.getBooktype())) {
+			librarySearch.setBooktype("0");
+		}
+
+		Map<String, Object> result = LibSearchAPI.getBestBookList(librarySearch);
+		List<Map<String, Object>> list = null;
+
+		int count = LibSearchAPI.getSearchCount(result);
+
+		librarySearch.setTotalDataCount(count);
+		service.setPaging(model, count, librarySearch);
+
+		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+
+			list = LibSearchAPI.getListData(result);
+			for ( Map<String, Object> map : list ) {
+				if ( map.containsKey("ISBN") ) {
+					LibrarySearch book = new LibrarySearch();
+					book.setIsbn(String.valueOf(map.get("ISBN")));
+					book.setManageCode(librarySearch.getManageCode());
+					book.setRowCount(1);
+					Map<String, Object> bookDetail = null;
+					if (librarySearch.getBooktype().equals("0")) {
+						//도서 상세정보
+						bookDetail = LibSearchAPI.getBookDetail(book);
+					} else if (librarySearch.getBooktype().equals("1")) {
+						//간행물 상세정보
+						bookDetail = LibSearchAPI.getSerialDetail(book);
+					} else if (librarySearch.getBooktype().equals("2")) {
+						//비도서 상세정보
+						bookDetail = LibSearchAPI.getNonBookDetail(book);
+					}
+					List<Map<String, Object>> detailList = LibSearchAPI.getListData(bookDetail);
+					if ( detailList != null && detailList.size() > 0 ) {
+						map.put("IMAGE", detailList.get(0).get("IMAGE"));
+					}
+				}
+			}
+		}
+
+
+		model.addAttribute("bestBookList", list);
+
+		model.addAttribute("librarySearch", librarySearch);
+
+		return basePath + "bestBook/index";
+	}
+
+	/**
+	 * 대출중도서, 대출내역조회
+	 * @author whalesoft YONGJU 2019. 11. 15.
+	 * @param context_path
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping (value = { "/loan/index.*", "/loan/detail.*", "/loan/history.*" })
+	public String myLoan(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
-		model.addAttribute("introMenu", "도서상세정보");//임시
-		String returnPage = "detail";
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+			return null;
+		}
+
+		Member member = getSessionMemberInfo(request);
+
+		if ( request.getRequestURI().endsWith("/loan/detail.do") ) {
+
+			// Map<String, Object> result = LibSearchAPI.getLoanDetail("WEB", getSessionUserId(request), librarySearch.getvLoanNo());
+
+			// List<Map<String, Object>> list = null;
+			//
+			// int count = LibSearchAPI.getSearchCount(result);
+			//
+			// librarySearch.setTotalDataCount(count);
+			//
+			// service.setPaging(model, count, librarySearch);
+			//
+			// if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+			//
+			// list = LibSearchAPI.getListData(result);
+			//
+			// }
+
+			// model.addAttribute("loanDetail", list);
+
+			return basePath + "loan/detail";
+		} else if ( request.getRequestURI().endsWith("/loan/history.do") ) {
+
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.YEAR, -1);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+			if ( StringUtils.isEmpty(librarySearch.getSearch_start_date()) ) {
+				librarySearch.setSearch_start_date(sdf.format(cal.getTime()));
+			}
+			if ( StringUtils.isEmpty(librarySearch.getSearch_end_date()) ) {
+				librarySearch.setSearch_end_date(sdf.format(new Date()));
+			}
+
+			librarySearch.setUserkey(member.getRec_key());
+			Map<String, Object> result = LibSearchAPI.getBookLoanHistory(librarySearch);
+
+			List<Map<String, Object>> list = null;
+
+			int count = LibSearchAPI.getSearchCount(result);
+
+			librarySearch.setTotalDataCount(count);
+
+			service.setPaging(model, count, librarySearch);
+
+			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+
+				list = LibSearchAPI.getListData(result);
+
+			}
+
+			model.addAttribute("loanList", list);
+			return basePath + "loan/history";
+		} else {
+
+			Map<String, Object> result = LibSearchAPI.getBookLoanList(member.getRec_key());
+			List<Map<String, Object>> list = null;
+
+			int count = LibSearchAPI.getSearchCount(result);
+
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
+
+			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+				list = LibSearchAPI.getListData(result);
+
+			}
+			model.addAttribute("loanList", list);
+
+			return basePath + "loan/index";
+		}
+
+	}
+
+	/**
+	 * 반납연기
+	 * @author whalesoft YONGJU 2019. 11. 15.
+	 * @param context_path
+	 * @param model
+	 * @param librarySearch
+	 * @param result
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = {"/loan/save.*"}, method=RequestMethod.POST)
+	public @ResponseBody JsonResponse renewLoan(@PathVariable String context_path, Model model, LibrarySearch librarySearch, BindingResult result, HttpServletRequest request) {
+		JsonResponse res = new JsonResponse(request);
+		if ( !result.hasErrors() ) {
+			if ( librarySearch.getEditMode().equals("ADD") ) {
+
+			} else if ( librarySearch.getEditMode().equals("RENEW") ) {
+
+				ApiResponse apiResult = LibSearchAPI.renewLoan(librarySearch);
+				if ( apiResult.getStatus() ) {
+					res.setValid(true);
+					res.setMessage("반납 연기 되었습니다.");
+				} else {
+					res.setValid(false);
+					res.setMessage(apiResult.getMessage());
+				}
+			}
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+		return res;
+	}
+
+	/**
+	 * 예약중인 도서조회
+	 * @author whalesoft YONGJU 2019. 11. 15.
+	 * @param context_path
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = {"/resve/index.*"})
+	public String myResve(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+			return null;
+		}
+
+		Member member = getSessionMemberInfo(request);
+
+		Map<String, Object> result = LibSearchAPI.getReserveList(member.getRec_key());
+		List<Map<String, Object>> list = null;
+
+		int count = LibSearchAPI.getSearchCount(result);
+		librarySearch.setTotalDataCount(count);
+		service.setPaging(model, count, librarySearch);
+
+		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+			list = LibSearchAPI.getListData(result);
+		}
+
+		model.addAttribute("resveList", list);
+
+		return basePath + "resve/index";
+	}
+
+	/**
+	 * 예약신청, 예약취소
+	 * @author whalesoft YONGJU 2019. 11. 15.
+	 * @param context_path
+	 * @param model
+	 * @param librarySearch
+	 * @param result
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = {"/resve/save.*"}, method=RequestMethod.POST)
+	public @ResponseBody JsonResponse saveResve(@PathVariable String context_path, Model model, LibrarySearch librarySearch, BindingResult result, HttpServletRequest request) {
+		JsonResponse res = new JsonResponse(request);
+
+		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request)) ) {
+			res.setValid(false);
+			res.setMessage("로그인 후 이용가능합니다.");
+			return res;
+		}
+
+		if ( !result.hasErrors() ) {
+			Member member = getSessionMemberInfo(request);
+			if ( !StringUtils.equals(member.getMember_class(), "0") ) {// 정회원만 가능
+				res.setValid(false);
+				res.setMessage("예약 신청 가능한 회원이 아닙니다.");
+				return res;
+			}
+
+			librarySearch.setUserkey(member.getRec_key());
+			if (librarySearch.getEditMode().equals("ADD")) {
+				ApiResponse apiResult = LibSearchAPI.reqResve(librarySearch);
+				if (apiResult.getStatus()) {
+					res.setValid(true);
+					res.setMessage("예약되었습니다. 단, 대출 가능일은 자료반납 여부에 따라 변동될 수 있습니다.");
+				} else {
+					res.setValid(false);
+					res.setMessage(apiResult.getMessage());
+				}
+			} else if (librarySearch.getEditMode().equals("CANCEL")) {
+				ApiResponse apiResult = LibSearchAPI.cancelResve(librarySearch);
+				if (apiResult.getStatus()) {
+					res.setValid(true);
+					res.setMessage("취소 되었습니다.");
+				} else {
+					res.setValid(false);
+					res.setMessage(apiResult.getMessage());
+				}
+			}
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+
+		return res;
+	}
+
+	/**
+	 * 상호대차 신청 내역
+	 * @author YONGJU 2018. 4. 3.
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Throwable
+	 */
+	@RequestMapping (value = { "/sangho/index.*" }, method = RequestMethod.GET)
+	public String sanghoHistory(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+			return null;
+		}
+
+		if ( !StringUtils.equals(getSessionMemberInfo(request).getKl_member_yn(), "Y") ) {
+			service.alertMessage("책이음회원이 아니므로 상호대차 신청내역 조회가 불가능합니다", request, response);
+			return null;
+		}
+
+		model.addAttribute("librarySearch", librarySearch);
+
+		librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
+
+		Map<String, Object> sanghoHistory = LibSearchAPI.getSanghoHistory(librarySearch);
+		List<Map<String, Object>> returnList = LibSearchAPI.getSanghoListData(sanghoHistory);
+
+		if (returnList != null && !returnList.isEmpty() && !returnList.get(0).containsKey("ERROR")) {
+			int count = LibSearchAPI.getSanghoSearchCount(sanghoHistory);
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
+
+			model.addAttribute("librarySearch", librarySearch);
+			model.addAttribute("sanghoHistory", returnList);
+		}
+
+		return basePath + "sangho/index";
+	}
+
+	/**
+	 * 상호대차 이용 내역
+	 * @author YONGJU 2018. 4. 3.
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Throwable
+	 */
+	@RequestMapping (value = { "/sangho/history.*" }, method = RequestMethod.GET)
+	public String sanghoUsedHistory(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+			return null;
+		}
+
+		if ( !StringUtils.equals(getSessionMemberInfo(request).getKl_member_yn(), "Y") ) {
+			service.alertMessage("책이음회원이 아니므로 상호대차 이용내역 조회가 불가능합니다", request, response);
+			return null;
+		}
+
+		model.addAttribute("librarySearch", librarySearch);
+
+		librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
+
+		Map<String, Object> sanghoHistory = LibSearchAPI.getSanghoUsedHistory(librarySearch);
+		List<Map<String, Object>> returnList = LibSearchAPI.getSanghoListData(sanghoHistory);
+
+		if (returnList != null && !returnList.isEmpty() && !returnList.get(0).containsKey("ERROR")) {
+			int count = LibSearchAPI.getSanghoSearchCount(sanghoHistory);
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
+
+			model.addAttribute("librarySearch", librarySearch);
+			model.addAttribute("sanghoHistory", returnList);
+		}
+
+
+		return basePath + "sangho/history";
+	}
+
+	/**
+	 * 상호대차 신청 폼
+	 * @author YONGJU 2018. 4. 3.
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Throwable
+	 */
+	@RequestMapping (value = { "/sangho/form.*" }, method = RequestMethod.POST)
+	public String sanghoForm(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		model.addAttribute("librarySearch", librarySearch);
+
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+			return null;
+		}
+
+		Member member = getSessionMemberInfo(request);
+		if ( !StringUtils.equals(member.getKl_member_yn(), "Y") ) {
+			service.alertMessage("책이음회원이 아니므로 상호대차 신청이 불가능합니다", request, response);
+			return null;
+		}
+
+		/**/
+		{
+			if (librarySearch.getBooktype() == null) {
+				librarySearch.setBooktype("BOOK");
+			}
+
+			Map<String, Object> bookResult = LibSearchAPI.getBookInfo(librarySearch);
+			List<Map<String, Object>> list = null;
+			int count = LibSearchAPI.getSearchCount(bookResult);
+
+			if (count > 0) {
+				list = LibSearchAPI.getListData(bookResult);
+				Map<String, Object> map = list.get(0);
+
+				librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
+				librarySearch.setRegNo(String.valueOf(map.get("REG_NO")));
+				librarySearch.setLibCode(String.valueOf(map.get("LIB_CODE")));
+				librarySearch.setSpeciesKey(String.valueOf(map.get("SPECIES_KEY")));
+
+				Map<String, Object> sanghoReqYn = LibSearchAPI.sanghoReqYn(librarySearch);
+				@SuppressWarnings ("unchecked")
+				Map<String, Object> sanghoReqYnResult = (Map<String, Object>) sanghoReqYn.get("ITEM");
+
+				if (sanghoReqYnResult.containsKey("RESULT") && String.valueOf(sanghoReqYnResult.get("RESULT")).equals("OK")) {
+					// 정상 신청가능
+				} else {
+					if (sanghoReqYnResult.containsKey("ERROR")) {
+						service.alertMessage("해당 자료는 상호대차 신청이 불가능합니다", request, response);
+						return null;
+					}
+				}
+			}
+		}
+		/**/
+
+		String overdueCnt = member.getOverdue_cnt();
+		try {
+			if (Integer.parseInt(overdueCnt) > 0) {
+				service.alertMessage("현재 연체도서가 존재하여 상호대차 신청이 불가능합니다. 연체도서를 반납해주세요.", request, response);
+				return null;
+			}
+		} catch (NumberFormatException e) {
+		}
+
+		String loanStopDate = member.getLoan_stop_date();
+		if (StringUtils.isNotEmpty(loanStopDate) && StringUtils.length(loanStopDate) >= 10) {
+			service.alertMessage("현재 "+loanStopDate+"까지 대출정지상태입니다. 상호대차 신청은 이후에 가능합니다.", request, response);
+			return null;
+		}
+
+		librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
+		Map<String, Object> sanghoHistory = LibSearchAPI.getSanghoHistory(librarySearch);
+		List<Map<String, Object>> returnList = LibSearchAPI.getSanghoListData(sanghoHistory);
+
+		if (CollectionUtils.isNotEmpty(returnList) && returnList.size() >= 3) {
+			service.alertMessage("상호대차 신청권수는 3권까지입니다.", request, response);
+			return null;
+		}
 
 		Map<String, Object> result = new HashMap<String, Object>();
 
@@ -177,7 +751,552 @@ public class LibrarySearchController extends BaseController {
 
 		result = LibSearchAPI.getBookInfo(librarySearch);
 
-		// Map<String, Object> result = LibSearchAPI.getBookDetail(librarySearch);
+		model.addAttribute("librarySearch", librarySearch);
+
+		List<Map<String, Object>> list = null;
+
+		int count = LibSearchAPI.getSearchCount(result);
+
+		librarySearch.setTotalDataCount(count);
+		service.setPaging(model, count, librarySearch);
+
+		if ( count > 0 ) {
+			list = LibSearchAPI.getListData(result);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("ISBN", librarySearch.getIsbn());
+//			Map<String, Object> aladinDetail =  aladinApiService.getAladinApiOne(String.valueOf(map.get("ISBN")), homepage.getContext_path());
+//			if (aladinDetail != null && !aladinDetail.isEmpty() && aladinDetail.containsKey("item")) {
+//				list.get(0).put("aladinDetail", aladinDetail.get("item"));
+//			}
+			model.addAttribute("detail", list.get(0));
+		}
+
+		return basePath + "sangho/form";
+	}
+
+
+
+	/**
+	 * 지역상호대차 신청, 신청취소
+	 * @author YONGJU 2018. 2. 4.
+	 * @param librarySearch
+	 * @param result
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping (value = { "/sanghoSave.*" }, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse sanghoSave(LibrarySearch librarySearch, BindingResult result, HttpServletRequest request) {
+		JsonResponse res = new JsonResponse(request);
+
+		if (!StringUtils.equals(librarySearch.getEditMode(), "CANCEL")) {
+			ValidationUtils.rejectIfEmpty(result, "uselibcode", "제공받을 도서관을 선택해주세요.");
+			if (StringUtils.isEmpty(librarySearch.getManageCode()) || StringUtils.isEmpty(librarySearch.getUselibcode())) {
+				result.reject("잘못된 접근입니다.");
+			}
+		}
+
+		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request)) ) {
+			result.reject("로그인 후 이용가능합니다.");
+		}
+
+		if ( !StringUtils.equals(getSessionMemberInfo(request).getKl_member_yn(), "Y") ) {
+			result.reject("책이음회원이 아니므로 상호대차 신청이 불가능합니다");
+		}
+
+		if ( !result.hasErrors() ) {
+
+			if (StringUtils.equals(librarySearch.getEditMode(), "CANCEL")) {
+				Map<String, Object> sanghoReqCancel = LibSearchAPI.sanghoReqCancel(librarySearch);
+				@SuppressWarnings ("unchecked")
+				Map<String, Object> sanghoResult = (Map<String, Object>) sanghoReqCancel.get("ITEM");
+
+				if (sanghoResult.containsKey("RESULT")) {
+					if (String.valueOf(sanghoResult.get("RESULT")).equals("OK")) {
+						res.setValid(true);
+						res.setMessage("취소되었습니다.");
+					}
+				} else {
+					if (sanghoResult.containsKey("ERROR")) {
+						res.setValid(true);
+						res.setMessage(String.valueOf(sanghoResult.get("ERROR")));
+					}
+				}
+			} else {
+				Map<String, Object> bookResult = new HashMap<String, Object>();
+
+				if ( librarySearch.getBooktype() == null ) {
+					librarySearch.setBooktype("BOOK");
+				}
+
+//				if ( librarySearch.getBooktype().equals("BOOK") ) {
+//					bookResult = LibSearchAPI.getBookDetail(librarySearch);
+//				} else {
+//					bookResult = LibSearchAPI.getNonBookDetail(librarySearch);
+//				}
+
+				bookResult = LibSearchAPI.getBookInfo(librarySearch);
+
+
+				List<Map<String, Object>> list = null;
+
+				int count = LibSearchAPI.getSearchCount(bookResult);
+
+				if ( count > 0 ) {
+
+					list = LibSearchAPI.getListData(bookResult);
+					Map<String, Object> map = list.get(0);
+
+					librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
+					librarySearch.setRegNo(String.valueOf(map.get("REG_NO")));
+					librarySearch.setLibCode(String.valueOf(map.get("LIB_CODE")));
+					librarySearch.setSpeciesKey(String.valueOf(map.get("SPECIES_KEY")));
+//				librarySearch.setUselibcode(String.valueOf(map.get("")));
+					librarySearch.setBookkey(String.valueOf(map.get("BOOK_KEY")));
+
+					Map<String, Object> sanghoReq = LibSearchAPI.sanghoReq(librarySearch);
+					@SuppressWarnings ("unchecked")
+					Map<String, Object> sanghoResult = (Map<String, Object>) sanghoReq.get("ITEM");
+
+					if (sanghoResult.containsKey("RESULT")) {
+						if (String.valueOf(sanghoResult.get("RESULT")).equals("OK")) {
+							res.setValid(true);
+							res.setMessage("신청되었습니다.");
+						}
+					} else {
+						if (sanghoResult.containsKey("ERROR")) {
+							res.setValid(true);
+							res.setMessage(String.valueOf(sanghoResult.get("ERROR")));
+						}
+					}
+				} else {
+					res.setValid(true);
+					res.setMessage("잘못된 접근입니다. 다시 신청하여 주시기 바랍니다.");
+				}
+
+			}
+
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+
+		return res;
+	}
+
+	/**
+	 * 희망도서 신청내역
+	 * @author whalesoft YONGJU 2019. 11. 16.
+	 * @param context_path
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = {"/hope/index.*"})
+	public String getHopeList(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+			return null;
+		}
+
+		Member member = getSessionMemberInfo(request);
+		librarySearch.setUserkey(member.getRec_key());
+		Map<String, Object> result = LibSearchAPI.getBookFurnishList(librarySearch);
+
+		List<Map<String, Object>> list = null;
+
+		int count = LibSearchAPI.getSearchCount(result);
+
+		librarySearch.setTotalDataCount(count);
+
+		service.setPaging(model, count, librarySearch);
+
+		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+
+			list = LibSearchAPI.getListData(result);
+
+		}
+
+		model.addAttribute("hopeList", list);
+		model.addAttribute("librarySearch", librarySearch);
+
+		return basePath + "hope/index";
+	}
+
+	/**
+	 * 희망도서 신청 폼
+	 * @author whalesoft YONGJU 2019. 11. 16.
+	 * @param context_path
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = {"/hope/req.*"})
+	public String reqHope(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		Member member = getSessionMemberInfo(request);
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+			return null;
+		}
+
+		if (!StringUtils.equals(member.getMember_class(), "0")) {
+			service.alertMessage("희망도서 신청 가능한 회원이 아닙니다.", request, response);
+			return null;
+		}
+
+//		if ( !homepage.getHomepage_code().contains(member.getLoca())) {
+//			service.alertMessage("희망도서 신청은 소속도서관에서만 가능합니다.", request, response);
+//			return null;
+//		}
+
+		model.addAttribute("member", member);
+		model.addAttribute("librarySearch", librarySearch);
+		return basePath + "hope/req";
+	}
+
+	/**
+	 * 네이버 책 검색 ( 희망도서 신청용 )
+	 * @author whalesoft YONGJU 2019. 11. 16.
+	 * @param context_path
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = {"/hope/search.*"})
+	public String hopeSearch(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+			return null;
+		}
+
+		Member member = getSessionMemberInfo(request);
+		if (!StringUtils.equals(member.getMember_class(), "0")) {
+			service.alertMessage("희망도서 신청 가능한 회원이 아닙니다.", request, response);
+			return null;
+		}
+
+		model.addAttribute("member", member);
+		model.addAttribute("librarySearch", librarySearch);
+
+		Map<String, Object> map = null;
+		if (StringUtils.isNotEmpty(librarySearch.getSearch_text())) {
+			map = LibSearchAPI.getNaverList(librarySearch);
+			int totalCount = (Integer) map.get("totalCount");
+			@SuppressWarnings ("unchecked")
+			List<Map<String, Object>> itemList = (List<Map<String, Object>>) map.get("list");
+			if (itemList != null && itemList.size() > 0) {
+				for (Map<String, Object> map2 : itemList) {
+					String[] isbnArr = String.valueOf(map2.get("isbn")).split(" ");
+					for (int i = 0; i < isbnArr.length; i++) {
+						String isbn = String.valueOf(map2.get("isbn")).split(" ")[i];
+						map2.put("isbn"+isbn.length(), isbn);
+
+						LibrarySearch bookSerach = new LibrarySearch();
+						bookSerach.setManageCode(homepage.getHomepage_code());
+						bookSerach.setIsbn(isbn);
+						Map<String, Object> sameBook = (Map<String, Object>) LibSearchAPI.getBookDetail(bookSerach);
+
+						int sameBookCount = LibSearchAPI.getSearchCount(sameBook);
+
+						if (sameBookCount > 0) {
+							map2.put("already"+isbn.length(), true);
+//							map2.put("ctrlno", sameBookList.get(0).get("CTRLNO"));
+						}
+
+					}
+
+//					if (LibSearchAPI.getSameBookList("WEB", isbn13, homepage.getHomepage_codeList()[0]).get("dsSameBookList") != null) {
+//						map2.put("already", true);
+//					}
+				}
+				service.setPaging(model, totalCount, librarySearch);
+				model.addAttribute("naverResult", map);
+			}
+		}
+		return basePath + "hope/search_ajax";
+	}
+
+	/**
+	 * 희망도서 신청/취소
+	 * @author whalesoft YONGJU 2019. 11. 16.
+	 * @param context_path
+	 * @param model
+	 * @param librarySearch
+	 * @param result
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = {"/hope/save.*"}, method=RequestMethod.POST)
+	public @ResponseBody JsonResponse saveHope(@PathVariable String context_path, Model model, LibrarySearch librarySearch, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
+
+		JsonResponse res = new JsonResponse(request);
+
+		if(librarySearch.getEditMode().equals("ADD")) {
+			ValidationUtils.rejectIfEmpty(result, "title", "제목을 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "author", "저자를 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "publer", "출판사를 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "publer_year", "연도를 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "price", "가격을 입력하세요.");
+			ValidationUtils.rejectExceptNumber(result, "price", "가격은 숫자만 입력가능합니다.");
+		}
+
+		if(!result.hasErrors()) {
+			Member member = getSessionMemberInfo(request);
+			if (!StringUtils.equals(member.getMember_class(), "0")) {
+				res.setValid(false);
+				res.setMessage("희망도서 신청 가능한 회원이 아닙니다.");
+				return res;
+			}
+
+			if ( librarySearch.getEditMode().equals("ADD") ) {
+
+				//웹필터 체크
+//				StringBuilder sb = new StringBuilder();
+//				sb.append(librarySearch.getEditMode() + "\n");
+//				sb.append(librarySearch.getvLoca() + "\n");
+//				sb.append(librarySearch.getTitle() + "\n");
+//				sb.append(librarySearch.getAuthor() + "\n");
+//				sb.append(librarySearch.getPubler() + "\n");
+//				sb.append(librarySearch.getPubler_year() + "\n");
+//				sb.append(librarySearch.getIsbn() + "\n");
+//				sb.append(librarySearch.getEditon() + "\n");
+//				sb.append(librarySearch.getUser_remark() + "\n");
+//				sb.append(librarySearch.getPrice() + "\n");
+//				String addResult = WebFilterCheckUtils.webFilterCheck("신청자", "신청", sb.toString());
+//				if (addResult != null) {
+//					res.setValid(false);
+//					res.setUrl(addResult);
+//					res.setTargetOpener(true);
+//					return res;
+//				}
+
+				ApiResponse hopeUserCheck = LibSearchAPI.hopeUserCheck(member.getRec_key(), librarySearch.getIsbn(), librarySearch.getManageCode());
+
+				if (hopeUserCheck.getStatus()) {
+					ApiResponse apiResult = LibSearchAPI.reqHope(librarySearch, member);
+					if (apiResult.getStatus()) {
+						res.setValid(true);
+						res.setMessage("신청 되었습니다.");
+					} else {
+						res.setValid(false);
+						res.setMessage(apiResult.getMessage());
+					}
+				} else {
+					res.setValid(false);
+					res.setMessage(hopeUserCheck.getMessage());
+				}
+			} else if (librarySearch.getEditMode().equals("CANCEL")) {
+				ApiResponse apiResult = LibSearchAPI.modHope(librarySearch);
+				if (apiResult.getStatus()) {
+					res.setValid(true);
+					res.setMessage("취소 되었습니다.");
+				} else {
+					res.setValid(false);
+					res.setMessage(apiResult.getMessage());
+				}
+			}
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+
+		return res;
+	}
+
+
+	/**
+	 * 무인예약 신청 폼
+	 * @author whalesoft YONGJU 2019. 11. 16.
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Throwable
+	 */
+	@RequestMapping (value = { "/unmanned/form.*" }, method = RequestMethod.POST)
+	public String unmannedForm(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+			return null;
+		}
+
+		if (librarySearch.getBooktype() == null) {
+			librarySearch.setBooktype("BO");
+		}
+
+		Map<String, Object> result = LibSearchAPI.getBookInfo(librarySearch);
+		List<Map<String, Object>> list = null;
+
+		int count = LibSearchAPI.getSearchCount(result);
+		librarySearch.setTotalDataCount(count);
+		service.setPaging(model, count, librarySearch);
+
+		if (count > 0) {
+			list = LibSearchAPI.getListData(result);
+			model.addAttribute("detail", list.get(0));
+		}
+
+		model.addAttribute("librarySearch", librarySearch);
+
+		return basePath + "unmanned/form";
+	}
+
+	/**
+	 * 무인대출예약
+	 * @author whalesoft YONGJU 2019. 11. 15.
+	 * @param context_path
+	 * @param model
+	 * @param librarySearch
+	 * @param result
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = {"/unmanned/save.*"}, method=RequestMethod.POST)
+	public @ResponseBody JsonResponse saveUnmanned(@PathVariable String context_path, Model model, LibrarySearch librarySearch, BindingResult result, HttpServletRequest request) {
+		JsonResponse res = new JsonResponse(request);
+
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			res.setValid(false);
+			res.setMessage("로그인 후 이용가능합니다.");
+			return res;
+		}
+
+		if (!result.hasErrors()) {
+			Member member = getSessionMemberInfo(request);
+			if (!StringUtils.equals(member.getMember_class(), "0")) {// 정회원만 가능
+				res.setValid(false);
+				res.setMessage("예약 신청 가능한 회원이 아닙니다.");
+				return res;
+			}
+
+			librarySearch.setUserkey(member.getRec_key());
+			ApiResponse apiResult = LibSearchAPI.unmannedloanreserve(librarySearch);
+			if (apiResult.getStatus()) {
+				res.setValid(true);
+				res.setMessage("예약 되었습니다.");
+			} else {
+				res.setValid(false);
+				res.setMessage(apiResult.getMessage());
+			}
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+
+		return res;
+	}
+
+
+	/**
+	 * 야간예약 신청 폼
+	 * @author whalesoft YONGJU 2019. 11. 16.
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Throwable
+	 */
+	@RequestMapping (value = {"/night/form.*"}, method = RequestMethod.POST)
+	public String nightForm(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+			return null;
+		}
+
+		if (librarySearch.getBooktype() == null) {
+			librarySearch.setBooktype("BO");
+		}
+
+		Map<String, Object> result = LibSearchAPI.getBookInfo(librarySearch);
+		List<Map<String, Object>> list = null;
+
+		int count = LibSearchAPI.getSearchCount(result);
+		librarySearch.setTotalDataCount(count);
+		service.setPaging(model, count, librarySearch);
+
+		if (count > 0) {
+			list = LibSearchAPI.getListData(result);
+			model.addAttribute("detail", list.get(0));
+		}
+
+		model.addAttribute("librarySearch", librarySearch);
+
+		return basePath + "night/form";
+	}
+
+	/**
+	 * 야간대출예약
+	 * @author whalesoft YONGJU 2019. 11. 16.
+	 * @param context_path
+	 * @param model
+	 * @param librarySearch
+	 * @param result
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = {"/night/save.*"}, method=RequestMethod.POST)
+	public @ResponseBody JsonResponse saveNight(@PathVariable String context_path, Model model, LibrarySearch librarySearch, BindingResult result, HttpServletRequest request) {
+		JsonResponse res = new JsonResponse(request);
+
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			res.setValid(false);
+			res.setMessage("로그인 후 이용가능합니다.");
+			return res;
+		}
+
+		if (!result.hasErrors()) {
+			Member member = getSessionMemberInfo(request);
+			if (!StringUtils.equals(member.getMember_class(), "0")) {// 정회원만 가능
+				res.setValid(false);
+				res.setMessage("예약 신청 가능한 회원이 아닙니다.");
+				return res;
+			}
+
+			librarySearch.setUserkey(member.getRec_key());
+			ApiResponse apiResult = LibSearchAPI.nightloanreserve(librarySearch);
+			if (apiResult.getStatus()) {
+				res.setValid(true);
+				res.setMessage("예약 되었습니다.");
+			} else {
+				res.setValid(false);
+				res.setMessage(apiResult.getMessage());
+			}
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+
+		return res;
+	}
+
+
+	@RequestMapping(value = {"/print.*"})
+	public String print(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		Map<String, Object> result = new HashMap<String, Object>();
+
+		result = LibSearchAPI.getBookInfo(librarySearch);
 
 		model.addAttribute("librarySearch", librarySearch);
 
@@ -189,478 +1308,9 @@ public class LibrarySearchController extends BaseController {
 		service.setPaging(model, count, librarySearch);
 
 		if ( count > 0 ) {
-
 			list = LibSearchAPI.getListData(result);
 			model.addAttribute("detail", list.get(0));
-
-
 		}
-		model.addAttribute("homepage", homepage);
-		return basePath + returnPage;
-	}
-
-	@RequestMapping(value = {"/newBook/index.*"})
-	public String getNewBookList(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request) {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
-
-		model.addAttribute("introMenu", "신착도서");//임시
-
-		if ( StringUtils.isEmpty(librarySearch.getSearch_start_date()) ) {
-			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-
-			librarySearch.setSearch_start_date(sf.format(DateUtils.addDays(new Date(), -30)));
-			librarySearch.setSearch_end_date(sf.format(new Date()));
-		}
-
-		// 소장처 코드
-		librarySearch.setvLoca(homepage.getHomepage_code());
-
-		Map<String, Object> result = LibSearchAPI.getNewBookList(librarySearch, "MAIN");
-		List<Map<String, Object>> resultPaging = new ArrayList<Map<String, Object>>();
-		List<Object> list = (List<Object>) result.get("dsNewBookList");
-		if (list != null && list.size() > 0 ) {
-			service.setPaging(model, list.size(), librarySearch);
-			int listIndex = librarySearch.getViewPage();
-			int size = list.size() > 9 ? 10 : list.size();
-			for (int i = 0; i < size; i++) {
-				resultPaging.add((Map<String, Object>) list.get((librarySearch.getStartRowNum()-1)+i));
-			}
-			result.put("dsNewBookList", resultPaging);
-		}
-
-		model.addAttribute("newBookList", result);
-		model.addAttribute("librarySearch", librarySearch);
-		model.addAttribute("homepage", homepage);
-		return basePath + "newBook/index";
-	}
-
-	@RequestMapping(value = {"/bestBook/index.*"})
-	public String bestBookList(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request) {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
-
-		model.addAttribute("introMenu", "도서대출베스트");//임시
-
-		// 소장처 코드
-		librarySearch.setvLoca(homepage.getHomepage_code());
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.MONTH, -3);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		Map<String, Object> result = LibSearchAPI.getBestBookList(librarySearch, "10", sdf.format(cal.getTime()));
-
-		model.addAttribute("bestBookList", result);
-		model.addAttribute("librarySearch", librarySearch);
-		model.addAttribute("homepage", homepage);
-		return basePath + "bestBook/index";
-	}
-
-	@RequestMapping(value = {"/hope/index.*"})
-	public String getHopeList(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
-
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
-			return null;
-		}
-
-		Member member = getSessionMemberInfo(request);
-		if ( !StringUtils.isEmpty(member.getStatus_code()) ) {
-			if (!(member.getStatus_code().equals("0001") || member.getStatus_code().equals("0") )) {
-				service.alertMessageAndUrl("희망도서 신청 가능한 회원이 아닙니다.", "/intro/" + homepage.getContext_path() + "/search/index.do", request, response);
-				return null;
-			}
-		}
-		model.addAttribute("introMenu", "희망도서신청리스트");//임시
-		model.addAttribute("hopeList", LibSearchAPI.getMyLibraryList("WEB", getSessionUserId(request), "HOPE", null));
-		model.addAttribute("librarySearch", librarySearch);
-		model.addAttribute("view_yn", true);
-		model.addAttribute("homepage", homepage);
-		return basePath + "hope/index";
-	}
-
-	@RequestMapping(value = {"/hope/req.*"})
-	public String reqHope(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
-
-		Member member = getSessionMemberInfo(request);
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			librarySearch.setBefore_url(String.format("/intro/%s/search/hope/req.do", homepage.getContext_path()));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/intro/%s/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), librarySearch.getMenu_idx(), librarySearch.getBefore_url()), request, response);
-			return null;
-		}
-
-		if ( !StringUtils.isEmpty(member.getStatus_code()) ) {
-			if (!(member.getStatus_code().equals("0001") || member.getStatus_code().equals("0") )) {
-				service.alertMessageAndUrl("희망도서 신청 가능한 회원이 아닙니다.", "/intro/" + homepage.getContext_path() + "/search/index.do", request, response);
-				return null;
-			}
-		}
-
-		if ( StringUtils.isEmpty(homepage.getHomepage_code()) ) {
-			service.alertMessageAndUrl("홈페이지 코드가 없어 신청 할 수 없습니다.", String.format("/intro/%s/index.do", homepage.getContext_path()), request, response);
-			return null;
-		}
-
-		if ( !homepage.getHomepage_code().contains(member.getLoca())) {
-			service.alertMessage("희망도서 신청은 소속도서관에서만 가능합니다.", request, response);
-			return null;
-		}
-
-		model.addAttribute("introMenu", "희망도서신청");//임시
-		model.addAttribute("member", member);
-		model.addAttribute("librarySearch", librarySearch);
-		model.addAttribute("homepage", homepage);
-		return basePath + "hope/req";
-	}
-
-	@RequestMapping(value = {"/hope/search.*"})
-	public String hopeSearch(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
-
-		if ( StringUtils.isEmpty(homepage.getHomepage_code()) ) {
-			service.alertMessageAndUrl("홈페이지 코드가 없어 신청 할 수 없습니다.", String.format("http://www.gbelib.kr/%s/index.do", homepage.getContext_path()), request, response);
-			return null;
-		}
-
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			librarySearch.setBefore_url(String.format("/%s/intro/search/hope/search.do?menu_idx=%s", homepage.getContext_path(), librarySearch.getMenu_idx()) + "%26editMode%3DNOAJAX");
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), librarySearch.getMenu_idx(), librarySearch.getBefore_url()), request, response);
-			return null;
-		}
-
-		Member member = getSessionMemberInfo(request);
-		if ( !StringUtils.isEmpty(member.getStatus_code()) ) {
-			if (!(member.getStatus_code().equals("0001") || member.getStatus_code().equals("0") )) {
-				service.alertMessageAndUrl("희망도서 신청 가능한 회원이 아닙니다.", String.format("http://www.gbelib.kr/%s/index.do", homepage.getContext_path()), request, response);
-				return null;
-			}
-		}
-
-		if ( !homepage.getHomepage_code().contains(member.getLoca())) {
-			service.alertMessage("희망도서 신청은 소속도서관에서만 가능합니다.", request, response);
-			return null;
-		}
-
-		//model.addAttribute("introMenu", "희망도서신청");//임시
-		model.addAttribute("member", member);
-		model.addAttribute("librarySearch", librarySearch);
-
-		Map<String, Object> map = null;
-		if (StringUtils.isNotEmpty(librarySearch.getSearch_text())) {
-			map = LibSearchAPI.getNaverList(librarySearch);
-			String totalCount = String.valueOf(((Map<String, Object>)((Map<String, Object>)map.get("rss")).get("channel")).get("total"));
-			List<Map<String, Object>> itemList = (List<Map<String, Object>>)((Map<String, Object>)((Map<String, Object>)map.get("rss")).get("channel")).get("item");
-			if (itemList != null && itemList.size() > 0) {
-				for (Map<String, Object> map2 : itemList) {
-					String[] isbnArr = String.valueOf(map2.get("isbn")).split(" ");
-					for (int i = 0; i < isbnArr.length; i++) {
-						String isbn = String.valueOf(map2.get("isbn")).split(" ")[i];
-
-						Map<String, Object> sameBook = (Map<String, Object>) LibSearchAPI.getSameBookList("WEB", isbn, homepage.getHomepage_codeList()[0]);
-						if (sameBook != null) {
-							List<Map<String, Object>> sameBookList = (List<Map<String, Object>>)sameBook.get("dsSameBookList");
-							if (sameBookList != null && sameBookList.size() > 0) {
-								map2.put("already", true);
-								map2.put("ctrlno", sameBookList.get(0).get("CTRLNO"));
-							}
-						}
-
-					}
-
-//					if (LibSearchAPI.getSameBookList("WEB", isbn13, homepage.getHomepage_codeList()[0]).get("dsSameBookList") != null) {
-//						map2.put("already", true);
-//					}
-				}
-				service.setPaging(model, Integer.parseInt(totalCount), librarySearch);
-				model.addAttribute("naverResult", map);
-			}
-		}
-		return String.format(basePath, homepage.getFolder()) + "hope/search_ajax";
-	}
-
-	@RequestMapping(value = {"/hope/save.*"}, method=RequestMethod.POST)
-	public @ResponseBody JsonResponse saveHope(@PathVariable String context_path, Model model, LibrarySearch librarySearch, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
-
-		JsonResponse res = new JsonResponse(request);
-
-		if(librarySearch.getEditMode().equals("ADD")) {
-			ValidationUtils.rejectIfEmpty(result, "title", "제목을 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "author", "저자를 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "publer", "출판사를 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "publer_year", "연도를 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "price", "가격을 입력하세요.");
-		}
-
-		if(!result.hasErrors()) {
-			Member member = getSessionMemberInfo(request);
-			if ( !StringUtils.isEmpty(member.getStatus_code()) ) {
-				if (!(member.getStatus_code().equals("0001") || member.getStatus_code().equals("0") )) {
-					res.setValid(false);
-					res.setMessage("희망도서 신청 가능한 회원이 아닙니다.");
-					return res;
-				}
-			}
-
-			if ( librarySearch.getEditMode().equals("ADD") ) {
-				if ( !homepage.getHomepage_code().contains(",") ) {
-					librarySearch.setvLoca(homepage.getHomepage_code());
-				}
-
-				StringBuilder sb = new StringBuilder();
-				sb.append(librarySearch.getEditMode() + "\n");
-				sb.append(librarySearch.getvLoca() + "\n");
-				sb.append(librarySearch.getTitle() + "\n");
-				sb.append(librarySearch.getAuthor() + "\n");
-				sb.append(librarySearch.getPubler() + "\n");
-				sb.append(librarySearch.getPubler_year() + "\n");
-				sb.append(librarySearch.getIsbn() + "\n");
-				sb.append(librarySearch.getEditon() + "\n");
-				sb.append(librarySearch.getUser_remark() + "\n");
-				sb.append(librarySearch.getPrice() + "\n");
-				String addResult = WebFilterCheckUtils.webFilterCheck("신청자", "신청", sb.toString());
-				if (addResult != null) {
-					res.setValid(false);
-					res.setUrl(addResult);
-					res.setTargetOpener(true);
-					return res;
-				}
-
-				ApiResponse hopeUserCheck = LibSearchAPI.hopeUserCheck("WEB", librarySearch, member.getUser_id(), member.getLoca());
-
-
-				if ( hopeUserCheck.getStatus() ) {
-					ApiResponse apiResult = LibSearchAPI.reqHope("WEB", librarySearch, member.getUser_id(), member.getLoca());
-					if ( apiResult.getStatus() ) {
-						res.setValid(true);
-						res.setMessage("등록 되었습니다.");
-					}
-					else {
-						res.setValid(false);
-						res.setMessage(apiResult.getMessage());
-					}
-				}
-				else {
-					res.setValid(false);
-					res.setMessage(hopeUserCheck.getMessage());
-				}
-
-//				ApiResponse apiResult = LibSearchAPI.reqHope("WEB", librarySearch, member.getUser_id(), member.getLoca());
-//				if ( apiResult.getStatus() ) {
-//					res.setValid(true);
-//					res.setMessage("등록 되었습니다.");
-//				}
-//				else {
-//					res.setValid(false);
-//					res.setMessage(apiResult.getMessage());
-//				}
-			}
-			else if ( librarySearch.getEditMode().equals("CANCEL") ) {
-				ApiResponse apiResult = LibSearchAPI.modHope("WEB", librarySearch, getSessionUserId(request));
-				if ( apiResult.getStatus() ) {
-					res.setValid(true);
-					res.setMessage("취소 되었습니다.");
-				}
-				else {
-					res.setValid(false);
-					res.setMessage(apiResult.getMessage());
-				}
-			}
-		} else {
-			res.setValid(false);
-			res.setResult(result.getAllErrors());
-		}
-
-		return res;
-	}
-
-	@RequestMapping(value = {"/resve/index.*"})
-	public String myResve(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
-
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
-			return null;
-		}
-
-		Member member = getSessionMemberInfo(request);
-		if ( !StringUtils.isEmpty(member.getStatus_code()) ) {
-			if (!(member.getStatus_code().equals("0001") || member.getStatus_code().equals("0") )) {
-				service.alertMessageAndUrl("예약 가능한 회원이 아닙니다.", "/intro/" + homepage.getContext_path() + "/search/index.do", request, response);
-				return null;
-			}
-		}
-		model.addAttribute("introMenu", "도서예약확인");
-		model.addAttribute("resveList", LibSearchAPI.getMyLibraryList("WEB", getSessionUserId(request), "RESVE", null));
-		model.addAttribute("homepage", homepage);
-		return basePath + "resve/index";
-	}
-
-	@RequestMapping(value = {"/resve/save.*"}, method=RequestMethod.POST)
-	public @ResponseBody JsonResponse saveResve(@PathVariable String context_path, Model model, LibrarySearch librarySearch, BindingResult result, HttpServletRequest request) {
-		JsonResponse res = new JsonResponse(request);
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
-
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request)) ) {
-			try {
-				librarySearch.setBefore_url(URLEncoder.encode(request.getHeader("referer"), "UTF-8"));
-			} catch (UnsupportedEncodingException e) {
-				librarySearch.setBefore_url(String.format("http://www.gbelib.kr/%s/intro/search/resve/index.do?menu_idx=%s", homepage.getContext_path(), librarySearch.getMenu_idx()));
-			}
-			result.reject("로그인 후 이용가능합니다.");
-			res.setUrl(String.format("http://www.gbelib.kr/intro/%s/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), librarySearch.getMenu_idx(), librarySearch.getBefore_url()));
-		}
-
-		if(!result.hasErrors()) {
-			Member member = getSessionMemberInfo(request);
-			if ( !StringUtils.isEmpty(member.getStatus_code()) ) {
-				if (!(member.getStatus_code().equals("0001") || member.getStatus_code().equals("0") )) {
-					res.setValid(false);
-					res.setMessage("예약 신청 가능한 회원이 아닙니다.");
-					return res;
-				}
-			}
-
-			if ( librarySearch.getEditMode().equals("ADD") ) {
-				ApiResponse apiResult = LibSearchAPI.reqResve("WEB", librarySearch, getSessionUserId(request));
-				if ( apiResult.getStatus() ) {
-					res.setValid(true);
-					res.setMessage("등록 되었습니다.");
-				}
-				else {
-					res.setValid(false);
-					res.setMessage(apiResult.getMessage());
-				}
-			}
-			else if ( librarySearch.getEditMode().equals("CANCEL") ) {
-				ApiResponse apiResult = LibSearchAPI.modResve("WEB", librarySearch, getSessionUserId(request));
-				if ( apiResult.getStatus() ) {
-					res.setValid(true);
-					res.setMessage("취소 되었습니다.");
-				}
-				else {
-					res.setValid(false);
-					res.setMessage(apiResult.getMessage());
-				}
-			}
-		} else {
-			res.setValid(false);
-			res.setResult(result.getAllErrors());
-		}
-
-		return res;
-	}
-
-	@RequestMapping(value = {"/loan/index.*"})
-	public String myLoan(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
-
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
-			return null;
-		}
-
-		Member member = getSessionMemberInfo(request);
-		if ( !StringUtils.isEmpty(member.getStatus_code()) ) {
-			if (!(member.getStatus_code().equals("0001") || member.getStatus_code().equals("0") )) {
-				service.alertMessageAndUrl("대출 가능한 회원이 아닙니다.", "/intro/" + homepage.getContext_path() + "/search/index.do", request, response);
-				return null;
-			}
-		}
-		model.addAttribute("introMenu", "도서대출확인");
-		model.addAttribute("loanList", LibSearchAPI.getMyLibraryList("WEB", getSessionUserId(request), "LOAN", null));
-		model.addAttribute("homepage", homepage);
-		return basePath + "loan/index";
-	}
-
-	@RequestMapping(value = {"/loan/save.*"}, method=RequestMethod.POST)
-	public @ResponseBody JsonResponse renewLoan(@PathVariable String context_path, Model model, LibrarySearch librarySearch, BindingResult result, HttpServletRequest request) {
-		JsonResponse res = new JsonResponse(request);
-
-		if(!result.hasErrors()) {
-			Member member = getSessionMemberInfo(request);
-			if ( !StringUtils.isEmpty(member.getStatus_code()) ) {
-				if (!(member.getStatus_code().equals("0001") || member.getStatus_code().equals("0") )) {
-					res.setValid(false);
-					res.setMessage("대출 연장 신청 가능한 회원이 아닙니다.");
-					return res;
-				}
-			}
-
-			if ( librarySearch.getEditMode().equals("ADD") ) {
-
-			}
-			else if ( librarySearch.getEditMode().equals("RENEW") ) {
-				ApiResponse apiResult = LibSearchAPI.renewLoan("WEB", librarySearch, getSessionUserId(request));
-				if ( apiResult.getStatus() ) {
-					res.setValid(true);
-					res.setMessage("대출 연장 되었습니다.");
-				}
-				else {
-					res.setValid(false);
-					res.setMessage(apiResult.getMessage());
-				}
-			}
-
-		} else {
-			res.setValid(false);
-			res.setResult(result.getAllErrors());
-		}
-
-		return res;
-	}
-
-	@RequestMapping(value = {"/print.*"}, method=RequestMethod.POST)
-	public String print(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		if ( librarySearch.getPrint_param() != null ) {
-			List<Object> resultList = new ArrayList<Object>();
-			List<String> paramList 		= librarySearch.getPrint_param();
-			if ( librarySearch.getPrint_cmd_page().equals("INDEX") ) {
-				for ( String oneInfo : paramList ) {
-					String[] keys = oneInfo.split("_"); /// 0 - vLoca, 1 - vCtrl
-					if ( keys.length > 1 ) {
-						Map<String, Object> result = LibSearchAPI.getBookDetail(new LibrarySearch(keys[0], keys[1]));
-						resultList.add(result);
-					}
-				}
-
-			}
-			else if ( librarySearch.getPrint_cmd_page().equals("DETAIL") ) {
-				for ( String oneInfo : paramList ) {
-					String[] key = oneInfo.split("_"); //${i.TITLE}|${i.CALL_NO}|${i.ACSSON_NO}|${i.AUTHOR}|${i.SUB_LOCA_NAME}|${i.BOOKSH_NAME}
-					Map<String, Object> dsItemDetail = new HashMap<String, Object>();
-					List<Object> dsItemList = new ArrayList<Object>();
-					Map<String, Object> result = new HashMap<String, Object>();
-					result.put("TITLE", key[0].replaceAll("@@@", "\'"));
-					if ( key.length > 1 ) {
-						result.put("CALL_NO", key[1]);
-					}
-					if ( key.length > 2 ) {
-						result.put("ACSSON_NO", key[2]);
-					}
-					if ( key.length > 3 ) {
-						result.put("AUTHOR", key[3]);
-					}
-					if ( key.length > 4 ) {
-						result.put("SUB_LOCA_NAME", key[4]);
-					}
-					if ( key.length > 5 ) {
-						result.put("PUBLISHER", key[5]);
-					}
-					if ( key.length > 6 ) {
-						result.put("PLACE_NO", key[6]);
-					}
-					if ( key.length > 7 ) {
-						result.put("BOOKSH_NAME", key[7]);
-					}
-					dsItemList.add(result);
-					dsItemDetail.put("dsItemDetail", dsItemList);
-					resultList.add(dsItemDetail);
-				}
-
-			}
-			model.addAttribute("resultList", resultList);
-		}
-
 
 		return basePath + "print_ajax";
 	}

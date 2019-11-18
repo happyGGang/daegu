@@ -134,8 +134,8 @@ public class BoardController extends BaseController {
 
 		// CMS -> 게시판 관리
 		String homepage_id = request.getParameter("homepage_id");
-		
-		
+
+
 		if(homepage != null) {
 			homepageFolder = "/homepage/" + homepage.getFolder();
 			homepage_id = homepage.getHomepage_id();
@@ -149,7 +149,7 @@ public class BoardController extends BaseController {
 			/**
 			 * 커스텀 필드 사용
 			 */
-			if ( boardManage != null ) { 
+			if ( boardManage != null ) {
 				if(boardManage.getBoard_type().indexOf("CUSTOM") > -1) {
 					List<FieldManage> fieldList = null;
 
@@ -201,7 +201,7 @@ public class BoardController extends BaseController {
 		else {
 			return null;
 		}
-		
+
 		if (StringUtils.equals(board.getModule(), "bookDream")) {
 			//새책드림땜에 레이아웃 따로 설정.....
 			basePath = "/homepage/module_board/bookDream/" + boardManage.getBoard_skin() + "/";
@@ -244,7 +244,7 @@ public class BoardController extends BaseController {
 				board.setSearchEndDate(sf.format(new Date()));
 			}
 		}
-		
+
 		if(board.getManage_idx() == 563 && StringUtils.isEmpty(board.getStart_date())) {
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 			if (StringUtils.isEmpty(board.getSearchStartDate())) {
@@ -321,12 +321,12 @@ public class BoardController extends BaseController {
 		if (boardManage.getManage_idx() == 563 && !StringUtils.equals(board.getCategory1(), "0000")) {
 			model.addAttribute("requestCount", service.getRequestBoardStateCount(board));
 		}
-		
-		
+
+
 		model.addAttribute("board", board);
 
 
-		
+
 		log.debug("retrunPath : " + returnPath);
 
 		return returnPath;
@@ -369,19 +369,19 @@ public class BoardController extends BaseController {
 				}
 			}
 		}
-		
+
 		//질의응답게시판
 		if (boardManage.getBoard_type().equals("QNA")){
 			request.setAttribute("request_state_list", codeService.getCode("CMS",boardManage.getRequest_code()));
-		} 
+		}
 		// 분실 게시판
-		else if (boardManage.getBoard_type().equals("LOSTCARD") && board.getEditMode().equals("ADD")) { 
-			
+		else if (boardManage.getBoard_type().equals("LOSTCARD") && board.getEditMode().equals("ADD")) {
+
 			board.setAdd_id(getSessionMemberId(request));
-			
+
 			int requestCount = service.checkLostCardBoard(board);
-			
-			if(requestCount > 0) { 
+
+			if(requestCount > 0) {
 				service.alertMessage("분실신고가 이미 등록되어 있습니다.", request, response);
 			}
 		}
@@ -629,10 +629,10 @@ public class BoardController extends BaseController {
 				Map<String, Object> result = LibSearchAPI.getBookDetail(librarySearch);
 				model.addAttribute("librarySearch", librarySearch);
 				model.addAttribute("detail", result);
-				model.addAttribute("ageChart", LibSearchAPI.getAgeChart(librarySearch));
-				model.addAttribute("withBook", LibSearchAPI.getWithBook(librarySearch));
-				model.addAttribute("callNoBrowsing", LibSearchAPI.getCallNoBrowsingList(librarySearch.getvCtrl(), "5"));
-				model.addAttribute("sameAuthorBookList", LibSearchAPI.getSameAuthorBookList(result));
+//				model.addAttribute("ageChart", LibSearchAPI.getAgeChart(librarySearch));
+//				model.addAttribute("withBook", LibSearchAPI.getWithBook(librarySearch));
+//				model.addAttribute("callNoBrowsing", LibSearchAPI.getCallNoBrowsingList(librarySearch.getvCtrl(), "5"));
+//				model.addAttribute("sameAuthorBookList", LibSearchAPI.getSameAuthorBookList(result));
 				try {
 					List<String> locaList = new ArrayList<String>();
 					for (Homepage home : homepageService.getHomepage()) {
@@ -645,19 +645,19 @@ public class BoardController extends BaseController {
 					}
 	//				locaList.add("00147046");
 					List<Map<String, Object>> dsPlaceBookList = null;
-					Map<String, Object> sameBookList = LibSearchAPI.getSameBookList("WEB", librarySearch.getIsbn(), locaList);
-					if (sameBookList != null) {
-						List<Map<String, Object>> tempSameBookList = (List<Map<String, Object>>) sameBookList.get("dsSameBookList");
-						if (tempSameBookList != null) {
-							dsPlaceBookList = new ArrayList<Map<String, Object>>();
-							for (Map<String, Object> map : tempSameBookList) {
-								Map<String, Object> searchItemD = LibSearchAPI.getBookDetail(new LibrarySearch(String.valueOf(map.get("LOCA")), String.valueOf(map.get("CTRLNO"))));
-								if (searchItemD != null) {
-									dsPlaceBookList.add(searchItemD);
-								}
-							}
-						}
-					}
+//					Map<String, Object> sameBookList = LibSearchAPI.getSameBookList("WEB", librarySearch.getIsbn(), locaList);
+//					if (sameBookList != null) {
+//						List<Map<String, Object>> tempSameBookList = (List<Map<String, Object>>) sameBookList.get("dsSameBookList");
+//						if (tempSameBookList != null) {
+//							dsPlaceBookList = new ArrayList<Map<String, Object>>();
+//							for (Map<String, Object> map : tempSameBookList) {
+//								Map<String, Object> searchItemD = LibSearchAPI.getBookDetail(new LibrarySearch(String.valueOf(map.get("LOCA")), String.valueOf(map.get("CTRLNO"))));
+//								if (searchItemD != null) {
+//									dsPlaceBookList.add(searchItemD);
+//								}
+//							}
+//						}
+//					}
 					model.addAttribute("sameBook", dsPlaceBookList);
 					model.addAttribute("isTodayClosed", calendarManageService.isTodayClosed(homepage.getHomepage_id()));
 					if (StringUtils.isNotEmpty(librarySearch.getIsbn())) {
@@ -726,7 +726,7 @@ public class BoardController extends BaseController {
 		}
 
 		Board board = (Board)service.copyObjectPaging(boardManage, parentBoard, service.getBoardOne(parentBoard));
-		
+
 		if (!StringUtils.isEmpty(board.getRequest_state()) && board.getRequest_state().equals("2")) {
 			try {
 				service.alertMessage("처리가 완료된 게시물에는 답변을 추가 할 수 없습니다.", request, response);
@@ -756,7 +756,7 @@ public class BoardController extends BaseController {
 		BoardManage boardManage = (BoardManage)request.getAttribute("boardManage");
 		/* 유효성 검증 >>>>> */
 		JsonResponse res = new JsonResponse(request);
-		
+
 		/** 불량단어 검출 **/
 		BoardWordFilter boardWordFilter = boardWordFilterService.getBoardWordFilterOne();
 		if(boardWordFilter != null && boardWordFilter.getUse_yn().equals("Y")) {
@@ -834,7 +834,7 @@ public class BoardController extends BaseController {
 				if ( StringUtils.isEmpty(board.getNotice_yn()) ) {
 					board.setNotice_yn("N"); // 수정시 체크 해제 하고 저장하면 notice_yn = null 이된다.
 				}
-				
+
 				String modifyResult = (String) service.modifyBoard(boardManage, board, request);
 				if (modifyResult != null) {
 					res.setValid(true);
@@ -847,7 +847,7 @@ public class BoardController extends BaseController {
 				res.setData(board.getUrlParam(boardManage, "view"));
 				res.setMessage("수정 되었습니다.");
 			} else if(board.getEditMode().equals("ADD")) {
-				
+
 				String addResult = (String) service.addBoard(boardManage, board, request);
 
 				if (addResult != null) {

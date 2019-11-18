@@ -67,8 +67,8 @@ public class HomepageService extends BaseService {
 	}
 
 	@Cacheable(cacheName="homepageOneInPath")
-	public Homepage getHomepageOneInPath(Homepage homepage) {
-		return dao.getHomepageOneInPath(homepage);
+	public Homepage getHomepageOneInPath(String context_path) {
+		return dao.getHomepageOneInPath(context_path);
 	}
 
 	public Homepage getHomepageOneByCode(Homepage homepage) {

@@ -5,11 +5,9 @@
 $(function() {
 	$('a.trendSearch').on('click', function(e) {
 		e.preventDefault();
-		$('input#sub_search1').prop('checked', false);
-		$('#librarySearch #allBookListStr').val('');
-		$('#librarySearch #search_type').val('L_TITLE');
-		$('#librarySearch #search_text').val($(this).text().trim());
-     	$('#librarySearch #do-search').click();
+		$('input#title').val($(this).text().trim());
+		$('input#viewPage').val('1');
+		doGetLoad('index.do', $('form#librarySearch').serialize());
 	});
 });
 </script>
@@ -27,7 +25,6 @@ $(function() {
 					</c:choose>
 				</a>
 			</span>
-	<%-- 		<span style="float: right;">${i.HIT_CNT}</span> --%>
 		</li>
 		</c:forEach>
 	</ul>

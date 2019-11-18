@@ -9,14 +9,14 @@ public class TotalSearch extends PagingUtils {
 	private int book_more_count = 1;
 	private int notice_more_count = 1;
 	private int teach_more_count = 1;
-	
+
 	private String total_search_type = "TOTAL";
 	private String sort_type;
 	private String date_type = "ALL";
 	private String start_date;
 	private String end_date;
 	private String more_type = "";
-	
+
 	// 도서 상세검색에 사용되는 변수들
 	private String searchType1="TITLE";//서명(TITLE), 저자(AUTHOR), 출판사(PUBLISHER), 키워드 (KEYWORD) 중 택 1.
 	private String searchType2="AUTHOR";//서명(TITLE), 저자(AUTHOR), 출판사(PUBLISHER), 키워드 (KEYWORD) 중 택 1.
@@ -41,9 +41,9 @@ public class TotalSearch extends PagingUtils {
 	private String searchSubType2 = "RIGHT";	// 검색 범위2
 	private String searchSubType3 = "RIGHT";	// 검색 범위3
 	private String searchSubType4 = "RIGHT";	// 검색 범위4
-	
+
 	private String[] searchFormCode;	// 자료유형
-	
+
 	public TotalSearch() {
 	}
 
@@ -87,202 +87,202 @@ public class TotalSearch extends PagingUtils {
 		this.total_search_type = total_search_type;
 	}
 
-	
+
 	public String getSearchType1() {
 		return searchType1;
 	}
 
-	
+
 	public void setSearchType1(String searchType1) {
 		this.searchType1 = searchType1;
 	}
 
-	
+
 	public String getSearchType2() {
 		return searchType2;
 	}
 
-	
+
 	public void setSearchType2(String searchType2) {
 		this.searchType2 = searchType2;
 	}
 
-	
+
 	public String getSearchType3() {
 		return searchType3;
 	}
 
-	
+
 	public void setSearchType3(String searchType3) {
 		this.searchType3 = searchType3;
 	}
 
-	
+
 	public String getSearchType4() {
 		return searchType4;
 	}
 
-	
+
 	public void setSearchType4(String searchType4) {
 		this.searchType4 = searchType4;
 	}
 
-	
 
-	
+
+
 	public String getLogicFunction1() {
 		return logicFunction1;
 	}
 
-	
+
 	public void setLogicFunction1(String logicFunction1) {
 		this.logicFunction1 = logicFunction1;
 	}
 
-	
+
 	public String getLogicFunction2() {
 		return logicFunction2;
 	}
 
-	
+
 	public void setLogicFunction2(String logicFunction2) {
 		this.logicFunction2 = logicFunction2;
 	}
 
-	
+
 	public String getLogicFunction3() {
 		return logicFunction3;
 	}
 
-	
+
 	public void setLogicFunction3(String logicFunction3) {
 		this.logicFunction3 = logicFunction3;
 	}
 
-	
+
 	public String getLogicFunction4() {
 		return logicFunction4;
 	}
 
-	
+
 	public void setLogicFunction4(String logicFunction4) {
 		this.logicFunction4 = logicFunction4;
 	}
 
-	
+
 	public String getIsbnSearch() {
 		return isbnSearch;
 	}
 
-	
+
 	public void setIsbnSearch(String isbnSearch) {
 		this.isbnSearch = isbnSearch;
 	}
 
-	
+
 	public String getLogicFunction5() {
 		return logicFunction5;
 	}
 
-	
+
 	public void setLogicFunction5(String logicFunction5) {
 		this.logicFunction5 = logicFunction5;
 	}
 
-	
+
 	public String getKdcSearch() {
 		return kdcSearch;
 	}
 
-	
+
 	public void setKdcSearch(String kdcSearch) {
 		this.kdcSearch = kdcSearch;
 	}
 
-	
+
 	public String getLangType() {
 		return langType;
 	}
 
-	
+
 	public void setLangType(String langType) {
 		this.langType = langType;
 	}
 
-	
+
 	public String getSearchStYear() {
 		return searchStYear;
 	}
 
-	
+
 	public void setSearchStYear(String searchStYear) {
 		this.searchStYear = searchStYear;
 	}
 
-	
+
 	public String getSearchEdYear() {
 		return searchEdYear;
 	}
 
-	
+
 	public void setSearchEdYear(String searchEdYear) {
 		this.searchEdYear = searchEdYear;
 	}
 
 	public LibrarySearch copyDetailSearchParam(LibrarySearch librarySearch) {
-		librarySearch.setSearchType1(this.getSearchType1());
-		librarySearch.setSearchType2(this.getSearchType2());
-		librarySearch.setSearchType3(this.getSearchType3());
-		librarySearch.setSearchType4(this.getSearchType4());
-		
-		librarySearch.setSearchKeyword1(this.getSearchKeyword1());
-		librarySearch.setSearchKeyword2(this.getSearchKeyword2());
-		librarySearch.setSearchKeyword3(this.getSearchKeyword3());
-		librarySearch.setSearchKeyword4(this.getSearchKeyword4());
-		
-		librarySearch.setSearchSubType1(this.getSearchSubType1());
-		librarySearch.setSearchSubType2(this.getSearchSubType2());
-		librarySearch.setSearchSubType3(this.getSearchSubType3());
-		librarySearch.setSearchSubType4(this.getSearchSubType4());
-		
-		librarySearch.setLogicFunction1(this.getLogicFunction1());
-		librarySearch.setLogicFunction2(this.getLogicFunction2());
-		librarySearch.setLogicFunction3(this.getLogicFunction3());
-		librarySearch.setLogicFunction4(this.getLogicFunction4());
-		librarySearch.setLogicFunction5(this.getLogicFunction5());
-		
-		librarySearch.setIsbnSearch(this.getIsbnSearch());
-		librarySearch.setKdcSearch(this.getKdcSearch());
-		librarySearch.setLangType(this.getLangType());
-		librarySearch.setSearchStYear(this.getSearchStYear());
-		librarySearch.setSearchEdYear(this.getSearchEdYear());
-		
+//		librarySearch.setSearchType1(this.getSearchType1());
+//		librarySearch.setSearchType2(this.getSearchType2());
+//		librarySearch.setSearchType3(this.getSearchType3());
+//		librarySearch.setSearchType4(this.getSearchType4());
+//
+//		librarySearch.setSearchKeyword1(this.getSearchKeyword1());
+//		librarySearch.setSearchKeyword2(this.getSearchKeyword2());
+//		librarySearch.setSearchKeyword3(this.getSearchKeyword3());
+//		librarySearch.setSearchKeyword4(this.getSearchKeyword4());
+//
+//		librarySearch.setSearchSubType1(this.getSearchSubType1());
+//		librarySearch.setSearchSubType2(this.getSearchSubType2());
+//		librarySearch.setSearchSubType3(this.getSearchSubType3());
+//		librarySearch.setSearchSubType4(this.getSearchSubType4());
+//
+//		librarySearch.setLogicFunction1(this.getLogicFunction1());
+//		librarySearch.setLogicFunction2(this.getLogicFunction2());
+//		librarySearch.setLogicFunction3(this.getLogicFunction3());
+//		librarySearch.setLogicFunction4(this.getLogicFunction4());
+//		librarySearch.setLogicFunction5(this.getLogicFunction5());
+//
+//		librarySearch.setIsbnSearch(this.getIsbnSearch());
+//		librarySearch.setKdcSearch(this.getKdcSearch());
+//		librarySearch.setLangType(this.getLangType());
+//		librarySearch.setSearchStYear(this.getSearchStYear());
+//		librarySearch.setSearchEdYear(this.getSearchEdYear());
+
 		System.out.println("########### : " + this.getIsbnSearch());
 		System.out.println("########### : " + this.getKdcSearch());
 		System.out.println("########### : " + this.getLangType());
-		
+
 		return librarySearch;
 	}
-	
+
 	public Teach copyDetailSearchParam(Teach teach) {
 		teach.setSearchKeyword1(this.getSearchKeyword1());
 		teach.setSearchKeyword2(this.getSearchKeyword2());
 		teach.setSearchKeyword3(this.getSearchKeyword3());
 		teach.setSearchKeyword4(this.getSearchKeyword4());
-		
+
 		teach.setLogicFunction1(this.getLogicFunction1());
 		teach.setLogicFunction2(this.getLogicFunction2());
 		teach.setLogicFunction3(this.getLogicFunction3());
 		teach.setLogicFunction4(this.getLogicFunction4());
 		return teach;
 	}
-	
+
 	public Board copyDetailSearchParam(Board board) {
 		board.setSearchKeyword1(this.getSearchKeyword1());
 		board.setSearchKeyword2(this.getSearchKeyword2());
 		board.setSearchKeyword3(this.getSearchKeyword3());
 		board.setSearchKeyword4(this.getSearchKeyword4());
-		
+
 		board.setLogicFunction1(this.getLogicFunction1());
 		board.setLogicFunction2(this.getLogicFunction2());
 		board.setLogicFunction3(this.getLogicFunction3());
@@ -393,5 +393,5 @@ public class TotalSearch extends PagingUtils {
 	public void setSearchFormCode(String[] searchFormCode) {
 		this.searchFormCode = searchFormCode;
 	}
-	
+
 }

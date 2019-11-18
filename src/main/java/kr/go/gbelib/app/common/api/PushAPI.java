@@ -17,12 +17,12 @@ public class PushAPI {
 
 	public static final String EMAIL_URL 	= "";
 	public static final String SMS_URL 		= "";
-	
+
 	public static final int SMS_TYPE_EMAIL 	= 1;
 	public static final int SMS_TYPE_SMS 	= 2;
-	
+
 	//public static void sendMessage(String homepage_id, int type, String auth_id, String message)
-	
+
 	/**
 	 * 사용자용
 	 * @param homepage
@@ -39,7 +39,7 @@ public class PushAPI {
 		member.setEmail(cellPhone);
 		sendMessage(homepage, type, member, message, null, fromTel, includeLibName, "");
 	}
-	
+
 	/**
 	 * 사용자용
 	 * @param homepage
@@ -58,10 +58,10 @@ public class PushAPI {
 		member.setEmail(cellPhone);
 		sendMessage(homepage, type, member, message, null, fromTel, includeLibName, title);
 	}
-	
+
 	/**
 	 * @param type SmsAPI static 변수 SMS_TYPE_EMAIL, SMS_TYPE_SMS
-	 * @param member 전송될 수신자 정보 EMAIL - member.email, SMS - member.cell_phone 
+	 * @param member 전송될 수신자 정보 EMAIL - member.email, SMS - member.cell_phone
 	 * @param message 전송될 문구
 	 * @param sendTime 전송될 시간 yyyy-MM-dd hh:mm
 	 */
@@ -78,7 +78,7 @@ public class PushAPI {
 				break;
 		}
 	}
-	
+
 	/**
 	 * @param homepage_id
 	 * @param member
@@ -96,12 +96,12 @@ public class PushAPI {
 				EmailSender.sendMail(title, message, fromEmail, emailList);
 			}
 			else {
-			}	
+			}
 		}
 		else {
 		}
 	}
-	
+
 	/**
 	 * @param homepage_id
 	 * @param member
@@ -112,15 +112,15 @@ public class PushAPI {
 		if (StringUtils.isEmpty(fromTel) ) {
 			fromTel = "0538109999";
 		}
-		if ( StringUtils.isNotEmpty(sendSms) && StringUtils.isNotEmpty(message) ) { 
-			
+		if ( StringUtils.isNotEmpty(sendSms) && StringUtils.isNotEmpty(message) ) {
+
 			if ( StringUtils.isNotEmpty(sendSms.trim()) && StringUtils.isNotEmpty(message.trim())) {
 				sendSms = sendSms.replaceAll("-", "");
 				if (includeLibName) {
 					message = String.format("[%s] - %s", homepage.getHomepage_name(), message);
 				}
-				MemberAPI.sendSMS("WEB", homepage.getHomepage_code(), "t23", sendSms, fromTel, message);
-			}	
+//				MemberAPI.sendSMS("WEB", homepage.getHomepage_code(), "t23", sendSms, fromTel, message);
+			}
 		}
 		else {
 		}

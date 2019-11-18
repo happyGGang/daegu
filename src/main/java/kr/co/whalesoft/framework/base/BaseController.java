@@ -9,6 +9,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mobile.device.Device;
+import org.springframework.mobile.device.DeviceUtils;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import kr.co.whalesoft.app.cms.authCode.AuthCode;
@@ -20,14 +22,14 @@ import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.MessageResolver;
 
 public abstract class BaseController {
-	
+
 	protected final Logger log = LoggerFactory.getLogger(getClass());
-	
+
 	//Message 처리를 위한 기본 Class
 	@Autowired
 	protected MessageResolver msg;
-	
-	
+
+
 	/**
 	 * context path를 정보를 반환
 	 * @param request
@@ -37,37 +39,43 @@ public abstract class BaseController {
 	public String getContextPath(HttpServletRequest request) {
 		return request.getContextPath();
 	}
-	
+
+	@ModelAttribute("isMobile")
+	public boolean isMobile(HttpServletRequest request) {
+		Device device = DeviceUtils.getCurrentDevice(request);
+		return device.isMobile() || device.isTablet();
+	}
+
 	@Autowired
 	private LoginService loginServiceBase;
-	
+
 	@Autowired
 	private HomepageService homepageService;
 
 	public String getSessionMemberId(HttpServletRequest request) {
 		return loginServiceBase.getSessionMember(request).getMember_id();
 	}
-	
+
 	public String getSessionUserId(HttpServletRequest request) {
 		return loginServiceBase.getSessionMember(request).getUser_id();
 	}
-	
+
 	public String getSessionWebId(HttpServletRequest request) {
 		return loginServiceBase.getSessionMember(request).getWeb_id();
 	}
-	
+
 //	public String getSessionHomepageId(HttpServletRequest request) {
 //		return loginServiceBase.getSessionMember(request).getHomepage_id();
 //	}
-	
+
 	public Homepage getSessionHomepageInfo(HttpServletRequest request) {
 		return homepageService.getHomepageOne(new Homepage(getAsideHomepageId(request)));
 	}
-	
+
 	public String getSessionUserSeqNo(HttpServletRequest request) {
 		return loginServiceBase.getSessionMember(request).getSeq_no();
 	}
-	
+
 	public boolean getSessionIsAdmin(HttpServletRequest request) {
 		Member member = (Member) loginServiceBase.getSessionMember(request);
 		if (member == null) {
@@ -75,17 +83,17 @@ public abstract class BaseController {
 		}
 		return member.isAdmin();
 	}
-	
+
 	public String getSessionMemberLoginType(HttpServletRequest request) {
 		Member member = (Member) loginServiceBase.getSessionMember(request);
 		return member.getLoginType();
 	}
-	
+
 	public Member getSessionMemberInfo(HttpServletRequest request) {
 		Member member = (Member) loginServiceBase.getSessionMember(request);
 		return member;
 	}
-	
+
 	public boolean isLogin(HttpServletRequest request) {
 		Member member = (Member) loginServiceBase.getSessionMember(request);
 		if (member == null) {
@@ -93,16 +101,16 @@ public abstract class BaseController {
 		}
 		return member.isLogin();
 	}
-	
+
 	public int getMenuIdxByLinkUrl(Homepage homepage, String homepage_id, String link_url) {
 		return homepageService.getMenuIdxByLinkUrl(homepage.getHomepage_id(), link_url);
 	}
-	
+
 	public Homepage getHomepageOne(String homepage_id) {
 		Homepage homepage = new Homepage(homepage_id);
 		return homepageService.getHomepageOne(homepage);
 	}
-	
+
 	/**
 	 * 현재 관리중인 홈페이지 ID를 가져온다.
 	 * @param request
@@ -115,7 +123,7 @@ public abstract class BaseController {
 		}
 		return String.valueOf(request.getSession().getAttribute("asideHomepageId"));
 	}
-	
+
 	/**
 	 * 권한체크. 기본메시지 : '권한이 없습니다.'
 	 * @param authCode  R : 조회권한, C : 쓰기권한, U : 수정권한, D : 삭제권한
@@ -126,9 +134,9 @@ public abstract class BaseController {
 	public void checkAuth(String authCode, Model model, HttpServletRequest request) throws AuthException{
 		checkAuth(authCode, model, request, null);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param authCode  R : 조회권한, C : 쓰기권한, U : 수정권한, D : 삭제권한
 	 * @param model
 	 * @param request
@@ -146,18 +154,18 @@ public abstract class BaseController {
 			exAuthList = (List<AuthCode>) request.getSession().getAttribute("exAuthList");
 		} catch ( Exception e ) {
 		}
-		
+
 		if (getSessionIsAdmin(request)) {
 			//최고관리자는 통과
 			model.addAttribute("authC", true);
 			model.addAttribute("authR", true);
 			model.addAttribute("authU", true);
 			model.addAttribute("authD", true);
-			
+
 			//추가 권한 체크
 			if (exAuthList != null && exAuthList.size() > 0) {
 				for ( AuthCode ac : exAuthList ) {
-					model.addAttribute("auth"+ac.getAuth_code_id(), true);		
+					model.addAttribute("auth"+ac.getAuth_code_id(), true);
 				}
 			}
 		} else if (getSessionMemberInfo(request) != null && getSessionMemberInfo(request).getAuthMap() != null && !getSessionMemberInfo(request).getAuthMap().isEmpty()) {
@@ -170,7 +178,7 @@ public abstract class BaseController {
 				}
 //				isSiteAdmin = getSessionMemberInfo(request).getAuthMap().containsKey(getSessionHomepage Info(request).getHomepage_id() + "_A");
 			}
-			
+
 			//권한확인
 			if (!isSiteAdmin) {
 				if (!getSessionMemberInfo(request).getAuthMap().containsKey(authInfo + "_" + authCode)) {
@@ -181,20 +189,20 @@ public abstract class BaseController {
 					}
 				}
 			}
-			
+
 			// view에서 버튼활성화를 위해 전달되는값
 			model.addAttribute("authC", isSiteAdmin || getSessionMemberInfo(request).getAuthMap().containsKey(authInfo + "_C"));
 			model.addAttribute("authR", isSiteAdmin || getSessionMemberInfo(request).getAuthMap().containsKey(authInfo + "_R"));
 			model.addAttribute("authU", isSiteAdmin || getSessionMemberInfo(request).getAuthMap().containsKey(authInfo + "_U"));
 			model.addAttribute("authD", isSiteAdmin || getSessionMemberInfo(request).getAuthMap().containsKey(authInfo + "_D"));
-			
+
 			//추가 권한 체크
 			if (exAuthList != null && exAuthList.size() > 0) {
 				for ( AuthCode ac : exAuthList ) {
-					model.addAttribute("auth"+ac.getAuth_code_id(), isSiteAdmin || getSessionMemberInfo(request).getAuthMap().containsKey(authInfo + "_"+ac.getAuth_code_id()));		
+					model.addAttribute("auth"+ac.getAuth_code_id(), isSiteAdmin || getSessionMemberInfo(request).getAuthMap().containsKey(authInfo + "_"+ac.getAuth_code_id()));
 				}
 			}
-			
+
 			// CMS - 게시판 관리: 게시판 관리 팝업창, 게시글 검색에서 게시판 관리자가 비밀글을 읽을 수 있도록 권한 부여
 			String uri = request.getRequestURI();
 			if ( uri.startsWith("/index.do") ) {
@@ -226,17 +234,17 @@ public abstract class BaseController {
 				}
 			}
 		} else if ("R".equals(authCode) && getSessionMemberInfo(request).isAnonymous()) {
-			
+
 		} else {
 			throw new AuthException(msg);
 		}
 	}
-	
+
 //	/**
-//	 * 
+//	 *
 //	 * @param authCode
 //	 * @param request
-//	 * @return 
+//	 * @return
 //	 */
 //	public void checkAuth(Model model, HttpServletRequest request) {
 //		String authInfo = String.valueOf(request.getSession().getAttribute("authInfo"));
@@ -247,7 +255,7 @@ public abstract class BaseController {
 //			model.addAttribute("authD", getSessionMemberInfo(request).getAuthMap().containsKey(authInfo + "_D") || getSessionIsAdmin(request));
 //		}
 //	}
-	
+
 	/**
 	 * 로그인 여부( 비로그인 상태인 ANONYMOUS 권한이 아닐 시 로그인으로 처리 )
 	 * @return
@@ -256,7 +264,7 @@ public abstract class BaseController {
 	public Boolean isLogin() {
 		return !AuthUtils.hasAuthority("ANONYMOUS");
 	}
-	
+
 	*//**
 	 * 관리자 여부
 	 * @return
@@ -265,7 +273,7 @@ public abstract class BaseController {
 	public Boolean isAdmin() {
 		return AuthUtils.hasAuthority("ADMIN");
 	}
-	
+
 	*//**
 	 * 현재 로그인한 사용자의 권한 목록을 가져온다.
 	 * @return
@@ -274,7 +282,7 @@ public abstract class BaseController {
 	public String[] getAuthorities() {
 		return AuthUtils.getAuthorities();
 	}*/
-	
+
 	/*@ExceptionHandler(AccessDeniedException.class)
 	public ModelAndView accessDeniedExceptionHandler(AccessDeniedException ex, HttpServletRequest request) {
 		if (RequestUtils.isAjaxRequest(request)) {
@@ -283,7 +291,7 @@ public abstract class BaseController {
 		}
 		return new ModelAndView("exceptionView/error").addObject("exception", ex.getMessage());
 	}
-	
+
 	@ExceptionHandler(RuntimeException.class)
 	public ModelAndView runtimeExceptionHandler(RuntimeException ex, HttpServletRequest request) {
 		if (RequestUtils.isAjaxRequest(request)) {
@@ -292,7 +300,7 @@ public abstract class BaseController {
 		}
 		return new ModelAndView("exceptionView/error").addObject("exception", ex.getMessage());
 	}
-	
+
 	@ExceptionHandler(SQLException.class)
 	public ModelAndView sqlExceptionHandler(SQLException ex, HttpServletRequest request) throws SQLException {
 		if (RequestUtils.isAjaxRequest(request)) {
@@ -301,7 +309,7 @@ public abstract class BaseController {
 		}
 		return new ModelAndView("exceptionView/error").addObject("exception", ex.getMessage().replaceAll("\n", "."));
 	}
-	
+
 	@ExceptionHandler(Exception.class)
 	public ModelAndView exceptionHandler(Exception ex, HttpServletRequest request) throws Exception {
 		Throwable throwable = ex;

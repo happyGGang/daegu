@@ -4,56 +4,53 @@
 <%@ include file="layout/header.jsp"%>
 <script type="text/javascript">
 $(function() {
-	$('#search-btn').on('click', function(e) {
-		$('#goSearchForm').submit();
-	});
-
-	$('#login-btn').on('click', function(e) {
-		doGetLoad("login/index.do", "");
-	});
-
-	$('#join-btn').on('click', function(e) {
-		doGetLoad("join/index.do", "");
-	});
 
 	$('img#symbol').error(function() {
 		$(this).remove();
 	});
 
-	<c:if test="${homepage.context_path eq 'geiclib'}">
-	location.href = '/intro/geic/index.do';
-	</c:if>
-
 });
 </script>
 
-<form id="goSearchForm" method="post" action="search/index.do">
-<input type="hidden" name="_csrf" value="${_csrf.token}">
-</form>
 
 <div id="wrap" class="k-index">
-	<div id="header">
-		<h1>
-			<img id="symbol" src="/resources/book/intro/img/logo/${homepage.context_path}.png" onerror="" alt="심볼 마크"/>
-			<c:set var="homepage_name" value="${homepage.homepage_name}"></c:set>
-			<strong>
-			 	${homepage.homepage_name}
-			</strong>
-		</h1>
-	</div>
-	<div id="container" style="padding-top: 140px;">
-		<div class="txt">
-			<b> </b>
-			<p> </p>
-<%-- 			<b>${homepage.homepage_name} 방문을 환영합니다.</b> --%>
-<!-- 			<p>아래 이용하시고자 하는 메뉴를 선택해주세요.</p> -->
+	<div id="lnb_hm" style="right: 0px;">
+		<div class="layout">
+			<ul class="siteLink">
+				<li class="card" style="${isMobile ? '':'display:none'}"><a href="/intro/${homepage.context_path}/login/mobileCard.do">모바일회원증</a></li>
+				<c:choose>
+				<c:when test="${sessionScope.member.login}">
+				<li class="login"><a href="/intro/${homepage.context_path}/login/logout.do">로그아웃</a></li>
+				<li class="join"><a href="/intro/${homepage.context_path}/join/passCheck.do">정보수정</a></li>
+				</c:when>
+				<c:otherwise>
+				<li class="login"><a href="/intro/${homepage.context_path}/login/index.do">로그인</a></li>
+				<li class="join"><a href="/intro/${homepage.context_path}/join/index.do">신규회원가입</a></li>
+				<li class="integration"><a href="/intro/${homepage.context_path}/join/integration.do">통합인증센터</a></li>
+				</c:otherwise>
+				</c:choose>
+			</ul>
 		</div>
-		<ul class="qlink">
-			<li><a id="search-btn"><img src="/resources/book/intro/img/bt1.png" alt="noImage"/></a></li>
-			<li><a id="login-btn"><img src="/resources/book/intro/img/bt2.png" alt="noImage"/></a></li>
-			<li><a id="join-btn"><img src="/resources/book/intro/img/bt3.png" alt="noImage"/></a></li>
-		</ul>
 	</div>
+
+	<div class="web_section">
+
+	<div id="header">
+		<div>
+			<span class="symbol01"><img src="/resources/common/img/symbol01.png" onerror="" alt="대구광역시"/></span>
+			<span class="main_logo"><img id="symbol" src="/resources/book/intro/img/logo/${homepage.context_path}_logo.png" onerror="" alt="심볼 마크"/></span>
+			<span class="symbol02"><img src="/resources/common/img/symbol02.png" onerror="" alt="행복한 시민 자랑스러운 대구"/></span>
+		</div>
+	</div>
+
+	<div id="container">
+		<ul>
+			<li class="bg"><a href="/intro/${homepage.context_path}/search/index.do" id="search-btn"><img src="/resources/common/img/bt001.png" alt="통합검색센터"/></a></li>
+			<li class="bg"><a href="/intro/${homepage.context_path}/join/integration.do"><img src="/resources/common/img/bt002.png" alt="통합인증센터"/></a></li>
+			<li class="bg"><a href="/intro/${homepage.context_path}/join/index.do" class="join-btn"><img src="/resources/common/img/bt003.png" alt="신규회원가입"/></a></li>
+		  </ul>
+	</div>
+
 	<div id="footer">
 		<address>
 			<c:choose>
@@ -86,6 +83,7 @@ $(function() {
 				<c:otherwise></c:otherwise>
 			</c:choose>
 		</address>
+	</div>
 	</div>
 </div>
 

@@ -395,18 +395,10 @@ public class CommonAPI {
 	}
 
 	public static Map<String, Object> sendNAVER(Map<String, Object> param, String mode) {
-		return sendNAVER(param, mode, null);
-	}
-
-	public static Map<String, Object> sendNAVER(Map<String, Object> param, String mode, String libCode) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		HttpURLConnection connection = null;
-		String clientId = "TOqdlc19MURV_gFfLqbo";// 애플리케이션 클라이언트 아이디값";
-		String clientSecret = "uYJq9oAl32";// 애플리케이션 클라이언트 시크릿값";
-		if (StringUtils.isNotEmpty(libCode)) {
-			clientId = "G89PYX54Bu3ztIwNpasJ";// 애플리케이션 클라이언트 아이디값";--정보센터
-			clientSecret = "HC3Xprd_vh";// 애플리케이션 클라이언트 시크릿값";--정보센터
-		}
+		String clientId = "XhkuY0zwrqWVVCVebyqw";// 애플리케이션 클라이언트 아이디값";
+		String clientSecret = "Ndmc6FCo05";// 애플리케이션 클라이언트 시크릿값";
 		BufferedReader br = null;
 		try {
 			String url = mode.toLowerCase().equals("list") ? NAVER_LIST_API_URL : NAVER_DETAIL_API_URL;
@@ -434,7 +426,7 @@ public class CommonAPI {
 				response.append(inputLine);
 			}
 			log.debug("@@@@@@@@@@@@@@@@@@ NAVER API : " + url + "?" + StringUtils.join(paramList, "&"));
-			resultMap = xmlToJson(response.toString()).toMap();;
+			resultMap = xmlToJson(response.toString()).toMap();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

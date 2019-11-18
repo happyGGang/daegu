@@ -5,55 +5,80 @@
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
 <script type="text/javascript">
 $(function() {
-	$('a.loan-renew').on('click', function(e) {
-		$('#renewLoanForm #editMode').val('RENEW');
-		$('#renewLoanForm #vLoanNo').val($(this).attr('vLoanNo'));
-		
-		if ( doAjaxPost($('#renewLoanForm')) ) {
+	$('a.delay-btn').on('click', function(e) {
+		e.preventDefault();
+
+		$('input#editMode').val('RENEW');
+		$('input#loan_key').val($(this).attr('keyValue1'));
+
+		if ( doAjaxPost($('form#renewForm')) ) {
 			location.reload();
 		}
-		e.preventDefault();
 	});
+
 });
 </script>
-<form:form id="renewLoanForm" modelAttribute="librarySearch" action="save.do">
-	<form:hidden path="editMode"/>
-	<form:hidden path="vLoanNo"/>
-</form:form>
+
+<form id="renewForm" action="save.do" method="post" onsubmit="return false;">
+	<input type="hidden" name="loan_key" id="loan_key">
+	<input type="hidden" name="editMode" value="RENEW">
+</form>
+
+
+<!-- contents-title-->
+<div id="contents-title">
+	<h2>대출중인도서<span style="font-weight:300">를 확인하세요.</span></h2>
+</div>
+<!-- /contents-title-->
+
+<div class="DepthBtn">
+<c:set var="prefix" value="/intro/${homepage.context_path}/search/"></c:set>
+<a href="${prefix}loan/index.do" class="bBtn">대출중인도서</a>
+<a href="${prefix}loan/history.do" class="bBtn">대출내역조회</a>
+<a href="${prefix}sangho/index.do" class="bBtn">상호대차신청내역조회</a>
+<a href="${prefix}sangho/history.do" class="bBtn">상호대차이용내역조회</a>
+<a href="${prefix}resve/index.do" class="bBtn">대출예약조회</a>
+</div>
 
 <div class="book-list">
-<c:if test="${fn:length(loanList.dsMyLibraryList) < 1 }"> <h3>현재 대출 중인 도서가 없습니다.</h3></c:if>
-<c:forEach items="${loanList.dsMyLibraryList}" var="i">
+<c:if test="${fn:length(loanList) < 1 }"> <h3>현재 대출 중인 도서가 없습니다.</h3></c:if>
+<c:forEach items="${loanList}" var="i">
 	<div class="row">
 		<div class="box">
 			<div class="item">
 				<div class="bif">
 					<div class="top">
 						<div class="b-title">
-							<div class="box"><a href="" class="name">${i.TITLE}</a></div>
+							<div class="box">${i.TITLE_INFO}</div>
 						</div>
 						<div class="control">
-							<c:if test="${i.LOCA eq '00147009' and i.RETURN_TYPE_NAME ne '정상반납'}">
- 								<a href="" class="btn loan-renew" vLoanNo="${i.LOAN_NO}">대출 연장</a>
+							<c:if test="${i.RETURN_DEALY_CODE eq '100'}">
+							<a href="#" class="btn delay-btn" keyValue1="${i.PK}">반납연기</a>
 							</c:if>
 						</div>
 					</div>
-					<p class="info"><em>저자 : ${i.AUTHOR}</em> <span>/</span> <em>출판사 : ${i.PUBLER}</em> </p>
+					<p class="info"><em>저자 : ${i.AUTHOR}</em> <span>/</span> <em>출판사 : ${i.PUBLISHER}</em> </p>
 				</div>
 				<div class="bci">
 					<table summary="신청정보">
 						<tbody>
 							<tr>
-								<th>대출된 소장처명</th>
-								<td>${i.LOAN_LOCA_NAME}</td>
+								<th>도서관명</th>
+								<td>${i.LIB_NAME}</td>
 							</tr>
 							<tr>
 								<th>대출유형</th>
-								<td>${i.LOAN_TYPE_NAME}</td>
+								<td>
+								<c:if test="${i.LOAN_TYPE_CODE eq '0'}">일반대출</c:if>
+								<c:if test="${i.LOAN_TYPE_CODE eq '1'}">특별대출</c:if>
+								<c:if test="${i.LOAN_TYPE_CODE eq '2'}">관내대출</c:if>
+								<c:if test="${i.LOAN_TYPE_CODE eq '3'}">무인대출</c:if>
+								<c:if test="${i.LOAN_TYPE_CODE eq '4'}">장기대출</c:if>
+								</td>
 							</tr>
 							<tr>
 								<th>대출연장횟수</th>
-								<td>${i.RENEW_CNT}</td>
+								<td>${i.DELAY_CNT}</td>
 							</tr>
 							<tr>
 								<th>대출일</th>
@@ -65,7 +90,13 @@ $(function() {
 							</tr>
 							<tr>
 								<th>상태</th>
-								<td>${i.RETURN_TYPE_NAME}</td>
+								<td>
+								<c:if test="${i.STATUS eq '0'}">대출</c:if>
+								<c:if test="${i.STATUS eq '1'}">반납</c:if>
+								<c:if test="${i.STATUS eq '2'}">반납연기</c:if>
+								<c:if test="${i.STATUS eq '3'}">예약</c:if>
+								<c:if test="${i.STATUS eq '4'}">예약취소</c:if>
+								</td>
 							</tr>
 						</tbody>
 					</table>
@@ -96,7 +127,7 @@ $(function() {
 	[반납예정일] 			: ${i.RETURN_PLAN_DATE} <br/>
 	[반납시간]	 			: ${i.RETURN_TIME} <br/>
 	[반납유형코드] 			: ${i.RETURN_TYPE} <br/>
-	[반납유형] 			: ${i.RETURN_TYPE_NAME} <br/> 
+	[반납유형] 			: ${i.RETURN_TYPE_NAME} <br/>
 	[자료실코드] 			: ${i.SUB_LOCA} <br/>
 	[자료실명] 			: ${i.SUB_LOCA_NAME} <br/>
 	[서명] 				: ${i.TITLE} <br/> 	[별치기호] 			: ${i.PLACE_NO} <br/>   	[대출유형코드] 			: ${i.LOAN_TYPE} <br/> 	[대출유형] 			: ${i.LOAN_TYPE_NAME} <br/> --%>

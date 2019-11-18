@@ -10,7 +10,6 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import kr.co.whalesoft.app.cms.adminMenu.AdminMenu;
 import kr.co.whalesoft.app.cms.adminMenu.AdminMenuService;
 import kr.co.whalesoft.app.cms.authCode.AuthCodeService;
-import kr.co.whalesoft.app.cms.boardManage.BoardManageService;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.menu.Menu;
@@ -35,9 +34,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	private AuthCodeService authCodeService;
 
-	@Autowired
-	private BoardManageService boardManageService;
-
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		String uri = null;
@@ -47,7 +43,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		Menu menuOne = null;
 		AdminMenu adminMenuOne = null;
 		ModuleMngt moduleMngt = null;
-		
+
 		uri = request.getRequestURI().substring(request.getContextPath().length());
 
 		if(homepageUrl(uri)) { // 홈페이지 관련 URL 일때
@@ -62,10 +58,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 				}
 			}
 
-			Homepage reqHomepage = new Homepage();
-			reqHomepage.setContext_path(contextPath);
-			homepage = homepageService.getHomepageOneInPath(reqHomepage);
-			
+			homepage = homepageService.getHomepageOneInPath(contextPath);
+
 			if(request.getParameter("menu_idx") != null && !request.getParameter("menu_idx").equals("")) {
 				menuOne = menuService.getMenuOne(new Menu(homepage.getHomepage_id(), Integer.parseInt(request.getParameter("menu_idx"))));
 			}
@@ -85,7 +79,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 					}
 				}
 			}
-			
+
 			uri = request.getRequestURI().substring(contextPath.length() + 1);
 			if (uri.startsWith("/board/") || uri.startsWith("/boardDelete/")) {
 				request.getSession().setAttribute("exAuthList", authCodeService.getAuthCode("B0001"));
@@ -102,51 +96,53 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 				}
 			}
 
-			Homepage reqHomepage = new Homepage();
-			reqHomepage.setContext_path(contextPath);
-			homepage = homepageService.getHomepageOneInPath(reqHomepage);
+			if (uri.startsWith("/wbuilder/") || uri.startsWith("/cms/")) {
 
-			String siteId = "CMS";
-			if (homepage != null && !homepage.getHomepage_id().equals("CMS")) {
-				siteId = homepage.getHomepage_id();
-			}
+    			homepage = homepageService.getHomepageOneInPath(contextPath);
 
-			String getUri = request.getRequestURI().substring(request.getContextPath().length());
-			if(StringUtils.isNotEmpty(request.getQueryString())) {
-				getUri += "?" + request.getQueryString();
-			}
-			
-			AdminMenu adminMenu = new AdminMenu();
-			adminMenu.setMenu_url(getUri);
+//    			String siteId = "CMS";
+//    			if (homepage != null && !homepage.getHomepage_id().equals("CMS")) {
+//    				siteId = homepage.getHomepage_id();
+//    			}
 
-			adminMenuOne = adminMenuService.getAdminMenuOneByUrl(adminMenu);
-			if(adminMenuOne == null) {
-				if(getUri.startsWith("/wbuilder")) {
-					adminMenu.setMenu_url(getUri.replaceFirst("^/wbuilder", "/cms"));
-					adminMenuOne = adminMenuService.getAdminMenuOneByUrl(adminMenu);
-				} else if(getUri.startsWith("/cms")) {
-					adminMenu.setMenu_url(getUri.replaceFirst("^/cms", "/wbuilder"));
-					adminMenuOne = adminMenuService.getAdminMenuOneByUrl(adminMenu);
-				}
-				
+    			String getUri = request.getRequestURI().substring(request.getContextPath().length());
+    			if(StringUtils.isNotEmpty(request.getQueryString())) {
+    				getUri += "?" + request.getQueryString();
+    			}
+
+				AdminMenu adminMenu = new AdminMenu();
+				adminMenu.setMenu_url(getUri);
+
+				adminMenuOne = adminMenuService.getAdminMenuOneByUrl(adminMenu);
 				if(adminMenuOne == null) {
-					adminMenu.setMenu_url(getUri);
+					if(getUri.startsWith("/wbuilder")) {
+						adminMenu.setMenu_url(getUri.replaceFirst("^/wbuilder", "/cms"));
+						adminMenuOne = adminMenuService.getAdminMenuOneByUrl(adminMenu);
+					} else if(getUri.startsWith("/cms")) {
+						adminMenu.setMenu_url(getUri.replaceFirst("^/cms", "/wbuilder"));
+						adminMenuOne = adminMenuService.getAdminMenuOneByUrl(adminMenu);
+					}
+
+					if(adminMenuOne == null) {
+						adminMenu.setMenu_url(getUri);
+					}
 				}
+
+				if (adminMenuOne != null) {
+					request.getSession().setAttribute("authInfo", "CMS_"+adminMenuOne.getMenu_idx()+"_"+adminMenuOne.getModule_idx());
+					moduleMngt = moduleMngtService.getModuleMngtOne(new ModuleMngt(adminMenuOne.getModule_idx()));
+					if (moduleMngt != null && !StringUtils.isNotEmpty(moduleMngt.getAuth_group_id())) {
+						request.getSession().setAttribute("exAuthList", authCodeService.getAuthCode(moduleMngt.getAuth_group_id()));
+					}
+				}
+
 			}
 
-			if (adminMenuOne != null) {
-				request.getSession().setAttribute("authInfo", "CMS_"+adminMenuOne.getMenu_idx()+"_"+adminMenuOne.getModule_idx());
-				moduleMngt = moduleMngtService.getModuleMngtOne(new ModuleMngt(adminMenuOne.getModule_idx()));
-				if (moduleMngt != null && !StringUtils.isNotEmpty(moduleMngt.getAuth_group_id())) {
-					request.getSession().setAttribute("exAuthList", authCodeService.getAuthCode(moduleMngt.getAuth_group_id()));
-				}
-			}
-			
 			if (uri.startsWith("/board/") || uri.startsWith("/boardDelete/")) {
 				request.getSession().setAttribute("exAuthList", authCodeService.getAuthCode("B0001"));
 			}
 		}
-		
+
 		return true;
 	}
 

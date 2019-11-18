@@ -37,6 +37,9 @@ public class LibrarySearch extends PagingUtils {
 	private String insert_date;
 	private String process_date;
 	private String status_flag_display;
+	private String sms_receipt_yn;
+	private String furnish_status;//비치상태 1:신청중, 2:처리중, 3:소장중, 4:취소, null:전체
+	private String recom_opinion;
 
 	private int vStartPos;
 	private int vEndPos;
@@ -66,36 +69,12 @@ public class LibrarySearch extends PagingUtils {
 	private String excel_type; // 희망도서냐, 대출이냐, 예약이냐,등등
 	private String excel_type_detail; // 중이거냐 히스토리냐
 
-	private String searchType1 = "TITLE";// 서명(TITLE), 저자(AUTHOR), 출판사(PUBLISHER), 키워드 (KEYWORD) 중 택 1.
-	private String searchType2 = "AUTHOR";// 서명(TITLE), 저자(AUTHOR), 출판사(PUBLISHER), 키워드 (KEYWORD) 중 택 1.
-	private String searchType3 = "PUBLISHER";// 서명(TITLE), 저자(AUTHOR), 출판사(PUBLISHER), 키워드 (KEYWORD) 중 택 2.
-	private String searchType4 = "KEYWORD";// 서명(TITLE), 저자(AUTHOR), 출판사(PUBLISHER), 키워드 (KEYWORD) 중 택 1.
-	private String searchKeyword1 = "";// searchType1 의 검색어
-	private String searchKeyword2 = "";// searchType2 의 검색어
-	private String searchKeyword3 = "";// searchType3 의 검색어
-	private String searchKeyword4 = "";// searchType4 의 검색어
-	private String logicFunction1 = "AND";// searchKeyowrd1 뒤의 조건절 (AND, OR, NOT 중 택 1)
-	private String logicFunction2 = "AND";// searchKeyowrd2 뒤의 조건절 (AND, OR, NOT 중 택 1)
-	private String logicFunction3 = "AND";// searchKeyowrd3 뒤의 조건절 (AND, OR, NOT 중 택 1)
-	private String logicFunction4 = "AND";// searchKeyowrd4 뒤의 조건절 (AND, OR, NOT 중 택 1)
-	private String isbnSearch = "";// ISBN 검색어(경북은 ISBN 만 존재합니다.)
-	private String logicFunction5 = "AND";// isbnSearch 뒤의 조건절 (AND, OR, NOT 중 택 1)
-	private String kdcSearch = "";// 10진분류(KDC) 검색어
-	private String langType;// 본문언어(언어 종류는 퓨처에 문의 하시기 바랍니다.)
-	private String searchStYear;// 발행년도 시작일 (숫자 4자리 체크해주세요.)
-	private String searchEdYear;// 발행년도 종료일 (숫자 4자리 체크해주세요.)
-
 	private String detailSearchYN = "N";
 
 	private String birth_year; // yyyy
 	private String sex; // m, f
 
 	private String searchType;
-
-	private String searchSubType1 = "RIGHT"; // 검색 범위1
-	private String searchSubType2 = "RIGHT"; // 검색 범위2
-	private String searchSubType3 = "RIGHT"; // 검색 범위3
-	private String searchSubType4 = "RIGHT"; // 검색 범위4
 
 	private String[] searchFormCode; // 자료유형
 
@@ -135,6 +114,7 @@ public class LibrarySearch extends PagingUtils {
 	private String cell_phone3;
 
 	private String media_code;
+	private String worker;//무인예약,야간예약 장비
 
 	private String shelf_list;	// 자료실 구분 (상세 검색 조건)
 
@@ -147,7 +127,8 @@ public class LibrarySearch extends PagingUtils {
 	}
 
 	public LibrarySearch() {
-		this.setSortType("ASC");
+		this.setSortField("NONE");
+		this.setSortType("");
 	}
 
 	public LibrarySearch(String vLoca, String vCtrl) {
@@ -169,9 +150,10 @@ public class LibrarySearch extends PagingUtils {
 		this.vEndPos = vEndPos;
 	}
 
-	public LibrarySearch(String vLoca, String search_start_date, String search_end_date) {
+	public LibrarySearch(String manageCode, String search_start_date, String search_end_date) {
+		this.setSortField("NONE");
 		this.setSortType("ASC");
-		this.vLoca = vLoca;
+		this.manageCode = manageCode;
 		this.search_start_date = search_start_date;
 		this.search_end_date = search_end_date;
 	}
@@ -546,117 +528,6 @@ public class LibrarySearch extends PagingUtils {
 		this.search_type2 = search_type2;
 	}
 
-	public String getSearchType1() {
-		return searchType1;
-	}
-
-	public void setSearchType1(String searchType1) {
-		this.searchType1 = searchType1;
-	}
-
-	public String getSearchType2() {
-		return searchType2;
-	}
-
-	public void setSearchType2(String searchType2) {
-		this.searchType2 = searchType2;
-	}
-
-	public String getSearchType3() {
-		return searchType3;
-	}
-
-	public void setSearchType3(String searchType3) {
-		this.searchType3 = searchType3;
-	}
-
-	public String getSearchType4() {
-		return searchType4;
-	}
-
-	public void setSearchType4(String searchType4) {
-		this.searchType4 = searchType4;
-	}
-
-	public String getLogicFunction1() {
-		return logicFunction1;
-	}
-
-	public void setLogicFunction1(String logicFunction1) {
-		this.logicFunction1 = logicFunction1;
-	}
-
-	public String getLogicFunction2() {
-		return logicFunction2;
-	}
-
-	public void setLogicFunction2(String logicFunction2) {
-		this.logicFunction2 = logicFunction2;
-	}
-
-	public String getLogicFunction3() {
-		return logicFunction3;
-	}
-
-	public void setLogicFunction3(String logicFunction3) {
-		this.logicFunction3 = logicFunction3;
-	}
-
-	public String getLogicFunction4() {
-		return logicFunction4;
-	}
-
-	public void setLogicFunction4(String logicFunction4) {
-		this.logicFunction4 = logicFunction4;
-	}
-
-	public String getIsbnSearch() {
-		return isbnSearch;
-	}
-
-	public void setIsbnSearch(String isbnSearch) {
-		this.isbnSearch = isbnSearch;
-	}
-
-	public String getLogicFunction5() {
-		return logicFunction5;
-	}
-
-	public void setLogicFunction5(String logicFunction5) {
-		this.logicFunction5 = logicFunction5;
-	}
-
-	public String getKdcSearch() {
-		return kdcSearch;
-	}
-
-	public void setKdcSearch(String kdcSearch) {
-		this.kdcSearch = kdcSearch;
-	}
-
-	public String getLangType() {
-		return langType;
-	}
-
-	public void setLangType(String langType) {
-		this.langType = langType;
-	}
-
-	public String getSearchStYear() {
-		return searchStYear;
-	}
-
-	public void setSearchStYear(String searchStYear) {
-		this.searchStYear = searchStYear;
-	}
-
-	public String getSearchEdYear() {
-		return searchEdYear;
-	}
-
-	public void setSearchEdYear(String searchEdYear) {
-		this.searchEdYear = searchEdYear;
-	}
 
 	public String getDetailSearchYN() {
 		return detailSearchYN;
@@ -682,69 +553,6 @@ public class LibrarySearch extends PagingUtils {
 		this.sex = sex;
 	}
 
-	public String getSearchKeyword1() {
-		return searchKeyword1;
-	}
-
-	public void setSearchKeyword1(String searchKeyword1) {
-		this.searchKeyword1 = searchKeyword1;
-	}
-
-	public String getSearchKeyword2() {
-		return searchKeyword2;
-	}
-
-	public void setSearchKeyword2(String searchKeyword2) {
-		this.searchKeyword2 = searchKeyword2;
-	}
-
-	public String getSearchKeyword3() {
-		return searchKeyword3;
-	}
-
-	public void setSearchKeyword3(String searchKeyword3) {
-		this.searchKeyword3 = searchKeyword3;
-	}
-
-	public String getSearchKeyword4() {
-		return searchKeyword4;
-	}
-
-	public void setSearchKeyword4(String searchKeyword4) {
-		this.searchKeyword4 = searchKeyword4;
-	}
-
-	public String getSearchSubType1() {
-		return searchSubType1;
-	}
-
-	public void setSearchSubType1(String searchSubType1) {
-		this.searchSubType1 = searchSubType1;
-	}
-
-	public String getSearchSubType2() {
-		return searchSubType2;
-	}
-
-	public void setSearchSubType2(String searchSubType2) {
-		this.searchSubType2 = searchSubType2;
-	}
-
-	public String getSearchSubType3() {
-		return searchSubType3;
-	}
-
-	public void setSearchSubType3(String searchSubType3) {
-		this.searchSubType3 = searchSubType3;
-	}
-
-	public String getSearchSubType4() {
-		return searchSubType4;
-	}
-
-	public void setSearchSubType4(String searchSubType4) {
-		this.searchSubType4 = searchSubType4;
-	}
 
 	public String[] getSearchFormCode() {
 		return searchFormCode;
@@ -970,14 +778,46 @@ public class LibrarySearch extends PagingUtils {
 		this.media_code = media_code;
 	}
 
-
 	public String getShelf_list() {
 		return shelf_list;
 	}
 
-
 	public void setShelf_list(String shelf_list) {
 		this.shelf_list = shelf_list;
+	}
+
+	public String getSms_receipt_yn() {
+		return sms_receipt_yn;
+	}
+
+	public void setSms_receipt_yn(String sms_receipt_yn) {
+		this.sms_receipt_yn = sms_receipt_yn;
+	}
+
+	public String getFurnish_status() {
+		return furnish_status;
+	}
+
+	public void setFurnish_status(String furnish_status) {
+		this.furnish_status = furnish_status;
+	}
+
+	public String getRecom_opinion() {
+		return recom_opinion;
+	}
+
+	public void setRecom_opinion(String recom_opinion) {
+		this.recom_opinion = recom_opinion;
+	}
+
+
+	public String getWorker() {
+		return worker;
+	}
+
+
+	public void setWorker(String worker) {
+		this.worker = worker;
 	}
 
 }

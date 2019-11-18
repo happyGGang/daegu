@@ -2,109 +2,76 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/join/join.css"/>
+
 <script type="text/javascript">
 $(function() {
-	$('td.yearSelect > a.next').on('click', function(e) {
+	$('td.yearSelect a.next').on('click', function(e) {
 		e.preventDefault();
 		$('input#ageType').val($(this).attr('val'));
 		$('form#newMember').submit();
 	});
-	
-	$('div#changeLanguage a').on('click', function(e) {
-		e.preventDefault();
-		var id = $(this).attr('id');
-		location.href = window.location.pathname + '?menu_idx='+$('input#menu_idx').val() + '&langMode=' + id;
-	});
-	
-	$('.year_a').mouseenter(function(){
-		$('.joinAdult').attr("src","/resources/common/img/mem_adult_on.png");
-	});
-	$('.year_a').mouseleave(function(){
-		$('.joinAdult').attr("src","/resources/common/img/mem_adult.png");
-	});
-	$('.year_b').mouseenter(function(){
-		$('.joinChild').attr("src","/resources/common/img/mem_child_on.png");
-	});
-	$('.year_b').mouseleave(function(){
-		$('.joinChild').attr("src","/resources/common/img/mem_child.png");
-	});
 
 });
 </script>
-<c:set var="engMode" value="${member.langMode eq 'eng'}"></c:set>
-<c:if test="${engMode}">
-<style>
-.join-step li { margin: 0% 2%;}
-.join-step2
-</style>
-</c:if>
 
-	<p class="blind">
-		<c:if test="${engMode}">Join Process</c:if>	
-		<c:if test="${!engMode}">회원가입 단계</c:if>	
-	</p>
-	<table class="joinNoline">
-		<tbody>
-			<tr>
-				<td class="joinImg1" >
-					<img src="/resources/common/img/mem_prcs01_on.png">
-				</td>
-				<td class="active joinText">
-					<c:if test="${engMode}">Check<br/> member<br/> type</c:if>	
-					<c:if test="${!engMode}"><span>회원유형확인</span></c:if>
-				</td>
-				<td class="joinText">
-					<img src="/resources/common/img/mem_prcs_arrow.png"/>
-				</td>
-				<td class="joinImg2">
-					<img src="/resources/common/img/mem_prcs02.png">
-				</td>
-				<td class="joinText">
-					<c:if test="${engMode}">Consent to <br/>users<br/> agreement</c:if>	
-					<c:if test="${!engMode}">이용약관동의</c:if>
-				</td>
-				<td class="joinText">
-					<img src="/resources/common/img/mem_prcs_arrow.png"/>
-				</td>
-				<td class="joinImg3">
-					<img src="/resources/common/img/mem_prcs03.png">
-				</td>
-				<td class="joinText">
-					<c:if test="${engMode}">Identification</c:if>	
-					<c:if test="${!engMode}">본인확인</c:if>
-				</td>
-				<td class="joinText">
-					<img src="/resources/common/img/mem_prcs_arrow.png"/>
-				</td>
-				<td class="joinImg4">
-					<img src="/resources/common/img/mem_prcs04.png">
-				</td>
-				<td class="joinText">
-					<c:if test="${engMode}">Information<br/> input</c:if>	
-					<c:if test="${!engMode}">정보입력</c:if>
-				</td>
-			</tr>
-		</tbody>
-	</table>
+<form:form modelAttribute="newMember" action="step2.do" method="post">
+<form:hidden path="ageType"/>
+</form:form>
 
-<div class="join-wrap">
+<table class="joinNoline">
+	<tbody>
+		<tr>
+			<td class="joinImg1 center active">
+				<div class="en">STEP 01</div>
+				<div class="ko">회원유형</div>
+			</td>
 
-	<div class="info" style="float: left;">
-			<c:if test="${engMode}">
-			-Please select the type of member you belong to<br/>
-			-The process differs depending to the type of member and,<br/> &nbsp;if it differs from actual information, authentication may not be available
-			</c:if>	
-			<c:if test="${!engMode}">
-			-자신이 해당하는 회원의 종류를 선택해 주시기 바랍니다.<br/>
-			-회원유형에 따라 절차가 다르고. 실제정보와 차이가 있을 경우 인증이되지 않을 수 있습니다.
-			</c:if>
+			<td class="joinImg2 center">
+				<div class="en">STEP 02</div>
+				<div class="ko">이용약관동의</div>
+			</td>
+
+			<td class="joinImg3 center">
+				<div class="en">STEP 03</div>
+				<div class="ko">본인확인</div>
+			</td>
+
+			<td class="joinImg4 center">
+				<div class="en">STEP 04</div>
+				<div class="ko">정보입력</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="joinLine center active">
+				<div style="width:27px;border-radius:33px;background:#fab001;margin:0 auto">&nbsp;</div>
+			</td>
+
+			<td class="joinLine center">
+				<div style="width:27px;border-radius:33px;background:#000;margin:0 auto">&nbsp;</div>
+			</td>
+
+			<td class="joinLine center">
+				<div style="width:27px;border-radius:33px;background:#000;margin:0 auto">&nbsp;</div>
+			</td>
+
+			<td class="joinLine center">
+				<div style="width:27px;border-radius:33px;background:#000;margin:0 auto">&nbsp;</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+
+<div class="join-wrap" style="padding:0">
+
+	<div class="info" style="float:left;">
+		<ul class="con2">
+		<li>다음의 가입 방법 중 하나를 선택하세요.</li>
+		<li>회원유형에 따라 절차가 다르며 실제정보와 차이가 있을 경우 인증이 되지 않을 수 있습니다.</li>
+		</ul>
 	</div>
 
-	<div id="changeLanguage" style="float:right; text-align: right; margin-bottom: 20px; margin-top: 20px;">
-		<a href="#" id="kor" class="btn korea <c:if test="${!engMode}">btn1</c:if>">한국어</a>
-		<a href="#" id="eng" class="btn english <c:if test="${engMode}">btn1</c:if>">ENGLISH</a>
-	</div>
-	
 	<div style="clear: both;">
 	<table class="center joinSelect">
 		<colgroup>
@@ -113,35 +80,34 @@ $(function() {
 		</colgroup>
 		<tr>
 			<td class="yearSelect">
-				<a href="#" class="year_a next" val="more">
-					<c:if test="${engMode}">
-						<span class="joinText1">Aged 14 and over</span><br/><span class="joinText2">General members</span><br/>
-					</c:if>
-					<c:if test="${!engMode}">
-						<span class="joinText1">만 14세 이상</span><br/><span class="joinText2">일반회원</span><br/>
-					</c:if>
-					<img src="/resources/common/img/mem_adult.png" class="joinAdult">
-				</a>
+				<div class="yearSelectAlign">
+					<div class="joinImages">
+						<img src="/resources/common/img/mem_adult.jpg" alt="14세이상" class="joinAdult">
+					</div>
+					<div class="joinBtnTxt">
+						<div class="joinText1">만 14세 이상</div>
+						<div class="joinText2">가입자의 본인확인(휴대폰인증/아이핀인증) 절차가 필요합니다.</div>
+						<div><a href="#" class="year_a next btn btn01" val="more">회원가입</a></div>
+					</div>
+				</div>
 			</td>
 			<td class="yearSelect">
-				<a href="#" class="year_b next" val="under">
-					<c:if test="${engMode}">
-						<span class="joinText1">Aged 14 and under</span><br/><span class="joinText2">Children, and Student member</span><br/>
-					</c:if>
-					<c:if test="${!engMode}">
-						<span class="joinText1">만 14세 미만</span><br/><span class="joinText2">어린이, 학생회원</span><br/>
-					</c:if>
-					<img src="/resources/common/img/mem_child.png" class="joinChild">
-				</a>
+				<div class="yearSelectAlign">
+					<div class="joinImages">
+						<img src="/resources/common/img/mem_child.jpg" alt="14세미만" class="joinChild">
+					</div>
+					<div class="joinBtnTxt">
+						<div class="joinText1">만 14세 미만</div>
+						<div class="joinText2">법정대리인과 가입자의 본인확인 절차가 필요합니다.</div>
+						<div><a href="#" class="year_b next btn btn01" val="under">회원가입</a></div>
+					</div>
+				</div>
 			</td>
 		</tr>
 	</table>
 	</div>
 
 </div>
-<form:form modelAttribute="newMember" action="step2.do" method="post">
-<form:hidden path="ageType"/>
-<form:hidden path="before_url"/>
-<form:hidden path="menu_idx"/>
-<form:hidden path="langMode"/>
-</form:form>
+
+<div style="clear:both"></div>
+

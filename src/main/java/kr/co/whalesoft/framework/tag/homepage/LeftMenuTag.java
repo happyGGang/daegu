@@ -16,51 +16,51 @@ import kr.co.whalesoft.framework.utils.StaticVariables;
 public class LeftMenuTag extends BodyTagSupport {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private List<Menu> menuList;
-	
+
 	private int startDeps = 2;
-	
+
 	private boolean teacherMenu = false;
-	
+
 	@Override
 	public int doEndTag() throws JspException {
 		HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
-		
+
 		List<HtmlTag> ulTag = new ArrayList<HtmlTag>();
 		List<HtmlTag> liTag_lvl = new ArrayList<HtmlTag>();
-		
+
 		for(int i = 0 ; i < startDeps-1 ; i++){
 			ulTag.add(i,null);
 			liTag_lvl.add(i,null);
 		}
 		ulTag.add(startDeps-1,new HtmlTag("ul"));
 		liTag_lvl.add(startDeps-1,new HtmlTag("li"));
-		
+
 		int preMenuLevel = startDeps;
-		
+
 		if(menuList != null) {
 			for(Menu menu : menuList) {
 				String link_url = "";
-				
+
 				if ( menu.getMenu_type().equals("HTML") ) {
 					link_url = "/" + homepage.getContext_path() + "/html.do?menu_idx=" + menu.getMenu_idx();
 				}
 				else if ( menu.getMenu_type().equals("PROGRAM") ) {
 					if (menu.getManage_idx() == 31) {
 						Member sessionMember = (Member)request.getSession().getAttribute(StaticVariables.MEMBER);
-						if (StringUtils.equals(sessionMember.getTeacher_yn(), "Y")) {
-							link_url = String.format("/%s%s?menu_idx=%s", homepage.getContext_path(), menu.getMenu_url(), menu.getMenu_idx());
-							if ( !StringUtils.isEmpty(menu.getMenu_url_param()) ) {
-								link_url = String.format("/%s%s?menu_idx=%s&%s", homepage.getContext_path(), menu.getMenu_url(), menu.getMenu_idx(), menu.getMenu_url_param());
-							}
-							teacherMenu = true;
-						}
+//						if (StringUtils.equals(sessionMember.getTeacher_yn(), "Y")) {
+//							link_url = String.format("/%s%s?menu_idx=%s", homepage.getContext_path(), menu.getMenu_url(), menu.getMenu_idx());
+//							if ( !StringUtils.isEmpty(menu.getMenu_url_param()) ) {
+//								link_url = String.format("/%s%s?menu_idx=%s&%s", homepage.getContext_path(), menu.getMenu_url(), menu.getMenu_idx(), menu.getMenu_url_param());
+//							}
+//							teacherMenu = true;
+//						}
 					} else {
 						link_url = String.format("/%s%s?menu_idx=%s", homepage.getContext_path(), menu.getMenu_url(), menu.getMenu_idx());
 						if ( !StringUtils.isEmpty(menu.getMenu_url_param()) ) {
-							link_url = String.format("/%s%s?menu_idx=%s&%s", homepage.getContext_path(), menu.getMenu_url(), menu.getMenu_idx(), menu.getMenu_url_param());	
+							link_url = String.format("/%s%s?menu_idx=%s&%s", homepage.getContext_path(), menu.getMenu_url(), menu.getMenu_idx(), menu.getMenu_url_param());
 						}
 					}
 				}
@@ -80,15 +80,15 @@ public class LeftMenuTag extends BodyTagSupport {
 				else {
 					link_url = "/" + homepage.getContext_path() + "/html.do?menu_idx=" + menu.getMenu_idx();
 				}
-				
+
 				String targetStr = "";
-				
+
 				if(menu.getMenu_level() >= startDeps){
 					if (StringUtils.isNotEmpty(link_url)) {
 						if ( menu.getMenu_type().equals("LINK_OUTER") ) {
 							targetStr = "target=\"_blank\"";
 						}
-						
+
 						if(preMenuLevel < menu.getMenu_level()){
 							HtmlTag ul =  new HtmlTag("ul");
 							ul.setAttribute("class", "SubMenu");
@@ -102,11 +102,11 @@ public class LeftMenuTag extends BodyTagSupport {
 						ulTag.get(menu.getMenu_level()-1).addSubTag(li);;
 					}
 				}
-				
+
 				preMenuLevel = menu.getMenu_level();
 			}
 		}
-			
+
 		try {
 			pageContext.getOut().println(ulTag.get(startDeps-1).toString());
 		} catch (IOException e) {
@@ -140,7 +140,7 @@ public class LeftMenuTag extends BodyTagSupport {
 	public void setStartDeps(int startDeps) {
 		this.startDeps = startDeps;
 	}
-	
-	
-	
+
+
+
 }

@@ -28,13 +28,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ApplyController extends BaseController {
 
 	private final String basePath = "/cms/module/excursions/apply/";
-	
+
 	@Autowired
 	private ApplyService service;
-	
+
 	@Autowired
 	private ExcursionsService excursionsService;
-	
+
 	@RequestMapping(value = {"/edit.*"})
 	public String edit(Model model, Apply apply) {
 		if(apply.getEditMode().equals("MODIFY")) {
@@ -44,81 +44,81 @@ public class ApplyController extends BaseController {
 		}
 		return basePath + "edit_ajax";
 	}
-	
+
 	@RequestMapping(value = {"/applyEdit.*"})
 	public String applyEdit(Model model, Apply apply) {
 		apply.setPlan_date(apply.getStart_date());
 		model.addAttribute("applyList", service.getApply(apply));
 		return basePath + "applyEdit_ajax";
 	}
-	
+
 	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
 	public ApplySearchView excel(Model model, Apply apply, HttpServletRequest request, HttpServletResponse response) throws Exception{
-		
-		model.addAttribute("apply", apply); 		
+
+		model.addAttribute("apply", apply);
 		model.addAttribute("applyResult", service.getApply(apply));
 		return new ApplySearchView();
 	}
-	
+
 	@RequestMapping(value = {"/excelDownloadMonth.*"}, method = RequestMethod.POST)
 	public ApplySearchView excelDownloadMonth(Model model, Apply apply, HttpServletRequest request, HttpServletResponse response) throws Exception{
-		
-		model.addAttribute("apply", apply); 		
-		
+
+		model.addAttribute("apply", apply);
+
 		apply.setStart_date(apply.getPlan_date() + "-01");
 		apply.setEnd_date(apply.getPlan_date() + "-31");
-		
+
 		model.addAttribute("applyResult", service.getApplyMonth(apply));
 		return new ApplySearchView();
 	}
-	
+
 	@RequestMapping(value = {"/csvDownload.*"}, method = RequestMethod.POST)
 	public void csv(Apply apply, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		List<Apply> applyResult = service.getApply(apply);
-		
+
 		new ApplyXlsToCsv(apply, applyResult, "견학신청현황 리스트.csv", request, response);
 	}
-	
+
 	@RequestMapping(value = {"/csvDownloadMonth.*"}, method = RequestMethod.POST)
 	public void csvDownloadMonth(Model model, Apply apply, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		apply.setStart_date(apply.getPlan_date() + "-01");
 		apply.setEnd_date(apply.getPlan_date() + "-31");
-		
+
 		List<Apply> applyResult = service.getApplyMonth(apply);
-		
+
 		new ApplyXlsToCsv(apply, applyResult, "견학신청현황 리스트.csv", request, response);
 	}
-	
+
 	@RequestMapping(value = {"/stateEdit.*"})
 	public String stateEdit(Model model, Apply apply) {
 		model.addAttribute("apply", service.copyObjectPaging(apply, service.getApplyOne(apply)));
 		return basePath + "stateEdit_ajax";
 	}
-	
+
 	@RequestMapping(value = {"/checkId.*"}, method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> checkId(Model model, Apply apply, HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		
+
 		Member applyMember = new Member();
 		applyMember.setUser_id(apply.getApplicant_member_id());
-		applyMember.setCheck_certify_type("WEBID");
-		applyMember.setCheck_certify_data(apply.getApplicant_member_id());
+//		applyMember.setCheck_certify_type("WEBID");
+//		applyMember.setCheck_certify_data(apply.getApplicant_member_id());
 
 		Map<String, String> memberInfo = null;
 		if ( apply.getSearch_api_type().equals("WEBID") ) {
-			applyMember.setCheck_certify_type("WEBID");
-			applyMember.setCheck_certify_data(apply.getApplicant_member_id());
-
-			memberInfo = MemberAPI.getMemberCertify("WEB", applyMember);
-			
-			if ( memberInfo == null ) {
-				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
-				return result;
-			} else {
-				Member member = new Member();
-				member.setUser_id(memberInfo.get("USER_ID"));
-				memberInfo = MemberAPI.getMember("WEB", member);
-			}
+//			applyMember.setCheck_certify_type("WEBID");
+//			applyMember.setCheck_certify_data(apply.getApplicant_member_id());
+//
+//			memberInfo = MemberAPI.getMemberCertify("WEB", applyMember);
+//
+//			if ( memberInfo == null ) {
+//				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
+//				return result;
+//			} else {
+//				Member member = new Member();
+//				member.setUser_id(memberInfo.get("USER_ID"));
+//				memberInfo = MemberAPI.getMember("WEB", member);
+//			}
 		}
 		else {
 //			memberInfo = MemberAPI.getDupUser("WEB", applyMember, "0002", apply.getApplicant_member_id());
@@ -130,16 +130,16 @@ public class ApplyController extends BaseController {
 				return result;
 			}
 		}
-				
+
 		result.put("memberInfo", memberInfo);
-		
-		return result; 
+
+		return result;
 	}
-	
+
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Apply apply, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
-		
+
 		if(apply.getEditMode().equals("ADD") || apply.getEditMode().equals("MODIFY")) {
 			if ( !"Y".equals(apply.getSelf_info_yn()) ) {
 				res.setValid(false);
@@ -164,7 +164,7 @@ public class ApplyController extends BaseController {
 					return res;
 				}
 				Excursions excursions = excursionsService.getExcursionsOne(new Excursions(apply.getHomepage_id(), apply.getExcursions_idx()));
-				
+
 				if ( excursions.getMax_apply() > 0 ) {
 					if (excursions.getMax_apply() <= excursions.getApply_count() ) {
 						res.setValid(false);
@@ -172,7 +172,7 @@ public class ApplyController extends BaseController {
 						return res;
 					}
 				}
-				
+
 				String addResult = (String) service.addApply(apply, request);
 				if (addResult != null) {
 					res.setValid(true);
@@ -180,20 +180,20 @@ public class ApplyController extends BaseController {
 					res.setTargetOpener(true);
 					return res;
 				}
-				
+
 				res.setValid(true);
 				res.setMessage("등록 되었습니다.");
-			} 
+			}
 			else if(apply.getEditMode().equals("MODIFY")) {
 				service.modifyApply(apply);
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");
-			} 
+			}
 			else if(apply.getEditMode().equals("STATEMODIFY")) {
 				service.modifyApplyState(apply);
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");
-			} 
+			}
 			else if(apply.getEditMode().equals("DELETE")) {
 				service.deleteApply(apply);
 				res.setValid(true);
@@ -203,7 +203,7 @@ public class ApplyController extends BaseController {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
 		}
-		
+
 		return res;
 	}
 }

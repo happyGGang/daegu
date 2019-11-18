@@ -24,56 +24,56 @@ import kr.go.gbelib.app.common.api.LibSearchAPI;
 @Controller
 @RequestMapping(value = {"/cms/module/ilusReqConfig"})
 public class ILUSReqConfigController extends  BaseController {
-	
+
 	private final String basePath = "/cms/module/ilusReqConfig/";
 
 	@Autowired
 	private ILUSReqConfigService service;
-	
+
 	@Autowired
 	private CodeService codeService;
-	
+
 	@RequestMapping(value = {"/index.*"}, method = RequestMethod.GET)
 	public String index(Model model, ILUSReqConfig ilusReqConfig, HttpServletRequest request) {
 		ilusReqConfig.setHomepage_id(getAsideHomepageId(request));
 		Homepage homepage = getHomepageOne(ilusReqConfig.getHomepage_id());
-		
-		Map<String, Object> result = LibSearchAPI.getSubLocaInfo(homepage.getHomepage_code());
-		
-		model.addAttribute("ilusReqConfig", ilusReqConfig);
-		model.addAttribute("ilusReqConfigList", service.getILusReqConfigList(ilusReqConfig));
-		model.addAttribute("ilusReqCode", codeService.getCode(ilusReqConfig.getHomepage_id(), "C0024"));
-		model.addAttribute("subLocation", result.get("dsLibInfo"));
-		
+
+//		Map<String, Object> result = LibSearchAPI.getSubLocaInfo(homepage.getHomepage_code());
+//
+//		model.addAttribute("ilusReqConfig", ilusReqConfig);
+//		model.addAttribute("ilusReqConfigList", service.getILusReqConfigList(ilusReqConfig));
+//		model.addAttribute("ilusReqCode", codeService.getCode(ilusReqConfig.getHomepage_id(), "C0024"));
+//		model.addAttribute("subLocation", result.get("dsLibInfo"));
+
 		return basePath + "index";
 	}
-	
+
 	@RequestMapping(value = {"/edit.*"})
 	public String edit(Model model, ILUSReqConfig ilusReqConfig, HttpServletRequest request) throws AuthException {
 		Homepage homepage = getHomepageOne(ilusReqConfig.getHomepage_id());
-		
+
 		if(ilusReqConfig.getEditMode().equals("MODIFY")) {
 			checkAuth("U", model, request);
-			
+
 			model.addAttribute("ilusReqConfig", service.copyObjectPaging(ilusReqConfig, service.getILUSReqConfigOne(ilusReqConfig)));
 		} else {
 			checkAuth("C", model, request);
 			ilusReqConfig.setLoca_name(homepage.getHomepage_name());
 			ilusReqConfig.setLoca_code(homepage.getHomepage_code());
-			
+
 			model.addAttribute("ilusReqConfig", ilusReqConfig);
 			model.addAttribute("subLacaList", service.getSubLacaList(ilusReqConfig));
 		}
-		
-		Map<String, Object> result = LibSearchAPI.getSubLocaInfo(homepage.getHomepage_code());
-		
-		model.addAttribute("homepage", homepage);
-		model.addAttribute("ilusReqCode", codeService.getCode(ilusReqConfig.getHomepage_id(), "C0024"));
-		model.addAttribute("subLocation", result.get("dsLibInfo"));
-		
+
+//		Map<String, Object> result = LibSearchAPI.getSubLocaInfo(homepage.getHomepage_code());
+//
+//		model.addAttribute("homepage", homepage);
+//		model.addAttribute("ilusReqCode", codeService.getCode(ilusReqConfig.getHomepage_id(), "C0024"));
+//		model.addAttribute("subLocation", result.get("dsLibInfo"));
+
 		return basePath + "edit_ajax";
 	}
-	
+
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(ILUSReqConfig ilusReqConfig, BindingResult result, HttpServletRequest request) {
 		/* 유효성 검증 >>>>> */
@@ -89,7 +89,7 @@ public class ILUSReqConfigController extends  BaseController {
 				ValidationUtils.rejectIfEmpty(result, "ilus_config_list["+i+"].end_time", "기간종료시간를 입력하세요.");
 				ValidationUtils.rejectIfEmpty(result, "ilus_config_list["+i+"].res_msg", "메세지를 입력하세요.");
 				ValidationUtils.rejectIfStringLength(result, "ilus_config_list["+i+"].res_msg", 1000, "메세지");
-				
+
 				SimpleDateFormat sfTime = new SimpleDateFormat("HH:mm");
 				sfTime.setLenient(false);
 				try {
@@ -97,7 +97,7 @@ public class ILUSReqConfigController extends  BaseController {
 					String endDate = ilusReqConfig.getIlus_config_list().get(i).getEnd_date();
 					String strTime = ilusReqConfig.getIlus_config_list().get(i).getStr_time();
 					String endTime = ilusReqConfig.getIlus_config_list().get(i).getEnd_time();
-					
+
 					int nstr_time =  Integer.parseInt(strTime.replaceAll(":", ""));
 					int nend_time =  Integer.parseInt(endTime.replaceAll(":", ""));
 					if(strDate.equals(endDate) && nstr_time > nend_time ) {
@@ -107,25 +107,25 @@ public class ILUSReqConfigController extends  BaseController {
 					result.reject("시간입력은 00:00 ~ 23:59 범위 입니다.");
 				}
 			}
-			
+
 		}
-		
+
 		if(!result.hasErrors()) {
-			
+
 			if(ilusReqConfig.getEditMode().equals("ADD")) {
 				for(int i = 0; i<ilusReqConfig.getIlus_config_list().size(); i++) {
 					ILUSReqConfig one = ilusReqConfig.getIlus_config_list().get(i);
 					one.setAdd_id(getSessionMemberId(request));
-					
+
 					String strDate = one.getStr_date() + " " + one.getStr_time();
 					String endDate = one.getEnd_date() + " " + one.getEnd_time();
 					one.setStr_date(strDate.trim());
 					one.setEnd_date(endDate.trim());
-					
+
 					one.setHomepage_id(ilusReqConfig.getHomepage_id());
 					one.setLoca_name(ilusReqConfig.getLoca_name());
 					one.setLoca_code(ilusReqConfig.getLoca_code());
-					
+
 					for(String sub_loca : ilusReqConfig.getSub_loca_codes()) {
 						one.setIlus_req_idx(service.getILUSReqIdx(ilusReqConfig));
 						one.setSub_loca_code(sub_loca);
@@ -136,23 +136,23 @@ public class ILUSReqConfigController extends  BaseController {
 				res.setReload(true);
 				res.setMessage("등록되었습니다.");
 			} else if(ilusReqConfig.getEditMode().equals("MODIFY")) {
-				
+
 				for(int i = 0; i<ilusReqConfig.getIlus_config_list().size(); i++) {
 					ILUSReqConfig one = ilusReqConfig.getIlus_config_list().get(i);
 					one.setAdd_id(getSessionMemberId(request));
-					
+
 					String strDate = one.getStr_date() + " " + one.getStr_time();
 					String endDate = one.getEnd_date() + " " + one.getEnd_time();
 					one.setStr_date(strDate.trim());
 					one.setEnd_date(endDate.trim());
-					
+
 					one.setHomepage_id(ilusReqConfig.getHomepage_id());
 					one.setLoca_name(ilusReqConfig.getLoca_name());
 					one.setLoca_code(ilusReqConfig.getLoca_code());
 					one.setSub_loca_code(ilusReqConfig.getSub_loca_code());
 					service.mergeILUSReqConfig(one);
 				}
-				
+
 				res.setValid(true);
 				res.setReload(true);
 				res.setMessage("수정되었습니다.");
@@ -164,7 +164,7 @@ public class ILUSReqConfigController extends  BaseController {
 
 		return res;
 	}
-	
+
 	@RequestMapping(value = {"/delete.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse delete(ILUSReqConfig ilusReqConfig, BindingResult result, HttpServletRequest request) {
 		/* 유효성 검증 >>>>> */

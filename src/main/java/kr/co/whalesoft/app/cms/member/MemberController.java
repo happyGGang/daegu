@@ -24,22 +24,22 @@ import kr.go.gbelib.app.common.api.MemberAPI;
 @Controller
 @RequestMapping(value = {"/cms/member", "/wbuilder/member"})
 public class MemberController extends BaseController {
-	
+
 	private final String basePath = "/cms/member/";
 	private final String wbuilderPath = "/wbuilder/member/";
-	
+
 	@Autowired
 	private AuthService authService;
-	
+
 	@Autowired
 	private MemberService service;
-	
+
 	@Autowired
 	private CodeService codeService;
-	
+
 	@Autowired
 	private MemberGroupService memberGroupService;
-	
+
 	@Autowired
 	private MemberGroupSubordService memberGroupSubordService;
 
@@ -47,16 +47,16 @@ public class MemberController extends BaseController {
 	public String index(Model model, Member member, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 		member.setHomepage_id(getAsideHomepageId(request));
-		member.setAdmin(getSessionIsAdmin(request)); 
+		member.setAdmin(getSessionIsAdmin(request));
 		member.setAuth_id(getSessionMemberInfo(request).getAuth_id());
-		
-		int count = service.getMemberManageCount(member); 
+
+		int count = service.getMemberManageCount(member);
 		service.setPaging(model, count, member);
 		model.addAttribute("memberList", service.getMemberManageList(member));
 		model.addAttribute("memberListCount", count);
 		return returnUrl("index", request);
 	}
-	
+
 	@RequestMapping (value = { "/grouping{url}.*" }, method = RequestMethod.GET)
 	public String grouping(Model model, Member member, HttpServletRequest request, @PathVariable("url") String url) throws AuthException {
 		checkAuth("C", model, request);
@@ -70,13 +70,13 @@ public class MemberController extends BaseController {
 		model.addAttribute("member", member);
 		return returnUrl("grouping" + url, request);
 	}
-	
+
 	@RequestMapping(value = {"/edit.*"})
 	public String edit(Model model, Member member, HttpServletRequest request) throws AuthException {
 		member.setHomepage_id(getAsideHomepageId(request));
-		member.setAdmin(getSessionIsAdmin(request)); 
+		member.setAdmin(getSessionIsAdmin(request));
 		member.setAuth_id(getSessionMemberInfo(request).getAuth_id());
-		
+
 		if ( member.getEditMode().equals("MODIFY") ) {
 			checkAuth("U", model, request);
 			model.addAttribute("member", service.copyObjectPaging(member, service.getMemberOne(member)));
@@ -88,31 +88,31 @@ public class MemberController extends BaseController {
 			model.addAttribute("getMemberGroupList", memberGroupService.getMemberGroupList(memberGroup));
 			model.addAttribute("member", member);
 		}
-		
+
 		model.addAttribute("authList", authService.getAuth("AUTH001"));
 		model.addAttribute("cellPhoneCode", codeService.getCode(member.getHomepage_id(), "C0002"));
 		model.addAttribute("phoneCode", codeService.getCode(member.getHomepage_id(), "C0003"));
 		return returnUrl("edit_ajax", request);
 	}
-	
-	@RequestMapping(value = {"/getLinkMember.*"})
-	public @ResponseBody JsonResponse getLinkMember(Model model, Member member, HttpServletRequest request) {
-		member.setCheck_certify_data(member.getMember_id());
-		member.setCheck_certify_type("WEBID");
-		JsonResponse jr = new JsonResponse();
-		jr.setData(MemberAPI.getMemberCertify("WEB",member));
-		return jr;
-	}
-	
+
+//	@RequestMapping(value = {"/getLinkMember.*"})
+//	public @ResponseBody JsonResponse getLinkMember(Model model, Member member, HttpServletRequest request) {
+//		member.setCheck_certify_data(member.getMember_id());
+//		member.setCheck_certify_type("WEBID");
+//		JsonResponse jr = new JsonResponse();
+//		jr.setData(MemberAPI.getMemberCertify("WEB",member));
+//		return jr;
+//	}
+
 	@RequestMapping(value = { "/save.*" }, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Member member, BindingResult result, HttpServletRequest request) {
-		
+
 		JsonResponse res = new JsonResponse(request);
 
 		if ( "ADD".equals(member.getEditMode()) ) {
 			ValidationUtils.rejectIfEmpty(result, "member_id", "사용자ID를 입력해주세요.");
 			ValidationUtils.rejectIfEmpty(result, "member_name", "사용자명을 입력해주세요.");
-			ValidationUtils.rejectIfEmpty(result, "member_pw", "비밀번호를 입력해주세요.");	
+			ValidationUtils.rejectIfEmpty(result, "member_pw", "비밀번호를 입력해주세요.");
 			if ( service.checkMemberId(member) > 0 ) {
 				result.reject("중복된 ID가 있습니다.");
 			}
@@ -125,7 +125,7 @@ public class MemberController extends BaseController {
 //				result.reject("관리자 ID가 해당 홈페이지에 1개 이상은 존재 하여야 합니다.");
 //			}
 		}
-		
+
 		if ( !result.hasErrors() ) {
 //			if (Integer.parseInt(getSessionMemberInfo(request).getAuth_id()) <= 200) {
 			res.setValid(true);
@@ -142,7 +142,7 @@ public class MemberController extends BaseController {
 			} else if (member.getEditMode().equals("DELETE")) {
 				service.deleteMember(member);
 				res.setMessage("삭제되었습니다.");
-			}	
+			}
 //			}
 //			else {
 //				res.setValid(false);
@@ -155,21 +155,21 @@ public class MemberController extends BaseController {
 
 		return res;
 	}
-	
+
 	@RequestMapping(value = {"/editGroup.*"})
 	public String editGroup(Model model, MemberAuth member, HttpServletRequest request) {
 		member.setAdmin(getSessionIsAdmin(request));
 		model.addAttribute("member", member);
 		member.setHomepage_id(getAsideHomepageId(request));
 		if ( member.getEditMode().equals("ADD") ) {
-			model.addAttribute("memberList", service.getMemberListNotAuth(member));	
+			model.addAttribute("memberList", service.getMemberListNotAuth(member));
 		}
 		else if ( member.getEditMode().equals("DELETE") ) {
-			model.addAttribute("memberList", service.getMemberListInAuth(member));	
+			model.addAttribute("memberList", service.getMemberListInAuth(member));
 		}
 		return returnUrl("editGroup_ajax", request);
 	}
-	
+
 	/**
 	 * 관리자 그룹설정
 	 * @param result
@@ -193,7 +193,7 @@ public class MemberController extends BaseController {
 
 		return res;
 	}
-	
+
 	private String returnUrl(String url, HttpServletRequest request) {
 		if (request.getHeader("referer").toString().contains("wbuilder")) {
 			return wbuilderPath + url;

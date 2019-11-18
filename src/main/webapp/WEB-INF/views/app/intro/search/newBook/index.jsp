@@ -1,181 +1,276 @@
 <%@ page language="java" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
+
 <script src="/resources/cms/js/vk/vk_popup.js?vk_skin=flat_gray&vk_layout=ZW Shona"></script>
 <script type="text/javascript">
 $(function() {
-	$('#search-btn').on('click', function(e) {
-		//$('#newBookListForm').submit();
-		$('input#viewPage').val(1);
-		doGetLoad('index.do', serializeCustom($('#newBookListForm')));
+
+	//검색하기
+	$('a#search-btn').on('click', function(e) {
+		e.preventDefault();
+		$('input#viewPage').val('1');
+		doGetLoad('index.do', serializeCustom($('#librarySearch')));
 	});
 
-	$('input#search_text').keyup(function(e) {
-		e.preventDefault();
-		if(e.keyCode == 13) {
-			$('#viewPage').attr('value', '1');
-			doGetLoad('index.do', serializeCustom($('#newBookListForm')));
-		}
-	});
-	
-	$('div#board_paging a').on('click', function(e) {
-		e.preventDefault();
-		$('#viewPage').attr('value', parseInt($(this).attr('keyValue')));
-		doGetLoad('index.do', serializeCustom($('#newBookListForm')));
-	});
-	
-	$('a#board_btn_search').on('click', function(e) {
-		e.preventDefault();
-		$('#viewPage').attr('value', '1');
-		doGetLoad('index.do', serializeCustom($('#newBookListForm')));
-	});
-	
-	/* $('#checkAll').change(function(e) {
-		$('div#libraryList input:checkbox').prop('checked', $(this).prop('checked'));
-	}); */
-	
-	$('a.showSlide').on('click', function(e) {
-		e.preventDefault();
-		var bci = $(this).parents('div.bif').next('div.bci'); 
-		var toggleState = $(bci).is(':hidden');
-		if (toggleState) {
-			$(bci).load('/${homepage.context_path}/intro/search/index_detail.do?vLoca='+$(this).attr('vLoca')+'&vCtrl='+$(this).attr('vCtrl'), function() {
-				$(bci).slideToggle();	
-			});
-		} else {
-			$(bci).slideToggle();
-		}
-	});
-	
-	$('a.goDetail').on('click', function(e) {
-		e.preventDefault();
-		$('input#vLoca').val($(this).attr('vLoca'));
-		$('input#vCtrl').val($(this).attr('vCtrl'));
-		$('form#detailForm').submit();
-	});
-	$('input#search_start_date').datepicker({
-		maxDate: $('input#search_end_date').val(), 
-		onClose: function(selectedDate){
-			$('input#search_end_date').datepicker('option', 'minDate', selectedDate);
-		}
-	});
-	$('input#search_end_date').datepicker({
-		minDate: $('input#search_start_date').val(), 
-		onClose: function(selectedDate){
-			$('input#search_start_date').datepicker('option', 'maxDate', selectedDate);
-		}
-	});
 });
 </script>
-<form:form modelAttribute="librarySearch" id="detailForm" action="/intro/search/detail.do" method="post">
-	<form:hidden path="vLoca"/>
-	<form:hidden path="vCtrl"/>
-</form:form>
-<form:form id="newBookListForm" modelAttribute="librarySearch" action="index.do" method="GET" onsubmit="return false;">
+<form:form modelAttribute="librarySearch" action="index.do" method="GET" onsubmit="return false;">
 	<form:hidden path="viewPage"/>
-	<form:hidden path="menu_idx"/>
+
+	<!-- contents-title-->
+	<div id="contents-title">
+		<h2>새로운 도서<span style="font-weight:300">를 찾고 싶으세요?</span></h2>
+	</div>
+	<!-- /contents-title-->
+
 	<div class="search-wrap">
-	
-		<div id="libraryList" class="bbs-notice" style="margin-top:10px;margin-bottom:20px;" >
-			조회 기간: <form:input path="search_start_date" cssClass="text ui-calendar"/> ~ <form:input path="search_end_date" cssClass="text ui-calendar"/> 
-			<a id="search-btn" class="btn btn1">조회</a>
+
+		<div id="search_detail">
+
+			<table class="table_gray" summary="구분,자료형태,자료실,발행년도,본문언어,요약문언어 선택 항목에 관한 테이블입니다.">
+			<caption>검색항목</caption>
+			<colgroup>
+			<col style="width:15%">
+			<col style="width:35%">
+			<col style="width:15%">
+			<col style="width:35%">
+			</colgroup>
+			<tbody>
+			<tr>
+
+			<th><label for="option01">서지형태</label></th>
+			<td class="search_left">
+				<form:radiobutton path="booktype" value="0" title="도서" label="도서"/>
+				<form:radiobutton path="booktype" value="1" title="간행물" label="간행물"/>
+				<form:radiobutton path="booktype" value="2" title="비도서" label="비도서"/>
+			</td>
+
+			<th><label for="search_date03">간편검색</label></th>
+			<td class="search_left">
+				<form:radiobutton path="search_type" value="1" title="1주전" label="1주전"/>
+				<form:radiobutton path="search_type" value="2" title="1주전" label="2주전"/>
+				<form:radiobutton path="search_type" value="3" title="1주전" label="1달전"/>
+			</td>
+			</tr>
+			</tbody>
+			</table>
+			<div class="center" style="padding:0 0 50px 0">
+				<a id="search-btn" class="btnNew btn-warning btn-xs mT1">검색</a>
+			</div>
 		</div>
-	
-		<div class="smain">
-			<div class="box">
-				<div id="search-results" class="search-results wide">
-					<c:choose>
-						<c:when test="${fn:length(newBookList.dsNewBookList) > 0}">
-							<c:forEach items="${newBookList.dsNewBookList}" var="i">
-								<div class="row">
-									<p class="admin">
-<!-- 										<input type="checkbox" class="checkBook"/> -->
-									</p>
-									<div class="thumb">
-										<c:if test="${i.COVER_SMALLURL eq ''}">
-										<a vLoca="${i.LOCA}" vCtrl="${i.CTRLNO}" vImg="${i.COVER_SMALLURL}" class="goDetail">
-											<img src="/resources/homepage/geic/img/noimg2.png" alt="noImage"/>
+
+
+		<div class="search-wrap">
+
+			<div class="smain">
+				<div class="box">
+					<div style="overflow:hidden">
+						<div class="bbs-result">* 검색결과 총 : <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/></b>건</div>
+
+						<div class="mode">
+							<ul>
+								<li><a href="#;" class="btn-View imgView on">이미지형 표지형 설정</a></li>
+								<li><a href="#;" class="btn-View listView">목록형 표지형 설정</a></li>
+							</ul>
+						</div>
+					</div>
+					<div id="search-results" class="search-results wide">
+						<!-- 이미지형 -->
+						<div class="imageType">
+							<!-- 결과루프 -->
+							<c:choose>
+								<c:when test="${fn:length(newBookList) > 0}">
+									<c:forEach items="${newBookList}" var="i">
+									<c:set var="detailURL" value="/intro/${homepage.context_path}/search/detail.do?isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype)}"></c:set>
+									<div class="row">
+										<div class="thumb">
+										<c:choose>
+										<c:when test="${empty i.IMAGE}">
+										<a href="${detailURL}">
+											<img src="/resources/homepage/common/img/noImg2.png" alt="등록된 이미지가 없습니다. ${i.VOL_TITLE} 상세보기"/>
 											<span>등록된 이미지가<br/>없습니다.</span>
 										</a>
-										</c:if>
-										<c:if test="${i.COVER_SMALLURL ne ''}">
-										<a vLoca="${i.LOCA}" vCtrl="${i.CTRLNO}" vImg="${i.COVER_SMALLURL}" class="goDetail"><img src="${i.COVER_SMALLURL}" alt="noImage"/></a>
-										</c:if>
-									</div>
-									<div class="box">
-										<div class="item">
-											<div class="bif">
-												<a vLoca="${i.LOCA}" vCtrl="${i.CTRLNO}" vImg="${i.COVER_SMALLURL}" class="name goDetail">${i.TITLE}</a>
-												<p>${i.AUTHOR}</p>
-												<p>${i.PUBLER} ${i.PUBLER_YEAR}</p>
-												<p>${i.LOCA_NAME}</p>
-												<div class="stat">
-													<a href="#" class="showSlide" vLoca="" vCtrl="${i.CTRLNO}"><span>이용가능여부</span><i class="fa fa-sort-down"></i></a>
-													<span><b>${i.SUB_LOCAL_NAME}</b> [${i.CALL_NO}]</span>
-													<c:if test="${not empty i.marc_url}">
-													<a href="${i.marc_url}" class="btn" target="_blank" style="margin-left: 10px;"><span>전자책 바로보기</span></a>
-													</c:if>
+										</c:when>
+										<c:otherwise>
+										<a href="${detailURL}">
+											<img src="${i.IMAGE}" alt="${i.TITLE_INFO} 상세보기"/>
+										</a>
+										</c:otherwise>
+										</c:choose>
+										</div>
+										<div class="box">
+											<div class="item">
+												<div class="bif">
+													<a href="${detailURL}">
+													<span style='color:#e84e0e;font-weight:600'>${i.TITLE_INFO}</span></a>
+													<p>
+													<font style="color:#5e5e5e">저자</font> : ${i.AUTHOR}<br class="mobileBr"/>
+													<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+													<font style="color:#5e5e5e">출판정보</font> : ${i.PUBLISHER}, ${i.PUB_YEAR}<br class="mobileBr"/>
+													<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+													<font style="color:#5e5e5e">청구기호</font> : ${i.CALL_NO}<br class="mobileBr"/>
+													<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+													<font style="color:#5e5e5e">등록번호</font> : ${i.REG_NO}<br/><font style="color:#5e5e5e">소장도서관</font> : <span style="color:#ff0000;font-weight:bold">${i.LIB_NAME}</span><br class="mobileBr"/>
+													<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+													<font style="color:#5e5e5e">자료실</font> : ${i.SHELF_LOC_NAME}<br class="mobileBr"/>
+													<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+													<!-- 대출가능 여부 [START] -->
+													<c:choose>
+														<c:when test="${i.WORKING_STATUS == 'BOL112N'}">
+															<c:choose>
+																<c:when test="${i.RESERVATION_CNT > '0'}">
+																	<span style="color:#ff0000">대출불가(예약도서)</span>
+																</c:when>
+																<c:otherwise>
+																	<c:choose>
+																		<c:when test="${i.USE_LIMIT_CODE eq 'CD'}">
+																			대출불가(열람제한도서)
+																		</c:when>
+																		<c:when test="${i.USE_LIMIT_CODE eq 'IZ'}">
+																			귀중자료(관내열람만가능)
+																		</c:when>
+																		<c:otherwise>
+																			대출가능
+																		</c:otherwise>
+																	</c:choose>
+																</c:otherwise>
+															</c:choose>
+														</c:when>
+														<c:otherwise>
+															<c:choose>
+																<c:when test="${i.WORKING_STATUS == 'BOL211O'}">
+																	<span style="color:#ff0000">대출불가(관외대출중)</span>
+																</c:when>
+																<c:when test="${i.WORKING_STATUS == 'BOL212O'}">
+																	<span style="color:#ff0000">대출불가(관내대출중)</span>
+																</c:when>
+																<c:when test="${i.WORKING_STATUS == 'BOL511O'}">
+																	<span style="color:#ff0000">대출불가(타관반납중)</span>
+																</c:when>
+																<c:when test="${i.WORKING_STATUS == 'BOL611O'}">
+																	<span style="color:#ff0000">대출불가(타관대출중)</span>
+																</c:when>
+																<c:otherwise>
+																	<span style="color:#ff0000">대출불가</span>
+																</c:otherwise>
+															</c:choose>
+														</c:otherwise>
+													</c:choose>
+													<!-- 대출가능 여부 [ END ] -->
+													</p>
 												</div>
-											</div>
-											<div class="bci" style="display: none;">
-												<!-- ajax_area -->
 											</div>
 										</div>
 									</div>
-								</div>
-							</c:forEach>
-							<div id="board_paging" class="dataTables_paginate">
-							<c:if test="${librarySearch.firstPageNum > 0}">
-								<a href="" class="paginate_button previous" keyValue="${librarySearch.firstPageNum}">처음</a>
-							</c:if>
-							<c:if test="${librarySearch.prevPageNum > 0}">
-								<a href="" class="paginate_button previous" keyValue="${librarySearch.prevPageNum}">이전</a>
-							</c:if>	
-								<span>
-							<c:forEach var="i" varStatus="status" begin="${librarySearch.startPageNum}" end="${librarySearch.endPageNum}">
-							<c:choose>
-							<c:when test="${i eq librarySearch.viewPage}">	
-								<a href="" class="paginate_button current" keyValue="${i}">${i}</a>
-							</c:when>
-							<c:otherwise>
-								<a href="" class="paginate_button" keyValue="${i}">${i}</a>
-							</c:otherwise>
+									</c:forEach>
+									<jsp:include page="/WEB-INF/views/app/intro/search/paging.jsp" flush="false" />
+								</c:when>
+								<c:otherwise>
+									<br/>
+									<h3> 조회된 도서가 없습니다. </h3>
+									<br/>
+								</c:otherwise>
 							</c:choose>
-							</c:forEach>
-							<c:if test="${librarySearch.nextPageNum > 0}">
-								<a href="" class="paginate_button next" keyValue="${librarySearch.nextPageNum}">다음</a>
-							</c:if>
-							<c:if test="${librarySearch.totalPageCount ne librarySearch.lastPageNum}">
-								<a href="" class="paginate_button next" keyValue="${librarySearch.totalPageCount}">맨끝</a>
-							</c:if>
-								</span>
-							</div>	
-						</c:when>
-						<c:otherwise>
-							<br/><br/>
-							<h3> 조회된 도서가 없습니다. </h3>
-						</c:otherwise>
-					</c:choose>
-						
-					<div class="search txt-center mmm2" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
-						<fieldset>
-							<label class="blind">검색</label>
-							<form:select path="search_type" cssClass="selectmenu" cssStyle="width:100px;">
-								<form:option value="TITLE">서명</form:option>
-								<form:option value="AUTHOR">저자</form:option>
-								<form:option value="PUBLER">출판사</form:option>
-								<form:option value="PUBLER_YEAR">출판년도</form:option>
-							</form:select>
-							<form:input path="search_text" cssClass="text" accesskey="s" title="검색어" alt="검색어"  placeholder="검색어를 입력하세요" />
-							<a href="" class="btn btn1" id="board_btn_search"><i class="fa fa-search"></i><span>검색</span></a>
-						</fieldset>
+							<!-- 결과루프끝 -->
+						</div>
+
+
+						<!-- 텍스트형 -->
+						<div class="textType" style="display:none">
+							<!-- 결과루프 -->
+							<c:choose>
+								<c:when test="${fn:length(newBookList) > 0}">
+									<c:forEach items="${newBookList}" var="i">
+									<div class="row">
+										<div class="box">
+											<div class="item">
+												<div class="bif">
+													<a href="" class="name goDetail">
+													<span style='color:#e84e0e;font-weight:600'>${i.TITLE_INFO}</span></a>
+													<p>
+													<font style="color:#5e5e5e">저자</font> : ${i.AUTHOR}<br class="mobileBr"/>
+													<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+													<font style="color:#5e5e5e">출판정보</font> : ${i.PUBLISHER}, ${i.PUB_YEAR}<br class="mobileBr"/>
+													<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+													<font style="color:#5e5e5e">청구기호</font> : ${i.CALL_NO}<br class="mobileBr"/>
+													<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+													<font style="color:#5e5e5e">등록번호</font> : ${i.REG_NO}<br/><font style="color:#5e5e5e">소장도서관</font> : <span style="color:#ff0000;font-weight:bold">${i.LIB_NAME}</span><br class="mobileBr"/>
+													<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+													<font style="color:#5e5e5e">자료실</font> : ${i.SHELF_LOC_NAME}<br class="mobileBr"/>
+													<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+													<!-- 대출가능 여부 [START] -->
+													<c:choose>
+														<c:when test="${i.WORKING_STATUS == 'BOL112N'}">
+															<c:choose>
+																<c:when test="${i.RESERVATION_CNT > '0'}">
+																	<span style="color:#ff0000">대출불가(예약도서)</span>
+																</c:when>
+																<c:otherwise>
+																	<c:choose>
+																		<c:when test="${i.USE_LIMIT_CODE eq 'CD'}">
+																			대출불가(열람제한도서)
+																		</c:when>
+																		<c:when test="${i.USE_LIMIT_CODE eq 'IZ'}">
+																			귀중자료(관내열람만가능)
+																		</c:when>
+																		<c:otherwise>
+																			대출가능
+																		</c:otherwise>
+																	</c:choose>
+																</c:otherwise>
+															</c:choose>
+														</c:when>
+														<c:otherwise>
+															<c:choose>
+																<c:when test="${i.WORKING_STATUS == 'BOL211O'}">
+																	<span style="color:#ff0000">대출불가(관외대출중)</span>
+																</c:when>
+																<c:when test="${i.WORKING_STATUS == 'BOL212O'}">
+																	<span style="color:#ff0000">대출불가(관내대출중)</span>
+																</c:when>
+																<c:when test="${i.WORKING_STATUS == 'BOL511O'}">
+																	<span style="color:#ff0000">대출불가(타관반납중)</span>
+																</c:when>
+																<c:when test="${i.WORKING_STATUS == 'BOL611O'}">
+																	<span style="color:#ff0000">대출불가(타관대출중)</span>
+																</c:when>
+																<c:otherwise>
+																	<span style="color:#ff0000">대출불가</span>
+																</c:otherwise>
+															</c:choose>
+														</c:otherwise>
+													</c:choose>
+													<!-- 대출가능 여부 [ END ] -->
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									</c:forEach>
+									<jsp:include page="/WEB-INF/views/app/intro/search/paging.jsp" flush="false" />
+								</c:when>
+								<c:otherwise>
+									<br/>
+									<h3> 조회된 도서가 없습니다. </h3>
+									<br/>
+								</c:otherwise>
+							</c:choose>
+							<!-- 결과루프끝 -->
+
+						</div>
+
 					</div>
-				
 				</div>
 			</div>
+
 		</div>
+
+
+
 	</div>
 </form:form>
 <div id="vk"></div>

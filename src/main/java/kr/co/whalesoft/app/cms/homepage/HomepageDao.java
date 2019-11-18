@@ -17,7 +17,7 @@ public interface HomepageDao  {
 
 	public Homepage getHomepageOne(Homepage homepage);
 
-	public Homepage getHomepageOneInPath(Homepage homepage);
+	public Homepage getHomepageOneInPath(String context_path);
 
 	public int addHomepage(Homepage homepage);
 

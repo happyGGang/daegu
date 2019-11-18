@@ -23,37 +23,37 @@ public class BoardApiService extends BaseService {
 
 	@Autowired
 	private BoardService boardService;
-	
+
 	@Autowired
 	private ApiLogService apiLogService;
-	
+
 	@Autowired
 	private HomepageService homepageService;
-	
+
 	public Map<String, Object> getData(Board board, HttpServletRequest request, HttpServletResponse response) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		Map<String, Object> libMap = libMap();
-		
+
 		String libCode = request.getParameter("libCode");
-		
+
 		if (libMap.get(libCode) == null) {
 			String errmsg = "잘못된 libCode 파라미터";
 			apiLogService.addApiLog(new ApiLog("BOARD", "-1", errmsg, makeParamUrl(board, libCode), request.getRemoteAddr()));
 			return ApiController.error("-1", errmsg);
 		}
-			
+
 		BoardManage boardManage = new BoardManage();
 		boardManage.setBoard_type("NORMAL");
 		board.setManage_idx(Integer.parseInt(String.valueOf(libMap.get(libCode))));
-		
+
 		board.setTotalDataCount(boardService.getBoardCount(boardManage, board));
 		List<Board> list = boardService.getBoardApi(boardManage, board);
 		List<Map<String, Object>> boardMapList = new ArrayList<Map<String, Object>>();
-		
+
 		for(Board obj: list) {
 			boardMapList.add(toMap(obj, libCode, request));
 		}
-		
+
 		map.put("code", "1");
 		map.put("msg", "");
 		map.put("rowCount", board.getRowCount());
@@ -61,12 +61,12 @@ public class BoardApiService extends BaseService {
 		map.put("totalDataCount", board.getTotalDataCount());
 		map.put("totalPageCount", board.getTotalPageCount());
 		map.put("data", boardMapList);
-		
+
 		apiLogService.addApiLog(new ApiLog("BOARD", "0", "", makeParamUrl(board, libCode), request.getRemoteAddr()));
-		
+
 		return map;
 	}
-	
+
 
 	public Map<String, Object> toMap(Board board, String libCode, HttpServletRequest request) {
 		Homepage homepage = new Homepage();
@@ -75,7 +75,7 @@ public class BoardApiService extends BaseService {
 		if (homepage == null) {
 			homepage = new Homepage();
 			homepage.setContext_path("gbelib");
-			homepage = homepageService.getHomepageOneInPath(homepage);
+			homepage = homepageService.getHomepageOneInPath(libCode);
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		Map<String, Object> libMap2 = libMap2();
@@ -89,24 +89,24 @@ public class BoardApiService extends BaseService {
 			map.put("url", String.format("%s/%s/board/view.do?menu_idx=%s&manage_idx=%s&board_idx=%s", homepage.getDomain(), String.valueOf(libMap2.get(libCode)), board.getMenu_idx(), board.getManage_idx(), board.getBoard_idx()));
 			map.put("moreUrl", String.format("%s/%s/board/index.do?menu_idx=%s&manage_idx=%s", homepage.getDomain(), String.valueOf(libMap2.get(libCode)), board.getMenu_idx(), board.getManage_idx()));
 		}
-		
+
 		return map;
 	}
 
 
 	private String makeParamUrl(Board board, String libCode) {
 		StringBuilder sb = new StringBuilder();
-		
+
 		sb.append("libCode=" + libCode);
 		sb.append("&rowCount=" + board.getRowCount());
 		sb.append("&viewPage=" + board.getViewPage());
-		
+
 		return sb.toString();
 	}
-	
+
 	private Map<String, Object> libMap() {
 		Map<String, Object> libMap = new HashMap<String, Object>();
-		
+
 		libMap.put("00147046", "1");
 //		libMap.put("00147046", 1);
 		libMap.put("00147002", "491");
@@ -167,12 +167,12 @@ public class BoardApiService extends BaseService {
 //		청도공공도서관	00147021
 //		청송공공도서관	00147022
 //		칠곡공공도서관	00147023
-		
+
 	}
-	
+
 	private Map<String, Object> libMap2() {
 		Map<String, Object> libMap = new HashMap<String, Object>();
-		
+
 		libMap.put("00147046", "geic");
 //		libMap.put("00147046", "geiclib");
 		libMap.put("00147002", "gr");
@@ -203,8 +203,8 @@ public class BoardApiService extends BaseService {
 		libMap.put("00147022", "cs");
 		libMap.put("00147023", "cg");
 		libMap.put("00147000", "gbelib");
-		
+
 		return libMap;
-		
+
 	}
 }

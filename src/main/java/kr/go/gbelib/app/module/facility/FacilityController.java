@@ -44,52 +44,52 @@ import kr.go.gbelib.app.common.api.PushAPI;
 @Controller(value="userFacility")
 @RequestMapping(value = {"/{homepagePath}/module/facility"})
 public class FacilityController extends BaseController {
-	
+
 	private String basePath = "/homepage/%s/module/facility/";
-	
+
 	@Autowired
 	private FacilityService service;
-	
+
 	@Autowired
 	private FacilityReqService facilityReqService;
-	
+
 	@Autowired
 	private CalendarManageService calendarManageService;
-	
+
 	@Autowired
 	private SiteService siteService;
-	
+
 	@Autowired
 	private TermsService termsService;
-	
+
 	@Autowired
 	private BlackListService blackListService;
-		
+
 	@ModelAttribute("siteList")
 	public List<Site> getAreaCdList(HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		return siteService.getSiteListAll(new Site(homepage.getHomepage_id()));
 	}
-	
-	
+
+
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, Facility facility, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		facility.setHomepage_id(homepage.getHomepage_id());				
-		
+		facility.setHomepage_id(homepage.getHomepage_id());
+
 		if ( StringUtils.isEmpty(facility.getPlan_date()) ) {
 			facility.setPlan_date(new SimpleDateFormat("yyyy-MM").format(new Date()));
 		}
-		
+
 		/*FacilityReq facilityReq = new FacilityReq();
 		facilityReq.setHomepage_id(homepage.getHomepage_id());
 		facilityReq.setMember_key(getSessionUserSeqNo(request));
 		facilityReq.setPlan_date(facility.getPlan_date());*/
-		
+
 		CalendarManage calendarManage = new CalendarManage();
 		calendarManage.setHomepage_id(homepage.getHomepage_id());
 		calendarManage.setPlan_date(facility.getPlan_date());
-		
+
 		model.addAttribute("calendarList", service.getCalendar(facility));
 		model.addAttribute("calendarManageList", calendarManageService.getClosedDate(calendarManage));
 		model.addAttribute("facility", facility);
@@ -98,28 +98,28 @@ public class FacilityController extends BaseController {
 		//model.addAttribute("facilityReqList", facilityReqService.getFacilityReqCalendarList(facilityReq));
 		return String.format(basePath, homepage.getFolder()) + "index";
 	}
-	
+
 	@RequestMapping(value = {"/edit.*"})
 	public String edit(Model model, FacilityReq facilityReq, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");		
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			
+
 			facilityReq.setBefore_url(String.format("http://www.gbelib.kr/%s/module/facility/index.do?menu_idx=%s", homepage.getContext_path(), facilityReq.getMenu_idx()));
 			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://www.gbelib.kr/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), facilityReq.getMenu_idx(), facilityReq.getBefore_url()), request, response);
 			return null;
 	    }
-		
+
 		if ( blackListService.checkBlackList(new BlackList(homepage.getHomepage_id(), getSessionUserSeqNo(request)), "30")) {
 			service.alertMessage("신청이 불가능합니다.\\n도서관에 문의해주세요.", request, response);
 			return null;
 		}
-		
+
 		Facility facility = new Facility();
 		facility.setHomepage_id(homepage.getHomepage_id());
 		facility.setFacility_idx(facilityReq.getFacility_idx());
 		model.addAttribute("facility",service.getFacilityOne(facility));
-		
+
 		facilityReq.setApply_id(getSessionMemberId(request));
 		facilityReq.setHomepage_id(homepage.getHomepage_id());
 		if(facilityReq.getEditMode().equals("MODIFY")) {
@@ -127,43 +127,43 @@ public class FacilityController extends BaseController {
 		} else {
 			model.addAttribute("facilityReq", facilityReq);
 		}
-		
-		//약관 연동부 
+
+		//약관 연동부
 		Menu menuOne = (Menu) request.getAttribute("menuOne");
 		model.addAttribute("termsList", termsService.getTermsListInModule(new Terms(menuOne.getManage_idx())));
-		
+
 		model.addAttribute("member", getSessionMemberInfo(request));
-		model.addAttribute("prtcNotice",MemberAPI.getPrtcNoticeList("WEB"));
+//		model.addAttribute("prtcNotice",MemberAPI.getPrtcNoticeList("WEB"));
 		return String.format(basePath, homepage.getFolder()) + "edit";
 	}
-	
+
 	@RequestMapping(value = {"/apply.*"})
 	public String apply(Model model, FacilityReq facilityReq, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");			
-		
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
 		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			 
+
 			facilityReq.setBefore_url(String.format("http://www.gbelib.kr/%s/module/facility/index.do?menu_idx=%s&date_type=1", homepage.getContext_path(), facilityReq.getMenu_idx()));
-			
+
 			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://www.gbelib.kr/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), facilityReq.getMenu_idx(), facilityReq.getBefore_url()), request, response);
 			return null;
 	    }
-				
+
 		facilityReq.setHomepage_id(homepage.getHomepage_id());
 		facilityReq.setMember_key(getSessionUserSeqNo(request));
-		
+
 		model.addAttribute("facilityReq", facilityReq);
 		model.addAttribute("applyList", facilityReqService.getApplyList(facilityReq));
-		
+
 		return String.format(basePath, homepage.getFolder()) + "apply";
 	}
-	
+
 	@RequestMapping(value = { "/save.*" }, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Model model, FacilityReq facilityReq,BindingResult result, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		JsonResponse res = new JsonResponse(request);
 		String editMode = facilityReq.getEditMode();
-		
+
 		if ( facilityReq.getEditMode().equals("ADD") ) {
 			ValidationUtils.rejectIfEmpty(result, "apply_phone1", "휴대번호를 입력해주세요.");
 			ValidationUtils.rejectIfEmpty(result, "apply_phone2", "휴대번호를 입력해주세요.");
@@ -175,9 +175,9 @@ public class FacilityController extends BaseController {
 				return res;
 			}
 		}
-		
+
 		if (!result.hasErrors()) {
-			
+
 			StringBuilder sb = new StringBuilder();
 			sb.append(facilityReq.getSelf_info_yn() + "\n");
 			sb.append(facilityReq.getHomepage_id() + "\n");
@@ -199,7 +199,7 @@ public class FacilityController extends BaseController {
 				res.setTargetOpener(true);
 				return res;
 			}
-			
+
 			if ( editMode.equals("ADD") ) {
 				CalendarManage calendarManage = new CalendarManage();
 				calendarManage.setHomepage_id(facilityReq.getHomepage_id());
@@ -211,16 +211,16 @@ public class FacilityController extends BaseController {
 					res.setMessage("휴관일에는 시설물 이용을 하실 수 없습니다.");
 					return res;
 				}
-				
+
 				Facility oneFacility = service.getFacilityOne(new Facility(facilityReq.getHomepage_id(), facilityReq.getFacility_idx()));
-				
+
 				if ( oneFacility.getLimit_count() <= oneFacility.getApply_count() ) {
 					res.setValid(false);
 					res.setMessage("정원 마감 되었습니다.");
 					return res;
 				}
 			}
-			
+
 			facilityReq.setApply_id(getSessionMemberId(request));
 			facilityReq.setMember_key(getSessionMemberInfo(request).getSeq_no());
 
@@ -230,7 +230,7 @@ public class FacilityController extends BaseController {
 					res.setMessage("이미 신청 되었습니다.");
 					return res;
 				}
-				
+
 				facilityReq.setAdd_id(getSessionMemberId(request));
 				facilityReqService.addFacilityReq(facilityReq);
 				res.setValid(true);
@@ -239,8 +239,8 @@ public class FacilityController extends BaseController {
 				if (StringUtils.equals(getSessionMemberInfo(request).getSms_service_yn(), "Y")) {
 					PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, facilityReq.getApply_phone(), "시설물 이용 신청이 정상 처리 되었습니다.", homepage.getHomepage_send_tell(), true);
 				}
-				
-			} 
+
+			}
 			else if ( editMode.equals("CANCEL") ) {
 				facilityReq.setMod_id(getSessionMemberId(request));
 				facilityReq.setApply_status("3");

@@ -3,423 +3,203 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/join/join.css"/>
+
 <script type="text/javascript">
-if (!String.prototype.trim) {
-	String.prototype.trim = function () {
-		return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
-	};
-}
-
-var idCheck = false;
-var pwCheck = false;
-var pwCheck2 = false;
 $(function() {
+	$('th.th1').css('width', '30%');
+	$('th.th1').css('text-align', 'right');
 
-	alert('회원정보 수정 후 저장 하여야만 통합회원 동의/미동의 여부가 저장됩니다.');
-
-	if (location.href.indexOf('https') == -1) {
-//   		location.href = 'https://www.gbelib.kr' + location.pathname + location.search;
-	}
-
-	$('#save-btn').on('click', function(e) {
+	$('a.certtype').on('click', function(e) {
 		e.preventDefault();
-		<c:if test="${empty member.web_id}">
-		if ($('input#web_id').val().trim() == '') {
-			alert('아이디를 입력해주세요.');
-			$('input#web_id').focus();
-			return false;
-		}
-		if (!idCheck) {
-			alert('아이디 중복확인 후 가능합니다.');
-			return false;
-		}
-		</c:if>
-
-		if (!pwCheck2) {
-			alert('비밀번호는 영문, 숫자, 특수문자 조합으로 9자이상 20자이내로 입력하셔야 합니다.');
-			$('input#member_pw').focus();
-			return false;
-		}
-		if (!pwCheck) {
-			alert('비밀번호 확인 후 가능 합니다.');
-			$('input#member_pw_confirm').focus();
-			return false;
-		}
-		<c:if test="${!fn:contains(member.user_id, '*')}">
-		if ($('input#card_password').val().length != 4) {
-			alert('대출증 비밀번호는 숫자 4자리로 입력해주세요.');
-			$('input#card_password').focus();
-			return false;
-		}
-		</c:if>
-		$('#email').val($('#email1').val() + '@' + $('#email2').val());
-		$('#cell_phone').val($('#cell_phone1').val() + $('#cell_phone2').val() + $('#cell_phone3').val());
-		try {
-			if(doAjaxPost($('#memberInfoForm'))) {
-				location.href="/intro/${homepage.context_path}/login/index.do";
-			}
-		} catch (e) {
-			alert('통합회원 전환 과정 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요. 오류 코드: 017');
-		}
-// 		alert('준비중입니다');
+		var parent = $(this).parent('div').find('p.success').length;
+		if (parent > 0) { return false; }
+		var wWidth = 360;
+ 		var wHight = 120;
+ 		var wX = (window.screen.width - wWidth) / 2;
+ 		var wY = (window.screen.height - wHight) / 2;
+		var certWindow = window.open('', "certWindow", "directories=no,toolbar=no,resizeable=yes,left="+wX+",top="+(wY-200)+",width="+wWidth+",height="+wHight);
+		$('form#certForm input[name=certType]').val($(this).attr('id'));
+		$('form#certForm')[0].submit();
+		certWindow.focus();
 	});
 
-	$('a#findPostCode').on('click', function(e){
-		e.preventDefault();
-		daum.postcode.load(function() {
-			new daum.Postcode({
-	            oncomplete: function(data) {
-	                var fullAddr = ''; // 최종 주소 변수
-	                var extraAddr = ''; // 조합형 주소 변수
-					fullAddr = data.roadAddress;
-					if(data.bname !== ''){
-					    extraAddr += data.bname;
-					}
-					if(data.buildingName !== ''){
-					    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-					}
-					fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-	                $('#zipcode').val(data.zonecode);//5자리 새우편번호 사용
-	                $('#address1').val(fullAddr);
-	                $('#address1').focus();
-	            }
-	        }).open();
-		});
-	});
-	$('input#member_pw_confirm').on('keyup', function(e) {
-		e.preventDefault();
-		if ( $('#member_pw_confirm').val().length > 0 ) {
-			if ( $('#member_pw').val() == $('#member_pw_confirm').val() ) {
-				pwCheck = true;
-				$('#pw_confirm_message').text('일치합니다.');
-			} else {
-				pwCheck = false;
-				$('#pw_confirm_message').text('일치하지 않습니다.');
-			}
-		} else {
-			pwCheck = false;
-			$('#pw_confirm_message').text('* 비밀번호를 한번 더 입력해주세요.');
-		}
-	});
-
-	$('a#check-btn').on('click', function(e) {
-		e.preventDefault();
-		var id = $('form#memberInfoForm input#web_id').val().trim();
-		$('form#memberInfoForm input#web_id').val(id);
-		var reg = /[a-zA-Z0-9]/g;
-		var spe = reg.test(id);
-		if (!spe) {
-			alert('아이디는 영문 또는 숫자만 입력가능합니다.');
-			$('#memberInfoForm #web_id').focus();
-			return false;
-		}
-		if (id.length < 6) {
-			alert('아이디는 6자리 이상 20자 이내만 가능합니다.');
-			$('#memberInfoForm #web_id').focus();
-			return false;
-		}
-
-		$('#checkForm #newMemberId').val($('#memberInfoForm #web_id').val().trim());
-		if ( doAjaxPost($('#checkForm')) ) {
-			idCheck = true;
-			alert('사용 가능한 ID 입니다.');
-		} else {
-			alert('사용 불가능한 ID 입니다.');
-		}
-	});
-
-
-	$('input#member_pw').blur(function(e) {
-		e.preventDefault();
-		var pwdcheck = false;
-		var pw = $(this).val();
-		var num = pw.search(/[0-9]/g);
-		var eng = pw.search(/[a-z]/ig);
-		var spe = pw.search(/[^\da-zA-Z]/gi);
-		if(pw.length < 9 || pw.length > 20){
-// 			alert('4자리 ~ 20자리 이내로 입력해주세요.');
-			$('span#pwdcheck').css('color', 'red');
-			return false;
-		}
-		if(pw.search(/\s/) != -1){
-// 			alert("비밀번호는 공백없이 입력해주세요.");
-			$('span#pwdcheck').css('color', 'red');
-			return false;
-		}
-		if(num < 0 || eng < 0 || spe < 0 ){
-			$('span#pwdcheck').css('color', 'red');
-// 			alert("비밀번호는 공백없이 입력해주세요.");
-			return false;
-		}
-		$('span#pwdcheck').css('color', 'black');
-		pwCheck2 = true;
-		return true;
-	});
-
-	$('select#email2_temp').on('change', function() {
-		$('input#email2').val($(this).val());
-	});
-
-});
-$(document).on("keyup", "input:text[numberOnly]", function() {
-	$(this).val($(this).val().replace(/[^0-9]/gi, ""));
+	<c:if test="${param.ageType ne 'under' and param.ageType ne 'more'}">
+	alert('잘못된 경로로 접근하였습니다.');
+// 	location.href = 'integration.do';
+	</c:if>
 });
 </script>
 
-	<table class="joinNoline">
-		<tbody>
-			<tr>
-				<td class="joinImg1" >
-					<img src="/resources/common/img/mem_prcs02.png">
-				</td>
-				<td class="joinText">
-					이용약관동의
-				</td>
-				<td class="joinText">
-					<img src="/resources/common/img/mem_prcs_arrow.png"/>
-				</td>
-				<td class="joinImg2">
-					<img src="/resources/common/img/mem_prcs03.png">
-				</td>
-				<td class="joinText">
-					아이디 선택
-				</td>
-				<td class="joinText">
-					<img src="/resources/common/img/mem_prcs_arrow.png"/>
-				</td>
-				<td class="joinImg3">
-					<img src="/resources/common/img/mem_prcs04_on.png">
-				</td>
-				<td class="active joinText">
-					본인확인 및 정보입력
-				</td>
-			</tr>
-		</tbody>
-	</table>
+<p class="blind">회원가입 단계</p>
+<table class="joinNoline">
+	<tbody>
+		<tr>
+			<td class="joinImg1 center">
+				<div class="en">STEP 01</div>
+				<div class="ko">회원유형</div>
+			</td>
 
-<form:form id="checkForm" modelAttribute="newMember" action="check.do" onsubmit="return false;">
-	<form:hidden path="member_id" id="newMemberId"/>
-	<form:hidden path="ageType"/>
-</form:form>
+			<td class="joinImg2 center">
+				<div class="en">STEP 02</div>
+				<div class="ko">이용약관동의</div>
+			</td>
 
-<div class="join-wrap" style="padding: 0;">
+			<td class="joinImg3 center active">
+				<div class="en">STEP 03</div>
+				<div class="ko">본인확인</div>
+			</td>
 
+			<td class="joinImg4 center">
+				<div class="en">STEP 04</div>
+				<div class="ko">정보입력</div>
+			</td>
+		</tr>
+		<tr>
+			<td class="joinLine center active">
+				<div style="width:27px;border-radius:33px;background:#000;margin:0 auto">&nbsp;</div>
+			</td>
+
+			<td class="joinLine center">
+				<div style="width:27px;border-radius:33px;background:#000;margin:0 auto">&nbsp;</div>
+			</td>
+
+			<td class="joinLine center">
+				<div style="width:27px;border-radius:33px;background:#fab001;margin:0 auto">&nbsp;</div>
+			</td>
+
+			<td class="joinLine center">
+				<div style="width:27px;border-radius:33px;background:#000;margin:0 auto">&nbsp;</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<div class="join-wrap">
+<c:if test="${param.ageType eq 'under'}">
+<c:set var="parentNameTag" value="보호자 "></c:set>
+<c:set var="childNameTag" value="14세미만 "></c:set>
+</c:if>
 	<div class="info">
-		- 회원정보 수정 후 저장 하여야만 통합회원 동의/미동의 여부가 저장됩니다.
+   	 &nbsp; <b>I-PIN 신규발급 [<a href="http://www.vno.co.kr/ipin3/personal/personal01_01.asp" target="_blank">신규발급바로가기</a>]</b>
 	</div>
-
-	<form:form modelAttribute="memberInfo" id="memberInfoForm" action="save.do" onsubmit="return false;">
-		<form:hidden path="editMode" value="INTEGRATION"/>
+	<form id="loginForm" action="/intro/${homepage.context_path}/login/index.do">
+	</form>
+	<form:form id="checkForm" modelAttribute="newMember" action="check.do" onsubmit="return false;">
 		<form:hidden path="member_id"/>
-		<form:hidden path="user_id"/>
-		<form:hidden path="unAgreeFlag"/>
-		<form:hidden path="integrationId"/>
-		<form:hidden path="integrationIdList"/>
-		<form:hidden path="integrationSeqNo"/>
-		<form:hidden path="integrationSeqNoList"/>
-		<div style="text-align: right; margin-top: 25px;">
-			(<span style="color: red; font-weight: bold;">*</span>) 항목은 필수 입력값입니다.
+		<form:hidden path="ageType"/>
+	</form:form>
+	<form id="certForm" name="certForm" action="/intro/join/cert.do" method="post" target="certWindow">
+		<input type="hidden" name="certType">
+		<input type="hidden" name="_csrf" value="${_csrf.token}">
+	</form>
+	<form:form id="memberJoinForm" modelAttribute="newMember" action="integration4.do">
+		<form:hidden path="editMode"/>
+		<form:hidden path="certType"/>
+		<div style="${param.ageType ne 'under' ? 'display:none;':''}">
+		* 보호자(법정대리인) 본인인증 버튼입니다. 보호자 인증 후 만 14세 미만 본인인증 선택화면이 나타납니다.
 		</div>
-		<table id="memberForm"">
+
+		<div class="identi_select" style="${param.ageType ne 'under' ? 'display:none;':''}">
+			<table class="center joinSelect">
+				<colgroup>
+					<col width="50%"/>
+					<col width="50%"/>
+				</colgroup>
+				<tr>
+					<td class="yearSelect">
+						<div class="yearSelectAlign">
+							<div class="joinImages">
+								<img src="/resources/common/img/identy1.jpg" alt="휴대폰 본인인증"  class="joinAdult"/>
+							</div>
+							<div class="joinBtnTxt">
+								<div class="joinText1">${parentNameTag}<br/>휴대폰 본인인증</div>
+								<div class="joinText2">본인 명의의 휴대폰으로 본인여부를 확인합니다.</div>
+								<div><a href="#" class="certtype btn btn01" id="parentSms">인증하기</a></div>
+							</div>
+						</div>
+					</td>
+					<td class="yearSelect">
+						<div class="yearSelectAlign">
+							<div class="joinImages">
+								<img src="/resources/common/img/identy2.jpg" alt="아이핀 본인인증" class="joinChild">
+							</div>
+							<div class="joinBtnTxt">
+								<div class="joinText1">${parentNameTag}<br/>I-PIN(아이핀)인증</div>
+								<div class="joinText2">발급받은 아이핀(I-PIN)으로 본인여부를 확인합니다.</div>
+								<div><a href="#" class="certtype btn btn01" id="parentGpin">인증하기</a></div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<table class="editTbl" style="margin-bottom:50px; ${param.ageType ne 'under' ? 'display:none;':''}">
 			<tbody>
 				<tr>
 					<th>
-						아이디(<span style="color: red;">*</span>)
+						보호자(법정대리인) 본인인증
 					</th>
-					<td>
-						<c:choose>
-							<c:when test="${empty member.web_id or member.web_id eq null or member.web_id eq '' or fn:length(member.web_id) < 6 or member.web_id eq 'whale8'}">
-						<form:input path="web_id" cssClass="text" maxlength="20"/>
-						<a href="#" id="check-btn" class="btn">중복확인</a>
-							</c:when>
-							<c:otherwise>
-						${member.web_id}
-						<form:hidden path="web_id" cssClass="text" maxlength="20"/>
-							</c:otherwise>
-						</c:choose>
-						<div class="ui-state-highlight">
-							<span id="pwdcheck">* 아이디는 영문 또는 숫자만 가능하며 6자 이상 20자 이내만 가능합니다.</span>
-						</div>
+					<td id="parentCert">
+						* 본인인증방법을 선택해 주세요.
 					</td>
 				</tr>
 				<tr>
 					<th>
-						비밀번호(<span style="color: red;">*</span>)
+						보호자(법정대리인) 확인
 					</th>
-					<td>
-						<form:password path="member_pw" class="text"/>
-						<div class="ui-state-highlight">
-							<span id="pwdcheck">* 비밀번호는 영문, 숫자, 특수문자 조합으로 9자이상 20자이내</span>
-						</div>
-
+					<td id="parentName">
+						<input type="text" class="text" disabled="disabled"/>
 					</td>
 				</tr>
 				<tr>
 					<th>
-						비밀번호 확인(<span style="color: red;">*</span>)
+						보호자(법정대리인) 동의
 					</th>
 					<td>
-						<input id="member_pw_confirm" type="password" class="text">
-						<div class="ui-state-highlight">
-							<span id="pw_confirm_message">* 비밀번호를 한번 더 입력해주세요.</span>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<th>
-						성명(<span style="color: red;">*</span>)
-					</th>
-					<td>
-						${memberInfo.member_name}
-					</td>
-				</tr>
-				<tr>
-					<th>
-						성별(<span style="color: red;">*</span>)
-					</th>
-					<td>
-						${memberInfo.sex eq '0001' ? '남' : '여' }
-						<div id="sex_div" style="display: none;">
-						<div class="radio inline">
-						<form:radiobutton path="sex" value="0002" label="여자"/>
-						</div>
-						<div class="radio inline">
-						<form:radiobutton path="sex" value="0001" label="남자"/>
-						</div>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<th>
-						생년월일(<span style="color: red;">*</span>)
-					</th>
-					<td >
-						${memberInfo.birth_day}
-						<form:hidden path="birth_day"/>
-					</td>
-				</tr>
-				<tr>
-					<th>
-						휴대폰 번호(<span style="color: red;">*</span>)
-					</th>
-					<td>
-						<span id="cell_phone_span"></span>
-						<div id="cell_phone_div">
-					 	<form:hidden path="cell_phone"/>
-					 	<form:input path="cell_phone1" class="text" cssStyle="width:60px;" maxlength="3" numberOnly="true"/>
-					 	- <form:input path="cell_phone2" class="text" cssStyle="width:60px;" maxlength="4" numberOnly="true"/>
-					 	- <form:input path="cell_phone3" class="text" cssStyle="width:60px;" maxlength="4" numberOnly="true"/>
-						<form:checkbox path="sms_service_yn" value="Y" label="SMS 수신 여부" cssStyle="vertical-align: middle;"/>
-						</div>
-						<div class="ui-state-highlight">
-							* 도서관련 알림 및 행사 안내를 받으실 수 있습니다
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<th>
-						주소(<span style="color: red;">*</span>)
-					</th>
-					<td>
-						<div class="line2">
-							<p>
-								<form:input path="zipcode" class="text" readonly="true" cssStyle="width: 80px;"/> <a href="#" id="findPostCode" class="btn">우편번호 찾기</a>
-							</p>
-							<p>
-								<form:input path="address1" class="text" style="width:90%;" /> <br/>
-							</p>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<th>
-						소속도서관(<span style="color: red;">*</span>)
-					</th>
-					<td>
-						<form:select path="loca" cssClass="selectmenu-search" style="width:250px" disabled="${elibLendCnt > 0}">
-							<form:option value="00347034" label="경상북도교육청연수원" />
-							<form:option value="00147046" label="경상북도교육청정보센터" />
-							<form:option value="00147003" label="경상북도교육청 구미도서관" />
-							<form:option value="00147010" label="경상북도교육청 안동도서관" />
-							<form:option value="00147011" label="경상북도교육청 안동도서관용상분관" />
-							<form:option value="00147039" label="경상북도교육청 안동도서관풍산분관" />
-							<form:option value="00147008" label="경상북도교육청 상주도서관" />
-							<form:option value="00147040" label="경상북도교육청 상주도서관화령분관" />
-							<form:option value="00147032" label="경상북도교육청 영주선비도서관" />
-							<form:option value="00147024" label="경상북도교육청 영주선비도서관풍기분관" />
-							<form:option value="00147105" label="경상북도교육청문화원" />
-							<form:option value="00147013" label="경상북도교육청 영일도서관" />
-							<form:option value="00147016" label="경상북도교육청 외동도서관" />
-							<form:option value="00147014" label="경상북도교육청 금호도서관" />
-							<form:option value="00147020" label="경상북도교육청 점촌도서관" />
-							<form:option value="00147006" label="경상북도교육청 점촌도서관가은분관" />
-							<form:option value="00147004" label="경상북도교육청 삼국유사군위도서관" />
-							<form:option value="00147019" label="경상북도교육청 의성도서관" />
-							<form:option value="00147022" label="경상북도교육청 청송도서관" />
-							<form:option value="00147012" label="경상북도교육청 영양도서관" />
-							<form:option value="00147031" label="경상북도교육청 영덕도서관" />
-							<form:option value="00147021" label="경상북도교육청 청도도서관" />
-							<form:option value="00147002" label="경상북도교육청 고령도서관" />
-							<form:option value="00147009" label="경상북도교육청 성주도서관" />
-							<form:option value="00147023" label="경상북도교육청 칠곡도서관" />
-							<form:option value="00147015" label="경상북도교육청 예천도서관" />
-							<form:option value="00147007" label="경상북도교육청 봉화도서관" />
-							<form:option value="00147018" label="경상북도교육청 울진도서관" />
-							<form:option value="00147017" label="경상북도교육청 울릉도서관" />
-						</form:select>
-						<c:if test="${elibLendCnt > 0}">
-						<div class="ui-state-highlight">
-							* 대출, 예약중인 전자 콘텐츠가 있는 경우 소속도서관을 변경할 수 없습니다.
-						</div>
-						</c:if>
-					</td>
-				</tr>
-				<c:if test="${!fn:contains(member.user_id, '*')}">
-				<tr>
-					<th>
-						대출증 비밀번호 설정(<span style="color: red;">*</span>)
-					</th>
-					<td>
-						<form:password path="card_password" maxlength="4" class="text" /> *대출증 비밀번호 4자리를 입력하세요.
-					</td>
-				</tr>
-				</c:if>
-				<tr>
-					<th>
-						집전화번호
-					</th>
-					<td>
-						<form:hidden path="phone"/>
-						<form:input path="phone1" class="text" cssStyle="width:60px;;" maxlength="3" numberOnly="true"/>
-					 	- <form:input path="phone2" class="text" cssStyle="width:60px;;" maxlength="4" numberOnly="true"/>
-					 	- <form:input path="phone3" class="text" cssStyle="width:60px;;" maxlength="4" numberOnly="true"/>
-					</td>
-				</tr>
-				<tr>
-					<th>
-						이메일
-					</th>
-					<td>
-						<form:hidden path="email"/>
-						<form:input path="email1" class="text"/> @
-						<form:input path="email2" class="text"/>
-						<select id="email2_temp" name="email2_temp" class="selectmenu" style="width:150px;" >
-							<option value="" >--직접입력--</option>
-							<c:forEach items="${email}" var="i" varStatus="status">
-							<option value="${i.code_name}" <c:if test="${i.code_name eq member.email2 }">selected="selected"</c:if> >${i.code_name}</option>
-							</c:forEach>
-						</select>
+						<input type="checkbox" id="parentagree" style="vertical-align: middle; cursor: pointer;"/>
+						<label for="parentagree" style="cursor: pointer;"><strong>14세미만 어린이/아동회원의 보호자(법정대리인)임을 확인합니다.</strong></label>
 					</td>
 				</tr>
 			</tbody>
 		</table>
+
+		<div id="memberCert" class="identi_select" style="${param.ageType eq 'under' ? 'display:none;':''}">
+			<table class="center joinSelect">
+				<colgroup>
+					<col width="50%"/>
+					<col width="50%"/>
+				</colgroup>
+				<tr>
+					<td class="yearSelect">
+						<div class="yearSelectAlign">
+							<div class="joinImages">
+								<img src="/resources/common/img/identy1.jpg" alt="휴대폰 본인인증"  class="joinAdult"/>
+							</div>
+							<div class="joinBtnTxt">
+								<div class="joinText1">${childNameTag}<br/>휴대폰 본인인증</div>
+								<div class="joinText2">본인 명의의 휴대폰으로 본인여부를 확인합니다.</div>
+								<div><a href="#" class="certtype btn btn01" id="certSms">인증하기</a></div>
+							</div>
+						</div>
+					</td>
+					<td class="yearSelect">
+						<div class="yearSelectAlign">
+							<div class="joinImages">
+								<img src="/resources/common/img/identy2.jpg" alt="아이핀 본인인증" class="joinChild">
+							</div>
+							<div class="joinBtnTxt">
+								<div class="joinText1">${childNameTag}<br/>I-PIN(아이핀)인증</div>
+								<div class="joinText2">발급받은 아이핀(I-PIN)으로 본인여부를 확인합니다.</div>
+								<div><a href="#" class="certtype btn btn01" id="certGpin">인증하기</a></div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+
 	</form:form>
-	<div class="btn-wrap">
-		<a href="#" id="save-btn" class="btn btn1">저장</a>
-		<a href="/intro/${homepage.context_path}/index.do" id="cancel-btn" class="btn">취소</a>
-		<%-- <a href="/${homepage.context_path}/intro/join/secessionForm.do?menu_idx=${param.menu_idx}" id="cancel-btn" class="btn btn1">회원탈퇴</a> --%>
-	</div>
 	<br/>
 </div>

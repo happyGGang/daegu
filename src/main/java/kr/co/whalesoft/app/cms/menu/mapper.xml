@@ -191,17 +191,12 @@
 			a.MANAGE_IDX, a.CONTENT_TITLE_YN, a.LINK_URL, a.MENU_TOP_ICON,
 			a.MENU_LEFT_ICON, a.BOARD_CATEGORY1, a.MANAGE_VIEW_YN,
 			a.MANAGE_ID,
-			(SELECT MENU_IMG FROM CMS_MENU WHERE HOMEPAGE_ID = #{homepage_id} AND MENU_IDX = a.GROUP_IDX) AS MENU_IMG,
-			m.DEPT_NAME AS MANAGE_DEPT,
-			m.PHONE AS MANAGE_PHONE,
-			m.MANAGER_NAME AS MANAGE_NAME
+			(SELECT MENU_IMG FROM CMS_MENU WHERE HOMEPAGE_ID = #{homepage_id} AND MENU_IDX = a.GROUP_IDX) AS MENU_IMG
 		FROM
-			CMS_MENU a, (SELECT HOMEPAGE_ID, TASK_IDX, DEPT_NAME, PHONE, MANAGER_NAME FROM CMS_TASK_MANAGE WHERE HOMEPAGE_ID = #{homepage_id}) m
-		WHERE 1 = 1
-			AND a.HOMEPAGE_ID = m.HOMEPAGE_ID(+)
-			AND a.TASK_IDX = m.TASK_IDX(+)
-			AND a.HOMEPAGE_ID = #{homepage_id}
-			AND a.MENU_IDX = #{menu_idx}
+			CMS_MENU a
+		WHERE
+			a.HOMEPAGE_ID = #{homepage_id}
+		AND	a.MENU_IDX = #{menu_idx}
 	</select>
 
 	<select id="getParentMenuOne" resultType="kr.co.whalesoft.app.cms.menu.Menu">
