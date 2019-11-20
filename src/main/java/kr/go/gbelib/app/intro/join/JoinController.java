@@ -35,6 +35,7 @@ import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.cms.module.certLog.CertLog;
 import kr.go.gbelib.app.cms.module.certLog.CertLogService;
+import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.common.api.MemberAPI;
 
@@ -584,8 +585,10 @@ public class JoinController extends BaseController {
 					sessionMember.setEmail1(member.getEmail1());
 					sessionMember.setEmail2(member.getEmail2());
 					if (StringUtils.isNotBlank(member.getMemberNewPw())) {
-						MemberAPI.updateMemberPasswd(member);
-						sessionMember.setMember_pw(member.getMemberNewPw());
+						ApiResponse updateMemberPasswd = MemberAPI.updateMemberPasswd(member);
+						if (updateMemberPasswd.getStatus()) {
+							sessionMember.setMember_pw(member.getMemberNewPw());
+						}
 					}
 					res.setValid(true);
 					res.setMessage("수정되었습니다.");
@@ -642,6 +645,97 @@ public class JoinController extends BaseController {
 
 		return res;
 	}
+
+	@RequestMapping(value = {"/findIdForm.*"})
+	public String findMemberIdForm(@PathVariable String context_path, Model model, Member member, HttpServletRequest request) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+
+
+		model.addAttribute("memberInfo", member);
+		return basePath + "findIdForm";
+	}
+
+	@RequestMapping(value = {"/findId.*"})
+	public String findId(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		model.addAttribute("memberInfo", MemberAPI.getMember("WEB", member));
+		return String.format(basePath, homepage.getFolder()) + "findId_ajax";
+	}
+
+	@RequestMapping (value = {"/findId.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse findId(Member member, BindingResult result, HttpServletRequest request) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		JsonResponse res = new JsonResponse(request);
+
+		if (!result.hasErrors()) {
+			ApiResponse apiResult = MemberAPI.updateMemberPasswd(member);
+			res.setValid(apiResult.getStatus());
+			if (apiResult.getStatus()) {
+				res.setMessage("패스워드가 변경되었습니다.");
+				res.setUrl(String.format("/intro/%s/login/index.do", homepage.getContext_path()));
+			} else {
+				res.setMessage(apiResult.getMessage());
+			}
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+
+		return res;
+	}
+
+	/**
+	 * 비밀번호 찾기 폼
+	 * @author whalesoft YONGJU 2019. 11. 19.
+	 * @param context_path
+	 * @param model
+	 * @param member
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = {"/findPwForm.*"})
+	public String findPwForm(@PathVariable String context_path, Model model, Member member, HttpServletRequest request) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		model.addAttribute("memberInfo", member);
+		return basePath + "findPwForm";
+	}
+
+	/**
+	 * 패스워드 변경
+	 * @author whalesoft YONGJU 2019. 11. 18.
+	 * @param member
+	 * @param result
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping (value = {"/changeMemberPw.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse changeMemberPw(Member member, BindingResult result, HttpServletRequest request) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		JsonResponse res = new JsonResponse(request);
+
+		if (!result.hasErrors()) {
+			ApiResponse apiResult = MemberAPI.updateMemberPasswd(member);
+			res.setValid(apiResult.getStatus());
+			if (apiResult.getStatus()) {
+				res.setMessage("패스워드가 변경되었습니다.");
+				res.setUrl(String.format("/intro/%s/login/index.do", homepage.getContext_path()));
+			} else {
+				res.setMessage(apiResult.getMessage());
+			}
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+
+		return res;
+	}
+
+
 
 	@RequestMapping(value = {"/integration.*"})
 	public String integration(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
