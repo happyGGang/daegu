@@ -27,13 +27,22 @@ $(function() {
 					<dd class="login">
 						<fieldset>
 
-							회원님의 ID는 xxx입니다.
+							<c:choose>
+								<c:when test="${not empty certMember and not empty certMember.USER_ID}">
+								회원님의 ID는 ${certMember.USER_ID}입니다.
+								</c:when>
+								<c:otherwise>
+								등록된 회원이 아닙니다.
+								</c:otherwise>
+							</c:choose>
 
 						</fieldset>
 					</dd>
 
 					<div class="idpwSection" style="text-align:center;">
+						<c:if test="${empty certMember or empty certMember.USER_ID}">
 						<a href="/intro/${homepage.context_path}/join/index.do" class="btn btn01">신규회원가입</a>
+						</c:if>
 						<a href="/intro/${homepage.context_path}/login/index.do" class="btn btn01">로그인</a>
 						<a href="/intro/${homepage.context_path}/join/findPwForm.do" class="btn btn02">비밀번호찾기</a>
 					</div>
@@ -43,4 +52,6 @@ $(function() {
 		</div>
 	</div>
 </div>
-
+<%
+request.getSession().invalidate();
+%>

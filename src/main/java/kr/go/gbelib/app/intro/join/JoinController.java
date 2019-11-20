@@ -230,12 +230,12 @@ public class JoinController extends BaseController {
 //		mode = "findId";
 		if (StringUtils.isNotEmpty(mode) && mode.equals("findid")) {
 			model.addAttribute("findId", true);
+			request.getSession().setAttribute("findId", "o");
 			List<Map<String, Object>> memberInfo = MemberAPI.checkDupUser("1", member);
 			if (memberInfo == null) {
 				model.addAttribute("dupCheck2", true);
 			} else {
-				request.getSession().setAttribute("findId", "o");
-				request.getSession().setAttribute("certMember", memberInfo);
+				request.getSession().setAttribute("certMember", memberInfo.get(0));
 			}
 			return basePath + "certReseponse_ajax";
 		}
@@ -647,45 +647,47 @@ public class JoinController extends BaseController {
 	}
 
 	@RequestMapping(value = {"/findIdForm.*"})
-	public String findMemberIdForm(@PathVariable String context_path, Model model, Member member, HttpServletRequest request) {
+	public String findIdForm(@PathVariable String context_path, Model model, Member member, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-
-
 
 		model.addAttribute("memberInfo", member);
 		return basePath + "findIdForm";
 	}
 
-	@RequestMapping(value = {"/findId.*"})
-	public String findId(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
+	@RequestMapping(value = {"/findId.*"}, method = RequestMethod.POST)
+	public String findId(@PathVariable String context_path, Model model, Member member, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
-		model.addAttribute("memberInfo", MemberAPI.getMember("WEB", member));
-		return String.format(basePath, homepage.getFolder()) + "findId_ajax";
-	}
-
-	@RequestMapping (value = {"/findId.*"}, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse findId(Member member, BindingResult result, HttpServletRequest request) {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
-
-		JsonResponse res = new JsonResponse(request);
-
-		if (!result.hasErrors()) {
-			ApiResponse apiResult = MemberAPI.updateMemberPasswd(member);
-			res.setValid(apiResult.getStatus());
-			if (apiResult.getStatus()) {
-				res.setMessage("패스워드가 변경되었습니다.");
-				res.setUrl(String.format("/intro/%s/login/index.do", homepage.getContext_path()));
-			} else {
-				res.setMessage(apiResult.getMessage());
-			}
-		} else {
-			res.setValid(false);
-			res.setResult(result.getAllErrors());
+		String findIdFlag = (String) request.getSession().getAttribute("findId");
+		if (findIdFlag == null) {
+			return "redirect:findIdForm.do";
 		}
 
-		return res;
+		return basePath + "findId";
 	}
+
+//	@RequestMapping (value = {"/findId.*"}, method = RequestMethod.POST)
+//	public @ResponseBody JsonResponse findId(Member member, BindingResult result, HttpServletRequest request) {
+//		Homepage homepage = (Homepage) request.getAttribute("homepage");
+//
+//		JsonResponse res = new JsonResponse(request);
+//
+//		if (!result.hasErrors()) {
+//			ApiResponse apiResult = MemberAPI.updateMemberPasswd(member);
+//			res.setValid(apiResult.getStatus());
+//			if (apiResult.getStatus()) {
+//				res.setMessage("패스워드가 변경되었습니다.");
+//				res.setUrl(String.format("/intro/%s/login/index.do", homepage.getContext_path()));
+//			} else {
+//				res.setMessage(apiResult.getMessage());
+//			}
+//		} else {
+//			res.setValid(false);
+//			res.setResult(result.getAllErrors());
+//		}
+//
+//		return res;
+//	}
 
 	/**
 	 * 비밀번호 찾기 폼
