@@ -84,8 +84,8 @@ $(function() {
 
 					<!-- 아이디/비밀번호찾기 [START] -->
 					<div class="idpwSection" style="text-align:center;">
-						<a href="" class="btn btn01">아이디찾기</a>
-						<a href="" class="btn btn02">비밀번호찾기</a>
+						<a href="/intro/${homepage.context_path}/join/findIdForm.do" class="btn btn01">아이디찾기</a>
+						<a href="/intro/${homepage.context_path}/join/findPwForm.do" class="btn btn02">비밀번호찾기</a>
 					</div>
 					<!-- 아이디/비밀번호찾기 [ END ] -->
 
