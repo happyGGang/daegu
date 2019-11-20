@@ -145,7 +145,7 @@ public class MemberAPI {
 	 * @param member
 	 * @return
 	 */
-	public static boolean updateMemberPasswd(Member member) {
+	public static ApiResponse updateMemberPasswd(Member member) {
 		Map<String, Object> param = new HashMap<String, Object>();
 
 		String regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*])[A-Za-z\\d$!@#$%^&*]{9,20}$";
@@ -153,7 +153,7 @@ public class MemberAPI {
 		Pattern pattern = Pattern.compile(regexp);
 		Matcher matcher = pattern.matcher(member.getMemberNewPw());
 		if (!matcher.matches()) {
-			return false;
+			return new ApiResponse(false, "비밀번호 규칙이 올바르지 않습니다.");
 		}
 
 		param.put("userkey", member.getRec_key());
@@ -161,9 +161,13 @@ public class MemberAPI {
 		param.put("client_ip", member.getIn_ip());
 
 		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("userpasswordmodify", param);
-		String resultInfo = (String) sendKCMS.get("RESULT_INFO");
+		String code = String.valueOf(sendKCMS.get("RESULT_INFO"));
 
-		return resultInfo.equals("SUCCESS");
+		if ("SUCCESS".equals(code)) {
+			return new ApiResponse(true);
+		} else {
+			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
+		}
 	}
 
 	/**
