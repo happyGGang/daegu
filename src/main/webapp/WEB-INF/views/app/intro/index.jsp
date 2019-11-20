@@ -45,9 +45,9 @@ $(function() {
 
 	<div id="container">
 		<ul>
-			<li class="bg"><a href="/intro/${homepage.context_path}/search/index.do" id="search-btn"><img src="/resources/common/img/bt001.png" alt="통합검색센터"/></a></li>
-			<li class="bg"><a href="/intro/${homepage.context_path}/join/integration.do"><img src="/resources/common/img/bt002.png" alt="통합인증센터"/></a></li>
-			<li class="bg"><a href="/intro/${homepage.context_path}/join/index.do" class="join-btn"><img src="/resources/common/img/bt003.png" alt="신규회원가입"/></a></li>
+			<li class="bg bg01"><a href="/intro/${homepage.context_path}/search/index.do" id="search-btn"><img src="/resources/common/img/bt001.png" alt="통합검색센터"/></a></li>
+			<li class="bg bg02"><a href="/intro/${homepage.context_path}/join/integration.do"><img src="/resources/common/img/bt002.png" alt="통합인증센터"/></a></li>
+			<li class="bg bg03"><a href="/intro/${homepage.context_path}/join/index.do" class="join-btn"><img src="/resources/common/img/bt003.png" alt="신규회원가입"/></a></li>
 		  </ul>
 	</div>
 
