@@ -129,9 +129,14 @@ public class JoinController extends BaseController {
 			model.addAttribute("result", joinService.getIpinEncData(request, returnUrl));
 		}
 
-		String mode = String.valueOf(request.getParameter("mode"));
 		request.getSession().setAttribute("certType", certType);
+		String mode = String.valueOf(request.getParameter("mode"));
 		request.getSession().setAttribute("certMode", mode);
+		if (StringUtils.equals(mode, "findPw")) {
+			//비밀번호 찾기 시 아이디와 한번더 비교한다.
+			String member_id = String.valueOf(request.getParameter("member_id"));
+			request.getSession().setAttribute("findPwMemberId", member_id);
+		}
 
 		if (StringUtils.equals(mode.toLowerCase(), "changename")) {
 			request.getSession().setAttribute("changeNameMenuIdx", request.getParameter("menu_idx"));
@@ -244,12 +249,18 @@ public class JoinController extends BaseController {
 //		mode = "findPw";
 		if (StringUtils.isNotEmpty(mode) && mode.equals("findpw")) {
 			model.addAttribute("findPw", true);
+			request.getSession().setAttribute("findPw", "o");
 			List<Map<String, Object>> memberInfo = MemberAPI.checkDupUser("1", member);
-			if (memberInfo == null) {
-				model.addAttribute("dupCheck2", true);
-			} else {
-				request.getSession().setAttribute("findPw", "o");
-				request.getSession().setAttribute("certMember", memberInfo);
+			model.addAttribute("dupCheck2", true);
+			if (CollectionUtils.isNotEmpty(memberInfo)) {
+				String member_id = (String)request.getSession().getAttribute("findPwMemberId");
+				for (Map<String, Object> map : memberInfo) {
+					if (StringUtils.equals(member_id, String.valueOf(map.get("USER_ID")))) {
+						request.getSession().setAttribute("certMember", memberInfo.get(0));
+						model.addAttribute("dupCheck2", false);
+						break;
+					}
+				}
 			}
 			return basePath + "certReseponse_ajax";
 		}
@@ -648,7 +659,6 @@ public class JoinController extends BaseController {
 
 	@RequestMapping(value = {"/findIdForm.*"})
 	public String findIdForm(@PathVariable String context_path, Model model, Member member, HttpServletRequest request) {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 		model.addAttribute("memberInfo", member);
 		return basePath + "findIdForm";
@@ -656,41 +666,17 @@ public class JoinController extends BaseController {
 
 	@RequestMapping(value = {"/findId.*"}, method = RequestMethod.POST)
 	public String findId(@PathVariable String context_path, Model model, Member member, HttpServletRequest request) {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 		String findIdFlag = (String) request.getSession().getAttribute("findId");
-		if (findIdFlag == null) {
+		if (findIdFlag == null ) {
 			return "redirect:findIdForm.do";
 		}
 
 		return basePath + "findId";
 	}
 
-//	@RequestMapping (value = {"/findId.*"}, method = RequestMethod.POST)
-//	public @ResponseBody JsonResponse findId(Member member, BindingResult result, HttpServletRequest request) {
-//		Homepage homepage = (Homepage) request.getAttribute("homepage");
-//
-//		JsonResponse res = new JsonResponse(request);
-//
-//		if (!result.hasErrors()) {
-//			ApiResponse apiResult = MemberAPI.updateMemberPasswd(member);
-//			res.setValid(apiResult.getStatus());
-//			if (apiResult.getStatus()) {
-//				res.setMessage("패스워드가 변경되었습니다.");
-//				res.setUrl(String.format("/intro/%s/login/index.do", homepage.getContext_path()));
-//			} else {
-//				res.setMessage(apiResult.getMessage());
-//			}
-//		} else {
-//			res.setValid(false);
-//			res.setResult(result.getAllErrors());
-//		}
-//
-//		return res;
-//	}
-
 	/**
-	 * 비밀번호 찾기 폼
+	 * 비밀번호 찾기 - 본인인증
 	 * @author whalesoft YONGJU 2019. 11. 19.
 	 * @param context_path
 	 * @param model
@@ -700,10 +686,26 @@ public class JoinController extends BaseController {
 	 */
 	@RequestMapping(value = {"/findPwForm.*"})
 	public String findPwForm(@PathVariable String context_path, Model model, Member member, HttpServletRequest request) {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 		model.addAttribute("memberInfo", member);
+
 		return basePath + "findPwForm";
+	}
+	/**
+	 * 비밀번호 찾기 폼
+	 * @author whalesoft YONGJU 2019. 11. 19.
+	 * @param context_path
+	 * @param model
+	 * @param member
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = {"/changePwForm.*"}, method = RequestMethod.POST)
+	public String changePwForm(@PathVariable String context_path, Model model, Member member, HttpServletRequest request) {
+
+		model.addAttribute("memberInfo", member);
+
+		return basePath + "changePwForm";
 	}
 
 	/**
@@ -720,11 +722,22 @@ public class JoinController extends BaseController {
 
 		JsonResponse res = new JsonResponse(request);
 
+		if (memberService.decryptMember(member) == false) {
+			result.reject("member_pw_tmp", "비밀번호를 다시 확인해주세요.");
+		}
+
 		if (!result.hasErrors()) {
+
+			@SuppressWarnings ("unchecked")
+			Map<String, Object> certMember = (Map<String, Object>) request.getSession().getAttribute("certMember");
+
+			member.setRec_key(String.valueOf(certMember.get("REC_KEY")));
+			member.setIn_ip(request.getRemoteAddr());
+
 			ApiResponse apiResult = MemberAPI.updateMemberPasswd(member);
 			res.setValid(apiResult.getStatus());
 			if (apiResult.getStatus()) {
-				res.setMessage("패스워드가 변경되었습니다.");
+				res.setMessage("비밀번호가 변경되었습니다.");
 				res.setUrl(String.format("/intro/%s/login/index.do", homepage.getContext_path()));
 			} else {
 				res.setMessage(apiResult.getMessage());

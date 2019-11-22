@@ -60,7 +60,7 @@ $(function() {
 			window.close();
 			return false;
 		}
-		window.opener.document.getElementById('memberInfoForm').submit();
+		window.opener.document.getElementById('memberInfo').submit();
 		window.close();
 		return false;
 	} else if ('${findId}' == 'true') {

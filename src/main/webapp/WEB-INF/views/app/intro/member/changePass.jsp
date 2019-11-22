@@ -9,12 +9,12 @@
 <!-- 비밀번호 찾기 전용 [START] -->
 <div id="contents-title">
 	<h2>
-		본인 확인이 완료되었습니다. 
+		본인 확인이 완료되었습니다.
 		</br>
 		<span style="font-weight:300; color:#fab000">비밀번호를 변경해 주십시요.</span>
 	</h2>
-</div>			
-					
+</div>
+
 <div class="login-box">
 	<div class="login-body">
 		<div class="tab">
@@ -26,8 +26,8 @@
 							<legend class="blind">비밀번호 변경</legend>
 
 							<form id="findMemberPwForm" name="findMemberPwForm" method="post">
-							<input type="hidden" id="userkey" name="userkey" value="9102616011"/>	
-							<input type="hidden" id="ipin_hash" name="ipin_hash" value="Q7LLc259i3+Am+ggTScIB2fYG1bjX4qPviXQsgz/lHnSJxGxY7WSQ4xespI1ebrtfSMD/YdgEQBa1zKWt6jYXw=="/>			
+							<input type="hidden" id="userkey" name="userkey" value="9102616011"/>
+							<input type="hidden" id="ipin_hash" name="ipin_hash" value="Q7LLc259i3+Am+ggTScIB2fYG1bjX4qPviXQsgz/lHnSJxGxY7WSQ4xespI1ebrtfSMD/YdgEQBa1zKWt6jYXw=="/>
 							<div class="login-type">
 							</div>
 							<div class="form-box">
@@ -40,7 +40,7 @@
 								<input type="password" id="re_password" name="re_password" maxlength="20" class="txt" value="" placeholder="새비밀번호 확인을 입력해 주십시요." />
 								</p>
 							</div>
-							
+
 							<button id="pw-change-btn">
 								<span>변경</span>
 							</button>
@@ -50,7 +50,7 @@
 						</fieldset>
 
 						<div class="highlight">
-						<span id="">* 비밀번호는 영문(대소문자구분),숫자,특수문자(!@#$%^&*만 허용)를 혼용하여 8~20자이내</span>
+						<span id="">* 비밀번호는 영문(대소문자구분),숫자,특수문자(!@#$%^&*만 허용)를 혼용하여 9~20자이내</span>
 						</div>
 					</dd>
 				</div>
