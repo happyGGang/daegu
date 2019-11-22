@@ -1014,14 +1014,10 @@ public class LibrarySearchController extends BaseController {
 
 						if (sameBookCount > 0) {
 							map2.put("already"+isbn.length(), true);
-//							map2.put("ctrlno", sameBookList.get(0).get("CTRLNO"));
 						}
 
 					}
 
-//					if (LibSearchAPI.getSameBookList("WEB", isbn13, homepage.getHomepage_codeList()[0]).get("dsSameBookList") != null) {
-//						map2.put("already", true);
-//					}
 				}
 				service.setPaging(model, totalCount, librarySearch);
 				model.addAttribute("naverResult", map);
@@ -1291,6 +1287,16 @@ public class LibrarySearchController extends BaseController {
 	}
 
 
+	/**
+	 * 청구기호 출력
+	 * @author whalesoft YONGJU 2019. 11. 22.
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = {"/print.*"})
 	public String print(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
