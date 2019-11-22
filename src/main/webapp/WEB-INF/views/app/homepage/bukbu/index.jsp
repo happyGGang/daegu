@@ -1,0 +1,300 @@
+<%@ page language="java" pageEncoding="utf-8" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<tiles:insertAttribute name="header" />
+<div id="wrap">
+	<tiles:insertAttribute name="top" />
+	<tiles:insertAttribute name="topMenu" />
+<script type="text/javascript">
+	$(function() {
+		
+		// 팝업 관련 코드 START
+		$('.close-btn').on('click', function() {
+			var $this = $(this);
+			var checkInput = $this.parent().find('input');
+			var popupId = checkInput.val();
+			if ( checkInput.prop('checked') ) {
+				var todayDate 	= new Date();   
+				todayDate 		= new Date(parseInt(todayDate.getTime() / 86400000) * 86400000 + 54000000);  
+				document.cookie = popupId + "=no" + "; path=/; expires=" + todayDate.toGMTString() + ";"	
+			}
+			
+			$('div#'+popupId).hide();
+		});
+		
+		$('input[id*=pop]').on('click', function(e) {
+			e.preventDefault();
+			$(this).prop('checked', true);
+			$(this).parent('div').next('a').click();
+		});
+		
+		$('#popupLayer > div').each(function(i, v) {
+			var result = '';
+			var name = $(v).attr('id');
+			var nameOfCookie = name + "=";  
+		    var x = 0;  
+		    while ( x <= document.cookie.length ) {  
+		       var y = ( x + nameOfCookie.length );
+		       if ( document.cookie.substring( x, y ) == nameOfCookie ) {  
+		           if ( (endOfCookie=document.cookie.indexOf( ";", y )) == -1 )  
+		               endOfCookie = document.cookie.length;  
+		           result = unescape( document.cookie.substring( y, endOfCookie ) );  
+		       }  
+		       x = document.cookie.indexOf( " ", x ) + 1;  
+		       if ( x == 0 )  
+		           break;  
+		    }  
+			
+		   	if (result != 'no') {
+		   		if  (window.innerWidth < $(v).width() ) {
+					$(v).css('width', 'auto');
+				}
+		      	$(v).show();
+		   	}
+		});
+	   	// 팝업 관련 코드 END
+	   	$(window).resize(function() {
+	   		$('.lt_photo img').height($('.lt_photo img').width() * 0.9);
+	   	}).trigger('resize');
+	   	
+	   	$('#main-search-btn').on('click', function() {
+			if( $('input#search_text_1').val() == '' ) {
+				alert('검색어를 입력하세요.');
+				$('input#search_text_1').focus();
+				return false;
+			}
+				$('#mainSearchForm').submit();
+		});
+	   	var resizeFunc = function() {
+			$('.lt_photo img').height($('.lt_photo img').width() * 0.9);  
+		};
+		$(window).resize(resizeFunc);
+	   	
+	   	$('div#planList').load('calendar2.do', resizeFunc);
+		resizeFunc();
+	   	
+	   	doAjaxLoad('ul#likeBook', 'newBook.do','');
+	   	
+	});
+	</script>
+
+	<div class="popupWrap section">
+		<div id="popupLayer">
+			<homepageTag:popup popupList="${popupList}"/>
+		</div>
+	</div>
+	<div id="container" class="main">
+		<div class="main_bg">
+			<div class="main1">
+				<div class="section">
+					<div class="txt">
+						<img src="/resources/homepage/gw/img/main-txt.png" alt="도서관, 생활속의 열린 교육 &middot; 문화 공간"/>
+					</div>
+					<ul class="main_img">
+						<li>&nbsp;</li>
+					</ul>
+				</div>
+			</div>
+			<div class="main2">
+				<div class="section">
+					<div class="main2_box">
+						<div class="search-box">
+							<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
+								<input type="hidden" name="menu_idx" value="7">
+								<input type="hidden" name="search_type2" value="L_TITLEAUTHOR">
+								<fieldset>
+									<legend class="blind">통합검색</legend>
+									<div class="box1">
+										<div class="box2">
+											<label for="search_text_1" class="blind">자료검색</label>
+											<input name="search_text" id="search_text_1" type="text" class="text" placeholder="검색어를 입력하세요" style="ime-mode:active;"/>
+										</div>
+									</div>
+									<button id="main-search-btn">통합검색</button>
+								</fieldset>
+							</form>
+						</div>
+						<div id="planList">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="qmenu">
+			<div class="section">
+				<ul data-call="bxslider" data-breaks="[{screen:0, slides:1},{screen:340, slides:2},{screen:450, slides:3},{screen:600, slides:4},{screen:767, slides:6},{screen:1000, slides:${fn:length(quickMenuList)}}]">
+					<homepageTag:quickMenu quickMenuList="${quickMenuList}"/>
+				</ul>
+			</div>
+		</div>
+		<div class="main_line">
+			<div class="section">
+				<div class="main3">
+					<div class="news">
+						<div class="box">
+							<h3>공지사항</h3>
+							<ul>
+								<c:forEach var="i" items="${noticeList}">
+								<c:choose>
+									<c:when test="${i.date_gap <= i.new_date_count}">
+										<li class="new">
+									</c:when>
+									<c:otherwise>
+										<li>
+									</c:otherwise>
+								</c:choose>
+									<a href="/${homepage.context_path}/board/view.do?menu_idx=58&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}"><em>${i.title}</em></a>
+									<span><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
+								</li>
+								</c:forEach>
+							</ul>
+							<a href="/${homepage.context_path}/board/index.do?menu_idx=58&manage_idx=196" class="more">더보기</a>
+						</div>
+					</div>
+				</div>
+				<div class="main4">
+					<div class="box">
+						<h3>신착도서</h3>
+						<ul class="lt_photo" id="likeBook">
+							
+						</ul>
+						<a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=12" class="more">더보기</a>
+					</div>
+				</div>
+				<div class="main5">
+					<div class="popupzone">
+						<c:choose>
+							<c:when test="${fn:length(popupZoneList) > 0}">
+								<homepageTag:popupZone popupZoneList="${popupZoneList}" />
+							</c:when>
+							<c:otherwise>
+								<ul>
+									<li><a href="#"><img src="/resources/common/img/type17/popupnone.jpg" alt="" /></a></li>
+								</ul>
+							</c:otherwise>
+						</c:choose>
+					</div>
+				</div>				
+			</div>
+		</div>
+		<div class="main6_bg">
+			<div class="main6 section">
+				<div class="lt1"><a href="/${homepage.context_path}/module/teach/index.do?menu_idx=163&categroy_idx_list=1,2,3,4,5">평생교육프로그램</a></div>
+				<div class="lt2"><a href="/${homepage.context_path}/html.do?menu_idx=35">독서문화행사</a></div>
+				<div class="lt3"><a href="/${homepage.context_path}/board/index.do?menu_idx=21&manage_idx=267">사서추천도서</a></div>
+			</div>
+		</div>
+
+		<div class="main7_bg">
+			<div class="curation-section">
+				<div class="main7" style="position:relative;margin:0;border:0">
+					<!-- 큐레이션 -->
+					<div id="result" class="row row3" style="position:relative">
+						<div class="title">L-큐레이션</div>
+
+						<div class="col-sm-3 col-xs-6" style="border: 0px;">
+							<h2 class="sr-only">이달의 전자도서관 퀴즈왕! 독서퀴즈 이벤트</h2>
+							<div class="book-list-section">
+								<div>
+									<ul class="rolling01">
+										<li>
+										<div class="thumbnail"><a href="#" target="_blank"><img src="http://q.gbelib.kr/CATE_IMG/79/9991A0FC-540E-2EB9-CE9C-30B4862A40ED.png" alt="이달의 전자도서관 퀴즈왕! 독서퀴즈 이벤트"></a></div>
+										<h3 class="book-title"><a href="#" target="_blank">이달의 전자도서관 퀴즈왕! 독서퀴즈 이벤트</a></h3>
+										<p class="book-desc">2019년 4월부터 매월 전자도서관 독서퀴즈(초등 저학년, 초등 고학년, 청소년)를 실시합니다. 전자책 읽은 다음 독서퀴즈에 응모하여 상품도 받아가세요~</p>
+										<span class="book-info">2019-06-10</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-sm-3 col-xs-6" style="border: 0px;">
+							<h2 class="sr-only">전자도서관 이용안내</h2>
+							<div class="book-list-section">
+								<div>
+									<ul class="rolling01">
+									<li>
+										<div class="thumbnail"><a href="#" target="_blank"><img src="http://q.gbelib.kr/CATE_IMG/79/9991A14A-740F-8DB1-A04B-5DED40095E77.png" alt="전자도서관 이용안내"></a></div>
+										<h3 class="book-title"><a href="#" target="_blank">전자도서관 이용안내</a></h3>
+										<p class="book-desc">경북 도내 학생들의 경우, 홈페이지 회원가입만으로 도서관 대출회원(정회원)이 될 수 있습니다. 언제 어디서나, 경상북도교육청 전자도서관에서 다양한 자료를 무료로 이용해 보세요.</p><span class="book-info">2019-06-10</span>
+									</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-sm-3 col-xs-6" style="border: 0px;">
+							<h2 class="sr-only">6월 추천도서 안내</h2>
+							<div class="book-list-section">
+								<div>
+									<ul class="rolling01">
+										<li>
+											<div class="thumbnail"><a href="#" target="_blank"><img src="http://q.gbelib.kr/CATE_IMG/79/99E7B179-B60F-7951-B946-38C4636C02E8.png" alt="6월 추천도서 안내 "></a></div>
+											<h3 class="book-title"><a href="#" target="_blank">6월 추천도서 안내</a></h3>
+											<p class="book-desc">경상북도교육청 전자도서관에서 6월의 추천도서를 만나보세요~ 어린이 전자책 10권, 청소년 전자책 10권!</p><span class="book-info">2019-06-10</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-sm-3 col-xs-6" style="border: 0px;">
+							<h2 class="sr-only">통합공공도서관 앱 이용안내</h2>
+							<div class="book-list-section">
+								<div>
+									<ul class="rolling01">
+										<li>
+										<div class="thumbnail"><a href="#" target="_blank"><img src="http://q.gbelib.kr/CATE_IMG/79/AFE09B01-C20A-0FF1-D8BD-665BC5A810C2.png" alt="통합공공도서관 앱 이용안내 "></a></div>
+										<h3 class="book-title"><a href="#" target="_blank">통합공공도서관 앱 이용안내</a></h3>
+										<p class="book-desc">통합공공도서관 앱을 이용하실 수 있습니다. 아래 링크를 클릭하시면 자세한 안내를 학인 하실 수 있습니다</p><span class="book-info">2019-06-10</span>
+										</li>
+									</ul>
+
+									<div class="bx-controls bx-has-controls-direction">
+										<div style="width:100px;" class="bx-controls-direction">
+											<a class="bx-prev" id="bxprev" href="javascript:void(0);">Prev</a><a class="bx-next" id="bxnext" href="javascript:void(0);">Next</a><a style="position: absolute; right: 0px;" href="http://q.gbelib.kr/index.jsp?gid=13" target="_blank"><img src="/resources/common/img/board_more_btn.png" alt="더보기"></a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					
+						
+					</div>
+					<!-- /큐레이션 -->
+					<div class="end"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="section">
+			<div class="main7_banner">
+				<div class="banner-wrap type1">
+					<div class="banner-t">
+						<h3>배너모음</h3>
+						<div class="control">
+							<a class="prev" href="#prev"><i class="fa fa-chevron-left"></i><span class="blind">이전</span></a>
+							<a class="stop active" href="#stop"><i class="fa fa-pause"></i><span class="blind">정지</span></a>
+							<a class="play" href="#play"><i class="fa fa-play"></i><span class="blind">시작</span></a>
+							<a class="next" href="#next"><i class="fa fa-chevron-right"></i><span class="blind">다음</span></a>
+							<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=157"><i class="fa fa-navicon"></i><span class="blind">더보기</span></a>
+						</div>
+					</div>
+					<div class="banner-box">
+						<homepageTag:banner bannerList="${bannerList}"/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+<tiles:insertAttribute name="footer" />
