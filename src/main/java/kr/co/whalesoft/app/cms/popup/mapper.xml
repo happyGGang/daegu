@@ -8,7 +8,7 @@
 			homepage_id,
 			popup_idx, popup_name, html, html_use_yn, popup_type, link_url, 
 			use_yn, print_seq, width, height, x_position, 
-			y_position, img_file_name, real_file_name, file_extension, file_size, add_date, link_target,
+			y_position, org_file_name, server_file_name, file_extension, file_size, add_date, link_target,
 			start_date, end_date, common_yn
 		FROM
 			CMS_POPUP
@@ -28,12 +28,12 @@
 			homepage_id,
 			popup_idx, popup_name, html, html_use_yn, popup_type, link_url, 
 			use_yn, print_seq, width, height, x_position, 
-			y_position, img_file_name, real_file_name, file_extension, file_size, add_date, link_target,
+			y_position, org_file_name, server_file_name, file_extension, file_size, add_date, link_target,
 			start_date, end_date, common_yn
 		FROM
 			CMS_POPUP
 		WHERE
-			(homepage_id = #{homepage_id} OR (homepage_id = 'h1' AND common_yn = 'Y')) 
+			(homepage_id = #{homepage_id} OR (homepage_id = 'h1' AND common_yn = 'Y'))
 			AND use_yn = 'Y' 
 			AND start_date <![CDATA[<=]]> TO_CHAR(SYSDATE, 'yyyy-mm-dd') AND end_date >= TO_CHAR(SYSDATE, 'yyyy-mm-dd')
 		ORDER BY print_seq ASC, add_date DESC
@@ -56,7 +56,7 @@
 			homepage_id,
 			popup_idx, popup_name, html, html_use_yn, popup_type, link_url, 
 			use_yn, print_seq, width, height, x_position, 
-			y_position, img_file_name, real_file_name, file_extension, file_size, add_date, link_target,
+			y_position, org_file_name, server_file_name, file_extension, file_size, add_date, link_target,
 			start_date, end_date, common_yn
 		FROM
 			CMS_POPUP
@@ -75,8 +75,8 @@
 			popup_idx, popup_name, html, html_use_yn, popup_type, link_url, 
 			use_yn, print_seq, width, height, x_position, 
 			y_position, add_date, link_target, start_date, end_date, common_yn
-			<if test="real_file_name != null and real_file_name != ''">
-			, img_file_name, real_file_name, file_extension, file_size
+			<if test="server_file_name != null and server_file_name != ''">
+			, org_file_name, server_file_name, file_extension, file_size
 			</if>
 		) VALUES
 		(
@@ -84,8 +84,8 @@
 			#{popup_idx}, #{popup_name}, #{html}, #{html_use_yn}, #{popup_type}, #{link_url},
 			#{use_yn}, #{print_seq}, #{width}, #{height}, #{x_position},
 			#{y_position}, SYSDATE, #{link_target}, #{start_date}, #{end_date}, #{common_yn}
-			<if test="real_file_name != null and real_file_name != ''">
-			, #{img_file_name}, #{real_file_name}, #{file_extension}, #{file_size}
+			<if test="server_file_name != null and server_file_name != ''">
+			, #{org_file_name}, #{server_file_name}, #{file_extension}, #{file_size}
 			</if>
 		)
 	</insert>
@@ -107,9 +107,9 @@
 			start_date = #{start_date}, 
 			end_date = #{end_date},
 			common_yn = #{common_yn}
-			<if test="real_file_name != null and real_file_name != ''">
-			,img_file_name = #{img_file_name}, 
-			real_file_name = #{real_file_name}, 
+			<if test="server_file_name != null and server_file_name != ''">
+			,org_file_name = #{org_file_name}, 
+			server_file_name = #{server_file_name}, 
 			file_extension = #{file_extension}, 
 			file_size = #{file_size}
 			</if>
