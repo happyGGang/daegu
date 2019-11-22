@@ -287,10 +287,10 @@ public class SmsSendController extends BaseController{
 			}
 			if(smsSend.getCodeList_1().equals("7")) {
 				
-				model.addAttribute("codeList_6",MemberAPI.getLasCode("l13"));
-				model.addAttribute("codeList_8",MemberAPI.getLasCode("l12"));
-				model.addAttribute("codeList_9",MemberAPI.getAgencyCode("0001"));
-				model.addAttribute("codeList_10",MemberAPI.getBelongCode("0002",smsSend.getHomepage_code()));
+//				model.addAttribute("codeList_6",MemberAPI.getLasCode("l13"));
+//				model.addAttribute("codeList_8",MemberAPI.getLasCode("l12"));
+//				model.addAttribute("codeList_9",MemberAPI.getAgencyCode("0001"));
+//				model.addAttribute("codeList_10",MemberAPI.getBelongCode("0002",smsSend.getHomepage_code()));
 				
 			}
 		}
@@ -496,7 +496,7 @@ public class SmsSendController extends BaseController{
 					birth_day = smsSend.getStart_age() + ":99991231";
 				}
 				
-				model.addAttribute("applyList", MemberAPI.getLoanMemberList(birth_day, smsSend.getCodeList_8(), smsSend.getHomepage_code(), date, smsSend.getCodeList_6()));
+//				model.addAttribute("applyList", MemberAPI.getLoanMemberList(birth_day, smsSend.getCodeList_8(), smsSend.getHomepage_code(), date, smsSend.getCodeList_6()));
 				
 			}
 		}
@@ -531,10 +531,10 @@ public class SmsSendController extends BaseController{
 		Map<String, String> map = null;
 		String result = "X";
 		
-		member.setCheck_certify_type("SEQNO");
-		member.setCheck_certify_data(member_key);
+//		member.setCheck_certify_type("SEQNO");
+//		member.setCheck_certify_data(member_key);
 			
-		map = MemberAPI.getMemberCertify("WEB", member);
+//		map = MemberAPI.getMemberCertify("WEB", member);
 		
 		if(map != null) {
 			if(StringUtils.equals(map.get("SMS_CHECK"), "Y")) {
