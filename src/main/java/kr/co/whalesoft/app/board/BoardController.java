@@ -101,11 +101,12 @@ public class BoardController extends BaseController {
 	@ModelAttribute("siteList")
 	public List<Site> getAreaCdList(HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		if (homepage == null) {
-			return null;
-		} else {
-			return siteService.getSiteListAll(new Site(homepage.getHomepage_id()));
-		}
+//		if (homepage == null) {
+//			return null;
+//		} else {
+//			return siteService.getSiteListAll(new Site(homepage.getHomepage_id()));
+//		}
+		return null;
 	}
 
 	private String getBoardContext(HttpServletRequest request) {
