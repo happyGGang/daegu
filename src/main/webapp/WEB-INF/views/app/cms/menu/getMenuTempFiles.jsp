@@ -65,7 +65,7 @@ function copyToClipboard(s) {
 		<c:forEach var="i" varStatus="status" items="${tempFileList}">
 			<tr class="tempfile">
 				<td style="width: 50px;">${status.index+1}</td>
-				<td>${i.orig_filename}</td>
+				<td>${i.org_file_name}</td>
 				<td><a href="#" class="tempfile_copy">/data/menuResources${i.path}</a></td>
 				<td style="width: 80px;"><a href="#" class="tempfile_delete" data-file_idx="${i.file_idx}">삭제</a></td>
 			</tr>

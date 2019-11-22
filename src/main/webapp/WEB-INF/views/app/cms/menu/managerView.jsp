@@ -34,7 +34,6 @@ $(function() {
 	
 	$('a.select-btn').on('click', function(e) {
 		e.preventDefault();
-		$('#manage_dept').val($(this).attr('keyValue1'));
 		$('#manage_name').val($(this).attr('keyValue2'));
 		$('#manage_phone').val($(this).attr('keyValue3'));
 		$('#task_idx').val($(this).attr('keyValue4'));

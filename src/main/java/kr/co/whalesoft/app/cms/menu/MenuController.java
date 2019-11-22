@@ -131,8 +131,8 @@ public class MenuController extends BaseController {
 
 		model.addAttribute("menu", menu);
 		model.addAttribute("parentMenu", parentMenu);
-		model.addAttribute("authList", authService.getMenuAuth(new Auth(menu.getHomepage_id())));
-		model.addAttribute("menuAuthArray", service.getMenuAuth(menu));
+//		model.addAttribute("authList", authService.getMenuAuth(new Auth(menu.getHomepage_id())));
+//		model.addAttribute("menuAuthArray", service.getMenuAuth(menu));
 		model.addAttribute("homepage", homepageService.getHomepageOne(new Homepage(menu.getHomepage_id())));
 
 		return basePath + "edit_ajax";
@@ -177,10 +177,10 @@ public class MenuController extends BaseController {
 
 		if(!result.hasErrors()) {
 			menu.setAdd_id(getSessionMemberId(mpRequest));
-			menu.setMod_id(getSessionMemberId(mpRequest));
+			menu.setModify_id(getSessionMemberId(mpRequest));
 
-			if ( StringUtils.isEmpty(menu.getContent_title_yn()) ) {
-				menu.setContent_title_yn("N");
+			if ( StringUtils.isEmpty(menu.getInclude_menu_name_yn()) ) {
+				menu.setInclude_menu_name_yn("N");
 			}
 
 			if(menu.getEditMode().equals("MODIFY")) {
@@ -302,9 +302,9 @@ public class MenuController extends BaseController {
 		if(!result.hasErrors()) {
 			MultipartFile mfile = mpRequest.getFileMap().get("menu_temp_file");
 			menuHtmlService.addMenuTempFile(menuTempFile, mfile);
-			menuTempFile.setValid(true);
-		} else {
-			menuTempFile.setValid(false);
+//			menuTempFile.setValid(true);
+//		} else {
+//			menuTempFile.setValid(false);
 		}
 
 		return menuTempFile;
@@ -315,9 +315,9 @@ public class MenuController extends BaseController {
 
 		if(!result.hasErrors()) {
 			menuHtmlService.deleteMenuTempFile(menuTempFile);
-			menuTempFile.setValid(true);
-		} else {
-			menuTempFile.setValid(false);
+//			menuTempFile.setValid(true);
+//		} else {
+//			menuTempFile.setValid(false);
 		}
 
 		return menuTempFile;

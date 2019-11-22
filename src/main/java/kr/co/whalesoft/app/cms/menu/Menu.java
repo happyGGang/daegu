@@ -24,8 +24,8 @@ public class Menu extends PagingUtils {
 	private Date add_date; // 등록날짜
 	private String add_id;
 	private String add_ip;
-	private Date mod_date; // 수정날짜
-	private String mod_id;
+	private Date modify_date; // 수정날짜
+	private String modify_id;
 	private String mod_ip;
 	private String menu_full_path; // 메뉴전체경로
 	private String menu_type = "NONE"; // 메뉴타입
@@ -33,18 +33,11 @@ public class Menu extends PagingUtils {
 	private String menu_path; // 메뉴경로
 	private String menu_layout; // 메뉴레이아웃
 
-	private String content_title_yn = "Y"; // 컨텐츠 화면에 메뉴이름 표시여부
+	private String include_menu_name_yn = "Y"; // 컨텐츠 화면에 메뉴이름 표시여부
 	private String link_url; // 링크될 주소
 	private String menu_img; // 이미지파일명
 	private String view_menu_img; // 이미지파일명
 	private String delete_use_yn; // 삭제가능여부
-
-	private int task_idx;
-	private String manage_view_yn = "N";
-	private String manage_id;
-	private String manage_dept;
-	private String manage_name;
-	private String manage_phone;
 
 	private String id;
 	private String label;
@@ -188,6 +181,14 @@ public class Menu extends PagingUtils {
 		this.view_yn = view_yn;
 	}
 
+	public String getMobile_view_yn() {
+		return mobile_view_yn;
+	}
+
+	public void setMobile_view_yn(String mobile_view_yn) {
+		this.mobile_view_yn = mobile_view_yn;
+	}
+
 	public Date getAdd_date() {
 		return add_date;
 	}
@@ -236,12 +237,12 @@ public class Menu extends PagingUtils {
 		this.menu_layout = menu_layout;
 	}
 
-	public String getContent_title_yn() {
-		return content_title_yn;
+	public String getInclude_menu_name_yn() {
+		return include_menu_name_yn;
 	}
 
-	public void setContent_title_yn(String content_title_yn) {
-		this.content_title_yn = content_title_yn;
+	public void setInclude_menu_name_yn(String include_menu_name_yn) {
+		this.include_menu_name_yn = include_menu_name_yn;
 	}
 
 	public String getLink_url() {
@@ -334,9 +335,9 @@ public class Menu extends PagingUtils {
 
 	public String[] getAuth_id_array() {
 		String[] ret = null;
-		if ( this.auth_id_array != null ) {
+		if (this.auth_id_array != null) {
 			ret = new String[this.auth_id_array.length];
-			for ( int i = 0; i < this.auth_id_array.length; i++ ) {
+			for (int i = 0; i < this.auth_id_array.length; i++) {
 				ret[i] = this.auth_id_array[i];
 			}
 		}
@@ -345,7 +346,7 @@ public class Menu extends PagingUtils {
 
 	public void setAuth_id_array(String[] auth_id_array) {
 		this.auth_id_array = new String[auth_id_array.length];
-		for ( int i = 0; i < auth_id_array.length; i++ ) {
+		for (int i = 0; i < auth_id_array.length; i++) {
 			this.auth_id_array[i] = auth_id_array[i];
 		}
 	}
@@ -366,20 +367,20 @@ public class Menu extends PagingUtils {
 		this.add_ip = add_ip;
 	}
 
-	public Date getMod_date() {
-		return mod_date;
+	public Date getModify_date() {
+		return modify_date;
 	}
 
-	public void setMod_date(Date mod_date) {
-		this.mod_date = mod_date;
+	public void setModify_date(Date modify_date) {
+		this.modify_date = modify_date;
 	}
 
-	public String getMod_id() {
-		return mod_id;
+	public String getModify_id() {
+		return modify_id;
 	}
 
-	public void setMod_id(String mod_id) {
-		this.mod_id = mod_id;
+	public void setModify_id(String modify_id) {
+		this.modify_id = modify_id;
 	}
 
 	public String getMod_ip() {
@@ -412,62 +413,6 @@ public class Menu extends PagingUtils {
 
 	public void setTemp_yn(String temp_yn) {
 		this.temp_yn = temp_yn;
-	}
-
-	public String getManage_dept() {
-		return manage_dept;
-	}
-
-	public void setManage_dept(String manage_dept) {
-		this.manage_dept = manage_dept;
-	}
-
-	public String getManage_name() {
-		return manage_name;
-	}
-
-	public void setManage_name(String manage_name) {
-		this.manage_name = manage_name;
-	}
-
-	public String getManage_phone() {
-		return manage_phone;
-	}
-
-	public void setManage_phone(String manage_phone) {
-		this.manage_phone = manage_phone;
-	}
-
-	public String getManage_view_yn() {
-		return manage_view_yn;
-	}
-
-	public void setManage_view_yn(String manage_view_yn) {
-		this.manage_view_yn = manage_view_yn;
-	}
-
-	public String getMobile_view_yn() {
-		return mobile_view_yn;
-	}
-
-	public void setMobile_view_yn(String mobile_view_yn) {
-		this.mobile_view_yn = mobile_view_yn;
-	}
-
-	public String getManage_id() {
-		return manage_id;
-	}
-
-	public void setManage_id(String manage_id) {
-		this.manage_id = manage_id;
-	}
-
-	public int getTask_idx() {
-		return task_idx;
-	}
-
-	public void setTask_idx(int task_idx) {
-		this.task_idx = task_idx;
 	}
 
 	public String getModuleName() {

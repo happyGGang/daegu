@@ -63,18 +63,18 @@ public class MenuHtmlService extends BaseService {
 	
 	@Transactional
 	public int addMenuTempFile(MenuTempFile menuTempFile, MultipartFile mfile) {
-		String orig_filename = mfile.getOriginalFilename();
+		String org_file_name = mfile.getOriginalFilename();
 		String extension = "";
-		int pos = orig_filename.lastIndexOf(".");
+		int pos = org_file_name.lastIndexOf(".");
 		if( pos > -1 ) {
-			extension = orig_filename.substring(pos);		// .을 포함한 확장자
+			extension = org_file_name.substring(pos);		// .을 포함한 확장자
 		}
 		String filename = Long.toString((System.currentTimeMillis()));
 		String dirpath = "/" + menuTempFile.getHomepage_id() + "/" + menuTempFile.getMenu_idx();
 		File f = menuTempFileStorage.addFile(mfile, filename + extension, dirpath);
 		String path = dirpath + "/" + f.getName();
 		menuTempFile.setPath(path);
-		menuTempFile.setOrig_filename(mfile.getOriginalFilename());
+		menuTempFile.setOrg_file_name(mfile.getOriginalFilename());
 		
 		return dao.addMenuTempFile(menuTempFile);
 	}

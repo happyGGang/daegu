@@ -155,16 +155,16 @@ public class MenuService extends BaseService {
 		
 		returnCount = dao.modifyMenu(menu);
 		
-		if(returnCount > 0) {
-			/** 메뉴권한 처리 **/
-			dao.deleteMenuAuth(menu);
-			if(menu.getAuth_id_array() != null && menu.getAuth_id_array().length > 0) {
-				for(String auth_id : menu.getAuth_id_array()) {
-					menu.setAuth_id(auth_id);
-					dao.addMenuAuth(menu);
-				}
-			}
-		}
+//		if(returnCount > 0) {
+//			/** 메뉴권한 처리 **/
+//			dao.deleteMenuAuth(menu);
+//			if(menu.getAuth_id_array() != null && menu.getAuth_id_array().length > 0) {
+//				for(String auth_id : menu.getAuth_id_array()) {
+//					menu.setAuth_id(auth_id);
+//					dao.addMenuAuth(menu);
+//				}
+//			}
+//		}
 		
 		return returnCount;
 	}

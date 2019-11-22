@@ -145,7 +145,7 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 				if((homepageAccess.getBrowser_type() != null && !homepageAccess.getBrowser_type().equals("")) && (homepageAccess.getBrowser_version() != null && !homepageAccess.getBrowser_version().equals(""))) {
 					if(homepageAccess.getBrowser_type().indexOf("bingbog") == -1 && homepageAccess.getBrowser_type().indexOf("Apache") == -1) {
 						//기존 접속자 통계는 그대로 기록하고.
-						homepageAccessService.addHomepageAccess(homepageAccess);
+//						homepageAccessService.addHomepageAccess(homepageAccess);
 //						if (!RequestUtils.isAjaxRequest(request)) {
 //							//신규 웹페이지 통계는 신규로 기록한다.
 //							homepageAccessService.addViewCount(homepageAccess);

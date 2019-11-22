@@ -103,13 +103,6 @@ $(function() {
 				$('#link_url').val($('#input_link_outer').val());
 			}
 
-			/* if ( $('#check_0').prop('checked') ) {
-				$('#content_title_yn').val('Y');
-			}
-			else {
-				$('#content_title_yn').val('N');
-			} */
-
 			var option = {
 				url : "/cms/menu/save.do",
 				type : "POST",
@@ -229,7 +222,7 @@ $(function() {
 				<th>메뉴명 표시</th>
 				<td>
 					<div class="checkbox">
-						<form:checkbox path="content_title_yn" value="Y" label="사용함"/>
+						<form:checkbox path="include_menu_name_yn" value="Y" label="사용함"/>
 						<p class="info">체크 해제 시 홈페이지에서 콘텐츠 상단의 메뉴명이 출력되지 않습니다.</p>
 					</div>
 				</td>
@@ -423,26 +416,6 @@ $(function() {
 					</div>
 				</td>
 			</tr>
-			<tr class="group first">
-				<th>담당자 표시</th>
-				<td>
-					<form:select path="manage_view_yn" cssClass="selectmenu">
-						<form:option value="Y" label="YES" />
-						<form:option value="N" label="NO" />
-					</form:select>
-				</td>
-			</tr>
-			<tr class="group last">
-				<th>담당자 정보</th>
-				<td>
-					<label>부서 : <form:input path="manage_dept" maxlength="20" size="20" class="text" readonly="true"/></label>
-					<label>이름 : <form:input path="manage_name" maxlength="10" size="10" class="text" readonly="true"/></label>
-					<label>전화번호 : <form:input path="manage_phone" maxlength="13" size="13" class="text" readonly="true"/></label>
-					<form:hidden path="task_idx"/>
-					<a class="btn btn4 select-manager-btn">담당자선택</a>
-					<div id="dialog_manager" class="dialog-common" title="담당자 선택"></div>
-				</td>
-			</tr>
 		</tbody>
 	</table>
 	</form:form>
@@ -452,7 +425,7 @@ $(function() {
 			<a href="#" class="btn btn3 preview-btn"><i class="fa fa-eye"></i><span>미리보기</span></a>
 		</div>
 		<div class="right">
-			마지막 수정일 : <fmt:formatDate value="${menu.mod_date}" pattern="yyyy-MM-dd"/>
+			마지막 수정일 : <fmt:formatDate value="${menu.modify_date}" pattern="yyyy-MM-dd"/>
 		</div>
 	</div>
 	</c:if>
