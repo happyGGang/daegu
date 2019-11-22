@@ -4,13 +4,16 @@
 
 	<select id="getMainImgListAll" resultType="kr.co.whalesoft.app.cms.mainImg.MainImg">
 			SELECT
-				HOMEPAGE_ID, IMG_IDX, TITLE, IMG_FILE_NAME, REAL_FILE_NAME, FILE_EXTENSION, FILE_SIZE, USE_YN, PRINT_SEQ, TO_CHAR(ADD_DATE, 'yyyy-mm-dd hh24:mm') AS ADD_DATE
+				homepage_id, img_idx, main_img_name, org_file_name, server_file_name,
+				file_extension, file_size, use_yn, print_seq, add_date
 			FROM
 				CMS_MAIN_IMG
-			WHERE HOMEPAGE_ID = #{homepage_id} AND USE_YN = 'Y'
-				<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
-				AND	${search_type} LIKE '%'||#{search_text}||'%'
-				</if>
+			WHERE
+				homepage_id = #{homepage_id}
+			AND	use_yn = 'Y'
+			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
 			ORDER BY
 				PRINT_SEQ ASC, add_date DESC
 	</select>
@@ -18,13 +21,15 @@
 	<select id="getMainImgList" resultType="kr.co.whalesoft.app.cms.mainImg.MainImg">
 		${pagingTop}
 			SELECT
-				HOMEPAGE_ID, IMG_IDX, TITLE, IMG_FILE_NAME, REAL_FILE_NAME, FILE_EXTENSION, FILE_SIZE, USE_YN, PRINT_SEQ, TO_CHAR(ADD_DATE, 'yyyy-mm-dd hh24:mm') AS ADD_DATE
+				homepage_id, img_idx, main_img_name, org_file_name, server_file_name,
+				file_extension, file_size, use_yn, print_seq, add_date
 			FROM
 				CMS_MAIN_IMG
-			WHERE HOMEPAGE_ID = #{homepage_id}
-				<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
-				AND	${search_type} LIKE '%'||#{search_text}||'%'
-				</if>
+			WHERE
+				homepage_id = #{homepage_id}
+			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
 			ORDER BY
 				PRINT_SEQ ASC, add_date DESC
 		${pagingBottom}
@@ -35,32 +40,39 @@
 			COUNT(*)
 		FROM
 			CMS_MAIN_IMG
-		WHERE HOMEPAGE_ID = #{homepage_id}
-			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
-			AND	${search_type} LIKE '%'||#{search_text}||'%'
-			</if>
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
 		ORDER BY
-			PRINT_SEQ ASC, add_date DESC
+			print_seq ASC, add_date DESC
 	</select>
 
 	<select id="getMainImgOne" resultType="kr.co.whalesoft.app.cms.mainImg.MainImg">
 		SELECT
-			HOMEPAGE_ID, IMG_IDX, TITLE, IMG_FILE_NAME, REAL_FILE_NAME, FILE_EXTENSION, FILE_SIZE, USE_YN, PRINT_SEQ, TO_CHAR(ADD_DATE, 'yyyy-mm-dd hh24:mm') AS ADD_DATE
+			homepage_id, img_idx, main_img_name, org_file_name, server_file_name,
+			file_extension, file_size, use_yn, print_seq, add_date
 		FROM
 			CMS_MAIN_IMG
-		WHERE HOMEPAGE_ID = #{homepage_id} AND IMG_IDX = #{img_idx}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	img_idx = #{img_idx}
 	</select>
 
 	<insert id="addMainImg">
 		<selectKey keyProperty="img_idx" resultType="int" order="BEFORE">
-			SELECT NVL(MAX(img_idx),0)+1 FROM CMS_MAIN_IMG WHERE HOMEPAGE_ID = #{homepage_id}
+			SELECT NVL(MAX(img_idx),0)+1 FROM CMS_MAIN_IMG WHERE homepage_id = #{homepage_id}
 		</selectKey>
 
-		INSERT INTO CMS_MAIN_IMG
+		INSERT INTO
+			CMS_MAIN_IMG
 		(
-			HOMEPAGE_ID, IMG_IDX, TITLE, IMG_FILE_NAME, REAL_FILE_NAME, FILE_EXTENSION, FILE_SIZE, USE_YN, PRINT_SEQ, ADD_DATE
+			homepage_id, img_idx, main_img_name, org_file_name, server_file_name,
+			file_extension, file_size, use_yn, print_seq, add_date
 		) VALUES (
-			#{homepage_id}, #{img_idx}, #{title}, #{img_file_name}, #{real_file_name}, #{file_extension}, #{file_size}, #{use_yn}, #{print_seq}, SYSDATE
+			#{homepage_id}, #{img_idx}, #{main_img_name}, #{org_file_name}, #{server_file_name},
+			#{file_extension}, #{file_size}, #{use_yn}, #{print_seq}, SYSDATE
 		)
 	</insert>
 
@@ -68,24 +80,27 @@
 		UPDATE
 			CMS_MAIN_IMG
 		SET
-			TITLE = #{title},
-			<if test="real_file_name != null and real_file_name != ''">
-			IMG_FILE_NAME = #{img_file_name},
-			REAL_FILE_NAME = #{real_file_name},
-			FILE_EXTENSION = #{file_extension},
-			FILE_SIZE = #{file_size},
+			main_img_name = #{main_img_name},
+			<if test="server_file_name != null and server_file_name != ''">
+			org_file_name = #{org_file_name},
+			server_file_name = #{server_file_name},
+			file_extension = #{file_extension},
+			file_size = #{file_size},
 			</if>
 
-			USE_YN = #{use_yn},
-			PRINT_SEQ = #{print_seq}
+			use_yn = #{use_yn},
+			print_seq = #{print_seq}
 		WHERE
-			HOMEPAGE_ID = #{homepage_id} AND IMG_IDX = #{img_idx}
+			homepage_id = #{homepage_id}
+		AND	img_idx = #{img_idx}
 	</update>
 
 	<delete id="deleteMainImg">
-		DELETE FROM CMS_MAIN_IMG
+		DELETE FROM
+			CMS_MAIN_IMG
 		WHERE
-			HOMEPAGE_ID = #{homepage_id} AND IMG_IDX = #{img_idx}
+			homepage_id = #{homepage_id}
+		AND	img_idx = #{img_idx}
 	</delete>
 
 </mapper>
