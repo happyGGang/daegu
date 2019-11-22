@@ -231,7 +231,6 @@ public class IndexController extends BaseController {
 		model.addAttribute("popupList", popupService.getPopupAll(new Popup(homepage.getHomepage_id())));
 		model.addAttribute("popupZoneList", popupZoneService.getPopupZoneAll(new PopupZone(homepage.getHomepage_id())));
 		model.addAttribute("quickMenuList", quickMenuService.getQuickMenuListAll(new QuickMenu(homepage.getHomepage_id())));
-		model.addAttribute("siteList", siteService.getSiteListAll(new Site(homepage.getHomepage_id())));
 		//메인 강좌목록(예천,봉화,대표)
 		if ( homepage.getHomepage_id().equals("h23") || homepage.getHomepage_id().equals("h24") ) {
 			model.addAttribute("teachList", teachService.getMainViewTeachList(new Teach(homepage.getHomepage_id(), 2)));

@@ -27,7 +27,7 @@ public class HtmlController extends BaseController {
 	@RequestMapping(value = {"/{contextPath}/html.*"})
 	public String index(Model model, Menu menu, HttpServletRequest request) {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
-		model.addAttribute("siteList", siteService.getSiteListAll(new Site(homepage.getHomepage_id())));
+//		model.addAttribute("siteList", siteService.getSiteListAll(new Site(homepage.getHomepage_id())));
 		if("Y".equals(menu.getTemp_yn())) {
 			model.addAttribute("html", menuHtmlService.getMenuTempHtml((new MenuHtml(homepage.getHomepage_id(), menu.getMenu_idx()))));
 		} else {
