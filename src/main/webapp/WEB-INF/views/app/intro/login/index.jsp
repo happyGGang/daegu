@@ -65,7 +65,7 @@ $(function() {
 							<div class="form-box">
 								<p class="idtype" >
 								<label for="member_id_tmp">아이디</label>
-								<input type="text" id="member_id_tmp" class="txt" placeholder="아이디" maxlength="15" />
+								<input type="text" id="member_id_tmp" class="txt" placeholder="아이디" maxlength="20" />
 								</p>
 
 								<p id="pwp" class="idtype" >

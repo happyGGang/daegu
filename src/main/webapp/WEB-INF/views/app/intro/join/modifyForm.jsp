@@ -79,6 +79,7 @@ $(function() {
 		$('#member_pw_confirm').val('');
 		$('#pw_confirm_message').text('');
 		$('span#pwdcheck').css('color', 'black');
+		pwCheck = false;
 		pwCheck2 = true;
 		return true;
 	});
@@ -188,7 +189,7 @@ $(function() {
 				<td>
 					<form:password path="memberNewPw" class="text" maxlength="20"/>
 					<div class="ui-state-highlight">
-						<span id="pwdcheck">비밀번호는 영문, 숫자, 특수문자 조합으로 9자이상 20자이내 (사용가능 특수문자 !@#$%^&*)</span>
+						<span id="pwdcheck">* 비밀번호는 영문(대소문자구분),숫자,특수문자(!@#$%^&*만 허용)를 혼용하여 9~20자이내</span>
 					</div>
 				</td>
 			</tr>
