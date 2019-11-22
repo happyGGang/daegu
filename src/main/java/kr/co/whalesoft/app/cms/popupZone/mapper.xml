@@ -5,31 +5,34 @@
     <select id="getPopupZone" resultType="kr.co.whalesoft.app.cms.popupZone.PopupZone">
 		${pagingTop}
 		SELECT
-			homepage_id, popup_zone_idx, popup_zone_name, popup_zone_seq, use_yn, content,
-			add_date, start_date, end_date, img_file_name, real_file_name, file_extension, file_size, link_url, link_target
+			homepage_id, popup_zone_idx, popup_zone_name, print_seq, use_yn,
+			add_date, start_date, end_date, org_file_name, server_file_name,
+			file_extension, file_size, link_url, link_target
 		FROM
 			CMS_POPUP_ZONE
 		WHERE
 			homepage_id = #{homepage_id}
-			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
-			AND	${search_type} LIKE '%'||#{search_text}||'%'
-			</if>
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
 		ORDER BY
-			popup_zone_seq ASC, add_date DESC
+			print_seq ASC, add_date DESC
 		${pagingBottom}
 	</select>
 
 	<select id="getPopupZoneAll" resultType="kr.co.whalesoft.app.cms.popupZone.PopupZone">
 		SELECT
-			homepage_id, popup_zone_idx, popup_zone_name, popup_zone_seq, use_yn, content,
-			add_date, start_date, end_date, img_file_name, real_file_name, file_extension, file_size, link_url, link_target
+			homepage_id, popup_zone_idx, popup_zone_name, print_seq, use_yn,
+			add_date, start_date, end_date, org_file_name,
+			server_file_name, file_extension, file_size, link_url, link_target
 		FROM
 			CMS_POPUP_ZONE
 		WHERE
-			homepage_id = #{homepage_id} AND
-			use_yn = 'Y' AND
-			start_date <![CDATA[<=]]> TO_CHAR(SYSDATE, 'yyyy-mm-dd') AND end_date >= TO_CHAR(SYSDATE, 'yyyy-mm-dd')
-		ORDER BY popup_zone_seq ASC, add_date DESC
+			homepage_id = #{homepage_id}
+		AND	use_yn = 'Y'
+		AND	start_date <![CDATA[<=]]> TO_CHAR(SYSDATE, 'yyyy-mm-dd')
+		AND	end_date >= TO_CHAR(SYSDATE, 'yyyy-mm-dd')
+		ORDER BY print_seq ASC, add_date DESC
 	</select>
 
 	<select id="getPopupZoneCount" resultType="int">
@@ -39,57 +42,41 @@
 			CMS_POPUP_ZONE
 		WHERE
 			homepage_id = #{homepage_id}
-			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
-			AND	${search_type} LIKE '%'||#{search_text}||'%'
-			</if>
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
     </select>
 
 	<select id="getPopupZoneOne" resultType="kr.co.whalesoft.app.cms.popupZone.PopupZone">
 		SELECT
-			homepage_id, popup_zone_idx, popup_zone_name, popup_zone_seq, use_yn, content,
-			add_date, start_date, end_date, img_file_name, real_file_name, file_extension, file_size, link_url, link_target
+			homepage_id, popup_zone_idx, popup_zone_name, print_seq, use_yn,
+			add_date, start_date, end_date, org_file_name,
+			server_file_name, file_extension, file_size, link_url, link_target
 		FROM
 			CMS_POPUP_ZONE
 		WHERE
-			homepage_id = #{homepage_id} AND
-			popup_zone_idx = #{popup_zone_idx}
+			homepage_id = #{homepage_id}
+		AND	popup_zone_idx = #{popup_zone_idx}
 	</select>
 
 	<insert id="addPopupZone">
 		<selectKey keyProperty="popup_zone_idx" resultType="int" order="BEFORE">
 			SELECT NVL(MAX(popup_zone_idx),0)+1 FROM CMS_POPUP_ZONE WHERE homepage_id = #{homepage_id}
 		</selectKey>
-		INSERT INTO CMS_POPUP_ZONE
+		INSERT INTO
+			CMS_POPUP_ZONE
 		(
-			homepage_id,
-			popup_zone_idx,
-			popup_zone_name,
-			popup_zone_seq,
-			use_yn,
-			add_date,
-			start_date,
-			end_date,
-			link_url,
-			link_target,
-			content
-			<if test="real_file_name != null and real_file_name != ''">
-			, img_file_name, real_file_name, file_extension, file_size
+			homepage_id, popup_zone_idx, popup_zone_name, print_seq, use_yn,
+			add_date, start_date, end_date, link_url, link_target
+			<if test="server_file_name != null and server_file_name != ''">
+			, org_file_name, server_file_name, file_extension, file_size
 			</if>
 		) VALUES
 		(
-			#{homepage_id},
-			#{popup_zone_idx},
-			#{popup_zone_name},
-			#{popup_zone_seq},
-			#{use_yn},
-			SYSDATE,
-			#{start_date},
-			#{end_date},
-			#{link_url},
-			#{link_target},
-			#{content}
-			<if test="real_file_name != null and real_file_name != ''">
-			, #{img_file_name}, #{real_file_name}, #{file_extension}, #{file_size}
+			#{homepage_id},	#{popup_zone_idx}, #{popup_zone_name}, #{print_seq}, #{use_yn},
+			SYSDATE, #{start_date}, #{end_date}, #{link_url}, #{link_target}
+			<if test="server_file_name != null and server_file_name != ''">
+			, #{org_file_name}, #{server_file_name}, #{file_extension}, #{file_size}
 			</if>
 		)
 	</insert>
@@ -100,26 +87,26 @@
 			use_yn = #{use_yn},
 			start_date = #{start_date},
 			end_date = #{end_date},
-			popup_zone_seq = #{popup_zone_seq},
+			print_seq = #{print_seq},
 			link_url = #{link_url},
-			link_target = #{link_target},
-			content = #{content}
-			<if test="real_file_name != null and real_file_name != ''">
-			, img_file_name = #{img_file_name}
-			, real_file_name = #{real_file_name}
+			link_target = #{link_target}
+			<if test="server_file_name != null and server_file_name != ''">
+			, org_file_name = #{org_file_name}
+			, server_file_name = #{server_file_name}
 			, file_extension = #{file_extension}
 			, file_size = #{file_size}
 			</if>
 		WHERE
-			homepage_id = #{homepage_id} AND
-			popup_zone_idx = #{popup_zone_idx}
+			homepage_id = #{homepage_id}
+		AND	popup_zone_idx = #{popup_zone_idx}
 	</update>
 
 	<delete id="deletePopupZone">
-		DELETE FROM CMS_POPUP_ZONE
+		DELETE FROM
+			CMS_POPUP_ZONE
 		WHERE
-			homepage_id = #{homepage_id} AND
-			popup_zone_idx = #{popup_zone_idx}
+			homepage_id = #{homepage_id}
+		AND	popup_zone_idx = #{popup_zone_idx}
 	</delete>
 
 </mapper>

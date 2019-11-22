@@ -8,7 +8,7 @@ public class PopupZone extends PagingUtils {
 
 	private int popup_zone_idx;
 	private String popup_zone_name;
-	private int popup_zone_seq;
+	private int popup_zone_seq; // 출력순서
 	private String use_yn = "Y";
 	private Date add_date;
 	private String start_date;
