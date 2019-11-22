@@ -1,64 +1,62 @@
 package kr.co.whalesoft.app.cms.news;
 
+import java.util.Date;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
 public class News extends PagingUtils {
 
-	private int news_idx;  //접수IDX
-	private String title;  //제목
-	private String sub_title; //소제목
+	private int news_idx; // 접수IDX
+	private String title; // 제목
+	private String sub_title; // 소제목
 	private String link_url; // 이동 url;
-	private String contents;  //내용
-	private String file_name;  // 파일명
-	private int print_seq;
-	private String add_date;  //등록일
+	private String contents; // 내용
+	private int print_seq; // 출력순서
+	private String add_id; // 등록ID
+	private Date add_date; // 등록일시
+	private String modify_id; // 수정ID
+	private Date modify_date; // 수정일시
 	private String use_yn = "N";
-	
-	private MultipartFile file;
-	private String img_file_name;	//이미지파일명
-	private String real_file_name;
-	private String file_extension;
-	private long file_size;
 
-	public News() { } 
-	
+	private MultipartFile file;
+	private String org_file_name; // 원본 파일명
+	private String server_file_name; // 서버 파일명
+	private String file_extension; // 파일 확장자
+	private long file_size; // 파일 용량
+
+	public News() {
+	}
+
 	public News(String homepage_id) {
 		setHomepage_id(homepage_id);
 	}
-	
+
 	public int getNews_idx() {
 		return news_idx;
 	}
+
 	public void setNews_idx(int news_idx) {
 		this.news_idx = news_idx;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public String getContents() {
 		return contents;
 	}
+
 	public void setContents(String contents) {
 		this.contents = contents;
 	}
-	public String getFile_name() {
-		return file_name;
-	}
-	public void setFile_name(String file_name) {
-		this.file_name = file_name;
-	}
-	public String getAdd_date() {
-		return add_date;
-	}
-	public void setAdd_date(String add_date) {
-		this.add_date = add_date;
-	}
-	
+
 	public String getUse_yn() {
 		return use_yn;
 	}
@@ -70,12 +68,15 @@ public class News extends PagingUtils {
 	public MultipartFile getFile() {
 		return file;
 	}
+
 	public void setFile(MultipartFile file) {
 		this.file = file;
 	}
+
 	public String getSub_title() {
 		return sub_title;
 	}
+
 	public void setSub_title(String sub_title) {
 		this.sub_title = sub_title;
 	}
@@ -96,20 +97,52 @@ public class News extends PagingUtils {
 		this.print_seq = print_seq;
 	}
 
-	public String getImg_file_name() {
-		return img_file_name;
+	public String getAdd_id() {
+		return add_id;
 	}
 
-	public void setImg_file_name(String img_file_name) {
-		this.img_file_name = img_file_name;
+	public void setAdd_id(String add_id) {
+		this.add_id = add_id;
 	}
 
-	public String getReal_file_name() {
-		return real_file_name;
+	public Date getAdd_date() {
+		return add_date;
 	}
 
-	public void setReal_file_name(String real_file_name) {
-		this.real_file_name = real_file_name;
+	public void setAdd_date(Date add_date) {
+		this.add_date = add_date;
+	}
+
+	public String getModify_id() {
+		return modify_id;
+	}
+
+	public void setModify_id(String modify_id) {
+		this.modify_id = modify_id;
+	}
+
+	public Date getModify_date() {
+		return modify_date;
+	}
+
+	public void setModify_date(Date modify_date) {
+		this.modify_date = modify_date;
+	}
+
+	public String getOrg_file_name() {
+		return org_file_name;
+	}
+
+	public void setOrg_file_name(String org_file_name) {
+		this.org_file_name = org_file_name;
+	}
+
+	public String getServer_file_name() {
+		return server_file_name;
+	}
+
+	public void setServer_file_name(String server_file_name) {
+		this.server_file_name = server_file_name;
 	}
 
 	public String getFile_extension() {
@@ -127,5 +160,5 @@ public class News extends PagingUtils {
 	public void setFile_size(long file_size) {
 		this.file_size = file_size;
 	}
-	
+
 }

@@ -41,12 +41,6 @@ public class NewsService extends BaseService {
 	}
 	
 	public int addNews(News news, MultipartHttpServletRequest mpRequest) {
-//		MultipartFile mFile = news.getFile();
-		
-//		if ( mFile != null ) {
-//			File f = newsStorage.addFile(mFile, mFile.getOriginalFilename(), news.getHomepage_id());
-//			news.setFile_name(f.getName());
-//		}
 		MultipartFile mFile = mpRequest.getFileMap().get("imgFile");
 		if(mFile != null) {
 			String realFileName = Long.toString(System.currentTimeMillis());
@@ -56,8 +50,8 @@ public class NewsService extends BaseService {
 			
 			File f = newsStorage.addFile(mFile, realFileName, filePath);
 			
-			news.setImg_file_name(fileName);
-			news.setReal_file_name(realFileName);
+			news.setOrg_file_name(fileName);
+			news.setServer_file_name(realFileName);
 			news.setFile_extension(fileExtension);
 			news.setFile_size(f.length());
 		}
@@ -66,14 +60,6 @@ public class NewsService extends BaseService {
 	}
 	
 	public int modifyNews(News news, MultipartHttpServletRequest mpRequest) {
-//		MultipartFile mFile = news.getFile();
-//		
-//		if ( mFile != null ) {
-//			newsStorage.deleteFile(news.getFile_name(), news.getHomepage_id());
-//			
-//			File f = newsStorage.addFile(mFile, mFile.getOriginalFilename(), news.getHomepage_id());
-//			news.setFile_name(f.getName());
-//		}
 		MultipartFile mFile = mpRequest.getFileMap().get("imgFile");
 		if(mFile != null) {
 			String realFileName = Long.toString(System.currentTimeMillis());
@@ -83,8 +69,8 @@ public class NewsService extends BaseService {
 			
 			File f = newsStorage.addFile(mFile, realFileName, filePath);
 			
-			news.setImg_file_name(fileName);
-			news.setReal_file_name(realFileName);
+			news.setOrg_file_name(fileName);
+			news.setServer_file_name(realFileName);
 			news.setFile_extension(fileExtension);
 			news.setFile_size(f.length());
 		}
@@ -94,7 +80,8 @@ public class NewsService extends BaseService {
 	
 	public int deleteNews(News news) {
 		News delNews = getNewsOne(news);
-		String fileName = delNews.getFile_name();
+//		String fileName = delNews.getFile_name();
+		String fileName = delNews.getOrg_file_name();
 		if ( !StringUtils.isEmpty(fileName) ) {
 			newsStorage.deleteFile(fileName, news.getHomepage_id());	
 		}
