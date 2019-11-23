@@ -165,7 +165,7 @@ ul.con2.pl5 > li { background: none !important; padding-left: 0 }
 .center {text-align:center; }
 
 /* 회원가입 */
-.join-wrap{padding:15px 10%}
+.join-wrap{padding:0 0 15px 0;}
 
 @media all and (max-width:767px){
 	.join-wrap{padding:15px 0}
@@ -200,8 +200,7 @@ ul.con2.pl5 > li { background: none !important; padding-left: 0 }
 .join-wrap .year_select a b{color:#0f509f;font-size:200%}
 .join-wrap .year_select a b,
 .join-wrap .year_select a span{display:block;line-height:140%}
-.join-wrap .year_select a span{font-size:180%;padding-bottom:190px;
-background:url('../img/join_bt_01.png') no-repeat center bottom;backgrouns-size:90%}
+.join-wrap .year_select a span{font-size:180%;padding-bottom:190px;background:url('../img/join_bt_01.png') no-repeat center bottom;backgrouns-size:90%}
 .join-wrap .identi_select .identy_a,
 .join-wrap .year_select a.year_a{float:left}
 .join-wrap .identi_select .identy_b,
@@ -303,7 +302,7 @@ table.joinNoline tbody td.joinImg {padding: 0 0 0 0;}
 table.joinNoline tbody td.joinText {padding: 0 18px 0 0;}
 table.joinNoline .en {font-size:110%;/*letter-spacing:-1px*/}
 table.joinNoline .ko {font-weight:normal;font-size:130%;/*letter-spacing:-2px*/}
-td.joinLine {background:url('/resources/images/midLine.jpg') repeat-x left center}
+td.joinLine {background:url('/resources/common/img/midLine.jpg') repeat-x left center}
 table.joinSelect { border:1px solid #c8c8c8;}
 table.joinSelect .yearSelectAlign {width:84%;margin:40px auto;overflow:hidden;text-align: center;}
 table.joinSelect .joinImages {/* float:left; *//* margin: 0 auto; *//* vertical-align: middle; *//* border: 1px solid; */}

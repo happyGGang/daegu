@@ -12,7 +12,7 @@
 .login-head em{font-style:normal;font-size:14px;color:#888}
 .login-head p{font-size:24px;letter-spacing:-1px;line-height:130%}
 .login-head b{font-weight:800;color:#4aae00}
-.login-body{padding:10px 0;overflow:hidden;width: 75%;margin: auto;background: #efefef;}
+.login-body {padding:10px 0;overflow:hidden;width: 75%;margin: auto;background: #efefef;}
 .login-body>.info{padding:10px 0;text-align:center;font-size:14px}
 .login-body>.info strong{display:block;font-size:25px;font-weight:800;letter-spacing:-1px;padding:0 0 10px}
 .login-body>.info b{font-size:110%;color:#4aae00}
@@ -92,6 +92,11 @@ background:url('/resources/homepage/dge/img/login-c.jpg') no-repeat center 0}
 .idpwSection {padding: 0 0 1.5%;margin: 0 auto;}
 .idpwSection a.btn.btn01 {width: 21.5%;font-weight: 200;border-radius:0;background: #54535e!important;border:0;font-size: 100%;padding: 14px 0;color:#fff;}
 .idpwSection a.btn.btn02 {width: 21.5%;font-weight: 200;border-radius:0;background: #808285!important;border:0;font-size: 100%;padding: 14px 0;color:#fff;}
+
+.findpw-login-body {padding:10px 0;overflow:hidden;width:100%;margin: auto;background: #efefef;}
+.findpw-login-body .form-box {width:80%;margin:0 auto;}
+.findpw-login-body .form-box label.hidden {display:none;}
+.findpw-login-body .form-box input {width:91%;border: 1px solid #d9d9d9;height: 55px;line-height:40px;padding:0 5%;}
 
 @media all and (max-width:999px){
 	.login-box{width:auto}
