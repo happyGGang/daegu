@@ -160,7 +160,7 @@ public class LoginAPI {
 			}
 			return null;
 		} else {
-			return loginMap;
+			return new ApiResponse(false, String.valueOf(loginMap.get("RESULT_MESSAGE")));
 		}
 
 	}
