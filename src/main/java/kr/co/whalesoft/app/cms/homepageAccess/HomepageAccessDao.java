@@ -4,18 +4,28 @@ import java.util.List;
 import kr.co.whalesoft.app.cms.member.Member;
 
 public interface HomepageAccessDao {
-
-	public int addHomepageAccess(HomepageAccess homepageAccess);
-
-	public List<HomepageAccess> getHomepageAccessResultByAll(HomepageAccess homepageAccess);
-
-	public List<HomepageAccess> getHomepageAccessResultByBrowser(HomepageAccess homepageAccess);
-
-	public List<HomepageAccess> getHomepageAccessResultByOS(HomepageAccess homepageAccess);
-
-	public List<HomepageAccess> getHomepageAccessResultByDevice(HomepageAccess homepageAccess);
-
+	
+	public List<HomepageAccess> getHomepageStatisticsResult(HomepageAccess homepageAccess);
+	
 	public String getLastHomepageAccess(Member member);
+	
+	public int addStatisticsCount(HomepageAccess homepageAccess);
+	
+	public int addStatisticsCountMobile(HomepageAccess homepageAccess);
+	
+	public int addStatisticsCountLog(HomepageAccess homepageAccess);
+	
+	public int addStatisticsCountLogMobile(HomepageAccess homepageAccess);
+	
+	public int updateStatisticsCount(HomepageAccess homepageAccess);
+	
+	public int updateStatisticsCountMobile(HomepageAccess homepageAccess);
+	
+	public int updateStatisticsCountLog(HomepageAccess homepageAccess);
+	
+	public int updateStatisticsCountLogMobile(HomepageAccess homepageAccess);
+	
+	public List<HomepageAccess> getCmsHomepageAccess(HomepageAccess homepageAccess);
 
 	/**
 	 * @author whalesoft YONGJU 2019. 8. 20.
