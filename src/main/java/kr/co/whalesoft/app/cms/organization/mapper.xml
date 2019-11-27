@@ -1,78 +1,428 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.whalesoft.app.cms.organization.OrganizationDao">
-	
-	<select id="getOrganizationTreeList" resultType="kr.co.whalesoft.app.cms.organization.Organization">
-		SELECT * FROM
-		(
-			SELECT 
-				-1 AS PARENT_ORGA_IDX,
-		   		0 AS ORGA_IDX,
-		      	'조직' AS ORGA_NAME
-			FROM DUAL
-			UNION ALL
-			SELECT
-	      		PARENT_ORGA_IDX, 
-	      		ORGA_IDX, 
-	      		ORGA_NAME 
-			FROM
-				CMS_ORGANIZATION
-			WHERE HOMEPAGE_ID = #{homepage_id}
-		)
-		CONNECT BY PRIOR ORGA_IDX = PARENT_ORGA_IDX
-		START WITH ORGA_IDX = 0
-		ORDER SIBLINGS BY ORGA_NAME 
+
+	<!-- 조직 -->
+	<select id="getstatusList" resultType="kr.co.whalesoft.app.cms.organization.Organization">
+		SELECT
+			a.homepage_id, a.division_idx, a.division_name, a.column_cnt, b.status_idx,
+  			b.rating, b.max_cnt, b.current_cnt, a.print_seq, b.print_seq
+		FROM
+			ORGANIZATION_DIVISION a, ORGANIZATION_STATUS b
+		WHERE
+			a.homepage_id = b.homepage_id
+		AND	a.division_idx = b.division_idx
+		AND	a.homepage_id = #{homepage_id}
+		ORDER BY a.print_seq ASC, b.print_seq ASC
 	</select>
 	
-	<select id="getOrganizationOne" resultType="kr.co.whalesoft.app.cms.organization.Organization">
+	<select id="getStatusCount" resultType="int">
 		SELECT
-			HOMEPAGE_ID, ORGA_IDX, PARENT_ORGA_IDX, ORGA_NAME, ORGA_PHONE
+			COUNT(*)
 		FROM
-			CMS_ORGANIZATION
+			ORGANIZATION_DIVISION a, ORGANIZATION_STATUS b
 		WHERE
-			HOMEPAGE_ID = #{homepage_id} AND ORGA_IDX = #{orga_idx}
+			a.homepage_id = b.homepage_id
+		AND	a.division_idx = b.division_idx
+		AND	a.homepage_id = #{homepage_id}
+	</select>
+	
+	<select id="getDivisionList" resultType="kr.co.whalesoft.app.cms.organization.Organization">
+		SELECT
+			homepage_id, division_idx, division_name, column_cnt, print_seq,
+			add_id, add_date, modify_id, modify_date
+		FROM
+			ORGANIZATION_DIVISION
+		WHERE
+			homepage_id = #{homepage_id}
+		ORDER BY print_seq ASC
+	</select>
+	
+	<select id="getStatusList" resultType="kr.co.whalesoft.app.cms.organization.Organization">
+		SELECT
+			a.homepage_id, a.division_idx, a.print_seq, b.status_idx, b.rating, b.max_cnt,
+			b.current_cnt, b.print_seq, b.add_id, b.add_date, b.modify_id, b.modify_date
+		FROM
+			ORGANIZATION_DIVISION a, ORGANIZATION_STATUS b
+		WHERE
+			a.homepage_id = b.homepage_id
+		AND a.division_idx = b.division_idx
+		AND a.homepage_id = #{homepage_id}
+		ORDER BY a.print_seq ASC, b.print_seq ASC
+	</select>
+	
+	<select id="getStatusOne" resultType="kr.co.whalesoft.app.cms.organization.Organization">
+		SELECT
+			homepage_id, division_idx, status_idx, rating, max_cnt,
+			print_seq, current_cnt, add_id, add_date, modify_id, modify_date
+		FROM
+			ORGANIZATION_STATUS
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	status_idx = #{status_idx}
+	</select>
+	
+	<select id="getDivisionNextPrintSeq" resultType="int">
+		SELECT
+			NVL(MAX(print_seq), 0)+10
+		FROM
+			ORGANIZATION_DIVISION
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+	
+	<insert id="addDivision">
+		<selectKey keyProperty="division_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(division_idx), 0)+1 FROM ORGANIZATION_DIVISION WHERE homepage_id = #{homepage_id}
+		</selectKey>
+		INSERT INTO ORGANIZATION_DIVISION
+		(
+			homepage_id, division_idx, division_name, column_cnt, print_seq,
+			add_id, add_date
+		)
+		VALUES
+		(
+			#{homepage_id}, #{division_idx}, #{division_name}, #{column_cnt}, #{print_seq},
+			#{add_id}, SYSDATE
+		)
+	</insert>
+	
+	<update id="modifyDivision">
+		UPDATE
+			ORGANIZATION_DIVISION
+		SET
+			division_name = #{division_name},
+			print_seq = #{print_seq},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	division_idx = #{division_idx}
+	</update>
+	
+	<select id="getStatusNextPrintSeq" resultType="int">
+		SELECT
+			NVL(MAX(print_seq), 0)+10
+		FROM
+			ORGANIZATION_STATUS
+		WHERE
+			homepage_id=#{homepage_id}
+	</select>
+	
+	<insert id="addStatusCnt">
+		<selectKey keyProperty="status_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(status_idx), 0)+1 FROM ORGANIZATION_STATUS WHERE homepage_id = #{homepage_id}
+		</selectKey>
+		INSERT INTO ORGANIZATION_STATUS
+		(
+			homepage_id, division_idx, status_idx, rating, max_cnt,
+			print_seq, current_cnt, add_id, add_date
+		)
+		VALUES
+		(
+			#{homepage_id}, #{division_idx}, #{status_idx}, #{rating}, #{max_cnt},
+			#{print_seq}, #{current_cnt}, #{add_id}, SYSDATE
+		)
+	</insert>
+	
+	<update id="modifyStatusCnt">
+		UPDATE
+			ORGANIZATION_STATUS
+		SET
+			division_idx = #{division_idx},
+			rating = #{rating},
+			max_cnt = #{max_cnt},
+			current_cnt = #{current_cnt},
+			print_seq = #{print_seq},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	status_idx = #{status_idx}
+	</update>
+	
+	<update id="modifyRatingCnt">
+		UPDATE
+			ORGANIZATION_DIVISION a
+		SET
+			column_cnt=(
+					SELECT
+						COUNT(*)
+					FROM
+						ORGANIZATION_STATUS
+					WHERE
+						homepage_id = #{homepage_id}
+					AND	division_idx = a.division_idx
+					)
+		WHERE
+			homepage_id = #{homepage_id}
+	</update>
+	
+	<delete id="statusDelete">
+		DELETE FROM
+			ORGANIZATION_DIVISION
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	division_idx = #{division_idx}
+	</delete>
+	
+	<delete id="deleteStatusAll">
+		DELETE FROM
+			ORGANIZATION_STATUS
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	division_idx = #{division_idx}
+	</delete>
+	
+	<select id="getChartDivisionList" resultType="kr.co.whalesoft.app.cms.organization.Organization">
+		SELECT
+			a.homepage_id, a.division_idx, division_name, column_cnt, a.print_seq
+		FROM
+			ORGANIZATION_DIVISION a, ORGANIZATION_STATUS b
+		WHERE
+			a.homepage_id = b.homepage_id
+		AND	a.division_idx = b.division_idx
+		AND	a.homepage_id = #{homepage_id}
+		GROUP BY a.homepage_id, a.division_idx, a.division_name, a.column_cnt, a.print_seq
+		ORDER BY a.print_seq ASC
+	</select>
+	
+	<delete id="statusCnt">
+		DELETE FROM
+			ORGANIZATION_STATUS
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	status_idx = #{status_idx}
+	</delete>
+	
+	<select id="getTotalCnt" resultType="kr.co.whalesoft.app.cms.organization.Organization">
+		SELECT
+			SUM(max_cnt) AS max_cnt, SUM(current_cnt) AS current_cnt
+		FROM
+			ORGANIZATION_STATUS
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+	
+	<!-- 업무 -->
+	<select id="getOrganizationWorkAll" resultType="kr.co.whalesoft.app.cms.organization.Organization">
+		SELECT
+			org.homepage_id, work.organization_idx, work.organization_work_idx, org.organization_name,
+			work.position, work.worker, work.phone, work.work_info, work.print_seq,
+			org.above_idx
+		FROM
+			ORGANIZATION org, ORGANIZATION_WORK work
+		WHERE
+			org.homepage_id = work.homepage_id
+		AND	org.organization_idx = work.organization_idx
+		AND	org.homepage_id = #{homepage_id}
+		ORDER BY org.print_seq ASC, work.print_seq ASC
+	</select>
+
+	<select id="getOrganizationWorkList" resultType="kr.co.whalesoft.app.cms.organization.Organization">
+		SELECT
+			org.homepage_id, work.organization_idx, work.organization_work_idx, org.organization_name,
+			work.position, work.worker, work.phone, work.work_info, work.print_seq
+		FROM
+			ORGANIZATION org, ORGANIZATION_WORK work
+		WHERE
+			org.homepage_id = work.homepage_id
+		AND	org.organization_idx = work.organization_idx
+		AND	org.homepage_id = #{homepage_id}
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		ORDER BY org.print_seq ASC, work.print_seq ASC
+	</select>
+	
+	<select id="getOrganizationWorkOne" resultType="kr.co.whalesoft.app.cms.organization.Organization">
+		SELECT
+			org.homepage_id, work.organization_idx, work.organization_work_idx, org.organization_name,
+			work.position, work.worker, work.phone, work.work_info, work.print_seq
+		FROM
+			ORGANIZATION org, ORGANIZATION_WORK work
+		WHERE
+			org.homepage_id = work.homepage_id
+		AND	org.organization_idx = work.organization_idx
+		AND	org.homepage_id = #{homepage_id}
+		AND	organization_work_idx = #{organization_work_idx}
+	</select>
+	
+	<select id="getOrganizationWorkCnt" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			ORGANIZATION_WORK
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+
+	<select id="getParentList" resultType="kr.co.whalesoft.app.cms.organization.Organization">
+		SELECT
+			organization_work_idx, position
+		FROM
+			ORGANIZATION_WORK
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	parent_idx = 0
+	</select>
+	
+	<select id="getNextPrintSeq" resultType="int">
+		SELECT
+			NVL(MAX(print_seq), 0)+1
+		FROM
+			ORGANIZATION_WORK
+		WHERE
+			homepage_id=#{homepage_id}
+	</select>
+
+	<insert id="addOrganizationWork">
+		<selectKey keyProperty="organization_work_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(organization_work_idx), 0)+1 FROM ORGANIZATION_WORK WHERE homepage_id=#{homepage_id}
+		</selectKey>
+		INSERT INTO ORGANIZATION_WORK
+		(
+			homepage_id, organization_idx, organization_work_idx, position,
+			worker, phone, work_info, print_seq, add_id, add_date
+		)
+		VALUES
+		(
+			#{homepage_id}, #{organization_idx}, #{organization_work_idx}, #{position},
+			#{worker}, #{phone}, #{work_info}, #{print_seq}, #{add_id}, SYSDATE
+		)	
+	</insert>
+	
+	<update id="modifyOrganizationWork">
+		UPDATE
+			ORGANIZATION_WORK
+		SET
+			organization_idx = #{organization_idx},
+			position = #{position},
+			worker = #{worker},
+			phone = #{phone},
+			work_info = #{work_info},
+			print_seq = #{print_seq},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND organization_work_idx = #{organization_work_idx}
+	</update>
+	
+	<delete id="deleteOrganizationWork">
+		DELETE FROM
+			ORGANIZATION_WORK
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	organization_work_idx = #{organization_work_idx}
+	</delete>
+
+	<select id="getOrganizationList" resultType="kr.co.whalesoft.app.cms.organization.Organization">
+		SELECT
+			*
+		FROM
+			(
+			SELECT
+				homepage_id, organization_idx, organization_name, print_seq, above_idx,
+				add_id, add_date, modify_id, modify_date,
+				(
+				SELECT
+					COUNT(*)
+				FROM
+					ORGANIZATION_WORK
+				WHERE
+					homepage_id = #{homepage_id}
+				AND	organization_idx = d.organization_idx
+				) AS in_cnt
+			FROM
+				ORGANIZATION d
+			WHERE
+				homepage_id = #{homepage_id}
+			)
+		START WITH above_idx = 0
+		CONNECT BY PRIOR organization_idx = above_idx
+		ORDER SIBLINGS BY print_seq ASC
+	</select>
+	
+	<select id="getOrganizationNextPrintSeq" resultType="int">
+		SELECT
+			NVL(MAX(print_seq), 0)+10
+		FROM
+			ORGANIZATION
+		WHERE
+			homepage_id = #{homepage_id}
 	</select>
 	
 	<insert id="addOrganization">
-		<selectKey keyProperty="orga_idx" resultType="int" order="BEFORE">
-			SELECT NVL(MAX(ORGA_IDX),0)+1 FROM CMS_ORGANIZATION WHERE HOMEPAGE_ID = #{homepage_id}
+		<selectKey keyProperty="organization_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(organization_idx), 0)+1 FROM ORGANIZATION WHERE homepage_id = #{homepage_id}
 		</selectKey>
-		INSERT INTO CMS_ORGANIZATION
+		INSERT INTO ORGANIZATION
 		(
-			HOMEPAGE_ID, ORGA_IDX, PARENT_ORGA_IDX, ORGA_NAME, ORGA_PHONE
-		) VALUES
+			homepage_id, organization_idx, organization_name, print_seq, above_idx, add_id, add_date
+		)
+		VALUES
 		(
-			#{homepage_id}, #{orga_idx}, #{parent_orga_idx}, #{orga_name}, #{orga_phone}
+			#{homepage_id}, #{organization_idx}, #{organization_name}, #{print_seq}, #{above_idx}, #{add_id}, SYSDATE
 		)
 	</insert>
 	
 	<update id="modifyOrganization">
-		UPDATE 
-			CMS_ORGANIZATION 
+		UPDATE
+			ORGANIZATION
 		SET
-			ORGA_NAME = #{orga_name},
-			ORGA_PHONE = #{orga_phone}
+			organization_name = #{organization_name},
+			above_idx = #{above_idx},
+			print_seq = #{print_seq},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
 		WHERE
-			HOMEPAGE_ID = #{homepage_id} AND ORGA_IDX = #{orga_idx}			
+			homepage_id = #{homepage_id}
+		AND	organization_idx = #{organization_idx}
 	</update>
 	
 	<delete id="deleteOrganization">
-		DELETE FROM CMS_ORGANIZATION 
+		DELETE FROM
+			ORGANIZATION
 		WHERE
-			HOMEPAGE_ID = #{homepage_id} AND ORGA_IDX = #{orga_idx}
+			homepage_id = #{homepage_id}
+		AND	organization_idx = #{organization_idx}
 	</delete>
 	
-	<select id="getChildCount" resultType="int">
-		SELECT COUNT(*)
-		FROM CMS_ORGANIZATION
-		WHERE HOMEPAGE_ID = #{homepage_id} AND PARENT_ORGA_IDX = #{orga_idx}
+	<delete id="deleteWorkAll">
+		DELETE FROM
+			ORGANIZATION_WORK
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	organization_idx = #{organization_idx}
+	</delete>
+	
+	<select id="getOrganizationChartYN" resultType="kr.co.whalesoft.app.cms.organization.Organization">
+		SELECT
+			chart_yn
+		FROM
+			DEPT_CHART
+		WHERE
+			homepage_id = #{homepage_id}
 	</select>
 	
-	<update id="moveOrganization">
-		UPDATE CMS_ORGANIZATION
-		SET PARENT_ORGA_IDX = #{parent_orga_idx}
-		WHERE HOMEPAGE_ID = #{homepage_id} AND ORGA_IDX = #{orga_idx}
-		
+	<update id="modChardYN">
+		MERGE INTO
+			DEPT_CHART DC
+		USING DUAL
+		ON	(homepage_id = #{homepage_id})
+		WHEN MATCHED THEN
+			UPDATE SET
+				chart_yn = #{chart_yn}
+		WHEN NOT MATCHED THEN
+			INSERT
+			(
+				homepage_id, chart_yn
+			)
+			VALUES
+			(
+				#{homepage_id}, #{chart_yn}
+			)
 	</update>
-	
+
 </mapper>

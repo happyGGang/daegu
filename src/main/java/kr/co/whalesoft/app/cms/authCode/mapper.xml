@@ -4,25 +4,25 @@
 	
 	<select id="getAuthGroupTreeList" resultType="kr.co.whalesoft.app.cms.authCode.AuthCode">
 		SELECT * FROM
-		(
+			(
 			SELECT 
-				'-1' AS PARENT_AUTH_GROUP_ID,
-		   		'ROOT' AS AUTH_GROUP_ID,
-		      	'코드그룹 모음' AS AUTH_GROUP_NAME,
-		      	1 AS LOAD_ON_DEMAND
-			FROM DUAL
+				'-1' AS parent_auth_group_id,
+		   		'ROOT' AS auth_group_id,
+		      	'코드그룹 모음' AS auth_group_name,
+		      	1 AS load_on_demand
+			FROM
+				DUAL
 			UNION ALL
 			SELECT
-	      		'ROOT' AS PARENT_AUTH_GROUP_ID, 
-	      		AUTH_GROUP_ID, 
-	      		AUTH_GROUP_NAME || '(' || auth_group_id || ')' AS AUTH_GROUP_NAME, 
-	      		0 AS LOAD_ON_DEMAND
+	      		'ROOT' AS parent_auth_group_id, auth_group_id, 
+	      		auth_group_name || '(' || auth_group_id || ')' AS auth_group_name, 
+	      		0 AS load_on_demand
 			FROM
 				CMS_AUTH_GROUP
-		)
-		CONNECT BY PRIOR AUTH_GROUP_ID = PARENT_AUTH_GROUP_ID
-		START WITH AUTH_GROUP_ID = 'ROOT'
-		ORDER SIBLINGS BY AUTH_GROUP_NAME
+			)
+		CONNECT BY PRIOR auth_group_id = parent_auth_group_id
+		START WITH auth_group_id = 'ROOT'
+		ORDER SIBLINGS BY auth_group_name
 	</select>
 	
 	<select id="getAuthGroupList" resultType="kr.co.whalesoft.app.cms.authCode.AuthCode">
@@ -36,18 +36,20 @@
 	
 	<select id="getAuthGroupOne" resultType="kr.co.whalesoft.app.cms.authCode.AuthCode">
 		SELECT
-			AUTH_GROUP_ID, AUTH_GROUP_NAME, REMARK, ADD_DATE, ADD_ID
+			auth_group_id, auth_group_name, remark, add_date, add_id
 		FROM
 			CMS_AUTH_GROUP
 		WHERE
-			AUTH_GROUP_ID = #{auth_group_id}
+			auth_group_id = #{auth_group_id}
 	</select>
 	
 	<insert id="addAuthGroup">
-		INSERT INTO CMS_AUTH_GROUP
+		INSERT INTO
+			CMS_AUTH_GROUP
 		(
-			AUTH_GROUP_ID, AUTH_GROUP_NAME, REMARK, ADD_DATE, ADD_ID
-		) VALUES
+			auth_group_id, auth_group_name, remark, add_date, add_id
+		)
+		VALUES
 		(
 			#{auth_group_id}, #{auth_group_name}, #{remark}, SYSDATE, #{add_id}
 		)
@@ -57,31 +59,35 @@
 		UPDATE 
 			CMS_AUTH_GROUP 
 		SET
-			AUTH_GROUP_NAME = #{auth_group_name},
-			REMARK = #{remark},
-			MOD_DATE = SYSDATE,
-			MOD_ID = #{mod_id}
+			auth_group_name = #{auth_group_name},
+			remark = #{remark},
+			modify_date = SYSDATE,
+			modify_id = #{modify_id}
 		WHERE
 			AUTH_GROUP_ID = #{auth_group_id}			
 	</update>
 	
 	<delete id="deleteAuthGroup">
-		DELETE FROM CMS_AUTH_GROUP 
+		DELETE FROM
+			CMS_AUTH_GROUP 
 		WHERE
 			AUTH_GROUP_ID = #{auth_group_id}
 	</delete>
 	
 	<select id="getAuthCount" resultType="int">
-		SELECT COUNT(*) AS CNT FROM CMS_AUTH
+		SELECT
+			COUNT(*) AS cnt
+		FROM
+			CMS_AUTH
 		WHERE
-			AUTH_GROUP_ID > 100 AND 
-			AUTH_GROUP_ID = #{auth_group_id}
+			auth_group_id > 100
+		AND	auth_group_id = #{auth_group_id}
 	</select>
 	
 	<select id="getAuthCode" resultType="kr.co.whalesoft.app.cms.authCode.AuthCode">
 		SELECT
 			auth_group_id, auth_code_id, auth_code_name, remark, 
-			print_seq, add_dttm, add_id
+			print_seq, add_date, add_id
 		FROM			
 			WB_AUTH_CODE
 		WHERE
@@ -92,21 +98,23 @@
 	
 	<select id="getAuthOne" resultType="kr.co.whalesoft.app.cms.authCode.AuthCode">
 		SELECT
-			AUTH_GROUP_ID, AUTH_ID, AUTH_NAME, USE_YN, REMARK, 
-			PRINT_SEQ, ADD_DATE, ADD_ID
+			auth_group_id, auth_id, auth_name, use_yn, remark, 
+			print_seq, add_date, add_id
 		FROM			
 			CMS_AUTH
 		WHERE
-			AUTH_GROUP_ID = #{auth_group_id} AND
-			AUTH_ID = #{auth_id}
+			auth_group_id = #{auth_group_id}
+		AND	auth_id = #{auth_id}
 	</select>
 	
 	<insert id="addAuth">
-		INSERT INTO CMS_AUTH
+		INSERT INTO
+			CMS_AUTH
 		(
-			AUTH_GROUP_ID, AUTH_ID, AUTH_NAME, USE_YN, REMARK, 
-			PRINT_SEQ, ADD_DATE, ADD_ID
-		) VALUES
+			auth_group_id, auth_id, auth_name, use_yn, remark, 
+			print_seq, add_date, add_id
+		)
+		VALUES
 		(
 			#{auth_group_id}, #{auth_id}, #{auth_name}, #{use_yn}, #{remark}, 
 			#{print_seq}, SYSDATE, #{add_id}
@@ -117,38 +125,40 @@
 		UPDATE 
 			CMS_AUTH 
 		SET
-			AUTH_NAME = #{auth_name}, 
-			USE_YN = #{use_yn},
-			REMARK = #{remark}, 
-			PRINT_SEQ = #{print_seq}, 
-			MOD_DATE = SYSDATE, 
-			MOD_ID = #{mod_id}
+			auth_name = #{auth_name}, 
+			use_yn = #{use_yn},
+			remark = #{remark}, 
+			print_seq = #{print_seq}, 
+			modify_date = SYSDATE, 
+			modify_id = #{modify_id}
 		WHERE
-			AUTH_GROUP_ID = #{auth_group_id} AND
-			AUTH_ID = #{auth_id}
+			auth_group_id = #{auth_group_id}
+		AND	auth_id = #{auth_id}
 	</update>
 	
 	<delete id="deleteAuth">
-		DELETE FROM CMS_AUTH 
+		DELETE FROM
+			CMS_AUTH 
 		WHERE
-			AUTH_GROUP_ID = #{auth_group_id} AND
-			AUTH_ID = #{auth_id}
+			auth_group_id = #{auth_group_id}
+		AND	auth_id = #{auth_id}
 	</delete>
 	
 	<select id="getMenuAuth" resultType="kr.co.whalesoft.app.cms.authCode.AuthCode">
 		SELECT 
-  			B.AUTH_GROUP_ID, B.AUTH_GROUP_NAME, A.AUTH_ID, A.AUTH_NAME
+  			b.auth_group_id, b.auth_group_name, a.auth_id, a.auth_name
 		FROM
-		  	CMS_AUTH A, 
-		  	CMS_AUTH_GROUP B
+		  	CMS_AUTH a, 
+		  	CMS_AUTH_GROUP b
 		WHERE
-			A.AUTH_GROUP_ID = B.AUTH_GROUP_ID AND
-			<if test="auth_group_id != null and auth_group_id != '' ">
-			A.AUTH_GROUP_ID = #{auth_group_id} AND
-			</if>
-			A.USE_YN = 'Y' AND TO_NUMBER(A.AUTH_ID) > 200
+			a.auth_group_id = b.auth_group_id
+		<if test="auth_group_id != null and auth_group_id != '' ">
+		AND	a.auth_group_id = #{auth_group_id}
+		</if>
+		AND	a.use_yn = 'y'
+		AND to_number(a.auth_id) > 200
 		ORDER BY
-		  	B.AUTH_GROUP_ID, A.AUTH_ID
+		  	b.auth_group_id, a.auth_id
 	</select>
 	
 	<select id="getNextPrintSeq" resultType="int">
@@ -157,6 +167,6 @@
 		FROM
 			CMS_AUTH
 		WHERE
-			AUTH_GROUP_ID = #{auth_group_id}
+			auth_group_id = #{auth_group_id}
 	</select>
 </mapper>
