@@ -265,7 +265,8 @@ public class MemberAPI {
 	 * @param member - option 0 : member.member_id
      * option 2 : member.user_no, member.member_name
      * option 1or3 : member.ci_value  ※ get파라미터 전송방식의 특성상 일부 특수문자는 변환하여 전송 필요. + => %2B & => %26
-     * @param option - 0:이용자ID, 1:CI, 2:대출자번호+이름, 3:책이음 가입확인
+     * option 4 : member.member_name, member.cellphone, member.birth_day
+     * @param option - 0:이용자ID, 1:CI, 2:대출자번호+이름, 3:책이음 가입확인, 4:이름+핸드폰번호+생년월일(YYYYMMDD)
      * @return
 	 */
 	public static List<Map<String, Object>> checkDupUser(String option, Member member) {
@@ -278,6 +279,10 @@ public class MemberAPI {
 			} else if (StringUtils.equals(option, "2")) {
 				param.put("user_no", member.getUser_no());
 				param.put("name", URLEncoder.encode(member.getMember_name(), "UTF-8"));
+			} else if (StringUtils.equals(option, "4")) {
+				param.put("name", URLEncoder.encode(member.getMember_name(), "UTF-8"));
+				param.put("idx_handphone", member.getCell_phone());
+				param.put("birthday", member.getBirth_day());
 			} else {
 				// option:1 or option:3
 				param.put("ipin_hash", URLEncoder.encode(member.getCi_value(), "UTF-8"));
