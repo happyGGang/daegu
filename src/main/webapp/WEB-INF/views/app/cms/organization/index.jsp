@@ -36,17 +36,11 @@ $(document).ready(function() {
 	$('a.status-del').on('click', function(e) {
 		e.preventDefault();
 		if(confirm('삭제하시겠습니까?')) {
-			$('form#statusMngDel input#status_idx_d').val($(this).attr('keyValue'));
-			$('form#statusMngDel input#division_idx_d').val($(this).attr('keyValue2'));
-			doAjaxPost($('form#statusMngDel'));
+			$('form#statusDelete input#status_idx_d').val($(this).attr('keyValue'));
+			$('form#statusDelete input#division_idx_d').val($(this).attr('keyValue2'));
+			doAjaxPost($('form#statusDelete'));
 		}
 	});
-	
-	<%-- 미리보기 --%>
-// 	$('a#sample-btn').on('click', function(e) {
-// 		e.preventDefault();
-// 		window.open('/${homepage.context_path}/module/organization/index.do?menu_idx=192');
-// 	});
 	
 	// 업무
 	<%-- 업무등록 --%>
@@ -88,7 +82,7 @@ $(document).ready(function() {
 	<%-- 미리보기 --%>
 	$('a#sample-btn').on('click', function(e) {
 		e.preventDefault();
-		window.open('/${homepage.context_path}/module/organization/index.do?menu_idx=192');
+		window.open('/${homepage.context_path}/module/organization/index.do');
 	});
 	
 	$('button#search_btn').on('click', function(e) {
@@ -121,7 +115,7 @@ $.fn.rowspan = function(colIdx, isStats) {
 	});
 }
 </script>
-<form:form modelAttribute="organization" id="statusMngDel" action="statusDelete.do" method="POST">
+<form:form modelAttribute="organization" id="statusDelete" action="statusDelete.do" method="POST">
 	<form:hidden path="homepage_id" id="homepage_id_d"/>
 	<form:hidden path="status_idx" id="status_idx_d"/>
 	<form:hidden path="division_idx" id="division_idx_d"/>
@@ -129,12 +123,13 @@ $.fn.rowspan = function(colIdx, isStats) {
 <form:form modelAttribute="organization" action="index.do" method="GET">
 	<form:hidden path="homepage_id"/>
 	<div class="infodesk">
-		검색 결과 : ${statusMng.totalDataCount}건
 		<div class="button">
 			<c:if test="${authC}">
-<!-- 				<a href="" class="btn btn1 left" id="sample-btn"><span>미리보기</span></a>&nbsp; -->
-				<a href="" class="btn btn3 left" id="dialog-division"><i class="fa fa-plus"></i><span>직렬관리</span></a>&nbsp;&nbsp;
-				<a href="" class="btn btn5 left" id="dialog-status"><i class="fa fa-plus"></i><span>조직현황등록</span></a>
+				<a href="" class="btn btn1 left" id="sample-btn"><span>미리보기</span></a>&nbsp;
+				<a href="" class="btn btn3 left" id="dialog-division"><i class="fa fa-plus"></i><span>직렬관리</span></a>&nbsp;
+				<a href="" class="btn btn5 left" id="dialog-status"><i class="fa fa-plus"></i><span>조직현황등록</span></a>&nbsp;
+				<a href="" class="btn btn3 left" id="dialog-organization"><i class="fa fa-plus"></i><span>부서관리</span></a>&nbsp;
+				<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>업무등록</span></a>
 			</c:if>
 		</div>
 	</div>
@@ -213,16 +208,7 @@ $.fn.rowspan = function(colIdx, isStats) {
 </form:form> 
 <form:form modelAttribute="organization" action="index.do" method="GET">
 	<form:hidden path="homepage_id"/>
-	<div class="infodesk">
-		검색 결과 : ${organization.totalDataCount}건
-		<div class="button">
-			<c:if test="${authC}">
-				<a href="" class="btn btn1 left" id="sample-btn"><span>미리보기</span></a>&nbsp;
-				<a href="" class="btn btn3 left" id="dialog-organization"><i class="fa fa-plus"></i><span>부서관리</span></a>&nbsp;
-				<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>업무등록</span></a>
-			</c:if>
-		</div>
-	</div>
+	
 	<c:forEach items="${organizationList}" var="i">
 		<h3>${i.organization_name}</h3>
 		<table class="center tspan" summary="${i.organization_name}의 직원현황입니다.">

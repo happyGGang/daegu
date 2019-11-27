@@ -144,8 +144,8 @@ public class OrganizationService extends BaseService {
 		return dao.deleteWorkAll(organization);
 	}
 
-	public int modChardYN(Organization organization) {
-		return dao.modChartYN(organization);
+	public int modifyChartYN(Organization organization) {
+		return dao.modifyChartYN(organization);
 	}
 
 	public char getOrganizationChartYN(Organization organization) {

@@ -406,7 +406,7 @@
 			homepage_id = #{homepage_id}
 	</select>
 	
-	<update id="modChardYN">
+	<update id="modifyChartYN">
 		MERGE INTO
 			DEPT_CHART DC
 		USING DUAL
