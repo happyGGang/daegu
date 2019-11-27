@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/join/join.css"/>
-
+<link rel="stylesheet" type="text/css" href="/resources/common/css/login/login.css"/>
 <script type="text/javascript">
 $(function() {
 	$('th.th1').css('width', '30%');
@@ -44,9 +44,7 @@ $(function() {
 </div>
 
 <div class="join-wrap">
-	<div class="info">
-   	 &nbsp; <b>I-PIN 신규발급 [<a href="http://www.vno.co.kr/ipin3/personal/personal01_01.asp" target="_blank">신규발급바로가기</a>]</b>
-	</div>
+
 	<form id="certForm" name="certForm" action="/intro/join/cert.do" method="post" target="certWindow">
 		<input type="hidden" name="certType">
 		<input type="hidden" name="mode" value="findPw">
@@ -56,26 +54,24 @@ $(function() {
 	<form:form modelAttribute="memberInfo" action="changePwForm.do" method="post">
 		<form:hidden path="certType"/>
 
-		<div class="login-body">
-			<div class="tab">
-				<dl class="tcon t1">
-					<dt class="blind">통합도서관 로그인</dt>
-					<div class="loginBox1">
-						<dd class="login">
-							<fieldset>
-								<div class="form-box">
-									<p class="idtype" >
-									<label for="member_id_tmp">아이디</label>
-									<input type="text" id="member_id_tmp" class="txt" placeholder="아이디" maxlength="20" />
-									</p>
-								</div>
-							</fieldset>
-						</dd>
+		<div class="findpw-login-body">
+			<div class="loginBox1">
+			
+				<fieldset>
+					<div class="form-box">
+						<p class="idtype" >
+						<label for="member_id_tmp" class="hidden">아이디</label>
+						<input type="text" id="member_id_tmp" class="txt" placeholder="아이디 입력" maxlength="20" />
+						</p>
 					</div>
-				</dl>
+				</fieldset>
+
 			</div>
 		</div>
 
+		<div class="info">
+		&nbsp; <b>I-PIN 신규발급 [<a href="http://www.vno.co.kr/ipin3/personal/personal01_01.asp" target="_blank">신규발급바로가기</a>]</b>
+		</div>
 		<div class="identi_select">
 			<table class="center joinSelect">
 				<colgroup>

@@ -2,286 +2,97 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.whalesoft.app.cms.homepageAccess.HomepageAccessDao">
 
-    <update id="addHomepageAccess" statementType="CALLABLE">
-    	{ call SP_HOMEPAGE_ACCESS
-    		(
-    		#{search_year}, #{homepage_id}, #{browser_type}, #{browser_version},
-			#{access_system}, #{operating_system}, #{access_ip}, #{referer_url}, #{session_id},
-			#{member_id}, #{member_seq_no}
-    		)
-    	}
-    </update>
-
-    <select id ="getHomepageAccessResultByAll" resultType="kr.co.whalesoft.app.cms.homepageAccess.HomepageAccess">
+	<sql id="commonWhere">
+		<trim prefix="WHERE" prefixOverrides="AND">
+		<if test="homepage_id != 'ALL'">
+			AND homepage_id = #{homepage_id}
+		</if>
+		<choose>
+		<when test="date_type == 'DAY'">
+			<![CDATA[
+			AND	access_date >= #{start_date}
+			AND	access_date <= #{end_date}
+			]]>
+		</when>
+		<when test="date_type == 'MONTH'">
+			<![CDATA[
+			AND	SUBSTR(access_date, 0, 7) >= #{start_year}||'-01'
+			AND	SUBSTR(access_date, 0, 7) <= #{start_year}||'-12'
+			]]>
+		</when>
+		<when test="date_type == 'YEAR'">
+			<![CDATA[
+			AND	SUBSTR(access_date, 0, 4) >= #{start_year}
+			AND	SUBSTR(access_date, 0, 4) <= #{end_year}
+			]]>
+		</when>
+		<otherwise>
+			<![CDATA[
+			AND	SUBSTR(access_date, 0, 7) >= #{start_year}||'-01'
+			AND	SUBSTR(access_date, 0, 7) <= #{start_year}||'-12'
+			]]>
+		</otherwise>
+		</choose>
+		</trim>
+	</sql>
+	
+	<sql id="result_date">
+		<choose>
+		<when test="date_type == 'DAY'">
+			access_date AS result_date
+		</when>
+		<when test="date_type == 'MONTH'">
+			SUBSTR(access_date, 0, 7) AS result_date
+		</when>
+		<when test="date_type == 'YEAR'">
+			SUBSTR(access_date, 0, 4) AS result_date
+		</when>
+		<otherwise>
+			SUBSTR(access_date, 0, 7) AS result_date
+		</otherwise>
+		</choose>
+	</sql>
+	
+    <select id ="getHomepageStatisticsResult" resultType="kr.co.whalesoft.app.cms.homepageAccess.HomepageAccess">
 		SELECT RESULT_DATE, SUM(RESULT_COUNT) AS RESULT_COUNT
 		FROM (
-		<if test="date_type == 'TIME'">
-			SELECT TO_CHAR(TO_DATE(#{start_date}||' 00:00','yyyy-mm-dd hh24:mi') + ((LEVEL-1)/24),'yyyy-mm-dd hh24:mi') AS result_date, 0 AS result_count, '' AS session_id
-    	</if>
     	<if test="date_type == 'DAY'">
-			SELECT TO_CHAR(TO_DATE(#{start_date},'yyyy-mm-dd') + ((LEVEL-1)),'yyyy-mm-dd') AS result_date, 0 AS result_count, '' AS session_id
+			SELECT TO_CHAR(TO_DATE(#{start_date},'yyyy-mm-dd') + ((LEVEL-1)),'yyyy-mm-dd') AS result_date, 0 AS result_count
     	</if>
     	<if test="date_type == 'MONTH'">
-			SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{search_year}||'-01', 'yyyy-mm'), LEVEL - 1),'yyyy-mm') AS result_date, 0 AS result_count, '' AS session_id
+			SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{start_year}||'-01', 'yyyy-mm'), LEVEL - 1),'yyyy-mm') AS result_date, 0 AS result_count
     	</if>
     	<if test="date_type == 'YEAR'">
-			SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{search_year}, 'yyyy'), (LEVEL - 1)*12),'yyyy') AS result_date, 0 AS result_count, '' AS session_id
+			SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{start_year}, 'yyyy'), (LEVEL - 1)*12),'yyyy') AS result_date, 0 AS result_count
     	</if>
 			FROM DUAL
-			CONNECT BY LEVEL &lt;= <if test="date_type == 'TIME'">24</if><if test="date_type == 'DAY'">(TO_DATE(#{end_date}, 'yyyy-mm-dd') - TO_DATE(#{start_date}, 'yyyy-mm-dd') + 1)</if><if test="date_type == 'MONTH'">12</if><if test="date_type == 'YEAR'">#{year_count}</if>
-			UNION
-		<if test="date_type == 'TIME'">
-			SELECT TO_CHAR(access_date, 'yyyy-mm-dd hh24')||':00' AS result_date, 1 AS result_count, session_id
-		</if>
-		<if test="date_type == 'DAY'">
-			SELECT TO_CHAR(access_date, 'yyyy-mm-dd') AS result_date, 1 AS result_count, session_id
-		</if>
-		<if test="date_type == 'MONTH'">
-			SELECT TO_CHAR(access_date, 'yyyy-mm') AS result_date, 1 AS result_count, session_id
-		</if>
-		<if test="date_type == 'YEAR'">
-			SELECT TO_CHAR(access_date, 'yyyy') AS result_date, 1 AS result_count, session_id
-		</if>
-			FROM CMS_HOMEPAGE_ACCESS_${search_year}
-			WHERE (ACCESS_IP IS NULL OR ACCESS_IP != '10.9.32.167')
-			<if test="homepage_id != 'ALL'">
-				AND homepage_id = #{homepage_id}
+			CONNECT BY LEVEL &lt;=
+				<if test="date_type == 'DAY'">(TO_DATE(#{end_date}) - TO_DATE(#{start_date}) + 1)</if>
+				<if test="date_type == 'MONTH'">12</if>
+				<if test="date_type == 'YEAR'">(TO_NUMBER(#{end_year}) - TO_NUMBER(#{start_year}) + 1)</if>
+
+			<if test="search_type == 'ALL' or search_type == 'PC'">
+			UNION ALL
+			SELECT
+				<include refid="result_date" />
+				, access_cnt AS result_count
+			FROM
+				STATISTICS_COUNT
+			<include refid="commonWhere" />
 			</if>
-			<if test="date_type == 'TIME'">
-				AND access_date BETWEEN TO_DATE(#{start_date}||' 00:00:00', 'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(#{start_date}||' 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
-			</if>
-			<if test="date_type == 'DAY'">
-				AND access_date BETWEEN TO_DATE(#{start_date}||' 00:00:00', 'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(#{end_date}||' 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
-			</if>
-			<if test="date_type == 'MONTH'">
-				AND access_date BETWEEN TO_DATE(#{search_year}||'-01-01 00:00:00', 'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(#{search_year}||'-12-31 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
-			</if>
-			<if test="date_type == 'YEAR'">
-				AND access_date BETWEEN TO_DATE(#{search_year}||'-01-01 00:00:00', 'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(#{search_year}||'-12-31 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
-			</if>
-			<if test="member_id != null and member_id != ''">
-				AND member_id = #{member_id}
-			</if>
-			GROUP BY
-			<if test="date_type == 'TIME'">
-				TO_CHAR(access_date, 'yyyy-mm-dd hh24'), session_id
-			</if>
-			<if test="date_type == 'DAY'">
-				TO_CHAR(access_date, 'yyyy-mm-dd'), session_id
-			</if>
-			<if test="date_type == 'MONTH'">
-				TO_CHAR(access_date, 'yyyy-mm'), session_id
-			</if>
-			<if test="date_type == 'YEAR'">
-				TO_CHAR(access_date, 'yyyy'), session_id
+			
+			<if test="search_type == 'ALL' or search_type == 'MOBILE'">
+			UNION ALL
+			SELECT
+				<include refid="result_date" />
+				, access_cnt AS result_count
+			FROM
+				STATISTICS_COUNT_MOBILE
+			<include refid="commonWhere" />
 			</if>
 		)
 		GROUP BY result_date
 		ORDER BY result_date ASC
-    </select>
-
-    <select id ="getHomepageAccessResultByBrowser" resultType="kr.co.whalesoft.app.cms.homepageAccess.HomepageAccess">
-	    SELECT a.result_date, sum(b.result_count) AS result_count , b.browser_type
-		FROM (
-			<if test="date_type == 'TIME'">
-				SELECT TO_CHAR(TO_DATE(#{start_date}||' 00:00','yyyy-mm-dd hh24:mi') + ((LEVEL-1)/24),'yyyy-mm-dd hh24:mi') AS result_date, 0 AS result_count, '' AS browser_type
-	    	</if>
-	    	<if test="date_type == 'DAY'">
-				SELECT TO_CHAR(TO_DATE(#{start_date},'yyyy-mm-dd') + ((LEVEL-1)),'yyyy-mm-dd') AS result_date, 0 AS result_count, '' AS browser_type
-	    	</if>
-	    	<if test="date_type == 'MONTH'">
-				SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{search_year}||'-01', 'yyyy-mm'), LEVEL - 1),'yyyy-mm') AS result_date, 0 AS result_count, '' AS browser_type
-	    	</if>
-	    	<if test="date_type == 'YEAR'">
-				SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{search_year}, 'yyyy'), (LEVEL - 1)*12),'yyyy') AS result_date, 0 AS result_count, '' AS browser_type
-	    	</if>
-	      		FROM DUAL
-	    		CONNECT BY LEVEL &lt;= <if test="date_type == 'TIME'">24</if> <if test="date_type == 'DAY'">(TO_DATE(#{end_date}, 'yyyy-mm-dd') - TO_DATE(#{start_date}, 'yyyy-mm-dd') + 1)</if><if test="date_type == 'MONTH'">12</if><if test="date_type == 'YEAR'">#{year_count}</if> ) a,
-	    	  	(
-    	  	<if test="date_type == 'TIME'">
-	    	  	SELECT TO_CHAR(access_date, 'yyyy-mm-dd hh24')||':00' AS result_date, 1 AS result_count, browser_type
-      		</if>
-      		<if test="date_type == 'DAY'">
-      			SELECT TO_CHAR(access_date, 'yyyy-mm-dd') AS result_date, 1 AS result_count, browser_type
-      		</if>
-      		<if test="date_type == 'MONTH'">
-				SELECT TO_CHAR(access_date, 'yyyy-mm') AS result_date, 1 AS result_count, browser_type
-			</if>
-			<if test="date_type == 'YEAR'">
-				SELECT TO_CHAR(access_date, 'yyyy') AS result_date, 1 AS result_count, browser_type
-			</if>
-	      		FROM CMS_HOMEPAGE_ACCESS_${search_year}
-	      		WHERE (ACCESS_IP IS NULL OR ACCESS_IP != '10.9.32.167')
-      		<if test="homepage_id != 'ALL'">
-				AND homepage_id = #{homepage_id}
-			</if>
-      		<if test="date_type == 'TIME'">
-				AND access_date BETWEEN TO_DATE(#{start_date}||' 00:00:00', 'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(#{start_date}||' 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
-			</if>
-			<if test="date_type == 'DAY'">
-				AND access_date BETWEEN TO_DATE(#{start_date}||' 00:00:00', 'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(#{end_date}||' 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
-			</if>
-			<if test="date_type == 'MONTH'">
-				AND access_date BETWEEN TO_DATE(#{search_year}||'-01-01 00:00:00', 'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(#{search_year}||'-12-31 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
-			</if>
-			<if test="date_type == 'YEAR'">
-				AND access_date BETWEEN TO_DATE(#{search_year}||'-01-01 00:00:00', 'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(#{search_year}||'-12-31 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
-			</if>
-			<if test="member_id != null and member_id != ''">
-				AND member_id = #{member_id}
-			</if>
-			GROUP BY
-      		<if test="date_type == 'TIME'">
-	           	TO_CHAR(access_date, 'yyyy-mm-dd hh24'), browser_type, session_id) b
-	        </if>
-	        <if test="date_type == 'DAY'">
-	        	TO_CHAR(access_date, 'yyyy-mm-dd'), browser_type, session_id) b
-	        </if>
-	        <if test="date_type == 'MONTH'">
-				TO_CHAR(access_date, 'yyyy-mm'), browser_type, session_id) b
-			</if>
-			<if test="date_type == 'YEAR'">
-				TO_CHAR(access_date, 'yyyy'), browser_type, session_id) b
-			</if>
-		WHERE a.result_date = b.result_date(+)
-		GROUP BY a.result_date, b.browser_type
-		ORDER BY a.result_date ASC
-    </select>
-
-    <select id ="getHomepageAccessResultByOS" resultType="kr.co.whalesoft.app.cms.homepageAccess.HomepageAccess">
-	    SELECT a.result_date, sum(b.result_count) AS result_count , b.operating_system
-		FROM (
-			<if test="date_type == 'TIME'">
-				SELECT TO_CHAR(TO_DATE(#{start_date}||' 00:00','yyyy-mm-dd hh24:mi') + ((LEVEL-1)/24),'yyyy-mm-dd hh24:mi') AS result_date, 0 AS result_count, '' AS operating_system
-	    	</if>
-	    	<if test="date_type == 'DAY'">
-				SELECT TO_CHAR(TO_DATE(#{start_date},'yyyy-mm-dd') + ((LEVEL-1)),'yyyy-mm-dd') AS result_date, 0 AS result_count, '' AS operating_system
-	    	</if>
-	    	<if test="date_type == 'MONTH'">
-				SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{search_year}||'-01', 'yyyy-mm'), LEVEL - 1),'yyyy-mm') AS result_date, 0 AS result_count, '' AS operating_system
-	    	</if>
-	    	<if test="date_type == 'YEAR'">
-				SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{search_year}, 'yyyy'), (LEVEL - 1)*12),'yyyy') AS result_date, 0 AS result_count, '' AS operating_system
-	    	</if>
-	      		FROM DUAL
-	    		CONNECT BY LEVEL &lt;= <if test="date_type == 'TIME'">24</if> <if test="date_type == 'DAY'">(TO_DATE(#{end_date}, 'yyyy-mm-dd') - TO_DATE(#{start_date}, 'yyyy-mm-dd') + 1)</if><if test="date_type == 'MONTH'">12</if><if test="date_type == 'YEAR'">#{year_count}</if> ) a,
-	    	  	(
-    	  	<if test="date_type == 'TIME'">
-	    	  	SELECT TO_CHAR(access_date, 'yyyy-mm-dd hh24')||':00' AS RESULT_DATE, 1 AS result_count, operating_system
-      		</if>
-      		<if test="date_type == 'DAY'">
-      			SELECT TO_CHAR(access_date, 'yyyy-mm-dd') AS result_date, 1 AS result_count, operating_system
-      		</if>
-      		<if test="date_type == 'MONTH'">
-				SELECT TO_CHAR(access_date, 'yyyy-mm') AS result_date, 1 AS result_count, operating_system
-			</if>
-			<if test="date_type == 'YEAR'">
-				SELECT TO_CHAR(access_date, 'yyyy') AS result_date, 1 AS result_count, operating_system
-			</if>
-	      		FROM CMS_HOMEPAGE_ACCESS_${search_year}
-	      		WHERE (ACCESS_IP IS NULL OR ACCESS_IP != '10.9.32.167')
-	      	<if test="homepage_id != 'ALL'">
-				AND homepage_id = #{homepage_id}
-			</if>
-      		<if test="date_type == 'TIME'">
-				AND access_date BETWEEN TO_DATE(#{start_date}||' 00:00:00', 'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(#{start_date}||' 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
-			</if>
-			<if test="date_type == 'DAY'">
-				AND access_date BETWEEN TO_DATE(#{start_date}||' 00:00:00', 'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(#{end_date}||' 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
-			</if>
-			<if test="date_type == 'MONTH'">
-				AND access_date BETWEEN TO_DATE(#{search_year}||'-01-01 00:00:00', 'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(#{search_year}||'-12-31 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
-			</if>
-			<if test="date_type == 'YEAR'">
-				AND access_date BETWEEN TO_DATE(#{search_year}||'-01-01 00:00:00', 'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(#{search_year}||'-12-31 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
-			</if>
-			<if test="member_id != null and member_id != ''">
-				AND member_id = #{member_id}
-			</if>
-			GROUP BY
-      		<if test="date_type == 'TIME'">
-	           	TO_CHAR(access_date, 'yyyy-mm-dd hh24'), operating_system, session_id) b
-	        </if>
-	        <if test="date_type == 'DAY'">
-	        	TO_CHAR(access_date, 'yyyy-mm-dd'), operating_system, session_id) b
-	        </if>
-	        <if test="date_type == 'MONTH'">
-				TO_CHAR(access_date, 'yyyy-mm'), operating_system, session_id) b
-			</if>
-			<if test="date_type == 'YEAR'">
-				TO_CHAR(access_date, 'yyyy'), operating_system, session_id) b
-			</if>
-		WHERE a.result_date = b.result_date(+)
-		GROUP BY a.result_date, b.operating_system
-		ORDER BY a.result_date ASC
-    </select>
-
-    <select id ="getHomepageAccessResultByDevice" resultType="kr.co.whalesoft.app.cms.homepageAccess.HomepageAccess">
-	    SELECT a.result_date, sum(b.result_count) AS result_count , b.access_system
-		FROM (
-			<if test="date_type == 'TIME'">
-				SELECT TO_CHAR(TO_DATE(#{start_date}||' 00:00','yyyy-mm-dd hh24:mi') + ((LEVEL-1)/24),'yyyy-mm-dd hh24:mi') AS result_date, 0 AS result_count, '' AS access_system
-	    	</if>
-	    	<if test="date_type == 'DAY'">
-				SELECT TO_CHAR(TO_DATE(#{start_date},'yyyy-mm-dd') + ((LEVEL-1)),'yyyy-mm-dd') AS result_date, 0 AS result_count, '' AS access_system
-	    	</if>
-	    	<if test="date_type == 'MONTH'">
-				SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{search_year}||'-01', 'yyyy-mm'), LEVEL - 1),'yyyy-mm') AS result_date, 0 AS result_count, '' AS access_system
-	    	</if>
-	    	<if test="date_type == 'YEAR'">
-				SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{search_year}, 'yyyy'), (LEVEL - 1)*12),'yyyy') AS result_date, 0 AS result_count, '' AS access_system
-	    	</if>
-	      		FROM DUAL
-	    		CONNECT BY LEVEL &lt;= <if test="date_type == 'TIME'">24</if> <if test="date_type == 'DAY'">(TO_DATE(#{end_date}, 'yyyy-mm-dd') - TO_DATE(#{start_date}, 'yyyy-mm-dd') + 1)</if><if test="date_type == 'MONTH'">12</if><if test="date_type == 'YEAR'">#{year_count}</if> ) a,
-	    	  	(
-    	  	<if test="date_type == 'TIME'">
-	    	  	SELECT TO_CHAR(access_date, 'yyyy-mm-dd hh24')||':00' AS RESULT_DATE, 1 AS result_count, access_system
-      		</if>
-      		<if test="date_type == 'DAY'">
-      			SELECT TO_CHAR(access_date, 'yyyy-mm-dd') AS result_date, 1 AS result_count, access_system
-      		</if>
-      		<if test="date_type == 'MONTH'">
-				SELECT TO_CHAR(access_date, 'yyyy-mm') AS result_date, 1 AS result_count, access_system
-			</if>
-			<if test="date_type == 'YEAR'">
-				SELECT TO_CHAR(access_date, 'yyyy') AS result_date, 1 AS result_count, access_system
-			</if>
-	      		FROM CMS_HOMEPAGE_ACCESS_${search_year}
-	      		WHERE (ACCESS_IP IS NULL OR ACCESS_IP != '10.9.32.167')
-	      	<if test="homepage_id != 'ALL'">
-				AND homepage_id = #{homepage_id}
-			</if>
-      		<if test="date_type == 'TIME'">
-				AND access_date BETWEEN TO_DATE(#{start_date}||' 00:00:00', 'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(#{start_date}||' 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
-			</if>
-			<if test="date_type == 'DAY'">
-				AND access_date BETWEEN TO_DATE(#{start_date}||' 00:00:00', 'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(#{end_date}||' 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
-			</if>
-			<if test="date_type == 'MONTH'">
-				AND access_date BETWEEN TO_DATE(#{search_year}||'-01-01 00:00:00', 'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(#{search_year}||'-12-31 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
-			</if>
-			<if test="date_type == 'YEAR'">
-				AND access_date BETWEEN TO_DATE(#{search_year}||'-01-01 00:00:00', 'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(#{search_year}||'-12-31 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
-			</if>
-			<if test="member_id != null and member_id != ''">
-				AND member_id = #{member_id}
-			</if>
-			GROUP BY
-      		<if test="date_type == 'TIME'">
-	           	TO_CHAR(access_date, 'yyyy-mm-dd hh24'), access_system, session_id) b
-	        </if>
-	        <if test="date_type == 'DAY'">
-	        	TO_CHAR(access_date, 'yyyy-mm-dd'), access_system, session_id) b
-	        </if>
-	        <if test="date_type == 'MONTH'">
-				TO_CHAR(access_date, 'yyyy-mm'), access_system, session_id) b
-			</if>
-			<if test="date_type == 'YEAR'">
-				TO_CHAR(access_date, 'yyyy'), access_system, session_id) b
-			</if>
-		WHERE a.result_date = b.result_date(+)
-		GROUP BY a.result_date, b.access_system
-		ORDER BY a.result_date ASC
     </select>
 
     <select id="getLastHomepageAccess" resultType="string">
@@ -293,50 +104,81 @@
 			seq_no = #{seq_no}
     </select>
 
-
-    <insert id="addAccessCount">
-    	MERGE INTO
-			CMS_HOMEPAGE_ACCESS_STATUS a
-		USING dual
-		ON
-			(
-				a.homepage_id = #{homepage_id}
-			AND a.access_date = TO_DATE(TO_CHAR(SYSDATE, 'YYYYMMDDHH24'), 'YYYYMMDDHH24')
-			)
-		WHEN MATCHED THEN
-			UPDATE SET
-				a.${search_type} = a.${search_type}+1
-		WHEN NOT MATCHED THEN
-			INSERT
-			(
-				homepage_id, access_date, ${search_type}, view_${search_type}
-			) VALUES
-			(
-				#{homepage_id}, TO_DATE(TO_CHAR(SYSDATE, 'YYYYMMDDHH24'), 'YYYYMMDDHH24'), 1, 1
-			)
+    <insert id="addStatisticsCount">
+		INSERT INTO STATISTICS_COUNT (
+			access_idx, homepage_id, access_date, access_cnt
+		) VALUES (
+			STATISTICS_COUNT_SEQ.NEXTVAL, #{homepage_id}, #{start_date}, 1
+		)
     </insert>
-
-    <insert id="addViewCount">
-    	MERGE INTO
-			CMS_HOMEPAGE_ACCESS_STATUS a
-		USING dual
-		ON
-			(
-				a.homepage_id = #{homepage_id}
-			AND a.access_date = TO_DATE(TO_CHAR(SYSDATE, 'YYYYMMDDHH24'), 'YYYYMMDDHH24')
-			)
-		WHEN MATCHED THEN
-			UPDATE SET
-				a.view_${search_type} = a.view_${search_type}+1
-		WHEN NOT MATCHED THEN
-			INSERT
-			(
-				homepage_id, access_date, ${search_type}, view_${search_type}
-			) VALUES
-			(
-				#{homepage_id}, TO_DATE(TO_CHAR(SYSDATE, 'YYYYMMDDHH24'), 'YYYYMMDDHH24'), 0, 1
-			)
+    
+    <insert id="addStatisticsCountMobile">
+		INSERT INTO STATISTICS_COUNT_MOBILE (
+			access_idx, homepage_id, access_date, access_cnt
+		) VALUES (
+			STATISTICS_COUNT_MOBILE_SEQ.NEXTVAL, #{homepage_id}, #{start_date}, 1
+		)
     </insert>
+    
+    <insert id="addStatisticsCountLog">
+		INSERT INTO STATISTICS_COUNT_LOG (
+			access_idx, homepage_id, access_date, session_id, access_ip, referer_url, user_agent, access_cnt
+		) VALUES (
+			STAT_COUNT_LOG_SEQ.NEXTVAL, #{homepage_id}, #{start_date}, #{session_id}, #{access_ip}, #{referer_url}, #{user_agent}, 1
+		)
+    </insert>
+    
+    <insert id="addStatisticsCountLogMobile">
+		INSERT INTO STATISTICS_COUNT_LOG_MOBILE (
+			access_idx, homepage_id, access_date, session_id, access_ip, referer_url, user_agent, access_cnt
+		) VALUES (
+			STAT_COUNT_LOG_MOBILE_SEQ.NEXTVAL, #{homepage_id}, #{start_date}, #{session_id}, #{access_ip}, #{referer_url}, #{user_agent}, 1
+		)
+    </insert>
+    
+    <update id="updateStatisticsCount">
+    	UPDATE STATISTICS_COUNT SET
+    		access_cnt = access_cnt+1
+    	WHERE
+    		homepage_id = #{homepage_id}
+    	AND access_date = #{start_date}
+    </update>
+    
+    <update id="updateStatisticsCountMobile">
+    	UPDATE STATISTICS_COUNT_MOBILE SET
+    		access_cnt = access_cnt+1
+    	WHERE
+    		homepage_id = #{homepage_id}
+    	AND access_date = #{start_date}
+    </update>
+    
+    <update id="updateStatisticsCountLog">
+    	UPDATE STATISTICS_COUNT_LOG SET
+    		access_cnt = access_cnt+1
+    	WHERE
+    		homepage_id = #{homepage_id}
+    	AND access_date = #{start_date}
+    	AND session_id = #{session_id}
+    </update>
+    
+    <update id="updateStatisticsCountLogMobile">
+    	UPDATE STATISTICS_COUNT_LOG_MOBILE SET
+    		access_cnt = access_cnt+1
+    	WHERE
+    		homepage_id = #{homepage_id}
+    	AND access_date = #{start_date}
+    	AND session_id = #{session_id}
+    </update>
+    
+    <select id="getCmsHomepageAccess" resultType="kr.co.whalesoft.app.cms.homepageAccess.HomepageAccess">
+		SELECT
+			*
+		FROM
+			CMS_HOMEPAGE_ACCESS
+		WHERE
+			#{start_date} = TO_CHAR(access_date, 'YYYY-MM-DD')
+		ORDER BY access_idx
+    </select>
 
     <select id="getChartData" resultType="kr.co.whalesoft.app.cms.homepageAccess.HomepageAccess">
 		SELECT
@@ -367,8 +209,6 @@
 		GROUP BY TO_CHAR(access_date, 'YYYY-MM-DD')
 		ORDER BY TO_CHAR(access_date, 'YYYY-MM-DD')
     </select>
-
-
 
     <select id="getChartDivData" resultType="kr.co.whalesoft.app.cms.homepageAccess.HomepageAccess">
 		SELECT
@@ -401,4 +241,5 @@
 		GROUP BY TO_CHAR(access_date, 'YYYY-MM-DD')
 		ORDER BY TO_CHAR(access_date, 'YYYY-MM-DD')
     </select>
+    
 </mapper>

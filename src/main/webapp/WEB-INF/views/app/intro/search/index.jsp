@@ -149,12 +149,12 @@ $(function() {
 					</dl>
 					<dl>
 						<dt><label for="title" class="title">제목</label></dt>
-						<dd><form:input path="title"/></dd>
+						<dd><form:input path="title" class="text-area"/></dd>
 					</dl>
 
 					<dl>
 						<dt><label for="author" class="title">저자</label></dt>
-						<dd><form:input path="author"/></dd>
+						<dd><form:input path="author" class="text-area"/></dd>
 					</dl>
 					<dl>
 						<dt>주제</dt>
@@ -177,36 +177,39 @@ $(function() {
 
 					<dl>
 						<dt><label for="publer" class="title">발행처</label></dt>
-						<dd><form:input path="publer"/></dd>
+						<dd><form:input path="publer" class="text-area"/></dd>
 					</dl>
 					<dl>
 						<dt><label for="keyword" class="title">키워드</label></dt>
-						<dd><form:input path="keyword"/></dd>
+						<dd><form:input path="keyword" class="text-area"/></dd>
 					</dl>
 
 					<dl>
 						<dt>발행년도</dt>
 						<dd>
 							<div class="box">
-								<form:input path="search_start_date" title="시작년도" numberOnly="true" maxlength="4"/>
+								<form:input path="search_start_date" title="시작년도" numberOnly="true" maxlength="4" />
 								<span style="width:6%;text-align:center;">~</span>
-								<form:input path="search_end_date" title="마지막년도" numberOnly="true" maxlength="4"/>
+								<form:input path="search_end_date" title="마지막년도" numberOnly="true" maxlength="4" />
 							</div>
 						</dd>
 					</dl>
+
 					<dl>
 						<dt>자료형태</dt>
 						<dd>
-							<form:radiobutton path="booktype" label="도서" value="BOOK" class="radiocheck" checked="checked"/>
-							<form:radiobutton path="booktype" label="비도서" value="NONBOOK" class="radiocheck" cssStyle="margin-left:18px;"/>
-							<form:radiobutton path="booktype" label="간행물" value="SERIAL" class="radiocheck" cssStyle="margin-left:18px;"/>
+							<div class="" style="padding:3px 0 0 10px">
+							<form:radiobutton path="booktype" value="BOOK" class="radiocheck" checked="checked"/><label for="booktype1" class="booktype">도서</label>
+							<form:radiobutton path="booktype" value="NONBOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype2" class="booktype">비도서</label>
+							<form:radiobutton path="booktype" value="SERIAL" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype3" class="booktype">간행물</label>
+							</div>
 						</dd>
 					</dl>
 
 				</div>
 				<p class="btn_w">
 					<a id="search-btn" class="btnNew btn-warning btn-xs mT1">검색</a>
-					<a id="vk-popup" class="btn">다국어입력기</a>
+					<a id="vk-popup" class="btnNew2">다국어입력기</a>
 				</p>
 			</div>
 			<!--// 검색하기_일반 -->

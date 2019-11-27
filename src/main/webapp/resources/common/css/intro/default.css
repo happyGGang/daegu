@@ -57,8 +57,8 @@ html{height:100%}
 
 .nav {/* width:1800px; */margin:0 auto;padding:0;text-align:center;white-space:nowrap;}
 .nav ul.navbox{font-size:0;}
-.nav li{display:inline-block;height:100%;zoom:1;width:15%;font-size:16px;background: url('/resources/images/gnb_line01.gif') left no-repeat;}
-.nav li:first-child {background:none}
+.nav li{display:inline-block;height:100%;zoom:1;width:15%;font-size:16px;}
+.nav li:first-child {background:none;border-left:0;}
 .nav li:last-child {border-right:0;}
 .nav li a{margin:0 1px;padding:5px 15px 30px;color:#fff;border-top:10px solid transparent;transition: all .3s ease;}
 .nav li a,
@@ -85,6 +85,43 @@ html{height:100%}
 .nav .bx-controls .bx-next{right:0;background:url('../../img/navR.png') no-repeat center center}
 .nav .bx-controls .bx-prev,
 .nav .bx-controls .bx-next{background-size:auto 30%}
+
+/* 상단메뉴 스크롤*/
+.rsv-info {position:absolute;width:100%;text-align:center;font-size:15px;margin-bottom:10px;padding:10px 0;color:#333;}
+.rsv-info p.ico:before, .rsv-info p.ico:after {content:"";display:inline-block;vertical-align:middle;width:53px;height:28px;background:url('/resources/common/img/rsv_arr.png') no-repeat;margin-top:-2px;}
+.rsv-info p.ico:before {background-position:0 0;margin-right:17px;}
+.rsv-info p.ico:after {background-position:-53px 0;margin-left:17px;}
+.rsv-info br {display:none;}
+
+@media screen and (min-width:918px){
+	.rsv-info p.ico{font-size:0px}
+	.rsv-info p.ico:before, .rsv-info p.ico:after {display:none;}
+}
+
+@media all and (max-width:917px){
+	.rsv-info {line-height:1.4; margin: 130px 0 0px 0;}
+	.rsv-info br {display:block;}
+	.rsv-info p{margin-bottom:10px;}
+	.rsv-info p.ico:before {left:10px;}
+	.rsv-info p.ico:after {right:10px;}
+}
+
+@media all and (max-width:767px){
+	.rsv-info {line-height:1.4; margin: 105px 0 0px 0;}
+	.rsv-info br {display:block;}
+	.rsv-info p{margin-bottom:10px;}
+	.rsv-info p.ico:before {left:10px;}
+	.rsv-info p.ico:after {right:10px;}
+}
+
+@media all and (max-width:449px){
+	.rsv-info {line-height:1.4; margin: 105px 0 0px 0;}
+	.rsv-info br {display:block;}
+	.rsv-info p{margin-bottom:10px;}
+	.rsv-info p.ico:before, .rsv-info p.ico:after {position:absolute}
+	.rsv-info p.ico:before {left:10px;}
+	.rsv-info p.ico:after {right:10px;}
+}
 
 .doc-title h3{padding-top:0}
 
@@ -113,6 +150,8 @@ html{height:100%}
 /*타이틀*/
 #contents-title {position:relative;width:100%;text-align:center;margin:85px 0 40px 0}
 #contents-title h2{font-family:"Malgun Gothic";font-size:50px;font-weight:bold;letter-spacing:-0.05em;padding:0}
+
+
 
 @media all and (max-width:1680px){
 	.subpage #header .gnb, .nav {width:100%;}

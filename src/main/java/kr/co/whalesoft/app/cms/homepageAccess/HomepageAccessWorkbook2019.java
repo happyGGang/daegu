@@ -30,14 +30,14 @@ public class HomepageAccessWorkbook2019 {
 		long pc = 0;
 		long mobile = 0;
 		for (int i = 0; i < homepageAccessList.size(); i++) {
-			HomepageAccess ap = homepageAccessList.get(i);
-			workbook.getSheet(0).addCell(new Label(0, i+1, ap.getResult_date()));
-			workbook.getSheet(0).addCell(new Label(1, i+1, String.valueOf(ap.getPc_count())));
-			workbook.getSheet(0).addCell(new Label(2, i+1, String.valueOf(ap.getMobile_count())));
-			workbook.getSheet(0).addCell(new Label(3, i+1, String.valueOf(ap.getTotal_count())));
-			pc += ap.getPc_count();
-			mobile += ap.getMobile_count();
-			total += ap.getTotal_count();
+//			HomepageAccess ap = homepageAccessList.get(i);
+//			workbook.getSheet(0).addCell(new Label(0, i+1, ap.getResult_date()));
+//			workbook.getSheet(0).addCell(new Label(1, i+1, String.valueOf(ap.getPc_count())));
+//			workbook.getSheet(0).addCell(new Label(2, i+1, String.valueOf(ap.getMobile_count())));
+//			workbook.getSheet(0).addCell(new Label(3, i+1, String.valueOf(ap.getTotal_count())));
+//			pc += ap.getPc_count();
+//			mobile += ap.getMobile_count();
+//			total += ap.getTotal_count();
 		}
 
 		workbook.getSheet(0).addCell(new Label(0, homepageAccessList.size()+1, "합계", cellFormat));

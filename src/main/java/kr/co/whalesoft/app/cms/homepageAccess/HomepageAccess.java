@@ -26,6 +26,7 @@ public class HomepageAccess {
 	private String operating_system;
 	private String access_ip; //접속 IP
 	private String referer_url; //유입경로
+	private String user_agent; // 유저 에이전트
 	private Date access_date; //접속시간
 	private String login_id;
 
@@ -55,107 +56,28 @@ public class HomepageAccess {
 
 	private String search_year;
 
-	private long pc_count;
-	private long mobile_count;
-
 	public HomepageAccess() {}
 
 	public HomepageAccess(HttpServletRequest request, String homepage_id) {
-		try {
-			this.homepage_id = homepage_id;
-
-			Parser parser = new Parser();
-			Client c = parser.parse(request.getHeader("User-Agent"));
-
-			//UserAgentStringParser userAgentStringParser = UADetectorServiceFactory.getResourceModuleParser();
-
-			//UserAgent [family=CHROME, icon=chrome.png, name=Chrome, operatingSystem=OperatingSystem [family=WINDOWS, familyName=Windows, icon=windows-7.png, name=Windows 7, producer=Microsoft Corporation., producerUrl=http://www.microsoft.com/, url=http://en.wikipedia.org/wiki/Windows_7, versionNumber=VersionNumber [groups=[6, 1, ], extension=]], producer=Google Inc., producerUrl=http://www.google.com/, type=BROWSER, typeName=Browser, url=http://www.google.com/chrome, versionNumber=VersionNumber [groups=[25, 0, 1364, 172], extension=]]
-			//ReadableUserAgent ua = userAgentStringParser.parse(request.getHeader("User-Agent"));
-
-			if(c != null && c.userAgent != null && c.os != null) {
-				this.browser_type = c.userAgent.family!=null?c.userAgent.family:"ETC";
-
-				if( c.userAgent.major !=null ) {
-					this.browser_version = c.userAgent.major;
-				} else {
-					this.browser_version = "0";
-				}
-				this.operating_system = c.os.family;
-			}
-
-			this.access_ip = RequestUtils.getClientIpAddr(request)!=null?RequestUtils.getClientIpAddr(request):"";
-			this.referer_url = request.getHeader("REFERER")!=null?request.getHeader("REFERER"):"";
-
-			Device currentDevice = DeviceUtils.getCurrentDevice(request);
-
-			if(currentDevice.isMobile()) {
-				this.access_system = "MOBILE";
-			} else if(currentDevice.isTablet()) {
-				this.access_system = "TABLET";
-			} else {
-				this.access_system = "PC";
-			}
-		}
-		catch ( IOException ex ) {
-			ex.printStackTrace();
-		}
+		this.homepage_id = homepage_id;
 	}
 
 	public HomepageAccess(HttpServletRequest request, String homepage_id, Member member) {
-		try {
-			this.homepage_id = homepage_id;
-
-			Parser parser = new Parser();
-			Client c = parser.parse(request.getHeader("User-Agent"));
-
-			//UserAgentStringParser userAgentStringParser = UADetectorServiceFactory.getResourceModuleParser();
-
-			//UserAgent [family=CHROME, icon=chrome.png, name=Chrome, operatingSystem=OperatingSystem [family=WINDOWS, familyName=Windows, icon=windows-7.png, name=Windows 7, producer=Microsoft Corporation., producerUrl=http://www.microsoft.com/, url=http://en.wikipedia.org/wiki/Windows_7, versionNumber=VersionNumber [groups=[6, 1, ], extension=]], producer=Google Inc., producerUrl=http://www.google.com/, type=BROWSER, typeName=Browser, url=http://www.google.com/chrome, versionNumber=VersionNumber [groups=[25, 0, 1364, 172], extension=]]
-			//ReadableUserAgent ua = userAgentStringParser.parse(request.getHeader("User-Agent"));
-
-			if(c != null && c.userAgent != null && c.os != null) {
-				this.browser_type = c.userAgent.family!=null?c.userAgent.family:"ETC";
-
-				if( c.userAgent.major !=null ) {
-					this.browser_version = c.userAgent.major;
+		this.homepage_id = homepage_id;
+		this.session_id = request.getSession().getId();
+		if (member != null) {
+			if (member.isLogin()) {
+				if (StringUtils.isNotEmpty(member.getWeb_id())) {
+					this.member_id = member.getWeb_id();
 				} else {
-					this.browser_version = "0";
+					this.member_id = member.getMember_id();
 				}
-				this.operating_system = c.os.family;
-			}
-
-			this.access_ip = RequestUtils.getClientIpAddr(request)!=null?RequestUtils.getClientIpAddr(request):"";
-			this.referer_url = request.getHeader("REFERER")!=null?request.getHeader("REFERER"):"";
-
-			Device currentDevice = DeviceUtils.getCurrentDevice(request);
-
-			if(currentDevice.isMobile()) {
-				this.access_system = "MOBILE";
-			} else if(currentDevice.isTablet()) {
-				this.access_system = "TABLET";
+				if (StringUtils.equals(member.getLoginType(), "HOMEPAGE")) {
+					this.member_seq_no = member.getSeq_no();
+				}
 			} else {
-				this.access_system = "PC";
+				this.member_id = "ANONYMOUS";
 			}
-
-			if (member != null) {
-				if (member.isLogin()) {
-					if (StringUtils.isNotEmpty(member.getWeb_id())) {
-						this.member_id = member.getWeb_id();
-					} else {
-						this.member_id = member.getMember_id();
-					}
-					if (StringUtils.equals(member.getLoginType(), "HOMEPAGE")) {
-						this.member_seq_no = member.getSeq_no();
-					}
-				} else {
-					this.member_id = "ANONYMOUS";
-				}
-			}
-
-			this.session_id = request.getSession().getId();
-		}
-		catch ( IOException ex ) {
-			ex.printStackTrace();
 		}
 	}
 
@@ -285,98 +207,65 @@ public class HomepageAccess {
 	public void setStart_year(String start_year) {
 		this.start_year = start_year;
 	}
-
 	public String getEnd_year() {
 		return end_year;
 	}
-
 	public void setEnd_year(String end_year) {
 		this.end_year = end_year;
 	}
-
 	public String getYear_count() {
 		return year_count;
 	}
-
 	public void setYear_count(String year_count) {
 		this.year_count = year_count;
 	}
-
 	public String getStart_month() {
 		return start_month;
 	}
-
 	public void setStart_month(String start_month) {
 		this.start_month = start_month;
 	}
-
 	public String getEnd_month() {
 		return end_month;
 	}
-
 	public void setEnd_month(String end_month) {
 		this.end_month = end_month;
 	}
-
 	public String getMonth_count() {
 		return month_count;
 	}
-
 	public void setMonth_count(String month_count) {
 		this.month_count = month_count;
 	}
-
 	public String getSession_id() {
 		return session_id;
 	}
-
 	public void setSession_id(String session_id) {
 		this.session_id = session_id;
 	}
-
 	public String getMember_id() {
 		return member_id;
 	}
-
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;
 	}
-
 	public String getMember_seq_no() {
 		return member_seq_no;
 	}
-
 	public void setMember_seq_no(String member_seq_no) {
 		this.member_seq_no = member_seq_no;
 	}
-
-
 	public String getSearch_year() {
 		return search_year;
 	}
-
-
 	public void setSearch_year(String search_year) {
 		this.search_year = search_year;
 	}
-
-
-	public long getPc_count() {
-		return pc_count;
+	public String getUser_agent() {
+		return user_agent;
+	}
+	public void setUser_agent(String user_agent) {
+		this.user_agent = user_agent;
 	}
 
-
-	public void setPc_count(long pc_count) {
-		this.pc_count = pc_count;
-	}
-
-
-	public long getMobile_count() {
-		return mobile_count;
-	}
-
-
-	public void setMobile_count(long mobile_count) {
-		this.mobile_count = mobile_count;
-	}
 }

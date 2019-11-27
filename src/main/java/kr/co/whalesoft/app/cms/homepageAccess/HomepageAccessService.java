@@ -1,16 +1,14 @@
 package kr.co.whalesoft.app.cms.homepageAccess;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
-import kr.co.whalesoft.app.cms.member.Member;
-import kr.co.whalesoft.framework.base.BaseDao;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.google.gson.JsonElement;
+import kr.co.whalesoft.app.cms.member.Member;
+import kr.co.whalesoft.framework.base.BaseDao;
 
 @Service
 public class HomepageAccessService extends BaseDao {
@@ -18,34 +16,11 @@ public class HomepageAccessService extends BaseDao {
 	@Autowired
 	private HomepageAccessDao homepageAccessDao;
 
-	public int addHomepageAccess(HomepageAccess homepageAccess) {
-		setDefaultSearchYear(homepageAccess);
-		try {
-			homepageAccessDao.addHomepageAccess(homepageAccess);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return 1;
-	}
-
-	public List<HomepageAccess> getHomepageAccessResult(HomepageAccess homepageAccess) {
-		List<HomepageAccess> result = null;
+	public List<HomepageAccess> getHomepageStatisticsResult(HomepageAccess homepageAccess) {
 		long totalCount = 0;
 		long minCount = 999999999999999999L;
 		long maxCount = 0;
-		setDefaultSearchYear(homepageAccess);
-		if ( homepageAccess.getSearch_type().equals("ALL") ) {
-			result = homepageAccessDao.getHomepageAccessResultByAll(homepageAccess);
-		}
-		else if ( homepageAccess.getSearch_type().equals("BROWSER") ) {
-			result = homepageAccessDao.getHomepageAccessResultByBrowser(homepageAccess);
-		}
-		else if ( homepageAccess.getSearch_type().equals("OS") ) {
-			result = homepageAccessDao.getHomepageAccessResultByOS(homepageAccess);
-		}
-		else if ( homepageAccess.getSearch_type().equals("DEVICE") ) {
-			result = homepageAccessDao.getHomepageAccessResultByDevice(homepageAccess);
-		}
+		List<HomepageAccess> result = homepageAccessDao.getHomepageStatisticsResult(homepageAccess);
 
 		if ( result != null && result.size() > 0 ) {
 			for ( HomepageAccess oneInfo : result ) {
@@ -73,15 +48,59 @@ public class HomepageAccessService extends BaseDao {
 	public String getLastHomepageAccess(Member member) {
 		return homepageAccessDao.getLastHomepageAccess(member);
 	}
-
-
-	private void setDefaultSearchYear(HomepageAccess homepageAccess) {
-		if (StringUtils.isEmpty(homepageAccess.getSearch_year())) {
-			SimpleDateFormat sf = new SimpleDateFormat("yyyy");
-			Calendar c = Calendar.getInstance();
-			String today = sf.format(c.getTime());
-			homepageAccess.setSearch_year(today);
+	
+	@Transactional
+	public int addStatisticsCount(HomepageAccess homepageAccess) {
+		int result = homepageAccessDao.updateStatisticsCount(homepageAccess);
+		
+		if(result == 1) {
+			return result;
+		} else {
+			return homepageAccessDao.addStatisticsCount(homepageAccess);
 		}
+	}
+	
+	@Transactional
+	public int addStatisticsCountMobile(HomepageAccess homepageAccess) {
+		int result = homepageAccessDao.updateStatisticsCountMobile(homepageAccess);
+		
+		if(result == 1) {
+			return result;
+		} else {
+			return homepageAccessDao.addStatisticsCountMobile(homepageAccess);
+		}
+	}
+	
+	@Transactional
+	public int addStatisticsCountLog(HomepageAccess homepageAccess) {
+		homepageAccess.setUser_agent(StringUtils.substring(homepageAccess.getUser_agent(), 0, 1000));
+		homepageAccess.setReferer_url(StringUtils.substring(homepageAccess.getReferer_url(), 0, 1000));
+		
+		int result = homepageAccessDao.updateStatisticsCountLog(homepageAccess);
+
+		if(result == 1) {
+			return result;
+		} else {
+			return homepageAccessDao.addStatisticsCountLog(homepageAccess);
+		}
+	}
+	
+	@Transactional
+	public int addStatisticsCountLogMobile(HomepageAccess homepageAccess) {
+		homepageAccess.setUser_agent(StringUtils.substring(homepageAccess.getUser_agent(), 0, 1000));
+		homepageAccess.setReferer_url(StringUtils.substring(homepageAccess.getReferer_url(), 0, 1000));
+		
+		int result = homepageAccessDao.updateStatisticsCountLogMobile(homepageAccess);
+
+		if(result == 1) {
+			return result;
+		} else {
+			return homepageAccessDao.addStatisticsCountLogMobile(homepageAccess);
+		}
+	}
+	
+	public List<HomepageAccess> getCmsHomepageAccess(HomepageAccess homepageAccess) {
+		return homepageAccessDao.getCmsHomepageAccess(homepageAccess);
 	}
 
 	/**
@@ -100,24 +119,6 @@ public class HomepageAccessService extends BaseDao {
 	 */
 	public List<HomepageAccess> getChartViewData(HomepageAccess homepageAccess) {
 		return homepageAccessDao.getChartViewData(homepageAccess);
-	}
-
-	/**
-	 * @author whalesoft YONGJU 2019. 8. 20.
-	 * @param homepageAccess
-	 */
-	public int addAccessCount(HomepageAccess homepageAccess) {
-		homepageAccess.setSearch_type(homepageAccess.getAccess_system().equals("PC") ? "pc_count" : "mobile_count");
-		return homepageAccessDao.addAccessCount(homepageAccess);
-	}
-
-	/**
-	 * @author whalesoft YONGJU 2019. 8. 20.
-	 * @param homepageAccess
-	 */
-	public int addViewCount(HomepageAccess homepageAccess) {
-		homepageAccess.setSearch_type(homepageAccess.getAccess_system().equals("PC") ? "pc_count" : "mobile_count");
-		return homepageAccessDao.addViewCount(homepageAccess);
 	}
 
 	/**
