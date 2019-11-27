@@ -31,7 +31,7 @@ $(function() {
 	});
 
 	$("#dialog-4").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
-		width: 600
+		width: 700
 	});
 
 	$('a#organization-add').on('click', function(e) {
@@ -98,8 +98,8 @@ $(function() {
 	}
 
 	$('input[type="radio"]').on('change', function(e) {
-		var data = 'homepage_id=${organizationMng.homepage_id}&chart_yn=' + $('input[type="radio"]:checked').val();
-		$('form#organizationEdit').attr('action', 'chartMod.do');
+		var data = 'homepage_id=${organization.homepage_id}&chart_yn=' + $('input[type="radio"]:checked').val();
+		$('form#organizationEdit').attr('action', 'chartModify.do');
 		doAjaxPost($('form#organizationEdit'));
 	});
 

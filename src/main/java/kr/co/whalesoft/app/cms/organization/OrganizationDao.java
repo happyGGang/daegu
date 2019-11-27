@@ -74,7 +74,7 @@ public interface OrganizationDao {
 
 	public int deleteWorkAll(Organization organization);
 
-	public int modChartYN(Organization organization);
+	public int modifyChartYN(Organization organization);
 
 	public Organization getOrganizationChartYN(Organization organization);
 

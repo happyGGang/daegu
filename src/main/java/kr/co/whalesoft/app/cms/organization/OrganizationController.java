@@ -176,25 +176,25 @@ private final String basePath = "/cms/organization/";
 		return res;
 	}
 	
-//	@RequestMapping(value = {"/statusDelete.*"}, method = RequestMethod.POST)
-//	public @ResponseBody JsonResponse statusDelete(StatusMng statusMng, BindingResult result, HttpServletRequest request) {
-//		/* 유효성 검증 >>>>> */
-//		JsonResponse res = new JsonResponse(request);
-//		/* <<<<< 유효성 검증 */
-//
-//		if(!result.hasErrors()) {
-//			service.statusMngCnt(statusMng);
-//			service.modifyRatingCnt(statusMng);
-//			res.setValid(true);
-//			res.setReload(true);
-//			res.setMessage("삭제되었습니다.");
-//		} else {
-//			res.setValid(false);
-//			res.setResult(result.getAllErrors());
-//		}
-//
-//		return res;
-//	}
+	@RequestMapping(value = {"/statusDelete.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse statusDelete(Organization organization, BindingResult result, HttpServletRequest request) {
+		/* 유효성 검증 >>>>> */
+		JsonResponse res = new JsonResponse(request);
+		/* <<<<< 유효성 검증 */
+
+		if(!result.hasErrors()) {
+			service.statusCnt(organization);
+			service.modifyRatingCnt(organization);
+			res.setValid(true);
+			res.setReload(true);
+			res.setMessage("삭제되었습니다.");
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+
+		return res;
+	}
 	
 	@RequestMapping(value = {"/edit.*"})
 	public String edit(Model model, Organization organization, HttpServletRequest request) throws AuthException {
@@ -323,14 +323,14 @@ private final String basePath = "/cms/organization/";
 		return res;
 	}
 	
-	@RequestMapping(value = {"/chartMod.*"}, method = RequestMethod.POST)
+	@RequestMapping(value = {"/chartModify.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse chartMod(Organization organization, BindingResult result, HttpServletRequest request) {
 		/* 유효성 검증 >>>>> */
 		JsonResponse res = new JsonResponse(request);
 		/* <<<<< 유효성 검증 */
 
 		if(!result.hasErrors()) {
-			service.modChardYN(organization);
+			service.modifyChartYN(organization);
 			res.setValid(true);
 			res.setMessage("조직도 표시여부가 변경되었습니다.");
 		} else {
