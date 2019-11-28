@@ -351,11 +351,11 @@ public class JoinService extends BaseService {
 						age--;
 					}
 					if (age >= 20) {
-						age = 7;
+						age = 7;//성인
 					} else if (age <= 13) {
-						age = 2;
+						age = 2;//만14세미만
 					} else if (age > 13 && age < 20) {
-						age = 5;
+						age = 5;//청소년
 					}
 					member.setAge(String.valueOf(age));
 

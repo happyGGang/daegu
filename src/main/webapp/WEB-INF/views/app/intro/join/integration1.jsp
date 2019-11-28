@@ -9,10 +9,32 @@
 
 <script>
 $(function() {
-	$('a#join-btn').on('click', function() {
+	$('a#join-btn').on('click', function(e) {
+		e.preventDefault();
+		if ($('input.tmp_user_no:checked').length < 1) {
+			alert('통합회원을 선택해주세요.');
+			return false;
+		}
+		$('input#user_no').val($('input.tmp_user_no:checked').val());
+		$('form#procForm').removeAttr('onsubmit');
 		$('form#procForm').submit();
-	})
-})
+	});
+
+	<%-- 1순위 책이음 회원--%>
+	if ($('input.tmp_user_no[data-kl=Y]').length > 0) {
+		$('input.tmp_user_no[data-kl=N]').remove();
+	} else if ($('input.tmp_user_no[data-ci=Y]').length > 0) {
+		<%-- 2순위 자관 && CI가 있는 회원--%>
+		$('input.tmp_user_no[data-ci=N]').remove();
+	} else if ($('input.tmp_user_no[data-etc=Y]').length > 0) {
+		<%-- 3순위 자관 && CI가 없는 회원--%>
+		$('input.tmp_user_no[data-etc=N]').remove();
+	}
+
+	<%-- 첫번째 강제 선택 --%>
+	$('input.tmp_user_no:first').prop('checked', true);
+
+});
 
 
 </script>
@@ -23,11 +45,8 @@ $(function() {
 	</div>
 	<!-- /contents-title-->
 
-	<form id="procForm" name="procForm" method="post" action="integration2.do">
+	<form id="procForm" name="procForm" method="post" action="integration2.do" onsubmit="return false;">
 	<input type="hidden" id="user_no" name="user_no" value=""/>
-	<input type="hidden" id="name" name="name" value=""/>
-	<input type="hidden" id="rec_key" name="rec_key" value=""/>
-	<input type="hidden" id="manage_code" name="manage_code" value=""/>
 
 
 	<div class="search-wrap">
@@ -44,50 +63,22 @@ $(function() {
 			</tr>
 			</thead>
 			<tbody>
+				<c:forEach items="${integrationMemberList}" var="i" varStatus="status">
 				<tr>
-				<td>
-					<input type="radio" id="tmp_rec_key" name="tmp_rec_key" value="9102616011#BL" checked/>
-				</td>
-				<td>
-					12200712009502</td>
-				<td>
-					권기현</td>
-				<td>
-					1979-06-30 00:00:00</td>
-				<td>
-					010-6476-6584</td>
-				<td>[ 책이음회원 - 통합우선순위 ] | 책이음 회원 등록일 : 2019-04-08 16:49:14</td>
+					<td>
+						<input type="radio" class="tmp_user_no" value="${i.USER_NO}" data-kl="${i.KL_MEMBER_YN}" data-ci="${i.ORDER2}" data-etc="${i.ORDER3}"/>
+					</td>
+					<td>${i.USER_NO}</td>
+					<td>${i.NAME}</td>
+					<td>${i.BIRTHDAY}</td>
+					<td>${i.HANDPHONE}</td>
+					<td>
+						<c:if test="${i.KL_MEMBER_YN eq 'Y'}">
+						[ 책이음회원 - 통합우선순위 ]
+						</c:if>
+					</td>
 				</tr>
-
-				<tr>
-				<td>
-					<input type="radio" id="tmp_rec_key" name="tmp_rec_key" value="9102616011#BL" checked/>
-				</td>
-				<td>
-					12200712009502</td>
-				<td>
-					권기현</td>
-				<td>
-					1979-06-30 00:00:00</td>
-				<td>
-					010-6476-6584</td>
-				<td></td>
-				</tr>
-
-				<tr>
-				<td>
-					<input type="radio" id="tmp_rec_key" name="tmp_rec_key" value="9102616011#BL" checked/>
-				</td>
-				<td>
-					12200712009502</td>
-				<td>
-					권기현</td>
-				<td>
-					1979-06-30 00:00:00</td>
-				<td>
-					010-6476-6584</td>
-				<td></td>
-				</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 

@@ -24,9 +24,9 @@ $(function() {
 		certWindow.focus();
 	});
 
-	<c:if test="${param.ageType ne 'under' and param.ageType ne 'more'}">
+	<c:if test="${empty integrationMember or empty integrationMember.INTEGRATION_ORDER or integrationMember.INTEGRATION_ORDER eq 0}">
 	alert('잘못된 경로로 접근하였습니다.');
-// 	location.href = 'integration.do';
+	location.href = '/intro/${homepage.context_path}/login/logout.do';
 	</c:if>
 });
 </script>
@@ -91,16 +91,14 @@ $(function() {
 	</form:form>
 	<form id="certForm" name="certForm" action="/intro/join/cert.do" method="post" target="certWindow">
 		<input type="hidden" name="certType">
+		<input type="hidden" name="mode" value="integration">
 		<input type="hidden" name="_csrf" value="${_csrf.token}">
 	</form>
-	<form:form id="memberJoinForm" modelAttribute="newMember" action="integration4.do">
+	<form:form id="memberInfo" modelAttribute="newMember" action="integration4.do">
 		<form:hidden path="editMode"/>
 		<form:hidden path="certType"/>
-		<div style="${param.ageType ne 'under' ? 'display:none;':''}">
-		* 보호자(법정대리인) 본인인증 버튼입니다. 보호자 인증 후 만 14세 미만 본인인증 선택화면이 나타납니다.
-		</div>
 
-		<div class="identi_select" style="${param.ageType ne 'under' ? 'display:none;':''}">
+		<div id="parentCert" class="identi_select" style="display:none;">
 			<table class="center joinSelect">
 				<colgroup>
 					<col width="50%"/>
@@ -113,7 +111,7 @@ $(function() {
 								<img src="/resources/common/img/identy1.jpg" alt="휴대폰 본인인증"  class="joinAdult"/>
 							</div>
 							<div class="joinBtnTxt">
-								<div class="joinText1">${parentNameTag}<br/>휴대폰 본인인증</div>
+								<div class="joinText1">보호자<br/>휴대폰 본인인증</div>
 								<div class="joinText2">본인 명의의 휴대폰으로 본인여부를 확인합니다.</div>
 								<div><a href="#" class="certtype btn btn01" id="parentSms">인증하기</a></div>
 							</div>
@@ -125,7 +123,7 @@ $(function() {
 								<img src="/resources/common/img/identy2.jpg" alt="아이핀 본인인증" class="joinChild">
 							</div>
 							<div class="joinBtnTxt">
-								<div class="joinText1">${parentNameTag}<br/>I-PIN(아이핀)인증</div>
+								<div class="joinText1">보호자<br/>I-PIN(아이핀)인증</div>
 								<div class="joinText2">발급받은 아이핀(I-PIN)으로 본인여부를 확인합니다.</div>
 								<div><a href="#" class="certtype btn btn01" id="parentGpin">인증하기</a></div>
 							</div>
@@ -135,7 +133,7 @@ $(function() {
 			</table>
 		</div>
 
-		<table class="editTbl" style="margin-bottom:50px; ${param.ageType ne 'under' ? 'display:none;':''}">
+		<table id="parentTable" class="editTbl" style="margin-bottom:50px; display:none;">
 			<tbody>
 				<tr>
 					<th>
@@ -165,7 +163,7 @@ $(function() {
 			</tbody>
 		</table>
 
-		<div id="memberCert" class="identi_select" style="${param.ageType eq 'under' ? 'display:none;':''}">
+		<div id="memberCert" class="identi_select">
 			<table class="center joinSelect">
 				<colgroup>
 					<col width="50%"/>
@@ -178,7 +176,7 @@ $(function() {
 								<img src="/resources/common/img/identy1.jpg" alt="휴대폰 본인인증"  class="joinAdult"/>
 							</div>
 							<div class="joinBtnTxt">
-								<div class="joinText1">${childNameTag}<br/>휴대폰 본인인증</div>
+								<div class="joinText1">휴대폰 본인인증</div>
 								<div class="joinText2">본인 명의의 휴대폰으로 본인여부를 확인합니다.</div>
 								<div><a href="#" class="certtype btn btn01" id="certSms">인증하기</a></div>
 							</div>
@@ -190,7 +188,7 @@ $(function() {
 								<img src="/resources/common/img/identy2.jpg" alt="아이핀 본인인증" class="joinChild">
 							</div>
 							<div class="joinBtnTxt">
-								<div class="joinText1">${childNameTag}<br/>I-PIN(아이핀)인증</div>
+								<div class="joinText1">I-PIN(아이핀)인증</div>
 								<div class="joinText2">발급받은 아이핀(I-PIN)으로 본인여부를 확인합니다.</div>
 								<div><a href="#" class="certtype btn btn01" id="certGpin">인증하기</a></div>
 							</div>

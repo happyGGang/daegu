@@ -77,9 +77,14 @@ $(function() {
 		window.close();
 		return false;
 	} else if ('${integration}' == 'true') {
-		window.opener.document.getElementById('memberInfo').submit();
-		window.close();
-		return false;
+		if ('${needParentCert}' == 'true') {
+			window.opener.$('div#parentCert').show();
+			window.opener.$('table#parentTable').show();
+		} else {
+			window.opener.document.getElementById('memberInfo').submit();
+			window.close();
+			return false;
+		}
 	} else {
 		if ('${parent}' == 'true') {
 			var certType = '${certType}';
@@ -88,6 +93,11 @@ $(function() {
 				window.close();
 				return false;
 			}
+			window.opener.$('td#parentCert').text($(this).find('span').text() + '완료');
+			window.opener.$('td#parentName > input').val('${member.member_name}');
+			window.opener.$('input#parentagree').prop('checked', true);
+			window.opener.$('div#memberCert').show();
+			window.opener.$('a:last').focus();
 
 		} else {
 			var certType = '${certType}';
