@@ -24,10 +24,10 @@
 			</address>
 			<div class="site_link">
 				<div>
-					<homepageTag:siteLink homepageList="${homepageList}" width="160px" defaultStr="경상북도교육청 공공도서관" notIncludeHomepageId="h6"/>
+					<homepageTag:siteLink homepageList="${homepageList}" width="160px" defaultStr="대구광역시 공공도서관" notIncludeHomepageId="${homepage.homepage_id}"/>
 <!-- 				</div> -->
 				<div>
-					<homepageTag:siteLink siteList="${siteList}" width="160px" defaultStr="교육및지역관련기관"/>
+					<homepageTag:siteLink recommendSiteList="${recommendSiteList}" width="160px" defaultStr="교육및지역관련기관"/>
 				</div>
 			</div>
 		</div>
