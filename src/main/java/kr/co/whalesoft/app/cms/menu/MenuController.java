@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import kr.co.whalesoft.app.cms.auth.Auth;
 import kr.co.whalesoft.app.cms.auth.AuthService;
 import kr.co.whalesoft.app.cms.boardManage.BoardManage;
 import kr.co.whalesoft.app.cms.boardManage.BoardManageService;
@@ -34,8 +33,8 @@ import kr.co.whalesoft.app.cms.menu.menuHtml.MenuTempFile;
 import kr.co.whalesoft.app.cms.menu.menuLog.MenuLogService;
 import kr.co.whalesoft.app.cms.moduleMngt.ModuleMngt;
 import kr.co.whalesoft.app.cms.moduleMngt.ModuleMngtService;
-import kr.co.whalesoft.app.cms.site.Site;
-import kr.co.whalesoft.app.cms.site.SiteService;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.app.cms.taskManage.TaskManage;
 import kr.co.whalesoft.app.cms.taskManage.TaskManageService;
 import kr.co.whalesoft.framework.base.BaseController;
@@ -74,7 +73,7 @@ public class MenuController extends BaseController {
 	private MenuService menuService;
 
 	@Autowired
-	private SiteService siteService;
+	private RecommendSiteService recommendSiteService;
 
 	@Autowired
 	private TaskManageService taskManageService;
@@ -345,7 +344,7 @@ public class MenuController extends BaseController {
 
 		MenuHtml menuHtml = menuHtmlService.getLastMenuHtmlOne(new MenuHtml(homepage_id, menu_idx));
 
-		model.addAttribute("siteList", siteService.getSiteListAll(new Site(homepage_id)));
+		model.addAttribute("siteList", recommendSiteService.getRecommendSiteListAll(new RecommendSite(homepage_id)));
 		model.addAttribute("menuHtml", menuHtml);
 		model.addAttribute("menuOne", service.getMenuOne(menu));
 		model.addAttribute("menuLeftList", menuService.getMenuLeftTreeListCache(homepage_id, menu.getGroup_idx()));

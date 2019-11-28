@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import kr.co.whalesoft.app.board.Board;
 import kr.co.whalesoft.app.board.BoardService;
 import kr.co.whalesoft.app.cms.banner.Banner;
@@ -39,8 +42,7 @@ import kr.co.whalesoft.app.cms.popupZone.PopupZone;
 import kr.co.whalesoft.app.cms.popupZone.PopupZoneService;
 import kr.co.whalesoft.app.cms.quickMenu.QuickMenu;
 import kr.co.whalesoft.app.cms.quickMenu.QuickMenuService;
-import kr.co.whalesoft.app.cms.site.Site;
-import kr.co.whalesoft.app.cms.site.SiteService;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 import kr.go.gbelib.app.cms.module.elib.best.BestService;
@@ -61,7 +63,7 @@ public class IndexController extends BaseController {
 	private BoardService boardService;
 
 	@Autowired
-	private SiteService siteService;
+	private RecommendSiteService recommendSiteService;
 
 	@Autowired
 	private QuickMenuService quickMenuService;

@@ -42,10 +42,9 @@ import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.member.MemberService;
-import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManageService;
-import kr.co.whalesoft.app.cms.site.Site;
-import kr.co.whalesoft.app.cms.site.SiteService;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.CalculateHashUtils;
@@ -82,7 +81,7 @@ public class BoardController extends BaseController {
 	@Autowired
 	private BoardManageService boardManageService;
 	@Autowired
-	private SiteService siteService;
+	private RecommendSiteService recommendSiteService;
 	@Autowired
 	private HomepageService homepageService;
 	@Autowired
@@ -99,7 +98,7 @@ public class BoardController extends BaseController {
 	private CalendarManageService calendarManageService;
 
 	@ModelAttribute("siteList")
-	public List<Site> getAreaCdList(HttpServletRequest request) {
+	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 //		if (homepage == null) {
 //			return null;

@@ -2,8 +2,10 @@ package kr.go.gbelib.app.module.locker;
 
 import java.util.Date;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +16,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.menu.Menu;
-import kr.co.whalesoft.app.cms.site.Site;
-import kr.co.whalesoft.app.cms.site.SiteService;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.app.cms.terms.Terms;
 import kr.co.whalesoft.app.cms.terms.TermsService;
 import kr.co.whalesoft.framework.base.BaseController;
@@ -32,7 +35,6 @@ import kr.go.gbelib.app.cms.module.lockerPre.LockerPre;
 import kr.go.gbelib.app.cms.module.lockerPre.LockerPreService;
 import kr.go.gbelib.app.cms.module.lockerReq.LockerReq;
 import kr.go.gbelib.app.cms.module.lockerReq.LockerReqService;
-import kr.go.gbelib.app.common.api.MemberAPI;
 import kr.go.gbelib.app.common.api.PushAPI;
 
 @Controller(value="userLocker")
@@ -51,18 +53,18 @@ public class LockerController extends BaseController {
 	private LockerReqService lockerReqService;
 
 	@Autowired
-	private SiteService siteService;
-
-	@Autowired
 	private BlackListService blackListService;
 
 	@Autowired
 	private TermsService termsService;
 
+	@Autowired
+	private RecommendSiteService recommendSiteService;
+
 	@ModelAttribute("siteList")
-	public List<Site> getAreaCdList(HttpServletRequest request) {
+	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		return siteService.getSiteListAll(new Site(homepage.getHomepage_id()));
+		return recommendSiteService.getRecommendSiteListAll(new RecommendSite(homepage.getHomepage_id()));
 	}
 
 	@RequestMapping(value = {"/index.*"})

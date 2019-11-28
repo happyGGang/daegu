@@ -25,8 +25,8 @@ import kr.co.whalesoft.app.cms.module.excursions.Excursions;
 import kr.co.whalesoft.app.cms.module.excursions.ExcursionsService;
 import kr.co.whalesoft.app.cms.module.excursions.apply.Apply;
 import kr.co.whalesoft.app.cms.module.excursions.apply.ApplyService;
-import kr.co.whalesoft.app.cms.site.Site;
-import kr.co.whalesoft.app.cms.site.SiteService;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.app.cms.terms.Terms;
 import kr.co.whalesoft.app.cms.terms.TermsService;
 import kr.co.whalesoft.framework.base.BaseController;
@@ -35,7 +35,6 @@ import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.co.whalesoft.framework.utils.WebFilterCheckUtils;
 import kr.go.gbelib.app.cms.module.blackList.BlackList;
 import kr.go.gbelib.app.cms.module.blackList.BlackListService;
-import kr.go.gbelib.app.common.api.MemberAPI;
 import kr.go.gbelib.app.common.api.PushAPI;
 
 @Controller(value="userExcursions")
@@ -51,9 +50,6 @@ public class ExcursionsController extends BaseController {
 	private ApplyService applyService;
 
 	@Autowired
-	private SiteService siteService;
-
-	@Autowired
 	private TermsService termsService;
 
 	@Autowired
@@ -62,10 +58,13 @@ public class ExcursionsController extends BaseController {
 	@Autowired
 	private CalendarManageService calendarManageService;
 
+	@Autowired
+	private RecommendSiteService recommendSiteService;
+
 	@ModelAttribute("siteList")
-	public List<Site> getAreaCdList(HttpServletRequest request) {
+	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		return siteService.getSiteListAll(new Site(homepage.getHomepage_id()));
+		return recommendSiteService.getRecommendSiteListAll(new RecommendSite(homepage.getHomepage_id()));
 	}
 
 	@RequestMapping(value = {"/index.*"})

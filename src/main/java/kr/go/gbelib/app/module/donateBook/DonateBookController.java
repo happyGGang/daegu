@@ -1,8 +1,10 @@
 package kr.go.gbelib.app.module.donateBook;
 
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,11 +15,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.menu.Menu;
-import kr.co.whalesoft.app.cms.site.Site;
-import kr.co.whalesoft.app.cms.site.SiteService;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.app.cms.terms.Terms;
 import kr.co.whalesoft.app.cms.terms.TermsService;
 import kr.co.whalesoft.framework.base.BaseController;
@@ -30,62 +33,62 @@ import kr.go.gbelib.app.common.api.PushAPI;
 @Controller(value="userDonateBook")
 @RequestMapping(value = {"/{homepagePath}/module/donateBook"})
 public class DonateBookController extends BaseController{
-	
+
 	private String basePath = "/homepage/%s/module/donateBook/";
-	
+
 	@Autowired
 	private DonateBookService service;
-	
-	@Autowired
-	private SiteService siteService;
-	
+
 	@Autowired
 	private TermsService termsService;
-	
+
+	@Autowired
+	private RecommendSiteService recommendSiteService;
+
 	@ModelAttribute("siteList")
-	public List<Site> getAreaCdList(HttpServletRequest request) {
+	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		return siteService.getSiteListAll(new Site(homepage.getHomepage_id()));
+		return recommendSiteService.getRecommendSiteListAll(new RecommendSite(homepage.getHomepage_id()));
 	}
-	
+
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, DonateBook donateBook, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		
+
 		donateBook.setHomepage_id(homepage.getHomepage_id());
-				
+
 		model.addAttribute("donateBook", donateBook);
 		model.addAttribute("donateBookList", service.getDonateBookList(donateBook));
 		model.addAttribute("donateBookListCount", service.getDonateBookList(donateBook).size());
 		return String.format(basePath, homepage.getFolder()) + "index_ajax";
 	}
-	
+
 	@RequestMapping(value = {"/edit.*"})
 	public String edit(Model model, DonateBook donateBook, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");		
-		
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
 		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			donateBook.setBefore_url(String.format("http://www.gbelib.kr/%s/html.do?menu_idx=%s", homepage.getContext_path(), donateBook.getMenu_idx()));
 			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://www.gbelib.kr/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), donateBook.getMenu_idx(), donateBook.getBefore_url()), request, response);
 			return null;
 	    }
-		
-		//약관 연동부 
+
+		//약관 연동부
 		Menu menuOne = (Menu) request.getAttribute("menuOne");
 		model.addAttribute("termsList", termsService.getTermsListInModule(new Terms(menuOne.getManage_idx())));
-				
+
 		donateBook.setHomepage_id(homepage.getHomepage_id());
 		if(donateBook.getEditMode().equals("MODIFY")) {
 			model.addAttribute("donateBook", service.copyObjectPaging(donateBook, service.getDonateBookOne(donateBook)));
 		} else {
 			model.addAttribute("donateBook", donateBook);
 		}
-		
+
 		model.addAttribute("member", getSessionMemberInfo(request));
-					
+
 		return String.format(basePath, homepage.getFolder()) + "edit";
 	}
-	
+
 	@Transactional
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Model model, DonateBook donateBook, BindingResult result, HttpServletRequest request) {
@@ -105,14 +108,14 @@ public class DonateBookController extends BaseController{
 			ValidationUtils.rejectIfEmpty(result, "donate_method", "기증방법을 입력하세요.");
 //			ValidationUtils.rejectIfEmpty(result, "donate_year", "기증년을 선택해주세요.");
 //			ValidationUtils.rejectIfEmpty(result, "donate_month", "기증월을 선택해주세요.");
-			
+
 			if ( !"Y".equals(donateBook.getSelf_info_yn()) ) {
 				res.setValid(false);
 				res.setMessage("개인정보 동의 후 신청이 가능합니다.");
 				return res;
 			}
 		}
-		
+
 		if(!result.hasErrors()) {
 			if(editMode.equals("ADD")) {
 				service.addDonateBook(donateBook);

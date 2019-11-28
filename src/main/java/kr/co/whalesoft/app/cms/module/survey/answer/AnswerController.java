@@ -24,8 +24,8 @@ import kr.co.whalesoft.app.cms.module.survey.SurveyService;
 import kr.co.whalesoft.app.cms.module.survey.quest.Quest;
 import kr.co.whalesoft.app.cms.module.survey.quest.QuestService;
 import kr.co.whalesoft.app.cms.module.survey.statistics.StatisticsService;
-import kr.co.whalesoft.app.cms.site.Site;
-import kr.co.whalesoft.app.cms.site.SiteService;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.WebFilterCheckUtils;
@@ -33,43 +33,43 @@ import kr.co.whalesoft.framework.utils.WebFilterCheckUtils;
 @Controller
 @RequestMapping(value = {"/{homepagePath}/module/survey"})
 public class AnswerController extends BaseController {
-	
+
 	@Autowired
 	private SurveyService surveyService;
-	
+
 	@Autowired
 	private QuestService questService;
-	
+
 	@Autowired
 	private AnswerService service;
-	
+
 	@Autowired
 	private StatisticsService statisticsService;
-	
+
 	@Autowired
-	private SiteService siteService;
+	private RecommendSiteService recommendSiteService;
 
 	private String basePath = null;
 	private Homepage homepage = null;
-	
+
 	@ModelAttribute("siteList")
-	public List<Site> getAreaCdList(HttpServletRequest request) {
+	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		return siteService.getSiteListAll(new Site(homepage.getHomepage_id()));
+		return recommendSiteService.getRecommendSiteListAll(new RecommendSite(homepage.getHomepage_id()));
 	}
-	
+
 	private void attributeInit(HttpServletRequest request, Model model) {
 		homepage = (Homepage)request.getAttribute("homepage");
-		
+
 		String homepageFolder = "";
-		
+
 		if ( homepage != null ) {
 			homepageFolder = "/homepage/" + homepage.getFolder();
 		}
-		
+
 		basePath = homepageFolder + "/module/survey/";
 	}
-	
+
 	@RequestMapping(value={"/index.*"}, method=RequestMethod.GET)
 	public String index(Model model, Survey survey, HttpServletRequest request, HttpServletResponse response) {
 		attributeInit(request, model);
@@ -78,7 +78,7 @@ public class AnswerController extends BaseController {
 		service.setPaging(model, surveyService.getUserSurveyCount(survey), survey);
 		model.addAttribute("surveyList", surveyService.getUserSurvey(survey));
 		model.addAttribute("survey", survey);
-		
+
 		return basePath + "index";
 	}
 
@@ -86,7 +86,7 @@ public class AnswerController extends BaseController {
 	public String index2(Model model, Quest quest, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		attributeInit(request, model);
 		homepage = (Homepage)request.getAttribute("homepage");
-		
+
 		if (quest.getSurvey_idx() != 0) {
 			Survey survey = new Survey();
 			survey.setSurvey_idx(quest.getSurvey_idx());
@@ -94,24 +94,24 @@ public class AnswerController extends BaseController {
 			survey = surveyService.getSurveyOne(survey);
 			model.addAttribute("survey", survey);
 		}
-		
+
 		model.addAttribute("homepage", homepage.getContext_path());
 		model.addAttribute("questList", questService.getQuest(quest));
 		model.addAttribute("quest", quest);
-		
+
 		return basePath + getSkinCd(quest) + "/" + "index";
 	}
-	
+
 	@RequestMapping(value={"/index.*"}, method=RequestMethod.POST)
 	public String index(Model model, Quest quest, HttpServletRequest request) {
 		attributeInit(request, model);
 		return basePath + getSkinCd(quest) + "/" + "index";
 	}
-	
+
 	@RequestMapping(value = { "/statistics.*" }, method = RequestMethod.GET)
 	public String statistics(Model model, Quest quest, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		attributeInit(request, model);
-		
+
 		Survey survey = new Survey();
 		survey.setSurvey_idx(quest.getSurvey_idx());
 		survey.setHomepage_id(quest.getHomepage_id());
@@ -126,11 +126,11 @@ public class AnswerController extends BaseController {
 		}
 		return basePath + "statistics_ajax";
 	}
-	
+
 	@RequestMapping(value = { "/detail.*" }, method = RequestMethod.GET)
 	public String detail(Model model, Quest quest, HttpServletRequest request) {
 		attributeInit(request, model);
-		
+
 		Survey survey = new Survey();
 		survey.setHomepage_id(quest.getHomepage_id());
 		survey.setSurvey_idx(quest.getSurvey_idx());
@@ -143,8 +143,8 @@ public class AnswerController extends BaseController {
 		model.addAttribute("quest", questService.getQuestOne(quest));
 		return basePath + "detailView_ajax";
 	}
-	
-	
+
+
 	@RequestMapping(value={"/view.*"}, method=RequestMethod.GET)
 	public String view(Model model, Quest quest, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		attributeInit(request, model);
@@ -174,7 +174,7 @@ public class AnswerController extends BaseController {
 //			return basePath + getSkinCd(quest) + "/" + "view_popup_ajax";
 		}
 	}
-	
+
 	@RequestMapping(value={"/view2.*"}, method=RequestMethod.GET)
 	public String view2(Model model, Quest quest, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		attributeInit(request, model);
@@ -198,7 +198,7 @@ public class AnswerController extends BaseController {
 		model.addAttribute("quest", quest);
 		return basePath  + "skin1/" + "view2_ajax";
 	}
-	
+
 	@RequestMapping(value={"/view3.*"}, method=RequestMethod.GET)
 	public String view3(Model model, Quest quest, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		attributeInit(request, model);
@@ -222,13 +222,13 @@ public class AnswerController extends BaseController {
 		model.addAttribute("quest", quest);
 		return basePath  + "skin1/" + "view3_ajax";
 	}
-	
+
 	@RequestMapping(value={"/edit.*"}, method=RequestMethod.GET)
 	public String edit(Model model, Quest quest, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		attributeInit(request, model);
 		homepage = (Homepage)request.getAttribute("homepage");
 		Member member = (Member) getSessionMemberInfo(request);
-		
+
 		Survey survey = new Survey();
 		survey.setSurvey_idx(quest.getSurvey_idx());
 		if ( StringUtils.isEmpty(quest.getHomepage_id()) ) {
@@ -236,7 +236,7 @@ public class AnswerController extends BaseController {
 		}
 		survey.setHomepage_id(quest.getHomepage_id());
 		survey = surveyService.getSurveyOneByUser(survey);
-		
+
 		if (survey != null) {
 			if (StringUtils.equals(survey.getAnnyms_yn(), "N")) {
 				if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
@@ -248,15 +248,15 @@ public class AnswerController extends BaseController {
     					service.alertMessagePopup("로그인 후 이용가능합니다.", request, response);
     					return null;
     				}
-					
+
 				}
 			}
-		
+
 			if (quest.getSurvey_idx() != 0) {
 //				if (survey.getSurvey_open_yn().equals("N")) {
 //					service.alertMessage("완료된 설문조사입니다.", request, response);
 //					return null;
-//					
+//
 //				}
 //				if (service.isDupleAnswer(quest, member)) {
 //					if(quest.getPopup_yn().equals("N")) {
@@ -278,20 +278,20 @@ public class AnswerController extends BaseController {
 			}
 			model.addAttribute("questList", questService.getQuest(quest));
 			model.addAttribute("quest", quest);
-			
+
 			if ( quest.getPopup_yn().equals("Y") ) {
 				return basePath + getSkinCd(quest) + "/" + "edit_popup_ajax";
-			} 
+			}
 			else {
 				return basePath + getSkinCd(quest) + "/" + "edit";
-			}	
+			}
 		}
 		else {
 			service.alertMessage("해당 설문 정보가 없습니다.", request, response);
 			return null;
 		}
 	}
-	
+
 	@RequestMapping(value = { "/save.*" }, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Quest quest, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
@@ -304,14 +304,14 @@ public class AnswerController extends BaseController {
 //			result.reject("완료된 설문조사입니다.");
 //		} else if (service.isDupleAnswer(quest, member)) {
 //			result.reject("이미 설문조사에 참여하셨습니다.");
-//		} 
+//		}
 		validationSurvey(result, quest, member);
 		//유효성검사 끝
 		Survey survey = new Survey();
 		survey.setHomepage_id(homepage.getHomepage_id());
-		survey.setSurvey_idx(quest.getSurvey_idx());		
+		survey.setSurvey_idx(quest.getSurvey_idx());
 		survey = surveyService.getSurveyOne(survey);
-		
+
 		if (!result.hasErrors()) {
 			StringBuilder sb = new StringBuilder();
 			sb.append(quest.getHomepage_id() + "\n");
@@ -329,7 +329,7 @@ public class AnswerController extends BaseController {
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
-			
+
 			String addResult = WebFilterCheckUtils.webFilterCheck("설문응답자", "설문조사", sb.toString());
 			if (addResult != null) {
 				res.setValid(false);
@@ -337,9 +337,9 @@ public class AnswerController extends BaseController {
 				res.setTargetOpener(true);
 				return res;
 			}
-			
+
 			res.setValid(true);
-			
+
 			if (member.isLogin()) {
 				if(survey.getName_yn().equals("Y")) {
 					quest.setAdd_user_name("익명");
@@ -348,7 +348,7 @@ public class AnswerController extends BaseController {
 				}
 				quest.setAdd_user_id(member.getMember_id());
 				quest.setMember_key(member.getSeq_no());
-				quest.setAdd_user_ip(request.getRemoteAddr());	
+				quest.setAdd_user_ip(request.getRemoteAddr());
 			} else {
 				//비로그인사용자
 				if(survey.getName_yn().equals("Y")) {
@@ -360,10 +360,10 @@ public class AnswerController extends BaseController {
 				String anonymous = String.format("ANNYMS%s", String.valueOf(System.currentTimeMillis()));
 				quest.setAdd_user_id(anonymous);
 				quest.setMember_key(anonymous);
-				quest.setAdd_user_ip(request.getRemoteAddr());	
+				quest.setAdd_user_ip(request.getRemoteAddr());
 			}
-			
-			
+
+
 			service.addAnswerSurvey(quest);
 			res.setMessage(survey.getGreetings());
 			if(survey.getPopup_yn().equals("Y")) {
@@ -375,27 +375,27 @@ public class AnswerController extends BaseController {
 			res.setResult(result.getAllErrors());
 		}
 		return res;
-		
+
 	}
-	
+
 	private void validationSurvey(BindingResult result, Quest quest, Member member) {
 		quest.setSearchMode("noComment");
-		
+
 		if(quest.getAnswer_list() == null) {
 			result.reject("응답 문항이 없습니다.");
 			return;
 		}
-		
+
 		for (int i = 0; i < quest.getAnswer_list().size(); i++) {
 			Answer answerOne = quest.getAnswer_list().get(i);
 			String questType = answerOne.getQuest_type();
 			String questRequied = answerOne.getRequired_yn();
-			
+
 			if(questType != null) {
 				if (questType.equals("ONE")) {
 					if (answerOne.getQuest_idx_list() == null || answerOne.getQuest_idx_list().size() != 1) {
 						result.reject((i+1)+"번 문항에 답하지 않으셨습니다.");
-					} 
+					}
 				} else if (questType.equals("MULTI")) {
 					if (answerOne.getQuest_idx_list() == null || answerOne.getQuest_idx_list().size() < 1) {
 						result.reject((i+1)+"번 문항에 답하지 않으셨습니다.");
@@ -407,18 +407,18 @@ public class AnswerController extends BaseController {
 								break;
 							}
 						}
-						
+
 						String shortAnswer = answerOne.getQuest_idx_list().get(answerOne.getQuest_idx_list().size()-1);
-						
+
 						if (StringUtils.equals(shortAnswer, "99")) {
 							if (StringUtils.isEmpty(answerOne.getShort_answer())) {
-								result.reject((i+1)+"번 문항의 기타란은 필수 입력입니다.");	
+								result.reject((i+1)+"번 문항의 기타란은 필수 입력입니다.");
 							}
 						}
-						
-						
+
+
 						if (!hasAnswer && !result.hasErrors()) {
-							result.reject((i+1)+"번 문항에 답하지 않으셨습니다.");	
+							result.reject((i+1)+"번 문항에 답하지 않으셨습니다.");
 						}
 					}
 				} else if (questType.equals("MATRIX")) {
@@ -426,7 +426,7 @@ public class AnswerController extends BaseController {
 					int matrix_count = questService.getQuestMatrixCount(quest);
 					if (answerOne.getQuest_idx_list() == null || (answerOne.getQuest_idx_list().size() != matrix_count)) {
 						result.reject((i+1)+"번 문항에 답하지 않으셨습니다.");
-					} 
+					}
 					if (!result.hasErrors()) {
 						for (String matrix_answer : answerOne.getQuest_idx_list()) {
 							if (matrix_answer == null) {
@@ -439,16 +439,16 @@ public class AnswerController extends BaseController {
 					if (questRequied.equals("Y")) {
 						if (answerOne.getShort_answer() == null || answerOne.getShort_answer().trim().equals("")) {
 							result.reject((i+1)+"번 문항에 답하지 않으셨습니다.");
-						} 
+						}
 					}
 				}
 			}
 		}
 	}
-	
+
 	private String getSkinCd(Quest quest) {
 		String skin = "skin1";
-		
+
 		if (quest.getSurvey_idx() != 0) {
 			Survey survey = new Survey();
 			survey.setSurvey_idx(quest.getSurvey_idx());
@@ -456,8 +456,8 @@ public class AnswerController extends BaseController {
 			survey = surveyService.getSurveyOne(survey);
 			skin  = "skin" + survey.getSkin_cd();
 		}
-		
+
 		return skin;
 	}
-	
+
 }

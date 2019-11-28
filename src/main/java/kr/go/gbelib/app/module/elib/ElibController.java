@@ -37,8 +37,8 @@ import is.tagomor.woothee.Classifier;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.login.LoginService;
 import kr.co.whalesoft.app.cms.member.Member;
-import kr.co.whalesoft.app.cms.site.Site;
-import kr.co.whalesoft.app.cms.site.SiteService;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.utils.BeanUtils;
@@ -69,52 +69,52 @@ import kr.go.gbelib.app.cms.module.elib.member.ElibMemberService;
 public class ElibController extends BaseController {
 
 	private String basePath = "/homepage/%s/module/elib/";
-	
-	@Autowired
-	private SiteService siteService;
-	
+
 	@Autowired
 	private ElibCategoryService elibCategoryService;
-	
+
 	@Autowired
 	private ElibCodeService elibCodeService;
-	
+
 	@Autowired
 	private BookService bookService;
-	
+
 	@Autowired
 	private LendingService lendingService;
-	
+
 	@Autowired
 	private LendingDao lendingDao;
-	
+
 	@Autowired
 	private ConfigService configService;
-	
+
 	@Autowired
 	private ElibMemberService elibMemberService;
-	
+
 	@Autowired
 	private CommentService commentService;
-	
+
 	@Autowired
 	private ElibAccessIpService elibAccessIpService;
-	
+
 	@Autowired
 	private BestService bestService;
-	
+
 	@Autowired
 	private APIService apiService;
-	
+
 	@Autowired
 	private LoginService loginService;
-	
+
+	@Autowired
+	private RecommendSiteService recommendSiteService;
+
 	@ModelAttribute("siteList")
-	public List<Site> getAreaCdList(HttpServletRequest request) {
+	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		return siteService.getSiteListAll(new Site(homepage.getHomepage_id()));
+		return recommendSiteService.getRecommendSiteListAll(new RecommendSite(homepage.getHomepage_id()));
 	}
-	
+
 	private String encodeURL(String url) {
 		if(url == null) {
 			return null;
@@ -126,10 +126,10 @@ public class ElibController extends BaseController {
 			}
 		}
 	}
-	
+
 	private Book withTypeLabels(Book book) {
 		String type = book.getType();
-		
+
 		if("EBK".equals(type)) {
 			book.setType_name("전자책");
 		} else if("WEB".equals(type)) {
@@ -137,90 +137,90 @@ public class ElibController extends BaseController {
 		} else if("ADO".equals(type)) {
 			book.setType_name("오디오북");
 		}
-		
+
 		return book;
 	}
-	
+
 	private Book withLabels(Book book, List<ElibCategory> categoryList) {
-		
+
 		book = withTypeLabels(book);
-		
+
 		if(book.getParent_id() == 0 && categoryList.size() > 0) {
 			book.setParent_id(categoryList.get(0).getCate_id());
 		}
-		
+
 		int parent_id = book.getParent_id();
-		
+
 		for(ElibCategory cat: categoryList) {
 			if(cat.getCate_id() == parent_id) {
 				book.setParent_name(cat.getCate_name());
 			}
 		}
-		
+
 		return book;
 	}
-	
+
 	private Book withLabels2(Book book	, List<ElibCode> compList) {
-		
+
 		book = withTypeLabels(book);
-		
+
 		if(compList != null && compList.size() > 0) {
 			if(StringUtils.isEmpty(book.getCom_code())) {
 				book.setCom_code(compList.get(0).getCom_code());
 			}
-			
+
 			String com_code = book.getCom_code();
-			
+
 			for(ElibCode code: compList) {
 				if(code.getCom_code().equals(com_code)) {
 					book.setComp_name(code.getComp_name());
 				}
 			}
 		}
-		
+
 		return book;
 	}
-	
+
 	private Map<String, Book> bestBookListToMap(List<Book> bookList) {
 		Map<String, Book> map = new HashMap<String, Book>();
-		
+
 		for(Book book: bookList) {
 			map.put(String.valueOf(book.getPrint_seq()), book);
 		}
-		
+
 		return map;
 	}
-	
+
 	@RequestMapping(value = {"/book/index.*"})
 	public String book_index(Model model, Book book, HttpServletRequest request, HttpServletResponse response) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		book.setHomepage_id(homepage.getHomepage_id());
-		
+
 //		if(!checkLogin(request, response, bookService, book)) return null;
-		
+
 		if("TITLE".equals(book.getSortField())) book.setSortType("ASC");
 		if(StringUtils.equals(book.getSortField(), "TITLE")) book.setSortField("book_name");
-		
+
 		setApporve_yn(book, request);
-		
+
 		Device device = DeviceUtils.getCurrentDevice(request);
 		boolean isMobile = device.isMobile() || device.isTablet();
 		model.addAttribute("isMobile", isMobile);
-		
+
 		String menu = book.getMenu();
 		if("CATEGORY".equals(menu)) {
 			ElibCategory elibCategory = new ElibCategory(book.getType(), 1);
 			ElibCategory elibSubcategory = new ElibCategory(book.getType(), 2, book.getParent_id() == 0 ? 1: book.getParent_id());
 			setApporve_yn(elibCategory, request);
 			setApporve_yn(elibSubcategory, request);
-			
+
 			List<ElibCategory> categoryList = elibCategoryService.getCategoryWithCntList(elibCategory);
 			List<ElibCategory> subcategoryList = elibCategoryService.getCategoryWithCntList(elibSubcategory);
 
 			ElibCategory elibCategory2 = new ElibCategory();
 			elibCategory2.setType(book.getType());
 			elibCategory2.setCate_id(book.getCate_id() == 0 ? book.getParent_id(): book.getCate_id());
-			
+
 			model.addAttribute("category", elibCategoryService.getCategoryInfo(elibCategory2));
 			model.addAttribute("categoryBestBookList", bestService.getCategoryBestBookList(book));
 			model.addAttribute("categoryList", categoryList);
@@ -230,7 +230,7 @@ public class ElibController extends BaseController {
 			ElibCode elibCode = new ElibCode(book.getType());
 			setApporve_yn(elibCode, request);
 			List<ElibCode> compList = elibCodeService.getCompWithCntList(elibCode);
-			
+
 			model.addAttribute("compList", compList);
 			model.addAttribute("book", withLabels2(book, compList));
 		} else if("NEW".equals(menu)) {
@@ -248,23 +248,23 @@ public class ElibController extends BaseController {
 		} else if("DEVICE".equals(menu)) {
 			setApporve_yn(book, request);
 			List<Book> deviceList = bookService.getBookCountByDevice(book);
-			
+
 			model.addAttribute("book", book);
 			model.addAttribute("deviceList", deviceList);
 		} else {
 			model.addAttribute("book", book);
 		}
-		
+
 		int count = bookService.getBookListCnt(book);
 		bookService.setPaging(model, count, book);
 		List<Book> bookList = bookService.getBookList(book);
-		
+
 		model.addAttribute("bookList", setStatus(bookList, request));
 		model.addAttribute("bookListCnt", count);
-		
+
 		return String.format(basePath, homepage.getFolder()) + "book/index";
 	}
-	
+
 	private boolean isLoggedIn(HttpServletRequest request) {
 		if ( !(isLogin(request) || "HOMEPAGE".equals(getSessionMemberLoginType(request)))) {
 			return false;
@@ -272,12 +272,12 @@ public class ElibController extends BaseController {
 			return true;
 		}
 	}
-	
 
-	
+
+
 	private JsonResponse checkLogin(HttpServletRequest request, BindingResult result, JsonResponse res, BeanUtils bean) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		
+
 		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			result.reject("로그인 후 이용가능합니다.");
 			res.setValid(false);
@@ -285,10 +285,10 @@ public class ElibController extends BaseController {
 			res.setUrl(String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), bean.getMenu_idx(), encodeURL(bean.getBefore_url())));
 			return res;
 		}
-		
+
 		Member member = getSessionMemberInfo(request);
 		String status_code = member.getStatus_code();
-		
+
 		if ( !StringUtils.isEmpty(status_code) ) {
 			if (!(status_code.equals("0001") || status_code.equals("0") )) {
 				res.setValid(false);
@@ -297,11 +297,11 @@ public class ElibController extends BaseController {
 				return res;
 			}
 		}
-		
-		
+
+
 		if(bean instanceof Book || bean instanceof Lending) {
 			String library_code = "";
-			
+
 			if(bean instanceof Book) {
 				library_code = ((Book) bean).getLibrary_code();
 			} else if(bean instanceof Lending) {
@@ -309,21 +309,21 @@ public class ElibController extends BaseController {
 			} else if(bean instanceof Comment) {
 				library_code = ((Comment) bean).getLibrary_code();
 			}
-			
+
 			if( StringUtils.equals(member.getStatus_code(), "1") ) {
 				res.setValid(false);
 				res.setMessage("이용자님은 현재 홈페이지 가입회원(준회원)입니다. 소속도서관에서 정회원으로 승인 받은 후 대출하시기 바랍니다");
 				res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
 				return res;
 			}
-			
+
 			if( !StringUtils.equals(member.getUnAgreeFlag(), "0001")) {
 				res.setValid(false);
 				res.setMessage("통합회원만 이용 가능합니다.");
 				res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
 				return res;
 			}
-			
+
 			if( library_code != null && library_code.length() > 0 && !StringUtils.equals(library_code, "9999999") && !StringUtils.equals(library_code, member.getLoca()) ) {
 				res.setValid(false);
 				res.setMessage("소속 도서관 회원만 이용 가능합니다.");
@@ -331,15 +331,15 @@ public class ElibController extends BaseController {
 				return res;
 			}
 		}
-		
+
 		res.setValid(true);
-		
+
 		return res;
 	}
-	
+
 	private boolean checkCMSLogin(HttpServletRequest request, BindingResult result, JsonResponse res, BeanUtils bean) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		
+
 		if ( !isLogin(request) || !"CMS".equals(getSessionMemberLoginType(request))) {
 			result.reject("로그인 후 이용가능합니다.");
 			res.setValid(false);
@@ -347,13 +347,13 @@ public class ElibController extends BaseController {
 			res.setUrl(String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), bean.getMenu_idx(), encodeURL(bean.getBefore_url())));
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	private boolean checkLogin(HttpServletRequest request, HttpServletResponse response, BaseService service, BeanUtils bean) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		
+
 		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			try {
 				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), bean.getMenu_idx(), encodeURL(bean.getBefore_url())), request, response);
@@ -362,10 +362,10 @@ public class ElibController extends BaseController {
 			}
 			return false;
 		}
-		
+
 		Member member = getSessionMemberInfo(request);
 		String status_code = member.getStatus_code();
-		
+
 		if ( !StringUtils.isEmpty(status_code) ) {
 			if (!(status_code.equals("0001") || status_code.equals("0") )) {
 				try {
@@ -376,7 +376,7 @@ public class ElibController extends BaseController {
 				return false;
 			}
 		}
-		
+
 		if(bean instanceof Book || bean instanceof Lending) {
 			String library_code = "";
 
@@ -385,7 +385,7 @@ public class ElibController extends BaseController {
 			} else if(bean instanceof Lending) {
 				library_code = ((Lending) bean).getLibrary_code();
 			}
-			
+
 			if( StringUtils.equals(member.getStatus_code(), "1") ) {
 				try {
 					service.alertMessageAndUrl("이용자님은 현재 홈페이지 가입회원(준회원)입니다. 소속도서관에서 정회원으로 승인 받은 후 대출하시기 바랍니다.", String.format("/%s/index.do", homepage.getContext_path()), request, response);
@@ -394,7 +394,7 @@ public class ElibController extends BaseController {
 				}
 				return false;
 			}
-		
+
 			if( !StringUtils.equals(member.getUnAgreeFlag(), "0001")) {
 				try {
 					service.alertMessageAndUrl("통합회원만 이용 가능합니다.", String.format("/%s/index.do", homepage.getContext_path()), request, response);
@@ -403,7 +403,7 @@ public class ElibController extends BaseController {
 				}
 				return false;
 			}
-		
+
 			if( library_code != null && library_code.length() > 0 && !StringUtils.equals(library_code, "9999999") && !StringUtils.equals(library_code, member.getLoca()) ) {
 				try {
 					service.alertMessageAndUrl("소속 도서관 회원만 이용 가능합니다.", String.format("/%s/index.do", homepage.getContext_path()), request, response);
@@ -416,34 +416,34 @@ public class ElibController extends BaseController {
 
 		return true;
 	}
-	
+
 	private int addMemberIfNotExists(HttpServletRequest request, Book book) throws ElibException {
 		return elibMemberService.addMemberIfNotExists(new ElibMember(getSessionMemberInfo(request)), book);
 	}
-	
+
 	private int addMemberIfNotExistsLocal(HttpServletRequest request) throws ElibException {
 		return elibMemberService.addMemberIfNotExistsLocal(new ElibMember(getSessionMemberInfo(request)));
 	}
-	
+
 	@RequestMapping(value = {"/book/save.*"})
 	public @ResponseBody JsonResponse book_save(Model model, Book book,  BindingResult result, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		book.setHomepage_id(homepage.getHomepage_id());
-		
+
 		JsonResponse res = new JsonResponse(request);
 		String editMode = book.getEditMode();
 		int ret = 0;
-		
+
 		Book book1 = bookService.getBookInfo(new Book(book.getBook_idx()));
 		book1.setMenu_idx(book.getMenu_idx());
 		book1.setBefore_url(String.format("/%s/module/elib/book/index.do?menu_idx=%s", homepage.getContext_path(), book.getMenu_idx()));
 		res = checkLogin(request, result, res, book1);
 		if(!res.isValid()) return res;
-		
+
 		if(!book.getEditMode().equals("DELETE")) {
-			
+
 		}
-		
+
 		if(!result.hasErrors()) {
 			try {
 				addMemberIfNotExistsLocal(request);
@@ -475,14 +475,14 @@ public class ElibController extends BaseController {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
 		}
-		
+
 		return res;
 	}
-	
+
 	private String getMobileOS(HttpServletRequest request) {
 		String ua = request.getHeader("User-Agent");
 		String os = "android";
-		
+
 		if(ua.indexOf("iPhone") > -1 || ua.indexOf("iPod") > -1) {
 			return "ios";
 		} else if(ua.indexOf("iPad") > -1) {
@@ -493,7 +493,7 @@ public class ElibController extends BaseController {
 			return os;
 		}
 	}
-	
+
 	@RequestMapping(value = {"/lending/index.*"})
 	public String lending_index(Model model, Lending lending, HttpServletRequest request, HttpServletResponse response) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
@@ -506,18 +506,18 @@ public class ElibController extends BaseController {
 		int count = 0;
 		List<Lending> lendingList = null;
 		lending.setMember_id(getSessionWebId(request));
-		
+
 		if("LENDING".equals(menu)) {
 			count = lendingService.getLendMemberListCnt(lending);
 			lendingService.setPaging(model, count, lending);
 			lendingList = lendingService.getLendMemberList(lending);
-			
+
 			Device device = DeviceUtils.getCurrentDevice(request);
 			ElibMember member = new ElibMember(getSessionMemberInfo(request));
-			
+
 			boolean isMobile = device.isMobile() || device.isTablet();
 			model.addAttribute("isMobile", isMobile);
-			
+
 			if(isMobile) {
 				model.addAttribute("memberIdBase64", new String(Base64.encodeBase64(lending.getMember_id().getBytes())));
 				List<Map<String, String>> mobileList = new ArrayList<Map<String, String>>();
@@ -546,7 +546,7 @@ public class ElibController extends BaseController {
 					} else {
 							mobileList.add(null);
 					}
-					
+
 				}
 				model.addAttribute("mobileList", mobileList);
 			}
@@ -564,21 +564,21 @@ public class ElibController extends BaseController {
 			lendingService.setPaging(model, count, lending);
 			lendingList = setStatus(lendingService.getFavoritesList(lending), request);
 		}
-		
+
 		model.addAttribute("lending", lending);
 		model.addAttribute("lendingList", lendingList);
 		model.addAttribute("lendingListCnt", count);
-		
+
 		return String.format(basePath, homepage.getFolder()) + "lending/index";
 	}
-	
+
 	private Book setStatus(Book book, HttpServletRequest request, int max_lend) {
 		Lending lending = new Lending();
 		lending.setBook_idx(book.getBook_idx());
 		lending.setMember_id(getSessionWebId(request));
-		
+
 		if(book.getMax_lend() > 0) max_lend = book.getMax_lend();
-		
+
 		if(book.getBook_lend() < max_lend) {
 			if(!isLoggedIn(request)) {
 				// 로그인 안 한 상태
@@ -603,22 +603,22 @@ public class ElibController extends BaseController {
 				book.setStatus("예약 중");
 			}
 		}
-		
+
 		return book;
 	}
-	
+
 	private Lending setStatus(Lending lending, HttpServletRequest request, int max_lend) {
 		lending.setMember_id(getSessionWebId(request));
 		Book book = bookService.getBookInfo(new Book(lending));
-		
+
 		if(book == null) return lending;
-		
+
 		lending.setBook_lend(book.getBook_lend());
 		lending.setBook_reserve(book.getBook_reserve());
 		lending.setLendable_dt(book.getLendable_dt());
-		
+
 		if(book.getMax_lend() > 0) max_lend = book.getMax_lend();
-		
+
 		if(book.getBook_lend() < max_lend) {
 			if(!isLoggedIn(request)) {
 				// 로그인 안 한 상태
@@ -643,10 +643,10 @@ public class ElibController extends BaseController {
 				lending.setStatus("예약 중");
 			}
 		}
-		
+
 		return lending;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private <T> T setStatus(T t, HttpServletRequest request, int max_lend) {
 		if(t instanceof Book) {
@@ -655,12 +655,12 @@ public class ElibController extends BaseController {
 			return (T) setStatus((Lending) t, request, max_lend);
 		}
 	}
-	
+
 	private <T> T setStatus(T t, HttpServletRequest request) {
 		int max_lend = configService.getConfig().getBook_max_lend();
 		return setStatus(t, request, max_lend);
 	}
-	
+
 	private <T> List<T> setStatus(List<T> list, HttpServletRequest request) {
 		if(list == null) {
 			return null;
@@ -672,54 +672,54 @@ public class ElibController extends BaseController {
 			return list;
 		}
 	}
-	
+
 	private void setApporve_yn(Book book, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		String debug = (String) session.getAttribute("_elib_debug");
-		
+
 		if(StringUtils.equals(debug, "true"))
 			book.setApproved_yn("N");
 		else
 			book.setApproved_yn("Y");
 	}
-	
+
 	private void setApporve_yn(ElibCategory elibCategory, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		String debug = (String) session.getAttribute("_elib_debug");
-		
+
 		if(StringUtils.equals(debug, "true"))
 			elibCategory.setApproved_yn("N");
 		else
 			elibCategory.setApproved_yn("Y");
-	}	
-	
+	}
+
 	private void setApporve_yn(ElibCode elibCode, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		String debug = (String) session.getAttribute("_elib_debug");
-		
+
 		if(StringUtils.equals(debug, "true"))
 			elibCode.setApproved_yn("N");
 		else
 			elibCode.setApproved_yn("Y");
-	}	
-	
+	}
+
 	@RequestMapping(value = {"/book/view.*", "/lending/view.*", "/reserve/view.*"})
 	public String lending_view(Model model, Book book, HttpServletRequest request, HttpServletResponse response) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		book.setHomepage_id(homepage.getHomepage_id());
-		
+
 		Book book1 = setStatus(bookService.getBookInfo(book), request);
 		if("FXLI".equals(book1.getCom_code())) book1 = setStatus(bookService.getBookInfo(book), request);
 		book1.setBefore_url(book.getBefore_url());
 		book1.setMenu_idx(book.getMenu_idx());
-		
+
 //		if(!checkLogin(request, response, lendingService, book1)) return null;
-		
+
 		model.addAttribute("book", book1);
 		Device device = DeviceUtils.getCurrentDevice(request);
 		boolean isMobile = device.isMobile() || device.isTablet();
 		model.addAttribute("isMobile", isMobile);
-		
+
 		if(StringUtils.equals(book.getType(), "ADO")) {
 			List<Book> audioList = bookService.getAudioList(book);
 			model.addAttribute("audioList", audioList);
@@ -727,13 +727,13 @@ public class ElibController extends BaseController {
 		else if(StringUtils.equals(book.getType(), "WEB")) {
 
 			List<Book> courseList = bookService.getCourseList(book);
-			
+
 			if("EDUW".equals(book1.getCom_code()) && courseList != null) {
 				HttpSession session = request.getSession();
 				DateTime dt = new DateTime();
 				DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
 				DateTimeFormatter formatter2 = DateTimeFormat.forPattern("yyyy-MM-dd");
-				
+
 				model.addAttribute("EndDate", formatter2.print(dt.plusYears(1)));
 
 				for(Book course: courseList) {
@@ -742,13 +742,13 @@ public class ElibController extends BaseController {
 					course.setMkSessData(mkSessData);
 				}
 			}
-			
+
 			model.addAttribute("courseList", courseList);
 		}
-		
+
 		return String.format(basePath, homepage.getFolder()) + "book/view";
 	}
-	
+
 	private String koreanDateFormat(String date) {
 		SimpleDateFormat parse = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat format = new SimpleDateFormat("yyyy'.' M'.' d'.' '('EE')'",  Locale.KOREA);
@@ -758,28 +758,28 @@ public class ElibController extends BaseController {
 			return date;
 		}
 	}
-	
+
 	@RequestMapping(value = {"/lending/save.*"})
 	public @ResponseBody JsonResponse lending_save(Model model, Lending lending,  BindingResult result, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		lending.setHomepage_id(homepage.getHomepage_id());
-		
+
 		JsonResponse res = new JsonResponse(request);
 		String editMode = lending.getEditMode();
 		int ret = 0;
-		
+
 		Book book = bookService.getBookInfo(new Book(lending.getBook_idx()));
 		book.setMenu_idx(lending.getMenu_idx());
 		book.setBefore_url(String.format("/%s/module/elib/lending/index.do?menu_idx=%s", homepage.getContext_path(), lending.getMenu_idx()));
 		res = checkLogin(request, result, res, book);
 		if(!res.isValid()) return res;
-		
+
 		if(!lending.getEditMode().equals("DELETE")) {
-			
+
 		}
-		
+
 		lending.setDevice(getDevice(request.getHeader("user-agent")));
-		
+
 		if(!result.hasErrors()) {
 			try {
 				addMemberIfNotExists(request, book);
@@ -790,7 +790,7 @@ public class ElibController extends BaseController {
 			}
 			lending.setMember_id(getSessionWebId(request));
 			lending.setCom_code(book.getCom_code());
-			
+
 			if(elibAccessIpService.getBannedIpCnt(new ElibAccessIp(request.getRemoteAddr())) > 0) {
 				res.setValid(false);
 				res.setMessage("접근이 제한된 IP입니다.");
@@ -841,7 +841,7 @@ public class ElibController extends BaseController {
 //						lending.setDevice("P");
 //					}
 //					lendingDao.addLending(lending);
-					
+
 //					ret = lendingService.borrowProc(lending, false, homepage);
 //					ret = lendingService.returnLending(lending);
 				} catch(Exception e) {
@@ -1002,18 +1002,18 @@ public class ElibController extends BaseController {
 		}
 		return res;
 	}
-	
+
 	@RequestMapping(value = {"/extlink_save.*"})
 	public @ResponseBody JsonResponse extlink_save(Model model, Book book,  BindingResult result, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		book.setHomepage_id(homepage.getHomepage_id());
-		
+
 		JsonResponse res = new JsonResponse(request);
 		String editMode = book.getEditMode();
 		int ret = 0;
-		
+
 		book.setDevice(getDevice(request.getHeader("user-agent")));
-		
+
 		if(!result.hasErrors()) {
 			try {
 				addMemberIfNotExists(request, book);
@@ -1024,7 +1024,7 @@ public class ElibController extends BaseController {
 			}
 			book.setMember_id(getSessionWebId(request));
 			book.setCom_code(book.getCom_code());
-			
+
 			if(elibAccessIpService.getBannedIpCnt(new ElibAccessIp(request.getRemoteAddr())) > 0) {
 				res.setValid(false);
 				res.setMessage("접근이 제한된 IP입니다.");
@@ -1041,23 +1041,23 @@ public class ElibController extends BaseController {
 		return res;
 	}
 
-	
+
 	@RequestMapping(value = {"/comment/save.*"})
 	public @ResponseBody JsonResponse comment_save(Model model, Comment comment,  BindingResult result, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		comment.setHomepage_id(homepage.getHomepage_id());
-		
+
 		JsonResponse res = new JsonResponse(request);
 		String editMode = comment.getEditMode();
-		
+
 		comment.setBefore_url(String.format("/%s/module/elib/book/view.do?menu_idx=%s&book_idx=%s", homepage.getContext_path(), comment.getMenu_idx(), comment.getBook_idx()));
 		res = checkLogin(request, result, res, comment);
 		if(!res.isValid()) return res;
-		
+
 		if(!comment.getEditMode().equals("DELETE")) {
 			ValidationUtils.rejectIfEmpty(result, "user_comment", "서평을 입력하세요.");
 		}
-		
+
 		if(!result.hasErrors()) {
 			try {
 				addMemberIfNotExistsLocal(request);
@@ -1067,7 +1067,7 @@ public class ElibController extends BaseController {
 				return res;
 			}
 			comment.setMember_id(getSessionWebId(request));
-			
+
 			if(elibAccessIpService.getBannedIpCnt(new ElibAccessIp(request.getRemoteAddr())) > 0) {
 				res.setValid(false);
 				res.setMessage("접근이 제한된 IP입니다.");
@@ -1086,7 +1086,7 @@ public class ElibController extends BaseController {
 		}
 		return res;
 	}
-	
+
 	@RequestMapping(value = {"/search/index.*"})
 	public String search_index(Model model, Book book, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
@@ -1098,38 +1098,38 @@ public class ElibController extends BaseController {
 			book.setAuthor_name(null);
 			book.setBook_pubname(null);
 			book.setBook_year(null);
-		
+
 			int count = 0;
 			int rowCount = book.getRowCount();
-			
+
 			book.setRowCount(5);
 			setApporve_yn(book, request);
-			
+
 			count = bookService.getBookCountByTypeCnt(book);
 			book.setTotalDataCount(count);
 			model.addAttribute("countByType", count);
 			model.addAttribute("moreByType", bookService.getBookCountByType(book));
-			
+
 			count = bookService.getBookCountByAuthorCnt(book);
 			book.setTotalDataCount(count);
 			model.addAttribute("countByAuthor", count);
 			model.addAttribute("moreByAuthor", bookService.getBookCountByAuthor(book));
-			
+
 			count = bookService.getBookCountByPublisherCnt(book);
 			book.setTotalDataCount(count);
 			model.addAttribute("countByPublisher", count);
 			model.addAttribute("moreByPublisher", bookService.getBookCountByPublisher(book));
-			
+
 			count = bookService.getBookCountByYearCnt(book);
 			book.setTotalDataCount(count);
 			model.addAttribute("countByYear", count);
 			model.addAttribute("moreByYear", bookService.getBookCountByYear(book));
-			
+
 			count = bookService.getBookCountByDeviceCnt(book);
 			book.setTotalDataCount(count);
 			model.addAttribute("countByDevice", count);
 			model.addAttribute("moreByDevice", bookService.getBookCountByDevice(book));
-			
+
 			book.setRowCount(rowCount);
 			count = bookService.getBookSearchedListCnt(book);
 			bookService.setPaging(model, count, book);
@@ -1137,37 +1137,37 @@ public class ElibController extends BaseController {
 			model.addAttribute("bookList", bookList);
 			model.addAttribute("bookListCnt", count);
 		}
-		
+
 		return String.format(basePath, homepage.getFolder()) + "search/index";
 	}
-	
+
 	@RequestMapping(value = {"/search/table.*"})
 	public String table(Model model, Book book, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		book.setHomepage_id(homepage.getHomepage_id());
-		
+
 		if ( !StringUtils.isEmpty(book.getSearch_text()) ) {
-			
+
 			setApporve_yn(book, request);
-			
+
 			int count = bookService.getBookSearchedListCnt(book);
 			bookService.setPaging(model, count, book);
 			List<Book> bookList = bookService.getBookSearchedList(book);
-			
+
 			model.addAttribute("libraryList", elibCodeService.getLibraryList());
 			model.addAttribute("bookList", bookList);
 			model.addAttribute("bookListCnt", count);
-			
+
 //			if ( book.getViewPage() > 1) { // 화면에서 페이지 버튼 클릭
 //				//librarySearch.setSearch_type("GOPAGE"); // GOPAGE 사용시 검색 카테고리 바꾸면 페이징 안됨. (API가 안됨...)
 //				viewPage = book.getViewPage();
 //			}
-			
+
 		}
-		
+
 		return String.format(basePath, homepage.getFolder()) + "search/table_ajax";
 	}
-	
+
 	@RequestMapping(value = {"/search/table/{menu}.*"})
 	public String table2(@PathVariable String menu, Model model, Book book, HttpServletRequest request, HttpServletResponse response) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
@@ -1175,11 +1175,11 @@ public class ElibController extends BaseController {
 
 		menu = menu.toUpperCase();
 		book.setMenu(menu);
-		
+
 		if ( !StringUtils.isEmpty(book.getSearch_text()) ) {
 			int count = 0;
 			setApporve_yn(book, request);
-			
+
 			if("TYPE".equals(menu)) {
 				count = bookService.getBookCountByTypeCnt(book);
 				book.setTotalDataCount(count);
@@ -1222,28 +1222,28 @@ public class ElibController extends BaseController {
 				model.addAttribute("bookCountByDevice", bookService.getBookCountByDevice(book));
 			}
 		}
-		
+
 		model.addAttribute("menu", menu);
 		return String.format(basePath, homepage.getFolder()) + "search/table2_ajax";
 	}
-	
+
 	@RequestMapping(value = {"/book/comments.*"})
 	public String comments(Model model, Book book, HttpServletRequest request, HttpServletResponse response) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		book.setHomepage_id(homepage.getHomepage_id());
-		
+
 //		if(!checkLogin(request, response, bookService, book)) return null;
-		
+
 		Comment comment = new Comment(book);
 		int count = commentService.getCommentListCnt(comment);
 		commentService.setPaging(model, count, comment);
 		List<Comment> commentList = commentService.getCommentList(comment);
-		
+
 		model.addAttribute("commentList", commentList);
-	
+
 		return String.format(basePath, homepage.getFolder()) + "book/comments_ajax";
 	}
-	
+
 	@RequestMapping(value = {"/set.*"}, method = RequestMethod.GET)
 	public String set(Model model, @RequestParam(defaultValue = "") String loca, @RequestParam(defaultValue = "") String debug, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		if(StringUtils.isNotEmpty(loca)) {
@@ -1253,8 +1253,8 @@ public class ElibController extends BaseController {
 			member = getSessionMemberInfo(request);
 //			response.getOutputStream().println("loca: " + member.getLoca());
 		} else {
-			HttpSession session = request.getSession(); 
-			
+			HttpSession session = request.getSession();
+
 			if(StringUtils.equals(debug, "true")) {
 				session.setAttribute("_elib_debug", "true");
 	//			response.getOutputStream().println("debug: " + debug);
@@ -1263,10 +1263,10 @@ public class ElibController extends BaseController {
 	//			response.getOutputStream().println("debug: " + debug);
 			}
 		}
-		
+
 		return "redirect:https://www.gbelib.kr/elib/index.do";
 	}
-	
+
 	@RequestMapping(value = {"/moazine.*"})
 	public String moazine(Model model, HttpServletRequest request, HttpServletResponse response) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
@@ -1277,12 +1277,12 @@ public class ElibController extends BaseController {
 	@RequestMapping(value = {"/redirect.*"})
 	public String redirect(Model model, HttpServletRequest request, HttpServletResponse response) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		
+
 		return String.format(basePath, homepage.getFolder()) + "redirect_ajax";
 	}
-	
+
 	private static final String[] IPHONE = {"iPhone", "iPad", "iPod", "iOS"};
-	
+
 	private String getDevice(String user_agent) {
 		Map<String, String> r = Classifier.parse(user_agent);
 //		String name = r.get("name");
@@ -1291,7 +1291,7 @@ public class ElibController extends BaseController {
 //		String version = r.get("version");
 //		String os_version = r.get("os_version");
 		String device = "P";
-		
+
 		if("pc".equals(category)) {
 			device = "P";
 		} else if("smartphone".equals(category)) {
@@ -1305,8 +1305,8 @@ public class ElibController extends BaseController {
 		} else {
 			device = "E";
 		}
-		
+
 		return device;
 	}
-	
+
 }

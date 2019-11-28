@@ -11,42 +11,42 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 import org.apache.commons.lang.StringUtils;
 
 import kr.co.whalesoft.app.cms.homepage.Homepage;
-import kr.co.whalesoft.app.cms.site.Site;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
 import kr.co.whalesoft.framework.tag.HtmlTag;
 
 public class SiteLinkTag extends BodyTagSupport {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private List<Homepage> homepageList;
 
-	private List<Site> siteList;
-	
+	private List<RecommendSite> recommendSiteList;
+
 	private String width;
-	
+
 	private String type;
-	
+
 	private String defaultStr;
-	
+
 	private String notIncludeHomepageId;
-	
+
 	@Override
 	public int doEndTag() throws JspException {
 		//HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
 		defaultStr = StringUtils.isEmpty(defaultStr) ? "선택" : defaultStr;
-		
+
 		HtmlTag div_tag = new HtmlTag("div");
 		HtmlTag a_tag = new HtmlTag("a");
 		HtmlTag ul_tag = new HtmlTag("ul");
 		ul_tag.setAttribute("style", "display:none");
 
 		if ( StringUtils.isNotEmpty(width) ) {
-			div_tag.setAttribute("style", "width:" + width);	
+			div_tag.setAttribute("style", "width:" + width);
 		}
-		
+
 		div_tag.addSubTag(a_tag);
 		div_tag.addSubTag(ul_tag);
-		
+
 		HtmlTag span_tag1 = new HtmlTag("span");
 		HtmlTag span_tag2 = new HtmlTag("span");
 		span_tag1.setContent(defaultStr);
@@ -55,22 +55,22 @@ public class SiteLinkTag extends BodyTagSupport {
 		span_tag2.setContent("<i></i>");
 		a_tag.addSubTag(span_tag1);
 		a_tag.addSubTag(span_tag2);
-		
+
 		type = StringUtils.isEmpty(type)? "type1" : type;
 		a_tag.setAttribute("class", String.format("fsite %s", type));
-		
+
 		HtmlTag li_default_tag = new HtmlTag("li");
 		li_default_tag.setAttribute("class", "disabled");
-		
+
 		li_default_tag.setContent(String.format("<a href=\"#\">%s</a>", defaultStr));
-		
+
 		ul_tag.addSubTag(li_default_tag);
-		
+
 		String[] notIncludeHomepageIdList = null;
 		if (StringUtils.isNotEmpty(notIncludeHomepageId)) {
 			notIncludeHomepageIdList = notIncludeHomepageId.split(",");
 		}
-		
+
 		if(getHomepageList() != null) {
 			for(Homepage oneHomepage : getHomepageList()) {
 				boolean pass = true;
@@ -82,7 +82,7 @@ public class SiteLinkTag extends BodyTagSupport {
 						}
 					}
 				}
-				
+
 				if (pass) {
 					String domain = oneHomepage.getDomain();
 					String contextPath = oneHomepage.getContext_path();
@@ -93,7 +93,7 @@ public class SiteLinkTag extends BodyTagSupport {
 					else {
 						hrefStr = String.format("%s/%s/index.do", domain, contextPath);
 					}
-					
+
 					HtmlTag li_tag = new HtmlTag("li");
 					li_tag.setAttribute("class", "disabled");
 					li_tag.setContent(String.format("<a title=\"%s\" href=\"%s\">%s</a>", oneHomepage.getHomepage_name(), hrefStr, oneHomepage.getHomepage_name()));
@@ -101,22 +101,22 @@ public class SiteLinkTag extends BodyTagSupport {
 				}
 			}
 		}
-		
-		if ( getSiteList() != null ) {
-			for(Site oneSite : getSiteList()) {
+
+		if ( getRecommendSiteList() != null ) {
+			for(RecommendSite oneSite : getRecommendSiteList()) {
 				String hrefStr = oneSite.getLink_target();
 				HtmlTag li_tag = new HtmlTag("li");
 				li_tag.setAttribute("class", "disabled");
-				li_tag.setContent(String.format("<a title=\"%s\" href=\"%s\">%s</a>", oneSite.getSite_name(), hrefStr, oneSite.getSite_name()));
+				li_tag.setContent(String.format("<a title=\"%s\" href=\"%s\">%s</a>", oneSite.getRecommend_site_name(), hrefStr, oneSite.getRecommend_site_name()));
 				ul_tag.addSubTag(li_tag);
 			}
 		}
-		
+
 		HtmlTag go_tag = new HtmlTag("a");
 		go_tag.setContent("이동");
 		go_tag.setAttribute("href", "#");
 		go_tag.setAttribute("class", "btn");
-			
+
 		try {
 			pageContext.getOut().println(div_tag.toString());
 			pageContext.getOut().println(go_tag.toString());
@@ -143,20 +143,20 @@ public class SiteLinkTag extends BodyTagSupport {
 		}
 	}
 
-	public List<Site> getSiteList() {
-		if(siteList != null) {
-			List<Site> arrayList = new ArrayList<Site>();
-			arrayList.addAll(this.siteList);
+	public List<RecommendSite> getRecommendSiteList() {
+		if(recommendSiteList != null) {
+			List<RecommendSite> arrayList = new ArrayList<RecommendSite>();
+			arrayList.addAll(this.recommendSiteList);
 			return arrayList;
 		} else {
 			return null;
 		}
 	}
 
-	public void setSiteList(List<Site> siteList) {
+	public void setRecommendSiteList(List<RecommendSite> siteList) {
 		if(siteList != null) {
-			this.siteList = new ArrayList<Site>();
-			this.siteList.addAll(siteList);
+			this.recommendSiteList = new ArrayList<RecommendSite>();
+			this.recommendSiteList.addAll(siteList);
 		}
 	}
 
@@ -184,12 +184,12 @@ public class SiteLinkTag extends BodyTagSupport {
 		this.defaultStr = defaultStr;
 	}
 
-	
+
 	public String getNotIncludeHomepageId() {
 		return notIncludeHomepageId;
 	}
 
-	
+
 	public void setNotIncludeHomepageId(String notIncludeHomepageId) {
 		this.notIncludeHomepageId = notIncludeHomepageId;
 	}

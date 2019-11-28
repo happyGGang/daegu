@@ -26,20 +26,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 
 import kr.co.whalesoft.app.cms.code.Code;
 import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.menu.Menu;
-import kr.co.whalesoft.app.cms.site.Site;
-import kr.co.whalesoft.app.cms.site.SiteService;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.app.cms.terms.Terms;
 import kr.co.whalesoft.app.cms.terms.TermsService;
 import kr.co.whalesoft.framework.base.BaseController;
@@ -48,7 +42,6 @@ import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.cms.module.teacherReqManage.TeacherReqManage;
 import kr.go.gbelib.app.cms.module.teacherReqManage.TeacherReqManageService;
-import kr.go.gbelib.app.common.api.MemberAPI;
 
 @Controller(value = "userTeacherReqManage")
 @RequestMapping(value = { "/{homepagePath}/module/teacherReqManage" })
@@ -60,17 +53,18 @@ public class TeacherReqManageController extends BaseController {
 	private TeacherReqManageService service;
 
 	@Autowired
-	private SiteService siteService;
-
-	@Autowired
 	private TermsService termsService;
 
 	@Autowired
 	private CodeService codeService;
 
+	@Autowired
+	private RecommendSiteService recommendSiteService;
+
 	@ModelAttribute("siteList")
-	public List<Site> getAreaCdList(HttpServletRequest request) {
-		return siteService.getSiteListAll(new Site(getAsideHomepageId(request)));
+	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		return recommendSiteService.getRecommendSiteListAll(new RecommendSite(homepage.getHomepage_id()));
 	}
 
 	@RequestMapping(value = { "/index.*" })

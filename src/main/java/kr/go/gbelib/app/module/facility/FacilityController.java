@@ -1,8 +1,6 @@
 package kr.go.gbelib.app.module.facility;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -23,9 +21,8 @@ import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManageService;
-import kr.co.whalesoft.app.cms.module.excursions.apply.Apply;
-import kr.co.whalesoft.app.cms.site.Site;
-import kr.co.whalesoft.app.cms.site.SiteService;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.app.cms.terms.Terms;
 import kr.co.whalesoft.app.cms.terms.TermsService;
 import kr.co.whalesoft.framework.base.BaseController;
@@ -38,7 +35,6 @@ import kr.go.gbelib.app.cms.module.facility.Facility;
 import kr.go.gbelib.app.cms.module.facility.FacilityService;
 import kr.go.gbelib.app.cms.module.facilityReq.FacilityReq;
 import kr.go.gbelib.app.cms.module.facilityReq.FacilityReqService;
-import kr.go.gbelib.app.common.api.MemberAPI;
 import kr.go.gbelib.app.common.api.PushAPI;
 
 @Controller(value="userFacility")
@@ -57,20 +53,19 @@ public class FacilityController extends BaseController {
 	private CalendarManageService calendarManageService;
 
 	@Autowired
-	private SiteService siteService;
-
-	@Autowired
 	private TermsService termsService;
 
 	@Autowired
 	private BlackListService blackListService;
 
-	@ModelAttribute("siteList")
-	public List<Site> getAreaCdList(HttpServletRequest request) {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		return siteService.getSiteListAll(new Site(homepage.getHomepage_id()));
-	}
+	@Autowired
+	private RecommendSiteService recommendSiteService;
 
+	@ModelAttribute("siteList")
+	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		return recommendSiteService.getRecommendSiteListAll(new RecommendSite(homepage.getHomepage_id()));
+	}
 
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, Facility facility, HttpServletRequest request) {
