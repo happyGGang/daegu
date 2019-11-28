@@ -52,7 +52,7 @@ public class AnswerController extends BaseController {
 	private String basePath = null;
 	private Homepage homepage = null;
 
-	@ModelAttribute("siteList")
+	@ModelAttribute("recommendSiteList")
 	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		return recommendSiteService.getRecommendSiteListAll(new RecommendSite(homepage.getHomepage_id()));

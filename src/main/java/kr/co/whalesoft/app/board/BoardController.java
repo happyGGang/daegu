@@ -97,7 +97,7 @@ public class BoardController extends BaseController {
 	@Autowired
 	private CalendarManageService calendarManageService;
 
-	@ModelAttribute("siteList")
+	@ModelAttribute("recommendSiteList")
 	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 //		if (homepage == null) {

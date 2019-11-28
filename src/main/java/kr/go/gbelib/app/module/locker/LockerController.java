@@ -61,7 +61,7 @@ public class LockerController extends BaseController {
 	@Autowired
 	private RecommendSiteService recommendSiteService;
 
-	@ModelAttribute("siteList")
+	@ModelAttribute("recommendSiteList")
 	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		return recommendSiteService.getRecommendSiteListAll(new RecommendSite(homepage.getHomepage_id()));

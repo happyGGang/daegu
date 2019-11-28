@@ -26,7 +26,7 @@ public class FacilityController extends BaseController {
 	private HomepageService homepageService;
 	
 	
-	@ModelAttribute("siteList")
+	@ModelAttribute("recommendSiteList")
 	public List<Site> getAreaCdList(HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		return siteService.getSiteListAll(new Site(homepage.getHomepage_id()));

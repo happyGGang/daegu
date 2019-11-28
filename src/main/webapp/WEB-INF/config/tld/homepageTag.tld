@@ -6,7 +6,7 @@
 	<tlib-version>1.0</tlib-version>
 	<short-name>homepageTag</short-name>
 	<uri>http://www.whalesoft.co.kr</uri>
-	
+
 	<tag>
 		<description>홈페이지 상단메뉴</description>
 		<name>topMenu</name>
@@ -28,7 +28,7 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<description>홈페이지 왼쪽메뉴</description>
 		<name>leftMenu</name>
@@ -45,7 +45,7 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<description>홈페이지 메뉴리스트 테그</description>
 		<name>menuList</name>
@@ -102,7 +102,7 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<description>홈페이지 DocInfo</description>
 		<name>docInfo</name>
@@ -119,19 +119,19 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<description>홈페이지 퀵메뉴</description>
 		<name>quickMenu</name>
 		<tag-class>kr.co.whalesoft.framework.tag.homepage.QuickMenuTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
-			<name>quickMenuList</name> 
+			<name>quickMenuList</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<description>홈페이지 하단 사이트링크</description>
 		<name>siteLink</name>
@@ -143,7 +143,7 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
-			<name>siteList</name>
+			<name>recommendSiteList</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
@@ -168,55 +168,55 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<description>홈페이지 팝업</description>
-		<name>popup</name> 
+		<name>popup</name>
 		<tag-class>kr.co.whalesoft.framework.tag.homepage.PopupTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
-			<name>popupList</name> 
+			<name>popupList</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<description>홈페이지 팝업존</description>
-		<name>popupZone</name> 
+		<name>popupZone</name>
 		<tag-class>kr.co.whalesoft.framework.tag.homepage.PopupZoneTag</tag-class>
-		<body-content>empty</body-content> 
+		<body-content>empty</body-content>
 		<attribute>
-			<name>popupZoneList</name> 
+			<name>popupZoneList</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<description>홈페이지 메인 이미지</description>
-		<name>mainImg</name> 
+		<name>mainImg</name>
 		<tag-class>kr.co.whalesoft.framework.tag.homepage.MainImgTag</tag-class>
-		<body-content>empty</body-content> 
+		<body-content>empty</body-content>
 		<attribute>
-			<name>mainImgList</name> 
+			<name>mainImgList</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<description>홈페이지 베너</description>
-		<name>banner</name> 
+		<name>banner</name>
 		<tag-class>kr.co.whalesoft.framework.tag.homepage.BannerTag</tag-class>
-		<body-content>empty</body-content> 
+		<body-content>empty</body-content>
 		<attribute>
-			<name>bannerList</name> 
+			<name>bannerList</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<description>홈페이지 사이트맵</description>
 		<name>sitemap</name>
@@ -228,17 +228,17 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<description>홈페이지 배너맵</description>
 		<name>bannermap</name>
 		<tag-class>kr.co.whalesoft.framework.tag.homepage.BannerMapTag</tag-class>
 		<body-content>empty</body-content>
-		<attribute> 
+		<attribute>
 			<name>bannerList</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 </taglib>
