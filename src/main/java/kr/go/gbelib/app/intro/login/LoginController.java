@@ -46,7 +46,7 @@ public class LoginController extends BaseController {
 
 	@RequestMapping (value = {"/index.*"})
 	public String login(@PathVariable String context_path, Model model, Member member, HttpServletRequest request) {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		Homepage homepage = getSessionHomepage(request);
 
 		model.addAttribute("member", member);
 		model.addAttribute("homepage", homepage);
@@ -55,7 +55,7 @@ public class LoginController extends BaseController {
 
 	@RequestMapping (value = {"/loginProc.*"})
 	public String loginProc(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		Homepage homepage = getSessionHomepage(request);
 
 		// 아이디, 비번, 이름 복호화
 		if (memberService.decryptMember(member) == false) {
@@ -114,7 +114,7 @@ public class LoginController extends BaseController {
 	 */
 	@RequestMapping (value = "/logout.*", method = RequestMethod.GET)
 	public String logout(@PathVariable String context_path, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		Homepage homepage = getSessionHomepage(request);
 		service.logout(request);
 		return String.format("redirect:/intro/%s/index.do", homepage.getContext_path());
 	}
@@ -131,7 +131,7 @@ public class LoginController extends BaseController {
 	 */
 	@RequestMapping (value = {"/mobileCard.*"})
 	public String mobileCard(@PathVariable String context_path, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);

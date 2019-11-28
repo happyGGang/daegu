@@ -102,6 +102,10 @@ public abstract class BaseController {
 		return member.isLogin();
 	}
 
+	public Homepage getSessionHomepage(HttpServletRequest request) {
+		return (Homepage) request.getSession().getAttribute("homepage");
+	}
+
 	public int getMenuIdxByLinkUrl(Homepage homepage, String homepage_id, String link_url) {
 		return homepageService.getMenuIdxByLinkUrl(homepage.getHomepage_id(), link_url);
 	}

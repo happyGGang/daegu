@@ -57,7 +57,7 @@ public class LibrarySearchController extends BaseController {
 	 */
 	@RequestMapping(value = {"/index.*"})
 	public String index(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		Homepage homepage = getSessionHomepage(request);
 		List<Homepage> normalHomepage = homepageService.getNormalHomepage();
 		// 소장처 코드
 		if ( StringUtils.isEmpty(librarySearch.getManageCode()) ) {
@@ -118,7 +118,7 @@ public class LibrarySearchController extends BaseController {
 	 */
 	@RequestMapping(value = {"/hotTrend.*"})
 	public String hotTrend(Model model, LibrarySearch librarySearch, HttpServletRequest request, @PathVariable String context_path) {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		Homepage homepage = getSessionHomepage(request);
 		Map<String, Object> hotTrendWordList = LibSearchAPI.getHotTrendWordList(homepage.getHomepage_code());
 
 		int count = LibSearchAPI.getSearchCount(hotTrendWordList);
@@ -195,7 +195,7 @@ public class LibrarySearchController extends BaseController {
 	public String getNewBookList(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request) {
 
 		//접속 도서관 확인
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		Homepage homepage = getSessionHomepage(request);
 		if (StringUtils.isEmpty(librarySearch.getManageCode())) {
 			librarySearch.setManageCode(homepage.getHomepage_code());
 		}
@@ -283,7 +283,7 @@ public class LibrarySearchController extends BaseController {
 	 */
 	@RequestMapping(value = {"/bestBook/index.*"})
 	public String bestBookList(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request) {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		Homepage homepage = getSessionHomepage(request);
 		if (StringUtils.isEmpty(librarySearch.getManageCode())) {
 			librarySearch.setManageCode(homepage.getHomepage_code());
 		}
@@ -352,7 +352,7 @@ public class LibrarySearchController extends BaseController {
 	 */
 	@RequestMapping (value = { "/loan/index.*", "/loan/detail.*", "/loan/history.*" })
 	public String myLoan(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
@@ -482,7 +482,7 @@ public class LibrarySearchController extends BaseController {
 	 */
 	@RequestMapping(value = {"/resve/index.*"})
 	public String myResve(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
@@ -575,7 +575,7 @@ public class LibrarySearchController extends BaseController {
 	 */
 	@RequestMapping (value = { "/sangho/index.*" }, method = RequestMethod.GET)
 	public String sanghoHistory(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
@@ -619,7 +619,7 @@ public class LibrarySearchController extends BaseController {
 	@RequestMapping (value = { "/sangho/history.*" }, method = RequestMethod.GET)
 	public String sanghoUsedHistory(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
 
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
@@ -663,7 +663,7 @@ public class LibrarySearchController extends BaseController {
 	 */
 	@RequestMapping (value = { "/sangho/form.*" }, method = RequestMethod.POST)
 	public String sanghoForm(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		Homepage homepage = getSessionHomepage(request);
 
 		model.addAttribute("librarySearch", librarySearch);
 
@@ -896,7 +896,7 @@ public class LibrarySearchController extends BaseController {
 	 */
 	@RequestMapping(value = {"/hope/index.*"})
 	public String getHopeList(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
@@ -940,7 +940,7 @@ public class LibrarySearchController extends BaseController {
 	 */
 	@RequestMapping(value = {"/hope/req.*"})
 	public String reqHope(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		Homepage homepage = getSessionHomepage(request);
 
 		Member member = getSessionMemberInfo(request);
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
@@ -976,7 +976,7 @@ public class LibrarySearchController extends BaseController {
 	 */
 	@RequestMapping(value = {"/hope/search.*"})
 	public String hopeSearch(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
@@ -1127,7 +1127,7 @@ public class LibrarySearchController extends BaseController {
 	 */
 	@RequestMapping (value = { "/unmanned/form.*" }, method = RequestMethod.POST)
 	public String unmannedForm(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
@@ -1213,7 +1213,7 @@ public class LibrarySearchController extends BaseController {
 	 */
 	@RequestMapping (value = {"/night/form.*"}, method = RequestMethod.POST)
 	public String nightForm(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);

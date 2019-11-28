@@ -30,7 +30,6 @@ import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.app.cms.menu.menuAccess.MenuAccess;
 import kr.co.whalesoft.app.cms.menu.menuAccess.MenuAccessService;
-import kr.go.gbelib.app.cms.module.elib.book.BookService;
 import kr.go.gbelib.app.cms.module.elib.category.ElibCategory;
 import kr.go.gbelib.app.cms.module.elib.category.ElibCategoryService;
 import kr.go.gbelib.app.cms.module.elib.code.ElibCode;
@@ -61,9 +60,6 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 
 	@Autowired
 	private ElibCodeService elibCodeService;
-
-	@Autowired
-	private BookService bookService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -136,7 +132,7 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 				 */
 				addStatisticsCount(request, homepage);
 				/**
-				 * 
+				 *
 				 */
 
 				Member member = loginService.getSessionMember(request);
@@ -172,7 +168,7 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 				request.setAttribute("menuTreeList", menuTreeList);
 				request.setAttribute("menuOne", menuOne);
 				request.setAttribute("menuLeftList", menuLeftList);
-				
+
 				// 전자도서관 좌측 메뉴
 				if("elib".equals(contextPath) || "elibtest".equals(contextPath)) {
 					HttpSession session = request.getSession();
@@ -331,9 +327,9 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 //
 //		return false;
 //	}
-	
+
 	private static final DateTimeFormatter DTF = DateTimeFormat.forPattern("yyyy-MM-dd");
-	
+
 	/**
 	 * 접속 통계 + 로그 남기기
 	 * @param request
@@ -348,21 +344,21 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 			String user_agent = request.getHeader("User-Agent");
 			HomepageAccess homepageAccess = new HomepageAccess();
 			String homepage_id = homepage.getHomepage_id();
-			
+
 			homepageAccess.setStart_date(DTF.print(new DateTime()));
 			homepageAccess.setHomepage_id(homepage_id);
 			homepageAccess.setAccess_ip(request.getRemoteAddr());
 			homepageAccess.setSession_id(request.getSession().getId());
 			homepageAccess.setReferer_url(request.getHeader("referer"));
 			homepageAccess.setUser_agent(user_agent);
-			
+
 			Map<String, String> r = Classifier.parse(user_agent);
 //			String name = StringUtils.defaultString(r.get("name"));
 //			String version = StringUtils.defaultString(r.get("version"));
 			String category = StringUtils.defaultString(r.get("category"));
 //			String os = StringUtils.defaultString(r.get("os"));
 //			String os_version = StringUtils.defaultString(r.get("os_version"));
-			
+
 			// 접속 로그
 			if("pc".equals(category)) {
 				// PC
@@ -372,7 +368,7 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 				homepageAccessService.addStatisticsCountLogMobile(homepageAccess);
 			} else if("crawler".equals(category)) {
 				// 검색 엔진
-			
+
 			} else if("mobilephone".equals(category) || "appliance".equals(category)) {
 				// 모바일
 				homepageAccessService.addStatisticsCountLogMobile(homepageAccess);
@@ -380,7 +376,7 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 				// 기타
 				homepageAccessService.addStatisticsCountLog(homepageAccess);
 			}
-			
+
 			// 접속 통계
 			HttpSession session = request.getSession();
 			String sessionFlag = homepage_id + "_addStatisticsCount";
@@ -394,7 +390,7 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 					homepageAccessService.addStatisticsCountMobile(homepageAccess);
 				} else if("crawler".equals(category)) {
 					// 검색 엔진
-				
+
 				} else if("mobilephone".equals(category) || "appliance".equals(category)) {
 					// 모바일
 					homepageAccessService.addStatisticsCountMobile(homepageAccess);
