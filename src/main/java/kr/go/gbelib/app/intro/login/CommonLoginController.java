@@ -43,8 +43,8 @@ import kr.co.whalesoft.app.cms.memberGroupSubord.MemberGroupSubordService;
 import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.app.cms.module.bookStoreReq.BookStoreReqService;
-import kr.co.whalesoft.app.cms.site.Site;
-import kr.co.whalesoft.app.cms.site.SiteService;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.go.gbelib.app.cms.module.elib.lending.Lending;
 import kr.go.gbelib.app.cms.module.elib.lending.LendingService;
@@ -67,9 +67,6 @@ public class CommonLoginController extends BaseController {
 
 	@Autowired
 	private CodeService codeService;
-
-	@Autowired
-	private SiteService siteService;
 
 	@Autowired
 	private BookStoreReqService bookStoreReqService;
@@ -103,11 +100,14 @@ public class CommonLoginController extends BaseController {
 
 	@Autowired
 	private LoginLogService loginLogService;
-	
+
+	@Autowired
+	private RecommendSiteService recommendSiteService;
+
 	@ModelAttribute("siteList")
-	public List<Site> getAreaCdList(HttpServletRequest request, @PathVariable("homepagePath") String homepagePath) {
+	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		return siteService.getSiteListAll(new Site(homepage.getHomepage_id()));
+		return recommendSiteService.getRecommendSiteListAll(new RecommendSite(homepage.getHomepage_id()));
 	}
 
 	@RequestMapping(value = {"/index.*"})
@@ -122,7 +122,7 @@ public class CommonLoginController extends BaseController {
 		int pwmenuIdx = homepageService.getMenuIdxByLinkUrl(homepage.getHomepage_id(), "/intro/join/findMemberPwForm.do");
 		int joinmenuIdx = homepageService.getMenuIdxByLinkUrl(homepage.getHomepage_id(), "/intro/join/index.do");
 		int menuIdxBookConn = homepageService.getMenuIdxByProgramIdx(homepage.getHomepage_id(), 165);
-		
+
 		model.addAttribute("menuIdxId", idmenuIdx);
 		model.addAttribute("menuIdxPw", pwmenuIdx);
 		model.addAttribute("menuIdxJoin", joinmenuIdx);
@@ -136,14 +136,14 @@ public class CommonLoginController extends BaseController {
 	public String loginProc(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath, RedirectAttributes redirectAttributes) throws Exception {
  		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		request.removeAttribute("userIdLoginFail");
-		
+
 		// 아이디, 비번, 이름 복호화
 		if(memberService.decryptMember(member) == false) {
 			codeService.alertMessage("아이디 또는 비밀번호를 다시 확인하세요", request, response);
 //			System.out.println("@@@@@@@@@@@@@@@@ idpw not matched");
 			return null;
 		}
-		
+
 		String returnUrl = member.getBefore_url();
 		if ( StringUtils.isEmpty(returnUrl) || returnUrl.indexOf("/login/") > -1 ) {
 			returnUrl = String.format("%s/%s/index.do", homepage.getDomain(), homepagePath);
@@ -151,18 +151,18 @@ public class CommonLoginController extends BaseController {
 				returnUrl = String.format("%s/%s/index.do", "http://localhost", homepagePath);
 			}
 		}
-		
+
 		// 비번 틀려서 계정이 잠김
 		if("Y".equals(accountLockService.isLocked(new AccountLock(member, request.getRemoteAddr())))) {
 			codeService.alertMessage("로그인 5회 중 5회 이상 실패\\n입력하신 아이디에 대해서 10분간 접속을 차단합니다.", request, response);
 			return null;
 		}
-		
+
 		Object result = LoginAPI.login(member);
 		if ( result instanceof Member ) {
 			accountLockService.loginSucceeded(new AccountLock(member, request.getRemoteAddr()));
 			loginLogService.addLoginLog(new LoginLog(member, request, homepage));
-			
+
 			try {
 				Member tempMember = (Member) result;
 				if (tempMember.getAuth_id().equals("20000") && StringUtils.equals(member.getLoginType2(), "num")) {
@@ -182,7 +182,7 @@ public class CommonLoginController extends BaseController {
 				}
 				member.setLast_login_ip(homepageAccessService.getLastHomepageAccess(member));
 				memberService.addMemberLastLogin(member, request);
-				
+
 				//관리자확인
 				String memberId = member.getMember_id();
 				member.setMember_id(member.getWeb_id());
@@ -219,7 +219,7 @@ public class CommonLoginController extends BaseController {
 					String[] parsePatterns = {"yyyyMMdd"};
 					String[] parsePatterns2 = {"yyyy-MM-dd"};
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
-					
+
 					Map<String, String> paramMap = new HashMap<String, String>();
 					paramMap.put("vStartPos", "1");
 					paramMap.put("vEndPos", "1");
@@ -390,7 +390,7 @@ public class CommonLoginController extends BaseController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+
 			return "redirect:" + returnUrl.replaceAll("^http://(www\\.)?gbelib\\.kr", "https://www.gbelib.kr");
 		} else {
 			member.setHomepage_id(homepage.getHomepage_id());

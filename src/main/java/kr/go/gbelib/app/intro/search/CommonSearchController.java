@@ -34,8 +34,8 @@ import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.app.cms.menu.menuHtml.MenuHtml;
 import kr.co.whalesoft.app.cms.menu.menuHtml.MenuHtmlService;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManageService;
-import kr.co.whalesoft.app.cms.site.Site;
-import kr.co.whalesoft.app.cms.site.SiteService;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
@@ -62,9 +62,6 @@ public class CommonSearchController extends BaseController {
 	private LibrarySearchService service;
 
 	@Autowired
-	private SiteService siteService;
-
-	@Autowired
 	private HomepageService homepageService;
 
 	@Autowired
@@ -85,10 +82,13 @@ public class CommonSearchController extends BaseController {
 	@Autowired
 	private SmsReceptionService smsReceptionService;
 
+	@Autowired
+	private RecommendSiteService recommendSiteService;
+
 	@ModelAttribute("siteList")
-	public List<Site> getAreaCdList(HttpServletRequest request) {
+	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		return siteService.getSiteListAll(new Site(homepage.getHomepage_id()));
+		return recommendSiteService.getRecommendSiteListAll(new RecommendSite(homepage.getHomepage_id()));
 	}
 
 	@ModelAttribute("searchCategory")

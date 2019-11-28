@@ -31,8 +31,8 @@ import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.member.MemberService;
 import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.menu.MenuService;
-import kr.co.whalesoft.app.cms.site.Site;
-import kr.co.whalesoft.app.cms.site.SiteService;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.StaticVariables;
@@ -56,9 +56,6 @@ public class CommonJoinController extends BaseController {
 	private CodeService codeService;
 
 	@Autowired
-	private SiteService siteService;
-
-	@Autowired
 	private LoginService loginService;
 
 	@Autowired
@@ -73,10 +70,13 @@ public class CommonJoinController extends BaseController {
 	@Autowired
 	private MenuService menuService;
 
+	@Autowired
+	private RecommendSiteService recommendSiteService;
+
 	@ModelAttribute("siteList")
-	public List<Site> getAreaCdList(HttpServletRequest request) {
+	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		return siteService.getSiteListAll(new Site(homepage.getHomepage_id()));
+		return recommendSiteService.getRecommendSiteListAll(new RecommendSite(homepage.getHomepage_id()));
 	}
 
 	@RequestMapping(value = {"/index.*"})
@@ -186,7 +186,7 @@ public class CommonJoinController extends BaseController {
 		if (request.getProtocol().equals("HTTP/1.1")) {
 		        response.setHeader("Cache-Control", "no-cache");
 		}
-		
+
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		String certType = String.valueOf(request.getSession().getAttribute("certType")).toLowerCase();
 		String mode = String.valueOf(request.getSession().getAttribute("certMode")).toLowerCase();
@@ -875,7 +875,7 @@ public class CommonJoinController extends BaseController {
 			if (MemberAPI.updateMemberPasswd("WEB", member.getUser_id(), member.getMemberNewPw())) {
 				int menuIdx = homepageService.getMenuIdxByLinkUrl(homepage.getHomepage_id(), "/intro/login/index.do");
 				String before_url = UriEncoder.encode(String.format("https://%s/%s/index.do", homepage.getDomainWithoutProtocol(), homepage.getContext_path()));
-				
+
 				res.setUrl(String.format("https://%s/%s/intro/login/index.do?menu_idx=%d&before_url=%s", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), menuIdx, before_url));
 				res.setValid(true);
 				res.setMessage("비밀번호가 정상적으로 설정되었습니다.");
@@ -919,7 +919,7 @@ public class CommonJoinController extends BaseController {
 					res.setMessage("비밀번호를 다시 확인하세요");
 					return res;
 				}
-				
+
 				if (MemberAPI.checkMemberPasswd("WEB", member)) {
 					Map<String, String> map = MemberAPI.deleteMember("WEB", getSessionMemberInfo(request));
 
@@ -932,7 +932,7 @@ public class CommonJoinController extends BaseController {
 					else {
 						String code = map.get("code");
 						String message = map.get("message");
-						
+
 						res.setValid(false);
 						if(StringUtils.isEmpty(message)) {
 							res.setMessage("삭제 실패하였습니다(" + code + "). 잠시후 다시 시도해주세요.");
@@ -977,7 +977,7 @@ public class CommonJoinController extends BaseController {
 		model.addAttribute("memberInfo", member);
 		return String.format(basePath, homepage.getFolder()) + "findMemberPwForm";
 	}
-	
+
 	@RequestMapping(value = {"/bookConnIdForm.*"})
 	public String bookConnIdForm(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
@@ -1015,27 +1015,27 @@ public class CommonJoinController extends BaseController {
 
 		return res;
 	}
-	
+
 	@RequestMapping(value = { "/userInfoSearch.*" }, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse userInfoSearch(Member member, BindingResult result, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
 		JsonResponse res = new JsonResponse(request);
 
 		ValidationUtils.rejectIfEmpty(result, "user_id", "대출자번호를 입력해주세요.");
 		ValidationUtils.rejectIfEmpty(result, "user_name", "이름을 입력해주세요.");
-		
+
 		if (!result.hasErrors()) {
 			Map<String, String> memberInfo = MemberAPI.getMember("WEB", member);
 			if (memberInfo != null) {
-				
+
 				if(memberInfo.get("USER_NAME").toString().equals(member.getUser_name())) {
-					
+
 					if(StringUtils.isNotEmpty(memberInfo.get("WEB_ID"))) {
 						res.setValid(false);
 						res.setMessage("아이디가 존재합니다.\n아이디 찾기 후 로그인 하시기 바랍니다.");
 						System.out.println("WEB ID already exsits");
 						return res;
 					}
-					
+
 					String status = MemberAPI.getCheckBookConn("WEB", memberInfo);
 					if(StringUtils.equals(status, "COMPLETE")) {
 						res.setValid(true);
@@ -1052,7 +1052,7 @@ public class CommonJoinController extends BaseController {
 					System.out.println("API member : " + memberInfo.get("USER_NAME").toString() + ", INPUT member : " + member.getUser_name());
 					System.out.println("USER_ID : " + member.getUser_id() + ", user_name : " + member.getUser_name());
 				}
-				
+
 			} else {
 				res.setValid(false);
 				res.setMessage("등록되지 않은 사용자입니다. 도서관에 문의하세요.");
@@ -1066,7 +1066,7 @@ public class CommonJoinController extends BaseController {
 
 		return res;
 	}
-	
+
 	@RequestMapping(value = {"/bookConnCert.*"}, method = RequestMethod.GET)
 	public String bookConnCert(Model model, Member member, HttpServletRequest request) {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
@@ -1075,36 +1075,36 @@ public class CommonJoinController extends BaseController {
 
 		return String.format(basePath, homepage.getFolder()) + "bookConnCert";
 	}
-	
+
 	@RequestMapping(value = {"/bookConnIdEdit.*"})
 	public String bookConnIdEdit(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		
+
 		@SuppressWarnings("unchecked")
 		Map<String, String> memberInfo = (Map<String, String>)request.getSession().getAttribute("memberInfo");
 		Member certMember = (Member)request.getSession().getAttribute("certMember");
-		
+
 		String mobile_no = (String)memberInfo.get("MOBILE_NO");
 		String cell_phone = certMember.getCell_phone();
-		
+
 		String conn_info = (String)memberInfo.get("CONN_INFO");
 		String ci_value = certMember.getCi_value();
-		
+
 		if(!cell_phone.equals(mobile_no)) {
 			joinService.alertMessageAndUrl("휴대전화 번호가 일치하지 않습니다.",String.format("/%s/intro/join/bookConnIdForm.do?menu_idx=%s", homepage.getContext_path(), member.getMenu_idx()), request, response);
 		}
-		
+
 		if(!ci_value.equals(conn_info)) {
 			joinService.alertMessageAndUrl("본인인증 정보가 일치하지 않습니다.",String.format("/%s/intro/join/bookConnIdForm.do?menu_idx=%s", homepage.getContext_path(), member.getMenu_idx()), request, response);
 		}
-		
+
 		member.setUser_id(memberInfo.get("USER_ID").toString());
-		
+
 		model.addAttribute("member", member);
 
 		return String.format(basePath, homepage.getFolder()) + "bookConnIdEdit";
 	}
-	
+
 	@RequestMapping(value = {"/webIdSave.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse webIdSave(Member member, BindingResult result, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
@@ -1120,7 +1120,7 @@ public class CommonJoinController extends BaseController {
 			if(member.getEditMode().equals("ADD")) {
 				@SuppressWarnings("unchecked")
 				Map<String, String> memberInfo = (Map<String, String>)request.getSession().getAttribute("memberInfo");
-				
+
 				try {
 					String cell_phone = (String)memberInfo.get("MOBILE_NO");
 					member.setCell_phone1(cell_phone.substring(0, 3));
@@ -1136,7 +1136,7 @@ public class CommonJoinController extends BaseController {
 					System.out.println("webIdSave.do API MEMBER PARAMS IS NULL");
 					return res;
 				}
-				
+
 				if(MemberAPI.updateMember("WEB", member, true)) {
 					res.setValid(true);
 					res.setMessage("책이음 웹 아이디 생성이 완료되었습니다.");
@@ -1147,13 +1147,13 @@ public class CommonJoinController extends BaseController {
 					System.out.println("webIdSave.do MemberAPI.updateMember CREATE FAIL");
 //					res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
 				}
-				
+
 			}
 		} else {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
 		}
-		
+
 		request.getSession().removeAttribute("memberInfo");
 
 		return res;
@@ -1378,7 +1378,7 @@ public class CommonJoinController extends BaseController {
 		certMember.setAddress1(memberInfo.get("ADDRS").replaceAll("null", ""));
 		certMember.setLoca(memberInfo.get("LOCA"));
 		certMember.setLoca_name(memberInfo.get("LOCA_NAME"));
-		
+
 		model.addAttribute("newMember", new Member());
 		model.addAttribute("member", certMember);
 		model.addAttribute("memberInfo", certMember);
