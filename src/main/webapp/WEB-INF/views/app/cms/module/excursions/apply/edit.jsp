@@ -2,12 +2,13 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 $(function() {
 	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
 		resizable: false,
-		modal: true, 
+		modal: true,
 	    open: function(){
 	        $('.ui-widget-overlay').addClass('custom-overlay');
 	    },
@@ -33,35 +34,35 @@ $(function() {
 			}
 		]
 	});
-	
+
 	$("#dialog-2").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
 		width: 550,
 		height: 550
 	});
-	
-	if('${apply.applicant_tel}' == '') {		
-		$('#applicant_tel_1').val("010");	
+
+	if('${apply.applicant_tel}' == '') {
+		$('#applicant_tel_1').val("010");
 	} else {
 		var applicant_tel = '${apply.applicant_tel}'.split('-');
 		$('#applicant_tel_1').val(applicant_tel[0]);
 		$('#applicant_tel_2').val(applicant_tel[1]);
-		$('#applicant_tel_3').val(applicant_tel[2]);	
+		$('#applicant_tel_3').val(applicant_tel[2]);
 	}
-	
+
 	if('${apply.guide_tel}' == '') {
 		$('#guide_tel_1').val("010");
 	} else {
 		var guide_tel = '${apply.guide_tel}'.split('-');
 		$('#guide_tel_1').val(guide_tel[0]);
 		$('#guide_tel_2').val(guide_tel[1]);
-		$('#guide_tel_3').val(guide_tel[2]);	
+		$('#guide_tel_3').val(guide_tel[2]);
 	}
-	
+
 	$('a.idCheck').on('click', function(e) {
 		$('#apply_edit #applicant_name').val("");
 		$.get('/cms/module/excursions/apply/checkId.do?homepage_id=' + $('#homepage_id').val() + '&applicant_member_id='+ $('#applicant_member_id').val() + '&search_api_type=' + $('[name="search_api_type"]:checked').val(), function(response) {
 			if ( response.resultMsg != null ) {
-				alert(response.resultMsg);	
+				alert(response.resultMsg);
 			}
 			else {
 				$('#apply_edit #member_key').val(response.memberInfo.SEQ_NO);
@@ -70,54 +71,52 @@ $(function() {
 		});
 		e.preventDefault();
 	});
-	
+
 	// 연락처 필드 숫자만 입력 가능
 	$(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(this).val().replace(/[^0-9]/gi,"") );});
-	
+
 	$('.findPostCode').on('click', function(e){
 		e.preventDefault();
 		var zipcodeInput 	= $(this).attr('keyValue1');
 		var addressInput 	= $(this).attr('keyValue2');
 		var focusInput 		= $(this).attr('keyValue3');
-		daum.postcode.load(function() {
-			new daum.Postcode({
-	            oncomplete: function(data) {
-	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-	
-	                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-	                var fullAddr = ''; // 최종 주소 변수
-	                var extraAddr = ''; // 조합형 주소 변수
-	
-	                // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-	                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-	                    fullAddr = data.roadAddress;
-	
-	                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-	                    fullAddr = data.jibunAddress;
-	                }
-	
-	                // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
-	                if(data.userSelectedType === 'R'){
-	                    //법정동명이 있을 경우 추가한다.
-	                    if(data.bname !== ''){
-	                        extraAddr += data.bname;
-	                    }
-	                    // 건물명이 있을 경우 추가한다.
-	                    if(data.buildingName !== ''){
-	                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-	                    }
-	                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-	                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-	                }
-	
-	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-	                $(addressInput).val(fullAddr);
-	                // 커서를 상세주소 필드로 이동한다.
-	                $(focusInput).focus();
-	            }
-	        }).open();
-		});
+		new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var fullAddr = ''; // 최종 주소 변수
+                var extraAddr = ''; // 조합형 주소 변수
+
+                // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    fullAddr = data.roadAddress;
+
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    fullAddr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+                if(data.userSelectedType === 'R'){
+                    //법정동명이 있을 경우 추가한다.
+                    if(data.bname !== ''){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있을 경우 추가한다.
+                    if(data.buildingName !== ''){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                $(addressInput).val(fullAddr);
+                // 커서를 상세주소 필드로 이동한다.
+                $(focusInput).focus();
+            }
+        }).open();
 	});
 });
 </script>
@@ -135,11 +134,11 @@ $(function() {
 	</colgroup>
 	<tbody>
 		<tr>
-         	<th>신청자ID(<span style="color: red; font-weight: bold;">*</span>)</th>			
+         	<th>신청자ID(<span style="color: red; font-weight: bold;">*</span>)</th>
          	<td>
          		<c:choose>
          			<c:when test="${apply.editMode eq 'ADD' }">
-         				<form:input path="applicant_member_id" class="text" /> <form:radiobutton path="search_api_type" value="WEBID" label="웹ID"/> <form:radiobutton path="search_api_type" value="USERID" label="대출번호"/> <a class="btn btn1 idCheck">ID 확인</a>	
+         				<form:input path="applicant_member_id" class="text" /> <form:radiobutton path="search_api_type" value="WEBID" label="웹ID"/> <form:radiobutton path="search_api_type" value="USERID" label="대출번호"/> <a class="btn btn1 idCheck">ID 확인</a>
          			</c:when>
          			<c:otherwise>
          				${apply.applicant_member_id}

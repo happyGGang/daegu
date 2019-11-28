@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript">
 if (!String.prototype.trim) {
 	String.prototype.trim = function () {
@@ -17,7 +16,7 @@ var pwCheck2 = false;
 $(function() {
 	$('#save-btn').on('click', function(e) {
 		e.preventDefault();
-		
+
 		var certCheck = true;
 
 		if ($('input#certType').val() == '' ) {
@@ -122,7 +121,7 @@ $(function() {
 			}
 		}
 	});
-	
+
 	$('input#member_pw').blur(function(e) {
 		e.preventDefault();
 		var pwdcheck = false;
@@ -163,7 +162,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 	<form:form id="checkForm" modelAttribute="member" action="check.do" onsubmit="return false;">
 		<form:hidden path="member_id"/>
 	</form:form>
-	
+
 	<form:form id="memberJoinForm" modelAttribute="member" action="webIdSave.do" onsubmit="return false;">
 		<form:hidden path="editMode"/>
 		<form:hidden path="certType"/>

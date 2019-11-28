@@ -2,7 +2,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript">
 $(function(){
 	$('button.select-btn').on('click', function(e) {
@@ -11,34 +10,34 @@ $(function(){
 		$('#studentLayer').load('student.do?homepage_id='+$(this).attr('keyValue1')+'&group_idx=' + $(this).attr('keyValue2')+ '&category_idx=' + $(this).attr('keyValue3')+'&teach_idx=' + $(this).attr('keyValue4')+'&large_category_idx=' + $(this).attr('keyValue5'));
 		e.preventDefault();
 	});
-	
+
 	$('select#homepage_id_1').on('change', function(e) {
 		if($(this).val() != '') {
 			$('input#homepage_id_1').val($(this).val());
 			$('#adminStudentForm').submit();
 		}
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('select#large_category_idx').on('change', function() {
 		$('#adminStudentForm select#group_idx option.all').prop('selected', true);
 		$('#adminStudentForm select#category_idx option.all').prop('selected', true);
 		doGetLoad('index.do', $('#adminStudentForm').serialize());
 	});
-	
+
 	$('select#group_idx').on('change', function() {
 		$('#adminStudentForm select#category_idx option.all').prop('selected', true);
 		doGetLoad('index.do', $('#adminStudentForm').serialize());
 	});
-	
+
 	$('select#category_idx').on('change', function() {
 		doGetLoad('index.do', $('#adminStudentForm').serialize());
 	});
-	
+
 	$('#studentLayer').load('student.do?editMode=FIRST');
-	
-});	 
+
+});
 </script>
 <form:form id="adminStudentForm" modelAttribute="student">
 	<div class="wrapper wrapper-white">
@@ -46,17 +45,17 @@ $(function(){
 			<div class="areaL auto-scroll" style="width:30%;height:500px">
 			<span>검색 결과 : ${fn:length(teachList)}건</span>
 				<div class="infodesk">
-					<span style="float:left;">대분류 : 
+					<span style="float:left;">대분류 :
 					<form:select path="large_category_idx">
 						<form:option class="all" value="0" label="전체" />
 						<form:options itemValue="teach_code" itemLabel="code_name" items="${teachLargeCategoryList}"/>
 					</form:select></span>
-					<span style="float:left;">중분류 : 
+					<span style="float:left;">중분류 :
 					<form:select path="group_idx" cssStyle="width:100px;">
 						<form:option class="all" value="0" label="전체" />
 						<form:options itemValue="group_idx" itemLabel="group_name" items="${categoryGroupList}"/>
 					</form:select></span>
-					<span style="float:right;">소분류 : 
+					<span style="float:right;">소분류 :
 					<form:select path="category_idx" >
 						<form:option class="all" value="0" label="전체" />
 						<c:forEach items="${categoryList}" var="i">
@@ -64,7 +63,7 @@ $(function(){
 	         			</c:forEach>
 					</form:select></span><br/>
 				</div>
-				
+
 				<div class="table-wrap">
 					<table class="type1 center">
 						<thead>
@@ -83,7 +82,7 @@ $(function(){
 											<td>${i.teach_name}</td>
 											<td><button class="btn teach_btn_${i.group_idx}${i.category_idx}${i.teach_idx} select-btn" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.large_category_idx}">선택</button></td>
 										</tr>
-									</c:forEach>							
+									</c:forEach>
 								</c:when>
 								<c:otherwise>
 									<tr>
@@ -92,14 +91,13 @@ $(function(){
 								</c:otherwise>
 							</c:choose>
 						</tbody>
-					</table> 
+					</table>
 				</div>
 			</div>
-			
+
 			<div id="studentLayer" class="areaR" style="float:left; width:68%;">
 			</div>
 		</div>
 	</div>
 </form:form>
 
-	

@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 var idCheck = false;
 var pwCheck = false;
@@ -30,25 +30,23 @@ $(function() {
 
 	$('a#findPostCode').on('click', function(e){
 		e.preventDefault();
-		daum.postcode.load(function() {
-			new daum.Postcode({
-	            oncomplete: function(data) {
-	                var fullAddr = ''; // 최종 주소 변수
-	                var extraAddr = ''; // 조합형 주소 변수
-					fullAddr = data.roadAddress;
-					if(data.bname !== ''){
-					    extraAddr += data.bname;
-					}
-					if(data.buildingName !== ''){
-					    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-					}
-					fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-	                $('#zipcode').val(data.zonecode);//5자리 새우편번호 사용
-	                $('#address1').val(fullAddr);
-	                $('#address1').focus();
-	            }
-	        }).open();
-		});
+		new daum.Postcode({
+            oncomplete: function(data) {
+                var fullAddr = ''; // 최종 주소 변수
+                var extraAddr = ''; // 조합형 주소 변수
+				fullAddr = data.roadAddress;
+				if(data.bname !== ''){
+				    extraAddr += data.bname;
+				}
+				if(data.buildingName !== ''){
+				    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+				}
+				fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                $('#zipcode').val(data.zonecode);//5자리 새우편번호 사용
+                $('#address1').val(fullAddr);
+                $('#address1').focus();
+            }
+        }).open();
 	});
 	$('input#member_pw_confirm').on('keyup', function(e) {
 		e.preventDefault();

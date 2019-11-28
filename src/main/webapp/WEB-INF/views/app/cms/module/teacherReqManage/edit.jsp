@@ -4,16 +4,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <script src="/resources/cms/js/malsup.jquery.form.min.js" type="text/javascript"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 $(function() {
 	<c:if test="${teacher.editMode ne 'ADD'}">
 	$('#full_adder').val($('#teacher_zipcode').val() + " " + $('#teacher_address').val());
 	</c:if>
-	
+
 	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
 		resizable: false,
-		modal: true, 
+		modal: true,
 	    open: function(){
 	        $('.ui-widget-overlay').addClass('custom-overlay');
 	    },
@@ -26,25 +27,25 @@ $(function() {
 				"class": 'btn btn1',
 				click: function() {
 					jQuery.ajaxSettings.traditional = true;
-					
-					if ((isEmpty($('#t_edu00').val()) && isEmpty($('#t_edu01').val())) && 
+
+					if ((isEmpty($('#t_edu00').val()) && isEmpty($('#t_edu01').val())) &&
 							(isEmpty($('#t_edu10').val()) && isEmpty($('#t_edu11').val())&& isEmpty($('#t_edu12').val()) && $("#t_edu13").is(":checked") == false) &&
-							(isEmpty($('#t_edu20').val()) && isEmpty($('#t_edu21').val()) && isEmpty($('#t_edu22').val()) && $("#t_edu23").is(":checked") == false) && 
+							(isEmpty($('#t_edu20').val()) && isEmpty($('#t_edu21').val()) && isEmpty($('#t_edu22').val()) && $("#t_edu23").is(":checked") == false) &&
 							(isEmpty($('#t_edu30').val()) && isEmpty($('#t_edu31').val()))) {
-							
+
 							alert("고등학교, 대학교, 대학원, 기타 중 하나는 필수로 입력하여야 합니다.");
-							
+
 							//의문
 							$('#t_edu00').focus();
 							$('.education').css('border', 'solid 3px red');
 							$('.education').on('change', function() {
 								$(this).css('border', 'solid 1px #e5e8eb');
-								$(this).css('border-right', 'none'); 
+								$(this).css('border-right', 'none');
 							});
 							return;
 						}
-						
-						
+
+
 						if ($('#t_edu00').val() != "" || $('#t_edu01').val() != "") {
 							if ($('#t_edu00').val() == "" && $('#t_edu01').val() != "") {
 								alert("고등학교 -> 학교명을 입력해주세요.");
@@ -52,20 +53,20 @@ $(function() {
 								$('#t_edu00').css('border-color', 'red');
 				    			$('#t_edu00').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 								return;
 							}
-							
+
 							if ($('#t_edu00').val() != "" && $('#t_edu01').val() == "")  {
 								alert("고등학교 -> 수료(졸업)일을 입력해주세요.");
 								$('#t_edu01').focus();
 								$('#t_edu01').css('border-color', 'red');
 				    			$('#t_edu01').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 								return;
 							}
-							
+
 							if ($('#t_edu01').val() != "") {
 								if ($('#t_edu01').val().length < 6) {
 									alert("고등학교 -> 수료(졸업)일 날짜 형식이 잘못되었습니다. ex) YYYYMM");
@@ -73,44 +74,44 @@ $(function() {
 									$('#t_edu01').css('border-color', 'red');
 					    			$('#t_edu01').on('change', function() {
 					    				$(this).css('border-color', '');
-					    			});	
+					    			});
 									return;
 								}
 							}
 						}
-						
+
 						if ($('#t_edu10').val() != "" || $('#t_edu11').val() != "" || $('#t_edu12').val() != "" || $("#t_edu13").is(":checked") != false) {
-							
+
 							if ($('#t_edu10').val() == ""){
 								alert("대학교 -> 학교명을 입력해주세요.");
 								$('#t_edu10').focus();
 								$('#t_edu10').css('border-color', 'red');
 				    			$('#t_edu10').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 								return;
 							}
-							
+
 							if ($('#t_edu11').val() == "" ){
 								alert("대학교 -> 수료(졸업)일을 입력해주세요.");
 								$('#t_edu11').focus();
 								$('#t_edu11').css('border-color', 'red');
 				    			$('#t_edu11').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 								return;
 							}
-							
+
 							if ($('#t_edu12').val() == "" ) {
 								alert("대학교 -> 학과를 입력해주세요.");
 								$('#t_edu12').focus();
 								$('#t_edu12').css('border-color', 'red');
 				    			$('#t_edu12').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 								return;
 							}
-							
+
 							if ($("#t_edu13").is(":checked") == false && $("#t_edu14").is(":checked") == false && $("#t_edu15").is(":checked") == false) {
 								alert("대학교 -> 학적사항을 입력해주세요.");
 								$('#t_edu13').focus();
@@ -119,10 +120,10 @@ $(function() {
 				    				$(this).css('border', 'solid 1px #e5e8eb');
 				    				$(this).css('border-right', 'none');
 				    			});
-				    			
+
 								return;
 							}
-							
+
 							if ($('#t_edu11').val() != "") {
 								if ($('#t_edu11').val().length < 6) {
 									alert("대학교-> 수료(졸업)일 날짜 형식이 잘못되었습니다. ex) YYYYMM");
@@ -130,13 +131,13 @@ $(function() {
 									$('#t_edu11').css('border-color', 'red');
 					    			$('#t_edu11').on('change', function() {
 					    				$(this).css('border-color', '');
-					    			});	
+					    			});
 									return;
 								}
 							}
-							
+
 						}
-							
+
 						if ($('#t_edu20').val() != "" || $('#t_edu21').val() != "" || $('#t_edu22').val() != "" || $("#t_edu23").is(":checked") != false) {
 							if ($('#t_edu20').val() == ""){
 								alert("대학원 -> 학교명을 입력해주세요.");
@@ -144,30 +145,30 @@ $(function() {
 								$('#t_edu20').css('border-color', 'red');
 				    			$('#t_edu20').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 								return;
 							}
-							
+
 							if ($('#t_edu21').val() == "" ){
 								alert("대학원 -> 수료(졸업)일을 입력해주세요.");
 								$('#t_edu21').focus();
 								$('#t_edu21').css('border-color', 'red');
 				    			$('#t_edu21').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 								return;
 							}
-							
+
 							if ($('#t_edu22').val() == "" ) {
 								alert("대학원 -> 학과를 입력해주세요.");
 								$('#t_edu22').focus();
 								$('#t_edu22').css('border-color', 'red');
 				    			$('#t_edu22').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 								return;
 							}
-							
+
 							if ($("#t_edu23").is(":checked") == false && $("#t_edu24").is(":checked") == false && $("#t_edu25").is(":checked") == false) {
 								alert("대학원 -> 학적사항을 입력해주세요.");
 								$('#t_edu23').focus();
@@ -178,7 +179,7 @@ $(function() {
 				    			});
 								return;
 							}
-							
+
 							if ($('#t_edu21').val() != "") {
 								if ($('#t_edu21').val().length < 6) {
 									alert("대학원 -> 수료(졸업)일 날짜 형식이 잘못되었습니다. ex) YYYYMM");
@@ -186,12 +187,12 @@ $(function() {
 									$('#t_edu21').css('border-color', 'red');
 					    			$('#t_edu21').on('change', function() {
 					    				$(this).css('border-color', '');
-					    			});	
+					    			});
 									return;
 								}
 							}
 						}
-						
+
 						if ($('#t_edu30').val() != "" || $('#t_edu31').val() != "") {
 							if ($('#t_edu30').val() == "" && $('#t_edu31').val() != "") {
 								alert("기타 -> 학교명을 입력해주세요.");
@@ -199,20 +200,20 @@ $(function() {
 								$('#t_edu30').css('border-color', 'red');
 				    			$('#t_edu30').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 								return;
 							}
-							
+
 							if ($('#t_edu30').val() != "" && $('#t_edu31').val() == "")  {
 								alert("기타 -> 수료(졸업)일을 입력해주세요.");
 								$('#t_edu31').focus();
 								$('#t_edu31').css('border-color', 'red');
 				    			$('#t_edu31').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 								return;
 							}
-							
+
 							if ($('#t_edu31').val() != "") {
 								if ($('#t_edu31').val().length < 6) {
 									alert("기타 -> 수료(졸업)일 날짜 형식이 잘못되었습니다. ex) YYYYMM");
@@ -220,14 +221,14 @@ $(function() {
 									$('#t_edu31').css('border-color', 'red');
 					    			$('#t_edu31').on('change', function() {
 					    				$(this).css('border-color', '');
-					    			});	
+					    			});
 									return;
 								}
 							}
 						}
-						
+
 						// 자격 면허 수상
-						
+
 						if ($('#t_cer00').val() != "" ||  $('#t_cer01').val() != "" || $('#t_cer02').val() != "") {
 							if ($('#t_cer00').val() == "") {
 								alert("자격·면허·수상 첫번째 취득년월일을 입력해주세요.");
@@ -235,30 +236,30 @@ $(function() {
 								$('#t_cer00').css('border-color', 'red');
 				    			$('#t_cer00').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_cer01').val() == "") {
 								alert("자격·면허·수상 첫번째 내역을 입력해주세요.");
 								$('#t_cer01').focus();
 								$('#t_cer01').css('border-color', 'red');
 				    			$('#t_cer01').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_cer02').val() == "") {
 								alert("자격·면허·수상 첫번째 시행처를 입력해주세요.");
 								$('#t_cer02').focus();
 								$('#t_cer02').css('border-color', 'red');
 				    			$('#t_cer02').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-						} 
+						}
 						if ($('#t_cer10').val() != "" ||  $('#t_cer11').val() != "" || $('#t_cer12').val() != "") {
 							if ($('#t_cer10').val() == "") {
 								alert("자격·면허·수상 두번째 취득년월일을 입력해주세요.");
@@ -266,30 +267,30 @@ $(function() {
 								$('#t_cer10').css('border-color', 'red');
 				    			$('#t_cer10').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_cer11').val() == "") {
 								alert("자격·면허·수상 두번째 내역을 입력해주세요.");
 								$('#t_cer11').focus();
 								$('#t_cer11').css('border-color', 'red');
 				    			$('#t_cer11').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_cer12').val() == "") {
 								alert("자격·면허·수상 두번째 시행처를 입력해주세요.");
 								$('#t_cer12').focus();
 								$('#t_cer12').css('border-color', 'red');
 				    			$('#t_cer12').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 						}
 						if ($('#t_cer20').val() != "" ||  $('#t_cer21').val() != "" || $('#t_cer22').val() != "") {
 							if ($('#t_cer20').val() == "") {
@@ -298,27 +299,27 @@ $(function() {
 								$('#t_cer20').css('border-color', 'red');
 				    			$('#t_cer20').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_cer21').val() == "") {
 								alert("자격·면허·수상 세번째 내역을 입력해주세요.");
 								$('#t_cer21').focus();
 								$('#t_cer21').css('border-color', 'red');
 				    			$('#t_cer21').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_cer22').val() == "") {
 								alert("자격·면허·수상 세번째 시행처를 입력해주세요.");
 								$('#t_cer22').focus();
 								$('#t_cer22').css('border-color', 'red');
 				    			$('#t_cer22').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
 						}
@@ -329,31 +330,31 @@ $(function() {
 								$('#t_cer30').css('border-color', 'red');
 				    			$('#t_cer30').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_cer31').val() == "") {
 								alert("자격·면허·수상 네번째 내역을 입력해주세요.");
 								$('#t_cer31').focus();
 								$('#t_cer31').css('border-color', 'red');
 				    			$('#t_cer31').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_cer32').val() == "") {
 								alert("자격·면허·수상 네번째 시행처를 입력해주세요.");
 								$('#t_cer32').focus();
 								$('#t_cer32').css('border-color', 'red');
 				    			$('#t_cer32').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
 						}
-							
+
 						// 강의 계획
 						if ($('#t_exp00').val() != "" ||  $('#t_exp01').val() != "" || $('#t_exp02').val() != "" || $('#t_exp03').val() != "" || $('#t_exp04').val() != "") {
 							if ($('#t_exp00').val() == "") {
@@ -362,50 +363,50 @@ $(function() {
 								$('#t_exp00').css('border-color', 'red');
 				    			$('#t_exp00').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_exp01').val() == "") {
 								alert("강의경력 첫번째 근무기간 종료날짜를 입력해주세요.");
 								$('#t_exp01').focus();
 								$('#t_exp01').css('border-color', 'red');
 				    			$('#t_exp01').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_exp02').val() == "") {
 								alert("강의경력 첫번째 근무처를 입력해주세요.");
 								$('#t_exp02').focus();
 								$('#t_exp02').css('border-color', 'red');
 				    			$('#t_exp02').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_exp03').val() == "") {
 								alert("강의경력 첫번째 직위를 입력해주세요.");
 								$('#t_exp03').focus();
 								$('#t_exp03').css('border-color', 'red');
 				    			$('#t_exp03').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_exp04').val() == "") {
 								alert("강의경력 첫번째 주요업무를 입력해주세요.");
 								$('#t_exp04').focus();
 								$('#t_exp04').css('border-color', 'red');
 				    			$('#t_exp04').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_exp00').val() != "") {
 								if ($('#t_exp00').val().length < 6) {
 									alert("강의경력 첫번째 근무기간 시작날짜 형식이 잘못되었습니다. ex) YYYYMM");
@@ -413,11 +414,11 @@ $(function() {
 									$('#t_exp00').css('border-color', 'red');
 					    			$('#t_exp00').on('change', function() {
 					    				$(this).css('border-color', '');
-					    			});	
+					    			});
 									return;
 								}
 							}
-							
+
 							if ($('#t_exp01').val() != "") {
 								if ($('#t_exp01').val().length < 6) {
 									alert("강의경력 첫번째 근무기간 종료날짜 형식이 잘못되었습니다. ex) YYYYMM");
@@ -425,12 +426,12 @@ $(function() {
 									$('#t_exp01').css('border-color', 'red');
 					    			$('#t_exp01').on('change', function() {
 					    				$(this).css('border-color', '');
-					    			});	
+					    			});
 									return;
 								}
 							}
 						}
-						
+
 						if ($('#t_exp10').val() != "" ||  $('#t_exp11').val() != "" || $('#t_exp12').val() != "" || $('#t_exp13').val() != "" || $('#t_exp14').val() != "") {
 							if ($('#t_exp10').val() == "") {
 								alert("강의경력 두번째 근무기간 시작날짜를 입력해주세요.");
@@ -438,50 +439,50 @@ $(function() {
 								$('#t_exp10').css('border-color', 'red');
 				    			$('#t_exp10').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_exp11').val() == "") {
 								alert("강의경력 두번째 근무기간 종료날짜를 입력해주세요.");
 								$('#t_exp11').focus();
 								$('#t_exp11').css('border-color', 'red');
 				    			$('#t_exp11').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_exp12').val() == "") {
 								alert("강의경력 두번째 근무처를 입력해주세요.");
 								$('#t_exp12').focus();
 								$('#t_exp12').css('border-color', 'red');
 				    			$('#t_exp12').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_exp13').val() == "") {
 								alert("강의경력 두번째 직위를 입력해주세요.");
 								$('#t_exp13').focus();
 								$('#t_exp13').css('border-color', 'red');
 				    			$('#t_exp13').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_exp14').val() == "") {
 								alert("강의경력 두번째 주요업무를 입력해주세요.");
 								$('#t_exp14').focus();
 								$('#t_exp14').css('border-color', 'red');
 				    			$('#t_exp14').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_exp10').val() != "") {
 								if ($('#t_exp10').val().length < 6) {
 									alert("강의경력 두번째 근무기간 시작날짜 형식이 잘못되었습니다. ex) YYYYMM");
@@ -489,11 +490,11 @@ $(function() {
 									$('#t_exp10').css('border-color', 'red');
 					    			$('#t_exp10').on('change', function() {
 					    				$(this).css('border-color', '');
-					    			});	
+					    			});
 									return;
 								}
 							}
-							
+
 							if ($('#t_exp11').val() != "") {
 								if ($('#t_exp11').val().length < 6) {
 									alert("강의경력 두번째 근무기간 종료날짜 형식이 잘못되었습니다. ex) YYYYMM");
@@ -501,14 +502,14 @@ $(function() {
 									$('#t_exp11').css('border-color', 'red');
 					    			$('#t_exp11').on('change', function() {
 					    				$(this).css('border-color', '');
-					    			});	
+					    			});
 									return;
 								}
 							}
-							
+
 						}
-						
-						
+
+
 						if ($('#t_exp20').val() != "" ||  $('#t_exp21').val() != "" || $('#t_exp22').val() != "" || $('#t_exp23').val() != "" || $('#t_exp24').val() != "") {
 							if ($('#t_exp20').val() == "") {
 								alert("강의경력 세번째 근무기간 시작날짜를 입력해주세요.");
@@ -516,50 +517,50 @@ $(function() {
 								$('#t_exp20').css('border-color', 'red');
 				    			$('#t_exp20').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_exp21').val() == "") {
 								alert("강의경력 세번째 근무기간 종료날짜를 입력해주세요.");
 								$('#t_exp21').focus();
 								$('#t_exp21').css('border-color', 'red');
 				    			$('#t_exp21').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_exp22').val() == "") {
 								alert("강의경력 세번째 근무처를 입력해주세요.");
 								$('#t_exp22').focus();
 								$('#t_exp22').css('border-color', 'red');
 				    			$('#t_exp22').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_exp23').val() == "") {
 								alert("강의경력 세번째 직위를 입력해주세요.");
 								$('#t_exp23').focus();
 								$('#t_exp23').css('border-color', 'red');
 				    			$('#t_exp23').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_exp24').val() == "") {
 								alert("강의경력 세번째 주요업무를 입력해주세요.");
 								$('#t_exp24').focus();
 								$('#t_exp24').css('border-color', 'red');
 				    			$('#t_exp24').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_exp20').val() != "") {
 								if ($('#t_exp20').val().length < 6) {
 									alert("강의경력 세번째 근무기간 시작날짜 형식이 잘못되었습니다. ex) YYYYMM");
@@ -567,11 +568,11 @@ $(function() {
 									$('#t_exp20').css('border-color', 'red');
 					    			$('#t_exp20').on('change', function() {
 					    				$(this).css('border-color', '');
-					    			});	
+					    			});
 									return;
 								}
 							}
-							
+
 							if ($('#t_exp21').val() != "") {
 								if ($('#t_exp21').val().length < 6) {
 									alert("강의경력 세번째 근무기간 종료날짜 형식이 잘못되었습니다. ex) YYYYMM");
@@ -579,13 +580,13 @@ $(function() {
 									$('#t_exp21').css('border-color', 'red');
 					    			$('#t_exp21').on('change', function() {
 					    				$(this).css('border-color', '');
-					    			});	
+					    			});
 									return;
 								}
 							}
 						}
-						
-						
+
+
 						if ($('#t_exp30').val() != "" ||  $('#t_exp31').val() != "" || $('#t_exp32').val() != "" || $('#t_exp33').val() != "" || $('#t_exp34').val() != "") {
 							if ($('#t_exp30').val() == "") {
 								alert("강의경력 네번째 근무기간 시작날짜를 입력해주세요.");
@@ -593,50 +594,50 @@ $(function() {
 								$('#t_exp30').css('border-color', 'red');
 				    			$('#t_exp30').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_exp31').val() == "") {
 								alert("강의경력 네번째 근무기간 종료날짜를 입력해주세요.");
 								$('#t_exp31').focus();
 								$('#t_exp31').css('border-color', 'red');
 				    			$('#t_exp31').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_exp32').val() == "") {
 								alert("강의경력 네번째 근무처를 입력해주세요.");
 								$('#t_exp32').focus();
 								$('#t_exp32').css('border-color', 'red');
 				    			$('#t_exp32').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_exp33').val() == "") {
 								alert("강의경력 네번째 직위를 입력해주세요.");
 								$('#t_exp33').focus();
 								$('#t_exp33').css('border-color', 'red');
 				    			$('#t_exp33').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_exp34').val() == "") {
 								alert("강의경력 네번째 주요업무를 입력해주세요.");
 								$('#t_exp34').focus();
 								$('#t_exp34').css('border-color', 'red');
 				    			$('#t_exp34').on('change', function() {
 				    				$(this).css('border-color', '');
-				    			});	
+				    			});
 				    			return;
 							}
-							
+
 							if ($('#t_exp30').val() != "") {
 								if ($('#t_exp30').val().length < 6) {
 									alert("강의경력 네번째 근무기간 시작날짜 형식이 잘못되었습니다. ex) YYYYMM");
@@ -644,11 +645,11 @@ $(function() {
 									$('#t_exp30').css('border-color', 'red');
 					    			$('#t_exp30').on('change', function() {
 					    				$(this).css('border-color', '');
-					    			});	
+					    			});
 									return;
 								}
 							}
-							
+
 							if ($('#t_exp31').val() != "") {
 								if ($('#t_exp31').val().length < 6) {
 									alert("강의경력 네번째 근무기간 종료날짜 형식이 잘못되었습니다. ex) YYYYMM");
@@ -656,19 +657,19 @@ $(function() {
 									$('#t_exp31').css('border-color', 'red');
 					    			$('#t_exp31').on('change', function() {
 					    				$(this).css('border-color', '');
-					    			});	
+					    			});
 									return;
 								}
 							}
 						}
-					
-					
+
+
 					$('input[type=file]').each(function(i) {
 						if($(this).val() == '') {
 							$(this).remove();
 						}
 					});
-					
+
 					var teacher_phone = $('#phone1').val()+'-'+$('#phone2').val()+'-'+$('#phone3').val();
 					if(teacher_phone != '--') {
 						$('#teacher_phone').val(teacher_phone);
@@ -678,7 +679,7 @@ $(function() {
 					$('#teacher_education').val(inputs2json('t_edu'));
 					$('#teacher_experience').val(inputs2json('t_exp'));
 					$('#teacher_certifications').val(inputs2json('t_cer'));
-					
+
 					var option = {
 						url : 'save.do',
 						type : 'POST',
@@ -697,9 +698,9 @@ $(function() {
 										alert(response.result[i].code);
 										if (response.result[i].field == 'teacher_phone') {
 											var teacher_phone = $('#teacher_phone').val();
-											
+
 											var teacher_phone_split = teacher_phone.split('-');
-											
+
 											if (teacher_phone_split[0].match('^[\\d]{2,3}') == null ) {
 												$('#phone1').focus();
 											} else if (teacher_phone_split[1].match('^[\\d]{3,4}') == null) {
@@ -708,11 +709,11 @@ $(function() {
 												$('#phone3').focus();
 											}
 										} else if (response.result[i].field == 'teacher_cell_phone') {
-											
+
 											var teacher_cell_phone = $('#teacher_cell_phone').val();
-											
+
 											var teacher_cell_phone_split = teacher_cell_phone.split('-');
-											
+
 											if (teacher_cell_phone_split[0].match('^01[0|1|6|7|8|9]') == null ) {
 												$('#cell_phone1').focus();
 											} else if (teacher_cell_phone_split[1].match('^[\\d]{3,4}') == null) {
@@ -723,7 +724,7 @@ $(function() {
 										}
 										$('#'+response.result[i].field).focus();
 										break;
-									}	
+									}
 								}
 							}
 				         },
@@ -748,63 +749,61 @@ $(function() {
 			}
 		]
 	});
-	
+
 	$('.findPostCode').on('click', function(e){
 		e.preventDefault();
 		var addressInput 	= $(this).attr('keyValue1');
 		var focusInput = $(this).attr('keyValue1');
 
-		daum.postcode.load(function() {
-			new daum.Postcode({
-	            oncomplete: function(data) {
-	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-	
-	                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-	                var fullAddr = ''; // 최종 주소 변수
-	                var extraAddr = ''; // 조합형 주소 변수
-	
-	                // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-	                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-	                    fullAddr = data.roadAddress;
-	
-	                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-	                    fullAddr = data.jibunAddress;
-	                }
-	
-	                // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
-	                if(data.userSelectedType === 'R'){
-	                    //법정동명이 있을 경우 추가한다.
-	                    if(data.bname !== ''){
-	                        extraAddr += data.bname;
-	                    }
-	                    // 건물명이 있을 경우 추가한다.
-	                    if(data.buildingName !== ''){
-	                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-	                    }
-	                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-	                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-	                }
-	                
-					// $(zipcodeInput).val(data.zonecode);
-	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-	                $(addressInput).val(data.zonecode+' '+fullAddr);
-	                // 커서를 상세주소 필드로 이동한다.
-	                $(focusInput).focus();
-	            }
-	        }).open();
-		});
+		new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var fullAddr = ''; // 최종 주소 변수
+                var extraAddr = ''; // 조합형 주소 변수
+
+                // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    fullAddr = data.roadAddress;
+
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    fullAddr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+                if(data.userSelectedType === 'R'){
+                    //법정동명이 있을 경우 추가한다.
+                    if(data.bname !== ''){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있을 경우 추가한다.
+                    if(data.buildingName !== ''){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                }
+
+				// $(zipcodeInput).val(data.zonecode);
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                $(addressInput).val(data.zonecode+' '+fullAddr);
+                // 커서를 상세주소 필드로 이동한다.
+                $(focusInput).focus();
+            }
+        }).open();
 	});
-	
+
 	$("#dialog-1").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
 		width: 800,
 		height: 700
 	});
-	
+
 	$('a.idCheck').on('click', function(e) {
 		$.get('checkId.do?homepage_id=' + $('#homepage_id').val() + '&teacher_id='+ $('#teacher_id').val() + '&search_api_type=' + $('[name="search_api_type"]:checked').val(), function(response) {
 			if ( response.resultMsg != null ) {
-				alert(response.resultMsg);	
+				alert(response.resultMsg);
 			}
 			else {
 				$('#teacherForm #member_key').val(response.memberInfo.SEQ_NO);
@@ -815,7 +814,7 @@ $(function() {
 					$('#cell_phone2').val(MOBILE_NO.substr(3, 4));
 					$('#cell_phone3').val(MOBILE_NO.substr(7, 4));
 				} catch(e) {
-					
+
 				}
 			}
 		});
@@ -828,7 +827,7 @@ $(function() {
 			$('input#teacher_subject_name').focus();
 		}
 	});
-	
+
 	$('input.ui-calendar').each(function(i) {
 		if($(this).data('datepicker') == null) {
 			$(this).datepicker({
@@ -836,7 +835,7 @@ $(function() {
 				maxDate:0 });
 		}
 	});
-	
+
 	$('input[type=text]').on('keydown', function(e) {
 	    var event = e || window.event;
 	    var keyID = (event.which) ? event.which : event.keyCode;
@@ -846,11 +845,11 @@ $(function() {
 	        return;
 	    }
 	});
-	
+
 	json2inputs('#teacher_education', '학력을 불러오는 도중에 오류가 발생했습니다.');
 	json2inputs('#teacher_experience', '경력사항을 불러오는 도중에 오류가 발생했습니다.');
 	json2inputs('#teacher_certifications', '자격 및 면허를 불러오는 도중에 오류가 발생했습니다.');
-	
+
 	try {
 		var json_teacher_open_files = JSON.parse($('#teacher_open_files').val());
 		for(var i=0; i < json_teacher_open_files.length; ++i) {
@@ -858,17 +857,17 @@ $(function() {
 			$('#td_teacher_open_files').append('<a href="/cms/module/teacherReqManage/download2/${teacher.homepage_id}/${teacher.teacher_idx}/' + file.file_hash + '.do"><i class="fa fa-floppy-o"></i> ' + file.file_name + '.' + file.file_extension + '</a><br>');
 		}
 	} catch(e) {
-		
+
 	}
-	
+
 });
 
-function isEmpty(value){ 
-	if( value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length ) ){ 
-		return true 
-	}else{ 
-		return false 
-	} 
+function isEmpty(value){
+	if( value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length ) ){
+		return true
+	}else{
+		return false
+	}
 };
 
 function inputs2json(prefix) {
@@ -887,7 +886,7 @@ function inputs2json(prefix) {
 			}
 		}
 	});
-	
+
 	return JSON.stringify(assoc);
 }
 
@@ -914,16 +913,16 @@ function json2inputs(selector, msg) {
 function onlyNumber(event){
     event = event || window.event;
     var keyID = (event.which) ? event.which : event.keyCode;
-    if ( (keyID >= 48 && keyID <= 57) || (keyID >= 96 && keyID <= 105) || keyID == 8 || keyID == 9 || keyID == 46 || keyID == 37 || keyID == 39 ) 
+    if ( (keyID >= 48 && keyID <= 57) || (keyID >= 96 && keyID <= 105) || keyID == 8 || keyID == 9 || keyID == 46 || keyID == 37 || keyID == 39 )
         return;
     else
         return false;
 }
- 
+
 function removeChar(event) {
     event = event || window.event;
     var keyID = (event.which) ? event.which : event.keyCode;
-    if ( keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 ) 
+    if ( keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 )
         return;
     else
         event.target.value = event.target.value.replace(/[^0-9]/g, "");
@@ -951,7 +950,7 @@ function removeChar(event) {
 	         	<td>
 	         		<c:choose>
 	         			<c:when test="${teacher.editMode eq 'ADD' }">
-	         				<form:input path="teacher_id" class="text" /> <form:radiobutton path="search_api_type" value="WEBID" label="웹ID"/> <form:radiobutton path="search_api_type" value="USERID" label="대출번호"/> <a class="btn btn1 idCheck">ID 확인</a>	
+	         				<form:input path="teacher_id" class="text" /> <form:radiobutton path="search_api_type" value="WEBID" label="웹ID"/> <form:radiobutton path="search_api_type" value="USERID" label="대출번호"/> <a class="btn btn1 idCheck">ID 확인</a>
 	         			</c:when>
 	         			<c:otherwise>
 	         				${teacher.teacher_id}
@@ -970,7 +969,7 @@ function removeChar(event) {
 	         				${teacher.teacher_name}
 	         				<form:hidden path="teacher_name"/>
 	         			</c:otherwise>
-         			</c:choose>	
+         			</c:choose>
          		</td>
         	</tr>
         	<tr>
@@ -990,7 +989,7 @@ function removeChar(event) {
 	         			</c:otherwise>
          			</c:choose>
      			</td>
-     			
+
         	</tr>
 	        <tr>
 	         	<th>성별(<span style="color: red; font-weight: bold;">*</span>)</th>
@@ -1019,7 +1018,7 @@ function removeChar(event) {
 					</c:choose>
 				</td>
 	        </tr>
-	        <tr> 
+	        <tr>
 				<th>휴대전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
 				<td>
 					<form:hidden path="teacher_cell_phone" class="text" maxlength="13"/>
@@ -1034,7 +1033,7 @@ function removeChar(event) {
 			</tr>
 			<tr>
 <%-- 				<form:input path="teacher_address" class="text" style="width:70%" maxlength="30" title="주소 입력" /> --%>
-	         	<th>주소(<span style="color: red; font-weight: bold;">*</span>)</th>			
+	         	<th>주소(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
 	         		<input type="text" id="full_adder" name="full_adder" class="text" style="width:70%" maxlength="120" title="주소 입력"/> <button class="btn btn2 findPostCode" keyValue1="#full_adder" title="새창열림">우편번호 찾기</button>
 	         		<div class="ui-state-highlight">
@@ -1042,13 +1041,13 @@ function removeChar(event) {
 						<em>* 주소는 지번주소(구주소)가 아닌 도로명 주소(신주소)를 입력해 주십시오. </em>
 					</div>
 	         	</td>
-        		
+
         	</tr>
-        	<tr> 
+        	<tr>
 				<th>이메일</th>
 				<td><form:input path="teacher_email" class="text" style="width:100%;" maxlength="50" title="이메일 입력" /></td>
 			</tr>
-			<tr> 
+			<tr>
 				<th>전화번호</th>
 				<td>
 					<form:hidden path="teacher_phone"/>

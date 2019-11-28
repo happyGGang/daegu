@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript">
 var idCheck = false;
 var pwCheck = false;

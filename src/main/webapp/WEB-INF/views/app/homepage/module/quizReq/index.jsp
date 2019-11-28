@@ -6,64 +6,19 @@
 <style>
 	.join-wrap h1 {position: relative;}
 </style>
-<script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript">
 $(function() {
-	/* $('.findPostCode').on('click', function(e){
-		e.preventDefault();
-		var zipcodeInput 	= $(this).attr('keyValue1');
-		var addressInput 	= $(this).attr('keyValue2');
-		var focusInput 		= $(this).attr('keyValue3');
-		new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var fullAddr = ''; // 최종 주소 변수
-                var extraAddr = ''; // 조합형 주소 변수
-
-                // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                    fullAddr = data.roadAddress;
-
-                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                    fullAddr = data.jibunAddress;
-                }
-
-                // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
-                if(data.userSelectedType === 'R'){
-                    //법정동명이 있을 경우 추가한다.
-                    if(data.bname !== ''){
-                        extraAddr += data.bname;
-                    }
-                    // 건물명이 있을 경우 추가한다.
-                    if(data.buildingName !== ''){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-                }
-
-                $(zipcodeInput).val(data.zonecode);
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                $(addressInput).val(fullAddr);
-                // 커서를 상세주소 필드로 이동한다.
-                $(addressInput).focus();
-            }
-        }).open();
-	}); */
-	
 	$('a.quiz-type-btn').on('click', function(e) {
 		$('#quizReq #search_quiz_type').val($(this).attr('keyValue'));
 		doGetLoad('index.do', serializeCustom($('#quizReq')));
 		e.preventDefault();
 	});
-	
+
 	$('a.before-month').on('click', function(e) {
 		var curYear = parseInt($('#quizReq #search_quiz_year').val());
 		var curMonth = parseInt($('#quizReq #search_quiz_month').val());
-		
+
 		if ( curMonth < 2 ) {
 			$('#quizReq #search_quiz_year').val((curYear - 1));
 			$('#quizReq #search_quiz_month').val('12');
@@ -71,15 +26,15 @@ $(function() {
 		else {
 			$('#quizReq #search_quiz_month').val((curMonth - 1));
 		}
-		
+
 		doGetLoad('index.do', serializeCustom($('#quizReq')));
 		e.preventDefault();
 	});
-	
+
 	$('a.next-month').on('click', function(e) {
 		var curYear = parseInt($('#quizReq #search_quiz_year').val());
 		var curMonth = parseInt($('#quizReq #search_quiz_month').val());
-		
+
 		if ( curMonth > 11 ) {
 			$('#quizReq #search_quiz_year').val((curYear + 1));
 			$('#quizReq #search_quiz_month').val('1');
@@ -87,18 +42,18 @@ $(function() {
 		else {
 			$('#quizReq #search_quiz_month').val((curMonth + 1));
 		}
-		
+
 		doGetLoad('index.do', serializeCustom($('#quizReq')));
 		e.preventDefault();
 	});
-	
+
 	$('a.save-btn').on('click', function(e) {
 		e.preventDefault();
 		if ( $('#quizReq #quiz_idx').val() == 0 ) {
 			alert('해당하는 퀴즈 정보가 없습니다.');
 			return;
 		}
-		
+
 		if ( "${member.loginType eq 'HOMEPAGE' and member.login }" == 'true' ) {
 			var answerList = [];
 			$('div.txt-box').each(function(i, divE) {
@@ -119,7 +74,7 @@ $(function() {
 				}
 			});
 			$('#quizReq #quiz_answer').val(answerList.join('<whale>'));
-			
+
 			var $form = $('#quizReq').clone();
 			if ( $form.find('#hak').val() == '' ) {
 				$form.find('#hak').val(0);
@@ -127,7 +82,7 @@ $(function() {
 			if ( $form.find('#ban').val() == '' ) {
 				$form.find('#ban').val(0);
 			}
-			
+
 			if ( doAjaxPost($form) ) {
 				location.reload();
 			}
@@ -155,7 +110,7 @@ ${quiz.top_html}
 			<h2>${quiz.quiz_name}<c:if test="${empty quiz.quiz_name}">등록된 독서퀴즈가 없습니다.</c:if>
 				<div class="quiz_month">
 					<a href="" class="before-month"><i class="fa fa-caret-left"></i><span class="blind">이전달</span></a>
-					<b><span>${quizReq.search_quiz_year}.</span><em>${quizReq.search_quiz_month}</em></b> 
+					<b><span>${quizReq.search_quiz_year}.</span><em>${quizReq.search_quiz_month}</em></b>
 					<a href="" class="next-month"><i class="fa fa-caret-right"></i><span class="blind">다음달</span></a>
 				</div>
 			</h2>
@@ -173,7 +128,7 @@ ${quiz.top_html}
 									<img src="/data/quiz/${quiz.homepage_id}/${quiz.real_file_name}" height="154" width="140" alt="${quiz.book_name}" />
 							   	</c:otherwise>
 							</c:choose>
-							
+
 							</p>
 						</div>
 						<div class="data_info">
@@ -240,14 +195,14 @@ ${quiz.top_html}
 		<form:hidden path="search_quiz_year"/>
 		<form:hidden path="search_quiz_month"/>
 		<c:if test="${not empty quiz.quiz_name}">
-		
+
 		<table class="nohead quiz-info-table" summary="독서퀴즈" style="margin-bottom: 20px;">
 			<caption>독서퀴즈 응모 정보 입력</caption>
 			<tbody>
 				<c:if test="${quiz.school_yn eq 'Y'}">
 					<tr>
 						<th>학교</th>
-						<td> 
+						<td>
 							<label for="school"/>
 							<form:input path="school" class="text" title="학교 입력" maxlength="15"/></td>
 					</tr>
@@ -273,14 +228,14 @@ ${quiz.top_html}
 					<td>
 						<label for="name"></label>
 						${member.member_name}
-						<form:hidden path="name" class="text" title="이름" value="${member.member_name}"/> 
+						<form:hidden path="name" class="text" title="이름" value="${member.member_name}"/>
 				</tr>
 				<tr>
 					<th>휴대전화번호 </th>
 					<td>
 					<c:choose>
 						<c:when test="${member.loginType eq 'HOMEPAGE' }">
-							<label for="phone"></label>	
+							<label for="phone"></label>
 							${member.mobile_no}
 							<form:hidden path="phone" class="text" value="${member.mobile_no}"/>
 						</c:when>
@@ -296,7 +251,7 @@ ${quiz.top_html}
 					<td>
 						<div class="Addr_search">
 							<button class="btn btn2 findPostCode" keyValue1="#zip_code" keyValue2="#address">우편번호 찾기</button>
-							<form:input path="zip_code" class="text" /> 
+							<form:input path="zip_code" class="text" />
 							<div>
 								<form:input path="address" class="text addr3" />
 							</div>
@@ -305,11 +260,11 @@ ${quiz.top_html}
 				</tr> --%>
 			</tbody>
 		</table>
-		
+
 		<c:if test="${fn:length(quiz.bottom_html) > 0}">
 		${quiz.bottom_html}
 		</c:if>
-		
+
 		<c:forEach items="${termsList}" var="terms">
 			${terms.contents }
 		</c:forEach>
@@ -323,11 +278,11 @@ ${quiz.top_html}
 		</c:if>
 		</c:if>
 	</form:form>
-</div>			
+</div>
 <div class="btn-area center">
 	<c:if test="${!member.login}">
 		<div class="ui-state-error">
-			로그인 후 퀴즈 응모가 가능 합니다.  
+			로그인 후 퀴즈 응모가 가능 합니다.
 		</div><br/>
 	</c:if>
 	<c:if test="${member.login and not empty quiz.quiz_name}">

@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript">
 if (!String.prototype.trim) {
 	String.prototype.trim = function () {
@@ -20,7 +19,7 @@ $(function() {
 		var a = $('input#web_id').val().trim();
 		var b = $('input#member_name').val();
 		var c = $('input#cell_phone').val();
-		
+
 		if (a == '') {
 			alert('아이디를 입력해주세요');
 			$('input#web_id').focus();
@@ -36,7 +35,7 @@ $(function() {
 			$('input#cell_phone').focus();
 			return false;
 		}
-		
+
 		e.preventDefault();
 		var wWidth = 360;
  		var wHight = 120;
@@ -104,7 +103,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 			</tbody>
 		</table>
 	</form:form>
-	
+
 	<div class="identi_select" style="margin-top: 20px;">
 		<p class="identy_a">
 			<a href="#" class="certtype" id="sms">

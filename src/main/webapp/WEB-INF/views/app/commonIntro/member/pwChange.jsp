@@ -2,7 +2,6 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript">
 var idCheck = false;
 var pwCheck = false;
@@ -12,19 +11,19 @@ $(function() {
 		e.preventDefault();
 // 		doAjaxPost($('#member'));
 	});
-	
+
 	<%-- 패스워드 일치 --%>
 	$('input#member_pw_confirm').blur(function(e) {
 		e.preventDefault();
 		if (pwCheck2) {
 			if ( $('#member_pw_confirm').val().length > 0 ) {
 				if ( $('#member_pw').val() == $('#member_pw_confirm').val() ) {
-					pwCheck = true;	
+					pwCheck = true;
 					$('#pw_confirm_message').text('일치합니다.');
 				}
 				else {
-					pwCheck = false;	
-				}	
+					pwCheck = false;
+				}
 			}
 			else {
 				pwCheck = false;
@@ -48,7 +47,7 @@ $(function() {
 // 			alert("비밀번호는 공백없이 입력해주세요.");
 			$('span#pwdcheck').css('color', 'red');
 			return false;
-		} 
+		}
 		if(num < 0 || eng < 0 || spe < 0 ){
 			$('span#pwdcheck').css('color', 'red');
 			return false;
@@ -65,12 +64,12 @@ $(function() {
 
 	<form:form id="memberJoinForm" modelAttribute="member" action="save.do" onsubmit="return false;">
 		<form:hidden path="editMode" value="pwChange"/>
-	
+
 		<table>
 			<tbody>
 				<tr>
 					<th>
-						아이디  
+						아이디
 					</th>
 					<td>
 						${sessionScope.member.member_id}
@@ -95,12 +94,12 @@ $(function() {
 				</tr>
 			</tbody>
 		</table>
-		
+
 		<div class="btn-wrap">
 			<a href="#" id="save-btn" class="btn btn1">비밀번호 변경</a>
 			<a href="/intro/index.do" id="cancel-btn" class="btn">취소</a>
 		</div>
-	
+
 	</form:form>
 	<br/>
 </div>

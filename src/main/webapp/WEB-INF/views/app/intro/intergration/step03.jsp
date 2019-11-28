@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 var idCheck = false;
 var pwCheck = false;
@@ -126,47 +126,43 @@ $(function() {
 
 	$('a#findPostCode').on('click', function(e){
 		e.preventDefault();
-		daum.postcode.load(function() {
-			new daum.Postcode({
-	            oncomplete: function(data) {
-	                var fullAddr = ''; // 최종 주소 변수
-	                var extraAddr = ''; // 조합형 주소 변수
-					fullAddr = data.roadAddress;
-					if(data.bname !== ''){
-					    extraAddr += data.bname;
-					}
-					if(data.buildingName !== ''){
-					    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-					}
-					fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-	                $('#zipcode').val(data.zonecode);//5자리 새우편번호 사용
-	                $('#address1').val(fullAddr);
-	                $('#address1').focus();
-	            }
-	        }).open();
-		});
+		new daum.Postcode({
+            oncomplete: function(data) {
+                var fullAddr = ''; // 최종 주소 변수
+                var extraAddr = ''; // 조합형 주소 변수
+				fullAddr = data.roadAddress;
+				if(data.bname !== ''){
+				    extraAddr += data.bname;
+				}
+				if(data.buildingName !== ''){
+				    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+				}
+				fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                $('#zipcode').val(data.zonecode);//5자리 새우편번호 사용
+                $('#address1').val(fullAddr);
+                $('#address1').focus();
+            }
+        }).open();
 	});
 	$('a#findPostCode2').on('click', function(e){
 		e.preventDefault();
-		daum.postcode.load(function() {
-			new daum.Postcode({
-	            oncomplete: function(data) {
-	                var fullAddr = ''; // 최종 주소 변수
-	                var extraAddr = ''; // 조합형 주소 변수
-					fullAddr = data.roadAddress;
-					if(data.bname !== ''){
-					    extraAddr += data.bname;
-					}
-					if(data.buildingName !== ''){
-					    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-					}
-					fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-	                $('#company_zipcode').val(data.zonecode);//5자리 새우편번호 사용
-	                $('#company_addr').val(fullAddr);
-	                $('#company_addr').focus();
-	            }
-	        }).open();
-		});
+		new daum.Postcode({
+            oncomplete: function(data) {
+                var fullAddr = ''; // 최종 주소 변수
+                var extraAddr = ''; // 조합형 주소 변수
+				fullAddr = data.roadAddress;
+				if(data.bname !== ''){
+				    extraAddr += data.bname;
+				}
+				if(data.buildingName !== ''){
+				    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+				}
+				fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                $('#company_zipcode').val(data.zonecode);//5자리 새우편번호 사용
+                $('#company_addr').val(fullAddr);
+                $('#company_addr').focus();
+            }
+        }).open();
 	});
 
 
@@ -415,7 +411,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 	<c:otherwise>
 
 			<link rel="stylesheet" type="text/css" href="/resources/common/css/join/join.css"/>
-			
+
 			<p class="blind">회원가입 단계</p>
 			<table class="joinNoline">
 				<tbody>
@@ -424,17 +420,17 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 							<div class="en">STEP 01</div>
 							<div class="ko">회원유형</div>
 						</td>
-		
+
 						<td class="joinImg2 center">
 							<div class="en">STEP 02</div>
 							<div class="ko">이용약관동의</div>
 						</td>
-		
+
 						<td class="joinImg3 center active">
 							<div class="en">STEP 03</div>
 							<div class="ko">본인확인</div>
 						</td>
-		
+
 						<td class="joinImg4 center">
 							<div class="en">STEP 04</div>
 							<div class="ko">정보입력</div>
@@ -444,15 +440,15 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 						<td class="joinLine center active">
 							<div style="width:27px;border-radius:33px;background:#000;margin:0 auto">&nbsp;</div>
 						</td>
-		
+
 						<td class="joinLine center">
 							<div style="width:27px;border-radius:33px;background:#000;margin:0 auto">&nbsp;</div>
 						</td>
-		
+
 						<td class="joinLine center">
 							<div style="width:27px;border-radius:33px;background:#fab001;margin:0 auto">&nbsp;</div>
 						</td>
-		
+
 						<td class="joinLine center">
 							<div style="width:27px;border-radius:33px;background:#000;margin:0 auto">&nbsp;</div>
 						</td>

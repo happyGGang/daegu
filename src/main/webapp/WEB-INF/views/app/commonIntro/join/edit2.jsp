@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 var idCheck = false;
 var pwCheck = false;
@@ -11,7 +11,7 @@ var pwCheck2 = false;
 $(function() {
 	$('#save-btn').on('click', function(e) {
 		e.preventDefault();
-		
+
 		<c:if test="${param.ageType eq 'under'}">
 		if ($('div.identi_select:eq(0)').find('p.success').length < 1) {
 			alert('보호자(법정대리인) 인증 후 가입가능합니다.');
@@ -24,24 +24,24 @@ $(function() {
 			return false;
 		}
 		</c:if>
-		
+
 		var certCheck = true;
-		
+
 		if ($('input#certType').val() == '' ) {
-			var certCheck = false;	
-		} 
-		
+			var certCheck = false;
+		}
+
 		if (!certCheck) {
 			alert('본인 인증 후 가입 가능합니다.');
-			return false;	
+			return false;
 		}
-		
-		
+
+
 		if (!idCheck) {
 			alert('아이디 중복확인 후 가능합니다.');
 			return false;
 		}
-		
+
 		if (!pwCheck2) {
 			alert('비밀번호는 영문, 숫자, 특수문자 조합으로 9자이상 20자이내로 입력하셔야 합니다.');
 			return false;
@@ -50,14 +50,14 @@ $(function() {
 			alert('비밀번호 확인 후 가능 합니다.');
 			return false;
 		}
-		
+
 		$('#email').val($('#email1').val() + '@' + $('#email2').val());
 		$('#cell_phone').val($('#cell_phone1').val() + $('#cell_phone2').val() + $('#cell_phone3').val());
 // 		$('input#editMode').val('MODIFY2');
 		$('input#newMemberId').val($('input#web_id').val());
 		doAjaxPost($('#memberJoinForm'));
 	});
-	
+
 	$('a#check-btn').on('click', function(e) {
 		e.preventDefault();
 		var id = $('#memberJoinForm #web_id').val();
@@ -68,16 +68,16 @@ $(function() {
 			$('#memberJoinForm #web_id').focus();
 			return false;
 		}
-		$('#checkForm #member_id').val($('#memberJoinForm #web_id').val());		
+		$('#checkForm #member_id').val($('#memberJoinForm #web_id').val());
 		if ( doAjaxPost($('#checkForm')) ) {
 			idCheck = true;
 		}
 	});
-	
+
 	$('select#email2_temp').on('change', function() {
 		$('input#email2').val($(this).val());
 	});
-	
+
 	$('input#web_id').on('keyup', function(e) {
 		e.preventDefault();
 		idCheck = false;
@@ -86,102 +86,98 @@ $(function() {
 		e.preventDefault();
 		idCheck = false;
 	});
-	
+
 	$('input#zipcode').on('click', function(e) {
 		e.preventDefault();
-		$('a#findPostCode').click();	
+		$('a#findPostCode').click();
 	});
-	
+
 	$('a#findPostCode').on('click', function(e){
 		e.preventDefault();
-		daum.postcode.load(function() {
-			new daum.Postcode({
-	            oncomplete: function(data) {
-	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-	
-	                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-	                var fullAddr = ''; // 최종 주소 변수
-	                var extraAddr = ''; // 조합형 주소 변수
-	
-	                // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-	//                 if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-	                    fullAddr = data.roadAddress;
-	
-	//                 } else { // 사용자가 지번 주소를 선택했을 경우(J)
-	//                     fullAddr = data.jibunAddress;
-	//                 }
-	
-	                // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
-	//                 if(data.userSelectedType === 'R'){
-	                    //법정동명이 있을 경우 추가한다.
-	                    if(data.bname !== ''){
-	                        extraAddr += data.bname;
-	                    }
-	                    // 건물명이 있을 경우 추가한다.
-	                    if(data.buildingName !== ''){
-	                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-	                    }
-	                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-	                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-	//                 }
-	
-	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-	                $('#zipcode').val(data.zonecode);//5자리 새우편번호 사용
-	                $('#address1').val(fullAddr);
-	                // 커서를 상세주소 필드로 이동한다.
-	                $('#address1').focus();
-	            }
-	        }).open();
-		});
+		new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var fullAddr = ''; // 최종 주소 변수
+                var extraAddr = ''; // 조합형 주소 변수
+
+                // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+//                 if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    fullAddr = data.roadAddress;
+
+//                 } else { // 사용자가 지번 주소를 선택했을 경우(J)
+//                     fullAddr = data.jibunAddress;
+//                 }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+//                 if(data.userSelectedType === 'R'){
+                    //법정동명이 있을 경우 추가한다.
+                    if(data.bname !== ''){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있을 경우 추가한다.
+                    if(data.buildingName !== ''){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+//                 }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                $('#zipcode').val(data.zonecode);//5자리 새우편번호 사용
+                $('#address1').val(fullAddr);
+                // 커서를 상세주소 필드로 이동한다.
+                $('#address1').focus();
+            }
+        }).open();
 	});
 	$('a#findPostCode2').on('click', function(e){
 		e.preventDefault();
-		daum.postcode.load(function() {
-			new daum.Postcode({
-	            oncomplete: function(data) {
-	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-	
-	                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-	                var fullAddr = ''; // 최종 주소 변수
-	                var extraAddr = ''; // 조합형 주소 변수
-	
-	                // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-	//                 if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-	                    fullAddr = data.roadAddress;
-	
-	//                 } else { // 사용자가 지번 주소를 선택했을 경우(J)
-	//                     fullAddr = data.jibunAddress;
-	//                 }
-	
-	                // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
-	//                 if(data.userSelectedType === 'R'){
-	                    //법정동명이 있을 경우 추가한다.
-	                    if(data.bname !== ''){
-	                        extraAddr += data.bname;
-	                    }
-	                    // 건물명이 있을 경우 추가한다.
-	                    if(data.buildingName !== ''){
-	                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-	                    }
-	                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-	                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-	//                 }
-	
-	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-	                $('#company_zipcode').val(data.zonecode);//5자리 새우편번호 사용
-	                $('#company_addr').val(fullAddr);
-	                // 커서를 상세주소 필드로 이동한다.
-	                $('#company_addr').focus();
-	            }
-	        }).open();
-		});
+		new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var fullAddr = ''; // 최종 주소 변수
+                var extraAddr = ''; // 조합형 주소 변수
+
+                // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+//                 if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    fullAddr = data.roadAddress;
+
+//                 } else { // 사용자가 지번 주소를 선택했을 경우(J)
+//                     fullAddr = data.jibunAddress;
+//                 }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+//                 if(data.userSelectedType === 'R'){
+                    //법정동명이 있을 경우 추가한다.
+                    if(data.bname !== ''){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있을 경우 추가한다.
+                    if(data.buildingName !== ''){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+//                 }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                $('#company_zipcode').val(data.zonecode);//5자리 새우편번호 사용
+                $('#company_addr').val(fullAddr);
+                // 커서를 상세주소 필드로 이동한다.
+                $('#company_addr').focus();
+            }
+        }).open();
 	});
-	
+
 	$('th.th1').css('width', '30%');
 	$('th.th1').css('text-align', 'right');
-	
+
 	$('a.certtype').on('click', function(e) {
 		e.preventDefault();
 		var parent = $(this).parent('div').find('p.success').length;
@@ -195,26 +191,26 @@ $(function() {
 		$('form#certForm')[0].submit();
 		certWindow.focus();
 // 		alert('인증이 완료되었습니다.');
-		
+
 // 		var certtype = $(this).attr('certtype');
 // 		if (certtype == '') {
-			
+
 // 		}
 	});
-	
+
 	<%-- 패스워드 일치 --%>
 	$('input#member_pw_confirm').on('keyup', function(e) {
 		e.preventDefault();
 		if (pwCheck2) {
 			if ( $('#member_pw_confirm').val().length > 0 ) {
 				if ( $('#member_pw').val() == $('#member_pw_confirm').val() ) {
-					pwCheck = true;	
+					pwCheck = true;
 					$('#pw_confirm_message').text('일치합니다.');
 				}
 				else {
 					pwCheck = false;
 					$('#pw_confirm_message').text('일치하지 않습니다.');
-				}	
+				}
 			}
 			else {
 				pwCheck = false;
@@ -238,7 +234,7 @@ $(function() {
 // 			alert("비밀번호는 공백없이 입력해주세요.");
 			$('span#pwdcheck').css('color', 'red');
 			return false;
-		} 
+		}
 		if(num < 0 || eng < 0 || spe < 0 ){
 			$('span#pwdcheck').css('color', 'red');
 // 			alert("비밀번호는 공백없이 입력해주세요.");
@@ -248,7 +244,7 @@ $(function() {
 		pwCheck2 = true;
 		return true;
 	});
-	
+
 	$('button#testMode').on('click', function(e) {
 		e.preventDefault();
 		var wWidth = 360;
@@ -259,7 +255,7 @@ $(function() {
 		$('form#certForm input[name=certType]').val($(this).attr('id'));
 		$('form#certForm')[0].submit();
 	});
-	
+
 });
 $(document).on("keyup", "input:text[numberOnly]", function() {
 	$(this).val($(this).val().replace(/[^0-9]/gi, ""));
@@ -314,12 +310,12 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				</a>
 			</p>
 		</div>
-	
+
 		<table style="margin-bottom:50px; ${param.ageType ne 'under' ? 'display:none;':''}">
 			<tbody>
 				<tr>
 					<th>
-						보호자(법정대리인) 본인인증  
+						보호자(법정대리인) 본인인증
 					</th>
 					<td id="parentCert">
 						* 본인인증방법을 선택해 주세요.
@@ -344,7 +340,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				</tr>
 			</tbody>
 		</table>
-		
+
 		<div id="memberCert" class="identi_select" style="${param.ageType eq 'under' ? 'display:none;':''}">
 			<p class="identy_a">
 				<a href="#" class="certtype" id="certSms">
@@ -373,7 +369,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 						<form:input path="web_id" class="text"/> <a href="#" id="check-btn" class="btn">중복확인</a>
 					</td>
 				</tr>
- 				<tr> 
+ 				<tr>
 					<th>
 						신규 비밀번호(<span style="color: red;">*</span>)
 					</th>
@@ -408,7 +404,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 						<div id="sex_div" style="display: none;">
 						<div class="radio inline">
 							<form:radiobutton path="sex" value="0002" label="여자"/>
-						</div> 
+						</div>
 						<div class="radio inline">
 							<form:radiobutton path="sex" value="0001" label="남자"/>
 						</div>
@@ -436,11 +432,11 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 					 	- <form:input path="cell_phone2" class="text" cssStyle="width:60px;;" maxlength="4" numberOnly="true"/>
 					 	- <form:input path="cell_phone3" class="text" cssStyle="width:60px;;" maxlength="4" numberOnly="true"/>
 						</div>
-						<form:checkbox path="sms_service_yn" value="Y" label="SMS 수신 여부" cssStyle="vertical-align: middle;"/> 
+						<form:checkbox path="sms_service_yn" value="Y" label="SMS 수신 여부" cssStyle="vertical-align: middle;"/>
 						<div class="ui-state-highlight">
 							* 도서관련 알림 및 행사 안내를 받으실 수 있습니다
 						</div>
-						
+
 					</td>
 				</tr>
 				<tr>
@@ -460,7 +456,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				</tr>
 				<tr>
 					<th>
-						소속도서관(<span style="color: red;">*</span>) 
+						소속도서관(<span style="color: red;">*</span>)
 					</th>
 					<td>
 						<c:set value="${fn:split(homepage.homepage_code, ',')}" var="homepage_code"></c:set>
@@ -479,7 +475,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 						<c:if test="${member.editMode eq 'ADD'}">
 							<div class="ui-state-highlight">
 								* 회원가입을 희망하는 도서관을 선택하시기 바랍니다
-							</div>	
+							</div>
 						</c:if>
 					</td>
 				</tr>
@@ -501,7 +497,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 					<td>
 						<form:hidden path="email"/>
 						<form:input path="email1" class="text"/> @
-						<form:input path="email2" class="text"/> 
+						<form:input path="email2" class="text"/>
 						<select id="email2_temp" name="email2_temp" class="selectmenu" style="width:150px;">
 							<option value="" >--직접입력--</option>
 							<option value="naver.com" >naver.com</option>
@@ -511,7 +507,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 						</select>
 					</td>
 				</tr>
-				<!-- 
+				<!--
 				<tr>
 					<th>
 						직장명
@@ -567,7 +563,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				</tr> -->
 			</tbody>
 		</table>
-		
+
 		<div class="btn-wrap">
 			<c:if test="${newMember.editMode eq 'ADD' }">
 			<a href="#" id="save-btn" class="btn btn1">회원가입</a>
@@ -577,7 +573,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 			</c:if>
 			<a href="/${homepage.context_path}/index.do" id="cancel-btn" class="btn">취소</a>
 		</div>
-	
+
 	</form:form>
 	<br/>
 </div>

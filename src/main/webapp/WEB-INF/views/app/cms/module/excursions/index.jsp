@@ -3,7 +3,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tag" uri="/WEB-INF/config/tld/cmsTag.tld" %>
-<script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript">
 $(function(){
 	var sysDate = new Date();
@@ -100,26 +99,26 @@ $(function(){
 		$('#plan_date').val("");
 		$('#excursions').attr('action','/cms/module/excursions/apply/excelDownload.do').submit();
 	});
-	
+
 	$('a#csvDownload').on('click', function(e) {
 		e.preventDefault();
-		
+
 		if($('#homepage_id_1').val() == null || $('#homepage_id_1').val() == "") {
 			alert("홈페이지를 선택 해 주세요.");
 			return false;
 		}
-		
+
 		$('#excursions').attr('action', '/cms/module/excursions/apply/csvDownloadMonth.do').submit();
 	});
-	
+
 	$('a#totalCsvDownload').on('click', function(e) {
 		e.preventDefault();
-		
+
 		if($('#homepage_id_1').val() == null || $('#homepage_id_1').val() == "") {
 			alert("홈페이지를 선택 해 주세요.");
 			return false;
 		}
-		
+
 		$('#plan_date').val("");
 		$('#excursions').attr('action', '/cms/module/excursions/apply/csvDownload.do').submit();
 	});

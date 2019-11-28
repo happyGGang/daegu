@@ -2,6 +2,7 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 $(function() {
 	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
@@ -41,25 +42,23 @@ $(function() {
 
 	$('#homepage a#findPostCode').on('click', function(e){
 		e.preventDefault();
-		daum.postcode.load(function() {
-			new daum.Postcode({
-	            oncomplete: function(data) {
-	                var fullAddr = ''; // 최종 주소 변수
-	                var extraAddr = ''; // 조합형 주소 변수
-					fullAddr = data.roadAddress;
-					if(data.bname !== ''){
-					    extraAddr += data.bname;
-					}
-					if(data.buildingName !== ''){
-					    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-					}
-					fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-	                $('#zipcode').val(data.zonecode);//5자리 새우편번호 사용
-	                $('#address1').val(fullAddr);
-	                $('#address1').focus();
-	            }
-	        }).open();
-		});
+		new daum.Postcode({
+            oncomplete: function(data) {
+                var fullAddr = ''; // 최종 주소 변수
+                var extraAddr = ''; // 조합형 주소 변수
+				fullAddr = data.roadAddress;
+				if(data.bname !== ''){
+				    extraAddr += data.bname;
+				}
+				if(data.buildingName !== ''){
+				    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+				}
+				fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                $('#zipcode').val(data.zonecode);//5자리 새우편번호 사용
+                $('#address1').val(fullAddr);
+                $('#address1').focus();
+            }
+        }).open();
 	});
 
 	$("#dialog-1").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정

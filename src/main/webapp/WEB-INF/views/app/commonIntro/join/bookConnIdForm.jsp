@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript">
 $(function() {
 	$('#save-btn').on('click', function(e) {
@@ -25,10 +24,10 @@ $(function() {
 			</div>
 		</div>
 	</div>
-	
+
 	<form:form modelAttribute="memberInfo" id="memberInfoForm" action="userInfoSearch.do">
 		<form:hidden path="menu_idx"/>
-		
+
 		<div style="text-align: right;">
 			(<span style="color: red; font-weight: bold;">*</span>) 항목은 필수 입력값입니다.
 		</div>

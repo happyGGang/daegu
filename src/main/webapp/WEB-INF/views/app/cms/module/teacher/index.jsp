@@ -2,18 +2,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript">
 $(function() {
 	$('button#search_btn').on('click', function(e) {
 		$('#viewPage').val(1);
 		$('#teacherListForm').submit();
 	});
-	
-	
+
+
 	$('a#dialog-add').on('click', function(e) {
 		if ( $('#homepage_id_1').val() == '' ) {
-			alert('홈페이지정보가 없습니다.');	
+			alert('홈페이지정보가 없습니다.');
 		}
 		else {
 			$('#dialog-1').load('edit.do?editMode=ADD&homepage_id=' + $('#homepage_id_1').val(), function( response, status, xhr ) {
@@ -26,10 +25,10 @@ $(function() {
 		$('#dialog-1').load('edit.do?editMode=MODIFY&homepage_id=' + $('#homepage_id_1').val() + '&teacher_idx=' + $(this).attr('keyValue2'), function( response, status, xhr ) {
 			$('#dialog-1').dialog('open');
 		});
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('a.delete-btn').on('click', function(e) {
 		if ( confirm('해당 강사를 정말 삭제 하시겠습니까?') ) {
 			$('#hiddenForm #editMode').val('DELETE');
@@ -37,46 +36,46 @@ $(function() {
 			$('#hiddenForm #teacher_idx').val($(this).attr('keyValue2'));
 			if(doAjaxPost($('#hiddenForm'))) {
 				location.reload();
-			}	
+			}
 		}
 	});
-	
+
 	$('a.dialog-history').on('click', function(e) {
 		$('#dialog-2').load('history.do?homepage_id=' + $('#homepage_id_1').val() + '&teacher_idx=' + $(this).attr('keyValue2'), function( response, status, xhr ) {
 			$('#dialog-2').dialog('open');
 		});
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('a.cert-down-btn').on('click', function(e) {
 		$('#hiddenForm #homepage_id').val($(this).attr('keyValue1'));
 		$('#hiddenForm #teacher_idx').val($(this).attr('keyValue2'));
 		$('#hiddenForm').attr('action', 'certDownload.do').submit();
-		$('#hiddenForm').attr('action', 'save.do'); 
+		$('#hiddenForm').attr('action', 'save.do');
 		e.preventDefault();
 	});
-	
+
 	$('a#excelDownload').on('click', function(e) {
 		$('#hiddenForm').attr('action', 'excelDownload.do').submit();
 		$('#hiddenForm').attr('action', 'save.do');
 		e.preventDefault();
 	});
-	
+
 	$('a#csvDownload').on('click', function(e) {
 		e.preventDefault();
 		$('#hiddenForm').attr('action', 'csvDownload.do').submit();
 	});
-	
+
 	$('select#homepage_id_1').on('change', function(e) {
 		if($(this).val() != '') {
 			$('input#homepage_id_1').val($(this).val());
 			$('#teacherListForm').submit();
 		}
-		
+
 		e.preventDefault();
 	});
-	
+
 });
 </script>
 <form:form id="hiddenForm" modelAttribute="teacher" action="save.do">
@@ -86,7 +85,7 @@ $(function() {
 </form:form>
 <form:form id="teacherListForm"  modelAttribute="teacher" action="index.do" >
 	<form:hidden id="homepage_id_1" path="homepage_id"/>
-	
+
 	<div class="infodesk">
 		검색 결과 : 총 ${teacherListCount}건
 		<div class="button">
@@ -111,8 +110,8 @@ $(function() {
 		<thead>
 			<tr>
 				<th>번호</th>
-				<th>강사명</th>	
-				<th>성별</th>	
+				<th>강사명</th>
+				<th>성별</th>
 				<th>전화번호</th>
 				<th>휴대전화번호</th>
 				<th>첨부파일</th>
@@ -159,7 +158,7 @@ $(function() {
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#teacherListForm"/>
 	</jsp:include>
-	
+
 	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 		<fieldset>
 			<form:select path="search_type" cssClass="selectmenu">
@@ -174,6 +173,6 @@ $(function() {
 		</fieldset>
 	</div>
 </form:form>
-	
+
 <div id="dialog-1" class="dialog-common" title="강사 정보"></div>
 <div id="dialog-2" class="dialog-common" title="강사 이력"></div>
