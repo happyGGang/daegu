@@ -3,18 +3,23 @@ package kr.co.whalesoft.framework.interceptor;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import is.tagomor.woothee.Classifier;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.homepageAccess.HomepageAccess;
@@ -126,35 +131,15 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 				}
 				request.setAttribute("homepage", homepage);
 
+				/**
+				 * 접속 통계 + 로그 남기기
+				 */
+				addStatisticsCount(request, homepage);
+				/**
+				 * 
+				 */
 
 				Member member = loginService.getSessionMember(request);
-//				HomepageAccess homepageAccess = new HomepageAccess(request, homepage.getHomepage_id(), member);
-//				if((homepageAccess.getBrowser_type() != null && !homepageAccess.getBrowser_type().equals("")) && (homepageAccess.getBrowser_version() != null && !homepageAccess.getBrowser_version().equals(""))) {
-//					if(homepageAccess.getBrowser_type().indexOf("bingbog") == -1 && homepageAccess.getBrowser_type().indexOf("Apache") == -1) {
-//						homepageAccessService.addHomepageAccess(homepageAccess);
-//					}
-//				}
-				//2019.08.20 홈페이지 접속자 통계 수정.
-				//2019.09.20 홈페이지 접속자 통계 재 수정. 프로시저+스케줄러로 변경
-				HttpSession session = request.getSession();
-				HomepageAccess homepageAccess = new HomepageAccess(request, homepage.getHomepage_id(), member);
-//				if (session.getAttribute("doneAccessCount") == null || !((Boolean) session.getAttribute("doneAccessCount"))) {
-//					homepageAccessService.addAccessCount(homepageAccess);
-//					session.setAttribute("doneAccessCount", true);
-//				}
-				if((homepageAccess.getBrowser_type() != null && !homepageAccess.getBrowser_type().equals("")) && (homepageAccess.getBrowser_version() != null && !homepageAccess.getBrowser_version().equals(""))) {
-					if(homepageAccess.getBrowser_type().indexOf("bingbog") == -1 && homepageAccess.getBrowser_type().indexOf("Apache") == -1) {
-						//기존 접속자 통계는 그대로 기록하고.
-//						homepageAccessService.addHomepageAccess(homepageAccess);
-//						if (!RequestUtils.isAjaxRequest(request)) {
-//							//신규 웹페이지 통계는 신규로 기록한다.
-//							homepageAccessService.addViewCount(homepageAccess);
-//						}
-					}
-				}
-
-
-
 				if ( member == null ) {
 				}
 				else {
@@ -187,9 +172,10 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 				request.setAttribute("menuTreeList", menuTreeList);
 				request.setAttribute("menuOne", menuOne);
 				request.setAttribute("menuLeftList", menuLeftList);
-
+				
 				// 전자도서관 좌측 메뉴
 				if("elib".equals(contextPath) || "elibtest".equals(contextPath)) {
+					HttpSession session = request.getSession();
 					String type = StringUtils.trimToEmpty(request.getParameter("type"));
 					ElibCategory elibCategory = new ElibCategory(type, 1);
 					ElibCode elibCode = new ElibCode(type);
@@ -248,11 +234,16 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 				}
 
 				//Intro 에서 사용하는 Homepage 정보 가져오기
-				uri = uri.replace("/intro/", "");
-				uri = uri.substring(0,uri.indexOf("/"));
-				homepage = homepageService.getHomepageOneInPath(uri);
-				if ( homepage != null ) {
-					request.setAttribute("homepage", homepage);
+				if (request.getSession().getAttribute("homepage") == null) {
+					uri = uri.replace("/intro/", "");
+					uri = uri.substring(0,uri.indexOf("/"));
+					homepage = homepageService.getHomepageOneInPath(uri);
+					if ( homepage != null ) {
+						request.setAttribute("homepage", homepage);
+						request.getSession().setAttribute("homepage", homepage);
+					}
+				} else {
+					request.setAttribute("homepage", request.getSession().getAttribute("homepage"));
 				}
 			}
 		}
@@ -340,5 +331,81 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 //
 //		return false;
 //	}
+	
+	private static final DateTimeFormatter DTF = DateTimeFormat.forPattern("yyyy-MM-dd");
+	
+	/**
+	 * 접속 통계 + 로그 남기기
+	 * @param request
+	 * @param homepage
+	 */
+	private void addStatisticsCount(HttpServletRequest request, Homepage homepage) {
+		/**
+		 * category 조건문을 여러개로 나눈 이유는 속도 때문
+		 * 자주 발생하는 경우를 위쪽에 배치함
+		 */
+		try {
+			String user_agent = request.getHeader("User-Agent");
+			HomepageAccess homepageAccess = new HomepageAccess();
+			String homepage_id = homepage.getHomepage_id();
+			
+			homepageAccess.setStart_date(DTF.print(new DateTime()));
+			homepageAccess.setHomepage_id(homepage_id);
+			homepageAccess.setAccess_ip(request.getRemoteAddr());
+			homepageAccess.setSession_id(request.getSession().getId());
+			homepageAccess.setReferer_url(request.getHeader("referer"));
+			homepageAccess.setUser_agent(user_agent);
+			
+			Map<String, String> r = Classifier.parse(user_agent);
+//			String name = StringUtils.defaultString(r.get("name"));
+//			String version = StringUtils.defaultString(r.get("version"));
+			String category = StringUtils.defaultString(r.get("category"));
+//			String os = StringUtils.defaultString(r.get("os"));
+//			String os_version = StringUtils.defaultString(r.get("os_version"));
+			
+			// 접속 로그
+			if("pc".equals(category)) {
+				// PC
+				homepageAccessService.addStatisticsCountLog(homepageAccess);
+			} else if("smartphone".equals(category)) {
+				// 모바일
+				homepageAccessService.addStatisticsCountLogMobile(homepageAccess);
+			} else if("crawler".equals(category)) {
+				// 검색 엔진
+			
+			} else if("mobilephone".equals(category) || "appliance".equals(category)) {
+				// 모바일
+				homepageAccessService.addStatisticsCountLogMobile(homepageAccess);
+			} else {
+				// 기타
+				homepageAccessService.addStatisticsCountLog(homepageAccess);
+			}
+			
+			// 접속 통계
+			HttpSession session = request.getSession();
+			String sessionFlag = homepage_id + "_addStatisticsCount";
+			if(session.getAttribute(sessionFlag) == null) {
+				session.setAttribute(sessionFlag, true);
+				if("pc".equals(category)) {
+					// PC
+					homepageAccessService.addStatisticsCount(homepageAccess);
+				} else if("smartphone".equals(category)) {
+					// 모바일
+					homepageAccessService.addStatisticsCountMobile(homepageAccess);
+				} else if("crawler".equals(category)) {
+					// 검색 엔진
+				
+				} else if("mobilephone".equals(category) || "appliance".equals(category)) {
+					// 모바일
+					homepageAccessService.addStatisticsCountMobile(homepageAccess);
+				} else {
+					// 기타
+					homepageAccessService.addStatisticsCount(homepageAccess);
+				}
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }
