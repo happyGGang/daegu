@@ -14,32 +14,24 @@ import kr.co.whalesoft.framework.base.BaseController;
 public class SurveyResult extends BaseController{
     private String basePath = null;
     private Homepage homepage = null;
-    
+
     private void attributeInit(HttpServletRequest request, Model model) {
           homepage = (Homepage)request.getAttribute("homepage");
-          
+
           String homepageFolder = "";
-          
+
           if(homepage != null) {
                 homepageFolder = "/homepage/" + homepage.getFolder();
           }
-          
+
           basePath = homepageFolder + "/module/surveyResult/";
     }
-    
+
     @RequestMapping(value = { "/index.*" })
     public String index(Model model, HttpServletRequest request) {
           attributeInit(request, model);
-          
+
           return basePath + "index_ajax";
     }
-    
-    @RequestMapping(value = { "/usRule.*" })
-    public String usRule(Model model, HttpServletRequest request) {
-          attributeInit(request, model);
-          
-          return basePath + "usRule_ajax";
-    }
-
 
 }

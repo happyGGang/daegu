@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
 <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
-<title>경상북도도서관</title>
+<title>대구광역시 통합 도서관</title>
 <!--[if IE]>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <![endif]-->

@@ -889,7 +889,7 @@ function removeChar(event) {
 <h4>개인정보 수집·이용 동의</h4>
 <div class="Box" style="height:200px" tabindex="0" >
 	<h4>▣ 개인정보 수집·이용 목적</h4>
-	<p class="mB20 mL10">&nbsp; · 경북지역 평생학습 강사정보의 체계적 관리</p>
+	<p class="mB20 mL10">&nbsp; · 평생학습 강사정보의 체계적 관리</p>
 	<h4>▣ 수집하는 개인정보의 항목</h4>
 	<p class="mB20 mL10">&nbsp; · 정보주체</p>
 	<p class="mB20 mL10">&nbsp;&nbsp;&nbsp; - 필수: 이름, 생년월일, 성별, 휴대전화번호, 주소, 학력</p>
@@ -902,7 +902,7 @@ function removeChar(event) {
 <h4>개인정보 제3자 제공 동의</h4>
 <div class="Box" style="height:200px" tabindex="0" >
 	<h4>▣ 개인정보를 제공받는 자</h4>
-	<p class="mB20 mL10">&nbsp; · 경상북도교육청 소속 공공도서관</p>
+	<p class="mB20 mL10">&nbsp; · 공공도서관</p>
 	<h4>▣ 개인정보를 제공받는 자의 개인정보 이용 목적</h4>
 	<p class="mB20 mL10">&nbsp; · 평생학습 강사 채용</p>
 	<h4>▣ 제공하는 개인정보의 항목</h4>
