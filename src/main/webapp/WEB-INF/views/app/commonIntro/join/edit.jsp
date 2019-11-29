@@ -414,11 +414,6 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 <!-- 	* 행정자치부 공공I-PIN센터에서 발급받은 식별ID 및 비밀번호를 이용하여 본인확인을 하는 주민번호 대체수단 서비스 입니다.<br/> -->
 <!--    	 &nbsp; <b>공공I-PIN 신규발급 [<a href="http://www.gpin.go.kr" target="_blank">http://www.gpin.go.kr</a>]</b> -->
 	</div>
-	<form id="dlsCheckForm" method="post" target="dlsWindow" action="https://reading.gyo6.net/r/reading/search/ebookView_kb_ck.jsp">
-	<input type="hidden" name="reading_pw" id="reading_pw" >
-	<input type="hidden" name="reading_id" id="reading_id" >
-	<input type="hidden" name="return_url" value="http://www.gbelib.kr/geic/intro/join/checkDlsA.do">
-	</form>
 	<form:form id="checkForm" modelAttribute="newMember" action="check.do" onsubmit="return false;">
 		<form:hidden path="member_id"/>
 		<form:hidden path="ageType"/>
