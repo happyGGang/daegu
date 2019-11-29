@@ -1,22 +1,12 @@
 package kr.go.gbelib.app.intro.login;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateUtils;
-import org.joda.time.DateTime;
-import org.joda.time.Days;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mobile.device.Device;
 import org.springframework.mobile.device.DeviceUtils;
@@ -42,16 +32,12 @@ import kr.co.whalesoft.app.cms.memberGroup.MemberGroupService;
 import kr.co.whalesoft.app.cms.memberGroupSubord.MemberGroupSubordService;
 import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.menu.MenuService;
-import kr.co.whalesoft.app.cms.module.bookStoreReq.BookStoreReqService;
 import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
 import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.framework.base.BaseController;
-import kr.go.gbelib.app.cms.module.elib.lending.Lending;
 import kr.go.gbelib.app.cms.module.elib.lending.LendingService;
-import kr.go.gbelib.app.cms.module.teacher.Teacher;
 import kr.go.gbelib.app.cms.module.teacher.TeacherService;
 import kr.go.gbelib.app.common.api.ApiResponse;
-import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.common.api.LoginAPI;
 import kr.go.gbelib.app.module.loginLog.LoginLog;
 import kr.go.gbelib.app.module.loginLog.LoginLogService;
@@ -67,9 +53,6 @@ public class CommonLoginController extends BaseController {
 
 	@Autowired
 	private CodeService codeService;
-
-	@Autowired
-	private BookStoreReqService bookStoreReqService;
 
 	@Autowired
 	private HomepageService homepageService;
@@ -140,7 +123,6 @@ public class CommonLoginController extends BaseController {
 		// 아이디, 비번, 이름 복호화
 		if(memberService.decryptMember(member) == false) {
 			codeService.alertMessage("아이디 또는 비밀번호를 다시 확인하세요", request, response);
-//			System.out.println("@@@@@@@@@@@@@@@@ idpw not matched");
 			return null;
 		}
 
@@ -164,22 +146,10 @@ public class CommonLoginController extends BaseController {
 			loginLogService.addLoginLog(new LoginLog(member, request, homepage));
 
 			try {
-				Member tempMember = (Member) result;
-				if (tempMember.getAuth_id().equals("20000") && StringUtils.equals(member.getLoginType2(), "num")) {
-					if (StringUtils.isNotEmpty(tempMember.getWeb_id())) {
-    					request.getSession().setAttribute("userIdLoginFail", true);
-    					return String.format("redirect:https://%s/%s/intro/login/index.do?menu_idx=%d", homepage.getDomainWithoutProtocol(), homepagePath, member.getMenu_idx());
-					}
-				}
 
 				member = (Member) result;
-
-
 				member.setLogin(true);
 
-				if(homepagePath.equals("yd")) {
-					member.setBookStore(bookStoreReqService.getBookStoreReqCount(member.getUser_id()));
-				}
 				member.setLast_login_ip(homepageAccessService.getLastHomepageAccess(member));
 				memberService.addMemberLastLogin(member, request);
 
@@ -188,113 +158,10 @@ public class CommonLoginController extends BaseController {
 				member.setMember_id(member.getWeb_id());
 				Member adminMember = memberService.getMemberOne(member);
 				if(adminMember != null) {
-//				member.setAuthMap(adminMember.getAuthMap());
-					member.setLink_member_yn(adminMember.getLink_member_yn());
 					member.setAdmin(adminMember.isAdmin());
 					member.setAuthorityHomepageList(adminMember.getAuthorityHomepageList());
-//				member.setAuth_id(adminMember.getAuth_id());
-//				member.setAuth_id_list(adminMember.getAuth_id_list());
-//				member.setHomepage_id(adminMember.getHomepage_id());
-//				if (StringUtils.equals(adminMember.getAuth_id(), "100")) {
-//					member.setAdmin(true);
-//				}
 				}
 				member.setMember_id(memberId);
-
-				Teacher teacher = new Teacher();
-				teacher.setMember_key(member.getSeq_no());
-				teacher = teacherService.checkTeacher2(teacher);
-				if (teacher != null && teacher.getTeacher_idx() != 0) {
-					member.setTeacher_yn("Y");
-				}
-
-				/**
-				 * 개인정보 동의 기간 설정
-				 */
-				boolean hasAdded2years = false;
-				Date lastLoanDate = new Date();
-				try {
-					lastLoanDate = member.getAgree_date();
-					Calendar cal = Calendar.getInstance();
-					String[] parsePatterns = {"yyyyMMdd"};
-					String[] parsePatterns2 = {"yyyy-MM-dd"};
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
-
-					Map<String, String> paramMap = new HashMap<String, String>();
-					paramMap.put("vStartPos", "1");
-					paramMap.put("vEndPos", "1");
-					paramMap.put("vSortKey", "LOAN_DATE");
-					paramMap.put("vSortDir", "DESC");
-					Map<String, Object> loanListTmp = LibSearchAPI.getMyLibrarySearchList("WEB", member.getUser_id(), "LOAN", null, paramMap);
-					if (loanListTmp != null) {
-						@SuppressWarnings ("unchecked")
-						List<Map<String, String>> loanList = (List<Map<String, String>>) loanListTmp.get("dsMyLibraryList");
-						if (loanList != null && loanList.size() > 0) {
-							Map<String, String> lastLoan = loanList.get(0);
-							String lastLoanDateStr = lastLoan.get("LOAN_DATE");
-							if (StringUtils.isNotEmpty(lastLoanDateStr)) {
-								lastLoanDate = DateUtils.parseDate(lastLoanDateStr, parsePatterns);
-								if (member.getAgree_date() == null) {
-									lastLoanDate = cal.getTime();
-									cal.setTime(lastLoanDate);
-									cal.add(Calendar.YEAR, 2);
-									hasAdded2years = true;
-									member.setAgree_date_str(sdf.format(cal.getTime()));
-								} else {
-									if (member.getAgree_date().compareTo(lastLoanDate) > 0) {
-										lastLoanDate = member.getAgree_date();
-									}
-									cal.setTime(lastLoanDate);
-									cal.add(Calendar.YEAR, 2);
-									hasAdded2years = true;
-									member.setAgree_date_str(sdf.format(cal.getTime()));
-								}
-							} else {
-								if (member.getAgree_date() != null) {
-									lastLoanDate = member.getAgree_date();
-									cal.setTime(lastLoanDate);
-									cal.add(Calendar.YEAR, 2);
-									hasAdded2years = true;
-									member.setAgree_date_str(sdf.format(cal.getTime()));
-								}
-							}
-						}
-					}
-					Lending lending = new Lending();
-					lending.setMember_id(member.getWeb_id());
-					List<Lending> lendingList = lendingService.getLendMemberList(lending);
-					if (lendingList != null && lendingList.size() > 0) {
-						String LastlendDtStr = lendingList.get(0).getLend_dt();
-						if (StringUtils.isNotEmpty(LastlendDtStr)) {
-							Date elibLastLendDate = DateUtils.parseDate(lendingList.get(0).getLend_dt(), parsePatterns2);
-							if (member.getAgree_date() == null) {
-								cal.setTime(elibLastLendDate);
-								cal.add(Calendar.YEAR, 2);
-								hasAdded2years = true;
-								member.setAgree_date_str(sdf.format(cal.getTime()));
-							} else {
-								if (lastLoanDate.compareTo(elibLastLendDate) < 0) {
-									cal.setTime(elibLastLendDate);
-									cal.add(Calendar.YEAR, 2);
-									hasAdded2years = true;
-									member.setAgree_date_str(sdf.format(cal.getTime()));
-								}
-							}
-						}
-					}
-
-					if (!hasAdded2years) {
-						cal.setTime(member.getAgree_date());
-						cal.add(Calendar.YEAR, 2);
-						member.setAgree_date_str(sdf.format(cal.getTime()));
-					}
-
-				} catch ( NullPointerException e ) {
-					e.printStackTrace();
-				} catch ( Exception e ) {
-					e.printStackTrace();
-				}
-
 
 				if ((member.getAuthMap() == null || member.getAuthMap().isEmpty()) && !member.isAdmin()) {
 					if (StringUtils.equals(member.getUnAgreeFlag(), "0001")) {
@@ -357,11 +224,6 @@ public class CommonLoginController extends BaseController {
 
 			service.setSessionMember(member, request);
 
-			if ((!StringUtils.equals(member.getUnAgreeFlag(), "0001") && !StringUtils.equals(member.getUnAgreeFlag(), "0002")) || StringUtils.isEmpty(member.getCi_value())) {
-				int menuIdx = homepageService.getMenuIdxByLinkUrl(homepage.getHomepage_id(), "/intro/join/modifyForm.do");
-				service.alertMessageAndUrl("통합회원 전환 페이지로 이동합니다.", String.format("https://%s/%s/intro/join/integration.do?menu_idx=%s", homepage.getDomainWithoutProtocol(), homepagePath, menuIdx), request, response);
-				return null;
-			}
 			Device device = DeviceUtils.getCurrentDevice(request);
 			model.addAttribute("isMobile",  device.isMobile() || device.isTablet());
 			boolean isMobile = device.isMobile() || device.isTablet();
@@ -372,24 +234,24 @@ public class CommonLoginController extends BaseController {
 			/**
 			 * 비밀번호 만료일자가 지난 경우 패스워드 변경유도 페이지로 이동.
 			 */
-			try {
-				if (!StringUtils.isEmpty(member.getPassword_update_date()) && !StringUtils.equalsIgnoreCase(member.getPassword_update_date(), "null")) {
-					DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyyMMdd");
-
-					DateTime updateDate = fmt.parseDateTime(member.getPassword_update_date());
-					DateTime currentDate = DateTime.now();
-
-					Days daysBetween = Days.daysBetween(updateDate, currentDate);
-
-					int expiryDay = Integer.parseInt(member.getPassword_expiry_day());
-					if (daysBetween.getDays() > expiryDay) {
-						int menuIdx = homepageService.getMenuIdxByLinkUrl(homepage.getHomepage_id(), "/intro/join/changePwForm.do");
-						returnUrl = String.format("https://%s/%s/intro/join/passwordExpiry.do?menu_idx=%s", homepage.getDomainWithoutProtocol(), homepagePath, menuIdx);
-					}
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+//			try {
+//				if (!StringUtils.isEmpty(member.getPassword_update_date()) && !StringUtils.equalsIgnoreCase(member.getPassword_update_date(), "null")) {
+//					DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyyMMdd");
+//
+//					DateTime updateDate = fmt.parseDateTime(member.getPassword_update_date());
+//					DateTime currentDate = DateTime.now();
+//
+//					Days daysBetween = Days.daysBetween(updateDate, currentDate);
+//
+//					int expiryDay = Integer.parseInt(member.getPassword_expiry_day());
+//					if (daysBetween.getDays() > expiryDay) {
+//						int menuIdx = homepageService.getMenuIdxByLinkUrl(homepage.getHomepage_id(), "/intro/join/changePwForm.do");
+//						returnUrl = String.format("https://%s/%s/intro/join/passwordExpiry.do?menu_idx=%s", homepage.getDomainWithoutProtocol(), homepagePath, menuIdx);
+//					}
+//				}
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
 
 			return "redirect:" + returnUrl.replaceAll("^http://(www\\.)?gbelib\\.kr", "https://www.gbelib.kr");
 		} else {
@@ -426,17 +288,15 @@ public class CommonLoginController extends BaseController {
 		if (StringUtils.equals(relogin, "true")) {
 			int menu_idx = 0;
 			try {
-				menu_idx = menuService.getMenuIdxByLinkUrl(new Menu(((Homepage)request.getAttribute("homepage")).getHomepage_id(), "/intro/login/index.do"));
-			}
-			catch ( Exception e ) {
-			}
+				menu_idx = menuService.getMenuIdxByLinkUrl(new Menu(((Homepage) request.getAttribute("homepage")).getHomepage_id(), "/intro/login/index.do"));
+			} catch (Exception e) {}
 			if (menu_idx == 0) {
 				service.logout(request);
 				return "redirect:http://" + redirectURL + "/index.do";
 			}
 			redirectURL += "/intro/login/index.do?menu_idx=" + menu_idx;
 			service.logout(request);
-			return "redirect:http://" + redirectURL ;
+			return "redirect:http://" + redirectURL;
 		}
 		service.logout(request);
 		return "redirect:http://" + redirectURL + "/index.do";
