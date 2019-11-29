@@ -8,12 +8,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
@@ -24,14 +27,12 @@ import kr.co.whalesoft.app.cms.member.MemberService;
 import kr.co.whalesoft.app.cms.memberGroup.MemberGroup;
 import kr.co.whalesoft.app.cms.memberGroup.MemberGroupService;
 import kr.co.whalesoft.app.cms.memberGroupSubord.MemberGroupSubordService;
-import kr.co.whalesoft.app.cms.module.bookStoreReq.BookStoreReqService;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.go.gbelib.app.cms.module.elib.lending.Lending;
 import kr.go.gbelib.app.cms.module.elib.lending.LendingService;
 import kr.go.gbelib.app.cms.module.teacher.Teacher;
 import kr.go.gbelib.app.cms.module.teacher.TeacherService;
 import kr.go.gbelib.app.common.api.ApiResponse;
-import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.common.api.LoginAPI;
 import kr.go.gbelib.app.common.api.MemberAPI;
 
@@ -50,9 +51,6 @@ public class SSOApiService extends BaseService {
 
 	@Autowired
 	private LoginService service;
-
-	@Autowired
-	private BookStoreReqService bookStoreReqService;
 
 	@Autowired
 	private HomepageService homepageService;

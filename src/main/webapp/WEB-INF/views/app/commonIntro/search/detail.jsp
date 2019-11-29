@@ -171,30 +171,6 @@ $(function() {
 	});
 
 
-	$('#bookStoreAdd').on('click', function(e) {
-		e.preventDefault();
-
-		var count = $('input:checkbox[name=print_param]:checked').length;
-
-		if(Number(count) == 0) {
-			alert('책읽는가게 도서신청할 도서를 선택해주세요.');
-			return;
-		}
-		if(Number(count) > 1) {
-			alert('책읽는가게 도서신청은 한권만 가능합니다.');
-			return;
-		}
-
-		$('#storageReqForm').attr('action','/${homepage.context_path}/module/bookStore/save.do');
-		$('#item_name').val($('input:checkbox[name=print_param]:checked').val());
-
-		if ( doAjaxPost($('#storageReqForm')) ) {
-			location.reload();
-			$('#storageReqForm').attr('action','/${homepage.context_path}/module/myStorage/saveItem.do');
-		}
-
-	});
-
 	$('a.addStorage').on('click', function(e) {
 		e.preventDefault();
 		/* if ( doAjaxPost($('storageReqForm')) ) {
@@ -527,9 +503,6 @@ function contentPrint(e) {
 			<table summary="도서 상태 및 등록 정보">
 				<thead>
 					<tr>
-						<c:if test="${homepage.context_path eq 'yd' and member.bookStore}">
-						<th><input type="checkbox" id="checkAll"/></th>
-						</c:if>
 						<th>등록번호</th>
 						<th>청구기호</th>
 						<c:if test="${librarySearch.vLoca ne '00000001'}">
@@ -549,9 +522,6 @@ function contentPrint(e) {
 					<c:set var="is_reservable" value="false"/>
 					<c:forEach items="${detail.dsItemDetail}" var="i" varStatus="status">
 					<tr>
-						<c:if test="${homepage.context_path eq 'yd' and member.bookStore}">
-						<td><input name="print_param" type="checkbox" value="${fn:escapeXml(fn:replace(i.TITLE,',','.'))}_${fn:escapeXml(fn:replace(i.CALL_NO_D,',','.'))}_${fn:escapeXml(fn:replace(i.ACSSON_NO,',','.'))}_${fn:escapeXml(fn:replace(i.AUTHOR,',','.'))}_${fn:escapeXml(fn:replace(i.SUB_LOCA_NAME,',','.'))}"/></td>
-						</c:if>
 
 						<td>${fn:escapeXml(i.PRINT_ACSSON_NO)}</td>
 
@@ -663,9 +633,6 @@ function contentPrint(e) {
 			<a href="" class="btn btn2 goStorage" style="display:none;"><i class="fa fa-shopping-cart"></i><span>보관함보기</span></a>
 			<a href="javascript:history.back();" id="goBack" class="btn" style="display: none;"><span>뒤로가기</span></a>
 			--%>
-			<c:if test="${homepage.context_path eq 'yd' and member.bookStore}">
-				<a href="#" id="bookStoreAdd" class="btn btn1"><span>책읽는가게 도서신청</span></a>
-			</c:if>
 		</div>
 
 		<c:if test="${descIndex.data[0].description ne null and descIndex.data[0].description ne '' and descIndex.data[0].description ne 'null'}">

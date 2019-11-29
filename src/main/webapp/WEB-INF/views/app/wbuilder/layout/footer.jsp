@@ -5,7 +5,7 @@
 			&copy; 2016 <strong>WBuilder</strong>. All rights reserved.
 		</div>
 		<div class="pull-right">
-			<a href="http://www.gbelib.kr/gbelib/index.do" target="_blank">대표홈페이지 바로가기</a>
+			<a href="/index.do" target="_blank">대표홈페이지 바로가기</a>
 		</div>
 	</div>
 
@@ -21,7 +21,7 @@ $(document).ready(function(){
 	});
 
 	//달력
-	
+
 	//셀렉트 메뉴
 	$('.selectmenu-search').select2({
 		//셀렉트 메뉴에 검색 기능 사용
@@ -41,7 +41,7 @@ $(document).ready(function(){
 			}
 		});
 	});
-	
+
 	//메뉴 유형 선택 시 추가 옵션 (cont2.jsp)
 	$('.menuType').each(function(i){
 		var i = i+1;

@@ -119,12 +119,6 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 //					}
 //				}
 
-				if (StringUtils.equals(homepage.getHomepage_id(), "h27")) {
-					//경북교육센터 도서관서비스로 이동시 무조건 geic로 넘긴다.
-					String redirectUrl = String.format("http://%s:80/geic/index.do", homepage.getDomainWithoutProtocol());
-					response.sendRedirect(redirectUrl);
-					return false;
-				}
 				request.setAttribute("homepage", homepage);
 
 				/**

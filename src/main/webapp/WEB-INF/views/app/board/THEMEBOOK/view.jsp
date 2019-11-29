@@ -99,20 +99,20 @@ $(document).ready(function() {
 // 			}
 // 		});
 	});
-	
+
 	$('a.showSlide').on('click', function(e) {
 		e.preventDefault();
-		var bci = $(this).parents('div.bif').next('div.bci'); 
+		var bci = $(this).parents('div.bif').next('div.bci');
 		var toggleState = $(bci).is(':hidden');
 		if (toggleState) {
 			$(bci).load('/${homepage.context_path}/intro/search/index_detail.do?vLoca='+$(this).attr('vLoca')+'&vCtrl='+$(this).attr('vCtrl'), function() {
-				$(bci).slideToggle();	
+				$(bci).slideToggle();
 			});
 		} else {
 			$(bci).slideToggle();
 		}
 	});
-	
+
 	$('a.resve-req').on('click', function(e) {
 		e.preventDefault();
 		if (!confirm('예약 신청 하시겠습니까?')) {
@@ -196,9 +196,6 @@ ${boardManage.top_html}
 		<table summary="도서 상태 및 등록 정보">
 			<thead>
 				<tr>
-					<c:if test="${homepage.context_path eq 'yd' and member.bookStore}">
-					<th><input type="checkbox" id="checkAll"/></th>
-					</c:if>
 					<th>등록번호</th>
 					<th>소장위치</th>
 					<th>청구기호</th>
@@ -212,9 +209,6 @@ ${boardManage.top_html}
 				<c:set var="is_any_reservable" value="false"/>
 				<c:forEach items="${detail.dsItemDetail}" var="i" varStatus="status">
 				<tr>
-					<c:if test="${homepage.context_path eq 'yd' and member.bookStore}">
-					<td><input name="print_param" type="checkbox" value="${fn:replace(i.TITLE,',','.')}_${fn:replace(i.CALL_NO,',','.')}_${fn:replace(i.ACSSON_NO,',','.')}_${fn:replace(i.AUTHOR,',','.')}_${fn:replace(i.SUB_LOCA_NAME,',','.')}"/></td>
-					</c:if>
 					<td>${i.PRINT_ACSSON_NO}</td>
 					<td class="txt-left">${i.SUB_LOCA_NAME}</td>
 					<td class="txt-left">${LABEL_PLACE_NO_NAME} ${i.CALL_NO}</td>
@@ -228,7 +222,7 @@ ${boardManage.top_html}
 						<a class="resve-req" vLoca="${fn:escapeXml(i.LOCA)}" vAccNo="${fn:escapeXml(i.ACSSON_NO)}" vCtrl="${i.CTRLNO}"><i class="fa fa-calendar-check-o"></i>예약하기</a>
 						</c:when>
 						<c:when test="${is_any_reservable}">
-						
+
 						</c:when>
 						<c:otherwise>
 						예약불가
@@ -269,8 +263,8 @@ ${boardManage.top_html}
 				</c:if>
 			</tbody>
 		</table>
-		
-		
+
+
 		<c:forEach items="${ageChart.data}" var="i" varStatus="status">
 			<fmt:parseNumber var="currCount" value="${i.COUNT}" />
 			<c:if test="${status.first}">
@@ -312,9 +306,9 @@ ${boardManage.top_html}
 				</ul>
 			</div>
 		</div>
-		
+
 		<div style="clear:both">&nbsp;</div>
-		
+
 		<c:if test="${fn:length(withBook.data) > 0}">
 		<h4>함께 빌려본 다른 도서 추천</h4>
 		<div class="smain">
@@ -358,7 +352,7 @@ ${boardManage.top_html}
 			</div>
 		</div>
 		</c:if>
-		
+
 		<c:if test="${fn:length(callNoBrowsing.dsCallNoNext) > 0}">
 		<h4>동일 저자 다른 책 정보</h4>
 		<table summary="동일 저자 다른 책 정보">
@@ -388,7 +382,7 @@ ${boardManage.top_html}
 			</tbody>
 		</table>
 		</c:if>
-		
+
 		<c:if test="${fn:length(callNoBrowsing.dsCallNoPrev) > 0}">
 		<h4>동일 주제 다른 책 정보</h4>
 		<table summary="동일 주제 다른 책 정보">
@@ -418,7 +412,7 @@ ${boardManage.top_html}
 			</tbody>
 		</table>
 		</c:if>
-		
+
 		<c:if test="${fn:length(sameBook) > 0}">
 		<h4>같은 책 소장정보</h4>
 		<table summary="같은 책 소장정보">
@@ -449,7 +443,7 @@ ${boardManage.top_html}
 			</tbody>
 		</table>
 		</c:if>
-		
+
 		<c:if test="${fn:length(naverDetail) > 0}">
 		<h4 style="clear: both;">포털 사이트 연동 상세정보</h4>
 		<table summary="포털 사이트 연동 상세정보">

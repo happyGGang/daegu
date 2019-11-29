@@ -120,8 +120,8 @@ public class LockerController extends BaseController {
 		lockerReq.setHomepage_id(homepage.getHomepage_id());
 		Member member = getSessionMemberInfo(request);
 		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			lockerReq.setBefore_url(String.format("http://www.gbelib.kr/%s/module/locker/index.do?menu_idx=%s", homepage.getContext_path(), lockerReq.getMenu_idx()));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://www.gbelib.kr/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), lockerReq.getMenu_idx(), lockerReq.getBefore_url()), request, response);
+			lockerReq.setBefore_url(String.format("/%s/module/locker/index.do?menu_idx=%s", homepage.getContext_path(), lockerReq.getMenu_idx()));
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), lockerReq.getMenu_idx(), lockerReq.getBefore_url()), request, response);
 			return null;
 	    }
 

@@ -10,7 +10,7 @@ $(function() {
 	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
 		resizable: false,
-		modal: true, 
+		modal: true,
 	    open: function(){
 	        $('.ui-widget-overlay').addClass('custom-overlay');
 	    },
@@ -36,30 +36,30 @@ $(function() {
 						$('td.limit_OLD').remove();
 						$('td.limit_SEX').remove();
 					}
-					
+
 					if ($('input#limit_hak_yn1').is(':checked')) {
 						var fromHak = parseInt($('select#limit_hak').val());
 						var toHak = parseInt($('select#limit_hak2').val());
-						
+
 						if (fromHak > toHak) {
 							alert('학년제한 설정이 잘못되었습니다.');
 							focus($('select#limit_hak'));
 							return false;
 						}
 					}
-					
+
 					var planFile = $('#plan_file');
 					if ( $('#plan_file').val() == '' ) {
 						$('#plan_file').remove();
 					}
-					
+
 					var imagePlanFile = $('#image_plan_file');
 					if ( $('#image_plan_file').val() == '' ) {
 						$('#image_plan_file').remove();
 					}
-					
+
 					$('select#holidays option').prop('selected', true);
-					
+
 					var option = {
 						url : 'save.do',
 						type : 'POST',
@@ -97,12 +97,12 @@ $(function() {
 			}
 		]
 	});
-	
+
 	$("#dialog-1").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
 		width: 750,
 		height: 800
 	});
-	
+
 	$('a.sameTeach-btn').on('click', function(e) {
 		$.get('getSameTeachList.do?homepage_id=' + $('#teachForm #homepage_id').val() + '&group_idx=' + $('#teachForm #group_idx').val() + '&category_idx=' + $('#teachForm #category_idx').val() + '&teach_name=' + encodeURIComponent($('#teachForm #teach_name').val()) + '&teach_idx=' + $('#teachForm #teach_idx').val(), function(response) {
 			var sameTeachList = response.sameTeachList;
@@ -110,66 +110,66 @@ $(function() {
 				var resultMessage = '동일강좌가 있습니다.';
 				$(sameTeachList).each(function(i, v) {
 					resultMessage = resultMessage + '\n===========================================';
-					resultMessage = resultMessage + '\n등록일 : ' + v.add_date + '\n강좌명 : ' + v.teach_name + '\n동일강좌제한 횟수 : ' + v.teach_same_limit_count; 
+					resultMessage = resultMessage + '\n등록일 : ' + v.add_date + '\n강좌명 : ' + v.teach_name + '\n동일강좌제한 횟수 : ' + v.teach_same_limit_count;
 				});
 				alert(resultMessage);
 			}
 			else {
 				alert('동일 강좌가 없습니다.');
 			}
-		});		
+		});
 	});
-	
+
 	$('a.teacher-btn').on('click', function(e) {
 		$('#dialog-teacher').load('/cms/module/teacher/searchTeacher.do?homepage_id=' + $('#homepage_id_1').val(), function( response, status, xhr ) {
 			$('#dialog-teacher').dialog('open');
 		});
-		
-		e.preventDefault();	
+
+		e.preventDefault();
 	});
-	
+
 	$('input#start_join_date').datepicker({
-		maxDate: $('input#end_join_date').val(), 
+		maxDate: $('input#end_join_date').val(),
 		onClose: function(selectedDate){
 			$('input#end_join_date').datepicker('option', 'minDate', selectedDate);
 		}
 	});
-	
+
 	$('input#end_join_date').datepicker({
-		minDate: $('input#start_join_date').val(), 
+		minDate: $('input#start_join_date').val(),
 		onClose: function(selectedDate){
 			$('input#start_join_date').datepicker('option', 'maxDate', selectedDate);
 		}
 	});
 	$('input#start_cancle_date').datepicker({
-		maxDate: $('input#end_cancle_date').val(), 
+		maxDate: $('input#end_cancle_date').val(),
 		onClose: function(selectedDate){
 			$('input#end_cancle_date').datepicker('option', 'minDate', selectedDate);
 		}
 	});
 	$('input#end_cancle_date').datepicker({
-		minDate: $('input#start_cancle_date').val(), 
+		minDate: $('input#start_cancle_date').val(),
 		onClose: function(selectedDate){
 			$('input#start_cancle_date').datepicker('option', 'maxDate', selectedDate);
 		}
 	});
-	
+
 	$('input#start_date').datepicker({
-		maxDate: $('input#end_date').val(), 
+		maxDate: $('input#end_date').val(),
 		onClose: function(selectedDate){
 			$('input#end_date').datepicker('option', 'minDate', selectedDate);
 		}
 	});
 	$('input#end_date').datepicker({
-		minDate: $('input#start_date').val(), 
+		minDate: $('input#start_date').val(),
 		onClose: function(selectedDate){
 			$('input#start_date').datepicker('option', 'maxDate', selectedDate);
 		}
 	});
-	
+
 	<%--대분류변경--%>
 	$('#teachForm select#large_category_idx').on('change', function() {
-		var largeCategoryIdx = $(this).val(); 
+		var largeCategoryIdx = $(this).val();
 		if ( $(this).val() > 0 ) {
 			$.get('/cms/module/category/getCategoryGroupList.do?homepage_id=' + $('#homepage_id_1').val() + '&large_category_idx=' + $(this).val() + '&group_idx=' + $('select#group_idx').val(), function(data) {
 				$('#teachForm select#group_idx option').remove();
@@ -180,20 +180,20 @@ $(function() {
 							groupIdx = v.group_idx;
 						}
 						$('#teachForm select#group_idx').append('<option value="' + v.group_idx + '">' + v.group_name + '</option>');
-					});	
+					});
 					<%--중분류도변경(소분류 새로가져오기)--%>
-					if ( groupIdx > 0 ) {		
+					if ( groupIdx > 0 ) {
 						$.get('/cms/module/category/getCategoryList.do?homepage_id=' + $('#homepage_id_1').val() + '&large_category_idx=' + largeCategoryIdx + '&group_idx=' + groupIdx, function(response) {
 							$('#teachForm select#category_idx option').remove();
 							if ( response.categoryList.length > 0 ) {
 								$.each(response.categoryList, function(i, v) {
 									$('#teachForm select#category_idx').append('<option value="' + v.category_idx + '">' + v.category_name + '</option>');
-								});	
+								});
 							}
 							else {
 								$('#teachForm select#category_idx').append('<option value="0">등록된 소분류가 없습니다.</option>');
 							}
-						});	
+						});
 					} else {
 						$('#teachForm select#category_idx option').remove();
 						$('#teachForm select#category_idx').append('<option value="0">중분류를 선택 해주세요</option>');
@@ -204,16 +204,16 @@ $(function() {
 					$('#teachForm select#category_idx option').remove();
 					$('#teachForm select#category_idx').append('<option value="0">중분류를 선택 해주세요</option>');
 				}
-				
-				
-			});	
+
+
+			});
 		}
 		else {
 			$('#teachForm select#group_idx option').remove();
 			$('#teachForm select#group_idx').append('<option value="0">대분류를 선택 해주세요</option>');
 		}
 	}).trigger('change');
-	
+
 	<%--중분류변경--%>
 	$('#teachForm select#group_idx').on('change', function() {
 		var largeCategoryIdx = $('#teachForm select#large_category_idx').val();
@@ -223,19 +223,19 @@ $(function() {
 				if ( response.categoryList.length > 0 ) {
 					$.each(response.categoryList, function(i, v) {
 						$('#teachForm select#category_idx').append('<option value="' + v.category_idx + '">' + v.category_name + '</option>');
-					});	
+					});
 				}
 				else {
 					$('#teachForm select#category_idx').append('<option value="0">등록된 소분류가 없습니다.</option>');
 				}
-			});	
+			});
 		}
 		else {
 			$('#teachForm select#category_idx option').remove();
 			$('#teachForm select#category_idx').append('<option value="0">중분류를 선택 해주세요</option>');
 		}
 	}).trigger('change');
-	
+
 	//강의계획서 삭제
 	$('a.delete-file-btn').on('click', function(e) {
 		e.preventDefault();
@@ -253,12 +253,12 @@ $(function() {
 		var action = $('form#deleteFileForm').attr('action');
 		$('form#deleteFileForm').attr('action', 'deleteImage.do');
 		if ( doAjaxPost($('#deleteFileForm')) ) {
-			$('form#deleteFileForm').attr('action', action);	
+			$('form#deleteFileForm').attr('action', action);
 			$('td.imagePlanFile img').remove();
 			$('a.delete-image-btn').remove();
 		}
 	})
-	
+
 	$('[name="teach_join_limit_unit"]').change(function() {
 		var $this = $(this);
 		if ( $this.val() == 'SEX' ) {
@@ -292,22 +292,22 @@ $(function() {
 		$('input#image_plan_file').val('');
 // 		$(this).hide();
 	});
-	
+
 	$('input#plan_file').on('change', function() {
 		if ($(this).val() != '') {
 // 			$('button#cancelFile').show();
 		}
 	});
-	
+
 	$('td.limit_${teach.teach_join_limit_unit}').show();
-	
+
 	$('input#limit_hak_yn1').on('click', function(){
 		var flag = $(this).is(':checked');
 		if (flag) {
 			$('#school_grade_yn1').click();
 		}
 	});
-	
+
 	$('input#school_grade_yn2').on('click', function(e){
 		if ($('input#limit_hak_yn1').is(':checked')) {
 			$('#school_grade_yn1').click();
@@ -315,7 +315,7 @@ $(function() {
 			return false;
 		}
 	});
-	
+
 	$('input#tempHoliDay').datepicker({
 		onClose: function(selectedDate){
 			$('input#tempHoliDayDummy').datepicker('option', 'dateFormat', 'yy-mm-dd');
@@ -326,7 +326,7 @@ $(function() {
 			$('input#tempHoliDay').datepicker('option', 'dateFormat', 'yy-mm-dd');
 		}
 	});
-	
+
 	$('a#addHoliday').on('click', function(e) {
 		e.preventDefault();
 		var day = $('input#tempHoliDay').val();
@@ -337,19 +337,19 @@ $(function() {
 				return false;
 			}
 		});
-		
+
 		if (!hasDay) {
 			$('select#holidays').append( '<option value="'+day+'">'+day+'</option>' );
 		} else {
 			alert('이미 존재 합니다.');
 		}
 	});
-	
+
 	$('a#deleteHoliday').on('click', function(e) {
 		e.preventDefault();
 		$('select#holidays option:selected').remove();
 	});
-	
+
 	<%-- 프로그램 대분류 변경 --%>
 	$('select.program_class').on('change', function() {
 		var id = $(this).attr('id');
@@ -372,7 +372,7 @@ $(function() {
 					cate3.append($('<option>', { value: this.small_code, text: this.code_name }));
 				});
 			});
-			
+
 		} else if (id == 'program_classification2') {
 			var large_code = $('select#program_classification1').val();
 			var mid_code = $('select#program_classification2').val();
@@ -386,12 +386,12 @@ $(function() {
 			});
 		}
 	});
-	
+
 	<%--강의대분류변경--%>
 	$('select#large_category_idx').on('change', function() {
-		
+
 	});
-	
+
 });
 
 </script>
@@ -405,9 +405,9 @@ $(function() {
 
 <form:form id="teachForm" modelAttribute="teach" method="post" action="save.do" enctype="multipart/form-data">
 	<form:hidden path="homepage_id"/>
-	<form:hidden path="teach_idx"/>			
-	<form:hidden path="editMode"/>		
-	
+	<form:hidden path="teach_idx"/>
+	<form:hidden path="editMode"/>
+
 	<table class="type2">
 		<colgroup>
 	       <col width="150" />
@@ -415,7 +415,7 @@ $(function() {
        	</colgroup>
        	<tbody>
 			<tr>
-	         	<th>프로그램분류 (<span style="color: red; font-weight: bold;">*</span>)</th>			
+	         	<th>프로그램분류 (<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
 	         		대분류 : <form:select path="program_classification1" cssClass="program_class" items="${teachLargeCodeList}" itemLabel="code_name" itemValue="large_code" /> &nbsp;&nbsp;
 	         		중분류 : <form:select path="program_classification2" cssClass="program_class" items="${teachMidCodeList}" itemLabel="code_name" itemValue="mid_code" /> &nbsp;&nbsp;
@@ -423,13 +423,13 @@ $(function() {
          		</td>
         	</tr>
 			<tr>
-	         	<th>프로그램 주제구분 (<span style="color: red; font-weight: bold;">*</span>)</th>			
+	         	<th>프로그램 주제구분 (<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
 	         		<form:select path="program_subject" cssClass="program_subject" items="${teachSubjectCodeList}" itemLabel="code_name" itemValue="teach_code" />
          		</td>
         	</tr>
 			<tr>
-	         	<th>프로그램 연령구분 (<span style="color: red; font-weight: bold;">*</span>)</th>			
+	         	<th>프로그램 연령구분 (<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
 	         		<form:checkboxes items="${teachAgeDivCodeList}" path="program_age_div_arr" itemLabel="code_name" itemValue="teach_code" cssStyle="margin-left:10px;"/>
          		</td>
@@ -439,7 +439,7 @@ $(function() {
 	         	<td>
 		         	<c:choose>
 		       			<c:when test="${teach.editMode eq 'MODIFY'}">
-							${teach.large_category_name}<form:hidden path="large_category_idx"/>       				
+							${teach.large_category_name}<form:hidden path="large_category_idx"/>
 		       			</c:when>
 		       			<c:otherwise>
 			         		<form:select path="large_category_idx" items="${teachLargeCategoryList}" itemLabel="code_name" itemValue="teach_code">
@@ -449,7 +449,7 @@ $(function() {
         		</td>
        		</tr>
 			<tr>
-	         	<th>강의 중분류 (<span style="color: red; font-weight: bold;">*</span>)</th>			
+	         	<th>강의 중분류 (<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
 		         	<c:choose>
 		         		<c:when test="${teach.editMode eq 'MODIFY'}">
@@ -459,7 +459,7 @@ $(function() {
 			         		<form:select path="group_idx">
 			         			<c:choose>
 			         				<c:when test="${fn:length(categoryGroupList) > 0}">
-			         					<form:options items="${categoryGroupList}" itemLabel="group_name" itemValue="group_idx"/>	
+			         					<form:options items="${categoryGroupList}" itemLabel="group_name" itemValue="group_idx"/>
 			         				</c:when>
 			         				<c:otherwise>
 			         					<form:option value="0">등록된 중분류가 없습니다.</form:option>
@@ -469,19 +469,19 @@ $(function() {
 		         		</c:otherwise>
      				</c:choose>
          		</td>
-        	</tr>	
+        	</tr>
     		<tr>
-	         	<th>강의 소분류</th>			
+	         	<th>강의 소분류</th>
 	         	<td>
 		         	<c:choose>
 		       			<c:when test="${teach.editMode eq 'MODIFY'}">
-							${teach.category_name}<form:hidden path="category_idx"/>       				
+							${teach.category_name}<form:hidden path="category_idx"/>
 		       			</c:when>
 		       			<c:otherwise>
 			         		<form:select path="category_idx">
 			         			<c:choose>
 			         				<c:when test="${fn:length(categoryGroupList) > 0}">
-			         					<form:options items="${categoryGroupList}" itemLabel="group_name" itemValue="group_idx"/>	
+			         					<form:options items="${categoryGroupList}" itemLabel="group_name" itemValue="group_idx"/>
 			         				</c:when>
 			         				<c:otherwise>
 					         			<form:option value="0">강의 중분류를 선택하세요.</form:option>
@@ -491,9 +491,9 @@ $(function() {
 			       		</c:otherwise>
 	   				</c:choose>
         		</td>
-       		</tr>	
+       		</tr>
 			<tr>
-	         	<th>강의명 (<span style="color: red; font-weight: bold;">*</span>)</th>			
+	         	<th>강의명 (<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="teach_name" class="text" cssStyle="width:70%" maxlength="33"/> <a class="btn btn1 sameTeach-btn">동일강좌 확인</a></td>
         	</tr>
 	        <tr>
@@ -612,28 +612,28 @@ $(function() {
 				<td>
 					<c:set var="limitValues" value="${fn:split(teach.teach_join_limit_value, ',')}"/>
 					<div>
-						<input type="checkbox" id="teach_join_limit_unit1" name="teach_join_limit_unit" value="SEX" class="SEX" <c:if test="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') ne -1}">checked="checked"</c:if>/><label for="teach_join_limit_unit1">성별</label> 
-						: <input type="radio" id="teach_join_limit_value1" name="teach_join_limit_value" value="M" <c:if test="${fn:indexOf(teach.teach_join_limit_value, 'M') ne -1}">checked="checked"</c:if>/><label for="teach_join_limit_value1"> 남자</label> 
+						<input type="checkbox" id="teach_join_limit_unit1" name="teach_join_limit_unit" value="SEX" class="SEX" <c:if test="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') ne -1}">checked="checked"</c:if>/><label for="teach_join_limit_unit1">성별</label>
+						: <input type="radio" id="teach_join_limit_value1" name="teach_join_limit_value" value="M" <c:if test="${fn:indexOf(teach.teach_join_limit_value, 'M') ne -1}">checked="checked"</c:if>/><label for="teach_join_limit_value1"> 남자</label>
 						  <input type="radio" id="teach_join_limit_value2" name="teach_join_limit_value" value="F" <c:if test="${fn:indexOf(teach.teach_join_limit_value, 'F') ne -1}">checked="checked"</c:if>/><label for="teach_join_limit_value2"> 여자</label>
 					</div>
 					<div>
 						<input type="checkbox" id="teach_join_limit_unit2" name="teach_join_limit_unit" value="OLD" class="OLD" <c:if test="${fn:indexOf(teach.teach_join_limit_unit, 'OLD') ne -1}">checked="checked"</c:if>/><label for="teach_join_limit_unit2">나이</label>
 						<c:choose>
 							<c:when test="${fn:indexOf(teach.teach_join_limit_unit, 'OLD') ne -1}">
-								: <input class="text" id="teach_join_limit_value1" name="teach_join_limit_value" style="width:50px;" value="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[0] : limitValues[1]}" maxlength="3"/> 세 이상 ~ 
+								: <input class="text" id="teach_join_limit_value1" name="teach_join_limit_value" style="width:50px;" value="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[0] : limitValues[1]}" maxlength="3"/> 세 이상 ~
 						  		<input class="text" id="teach_join_limit_value2" name="teach_join_limit_value" style="width:50px;" value="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[1] : limitValues[2]}" maxlength="3"/> 세 이하
 							</c:when>
 							<c:otherwise>
-								: <input class="text" id="teach_join_limit_value1" name="teach_join_limit_value" style="width:50px;" value="" maxlength="3" disabled="true"/> 세 이상 ~ 
-					  			<input class="text" id="teach_join_limit_value2" name="teach_join_limit_value" style="width:50px;" value="" maxlength="3" disabled="true"/> 세 이하	
+								: <input class="text" id="teach_join_limit_value1" name="teach_join_limit_value" style="width:50px;" value="" maxlength="3" disabled="true"/> 세 이상 ~
+					  			<input class="text" id="teach_join_limit_value2" name="teach_join_limit_value" style="width:50px;" value="" maxlength="3" disabled="true"/> 세 이하
 							</c:otherwise>
-						</c:choose> 
+						</c:choose>
 					</div>
 					<div class="ui-state-highlight">
 						<em>* 나이 = (현재 연도 - 수강생 생년)+1 ex) 2019 - 1990 + 1 = 30</em>
 					</div>
 					<div>
-						<form:checkbox path="limit_hak_yn" cssClass="text" value="Y" label="학년 : "/> 
+						<form:checkbox path="limit_hak_yn" cssClass="text" value="Y" label="학년 : "/>
 						<form:select path="limit_hak" cssClass="selectmenu">
 							<form:option value="1" label="초등 1학년" />
 							<form:option value="2" label="초등 2학년" />
@@ -647,7 +647,7 @@ $(function() {
 							<form:option value="10" label="고등 1학년" />
 							<form:option value="11" label="고등 2학년" />
 							<form:option value="12" label="고등 3학년" />
-						</form:select>이상 ~  
+						</form:select>이상 ~
 						<form:select path="limit_hak2" cssClass="selectmenu">
 							<form:option value="1" label="초등 1학년" />
 							<form:option value="2" label="초등 2학년" />
@@ -713,9 +713,9 @@ $(function() {
 									<c:when test="${i eq '5'}">목</c:when>
 									<c:when test="${i eq '6'}">금</c:when>
 									<c:when test="${i eq '7'}">토</c:when>
-								</c:choose>	
+								</c:choose>
 								<c:if test="${ !status.last }">,</c:if>
-								
+
 							</c:forEach>
 						</c:otherwise>
 					</c:choose>
@@ -924,7 +924,7 @@ $(function() {
 	         		<form:radiobutton path="organization_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
 					<form:radiobutton path="organization_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/>
 					<div class="ui-state-highlight">
-						<em>* 사용 시 '기관' 입력항목이 노출됩니다. (예: 경상북도교육청정보센터 정보화과)</em>
+						<em>* 사용 시 '기관' 입력항목이 노출됩니다. (예: 도서관 정보화과)</em>
 					</div>
 				</td>
 	        </tr>

@@ -371,7 +371,28 @@ public class MemberAPI {
 		}
 	}
 
+	/**
+	 * K.API - 42
+	 *
+	 * 이용자 탈퇴
+	 *
+	 * @author whalesoft YONGJU 2019. 11. 29.
+	 * @param rec_key
+	 * @param remoteAddr
+	 * @return
+	 */
+	public static Map<String, Object> secessionUser(String rec_key, String in_ip ) {
 
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("userkey", rec_key);
+		param.put("option", "direct");
+		param.put("sys", "홈페이지탈퇴");
+		param.put("client_ip", in_ip);
+
+		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("userquit", param);
+
+		return sendKCMS;
+	}
 
 
 
@@ -437,5 +458,7 @@ public class MemberAPI {
 			return null;
 		}
 	}
+
+
 
 }

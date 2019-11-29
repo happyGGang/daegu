@@ -7,7 +7,7 @@ $(function() {
 	$('#dialog-1').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
 		resizable: false,
-		modal: true, 
+		modal: true,
 	    open: function(){
 	        $('.ui-widget-overlay').addClass('custom-overlay');
 	    },
@@ -40,13 +40,13 @@ $(function() {
 						if(doAjaxPost($('#calendarManage_edit'))) {
 							$(this).dialog('destroy');
 							location.reload();
-						}	
+						}
 					}
 				}
 			}
 		]
 	});
-	
+
 	if($('input#editMode').val() == 'ADD'){
 		$('input#weekdayArr1').prop('checked', true);
 		$('#del_btn').hide();
@@ -59,18 +59,18 @@ $(function() {
 		var twoStartTime = '${calendarManage2.start_time}';
 		var twoEndDate = '${calendarManage2.end_date}';
 		var twoEndTime = '${calendarManage2.end_time}';
-		
+
 		$('input#start_date').val(twoStartDate);
 		$('input#start_time').val(twoStartTime);
 		$('input#end_date').val(twoEndDate);
 		$('input#end_time').val(twoEndTime);
-		
+
 		$('#del_btn').show();
 	}
-	
+
 	$('input[name=individual_yn]').on('click', function() {
 		var val = $(this).val();
-		
+
 		if (val == 'Y') {
 			$('input#start_date').val(oneStartDate);
 			$('input#start_time').val(oneStartTime);
@@ -82,34 +82,34 @@ $(function() {
 			$('input#end_date').val(twoEndDate);
 			$('input#end_time').val(twoEndTime);
 		}
-		
-		
+
+
 	});
 
-	
+
 	$("#dialog-1").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
 		width: 660,
 		height: 650
 	});
-	
+
 	$('input#start_date').datepicker({
-		maxDate: $('input#end_date').val(), 
+		maxDate: $('input#end_date').val(),
 		onClose: function(selectedDate){
 			$('input#end_date').datepicker('option', 'minDate', selectedDate);
 		}
 	});
-	
+
 	$('input#end_date').datepicker({
-		minDate: $('input#start_date').val(), 
+		minDate: $('input#start_date').val(),
 		onClose: function(selectedDate){
 			$('input#start_date').datepicker('option', 'maxDate', selectedDate);
 		}
 	});
-	
+
 	$('input[name=weekdayArr]').on('click', function() {
-		
+
 		var idx = $('input[name=weekdayArr]').index($(this));
-		
+
 		if (idx == 0) {
 			if ($(this).is(':checked')) {
 				$('input[name=weekdayArr]').slice(1).prop('checked', false);
@@ -121,7 +121,7 @@ $(function() {
 		} else {
 			var checkedLength = $('input[name=weekdayArr]:not(#weekdayArr1):checked').length;
 			if ($(this).is(':checked')) {
-				
+
 				if (checkedLength == 7) {
 					$('input[name=weekdayArr]').eq(0).prop('checked', true);
 					$('input[name=weekdayArr]').eq(0).prop('disabled', false);
@@ -129,16 +129,16 @@ $(function() {
 					$('input[name=weekdayArr]').slice(1).prop('disabled', true);
 				} else if (checkedLength > 0) {
 					$('input[name=weekdayArr]').eq(0).prop('checked', false);
-					$('input[name=weekdayArr]').eq(0).prop('disabled', true);	
+					$('input[name=weekdayArr]').eq(0).prop('disabled', true);
 				} else {
 					$('input[name=weekdayArr]').eq(0).prop('checked', false);
 					$('input[name=weekdayArr]').eq(0).prop('disabled', false);
 				}
-				
+
 			} else {
 				if (checkedLength > 0) {
 					$('input[name=weekdayArr]').eq(0).prop('checked', false);
-					$('input[name=weekdayArr]').eq(0).prop('disabled', true);	
+					$('input[name=weekdayArr]').eq(0).prop('disabled', true);
 				} else {
 					$('input[name=weekdayArr]').eq(0).prop('checked', false);
 					$('input[name=weekdayArr]').eq(0).prop('disabled', false);
@@ -146,8 +146,8 @@ $(function() {
 			}
 		}
 	});
-	
-	
+
+
 });
 </script>
 <form:form modelAttribute="calendarManage" id="calendarManage_edit" action="save.do" method="post" onsubmit="return false;">
@@ -196,7 +196,7 @@ $(function() {
 				<form:input path="link_url" cssStyle="width:90%;" cssClass="text" maxlength="500"/>
 				<div class="ui-state-highlight">
 					<em>링크URL 입력시 상세보기로 이동하지 않고 해당 링크로 이동합니다. 해당페이지의 전체 URL을 입력해주세요.</em>
-					<em>ex) http://www.gbelib.kr/gbelib/board/view.do?menu_idx=128&manage_idx=521&board_idx=124366</em>
+					<em>ex) /gbelib/board/view.do?menu_idx=128&manage_idx=521&board_idx=124366</em>
 				</div>
 			</td>
 		</tr>
@@ -211,7 +211,7 @@ $(function() {
 				<div class="ui-state-highlight" id="weekDayDiv">
 					매주 &nbsp;&nbsp;
 					<form:checkboxes items="${weekdayList}" path="weekdayArr" itemLabel="code_name" itemValue="code_id" cssStyle="margin-left:5px;" />
-				</div> 
+				</div>
 				<div class="ui-state-highlight">
 					<em>* 시간 입력 ex) 10:30</em>
 				</div>

@@ -33,14 +33,14 @@ import kr.co.whalesoft.framework.utils.AttachmentUtils;
 
 @Controller("userQrcode")
 @RequestMapping(value = { "/{contextPath}/module/qrcode" })
-public class QrCodeController extends BaseController { 
+public class QrCodeController extends BaseController {
 
 	@Autowired
 	private HomepageService homepageService;
-	
+
 	private String basePath = null;
 	private Homepage homepage = null;
-	
+
 	/*public ModelAndView index(QRCode qrcode,HttpServletRequest request,HttpServletResponse response) throws Exception{
 		ModelAndView mv = new ModelAndView("/test/QRTest.jsp");
 		mv.addObject("qrcode",qrcode);
@@ -48,16 +48,16 @@ public class QrCodeController extends BaseController {
 	}*/
 	private void attributeInit(HttpServletRequest request, Model model) {
 		homepage = (Homepage)request.getAttribute("homepage");
-		
+
 		String homepageFolder = "";
-		
+
 		if(homepage != null) {
 			homepageFolder = "/homepage/" + homepage.getFolder();
 		}
-		
+
 		basePath = homepageFolder + "/module/qrcode/";
 	}
-	
+
 
 	@RequestMapping(value = { "/qrcode.*" })
 	public String qrCode(Model model, QRCode qrcode,HttpServletRequest request,HttpServletResponse response) throws Exception{
@@ -171,20 +171,20 @@ public class QrCodeController extends BaseController {
 			}
 		}
 	}
-	
+
 	@RequestMapping(value = { "/app.*" })
 	public String app(Model model, QRCode qrcode, HttpServletRequest request,HttpServletResponse response) throws Exception{
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		
+
 		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			qrcode.setBefore_url(String.format("http://www.gbelib.kr/%s/module/qrcode/app.do?menu_idx=%s", homepage.getContext_path(), qrcode.getMenu_idx()));
-			homepageService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://www.gbelib.kr/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), qrcode.getMenu_idx(), qrcode.getBefore_url()), request, response);
+			qrcode.setBefore_url(String.format("/%s/module/qrcode/app.do?menu_idx=%s", homepage.getContext_path(), qrcode.getMenu_idx()));
+			homepageService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), qrcode.getMenu_idx(), qrcode.getBefore_url()), request, response);
 			return null;
 		}
-		
+
 		model.addAttribute("qrcode", qrcode);
-		
+
 		return String.format("/homepage/%s/module/qrcode/app", homepage.getFolder());
 	}
-	
+
 }
