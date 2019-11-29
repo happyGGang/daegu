@@ -157,7 +157,8 @@
 			a.add_date, NVL(a.modify_date, a.add_date) AS modify_date, a.group_idx, a.menu_full_path_name,
 			a.manage_idx, a.include_menu_name_yn, a.link_url, a.menu_top_icon,
 			a.menu_left_icon, a.board_category1,
-			(SELECT menu_img FROM CMS_MENU WHERE homepage_id = #{homepage_id} AND menu_idx = a.group_idx) AS menu_img
+			(SELECT menu_img FROM CMS_MENU WHERE homepage_id = #{homepage_id} AND menu_idx = a.group_idx) AS menu_img,
+			manager_idx, manager_dept, manager_name, manager_phone
 		FROM
 			CMS_MENU a
 		WHERE
@@ -214,7 +215,8 @@
 			homepage_id, menu_idx, parent_menu_idx, menu_url, menu_url_param,
 			menu_name, menu_type, use_yn, view_yn, mobile_view_yn,
 			print_seq, add_date, add_id, manage_idx, include_menu_name_yn,
-			link_url, group_idx, menu_full_path_name
+			link_url, manager_idx, manager_dept, manager_name, manager_phone,
+			group_idx, menu_full_path_name
 			<if test="menu_img != null and menu_img != ''">
 			, menu_img
 			</if>
@@ -230,7 +232,7 @@
 			#{homepage_id}, #{menu_idx} , #{parent_menu_idx}, #{menu_url}, #{menu_url_param},
 			#{menu_name}, #{menu_type}, #{use_yn}, #{view_yn}, #{mobile_view_yn},
 			#{print_seq}, SYSDATE, #{add_id}, #{manage_idx}, #{include_menu_name_yn},
-			#{link_url},
+			#{link_url}, #{manager_idx}, #{manager_dept}, #{manager_name}, #{manager_phone},
 		<choose>
 		<when test="group_idx == 0">
 			#{menu_idx}, #{menu_name}
@@ -280,6 +282,10 @@
 			manage_idx = #{manage_idx},
 			include_menu_name_yn = #{include_menu_name_yn},
 			link_url = #{link_url},
+			manager_idx = #{manager_idx},
+			manager_dept = #{manager_dept},
+			manager_name = #{manager_name},
+			manager_phone = #{manager_phone},
 			<if test="menu_img != null and menu_img != ''">
 			menu_img = #{menu_img},
 			</if>

@@ -77,5 +77,7 @@ public interface OrganizationDao {
 	public int modifyChartYN(Organization organization);
 
 	public Organization getOrganizationChartYN(Organization organization);
+	
+	public List<Organization> getOrganizationManage(Organization organization);
 
 }

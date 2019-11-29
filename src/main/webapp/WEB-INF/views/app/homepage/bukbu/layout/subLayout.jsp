@@ -51,6 +51,13 @@ $(function() {
 							<tiles:insertAttribute name="body" />
 						</div>
 					</div>
+<%-- 					<c:if test="${menuOne.manage_view_yn eq 'Y'}"> --%>
+					<div class="doc-admin">
+						<c:if test="${menuOne.manager_dept ne null and menuOne.manager_dept ne ''}"><span><label>담당부서</label> <em>: ${menuOne.manager_dept}</em></span></c:if>
+						<c:if test="${menuOne.manager_name ne null and menuOne.manager_name ne ''}"><span><label>담당자</label> <em>: ${menuOne.manager_name}</em></span></c:if>
+						<c:if test="${menuOne.manager_phone ne null and menuOne.manager_phone ne ''}"><span><label>전화번호</label> <em>: ${menuOne.manager_phone}</em></span></c:if>
+					</div>
+<%-- 					</c:if> --%>
 				</div>
 			</div>
 		</div>

@@ -37,6 +37,12 @@ public class Organization extends PagingUtils {
 	private Date add_date; // 등록일시
 	private String modify_id; // 수정ID
 	private Date modify_date; // 수정일시
+	
+	public Organization() {}
+	
+	public Organization(String homepage_id) {
+		super.setHomepage_id(homepage_id);
+	}
 
 	public int getOrganization_idx() {
 		return organization_idx;

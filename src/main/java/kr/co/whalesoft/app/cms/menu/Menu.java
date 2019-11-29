@@ -58,6 +58,11 @@ public class Menu extends PagingUtils {
 	private String moduleName;
 	private String auth_group_id;
 
+	private int manager_idx; // 메뉴 담당자 번호
+	private String manager_dept; // 메뉴 담당자 부서
+	private String manager_name; // 메뉴 담당자명
+	private String manager_phone; // 메뉴 담당자 연락처
+
 	public Menu() {
 	}
 
@@ -429,6 +434,38 @@ public class Menu extends PagingUtils {
 
 	public void setAuth_group_id(String auth_group_id) {
 		this.auth_group_id = auth_group_id;
+	}
+
+	public int getManager_idx() {
+		return manager_idx;
+	}
+
+	public void setManager_idx(int manager_idx) {
+		this.manager_idx = manager_idx;
+	}
+
+	public String getManager_dept() {
+		return manager_dept;
+	}
+
+	public void setManager_dept(String manager_dept) {
+		this.manager_dept = manager_dept;
+	}
+
+	public String getManager_name() {
+		return manager_name;
+	}
+
+	public void setManager_name(String manager_name) {
+		this.manager_name = manager_name;
+	}
+
+	public String getManager_phone() {
+		return manager_phone;
+	}
+
+	public void setManager_phone(String manager_phone) {
+		this.manager_phone = manager_phone;
 	}
 
 }

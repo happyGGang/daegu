@@ -34,9 +34,10 @@ $(function() {
 	
 	$('a.select-btn').on('click', function(e) {
 		e.preventDefault();
-		$('#manage_name').val($(this).attr('keyValue2'));
-		$('#manage_phone').val($(this).attr('keyValue3'));
-		$('#task_idx').val($(this).attr('keyValue4'));
+		$('#manager_dept').val($(this).attr('keyValue1'));
+		$('#manager_name').val($(this).attr('keyValue2'));
+		$('#manager_phone').val($(this).attr('keyValue3'));
+		$('#manager_idx').val($(this).attr('keyValue4'));
 		$('div#dialog_manager').dialog('destroy');
 	});
 	
@@ -63,14 +64,14 @@ $(function() {
       	</thead>
       	<tbody>
       		<c:choose>
-      			<c:when test="${fn:length(taskManagerList) > 0}">
-      				<c:forEach items="${taskManagerList}" var="i" varStatus="status">
+      			<c:when test="${fn:length(manageList) > 0}">
+      				<c:forEach items="${manageList}" var="i" varStatus="status">
        				<tr>
        					<td>${status.count}</td>
-       					<td>${i.dept_name}</td>
-			         	<td>${i.manager_name}</td>
+       					<td>${i.organization_name}</td>
+			         	<td>${i.worker}</td>
 			         	<td>${i.phone}</td>
-			         	<td><a class="btn btn1 select-btn" keyValue1="${i.dept_name}" keyValue2="${i.manager_name}" keyValue3="${i.phone}" keyValue4="${i.task_idx}">선택</a></td>
+			         	<td><a class="btn btn1 select-btn" keyValue1="${i.organization_name}" keyValue2="${i.worker}" keyValue3="${i.phone}" keyValue4="${i.organization_work_idx}">선택</a></td>
 			        </tr>
       				</c:forEach>
       			</c:when>

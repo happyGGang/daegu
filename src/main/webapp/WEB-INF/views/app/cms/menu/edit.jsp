@@ -416,6 +416,26 @@ $(function() {
 					</div>
 				</td>
 			</tr>
+<!-- 			<tr class="group first"> -->
+<!-- 				<th>담당자 표시</th> -->
+<!-- 				<td colspan="3"> -->
+<%-- 					<form:select path="manage_view_yn" cssClass="selectmenu"> --%>
+<%-- 						<form:option value="Y" label="YES" /> --%>
+<%-- 						<form:option value="N" label="NO" /> --%>
+<%-- 					</form:select> --%>
+<!-- 				</td> -->
+<!-- 			</tr> -->
+			<tr class="group last">
+				<th>담당자 정보</th>
+				<td colspan="3">
+					<label>부서 : <form:input path="manager_dept" maxlength="20" size="20" cssclass="text" readonly="true"/></label>
+					<label>이름 : <form:input path="manager_name" maxlength="10" size="10" cssclass="text" readonly="true"/></label>
+					<label>전화번호 : <form:input path="manager_phone" maxlength="13" size="13" cssclass="text" readonly="true"/></label>
+					<form:hidden path="manager_idx"/>
+					<a class="btn btn4 select-manager-btn">담당자선택</a>
+					<div id="dialog_manager" class="dialog-common" title="담당자 선택"></div>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 	</form:form>

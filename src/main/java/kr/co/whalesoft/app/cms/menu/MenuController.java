@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import kr.co.whalesoft.app.cms.auth.AuthService;
 import kr.co.whalesoft.app.cms.boardManage.BoardManage;
 import kr.co.whalesoft.app.cms.boardManage.BoardManageService;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
@@ -33,10 +32,10 @@ import kr.co.whalesoft.app.cms.menu.menuHtml.MenuTempFile;
 import kr.co.whalesoft.app.cms.menu.menuLog.MenuLogService;
 import kr.co.whalesoft.app.cms.moduleMngt.ModuleMngt;
 import kr.co.whalesoft.app.cms.moduleMngt.ModuleMngtService;
+import kr.co.whalesoft.app.cms.organization.Organization;
+import kr.co.whalesoft.app.cms.organization.OrganizationService;
 import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
 import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
-import kr.co.whalesoft.app.cms.taskManage.TaskManage;
-import kr.co.whalesoft.app.cms.taskManage.TaskManageService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
@@ -58,9 +57,6 @@ public class MenuController extends BaseController {
 	private HomepageService homepageService;
 
 	@Autowired
-	private AuthService authService;
-
-	@Autowired
 	private MenuHtmlService menuHtmlService;
 
 	@Autowired
@@ -75,8 +71,11 @@ public class MenuController extends BaseController {
 	@Autowired
 	private RecommendSiteService recommendSiteService;
 
+//	@Autowired
+//	private TaskManageService taskManageService;
+	
 	@Autowired
-	private TaskManageService taskManageService;
+	private OrganizationService organizationService;
 
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, Menu menu, HttpServletRequest request) throws AuthException {
@@ -459,7 +458,7 @@ public class MenuController extends BaseController {
 
 	@RequestMapping(value = {"/managerView.*"}, method = RequestMethod.GET)
 	public String managerView(Model model, Menu menu) {
-		model.addAttribute("taskManagerList", taskManageService.getTaskManagerListAll(new TaskManage(menu.getHomepage_id())));
+		model.addAttribute("manageList", organizationService.getOrganizationManage(new Organization(menu.getHomepage_id())));
 		return basePath + "managerView_ajax";
 	}
 }
