@@ -13,5 +13,11 @@ public interface AccessIpDao {
 	public int modifyAccessIp(AccessIp accessIp);
 	
 	public int deleteAccessIp(AccessIp accessIp);
+
+	/**
+	 * @author whalesoft YONGJU 2019. 11. 29.
+	 * @return
+	 */
+	public List<AccessIp> getAllowIpList();
 	
 }

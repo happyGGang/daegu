@@ -9,8 +9,8 @@
 			ACCESS_IP
 		ORDER BY
 			add_date DESC
-	</select>	
-	
+	</select>
+
 	<select id="getAccessIpOne" resultType="kr.co.whalesoft.app.cms.accessIp.AccessIp">
 		SELECT
 			access_idx, access_ip, use_yn, remark, add_date, add_id
@@ -19,12 +19,11 @@
 		WHERE
 			access_idx = #{access_idx}
 	</select>
-	
+
 	<insert id="addAccessIp">
 		<selectKey keyProperty="access_idx" resultType="int" order="BEFORE">
 		    SELECT NVL(MAX(access_idx),0)+1 FROM ACCESS_IP
 		</selectKey>
-		
 		INSERT INTO ACCESS_IP
 		(
 			access_idx, access_ip, use_yn, remark, add_date, add_id
@@ -33,10 +32,10 @@
 			#{access_idx}, #{access_ip}, #{use_yn}, #{remark}, SYSDATE, #{add_id}
 		)
 	</insert>
-	
+
 	<update id="modifyAccessIp">
-		UPDATE 
-			ACCESS_IP 
+		UPDATE
+			ACCESS_IP
 		SET
 			access_ip = #{access_ip},
 			use_yn = #{use_yn},
@@ -46,9 +45,20 @@
 		WHERE
 			access_idx = #{access_idx}
 	</update>
-	
+
 	<delete id="deleteAccessIp">
-		DELETE FROM ACCESS_IP WHERE access_idx = #{access_idx} 
+		DELETE FROM ACCESS_IP WHERE access_idx = #{access_idx}
 	</delete>
-	
+
+	<select id="getAllowIpList" resultType="kr.co.whalesoft.app.cms.accessIp.AccessIp">
+		SELECT
+			access_idx, access_ip, use_yn, remark, add_date, add_id
+		FROM
+			ACCESS_IP
+		WHERE
+			use_yn = 'Y'
+		ORDER BY
+			add_date DESC
+	</select>
+
 </mapper>
