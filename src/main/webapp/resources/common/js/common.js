@@ -256,6 +256,12 @@ function linkToAskNl(libcode, libname) {
 	$('form#linkToAskNl').submit();
 }
 
+if (!String.prototype.trim) {
+	String.prototype.trim = function () {
+		return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+	};
+}
+
 // ajax 캐시 지우기
 $(document).ready(function() {
 	$.ajaxSetup({
