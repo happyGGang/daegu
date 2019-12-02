@@ -76,7 +76,7 @@
 		ORDER SIBLINGS BY print_seq
 	</select>
 
-	<select id="getMenuLeftTreeListCache" resultType="kr.co.whalesoft.app.cms.menu.Menu">
+	<select id="getMenuLeftTreeListCache" resultType="kr.co.whalesoft.app.cms.menu.Menu" parameterType="map">
 		SELECT LEVEL AS menu_level, A.* FROM
 		(
 			SELECT
@@ -528,7 +528,7 @@
 	      		'' AS BOARD_CATEGORY1,
 	      		'ROOT' AS MENU_TYPE,
 	      		1 AS LOAD_ON_DEMAND,
-	      		'' AS 
+	      		'' AS
 	      		'' AS MENU_IMG,
 	      		'' AS auth_group_id
 	  		FROM DUAL

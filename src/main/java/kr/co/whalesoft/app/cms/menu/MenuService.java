@@ -17,15 +17,15 @@ public class MenuService extends BaseService {
 
 	@Autowired
 	private MenuDao dao;
-	
+
 	@Autowired
 	@Qualifier("menuStorage")
 	private FileStorage menuStorage;
-	
+
 	public List<Menu> getMenuTreeList(Menu menu) {
 		return dao.getMenuTreeList(menu);
-	} 
-	
+	}
+
 	/**
 	 * 전체 메뉴 treeList (캐쉬 사용함)
 	 * @return
@@ -34,7 +34,7 @@ public class MenuService extends BaseService {
 	public List<Menu> getMenuTreeListCache(String homepage_id) {
 		return dao.getMenuTreeListCache(homepage_id);
 	}
-	
+
 	/**
 	 * 왼쪽 메뉴 treeList (캐쉬 사용함)
 	 * @param menu_idx
@@ -42,12 +42,9 @@ public class MenuService extends BaseService {
 	 */
 	@Cacheable(cacheName="getMenuLeftTreeListCache")
 	public List<Menu> getMenuLeftTreeListCache(String homepage_id, int group_idx) {
-		Menu menu = new Menu();
-		menu.setHomepage_id(homepage_id);
-		menu.setGroup_idx(group_idx);
-		return dao.getMenuLeftTreeListCache(menu);
+		return dao.getMenuLeftTreeListCache(homepage_id, group_idx);
 	}
-	
+
 	/**
 	 * 전자도서관 왼쪽 메뉴 treeList (캐쉬 사용함)
 	 * @param menu_idx
@@ -60,31 +57,31 @@ public class MenuService extends BaseService {
 		menu.setGroup_idx(group_idx);
 		return dao.getElibMenuLeftTreeListCache(menu);
 	}
-	
+
 	public List<Menu> getMenu() {
 		return dao.getMenu();
 	}
-	
+
 	public Menu getMenuOne(Menu menu) {
 		return dao.getMenuOne(menu);
 	}
-	
+
 	public int getNextPrintSeq(Menu menu) {
 		return dao.getNextPrintSeq(menu);
 	}
-	
+
 	public Menu getParentMenuOne(Menu menu) {
 		return dao.getParentMenuOne(menu);
 	}
-	
+
 	public int getUseMenu(Menu menu) {
 		return dao.getUseMenu(menu);
 	}
-	
+
 	@Transactional
 	public int addMenu(MultipartFile mFile, MultipartFile mFileTopIcon, MultipartFile mFileLeftIcon, Menu menu) {
 		int returnCount = 0;
-		
+
 		if(mFile != null) {
 			String fileName = Long.toString((System.currentTimeMillis()));
 			String filePath = "/" + menu.getHomepage_id();
@@ -109,9 +106,9 @@ public class MenuService extends BaseService {
 		} else {
 			menu.setMenu_left_icon(null);
 		}
-		
+
 		returnCount = dao.addMenu(menu);
-		
+
 		if(returnCount > 0) {
 			if(menu.getAuth_id_array() != null && menu.getAuth_id_array().length > 0) {
 				for(String auth_id : menu.getAuth_id_array()) {
@@ -120,14 +117,14 @@ public class MenuService extends BaseService {
 				}
 			}
 		}
-	
+
 		return returnCount;
 	}
-	
+
 	@Transactional
 	public int modifyMenu(MultipartFile mFile, MultipartFile mFileTopIcon, MultipartFile mFileLeftIcon, Menu menu) {
 		int returnCount = 0;
-		
+
 		if(mFile != null) {
 			String fileName = Long.toString((System.currentTimeMillis()));
 			String filePath = "/" + menu.getHomepage_id();
@@ -152,9 +149,9 @@ public class MenuService extends BaseService {
 		} else {
 			menu.setMenu_left_icon(null);
 		}
-		
+
 		returnCount = dao.modifyMenu(menu);
-		
+
 //		if(returnCount > 0) {
 //			/** 메뉴권한 처리 **/
 //			dao.deleteMenuAuth(menu);
@@ -165,18 +162,18 @@ public class MenuService extends BaseService {
 //				}
 //			}
 //		}
-		
+
 		return returnCount;
 	}
-	
+
 	public int modifyParentMenu(Menu menu) {
 		return dao.modifyParentMenu(menu);
 	}
-	
+
 	public int deleteMenu(Menu menu) {
 		return dao.deleteMenu(menu);
 	}
-	
+
 	public int getMenuChildCount(Menu menu) {
 		return dao.getMenuChildCount(menu);
 	}
@@ -188,15 +185,15 @@ public class MenuService extends BaseService {
 	public String[] getMenuAuth(Menu menu) {
 		return dao.getMenuAuth(menu);
 	}
-	
+
 	public int getMenuIdxByLinkUrl(Menu menu){
 		return dao.getMenuIdxByLinkUrl(menu);
 	}
-	
+
 	public int modifyChildMenu(Menu menu) {
 		return dao.modifyChildMenu(menu);
 	}
-	
+
 	public List<Menu> getSoloMenuList(Menu menu) {
 		return dao.getSoloMenuList(menu);
 	}
@@ -214,5 +211,5 @@ public class MenuService extends BaseService {
 		List<Menu> list = dao.getMenuTreeListWithAuth(memberGroupAuth);
 		return list;
 	}
-	
+
 }
