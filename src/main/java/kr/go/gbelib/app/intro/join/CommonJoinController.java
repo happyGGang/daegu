@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,8 +30,6 @@ import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.member.MemberService;
 import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.menu.MenuService;
-import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
-import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.StaticVariables;
@@ -68,37 +67,24 @@ public class CommonJoinController extends BaseController {
 	@Autowired
 	private MenuService menuService;
 
-	@Autowired
-	private RecommendSiteService recommendSiteService;
-
-	@ModelAttribute("recommendSiteList")
-	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
-		Homepage homepage = getSessionHomepage(request);
-		return recommendSiteService.getRecommendSiteListAll(new RecommendSite(homepage.getHomepage_id()));
-	}
-
+	/**
+	 * 회원가입 step1 - 만14세이상, 만14세미만 선택
+	 * @author whalesoft YONGJU 2019. 12. 2.
+	 * @param model
+	 * @param member
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, Member member, HttpServletRequest request) {
 		Homepage homepage = getSessionHomepage(request);
-		Menu menuOne = (Menu) request.getAttribute("menuOne");
-		menuOne.setMenu_full_path_name("회원가입 > 회원유형확인");
-//		member = getSessionMemberInfo(request);
 		model.addAttribute("newMember", member);
 		return String.format(basePath, homepage.getFolder()) + "index";
 	}
 
-
-	@RequestMapping(value = {"/index2.*"})
-	public String index2(Model model, Member member, HttpServletRequest request) {
-		Homepage homepage = getSessionHomepage(request);
-
-//		member = getSessionMemberInfo(request);
-		model.addAttribute("newMember", member);
-		return String.format(basePath, homepage.getFolder()) + "index2";
-	}
-
 	/**
-	 * 약관인증
+	 * 회원가입 step2 - 약관인증
+	 * @author whalesoft YONGJU 2019. 12. 2.
 	 * @param model
 	 * @param member
 	 * @param request
@@ -107,16 +93,13 @@ public class CommonJoinController extends BaseController {
 	@RequestMapping(value = {"/step2.*"}, method = RequestMethod.POST)
 	public String step2(Model model, Member member, HttpServletRequest request) {
 		Homepage homepage = getSessionHomepage(request);
-
-		Menu menuOne = (Menu) request.getAttribute("menuOne");
-		menuOne.setMenu_full_path_name("회원가입 > 이용약관동의");
 		model.addAttribute("newMember", member);
-//		model.addAttribute("libraryList", LibSearchAPI.getLibraryList());
 		return String.format(basePath, homepage.getFolder()) + "step2";
 	}
 
 	/**
-	 * 본인인증
+	 * 회원가입 step3 - 본인인증
+	 * @author whalesoft YONGJU 2019. 12. 2.
 	 * @param model
 	 * @param member
 	 * @param request
@@ -125,87 +108,49 @@ public class CommonJoinController extends BaseController {
 	@RequestMapping(value = {"/step3.*"}, method = RequestMethod.POST)
 	public String step3(Model model, Member member, HttpServletRequest request) {
 		Homepage homepage = getSessionHomepage(request);
-		Menu menuOne = (Menu) request.getAttribute("menuOne");
-		menuOne.setMenu_full_path_name("회원가입 > 본인확인");
-		model.addAttribute("loginMenuIdx", menuService.getMenuIdxByLinkUrl(new Menu(homepage.getHomepage_id(), "/intro/login/index.do")));
 		model.addAttribute("newMember", member);
 		return String.format(basePath, homepage.getFolder()) + "step3";
 	}
 
-
 	/**
-	 * 회원정보입력
+	 * 회원가입 step4 - 정보입력
+	 * @author whalesoft YONGJU 2019. 12. 2.
 	 * @param model
 	 * @param member
 	 * @param request
 	 * @return
 	 */
 	@RequestMapping(value = {"/edit.*"}, method = RequestMethod.POST)
-	public String edit(Model model, Member member, HttpServletRequest request) {
+	public String edit(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
-		Menu menuOne = (Menu) request.getAttribute("menuOne");
-		menuOne.setMenu_full_path_name("회원가입 > 회원정보입력");
-//		request.getSession().invalidate();
-		if ( member.getEditMode().equals("MODIFY") ) {
-//			member = getSessionMemberInfo(request);
-			Map<String, String> memberInfo = MemberAPI.getMember("WEB", getSessionMemberInfo(request));
-			member.setMember_name(memberInfo.get("USER_NAME"));
-			member.setBirth_day(memberInfo.get("BIRTHD"));
-			member.setSex(memberInfo.get("SEX"));
-			member.setLoca(memberInfo.get("LOCA"));
-			member.setAddress1(memberInfo.get("ADDRS"));
-			member.setSms_service_yn(memberInfo.get("SMS_CHECK"));
-			member.setEmail_service_yn(memberInfo.get("MAIL_CHECK"));
 
-			String phone = memberInfo.get("TEL_NO");
-			mergeTelno(member, phone);
-
-			String cellPhone = memberInfo.get("MOBILE_NO");
-			mergeCellphone(member, cellPhone);
-
-			String email = memberInfo.get("EMAIL");
-			if ( StringUtils.isEmpty(email) ) {
-				String[] arr = email.split("@");
-				member.setEmail1(arr[0]);
-				if ( arr.length > 1 ) {
-					member.setEmail2(arr[1]);
-				}
+		Member certMember = (Member) request.getSession().getAttribute("certMember");
+		if (certMember != null) {
+			member.setMember_name(certMember.getMember_name());
+			member.setBirth_day(certMember.getBirth_day());
+			if (certMember.getSex().equals("1")) {
+				member.setSex("0");// 남
+			} else {
+				member.setSex("1");// 여
 			}
-
-//			member.setDi_value(memberInfo.get("DUPINFO"));
-//			member.setCi_value(memberInfo.get("CONN_INFO"));
-			member.setZipcode(memberInfo.get("ZIP_CODE"));
-
-		}
-		else {
-
-			request.getSession().setAttribute("dls_id", null);
-			request.getSession().setAttribute("dls_ip", null);
-
-			member.setLoca(homepage.getHomepage_code());
-//			String agreeCodes = member.getAgree_codes();
-			Member certMember = (Member) request.getSession().getAttribute("certMember");
-			if (certMember != null) {
-				member.setMember_name(certMember.getMember_name());
-				member.setBirth_day(certMember.getBirth_day());
-				if (certMember.getSex().equals("1")) {
-					member.setSex("0001");
-				} else {
-					member.setSex("0002");
-				}
-				if (StringUtils.isNotEmpty(certMember.getCell_phone())) {
-					member.setCell_phone(certMember.getCell_phone());
-				}
-				member.setCi_value(certMember.getCi_value());
-				member.setDi_value(certMember.getDi_value());
+			if (StringUtils.isNotEmpty(certMember.getCell_phone())) {
+				member.setCell_phone(certMember.getCell_phone());
+				member.setCell_phone1(certMember.getCell_phone1());
+				member.setCell_phone2(certMember.getCell_phone2());
+				member.setCell_phone3(certMember.getCell_phone3());
 			}
-
+			member.setCi_value(certMember.getCi_value());
+			member.setDi_value(certMember.getDi_value());
+		} else {
+			joinService.alertMessage("본인인증이 필요합니다.", request, response);
+			return null;
 		}
+
 		model.addAttribute("newMember", member);
 		model.addAttribute("telCode", codeService.getCode("CMS", "C0003"));
 		model.addAttribute("phoneCode", codeService.getCode("CMS", "C0002"));
 		model.addAttribute("email", codeService.getCode("CMS", "C0010"));
-//		return returnPage;
+
 		return String.format(basePath, homepage.getFolder()) + "edit";
 	}
 
@@ -314,67 +259,25 @@ public class CommonJoinController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 		JsonResponse res = new JsonResponse(request);
 
-		if ( "ADD".equals(member.getEditMode()) || "INTEGRATION".equals(member.getEditMode()) ) {
-			if (StringUtils.equals(member.getLangMode(), "eng")) {
-				ValidationUtils.rejectIfEmpty(result, "member_id", "Please enter ID");
-				ValidationUtils.rejectOnlyEngNum(result, "member_id", "ID can only be English or numeric");
-				ValidationUtils.rejectOnlyEngNum(result, "member_id", 6, 20, "Please enter 6 or more characters and 20 or less alphanumeric characters.");
-				ValidationUtils.rejectIfEmpty(result, "member_pw", "Please enter password");
-//			ValidationUtils.rejectIfEmpty(result, "member_name", "이름을 입력해주세요.");
-//			ValidationUtils.rejectIfEmpty(result, "birth_day", "생년월을 입력해주세요");
-//			ValidationUtils.rejectIfNotDate(result, "birth_day", "생년월일 형식이 올바르지 않습니다.");
-//			ValidationUtils.rejectIfEmpty(result, "phone2", "집 전화번호를 입력하세요.");
-//			ValidationUtils.rejectIfEmpty(result, "phone3", "집 전화번호를 입력하세요.");
-				ValidationUtils.rejectIfEmpty(result, "cell_phone", "Please enter Mobile phone number");
-//			ValidationUtils.rejectIfEmpty(result, "cell_phone2", "휴대폰 번호를 입력하세요.");
-//			ValidationUtils.rejectIfEmpty(result, "cell_phone3", "휴대폰 번호를 입력하세요.");
-//			ValidationUtils.rejectNotFullEmailType(result, "email", "이메일 형식이 올바르지 않습니다.");
-				ValidationUtils.rejectIfEmpty(result, "zipcode", "Please enter Address");
-				ValidationUtils.rejectIfEmpty(result, "address1", "Please enter Address");
-				ValidationUtils.rejectIfEmpty(result, "loca", "Please select Affiliated library");
-			} else {
-				if ("ADD".equals(member.getEditMode())) {
-					ValidationUtils.rejectIfEmpty(result, "member_id", "아이디를 입력해주세요.");
-					ValidationUtils.rejectOnlyEngNum(result, "member_id", "아이디는 영문 또는 숫자만 사용가능합니다.");
-					ValidationUtils.rejectOnlyEngNum(result, "member_id", 6, 20, "아이디는 영문, 숫자 조합 6자 이상 20자 이하로 입력하세요.");
-					if (StringUtils.isNotEmpty(member.getMember_id())) {
-						try {
-							Integer.parseInt(member.getMember_id());
-							result.reject("아이디는 영문, 숫자로 조합하여 입력하세요.");
-						} catch ( Exception e ) {
-						}
-					}
+		if ("ADD".equals(member.getEditMode())) {
+			ValidationUtils.rejectIfEmpty(result, "member_id", "아이디를 입력해주세요.");
+			ValidationUtils.rejectOnlyEngNum(result, "member_id", "아이디는 한글을 사용 할수 없습니다.");
+			ValidationUtils.rejectOnlyEngNum(result, "member_id", 6, 20, "아이디는 영문, 숫자 조합 6자 이상 20자 이하로 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "member_pw", "비밀번호를 입력해주세요.");
+			if (StringUtils.isNotBlank(member.getMember_pw())) {
+				String regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*])[A-Za-z\\d$!@#$%^&*]{9,20}$";
+				Pattern pattern = Pattern.compile(regexp);
+				Matcher matcher = pattern.matcher(member.getMember_pw());
+				if (!matcher.matches()) {
+					result.rejectValue("member_pw", "비밀번호는 영문, 숫자, 특수문자 조합으로 9자이상 20자이내로 입력하셔야 합니다.");
 				}
-				if ("ADD".equals(member.getEditMode())) {
-					ValidationUtils.rejectIfEmpty(result, "member_id", "아이디를 입력해주세요.");
-					ValidationUtils.rejectOnlyEngNum(result, "member_id", "아이디는 영문 또는 숫자만 사용가능합니다.");
-					ValidationUtils.rejectOnlyEngNum(result, "member_id", 6, 20, "아이디는 영문, 숫자 조합 6자 이상 20자 이하로 입력하세요.");
-					if (StringUtils.isNotEmpty(member.getMember_id())) {
-						try {
-							Integer.parseInt(member.getMember_id());
-							result.reject("아이디는 영문, 숫자로 조합하여 입력하세요.");
-						} catch ( Exception e ) {
-						}
-					}
-				}
-				ValidationUtils.rejectIfEmpty(result, "member_pw", "비밀번호를 입력해주세요.");
-//			ValidationUtils.rejectIfEmpty(result, "member_name", "이름을 입력해주세요.");
-//			ValidationUtils.rejectIfEmpty(result, "birth_day", "생년월을 입력해주세요");
-//			ValidationUtils.rejectIfNotDate(result, "birth_day", "생년월일 형식이 올바르지 않습니다.");
-//			ValidationUtils.rejectIfEmpty(result, "phone2", "집 전화번호를 입력하세요.");
-//			ValidationUtils.rejectIfEmpty(result, "phone3", "집 전화번호를 입력하세요.");
-				ValidationUtils.rejectIfEmpty(result, "cell_phone", "휴대폰 번호를 입력하세요.");
-//			ValidationUtils.rejectIfEmpty(result, "cell_phone2", "휴대폰 번호를 입력하세요.");
-//			ValidationUtils.rejectIfEmpty(result, "cell_phone3", "휴대폰 번호를 입력하세요.");
-//			ValidationUtils.rejectNotFullEmailType(result, "email", "이메일 형식이 올바르지 않습니다.");
-				ValidationUtils.rejectIfEmpty(result, "zipcode", "주소를 입력해주세요.");
-				ValidationUtils.rejectIfEmpty(result, "address1", "주소를 입력해주세요.");
-				ValidationUtils.rejectIfEmpty(result, "loca", "소속 도서관이 선택되지 않았습니다.");
-
 			}
-
-		}
-		else if ( "MODIFY".equals(member.getEditMode()) || "MODIFY2".equals(member.getEditMode()) ) {
+			ValidationUtils.rejectIfEmpty(result, "cell_phone2", "휴대폰 번호를 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "cell_phone3", "휴대폰 번호를 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "zipcode", "주소를 입력해주세요.");
+			ValidationUtils.rejectIfEmpty(result, "address1", "주소를 입력해주세요.");
+			ValidationUtils.rejectIfEmpty(result, "address2", "주소를 입력해주세요.");
+		} else if ("MODIFY".equals(member.getEditMode()) || "MODIFY2".equals(member.getEditMode())) {
 			if (StringUtils.isNotEmpty(member.getCard_password())) {
 				ValidationUtils.rejectExceptNumber(result, "card_password", 4, "대출증 비밀번호 설정은 숫자 4자리로 입력해주세요.");
 			}
@@ -411,23 +314,45 @@ public class CommonJoinController extends BaseController {
 		}
 
 		if ( !result.hasErrors() ) {
-			if ( member.getEditMode().equals("ADD") ) {
+			if (member.getEditMode().equals("ADD")) {
+				member.setManage_code(homepage.getHomepage_code());
 				String addResult = joinService.addMember(request, member);
 				if (addResult.equals("0")) {
 					res.setValid(true);
-					if (StringUtils.equals(member.getLangMode(), "eng")) {
-						res.setMessage("Congratulations. Sign up is complete.");
-					} else {
-						res.setMessage("회원가입이 완료되었습니다.");
-					}
+					res.setMessage("준회원 가입이 완료되었습니다. 도서관에 방문하여 대출증 발급 승인 절차를 진행해주시길 바랍니다.");
 					int menuIdx = homepageService.getMenuIdxByLinkUrl(homepage.getHomepage_id(), "/intro/login/index.do");
-					res.setUrl(String.format("https://%s/%s/intro/login/index.do?menu_idx=%d", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), menuIdx));
+					res.setUrl(String.format("http%s://%s/%s/intro/login/index.do?menu_idx=%d", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path(), menuIdx));
 					request.getSession().invalidate();
 				} else {
 					res.setValid(true);
 					res.setMessage(addResult);
 				}
 			} else if ( member.getEditMode().equals("MODIFY") ) {
+				member.setRec_key(getSessionMemberInfo(request).getRec_key());
+				member.setIn_ip(request.getRemoteAddr());
+				if (MemberAPI.updateMember(member)) {
+					Member sessionMember = getSessionMemberInfo(request);
+					sessionMember.setPhone1(member.getPhone1());
+					sessionMember.setPhone2(member.getPhone2());
+					sessionMember.setPhone3(member.getPhone3());
+					sessionMember.setEmail1(member.getEmail1());
+					sessionMember.setEmail2(member.getEmail2());
+					if (StringUtils.isNotBlank(member.getMemberNewPw())) {
+						ApiResponse updateMemberPasswd = MemberAPI.updateMemberPasswd(member);
+						if (updateMemberPasswd.getStatus()) {
+							sessionMember.setMember_pw(member.getMemberNewPw());
+						}
+					}
+					res.setValid(true);
+					res.setMessage("수정되었습니다.");
+					loginService.setSessionMember(sessionMember, request);
+					res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
+				} else {
+					res.setValid(false);
+					res.setMessage("수정 실패하였습니다. 잠시후 다시 시도해주세요.");
+				}
+
+
 //				if ( MemberAPI.checkMemberPasswd("WEB", member) ) {
 //					if ( MemberAPI.updateMember("WEB", member, false) ) {
 //						res.setValid(true);
@@ -444,17 +369,6 @@ public class CommonJoinController extends BaseController {
 //				} else {
 //					res.setValid(false);
 //					res.setMessage("비밀번호를 확인해주세요.");
-//				}
-			} else if ( member.getEditMode().equals("MODIFY2") ) {//기존회원 아이디생성 //사용안함!
-				member.setUser_id(getSessionUserId(request));
-//				if ( MemberAPI.updateMember("WEB", member, true) ) {
-//					res.setValid(true);
-//					res.setMessage("수정되었습니다.");
-//					int menuIdx = homepageService.getMenuIdxByLinkUrl(homepage.getHomepage_id(), "/intro/join/modifyForm.do");
-//					res.setUrl(String.format("https://%s/%s/intro/join/modifyForm.do?menu_idx=%d", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), menuIdx));
-//				} else {
-//					res.setValid(false);
-//					res.setMessage("수정 실패하였습니다. 잠시후 다시 시도해주세요..");
 //				}
 			} else if ( member.getEditMode().equals("INTEGRATION") ) {//통합회원 전환
 				Member certMember = (Member) request.getSession().getAttribute("certMember");

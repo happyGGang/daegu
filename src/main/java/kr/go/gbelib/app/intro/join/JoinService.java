@@ -587,14 +587,14 @@ public class JoinService extends BaseService {
 
 	public String addMember(HttpServletRequest request, Member member) {
 
-		String returnMsg = "";
+		String returnMsg = "0";
 
 		HttpSession session = request.getSession();
 		Member certMember = (Member)session.getAttribute("certMember");
 //		String cert_type = getSessionAttrValue(session, "cert_type");
 		String cert_type = member.getCertType();
 		member.setMember_name(certMember.getMember_name());
-		member.setSex(certMember.getSex());
+		member.setSex(StringUtils.equals(certMember.getSex(), "1") ? "0" : "1");
 		member.setBirth_day(certMember.getBirth_day());
 		member.setIn_ip(request.getRemoteAddr());
 

@@ -252,8 +252,7 @@ public class MemberAPI {
 			param.put("gpin_hash", member.getDi_value());//DI
 		}
 
-		return null;
-//		return CommonAPI.sendKCMS("userinfoinsert", param);
+		return CommonAPI.sendKCMS("userinfoinsert", param);
 	}
 
 	/**
@@ -309,7 +308,7 @@ public class MemberAPI {
 	 * @author whalesoft YONGJU 2019. 11. 16.
 	 * @param manage_code
 	 * @param rec_key
-	 * @param kl_member_yn
+	 * @param kl_member_yn 책이음여부
 	 * @return
 	 */
 	public static ApiResponse agreeInfo(String manage_code, String rec_key, String kl_member_yn) {
