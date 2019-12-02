@@ -8,6 +8,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.googlecode.ehcache.annotations.Cacheable;
+
 import kr.co.whalesoft.framework.base.BaseService;
 
 /**
@@ -22,6 +24,11 @@ public class RecommendSiteService extends BaseService {
 
 	public List<RecommendSite> getRecommendSiteListAll(RecommendSite recommendSite) {
 		return dao.getRecommendSiteListAll(recommendSite);
+	}
+
+	@Cacheable(cacheName="getRecommendSiteListCache")
+	public List<RecommendSite> getRecommendSiteListCache(String homepage_id) {
+		return dao.getRecommendSiteListCache(homepage_id);
 	}
 
 	public List<RecommendSite> getRecommendSiteList(RecommendSite recommendSite) {

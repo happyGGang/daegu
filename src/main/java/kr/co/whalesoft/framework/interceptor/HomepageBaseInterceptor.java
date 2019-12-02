@@ -108,8 +108,7 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 
 				//추천사이트
 				if (request.getSession().getAttribute("recommendSiteList") == null) {
-					RecommendSite recommendSite = new RecommendSite(homepage.getHomepage_id());
-					List<RecommendSite> recommendSiteListAll = recommendSiteService.getRecommendSiteListAll(recommendSite);
+					List<RecommendSite> recommendSiteListAll = recommendSiteService.getRecommendSiteListCache(homepage.getHomepage_id());
 					request.getSession().setAttribute("recommendSiteList", recommendSiteListAll);
 				}
 

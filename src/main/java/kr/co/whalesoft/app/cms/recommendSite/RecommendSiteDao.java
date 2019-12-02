@@ -15,6 +15,8 @@ public interface RecommendSiteDao {
 
 	public List<RecommendSite> getRecommendSiteListAll(RecommendSite recommendSite);
 
+	public List<RecommendSite> getRecommendSiteListCache(String homepage_id);
+
 	public int getRecommendSiteListCount(RecommendSite recommendSite);
 
 	public RecommendSite getRecommendSiteOne(RecommendSite recommendSite);

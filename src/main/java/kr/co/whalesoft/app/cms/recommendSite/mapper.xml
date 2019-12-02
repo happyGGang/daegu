@@ -17,6 +17,18 @@
 			print_seq ASC
 	</select>
 
+	<select id="getRecommendSiteListCache" resultType="kr.co.whalesoft.app.cms.recommendSite.RecommendSite">
+		SELECT
+			homepage_id, recommend_site_idx, recommend_site_name, recommend_site_desc, link_target,
+			print_seq, add_date
+		FROM
+			CMS_RECOMMEND_SITE
+		WHERE
+			homepage_id = #{value}
+		ORDER BY
+			print_seq ASC
+	</select>
+
 	<select id="getRecommendSiteList" resultType="kr.co.whalesoft.app.cms.recommendSite.RecommendSite">
 		${pagingTop}
 		SELECT
