@@ -393,15 +393,6 @@ public class CommonJoinController extends BaseController {
 //					res.setMessage("수정 실패하였습니다. 잠시후 다시 시도해주세요..");
 //				}
 
-			} else if ( member.getEditMode().equals("DELETE") ) {
-//				if ( MemberAPI.deleteMember("WEB", member) ) {
-//					res.setValid(true);
-//					res.setMessage("탈퇴되었습니다. 이용해주셔서 감사합니다.");
-//				}
-//				else {
-//					res.setValid(false);
-//					res.setMessage("삭제 실패하였습니다. 잠시후 다시 시도해주세요.");
-//				}
 			}
 		} else {
 			res.setValid(false);
@@ -616,10 +607,7 @@ public class CommonJoinController extends BaseController {
 			return null;
 		}
 
-		member = getSessionMemberInfo(request);
-
-		model.addAttribute("member", member);
-		model.addAttribute("memberInfo", member);
+		model.addAttribute("memberInfo", new Member());
 		return String.format(basePath, homepage.getFolder()) + "secessionForm";
 	}
 
@@ -647,6 +635,12 @@ public class CommonJoinController extends BaseController {
 
 		if (!result.hasErrors()) {
 			Member sessionMember = getSessionMemberInfo(request);
+
+			if (memberService.decryptMember(member) == false) {
+				res.setValid(false);
+				res.setMessage("비밀번호가 올바르지 않습니다.");
+				return res;
+			}
 			Map<String, Object> userInfo = MemberAPI.getUserInfo(sessionMember.getMember_id(), member.getMember_pw());
 
 			String resultInfo = String.valueOf(userInfo.get("RESULT_INFO"));
@@ -708,7 +702,7 @@ public class CommonJoinController extends BaseController {
 					if ("SUCCESS".equals(RESULT_INFO)) {
 						res.setValid(true);
 						res.setMessage("탈퇴되었습니다.");
-						res.setUrl(String.format("http://%s/%s/index.do", homepage.getDomainWithoutProtocol(), homepage.getContext_path()));
+						res.setUrl(String.format("http%s://%s/%s/index.do", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path()));
 						loginService.logout(request);
 					} else {
 						res.setValid(false);
