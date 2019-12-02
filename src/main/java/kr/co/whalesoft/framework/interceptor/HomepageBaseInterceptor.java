@@ -30,6 +30,8 @@ import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.app.cms.menu.menuAccess.MenuAccess;
 import kr.co.whalesoft.app.cms.menu.menuAccess.MenuAccessService;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.go.gbelib.app.cms.module.elib.category.ElibCategory;
 import kr.go.gbelib.app.cms.module.elib.category.ElibCategoryService;
 import kr.go.gbelib.app.cms.module.elib.code.ElibCode;
@@ -60,6 +62,9 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 
 	@Autowired
 	private ElibCodeService elibCodeService;
+
+	@Autowired
+	private RecommendSiteService recommendSiteService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -97,29 +102,16 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 					}
 				}
 
-//				if(StringUtils.equals(System.getProperty("spring.profiles.active"), "localServer")) {
-//				//Local
-//				} else {
-//				//Server
-//					String refererUrl = request.getHeader("referer");
-//					if (StringUtils.isNotEmpty(refererUrl)) {
-//						String requestUrl = request.getRequestURL().toString().replace("http://", "").replace("https://", "");
-//						if (checkCsrfUrl(requestUrl)) {
-//							refererUrl = refererUrl.substring(refererUrl.indexOf("//")+2);
-//							refererUrl = refererUrl.substring(0, refererUrl.indexOf("/"));
-//							if (!StringUtils.startsWith(requestUrl, refererUrl)) {
-//								//무조건 메인으로 넘긴다.
-//								String redirectUrl = String.format("http://%s:80/%s/index.do", homepage.getDomainWithoutProtocol(), contextPath);
-//								return JavaScriptUtils.alertMessageAndUrl("잘못된 경로로 접근하였습니다.", redirectUrl, request, response);
-////								System.out.println("@@@@@@@@@@@@@@@@ ok : ");
-////								response.sendRedirect(redirectUrl);
-////								return false;
-//							}
-//						}
-//					}
-//				}
-
+				//홈페이지 정보
 				request.setAttribute("homepage", homepage);
+				request.getSession().setAttribute("homepage", homepage);
+
+				//추천사이트
+				if (request.getSession().getAttribute("recommendSiteList") == null) {
+					RecommendSite recommendSite = new RecommendSite(homepage.getHomepage_id());
+					List<RecommendSite> recommendSiteListAll = recommendSiteService.getRecommendSiteListAll(recommendSite);
+					request.getSession().setAttribute("recommendSiteList", recommendSiteListAll);
+				}
 
 				/**
 				 * 접속 통계 + 로그 남기기
@@ -128,23 +120,6 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 				/**
 				 *
 				 */
-
-				Member member = loginService.getSessionMember(request);
-				if ( member == null ) {
-				}
-				else {
-					if ( !uri.contains("editAgree.do") && !uri.contains("logout.do") ) {
-						if ( member.isHomepageLogin() ) {
-							if ( StringUtils.isEmpty(member.getMember_id()) ) { // 로그인 회원중 WEB_ID 가 없으면 회원 가입 페이지로 Redirect.
-//								response.sendRedirect(String.format("/intro/%s/join/index.do", homepage.getContext_path()));
-							}
-//							else if ( member.isAgreeDateOver() ) { // 로그인 회원중 약관동의 2년 지난 회원은 다시 약관 동의 페이지로 Redirect
-//								response.sendRedirect(String.format("/%s/intro/join/editAgree.do", homepage.getContext_path()));
-//							}
-						}
-					}
-				}
-
 
 				//Menu 구하기
 				menuTreeList = menuService.getMenuTreeListCache(homepage.getHomepage_id());
@@ -164,7 +139,7 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 				request.setAttribute("menuLeftList", menuLeftList);
 
 				// 전자도서관 좌측 메뉴
-				if("elib".equals(contextPath) || "elibtest".equals(contextPath)) {
+				if("elib".equals(contextPath)) {
 					HttpSession session = request.getSession();
 					String type = StringUtils.trimToEmpty(request.getParameter("type"));
 					ElibCategory elibCategory = new ElibCategory(type, 1);
