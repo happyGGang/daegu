@@ -210,6 +210,9 @@ $(function() {
 					</th>
 					<td>
 						<form:input path="member_id" class="text" maxlength="20"/> <a href="#" id="check-btn" class="btn">중복확인</a>
+						<div class="ui-state-highlight" style="margin-top:7px">
+							<span>* 아이디는 영문 또는 숫자만 가능하며 6자 이상 20자 이내만 가능합니다.</span>
+						</div>
 					</td>
 				</tr>
 				<tr>
@@ -217,7 +220,7 @@ $(function() {
 						비밀번호(<span style="color: red;">*</span>)
 					</th>
 					<td>
-						<form:password path="member_pw" class="text"/>
+						<form:password path="member_pw" class="text" maxlength="20"/>
 						<div class="ui-state-highlight">
 							<span id="pwdcheck">* 비밀번호는 영문(대소문자구분),숫자,특수문자(!@#$%^&*만 허용)를 혼용하여 9~20자이내</span>
 						</div>
@@ -310,9 +313,9 @@ $(function() {
 					</th>
 					<td>
 						<form:hidden path="phone"/>
-						<form:input path="phone1" class="text" cssStyle="width:60px;;" maxlength="3" numberOnly="true"/>
-					 	- <form:input path="phone2" class="text" cssStyle="width:60px;;" maxlength="4" numberOnly="true"/>
-					 	- <form:input path="phone3" class="text" cssStyle="width:60px;;" maxlength="4" numberOnly="true"/>
+						<form:input path="phone1" class="text" cssStyle="width:60px;" maxlength="3" numberOnly="true"/>
+					 	- <form:input path="phone2" class="text" cssStyle="width:60px;" maxlength="4" numberOnly="true"/>
+					 	- <form:input path="phone3" class="text" cssStyle="width:60px;" maxlength="4" numberOnly="true"/>
 					</td>
 				</tr>
 				<tr>
