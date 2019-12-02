@@ -33,9 +33,9 @@ $(document).ready(function() {
 				</c:when>
 				<c:otherwise>
 					<span class="txt-bar"></span>
-					<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=121">로그인</a>
+					<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=4">로그인</a>
 					<span class="txt-bar"></span>
-					<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=120">회원가입</a>
+					<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=5">회원가입</a>
 					<span class="txt-bar"></span>
 					<a href="/${homepage.context_path}/module/myDashBoard/index.do?menu_idx=179">MY Library</a>
 					<span class="txt-bar"></span>

@@ -18,9 +18,9 @@ $(function() {
 			doAjaxPost($('#memberInfoForm'));
 		}
 	});
-	
-	
-	
+
+
+
 });
 </script>
 
@@ -42,6 +42,7 @@ $(function() {
 	<div class="seccession">
 	</div>
 	<form:form modelAttribute="memberInfo" id="memberInfoForm" method="post" action="/${homepage.context_path}/intro/join/secession.do" onsubmit="return false;">
+		<form:password path="member_pw" id="security_pw" style="display:none;"/>
 		<table id="memberForm">
 			<tbody>
 				<tr>
@@ -50,7 +51,6 @@ $(function() {
 					</th>
 					<td>
 						<input type="password" id="member_pw" class="text">
-						<form:hidden path="member_pw" id="security_pw"/>
 					</td>
 				</tr>
 			</tbody>
