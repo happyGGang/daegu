@@ -111,10 +111,10 @@
 				(SELECT z.comp_name FROM ELIB_COMPANY z WHERE INSTR(z.com_code, a.com_code) > 0) AS comp_name,
 			   (SELECT COUNT(*) FROM elib_lend z WHERE A.book_idx = z.book_idx AND (SYSDATE - lend_dt) &lt;= a.date_range) AS lend_cnt,
 			   (SELECT COUNT(*) FROM elib_reserve z WHERE A.book_idx = z.book_idx AND (SYSDATE - reserve_dt) &lt;= a.date_range) AS reserve_cnt,
-			   (SELECT COUNT(*) FROM elib_comment z WHERE A.book_idx = z.book_idx AND (SYSDATE - regdt) &lt;= a.date_range) AS comment_cnt,
-			   (SELECT COUNT(*) FROM elib_recommend z WHERE a.book_idx = z.book_idx AND (SYSDATE - regdt) &lt;= a.date_range) AS recommend_cnt,
-			   (SELECT COUNT(*) FROM elib_audio_stat z WHERE a.book_idx = z.book_idx AND (SYSDATE - reg_dt) &lt;= a.date_range) AS audio_view_cnt,
-			   (SELECT COUNT(*) FROM elib_elearn_stat z WHERE a.book_idx = z.book_idx AND (SYSDATE - reg_dt) &lt;= a.date_range) AS elearn_view_cnt
+			   (SELECT COUNT(*) FROM elib_comment z WHERE A.book_idx = z.book_idx AND (SYSDATE - add_date) &lt;= a.date_range) AS comment_cnt,
+			   (SELECT COUNT(*) FROM elib_recommend z WHERE a.book_idx = z.book_idx AND (SYSDATE - add_date) &lt;= a.date_range) AS recommend_cnt,
+			   (SELECT COUNT(*) FROM elib_audio_stat z WHERE a.book_idx = z.book_idx AND (SYSDATE - add_date) &lt;= a.date_range) AS audio_view_cnt,
+			   (SELECT COUNT(*) FROM elib_elearn_stat z WHERE a.book_idx = z.book_idx AND (SYSDATE - add_date) &lt;= a.date_range) AS elearn_view_cnt
 			FROM
 				ELIB_BESTBOOK b,
 				(
@@ -321,10 +321,10 @@
 			(SELECT z.comp_name FROM ELIB_COMPANY z WHERE INSTR(z.com_code, a.com_code) > 0) AS comp_name,
 		    (SELECT COUNT(*) FROM elib_lend z WHERE A.book_idx = z.book_idx AND (SYSDATE - lend_dt) &lt;= a.date_range) AS lend_cnt,
 		    (SELECT COUNT(*) FROM elib_reserve z WHERE A.book_idx = z.book_idx AND (SYSDATE - reserve_dt) &lt;= a.date_range) AS reserve_cnt,
-		    (SELECT COUNT(*) FROM elib_comment z WHERE A.book_idx = z.book_idx AND (SYSDATE - regdt) &lt;= a.date_range) AS comment_cnt,
-		    (SELECT COUNT(*) FROM elib_recommend z WHERE a.book_idx = z.book_idx AND (SYSDATE - regdt) &lt;= a.date_range) AS recommend_cnt,
-		    (SELECT COUNT(*) FROM elib_audio_stat z WHERE a.book_idx = z.book_idx AND (SYSDATE - reg_dt) &lt;= a.date_range) AS audio_view_cnt,
-		    (SELECT COUNT(*) FROM elib_elearn_stat z WHERE a.book_idx = z.book_idx AND (SYSDATE - reg_dt) &lt;= a.date_range) AS elearn_view_cnt
+		    (SELECT COUNT(*) FROM elib_comment z WHERE A.book_idx = z.book_idx AND (SYSDATE - add_date) &lt;= a.date_range) AS comment_cnt,
+		    (SELECT COUNT(*) FROM elib_recommend z WHERE a.book_idx = z.book_idx AND (SYSDATE - add_date) &lt;= a.date_range) AS recommend_cnt,
+		    (SELECT COUNT(*) FROM elib_audio_stat z WHERE a.book_idx = z.book_idx AND (SYSDATE - add_date) &lt;= a.date_range) AS audio_view_cnt,
+		    (SELECT COUNT(*) FROM elib_elearn_stat z WHERE a.book_idx = z.book_idx AND (SYSDATE - add_date) &lt;= a.date_range) AS elearn_view_cnt
 		  FROM (
 	          SELECT
 	            book_idx, book_name, book_pubname, author_name, book_image, TYPE, parent_id, cate_id, library_code, com_code,
