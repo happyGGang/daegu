@@ -24,8 +24,6 @@ import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.homepageAccess.HomepageAccess;
 import kr.co.whalesoft.app.cms.homepageAccess.HomepageAccessService;
-import kr.co.whalesoft.app.cms.login.LoginService;
-import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.app.cms.menu.menuAccess.MenuAccess;
@@ -44,9 +42,6 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 
 	@Autowired
 	private HomepageService homepageService;
-
-	@Autowired
-	private LoginService loginService;
 
 	@Autowired
 	private HomepageAccessService homepageAccessService;
@@ -94,13 +89,6 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 			homepage = homepageService.getHomepageOneInPath(contextPath);
 
 			if(homepage != null) {
-
-				if (homepage.getContext_path().equals("pms")) {
-					String asideHomepageId = String.valueOf(request.getSession().getAttribute("asideHomepageId"));
-//					System.out.println("@@@@@@@@@@@@@@@@ asideHomepageId : " + asideHomepageId);
-					if (StringUtils.isEmpty(asideHomepageId) || StringUtils.equalsIgnoreCase(asideHomepageId, "null")) {
-					}
-				}
 
 				//홈페이지 정보
 				request.setAttribute("homepage", homepage);
@@ -237,64 +225,6 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 	public boolean homepageUrl(String uri) {
 		return (!uri.equals("") && !uri.startsWith("/cms/") && !uri.startsWith("/board/") && !uri.startsWith("/boardDelete/") && !uri.startsWith("/intro/") && !uri.startsWith("/api/") && !uri.startsWith("/sns/"));
 	}
-
-//	private boolean checkCsrfUrl(String url) {
-//		String[] a = {
-//				"/intro/join/changePwForm.do",
-//				"/intro/join/secessionForm.do",
-//				"/intro/search/hope/req.do",
-//				"/intro/search/hope/search.do",
-//				"/intro/search/loan/detail.do",
-//				"/intro/search/loan/index.do",
-//				"/intro/search/resve/index.do",
-//				"/module/accessHistory/index.do",
-//				"/module/boardHistory/index.do",
-//				"/module/excursions/apply.do",
-//				"/module/myStorage/index.do",
-//				"/module/sdi/index.do",
-//				"/module/teach/applyList.do",
-//				"/intro/join/modifyForm.do",
-//				"/board/view.do",
-//				"/intro/search/loan/history.do",
-//				"/module/teach/index.do",
-//				"/module/teachBook/teachBook.do",
-//				"/module/facility/apply.do",
-//				"/intro/search/hope/history.do",
-//				"/intro/join/modifyForm.do",
-//				"/module/locker/history.do",
-//				"/intro/join/changePwForm.do",
-//				"/intro/join/secessionForm.do",
-//				"/intro/search/hope/req.do",
-//				"/intro/search/loan/detail.do",
-//				"/intro/search/loan/index.do",
-//				"/intro/search/resve/index.do",
-//				"/module/boardHistory/index.do",
-//				"/module/myStorage/index.do",
-//				"/module/sdi/index.do",
-//				"/module/teach/applyList.do",
-//				"/board/index.do",
-//				"/module/myStorage/getItemList.do",
-//				"/module/teach/index.do",
-//				"/intro/join/findMemberIdForm.do",
-//				"/intro/join/findMemberPwForm.do",
-//				"/intro/join/integration.do",
-//				"/intro/join/step2.do",
-//				"/module/accessHistory/index.do",
-//				"/elib/module/elib/book/comments.do",
-//				"/elib/module/elib/book/view.do",
-//				"/elib/module/elib/lending/index.do",
-//				"/elib/sitemap/index.do",
-//				"/module/donateBook/edit.do"
-//				};
-//
-//		for ( String string : a ) {
-//			if (StringUtils.contains(url, string)) {
-//				return true;
-//			}
-//		}
-//
-//		return false;
-//	}
 
 	private static final DateTimeFormatter DTF = DateTimeFormat.forPattern("yyyy-MM-dd");
 
