@@ -95,7 +95,7 @@ public class LoginController extends BaseController {
 			if ("Y".equals(accountLockService.isLocked(new AccountLock(member, request.getRemoteAddr())))) {
 				codeService.alertMessage("로그인 5회 중 5회 이상 실패\\n입력하신 아이디에 대해서 10분간 접속을 차단합니다.", request, response);
 				return null;
-			} else if ("아이디 또는 비밀번호를 다시 확인하세요".equals(errorResult.getMessage())) {
+			} else if ("해당 정보와 일치하는 이용자가 없습니다.".equals(errorResult.getMessage())) {
 				AccountLock accountLock = accountLockService.getAccountLock(new AccountLock(member, request.getRemoteAddr()));
 				codeService.alertMessage(String.format("로그인 5회 중 %d회 실패\\n아이디 또는 비밀번호를 다시 확인하세요", accountLock.getCount()), request, response);
 				return null;

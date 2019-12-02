@@ -31,15 +31,13 @@ import kr.co.whalesoft.app.cms.memberGroupSubord.MemberGroupSubordService;
 import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.framework.base.BaseController;
-import kr.go.gbelib.app.cms.module.elib.lending.LendingService;
-import kr.go.gbelib.app.cms.module.teacher.TeacherService;
 import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.LoginAPI;
 import kr.go.gbelib.app.module.loginLog.LoginLog;
 import kr.go.gbelib.app.module.loginLog.LoginLogService;
 
 @Controller
-@RequestMapping(value = {"/{homepagePath}/intro/login"})
+@RequestMapping (value = {"/{homepagePath}/intro/login"})
 public class CommonLoginController extends BaseController {
 
 	private String basePath = "/homepage/%s/commonIntro/login/";
@@ -63,12 +61,6 @@ public class CommonLoginController extends BaseController {
 	private HomepageAccessService homepageAccessService;
 
 	@Autowired
-	private LendingService lendingService;
-
-	@Autowired
-	private TeacherService teacherService;
-
-	@Autowired
 	private MemberGroupService memberGroupService;
 
 	@Autowired
@@ -80,9 +72,9 @@ public class CommonLoginController extends BaseController {
 	@Autowired
 	private LoginLogService loginLogService;
 
-	@RequestMapping(value = {"/index.*"})
-	public String login(Model model, Member member, HttpServletRequest request, @PathVariable("homepagePath") String homepagePath) {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
+	@RequestMapping (value = {"/index.*"})
+	public String login(Model model, Member member, HttpServletRequest request, @PathVariable ("homepagePath") String homepagePath) {
+		Homepage homepage = getSessionHomepage(request);
 
 		String beforeUrl = member.getBefore_url();
 		if (StringUtils.isEmpty(beforeUrl)) {
@@ -102,19 +94,18 @@ public class CommonLoginController extends BaseController {
 		return String.format(basePath, homepage.getFolder()) + "index";
 	}
 
-	@RequestMapping(value = {"/loginProc.*"})
-	public String loginProc(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath, RedirectAttributes redirectAttributes) throws Exception {
- 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		request.removeAttribute("userIdLoginFail");
+	@RequestMapping (value = {"/loginProc.*"})
+	public String loginProc(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable ("homepagePath") String homepagePath, RedirectAttributes redirectAttributes) throws Exception {
+		Homepage homepage = getSessionHomepage(request);
 
 		// 아이디, 비번, 이름 복호화
-		if(memberService.decryptMember(member) == false) {
+		if (memberService.decryptMember(member) == false) {
 			codeService.alertMessage("아이디 또는 비밀번호를 다시 확인하세요", request, response);
 			return null;
 		}
 
 		String returnUrl = member.getBefore_url();
-		if ( StringUtils.isEmpty(returnUrl) || returnUrl.indexOf("/login/") > -1 ) {
+		if (StringUtils.isEmpty(returnUrl) || returnUrl.indexOf("/login/") > -1) {
 			returnUrl = String.format("%s/%s/index.do", homepage.getDomain(), homepagePath);
 			if (request.getRequestURL().toString().contains("localhost")) {
 				returnUrl = String.format("%s/%s/index.do", "http://localhost", homepagePath);
@@ -122,13 +113,14 @@ public class CommonLoginController extends BaseController {
 		}
 
 		// 비번 틀려서 계정이 잠김
-		if("Y".equals(accountLockService.isLocked(new AccountLock(member, request.getRemoteAddr())))) {
+		if ("Y".equals(accountLockService.isLocked(new AccountLock(member, request.getRemoteAddr())))) {
 			codeService.alertMessage("로그인 5회 중 5회 이상 실패\\n입력하신 아이디에 대해서 10분간 접속을 차단합니다.", request, response);
 			return null;
 		}
 
+		member.setLoginType("HOMEPAGE");
 		Object result = LoginAPI.login(member);
-		if ( result instanceof Member ) {
+		if (result instanceof Member) {
 			accountLockService.loginSucceeded(new AccountLock(member, request.getRemoteAddr()));
 			loginLogService.addLoginLog(new LoginLog(member, request, homepage));
 
@@ -140,11 +132,11 @@ public class CommonLoginController extends BaseController {
 				member.setLast_login_ip(homepageAccessService.getLastHomepageAccess(member));
 				memberService.addMemberLastLogin(member, request);
 
-				//관리자확인
+				// 관리자확인
 				String memberId = member.getMember_id();
 				member.setMember_id(member.getWeb_id());
 				Member adminMember = memberService.getMemberOne(member);
-				if(adminMember != null) {
+				if (adminMember != null) {
 					member.setAdmin(adminMember.isAdmin());
 					member.setAuthorityHomepageList(adminMember.getAuthorityHomepageList());
 				}
@@ -152,28 +144,28 @@ public class CommonLoginController extends BaseController {
 
 				if ((member.getAuthMap() == null || member.getAuthMap().isEmpty()) && !member.isAdmin()) {
 					if (StringUtils.equals(member.getUnAgreeFlag(), "0001")) {
-						//통합회원
-						if(adminMember != null) {
-							//관리자 링크회원이면 기존 그룹에 추가
+						// 통합회원
+						if (adminMember != null) {
+							// 관리자 링크회원이면 기존 그룹에 추가
 							member.setAuthGroupIdxList(memberGroupSubordService.getAuthGroupIdxList(adminMember));
-							//통합회원그룹에 속하게 한다. 도서관은 하드코딩한다...
+							// 통합회원그룹에 속하게 한다. 도서관은 하드코딩한다...
 							if (!member.getAuthGroupIdxList().contains(149)) {
 								member.getAuthGroupIdxList().add(149);
 							}
 						} else if (member.getAuthGroupIdxList() == null || member.getAuthGroupIdxList().size() < 1) {
-							//관리자 링크회원 아니면 새로 생성
+							// 관리자 링크회원 아니면 새로 생성
 							member.setAuthGroupIdxList(new ArrayList<Integer>());
-							//통합회원그룹에 속하게 한다. 도서관은 하드코딩한다...
+							// 통합회원그룹에 속하게 한다. 도서관은 하드코딩한다...
 							member.getAuthGroupIdxList().add(149);
 						}
-//					String imsiId = member.getMember_id();
-//					member.setMember_id(member.getSeq_no());
-						//그룹-멤버 관계 테이블에 넣는다.
+						// String imsiId = member.getMember_id();
+						// member.setMember_id(member.getSeq_no());
+						// 그룹-멤버 관계 테이블에 넣는다.
 						memberGroupSubordService.addAuthGroupMember(member);
-						//권한맵을 새로 불러온다.
+						// 권한맵을 새로 불러온다.
 						member.setAuthMap(memberService.getMemberAuth(member));
 					} else {
-						if(adminMember != null) {
+						if (adminMember != null) {
 							member.setAuthGroupIdxList(memberGroupSubordService.getAuthGroupIdxList(adminMember));
 							Homepage homepageTmp = new Homepage();
 							homepageTmp.setHomepage_code(member.getLoca());
@@ -182,12 +174,12 @@ public class CommonLoginController extends BaseController {
 							MemberGroup memberGroup = new MemberGroup();
 							memberGroup.setSite_id(locaHomepageId);
 
-							//내 소속도서관의 사용자 그룹에만 지정한다.
+							// 내 소속도서관의 사용자 그룹에만 지정한다.
 							member.getAuthGroupIdxList().add(memberGroupService.getSiteUserGroupOne(memberGroup).getMember_group_idx());
 						}
 						if (member.getAuthGroupIdxList() == null || member.getAuthGroupIdxList().size() < 1) {
 							member.setAuthGroupIdxList(new ArrayList<Integer>());
-							//통합회원그룹에 속하게 한다.
+							// 통합회원그룹에 속하게 한다.
 							Homepage homepageTmp = new Homepage();
 							homepageTmp.setHomepage_code(member.getLoca());
 							String locaHomepageId = homepageService.getHomepageOneByCode(homepageTmp).getHomepage_id();
@@ -195,24 +187,24 @@ public class CommonLoginController extends BaseController {
 							MemberGroup memberGroup = new MemberGroup();
 							memberGroup.setSite_id(locaHomepageId);
 
-							//내 소속도서관의 사용자 그룹에만 지정한다.
+							// 내 소속도서관의 사용자 그룹에만 지정한다.
 							member.getAuthGroupIdxList().add(memberGroupService.getSiteUserGroupOne(memberGroup).getMember_group_idx());
 						}
-						//그룹-회원 관계테이블에 넣는다.
+						// 그룹-회원 관계테이블에 넣는다.
 						memberGroupSubordService.addAuthGroupMember(member);
-//					//권한정보를 다시 가져온다.
+						// //권한정보를 다시 가져온다.
 						member.setAuthMap(memberService.getMemberAuth(member));
 					}
 
 				}
-			} catch ( Exception e ) {
+			} catch (Exception e) {
 				System.out.println("@@@@@@@@@@@@@@@@ loginProcFailed : " + e.getMessage());
 			}
 
 			service.setSessionMember(member, request);
 
 			Device device = DeviceUtils.getCurrentDevice(request);
-			model.addAttribute("isMobile",  device.isMobile() || device.isTablet());
+			model.addAttribute("isMobile", device.isMobile() || device.isTablet());
 			boolean isMobile = device.isMobile() || device.isTablet();
 			if (!isMobile) {
 				request.getSession().setAttribute("showUserInfo", true);
@@ -221,36 +213,37 @@ public class CommonLoginController extends BaseController {
 			/**
 			 * 비밀번호 만료일자가 지난 경우 패스워드 변경유도 페이지로 이동.
 			 */
-//			try {
-//				if (!StringUtils.isEmpty(member.getPassword_update_date()) && !StringUtils.equalsIgnoreCase(member.getPassword_update_date(), "null")) {
-//					DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyyMMdd");
-//
-//					DateTime updateDate = fmt.parseDateTime(member.getPassword_update_date());
-//					DateTime currentDate = DateTime.now();
-//
-//					Days daysBetween = Days.daysBetween(updateDate, currentDate);
-//
-//					int expiryDay = Integer.parseInt(member.getPassword_expiry_day());
-//					if (daysBetween.getDays() > expiryDay) {
-//						int menuIdx = homepageService.getMenuIdxByLinkUrl(homepage.getHomepage_id(), "/intro/join/changePwForm.do");
-//						returnUrl = String.format("https://%s/%s/intro/join/passwordExpiry.do?menu_idx=%s", homepage.getDomainWithoutProtocol(), homepagePath, menuIdx);
-//					}
-//				}
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
+			// try {
+			// if (!StringUtils.isEmpty(member.getPassword_update_date()) && !StringUtils.equalsIgnoreCase(member.getPassword_update_date(), "null")) {
+			// DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyyMMdd");
+			//
+			// DateTime updateDate = fmt.parseDateTime(member.getPassword_update_date());
+			// DateTime currentDate = DateTime.now();
+			//
+			// Days daysBetween = Days.daysBetween(updateDate, currentDate);
+			//
+			// int expiryDay = Integer.parseInt(member.getPassword_expiry_day());
+			// if (daysBetween.getDays() > expiryDay) {
+			// int menuIdx = homepageService.getMenuIdxByLinkUrl(homepage.getHomepage_id(), "/intro/join/changePwForm.do");
+			// returnUrl = String.format("https://%s/%s/intro/join/passwordExpiry.do?menu_idx=%s", homepage.getDomainWithoutProtocol(), homepagePath, menuIdx);
+			// }
+			// }
+			// } catch (Exception e) {
+			// e.printStackTrace();
+			// }
 
 			return "redirect:" + returnUrl.replaceAll("^http://(www\\.)?gbelib\\.kr", "https://www.gbelib.kr");
+
 		} else {
 			member.setHomepage_id(homepage.getHomepage_id());
 			member.setLoginType("HOMEPAGE");
 			accountLockService.loginFailed(new AccountLock(member, request.getRemoteAddr()));
 			ApiResponse errorResult = (ApiResponse) result;
 
-			if("Y".equals(accountLockService.isLocked(new AccountLock(member, request.getRemoteAddr())))) {
+			if ("Y".equals(accountLockService.isLocked(new AccountLock(member, request.getRemoteAddr())))) {
 				codeService.alertMessage("로그인 5회 중 5회 이상 실패\\n입력하신 아이디에 대해서 10분간 접속을 차단합니다.", request, response);
 				return null;
-			} else if("아이디 또는 비밀번호를 다시 확인하세요".equals(errorResult.getMessage())) {
+			} else if ("해당 정보와 일치하는 이용자가 없습니다.".equals(errorResult.getMessage())) {
 				AccountLock accountLock = accountLockService.getAccountLock(new AccountLock(member, request.getRemoteAddr()));
 				codeService.alertMessage(String.format("로그인 5회 중 %d회 실패\\n아이디 또는 비밀번호를 다시 확인하세요", accountLock.getCount()), request, response);
 				return null;
@@ -263,33 +256,31 @@ public class CommonLoginController extends BaseController {
 
 	/**
 	 * 로그아웃 처리
+	 *
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="/logout.*", method=RequestMethod.GET)
+	@RequestMapping (value = "/logout.*", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request, RedirectAttributes redirectAttributes) {
-//		String redirectURL = request.getServerName() + ":" + request.getServerPort();
-		String redirectURL = request.getServerName() + "/" + ((Homepage)request.getAttribute("homepage")).getContext_path();
+		Homepage homepage = getSessionHomepage(request);
+		String redirectURL = request.isSecure() ? "https://" : "http://" + request.getServerName() + "/" + homepage.getContext_path();
 
 		String relogin = request.getParameter("relogin");
 		if (StringUtils.equals(relogin, "true")) {
 			int menu_idx = 0;
 			try {
-				menu_idx = menuService.getMenuIdxByLinkUrl(new Menu(((Homepage) request.getAttribute("homepage")).getHomepage_id(), "/intro/login/index.do"));
+				menu_idx = menuService.getMenuIdxByLinkUrl(new Menu(homepage.getHomepage_id(), "/intro/login/index.do"));
 			} catch (Exception e) {}
 			if (menu_idx == 0) {
 				service.logout(request);
-				return "redirect:http://" + redirectURL + "/index.do";
+				return "redirect:" + redirectURL + "/index.do";
 			}
 			redirectURL += "/intro/login/index.do?menu_idx=" + menu_idx;
 			service.logout(request);
-			return "redirect:http://" + redirectURL;
+			return "redirect:" + redirectURL;
 		}
 		service.logout(request);
-		return "redirect:http://" + redirectURL + "/index.do";
+		return "redirect:" + redirectURL + "/index.do";
 	}
-
-
-
 
 }
