@@ -42,7 +42,7 @@ $(function() {
 				<div class="doc">
 					<div class="doc-head">
 						<div class="doc-title">
-							<c:if test="${menuOne.menu_name_yn eq 'Y'}">
+							<c:if test="${menuOne.include_menu_name_yn eq 'Y'}">
 							<h3>${menuOne.menu_name}</h3>
 							</c:if>
 						</div>
