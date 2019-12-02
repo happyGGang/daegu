@@ -187,70 +187,58 @@ public class CommonJoinController extends BaseController {
 		return res;
 	}
 
-	@RequestMapping(value = {"/modifyForm.*"})
+	/**
+	 * 회원정보 수정 전 패스워드 체크
+	 *
+	 * @author whalesoft YONGJU 2019. 11. 15.
+	 * @param member
+	 * @param result
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping (value = {"/modifyCheck.*"}, method = RequestMethod.GET)
+	public String passCheck(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = getSessionHomepage(request);
+
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=4", homepage.getContext_path()), request, response);
+			return null;
+		}
+
+		return String.format(basePath, homepage.getFolder()) + "modifyCheck";
+	}
+
+	@RequestMapping(value = {"/modifyForm.*"}, method = RequestMethod.POST)
 	public String modifyForm(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 
-		String requestURL = request.getRequestURL().toString();
-		if ( !requestURL.startsWith("https://") ) {
-//			return "redirect:https://" + requestURL.substring(6) + "?menu_idx=" + request.getParameter("menu_idx");
-//			return "redirect:" + String.format("https://%s/%s/intro/join/modifyForm.do?menu_idx=%s", homepage.getDomainWithoutProtocol(),homepage.getContext_path(), member.getMenu_idx());
-		}
-
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			member.setBefore_url(String.format("https://%s/%s/intro/join/modifyForm.do?menu_idx=%s", homepage.getDomainWithoutProtocol(),homepage.getContext_path(), member.getMenu_idx()));
-			codeService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("https://%s/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), member.getMenu_idx(), member.getBefore_url()), request, response);
+		// 비번 복호화
+		if (memberService.decryptMember(member) == false) {
+			joinService.alertMessage("비밀번호를 다시 확인하세요", request, response);
 			return null;
 		}
-		member = getSessionMemberInfo(request);
-		Map<String, String> memberInfo = MemberAPI.getMember("WEB", member);
-		member.setMember_name(memberInfo.get("USER_NAME"));
-		member.setWeb_id(memberInfo.get("WEB_ID"));
-		member.setBirth_day(memberInfo.get("BIRTHD"));
-		member.setSex(memberInfo.get("SEX"));
-		member.setSms_service_yn(memberInfo.get("SMS_CHECK"));
-		member.setEmail_service_yn(memberInfo.get("MAIL_CHECK"));
 
-		String phone = memberInfo.get("TEL_NO");
-		mergeTelno(member, phone);
-		String cellPhone = memberInfo.get("MOBILE_NO");
-		mergeCellphone(member, cellPhone);
-
-		String email = memberInfo.get("EMAIL");
-		if ( !StringUtils.isEmpty(email) ) {
-			String[] arr = email.split("@");
-			if (arr != null && arr.length > 1) {
-				member.setEmail1(arr[0]);
-				if ( arr.length > 1 ) {
-					member.setEmail2(arr[1]);
-				}
-			}
+		//로그인확인
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			member.setBefore_url(String.format("https://%s/%s/intro/join/modifyForm.do?menu_idx=%s", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), member.getMenu_idx()));
+			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("https://%s/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), member.getMenu_idx(), member.getBefore_url()), request, response);
+			return null;
 		}
 
-		// FIXME
+		//비밀번호 확인
+		Member sessionMemberInfo = getSessionMemberInfo(request);
+		if (!member.getMember_pw().equals(sessionMemberInfo.getMember_pw())) {
+			joinService.alertMessage("비밀번호가 일치하지 않습니다.", request, response);
+			return null;
+		}
 
-		/*member.setDi_value(memberInfo.get("DUPINFO"));*/
-		member.setCi_value(memberInfo.get("CONN_INFO"));
-		member.setZipcode(memberInfo.get("ZIP_CODE"));
-		member.setAddress1(memberInfo.get("ADDRS").replaceAll(" null", ""));
-		member.setLoca(memberInfo.get("LOCA"));
-		member.setLoca_name(memberInfo.get("LOCA_NAME"));
-
-
-		Lending lending = new Lending();
-		lending.setMember_id(getSessionMemberId(request));
-		lending.setMenu("LENDING");
-		int elibLendCnt = lendingService.getLendMemberListCnt(lending);
-		lending.setMenu("RESERVE");
-		int elibReserveCnt = lendingService.getReserveMemberListCnt(lending);
-
-		model.addAttribute("elibLendCnt", elibLendCnt + elibReserveCnt);
-		model.addAttribute("newMember", new Member());
-		model.addAttribute("member", member);
-		model.addAttribute("memberInfo", member);
+		sessionMemberInfo.setEditMode("MODIFY");
+		model.addAttribute("memberInfo", sessionMemberInfo);
 		model.addAttribute("telCode", codeService.getCode("CMS", "C0003"));
 		model.addAttribute("phoneCode", codeService.getCode("CMS", "C0002"));
 		model.addAttribute("email", codeService.getCode("CMS", "C0010"));
+
 		return String.format(basePath, homepage.getFolder()) + "modifyForm";
 	}
 
