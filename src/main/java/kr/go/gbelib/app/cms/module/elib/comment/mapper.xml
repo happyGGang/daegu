@@ -7,7 +7,7 @@
 			ELIB_COMMENT
 		WHERE
 			book_idx = #{book_idx}
-		ORDER BY regdt DESC
+		ORDER BY add_date DESC
 	</sql>
 	
 	<sql id="getComments2">
@@ -28,10 +28,10 @@
 		AND b.cate_id = #{cate_id}
 		</if>
 	    <if test="search_sdt != null and search_sdt != ''">
-	    AND TO_DATE(#{search_sdt}, 'yyyy-mm-dd') &lt;= a.regdt
+	    AND TO_DATE(#{search_sdt}, 'yyyy-mm-dd') &lt;= a.add_date
 	    </if>
 	    <if test="search_edt != null and search_edt != ''">
-	    AND a.regdt &lt;= TO_DATE(#{search_edt} || ' 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
+	    AND a.add_date &lt;= TO_DATE(#{search_edt} || ' 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
 	    </if>
 	</sql>
 	
@@ -49,7 +49,7 @@
 	
 	<select id="getComment" resultType="kr.go.gbelib.app.cms.module.elib.comment.Comment">
 		SELECT
-			a.comment_idx, TO_CHAR(a.regdt, 'YYYY-MM-DD HH24:MI:SS') AS regdt, a.book_idx, a.user_idx, a.member_id, a.user_comment,
+			a.comment_idx, TO_CHAR(a.add_date, 'YYYY-MM-DD HH24:MI:SS') AS add_date, a.book_idx, a.user_idx, a.member_id, a.user_comment,
 			b.book_name, b.author_name, b.book_pubname,
 			(SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = b.cate_id) AS cate_name,
 			(SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = b.parent_id) AS parent_name
@@ -63,7 +63,7 @@
 	<select id="getCommentList" resultType="kr.go.gbelib.app.cms.module.elib.comment.Comment">
 		${pagingTop}
 		SELECT
-			comment_idx, TO_CHAR(regdt, 'YYYY-MM-DD') AS regdt, book_idx, user_idx, member_id, user_comment
+			comment_idx, TO_CHAR(add_date, 'YYYY-MM-DD') AS add_date, book_idx, user_idx, member_id, user_comment
 		<include refid="getComments"/>
 		${pagingBottom}
 	</select>
@@ -71,7 +71,7 @@
 	<select id="getCommentListCms" resultType="kr.go.gbelib.app.cms.module.elib.comment.Comment">
 		${pagingTop}
 		SELECT
-			a.comment_idx, TO_CHAR(a.regdt, 'YYYY-MM-DD HH24:MI:SS') AS regdt, a.book_idx, a.user_idx, a.member_id, a.user_comment,
+			a.comment_idx, TO_CHAR(a.add_date, 'YYYY-MM-DD HH24:MI:SS') AS add_date, a.book_idx, a.user_idx, a.member_id, a.user_comment,
 			b.book_name, b.author_name, b.book_pubname,
 			(SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = b.cate_id) AS cate_name,
 			(SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = b.parent_id) AS parent_name,
@@ -96,13 +96,13 @@
 				)
 			) AS last_return_dt
 		<include refid="getComments2"/>
-		ORDER BY a.regdt DESC
+		ORDER BY a.add_date DESC
 		${pagingBottom}
 	</select>
 	
 	<select id="getCommentListAll" resultType="kr.go.gbelib.app.cms.module.elib.comment.Comment">
 		SELECT
-			a.comment_idx, TO_CHAR(a.regdt, 'YYYY-MM-DD HH24:MI:SS') AS regdt, a.book_idx, a.user_idx, a.member_id, a.user_comment,
+			a.comment_idx, TO_CHAR(a.add_date, 'YYYY-MM-DD HH24:MI:SS') AS add_date, a.book_idx, a.user_idx, a.member_id, a.user_comment,
 			b.book_name, b.author_name, b.book_pubname,
 			(SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = b.cate_id) AS cate_name,
 			(SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = b.parent_id) AS parent_name,
@@ -127,12 +127,12 @@
 				)
 			) AS last_return_dt
 		<include refid="getComments2"/>
-		ORDER BY a.regdt DESC
+		ORDER BY a.add_date DESC
 	</select>
 	
 	<insert id="addComment">
 		INSERT INTO ELIB_COMMENT (
-			comment_idx, regdt, book_idx, user_idx, member_id, user_comment
+			comment_idx, add_date, book_idx, user_idx, member_id, user_comment
 		) VALUES (
 			ELIB_COMMENT_SEQ.NEXTVAL, SYSDATE, #{book_idx}, #{user_idx}, #{member_id}, #{user_comment}
 		)
