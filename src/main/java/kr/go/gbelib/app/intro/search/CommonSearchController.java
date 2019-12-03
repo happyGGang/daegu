@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -919,6 +920,327 @@ public class CommonSearchController extends BaseController {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
 		}
+		return res;
+	}
+
+	/**
+	 * 상호대차 신청 내역
+	 * @author YONGJU 2018. 4. 3.
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Throwable
+	 */
+	@RequestMapping (value = {"/sangho/index.*"}, method = RequestMethod.GET)
+	public String sanghoHistory(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+		Homepage homepage = getSessionHomepage(request);
+
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+			return null;
+		}
+
+		if (!StringUtils.equals(getSessionMemberInfo(request).getKl_member_yn(), "Y")) {
+			service.alertMessage("책이음회원이 아니므로 상호대차 신청내역 조회가 불가능합니다", request, response);
+			return null;
+		}
+
+		model.addAttribute("librarySearch", librarySearch);
+
+		librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
+
+		Map<String, Object> sanghoHistory = LibSearchAPI.getSanghoHistory(librarySearch);
+		List<Map<String, Object>> returnList = LibSearchAPI.getSanghoListData(sanghoHistory);
+
+		if (returnList != null && !returnList.isEmpty() && !returnList.get(0).containsKey("ERROR")) {
+			int count = LibSearchAPI.getSanghoSearchCount(sanghoHistory);
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
+
+			model.addAttribute("librarySearch", librarySearch);
+			model.addAttribute("sanghoHistory", returnList);
+		}
+
+		return String.format(basePath, homepage.getFolder()) + "sangho/index";
+	}
+
+	/**
+	 * 상호대차 이용 내역
+	 * @author YONGJU 2018. 4. 3.
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Throwable
+	 */
+	@RequestMapping (value = {"/sangho/history.*"}, method = RequestMethod.GET)
+	public String sanghoUsedHistory(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+
+		Homepage homepage = getSessionHomepage(request);
+
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+			return null;
+		}
+
+		if (!StringUtils.equals(getSessionMemberInfo(request).getKl_member_yn(), "Y")) {
+			service.alertMessage("책이음회원이 아니므로 상호대차 이용내역 조회가 불가능합니다", request, response);
+			return null;
+		}
+
+		model.addAttribute("librarySearch", librarySearch);
+
+		librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
+
+		Map<String, Object> sanghoHistory = LibSearchAPI.getSanghoUsedHistory(librarySearch);
+		List<Map<String, Object>> returnList = LibSearchAPI.getSanghoListData(sanghoHistory);
+
+		if (returnList != null && !returnList.isEmpty() && !returnList.get(0).containsKey("ERROR")) {
+			int count = LibSearchAPI.getSanghoSearchCount(sanghoHistory);
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
+
+			model.addAttribute("librarySearch", librarySearch);
+			model.addAttribute("sanghoHistory", returnList);
+		}
+
+		return String.format(basePath, homepage.getFolder()) + "sangho/history";
+	}
+
+	/**
+	 * 상호대차 신청 폼
+	 * @author YONGJU 2018. 4. 3.
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Throwable
+	 */
+	@RequestMapping (value = { "/sangho/form.*" }, method = RequestMethod.POST)
+	public String sanghoForm(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+		Homepage homepage = getSessionHomepage(request);
+
+		model.addAttribute("librarySearch", librarySearch);
+
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+			return null;
+		}
+
+		Member member = getSessionMemberInfo(request);
+		if (!StringUtils.equals(member.getKl_member_yn(), "Y")) {
+			service.alertMessage("책이음회원이 아니므로 상호대차 신청이 불가능합니다", request, response);
+			return null;
+		}
+
+		/**/
+		{
+			if (librarySearch.getBooktype() == null) {
+				librarySearch.setBooktype("BOOK");
+			}
+
+			Map<String, Object> bookResult = LibSearchAPI.getBookInfo(librarySearch);
+			List<Map<String, Object>> list = null;
+			int count = LibSearchAPI.getSearchCount(bookResult);
+
+			if (count > 0) {
+				list = LibSearchAPI.getListData(bookResult);
+				Map<String, Object> map = list.get(0);
+
+				librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
+				librarySearch.setRegNo(String.valueOf(map.get("REG_NO")));
+				librarySearch.setLibCode(String.valueOf(map.get("LIB_CODE")));
+				librarySearch.setSpeciesKey(String.valueOf(map.get("SPECIES_KEY")));
+
+				Map<String, Object> sanghoReqYn = LibSearchAPI.sanghoReqYn(librarySearch);
+				@SuppressWarnings ("unchecked")
+				Map<String, Object> sanghoReqYnResult = (Map<String, Object>) sanghoReqYn.get("ITEM");
+
+				if (sanghoReqYnResult.containsKey("RESULT") && String.valueOf(sanghoReqYnResult.get("RESULT")).equals("OK")) {
+					// 정상 신청가능
+				} else {
+					if (sanghoReqYnResult.containsKey("ERROR")) {
+						service.alertMessage("해당 자료는 상호대차 신청이 불가능합니다", request, response);
+						return null;
+					}
+				}
+			}
+		}
+		/**/
+
+		String overdueCnt = member.getOverdue_cnt();
+		try {
+			if (Integer.parseInt(overdueCnt) > 0) {
+				service.alertMessage("현재 연체도서가 존재하여 상호대차 신청이 불가능합니다. 연체도서를 반납해주세요.", request, response);
+				return null;
+			}
+		} catch (NumberFormatException e) {
+		}
+
+		String loanStopDate = member.getLoan_stop_date();
+		if (StringUtils.isNotEmpty(loanStopDate) && StringUtils.length(loanStopDate) >= 10) {
+			service.alertMessage("현재 "+loanStopDate+"까지 대출정지상태입니다. 상호대차 신청은 이후에 가능합니다.", request, response);
+			return null;
+		}
+
+		librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
+		Map<String, Object> sanghoHistory = LibSearchAPI.getSanghoHistory(librarySearch);
+		List<Map<String, Object>> returnList = LibSearchAPI.getSanghoListData(sanghoHistory);
+
+		if (CollectionUtils.isNotEmpty(returnList) && returnList.size() >= 3) {
+			service.alertMessage("상호대차 신청권수는 3권까지입니다.", request, response);
+			return null;
+		}
+
+		Map<String, Object> result = new HashMap<String, Object>();
+
+		if ( librarySearch.getBooktype() == null ) {
+			librarySearch.setBooktype("BOOK");
+		}
+
+//		if ( librarySearch.getBooktype().equals("BOOK") ) {
+//			result = LibSearchAPI.getBookDetail(librarySearch);
+//		} else {
+//			result = LibSearchAPI.getNonBookDetail(librarySearch);
+//		}
+
+		result = LibSearchAPI.getBookInfo(librarySearch);
+
+		model.addAttribute("librarySearch", librarySearch);
+
+		List<Map<String, Object>> list = null;
+
+		int count = LibSearchAPI.getSearchCount(result);
+
+		librarySearch.setTotalDataCount(count);
+		service.setPaging(model, count, librarySearch);
+
+		if ( count > 0 ) {
+			list = LibSearchAPI.getListData(result);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("ISBN", librarySearch.getIsbn());
+//			Map<String, Object> aladinDetail =  aladinApiService.getAladinApiOne(String.valueOf(map.get("ISBN")), homepage.getContext_path());
+//			if (aladinDetail != null && !aladinDetail.isEmpty() && aladinDetail.containsKey("item")) {
+//				list.get(0).put("aladinDetail", aladinDetail.get("item"));
+//			}
+			model.addAttribute("detail", list.get(0));
+		}
+
+		return String.format(basePath, homepage.getFolder()) + "sangho/form";
+	}
+
+
+
+	/**
+	 * 지역상호대차 신청, 신청취소
+	 * @author YONGJU 2018. 2. 4.
+	 * @param librarySearch
+	 * @param result
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping (value = { "/sanghoSave.*" }, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse sanghoSave(LibrarySearch librarySearch, BindingResult result, HttpServletRequest request) {
+		JsonResponse res = new JsonResponse(request);
+
+		if (!StringUtils.equals(librarySearch.getEditMode(), "CANCEL")) {
+			ValidationUtils.rejectIfEmpty(result, "uselibcode", "제공받을 도서관을 선택해주세요.");
+			if (StringUtils.isEmpty(librarySearch.getManageCode()) || StringUtils.isEmpty(librarySearch.getUselibcode())) {
+				result.reject("잘못된 접근입니다.");
+			}
+		}
+
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			result.reject("로그인 후 이용가능합니다.");
+		}
+
+		if (!StringUtils.equals(getSessionMemberInfo(request).getKl_member_yn(), "Y")) {
+			result.reject("책이음회원이 아니므로 상호대차 신청이 불가능합니다");
+		}
+
+		if (!result.hasErrors()) {
+
+			if (StringUtils.equals(librarySearch.getEditMode(), "CANCEL")) {
+				Map<String, Object> sanghoReqCancel = LibSearchAPI.sanghoReqCancel(librarySearch);
+				@SuppressWarnings ("unchecked")
+				Map<String, Object> sanghoResult = (Map<String, Object>) sanghoReqCancel.get("ITEM");
+
+				if (sanghoResult.containsKey("RESULT")) {
+					if (String.valueOf(sanghoResult.get("RESULT")).equals("OK")) {
+						res.setValid(true);
+						res.setMessage("취소되었습니다.");
+					}
+				} else {
+					if (sanghoResult.containsKey("ERROR")) {
+						res.setValid(true);
+						res.setMessage(String.valueOf(sanghoResult.get("ERROR")));
+					}
+				}
+			} else {
+				Map<String, Object> bookResult = new HashMap<String, Object>();
+
+				if (librarySearch.getBooktype() == null) {
+					librarySearch.setBooktype("BOOK");
+				}
+
+				// if ( librarySearch.getBooktype().equals("BOOK") ) {
+				// bookResult = LibSearchAPI.getBookDetail(librarySearch);
+				// } else {
+				// bookResult = LibSearchAPI.getNonBookDetail(librarySearch);
+				// }
+
+				bookResult = LibSearchAPI.getBookInfo(librarySearch);
+
+				List<Map<String, Object>> list = null;
+
+				int count = LibSearchAPI.getSearchCount(bookResult);
+
+				if (count > 0) {
+
+					list = LibSearchAPI.getListData(bookResult);
+					Map<String, Object> map = list.get(0);
+
+					librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
+					librarySearch.setRegNo(String.valueOf(map.get("REG_NO")));
+					librarySearch.setLibCode(String.valueOf(map.get("LIB_CODE")));
+					librarySearch.setSpeciesKey(String.valueOf(map.get("SPECIES_KEY")));
+					// librarySearch.setUselibcode(String.valueOf(map.get("")));
+					librarySearch.setBookkey(String.valueOf(map.get("BOOK_KEY")));
+
+					Map<String, Object> sanghoReq = LibSearchAPI.sanghoReq(librarySearch);
+					@SuppressWarnings ("unchecked")
+					Map<String, Object> sanghoResult = (Map<String, Object>) sanghoReq.get("ITEM");
+
+					if (sanghoResult.containsKey("RESULT")) {
+						if (String.valueOf(sanghoResult.get("RESULT")).equals("OK")) {
+							res.setValid(true);
+							res.setMessage("신청되었습니다.");
+						}
+					} else {
+						if (sanghoResult.containsKey("ERROR")) {
+							res.setValid(true);
+							res.setMessage(String.valueOf(sanghoResult.get("ERROR")));
+						}
+					}
+				} else {
+					res.setValid(true);
+					res.setMessage("잘못된 접근입니다. 다시 신청하여 주시기 바랍니다.");
+				}
+
+			}
+
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+
 		return res;
 	}
 
