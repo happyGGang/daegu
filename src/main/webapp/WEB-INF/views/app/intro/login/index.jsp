@@ -33,7 +33,7 @@ $(function() {
 	});
 
 	$('input#member_id_tmp, input#member_pw_tmp').on('keyup', function(e) {
-		if (e.keyKode == 13) {
+		if (e.keyCode == 13) {
 			$('button#save-btn').click();
 		}
 	});

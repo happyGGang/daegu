@@ -23,10 +23,12 @@ $(function() {
 	});
 
 	$('input#member_pw_tmp').on('keyup', function(e) {
-		if (e.keyKode == 13) {
+		if (e.keyCode == 13) {
 			$('a#save-btn').click();
 		}
 	});
+
+	$('input#member_pw_tmp').focus();
 
 });
 </script>
