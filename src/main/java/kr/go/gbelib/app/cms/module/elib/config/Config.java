@@ -12,9 +12,9 @@ public class Config extends PagingUtils {
 	private int ext_lend_term;
 	private int max_reserve;
 	private int book_max_reserve;
-	private String mod_date;
-	private String mod_id;
-	private String mod_ip;
+	private String modify_date;
+	private String modify_id;
+	private String modify_ip;
 	private String name;
 	private String value;
 	public Config() { };
@@ -64,17 +64,17 @@ public class Config extends PagingUtils {
 	public void setMax_reserve(int max_reserve) {
 		this.max_reserve = max_reserve;
 	}
-	public String getMod_date() {
-		return mod_date;
+	public String getModify_date() {
+		return modify_date;
 	}
-	public void setMod_date(String mod_date) {
-		this.mod_date = mod_date;
+	public void setModify_date(String modify_date) {
+		this.modify_date = modify_date;
 	}
-	public String getMod_id() {
-		return mod_id;
+	public String getModify_id() {
+		return modify_id;
 	}
-	public void setMod_id(String mod_id) {
-		this.mod_id = mod_id;
+	public void setModify_id(String modify_id) {
+		this.modify_id = modify_id;
 	}
 	public int getBook_max_reserve() {
 		return book_max_reserve;
@@ -82,11 +82,11 @@ public class Config extends PagingUtils {
 	public void setBook_max_reserve(int book_max_reserve) {
 		this.book_max_reserve = book_max_reserve;
 	}
-	public String getMod_ip() {
-		return mod_ip;
+	public String getModify_ip() {
+		return modify_ip;
 	}
-	public void setMod_ip(String mod_ip) {
-		this.mod_ip = mod_ip;
+	public void setModify_ip(String modify_ip) {
+		this.modify_ip = modify_ip;
 	}
 	public String getName() {
 		return name;
