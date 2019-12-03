@@ -59,6 +59,7 @@ $(function() {
 
 	});
 
+	<c:if test="${detail.SANGHO_REQ_YN eq 'Y'}">
 	<%--상호대차 신청--%>
 	$('a.sangho').on('click', function(e) {
 		e.preventDefault();
@@ -71,6 +72,7 @@ $(function() {
 		</c:if>
 
 	});
+	</c:if>
 
 });
 
@@ -98,6 +100,7 @@ $(function() {
 	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
 	<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
 	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
+	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
 </form>
 
 <form id="nightReqForm" action="night/form.do" method="post">
@@ -105,6 +108,7 @@ $(function() {
 	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
 	<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
 	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
+	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
 </form>
 
 <form id="basketReqForm" action="/${homepage.context_path}/intro/search/saveDeliveryBasket.do">
@@ -112,12 +116,15 @@ $(function() {
 	<input type="hidden" name="editMode" value="ADD">
 </form>
 
+<c:if test="${detail.SANGHO_REQ_YN eq 'Y'}">
 <form id="sanghoReqForm" action="sangho/form.do" method="post">
 	<input type="hidden" name="isbn" value="${fn:escapeXml(param.isbn)}">
 	<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
 	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
 	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
+	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
 </form>
+</c:if>
 
 <!-- contents-title-->
 <div id="contents-title">
