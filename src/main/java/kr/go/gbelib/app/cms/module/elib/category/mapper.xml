@@ -9,13 +9,13 @@
 			ELIB_CATEGORY
 		WHERE
 			delete_yn = 'N'
-		AND depth = #{depth}
-		AND type = #{type}
+		AND	depth = #{depth}
+		AND	type = #{type}
 		<if test="parent_id != 0">
-		AND parent_id = #{parent_id}
+		AND	parent_id = #{parent_id}
 		</if>
 		<if test="cate_id != 0">
-		AND cate_id = #{cate_id}
+		AND	cate_id = #{cate_id}
 		</if>
 	</select>
 	
@@ -26,13 +26,13 @@
 			ELIB_CATEGORY
 		WHERE
 			delete_yn = 'N'
-		AND depth = #{depth}
-		AND type = #{type}
+		AND	depth = #{depth}
+		AND	type = #{type}
 		<if test="parent_id != 0">
-		AND parent_id = #{parent_id}
+		AND	parent_id = #{parent_id}
 		</if>
 		<if test="cate_id != 0">
-		AND cate_id = #{cate_id}
+		AND	cate_id = #{cate_id}
 		</if>
 		ORDER BY display_seq
 	</select>
@@ -41,10 +41,13 @@
 		SELECT
 			a.cate_id, a.cate_name, a.depth, a.display_seq, a.parent_id, a.type,
 			(
-				SELECT COUNT(*)
-				FROM ELIB_BOOK b
-				WHERE b.use_yn != 'N'
-				AND a.type = b.type
+				SELECT
+					COUNT(*)
+				FROM
+					ELIB_BOOK b
+				WHERE
+					b.use_yn != 'N'
+				AND	a.type = b.type
 				<choose>
 				<when test="parent_id != 0">
 				AND a.cate_id = b.cate_id
@@ -120,11 +123,25 @@
 	</select>
 	
 	<select id="getDepth" resultType="int">
-		SELECT NVL(MAX(depth),0)+1 FROM ELIB_CATEGORY WHERE delete_yn = 'N' AND cate_id = #{parent_id} AND type = #{type}
+		SELECT
+			NVL(MAX(depth),0)+1
+		FROM
+			ELIB_CATEGORY
+		WHERE
+			delete_yn = 'N'
+		AND	cate_id = #{parent_id}
+		AND	type = #{type}
 	</select>
 	
 	<select id="getMaxDisplaySeq" resultType="int">
-		SELECT NVL(MAX(display_seq),0)+1 AS display_seq FROM ELIB_CATEGORY WHERE delete_yn = 'N' AND depth = #{depth} AND type = #{type}
+		SELECT
+			NVL(MAX(display_seq),0)+1 AS display_seq
+		FROM
+			ELIB_CATEGORY
+		WHERE
+			delete_yn = 'N'
+		AND depth = #{depth}
+		AND	type = #{type}
 	</select>
 	
 	<insert id="addCategory">
@@ -132,45 +149,60 @@
 			SELECT NVL(MAX(cate_id),0)+1 FROM ELIB_CATEGORY
 		</selectKey>
 		
-		INSERT INTO ELIB_CATEGORY (
+		INSERT INTO
+			ELIB_CATEGORY
+		(
 			cate_id, cate_name, depth, display_seq, parent_id, type, add_date, add_id
-		) VALUES (
+		)
+		VALUES
+		(
 			#{cate_id}, #{cate_name}, #{depth}, #{display_seq}, #{parent_id}, #{type}, SYSDATE, #{add_id}
 		)
 	</insert>
 	
 	<update id="modifyCategory">
-		UPDATE ELIB_CATEGORY SET
+		UPDATE
+			ELIB_CATEGORY
+		SET
 			cate_name = #{cate_name},
-			mod_date = SYSDATE,
-			mod_id = #{mod_id}
+			modify_date = SYSDATE,
+			modify_id = #{modify_id}
 		WHERE
 			cate_id = #{cate_id}
 	</update>
 	
 	<delete id="deleteCategory">
-		UPDATE ELIB_CATEGORY SET
+		UPDATE
+			ELIB_CATEGORY
+		SET
 			delete_yn = 'Y'
 		WHERE
 			cate_id = #{cate_id}
 	</delete>
 	
 	<delete id="forceDeleteCategory">
-		DELETE FROM ELIB_CATEGORY WHERE cate_id = #{cate_id} OR parent_id = #{parent_id}
+		DELETE FROM
+			ELIB_CATEGORY
+		WHERE
+			cate_id = #{cate_id}
+		OR	parent_id = #{parent_id}
 	</delete>
 	
 	<update id="modifyDisplaySeq">
-		UPDATE ELIB_CATEGORY SET
+		UPDATE
+			ELIB_CATEGORY
+		SET
 			display_seq = #{display_seq},
-			mod_date = SYSDATE,
-			mod_id = #{mod_id}
+			modify_date = SYSDATE,
+			modify_id = #{modify_id}
 		WHERE
 			cate_id = #{cate_id}
 	</update>
 	
 	<select id="getParentByName" resultType="kr.go.gbelib.app.cms.module.elib.category.ElibCategory">
 		SELECT
-			cate_id, cate_name, depth, display_seq, parent_id, type, add_date, add_id
+			cate_id, cate_name, depth, display_seq, parent_id,
+			type, add_date, add_id
 		FROM
 			ELIB_CATEGORY
 		WHERE
@@ -183,7 +215,8 @@
 	
 	<select id="getChildByName" resultType="kr.go.gbelib.app.cms.module.elib.category.ElibCategory">
 		SELECT
-			cate_id, cate_name, depth, display_seq, parent_id, type, add_date, add_id
+			cate_id, cate_name, depth, display_seq, parent_id,
+			type, add_date, add_id
 		FROM
 			ELIB_CATEGORY
 		WHERE
