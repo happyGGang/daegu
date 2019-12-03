@@ -8,7 +8,6 @@
 <script type="text/javascript">
 var pwCheck = false;
 var pwCheck2 = false;
-var cardCheck = false;
 $(function() {
 
 	<%--회원정보 수정--%>
@@ -102,8 +101,8 @@ $(function() {
 
 								</p>
 								<p id="pwp" class="idtype" >
-								<label for="member_pw_tmp">비밀번호확인</label>
-								<input type="password"  id="member_pw_confirm" class="text" maxlength="20" value="" placeholder="새비밀번호 확인을 입력해 주십시요." >
+								<label for="member_pw_confirm">비밀번호확인</label>
+								<input type="password"  id="member_pw_confirm" class="txt" maxlength="20" value="" placeholder="새비밀번호 확인을 입력해 주십시요." >
 								<b id="pw_confirm_message"></b>
 								</p>
 							</div>

@@ -129,7 +129,7 @@ public class JoinController extends BaseController {
 		request.getSession().setAttribute("certType", certType);
 		String mode = String.valueOf(request.getParameter("mode"));
 		request.getSession().setAttribute("certMode", mode);
-		if (StringUtils.equals(mode, "findPw")) {
+		if (StringUtils.equals(mode, "findpw")) {
 			// 비밀번호 찾기 시 아이디와 한번더 비교한다.
 			String member_id = String.valueOf(request.getParameter("member_id"));
 			request.getSession().setAttribute("findPwMemberId", member_id);

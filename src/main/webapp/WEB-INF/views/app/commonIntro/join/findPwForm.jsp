@@ -4,39 +4,27 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script type="text/javascript">
-if (!String.prototype.trim) {
-	String.prototype.trim = function () {
-		return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
-	};
-}
 
 $(function() {
 	$('#save-btn').on('click', function(e) {
 		e.preventDefault();
-		doAjaxPost($('#memberInfoForm'), 'div.findId');
+		doAjaxPost($('#memberInfo'), 'div.findId');
 	});
 	$('a.certtype').on('click', function(e) {
-		var a = $('input#web_id').val().trim();
-		var b = $('input#member_name').val();
-		var c = $('input#cell_phone').val();
-
-		if (a == '') {
-			alert('아이디를 입력해주세요');
-			$('input#web_id').focus();
-			return false;
-		}
-		if (b == '') {
-			alert('이름을 입력해주세요');
-			$('input#member_name').focus();
-			return false;
-		}
-		if (c == '') {
-			alert('휴대전화번호를 입력해주세요');
-			$('input#cell_phone').focus();
-			return false;
-		}
-
 		e.preventDefault();
+		var tmp_id = $('input#member_id_tmp').val().trim();
+		if (!tmp_id) {
+			alert('아이디를 입력해주세요.');
+			$('input#member_id_tmp').focus();
+			return false;
+		}
+		if (tmp_id.length < 6 || tmp_id.length > 20) {
+			alert('아이디는 6자 이상 20자 이내입니다.');
+			$('input#member_id_tmp').focus();
+			return false;
+		}
+		$('input[name=member_id]').val(tmp_id);
+
 		var wWidth = 360;
  		var wHight = 120;
  		var wX = (window.screen.width - wWidth) / 2;
@@ -54,6 +42,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 <form id="certForm" name="certForm" action="/intro/join/cert.do" method="post" target="certWindow">
 	<input type="hidden" name="certType">
 	<input type="hidden" name="mode" value="findpw">
+	<input type="hidden" name="member_id">
 	<input type="hidden" name="_csrf" value="${_csrf.token}">
 </form>
 <div class="join-wrap" style="padding: 0;">
@@ -61,15 +50,15 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 		<div id="txt_box_wrapper02">
 			<div id="txt_box_wrap02">
 				<ul>
-					<li><i class="fa fa-warning"></i> 아이디, 이름, 휴대전화번호 입력 후 본인인증을 통해 비밀번호 재설정이 가능합니다.</li>
-					<li><i class="fa fa-warning"></i> 아이디, 이름, 휴대전화번호를 입력하신 후 본인인증 버튼을 클릭해 주세요.</li>
+					<li><i class="fa fa-warning"></i> 아이디 입력 후 본인인증을 통해 비밀번호 재설정이 가능합니다.</li>
+					<li><i class="fa fa-warning"></i> 아이디를 입력하신 후 본인인증 버튼을 클릭해 주세요.</li>
 				</ul>
 			</div>
 		</div>
 	</div>
 	<div class="findId">
 	</div>
-	<form:form modelAttribute="memberInfo" id="memberInfoForm" action="setPwForm.do" method="post">
+	<form:form modelAttribute="memberInfo" action="changePwForm.do" method="post">
 		<form:hidden path="menu_idx"/>
 		<div style="text-align: right;">
 			(<span style="color: red; font-weight: bold;">*</span>) 항목은 필수 입력값입니다.
@@ -81,23 +70,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 						아이디(<span style="color: red;">*</span>)
 					</th>
 					<td>
-						<form:input path="web_id" class="text"/>
-					</td>
-				</tr>
-				<tr>
-					<th>
-						이름(<span style="color: red;">*</span>)
-					</th>
-					<td>
-						<form:input path="member_name" class="text"/>
-					</td>
-				</tr>
-				<tr>
-					<th>
-						휴대전화번호(<span style="color: red;">*</span>)
-					</th>
-					<td>
-						<form:input path="cell_phone" class="text" maxlength="11" numberOnly="true"/> *숫자만 입력해주세요. ex) 01012345678
+						<input type="text" id="member_id_tmp" class="text" />
 					</td>
 				</tr>
 			</tbody>
@@ -118,9 +91,5 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 			</a>
 		</p>
 	</div>
-<!-- 	<div class="btn-wrap"> -->
-<!-- 		<a href="#" id="save-btn" class="btn btn1">확인</a> -->
-<%-- 		<a href="/${homepage.context_path}/index.do" id="cancel-btn" class="btn">취소</a> --%>
-<!-- 	</div> -->
 	<br/>
 </div>

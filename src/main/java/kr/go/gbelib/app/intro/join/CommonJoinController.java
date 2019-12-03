@@ -404,100 +404,6 @@ public class CommonJoinController extends BaseController {
 		return res;
 	}
 
-	@RequestMapping(value = {"/changePwForm.*"})
-	public String changePwForm(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
-		Homepage homepage = getSessionHomepage(request);
-
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			member.setBefore_url(String.format("https://%s/%s/intro/join/changePwForm.do?menu_idx=%s", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), member.getMenu_idx()));
-			codeService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("https://%s/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), member.getMenu_idx(), member.getBefore_url()), request, response);
-			return null;
-		}
-		member = getSessionMemberInfo(request);
-		Map<String, String> memberInfo = MemberAPI.getMember("WEB", member);
-		member.setMember_name(memberInfo.get("USER_NAME"));
-		member.setBirth_day(memberInfo.get("BIRTHD"));
-		member.setSex(memberInfo.get("SEX"));
-
-
-//		model.addAttribute("member", member);
-		model.addAttribute("memberInfo", member);
-		return String.format(basePath, homepage.getFolder()) + "changePwForm";
-	}
-
-	@RequestMapping(value = {"/setPwForm.*"})
-	public String changePwForm2(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
-		Homepage homepage = getSessionHomepage(request);
-
-
-		String findpw = String.valueOf(request.getSession().getAttribute("findPw"));
-		Member certMember = (Member) request.getSession().getAttribute("certMember");
-		if ( StringUtils.isNotEmpty(findpw) && findpw.equals("o")) {
-
-//			Map<String, String> memberInfo = MemberAPI.getDupUser("WEB", new Member(), "0004", certMember.get("CONN_INFO"));//ci로 유저 가져온다
-		Map<String, String> memberInfo = null;
-//		List<Map<String, String>> memberInfoList = MemberAPI.getDupUserList("WEB", new Member(), "0004", certMember.getCi_value());//ci로 유저 가져온다
-//
-//		if (memberInfoList == null || memberInfoList.size() < 1) {
-//			model.addAttribute("unusual", "true");
-//			joinService.alertMessage("통합회원 전환 진행을 하지 않았거나 존재하지 않는 회원입니다.", request, response);
-//			return null;
-//		}
-
-//		if(member != null && member.getWeb_id() != null) {
-//			for ( Map<String, String> map : memberInfoList ) {
-//				if (member.getWeb_id().equals(map.get("WEB_ID"))) {
-//					memberInfo = map;
-//					break;
-//				}
-//			}
-//		}
-
-//		Member certMember = (Member) request.getSession().getAttribute("certMember");
-//		if ( StringUtils.isNotEmpty(findpw) && findpw.equals("o")) {
-//
-//			Map<String, String> memberInfo = MemberAPI.getDupUser("WEB", new Member(), "0004", certMember.getCi_value());//ci로 유저 가져온다
-
-			if ( memberInfo == null) {
-				model.addAttribute("unusual", "true");
-				joinService.alertMessage("가입된 이용자가 아닙니다.", request, response);
-				return null;
-			}
-
-			if (!member.getMember_name().equals(memberInfo.get("USER_NAME"))) {
-				model.addAttribute("unusual", "true");
-				joinService.alertMessage("입력하신 정보가 올바르지 않습니다. 입력 정보를 확인해주세요. ", request, response);
-				System.out.println("@@@@@@@@@@@@@@@@ setPwError : 001 : " + certMember.getCi_value() + ", " + member.getMember_name() + ", " + memberInfo.get("USER_NAME"));
-				return null;
-			}
-
-			if (!member.getWeb_id().equals(memberInfo.get("WEB_ID"))) {
-				model.addAttribute("unusual", "true");
-				joinService.alertMessage("입력하신 정보가 올바르지 않습니다. 입력 정보를 확인해주세요.", request, response);
-				System.out.println("@@@@@@@@@@@@@@@@ setPwError : 002 : "  + certMember.getCi_value() + ", " + member.getWeb_id() + ", " + memberInfo.get("WEB_ID"));
-				return null;
-			}
-
-			if (!member.getCell_phone().equals(memberInfo.get("MOBILE_NO"))) {
-				model.addAttribute("unusual", "true");
-				joinService.alertMessage("입력하신 정보가 올바르지 않습니다. 입력 정보를 확인해주세요.", request, response);
-				System.out.println("@@@@@@@@@@@@@@@@ setPwError : 003 : "  + certMember.getCi_value() + ", " + member.getCell_phone() + ", " + memberInfo.get("MOBILE_NO"));
-				return null;
-			}
-
-			model.addAttribute("unusual", "false");
-
-			member.setUser_id(memberInfo.get("USER_ID"));
-			model.addAttribute("memberInfo", member);
-		} else {
-			model.addAttribute("unusual", "true");
-			joinService.alertMessage("잘못된 접근입니다.", request, response);
-			return null;
-		}
-
-		return String.format(basePath, homepage.getFolder()) + "changePwForm2";
-	}
-
 	@RequestMapping(value = {"/createIdForm.*"})
 	public String createIdForm(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
@@ -753,28 +659,68 @@ public class CommonJoinController extends BaseController {
 		return String.format(basePath, homepage.getFolder()) + "findPwForm";
 	}
 
+	/**
+	 * 비밀번호 변경 폼
+	 * @author whalesoft YONGJU 2019. 12. 3.
+	 * @param model
+	 * @param member
+	 * @param request
+	 * @param response
+	 * @param homepagePath
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = {"/changePwForm.*"})
+	public String changePwForm(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
+		Homepage homepage = getSessionHomepage(request);
 
-	@RequestMapping(value = { "/findMemberId.*" }, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse findMemberId(Member member, BindingResult result, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
+		if (request.getSession().getAttribute("certMember") == null) {
+			codeService.alertMessageAndUrl("본인인증 후 이용가능합니다.", String.format("http%s://%s/%s/intro/login/index.do?menu_idx=%s&before_url=%s", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path(), member.getMenu_idx(), member.getBefore_url()), request, response);
+			return null;
+		}
+
+		model.addAttribute("memberInfo", member);
+		return String.format(basePath, homepage.getFolder()) + "changePwForm";
+	}
+
+	/**
+	 * 비밀번호 변경
+	 * @author whalesoft YONGJU 2019. 12. 3.
+	 * @param member
+	 * @param result
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping (value = {"/changeMemberPw.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse changeMemberPw(Member member, BindingResult result, HttpServletRequest request) {
+		Homepage homepage = getSessionHomepage(request);
+
 		JsonResponse res = new JsonResponse(request);
 
-		ValidationUtils.rejectIfEmpty(result, "member_name", "성명을 입력해주세요.");
-		ValidationUtils.rejectIfEmpty(result, "birth_day", "생년월일을 입력해주세요.");
-		ValidationUtils.rejectExceptNumber(result, "birth_day", "생년월일은 숫자만 입력가능합니다.");
-		ValidationUtils.rejectIfEmpty(result, "cell_phone", "휴대전화번호를 입력해주세요.");
-		ValidationUtils.rejectExceptNumber(result, "cell_phone", "휴대저화번호는 숫자만 입력가능합니다.");
+		if (memberService.decryptMember(member) == false) {
+			result.reject("member_pw_tmp", "비밀번호를 다시 확인해주세요.");
+		}
+
+		if (request.getSession().getAttribute("certMember") == null) {
+			result.reject("본인인증 후 가능합니다.");
+		}
 
 		if (!result.hasErrors()) {
-//			member.setCheck_certify_type("MOBILE");
-//			member.setCheck_certify_data(member.getCell_phone());
-//			Map<String, String> memberInfo = MemberAPI.getMemberCertify("WEB", member);
-//			if (memberInfo != null) {
-//				res.setUrl("findId.do?user_id="+memberInfo.get("USER_ID"));
-//				res.setValid(true);
-//			} else {
-//				res.setValid(false);
-//				res.setMessage("입력하신 정보와 일치하는 정보가 존재하지 않습니다.\n입력 정보를 확인해주세요");
-//			}
+
+			@SuppressWarnings ("unchecked")
+			Map<String, Object> certMember = (Map<String, Object>) request.getSession().getAttribute("certMember");
+
+			member.setRec_key(String.valueOf(certMember.get("REC_KEY")));
+			member.setIn_ip(request.getRemoteAddr());
+
+			ApiResponse apiResult = MemberAPI.updateMemberPasswd(member);
+			res.setValid(apiResult.getStatus());
+			if (apiResult.getStatus()) {
+				res.setMessage("비밀번호가 변경되었습니다.");
+				res.setUrl(String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), member.getMenu_idx()));
+			} else {
+				res.setMessage(apiResult.getMessage());
+			}
 		} else {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());

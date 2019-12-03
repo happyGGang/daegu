@@ -47,7 +47,7 @@ $(function() {
 
 	<form id="certForm" name="certForm" action="/intro/join/cert.do" method="post" target="certWindow">
 		<input type="hidden" name="certType">
-		<input type="hidden" name="mode" value="findPw">
+		<input type="hidden" name="mode" value="findpw">
 		<input type="hidden" name="member_id">
 		<input type="hidden" name="_csrf" value="${_csrf.token}">
 	</form>
@@ -56,7 +56,7 @@ $(function() {
 
 		<div class="findpw-login-body">
 			<div class="loginBox1">
-			
+
 				<fieldset>
 					<div class="form-box">
 						<p class="idtype" >

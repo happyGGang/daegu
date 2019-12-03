@@ -63,8 +63,8 @@ $(function() {
 						<div class="form-etc">
 							<div class="find">
 								<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=${menuIdxJoin}"><span>회원가입</span><i class="fa fa-caret-right"></i></a>
-								<a href="/${homepage.context_path}/intro/join/findMemberIdForm.do?menu_idx=${menuIdxId}"><span>아이디 찾기</span><i class="fa fa-caret-right"></i></a>
-								<a href="/${homepage.context_path}/intro/join/findMemberPwForm.do?menu_idx=${menuIdxPw}"><span>비밀번호 찾기</span><i class="fa fa-caret-right"></i></a>
+								<a href="/${homepage.context_path}/intro/join/findIdForm.do?menu_idx=${menuIdxId}"><span>아이디 찾기</span><i class="fa fa-caret-right"></i></a>
+								<a href="/${homepage.context_path}/intro/join/findPwForm.do?menu_idx=${menuIdxPw}"><span>비밀번호 찾기</span><i class="fa fa-caret-right"></i></a>
 							</div>
 						</div>
 					</fieldset>
