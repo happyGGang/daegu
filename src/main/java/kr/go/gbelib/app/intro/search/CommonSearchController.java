@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,16 +28,11 @@ import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.menu.MenuService;
-import kr.co.whalesoft.app.cms.menu.menuHtml.MenuHtmlService;
-import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManageService;
-import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
-import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfigService;
 import kr.go.gbelib.app.cms.module.ilusReqConfig.ILUSReqConfigService;
-import kr.go.gbelib.app.cms.module.smsReception.SmsReceptionService;
 import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.common.api.MemberAPI;
@@ -56,9 +50,6 @@ public class CommonSearchController extends BaseController {
 	private HomepageService homepageService;
 
 	@Autowired
-	private MenuHtmlService menuHtmlService;
-
-	@Autowired
 	private MenuService menuService;
 
 	@Autowired
@@ -66,21 +57,6 @@ public class CommonSearchController extends BaseController {
 
 	@Autowired
 	private HopebookConfigService hopebookConfigService;
-
-	@Autowired
-	private CalendarManageService calendarManageService;
-
-	@Autowired
-	private SmsReceptionService smsReceptionService;
-
-	@Autowired
-	private RecommendSiteService recommendSiteService;
-
-	@ModelAttribute("recommendSiteList")
-	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
-		Homepage homepage = getSessionHomepage(request);
-		return recommendSiteService.getRecommendSiteListAll(new RecommendSite(homepage.getHomepage_id()));
-	}
 
 	/**
 	 * 자료검색
@@ -461,7 +437,7 @@ public class CommonSearchController extends BaseController {
 
 
 	/**
-	 * ???????
+	 * 희망도서 신청내역
 	 * @author whalesoft YONGJU 2019. 11. 29.
 	 * @param homepagePath
 	 * @param model
@@ -474,6 +450,31 @@ public class CommonSearchController extends BaseController {
 	@RequestMapping(value = {"/hope/index.*"})
 	public String hopeIndex(@PathVariable("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
+
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+			return null;
+		}
+
+		Member member = getSessionMemberInfo(request);
+		librarySearch.setUserkey(member.getRec_key());
+		Map<String, Object> result = LibSearchAPI.getBookFurnishList(librarySearch);
+
+		List<Map<String, Object>> list = null;
+
+		int count = LibSearchAPI.getSearchCount(result);
+
+		librarySearch.setTotalDataCount(count);
+
+		service.setPaging(model, count, librarySearch);
+
+		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+			list = LibSearchAPI.getListData(result);
+		}
+
+		model.addAttribute("hopeList", list);
+		model.addAttribute("librarySearch", librarySearch);
 
 		return String.format(basePath, homepage.getFolder()) + "hope/index";
 	}
@@ -494,7 +495,8 @@ public class CommonSearchController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
 			return null;
 		}
 
@@ -510,14 +512,13 @@ public class CommonSearchController extends BaseController {
 
 		service.setPaging(model, count, librarySearch);
 
-		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
-
+		if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
 			list = LibSearchAPI.getListData(result);
-
 		}
 
 		model.addAttribute("hopeList", list);
 		model.addAttribute("librarySearch", librarySearch);
+
 		return String.format(basePath, homepage.getFolder()) + "hope/history";
 	}
 
@@ -538,7 +539,8 @@ public class CommonSearchController extends BaseController {
 
 		Member member = getSessionMemberInfo(request);
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
 			return null;
 		}
 
@@ -554,6 +556,7 @@ public class CommonSearchController extends BaseController {
 
 		model.addAttribute("member", member);
 		model.addAttribute("librarySearch", librarySearch);
+
 		return String.format(basePath, homepage.getFolder()) + "hope/req";
 	}
 
@@ -621,9 +624,18 @@ public class CommonSearchController extends BaseController {
 		return String.format(basePath, homepage.getFolder()) + "hope/search_ajax";
 	}
 
+	/**
+	 * 희망도서 신청/취소
+	 * @author whalesoft YONGJU 2019. 12. 3.
+	 * @param model
+	 * @param librarySearch
+	 * @param result
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping(value = {"/hope/save.*"}, method=RequestMethod.POST)
 	public @ResponseBody JsonResponse saveHope(Model model, LibrarySearch librarySearch, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
-		Homepage homepage = getSessionHomepage(request);
 
 		JsonResponse res = new JsonResponse(request);
 
@@ -645,6 +657,10 @@ public class CommonSearchController extends BaseController {
 			}
 
 			if ( librarySearch.getEditMode().equals("ADD") ) {
+
+				//TODO 희망도서 신청가능여부 체크
+				Homepage homepage = getSessionHomepage(request);
+				hopebookConfigService.getHopebookConfigInfo(homepage.getHomepage_id());
 
 				//웹필터 체크
 //				StringBuilder sb = new StringBuilder();
@@ -767,6 +783,10 @@ public class CommonSearchController extends BaseController {
 
 			librarySearch.setUserkey(member.getRec_key());
 			if (librarySearch.getEditMode().equals("ADD")) {
+
+				//TODO 자료실별 예약 가능여부 체크
+				ilusReqConfigService.getILUSReqConfigInfo(librarySearch, "");
+
 				ApiResponse apiResult = LibSearchAPI.reqResve(librarySearch);
 				if (apiResult.getStatus()) {
 					res.setValid(true);
@@ -804,7 +824,7 @@ public class CommonSearchController extends BaseController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = {"/loan/index.*", "/loan/detail.*", "/loan/history.*"})
+	@RequestMapping(value = {"/loan/index.*", "/loan/history.*"})
 	public String myLoan(@PathVariable("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 
@@ -816,37 +836,16 @@ public class CommonSearchController extends BaseController {
 
 		Member member = getSessionMemberInfo(request);
 
-		if ( request.getRequestURI().endsWith("/loan/detail.do") ) {
-
-			// Map<String, Object> result = LibSearchAPI.getLoanDetail("WEB", getSessionUserId(request), librarySearch.getvLoanNo());
-
-			// List<Map<String, Object>> list = null;
-			//
-			// int count = LibSearchAPI.getSearchCount(result);
-			//
-			// librarySearch.setTotalDataCount(count);
-			//
-			// service.setPaging(model, count, librarySearch);
-			//
-			// if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
-			//
-			// list = LibSearchAPI.getListData(result);
-			//
-			// }
-
-			// model.addAttribute("loanDetail", list);
-
-			return String.format(basePath, homepage.getFolder()) + "loan/detail";
-		} else if ( request.getRequestURI().endsWith("/loan/history.do") ) {
+		if (request.getRequestURI().endsWith("/loan/history.do")) {
 
 			Calendar cal = Calendar.getInstance();
 			cal.add(Calendar.YEAR, -1);
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-			if ( StringUtils.isEmpty(librarySearch.getSearch_start_date()) ) {
+			if (StringUtils.isEmpty(librarySearch.getSearch_start_date())) {
 				librarySearch.setSearch_start_date(sdf.format(cal.getTime()));
 			}
-			if ( StringUtils.isEmpty(librarySearch.getSearch_end_date()) ) {
+			if (StringUtils.isEmpty(librarySearch.getSearch_end_date())) {
 				librarySearch.setSearch_end_date(sdf.format(new Date()));
 			}
 
@@ -856,19 +855,16 @@ public class CommonSearchController extends BaseController {
 			List<Map<String, Object>> list = null;
 
 			int count = LibSearchAPI.getSearchCount(result);
-
 			librarySearch.setTotalDataCount(count);
-
 			service.setPaging(model, count, librarySearch);
 
-			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
-
+			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
 				list = LibSearchAPI.getListData(result);
-
 			}
 
 			model.addAttribute("loanList", list);
 			return String.format(basePath, homepage.getFolder()) + "loan/history";
+
 		} else {
 
 			Map<String, Object> result = LibSearchAPI.getBookLoanList(member.getRec_key());
@@ -879,10 +875,10 @@ public class CommonSearchController extends BaseController {
 			librarySearch.setTotalDataCount(count);
 			service.setPaging(model, count, librarySearch);
 
-			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
 				list = LibSearchAPI.getListData(result);
-
 			}
+
 			model.addAttribute("loanList", list);
 
 			return String.format(basePath, homepage.getFolder()) + "loan/index";
@@ -902,13 +898,16 @@ public class CommonSearchController extends BaseController {
 	@RequestMapping(value = {"/loan/save.*"}, method=RequestMethod.POST)
 	public @ResponseBody JsonResponse renewLoan(Model model, LibrarySearch librarySearch, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
-		if ( !result.hasErrors() ) {
-			if ( librarySearch.getEditMode().equals("ADD") ) {
 
-			} else if ( librarySearch.getEditMode().equals("RENEW") ) {
+		//TODO 자료실별 예약 가능여부 체크
+		ilusReqConfigService.getILUSReqConfigInfo(librarySearch, "");
+
+		if (!result.hasErrors()) {
+
+			if (librarySearch.getEditMode().equals("RENEW")) {
 
 				ApiResponse apiResult = LibSearchAPI.renewLoan(librarySearch);
-				if ( apiResult.getStatus() ) {
+				if (apiResult.getStatus()) {
 					res.setValid(true);
 					res.setMessage("반납 연기 되었습니다.");
 				} else {
@@ -920,6 +919,7 @@ public class CommonSearchController extends BaseController {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
 		}
+
 		return res;
 	}
 
@@ -1313,6 +1313,9 @@ public class CommonSearchController extends BaseController {
 				return res;
 			}
 
+			// TODO 자료실별 예약 가능여부 체크
+			ilusReqConfigService.getILUSReqConfigInfo(librarySearch, "");
+
 			librarySearch.setUserkey(member.getRec_key());
 			ApiResponse apiResult = LibSearchAPI.unmannedloanreserve(librarySearch);
 			if (apiResult.getStatus()) {
@@ -1398,6 +1401,9 @@ public class CommonSearchController extends BaseController {
 				res.setMessage("예약 신청 가능한 회원이 아닙니다.");
 				return res;
 			}
+
+			//TODO 자료실별 예약 가능여부 체크
+			ilusReqConfigService.getILUSReqConfigInfo(librarySearch, "");
 
 			librarySearch.setUserkey(member.getRec_key());
 			ApiResponse apiResult = LibSearchAPI.nightloanreserve(librarySearch);
@@ -1611,6 +1617,7 @@ public class CommonSearchController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 		//TODO marc보기
 //
+		LibSearchAPI.getMarc(librarySearch);
 //		Map<String, Object> marcView = LibSearchAPI.getMarcView("WEB", "MARC XML", librarySearch);
 //		@SuppressWarnings ("unchecked")
 //		List<Map<String, String>> marcList = (List<Map<String, String>>) marcView.get("dsMarcView");

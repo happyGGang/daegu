@@ -817,6 +817,28 @@ public class LibSearchAPI {
 	}
 
 	/**
+	 * K.API - 74
+	 *
+	 * MARC 조회
+	 *
+	 * @author whalesoft YONGJU 2019. 12. 3.
+	 * @param librarySearch.regNo
+	 * @return
+	 */
+	public static Map<String, Object> getMarc(LibrarySearch librarySearch) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("manage_code", librarySearch.getManageCode());
+		if (StringUtils.isNotBlank(librarySearch.getBookkey())) {
+			param.put("reckey", librarySearch.getBookkey());
+		}
+		if (StringUtils.isNotBlank(librarySearch.getRegNo())) {
+			param.put("regno", librarySearch.getRegNo());
+		}
+
+		return CommonAPI.sendKCMS("getmarc", param);
+	}
+
+	/**
 	 * === K.API 공통 ===
 	 *
 	 * KCMS API 결과 SEARCH_COUNT를 반환 API 결과가 정상인 경우에만 리턴되며 실패할경우 0을 리턴한다.
@@ -1303,5 +1325,7 @@ public class LibSearchAPI {
 
 		return result;
 	}
+
+
 
 }
