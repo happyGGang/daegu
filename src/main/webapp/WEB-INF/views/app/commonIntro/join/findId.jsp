@@ -5,40 +5,23 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:choose>
-<c:when test="${not empty memberInfo.WEB_ID}">
-<table>
-	<tr>
-		<th>성명</th>
-		<th>아이디</th>
-	</tr>
-	<tr>
-		<td>${memberInfo.USER_NAME}</td>
-		<td>${memberInfo.WEB_ID}</td>
-	</tr>
-</table>
-<br/>
-<br/>
-</c:when>
+	<c:when test="${not empty certMember and not empty certMember.USER_ID}">
+	회원님의 ID는 ${certMember.USER_ID}입니다.
+	</c:when>
 
-
-<c:otherwise>
-<table>
-	<tr>
-		<th>성명</th>
-		<th>아이디</th>
-	</tr>
-	<tr>
-		<td>${memberInfo.USER_NAME}</td>
-		<td width="80%;">
-			생성된 웹 아이디가 없습니다. 신규 회원가입 후 통합회원 전환 과정을 통해 아이디 생성하시기 바랍니다.
-		</td>
-	</tr>
-</table>
-<br/>
-<br/>
-</c:otherwise>
+	<c:otherwise>
+	등록된 회원이 아닙니다.
+	</c:otherwise>
 </c:choose>
 
+<div class="idpwSection" style="text-align:center;">
+	<c:if test="${empty certMember or empty certMember.USER_ID}">
+	<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=5" class="btn btn01">신규회원가입</a>
+	</c:if>
+	<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=4" class="btn btn01">로그인</a>
+	<a href="/${homepage.context_path}/intro/join/findPwForm.do?menu_idx=7" class="btn btn02">비밀번호찾기</a>
+</div>
 
-
-
+<%
+request.getSession().invalidate();
+%>

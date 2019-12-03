@@ -341,25 +341,6 @@ public class CommonJoinController extends BaseController {
 					res.setValid(false);
 					res.setMessage("수정 실패하였습니다. 잠시후 다시 시도해주세요.");
 				}
-
-
-//				if ( MemberAPI.checkMemberPasswd("WEB", member) ) {
-//					if ( MemberAPI.updateMember("WEB", member, false) ) {
-//						res.setValid(true);
-//						res.setMessage("수정되었습니다.");
-//						Member sessionMember = getSessionMemberInfo(request);
-//						sessionMember.setLoca(member.getLoca());
-//						loginService.setSessionMember(sessionMember, request);
-//						int menuIdx = homepageService.getMenuIdxByLinkUrl(homepage.getHomepage_id(), "/intro/join/modifyForm.do");
-//						res.setUrl(String.format("https://%s/%s/intro/join/modifyForm.do?menu_idx=%d", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), menuIdx));
-//					} else {
-//						res.setValid(false);
-//						res.setMessage("수정 실패하였습니다. 잠시후 다시 시도해주세요.");
-//					}
-//				} else {
-//					res.setValid(false);
-//					res.setMessage("비밀번호를 확인해주세요.");
-//				}
 			} else if ( member.getEditMode().equals("INTEGRATION") ) {//통합회원 전환
 				Member certMember = (Member) request.getSession().getAttribute("certMember");
 				if(certMember != null) {
@@ -711,36 +692,65 @@ public class CommonJoinController extends BaseController {
 		return res;
 	}
 
-	@RequestMapping(value = {"/findMemberIdForm.*"})
+	/**
+	 * 아이디찾기 폼
+	 * @author whalesoft YONGJU 2019. 12. 3.
+	 * @param model
+	 * @param member
+	 * @param request
+	 * @param response
+	 * @param homepagePath
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = {"/findIdForm.*"})
 	public String findMemberIdForm(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 
 		model.addAttribute("memberInfo", member);
-		return String.format(basePath, homepage.getFolder()) + "findMemberIdForm";
+		return String.format(basePath, homepage.getFolder()) + "findIdForm";
 	}
 
+	/**
+	 * 아이디찾기 결과
+	 * @author whalesoft YONGJU 2019. 12. 3.
+	 * @param model
+	 * @param member
+	 * @param request
+	 * @param response
+	 * @param homepagePath
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = {"/findId.*"})
 	public String findId(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 
-		model.addAttribute("memberInfo", MemberAPI.getMember("WEB", member));
-		return String.format(basePath, homepage.getFolder()) + "findId_ajax";
+		String findIdFlag = (String) request.getSession().getAttribute("findId");
+		if (findIdFlag == null) {
+			return "redirect:findIdForm.do";
+		}
+
+		return String.format(basePath, homepage.getFolder()) + "findId";
 	}
 
-	@RequestMapping(value = {"/findMemberPwForm.*"})
+	/**
+	 * 비밀번호찾기 폼
+	 * @author whalesoft YONGJU 2019. 12. 3.
+	 * @param model
+	 * @param member
+	 * @param request
+	 * @param response
+	 * @param homepagePath
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = {"/findPwForm.*"})
 	public String findMemberPwForm(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 
 		model.addAttribute("memberInfo", member);
-		return String.format(basePath, homepage.getFolder()) + "findMemberPwForm";
-	}
-
-	@RequestMapping(value = {"/bookConnIdForm.*"})
-	public String bookConnIdForm(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
-		Homepage homepage = getSessionHomepage(request);
-
-		model.addAttribute("memberInfo", member);
-		return String.format(basePath, homepage.getFolder()) + "bookConnIdForm";
+		return String.format(basePath, homepage.getFolder()) + "findPwForm";
 	}
 
 
