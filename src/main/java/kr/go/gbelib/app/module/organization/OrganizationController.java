@@ -7,15 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.organization.Organization;
 import kr.co.whalesoft.app.cms.organization.OrganizationService;
-import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
-import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.framework.base.BaseController;
 
 @Controller(value="userOrganization")
@@ -26,15 +23,6 @@ public class OrganizationController extends BaseController {
 
 	@Autowired
 	private OrganizationService service;
-
-	@Autowired
-	private RecommendSiteService recommendSiteService;
-
-	@ModelAttribute("recommendSiteList")
-	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		return recommendSiteService.getRecommendSiteListAll(new RecommendSite(homepage.getHomepage_id()));
-	}
 
 	@RequestMapping(value = {"/index.*"}, method = RequestMethod.GET)
 	public String index(Model model, Organization organization, HttpServletRequest request) {
