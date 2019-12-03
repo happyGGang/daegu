@@ -47,7 +47,7 @@ public class ConfigController extends BaseController {
 		
 		if(!result.hasErrors()) {
 //			if ( Integer.parseInt(getSessionMemberInfo(request).getAuth_id()) <= 200 ) {
-				config.setMod_id(getSessionMemberId(request));
+				config.setModify_id(getSessionMemberId(request));
 				service.setConfig(config);
 				res.setValid(true);
 				res.setMessage("수정되었습니다.");

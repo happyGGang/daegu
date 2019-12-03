@@ -93,7 +93,7 @@ public class ElibCategoryController extends BaseController {
 						res.setData(category);
 					}
 				} else if(editMode.equals("MODIFY")) {
-					category.setMod_id(getSessionMemberId(request));
+					category.setModify_id(getSessionMemberId(request));
 					if(service.nameDupCheck(category) > 0) {
 						res.setValid(false);
 						res.setMessage("카테고리명이 중복됩니다.");
@@ -138,7 +138,7 @@ public class ElibCategoryController extends BaseController {
 				res.setMessage("저장할 카테고리가 없습니다.");
 			} else {
 				for(ElibCategory cate: cateList) {
-					cate.setMod_id(getSessionMemberId(request));
+					cate.setModify_id(getSessionMemberId(request));
 				}
 				service.saveCategoryList(cateList);
 				res.setValid(true);

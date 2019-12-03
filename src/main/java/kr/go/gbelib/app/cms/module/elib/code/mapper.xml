@@ -132,8 +132,8 @@
 			,use_yn = 'Y'
 			</otherwise>
 			</choose>
-			,mod_id = #{mod_id}
-			,mod_date = SYSDATE
+			,modify_id = #{modify_id}
+			,modify_date = SYSDATE
 		WHERE
 			comp_idx = #{comp_idx}
 	</update>

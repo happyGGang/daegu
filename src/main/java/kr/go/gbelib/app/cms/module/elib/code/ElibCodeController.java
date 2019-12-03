@@ -68,7 +68,7 @@ public class ElibCodeController extends BaseController {
 					res.setValid(true);
 					res.setMessage("등록되었습니다.");
 				} else if(editMode.equals("MODIFY")) {
-					code.setMod_id(getSessionMemberId(request));
+					code.setModify_id(getSessionMemberId(request));
 					service.modifyComp(code);
 					res.setValid(true);
 					res.setMessage("수정되었습니다.");

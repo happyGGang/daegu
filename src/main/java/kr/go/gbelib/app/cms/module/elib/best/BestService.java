@@ -158,48 +158,48 @@ public class BestService extends BaseService {
 	public int modifyConfig(BestBook bestBook) {
 		int result = 0;
 		Config config = new Config("auto_update_yn", bestBook.getAuto_update_yn());
-		config.setMod_id(bestBook.getMod_id());
-		config.setMod_ip(bestBook.getAdd_id());
+		config.setModify_id(bestBook.getModify_id());
+		config.setModify_ip(bestBook.getAdd_id());
 		result = configService.setConfigPair(config);
 		
 		config = new Config("types", bestBook.getTypes());
-		config.setMod_id(bestBook.getMod_id());
-		config.setMod_ip(bestBook.getAdd_id());
+		config.setModify_id(bestBook.getModify_id());
+		config.setModify_ip(bestBook.getAdd_id());
 		result = configService.setConfigPair(config);
 		
 		config = new Config("date_range", String.valueOf(bestBook.getDate_range()));
-		config.setMod_id(bestBook.getMod_id());
-		config.setMod_ip(bestBook.getAdd_id());
+		config.setModify_id(bestBook.getModify_id());
+		config.setModify_ip(bestBook.getAdd_id());
 		result += configService.setConfigPair(config);
 		
 		config = new Config("lend_weight", String.valueOf(bestBook.getLend_weight()));
-		config.setMod_id(bestBook.getMod_id());
-		config.setMod_ip(bestBook.getAdd_id());
+		config.setModify_id(bestBook.getModify_id());
+		config.setModify_ip(bestBook.getAdd_id());
 		result += configService.setConfigPair(config);
 		
 		config = new Config("reserve_weight", String.valueOf(bestBook.getReserve_weight()));
-		config.setMod_id(bestBook.getMod_id());
-		config.setMod_ip(bestBook.getAdd_id());
+		config.setModify_id(bestBook.getModify_id());
+		config.setModify_ip(bestBook.getAdd_id());
 		result += configService.setConfigPair(config);
 		
 		config = new Config("comment_weight", String.valueOf(bestBook.getComment_weight()));
-		config.setMod_id(bestBook.getMod_id());
-		config.setMod_ip(bestBook.getAdd_id());
+		config.setModify_id(bestBook.getModify_id());
+		config.setModify_ip(bestBook.getAdd_id());
 		result += configService.setConfigPair(config);
 		
 		config = new Config("recommend_weight", String.valueOf(bestBook.getRecommend_weight()));
-		config.setMod_id(bestBook.getMod_id());
-		config.setMod_ip(bestBook.getAdd_id());
+		config.setModify_id(bestBook.getModify_id());
+		config.setModify_ip(bestBook.getAdd_id());
 		result += configService.setConfigPair(config);
 		
 		config = new Config("audiobook_weight", String.valueOf(bestBook.getAudiobook_weight()));
-		config.setMod_id(bestBook.getMod_id());
-		config.setMod_ip(bestBook.getAdd_id());
+		config.setModify_id(bestBook.getModify_id());
+		config.setModify_ip(bestBook.getAdd_id());
 		result += configService.setConfigPair(config);
 		
 		config = new Config("elearning_weight", String.valueOf(bestBook.getElearning_weight()));
-		config.setMod_id(bestBook.getMod_id());
-		config.setMod_ip(bestBook.getAdd_id());
+		config.setModify_id(bestBook.getModify_id());
+		config.setModify_ip(bestBook.getAdd_id());
 		result += configService.setConfigPair(config);
 		
 		return result;

@@ -13,8 +13,8 @@ public class ElibAccessIp extends PagingUtils {
 	private String remark; //설명
 	private Date add_date; //등록일
 	private String add_id; //등록ID
-	private Date mod_date;
-	private String mod_id;
+	private Date modify_date;
+	private String modify_id;
 	public ElibAccessIp() { }
 	public ElibAccessIp(String access_ip) {
 		this.access_ip = access_ip;
@@ -49,17 +49,17 @@ public class ElibAccessIp extends PagingUtils {
 	public void setAdd_id(String add_id) {
 		this.add_id = add_id;
 	}
-	public Date getMod_date() {
-		return mod_date;
+	public Date getModify_date() {
+		return modify_date;
 	}
-	public void setMod_date(Date mod_date) {
-		this.mod_date = mod_date;
+	public void setModify_date(Date modify_date) {
+		this.modify_date = modify_date;
 	}
-	public String getMod_id() {
-		return mod_id;
+	public String getModify_id() {
+		return modify_id;
 	}
-	public void setMod_id(String mod_id) {
-		this.mod_id = mod_id;
+	public void setModify_id(String modify_id) {
+		this.modify_id = modify_id;
 	}
 	public int getAccess_idx() {
 		return access_idx;
@@ -71,7 +71,7 @@ public class ElibAccessIp extends PagingUtils {
 	public String toString() {
 		return String.format(
 				"AccessIp [access_idx=%s, access_ip=%s, use_yn=%s, ban_yn=%s, remark=%s, add_date=%s, add_id=%s, mod_date=%s, mod_id=%s]",
-				access_idx, access_ip, use_yn, ban_yn, remark, add_date, add_id, mod_date, mod_id);
+				access_idx, access_ip, use_yn, ban_yn, remark, add_date, add_id, modify_date, modify_id);
 	}
 	public String getBan_yn() {
 		return ban_yn;
