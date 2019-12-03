@@ -65,7 +65,7 @@ public class ElibAccessIpController extends BaseController {
 					res.setValid(true);
 					res.setMessage("등록 되었습니다.");
 				} else if(accessIp.getEditMode().equals("MODIFY")) {
-					accessIp.setMod_id(getSessionMemberId(request));
+					accessIp.setModify_id(getSessionMemberId(request));
 					service.modifyAccessIp(accessIp);
 					res.setValid(true);
 					res.setMessage("수정 되었습니다.");
