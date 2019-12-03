@@ -19,8 +19,8 @@ public class ElibCode extends PagingUtils {
 	private String use_yn = "Y";
 	private String add_id;
 	private String add_date;
-	private String mod_id;
-	private String mod_date;
+	private String modify_id;
+	private String modify_date;
 	private String approved_yn = "Y";
 	
 	public ElibCode() {}
@@ -113,12 +113,12 @@ public class ElibCode extends PagingUtils {
 		return add_id;
 	}
 
-	public String getMod_id() {
-		return mod_id;
+	public String getModify_id() {
+		return modify_id;
 	}
 
-	public String getMod_date() {
-		return mod_date;
+	public String getModify_date() {
+		return modify_date;
 	}
 
 	public void setComp_idx(int comp_idx) {
@@ -153,12 +153,12 @@ public class ElibCode extends PagingUtils {
 		this.add_date = add_date;
 	}
 
-	public void setMod_id(String mod_id) {
-		this.mod_id = mod_id;
+	public void setModify_id(String modify_id) {
+		this.modify_id = modify_id;
 	}
 
-	public void setMod_date(String mod_date) {
-		this.mod_date = mod_date;
+	public void setModify_date(String modify_date) {
+		this.modify_date = modify_date;
 	}
 
 	public String getAdd_date() {
