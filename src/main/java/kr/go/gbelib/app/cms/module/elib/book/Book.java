@@ -47,8 +47,8 @@ public class Book extends PagingUtils {
 	private int read_count = 0;
 	private String add_date;
 	private String add_id;
-	private String mod_date;
-	private String mod_id;
+	private String modify_date;
+	private String modify_id;
 	private int audio_idx;
 	private String play_time;
 	private String play_size;
@@ -221,11 +221,11 @@ public class Book extends PagingUtils {
 	public String getAdd_id() {
 		return add_id;
 	}
-	public String getMod_date() {
-		return mod_date;
+	public String getModify_date() {
+		return modify_date;
 	}
-	public String getMod_id() {
-		return mod_id;
+	public String getModify_id() {
+		return modify_id;
 	}
 	public int getAudio_idx() {
 		return audio_idx;
@@ -383,11 +383,11 @@ public class Book extends PagingUtils {
 	public void setAdd_id(String add_id) {
 		this.add_id = add_id;
 	}
-	public void setMod_date(String mod_date) {
-		this.mod_date = mod_date;
+	public void setModify_date(String modify_date) {
+		this.modify_date = modify_date;
 	}
-	public void setMod_id(String mod_id) {
-		this.mod_id = mod_id;
+	public void setModify_id(String modify_id) {
+		this.modify_id = modify_id;
 	}
 	public void setAudio_idx(int audio_idx) {
 		this.audio_idx = audio_idx;

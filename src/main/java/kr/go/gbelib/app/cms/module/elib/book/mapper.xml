@@ -415,8 +415,8 @@
 			max_lend = #{max_lend},
 			parent_id = #{parent_id},
 			device = #{device},
-			mod_id = #{mod_id},
-			mod_date = SYSDATE,
+			modify_id = #{modify_id},
+			modify_date = SYSDATE,
 			<choose>
 			<when test="type == 'ADO'">
 			cate_id = #{parent_id}
@@ -435,8 +435,8 @@
 			book_info = #{book_info},
 			author_info = #{author_info},
 			book_table = #{book_table},
-			mod_id = #{mod_id},
-			mod_date = SYSDATE
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
 		WHERE
 			book_idx = #{book_idx}
 	</update>

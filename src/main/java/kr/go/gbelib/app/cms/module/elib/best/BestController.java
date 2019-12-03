@@ -181,7 +181,7 @@ public class BestController extends BaseController {
 				res.setMessage("수정되었습니다.");
 			}
 			else if(editMode.equals("MODIFYCONFIG")) {
-				book.setMod_id(getSessionMemberId(request));
+				book.setModify_id(getSessionMemberId(request));
 				book.setAdd_id(request.getRemoteAddr());
 				service.modifyConfig(book);
 				res.setValid(true);

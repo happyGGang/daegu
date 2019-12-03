@@ -128,7 +128,7 @@ public class BookController extends BaseController {
 					res.setMessage("등록 되었습니다.");
 				}
 				else if(editMode.equals("MODIFY")) {
-					book.setMod_id(getSessionMemberId(request));
+					book.setModify_id(getSessionMemberId(request));
 					service.modifyBook(book);
 					res.setValid(true);
 					res.setMessage("수정 되었습니다.");
