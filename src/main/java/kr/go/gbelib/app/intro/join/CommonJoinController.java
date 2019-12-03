@@ -193,7 +193,7 @@ public class CommonJoinController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 1));
+			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 2));
 			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
 			return null;
 		}
@@ -223,7 +223,7 @@ public class CommonJoinController extends BaseController {
 
 		//로그인확인
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 1));
+			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 2));
 			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http%s://%s/%s/intro/login/index.do?menu_idx=%d", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path(), member.getMenu_idx(), loginMenuIdx), request, response);
 			return null;
 		}
@@ -320,7 +320,7 @@ public class CommonJoinController extends BaseController {
 				if (addResult.equals("0")) {
 					res.setValid(true);
 					res.setMessage("준회원 가입이 완료되었습니다. 도서관에 방문하여 대출증 발급 승인 절차를 진행해주시길 바랍니다.");
-					int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 1));
+					int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 2));
 					res.setUrl(String.format("http%s://%s/%s/intro/login/index.do?menu_idx=%d", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path(), loginMenuIdx));
 					request.getSession().invalidate();
 				} else {
@@ -399,7 +399,7 @@ public class CommonJoinController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 1));
+			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 2));
 			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://%s/%s/intro/login/index.do?menu_idx=%d", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), loginMenuIdx), request, response);
 			return null;
 		}
@@ -426,7 +426,7 @@ public class CommonJoinController extends BaseController {
 		JsonResponse res = new JsonResponse(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 1));
+			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 2));
 			res.setValid(true);
 			res.setMessage("로그인 후 이용가능합니다.");
 			res.setUrl(String.format("http://%s/%s/intro/login/index.do?menu_idx=%d", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), loginMenuIdx));
@@ -598,7 +598,7 @@ public class CommonJoinController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 
 		if (request.getSession().getAttribute("certMember") == null) {
-			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 1));
+			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 2));
 			joinService.alertMessageAndUrl("본인인증 후 이용가능합니다.", String.format("http%s://%s/%s/intro/jogin/findPwForm.do?menu_idx=%s", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path(), loginMenuIdx), request, response);
 			return null;
 		}
@@ -641,7 +641,7 @@ public class CommonJoinController extends BaseController {
 			res.setValid(apiResult.getStatus());
 			if (apiResult.getStatus()) {
 				res.setMessage("비밀번호가 변경되었습니다.");
-				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 1));
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 2));
 				res.setUrl(String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx));
 			} else {
 				res.setMessage(apiResult.getMessage());
@@ -721,6 +721,7 @@ public class CommonJoinController extends BaseController {
 //		model.addAttribute("libraryList", LibSearchAPI.getLibraryList());
 		Menu menuOne = (Menu) request.getAttribute("menuOne");
 		if (menuOne == null) {
+
 			int menuIdx = homepageService.getMenuIdxByLinkUrl(homepage.getHomepage_id(), "/intro/join/modifyForm.do");
 			return "redirect:/"+homepage.getContext_path()+"/intro/join/accessInfo.do?menu_idx="+menuIdx;
 		}

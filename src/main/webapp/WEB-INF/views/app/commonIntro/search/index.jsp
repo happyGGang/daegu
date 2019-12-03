@@ -2,1335 +2,666 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
-<c:choose>
-<c:when test="${homepage.context_path eq 'app'}">
-<link rel="stylesheet" type="text/css" href="/resources/book/search/css/defaultApp.css"/>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
 <script src="/resources/cms/js/vk/vk_popup.js?vk_skin=flat_gray&vk_layout=ZW Shona"></script>
-
 <script type="text/javascript">
-var authorViewPage = 1;
-var authorTotalCnt = '${fn:escapeXml(result.totalCnt)}';
-var publisherViewPage = 1;
-var publisherTotalCnt = '${fn:escapeXml(result.totalCnt)}';
-var formCodeViewPage = 1;
-var formCodeTotalCnt = '${fn:escapeXml(result.totalCnt)}';
-var yearViewPage = 1;
-var yearTotalCnt = '${fn:escapeXml(result.totalCnt)}';
-
 $(function() {
-	var ua = window.navigator.userAgent;
-	var msie = ua.indexOf("MSIE ");
 
-	if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))  // If Internet Explorer, return version number
-	{
-// 	    alert(parseInt(ua.substring(msie + 5, ua.indexOf(".", msie))));
-	}
-	else  // If another browser, return 0
-	{
-		$('div#printMsg').hide();
-		$('div#btn_print_div').hide();
-	}
+	var $form = $('form#librarySearch');
 
+	//검색하기
+	$('a#search-btn').on('click', function(e) {
+		e.preventDefault();
+		$('input#viewPage').val('1');
+		doGetLoad('index.do', $form.serialize());
+	});
 
-	$('#do-search').on('click', function(e) {
-		if ($('#librarySearch input#search_text').val() == '') {
-			alert('검색어를 입력해주세요');
-			$('#librarySearch input#search_text').focus();
-			return false;
+	//정렬, N개씩보기
+	$('select#rowCount, select#sortType, select#sortField').on('change', function() {
+		$('a#search-btn').click();
+	});
+
+	//소장정보 펼치기/접기
+	$('a.showSlide').on('click', function(e) {
+		e.preventDefault();
+
+		var bci = $(this).parents('div.box').next('div.bci');
+		var toggleState = $(bci).is(':hidden');
+		if (toggleState)
+		{
+			$(this).css('background','#758194');
+			$(this).text('소장정보');
+			$(bci).slideToggle();
+		} else {
+			$(this).css('background','#a5856d');
+			$(this).text('소장정보');
+			$(bci).slideToggle();
 		}
-		if (!$('input#sub_search1').is(':checked')) {
-			$('form#librarySearch input#allBookListStr').val('');
+	});
+
+	//이미지 목록형
+	$('.imgView').on('click', function(e) {
+		e.preventDefault();
+		$(this).addClass('on');
+		$('.listView').removeClass('on');
+		$('.search-results .cont ul').removeClass();
+		if($(this).hasClass('on')){
+			$('.search-results .textType').css('display','none');
+			$('.search-results .imageType').css('display','block');
 		}
-		$('input#search_type2').val($('select#search_type option:selected').val());
-		$('#librarySearch').submit();
-		//doGetLoad('search.do', serializeCustom($('#librarySearch')));
 	});
 
-// 	$('a.doSearchType').on('click', function(e) {
-// 		$('#viewPage').val(1);
-// 		$('#search_type').val($(this).attr('keyValue'));
-// 		loadIndex();
-// 		e.preventDefault();
-// 	});
-
-	$('a.doSearchYear').on('click', function(e) {
-		$('#search_type2').val($(this).attr('keyValue1'));
-		$('#search_year').val($(this).attr('keyValue2'));
-		loadIndex();
+	//텍스트 목록형
+	$('.listView').on('click', function(e) {
 		e.preventDefault();
+		$(this).addClass('on');
+		$('.imgView').removeClass('on');
+		$('.search-results .cont ul').removeClass();
+		if($(this).hasClass('on')){
+			$('.search-results .imageType').css('display','none');
+			$('.search-results .textType').css('display','block');
+		}
 	});
 
-// 	$('a.doSearchLibrary').on('click', function(e) {
-// 		$('div#libraryList input:checkbox').prop('checked', false);
-// 		$('div#libraryList input#lib_'+$(this).attr('keyValue2')).prop('checked', true);
-// 		$('#search_type').val($(this).attr('keyValue1'));
-// 		$('#search_library').val($(this).attr('keyValue2'));
-// 		loadIndex();
-// 		e.preventDefault();
-// 	});
-
-	$('a.doSearchFormCode').on('click', function(e) {
-		$('#search_type2').val($(this).attr('keyValue1'));
-		$('#search_form_code').val($(this).attr('keyValue2'));
-		loadIndex();
-		e.preventDefault();
-	});
-
-	$('a.doSearchWriter').on('click', function(e) {
-		$('#search_type2').val($(this).attr('keyValue1'));
-		$('#search_athor').val($(this).attr('keyValue2'));
-		loadIndex();
-		e.preventDefault();
-	});
-
-	$('a.doSearchPublisher').on('click', function(e) {
-		$('#search_type2').val($(this).attr('keyValue1'));
-		$('#search_publisher').val($(this).attr('keyValue2'));
-		loadIndex();
-		e.preventDefault();
-	});
-
-// 	$('a.doSearchPform').on('click', function(e) {
-// 		$('#search_type').val($(this).attr('keyValue1'));
-// 		$('#search_form_code').val($(this).attr('keyValue2'));
-// 		loadIndex();
-// 		e.preventDefault();
-// 	});
-
-	<%-- 저자 더 보기 --%>
-	$('a.moreAuthor').on('click', function(e) {
-		e.preventDefault();
-		$.ajax({
-			url:'table2.do',
-			data:'allBookListStr='+$('input#allBookListStr').val() + '&viewPage=' + (authorViewPage+1),
-			type:'post',
-			success:function(html) {
-				$('a.moreAuthor').parent('p').prev('ul').append(html);
-				authorViewPage++;
-				if ((authorViewPage*5) > authorTotalCnt) {
-					$('a.moreAuthor').hide();
-				}
-			}
-		});
-	});
-	<%-- 출판사 더 보기 --%>
-	$('a.morePublisher').on('click', function(e) {
-		e.preventDefault();
-		$.ajax({
-			url:'table3.do',
-			data:'allBookListStr='+$('input#allBookListStr').val() + '&viewPage=' + (publisherViewPage+1),
-			type:'post',
-			success:function(html) {
-				$('a.morePublisher').parent('p').prev('ul').append(html);
-				publisherViewPage++;
-				if ((publisherViewPage*5) > publisherTotalCnt) {
-					$('a.morePublisher').hide();
-				}
-			}
-		});
-	});
-
-	<%-- 유형 더 보기 --%>
-	$('a.moreFormcode').on('click', function(e) {
-		e.preventDefault();
-		$.ajax({
-			url:'table5.do',
-			data:'allBookListStr='+$('input#allBookListStr').val() + '&viewPage=' + (formcodeViewPage+1),
-			type:'post',
-			success:function(html) {
-				$('a.moreFormcode').parent('p').prev('ul').append(html);
-				formcodeViewPage++;
-				if ((formcodeViewPage*5) > formcodeTotalCnt) {
-					$('a.moreFormcode').hide();
-				}
-			}
-		});
-	});
-
-	<%-- 연도 더 보기 --%>
-	$('a.moreYear').on('click', function(e) {
-		e.preventDefault();
-		$.ajax({
-			url:'table4.do',
-			data:'allBookListStr='+$('input#allBookListStr').val() + '&viewPage=' + (yearViewPage+1),
-			type:'post',
-			success:function(html) {
-				$('a.moreYear').parent('p').prev('ul').append(html);
-				yearViewPage++;
-				if ((yearViewPage*5) > yearTotalCnt) {
-					$('a.moreYear').hide();
-				}
-			}
-		});
-	});
-
+	//외국어 입력기
 	$('#vk-popup').on('click', function(e) {
 		PopupVirtualKeyboard.toggle('search_text','vk');
 	});
-	//키보드로 조작 할 수 있도록
-	$('#vk-popup').on('keydown', function(e) {
-			$('html, body').animate({scrollTop: 0 }, 'fast');  //spacebar 바로 인해 내려간 화면을 다시 올려줌
-		if (e.keyCode == 32) {  //space bar keyCode
-			PopupVirtualKeyboard.toggle('search_text','vk');
-		}
-	});
 
-	$('#toggleLibList').on('click', function(e) {
-		$('div#libraryList').slideToggle(function() {
-			if (!$('div#libraryList').is(':visible')) {
-				$('div#libraryList input:checkbox').prop('checked', false);
-				$('div#libraryList input:checkbox[searched=true]').prop('checked', true);
-			}
-		});
-	});
-
-	$('#toggleLibList').on('keydown', function(e) {
-		if (e.keyCode == 32) { //space bar keyCode
-			$('div#libraryList').slideToggle(function() {
-				if (!$('div#libraryList').is(':visible')) {
-					$('div#libraryList input:checkbox').prop('checked', false);
-					$('div#libraryList input:checkbox[searched=true]').prop('checked', true);
-				}
-			});
-			$('html, body').animate({scrollTop: 0 }, 'fast'); //spacebar 바로 인해 내려간 화면을 다시 올려줌
-		}
-	});
-
-	$('#checkAll').change(function(e) {
-		$('div#libraryList input:checkbox').prop('checked', $(this).prop('checked'));
-	});
-
+	//전체 선택
 	$('#checkAllBook').change(function(e) {
 		$('input.checkBook').prop('checked', $(this).prop('checked'));
-	});
-
-	$('li.li-group a.bi').on('click', function() {
-		$(this).parent('li').toggleClass('active');
 	});
 
 	$('a#addMyLib').on('click', function(e) {
 		e.preventDefault();
 		var len = $('input.checkBook:checked').length;
 		if (len < 1) {
-			alert('선택된 도서가 없습니다.');
+			alert('선택된 책이 없습니다.');
 			return false;
 		}
-
-		var checkList = $('#librarySearch input[name="print_param"]:checked').clone();
-		$('#storageReqForm').append(checkList);
-		$('#storageReqForm input').attr('name', 'strList');
-		window.open("/${homepage.context_path}/module/myStorage/viewStorage.do?"+serializeCustom($('form#storageReqForm')), "", "width=350, height=350");
+		//TODO
+		alert('준비중입니다');
 		//내 보관함 이동.
 	});
 
-	// No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'http://localhost:81' is therefore not allowed access.
-	// API 서버에서 추가 작업이 필요함.
-	/* function AutoFill(){
-		$.ajax({
-	        type:'GET',
-	        url:'${fn:escapeXml(liboneApiUrl)}',
-	        data:'cmd=GETAUTOFILL&searchKeyword=어린',
-	        success:function(response){
-	            console.log(response);
-	        },
-	        error:function(e){
-	            alert(e.responseText);
-	        }
-	    });
-	} */
-
-	$('#librarySearch #search_text').on('keyup',function(e){
-		 switch (e.keyCode) {
-         case 8:  // Backspace
-         case 9:  // Tab
-         case 13: // Enter
-         case 37: // Left
-         case 38: // Up
-         case 39: // Right
-         case 40: // Down
-         break;
-
-         default:
-        	 $.ajax({
-     	        type:'GET',
-     	        async:true,
-     	        url:'autoFill.do',
-     	        data:'searchKeyword='+encodeURIComponent($(this).val()),
-     	        success:function(response){
-     	        	var autofillArr = response.autofillArr;
-     	        	var autoFillStr = [];
-     	        	$.each(autofillArr, function(i, v) {
-     	        		autoFillStr.push('<a class="autoText">' + v.word + '</a>');
-     	        	});
-     	            $('#autoFill').html(autoFillStr.join(','));
-     	            $('a.autoText').on('click', function(e) {
-     	            	e.preventDefault();
-     	            	$('#librarySearch #search_text').val($(this).text());
-     	            	$('#librarySearch #do-search').click();
-     	            });
-     	        },
-     	        error:function(e){
-     	        }
-     	    });
-     	}
-	});
-	$('a.showSlide').on('click', function(e) {
-		e.preventDefault();
-		var bci = $(this).parents('div.bif').next('div.bci');
-		var toggleState = $(bci).is(':hidden');
-		if (toggleState) {
-			$(bci).load('index_detail.do?vLoca='+$(this).attr('vLoca')+'&vCtrl='+$(this).attr('vCtrl'), function() {
-				$(bci).slideToggle();
-			});
-		} else {
-			$(bci).slideToggle();
-		}
-	});
-
-	$('a.goDetail').on('click', function(e) {
-		e.preventDefault();
-		$('input#vLoca').val($(this).attr('vLoca'));
-		$('input#vCtrl').val($(this).attr('vCtrl'));
-		$('input#vImg').val($(this).attr('vImg'));
-		$('input#isbn').val($(this).attr('isbn'));
-		$('input#tid').val($(this).attr('tid'));
-		var formData = serializeParameter(['vLoca', 'vCtrl', 'vImg', 'isbn', 'tid', 'menu_idx']);
-		doGetLoad('detail.do', formData);
-// 		$('form#detailForm').submit();
-	});
-
-	if ($('input#viewPage').val() != '1') {
-		jQuery.ajaxSettings.traditional = true;
-		var param = serializeObject($('#librarySearch'));
-		var param2 = serializeObject($('#searchTableForm'));
-		loadIndex('table');
-	}
-
-	function loadIndex() {
-		jQuery.ajaxSettings.traditional = true;
-		$('input#viewPage').val('1');
-		var isSubSearch = $('input#sub_search1').is(':checked');
-		$('input#sub_search1').prop('checked', false);
-		var param = serializeObject($('#librarySearch'));
-		var param2 = serializeObject($('#searchTableForm'));
-		$('div#search-results').load('table.do', $.extend(true, param, param2));
-		if (isSubSearch) {
-			$('input#sub_search1').prop('checked', true);
-		}
-		$('body').scrollTop(0);
-	}
-
-	$('div#search-results img').on('error', function() {
-		var $this = $(this);
-		$this.attr('src', '/resources/common/img/noImg.gif');
-		$this.parent().addClass('noImg');
-	});
-
-	$('a#excelDownload').on('click', function(e) {
-		e.preventDefault();
-		var checkedLength = $('form#librarySearch input[name=print_param]:checked').length;
-		if (checkedLength < 1) {
-			alert('선택된 도서가 없습니다.');
-			return false;
-		}
-		var clone = $('form#librarySearch input[name=print_param]:checked').clone();
-		var clone2 = $('form#librarySearch input[name=libraryCodes]:checked').clone();
-		$('form#excelForm').append(clone);
-		$('form#excelForm').append(clone2);
-		$('form#excelForm input#excel_viewPage').val($('form#librarySearch input#viewPage').val());
-		$('form#excelForm input#excel_search_text').val($('form#librarySearch input#search_text').val());
-		$('form#excelForm input#excel_search_type2').val($('form#librarySearch input#search_type2').val());
-		$('form#excelForm').attr('action', 'excelDownload.do');
-		$('form#excelForm').submit();
-		$('form#excelForm input[name=print_param]').remove();
-		$('form#excelForm input[name=libraryCodes]').remove();
-
-	});
-	
-	$('a#csvDownload').on('click', function(e) {
-		e.preventDefault();
-		var checkedLength = $('form#librarySearch input[name=print_param]:checked').length;
-		if (checkedLength < 1) {
-			alert('선택된 도서가 없습니다.');
-			return false;
-		}
-		var clone = $('form#librarySearch input[name=print_param]:checked').clone();
-		var clone2 = $('form#librarySearch input[name=libraryCodes]:checked').clone();
-		$('form#excelForm').append(clone);
-		$('form#excelForm').append(clone2);
-		$('form#excelForm input#excel_viewPage').val($('form#librarySearch input#viewPage').val());
-		$('form#excelForm input#excel_search_text').val($('form#librarySearch input#search_text').val());
-		$('form#excelForm input#excel_search_type2').val($('form#librarySearch input#search_type2').val());
-		$('form#excelForm').attr('action', 'csvDownload.do');
-		$('form#excelForm').submit();
-		$('form#excelForm input[name=print_param]').remove();
-		$('form#excelForm input[name=libraryCodes]').remove();
-
-	});
-
+	//인기검색어
 	$('div#hotTrend').load('hotTrend.do');
-	<c:if test="${empty librarySearch.search_text}">
-	$('div#cms_paging').hide();
-	//$('div#search-results').load('bestBook.do');
-	</c:if>
 
-
-	$('a#ageLoanBestBtn').on('click', function(e) {
+	//청구기호 인쇄
+	$('a.btn_print').on('click', function(e) {
 		e.preventDefault();
-// 		$('div#ageLoanBest').load('ageLoanBest.do', function( response, status, xhr ) {
-// 			$('div#ageLoanBest').dialog();
-// 		});
-		$('div#ageLoanBest').html(
-			'<div style="text-align: center; padding-top: 100px;">'+
-			'<img id="loading_img" alt="loading" src="/resources/common/img/viewLoading.gif" />'+
-			'<br/><br/>'+
-			'대출 순위 불러오는 중'+
-			'</div>'
-		);
-		$('div#ageLoanBest').load('ageLoanBest.do');
-		$('div#ageLoanBest').dialog({
-			width:1100,
-			height:500,
-			resizable: true,
-	 		modal: true
-		});
+		var url = $(this).data('param').replace('detail', 'print');
+
+		window.open(url, '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=100,width=700,height=500');
 	});
-	
-	if ('${fn:escapeXml(param.search_type)}'=='') {
-		$('select#search_type').val('L_TITLEAUTHOR');
-	}
-	
-	$('a#sort-btn').on('click', function(e) {
-		$('#do-search').click();
+
+	//결과 내 재검색
+	$('a#subSearch').on('click', function(e) {
+		e.preventDefault();
+		var type = $('select#subSearchType').val();
+		var beforeText = $('input#'+type).val();
+		var newText = (beforeText == '') ? newText = $('input#subSearchText').val() : $('input#'+type).val()+ ' ' +$('input#subSearchText').val();
+		$('input#'+type).val(newText);
+		$('a#search-btn').click();
 	});
-	
-});
-$(document).on("keyup", "input:text[numberOnly]", function() {
-	$(this).val($(this).val().replace(/[^0-9]/gi, ""));
+
+	//결과 내 재검색
+	$('input#subSearchText').on('keyup', function(e) {
+		if (e.keyCode == 13 && $(this).val() != '') {
+			$('a#subSearch').click();
+		}
+	});
+
 });
 </script>
-<form:form modelAttribute="librarySearch" id="excelForm" action="excelDownload.do" method="post" style="display: none;">
-<form:hidden id="excel_search_type2"       path="search_type2" htmlEscape="true"/>
-<form:hidden id="excel_search_type"       path="search_type" htmlEscape="true"/>
-<form:hidden id="excel_search_text"       path="search_text" htmlEscape="true"/>
-<form:hidden id="excel_search_library"    path="search_library" htmlEscape="true"/>
-<form:hidden id="excel_search_form_code"  path="search_form_code" htmlEscape="true"/>
-<form:hidden id="excel_search_kdc"        path="search_kdc" htmlEscape="true"/>
-<form:hidden id="excel_search_athor"      path="search_athor" htmlEscape="true"/>
-<form:hidden id="excel_search_year"      path="search_year" htmlEscape="true"/>
-<form:hidden id="excel_search_publisher"  path="search_publisher" htmlEscape="true"/>
-<form:hidden id="excel_menu_idx"          path="menu_idx" htmlEscape="true"/>
-<form:hidden id="excel_viewPage"          path="viewPage" htmlEscape="true"/>
-<form:hidden id="excel_excel_type"        path="excel_type" value="SEARCH" htmlEscape="true"/>
-</form:form>
-<form id="storageReqForm" style="display: none;">
-<input type="hidden" name="_csrf" value="${_csrf.token}">
-</form>
-<form:form modelAttribute="librarySearch" id="detailForm" action="detail.do" method="post">
+<form:form modelAttribute="librarySearch" id="detailForm" action="detail.do" method="post" >
 	<form:hidden path="menu_idx"/>
-	<form:hidden path="vLoca"/>
-	<form:hidden path="vCtrl"/>
-	<form:hidden path="vImg"/>
 	<form:hidden path="isbn"/>
-	<form:hidden path="tid"/>
+	<form:hidden path="regNo"/>
+	<form:hidden path="manageCode"/>
 </form:form>
 
-<form:form modelAttribute="librarySearch" action="index.do" method="POST">
-	<form:hidden path="allBookListStr" value="${result.allBookListStr}"/>
-	<form:hidden path="search_type2"/>
-	<form:hidden path="search_library"/>
-	<form:hidden path="search_form_code"/>
-	<form:hidden path="search_kdc"/>
-	<form:hidden path="search_year"/>
-	<form:hidden path="search_athor"/>
-	<form:hidden path="search_publisher"/>
+<form:form modelAttribute="librarySearch" action="index.do" method="get">
 	<form:hidden path="menu_idx"/>
 	<form:hidden path="viewPage"/>
-	<form:hidden path="excel_type"/>
-	<div class="search-wrap">
-		<div style="background:#34373e;">
-			<c:if test="${librarySearch.search_text ne null and librarySearch.search_text ne ''}">
-			<!--
-			<div style="float: left;">
-				<form:checkbox path="sub_search" label="검색결과 내 재검색"/>
-			</div>
-			<div style="clear:both"></div>
-			-->
-			</c:if>
 
-
-
-
-
-		<div class="search-form">
-			<div class="search-area">
-				<a id="toggleLibList"><span class="orange"><img src="/resources/homepage/app/img/search_lib.png" alt="도서관선택"><Br/>도서관선택</span></a>
-			</div>
-
-			<div class="box">
-				<div class="" style="overflow:hidden;background:#fff;border-radius:38px">
-					<div class="box1" style="width: 20%;">
-						<select id="search_type" name="search_type" class="selectmenu" style="width:100%;font-size:105%;padding-left:12px;border:0px;">
-							<option value="L_TITLEAUTHOR" <c:if test="${librarySearch.search_type eq 'L_TITLEAUTHOR'}">selected="selected"</c:if>>서명or저자</option>
-							<option value="L_TITLE" <c:if test="${librarySearch.search_type eq 'L_TITLE'}">selected="selected"</c:if>>서명[전방일치]</option>
-							<option value="L_AUTHOR" <c:if test="${librarySearch.search_type eq 'L_AUTHOR'}">selected="selected"</c:if>>저자[전방일치]</option>
-							<option value="L_PUBLISHER" <c:if test="${librarySearch.search_type eq 'L_PUBLISHER'}">selected="selected"</c:if>>출판사[완전일치]</option>
-							<option value="INDEXSEARCH" <c:if test="${librarySearch.search_type eq 'INDEXSEARCH'}">selected="selected"</c:if>>목차[부분일치]</option>
-						</select>
-					</div>
-
-					<div class="b1">
-						<form:input htmlEscape="true" path="search_text" type="text" class="text2" title="검색어를 입력하세요" placeholder="검색어를 입력하세요." onfocus="PopupVirtualKeyboard.attachInput(this)" cssStyle="ime-mode:active;"/>
-					</div>
-					<div class="b2">
-						<button id="do-search"><img src="/resources/common/img/search-btn.png" alt="검색"><span class="blind">검색</span></button>
-					</div>
-				</div>
-			</div>
-
-			<div id="autoFill">
-			</div>
-			
-		</div>
-
-		<br/>
-		<div id="libraryList" class="bbs-notice" style="margin-bottom:20px; display: none;" >
-			<div>
-				<form:checkbox id="checkAll" path="libraryCodes" label="전체" value="ALL" />
-			</div>
-			<div>
-				<ul>
-					<c:forEach items="${libraryList.data}" var="i">
-						<c:if test="${i.lib_manage_code ne '00347034'}">
-						<li>
-							<c:choose>
-								<c:when test="${i.lib_manage_code eq '00000001'}">
-									<form:checkbox id="lib_${i.lib_manage_code}" searched="true" path="libraryCodes" label="${fn:escapeXml(i.lib_name)}" value="${fn:escapeXml(i.lib_manage_code)}" checked="checked"/>
-								</c:when>
-								<c:when test="${fn:indexOf(librarySearch.libraryCodes, i.lib_manage_code)!= -1 or fn:indexOf(librarySearch.libraryCodes, 'ALL') != -1}">
-									<form:checkbox id="lib_${fn:escapeXml(i.lib_manage_code)}" searched="true" path="libraryCodes" label="${fn:escapeXml(i.lib_name)}" value="${fn:escapeXml(i.lib_manage_code)}" checked="checked"/>
-								</c:when>
-								<c:otherwise>
-									<form:checkbox id="lib_${fn:escapeXml(i.lib_manage_code)}" path="libraryCodes" label="${fn:escapeXml(i.lib_name)}" value="${fn:escapeXml(i.lib_manage_code)}" />
-								</c:otherwise>
-							</c:choose>
-						</li>
-						</c:if>
-					</c:forEach>
-				</ul>
-			</div>
-		</div>
-		<div class="search-info" >
-			<c:if test="${result.code eq '0000'}">
-				검색결과 '<b class="og"><i>${fn:escapeXml(librarySearch.search_text)}</i></b>'에 대한 <b>${fn:escapeXml(librarySearch.viewPage)}</b>/${fn:escapeXml(result.totalPage)}페이지, 총 <b>${fn:escapeXml(result.totalCnt)}</b>건
-			</c:if>
-		</div>
-		<c:set var="showSmain" value="${librarySearch.search_text ne null and librarySearch.search_text ne ''}"></c:set>
-
-		<c:if test="${fn:length(result.data) < 1 and showSmain}">
-		<p style="text-align: center;">
-			<b>찾으시는 자료가 없습니다. </b>
-		</p>
-		</c:if>
-
-		<div class="smain">
-			<div class="box" style="min-height: 500px;">
-				<div id="search-results" class="search-results">
-					<c:forEach items="${result.data}" var="i">
-						<div class="row">
-							<p class="admin"><input name="print_param" type="checkbox" class="checkBook" value="${fn:escapeXml(i.libCode)}_${fn:escapeXml(i.rec_key)}_${fn:escapeXml(i.tid)}_${fn:escapeXml(i.img)}"/></p>
-							<div class="thumb">
-								<c:choose>
-									<c:when test="${i.img eq '' or fn:contains(i.img, 'noimg')}">
-										<a href="#" vLoca="${fn:escapeXml(i.libCode)}" vCtrl="${fn:escapeXml(i.rec_key)}" vImg="${fn:escapeXml(i.img)}" isbn="${fn:escapeXml(i.isbn)}" tid="${fn:escapeXml(i.tid)}" class="goDetail noImg">
-											<img src="/resources/common/img/noImg.gif" alt="noImage"/>
-										</a>
-									</c:when>
-									<c:otherwise>
-										<a href="#" vLoca="${fn:escapeXml(i.libCode)}" vCtrl="${fn:escapeXml(i.rec_key)}" vImg="${fn:escapeXml(i.img)}" isbn="${fn:escapeXml(i.isbn)}" tid="${fn:escapeXml(i.tid)}" class="goDetail">
-											<img src="${fn:escapeXml(i.img)}" alt="${fn:escapeXml(i.title)}"/>
-										</a>
-									</c:otherwise>
-								</c:choose>
-							</div>
-							<div class="box">
-								<div class="item">
-									<div class="bif">
-										<c:set var="replaceStr" value="<span style='color:#ffa651'>${fn:escapeXml(librarySearch.search_text)}</span>"/>
-										<a href="#" vLoca="${fn:escapeXml(i.libCode)}" vCtrl="${fn:escapeXml(i.rec_key)}" vImg="${fn:escapeXml(i.img)}" isbn="${fn:escapeXml(i.isbn)}" tid="${fn:escapeXml(i.tid)}" class="name goDetail">${fn:replace(fn:escapeXml(i.title), fn:escapeXml(librarySearch.search_text), replaceStr)}</a>
-										<span class="txt"><span class="tit">저자: </span>${fn:replace(fn:escapeXml(i.author), fn:escapeXml(librarySearch.search_text), replaceStr)}</span><span class="bar">|</span>
-										<span class="txt"><span class="tit">발행처: </span>${fn:replace(fn:escapeXml(i.publisher), fn:escapeXml(librarySearch.search_text), replaceStr)}</span><span class="bar">|</span>
-										<span class="txt"><span class="tit">발행연도: </span>${fn:escapeXml(i.year)}</span><span class="bar">|</span>
-										<span class="txt"><span class="tit">자료이용하는 곳: </span>${fn:escapeXml(i.libName)}</span><span class="bar">|</span>
-										<span class="txt"><span class="tit">청구기호: </span>${fn:escapeXml(i.callno)}</span>
-										<div class="stat">
-											<a href="#" class="showSlide" vLoca="${fn:escapeXml(i.libCode)}" vCtrl="${fn:escapeXml(i.rec_key)}"><span>이용가능여부</span><i class="fa fa-angle-down" aria-hidden="true"></i></a>
-											<c:if test="${not empty i.marc_url}">
-											<a href="${i.marc_url}" class="btn" target="_blank" style="margin-left: 10px;"><span>전자책 바로보기</span></a>
-											</c:if>
-										</div>
-									</div>
-									<div class="bci" style="display: none;">
-										<!-- ajax_area -->
-									</div>
-								</div>
-							</div>
-						</div>
-					</c:forEach>
-					<jsp:include page="/WEB-INF/views/app/cms/common/paging_search.jsp" flush="false" />
-				</div>
-			</div>
-
-		</div>
+	<!-- contents-title-->
+	<div id="contents-title">
+		<h2>어떤 도서<span style="font-weight:300">를 찾고 싶으세요?</span></h2>
 	</div>
-</form:form>
-<div id="vk"></div>
+	<!-- /contents-title-->
 
-</c:when>
-<c:otherwise>
-
-<link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
-
-<script src="/resources/cms/js/vk/vk_popup.js?vk_skin=flat_gray&vk_layout=ZW Shona"></script>
-<script type="text/javascript">
-var authorViewPage = 1;
-var authorTotalCnt = '${fn:escapeXml(result.totalCnt)}';
-var publisherViewPage = 1;
-var publisherTotalCnt = '${fn:escapeXml(result.totalCnt)}';
-var formCodeViewPage = 1;
-var formCodeTotalCnt = '${fn:escapeXml(result.totalCnt)}';
-var yearViewPage = 1;
-var yearTotalCnt = '${fn:escapeXml(result.totalCnt)}';
-
-$(function() {
-	var ua = window.navigator.userAgent;
-	var msie = ua.indexOf("MSIE ");
-
-	if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))  // If Internet Explorer, return version number
-	{
-// 	    alert(parseInt(ua.substring(msie + 5, ua.indexOf(".", msie))));
-	}
-	else  // If another browser, return 0
-	{
-		$('div#printMsg').hide();
-		$('div#btn_print_div').hide();
-	}
-
-	$('#do-search').on('click', function(e) {
-		if ($('#librarySearch input#search_text').val() == '') {
-			alert('검색어를 입력해주세요');
-			$('#librarySearch input#search_text').focus();
-			return false;
-		}
-		if (!$('input#sub_search1').is(':checked')) {
-			$('form#librarySearch input#allBookListStr').val('');
-		}
-		$('input#search_type2').val($('select#search_type option:selected').val());
-		$('#librarySearch').submit();
-		//doGetLoad('search.do', serializeCustom($('#librarySearch')));
-	});
-
-// 	$('a.doSearchType').on('click', function(e) {
-// 		$('#viewPage').val(1);
-// 		$('#search_type').val($(this).attr('keyValue'));
-// 		loadIndex();
-// 		e.preventDefault();
-// 	});
-
-	$('a.doSearchYear').on('click', function(e) {
-		$('#search_type2').val($(this).attr('keyValue1'));
-		$('#search_year').val($(this).attr('keyValue2'));
-		loadIndex();
-		e.preventDefault();
-	});
-
-// 	$('a.doSearchLibrary').on('click', function(e) {
-// 		$('div#libraryList input:checkbox').prop('checked', false);
-// 		$('div#libraryList input#lib_'+$(this).attr('keyValue2')).prop('checked', true);
-// 		$('#search_type').val($(this).attr('keyValue1'));
-// 		$('#search_library').val($(this).attr('keyValue2'));
-// 		loadIndex();
-// 		e.preventDefault();
-// 	});
-
-	$('a.doSearchFormCode').on('click', function(e) {
-		$('#search_type2').val($(this).attr('keyValue1'));
-		$('#search_form_code').val($(this).attr('keyValue2'));
-		loadIndex();
-		e.preventDefault();
-	});
-
-	$('a.doSearchWriter').on('click', function(e) {
-		$('#search_type2').val($(this).attr('keyValue1'));
-		$('#search_athor').val($(this).attr('keyValue2'));
-		loadIndex();
-		e.preventDefault();
-	});
-
-	$('a.doSearchPublisher').on('click', function(e) {
-		$('#search_type2').val($(this).attr('keyValue1'));
-		$('#search_publisher').val($(this).attr('keyValue2'));
-		loadIndex();
-		e.preventDefault();
-	});
-
-// 	$('a.doSearchPform').on('click', function(e) {
-// 		$('#search_type').val($(this).attr('keyValue1'));
-// 		$('#search_form_code').val($(this).attr('keyValue2'));
-// 		loadIndex();
-// 		e.preventDefault();
-// 	});
-
-	<%-- 저자 더 보기 --%>
-	$('a.moreAuthor').on('click', function(e) {
-		e.preventDefault();
-		$.ajax({
-			url:'table2.do',
-			data:'allBookListStr='+$('input#allBookListStr').val() + '&viewPage=' + (authorViewPage+1),
-			type:'post',
-			success:function(html) {
-				$('a.moreAuthor').parent('p').prev('ul').append(html);
-				authorViewPage++;
-				if ((authorViewPage*5) > authorTotalCnt) {
-					$('a.moreAuthor').hide();
-				}
-			}
-		});
-	});
-	<%-- 출판사 더 보기 --%>
-	$('a.morePublisher').on('click', function(e) {
-		e.preventDefault();
-		$.ajax({
-			url:'table3.do',
-			data:'allBookListStr='+$('input#allBookListStr').val() + '&viewPage=' + (publisherViewPage+1),
-			type:'post',
-			success:function(html) {
-				$('a.morePublisher').parent('p').prev('ul').append(html);
-				publisherViewPage++;
-				if ((publisherViewPage*5) > publisherTotalCnt) {
-					$('a.morePublisher').hide();
-				}
-			}
-		});
-	});
-
-	<%-- 유형 더 보기 --%>
-	$('a.moreFormcode').on('click', function(e) {
-		e.preventDefault();
-		$.ajax({
-			url:'table5.do',
-			data:'allBookListStr='+$('input#allBookListStr').val() + '&viewPage=' + (formcodeViewPage+1),
-			type:'post',
-			success:function(html) {
-				$('a.moreFormcode').parent('p').prev('ul').append(html);
-				formcodeViewPage++;
-				if ((formcodeViewPage*5) > formcodeTotalCnt) {
-					$('a.moreFormcode').hide();
-				}
-			}
-		});
-	});
-
-	<%-- 연도 더 보기 --%>
-	$('a.moreYear').on('click', function(e) {
-		e.preventDefault();
-		$.ajax({
-			url:'table4.do',
-			data:'allBookListStr='+$('input#allBookListStr').val() + '&viewPage=' + (yearViewPage+1),
-			type:'post',
-			success:function(html) {
-				$('a.moreYear').parent('p').prev('ul').append(html);
-				yearViewPage++;
-				if ((yearViewPage*5) > yearTotalCnt) {
-					$('a.moreYear').hide();
-				}
-			}
-		});
-	});
-
-	$('#vk-popup').on('click', function(e) {
-		PopupVirtualKeyboard.toggle('search_text','vk');
-	});
-	//키보드로 조작 할 수 있도록
-	$('#vk-popup').on('keydown', function(e) {
-			$('html, body').animate({scrollTop: 0 }, 'fast');  //spacebar 바로 인해 내려간 화면을 다시 올려줌
-		if (e.keyCode == 32) {  //space bar keyCode
-			PopupVirtualKeyboard.toggle('search_text','vk');
-		}
-	});
-
-	$('#toggleLibList').on('click', function(e) {
-		$('div#libraryList').slideToggle(function() {
-			if (!$('div#libraryList').is(':visible')) {
-				$('div#libraryList input:checkbox').prop('checked', false);
-				$('div#libraryList input:checkbox[searched=true]').prop('checked', true);
-			}
-		});
-	});
-
-	$('#toggleLibList').on('keydown', function(e) {
-		if (e.keyCode == 32) { //space bar keyCode
-			$('div#libraryList').slideToggle(function() {
-				if (!$('div#libraryList').is(':visible')) {
-					$('div#libraryList input:checkbox').prop('checked', false);
-					$('div#libraryList input:checkbox[searched=true]').prop('checked', true);
-				}
-			});
-			$('html, body').animate({scrollTop: 0 }, 'fast'); //spacebar 바로 인해 내려간 화면을 다시 올려줌
-		}
-	});
-
-	$('#checkAll').change(function(e) {
-		$('div#libraryList input:checkbox').prop('checked', $(this).prop('checked'));
-	});
-
-	$('#checkAllBook').change(function(e) {
-		$('input.checkBook').prop('checked', $(this).prop('checked'));
-	});
-
-	$('li.li-group a.bi').on('click', function() {
-		$(this).parent('li').toggleClass('active');
-	});
-
-	$('a#addMyLib').on('click', function(e) {
-		e.preventDefault();
-		var len = $('input.checkBook:checked').length;
-		if (len < 1) {
-			alert('선택된 도서가 없습니다.');
-			return false;
-		}
-
-		var checkList = $('#librarySearch input[name="print_param"]:checked').clone();
-		$('#storageReqForm').append(checkList);
-		$('#storageReqForm input').attr('name', 'strList');
-		window.open("/${homepage.context_path}/module/myStorage/viewStorage.do?"+serializeCustom($('form#storageReqForm')), "", "width=350, height=350");
-		//내 보관함 이동.
-	});
-
-	// No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'http://localhost:81' is therefore not allowed access.
-	// API 서버에서 추가 작업이 필요함.
-	/* function AutoFill(){
-		$.ajax({
-	        type:'GET',
-	        url:'${fn:escapeXml(liboneApiUrl)}',
-	        data:'cmd=GETAUTOFILL&searchKeyword=어린',
-	        success:function(response){
-	            console.log(response);
-	        },
-	        error:function(e){
-	            alert(e.responseText);
-	        }
-	    });
-	} */
-
-	$('#librarySearch #search_text').on('keyup',function(e){
-		 switch (e.keyCode) {
-         case 8:  // Backspace
-         case 9:  // Tab
-         case 13: // Enter
-         case 37: // Left
-         case 38: // Up
-         case 39: // Right
-         case 40: // Down
-         break;
-
-         default:
-        	 $.ajax({
-     	        type:'GET',
-     	        async:true,
-     	        url:'autoFill.do',
-     	        data:'searchKeyword='+encodeURIComponent($(this).val()),
-     	        success:function(response){
-     	        	var autofillArr = response.autofillArr;
-     	        	var autoFillStr = [];
-     	        	$.each(autofillArr, function(i, v) {
-     	        		autoFillStr.push('<a class="autoText">' + v.word + '</a>');
-     	        	});
-     	            $('#autoFill').html(autoFillStr.join(','));
-     	            $('a.autoText').on('click', function(e) {
-     	            	e.preventDefault();
-     	            	$('#librarySearch #search_text').val($(this).text());
-     	            	$('#librarySearch #do-search').click();
-     	            });
-     	        },
-     	        error:function(e){
-     	        }
-     	    });
-     	}
-	});
-	$('a.showSlide').on('click', function(e) {
-		e.preventDefault();
-		var bci = $(this).parents('div.bif').next('div.bci');
-		var toggleState = $(bci).is(':hidden');
-		if (toggleState) {
-			$(bci).load('index_detail.do?vLoca='+$(this).attr('vLoca')+'&vCtrl='+$(this).attr('vCtrl'), function() {
-				$(bci).slideToggle();
-			});
-		} else {
-			$(bci).slideToggle();
-		}
-	});
-
-	$('a.goDetail').on('click', function(e) {
-		e.preventDefault();
-		$('input#vLoca').val($(this).attr('vLoca'));
-		$('input#vCtrl').val($(this).attr('vCtrl'));
-		$('input#vImg').val($(this).attr('vImg'));
-		$('input#isbn').val($(this).attr('isbn'));
-		$('input#tid').val($(this).attr('tid'));
-		var formData = serializeParameter(['vLoca', 'vCtrl', 'vImg', 'isbn', 'tid', 'menu_idx']);
-		doGetLoad('detail.do', formData);
-// 		$('form#detailForm').submit();
-	});
-
-	if ($('input#viewPage').val() != '1') {
-		jQuery.ajaxSettings.traditional = true;
-		var param = serializeObject($('#librarySearch'));
-		var param2 = serializeObject($('#searchTableForm'));
-		loadIndex('table');
-	}
-
-	function loadIndex() {
-		jQuery.ajaxSettings.traditional = true;
-		$('input#viewPage').val('1');
-		var isSubSearch = $('input#sub_search1').is(':checked');
-		$('input#sub_search1').prop('checked', false);
-		var param = serializeObject($('#librarySearch'));
-		var param2 = serializeObject($('#searchTableForm'));
-		$('div#search-results').load('table.do', $.extend(true, param, param2));
-		if (isSubSearch) {
-			$('input#sub_search1').prop('checked', true);
-		}
-		$('body').scrollTop(0);
-	}
-
-	$('div#search-results img').on('error', function() {
-		var $this = $(this);
-		$this.attr('src', '/resources/common/img/noImg.gif');
-		$this.parent().addClass('noImg');
-	});
-
-	$('a#excelDownload').on('click', function(e) {
-		e.preventDefault();
-		var checkedLength = $('form#librarySearch input[name=print_param]:checked').length;
-		if (checkedLength < 1) {
-			alert('선택된 도서가 없습니다.');
-			return false;
-		}
-		var clone = $('form#librarySearch input[name=print_param]:checked').clone();
-		var clone2 = $('form#librarySearch input[name=libraryCodes]:checked').clone();
-		$('form#excelForm').append(clone);
-		$('form#excelForm').append(clone2);
-		$('form#excelForm input#excel_viewPage').val($('form#librarySearch input#viewPage').val());
-		$('form#excelForm input#excel_search_text').val($('form#librarySearch input#search_text').val());
-		$('form#excelForm input#excel_search_type2').val($('form#librarySearch input#search_type2').val());
-		$('form#excelForm').attr('action', 'excelDownload.do');
-		$('form#excelForm').submit();
-		$('form#excelForm input[name=print_param]').remove();
-		$('form#excelForm input[name=libraryCodes]').remove();
-
-	});
-	
-	$('a#csvDownload').on('click', function(e) {
-		e.preventDefault();
-		var checkedLength = $('form#librarySearch input[name=print_param]:checked').length;
-		if (checkedLength < 1) {
-			alert('선택된 도서가 없습니다.');
-			return false;
-		}
-		var clone = $('form#librarySearch input[name=print_param]:checked').clone();
-		var clone2 = $('form#librarySearch input[name=libraryCodes]:checked').clone();
-		$('form#excelForm').append(clone);
-		$('form#excelForm').append(clone2);
-		$('form#excelForm input#excel_viewPage').val($('form#librarySearch input#viewPage').val());
-		$('form#excelForm input#excel_search_text').val($('form#librarySearch input#search_text').val());
-		$('form#excelForm input#excel_search_type2').val($('form#librarySearch input#search_type2').val());
-		$('form#excelForm').attr('action', 'csvDownload.do');
-		$('form#excelForm').submit();
-		$('form#excelForm input[name=print_param]').remove();
-		$('form#excelForm input[name=libraryCodes]').remove();
-
-	});
-
-	$('div#hotTrend').load('hotTrend.do');
-	<c:if test="${empty librarySearch.search_text}">
-	$('div#cms_paging').hide();
-	$('div#search-results').load('bestBook.do');
-	</c:if>
-
-
-	$('a#ageLoanBestBtn').on('click', function(e) {
-		e.preventDefault();
-// 		$('div#ageLoanBest').load('ageLoanBest.do', function( response, status, xhr ) {
-// 			$('div#ageLoanBest').dialog();
-// 		});
-		$('div#ageLoanBest').html(
-			'<div style="text-align: center; padding-top: 100px;">'+
-			'<img id="loading_img" alt="loading" src="/resources/common/img/viewLoading.gif" />'+
-			'<br/><br/>'+
-			'대출 순위 불러오는 중'+
-			'</div>'
-		);
-		$('div#ageLoanBest').load('ageLoanBest.do');
-		$('div#ageLoanBest').dialog({
-			width:1100,
-			height:500,
-			resizable: true,
-	 		modal: true
-		});
-	});
-	
-	$('a#sort-btn').on('click', function(e) {
-		$('#do-search').click();
-	});
-	
-	if ('${fn:escapeXml(param.search_type)}'=='') {
-		$('select#search_type').val('L_TITLEAUTHOR');
-	}
-});
-$(document).on("keyup", "input:text[numberOnly]", function() {
-	$(this).val($(this).val().replace(/[^0-9]/gi, ""));
-});
-</script>
-<form:form modelAttribute="librarySearch" id="excelForm" action="excelDownload.do" method="post" style="display: none;">
-<form:hidden id="excel_search_type2"       path="search_type2" htmlEscape="true"/>
-<form:hidden id="excel_search_type"       path="search_type" htmlEscape="true"/>
-<form:hidden id="excel_search_text"       path="search_text" htmlEscape="true"/>
-<form:hidden id="excel_search_library"    path="search_library" htmlEscape="true"/>
-<form:hidden id="excel_search_form_code"  path="search_form_code" htmlEscape="true"/>
-<form:hidden id="excel_search_kdc"        path="search_kdc" htmlEscape="true"/>
-<form:hidden id="excel_search_athor"      path="search_athor" htmlEscape="true"/>
-<form:hidden id="excel_search_year"      path="search_year" htmlEscape="true"/>
-<form:hidden id="excel_search_publisher"  path="search_publisher" htmlEscape="true"/>
-<form:hidden id="excel_menu_idx"          path="menu_idx" htmlEscape="true"/>
-<form:hidden id="excel_viewPage"          path="viewPage" htmlEscape="true"/>
-<form:hidden id="excel_excel_type"        path="excel_type" value="SEARCH" htmlEscape="true"/>
-</form:form>
-<form id="storageReqForm" style="display: none;">
-<input type="hidden" name="_csrf" value="${_csrf.token}">
-</form>
-<form:form modelAttribute="librarySearch" id="detailForm" action="detail.do" method="post">
-	<form:hidden path="menu_idx" htmlEscape="true"/>
-	<form:hidden path="vLoca" htmlEscape="true"/>
-	<form:hidden path="vCtrl" htmlEscape="true"/>
-	<form:hidden path="vImg" htmlEscape="true"/>
-	<form:hidden path="isbn" htmlEscape="true"/>
-	<form:hidden path="tid" htmlEscape="true"/>
-</form:form>
-
-<form:form modelAttribute="librarySearch" action="index.do" method="POST">
-	<form:hidden path="allBookListStr" value="${result.allBookListStr}"/>
-	<form:hidden path="search_type2" htmlEscape="true"/>
-	<form:hidden path="search_library" htmlEscape="true"/>
-	<form:hidden path="search_form_code" htmlEscape="true"/>
-	<form:hidden path="search_kdc" htmlEscape="true"/>
-	<form:hidden path="search_year" htmlEscape="true"/>
-	<form:hidden path="search_athor" htmlEscape="true"/>
-	<form:hidden path="search_publisher" htmlEscape="true"/>
-	<form:hidden path="menu_idx" htmlEscape="true"/>
-	<form:hidden path="viewPage" htmlEscape="true"/>
-	<form:hidden path="excel_type" htmlEscape="true"/>
 	<div class="search-wrap">
-		<c:if test="${librarySearch.search_text ne null and librarySearch.search_text ne ''}">
-		<div style="float: left;">
-			<form:checkbox path="sub_search" label="검색결과 내 재검색"/>
-		</div>
-		</c:if>
-		<div class="search-area">
-			<!-- <a><span class="orange"><i class="fa fa-search-plus" aria-hidden="true"></i>상세 검색</span></a> -->
-			<a id="toggleLibList"><span class="blue"><i class="fa fa-building" aria-hidden="true"></i>타도서관 검색</span></a>
-		</div>
+
 		<div class="search-form">
-		<!-- 
-			<div class="box1" style="width: 15%;">
-				<form:select path="search_type" cssStyle="width:100%;margin-top:2px;font-size:105%;padding-left:3px;" cssClass="selectmenu" >
-					<c:forEach items="${searchCategory.data}" var="i" varStatus="status">
-					<c:if test="${i.type ne 'SEARCH' }">
-					<form:option value="${fn:escapeXml(i.type)}" label="${fn:escapeXml(i.name)}"></form:option>
-					</c:if>
-					</c:forEach>
-				</form:select>
-				<%-- <form:select path="search_type" cssStyle="width:100%;" cssClass="selectmenu">
-					<form:option value="SEARCH" label="전체"></form:option>
-					<form:option value="L_TITLE" label="서명"></form:option>
-					<form:option value="L_AUTHOR" label="저자"></form:option>
-					<form:option value="L_PUBLISHER" label="출판사"></form:option>
-					<form:option value="L_KEYWORD" label="키워드"></form:option>
-					<form:option value="L_ISBN" label="ISBN"></form:option>
-					<form:option value="INDEXSEARCH" label="목차"></form:option>
-				</form:select> --%>
-			</div>
-			-->
-			<div class="box">
-			
-			<div class="box1" style="width: 20%;">
-				<select id="search_type" name="search_type" class="selectmenu" style="width:100%;font-size:105%;padding-left:12px;border:0px;">
-				    <option value="L_TITLEAUTHOR" <c:if test="${librarySearch.search_type eq 'L_TITLEAUTHOR'}">selected="selected"</c:if>>서명or저자</option>
-				    <option value="L_TITLE" <c:if test="${librarySearch.search_type eq 'L_TITLE'}">selected="selected"</c:if>>서명[전방일치]</option>
-				    <option value="L_AUTHOR" <c:if test="${librarySearch.search_type eq 'L_AUTHOR'}">selected="selected"</c:if>>저자[전방일치]</option>
-				    <option value="L_PUBLISHER" <c:if test="${librarySearch.search_type eq 'L_PUBLISHER'}">selected="selected"</c:if>>출판사[완전일치]</option>
-				    <option value="INDEXSEARCH" <c:if test="${librarySearch.search_type eq 'INDEXSEARCH'}">selected="selected"</c:if>>목차[부분일치]</option>
-				</select>
-<%--
-				<form:select path="search_type" cssStyle="width:100%;font-size:105%;padding-left:12px;border:0px;" cssClass="selectmenu" >
-					<c:forEach items="${searchCategory.data}" var="i" varStatus="status">
-					<c:if test="${i.type ne 'SEARCH' }">
-					<form:option value="${fn:escapeXml(i.type)}" label="${fn:escapeXml(i.name)}"></form:option>
-					</c:if>
-					</c:forEach>
-				</form:select>
---%>
-			</div>
-				<span><img src="/resources/book/search/img/line.jpg" style="padding-top: 5px;"></span>
-				<div class="b1">
-					<form:input htmlEscape="true" path="search_text" type="text" class="text2" title="검색어를 입력하세요" placeholder="검색어를 입력하세요." onfocus="PopupVirtualKeyboard.attachInput(this)" cssStyle="ime-mode:active;"/>
+
+			<!-- 검색하기_일반 -->
+			<div class="searchbox detail_search" id="div_detail">
+				<div class="section">
+					<dl>
+						<dt>도서관</dt>
+						<dd>
+							<form:select path="manageCode">
+								<form:option value="ALL">전체 도서관</form:option>
+								<form:option value="${homepage.homepage_code}">${homepage.homepage_name}</form:option>
+							</form:select>
+						</dd>
+					</dl>
+					<dl>
+						<dt><label for="title" class="title">제목</label></dt>
+						<dd><form:input path="title" class="text-area"/></dd>
+					</dl>
+
+					<dl>
+						<dt><label for="author" class="title">저자</label></dt>
+						<dd><form:input path="author" class="text-area"/></dd>
+					</dl>
+					<dl>
+						<dt>주제</dt>
+						<dd>
+							<form:select path="subjectCode">
+								<form:option value="">전체</form:option>
+								<form:option value="0">총류</form:option>
+								<form:option value="1">철학</form:option>
+								<form:option value="2">종교</form:option>
+								<form:option value="3">사회과학</form:option>
+								<form:option value="4">순수과학</form:option>
+								<form:option value="5">기술과학</form:option>
+								<form:option value="6">예술</form:option>
+								<form:option value="7">언어</form:option>
+								<form:option value="8">문학</form:option>
+								<form:option value="9">역사</form:option>
+							</form:select>
+						</dd>
+					</dl>
+
+					<dl>
+						<dt><label for="publer" class="title">발행처</label></dt>
+						<dd><form:input path="publer" class="text-area"/></dd>
+					</dl>
+					<dl>
+						<dt><label for="keyword" class="title">키워드</label></dt>
+						<dd><form:input path="keyword" class="text-area"/></dd>
+					</dl>
+
+					<dl>
+						<dt>발행년도</dt>
+						<dd>
+							<div class="box">
+								<form:input path="search_start_date" title="시작년도" numberOnly="true" maxlength="4" />
+								<span style="width:6%;text-align:center;">~</span>
+								<form:input path="search_end_date" title="마지막년도" numberOnly="true" maxlength="4" />
+							</div>
+						</dd>
+					</dl>
+
+					<dl>
+						<dt>자료형태</dt>
+						<dd>
+							<div class="" style="padding:3px 0 0 10px">
+							<form:radiobutton path="booktype" value="BOOK" class="radiocheck" checked="checked"/><label for="booktype1" class="booktype">도서</label>
+							<form:radiobutton path="booktype" value="NONBOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype2" class="booktype">비도서</label>
+							<form:radiobutton path="booktype" value="SERIAL" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype3" class="booktype">간행물</label>
+							</div>
+						</dd>
+					</dl>
+
 				</div>
-				<div class="b2">
-					<button id="do-search"><i class="fa fa-search"></i><span class="blind">검색</span></button>
-				</div>
+				<p class="btn_w">
+					<a id="search-btn" class="btnNew btn-warning btn-xs mT1">검색</a>
+					<a id="vk-popup" class="btnNew2">다국어입력기</a>
+				</p>
 			</div>
+			<!--// 검색하기_일반 -->
+
 			<br/>
 			<div id="autoFill">
 			</div>
-			
-			<div class="search-bot">
-				<span style="color: red; float: left;">*</span>
-				<span class="notice">경상북도교육청 공공도서관에서 소장하고 있는 국내외 자료를 통합검색할 수 있습니다. 검색 대상 항목은 도서, 전자자료, 연속간행물, 멀티미디어자료, 장애인자료, 기타 등이 있습니다.</span>
-				<p style="height:auto">
-					<a id="vk-popup" class="btn" title="새창열림" style="line-height:140%" tabindex="0">
-					  <i class="fa fa-keyboard-o" style="font-size:19px;color:#777"></i><span>외국어입력기</span>
-					</a>
-					<!-- <a id="toggleLibList" class="btn" style="line-height:140%" tabindex="0">
-					  <i class="fa fa-leanpub" style="font-size:19px;color:#777"></i><span>타도서관검색</span>
-					</a> -->
-					<c:if test="${result.totalCnt > 0}">
-					<a id="excelDownload" class="btn" style="line-height:140%" tabindex="0">
-						<i class="fa fa-file-excel-o" style="font-size:19px;color:#777"></i><span>엑셀 저장</span>
-					</a>
-					<a id="csvDownload" class="btn" style="line-height:140%" tabindex="0">
-						<i class="fa fa-file-excel-o" style="font-size:19px;color:#777"></i><span>CSV 저장</span>
-					</a>
-					</c:if>
-				</p>
-			</div>
 		</div>
 
 		<br/>
-		<div id="libraryList" class="bbs-notice" style="margin-bottom:20px; display: none;" >
-			<div>
-				<form:checkbox id="checkAll" path="libraryCodes" label="전체" value="ALL" />
-			</div>
-			<div>
-				<ul>
-					<c:forEach items="${libraryList.data}" var="i">
-						<c:if test="${i.lib_manage_code ne '00347034'}">
-						<li>
-							<c:choose>
-								<c:when test="${i.lib_manage_code eq '00000001'}">
-									<form:checkbox id="lib_${i.lib_manage_code}" searched="true" path="libraryCodes" label="${fn:escapeXml(i.lib_name)}" value="${fn:escapeXml(i.lib_manage_code)}" checked="checked"/>
-								</c:when>
-								<c:when test="${fn:indexOf(librarySearch.libraryCodes, i.lib_manage_code)!= -1 or fn:indexOf(librarySearch.libraryCodes, 'ALL') != -1}">
-									<form:checkbox id="lib_${fn:escapeXml(i.lib_manage_code)}" searched="true" path="libraryCodes" label="${fn:escapeXml(i.lib_name)}" value="${fn:escapeXml(i.lib_manage_code)}" checked="checked"/>
-								</c:when>
-								<c:otherwise>
-									<form:checkbox id="lib_${fn:escapeXml(i.lib_manage_code)}" path="libraryCodes" label="${fn:escapeXml(i.lib_name)}" value="${fn:escapeXml(i.lib_manage_code)}" />
-								</c:otherwise>
-							</c:choose>
-						</li>
-						</c:if>
-					</c:forEach>
-				</ul>
-			</div>
-		</div>
-		<div class="search-info" >
-			<c:if test="${result.code eq '0000'}">
-				검색결과 '<b class="og"><i>${fn:escapeXml(librarySearch.search_text)}</i></b>'에 대한 <b>${fn:escapeXml(librarySearch.viewPage)}</b>/${fn:escapeXml(result.totalPage)}페이지, 총 <b>${fn:escapeXml(result.totalCnt)}</b>건
-			</c:if>
-		</div>
-		<c:set var="showSmain" value="${librarySearch.search_text ne null and librarySearch.search_text ne ''}"></c:set>
-<%-- 		<c:if test="${librarySearch.search_text ne null and librarySearch.search_text ne ''}"> --%>
-		<c:if test="${fn:length(result.data) < 1 and showSmain}">
+
+		<c:if test="${not empty paging and librarySearch.totalDataCount eq 0}">
 		<p style="text-align: center;">
 			<b>찾으시는 자료가 없습니다. </b>
 		</p>
 		</c:if>
-		<div class="smain">
-			<div class="box" style="min-height: 500px;">
-				<div class="ws-toolbar"<c:if test="${!showSmain}">style="display: none;"</c:if>>
-					<!-- <div class="checkbox">
-						<input type="hidden" name="" value="on"/>
-						<input id="checkAllBook" name="" type="checkbox" value="Y"/>
-						<label for="checkAllBook">전체선택</label>
-					</div> -->
 
-					<div class="control">
-						<!-- <a href="#" id="addMyLib" class="btn"><span>내보관함</span><i class="fa fa-plus"></i></a> -->
-						<a href="#" id="addMyLib" style="padding-right: 4px;"><img src="/resources/book/search/img/btn_my.png" alt="보관함">보관함</a>
-						<!-- <a href="" style="padding-right: 8px;"><img src="/resources/book/search/img/btn_scrap.png" alt="스크랩">스크랩</a> -->
-						<form:select path="sortField" cssClass="selectmenu l_title_option" cssStyle="width: 90px;">
-							<form:option value="PUBLISH_DATE" label="발행년도"></form:option>
-							<form:option value="TITLE" label="서명"></form:option>
-							<form:option value="AUTHOR" label="저자"></form:option>
-							<form:option value="PUBLISHER" label="출판사"></form:option>
-						</form:select>
-						<form:select path="sortType" cssClass="selectmenu l_title_option" cssStyle="width: 90px;">
-							<form:option value="ASC" label="오름차순"></form:option>
-							<form:option value="DESC" label="내림차순"></form:option>
-						</form:select>
-						<form:select path="rowCount" cssClass="selectmenu" cssStyle="width:70px;">
-							<form:option value="10" label="10건"></form:option>
-							<form:option value="20" label="20건"></form:option>
-							<form:option value="30" label="30건"></form:option>
-							<form:option value="40" label="40건"></form:option>
-							<form:option value="50" label="50건"></form:option>
-						</form:select>
-						<a id="sort-btn" class="btn l_title_option" title="재정렬" tabindex="0"><i class="fa fa-sort" style="font-size:19px;color:#777"></i><span>&nbsp;재정렬&nbsp;&nbsp;</span></a>
-					</div>
+		<c:if test="${librarySearch.totalDataCount > 0}">
+
+		<!--search_result-->
+		<div id="search_result" class="search_result">
+
+			<div class="search-info" >
+				검색결과 총 <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/></b>건이 검색되었습니다.
+			</div>
+
+			<div>
+				<select id="subSearchType">
+					<option value="title">서명</option>
+					<option value="author">저자</option>
+					<option value="publer">발행처</option>
+					<option value="keyword">키워드</option>
+				</select>
+				<input id="subSearchText" placeholder="결과 내 재검색">
+				<a href="#" id="subSearch">결과 내 재검색</a>
+			</div>
+
+			<div class="search-condition">
+
+				<div class="mode">
+					<ul>
+						<li><a href="#;" class="btn-View imgView on">이미지형 표지형 설정</a></li>
+						<li><a href="#;" class="btn-View listView">목록형 표지형 설정</a></li>
+					</ul>
 				</div>
-				<div id="search-results" class="search-results">
-					<c:if test="${empty librarySearch.search_text}">
-					<div id="loadingLoanBest" style="text-align: center; padding-top: 105px;">
-						<img id="loading_img" alt="loading" src="/resources/common/img/viewLoading.gif" />
-						<br/><br/>
-						대출 순위 불러오는 중
-					</div>
-					</c:if>
-					<c:if test="${fn:length(result.data) < 1 and showSmain}">
-						<div style="text-align: center; margin-top: 20px;">
-					<c:if test="${homepage.context_path eq 'geic'}">
-						<a href="https://www.gbelib.kr/geic/intro/search/hope/index.do?menu_idx=213" class="btn btn1">희망도서 신청 바로가기</a>
-					</c:if>
+
+			</div>
+
+			<div class="smain">
+				<div class="box">
+					<div class="ws-toolbar">
+						<div class="checkBoxAll">
+							<input type="hidden" name="" value="on"/>
+							<input id="checkAllBook" name="" type="checkbox" value="Y"/>
+							<label for="checkAllBook">전체</label>
 						</div>
-					</c:if>
-					<c:forEach items="${result.data}" var="i">
-						<div class="row">
-							<p class="admin"><input name="print_param" type="checkbox" class="checkBook" value="${fn:escapeXml(i.libCode)}_${fn:escapeXml(i.rec_key)}_${fn:escapeXml(i.tid)}_${fn:escapeXml(i.img)}"/></p>
-							<div class="thumb">
-								<c:choose>
-									<c:when test="${i.img eq '' or fn:contains(i.img, 'noimg')}">
-										<a href="#" vLoca="${fn:escapeXml(i.libCode)}" vCtrl="${fn:escapeXml(i.rec_key)}" vImg="${fn:escapeXml(i.img)}" isbn="${fn:escapeXml(i.isbn)}" tid="${fn:escapeXml(i.tid)}" class="goDetail noImg">
-											<img src="/resources/common/img/noImg.gif" alt="noImage"/>
-										</a>
-									</c:when>
-									<c:otherwise>
-										<a href="#" vLoca="${fn:escapeXml(i.libCode)}" vCtrl="${fn:escapeXml(i.rec_key)}" vImg="${fn:escapeXml(i.img)}" isbn="${fn:escapeXml(i.isbn)}" tid="${fn:escapeXml(i.tid)}" class="goDetail">
-											<img src="${fn:escapeXml(i.img)}" alt="${fn:escapeXml(i.title)}"/>
-										</a>
-									</c:otherwise>
-								</c:choose>
-							</div>
-							<div class="box">
-								<div class="item">
-									<div class="bif">
-										<c:set var="replaceStr" value="<span style='color:#ffa651'>${fn:escapeXml(librarySearch.search_text)}</span>"/>
-										<a href="#" vLoca="${fn:escapeXml(i.libCode)}" vCtrl="${fn:escapeXml(i.rec_key)}" vImg="${fn:escapeXml(i.img)}" isbn="${fn:escapeXml(i.isbn)}" tid="${fn:escapeXml(i.tid)}" class="name goDetail">${fn:replace(fn:escapeXml(i.title), fn:escapeXml(librarySearch.search_text), replaceStr)}</a>
-										<span class="txt"><span class="tit">저자: </span>${fn:replace(fn:escapeXml(i.author), fn:escapeXml(librarySearch.search_text), replaceStr)}</span><span class="bar">|</span>
-										<span class="txt"><span class="tit">발행처: </span>${fn:replace(fn:escapeXml(i.publisher), fn:escapeXml(librarySearch.search_text), replaceStr)}</span><span class="bar">|</span>
-										<span class="txt"><span class="tit">발행연도: </span>${fn:escapeXml(i.year)}</span><span class="bar">|</span>
-										<span class="txt"><span class="tit">자료이용하는 곳: </span>${fn:escapeXml(i.libName)}</span><span class="bar">|</span>
-										<span class="txt"><span class="tit">청구기호: </span>${fn:escapeXml(i.callno)}</span>
-										<div class="stat">
-											<a href="#" class="showSlide" vLoca="${fn:escapeXml(i.libCode)}" vCtrl="${fn:escapeXml(i.rec_key)}"><span>이용가능여부</span><i class="fa fa-angle-down" aria-hidden="true"></i></a>
-											<c:if test="${not empty i.marc_url}">
-											<a href="${i.marc_url}" class="btn" target="_blank" style="margin-left: 10px;"><span>전자책 바로보기</span></a>
-											</c:if>
+
+						<div class="control">
+							<form:select path="sortField">
+								<form:option value="NONE">정렬없음</form:option>
+								<form:option value="TITLE">제목</form:option>
+								<form:option value="AUTHOR">저자</form:option>
+								<form:option value="PUBLISHER">발행처</form:option>
+								<form:option value="PUB_YEAR">발행년도</form:option>
+							</form:select>
+							<form:select path="sortType">
+								<form:option value="ASC">오름차순</form:option>
+								<form:option value="DESC">내림차순</form:option>
+							</form:select>
+							<form:select path="rowCount">
+								<form:option value="10" label="10건"></form:option>
+								<form:option value="20" label="20건"></form:option>
+								<form:option value="30" label="30건"></form:option>
+								<form:option value="40" label="40건"></form:option>
+								<form:option value="50" label="50건"></form:option>
+								<form:option value="100" label="100건"></form:option>
+							</form:select>
+
+						</div>
+					</div>
+
+					<div id="search-results" class="search-results">
+						<div class="imageType">
+							<c:forEach items="${bookSearch}" var="i">
+							<!-- 검색결과 루프 시작 -->
+							<c:set var="detailURL" value="detail.do?menu_idx=${fn:escapeXml(param.menu_idx)}&isbn=${fn:escapeXml(i.ST_CODE)}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype)}"></c:set>
+							<div class="row">
+								<p class="admin">
+									<input name="print_param" type="checkbox" class="checkBook" value="${fn:escapeXml(i.ST_CODE)}_${fn:escapeXml(i.MANAGE_CODE)}"/>
+								</p>
+								<div class="thumb">
+									<c:choose>
+										<c:when test="${i.IMAGE eq '' or fn:contains(i.IMAGE, 'noimg')}">
+											<a href="${detailURL}" class="noImg">
+												<img src="/resources/common/img/noImg2.png" alt="${i.TITLE_INFO}"/>
+												<span>등록된 이미지가<br/>없습니다.</span>
+											</a>
+										</c:when>
+										<c:otherwise>
+											<a href="${detailURL}">
+												<img src="${i.IMAGE}" alt="${i.TITLE_INFO}"/>
+											</a>
+										</c:otherwise>
+									</c:choose>
+								</div>
+								<div class="box">
+									<div class="item">
+										<div class="bif">
+
+											<a href="${detailURL}">
+											<c:if test="${librarySearch.booktype eq 'BOOK'}">[도서]</c:if>
+											<c:if test="${librarySearch.booktype eq 'NONBOOK'}">[비도서]</c:if>
+											<c:if test="${librarySearch.booktype eq 'SERIAL'}">[간행물]</c:if>
+											<span style='color:#e84e0e;font-weight:600'>${i.TITLE_INFO}</span>
+											</a>
+
+											<p><font style="color:#5e5e5e;">저자</font> : ${i.AUTHOR}</p>
+											<p><font style="color:#5e5e5e">발행처</font> : ${i.PUBLISHER}, ${i.PUB_YEAR}</p>
+											<p><font style="color:#5e5e5e">소장도서관</font> : <span style="color:#ff0000;font-weight:bold">${i.LIB_NAME}</span></p>
+											<p><font style="color:#5e5e5e">청구기호</font> : ${i.CALL_NO}</p>
+											<p><font style="color:#5e5e5e">대출가능여부</font> :
+												<!-- 대출가능 여부 [START] -->
+												<c:choose>
+													<c:when test="${i.WORKING_STATUS == 'BOL112N'}">
+														<c:choose>
+															<c:when test="${i.RESERVATION_CNT > '0'}">
+																<span style="color:#ff0000">대출불가(예약도서)</span>
+															</c:when>
+															<c:otherwise>
+																<c:choose>
+																	<c:when test="${i.USE_LIMIT_CODE eq 'CD'}">
+																		대출불가(열람제한도서)
+																	</c:when>
+																	<c:when test="${i.USE_LIMIT_CODE eq 'IZ'}">
+																		귀중자료(관내열람만가능)
+																	</c:when>
+																	<c:otherwise>
+																		대출가능
+																	</c:otherwise>
+																</c:choose>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<c:choose>
+															<c:when test="${i.WORKING_STATUS == 'BOL211O'}">
+																<span style="color:#ff0000">대출불가(관외대출중)</span>
+															</c:when>
+															<c:when test="${i.WORKING_STATUS == 'BOL212O'}">
+																<span style="color:#ff0000">대출불가(관내대출중)</span>
+															</c:when>
+															<c:when test="${i.WORKING_STATUS == 'BOL511O'}">
+																<span style="color:#ff0000">대출불가(타관반납중)</span>
+															</c:when>
+															<c:when test="${i.WORKING_STATUS == 'BOL611O'}">
+																<span style="color:#ff0000">대출불가(타관대출중)</span>
+															</c:when>
+															<c:otherwise>
+																<span style="color:#ff0000">대출불가</span>
+															</c:otherwise>
+														</c:choose>
+													</c:otherwise>
+												</c:choose>
+												<!-- 대출가능 여부 [ END ] -->
+											</p>
+											<p><font style="color:#5e5e5e">소장위치</font> : <span style="font-weight:800;">${i.SHELF_LOC_NAME}</span></p>
+											<div class="stat">
+												<a href="#showSlide" class="showSlide"><span>소장정보</span></a>
+											</div>
 										</div>
 									</div>
-									<div class="bci" style="display: none;">
-										<!-- ajax_area -->
-									</div>
+								</div>
+								<div class="bci" style="display:none;">
+									<table summary="도서 상태 및 등록 정보" style="text-align:center" class="statusBox">
+										<caption>도서 상태 및 등록 정보</caption>
+										<colgroup>
+											<col width="20%">
+											<col width="20%">
+											<col width="20%">
+											<col width="20%">
+											<col width="20%">
+										</colgroup>
+										<thead>
+											<tr>
+												<th>소장<br class="mBr"/>위치</th>
+												<th>등록<br class="mBr"/>번호</th>
+												<th>대출가능<br class="mBr"/>여부</th>
+												<th>반납<br class="mBr"/>예정일</th>
+												<th>자료위치<br class="mBr"/>인쇄</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>${i.SHELF_LOC_NAME}</td>
+												<td>${i.REG_NO}</td>
+												<td>
+												<!-- 대출가능 여부 [START] -->
+												<c:choose>
+													<c:when test="${i.WORKING_STATUS == 'BOL112N'}">
+														<c:choose>
+															<c:when test="${i.RESERVATION_CNT > '0'}">
+																<span style="color:#ff0000">대출불가(예약도서)</span>
+															</c:when>
+															<c:otherwise>
+																<c:choose>
+																	<c:when test="${i.USE_LIMIT_CODE eq 'CD'}">
+																		대출불가(열람제한도서)
+																	</c:when>
+																	<c:when test="${i.USE_LIMIT_CODE eq 'IZ'}">
+																		귀중자료(관내열람만가능)
+																	</c:when>
+																	<c:otherwise>
+																		대출가능
+																	</c:otherwise>
+																</c:choose>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<c:choose>
+															<c:when test="${i.WORKING_STATUS == 'BOL211O'}">
+																<span style="color:#ff0000">대출불가(관외대출중)</span>
+															</c:when>
+															<c:when test="${i.WORKING_STATUS == 'BOL212O'}">
+																<span style="color:#ff0000">대출불가(관내대출중)</span>
+															</c:when>
+															<c:when test="${i.WORKING_STATUS == 'BOL511O'}">
+																<span style="color:#ff0000">대출불가(타관반납중)</span>
+															</c:when>
+															<c:when test="${i.WORKING_STATUS == 'BOL611O'}">
+																<span style="color:#ff0000">대출불가(타관대출중)</span>
+															</c:when>
+															<c:otherwise>
+																<span style="color:#ff0000">대출불가</span>
+															</c:otherwise>
+														</c:choose>
+													</c:otherwise>
+												</c:choose>
+												<!-- 대출가능 여부 [ END ] -->
+												</td>
+												<td>
+													${i.RETURN_PLAN_DATE}
+												</td>
+												<td>
+													<a href="#" class="btn_print" data-param="${detailURL}" class="btn btn2">자료위치<br/>인쇄</a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
 								</div>
 							</div>
+							</c:forEach>
+							<!-- 검색결과루프 끝 -->
+							<jsp:include page="/WEB-INF/views/app/intro/search/paging.jsp" flush="false" />
 						</div>
-					</c:forEach>
-					<jsp:include page="/WEB-INF/views/app/cms/common/paging_search.jsp" flush="false" />
+
+						<div class="textType" style="display:none">
+							<!-- 검색결과 루프 시작 -->
+							<c:forEach items="${bookSearch}" var="i">
+							<c:set var="detailURL" value="detail.do?menu_idx=${fn:escapeXml(param.menu_idx)}&isbn=${fn:escapeXml(i.ST_CODE)}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype)}"></c:set>
+							<div class="row">
+								<div class="box">
+									<div class="item">
+										<div class="bif">
+
+										<input name="print_param" type="checkbox" class="checkBook" value="${fn:escapeXml(i.ST_CODE)}_${fn:escapeXml(i.MANAGE_CODE)}"/>
+
+											<a href="${detailURL}" class="name">
+												<c:if test="${librarySearch.booktype eq 'BOOK'}">[도서]</c:if>
+												<c:if test="${librarySearch.booktype eq 'NONBOOK'}">[비도서]</c:if>
+												<c:if test="${librarySearch.booktype eq 'SERIAL'}">[간행물]</c:if>
+												<span style='color:#e84e0e;font-weight:600'>${i.TITLE_INFO}</span>
+											</a>
+											<p>
+												<font style="color:#5e5e5e;">저자</font> : ${fn:escapeXml(i.AUTHOR)}
+												<br class="mobileBr"/>
+												<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+												<font style="color:#5e5e5e">발행처</font> : ${i.PUBLISHER}, ${i.PUB_YEAR}
+
+												<br class="mobileBr"/>
+												<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+												<font style="color:#5e5e5e">청구기호</font> : ${i.CALL_NO}
+
+												<br class="mobileBr"/>
+												<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+												<font style="color:#5e5e5e">매체구분</font> : ${i.MEDIA_NAME}
+
+												<br/>
+												<font style="color:#5e5e5e">소장도서관 </font> : <span style="color:#ff0000;font-weight:bold">${i.LIB_NAME}</span>
+
+												<br class="mobileBr"/>
+												<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+												<font style="color:#5e5e5e">소장위치</font> : <span style="font-weight:800;">${i.SHELF_LOC_NAME}</span>
+
+												<br class="mobileBr"/>
+												<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+
+												<font style="color:#5e5e5e">대출가능여부</font> :
+												<!-- 대출가능 여부 [START] -->
+												<c:choose>
+													<c:when test="${i.WORKING_STATUS == 'BOL112N'}">
+														<c:choose>
+															<c:when test="${i.RESERVATION_CNT > '0'}">
+																<span style="color:#ff0000">대출불가(예약도서)</span>
+															</c:when>
+															<c:otherwise>
+																<c:choose>
+																	<c:when test="${i.USE_LIMIT_CODE eq 'CD'}">
+																		대출불가(열람제한도서)
+																	</c:when>
+																	<c:when test="${i.USE_LIMIT_CODE eq 'IZ'}">
+																		귀중자료(관내열람만가능)
+																	</c:when>
+																	<c:otherwise>
+																		대출가능
+																	</c:otherwise>
+																</c:choose>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<c:choose>
+															<c:when test="${i.WORKING_STATUS == 'BOL211O'}">
+																<span style="color:#ff0000">대출불가(관외대출중)</span>
+															</c:when>
+															<c:when test="${i.WORKING_STATUS == 'BOL212O'}">
+																<span style="color:#ff0000">대출불가(관내대출중)</span>
+															</c:when>
+															<c:when test="${i.WORKING_STATUS == 'BOL511O'}">
+																<span style="color:#ff0000">대출불가(타관반납중)</span>
+															</c:when>
+															<c:when test="${i.WORKING_STATUS == 'BOL611O'}">
+																<span style="color:#ff0000">대출불가(타관대출중)</span>
+															</c:when>
+															<c:otherwise>
+																<span style="color:#ff0000">대출불가</span>
+															</c:otherwise>
+														</c:choose>
+													</c:otherwise>
+												</c:choose>
+												<!-- 대출가능 여부 [ END ] -->
+											</p>
+
+											<div class="stat">
+												<a href="#showSlide" class="showSlide" vLoca="747016" ><span>소장정보</span></a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="bci" style="display:none;">
+									<table summary="도서 상태 및 등록 정보" style="text-align:center" class="statusBox">
+										<caption>도서 상태 및 등록 정보</caption>
+										<colgroup>
+											<col width="20%">
+											<col width="20%">
+											<col width="20%">
+											<col width="20%">
+											<col width="20%">
+										</colgroup>
+										<thead>
+											<tr>
+												<th>소장<br class="mBr"/>위치</th>
+												<th>등록<br class="mBr"/>번호</th>
+												<th>대출가능<br class="mBr"/>여부</th>
+												<th>반납<br class="mBr"/>예정일</th>
+												<th>자료위치<br class="mBr"/>인쇄</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>${i.SHELF_LOC_NAME}</td>
+												<td>${i.REG_NO}</td>
+												<td>
+												<!-- 대출가능 여부 [START] -->
+												<c:choose>
+													<c:when test="${i.WORKING_STATUS == 'BOL112N'}">
+														<c:choose>
+															<c:when test="${i.RESERVATION_CNT > '0'}">
+																<span style="color:#ff0000">대출불가(예약도서)</span>
+															</c:when>
+															<c:otherwise>
+																<c:choose>
+																	<c:when test="${i.USE_LIMIT_CODE eq 'CD'}">
+																		대출불가(열람제한도서)
+																	</c:when>
+																	<c:when test="${i.USE_LIMIT_CODE eq 'IZ'}">
+																		귀중자료(관내열람만가능)
+																	</c:when>
+																	<c:otherwise>
+																		대출가능
+																	</c:otherwise>
+																</c:choose>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<c:choose>
+															<c:when test="${i.WORKING_STATUS == 'BOL211O'}">
+																<span style="color:#ff0000">대출불가(관외대출중)</span>
+															</c:when>
+															<c:when test="${i.WORKING_STATUS == 'BOL212O'}">
+																<span style="color:#ff0000">대출불가(관내대출중)</span>
+															</c:when>
+															<c:when test="${i.WORKING_STATUS == 'BOL511O'}">
+																<span style="color:#ff0000">대출불가(타관반납중)</span>
+															</c:when>
+															<c:when test="${i.WORKING_STATUS == 'BOL611O'}">
+																<span style="color:#ff0000">대출불가(타관대출중)</span>
+															</c:when>
+															<c:otherwise>
+																<span style="color:#ff0000">대출불가</span>
+															</c:otherwise>
+														</c:choose>
+													</c:otherwise>
+												</c:choose>
+												<!-- 대출가능 여부 [ END ] -->
+												</td>
+												<td>
+													${i.RETURN_PLAN_DATE}
+												</td>
+												<td>
+													<a href="#" class="btn_print" data-param="${detailURL}" class="btn btn2">자료위치<br/>인쇄</a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							</c:forEach>
+							<!-- 검색결과루프 끝 -->
+							<jsp:include page="/WEB-INF/views/app/intro/search/paging.jsp" flush="false" />
+						</div>
+					</div>
 				</div>
-			</div>
 
-			<div class="ws-filter" id="ageLoanBestDiv" style="padding-bottom: 20px; display: none;">
-				<a id="ageLoanBestBtn" class="btn" style="line-height:140%">
-				  <i class="fa fa-keyboard-o" style="font-size:19px;color:#777"></i><span>연령별 대출순위</span>
-				</a>
-			</div>
-
-			<div class="ws-filter" id="hotTrend" style="height: 350px;">
-				<h4>실시간 검색어 순위</h4>
-				<div style="text-align: center; padding-top: 105px;" >
-					불러오는 중...
+				<div class="filter-section">
+					<div class="ws-filter" id="hotTrend" style="height:370px;">
+						<h4>실시간 검색어 순위</h4>
+						<div style="text-align: center;" >
+							불러오는 중...
+						</div>
+					</div>
 				</div>
+
 			</div>
-			<div class="ws-filter" <c:if test="${fn:length(result.data) < 1 or !showSmain}"> style="display: none;"</c:if>>
-				<h4>검색결과 제한</h4>
-				<ul>
 
-					<li class="li-group active"><a href="" class="bi" onclick="return false;">유형별</a>
-						<ul>
-							<c:set var="formCnt" value="0"></c:set>
-							<c:forEach items="${resultCountByFormCode.arr}" var="j">
-								<c:set var="formCnt" value="${fn:escapeXml(j.totcnt)}"></c:set>
-								<li><a href="" class="doSearchFormCode" keyValue1="L_FORMCODE" keyValue2="${fn:escapeXml(j.code)}"><span>${fn:escapeXml(j.title)}</span><em>(${fn:escapeXml(j.count)})</em></a></li>
-							</c:forEach>
-						</ul>
-						<c:if test="${formCnt > 5}">
-							<p><a href="#" class="moreFormcode">더보기 +</a></p>
-						</c:if>
-					</li>
-
-					<li class="li-group active"><a href="" class="bi" onclick="return false;">저자별</a>
-						<ul>
-							<c:set var="authorCnt" value="0"></c:set>
-							<c:forEach items="${resultCountByWriter.arr}" var="j">
-								<c:set var="authorCnt" value="${fn:escapeXml(j.totcnt)}"></c:set>
-								<li><a href="" class="doSearchWriter" keyValue1="L_AUTHORFORM" keyValue2="${fn:escapeXml(j.code)}"><span>${fn:escapeXml(j.title)}</span><em>(${fn:escapeXml(j.count)})</em></a></li>
-							</c:forEach>
-						</ul>
-						<c:if test="${authorCnt > 5}">
-							<p><a href="#" class="moreAuthor">더보기 +</a></p>
-						</c:if>
-					</li>
-
-					<li class="li-group active"><a href="" class="bi" onclick="return false;">출판사</a>
-						<ul>
-							<c:set var="publisherCnt" value="0"></c:set>
-							<c:forEach items="${resultCountByPublisher.arr}" var="j">
-								<c:set var="publisherCnt" value="${fn:escapeXml(j.totcnt)}"></c:set>
-								<li><a href="" class="doSearchPublisher" keyValue1="L_PUBLISHERFORM" keyValue2="${fn:escapeXml(j.code)}"><span>${fn:escapeXml(j.title)}</span><em>(${fn:escapeXml(j.count)})</em></a></li>
-							</c:forEach>
-						</ul>
-						<c:if test="${publisherCnt > 5}">
-							<p><a href="#" class="morePublisher">더보기 +</a></p>
-						</c:if>
-					</li>
-
-					<li class="li-group active"><a href="" class="bi" onclick="return false;">연도별</a>
-						<ul>
-							<c:set var="yearCnt" value="0"></c:set>
-							<c:forEach items="${resultCountByYear.arr}" var="j">
-								<c:set var="yearCnt" value="${fn:escapeXml(j.totcnt)}"></c:set>
-								<li><a class="doSearchYear" href="" keyValue1="L_YEAR" keyValue2="${fn:escapeXml(j.title)}"><span>${fn:escapeXml(j.title)}</span><em>(${fn:escapeXml(j.count)})</em></a></li>
-							</c:forEach>
-						</ul>
-						<c:if test="${yearCnt > 5}">
-							<p><a href="#" class="moreYear">더보기 +</a></p>
-						</c:if>
-					</li>
-
-				</ul>
-			</div>
 		</div>
-<%-- 		</c:if> --%>
+
+		</c:if>
 	</div>
 </form:form>
 <div id="vk"></div>
-<div id="ageLoanBest" class="dialog-common" title="연령별 대출 리스트" style="display: none;">
-	<div style="text-align: center; padding-top: 100px;">
-	<img id="loading_img" alt="loading" src="/resources/common/img/viewLoading.gif" />
-	<br/><br/>
-	대출 순위 불러오는 중
-	</div>
-</div>
 
-</c:otherwise>
-</c:choose>

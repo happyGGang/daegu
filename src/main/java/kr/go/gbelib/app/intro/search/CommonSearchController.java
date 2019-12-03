@@ -923,7 +923,7 @@ public class CommonSearchController extends BaseController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = {"/print.*"}, method=RequestMethod.POST)
+	@RequestMapping(value = {"/print.*"})
 	public String print(@PathVariable("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 		Map<String, Object> result = new HashMap<String, Object>();

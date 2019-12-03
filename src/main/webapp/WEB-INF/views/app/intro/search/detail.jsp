@@ -5,21 +5,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
 
-<script type="text/javascript" src="http://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 $(function() {
-	var ua = window.navigator.userAgent;
-	var msie = ua.indexOf("MSIE ");
-
-	if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))  // If Internet Explorer, return version number
-	{
-// 	    alert(parseInt(ua.substring(msie + 5, ua.indexOf(".", msie))));
-	}
-	else  // If another browser, return 0
-	{
-		$('div#printMsg').hide();
-		$('a#btn_print').hide();
-	}
 
 	$('a#resve-req').on('click', function(e) {
 		e.preventDefault();
@@ -31,7 +18,6 @@ $(function() {
 			location.reload();
 		}
 	});
-
 
 	<%-- 무인대출예약 신청 --%>
 	$('a#unmanned-req').on('click', function(e) {
@@ -100,7 +86,6 @@ $(function() {
 	<input type="hidden" id="ctrl_no" name="ctrl_no" value="${detail.ST_CODE}">
 	<input type="hidden" id="img_url" name="img_url" value="${detail.IMAGE}">
 </form>
-
 
 <form id="resveReqForm" action="resve/save.do" method="post" onsubmit="return false;">
 	<input type="hidden" name="editMode" value="ADD">
@@ -247,25 +232,6 @@ $(function() {
 			</table>
 		</div>
 		<div class="sbtn" style="text-align:center;">
-			<%-- <c:choose>
-				<c:when test="${detail.RESERVATION_CNT ne '0'}">
-				</c:when>
-				<c:otherwise>
-					<c:if test="${fn:length(detail.RETURN_PLAN_DATE) < 1 }">
-						<c:choose>
-						<c:when test="${(detail.WORKING_STATUS eq 'BOL112N' or detail.WORKING_STATUS eq 'SEL212N')}">
-							<c:choose>
-								<c:when test="${detail.MANAGE_CODE eq ''}">
-								</c:when>
-								<c:otherwise>
-									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
-								</c:otherwise>
-							</c:choose>
-						</c:when>
-						</c:choose>
-					</c:if>
-				</c:otherwise>
-			</c:choose>--%>
 			<c:if test="${detail.SANGHO_REQ_YN eq 'Y'}">
 			<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
 			</c:if>
@@ -279,7 +245,7 @@ $(function() {
 			<a href="#" id="resve-req" class="btn">예약신청</a>
 			</c:if>
 
-			<a href="#" onclick="history.back();" id="goBack" class="btn"><i class="fa fa-book"></i><span>목록으로</span></a>
+			<a href="javascript:history.back();" id="goBack" class="btn"><i class="fa fa-book"></i><span>목록으로</span></a>
 		</div>
 	</div>
 </div>
