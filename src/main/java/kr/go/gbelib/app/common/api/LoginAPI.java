@@ -59,6 +59,8 @@ public class LoginAPI {
 				member.setMember_class(String.valueOf(userMap.get("MEMBER_CLASS")));
 				member.setUser_position_code(String.valueOf(userMap.get("USER_POSITION_CODE")));
 				member.setUser_manage_code(String.valueOf(userMap.get("USER_MANAGE_CODE")));
+				member.setEmail_service_yn(String.valueOf(userMap.get("MAILING_USE_YN")));
+				member.setSms_service_yn(String.valueOf(userMap.get("SMS_USE_YN")));
 //				member.setLoca(toHomepageCode(member.getUser_manage_code()));
 
 				Map<String, Object> userInfo = MemberAPI.getUserInfo(member.getMember_id(), member.getMember_pw());

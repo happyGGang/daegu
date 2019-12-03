@@ -37,7 +37,7 @@ $(function() {
 			}
 		}
 
-		doAjaxPost($('#memberInfo'));
+		doAjaxPost($('#memberInfoForm'));
 	});
 
 	$('a#findPostCode').on('click', function(e){
@@ -166,7 +166,7 @@ $(document).on("keyup change", "input:text[numberOnly]", function() {
 <div class="join-wrap" style="padding: 0;">
 	<form:form modelAttribute="memberInfo" id="memberInfoForm" action="save.do" onsubmit="return false;">
 		<form:hidden path="editMode" value="MODIFY"/>
-		<form:hidden path="member_id"/>
+		<form:hidden path="menu_idx"/>
 		<table id="memberForm">
 			<tbody>
 				<tr>
@@ -251,6 +251,7 @@ $(document).on("keyup change", "input:text[numberOnly]", function() {
 						<div id="cell_phone_div">
 						<c:set var="handphone" value="${fn:replace(memberInfo.cell_phone, '-', ' - ')}"></c:set>
 						${handphone}
+						<form:checkbox path="sms_service_yn" value="Y" label=" SMS 수신 여부" cssStyle="vertical-align: middle;"/>
 						<div class="highlight">
 						<label for="sms_service_yn1"> * 입력한 휴대폰 번호로 반납 및 연체문자가 수신됩니다.</label>
 						</div>
@@ -319,6 +320,8 @@ $(document).on("keyup change", "input:text[numberOnly]", function() {
 							<option value="yahoo.com" >yahoo.com</option>
 							<option value="korea.kr" >korea.kr</option>
 						</select>
+						<br/>
+						<form:checkbox path="email_service_yn" value="Y" label="EMAIL 수신여부"/>
 					</td>
 				</tr>
 			</tbody>

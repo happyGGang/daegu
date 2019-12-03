@@ -265,40 +265,42 @@ public class CommonJoinController extends BaseController {
 			ValidationUtils.rejectIfEmpty(result, "zipcode", "주소를 입력해주세요.");
 			ValidationUtils.rejectIfEmpty(result, "address1", "주소를 입력해주세요.");
 			ValidationUtils.rejectIfEmpty(result, "address2", "주소를 입력해주세요.");
-		} else if ("MODIFY".equals(member.getEditMode()) || "MODIFY2".equals(member.getEditMode())) {
+		} else if ("MODIFY".equals(member.getEditMode())) {
+			if (StringUtils.isNotBlank(member.getMember_pw())) {
+				String regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[!@#$%^&*])[A-Za-z\\d$!@#$%^&*]{9,20}$";
+				Pattern pattern = Pattern.compile(regexp);
+				Matcher matcher = pattern.matcher(member.getMember_pw());
+				if (!matcher.matches()) {
+					result.rejectValue("member_pw", "비밀번호는 영문, 숫자, 특수문자 조합으로 9자이상 20자이내로 입력하셔야 합니다.");
+				}
+			}
 			if (StringUtils.isNotEmpty(member.getCard_password())) {
 				ValidationUtils.rejectExceptNumber(result, "card_password", 4, "대출증 비밀번호 설정은 숫자 4자리로 입력해주세요.");
 			}
-			if ("MODIFY2".equals(member.getEditMode())) {
-				ValidationUtils.rejectIfEmpty(result, "web_id", "아이디를 입력해주세요.");
-				ValidationUtils.rejectOnlyEngNum(result, "web_id", "아이디는 영문 또는 숫자만 사용가능합니다.");
-				ValidationUtils.rejectOnlyEngNum(result, "web_id", 6, 20, "아이디는 영문, 숫자 조합 6자 이상 20자 이하로 입력하세요.");
-			}
 //			ValidationUtils.rejectIfEmpty(result, "member_pw", "비밀번호를 입력해주세요.");
-			ValidationUtils.rejectIfEmpty(result, "cell_phone2", "휴대폰 번호를 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "cell_phone3", "휴대폰 번호를 입력하세요.");
-			ValidationUtils.rejectExceptNumber(result, "cell_phone2", 3, 4, "휴대전화 4자리로 입력해주세요.");
-			ValidationUtils.rejectExceptNumber(result, "cell_phone3", 4, "휴대전화 4자리로 입력해주세요.");
-			ValidationUtils.rejectIfEmpty(result, "zipcode", "주소를 입력해주세요.");
-			ValidationUtils.rejectIfEmpty(result, "address1", "주소를 입력해주세요.");
-			ValidationUtils.rejectIfEmpty(result, "loca", "소속 도서관이 선택되지 않았습니다.");
+//			ValidationUtils.rejectIfEmpty(result, "cell_phone2", "휴대폰 번호를 입력하세요.");
+//			ValidationUtils.rejectIfEmpty(result, "cell_phone3", "휴대폰 번호를 입력하세요.");
+//			ValidationUtils.rejectExceptNumber(result, "cell_phone2", 3, 4, "휴대전화 4자리로 입력해주세요.");
+//			ValidationUtils.rejectExceptNumber(result, "cell_phone3", 4, "휴대전화 4자리로 입력해주세요.");
+//			ValidationUtils.rejectIfEmpty(result, "zipcode", "주소를 입력해주세요.");
+//			ValidationUtils.rejectIfEmpty(result, "address1", "주소를 입력해주세요.");
 
-			Lending lending = new Lending();
-			lending.setMember_id(getSessionMemberId(request));
-			lending.setMenu("LENDING");
-			int elibLendCnt = lendingService.getLendMemberListCnt(lending);
-			lending.setMenu("RESERVE");
-			int elibReserveCnt = lendingService.getReserveMemberListCnt(lending);
-
-			if ((elibLendCnt + elibReserveCnt) > 0) {
-				String currLoca = getSessionMemberInfo(request).getLoca();
-				String modLoca = member.getLoca();
-				if (StringUtils.isNotEmpty(modLoca)) {
-					if (!StringUtils.equals(currLoca, modLoca)) {
-						result.reject("대출, 예약중인 전자 콘텐츠가 있는 경우 소속도서관을 변경할 수 없습니다.");
-					}
-				}
-			}
+//			Lending lending = new Lending();
+//			lending.setMember_id(getSessionMemberId(request));
+//			lending.setMenu("LENDING");
+//			int elibLendCnt = lendingService.getLendMemberListCnt(lending);
+//			lending.setMenu("RESERVE");
+//			int elibReserveCnt = lendingService.getReserveMemberListCnt(lending);
+//
+//			if ((elibLendCnt + elibReserveCnt) > 0) {
+//				String currLoca = getSessionMemberInfo(request).getLoca();
+//				String modLoca = member.getLoca();
+//				if (StringUtils.isNotEmpty(modLoca)) {
+//					if (!StringUtils.equals(currLoca, modLoca)) {
+//						result.reject("대출, 예약중인 전자 콘텐츠가 있는 경우 소속도서관을 변경할 수 없습니다.");
+//					}
+//				}
+//			}
 		}
 
 		if ( !result.hasErrors() ) {
@@ -334,7 +336,7 @@ public class CommonJoinController extends BaseController {
 					res.setValid(true);
 					res.setMessage("수정되었습니다.");
 					loginService.setSessionMember(sessionMember, request);
-					res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
+					res.setUrl(String.format("/%s/join/modifyCheck.do?menu_idx=%d", homepage.getContext_path(), member.getMenu_idx()));
 				} else {
 					res.setValid(false);
 					res.setMessage("수정 실패하였습니다. 잠시후 다시 시도해주세요.");

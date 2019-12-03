@@ -344,6 +344,8 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 							<option value="gmail.com" >gmail.com</option>
 							<option value="korea.kr" >korea.kr</option>
 						</select>
+						<br/>
+						<form:checkbox path="email_service_yn" value="Y" label="EMAIL 수신여부"/>
 					</td>
 				</tr>
 			</tbody>
