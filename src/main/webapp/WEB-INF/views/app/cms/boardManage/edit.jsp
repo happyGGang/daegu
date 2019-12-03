@@ -9,7 +9,7 @@ $(function(){
 	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
 		resizable: true,
-		modal: true, 
+		modal: true,
 	    open: function(){
 	        $('.ui-widget-overlay').addClass('custom-overlay');
 	    },
@@ -37,31 +37,31 @@ $(function(){
 			}
 		]
 	});
-	
+
 	$("#dialog-1").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
 		width: 1000,
 		height: 800
 	});
-	
+
 	//탭메뉴
 	$('#tabs').tabs();
-	
+
 	$('a#adminsearch').on('click', function(e) {
 		$('#dialog-searchLayer').load('adminSearch.do', function( response, status, xhr ) {
 			$('#dialog-searchLayer').dialog('open');
 		});
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('input#admin_id').on('click', function(e) {
 		$('#dialog-searchLayer').load('adminSearch.do', function( response, status, xhr ) {
 			$('#dialog-searchLayer').dialog('open');
 		});
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('select#board_type').on('change', function() {
 		var val = $(this).val();
 		if (val == 'QNA') {
@@ -77,12 +77,12 @@ $(function(){
 			$('input#file_use_yn2').prop('checked', true);
 			$('input#comment_use_yn1').prop('checked', true);
 			$('input#anonymize_yn1').prop('checked',true)
-			
+
 		} else {
 			$('tr#pushTr').hide();
 		}
 	});
-	
+
 	$('select#category1').on('change', function() {
 		$('input#category_use_yn1').prop('checked', true);
 	});
@@ -117,7 +117,7 @@ $(function(){
 							<form:select path="board_type" cssClass="selectmenu">
 							<c:forEach var="i" varStatus="status" items="${boardTypes}">
 								<form:option value="${i.code_name}">${i.remark}</form:option>
-							</c:forEach>    
+							</c:forEach>
 							</form:select>
 						</td>
 					</tr>
@@ -239,7 +239,7 @@ $(function(){
 							<form:radiobutton path="file_use_yn" cssClass="selectmenu" value="N" label="사용안함" />
 						</td>
 					</tr>
-					<tr>	
+					<tr>
 						<th>파일 업로드수</th>
 						<td>
 							<form:select path="file_count" cssClass="selectmenu">
@@ -247,7 +247,7 @@ $(function(){
 								<form:option value="${i}">${i}개</form:option>
 							</c:forEach>
 							</form:select>
-						</td>				
+						</td>
 						<th>파일 총 용량제한</th>
 						<td>
 							<form:select path="file_size_total" cssClass="selectmenu">
@@ -277,20 +277,13 @@ $(function(){
 							<form:radiobutton path="charge_email_receive_yn" cssClass="selectmenu" value="Y" label="사용함" />
 							<form:radiobutton path="charge_email_receive_yn" cssClass="selectmenu" value="N" label="사용안함" />
 						</td>
-						
+
 					</tr>
 					<tr>
 						<td colspan="4">
 							<div class="ui-state-highlight">
 								<i class="fa fa-question-circle"></i><em>권한 설정 탭의 지정된 담당자에게 발송 됩니다.</em>
-							</div>	
-						</td>
-					</tr>
-					<tr id="pushTr" <c:if test="${boardManage.board_type ne 'NOTICE'}">style="display:none;"</c:if>>
-						<th>Push발신기능 사용</th>
-						<td colspan="3">
-							<form:radiobutton path="push_send_yn" cssClass="selectmenu" value="Y" label="사용함" />
-							<form:radiobutton path="push_send_yn" cssClass="selectmenu" value="N" label="사용안함" />
+							</div>
 						</td>
 					</tr>
 					<tr>

@@ -1,6 +1,5 @@
 package kr.co.whalesoft.app.cms.dataMigration;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -23,7 +22,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +32,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.whalesoft.app.board.boardFile.BoardFile;
-import kr.co.whalesoft.app.cms.auth.AuthService;
 import kr.co.whalesoft.app.cms.boardManage.BoardManageService;
 import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
@@ -47,7 +44,6 @@ import kr.go.gbelib.app.cms.module.elib.book.BookService;
 import kr.go.gbelib.app.cms.module.elib.category.ElibCategory;
 import kr.go.gbelib.app.cms.module.elib.category.ElibCategoryService;
 import kr.go.gbelib.app.cms.module.teacher.Teacher;
-import net.sf.jxls.transformer.XLSTransformer;
 
 @Controller
 @RequestMapping(value = {"/cms/dm"})
@@ -60,9 +56,6 @@ public class DataMigrationController extends BaseController {
 
 	@Autowired
 	private CodeService codeService;
-
-	@Autowired
-	private AuthService authService;
 
 	@Autowired
 	private DataMigrationService service;

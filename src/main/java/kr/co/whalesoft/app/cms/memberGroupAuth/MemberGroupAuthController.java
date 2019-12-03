@@ -33,43 +33,43 @@ public class MemberGroupAuthController extends BaseController {
 
 	private final String basePath = "/cms/memberGroupAuth/";
 	private final String wbuilderPath = "/wbuilder/memberGroupAuth/";
-	
+
 	@Autowired
 	private MemberGroupService memberGroupService;
-	
+
 	@Autowired
 	private MemberGroupAuthService service;
-	
+
 	@Autowired
 	private AdminMenuService adminMenuService;
-	
+
 	@Autowired
 	private MenuService menuService;
-	
+
 	@Autowired
 	private AuthCodeService authCodeService;
-	
+
 	/**
 	 * 첫페이지.
 	 * @param model
 	 * @param memberGroup
 	 * @param request
 	 * @return
-	 * @throws AuthException 
+	 * @throws AuthException
 	 */
 	@RequestMapping (value = { "/index.*" }, method = RequestMethod.GET)
 	public String index(Model model, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 		return returnUrl("index", request);
 	}
-	
+
 	/**
 	 * 우측창 페이지 불러오기 (관리자메뉴 or 사용자메뉴)
 	 * @param model
 	 * @param memberGroupAuth
 	 * @param request
 	 * @return
-	 * @throws AuthException 
+	 * @throws AuthException
 	 */
 	@RequestMapping(value="/memberGroupAuth.*", method=RequestMethod.GET)
 	public String memberGroupAuth(Model model, MemberGroupAuth memberGroupAuth, MemberGroup memberGroup, HttpServletRequest request) throws AuthException {
@@ -78,7 +78,7 @@ public class MemberGroupAuthController extends BaseController {
 		if (memberGroup != null && (StringUtils.equals(memberGroup.getAdmin_group_yn(), "Y") || StringUtils.equals(memberGroup.getAdmin_yn(), "Y"))) {
 			return basePath + "disabled_ajax";
 		}
-		
+
 		ModuleMngt moduleMngt = new ModuleMngt();
 
 		String pathFile = StringUtils.equals(memberGroupAuth.getModuleType(), "CMS") ? "Admin" : "User";
@@ -86,7 +86,7 @@ public class MemberGroupAuthController extends BaseController {
 			pathFile = "User";
 			memberGroupAuth.setModuleType("SITE");
 		}
-		
+
 		if (StringUtils.equals(memberGroupAuth.getModuleType(), "CMS")) {
 			model.addAttribute("menuList", adminMenuService.getAdminMenuTreeListWithAuth(memberGroupAuth));
 			model.addAttribute("memberGroupAuth", service.getMemberGroupAuth(memberGroupAuth));
@@ -100,7 +100,7 @@ public class MemberGroupAuthController extends BaseController {
 //					if (homepageList != null && homepageList.size() > 0) {
 //						memberGroupAuth.setHomepage_id(homepageList.get(0).getHomepage_id());
 //					}
-//				}	
+//				}
 			} else {
 				@SuppressWarnings ("unchecked")
 				List<Homepage> homepageList = (List<Homepage>) request.getSession().getAttribute("homepageList");
@@ -111,24 +111,24 @@ public class MemberGroupAuthController extends BaseController {
 					}
 				}
 			}
-			
+
 			model.addAttribute("memberGroupAuth", service.getMemberGroupAuth(memberGroupAuth));
 			model.addAttribute("menuList", menuService.getMenuTreeListWithAuth(memberGroupAuth));
 		}
 		moduleMngt.setModule_type(memberGroupAuth.getModuleType());
 //		model.addAttribute("moduleAuthIdList", authService.getAuth("MODULEAUTH"));
 		model.addAttribute("memberGroup", memberGroupService.getMemberGroupOne(new MemberGroup(memberGroupAuth.getMember_group_idx())));
-		
+
 		return returnUrl("memberGroupAuth" + pathFile + "_ajax", request);
-		
+
 	}
-	
+
 	/**
 	 * 모듈권한설정 팝업창
 	 * @param model
 	 * @param authority
 	 * @return
-	 * @throws AuthException 
+	 * @throws AuthException
 	 */
 	@RequestMapping(value="/editAuthGroupModule{url}.*", method=RequestMethod.GET)
 	public String editAuthGroupModule(Model model, MemberGroupAuth memberGroupAuth, @PathVariable("url") String url, HttpServletRequest request) throws AuthException {
@@ -138,13 +138,13 @@ public class MemberGroupAuthController extends BaseController {
 		memberGroupAuth.setAuthCodeList(service.getAuthCodeList(memberGroupAuth));
 		model.addAttribute("moduleAuthList", authCodeService.getAuthCode(memberGroupAuth.getAuth_group_id()));
 		model.addAttribute("memberGroupAuth", memberGroupAuth);
-		
+
 		return returnUrl("editAuthGroup" + url, request);
 	}
-	
-	
-	
-	
+
+
+
+
 	/**
 	 * 그룹의 권한 부여
 	 * @param model
@@ -155,9 +155,9 @@ public class MemberGroupAuthController extends BaseController {
 	 */
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Model model, MemberGroupAuth memberGroupAuth, BindingResult result, HttpServletRequest request) {
-		
+
 		JsonResponse res = new JsonResponse(request);
-		
+
 		if(!result.hasErrors()) {
 			memberGroupAuth.setCud_id(getSessionMemberId(request));
 			if (service.addMemberGroupAuth(memberGroupAuth, request) < 1) {
@@ -171,10 +171,10 @@ public class MemberGroupAuthController extends BaseController {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
 		}
-		
+
 		return res;
 	}
-	
+
 	private String returnUrl(String url, HttpServletRequest request) {
 		if (request.getHeader("referer").toString().contains("wbuilder")) {
 			return wbuilderPath + url;

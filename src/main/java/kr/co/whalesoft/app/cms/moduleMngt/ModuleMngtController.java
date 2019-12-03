@@ -17,20 +17,20 @@ import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 
 @Controller
-@RequestMapping(value = {"/wbuilder/moduleMngt"}) 
+@RequestMapping(value = {"/wbuilder/moduleMngt"})
 public class ModuleMngtController extends BaseController {
 
 	private final String basePath = "/wbuilder/moduleMngt/";
 
 	@Autowired
 	private ModuleMngtService service;
-	
+
 	@Autowired
 	private TermsService termsService;
-	
+
 	@Autowired
 	private AuthCodeService authCodeService;
-	
+
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, ModuleMngt moduleMngt, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
@@ -43,7 +43,7 @@ public class ModuleMngtController extends BaseController {
 
 		return basePath + "index";
 	}
-	
+
 	@RequestMapping(value = {"/edit.*"})
 	public String edit(Model model, ModuleMngt moduleMngt, HttpServletRequest request) throws AuthException {
 		if ( moduleMngt.getEditMode().equals("MODIFY") ) {
@@ -53,22 +53,22 @@ public class ModuleMngtController extends BaseController {
 			checkAuth("C", model, request);
 			model.addAttribute("moduleMngt", moduleMngt);
 		}
-		
+
 		model.addAttribute("authCodeList", authCodeService.getAuthGroupList());
-		
+
 		return basePath + "edit_ajax";
 	}
-	
+
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Model model, ModuleMngt moduleMngt, BindingResult result, HttpServletRequest request) throws AuthException {
 		JsonResponse res = new JsonResponse(request);
 		String editMode = moduleMngt.getEditMode();
-		
+
 		if ( !moduleMngt.getEditMode().equals("DELETE") ) {
 			ValidationUtils.rejectIfEmpty(result, "module_name", "모듈명을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "link_url", "링크URL을 입력하세요.");
 		}
-		
+
 		if ( !result.hasErrors() ) {
 			if ( editMode.equals("ADD") ) {
 				checkAuth("C", model, request);
@@ -85,15 +85,15 @@ public class ModuleMngtController extends BaseController {
 				service.deleteModuleMngt(moduleMngt);
 				res.setValid(true);
 				res.setMessage("삭제 되었습니다.");
-			}	
+			}
 		} else {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
 		}
-		
+
 		return res;
 	}
-	
+
 	@RequestMapping(value = {"/moduleTerms.*"})
 	public String moduleTerms(Model model, ModuleMngt moduleMngt) {
 		model.addAttribute("moduleMngt", moduleMngt);
@@ -101,16 +101,16 @@ public class ModuleMngtController extends BaseController {
 		model.addAttribute("notInTermsList", termsService.getTermsListNotInModule(new Terms(moduleMngt.getModule_idx())));
 		return basePath + "termsList_ajax";
 	}
-	
+
 	@RequestMapping(value = {"/saveTerms.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse saveTerms(Model model, ModuleMngt moduleMngt, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
-		
+
 		if ( !result.hasErrors() ) {
 			if ( moduleMngt.getEditMode().equals("ADD") ) {
 				service.addModuleTerms(moduleMngt);
 				res.setValid(true);
-				res.setMessage("저장 되었습니다.");	
+				res.setMessage("저장 되었습니다.");
 			}
 			else if ( moduleMngt.getEditMode().equals("DELETE") ) {
 				service.deleteModuleTerms(moduleMngt);
@@ -118,8 +118,8 @@ public class ModuleMngtController extends BaseController {
 				res.setMessage("저장 되었습니다.");
 			}
 		}
-		
+
 		return res;
 	}
-	
+
 }

@@ -4,4 +4,5 @@
 	<settings>
 		<setting name="jdbcTypeForNull" value="VARCHAR" />
 	</settings>
+
 </configuration>

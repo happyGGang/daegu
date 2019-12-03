@@ -1,15 +1,24 @@
 package kr.co.whalesoft.app.cms.homepage;
 
+import java.util.Collection;
 import java.util.List;
+
+import javax.annotation.Resource;
+
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.menu.MenuDao;
 import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.framework.base.BaseService;
 
+import org.apache.ibatis.mapping.MappedStatement;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mvel2.ast.Instance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.googlecode.ehcache.annotations.Cacheable;
 
@@ -24,6 +33,9 @@ public class HomepageService extends BaseService {
 
 	@Autowired
 	private MenuDao menuDao;
+
+	@Resource
+	private SqlSessionFactory sqlSessionFactoryBean;
 
 	public List<Homepage> getHomepage() {
 		return dao.getHomepage();
@@ -79,12 +91,7 @@ public class HomepageService extends BaseService {
 	public int addHomepage(Homepage homepage) {
 		/** 홈페이지 ID 설정(자동) **/
 		homepage.setHomepage_id(dao.getHomepageID());
-
 		int result = dao.addHomepage(homepage);
-
-		/*if ( result > 0 && homepage.getHomepage_type().equals("1")) {
-			menuDao.initCommonMenu(homepage);
-		}*/
 		return result;
 	}
 

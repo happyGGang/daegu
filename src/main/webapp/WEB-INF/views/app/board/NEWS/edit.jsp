@@ -21,24 +21,13 @@ ${boardManage.top_html}
 		<tbody>
 			<jsp:include page="/WEB-INF/views/app/board/common/edit/notice.jsp" flush="false" />
 			<jsp:include page="/WEB-INF/views/app/board/common/edit/category.jsp" flush="false" />
-			<c:if test="${boardManage.push_send_yn eq 'Y'}">
-			<tr>
-				<th>푸시 발송</th>
-				<td colspan="3">
-					<form:radiobutton path="push_send_yn" id="push_send_yn_yes" value="Y"/>
-					<label for="push_send_yn_yes">예</label>
-					<form:radiobutton path="push_send_yn" id="push_send_yn_no" value="N" />
-					<label for="push_send_yn_no">아니오</label>
-				</td>
-			</tr>
-			</c:if>
 			<tr>
 				<th>제목</th>
 				<td colspan="3">
 					<form:input path="title" cssClass="text" cssStyle="width:90%" maxlength="100" />
 				</td>
 			</tr>
-			<tr> 
+			<tr>
 				<th>작성자</th>
 				<td>
 					<jsp:include page="/WEB-INF/views/app/board/common/edit/userName.jsp" flush="false" />
@@ -75,7 +64,7 @@ ${boardManage.top_html}
 			</c:if>
 		</tbody>
 	</table>
-	
+
 	<jsp:include page="/WEB-INF/views/app/board/common/edit/button.jsp" flush="false" />
 </div>
 </form:form>

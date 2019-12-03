@@ -7,12 +7,12 @@ import java.util.List;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
 public class BoardExt extends PagingUtils {
-	
+
 	@Override
 	protected Object clone() throws CloneNotSupportedException{
 		return super.clone();
 	}
-	
+
 	private String user_email; //작성자 이메일
 	private String user_homepage; //작성자 홈페이지
 	private String user_phone; //작성자 전화번호
@@ -26,10 +26,9 @@ public class BoardExt extends PagingUtils {
 	private int recommend_email_receive_count; //추천 메일발송 횟수
 	private int approval_count; //찬성횟수
 	private int contrary_count; //반대횟수
-	private String push_send_yn = "N"; //푸시발송여부
-	
+
 	private List<String> board_field_list;
-	
+
 	private String imsi_v_1;
 	private String imsi_v_2;
 	private String imsi_v_3;
@@ -50,19 +49,19 @@ public class BoardExt extends PagingUtils {
 	private String imsi_v_18;
 	private String imsi_v_19;
 	private String imsi_v_20;
-	
+
 	private Date imsi_d_1;
 	private Date imsi_d_2;
 	private Date imsi_d_3;
 	private Date imsi_d_4;
 	private Date imsi_d_5;
-	
+
 	private int imsi_n_1;
 	private int imsi_n_2;
 	private int imsi_n_3;
 	private int imsi_n_4;
 	private int imsi_n_5;
-	
+
 	public String getImsi_v_1() {
 		return imsi_v_1;
 	}
@@ -336,11 +335,5 @@ public class BoardExt extends PagingUtils {
 	public void setContrary_count(int contrary_count) {
 		this.contrary_count = contrary_count;
 	}
-	public String getPush_send_yn() {
-		return push_send_yn;
-	}
-	public void setPush_send_yn(String push_send_yn) {
-		this.push_send_yn = push_send_yn;
-	}
-	
+
 }

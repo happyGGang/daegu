@@ -2,7 +2,6 @@ package kr.co.whalesoft.app.board;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +20,6 @@ import org.springframework.mobile.device.DeviceUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,17 +41,12 @@ import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.member.MemberService;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManageService;
-import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
-import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.CalculateHashUtils;
 import kr.co.whalesoft.framework.utils.JsonResponse;
-import kr.co.whalesoft.framework.utils.RequestUtils;
 import kr.co.whalesoft.framework.utils.StrUtil;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
-import kr.go.gbelib.app.cms.module.push.Push;
-import kr.go.gbelib.app.cms.module.push.PushService;
 import kr.go.gbelib.app.cms.module.themeBook.ThemeBook;
 import kr.go.gbelib.app.cms.module.themeBook.ThemeBookService;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
@@ -81,8 +74,6 @@ public class BoardController extends BaseController {
 	@Autowired
 	private BoardManageService boardManageService;
 	@Autowired
-	private RecommendSiteService recommendSiteService;
-	@Autowired
 	private HomepageService homepageService;
 	@Autowired
 	private MemberService memberService;
@@ -91,22 +82,9 @@ public class BoardController extends BaseController {
 	@Autowired
 	private BoardRegexFilterService boardRegexFilterService;
 	@Autowired
-	private PushService pushService;
-	@Autowired
 	private ThemeBookService themeBookService;
 	@Autowired
 	private CalendarManageService calendarManageService;
-
-	@ModelAttribute("recommendSiteList")
-	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
-//		if (homepage == null) {
-//			return null;
-//		} else {
-//			return siteService.getSiteListAll(new Site(homepage.getHomepage_id()));
-//		}
-		return null;
-	}
 
 	private String getBoardContext(HttpServletRequest request) {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
@@ -916,31 +894,6 @@ public class BoardController extends BaseController {
 						}
 					}
 
-				}
-
-
-				if (boardManage.getPush_send_yn().equals("Y")) {
-					try {
-						Homepage homepage = (Homepage)request.getAttribute("homepage");
-						Member member = getSessionMemberInfo(request);
-						Push push = new Push();
-						push.setLib_code(homepage.getHomepage_code().substring(0, 8));
-						push.setPush_type("일반텍스트");
-						push.setPush_msg(board.getTitle());
-						push.setPush_status("1");
-						push.setPush_url(homepage.getDomain());
-						Calendar cal = Calendar.getInstance();
-						cal.add(Calendar.HOUR, 1);
-						SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHH");
-						push.setPush_reserve_date(sdf.format(cal.getTime()));
-						push.setPush_reg_id(member.getMember_id());
-						push.setPush_reg_nm(member.getMember_name());
-						push.setPush_reg_ip(RequestUtils.getClientIpAddr(request));
-						pushService.addPush(push);
-					} catch (Exception e) {
-						e.printStackTrace();
-						// TODO: handle exception
-					}
 				}
 
 			} else if(board.getEditMode().equals("REPLY")) {

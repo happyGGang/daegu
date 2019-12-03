@@ -54,9 +54,10 @@ $(function() {
 				    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
 				}
 				fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-                $('#zipcode').val(data.zonecode);//5자리 새우편번호 사용
-                $('#address1').val(fullAddr);
-                $('#address1').focus();
+                $('input#zipcode').val(data.zonecode);//5자리 새우편번호 사용
+                $('input#address1').val(fullAddr);
+                $('input#eng_address').val(data.roadAddressEnglish);
+                $('input#address1').focus();
             }
         }).open();
 	});

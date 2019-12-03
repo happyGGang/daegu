@@ -1,7 +1,6 @@
 package kr.co.whalesoft.app.cms.snsStatistics;
 
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,17 +19,17 @@ public class SnsStatisticsXlsToCsv {
 			WritableWorkbook workbook = Workbook.createWorkbook(out);
 			workbook = new SnsStatisticsWorkbook().workbookForm(workbook, statisticsList, request, response);
 			response.reset();
-			
+
 			String searchTime = snsStatistics.getStartDate()+"~"+snsStatistics.getEndDate();
 			String fileName = "(" + searchTime + ") SNS 퍼가기 통계.csv";
-			
+
 			response.setHeader("Content-Disposition", AttachmentUtils.getContentDisposition(fileName, request.getHeader("user-agent")));
 			response.setHeader("Content-Transfer-Encoding", "binary");
 			response.setHeader("Pragma", "no-cache");
 			response.setContentType("text/csv; charset=CP949");
-			
+
 			StringBuffer data = new StringBuffer();
-			
+
 			for(int rowNum=0; rowNum<workbook.getSheet(0).getRows(); rowNum++) {
 				for(int colNUm=0; colNUm<workbook.getSheet(0).getColumns(); colNUm++) {
 					jxl.Cell cell = workbook.getSheet(0).getCell(colNUm, rowNum);
@@ -42,9 +41,9 @@ public class SnsStatisticsXlsToCsv {
 				}
 				data.append("\n");
 			}
-			
+
 			HangulEnDecoder.encodeDataOutput(data, "UTF-8", "CP949", response);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
