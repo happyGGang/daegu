@@ -4,8 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
-
-<script src="/resources/cms/js/vk/vk_popup.js?vk_skin=flat_gray&vk_layout=ZW Shona"></script>
 <script type="text/javascript">
 $(function() {
 
@@ -16,6 +14,29 @@ $(function() {
 		doGetLoad('index.do', serializeCustom($('#librarySearch')));
 	});
 
+	//이미지 목록형
+	$('.imgView').on('click', function(e) {
+		e.preventDefault();
+		$(this).addClass('on');
+		$('.listView').removeClass('on');
+		$('.search-results .cont ul').removeClass();
+		if($(this).hasClass('on')){
+			$('.search-results .textType').css('display','none');
+			$('.search-results .imageType').css('display','block');
+		}
+	});
+
+	//텍스트 목록형
+	$('.listView').on('click', function(e) {
+		e.preventDefault();
+		$(this).addClass('on');
+		$('.imgView').removeClass('on');
+		$('.search-results .cont ul').removeClass();
+		if($(this).hasClass('on')){
+			$('.search-results .imageType').css('display','none');
+			$('.search-results .textType').css('display','block');
+		}
+	});
 });
 </script>
 <form:form modelAttribute="librarySearch" action="index.do" method="GET" onsubmit="return false;">
@@ -185,11 +206,12 @@ $(function() {
 							<c:choose>
 								<c:when test="${fn:length(newBookList) > 0}">
 									<c:forEach items="${newBookList}" var="i">
+									<c:set var="detailURL" value="/intro/${homepage.context_path}/search/detail.do?isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype)}"></c:set>
 									<div class="row">
 										<div class="box">
 											<div class="item">
 												<div class="bif">
-													<a href="" class="name goDetail">
+													<a href="${detailURL}" class="name goDetail">
 													<span style='color:#e84e0e;font-weight:600'>${i.TITLE_INFO}</span></a>
 													<p>
 													<font style="color:#5e5e5e">저자</font> : ${i.AUTHOR}<br class="mobileBr"/>
@@ -273,4 +295,3 @@ $(function() {
 
 	</div>
 </form:form>
-<div id="vk"></div>
