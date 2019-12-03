@@ -1,7 +1,5 @@
 package kr.go.gbelib.app.intro.join;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -9,7 +7,6 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -32,10 +29,7 @@ import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
-import kr.co.whalesoft.framework.utils.StaticVariables;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
-import kr.go.gbelib.app.cms.module.elib.lending.Lending;
-import kr.go.gbelib.app.cms.module.elib.lending.LendingService;
 import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.common.api.MemberAPI;
@@ -57,9 +51,6 @@ public class CommonJoinController extends BaseController {
 
 	@Autowired
 	private HomepageService homepageService;
-
-	@Autowired
-	private LendingService lendingService;
 
 	@Autowired
 	private MemberService memberService;
@@ -202,13 +193,24 @@ public class CommonJoinController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=4", homepage.getContext_path()), request, response);
+			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 1));
+			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
 			return null;
 		}
 
 		return String.format(basePath, homepage.getFolder()) + "modifyCheck";
 	}
 
+	/**
+	 * 회원정보수정 폼
+	 * @author whalesoft YONGJU 2019. 12. 3.
+	 * @param model
+	 * @param member
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = {"/modifyForm.*"}, method = RequestMethod.POST)
 	public String modifyForm(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
@@ -221,8 +223,8 @@ public class CommonJoinController extends BaseController {
 
 		//로그인확인
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			member.setBefore_url(String.format("https://%s/%s/intro/join/modifyForm.do?menu_idx=%s", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), member.getMenu_idx()));
-			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("https://%s/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), member.getMenu_idx(), member.getBefore_url()), request, response);
+			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 1));
+			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http%s://%s/%s/intro/login/index.do?menu_idx=%d", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path(), member.getMenu_idx(), loginMenuIdx), request, response);
 			return null;
 		}
 
@@ -242,6 +244,14 @@ public class CommonJoinController extends BaseController {
 		return String.format(basePath, homepage.getFolder()) + "modifyForm";
 	}
 
+	/**
+	 * 회원가입 & 회원정보수정
+	 * @author whalesoft YONGJU 2019. 12. 3.
+	 * @param member
+	 * @param result
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = { "/save.*" }, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Member member, BindingResult result, HttpServletRequest request) {
 		Homepage homepage = getSessionHomepage(request);
@@ -310,8 +320,8 @@ public class CommonJoinController extends BaseController {
 				if (addResult.equals("0")) {
 					res.setValid(true);
 					res.setMessage("준회원 가입이 완료되었습니다. 도서관에 방문하여 대출증 발급 승인 절차를 진행해주시길 바랍니다.");
-					int menuIdx = homepageService.getMenuIdxByLinkUrl(homepage.getHomepage_id(), "/intro/login/index.do");
-					res.setUrl(String.format("http%s://%s/%s/intro/login/index.do?menu_idx=%d", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path(), menuIdx));
+					int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 1));
+					res.setUrl(String.format("http%s://%s/%s/intro/login/index.do?menu_idx=%d", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path(), loginMenuIdx));
 					request.getSession().invalidate();
 				} else {
 					res.setValid(true);
@@ -373,96 +383,6 @@ public class CommonJoinController extends BaseController {
 		return res;
 	}
 
-	@RequestMapping(value = {"/editAgree.*"})
-	public String editAgree(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
-		Homepage homepage = getSessionHomepage(request);
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			member.setBefore_url(String.format("https://%s/%s/intro/join/modifyForm.do?menu_idx=%s", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), member.getMenu_idx()));
-			codeService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("https://%s/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), member.getMenu_idx(), member.getBefore_url()), request, response);
-			return null;
-		}
-
-		model.addAttribute("member", getSessionMemberInfo(request));
-
-		return String.format(basePath, homepage.getFolder()) + "editAgree";
-	}
-
-	@RequestMapping(value = { "/saveAgree.*" }, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse saveAgree(Member member, BindingResult result, HttpServletRequest request) {
-		Homepage homepage = getSessionHomepage(request);
-		JsonResponse res = new JsonResponse(request);
-
-		if ( !result.hasErrors() ) {
-//			MemberAPI.agreePrtcInfo("WEB", member.getMember_id(), member.getLoca(), member.getAgree_codes().replaceAll(" ", "").split(","));
-//			res.setValid(true);
-//			res.setUrl(String.format("http://%s/%s/index.do", homepage.getDomainWithoutProtocol(), homepage.getContext_path()));
-		} else {
-			res.setValid(false);
-			res.setResult(result.getAllErrors());
-		}
-
-		return res;
-	}
-
-	@RequestMapping(value = {"/createIdForm.*"})
-	public String createIdForm(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
-		Homepage homepage = getSessionHomepage(request);
-
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			member.setBefore_url(String.format("https://%s/%s/intro/join/changePwForm.do?menu_idx=%s", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), member.getMenu_idx()));
-			codeService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("https://%s/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), member.getMenu_idx(), member.getBefore_url()), request, response);
-			return null;
-		}
-		member = getSessionMemberInfo(request);
-		Map<String, String> memberInfo = MemberAPI.getMember("WEB", member);
-		member.setMember_name(memberInfo.get("USER_NAME"));
-		member.setBirth_day(memberInfo.get("BIRTHD"));
-		member.setSex(memberInfo.get("SEX"));
-
-
-		model.addAttribute("member", member);
-		model.addAttribute("memberInfo", member);
-		return String.format(basePath, homepage.getFolder()) + "createIdForm";
-	}
-
-	@RequestMapping(value = { "/changePw.*" }, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse changePw(Member member, BindingResult result, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
-		Homepage homepage = getSessionHomepage(request);
-
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			member.setBefore_url(String.format("https://%s/%s/intro/join/changePwForm.do?menu_idx=%s", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), member.getMenu_idx()));
-			codeService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("https://%s/%s/intro/login/index.do?menu_idx=%s", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), member.getMenu_idx()), request, response);
-			return null;
-		}
-		JsonResponse res = new JsonResponse(request);
-		if (memberService.decryptMember(member) == false) {
-			result.reject("member_pw_tmp", "비밀번호를 다시 확인해주세요.");
-		}
-
-		if (!result.hasErrors()) {
-
-			@SuppressWarnings ("unchecked")
-			Map<String, Object> certMember = (Map<String, Object>) request.getSession().getAttribute("certMember");
-
-			member.setRec_key(String.valueOf(certMember.get("REC_KEY")));
-			member.setIn_ip(request.getRemoteAddr());
-
-			ApiResponse apiResult = MemberAPI.updateMemberPasswd(member);
-			res.setValid(apiResult.getStatus());
-			if (apiResult.getStatus()) {
-				res.setMessage("비밀번호가 변경되었습니다.");
-				res.setUrl(String.format("/intro/%s/login/index.do", homepage.getContext_path()));
-			} else {
-				res.setMessage(apiResult.getMessage());
-			}
-		} else {
-			res.setValid(false);
-			res.setResult(result.getAllErrors());
-		}
-
-		return res;
-	}
-
 	/**
 	 * 회원탈퇴 폼
 	 * @author whalesoft YONGJU 2019. 11. 29.
@@ -479,8 +399,8 @@ public class CommonJoinController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			member.setBefore_url(String.format("http://%s/%s/intro/join/changePwForm.do?menu_idx=%s", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), member.getMenu_idx()));
-			codeService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://%s/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), member.getMenu_idx(), member.getBefore_url()), request, response);
+			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 1));
+			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://%s/%s/intro/login/index.do?menu_idx=%d", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), loginMenuIdx), request, response);
 			return null;
 		}
 
@@ -503,12 +423,15 @@ public class CommonJoinController extends BaseController {
 	public @ResponseBody JsonResponse secession(Member member, BindingResult result, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			codeService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://%s/%s/intro/login/index.do?menu_idx=%s", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), member.getMenu_idx()), request, response);
-			return null;
-		}
-
 		JsonResponse res = new JsonResponse(request);
+
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 1));
+			res.setValid(true);
+			res.setMessage("로그인 후 이용가능합니다.");
+			res.setUrl(String.format("http://%s/%s/intro/login/index.do?menu_idx=%d", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), loginMenuIdx));
+			return res;
+		}
 
 		if (!result.hasErrors()) {
 			Member sessionMember = getSessionMemberInfo(request);
@@ -675,7 +598,8 @@ public class CommonJoinController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 
 		if (request.getSession().getAttribute("certMember") == null) {
-			codeService.alertMessageAndUrl("본인인증 후 이용가능합니다.", String.format("http%s://%s/%s/intro/login/index.do?menu_idx=%s&before_url=%s", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path(), member.getMenu_idx(), member.getBefore_url()), request, response);
+			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 1));
+			joinService.alertMessageAndUrl("본인인증 후 이용가능합니다.", String.format("http%s://%s/%s/intro/jogin/findPwForm.do?menu_idx=%s", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path(), loginMenuIdx), request, response);
 			return null;
 		}
 
@@ -717,7 +641,8 @@ public class CommonJoinController extends BaseController {
 			res.setValid(apiResult.getStatus());
 			if (apiResult.getStatus()) {
 				res.setMessage("비밀번호가 변경되었습니다.");
-				res.setUrl(String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), member.getMenu_idx()));
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 1));
+				res.setUrl(String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx));
 			} else {
 				res.setMessage(apiResult.getMessage());
 			}
@@ -782,62 +707,6 @@ public class CommonJoinController extends BaseController {
 	}
 
 	/**
-	 * 약관인증(개인정보 재동의) 폼
-	 * @param model
-	 * @param member
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value = {"/reAgree.*"})
-	public String reAgree(Model model, Member member, HttpServletRequest request) {
-		Homepage homepage = getSessionHomepage(request);
-
-		model.addAttribute("newMember", member);
-//		model.addAttribute("prtcNotice",MemberAPI.getPrtcNoticeList("WEB"));
-//		model.addAttribute("libraryList", LibSearchAPI.getLibraryList());
-		Menu menuOne = (Menu) request.getAttribute("menuOne");
-		menuOne.setMenu_name("이용약관 및 개인정보 수집·이용 재동의");
-		request.setAttribute("menuOne", menuOne);
-		return String.format(basePath, homepage.getFolder()) + "reAgree";
-	}
-
-	/**
-	 * 약관인증(개인정보 재동의)
-	 * @param model
-	 * @param member
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping (value = { "/reAgreeA.*" }, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse reAgreeA(Member member, BindingResult result, HttpServletRequest request) {
-		Homepage homepage = getSessionHomepage(request);
-		JsonResponse res = new JsonResponse(request);
-
-		if ( !result.hasErrors() ) {
-			res.setValid(true);
-			Member sessionMember = getSessionMemberInfo(request);
-			sessionMember.setAgree_codes(member.getAgree_codes());
-//			MemberAPI.agreePrtcInfo("WEB", sessionMember.getUser_id(), sessionMember.getLoca(), sessionMember.getAgree_codes().replaceAll(" ", "").split(","));
-
-			Calendar cal = Calendar.getInstance();
-			cal.add(Calendar.YEAR, 2);
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
-			sessionMember.setAgree_date_str(sdf.format(cal.getTime()));
-			HttpSession session = request.getSession();
-			session.setAttribute(StaticVariables.MEMBER, sessionMember);
-
-			res.setMessage("재동의가 완료되었습니다.");
-			res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
-		}
-		else {
-			res.setValid(false);
-			res.setResult(result.getAllErrors());
-		}
-
-		return res;
-	}
-
-	/**
 	 * 최근접속등 표시 페이지
 	 * @param model
 	 * @param member
@@ -875,78 +744,6 @@ public class CommonJoinController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 
 		return String.format(basePath, homepage.getFolder()) + "passwordExpiry";
-	}
-
-	private void mergeTelno(Member member, String phone) {
-		if ( !StringUtils.isEmpty(phone) ) {
-			phone = phone.replaceAll("-", "");
-			try {
-				Long.parseLong(phone);
-				if ( phone.length() > 3 ) {
-					member.setPhone1(phone.substring(0, 3));
-				} else {
-					member.setPhone1(phone.substring(0));
-				}
-
-				String phoneTemp = phone.substring(3);
-				if ( phoneTemp.length() >= 8 ) {
-					member.setPhone2(phone.substring(3, 7));
-					member.setPhone3(phone.substring(7));
-				} else {
-					member.setPhone2(phone.substring(3, 6));
-					member.setPhone3(phone.substring(6));
-				}
-			}
-			catch (NumberFormatException e) {
-				if (phone.length() >= 11) {
-					member.setPhone1(phone.substring(0, 3));
-					member.setPhone2(phone.substring(3, 7));
-					member.setPhone3(phone.substring(7));
-				} else if (phone.length() == 10) {
-					member.setPhone1(phone.substring(0, 3));
-					member.setPhone2(phone.substring(3, 6));
-					member.setPhone3(phone.substring(6));
-				}
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-		}
-	}
-
-	private void mergeCellphone(Member member, String cellPhone) {
-		if ( !StringUtils.isEmpty(cellPhone) ) {
-			try {
-				cellPhone = cellPhone.replaceAll("-", "");
-				Long.parseLong(cellPhone);
-				if ( cellPhone.length() > 3 ) {
-					member.setCell_phone1(cellPhone.substring(0, 3));
-				} else {
-					member.setCell_phone1(cellPhone.substring(0));
-				}
-
-				String phoneTemp = cellPhone.substring(3);
-				if ( phoneTemp.length() >= 8 ) {
-					member.setCell_phone2(cellPhone.substring(3, 7));
-					member.setCell_phone3(cellPhone.substring(7));
-				} else {
-					member.setCell_phone2(cellPhone.substring(3, 6));
-					member.setCell_phone3(cellPhone.substring(6));
-				}
-			} catch (NumberFormatException e) {
-				// 숫자가 아니면 파싱안함.
-				if (cellPhone.length() >= 11) {
-					member.setCell_phone1(cellPhone.substring(0, 3));
-					member.setCell_phone2(cellPhone.substring(3, 7));
-					member.setCell_phone3(cellPhone.substring(7));
-				} else if (cellPhone.length() == 10) {
-					member.setCell_phone1(cellPhone.substring(0, 3));
-					member.setCell_phone2(cellPhone.substring(3, 6));
-					member.setCell_phone3(cellPhone.substring(6));
-				}
-			}catch (Exception e) {
-				// TODO: handle exception
-			}
-		}
 	}
 
 }
