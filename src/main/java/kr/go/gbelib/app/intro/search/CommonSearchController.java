@@ -480,49 +480,6 @@ public class CommonSearchController extends BaseController {
 	}
 
 	/**
-	 * 희망도서신청 내역
-	 * @author whalesoft YONGJU 2019. 11. 29.
-	 * @param homepagePath
-	 * @param model
-	 * @param librarySearch
-	 * @param request
-	 * @param response
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping(value = {"/hope/history.*"})
-	public String hopeHistory(@PathVariable("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Homepage homepage = getSessionHomepage(request);
-
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
-			return null;
-		}
-
-		Member member = getSessionMemberInfo(request);
-		librarySearch.setUserkey(member.getRec_key());
-		Map<String, Object> result = LibSearchAPI.getBookFurnishList(librarySearch);
-
-		List<Map<String, Object>> list = null;
-
-		int count = LibSearchAPI.getSearchCount(result);
-
-		librarySearch.setTotalDataCount(count);
-
-		service.setPaging(model, count, librarySearch);
-
-		if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
-			list = LibSearchAPI.getListData(result);
-		}
-
-		model.addAttribute("hopeList", list);
-		model.addAttribute("librarySearch", librarySearch);
-
-		return String.format(basePath, homepage.getFolder()) + "hope/history";
-	}
-
-	/**
 	 * 희망도서 신청 폼
 	 * @author whalesoft YONGJU 2019. 11. 29.
 	 * @param homepagePath
@@ -660,7 +617,11 @@ public class CommonSearchController extends BaseController {
 
 				//TODO 희망도서 신청가능여부 체크
 				Homepage homepage = getSessionHomepage(request);
-				hopebookConfigService.getHopebookConfigInfo(homepage.getHomepage_id());
+				try {
+					hopebookConfigService.getHopebookConfigInfo(homepage.getHomepage_id());
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
 
 				//웹필터 체크
 //				StringBuilder sb = new StringBuilder();
@@ -785,7 +746,11 @@ public class CommonSearchController extends BaseController {
 			if (librarySearch.getEditMode().equals("ADD")) {
 
 				//TODO 자료실별 예약 가능여부 체크
-				ilusReqConfigService.getILUSReqConfigInfo(librarySearch, "");
+				try {
+					ilusReqConfigService.getILUSReqConfigInfo(librarySearch, "");
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
 
 				ApiResponse apiResult = LibSearchAPI.reqResve(librarySearch);
 				if (apiResult.getStatus()) {
@@ -900,7 +865,11 @@ public class CommonSearchController extends BaseController {
 		JsonResponse res = new JsonResponse(request);
 
 		//TODO 자료실별 예약 가능여부 체크
-		ilusReqConfigService.getILUSReqConfigInfo(librarySearch, "");
+		try {
+			ilusReqConfigService.getILUSReqConfigInfo(librarySearch, "");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
 		if (!result.hasErrors()) {
 
@@ -1314,7 +1283,11 @@ public class CommonSearchController extends BaseController {
 			}
 
 			// TODO 자료실별 예약 가능여부 체크
-			ilusReqConfigService.getILUSReqConfigInfo(librarySearch, "");
+			try {
+				ilusReqConfigService.getILUSReqConfigInfo(librarySearch, "");
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 
 			librarySearch.setUserkey(member.getRec_key());
 			ApiResponse apiResult = LibSearchAPI.unmannedloanreserve(librarySearch);
@@ -1403,7 +1376,11 @@ public class CommonSearchController extends BaseController {
 			}
 
 			//TODO 자료실별 예약 가능여부 체크
-			ilusReqConfigService.getILUSReqConfigInfo(librarySearch, "");
+			try {
+				ilusReqConfigService.getILUSReqConfigInfo(librarySearch, "");
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 
 			librarySearch.setUserkey(member.getRec_key());
 			ApiResponse apiResult = LibSearchAPI.nightloanreserve(librarySearch);
