@@ -189,7 +189,7 @@ public class CommonJoinController extends BaseController {
 	 * @throws Exception
 	 */
 	@RequestMapping (value = {"/modifyCheck.*"}, method = RequestMethod.GET)
-	public String passCheck(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String modifyCheck(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
@@ -533,7 +533,7 @@ public class CommonJoinController extends BaseController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = {"/findIdForm.*"})
-	public String findMemberIdForm(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
+	public String findIdForm(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 
 		model.addAttribute("memberInfo", member);
@@ -575,7 +575,7 @@ public class CommonJoinController extends BaseController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = {"/findPwForm.*"})
-	public String findMemberPwForm(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
+	public String findPwForm(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 
 		model.addAttribute("memberInfo", member);
