@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<c:set var="cols" value="7"/>
+<c:set var="cols" value="8"/>
 <c:if test="${lending.isReserve == 'Y'}">
 <c:set var="cols" value="7"/>
 </c:if>

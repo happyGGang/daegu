@@ -380,7 +380,7 @@ function doAjaxPostResponse(form, ajaxBody) {
 		</div>
 	</div>
 
-	<div class="rightBox" style="width: 350px; margin-left: 50px; <c:if test="${category.type == 'ADO'}"> display: none;</c:if>">
+	<div class="rightBox" style="width: 350px; margin-left: 50px;">
 		<div class="categoryEdit">
 			<p class="title" style="text-align: center;">2차 카테고리</p>
 			<select id="cate2" name="cate2" size=2 style="width: 100%; height: 540px;"></select>
