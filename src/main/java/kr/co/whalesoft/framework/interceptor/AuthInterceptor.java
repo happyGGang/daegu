@@ -96,14 +96,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 				}
 			}
 
-			if (uri.startsWith("/wbuilder/") || uri.startsWith("/cms/")) {
-
-    			homepage = homepageService.getHomepageOneInPath(contextPath);
-
-//    			String siteId = "CMS";
-//    			if (homepage != null && !homepage.getHomepage_id().equals("CMS")) {
-//    				siteId = homepage.getHomepage_id();
-//    			}
+			if (uri.startsWith("/cms/")) {
 
     			String getUri = request.getRequestURI().substring(request.getContextPath().length());
     			if(StringUtils.isNotEmpty(request.getQueryString())) {
