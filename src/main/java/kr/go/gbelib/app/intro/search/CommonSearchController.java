@@ -392,7 +392,15 @@ public class CommonSearchController extends BaseController {
 		return String.format(basePath, homepage.getFolder()) + "newBook/index";
 	}
 
-
+	/**
+	 * 대출베스트
+	 * @author whalesoft YONGJU 2019. 12. 3.
+	 * @param homepagePath
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = {"/bestBook/index.*"})
 	public String bestBookList(@PathVariable("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, HttpServletRequest request) {
 		Homepage homepage = getSessionHomepage(request);

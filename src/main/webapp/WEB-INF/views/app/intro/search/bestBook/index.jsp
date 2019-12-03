@@ -3,8 +3,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
-
-<script src="/resources/cms/js/vk/vk_popup.js?vk_skin=flat_gray&vk_layout=ZW Shona"></script>
 <script type="text/javascript">
 $(function() {
 	$('a#search-btn').on('click', function(e) {
@@ -25,28 +23,6 @@ $(function() {
 	<!-- /contents-title-->
 
 	<div class="search-wrap">
-		<!-- <a id="search-btn" class="btn btn1">조회</a> -->
-		<%-- <div id="libraryList" class="bbs-notice" style="margin-top:10px;margin-bottom:20px;" >
-			<div>
-			<form:checkbox id="checkAll" path="libraryCodes" label="전체" value="ALL" />
-			</div>
-			<div>
-				<ul>
-			<c:forEach items="${libraryList.data}" var="i">
-					<li style="display: inline-block; margin-right: 5px;">
-				<c:choose>
-					<c:when test="${fn:indexOf(librarySearch.libraryCodes, i.lib_manage_code)!= -1 or fn:indexOf(librarySearch.libraryCodes, 'ALL') != -1}">
-						<form:checkbox id="lib_${i.lib_manage_code}" path="libraryCodes" label="${i.lib_name}" value="${i.lib_manage_code}" checked="checked"/>
-					</c:when>
-					<c:otherwise>
-						<form:checkbox id="lib_${i.lib_manage_code}" path="libraryCodes" label="${i.lib_name}" value="${i.lib_manage_code}" />
-					</c:otherwise>
-				</c:choose>
-					</li>
-			</c:forEach>
-				</ul>
-			</div>
-		</div> --%>
 
 		<!-- 신규 베스트대출  -->
 		<div id="search_detail">
@@ -138,4 +114,3 @@ $(function() {
 
 	</div>
 </form:form>
-<div id="vk"></div>
