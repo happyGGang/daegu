@@ -2,126 +2,117 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
 <script type="text/javascript">
 $(function() {
-	$('.view-detail').on('click', function(e) {
+
+	$('a.reserveCancel').on('click', function(e) {
 		e.preventDefault();
-		var resve_no = $(this).data('resve_no');
-		location.href = 'detail.do?vResveNo=' + resve_no + '&menu_idx=${librarySearch.menu_idx}';
+		if ( confirm("예약 취소 하시겠습니까?") ) {
+			$('input#bookkey').val($(this).attr('keyValue'));
+			if (doAjaxPost($('form#cancelForm'))) {
+				location.reload();
+			}
+		}
 	});
-	
-	$('a.excel-btn').on('click', function(e) {
+
+	$('div#board_paging a').on('click', function(e) {
 		e.preventDefault();
-		$('#excelDownForm #excel_type').val('RESVE');
-		$('#excelDownForm').attr('action', '/${homepage.context_path}/intro/search/excelDownload.do');
-		$('#excelDownForm').submit();
-	});
-	
-	$('a.csv-btn').on('click', function(e) {
-		e.preventDefault();
-		$('#excelDownForm #excel_type').val('RESVE');
-		$('#excelDownForm').attr('action', '/${homepage.context_path}/intro/search/csvDownload.do');
-		$('#excelDownForm').submit();
+		$('#viewPage').attr('value', $(this).attr('keyValue'));
+		var param = serializeCustom($('form#librarySearch'));
+		doGetLoad('index.do', param);
 	});
 });
 
 </script>
-<c:choose>
-<c:when test="${homepage.context_path eq 'app'}">
-</c:when>
-<c:otherwise>
 
-<c:if test="${fn:length(resveList.dsMyLibraryList) > 0}">
-	<div style="text-align: right">
-		<a class="btn btn2 excel-btn">엑셀 저장</a>
-		<a class="btn btn2 csv-btn">CSV 저장</a>
-		<form:form id="excelDownForm" modelAttribute="librarySearch" action="/${homepage.context_path}/intro/search/excelDownload.do" method="get">
-			<form:hidden path="excel_type"/>
-		</form:form>
-	</div>
-</c:if>
-
-</c:otherwise>
-</c:choose>
-
-
-<c:choose>
-<c:when test="${homepage.context_path eq 'app'}">
-<link rel="stylesheet" type="text/css" href="/resources/homepage/app/css/sub_layout.css"/>
-
-<div class="subpage_title">
-	<h4>예약중도서</h4>
+<!-- contents-title-->
+<div id="contents-title">
+	<h2>현재 예약중인 자료<span style="font-weight:300">를 확인하세요.</span></h2>
 </div>
-<div class="mylibrary-btn-section">
-	<ul>
-		<li><a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=5"><img src="/resources/homepage/app/img/mylib01.png" alt=""><br/>대출중도서</a></li>
-		<li><a href="/${homepage.context_path}/intro/search/loan/history.do?menu_idx=11"><img src="/resources/homepage/app/img/mylib02.png" alt=""><br/>대출이력</a></li>
-		<li><a href="/${homepage.context_path}/intro/search/resve/index.do?menu_idx=12" class="on"><img src="/resources/homepage/app/img/mylib03.png" alt=""><br/>예약중도서</a></li>
-		<li><a href="/${homepage.context_path}/intro/search/hope/history.do?menu_idx=13"><img src="/resources/homepage/app/img/mylib04.png" alt=""><br/>희망도서신청내역</a></li>
-		<li><a href="/${homepage.context_path}/html.do?menu_idx=24"><img src="/resources/homepage/app/img/mylib05.png" alt=""><br/>희망도서신청</a></li>
-	</ul>
-</div>
+<!-- /contents-title-->
+
+<form id="cancelForm" action="save.do" method="post">
+	<input type="hidden" name="bookkey" id="bookkey">
+	<input type="hidden" name="editMode" value="CANCEL">
+</form>
+
+<form:form modelAttribute="librarySearch" method="get">
+	<form:hidden path="viewPage"/>
+</form:form>
 
 <div class="book-list">
-	<c:if test="${fn:length(resveList.dsMyLibraryList) < 1 }"> <h3>예약중인 도서 내역이 없습니다.</h3></c:if>
-	<c:if test="${fn:length(resveList.dsMyLibraryList) > 0 }">
-	<div class="alarm_list">
-		<ul>
-		<c:forEach items="${resveList.dsMyLibraryList}" var="i" varStatus="status">
-		<li class="view-detail" data-resve_no="${i.RESVE_NO}">
-			<p class="book_title">${status.index+1}. ${i.TITLE} / ${i.LOCA_NAME}</p>
-			<p class="book_status">${i.STATUS_NAME}</p>
-			<p class="date">예약일 : <fmt:parseDate var="curDate" value="${i.RESVE_DATE}" pattern="yyyyMMdd"/>
-			<fmt:formatDate value="${curDate}" type="both" pattern="yyyy-MM-dd"/></p>
-		</li>
-		</c:forEach>
-		</ul>
+	<c:if test="${fn:length(resveList) < 1 }"> <h3>예약중인 도서 내역이 없습니다.</h3></c:if>
+	<c:forEach items="${resveList}" var="i">
+		<div class="row">
+			<div class="box">
+				<div class="item">
+					<div class="bif">
+						<div class="top">
+							<div class="b-title">
+								<div class="box"><a href="" class="name">${i.TITLE_INFO}</a></div>
+							</div>
+							<div class="control">
+								<c:if test="${i.STATUS eq '3'}">
+								<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
+								</c:if>
+							</div>
+						</div>
+						<p class="info"><em>저자 : ${i.AUTHOR}</em> <span>/</span> <em>출판사 : ${i.PUBLISHER}</em> </p>
+					</div>
+					<div class="bci">
+						<table summary="신청정보">
+							<tbody>
+							<tr>
+								<th>도서관명</th>
+								<td>${i.LIB_NAME}</td>
+							</tr>
+							<tr>
+								<th>예약일</th>
+								<td>${i.RESERVATION_DATE}</td>
+							</tr>
+							<tr>
+								<th>예약순위</th>
+								<td>${i.RESERVE_RANK}</td>
+							</tr>
+							<tr>
+								<th>예약만기일</th>
+								<td>${i.RESERVATION_EXPIRE_DATE }</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</c:forEach>
+
+	<div id="board_paging" class="dataTables_paginate">
+		<c:if test="${paging.firstPageNum > 0}">
+			<a href="" class="paginate_button previous" keyValue="${paging.firstPageNum}">처음</a>
+		</c:if>
+		<c:if test="${paging.prevPageNum > 0}">
+			<a href="" class="paginate_button previous" keyValue="${paging.prevPageNum}">이전</a>
+		</c:if>
+		<span>
+			<c:forEach var="i" varStatus="status" begin="${paging.startPageNum}" end="${paging.endPageNum}">
+			<c:choose>
+			<c:when test="${i eq paging.viewPage}">
+				<a href="" class="paginate_button current" keyValue="${i}">${i}</a>
+			</c:when>
+			<c:otherwise>
+				<a href="" class="paginate_button" keyValue="${i}">${i}</a>
+			</c:otherwise>
+			</c:choose>
+			</c:forEach>
+			<c:if test="${paging.nextPageNum > 0}">
+				<a href="" class="paginate_button next" keyValue="${paging.nextPageNum}">다음</a>
+			</c:if>
+			<c:if test="${paging.totalPageCount ne paging.lastPageNum}">
+				<a href="" class="paginate_button next" keyValue="${paging.totalPageCount}">맨끝</a>
+			</c:if>
+		</span>
 	</div>
-	</c:if>
 </div>
 
-</c:when>
-<c:otherwise>
 
-<div class="book-list">
-	<c:if test="${fn:length(resveList.dsMyLibraryList) < 1 }"> <h3>예약중인 도서 내역이 없습니다.</h3></c:if>
-	<c:if test="${fn:length(resveList.dsMyLibraryList) > 0 }">
-		<table summary="신청정보">
-			<colgroup>
-				<col width="50px"/>
-				<col/>
-				<col width="20%"/>
-				<col width="15%"/>
-				<col width="10%"/>
-			</colgroup>
-			<thead>
-				<tr>
-					<th>순번</th>
-					<th>타이틀</th>
-					<th>소장처명</th>
-					<th>예약일</th>
-					<th>상태</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${resveList.dsMyLibraryList}" var="i" varStatus="status">
-					<tr class="view-detail" data-resve_no="${i.RESVE_NO}">
-						<td class="center">${status.index+1}</td>
-						<td class="left"><a>${i.TITLE}</a></td>
-						<td>${i.LOCA_NAME}</td>
-						<td>
-							<fmt:parseDate var="curDate" value="${i.RESVE_DATE}" pattern="yyyyMMdd"/>
-							<fmt:formatDate value="${curDate}" type="both" pattern="yyyy-MM-dd"/>
-						</td>
-						<td>${i.STATUS_NAME}</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-	</c:if>
-</div>
-
-</c:otherwise>
-</c:choose>

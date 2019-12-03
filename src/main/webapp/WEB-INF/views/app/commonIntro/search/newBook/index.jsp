@@ -107,7 +107,7 @@ $(function() {
 							<c:choose>
 								<c:when test="${fn:length(newBookList) > 0}">
 									<c:forEach items="${newBookList}" var="i">
-									<c:set var="detailURL" value="/${homepage.context_path}/intro/search/detail.do?menu_idx=${fn:escapeXml(param.menu_idx)}&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype)}"></c:set>
+									<c:set var="detailURL" value="/${homepage.context_path}/intro/search/detail.do?menu_idx=${fn:escapeXml(param.menu_idx)}&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype eq '0' ? 'BO' : 'SE')}"></c:set>
 									<div class="row">
 										<div class="thumb">
 										<c:choose>
@@ -207,7 +207,7 @@ $(function() {
 							<c:choose>
 								<c:when test="${fn:length(newBookList) > 0}">
 									<c:forEach items="${newBookList}" var="i">
-									<c:set var="detailURL" value="/${homepage.context_path}/intro/search/detail.do?menu_idx=${fn:escapeXml(param.menu_idx)}&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype)}"></c:set>
+									<c:set var="detailURL" value="/${homepage.context_path}/intro/search/detail.do?menu_idx=${fn:escapeXml(param.menu_idx)}&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype eq '0' ? 'BO' : 'SE')}"></c:set>
 									<div class="row">
 										<div class="box">
 											<div class="item">

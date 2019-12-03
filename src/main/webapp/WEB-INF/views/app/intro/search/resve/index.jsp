@@ -9,27 +9,33 @@ $(function() {
 	$('a.reserveCancel').on('click', function(e) {
 		e.preventDefault();
 		if ( confirm("예약 취소 하시겠습니까?") ) {
-			$('input#bookkey').val($(this).data('pk'));
+			$('input#bookkey').val($(this).attr('keyValue'));
 			if (doAjaxPost($('form#cancelForm'))) {
 				location.reload();
 			}
 		}
+	});
 
+	$('div#board_paging a').on('click', function(e) {
+		e.preventDefault();
+		$('#viewPage').attr('value', $(this).attr('keyValue'));
+		var param = serializeCustom($('form#librarySearch'));
+		doGetLoad('index.do', param);
 	});
 });
 
 </script>
-<form id="cancelForm" action="save.do" method="post">
-	<input type="hidden" name="bookkey" id="bookkey">
-	<input type="hidden" name="editMode" value="CANCEL">
-</form>
-
 
 <!-- contents-title-->
 <div id="contents-title">
 	<h2>현재 예약중인 자료<span style="font-weight:300">를 확인하세요.</span></h2>
 </div>
 <!-- /contents-title-->
+
+<form id="cancelForm" action="save.do" method="post">
+	<input type="hidden" name="bookkey" id="bookkey">
+	<input type="hidden" name="editMode" value="CANCEL">
+</form>
 
 <div class="DepthBtn">
 <c:set var="prefix" value="/intro/${homepage.context_path}/search/"></c:set>
@@ -39,6 +45,10 @@ $(function() {
 <a href="${prefix}sangho/history.do" class="bBtn">상호대차이용내역조회</a>
 <a href="${prefix}resve/index.do" class="bBtn">대출예약조회</a>
 </div>
+
+<form:form modelAttribute="librarySearch" method="get">
+	<form:hidden path="viewPage"/>
+</form:form>
 
 <div class="book-list">
 	<c:if test="${fn:length(resveList) < 1 }"> <h3>예약중인 도서 내역이 없습니다.</h3></c:if>
@@ -53,7 +63,7 @@ $(function() {
 							</div>
 							<div class="control">
 								<c:if test="${i.STATUS eq '3'}">
-								<a href="" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
+								<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
 								</c:if>
 							</div>
 						</div>
@@ -86,9 +96,32 @@ $(function() {
 		</div>
 	</c:forEach>
 
-	<!-- 페이징을 넣어주세요 : 시작 - 기존에 사용하던거 그대로 재사용해주시면 될것같아요. -->
-
-	<!-- 페이징을 넣어주세요 : 끝 -->
+	<div id="board_paging" class="dataTables_paginate">
+		<c:if test="${paging.firstPageNum > 0}">
+			<a href="" class="paginate_button previous" keyValue="${paging.firstPageNum}">처음</a>
+		</c:if>
+		<c:if test="${paging.prevPageNum > 0}">
+			<a href="" class="paginate_button previous" keyValue="${paging.prevPageNum}">이전</a>
+		</c:if>
+		<span>
+			<c:forEach var="i" varStatus="status" begin="${paging.startPageNum}" end="${paging.endPageNum}">
+			<c:choose>
+			<c:when test="${i eq paging.viewPage}">
+				<a href="" class="paginate_button current" keyValue="${i}">${i}</a>
+			</c:when>
+			<c:otherwise>
+				<a href="" class="paginate_button" keyValue="${i}">${i}</a>
+			</c:otherwise>
+			</c:choose>
+			</c:forEach>
+			<c:if test="${paging.nextPageNum > 0}">
+				<a href="" class="paginate_button next" keyValue="${paging.nextPageNum}">다음</a>
+			</c:if>
+			<c:if test="${paging.totalPageCount ne paging.lastPageNum}">
+				<a href="" class="paginate_button next" keyValue="${paging.totalPageCount}">맨끝</a>
+			</c:if>
+		</span>
+	</div>
 </div>
 
 
