@@ -728,7 +728,6 @@ public class LibSearchAPI {
 		Map<String, Object> result = null;
 
 		param.put("manage_code", librarySearch.getManageCode());
-		param.put("book_type", librarySearch.getBooktype());
 		param.put("reg_no", librarySearch.getRegNo());
 
 		result = CommonAPI.sendKCMS("getbookinfo", param);

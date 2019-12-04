@@ -570,7 +570,7 @@ public class JoinController extends BaseController {
 
 		if (!result.hasErrors()) {
 			if (member.getEditMode().equals("ADD")) {
-				member.setManage_code(homepage.getHomepage_code());
+				member.setManage_code(homepage.getManage_code());
 				String addResult = joinService.addMember(request, member);
 				if (addResult.equals("0")) {
 					res.setValid(true);
@@ -775,9 +775,9 @@ public class JoinController extends BaseController {
 				map.put("ORDER3", "N");
 				String manage_code = String.valueOf(map.get("MANAGE_CODE"));
 				String ipin_hash = String.valueOf(map.get("IPIN_HASH"));
-				if (homepage.getHomepage_code().equals(manage_code) && ipin_hash.length() > 80) {
+				if (homepage.getManage_code().equals(manage_code) && ipin_hash.length() > 80) {
 					map.put("ORDER2", "Y");
-				} else if (homepage.getHomepage_code().equals(manage_code)) {
+				} else if (homepage.getManage_code().equals(manage_code)) {
 					map.put("ORDER3", "Y");
 				}
 			}
@@ -812,9 +812,9 @@ public class JoinController extends BaseController {
 				int integrationOrder = 0;
 				if (StringUtils.equals(kl_member_yn, "Y")) {
 					integrationOrder = 1;
-				} else if (homepage.getHomepage_code().equals(manage_code) && ipin_hash.length() > 80) {
+				} else if (homepage.getManage_code().equals(manage_code) && ipin_hash.length() > 80) {
 					integrationOrder = 2;
-				} else if (homepage.getHomepage_code().equals(manage_code)) {
+				} else if (homepage.getManage_code().equals(manage_code)) {
 					integrationOrder = 3;
 				}
 				map.put("INTEGRATION_ORDER", integrationOrder);

@@ -205,7 +205,7 @@ public class BookReviewController extends BaseController {
 			one.setDsItemDetail(dsItemDetail.get(0));
 
 			Homepage codeHomepage = new Homepage();
-			codeHomepage.setHomepage_code(one.getDsItemDetail().get("LOCA").toString());
+			codeHomepage.setLib_code(one.getDsItemDetail().get("LOCA").toString());
 			Homepage newHomepage = homepageService.getHomepageOneByCode(codeHomepage);
 
 			int moduleMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(newHomepage.getHomepage_id(), 2));
@@ -234,7 +234,7 @@ public class BookReviewController extends BaseController {
 			one.setDsItemDetail(dsItemDetail.get(0));
 
 			Homepage codeHomepage = new Homepage();
-			codeHomepage.setHomepage_code(one.getDsItemDetail().get("LOCA").toString());
+			codeHomepage.setLib_code(one.getDsItemDetail().get("LOCA").toString());
 			Homepage newHomepage = homepageService.getHomepageOneByCode(codeHomepage);
 
 			int moduleMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(newHomepage.getHomepage_id(), 2));
@@ -261,7 +261,7 @@ public class BookReviewController extends BaseController {
 			one.setDsItemDetail(dsItemDetail.get(0));
 
 			Homepage codeHomepage = new Homepage();
-			codeHomepage.setHomepage_code(one.getDsItemDetail().get("LOCA").toString());
+			codeHomepage.setLib_code(one.getDsItemDetail().get("LOCA").toString());
 			Homepage newHomepage = homepageService.getHomepageOneByCode(codeHomepage);
 
 			int moduleMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(newHomepage.getHomepage_id(), 2));

@@ -32,52 +32,52 @@ import kr.go.gbelib.app.module.bookReview.BookReviewXlsToCsv;
 @Controller
 @RequestMapping(value = {"/cms/module/bookReview"})
 public class BookReviewController extends BaseController {
-	
+
 	private final String basePath = "/cms/module/bookReview/";
-	
+
 	@Autowired
 	private BookReviewService service;
-	
+
 	@Autowired
 	private MenuService menuService;
-	
+
 	@Autowired
 	private HomepageService homepageService;
-	
+
 	@RequestMapping(value = {"/index.*"}, method = RequestMethod.GET)
 	public String index(Model model, BookReview bookReview, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 		Homepage homepage = null;
 		if(StringUtils.isEmpty(bookReview.getHomepage_id())) {
 			homepage = getSessionHomepageInfo(request);
-			bookReview.setBr_loca(homepage.getHomepage_code());
+			bookReview.setBr_loca(homepage.getLib_code());
 			bookReview.setHomepage_id(homepage.getHomepage_id());
 		} else {
-			bookReview.setBr_loca(getHomepageOne(bookReview.getHomepage_id()).getHomepage_code());
+			bookReview.setBr_loca(getHomepageOne(bookReview.getHomepage_id()).getLib_code());
 		}
-		
+
 		int count = service.getBookReviewLocaListCnt(bookReview);
 		service.setPaging(model, count, bookReview);
-		
+
 		List<BookReview> bookReviewLocaList = service.getBookReviewLocaList(bookReview);
-		
+
 		for(BookReview one : bookReviewLocaList) {
 			LibrarySearch librarySearch = new LibrarySearch();
 			librarySearch.setvCtrl(one.getBr_ctrlno());
-			
+
 			@SuppressWarnings("unchecked")
 			List<Map<String, Object>> dsItemDetail = (ArrayList<Map<String,Object>>)LibSearchAPI.getBookDetail(librarySearch).get("dsItemDetail");
 			one.setDsItemDetail(dsItemDetail.get(0));
-			
+
 			Homepage codeHomepage = new Homepage();
-			codeHomepage.setHomepage_code(one.getDsItemDetail().get("LOCA").toString());
+			codeHomepage.setLib_code(one.getDsItemDetail().get("LOCA").toString());
 			Homepage newHomepage = homepageService.getHomepageOneByCode(codeHomepage);
-			
+
 			int moduleMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(newHomepage.getHomepage_id(), 2));
 			one.setMenu_idx(moduleMenuIdx);
 			one.getDsItemDetail().put("context_path", newHomepage.getContext_path());
 		}
-		
+
 		model.addAttribute("bookReview", bookReview);
 		model.addAttribute("bookReviewLocaList", bookReviewLocaList);
 
@@ -86,18 +86,18 @@ public class BookReviewController extends BaseController {
 
 	@RequestMapping(value = {"/edit.*"}, method = RequestMethod.GET)
 	public String edit(Model model, BookReview bookReview, HttpServletRequest request) throws AuthException {
-		
+
 		if(bookReview.getEditMode().equals("MODIFY")) {
 			checkAuth("U", model, request);
 			bookReview = (BookReview) service.copyObjectPaging(bookReview, service.getBookReviewOne(bookReview));
 		} else {
 			checkAuth("C", model, request);
 		}
-		
+
 		model.addAttribute("bookReview", bookReview);
 		return basePath + "edit_ajax";
 	}
-	
+
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(BookReview bookReview, BindingResult result, HttpServletRequest request) {
 		/* 유효성 검증 >>>>> */
@@ -129,52 +129,52 @@ public class BookReviewController extends BaseController {
 
 		return res;
 	}
-	
+
 	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
 	public BookReviewView excel(Model model, BookReview bookReview, HttpServletRequest request, HttpServletResponse response) throws Exception{
-		bookReview.setBr_loca(getHomepageOne(bookReview.getHomepage_id()).getHomepage_code());
-		
+		bookReview.setBr_loca(getHomepageOne(bookReview.getHomepage_id()).getLib_code());
+
 		List<BookReview> bookReviewLocaList = service.getBookReviewLocaList(bookReview);
-		
+
 		for(BookReview one : bookReviewLocaList) {
 			LibrarySearch librarySearch = new LibrarySearch();
 			librarySearch.setvCtrl(one.getBr_ctrlno());
-			
+
 			@SuppressWarnings("unchecked")
 			List<Map<String, Object>> dsItemDetail = (ArrayList<Map<String,Object>>)LibSearchAPI.getBookDetail(librarySearch).get("dsItemDetail");
 			one.setDsItemDetail(dsItemDetail.get(0));
-			
+
 			Homepage codeHomepage = new Homepage();
-			codeHomepage.setHomepage_code(one.getDsItemDetail().get("LOCA").toString());
+			codeHomepage.setLib_code(one.getDsItemDetail().get("LOCA").toString());
 			Homepage newHomepage = homepageService.getHomepageOneByCode(codeHomepage);
-			
+
 			int moduleMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(newHomepage.getHomepage_id(), 2));
 			one.setMenu_idx(moduleMenuIdx);
 			one.getDsItemDetail().put("context_path", newHomepage.getContext_path());
 		}
-		
+
 		model.addAttribute("bookReview", bookReview);
 		model.addAttribute("bookReviewAll", bookReviewLocaList);
-		
+
 		return new BookReviewView();
 	}
-	
+
 	@RequestMapping(value = {"/csvDownload.*"}, method = RequestMethod.POST)
 	public void csv(Model model, BookReview bookReview, HttpServletRequest request, HttpServletResponse response) throws Exception{
-		bookReview.setBr_loca(getHomepageOne(bookReview.getHomepage_id()).getHomepage_code());
-		
+		bookReview.setBr_loca(getHomepageOne(bookReview.getHomepage_id()).getLib_code());
+
 		List<BookReview> bookReviewAll = service.getBookReviewLocaList(bookReview);
-		
+
 		for(BookReview one : bookReviewAll) {
 			LibrarySearch librarySearch = new LibrarySearch();
 			librarySearch.setvCtrl(one.getBr_ctrlno());
-			
+
 			@SuppressWarnings("unchecked")
 			List<Map<String, Object>> dsItemDetail = (ArrayList<Map<String,Object>>)LibSearchAPI.getBookDetail(librarySearch).get("dsItemDetail");
 			one.setDsItemDetail(dsItemDetail.get(0));
 		}
-		
+
 		new BookReviewXlsToCsv(bookReviewAll, request, response);
 	}
-	
+
 }

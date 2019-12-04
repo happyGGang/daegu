@@ -61,16 +61,16 @@ public class LibrarySearchController extends BaseController {
 		List<Homepage> normalHomepage = homepageService.getNormalHomepage();
 		// 소장처 코드
 		if ( StringUtils.isEmpty(librarySearch.getManageCode()) ) {
-			librarySearch.setManageCode(homepage.getHomepage_code());
+			librarySearch.setManageCode(homepage.getManage_code());
 		}
 
 		if ( librarySearch.getLibraryCodes() == null ) {
 			List<String> libraryCodes = new ArrayList<String>();
-			if ( !StringUtils.isEmpty(homepage.getHomepage_code()) ) {
-				libraryCodes.add(homepage.getHomepage_code());
+			if ( !StringUtils.isEmpty(homepage.getManage_code()) ) {
+				libraryCodes.add(homepage.getManage_code());
 			} else {
 				for (Homepage home : normalHomepage) {
-					libraryCodes.add(home.getHomepage_code());
+					libraryCodes.add(home.getManage_code());
 				}
 			}
 			librarySearch.setLibraryCodes(libraryCodes);
@@ -119,7 +119,7 @@ public class LibrarySearchController extends BaseController {
 	@RequestMapping(value = {"/hotTrend.*"})
 	public String hotTrend(Model model, LibrarySearch librarySearch, HttpServletRequest request, @PathVariable String context_path) {
 		Homepage homepage = getSessionHomepage(request);
-		Map<String, Object> hotTrendWordList = LibSearchAPI.getHotTrendWordList(homepage.getHomepage_code());
+		Map<String, Object> hotTrendWordList = LibSearchAPI.getHotTrendWordList(homepage.getManage_code());
 
 		int count = LibSearchAPI.getSearchCount(hotTrendWordList);
 
@@ -197,7 +197,7 @@ public class LibrarySearchController extends BaseController {
 		//접속 도서관 확인
 		Homepage homepage = getSessionHomepage(request);
 		if (StringUtils.isEmpty(librarySearch.getManageCode())) {
-			librarySearch.setManageCode(homepage.getHomepage_code());
+			librarySearch.setManageCode(homepage.getManage_code());
 		}
 
 		//기본값 '1달 전'
@@ -285,7 +285,7 @@ public class LibrarySearchController extends BaseController {
 	public String bestBookList(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request) {
 		Homepage homepage = getSessionHomepage(request);
 		if (StringUtils.isEmpty(librarySearch.getManageCode())) {
-			librarySearch.setManageCode(homepage.getHomepage_code());
+			librarySearch.setManageCode(homepage.getManage_code());
 		}
 
 		//서지형태 분류코드 설정.
@@ -1006,7 +1006,7 @@ public class LibrarySearchController extends BaseController {
 						map2.put("isbn"+isbn.length(), isbn);
 
 						LibrarySearch bookSerach = new LibrarySearch();
-						bookSerach.setManageCode(homepage.getHomepage_code());
+						bookSerach.setManageCode(homepage.getManage_code());
 						bookSerach.setIsbn(isbn);
 						Map<String, Object> sameBook = (Map<String, Object>) LibSearchAPI.getBookDetail(bookSerach);
 

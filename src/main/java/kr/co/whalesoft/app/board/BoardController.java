@@ -601,9 +601,10 @@ public class BoardController extends BaseController {
 			}
 
 			if(homepage != null) {
-				librarySearch.setvLoca(homepage.getHomepage_codeList()[0]);
-				librarySearch.setvCtrl(boardData.getImsi_v_8());
-				librarySearch.setIsbn(boardData.getImsi_v_5());
+				//TODO 추천도서 게시판
+//				librarySearch.setvLoca(homepage.getHomepage_codeList()[0]);
+//				librarySearch.setvCtrl(boardData.getImsi_v_8());
+//				librarySearch.setIsbn(boardData.getImsi_v_5());
 				Map<String, Object> result = LibSearchAPI.getBookDetail(librarySearch);
 				model.addAttribute("librarySearch", librarySearch);
 				model.addAttribute("detail", result);
@@ -611,39 +612,39 @@ public class BoardController extends BaseController {
 //				model.addAttribute("withBook", LibSearchAPI.getWithBook(librarySearch));
 //				model.addAttribute("callNoBrowsing", LibSearchAPI.getCallNoBrowsingList(librarySearch.getvCtrl(), "5"));
 //				model.addAttribute("sameAuthorBookList", LibSearchAPI.getSameAuthorBookList(result));
-				try {
-					List<String> locaList = new ArrayList<String>();
-					for (Homepage home : homepageService.getHomepage()) {
-						String homepageCode = home.getHomepage_code();
-						if (StringUtils.isNotEmpty(homepageCode)) {
-							if (homepageCode.length() >= 8) {
-								locaList.add(homepageCode.substring(0, 8));
-							}
-						}
-					}
-	//				locaList.add("00147046");
-					List<Map<String, Object>> dsPlaceBookList = null;
-//					Map<String, Object> sameBookList = LibSearchAPI.getSameBookList("WEB", librarySearch.getIsbn(), locaList);
-//					if (sameBookList != null) {
-//						List<Map<String, Object>> tempSameBookList = (List<Map<String, Object>>) sameBookList.get("dsSameBookList");
-//						if (tempSameBookList != null) {
-//							dsPlaceBookList = new ArrayList<Map<String, Object>>();
-//							for (Map<String, Object> map : tempSameBookList) {
-//								Map<String, Object> searchItemD = LibSearchAPI.getBookDetail(new LibrarySearch(String.valueOf(map.get("LOCA")), String.valueOf(map.get("CTRLNO"))));
-//								if (searchItemD != null) {
-//									dsPlaceBookList.add(searchItemD);
-//								}
+//				try {
+//					List<String> locaList = new ArrayList<String>();
+//					for (Homepage home : homepageService.getHomepage()) {
+//						String homepageCode = home.getHomepage_code();
+//						if (StringUtils.isNotEmpty(homepageCode)) {
+//							if (homepageCode.length() >= 8) {
+//								locaList.add(homepageCode.substring(0, 8));
 //							}
 //						}
 //					}
-					model.addAttribute("sameBook", dsPlaceBookList);
-					model.addAttribute("isTodayClosed", calendarManageService.isTodayClosed(homepage.getHomepage_id()));
-					if (StringUtils.isNotEmpty(librarySearch.getIsbn())) {
-						model.addAttribute("naverDetail", LibSearchAPI.getNaverDetail(librarySearch.getIsbn()));
-					}
-
-				} catch (Exception e) {
-				}
+//	//				locaList.add("00147046");
+//					List<Map<String, Object>> dsPlaceBookList = null;
+////					Map<String, Object> sameBookList = LibSearchAPI.getSameBookList("WEB", librarySearch.getIsbn(), locaList);
+////					if (sameBookList != null) {
+////						List<Map<String, Object>> tempSameBookList = (List<Map<String, Object>>) sameBookList.get("dsSameBookList");
+////						if (tempSameBookList != null) {
+////							dsPlaceBookList = new ArrayList<Map<String, Object>>();
+////							for (Map<String, Object> map : tempSameBookList) {
+////								Map<String, Object> searchItemD = LibSearchAPI.getBookDetail(new LibrarySearch(String.valueOf(map.get("LOCA")), String.valueOf(map.get("CTRLNO"))));
+////								if (searchItemD != null) {
+////									dsPlaceBookList.add(searchItemD);
+////								}
+////							}
+////						}
+////					}
+//					model.addAttribute("sameBook", dsPlaceBookList);
+//					model.addAttribute("isTodayClosed", calendarManageService.isTodayClosed(homepage.getHomepage_id()));
+//					if (StringUtils.isNotEmpty(librarySearch.getIsbn())) {
+//						model.addAttribute("naverDetail", LibSearchAPI.getNaverDetail(librarySearch.getIsbn()));
+//					}
+//
+//				} catch (Exception e) {
+//				}
 			}
 		}
 

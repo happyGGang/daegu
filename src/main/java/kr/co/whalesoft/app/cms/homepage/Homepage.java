@@ -11,7 +11,6 @@ public class Homepage extends PagingUtils implements Serializable {
 	 */
 	private static final long serialVersionUID = -6146959548929640807L;
 
-
 	private String homepage_group;
 	private String homepage_name;
 	private String homepage_eng_name;
@@ -28,7 +27,6 @@ public class Homepage extends PagingUtils implements Serializable {
 	private String twitter_url;
 	private String kakao_url;
 	private String homepage_type;
-	private String homepage_code;
 	private String domain;
 	private String context_path;
 	private String folder;
@@ -43,8 +41,11 @@ public class Homepage extends PagingUtils implements Serializable {
 	private String temp_end_date_2;
 	private String temp_end_date_3;
 	private int print_seq;
+	private String manage_code;
+	private String lib_code;
 
-	public Homepage() {}
+	public Homepage() {
+	}
 
 	public Homepage(String homepage_id) {
 		super.setHomepage_id(homepage_id);
@@ -191,22 +192,6 @@ public class Homepage extends PagingUtils implements Serializable {
 		this.temp_end_date_3 = temp_end_date_3;
 	}
 
-	public String getHomepage_code() {
-		return homepage_code;
-	}
-
-	public String[] getHomepage_codeList() {
-		if (homepage_code == null) {
-			return null;
-		} else {
-			return homepage_code.split(",");
-		}
-	}
-
-	public void setHomepage_code(String homepage_code) {
-		this.homepage_code = homepage_code;
-	}
-
 	public String getHomepage_eng_name() {
 		return homepage_eng_name;
 	}
@@ -319,10 +304,25 @@ public class Homepage extends PagingUtils implements Serializable {
 		this.print_seq = print_seq;
 	}
 
-	@Override
-	public String toString() {
-		return "Homepage [homepage_group=" + homepage_group + ", homepage_name=" + homepage_name + ", homepage_eng_name=" + homepage_eng_name + ", homepage_alias=" + homepage_alias + ", homepage_tell=" + homepage_tell + ", homepage_fax=" + homepage_fax + ", homepage_send_tell=" + homepage_send_tell + ", zipcode=" + zipcode + ", address1=" + address1 + ", address2=" + address2 + ", eng_address=" + eng_address + ", blog_url=" + blog_url + ", facebook_url=" + facebook_url + ", twitter_url=" + twitter_url + ", kakao_url=" + kakao_url + ", homepage_type=" + homepage_type + ", homepage_code=" + homepage_code + ", domain=" + domain + ", context_path=" + context_path + ", folder=" + folder + ", remark=" + remark + ", temp_use_yn=" + temp_use_yn + ", temp_start_date=" + temp_start_date + ", temp_start_date_1=" + temp_start_date_1 + ", temp_start_date_2=" + temp_start_date_2 + ", temp_start_date_3=" + temp_start_date_3 + ", temp_end_date=" + temp_end_date + ", temp_end_date_1=" + temp_end_date_1 + ", temp_end_date_2=" + temp_end_date_2 + ", temp_end_date_3=" + temp_end_date_3 + ", print_seq=" + print_seq + "]";
+	public String getManage_code() {
+		return manage_code;
 	}
 
+	public void setManage_code(String manage_code) {
+		this.manage_code = manage_code;
+	}
+
+	public String getLib_code() {
+		return lib_code;
+	}
+
+	public void setLib_code(String lib_code) {
+		this.lib_code = lib_code;
+	}
+
+	@Override
+	public String toString() {
+		return "Homepage [homepage_group=" + homepage_group + ", homepage_name=" + homepage_name + ", homepage_eng_name=" + homepage_eng_name + ", homepage_alias=" + homepage_alias + ", homepage_tell=" + homepage_tell + ", homepage_fax=" + homepage_fax + ", homepage_send_tell=" + homepage_send_tell + ", zipcode=" + zipcode + ", address1=" + address1 + ", address2=" + address2 + ", eng_address=" + eng_address + ", blog_url=" + blog_url + ", facebook_url=" + facebook_url + ", twitter_url=" + twitter_url + ", kakao_url=" + kakao_url + ", homepage_type=" + homepage_type + ", domain=" + domain + ", context_path=" + context_path + ", folder=" + folder + ", remark=" + remark + ", temp_use_yn=" + temp_use_yn + ", temp_start_date=" + temp_start_date + ", temp_start_date_1=" + temp_start_date_1 + ", temp_start_date_2=" + temp_start_date_2 + ", temp_start_date_3=" + temp_start_date_3 + ", temp_end_date=" + temp_end_date + ", temp_end_date_1=" + temp_end_date_1 + ", temp_end_date_2=" + temp_end_date_2 + ", temp_end_date_3=" + temp_end_date_3 + ", print_seq=" + print_seq + ", manage_code=" + manage_code + ", lib_code=" + lib_code + "]";
+	}
 
 }

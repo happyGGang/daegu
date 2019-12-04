@@ -222,8 +222,8 @@ public class EmailSendController extends BaseController{
 
 		if(emailSend.getHomepage_id() != null) {
 			homepage.setHomepage_id(emailSend.getHomepage_id());
-			if(homepageService.getHomepageOne(homepage).getHomepage_code() != null) {
-				emailSend.setHomepage_code(homepageService.getHomepageOne(homepage).getHomepage_code().substring(0,8));
+			if(homepageService.getHomepageOne(homepage).getLib_code() != null) {
+				emailSend.setHomepage_code(homepageService.getHomepageOne(homepage).getLib_code().substring(0,8));
 			}
 		}
 

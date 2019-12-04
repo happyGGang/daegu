@@ -32,7 +32,7 @@
 $(function() {
 	var ua = window.navigator.userAgent;
 	var msie = ua.indexOf("MSIE ");
-	
+
 	if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))  // If Internet Explorer, return version number
 	{
 // 	    alert(parseInt(ua.substring(msie + 5, ua.indexOf(".", msie))));
@@ -42,7 +42,7 @@ $(function() {
 		$('div#printMsg').hide();
 		$('a#btn_print').hide();
 	}
-	
+
 	$('a.resve-req').on('click', function(e) {
 		e.preventDefault();
 		if (!confirm('예약 신청 하시겠습니까?')) {
@@ -51,31 +51,31 @@ $(function() {
 		$('#resveReqForm #editMode').val('ADD');
 		$('#resveReqForm #vLoca').val($(this).attr('vLoca'));
 		$('#resveReqForm #vAccNo').val($(this).attr('vAccNo'));
-		
+
 		if ( doAjaxPost($('#resveReqForm')) ) {
-			
+
 		}
 	});
-	
+
 	$('a.pouch-req').on('click', function(e) {
 		e.preventDefault();
 		if (!confirm('야간대출 신청 하시겠습니까?')) {
 			return false;
 		}
-		
+
 		$('#pouchReqForm #editMode').val('ADD');
 		$('#pouchReqForm #vLoca').val($(this).attr('vLoca'));
 		$('#pouchReqForm #vAccNo').val($(this).attr('vAccNo'));
-		
+
 		if ( doAjaxPost($('#pouchReqForm')) ) {
-			
+
 		}
 	});
-	
+
 	$('#checkAll').on('click', function() {
 		$('input:checkbox').prop('checked', $(this).prop('checked'));
 	});
-	
+
 });
 
 </script>
@@ -167,7 +167,7 @@ $(function() {
 						<a class="resve-req" vLoca="${i.LOCA}" vAccNo="${i.ACSSON_NO}">예약하기</a>
 						</c:if>
 
-						<c:if test="${not isTodayClosed and homepage.homepage_code eq member.loca and member.login and i.LOAN_FLAG eq '0001' and i.LOCA eq '00147046'}">
+						<c:if test="${not isTodayClosed and homepage.manage_code eq member.loca and member.login and i.LOAN_FLAG eq '0001' and i.LOCA eq '00147046'}">
 						<jsp:useBean id="toDay" class="java.util.Date"></jsp:useBean>
 						<c:set var="startTime" value="09:00:00"></c:set>
 						<c:set var="endTime" value="16:00:00"></c:set>

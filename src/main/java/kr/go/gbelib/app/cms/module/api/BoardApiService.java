@@ -70,7 +70,7 @@ public class BoardApiService extends BaseService {
 
 	public Map<String, Object> toMap(Board board, String libCode, HttpServletRequest request) {
 		Homepage homepage = new Homepage();
-		homepage.setHomepage_code(libCode);
+		homepage.setLib_code(libCode);
 		homepage = homepageService.getHomepageOneByCode(homepage);
 		if (homepage == null) {
 			homepage = new Homepage();

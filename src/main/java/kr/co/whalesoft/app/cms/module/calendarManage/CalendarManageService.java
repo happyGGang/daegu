@@ -159,7 +159,7 @@ public class CalendarManageService extends BaseService {
 
 	public int addCalendarManageFromILUS(CalendarManage calendarManage, Homepage homepage) {
 		int resultRow = 0;
-		String[] libCodes = homepage.getHomepage_codeList();
+//		String[] libCodes = homepage.getHomepage_codeList();
 
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, Integer.parseInt(calendarManage.getPlan_year()));

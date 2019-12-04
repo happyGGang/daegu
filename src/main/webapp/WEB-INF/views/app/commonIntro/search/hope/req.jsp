@@ -53,7 +53,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 			<th>신청도서관 <em><font color="red">(*)</font></em></th>
 			<td>
 				<form:select path="manageCode">
-					<form:option value="${homepage.homepage_code}">${homepage.homepage_name}</form:option>
+					<form:option value="${homepage.manage_code}">${homepage.homepage_name}</form:option>
 				</form:select>
 			</td>
 		</tr>

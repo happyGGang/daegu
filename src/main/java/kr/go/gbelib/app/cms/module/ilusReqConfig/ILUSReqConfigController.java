@@ -59,7 +59,7 @@ public class ILUSReqConfigController extends  BaseController {
 		} else {
 			checkAuth("C", model, request);
 			ilusReqConfig.setLoca_name(homepage.getHomepage_name());
-			ilusReqConfig.setLoca_code(homepage.getHomepage_code());
+			ilusReqConfig.setLoca_code(homepage.getLib_code());
 
 			model.addAttribute("ilusReqConfig", ilusReqConfig);
 			model.addAttribute("subLacaList", service.getSubLacaList(ilusReqConfig));

@@ -54,32 +54,32 @@ $(function() {
 	<div id="footer">
 		<address>
 			<c:choose>
-				<c:when test="${homepage.homepage_code eq '00147032'}"></c:when>
-				<c:when test="${homepage.homepage_code eq '00147024'}"></c:when>
-				<c:when test="${homepage.homepage_code eq '00147014'}"></c:when>
-				<c:when test="${homepage.homepage_code eq '00147020'}"></c:when>
-				<c:when test="${homepage.homepage_code eq '00147004'}">Copyright &copy; by Gyeongsangbuk-do Samgukyusa Gunwi Public Library, All rights reserved.</c:when>
-				<c:when test="${homepage.homepage_code eq '00147019'}"></c:when>
-				<c:when test="${homepage.homepage_code eq '00147022'}"></c:when>
-				<c:when test="${homepage.homepage_code eq '00147012'}"></c:when>
-				<c:when test="${homepage.homepage_code eq '00147031'}">Copyright &copy; 2013 Gyeongsangbuk-do Yeongdeok Public Library. All rights reserved.</c:when>
-				<c:when test="${homepage.homepage_code eq '00147021'}">Copyright &copy; by Gyeongsangbuk-do Cheongdo Public Library, All rights reserved.</c:when>
-				<c:when test="${homepage.homepage_code eq '00147003'}">Copyright &copy; by Gyeongsangbuk-do GuMi Library. All rights reserved.</c:when>
-				<c:when test="${homepage.homepage_code eq '00147002'}"></c:when>
-				<c:when test="${homepage.homepage_code eq '00147009'}">Copyright &copy; by Seongju Public Library, All rights reserved.</c:when>
-				<c:when test="${homepage.homepage_code eq '00147023'}"></c:when>
-				<c:when test="${homepage.homepage_code eq '00147015'}"></c:when>
-				<c:when test="${homepage.homepage_code eq '00147015'}"></c:when>
-				<c:when test="${homepage.homepage_code eq '00147015'}"></c:when>
-				<c:when test="${homepage.homepage_code eq '00147015'}"></c:when>
-				<c:when test="${homepage.homepage_code eq '00147046'}">Copyright &copy; by Gyeongsangbuk-do office of Education Information Center, All rights reserved.</c:when>
-				<c:when test="${homepage.homepage_code eq '00147010'}"></c:when>
-				<c:when test="${homepage.homepage_code eq '00147011'}"></c:when>
-				<c:when test="${homepage.homepage_code eq '00147039'}"></c:when>
-				<c:when test="${homepage.homepage_code eq '00147008'}">Copyright &copy; by 2010 Gyeongbuk Provincial Sang-ju Library, All rights reserved.</c:when>
-				<c:when test="${homepage.homepage_code eq '00147040'}">Copyright &copy; by Gyeongsangbuk-do Sangju Library Hwaryeong Branch, All rights reserved.</c:when>
-				<c:when test="${homepage.homepage_code eq '00147013'}">Copyright &copy; by Gyeongsangbuk-do Youngil Public Library, All rights reserved.</c:when>
-				<c:when test="${homepage.homepage_code eq '00147016'}">Copyright &copy; by Gyeongsangbuk-do Oedong Public Library, All rights reserved.</c:when>
+				<c:when test="${homepage.lib_code eq '00147032'}"></c:when>
+				<c:when test="${homepage.lib_code eq '00147024'}"></c:when>
+				<c:when test="${homepage.lib_code eq '00147014'}"></c:when>
+				<c:when test="${homepage.lib_code eq '00147020'}"></c:when>
+				<c:when test="${homepage.lib_code eq '00147004'}">Copyright &copy; by Gyeongsangbuk-do Samgukyusa Gunwi Public Library, All rights reserved.</c:when>
+				<c:when test="${homepage.lib_code eq '00147019'}"></c:when>
+				<c:when test="${homepage.lib_code eq '00147022'}"></c:when>
+				<c:when test="${homepage.lib_code eq '00147012'}"></c:when>
+				<c:when test="${homepage.lib_code eq '00147031'}">Copyright &copy; 2013 Gyeongsangbuk-do Yeongdeok Public Library. All rights reserved.</c:when>
+				<c:when test="${homepage.lib_code eq '00147021'}">Copyright &copy; by Gyeongsangbuk-do Cheongdo Public Library, All rights reserved.</c:when>
+				<c:when test="${homepage.lib_code eq '00147003'}">Copyright &copy; by Gyeongsangbuk-do GuMi Library. All rights reserved.</c:when>
+				<c:when test="${homepage.lib_code eq '00147002'}"></c:when>
+				<c:when test="${homepage.lib_code eq '00147009'}">Copyright &copy; by Seongju Public Library, All rights reserved.</c:when>
+				<c:when test="${homepage.lib_code eq '00147023'}"></c:when>
+				<c:when test="${homepage.lib_code eq '00147015'}"></c:when>
+				<c:when test="${homepage.lib_code eq '00147015'}"></c:when>
+				<c:when test="${homepage.lib_code eq '00147015'}"></c:when>
+				<c:when test="${homepage.lib_code eq '00147015'}"></c:when>
+				<c:when test="${homepage.lib_code eq '00147046'}">Copyright &copy; by Gyeongsangbuk-do office of Education Information Center, All rights reserved.</c:when>
+				<c:when test="${homepage.lib_code eq '00147010'}"></c:when>
+				<c:when test="${homepage.lib_code eq '00147011'}"></c:when>
+				<c:when test="${homepage.lib_code eq '00147039'}"></c:when>
+				<c:when test="${homepage.lib_code eq '00147008'}">Copyright &copy; by 2010 Gyeongbuk Provincial Sang-ju Library, All rights reserved.</c:when>
+				<c:when test="${homepage.lib_code eq '00147040'}">Copyright &copy; by Gyeongsangbuk-do Sangju Library Hwaryeong Branch, All rights reserved.</c:when>
+				<c:when test="${homepage.lib_code eq '00147013'}">Copyright &copy; by Gyeongsangbuk-do Youngil Public Library, All rights reserved.</c:when>
+				<c:when test="${homepage.lib_code eq '00147016'}">Copyright &copy; by Gyeongsangbuk-do Oedong Public Library, All rights reserved.</c:when>
 				<c:otherwise></c:otherwise>
 			</c:choose>
 		</address>

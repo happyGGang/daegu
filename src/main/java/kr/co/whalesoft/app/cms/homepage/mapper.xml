@@ -5,7 +5,7 @@
 	<select id="getHomepage" resultType="kr.co.whalesoft.app.cms.homepage.Homepage">
 		SELECT
 			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias, homepage_tell,
-			homepage_fax, homepage_send_tell, zipcode, address1, address2, eng_address, homepage_type, homepage_code,
+			homepage_fax, homepage_send_tell, zipcode, address1, address2, eng_address, homepage_type, manage_code, lib_code,
 			domain, context_path, folder, remark, temp_use_yn,
 			TO_CHAR(TO_DATE(temp_start_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_start_date,
 			TO_CHAR(TO_DATE(temp_end_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_end_date, print_seq
@@ -18,7 +18,7 @@
 	<select id="getNormalHomepage" resultType="kr.co.whalesoft.app.cms.homepage.Homepage">
 		SELECT
 			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias, homepage_tell,
-			homepage_fax, homepage_send_tell, zipcode, address1, address2, eng_address, homepage_type, homepage_code,
+			homepage_fax, homepage_send_tell, zipcode, address1, address2, eng_address, homepage_type, manage_code, lib_code,
 			domain, context_path, folder, remark, temp_use_yn,
 			TO_CHAR(TO_DATE(temp_start_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_start_date,
 			TO_CHAR(TO_DATE(temp_end_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_end_date, print_seq
@@ -34,7 +34,7 @@
 		${pagingTop}
 		SELECT
 			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias, homepage_tell,
-			homepage_fax, homepage_send_tell, zipcode, address1, address2, eng_address, homepage_type, homepage_code,
+			homepage_fax, homepage_send_tell, zipcode, address1, address2, eng_address, homepage_type, manage_code, lib_code,
 			domain, context_path, folder, remark, temp_use_yn,
 			TO_CHAR(TO_DATE(temp_start_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_start_date,
 			TO_CHAR(TO_DATE(temp_end_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_end_date, print_seq
@@ -63,7 +63,7 @@
 		SELECT
 			a.homepage_id, a.homepage_group, a.homepage_name, a.homepage_eng_name, a.homepage_alias,
 			a.homepage_tell, a.homepage_fax, a.homepage_send_tell, a.zipcode, a.address1,
-			a.address2, a.eng_address, a.homepage_type, a.homepage_code, a.domain,
+			a.address2, a.eng_address, a.homepage_type, a.manage_code, lib_code, a.domain,
 			a.context_path, a.folder, a.remark, a.temp_use_yn, a.temp_start_date,
 			a.temp_end_date, a.print_seq
 		FROM
@@ -75,7 +75,7 @@
 	<select id="getHomepageOneInPath" resultType="kr.co.whalesoft.app.cms.homepage.Homepage">
 		SELECT
 			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias, homepage_tell,
-			homepage_fax, homepage_send_tell, zipcode, address1, address2, eng_address, homepage_type, homepage_code,
+			homepage_fax, homepage_send_tell, zipcode, address1, address2, eng_address, homepage_type, manage_code, lib_code,
 			domain, context_path, folder, remark, temp_use_yn, temp_start_date, temp_end_date, print_seq
 		FROM
 			CMS_HOMEPAGE
@@ -95,13 +95,13 @@
 		INSERT INTO CMS_HOMEPAGE
 		(
 			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias,
-			homepage_tell, homepage_fax, homepage_send_tell, homepage_type, homepage_code,
+			homepage_tell, homepage_fax, homepage_send_tell, homepage_type, manage_code, lib_code,
 			zipcode, address1, address2, eng_address, domain,
 			context_path, folder, remark, print_seq
 		) VALUES
 		(
 			#{homepage_id}, #{homepage_group}, #{homepage_name}, #{homepage_eng_name}, #{homepage_alias},
-			#{homepage_tell}, #{homepage_fax}, #{homepage_send_tell}, #{homepage_type}, #{homepage_code},
+			#{homepage_tell}, #{homepage_fax}, #{homepage_send_tell}, #{homepage_type}, #{manage_code}, #{lib_code},
 			#{zipcode}, #{address1}, #{address2}, #{eng_address}, #{domain},
 			#{context_path}, #{folder}, #{remark}, #{print_seq}
 		)
@@ -123,7 +123,8 @@
 			address2 = #{address2},
 			eng_address = #{eng_address},
 			homepage_type = #{homepage_type},
-			homepage_code = #{homepage_code},
+			manage_code = #{manage_code},
+			lib_code = #{lib_code},
 			domain = #{domain},
 			context_path = #{context_path},
 			folder = #{folder},
@@ -156,20 +157,7 @@
 		FROM
 			CMS_HOMEPAGE
 		WHERE
-		<choose>
-		<when test='homepage_code == "00147046"'>
-			homepage_id = 'h28'
-		</when>
-		<when test='homepage_code == "00147020"'>
-			homepage_id = 'h13'
-		</when>
-		<when test='homepage_code == "00147006"'>
-			homepage_id = 'h13'
-		</when>
-		<otherwise>
-			homepage_code = #{homepage_code}
-		</otherwise>
-		</choose>
+			lib_code = #{lib_code}
 	</select>
 
 	<select id="getMySiteList" resultType="kr.co.whalesoft.app.cms.homepage.Homepage">

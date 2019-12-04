@@ -34,16 +34,16 @@ public class ElibStatisticsController extends BaseController {
 
 	@Autowired
 	private ElibStatisticsService service;
-	
+
 	@Autowired
 	private ElibCategoryService elibCategoryService;
-	
+
 	@Autowired
 	private ElibCodeService elibCodeService;
-	
+
 	@Autowired
 	private HomepageService homepageService;
-	
+
 	private void updateDeviceCnt(ElibStatistics elibStatistics) {
 		if(elibStatistics != null && elibStatistics.getDevice_cnt() != null) {
 			String[] device_cnt_array = elibStatistics.getDevice_cnt().split(",");
@@ -52,7 +52,7 @@ public class ElibStatisticsController extends BaseController {
 					String[] device_cnt = s.split(":");
 					String device = device_cnt[0];
 					int cnt = Integer.parseInt(device_cnt[1]);
-					
+
 					if("P".equals(device)) {
 						elibStatistics.setP_cnt(cnt);
 					} else if("S".equals(device)) {
@@ -68,32 +68,32 @@ public class ElibStatisticsController extends BaseController {
 			}
 		}
 	}
-	
+
 	@RequestMapping(value = {"{menuParam}/index{url}.*"})
 	public String book_index(Model model, @PathVariable String menuParam, @PathVariable("url") String url, ElibStatistics elibStatistics, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 //		if ( !getSessionIsAdmin(request) ) {
 			elibStatistics.setHomepage_id(getAsideHomepageId(request));
 //		}
-		
+
 		elibStatistics.setMenu(menuParam);
-		
+
 		String menu = elibStatistics.getMenu();
 		String view = basePath + "index";
 		List<ElibStatistics> elibStatisticsList = null;
 		int count = 0;
-		
+
 		if("HOUR".equals(menu) || "DAY".equals(menu) || "MONTH".equals(menu) || "PERIOD".equals(menu)) {
 			elibStatisticsList = service.getStatisticsByTime(elibStatistics);
 			view = basePath + "time";
 		} else if("CATEGORY".equals(menu)) {
 			Map<String, Integer> elibStatisticsMap = new HashMap<String, Integer>();
 			List<Map<String, Object>> elibStatisticsMapList = new ArrayList<Map<String, Object>>();
-			
+
 			ElibCategory cate = new ElibCategory();
 			List<ElibCategory> categories = elibCategoryService.getStatCategoryList(cate);
 
-			if(elibStatistics.getSearch_sdt() != null && elibStatistics.getSearch_edt() != null) { 
+			if(elibStatistics.getSearch_sdt() != null && elibStatistics.getSearch_edt() != null) {
 				elibStatisticsMapList = service.getStatisticsByCategory(elibStatistics);
 				if(elibStatisticsMapList != null) {
 					for(Map<String, Object> row: elibStatisticsMapList) {
@@ -105,7 +105,7 @@ public class ElibStatisticsController extends BaseController {
 			model.addAttribute("categories", categories);
 			model.addAttribute("elibStatisticsMap", elibStatisticsMap);
 			model.addAttribute("elibStatisticsMapList", elibStatisticsMapList);
-			
+
 			if("_excel".equals(url)) {
 				view = basePath + "category_excel_ajax";
 			} else if("_csv".equals(url)) {
@@ -117,14 +117,14 @@ public class ElibStatisticsController extends BaseController {
 			count = service.getStatisticsByBookCnt(elibStatistics);
 			service.setPaging(model, count, elibStatistics);
 			elibStatisticsList = service.getStatisticsByBook(elibStatistics);
-			
+
 			for(ElibStatistics one: elibStatisticsList) {
 				updateDeviceCnt(one);
 			}
-			
+
 			ElibStatistics total = service.getStatisticsByBookTotal(elibStatistics);
 			updateDeviceCnt(total);
-			
+
 			model.addAttribute("getStatisticsByBookTotal", total);
 			model.addAttribute("elibStatisticsCnt", count);
 			view = basePath + "book";
@@ -140,14 +140,14 @@ public class ElibStatisticsController extends BaseController {
 			view = basePath + "age";
 		} else if("COMPANY".equals(menu)) {
 			Map<String, Integer> elibStatisticsMap = new HashMap<String, Integer>();
-			
+
 			List<Map<String, Object>> elibStatisticsMapList = service.getStatisticsByCompany(elibStatistics);
 			if(elibStatisticsMapList != null) {
 				for(Map<String, Object> row: elibStatisticsMapList) {
 					elibStatisticsMap.put(row.get("TYPE")+"."+row.get("COM_CODE")+"."+row.get("DEVICE"), Integer.parseInt(String.valueOf(row.get("CNT"))));
 				}
 			}
-			
+
 			if("_excel".equals(url)) {
 				view = basePath + "company_excel_ajax";
 			} else if("_csv".equals(url)) {
@@ -155,44 +155,44 @@ public class ElibStatisticsController extends BaseController {
 			} else {
 				view = basePath + "company";
 			}
-			
+
 			model.addAttribute("elibStatisticsMap", elibStatisticsMap);
 		}
-		
+
 		model.addAttribute("elibStatistics", elibStatistics);
 		model.addAttribute("obj", elibStatistics);
 		model.addAttribute("elibStatisticsList", elibStatisticsList);
 		model.addAttribute("cateList", elibCategoryService.getCategoryList(new ElibCategory(elibStatistics.getType())));
 		model.addAttribute("compList", elibCodeService.getCompList(new ElibCode(elibStatistics.getType())));
 		model.addAttribute("library_code", getLibraryCode(request));
-		
+
 		return view;
 	}
-	
+
 	@RequestMapping(value = {"/summary{url}.*"})
 	public String summary(Model model, ElibStatistics elibStatistics, @PathVariable("url") String url, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 //		if ( !getSessionIsAdmin(request) ) {
 		elibStatistics.setHomepage_id(getAsideHomepageId(request));
 //		}
-		
+
 		Map<String, Integer> elibStatisticsSummary = new HashMap<String, Integer>();
 		Map<String, Integer> elibStatisticsUniqueSummary = new HashMap<String, Integer>();
-		
+
 		if(StringUtils.isNotEmpty(elibStatistics.getSearch_sdt()) || StringUtils.isNotEmpty(elibStatistics.getSearch_edt())) {
 			List<ElibStatistics> elibStatisticsSummaryList = service.getStatisticsSummaryList(elibStatistics);
 			List<ElibStatistics> elibStatisticsUniqueSummaryList = service.getStatisticsUniqueSummaryList(elibStatistics);
-			
+
 			for(ElibStatistics elem: elibStatisticsSummaryList) {
 				elibStatisticsSummary.put(elem.getType() + "." + elem.getAge_group() + "." + elem.getSex(), elem.getLend_cnt());
 			}
-			
+
 			for(ElibStatistics elem: elibStatisticsUniqueSummaryList) {
 				elibStatisticsUniqueSummary.put(elem.getType() + "." + elem.getAge_group() + "." + elem.getSex(), elem.getLend_cnt());
 			}
-			
+
 		}
-		
+
 		model.addAttribute("elibStatistics", elibStatistics);
 		model.addAttribute("obj", elibStatistics);
 		model.addAttribute("elibStatisticsSummary", elibStatisticsSummary);
@@ -200,7 +200,7 @@ public class ElibStatisticsController extends BaseController {
 		model.addAttribute("cateList", elibCategoryService.getCategoryList(new ElibCategory(elibStatistics.getType())));
 		model.addAttribute("compList", elibCodeService.getCompList(new ElibCode(elibStatistics.getType())));
 		model.addAttribute("library_code", getLibraryCode(request));
-		
+
 		if("_excel".equals(url)) {
 			return basePath + "summary_excel_ajax";
 		} else if("_csv".equals(url)) {
@@ -209,13 +209,13 @@ public class ElibStatisticsController extends BaseController {
 			return basePath + "summary";
 		}
 	}
-	
+
 	@RequestMapping(value = {"{menuParam}/excelDownload.*"}, method = RequestMethod.POST)
 	public AbstractJExcelView excel(Model model, ElibStatistics elibStatistics, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String menu = elibStatistics.getMenu();
 		List<ElibStatistics> elibStatisticsList = null;
 		AbstractJExcelView view = null;
-		
+
 		if("HOUR".equals(menu) || "DAY".equals(menu) || "MONTH".equals(menu) || "PERIOD".equals(menu)) {
 			elibStatisticsList = service.getStatisticsByTime(elibStatistics);
 			view = new ElibStatisticsTimeExcelView();
@@ -224,11 +224,11 @@ public class ElibStatisticsController extends BaseController {
 			view = new ElibStatisticsCategoryExcelView();
 		} else if("BOOK".equals(menu)) {
 			elibStatisticsList = service.getStatisticsByBookAll(elibStatistics);
-			
+
 			for(ElibStatistics one: elibStatisticsList) {
 				updateDeviceCnt(one);
 			}
-			
+
 			view = new ElibStatisticsBookExcelView();
 		} else if("MEMBER".equals(menu)) {
 			elibStatisticsList = service.getStatisticsByMemberAll(elibStatistics);
@@ -237,28 +237,28 @@ public class ElibStatisticsController extends BaseController {
 			elibStatisticsList = service.getStatisticsByAge(elibStatistics);
 			view = new ElibStatisticsAgeExcelView();
 		}
-		
+
 		model.addAttribute("elibStatistics", elibStatistics);
 		model.addAttribute("elibStatisticsList", elibStatisticsList);
 		model.addAttribute("libraries", elibCodeService.getLibraryMap());
 		model.addAttribute("providers", elibCodeService.getCompMap());
 		model.addAttribute("library_code", getLibraryCode(request));
-		
+
 		return view;
 	}
-	
+
 	@RequestMapping(value = {"{menuParam}/csvDownload.*"}, method = RequestMethod.POST)
 	public void csv(Model model, ElibStatistics elibStatistics, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String menu = elibStatistics.getMenu();
 		List<ElibStatistics> elibStatisticsList = null;
-		
+
 		if("HOUR".equals(menu) || "DAY".equals(menu) || "MONTH".equals(menu) || "PERIOD".equals(menu)) {
 			elibStatisticsList = service.getStatisticsByTime(elibStatistics);
 		} else if("CATEGORY".equals(menu)) {
 //			elibStatisticsList = service.getStatisticsByCategory(elibStatistics);
 		} else if("BOOK".equals(menu)) {
 			elibStatisticsList = service.getStatisticsByBookAll(elibStatistics);
-			
+
 			for(ElibStatistics one: elibStatisticsList) {
 				updateDeviceCnt(one);
 			}
@@ -267,24 +267,24 @@ public class ElibStatisticsController extends BaseController {
 		} else if("AGE".equals(menu)) {
 			elibStatisticsList = service.getStatisticsByAge(elibStatistics);
 		}
-		
+
 		Map<String, String> libraries = elibCodeService.getLibraryMap();
 		Map<String, String> providers = elibCodeService.getCompMap();
 		String library_code = getLibraryCode(request);
-		
+
 		new ElibStatisticsXlsToCsv(elibStatistics, elibStatisticsList, libraries, providers, library_code, request, response);
 	}
-	
+
 	private String getLibraryCode(HttpServletRequest request) {
 		String asideHomepageId = getAsideHomepageId(request);
-		
+
 		Homepage homepage = new Homepage(asideHomepageId);
 		homepage = homepageService.getHomepageOne(homepage);
-		
+
 		if(homepage == null) {
 			return null;
 		} else {
-			String homepage_code = StringUtils.defaultString(homepage.getHomepage_code());
+			String homepage_code = StringUtils.defaultString(homepage.getLib_code());
 			int i = homepage_code.indexOf(",");
 			if(i < 0) {
 				return homepage_code;
@@ -293,5 +293,5 @@ public class ElibStatisticsController extends BaseController {
 			}
 		}
 	}
-	
+
 }

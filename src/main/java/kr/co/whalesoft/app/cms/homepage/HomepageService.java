@@ -1,26 +1,21 @@
 package kr.co.whalesoft.app.cms.homepage;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Resource;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.googlecode.ehcache.annotations.Cacheable;
 
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.menu.MenuDao;
 import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.framework.base.BaseService;
-
-import org.apache.ibatis.mapping.MappedStatement;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.mvel2.ast.Instance;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.WebApplicationContext;
-
-import com.googlecode.ehcache.annotations.Cacheable;
 
 @Service
 public class HomepageService extends BaseService {

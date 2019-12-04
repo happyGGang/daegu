@@ -145,7 +145,7 @@ $(function() {
 						<dd>
 							<form:select path="manageCode">
 								<form:option value="ALL">전체 도서관</form:option>
-								<form:option value="${homepage.homepage_code}">${homepage.homepage_name}</form:option>
+								<form:option value="${homepage.manage_code}">${homepage.homepage_name}</form:option>
 							</form:select>
 						</dd>
 					</dl>

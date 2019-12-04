@@ -211,7 +211,7 @@ public class IndexController extends BaseController {
 			startDate = sf.format(DateUtils.addDays(new Date(), -60));
 		}
 
-		model.addAttribute("newBookList", LibSearchAPI.getNewBookList(new LibrarySearch(homepage.getHomepage_code(), startDate, sf.format(new Date()))));
+		model.addAttribute("newBookList", LibSearchAPI.getNewBookList(new LibrarySearch(homepage.getManage_code(), startDate, sf.format(new Date()))));
 		return basePath + homepage.getFolder() + "/newBook_ajax";
 	}
 

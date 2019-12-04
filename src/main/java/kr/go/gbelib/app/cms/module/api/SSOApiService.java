@@ -253,7 +253,7 @@ public class SSOApiService extends BaseService {
 						if(adminMember != null) {
 							member.setAuthGroupIdxList(memberGroupSubordService.getAuthGroupIdxList(adminMember));
 							Homepage homepageTmp = new Homepage();
-							homepageTmp.setHomepage_code(member.getLoca());
+							homepageTmp.setLib_code(member.getLoca());
 							String locaHomepageId = homepageService.getHomepageOneByCode(homepageTmp).getHomepage_id();
 
 							MemberGroup memberGroup = new MemberGroup();
@@ -266,7 +266,7 @@ public class SSOApiService extends BaseService {
 							member.setAuthGroupIdxList(new ArrayList<Integer>());
 							//통합회원그룹에 속하게 한다.
 							Homepage homepageTmp = new Homepage();
-							homepageTmp.setHomepage_code(member.getLoca());
+							homepageTmp.setLib_code(member.getLoca());
 							String locaHomepageId = homepageService.getHomepageOneByCode(homepageTmp).getHomepage_id();
 
 							MemberGroup memberGroup = new MemberGroup();

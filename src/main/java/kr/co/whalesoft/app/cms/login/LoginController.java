@@ -99,7 +99,8 @@ public class LoginController extends BaseController {
 
 					if (daysBetween.getDays() > expiryDay) {
 						Homepage homepage = new Homepage();
-						homepage.setHomepage_code(member.getLoca());
+						//TODO
+						homepage.setManage_code(member.getLoca());
 						Homepage getHomepage = homepageService.getHomepageOneByCode(homepage);
 
 						int menuIdx = homepageService.getMenuIdxByLinkUrl(getHomepage.getHomepage_id(), "/intro/join/changePwForm.do");
