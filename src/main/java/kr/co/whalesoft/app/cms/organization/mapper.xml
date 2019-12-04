@@ -401,14 +401,14 @@
 		SELECT
 			chart_yn
 		FROM
-			DEPT_CHART
+			ORGANIZATION_CHART
 		WHERE
 			homepage_id = #{homepage_id}
 	</select>
 	
 	<update id="modifyChartYN">
 		MERGE INTO
-			DEPT_CHART DC
+			ORGANIZATION_CHART DC
 		USING DUAL
 		ON	(homepage_id = #{homepage_id})
 		WHEN MATCHED THEN
