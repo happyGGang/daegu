@@ -477,8 +477,8 @@
 			play_size = #{play_size},
 			link_url = #{link_url},
 			mobile_link_url = #{mobile_link_url},
-			mod_id = #{mod_id},
-			mod_date = SYSDATE
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
 		WHERE
 			book_idx = #{book_idx}
 	</update>
