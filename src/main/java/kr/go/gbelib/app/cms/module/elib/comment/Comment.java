@@ -6,7 +6,7 @@ import kr.go.gbelib.app.cms.module.elib.book.Book;
 public class Comment extends PagingUtils {
 
 	private int comment_idx;
-	private String regdt;
+	private String add_date;
 	private int book_idx;
 	private int user_idx;
 	private String member_id;
@@ -32,8 +32,8 @@ public class Comment extends PagingUtils {
 	public int getComment_idx() {
 		return comment_idx;
 	}
-	public String getRegdt() {
-		return regdt;
+	public String getAdd_date() {
+		return add_date;
 	}
 	public int getBook_idx() {
 		return book_idx;
@@ -47,8 +47,8 @@ public class Comment extends PagingUtils {
 	public void setComment_idx(int comment_idx) {
 		this.comment_idx = comment_idx;
 	}
-	public void setRegdt(String regdt) {
-		this.regdt = regdt;
+	public void setAdd_date(String add_date) {
+		this.add_date = add_date;
 	}
 	public void setBook_idx(int book_idx) {
 		this.book_idx = book_idx;

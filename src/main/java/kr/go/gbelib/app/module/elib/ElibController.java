@@ -1066,7 +1066,8 @@ public class ElibController extends BaseController {
 				res.setMessage(e.getMessage());
 				return res;
 			}
-			comment.setMember_id(getSessionWebId(request));
+//			comment.setMember_id(getSessionWebId(request));
+			comment.setMember_id(getSessionMemberId(request));
 
 			if(elibAccessIpService.getBannedIpCnt(new ElibAccessIp(request.getRemoteAddr())) > 0) {
 				res.setValid(false);

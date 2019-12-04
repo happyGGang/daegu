@@ -219,7 +219,7 @@ function updateCategory(cate_id) {
 			<c:forEach var="i" varStatus="status" items="${commentList}">
 				<tr>
 					<td>${i.member_id}</td>
-					<td>${i.regdt}</td>
+					<td>${i.add_date}</td>
 					<td>${i.book_name}</td>
 					<td>${i.author_name}</td>
 					<td>${i.book_pubname}</td>

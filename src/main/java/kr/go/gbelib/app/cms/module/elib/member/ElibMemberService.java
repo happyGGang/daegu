@@ -53,6 +53,7 @@ public class ElibMemberService extends BaseService {
 		ElibMember member1 = dao.getMemberById(member);
 		
 		if(member1 == null) {
+			member.setBirth_day(member.getBirth_day().replaceAll("-", ""));
 			if(dao.addMember(member) == 0) {
 				return -1;
 			} else {

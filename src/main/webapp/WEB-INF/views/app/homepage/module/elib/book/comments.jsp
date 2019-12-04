@@ -78,11 +78,11 @@ $(document).ready(function() {
 		</c:if>
 		<c:forEach items="${commentList}" var="i" varStatus="status">
 		<tr>
-			<td>${i.regdt}</td>
+			<td>${i.add_date}</td>
 			<td class="center">${fn:substring(i.member_id, -1, 3)}*****</td>
 			<td style="text-align: left;">${i.user_comment}</td>
 			<td>
-				<c:if test="${member.web_id == i.member_id}">
+				<c:if test="${member.member_id == i.member_id}">
 				<a href="#" class="btn deletecomment" data-comment_idx="${i.comment_idx}"><span>삭제</span></a>
 				</c:if>
 			</td>
