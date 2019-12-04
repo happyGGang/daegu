@@ -56,7 +56,7 @@ $(function() {
         	</tr>
 			<tr>
 	         	<th>일시</th>
-	         	<td>${comment.regdt}</td>
+	         	<td>${comment.add_date}</td>
         	</tr>
 			<tr>
 	         	<th>서명</th>

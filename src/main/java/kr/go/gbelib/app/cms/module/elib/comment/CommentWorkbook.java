@@ -93,7 +93,7 @@ public class CommentWorkbook {
 		for ( Comment org : commentList ) {
 			i=0;
 			sheet.addCell( new Label( i++, row, org.getMember_id(), format1 ) );
-			sheet.addCell( new Label( i++, row, org.getRegdt(), format1 ) );
+			sheet.addCell( new Label( i++, row, org.getAdd_date(), format1 ) );
 			sheet.addCell( new Label( i++, row, org.getBook_name(), format1 ) );
 			sheet.addCell( new Label( i++, row, org.getAuthor_name(), format1 ) );
 			sheet.addCell( new Label( i++, row, org.getBook_pubname(), format1 ) );
