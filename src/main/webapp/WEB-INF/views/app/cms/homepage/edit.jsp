@@ -207,9 +207,15 @@ $(function() {
 			</td>
 		</tr>
 		<tr>
-			<th>홈페이지 코드</th>
+			<th>관리코드</th>
 			<td>
-				<form:input path="homepage_code" cssClass="text"/>
+				<form:input path="manage_code" cssClass="text"/>
+			</td>
+		</tr>
+		<tr>
+			<th>도서관 부호</th>
+			<td>
+				<form:input path="lib_code" cssClass="text"/>
 			</td>
 		</tr>
 <!-- 		<tr> -->
