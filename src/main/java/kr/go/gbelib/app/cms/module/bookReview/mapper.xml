@@ -5,16 +5,16 @@
 	<select id="getBookReviewLocaList" resultType="kr.go.gbelib.app.cms.module.bookReview.BookReview">
 		${pagingTop}
 		SELECT
-			br_idx, br_loan_id, br_web_id, br_name, br_content, 
-			br_score, br_loca, br_ctrlno, add_date, mod_date
+			book_review_idx, book_review_loan_id, book_review_web_id, book_review_name, book_review_content, 
+			book_review_score, manage_code, book_key, add_id, add_date, modify_id, modify_date
 		FROM
 			BOOK_REVIEW
 		WHERE
-			br_loca = #{br_loca}
+			manage_code = #{manage_code}
 		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
 		AND	${search_type} LIKE '%'||#{search_text}||'%'
 		</if>
-		ORDER BY br_idx DESC
+		ORDER BY book_review_idx DESC
 		${pagingBottom}
 	</select>
 	
@@ -24,7 +24,7 @@
 		FROM
 			BOOK_REVIEW
 		WHERE
-			br_loca = #{br_loca}
+			manage_code = #{manage_code}
 		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
 		AND	${search_type} LIKE '%'||#{search_text}||'%'
 		</if>
@@ -32,15 +32,15 @@
 
 	<select id="getBookReviewList" resultType="kr.go.gbelib.app.cms.module.bookReview.BookReview">
 		SELECT
-			br_idx, br_loan_id,
-			SUBSTR(br_web_id, 1, 3) || LPAD('*', LENGTH(br_web_id)-3, '*') AS br_web_id,
-			SUBSTR(br_name, 1, 1) || LPAD('*', LENGTH(br_name)-1, '*') AS br_name,
-			br_content, br_score, br_loca, br_ctrlno, add_date, mod_date
+			book_review_idx, book_review_loan_id,
+			SUBSTR(book_review_web_id, 1, 3) || LPAD('*', LENGTH(book_review_web_id)-3, '*') AS book_review_web_id,
+			SUBSTR(book_review_name, 1, 1) || LPAD('*', LENGTH(book_review_name)-1, '*') AS book_review_name,
+			book_review_content, book_review_score, manage_code, book_key, add_id, add_date, modify_id, modify_date
 		FROM
 			BOOK_REVIEW
 		WHERE
-			br_ctrlno = #{br_ctrlno}
-		ORDER BY br_idx DESC
+			book_key = #{book_key}
+		ORDER BY book_review_idx DESC
 	</select>
 	
 	<select id="duplBookReviewUserCnt" resultType="int">
@@ -49,23 +49,23 @@
 		FROM
 			BOOK_REVIEW
 		WHERE
-			br_loan_id = #{br_loan_id}
-		AND	br_ctrlno = #{br_ctrlno}
+			book_review_loan_id = #{book_review_loan_id}
+		AND	book_key = #{book_key}
 	</select>
 
 	<insert id="addBookReview">
-		<selectKey keyProperty="br_idx" resultType="int" order="BEFORE">
-			SELECT NVL(MAX(br_idx), 0) + 1 FROM BOOK_REVIEW
+		<selectKey keyProperty="book_review_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(book_review_idx), 0) + 1 FROM BOOK_REVIEW
 		</selectKey>
 		INSERT INTO BOOK_REVIEW
 		(
-			br_idx, br_loan_id, br_web_id, br_name, br_content,
-			br_score, br_loca, br_ctrlno, add_date
+			book_review_idx, book_review_loan_id, book_review_web_id, book_review_name, book_review_content,
+			book_review_score, manage_code, book_key, add_id, add_date
 		)
 		VALUES
 		(
-			#{br_idx}, #{br_loan_id}, #{br_web_id}, #{br_name}, #{br_content},
-			#{br_score}, #{br_loca}, #{br_ctrlno}, SYSDATE
+			#{book_review_idx}, #{book_review_loan_id}, #{book_review_web_id}, #{book_review_name}, #{book_review_content},
+			#{book_review_score}, #{manage_code}, #{book_key}, #{add_id}, SYSDATE
 		)
 	</insert>
 	
@@ -73,39 +73,40 @@
 		UPDATE
 			BOOK_REVIEW
 		SET
-			br_content = #{br_content},
-			br_score = #{br_score},
-			mod_date = SYSDATE
+			book_review_content = #{book_review_content},
+			book_review_score = #{book_review_score},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
 		WHERE
-			br_idx = #{br_idx}
+			book_review_idx = #{book_review_idx}
 	</update>
 	
 	<delete id="delBookReview">
 		DELETE FROM
 			BOOK_REVIEW
 		WHERE
-			br_idx = #{br_idx}
+			book_review_idx = #{book_review_idx}
 	</delete>
 	
 	<select id="getBookReviewAll" resultType="kr.go.gbelib.app.cms.module.bookReview.BookReview">
 		${pagingTop}
 		SELECT
-			br_idx, br_loan_id, br_web_id, br_content, br_score,
-			br_loca, br_ctrlno, add_date, mod_date
+			book_review_idx, book_review_loan_id, book_review_web_id, book_review_content, book_review_score,
+			manage_code, book_key, add_id, add_date, modify_id, modify_date
 		FROM
 			BOOK_REVIEW
 		WHERE
-			br_loan_id = #{br_loan_id}
+			book_review_loan_id = #{book_review_loan_id}
 		<if test="search_text != null and search_text != ''">
-		AND	br_content LIKE '%'||#{search_text}||'%'
+		AND	book_review_content LIKE '%'||#{search_text}||'%'
 		</if>
 		<if test="(search_start_date != null and search_start_date != '') and (search_end_date != null and search_end_date != '')">
 		<![CDATA[AND (TO_DATE(add_date) >= TO_DATE(#{search_start_date}) AND TO_DATE(add_date) <= TO_DATE(#{search_end_date}))]]>
 		</if>
 		<if test="search_loca != null and search_loca != ''">
-		AND br_loca = #{search_loca}
+		AND manage_code = #{search_loca}
 		</if>
-		ORDER BY br_idx DESC
+		ORDER BY book_review_idx DESC
 		${pagingBottom}
 	</select>
 	
@@ -115,37 +116,37 @@
 		FROM
 			BOOK_REVIEW
 		WHERE
-			br_loan_id = #{br_loan_id}
+			book_review_loan_id = #{book_review_loan_id}
 		<if test="search_text != null and search_text != ''">
-		AND	br_content LIKE '%'||#{search_text}||'%'
+		AND	book_review_content LIKE '%'||#{search_text}||'%'
 		</if>
 		<if test="(search_start_date != null and search_start_date != '') and (search_end_date != null and search_end_date != '')">
 		<![CDATA[AND (TO_DATE(add_date) >= TO_DATE(#{search_start_date}) AND TO_DATE(add_date) <= TO_DATE(#{search_end_date}))]]>
 		</if>
 		<if test="search_loca != null and search_loca != ''">
-		AND br_loca = #{search_loca}
+		AND manage_code = #{search_loca}
 		</if>
-		ORDER BY br_idx DESC
+		ORDER BY book_review_idx DESC
 	</select>
 	
 	<select id="getBookReviewXlsAndCsv" resultType="kr.go.gbelib.app.cms.module.bookReview.BookReview">
 		SELECT
-			br_idx, br_loan_id, br_web_id, br_content, br_score,
-			br_loca, br_ctrlno, add_date, mod_date
+			book_review_idx, book_review_loan_id, book_review_web_id, book_review_content, book_review_score,
+			manage_code, book_key, add_id, add_date, modify_id, modify_date
 		FROM
 			BOOK_REVIEW
 		WHERE
-			br_loan_id = #{br_loan_id}
+			book_review_loan_id = #{book_review_loan_id}
 	</select>
 	
 	<select id="getBookReviewOne" resultType="kr.go.gbelib.app.cms.module.bookReview.BookReview">
 		SELECT
-			br_idx, br_loan_id, br_web_id, br_content, br_score,
-			br_loca, br_ctrlno, add_date, mod_date
+			book_review_idx, book_review_loan_id, book_review_web_id, book_review_content, book_review_score,
+			manage_code, book_key, add_id, add_date, modify_id, modify_date
 		FROM
 			BOOK_REVIEW
 		WHERE
-			br_idx = #{br_idx}
+			book_review_idx = #{book_review_idx}
 	</select>
 	
 </mapper>

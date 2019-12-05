@@ -73,7 +73,8 @@ $(function() {
 
 	});
 	</c:if>
-
+	
+	$('div#bookReviewDiv').load('/${homepage.context_path}/module/bookReview/index.do?menu_idx=${fn:escapeXml(param.menu_idx)}&manage_code=${fn:escapeXml(detail.MANAGE_CODE)}&book_key=${fn:escapeXml(detail.BOOK_KEY)}');
 });
 
 </script>
@@ -254,5 +255,8 @@ $(function() {
 
 			<a href="javascript:history.back();" id="goBack" class="btn"><i class="fa fa-book"></i><span>목록으로</span></a>
 		</div>
+		
+		<h3 style="border-top: 1px solid #ccc;">서평</h3>
+		<div class="showFoldDiv" id="bookReviewDiv"></div>
 	</div>
 </div>

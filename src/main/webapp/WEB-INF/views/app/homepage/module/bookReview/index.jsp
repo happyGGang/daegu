@@ -23,9 +23,9 @@ div.book-review-write div#starRevC, div.book-review-write_sub div#starRevC {posi
 div.book-review-write a {position: absolute;top: 21px;right: 25px;display: inline-block;width: 100px;height: 94px;text-align: center;line-height: 94px;font-size: 110%;color: white;background: #959ca4;}
 div.book-review-write_sub a {position: absolute;top: 10px;right: 0;display: inline-block;width: 100px;height: 94px;text-align: center;line-height: 94px;font-size: 110%;color: white;background: #959ca4;}
 div.book-review-write_sub textarea {background-color: #fff;}
-div.book-review-textarea {width: 582px;border: 2px solid #e5e5e5;background: #fff;padding: 10px;font-size: 0px;}
-div.book-review-textarea_sub {border: 2px solid #e5e5e5;background: #fff;padding: 10px;font-size: 0px;}
-div.book-review-textarea textarea, div.book-review-textarea_sub textarea {resize: none;width: 100%;height: 70px;border: none;background-color: #fff;}
+div.book-review-textarea {width: 544px;border: 2px solid #e5e5e5;background: #fff;padding: 10px;}
+div.book-review-textarea_sub {border: 2px solid #e5e5e5;background: #fff;padding: 10px;}
+div.book-review-textarea textarea, div.book-review-textarea_sub textarea {resize: none;width: 100%;height: 64px;border: none;background-color: #fff;}
 
 div.bcl-list div.bcl-box {position: relative;border-bottom: 1px solid #e5e5e5;padding: 15px;}
 div.bcl-list div.bcl-box div.bcl-header span.name {font-size: 110%;font-weight: 600;}
@@ -37,7 +37,7 @@ div.bcl-list div.bcl-box div.bcl-btns a {border: 1px solid #cbcbcb; background-c
 </style>
 <script type="text/javascript">
 var url = '/${homepage.context_path}/module/bookReview/index.do';
-var formData = 'br_loca=${fn:escapeXml(bookReview.br_loca)}&br_ctrlno=${fn:escapeXml(bookReview.br_ctrlno)}';
+var formData = 'manage_code=${fn:escapeXml(bookReview.manage_code)}&book_key=${fn:escapeXml(bookReview.book_key)}';
 
 $(document).ready(function() {
 	
@@ -54,7 +54,7 @@ $(document).ready(function() {
 		$('div#bookReview_contentModify_' + $(this).attr('keyValue')).toggle();
 	});
 	
-	$('a#br_save').on('click', function(e) {
+	$('a#book_review_save').on('click', function(e) {
     	e.preventDefault();
 		if('${member.login}' == 'false') {
 			alert('로그인 후 사용 가능합니다.');
@@ -69,25 +69,25 @@ $(document).ready(function() {
 			return false;
 		}
     	
-    	var br_score = $('#starRevC .starR1.on, #starRevC .starR2.on').length * 0.5;
-    	var br_content = $('textarea#br_content').val();
-    	var br_loca = $(this).attr('keyValue');
-    	var br_ctrlno = $(this).attr('keyValue2');
+    	var book_review_score = $('#starRevC .starR1.on, #starRevC .starR2.on').length * 0.5;
+    	var book_review_content = $('textarea#book_review_content').val();
+    	var manage_code = $(this).attr('keyValue');
+    	var book_key = $(this).attr('keyValue2');
     	
-		if(br_content.search(/\S/) == -1) {
+		if(book_review_content.search(/\S/) == -1) {
 			alert('공백은 입력할 수 없습니다.');
 			return false;
 		}
     	
-    	if(br_content == '') {
+    	if(book_review_content == '') {
     		alert('서평을 작성하세요.');
     		return false;
     	}
     	
-    	$('form#bookReview input#br_score').val(br_score);
-    	$('form#bookReview input#br_content').val(br_content);
-    	$('form#bookReview input#br_loca').val(br_loca);
-    	$('form#bookReview input#br_ctrlno').val(br_ctrlno);
+    	$('form#bookReview input#book_review_score').val(book_review_score);
+    	$('form#bookReview input#book_review_content').val(book_review_content);
+    	$('form#bookReview input#manage_code').val(manage_code);
+    	$('form#bookReview input#book_key').val(book_key);
     	
     	if(doAjaxPostSubmit($('form#bookReview'))) {
     		doAjaxLoad('div#bookReviewDiv', url, formData);
@@ -95,29 +95,29 @@ $(document).ready(function() {
     	
     });
     
-    $('a.br_mod').on('click' ,function(e) {
+    $('a.book_review_mod').on('click' ,function(e) {
     	e.preventDefault();
     	var idx = $(this).attr('keyValue');
-    	var br_score = $('#starRev'+idx+' .starR1.on, #starRev'+idx+' .starR2.on').length * 0.5;
-    	var br_content = $('textarea#br_text'+idx).val();
+    	var book_review_score = $('#starRev'+idx+' .starR1.on, #starRev'+idx+' .starR2.on').length * 0.5;
+    	var book_review_content = $('textarea#book_review_text'+idx).val();
     	
     	$('form#bookReview input#editMode').val('MODIFY');
-    	$('form#bookReview input#br_idx').val(idx);
-    	$('form#bookReview input#br_score').val(br_score);
-    	$('form#bookReview input#br_content').val(br_content);
+    	$('form#bookReview input#book_review_idx').val(idx);
+    	$('form#bookReview input#book_review_score').val(book_review_score);
+    	$('form#bookReview input#book_review_content').val(book_review_content);
     	
     	if(doAjaxPostSubmit($('form#bookReview'))) {
     		doAjaxLoad('div#bookReviewDiv', url, formData);
     	}
     });
     
-    $('a.br_del').on('click', function(e) {
+    $('a.book_review_del').on('click', function(e) {
     	e.preventDefault();
     	if(!confirm('선택한 서평을 삭제하시겠습니까?')) {
     		return false;
     	}
     	
-    	$('form#bookReviewDel #br_idx_d').val($(this).attr('keyValue'));
+    	$('form#bookReviewDel #book_review_idx_d').val($(this).attr('keyValue'));
     	
     	if(doAjaxPost($('form#bookReviewDel'))) {
     		doAjaxLoad('div#bookReviewDiv', url, formData);
@@ -198,16 +198,16 @@ function doAjaxPostSubmit(form, ajaxBody) {
 <form:form modelAttribute="bookReview" action="/${homepage.context_path}/module/bookReview/save.do">
 	<form:hidden path="editMode" value="ADD" htmlEscape="true"/>
 	<form:hidden path="menu_idx" htmlEscape="true"/>
-	<form:hidden path="br_idx" htmlEscape="true"/>
-	<form:hidden path="br_name" htmlEscape="true"/>
-	<form:hidden path="br_ctrlno" htmlEscape="true"/>
-	<form:hidden path="br_loca" htmlEscape="true"/>
-	<form:hidden path="br_content" htmlEscape="true"/>
-	<form:hidden path="br_score" htmlEscape="true"/>
+	<form:hidden path="book_review_idx" htmlEscape="true"/>
+	<form:hidden path="book_review_name" htmlEscape="true"/>
+	<form:hidden path="book_key" htmlEscape="true"/>
+	<form:hidden path="manage_code" htmlEscape="true"/>
+	<form:hidden path="book_review_content" htmlEscape="true"/>
+	<form:hidden path="book_review_score" htmlEscape="true"/>
 </form:form>
 
 <form:form modelAttribute="bookReview" id="bookReviewDel" action="/${homepage.context_path}/module/bookReview/delete.do">
-	<form:hidden path="br_idx" id="br_idx_d" htmlEscape="true"/>
+	<form:hidden path="book_review_idx" id="book_review_idx_d" htmlEscape="true"/>
 	<form:hidden path="editMode" id="editMode_d" value="DELETE" htmlEscape="true"/>
 </form:form>
 
@@ -234,20 +234,20 @@ function doAjaxPostSubmit(form, ajaxBody) {
 	<div class="book-review-textarea">
 		<c:choose>
 		<c:when test="${bookReviewFlag eq 'H'}">
-			<textarea id="br_content" disabled="disabled" placeholder="대출 이력이 없습니다." />
+			<textarea id="book_review_content" disabled="disabled" placeholder="대출 이력이 없습니다." />
 		</c:when>
 		<c:when test="${bookReviewFlag eq 'D'}">
-			<textarea id="br_content" disabled="disabled" placeholder="서평을 작성하였습니다." />
+			<textarea id="book_review_content" disabled="disabled" placeholder="서평을 작성하였습니다." />
 		</c:when>
 		<c:when test="${member.login and bookReviewFlag eq 'P'}">
-			<textarea id="br_content" rows="3" cols="50" placeholder="서평을 입력하세요."></textarea>
+			<textarea id="book_review_content" rows="3" cols="50" placeholder="서평을 입력하세요."></textarea>
 		</c:when>
 		<c:otherwise>
-			<textarea id="br_content" disabled="disabled" placeholder="로그인 후 사용가능합니다." />
+			<textarea id="book_review_content" disabled="disabled" placeholder="로그인 후 사용가능합니다." />
 		</c:otherwise>
 		</c:choose>
 	</div>
-	<a href="#" id="br_save" keyValue="${fn:escapeXml(bookReview.br_loca)}" keyValue2="${fn:escapeXml(bookReview.br_ctrlno)}">서평 작성</a>
+	<a href="#" id="book_review_save" keyValue="${fn:escapeXml(bookReview.manage_code)}" keyValue2="${fn:escapeXml(bookReview.book_key)}">서평 작성</a>
 </div>
 <%-- </c:if> --%>
 
@@ -255,38 +255,38 @@ function doAjaxPostSubmit(form, ajaxBody) {
 	<c:forEach var="i" varStatus="status" items="${bookReviewList}">
 	<div class="bcl-box">
 		<div class="bcl-header">
-			<c:set value="${member.user_id eq i.br_loan_id}" var="mod_star" />
-			<div class="starNum <c:if test="${mod_star}">starRev</c:if>" id="starRev${i.br_idx}">
-				<span class="starR1 <c:if test="${i.br_score >= 0.5}">on</c:if>"></span>
-				<span class="starR2 <c:if test="${i.br_score >= 1}">on</c:if>"></span>
-				<span class="starR1 <c:if test="${i.br_score >= 1.5}">on</c:if>"></span>
-				<span class="starR2 <c:if test="${i.br_score >= 2}">on</c:if>"></span>
-				<span class="starR1 <c:if test="${i.br_score >= 2.5}">on</c:if>"></span>
-				<span class="starR2 <c:if test="${i.br_score >= 3}">on</c:if>"></span>
-				<span class="starR1 <c:if test="${i.br_score >= 3.5}">on</c:if>"></span>
-				<span class="starR2 <c:if test="${i.br_score >= 4}">on</c:if>"></span>
-				<span class="starR1 <c:if test="${i.br_score >= 4.5}">on</c:if>"></span>
-				<span class="starR2 <c:if test="${i.br_score >= 5}">on</c:if>"></span>
+			<c:set value="${member.rec_key eq i.book_review_loan_id}" var="modify_star" />
+			<div class="starNum <c:if test="${modify_star}">starRev</c:if>" id="starRev${i.book_review_idx}">
+				<span class="starR1 <c:if test="${i.book_review_score >= 0.5}">on</c:if>"></span>
+				<span class="starR2 <c:if test="${i.book_review_score >= 1}">on</c:if>"></span>
+				<span class="starR1 <c:if test="${i.book_review_score >= 1.5}">on</c:if>"></span>
+				<span class="starR2 <c:if test="${i.book_review_score >= 2}">on</c:if>"></span>
+				<span class="starR1 <c:if test="${i.book_review_score >= 2.5}">on</c:if>"></span>
+				<span class="starR2 <c:if test="${i.book_review_score >= 3}">on</c:if>"></span>
+				<span class="starR1 <c:if test="${i.book_review_score >= 3.5}">on</c:if>"></span>
+				<span class="starR2 <c:if test="${i.book_review_score >= 4}">on</c:if>"></span>
+				<span class="starR1 <c:if test="${i.book_review_score >= 4.5}">on</c:if>"></span>
+				<span class="starR2 <c:if test="${i.book_review_score >= 5}">on</c:if>"></span>
 			</div>
-			<span class="name">${i.br_name}(${i.br_web_id})</span>
+			<span class="name">${i.book_review_name}(${i.book_review_web_id})</span>
 			<span class="published" title="<fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd HH:mm" />"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd HH:mm" /></span>
 		</div>
-		<div class="bcl-content" id="bookReview_content_${i.br_idx}">
+		<div class="bcl-content" id="bookReview_content_${i.book_review_idx}">
 			<p class="speech">
-				<span style="word-break:normal;">${fn:replace(i.br_content, lf, '<br/>')}</span>
+				<span style="word-break:normal;">${fn:replace(i.book_review_content, lf, '<br/>')}</span>
 			</p>
 		</div>
-		<div class="book-review-write_sub" id="bookReview_contentModify_${i.br_idx}" style="display:none;">
+		<div class="book-review-write_sub" id="bookReview_contentModify_${i.book_review_idx}" style="display:none;">
 			<div class="book-review-textarea_sub">
-				<textarea id="br_text${i.br_idx}" placeholder="수정할 서평을 입력하세요.">${i.br_content}</textarea>
+				<textarea id="book_review_text${i.book_review_idx}" placeholder="수정할 서평을 입력하세요.">${i.book_review_content}</textarea>
 			</div>
-			<a href="#" class="br_mod" keyValue="${i.br_idx}">서평 수정</a>
+			<a href="#" class="book_review_mod" keyValue="${i.book_review_idx}">서평 수정</a>
 		</div>
-		<c:if test="${member.login and i.br_loan_id eq member.user_id}">
+		<c:if test="${member.login and i.book_review_loan_id eq member.rec_key}">
 		<div class="bcl-btns">
-			<a href="" class="bookReview_modify_btn" keyValue="${i.br_idx}">수정</a>
+			<a href="" class="bookReview_modify_btn" keyValue="${i.book_review_idx}">수정</a>
 <!-- 			<span class="txt-bar"></span> -->
-			<a href="" class="br_del" keyValue="${i.br_idx}">삭제</a>
+			<a href="" class="book_review_del" keyValue="${i.book_review_idx}">삭제</a>
 		</div>
 		</c:if>
 	</div>

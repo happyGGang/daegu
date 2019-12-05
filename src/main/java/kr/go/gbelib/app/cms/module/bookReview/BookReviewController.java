@@ -50,10 +50,10 @@ public class BookReviewController extends BaseController {
 		Homepage homepage = null;
 		if(StringUtils.isEmpty(bookReview.getHomepage_id())) {
 			homepage = getSessionHomepageInfo(request);
-			bookReview.setBr_loca(homepage.getLib_code());
+			bookReview.setManage_code(homepage.getLib_code());
 			bookReview.setHomepage_id(homepage.getHomepage_id());
 		} else {
-			bookReview.setBr_loca(getHomepageOne(bookReview.getHomepage_id()).getLib_code());
+			bookReview.setManage_code(getHomepageOne(bookReview.getHomepage_id()).getLib_code());
 		}
 
 		int count = service.getBookReviewLocaListCnt(bookReview);
@@ -63,7 +63,7 @@ public class BookReviewController extends BaseController {
 
 		for(BookReview one : bookReviewLocaList) {
 			LibrarySearch librarySearch = new LibrarySearch();
-			librarySearch.setvCtrl(one.getBr_ctrlno());
+			librarySearch.setvCtrl(one.getBook_key());
 
 			@SuppressWarnings("unchecked")
 			List<Map<String, Object>> dsItemDetail = (ArrayList<Map<String,Object>>)LibSearchAPI.getBookDetail(librarySearch).get("dsItemDetail");
@@ -132,13 +132,13 @@ public class BookReviewController extends BaseController {
 
 	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
 	public BookReviewView excel(Model model, BookReview bookReview, HttpServletRequest request, HttpServletResponse response) throws Exception{
-		bookReview.setBr_loca(getHomepageOne(bookReview.getHomepage_id()).getLib_code());
+		bookReview.setManage_code(getHomepageOne(bookReview.getHomepage_id()).getLib_code());
 
 		List<BookReview> bookReviewLocaList = service.getBookReviewLocaList(bookReview);
 
 		for(BookReview one : bookReviewLocaList) {
 			LibrarySearch librarySearch = new LibrarySearch();
-			librarySearch.setvCtrl(one.getBr_ctrlno());
+			librarySearch.setvCtrl(one.getBook_key());
 
 			@SuppressWarnings("unchecked")
 			List<Map<String, Object>> dsItemDetail = (ArrayList<Map<String,Object>>)LibSearchAPI.getBookDetail(librarySearch).get("dsItemDetail");
@@ -161,13 +161,13 @@ public class BookReviewController extends BaseController {
 
 	@RequestMapping(value = {"/csvDownload.*"}, method = RequestMethod.POST)
 	public void csv(Model model, BookReview bookReview, HttpServletRequest request, HttpServletResponse response) throws Exception{
-		bookReview.setBr_loca(getHomepageOne(bookReview.getHomepage_id()).getLib_code());
+		bookReview.setManage_code(getHomepageOne(bookReview.getHomepage_id()).getLib_code());
 
 		List<BookReview> bookReviewAll = service.getBookReviewLocaList(bookReview);
 
 		for(BookReview one : bookReviewAll) {
 			LibrarySearch librarySearch = new LibrarySearch();
-			librarySearch.setvCtrl(one.getBr_ctrlno());
+			librarySearch.setvCtrl(one.getBook_key());
 
 			@SuppressWarnings("unchecked")
 			List<Map<String, Object>> dsItemDetail = (ArrayList<Map<String,Object>>)LibSearchAPI.getBookDetail(librarySearch).get("dsItemDetail");

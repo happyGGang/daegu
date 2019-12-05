@@ -1,6 +1,5 @@
 package kr.go.gbelib.app.cms.module.bookReview;
 
-
 import java.util.Date;
 import java.util.Map;
 
@@ -8,85 +7,95 @@ import kr.co.whalesoft.framework.utils.PagingUtils;
 
 public class BookReview extends PagingUtils {
 
-	private int br_idx; // 서평IDX
-	private String br_loan_id; // 대출자IDX
-	private String br_web_id; // 웹ID
-	private String br_name; // 이름
-	private String br_content; // 서평내용
-	private float br_score; // 서평점수
-	private String br_loca; // 도서관코드
-	private String br_ctrlno; // 제어번호
+	private int book_review_idx; // 서평IDX
+	private String book_review_loan_id; // 대출자IDX
+	private String book_review_web_id; // 웹ID
+	private String book_review_name; // 이름
+	private String book_review_content; // 서평내용
+	private float book_review_score; // 서평점수
+	private String manage_code; // 관리코드
+	private String book_key; // 도서key
+	private String add_id; // 등록ID
 	private Date add_date; // 등록일
-	private Date mod_date; // 수정일
-	
+	private String modify_id; // 수정ID
+	private Date modify_date; // 수정일
+
 	private Map<String, Object> dsItemDetail;
 	private String search_type_date;
 	private String search_start_date;
 	private String search_end_date;
 	private String search_loca;
-	
-	public int getBr_idx() {
-		return br_idx;
+
+	public int getBook_review_idx() {
+		return book_review_idx;
 	}
 
-	public void setBr_idx(int br_idx) {
-		this.br_idx = br_idx;
+	public void setBook_review_idx(int book_review_idx) {
+		this.book_review_idx = book_review_idx;
 	}
 
-	public String getBr_loan_id() {
-		return br_loan_id;
+	public String getBook_review_loan_id() {
+		return book_review_loan_id;
 	}
 
-	public void setBr_loan_id(String br_loan_id) {
-		this.br_loan_id = br_loan_id;
+	public void setBook_review_loan_id(String book_review_loan_id) {
+		this.book_review_loan_id = book_review_loan_id;
 	}
 
-	public String getBr_web_id() {
-		return br_web_id;
+	public String getBook_review_web_id() {
+		return book_review_web_id;
 	}
 
-	public void setBr_web_id(String br_web_id) {
-		this.br_web_id = br_web_id;
+	public void setBook_review_web_id(String book_review_web_id) {
+		this.book_review_web_id = book_review_web_id;
 	}
 
-	public String getBr_name() {
-		return br_name;
+	public String getBook_review_name() {
+		return book_review_name;
 	}
 
-	public void setBr_name(String br_name) {
-		this.br_name = br_name;
+	public void setBook_review_name(String book_review_name) {
+		this.book_review_name = book_review_name;
 	}
 
-	public String getBr_content() {
-		return br_content;
+	public String getBook_review_content() {
+		return book_review_content;
 	}
 
-	public void setBr_content(String br_content) {
-		this.br_content = br_content;
+	public void setBook_review_content(String book_review_content) {
+		this.book_review_content = book_review_content;
 	}
 
-	public float getBr_score() {
-		return br_score;
+	public float getBook_review_score() {
+		return book_review_score;
 	}
 
-	public void setBr_score(float br_score) {
-		this.br_score = br_score;
+	public void setBook_review_score(float book_review_score) {
+		this.book_review_score = book_review_score;
 	}
 
-	public String getBr_loca() {
-		return br_loca;
+	public String getManage_code() {
+		return manage_code;
 	}
 
-	public void setBr_loca(String br_loca) {
-		this.br_loca = br_loca;
+	public void setManage_code(String manage_code) {
+		this.manage_code = manage_code;
 	}
 
-	public String getBr_ctrlno() {
-		return br_ctrlno;
+	public String getBook_key() {
+		return book_key;
 	}
 
-	public void setBr_ctrlno(String br_ctrlno) {
-		this.br_ctrlno = br_ctrlno;
+	public void setBook_key(String book_key) {
+		this.book_key = book_key;
+	}
+
+	public String getAdd_id() {
+		return add_id;
+	}
+
+	public void setAdd_id(String add_id) {
+		this.add_id = add_id;
 	}
 
 	public Date getAdd_date() {
@@ -97,12 +106,20 @@ public class BookReview extends PagingUtils {
 		this.add_date = add_date;
 	}
 
-	public Date getMod_date() {
-		return mod_date;
+	public String getModify_id() {
+		return modify_id;
 	}
 
-	public void setMod_date(Date mod_date) {
-		this.mod_date = mod_date;
+	public void setModify_id(String modify_id) {
+		this.modify_id = modify_id;
+	}
+
+	public Date getModify_date() {
+		return modify_date;
+	}
+
+	public void setModify_date(Date modify_date) {
+		this.modify_date = modify_date;
 	}
 
 	public Map<String, Object> getDsItemDetail() {

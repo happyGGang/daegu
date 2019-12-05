@@ -3,6 +3,7 @@ package kr.go.gbelib.app.module.bookReview;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,22 +52,24 @@ public class BookReviewController extends BaseController {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 //		Map<String, Object> loanList = LibSearchAPI.getMyLibraryList("WEB", getSessionUserId(request), "LOAN", null);
-//		String bookReviewFlag = "F"; // FAIL
+		
+		String bookReviewFlag = "F"; // FAIL
 //		if(loanList != null) {
 //			@SuppressWarnings("unchecked")
 //			List<Map<String, Object>> dsMyLibraryList = (ArrayList<Map<String,Object>>)loanList.get("dsMyLibraryList");
-//
+
 //			if(dsMyLibraryList != null) {
 //				for(Map<String, Object> map : dsMyLibraryList) {
 //					String ctrlno = (String)map.get("CTRLNO");
-//					if(StringUtils.equals(bookReview.getBr_ctrlno(), ctrlno)) {
-//						bookReview.setBr_loan_id(getSessionUserId(request));
-//						int brDuplCnt = service.duplBookReviewUserCnt(bookReview);
-//						if(brDuplCnt > 0) {
-//							bookReviewFlag = "D"; // DUPLICATE : 서평이력이 있을 때
-//						} else {
-//							bookReviewFlag = "P"; // PASS : 작성가능
-//						}
+//					if(StringUtils.equals(bookReview.getBook_review_ctrlno(), ctrlno)) {
+//						bookReview.setBook_review_loan_id(getSessionUserId(request));
+						bookReview.setBook_review_loan_id(getSessionMemberInfo(request).getRec_key());
+						int brDuplCnt = service.duplBookReviewUserCnt(bookReview);
+						if(brDuplCnt > 0) {
+							bookReviewFlag = "D"; // DUPLICATE : 서평이력이 있을 때
+						} else {
+							bookReviewFlag = "P"; // PASS : 작성가능
+						}
 //						break;
 //					} else {
 //						bookReviewFlag = "H"; // HISTORY : 대출이력이 없을 때
@@ -79,7 +82,7 @@ public class BookReviewController extends BaseController {
 
 		model.addAttribute("bookReview", bookReview);
 		model.addAttribute("bookReviewList", service.getBookReviewList(bookReview));
-//		model.addAttribute("bookReviewFlag", bookReviewFlag);
+		model.addAttribute("bookReviewFlag", bookReviewFlag);
 
 		return String.format(basePath, homepage.getFolder()) + "index_ajax";
 	}
@@ -100,17 +103,19 @@ public class BookReviewController extends BaseController {
 			res.setUrl(String.format("http://www.gbelib.kr/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), bookReview.getMenu_idx(), bookReview.getBefore_url()));
 		}
 
-		ValidationUtils.rejectIfEmpty(result, "br_content", "서평 내용을 입력하세요");
+		ValidationUtils.rejectIfEmpty(result, "book_review_content", "서평 내용을 입력하세요");
 		/* <<<<< 유효성 검증 */
 
 		if(!result.hasErrors()) {
 			Member member = getSessionMemberInfo(request);
-			bookReview.setBr_loan_id(member.getUser_id());
-			bookReview.setBr_web_id(member.getWeb_id());
-			bookReview.setBr_name(member.getMember_name());
+//			bookReview.setBook_review_loan_id(member.getUser_id());
+//			bookReview.setBook_review_web_id(member.getWeb_id());
+			bookReview.setBook_review_loan_id(member.getRec_key());
+			bookReview.setBook_review_web_id(member.getMember_id());
+			bookReview.setBook_review_name(member.getMember_name());
 
 			if(bookReview.getEditMode().equals("ADD")) {
-//				Map<String, Object> loanList = LibSearchAPI.getMyLibraryList("WEB", bookReview.getBr_loan_id(), "LOAN", null);
+//				Map<String, Object> loanList = LibSearchAPI.getMyLibraryList("WEB", bookReview.getBook_review_loan_id(), "LOAN", null);
 //				@SuppressWarnings("unchecked")
 //				List<Map<String, Object>> dsMyLibraryList = (ArrayList<Map<String,Object>>)loanList.get("dsMyLibraryList");
 //
@@ -118,7 +123,7 @@ public class BookReviewController extends BaseController {
 //				if(dsMyLibraryList != null) {
 //					for(Map<String, Object> map : dsMyLibraryList) {
 //						String ctrlno = (String)map.get("CTRLNO");
-//						if(StringUtils.equals(bookReview.getBr_ctrlno(), ctrlno)) {
+//						if(StringUtils.equals(bookReview.getBook_review_ctrlno(), ctrlno)) {
 //							libList = true;
 //							break;
 //						}
@@ -131,23 +136,25 @@ public class BookReviewController extends BaseController {
 //					return res;
 //				}
 //
-//				int brDuplCnt = service.duplBookReviewUserCnt(bookReview);
-//				if(brDuplCnt > 0) {
-//					res.setValid(false);
-//					res.setMessage("서평을 이미 등록하였습니다.");
-//					return res;
-//				}
-//
-//				String addResult = service.addBookReview(bookReview);
-//				if (addResult != null) {
-//					res.setValid(true);
-//					res.setUrl(addResult);
-//					res.setTargetOpener(true);
-//					return res;
-//				}
+				int brDuplCnt = service.duplBookReviewUserCnt(bookReview);
+				if(brDuplCnt > 0) {
+					res.setValid(false);
+					res.setMessage("서평을 이미 등록하였습니다.");
+					return res;
+				}
+
+				bookReview.setAdd_id(getSessionMemberId(request));
+				String addResult = service.addBookReview(bookReview);
+				if (addResult != null) {
+					res.setValid(true);
+					res.setUrl(addResult);
+					res.setTargetOpener(true);
+					return res;
+				}
 				res.setValid(true);
 				res.setMessage("서평 등록되었습니다.");
 			} else if(bookReview.getEditMode().equals("MODIFY")) {
+				bookReview.setModify_id(getSessionMemberId(request));
 				String modifyResult = service.modBookReview(bookReview);
 				if (modifyResult != null) {
 					res.setValid(true);
@@ -189,7 +196,7 @@ public class BookReviewController extends BaseController {
 	@RequestMapping(value = {"/history.*"}, method = RequestMethod.GET)
 	public String history(Model model, BookReview bookReview, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		bookReview.setBr_loan_id(getSessionUserId(request));
+		bookReview.setBook_review_loan_id(getSessionUserId(request));
 
 		int bookReviewAllCnt = service.getbookReviewAllCnt(bookReview);
 		service.setPaging(model, bookReviewAllCnt, bookReview);
@@ -198,7 +205,7 @@ public class BookReviewController extends BaseController {
 
 		for(BookReview one : bookReviewAll) {
 			LibrarySearch librarySearch = new LibrarySearch();
-			librarySearch.setvCtrl(one.getBr_ctrlno());
+			librarySearch.setvCtrl(one.getBook_key());
 
 			@SuppressWarnings("unchecked")
 			List<Map<String, Object>> dsItemDetail = (ArrayList<Map<String,Object>>)LibSearchAPI.getBookDetail(librarySearch).get("dsItemDetail");
@@ -222,12 +229,12 @@ public class BookReviewController extends BaseController {
 
 	@RequestMapping(value = { "/excelDownload.*" }, method = RequestMethod.POST)
 	public BookReviewView excel(Model model, BookReview bookReview, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		bookReview.setBr_loan_id(getSessionUserId(request));
+		bookReview.setBook_review_loan_id(getSessionUserId(request));
 		List<BookReview> bookReviewAll = service.getBookReviewXlsAndCsv(bookReview);
 
 		for(BookReview one : bookReviewAll) {
 			LibrarySearch librarySearch = new LibrarySearch();
-			librarySearch.setvCtrl(one.getBr_ctrlno());
+			librarySearch.setvCtrl(one.getBook_key());
 
 			@SuppressWarnings("unchecked")
 			List<Map<String, Object>> dsItemDetail = (ArrayList<Map<String,Object>>)LibSearchAPI.getBookDetail(librarySearch).get("dsItemDetail");
@@ -249,12 +256,12 @@ public class BookReviewController extends BaseController {
 
 	@RequestMapping(value = {"/csvDownload.*"}, method = RequestMethod.POST)
 	public void csv(BookReview bookReview, HttpServletRequest request, HttpServletResponse response) throws Exception{
-		bookReview.setBr_loan_id(getSessionUserId(request));
+		bookReview.setBook_review_loan_id(getSessionUserId(request));
 		List<BookReview> bookReviewAll = service.getBookReviewXlsAndCsv(bookReview);
 
 		for(BookReview one : bookReviewAll) {
 			LibrarySearch librarySearch = new LibrarySearch();
-			librarySearch.setvCtrl(one.getBr_ctrlno());
+			librarySearch.setvCtrl(one.getBook_key());
 
 			@SuppressWarnings("unchecked")
 			List<Map<String, Object>> dsItemDetail = (ArrayList<Map<String,Object>>)LibSearchAPI.getBookDetail(librarySearch).get("dsItemDetail");

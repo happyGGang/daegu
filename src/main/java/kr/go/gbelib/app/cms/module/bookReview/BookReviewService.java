@@ -30,7 +30,7 @@ public class BookReviewService extends BaseService {
 	public String addBookReview(BookReview bookReview) {
 		String filterCheck = null;
 		try {
-			filterCheck = webFilterCheck(bookReview.getBr_web_id(), bookReview);
+			filterCheck = webFilterCheck(bookReview.getBook_review_web_id(), bookReview);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -47,7 +47,7 @@ public class BookReviewService extends BaseService {
 	public String modBookReview(BookReview bookReview) {
 		String filterCheck = null;
 		try {
-			filterCheck = webFilterCheck(bookReview.getBr_web_id(), bookReview);
+			filterCheck = webFilterCheck(bookReview.getBook_review_web_id(), bookReview);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -75,7 +75,7 @@ public class BookReviewService extends BaseService {
 	
 	private String webFilterCheck(String writer, BookReview bookReview) throws Exception {
 		WFMultiPartPost wfsend = new WFMultiPartPost("gbelib.kr", "117.111.136.240", 80);
-		String wfResponse = wfsend.sendWebFilter(writer, "서평 작성", bookReview.getBr_content(), "");
+		String wfResponse = wfsend.sendWebFilter(writer, "서평 작성", bookReview.getBook_review_content(), "");
 		
 		if(wfResponse.equals("Y")){
 			// 차단내용 팝업창 URL 출력
