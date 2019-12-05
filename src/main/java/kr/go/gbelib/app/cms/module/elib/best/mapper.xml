@@ -106,7 +106,7 @@
 				(SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = a.cate_id) AS cate_name,
 				CASE WHEN a.library_code = '9999999'
 					THEN '통합'
-					ELSE (SELECT z.homepage_name FROM CMS_HOMEPAGE z WHERE a.library_code = SUBSTR(Z.homepage_code, 1, 8))
+					ELSE (SELECT z.homepage_name FROM CMS_HOMEPAGE z WHERE a.library_code = SUBSTR(Z.lib_code, 1, 8))
 				END AS library_name,
 				(SELECT z.comp_name FROM ELIB_COMPANY z WHERE INSTR(z.com_code, a.com_code) > 0) AS comp_name,
 			   (SELECT COUNT(*) FROM elib_lend z WHERE A.book_idx = z.book_idx AND (SYSDATE - lend_dt) &lt;= a.date_range) AS lend_cnt,
@@ -316,7 +316,7 @@
 			(SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = a.cate_id) AS cate_name,
 			CASE WHEN a.library_code = '9999999'
 				THEN '통합'
-				ELSE (SELECT z.homepage_name FROM CMS_HOMEPAGE z WHERE a.library_code = SUBSTR(Z.homepage_code, 1, 8))
+				ELSE (SELECT z.homepage_name FROM CMS_HOMEPAGE z WHERE a.library_code = SUBSTR(Z.lib_code, 1, 8))
 			END AS library_name,
 			(SELECT z.comp_name FROM ELIB_COMPANY z WHERE INSTR(z.com_code, a.com_code) > 0) AS comp_name,
 		    (SELECT COUNT(*) FROM elib_lend z WHERE A.book_idx = z.book_idx AND (SYSDATE - lend_dt) &lt;= a.date_range) AS lend_cnt,

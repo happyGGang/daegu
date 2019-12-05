@@ -14,6 +14,6 @@ $(document).ready(function(e) {
 <form:select class="selectmenu-search" style="width:200px" id="library_code${sym}" path="library_code">
 	<option value="">도서관 선택</option>
 	<c:forEach var="i" varStatus="status" items="${homepageList}">
-		<option value="${i.homepage_code}" <c:if test="${i.homepage_code eq obj.library_code }">selected="selected"</c:if>>${i.homepage_name}</option>
+		<option value="${i.lib_code}" <c:if test="${i.lib_code eq obj.library_code }">selected="selected"</c:if>>${i.homepage_name}</option>
 	</c:forEach>
 </form:select>

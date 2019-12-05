@@ -267,7 +267,7 @@
 		  CASE
 		    WHEN b.library_code = '9999999'
 		  THEN '통합'
-		  ELSE (SELECT z.homepage_name FROM CMS_HOMEPAGE z WHERE b.library_code = SUBSTR(z.homepage_code, 1, 8))
+		  ELSE (SELECT z.homepage_name FROM CMS_HOMEPAGE z WHERE b.library_code = SUBSTR(z.lib_code, 1, 8))
 		  END AS library_name,
 		  (
 		    SELECT COUNT(*)
@@ -400,7 +400,7 @@
 		  CASE
 		    WHEN b.library_code = '9999999'
 		  THEN '통합'
-		  ELSE (SELECT z.homepage_name FROM CMS_HOMEPAGE z WHERE b.library_code = SUBSTR(z.homepage_code, 1, 8))
+		  ELSE (SELECT z.homepage_name FROM CMS_HOMEPAGE z WHERE b.library_code = SUBSTR(z.lib_code, 1, 8))
 		  END AS library_name,
 		  (
 		    SELECT COUNT(*)
@@ -707,7 +707,7 @@
   		  CASE
 		  	WHEN ta.library_code = '9999999'
 			THEN '통합'
-			ELSE (SELECT z.homepage_name FROM CMS_HOMEPAGE z WHERE ta.library_code = SUBSTR(z.homepage_code, 1, 8) AND rownum = 1)
+			ELSE (SELECT z.homepage_name FROM CMS_HOMEPAGE z WHERE ta.library_code = SUBSTR(z.lib_code, 1, 8) AND rownum = 1)
 		  END AS library_name,
 		  NVL(tb.pcnt, 0) AS p_cnt,
 		  NVL(tb.scnt, 0) AS s_cnt,
@@ -736,7 +736,7 @@
   		  CASE
 		  	WHEN ta.library_code = '9999999'
 			THEN '통합'
-			ELSE (SELECT z.homepage_name FROM CMS_HOMEPAGE z WHERE ta.library_code = SUBSTR(z.homepage_code, 1, 8) AND rownum = 1)
+			ELSE (SELECT z.homepage_name FROM CMS_HOMEPAGE z WHERE ta.library_code = SUBSTR(z.lib_code, 1, 8) AND rownum = 1)
 		  END AS library_name,
 		  ta.user_name,
 		  NVL(tb.pcnt, 0) AS p_cnt,

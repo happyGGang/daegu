@@ -124,7 +124,7 @@
 		WHERE
 			a.member_id = b.member_id
 		AND b.book_idx = c.book_idx
-		AND c.library_code = SUBSTR(e.homepage_code, 1, 8)
+		AND c.library_code = SUBSTR(e.lib_code, 1, 8)
 		<if test="type != null and type != ''">
 		AND c.type = #{type}
 		</if>
@@ -159,7 +159,7 @@
 		WHERE
 			a.member_id = b.member_id
 		AND b.book_idx = c.book_idx
-		AND c.library_code = SUBSTR(e.homepage_code, 1, 8)
+		AND c.library_code = SUBSTR(e.lib_code, 1, 8)
 		<if test="type != null and type != ''">
 		AND c.type = #{type}
 		</if>
@@ -184,7 +184,7 @@
 			a.member_id = b.member_id
 		AND b.book_idx = c.book_idx
 		AND b.section != '2'
-		AND c.library_code = SUBSTR(e.homepage_code, 1, 8)
+		AND c.library_code = SUBSTR(e.lib_code, 1, 8)
 		<if test="type != null and type != ''">
 		AND c.type = #{type}
 		</if>
@@ -217,7 +217,7 @@
 			a.member_id = b.member_id
 		AND b.book_idx = c.book_idx
 		AND b.section != '2'
-		AND c.library_code = SUBSTR(e.homepage_code, 1, 8)
+		AND c.library_code = SUBSTR(e.lib_code, 1, 8)
 		<if test="type != null and type != ''">
 		AND c.type = #{type}
 		</if>
@@ -504,7 +504,7 @@
 		WHERE
 			a.book_idx = b.book_idx
 		AND a.member_id = #{member_id}
-		AND b.library_code = c.homepage_code
+		AND b.library_code = c.lib_code
 		<if test="start_date != null and start_date != ''">
 		AND TO_CHAR(a.regdt, 'YYYY-MM-DD') &gt;= #{start_date}
 		</if>

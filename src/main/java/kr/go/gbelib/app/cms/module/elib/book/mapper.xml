@@ -93,7 +93,7 @@
 		WHERE
 			a.use_yn != 'N'
 		AND a.book_idx = d.book_idx
-		AND a.library_code = SUBSTR(e.homepage_code, 1, 8)
+		AND a.library_code = SUBSTR(e.lib_code, 1, 8)
 		AND a.book_idx = g.book_idx (+)
 		AND a.book_code = h.book_code (+)
 		<if test="type != null and type != ''">
@@ -158,7 +158,7 @@
 			,ELIB_CATEGORY_BESTBOOK h
 		WHERE 1=1
 		AND a.book_idx = d.book_idx
-		AND a.library_code = SUBSTR(e.homepage_code, 1, 8)
+		AND a.library_code = SUBSTR(e.lib_code, 1, 8)
 		AND a.book_idx = g.book_idx (+)
 		AND a.book_code = h.book_code (+)
 		<if test="type != null and type != ''">
@@ -213,7 +213,7 @@
 <!-- 			,ELIB_COURSE j -->
 		WHERE 1=1
 		AND a.book_idx = d.book_idx
-		AND a.library_code = e.homepage_code
+		AND a.library_code = e.lib_code
 <!-- 		AND a.book_idx = f.book_idx -->
 <!-- 		AND a.book_idx = j.book_idx -->
 		<include refid="search"/>
@@ -248,7 +248,7 @@
 		WHERE
 			a.use_yn != 'N'
 <!-- 		AND a.book_idx = d.book_idx -->
-		AND a.library_code = SUBSTR(e.homepage_code, 1, 8)
+		AND a.library_code = SUBSTR(e.lib_code, 1, 8)
 		AND a.type = #{type}
 		<include refid="search"/>
 		<include refid="sort"/>
@@ -285,7 +285,7 @@
 		AND a.book_idx = d.book_idx
 		AND a.book_idx = g.book_idx (+)
 		AND a.book_code = h.book_code (+)
-		AND a.library_code = SUBSTR(e.homepage_code, 1, 8)
+		AND a.library_code = SUBSTR(e.lib_code, 1, 8)
 	</select>
 	
 	<select id="codeDupCheck" resultType="int">
@@ -526,7 +526,7 @@
 		</otherwise>
 		</choose>
 <!-- 		AND a.book_idx = d.book_idx -->
-		AND a.library_code = SUBSTR(e.homepage_code, 1, 8)
+		AND a.library_code = SUBSTR(e.lib_code, 1, 8)
 		<if test="type != null and type != ''">
 		AND a.type = #{type}
 		</if>
