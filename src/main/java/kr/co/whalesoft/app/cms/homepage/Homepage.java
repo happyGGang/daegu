@@ -1,7 +1,7 @@
 package kr.co.whalesoft.app.cms.homepage;
 
 import java.io.Serializable;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
 public class Homepage extends PagingUtils implements Serializable {

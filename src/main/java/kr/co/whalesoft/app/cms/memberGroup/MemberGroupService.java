@@ -1,11 +1,14 @@
 package kr.co.whalesoft.app.cms.memberGroup;
 
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
-import org.apache.commons.lang3.StringUtils;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import kr.co.whalesoft.framework.base.BaseService;
 
 @Service
@@ -28,7 +31,7 @@ public class MemberGroupService extends BaseService {
 		}
 		return dao.getMemberGroupList(memberGroup);
 	}
-	
+
 	/**
 	 * 1개 그룹
 	 * @param memberGroup
@@ -42,7 +45,7 @@ public class MemberGroupService extends BaseService {
 		}
 		return memberGroup;
 	}
-	
+
 	/**
 	 * 미통합회원을 위한 사용자 그룹
 	 * @param memberGroup
@@ -65,13 +68,13 @@ public class MemberGroupService extends BaseService {
 	}
 
 	public int deleteMemberGroup(MemberGroup memberGroup) {
-		return dao.deleteMemberGroup(memberGroup);		
+		return dao.deleteMemberGroup(memberGroup);
 	}
 
 	public int addMemberGroupRelation(MemberGroup memberGroup) {
 		return dao.addMemberGroupRelation(memberGroup);
 	}
-	
+
 	/**
 	 * 연계그룹 삭제 및 등록
 	 * 수정은 없다. 다 지우고 다시 다 쓴다.

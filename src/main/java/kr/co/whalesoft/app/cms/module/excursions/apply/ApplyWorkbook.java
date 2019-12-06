@@ -1,13 +1,11 @@
 package kr.co.whalesoft.app.cms.module.excursions.apply;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.web.servlet.view.document.AbstractJExcelView;
+import org.apache.commons.lang.StringUtils;
 
 import jxl.format.Alignment;
 import jxl.format.Border;
@@ -16,9 +14,6 @@ import jxl.format.Colour;
 import jxl.write.Label;
 import jxl.write.WritableCellFormat;
 import jxl.write.WritableWorkbook;
-import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage;
-import kr.co.whalesoft.app.cms.module.calendarStatus.CalendarStatus;
-import kr.co.whalesoft.framework.utils.AttachmentUtils;
 
 public class ApplyWorkbook {
 
@@ -70,16 +65,16 @@ public class ApplyWorkbook {
 
 		int row = 1;
 		for ( Apply org : applyList ) {
-			String applyStatusStr = "";
-			if ( "1".equals(org.getApply_state()) ) {
-				applyStatusStr = "대기";
-			}
-			if ( "1".equals(org.getApply_state()) ) {
-				applyStatusStr = "불가";
-			}
-			if ( "1".equals(org.getApply_state()) ) {
-				applyStatusStr = "승인";
-			}
+//			String applyStatusStr = "";
+//			if ( "1".equals(org.getApply_state()) ) {
+//				applyStatusStr = "대기";
+//			}
+//			if ( "1".equals(org.getApply_state()) ) {
+//				applyStatusStr = "불가";
+//			}
+//			if ( "1".equals(org.getApply_state()) ) {
+//				applyStatusStr = "승인";
+//			}
 			workbook.getSheet(0).addCell( new Label( 0, row, String.valueOf(row)));
 			workbook.getSheet(0).addCell( new Label( 1, row, org.getAgency_name(),format1 ) );
 			workbook.getSheet(0).addCell( new Label( 2, row, org.getApplicant_name(),format1 ) );
@@ -100,7 +95,7 @@ public class ApplyWorkbook {
 			workbook.getSheet(0).addCell( new Label( 9, row, org.getAge(),format1 ) );
 			row++;
 		}
-		
+
 		return workbook;
 	}
 

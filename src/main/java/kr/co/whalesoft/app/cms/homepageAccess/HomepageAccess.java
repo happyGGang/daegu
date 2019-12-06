@@ -1,18 +1,12 @@
 package kr.co.whalesoft.app.cms.homepageAccess;
 
-import java.io.IOException;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
-import kr.co.whalesoft.app.cms.member.Member;
-import kr.co.whalesoft.framework.userAgent.Client;
-import kr.co.whalesoft.framework.userAgent.Parser;
-import kr.co.whalesoft.framework.utils.RequestUtils;
-
 import org.apache.commons.lang.StringUtils;
-import org.springframework.mobile.device.Device;
-import org.springframework.mobile.device.DeviceUtils;
+
+import kr.co.whalesoft.app.cms.member.Member;
 
 
 public class HomepageAccess {

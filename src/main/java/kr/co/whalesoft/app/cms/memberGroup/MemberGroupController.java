@@ -1,9 +1,11 @@
 package kr.co.whalesoft.app.cms.memberGroup;
 
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.lang3.StringUtils;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.memberGroupAuth.MemberGroupAuthService;
 import kr.co.whalesoft.framework.base.BaseController;
@@ -30,13 +33,13 @@ public class MemberGroupController extends BaseController {
 
 	private final String basePath = "/cms/memberGroup/";
 	private final String wbuilderPath = "/wbuilder/memberGroup/";
-	
+
 	@Autowired
 	private MemberGroupService service;
-	
+
 	@Autowired
 	private MemberGroupAuthService memberGroupAuthService;
-	
+
 	/**
 	 * 첫 페이지
 	 * @param model
@@ -55,10 +58,10 @@ public class MemberGroupController extends BaseController {
 			return basePath + "index" + url;
 		}
 	}
-	
+
 	/**
 	 * 트리
-	 * @param memberGroup.site_id 
+	 * @param memberGroup.site_id
 	 * @param request
 	 * @return
 	 */
@@ -67,10 +70,10 @@ public class MemberGroupController extends BaseController {
 		if (!StringUtils.equals(getAsideHomepageId(request), "CMS") && !StringUtils.equals(getAsideHomepageId(request), "null")) {
 			memberGroup.setSite_id(getAsideHomepageId(request));
 		}
-		
+
 		return service.getMemberGroupList(memberGroup);
 	}
-	
+
 	/**
 	 * 우측 페이지 호출
 	 * @param model
@@ -82,18 +85,18 @@ public class MemberGroupController extends BaseController {
 	public String memberGroup(Model model, MemberGroup memberGroup, @PathVariable ("url") String url, HttpServletRequest request) {
 		model.addAttribute("memberGroupList", service.getMemberGroupList(memberGroup));
 		memberGroup = service.getMemberGroupOne(memberGroup);
-		model.addAttribute("memberGroup", memberGroup); 
+		model.addAttribute("memberGroup", memberGroup);
 		model.addAttribute("parentMemberGroup", service.getMemberGroupOne(new MemberGroup(memberGroup.getParent_member_group_idx())));
-		
+
 		boolean isWbuilder = request.getHeader("referer").toString().contains("wbuilder");
 		if (isWbuilder) {
-			return wbuilderPath + "memberGroup" + url; 
+			return wbuilderPath + "memberGroup" + url;
 		} else {
-			return basePath + "memberGroup" + url; 
+			return basePath + "memberGroup" + url;
 		}
-		
+
 	}
-	
+
 	/**
 	 * 그룹 1개 가져오기
 	 * @param model
@@ -104,13 +107,13 @@ public class MemberGroupController extends BaseController {
 	public @ResponseBody MemberGroup getMemberGroupOne(Model model, MemberGroup memberGroup) {
 		return service.getMemberGroupOne(memberGroup);
 	}
-	
+
 	/**
 	 * 그룹 신규등록 및 수정
 	 * @param model
 	 * @param memberGroup
 	 * @return
-	 * @throws AuthException 
+	 * @throws AuthException
 	 */
 	@RequestMapping(value="/edit{url}.*", method=RequestMethod.GET)
 	public String edit(Model model, MemberGroup memberGroup, @PathVariable ("url") String url, HttpServletRequest request, HttpServletResponse response) throws AuthException {
@@ -122,7 +125,7 @@ public class MemberGroupController extends BaseController {
 		} else {
 			checkAuth("C", model, request);
 			boolean hasAuth = memberGroupAuthService.hasAuth(memberGroup.getMember_group_idx());
-			
+
 			if (hasAuth) {
 				throw new AuthException("권한설정된 그룹에선 하위그룹을 생성할 수 없습니다");
 //				try {
@@ -132,7 +135,7 @@ public class MemberGroupController extends BaseController {
 //				catch ( Exception e ) {
 //				}
 			}
-			
+
 			memberGroup = service.getMemberGroupOne(memberGroup);
 			model.addAttribute("memberGroup", memberGroup);
 			model.addAttribute("parentMemberGroup", service.getMemberGroupOne(new MemberGroup(memberGroup.getParent_member_group_idx())));
@@ -144,7 +147,7 @@ public class MemberGroupController extends BaseController {
 			return basePath + "edit" + url;
 		}
 	}
-	
+
 	/**
 	 * 그룹 등록
 	 * @param model
@@ -157,9 +160,9 @@ public class MemberGroupController extends BaseController {
 	public @ResponseBody JsonResponse save(Model model, MemberGroup memberGroup, BindingResult result, HttpServletRequest request) {
 		Member member = getSessionMemberInfo(request);
 		model.addAttribute("member", member);
-		
+
 		JsonResponse res = new JsonResponse(request);
-		
+
 		if(!memberGroup.getEditMode().equals("DELETE")) {
 			ValidationUtils.rejectIfEmpty(result, "member_group_name", "권한그룹명을 입력하세요.");
 		}
@@ -188,10 +191,10 @@ public class MemberGroupController extends BaseController {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
 		}
-		
+
 		return res;
 	}
-	
+
 
 	/**
 	 * 권한그룹의 하위그룹 설정
@@ -203,11 +206,11 @@ public class MemberGroupController extends BaseController {
 	 */
 	@RequestMapping(value = {"/saveRelation.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse saveRelation(Model model, MemberGroup memberGroup, BindingResult result, HttpServletRequest request) {
-		
+
 		JsonResponse res = new JsonResponse(request);
-		
+
 		ValidationUtils.rejectIfEmpty(result, "relationList", "선택된 그룹이 없습니다.");
-		
+
 		if(!result.hasErrors()) {
 			memberGroup.setCud_id(getSessionMemberId(request));
 			if (service.addMemberGroupRelation(memberGroup, request) < 1) {
@@ -221,7 +224,7 @@ public class MemberGroupController extends BaseController {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
 		}
-		
+
 		return res;
 	}
 }

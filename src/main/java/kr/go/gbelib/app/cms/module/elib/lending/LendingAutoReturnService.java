@@ -2,7 +2,7 @@ package kr.go.gbelib.app.cms.module.elib.lending;
 
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +12,13 @@ import kr.go.gbelib.app.cms.module.elib.api.ElibException;
 public class LendingAutoReturnService {
 
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
-	
+
 	@Autowired
 	private LendingDao dao;
-	
+
 	@Autowired
 	private LendingService service;
-	
+
 	/**
 	 * 자동 반납
 	 * dispatcherServlet.xml 에서 on, off 설정
@@ -26,14 +26,14 @@ public class LendingAutoReturnService {
 	public void autoReturn() {
 		// homewas2_homepage3 컨테이너에서만 실행
 		if(StringUtils.equals(System.getProperty("whalesoft.container"), "homewas2_homepage3")) {
-			
+
 			logger.info("### autoReturn starts ###");
 			System.out.println("### autoReturn starts ###");
-			
+
 			List<Lending> lendingList = dao.getBooksToAutoReturn();
-			
+
 			if(lendingList == null) return;
-			
+
 			if(!StringUtils.equals(System.getProperty("spring.profiles.active"), "localServer")) {
 				for(Lending lending: lendingList) {
 					try {
@@ -48,9 +48,9 @@ public class LendingAutoReturnService {
 					}
 				}
 			}
-			
+
 			List<Lending> reserveList = dao.getReservesLendable();
-			
+
 			if(reserveList != null && !StringUtils.equals(System.getProperty("spring.profiles.active"), "localServer")) {
 				for(Lending reserve: reserveList) {
 					try {
@@ -65,25 +65,25 @@ public class LendingAutoReturnService {
 					}
 				}
 			}
-			
+
 			autoUpdateLendableDt();
-			
+
 			logger.info("### autoReturn ends ###");
 			System.out.println("### autoReturn ends ###");
-			
+
 		}
 	}
-	
+
 	public void autoUpdateLendableDt() {
 		logger.info("### autoUpdateLendableDt starts ###");
 		System.out.println("### autoUpdateLendableDt starts ###");
-		
+
 		List<Lending> reserveList = dao.getBookstoAutoUpdateLendableDt();
-		
+
 		System.out.println("@@@@@@@@@@ autoUpdateLendableDt reserveList: " + reserveList);
-		
+
 		if(reserveList == null) return;
-		
+
 		for(Lending reserve: reserveList) {
 			try {
 				service.updateDateAndCnt(reserve);
@@ -96,5 +96,5 @@ public class LendingAutoReturnService {
 		logger.info("### autoUpdateLendableDt ends ###");
 		System.out.println("### autoUpdateLendableDt ends ###");
 	}
-	
+
 }

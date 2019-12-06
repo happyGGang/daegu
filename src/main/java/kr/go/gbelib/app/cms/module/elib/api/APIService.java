@@ -3,7 +3,7 @@ package kr.go.gbelib.app.cms.module.elib.api;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,24 +13,24 @@ import kr.go.gbelib.app.cms.module.elib.member.ElibMember;
 
 @Service
 public class APIService extends BaseService {
-	
+
 	private static final String KYOBO = "KYOB";
 	private static final String YES24 = "YESB";
 	private static final String YPBOOKS = "Y2BK";
 	private static final String BOOKCUBE = "FXLI";
-	
+
 	@Autowired
 	private KyoboAPIService kyoboAPIService;
-	
+
 	@Autowired
 	private Yes24APIService yes24APIService;
-	
+
 	@Autowired
 	private BookcubeAPIService bookcubeAPIService;
-	
+
 	@Autowired
 	private YPAPIService ypAPIService;
-	
+
 	protected Map<String, String> catchFail(String com_code, Map<String, String> map) throws ElibException {
 		if(com_code == null) {
 			return null;
@@ -63,17 +63,17 @@ public class APIService extends BaseService {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * 대출
 	 * @param book
 	 * @return
-	 * @throws ElibException 
+	 * @throws ElibException
 	 */
 	public Map<String, String> lend(Book book) throws ElibException {
 		String com_code = book.getCom_code();
 		Map<String, String> result = new HashMap<String, String>();
-		
+
 		if(com_code == null) {
 			return null;
 		} else if(com_code.equals(KYOBO)) {
@@ -92,23 +92,23 @@ public class APIService extends BaseService {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * 반납
 	 * @param book
 	 * @return
-	 * @throws ElibException 
+	 * @throws ElibException
 	 */
 	public Map<String, String> rtn(Book book) throws ElibException {
 		String com_code = book.getCom_code();
-		
+
 		if(com_code == null) {
 			return null;
 		} else if(com_code.equals(KYOBO)) {
 			Map<String, String> map = kyoboAPIService.rtn(book);
 			String result = map.get("result");
 			String msgcode = map.get("msgcode");
-			
+
 			if(!(StringUtils.equals(result, "True") || StringUtils.equals(result, "Y"))
 					&& (StringUtils.equals(msgcode, "ERROR_NOT_EXIST_BORROW_ID") || StringUtils.equals(msgcode, "MSG_ERROR_0038"))) {
 				return map;
@@ -119,7 +119,7 @@ public class APIService extends BaseService {
 			Map<String, String> map = yes24APIService.rtn(book);
 			String result = map.get("result");
 			String msgcode = StringUtils.defaultString(map.get("msgcode"));
-			
+
 			if(StringUtils.equals(result, "False")
 					&& (msgcode.indexOf("반납대기를 위한 라이센스 정보가 존재하지 않습니다") > -1
 							|| msgcode.indexOf("이미 본인이 대출한 도서입니다") > -1)) {
@@ -133,7 +133,7 @@ public class APIService extends BaseService {
 			Map<String, String> map = ypAPIService.rtn(book);
 			String result = map.get("result");
 			String msgcode = StringUtils.defaultString(map.get("msgcode"));
-			
+
 			if(StringUtils.equals(result, "NO") && StringUtils.equals(msgcode, "반납된 전자책 이거나 반납할 전자책이 없습니다.")) {
 				return map;
 			} else {
@@ -145,16 +145,16 @@ public class APIService extends BaseService {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * 연장
 	 * @param book
 	 * @return
-	 * @throws ElibException 
+	 * @throws ElibException
 	 */
 	public Map<String, String> extend(Book book) throws ElibException {
 		String com_code = book.getCom_code();
-		
+
 		if(com_code == null) {
 			return null;
 		} else if(com_code.equals(KYOBO)) {
@@ -169,16 +169,16 @@ public class APIService extends BaseService {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * 예약
 	 * @param book
 	 * @return
-	 * @throws ElibException 
+	 * @throws ElibException
 	 */
 	public Map<String, String> reserve(Book book) throws ElibException {
 		String com_code = book.getCom_code();
-		
+
 		if(com_code == null) {
 			return null;
 		}
@@ -195,17 +195,17 @@ public class APIService extends BaseService {
 			return null;
 		}
 	}
-	
+
 
 	/**
 	 * 예약 취소
 	 * @param book
 	 * @return
-	 * @throws ElibException 
+	 * @throws ElibException
 	 */
 	public Map<String, String> cancel(Book book) throws ElibException {
 		String com_code = book.getCom_code();
-		
+
 		if(com_code == null) {
 			return null;
 		} else if(com_code.equals(KYOBO)) {
@@ -228,16 +228,16 @@ public class APIService extends BaseService {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * 회원 가입
 	 * @param book
 	 * @return
-	 * @throws ElibException 
+	 * @throws ElibException
 	 */
 	public void signup(ElibMember member, Book book) throws ElibException {
 		String com_code = book.getCom_code();
-		
+
 		if(com_code == null) {
 			return;
 		} else if(com_code.equals(KYOBO)) {
@@ -256,36 +256,36 @@ public class APIService extends BaseService {
 			return;
 		}
 	}
-	
+
 	/**
 	 * 회원 수정 (교보 전용)
 	 * @param book
 	 * @return
-	 * @throws ElibException 
+	 * @throws ElibException
 	 */
 	public Map<String, String> edit(ElibMember member) throws ElibException {
 		return catchFail(KYOBO, kyoboAPIService.edit(member));
 	}
-	
+
 	/**
 	 * 회원 탈퇴 (교보 전용)
 	 * @param book
 	 * @return
-	 * @throws ElibException 
+	 * @throws ElibException
 	 */
 	public Map<String, String> delete(ElibMember member) throws ElibException {
 		return catchFail(KYOBO, kyoboAPIService.delete(member));
 	}
-	
+
 	/**
 	 * 대출 정보 조회 (교보 전용)
 	 * @param book
 	 * @return
-	 * @throws ElibException 
+	 * @throws ElibException
 	 */
 	public Map<String, String> view(Book book) throws ElibException {
 		String com_code = book.getCom_code();
-		
+
 		if(com_code == null) {
 			return null;
 		} else if(com_code.equals(KYOBO)) {
@@ -294,7 +294,7 @@ public class APIService extends BaseService {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * 앱 호출 URL 조회
 	 * @param book
@@ -303,7 +303,7 @@ public class APIService extends BaseService {
 	 */
 	public Map<String, String> appUrl(Book book, ElibMember member, String device) throws ElibException {
 		String com_code = book.getCom_code();
-		
+
 		if(com_code == null) {
 			return null;
 		} else if(com_code.equals(BOOKCUBE)) {
@@ -314,5 +314,5 @@ public class APIService extends BaseService {
 			return null;
 		}
 	}
-	
+
 }

@@ -20,7 +20,6 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
@@ -40,13 +39,13 @@ import kr.go.gbelib.app.cms.module.elib.member.ElibMember;
 
 @Service
 public class Yes24APIService extends BaseService {
-	
+
 	private static final String USER_AGENT = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)";
 	private static final String LEND_URL = "http://elib.gbelib.kr:8082/YES24/yes24_action_new.asp";
 	private static final String MEMBER_URL = "http://elib.gbelib.kr:8082/YES24/yes24_member_sync.asp";
 	private static final String APP_URL = "http://elib.gbelib.kr:8082/%s/device_url.asp?user_id=%s&goods_id=%s&device_type=phone";
 	private static final int TIMEOUT = 30 * 1000;
-	
+
 	private String libraryCodeToSiteCode(String libraryCode) {
 		if(libraryCode == null) {
 			return null;
@@ -63,7 +62,7 @@ public class Yes24APIService extends BaseService {
 			return "B2B_GBE";
 		}
 	}
-	
+
 	private String getText(Document doc, String path) {
 		XPath xPath =  XPathFactory.newInstance().newXPath();
 		XPathExpression resultExpr = null;
@@ -78,14 +77,14 @@ public class Yes24APIService extends BaseService {
 			return "";
 		}
 	}
-	
+
 	private Map<String, String> parse(String xml) {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = null;
 		ByteArrayInputStream input = null;
 		Document doc = null;
 		Map<String, String> map = new HashMap<String, String>();
-		
+
 		try {
 			builder = factory.newDocumentBuilder();
 			input = new ByteArrayInputStream(xml.getBytes("UTF-8"));
@@ -103,10 +102,10 @@ public class Yes24APIService extends BaseService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return map;
 	}
-	
+
 	private String send(String url, List<NameValuePair> params) {
 		RequestConfig config = RequestConfig.custom()
 		  .setConnectTimeout(TIMEOUT)
@@ -118,10 +117,10 @@ public class Yes24APIService extends BaseService {
 		BufferedReader rd = null;
 		StringBuilder result = new StringBuilder();
 		String line = "";
-		
+
 		log.debug("Yes24APIService send url: " + url + "?" + pairsToString(params));
 		System.out.println("@@@@@@@@@@@@@@ Yes24APIService send url: " + url + "?" + pairsToString(params));
-		
+
 		try {
 			post.setHeader("User-Agent", USER_AGENT);
 			post.setEntity(new UrlEncodedFormEntity(params));
@@ -141,15 +140,15 @@ public class Yes24APIService extends BaseService {
 				e.printStackTrace();
 			}
 		}
-		
+
 		String resultString = result.toString();
-		
+
 		log.debug("Yes24APIService send result: " + resultString);
 		System.out.println("@@@@@@@@@@@@@@ Yes24APIService send result: " + resultString);
-		
+
 		return resultString;
 	}
-	
+
 	private Map<String, String> parse2(String xml) {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = null;
@@ -158,7 +157,7 @@ public class Yes24APIService extends BaseService {
 		Map<String, String> map = new HashMap<String, String>();
 		String result = "";
 		String desc = "";
-		
+
 		try {
 			builder = factory.newDocumentBuilder();
 			input = new ByteArrayInputStream(xml.getBytes("UTF-8"));
@@ -176,23 +175,23 @@ public class Yes24APIService extends BaseService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return map;
 	}
-	
+
 	private String pairsToString (List<NameValuePair> pairs) {
 		StringBuilder sb = new StringBuilder();
-		
+
 		for(int i=0; i<pairs.size(); ++i) {
 			if(i > 0) sb.append("&");
 
 			NameValuePair p = pairs.get(i);
 			sb.append(p.getName()+"="+p.getValue());
 		}
-		
+
 		return sb.toString();
 	}
-	
+
 	private List<NameValuePair> makeParamPairs(String mode, Book book) {
 		String user_id = book.getMember_id();
 		String goods_id = book.getBook_code();
@@ -203,21 +202,21 @@ public class Yes24APIService extends BaseService {
 		params.add(new BasicNameValuePair("user_id", user_id));
 		params.add(new BasicNameValuePair("goods_id", goods_id));
 		params.add(new BasicNameValuePair("site_code", site_code));
-		
+
 		return params;
 	}
-	
+
 	/**
 	 * 대출
 	 * @param book
 	 * @return
 	 */
 	public Map<String, String> lend(Book book) {
-		
-		
+
+
 		return parse(send(LEND_URL, makeParamPairs("lent", book)));
 	}
-	
+
 	/**
 	 * 반납
 	 * @param book
@@ -235,7 +234,7 @@ public class Yes24APIService extends BaseService {
 	public Map<String, String> reserve(Book book) {
 		return parse(send(LEND_URL, makeParamPairs("reserve", book)));
 	}
-	
+
 	/**
 	 * 예약 취소
 	 * @param book
@@ -244,7 +243,7 @@ public class Yes24APIService extends BaseService {
 	public Map<String, String> cancel(Book book) {
 		return parse(send(LEND_URL, makeParamPairs("cancel", book)));
 	}
-	
+
 	/**
 	 * 연장
 	 * @param book
@@ -253,7 +252,7 @@ public class Yes24APIService extends BaseService {
 	public Map<String, String> extend(Book book) {
 		return parse(send(LEND_URL, makeParamPairs("extension", book)));
 	}
-	
+
 	private List<NameValuePair> makeParamPairs(ElibMember member) {
 		String user_id = member.getMember_id();
 		String user_pw = member.getP_id();
@@ -271,10 +270,10 @@ public class Yes24APIService extends BaseService {
 			params.add(new BasicNameValuePair("user_group_name", "G1"));
 		}
 		params.add(new BasicNameValuePair("site_code", site_code));
-		
+
 		return params;
 	}
-	
+
 	/**
 	 * 회원 가입
 	 * @param member
@@ -291,7 +290,7 @@ public class Yes24APIService extends BaseService {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * YES24 앱 호출 URL
 	 * @param book
@@ -302,5 +301,5 @@ public class Yes24APIService extends BaseService {
 		String yes24_library_code = libraryCodeToSiteCode(book.getLibrary_code());
 		return parse2(send(String.format(APP_URL, yes24_library_code, member_id, book.getBook_code()), new ArrayList<NameValuePair>()));
 	}
-	
+
 }

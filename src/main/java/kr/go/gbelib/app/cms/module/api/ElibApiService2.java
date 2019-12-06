@@ -5,7 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,6 @@ import kr.go.gbelib.app.cms.module.elib.lending.Lending;
 import kr.go.gbelib.app.cms.module.elib.lending.LendingService;
 import kr.go.gbelib.app.cms.module.elib.member.ElibMember;
 import kr.go.gbelib.app.cms.module.elib.member.ElibMemberService;
-import kr.go.gbelib.app.common.api.MemberAPI;
 
 @Service
 public class ElibApiService2 extends BaseService {

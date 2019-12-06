@@ -1,10 +1,12 @@
 package kr.go.gbelib.app.cms.module.teach.teachCode;
 
 import java.util.List;
-import org.apache.commons.lang3.StringUtils;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import kr.co.whalesoft.framework.base.BaseService;
 
 @Service
@@ -16,11 +18,11 @@ public class TeachCodeService extends BaseService {
 	public List<TeachCode> getLargeCodeList() {
 		return dao.getLargeCodeList();
 	}
-	
+
 	public List<TeachCode> getMidCodeList(TeachCode teachCode) {
 		return dao.getMidCodeList(teachCode);
 	}
-	
+
 	public List<TeachCode> getSmallCodeList(TeachCode teachCode) {
 		return dao.getSmallCodeList(teachCode);
 	}
@@ -36,13 +38,13 @@ public class TeachCodeService extends BaseService {
 		} else if (StringUtils.equals(teachCode.getSmall_code(), "0")) {
 			teachCode.setSmall_code(teachCode.getTempCode());
 		}
-		
+
 		//중복 카운트
 		int dupCheck = dao.getCodeInfo(teachCode);
 		if (dupCheck > 0) {
 			return dupCheck;
 		}
-		
+
 		return dao.addTeachCode(teachCode);
 	}
 
@@ -61,7 +63,7 @@ public class TeachCodeService extends BaseService {
 	@Transactional
 	public int saveCodeList(TeachCode[] codeList, String cud_id) {
 		int result = 0;
-		
+
 		for(TeachCode code: codeList) {
 //			if(getCategoryInfo(code) == null) {
 //				throw new RuntimeException();
@@ -69,8 +71,8 @@ public class TeachCodeService extends BaseService {
 			code.setCud_id(cud_id);
 			result += dao.modifyPrintSeq(code);
 		}
-		
-		return result;		
+
+		return result;
 	}
-	
+
 }

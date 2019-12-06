@@ -6,30 +6,32 @@ import java.util.List;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
-import org.apache.commons.lang3.StringUtils;
+
+import org.apache.commons.lang.StringUtils;
+
 import kr.co.whalesoft.app.cms.adminMenu.AdminMenu;
 import kr.co.whalesoft.framework.tag.HtmlTag;
 
 public class AsideMenuTag extends BodyTagSupport {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private List<AdminMenu> adminMenuList;
 
 	@Override
 	public int doEndTag() throws JspException {
-		
+
 		HtmlTag ulTag = new HtmlTag("ul");
 		HtmlTag liTag_lvl1 = null;
-		
+
 		HtmlTag ulTag_lvl2 = null;
 		HtmlTag liTag_lvl2 = null;
 		boolean check_lvl2 = false;
-		
+
 		HtmlTag ulTag_lvl3 = null;
 		HtmlTag liTag_lvl3 = null;
 		boolean check_lvl3 = false;
-		
+
 		if(adminMenuList != null && adminMenuList.size() > 0) {
 			for(AdminMenu adminMenu : adminMenuList) {
 				if(adminMenu.getMenu_level() == 1) {
@@ -76,7 +78,7 @@ public class AsideMenuTag extends BodyTagSupport {
 				}
 			}
 		}
-			
+
 		try {
 			pageContext.getOut().println(ulTag.toString());
 		} catch (IOException e) {
@@ -102,5 +104,5 @@ public class AsideMenuTag extends BodyTagSupport {
 			this.adminMenuList.addAll(adminMenuList);
 		}
 	}
-	
+
 }

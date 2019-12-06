@@ -2,9 +2,11 @@ package kr.co.whalesoft.framework.exception;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.lang3.StringUtils;
+
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerExceptionResolver;
@@ -24,12 +26,12 @@ public class ExceptionResolver implements HandlerExceptionResolver {
 	}
 
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception exception) {
-		
+
 		// 기본 requset에 메세지 저장
 		request.setAttribute("errorMessage", exception.getMessage());
 		boolean isAjaxRequest = StringUtils.equals(request.getHeader(ENABLE_AJAX_HEADER), ENABLE_AJAX_VALUE);
 		String exceptionAllMessage = exception.toString() + "\n";
-		exceptionAllMessage += exception.getMessage() + "\n";	
+		exceptionAllMessage += exception.getMessage() + "\n";
 		// 권한 예외처리라면
 		StackTraceElement[] elem = exception.getStackTrace();
 		for(int i=0;i< elem.length; i++) {
@@ -37,7 +39,7 @@ public class ExceptionResolver implements HandlerExceptionResolver {
 		}
 		if(exception.toString().indexOf("AuthException") > -1) {
 			// exception 상세내역 로그 기록
-			
+
 			if (isAjaxRequest) {
 				response.setContentType("text/html; charset=" + request.getCharacterEncoding());
 				PrintWriter writer;
@@ -62,20 +64,20 @@ public class ExceptionResolver implements HandlerExceptionResolver {
 						writer.println("history.back();");
 						writer.println("</script>");
 						writer.flush();
-					} catch (IOException e) { 
+					} catch (IOException e) {
 						e.printStackTrace();
 					}
 					return null;
 				}
 				return new ModelAndView(view);
 			}
-			
-			
+
+
 		} else{
 			//권한제외 모든 경우
-			log.error(exceptionAllMessage); 
+			log.error(exceptionAllMessage);
 		}
-		
+
 		return new ModelAndView("/exception/error");
 	}
 }

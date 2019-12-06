@@ -1,26 +1,28 @@
 package kr.co.whalesoft.app.cms.memberGroupAuth;
 
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
-import org.apache.commons.lang3.StringUtils;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import kr.co.whalesoft.app.cms.adminMenu.AdminMenu;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.memberGroup.MemberGroup;
 import kr.co.whalesoft.app.cms.memberGroup.MemberGroupService;
 import kr.co.whalesoft.app.cms.memberGroupSubord.MemberGroupSubord;
-import kr.co.whalesoft.app.cms.memberGroupSubord.MemberGroupSubordService;
 import kr.co.whalesoft.framework.base.BaseService;
 
 @Service
 public class MemberGroupAuthService extends BaseService {
-	
+
 	@Autowired
 	private MemberGroupAuthDao dao;
-	
+
 	@Autowired
 	private MemberGroupService memberGroupService;
 
@@ -35,7 +37,7 @@ public class MemberGroupAuthService extends BaseService {
 	public int addMemberGroupAuth(MemberGroupAuth memberGroupAuth, HttpServletRequest request) {
 		int result = 0;
 		if (StringUtils.equals(memberGroupAuth.getModule_type(), "MODULE")) {
-//			result = dao.deleteMemberGroupAuthModule(memberGroupAuth); 
+//			result = dao.deleteMemberGroupAuthModule(memberGroupAuth);
 		} else {
 			memberGroupAuth.setSite_id(memberGroupAuth.getHomepage_id());
 			result = dao.deleteMemberGroupAuth(memberGroupAuth);
@@ -51,7 +53,7 @@ public class MemberGroupAuthService extends BaseService {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * 권한그룹에 사용자를 등록한다.
 	 * 기존꺼 다 지우고 다시 새로 다 쓴다.
@@ -76,7 +78,7 @@ public class MemberGroupAuthService extends BaseService {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * 권한그룹에 사용자를 등록한다.
 	 * 기존꺼 다 지우고 다시 새로 다 쓴다.
@@ -99,7 +101,7 @@ public class MemberGroupAuthService extends BaseService {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * 특정 아이디의 권한그룹 목록으 가져온다.
 	 * @param adminMenu
@@ -111,8 +113,8 @@ public class MemberGroupAuthService extends BaseService {
 		memberGroupAuth.setHomepage_id(adminMenu.getHomepage_id());
 		return dao.getMemberGroupIdxList(memberGroupAuth);
 	}
-	
-	
+
+
 	public MemberGroupAuth getMemberGroupAuth(MemberGroupAuth memberGroupAuth) {
 		memberGroupAuth.setAuthCodeList(dao.getAuthCodeList(memberGroupAuth));
 		if (StringUtils.equals(memberGroupAuth.getModuleType(), "CMS")) {
@@ -120,12 +122,12 @@ public class MemberGroupAuthService extends BaseService {
 		}
 		return memberGroupAuth;
 	}
-	
+
 	public MemberGroupAuth getMemberGroupAuthSite(MemberGroupAuth memberGroupAuth) {
 		memberGroupAuth.setAuthCodeList(dao.getMemberGroupAuthSite(memberGroupAuth));
 		return memberGroupAuth;
 	}
-	
+
 	/**
 	 * 권한부여 가능한 홈페이지 목록을 불러온다.
 	 * @param memberGroupAuth.member_group_idx
@@ -134,7 +136,7 @@ public class MemberGroupAuthService extends BaseService {
 	public List<Homepage> getHomepageList(MemberGroupAuth memberGroupAuth) {
 		return dao.getHomepageList(memberGroupAuth);
 	}
-	
+
 	/**
 	 * 권한부여 가능한 홈페이지 목록을 불러온다. 그룹이 컨트롤 가능한 것만 불러온다.
 	 * @param memberGroupAuth
@@ -162,7 +164,7 @@ public class MemberGroupAuthService extends BaseService {
 		return dao.getAuthCodeCount(member_group_idx) > 0 ? true : false;
 	}
 
-	
+
 	/**
 	 * 특정 아이디의 권한그룹 목록으 가져온다.
 	 * @param member
@@ -183,7 +185,7 @@ public class MemberGroupAuthService extends BaseService {
 	public boolean isAdminGroup(Member member) {
 		return dao.getAdminGroupCount(member) > 0 ? true : false;
 	}
-	
+
 	/**
 	 * cms접근가능여부
 	 * @param member
@@ -191,10 +193,10 @@ public class MemberGroupAuthService extends BaseService {
 	 */
 	public boolean hasAdminAuth(Member member) {
 		boolean a = isSiteAdminGroup(member);//사이트최고관리자여부
-		boolean b = dao.getSiteAdminAuthCount(member) > 0 ? true : false;//관리자권한 여부 
+		boolean b = dao.getSiteAdminAuthCount(member) > 0 ? true : false;//관리자권한 여부
 		return a || b;
 	}
-	
+
 	/**
 	 * pms접근가능여부
 	 * @param member
@@ -203,8 +205,8 @@ public class MemberGroupAuthService extends BaseService {
 	public boolean hasPmsAuth(Member member) {
 		return dao.getPmsGroupCount(member) > 0 ? true : false;
 	}
-	
-	
+
+
 	/**
 	 * 사이트최고관리자 여부 확인
 	 * @param member

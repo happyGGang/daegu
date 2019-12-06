@@ -2,7 +2,7 @@ package kr.co.whalesoft.app.cms.memberGroupSubord;
 
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,16 +18,16 @@ import kr.co.whalesoft.framework.utils.JsonResponse;
 public class MemberGroupSubordController extends BaseController {
 
 private final String basePath = "/cms/memberGroupSubord/";
-	
+
 	@Autowired
 	private MemberGroupSubordService service;
-	
+
 	@RequestMapping (value = { "/index.*" }, method = RequestMethod.GET)
 	public String index(Model model, MemberGroupSubord memberGroupSubord, HttpServletRequest request) {
 
 		return basePath + "index";
 	}
-	
+
 	/**
 	 * 트리 리스트를 가져온다.
 	 * @return
@@ -38,10 +38,10 @@ private final String basePath = "/cms/memberGroupSubord/";
 			memberGroupSubord.setSite_id(getAsideHomepageId(request));
 			memberGroupSubord.setMember_id(getSessionMemberId(request));
 		}
-		
+
 		return service.getMemberGroupSubordTreeList(memberGroupSubord);
 	}
-	
+
 	/**
 	 * 우측창 페이지 불러오기
 	 * @param model
@@ -54,10 +54,10 @@ private final String basePath = "/cms/memberGroupSubord/";
 		model.addAttribute("memberGroupSubordList", service.getMemberGroupSubordList(memberGroupSubord));
 		model.addAttribute("memberGroupSubordReadyList", service.getMemberGroupSubordReadyList(memberGroupSubord));
 		model.addAttribute("memberGroupSubord", service.getMemberGroupSubordOne(memberGroupSubord));
-		 
-		return basePath + "memberGroupSubord_ajax"; 
+
+		return basePath + "memberGroupSubord_ajax";
 	}
-	
+
 	/**
 	 * 우측창 페이지 불러오기
 	 * @param model
@@ -69,7 +69,7 @@ private final String basePath = "/cms/memberGroupSubord/";
 	public @ResponseBody List<MemberGroupSubord> findMember(Model model, MemberGroupSubord memberGroupSubord, HttpServletRequest request) {
 		return service.getMemberGroupSubordReadyList(memberGroupSubord);
 	}
-	
+
 
 	/**
 	 * 회원 - 그룹 맵핑
@@ -81,14 +81,14 @@ private final String basePath = "/cms/memberGroupSubord/";
 	 */
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Model model, MemberGroupSubord memberGroupSubord, BindingResult result, HttpServletRequest request) {
-		
+
 		JsonResponse res = new JsonResponse(request);
-		
+
 //		ValidationUtils.rejectIfEmpty(result, "memberList", "선택된 관리자가 없습니다.");
-		
+
 		if(!result.hasErrors()) {
 			memberGroupSubord.setCud_id(getSessionMemberId(request));
-			if (service.addMemberGroupSubord(memberGroupSubord) < 1) { 
+			if (service.addMemberGroupSubord(memberGroupSubord) < 1) {
 				res.setValid(false);
 				res.setMessage("다시 시도해주세요.");
 			} else {
@@ -99,7 +99,7 @@ private final String basePath = "/cms/memberGroupSubord/";
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
 		}
-		
+
 		return res;
 	}
 }
