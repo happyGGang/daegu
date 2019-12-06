@@ -42,9 +42,7 @@ import kr.co.whalesoft.app.cms.popupZone.PopupZone;
 import kr.co.whalesoft.app.cms.popupZone.PopupZoneService;
 import kr.co.whalesoft.app.cms.quickMenu.QuickMenu;
 import kr.co.whalesoft.app.cms.quickMenu.QuickMenuService;
-import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.framework.base.BaseController;
-import kr.co.whalesoft.framework.utils.PagingUtils;
 import kr.go.gbelib.app.cms.module.elib.best.BestService;
 import kr.go.gbelib.app.cms.module.elib.book.Book;
 import kr.go.gbelib.app.cms.module.facilityReq.FacilityReq;
@@ -61,9 +59,6 @@ public class IndexController extends BaseController {
 
 	@Autowired
 	private BoardService boardService;
-
-	@Autowired
-	private RecommendSiteService recommendSiteService;
 
 	@Autowired
 	private QuickMenuService quickMenuService;
@@ -233,45 +228,8 @@ public class IndexController extends BaseController {
 		model.addAttribute("popupList", popupService.getPopupAll(new Popup(homepage.getHomepage_id())));
 		model.addAttribute("popupZoneList", popupZoneService.getPopupZoneAll(new PopupZone(homepage.getHomepage_id())));
 		model.addAttribute("quickMenuList", quickMenuService.getQuickMenuListAll(new QuickMenu(homepage.getHomepage_id())));
-		//메인 강좌목록(예천,봉화,대표)
-		if ( homepage.getHomepage_id().equals("h23") || homepage.getHomepage_id().equals("h24") ) {
-			model.addAttribute("teachList", teachService.getMainViewTeachList(new Teach(homepage.getHomepage_id(), 2)));
-		}
-		else if ( homepage.getHomepage_id().equals("h1") ) {
-			model.addAttribute("teachList", teachService.getMainViewTeachListForAllHomepage(new Teach(null, 5)));
-		}
 
-		if (homepage.getHomepage_id().equals("h28")) {// 센터
-//			model.addAttribute("curationList", LibSearchAPI.getCuration());
-			model.addAttribute("nowSys", new Date());
-			model.addAttribute("h28noticeList", boardService.getBoardByMain(1, 3));// 공지사항
-			model.addAttribute("h28noticeList2", boardService.getBoardByMain(1, 7));// 공지사항
-			model.addAttribute("h28galleryList", boardService.getBoardByMain(8, 3));// 사진으로보는센터
-			model.addAttribute("h27galleryList2", boardService.getBoardByMain(33, 3));// 독서문화소식
-			model.addAttribute("news1_1List", boardService.getBoardByMain(2, 4));// 교육행정정보화소식
-			model.addAttribute("news1_2List", boardService.getBoardByMain(300, 4));// 학교정보화현장지원-자료실
-			model.addAttribute("news2_1List", boardService.getBoardByMain(31, 4));// 센터도서관-독서문화소식
-			model.addAttribute("news2_2List", boardService.getBoardByMain(23, 4));// 센터도서관-평생교육소식
-			model.addAttribute("h28noitceListAll", boardService.getBoardByMainAll(board));// 센터도서관-평생교육소식
-
-		}
-		else if (homepage.getHomepage_id().equals("h27")) {// 도서관
-//			2017.08.10 도서관서비스 폐쇄
-//			model.addAttribute("h27noticeList", boardService.getBoardByMain(31, 3));// 독서문화소식
-//			model.addAttribute("h27noticeList2", boardService.getBoardByMain(23, 4));// 평생교육소식
-//			model.addAttribute("h28noticeList", boardService.getBoardByMain(1, 2));// 공지사항
-//			model.addAttribute("h27bookList", boardService.getBoardByMain(10, 6));// 공지사항
-		}
-		else if (homepage.getHomepage_id().equals("h1")) {
-			PagingUtils pagingUtils = new PagingUtils();
-			pagingUtils.setRowCount(5);
-			model.addAttribute("noticeList", boardService.getAllHomepageBoardListByMain(pagingUtils));
-		}
-		else {
-			setBoardListToModel(homepage.getHomepage_id(), model);
-			// model.addAttribute("h27noticeList",
-			// boardService.getBoardByMain(43, 5));//공지사항
-		}
+		setBoardListToModel(homepage.getHomepage_id(), model);
 
 		// 전자도서관
 		if (homepage.getHomepage_id().equals("h30") || homepage.getHomepage_id().equals("h34")) {
@@ -286,16 +244,6 @@ public class IndexController extends BaseController {
 		log.debug("jsp Page : "+basePath + filePath);
 
 		return basePath + filePath;
-	}
-
-	private Map<String, Book> bestBookListToMap(List<Book> bookList) {
-		Map<String, Book> map = new HashMap<String, Book>();
-
-		for(Book book: bookList) {
-			map.put(String.valueOf(book.getPrint_seq()), book);
-		}
-
-		return map;
 	}
 
 	private void setBoardListToModel(String homepage_id, Model model) {
