@@ -18,6 +18,7 @@ import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.module.calendarStatus.CalendarStatus;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
+import kr.go.gbelib.app.intro.search.LibrarySearch;
 
 @Service
 public class CalendarManageService extends BaseService {
@@ -157,36 +158,43 @@ public class CalendarManageService extends BaseService {
 		return dao.deleteCalendarManage(calendarManage);
 	}
 
-	public int addCalendarManageFromILUS(CalendarManage calendarManage, Homepage homepage) {
+	public int addCalendarManageFromLas(CalendarManage calendarManage, Homepage homepage) {
 		int resultRow = 0;
-//		String[] libCodes = homepage.getHomepage_codeList();
-
+		
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, Integer.parseInt(calendarManage.getPlan_year()));
 		cal.set(Calendar.MONTH, Integer.parseInt(calendarManage.getPlan_month())-1);
-		String vSdate = calendarManage.getPlan_date().replace("-", "") + "01";
-		String vEdate = calendarManage.getPlan_date().replace("-", "") + cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-//		Map<String, Object> holiDays = LibSearchAPI.getHolidays(libCodes[0], vSdate, vEdate);
-//		@SuppressWarnings("unchecked")
-//		List<Map<String, Object>> list = (List<Map<String, Object>>) holiDays.get("dsHoliday");
-//		for (Map<String, Object> map : list) {
-//			String start_date = String.valueOf(map.get("HOLIDY_DATE"));
-//			start_date = getDashDate(start_date);
-//			if (StringUtils.isNotEmpty(start_date)) {
-//				calendarManage.setStart_date(start_date);
-//				calendarManage.setEnd_date(start_date);
-//				calendarManage.setStart_time("");
-//				calendarManage.setEnd_time("");
-//
-//				calendarManage.setTitle(String.valueOf(map.get("HOLIDY_NAME")));
-//				calendarManage.setContents(String.valueOf(map.get("REMARK")));
-//
-//				calendarManage.setDate_type("1");//휴관
-//				addCalendarManage(calendarManage);
-//				resultRow++;
-//			}
-//		}
+		String plan_date = calendarManage.getPlan_date();
+		int endDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+		
+		LibrarySearch librarySearch = new LibrarySearch();
+		librarySearch.setManageCode(homepage.getManage_code());
+		
+		for(int i = 1; i <= endDay; i++) {
+			String search_day = "0";
+			if(i < 10) {
+				search_day += i;
+			} else {
+				search_day = String.valueOf(i);
+			}
+			librarySearch.setSearch_start_date(plan_date.replace("-", "") + search_day);
+			Map<String, Object> holiDays = LibSearchAPI.getCheckHoliday(librarySearch);
+			
+			if(holiDays.get("RESULT_CODE").equals("1")) {
+				calendarManage.setStart_date(plan_date + "-" + search_day);
+				calendarManage.setEnd_date(plan_date + "-" + search_day);
+				calendarManage.setStart_time("");
+				calendarManage.setEnd_time("");
 
+				calendarManage.setTitle("휴관일");
+				calendarManage.setContents("자료시스템에서 가져온 휴관일 입니다.");
+
+				calendarManage.setDate_type("1");//휴관
+				addCalendarManage(calendarManage);
+				resultRow++;
+			}
+		}
+		
 		return resultRow;
 	}
 

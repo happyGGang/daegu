@@ -198,14 +198,14 @@ public class CalendarManageController extends BaseController {
 		return res;
 	}
 	
-	@RequestMapping(value = { "/getIlusHolidays.*" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/getLasHolidays.*" }, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse saveIlusHolidays(CalendarManage calendarManage, Homepage homepage, BindingResult result, HttpServletRequest request) {
 
 		JsonResponse res = new JsonResponse(request);
 
 		if (!result.hasErrors()) {
 			homepage = homepageService.getHomepageOne(homepage);
-			int resultRow = service.addCalendarManageFromILUS(calendarManage, homepage);
+			int resultRow = service.addCalendarManageFromLas(calendarManage, homepage);
 			res.setValid(true);
 			res.setMessage(resultRow+"건 등록 되었습니다.");
 		} else {

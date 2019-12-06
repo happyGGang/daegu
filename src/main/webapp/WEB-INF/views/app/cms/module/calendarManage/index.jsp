@@ -47,14 +47,14 @@ $(function(){
 	});
 
 	//모달창 링크 버튼
-	$('a#dialog-add-ilus').on('click', function(event) {
+	$('a#dialog-add-las').on('click', function(event) {
 		if($('#homepage_id_1').val() == null || $('#homepage_id_1').val() == "") {
 			alert("홈페이지를 선택 해 주세요.");
 			return false;
 		}
 		var date = $('select#plan_year option:selected').val() + '년 ' + $('select#plan_month option:selected').val() + '월';
 		if (confirm(date + '\n자료관리에서 휴관일정보를 가져오시겠습니까?\n\n* 자료관리에서 가져온 휴관일은 자동 등록되며 기존 등록된 데이터와 중복 될 수 있습니다.')) {
-			$('form#calendarManage').attr('action', 'getIlusHolidays.do');
+			$('form#calendarManage').attr('action', 'getLasHolidays.do');
 			$('form#calendarManage').attr('method', 'POST');
 			if (doAjaxPost($('form#calendarManage'))) {
 				location.reload();
@@ -174,7 +174,7 @@ $(function(){
 			<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>일정등록</span></a>
 		</div>
 		<div class="button btn-group inline">
-			<a href="" class="btn btn4 left" id="dialog-add-ilus"><i class="fa fa-plus"></i><span>자료관리 휴관일 가져오기</span></a>
+			<a href="" class="btn btn4 left" id="dialog-add-las"><i class="fa fa-plus"></i><span>자료관리 휴관일 가져오기</span></a>
 		</div>
 		</c:if>
 	</div>

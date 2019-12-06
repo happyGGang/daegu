@@ -836,6 +836,18 @@ public class LibSearchAPI {
 
 		return CommonAPI.sendKCMS("getmarc", param);
 	}
+	
+	public static Map<String, Object> getCheckHoliday(LibrarySearch librarySearch) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		Map<String, Object> result = null;
+
+		param.put("manage_code", librarySearch.getManageCode());
+		param.put("search_date", librarySearch.getSearch_start_date());
+
+		result = CommonAPI.sendKCMS("checkHoliday", param);
+
+		return result;
+	}
 
 	/**
 	 * === K.API 공통 ===
