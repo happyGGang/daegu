@@ -26,9 +26,6 @@ $(function() {
 	} else if ($('input.tmp_user_no[data-ci=Y]').length > 0) {
 		<%-- 2순위 자관 && CI가 있는 회원--%>
 		$('input.tmp_user_no[data-ci=N]').remove();
-	} else if ($('input.tmp_user_no[data-etc=Y]').length > 0) {
-		<%-- 3순위 자관 && CI가 없는 회원--%>
-		$('input.tmp_user_no[data-etc=N]').remove();
 	}
 
 	<%-- 첫번째 강제 선택 --%>
@@ -66,7 +63,7 @@ $(function() {
 				<c:forEach items="${integrationMemberList}" var="i" varStatus="status">
 				<tr>
 					<td>
-						<input type="radio" class="tmp_user_no" value="${i.USER_NO}" data-kl="${i.KL_MEMBER_YN}" data-ci="${i.ORDER2}" data-etc="${i.ORDER3}"/>
+						<input type="radio" class="tmp_user_no" value="${i.USER_NO}" data-kl="${i.KL_MEMBER_YN}" data-ci="${i.ORDER2}"/>
 					</td>
 					<td>${i.USER_NO}</td>
 					<td>${i.NAME}</td>

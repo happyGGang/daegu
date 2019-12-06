@@ -345,11 +345,19 @@ public class JoinController extends BaseController {
 			Map<String, Object> integrationMember = (Map<String, Object>) request.getSession().getAttribute("integrationMember");
 			int	order = Integer.parseInt(String.valueOf(integrationMember.get("INTEGRATION_ORDER")));
 
-			if (order == 1 || order == 2) {//1순위 - 책이음회원 //2순위 - 자관 && CI 있는 경우
+			if (order == 1 || order == 2) {//1순위 - 책이음회원 //2순위 - CI 있는 경우
 				request.getSession().setAttribute("integration", "o");
 				request.getSession().setAttribute("certMember", member);
-				model.addAttribute("integration", true);
-			} else {//3순위 - 자관 && CI 없는 경우
+
+				String selectedCi = (String) integrationMember.get("IPIN_HASH");
+
+				if (member.getCi_value().equals(selectedCi)) {
+					model.addAttribute("integration", true);
+				} else {
+					model.addAttribute("integrationFailed2", true);
+				}
+
+			} else {//3순위 - CI 없는 경우
 				List<Map<String, Object>> checkDupUser = MemberAPI.checkDupUser("1", member);
 				if (CollectionUtils.isEmpty(checkDupUser)) {
 					if (StringUtils.equals(member.getAge(), "2")) {//만14세미만인경우 보호자 인증을 받아야한다.
@@ -359,6 +367,7 @@ public class JoinController extends BaseController {
 					request.getSession().setAttribute("integration", "o");
 					request.getSession().setAttribute("certMember", member);
 				} else {
+					model.addAttribute("integrationFailedUserNo", checkDupUser.get(0).get("USER_NO"));
 					model.addAttribute("integrationFailed", true);
 					request.getSession().setAttribute("integrationFailed", "o");
 				}
@@ -762,7 +771,6 @@ public class JoinController extends BaseController {
 
 	@RequestMapping (value = {"/integration1.*"}, method = RequestMethod.POST)
 	public String integration1(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Homepage homepage = getSessionHomepage(request);
 
 		// 동일인 목록 가져오기
 		List<Map<String, Object>> checkDupUser = MemberAPI.checkDupUser("2", member);
@@ -770,20 +778,21 @@ public class JoinController extends BaseController {
 			joinService.alertMessage("일치하는 회원이 없습니다.", request, response);
 			return null;
 		} else {
-			for (Map<String, Object> map : checkDupUser) {
+			Member integrationMember = new Member();
+			integrationMember.setMember_name(String.valueOf(checkDupUser.get(0).get("NAME")));
+			integrationMember.setCell_phone(String.valueOf(checkDupUser.get(0).get("HANDPHONE")).replaceAll("-", ""));
+			integrationMember.setBirth_day(String.valueOf(checkDupUser.get(0).get("BIRTHDAY")).replaceAll("/", ""));
+
+			List<Map<String, Object>> integrationMemberList = MemberAPI.checkDupUser("4", integrationMember);
+			for (Map<String, Object> map : integrationMemberList) {
 				map.put("ORDER2", "N");
-				map.put("ORDER3", "N");
-				String manage_code = String.valueOf(map.get("MANAGE_CODE"));
 				String ipin_hash = String.valueOf(map.get("IPIN_HASH"));
-				if (homepage.getManage_code().equals(manage_code) && ipin_hash.length() > 80) {
+				if (ipin_hash.length() > 80) {
 					map.put("ORDER2", "Y");
-				} else if (homepage.getManage_code().equals(manage_code)) {
-					map.put("ORDER3", "Y");
 				}
 			}
 
-			request.getSession().setAttribute("integrationMemberList", checkDupUser);
-
+			request.getSession().setAttribute("integrationMemberList", integrationMemberList);
 		}
 
 		model.addAttribute("newMember", member);
@@ -828,6 +837,13 @@ public class JoinController extends BaseController {
 	@RequestMapping (value = {"/integration3.*"}, method = RequestMethod.POST)
 	public String integration3(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+		@SuppressWarnings ("unchecked")
+		Map<String, Object> integrationMember = (Map<String, Object>) request.getSession().getAttribute("integrationMember");
+
+		System.out.println(integrationMember.get("INTEGRATION_ORDER"));
+		System.out.println(integrationMember.get("USER_NO"));
+
+
 		// TODO 본인인증
 		// -> 1순위로 선택한 책이음 회원 정보일 경우에는 중복체크 하지 않고 통과
 		// -> 2순위로 선택한 자관 CI있는 회원정보일 경우에는 중복체크 하지 않고 통과
@@ -841,9 +857,36 @@ public class JoinController extends BaseController {
 	public String integration4(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 //		Homepage homepage = getSessionHomepage(request);
 
+		@SuppressWarnings ("unchecked")
+		Map<String, Object> integrationMember = (Map<String, Object>) request.getSession().getAttribute("integrationMember");
+		Member certMember = (Member) request.getSession().getAttribute("certMember");
+
+		String integrationOrder = String.valueOf(integrationMember.get("INTEGRATION_ORDER"));
+
+		if (certMember.getSex().equals("1")) {
+			certMember.setSex("0");// 남
+		} else {
+			certMember.setSex("1");// 여
+		}
+
+		model.addAttribute("newMember", certMember);
+		if (!"3".equals(integrationOrder)) {
+
+		} else {
+			List<Map<String, Object>> checkDupUser = MemberAPI.checkDupUser("1", certMember);
+			if (CollectionUtils.isNotEmpty(checkDupUser) && checkDupUser.size() > 0) {
+
+			} else {
+
+			}
+
+
+			model.addAttribute("newMember", member);
+		}
+
+
 		// TODO 정보입력
 		member.setEditMode("INTEGRATION");
-		model.addAttribute("newMember", member);
 		return basePath + "integration4";
 
 	}
