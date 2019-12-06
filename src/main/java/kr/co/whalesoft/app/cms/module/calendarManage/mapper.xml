@@ -273,15 +273,15 @@
    		FROM
 			(
 			SELECT
-				(A.BASE_MON + ROWNUM -1) AS days, A.BASE_MON, 
-				((TRUNC(BASE_MON + ROWNUM - 1, 'D') - TRUNC(TRUNC(BASE_MON + ROWNUM - 1, 'Y'), 'D')) / 7 + 1) AS WEEK_NUM
+				(A.base_mon + ROWNUM -1) AS days, A.base_mon, 
+				((TRUNC(base_mon + ROWNUM - 1, 'D') - TRUNC(TRUNC(base_mon + ROWNUM - 1, 'Y'), 'D')) / 7 + 1) AS WEEK_NUM
 			FROM
 				(
 				SELECT TO_DATE (#{plan_date}, 'yyyy-MM') base_mon FROM DUAL
 				) A, DICTIONARY B
 			) C
 		
-		WHERE C.DAYS <![CDATA[ <= ]]> LAST_DAY(BASE_MON)
+		WHERE C.DAYS <![CDATA[ <= ]]> LAST_DAY(base_mon)
   		GROUP BY WEEK_NUM
   		ORDER BY WEEK_NUM 
 	</select>
@@ -290,20 +290,23 @@
 		SELECT 
 			C.*,
 			TO_CHAR(c.days, 'd') AS weekday,
-			#{plan_date} AS plan_date
+			#{plan_date} AS PLAN_DATE
    		FROM
 			(
-			SELECT 
-				(A.xe + ROWNUM -1) AS days, 
-				A.BASE_MON, 
-				((TRUNC(BASE_MON + ROWNUM - 1, 'D') - TRUNC(TRUNC(BASE_MON + ROWNUM - 1, 'Y'), 'D')) / 7 + 1) AS week_num
+			SELECT
+				(A.base_mon + ROWNUM -1) AS days,
+				A.base_mon,
+				((TRUNC(base_mon + ROWNUM - 1, 'D') - TRUNC(TRUNC(base_mon + ROWNUM - 1, 'Y'), 'D')) / 7 + 1) AS week_num
 			FROM
 				(
-				SELECT TO_DATE (#{plan_date}, 'yyyy-MM') BASE_MON FROM DUAL
+				SELECT
+					TO_DATE(#{plan_date}, 'yyyy-MM') base_mon
+				FROM
+					DUAL
 				) A, DICTIONARY B
 			) C
-		
-		WHERE C.DAYS <![CDATA[ <= ]]> LAST_DAY(BASE_MON)
+		WHERE
+			C.DAYS <![CDATA[ <= ]]> LAST_DAY(base_mon)
 	</select>
 	
 	<!-- 일정 통계 일별 -->
