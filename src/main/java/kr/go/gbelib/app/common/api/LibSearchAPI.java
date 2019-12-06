@@ -816,6 +816,27 @@ public class LibSearchAPI {
 	}
 
 	/**
+	 * K.API - 66
+	 *
+	 * 휴관일 여부 조회
+	 *
+	 * @author whalesoft YONGJU 2019. 12. 6.
+	 * @param librarySearch
+	 * @return
+	 */
+	public static Map<String, Object> getCheckHoliday(LibrarySearch librarySearch) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		Map<String, Object> result = null;
+
+		param.put("manage_code", librarySearch.getManageCode());
+		param.put("search_date", librarySearch.getSearch_start_date());
+
+		result = CommonAPI.sendKCMS("checkHoliday", param);
+
+		return result;
+	}
+
+	/**
 	 * K.API - 74
 	 *
 	 * MARC 조회
@@ -835,18 +856,6 @@ public class LibSearchAPI {
 		}
 
 		return CommonAPI.sendKCMS("getmarc", param);
-	}
-	
-	public static Map<String, Object> getCheckHoliday(LibrarySearch librarySearch) {
-		Map<String, Object> param = new HashMap<String, Object>();
-		Map<String, Object> result = null;
-
-		param.put("manage_code", librarySearch.getManageCode());
-		param.put("search_date", librarySearch.getSearch_start_date());
-
-		result = CommonAPI.sendKCMS("checkHoliday", param);
-
-		return result;
 	}
 
 	/**
@@ -1336,7 +1345,5 @@ public class LibSearchAPI {
 
 		return result;
 	}
-
-
 
 }
