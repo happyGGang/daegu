@@ -15,12 +15,15 @@
 			<include refid="field" />	
 		FROM 
 			CMS_CALENDAR_MANAGE
-		WHERE HOMEPAGE_ID = #{homepage_id}
-	 <if test="plan_date != null and plan_date != ''">
-	 	AND (substr(start_date,1,7) = #{plan_date}
-	 	OR substr(end_date,1,7) = #{plan_date})
-	 </if>
-	 	AND DELETE_YN = 'N'
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test="plan_date != null and plan_date != ''">
+		AND	(
+			SUBSTR(start_date,1,7) = #{plan_date}
+			OR SUBSTR(end_date,1,7) = #{plan_date}
+		)
+		</if>
+		AND	delete_yn = 'N'
 	</select>
 	
 	<select id="getCalendarManageOne" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">
@@ -33,14 +36,14 @@
 				THEN '0'
 				ELSE weekday
 			END weekday,
-			(SELECT COUNT(*) FROM CMS_CALENDAR_MANAGE B WHERE b.group_idx = a.group_idx) as group_count
-		FROM 
+			(SELECT COUNT(*) FROM CMS_CALENDAR_MANAGE b WHERE b.group_idx = a.group_idx) AS group_count
+		FROM
 			CMS_CALENDAR_MANAGE a
 		WHERE
-			HOMEPAGE_ID = #{homepage_id} AND CM_IDX = #{cm_idx}
-		AND
-			DATE_TYPE = #{date_type}
-		AND DELETE_YN = 'N'
+			homepage_id = #{homepage_id}
+		AND	cm_idx = #{cm_idx}
+		AND	date_type = #{date_type}
+		AND	delete_yn = 'N'
 	</select>
 	
 	<select id="getCalendarManageOne2" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">
@@ -52,10 +55,10 @@
 		FROM 
 			CMS_CALENDAR_MANAGE a
 		WHERE
-			HOMEPAGE_ID = #{homepage_id} 
-		AND	DATE_TYPE = #{date_type}
+			homepage_id = #{homepage_id} 
+		AND	date_type = #{date_type}
 		AND	group_idx = #{group_idx}
-		AND DELETE_YN = 'N'
+		AND	delete_yn = 'N'
 	</select>
 	
 	<select id="getCalendarManageCheckCount" resultType="int">
@@ -64,30 +67,32 @@
 		FROM 
 			CMS_CALENDAR_MANAGE a
 		WHERE
-			HOMEPAGE_ID = #{homepage_id} 
+			homepage_id = #{homepage_id} 
 		AND	start_date = #{start_date}
 		AND	end_date = #{end_date}
 		AND	group_idx = #{group_idx_tmp}
-		AND individual_yn = 'Y'
-		AND DELETE_YN = 'N'
+		AND	individual_yn = 'Y'
+		AND	delete_yn = 'N'
 	</select>
 	
 	<!-- 휴관일 가져오기 -->
 	<select id="getClosedDate" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">
 		SELECT			
-			TO_CHAR(TO_DATE(START_DATE,'YYYY-MM-DD'),'YYYY-MM-DD') AS START_DATE,
-			TO_CHAR(TO_DATE(END_DATE,'YYYY-MM-DD'),'YYYY-MM-DD') AS END_DATE,
+			TO_CHAR(TO_DATE(start_date,'YYYY-MM-DD'),'YYYY-MM-DD') AS start_date,
+			TO_CHAR(TO_DATE(end_date,'YYYY-MM-DD'),'YYYY-MM-DD') AS end_date,
 			homepage_id, cm_idx, start_time, end_time, title, contents, date_type, link_url
 		FROM 
 			CMS_CALENDAR_MANAGE
 		WHERE
-			HOMEPAGE_ID = #{homepage_id} AND
-			DATE_TYPE = '1' AND
-			DELETE_YN = 'N'
-			<if test="plan_date != null and plan_date != ''">
-		 		AND (substr(start_date,1,7) = #{plan_date}
-		 		OR substr(end_date,1,7) = #{plan_date})
-			</if>
+			homepage_id = #{homepage_id
+		AND	date_type = '1'
+		AND	delete_yn = 'N'
+		<if test="plan_date != null and plan_date != ''">
+ 		AND	(
+ 			SUBSTR(start_date,1,7) = #{plan_date}
+ 			OR SUBSTR(end_date,1,7) = #{plan_date}
+ 			)
+		</if>
 	</select>
 	
 	<!-- 휴관일 가져오기 -->
@@ -96,18 +101,20 @@
 			mm, LISTAGG(dd,', ') WITHIN GROUP (ORDER BY mm, dd) AS dd
 		FROM (
 			SELECT
-				substr(start_date,6,2) as mm,
-				substr(start_date,9,2) as dd
-			FROM ( 
-					SELECT
-						distinct start_date
-					FROM CMS_CALENDAR_MANAGE
-					WHERE
-						HOMEPAGE_ID = #{homepage_id}
-						AND date_type = '1'
-						AND	DELETE_YN = 'N'
-						AND	substr(start_date,1,7) = #{plan_date}
-				) ORDER BY DD	
+				SUBSTR(start_date,6,2) as mm,
+				SUBSTR(start_date,9,2) as dd
+			FROM (
+				SELECT
+					distinct start_date
+				FROM
+					CMS_CALENDAR_MANAGE
+				WHERE
+					homepage_id = #{homepage_id}
+				AND	date_type = '1'
+				AND	delete_yn = 'N'
+				AND	SUBSTR(start_date,1,7) = #{plan_date}
+				)
+			ORDER BY DD	
 			)
 		GROUP BY mm
 	</select>
@@ -118,18 +125,20 @@
 			mm, LISTAGG(dd,', ') WITHIN GROUP (ORDER BY mm, dd) AS dd
 		FROM (
 			SELECT
-				substr(start_date,6,2) as mm,
-				substr(start_date,9,2) || '(' || to_char(to_date(start_date),'dy') || ')' as dd
+				SUBSTR(start_date,6,2) as mm,
+				SUBSTR(start_date,9,2) || '(' || to_char(to_date(start_date),'dy') || ')' as dd
 			FROM ( 
-					SELECT
-						distinct start_date
-					FROM CMS_CALENDAR_MANAGE
-					WHERE
-						HOMEPAGE_ID = #{homepage_id}
-						AND date_type = '1'
-						AND	DELETE_YN = 'N'
-						AND	substr(start_date,1,7) = #{plan_date}
-				) ORDER BY DD	
+				SELECT
+					distinct start_date
+				FROM
+					CMS_CALENDAR_MANAGE
+				WHERE
+					homepage_id = #{homepage_id}
+				AND	date_type = '1'
+				AND	delete_yn = 'N'
+				AND	SUBSTR(start_date,1,7) = #{plan_date}
+				)
+			ORDER BY DD	
 			)
 		GROUP BY mm
 	</select>
@@ -140,15 +149,18 @@
 			<include refid="field" />	
 		FROM 
 			CMS_CALENDAR_MANAGE
-		WHERE HOMEPAGE_ID = #{homepage_id}
-	<if test="date_type != null and date_type != ''">
-		 AND date_type = #{date_type}
-	 </if>
-	 <if test="plan_date != null and plan_date != ''">
-	 	AND (substr(start_date,1,7) = #{plan_date}
-	 	OR substr(end_date,1,7) = #{plan_date})
-	 </if>
-	 	AND DELETE_YN = 'N'
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test="date_type != null and date_type != ''">
+		AND	date_type = #{date_type}
+	 	</if>
+	 	<if test="plan_date != null and plan_date != ''">
+	 	AND	(
+	 		SUBSTR(start_date,1,7) = #{plan_date}
+	 		OR SUBSTR(end_date,1,7) = #{plan_date}
+	 		)
+		</if>
+	 	AND	delete_yn = 'N'
 	</select>
 	
 	<!-- 휴관일 포함여부체크 -->
@@ -158,23 +170,27 @@
 		FROM 
 			CMS_CALENDAR_MANAGE
 		WHERE 
-			HOMEPAGE_ID = #{homepage_id} AND 
-			DATE_TYPE = '1' AND 
-			DELETE_YN = 'N' AND
-			START_DATE <![CDATA[<=]]> #{end_date} AND
-			END_DATE <![CDATA[>=]]> #{start_date}
+			homepage_id = #{homepage_id}
+		AND	date_type = '1'
+		AND	delete_yn = 'N'
+		AND	START_DATE <![CDATA[<=]]> #{end_date}
+		AND	END_DATE <![CDATA[>=]]> #{start_date}
 	</select>
 	
 	<!-- 일정관리 등록 -->
 	<insert id="addCalendarManage">
-		INSERT INTO CMS_CALENDAR_MANAGE (
-		   		HOMEPAGE_ID, CM_IDX, START_DATE, START_TIME, END_DATE, 
-				END_TIME, TITLE, CONTENTS, DATE_TYPE, link_url, group_idx,
-				individual_yn, weekday
-	   )VALUES (
-	   		#{homepage_id}, (SELECT NVL(MAX(cm_idx),0)+1 FROM CMS_CALENDAR_MANAGE ), #{start_date}, #{start_time}, #{end_date},
-	   		#{end_time}, #{title}, #{contents}, #{date_type}, #{link_url}, #{group_idx},
-	   		'N', #{weekday}
+		INSERT INTO
+			CMS_CALENDAR_MANAGE
+		(
+			homepage_id, cm_idx, START_DATE, START_TIME, END_DATE, 
+			END_TIME, TITLE, CONTENTS, date_type, link_url, group_idx,
+			individual_yn, weekday
+		)
+		VALUES
+		(
+			#{homepage_id}, (SELECT NVL(MAX(cm_idx),0)+1 FROM CMS_CALENDAR_MANAGE ), #{start_date}, #{start_time}, #{end_date},
+			#{end_time}, #{title}, #{contents}, #{date_type}, #{link_url}, #{group_idx},
+			'N', #{weekday}
 		)
 	</insert>
 	
@@ -192,17 +208,17 @@
 			individual_yn = #{individual_yn},
 			weekday = #{weekday}
 		WHERE
-			HOMEPAGE_ID = #{homepage_id} 
-		AND DELETE_YN = 'N'
+			homepage_id = #{homepage_id} 
+		AND	delete_yn = 'N'
 		<if test='individual_yn2 == "Y"'>
-		AND CM_IDX = #{cm_idx} 
+		AND	cm_idx = #{cm_idx} 
 		</if>
 		<if test='individual_yn2 == "N"'>
-		AND group_idx = #{group_idx} 
+		AND	group_idx = #{group_idx} 
 		</if>
 		<if test='individual_yn2 == "E"'>
-		AND group_idx = #{group_idx} 
-		AND individual_yn != 'Y' 
+		AND	group_idx = #{group_idx} 
+		AND	individual_yn != 'Y' 
 		</if>
 	</update>
 	
@@ -210,18 +226,18 @@
 		UPDATE
 			CMS_CALENDAR_MANAGE
 		SET
-			DELETE_YN = 'Y'
+			delete_yn = 'Y'
 		WHERE
-			HOMEPAGE_ID = #{homepage_id}
+			homepage_id = #{homepage_id}
 		<if test='individual_yn2 == "Y"'>
-		AND CM_IDX = #{cm_idx} 
+		AND	cm_idx = #{cm_idx} 
 		</if>
 		<if test='individual_yn2 == "N"'>
-		AND group_idx = #{group_idx} 
+		AND	group_idx = #{group_idx} 
 		</if>
 		<if test='individual_yn2 == "E"'>
-		AND group_idx = #{group_idx}
-		AND individual_yn != 'Y' 
+		AND	group_idx = #{group_idx}
+		AND	individual_yn != 'Y' 
 		</if> 
 	</delete>
 	
@@ -229,38 +245,41 @@
 		UPDATE
 			CMS_CALENDAR_MANAGE
 		SET
-			DELETE_YN = 'Y'
+			delete_yn = 'Y'
 		WHERE
-			HOMEPAGE_ID = #{homepage_id} 
+			homepage_id = #{homepage_id} 
 		<if test='individual_yn2 == "Y"'>
-		AND CM_IDX = #{cm_idx} 
+		AND	cm_idx = #{cm_idx} 
 		</if>
 		<if test='individual_yn2 == "N"'>
-		AND group_idx = #{group_idx} 
+		AND	group_idx = #{group_idx} 
 		</if>
 		<if test='individual_yn2 == "E"'>
-		AND group_idx = #{group_idx}
-		AND individual_yn != 'Y' 
+		AND	group_idx = #{group_idx}
+		AND	individual_yn != 'Y' 
 		</if> 
 	</delete>
 	
 	<select id="getCalendar" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">
 		SELECT 
-			MIN( DECODE( TO_CHAR(DAYS, 'D'), 1, TO_CHAR(DAYS, 'FMDD'))) as SUN,
-			MIN( DECODE( TO_CHAR(DAYS, 'D'), 2, TO_CHAR(DAYS, 'FMDD'))) as MON,
-			MIN( DECODE( TO_CHAR(DAYS, 'D'), 3, TO_CHAR(DAYS, 'FMDD'))) as TUE,
-			MIN( DECODE( TO_CHAR(DAYS, 'D'), 4, TO_CHAR(DAYS, 'FMDD'))) as WED,
-			MIN( DECODE( TO_CHAR(DAYS, 'D'), 5, TO_CHAR(DAYS, 'FMDD'))) as THU,
-			MIN( DECODE( TO_CHAR(DAYS, 'D'), 6, TO_CHAR(DAYS, 'FMDD'))) as FRI,
-			MIN( DECODE( TO_CHAR(DAYS, 'D'), 7, TO_CHAR(DAYS, 'FMDD'))) as SAT,
-			#{plan_date} AS PLAN_DATE
+			MIN( DECODE( TO_CHAR(days, 'D'), 1, TO_CHAR(days, 'FMDD'))) as sun,
+			MIN( DECODE( TO_CHAR(days, 'D'), 2, TO_CHAR(days, 'FMDD'))) as mon,
+			MIN( DECODE( TO_CHAR(days, 'D'), 3, TO_CHAR(days, 'FMDD'))) as tue,
+			MIN( DECODE( TO_CHAR(days, 'D'), 4, TO_CHAR(days, 'FMDD'))) as wed,
+			MIN( DECODE( TO_CHAR(days, 'D'), 5, TO_CHAR(days, 'FMDD'))) as thu,
+			MIN( DECODE( TO_CHAR(days, 'D'), 6, TO_CHAR(days, 'FMDD'))) as fri,
+			MIN( DECODE( TO_CHAR(days, 'D'), 7, TO_CHAR(days, 'FMDD'))) as sat,
+			#{plan_date} AS plan_date
    		FROM
-		(
-			SELECT 
-			(A.BASE_MON + ROWNUM -1) AS days, 
-			A.BASE_MON, 
-			((TRUNC(BASE_MON + ROWNUM - 1, 'D') - TRUNC(TRUNC(BASE_MON + ROWNUM - 1, 'Y'), 'D')) / 7 + 1) AS WEEK_NUM FROM (SELECT TO_DATE (#{plan_date}, 'yyyy-MM') BASE_MON FROM DUAL) A, DICTIONARY B
-		) C
+			(
+			SELECT
+				(A.BASE_MON + ROWNUM -1) AS days, A.BASE_MON, 
+				((TRUNC(BASE_MON + ROWNUM - 1, 'D') - TRUNC(TRUNC(BASE_MON + ROWNUM - 1, 'Y'), 'D')) / 7 + 1) AS WEEK_NUM
+			FROM
+				(
+				SELECT TO_DATE (#{plan_date}, 'yyyy-MM') base_mon FROM DUAL
+				) A, DICTIONARY B
+			) C
 		
 		WHERE C.DAYS <![CDATA[ <= ]]> LAST_DAY(BASE_MON)
   		GROUP BY WEEK_NUM
@@ -271,14 +290,18 @@
 		SELECT 
 			C.*,
 			TO_CHAR(c.days, 'd') AS weekday,
-			#{plan_date} AS PLAN_DATE
+			#{plan_date} AS plan_date
    		FROM
-		(
+			(
 			SELECT 
-			(A.BASE_MON + ROWNUM -1) AS days, 
-			A.BASE_MON, 
-			((TRUNC(BASE_MON + ROWNUM - 1, 'D') - TRUNC(TRUNC(BASE_MON + ROWNUM - 1, 'Y'), 'D')) / 7 + 1) AS WEEK_NUM FROM (SELECT TO_DATE (#{plan_date}, 'yyyy-MM') BASE_MON FROM DUAL) A, DICTIONARY B
-		) C
+				(A.xe + ROWNUM -1) AS days, 
+				A.BASE_MON, 
+				((TRUNC(BASE_MON + ROWNUM - 1, 'D') - TRUNC(TRUNC(BASE_MON + ROWNUM - 1, 'Y'), 'D')) / 7 + 1) AS week_num
+			FROM
+				(
+				SELECT TO_DATE (#{plan_date}, 'yyyy-MM') BASE_MON FROM DUAL
+				) A, DICTIONARY B
+			) C
 		
 		WHERE C.DAYS <![CDATA[ <= ]]> LAST_DAY(BASE_MON)
 	</select>
@@ -296,8 +319,8 @@
 						COUNT(*) AS COUNT
 					FROM CMS_CALENDAR_MANAGE
 					WHERE
-						DELETE_YN = 'N' AND
-						HOMEPAGE_ID = #{homepage_id}
+						delete_yn = 'N' AND
+						homepage_id = #{homepage_id}
 					GROUP BY START_DATE, END_DATE 
 				)
 			CONNECT BY START_DATE + LEVEL -1  <![CDATA[<=]]>  END_DATE
@@ -326,8 +349,8 @@
 							COUNT(*) AS COUNT
 						FROM CMS_CALENDAR_MANAGE
 						WHERE
-							DELETE_YN = 'N' AND
-							HOMEPAGE_ID = #{homepage_id}
+							delete_yn = 'N' AND
+							homepage_id = #{homepage_id}
 						GROUP BY START_DATE, END_DATE 
 					)
 				CONNECT BY START_DATE + LEVEL -1  <![CDATA[<=]]>  END_DATE
@@ -348,29 +371,31 @@
 		FROM 
 			(
 			SELECT 
-				TO_CHAR(START_DATE, 'YYYY') AS START_DATE, SUM(COUNT) AS COUNT
+				TO_CHAR(START_DATE, 'YYYY') AS start_date, SUM(count) AS count
 			FROM (
-				SELECT DISTINCT(START_DATE + LEVEL -1) AS START_DATE, COUNT
-					FROM (
-						SELECT
-							TO_DATE(START_DATE, 'YYYY-MM-DD') AS START_DATE,
-							TO_DATE(END_DATE, 'YYYY-MM-DD') AS END_DATE,
-							COUNT(*) AS COUNT
-						FROM CMS_CALENDAR_MANAGE
-						WHERE
-							DELETE_YN = 'N' AND
-							HOMEPAGE_ID = #{homepage_id}
-						GROUP BY START_DATE, END_DATE 
+				SELECT
+					DISTINCT(START_DATE + LEVEL -1) AS start_date, count
+				FROM (
+					SELECT
+						TO_DATE(START_DATE, 'YYYY-MM-DD') AS start_date,
+						TO_DATE(END_DATE, 'YYYY-MM-DD') AS end_date,
+						COUNT(*) AS count
+					FROM
+						CMS_CALENDAR_MANAGE
+					WHERE
+						delete_yn = 'N' AND
+						homepage_id = #{homepage_id}
+					GROUP BY start_date, end_date
 					)
-				CONNECT BY START_DATE + LEVEL -1  <![CDATA[<=]]>  END_DATE
-				order by start_date desc
+				CONNECT BY start_date + LEVEL -1  <![CDATA[<=]]>  end_date
+				ORDER BY start_date DESC
 				)
 			WHERE								
-				TO_CHAR(START_DATE,'YYYY') BETWEEN #{start_year} and #{end_year}				
-			GROUP BY  START_DATE
+				TO_CHAR(start_date,'YYYY') BETWEEN #{start_year} AND #{end_year}				
+			GROUP BY start_date
 			)
-		GROUP BY ROLLUP (START_DATE)
-		ORDER BY START_DATE DESC
+		GROUP BY ROLLUP (start_date)
+		ORDER BY start_date DESC
 	</select>
 
 	<select id="getNextCmIdx" resultType="int">
@@ -393,10 +418,10 @@
 		FROM
 			CMS_CALENDAR_MANAGE
 		WHERE
-			HOMEPAGE_ID = #{homepage_id}
-		AND DATE_TYPE = '1'
-		AND	DELETE_YN = 'N'
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') BETWEEN start_date AND end_date
+			homepage_id = #{homepage_id}
+		AND	date_type = '1'
+		AND	delete_yn = 'N'
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD') BETWEEN start_date AND end_date
 	</select>
 	
 </mapper>

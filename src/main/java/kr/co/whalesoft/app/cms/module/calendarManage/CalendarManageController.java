@@ -2,9 +2,12 @@ package kr.co.whalesoft.app.cms.module.calendarManage;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,11 +17,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import kr.co.whalesoft.app.board.Board;
 import kr.co.whalesoft.app.board.BoardService;
 import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
+import kr.co.whalesoft.app.cms.module.excursions.apply.Apply;
 import kr.co.whalesoft.app.cms.module.excursions.apply.ApplyService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
@@ -73,15 +78,21 @@ public class CalendarManageController extends BaseController {
 		board.setHomepage_id(calendarManage.getHomepage_id());
 		board.setImsi_v_1(calendarManage.getPlan_date());
 		
-		model.addAttribute("moveList", boardService.getBoardMovie(board));
+		//TODO 게시판 완료시 null 삭제
+//		model.addAttribute("moveList", boardService.getBoardMovie(board));
+		model.addAttribute("moveList", null);
 
 		model.addAttribute("calendarList", service.getCalendar(calendarManage));
 		model.addAttribute("calendarListType", service.getCalendarListType(calendarManage));
 		model.addAttribute("calendarManage", calendarManage);
 		model.addAttribute("calendarManageList",service.getCalendarManage(calendarManage));
-		model.addAttribute("okApplyList",applyService.getOkApply(calendarManage));
-		model.addAttribute("teachList",teachService.getTeachListForCalendar(calendarManage));
-		model.addAttribute("facilityReqList",facilityReqService.getFacilityReqCalendar(calendarManage));
+//		model.addAttribute("okApplyList",applyService.getOkApply(calendarManage));
+//		model.addAttribute("teachList",teachService.getTeachListForCalendar(calendarManage));
+//		model.addAttribute("facilityReqList",facilityReqService.getFacilityReqCalendar(calendarManage));
+		//TODO 강좌완료시 null 삭재
+		model.addAttribute("okApplyList", new ArrayList<Apply>());
+		model.addAttribute("teachList", null);
+		model.addAttribute("facilityReqList", null);
 		model.addAttribute("url", url);
 		return basePath + "index" + url;
 	}
