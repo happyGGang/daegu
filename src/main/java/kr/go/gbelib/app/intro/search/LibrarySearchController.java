@@ -47,10 +47,10 @@ public class LibrarySearchController extends BaseController {
 
 	@Autowired
 	private HomepageService homepageService;
-	
+
 	@Autowired
 	private HopebookConfigService hopebookConfigService;
-	
+
 	@Autowired
 	private LasReqConfigService lasReqConfigService;
 
@@ -176,15 +176,15 @@ public class LibrarySearchController extends BaseController {
 			librarySearch.setLibCode(String.valueOf(map.get("LIB_CODE")));
 			librarySearch.setSpeciesKey(String.valueOf(map.get("SPECIES_KEY")));
 
-			Map<String, Object> sanghoReqYn = LibSearchAPI.sanghoReqYn(librarySearch);
-			@SuppressWarnings ("unchecked")
-			Map<String, Object> sanghoReqYnResult = (Map<String, Object>) sanghoReqYn.get("ITEM");
+//			Map<String, Object> sanghoReqYn = LibSearchAPI.sanghoReqYn(librarySearch);
+//			@SuppressWarnings ("unchecked")
+//			Map<String, Object> sanghoReqYnResult = (Map<String, Object>) sanghoReqYn.get("ITEM");
 
 			map.put("SANGHO_REQ_YN", "N");
-			if (sanghoReqYnResult.containsKey("RESULT") && String.valueOf(sanghoReqYnResult.get("RESULT")).equals("OK")) {
-				// 정상 신청가능
-				map.put("SANGHO_REQ_YN", "Y");
-			}
+//			if (sanghoReqYnResult.containsKey("RESULT") && String.valueOf(sanghoReqYnResult.get("RESULT")).equals("OK")) {
+//				// 정상 신청가능
+//				map.put("SANGHO_REQ_YN", "Y");
+//			}
 
 			model.addAttribute("detail", map);
 		}
@@ -462,7 +462,7 @@ public class LibrarySearchController extends BaseController {
 			if ( librarySearch.getEditMode().equals("ADD") ) {
 
 			} else if ( librarySearch.getEditMode().equals("RENEW") ) {
-				
+
 				// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
 				LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0002");
 				if(lasReqConfig != null) {
@@ -555,7 +555,7 @@ public class LibrarySearchController extends BaseController {
 
 			librarySearch.setUserkey(member.getRec_key());
 			if (librarySearch.getEditMode().equals("ADD")) {
-				
+
 				// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
 				LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0001");
 				if(lasReqConfig != null) {
@@ -563,7 +563,7 @@ public class LibrarySearchController extends BaseController {
 					res.setMessage(lasReqConfig.getRes_msg());
 					return res;
 				}
-				
+
 				ApiResponse apiResult = LibSearchAPI.reqResve(librarySearch);
 				if (apiResult.getStatus()) {
 					res.setValid(true);
@@ -1087,7 +1087,7 @@ public class LibrarySearchController extends BaseController {
 			}
 
 			if ( librarySearch.getEditMode().equals("ADD") ) {
-				
+
 				Homepage homepage = getSessionHomepage(request);
 				HopebookConfig hopebookConfig = hopebookConfigService.getHopebookConfigInfo(homepage.getHomepage_id());
 				if(hopebookConfig != null) {
@@ -1217,7 +1217,7 @@ public class LibrarySearchController extends BaseController {
 				res.setMessage("예약 신청 가능한 회원이 아닙니다.");
 				return res;
 			}
-			
+
 			// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
 			LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0004");
 			if(lasReqConfig != null) {
@@ -1311,7 +1311,7 @@ public class LibrarySearchController extends BaseController {
 				res.setMessage("예약 신청 가능한 회원이 아닙니다.");
 				return res;
 			}
-			
+
 			// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
 			LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0003");
 			if(lasReqConfig != null) {

@@ -159,15 +159,15 @@ public class CommonSearchController extends BaseController {
 			librarySearch.setLibCode(String.valueOf(map.get("LIB_CODE")));
 			librarySearch.setSpeciesKey(String.valueOf(map.get("SPECIES_KEY")));
 
-			Map<String, Object> sanghoReqYn = LibSearchAPI.sanghoReqYn(librarySearch);
-			@SuppressWarnings ("unchecked")
-			Map<String, Object> sanghoReqYnResult = (Map<String, Object>) sanghoReqYn.get("ITEM");
+//			Map<String, Object> sanghoReqYn = LibSearchAPI.sanghoReqYn(librarySearch);
+//			@SuppressWarnings ("unchecked")
+//			Map<String, Object> sanghoReqYnResult = (Map<String, Object>) sanghoReqYn.get("ITEM");
 
 			map.put("SANGHO_REQ_YN", "N");
-			if (sanghoReqYnResult.containsKey("RESULT") && String.valueOf(sanghoReqYnResult.get("RESULT")).equals("OK")) {
-				// 정상 신청가능
-				map.put("SANGHO_REQ_YN", "Y");
-			}
+//			if (sanghoReqYnResult.containsKey("RESULT") && String.valueOf(sanghoReqYnResult.get("RESULT")).equals("OK")) {
+//				// 정상 신청가능
+//				map.put("SANGHO_REQ_YN", "Y");
+//			}
 
 			model.addAttribute("detail", map);
 		}
@@ -624,7 +624,7 @@ public class CommonSearchController extends BaseController {
 					res.setMessage(hopebookConfig.getRes_msg());
 					return res;
 				}
-				
+
 				//웹필터 체크
 //				StringBuilder sb = new StringBuilder();
 //				sb.append(librarySearch.getEditMode() + "\n");
@@ -870,7 +870,7 @@ public class CommonSearchController extends BaseController {
 		if (!result.hasErrors()) {
 
 			if (librarySearch.getEditMode().equals("RENEW")) {
-				
+
 				// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
 				LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0002");
 				if(lasReqConfig != null) {
