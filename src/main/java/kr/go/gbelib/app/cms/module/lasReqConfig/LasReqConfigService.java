@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,6 +64,7 @@ public class LasReqConfigService extends BaseService {
 		lasReqConfig.getLas_config_list().add(null);
 		lasReqConfig.getLas_config_list().add(null);
 		lasReqConfig.getLas_config_list().add(null);
+		lasReqConfig.getLas_config_list().add(null);
 		
 		for(int j = 0; j < list.size(); j++) {
 			LasReqConfig one = list.get(j);
@@ -72,10 +72,11 @@ public class LasReqConfigService extends BaseService {
 			if(one.getLas_req_code().equals("0001")) {
 				lasReqConfig.getLas_config_list().set(0, one);
 			} else if(one.getLas_req_code().equals("0002")) {
-				
 				lasReqConfig.getLas_config_list().set(1, one);
 			} else if(one.getLas_req_code().equals("0003")) {
 				lasReqConfig.getLas_config_list().set(2, one);
+			} else if(one.getLas_req_code().equals("0004")) {
+				lasReqConfig.getLas_config_list().set(3, one);
 			}
 		}
 		
