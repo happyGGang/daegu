@@ -28,8 +28,10 @@ public class HopebookConfigController extends BaseController {
 	
 	@RequestMapping(value = {"/index.*"}, method = RequestMethod.GET)
 	public String index(Model model, HopebookConfig hopebookConfig, HttpServletRequest request) {
-		hopebookConfig.setHomepage_id(getAsideHomepageId(request));
-		Homepage homepage = getHomepageOne(hopebookConfig.getHomepage_id());
+//		hopebookConfig.setHomepage_id(getAsideHomepageId(request));
+//		Homepage homepage = getHomepageOne(hopebookConfig.getHomepage_id());
+		Homepage homepage = getSessionHomepageInfo(request);
+		hopebookConfig.setHomepage_id(homepage.getHomepage_id());
 		
 		model.addAttribute("hopebookConfig", hopebookConfig);
 		model.addAttribute("hopebookConfigList", service.getHopebookList(hopebookConfig));

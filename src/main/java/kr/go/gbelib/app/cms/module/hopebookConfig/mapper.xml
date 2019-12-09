@@ -4,7 +4,7 @@
 	
 	<sql id="field">
 		homepage_id, TO_CHAR(str_date, 'yyyy-MM-dd') AS str_date, TO_CHAR(end_date, 'yyyy-MM-dd') AS end_date, TO_CHAR(str_date, 'HH24:mi') AS str_time, TO_CHAR(end_date, 'HH24:mi') AS end_time, 
-		res_msg, use_yn, add_date, add_id, mod_date, mod_id
+		res_msg, use_yn, add_date, add_id, modify_date, modify_id
 	</sql>
 	
 	<select id="getHopebookList" resultType="kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfig">
@@ -39,8 +39,8 @@
 				end_date = TO_DATE(#{end_date}, 'yyyy-MM-dd HH24:mi'),
 				res_msg = #{res_msg},
 				use_yn = #{use_yn},
-				mod_date = SYSDATE,
-				mod_id = #{add_id}
+				modify_date = SYSDATE,
+				modify_id = #{add_id}
 		WHEN NOT MATCHED THEN
 			INSERT
 			(
