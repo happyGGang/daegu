@@ -70,10 +70,10 @@ public class MemberAPI {
 			if (StringUtils.isNotEmpty(member.getAddress1())) {
 				param.put("h_addr1", URLEncoder.encode(member.getAddress1(), "UTF-8"));//집주소
 			}
-			if (StringUtils.isNotBlank(member.getSms_service_yn())) {
+			if (StringUtils.isNotEmpty(member.getSms_service_yn())) {
 				param.put("sms_use_yn", member.getSms_service_yn());//SMS수신여부 Y/N
 			}
-			if (StringUtils.isNotBlank(member.getEmail_service_yn())) {
+			if (StringUtils.isNotEmpty(member.getEmail_service_yn())) {
 				param.put("mailing_use_yn", member.getEmail_service_yn());//이메일수신여부 Y/N
 			}
 			if (StringUtils.isNotEmpty(member.getSex())) {
