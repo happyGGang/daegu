@@ -54,11 +54,14 @@
 /********************검색박스_상세검색********************/
 .search-form .detail_search {padding:30px 20px;border:1px solid #ccc;border-top:2px solid #000;}
 .search-form .detail_search .section{width:100%;display:inline-block;overflow:hidden;}
-.search-form .detail_search .section dl{position:relative;display:inline-block;float:left;width:46%;height:32px;margin:0 1.5% 10px 1.5%;}
+.search-form .detail_search .section dl{position:relative;display:inline-block;float:left;width:46%;height:38px;margin:0 1.5% 10px 1.5%;}
 .search-form .detail_search .section dl dt{float:left;width:70px;color:#000;font-weight:bold;height:32px;line-height:32px;}
 .search-form .detail_search .section dl dd{position:relative;margin-left:80px;}
 .search-form .detail_search .section dl dd label.title {position:absolute;top:8px;left:10px;color:#666;cursor:text;}
-.search-form .detail_search .section dl dd input.text-area{display:block;width:96%;height:32px;line-height:32px;padding:0 2%;color:#333;font-size:13px;border:1px solid #bfbfbf;cursor:text;}
+.search-form .detail_search .section dl dd input.text-area{display:block;width:96%;height:38px;line-height:38px;padding:0 2%;color:#333;font-size:18px;border:1px solid #bfbfbf;cursor:text;}
+.search-form .detail_search .section dl dd input.text-area2{display:block;height:38px;line-height:38px;padding:0 2%;color:#333;font-size:18px;border:1px solid #bfbfbf;cursor:text;}
+.search-form .detail_search .section dl dd select {background:url('/resources/common/img/arrow_b.png') no-repeat 95% 50%;height:40px;line-height:40px;font-size:18px;border:1px solid #bfbfbf;padding-left:10px;box-sizing:border-box;}
+.search-form .detail_search .section dl dd select::-ms-expand {display:none;}
 .search-form .detail_search .section .box{position:relative;width:100%;display:inline-block;}
 .search-form .detail_search .section .box input,
 .search-form .detail_search .section .box span,
@@ -322,37 +325,29 @@ textarea.textArea {width: 100%;height: 200px;border-top: 1px solid;}
 	.info .txt{width: 67%;}
 }
 @media all and (max-width:767px){
-/* 	.search-wrap .control{display:none} */
 	.ws-toolbar,
 	.ws-filter h4{height:58px;/* padding:0 0 10px; */}
 	.search-wrap .search-results .row{position:relative}
-	.search-wrap .search-results .row .thumb,
-	.search-wrap .search-results .row .box{float:none}
-	.search-wrap .search-results .row .box{width:auto}
-	.search-wrap .search-results .row .box,
-	.search-wrap .search-results .row .item{margin:0}
-	.search-wrap .search-results .row .thumb{position:absolute;width:98px;margin-left: 25px;}
-	.search-wrap .search-results .row .item .bif{margin-left: 140px;min-height:150px;}
+	.search-wrap .search-results .imageType .row .thumb {width:110px;height:auto;margin-right:20px}
 	.search-form input.text2 {width: 60%;}
 	.search-form .b2{width:15%}
 	.bif .txt {display: block;}
 	.bif .bar {display: none;}
+
+	.search-form .detail_search .section dl dd input.text-area{width:95.5%;}
 }
 
 @media all and (max-width:590px){
 	.info .con {width: 100%;}
 	.info .bar {display: none;}
 	.info .txt {width: 90%;padding-left: 10px;}
-	}
+
+	.search-wrap .search-results .row .item .bif a, .search-wrap .search-results .row .item .bif a span {font-size:16px;}
+	.search-wrap .search-results .row .item .bif p {font-size:13px;}
+	.search-wrap .search-results .row .bci {font-size:13px;}
+}
 
 	
 @media all and (max-width:450px){
-	.search-wrap .search-info{margin-top:5px}
-	.search-wrap .search-results .row .thumb{width:88px;margin-left: 25px;}
-	.search-wrap .search-results .row .item .bif{margin-left: 130px;min-height:140px;}
-	.search-wrap .search-results .row .item .bci th.first,
-	.search-wrap .search-results .row .item .bci td.first{display:none}
-	.search-bot .notice {width: 93%!important; padding-bottom: 5px;}
-	.search-wrap .search-results .row .admin {margin-top: 20%;}
-	
+
 }

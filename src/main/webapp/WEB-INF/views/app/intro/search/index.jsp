@@ -66,7 +66,7 @@ $(function() {
 
 	//외국어 입력기
 	$('#vk-popup').on('click', function(e) {
-		PopupVirtualKeyboard.toggle('search_text','vk');
+		PopupVirtualKeyboard.toggle('title','vk');
 	});
 
 	//전체 선택
@@ -188,9 +188,9 @@ $(function() {
 						<dt>발행년도</dt>
 						<dd>
 							<div class="box">
-								<form:input path="search_start_date" title="시작년도" numberOnly="true" maxlength="4" />
-								<span style="width:6%;text-align:center;">~</span>
-								<form:input path="search_end_date" title="마지막년도" numberOnly="true" maxlength="4" />
+								<form:input path="search_start_date" class="text-area2" title="시작년도" numberOnly="true" maxlength="4" />
+								<span style="width:8%;text-align:center;">~</span>
+								<form:input path="search_end_date" class="text-area2" title="마지막년도" numberOnly="true" maxlength="4" />
 							</div>
 						</dd>
 					</dl>
@@ -236,7 +236,7 @@ $(function() {
 				검색결과 총 <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/></b>건이 검색되었습니다.
 			</div>
 
-			<div>
+			<div class="re-search">
 				<select id="subSearchType">
 					<option value="title">서명</option>
 					<option value="author">저자</option>
@@ -244,7 +244,7 @@ $(function() {
 					<option value="keyword">키워드</option>
 				</select>
 				<input id="subSearchText" placeholder="결과 내 재검색">
-				<a href="#" id="subSearch">결과 내 재검색</a>
+				<a href="#" id="subSearch" class="btn">결과 내 재검색</a>
 			</div>
 
 			<div class="search-condition">
@@ -303,9 +303,8 @@ $(function() {
 								<div class="thumb">
 									<c:choose>
 										<c:when test="${i.IMAGE eq '' or fn:contains(i.IMAGE, 'noimg')}">
-											<a href="${detailURL}" class="noImg">
+											<a href="${detailURL}">
 												<img src="/resources/common/img/noImg2.png" alt="${i.TITLE_INFO}"/>
-												<span>등록된 이미지가<br/>없습니다.</span>
 											</a>
 										</c:when>
 										<c:otherwise>

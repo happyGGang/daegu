@@ -236,10 +236,17 @@ $(function() {
 			<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
 			</c:if>
 
-			<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
-			<a href="" id="unmanned-req" class="btn">무인예약신청</a>
-			<a href="" id="night-req" class="btn">야간예약신청</a>
-			</c:if>
+			<c:choose>
+				<c:when test="${homepage.context_path eq 'bukbu' || homepage.context_path eq 'seobu' || homepage.context_path eq 'nambu' || homepage.context_path eq 'dongbu' || homepage.context_path eq 'jungang' || homepage.context_path eq 'duryu'}">
+
+				</c:when>
+				<c:otherwise>
+					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
+					<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
+					<a href="#night" id="night-req" class="btn">야간예약신청</a>
+					</c:if>
+				</c:otherwise>
+			</c:choose>
 
 			<c:if test="${detail.WORKING_STATUS ne 'BOL112N' and param.booktype ne 'NONBOOK'}">
 			<a href="#" id="resve-req" class="btn">예약신청</a>
