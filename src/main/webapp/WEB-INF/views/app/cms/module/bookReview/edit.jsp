@@ -4,10 +4,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <style type="text/css">
-.starR1 {position: relative;display: inline-block;float: left;width: 17.5px;height: 30px;font-size: 35px;color:#ccc;overflow: hidden;z-index: 2;cursor: pointer;}
-.starR2 {position: relative;display: inline-block;float: left;right: 17.5px;width: 30px;height: 30px;font-size: 35px;color:#ccc;margin-right: -18px;z-index: 1;cursor: pointer;}
-.starR1.on {color: red;}
-.starR2.on {color: red;}
+.starR1 {position: relative;display: inline-block;width: 14px;height: 23px;background: url("/resources/common/img/ico_star.png") no-repeat;background-size: 25px;overflow: hidden;z-index: 2;}
+.starR2 {position: relative;display: inline-block;right: 19px;width: 28px;height: 24px;background: url("/resources/common/img/ico_star.png") no-repeat;background-size: 25px;margin-right: -25px;}
+.starR1.on {background: url("/resources/common/img/ico_starColor.png") no-repeat;background-size: 25px;}
+.starR2.on {background: url("/resources/common/img/ico_starColor.png") no-repeat;background-size: 25px;}
 </style>
 <script type="text/javascript">
 $(function() {
@@ -29,8 +29,8 @@ $(function() {
 				text: "저장",
 				"class": 'btn btn1',
 				click: function() {
-					var br_score = $('#starRevU .starR1.on, #starRevU .starR2.on').length * 0.5;
-					$('form#bookReviewEdit input#br_score').val(br_score);
+					var book_review_score = $('#starRevU .starR1.on, #starRevU .starR2.on').length * 0.5;
+					$('form#bookReviewEdit input#book_review_score').val(book_review_score);
 					doAjaxPost($form);
 				}
 			},{
@@ -57,7 +57,7 @@ $(function() {
 });
 </script>
 <form:form modelAttribute="bookReview" id="bookReviewEdit" method="post" action="/cms/module/bookReview/save.do">
-	<form:hidden path="br_idx" id="br_idx_U"/>
+	<form:hidden path="book_review_idx" id="book_review_idx_U"/>
 	<form:hidden path="editMode" id="editMode_U"/>
 	<table class="type2">
 		<colgroup>
@@ -67,30 +67,30 @@ $(function() {
        	<tbody>
         	<tr id="memberIdTr">
 	         	<th>작성자</th>
-	         	<td>${bookReview.br_web_id}</td>
+	         	<td>${bookReview.book_review_web_id}</td>
 	       	</tr>
 			<tr>
 				<th>서평 점수</th>
 				<td>
 					<div class="starRev" id="starRevU">
-						<span class="starR1 <c:if test="${bookReview.br_score >= 0.5}">on</c:if>">★</span>
-						<span class="starR2 <c:if test="${bookReview.br_score >= 1}">on</c:if>">★</span>
-						<span class="starR1 <c:if test="${bookReview.br_score >= 1.5}">on</c:if>">★</span>
-						<span class="starR2 <c:if test="${bookReview.br_score >= 2}">on</c:if>">★</span>
-						<span class="starR1 <c:if test="${bookReview.br_score >= 2.5}">on</c:if>">★</span>
-						<span class="starR2 <c:if test="${bookReview.br_score >= 3}">on</c:if>">★</span>
-						<span class="starR1 <c:if test="${bookReview.br_score >= 3.5}">on</c:if>">★</span>
-						<span class="starR2 <c:if test="${bookReview.br_score >= 4}">on</c:if>">★</span>
-						<span class="starR1 <c:if test="${bookReview.br_score >= 4.5}">on</c:if>">★</span>
-						<span class="starR2 <c:if test="${bookReview.br_score >= 5}">on</c:if>">★</span>
+						<span class="starR1 <c:if test="${bookReview.book_review_score >= 0.5}">on</c:if>"></span>
+						<span class="starR2 <c:if test="${bookReview.book_review_score >= 1}">on</c:if>"></span>
+						<span class="starR1 <c:if test="${bookReview.book_review_score >= 1.5}">on</c:if>"></span>
+						<span class="starR2 <c:if test="${bookReview.book_review_score >= 2}">on</c:if>"></span>
+						<span class="starR1 <c:if test="${bookReview.book_review_score >= 2.5}">on</c:if>"></span>
+						<span class="starR2 <c:if test="${bookReview.book_review_score >= 3}">on</c:if>"></span>
+						<span class="starR1 <c:if test="${bookReview.book_review_score >= 3.5}">on</c:if>"></span>
+						<span class="starR2 <c:if test="${bookReview.book_review_score >= 4}">on</c:if>"></span>
+						<span class="starR1 <c:if test="${bookReview.book_review_score >= 4.5}">on</c:if>"></span>
+						<span class="starR2 <c:if test="${bookReview.book_review_score >= 5}">on</c:if>"></span>
 					</div>
-					<form:hidden path="br_score"/>
+					<form:hidden path="book_review_score"/>
 				</td>
 			</tr>
         	<tr>
 	         	<th>서평 내용</th>
 	         	<td>
-	         		<form:textarea path="br_content" cols="40" rows="5"/>
+	         		<form:textarea path="book_review_content" cols="40" rows="5"/>
 	         	</td>
         	</tr>
 		</tbody>

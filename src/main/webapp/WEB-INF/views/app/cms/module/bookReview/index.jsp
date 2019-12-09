@@ -9,27 +9,13 @@
 <script type="text/javascript">
 $(function() {
 	
-	$('a.review-btn').on('click', function(e) {
-		e.preventDefault();
-		var vLoca = $(this).attr('vLoca');
-		var vCtrl = $(this).attr('vCtrl');
-		var vImg = $(this).attr('vImg');
-		var isbn = $(this).attr('isbn');
-		var menuIdx = $(this).attr('keyValue');
-		
-		var url = '/'+$(this).attr('keyValue2')+'/intro/search/detail.do';
-		var formData = 'vLoca='+vLoca + '&vCtrl='+vCtrl + '&vImg='+vImg + '&isbn='+isbn + '&menu_idx='+menuIdx;
-		
-		window.open(url+'?'+formData, '_blank');
-	});
-	
 	$('button#search_btn').on('click', function(e) {
 		$('#viewPage').val(1);
 		$('#bookReviewForm').submit();
 	});
 	
 	$('a.dialog-modify').on('click', function(e) {
-		$('#dialog-1').load('edit.do?editMode=MODIFY&br_idx=' + $(this).attr('keyValue') , function( response, status, xhr ) {
+		$('#dialog-1').load('edit.do?editMode=MODIFY&book_review_idx=' + $(this).attr('keyValue') , function( response, status, xhr ) {
 			$('#dialog-1').dialog('open');
 		});
 		
@@ -39,7 +25,7 @@ $(function() {
 	$('a.delete-btn').on('click', function(e) {
 		if (confirm("해당 서평을 리스트 목록에서 삭제하시겠습니까?")) {
 			$('form#bookReviewForm').attr('action', 'save.do');
-			$('input#br_idx').val($(this).attr('keyValue'));
+			$('input#book_review_idx').val($(this).attr('keyValue'));
 			$('input#editMode').val('DELETE');
 			
 			doAjaxPost($('#bookReviewForm'));
@@ -76,7 +62,7 @@ $(function() {
 });
 </script>
 <form:form id="bookReviewForm"  modelAttribute="bookReview" action="index.do" method="GET">
-	<form:hidden path="br_idx"/>
+	<form:hidden path="book_review_idx"/>
 	<form:hidden path="editMode" />
 	<c:if test="${!member.admin}">
 		<form:hidden path="homepage_id"/>
@@ -117,34 +103,35 @@ $(function() {
 		</thead>
 		<tbody>
 			<c:forEach var="i" varStatus="status" items="${bookReviewLocaList}">
+				<c:set var="detailURL" value="/${i.book_info.context_path}/intro/search/detail.do?menu_idx=${fn:escapeXml(i.menu_idx)}&isbn=${i.book_info.ISBN}&regNo=${fn:escapeXml(i.book_info.REG_NO)}&manageCode=${fn:escapeXml(i.book_info.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype eq '0' ? 'BO' : 'SE')}"></c:set>
 				<tr>
 					<td class="num">${paging.listRowNum - status.index}</td>
-					<td>${i.br_name}<br>(${i.br_loan_id})</td>
+					<td>${i.book_review_name}<br>(${i.book_review_loan_id})</td>
 					<td>
-						${i.br_score}
+						${i.book_review_score}
 					</td>
 					<td class="left">
-						<div class="ellipsis">${i.dsItemDetail.TITLE}</div>
+						<div class="ellipsis">${i.book_info.TITLE_INFO}</div>
 					</td>
 					<td>
-						<a href="#" class="review-btn" vLoca="${i.dsItemDetail.LOCA}" vCtrl="${i.dsItemDetail.CTRLNO}" vImg="${i.dsItemDetail.IMAGE_URL}" isbn="${i.dsItemDetail.ISBN}" keyValue="${i.menu_idx}" keyValue2="${i.dsItemDetail.context_path}">${i.br_content}</a>
+						<a href="${detailURL}" target="_blank">${i.book_review_content}</a>
 					</td>
 					<td>
 						<fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd HH:mm"/>
 					</td>
 					<td>
 						<c:if test="${authU}">
-							<a href="" class="btn dialog-modify" id="dialog-modify-${i.br_idx}" keyValue="${i.br_idx}">수정</a>
+							<a href="" class="btn dialog-modify" id="dialog-modify-${i.book_review_idx}" keyValue="${i.book_review_idx}">수정</a>
 						</c:if>
 						<c:if test="${authD}">
-							<a href="" class="btn delete-btn" keyValue="${i.br_idx}">삭제</a>
+							<a href="" class="btn delete-btn" keyValue="${i.book_review_idx}">삭제</a>
 						</c:if>
 					</td>
 				</tr>
 			</c:forEach>
 			<c:if test="${fn:length(bookReviewLocaList) < 1}">
 				<tr>
-					<td colspan="6">조회된 자료가 없습니다.</td>
+					<td colspan="7">조회된 자료가 없습니다.</td>
 				</tr>
 			</c:if>
 		</tbody>
@@ -157,8 +144,8 @@ $(function() {
  	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 		<fieldset>
 			<form:select path="search_type" cssClass="selectmenu">
-				<form:option value="br_web_id">작성자</form:option>
-				<form:option value="br_content">서평내용</form:option>
+				<form:option value="book_review_web_id">작성자</form:option>
+				<form:option value="book_review_content">서평내용</form:option>
 			</form:select>
 			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
 			<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>

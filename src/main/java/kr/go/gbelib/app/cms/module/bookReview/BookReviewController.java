@@ -47,13 +47,12 @@ public class BookReviewController extends BaseController {
 	@RequestMapping(value = {"/index.*"}, method = RequestMethod.GET)
 	public String index(Model model, BookReview bookReview, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
-		Homepage homepage = null;
 		if(StringUtils.isEmpty(bookReview.getHomepage_id())) {
-			homepage = getSessionHomepageInfo(request);
-			bookReview.setManage_code(homepage.getLib_code());
+			Homepage homepage = getSessionHomepageInfo(request);
+			bookReview.setManage_code(homepage.getManage_code());
 			bookReview.setHomepage_id(homepage.getHomepage_id());
 		} else {
-			bookReview.setManage_code(getHomepageOne(bookReview.getHomepage_id()).getLib_code());
+			bookReview.setManage_code(getHomepageOne(bookReview.getHomepage_id()).getManage_code());
 		}
 
 		int count = service.getBookReviewLocaListCnt(bookReview);
@@ -63,19 +62,21 @@ public class BookReviewController extends BaseController {
 
 		for(BookReview one : bookReviewLocaList) {
 			LibrarySearch librarySearch = new LibrarySearch();
-			librarySearch.setvCtrl(one.getBook_key());
+			librarySearch.setManageCode(one.getManage_code());
+			librarySearch.setRegNo(one.getReg_no());
 
-			@SuppressWarnings("unchecked")
-			List<Map<String, Object>> dsItemDetail = (ArrayList<Map<String,Object>>)LibSearchAPI.getBookDetail(librarySearch).get("dsItemDetail");
-			one.setDsItemDetail(dsItemDetail.get(0));
-
-			Homepage codeHomepage = new Homepage();
-			codeHomepage.setLib_code(one.getDsItemDetail().get("LOCA").toString());
-			Homepage newHomepage = homepageService.getHomepageOneByCode(codeHomepage);
-
-			int moduleMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(newHomepage.getHomepage_id(), 2));
+			Map<String, Object> result = LibSearchAPI.getBookInfo(librarySearch);
+			List<Map<String, Object>> list = LibSearchAPI.getListData(result);
+			Map<String, Object> map = list.get(0);
+			one.setBook_info(map);
+			
+			Homepage tmpHomepage = new Homepage();
+			tmpHomepage.setLib_code(one.getBook_info().get("LIB_CODE").toString());
+			tmpHomepage = homepageService.getHomepageOneByCode(tmpHomepage);
+			one.getBook_info().put("context_path", tmpHomepage.getContext_path());
+			
+			int moduleMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(tmpHomepage.getHomepage_id(), 12));
 			one.setMenu_idx(moduleMenuIdx);
-			one.getDsItemDetail().put("context_path", newHomepage.getContext_path());
 		}
 
 		model.addAttribute("bookReview", bookReview);
@@ -103,7 +104,7 @@ public class BookReviewController extends BaseController {
 		/* 유효성 검증 >>>>> */
 		JsonResponse res = new JsonResponse(request);
 		if(!bookReview.getEditMode().equals("DELETE")) {
-			ValidationUtils.rejectIfEmpty(result, "br_content", "서평 내용을 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "book_review_content", "서평 내용을 입력하세요.");
 		}
 		/* <<<<< 유효성 검증 */
 
@@ -138,19 +139,19 @@ public class BookReviewController extends BaseController {
 
 		for(BookReview one : bookReviewLocaList) {
 			LibrarySearch librarySearch = new LibrarySearch();
-			librarySearch.setvCtrl(one.getBook_key());
+			librarySearch.setvCtrl(one.getReg_no());
 
 			@SuppressWarnings("unchecked")
 			List<Map<String, Object>> dsItemDetail = (ArrayList<Map<String,Object>>)LibSearchAPI.getBookDetail(librarySearch).get("dsItemDetail");
-			one.setDsItemDetail(dsItemDetail.get(0));
+//			one.setDsItemDetail(dsItemDetail.get(0));
 
 			Homepage codeHomepage = new Homepage();
-			codeHomepage.setLib_code(one.getDsItemDetail().get("LOCA").toString());
+//			codeHomepage.setLib_code(one.getDsItemDetail().get("LOCA").toString());
 			Homepage newHomepage = homepageService.getHomepageOneByCode(codeHomepage);
 
 			int moduleMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(newHomepage.getHomepage_id(), 2));
 			one.setMenu_idx(moduleMenuIdx);
-			one.getDsItemDetail().put("context_path", newHomepage.getContext_path());
+//			one.getDsItemDetail().put("context_path", newHomepage.getContext_path());
 		}
 
 		model.addAttribute("bookReview", bookReview);
@@ -167,11 +168,11 @@ public class BookReviewController extends BaseController {
 
 		for(BookReview one : bookReviewAll) {
 			LibrarySearch librarySearch = new LibrarySearch();
-			librarySearch.setvCtrl(one.getBook_key());
+			librarySearch.setvCtrl(one.getReg_no());
 
 			@SuppressWarnings("unchecked")
 			List<Map<String, Object>> dsItemDetail = (ArrayList<Map<String,Object>>)LibSearchAPI.getBookDetail(librarySearch).get("dsItemDetail");
-			one.setDsItemDetail(dsItemDetail.get(0));
+//			one.setDsItemDetail(dsItemDetail.get(0));
 		}
 
 		new BookReviewXlsToCsv(bookReviewAll, request, response);

@@ -37,7 +37,7 @@ div.bcl-list div.bcl-box div.bcl-btns a {border: 1px solid #cbcbcb; background-c
 </style>
 <script type="text/javascript">
 var url = '/${homepage.context_path}/module/bookReview/index.do';
-var formData = 'manage_code=${fn:escapeXml(bookReview.manage_code)}&book_key=${fn:escapeXml(bookReview.book_key)}';
+var formData = 'manage_code=${fn:escapeXml(bookReview.manage_code)}&reg_no=${fn:escapeXml(bookReview.reg_no)}';
 
 $(document).ready(function() {
 	
@@ -72,7 +72,7 @@ $(document).ready(function() {
     	var book_review_score = $('#starRevC .starR1.on, #starRevC .starR2.on').length * 0.5;
     	var book_review_content = $('textarea#book_review_content').val();
     	var manage_code = $(this).attr('keyValue');
-    	var book_key = $(this).attr('keyValue2');
+    	var reg_no = $(this).attr('keyValue2');
     	
 		if(book_review_content.search(/\S/) == -1) {
 			alert('공백은 입력할 수 없습니다.');
@@ -87,7 +87,7 @@ $(document).ready(function() {
     	$('form#bookReview input#book_review_score').val(book_review_score);
     	$('form#bookReview input#book_review_content').val(book_review_content);
     	$('form#bookReview input#manage_code').val(manage_code);
-    	$('form#bookReview input#book_key').val(book_key);
+    	$('form#bookReview input#reg_no').val(reg_no);
     	
     	if(doAjaxPostSubmit($('form#bookReview'))) {
     		doAjaxLoad('div#bookReviewDiv', url, formData);
@@ -200,7 +200,7 @@ function doAjaxPostSubmit(form, ajaxBody) {
 	<form:hidden path="menu_idx" htmlEscape="true"/>
 	<form:hidden path="book_review_idx" htmlEscape="true"/>
 	<form:hidden path="book_review_name" htmlEscape="true"/>
-	<form:hidden path="book_key" htmlEscape="true"/>
+	<form:hidden path="reg_no" htmlEscape="true"/>
 	<form:hidden path="manage_code" htmlEscape="true"/>
 	<form:hidden path="book_review_content" htmlEscape="true"/>
 	<form:hidden path="book_review_score" htmlEscape="true"/>
@@ -247,7 +247,7 @@ function doAjaxPostSubmit(form, ajaxBody) {
 		</c:otherwise>
 		</c:choose>
 	</div>
-	<a href="#" id="book_review_save" keyValue="${fn:escapeXml(bookReview.manage_code)}" keyValue2="${fn:escapeXml(bookReview.book_key)}">서평 작성</a>
+	<a href="#" id="book_review_save" keyValue="${fn:escapeXml(bookReview.manage_code)}" keyValue2="${fn:escapeXml(bookReview.reg_no)}">서평 작성</a>
 </div>
 <%-- </c:if> --%>
 

@@ -108,8 +108,6 @@ public class BookReviewController extends BaseController {
 
 		if(!result.hasErrors()) {
 			Member member = getSessionMemberInfo(request);
-//			bookReview.setBook_review_loan_id(member.getUser_id());
-//			bookReview.setBook_review_web_id(member.getWeb_id());
 			bookReview.setBook_review_loan_id(member.getRec_key());
 			bookReview.setBook_review_web_id(member.getMember_id());
 			bookReview.setBook_review_name(member.getMember_name());
@@ -205,19 +203,19 @@ public class BookReviewController extends BaseController {
 
 		for(BookReview one : bookReviewAll) {
 			LibrarySearch librarySearch = new LibrarySearch();
-			librarySearch.setvCtrl(one.getBook_key());
+			librarySearch.setvCtrl(one.getReg_no());
 
 			@SuppressWarnings("unchecked")
 			List<Map<String, Object>> dsItemDetail = (ArrayList<Map<String,Object>>)LibSearchAPI.getBookDetail(librarySearch).get("dsItemDetail");
-			one.setDsItemDetail(dsItemDetail.get(0));
+//			one.setDsItemDetail(dsItemDetail.get(0));
 
 			Homepage codeHomepage = new Homepage();
-			codeHomepage.setLib_code(one.getDsItemDetail().get("LOCA").toString());
+//			codeHomepage.setLib_code(one.getDsItemDetail().get("LOCA").toString());
 			Homepage newHomepage = homepageService.getHomepageOneByCode(codeHomepage);
 
 			int moduleMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(newHomepage.getHomepage_id(), 2));
 			one.setMenu_idx(moduleMenuIdx);
-			one.getDsItemDetail().put("context_path", newHomepage.getContext_path());
+//			one.getDsItemDetail().put("context_path", newHomepage.getContext_path());
 		}
 
 		model.addAttribute("bookReview", bookReview);
@@ -234,19 +232,19 @@ public class BookReviewController extends BaseController {
 
 		for(BookReview one : bookReviewAll) {
 			LibrarySearch librarySearch = new LibrarySearch();
-			librarySearch.setvCtrl(one.getBook_key());
+			librarySearch.setvCtrl(one.getReg_no());
 
 			@SuppressWarnings("unchecked")
 			List<Map<String, Object>> dsItemDetail = (ArrayList<Map<String,Object>>)LibSearchAPI.getBookDetail(librarySearch).get("dsItemDetail");
-			one.setDsItemDetail(dsItemDetail.get(0));
+//			one.setDsItemDetail(dsItemDetail.get(0));
 
 			Homepage codeHomepage = new Homepage();
-			codeHomepage.setLib_code(one.getDsItemDetail().get("LOCA").toString());
+//			codeHomepage.setLib_code(one.getDsItemDetail().get("LOCA").toString());
 			Homepage newHomepage = homepageService.getHomepageOneByCode(codeHomepage);
 
 			int moduleMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(newHomepage.getHomepage_id(), 2));
 			one.setMenu_idx(moduleMenuIdx);
-			one.getDsItemDetail().put("context_path", newHomepage.getContext_path());
+//			one.getDsItemDetail().put("context_path", newHomepage.getContext_path());
 		}
 
 		model.addAttribute("bookReviewAll", bookReviewAll);
@@ -261,19 +259,19 @@ public class BookReviewController extends BaseController {
 
 		for(BookReview one : bookReviewAll) {
 			LibrarySearch librarySearch = new LibrarySearch();
-			librarySearch.setvCtrl(one.getBook_key());
+			librarySearch.setvCtrl(one.getReg_no());
 
 			@SuppressWarnings("unchecked")
 			List<Map<String, Object>> dsItemDetail = (ArrayList<Map<String,Object>>)LibSearchAPI.getBookDetail(librarySearch).get("dsItemDetail");
-			one.setDsItemDetail(dsItemDetail.get(0));
+//			one.setDsItemDetail(dsItemDetail.get(0));
 
 			Homepage codeHomepage = new Homepage();
-			codeHomepage.setLib_code(one.getDsItemDetail().get("LOCA").toString());
+//			codeHomepage.setLib_code(one.getDsItemDetail().get("LOCA").toString());
 			Homepage newHomepage = homepageService.getHomepageOneByCode(codeHomepage);
 
 			int moduleMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(newHomepage.getHomepage_id(), 2));
 			one.setMenu_idx(moduleMenuIdx);
-			one.getDsItemDetail().put("context_path", newHomepage.getContext_path());
+//			one.getDsItemDetail().put("context_path", newHomepage.getContext_path());
 		}
 
 		new BookReviewXlsToCsv(bookReviewAll, request, response);

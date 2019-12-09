@@ -14,13 +14,13 @@ public class BookReview extends PagingUtils {
 	private String book_review_content; // 서평내용
 	private float book_review_score; // 서평점수
 	private String manage_code; // 관리코드
-	private String book_key; // 도서key
+	private String reg_no; // 등록번호
 	private String add_id; // 등록ID
 	private Date add_date; // 등록일
 	private String modify_id; // 수정ID
 	private Date modify_date; // 수정일
 
-	private Map<String, Object> dsItemDetail;
+	private Map<String, Object> book_info;
 	private String search_type_date;
 	private String search_start_date;
 	private String search_end_date;
@@ -82,12 +82,12 @@ public class BookReview extends PagingUtils {
 		this.manage_code = manage_code;
 	}
 
-	public String getBook_key() {
-		return book_key;
+	public String getReg_no() {
+		return reg_no;
 	}
 
-	public void setBook_key(String book_key) {
-		this.book_key = book_key;
+	public void setReg_no(String reg_no) {
+		this.reg_no = reg_no;
 	}
 
 	public String getAdd_id() {
@@ -122,12 +122,12 @@ public class BookReview extends PagingUtils {
 		this.modify_date = modify_date;
 	}
 
-	public Map<String, Object> getDsItemDetail() {
-		return dsItemDetail;
+	public Map<String, Object> getBook_info() {
+		return book_info;
 	}
 
-	public void setDsItemDetail(Map<String, Object> dsItemDetail) {
-		this.dsItemDetail = dsItemDetail;
+	public void setBook_info(Map<String, Object> book_info) {
+		this.book_info = book_info;
 	}
 
 	public String getSearch_type_date() {
