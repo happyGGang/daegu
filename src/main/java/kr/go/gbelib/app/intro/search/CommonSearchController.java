@@ -31,6 +31,7 @@ import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
+import kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfig;
 import kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfigService;
 import kr.go.gbelib.app.cms.module.ilusReqConfig.ILUSReqConfigService;
 import kr.go.gbelib.app.common.api.ApiResponse;
@@ -617,12 +618,13 @@ public class CommonSearchController extends BaseController {
 
 				//TODO 희망도서 신청가능여부 체크
 				Homepage homepage = getSessionHomepage(request);
-				try {
-					hopebookConfigService.getHopebookConfigInfo(homepage.getHomepage_id());
-				} catch (Exception e) {
-					// TODO: handle exception
+				HopebookConfig hopebookConfig = hopebookConfigService.getHopebookConfigInfo(homepage.getHomepage_id());
+				if(hopebookConfig != null) {
+					res.setValid(false);
+					res.setMessage(hopebookConfig.getRes_msg());
+					return res;
 				}
-
+				
 				//웹필터 체크
 //				StringBuilder sb = new StringBuilder();
 //				sb.append(librarySearch.getEditMode() + "\n");
@@ -646,14 +648,14 @@ public class CommonSearchController extends BaseController {
 				ApiResponse hopeUserCheck = LibSearchAPI.hopeUserCheck(member.getRec_key(), librarySearch.getIsbn(), librarySearch.getManageCode());
 
 				if (hopeUserCheck.getStatus()) {
-					ApiResponse apiResult = LibSearchAPI.reqHope(librarySearch, member);
-					if (apiResult.getStatus()) {
+//					ApiResponse apiResult = LibSearchAPI.reqHope(librarySearch, member);
+//					if (apiResult.getStatus()) {
 						res.setValid(true);
 						res.setMessage("신청 되었습니다.");
-					} else {
-						res.setValid(false);
-						res.setMessage(apiResult.getMessage());
-					}
+//					} else {
+//						res.setValid(false);
+//						res.setMessage(apiResult.getMessage());
+//					}
 				} else {
 					res.setValid(false);
 					res.setMessage(hopeUserCheck.getMessage());

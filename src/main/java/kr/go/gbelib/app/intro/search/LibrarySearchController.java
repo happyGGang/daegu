@@ -29,6 +29,8 @@ import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
+import kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfig;
+import kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfigService;
 import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 
@@ -43,6 +45,8 @@ public class LibrarySearchController extends BaseController {
 
 	@Autowired
 	private HomepageService homepageService;
+	
+	private HopebookConfigService hopebookConfigService;
 
 	/**
 	 * 검색
@@ -1060,6 +1064,14 @@ public class LibrarySearchController extends BaseController {
 			}
 
 			if ( librarySearch.getEditMode().equals("ADD") ) {
+				
+				Homepage homepage = getSessionHomepage(request);
+				HopebookConfig hopebookConfig = hopebookConfigService.getHopebookConfigInfo(homepage.getHomepage_id());
+				if(hopebookConfig != null) {
+					res.setValid(false);
+					res.setMessage(hopebookConfig.getRes_msg());
+					return res;
+				}
 
 				//웹필터 체크
 //				StringBuilder sb = new StringBuilder();
