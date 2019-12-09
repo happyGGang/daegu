@@ -31,6 +31,8 @@ import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfig;
 import kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfigService;
+import kr.go.gbelib.app.cms.module.lasReqConfig.LasReqConfig;
+import kr.go.gbelib.app.cms.module.lasReqConfig.LasReqConfigService;
 import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 
@@ -46,7 +48,11 @@ public class LibrarySearchController extends BaseController {
 	@Autowired
 	private HomepageService homepageService;
 	
+	@Autowired
 	private HopebookConfigService hopebookConfigService;
+	
+	@Autowired
+	private LasReqConfigService lasReqConfigService;
 
 	/**
 	 * 검색
@@ -456,6 +462,14 @@ public class LibrarySearchController extends BaseController {
 			if ( librarySearch.getEditMode().equals("ADD") ) {
 
 			} else if ( librarySearch.getEditMode().equals("RENEW") ) {
+				
+				// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
+				LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0002");
+				if(lasReqConfig != null) {
+					res.setValid(false);
+					res.setMessage(lasReqConfig.getRes_msg());
+					return res;
+				}
 
 				ApiResponse apiResult = LibSearchAPI.renewLoan(librarySearch);
 				if ( apiResult.getStatus() ) {
@@ -541,6 +555,15 @@ public class LibrarySearchController extends BaseController {
 
 			librarySearch.setUserkey(member.getRec_key());
 			if (librarySearch.getEditMode().equals("ADD")) {
+				
+				// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
+				LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0001");
+				if(lasReqConfig != null) {
+					res.setValid(false);
+					res.setMessage(lasReqConfig.getRes_msg());
+					return res;
+				}
+				
 				ApiResponse apiResult = LibSearchAPI.reqResve(librarySearch);
 				if (apiResult.getStatus()) {
 					res.setValid(true);
@@ -1194,6 +1217,14 @@ public class LibrarySearchController extends BaseController {
 				res.setMessage("예약 신청 가능한 회원이 아닙니다.");
 				return res;
 			}
+			
+			// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
+			LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0004");
+			if(lasReqConfig != null) {
+				res.setValid(false);
+				res.setMessage(lasReqConfig.getRes_msg());
+				return res;
+			}
 
 			librarySearch.setUserkey(member.getRec_key());
 			ApiResponse apiResult = LibSearchAPI.unmannedloanreserve(librarySearch);
@@ -1278,6 +1309,14 @@ public class LibrarySearchController extends BaseController {
 			if (!StringUtils.equals(member.getMember_class(), "0")) {// 정회원만 가능
 				res.setValid(false);
 				res.setMessage("예약 신청 가능한 회원이 아닙니다.");
+				return res;
+			}
+			
+			// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
+			LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0003");
+			if(lasReqConfig != null) {
+				res.setValid(false);
+				res.setMessage(lasReqConfig.getRes_msg());
 				return res;
 			}
 

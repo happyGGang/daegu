@@ -33,6 +33,8 @@ import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfig;
 import kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfigService;
+import kr.go.gbelib.app.cms.module.lasReqConfig.LasReqConfig;
+import kr.go.gbelib.app.cms.module.lasReqConfig.LasReqConfigService;
 import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.common.api.MemberAPI;
@@ -52,8 +54,8 @@ public class CommonSearchController extends BaseController {
 	@Autowired
 	private MenuService menuService;
 
-//	@Autowired
-//	private ILUSReqConfigService ilusReqConfigService;
+	@Autowired
+	private LasReqConfigService lasReqConfigService;
 
 	@Autowired
 	private HopebookConfigService hopebookConfigService;
@@ -615,7 +617,6 @@ public class CommonSearchController extends BaseController {
 
 			if ( librarySearch.getEditMode().equals("ADD") ) {
 
-				//TODO 희망도서 신청가능여부 체크
 				Homepage homepage = getSessionHomepage(request);
 				HopebookConfig hopebookConfig = hopebookConfigService.getHopebookConfigInfo(homepage.getHomepage_id());
 				if(hopebookConfig != null) {
@@ -746,11 +747,12 @@ public class CommonSearchController extends BaseController {
 			librarySearch.setUserkey(member.getRec_key());
 			if (librarySearch.getEditMode().equals("ADD")) {
 
-				//TODO 자료실별 예약 가능여부 체크
-				try {
-//					ilusReqConfigService.getILUSReqConfigInfo(librarySearch, "");
-				} catch (Exception e) {
-					// TODO: handle exception
+				// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
+				LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0001");
+				if(lasReqConfig != null) {
+					res.setValid(false);
+					res.setMessage(lasReqConfig.getRes_msg());
+					return res;
 				}
 
 				ApiResponse apiResult = LibSearchAPI.reqResve(librarySearch);
@@ -865,16 +867,17 @@ public class CommonSearchController extends BaseController {
 	public @ResponseBody JsonResponse renewLoan(Model model, LibrarySearch librarySearch, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
 
-		//TODO 자료실별 예약 가능여부 체크
-		try {
-//			ilusReqConfigService.getILUSReqConfigInfo(librarySearch, "");
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-
 		if (!result.hasErrors()) {
 
 			if (librarySearch.getEditMode().equals("RENEW")) {
+				
+				// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
+				LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0002");
+				if(lasReqConfig != null) {
+					res.setValid(false);
+					res.setMessage(lasReqConfig.getRes_msg());
+					return res;
+				}
 
 				ApiResponse apiResult = LibSearchAPI.renewLoan(librarySearch);
 				if (apiResult.getStatus()) {
@@ -1283,11 +1286,12 @@ public class CommonSearchController extends BaseController {
 				return res;
 			}
 
-			// TODO 자료실별 예약 가능여부 체크
-			try {
-//				ilusReqConfigService.getILUSReqConfigInfo(librarySearch, "");
-			} catch (Exception e) {
-				// TODO: handle exception
+			// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
+			LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0004");
+			if(lasReqConfig != null) {
+				res.setValid(false);
+				res.setMessage(lasReqConfig.getRes_msg());
+				return res;
 			}
 
 			librarySearch.setUserkey(member.getRec_key());
@@ -1376,11 +1380,12 @@ public class CommonSearchController extends BaseController {
 				return res;
 			}
 
-			//TODO 자료실별 예약 가능여부 체크
-			try {
-//				ilusReqConfigService.getILUSReqConfigInfo(librarySearch, "");
-			} catch (Exception e) {
-				// TODO: handle exception
+			// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
+			LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0003");
+			if(lasReqConfig != null) {
+				res.setValid(false);
+				res.setMessage(lasReqConfig.getRes_msg());
+				return res;
 			}
 
 			librarySearch.setUserkey(member.getRec_key());
