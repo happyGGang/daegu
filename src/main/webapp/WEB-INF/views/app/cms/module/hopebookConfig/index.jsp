@@ -44,7 +44,7 @@ $(document).ready(function() {
 	div.ilusReqBox {margin-top: 20px;}
 	div#ilusReqBox1 {margin-top: 0px;}
 	td.font-red {color: red;}
-	td.date-box p {display: inline-block;vertical-align: middle;}
+	td.date-box p {display: inline-block;vertical-align: middle;font-size: 1.2em;}
 </style>
 <form:form modelAttribute="hopebookConfig" id="hopebookConfigDel" action="delete.do" method="POST">
 	<form:hidden path="homepage_id" id="homeapge_id_del"/>
@@ -103,7 +103,7 @@ $(document).ready(function() {
 	<br>
 	<div class="ui-state-highlight">
 		<em>* 현재 기능 제한을 적용중이면 붉은색으로 표시가 됩니다.</em><br>
-		<em>* 현재 일자가 사용기간이지만 사용여부가 'N'으로 설정시, 기능제한이 적용되지 않습니다.(우선순위1: 사용여부, 우선순위2 : 기간)</em>
+		<em>* 현재 일자가 사용기간이지만 사용여부가 '미사용'으로 설정시, 기능제한이 적용되지 않습니다.(우선순위1: 사용여부, 우선순위2 : 기간)</em>
 	</div>
 </form:form>
 

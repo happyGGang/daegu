@@ -56,8 +56,8 @@ public class HopebookConfigController extends BaseController {
 		JsonResponse res = new JsonResponse(request);
 		ValidationUtils.rejectIfEmpty(result, "str_date", "사용시작일자를 선택하세요.");
 		ValidationUtils.rejectIfEmpty(result, "end_date", "사용종료일자를 선택하세요.");
-		ValidationUtils.rejectIfEmpty(result, "str_time", "사용시작시간를 선택하세요.");
-		ValidationUtils.rejectIfEmpty(result, "end_time", "사용종료시간를 선택하세요.");
+		ValidationUtils.rejectIfEmpty(result, "str_time", "사용시작시간를 입력하세요.");
+		ValidationUtils.rejectIfEmpty(result, "end_time", "사용종료시간를 입력하세요.");
 		ValidationUtils.rejectIfEmpty(result, "res_msg", "메세지를 입력하세요.");
 		ValidationUtils.rejectIfStringLength(result, "res_msg", 1000, "메세지");
 		
@@ -71,11 +71,17 @@ public class HopebookConfigController extends BaseController {
 			
 			int nstr_time =  Integer.parseInt(strTime.replaceAll(":", ""));
 			int nend_time =  Integer.parseInt(endTime.replaceAll(":", ""));
+			if(strTime.equals("24:00") || endTime.equals("00:00")) {
+				throw new RuntimeException();
+			}
 			if(strDate.equals(endDate) && nstr_time > nend_time ) {
-				result.reject("시작기간과 종료기간이 같을 경우 시작시간이 종료시간보다 빠를 수 없습니다.");
+//				result.reject("시작기간과 종료기간이 같을 경우 시작시간이 종료시간보다 빠를 수 없습니다.");
+				result.rejectValue("str_time", "시작기간과 종료기간이 같을 경우 시작시간이 종료시간보다 빠를 수 없습니다.");
 			}
 		} catch (Exception e) {
-			result.reject("시간입력은 00:00 ~ 23:59 범위 입니다.");
+			e.printStackTrace();
+//			result.reject("시간입력은 00:00 ~ 23:59 범위 입니다.");
+			result.rejectValue("end_time", "시간입력은 00:00 ~ 23:59 범위 입니다.");
 		}
 		/* <<<<< 유효성 검증 */
 		

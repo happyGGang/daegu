@@ -36,7 +36,7 @@ $(document).ready(function() {
 
 	$("#dialog-1").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
 		width: 550,
-		height: 360
+		height: 430
 	});
 	
 	$('input#str_date').datepicker({
@@ -75,6 +75,9 @@ $(document).ready(function() {
 				<td>
 					<form:radiobutton path="use_yn" label="사용" value="Y"/>
 					<form:radiobutton path="use_yn" label="미사용" value="N"/>
+					<div class="ui-state-highlight">
+						<em>* '사용'선택시 해당 기간동안 희망도서를 신청할 수 없습니다.</em>
+					</div>
 				</td>
 			</tr>
 			<tr>
@@ -91,9 +94,12 @@ $(document).ready(function() {
 				</td>
 			</tr>
 			<tr>
-				<th>메세지</th>
+				<th>안내 메세지</th>
 				<td>
 					<form:textarea path="res_msg" rows="4" cols="59"/>
+					<div class="ui-state-highlight">
+						<em>* 희망도서 신청시 메세지를 보여주며 신청을 제한합니다.</em>
+					</div>
 				</td>
 			</tr>
 		</tbody>
