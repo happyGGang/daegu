@@ -40,27 +40,27 @@ $(document).ready(function() {
 		
 		if(confirm(message)) {
 			$('input#sub_loca_code_del').val($(this).attr('keyValue'));
-			doAjaxPost($('form#ilusReqConfigDel'));
+			doAjaxPost($('form#lasReqConfigDel'));
 		}
 	});
 	
 });
 </script>
 <style type="text/css">
-	div.ilusReqBox {margin-top: 20px;}
-	div#ilusReqBox1 {margin-top: 0px;}
+	div.lasReqBox {margin-top: 20px;}
+	div#lasReqBox1 {margin-top: 0px;}
 	td.font-red {color: red;}
 	td.date-box p {display: inline-block;vertical-align: middle;}
 	
 	table thead th {border-top-color: rgb(206, 216, 218);}
 </style>
-<form:form modelAttribute="ilusReqConfig" id="ilusReqConfigDel" action="delete.do" method="POST">
+<form:form modelAttribute="lasReqConfig" id="lasReqConfigDel" action="delete.do" method="POST">
 	<form:hidden path="homepage_id" id="homeapge_id_del"/>
 	<form:hidden path="sub_loca_code" id="sub_loca_code_del"/>
 </form:form>
-<form:form  modelAttribute="ilusReqConfig" action="index.do">
+<form:form  modelAttribute="lasReqConfig" action="index.do">
 	<form:hidden path="homepage_id"/>
-	<form:hidden path="ilus_req_code"/>
+	<form:hidden path="las_req_code"/>
 	<div class="infodesk">
 		<div class="button">
 			<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
@@ -70,7 +70,7 @@ $(document).ready(function() {
 		<colgroup>
 			<col width="120">
 			<col width="80">
-			<c:forEach items="${ilusReqCode}" var="i">
+			<c:forEach items="${lasReqCode}" var="i">
 			<col width="120">
 			<col width="30">
 			</c:forEach>
@@ -80,26 +80,26 @@ $(document).ready(function() {
 			<tr>
 				<th rowspan="2">소장위치</th>
 				<th rowspan="2">자료실명</th>
-				<c:forEach items="${ilusReqCode}" var="i">
+				<c:forEach items="${lasReqCode}" var="i">
 				<th colspan="2">${i.code_name} 기능 제한</th>
 				</c:forEach>
 				<th rowspan="2">기타</th>
 			</tr>
 			<tr>
-				<c:forEach items="${ilusReqCode}" var="i">
+				<c:forEach items="${lasReqCode}" var="i">
 				<th>기간</th>
 				<th>사용여부</th>
 				</c:forEach>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${ilusReqConfigList}" var="i" varStatus="status">
+			<c:forEach items="${lasReqConfigList}" var="i" varStatus="status">
 				<tr>
 					<td>${i.loca_name}</td>
 					<td>
 						<c:forEach items="${subLocation}" var="one">
-							<c:if test="${fn:contains(i.sub_loca_code, one.SUB_LOCATION_CODE)}">
-								${one.SUB_LOCATION_NAME}<br>
+							<c:if test="${fn:contains(i.sub_loca_code, one.CODE)}">
+								${one.DESCRIPTION}<br>
 							</c:if>
 						</c:forEach>
 					</td>
@@ -120,7 +120,7 @@ $(document).ready(function() {
 						<p>${i.extension.end_date}<br>(${i.extension.end_time})</p>
 						</c:if>
 					</td>
-					<td <c:if test="${i.extension.date_chk == 1}">class="font-red" keyName="연장신청"</c:if>>
+					<td <c:if test="${i.extension.date_chk == 1}">class="font-red" keyName="연기신청"</c:if>>
 						${i.extension.use_yn}
 					</td>
 					<td class="date-box <c:if test="${i.night.date_chk == 1}">font-red</c:if>">
@@ -133,16 +133,26 @@ $(document).ready(function() {
 					<td <c:if test="${i.night.date_chk == 1}">class="font-red" keyName="야간대출"</c:if>>
 						${i.night.use_yn}
 					</td>
+					<td class="date-box <c:if test="${i.unmanned.date_chk == 1}">font-red</c:if>">
+						<c:if test="${not empty i.unmanned.str_date}">
+						<p>${i.unmanned.str_date}<br>(${i.unmanned.str_time})</p>
+						<p>~</p>
+						<p>${i.unmanned.end_date}<br>(${i.unmanned.end_time})</p>
+						</c:if>
+					</td>
+					<td <c:if test="${i.unmanned.date_chk == 1}">class="font-red" keyName="무인대출"</c:if>>
+						${i.unmanned.use_yn}
+					</td>
 					<td>
 						<a href="#" class="btn dialog-modify" keyValue="${i.sub_loca_code}">수정</a>
 						<a href="#" class="btn dialog-delete" keyValue="${i.sub_loca_code}">삭제</a>
-<%-- 						<a href="#" class="btn dialog-delete" keyValue="${i.sub_loca_code}" keyStatus="${ilusReqConfigList[status.index]}">삭제</a> --%>
+<%-- 						<a href="#" class="btn dialog-delete" keyValue="${i.sub_loca_code}" keyStatus="${lasReqConfigList[status.index]}">삭제</a> --%>
 					</td>
 				</tr>
 			</c:forEach>
-			<c:if test="${fn:length(ilusReqConfigList) < 1}">
+			<c:if test="${fn:length(lasReqConfigList) < 1}">
 			<tr>
-				<td colspan="9">등록된 정보가 없습니다.</td>
+				<td colspan="11">등록된 정보가 없습니다.</td>
 			</tr>
 			</c:if>
 		</tbody>

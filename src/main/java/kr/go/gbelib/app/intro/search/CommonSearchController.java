@@ -33,7 +33,6 @@ import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfig;
 import kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfigService;
-import kr.go.gbelib.app.cms.module.ilusReqConfig.ILUSReqConfigService;
 import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.common.api.MemberAPI;
@@ -53,8 +52,8 @@ public class CommonSearchController extends BaseController {
 	@Autowired
 	private MenuService menuService;
 
-	@Autowired
-	private ILUSReqConfigService ilusReqConfigService;
+//	@Autowired
+//	private ILUSReqConfigService ilusReqConfigService;
 
 	@Autowired
 	private HopebookConfigService hopebookConfigService;
@@ -749,7 +748,7 @@ public class CommonSearchController extends BaseController {
 
 				//TODO 자료실별 예약 가능여부 체크
 				try {
-					ilusReqConfigService.getILUSReqConfigInfo(librarySearch, "");
+//					ilusReqConfigService.getILUSReqConfigInfo(librarySearch, "");
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
@@ -868,7 +867,7 @@ public class CommonSearchController extends BaseController {
 
 		//TODO 자료실별 예약 가능여부 체크
 		try {
-			ilusReqConfigService.getILUSReqConfigInfo(librarySearch, "");
+//			ilusReqConfigService.getILUSReqConfigInfo(librarySearch, "");
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -1286,7 +1285,7 @@ public class CommonSearchController extends BaseController {
 
 			// TODO 자료실별 예약 가능여부 체크
 			try {
-				ilusReqConfigService.getILUSReqConfigInfo(librarySearch, "");
+//				ilusReqConfigService.getILUSReqConfigInfo(librarySearch, "");
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
@@ -1379,7 +1378,7 @@ public class CommonSearchController extends BaseController {
 
 			//TODO 자료실별 예약 가능여부 체크
 			try {
-				ilusReqConfigService.getILUSReqConfigInfo(librarySearch, "");
+//				ilusReqConfigService.getILUSReqConfigInfo(librarySearch, "");
 			} catch (Exception e) {
 				// TODO: handle exception
 			}

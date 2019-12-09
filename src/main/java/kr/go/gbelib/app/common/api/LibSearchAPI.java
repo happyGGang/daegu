@@ -750,6 +750,30 @@ public class LibSearchAPI {
 		param.put("manage_code", manage_code);
 		return CommonAPI.sendKCMS("searchwordbest", param);
 	}
+	
+	/**
+	 * K.API - 46
+	 *
+	 * 코드조회
+	 *
+	 * @author whalesoft dseok63 2019. 12. 09.
+	 * @param class_code
+	 *        1 : 관리구분(manage_code)
+	 *        4 : 등록구분(reg_code)
+	 *        5 : 매체구분(media_code)
+	 *        16 : 이용제한구분(use_limit_code)
+	 *        19 : 자료실구분(shelf_loc_code)
+	 *        30 : 소속 (user_position_code)
+	 *        31 : 직급 (user_class_code)
+	 * @param manage_code
+	 * @return
+	 */
+	public static Map<String, Object> getSubLocaInfo(String class_code, String manage_code) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("class_code", class_code);
+		param.put("manage_code", manage_code);
+		return CommonAPI.sendKCMS("getcodeinfo", param);
+	}
 
 	/**
 	 * K.API - 56

@@ -22,7 +22,7 @@ $(function() {
 				"class": 'btn btn1',
 				click: function() {
 					
-					var form = $('form#ilusReqConfigForm');
+					var form = $('form#lasReqConfigForm');
 					jQuery.ajaxSettings.traditional = true;
 					var formData = serializeObject(form);
 					var responseValid = false;
@@ -145,6 +145,20 @@ $(function() {
 		}
 	});
 	
+	$('input#str_date_3').datepicker({
+		maxDate: $('input#end_date_3').val(),
+		onClose: function(selectedDate){
+			$('input#end_date_3').datepicker('option', 'minDate', selectedDate);
+		}
+	});
+	
+	$('input#end_date_3').datepicker({
+		minDate: $('input#str_date_3').val(),
+		onClose: function(selectedDate){
+			$('input#str_date_3').datepicker('option', 'maxDate', selectedDate);
+		}
+	});
+	
 });
 
 </script>
@@ -152,10 +166,10 @@ $(function() {
 	div.locaChkBox {display: inline-block;width: 220px;}
 	textarea {border: 1px solid #ccd2dc;border-radius: 7px;}
 </style>
-<form:form modelAttribute="ilusReqConfig" id="ilusReqConfigForm" method="post" action="save.do">
+<form:form modelAttribute="lasReqConfig" id="lasReqConfigForm" method="post" action="save.do">
 	<form:hidden path="editMode"/>
 	<form:hidden path="homepage_id"/>
-	<form:hidden path="ilus_req_idx"/>
+	<form:hidden path="las_req_idx"/>
 	<form:hidden path="sub_loca_code"/>
 	<table class="type2">
 		<colgroup>
@@ -175,20 +189,20 @@ $(function() {
 				<th class="center" colspan="2">자료실</th>
 				<td>
 					<c:forEach items="${subLocation}" var="i">
-					<c:if test="${ilusReqConfig.editMode eq 'ADD'}">
-						<c:if test="${fn:contains(subLacaList, i.SUB_LOCATION_CODE) eq false}">
+					<c:if test="${lasReqConfig.editMode eq 'ADD'}">
+						<c:if test="${fn:contains(subLacaList, i.CODE) eq false}">
 						<div class="locaChkBox">
-							<form:checkbox path="sub_loca_codes" label="${i.SUB_LOCATION_NAME}" value="${i.SUB_LOCATION_CODE}" />
+							<form:checkbox path="sub_loca_codes" label="${i.DESCRIPTION}" value="${i.CODE}" />
 						</div>
 						</c:if>
 					</c:if>
-					<c:if test="${ilusReqConfig.editMode eq 'MODIFY'}">
-						<c:if test="${i.SUB_LOCATION_CODE eq ilusReqConfig.sub_loca_code}">
-						${i.SUB_LOCATION_NAME}
+					<c:if test="${lasReqConfig.editMode eq 'MODIFY'}">
+						<c:if test="${i.CODE eq lasReqConfig.sub_loca_code}">
+						${i.DESCRIPTION}
 						</c:if>
 					</c:if>
 					</c:forEach>
-					<c:if test="${ilusReqConfig.editMode eq 'ADD'}">
+					<c:if test="${lasReqConfig.editMode eq 'ADD'}">
 					<div class="ui-state-highlight">
 						<em>* 기능제한이 가능한 자료실에 대해서 등록됩니다.</em><br>
 						<em>* 등록된 자료실의 사용기간은 목록에서 수정버튼을 이용해 수정이 가능합니다.</em>
@@ -196,24 +210,24 @@ $(function() {
 					</c:if>
 				</td>
 			</tr>
-			<c:forEach items="${ilusReqCode}" var="i" varStatus="status">
+			<c:forEach items="${lasReqCode}" var="i" varStatus="status">
 			<tr>
 				<th rowspan="3">${i.code_name} 기능 제한</th>
-				<form:hidden path="ilus_config_list[${status.index}].ilus_req_code" value="${i.code_id}"/>
+				<form:hidden path="las_config_list[${status.index}].las_req_code" value="${i.code_id}"/>
 				<th>사용여부</th>
 				<td>
-					<form:radiobutton path="ilus_config_list[${status.index}].use_yn" label="사용" value="Y"/>
-					<form:radiobutton path="ilus_config_list[${status.index}].use_yn" label="미사용" value="N"/>
+					<form:radiobutton path="las_config_list[${status.index}].use_yn" label="사용" value="Y"/>
+					<form:radiobutton path="las_config_list[${status.index}].use_yn" label="미사용" value="N"/>
 				</td>
 			</tr>
 			<tr>
 				<th>기간</th>
 				<td>
-					<form:input path="ilus_config_list[${status.index}].str_date" id="str_date_${status.index}" class="text ui-calendar"/>
-					<form:input path="ilus_config_list[${status.index}].str_time" class="text" cssStyle="width:50px;" maxlength="5"/>
+					<form:input path="las_config_list[${status.index}].str_date" id="str_date_${status.index}" class="text ui-calendar str_date"/>
+					<form:input path="las_config_list[${status.index}].str_time" class="text" cssStyle="width:50px;" maxlength="5"/>
 					<span id="tilde" style="font-size:12px">~</span>
-					<form:input path="ilus_config_list[${status.index}].end_date" id="end_date_${status.index}" class="text ui-calendar"/>
-					<form:input path="ilus_config_list[${status.index}].end_time" class="text" cssStyle="width:50px;" maxlength="5"/>
+					<form:input path="las_config_list[${status.index}].end_date" id="end_date_${status.index}" class="text ui-calendar end_date"/>
+					<form:input path="las_config_list[${status.index}].end_time" class="text" cssStyle="width:50px;" maxlength="5"/>
 					<div class="ui-state-highlight">
 						<em>* 시간 입력 ex) 10:30</em>
 					</div>
@@ -222,7 +236,7 @@ $(function() {
 			<tr>
 				<th>메세지</th>
 				<td>
-					<form:textarea path="ilus_config_list[${status.index}].res_msg" rows="4" cols="68"/>
+					<form:textarea path="las_config_list[${status.index}].res_msg" rows="4" cols="68"/>
 				</td>
 			</tr>
 			</c:forEach>
