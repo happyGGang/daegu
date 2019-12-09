@@ -42,6 +42,7 @@ $(function() {
 
 <form:form modelAttribute="librarySearch" action="index.do" method="get" onsubmit="return false;">
 <form:hidden path="viewPage"/>
+<form:hidden path="menu_idx"/>
 <div class="book-list">
 	<c:if test="${fn:length(hopeList) < 1 }"> <h3>희망도서신청 내역이 없습니다.</h3></c:if>
 	<c:forEach items="${hopeList}" var="i">
