@@ -1,13 +1,13 @@
-package kr.go.gbelib.app.cms.module.ilusReqConfig;
+package kr.go.gbelib.app.cms.module.lasReqConfig;
 
 import java.util.List;
 
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
-public class ILUSReqConfig extends PagingUtils {
+public class LasReqConfig extends PagingUtils {
 
-	private int ilus_req_idx; // 기능제한 번호
-	private String ilus_req_code; // 기능제한 코드
+	private int las_req_idx; // 기능제한 번호
+	private String las_req_code; // 기능제한 코드
 	private String loca_code; // 소장처(도서관) 코드
 	private String loca_name; // 소장처(도서관)명
 	private String sub_loca_code; // 자료실 코드
@@ -24,23 +24,23 @@ public class ILUSReqConfig extends PagingUtils {
 	private String mod_date; // 수정날자
 	private String mod_id; // 수정자
 
-	private List<ILUSReqConfig> ilus_config_list;
+	private List<LasReqConfig> las_config_list;
 	private int date_chk; // 기간체크	1: 제한기간과 사용여부가 맞는 값, 0: 제한기간과 사용여부가 아닌 값 
 	
-	public int getIlus_req_idx() {
-		return ilus_req_idx;
+	public int getLas_req_idx() {
+		return las_req_idx;
 	}
 
-	public void setIlus_req_idx(int ilus_req_idx) {
-		this.ilus_req_idx = ilus_req_idx;
+	public void setLas_req_idx(int las_req_idx) {
+		this.las_req_idx = las_req_idx;
 	}
 
-	public String getIlus_req_code() {
-		return ilus_req_code;
+	public String getLas_req_code() {
+		return las_req_code;
 	}
 
-	public void setIlus_req_code(String ilus_req_code) {
-		this.ilus_req_code = ilus_req_code;
+	public void setLas_req_code(String las_req_code) {
+		this.las_req_code = las_req_code;
 	}
 
 	public String getLoca_code() {
@@ -163,12 +163,12 @@ public class ILUSReqConfig extends PagingUtils {
 		this.date_chk = date_chk;
 	}
 
-	public List<ILUSReqConfig> getIlus_config_list() {
-		return ilus_config_list;
+	public List<LasReqConfig> getLas_config_list() {
+		return las_config_list;
 	}
 
-	public void setIlus_config_list(List<ILUSReqConfig> ilus_config_list) {
-		this.ilus_config_list = ilus_config_list;
+	public void setLas_config_list(List<LasReqConfig> las_config_list) {
+		this.las_config_list = las_config_list;
 	}
 
 }
