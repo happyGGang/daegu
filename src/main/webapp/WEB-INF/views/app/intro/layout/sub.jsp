@@ -22,7 +22,7 @@ $(function() {
 					<ul class="siteLink">
 						<li class="card" style="${isMobile ? '':'display:none'}"><a href="/intro/${homepage.context_path}/login/mobileCard.do">모바일회원증</a></li>
 						<c:choose>
-						<c:when test="${sessionScope.member.login}">
+						<c:when test="${not empty sessionScope.member and sessionScope.member.login}">
 						<li class="login"><a href="/intro/${homepage.context_path}/login/logout.do">로그아웃</a></li>
 						<li class="join"><a href="/intro/${homepage.context_path}/join/passCheck.do">정보수정</a></li>
 						</c:when>
