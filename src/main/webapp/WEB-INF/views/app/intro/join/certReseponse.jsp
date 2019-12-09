@@ -72,14 +72,24 @@ $(function() {
 		window.opener.document.getElementById('loginForm').submit();
 		window.close();
 		return false;
+	} else if ('${integrationFailed2}' == 'true') {
+		alert('선택하신 이용자 정보와 본인인증 데이터가 일치하지 않습니다.');
+		window.close();
+		return false;
 	} else if ('${integrationFailed}' == 'true') {
-		alert('개인식별정보 인증값이 다릅니다. 도서관에 문의해주세요.');
+		if ('${integrationFailedUserNo}' != '') {
+			alert('해당 대출자 번호의 정보 보정 후 통합인증을 다시 진행해주시기 바랍니다.\n\n대출자 번호 : ${integrationFailedUserNo}');
+		} else {
+			alert('중복된 회원이 존재합니다. 도서관에 문의하시기 바랍니다.');
+		}
 		window.close();
 		return false;
 	} else if ('${integration}' == 'true') {
 		if ('${needParentCert}' == 'true') {
+			alert('회원님은 만14세미만 이용자입니다.\n보호자 본인인증이 필요합니다.');
 			window.opener.$('div#parentCert').show();
 			window.opener.$('table#parentTable').show();
+			window.opener.$('div#memberCert').hide();
 		} else {
 			window.opener.document.getElementById('memberInfo').submit();
 			window.close();

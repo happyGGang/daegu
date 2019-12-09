@@ -264,9 +264,9 @@ $(function() {
 						<div id="cell_phone_div">
 						<c:if test="${not empty newMember.cell_phone}">
 						${newMember.cell_phone}
-						<form:input path="cell_phone1" class="text" cssStyle="width:60px; display:none;" numberOnly="true" value="${fn:substring(newMember.cell_phone, 0, 3)}"/>
-						<form:input path="cell_phone2" class="text" cssStyle="width:60px; display:none;" numberOnly="true" value="${fn:substring(newMember.cell_phone, 3, 7)}" />
-					 	<form:input path="cell_phone3" class="text" cssStyle="width:60px; display:none;" numberOnly="true" value="${fn:substring(newMember.cell_phone, 7, 20)}" />
+						<form:input path="cell_phone1" class="text" cssStyle="width:60px; display:none;" numberOnly="true" value="${newMember.cell_phone1}"/>
+						<form:input path="cell_phone2" class="text" cssStyle="width:60px; display:none;" numberOnly="true" value="${newMember.cell_phone2}" />
+					 	<form:input path="cell_phone3" class="text" cssStyle="width:60px; display:none;" numberOnly="true" value="${newMember.cell_phone3}" />
 						</c:if>
 						<c:if test="${empty newMember.cell_phone}">
 					 	<form:input path="cell_phone1" class="text" cssStyle="width:60px;" maxlength="3" numberOnly="true"/>
@@ -294,14 +294,6 @@ $(function() {
 								<form:input path="address2" class="text" style="width:80%;" />
 							</p>
 						</div>
-					</td>
-				</tr>
-				<tr>
-					<th>
-						소속도서관(<span style="color: red;">*</span>)
-					</th>
-					<td>
-					 	${homepage.homepage_name}
 					</td>
 				</tr>
 				<tr>

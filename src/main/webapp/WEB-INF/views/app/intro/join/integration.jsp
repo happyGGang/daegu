@@ -6,7 +6,13 @@
 
 <link rel="stylesheet" type="text/css" href="/resources/common/css/login/login.css">
 <link rel="stylesheet" type="text/css" href="/resources/common/css/join/join.css"/>
+<script>
+$(function() {
+	$('input#user_no').focus();
+});
 
+
+</script>
 
 
 <p class="blind">회원가입 단계</p>

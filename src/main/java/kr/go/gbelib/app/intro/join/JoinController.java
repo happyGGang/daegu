@@ -340,38 +340,47 @@ public class JoinController extends BaseController {
 		// 통합인증
 		if (StringUtils.isNotEmpty(mode) && mode.equals("integration")) {
 
-			//통합 선택한 회원
-			@SuppressWarnings ("unchecked")
-			Map<String, Object> integrationMember = (Map<String, Object>) request.getSession().getAttribute("integrationMember");
-			int	order = Integer.parseInt(String.valueOf(integrationMember.get("INTEGRATION_ORDER")));
+			//보호자 인증
+			if (!StringUtils.isEmpty(certType) && certType.contains("parent")) {
+				model.addAttribute("integration", true);
+				model.addAttribute("parent", true);
+				request.getSession().setAttribute("parentInfo", member);
+			} else {
+				//통합 선택한 회원
+				@SuppressWarnings ("unchecked")
+				Map<String, Object> integrationMember = (Map<String, Object>) request.getSession().getAttribute("integrationMember");
+				int	order = Integer.parseInt(String.valueOf(integrationMember.get("INTEGRATION_ORDER")));
 
-			if (order == 1 || order == 2) {//1순위 - 책이음회원 //2순위 - CI 있는 경우
-				request.getSession().setAttribute("integration", "o");
-				request.getSession().setAttribute("certMember", member);
-
-				String selectedCi = (String) integrationMember.get("IPIN_HASH");
-
-				if (member.getCi_value().equals(selectedCi)) {
-					model.addAttribute("integration", true);
-				} else {
-					model.addAttribute("integrationFailed2", true);
-				}
-
-			} else {//3순위 - CI 없는 경우
-				List<Map<String, Object>> checkDupUser = MemberAPI.checkDupUser("1", member);
-				if (CollectionUtils.isEmpty(checkDupUser)) {
-					if (StringUtils.equals(member.getAge(), "2")) {//만14세미만인경우 보호자 인증을 받아야한다.
-						model.addAttribute("needParentCert", true);
-					}
-					model.addAttribute("integration", true);
+				if (order == 1 || order == 2) {//1순위 - 책이음회원 //2순위 - CI 있는 경우
 					request.getSession().setAttribute("integration", "o");
 					request.getSession().setAttribute("certMember", member);
-				} else {
-					model.addAttribute("integrationFailedUserNo", checkDupUser.get(0).get("USER_NO"));
-					model.addAttribute("integrationFailed", true);
-					request.getSession().setAttribute("integrationFailed", "o");
-				}
 
+					String selectedCi = (String) integrationMember.get("IPIN_HASH");
+
+					if (member.getCi_value().equals(selectedCi)) {
+						model.addAttribute("integration", true);
+						if (StringUtils.equals(member.getAge(), "2")) {//만14세미만인경우 보호자 인증을 받아야한다.
+							model.addAttribute("needParentCert", true);
+						}
+					} else {
+						model.addAttribute("integrationFailed2", true);
+					}
+
+				} else {//3순위 - CI 없는 경우
+					List<Map<String, Object>> checkDupUser = MemberAPI.checkDupUser("1", member);
+					if (CollectionUtils.isEmpty(checkDupUser)) {
+						if (StringUtils.equals(member.getAge(), "2")) {//만14세미만인경우 보호자 인증을 받아야한다.
+							model.addAttribute("needParentCert", true);
+						}
+						model.addAttribute("integration", true);
+						request.getSession().setAttribute("integration", "o");
+						request.getSession().setAttribute("certMember", member);
+					} else {
+						model.addAttribute("integrationFailedUserNo", checkDupUser.get(0).get("USER_NO"));
+						model.addAttribute("integrationFailed", true);
+						request.getSession().setAttribute("integrationFailed", "o");
+					}
+				}
 			}
 
 			return basePath + "certReseponse_ajax";
@@ -558,7 +567,7 @@ public class JoinController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 		JsonResponse res = new JsonResponse(request);
 
-		if ("ADD".equals(member.getEditMode())) {
+		if ("ADD".equals(member.getEditMode()) || "INTEGRATION".equals(member.getEditMode())) {
 			ValidationUtils.rejectIfEmpty(result, "member_id", "아이디를 입력해주세요.");
 			ValidationUtils.rejectOnlyEngNum(result, "member_id", "아이디는 한글을 사용 할수 없습니다.");
 			ValidationUtils.rejectOnlyEngNum(result, "member_id", 6, 20, "아이디는 영문, 숫자 조합 6자 이상 20자 이하로 입력하세요.");
@@ -622,39 +631,44 @@ public class JoinController extends BaseController {
 				if (certMember != null) {
 					member.setCi_value(certMember.getCi_value());
 					member.setDi_value(certMember.getDi_value());
+					member.setRec_key(certMember.getRec_key());
+					member.setMember_name(certMember.getMember_name());
+					member.setBirth_day(certMember.getBirth_day());
+					member.setIn_ip(request.getRemoteAddr());
+					member.setSex(certMember.getSex());
+					member.setAge(certMember.getAge());
+					member.setManage_code(certMember.getManage_code());
+					if (StringUtils.isNotEmpty(certMember.getCell_phone())) {
+						member.setCell_phone(certMember.getCell_phone());
+						member.setCell_phone1(certMember.getCell_phone1());
+						member.setCell_phone2(certMember.getCell_phone2());
+						member.setCell_phone3(certMember.getCell_phone3());
+					}
+				} else {
+					res.setValid(true);
+					res.setMessage("세션이 만료되었습니다.");
+					res.setUrl(String.format("/intro/%s/login/index.do", homepage.getContext_path())); // 검색대 메인으로 Redirect.
 				}
-				// if ( MemberAPI.updateMember("WEB", member, true) ) {
-				// try {
-				// joinService.integrationMember(member);//회원통합 프로시저 콜
-				// }
-				// catch ( Exception e ) {
-				// }
-				// MemberAPI.agreePrtcInfo("WEB", member.getUser_id(), member.getLoca(), "1,2,6".split(","));
-				// res.setValid(true);
-				// res.setMessage("수정되었습니다.");
-				// res.setUrl(String.format("http://www.gbelib.kr/intro/%s/login/index.do", homepage.getContext_path())); //회원가입 후 홈페이지 메인으로 Redirect.
-				// request.getSession().invalidate();
-				// } else {
-				// res.setValid(false);
-				// res.setMessage("수정 실패하였습니다. 잠시후 다시 시도해주세요..");
-				// }
-			} else if (member.getEditMode().equals("DELETE")) {
-				// Map<String, String> map = MemberAPI.deleteMember("WEB", member);
-				//
-				// if ( map == null ) {
-				// res.setValid(true);
-				// res.setMessage("탈퇴되었습니다. 이용해주셔서 감사합니다.");
-				// }
-				// else {
-				// String code = map.get("code");
-				// String message = map.get("message");
-				// res.setValid(false);
-				// if(StringUtils.isEmpty(message)) {
-				// res.setMessage("삭제 실패하였습니다(" + code + "). 잠시후 다시 시도해주세요.");
-				// } else {
-				// res.setMessage(message);
-				// }
-				// }
+
+				ApiResponse modifyMember = MemberAPI.modifyMember(member);
+				if (modifyMember.getStatus()) {
+					//개인정보 동의
+					MemberAPI.agreeInfo(member.getManage_code(), member.getRec_key(), "N");
+
+					//보호자동의
+					if (member.getAge().equals("2") && request.getSession().getAttribute("parentInfo") != null) {
+						Member parentInfo = (Member) request.getSession().getAttribute("parentInfo");
+						MemberAPI.useragentinfoinsert(member.getRec_key(), parentInfo.getMember_name(), member.getManage_code());
+					}
+
+					res.setValid(true);
+					res.setMessage("통합인증이 완료되었습니다.");
+					res.setUrl(String.format("/intro/%s/login/index.do", homepage.getContext_path())); // 검색대 메인으로 Redirect.
+					request.getSession().invalidate();
+				} else {
+					res.setValid(true);
+					res.setMessage(modifyMember.getMessage());
+				}
 			}
 		} else {
 			res.setValid(false);
@@ -763,7 +777,7 @@ public class JoinController extends BaseController {
 
 	@RequestMapping (value = {"/integration.*"})
 	public String integration(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
-
+		request.getSession().invalidate();
 		model.addAttribute("newMember", member);
 
 		return basePath + "integration";
@@ -811,19 +825,17 @@ public class JoinController extends BaseController {
 
 				String kl_member_yn = String.valueOf(map.get("KL_MEMBER_YN"));
 				String ipin_hash = String.valueOf(map.get("IPIN_HASH"));
-				String manage_code = String.valueOf(map.get("MANAGE_CODE"));
-				Homepage homepage = getSessionHomepage(request);
 
 				//선택한 회원의 통합인증 순위
 				//1:책이음 회원
-				//2:자관 && CI 있음
-				//3:자관 && CI 없음
+				//2:CI 있음
+				//3:CI 없음
 				int integrationOrder = 0;
 				if (StringUtils.equals(kl_member_yn, "Y")) {
 					integrationOrder = 1;
-				} else if (homepage.getManage_code().equals(manage_code) && ipin_hash.length() > 80) {
+				} else if (ipin_hash.length() > 80) {
 					integrationOrder = 2;
-				} else if (homepage.getManage_code().equals(manage_code)) {
+				} else {
 					integrationOrder = 3;
 				}
 				map.put("INTEGRATION_ORDER", integrationOrder);
@@ -837,13 +849,6 @@ public class JoinController extends BaseController {
 	@RequestMapping (value = {"/integration3.*"}, method = RequestMethod.POST)
 	public String integration3(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		@SuppressWarnings ("unchecked")
-		Map<String, Object> integrationMember = (Map<String, Object>) request.getSession().getAttribute("integrationMember");
-
-		System.out.println(integrationMember.get("INTEGRATION_ORDER"));
-		System.out.println(integrationMember.get("USER_NO"));
-
-
 		// TODO 본인인증
 		// -> 1순위로 선택한 책이음 회원 정보일 경우에는 중복체크 하지 않고 통과
 		// -> 2순위로 선택한 자관 CI있는 회원정보일 경우에는 중복체크 하지 않고 통과
@@ -855,13 +860,11 @@ public class JoinController extends BaseController {
 
 	@RequestMapping (value = {"/integration4.*"}, method = RequestMethod.POST)
 	public String integration4(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		Homepage homepage = getSessionHomepage(request);
+		Homepage homepage = getSessionHomepage(request);
 
 		@SuppressWarnings ("unchecked")
 		Map<String, Object> integrationMember = (Map<String, Object>) request.getSession().getAttribute("integrationMember");
 		Member certMember = (Member) request.getSession().getAttribute("certMember");
-
-		String integrationOrder = String.valueOf(integrationMember.get("INTEGRATION_ORDER"));
 
 		if (certMember.getSex().equals("1")) {
 			certMember.setSex("0");// 남
@@ -869,24 +872,12 @@ public class JoinController extends BaseController {
 			certMember.setSex("1");// 여
 		}
 
+		certMember.setRec_key(String.valueOf(integrationMember.get("REC_KEY")));
+		certMember.setManage_code(homepage.getManage_code());
+		certMember.setEditMode("INTEGRATION");
+		request.getSession().setAttribute("certMember", certMember);
 		model.addAttribute("newMember", certMember);
-		if (!"3".equals(integrationOrder)) {
 
-		} else {
-			List<Map<String, Object>> checkDupUser = MemberAPI.checkDupUser("1", certMember);
-			if (CollectionUtils.isNotEmpty(checkDupUser) && checkDupUser.size() > 0) {
-
-			} else {
-
-			}
-
-
-			model.addAttribute("newMember", member);
-		}
-
-
-		// TODO 정보입력
-		member.setEditMode("INTEGRATION");
 		return basePath + "integration4";
 
 	}

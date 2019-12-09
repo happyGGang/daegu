@@ -138,6 +138,111 @@ public class MemberAPI {
 	}
 
 	/**
+	 * K.API - 20
+	 * 회원정보수정 (아이디 비밀번호 포함)
+	 *
+	 * @author whalesoft YONGJU 2019. 11. 16.
+	 * @param member
+	 * @return
+	 */
+	public static ApiResponse modifyMember(Member member) {
+
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		try {
+			param.put("userkey", member.getRec_key());
+			param.put("user_id", member.getMember_id());
+			param.put("user_password", CalculateHashUtils.calculateHashSHA256(member.getMember_pw()));
+
+			if (StringUtils.isNotBlank(member.getBirth_day())) {
+				String birth = member.getBirth_day();
+				param.put("birthday_year", birth.substring(0, 4));
+				param.put("birthday_month", birth.substring(4, 6));
+				param.put("birthday_day", birth.substring(6, 8));
+			}
+//			param.put("birthday_type", URLEncoder.encode("+", "UTF-8"));//+:양력, -:음력
+
+			if (StringUtils.isNotEmpty(member.getZipcode())) {
+				param.put("h_zipcode", member.getZipcode());//집우편번호
+			}
+			if (StringUtils.isNotEmpty(member.getAddress1())) {
+				param.put("h_addr1", URLEncoder.encode(member.getAddress1(), "UTF-8"));//집주소
+			}
+			if (StringUtils.isNotBlank(member.getSms_service_yn())) {
+				param.put("sms_use_yn", member.getSms_service_yn());//SMS수신여부 Y/N
+			}
+			if (StringUtils.isNotBlank(member.getEmail_service_yn())) {
+				param.put("mailing_use_yn", member.getEmail_service_yn());//이메일수신여부 Y/N
+			}
+			if (StringUtils.isNotEmpty(member.getSex())) {
+				param.put("gpin_sex", member.getSex());//성멸 0:남, 1:여
+			}
+			param.put("client_ip", member.getIn_ip());//요청IP
+			if (StringUtils.isNotEmpty(member.getCi_value())) {
+				try {
+					param.put("ipin_hash", URLEncoder.encode(member.getCi_value(), "UTF-8"));
+				} catch (UnsupportedEncodingException e) {
+				}//CI
+			}
+			//선택입력값
+			if (StringUtils.isNotEmpty(member.getPhone1()) && StringUtils.isNotEmpty(member.getPhone2()) && StringUtils.isNotEmpty(member.getPhone3())) {
+				param.put("home_exchange_phone", member.getPhone1());//집 전화번호 첫자리
+				param.put("home_phone1", member.getPhone2());//집전화번호 가운데(첫자리 있는 경우 필수)
+				param.put("home_phone2", member.getPhone3());//집전화번호 뒷자리(첫자리 있는 경우 필수)
+			}
+
+			if (StringUtils.isNotEmpty(member.getCell_phone1()) && StringUtils.isNotEmpty(member.getCell_phone2()) && StringUtils.isNotEmpty(member.getCell_phone3())) {
+				param.put("exchange_mobile", member.getCell_phone1());//휴대전화번호 첫자리
+				param.put("mobile1", member.getCell_phone2());//휴대전화번호 가운데(첫자리 있는 경우 필수)
+				param.put("mobile2", member.getCell_phone3());//휴대전화번호 가운데(첫자리 있는 경우 필수)
+			}
+
+			if (StringUtils.isNotEmpty(member.getEmail1()) && StringUtils.isNotEmpty(member.getEmail2())) {
+				param.put("email_id", member.getEmail1());//이메일 아이디
+				param.put("email_domain", member.getEmail2());//이메일 도메인(이메일 있는 경우 필수)
+			}
+
+			if (StringUtils.isNotEmpty(member.getCompany_phone1()) && StringUtils.isNotEmpty(member.getCompany_phone2()) && StringUtils.isNotEmpty(member.getCompany_phone3())) {
+				param.put("office_exchange_phone", member.getCompany_phone1());//근무지 전화번호 첫자리
+				param.put("office_phone1", member.getCompany_phone2());//근무지 전화번호 가운데(첫자리 있는 경우 필수)
+				param.put("office_phone2", member.getCompany_phone3());//근무지 전화번호 가운데(첫자리 있는 경우 필수)
+			}
+
+			if (StringUtils.isNotEmpty(member.getCompany_zipcode())) {
+				param.put("w_zipcode", member.getCompany_zipcode());//근무지 우편번호
+			}
+
+			if (StringUtils.isNotEmpty(member.getCompany_addr())) {
+				param.put("w_addr1", member.getCompany_addr());//근무지 주소
+			}
+
+			if (StringUtils.isNotEmpty(member.getCompany_name())) {
+				param.put("office_name", member.getCompany_name());//근무지 명
+			}
+
+			if (StringUtils.isNotEmpty(member.getCompany_depart())) {
+				param.put("department", member.getCompany_depart());//근무지 부서명
+			}
+
+			if (StringUtils.isNotBlank(member.getCard_password())) {
+				param.put("card_password", CalculateHashUtils.calculateHashSHA256(member.getCard_password()));//카드 비밀번호
+			}
+
+
+		} catch (Exception e) {}
+
+		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("useraccountmodify", param);
+		String resultInfo = (String) sendKCMS.get("RESULT_INFO");
+
+		if ("SUCCESS".equals(resultInfo)) {
+			return new ApiResponse(true);
+		} else {
+			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
+		}
+
+	}
+
+	/**
 	 * K.API - 21
 	 * 회원 비밀번호 변경
 	 *
