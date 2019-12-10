@@ -30,7 +30,7 @@ public class BookReviewService extends BaseService {
 	public String addBookReview(BookReview bookReview) {
 		String filterCheck = null;
 		try {
-			filterCheck = webFilterCheck(bookReview.getBook_review_web_id(), bookReview);
+			filterCheck = webFilterCheck(bookReview.getAdd_id(), bookReview);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -47,7 +47,7 @@ public class BookReviewService extends BaseService {
 	public String modBookReview(BookReview bookReview) {
 		String filterCheck = null;
 		try {
-			filterCheck = webFilterCheck(bookReview.getBook_review_web_id(), bookReview);
+			filterCheck = webFilterCheck(bookReview.getModify_id(), bookReview);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

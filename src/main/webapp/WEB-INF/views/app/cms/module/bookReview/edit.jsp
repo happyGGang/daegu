@@ -67,7 +67,7 @@ $(function() {
        	<tbody>
         	<tr id="memberIdTr">
 	         	<th>작성자</th>
-	         	<td>${bookReview.book_review_web_id}</td>
+	         	<td>${bookReview.add_id}</td>
 	       	</tr>
 			<tr>
 				<th>서평 점수</th>

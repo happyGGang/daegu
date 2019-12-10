@@ -9,7 +9,6 @@ public class BookReview extends PagingUtils {
 
 	private int book_review_idx; // 서평IDX
 	private String book_review_loan_id; // 대출자IDX
-	private String book_review_web_id; // 웹ID
 	private String book_review_name; // 이름
 	private String book_review_content; // 서평내용
 	private float book_review_score; // 서평점수
@@ -41,14 +40,6 @@ public class BookReview extends PagingUtils {
 
 	public void setBook_review_loan_id(String book_review_loan_id) {
 		this.book_review_loan_id = book_review_loan_id;
-	}
-
-	public String getBook_review_web_id() {
-		return book_review_web_id;
-	}
-
-	public void setBook_review_web_id(String book_review_web_id) {
-		this.book_review_web_id = book_review_web_id;
 	}
 
 	public String getBook_review_name() {

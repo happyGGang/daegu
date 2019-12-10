@@ -268,7 +268,7 @@ function doAjaxPostSubmit(form, ajaxBody) {
 				<span class="starR1 <c:if test="${i.book_review_score >= 4.5}">on</c:if>"></span>
 				<span class="starR2 <c:if test="${i.book_review_score >= 5}">on</c:if>"></span>
 			</div>
-			<span class="name">${i.book_review_name}(${i.book_review_web_id})</span>
+			<span class="name">${i.book_review_name}(${i.add_id})</span>
 			<span class="published" title="<fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd HH:mm" />"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd HH:mm" /></span>
 		</div>
 		<div class="bcl-content" id="bookReview_content_${i.book_review_idx}">

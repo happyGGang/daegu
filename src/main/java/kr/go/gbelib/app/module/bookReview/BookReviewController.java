@@ -109,7 +109,6 @@ public class BookReviewController extends BaseController {
 		if(!result.hasErrors()) {
 			Member member = getSessionMemberInfo(request);
 			bookReview.setBook_review_loan_id(member.getRec_key());
-			bookReview.setBook_review_web_id(member.getMember_id());
 			bookReview.setBook_review_name(member.getMember_name());
 
 			if(bookReview.getEditMode().equals("ADD")) {

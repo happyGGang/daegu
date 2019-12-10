@@ -144,7 +144,7 @@ $(function() {
  	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 		<fieldset>
 			<form:select path="search_type" cssClass="selectmenu">
-				<form:option value="book_review_web_id">작성자</form:option>
+				<form:option value="add_id">작성자</form:option>
 				<form:option value="book_review_content">서평내용</form:option>
 			</form:select>
 			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>

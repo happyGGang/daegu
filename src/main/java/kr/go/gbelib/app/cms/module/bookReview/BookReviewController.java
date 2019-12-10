@@ -116,6 +116,7 @@ public class BookReviewController extends BaseController {
 //				res.setValid(true);
 //				res.setMessage("");
 			} else if(bookReview.getEditMode().equals("MODIFY")) {
+				bookReview.setModify_id(getSessionMemberId(request));
 				service.modBookReview(bookReview);
 				res.setValid(true);
 				res.setReload(true);
