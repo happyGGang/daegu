@@ -236,8 +236,8 @@ ${quiz.top_html}
 					<c:choose>
 						<c:when test="${member.loginType eq 'HOMEPAGE' }">
 							<label for="phone"></label>
-							${member.mobile_no}
-							<form:hidden path="phone" class="text" value="${member.mobile_no}"/>
+							${member.cell_phone}
+							<form:hidden path="phone" class="text" value="${member.cell_phone}"/>
 						</c:when>
 						<c:otherwise>
 							<label for="phone"></label>
