@@ -83,11 +83,11 @@ $(function() {
 	<table class="type1 center">
 		<colgroup>
 			<col width="5%" />
-			<col width="12%" />
+			<col width="15%" />
 			<col width="5%" />
 			<col width="15%" />
 			<col />
-			<col width="15%" />
+			<col width="12%" />
 			<col width="10%" />
 		</colgroup>
 		<thead>

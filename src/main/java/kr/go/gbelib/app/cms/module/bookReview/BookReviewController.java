@@ -1,6 +1,5 @@
 package kr.go.gbelib.app.cms.module.bookReview;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -137,25 +136,18 @@ public class BookReviewController extends BaseController {
 
 	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
 	public BookReviewView excel(Model model, BookReview bookReview, HttpServletRequest request, HttpServletResponse response) throws Exception{
-		bookReview.setManage_code(getHomepageOne(bookReview.getHomepage_id()).getLib_code());
-
+		bookReview.setManage_code(getHomepageOne(bookReview.getHomepage_id()).getManage_code());
 		List<BookReview> bookReviewLocaList = service.getBookReviewLocaList(bookReview);
 
 		for(BookReview one : bookReviewLocaList) {
 			LibrarySearch librarySearch = new LibrarySearch();
-			librarySearch.setvCtrl(one.getReg_no());
-
-			@SuppressWarnings("unchecked")
-			List<Map<String, Object>> dsItemDetail = (ArrayList<Map<String,Object>>)LibSearchAPI.getBookDetail(librarySearch).get("dsItemDetail");
-//			one.setDsItemDetail(dsItemDetail.get(0));
-
-			Homepage codeHomepage = new Homepage();
-//			codeHomepage.setLib_code(one.getDsItemDetail().get("LOCA").toString());
-			Homepage newHomepage = homepageService.getHomepageOneByCode(codeHomepage);
-
-			int moduleMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(newHomepage.getHomepage_id(), 2));
-			one.setMenu_idx(moduleMenuIdx);
-//			one.getDsItemDetail().put("context_path", newHomepage.getContext_path());
+			librarySearch.setRegNo(one.getReg_no());
+			librarySearch.setManageCode(one.getManage_code());
+			
+			Map<String, Object> result = LibSearchAPI.getBookInfo(librarySearch);
+			List<Map<String, Object>> list = LibSearchAPI.getListData(result);
+			Map<String, Object> map = list.get(0);
+			one.setBook_info(map);
 		}
 
 		model.addAttribute("bookReview", bookReview);
@@ -166,17 +158,18 @@ public class BookReviewController extends BaseController {
 
 	@RequestMapping(value = {"/csvDownload.*"}, method = RequestMethod.POST)
 	public void csv(Model model, BookReview bookReview, HttpServletRequest request, HttpServletResponse response) throws Exception{
-		bookReview.setManage_code(getHomepageOne(bookReview.getHomepage_id()).getLib_code());
-
+		bookReview.setManage_code(getHomepageOne(bookReview.getHomepage_id()).getManage_code());
 		List<BookReview> bookReviewAll = service.getBookReviewLocaList(bookReview);
 
 		for(BookReview one : bookReviewAll) {
 			LibrarySearch librarySearch = new LibrarySearch();
-			librarySearch.setvCtrl(one.getReg_no());
+			librarySearch.setRegNo(one.getReg_no());
+			librarySearch.setManageCode(one.getManage_code());
 
-			@SuppressWarnings("unchecked")
-			List<Map<String, Object>> dsItemDetail = (ArrayList<Map<String,Object>>)LibSearchAPI.getBookDetail(librarySearch).get("dsItemDetail");
-//			one.setDsItemDetail(dsItemDetail.get(0));
+			Map<String, Object> result = LibSearchAPI.getBookInfo(librarySearch);
+			List<Map<String, Object>> list = LibSearchAPI.getListData(result);
+			Map<String, Object> map = list.get(0);
+			one.setBook_info(map);
 		}
 
 		new BookReviewXlsToCsv(bookReviewAll, request, response);

@@ -68,9 +68,9 @@ public class BookReviewWorkbook {
 		for(BookReview one : bookReviewAll) {
 			workbook.getSheet(0).addCell(new Label(0, row, String.valueOf(one.getBook_review_score())));
 			workbook.getSheet(0).addCell(new Label(1, row, sdf.format(one.getAdd_date())));
-			workbook.getSheet(0).addCell(new Label(2, row, sdf.format(one.getModify_date())));
-//			workbook.getSheet(0).addCell(new Label(3, row, one.getDsItemDetail().get("LOCA_NAME").toString()));
-//			workbook.getSheet(0).addCell(new Label(4, row, one.getDsItemDetail().get("TITLE").toString()));
+			workbook.getSheet(0).addCell(new Label(2, row, one.getModify_date() == null ? "" : sdf.format(one.getModify_date())));
+			workbook.getSheet(0).addCell(new Label(3, row, one.getBook_info().get("LIB_NAME").toString()));
+			workbook.getSheet(0).addCell(new Label(4, row, one.getBook_info().get("TITLE_INFO").toString()));
 			workbook.getSheet(0).addCell(new Label(5, row, one.getBook_review_content()));
 			
 			row++;
