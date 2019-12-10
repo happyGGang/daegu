@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<script src="/resources/cms/js/malsup.jquery.form.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function() {
 	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
@@ -69,7 +68,7 @@ function getLasData(arg) {
 	$('input#book_author').val(arg[2]);
 	$('input#book_publisher').val(arg[3]);
 	$('input#call_no').val(arg[5]);
-	$('input#real_file_name').val(arg[6]);
+	$('input#book_image').val(arg[6]);
 	return false;
 }
 
@@ -144,7 +143,7 @@ function getLasData(arg) {
 	        </tr>
 	         <tr>
 	         	<th>책 이미지</th>
-	         	<td><form:input path="real_file_name" class="text" cssStyle="width:100%"/></td>
+	         	<td><form:input path="book_image" class="text" cssStyle="width:100%"/></td>
 	        </tr>
 	        <tr>
 	         	<th>저자</th>

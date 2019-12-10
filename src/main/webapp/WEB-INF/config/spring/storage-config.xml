@@ -82,11 +82,6 @@
     	<property name="basedOnServletContext" value="true"/> 
   	</bean>
   	
-  	<bean id="quizStorage" class="kr.co.whalesoft.framework.file.FileStorage">
-    	<property name="rootPath" value="/data/quiz"/>
-    	<property name="basedOnServletContext" value="true"/> 
-  	</bean>
-  	
   	<bean id="menuTempFileStorage" class="kr.co.whalesoft.framework.file.FileStorage">
     	<property name="rootPath" value="/data/menuResources"/>
     	<property name="basedOnServletContext" value="true"/> 
@@ -104,16 +99,6 @@
   	
   	<bean id="lockerPreStorage" class="kr.co.whalesoft.framework.file.FileStorage">
     	<property name="rootPath" value="/data/lockerPre"/>
-    	<property name="basedOnServletContext" value="true"/> 
-  	</bean>
-  	
-  	<bean id="beaconStorage" class="kr.co.whalesoft.framework.file.FileStorage">
-    	<property name="rootPath" value="/data/beacon"/>
-    	<property name="basedOnServletContext" value="true"/> 
-  	</bean>
-  	
-  	<bean id="pushStorage" class="kr.co.whalesoft.framework.file.FileStorage">
-    	<property name="rootPath" value="/data/push"/>
     	<property name="basedOnServletContext" value="true"/> 
   	</bean>
   	
