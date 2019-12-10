@@ -54,7 +54,7 @@ public class BookReviewController extends BaseController {
 		} else {
 			bookReview.setManage_code(getHomepageOne(bookReview.getHomepage_id()).getManage_code());
 		}
-
+		
 		int count = service.getBookReviewLocaListCnt(bookReview);
 		service.setPaging(model, count, bookReview);
 
@@ -64,6 +64,10 @@ public class BookReviewController extends BaseController {
 			LibrarySearch librarySearch = new LibrarySearch();
 			librarySearch.setManageCode(one.getManage_code());
 			librarySearch.setRegNo(one.getReg_no());
+			
+			if (StringUtils.isEmpty(librarySearch.getBooktype())) {
+				one.setBook_type("0");
+			}
 
 			Map<String, Object> result = LibSearchAPI.getBookInfo(librarySearch);
 			List<Map<String, Object>> list = LibSearchAPI.getListData(result);

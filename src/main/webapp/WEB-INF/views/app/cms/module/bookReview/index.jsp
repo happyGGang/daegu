@@ -103,7 +103,7 @@ $(function() {
 		</thead>
 		<tbody>
 			<c:forEach var="i" varStatus="status" items="${bookReviewLocaList}">
-				<c:set var="detailURL" value="/${i.book_info.context_path}/intro/search/detail.do?menu_idx=${fn:escapeXml(i.menu_idx)}&isbn=${i.book_info.ISBN}&regNo=${fn:escapeXml(i.book_info.REG_NO)}&manageCode=${fn:escapeXml(i.book_info.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype eq '0' ? 'BO' : 'SE')}"></c:set>
+				<c:set var="detailURL" value="/${i.book_info.context_path}/intro/search/detail.do?menu_idx=${fn:escapeXml(i.menu_idx)}&isbn=${i.book_info.ISBN}&regNo=${fn:escapeXml(i.book_info.REG_NO)}&manageCode=${fn:escapeXml(i.book_info.MANAGE_CODE)}&booktype=${fn:escapeXml(i.book_type eq '0' ? 'BO' : 'SE')}"></c:set>
 				<tr>
 					<td class="num">${paging.listRowNum - status.index}</td>
 					<td>${i.book_review_name}<br>(${i.book_review_loan_id})</td>

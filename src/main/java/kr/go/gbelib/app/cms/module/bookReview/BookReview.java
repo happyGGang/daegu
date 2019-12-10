@@ -15,6 +15,7 @@ public class BookReview extends PagingUtils {
 	private float book_review_score; // 서평점수
 	private String manage_code; // 관리코드
 	private String reg_no; // 등록번호
+	private String book_type; // 서지형태
 	private String add_id; // 등록ID
 	private Date add_date; // 등록일
 	private String modify_id; // 수정ID
@@ -88,6 +89,14 @@ public class BookReview extends PagingUtils {
 
 	public void setReg_no(String reg_no) {
 		this.reg_no = reg_no;
+	}
+
+	public String getBook_type() {
+		return book_type;
+	}
+
+	public void setBook_type(String book_type) {
+		this.book_type = book_type;
 	}
 
 	public String getAdd_id() {
