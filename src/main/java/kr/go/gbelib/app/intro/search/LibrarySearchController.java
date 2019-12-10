@@ -459,12 +459,12 @@ public class LibrarySearchController extends BaseController {
 			} else if ( librarySearch.getEditMode().equals("RENEW") ) {
 
 				// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
-				LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0002");
-				if(lasReqConfig != null) {
-					res.setValid(false);
-					res.setMessage(lasReqConfig.getRes_msg());
-					return res;
-				}
+//				LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0002");
+//				if(lasReqConfig != null) {
+//					res.setValid(false);
+//					res.setMessage(lasReqConfig.getRes_msg());
+//					return res;
+//				}
 
 				ApiResponse apiResult = LibSearchAPI.renewLoan(librarySearch);
 				if ( apiResult.getStatus() ) {
@@ -552,12 +552,12 @@ public class LibrarySearchController extends BaseController {
 			if (librarySearch.getEditMode().equals("ADD")) {
 
 				// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
-				LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0001");
-				if(lasReqConfig != null) {
-					res.setValid(false);
-					res.setMessage(lasReqConfig.getRes_msg());
-					return res;
-				}
+//				LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0001");
+//				if(lasReqConfig != null) {
+//					res.setValid(false);
+//					res.setMessage(lasReqConfig.getRes_msg());
+//					return res;
+//				}
 
 				ApiResponse apiResult = LibSearchAPI.reqResve(librarySearch);
 				if (apiResult.getStatus()) {
@@ -1034,9 +1034,11 @@ public class LibrarySearchController extends BaseController {
 
 						int sameBookCount = LibSearchAPI.getSearchCount(sameBook);
 
+						boolean already = false;
 						if (sameBookCount > 0) {
-							map2.put("already"+isbn.length(), true);
+							already = true;
 						}
+						map2.put("already"+isbn.length(), already);
 
 					}
 
@@ -1214,12 +1216,12 @@ public class LibrarySearchController extends BaseController {
 			}
 
 			// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
-			LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0004");
-			if(lasReqConfig != null) {
-				res.setValid(false);
-				res.setMessage(lasReqConfig.getRes_msg());
-				return res;
-			}
+//			LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0004");
+//			if(lasReqConfig != null) {
+//				res.setValid(false);
+//				res.setMessage(lasReqConfig.getRes_msg());
+//				return res;
+//			}
 
 			librarySearch.setUserkey(member.getRec_key());
 			ApiResponse apiResult = LibSearchAPI.unmannedloanreserve(librarySearch);
@@ -1308,12 +1310,12 @@ public class LibrarySearchController extends BaseController {
 			}
 
 			// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
-			LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0003");
-			if(lasReqConfig != null) {
-				res.setValid(false);
-				res.setMessage(lasReqConfig.getRes_msg());
-				return res;
-			}
+//			LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0003");
+//			if(lasReqConfig != null) {
+//				res.setValid(false);
+//				res.setMessage(lasReqConfig.getRes_msg());
+//				return res;
+//			}
 
 			librarySearch.setUserkey(member.getRec_key());
 			ApiResponse apiResult = LibSearchAPI.nightloanreserve(librarySearch);
