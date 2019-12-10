@@ -108,11 +108,11 @@
 		INSERT INTO
 			CMS_MENU_TEMP_FILE
 		(
-			homepage_id, menu_idx, file_idx, path, org_file_name
+			homepage_id, menu_idx, file_idx, path, org_file_name, add_id, add_date
 		)
 		VALUES
 		(
-			#{homepage_id}, #{menu_idx}, #{file_idx}, #{path}, #{org_file_name}
+			#{homepage_id}, #{menu_idx}, #{file_idx}, #{path}, #{org_file_name}, #{add_id}, SYSDATE
 		)
 	</insert>
 

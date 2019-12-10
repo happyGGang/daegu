@@ -298,6 +298,7 @@ public class MenuController extends BaseController {
 	public @ResponseBody MenuTempFile addMenuTempFile(MenuTempFile menuTempFile, BindingResult result, MultipartHttpServletRequest mpRequest) {
 
 		if(!result.hasErrors()) {
+			menuTempFile.setAdd_id(getSessionMemberId(mpRequest));
 			MultipartFile mfile = mpRequest.getFileMap().get("menu_temp_file");
 			menuHtmlService.addMenuTempFile(menuTempFile, mfile);
 //			menuTempFile.setValid(true);

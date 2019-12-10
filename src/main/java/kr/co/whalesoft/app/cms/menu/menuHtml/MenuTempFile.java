@@ -1,5 +1,7 @@
 package kr.co.whalesoft.app.cms.menu.menuHtml;
 
+import java.util.Date;
+
 public class MenuTempFile {
 
 	private String homepage_id; // 홈페이지 ID
@@ -7,8 +9,10 @@ public class MenuTempFile {
 	private int file_idx; // 파일 IDX
 	private String path; // 경로
 	private String org_file_name; // 원본파일명
-//	private MultipartFile menuTempFile; // 메뉴임시파일
-//	private boolean isValid = false; // 사용여부
+	private String add_id; // 등록ID
+	private Date add_date; // 등록일시
+	// private MultipartFile menuTempFile; // 메뉴임시파일
+	// private boolean isValid = false; // 사용여부
 
 	public MenuTempFile() {
 	}
@@ -72,6 +76,22 @@ public class MenuTempFile {
 
 	public void setOrg_file_name(String org_file_name) {
 		this.org_file_name = org_file_name;
+	}
+
+	public String getAdd_id() {
+		return add_id;
+	}
+
+	public void setAdd_id(String add_id) {
+		this.add_id = add_id;
+	}
+
+	public Date getAdd_date() {
+		return add_date;
+	}
+
+	public void setAdd_date(Date add_date) {
+		this.add_date = add_date;
 	}
 
 }
