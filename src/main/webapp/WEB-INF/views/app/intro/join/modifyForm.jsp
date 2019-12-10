@@ -156,7 +156,7 @@ $(function() {
 					${memberInfo.member_name}
 				</td>
 			</tr>
-			<c:if test="${not empty memberInfo.user_no}">
+			<c:if test="${not empty memberInfo.user_no and memberInfo.user_no ne 'null'}">
 			<tr>
 				<th>
 					대출번호
@@ -201,7 +201,7 @@ $(function() {
 					<input id="member_pw_confirm" type="password" class="text" maxlength="20"> <b id="pw_confirm_message"></b>
 				</td>
 			</tr>
-			<c:if test="${not empty memberInfo.user_no}">
+			<c:if test="${not empty memberInfo.user_no and memberInfo.user_no ne 'null'}">
 			<tr>
 				<th>
 					카드 비밀번호 변경여부
