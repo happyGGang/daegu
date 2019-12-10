@@ -750,7 +750,7 @@ public class LibSearchAPI {
 		param.put("manage_code", manage_code);
 		return CommonAPI.sendKCMS("searchwordbest", param);
 	}
-	
+
 	/**
 	 * K.API - 46
 	 *
@@ -1013,6 +1013,46 @@ public class LibSearchAPI {
 
 		return list;
 	}
+
+	/********************************************************************************************************************/
+	/********************************************* 이하 알라딘 **************************************************************/
+	/*******************************************************************************************************************/
+
+	/**
+	 * 알라딘 API 책 1권의 정보를 가져온다.
+	 * cover : item.corver
+	 * @author YONGJU 2017. 11. 23.
+	 * @param map.ISBN
+	 */
+	public static Map<String, Object> getAladinDetail(Map<String, Object> map) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		String isbnOrg = String.valueOf(map.get("ISBN"));
+		if (StringUtils.isNotEmpty(isbnOrg)) {
+			isbnOrg = isbnOrg.trim();
+		}
+
+		if (StringUtils.isNotEmpty(isbnOrg)) {
+			String isbnArr[] = isbnOrg.split(" ");
+			String isbn = "";
+			for (int i = 0; i < isbnArr.length; i++) {
+				if (isbnArr[i].length() == 10) {
+					isbn = isbnArr[i];
+					param.put("ItemIdType", "ISBN");
+					param.put("ItemId", isbn.trim());
+				}
+				if (isbnArr[i].length() == 13) {
+					isbn = isbnArr[i];
+					param.put("ItemIdType", "ISBN13");
+					param.put("ItemId", isbn.trim());
+				}
+			}
+		} else {
+			return null;
+		}
+
+		return CommonAPI.sendALADIN(param, "detail");
+	}
+
 
 	/********************************************************************************************************************/
 	/********************************************* 이하 상호대차 **************************************************************/

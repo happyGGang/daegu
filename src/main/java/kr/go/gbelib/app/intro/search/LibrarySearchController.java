@@ -106,6 +106,17 @@ public class LibrarySearchController extends BaseController {
 
     		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
     			list = LibSearchAPI.getListData(result);
+
+    			//알라딘 API 결과 가져오기
+    			for (Map<String, Object> map : list) {
+    				if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+    					Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+    					if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+    						map.put("aladin", aladinData.get("item"));
+    					}
+    				}
+
+				}
     		}
 
     		model.addAttribute("bookSearch", list);
@@ -170,6 +181,13 @@ public class LibrarySearchController extends BaseController {
 			list = LibSearchAPI.getListData(result);
 			Map<String, Object> map = list.get(0);
 
+			//알라딘 API 결과 가져오기
+			if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+				Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+				if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+					map.put("aladin", aladinData.get("item"));
+				}
+			}
 
 			librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
 			librarySearch.setRegNo(String.valueOf(map.get("REG_NO")));
@@ -254,24 +272,13 @@ public class LibrarySearchController extends BaseController {
 			list = LibSearchAPI.getListData(result);
 			for (Map<String, Object> map : list) {
 				if (map.containsKey("ISBN")) {
-					LibrarySearch book = new LibrarySearch();
-					book.setIsbn(String.valueOf(map.get("ISBN")));
-					book.setManageCode(librarySearch.getManageCode());
-					book.setRowCount(1);
-					Map<String, Object> bookDetail = null;
-					if (librarySearch.getBooktype().equals("0")) {
-						// 도서 상세정보
-						bookDetail = LibSearchAPI.getBookDetail(book);
-					} else if (librarySearch.getBooktype().equals("1")) {
-						// 간행물 상세정보
-						bookDetail = LibSearchAPI.getSerialDetail(book);
-					} else if (librarySearch.getBooktype().equals("2")) {
-						// 비도서 상세정보
-						bookDetail = LibSearchAPI.getNonBookDetail(book);
-					}
-					List<Map<String, Object>> detailList = LibSearchAPI.getListData(bookDetail);
-					if (detailList != null && detailList.size() > 0) {
-						map.put("IMAGE", detailList.get(0).get("IMAGE"));
+
+					//알라딘 API 결과 가져오기
+					if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+						Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+						if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+							map.put("aladin", aladinData.get("item"));
+						}
 					}
 				}
 			}
@@ -318,24 +325,12 @@ public class LibrarySearchController extends BaseController {
 			list = LibSearchAPI.getListData(result);
 			for ( Map<String, Object> map : list ) {
 				if ( map.containsKey("ISBN") ) {
-					LibrarySearch book = new LibrarySearch();
-					book.setIsbn(String.valueOf(map.get("ISBN")));
-					book.setManageCode(librarySearch.getManageCode());
-					book.setRowCount(1);
-					Map<String, Object> bookDetail = null;
-					if (librarySearch.getBooktype().equals("0")) {
-						//도서 상세정보
-						bookDetail = LibSearchAPI.getBookDetail(book);
-					} else if (librarySearch.getBooktype().equals("1")) {
-						//간행물 상세정보
-						bookDetail = LibSearchAPI.getSerialDetail(book);
-					} else if (librarySearch.getBooktype().equals("2")) {
-						//비도서 상세정보
-						bookDetail = LibSearchAPI.getNonBookDetail(book);
-					}
-					List<Map<String, Object>> detailList = LibSearchAPI.getListData(bookDetail);
-					if ( detailList != null && detailList.size() > 0 ) {
-						map.put("IMAGE", detailList.get(0).get("IMAGE"));
+					//알라딘 API 결과 가져오기
+					if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+						Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+						if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+							map.put("aladin", aladinData.get("item"));
+						}
 					}
 				}
 			}
@@ -1088,13 +1083,13 @@ public class LibrarySearchController extends BaseController {
 
 			if ( librarySearch.getEditMode().equals("ADD") ) {
 
-				Homepage homepage = getSessionHomepage(request);
-				HopebookConfig hopebookConfig = hopebookConfigService.getHopebookConfigInfo(homepage.getHomepage_id());
-				if(hopebookConfig != null) {
-					res.setValid(false);
-					res.setMessage(hopebookConfig.getRes_msg());
-					return res;
-				}
+//				Homepage homepage = getSessionHomepage(request);
+//				HopebookConfig hopebookConfig = hopebookConfigService.getHopebookConfigInfo(homepage.getHomepage_id());
+//				if(hopebookConfig != null) {
+//					res.setValid(false);
+//					res.setMessage(hopebookConfig.getRes_msg());
+//					return res;
+//				}
 
 				//웹필터 체크
 //				StringBuilder sb = new StringBuilder();

@@ -46,8 +46,11 @@ public class CommonAPI {
 
 	public final static String ILUS_API_URL = ResourceBundle.getBundle("api").getString("ilus.api.url");
 	public final static String LIBONE_API_URL = ResourceBundle.getBundle("api").getString("libone.api.url");
+
 	public final static String NAVER_LIST_API_URL = "https://openapi.naver.com/v1/search/book.xml";
 	public final static String NAVER_DETAIL_API_URL = "https://openapi.naver.com/v1/search/book_adv.xml";
+	public final static String ALADIN_LIST_API_URL = "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx";
+	public final static String ALADIN_DETAIL_API_URL = "http://www.aladin.co.kr/ttb/api/ItemLookUp.aspx";
 
 	public final static String KCMS_API_URL = ResourceBundle.getBundle("api").getString("kcms.api.url");
 	public final static String SANGHO_API_URL = ResourceBundle.getBundle("api").getString("sangho.api.url");
@@ -443,6 +446,64 @@ public class CommonAPI {
 		}
 		connection.disconnect();
 		return resultMap;
+	}
+
+	@SuppressWarnings ("unchecked")
+	public static Map<String, Object> sendALADIN(Map<String, Object> param, String mode) {
+		HttpURLConnection connection = null;
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		BufferedReader br = null;
+
+		try {
+			String url = mode.toLowerCase().equals("list") ? ALADIN_LIST_API_URL : ALADIN_DETAIL_API_URL;
+
+			List<String> paramList = new ArrayList<String>();
+			param.put("ttbkey", "ttbinmypart1853007");
+			param.put("Cover", "Big");
+			param.put("optResult", "toc");
+			if (param != null) {
+				Set<String> keys = param.keySet();
+				for (String oneKey : keys) {
+					paramList.add(String.format("%s=%s", oneKey, URLEncoder.encode(String.valueOf(param.get(oneKey)), "UTF-8")));
+				}
+				log.debug("@@@@@@@@@@@@@@@@@@ ALADIN API : " + url + "?" + StringUtils.join(paramList, "&"));
+			}
+			connection = initConn(url + "?" + StringUtils.join(paramList, "&"));
+			connection.setRequestMethod("GET");
+			int responseCode = connection.getResponseCode();
+
+			if (responseCode == 200) { // 정상 호출
+				br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
+			} else { // 에러 발생
+				br = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+			}
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+			while ((inputLine = br.readLine()) != null) {
+				response.append(inputLine);
+			}
+
+			try {
+				resultMap = (Map<String, Object>) xmlToJson(response.toString()).toMap().get("object");
+			} catch (Exception e) {
+				resultMap = new HashMap<String, Object>();
+			}
+
+		} catch (Exception e) {} finally {
+			try {
+				if (br != null) {
+					br.close();
+				}
+				if (connection != null) {
+					connection.disconnect();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return resultMap;
+
 	}
 
 	public static String getElementValueByName(Document doc, String elementName) {

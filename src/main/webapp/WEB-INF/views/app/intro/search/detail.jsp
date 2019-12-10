@@ -130,7 +130,7 @@ $(function() {
 		<div class="sinfo">
 			<div class="thumb">
 				<c:choose>
-					<c:when test="${empty detail.IMAGE}">
+					<c:when test="${empty detail.aladin or empty detail.aladin.cover}">
 				<p class="noImg">
 					<img src="/resources/common/img/noImg2.png" alt="noImage"/>
 					<span>등록된 이미지가<br/>없습니다.</span>
@@ -138,7 +138,7 @@ $(function() {
 					</c:when>
 					<c:otherwise>
 				<p>
-					<img src="${detail.IMAGE}" alt="${detail.TITLE_INFO}">
+					<img src="${detail.aladin.cover}" alt="${detail.TITLE_INFO}">
 				</p>
 					</c:otherwise>
 				</c:choose>

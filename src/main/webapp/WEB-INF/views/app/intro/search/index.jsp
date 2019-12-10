@@ -302,14 +302,14 @@ $(function() {
 								</p>
 								<div class="thumb">
 									<c:choose>
-										<c:when test="${i.IMAGE eq '' or fn:contains(i.IMAGE, 'noimg')}">
+										<c:when test="${empty i.aladin or empty i.aladin.cover}">
 											<a href="${detailURL}">
 												<img src="/resources/common/img/noImg2.png" alt="${i.TITLE_INFO}"/>
 											</a>
 										</c:when>
 										<c:otherwise>
 											<a href="${detailURL}">
-												<img src="${i.IMAGE}" alt="${i.TITLE_INFO}"/>
+												<img src="${i.aladin.cover}" alt="${i.TITLE_INFO}"/>
 											</a>
 										</c:otherwise>
 									</c:choose>
