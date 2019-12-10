@@ -30,8 +30,8 @@ public class Quiz extends PagingUtils {
 	private String delete_yn;  //삭제여부
 	private Date add_date;  //등록일
 	private String add_id;  //등록ID
-	private Date mod_date;  //수정일
-	private String mod_id;  //수정ID
+	private Date modify_date;  //수정일
+	private String modify_id;  //수정ID
 	private int quiz_req_count;  //퀴즈 신청수
 	private String school_yn = "Y"; // 학교입력여부
 	private String ban_yn = "Y"; // 반입력여부
@@ -145,17 +145,17 @@ public class Quiz extends PagingUtils {
 	public void setAdd_id(String add_id) {
 		this.add_id = add_id;
 	}
-	public Date getMod_date() {
-		return mod_date;
+	public Date getModify_date() {
+		return modify_date;
 	}
-	public void setMod_date(Date mod_date) {
-		this.mod_date = mod_date;
+	public void setModify_date(Date modify_date) {
+		this.modify_date = modify_date;
 	}
-	public String getMod_id() {
-		return mod_id;
+	public String getModify_id() {
+		return modify_id;
 	}
-	public void setMod_id(String mod_id) {
-		this.mod_id = mod_id;
+	public void setModify_id(String modify_id) {
+		this.modify_id = modify_id;
 	}
 	public MultipartFile getImg_file_tmp() {
 		return img_file_tmp;

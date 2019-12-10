@@ -55,14 +55,14 @@ $(function() {
 		}
 	});
 	
-	$('a#getIlus').on('click', function(e) {
+	$('a#getLas').on('click', function(e) {
 		e.preventDefault();
-		var ilusList = window.open('/${homepage.context_path}/intro/search/indexForBoard.do', 'ilusLnkBook', 'width=800 height=600,scrollbars=yes');
+		var lasList = window.open('/${homepage.context_path}/intro/search/indexForBoard.do', 'lasLnkBook', 'width=800 height=600,scrollbars=yes');
 	});
 	
 });
 
-function getIlusData(arg) {
+function getLasData(arg) {
 	arg = arg.split('///');
 	//${i.TITLE}//${i.PUBLER_YEAR}//${i.AUTHOR}//${i.PUBLER}//${i.ISBN}//${i.CALL_NO}//${i.i.COVER_SMALLURL}//${i.CTRLNO}//${i.PLACE_NAME}
 	$('input#book_name').val(arg[0]);
@@ -133,7 +133,7 @@ function getIlusData(arg) {
 	        <tr>
 				<th>도서검색</th>
 				<td>
-					<a href="#" class="btn btn2" id="getIlus"><i class="fa fa-plus"></i><span>도서검색</span></a>&nbsp;&nbsp;<span id="img_file"></span>
+					<a href="#" class="btn btn2" id="getLas"><i class="fa fa-plus"></i><span>도서검색</span></a>&nbsp;&nbsp;<span id="img_file"></span>
 					<br/>
 					* 책이름, 저자, 출판사, 청구기호, 도서 이미지는 자동으로 등록 됩니다.
 				</td>
