@@ -88,6 +88,7 @@ $(function() {
 		<colgroup>
 			<col width="50" />
 			<col width="150" />
+			<col width="120">
 			<col width="" />
 			<col width="" />
 			<col width="100" />
@@ -99,6 +100,7 @@ $(function() {
 			<tr>
 				<th>번호</th>
 				<th>타입</th>
+				<th>퀴즈년월</th>
 				<th>제목</th>
 				<th>책이름</th>
 				<th>시작일</th>
@@ -110,8 +112,9 @@ $(function() {
 		<tbody>
 			<c:forEach var="i" varStatus="status" items="${quizList}">
 				<tr>
-					<td>${i.quiz_idx}</td>
+					<td>${paging.listRowNum - status.index}</td>
 					<td>${quizTypeList[i.quiz_type].code_name}</td>
+					<td>${i.quiz_year}년 ${i.quiz_month}월</td>
 					<td>${i.quiz_name}</td>
 					<td>${i.book_name}</td>
 					<td>${i.quiz_start_date}</td>
@@ -144,9 +147,8 @@ $(function() {
 	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 		<fieldset>
 			<form:select path="search_type" cssClass="selectmenu">
-				<form:option value="QUIZ_NAME">제목</form:option>
-				<form:option value="QUIZ_TYPE">타입</form:option>
-				<form:option value="BOOK_NAME">책이름</form:option>
+				<form:option value="quiz_name">제목</form:option>
+				<form:option value="book_name">책이름</form:option>
 			</form:select>
 			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
 			<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
