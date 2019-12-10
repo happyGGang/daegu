@@ -419,9 +419,9 @@ public class CommonAPI {
 			int responseCode = connection.getResponseCode();
 
 			if (responseCode == 200) { // 정상 호출
-				br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+				br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
 			} else { // 에러 발생
-				br = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+				br = new BufferedReader(new InputStreamReader(connection.getErrorStream(), "UTF-8"));
 			}
 			String inputLine;
 			StringBuffer response = new StringBuffer();
@@ -475,7 +475,7 @@ public class CommonAPI {
 			if (responseCode == 200) { // 정상 호출
 				br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
 			} else { // 에러 발생
-				br = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+				br = new BufferedReader(new InputStreamReader(connection.getErrorStream(), "UTF-8"));
 			}
 			String inputLine;
 			StringBuffer response = new StringBuffer();
