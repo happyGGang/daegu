@@ -77,7 +77,7 @@ $(document).ready(function() {
 										<li>ISBN : ${i.isbn13}</li>
 										<li>가격 : ${i.price}</li>
 										<c:choose>
-											<c:when test="${i.already13}">
+											<c:when test="${not empty i.already13 and i.already13}">
 										<li class="button">
 											<span class="no" style="color: red;">소장도서(신청불가)</span>
 										</li>
