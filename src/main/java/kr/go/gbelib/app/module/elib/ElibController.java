@@ -17,9 +17,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mobile.device.Device;
 import org.springframework.mobile.device.DeviceUtils;
@@ -287,50 +284,42 @@ public class ElibController extends BaseController {
 		}
 
 		Member member = getSessionMemberInfo(request);
-		String status_code = member.getStatus_code();
+		String user_class = member.getUser_class();
 
-		if ( !StringUtils.isEmpty(status_code) ) {
-			if (!(status_code.equals("0001") || status_code.equals("0") )) {
-				res.setValid(false);
-				res.setMessage("대출회원만 이용 가능합니다.");
-				res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
-				return res;
-			}
-		}
-
-
-		if(bean instanceof Book || bean instanceof Lending) {
-			String library_code = "";
-
-			if(bean instanceof Book) {
-				library_code = ((Book) bean).getLibrary_code();
-			} else if(bean instanceof Lending) {
-				library_code = ((Lending) bean).getLibrary_code();
-			} else if(bean instanceof Comment) {
-				library_code = ((Comment) bean).getLibrary_code();
-			}
-
-			if( StringUtils.equals(member.getStatus_code(), "1") ) {
+		if(!StringUtils.isEmpty(user_class)) {
+			if(!user_class.equals("0")) {
 				res.setValid(false);
 				res.setMessage("이용자님은 현재 홈페이지 가입회원(준회원)입니다. 소속도서관에서 정회원으로 승인 받은 후 대출하시기 바랍니다");
 				res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
 				return res;
 			}
-
-			if( !StringUtils.equals(member.getUnAgreeFlag(), "0001")) {
-				res.setValid(false);
-				res.setMessage("통합회원만 이용 가능합니다.");
-				res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
-				return res;
-			}
-
-			if( library_code != null && library_code.length() > 0 && !StringUtils.equals(library_code, "9999999") && !StringUtils.equals(library_code, member.getLoca()) ) {
-				res.setValid(false);
-				res.setMessage("소속 도서관 회원만 이용 가능합니다.");
-				res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
-				return res;
-			}
 		}
+
+//		if(bean instanceof Book || bean instanceof Lending) {
+//			String library_code = "";
+//
+//			if(bean instanceof Book) {
+//				library_code = ((Book) bean).getLibrary_code();
+//			} else if(bean instanceof Lending) {
+//				library_code = ((Lending) bean).getLibrary_code();
+//			} else if(bean instanceof Comment) {
+//				library_code = ((Comment) bean).getLibrary_code();
+//			}
+
+//			if( StringUtils.equals(member.getStatus_code(), "1") ) {
+//				res.setValid(false);
+//				res.setMessage("이용자님은 현재 홈페이지 가입회원(준회원)입니다. 소속도서관에서 정회원으로 승인 받은 후 대출하시기 바랍니다");
+//				res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
+//				return res;
+//			}
+
+//			if( library_code != null && library_code.length() > 0 && !StringUtils.equals(library_code, "9999999") && !StringUtils.equals(library_code, member.getLoca()) ) {
+//				res.setValid(false);
+//				res.setMessage("소속 도서관 회원만 이용 가능합니다.");
+//				res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
+//				return res;
+//			}
+//		}
 
 		res.setValid(true);
 
@@ -364,29 +353,10 @@ public class ElibController extends BaseController {
 		}
 
 		Member member = getSessionMemberInfo(request);
-		String status_code = member.getStatus_code();
+		String user_class = member.getUser_class();
 
-		if ( !StringUtils.isEmpty(status_code) ) {
-			if (!(status_code.equals("0001") || status_code.equals("0") )) {
-				try {
-					service.alertMessageAndUrl("대출회원만 이용 가능합니다.", String.format("/%s/index.do", homepage.getContext_path()), request, response);
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
-				return false;
-			}
-		}
-
-		if(bean instanceof Book || bean instanceof Lending) {
-			String library_code = "";
-
-			if(bean instanceof Book) {
-				library_code = ((Book) bean).getLibrary_code();
-			} else if(bean instanceof Lending) {
-				library_code = ((Lending) bean).getLibrary_code();
-			}
-
-			if( StringUtils.equals(member.getStatus_code(), "1") ) {
+		if(!StringUtils.isEmpty(user_class)) {
+			if(!user_class.equals("0")) {
 				try {
 					service.alertMessageAndUrl("이용자님은 현재 홈페이지 가입회원(준회원)입니다. 소속도서관에서 정회원으로 승인 받은 후 대출하시기 바랍니다.", String.format("/%s/index.do", homepage.getContext_path()), request, response);
 				} catch(Exception e) {
@@ -394,25 +364,35 @@ public class ElibController extends BaseController {
 				}
 				return false;
 			}
-
-			if( !StringUtils.equals(member.getUnAgreeFlag(), "0001")) {
-				try {
-					service.alertMessageAndUrl("통합회원만 이용 가능합니다.", String.format("/%s/index.do", homepage.getContext_path()), request, response);
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
-				return false;
-			}
-
-			if( library_code != null && library_code.length() > 0 && !StringUtils.equals(library_code, "9999999") && !StringUtils.equals(library_code, member.getLoca()) ) {
-				try {
-					service.alertMessageAndUrl("소속 도서관 회원만 이용 가능합니다.", String.format("/%s/index.do", homepage.getContext_path()), request, response);
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
-				return false;
-			}
 		}
+
+//		if(bean instanceof Book || bean instanceof Lending) {
+//			String library_code = "";
+//
+//			if(bean instanceof Book) {
+//				library_code = ((Book) bean).getLibrary_code();
+//			} else if(bean instanceof Lending) {
+//				library_code = ((Lending) bean).getLibrary_code();
+//			}
+
+//			if( StringUtils.equals(member.getStatus_code(), "1") ) {
+//				try {
+//					service.alertMessageAndUrl("이용자님은 현재 홈페이지 가입회원(준회원)입니다. 소속도서관에서 정회원으로 승인 받은 후 대출하시기 바랍니다.", String.format("/%s/index.do", homepage.getContext_path()), request, response);
+//				} catch(Exception e) {
+//					e.printStackTrace();
+//				}
+//				return false;
+//			}
+
+//			if( library_code != null && library_code.length() > 0 && !StringUtils.equals(library_code, "9999999") && !StringUtils.equals(library_code, member.getLoca()) ) {
+//				try {
+//					service.alertMessageAndUrl("소속 도서관 회원만 이용 가능합니다.", String.format("/%s/index.do", homepage.getContext_path()), request, response);
+//				} catch(Exception e) {
+//					e.printStackTrace();
+//				}
+//				return false;
+//			}
+//		}
 
 		return true;
 	}
@@ -452,7 +432,7 @@ public class ElibController extends BaseController {
 				res.setMessage(e.getMessage());
 				return res;
 			}
-			book.setMember_id(getSessionWebId(request));
+			book.setMember_id(getSessionMemberId(request));
 
 			if(elibAccessIpService.getBannedIpCnt(new ElibAccessIp(request.getRemoteAddr())) > 0) {
 				res.setValid(false);
@@ -505,7 +485,7 @@ public class ElibController extends BaseController {
 		String menu = lending.getMenu();
 		int count = 0;
 		List<Lending> lendingList = null;
-		lending.setMember_id(getSessionWebId(request));
+		lending.setMember_id(getSessionMemberId(request));
 
 		if("LENDING".equals(menu)) {
 			count = lendingService.getLendMemberListCnt(lending);
@@ -575,7 +555,7 @@ public class ElibController extends BaseController {
 	private Book setStatus(Book book, HttpServletRequest request, int max_lend) {
 		Lending lending = new Lending();
 		lending.setBook_idx(book.getBook_idx());
-		lending.setMember_id(getSessionWebId(request));
+		lending.setMember_id(getSessionMemberId(request));
 
 		if(book.getMax_lend() > 0) max_lend = book.getMax_lend();
 
@@ -608,7 +588,7 @@ public class ElibController extends BaseController {
 	}
 
 	private Lending setStatus(Lending lending, HttpServletRequest request, int max_lend) {
-		lending.setMember_id(getSessionWebId(request));
+		lending.setMember_id(getSessionMemberId(request));
 		Book book = bookService.getBookInfo(new Book(lending));
 
 		if(book == null) return lending;
@@ -725,24 +705,7 @@ public class ElibController extends BaseController {
 			model.addAttribute("audioList", audioList);
 		}
 		else if(StringUtils.equals(book.getType(), "WEB")) {
-
 			List<Book> courseList = bookService.getCourseList(book);
-
-			if("EDUW".equals(book1.getCom_code()) && courseList != null) {
-				HttpSession session = request.getSession();
-				DateTime dt = new DateTime();
-				DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
-				DateTimeFormatter formatter2 = DateTimeFormat.forPattern("yyyy-MM-dd");
-
-				model.addAttribute("EndDate", formatter2.print(dt.plusYears(1)));
-
-				for(Book course: courseList) {
-					String mkSessData = course.getLesson_no() + "$" + session.getId() + "$" + formatter.print(dt.plusMinutes(10)) + "$";
-					mkSessData = new String(Base64.encodeBase64(mkSessData.getBytes()));
-					course.setMkSessData(mkSessData);
-				}
-			}
-
 			model.addAttribute("courseList", courseList);
 		}
 
@@ -761,6 +724,7 @@ public class ElibController extends BaseController {
 
 	@RequestMapping(value = {"/lending/save.*"})
 	public @ResponseBody JsonResponse lending_save(Model model, Lending lending,  BindingResult result, HttpServletRequest request) {
+		System.out.println("@@@@@@@@@@ lending_save 000");
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		lending.setHomepage_id(homepage.getHomepage_id());
 
@@ -768,28 +732,37 @@ public class ElibController extends BaseController {
 		String editMode = lending.getEditMode();
 		int ret = 0;
 
+		System.out.println("@@@@@@@@@@ lending_save 001");
 		Book book = bookService.getBookInfo(new Book(lending.getBook_idx()));
+		System.out.println("@@@@@@@@@@ lending_save 002");
 		book.setMenu_idx(lending.getMenu_idx());
 		book.setBefore_url(String.format("/%s/module/elib/lending/index.do?menu_idx=%s", homepage.getContext_path(), lending.getMenu_idx()));
 		res = checkLogin(request, result, res, book);
 		if(!res.isValid()) return res;
+		System.out.println("@@@@@@@@@@ lending_save 003");
 
 		if(!lending.getEditMode().equals("DELETE")) {
 
 		}
 
+		System.out.println("@@@@@@@@@@ lending_save 004");
 		lending.setDevice(getDevice(request.getHeader("user-agent")));
 
 		if(!result.hasErrors()) {
+			System.out.println("@@@@@@@@@@ lending_save 005");
 			try {
+				System.out.println("@@@@@@@@@@ lending_save 006");
 				addMemberIfNotExists(request, book);
 			} catch (ElibException e) {
+				System.out.println("@@@@@@@@@@ lending_save 007");
 				res.setValid(false);
 				res.setMessage(e.getMessage());
 				return res;
 			}
-			lending.setMember_id(getSessionWebId(request));
+			System.out.println("@@@@@@@@@@ lending_save 008");
+			lending.setMember_id(getSessionMemberId(request));
 			lending.setCom_code(book.getCom_code());
+			System.out.println("@@@@@@@@@@ lending_save 009 getSessionMemberId(request): " + getSessionMemberId(request));
 
 			if(elibAccessIpService.getBannedIpCnt(new ElibAccessIp(request.getRemoteAddr())) > 0) {
 				res.setValid(false);
@@ -1022,7 +995,7 @@ public class ElibController extends BaseController {
 				res.setMessage(e.getMessage());
 				return res;
 			}
-			book.setMember_id(getSessionWebId(request));
+			book.setMember_id(getSessionMemberId(request));
 			book.setCom_code(book.getCom_code());
 
 			if(elibAccessIpService.getBannedIpCnt(new ElibAccessIp(request.getRemoteAddr())) > 0) {
@@ -1066,7 +1039,7 @@ public class ElibController extends BaseController {
 				res.setMessage(e.getMessage());
 				return res;
 			}
-//			comment.setMember_id(getSessionWebId(request));
+//			comment.setMember_id(getSessionMemberId(request));
 			comment.setMember_id(getSessionMemberId(request));
 
 			if(elibAccessIpService.getBannedIpCnt(new ElibAccessIp(request.getRemoteAddr())) > 0) {
@@ -1266,13 +1239,6 @@ public class ElibController extends BaseController {
 		}
 
 		return "redirect:https://www.gbelib.kr/elib/index.do";
-	}
-
-	@RequestMapping(value = {"/moazine.*"})
-	public String moazine(Model model, HttpServletRequest request, HttpServletResponse response) {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
-
-		return String.format(basePath, homepage.getFolder()) + "lending/moazine";
 	}
 
 	@RequestMapping(value = {"/redirect.*"})

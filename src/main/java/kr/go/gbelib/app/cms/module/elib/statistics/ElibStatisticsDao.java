@@ -5,8 +5,6 @@ import java.util.Map;
 
 public interface ElibStatisticsDao {
 	
-	public List<ElibStatistics> getStatisticsByTime(ElibStatistics elibStatistics);
-	
 	public List<Map<String, Object>> getStatisticsByCategory(ElibStatistics elibStatistics);
 	
 	public int getStatisticsByBookCnt(ElibStatistics elibStatistics);
@@ -21,8 +19,6 @@ public interface ElibStatisticsDao {
 	
 	public List<ElibStatistics> getStatisticsByMemberAll(ElibStatistics elibStatistics);
 	
-	public List<ElibStatistics> getStatisticsByAge(ElibStatistics elibStatistics);
-
 	/**
 	 * 소장자료별 통계의 총합계
 	 * @author YONGJU 2017. 10. 31.

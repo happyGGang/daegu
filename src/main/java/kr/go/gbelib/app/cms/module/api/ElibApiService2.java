@@ -50,7 +50,6 @@ public class ElibApiService2 extends BaseService {
 
 		Map<String, String> data = getMember(member);
 		if(data != null) {
-			member.setP_id(data.get("USER_ID"));
 			member.setSeq_no(data.get("SEQ_NO"));
 			member.setLibrary_code(data.get("LOCA"));
 		}

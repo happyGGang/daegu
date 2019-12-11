@@ -41,26 +41,13 @@ import kr.go.gbelib.app.cms.module.elib.member.ElibMember;
 public class Yes24APIService extends BaseService {
 
 	private static final String USER_AGENT = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)";
-	private static final String LEND_URL = "http://elib.gbelib.kr:8082/YES24/yes24_action_new.asp";
-	private static final String MEMBER_URL = "http://elib.gbelib.kr:8082/YES24/yes24_member_sync.asp";
-	private static final String APP_URL = "http://elib.gbelib.kr:8082/%s/device_url.asp?user_id=%s&goods_id=%s&device_type=phone";
+	private static final String LEND_URL = "http://ebook.busan.go.kr:8086/YES24/yes24_action_new.asp";
+	private static final String MEMBER_URL = "http://ebook.busan.go.kr:8086/YES24/yes24_member_sync.asp";
+	private static final String APP_URL = "http://ebook.busan.go.kr:8086/%s/device_url.asp?user_id=%s&goods_id=%s&device_type=phone";
 	private static final int TIMEOUT = 30 * 1000;
 
 	private String libraryCodeToSiteCode(String libraryCode) {
-		if(libraryCode == null) {
-			return null;
-		} else if(libraryCode.equals("9999999")) {
-			// 경북통합
-			return "B2B_GBE";
-		} else if(libraryCode.equals("00147008")) {
-			// 상주도서관
-			return "B2B_SJLIB";
-		} else if(libraryCode.equals("00147020") || libraryCode.equals("00147006")) {
-			// 점촌공공도서관
-			return "B2B_JUMDO";
-		} else {
-			return "B2B_GBE";
-		}
+		return "B2B_BUSAN";
 	}
 
 	private String getText(Document doc, String path) {
@@ -255,7 +242,7 @@ public class Yes24APIService extends BaseService {
 
 	private List<NameValuePair> makeParamPairs(ElibMember member) {
 		String user_id = member.getMember_id();
-		String user_pw = member.getP_id();
+		String user_pw = member.getSeq_no();
 		String user_nm = member.getMember_id();
 		String site_code = libraryCodeToSiteCode(member.getLibrary_code());
 		List<NameValuePair> params = new ArrayList<NameValuePair>();

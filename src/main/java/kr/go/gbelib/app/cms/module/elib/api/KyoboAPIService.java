@@ -43,9 +43,9 @@ import kr.go.gbelib.app.cms.module.elib.member.ElibMember;
 public class KyoboAPIService extends BaseService {
 	
 	private static final String USER_AGENT = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)";
-	private static final String LEND_URL = "http://elib.gbelib.kr:8085/Kyobo_T3/Process/%s.asp";
-	private static final String MEMBER_URL = "http://elib.gbelib.kr:8085/member_sync.asp";
-	private static final String VIEW_URL = "http://elib.gbelib.kr:8085/borrow_data.asp";
+	private static final String LEND_URL = "http://ebook.busan.go.kr:8091/Kyobo_T3/Process/%s.asp";
+	private static final String MEMBER_URL = "http://ebook.busan.go.kr:8091/member_sync.asp";
+	private static final String VIEW_URL = "http://ebook.busan.go.kr:8091/borrow_data.asp";
 	private static final int TIMEOUT = 30 * 1000;
 	
 	@Autowired
@@ -341,7 +341,7 @@ public class KyoboAPIService extends BaseService {
 	
 	private List<NameValuePair> makeParamPairs(String cmd, ElibMember member) {
 		String user_id = member.getMember_id();
-		String user_ps = member.getP_id();
+		String user_ps = member.getSeq_no();
 		String user_name = member.getMember_id();
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 

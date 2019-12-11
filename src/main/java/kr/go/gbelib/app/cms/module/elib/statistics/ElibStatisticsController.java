@@ -83,10 +83,7 @@ public class ElibStatisticsController extends BaseController {
 		List<ElibStatistics> elibStatisticsList = null;
 		int count = 0;
 
-		if("HOUR".equals(menu) || "DAY".equals(menu) || "MONTH".equals(menu) || "PERIOD".equals(menu)) {
-			elibStatisticsList = service.getStatisticsByTime(elibStatistics);
-			view = basePath + "time";
-		} else if("CATEGORY".equals(menu)) {
+		if("CATEGORY".equals(menu)) {
 			Map<String, Integer> elibStatisticsMap = new HashMap<String, Integer>();
 			List<Map<String, Object>> elibStatisticsMapList = new ArrayList<Map<String, Object>>();
 
@@ -135,9 +132,6 @@ public class ElibStatisticsController extends BaseController {
 			model.addAttribute("getStatisticsByMemberTotal", service.getStatisticsByMemberTotal(elibStatistics));
 			view = basePath + "member";
 			model.addAttribute("elibStatisticsCnt", count);
-		} else if("AGE".equals(menu)) {
-			elibStatisticsList = service.getStatisticsByAge(elibStatistics);
-			view = basePath + "age";
 		} else if("COMPANY".equals(menu)) {
 			Map<String, Integer> elibStatisticsMap = new HashMap<String, Integer>();
 
@@ -216,10 +210,7 @@ public class ElibStatisticsController extends BaseController {
 		List<ElibStatistics> elibStatisticsList = null;
 		AbstractJExcelView view = null;
 
-		if("HOUR".equals(menu) || "DAY".equals(menu) || "MONTH".equals(menu) || "PERIOD".equals(menu)) {
-			elibStatisticsList = service.getStatisticsByTime(elibStatistics);
-			view = new ElibStatisticsTimeExcelView();
-		} else if("CATEGORY".equals(menu)) {
+		if("CATEGORY".equals(menu)) {
 //			elibStatisticsList = service.getStatisticsByCategory(elibStatistics);
 			view = new ElibStatisticsCategoryExcelView();
 		} else if("BOOK".equals(menu)) {
@@ -233,9 +224,6 @@ public class ElibStatisticsController extends BaseController {
 		} else if("MEMBER".equals(menu)) {
 			elibStatisticsList = service.getStatisticsByMemberAll(elibStatistics);
 			view = new ElibStatisticsMemberExcelView();
-		} else if("AGE".equals(menu)) {
-			elibStatisticsList = service.getStatisticsByAge(elibStatistics);
-			view = new ElibStatisticsAgeExcelView();
 		}
 
 		model.addAttribute("elibStatistics", elibStatistics);
@@ -252,9 +240,7 @@ public class ElibStatisticsController extends BaseController {
 		String menu = elibStatistics.getMenu();
 		List<ElibStatistics> elibStatisticsList = null;
 
-		if("HOUR".equals(menu) || "DAY".equals(menu) || "MONTH".equals(menu) || "PERIOD".equals(menu)) {
-			elibStatisticsList = service.getStatisticsByTime(elibStatistics);
-		} else if("CATEGORY".equals(menu)) {
+		if("CATEGORY".equals(menu)) {
 //			elibStatisticsList = service.getStatisticsByCategory(elibStatistics);
 		} else if("BOOK".equals(menu)) {
 			elibStatisticsList = service.getStatisticsByBookAll(elibStatistics);
@@ -264,8 +250,6 @@ public class ElibStatisticsController extends BaseController {
 			}
 		} else if("MEMBER".equals(menu)) {
 			elibStatisticsList = service.getStatisticsByMemberAll(elibStatistics);
-		} else if("AGE".equals(menu)) {
-			elibStatisticsList = service.getStatisticsByAge(elibStatistics);
 		}
 
 		Map<String, String> libraries = elibCodeService.getLibraryMap();

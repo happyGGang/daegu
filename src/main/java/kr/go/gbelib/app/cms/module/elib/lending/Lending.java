@@ -32,9 +32,7 @@ public class Lending extends PagingUtils {
 	private String user_dt;
 	private int library_idx;
 	private String library_name;
-	private String user_birthd;
 	private String seq_no;
-	private String p_id;
 	private int parent_id;
 	private String reserve_yn;
 	private int reserve_idx;
@@ -59,6 +57,8 @@ public class Lending extends PagingUtils {
 	private String book_regdt;
 	private String search_sdt;
 	private String search_edt;
+	private String format;
+	
 	public Lending() {}
 	public Lending(int lend_idx) {
 		this.lend_idx = lend_idx;
@@ -127,14 +127,8 @@ public class Lending extends PagingUtils {
 	public int getLibrary_idx() {
 		return library_idx;
 	}
-	public String getUser_birthd() {
-		return user_birthd;
-	}
 	public String getSeq_no() {
 		return seq_no;
-	}
-	public String getP_id() {
-		return p_id;
 	}
 	public void setLend_idx(int lend_idx) {
 		this.lend_idx = lend_idx;
@@ -196,14 +190,8 @@ public class Lending extends PagingUtils {
 	public void setLibrary_idx(int library_idx) {
 		this.library_idx = library_idx;
 	}
-	public void setUser_birthd(String user_birthd) {
-		this.user_birthd = user_birthd;
-	}
 	public void setSeq_no(String seq_no) {
 		this.seq_no = seq_no;
-	}
-	public void setP_id(String p_id) {
-		this.p_id = p_id;
 	}
 	public int getParent_id() {
 		return parent_id;
@@ -395,6 +383,11 @@ public class Lending extends PagingUtils {
 	public void setParent_name(String parent_name) {
 		this.parent_name = parent_name;
 	}
-	
+	public String getFormat() {
+		return format;
+	}
+	public void setFormat(String format) {
+		this.format = format;
+	}
 	
 }

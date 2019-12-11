@@ -39,9 +39,9 @@ import kr.go.gbelib.app.cms.module.elib.member.ElibMember;
 public class BookcubeAPIService extends BaseService {
 	
 	private static final String USER_AGENT = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)";
-	private static final String LEND_URL = "http://elib.gbelib.kr:8080/FxLibrary%s/RESTful";
-	private static final String MEMBER_URL = "http://elib.gbelib.kr:8080/FxLibrary%s/RESTful/userReg";
-	private static final String APP_URL = "http://elib.gbelib.kr:8080/FxLibrary%s/app/appCall";
+	private static final String LEND_URL = "http://ebook.busan.go.kr:8080/FxLibrary/RESTful";
+	private static final String MEMBER_URL = "http://ebook.busan.go.kr:8080/FxLibrary/RESTful/userReg";
+	private static final String APP_URL = "http://ebook.busan.go.kr:8080/FxLibrary/app/appCall";
 	private static final int TIMEOUT = 30 * 1000;
 	
 	private Map<String, String> parse(String xml) {
@@ -172,53 +172,12 @@ public class BookcubeAPIService extends BaseService {
 		return resultString;
 	}
 	
-	private String getLibrary(Book book) {
-		String library_code = book.getLibrary_code();
-		
-		if("00147009".equals(library_code)) {
-		    // 성주
-			return "_sj";
-		} else if("00147002".equals(library_code)) {
-		    // 고령
-			return "_go";
-		} else if("00147010".equals(library_code)) {
-		    // 안동
-			return "_ad";
-		} else if("00147031".equals(library_code)) {
-		    // 영덕
-			return "_yd";
-		} else if("00147012".equals(library_code)) {
-		    // 영양
-			return "_yy";
-		} else if("00147013".equals(library_code)) {
-		    // 영일
-			return "_yi";
-		} else if("00147032".equals(library_code)) {
-		    // 영주
-			return "_yj";
-		} else if("00147014".equals(library_code)) {
-		    // 영천금호
-			return "_yk";
-		} else if("00147017".equals(library_code)) {
-		    // 울릉
-			return "_ul";
-		} else if("00147018".equals(library_code)) {
-		    // 울진
-			return "_uj";
-		} else {
-		    // 통합
-			return "";
-		}
-	}
-	
 	private String makeURL(String ifcode, Book book) {
-		String url = String.format(LEND_URL, getLibrary(book));
-		return String.format(url + "/%s/%s/%s", ifcode, book.getMember_id(), book.getBook_code());
+		return String.format(LEND_URL + "/%s/%s/%s", ifcode, book.getMember_id(), book.getBook_code());
 	}
 	
 	private String makeURL2(ElibMember member, Book book) {
-		String url = String.format(MEMBER_URL, getLibrary(book));
-		return String.format(url + "/%s/%s/%s/%s/%s", member.getMember_id(), member.getMember_id(), member.getMember_id(), "general", "");
+		return String.format(LEND_URL + "/%s/%s/%s/%s/%s", member.getMember_id(), member.getMember_id(), member.getMember_id(), "general", "");
 	}
 	
 	/**
@@ -273,8 +232,7 @@ public class BookcubeAPIService extends BaseService {
 	 */
 	public Map<String, String> signup(ElibMember member, Book book) {
 		String member_id = member.getMember_id();
-		String url = String.format(MEMBER_URL, getLibrary(book));
-		return 	parse(send(String.format(url + "/%s/%s/%s/%s/%s", member_id, member_id, member_id, "general", ""), new ArrayList<NameValuePair>()));
+		return 	parse(send(String.format(MEMBER_URL + "/%s/%s/%s/%s/%s", member_id, member_id, member_id, "general", ""), new ArrayList<NameValuePair>()));
 	}
 
 	/**
@@ -283,32 +241,10 @@ public class BookcubeAPIService extends BaseService {
 	 * @return
 	 */
 	public Map<String, String> appUrl(Book book, ElibMember member, String device) {
-		String url = String.format(APP_URL, getLibrary(book));
 		String member_id = member.getMember_id();
-		String library_code = book.getLibrary_code();
-		String fxli_library_code = "bcp00206";
-		if("00147002".equals(library_code)) {
-			fxli_library_code = "krl00306";
-		} else if("00147009".equals(library_code)) {
-			fxli_library_code = "bcp00095";
-		} else if("00147010".equals(library_code)) {
-			fxli_library_code = "bcp00112";
-		} else if("00147031".equals(library_code)) {
-			fxli_library_code = "bcp00063";
-		} else if("00147012".equals(library_code)) {
-			fxli_library_code = "bcp00090";
-		} else if("00147002".equals(library_code)) {
-			fxli_library_code = "bcp00111";
-		} else if("00147032".equals(library_code)) {
-			fxli_library_code = "bcp00196";
-		} else if("00147014".equals(library_code)) {
-			fxli_library_code = "bcp00089";
-		} else if("00147017".equals(library_code)) {
-			fxli_library_code = "bcp00082";
-		} else if("00147018".equals(library_code)) {
-			fxli_library_code = "bcp00124";
-		}
-		return parse2(send(String.format(url + "/%s/%s/%s/%s/%s/%s/%s/%s", device, fxli_library_code, book.getBook_code(), member_id, member_id, member_id, "general", member_id), new ArrayList<NameValuePair>()));
+		String fxli_library_code = "bcp00228";
+		
+		return parse2(send(String.format(APP_URL + "/%s/%s/%s/%s/%s/%s/%s/%s", device, fxli_library_code, book.getBook_code(), member_id, member_id, member_id, "general", member_id), new ArrayList<NameValuePair>()));
 	}
 	
 }

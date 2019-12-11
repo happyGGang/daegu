@@ -5,10 +5,12 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -17,6 +19,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
@@ -26,21 +29,36 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
+
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.go.gbelib.app.cms.module.elib.book.Book;
 import kr.go.gbelib.app.cms.module.elib.member.ElibMember;
 
 @Service
-public class YPAPIService extends BaseService {
+public class AladinAPIService extends BaseService {
 	
 	private static final String USER_AGENT = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)";
-	private static final String LEND_URL = "http://elib.gbelib.kr:8083/y2books_api/%s.php";
-	private static final String MEMBER_URL = "http://elib.gbelib.kr:8083/y2books_api/reg_member.php";
+	private static final String LEND_URL = "http://ebook.busan.go.kr:8088/data/api/xml_action.php";
+	private static final String MEMBER_URL = "http://ebook.busan.go.kr:8088/data/api/xml_user.php";
 	private static final int TIMEOUT = 30 * 1000;
+	
+	private String getText(Document doc, String path) {
+		XPath xPath =  XPathFactory.newInstance().newXPath();
+		XPathExpression resultExpr = null;
+		try {
+			resultExpr = xPath.compile(path);
+		} catch (XPathExpressionException e) {
+			return "";
+		}
+		try {
+			return (String) resultExpr.evaluate(doc, XPathConstants.STRING);
+		} catch (XPathExpressionException e) {
+			return "";
+		}
+	}
 	
 	private Map<String, String> parse(String xml) {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -48,20 +66,13 @@ public class YPAPIService extends BaseService {
 		ByteArrayInputStream input = null;
 		Document doc = null;
 		Map<String, String> map = new HashMap<String, String>();
-		String result = "";
-		String msgcode = "";
 		
 		try {
 			builder = factory.newDocumentBuilder();
 			input = new ByteArrayInputStream(xml.getBytes("UTF-8"));
 			doc = builder.parse(input);
-			XPath xPath =  XPathFactory.newInstance().newXPath();
-			String resultPath = "/if_res/result/text()";
-			String msgcodePath = "/if_res/msgcode/text()";
-			XPathExpression resultExpr = xPath.compile(resultPath);
-			XPathExpression msgcodeExpr = xPath.compile(msgcodePath);
-			result = (String) resultExpr.evaluate(doc, XPathConstants.STRING);
-			msgcode = (String) msgcodeExpr.evaluate(doc, XPathConstants.STRING);
+			map.put("result", getText(doc, "//Result/ResultCode/text()"));
+			map.put("msgcode", getText(doc, "//Result/Message/text()"));
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
@@ -70,12 +81,9 @@ public class YPAPIService extends BaseService {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (XPathExpressionException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		map.put("result", result);
-		map.put("msgcode", msgcode);
 		
 		return map;
 	}
@@ -92,8 +100,8 @@ public class YPAPIService extends BaseService {
 		StringBuilder result = new StringBuilder();
 		String line = "";
 		
-		log.debug("YPAPIService send url: " + url + "?" + pairsToString(params));
-		System.out.println("@@@@@@@@@@@@@ YPAPIService send url: " + url + "?" + pairsToString(params));
+		log.debug("AladinAPIService send url: " + url + "?" + pairsToString(params));
+		System.out.println("@@@@@@@@@@@@@@ AladinAPIService send url: " + url + "?" + pairsToString(params));
 		
 		try {
 			post.setHeader("User-Agent", USER_AGENT);
@@ -117,8 +125,8 @@ public class YPAPIService extends BaseService {
 		
 		String resultString = result.toString();
 		
-		log.debug("YPAPIService send result: " + resultString);
-		System.out.println("@@@@@@@@@@@@@ YPAPIService send result: " + resultString);
+		log.debug("AladinAPIService send result: " + resultString);
+		System.out.println("@@@@@@@@@@@@@@ AladinAPIService send result: " + resultString);
 		
 		return resultString;
 	}
@@ -136,14 +144,14 @@ public class YPAPIService extends BaseService {
 		return sb.toString();
 	}
 	
-	private List<NameValuePair> makeParamPairs(Book book) {
+	private List<NameValuePair> makeParamPairs(String mode, Book book) {
 		String user_id = book.getMember_id();
-		String book_code = book.getBook_code();
+		String goods_id = book.getBook_code();
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 
+		params.add(new BasicNameValuePair("mode", mode));
 		params.add(new BasicNameValuePair("user_id", user_id));
-		params.add(new BasicNameValuePair("book_code", book_code));
-		params.add(new BasicNameValuePair("device", "P"));
+		params.add(new BasicNameValuePair("goods_id", goods_id));
 		
 		return params;
 	}
@@ -154,7 +162,7 @@ public class YPAPIService extends BaseService {
 	 * @return
 	 */
 	public Map<String, String> lend(Book book) {
-		return parse(send(String.format(LEND_URL, "lend"), makeParamPairs(book)));
+		return parse(send(LEND_URL, makeParamPairs("lent", book)));
 	}
 	
 	/**
@@ -163,7 +171,7 @@ public class YPAPIService extends BaseService {
 	 * @return
 	 */
 	public Map<String, String> rtn(Book book) {
-		return parse(send(String.format(LEND_URL, "return"), makeParamPairs(book)));
+		return parse(send(LEND_URL, makeParamPairs("return", book)));
 	}
 
 	/**
@@ -172,7 +180,7 @@ public class YPAPIService extends BaseService {
 	 * @return
 	 */
 	public Map<String, String> reserve(Book book) {
-		return parse(send(String.format(LEND_URL, "reserve"), makeParamPairs(book)));
+		return parse(send(LEND_URL, makeParamPairs("reserve", book)));
 	}
 	
 	/**
@@ -181,7 +189,7 @@ public class YPAPIService extends BaseService {
 	 * @return
 	 */
 	public Map<String, String> cancel(Book book) {
-		return parse(send(String.format(LEND_URL, "reserve_cancel"), makeParamPairs(book)));
+		return parse(send(LEND_URL, makeParamPairs("cancel", book)));
 	}
 	
 	/**
@@ -190,18 +198,24 @@ public class YPAPIService extends BaseService {
 	 * @return
 	 */
 	public Map<String, String> extend(Book book) {
-		return parse(send(String.format(LEND_URL, "extend"), makeParamPairs(book)));
+		return parse(send(LEND_URL, makeParamPairs("extension", book)));
 	}
 	
 	private List<NameValuePair> makeParamPairs(ElibMember member) {
 		String user_id = member.getMember_id();
-		String user_pwd = member.getP_id();
-		String user_name = member.getMember_id();
+		String user_pw = member.getSeq_no();
+		String user_nm = member.getMember_id();
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 
 		params.add(new BasicNameValuePair("user_id", user_id));
-		params.add(new BasicNameValuePair("user_pwd", user_pwd));
-		params.add(new BasicNameValuePair("user_name", user_name));
+		params.add(new BasicNameValuePair("user_pw", user_pw));
+		params.add(new BasicNameValuePair("user_nm", user_nm));
+		params.add(new BasicNameValuePair("user_level", "G1"));
+		try {
+			params.add(new BasicNameValuePair("user_level_name", URLEncoder.encode("대출회원", "UTF-8")));
+		} catch (UnsupportedEncodingException e) {
+			params.add(new BasicNameValuePair("user_level_name", "G1"));
+		}
 		
 		return params;
 	}
@@ -212,7 +226,15 @@ public class YPAPIService extends BaseService {
 	 * @return
 	 */
 	public Map<String, String> signup(ElibMember member, Book book) {
-		return parse(send(MEMBER_URL, makeParamPairs(member)));
+		Map<String, String> result = null;
+		String library_code = member.getLibrary_code();
+		try {
+			member.setLibrary_code(book.getLibrary_code());
+			result = parse(send(MEMBER_URL, makeParamPairs(member)));
+		} finally {
+			member.setLibrary_code(library_code);
+		}
+		return result;
 	}
 	
 }

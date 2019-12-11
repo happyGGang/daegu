@@ -593,7 +593,7 @@ public class BookController extends BaseController {
 	
 	private Map<String, String> getMember(ElibMember elibMember) {
 		Member member = new Member();
-		member.setUser_id(elibMember.getP_id());
+		member.setUser_id(elibMember.getSeq_no());
 //		member.setCheck_certify_type("WEBID");
 //		member.setCheck_certify_data(elibMember.getMember_id());
 		Map<String, String> data = MemberAPI.getMember("WEB", member);

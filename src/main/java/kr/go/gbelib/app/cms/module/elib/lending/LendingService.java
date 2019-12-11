@@ -142,21 +142,6 @@ public class LendingService extends BaseService {
 		}
 	}
 
-	private void sendSMS(Lending lending, Homepage homepage) {
-		Member member = new Member();
-		member.setUser_id(lending.getMember_id());
-//		member.setCheck_certify_type("WEBID");
-//		member.setCheck_certify_data(lending.getMember_id());
-//		Map<String, String> data = MemberAPI.getMemberCertify("WEB", member);
-//		data = MemberAPI.getMember("WEB", member);
-//
-//		if(data != null && StringUtils.equals("Y", data.get("SMS_CHECK"))) {
-//			Book book = bookService.getBookInfo(new Book(lending));
-//			String message = String.format("경상북도 전자도서관 <%s> 책이 대출되었습니다. 반납예정일은 %s입니다.", book.getBook_name(), koreanDateFormat(lending.getReturn_due_dt()));
-//			PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, data.get("MOBILE_NO"), message, homepage.getHomepage_send_tell(), true);
-//		}
-	}
-
 	/**
 	 * 대여
 	 * @param lending
@@ -196,7 +181,6 @@ public class LendingService extends BaseService {
 
 			if(args != null && args.length > 0 && args[0] instanceof Homepage) {
 				lending = getLending(lending);
-				sendSMS(lending, (Homepage) args[0]);
 			}
 
 			return 0;

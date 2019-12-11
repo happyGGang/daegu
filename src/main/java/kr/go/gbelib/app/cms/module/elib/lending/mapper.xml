@@ -109,7 +109,7 @@
 		SELECT
 			a.user_idx, b.lend_idx, b.book_idx, TO_CHAR(b.lend_dt, 'YYYY-MM-DD') AS lend_dt, TO_CHAR(b.return_due_dt, 'YYYY-MM-DD') AS return_due_dt,
 			TO_CHAR(b.return_dt, 'YYYY-MM-DD') AS return_dt, c.book_name, c.author_name, c.book_pubname, TO_CHAR(c.book_pubdt, 'YYYY-MM-DD') AS book_pubdt, TO_CHAR(c.book_regdt, 'YYYY-MM-DD') AS book_regdt,
-			c.com_code, a.user_name, a.user_id,
+			c.com_code,
 			(SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = c.cate_id) AS cate_name,
 			(SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = c.parent_id) AS parent_name,
 			DECODE(b.device, 'P', 'PC', 'S', '(구)스마트폰', 'A', 'Android', 'I', 'iOS', 'E', '불명') AS device, c.book_image, CASE WHEN c.library_code = '9999999' THEN '통합' ELSE e.homepage_name END AS library_name,
@@ -201,7 +201,7 @@
 		SELECT
 			a.user_idx, b.reserve_idx, b.book_idx, TO_CHAR(b.reserve_dt, 'YYYY-MM-DD') AS reserve_dt, TO_CHAR(b.lendable_dt, 'YYYY-MM-DD') AS lendable_dt, TO_CHAR(b.lend_dt, 'YYYY-MM-DD') AS lend_dt,
 			c.book_name, c.author_name, c.book_pubname, TO_CHAR(c.book_regdt, 'YYYY-MM-DD') AS book_regdt,
-			c.com_code, a.user_name, a.user_id,
+			c.com_code,
 			(SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = c.cate_id) AS cate_name,
 			(SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = c.parent_id) AS parent_name,
 			DECODE(b.device, 'P', 'PC', 'S', '(구)스마트폰', 'A', 'Android', 'I', 'iOS', 'E', '불명') AS device, c.book_image, CASE WHEN c.library_code = '9999999' THEN '통합' ELSE e.homepage_name END AS library_name,
@@ -244,13 +244,11 @@
 	<select id="getLending" resultType="kr.go.gbelib.app.cms.module.elib.lending.Lending">
 		SELECT
 			a.lend_idx, a.user_idx, a.book_idx, a.lend_dt, a.return_due_dt, a.return_dt,
-			b.user_id, a.member_id, a.extention_count,
+			a.member_id, a.extention_count,
 			(SELECT COUNT(*) FROM ELIB_LEND z WHERE z.return_dt IS NULL AND z.book_idx = #{book_idx}) AS book_lend
 		FROM
-			ELIB_LEND a,
-			ELIB_MEMBER b
-		WHERE
-			a.member_id = b.member_id
+			ELIB_LEND a
+		WHERE 1=1
 		<choose>
 		<when test="lend_idx != null and lend_idx != 0">
 		AND a.lend_idx = #{lend_idx}
@@ -301,13 +299,11 @@
 	
 	<select id="getBookReserveList" resultType="kr.go.gbelib.app.cms.module.elib.lending.Lending">
 		SELECT
-			a.reserve_idx, a.user_idx, a.book_idx, a.com_code, b.user_id, a.member_id, TO_CHAR(a.lendable_dt, 'YYYY-MM-DD') AS lendable_dt
+			a.reserve_idx, a.user_idx, a.book_idx, a.com_code, a.member_id, TO_CHAR(a.lendable_dt, 'YYYY-MM-DD') AS lendable_dt
 		FROM
-			ELIB_RESERVE a,
-			ELIB_MEMBER b
+			ELIB_RESERVE a
 		WHERE
-			a.member_id = b.member_id
-		AND a.book_idx = #{book_idx}
+			a.book_idx = #{book_idx}
 		AND a.section = '1'
 		ORDER BY a.lendable_dt, a.reserve_idx
 	</select>

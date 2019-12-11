@@ -47,13 +47,13 @@ $(document).ready(function() {
 	});
 	
 	<c:choose>
-	<c:when test="${member.login && member.status_code == '1'}">
+	<c:when test="${member.login && member.user_class == '1'}">
 	$('a#book_borrow, a#book_reserve, a#book_addfavorite, a#book_recommend').on('click', function(e) {
 		e.preventDefault();
 		alert('이용자님은 현재 홈페이지 가입회원(준회원)입니다. 소속도서관에서 정회원으로 승인 받은 후 대출하시기 바랍니다.');
 	});
 	</c:when>
-	<c:when test="${member.login && (member.status_code == '0001' || member.status_code == '0') && ((book.library_code == '9999999' && member.unAgreeFlag == '0001') || (book.library_code == member.loca))}">
+	<c:when test="${member.login && member.user_class == '0'}">
 	$('a#book_borrow').on('click', function(e) {
 		e.preventDefault();
 		var $form = $('form#book');
@@ -114,15 +114,19 @@ $(document).ready(function() {
 		$form.prop('action', 'index.do');
 	});
 	</c:when>
+<%--
 	<c:when test="${member.login}">
 	$('a#book_borrow, a#book_reserve, a#book_addfavorite, a#book_recommend').on('click', function(e) {
 		e.preventDefault();
 		alert('소속 도서관 회원만 이용 가능합니다.');
 	});
 	</c:when>
+--%>
 	<c:otherwise>
 	$('a#book_borrow, a#book_reserve, a#book_addfavorite, a#book_recommend').on('click', function(e) {
 		e.preventDefault();
+		console.log('view.jsp member:', '${member}');
+		console.log('view.jsp member.status_code:', '${member.status_code}')
 		alert('로그인 후 이용 가능합니다.');
 		location.href = '/elib/intro/login/index.do?menu_idx=4&before_url=' + encodeURIComponent(window.location.pathname + window.location.search + window.location.hash);
 	});
@@ -131,13 +135,13 @@ $(document).ready(function() {
 	
 	<c:if test="${book.type == 'WEB'}">
 	<c:choose>
-	<c:when test="${member.login && member.status_code == '1'}">
+	<c:when test="${member.login && member.user_class == '1'}">
 	$('a.course_view').on('click', function(e) {
 		e.preventDefault();
 		alert('이용자님은 현재 홈페이지 가입회원(준회원)입니다. 소속도서관에서 정회원으로 승인 받은 후 대출하시기 바랍니다.');
 	});
 	</c:when>
-	<c:when test="${member.login && (member.status_code == '0001' || member.status_code == '0') && ((book.library_code == '9999999' && member.unAgreeFlag == '0001') || (book.library_code == member.loca))}">
+	<c:when test="${member.login && member.user_class == '0'}">
 	$('a.course_view').on('click', function(e) {
 		e.preventDefault();
 		var $form = $('form#book');
@@ -200,12 +204,14 @@ $(document).ready(function() {
 		</c:choose>
 	});
 	</c:when>
+<%--
 	<c:when test="${member.login}">
 	$('a.course_view').on('click', function(e) {
 		e.preventDefault();
 		alert('소속 도서관 회원만 이용 가능합니다.');
 	});
 	</c:when>
+--%>
 	<c:otherwise>
 	$('a.course_view').on('click', function(e) {
 		e.preventDefault();
@@ -218,13 +224,13 @@ $(document).ready(function() {
 	
 	<c:if test="${book.type == 'ADO' && book.com_code != 'FXLI'}">
 	<c:choose>
-	<c:when test="${member.login && member.status_code == '1'}">
+	<c:when test="${member.login && member.user_class == '1'}">
 	$('a.audio_view').on('click', function(e) {
 		e.preventDefault();
 		alert('이용자님은 현재 홈페이지 가입회원(준회원)입니다. 소속도서관에서 정회원으로 승인 받은 후 대출하시기 바랍니다.');
 	});
 	</c:when>
-	<c:when test="${member.login && (member.status_code == '0001' || member.status_code == '0') && ((book.library_code == '9999999' && member.unAgreeFlag == '0001') || (book.library_code == member.loca))}">
+	<c:when test="${member.login && member.user_class == '0'}">
 	$('a.audio_view').on('click', function(e) {
 		e.preventDefault();
 		var $form = $('form#book');
@@ -245,12 +251,14 @@ $(document).ready(function() {
 		</c:choose>
 	});
 	</c:when>
+<%--
 	<c:when test="${member.login}">
 	$('a.audio_view').on('click', function(e) {
 		e.preventDefault();
 		alert('소속 도서관 회원만 이용 가능합니다.');
 	});
 	</c:when>
+--%>
 	<c:otherwise>
 	$('a.audio_view').on('click', function(e) {
 		e.preventDefault();
@@ -440,7 +448,7 @@ function go_to_login() {
 --%>
 				<c:when test="${book.type == 'EBK' and book.com_code == 'KYOB' and fn:startsWith(book.book_code, '47')}">
 					<c:choose>
-					<c:when test="${member.login && (member.status_code == '0001' || member.status_code == '0') && ((book.library_code == '9999999' && member.unAgreeFlag == '0001') || (book.library_code == member.loca))}">
+					<c:when test="${member.login && member.user_class eq '0'}">
 					<a href="#" class="btn btn1" id="book_borrow_" onclick="window.open('http://elib.gbelib.kr:8085/view_if.asp?user_id=${member.web_id }&barcode=${book.book_code}');"><span>바로보기</span></a>
 					</c:when>
 					<c:otherwise>
@@ -537,7 +545,7 @@ function go_to_login() {
 						<c:choose>
 						<c:when test="${book.com_code == 'EDUW'}">
 							<c:choose>
-							<c:when test="${member.login && (member.status_code == '0001' || member.status_code == '0') && ((book.library_code == '9999999' && member.unAgreeFlag == '0001') || (book.library_code == member.loca))}">
+							<c:when test="${member.login && member.user_class eq '0'}">
 							<c:set var="params" value="&mkSessData=${i.mkSessData}&userid=${member.member_id}&EndDate=${EndDate}"/>
 							<td><a href="#" class="btn btn1 course_view" data-url="${i.lesson_url}${params}" data-lessonno="${i.lesson_no}"><span>바로보기</span></a></td>
 							</c:when>
@@ -548,10 +556,10 @@ function go_to_login() {
 						</c:when>
 						<c:when test="${book.com_code == 'ARTN'}">
 							<c:choose>
-							<c:when test="${isMobile && member.login && (member.status_code == '0001' || member.status_code == '0') && ((book.library_code == '9999999' && member.unAgreeFlag == '0001') || (book.library_code == member.loca))}">
+							<c:when test="${isMobile && member.login && member.user_class eq '0'}">
 							<td><a href="#" class="btn btn1 course_view" data-url="${i.mobile_url}&u=CP${member.member_id}" data-lessonno="${i.lesson_no}"><span>바로보기</span></a></td>
 							</c:when>
-							<c:when test="${member.login && (member.status_code == '0001' || member.status_code == '0') && ((book.library_code == '9999999' && member.unAgreeFlag == '0001') || (book.library_code == member.loca))}">
+							<c:when test="${member.login && member.user_class eq '0'}">
 							<td><a href="#" class="btn btn1 course_view" data-url="${i.lesson_url}&UserID=${member.member_id}" data-lessonno="${i.lesson_no}"><span>바로보기</span></a></td>
 							</c:when>
 							<c:otherwise>
@@ -561,10 +569,10 @@ function go_to_login() {
 						</c:when>
 						<c:when test="${book.com_code == 'YESB'}">
 							<c:choose>
-							<c:when test="${isMobile && member.login && (member.status_code == '0001' || member.status_code == '0') && ((book.library_code == '9999999' && member.unAgreeFlag == '0001') || (book.library_code == member.loca))}">
+							<c:when test="${isMobile && member.login && member.user_class eq '0'}">
 							<td><a href="#" class="btn btn1 course_view" data-url="${i.mobile_url}&user_id=${member.member_id}" data-lessonno="${i.lesson_no}"><span>바로보기</span></a></td>
 							</c:when>
-							<c:when test="${member.login && (member.status_code == '0001' || member.status_code == '0') && ((book.library_code == '9999999' && member.unAgreeFlag == '0001') || (book.library_code == member.loca))}">
+							<c:when test="${member.login && member.user_class eq '0'}">
 							<td><a href="#" class="btn btn1 course_view" data-url="${i.lesson_url}&user_id=${member.member_id}" data-lessonno="${i.lesson_no}"><span>바로보기</span></a></td>
 							</c:when>
 							<c:otherwise>
@@ -574,10 +582,10 @@ function go_to_login() {
 						</c:when>
 						<c:otherwise>
 							<c:choose>
-							<c:when test="${isMobile && member.login && (member.status_code == '0001' || member.status_code == '0') && ((book.library_code == '9999999' && member.unAgreeFlag == '0001') || (book.library_code == member.loca))}">
+							<c:when test="${isMobile && member.login && member.user_class eq '0'}">
 							<td><a href="#" class="btn btn1 course_view" data-url="${i.mobile_url}" data-lessonno="${i.lesson_no}"><span>바로보기</span></a></td>
 							</c:when>
-							<c:when test="${member.login && (member.status_code == '0001' || member.status_code == '0') && ((book.library_code == '9999999' && member.unAgreeFlag == '0001') || (book.library_code == member.loca))}">
+							<c:when test="${member.login && member.user_class eq '0'}">
 							<td><a href="#" class="btn btn1 course_view" data-url="${i.lesson_url}" data-lessonno="${i.lesson_no}"><span>바로보기</span></a></td>
 							</c:when>
 							<c:otherwise>
@@ -618,23 +626,23 @@ function go_to_login() {
 						<td>${i.audio_name}</td>
 						<td>
 						<c:choose>
-						<c:when test="${book.com_code == 'HANS' && (!isMobile || empty i.mobile_link_url) && member.login && (member.status_code == '0001' || member.status_code == '0') && ((book.library_code == '9999999' && member.unAgreeFlag == '0001') || (book.library_code == member.loca))}">
+						<c:when test="${book.com_code == 'HANS' && (!isMobile || empty i.mobile_link_url) && member.login && member.user_class eq '0'}">
 						<a href="#" class="btn btn1 audio_view" data-url="${i.link_url}&userId=${member.web_id}" data-audiono="${i.audio_no}"><span>바로듣기</span></a>
 						</c:when>
-						<c:when test="${book.com_code == 'HANS' && isMobile && member.login && (member.status_code == '0001' || member.status_code == '0') && ((book.library_code == '9999999' && member.unAgreeFlag == '0001') || (book.library_code == member.loca))}">
+						<c:when test="${book.com_code == 'HANS' && isMobile && member.login && member.user_class eq '0'}">
 						<a href="#" class="btn btn1 audio_view" data-url="${i.mobile_link_url}&userId=${member.web_id}" data-audiono="${i.audio_no}"><span>바로듣기</span></a>
 						</c:when>
-						<c:when test="${book.com_code != 'FXLI' && (!isMobile || empty i.mobile_link_url) && member.login && (member.status_code == '0001' || member.status_code == '0') && ((book.library_code == '9999999' && member.unAgreeFlag == '0001') || (book.library_code == member.loca))}">
+						<c:when test="${book.com_code != 'FXLI' && (!isMobile || empty i.mobile_link_url) && member.login && member.user_class eq '0'}">
 						<a href="#" class="btn btn1 audio_view" data-url="${i.link_url}&user_id=${member.web_id}&user_name=${member.web_id}" data-audiono="${i.audio_no}"><span>바로듣기</span></a>
 						</c:when>
-						<c:when test="${book.com_code != 'FXLI' && isMobile && member.login && (member.status_code == '0001' || member.status_code == '0') && ((book.library_code == '9999999' && member.unAgreeFlag == '0001') || (book.library_code == member.loca))}">
+						<c:when test="${book.com_code != 'FXLI' && isMobile && member.login && member.user_class eq '0'}">
 						<a href="#" class="btn btn1 audio_view" data-url="${i.mobile_link_url}&user_id=${member.web_id}&user_name=${member.web_id}" data-audiono="${i.audio_no}"><span>바로듣기</span></a>
 						</c:when>
 <%--
-						<c:when test="${isMobile &&member.login && (member.status_code == '0001' || member.status_code == '0') && ((book.library_code == '9999999' && member.unAgreeFlag == '0001') || (book.library_code == member.loca))}">
+						<c:when test="${isMobile &&member.login && member.user_class eq '0'}">
 						<td><a href="#" class="btn btn1 audio_view" data-url="${i.mobile_link_url}" data-audiono="${i.audio_no}"><span>바로듣기</span></a></td>
 						</c:when>
-						<c:when test="${member.login && (member.status_code == '0001' || member.status_code == '0') && ((book.library_code == '9999999' && member.unAgreeFlag == '0001') || (book.library_code == member.loca))}">
+						<c:when test="${member.login && member.user_class eq '0'}">
 						<td><a href="#" class="btn btn1 audio_view" data-url="${i.link_url}" data-audiono="${i.audio_no}"><span>바로듣기</span></a></td>
 						</c:when>
 --%>

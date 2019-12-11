@@ -89,7 +89,7 @@ public class CommentController extends BaseController {
 		}
 		
 		if(!result.hasErrors()) {
-			comment.setMember_id(getSessionWebId(request));
+			comment.setMember_id(getSessionMemberId(request));
 			
 			if(editMode.equals("MODIFY")) {
 				service.modifyComment(comment);

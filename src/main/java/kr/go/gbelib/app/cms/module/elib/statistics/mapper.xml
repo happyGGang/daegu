@@ -112,69 +112,6 @@
 		</choose>
 	</sql>
 	
-	<select id="getStatisticsByTime" resultType="kr.go.gbelib.app.cms.module.elib.statistics.ElibStatistics">
-		SELECT
-		  reg_dt, SUM(cnt1) AS lend_pc, SUM(cnt2) AS lend_smart
-		FROM
-		  (
-		    SELECT
-		      <include refid="code1"/> AS reg_dt, COUNT(*) cnt1, 0 cnt2
-		    FROM
-		    <choose>
-		    <when test="type == 'JRN'">
-		      ELIB_EXTLINK_STAT a
-			WHERE 1=1
-		    </when>
-		    <otherwise>
-		      <include refid="table"/>
-		      ELIB_BOOK b
-		    WHERE
-		      a.book_idx = b.book_idx
-		    AND b.type = #{type}
-		    </otherwise>
-		    </choose>
-		    <if test="search_sdt != null and search_sdt != ''">
-		    <include refid="code2"/>
-		    </if>
-		    <if test="search_sdt == null or search_sdt == ''">
-		    AND 1=0
-		    </if>
-		    AND a.device = 'P'
-		    <include refid="search"/>
-		    GROUP BY
-		    	<include refid="code1"/>
-		    UNION ALL
-		    SELECT
-		      <include refid="code1"/> AS reg_dt, 0 cnt1, COUNT(*) cnt2
-		    FROM
-			<choose>
-		    <when test="type == 'JRN'">
-		      ELIB_EXTLINK_STAT a
-		    WHERE 1=1
-		    </when>
-		    <otherwise>
-		      <include refid="table"/>
-		      ELIB_BOOK b
-		    WHERE
-		      a.book_idx = b.book_idx
-		    AND b.type = #{type}
-		    </otherwise>
-		    </choose>
-		    <if test="search_sdt != null and search_sdt != ''">
-		    <include refid="code2"/>
-		    </if>
-		    <if test="search_sdt == null or search_sdt == ''">
-		    AND 1=0
-		    </if>
-		    AND a.device = 'S'
-		    <include refid="search"/>
-		    GROUP BY
-		    	<include refid="code1"/>
-		  ) a
-		GROUP BY rollup(reg_dt)
-		ORDER BY reg_dt
-	</select>
-	
 	<select id="getStatisticsByCategory" resultType="HashMap">
 		SELECT
 		  a.type, a.parent_id, b.cate_name, b.display_seq, a.device, a.cnt 
@@ -703,7 +640,6 @@
 		${pagingTop}
 		SELECT
 		  ta.member_id,
-		  ta.user_name,
   		  CASE
 		  	WHEN ta.library_code = '9999999'
 			THEN '통합'
@@ -738,7 +674,6 @@
 			THEN '통합'
 			ELSE (SELECT z.homepage_name FROM CMS_HOMEPAGE z WHERE ta.library_code = SUBSTR(z.lib_code, 1, 8) AND rownum = 1)
 		  END AS library_name,
-		  ta.user_name,
 		  NVL(tb.pcnt, 0) AS p_cnt,
 		  NVL(tb.scnt, 0) AS s_cnt,
 		  NVL(tb.acnt, 0) AS a_cnt,
@@ -746,35 +681,6 @@
 		  NVL(tb.ecnt, 0) AS e_cnt,
 		  NVL(tb.comments_cnt, 0) AS comments_cnt
 		<include refid="_getStatisticsByMember"/>
-	</select>
-	
-	<select id="getStatisticsByAge" resultType="kr.go.gbelib.app.cms.module.elib.statistics.ElibStatistics">
-		SELECT
-			TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE, 'year'),TO_DATE(SUBSTR(a.user_birthd, 1, 4), 'YYYY'))/12, -1) AS age,
-			SUM(NVL(b.cnt, 0)) AS lend_cnt
-		FROM
-			ELIB_MEMBER a,
-			(
-				SELECT a.member_id, COUNT(*) AS cnt
-				FROM <include refid="table"/> ELIB_BOOK B
-				WHERE a.book_idx = b.book_idx
-		        <if test="search_sdt != null and search_sdt != '' and search_edt != null and search_edt != ''">
-		        AND TO_DATE(TO_CHAR(<include refid="typeColumn"/>, 'YYYY-MM'), 'YYYY-MM') &gt;= TO_DATE(#{search_sdt}, 'YYYY-MM')
-		        AND TO_DATE(TO_CHAR(<include refid="typeColumn"/>, 'YYYY-MM'), 'YYYY-MM') &lt;= LAST_DAY(TO_DATE(#{search_edt}, 'YYYY-MM'))
-		        </if>
-		        <if test="search_sdt == null or search_sdt == '' or search_edt == null or search_edt == ''">
-		        AND 1=2
-		        </if>
-		        <include refid="search"/>
-				GROUP BY member_id
-			) b
-		WHERE
-			a.member_id = b.member_id
-		AND LENGTH(a.user_birthd) &gt;= 4
-		GROUP BY
-			TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE, 'year'),TO_DATE(SUBSTR(a.user_birthd, 1, 4), 'YYYY'))/12, -1)
-		ORDER BY
-			TRUNC(MONTHS_BETWEEN(TRUNC(SYSDATE, 'year'),TO_DATE(SUBSTR(a.user_birthd, 1, 4), 'YYYY'))/12, -1)
 	</select>
 	
 	<select id="getStatisticsSummaryList" resultType="kr.go.gbelib.app.cms.module.elib.statistics.ElibStatistics">

@@ -4,8 +4,7 @@
 	
 	<select id="getMemberById" resultType="kr.go.gbelib.app.cms.module.elib.member.ElibMember">
 		SELECT
-			user_idx, user_id, user_pw, user_name, user_level, user_dt, library_idx, user_birthd, seq_no, p_id,
-			member_id, library_code, sex, birth_day
+			user_idx, user_dt, seq_no, member_id, library_code, sex, birth_day
 		FROM
 			ELIB_MEMBER
 		WHERE
@@ -14,11 +13,9 @@
 	
 	<insert id="addMember">
 		INSERT INTO ELIB_MEMBER (
-			user_idx, user_pw, user_name, user_level, user_dt, library_idx, user_birthd, seq_no, p_id,
-			member_id, library_code, sex, birth_day
+			user_idx, user_dt, seq_no, member_id, library_code, sex, birth_day
 		) VALUES (
-			ELIB_MEMBER_SEQ.NEXTVAL, NULL, #{user_name}, #{user_level}, SYSDATE, #{library_idx}, #{user_birthd}, #{seq_no}, #{p_id},
-			#{member_id}, #{library_code}, #{sex}, #{birth_day}
+			ELIB_MEMBER_SEQ.NEXTVAL, SYSDATE, #{seq_no}, #{member_id}, #{library_code}, #{sex}, #{birth_day}
 		)
 	</insert>
 	
@@ -26,7 +23,6 @@
 		UPDATE ELIB_MEMBER SET
 			seq_no = #{seq_no},
 			library_code = #{library_code},
-			p_id = #{p_id},
 			sex = #{sex},
 			birth_day = #{birth_day}
 		WHERE
@@ -35,8 +31,7 @@
 	
 	<select id="getMemberList" resultType="kr.go.gbelib.app.cms.module.elib.member.ElibMember">
 		SELECT
-			user_idx, user_id, user_pw, user_name, user_level, user_dt, library_idx, user_birthd, seq_no, p_id,
-			member_id, library_code, sex, birth_day
+			user_idx, user_dt, seq_no, member_id, library_code, sex, birth_day
 		FROM
 			ELIB_MEMBER
 	</select>

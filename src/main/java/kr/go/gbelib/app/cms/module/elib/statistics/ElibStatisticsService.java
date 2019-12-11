@@ -14,10 +14,6 @@ public class ElibStatisticsService extends BaseService {
 	@Autowired
 	private ElibStatisticsDao dao;
 	
-	public List<ElibStatistics> getStatisticsByTime(ElibStatistics elibStatistics) {
-		return dao.getStatisticsByTime(elibStatistics);
-	}
-	
 	public List<Map<String, Object>> getStatisticsByCategory(ElibStatistics elibStatistics) {
 		return dao.getStatisticsByCategory(elibStatistics);
 	}
@@ -46,10 +42,6 @@ public class ElibStatisticsService extends BaseService {
 		return dao.getStatisticsByMemberAll(elibStatistics);
 	}
 	
-	public List<ElibStatistics> getStatisticsByAge(ElibStatistics elibStatistics) {
-		return dao.getStatisticsByAge(elibStatistics);
-	}
-
 	/**
 	 * 소장자료별 통계의 총합계
 	 * @author YONGJU 2017. 10. 31.
