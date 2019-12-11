@@ -111,15 +111,15 @@ $(function() {
 									<div class="row">
 										<div class="thumb">
 										<c:choose>
-										<c:when test="${empty i.IMAGE}">
+										<c:when test="${empty i.aladin or empty i.aladin.cover}">
 										<a href="${detailURL}">
-											<img src="/resources/homepage/common/img/noImg2.png" alt="등록된 이미지가 없습니다. ${i.VOL_TITLE} 상세보기"/>
+											<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. ${i.VOL_TITLE} 상세보기"/>
 											<span>등록된 이미지가<br/>없습니다.</span>
 										</a>
 										</c:when>
 										<c:otherwise>
 										<a href="${detailURL}">
-											<img src="${i.IMAGE}" alt="${i.TITLE_INFO} 상세보기"/>
+											<img src="${i.aladin.cover}" alt="${i.TITLE_INFO} 상세보기"/>
 										</a>
 										</c:otherwise>
 										</c:choose>

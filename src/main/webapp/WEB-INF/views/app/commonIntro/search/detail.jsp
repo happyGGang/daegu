@@ -73,7 +73,7 @@ $(function() {
 
 	});
 	</c:if>
-	
+
 	$('div#bookReviewDiv').load('/${homepage.context_path}/module/bookReview/index.do?menu_idx=${fn:escapeXml(param.menu_idx)}&manage_code=${fn:escapeXml(detail.MANAGE_CODE)}&reg_no=${fn:escapeXml(detail.REG_NO)}');
 });
 
@@ -138,7 +138,7 @@ $(function() {
 		<div class="sinfo">
 			<div class="thumb">
 				<c:choose>
-					<c:when test="${empty detail.IMAGE}">
+					<c:when test="${empty detail.aladin or empty detail.aladin.cover}">
 				<p class="noImg">
 					<img src="/resources/common/img/noImg2.png" alt="noImage"/>
 					<span>등록된 이미지가<br/>없습니다.</span>
@@ -146,7 +146,7 @@ $(function() {
 					</c:when>
 					<c:otherwise>
 				<p>
-					<img src="${detail.IMAGE}" alt="${detail.TITLE_INFO}">
+					<img src="${detail.aladin.cover}" alt="${detail.TITLE_INFO}">
 				</p>
 					</c:otherwise>
 				</c:choose>
@@ -255,7 +255,7 @@ $(function() {
 
 			<a href="javascript:history.back();" id="goBack" class="btn"><i class="fa fa-book"></i><span>목록으로</span></a>
 		</div>
-		
+
 		<h3 style="border-top: 1px solid #ccc;">서평</h3>
 		<div class="showFoldDiv" id="bookReviewDiv"></div>
 	</div>

@@ -556,7 +556,7 @@ $(function() {
 											</p>
 
 											<div class="stat">
-												<a href="#showSlide" class="showSlide" vLoca="747016" ><span>소장정보</span></a>
+												<a href="#showSlide" class="showSlide" ><span>소장정보</span></a>
 											</div>
 										</div>
 									</div>
