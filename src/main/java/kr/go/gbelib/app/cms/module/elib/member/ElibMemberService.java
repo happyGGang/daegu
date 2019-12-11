@@ -44,8 +44,6 @@ public class ElibMemberService extends BaseService {
 	}
 	
 	public int addMemberIfNotExists(ElibMember member, Book book) throws ElibException {
-		System.out.println("@@@@@@@@@@ addMemberIfNotExists member: " + member);
-		
 		apiService.signup(member, book);
 		
 		return addMemberIfNotExistsLocal(member);

@@ -7,7 +7,7 @@
 <% pageContext.setAttribute("crlf", "\n"); %>
 <c:choose>
 <c:when test="${book.com_code == 'KYOB'}">
-<c:set var="viewer_url" value="http://elib.gbelib.kr:8085/Kyobo_T3/HelpDesk/HelpDesk_InstallProgram.asp?mcode=2&tcode=1"/>
+<c:set var="viewer_url" value="http://ebook.busan.go.kr:8085/Kyobo_T3/HelpDesk/HelpDesk_InstallProgram.asp?mcode=2&tcode=1"/>
 </c:when>
 <c:when test="${book.com_code == 'YESB'}">
 <c:set var="viewer_url" value="http://yes24viewer.yes24library.com/activex/yes24viewersetup.exe"/>
@@ -157,9 +157,6 @@ $(document).ready(function() {
 		<c:when test="${book.com_code == 'GLOB' || book.com_code == 'ECSM'}">
 		glob_read($(this).data('url'));
 		</c:when>
-		<c:when test="${book.com_code == 'EDUW'}">
-		eduw_read($(this).data('url'));
-		</c:when>
 		<c:when test="${book.com_code == 'YBMN'}">
 		ybmn_read($(this).data('url') + '&user_id=${member.member_id}');
 		</c:when>
@@ -222,7 +219,7 @@ $(document).ready(function() {
 	</c:choose>
 	</c:if>
 	
-	<c:if test="${book.type == 'ADO' && book.com_code != 'FXLI'}">
+	<c:if test="${book.type == 'ADO' && (book.com_code ne 'FXLI' and book.com_code ne 'KYOB')}">
 	<c:choose>
 	<c:when test="${member.login && member.user_class == '1'}">
 	$('a.audio_view').on('click', function(e) {
@@ -286,21 +283,21 @@ function hans_read(url) {
 	}
 	var popupPlayer = window.open(whole, "HANS", features);
 	if (popupPlayer == null) {
-		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.gbelib.kr 추가");
+		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.busan.go.kr 추가");
 		return false;
 	} 
 }
 
 function cont_read(url) {
 	var whole = 'http://<%=request.getServerName()%>/elib/module/elib/redirect.do?url=' + encodeURIComponent(url);
-	var width = 750, height = 600;
+	var width = 1150, height = 800;
 	if(url.indexOf('gbelib_contents_player.php') > -1) {
 		width = 800;
 		height = 700;
 	}
-	var popupPlayer = window.open(whole, "CONT", 'width='+width+'height='+height+',scrollbars=yes');
+	var popupPlayer = window.open(whole, "CONT", 'width='+width+',height='+height+',scrollbars=yes');
 	if (popupPlayer == null) {
-		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.gbelib.kr 추가");
+		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.busan.go.kr 추가");
 		return false;
 	} 
 }
@@ -313,16 +310,7 @@ function cont2_read(url) {
 	}
 	var popupPlayer = window.open(whole, "CONT2", dimension+',scrollbars=yes');
 	if (popupPlayer == null) {
-		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.gbelib.kr 추가");
-		return false;
-	} 
-}
-
-function eduw_read(url) {
-	var whole = 'http://<%=request.getServerName()%>/elib/module/elib/redirect.do?url=' + encodeURIComponent(url);
-	var popupPlayer = window.open(whole, "EDUW", 'width=835,height=650,scrollbars=yes');
-	if (popupPlayer == null) {
-		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.gbelib.kr 추가");
+		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.busan.go.kr 추가");
 		return false;
 	} 
 }
@@ -331,7 +319,7 @@ function glob_read(url) {
 	var whole = 'http://<%=request.getServerName()%>/elib/module/elib/redirect.do?url=' + encodeURIComponent(url);
 	var popupPlayer = window.open(whole, "GLOB", 'width=710,height=527,scrollbars=yes');
 	if (popupPlayer == null) {
-		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.gbelib.kr 추가");
+		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.busan.go.kr 추가");
 		return false;
 	}
 }
@@ -340,7 +328,7 @@ function ybmn_read(url) {
 	var whole = 'http://<%=request.getServerName()%>/elib/module/elib/redirect.do?url=' + encodeURIComponent(url);
 	var popupPlayer = window.open(whole, "YBMN", 'width=835,height=650,scrollbars=yes');
 	if (popupPlayer == null) {
-		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.gbelib.kr 추가");
+		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.busan.go.kr 추가");
 		return false;
 	}
 }
@@ -349,7 +337,7 @@ function yesb_read(url) {
 	var whole = 'http://<%=request.getServerName()%>/elib/module/elib/redirect.do?url=' + encodeURIComponent(url);
 	var popupPlayer = window.open(whole, "YESB", 'width=715,height=415,scrollbars=yes');
 	if (popupPlayer == null) {
-		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.gbelib.kr 추가");
+		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.busan.go.kr 추가");
 		return false;
 	}
 }
@@ -418,19 +406,17 @@ function go_to_login() {
 						</c:if>
 					</li>
 					<li>소속도서관: ${fn:escapeXml(book.library_name)}</li>
-					<li>대출 가능 여부: ${fn:escapeXml(book.status)}<span class="txt-bar">&nbsp;</span>대출 : ${fn:escapeXml(book.book_lend)}<%-- / ${fn:escapeXml(book.max_lend)}--%><span class="txt-bar">&nbsp;</span>예약 : ${fn:escapeXml(book.book_reserve)}<c:if test="${book.book_reserve > 0}"><span class="txt-bar">&nbsp;</span>대출가능일: ${book.lendable_dt}</c:if></li>
+					<li>대출 가능 여부: ${fn:escapeXml(book.status)}<span class="txt-bar">&nbsp;</span>대출 : ${fn:escapeXml(book.book_lend)}<%-- / ${fn:escapeXml(book.max_lend)}--%><span class="txt-bar">&nbsp;</span>예약 : ${fn:escapeXml(book.book_reserve)}</li>
 					<li>지원 기기: ${fn:escapeXml(book.label)}<span class="txt-bar">&nbsp;</span>서비스 형태: ${fn:escapeXml(book.format)}</li>
 					<li>좋아요: ${fn:escapeXml(book.recommend_cnt)}</li>
 				</ul>
 			</div>
 			<br/>
 			<div class="sbtn">
-				
 				<c:choose>
 				<c:when test="${book.type == 'WEB'}">
-
 				</c:when>
-				<c:when test="${book.type == 'ADO' && book.com_code != 'FXLI'}">
+				<c:when test="${book.type == 'ADO' && (book.com_code ne 'FXLI' and book.com_code ne 'KYOB')}">
 				</c:when>
 <%--
 				<c:when test="${book.type == 'ADO' && book.com_code == 'HANS' && (!isMobile || empty i.mobile_link_url)}">
@@ -440,22 +426,12 @@ function go_to_login() {
 				<a href="#" class="btn btn1" id="book_view" data-url="${book.mobile_link_url}"><span>바로보기</span></a>
 				</c:when>
 				<c:when test="${book.type == 'ADO' && book.com_code != 'FXLI' && (!isMobile || empty book.mobile_link_url)}">
-				<a href="#" class="btn btn1" id="book_view" data-url="${book.link_url}&user_id=${member.web_id}&user_name=${member.web_id}"><span>바로보기</span></a>
+				<a href="#" class="btn btn1" id="book_view" data-url="${book.link_url}&user_id=${member.member_id}&user_name=${member.member_id}"><span>바로보기</span></a>
 				</c:when>
 				<c:when test="${book.type == 'ADO' && book.com_code != 'FXLI' && isMobile}">
-				<a href="#" class="btn btn1" id="book_view" data-url="${book.mobile_link_url}&user_id=${member.web_id}&user_name=${member.web_id}"><span>바로보기</span></a>
+				<a href="#" class="btn btn1" id="book_view" data-url="${book.mobile_link_url}&user_id=${member.member_id}&user_name=${member.member_id}"><span>바로보기</span></a>
 				</c:when>
 --%>
-				<c:when test="${book.type == 'EBK' and book.com_code == 'KYOB' and fn:startsWith(book.book_code, '47')}">
-					<c:choose>
-					<c:when test="${member.login && member.user_class eq '0'}">
-					<a href="#" class="btn btn1" id="book_borrow_" onclick="window.open('http://elib.gbelib.kr:8085/view_if.asp?user_id=${member.web_id }&barcode=${book.book_code}');"><span>바로보기</span></a>
-					</c:when>
-					<c:otherwise>
-					<a href="#" class="btn btn1" onclick="go_to_login(); return false;"><span>바로보기</span></a>
-					</c:otherwise>
-					</c:choose>
-				</c:when>
 				<c:when test="${book.status == '대출 가능'}">
 				<a href="#" class="btn btn1" id="book_borrow"><span>대출하기</span></a>
 				</c:when>
@@ -491,7 +467,7 @@ function go_to_login() {
 				<li class=""><a href="#" data-target="comments">서평</a></li>
 			</ul>
 			</c:when>
-			<c:when test="${book.type == 'ADO' && book.com_code != 'FXLI'}">
+			<c:when test="${book.type == 'ADO' && (book.com_code ne 'FXLI' and book.com_code ne 'KYOB')}">
 			<ul>
 				<li class="active"><a href="#" data-target="chapters">회차</a></li>
 				<li class=""><a href="#" data-target="book_info">도서 소개</a></li>
@@ -512,9 +488,6 @@ function go_to_login() {
 		</div>
 		<c:choose>
 		<c:when test="${book.type == 'WEB'}">
-		<c:if test="${book.com_code == 'EDUW' && isMobile}">
-		<p><a href="https://itunes.apple.com/kr/app/aqua-nmanager/id1048325731?mt=8" target="_blank"><span style="color: red; font-weight: bold;">* 아이폰에서 바로보기를 눌렀을 때 앱스토어로 연동이 되지 않을 경우 [플레이어 수동 설치] 클릭</span></a></p>
-		</c:if>
 		<c:if test="${book.com_code == 'YBMN' && isMobile}">
 		<p><a href="https://itunes.apple.com/kr/app/aqua-nmanager/id1048325731?mt=8" target="_blank"><span style="color: red; font-weight: bold;">* 아이폰에서 재생이 되지 않을 경우 [플레이어 수동 설치] 클릭</span></a></p>
 		</c:if>
@@ -543,17 +516,6 @@ function go_to_login() {
 						<td>${i.lesson_no}</td>
 						<td>${i.lesson_name}</td>
 						<c:choose>
-						<c:when test="${book.com_code == 'EDUW'}">
-							<c:choose>
-							<c:when test="${member.login && member.user_class eq '0'}">
-							<c:set var="params" value="&mkSessData=${i.mkSessData}&userid=${member.member_id}&EndDate=${EndDate}"/>
-							<td><a href="#" class="btn btn1 course_view" data-url="${i.lesson_url}${params}" data-lessonno="${i.lesson_no}"><span>바로보기</span></a></td>
-							</c:when>
-							<c:otherwise>
-							<td><a href="#" class="btn btn1 course_view"><span>바로보기</span></a></td>
-							</c:otherwise>
-							</c:choose>
-						</c:when>
 						<c:when test="${book.com_code == 'ARTN'}">
 							<c:choose>
 							<c:when test="${isMobile && member.login && member.user_class eq '0'}">
@@ -602,7 +564,7 @@ function go_to_login() {
 			</table>
 		</div>
 		</c:when>
-		<c:when test="${book.type == 'ADO' && book.com_code != 'FXLI'}">
+		<c:when test="${book.type == 'ADO' && (book.com_code ne 'FXLI' and book.com_code ne 'KYOB')}">
 		<div id="chapters" class="tab_body">
 			<table>
 				<thead>
@@ -627,16 +589,16 @@ function go_to_login() {
 						<td>
 						<c:choose>
 						<c:when test="${book.com_code == 'HANS' && (!isMobile || empty i.mobile_link_url) && member.login && member.user_class eq '0'}">
-						<a href="#" class="btn btn1 audio_view" data-url="${i.link_url}&userId=${member.web_id}" data-audiono="${i.audio_no}"><span>바로듣기</span></a>
+						<a href="#" class="btn btn1 audio_view" data-url="${i.link_url}&userId=${member.member_id}" data-audiono="${i.audio_no}"><span>바로듣기</span></a>
 						</c:when>
 						<c:when test="${book.com_code == 'HANS' && isMobile && member.login && member.user_class eq '0'}">
-						<a href="#" class="btn btn1 audio_view" data-url="${i.mobile_link_url}&userId=${member.web_id}" data-audiono="${i.audio_no}"><span>바로듣기</span></a>
+						<a href="#" class="btn btn1 audio_view" data-url="${i.mobile_link_url}&userId=${member.member_id}" data-audiono="${i.audio_no}"><span>바로듣기</span></a>
 						</c:when>
-						<c:when test="${book.com_code != 'FXLI' && (!isMobile || empty i.mobile_link_url) && member.login && member.user_class eq '0'}">
-						<a href="#" class="btn btn1 audio_view" data-url="${i.link_url}&user_id=${member.web_id}&user_name=${member.web_id}" data-audiono="${i.audio_no}"><span>바로듣기</span></a>
+						<c:when test="${(book.com_code ne 'FXLI' and book.com_code ne 'KYOB') && (!isMobile || empty i.mobile_link_url) && member.login && member.user_class eq '0'}">
+						<a href="#" class="btn btn1 audio_view" data-url="${i.link_url}&user_id=${member.member_id}&user_name=${member.member_id}" data-audiono="${i.audio_no}"><span>바로듣기</span></a>
 						</c:when>
-						<c:when test="${book.com_code != 'FXLI' && isMobile && member.login && member.user_class eq '0'}">
-						<a href="#" class="btn btn1 audio_view" data-url="${i.mobile_link_url}&user_id=${member.web_id}&user_name=${member.web_id}" data-audiono="${i.audio_no}"><span>바로듣기</span></a>
+						<c:when test="${(book.com_code ne 'FXLI' and book.com_code ne 'KYOB') && isMobile && member.login && member.user_class eq '0'}">
+						<a href="#" class="btn btn1 audio_view" data-url="${i.mobile_link_url}&user_id=${member.member_id}&user_name=${member.member_id}" data-audiono="${i.audio_no}"><span>바로듣기</span></a>
 						</c:when>
 <%--
 						<c:when test="${isMobile &&member.login && member.user_class eq '0'}">
@@ -660,7 +622,7 @@ function go_to_login() {
 		</div>
 		</c:when>
 		</c:choose>
-		<div id="book_info" class="tab_body" <c:if test="${book.type == 'WEB' || (book.type == 'ADO' && book.com_code != 'FXLI')}">style="display: none;"</c:if>>
+		<div id="book_info" class="tab_body" <c:if test="${book.type == 'WEB' || (book.type == 'ADO' && (book.com_code ne 'FXLI' and book.com_code ne 'KYOB'))}">style="display: none;"</c:if>>
 			<c:set var="book_info" value="${fn:replace(book.book_info, crlf, '<br/>')}"></c:set>
 			${book_info}
 		</div>

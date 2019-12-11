@@ -80,9 +80,6 @@ public class ElibController extends BaseController {
 	private LendingService lendingService;
 
 	@Autowired
-	private LendingDao lendingDao;
-
-	@Autowired
 	private ConfigService configService;
 
 	@Autowired
@@ -595,7 +592,6 @@ public class ElibController extends BaseController {
 
 		lending.setBook_lend(book.getBook_lend());
 		lending.setBook_reserve(book.getBook_reserve());
-		lending.setLendable_dt(book.getLendable_dt());
 
 		if(book.getMax_lend() > 0) max_lend = book.getMax_lend();
 
@@ -724,7 +720,6 @@ public class ElibController extends BaseController {
 
 	@RequestMapping(value = {"/lending/save.*"})
 	public @ResponseBody JsonResponse lending_save(Model model, Lending lending,  BindingResult result, HttpServletRequest request) {
-		System.out.println("@@@@@@@@@@ lending_save 000");
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		lending.setHomepage_id(homepage.getHomepage_id());
 
@@ -732,37 +727,24 @@ public class ElibController extends BaseController {
 		String editMode = lending.getEditMode();
 		int ret = 0;
 
-		System.out.println("@@@@@@@@@@ lending_save 001");
 		Book book = bookService.getBookInfo(new Book(lending.getBook_idx()));
-		System.out.println("@@@@@@@@@@ lending_save 002");
 		book.setMenu_idx(lending.getMenu_idx());
 		book.setBefore_url(String.format("/%s/module/elib/lending/index.do?menu_idx=%s", homepage.getContext_path(), lending.getMenu_idx()));
 		res = checkLogin(request, result, res, book);
 		if(!res.isValid()) return res;
-		System.out.println("@@@@@@@@@@ lending_save 003");
 
-		if(!lending.getEditMode().equals("DELETE")) {
-
-		}
-
-		System.out.println("@@@@@@@@@@ lending_save 004");
 		lending.setDevice(getDevice(request.getHeader("user-agent")));
 
 		if(!result.hasErrors()) {
-			System.out.println("@@@@@@@@@@ lending_save 005");
 			try {
-				System.out.println("@@@@@@@@@@ lending_save 006");
 				addMemberIfNotExists(request, book);
 			} catch (ElibException e) {
-				System.out.println("@@@@@@@@@@ lending_save 007");
 				res.setValid(false);
 				res.setMessage(e.getMessage());
 				return res;
 			}
-			System.out.println("@@@@@@@@@@ lending_save 008");
 			lending.setMember_id(getSessionMemberId(request));
 			lending.setCom_code(book.getCom_code());
-			System.out.println("@@@@@@@@@@ lending_save 009 getSessionMemberId(request): " + getSessionMemberId(request));
 
 			if(elibAccessIpService.getBannedIpCnt(new ElibAccessIp(request.getRemoteAddr())) > 0) {
 				res.setValid(false);

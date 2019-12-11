@@ -10,13 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.view.document.AbstractJExcelView;
 
-import jxl.format.Alignment;
-import jxl.format.Border;
-import jxl.format.BorderLineStyle;
-import jxl.format.Colour;
-import jxl.write.Label;
-import jxl.write.WritableCellFormat;
-import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import kr.co.whalesoft.framework.utils.AttachmentUtils;
 

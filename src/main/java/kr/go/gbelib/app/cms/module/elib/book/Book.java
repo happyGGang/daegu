@@ -75,7 +75,6 @@ public class Book extends PagingUtils {
 	private int cat_bestbook_idx;
 	private String device;
 	private String label;
-	private String lendable_dt;
 	private String option;
 	private int course_idx;
 	private int lesson_no;
@@ -502,12 +501,6 @@ public class Book extends PagingUtils {
 	}
 	public void setLabel(String label) {
 		this.label = label;
-	}
-	public String getLendable_dt() {
-		return lendable_dt;
-	}
-	public void setLendable_dt(String lendable_dt) {
-		this.lendable_dt = lendable_dt;
 	}
 	public String getOption() {
 		return option;

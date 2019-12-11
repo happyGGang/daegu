@@ -141,7 +141,7 @@ function readBook(arg) {
 	if (arg != null && arg != '' && arg.length > 0) {
 		var newWinBook = window.open(arg);
 		if (newWinBook == null) {
-			alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.gbelib.kr 추가");
+			alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.busan.go.kr 추가");
 			return false;
 		} 
 	}
@@ -150,7 +150,7 @@ function readBook(arg) {
 function kyob_read(url) {
 	var popupPlayer = window.open(url, "KYOB", 'width=640,height=480,scrollbars=yes');
 	if (popupPlayer == null) {
-		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.gbelib.kr 추가");
+		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.busan.go.kr 추가");
 		return false;
 	} 
 }
@@ -158,7 +158,7 @@ function kyob_read(url) {
 function yesb_read(url) {
 	var popupPlayer = window.open(url, "YESB", 'width=640,height=480,scrollbars=yes');
 	if (popupPlayer == null) {
-		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.gbelib.kr 추가");
+		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.busan.go.kr 추가");
 		return false;
 	} 
 }
@@ -166,7 +166,7 @@ function yesb_read(url) {
 function yesb_read2(url) {
 	var popupPlayer = window.open(url, "YESB", 'width=715,height=415,scrollbars=yes');
 	if (popupPlayer == null) {
-		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.gbelib.kr 추가");
+		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.busan.go.kr 추가");
 		return false;
 	}
 }
@@ -174,18 +174,18 @@ function yesb_read2(url) {
 function y2bk_read(url) {
 	var popupPlayer = window.open(url, "Y2BK", 'width=640,height=480,scrollbars=yes');
 	if (popupPlayer == null) {
-		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.gbelib.kr 추가");
+		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.busan.go.kr 추가");
 		return false;
 	} 
 }
 
-function fxli_read(book_num, library) {
+function fxli_read(book_num) {
 	$('input#book_num').val(book_num);
-	$('form#frm_fx').prop('action', 'http://elib.gbelib.kr:8080/FxLibrary' + library + '/dependency/sso/sso.jsp');
+	$('form#frm_fx').prop('action', 'http://ebook.busan.go.kr:8080/FxLibrary/dependency/sso/sso.jsp');
 	$('form#frm_fx').prop('target', 'FXLI');
 	var popupPlayer = window.open('', "FXLI", 'width=640,height=760,scrollbars=yes');
 	if (popupPlayer == null) {
-		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.gbelib.kr 추가");
+		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.busan.go.kr 추가");
 		return false;
 	}
 	$('form#frm_fx').submit();
@@ -211,11 +211,11 @@ function checkApp(url, com_code) {
 		_APP_SCHEME = "kyobolibrarykel";
 		_APP_PACKAGE_ID = "kr.co.kyobobook.KEL​";
 	} else if(com_code == 'FXLI') {
-		_APP_INSTALL_URL_IOS = "https://itunes.apple.com/kr/app/bugpeulleieo/id1103583714?mt=8";
-		_APP_INSTALL_URL_IPAD = "https://itunes.apple.com/kr/app/bugpeulleieo/id1103583714?mt=8";
-		_APP_INSTALL_URL_ANDROID = "market://details?id=com.bookcube.bookplayer4total";
-		_APP_SCHEME = "bookcube4totallib";
-		_APP_PACKAGE_ID = "com.bookcube.bookplayer4total";
+		_APP_INSTALL_URL_IOS = "https://itunes.apple.com/us/app/bugkyubeujeonjadoseogwan/id1007007455?l=ko&ls=1&mt=8";
+		_APP_INSTALL_URL_IPAD = "https://itunes.apple.com/us/app/bugkyubeujeonjadoseogwanhd/id1007080008?l=ko&ls=1&mt=8";
+		_APP_INSTALL_URL_ANDROID = "market://details?id=com.bookcube.digitallibrary";
+		_APP_SCHEME = "bookcubedigitallibrary";
+		_APP_PACKAGE_ID = "com.bookcube.digitallibrary";
 	} else if(com_code == 'YESB') {
 		_APP_INSTALL_URL_IOS = "https://itunes.apple.com/kr/app/%EC%A0%84%EC%9E%90%EB%8F%84%EC%84%9C%EA%B4%80-%EB%B7%B0%EC%96%B4/id1353292577?&mt=8";
 		_APP_INSTALL_URL_IPAD = "https://itunes.apple.com/kr/app/%EC%A0%84%EC%9E%90%EB%8F%84%EC%84%9C%EA%B4%80-%EB%B7%B0%EC%96%B4/id1353292577?&mt=8";
@@ -272,7 +272,7 @@ function checkApp(url, com_code) {
 }
 </script>
 
-<form id="frm_fx" name="frm_fx" method="post" action="http://elib.gbelib.kr:8080/FxLibrary/dependency/sso/sso.jsp" target="_blank" accept-charset="utf-8">
+<form id="frm_fx" name="frm_fx" method="post" action="http://ebook.busan.go.kr:8080/FxLibrary/dependency/sso/sso.jsp" target="_blank" accept-charset="utf-8">
     <input type="hidden" name="param_1" value="${lending.member_id}">
     <input type="hidden" name="param_2" value="${lending.member_id}">
     <input type="hidden" name="param_3" value="${lending.member_id}">
@@ -353,9 +353,6 @@ function checkApp(url, com_code) {
 				<c:if test="${lending.menu == 'RESERVE'}">
             	<label>예약일:</label>
 				<span>${fn:escapeXml(i.reserve_dt)}</span>
-            	<br/>
-            	<label>대출가능일:</label>
-				<span>${fn:escapeXml(i.lendable_dt)}</span>
 				</c:if>
 				<c:if test="${lending.menu == 'HISTORY'}">
             	<label>대출일:</label>
@@ -373,10 +370,6 @@ function checkApp(url, com_code) {
 				<span>대출 : ${i.book_lend}<%-- / ${fn:escapeXml(i.max_lend)}--%></span>
 				<span class="txt-bar">&nbsp;</span>
 				<span>예약 : ${i.book_reserve}</span>
-				<c:if test="${i.book_reserve > 0}">
-				<span class="txt-bar">&nbsp;</span>
-				<span>대출가능일: ${i.lendable_dt}</span>
-				</c:if>
 				</c:if>
 	            <div style="float: right;">
 	            	<c:if test="${lending.menu == 'LENDING'}">
@@ -397,87 +390,29 @@ function checkApp(url, com_code) {
 					<c:set var="read" value="checkApp('kyobolibrarykel://download?barcode=${i.book_code}&seqBarcode=${data['seq_barcode']}&type=${ebook_type}&size=21819500&education=0&ttsYn=Y&userId=${memberIdBase64}&password=${memberIdBase64}&libraryCd=${data['libraryCd']}&borrowId=${data['borrowID']}&libraryUrl=${data['libraryUrl']}&libraryNm=${data['libraryNm']}&drmHost=${data['drmHost']}', '${i.com_code}'); return false;"/>
 					</c:when>
 					<c:when test="${i.com_code == 'YESB'}">
-						<c:choose>
-						<c:when test="${i.library_code == '00147008'}">
-						<%-- 상주도서관 --%>
-						<c:set var="site_code" value="B2B_SJLIB"/>
-						</c:when>
-						<c:when test="${i.library_code == '00147020' || i.library_code == '00147006'}">
-						<%-- 점촌공공도서관 --%>
-						<c:set var="site_code" value="B2B_JUMDO"/>
-						</c:when>
-						<c:otherwise>
-						<%-- 경북통합 --%>
-						<c:set var="site_code" value="B2B_GBE"/>
-						</c:otherwise>
-						</c:choose>
+						<c:set var="site_code" value="B2B_BUSAN"/>
 						<c:choose>
 						<c:when test="${i.type =='WEB'}">
-							<c:set var="read" value="javascript:yesb_read2('http://elib.gbelib.kr:8082/YES24/yes24_booklearning_view.asp?user_id=${lending.member_id}&goods_id=${i.book_code}&site_code=${site_code}'); return false;"/>
+							<c:set var="read" value="javascript:yesb_read2('http://ebook.busan.go.kr:8086/YES24/yes24_booklearning_view.asp?user_id=${lending.member_id}&goods_id=${i.book_code}&site_code=${site_code}'); return false;"/>
 						</c:when>
 						<c:when test="${isMobile}">
 							<c:set var="data" value="${mobileList[status.index]}"/>
 							<c:set var="read" value="checkApp('${data['appurl']}', '${i.com_code}'); return false;"/>
 						</c:when>
 						<c:otherwise>
-							<c:set var="read" value="javascript:yesb_read('http://elib.gbelib.kr:8082/YES24/yes24viewer_open.asp?user_id=${lending.member_id}&goods_id=${i.book_code}&site_code=${site_code}'); return false;"/>
+							<c:set var="read" value="javascript:yesb_read('http://ebook.busan.go.kr:8086/YES24/yes24viewer_open.asp?user_id=${lending.member_id}&goods_id=${i.book_code}&site_code=${site_code}'); return false;"/>
 						</c:otherwise>
 						</c:choose>
 					</c:when>
 					<c:when test="${i.com_code == 'FXLI'}">
-						<c:choose>
-						<c:when test="${i.library_code == '00147009'}">
-						<!-- 성주 -->
-						<c:set var="site_code" value="_sj"/>
-						</c:when>
-						<c:when test="${i.library_code == '00147002'}">
-						<!-- 고령 -->
-						<c:set var="site_code" value="_go"/>
-						</c:when>
-						<c:when test="${i.library_code == '00147010'}">
-						<!-- 안동 -->
-						<c:set var="site_code" value="_ad"/>
-						</c:when>
-						<c:when test="${i.library_code == '00147031'}">
-						<!-- 영덕 -->
-						<c:set var="site_code" value="_yd"/>
-						</c:when>
-						<c:when test="${i.library_code == '00147012'}">
-						<!-- 영양 -->
-						<c:set var="site_code" value="_yy"/>
-						</c:when>
-						<c:when test="${i.library_code == '00147013'}">
-						<!-- 영일 -->
-						<c:set var="site_code" value="_yi"/>
-						</c:when>
-						<c:when test="${i.library_code == '00147032'}">
-						<!-- 영주 -->
-						<c:set var="site_code" value="_yj"/>
-						</c:when>
-						<c:when test="${i.library_code == '00147014'}">
-						<!-- 영천금호 -->
-						<c:set var="site_code" value="_yk"/>
-						</c:when>
-						<c:when test="${i.library_code == '00147017'}">
-						<!-- 울릉 -->
-						<c:set var="site_code" value="_ul"/>
-						</c:when>
-						<c:when test="${i.library_code == '00147018'}">
-						<!-- 울진 -->
-						<c:set var="site_code" value="_uj"/>
-						</c:when>
-						<c:otherwise>
-						<!-- 통합 -->
 						<c:set var="site_code" value=""/>
-						</c:otherwise>
-						</c:choose>
 						<c:choose>
 						<c:when test="${isMobile}">
 							<c:set var="data" value="${mobileList[status.index]}"/>
 							<c:set var="read" value="checkApp('${data['appurl']}', '${i.com_code}'); return false;"/>
 						</c:when>
 						<c:otherwise>
-							<c:set var="read" value="fxli_read('${i.book_code}', '${site_code}'); return false;"/>
+							<c:set var="read" value="fxli_read('${i.book_code}'); return false;"/>
 						</c:otherwise>
 						</c:choose>
 					</c:when>

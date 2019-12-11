@@ -1,7 +1,5 @@
 package kr.go.gbelib.app.cms.module.elib.statistics;
 
-import java.util.List;
-
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
 public class ElibStatistics extends PagingUtils {

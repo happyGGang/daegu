@@ -407,8 +407,6 @@ function changeLibrary() {
 				<span class="txt-bar">&nbsp;</span>
 				<span>예약 : ${fn:escapeXml(i.book_reserve)}</span>
 				<c:if test="${i.book_reserve > 0}">
-				<span class="txt-bar">&nbsp;</span>
-				<span>대출가능일: ${i.lendable_dt}</span>
 				</c:if>
 				</c:if>
 			</div>

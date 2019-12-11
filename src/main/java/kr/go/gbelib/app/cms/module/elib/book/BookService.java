@@ -36,135 +36,15 @@ public class BookService extends BaseService {
 	@Autowired
 	private CommentDao commentDao;
 	
-	@Autowired
-	private ConfigDao configDao;
-	
-	@Autowired
-	private LendingDao lendingDao;
-	
 //	@Autowired
 //	private ElibCategoryService elibCategoryService;
-	
-	private String addDays(String date, int days) {
-		try {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(sdf.parse(date));
-			cal.add(Calendar.DATE, days);
-			return sdf.format(cal.getTime());
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return date;
-		}
-	}
-	
-	private String addDays(Date date, int days) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
-		cal.add(Calendar.DATE, days);
-		return sdf.format(cal.getTime());
-	}
-	
-	private String getDate(Lending lending) {
-		return lending.getLend_idx() > 0 ? lending.getReturn_due_dt() : lending.getLendable_dt();
-	}
-	
-	private void fill(Book book, int lend_max_term) {
-		Lending lending = new Lending(book);
-		List<Lending> reserveList = lendingDao.getBookReserveList(lending);
-		List<Lending> lendList = lendingDao.getNotReturnedList(lending);
-
-		List<Lending> lendReserveList = new ArrayList<Lending>(); 
-		lendReserveList.addAll(reserveList);
-		lendReserveList.addAll(lendList);
-		
-		Lending earliest = null;
-		Set<Lending> removed = new HashSet<Lending>();
-		
-		while(true) {
-			
-			if(lendReserveList.size() == 0) {
-				book.setLendable_dt(addDays(new Date(), 0));
-				return;
-			}
-			
-			Collections.sort(lendReserveList, new Comparator<Lending>() {
-				@Override
-				public int compare(Lending o1, Lending o2) {
-					String date1 = getDate(o1);
-					String date2 = getDate(o2);
-					
-					if(date1 == null) {
-						return 1;
-					} else if(date2 == null) {
-						return -1;
-					} else {
-						return date1.compareTo(date2);
-					}
-				}
-			});
-			
-			earliest = lendReserveList.get(0);
-			
-			if(getDate(earliest) == null) {
-				lendReserveList.remove(0);
-				continue;
-			}
-			
-			boolean duplicateFound = false;
-			String earliestDate = addDays(getDate(earliest), lend_max_term);
-			
-			for(int i=1; i<lendReserveList.size(); ++i) {
-				Lending lendReserve = lendReserveList.get(i);
-				String date = getDate(lendReserve);
-				
-				if(date == null) {
-					lendReserveList.remove(i);
-					break;
-				} else if(lendReserve.getReserve_idx() > 0 && date.equals(earliestDate) && !removed.contains(lendReserve)) {
-					lendReserveList.remove(0);
-					removed.add(lendReserve);
-					duplicateFound = true;
-					break;
-				}
-			}
-			
-			if(!duplicateFound) break;
-		}
-		
-		earliest = lendReserveList.get(0);
-		book.setLendable_dt(addDays(getDate(earliest), lend_max_term));
-	}
-	
-	private List<Book> fillInLendable_dt(List<Book> list) {
-		if(list != null) {
-			Config config = configDao.getConfig();
-			int lend_max_term = config.getLend_max_term();
-			
-			for(Book book: list) {
-				fill(book, lend_max_term);
-			}
-		}
-		
-		return list;
-	}
-	
-	private Book fillInLendable_dt(Book book) {
-		Config config = configDao.getConfig();
-		int lend_max_term = config.getLend_max_term();
-		
-		fill(book, lend_max_term);
-		
-		return book;
-	}
 	
 	public int getBookListCnt(Book book) {
 		return dao.getBookListCnt(book);
 	}
 	
 	public List<Book> getBookList(Book book) {
-		return fillInLendable_dt(dao.getBookList(book));
+		return dao.getBookList(book);
 	}
 	
 	public int getBookListCntCms(Book book) {
@@ -192,7 +72,7 @@ public class BookService extends BaseService {
 	}
 	
 	public Book getBookInfo(Book book) {
-		return fillInLendable_dt(dao.getBookInfo(book));
+		return dao.getBookInfo(book);
 	}
 
 	@Transactional
@@ -269,7 +149,7 @@ public class BookService extends BaseService {
 	}
 	
 	public List<Book> getBookSearchedList(Book book) {
-		return fillInLendable_dt(dao.getBookSearchedList(book));
+		return dao.getBookSearchedList(book);
 	}
 	
 	public int getBookSearchedListCnt(Book book) {

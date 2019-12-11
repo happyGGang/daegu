@@ -40,7 +40,6 @@ public class Lending extends PagingUtils {
 	private String reserve_dt;
 	private String isReserve;
 	private String menu;
-	private String lendable_dt;
 	private int book_lend;
 	private int book_reserve;
 	private int extention_count;
@@ -258,12 +257,6 @@ public class Lending extends PagingUtils {
 	}
 	public void setComp_name(String comp_name) {
 		this.comp_name = comp_name;
-	}
-	public String getLendable_dt() {
-		return lendable_dt;
-	}
-	public void setLendable_dt(String lendable_dt) {
-		this.lendable_dt = lendable_dt;
 	}
 	public int getBook_lend() {
 		return book_lend;

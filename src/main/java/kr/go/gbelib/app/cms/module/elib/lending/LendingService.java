@@ -9,7 +9,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.whalesoft.app.cms.homepage.Homepage;
-import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.go.gbelib.app.cms.module.elib.api.APIService;
 import kr.go.gbelib.app.cms.module.elib.api.ElibException;
@@ -26,8 +24,6 @@ import kr.go.gbelib.app.cms.module.elib.book.BookDao;
 import kr.go.gbelib.app.cms.module.elib.book.BookService;
 import kr.go.gbelib.app.cms.module.elib.config.Config;
 import kr.go.gbelib.app.cms.module.elib.config.ConfigService;
-import kr.go.gbelib.app.common.api.MemberAPI;
-import kr.go.gbelib.app.common.api.PushAPI;
 
 @Service
 public class LendingService extends BaseService {
@@ -73,7 +69,6 @@ public class LendingService extends BaseService {
 
 	public void updateDateAndCnt(Lending lending) throws ElibException {
 		dao.updateLendReserveCnt(lending);
-		updateLendableDt(lending);
 	}
 
 	/**
@@ -260,92 +255,6 @@ public class LendingService extends BaseService {
 //		return sb.toString();
 //	}
 //
-
-	private String getDate(Lending lending) {
-		return lending.getLend_idx() > 0 ? lending.getReturn_due_dt() : lending.getLendable_dt();
-	}
-
-	/**
-	 * 대여가능일 업데이트
-	 * @param lending
-	 * @return
-	 * @throws ElibException
-	 */
-	@Transactional
-	public int updateLendableDt(Lending lending) throws ElibException {
-		int result = 0;
-
-		Config config = configService.getConfig();
-		if(config == null) return -1;
-		int lend_max_term = config.getLend_max_term();
-
-		// 책정보
-		Book book = bookDao.getBookInfo(new Book(lending.getBook_idx()));
-		if(book == null) return -1;
-
-		// 환경변수보다 개별 책의 최대 대출권수가 우선
-		int book_max_lend = config.getBook_max_lend();
-		int book_max_lend_book = book.getMax_lend();
-		if(book_max_lend_book > 0) book_max_lend = book_max_lend_book;
-
-		final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-		List<Lending> reserveList = dao.getBookReserveList(lending);
-		List<Lending> lendList = dao.getNotReturnedList(lending);
-
-//		int reservesCnt = reserveList.size();
-		int lendsCnt = lendList.size();
-
-		if(lendsCnt > book_max_lend) {
-			// throw new ElibException(String.format("대여가능일 업데이트 중 오류 발생. 책의 최대 대출 권수(%s)보다 더 많이 대출(%s)됨.", book_max_lend, lendsCnt));
-			return 0;
-		}
-
-		Calendar cal = Calendar.getInstance();
-		Date date = new Date();
-
-		List<Lending> lendReserveList = new ArrayList<Lending>();
-		lendReserveList.addAll(reserveList);
-		lendReserveList.addAll(lendList);
-
-		for(Lending reserve: reserveList) {
-			Collections.sort(lendReserveList, new Comparator<Lending>() {
-				@Override
-				public int compare(Lending o1, Lending o2) {
-					String date1 = getDate(o1);
-					String date2 = getDate(o2);
-
-					if(date1 == null) {
-						return 1;
-					} else if(date2 == null) {
-						return -1;
-					} else {
-						return date1.compareTo(date2);
-					}
-				}
-			});
-
-			Lending earliest = lendReserveList.get(0);
-			lendReserveList.remove(0);
-
-			try {
-				date = sdf.parse(getDate(earliest));
-			} catch (ParseException e) {
-				e.printStackTrace();
-				date = new Date();
-			}
-			cal.setTime(date);
-			cal.add(Calendar.DATE, lend_max_term);
-			date = cal.getTime();
-			String lendable_dt = sdf.format(date);
-			reserve.setReserve_idx(reserve.getReserve_idx());
-			reserve.setLendable_dt(lendable_dt);
-
-			result += dao.updateLendableDt(reserve);
-		}
-
-		return result;
-	}
 
 	/**
 	 * 예약 취소
