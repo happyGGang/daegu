@@ -35,6 +35,13 @@
 		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
 		AND	${search_type} LIKE '%'||#{search_text}||'%'
 		</if>
+		<if test="quiz_type != null and quiz_type != ''">
+		AND	quiz_type = #{quiz_type}
+		</if>
+		<if test="(quiz_year != null and quiz_year != '') and (quiz_month != null and quiz_month != '')">
+		AND	quiz_year = #{quiz_year}
+		AND quiz_month = #{quiz_month}
+		</if>
 		ORDER BY quiz_idx DESC
 		${pagingBottom}
 	</select>
@@ -49,6 +56,13 @@
 		AND	delete_yn = 'N'
 		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
 		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="quiz_type != null and quiz_type != ''">
+		AND	quiz_type = #{quiz_type}
+		</if>
+		<if test="(quiz_year != null and quiz_year != '') and (quiz_month != null and quiz_month != '')">
+		AND	quiz_year = #{quiz_year}
+		AND quiz_month = #{quiz_month}
 		</if>
 	</select>
 	

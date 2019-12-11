@@ -10,8 +10,8 @@ public class Quiz extends PagingUtils {
 	private int quiz_idx; // 퀴즈IDX
 	private String quiz_type; // 퀴즈타입
 	private String quiz_name; // 퀴즈제목
-	private int quiz_year = Calendar.getInstance().get(Calendar.YEAR); // 퀴즈연도
-	private int quiz_month = Calendar.getInstance().get(Calendar.MONTH) + 1; // 퀴즈월
+	private int quiz_year; // 퀴즈연도
+	private int quiz_month; // 퀴즈월
 	private String book_name; // 책이름
 	private String book_author; // 저자
 	private String book_publisher; // 출판사

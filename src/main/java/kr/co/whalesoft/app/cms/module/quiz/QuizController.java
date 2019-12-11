@@ -1,8 +1,7 @@
 package kr.co.whalesoft.app.cms.module.quiz;
 
-import java.util.HashMap;
+import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -61,11 +60,12 @@ public class QuizController extends BaseController {
 		model.addAttribute("quiz", quiz);
 		model.addAttribute("quizListCount", count);
 		model.addAttribute("quizList", service.getQuizList(quiz));
-		Map<String, Code> codeRepo = new HashMap<String, Code>();
-		for ( Code one : codeService.getCode(quiz.getHomepage_id(), "H0003") ) {
-			codeRepo.put(one.getCode_id(), one);
-		}
-		model.addAttribute("quizTypeList", codeRepo);
+//		Map<String, Code> codeRepo = new HashMap<String, Code>();
+//		for ( Code one : codeService.getCode(quiz.getHomepage_id(), "H0003") ) {
+//			codeRepo.put(one.getCode_id(), one);
+//		}
+//		model.addAttribute("quizTypeList", codeRepo);
+		model.addAttribute("quizTypeList", codeService.getCode(quiz.getHomepage_id(), "H0003"));
 		return basePath + "index";
 	}
 	
@@ -81,6 +81,9 @@ public class QuizController extends BaseController {
 			checkAuth("U", model, request);
 			model.addAttribute("quiz", service.copyObjectPaging(quiz, service.getQuizOne(quiz)));
 		} else {
+			quiz.setQuiz_year(Calendar.getInstance().get(Calendar.YEAR));
+			quiz.setQuiz_month(Calendar.getInstance().get(Calendar.MONTH) + 1);
+			
 			checkAuth("C", model, request);
 			model.addAttribute("quiz", quiz);
 		}
