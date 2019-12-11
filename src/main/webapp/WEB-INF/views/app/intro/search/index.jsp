@@ -104,7 +104,9 @@ $(function() {
 		var beforeText = $('input#'+type).val();
 		var newText = (beforeText == '') ? newText = $('input#subSearchText').val() : $('input#'+type).val()+ ' ' +$('input#subSearchText').val();
 		$('input#'+type).val(newText);
-		$('a#search-btn').click();
+		//$('a#search-btn').click();
+		$('input#viewPage').val('1');
+		doGetLoad('index.do', $form.serialize());
 	});
 
 	//결과 내 재검색
