@@ -35,9 +35,12 @@ import kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfig;
 import kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfigService;
 import kr.go.gbelib.app.cms.module.lasReqConfig.LasReqConfig;
 import kr.go.gbelib.app.cms.module.lasReqConfig.LasReqConfigService;
+import kr.go.gbelib.app.cms.module.smsReception.SmsReception;
+import kr.go.gbelib.app.cms.module.smsReception.SmsReceptionService;
 import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.common.api.MemberAPI;
+import kr.go.gbelib.app.common.api.PushAPI;
 
 @Controller
 @RequestMapping(value = {"/{homepagePath}/intro/search"})
@@ -59,6 +62,9 @@ public class CommonSearchController extends BaseController {
 
 	@Autowired
 	private HopebookConfigService hopebookConfigService;
+	
+	@Autowired
+	private SmsReceptionService smsReceptionService;
 
 	/**
 	 * 자료검색
@@ -1186,6 +1192,12 @@ public class CommonSearchController extends BaseController {
 		}
 
 		if (!result.hasErrors()) {
+			
+			Homepage homepage = getSessionHomepage(request);
+			SmsReception smsReception = new SmsReception();
+			smsReception.setHomepage_id(homepage.getHomepage_id());
+			smsReception.setWork_code("0001");	// 상호대차:0001, 무인대출:0002, 야간대출:0003
+			List<SmsReception> receptionsList =  smsReceptionService.getSmsReceptionMembers(smsReception);
 
 			if (StringUtils.equals(librarySearch.getEditMode(), "CANCEL")) {
 				Map<String, Object> sanghoReqCancel = LibSearchAPI.sanghoReqCancel(librarySearch);
@@ -1242,6 +1254,23 @@ public class CommonSearchController extends BaseController {
 						if (String.valueOf(sanghoResult.get("RESULT")).equals("OK")) {
 							res.setValid(true);
 							res.setMessage("신청되었습니다.");
+						}
+						
+						// 신청자에게 SMS 전송
+						String message = "상호대차 신청이 완료 되었습니다.[" + librarySearch.getTitle() + "]";
+						if (isSmsReceive("WEBID", getSessionMemberId(request))) {
+//							PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, member.getMobile_no(), message, homepage.getHomepage_send_tell(), true);
+						}
+						
+						// 관리자에게 SMS 전송
+						String adminMessage = "상호대차 신청건이 발생하였습니다. 수령:"+String.valueOf(map.get("SHELF_LOC_NAME"))+" 도서명:"+librarySearch.getTitle();
+						for(SmsReception one : receptionsList) {
+							//TODO 테스트 후 sysout 삭제 및 주석 취소
+							System.out.println("@@@@@@@@@@ sms homepage : " + homepage.getHomepage_name() + "/" + homepage.getHomepage_id());
+							System.out.println("@@@@@@@@@@ sms reception : " + one.getReception_phone());
+							System.out.println("@@@@@@@@@@ sms homepage tel : " + homepage.getHomepage_send_tell());
+							System.out.println("@@@@@@@@@@ sms message : " + adminMessage);
+//							PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, one.getReception_phone(), adminMessage, homepage.getHomepage_send_tell(), true);
 						}
 					} else {
 						if (sanghoResult.containsKey("ERROR")) {
@@ -1332,6 +1361,12 @@ public class CommonSearchController extends BaseController {
 				res.setMessage("예약 신청 가능한 회원이 아닙니다.");
 				return res;
 			}
+			
+			Homepage homepage = getSessionHomepage(request); 
+			SmsReception smsReception = new SmsReception();
+			smsReception.setHomepage_id(homepage.getHomepage_id());
+			smsReception.setWork_code("0002");	// 상호대차:0001, 무인대출:0002, 야간대출:0003
+			List<SmsReception> receptionsList =  smsReceptionService.getSmsReceptionMembers(smsReception);
 
 			// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
 			LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0004");
@@ -1346,6 +1381,23 @@ public class CommonSearchController extends BaseController {
 			if (apiResult.getStatus()) {
 				res.setValid(true);
 				res.setMessage("예약 되었습니다.");
+				
+				// 신청자에게 SMS 전송
+				String message = "무인대출 신청이 완료 되었습니다.[" + librarySearch.getTitle() + "]";
+				if (isSmsReceive("WEBID", getSessionMemberId(request))) {
+//					PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, member.getMobile_no(), message, homepage.getHomepage_send_tell(), true);
+				}
+				
+				// 관리자에게 SMS 전송
+				String adminMessage = "무인대출 신청건이 발생하였습니다. 수령: 도서명:"+librarySearch.getTitle();
+				for(SmsReception one : receptionsList) {
+					//TODO 테스트 후 sysout 삭제 및 주석 취소
+					System.out.println("@@@@@@@@@@ sms homepage : " + homepage.getHomepage_name() + "/" + homepage.getHomepage_id());
+					System.out.println("@@@@@@@@@@ sms reception : " + one.getReception_phone());
+					System.out.println("@@@@@@@@@@ sms homepage tel : " + homepage.getHomepage_send_tell());
+					System.out.println("@@@@@@@@@@ sms message : " + adminMessage);
+//					PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, one.getReception_phone(), adminMessage, homepage.getHomepage_send_tell(), true);
+				}
 			} else {
 				res.setValid(false);
 				res.setMessage(apiResult.getMessage());
@@ -1426,7 +1478,13 @@ public class CommonSearchController extends BaseController {
 				res.setMessage("예약 신청 가능한 회원이 아닙니다.");
 				return res;
 			}
-
+			
+			Homepage homepage = getSessionHomepage(request);
+			SmsReception smsReception = new SmsReception();
+			smsReception.setHomepage_id(homepage.getHomepage_id());
+			smsReception.setWork_code("0003");	// 상호대차:0001, 무인대출:0002, 야간대출:0003
+			List<SmsReception> receptionsList =  smsReceptionService.getSmsReceptionMembers(smsReception);
+			
 			// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
 			LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0003");
 			if(lasReqConfig != null) {
@@ -1440,6 +1498,23 @@ public class CommonSearchController extends BaseController {
 			if (apiResult.getStatus()) {
 				res.setValid(true);
 				res.setMessage("예약 되었습니다.");
+				
+				// 신청자에게 SMS 전송
+				String message = "야간대출 신청이 완료 되었습니다.[" + librarySearch.getTitle() + "]";
+				if (isSmsReceive("WEBID", getSessionMemberId(request))) {
+//					PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, member.getMobile_no(), message, homepage.getHomepage_send_tell(), true);
+				}
+				
+				// 관리자에게 SMS 전송
+				String adminMessage = "야간대출 신청건이 발생하였습니다. 수령: 도서명:"+librarySearch.getTitle();
+				for(SmsReception one : receptionsList) {
+					//TODO 테스트 후 sysout 삭제 및 주석 취소
+					System.out.println("@@@@@@@@@@ sms homepage : " + homepage.getHomepage_name() + "/" + homepage.getHomepage_id());
+					System.out.println("@@@@@@@@@@ sms reception : " + one.getReception_phone());
+					System.out.println("@@@@@@@@@@ sms homepage tel : " + homepage.getHomepage_send_tell());
+					System.out.println("@@@@@@@@@@ sms message : " + adminMessage);
+//					PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, one.getReception_phone(), adminMessage, homepage.getHomepage_send_tell(), true);
+				}
 			} else {
 				res.setValid(false);
 				res.setMessage(apiResult.getMessage());

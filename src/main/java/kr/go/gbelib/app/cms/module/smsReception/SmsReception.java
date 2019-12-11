@@ -12,8 +12,8 @@ public class SmsReception extends PagingUtils {
 	private String reception_phone; // 수신자 연락처
 	private String add_id; // 등록자
 	private Date add_date; // 등록일
-	private String mod_id; // 수정자
-	private Date mod_date; // 수정일
+	private String modify_id; // 수정자
+	private Date modify_date; // 수정일
 
 	private int work_idx; // 수신업무IDX
 	private String work_code; // 업무코드
@@ -61,20 +61,20 @@ public class SmsReception extends PagingUtils {
 		this.add_date = add_date;
 	}
 
-	public String getMod_id() {
-		return mod_id;
+	public String getModify_id() {
+		return modify_id;
 	}
 
-	public void setMod_id(String mod_id) {
-		this.mod_id = mod_id;
+	public void setModify_id(String modify_id) {
+		this.modify_id = modify_id;
 	}
 
-	public Date getMod_date() {
-		return mod_date;
+	public Date getModify_date() {
+		return modify_date;
 	}
 
-	public void setMod_date(Date mod_date) {
-		this.mod_date = mod_date;
+	public void setModify_date(Date modify_date) {
+		this.modify_date = modify_date;
 	}
 
 	public int getWork_idx() {

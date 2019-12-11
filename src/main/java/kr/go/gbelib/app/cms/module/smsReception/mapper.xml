@@ -4,7 +4,7 @@
 
 	<sql id="field">
 		homepage_id, reception_idx, reception_name, reception_phone, add_id,
-		add_date, mod_id, mod_date
+		add_date, modify_id, modify_date
 	</sql>
 	
 	<select id="getSmsReceptionList" resultType="kr.go.gbelib.app.cms.module.smsReception.SmsReception">
@@ -57,8 +57,8 @@
 		SET
 			reception_name = #{reception_name},
 			reception_phone = #{reception_phone},
-			mod_id = #{mod_id},
-			mod_date = SYSDATE
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	reception_idx = #{reception_idx}
@@ -83,15 +83,17 @@
 		WHEN MATCHED THEN
 			UPDATE SET
 				work_code = #{work_code},
-				reception_yn = #{reception_yn}
+				reception_yn = #{reception_yn},
+				modify_id = #{add_id},
+				modify_date = SYSDATE
 		WHEN NOT MATCHED THEN
 			INSERT
 			(
-				homepage_id, reception_idx, work_idx, work_code, reception_yn
+				homepage_id, reception_idx, work_idx, work_code, reception_yn, add_id, add_date
 			)
 			VALUES
 			(
-				#{homepage_id}, #{reception_idx}, #{work_idx}, #{work_code}, #{reception_yn}
+				#{homepage_id}, #{reception_idx}, #{work_idx}, #{work_code}, #{reception_yn}, #{add_id}, SYSDATE
 			)
 	</update>
 	

@@ -35,6 +35,7 @@ $(function() {
 <form:form modelAttribute="librarySearch" action="save.do" method="post" onsubmit="return false;">
 <form:hidden path="bookkey"/>
 <form:hidden path="booktype"/>
+<form:hidden path="title" value="${detail.TITLE_INFO}"/>
 
 <div class="delibery_info">
 

@@ -37,14 +37,12 @@ public class SmsReceptionController extends BaseController {
 		int count = service.getSmsReceptionCount(smsReception);
 		service.setPaging(model, count, smsReception);
 		
-		model.addAttribute("smsReception", smsReception);
-//		model.addAttribute("smsReceptionList", service.getSmsReceptionList(smsReception));
-		
 		List<SmsReception>smsReceptionList = service.getSmsReceptionList(smsReception);
 		for(SmsReception one : smsReceptionList) {
 			one.setReception_list(service.getReceptionWorkList(one));
 		}
 		
+		model.addAttribute("smsReception", smsReception);
 		model.addAttribute("smsReceptionList", smsReceptionList);
 		model.addAttribute("workCodeList", CodeService.getCode("CMS", "C0025"));
 
@@ -82,7 +80,7 @@ public class SmsReceptionController extends BaseController {
 				res.setValid(true);
 				res.setMessage("저장되었습니다.");
 			} else if(smsReception.getEditMode().equals("MODIFY")) {
-				smsReception.setMod_id(getSessionMemberId(request));
+				smsReception.setModify_id(getSessionMemberId(request));
 				service.modSmsReception(smsReception);
 				res.setValid(true);
 				res.setMessage("수정되었습니다.");
@@ -125,6 +123,7 @@ public class SmsReceptionController extends BaseController {
 				if(one.getReception_yn() == null) {
 					one.setReception_yn("N");
 				}
+				one.setAdd_id(getSessionMemberId(request));
 				service.mergeReception(one);
 			}
 			
