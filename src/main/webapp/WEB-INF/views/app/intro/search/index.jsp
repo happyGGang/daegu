@@ -233,34 +233,35 @@ $(function() {
 		<!--search_result-->
 		<div id="search_result" class="search_result">
 
-			<div class="search-info" >
-				검색결과 총 <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/></b>건이 검색되었습니다.
-			</div>
-
-			<div class="re-search">
-				<select id="subSearchType">
-					<option value="title">서명</option>
-					<option value="author">저자</option>
-					<option value="publer">발행처</option>
-					<option value="keyword">키워드</option>
-				</select>
-				<input id="subSearchText" placeholder="결과 내 재검색">
-				<a href="#" id="subSearch" class="btn">결과 내 재검색</a>
-			</div>
-
-			<div class="search-condition">
-
-				<div class="mode">
-					<ul>
-						<li><a href="#;" class="btn-View imgView on">이미지형 표지형 설정</a></li>
-						<li><a href="#;" class="btn-View listView">목록형 표지형 설정</a></li>
-					</ul>
-				</div>
-
-			</div>
-
 			<div class="smain">
 				<div class="box">
+					<div class="search-info" >
+						검색결과 총 <b>'<fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/>'</b>건이 검색되었습니다.
+					</div>
+
+					<div class="search-condition">
+
+						<div class="mode">
+							<ul>
+								<li><a href="#;" class="btn-View imgView on">이미지형 표지형 설정</a></li>
+								<li><a href="#;" class="btn-View listView">목록형 표지형 설정</a></li>
+							</ul>
+						</div>
+
+						<div class="re-search">
+							<select id="subSearchType">
+								<option value="title">서명</option>
+								<option value="author">저자</option>
+								<option value="publer">발행처</option>
+								<option value="keyword">키워드</option>
+							</select>
+							<input id="subSearchText" placeholder="결과 내 재검색">
+							<a href="#" id="subSearch" class="btn">결과 내 재검색</a>
+						</div>
+
+						<div class="end"></div>
+					</div>
+
 					<div class="ws-toolbar">
 						<div class="checkBoxAll">
 							<input type="hidden" name="" value="on"/>
