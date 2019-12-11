@@ -13,6 +13,29 @@
 .serial-wrap b i{font-style:normal}
 .serial-wrap i.fa-sort-down{position:relative;top:-2px} 
 
+.search-form .box{border:2px solid #3a3a3a;border-radius:5px;background:#fff;overflow:hidden;position:relative;}
+.search-form input.text{display:block;border:0;padding:0;background:#fff;width:65%;}
+.search-form input.text:focus{outline:none}
+.search-form input.text2{display:block;border:0;padding:0;background:#fff;width:65%;margin-top: -49px; padding-left: 20px;}
+.search-form input.text2:focus{outline:none}
+.search-form .b1{padding:0 10px}
+.search-form .b2{position:absolute;top:0;right:0;width:10%}
+.search-form button{background:#3a3a3a;border:0;color:#fff;font-size:20px;text-align:center}
+.search-form button{width:100%}
+.search-form button,
+.search-form input,
+.search-form select,
+.search-form .select2-container .select2-selection--single,
+.search-form .select2-container--default .select2-selection--single .select2-selection__arrow,
+.search-form .select2-container--default .select2-selection--single .select2-selection__rendered{height:48px;line-height:48px}
+.search-form select,
+.search-form .select2-container .select2-selection--single,
+.search-form .select2-container--default .select2-selection--single .select2-selection__arrow,
+.search-form .select2-container--default .select2-selection--single .select2-selection__rendered{height:49px;line-height:49px}
+.search-form .select2-container--default .select2-selection--single .select2-selection__rendered{padding-left:10px}
+.search-form .select2-container--default .select2-selection--single .select2-selection__arrow{padding-right:3px}
+.search-form .box1 .select2-container{border:1px solid #bbb;border-radius:5px;overflow:hidden}
+
 .ws-toolbar,
 .ws-filter h4{height:29px;padding:0 0 10px}
 
