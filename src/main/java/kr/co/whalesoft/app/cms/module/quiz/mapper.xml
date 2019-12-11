@@ -16,8 +16,7 @@
 		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
 		AND	${search_type} LIKE '%'||#{search_text}||'%'
 		</if>
-		ORDER BY
-			quiz_idx
+		ORDER BY quiz_idx DESC
 	</select>
 	
 	<select id="getQuizList" resultType="kr.co.whalesoft.app.cms.module.quiz.Quiz">
@@ -36,8 +35,7 @@
 		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
 		AND	${search_type} LIKE '%'||#{search_text}||'%'
 		</if>
-		ORDER BY
-			quiz_idx
+		ORDER BY quiz_idx DESC
 		${pagingBottom}
 	</select>
 	
@@ -52,8 +50,6 @@
 		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
 		AND	${search_type} LIKE '%'||#{search_text}||'%'
 		</if>
-		ORDER BY
-			quiz_idx
 	</select>
 	
 	<select id="getQuizOne" resultType="kr.co.whalesoft.app.cms.module.quiz.Quiz">
