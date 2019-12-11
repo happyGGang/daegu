@@ -3,8 +3,11 @@ package kr.co.whalesoft.framework.utils;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.FrameworkServlet;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
@@ -12,105 +15,153 @@ import org.springframework.web.servlet.support.RequestContextUtils;
  * 현재 컨텍스트 내의 빈을 다양한 방법으로 찾을 수 있는 메소드들을 제공한다.
  */
 public class BeanFinder {
-	
-	private static ApplicationContext getApplicationContext( ServletContext context ) {
-		return (ApplicationContext) context.getAttribute( FrameworkServlet.SERVLET_CONTEXT_PREFIX + "spring" );
+
+	/**
+	 * httpServletRequest를 가져온다.
+	 *
+	 * @author whalesoft YONGJU 2019. 12. 4.
+	 * @return current HttpServletRequest
+	 */
+	public static HttpServletRequest getHttpServletRequest() {
+		return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 	}
-	
-	private static ApplicationContext getApplicationContext( ServletRequest request ) {
-		return RequestContextUtils.getWebApplicationContext( request );
+
+	private static ApplicationContext getApplicationContext(ServletContext context) {
+		return (ApplicationContext) context.getAttribute(FrameworkServlet.SERVLET_CONTEXT_PREFIX + "spring");
 	}
-	
+
+	private static ApplicationContext getApplicationContext(ServletRequest request) {
+		return RequestContextUtils.getWebApplicationContext(request);
+	}
+
 	/**
 	 * 빈을 찾는다.
-	 * 
-	 * @param context ApplicationContext
-	 * @param id 빈의 ID
+	 *
+	 * @param context
+	 *        ApplicationContext
+	 * @param id
+	 *        빈의 ID
 	 * @return 빈의 인스턴스
 	 */
-	public static Object getBean( ApplicationContext context, String id ) {
-		return context.getBean( id );
+	public static Object getBean(ApplicationContext context, String id) {
+		return context.getBean(id);
 	}
-	
+
 	/**
 	 * 빈을 찾는다.
-	 * 
-	 * @param context 서블릿 Context
-	 * @param id 빈의 ID
+	 *
+	 * @param context
+	 *        서블릿 Context
+	 * @param id
+	 *        빈의 ID
 	 * @return 빈의 인스턴스
 	 */
-	public static Object getBean( ServletContext context, String id ) {
-		return getBean( getApplicationContext( context ), id );
+	public static Object getBean(ServletContext context, String id) {
+		return getBean(getApplicationContext(context), id);
 	}
-	
+
 	/**
 	 * 빈을 찾는다.
-	 * 
-	 * @param request 서블릿 Request
-	 * @param id 빈의 ID
+	 *
+	 * @param request
+	 *        서블릿 Request
+	 * @param id
+	 *        빈의 ID
 	 * @return 빈의 인스턴스
 	 */
-	public static Object getBean( ServletRequest request, String id ) {
-		return getBean( getApplicationContext( request ), id );
+	public static Object getBean(ServletRequest request, String id) {
+		return getBean(getApplicationContext(request), id);
 	}
-	
+
 	/**
 	 * 빈을 찾는다.
-	 * 
-	 * @param context ApplicationContext
-	 * @param clazz 빈의 타입
+	 *
+	 * @param context
+	 *        ApplicationContext
+	 * @param clazz
+	 *        빈의 타입
 	 * @return 빈의 인스턴스
 	 */
-	public static Object getBean( ApplicationContext context, Class<?> clazz ) {
-		return getBean( context, getBeanName( context, clazz ) );
+	public static Object getBean(ApplicationContext context, Class<?> clazz) {
+		return getBean(context, getBeanName(context, clazz));
 	}
-	
+
 	/**
 	 * 빈을 찾는다.
-	 * 
-	 * @param context 서블릿 Context
-	 * @param clazz 빈의 타입
+	 *
+	 * @param context
+	 *        서블릿 Context
+	 * @param clazz
+	 *        빈의 타입
 	 * @return 빈의 인스턴스
 	 */
-	public static Object getBean( ServletContext context, Class<?> clazz ) {
-		return getBean( getApplicationContext( context ), clazz );
+	public static Object getBean(ServletContext context, Class<?> clazz) {
+		return getBean(getApplicationContext(context), clazz);
 	}
-	
+
 	/**
 	 * 빈을 찾는다.
-	 * 
-	 * @param request 서블릿 Request
-	 * @param clazz 빈의 타입
+	 *
+	 * @param request
+	 *        서블릿 Request
+	 * @param clazz
+	 *        빈의 타입
 	 * @return 빈의 인스턴스
 	 */
-	public static Object getBean( ServletRequest request, Class<?> clazz ) {
-		return getBean( getApplicationContext( request ), clazz );
+	public static Object getBean(ServletRequest request, Class<?> clazz) {
+		return getBean(getApplicationContext(request), clazz);
 	}
-	
+
+	/**
+	 * 클래스 타입으로 bean을 찾는다. (request 기반)
+	 *
+	 * @author whalesoft YONGJU 2019. 12. 4.
+	 * @param clazz
+	 *        class
+	 * @return object instance
+	 */
+	public static Object getBean(Class<?> clazz) {
+		return getBean(getApplicationContext(getHttpServletRequest()), clazz);
+	}
+
+	/**
+	 * 이름으로 bean을 찾는다 (request 기반)
+	 *
+	 * @author whalesoft YONGJU 2019. 12. 4.
+	 * @param id
+	 * @return object instance
+	 */
+	public static Object getBean(String id) {
+		return getBean(getApplicationContext(getHttpServletRequest()), id);
+	}
+
 	/**
 	 * 빈의 이름을 찾는다.
-	 * 
-	 * @param context ApplicationContext
-	 * @param clazz 빈의 타입
+	 *
+	 * @param context
+	 *        ApplicationContext
+	 * @param clazz
+	 *        빈의 타입
 	 * @return 빈의 이름
 	 */
-	public static String getBeanName( ApplicationContext context, Class<?> clazz ) {
-		
-		for ( String beanName : context.getBeanNamesForType( clazz ) ) {
+	public static String getBeanName(ApplicationContext context, Class<?> clazz) {
+
+		for (String beanName : context.getBeanNamesForType(clazz)) {
 			// getBeanNamesForType은 지정 클래스의 하위 클래스들도 찾으므로,
 			// 정확히 같은 클래스인지를 다시 검사해야 한다.
-			if ( getBeanClassName( context, beanName ).equals( clazz.getName() ) ) return beanName;
+			if (getBeanClassName(context, beanName).equals(clazz.getName()))
+				return beanName;
 		}
-		
+
 		return null;
 	}
-	
-	private static String getBeanClassName( ApplicationContext context, String beanName ) {
-		
-		String className = context.getBean( beanName ).getClass().getName();
-		int pos = className.indexOf( "$$" );
-		
+
+	private static String getBeanClassName(ApplicationContext context, String beanName) {
+
+		String className = context.getBean(beanName).getClass().getName();
+		int pos = className.indexOf("$$");
+
 		// TODO Proxy 클래스일 경우는 원래 클래스 이름을 리턴해야 한다.
-		return pos == -1 ? className : className.substring( 0, pos );
+		return pos == -1 ? className : className.substring(0, pos);
 	}
 }
