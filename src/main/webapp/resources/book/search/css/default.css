@@ -160,14 +160,16 @@
 
 .search-wrap .smain .box {float:left;width:100%;margin-right:-24%;}
 .search-wrap .smain .filter-section {float:right;width:21%;padding-left:3%;}
+.search-wrap .smain .box .search-condition,
 .search-wrap .smain .box .ws-toolbar,
 .search-wrap .smain .box .search-results{margin-right:24%}
 .search-wrap .smain .box .search-results.wide{margin-right:0}
 
-.search-wrap .search-condition {overflow:hidden}
+.search-wrap .search-condition {overflow:hidden;}
 
-.search-wrap .search-info {padding:0 0 22px;margin-top:-16px}
+.search-wrap .search-info {padding:0 0 22px;}
 .search-wrap .search-info i {border-bottom:1px solid #feac86}
+.search-wrap .search-info b {color:#ff0000}
 .search-wrap .control {font-size:85%}
 .search-wrap .control i {margin:0 0 0 5px;font-weight:normal}
 .search-wrap .control .btn{background:#fff;padding:0 11px;line-height:25px;height:27px}
@@ -231,10 +233,16 @@ transition : all .3s ease}
 #search_detail h4 {background: url("../common/img/koras/book_next.png") no-repeat scroll left 50% transparent;font-weight: bold;margin: 0;padding: 5px 0 5px 20px;}
 #search_detail td select, #search_detail td input.text {width:35%;border:1px solid #c9c9c9}
 
+.search_result .re-search {float:right;display:inline-block;padding:0 0 10px 0;}
+.search_result .re-search .btn {float:left;display:inline-block;border-radius:0;padding-top:7px;padding-bottom:7px;font-size:15px;background:#000;color:#fff;vertical-align:middle}
+.search_result .re-search select {float:left;display:inline-block;height:32px;font-size:15px;line-height:32px;vertical-align:middle}
+.search_result .re-search input {float:left;display:inline-block;height:30px;font-size:15px;line-height:30px;vertical-align:middle;margin-left:3px;padding-left:5px;}
+
 a.btnNew {padding:9px 3%;background:#000;color:#fff;vertical-align:middle}
 a.btnNew2 {padding:9px 3%;background:#494949;color:#fff;vertical-align:middle}
 a.btnNew3 {padding:8px 2%;border:1px solid #c9c9c9;border-radius:0;vertical-align:middle}
 a.btnNew3 img {vertical-align:middle}
+input.btnNew {border:0;padding:9px 3%;background:#000;color:#fff;vertical-align:middle}
 
 .DepthBtn {overflow:hidden;width:100%;margin-bottom:50px;}
 a.bBtn {width:49.8%;float:left;text-align:center;padding:18px 0;border:1px solid #fff;background:#3c8cef;color:#fff;font-size:18px}
