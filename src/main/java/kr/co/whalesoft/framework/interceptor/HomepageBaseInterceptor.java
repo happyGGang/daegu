@@ -186,16 +186,25 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 				}
 
 				//Intro 에서 사용하는 Homepage 정보 가져오기
+				uri = uri.replace("/intro/", "");
+				uri = uri.substring(0, uri.indexOf("/"));
 				if (request.getSession().getAttribute("homepage") == null) {
-					uri = uri.replace("/intro/", "");
-					uri = uri.substring(0,uri.indexOf("/"));
 					homepage = homepageService.getHomepageOneInPath(uri);
-					if ( homepage != null ) {
+					if (homepage != null) {
 						request.setAttribute("homepage", homepage);
 						request.getSession().setAttribute("homepage", homepage);
 					}
 				} else {
-					request.setAttribute("homepage", request.getSession().getAttribute("homepage"));
+					Homepage sessionHomepage = (Homepage) request.getSession().getAttribute("homepage");
+					if (sessionHomepage.getContext_path().equals(uri)) {
+						request.setAttribute("homepage", request.getSession().getAttribute("homepage"));
+					} else {
+						homepage = homepageService.getHomepageOneInPath(uri);
+						if (homepage != null) {
+							request.setAttribute("homepage", homepage);
+							request.getSession().setAttribute("homepage", homepage);
+						}
+					}
 				}
 			}
 		}
