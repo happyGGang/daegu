@@ -217,11 +217,11 @@ function checkApp(url, com_code) {
 		_APP_SCHEME = "bookcubedigitallibrary";
 		_APP_PACKAGE_ID = "com.bookcube.digitallibrary";
 	} else if(com_code == 'YESB') {
-		_APP_INSTALL_URL_IOS = "https://itunes.apple.com/kr/app/%EC%A0%84%EC%9E%90%EB%8F%84%EC%84%9C%EA%B4%80-%EB%B7%B0%EC%96%B4/id1353292577?&mt=8";
-		_APP_INSTALL_URL_IPAD = "https://itunes.apple.com/kr/app/%EC%A0%84%EC%9E%90%EB%8F%84%EC%84%9C%EA%B4%80-%EB%B7%B0%EC%96%B4/id1353292577?&mt=8";
-		_APP_INSTALL_URL_ANDROID = "market://details?id=com.yes24.yes24viewer";
-		_APP_SCHEME = "yes24lib-yes24viewer";
-		_APP_PACKAGE_ID = "com.yes24.yes24viewer";
+		_APP_INSTALL_URL_IOS = "https://itunes.apple.com/kr/app/yeseu24-doseogwan/id922423783?mt=8";
+		_APP_INSTALL_URL_IPAD = "https://itunes.apple.com/kr/app/yeseu24-doseogwan/id922423783?mt=8";
+		_APP_INSTALL_URL_ANDROID = "market://details?id=com.incube.newepub";
+		_APP_SCHEME = "yes24lib-newphone";
+		_APP_PACKAGE_ID = "com.incube.newepub";
 	} else if(com_code == 'ALAD') {
 		_APP_INSTALL_URL_IOS = "https://itunes.apple.com/kr/app/alladin-jeonjadoseogwan/id897344878?mt=8";
 		_APP_INSTALL_URL_IPAD = "https://itunes.apple.com/kr/app/alladin-jeonjadoseogwan/id897344878?mt=8";
