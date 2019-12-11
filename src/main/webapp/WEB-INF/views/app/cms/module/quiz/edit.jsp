@@ -8,7 +8,7 @@ $(function() {
 	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
 		resizable: false,
-		modal: true, 
+		modal: true,
 	    open: function(){
 	        $('.ui-widget-overlay').addClass('custom-overlay');
 	    },
@@ -34,36 +34,36 @@ $(function() {
 			}
 		]
 	});
-	
+
 	$("#dialog-1").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
 		width: 600,
 		height: 700
 	});
-	
+
 	$('input#quiz_start_date').datepicker({
-		maxDate: $('input#quiz_end_date').val(), 
+		maxDate: $('input#quiz_end_date').val(),
 		onClose: function(selectedDate){
 			$('input#quiz_end_date').datepicker('option', 'minDate', selectedDate);
 		}
 	});
-	
+
 	$('input#quiz_end_date').datepicker({
-		minDate: $('input#quiz_start_date').val(), 
+		minDate: $('input#quiz_start_date').val(),
 		onClose: function(selectedDate){
 			$('input#quiz_start_date').datepicker('option', 'maxDate', selectedDate);
 		}
 	});
-	
+
 	$('a#getLas').on('click', function(e) {
 		e.preventDefault();
 		var lasList = window.open('/${homepage.context_path}/intro/search/indexForBoard.do', 'lasLnkBook', 'width=800 height=600,scrollbars=yes');
 	});
-	
+
 });
 
 function getLasData(arg) {
 	arg = arg.split('///');
-	//${i.TITLE}//${i.PUBLER_YEAR}//${i.AUTHOR}//${i.PUBLER}//${i.ISBN}//${i.CALL_NO}//${i.i.COVER_SMALLURL}//${i.CTRLNO}//${i.PLACE_NAME}
+	<%--${i.TITLE_INFO}//${i.PUB_YEAR}///${i.AUTHOR}///${i.PUBLISHER}///${fn:escapeXml(i.ST_CODE)}///${i.CALL_NO}///${imageUrl}--%>
 	$('input#book_name').val(arg[0]);
 	$('input#book_author').val(arg[2]);
 	$('input#book_publisher').val(arg[3]);
@@ -75,8 +75,8 @@ function getLasData(arg) {
 </script>
 <form:form id="quizForm" modelAttribute="quiz" method="post" action="save.do" >
 	<form:hidden path="homepage_id"/>
-	<form:hidden path="quiz_idx"/>			
-	<form:hidden path="editMode"/>	
+	<form:hidden path="quiz_idx"/>
+	<form:hidden path="editMode"/>
 
 	<table class="type2">
 		<colgroup>
