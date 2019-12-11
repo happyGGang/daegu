@@ -235,6 +235,7 @@ a.btnNew {padding:9px 3%;background:#000;color:#fff;vertical-align:middle}
 a.btnNew2 {padding:9px 3%;background:#494949;color:#fff;vertical-align:middle}
 a.btnNew3 {padding:8px 2%;border:1px solid #c9c9c9;border-radius:0;vertical-align:middle}
 a.btnNew3 img {vertical-align:middle}
+input.btnNew {border:0;padding:9px 3%;background:#000;color:#fff;vertical-align:middle}
 
 .DepthBtn {overflow:hidden;width:100%;margin-bottom:50px;}
 a.bBtn {width:49.8%;float:left;text-align:center;padding:18px 0;border:1px solid #fff;background:#3c8cef;color:#fff;font-size:18px}

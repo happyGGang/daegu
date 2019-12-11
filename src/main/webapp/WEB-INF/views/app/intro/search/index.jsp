@@ -208,7 +208,8 @@ $(function() {
 
 				</div>
 				<p class="btn_w">
-					<a id="search-btn" class="btnNew btn-warning btn-xs mT1">검색</a>
+					<!-- <a id="search-btn" class="btnNew btn-warning btn-xs mT1">검색</a> -->
+					<input name="search_bt2" class="btnNew btn-warning btn-xs mT1" id="search-btn" type="submit" value="검색하기" />
 					<a id="vk-popup" class="btnNew2">다국어입력기</a>
 				</p>
 			</div>
