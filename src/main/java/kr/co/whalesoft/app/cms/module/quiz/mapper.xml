@@ -38,8 +38,10 @@
 		<if test="quiz_type != null and quiz_type != ''">
 		AND	quiz_type = #{quiz_type}
 		</if>
-		<if test="(quiz_year != null and quiz_year != '') and (quiz_month != null and quiz_month != '')">
+		<if test="quiz_year != null and quiz_year != ''">
 		AND	quiz_year = #{quiz_year}
+		</if>
+		<if test="quiz_month != null and quiz_month != ''">
 		AND quiz_month = #{quiz_month}
 		</if>
 		ORDER BY quiz_idx DESC
@@ -60,8 +62,10 @@
 		<if test="quiz_type != null and quiz_type != ''">
 		AND	quiz_type = #{quiz_type}
 		</if>
-		<if test="(quiz_year != null and quiz_year != '') and (quiz_month != null and quiz_month != '')">
+		<if test="quiz_year != null and quiz_year != ''">
 		AND	quiz_year = #{quiz_year}
+		</if>
+		<if test="quiz_month != null and quiz_month != ''">
 		AND quiz_month = #{quiz_month}
 		</if>
 	</select>

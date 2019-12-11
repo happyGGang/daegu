@@ -101,7 +101,7 @@ function getLasData(arg) {
 	         	<td><form:input path="quiz_year" class="text" cssStyle="width:50px;"/> 년 <form:input path="quiz_month" class="text" cssStyle="width:50px;"/> 월</td>
 	        </tr>
 	        <tr>
-	         	<th>퀴즈기간</th>
+	         	<th>퀴즈참여기간</th>
 	         	<td><form:input path="quiz_start_date" cssClass="text ui-calendar"/> ~ <form:input path="quiz_end_date" cssClass="text ui-calendar"/></td>
 	        </tr>
 	        <tr>
@@ -109,21 +109,21 @@ function getLasData(arg) {
 	         	<td><form:input path="quiz_name" class="text" cssStyle="width:100%"/></td>
 	        </tr>
 	        <tr>
-	        	<th>학교입력여부</th>
+	        	<th>학교 입력여부</th>
 	        	<td>
 	        		<form:radiobutton path="school_yn" value="N" label="아니오"/>
 					<form:radiobutton path="school_yn" value="Y" label="예"/>
 	        	</td>
 	        </tr>
 	         <tr>
-	        	<th>학년입력여부</th>
+	        	<th>학년 입력여부</th>
 	        	<td>
 	        		<form:radiobutton path="hak_yn" value="N" label="아니오"/>
 					<form:radiobutton path="hak_yn" value="Y" label="예"/>
 	        	</td>
 	        </tr>
 	         <tr>
-	        	<th>반입력여부</th>
+	        	<th>반 입력여부</th>
 	        	<td>
 	        		<form:radiobutton path="ban_yn" value="N" label="아니오"/>
 					<form:radiobutton path="ban_yn" value="Y" label="예"/>
@@ -134,15 +134,15 @@ function getLasData(arg) {
 				<td>
 					<a href="#" class="btn btn2" id="getLas"><i class="fa fa-plus"></i><span>도서검색</span></a>&nbsp;&nbsp;<span id="img_file"></span>
 					<br/>
-					* 책이름, 저자, 출판사, 청구기호, 도서 이미지는 자동으로 등록 됩니다.
+					* 도서명, 도서 이미지, 저자, 출판사, 청구기호는 자동으로 입력 됩니다.
 				</td>
 	        </tr>
 	        <tr>
-	         	<th>책이름</th>
+	         	<th>도서명</th>
 	         	<td><form:input path="book_name" class="text" cssStyle="width:100%"/></td>
 	        </tr>
 	         <tr>
-	         	<th>책 이미지</th>
+	         	<th>도서 이미지</th>
 	         	<td><form:input path="book_image" class="text" cssStyle="width:100%"/></td>
 	        </tr>
 	        <tr>
@@ -158,7 +158,7 @@ function getLasData(arg) {
 	         	<td><form:input path="call_no" class="text"/></td>
 	        </tr>
 	        <tr>
-	         	<th>책 설명</th>
+	         	<th>줄거리</th>
 	         	<td><form:textarea path="book_desc" class="text" cssStyle="width:100%; height:200px;"/></td>
 	        </tr>
 	        <tr>

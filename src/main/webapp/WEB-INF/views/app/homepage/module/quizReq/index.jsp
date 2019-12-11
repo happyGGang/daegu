@@ -135,7 +135,7 @@ ${quiz.top_html}
 							<h3>${quiz.book_name}</h3>
 							<ul>
 								<c:if test="${quiz.book_author ne ''}">
-									<li><span class="item"> 지은이</span> <span class="value"><span>${quiz.book_author}</span></span></li>
+									<li><span class="item"> 저자</span> <span class="value"><span>${quiz.book_author}</span></span></li>
 								</c:if>
 								<c:if test="${quiz.book_publisher ne ''}">
 									<li><span class="item"> 출판사</span> <span class="value"><span>${quiz.book_publisher}</span></span></li>

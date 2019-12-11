@@ -1397,7 +1397,7 @@ filter:alpha(opacity = 0.3*100);
 .tabmenu{padding-bottom:20px}
 .tab-menu>ul{padding:10px 0 0}
 .tab-menu>ul,
-.tabmenu>ul{font-size:0;border-bottom:1px solid #1a518b;padding-left:1px}
+.tabmenu>ul{/* font-size:0; */border-bottom:1px solid #1a518b;padding-left:1px}
 .tab-menu li,
 .tabmenu li{display:inline-block;zoom:1;*display:inline;vertical-align:bottom}
 .tab-menu li a,

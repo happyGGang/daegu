@@ -66,15 +66,15 @@ $(function() {
 		e.preventDefault();
 	});
 	
-	$('select#quiz_type').on('change', function() {
+	$('select#quiz_type, select#rowCount, select#quiz_year, select#quiz_month').on('change', function() {
 		$('#viewPage').val(1);
 		$('#quizListForm').submit();
 	});
 	
-	$('select#rowCount').on('change', function() {
-		$('#viewPage').val(1);
-		$('#quizListForm').submit();
-	});
+// 	$('select#rowCount').on('change', function() {
+// 		$('#viewPage').val(1);
+// 		$('#quizListForm').submit();
+// 	});
 	
 	var sysDate = new Date();
 	var year = sysDate.getFullYear();
@@ -82,8 +82,8 @@ $(function() {
 	//년도 초기화 (내년 일정 까지 볼수 있게 하려고 + 1함)
 	var quiz_year = '${quiz.quiz_year}';
 	var quiz_month = '${quiz.quiz_month}';
-	for ( var i = 0; i < 15; i ++ ) {
-		var optionYear = (year + 1 - i);
+	for ( var i = year; i >= 2019; i-- ) {
+		var optionYear = i;
 		var selectedAttr = '';
 
 		if ( optionYear == quiz_year ) {
@@ -114,10 +114,10 @@ $(function() {
 <form:form id="quizListForm"  modelAttribute="quiz" action="index.do" >
 <form:hidden id="homepage_id_1" path="homepage_id"/>
 
-	<div class="infodesk search">
+	<div class="infodesk">
 		검색 결과 : 총 <fmt:formatNumber value="${quizListCount}" pattern="#,###" />건
 		<form:select path="quiz_type" class="selectmenu">
-			<option value="">타입 정렬 선택</option>
+			<option value="">퀴즈구분선택</option>
 			<form:options items="${quizTypeList}" itemLabel="code_name" itemValue="code_id"/>
 		</form:select>
 		<form:select path="rowCount" class="selectmenu" style="width:120px;">
@@ -135,12 +135,11 @@ $(function() {
 <!-- 	    </div> -->
 <%-- 		<form:input path="quiz_year" size="6"/>년 <form:input path="quiz_month" size="3"/>월 --%>
 		<form:select path="quiz_year" class="selectmenu" style="width:100px;">
-			<form:option value="0">퀴즈 년</form:option>
+			<form:option value="0">퀴즈년도</form:option>
 		</form:select>
 		<form:select path="quiz_month" class="selectmenu" style="width:100px;">
-			<form:option value="0">퀴즈 월</form:option>
+			<form:option value="0">퀴즈월</form:option>
 		</form:select>
-		<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
 		<div class="button">
 			<c:if test="${authC}">
 				<a href="" class="btn btn5 dialog-add" ><i class="fa fa-plus"></i><span>등록</span></a>
@@ -162,12 +161,12 @@ $(function() {
 		<thead>
 			<tr>
 				<th>번호</th>
-				<th>타입</th>
+				<th>퀴즈구분</th>
 				<th>퀴즈년월</th>
 				<th>제목</th>
-				<th>책이름</th>
-				<th>시작일</th>
-				<th>종료일</th>
+				<th>도서명</th>
+				<th>참여 시작일</th>
+				<th>참여 종료일</th>
 				<th>현황</th>
 				<th>기능</th>
 			</tr>

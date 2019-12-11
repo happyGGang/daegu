@@ -1,5 +1,7 @@
 package kr.co.whalesoft.app.cms.module.quiz;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -103,10 +105,26 @@ public class QuizController extends BaseController {
 			ValidationUtils.rejectIfEmpty(result, "quiz_month", "퀴즈월을 입력하세요.");
 			ValidationUtils.rejectExceptNumber(result, "quiz_month", "퀴즈월은 숫자만 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "quiz_type", "퀴즈구분을 선택하세요.");
-			ValidationUtils.rejectIfEmpty(result, "quiz_name", "퀴즈명을 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "book_name", "책이름을 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "quiz_name", "퀴즈제목을 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "book_name", "도서명을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "quiz_start_date", "퀴즈시작날짜를 지정하세요.");
 			ValidationUtils.rejectIfEmpty(result, "quiz_end_date", "퀴즈종료날짜를 지정하세요.");
+			
+			try {
+    			SimpleDateFormat quiz_year = new SimpleDateFormat("yyyy");
+    			quiz_year.setLenient(false);
+    			quiz_year.parse(String.valueOf(quiz.getQuiz_year()));
+			} catch(ParseException e) {
+				result.rejectValue("quiz_year", "퀴즈연도 yyyy 형식이 맞지 않습니다.");
+			}
+			
+			try {
+    			SimpleDateFormat quiz_month = new SimpleDateFormat("MM");
+    			quiz_month.setLenient(false);
+    			quiz_month.parse(String.valueOf(quiz.getQuiz_month()));
+			} catch(ParseException e) {
+				result.rejectValue("quiz_month", "퀴즈연도 MM 형식이 맞지 않습니다.");
+			}
 		}
 		
 		if ( !result.hasErrors() ) {
@@ -124,7 +142,7 @@ public class QuizController extends BaseController {
 				}
 			} else if(editMode.equals("MODIFY")) {
 				int alreadyCount = service.getAreadyQuizOne(quiz);
-				if (alreadyCount > 1) {
+				if (alreadyCount >= 1) {
 					res.setValid(false);
 					res.setMessage("해당연도에 동일한 타입이 존재합니다.");
 				} else {
