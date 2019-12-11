@@ -10,17 +10,19 @@ public class BoardFile {
 	private int file_list_seq;
 	private int board_idx;
 	private int file_idx;
-	private String real_file_name;
-	private String file_name;
+	private String server_file_name;
+	private String org_file_name;
 	private String file_ext_name;
 	private int file_size;
-	private Date add_date;
 	private boolean	valid;
 	private String msg;
-	
+
 	private String file_url;
 	private String file_path;
-	
+
+	private String add_id;
+	private Date add_date;
+
 	public String getFile_path() {
 		return file_path;
 	}
@@ -30,45 +32,47 @@ public class BoardFile {
 	}
 
 	private String[] boardDataArray;
-	
+
 	public BoardFile() {}
-	
+
 	public BoardFile(int board_idx, int file_idx) {
 		this.board_idx = board_idx;
 		this.file_idx = file_idx;
 	}
-	
+
 	public BoardFile(boolean valid, String msg) {
 		this.valid = valid;
 		this.msg = msg;
 	}
-	
+
 	public BoardFile(File file, String real_file_name, String file_url) {
 		if(file!=null) {
-			this.file_name = file.getName();
-			this.real_file_name = real_file_name;
+			this.org_file_name = file.getName();
+			this.server_file_name = real_file_name;
 			this.file_url = file_url+"/";
 			this.valid = true;
 		} else {
 			this.valid = false;
 		}
 	}
-	
+
 	public BoardFile(String[] boardDataArray, Board board) {
 		this.board_idx = board.getBoard_idx();
-		this.file_name = boardDataArray[0].replaceAll(";;", ",");
-		this.real_file_name = boardDataArray[1];
+		this.org_file_name = boardDataArray[0].replaceAll(";;", ",");
+		this.server_file_name = boardDataArray[1];
 		this.file_size = Integer.parseInt(boardDataArray[2]);
 		this.file_ext_name = boardDataArray[3];
+		this.add_id = board.getAdd_id();
 	}
-	
+
 	public BoardFile(String[] boardDataArray, Board board, String file_path) {
 		this.board_idx = board.getBoard_idx();
-		this.file_name = boardDataArray[0].replaceAll(";;", ",");
-		this.real_file_name = boardDataArray[1];
+		this.org_file_name = boardDataArray[0].replaceAll(";;", ",");
+		this.server_file_name = boardDataArray[1];
 		this.file_size = Integer.parseInt(boardDataArray[2]);
 		this.file_ext_name = boardDataArray[3];
 		this.file_path = file_path;
+		this.add_id = board.getAdd_id();
 	}
 
 	public String getFile_url() {
@@ -95,20 +99,23 @@ public class BoardFile {
 		this.file_idx = file_idx;
 	}
 
-	public String getReal_file_name() {
-		return real_file_name;
+	public String getServer_file_name() {
+		return server_file_name;
 	}
 
-	public void setReal_file_name(String real_file_name) {
-		this.real_file_name = real_file_name;
+
+	public void setServer_file_name(String server_file_name) {
+		this.server_file_name = server_file_name;
 	}
 
-	public String getFile_name() {
-		return file_name;
+
+	public String getOrg_file_name() {
+		return org_file_name;
 	}
 
-	public void setFile_name(String file_name) {
-		this.file_name = file_name;
+
+	public void setOrg_file_name(String org_file_name) {
+		this.org_file_name = org_file_name;
 	}
 
 	public String getFile_ext_name() {
@@ -166,5 +173,15 @@ public class BoardFile {
 	public void setFile_list_seq(int file_list_seq) {
 		this.file_list_seq = file_list_seq;
 	}
-	
+
+
+	public String getAdd_id() {
+		return add_id;
+	}
+
+
+	public void setAdd_id(String add_id) {
+		this.add_id = add_id;
+	}
+
 }

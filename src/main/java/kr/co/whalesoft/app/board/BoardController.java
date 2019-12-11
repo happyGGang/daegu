@@ -223,17 +223,6 @@ public class BoardController extends BaseController {
 			}
 		}
 
-		if(board.getManage_idx() == 563 && StringUtils.isEmpty(board.getStart_date())) {
-			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-			if (StringUtils.isEmpty(board.getSearchStartDate())) {
-				board.setSearchStartDate(sf.format(DateUtils.addYears(new Date(), -1)));
-			}
-			if (StringUtils.isEmpty(board.getSearchEndDate())) {
-				board.setSearchEndDate(sf.format(new Date()));
-			}
-		}
-
-
 		//영화게시판
 		if (boardManage.getBoard_type().equals("MOVIE")){
 			Device device = DeviceUtils.getCurrentDevice(request);
@@ -386,6 +375,8 @@ public class BoardController extends BaseController {
 			model.addAttribute("getToday", new Date());
 
 		}
+		
+		boardFileService.initBoardFile(board, request);
 
 		return basePath + "edit";
 	}
@@ -731,7 +722,6 @@ public class BoardController extends BaseController {
 
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Board board, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String basePath = attributeInit(request, null, board, "EDIT");
 		BoardManage boardManage = (BoardManage)request.getAttribute("boardManage");
 		/* 유효성 검증 >>>>> */
 		JsonResponse res = new JsonResponse(request);
@@ -762,12 +752,12 @@ public class BoardController extends BaseController {
 				Pattern p = Pattern.compile(boardRegexFilter.getRegex_str());
 				Matcher mat1 = p.matcher(board.getTitle());
 				if(mat1.find()) {
-//					result.rejectValue("title", boardRegexFilter.getRemark() + "는(은) 사용할 수 없습니다.");
+					result.rejectValue("title", boardRegexFilter.getRemark() + "은(는) 사용할 수 없습니다.");
 				}
 
 				Matcher mat2 = p.matcher(board.getContent());
 				if(mat2.find()) {
-//					result.rejectValue("content", boardRegexFilter.getRemark() + "는(은) 사용할 수 없습니다.");
+					result.rejectValue("content", boardRegexFilter.getRemark() + "은(는) 사용할 수 없습니다.");
 				}
 			}
 		}
@@ -875,25 +865,6 @@ public class BoardController extends BaseController {
 
 						}
 					}
-//					if ( adminMember != null ) {
-//					}
-				} else if (board.getManage_idx() == 592) {
-					Homepage homepage = (Homepage)request.getAttribute("homepage");
-					Code code = new Code();
-					code.setHomepage_id("c0");
-					code.setGroup_id("H0003");
-					List<Code> codeList = codeService.getCode(code);
-					if (codeList != null && codeList.size() > 0) {
-						Code tempCode = null;
-						try {
-							tempCode = codeList.get(2);
-						}
-						catch ( Exception e ) {
-						}
-						if (tempCode != null && StringUtils.isNotEmpty(tempCode.getRemark()) ) {
-							PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_EMAIL, tempCode.getRemark(), null, board.getContent(), true, "디자인 요청이 접수되었습니다. 프로젝트사이트를 확인해 주세요.");
-						}
-					}
 
 				}
 
@@ -971,6 +942,8 @@ public class BoardController extends BaseController {
 //				res.setData(board.getUrlParam(boardManage, "index"));
 //				res.setMessage("답변글이 있는 게시물은 삭제를 하실 수 없습니다.");
 //			} else {
+				Member sessionMemberInfo = getSessionMemberInfo(request);
+				board.setDelete_id(sessionMemberInfo.getMember_id());
 				service.deleteBoard(board, request);
 				res.setValid(true);
 				res.setUrl(getBoardContext(request) + "/board/index.do");

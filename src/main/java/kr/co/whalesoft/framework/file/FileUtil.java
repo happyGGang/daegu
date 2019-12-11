@@ -13,7 +13,7 @@ import kr.co.whalesoft.app.board.boardFile.BoardFile;
 import kr.co.whalesoft.framework.utils.ImageUtils;
 
 public class FileUtil {
-	
+
 	private static final String fileExtArray[] = {".jpeg", ".jpg", ".gif", ".bmp", ".png"};
 
 	/**
@@ -24,7 +24,7 @@ public class FileUtil {
 	public static void fileMove(String beforePath , String afterPath, String fileName) throws IOException {
 		File beforeFile = new File(beforePath+"/"+fileName);
 		File afterFile = new File(afterPath);
-		
+
 		/**
 		 * 18. 중요한 자원에 대한 잘못된 권한 설정
 		 * 시큐어 코딩 시정조치 - START
@@ -35,30 +35,30 @@ public class FileUtil {
 		/**
 		 * 시큐어 코딩 시정조치 - END
 		 */
-		
+
 		if(!afterFile.isDirectory()) {
 			afterFile.mkdirs();
 		}
-		
+
 		afterFile = new File(afterPath+"/"+fileName);
-		
+
 		if( beforeFile.exists() ) {
 			FileInputStream inputStream = new FileInputStream(beforeFile);
 			FileOutputStream outputStream = new FileOutputStream(afterFile);
-			
-			FileChannel fcin = inputStream.getChannel();   
-			FileChannel fcout = outputStream.getChannel();   
+
+			FileChannel fcin = inputStream.getChannel();
+			FileChannel fcout = outputStream.getChannel();
 			long size = 0;
-			size = fcin.size();   
-	        fcin.transferTo(0, size, fcout);   
-	               
-	        fcout.close();   
-	        fcin.close();   
-	        outputStream.close();   
+			size = fcin.size();
+	        fcin.transferTo(0, size, fcout);
+
+	        fcout.close();
+	        fcin.close();
+	        outputStream.close();
 	        inputStream.close();
 		}
  	}
-	
+
 	/**
 	 * 폴더생성
 	 * @param path
@@ -67,7 +67,7 @@ public class FileUtil {
 	public static void mkdir( String path ) throws IOException {
 		File folder = new File( path );
 		if( !folder.isDirectory() ) {
-			
+
 			/**
 			 * 18. 중요한 자원에 대한 잘못된 권한 설정
 			 * 시큐어 코딩 시정조치 - START
@@ -78,11 +78,11 @@ public class FileUtil {
 			/**
 			 * 시큐어 코딩 시정조치 - END
 			 */
-			
+
 			folder.mkdir();
 		}
 	}
-	
+
 	/**
 	 * 게시판에서 사용되는 이미지 미리보기 생성(썸네일)
 	 * @param path
@@ -100,7 +100,7 @@ public class FileUtil {
 		}
 		return imageFile;
 	}
-	
+
 	/**
 	 * 필요없는 파일 삭제
 	 * @param filePath
@@ -110,7 +110,7 @@ public class FileUtil {
 	public static void noUseFileDelete(String filePath, String fileArray[]) throws IOException {
 		File defaultfolder = new File( filePath );
 		String children[] = defaultfolder.list();
-		
+
 		if((children != null && children.length > 0)) {
 			for(int i=0; i<children.length; i++) {
 				boolean exist = false;
@@ -134,7 +134,7 @@ public class FileUtil {
 			}
 		}
 	}
-	
+
 	/**
 	 * 필요없는 파일 삭제
 	 * @param filePath
@@ -145,14 +145,14 @@ public class FileUtil {
 		File defaultfolder = new File( filePath );
 		String children[] = defaultfolder.list();
 		BoardFile boardFile = null;
-		
+
 		if( (children!=null && children.length > 0) ) {
 			for( int i=0;i<children.length;i++ ) {
 				boolean exist = false;
 				if( boardFileList!=null && boardFileList.size() > 0 ) {
 					for( int j=0;j<boardFileList.size();j++ ) {
 						boardFile = boardFileList.get( j );
-						String fileName = boardFile.getReal_file_name();
+						String fileName = boardFile.getServer_file_name();
 						if( children[i].equals(fileName) ) {
 							exist = true;
 							break;
@@ -168,7 +168,7 @@ public class FileUtil {
 			}
 		}
 	}
-	
+
 	/**
 	 * 필요없는 파일 삭제
 	 * @param filePath
@@ -179,7 +179,7 @@ public class FileUtil {
 		File defaultfolder = new File( filePath );
 		String children[] = defaultfolder.list();
 		BoardCommentFile boardCommentFile = null;
-		
+
 		if( (children!=null && children.length > 0) ) {
 			for( int i=0;i<children.length;i++ ) {
 				boolean exist = false;
@@ -202,8 +202,8 @@ public class FileUtil {
 			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * 특정 디렉토리의 하위 파일(디렉토리) 목록을 Map 으로 반환한다.
 	 */
@@ -211,7 +211,7 @@ public class FileUtil {
 		File parentFolder = new File( defaultPath );
 		String childFile[] = parentFolder.list();
 		Map <String , String> saveFileMap = new HashMap<String , String>();
-		
+
 		if( childFile!=null && childFile.length > 0 ) {
 			for( int i=0;i<childFile.length;i++ ) {
 				saveFileMap.put( childFile[i] , childFile[i] );
@@ -232,7 +232,7 @@ public class FileUtil {
 		Map <String , Long> saveFileMap = new HashMap<String , Long>();
 		long totalFileSize = 0;
 		long fileCount = 0;
-		
+
 		if( childFile!=null && childFile.length > 0 ) {
 			for( int i=0;i<childFile.length;i++ ) {
 				if( childFile[i].isFile() ) {
@@ -243,8 +243,8 @@ public class FileUtil {
 		}
 		saveFileMap.put( "totalFileSize" , totalFileSize );
 		saveFileMap.put( "fileCount" , fileCount );
-		
+
 		return saveFileMap;
 	}
-	
+
 }

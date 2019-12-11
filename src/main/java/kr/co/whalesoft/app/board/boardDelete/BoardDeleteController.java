@@ -1,10 +1,14 @@
 package kr.co.whalesoft.app.board.boardDelete;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +36,7 @@ import kr.co.whalesoft.framework.utils.StrUtil;
 public class BoardDeleteController extends BaseController {
 
 	private String basePath = "";
-	
+
 	@Autowired
 	private BoardService service;
 	@Autowired
@@ -43,26 +47,26 @@ public class BoardDeleteController extends BaseController {
 	private FieldManageService fieldManageService;
 	@Autowired
 	private BoardManageService boardManageService;
-	
+
 	/** 공통 **/
 	private void attributeInit(HttpServletRequest request, Model model, Board board, String mode) {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
-		
+
 		String homepageFolder = "";
 		String contextPath = null;
 		if(homepage != null) {
 			homepageFolder = "/homepage/" + homepage.getFolder();
 			contextPath = "/" + homepage.getContext_path();
 		}
-		
+
 		BoardManage boardManage = (BoardManage)request.getAttribute("boardManage");
-		
+
 		if(model != null) {
 			model.addAttribute("boardManage", boardManage);
-			
+
 			if(boardManage.getBoard_type().indexOf("CUSTOM") > -1) {
 				List<FieldManage> fieldList = null;
-				
+
 //				if(mode != null && mode.equals("EDIT")) {
 //					fieldList = fieldManageService.getBoardFieldManageByEdit(new FieldManage(boardManage.getManage_idx()));
 //					model.addAttribute("fieldList", fieldList);
@@ -73,15 +77,15 @@ public class BoardDeleteController extends BaseController {
 //					fieldList = fieldManageService.getBoardFieldManageByList(new FieldManage(boardManage.getManage_idx()));
 //					model.addAttribute("fieldList", fieldList);
 //				}
-				
+
 				List<String> columnList = new ArrayList<String>();
 //				for(FieldManage fieldManage : fieldList) {
 //					columnList.add(fieldManage.getBoard_column());
 //				}
-				
+
 				board.setBoard_field_list(columnList);
 			}
-			
+
 //			if(boardManage.getCategory_use_yn() != null && boardManage.getCategory_use_yn().equals("Y")) {
 //				if(boardManage.getCategory1() != null && !boardManage.getCategory1().equals("")) {
 //					model.addAttribute("category1List", codeService.getCode(boardManage.getCategory1()));
@@ -94,10 +98,10 @@ public class BoardDeleteController extends BaseController {
 //				}
 //			}
 		}
-		
+
 		basePath = homepageFolder + "/board/" + boardManage.getBoard_type() + "/";
 	}
-	
+
 	@RequestMapping(value = {"/index.*"}, method = RequestMethod.GET)
 	public String index(Model model, Board board, HttpServletRequest request) throws AuthException {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
@@ -105,33 +109,43 @@ public class BoardDeleteController extends BaseController {
 		checkAuth("R", model, request);
 		String homepageFolder = "";
 		String contextPath = null;
-		
+
 		if(homepage != null) {
 			homepageFolder = "/homepage/" + homepage.getFolder();
 			contextPath = "/" + homepage.getContext_path();
 		}
-		
+
+		if (boardManage.getBoard_type().equals("NOTICE")  && StringUtils.isEmpty(board.getStart_date())) {
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+			if (StringUtils.isEmpty(board.getSearchStartDate())) {
+				board.setSearchStartDate(sf.format(DateUtils.addYears(new Date(), -1)));
+			}
+			if (StringUtils.isEmpty(board.getSearchEndDate())) {
+				board.setSearchEndDate(sf.format(new Date()));
+			}
+		}
+
 		String basePath = homepageFolder + "/board/" + boardManage.getBoard_type() + "/";
-		
+
 		board.setDelete_yn("Y");
 		// 삭제게시물의 경우 자식글도 모두 봐야한다.
 		board.setReply_list_yn("Y");
 		attributeInit(request, model, board, null);
-		
+
 		service.setPaging(model, service.getDeleteBoardCount(boardManage, board), board);
 		model.addAttribute("boardNoticeList", service.getBoardNotice(board));
 		model.addAttribute("boardList", service.getDeleteBoard(boardManage, board));
 		model.addAttribute("board", board);
-		
+
 		if (boardManage.getBoard_type().equals("FAQ")){
 			if(StrUtil.isInStr(board.getBoard_mode(), "admin")){
 				return basePath + "index_normal";
 			}
 		}
-		
+
 		return basePath + "index";
 	}
-	
+
 	@RequestMapping(value = {"/view.*"}, method = RequestMethod.GET)
 	public String view(Model model, Board board, HttpServletRequest request) throws AuthException {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
@@ -139,37 +153,37 @@ public class BoardDeleteController extends BaseController {
 		checkAuth("R", model, request);
 		String homepageFolder = "";
 		String contextPath = null;
-		
+
 		if(homepage != null) {
 			homepageFolder = "/homepage/" + homepage.getFolder();
 			contextPath = "/" + homepage.getContext_path();
 		}
-		
+
 		String basePath = homepageFolder + "/board/" + boardManage.getBoard_type() + "/";
-		
+
 		board.setDelete_yn("Y");
-		
-		//조회수 증가		
+
+		//조회수 증가
 		service.addViewCount(board);
-		
+
 		Board boardData = null;
-		
+
 		if (boardManage.getBoard_type().equals("MOVIE")) {
 			boardData = (Board)service.copyObjectPaging(boardManage, board, service.getMoviewBoardOne(board));
 		} else {
 			boardData = (Board)service.copyObjectPaging(boardManage, board, service.getBoardOne(board));
 		}
-		
+
 		if(boardManage.getBoard_type().equals("QNA")) {
 			model.addAttribute("boardQnaList", service.getQnABoard(boardData));
 		}
-		
-		
+
+
 		model.addAttribute("board", boardData);
 		//model.addAttribute("boardFile", boardFileService.getBoardFile(board.getBoard_idx()));
 		model.addAttribute("prevBoard", service.getPrevBoardOne(board));
 		model.addAttribute("nextBoard", service.getNextBoardOne(board));
-		
+
 		if(boardData.getFile_count() > 0) {
 			model.addAttribute("boardFile", boardFileService.getBoardFile(board.getBoard_idx()));
 		}
@@ -177,14 +191,14 @@ public class BoardDeleteController extends BaseController {
 		if(boardManage.isAdmin_auth_check()) {
 //			model.addAttribute("boardManageAll", boardManageService.getBoardManageAllParam(boardManage));
 		}
-		
+
 		if(boardManage.isAdmin_auth_check()) {
 			return basePath + "view";
-		} else {			
+		} else {
 			return basePath + "view";
 		}
 	}
-	
+
 	@RequestMapping(value = {"/recovery.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Board board, BindingResult result, HttpServletRequest request) {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
@@ -192,16 +206,16 @@ public class BoardDeleteController extends BaseController {
 
 		String homepageFolder = "";
 		String contextPath = null;
-		
+
 		if(homepage != null) {
 			homepageFolder = "/homepage/" + homepage.getFolder();
 			contextPath = "/" + homepage.getContext_path();
 		}
-		
+
 		/* 유효성 검증 >>>>> */
 		JsonResponse res = new JsonResponse(request);
 		/* <<<<< 유효성 검증 */
-		
+
 		if(!result.hasErrors()) {
 			service.recoveryBoard(board);
 			res.setValid(true);
@@ -214,35 +228,35 @@ public class BoardDeleteController extends BaseController {
 		}
 		return res;
 	}
-	
+
 	@RequestMapping(value = {"/drop.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse delete(Board board, BindingResult result, HttpServletRequest request) {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 		BoardManage boardManage = (BoardManage)request.getAttribute("boardManage");
-		
+
 		String homepageFolder = "";
 		String contextPath = null;
-		
+
 		if(homepage != null) {
 			homepageFolder = "/homepage/" + homepage.getFolder();
 			contextPath = "/" + homepage.getContext_path();
 		}
-		
+
 		/* 유효성 검증 >>>>> */
 		JsonResponse res = new JsonResponse(request);
 		/* <<<<< 유효성 검증 */
-		
+
 		if(!result.hasErrors()) {
 			service.dropBoard(board);
 			res.setValid(true);
-			
+
 			if ( contextPath != null ) {
-				res.setUrl(contextPath + "/boardDelete/index.do");	
+				res.setUrl(contextPath + "/boardDelete/index.do");
 			}
 			else {
 				res.setUrl("index.do");
 			}
-			
+
 			res.setData(board.getUrlParam(boardManage, "index"));
 			res.setMessage("게시물이 완전 삭제 되었습니다.");
 		} else {
@@ -251,5 +265,5 @@ public class BoardDeleteController extends BaseController {
 		}
 		return res;
 	}
-	
+
 }

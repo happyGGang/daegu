@@ -23,7 +23,6 @@ public class BoardExt extends PagingUtils {
 	private String ebook_url; //이북 URL
 	private int file_download_count; //첨부파일 다운로드 횟수
 	private int recommend_count; //추천수
-	private int recommend_email_receive_count; //추천 메일발송 횟수
 	private int approval_count; //찬성횟수
 	private int contrary_count; //반대횟수
 
@@ -301,12 +300,6 @@ public class BoardExt extends PagingUtils {
 	}
 	public void setRecommend_count(int recommend_count) {
 		this.recommend_count = recommend_count;
-	}
-	public int getRecommend_email_receive_count() {
-		return recommend_email_receive_count;
-	}
-	public void setRecommend_email_receive_count(int recommend_email_receive_count) {
-		this.recommend_email_receive_count = recommend_email_receive_count;
 	}
 	/**
 	 * 시크어 코딩

@@ -22,22 +22,22 @@
 	var uploadResult = false;
 	$(document).ready(function() {
 		/* $.ajax('${getContextPath}/board/boardFile/initBoardFile.ws?mode=${board.editMode}&board_idx=${board.board_idx}');	 */
-		
+
 		<c:if test="${board.editMode eq 'MODIFY'}">
 	    <c:forEach var="i" varStatus="status" items="${boardFile}">
 	    var file = new Object();
 	    file.filestatus = -4;
-		file.name = '${i.file_name}';
+		file.name = '${i.org_file_name}';
 		var commaIndex = -1;
 		var fileNameNew = file.name;
-		
+
 		if(file.name != '' && file.name != undefined) {
 			commaIndex = file.name.indexOf(',');
 			if(commaIndex > -1) {
 				fileNameNew = file.name.replace(/,/g,';;');
 			}
 		}
-		file.saveFileName = '${i.real_file_name}';
+		file.saveFileName = '${i.server_file_name}';
 		file.status = -4;
 		file.id = 'file_${status.index}';
 		file.index = fileNum++;
@@ -49,7 +49,7 @@
 		updateNum++;
 	    </c:forEach>
 	    </c:if>
-	    
+
 		$('#fileupload').fileupload({
 	        dataType: 'json',
 	        url : '/board/boardFile/upload.do',
@@ -63,7 +63,7 @@
 	        			var ext = data.files[i].name.substring(data.files[i].name.lastIndexOf(".")+1);
 	        			if (file_ban_ext.indexOf(ext) > -1) {
 	        				alert('업로드 불가능한 파일 확장자 입니다.' + ext);
-		        			return false;	
+		        			return false;
 	        			}
 					}
 	                data.submit();
@@ -90,10 +90,10 @@
 	            );
 	            $('#progressStatus').text(progress+"%");
 	        },
-	 
+
 	        dropZone: $('#attach_area')
 	    });
-		
+
 		fileListAreaID = $('#boardFileArray')[0];		//select 박스 id
 	    previewAreaID = $('#previewFile')[0];			//미리보기 ID
 	    fileSizeViewID = $('#fileSizeView')[0];			//파일사이즈 ID
@@ -102,25 +102,25 @@
 	    /* totalFileSize = '10';  	// 파일 총용량 사이즈(MB)
 	    singleFileSize = '5';		// 파일당 사이즈(MB)
 	    fileCount = '10';		// 허용 파일 갯수 */
-	    
-	    
+
+
 	    $('#delete_btn').on('click', function(e) {
 	    	e.preventDefault();
-	    	
-	    	deleteFiles($('input#manage_idx').val(), $('input#board_idx').val(), $('input#editMode').val());	
-	    	
+
+	    	deleteFiles($('input#manage_idx').val(), $('input#board_idx').val(), $('input#editMode').val());
+
 	    });
-	    
+
 	    $('#boardFileArray').on('change', function(e) {
 	    	e.preventDefault();
 	    	preview();
 	    });
-	    
+
 	    $('#inEditorButton').on('click', function(e) {
 	    	e.preventDefault();
 	    	pasteHTML('content');
 	    });
-	    
+
 	    showFileList();
 	});
 </script>

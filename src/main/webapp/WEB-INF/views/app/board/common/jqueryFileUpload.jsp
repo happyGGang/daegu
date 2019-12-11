@@ -16,19 +16,19 @@
   .fileinput-button input {filter: alpha(opacity=0); font-size: 100%; height: 100%;}
 }
 </style>
- 
+
 <script>
 	var uploading = false;
 	var file_ban_ext = '${boardManage.file_ban_ext}';
 	$(document).ready(function() {
 		/* $.ajax('${getContextPath}/board/boardFile/initBoardFile.ws?mode=${board.editMode}&board_idx=${board.board_idx}');	 */
-		
+
 		<c:if test="${board.editMode eq 'modify'}">
 	    <c:forEach var="i" varStatus="status" items="${boardFileList}">
 	    var file = new Object();
 	    file.filestatus = -4;
-		file.name = '${i.file_name}';
-		file.saveFileName = '${i.real_file_name}';
+		file.name = '${i.org_file_name}';
+		file.saveFileName = '${i.server_file_name}';
 		file.status = -4;
 		file.id = 'file_${status.index}';
 		file.index = fileNum++;
@@ -40,7 +40,7 @@
 		updateNum++;
 	    </c:forEach>
 	    </c:if>
-	    
+
 		$('#fileupload').fileupload({
 	        dataType: 'json',
 	        url : '/board/boardFile/upload.do',
@@ -74,10 +74,10 @@
 	            );
 	            $('#progressStatus').text(progress+"%");
 	        },
-	 
+
 	        dropZone: $('#attach_area')
 	    });
-		
+
 		fileListAreaID = $('#boardFileArray')[0];		//select 박스 id
 	    previewAreaID = $('#previewFile')[0];			//미리보기 ID
 	    fileSizeViewID = $('#fileSizeView')[0];			//파일사이즈 ID
@@ -86,22 +86,22 @@
 	    /* totalFileSize = '10';  	// 파일 총용량 사이즈(MB)
 	    singleFileSize = '5';		// 파일당 사이즈(MB)
 	    fileCount = '10';		// 허용 파일 갯수 */
-	    
+
 	    $('#delete_btn').on('click', function(e) {
 	    	e.preventDefault();
 	    	deleteFiles($('input#board_idx').val(), $('input#editMode').val());
 	    });
-	    
+
 	    $('#boardFileArray').on('change', function(e) {
 	    	e.preventDefault();
 	    	preview();
 	    });
-	    
+
 	    $('#inEditorButton').on('click', function(e) {
 	    	e.preventDefault();
 	    	pasteHTML('content');
 	    });
-	    
+
 	    showFileList();
 	});
 </script>

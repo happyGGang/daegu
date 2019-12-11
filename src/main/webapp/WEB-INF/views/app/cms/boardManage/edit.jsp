@@ -97,7 +97,6 @@ $(function(){
 	<div id="tabs">
 		<ul>
 			<li><a href="#tabs-1">기본 설정</a></li>
-<!-- 			<li><a href="#tabs-2">권한 설정</a></li> -->
 			<li><a href="#tabs-2">기타 설정</a></li>
 		</ul>
 		<div id="tabs-1">
@@ -279,24 +278,17 @@ $(function(){
 						</td>
 
 					</tr>
-					<tr>
-						<td colspan="4">
-							<div class="ui-state-highlight">
-								<i class="fa fa-question-circle"></i><em>권한 설정 탭의 지정된 담당자에게 발송 됩니다.</em>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<%-- <th>글쓴이SMS 수신</th>
+					<tr style="display: none;">
+						<th>글쓴이SMS 수신</th>
 						<td>
 							<form:radiobutton path="write_sms_receive_yn" cssClass="selectmenu" value="Y" label="사용함" />
 							<form:radiobutton path="write_sms_receive_yn" cssClass="selectmenu" value="N" label="사용안함" />
-						</td> --%>
-						<%-- <th>글쓴이EMAIL 수신</th>
+						</td>
+						<th>글쓴이EMAIL 수신</th>
 						<td>
 							<form:radiobutton path="write_email_receive_yn" cssClass="selectmenu" value="Y" label="사용함" />
 							<form:radiobutton path="write_email_receive_yn" cssClass="selectmenu" value="N" label="사용안함" />
-						</td> --%>
+						</td>
 					</tr>
 					<tr style="display: none;">
 						<th>게시물EMAIL 발송</th>

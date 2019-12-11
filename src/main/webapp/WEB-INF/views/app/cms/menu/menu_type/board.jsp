@@ -6,7 +6,7 @@ $(function() {
 	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
 		resizable: true,
-		modal: true, 
+		modal: true,
 	    open: function() {
 	        $('.ui-widget-overlay').addClass('custom-overlay');
 	    },
@@ -28,13 +28,13 @@ $(function() {
 				}
 			}
 		]
-	}); 
-	
+	});
+
 	$("#dialog_BOARD").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
-		width: 600,
+		width: 800,
 		height: 800
 	});
-	
+
 	$('a#boardManageUse').on('click', function(e) {
 		$('input#manage_idx').val($(this).attr('keyValue'));
 		$('td#edit_manageIdx').html($(this).attr('keyValue'));
@@ -43,7 +43,7 @@ $(function() {
 		$("#dialog_BOARD").dialog('destroy');
 		e.preventDefault();
 	});
-});	
+});
 </script>
 <form:form modelAttribute="boardManage" action="save_board.do" method="POST" onsubmit="return false;">
 <form:hidden path="homepage_id"/>
@@ -55,7 +55,7 @@ $(function() {
 <!-- </div> -->
 <table class="type2 menuType-data">
 	<colgroup>
-		<col width="50"/>
+		<col width="100"/>
 		<col width="*"/>
 		<col width="*"/>
 		<col width="80"/>
@@ -71,11 +71,11 @@ $(function() {
 	<tbody>
 	<c:forEach var="i" varStatus="status" items="${boardManageList}">
 		<tr>
-			<td>${i.manage_idx}</td>
+			<td style="text-align: center;">${i.manage_idx}</td>
 			<td>${i.board_name}</td>
 			<td>${i.board_type}</td>
 			<td>
-				<a href="#" class="btn" id="boardManageUse" keyValue="${i.manage_idx}" boardName="${i.board_name}" boardType="${i.board_type}">사용</a>
+				<a href="#" class="btn" id="boardManageUse" keyValue="${i.manage_idx}" boardName="${i.board_name}" boardType="${i.board_type}">선택</a>
 			</td>
 		</tr>
 	</c:forEach>

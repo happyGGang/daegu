@@ -8,7 +8,7 @@ import kr.co.whalesoft.app.board.boardFile.BoardFile;
 import kr.co.whalesoft.app.cms.boardManage.BoardManage;
 
 public class Board extends BoardExt {
-	// tas -> 최종버전
+
 	@Override
 	protected Object clone() throws CloneNotSupportedException{
 		return super.clone();
@@ -36,7 +36,7 @@ public class Board extends BoardExt {
 	private String request_state_str;
 	private String reply_list_yn = "Y";
 	private List<BoardFile> boardFile = null;
-	
+
 	private String category1;
 	private String category1_name;
 	private String category1Manage;
@@ -52,72 +52,70 @@ public class Board extends BoardExt {
 	private String category5;
 	private String category5_name;
 	private String category5Manage;
-	
+
 	private String board_skin;
 	private String board_name;
-	
+
 	private String plan_year;
 	private String plan_month;
 	private String plan_date;
-	
+
 	private String context_path;//ge 공지사항
-	
+
 	private String preview_img; //미리보기 이미지
-	
+
 	private int date_gap; //등록날짜와 현재날짜의 일수 차이
-	
+
 	private String[] boardFileArray; //첨부파일
-	
+
 	private String[] deleteBoardFileArray;//삭제대상첨부파일
 
 	private String[] boardIdxArray;//완전삭제리스트
-	
+
 	private String beforeFilePath;
 	private String afterFilePath;
 	private String add_date_str;
 	private String dept_cd;
-	
+
 	private int new_date_count;
-	
+
 	/*** 게시물 복사 또는 이동 ***/
 	private int target_manage_idx;
 	private String target_category;
-	
+
 	private List<String> mailingList; //메일링 리스트(메일수신 연동)
-	
+
 	private String board_mode;
 	private int file_count;
 	private int comment_count; //덧글 개수
-	
+
 	private	String notice_start_date; //공지사항시작일자
 	private	String notice_end_date; //공지사항종료일자
-	
+
 	private String add_id; //등록ID
 	private Date add_date; //등록날짜
 	private String modify_id; //수정ID
 	private Date modify_date; //수정날짜
 	private String delete_id; //삭제ID
 	private Date delete_date; //삭제날짜
-	private String ilus_user_id; //
-	private String ilus_user_seq; //
-	
+
 	private List managerList;
 
 	private String user_password;
 	private String password_yn;
-	
+
 	private String themeBookSubject;
-	
+
 	private String module;//모듈 레이아웃 용( ex 새책드림 )
-	
+
 	private String board_type;
 	private String start_date;
 	private String end_date;
 	private String searchStartDate;
 	private String searchEndDate;
-	
+
 	public Board() {}
-	
+
 	/******** 기록관 ***********/
 	private String b_num;
 	private String board_table;
@@ -126,8 +124,8 @@ public class Board extends BoardExt {
 	private String b_file3;
 	private String b_file4;
 	private String b_file5;
-	
-	// 통합검색 - 상세검색용 변수 
+
+	// 통합검색 - 상세검색용 변수
 	private String searchKeyword1;//searchType1 의 검색어
 	private String searchKeyword2;//searchType2 의 검색어
 	private String searchKeyword3;//searchType3 의 검색어
@@ -142,19 +140,19 @@ public class Board extends BoardExt {
 		setRowCount(row_count);
 		setTotalDataCount(row_count);
 	}
-	
+
 	public Board(int manage_idx, int row_count, String dept_cd) {
 		this.manage_idx = manage_idx;
 		setRowCount(row_count);
 		setTotalDataCount(row_count);
 		this.dept_cd = dept_cd;
 	}
-	
+
 	public Board (int board_idx, String preview_img) {
 		this.board_idx = board_idx;
 		this.preview_img = preview_img;
 	}
-	
+
 	public String getUrlParam(BoardManage boardManage, String mode) {
 		StringBuffer sb = new StringBuffer();
 		if(menu_idx > 0) {
@@ -166,13 +164,13 @@ public class Board extends BoardExt {
 		if (boardManage != null) {
 			sb.append("&homepage_id=" + boardManage.getHomepage_id());
 		}
-		
+
 		if (getModule() != null) {
 			sb.append("&module=" + getModule());
 		}
-		
+
 		sb.append("&rowCount=" + getRowCount());
-		
+
 		if(mode.equals("view")) {
 			if(parent_idx == 0) {
 				sb.append("&board_idx=" + board_idx);
@@ -180,11 +178,11 @@ public class Board extends BoardExt {
 				sb.append("&board_idx=" + parent_idx);
 			}
 			sb.append("&viewPage=" + getViewPage());
-		}			
-		
+		}
+
 		return sb.toString();
 	}
-	
+
 	/**
 	 * 시큐어 코딩
 	 * @return
@@ -205,7 +203,7 @@ public class Board extends BoardExt {
 			this.managerList.addAll(managerList);
 		}
 	}
-	
+
 	public int getManage_idx() {
 		return manage_idx;
 	}
@@ -344,7 +342,7 @@ public class Board extends BoardExt {
 	public void setDate_gap(int date_gap) {
 		this.date_gap = date_gap;
 	}
-	
+
 	/**
 	 * 시큐어 코딩
 	 * @return
@@ -359,7 +357,7 @@ public class Board extends BoardExt {
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * 시큐어 코딩
 	 * @param boardFileArray
@@ -370,7 +368,7 @@ public class Board extends BoardExt {
 			this.boardFileArray[i] = boardFileArray[i];
 		}
 	}
-	
+
 	/**
 	 * 시큐어 코딩
 	 * @return
@@ -385,7 +383,7 @@ public class Board extends BoardExt {
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * 시큐어 코딩
 	 * @param deleteBoardFileArray
@@ -433,7 +431,7 @@ public class Board extends BoardExt {
 			return null;
 		}
 	}
-	
+
 	public void setMailingList(List<String> mailingList) {
 		if(mailingList != null) {
 			this.mailingList = new ArrayList<String>();
@@ -602,7 +600,7 @@ public class Board extends BoardExt {
 	public void setRequest_state(String request_state) {
 		this.request_state = request_state;
 	}
-	
+
 	public String getRequest_state_str() {
 		return request_state_str;
 	}
@@ -674,7 +672,7 @@ public class Board extends BoardExt {
 	public void setNew_date_count(int new_date_count) {
 		this.new_date_count = new_date_count;
 	}
-	
+
 	public String getCategory1Manage() {
 		return category1Manage;
 	}
@@ -714,7 +712,7 @@ public class Board extends BoardExt {
 	public void setCategory5Manage(String category5Manage) {
 		this.category5Manage = category5Manage;
 	}
-	
+
 	public String getCategory1_name() {
 		return category1_name;
 	}
@@ -754,8 +752,8 @@ public class Board extends BoardExt {
 	public void setCategory5_name(String category5_name) {
 		this.category5_name = category5_name;
 	}
-	
-	
+
+
 
 	public String getReply_list_yn() {
 		return reply_list_yn;
@@ -772,8 +770,8 @@ public class Board extends BoardExt {
 	public void setRequest_code(String request_code) {
 		this.request_code = request_code;
 	}
-	
-	
+
+
 
 	public List<BoardFile> getBoardFile() {
 		return boardFile;
@@ -912,54 +910,35 @@ public class Board extends BoardExt {
 	public void setPaggingUsed(boolean paggingUsed) {
 		this.paggingUsed = paggingUsed;
 	}
-	
-	public String getIlus_user_seq() {
-		return ilus_user_seq;
-	}
 
-	
-	public void setIlus_user_seq(String ilus_user_seq) {
-		this.ilus_user_seq = ilus_user_seq;
-	}
 
-	
-	public String getIlus_user_id() {
-		return ilus_user_id;
-	}
-
-	
-	public void setIlus_user_id(String ilus_user_id) {
-		this.ilus_user_id = ilus_user_id;
-	}
-
-	
 	public String getSearchStartDate() {
 		return searchStartDate;
 	}
 
-	
+
 	public void setSearchStartDate(String searchStartDate) {
 		this.searchStartDate = searchStartDate;
 	}
 
-	
+
 	public String getSearchEndDate() {
 		return searchEndDate;
 	}
 
-	
+
 	public void setSearchEndDate(String searchEndDate) {
 		this.searchEndDate = searchEndDate;
 	}
 
-	
+
 	public String getTarget_category() {
 		return target_category;
 	}
 
-	
+
 	public void setTarget_category(String target_category) {
 		this.target_category = target_category;
 	}
-	
+
 }

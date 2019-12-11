@@ -96,32 +96,38 @@
     	<selectKey keyProperty="manage_idx" resultType="int" order="BEFORE">
 		    SELECT NVL(MAX(manage_idx),0)+1 FROM CMS_BOARD_MANAGE
 		</selectKey>
-    	INSERT INTO CMS_BOARD_MANAGE
+		INSERT INTO
+			CMS_BOARD_MANAGE
 		(
-			homepage_id, manage_idx, board_name, board_type, board_skin, record_count,
-			new_date_count, ip_use_yn, reply_use_yn, reply_list_yn, comment_use_yn, secret_use_yn,
-			editor_use_yn, board_use_yn, add_html_use_yn, top_html, content_html,
-			bottom_html, add_date, modify_date, add_auth, view_auth, edit_auth,
+			homepage_id, manage_idx, board_name, board_type,
+			record_count, new_date_count, ip_use_yn, reply_use_yn, comment_use_yn,
+			secret_use_yn, editor_use_yn, board_use_yn, add_html_use_yn, add_only_yn,
+			top_html, content_html, bottom_html, add_id, add_date,
+			modify_id, modify_date, view_auth, add_auth, edit_auth,
 			delete_auth, admin_auth, admin_id, file_use_yn, file_count,
-			file_size_total, file_ban_ext, category_use_yn,
-			category1, category2, category3, category4, category5,
-			rss_yn, recommend_yn, ebook_yn, charge_sms_receive_yn, write_sms_receive_yn,
-			charge_email_receive_yn, write_email_receive_yn, board_email_send_yn, satisfy_yn, board_etc1,
-			add_only_yn, approval_yn, request_code, anonymize_yn
+			file_size_total, file_ban_ext, category_use_yn, category1, category2,
+			category3, category4, category5, rss_yn, recommend_yn,
+			ebook_yn, charge_sms_receive_yn, write_sms_receive_yn, charge_email_receive_yn, write_email_receive_yn,
+			board_email_send_yn, satisfy_yn, board_etc1, approval_yn,
+			manager_name, manager_dept, manager_phone, reply_list_yn,
+			board_skin, request_code, anonymize_yn
 		)
 			VALUES
 		(
-			#{homepage_id}, #{manage_idx}, #{board_name}, #{board_type}, #{board_type}, #{record_count},
-			#{new_date_count}, #{ip_use_yn}, #{reply_use_yn}, #{reply_list_yn}, #{comment_use_yn}, #{secret_use_yn},
-			#{editor_use_yn}, #{board_use_yn}, #{add_html_use_yn}, #{top_html}, #{content_html},
-			#{bottom_html}, SYSDATE, SYSDATE, #{view_auth}, #{add_auth}, #{edit_auth},
+			#{homepage_id}, #{manage_idx}, #{board_name}, #{board_type},
+			#{record_count}, #{new_date_count}, #{ip_use_yn}, #{reply_use_yn}, #{comment_use_yn},
+			#{secret_use_yn}, #{editor_use_yn}, #{board_use_yn}, #{add_html_use_yn}, #{add_only_yn},
+			#{top_html}, #{content_html}, #{bottom_html}, #{add_id}, SYSDATE,
+			NULL, NULL, #{view_auth}, #{add_auth}, #{edit_auth},
 			#{delete_auth}, #{admin_auth}, #{admin_id}, #{file_use_yn}, #{file_count},
-			#{file_size_total}, #{file_ban_ext}, #{category_use_yn},
-			#{category1}, #{category2}, #{category3}, #{category4}, #{category5},
-			#{rss_yn}, #{recommend_yn}, #{ebook_yn}, #{charge_sms_receive_yn}, #{write_sms_receive_yn},
-			#{charge_email_receive_yn}, #{write_email_receive_yn}, #{board_email_send_yn}, #{satisfy_yn}, #{board_etc1},
-			#{add_only_yn}, #{approval_yn}, #{request_code}, #{anonymize_yn}
+			#{file_size_total}, #{file_ban_ext}, #{category_use_yn}, #{category1}, #{category2},
+			#{category3}, #{category4}, #{category5}, #{rss_yn}, #{recommend_yn},
+			#{ebook_yn}, #{charge_sms_receive_yn}, #{write_sms_receive_yn}, #{charge_email_receive_yn}, #{write_email_receive_yn},
+			#{board_email_send_yn}, #{satisfy_yn}, #{board_etc1}, #{approval_yn},
+			#{manager_name}, #{manager_dept}, #{manager_phone}, #{reply_list_yn},
+			#{board_skin}, #{request_code}, #{anonymize_yn}
 		)
+
     </insert>
 
     <update id="modifyBoardManage">

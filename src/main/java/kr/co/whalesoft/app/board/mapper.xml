@@ -321,7 +321,7 @@
 			${pagingBottom}
 		) CMS_BOARD_T
 	</select>
-	
+
 	<select id="getBOOKBoard" resultType="kr.co.whalesoft.app.board.Board">
 		SELECT
 			CMS_BOARD_T.*,
@@ -924,7 +924,7 @@
 			getCodeIdToCodeName(#{homepage_id},#{category5Manage},category5) as category5_name,
 			getCodeIdToCodeName('CMS',#{request_code},request_state) as request_state_str,
 			file_download_count, recommend_count,
-			recommend_email_receive_count, report_state, ebook_url,
+			report_state, ebook_url,
 			approval_count, contrary_count,
 			imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5,
 			imsi_v_6, imsi_v_7, imsi_v_8, imsi_v_9, imsi_v_10,
@@ -948,7 +948,7 @@
 			user_ip, user_email_receive_yn, user_sms_receive_yn, delete_yn, add_date,
 			modify_date,secret_yn, preview_img, file_count, content_summary,
 			category1, category2, category3, category4, category5, file_download_count, recommend_count,
-			recommend_email_receive_count, report_state, ebook_url,
+			report_state, ebook_url,
 			approval_count, contrary_count,
 			imsi_v_1 || '-' || case when length(imsi_v_2) = 1 then '0'||imsi_v_2 else imsi_v_2 end
 <!-- 			imsi_v_1 || ' ' || imsi_v_2 || ' (' ||to_char(to_date(imsi_v_1, 'YYYY-MM-DD'), 'dy') || ')' as  -->
@@ -1032,7 +1032,7 @@
 			manage_idx, board_idx, group_idx, parent_idx, group_depth,
 			notice_yn, notice_start_date, notice_end_date,
 			title, content, content_summary, delete_yn,
-			user_name, add_id, user_ip, add_date, secret_yn, ilus_user_seq, ilus_user_id,
+			user_name, add_id, user_ip, add_date, secret_yn,
 			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_password)">user_password,</if>
 			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_homepage)">user_homepage,</if>
 			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_phone)">user_phone,</if>
@@ -1079,7 +1079,7 @@
 			#{manage_idx}, #{board_idx}, #{group_idx}, #{parent_idx}, #{group_depth},
 			#{notice_yn}, #{notice_start_date}, #{notice_end_date},
 			#{title}, #{content}, #{content_summary}, 'N',
-			#{user_name}, #{add_id}, #{user_ip}, SYSDATE, #{secret_yn}, #{ilus_user_seq}, #{ilus_user_id},
+			#{user_name}, #{add_id}, #{user_ip}, SYSDATE, #{secret_yn},
 			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_password)">#{user_password},</if>
 			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_homepage)">#{user_homepage},</if>
 			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_phone)">#{user_phone},</if>
@@ -1192,7 +1192,7 @@
 			manage_idx = #{manage_idx} AND
 			board_idx = #{group_idx}
 	</update>
-	
+
 	<update id="modifyLostCardBoard">
 		UPDATE CMS_BOARD SET
 			<choose>
@@ -1204,7 +1204,7 @@
 				</otherwise>
 			</choose>
 		WHERE
-			manage_idx = #{manage_idx} 
+			manage_idx = #{manage_idx}
 		AND	board_idx = #{group_idx}
 	</update>
 
@@ -1216,22 +1216,26 @@
 	</update>
 
 	<update id="deleteBoard">
-		UPDATE CMS_BOARD SET
+		UPDATE
+			CMS_BOARD
+		SET
 			delete_yn = 'Y',
 			delete_id = #{delete_id},
 			delete_date = SYSDATE
 		WHERE
-			manage_idx = #{manage_idx} AND
-			board_idx = #{board_idx}
+			manage_idx = #{manage_idx}
+		AND	board_idx = #{board_idx}
 	</update>
 
 	<update id="recoveryBoard">
-		UPDATE CMS_BOARD SET
+		UPDATE
+			CMS_BOARD
+		SET
 			delete_yn = 'N',
 			delete_date = NULL
 		WHERE
-			manage_idx = #{manage_idx} AND
-			board_idx IN
+			manage_idx = #{manage_idx}
+		AND	board_idx IN
 			<foreach collection="boardIdxArray" item="i" open="(" close=")" separator=",">
 			#{i}
 			</foreach>
@@ -1288,23 +1292,30 @@
 	</select>
 
 	<update id="modifyPreviewImg">
-		UPDATE CMS_BOARD SET
-		preview_img =
-		(
-  			SELECT
-  				real_file_name
-  			FROM
-  			(
-  				SELECT
-  					real_file_name
-  				FROM
-  					CMS_BOARD_FILE
-  				WHERE
-  					board_idx = #{board_idx} AND
-  					lower(file_ext_name) IN ('.jpg', '.jpeg', '.gif', '.bmp', '.png')
-  				 ORDER BY file_idx
-  			) WHERE rownum = 1
-		) WHERE board_idx = #{board_idx}
+		UPDATE
+			CMS_BOARD
+		SET
+			preview_img =
+			(
+	  			SELECT
+	  				server_file_name
+	  			FROM
+		  			(
+		  				SELECT
+		  					server_file_name
+		  				FROM
+		  					CMS_BOARD_FILE
+		  				WHERE
+		  					board_idx = #{board_idx}
+		  				AND	LOWER(file_ext_name) IN ('.jpg', '.jpeg', '.gif', '.bmp', '.png')
+		  				ORDER BY
+		  					file_idx
+		  			)
+		  		WHERE
+		  			rownum = 1
+			)
+		WHERE
+			board_idx = #{board_idx}
 	</update>
 
 	<update id="updatePreviewImg">
@@ -1357,29 +1368,34 @@
 	</select>
 
 	<select id="checkPassword" resultType="int">
-		SELECT COUNT(*)
-		FROM CMS_BOARD
-		WHERE MANAGE_IDX = #{manage_idx} AND BOARD_IDX = #{board_idx} AND USER_PASSWORD = #{user_password}
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_BOARD
+		WHERE
+			manage_idx = #{manage_idx}
+		AND	board_idx = #{board_idx}
+		AND	user_password = #{user_password}
 	</select>
 
 	<!--영화상영 일별 통계 -->
 	<select id="getBoardStatus" resultType="kr.co.whalesoft.app.cms.module.calendarStatus.CalendarStatus">
-		SELECT DISTINCT(START_DATE), SUM(COUNT) AS IMSI_V1
+		SELECT DISTINCT(start_date), SUM(cnt) AS imsi_v1
 			FROM (
 				SELECT
-					(IMSI_V_1 || '-' || IMSI_V_2) AS START_DATE,
-					COUNT(*) OVER(PARTITION BY A.BOARD_IDX) AS COUNT
+					(imsi_v_1 || '-' || imsi_v_2) as start_date,
+					COUNT(*) OVER(PARTITION BY A.board_idx) AS cnt
 				FROM
 					CMS_BOARD A,
 					CMS_BOARD_MANAGE B
 				WHERE
-					A.MANAGE_IDX = B.MANAGE_IDX AND
-					A.DELETE_YN = 'N' AND
-					B.BOARD_TYPE = 'MOVIE' AND
-					B.HOMEPAGE_ID = #{homepage_id}
+					A.manage_idx = B.manage_idx
+				AND	A.delete_yn = 'N'
+				AND	B.board_type = 'MOVIE'
+				AND	B.homepage_id = #{homepage_id}
 			)
 		WHERE
-			START_DATE BETWEEN TO_DATE(#{start_date},'yyyy-mm-dd') AND TO_DATE(#{end_date}, 'yyyy-mm-dd')
+			start_date BETWEEN TO_DATE(#{start_date},'yyyy-mm-dd') AND TO_DATE(#{end_date}, 'yyyy-mm-dd')
 		GROUP BY ROLLUP(START_DATE)
 		ORDER BY START_DATE DESC
 	</select>
@@ -1456,7 +1472,7 @@
 			user_ip, user_email_receive_yn, user_sms_receive_yn, delete_yn, add_date,
 			modify_date,secret_yn, preview_img, file_count, content_summary,
 			category1, category2, category3, category4, category5, file_download_count, recommend_count,
-			recommend_email_receive_count, report_state, ebook_url,
+			report_state, ebook_url,
 			imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5,
 			imsi_v_6, imsi_v_7, imsi_v_8, imsi_v_9, imsi_v_10,
 			imsi_v_11,imsi_v_12,imsi_v_13,imsi_v_14,imsi_v_15,
@@ -1567,23 +1583,23 @@
 			${pagingBottom}
 		) CMS_BOARD_T
 	</select>
-	
+
 	<!-- 카운트 -->
 	<select id="checkLostCardBoard" resultType="int">
 		SELECT
       		COUNT(*)
       	FROM
      	 (
-     	  SELECT 
+     	  SELECT
         	REQUEST_STATE
-      	  FROM 
-        	CMS_BOARD 
+      	  FROM
+        	CMS_BOARD
       	  WHERE add_id = #{add_id}
       	  AND manage_idx = #{manage_idx}
       	  AND delete_yn = 'N'
      	  AND GROUP_DEPTH = 0
      	 )
-      	WHERE REQUEST_STATE = '0' 
+      	WHERE REQUEST_STATE = '0'
       	OR	REQUEST_STATE = '1'
 	</select>
 
@@ -1844,14 +1860,14 @@
 			add_date
 		]]>
     </select>
-    
+
    	<update id="addFileDownloadCount">
 		UPDATE CMS_BOARD SET
 			file_download_count = file_download_count + 1
 		WHERE
 			board_idx = #{board_idx}
 	</update>
-	
-	
+
+
 
 </mapper>

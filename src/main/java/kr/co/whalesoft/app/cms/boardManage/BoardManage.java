@@ -7,7 +7,7 @@ public class BoardManage extends BoardManageExt {
 	/*** 기본설정 ***/
 	private String homepage_id;
 	private int menu_idx;
-	private int manage_idx; //게시판idx 
+	private int manage_idx; //게시판idx
 	private String board_name; //게시판명
 	private String board_type; //게시판종류
 	private String board_skin; //게시판 SKIN
@@ -23,38 +23,43 @@ public class BoardManage extends BoardManageExt {
 	private String secret_use_yn = "N"; //비밀글 여부
 	private String request_code = "B0000"; //질의및 응답 처리 단계 코드 정의
 	private String anonymize_yn = "N"; //이름 블라인드 여부
-	
+
 	/*** 추가설정 ***/
 	private String add_html_use_yn = "N"; //HTML 추가 사용
 	private String add_only_yn = "N"; //글등록 전용(목록은 관리자만 가능)
 	private String top_html; //상단 추가 HTML
 	private String bottom_html; //하단 추가 HTML
 	private String content_html; // 본분 HTML
-	
+
 	/*** 사용자 설정값 이외 ***/
+	private String add_id;//등록ID
 	private Date add_date; //등록일
+	private String modify_id;//수정ID
 	private Date modify_date; //수정일
 	private String edit_type; //각 설정별 구분변수
-	
+	private String manager_name;//담당자명
+	private String manager_dept;//담당자부서
+	private String manager_phone;//담당자전화번호
+
 	/*** 권한설정 ***/
 	private String view_auth = "ANONYMOUS"; //글보기 권한
 	private String add_auth; //글등록 권한
 	private String edit_auth; //글수정 권한
 	private String delete_auth; //글삭제 권한
 	private String admin_auth; //관리자 권한
-	private String admin_id; //관리자 ID 
-	
+	private String admin_id; //관리자 ID
+
 	private boolean add_auth_check; //현재화면에서의 권한
 	private boolean edit_auth_check; //현재화면에서의 권한
 	private boolean delete_auth_check; //현재화면에서의 권한
 	private boolean admin_auth_check; //현재 게시판의 관리자 권한
-	
+
 	/*** 첨부파일설정 ***/
 	private String file_use_yn = "Y"; //첨부파일 사용
 	private int file_count = 3; //첨부파일 count제한
 	private int file_size_total = 10; //첨부파일 용량제한(MB)
 	private String file_ban_ext = "jsp|cgi|php|asp|aspx|exe|com|html|htm|cab|php3|pl|java|class|js|css"; //첨부파일 금지확장자
-	
+
 	/*** 카테고리설정 ***/
 	private String category_use_yn = "N";
 	private String category1;
@@ -62,14 +67,16 @@ public class BoardManage extends BoardManageExt {
 	private String category3;
 	private String category4;
 	private String category5;
-	
+
+
+
 	public BoardManage() {}
-	
+
 	public BoardManage(String homepage_id, int manage_idx) {
 		this.homepage_id = homepage_id;
 		this.manage_idx = manage_idx;
 	}
-	
+
 	public String getHomepage_id() {
 		return homepage_id;
 	}
@@ -94,7 +101,7 @@ public class BoardManage extends BoardManageExt {
 	public void setBoard_type(String board_type) {
 		this.board_type = board_type;
 	}
-	
+
 	public String getBoard_skin() {
 		return board_skin;
 	}
@@ -366,5 +373,55 @@ public class BoardManage extends BoardManageExt {
 	public void setAnonymize_yn(String anonymize_yn) {
 		this.anonymize_yn = anonymize_yn;
 	}
-	
+
+
+	public String getAdd_id() {
+		return add_id;
+	}
+
+
+	public void setAdd_id(String add_id) {
+		this.add_id = add_id;
+	}
+
+
+	public String getModify_id() {
+		return modify_id;
+	}
+
+
+	public void setModify_id(String modify_id) {
+		this.modify_id = modify_id;
+	}
+
+
+	public String getManager_name() {
+		return manager_name;
+	}
+
+
+	public void setManager_name(String manager_name) {
+		this.manager_name = manager_name;
+	}
+
+
+	public String getManager_dept() {
+		return manager_dept;
+	}
+
+
+	public void setManager_dept(String manager_dept) {
+		this.manager_dept = manager_dept;
+	}
+
+
+	public String getManager_phone() {
+		return manager_phone;
+	}
+
+
+	public void setManager_phone(String manager_phone) {
+		this.manager_phone = manager_phone;
+	}
+
 }

@@ -4,7 +4,7 @@
 
 	<select id="getBoardFile" resultType="kr.co.whalesoft.app.board.boardFile.BoardFile">
 		SELECT
-			board_idx, file_idx, real_file_name, file_name, file_ext_name,
+			board_idx, file_idx, server_file_name, org_file_name, file_ext_name,
 			file_size
 		FROM
 			CMS_BOARD_FILE
@@ -13,44 +13,47 @@
 		ORDER BY
 			add_date ASC
 	</select>
-	
+
 	<select id="getBoardFileOne" resultType="kr.co.whalesoft.app.board.boardFile.BoardFile">
 		SELECT
-			board_idx, file_idx, real_file_name, file_name, file_ext_name,
+			board_idx, file_idx, server_file_name, org_file_name, file_ext_name,
 			file_size
 		FROM
 			CMS_BOARD_FILE
 		WHERE
-			board_idx = #{board_idx} AND
-			file_idx = #{file_idx}
+			board_idx = #{board_idx}
+		AND	file_idx = #{file_idx}
 	</select>
-	
+
 	<insert id="addBoardFile">
 		<selectKey keyProperty="file_idx" resultType="int" order="BEFORE">
 			SELECT CMS_BOARD_FILE_IDX_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
 		INSERT INTO CMS_BOARD_FILE
 		(
-			board_idx, file_idx, real_file_name, file_name, file_ext_name,
-			file_size, add_date
+			board_idx, file_idx, server_file_name, org_file_name, file_ext_name,
+			file_size, add_date, add_id
 		) VALUES
 		(
-			#{board_idx}, #{file_idx}, #{real_file_name}, #{file_name}, #{file_ext_name},
-			#{file_size}, SYSDATE
+			#{board_idx}, #{file_idx}, #{server_file_name}, #{org_file_name}, #{file_ext_name},
+			#{file_size}, SYSDATE, #{add_id}
 		)
 	</insert>
-	
+
 	<update id="addBoardFileCount">
-		UPDATE CMS_BOARD_FILE SET
+		UPDATE
+			CMS_BOARD_FILE
+		SET
 			file_down_count = file_down_count + 1
 		WHERE
 			file_idx = #{file_idx}
 	</update>
-	
+
 	<delete id="deleteBoardFile">
-		DELETE FROM CMS_BOARD_FILE 
-		WHERE 
-			board_idx = #{board_idx} 
+		DELETE FROM
+			CMS_BOARD_FILE
+		WHERE
+			board_idx = #{board_idx}
 	</delete>
-	
+
 </mapper>

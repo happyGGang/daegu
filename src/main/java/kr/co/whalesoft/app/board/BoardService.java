@@ -222,7 +222,7 @@ public class BoardService extends BaseService {
 	public Board getNextBoardOne(Board board) {
 		return dao.getNextBoardOne(board);
 	}
-	
+
 	public int checkLostCardBoard(Board board) {
 		return dao.checkLostCardBoard(board);
 	}
@@ -252,16 +252,10 @@ public class BoardService extends BaseService {
 			board.setUser_password(CalculateHashUtils.calculateHash(board.getUser_password()));
 		}
 
-		if (member.getLoginType().equals("CMS")) {
-			board.setAdd_id(member.getMember_id());
+		if (member.isAnonymous()) {
+			board.setAdd_id("ANONYMOUS");
 		} else {
-			if (StringUtils.isNotEmpty(member.getWeb_id())) {
-				board.setAdd_id(member.getWeb_id());//일반이용자는 web_id로만 한다
-			} else {
-				board.setAdd_id(member.getMember_id());//web_id가 없는경우 대출자번호를 넣는다.
-			}
-			board.setIlus_user_id(member.getMember_id());//
-			board.setIlus_user_seq(member.getSeq_no());
+			board.setAdd_id(member.getMember_id());
 		}
 
 		if (StringUtils.isEmpty(board.getUser_name())) {
@@ -315,14 +309,10 @@ public class BoardService extends BaseService {
 //		board.setContent(xssFilter.doFilter(board.getContent()));
 		board.setContent_summary(StrUtil.previewContent(StrUtil.delHtmlTagPatterns(board.getContent()),1000));
 
-		if (member.getLoginType().equals("CMS")) {
-			board.setModify_id(member.getMember_id());
+		if (member.isAnonymous()) {
+			board.setAdd_id("ANONYMOUS");
 		} else {
-			if (StringUtils.isNotEmpty(member.getWeb_id())) {
-				board.setModify_id(member.getWeb_id());//일반이용자는 web_id로만 한다
-			} else {
-				board.setModify_id(member.getMember_id());//web_id가 없는경우 대출자번호를 넣는다.
-			}
+			board.setAdd_id(member.getMember_id());
 		}
 
 		String filterCheck = null;
@@ -339,7 +329,7 @@ public class BoardService extends BaseService {
 		if(boardManage.getBoard_type().equals("LOSTCARD")) {
 			dao.modifyLostCardBoard(board);
 		}
-		
+
 		if(dao.modifyBoard(board) > 0) {
 			boardFileService.deleteBoardFile(board.getBoard_idx());
 
@@ -460,12 +450,12 @@ public class BoardService extends BaseService {
 							BoardFile boardFile = new BoardFile();
 
 							if (copyArchFile(beforePath, fileName, afterPath, boardFile)) {
-								FileUtil.thumbImgMake(afterPath, boardFile.getReal_file_name(), boardFile.getFile_ext_name(), 236, 163);
+								FileUtil.thumbImgMake(afterPath, boardFile.getServer_file_name(), boardFile.getFile_ext_name(), 236, 163);
 
 								boardFile.setBoard_idx(board.getBoard_idx());
 								boardFileDao.addBoardFile(boardFile);
 								if (board.getBoard_mode().equals("GALLERY")) {
-									dao.updatePreviewImg(boardFile.getBoard_idx(), boardFile.getReal_file_name());
+									dao.updatePreviewImg(boardFile.getBoard_idx(), boardFile.getServer_file_name());
 								}
 							} else {
 								result += board.getBoard_table() + "[board_idx : " + board.getBoard_idx() + "/beforeIdx : " + board.getB_num() +"/file : " + fileName + "] 파일 없음 !!<br/>";
@@ -530,8 +520,8 @@ public class BoardService extends BaseService {
 			return false;
 		}
 
-		boardFile.setFile_name(beforeFileName);
-		boardFile.setReal_file_name(fileName);
+		boardFile.setOrg_file_name(beforeFileName);
+		boardFile.setServer_file_name(fileName);
 		boardFile.setFile_ext_name(fileExt);
 		boardFile.setFile_size((int) afterFile.length());
 
@@ -590,53 +580,53 @@ public class BoardService extends BaseService {
 	}
 
 	private String webFilterCheck(String memberName, Board board, HttpServletRequest request) throws Exception {
-		Homepage homepage = (Homepage)request.getAttribute("homepage");
-		/*
-		 * WFMultiPartPost(웹서버도메인, 웹필터서버아이피, 웹필터서버포트)
-		 */
-		WFMultiPartPost wfsend = new WFMultiPartPost(homepage.getDomainWithoutProtocol(), "117.111.136.240", 80);
-//		WFMultiPartPost wfsend = new WFMultiPartPost("localhost", "183.107.177.73", 80);
-
-		/*
-		 * WFMultiPartPost.sendWebFilter(작성자, 제목, 내용, 첨부파일경로)   - 첨부파일이 여러개 존재 시 , 로 구분하여 전송
-		 * 웹필터서버 응답  : 	Y = 차단		 N = 등록			B = 바이패스
-		 */
-
-//		for (String fileName : board.getBoardFileArray()) {
+//		Homepage homepage = (Homepage)request.getAttribute("homepage");
+//		/*
+//		 * WFMultiPartPost(웹서버도메인, 웹필터서버아이피, 웹필터서버포트)
+//		 */
+//		WFMultiPartPost wfsend = new WFMultiPartPost(homepage.getDomainWithoutProtocol(), "117.111.136.240", 80);
+////		WFMultiPartPost wfsend = new WFMultiPartPost("localhost", "183.107.177.73", 80);
+//
+//		/*
+//		 * WFMultiPartPost.sendWebFilter(작성자, 제목, 내용, 첨부파일경로)   - 첨부파일이 여러개 존재 시 , 로 구분하여 전송
+//		 * 웹필터서버 응답  : 	Y = 차단		 N = 등록			B = 바이패스
+//		 */
+//
+////		for (String fileName : board.getBoardFileArray()) {
+////		}
+//		String fileList = "";
+//		for (String fileNameArry : board.getBoardFileArray()) {
+//			String fileName = fileNameArry.split("//")[1];
+//			String filePath = "";
+//			if (board.getEditMode().equals("MODIFY")) {
+//				filePath = boardFileService.getFilePath() + "/" + board.getManage_idx() + "/" + board.getBoard_idx() + "/";
+//			} else {
+//				filePath = boardTempStorage.getRootPath() + "/" + request.getSession().getId() + "/";
+//			}
+//
+//			if (fileList.equals("")) {
+//				fileList += filePath+fileName;
+//			} else {
+//				fileList += "," + filePath+fileName;
+//			}
 //		}
-		String fileList = "";
-		for (String fileNameArry : board.getBoardFileArray()) {
-			String fileName = fileNameArry.split("//")[1];
-			String filePath = "";
-			if (board.getEditMode().equals("MODIFY")) {
-				filePath = boardFileService.getFilePath() + "/" + board.getManage_idx() + "/" + board.getBoard_idx() + "/";
-			} else {
-				filePath = boardTempStorage.getRootPath() + "/" + request.getSession().getId() + "/";
-			}
-
-			if (fileList.equals("")) {
-				fileList += filePath+fileName;
-			} else {
-				fileList += "," + filePath+fileName;
-			}
-		}
-
-		String wfResponse = wfsend.sendWebFilter(memberName, board.getTitle(), board.getContent(), fileList);
-//		String wfResponse = wfsend.sendWebFilter(memberName, board.getTitle(), board.getContent(), "/data/homepage/data/board/229/80089/1487227701749.txt");
-//	String wfResponse = wfsend.sendWebFilter("홍길동", "제목테스트 101111-1111111", "내용테스트 101111-1111111", "D:/101010.PNG");
-		if(wfResponse.equals("Y")){
-			// 차단내용 팝업창 URL 출력
-//			res.setValid(true);
-//			res.setUrl(wfsend.getDenyURL());
-//			res.setTargetOpener(true);
-			return wfsend.getDenyURL();
-		} else if(wfResponse.equals("N")){
-
-			return null;
-		} else if(wfResponse.equals("B")){
-
-			return null;
-		}
+//
+//		String wfResponse = wfsend.sendWebFilter(memberName, board.getTitle(), board.getContent(), fileList);
+////		String wfResponse = wfsend.sendWebFilter(memberName, board.getTitle(), board.getContent(), "/data/homepage/data/board/229/80089/1487227701749.txt");
+////	String wfResponse = wfsend.sendWebFilter("홍길동", "제목테스트 101111-1111111", "내용테스트 101111-1111111", "D:/101010.PNG");
+//		if(wfResponse.equals("Y")){
+//			// 차단내용 팝업창 URL 출력
+////			res.setValid(true);
+////			res.setUrl(wfsend.getDenyURL());
+////			res.setTargetOpener(true);
+//			return wfsend.getDenyURL();
+//		} else if(wfResponse.equals("N")){
+//
+//			return null;
+//		} else if(wfResponse.equals("B")){
+//
+//			return null;
+//		}
 		return null;
 	}
 
@@ -654,7 +644,7 @@ public class BoardService extends BaseService {
 		for (String idx : board.getBoardIdxArray()) {
 			List<BoardFile> boardFiles = boardFileService.getBoardFile(Integer.parseInt(idx));
 			for (BoardFile boardFile : boardFiles) {
-				String fileName = boardFile.getFile_name();
+				String fileName = boardFile.getOrg_file_name();
 				String filePath = board.getManage_idx() + "/" + boardFile.getBoard_idx() + "/";
 				boardStorage.deleteFile(fileName, filePath);
 			}
@@ -701,7 +691,7 @@ public class BoardService extends BaseService {
 	public List<Board> getBoardRelayExcel(Board board) {
 		return dao.getBoardRelayExcel(board);
 	}
-	
+
 	public int addFileDownloadCount(BoardFile boardFile) {
 		return dao.addFileDownloadCount(boardFile);
 	}

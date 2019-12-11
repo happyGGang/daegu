@@ -12,7 +12,7 @@ function fileQueued(file) {
 	file.id = 'file_'+updateNum;
 	updateNum++;
 	fileList.push( file );
-	
+
 	showFileList();
 }
 
@@ -40,19 +40,19 @@ function uploadSuccess(file, serverData) {
 		아래 부분에서는 해당 file 객체에 saveFileName( 서버에 저장된 파일명 ),
 	*/
 	var progressMessage = '';
-		
-	var realFileName = serverData.real_file_name;
-	var fileName = serverData.file_name;
+
+	var realFileName = serverData.server_file_name;
+	var fileName = serverData.org_file_name;
 	var filePath = serverData.file_url;
 	var valid = serverData.valid;
 	var msg = serverData.msg;
 	var size = serverData.file_size;
-	
+
 	// 실제 서버에 저장되는 파일명을 저장한다.
 	file.saveFileName = realFileName;
 	file.path = filePath;
 	file.size = size;
-	
+
 	// 파일 상태값 입력 : -4(완료)
 	if(fileNum > 0) {	// fileNum 이 0보다 크다면 수정모드에서 값이 변경되었으므로 file.index 값을 수정한다.
 		file.index = fileNum++;
@@ -61,21 +61,21 @@ function uploadSuccess(file, serverData) {
 		file.status = -4;
 		var fileName = file.name.toLowerCase();
 		file.ext = fileName.substring(fileName.lastIndexOf("."));
-		
+
 		var commaIndex = -1;
-		
+
 		var fileNameNew = file.name;
-		
+
 		if(file.name != '' && file.name != undefined) {
 			commaIndex = file.name.indexOf(',');
 			if(commaIndex > -1) {
 				fileNameNew = file.name.replace(/,/g,';;');
 			}
 		}
-		
+
 		file.makeValue = fileNameNew+'//'+file.saveFileName+'//'+file.size+'//'+file.ext+'//'+file.index+'//new';
 		progressMessage = '완료';
-		
+
 	} else {
 		//var error = json[ 'error' ];
 		var error = msg;
@@ -124,7 +124,7 @@ function showFileList() {
 	var selectObj = fileListAreaID;
 
 	var length = selectObj.childNodes.length - 1;
-	
+
 	while(selectObj.childNodes.length > 0) {
 		selectObj.removeChild(selectObj.childNodes[length--]);
 	}
@@ -252,11 +252,11 @@ function preview() {
 
 function previewUpload() {
 	var selectObj = fileListAreaID;
-	
+
 	if( selectObj.length > 0 ) {
 		var fileId = selectObj.options[selectObj.length-1].value;
 		var splitValue = fileId.split('//');
-		
+
 		try {
 			// 업로드가 완료되었을때만 프리뷰 사용가능
 			if( fileList[splitValue[4]].status == -4 ) {
@@ -275,11 +275,11 @@ function previewUpload() {
 function fileView(file) {
 	var previewObj = previewAreaID;
 	var defaultMessage = '<img width="88" height="78" src="" />';
-	
+
 	// 프리뷰 시킬 데이터가 있다면 확장자를 검사한다.
 	if( file ) {
 		var previewPath = defaultPath+file.path+encodeURI(file.saveFileName);
-		
+
 		//console.log(previewPath);
 		// 이미지 파일 처리
 		if( file.ext.toLowerCase() == ".jpg" ||
@@ -322,8 +322,8 @@ function deleteFiles(manage_idx, board_idx, mode) {
 			if(selectObj.options[i].selected==true) {
 				var splitValue = selectObj.options[i].value.split('//');
 				//if (splitValue[5] == 'new') {
-					var pars = 'file_name='+splitValue[1]+'&file_list_seq='+splitValue[4]+'&mode='+mode+'&board_idx='+board_idx+'&manage_idx='+manage_idx;
-					
+					var pars = 'server_file_name='+splitValue[1]+'&file_list_seq='+splitValue[4]+'&mode='+mode+'&board_idx='+board_idx+'&manage_idx='+manage_idx;
+
 					$.ajax({
 				        type: "POST",
 				        url: '/board/boardFile/deleteFile.do',
@@ -332,7 +332,7 @@ function deleteFiles(manage_idx, board_idx, mode) {
 				        success: function(response){
 				            if(response.valid) {
 				            	var fileListSeq = response.data;
-				            	
+
 				            	fileList[parseInt(fileListSeq)].status = -5; // 취소 처리
 				            	var splitValue = fileList[parseInt(fileListSeq)].makeValue.split('//');
 				            	var previewObj = previewAreaID;

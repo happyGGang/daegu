@@ -72,7 +72,7 @@ public class BoardAllSearchWorkbook {
   				StringBuilder sb = new StringBuilder();
   				for(int k=0; k < ap.getBoardFileList().size(); k++) {
   					BoardFile file = ap.getBoardFileList().get(k);
-  					sb.append(file.getFile_name() + "\r\n");
+  					sb.append(file.getOrg_file_name() + "\r\n");
   				}
   				sheet.addCell(new Label(i++, j+1, sb.toString()));
   			}

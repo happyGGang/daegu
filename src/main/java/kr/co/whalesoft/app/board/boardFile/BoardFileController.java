@@ -35,7 +35,7 @@ public class BoardFileController extends BaseController {
 
 	@Autowired
 	private BoardFileService service;
-	
+
 	/**
 	 * Request 요청이 익스플로어에서 컨텐츠 타입이 flash로 들어와 json 으로 맵핑이 되지 않아서 @ResponseBody 사용 안함
 	 * @param mpRequest
@@ -46,36 +46,36 @@ public class BoardFileController extends BaseController {
 	@RequestMapping(value="/upload.*", method = RequestMethod.POST)
 	public void upload(MultipartHttpServletRequest mpRequest, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		response.setContentType("application/x-json;  charset=UTF-8");
-		
+
 		MultipartFile mfile = mpRequest.getFileMap().get("multiFile");
-		
+
 		BoardFile boardFile = service.upload(mfile, request);
-		
+
 		PrintWriter out = response.getWriter();
-		
+
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String jsonOutput = gson.toJson(boardFile);
-		
+
 		out.println(jsonOutput);
 		out.flush();
 		out.close();
 	}
-	
+
 	@RequestMapping(value = "/download/{manage_idx}/{board_idx}/{file_idx}.*", method = RequestMethod.GET)
 	@ResponseBody
     public ResponseEntity<byte[]> getFile(@PathVariable("manage_idx") int manage_idx, @PathVariable("board_idx") int board_idx, @PathVariable("file_idx") int file_idx, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		BoardFile boardFile = service.getBoardFileOne(new BoardFile(board_idx, file_idx));
-		
+
 		HttpHeaders responseHeaders = new HttpHeaders();
-		
+
 		if (boardFile == null) {
 			responseHeaders.setContentType(MediaType.valueOf("text/html"));
 			service.alertMessage("파일이 존재하지 않습니다.", request, response);
 			return null;
 		}
-		String filePath = service.getFilePath() + "/" + manage_idx + "/" + board_idx + "/" + boardFile.getReal_file_name();
+		String filePath = service.getFilePath() + "/" + manage_idx + "/" + board_idx + "/" + boardFile.getServer_file_name();
 		File file = new File(filePath);
-		
+
 		byte[] bytes = null;
 
 		if(file.length() > 0) {
@@ -87,11 +87,11 @@ public class BoardFileController extends BaseController {
 		}
 
 		service.addBoardFileCount(boardFile);
-		
-		String fileName = boardFile.getFile_name().substring(0,boardFile.getFile_name().lastIndexOf("."));
-		String fileType = boardFile.getFile_name().substring(boardFile.getFile_name().lastIndexOf(".")+1).toUpperCase();
+
+		String fileName = boardFile.getOrg_file_name().substring(0,boardFile.getOrg_file_name().lastIndexOf("."));
+		String fileType = boardFile.getOrg_file_name().substring(boardFile.getOrg_file_name().lastIndexOf(".")+1).toUpperCase();
 		String fullFilename = fileName+"."+fileType;
-		
+
 		//responseHeaders.set("charset", "utf-8");
 		responseHeaders.set("Content-Disposition", AttachmentUtils.getContentDisposition(fullFilename, request.getHeader("user-agent")));
 		responseHeaders.setPragma("no-cache;");
@@ -102,7 +102,7 @@ public class BoardFileController extends BaseController {
 
 	    return new ResponseEntity<byte[]>(bytes, responseHeaders, HttpStatus.OK);
     }
-	
+
 	@RequestMapping(value = { "/deleteFile.*" }, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse deleteFile(BoardFile boardFile, BindingResult result, HttpServletRequest request) throws IOException {
 
@@ -112,7 +112,7 @@ public class BoardFileController extends BaseController {
 		/* <<<<< 유효성 검증 */
 		if (!result.hasErrors()) {
 			service.deleteFile(boardFile, request);
-			
+
 			res.setValid(true);
 			res.setData(boardFile.getFile_list_seq());
 		} else {
