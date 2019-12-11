@@ -1840,27 +1840,6 @@
 		request_state
     </select>
 
-    <select id="getBoardRelayExcel" resultType="kr.co.whalesoft.app.board.Board">
-    	<![CDATA[
-    	SELECT
-			title,
-			REGEXP_REPLACE(content, '<[^>]*>|\&([^;])*;', '') AS content,
-			user_name,
-			getcodeidtocodename('h2', 'B0004', category1) AS category1,
-			getcodeidtocodename('h2', 'B0005', category2) AS category2,
-			getcodeidtocodename('h2', 'B0006',category3) AS category3,
-			TO_CHAR(add_date, 'YYYY-MM-DD') AS imsi_v_2
-		FROM
-			CMS_BOARD
-		WHERE
-			manage_idx = 149
-		AND	TO_CHAR(add_date, 'YYYY') = #{imsi_v_1}
-		AND	delete_yn = 'N'
-		ORDER BY
-			add_date
-		]]>
-    </select>
-
    	<update id="addFileDownloadCount">
 		UPDATE CMS_BOARD SET
 			file_download_count = file_download_count + 1

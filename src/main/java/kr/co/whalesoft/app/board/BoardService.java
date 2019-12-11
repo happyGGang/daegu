@@ -683,15 +683,6 @@ public class BoardService extends BaseService {
 		return dao.getRequestBoardStateCount(board);
 	}
 
-	/**
-	 * 구미-독서릴레이 게시판 엑셀다운로드
-	 * @param board
-	 * @return
-	 */
-	public List<Board> getBoardRelayExcel(Board board) {
-		return dao.getBoardRelayExcel(board);
-	}
-
 	public int addFileDownloadCount(BoardFile boardFile) {
 		return dao.addFileDownloadCount(boardFile);
 	}

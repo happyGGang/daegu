@@ -375,7 +375,7 @@ public class BoardController extends BaseController {
 			model.addAttribute("getToday", new Date());
 
 		}
-		
+
 		boardFileService.initBoardFile(board, request);
 
 		return basePath + "edit";
@@ -478,14 +478,6 @@ public class BoardController extends BaseController {
 		board.setCategory3Manage(boardManage.getCategory3());
 		board.setCategory4Manage(boardManage.getCategory4());
 		board.setCategory5Manage(boardManage.getCategory5());
-
-		if (boardManage.getBoard_type().equals("RELAY")) {
-			if (getSessionMemberInfo(request).isAnonymous()) {
-				service.alertMessage("비회원은 열람하실 수 없습니다..", request, response);
-				return null;
-			}
-		}
-
 
 		Board boardData = null;
 		if (boardManage.getBoard_type().equals("MOVIE")) {
@@ -1044,24 +1036,5 @@ public class BoardController extends BaseController {
 		return res;
 	}
 
-	/**
-	 * 구미-독서릴레이 게시판 엑셀다운로드
-	 * @param model
-	 * @param board
-	 * @param request
-	 * @param response
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping(value = { "/relayExcelDownload.*" }, method = RequestMethod.GET)
-	public RelayExcelView relayExcelDownload(Model model, Board board, HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-		board.setImsi_v_1(request.getParameter("excelYear"));
-
-		model.addAttribute("board", board);
-		model.addAttribute("boardList", service.getBoardRelayExcel(board));
-
-		return new RelayExcelView();
-	}
 
 }
