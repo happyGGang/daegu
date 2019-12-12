@@ -103,7 +103,7 @@ $(function() {
 				<c:otherwise>
 				<li class="login"><a href="/intro/${homepage.context_path}/login/index.do">로그인</a></li>
 				<li class="join"><a href="/intro/${homepage.context_path}/join/index.do">신규회원가입</a></li>
-				<li class="integration"><a href="/intro/${homepage.context_path}/join/integration.do">통합인증센터</a></li>
+				<!-- <li class="integration"><a href="/intro/${homepage.context_path}/join/integration.do">통합인증센터</a></li> -->
 				</c:otherwise>
 				</c:choose>
 			</ul>

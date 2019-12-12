@@ -7,6 +7,7 @@ $(document).ready(function(){
 		}
 	});
 
+/*
 	$('.nav ul').bxSlider({
 		auto:false,
 		autoControls:true,
@@ -25,4 +26,5 @@ $(document).ready(function(){
 	        {screen:1000, slides:6}
 	    ]
 	});
+*/
 });

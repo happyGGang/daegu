@@ -2,15 +2,16 @@
 
 body{font-size:16px;position:relative;height:100%;color:#000;-webkit-text-size-adjust:none}
 html{height:100%}
-.end {clear:both}
-
+#wrap{min-height:100%;_height:100%}
 #wrap.k-index{margin-bottom:-60px;}
-#wrap.subpage{background:#fff}
-#wrap.subpage #bodyWrap{padding-bottom:20px;}
-#wrap.subpage #footer{height:60px;text-align:center;font-style:normal;padding:100px 0}
+.end {clear:both}
 
 .nav{text-align:center}
 .nav li{display:inline-block;zoom:1;*display:inline}
+
+#wrap.subpage{background:#fff}
+#wrap.subpage #bodyWrap{padding-bottom:20px;}
+#wrap.subpage #footer{height:60px;text-align:center;font-style:normal;padding:100px 0}
 
 .k-index {background:url('/resources/common/img/background_image.jpg') repeat center center;background-size:cover;color:#fff;text-align:center;}
 
@@ -107,7 +108,7 @@ html{height:100%}
 }
 
 @media all and (max-width:767px){
-	.rsv-info {line-height:1.4; margin: 105px 0 0px 0;}
+	.rsv-info {line-height:1.4; margin: 110px 0 0px 0;}
 	.rsv-info br {display:block;}
 	.rsv-info p{margin-bottom:10px;}
 	.rsv-info p.ico:before {left:10px;}
@@ -115,7 +116,7 @@ html{height:100%}
 }
 
 @media all and (max-width:449px){
-	.rsv-info {line-height:1.4; margin: 105px 0 0px 0;}
+	.rsv-info {line-height:1.4; margin: 110px 0 0px 0;}
 	.rsv-info br {display:block;}
 	.rsv-info p{margin-bottom:10px;}
 	.rsv-info p.ico:before, .rsv-info p.ico:after {position:absolute}
@@ -192,8 +193,8 @@ html{height:100%}
 	.mobileViewimg {display:inline-block}
 }
 
-@media all and (max-width:1239px) {		
-	.layout {display:block;position:relative;width:100%;margin:0 auto;/* border-top:1px solid #dedede; */}
+@media all and (max-width:1239px) {
+	.layout {display:block;position:relative;width:100%;margin:0 auto;}
 }
 
 @media all and (max-width:1024px){
@@ -201,7 +202,7 @@ html{height:100%}
 	.wbt {display:none;}
 
 	.k-index {background:none;margin:0}
-	.k-index #header {position:relative;background:url('../../img/background_image.jpg') repeat center center;background-size:cover;padding:0;height:380px}
+	.k-index #header {position:relative;background:url('../../img/background_image.jpg') repeat center center;background-size:cover;padding:0;height:280px}
 	.k-index #header span.main_logo {/* display:block; *//* width:100%; *//* text-align: center; */padding: 10px;}
 	.k-index #header span.symbol01, .k-index #header span.symbol02 {position:absolute;}
 	.k-index #header span.symbol01 {left:0;bottom:20px}
@@ -271,7 +272,7 @@ html{height:100%}
 @media all and (max-width:490px){
 	.k-index #header span.symbol01, .k-index #header span.symbol02 {width: 150px;transition:all .3s ease;}
 	.k-index #header span.main_logo {width: 120px;transition:all .3s ease;}
-	.k-index #header {height:300px}
+	.k-index #header {height:260px}
 	.k-index #footer {font-size:12px;}
 	.siteLink li a {font-size: 13px;}
 }
@@ -279,11 +280,10 @@ html{height:100%}
 @media all and (max-width:450px){
 	#footer{font-size:80%}
 	.siteLink li a {font-size:13px}
-	#contents-title h2{font-size:30px;}
+	#contents-title h2{font-size:25px;}
 }
 
 @media all and (max-width:390px){
-	.k-index #header {height:330px}
 	.k-index #footer {font-size:11px;}
 	.siteLink li a {font-size: 12px;}
 }
@@ -295,5 +295,7 @@ html{height:100%}
 	.nav li {width: 33%;}
 	.subpage #header h1 .box {/* top:35px; */}
 	.siteLink li a {font-size:12px}
-	#contents-title h2{font-size:24px;}
+	#contents-title h2{font-size:21px;}
+
+	.rsv-info {line-height:1.4; margin: 100px 0 0px 0;}
 }

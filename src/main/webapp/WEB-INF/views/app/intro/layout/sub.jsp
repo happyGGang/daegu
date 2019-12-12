@@ -3,15 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="header.jsp"%>
 
-<script type="text/javascript">
-$(function() {
-
-	$('img#symbol').error(function() {
-		$(this).remove();
-	});
-
-});
-</script>
 <div id="wrap" class="subpage">
 	<div id="bodyWrap">
 
