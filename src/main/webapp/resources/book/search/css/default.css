@@ -52,15 +52,16 @@
 
 
 /********************검색박스_상세검색********************/
-.search-form .detail_search {padding:30px 20px;border:1px solid #ccc;border-top:2px solid #000;}
+.search-form .detail_search {padding:30px 20px;border:1px solid #ccc;border-top:3px solid #000;}
 .search-form .detail_search .section{width:100%;display:inline-block;overflow:hidden;}
-.search-form .detail_search .section dl{position:relative;display:inline-block;float:left;width:46%;height:38px;margin:0 1.5% 10px 1.5%;}
+.search-form .detail_search .section dl {position:relative;display:inline-block;float:left;width:46%;height:38px;margin:0 1.5% 10px 1.5%;}
+.search-form .detail_search .section dl.bold-box {width:95%;}
 .search-form .detail_search .section dl dt{float:left;width:70px;color:#000;font-weight:bold;height:32px;line-height:32px;}
 .search-form .detail_search .section dl dd{position:relative;margin-left:80px;}
 .search-form .detail_search .section dl dd label.title {position:absolute;top:8px;left:10px;color:#666;cursor:text;}
 .search-form .detail_search .section dl dd input.text-area{display:block;width:96%;height:38px;line-height:38px;padding:0 2%;color:#333;font-size:18px;border:1px solid #bfbfbf;cursor:text;}
 .search-form .detail_search .section dl dd input.text-area2{display:block;height:38px;line-height:38px;padding:0 2%;color:#333;font-size:18px;border:1px solid #bfbfbf;cursor:text;}
-.search-form .detail_search .section dl dd select {background:url('/resources/common/img/arrow_b.png') no-repeat 95% 50%;height:40px;line-height:40px;font-size:18px;border:1px solid #bfbfbf;padding-left:10px;box-sizing:border-box;}
+.search-form .detail_search .section dl dd select {height:40px;line-height:40px;font-size:18px;border:1px solid #bfbfbf;padding-left:10px;box-sizing:border-box;}
 .search-form .detail_search .section dl dd select::-ms-expand {display:none;}
 .search-form .detail_search .section .box{position:relative;width:100%;display:inline-block;}
 .search-form .detail_search .section .box input,
@@ -72,7 +73,7 @@
 .search-form .detail_search .comm_sel{width:100% !important;display:block;}
 .search-form .detail_search .comm_sel .jq_sel,
 .search-form .detail_search .comm_sel .jq_sel ul{width:100% !important;}
-.search-form .detail_search .btn_w{width:100%;text-align:center;border-top:1px dashed #ccc;padding-top:25px;margin-top:20px;padding-bottom:0;}
+.search-form .detail_search .btn_w{width:100%;text-align:center;border-top:1px dashed #ccc;padding-top:25px;padding-bottom:25px;margin-top:20px;}
 .search-form .detail_search .btn_w a.btn {font-size:13px;letter-spacing:-1px}
 .search-form .detail_search .section select {height:34px;width:100%;}
 .search-form .detail_search .section select#sortField, .search-form .detail_search .section select#sortType {width:49%}
@@ -95,6 +96,7 @@
 
 	/********************검색박스_상세검색********************/
 	.search-form .detail_search .section dl{float:none;width:100%;margin:0 0 10px 0;}
+	.search-form .detail_search .section dl.bold-box {float:none;width:100%;margin:0 0 10px 0;}
 	.search-form .detail_search .comm_sel{width:100% !important;display:block;}
 	.search-form .detail_search .comm_sel .jq_sel,
 	.search-form .detail_search .comm_sel .jq_sel ul{width:100% !important;}
@@ -245,7 +247,7 @@ a.btnNew3 img {vertical-align:middle}
 input.btnNew {border:0;padding:9px 3%;background:#000;color:#fff;vertical-align:middle}
 
 .DepthBtn {overflow:hidden;width:100%;margin-bottom:50px;}
-a.bBtn {width:49.8%;float:left;text-align:center;padding:18px 0;border:1px solid #fff;background:#3c8cef;color:#fff;font-size:18px}
+a.bBtn {width:49.8%;display:inline-block;float:left;text-align:center;padding:18px 0;border:1px solid #fff;background:#3c8cef;color:#fff;font-size:18px}
 a.bBtn:hover {background:#0961ce}
 .warningTxt {padding:10px 0;font-size:18px}
 .hopeWarning {border:1px solid #adb5c0;border-radius:5px;box-sizing:border-box;padding:20px;font-size:15px}
@@ -254,18 +256,12 @@ a.bBtn:hover {background:#0961ce}
 .sview h4{font-size:130%;font-weight:bold;padding:10px 0}
 .sview .sinfo{margin:15px 0;background:#fffef9;overflow:hidden;padding: 25px 40px;border: 1.5px solid #f6f7e5;}
 
-@media all and (max-width:1000px){
-	.sview .sinfo{padding-left:5%;padding-right:5%}
-}
-@media all and (max-width:767px){
-	.sview .sinfo{padding-left:3%;padding-right:3%}
-}
 .sview .sinfo .thumb img{border:1px solid #d5d5d5}
 .sview .sinfo .thumb{float:left;width:20%;font-size:0;line-height:0}
 .sview .sinfo .info{float:left;width:100%;margin-right: -20%;}
 .sview .sinfo .info ul{margin: -1% 20% 1% 4%;}
 .sview .sinfo .info ul li{padding: 5px 0px;line-height:110%;}
-.sview b.title{font-size:135%;font-weight:800;line-height: 160%;}
+.sview b.title {font-size:135%;font-weight:800;line-height: 160%;}
 .sview .sinfo .info ul li.ibtn{border:0;text-align:right;padding:15px 0 0}
 .sview .sinfo .info ul li.ibtn a i{margin:0 0 0 5px}
 
@@ -274,6 +270,24 @@ a.bBtn:hover {background:#0961ce}
 .sview .sbtn .btn i{font-size:130%}
 .sview .sbtn .btn1{background:#fe6d02;border-color:#fe6d02}
 .sview .sbtn .btn2{background:#666;border-color:#666}
+
+.bookDetailInfo .bookDetailInfoTbl {}
+
+@media all and (max-width:1040px){
+	a.bBtn {width:49.3%;float:none;}
+}
+@media all and (max-width:1000px){
+	.sview .sinfo{padding-left:5%;padding-right:5%}
+}
+@media all and (max-width:767px){
+	.sview .sinfo{padding-left:3%;padding-right:3%}
+	a.bBtn {width:49%;float:none;}
+}
+@media all and (max-width:540px){
+	.sview .sinfo .info ul li{font-size:13px}
+	.bookDetailInfo .bookDetailInfoTbl {font-size:13px}
+	a.bBtn {width:100%;float:none;}
+}
 
 /* 소장자료_2018.07.16 추가 */
 span.middot {background: url(/resources/common/img/doc-arr2.gif) no-repeat 0 10px; padding: 3px 0 4px; padding-left: 13px;}
@@ -353,9 +367,13 @@ textarea.textArea {width: 100%;height: 200px;border-top: 1px solid;}
 	.search-wrap .search-results .row .item .bif a, .search-wrap .search-results .row .item .bif a span {font-size:16px;}
 	.search-wrap .search-results .row .item .bif p {font-size:13px;}
 	.search-wrap .search-results .row .bci {font-size:13px;}
+
+	#search_detail .table_gray th, #search_detail .table_gray td {font-size:13px}
+	.bbs-result {font-size:14px;}
 }
 
 	
 @media all and (max-width:450px){
-
+	#search_detail .table_gray th, #search_detail .table_gray td {font-size:12px}
+	.bbs-result {font-size:13px;}
 }

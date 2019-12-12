@@ -12,7 +12,7 @@ html{height:100%}
 .nav{text-align:center}
 .nav li{display:inline-block;zoom:1;*display:inline}
 
-.k-index {background:url('../../img/background_image.jpg') repeat center center;background-size:cover;color:#fff;text-align:center;}
+.k-index {background:url('/resources/common/img/background_image.jpg') repeat center center;background-size:cover;color:#fff;text-align:center;}
 
 .k-index .web_section {width:1496px;margin:0 auto;}
 .k-index #header {/* position:relative; */width:100%;padding:100px 0 0 0;}
@@ -257,6 +257,9 @@ html{height:100%}
 	.subpage #header h1 .box img {/* width:100% */}
 	.subpage #header .tnb .box span.txtBox1, .subpage #header .tnb .box span.txtBox2, .subpage #header .tnb .box span.txtBox3 {padding:0 3px;}
 	#footer{font-size:90%}
+
+	#contents-title {margin:45px 0 20px 0}
+	#contents-title h2{font-size:38px;}
 }
 
 @media all and (max-width:690px){
@@ -276,6 +279,7 @@ html{height:100%}
 @media all and (max-width:450px){
 	#footer{font-size:80%}
 	.siteLink li a {font-size:13px}
+	#contents-title h2{font-size:30px;}
 }
 
 @media all and (max-width:390px){
@@ -291,4 +295,5 @@ html{height:100%}
 	.nav li {width: 33%;}
 	.subpage #header h1 .box {/* top:35px; */}
 	.siteLink li a {font-size:12px}
+	#contents-title h2{font-size:24px;}
 }

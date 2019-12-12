@@ -140,16 +140,8 @@ $(function() {
 			<!-- 검색하기_일반 -->
 			<div class="searchbox detail_search" id="div_detail">
 				<div class="section">
-					<dl>
-						<dt>도서관</dt>
-						<dd>
-							<form:select path="manageCode">
-								<form:option value="ALL">전체 도서관</form:option>
-								<form:option value="${homepage.manage_code}">${homepage.homepage_name}</form:option>
-							</form:select>
-						</dd>
-					</dl>
-					<dl>
+
+					<dl class="bold-box">
 						<dt><label for="title" class="title">제목</label></dt>
 						<dd><form:input path="title" class="text-area"/></dd>
 					</dl>
@@ -157,24 +149,6 @@ $(function() {
 					<dl>
 						<dt><label for="author" class="title">저자</label></dt>
 						<dd><form:input path="author" class="text-area"/></dd>
-					</dl>
-					<dl>
-						<dt>주제</dt>
-						<dd>
-							<form:select path="subjectCode">
-								<form:option value="">전체</form:option>
-								<form:option value="0">총류</form:option>
-								<form:option value="1">철학</form:option>
-								<form:option value="2">종교</form:option>
-								<form:option value="3">사회과학</form:option>
-								<form:option value="4">순수과학</form:option>
-								<form:option value="5">기술과학</form:option>
-								<form:option value="6">예술</form:option>
-								<form:option value="7">언어</form:option>
-								<form:option value="8">문학</form:option>
-								<form:option value="9">역사</form:option>
-							</form:select>
-						</dd>
 					</dl>
 
 					<dl>
@@ -198,6 +172,35 @@ $(function() {
 					</dl>
 
 					<dl>
+						<dt>주제</dt>
+						<dd>
+							<form:select path="subjectCode">
+								<form:option value="">전체</form:option>
+								<form:option value="0">총류</form:option>
+								<form:option value="1">철학</form:option>
+								<form:option value="2">종교</form:option>
+								<form:option value="3">사회과학</form:option>
+								<form:option value="4">순수과학</form:option>
+								<form:option value="5">기술과학</form:option>
+								<form:option value="6">예술</form:option>
+								<form:option value="7">언어</form:option>
+								<form:option value="8">문학</form:option>
+								<form:option value="9">역사</form:option>
+							</form:select>
+						</dd>
+					</dl>
+
+					<dl>
+						<dt>도서관</dt>
+						<dd>
+							<form:select path="manageCode">
+								<form:option value="ALL">전체 도서관</form:option>
+								<form:option value="${homepage.manage_code}">${homepage.homepage_name}</form:option>
+							</form:select>
+						</dd>
+					</dl>
+
+					<dl>
 						<dt>자료형태</dt>
 						<dd>
 							<div class="" style="padding:3px 0 0 10px">
@@ -208,6 +211,7 @@ $(function() {
 						</dd>
 					</dl>
 
+					<div class="end"></div>
 				</div>
 				<p class="btn_w">
 					<!-- <a id="search-btn" class="btnNew btn-warning btn-xs mT1">검색</a> -->

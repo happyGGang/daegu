@@ -1,9 +1,5 @@
 @charset "utf-8";
 
-.DepthBtn {overflow:hidden;width:100%;margin-bottom:50px;}
-a.bBtn {width:49.8%;float:left;text-align:center;padding:18px 0;border:1px solid #fff;background:#3c8cef;color:#fff;font-size:18px}
-a.bBtn:hover {background:#0961ce}
-
 .serial-wrap{font-size:110%}
 .serial-wrap .smain{overflow:hidden}
 .serial-wrap table{border-top:2px solid #5f6062;border-bottom:2px solid #d2d2d2}
