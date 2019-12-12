@@ -33,8 +33,6 @@ import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.co.whalesoft.framework.utils.WebFilterCheckUtils;
-import kr.go.gbelib.app.cms.module.blackList.BlackList;
-import kr.go.gbelib.app.cms.module.blackList.BlackListService;
 import kr.go.gbelib.app.common.api.PushAPI;
 
 @Controller(value="userExcursions")
@@ -51,9 +49,6 @@ public class ExcursionsController extends BaseController {
 
 	@Autowired
 	private TermsService termsService;
-
-	@Autowired
-	private BlackListService blackListService;
 
 	@Autowired
 	private CalendarManageService calendarManageService;
@@ -106,12 +101,12 @@ public class ExcursionsController extends BaseController {
 			apply.setBefore_url(String.format("http://www.gbelib.kr/%s/html.do?menu_idx=%s", homepage.getContext_path(), apply.getMenu_idx()));
 			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://www.gbelib.kr/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), apply.getMenu_idx(), apply.getBefore_url()), request, response);
 			return null;
-	    }
-
-		if ( blackListService.checkBlackList(new BlackList(homepage.getHomepage_id(), getSessionUserSeqNo(request)), "40")) {
-			service.alertMessage("신청이 불가능합니다.\\n도서관에 문의해주세요.", request, response);
-			return null;
 		}
+
+//		if ( blackListService.checkBlackList(new BlackList(homepage.getHomepage_id(), getSessionUserSeqNo(request)), "40")) {
+//			service.alertMessage("신청이 불가능합니다.\\n도서관에 문의해주세요.", request, response);
+//			return null;
+//		}
 
 		apply.setApply_id(getSessionMemberId(request));
 		apply.setHomepage_id(homepage.getHomepage_id());
@@ -147,12 +142,12 @@ public class ExcursionsController extends BaseController {
 		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 
 			if("ajax".equals(apply.getPageType())) {
-				apply.setBefore_url(String.format("http://www.gbelib.kr/%s/html.do?menu_idx=%s", homepage.getContext_path(), apply.getMenu_idx()));
+				apply.setBefore_url(String.format("/%s/html.do?menu_idx=%s", homepage.getContext_path(), apply.getMenu_idx()));
 			} else {
-				apply.setBefore_url(String.format("http://www.gbelib.kr/%s/module/excursions/index.do?menu_idx=%s&date_type=1", homepage.getContext_path(), apply.getMenu_idx()));
+				apply.setBefore_url(String.format("/%s/module/excursions/index.do?menu_idx=%s&date_type=1", homepage.getContext_path(), apply.getMenu_idx()));
 			}
 
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://www.gbelib.kr/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), apply.getMenu_idx(), apply.getBefore_url()), request, response);
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), apply.getMenu_idx(), apply.getBefore_url()), request, response);
 			return null;
 	    }
 
@@ -260,6 +255,11 @@ public class ExcursionsController extends BaseController {
 					}
 				}
 
+				apply.setAdd_id(getSessionMemberId(request));
+				apply.setStart_date(excursions.getStart_date());
+				apply.setStart_time(excursions.getStart_time());
+				apply.setEnd_date(excursions.getEnd_date());
+				apply.setEnd_time(excursions.getEnd_time());
 				String addResult = applyService.addApply(apply, request);
 				if (addResult != null) {
 					res.setValid(true);

@@ -5,6 +5,7 @@ import java.util.Date;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
 public class Apply extends PagingUtils {
+
 	private int apply_idx;
 	private int excursions_idx;
 	private String password;
@@ -36,11 +37,14 @@ public class Apply extends PagingUtils {
 	private String apply_state;
 	private String ip;
 	private String remarks;
+	private String add_id;
 	private Date add_date;
+	private String modify_id;
+	private Date modify_date;
 	private String date_type;
 	private String code_name;
 	private String apply_id;
-	
+
 	private String pageType;
 
 	private String sun;
@@ -51,11 +55,11 @@ public class Apply extends PagingUtils {
 	private String fri;
 	private String sat;
 	private String plan_date;
-	
+
 	private String search_api_type = "WEBID";
-	
-	private String self_info_yn="N";
-	
+
+	private String self_info_yn = "N";
+
 	private int isBlackList;
 
 	public int getApply_idx() {
@@ -290,12 +294,36 @@ public class Apply extends PagingUtils {
 		this.remarks = remarks;
 	}
 
+	public String getAdd_id() {
+		return add_id;
+	}
+
+	public void setAdd_id(String add_id) {
+		this.add_id = add_id;
+	}
+
 	public Date getAdd_date() {
 		return add_date;
 	}
 
 	public void setAdd_date(Date add_date) {
 		this.add_date = add_date;
+	}
+
+	public String getModify_id() {
+		return modify_id;
+	}
+
+	public void setModify_id(String modify_id) {
+		this.modify_id = modify_id;
+	}
+
+	public Date getModify_date() {
+		return modify_date;
+	}
+
+	public void setModify_date(Date modify_date) {
+		this.modify_date = modify_date;
 	}
 
 	public String getSun() {
@@ -433,6 +461,5 @@ public class Apply extends PagingUtils {
 	public void setIsBlackList(int isBlackList) {
 		this.isBlackList = isBlackList;
 	}
-	
 
 }

@@ -18,7 +18,10 @@ public class Excursions extends PagingUtils {
 	private String apply_end_date;
 	private String apply_end_time;
 	private int max_apply;
+	private String add_id;
 	private Date add_date;
+	private String modify_id;
+	private Date modify_date;
 	private String code_name;
 	private String weekday;
 
@@ -34,19 +37,20 @@ public class Excursions extends PagingUtils {
 	private String plan_date;
 
 	private String agency_name;
-	private int closed_day; //휴관일 포함여부
-	private int apply_count; //신청자 수
+	private int closed_day; // 휴관일 포함여부
+	private int apply_count; // 신청자 수
 	private String remark;
-	
+
 	private String pageType;
 
-	public Excursions() { }
-	
+	public Excursions() {
+	}
+
 	public Excursions(String homepage_id, int excursion_idx) {
 		setHomepage_id(homepage_id);
 		this.excursions_idx = excursion_idx;
 	}
-	
+
 	public int getExcursions_idx() {
 		return excursions_idx;
 	}
@@ -95,12 +99,36 @@ public class Excursions extends PagingUtils {
 		this.end_time = end_time;
 	}
 
+	public String getAdd_id() {
+		return add_id;
+	}
+
+	public void setAdd_id(String add_id) {
+		this.add_id = add_id;
+	}
+
 	public Date getAdd_date() {
 		return add_date;
 	}
 
 	public void setAdd_date(Date add_date) {
 		this.add_date = add_date;
+	}
+
+	public String getModify_id() {
+		return modify_id;
+	}
+
+	public void setModify_id(String modify_id) {
+		this.modify_id = modify_id;
+	}
+
+	public Date getModify_date() {
+		return modify_date;
+	}
+
+	public void setModify_date(Date modify_date) {
+		this.modify_date = modify_date;
 	}
 
 	public String getSun() {
@@ -283,7 +311,6 @@ public class Excursions extends PagingUtils {
 		return remark;
 	}
 
-	
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}

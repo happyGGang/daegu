@@ -13,6 +13,7 @@ $(function() {
 	    },
 	    close: function(){
 	        $('.ui-widget-overlay').removeClass('custom-overlay');
+	        location.reload();
 	    },
 		buttons: [
 			{
@@ -21,7 +22,7 @@ $(function() {
 				click: function() {		
 					if('${fn:length(applyList)}' > 0) {
 						$('#apply_edit2').attr('action', '/cms/module/excursions/apply/excelDownload.do').submit();
-						$('#apply_edit2').attr('action', '/cms/module/excursions/apply/save.do');	
+// 						$('#apply_edit2').attr('action', '/cms/module/excursions/apply/save.do');	
 					} else {
 						alert('해당 내역이 없습니다.');	
 					}
@@ -31,6 +32,7 @@ $(function() {
 				"class": 'btn',
 				click: function() {
 					$(this).dialog('destroy');
+					location.reload();
 				}
 			}
 		]
@@ -65,7 +67,7 @@ $(function() {
 			$('input#editMode').val('DELETE');
 			$('input#apply_idx').val($(this).attr('keyValue'));
 			if(doAjaxPost($('#apply_edit2'))) {
-				$('#dialog-3').load('/cms/module/excursions/apply/applyEdit.do?editMode=VIEW&homepage_id=' + $('#homepage_id_1').val() + '&excursions_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('keyValue2'), function( response, status, xhr ) {
+				$('#dialog-3').load('/cms/module/excursions/apply/applyEdit.do?editMode=VIEW&homepage_id=' + $('#homepage_id').val() + '&excursions_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('plan_date'), function( response, status, xhr ) {
 					$('#dialog-3').dialog('open');
 				});
 			}
@@ -73,67 +75,6 @@ $(function() {
 		event.preventDefault();
 	});
 	
-	$('a.add_blackList').on('click', function(e) {		
-		$('#dialog-5').load('/cms/module/blackList/edit.do?editMode=ADD&black_type=40&after_click_btn=a.check_apply_${applyList[0].excursions_idx}&homepage_id=' + $(this).attr('homepage_id') + '&member_id=' + $(this).attr('keyValue')+ '&member_key=' + $(this).attr('keyValue1'), function( response, status, xhr ) {
-			$('#dialog-5').dialog({
-				width: 600,
-				height: 300
-			});
-			$('#dialog-5').dialog('open');
-		});
-		
-		e.preventDefault();
-	});
-	
-	$('a.delete_blackList').on('click', function(e) {
-		e.preventDefault();
-		
-		if (confirm('해당 수강생을 블랙리스트 목록에서 삭제하시겠습니까?')) {
-			var data = {
-					editMode : 'BLACKTYPEDELETE',
-					homepage_id : $(this).attr('homepage_id'),
-					member_key : $(this).attr('keyValue'),
-					black_type	: '40'
-			}
-			
-			jQuery.ajaxSettings.traditional = true;
-		    $.ajax({
-		        type: "POST",
-		        url: '/cms/module/blackList/save.do',
-		        async: false,
-		        data: data,
-		        dataType:'json',
-		        success: function(response) {
-		        	response = eval(response);
-		            if(response.valid) {            	
-		                 if(response.message != null && response.message.replace(/\s/g,'').length!=0) {
-		                	 alert(response.message);
-		                 }
-		                 $('#dialog-3').load('/cms/module/excursions/apply/applyEdit.do?editMode=ADD&homepage_id=${apply.homepage_id}&start_date=${apply.plan_date}', function( response, status, xhr ) {
-			         	     $('#dialog-3').dialog('open');
-			         	 });
-					} else {
-						if(response.message != null && response.message.replace(/\s/g,'').length!=0) {
-							alert(response.message);
-		                } else {
-		                	for(var i =0 ; i < response.result.length ; i++) {
-		    					alert(response.result[i].code);
-		    					$('#'+response.result[i].field).focus();
-		    					$('#'+response.result[i].field, $(form)).css('border-color', 'red');
-		                		$('#'+response.result[i].field, $(form)).on('change', function() {
-		                			$(this).css('border-color', '');
-		                		});
-		    					break;
-		    				}
-		                }
-					}
-		         },
-		         error: function(jqXHR, textStatus, errorThrown) {
-		             alert('[' + textStatus + ']관리자에게 문의하세요. : ' + errorThrown);
-		         }
-		    });
-		}
-	});
 });
 </script>
 <form:form modelAttribute="apply" id="apply_edit2" action="/cms/module/excursions/apply/save.do" method="post">
@@ -196,13 +137,7 @@ $(function() {
 						<td>
 							<a href="" class="btn" id="state-modify" keyValue="${i.apply_idx}">승인처리</a>
 							<a href="" class="btn" id="apply-modify" keyValue="${i.apply_idx}">수정</a>
-							<a href="" class="btn" id="delete-btn" keyValue="${i.apply_idx}">삭제</a>
-							<c:if test="${i.isBlackList > 0 }">
-							<a href="" class="btn btn4 delete_blackList" homepage_id="${i.homepage_id}" keyValue="${i.member_key}">블랙리스트 삭제</a>
-							</c:if>
-							<c:if test="${i.isBlackList < 1 }">
-							<a href="" class="btn btn1 add_blackList" homepage_id="${i.homepage_id}" keyValue="${i.apply_id}" keyValue1="${i.member_key}">블랙리스트 추가</a>
-							</c:if>
+							<a href="" class="btn" id="delete-btn" keyValue="${i.apply_idx}" plan_date="${i.start_date}">삭제</a>
 						</td>
 					</c:if>
 				</tr>
@@ -212,4 +147,3 @@ $(function() {
 </div>
 </form:form>
 <div id="dialog-4" class="dialog-common" title="신청자 승인 처리"/>
-<div id="dialog-5" class="dialog-common" title="블랙리스트"/>

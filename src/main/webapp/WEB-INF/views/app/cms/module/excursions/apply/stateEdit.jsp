@@ -4,7 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script>
 $(function() {
-	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
+// 	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
+	$('#dialog-4').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
 		resizable: false,
 		modal: true, 

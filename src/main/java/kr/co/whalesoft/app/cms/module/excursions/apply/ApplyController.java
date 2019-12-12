@@ -101,31 +101,15 @@ public class ApplyController extends BaseController {
 
 		Member applyMember = new Member();
 		applyMember.setUser_id(apply.getApplicant_member_id());
-//		applyMember.setCheck_certify_type("WEBID");
-//		applyMember.setCheck_certify_data(apply.getApplicant_member_id());
 
-		Map<String, String> memberInfo = null;
+		List<Map<String, Object>> memberInfo = null;
 		if ( apply.getSearch_api_type().equals("WEBID") ) {
-//			applyMember.setCheck_certify_type("WEBID");
-//			applyMember.setCheck_certify_data(apply.getApplicant_member_id());
-//
-//			memberInfo = MemberAPI.getMemberCertify("WEB", applyMember);
-//
-//			if ( memberInfo == null ) {
-//				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
-//				return result;
-//			} else {
-//				Member member = new Member();
-//				member.setUser_id(memberInfo.get("USER_ID"));
-//				memberInfo = MemberAPI.getMember("WEB", member);
-//			}
-		}
-		else {
-//			memberInfo = MemberAPI.getDupUser("WEB", applyMember, "0002", apply.getApplicant_member_id());
-			Member member = new Member();
-			member.setUser_id(apply.getApplicant_member_id());
-			memberInfo = MemberAPI.getMember("WEB", member);
-			if ( memberInfo == null ) {
+			applyMember.setCertType(apply.getSearch_api_type());
+			applyMember.setMember_id(apply.getApplicant_member_id());
+			
+			memberInfo = MemberAPI.checkDupUser("0", applyMember);
+			
+			if ( memberInfo.isEmpty() ) {
 				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
 				return result;
 			}
@@ -173,6 +157,11 @@ public class ApplyController extends BaseController {
 					}
 				}
 
+				apply.setAdd_id(getSessionMemberId(request));
+				apply.setStart_date(excursions.getStart_date());
+				apply.setStart_time(excursions.getStart_time());
+				apply.setEnd_date(excursions.getEnd_date());
+				apply.setEnd_time(excursions.getEnd_time());
 				String addResult = (String) service.addApply(apply, request);
 				if (addResult != null) {
 					res.setValid(true);
@@ -185,11 +174,13 @@ public class ApplyController extends BaseController {
 				res.setMessage("등록 되었습니다.");
 			}
 			else if(apply.getEditMode().equals("MODIFY")) {
+				apply.setModify_id(getSessionMemberId(request));
 				service.modifyApply(apply);
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");
 			}
 			else if(apply.getEditMode().equals("STATEMODIFY")) {
+				apply.setModify_id(getSessionMemberId(request));
 				service.modifyApplyState(apply);
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");

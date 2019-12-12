@@ -91,6 +91,7 @@ public class ExcursionsController extends BaseController {
 		
 		if(!result.hasErrors()) {
 			if(excursions.getEditMode().equals("ADD")) {
+				excursions.setAdd_id(getSessionMemberId(request));
 				String weekday 		= excursions.getWeekday(); // 매주 요일 입력값들
 				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 				Date startDate 		= sf.parse(excursions.getStart_date());
@@ -133,6 +134,7 @@ public class ExcursionsController extends BaseController {
 				res.setMessage(String.format("'%s건' 등록 되었습니다.", addCount));
 					
 			} else if(excursions.getEditMode().equals("MODIFY")) {
+				excursions.setModify_id(getSessionMemberId(request));
 				service.modifyCalendarManage(excursions);
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");

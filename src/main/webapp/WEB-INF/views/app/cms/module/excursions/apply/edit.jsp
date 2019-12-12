@@ -5,7 +5,7 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 $(function() {
-	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
+	$('#dialog-2').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
 		resizable: false,
 		modal: true,
@@ -63,10 +63,12 @@ $(function() {
 		$.get('/cms/module/excursions/apply/checkId.do?homepage_id=' + $('#homepage_id').val() + '&applicant_member_id='+ $('#applicant_member_id').val() + '&search_api_type=' + $('[name="search_api_type"]:checked').val(), function(response) {
 			if ( response.resultMsg != null ) {
 				alert(response.resultMsg);
-			}
-			else {
-				$('#apply_edit #member_key').val(response.memberInfo.SEQ_NO);
-				$('#apply_edit #applicant_name').val(response.memberInfo.USER_NAME);
+			} else {
+				$('#apply_edit #applicant_name').val(response.memberInfo[0].NAME);
+				var phone = response.memberInfo[0].HANDPHONE.split('-');
+				$('#apply_edit #applicant_tel_1').val(phone[0]);
+				$('#apply_edit #applicant_tel_2').val(phone[1]);
+				$('#apply_edit #applicant_tel_3').val(phone[2]);
 			}
 		});
 		e.preventDefault();
@@ -124,7 +126,7 @@ $(function() {
 <form:hidden path="editMode"/>
 <form:hidden path="homepage_id"/>
 <form:hidden path="apply_idx"/>
-<form:hidden path="member_key"/>
+<%-- <form:hidden path="member_key"/> --%>
 <form:hidden path="excursions_idx" value="${apply.excursions_idx }"/>
 <form:hidden path="start_date" value="${apply.start_date }"/>
 <table class="type2">

@@ -78,19 +78,19 @@
 	<!-- 휴관일 가져오기 -->
 	<select id="getClosedDate" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">
 		SELECT			
-			TO_CHAR(TO_DATE(start_date,'YYYY-MM-DD'),'YYYY-MM-DD') AS start_date,
-			TO_CHAR(TO_DATE(end_date,'YYYY-MM-DD'),'YYYY-MM-DD') AS end_date,
+			TO_CHAR(TO_DATE(start_date,'yyyy-MM-dd'),'yyyy-MM-dd') AS start_date,
+			TO_CHAR(TO_DATE(end_date,'yyyy-MM-dd'),'yyyy-MM-dd') AS end_date,
 			homepage_id, cm_idx, start_time, end_time, title, contents, date_type, link_url
 		FROM 
 			CMS_CALENDAR_MANAGE
 		WHERE
-			homepage_id = #{homepage_id
+			homepage_id = #{homepage_id}
 		AND	date_type = '1'
 		AND	delete_yn = 'N'
 		<if test="plan_date != null and plan_date != ''">
  		AND	(
- 			SUBSTR(start_date,1,7) = #{plan_date}
- 			OR SUBSTR(end_date,1,7) = #{plan_date}
+ 				SUBSTR(start_date,1,7) = #{plan_date}
+ 			OR	SUBSTR(end_date,1,7) = #{plan_date}
  			)
 		</if>
 	</select>
@@ -312,13 +312,13 @@
 	<!-- 일정 통계 일별 -->
 	<select id="getCalendarStatus" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">		
 		SELECT 
-			TO_CHAR(START_DATE, 'YYYY-MM-DD') AS START_DATE, SUM(COUNT) AS COUNT 
+			TO_CHAR(START_DATE, 'yyyy-MM-dd') AS START_DATE, SUM(COUNT) AS COUNT 
 		FROM (
 			SELECT DISTINCT(START_DATE + LEVEL -1) AS START_DATE, COUNT
 				FROM (
 					SELECT
-						TO_DATE(START_DATE, 'YYYY-MM-DD') AS START_DATE,
-						TO_DATE(END_DATE, 'YYYY-MM-DD') AS END_DATE,
+						TO_DATE(START_DATE, 'yyyy-MM-dd') AS START_DATE,
+						TO_DATE(END_DATE, 'yyyy-MM-dd') AS END_DATE,
 						COUNT(*) AS COUNT
 					FROM CMS_CALENDAR_MANAGE
 					WHERE
@@ -347,8 +347,8 @@
 				SELECT DISTINCT(START_DATE + LEVEL -1) AS START_DATE, COUNT
 					FROM (
 						SELECT
-							TO_DATE(START_DATE, 'YYYY-MM-DD') AS START_DATE,
-							TO_DATE(END_DATE, 'YYYY-MM-DD') AS END_DATE,
+							TO_DATE(START_DATE, 'yyyy-MM-dd') AS START_DATE,
+							TO_DATE(END_DATE, 'yyyy-MM-dd') AS END_DATE,
 							COUNT(*) AS COUNT
 						FROM CMS_CALENDAR_MANAGE
 						WHERE
@@ -380,8 +380,8 @@
 					DISTINCT(START_DATE + LEVEL -1) AS start_date, count
 				FROM (
 					SELECT
-						TO_DATE(START_DATE, 'YYYY-MM-DD') AS start_date,
-						TO_DATE(END_DATE, 'YYYY-MM-DD') AS end_date,
+						TO_DATE(START_DATE, 'yyyy-MM-dd') AS start_date,
+						TO_DATE(END_DATE, 'yyyy-MM-dd') AS end_date,
 						COUNT(*) AS count
 					FROM
 						CMS_CALENDAR_MANAGE
@@ -424,7 +424,7 @@
 			homepage_id = #{homepage_id}
 		AND	date_type = '1'
 		AND	delete_yn = 'N'
-		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD') BETWEEN start_date AND end_date
+		AND	TO_CHAR(SYSDATE, 'yyyy-MM-dd') BETWEEN start_date AND end_date
 	</select>
 	
 </mapper>

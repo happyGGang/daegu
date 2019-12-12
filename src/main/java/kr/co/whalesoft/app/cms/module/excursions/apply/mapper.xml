@@ -4,75 +4,85 @@
 
 	<!-- 견학신청자 컬럼  -->
 	<sql id="field">
-		homepage_id, apply_idx, excursions_idx, agency_name, agency_tel, 
-		agency_address, applicant_name, applicant_tel, applicant_email, age, 
-		guide_name, guide_tel, start_date, start_time, end_date, 
-		end_time, personnel, apply_state, ip, remarks, 
-		add_date, apply_id, applicant_member_id, member_key, self_info_yn
+		homepage_id, apply_idx, excursions_idx, agency_name, agency_tel,
+		agency_address, applicant_name, applicant_tel, applicant_email, age,
+		guide_name, guide_tel, start_date, start_time, end_date,
+		end_time, personnel, apply_state, ip, remarks,
+		add_id, add_date, apply_id, applicant_member_id, self_info_yn
 	</sql>
 	
 	<!-- 견학신청자 list -->
 	<select id="getApply" resultType="kr.co.whalesoft.app.cms.module.excursions.apply.Apply">
 		SELECT
 			<include refid="field" />
-			,(SELECT COUNT(*) FROM BLACKLIST WHERE HOMEPAGE_ID = CMS_EXCURSIONS_APPLY.HOMEPAGE_ID AND MEMBER_KEY = CMS_EXCURSIONS_APPLY.MEMBER_KEY AND INSTR(BLACK_TYPE, '40') != 0) as isBlackList	
-		FROM 
+		FROM
 			CMS_EXCURSIONS_APPLY
-		WHERE HOMEPAGE_ID = #{homepage_id}
+		WHERE
+			homepage_id = #{homepage_id}
 		<if test="plan_date != null and plan_date != ''">
-	 		AND START_DATE <![CDATA[>=]]> #{plan_date} AND END_DATE <![CDATA[<=]]> #{plan_date}
-		 </if>		 
+		AND	start_date <![CDATA[>=]]> #{plan_date}
+		AND	end_date <![CDATA[<=]]> #{plan_date}
+		</if>
 	</select>
 	
 	<select id="getApplyMonth" resultType="kr.co.whalesoft.app.cms.module.excursions.apply.Apply">
 		SELECT
-			<include refid="field" />	
-		FROM 
+			<include refid="field" />
+		FROM
 			CMS_EXCURSIONS_APPLY
-		WHERE HOMEPAGE_ID = #{homepage_id}
+		WHERE
+			homepage_id = #{homepage_id}
 		<if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
-	 		AND START_DATE <![CDATA[>=]]> #{start_date} AND END_DATE <![CDATA[<=]]> #{end_date}
-		 </if>		 
+		AND	start_date <![CDATA[>=]]> #{start_date}
+		AND	end_date <![CDATA[<=]]> #{end_date}
+		</if>
 	</select>
 	
 	<!-- 사용자 신청내역 list -->
 	<select id="getUserApply" resultType="kr.co.whalesoft.app.cms.module.excursions.apply.Apply">
 		SELECT
-			<include refid="field" />	
-		FROM 
+			<include refid="field" />
+		FROM
 			CMS_EXCURSIONS_APPLY
-		WHERE 
-			HOMEPAGE_ID = #{homepage_id} AND
-			MEMBER_KEY	= #{member_key}
+		WHERE
+			homepage_id = #{homepage_id}
 	</select>
 	
 	<select id="getApplyOne" resultType="kr.co.whalesoft.app.cms.module.excursions.apply.Apply">
 		SELECT
-			<include refid="field" />	
-		FROM 
+			<include refid="field" />
+		FROM
 			CMS_EXCURSIONS_APPLY
-		WHERE 
-			HOMEPAGE_ID = #{homepage_id} AND apply_idx = #{apply_idx}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	apply_idx = #{apply_idx}
 	</select>
 	
 	<select id="checkApply" resultType="int">
-		SELECT 
+		SELECT
 			COUNT(*)
-		FROM 
+		FROM
 			CMS_EXCURSIONS_APPLY
-		WHERE HOMEPAGE_ID = #{homepage_id} AND EXCURSIONS_IDX = #{excursions_idx} AND MEMBER_KEY = #{member_key}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	EXCURSIONS_IDX = #{excursions_idx}
+		AND	applicant_member_id = #{applicant_member_id}
 	</select>
 	
 	<!-- 견학신청자 등록 -->
 	<insert id="addApply">
-		INSERT INTO CMS_EXCURSIONS_APPLY (
-		   		<include refid="field" />
-	   )VALUES (
-	   		#{homepage_id}, (SELECT NVL(MAX(apply_idx),0)+1 FROM CMS_EXCURSIONS_APPLY), #{excursions_idx}, #{agency_name}, #{agency_tel}, 
-	   		#{agency_address}, #{applicant_name}, #{applicant_tel}, #{applicant_email}, #{age}, 
-	   		#{guide_name}, #{guide_tel}, #{start_date}, #{start_time}, #{start_date}, 
-	   		#{end_time}, #{personnel}, '1', #{ip}, #{remarks}, 
-	   		SYSDATE, #{apply_id}, #{applicant_member_id}, #{member_key}, #{self_info_yn}
+		INSERT INTO
+			CMS_EXCURSIONS_APPLY 
+		(
+			<include refid="field" />
+		)
+		VALUES
+		(
+			#{homepage_id}, (SELECT NVL(MAX(apply_idx),0)+1 FROM CMS_EXCURSIONS_APPLY), #{excursions_idx}, #{agency_name}, #{agency_tel},
+			#{agency_address}, #{applicant_name}, #{applicant_tel}, #{applicant_email}, #{age},
+			#{guide_name}, #{guide_tel}, #{start_date}, #{start_time}, #{start_date},
+			#{end_time}, #{personnel}, '1', #{ip}, #{remarks},
+			#{add_id}, SYSDATE, #{apply_id}, #{applicant_member_id}, #{self_info_yn}
 		)
 	</insert>
 	
@@ -80,10 +90,10 @@
 		UPDATE
 			CMS_EXCURSIONS_APPLY
 		SET
-			agency_name = #{agency_name}, 
-			agency_tel = #{agency_tel}, 
+			agency_name = #{agency_name},
+			agency_tel = #{agency_tel},
 			agency_address = #{agency_address},
-			applicant_name = #{applicant_name}, 
+			applicant_name = #{applicant_name},
 			applicant_tel = #{applicant_tel},
 			applicant_email = #{applicant_email},
 			age = #{age},
@@ -91,43 +101,52 @@
 			guide_tel = #{guide_tel},
 			start_time = #{start_time},
 			end_time = #{end_time},
-			personnel = #{personnel}
+			personnel = #{personnel},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
 		WHERE
-		 	HOMEPAGE_ID = #{homepage_id} AND apply_idx = #{apply_idx}
+			homepage_id = #{homepage_id}
+		AND	apply_idx = #{apply_idx}
 	</update>
 	
 	<update id="modifyApplyState">
 		UPDATE
 			CMS_EXCURSIONS_APPLY
 		SET
-			apply_state = #{apply_state}
+			apply_state = #{apply_state},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
 		WHERE
-		 	HOMEPAGE_ID = #{homepage_id} AND apply_idx = #{apply_idx}
+			homepage_id = #{homepage_id}
+		AND	apply_idx = #{apply_idx}
 	</update>
 	
 	<delete id="deleteApply">
 		DELETE FROM
 			CMS_EXCURSIONS_APPLY
 		WHERE
-		 	HOMEPAGE_ID = #{homepage_id} AND apply_idx = #{apply_idx}
+			homepage_id = #{homepage_id}
+		AND	apply_idx = #{apply_idx}
 	</delete>
 	
 	<!-- 견학신청자 list -->
 	<select id="getOkApply" resultType="kr.co.whalesoft.app.cms.module.excursions.apply.Apply">
 		SELECT
-			A.START_DATE, A.END_DATE, A.AGENCY_NAME, A.APPLY_IDX, A.EXCURSIONS_IDX, B.DATE_TYPE,
-			(SELECT CODE_NAME FROM CMS_CODE C WHERE B.HOMEPAGE_ID = C.HOMEPAGE_ID AND C.CODE_ID = B.DATE_TYPE AND C.GROUP_ID = 'H0001') AS CODE_NAME,
-			A.APPLICANT_MEMBER_ID, A.MEMBER_KEY
+			A.start_date, A.end_date, A.AGENCY_NAME, A.APPLY_IDX, A.EXCURSIONS_IDX, B.DATE_TYPE,
+			(SELECT CODE_NAME FROM CMS_CODE C WHERE B.homepage_id = C.homepage_id AND C.CODE_ID = B.DATE_TYPE AND C.GROUP_ID = 'H0001') AS CODE_NAME,
+			A.APPLICANT_MEMBER_ID
 		FROM 
-			CMS_EXCURSIONS_APPLY A, 
-			CMS_EXCURSIONS B
+			CMS_EXCURSIONS_APPLY A, CMS_EXCURSIONS B
 		WHERE 
-			A.EXCURSIONS_IDX = B.EXCURSIONS_IDX AND
-			A.HOMEPAGE_ID = B.HOMEPAGE_ID AND			
-			A.HOMEPAGE_ID = #{homepage_id} AND A.APPLY_STATE = '3'
+			A.EXCURSIONS_IDX = B.EXCURSIONS_IDX
+		AND	A.homepage_id = B.homepage_id
+		AND	A.homepage_id = #{homepage_id}
+		AND	A.APPLY_STATE = '3'
 		<if test="plan_date != null and plan_date != ''">
-	 		AND (substr(A.START_DATE,1,7) = #{plan_date}
-	 		OR substr(A.END_DATE,1,7) = #{plan_date})
-		 </if>
+ 		AND (
+ 				substr(A.start_date,1,7) = #{plan_date}
+			OR	substr(A.end_date,1,7) = #{plan_date}
+			)
+		</if>
 	</select>
 </mapper>
