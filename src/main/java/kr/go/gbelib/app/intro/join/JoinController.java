@@ -663,7 +663,7 @@ public class JoinController extends BaseController {
 
 					res.setValid(true);
 					res.setMessage("통합인증이 완료되었습니다.");
-					res.setUrl(String.format("/intro/%s/login/index.do", homepage.getContext_path())); // 검색대 메인으로 Redirect.
+					res.setUrl(String.format("/intro/%s/index.do", homepage.getContext_path())); // 검색대 메인으로 Redirect.
 					request.getSession().invalidate();
 				} else {
 					res.setValid(true);
