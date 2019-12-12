@@ -112,7 +112,7 @@ public class FacilityController extends BaseController {
 				res.setValid(true);
 				res.setMessage("등록 되었습니다.");
 			} else if(editMode.equals("MODIFY")) {
-				facility.setMod_id(getSessionMemberId(request));
+				facility.setModify_id(getSessionMemberId(request));
 				service.modifyFacility(facility);
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");
@@ -148,29 +148,21 @@ public class FacilityController extends BaseController {
 
 		Member facilityReqMember = new Member();
 		facilityReqMember.setUser_id(facilityReq.getApply_id());
-//		facilityReqMember.setCheck_certify_type("WEBID");
-//		facilityReqMember.setCheck_certify_data(facilityReq.getApply_id());
 
-		Map<String, String> memberInfo = null;
+		List<Map<String, Object>> memberInfo = null;
 		if ( facilityReq.getSearch_api_type().equals("WEBID") ) {
-//			facilityReqMember.setCheck_certify_type("WEBID");
-//			facilityReqMember.setCheck_certify_data(facilityReq.getApply_id());
-//
-//			memberInfo = MemberAPI.getMemberCertify("WEB", facilityReqMember);
-//
-//			if ( memberInfo == null ) {
-//				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
-//				return result;
-//			}
+			facilityReqMember.setMember_id(facilityReq.getApply_id());
+
+			memberInfo = MemberAPI.checkDupUser("0", facilityReqMember);
+
+			if ( memberInfo.isEmpty() ) {
+				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
+				return result;
+			}
 		}
-		else {
-//			memberInfo = MemberAPI.getDupUser("WEB", facilityReqMember, "0002", facilityReq.getApply_id());
-//			if ( memberInfo == null ) {
-//				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
-//				return result;
-//			}
-		}
+		
 		result.put("memberInfo", memberInfo);
+		
 		return result;
 	}
 
@@ -181,7 +173,6 @@ public class FacilityController extends BaseController {
 		if ( editMode.equals("ADD") || editMode.equals("MODIFY") ) {
 			if ( editMode.equals("ADD") ) {
 				ValidationUtils.rejectIfEmpty(result, "apply_id", "신청자 ID를 입력하세요.");
-				ValidationUtils.rejectIfEmpty(result, "member_key", "유효한 회원이 아닙니다.");
 				if ( !"Y".equals(facilityReq.getSelf_info_yn()) ) {
 					res.setValid(false);
 					res.setMessage("개인정보 동의 후 신청이 가능합니다.");
@@ -207,27 +198,27 @@ public class FacilityController extends BaseController {
 				res.setMessage("등록 되었습니다.");
 			}
 			else if ( editMode.equals("MODIFY") ) {
-				facilityReq.setMod_id(getSessionMemberId(request));
+				facilityReq.setModify_id(getSessionMemberId(request));
 				facilityReqService.modifyFacilityReq(facilityReq);
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");
 			}
 			else if ( editMode.equals("DELETE") ) {
-				facilityReq.setMod_id(getSessionMemberId(request));
+				facilityReq.setModify_id(getSessionMemberId(request));
 				facilityReqService.deleteFacilityReq(facilityReq);
 				res.setValid(true);
 				res.setMessage("삭제 되었습니다.");
 			}
 			else if ( editMode.equals("OK") ) {
 				facilityReq.setApply_status("2");
-				facilityReq.setMod_id(getSessionMemberId(request));
+				facilityReq.setModify_id(getSessionMemberId(request));
 				facilityReqService.changeStatus(facilityReq);
 				res.setValid(true);
 				res.setMessage("승인 되었습니다.");
 			}
 			else if ( editMode.equals("CANCEL") ) {
 				facilityReq.setApply_status("3");
-				facilityReq.setMod_id(getSessionMemberId(request));
+				facilityReq.setModify_id(getSessionMemberId(request));
 				facilityReqService.changeStatus(facilityReq);
 				res.setValid(true);
 				res.setMessage("취소 되었습니다.");

@@ -59,8 +59,14 @@ $(function() {
 	}
 
 	$('a.idCheck').on('click', function(e) {
+		if($('#apply_edit #applicant_member_id').val() == '') {
+			alert('신청자ID를 입력하세요.');
+			$('#apply_edit #applicant_member_id').focus();
+			return false;
+		}
+		
 		$('#apply_edit #applicant_name').val("");
-		$.get('/cms/module/excursions/apply/checkId.do?homepage_id=' + $('#homepage_id').val() + '&applicant_member_id='+ $('#applicant_member_id').val() + '&search_api_type=' + $('[name="search_api_type"]:checked').val(), function(response) {
+		$.get('/cms/module/excursions/apply/checkId.do?homepage_id=' + $('#homepage_id').val() + '&applicant_member_id='+ $('#applicant_member_id').val() + '&search_api_type=' + $('#search_api_type').val(), function(response) {
 			if ( response.resultMsg != null ) {
 				alert(response.resultMsg);
 			} else {
@@ -140,7 +146,8 @@ $(function() {
          	<td>
          		<c:choose>
          			<c:when test="${apply.editMode eq 'ADD' }">
-         				<form:input path="applicant_member_id" class="text" /> <form:radiobutton path="search_api_type" value="WEBID" label="웹ID"/> <form:radiobutton path="search_api_type" value="USERID" label="대출번호"/> <a class="btn btn1 idCheck">ID 확인</a>
+         				<form:hidden path="search_api_type" value="WEBID"/>
+         				<form:input path="applicant_member_id" class="text" /> <a class="btn btn1 idCheck">ID 확인</a>
          			</c:when>
          			<c:otherwise>
          				${apply.applicant_member_id}

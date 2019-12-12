@@ -19,8 +19,8 @@ public class Facility extends PagingUtils implements Cloneable {
 	private String delete_yn;  //삭제여부
 	private String add_date;  //등록일
 	private String add_id;  //등록자
-	private String mod_date;  //수정일
-	private String mod_id;  //수정자
+	private String modify_date;  //수정일
+	private String modify_id;  //수정자
 
 	// 등록시에만 사용하는 변수
 	private String start_date;  //사용 시작일
@@ -183,20 +183,20 @@ public class Facility extends PagingUtils implements Cloneable {
 		this.add_id = add_id;
 	}
 
-	public String getMod_date() {
-		return mod_date;
+	public String getModify_date() {
+		return modify_date;
 	}
 
-	public void setMod_date(String mod_date) {
-		this.mod_date = mod_date;
+	public void setModify_date(String modify_date) {
+		this.modify_date = modify_date;
 	}
 
-	public String getMod_id() {
-		return mod_id;
+	public String getModify_id() {
+		return modify_id;
 	}
 
-	public void setMod_id(String mod_id) {
-		this.mod_id = mod_id;
+	public void setModify_id(String modify_id) {
+		this.modify_id = modify_id;
 	}
 
 	public String getSun() {

@@ -3,95 +3,107 @@
 <mapper namespace="kr.go.gbelib.app.cms.module.facility.FacilityDao">
 	
 	<select id="getFacilityListAll" resultType="kr.go.gbelib.app.cms.module.facility.Facility">
-			SELECT
-				HOMEPAGE_ID, FACILITY_IDX, FACILITY_NAME, FACILITY_DESC, USE_DATE, START_TIME, END_TIME, LIMIT_COUNT, 
-				APPLY_START_DATE, APPLY_END_DATE, APPLY_START_TIME, APPLY_END_TIME, 
-				USE_YN, DELETE_YN, ADD_DATE, ADD_ID, MOD_DATE, MOD_ID 
-			FROM
-				FACILITY_MANAGE
-			WHERE HOMEPAGE_ID = #{homepage_id} AND DELETE_YN = 'N'
-				<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
-					AND	${search_type} LIKE '%'||#{search_text}||'%'
-				</if>
-			ORDER BY
-				FACILITY_IDX DESC
+		SELECT
+			homepage_id, facility_idx, facility_name, facility_desc, use_date, start_time, end_time, limit_count,
+			apply_start_date, apply_end_date, apply_start_time, apply_end_time,
+			use_yn, delete_yn, add_date, add_id, modify_date, modify_id
+		FROM
+			FACILITY_MANAGE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		ORDER BY facility_idx DESC
 	</select>
 	
 	<select id="getFacilityList" resultType="kr.go.gbelib.app.cms.module.facility.Facility">
 		SELECT
-			HOMEPAGE_ID, FACILITY_IDX, FACILITY_NAME, FACILITY_DESC, USE_DATE, START_TIME, END_TIME, LIMIT_COUNT, 
-			APPLY_START_DATE, APPLY_END_DATE, APPLY_START_TIME, APPLY_END_TIME, 
-			USE_YN, DELETE_YN, ADD_DATE, ADD_ID, MOD_DATE, MOD_ID,
-			(SELECT COUNT(*) FROM FACILITY_REQ WHERE HOMEPAGE_ID = a.HOMEPAGE_ID AND FACILITY_IDX = a.FACILITY_IDX AND DELETE_YN = 'N') AS APPLY_COUNT
+			homepage_id, facility_idx, facility_name, facility_desc, use_date, start_time, end_time, limit_count,
+			apply_start_date, apply_end_date, apply_start_time, apply_end_time,
+			use_yn, delete_yn, add_date, add_id, modify_date, modify_id,
+			(SELECT COUNT(*) FROM FACILITY_REQ WHERE homepage_id = a.homepage_id AND facility_idx = a.facility_idx AND delete_yn = 'N') AS apply_count
 		FROM
 			FACILITY_MANAGE a
-		WHERE HOMEPAGE_ID = #{homepage_id} AND DELETE_YN = 'N' 
-			AND USE_DATE like #{plan_date}||'%'
-		ORDER BY
-			USE_DATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		AND	use_date LIKE #{plan_date}||'%'
+		ORDER BY use_date
 	</select>
 	
 	<select id="getFacilityListByExcel" resultType="kr.go.gbelib.app.cms.module.facility.Facility">
 		SELECT
-			HOMEPAGE_ID, FACILITY_IDX, FACILITY_NAME, FACILITY_DESC, USE_DATE, START_TIME, END_TIME, LIMIT_COUNT, 
-			APPLY_START_DATE, APPLY_END_DATE, APPLY_START_TIME, APPLY_END_TIME, 
-			USE_YN, DELETE_YN, ADD_DATE, ADD_ID, MOD_DATE, MOD_ID,
-			(SELECT COUNT(*) FROM FACILITY_REQ WHERE HOMEPAGE_ID = a.HOMEPAGE_ID AND FACILITY_IDX = a.FACILITY_IDX AND DELETE_YN = 'N') AS APPLY_COUNT
+			homepage_id, facility_idx, facility_name, facility_desc, use_date, start_time, end_time, limit_count,
+			apply_start_date, apply_end_date, apply_start_time, apply_end_time,
+			use_yn, delete_yn, add_date, add_id, modify_date, modify_id,
+			(SELECT COUNT(*) FROM FACILITY_REQ WHERE homepage_id = a.homepage_id AND facility_idx = a.facility_idx AND delete_yn = 'N') AS apply_count
 		FROM
 			FACILITY_MANAGE a
-		WHERE HOMEPAGE_ID = #{homepage_id} AND DELETE_YN = 'N' 
-			<if test="excel_type != 'FULL'">
-				AND USE_DATE like #{plan_date}||'%'
-			</if>
-		ORDER BY
-			USE_DATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		<if test="excel_type != 'FULL'">
+		AND	use_date LIKE #{plan_date}||'%'
+		</if>
+		ORDER BY use_date
 	</select>
 	
 	<select id="getFacilityListByUser" resultType="kr.go.gbelib.app.cms.module.facility.Facility">
 		SELECT
-			HOMEPAGE_ID, FACILITY_IDX, FACILITY_NAME, FACILITY_DESC, USE_DATE, START_TIME, END_TIME, LIMIT_COUNT, 
-			APPLY_START_DATE, APPLY_END_DATE, APPLY_START_TIME, APPLY_END_TIME, 
-			USE_YN, DELETE_YN, ADD_DATE, ADD_ID, MOD_DATE, MOD_ID,
-			(SELECT COUNT(*) FROM FACILITY_REQ WHERE HOMEPAGE_ID = a.HOMEPAGE_ID AND FACILITY_IDX = a.FACILITY_IDX AND DELETE_YN = 'N' AND APPLY_STATUS != '3') AS APPLY_COUNT,
-			CASE 
-				WHEN SYSDATE BETWEEN TO_DATE(a.APPLY_START_DATE || ' ' || a.APPLY_START_TIME, 'yyyy-mm-dd hh24:mi') AND TO_DATE(a.APPLY_END_DATE || ' ' || a.APPLY_END_TIME, 'yyyy-mm-dd hh24:mi')
+			homepage_id, facility_idx, facility_name, facility_desc, use_date, start_time, end_time, limit_count,
+			apply_start_date, apply_end_date, apply_start_time, apply_end_time,
+			use_yn, delete_yn, add_date, add_id, modify_date, modify_id,
+			(SELECT COUNT(*) FROM FACILITY_REQ WHERE homepage_id = a.homepage_id AND facility_idx = a.facility_idx AND delete_yn = 'N' AND apply_status != '3') AS apply_count,
+			CASE
+				WHEN SYSDATE BETWEEN TO_DATE(a.apply_start_date || ' ' || a.apply_start_time, 'YYYY-MM-DD HH24:mi') AND TO_DATE(a.apply_end_date || ' ' || a.apply_end_time, 'YYYY-MM-DD HH24:mi')
 				THEN 'Y'
-				WHEN TO_CHAR(SYSDATE, 'YYYY-MM-DD') > USE_DATE 
+				WHEN TO_CHAR(SYSDATE, 'YYYY-MM-DD') > use_date
 				THEN 'N'
-				ELSE 'N'	
-			END AS APPLY_YN
+				ELSE 'N'
+			END AS apply_yn
 		FROM
 			FACILITY_MANAGE a
-		WHERE HOMEPAGE_ID = #{homepage_id} AND DELETE_YN = 'N' AND USE_YN = 'Y'
-			AND USE_DATE like #{plan_date}||'%'
-		ORDER BY
-			USE_DATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		AND	USE_YN = 'Y'
+		AND	use_date LIKE #{plan_date}||'%'
+		ORDER BY use_date
 	</select>
 	
 	<select id="getFacilityOne" resultType="kr.go.gbelib.app.cms.module.facility.Facility">
 		SELECT
-			HOMEPAGE_ID, FACILITY_IDX, FACILITY_NAME, FACILITY_DESC, USE_DATE, START_TIME, END_TIME, LIMIT_COUNT, 
-			APPLY_START_DATE, APPLY_END_DATE, APPLY_START_TIME, APPLY_END_TIME, 
-			USE_YN, DELETE_YN, ADD_DATE, ADD_ID, MOD_DATE, MOD_ID 
+			homepage_id, facility_idx, facility_name, facility_desc, use_date, start_time, end_time, limit_count,
+			apply_start_date, apply_end_date, apply_start_time, apply_end_time,
+			use_yn, delete_yn, add_date, add_id, modify_date, modify_id
 		FROM
 			FACILITY_MANAGE
-		WHERE HOMEPAGE_ID = #{homepage_id} AND FACILITY_IDX = #{facility_idx}
-			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
-				AND	${search_type} LIKE '%'||#{search_text}||'%'
-			</if>
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	facility_idx = #{facility_idx}
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
 	</select>
 	
 	<insert id="addFacility" parameterType="HashMap">
-		INSERT ALL 
-		<foreach collection="list" item="i" separator=" " index="index">
+		INSERT ALL
+			<foreach collection="list" item="i" separator=" " index="index">
 			INTO FACILITY_MANAGE
-			(HOMEPAGE_ID, FACILITY_IDX, FACILITY_NAME, FACILITY_DESC, USE_DATE, START_TIME, END_TIME, LIMIT_COUNT, 
-				APPLY_START_DATE, APPLY_END_DATE, APPLY_START_TIME, APPLY_END_TIME, 
-				USE_YN, DELETE_YN, ADD_DATE, ADD_ID
-			) VALUES (#{i.homepage_id}, (select NVL(MAX(FACILITY_IDX),0) + 1 from FACILITY_MANAGE where homepage_id = #{i.homepage_id}) + ${index}, #{i.facility_name}, #{i.facility_desc}, #{i.use_date}, #{i.start_time}, #{i.end_time}, #{i.limit_count}, 
-			#{i.apply_start_date}, #{i.apply_end_date}, #{i.apply_start_time}, #{i.apply_end_time}, 
-			#{i.use_yn}, 'N', SYSDATE, #{i.add_id})
-		</foreach>
+			(
+				homepage_id, facility_idx, facility_name, facility_desc, use_date, start_time, end_time, limit_count, 
+				apply_start_date, apply_end_date, apply_start_time, apply_end_time, 
+				use_yn, delete_yn, add_date, add_id
+			)
+			VALUES 
+			(
+				#{i.homepage_id}, (SELECT NVL(MAX(facility_idx),0) + 1 FROM FACILITY_MANAGE WHERE homepage_id = #{i.homepage_id}) + ${index}, #{i.facility_name}, #{i.facility_desc}, #{i.use_date}, #{i.start_time}, #{i.end_time}, #{i.limit_count}, 
+				#{i.apply_start_date}, #{i.apply_end_date}, #{i.apply_start_time}, #{i.apply_end_time}, 
+				#{i.use_yn}, 'N', SYSDATE, #{i.add_id}
+			)
+			</foreach>
 		SELECT * FROM DUAL
 	</insert>
 	
@@ -99,124 +111,138 @@
 		UPDATE 
 			FACILITY_MANAGE 
 		SET			
-			FACILITY_NAME 		= #{facility_name}
-			, FACILITY_DESC		= #{facility_desc}
-			, START_TIME		= #{start_time}
-			, END_TIME			= #{end_time}
-			, LIMIT_COUNT		= #{limit_count}
-			, APPLY_START_DATE	= #{apply_start_date}
-			, APPLY_END_DATE	= #{apply_end_date}
-			, APPLY_START_TIME	= #{apply_start_time}
-			, APPLY_END_TIME	= #{apply_end_time}
-			, USE_YN 			= #{use_yn}
-			, MOD_DATE 			= SYSDATE
-			, MOD_ID 			= #{mod_id}
-		WHERE 
-			HOMEPAGE_ID = #{homepage_id} AND FACILITY_IDX = #{facility_idx}
+			facility_name = #{facility_name},
+			facility_desc = #{facility_desc},
+			start_time = #{start_time},
+			end_time = #{end_time},
+			limit_count = #{limit_count},
+			apply_start_date = #{apply_start_date},
+			apply_end_date = #{apply_end_date},
+			apply_start_time = #{apply_start_time},
+			apply_end_time = #{apply_end_time},
+			use_yn = #{use_yn},
+			modify_date = SYSDATE,
+			modify_id = #{modify_id}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	facility_idx = #{facility_idx}
 	</update>
 	
 	<delete id="deleteFacility">
 		UPDATE
 			FACILITY_MANAGE
 		SET 
-			DELETE_YN = 'Y'
+			delete_yn = 'Y'
 		WHERE
-			HOMEPAGE_ID = #{homepage_id} AND FACILITY_IDX = #{facility_idx}
+			homepage_id = #{homepage_id}
+		AND	facility_idx = #{facility_idx}
 	</delete>
 	
 	<!--시설물 일별 통계 -->
 	<select id="getFacilityStatus" resultType="kr.co.whalesoft.app.cms.module.calendarStatus.CalendarStatus">
-		SELECT 
-			START_DATE, SUM(IMSI_V1) AS IMSI_V1
-		FROM 
+		SELECT
+			start_date, SUM(imsi_v1) AS imsi_v1
+		FROM
 			(
-			SELECT 
-				TO_CHAR(START_DATE, 'YYYY-MM-DD') AS START_DATE, SUM(IMSI_V1) AS IMSI_V1
-			FROM (
-				SELECT (START_DATE + LEVEL -1) AS START_DATE, IMSI_V1
-					FROM (
-						SELECT
-							TO_DATE(A.START_DATE, 'YYYY-MM-DD') AS START_DATE,
-							TO_DATE(A.END_DATE, 'YYYY-MM-DD') AS END_DATE,
-							(SELECT COUNT(*) FROM FACILITY_REQ B WHERE A.HOMEPAGE_ID = B.HOMEPAGE_ID AND A.FACILITY_IDX = B.FACILITY_IDX AND B.DELETE_YN = 'N') AS IMSI_V1	
-						FROM FACILITY A
-						WHERE
-						A.DELETE_YN = 'N' AND
-						A.HOMEPAGE_ID = #{homepage_id} AND
-						TO_DATE(A.START_DATE, 'YYYY-MM-DD') BETWEEN TO_DATE(#{start_date},'YYYY-MM-DD') AND TO_DATE(#{end_date}, 'YYYY-MM-DD')
+			SELECT
+				TO_CHAR(start_date, 'YYYY-MM-DD') AS start_date, SUM(imsi_v1) AS imsi_v1
+			FROM
+				(
+				SELECT
+					(start_date + LEVEL -1) AS start_date, imsi_v1
+				FROM
+					(
+					SELECT
+						TO_DATE(A.start_date, 'YYYY-MM-DD') AS start_date,
+						TO_DATE(A.end_date, 'YYYY-MM-DD') AS end_date,
+						(SELECT COUNT(*) FROM FACILITY_REQ B WHERE A.homepage_id = B.homepage_id AND A.facility_idx = B.facility_idx AND B.delete_yn = 'N') AS imsi_v1	
+					FROM
+						FACILITY A
+					WHERE
+						A.delete_yn = 'N'
+					AND	A.homepage_id = #{homepage_id}
+					AND	TO_DATE(A.start_date, 'YYYY-MM-DD') BETWEEN TO_DATE(#{start_date},'YYYY-MM-DD') AND TO_DATE(#{end_date}, 'YYYY-MM-DD')
 					)
-				CONNECT BY START_DATE + LEVEL -1	<![CDATA[ <= ]]>	END_DATE
-				order by start_date desc
-				) 
-			GROUP BY  START_DATE
+				CONNECT BY start_date + LEVEL - 1 <![CDATA[<=]]> end_date
+				ORDER BY start_date DESC
+				)
+			GROUP BY  start_date
 			)
-		GROUP BY ROLLUP (START_DATE)
-		ORDER BY START_DATE DESC
+		GROUP BY ROLLUP (start_date)
+		ORDER BY start_date DESC
 	</select>
 	
 	<!--시설물 월별 통계 -->
 	<select id="getFacilityMonthStatus" resultType="kr.co.whalesoft.app.cms.module.calendarStatus.CalendarStatus">
 		SELECT 
-			START_DATE, SUM(IMSI_V1) AS IMSI_V1
-		FROM (
+			start_date, SUM(imsi_v1) AS imsi_v1
+		FROM
+			(
 			SELECT
-				TO_CHAR(TO_DATE(A.START_DATE, 'YYYY-MM-DD'),'YYYY') AS YEAR,
-				TO_CHAR(TO_DATE(A.START_DATE, 'YYYY-MM-DD'),'YYYY-MM') AS START_DATE,
-				TO_CHAR(TO_DATE(A.END_DATE, 'YYYY-MM-DD'),'YYYY-MM') AS END_DATE,
-				(SELECT COUNT(*) FROM FACILITY_REQ B WHERE A.HOMEPAGE_ID = B.HOMEPAGE_ID AND A.FACILITY_IDX = B.FACILITY_IDX AND B.DELETE_YN = 'N') AS IMSI_V1	
-			FROM 
+				TO_CHAR(TO_DATE(A.start_date, 'YYYY-MM-DD'),'YYYY') AS year,
+				TO_CHAR(TO_DATE(A.start_date, 'YYYY-MM-DD'),'YYYY-MM') AS start_date,
+				TO_CHAR(TO_DATE(A.end_date, 'YYYY-MM-DD'),'YYYY-MM') AS end_date,
+				(SELECT COUNT(*) FROM FACILITY_REQ B WHERE A.homepage_id = B.homepage_id AND A.facility_idx = B.facility_idx AND B.delete_yn = 'N') AS imsi_v1
+			FROM
 				FACILITY A
 			WHERE
-				A.DELETE_YN = 'N' AND
-				A.HOMEPAGE_ID = #{homepage_id}
+				A.delete_yn = 'N'
+			AND	A.homepage_id = #{homepage_id}
 			)
 		WHERE
-			YEAR = #{start_year}
-		GROUP BY  ROLLUP (START_DATE)
-		ORDER BY START_DATE DESC
+			year = #{start_year}
+		GROUP BY ROLLUP (start_date)
+		ORDER BY start_date DESC
 	</select>
 	
 	<!--시설물 연도별 통계 -->
 	<select id="getFacilityYearStatus" resultType="kr.co.whalesoft.app.cms.module.calendarStatus.CalendarStatus">
-		SELECT 
-			START_DATE, SUM(IMSI_V1) AS IMSI_V1
-		FROM (
-			SELECT			
-				TO_CHAR(TO_DATE(A.START_DATE, 'YYYY-MM-DD'),'YYYY') AS START_DATE,
-				TO_CHAR(TO_DATE(A.END_DATE, 'YYYY-MM-DD'),'YYYY') AS END_DATE,
-				(SELECT COUNT(*) FROM FACILITY_REQ B WHERE A.HOMEPAGE_ID = B.HOMEPAGE_ID AND A.FACILITY_IDX = B.FACILITY_IDX AND B.DELETE_YN = 'N') AS IMSI_V1	
-			FROM 
+		SELECT
+			start_date, SUM(imsi_v1) AS imsi_v1
+		FROM
+			(
+			SELECT
+				TO_CHAR(TO_DATE(A.start_date, 'YYYY-MM-DD'),'YYYY') AS start_date,
+				TO_CHAR(TO_DATE(A.end_date, 'YYYY-MM-DD'),'YYYY') AS end_date,
+				(SELECT COUNT(*) FROM FACILITY_REQ B WHERE A.homepage_id = B.homepage_id AND A.facility_idx = B.facility_idx AND B.delete_yn = 'N') AS imsi_v1
+			FROM
 				FACILITY A
 			WHERE
-				A.DELETE_YN = 'N' AND
-				A.HOMEPAGE_ID = #{homepage_id}
+				A.delete_yn = 'N'
+			AND	A.homepage_id = #{homepage_id}
 			)
 		WHERE
-			START_DATE BETWEEN #{start_year} and #{end_year}
-		GROUP BY  ROLLUP (START_DATE)
-		ORDER BY START_DATE DESC
+			start_date BETWEEN #{start_year} AND #{end_year}
+		GROUP BY ROLLUP (start_date)
+		ORDER BY start_date DESC
 	</select>
 	
 	<select id="getCalendar" resultType="kr.go.gbelib.app.cms.module.facility.Facility">
-		SELECT 
-			MIN( DECODE( TO_CHAR(DAYS, 'D'), 1, TO_CHAR(DAYS, 'FMDD'))) as SUN,
-			MIN( DECODE( TO_CHAR(DAYS, 'D'), 2, TO_CHAR(DAYS, 'FMDD'))) as MON,
-			MIN( DECODE( TO_CHAR(DAYS, 'D'), 3, TO_CHAR(DAYS, 'FMDD'))) as TUE,
-			MIN( DECODE( TO_CHAR(DAYS, 'D'), 4, TO_CHAR(DAYS, 'FMDD'))) as WED,
-			MIN( DECODE( TO_CHAR(DAYS, 'D'), 5, TO_CHAR(DAYS, 'FMDD'))) as THU,
-			MIN( DECODE( TO_CHAR(DAYS, 'D'), 6, TO_CHAR(DAYS, 'FMDD'))) as FRI,
-			MIN( DECODE( TO_CHAR(DAYS, 'D'), 7, TO_CHAR(DAYS, 'FMDD'))) as SAT
+		SELECT
+			MIN( DECODE( TO_CHAR(days, 'D'), 1, TO_CHAR(days, 'FMDD'))) AS sun,
+			MIN( DECODE( TO_CHAR(days, 'D'), 2, TO_CHAR(days, 'FMDD'))) AS mon,
+			MIN( DECODE( TO_CHAR(days, 'D'), 3, TO_CHAR(days, 'FMDD'))) AS tue,
+			MIN( DECODE( TO_CHAR(days, 'D'), 4, TO_CHAR(days, 'FMDD'))) AS wed,
+			MIN( DECODE( TO_CHAR(days, 'D'), 5, TO_CHAR(days, 'FMDD'))) AS thu,
+			MIN( DECODE( TO_CHAR(days, 'D'), 6, TO_CHAR(days, 'FMDD'))) AS fri,
+			MIN( DECODE( TO_CHAR(days, 'D'), 7, TO_CHAR(days, 'FMDD'))) AS sat
    		FROM
-		(
-			SELECT 
-			(A.BASE_MON + ROWNUM -1) AS days, 
-			A.BASE_MON, 
-			((TRUNC(BASE_MON + ROWNUM - 1, 'D') - TRUNC(TRUNC(BASE_MON + ROWNUM - 1, 'Y'), 'D')) / 7 + 1) AS WEEK_NUM FROM (SELECT TO_DATE (#{plan_date}, 'yyyy-MM') BASE_MON FROM DUAL) A, DICTIONARY B
-		) C
-		
-		WHERE C.DAYS <![CDATA[ <= ]]> LAST_DAY(BASE_MON)
-  		GROUP BY WEEK_NUM
-  		ORDER BY WEEK_NUM 
+   			(
+			SELECT
+				(A.base_mon + ROWNUM -1) AS days, A.base_mon,
+				((TRUNC(BASE_MON + ROWNUM - 1, 'D') - TRUNC(TRUNC(BASE_MON + ROWNUM - 1, 'Y'), 'D')) / 7 + 1) AS week_num
+			FROM
+				(
+				SELECT
+					TO_DATE(#{plan_date}, 'yyyy-MM') base_mon
+				FROM
+					DUAL
+				) A, DICTIONARY B
+			) C
+		WHERE
+			C.days <![CDATA[<=]]> LAST_DAY(base_mon)
+  		GROUP BY week_num
+  		ORDER BY week_num 
 	</select>
 	
 </mapper>

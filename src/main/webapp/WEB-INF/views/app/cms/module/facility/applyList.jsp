@@ -86,68 +86,6 @@ $(function() {
 		}
 	});
 	
-	$('a.add_blackList').on('click', function(e) {		
-		$('#dialog-4').load('/cms/module/blackList/edit.do?editMode=ADD&black_type=30&after_click_btn=a.list_${facilityReq.facility_idx}&homepage_id=' + $(this).attr('homepage_id') + '&member_id=' + $(this).attr('keyValue')+ '&member_key=' + $(this).attr('keyValue1'), function( response, status, xhr ) {
-			$('#dialog-4').dialog({
-				width: 600,
-				height: 300
-			});
-			$('#dialog-4').dialog('open');
-		});
-		
-		e.preventDefault();
-	});
-	
-	$('a.delete_blackList').on('click', function(e) {
-		e.preventDefault();
-		
-		if (confirm('해당 수강생을 블랙리스트 목록에서 삭제하시겠습니까?')) {
-			var data = {
-					editMode : 'BLACKTYPEDELETE',
-					homepage_id : $(this).attr('homepage_id'),
-					member_key : $(this).attr('keyValue'),
-					black_type	: '30'
-			}
-			
-			jQuery.ajaxSettings.traditional = true;
-		    $.ajax({
-		        type: "POST",
-		        url: '/cms/module/blackList/save.do',
-		        async: false,
-		        data: data,
-		        dataType:'json',
-		        success: function(response) {
-		        	response = eval(response);
-		            if(response.valid) {            	
-		                 if(response.message != null && response.message.replace(/\s/g,'').length!=0) {
-		                	 alert(response.message);
-		                 }
-		                 $('#dialog-3').load('applyList.do?homepage_id=${facilityReq.homepage_id}&facility_idx=${facilityReq.facility_idx}', function( response, status, xhr ) {
-		         			 $('#dialog-3').dialog('open');
-		         		 });
-					} else {
-						if(response.message != null && response.message.replace(/\s/g,'').length!=0) {
-							alert(response.message);
-		                } else {
-		                	for(var i =0 ; i < response.result.length ; i++) {
-		    					alert(response.result[i].code);
-		    					$('#'+response.result[i].field).focus();
-		    					$('#'+response.result[i].field, $(form)).css('border-color', 'red');
-		                		$('#'+response.result[i].field, $(form)).on('change', function() {
-		                			$(this).css('border-color', '');
-		                		});
-		    					break;
-		    				}
-		                }
-					}
-		         },
-		         error: function(jqXHR, textStatus, errorThrown) {
-		             alert('[' + textStatus + ']관리자에게 문의하세요. : ' + errorThrown);
-		         }
-		    });
-		}
-	});
-	
 });
 
 </script>
@@ -204,12 +142,6 @@ $(function() {
 			         		</c:choose>
 							<a class="btn apply-modify-btn" keyValue1="${i.homepage_id}" keyValue2="${i.facility_idx}" keyValue3="${i.facility_req_idx}">수정</a>
 							<a class="btn apply-delete-btn" keyValue1="${i.homepage_id}" keyValue2="${i.facility_idx}" keyValue3="${i.facility_req_idx}">삭제</a>
-							<c:if test="${i.isBlackList > 0 }">
-							<a href="" class="btn btn4 delete_blackList" homepage_id="${i.homepage_id}" keyValue="${i.member_key}">블랙리스트 삭제</a>
-							</c:if>
-							<c:if test="${i.isBlackList < 1 }">
-							<a href="" class="btn btn1 add_blackList" homepage_id="${i.homepage_id}" keyValue="${i.apply_id}" keyValue1="${i.member_key}">블랙리스트 추가</a>
-							</c:if>
 						</td>
 			        </tr>
     			</c:forEach>	

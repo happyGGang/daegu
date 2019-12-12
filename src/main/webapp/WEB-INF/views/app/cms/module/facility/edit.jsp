@@ -22,7 +22,7 @@ $(function() {
 				"class": 'btn btn1',
 				click: function() {
 					if ( doAjaxPost($('#facilityForm')) ) {
-						//location.reload();
+						location.reload();
 					}
 				}
 			},{

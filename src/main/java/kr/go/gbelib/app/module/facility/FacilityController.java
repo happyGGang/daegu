@@ -29,8 +29,6 @@ import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.co.whalesoft.framework.utils.WebFilterCheckUtils;
-import kr.go.gbelib.app.cms.module.blackList.BlackList;
-import kr.go.gbelib.app.cms.module.blackList.BlackListService;
 import kr.go.gbelib.app.cms.module.facility.Facility;
 import kr.go.gbelib.app.cms.module.facility.FacilityService;
 import kr.go.gbelib.app.cms.module.facilityReq.FacilityReq;
@@ -56,9 +54,6 @@ public class FacilityController extends BaseController {
 	private TermsService termsService;
 
 	@Autowired
-	private BlackListService blackListService;
-
-	@Autowired
 	private RecommendSiteService recommendSiteService;
 
 	@ModelAttribute("recommendSiteList")
@@ -76,10 +71,8 @@ public class FacilityController extends BaseController {
 			facility.setPlan_date(new SimpleDateFormat("yyyy-MM").format(new Date()));
 		}
 
-		/*FacilityReq facilityReq = new FacilityReq();
-		facilityReq.setHomepage_id(homepage.getHomepage_id());
-		facilityReq.setMember_key(getSessionUserSeqNo(request));
-		facilityReq.setPlan_date(facility.getPlan_date());*/
+//		FacilityReq facilityReq = new FacilityReq();
+//		facilityReq.setHomepage_id(homepage.getHomepage_id());
 
 		CalendarManage calendarManage = new CalendarManage();
 		calendarManage.setHomepage_id(homepage.getHomepage_id());
@@ -89,8 +82,14 @@ public class FacilityController extends BaseController {
 		model.addAttribute("calendarManageList", calendarManageService.getClosedDate(calendarManage));
 		model.addAttribute("facility", facility);
 		model.addAttribute("facilityRepo", service.convertToRepo(service.getFacilityListByUser(facility)));
-		//model.addAttribute("facilityReq", facilityReq);
-		//model.addAttribute("facilityReqList", facilityReqService.getFacilityReqCalendarList(facilityReq));
+//		model.addAttribute("facilityReq", facilityReq);
+//		model.addAttribute("facilityReqList", facilityReqService.getFacilityReqList(facilityReq));
+		
+		FacilityReq facilityReq = new FacilityReq();
+		facilityReq.setHomepage_id(homepage.getHomepage_id());
+		facilityReq.setApply_id(getSessionMemberId(request));
+		model.addAttribute("applyList", facilityReqService.getApplyList(facilityReq));
+		
 		return String.format(basePath, homepage.getFolder()) + "index";
 	}
 
@@ -100,15 +99,15 @@ public class FacilityController extends BaseController {
 
 		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 
-			facilityReq.setBefore_url(String.format("http://www.gbelib.kr/%s/module/facility/index.do?menu_idx=%s", homepage.getContext_path(), facilityReq.getMenu_idx()));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://www.gbelib.kr/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), facilityReq.getMenu_idx(), facilityReq.getBefore_url()), request, response);
+			facilityReq.setBefore_url(String.format("/%s/module/facility/index.do?menu_idx=%s", homepage.getContext_path(), facilityReq.getMenu_idx()));
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), facilityReq.getMenu_idx(), facilityReq.getBefore_url()), request, response);
 			return null;
 	    }
 
-		if ( blackListService.checkBlackList(new BlackList(homepage.getHomepage_id(), getSessionUserSeqNo(request)), "30")) {
-			service.alertMessage("신청이 불가능합니다.\\n도서관에 문의해주세요.", request, response);
-			return null;
-		}
+//		if ( blackListService.checkBlackList(new BlackList(homepage.getHomepage_id(), getSessionUserSeqNo(request)), "30")) {
+//			service.alertMessage("신청이 불가능합니다.\\n도서관에 문의해주세요.", request, response);
+//			return null;
+//		}
 
 		Facility facility = new Facility();
 		facility.setHomepage_id(homepage.getHomepage_id());
@@ -138,15 +137,15 @@ public class FacilityController extends BaseController {
 
 		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 
-			facilityReq.setBefore_url(String.format("http://www.gbelib.kr/%s/module/facility/index.do?menu_idx=%s&date_type=1", homepage.getContext_path(), facilityReq.getMenu_idx()));
+			facilityReq.setBefore_url(String.format("/%s/module/facility/index.do?menu_idx=%s&date_type=1", homepage.getContext_path(), facilityReq.getMenu_idx()));
 
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://www.gbelib.kr/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), facilityReq.getMenu_idx(), facilityReq.getBefore_url()), request, response);
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), facilityReq.getMenu_idx(), facilityReq.getBefore_url()), request, response);
 			return null;
 	    }
 
 		facilityReq.setHomepage_id(homepage.getHomepage_id());
-		facilityReq.setMember_key(getSessionUserSeqNo(request));
-
+		facilityReq.setApply_id(getSessionMemberId(request));
+		
 		model.addAttribute("facilityReq", facilityReq);
 		model.addAttribute("applyList", facilityReqService.getApplyList(facilityReq));
 
@@ -237,7 +236,7 @@ public class FacilityController extends BaseController {
 
 			}
 			else if ( editMode.equals("CANCEL") ) {
-				facilityReq.setMod_id(getSessionMemberId(request));
+				facilityReq.setModify_id(getSessionMemberId(request));
 				facilityReq.setApply_status("3");
 				facilityReqService.changeStatus(facilityReq);
 				res.setValid(true);

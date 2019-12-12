@@ -46,14 +46,22 @@ $(function() {
 	});
  
 	$('a.idCheck').on('click', function(e) {
+		if($('#facilityReqForm #apply_id').val() == '') {
+			alert('신청자ID를 입력하세요');
+			$('#facilityReqForm #apply_id').focus();
+			return false;
+		}
+		
 		$('#facilityReqForm #apply_name').val("");
-		$.get('checkId.do?homepage_id=' + $('#homepage_id').val() + '&apply_id='+ $('#apply_id').val() + '&search_api_type=' + $('[name="search_api_type"]:checked').val(), function(response) {
+		$.get('checkId.do?homepage_id=' + $('#homepage_id').val() + '&apply_id='+ $('#apply_id').val() + '&search_api_type=' + $('#search_api_type').val(), function(response) {
 			if ( response.resultMsg != null ) {
 				alert(response.resultMsg);	
-			}
-			else {
-				$('#facilityReqForm #member_key').val(response.memberInfo.SEQ_NO);
-				$('#facilityReqForm #apply_name').val(response.memberInfo.USER_NAME);
+			} else {
+				$('#facilityReqForm #apply_name').val(response.memberInfo[0].NAME);
+				var phone = response.memberInfo[0].HANDPHONE.split('-');
+				$('#facilityReqForm #apply_phone1').val(phone[0]);
+				$('#facilityReqForm #apply_phone2').val(phone[1]);
+				$('#facilityReqForm #apply_phone3').val(phone[2]);
 			}
 		});
 		e.preventDefault();
@@ -98,7 +106,8 @@ $(function() {
 	         	<td>
 	         		<c:choose>
 	         			<c:when test="${facilityReq.editMode eq 'ADD' }">
-	         				<form:input path="apply_id" class="text" /> <form:radiobutton path="search_api_type" value="WEBID" label="웹ID"/> <form:radiobutton path="search_api_type" value="USERID" label="대출번호"/> <a class="btn btn1 idCheck">ID 확인</a>	
+	         				<form:hidden path="search_api_type" value="WEBID"/>
+	         				<form:input path="apply_id" class="text" /> <a class="btn btn1 idCheck">ID 확인</a>
 	         			</c:when>
 	         			<c:otherwise>
 	         				${facilityReq.apply_id}

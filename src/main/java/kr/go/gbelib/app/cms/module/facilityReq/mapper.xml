@@ -2,171 +2,182 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.go.gbelib.app.cms.module.facilityReq.FacilityReqDao">
 	
-	<select id="getFacilityReqListAll" resultType="kr.go.gbelib.app.cms.module.facilityReq.FacilityReq">			
+	<select id="getFacilityReqListAll" resultType="kr.go.gbelib.app.cms.module.facilityReq.FacilityReq">
 		SELECT
-			HOMEPAGE_ID, FACILITY_IDX, FACILITY_REQ_IDX, APPLY_ID, MEMBER_KEY, APPLY_NAME, APPLY_PHONE, APPLY_DESC, APPLY_STATUS
-			, ADD_DATE, ADD_ID, MOD_DATE, MOD_ID
+			homepage_id, facility_idx, facility_req_idx, apply_id,
+			apply_name, apply_phone, apply_desc, apply_status,
+			add_date, add_id, modify_date, modify_id
 		FROM
-			FACILITY_REQ 
+			FACILITY_REQ
 		WHERE
-			HOMEPAGE_ID = #{homepage_id} 
-			AND DELETE_YN = 'N'					
-			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
-			AND	${search_type} LIKE '%'||#{search_text}||'%'
-			</if>
-		ORDER BY
-			FACILITY_REQ_IDX ASC
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'	
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		ORDER BY facility_req_idx ASC
 	</select>
 	
 	<select id="getFacilityReqList" resultType="kr.go.gbelib.app.cms.module.facilityReq.FacilityReq">
 		SELECT
-			HOMEPAGE_ID, FACILITY_IDX, FACILITY_REQ_IDX, APPLY_ID, MEMBER_KEY, APPLY_NAME, APPLY_PHONE, APPLY_DESC, APPLY_STATUS
-			, ADD_DATE, ADD_ID, MOD_DATE, MOD_ID,
-			(SELECT COUNT(*) FROM BLACKLIST WHERE HOMEPAGE_ID = FACILITY_REQ.HOMEPAGE_ID AND MEMBER_KEY = FACILITY_REQ.MEMBER_KEY AND INSTR(BLACK_TYPE, '30') != 0) as isBlackList
+			homepage_id, facility_idx, facility_req_idx, apply_id,
+			apply_name, apply_phone, apply_desc, apply_status,
+			add_date, add_id, modify_date, modify_id
 		FROM
-			FACILITY_REQ 
+			FACILITY_REQ
 		WHERE
-			HOMEPAGE_ID = #{homepage_id} 
-			AND FACILITY_IDX = #{facility_idx}
-			AND DELETE_YN = 'N'					
-			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
-			AND	${search_type} LIKE '%'||#{search_text}||'%'
-			</if>
-		ORDER BY
-			FACILITY_REQ_IDX ASC
+			homepage_id = #{homepage_id}
+		AND	facility_idx = #{facility_idx}
+		AND	delete_yn = 'N'
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		ORDER BY facility_req_idx ASC
 	</select>
 
 	<select id="getFacilityReqOne" resultType="kr.go.gbelib.app.cms.module.facilityReq.FacilityReq">
 		SELECT
-			HOMEPAGE_ID, FACILITY_IDX, FACILITY_REQ_IDX, APPLY_ID, MEMBER_KEY, APPLY_NAME, APPLY_PHONE, APPLY_DESC, APPLY_STATUS
-			, ADD_DATE, ADD_ID, MOD_DATE, MOD_ID
+			homepage_id, facility_idx, facility_req_idx, apply_id,
+			apply_name, apply_phone, apply_desc, apply_status,
+			add_date, add_id, modify_date, modify_id
 		FROM
 			FACILITY_REQ
-		WHERE HOMEPAGE_ID = #{homepage_id} 
-			AND FACILITY_IDX = #{facility_idx} 
-			AND FACILITY_REQ_IDX = #{facility_req_idx} 
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	facility_idx = #{facility_idx}
+		AND	facility_req_idx = #{facility_req_idx}
 	</select>
 	
 	<select id="checkFacilityReq" resultType="int">
-		SELECT COUNT(*) 
-		FROM FACILITY_REQ
-		WHERE HOMEPAGE_ID = #{homepage_id} 
-			AND FACILITY_IDX = #{facility_idx}
-			AND MEMBER_KEY = #{member_key}
-			AND DELETE_YN = 'N'
-			AND APPLY_STATUS != '3'
+		SELECT
+			COUNT(*)
+		FROM
+			FACILITY_REQ
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	facility_idx = #{facility_idx}
+		AND apply_id = #{apply_id}
+		AND	delete_yn = 'N'
+		AND	apply_status != '3'
 	</select>
 	
 	<insert id="addFacilityReq">
 		<selectKey keyProperty="facility_req_idx" resultType="int" order="BEFORE">
-			SELECT NVL(MAX(FACILITY_REQ_IDX),0)+1 FROM FACILITY_REQ WHERE HOMEPAGE_ID = #{homepage_id} AND FACILITY_IDX = #{facility_idx} 
+			SELECT NVL(MAX(facility_req_idx),0)+1 FROM FACILITY_REQ WHERE homepage_id = #{homepage_id} AND facility_idx = #{facility_idx}
 		</selectKey>
-		INSERT INTO FACILITY_REQ
+		INSERT INTO
+			FACILITY_REQ
 		(
-			HOMEPAGE_ID, FACILITY_IDX, FACILITY_REQ_IDX, APPLY_ID, MEMBER_KEY, APPLY_NAME, APPLY_PHONE, APPLY_DESC, APPLY_STATUS, SELF_INFO_YN
-			, DELETE_YN, ADD_DATE, ADD_ID
-		) VALUES (
-			#{homepage_id}, #{facility_idx}, #{facility_req_idx}, #{apply_id}, #{member_key}, #{apply_name}, #{apply_phone}, #{apply_desc}, '1', #{self_info_yn}
-			, 'N', SYSDATE, #{add_id}
+			homepage_id, facility_idx, facility_req_idx, apply_id, apply_name,
+			apply_phone, apply_desc, apply_status, self_info_yn, delete_yn,
+			add_date, add_id
+		)
+		VALUES
+		(
+			#{homepage_id}, #{facility_idx}, #{facility_req_idx}, #{apply_id}, #{apply_name},
+			#{apply_phone}, #{apply_desc}, '1', #{self_info_yn}, 'N',
+			SYSDATE, #{add_id}
 		)
 	</insert>
 	
 	<update id="modifyFacilityReq">
-		UPDATE 
-			FACILITY_REQ 
+		UPDATE
+			FACILITY_REQ
 		SET
-			APPLY_PHONE 		= #{apply_phone}
-			, APPLY_DESC 		= #{apply_desc}
-			, MOD_DATE 			= SYSDATE
-			, MOD_ID 			= #{mod_id}
-		WHERE 
-			HOMEPAGE_ID = #{homepage_id} 
-			AND FACILITY_IDX = #{facility_idx} 
-			AND FACILITY_REQ_IDX = #{facility_req_idx} 
-			AND DELETE_YN = 'N'
+			apply_phone = #{apply_phone},
+			apply_desc = #{apply_desc},
+			modify_date = SYSDATE,
+			modify_id = #{modify_id}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	facility_idx = #{facility_idx}
+		AND	facility_req_idx = #{facility_req_idx}
+		AND	delete_yn = 'N'
 	</update>
 	
 	<delete id="deleteFacilityReq">
 		UPDATE
 			FACILITY_REQ
 		SET 
-			DELETE_YN = 'Y'
-			, MOD_DATE = SYSDATE
-			, MOD_ID = #{mod_id}
+			delete_yn = 'Y',
+			modify_date = SYSDATE,
+			modify_id = #{modify_id}
 		WHERE
-			HOMEPAGE_ID = #{homepage_id} 
-			AND FACILITY_IDX = #{facility_idx} 
-			AND FACILITY_REQ_IDX = #{facility_req_idx}
+			homepage_id = #{homepage_id}
+		AND	facility_idx = #{facility_idx}
+		AND	facility_req_idx = #{facility_req_idx}
 	</delete>
 	
 	<update id="changeStatus">
 		UPDATE
 			FACILITY_REQ
 		SET
-			APPLY_STATUS = #{apply_status}
-			, MOD_DATE = SYSDATE 
-			, MOD_ID = #{mod_id}
+			apply_status = #{apply_status},
+			modify_date = SYSDATE,
+			modify_id = #{modify_id}
 		WHERE
-			HOMEPAGE_ID = #{homepage_id} 
-			AND FACILITY_IDX = #{facility_idx} 
-			AND FACILITY_REQ_IDX = #{facility_req_idx}
-			<if test="member_key != null and member_key != ''">
-			AND MEMBER_KEY = #{member_key}
-			</if>
+			homepage_id = #{homepage_id} 
+		AND	facility_idx = #{facility_idx} 
+		AND	facility_req_idx = #{facility_req_idx}
 	</update>
 	
 	<select id="getFacilityReqCalendar" resultType="kr.go.gbelib.app.cms.module.facilityReq.FacilityReq">
 		SELECT
-			A.HOMEPAGE_ID, A.FACILITY_IDX, A.FACILITY_REQ_IDX, A.APPLY_NAME, REGEXP_REPLACE(A.APPLY_NAME, '.', '*', 2) AS MASKING_NAME, A.APPLY_PHONE, 
-			A.APPLY_STATUS, B.FACILITY_NAME, B.USE_DATE
+			A.homepage_id, A.facility_idx, A.facility_req_idx, A.apply_name, REGEXP_REPLACE(A.apply_name, '.', '*', 2) AS masking_name,
+			A.apply_phone, A.apply_status, B.facility_name, B.use_date
 		FROM
 			FACILITY_REQ A, FACILITY_MANAGE B
 		WHERE
-			A.HOMEPAGE_ID = B.HOMEPAGE_ID AND
-			A.FACILITY_IDX = B.FACILITY_IDX AND
-			A.HOMEPAGE_ID = #{homepage_id} AND
-			A.DELETE_YN = 'N' AND
-			A.APPLY_STATUS = '2'
-			<if test="plan_date != null and plan_date != ''">
-		 		AND #{plan_date} = substr(B.USE_DATE,1,7)
-			</if>
+			A.homepage_id = B.homepage_id
+		AND	A.facility_idx = B.facility_idx
+		AND	A.homepage_id = #{homepage_id}
+		AND	A.delete_yn = 'N'
+		AND	A.apply_status = '2'
+		<if test="plan_date != null and plan_date != ''">
+	 	AND	#{plan_date} = SUBSTR(B.use_date, 1, 7)
+		</if>
 	</select>
 	
 	<select id="getFacilityReqListByExcel" resultType="kr.go.gbelib.app.cms.module.facilityReq.FacilityReq">
-		SELECT a.FACILITY_NAME, a.USE_DATE, b.APPLY_ID, b.APPLY_NAME, b.APPLY_PHONE, b.APPLY_DESC, 
-			CASE 
-				WHEN b.APPLY_STATUS = '1' THEN '신청'
-				WHEN b.APPLY_STATUS = '2' THEN '승인'
-				WHEN b.APPLY_STATUS = '3' THEN '취소'
-			END AS APPLY_STATUS
-		FROM FACILITY_MANAGE a, FACILITY_REQ b
-		WHERE 
-			a.HOMEPAGE_ID = b.HOMEPAGE_ID
-			AND	a.FACILITY_IDX = b.FACILITY_IDX
-			AND a.HOMEPAGE_ID = #{homepage_id} 
-			AND a.DELETE_YN = 'N'
-			AND b.DELETE_YN = 'N'
-			<if test="excel_type != 'FULL'">
-				AND a.USE_DATE like #{plan_date}||'%'
-			</if>
-		ORDER BY a.USE_DATE
+		SELECT
+			a.facility_name, a.use_date, b.apply_id, b.apply_name, b.apply_phone, b.apply_desc,
+			CASE
+				WHEN b.apply_status = '1' THEN '신청'
+				WHEN b.apply_status = '2' THEN '승인'
+				WHEN b.apply_status = '3' THEN '취소'
+			END AS apply_status
+		FROM
+			FACILITY_MANAGE a, FACILITY_REQ b
+		WHERE
+			a.homepage_id = b.homepage_id
+		AND	a.facility_idx = b.facility_idx
+		AND	a.homepage_id = #{homepage_id}
+		AND	a.delete_yn = 'N'
+		AND	b.delete_yn = 'N'
+		<if test="excel_type != 'FULL'">
+			AND	a.use_date LIKE #{plan_date}||'%'
+		</if>
+		ORDER BY a.use_date
 	</select>
 	
 	<select id="getApplyList" resultType="kr.go.gbelib.app.cms.module.facilityReq.FacilityReq">
-		SELECT b.HOMEPAGE_ID, b.FACILITY_IDX, b.FACILITY_REQ_IDX, a.FACILITY_NAME, a.USE_DATE, a.START_TIME, a.END_TIME, b.APPLY_NAME, b.APPLY_PHONE, b.APPLY_DESC, 
-			CASE 
-				WHEN b.APPLY_STATUS = '1' THEN '신청'
-				WHEN b.APPLY_STATUS = '2' THEN '승인'
-				WHEN b.APPLY_STATUS = '3' THEN '취소'
-			END AS APPLY_STATUS
-		FROM FACILITY_MANAGE a, FACILITY_REQ b
-		WHERE 
-			a.HOMEPAGE_ID = b.HOMEPAGE_ID
-			AND	a.FACILITY_IDX = b.FACILITY_IDX
-			AND a.HOMEPAGE_ID = #{homepage_id}
-			AND b.MEMBER_KEY = #{member_key} 
-			AND a.DELETE_YN = 'N'
-			AND b.DELETE_YN = 'N'
+		SELECT
+			b.homepage_id, b.facility_idx, b.facility_req_idx, a.facility_name, a.use_date,
+			a.START_TIME, a.END_TIME, b.apply_name, b.apply_phone, b.apply_desc,
+			CASE
+				WHEN b.apply_status = '1' THEN '신청'
+				WHEN b.apply_status = '2' THEN '승인'
+				WHEN b.apply_status = '3' THEN '취소'
+			END AS apply_status
+		FROM
+			FACILITY_MANAGE a, FACILITY_REQ b
+		WHERE
+			a.homepage_id = b.homepage_id
+		AND	a.facility_idx = b.facility_idx
+		AND	a.homepage_id = #{homepage_id}
+		AND	b.apply_id = #{apply_id}
+		AND	a.delete_yn = 'N'
+		AND	b.delete_yn = 'N'
 	</select>
 
 </mapper>

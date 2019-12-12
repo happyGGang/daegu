@@ -199,11 +199,26 @@ $(function(){
 								<c:forEach items="${facilityRepo[plan_date]}" var="one">
 									<li>[${one.facility_name}]<br/>${one.start_time}~${one.end_time}<br/>
 										<c:choose>
-											<c:when test="${one.apply_count >= one.limit_count}"><span class="type-e"><i></i><em>정원마감</em></span></c:when>
+											<c:when test="${one.apply_count >= one.limit_count}"><span class="type-e"><i></i><em>정원마감</em></span><br></c:when>
 											<c:when test="${one.apply_yn eq 'Y'}">
-												<a class="btn1 apply" keyValue="${one.facility_idx}"><span style="type-r"><i></i><em>신청하기</em></span></a>
+												<a class="btn1 apply" keyValue="${one.facility_idx}"><span style="type-r"><i></i><em>신청하기</em></span></a><br>
 											</c:when>
 										</c:choose>
+										<c:forEach items="${applyList}" var="apply">
+											<c:if test="${plan_date eq apply.use_date}">
+											<c:choose>
+												<c:when test="${apply.apply_status eq '신청'}">
+												<span class="type-h"><i></i><em>${apply.apply_status}</em></span><br>
+												</c:when>
+												<c:when test="${apply.apply_status eq '승인'}">
+												<span class="type-r"><i></i><em>${apply.apply_status}</em></span><br>
+												</c:when>
+												<c:when test="${apply.apply_status eq '취소'}">
+												<span class="type-e"><i></i><em>${apply.apply_status}</em></span><br>
+												</c:when>
+											</c:choose>
+											</c:if>
+										</c:forEach>
 									</li>
 								</c:forEach>
 							</ul>												
@@ -222,17 +237,33 @@ $(function(){
 								<c:forEach items="${facilityRepo[plan_date]}" var="one">
 									<li>[${one.facility_name}]<br/>${one.start_time}~${one.end_time}<br/>
 										<c:choose>
-											<c:when test="${one.apply_count >= one.limit_count}"><span class="type-e"><i></i><em>정원마감</em></span></c:when>
+											<c:when test="${one.apply_count >= one.limit_count}"><span class="type-e"><i></i><em>정원마감</em></span><br></c:when>
 											<c:when test="${one.apply_yn eq 'Y'}">
-												<a class="btn1 apply" keyValue="${one.facility_idx}"><span style="type-r"><i></i><em>신청하기</em></span></a>
+												<a class="btn1 apply" keyValue="${one.facility_idx}"><span style="type-r"><i></i><em>신청하기</em></span></a><br>
 											</c:when>
 										</c:choose>
+										<c:forEach items="${applyList}" var="apply">
+											<c:if test="${plan_date eq apply.use_date}">
+											<c:choose>
+												<c:when test="${apply.apply_status eq '신청'}">
+												<span class="type-h"><i></i><em>${apply.apply_status}</em></span><br>
+												</c:when>
+												<c:when test="${apply.apply_status eq '승인'}">
+												<span class="type-r"><i></i><em>${apply.apply_status}</em></span><br>
+												</c:when>
+												<c:when test="${apply.apply_status eq '취소'}">
+												<span class="type-e"><i></i><em>${apply.apply_status}</em></span><br>
+												</c:when>
+											</c:choose>
+											</c:if>
+										</c:forEach>
 									</li>
 								</c:forEach>
 							</ul>
 						</td>
 					</c:otherwise>
 					</c:choose>
+					
 					<c:choose>
 					<c:when test="${i.tue eq null}">
 						<td><div>&nbsp;</div></td>
@@ -245,17 +276,33 @@ $(function(){
 								<c:forEach items="${facilityRepo[plan_date]}" var="one">
 									<li>[${one.facility_name}]<br/>${one.start_time}~${one.end_time}<br/>
 										<c:choose>
-											<c:when test="${one.apply_count >= one.limit_count}"><span class="type-e"><i></i><em>정원마감</em></span></c:when>
+											<c:when test="${one.apply_count >= one.limit_count}"><span class="type-e"><i></i><em>정원마감</em></span><br></c:when>
 											<c:when test="${one.apply_yn eq 'Y'}">
-												<a class="btn1 apply" keyValue="${one.facility_idx}"><span style="type-r"><i></i><em>신청하기</em></span></a>
+												<a class="btn1 apply" keyValue="${one.facility_idx}"><span style="type-r"><i></i><em>신청하기</em></span></a><br>
 											</c:when>
 										</c:choose>
+										<c:forEach items="${applyList}" var="apply">
+											<c:if test="${plan_date eq apply.use_date}">
+											<c:choose>
+												<c:when test="${apply.apply_status eq '신청'}">
+												<span class="type-h"><i></i><em>${apply.apply_status}</em></span><br>
+												</c:when>
+												<c:when test="${apply.apply_status eq '승인'}">
+												<span class="type-r"><i></i><em>${apply.apply_status}</em></span><br>
+												</c:when>
+												<c:when test="${apply.apply_status eq '취소'}">
+												<span class="type-e"><i></i><em>${apply.apply_status}</em></span><br>
+												</c:when>
+											</c:choose>
+											</c:if>
+										</c:forEach>
 									</li>
 								</c:forEach>
 							</ul>
 						</td>
 					</c:otherwise>
 					</c:choose>
+					
 					<c:choose>
 					<c:when test="${i.wed eq null}">
 						<td><div>&nbsp;</div></td>
@@ -268,17 +315,33 @@ $(function(){
 								<c:forEach items="${facilityRepo[plan_date]}" var="one">
 									<li>[${one.facility_name}]<br/>${one.start_time}~${one.end_time}<br/>
 										<c:choose>
-											<c:when test="${one.apply_count >= one.limit_count}"><span class="type-e"><i></i><em>정원마감</em></span></c:when>
+											<c:when test="${one.apply_count >= one.limit_count}"><span class="type-e"><i></i><em>정원마감</em></span><br></c:when>
 											<c:when test="${one.apply_yn eq 'Y'}">
-												<a class="btn1 apply" keyValue="${one.facility_idx}"><span style="type-r"><i></i><em>신청하기</em></span></a>
+												<a class="btn1 apply" keyValue="${one.facility_idx}"><span style="type-r"><i></i><em>신청하기</em></span></a><br>
 											</c:when>
 										</c:choose>
+										<c:forEach items="${applyList}" var="apply">
+											<c:if test="${plan_date eq apply.use_date}">
+											<c:choose>
+												<c:when test="${apply.apply_status eq '신청'}">
+												<span class="type-h"><i></i><em>${apply.apply_status}</em></span><br>
+												</c:when>
+												<c:when test="${apply.apply_status eq '승인'}">
+												<span class="type-r"><i></i><em>${apply.apply_status}</em></span><br>
+												</c:when>
+												<c:when test="${apply.apply_status eq '취소'}">
+												<span class="type-e"><i></i><em>${apply.apply_status}</em></span><br>
+												</c:when>
+											</c:choose>
+											</c:if>
+										</c:forEach>
 									</li>
 								</c:forEach>
 							</ul>
 						</td>
 					</c:otherwise>
 					</c:choose>
+					
 					<c:choose>
 					<c:when test="${i.thu eq null}">
 						<td><div>&nbsp;</div></td>
@@ -288,10 +351,36 @@ $(function(){
 							<div>${i.thu}</div>
 							<c:set var="plan_date" value="${facility.plan_date}-${fn:length(i.thu) < 2? '0' : ''}${i.thu}" />
 							<ul>
+								<c:forEach items="${facilityRepo[plan_date]}" var="one">
+									<li>[${one.facility_name}]<br/>${one.start_time}~${one.end_time}<br/>
+										<c:choose>
+											<c:when test="${one.apply_count >= one.limit_count}"><span class="type-e"><i></i><em>정원마감</em></span><br></c:when>
+											<c:when test="${one.apply_yn eq 'Y'}">
+												<a class="btn1 apply" keyValue="${one.facility_idx}"><span style="type-r"><i></i><em>신청하기</em></span></a><br>
+											</c:when>
+										</c:choose>
+										<c:forEach items="${applyList}" var="apply">
+											<c:if test="${plan_date eq apply.use_date}">
+											<c:choose>
+												<c:when test="${apply.apply_status eq '신청'}">
+												<span class="type-h"><i></i><em>${apply.apply_status}</em></span><br>
+												</c:when>
+												<c:when test="${apply.apply_status eq '승인'}">
+												<span class="type-r"><i></i><em>${apply.apply_status}</em></span><br>
+												</c:when>
+												<c:when test="${apply.apply_status eq '취소'}">
+												<span class="type-e"><i></i><em>${apply.apply_status}</em></span><br>
+												</c:when>
+											</c:choose>
+											</c:if>
+										</c:forEach>
+									</li>
+								</c:forEach>
 							</ul>
 						</td>
 					</c:otherwise>
 					</c:choose>
+					
 					<c:choose>
 					<c:when test="${i.fri eq null}">
 						<td><div>&nbsp;</div></td>
@@ -304,11 +393,26 @@ $(function(){
 								<c:forEach items="${facilityRepo[plan_date]}" var="one">
 									<li>[${one.facility_name}]<br/>${one.start_time}~${one.end_time}<br/>
 										<c:choose>
-											<c:when test="${one.apply_count >= one.limit_count}"><span class="type-e"><i></i><em>정원마감</em></span></c:when>
+											<c:when test="${one.apply_count >= one.limit_count}"><span class="type-e"><i></i><em>정원마감</em></span><br></c:when>
 											<c:when test="${one.apply_yn eq 'Y'}">
-												<a class="btn1 apply" keyValue="${one.facility_idx}"><span style="type-r"><i></i><em>신청하기</em></span></a>
+												<a class="btn1 apply" keyValue="${one.facility_idx}"><span style="type-r"><i></i><em>신청하기</em></span></a><br>
 											</c:when>
 										</c:choose>
+										<c:forEach items="${applyList}" var="apply">
+											<c:if test="${plan_date eq apply.use_date}">
+											<c:choose>
+												<c:when test="${apply.apply_status eq '신청'}">
+												<span class="type-h"><i></i><em>${apply.apply_status}</em></span><br>
+												</c:when>
+												<c:when test="${apply.apply_status eq '승인'}">
+												<span class="type-r"><i></i><em>${apply.apply_status}</em></span><br>
+												</c:when>
+												<c:when test="${apply.apply_status eq '취소'}">
+												<span class="type-e"><i></i><em>${apply.apply_status}</em></span><br>
+												</c:when>
+											</c:choose>
+											</c:if>
+										</c:forEach>
 									</li>
 								</c:forEach>
 							</ul>
@@ -327,11 +431,26 @@ $(function(){
 								<c:forEach items="${facilityRepo[plan_date]}" var="one">
 									<li>[${one.facility_name}]<br/>${one.start_time}~${one.end_time}<br/>
 										<c:choose>
-											<c:when test="${one.apply_count >= one.limit_count}"><span class="type-e"><i></i><em>정원마감</em></span></c:when>
+											<c:when test="${one.apply_count >= one.limit_count}"><span class="type-e"><i></i><em>정원마감</em></span><br></c:when>
 											<c:when test="${one.apply_yn eq 'Y'}">
-												<a class="btn1 apply" keyValue="${one.facility_idx}"><span style="type-r"><i></i><em>신청하기</em></span></a>
+												<a class="btn1 apply" keyValue="${one.facility_idx}"><span style="type-r"><i></i><em>신청하기</em></span></a><br>
 											</c:when>
 										</c:choose>
+										<c:forEach items="${applyList}" var="apply">
+											<c:if test="${plan_date eq apply.use_date}">
+											<c:choose>
+												<c:when test="${apply.apply_status eq '신청'}">
+												<span class="type-h"><i></i><em>${apply.apply_status}</em></span><br>
+												</c:when>
+												<c:when test="${apply.apply_status eq '승인'}">
+												<span class="type-r"><i></i><em>${apply.apply_status}</em></span><br>
+												</c:when>
+												<c:when test="${apply.apply_status eq '취소'}">
+												<span class="type-e"><i></i><em>${apply.apply_status}</em></span><br>
+												</c:when>
+											</c:choose>
+											</c:if>
+										</c:forEach>
 									</li>
 								</c:forEach>
 							</ul>
