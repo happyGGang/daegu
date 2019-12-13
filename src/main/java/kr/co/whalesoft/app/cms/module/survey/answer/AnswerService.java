@@ -122,7 +122,7 @@ public class AnswerService extends BaseService {
 	}
 
 	public boolean isDupleAnswer(Quest quest, Member member) {
-		quest.setAdd_user_id(member.getMember_id());
+		quest.setAdd_id(member.getMember_id());
 		return dao.getSurveyAnswerUserOne(quest) > 0 ? true : false;
 	}
 

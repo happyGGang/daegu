@@ -59,7 +59,7 @@ table tbody th{text-align: center; font-weight: bold !important;}
 			<tbody>
 				<tr>
 					<th>조사자</th>
-					<td>${survey.add_user_id}</td>
+					<td>${survey.add_id}</td>
 				</tr>
 				<tr>
 					<th>조사명</th>

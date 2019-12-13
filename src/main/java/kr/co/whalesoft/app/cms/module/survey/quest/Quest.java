@@ -22,7 +22,7 @@ public class Quest extends PagingUtils {
 	private int		quest_order;
 	private int		matrix_count;
 	private String	add_date;
-	private String	add_user_id;
+	private String	add_id;
 	private String	member_key;
 	private String	add_user_name;
 	private String	add_user_ip;
@@ -32,7 +32,7 @@ public class Quest extends PagingUtils {
 	private String	open_yn;
 
 	private Date modify_date;
-	private String modify_user_id;
+	private String modify_id;
 	
 	private String	quest_detail_free_yn = "N";
 	
@@ -131,11 +131,11 @@ public class Quest extends PagingUtils {
 	public void setAdd_date(String add_date) {
 		this.add_date = add_date;
 	}
-	public String getAdd_user_id() {
-		return add_user_id;
+	public String getAdd_id() {
+		return add_id;
 	}
-	public void setAdd_user_id(String add_user_id) {
-		this.add_user_id = add_user_id;
+	public void setAdd_id(String add_id) {
+		this.add_id = add_id;
 	}
 	public int getMatrix_count() {
 		return matrix_count;
@@ -239,12 +239,12 @@ public class Quest extends PagingUtils {
 		this.modify_date = modify_date;
 	}
 
-	public String getModify_user_id() {
-		return modify_user_id;
+	public String getModify_id() {
+		return modify_id;
 	}
 
-	public void setModify_user_id(String modify_user_id) {
-		this.modify_user_id = modify_user_id;
+	public void setModify_id(String modify_id) {
+		this.modify_id = modify_id;
 	}
 
 	public String getHomepage_id() {

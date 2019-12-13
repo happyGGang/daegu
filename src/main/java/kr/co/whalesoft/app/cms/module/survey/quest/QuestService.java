@@ -84,7 +84,7 @@ public class QuestService extends BaseService {
 				if(quest.getQuest_type().equals("MATRIX")) {
 					for(QuestMatrix questMatrix : quest.getQuest_matrix_list()) {
 						questMatrix.setHomepage_id(quest.getHomepage_id());
-						questMatrix.setAdd_user_id(quest.getAdd_user_id());
+						questMatrix.setAdd_id(quest.getAdd_id());
 						questMatrix.setSurvey_idx(quest.getSurvey_idx());
 						questMatrix.setQuest_idx(quest.getQuest_idx());
 						questMatrix.setMatrix_order(i++);
@@ -99,7 +99,7 @@ public class QuestService extends BaseService {
 				
 				for(QuestDetail questDetail : quest.getQuest_detail_list()) {
 					questDetail.setHomepage_id(quest.getHomepage_id());
-					questDetail.setAdd_user_id(quest.getAdd_user_id());
+					questDetail.setAdd_id(quest.getAdd_id());
 					questDetail.setSurvey_idx(quest.getSurvey_idx());
 					questDetail.setQuest_idx(quest.getQuest_idx());
 					questDetail.setQuest_detail_order(i++);
@@ -118,13 +118,13 @@ public class QuestService extends BaseService {
 		Quest temp1 = new Quest();		
 		temp1.setSurvey_idx(quest.getSurvey_idx());
 		temp1.setQuest_idx(quest.getQuest_idx());
-		temp1.setModify_user_id(quest.getModify_user_id());
+		temp1.setModify_id(quest.getModify_id());
 		temp1.setHomepage_id(quest.getHomepage_id());
 		
 		Quest temp2 = new Quest();
 		temp2.setSurvey_idx(quest.getSurvey_idx());
 		temp2.setQuest_idx(quest.getQuest_idx_fr());
-		temp2.setModify_user_id(quest.getModify_user_id());
+		temp2.setModify_id(quest.getModify_id());
 		temp2.setHomepage_id(quest.getHomepage_id());
 
 		temp1.setQuest_order(dao.getQuestOrderOne(temp2));
@@ -159,7 +159,7 @@ public class QuestService extends BaseService {
 					
 					for(QuestMatrix questMatrix : quest.getQuest_matrix_list()) {
 						questMatrix.setHomepage_id(quest.getHomepage_id());
-						questMatrix.setAdd_user_id(quest.getAdd_user_id());
+						questMatrix.setAdd_id(quest.getAdd_id());
 						questMatrix.setSurvey_idx(quest.getSurvey_idx());
 						questMatrix.setQuest_idx(quest.getQuest_idx());
 						questMatrix.setMatrix_order(i++);
@@ -176,11 +176,10 @@ public class QuestService extends BaseService {
 				
 				for(QuestDetail questDetail : quest.getQuest_detail_list()) {
 					questDetail.setHomepage_id(quest.getHomepage_id());
-					questDetail.setAdd_user_id(quest.getAdd_user_id());
+					questDetail.setAdd_id(quest.getAdd_id());
 					questDetail.setSurvey_idx(quest.getSurvey_idx());
 					questDetail.setQuest_idx(quest.getQuest_idx());
 					questDetail.setQuest_detail_order(i++);
-					
 					
 					questDetailService.addQuestDetail(questDetail);
 				}

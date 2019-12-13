@@ -60,7 +60,7 @@ $(function () {
 			var option = {
 				url : 'excelUpload.do',
 				type : 'POST',
-				data : $('#surveyUpload').serialize(),
+// 				data : $('#surveyUpload').serialize(),
 				success: function(response) {
 					if(response.valid) {
 						alert(response.message);

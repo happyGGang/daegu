@@ -192,7 +192,7 @@ public class AnswerWorkbook {
 
 		for (Answer answer : answerList) {
 			List<Statistics> statisticsPerUser = answer.getStatisticsList();
-			sheet.addCell( new Label( 0, row, answer.getAdd_user_id(), format1 ) );
+			sheet.addCell( new Label( 0, row, answer.getAdd_id(), format1 ) );
 			sheet.addCell( new Label( 1, row, answer.getAdd_date_str(), format1 ) );
 			sheet.addCell( new Label( 2, row, answer.getChosen_yn(), format1 ) );
 			

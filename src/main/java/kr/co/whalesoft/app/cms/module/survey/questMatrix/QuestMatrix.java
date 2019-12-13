@@ -15,10 +15,10 @@ public class QuestMatrix {
 	private int		matrix_order;
 	private String	matrix_title;
 	private Date	add_date;
-	private String	add_user_id;
+	private String	add_id;
 
 	private Date modify_date;
-	private String modify_user_id;
+	private String modify_id;
 	
 	private List<Statistics> statisticsList;
 	private List<QuestDetail> questDetailList;
@@ -96,11 +96,11 @@ public class QuestMatrix {
 	public void setAdd_date(Date add_date) {
 		this.add_date = add_date;
 	}
-	public String getAdd_user_id() {
-		return add_user_id;
+	public String getAdd_id() {
+		return add_id;
 	}
-	public void setAdd_user_id(String add_user_id) {
-		this.add_user_id = add_user_id;
+	public void setAdd_id(String add_id) {
+		this.add_id = add_id;
 	}
 	public int getQuest_idx() {
 		return quest_idx;
@@ -132,11 +132,11 @@ public class QuestMatrix {
 	public void setModify_date(Date modify_date) {
 		this.modify_date = modify_date;
 	}
-	public String getModify_user_id() {
-		return modify_user_id;
+	public String getModify_id() {
+		return modify_id;
 	}
-	public void setModify_user_id(String modify_user_id) {
-		this.modify_user_id = modify_user_id;
+	public void setModify_id(String modify_id) {
+		this.modify_id = modify_id;
 	}
 	public String getHomepage_id() {
 		return homepage_id;

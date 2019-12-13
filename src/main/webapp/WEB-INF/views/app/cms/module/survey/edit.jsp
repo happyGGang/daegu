@@ -155,7 +155,7 @@ table tbody th{text-align: center; font-weight: bold !important;}
 					<td>${member.member_id}</td>
 					</c:if>
 					<c:if test="${survey.editMode eq 'MODIFY' }">
-					<td>${survey.add_user_id}</td>
+					<td>${survey.add_id}</td>
 					</c:if>
 				</tr>
 				<tr>

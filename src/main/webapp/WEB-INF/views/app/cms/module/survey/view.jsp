@@ -113,7 +113,7 @@ $(function () {
 	$('#btn_change').on('click', function(e) {
 		e.preventDefault();
 		if (confirm('조사여부를 변경하시겠습니까?')) {
-			$('form#surveyView').attr('action', 'changeOpen.do');				
+			$('form#surveyView').attr('action', 'changeOpen.do');
 			doAjaxPost($('form#surveyView'));
 		}
 	});
@@ -156,19 +156,17 @@ $(function () {
 	<%-- 당첨자 추첨 --%>
 	$('#btn_pick').on('click', function(e) {
 		e.preventDefault();
-		<c:choose>
-		<c:when test="${selectedUsersCnt > 0}">
-		alert('이미 당첨자 등록이 된 상태입니다. 당첨자를 변경할 수 없습니다.');
-		</c:when>
-		<c:otherwise>
-		if(confirm('당첨자 추첨을 시작합니다. 추첨 횟수가 증가하며 무작위 순서로 응답자 목록이 나옵니다.\n계속 하시겠습니까?')) {
-			$('#dialog-7').load('/cms/survey/surveyStatistics/shuffleAnswers.do?survey_idx=${param.survey_idx}&homepage_id=${param.homepage_id}',
-				function( response, status, xhr ) {
+		
+		if('${selectedUsersCnt > 0}' == 'true') {
+			alert('이미 당첨자 등록이 된 상태입니다. 당첨자를 변경할 수 없습니다.');
+		} else {
+			if(confirm('당첨자 추첨을 시작합니다. 추첨 횟수가 증가하며 무작위 순서로 응답자 목록이 나옵니다.\n계속 하시겠습니까?')) {
+				$('#dialog-7').load('/cms/survey/surveyStatistics/shuffleAnswers.do?survey_idx=${param.survey_idx}&homepage_id=${param.homepage_id}', function( response, status, xhr ) {
 					$('#dialog-7').dialog('open');
-			});
+				});
+			}
 		}
-		</c:otherwise>
-		</c:choose>
+		
 	});
 });
 </script>
@@ -176,7 +174,7 @@ $(function () {
 	.type1 tbody tr th {width:15% !important;}
 </style>
 
-<form:form modelAttribute="survey" id="surveyView" action="save.do" method="POST" >
+<form:form modelAttribute="survey" id="surveyView" action="save.do" method="POST" target="sbm">
 <form:hidden path="homepage_id"/>
 <form:hidden path="survey_idx"/>
 <form:hidden path="editMode"/>
@@ -185,7 +183,7 @@ $(function () {
 <form:hidden path="survey_private_yn"/>
 </form:form>
 
-
+<iframe name="sbm" style="display: none;"></iframe>
 
 <div class="guide">
 	<ul class="list">
@@ -314,4 +312,5 @@ $(function () {
 </div>
 <div id="dialog-3" class="dialog-common" title="설문항 작성"></div>
 <div id="dialog-5" class="dialog-common" title="응답자 확인"></div>
+<div id="dialog-7" class="dialog-common" title="당첨자 추천"></div>
 <div id="dialog-upload" class="dialog-common" title="엑셀파일 업로드"></div>

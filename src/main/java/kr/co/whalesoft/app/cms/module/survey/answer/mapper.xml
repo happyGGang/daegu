@@ -6,10 +6,11 @@
 		INSERT INTO 
 			CMS_SURVEY_ANSWER_USER
 		(
-			homepage_id, survey_idx, add_user_id, add_date, add_user_div, add_user_ip, add_user_name, member_key
-		) VALUES
+			homepage_id, survey_idx, add_id, add_date, add_user_div, add_user_ip, add_user_name
+		)
+		VALUES
 		(
-			#{homepage_id}, #{survey_idx}, #{add_user_id}, SYSDATE, ' ', #{add_user_ip}, #{add_user_name}, #{member_key}
+			#{homepage_id}, #{survey_idx}, #{add_id}, SYSDATE, ' ', #{add_user_ip}, #{add_user_name}
 		)
 	</insert>
 	
@@ -24,11 +25,12 @@
 		INSERT INTO
 			CMS_SURVEY_ANSWER_DETAIL
 		(
-			homepage_id, survey_idx, quest_idx, answer_idx, add_user_id, add_date,
+			homepage_id, survey_idx, quest_idx, answer_idx, add_id, add_date,
 			choice_answer, short_answer
-		) VALUES
+		)
+		VALUES
 		(
-			#{homepage_id}, #{survey_idx}, #{answer.quest_idx}, #{answer.answer_idx}, #{add_user_id}, SYSDATE,
+			#{homepage_id}, #{survey_idx}, #{answer.quest_idx}, #{answer.answer_idx}, #{add_id}, SYSDATE,
 			#{answer.choice_answer}, #{answer.short_answer}
 		)
 	</insert>
@@ -37,23 +39,24 @@
 		INSERT INTO
 			CMS_SURVEY_ANSWER_MATRIX
 		(
-			homepage_id, survey_idx, quest_idx, answer_idx, add_user_id, matrix_idx,
+			homepage_id, survey_idx, quest_idx, answer_idx, add_id, matrix_idx,
 			matrix_answer
-		) VALUES
+		)
+		VALUES
 		(
-			#{homepage_id}, #{survey_idx}, #{answer.quest_idx}, #{answer.answer_idx}, #{add_user_id}, #{answer.matrix_idx},
+			#{homepage_id}, #{survey_idx}, #{answer.quest_idx}, #{answer.answer_idx}, #{add_id}, #{answer.matrix_idx},
 			#{answer.choice_answer}
 		)
 	</insert>
 	
 	<select id="getSurveyAnswerUser" resultType="kr.co.whalesoft.app.cms.module.survey.answer.Answer">
 		SELECT
-			homepage_id, add_user_id, add_date, add_user_div, add_user_ip, add_user_name, chosen_yn
+			homepage_id, add_id, add_date, add_user_div, add_user_ip, add_user_name, chosen_yn
 		FROM
 			CMS_SURVEY_ANSWER_USER
-		WHERE 
-			survey_idx = #{survey_idx} and
-			homepage_id = #{homepage_id}
+		WHERE
+			survey_idx = #{survey_idx}
+		AND	homepage_id = #{homepage_id}
 		ORDER BY add_date
 	</select>
 	
@@ -64,19 +67,21 @@
 			CMS_SURVEY_ANSWER_USER
 		WHERE
 			survey_idx = #{survey_idx}
-		AND	add_user_id = #{add_user_id}
-		AND homepage_id = #{homepage_id}
+		AND	add_id = #{add_id}
+		AND	homepage_id = #{homepage_id}
 	</select>
 	
 	<select id="getSurveyPeriod" resultType="int">
 		SELECT
-			CASE WHEN (survey_start_date &lt;= TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND survey_end_date >= TO_CHAR(SYSDATE, 'YYYY-MM-DD')) THEN 1
+			CASE
+				WHEN (survey_start_date &lt;= TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND survey_end_date >= TO_CHAR(SYSDATE, 'YYYY-MM-DD'))
+				THEN 1
 			ELSE 0 END survey_period
 		FROM
 			CMS_SURVEY_BASIC
 		WHERE
-			survey_idx = #{survey_idx} and
-			homepage_id = #{homepage_id}
+			survey_idx = #{survey_idx}
+		AND	homepage_id = #{homepage_id}
 	</select>
 	
 	<select id="getSurveyOpen" resultType="int">
@@ -93,35 +98,38 @@
 	<select id="getShuffledAnswers" resultType="kr.co.whalesoft.app.cms.module.survey.answer.Answer">
 		SELECT
 			*
-		FROM (
+		FROM
+			(
 			SELECT
-				a.homepage_id, a.add_user_id, a.add_date, a.add_user_div, a.add_user_ip, a.add_user_name, a.member_key,
+				a.homepage_id, a.add_id, a.add_date, a.add_user_div, a.add_user_ip, a.add_user_name,
 				a.chosen_yn, DBMS_RANDOM.VALUE AS rand,
 				(
-					SELECT DISTINCT
-					FIRST_VALUE(z.short_answer)  OVER (ORDER BY z.quest_idx DESC, z.answer_idx DESC)
-					FROM   cms_survey_answer_detail z
-					WHERE z.survey_idx = A.survey_idx
-					AND z.add_user_id = a.add_user_id
+				SELECT
+					DISTINCT FIRST_VALUE(z.short_answer) OVER (ORDER BY z.quest_idx DESC, z.answer_idx DESC)
+				FROM
+					cms_survey_answer_detail z
+				WHERE
+					z.survey_idx = A.survey_idx
+				AND	z.add_id = a.add_id
 				) AS last_short_answer
 			FROM
 				CMS_SURVEY_ANSWER_USER a
 			WHERE
 				a.survey_idx = #{survey_idx}
-				AND a.homepage_id = #{homepage_id}
-		)
+			AND	a.homepage_id = #{homepage_id}
+			)
 		ORDER BY rand
 	</select>
 	
 	<select id="getSurveyAnswerUser2" resultType="kr.co.whalesoft.app.cms.module.survey.answer.Answer">
 		SELECT
-			a.add_user_id, a.add_date, a.add_user_div, a.add_user_ip,
+			a.add_id, a.add_date, a.add_user_div, a.add_user_ip,
 			TO_CHAR(a.add_date, 'YYYY-MM-DD HH24:MI:SS') AS add_date_str,
 			a.chosen_yn
 		FROM
 			CMS_SURVEY_ANSWER_USER a
 		WHERE 1=1
-		AND a.survey_idx = #{survey_idx}
+		AND	a.survey_idx = #{survey_idx}
 		ORDER BY a.add_date
 	</select>
 	

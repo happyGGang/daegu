@@ -115,7 +115,7 @@
 				<tr>
 					<td>${paging.listRowNum - status.index}</td>
 					<td><a href="#" id="dialog-view" keyValue="${i.survey_idx}">${i.survey_title}</a></td>
-<%-- 				<td>${i.add_user_id}</td> --%>
+<%-- 				<td>${i.add_id}</td> --%>
 					<td>${i.answer_count}명</td>
 					<td>${i.survey_start_date}</td>
 					<td>${i.survey_end_date}</td>

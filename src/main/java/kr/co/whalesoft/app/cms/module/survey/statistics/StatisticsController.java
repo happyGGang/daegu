@@ -304,7 +304,7 @@ public class StatisticsController extends BaseController {
 		/* 유효성 검증 >>>>> */
 		JsonResponse res = new JsonResponse(request);
 
-		Member member = (Member) getSessionMemberInfo(request);
+//		Member member = (Member) getSessionMemberInfo(request);
 		/* <<<<< 유효성 검증 */
 
 		if(!result.hasErrors()) {

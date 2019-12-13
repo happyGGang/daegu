@@ -346,7 +346,7 @@ public class AnswerController extends BaseController {
 				} else {
 					quest.setAdd_user_name(member.getMember_name());
 				}
-				quest.setAdd_user_id(member.getMember_id());
+				quest.setAdd_id(member.getMember_id());
 				quest.setMember_key(member.getSeq_no());
 				quest.setAdd_user_ip(request.getRemoteAddr());
 			} else {
@@ -358,7 +358,7 @@ public class AnswerController extends BaseController {
 				}
 //				ANNYMS1499222739642
 				String anonymous = String.format("ANNYMS%s", String.valueOf(System.currentTimeMillis()));
-				quest.setAdd_user_id(anonymous);
+				quest.setAdd_id(anonymous);
 				quest.setMember_key(anonymous);
 				quest.setAdd_user_ip(request.getRemoteAddr());
 			}

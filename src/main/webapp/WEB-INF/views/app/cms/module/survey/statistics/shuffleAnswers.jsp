@@ -73,7 +73,7 @@ $(document).ready(function() {
 
 </script>
 
-<form:form id="select_form" modelAttribute="survey" action="/cms/survey/surveyStatistics/save.do" method="POST">
+<form:form id="select_form" modelAttribute="survey" action="/cms/survey/surveyStatistics/surveySave.do" method="POST">
 <form:hidden path="homepage_id" id="homepage_id"/>
 <form:hidden path="survey_idx"/>
 <form:hidden path="editMode" value="SELECT"/>
@@ -112,7 +112,7 @@ $(document).ready(function() {
 		<tbody id="shuffle_answers">
 			<c:forEach var="i" varStatus="status" items="${answerUser}">
 			<tr>
-				<td><input type="checkbox" id="check${status.index}" name="chosenAnswerList" value="${i.member_key}"/></td>
+				<td><input type="checkbox" id="check${status.index}" name="chosenAnswerList" value="${i.add_id}"/></td>
 				<td>${status.count}</td>
 				<td>${i.add_user_name}</td>
 				<td>${i.add_user_div}</td>

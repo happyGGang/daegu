@@ -59,7 +59,7 @@ public class SurveyController extends BaseController {
 			survey.setHomepage_id(getAsideHomepageId(request));	
 //		}
 		
-		survey.setAdd_user_id(member.getMember_id());
+		survey.setAdd_id (member.getMember_id());
 		service.setPaging(model, service.getSurveyCount(survey), survey);
 				
 		model.addAttribute("surveyList", service.getSurvey(survey));
@@ -71,7 +71,7 @@ public class SurveyController extends BaseController {
 	@RequestMapping(value = {"/view.*"}, method = RequestMethod.GET)
 	public String view(Model model, Survey survey, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Member member = (Member) getSessionMemberInfo(request);
-		survey.setAdd_user_id(member.getMember_id());
+		survey.setAdd_id (member.getMember_id());
 		Survey surveyBean = service.getSurveyOne(survey);
 		if (surveyBean == null) {
 			service.alertMessage("권한이 없습니다.", request, response);
@@ -120,7 +120,7 @@ public class SurveyController extends BaseController {
 			}
 			
 			Member member = (Member) getSessionMemberInfo(request);
-			survey.setAdd_user_id(member.getMember_id());
+			survey.setAdd_id (member.getMember_id());
 			Survey surveyBean = service.getSurveyOne(survey);
 			if (surveyBean == null) {
 				service.alertMessage("권한이 없습니다.", request, response);
@@ -159,7 +159,7 @@ public class SurveyController extends BaseController {
 		
 		if(!result.hasErrors()) {
 			if(survey.getEditMode().equals("MODIFY")) {
-				survey.setModify_user_id(member.getMember_id());
+				survey.setModify_id(member.getMember_id());
 				service.modifySurvey(survey);
 				res.setValid(true);
 				res.setUrl("/cms/module/survey/view.do");
@@ -170,7 +170,7 @@ public class SurveyController extends BaseController {
 //				res.setUrl("/cms/module/survey/index.do");
 				res.setMessage("등록 되었습니다.");
 			} else {
-				survey.setAdd_user_id(member.getMember_id());
+				survey.setAdd_id(member.getMember_id());
 				service.addSurvey(survey);
 				res.setValid(true);
 				res.setUrl("/cms/module/survey/index.do");
@@ -195,7 +195,7 @@ public class SurveyController extends BaseController {
 		
 		if(!result.hasErrors()) {
 			if(survey.getEditMode().equals("MODIFY")) {
-				survey.setModify_user_id(member.getMember_id());
+				survey.setModify_id(member.getMember_id());
 				service.modifySurveyDate(survey);
 				res.setValid(true);
 				res.setUrl("/cms/module/survey/view.do");
@@ -304,7 +304,7 @@ public class SurveyController extends BaseController {
 				}
 			} catch ( Exception e ) {}
 			
-			survey.setAdd_user_id(member.getMember_id());
+			survey.setAdd_id (member.getMember_id());
 			
 			service.copySurvey(survey);
 			service.copySurveyQuest(survey);
@@ -409,7 +409,7 @@ public class SurveyController extends BaseController {
 					}
 					
 					String OFFLINE = String.format("OFFLINE%s", String.valueOf(System.currentTimeMillis()));
-					one.setAdd_user_id(OFFLINE);
+					one.setAdd_id(OFFLINE);
 					one.setMember_key("OFFLINE");
 					one.setAdd_user_ip("OFFLINE");
 					

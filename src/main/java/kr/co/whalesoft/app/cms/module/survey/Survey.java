@@ -15,7 +15,7 @@ public class Survey extends PagingUtils {
 	private String	survey_open_yn = "N";
 	private String	survey_private_yn = "N";
 	private Date	add_date;
-	private String	add_user_id;
+	private String	add_id;
 	
 	private String	add_user_name;
 	private String	add_user_mobile;
@@ -33,7 +33,7 @@ public class Survey extends PagingUtils {
 	private String annyms_yn = "N";//비로그인사용자 참여여부
 	
 	private Date modify_date;
-	private String modify_user_id;
+	private String modify_id;
 	
 	private boolean admin = false;
 	private boolean subAdmin = false;
@@ -99,11 +99,11 @@ public class Survey extends PagingUtils {
 	public void setAdd_date(Date add_date) {
 		this.add_date = add_date;
 	}
-	public String getAdd_user_id() {
-		return add_user_id;
+	public String getAdd_id() {
+		return add_id;
 	}
-	public void setAdd_user_id(String add_user_id) {
-		this.add_user_id = add_user_id;
+	public void setAdd_id(String add_id) {
+		this.add_id = add_id;
 	}
 
 	public int getAnswer_count() {
@@ -194,12 +194,12 @@ public class Survey extends PagingUtils {
 		this.modify_date = modify_date;
 	}
 
-	public String getModify_user_id() {
-		return modify_user_id;
+	public String getModify_id() {
+		return modify_id;
 	}
 
-	public void setModify_user_id(String modify_user_id) {
-		this.modify_user_id = modify_user_id;
+	public void setModify_id(String modify_id) {
+		this.modify_id = modify_id;
 	}
 
 	public String getAdd_user_tel1() {

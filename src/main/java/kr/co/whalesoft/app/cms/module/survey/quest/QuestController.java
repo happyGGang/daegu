@@ -146,19 +146,19 @@ public class QuestController extends BaseController {
 		if(!result.hasErrors()) {
 			Member member = (Member) getSessionMemberInfo(request);
 			if(quest.getEditMode().equals("modify")) {
-				quest.setModify_user_id(member.getMember_id());
-				quest.setAdd_user_id(member.getMember_id());
+				quest.setModify_id(member.getMember_id());
+				quest.setAdd_id(member.getMember_id());
 				service.modifyQuest(quest);
 				res.setValid(true);
-				res.setTargetOpener(true);
-				res.setData(quest.getUrlParam(quest));
+//				res.setTargetOpener(true);
+//				res.setData(quest.getUrlParam(quest));
 				res.setMessage("수정 되었습니다.");
 			} else {
-				quest.setAdd_user_id(member.getMember_id());
+				quest.setAdd_id(member.getMember_id());
 				service.addQuest(quest);
 				res.setValid(true);
-				res.setTargetOpener(true);
-				res.setData(quest.getUrlParam(quest));
+//				res.setTargetOpener(true);
+//				res.setData(quest.getUrlParam(quest));
 				res.setMessage("등록 되었습니다.");
 			}
 		} else {
@@ -182,14 +182,14 @@ public class QuestController extends BaseController {
 			Member member = (Member) getSessionMemberInfo(mpRequest);
 			quest.setMultiFile(mpRequest.getFile("imageFile"));
 			if(quest.getEditMode().equals("modify")) {
-				quest.setModify_user_id(member.getMember_id());
+				quest.setModify_id(member.getMember_id());
 				service.modifyQuest(quest);
 				res.setValid(true);
 //				res.setTargetOpener(true);
 				res.setData(quest.getUrlParam(quest));
 				res.setMessage("수정 되었습니다.");
 			} else {
-				quest.setAdd_user_id(member.getMember_id());
+				quest.setAdd_id(member.getMember_id());
 				service.addQuest(quest);
 				res.setValid(true);
 //				res.setTargetOpener(true);
@@ -206,7 +206,7 @@ public class QuestController extends BaseController {
 	@RequestMapping(value = {"/modifyOrder.*"}, method = RequestMethod.GET)
 	public String modifyOrder(Model model, Quest quest, HttpServletRequest request) {
 		Member member = (Member) getSessionMemberInfo(request);
-		quest.setModify_user_id(member.getMember_id());
+		quest.setModify_id(member.getMember_id());
 		service.modifyQuestOrder(quest);
 		
 		model.addAttribute("questList", service.getQuest(quest));
