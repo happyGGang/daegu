@@ -232,13 +232,35 @@ public class IndexController extends BaseController {
 		setBoardListToModel(homepage.getHomepage_id(), model);
 
 		// 전자도서관
-		if (homepage.getHomepage_id().equals("h30") || homepage.getHomepage_id().equals("h34")) {
+		if (homepage.getHomepage_id().equals("h30")) {
 			Book book = new Book();
-			model.addAttribute("bestBookList", bestService.getMainBestBookList(book));
-			int count = bestService.getNewBookListCnt(book);
-			book.setRowCount(20);
-			book.setTotalDataCount(count);
-			model.addAttribute("newBookList", bestService.getNewBookList(book));
+			//신착도서
+			book.setType("EBK");
+			book.setSortField("BOOK_PUBDT");
+			book.setSortType("DESC");
+			book.setCate_id_1(74);//유아어린이 제외
+			model.addAttribute("newBookList1", bestService.getMainBookList(book));
+			book.setCate_id_1(0);
+			book.setCate_id(74);//유아어린이만
+			model.addAttribute("newBookList2", bestService.getMainBookList(book));
+			book.setCate_id_1(0);
+			book.setCate_id(0);
+			book.setType("ADO");
+			model.addAttribute("newBookList3", bestService.getMainBookList(book));
+
+			//대출베스트
+			book.setType("EBK");
+			book.setSortField("BOOK_LEND");
+			book.setSortType("DESC");
+			book.setCate_id_1(74);//유아어린이 제외
+			model.addAttribute("bestBookList1", bestService.getMainBookList(book));
+			book.setCate_id_1(0);
+			book.setCate_id(74);//유아어린이만
+			model.addAttribute("bestBookList2", bestService.getMainBookList(book));
+			book.setCate_id_1(0);
+			book.setCate_id(0);
+			book.setType("ADO");
+			model.addAttribute("bestBookList3", bestService.getMainBookList(book));
 		}
 
 		log.debug("jsp Page : "+basePath + filePath);

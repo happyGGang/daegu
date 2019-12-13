@@ -6,7 +6,7 @@
 		<if test="type != null and type != ''">
 		AND type = #{type}
 		</if>
-		<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' "> 
+		<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
 		AND	UPPER(REPLACE(${search_type}, ' ')) LIKE '%'||UPPER(REPLACE(#{search_text}, ' '))||'%'
 		</if>
 		<if test="parent_id != null and parent_id != ''">
@@ -22,7 +22,7 @@
 		AND library_code = #{library_code}
 		</if>
 	</sql>
-	
+
 	<sql id="sort">
 		<choose>
 		<when test="sortField != null and sortField != ''">
@@ -44,7 +44,7 @@
 	<select id="getBestBookListCnt" resultType="int">
 		SELECT COUNT(*) AS cnt FROM ELIB_BESTBOOK
 	</select>
-	
+
 	<select id="getMainBestBookList" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
 		SELECT
 			bestbook_idx, book_idx, print_seq, add_id, add_date,
@@ -71,13 +71,13 @@
 		)
 		ORDER BY bestbook_idx
 	</select>
-	
+
 	<select id="getBestBookListCms" resultType="kr.go.gbelib.app.cms.module.elib.best.BestBook">
 		SELECT
 			bestbook_idx, book_idx, print_seq, add_id, add_date,
 			book_name, book_pubname, author_name, book_image, type,
 			parent_name, cate_name, library_name, comp_name,
-			lend_cnt, reserve_cnt, comment_cnt, recommend_cnt, audio_view_cnt, elearn_view_cnt, 
+			lend_cnt, reserve_cnt, comment_cnt, recommend_cnt, audio_view_cnt, elearn_view_cnt,
 			(
 				lend_cnt * lend_weight
 				+ reserve_cnt * reserve_weight
@@ -136,11 +136,11 @@
 		)
 		ORDER BY bestbook_idx
 	</select>
-	
+
 	<select id="getBestBookDupCnt" resultType="int">
 		SELECT COUNT(*) AS cnt FROM ELIB_BESTBOOK WHERE book_idx = #{book_idx}
 	</select>
-	
+
 	<select id="getLowerBestBook" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
 		SELECT
 			bestbook_idx, book_idx, print_seq
@@ -149,7 +149,7 @@
 		WHERE
 			bestbook_idx = #{bestbook_idx} + 1
 	</select>
-	
+
 	<select id="getHigherBestBook" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
 		SELECT
 			bestbook_idx, book_idx, print_seq
@@ -158,7 +158,7 @@
 		WHERE
 			bestbook_idx = #{bestbook_idx} - 1
 	</select>
-	
+
 	<insert id="addBestBook">
 		UPDATE ELIB_BESTBOOK SET
 			book_idx = #{book_idx},
@@ -167,7 +167,7 @@
 		WHERE
 			bestbook_idx = #{bestbook_idx}
 	</insert>
-	
+
 	<delete id="deleteBestBook">
 		UPDATE ELIB_BESTBOOK SET
 			ADD_ID = NULL,
@@ -175,18 +175,18 @@
 			BOOK_IDX = 0
 		WHERE book_idx = #{book_idx}
 	</delete>
-	
+
 	<delete id="deleteBestBookByPrintSeq">
 		DELETE FROM ELIB_BESTBOOK WHERE print_seq = #{print_seq}
 	</delete>
-	
+
 	<update id="modifyBestBookBookIdx">
 		UPDATE ELIB_BESTBOOK SET
 			book_idx = #{book_idx}
 		WHERE
 			bestbook_idx = #{bestbook_idx}
 	</update>
-	
+
 	<sql id="getNewBookListSql">
 		FROM
 			ELIB_BOOK a,
@@ -197,12 +197,12 @@
 		AND a.type IN ('EBK', 'ADO')
 		ORDER BY a.book_idx DESC
 	</sql>
-	
+
 	<select id="getNewBookListCnt" resultType="int">
 		SELECT COUNT(*) AS cnt
 		<include refid="getNewBookListSql"/>
 	</select>
-	
+
 	<select id="getNewBookList" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
 		${pagingTop}
 		SELECT
@@ -211,7 +211,7 @@
 		<include refid="getNewBookListSql"/>
 		${pagingBottom}
 	</select>
-	
+
 	<select id="getCategoryBestBookList" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
 		SELECT
 			a.cat_bestbook_idx, a.book_code, a.print_seq, a.add_id, a.add_date,
@@ -227,12 +227,12 @@
 		AND a.parent_id = #{parent_id}
 		ORDER BY a.print_seq
 	</select>
-	
+
 	<insert id="addCategoryBestBook">
 		<selectKey keyProperty="cat_bestbook_idx" order="BEFORE" resultType="int">
 			SELECT NVL(MAX(cat_bestbook_idx),0)+1 FROM ELIB_CATEGORY_BESTBOOK
 		</selectKey>
-	
+
 		INSERT INTO ELIB_CATEGORY_BESTBOOK (
 			cat_bestbook_idx, book_code, parent_id, cate_id, add_id, add_date, print_seq
 		) VALUES (
@@ -240,11 +240,11 @@
 			(SELECT NVL(MAX(print_seq),0)+1 FROM ELIB_CATEGORY_BESTBOOK WHERE parent_id = #{parent_id} AND cate_id = #{cate_id})
 		)
 	</insert>
-	
+
 	<delete id="deleteCategoryBestBook">
 		DELETE FROM ELIB_CATEGORY_BESTBOOK WHERE book_code = #{book_code}
 	</delete>
-	
+
 	<select id="getLowerCategoryBestBook" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
 		SELECT
 			cat_bestbook_idx, book_code, print_seq, parent_id, cate_id
@@ -261,7 +261,7 @@
 		AND parent_id = #{parent_id}
 		AND ROWNUM = 1
 	</select>
-	
+
 	<select id="getHigherCategoryBestBook" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
 		SELECT
 			cat_bestbook_idx, book_idx, print_seq, parent_id, cate_id
@@ -278,7 +278,7 @@
 		AND parent_id = #{parent_id}
 		AND ROWNUM = 1
 	</select>
-	
+
 	<update id="modifyCategoryBestBookPrintSeq">
 		UPDATE ELIB_CATEGORY_BESTBOOK SET
 			print_seq = #{print_seq}
@@ -286,14 +286,14 @@
 			book_code = #{book_code}
 		AND parent_id = #{parent_id}
 	</update>
-	
+
 	<select id="getCategoryBestBookDupCnt" resultType="int">
 		SELECT COUNT(*) AS cnt
 		FROM ELIB_CATEGORY_BESTBOOK
 		WHERE book_code = #{book_code}
 		AND parent_id = #{parent_id}
 	</select>
-	
+
 	<sql id="getBookListSql">
 		SELECT
 		  	type, book_idx, book_name, book_pubname, author_name,
@@ -346,15 +346,59 @@
 		<include refid="search"/>
 		<include refid="sort"/>
 	</sql>
-	
+
 	<select id="getBookListCnt" resultType="int">
 		SELECT COUNT(*) FROM (<include refid="getBookListSql"/>)
 	</select>
-	
+
 	<select id="getBookList" resultType="kr.go.gbelib.app.cms.module.elib.best.BestBook">
 		${pagingTop}
 		<include refid="getBookListSql"/>
 		${pagingBottom}
 	</select>
-	
+
+	<select id="getMainBookList" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
+	${pagingTop}
+		SELECT
+			a.book_idx, a.book_code, a.cate_id, a.book_name, a.author_name,
+			a.book_pubname, a.isbn13, a.book_lend,
+			a.lend_total, a.max_lend, a.book_reserve, a.com_code, TO_CHAR(a.book_pubdt, 'YYYY-MM-DD') AS book_pubdt,
+			a.book_regdt, a.use_yn, a.type,
+			a.format, a.book_image, a.parent_id,
+			a.recommend_cnt, a.library_code,
+			a.approved_yn,
+			(SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = a.cate_id) AS cate_name,
+			CASE WHEN a.library_code = '9999999' THEN '통합' ELSE e.homepage_name END AS library_name,
+			(SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = a.parent_id) AS parent_name,
+			d.book_info, <!-- d.author_info, d.book_table, -->
+			(SELECT z.comp_name FROM ELIB_COMPANY z WHERE INSTR(z.com_code, a.com_code) > 0) AS comp_name,
+			g.bestbook_idx, h.cat_bestbook_idx, a.device,
+			CASE a.device
+			WHEN '1' THEN 'PC'
+			WHEN '2' THEN 'PC, 태블릿'
+			WHEN '3' THEN 'PC, 태블릿, 스마트폰'
+			END AS label
+		FROM
+			ELIB_BOOK a,
+			ELIB_BOOKINFO d,
+			CMS_HOMEPAGE e
+			,ELIB_BESTBOOK g
+			,ELIB_CATEGORY_BESTBOOK h
+		WHERE
+			a.use_yn != 'N'
+		AND a.book_idx = d.book_idx
+		AND a.library_code = SUBSTR(e.lib_code, 1, 8)
+		AND a.book_idx = g.book_idx (+)
+		AND a.book_code = h.book_code (+)
+		AND a.type = #{type}
+		<if test="cate_id > 0">
+		AND a.parent_id = #{cate_id}
+		</if>
+		<if test="cate_id_1 > 0">
+		AND a.parent_id != #{cate_id_1}
+		</if>
+		ORDER BY
+			a.${sortField} ${sortType} NULLS LAST, a.book_idx DESC
+		${pagingBottom}
+	</select>
 </mapper>
