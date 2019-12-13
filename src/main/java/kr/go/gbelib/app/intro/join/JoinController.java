@@ -792,6 +792,12 @@ public class JoinController extends BaseController {
 			joinService.alertMessage("일치하는 회원이 없습니다.", request, response);
 			return null;
 		} else {
+			String userId = String.valueOf(checkDupUser.get(0).get("USER_ID"));
+			if (StringUtils.isNotEmpty(userId) && !StringUtils.containsIgnoreCase(userId, "null")) {
+				joinService.alertMessage("이미 통합인증을 완료한 정보입니다.", request, response);
+				return null;
+			}
+
 			Member integrationMember = new Member();
 			integrationMember.setMember_name(String.valueOf(checkDupUser.get(0).get("NAME")));
 			integrationMember.setCell_phone(String.valueOf(checkDupUser.get(0).get("HANDPHONE")).replaceAll("-", ""));

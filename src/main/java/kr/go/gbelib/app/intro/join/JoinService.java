@@ -84,8 +84,8 @@ public class JoinService extends BaseService {
 
 		    String sEncodeData = requestReplace(request.getParameter("EncodeData"), "encodeData");
 
-		    final String sSiteCode = "BN920";				// NICE로부터 부여받은 사이트 코드
-		    final String sSitePassword = "XJdcfyBNn1tG";			// NICE로부터 부여받은 사이트 패스워드
+		    final String sSiteCode = "BQ437";				// NICE로부터 부여받은 사이트 코드 - 대구시청
+		    final String sSitePassword = "7fdpBlHmR0Ee";			// NICE로부터 부여받은 사이트 패스워드 - 대구시청
 
 		    String sCipherTime = "";			// 복호화한 시간
 		    String sRequestNumber = "";			// 요청 번호
@@ -284,8 +284,8 @@ public class JoinService extends BaseService {
 				페이지명 : 가상주민번호서비스 (IPIN) 결과 페이지
 		    	*********************************************************************************************************************************************/
 
-				String sSiteCode				= "EH76";			// IPIN 서비스 사이트 코드		(NICE평가정보에서 발급한 사이트코드)
-				String sSitePw					= "wjdqhtpsxj!2";			// IPIN 서비스 사이트 패스워드	(NICE평가정보에서 발급한 사이트패스워드)
+				String sSiteCode				= "EZ69";			// IPIN 서비스 사이트 코드		(NICE평가정보에서 발급한 사이트코드)
+				String sSitePw					= "Infoset8236!@#";			// IPIN 서비스 사이트 패스워드	(NICE평가정보에서 발급한 사이트패스워드)
 
 				/*
 				┌ 복호화 함수 설명  ──────────────────────────────────────────────────────────
@@ -408,8 +408,8 @@ public class JoinService extends BaseService {
 		Map<String, String> result = new HashMap<String, String>();
 		NiceID.Check.CPClient niceCheck = new  NiceID.Check.CPClient();
 
-	    final String sSiteCode = "BN920";			// NICE로부터 부여받은 사이트 코드
-	    final String sSitePassword = "XJdcfyBNn1tG";		// NICE로부터 부여받은 사이트 패스워드
+	    final String sSiteCode = "BQ437";			// NICE로부터 부여받은 사이트 코드 - 대구시청핸드폰인증
+	    final String sSitePassword = "7fdpBlHmR0Ee";		// NICE로부터 부여받은 사이트 패스워드 대구시청핸드폰인증
 
 	    String sRequestNumber = "REQ0000000001";        	// 요청 번호, 이는 성공/실패후에 같은 값으로 되돌려주게 되므로
 	                                                    	// 업체에서 적절하게 변경하여 쓰거나, 아래와 같이 생성한다.
@@ -501,8 +501,8 @@ public class JoinService extends BaseService {
 		페이지명 : 가상주민번호서비스 (IPIN) 호출 페이지
 		*********************************************************************************************************************************************/
 
-		String sSiteCode				= "EH76";			// IPIN 서비스 사이트 코드		(NICE평가정보에서 발급한 사이트코드)
-		String sSitePw					= "wjdqhtpsxj!2";			// IPIN 서비스 사이트 패스워드	(NICE평가정보에서 발급한 사이트패스워드)
+		String sSiteCode				= "EZ69";			// IPIN 서비스 사이트 코드		(NICE평가정보에서 발급한 사이트코드)
+		String sSitePw					= "Infoset8236!@#";			// IPIN 서비스 사이트 패스워드	(NICE평가정보에서 발급한 사이트패스워드)
 
 		/*
 		┌ sReturnURL 변수에 대한 설명  ─────────────────────────────────────────────────────
