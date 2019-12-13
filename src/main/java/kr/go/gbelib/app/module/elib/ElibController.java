@@ -56,7 +56,6 @@ import kr.go.gbelib.app.cms.module.elib.comment.Comment;
 import kr.go.gbelib.app.cms.module.elib.comment.CommentService;
 import kr.go.gbelib.app.cms.module.elib.config.ConfigService;
 import kr.go.gbelib.app.cms.module.elib.lending.Lending;
-import kr.go.gbelib.app.cms.module.elib.lending.LendingDao;
 import kr.go.gbelib.app.cms.module.elib.lending.LendingService;
 import kr.go.gbelib.app.cms.module.elib.member.ElibMember;
 import kr.go.gbelib.app.cms.module.elib.member.ElibMemberService;
@@ -1220,10 +1219,10 @@ public class ElibController extends BaseController {
 			}
 		}
 
-		return "redirect:https://www.gbelib.kr/elib/index.do";
+		return "redirect:https://library.busan.go.kr/elib/index.do";
 	}
 
-	@RequestMapping(value = {"/redirect.*"})
+	@RequestMapping(value = {"/redirect.*", "/goto.*", "/redirec.*"})
 	public String redirect(Model model, HttpServletRequest request, HttpServletResponse response) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
