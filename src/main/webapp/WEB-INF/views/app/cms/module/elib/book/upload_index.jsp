@@ -118,7 +118,9 @@ $(function() {
 			return;
 		}
 		
-		started = true;
+		if($('input[name=operation]:checked').val() != 'M') {
+			started = true;
+		}
 		
 		$('form#file-upload-form').submit();
 	});
@@ -137,9 +139,9 @@ function submit(e) {
 	<li>2. 오류 메시지가 나오면 엑셀 파일을 수정한다</li>
 	<li>3. 오류 메시지 없이 완료되면 '실제 반영'을 선택하고 메타를 업로드한다</li>
 	<li>4. 업로드된 전자책은 '미승인' 상태가 되며 <br/>
-	&nbsp;&nbsp;&nbsp;&nbsp;<a href="//www.gbelib.kr/elib/module/elib/set.do?debug=true">https://www.gbelib.kr/elib/module/elib/set.do?debug=true</a> 를 열면<br/>
+	&nbsp;&nbsp;&nbsp;&nbsp;<a href="//library.busan.go.kr/elib/module/elib/set.do?debug=true">https://library.busan.go.kr/elib/module/elib/set.do?debug=true</a> 를 열면<br/>
 	&nbsp;&nbsp;&nbsp;&nbsp;현 세션이 일시적으로 미승인 자료만 열람 가능한 상태가 된다.<br/>
-	&nbsp;&nbsp;&nbsp;&nbsp;(취소는 <a href="//www.gbelib.kr/elib/module/elib/set.do?debug=false">https://www.gbelib.kr/elib/module/elib/set.do?debug=false</a>)
+	&nbsp;&nbsp;&nbsp;&nbsp;(취소는 <a href="//library.busan.go.kr/elib/module/elib/set.do?debug=false">https://library.busan.go.kr/elib/module/elib/set.do?debug=false</a>)
 	</li>
 	<li>5. 미승인 자료로 대출, 반납, 연장, 예약, 책 열기를 테스트한다</li>
 	<li>6. 전자책이 정상 작동하면 작업 종류를 '승인'으로 선택하고 메타를 다시 업로드 한다</li>
@@ -161,10 +163,10 @@ function submit(e) {
 </p>
 <br/>
 <form id="file-upload-form" name="file-upload-form" action="result.do" method="POST" enctype="multipart/form-data">
-<table class="type2" style="width: 500px;">
+<table class="type2" style="width: 600px;">
 	<colgroup>
 		<col width="100px;">
-		<col width="400px;">
+		<col width="500px;">
 	</colgroup>
 <!-- 		<thead> -->
 <!-- 		</thead> -->
@@ -176,7 +178,8 @@ function submit(e) {
 				<input type="radio" name="operation" id="operation1" value="I" checked="checked" style="width: 20px;"> <label for="operation1">Insert / Update</label>
 				&nbsp;<input type="radio" name="operation" id="operation2" value="D" style="width: 20px;"> <label for="operation2">Delete</label>
 				&nbsp;<input type="radio" name="operation" id="operation3" value="A" style="width: 20px;"> <label for="operation3">승인</label>
-				&nbsp;<input type="radio" name="operation" id="operation4" value="DA" style="width: 20px;"> <label for="operation4">승인 취소</label><br/>
+				&nbsp;<input type="radio" name="operation" id="operation4" value="DA" style="width: 20px;"> <label for="operation4">승인 취소</label>
+				&nbsp;<input type="radio" name="operation" id="operation5" value="M" style="width: 20px;"> <label for="operation5">마크URL 추출</label><br/>
 <!-- 				&nbsp;<input type="radio" name="operation" value="FD" style="width: 20px;"> 강제 삭제<br/> -->
 			</td>
 		</tr>

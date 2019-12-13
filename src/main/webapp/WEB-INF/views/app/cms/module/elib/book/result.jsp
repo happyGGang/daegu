@@ -4,6 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <h3>결과 메시지:</h3>
-<c:forEach var="i" varStatus="status" items="${logs}">
-${status.index+1}: ${i}<br/>
+<pre style="line-height: 150%;">
+<c:forEach var="i" varStatus="status" items="${logs}">${i}
 </c:forEach>
+</pre>
