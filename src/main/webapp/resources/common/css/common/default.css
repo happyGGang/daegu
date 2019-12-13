@@ -1843,10 +1843,11 @@ padding:20px 15px 20px 215px; margin-bottom:25px}
 	.doc-info{border-top:1px solid #ebebeb}
 }
 
-.section{width:1000px;margin:0 auto} /* 기준 */
+/*.section{width:1000px;margin:0 auto}  기준 */
 .lnb{width:255px;float:left}
 .content{margin-right:-255px;width:100%;float:left}
 .doc{margin-right:255px}
+
 @media screen and (min-width:1355px){
 	.lnb{width:25%}
 	.content{margin-right:-25%}
@@ -1854,14 +1855,15 @@ padding:20px 15px 20px 215px; margin-bottom:25px}
 	.lnb>h2,
 	.lnb>ul{margin-right:55px}
 }
+
 @media all and (max-width:1000px){
 	.doc{margin-right:0}
 }
+
 @media screen and (min-width:1160px){
-	.section{width:1140px}
 }
+
 @media screen and (max-width:1160px){
-	.section{width:auto;margin:0 2%}
 }
 
 @media all and (max-width:650px){

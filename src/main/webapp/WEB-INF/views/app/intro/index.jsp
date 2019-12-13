@@ -93,7 +93,7 @@ $(function() {
 <div id="wrap" class="k-index">
 	<div id="lnb_hm" style="right: 0px;">
 		<div class="layout">
-			<ul class="siteLink">
+			<ul class="m-siteLink">
 				<li class="card" style="${isMobile ? '':'display:none'}"><a href="/intro/${homepage.context_path}/login/mobileCard.do">모바일회원증</a></li>
 				<c:choose>
 				<c:when test="${sessionScope.member.login}">
