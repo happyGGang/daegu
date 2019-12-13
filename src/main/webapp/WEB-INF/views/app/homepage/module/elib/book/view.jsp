@@ -274,14 +274,8 @@ $(document).ready(function() {
 });
 
 function hans_read(url) {
-	var whole = 'http://<%=request.getServerName()%>/elib/module/elib/redirec.do?url=' + encodeURIComponent(url);
-	var features = '';
-	if(url.match(/^http:\/\/m\./i)) {
-		features = 'width=425,height=710,scrollbars=yes';
-	} else {
-		features = 'width=440,height=710,scrollbars=yes';
-	}
-	var popupPlayer = window.open(whole, "HANS", features);
+	var features = 'width=1120,height=710,scrollbars=yes';
+	var popupPlayer = window.open(url, "HANS", features);
 	if (popupPlayer == null) {
 		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.busan.go.kr 추가");
 		return false;
@@ -289,13 +283,12 @@ function hans_read(url) {
 }
 
 function cont_read(url) {
-	var whole = 'http://<%=request.getServerName()%>/elib/module/elib/redirec.do?url=' + encodeURIComponent(url);
 	var width = 1150, height = 800;
 	if(url.indexOf('gbelib_contents_player.php') > -1) {
 		width = 800;
 		height = 700;
 	}
-	var popupPlayer = window.open(whole, "CONT", 'width='+width+',height='+height+',scrollbars=yes');
+	var popupPlayer = window.open(url, "CONT", 'width='+width+',height='+height+',scrollbars=yes');
 	if (popupPlayer == null) {
 		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.busan.go.kr 추가");
 		return false;
@@ -303,12 +296,11 @@ function cont_read(url) {
 }
 
 function cont2_read(url) {
-	var whole = 'http://<%=request.getServerName()%>/elib/module/elib/redirec.do?url=' + encodeURIComponent(url);
 	var dimension = 'width=750,height=600';
 	if(url.indexOf('gbelib_contents_player.php') > -1) {
 		dimension = 'width=1024,height=768';
 	}
-	var popupPlayer = window.open(whole, "CONT2", dimension+',scrollbars=yes');
+	var popupPlayer = window.open(url, "CONT2", dimension+',scrollbars=yes');
 	if (popupPlayer == null) {
 		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.busan.go.kr 추가");
 		return false;
@@ -316,8 +308,7 @@ function cont2_read(url) {
 }
 
 function glob_read(url) {
-	var whole = 'http://<%=request.getServerName()%>/elib/module/elib/redirec.do?url=' + encodeURIComponent(url);
-	var popupPlayer = window.open(whole, "GLOB", 'width=710,height=527,scrollbars=yes');
+	var popupPlayer = window.open(url, "GLOB", 'width=710,height=527,scrollbars=yes');
 	if (popupPlayer == null) {
 		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.busan.go.kr 추가");
 		return false;
@@ -325,8 +316,7 @@ function glob_read(url) {
 }
 
 function ybmn_read(url) {
-	var whole = 'http://<%=request.getServerName()%>/elib/module/elib/redirec.do?url=' + encodeURIComponent(url);
-	var popupPlayer = window.open(whole, "YBMN", 'width=835,height=650,scrollbars=yes');
+	var popupPlayer = window.open(url, "YBMN", 'width=835,height=650,scrollbars=yes');
 	if (popupPlayer == null) {
 		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.busan.go.kr 추가");
 		return false;
@@ -334,8 +324,7 @@ function ybmn_read(url) {
 }
 
 function yesb_read(url) {
-	var whole = 'http://<%=request.getServerName()%>/elib/module/elib/redirec.do?url=' + encodeURIComponent(url);
-	var popupPlayer = window.open(whole, "YESB", 'width=715,height=415,scrollbars=yes');
+	var popupPlayer = window.open(url, "YESB", 'width=715,height=415,scrollbars=yes');
 	if (popupPlayer == null) {
 		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.busan.go.kr 추가");
 		return false;
