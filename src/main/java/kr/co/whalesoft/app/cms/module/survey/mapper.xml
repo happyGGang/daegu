@@ -285,9 +285,9 @@
 			CMS_SURVEY_BASIC
 		(
 			homepage_id, survey_idx, survey_title, survey_content, survey_start_date, survey_end_date,
-			survey_open_yn, limit_user_yn, limit_user_id, add_date, add_user_id,
+			survey_open_yn, limit_user_yn, limit_user_id, add_date, add_id,
 			add_user_tel, skin_cd, annyms_yn,
-			modify_date, modify_user_id, open_yn, name_yn, greetings, popup_yn, survey_private_yn
+			modify_date, modify_id, open_yn, name_yn, greetings, popup_yn, survey_private_yn
 		)
 		SELECT  
 			#{homepage_id}, (SELECT NVL(MAX(survey_idx),0)+1 FROM CMS_SURVEY_BASIC), survey_title || '_복사본', survey_content, TO_CHAR(SYSDATE,'YYYY-MM-DD'), TO_CHAR(SYSDATE,'YYYY-MM-DD'),
@@ -305,11 +305,11 @@
 		INSERT INTO
 			CMS_SURVEY_QUEST
 		(
-			HOMEPAGE_ID, SURVEY_IDX, QUEST_IDX, QUEST_TYPE, QUEST_CONTENT, QUEST_AUTH, 
-			QUEST_COUNT, QUEST_ORDER, 
-			QUEST_DETAIL_FREE_YN, MATRIX_COUNT, ADD_DATE, ADD_USER_ID,
-			REQUIRED_YN,
-			MODIFY_DATE, MODIFY_USER_ID
+			homepage_id, survey_idx, quest_idx, quest_type, quest_content, quest_auth, 
+			quest_count, quest_order, 
+			quest_detail_free_yn, matrix_count, add_date, add_id,
+			required_yn,
+			modify_date, modify_id
 		) 
 		SELECT  
 			#{homepage_id}, (SELECT MAX(survey_idx) FROM CMS_SURVEY_BASIC WHERE homepage_id = #{homepage_id}), 
@@ -328,8 +328,8 @@
 			CMS_SURVEY_QUEST_DETAIL
 		(
 			homepage_id, survey_idx, quest_idx, quest_detail_idx, quest_detail_order, 
-			quest_detail_title, add_date, add_user_id, branch_idx,
-			modify_date, modify_user_id
+			quest_detail_title, add_date, add_id, branch_idx,
+			modify_date, modify_id
 		)
 		SELECT  
 			#{homepage_id}, (SELECT MAX(survey_idx) FROM CMS_SURVEY_BASIC WHERE homepage_id = #{homepage_id}), 
@@ -347,11 +347,11 @@
 			CMS_SURVEY_QUEST_MATRIX
 		(
 			homepage_id, survey_idx, quest_idx, matrix_idx, matrix_order, matrix_title,
-			add_date, add_user_id, modify_date, modify_user_id
+			add_date, add_id, modify_date, modify_id
 		)
 		SELECT
 			#{homepage_id}, (SELECT MAX(survey_idx) FROM CMS_SURVEY_BASIC where homepage_id =  #{homepage_id}),
-			QUEST_IDX, MATRIX_IDX, MATRIX_ORDER, MATRIX_TITLE, SYSDATE, #{add_id}, SYSDATE, #{add_id}
+			quest_idx, matrix_idx, matrix_order, matrix_title, SYSDATE, #{add_id}, SYSDATE, #{add_id}
 		FROM
 			CMS_SURVEY_QUEST_MATRIX
 		WHERE
