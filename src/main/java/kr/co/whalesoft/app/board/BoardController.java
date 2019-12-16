@@ -180,12 +180,7 @@ public class BoardController extends BaseController {
 			return null;
 		}
 
-		if (StringUtils.equals(board.getModule(), "bookDream")) {
-			//새책드림땜에 레이아웃 따로 설정.....
-			basePath = "/homepage/module_board/bookDream/" + boardManage.getBoard_skin() + "/";
-		} else {
-			basePath = homepageFolder + "/board/" + boardManage.getBoard_skin() + "/";
-		}
+		basePath = homepageFolder + "/board/" + boardManage.getBoard_type() + "/";
 
 		log.debug("board basePath : " + basePath);
 		return basePath;
