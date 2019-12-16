@@ -319,7 +319,7 @@ public class CommonJoinController extends BaseController {
 				String addResult = joinService.addMember(request, member);
 				if (addResult.equals("0")) {
 					res.setValid(true);
-					res.setMessage("준회원 가입이 완료되었습니다. 도서관에 방문하여 대출증 발급 승인 절차를 진행해주시길 바랍니다.");
+					res.setMessage("신규회원 가입이 완료되었습니다.");
 					int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
 					res.setUrl(String.format("http%s://%s/%s/intro/login/index.do?menu_idx=%d", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path(), loginMenuIdx));
 					request.getSession().invalidate();
