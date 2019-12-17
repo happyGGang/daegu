@@ -592,7 +592,7 @@ public class JoinController extends BaseController {
 				String addResult = joinService.addMember(request, member);
 				if (addResult.equals("0")) {
 					res.setValid(true);
-					res.setMessage("준회원 가입이 완료되었습니다. 데스크에 방문하여 대출증 발급 승인 절차를 진행해주시길 바랍니다.");
+					res.setMessage("신규회원 가입이 완료되었습니다.");
 					res.setUrl(String.format("/intro/%s/login/index.do", homepage.getContext_path())); // 회원가입 후 홈페이지 메인으로 Redirect.
 					request.getSession().invalidate();
 				} else {
