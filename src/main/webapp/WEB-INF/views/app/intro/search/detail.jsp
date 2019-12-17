@@ -72,6 +72,14 @@ $(function() {
 
 	});
 
+	<%--청구기호 인쇄--%>
+	$('a#btn_print').on('click', function(e) {
+		e.preventDefault();
+		var url = location.href.replace('detail', 'print');
+
+		window.open(url, '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=100,width=700,height=500');
+	});
+
 });
 
 </script>
