@@ -26,7 +26,7 @@ public class MainImgTag extends BodyTagSupport {
 			for ( MainImg one : getMainImgList() ) {
 				HtmlTag li_tag = new HtmlTag("li");
 				li_tag.setAttribute("class", "main_img" + count);
-				li_tag.setAttribute("style", String.format("background:url('/data/mainImg/%s/%s') no-repeat 0 0", one.getHomepage_id(), one.getReal_file_name()));
+				li_tag.setAttribute("style", String.format("background:url('/data/mainImg/%s/%s') no-repeat 0 0", one.getHomepage_id(), one.getServer_file_name()));
 				ul_tag.addSubTag(li_tag);
 				HtmlTag div_tag = new HtmlTag("div");
 				li_tag.addSubTag(div_tag);
