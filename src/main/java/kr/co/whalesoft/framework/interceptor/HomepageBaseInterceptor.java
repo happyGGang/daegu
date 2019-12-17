@@ -35,7 +35,6 @@ import kr.go.gbelib.app.cms.module.elib.category.ElibCategoryService;
 import kr.go.gbelib.app.cms.module.elib.code.ElibCode;
 import kr.go.gbelib.app.cms.module.elib.code.ElibCodeService;
 
-
 public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 
 	protected final Logger log = LoggerFactory.getLogger(getClass());
@@ -166,20 +165,34 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 			if ( uri.startsWith("/intro/") ) {
 
 				// SSL 적용을 위한 로직
-				if ( !uri.contains("join") && !uri.contains("login") ) {
-					String requestURL = request.getRequestURL().toString();
+				String requestURL = request.getRequestURL().toString();
+				if (!uri.contains("join") && !uri.contains("login")) {
 
-					if ( requestURL.startsWith("https://") ) {
+					if (requestURL.startsWith("https://")) {
 						// Request Parameter 리다이렉트로 전달.
 						List<String> parameters = new ArrayList<String>();
 						@SuppressWarnings ("unchecked")
 						Enumeration<String> result = request.getParameterNames();
-						while ( result.hasMoreElements() ) {
+						while (result.hasMoreElements()) {
 							String attributeName = (String) result.nextElement();
 							parameters.add(String.format("%s=%s", attributeName, request.getParameter(attributeName)));
 						}
 
 						String redirectUrl = String.format("http://%s:80%s?%s", request.getServerName(), uri, StringUtils.join(parameters, "&"));
+						response.sendRedirect(redirectUrl);
+						return false;
+					}
+				} else {
+					if (requestURL.startsWith("http://") && !request.getServerName().contains("localhost")) {
+						List<String> parameters = new ArrayList<String>();
+						@SuppressWarnings ("unchecked")
+						Enumeration<String> result = request.getParameterNames();
+						while (result.hasMoreElements()) {
+							String attributeName = (String) result.nextElement();
+							parameters.add(String.format("%s=%s", attributeName, request.getParameter(attributeName)));
+						}
+
+						String redirectUrl = String.format("https://%s:443%s?%s", request.getServerName(), uri, StringUtils.join(parameters, "&"));
 						response.sendRedirect(redirectUrl);
 						return false;
 					}
@@ -212,18 +225,17 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 		return super.preHandle(request, response, handler);
 	}
 
-
 	@Async
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
 		String uri = request.getRequestURI().substring(request.getContextPath().length());
-		Homepage homepage = (Homepage)request.getAttribute("homepage");
-		if(homepageUrl(uri)) {
-			if(homepage != null && request.getParameter("menu_idx") != null) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		if (homepageUrl(uri)) {
+			if (homepage != null && request.getParameter("menu_idx") != null) {
 				int menu_idx = Integer.parseInt(request.getParameter("menu_idx"));
 				Menu menuOne = menuService.getMenuOne(new Menu(homepage.getHomepage_id(), menu_idx));
 
-				if(menuOne != null) {
+				if (menuOne != null) {
 					MenuAccess menuAccess = new MenuAccess(homepage.getHomepage_id(), menu_idx);
 					menuAccessService.updateMenuAccess(menuAccess);
 				}
@@ -239,13 +251,13 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 
 	/**
 	 * 접속 통계 + 로그 남기기
+	 *
 	 * @param request
 	 * @param homepage
 	 */
 	private void addStatisticsCount(HttpServletRequest request, Homepage homepage) {
 		/**
-		 * category 조건문을 여러개로 나눈 이유는 속도 때문
-		 * 자주 발생하는 경우를 위쪽에 배치함
+		 * category 조건문을 여러개로 나눈 이유는 속도 때문 자주 발생하는 경우를 위쪽에 배치함
 		 */
 		try {
 			String user_agent = request.getHeader("User-Agent");
@@ -260,23 +272,23 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 			homepageAccess.setUser_agent(user_agent);
 
 			Map<String, String> r = Classifier.parse(user_agent);
-//			String name = StringUtils.defaultString(r.get("name"));
-//			String version = StringUtils.defaultString(r.get("version"));
+			// String name = StringUtils.defaultString(r.get("name"));
+			// String version = StringUtils.defaultString(r.get("version"));
 			String category = StringUtils.defaultString(r.get("category"));
-//			String os = StringUtils.defaultString(r.get("os"));
-//			String os_version = StringUtils.defaultString(r.get("os_version"));
+			// String os = StringUtils.defaultString(r.get("os"));
+			// String os_version = StringUtils.defaultString(r.get("os_version"));
 
 			// 접속 로그
-			if("pc".equals(category)) {
+			if ("pc".equals(category)) {
 				// PC
 				homepageAccessService.addStatisticsCountLog(homepageAccess);
-			} else if("smartphone".equals(category)) {
+			} else if ("smartphone".equals(category)) {
 				// 모바일
 				homepageAccessService.addStatisticsCountLogMobile(homepageAccess);
-			} else if("crawler".equals(category)) {
+			} else if ("crawler".equals(category)) {
 				// 검색 엔진
 
-			} else if("mobilephone".equals(category) || "appliance".equals(category)) {
+			} else if ("mobilephone".equals(category) || "appliance".equals(category)) {
 				// 모바일
 				homepageAccessService.addStatisticsCountLogMobile(homepageAccess);
 			} else {
@@ -287,18 +299,18 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 			// 접속 통계
 			HttpSession session = request.getSession();
 			String sessionFlag = homepage_id + "_addStatisticsCount";
-			if(session.getAttribute(sessionFlag) == null) {
+			if (session.getAttribute(sessionFlag) == null) {
 				session.setAttribute(sessionFlag, true);
-				if("pc".equals(category)) {
+				if ("pc".equals(category)) {
 					// PC
 					homepageAccessService.addStatisticsCount(homepageAccess);
-				} else if("smartphone".equals(category)) {
+				} else if ("smartphone".equals(category)) {
 					// 모바일
 					homepageAccessService.addStatisticsCountMobile(homepageAccess);
-				} else if("crawler".equals(category)) {
+				} else if ("crawler".equals(category)) {
 					// 검색 엔진
 
-				} else if("mobilephone".equals(category) || "appliance".equals(category)) {
+				} else if ("mobilephone".equals(category) || "appliance".equals(category)) {
 					// 모바일
 					homepageAccessService.addStatisticsCountMobile(homepageAccess);
 				} else {
@@ -306,7 +318,7 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 					homepageAccessService.addStatisticsCount(homepageAccess);
 				}
 			}
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
