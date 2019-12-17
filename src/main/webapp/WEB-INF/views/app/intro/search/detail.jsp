@@ -185,7 +185,7 @@ $(function() {
 			<tbody>
 			<tr>
 				<td>${detail.CALL_NO}<br/>
-				<a href="javascript:alert('조치중')" id="btn_print" class="btn btn2">청구기호출력</a></td>
+				<a href="#" id="btn_print" class="btn btn2">청구기호출력</a></td>
 				<td>${detail.REG_NO}</td>
 				<td>${detail.SHELF_LOC_NAME}</td>
 				<td>${detail.RETURN_PLAN_DATE}</td>
