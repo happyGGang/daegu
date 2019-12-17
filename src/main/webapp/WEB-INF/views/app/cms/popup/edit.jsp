@@ -110,7 +110,7 @@ $(function() {
 	
 	$("#dialog-1").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
 		width: 800,
-		height: 800
+		height: 700
 	});
 	
 	$('input#start_date').datepicker({
@@ -358,7 +358,7 @@ function pasteHTML(filepath){
 			<td>
 				<form:input path="print_seq" cssStyle="width:30px;" cssClass="text spinner"/>
 				<div class="ui-state-highlight">
-					<i class="fa fa-question-circle"></i><em>내림차순 정렬. 높을 수록 앞에 출력됩니다.</em>
+					<i class="fa fa-question-circle"></i><em>오름차순 정렬. 낮을수록 앞에 출력됩니다.</em>
 				</div>
 			</td>
 		</tr>

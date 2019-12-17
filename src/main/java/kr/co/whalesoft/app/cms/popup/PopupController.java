@@ -3,6 +3,8 @@ package kr.co.whalesoft.app.cms.popup;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,6 +55,15 @@ public class PopupController extends BaseController {
 			popup = (Popup)service.copyObjectPaging(popup, service.getPopupOne(popup));
 		} else {
 			checkAuth("C", model, request);
+			popup.setPrint_seq(service.getNextPrintSeq(popup.getHomepage_id()));
+			
+			if(StringUtils.isEmpty(popup.getUse_yn())) {
+				popup.setUse_yn("Y");
+			}
+			
+			if(StringUtils.isEmpty(popup.getLink_target())) {
+				popup.setLink_target("CURRENT");
+			}
 		}
 		
 		model.addAttribute("popup", popup);

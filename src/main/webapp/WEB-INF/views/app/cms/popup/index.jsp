@@ -72,6 +72,12 @@ $(function(){
 		$('#viewPage').val(1);
 		doGetLoad('index.do', serializeCustom($('#popup_1')));
 	});
+	
+	$('select#link_target, select#use_yn, select#sortType, select#rowCount').on('change', function() {
+		$('#viewPage').val(1);
+		doGetLoad('index.do', serializeCustom($('#popup_1')));
+	});
+	
 });	
 </script> 
 <form:form id="popup_1" modelAttribute="popup" method="POST" action="save.do" onsubmit="return false;">
@@ -85,20 +91,43 @@ $(function(){
 	</c:if>
 	<div class="infodesk">
 		검색 결과 : ${paging.totalDataCount}건, 홈페이지 ID : ${popup.homepage_id}
+		<form:select path="link_target" class="selectmenu">
+			<option value="">링크타겟선택</option>
+			<form:option value="CURRENT">현재창</form:option>
+			<form:option value="BLANK">새창</form:option>
+		</form:select>
+		<form:select path="use_yn" class="selectmenu">
+			<option value="">사용여부선택</option>
+			<form:option value="Y">사용함</form:option>
+			<form:option value="N">사용안함</form:option>
+		</form:select>
+		<form:select path="sortType" class="selectmenu">
+			<form:option value="ASC">오름차순</form:option>
+			<form:option value="DESC">내림차순</form:option>
+		</form:select>
+		<form:select path="rowCount" class="selectmenu" style="width:120px;">
+			<form:option value="10">10개씩 보기</form:option>
+			<form:option value="20">20개씩 보기</form:option>
+			<form:option value="30">30개씩 보기</form:option>
+			<form:option value="100">100개씩 보기</form:option>
+			<form:option value="200">200개씩 보기</form:option>
+		</form:select>
 		<div class="button btn-group inline">
 			<c:if test="${authC}">
 				<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>팝업등록</span></a>
 			</c:if>
 		</div>
 	</div>
+	
 	<table class="type1 center">
 		<thead>
 			<tr>
 				<th width="40">순번</th>
 				<th width="">팝업명</th>
-				<th width="100">팝업타입</th>
+				<th width="100">링크타겟</th>
 				<th width="50">사용여부</th>
-				<th width="300">게시일</th>
+				<th width="200">게시일</th>
+				<th width="50">출력순서</th>
 				<th width="120">등록일</th>
 				<th width="100">기능</th>
 			</tr>
@@ -106,18 +135,24 @@ $(function(){
 		<tbody>
 		<c:if test="${fn:length(popupList) < 1}">
 			<tr>
-				<td colspan="7" style="background:#f8fafb;">데이터가 존재하지 않습니다.</td>
+				<td colspan="8" style="background:#f8fafb;">데이터가 존재하지 않습니다.</td>
 			</tr>
 		</c:if>
 		<c:forEach var="i" varStatus="status" items="${popupList}">
 			<tr>
-				<td width="40">${popup.listRowNum - status.index}</td>
-				<td class="left" width="">${i.popup_name}</td>
-				<td width="100">${i.popup_type}</td>
+				<td>${popup.listRowNum - status.index}</td>
+				<td class="left">${i.popup_name}</td>
+				<td>
+					<c:choose>
+						<c:when test="${i.link_target eq 'CURRENT'}">현채창</c:when>
+						<c:when test="${i.link_target eq 'BLANK'}">새창</c:when>
+					</c:choose>
+				</td>
 				<td width="50">${i.use_yn}</td>
-				<td width="300">${i.start_date} ~ ${i.end_date}</td>
-				<td width="120"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></td>
-				<td width="120">
+				<td>${i.start_date} ~ ${i.end_date}</td>
+				<td>${i.print_seq}</td>
+				<td><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></td>
+				<td>
 					<c:if test="${authU}">
 						<a href="" class="btn" id="dialog-modify" keyValue="${i.homepage_id}" keyValue1="${i.popup_idx}">수정</a>
 					</c:if>
@@ -137,11 +172,7 @@ $(function(){
 	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 		<fieldset>
 			<form:select path="search_type" cssClass="selectmenu">
-				<form:option value="POPUP_NAME">팝업명</form:option>
-				<form:option value="POPUP_TYPE">팝업타입</form:option>
-				<form:option value="USE_YN">사용여부</form:option>
-				<form:option value="START_DATE">시작일</form:option>
-				<form:option value="END_DATE">종료일</form:option>
+				<form:option value="popup_name">팝업명</form:option>
 			</form:select>
 			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
 			<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>

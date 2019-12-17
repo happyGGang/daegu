@@ -101,4 +101,8 @@ public class PopupService extends BaseService {
 		
 		return popupStorage.getContextPath() + filePath + "/" + f.getName();
 	}
+
+	public int getNextPrintSeq(String homepage_id) {
+		return dao.getNextPrintSeq(homepage_id);
+	}
 }

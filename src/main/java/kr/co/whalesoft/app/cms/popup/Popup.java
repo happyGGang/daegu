@@ -12,7 +12,7 @@ public class Popup extends PagingUtils {
 	private String html_use_yn = "N";
 	private String popup_type = "LAYER";
 	private String link_url;
-	private String use_yn = "Y";
+	private String use_yn;
 	private int print_seq;
 	private String start_date;
 	private String end_date;
@@ -29,7 +29,7 @@ public class Popup extends PagingUtils {
 	private String server_file_name;
 	private String file_extension;
 	private long file_size;
-	private String link_target = "CURRENT"; // 새창으로보기
+	private String link_target; // 새창으로보기
 
 	private String common_yn = "N";
 
