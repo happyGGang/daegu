@@ -32,8 +32,8 @@ public class BannerTag extends BodyTagSupport {
 				HtmlTag span_tag = new HtmlTag("span");
 				HtmlTag a_tag = new HtmlTag("a");
 				HtmlTag img_tag = new HtmlTag("img");
-				img_tag.setAttribute("src", String.format("/data/banner/%s/%s", one.getHomepage_id(), one.getReal_file_name()));
-				img_tag.setAttribute("alt", one.getTitle());
+				img_tag.setAttribute("src", String.format("/data/banner/%s/%s", one.getHomepage_id(), one.getServer_file_name()));
+				img_tag.setAttribute("alt", one.getBanner_name());
 				a_tag.addSubTag(img_tag);
 				a_tag.setAttribute("href", one.getBanner_link());
 				if (StringUtils.isNotEmpty(one.getBanner_link()) && !one.getBanner_link().startsWith("javascript:")) {

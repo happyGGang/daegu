@@ -6,7 +6,8 @@
 		${pagingTop}
 		SELECT
 			homepage_id, banner_idx, banner_name, org_file_name, server_file_name,
-			file_extension, file_size, add_date, use_yn, banner_link, print_seq
+			file_extension, file_size, add_id, add_date, use_yn,
+			banner_link, print_seq
 		FROM
 			CMS_BANNER
 		WHERE
@@ -19,7 +20,8 @@
 	<select id="getBannerAll" resultType="kr.co.whalesoft.app.cms.banner.Banner">
 		SELECT
 			homepage_id, banner_idx, banner_name, org_file_name, server_file_name,
-			file_extension, file_size, add_date, use_yn, banner_link, print_seq
+			file_extension, file_size, add_id, add_date, use_yn,
+			banner_link, print_seq
 		FROM
 			CMS_BANNER
 		WHERE
@@ -40,7 +42,8 @@
 	<select id="getBannerOne" resultType="kr.co.whalesoft.app.cms.banner.Banner">
 		SELECT
 			homepage_id, banner_idx, banner_name, org_file_name, server_file_name,
-			file_extension, file_size, add_date, use_yn, banner_link, print_seq
+			file_extension, file_size, add_id, add_date, use_yn,
+			banner_link, print_seq
 		FROM
 			CMS_BANNER
 		WHERE
@@ -59,14 +62,14 @@
 			<if test="server_file_name != null and server_file_name != ''">
 			org_file_name, server_file_name, file_extension, file_size,
 			</if>
-			add_date, use_yn, banner_link, print_seq
+			add_id, add_date, use_yn, banner_link, print_seq
 		) VALUES
 		(
 			#{homepage_id}, #{banner_idx}, #{banner_name}, 
 			<if test="server_file_name != null and server_file_name != ''">
 			#{org_file_name}, #{server_file_name}, #{file_extension}, #{file_size},
 			</if> 
-			SYSDATE, #{use_yn}, #{banner_link}, #{print_seq}				
+			#{add_id}, SYSDATE, #{use_yn}, #{banner_link}, #{print_seq}				
 		)
 	</insert>
 	

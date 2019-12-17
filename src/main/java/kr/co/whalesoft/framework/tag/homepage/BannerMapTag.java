@@ -28,7 +28,7 @@ public class BannerMapTag extends BodyTagSupport {
 				HtmlTag imgTag = new HtmlTag("img");
 				aTag.setAttribute("href", banner.getBanner_link());
 				aTag.setAttribute("target", "_blank");
-				imgTag.setAttribute("src", String.format("/data/banner/%s/%s", banner.getHomepage_id(), banner.getReal_file_name()));
+				imgTag.setAttribute("src", String.format("/data/banner/%s/%s", banner.getHomepage_id(), banner.getServer_file_name()));
 				aTag.addSubTag(imgTag);
 				liTag.addSubTag(aTag);
 				ulTag.addSubTag(liTag);

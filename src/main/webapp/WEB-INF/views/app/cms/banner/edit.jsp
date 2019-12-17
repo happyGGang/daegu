@@ -31,7 +31,7 @@ $(function() {
 	}); */
 	
 	<%-- 이미지 미리보기 --%>
-	$('input#img_file_name_temp').change(function() {
+	$('input#org_file_name_temp').change(function() {
 		if (this.files && this.files[0]) {
 			var reader = new FileReader();
 			reader.onload = function (e) {
@@ -133,13 +133,13 @@ function getFileData(fileData) {
 	</colgroup>
 	<tbody>
 		<tr>
-			<th>타이틀</th>
+			<th>타이틀(<span style="color: red;font-weight: bold;">*</span>)</th>
 			<td>
-				<form:input path="title" cssStyle="width:200px;" cssClass="text" maxlength="20"/>
+				<form:input path="banner_name" cssStyle="width:200px;" cssClass="text" maxlength="20"/>
 			</td>
 		</tr>
 		<tr> 
-			<th>배너링크URL</th>
+			<th>배너링크URL(<span style="color: red;font-weight: bold;">*</span>)</th>
 			<td>
 				<form:input path="banner_link" cssClass="text" cssStyle="width:300px;" maxlength="100"/>
 				<div class="ui-state-highlight">
@@ -148,9 +148,9 @@ function getFileData(fileData) {
 			</td>
 		</tr>
 		<tr>
-			<th>이미지</th>
+			<th>이미지(<span style="color: red;font-weight: bold;">*</span>)</th>
 			<td>
-				<input type="file" id="img_file_name_temp" name="img_file_name_temp" class="text" title="이미지 파일 첨부" accept=".gif,.jpeg,.jpg,.png"/>
+				<input type="file" id="org_file_name_temp" name="org_file_name_temp" class="text" title="이미지 파일 첨부" accept=".gif,.jpeg,.jpg,.png"/>
 			</td>
 		</tr>
 		
@@ -159,7 +159,7 @@ function getFileData(fileData) {
 				<th scope="row">이미지</th>
 				<td colspan="3">
 					<div class="item">
-						<a href="${banner.banner_link}" target="_blank"><img width="135" height="42" src="${getContextPath}/data/banner/${banner.homepage_id}/${banner.real_file_name}" alt="${banner.title}"></a>	${banner.file_name}							 
+						<a href="${banner.banner_link}" target="_blank"><img width="135" height="42" src="${getContextPath}/data/banner/${banner.homepage_id}/${banner.server_file_name}" alt="${banner.banner_name}"></a>	${banner.org_file_name}							 
 					</div>
 				</td>
 			</tr>

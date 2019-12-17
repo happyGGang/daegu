@@ -42,7 +42,7 @@ public class BannerService extends BaseService {
 	
 	@Transactional
 	public int addBanner(Banner banner, MultipartHttpServletRequest mpRequest) {
-		MultipartFile mFile = mpRequest.getFileMap().get("img_file_name_temp");
+		MultipartFile mFile = mpRequest.getFileMap().get("org_file_name_temp");
 		
 		if ( mFile != null ) {
 			String realFileName 	= Long.toString((System.currentTimeMillis()));
@@ -52,19 +52,19 @@ public class BannerService extends BaseService {
 			
 			File f = bannerStorage.addFile(mFile, realFileName, filePath);
 			
-			banner.setReal_file_name(realFileName);
-			banner.setFile_name(fileName);
+			banner.setServer_file_name(realFileName);
+			banner.setOrg_file_name(fileName);
 			banner.setFile_extension(fileExtension);
 			banner.setFile_size(f.length()); 
 		} else {
-			banner.setFile_name(null);
+			banner.setOrg_file_name(null);
 		}
 		
 		return dao.addBanner(banner);
 	}
 	
 	public int modifyBanner(Banner banner, MultipartHttpServletRequest mpRequest) {
-		MultipartFile mFile = mpRequest.getFileMap().get("img_file_name_temp");
+		MultipartFile mFile = mpRequest.getFileMap().get("org_file_name_temp");
 		
 		if ( mFile != null ) {
 			String realFileName 	= Long.toString((System.currentTimeMillis()));
@@ -74,12 +74,12 @@ public class BannerService extends BaseService {
 			
 			File f = bannerStorage.addFile(mFile, realFileName, filePath);
 			
-			banner.setReal_file_name(realFileName);
-			banner.setFile_name(fileName);
+			banner.setServer_file_name(realFileName);
+			banner.setOrg_file_name(fileName);
 			banner.setFile_extension(fileExtension);
 			banner.setFile_size(f.length()); 
 		} else {
-			banner.setFile_name(null);
+			banner.setOrg_file_name(null);
 		}
 		
 		return dao.modifyBanner(banner);

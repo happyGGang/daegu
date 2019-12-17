@@ -104,10 +104,10 @@ $(function(){
 				<td width="50">${banner.listRowNum - status.index}</td>
 				<td width="200">
 					<div class="item">
-						<a href="${i.banner_link}" target="_blank"><img width="135" height="42" src="${getContextPath}/data/banner/${banner.homepage_id}/${i.real_file_name}" alt="${i.title}"></a>							 
+						<a href="${i.banner_link}" target="_blank"><img width="135" height="42" src="${getContextPath}/data/banner/${banner.homepage_id}/${i.server_file_name}" alt="${i.banner_name}"></a>							 
 					</div>
 				</td>
-				<td class="left" width="200">${i.title}</td>
+				<td class="left" width="200">${i.banner_name}</td>
 				<td class="left" width="">${i.banner_link}</td>
 				<td width="50">${i.use_yn}</td>
 				<td width="150"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></td>

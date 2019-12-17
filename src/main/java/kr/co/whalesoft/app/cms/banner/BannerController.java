@@ -52,13 +52,13 @@ public class BannerController extends BaseController {
 	public @ResponseBody JsonResponse save(Model model, Banner banner, BindingResult result, HttpServletRequest request, MultipartHttpServletRequest mpRequest) {
 		JsonResponse res = new JsonResponse(request);
 		
-		ValidationUtils.rejectIfEmpty(result, "title", "타이틀을 입력해주세요.");
+		ValidationUtils.rejectIfEmpty(result, "banner_name", "타이틀을 입력해주세요.");
 		ValidationUtils.rejectIfEmpty(result, "banner_link", "배너 링크를 입력해주세요.");
 		
 		
 		if(!result.hasErrors()) {
 			if(banner.getEditMode().equals("ADD")) {
-				if ( mpRequest.getFileMap().get("img_file_name_temp") == null ) {
+				if ( mpRequest.getFileMap().get("org_file_name_temp") == null ) {
 					res.setValid(false);
 					res.setMessage("이미지 파일을 지정해주세요.");
 					return res;
@@ -66,10 +66,12 @@ public class BannerController extends BaseController {
 			}
 			
 			if(banner.getEditMode().equals("ADD")) {
+				banner.setAdd_id(getSessionMemberId(request));
 				service.addBanner(banner, mpRequest);
 				res.setValid(true);
 				res.setMessage("등록 되었습니다.");
 			} else if(banner.getEditMode().equals("MODIFY")) {
+				banner.setModify_id(getSessionMemberId(request));
 				service.modifyBanner(banner, mpRequest);
 				res.setValid(true); 
 				res.setMessage("수정 되었습니다.");
