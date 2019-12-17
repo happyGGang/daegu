@@ -50,7 +50,7 @@ public class QuickMenuTag extends BodyTagSupport {
 					a_tag.setAttribute("target", "_blank");
 				}
 				a_tag.setAttribute("href", link_url);
-				a_tag.setAttribute("style", String.format("background-image:url('/data/quickMenu/%s/%s')", one.getHomepage_id(), one.getReal_file_name()));
+				a_tag.setAttribute("style", String.format("background-image:url('/data/quickMenu/%s/%s')", one.getHomepage_id(), one.getServer_file_name()));
 				li_tag.setAttribute("class", "qm"+count);
 				span_tag.setContent(one.getMenu_name());
 				a_tag.addSubTag(span_tag);

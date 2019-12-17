@@ -6,7 +6,7 @@
 		SELECT
 			homepage_id, quick_idx, menu_name, link_url, link_target,
 			org_file_name, server_file_name, file_extension, file_size, view_yn,
-			link_use_yn, print_seq, add_date
+			link_use_yn, print_seq, add_id, add_date
 		FROM
 			CMS_QUICK_MENU
 		WHERE
@@ -24,7 +24,7 @@
 			SELECT
 				homepage_id, quick_idx, menu_name, link_url, link_target,
 				org_file_name, server_file_name, file_extension, file_size, view_yn,
-				link_use_yn, print_seq, add_date
+				link_use_yn, print_seq, add_id, add_date
 			FROM
 				CMS_QUICK_MENU
 			WHERE
@@ -47,15 +47,13 @@
 		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
 		AND	${search_type} LIKE '%'||#{search_text}||'%'
 		</if>
-		ORDER BY
-			quick_idx ASC
 	</select>
 	
 	<select id="getQuickMenuOne" resultType="kr.co.whalesoft.app.cms.quickMenu.QuickMenu">
 		SELECT
-			homepage_id, quic_idx, menu_name, link_url, link_target,
+			homepage_id, quick_idx, menu_name, link_url, link_target,
 			org_file_name, server_file_name, file_extension, file_size, view_yn,
-			link_use_yn, print_seq, add_date
+			link_use_yn, print_seq, add_id, add_date
 		FROM
 			CMS_QUICK_MENU
 		WHERE
@@ -73,11 +71,11 @@
 		(
 			homepage_id, quick_idx, menu_name, link_url, link_target,
 			org_file_name, server_file_name, file_extension, file_size, view_yn,
-			link_use_yn, print_seq, add_date
+			link_use_yn, print_seq, add_id, add_date
 		) VALUES (
 			#{homepage_id}, #{quick_idx}, #{menu_name}, #{link_url}, #{link_target},
 			#{org_file_name}, #{server_file_name}, #{file_extension}, #{file_size}, #{view_yn},
-			#{link_use_yn}, #{print_seq}, SYSDATE
+			#{link_use_yn}, #{print_seq}, #{add_id}, SYSDATE
 		)
 	</insert>
 	
@@ -96,10 +94,12 @@
 			</if>
 			view_yn = #{view_yn}, 
 			link_use_yn = #{link_use_yn},
-			print_seq = #{print_seq}
+			print_seq = #{print_seq},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
 		WHERE 
 			homepage_id = #{homepage_id}
-		AND	quick_idx = #{quick_idx} 
+		AND	quick_idx = #{quick_idx}
 	</update>
 	
 	<delete id="deleteQuickMenu">

@@ -101,7 +101,7 @@ $(function() {
 					<td>${i.link_target eq 'BLANK' ? '새창' : '현재창'}</td>
 					<td>${i.view_yn}</td>
 					<td>${i.link_use_yn}</td>
-					<td>${i.add_date}</td>
+					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>
 					<td>
 						<c:if test="${authU}">
 							<a href="" class="btn" id="dialog-modify" keyValue="${i.quick_idx}">수정</a>
@@ -126,8 +126,8 @@ $(function() {
 	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 		<fieldset>
 			<form:select path="search_type" cssClass="selectmenu">
-				<form:option value="MENU_NAME">메뉴명</form:option>
-				<form:option value="LINK_USE_YN">링크사용여부</form:option>
+				<form:option value="menu_name">메뉴명</form:option>
+				<form:option value="link_use_yn">링크사용여부</form:option>
 			</form:select>
 			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
 			<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>

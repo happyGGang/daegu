@@ -48,8 +48,8 @@ public class QuickMenuService extends BaseService {
 			String filePath 		= "/" + quickMenu.getHomepage_id();
 			
 			File f = quickMenuStorage.addFile(mFile, realFileName, filePath);
-			quickMenu.setIcon_file_name(fileName);
-			quickMenu.setReal_file_name(realFileName);
+			quickMenu.setOrg_file_name(fileName);
+			quickMenu.setServer_file_name(realFileName);
 			quickMenu.setFile_extension(fileExtension);
 			quickMenu.setFile_size(f.length());
 		}
@@ -67,8 +67,8 @@ public class QuickMenuService extends BaseService {
 			String filePath 		= "/" + quickMenu.getHomepage_id();
 			
 			File f = quickMenuStorage.addFile(mFile, realFileName, filePath);
-			quickMenu.setIcon_file_name(fileName);
-			quickMenu.setReal_file_name(realFileName);
+			quickMenu.setOrg_file_name(fileName);
+			quickMenu.setServer_file_name(realFileName);
 			quickMenu.setFile_extension(fileExtension);
 			quickMenu.setFile_size(f.length());
 		}

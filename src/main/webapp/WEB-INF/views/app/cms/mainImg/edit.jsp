@@ -165,11 +165,11 @@ $(function() {
        	</colgroup>
        	<tbody>
 	        <tr>
-	         	<th>제목</th>
+	         	<th>제목(<span style="color: red;font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="main_img_name" class="text" cssStyle="width:100%"/></td>
 	        </tr>
 	        <tr>
-	         	<th>이미지</th>
+	         	<th>이미지<c:if test="${mainImg.editMode eq 'ADD'}">(<span style="color: red;font-weight: bold;">*</span>)</c:if></th>
 	         	<td class="realFile">
 	         		<input type="file" id="img_file" name="img_file" class="text"/><form:hidden path="org_file_name"/>
 	         		<div class="ui-state-highlight">

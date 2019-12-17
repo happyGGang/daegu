@@ -95,12 +95,12 @@ $(function() {
        	</colgroup>
        	<tbody>
 	        <tr>
-	         	<th>메뉴명</th>
+	         	<th>메뉴명(<span style="color: red;font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="menu_name" class="text" cssStyle="width:100%"/></td>
 	        </tr>
 	        <tr >
-	         	<th>아이콘</th>
-	         	<td class="realFile">${quickMenu.icon_file_name}<input type="file" id="icon_file" name="icon_file" class="text"/><form:hidden path="icon_file_name"/></td>
+	         	<th>아이콘<c:if test="${quickMenu.editMode eq 'ADD'}">(<span style="color: red;font-weight: bold;">*</span>)</c:if></th>
+	         	<td class="realFile">${quickMenu.org_file_name}<input type="file" id="icon_file" name="icon_file" class="text"/><form:hidden path="org_file_name"/></td>
 	        </tr>
 	        <tr>
 	         	<th>링크</th>
