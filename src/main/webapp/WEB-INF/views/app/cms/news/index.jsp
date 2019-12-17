@@ -105,6 +105,7 @@ $(function() {
 			<col width="" />
 			<col width="200" />
 			<col width="100" />
+			<col width="100" />
 		</colgroup>
 		<thead>
 			<tr>
@@ -121,10 +122,10 @@ $(function() {
 			<c:forEach var="i" varStatus="status" items="${newsList}">
 				<tr>
 					<td>${news.listRowNum - status.index}</td>
-					<td>${i.title}</td>
-					<td>${i.sub_title}</td>
+					<td>${i.news_name}</td>
+					<td>${i.sub_news_name}</td>
 					<td>${i.contents}</td>
-					<td>${i.add_date}</td>
+					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>
 					<td>${i.use_yn}</td>
 					<td>
 						<c:if test="${authU}">
@@ -138,7 +139,7 @@ $(function() {
 			</c:forEach>
 			<c:if test="${newsListCount eq 0}">
 				<tr>
-					<td colspan="6">조회된 자료가 없습니다.</td>
+					<td colspan="7">조회된 자료가 없습니다.</td>
 				</tr>
 			</c:if>
 		</tbody>
@@ -150,7 +151,7 @@ $(function() {
 	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 		<fieldset>
 			<form:select path="search_type" cssClass="selectmenu">
-				<form:option value="TITLE">제목</form:option>
+				<form:option value="news_name">제목</form:option>
 			</form:select>
 			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
 			<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>

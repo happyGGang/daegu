@@ -158,7 +158,7 @@ $(function() {
     }).on('fileuploaddone', function (e, data) {
         $.each(data.result.files, function (index, file) {
             if (file.url) {
-				$('#img_file_name').val(file.name);
+				$('#org_file_name').val(file.name);
 				$('div#htmlFiles').append('<a href="#" class="paste" data-url="' + file.url + '">에디터에 이미지 삽입</a>');
              	$('div#htmlFiles a').on('click', function(e) {
             		e.preventDefault();
@@ -194,15 +194,15 @@ $(function() {
        	</colgroup>
        	<tbody>
 	        <tr>
-	         	<th>제목</th>
-	         	<td><form:input path="title" class="text" cssStyle="width:100%"/></td>
+	         	<th>제목(<span style="color: red;font-weight: bold;">*</span>)</th>
+	         	<td><form:input path="news_name" class="text" cssStyle="width:100%"/></td>
 	        </tr>
 	        <tr>
 	         	<th>소제목</th>
-	         	<td><form:input path="sub_title" class="text" cssStyle="width:100%"/></td>
+	         	<td><form:input path="sub_news_name" class="text" cssStyle="width:100%"/></td>
 	        </tr>
 	        <tr> 
-				<th>링크URL</th>
+				<th>링크URL(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
 					<form:input path="link_url" cssClass="text" cssStyle="width:300px;" maxlength="200"/>	
 				</td>
@@ -210,7 +210,7 @@ $(function() {
 			<tr>
 			<th>이미지 업로드</th>
 				<td>
-					<form:hidden id="img_file_name" path="img_file_name" />
+					<form:hidden id="org_file_name" path="org_file_name" />
 					<input id="fileupload" type="file" name="imgFile" accept=".gif,.jpeg,.jpg,.png">
 					
 				    <div id="progress" class="progress">
@@ -222,18 +222,18 @@ $(function() {
 				<th scope="row">이미지 미리보기</th>
 				<td colspan="3">
 					<div id="fileReaderFiles" class="item">
-						<c:if test="${popup.img_file_name eq null}">
+						<c:if test="${popup.org_file_name eq null}">
 							<img src="/resources/cms/img/noimg_135_42.gif" alt="이미지 미리보기 입니다.">
 						</c:if>
-						<c:if test="${popup.img_file_name ne null}">
-							<img src="${getContextPath}/data/popup/${popup.homepage_id}/${popup.real_file_name}" alt="${popup.real_file_name}">
+						<c:if test="${popup.org_file_name ne null}">
+							<img src="${getContextPath}/data/popup/${popup.homepage_id}/${popup.server_file_name}" alt="${popup.server_file_name}">
 						</c:if>
 						<a></a>					 
 					</div>
 				</td>
 			</tr>
 	        <tr>
-	         	<th>내용</th>
+	         	<th>내용(<span style="color: red;font-weight: bold;">*</span>)</th>
 	         	<td>
 	         		<form:textarea path="contents" class="text" cssStyle="width:100%;" rows="2"/>
 	         		<div class="ui-state-error">

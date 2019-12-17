@@ -131,8 +131,8 @@ $(function(){
 	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 		<fieldset>
 			<form:select path="search_type" cssClass="selectmenu">
-				<form:option value="TITLE">타이틀</form:option>
-				<form:option value="USE_YN">사용여부</form:option>
+				<form:option value="banner_name">타이틀</form:option>
+				<form:option value="use_yn">사용여부</form:option>
 			</form:select>
 			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
 			<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>

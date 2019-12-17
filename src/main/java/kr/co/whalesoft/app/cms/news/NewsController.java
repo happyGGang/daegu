@@ -60,9 +60,10 @@ public class NewsController extends BaseController {
 		String editMode = news.getEditMode();
 		
 		if(!editMode.equals("DELETE")) {
-			ValidationUtils.rejectIfEmpty(result, "title", "뉴스명을 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "contents", "뉴스 내용을 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "news_name", "뉴스명을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "link_url", "링크URL을 지정해주세요");
+			ValidationUtils.rejectIfEmpty(result, "contents", "뉴스 내용을 입력하세요.");
+			ValidationUtils.rejectIfStringLength(result, "contents", 200, null);
 		}
 		
 		if(editMode.equals("ADD")) {
@@ -77,10 +78,12 @@ public class NewsController extends BaseController {
 		
 		if(!result.hasErrors()) {
 			if(editMode.equals("ADD")) {
+				news.setAdd_id(getSessionMemberId(request));
 				service.addNews(news, mpRequest);
 				res.setValid(true);
 				res.setMessage("등록 되었습니다.");
 			} else if(editMode.equals("MODIFY")) {
+				news.setModify_id(getSessionMemberId(request));
 				service.modifyNews(news, mpRequest);
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");
@@ -88,7 +91,7 @@ public class NewsController extends BaseController {
 				service.deleteNews(news);
 				res.setValid(true);
 				res.setMessage("삭제 되었습니다.");
-			}	
+			}
 		} else {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());

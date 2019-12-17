@@ -9,8 +9,8 @@ import kr.co.whalesoft.framework.utils.PagingUtils;
 public class News extends PagingUtils {
 
 	private int news_idx; // 접수IDX
-	private String title; // 제목
-	private String sub_title; // 소제목
+	private String news_name; // 제목
+	private String sub_news_name; // 소제목
 	private String link_url; // 이동 url;
 	private String contents; // 내용
 	private int print_seq; // 출력순서
@@ -41,12 +41,20 @@ public class News extends PagingUtils {
 		this.news_idx = news_idx;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getNews_name() {
+		return news_name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setNews_name(String news_name) {
+		this.news_name = news_name;
+	}
+
+	public String getSub_news_name() {
+		return sub_news_name;
+	}
+
+	public void setSub_news_name(String sub_news_name) {
+		this.sub_news_name = sub_news_name;
 	}
 
 	public String getContents() {
@@ -71,14 +79,6 @@ public class News extends PagingUtils {
 
 	public void setFile(MultipartFile file) {
 		this.file = file;
-	}
-
-	public String getSub_title() {
-		return sub_title;
-	}
-
-	public void setSub_title(String sub_title) {
-		this.sub_title = sub_title;
 	}
 
 	public String getLink_url() {
