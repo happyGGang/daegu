@@ -14,62 +14,6 @@ $(function() {
 
 <c:choose>
 <c:when test="${homepage.context_path eq 'daegu'}">
-<style>
-#wrap{min-height:100%;_height:100%}
-#wrap.k-index{margin-bottom:-60px;}
-.nav{text-align:center}
-.nav li{display:inline-block;zoom:1;*display:inline}
-.k-index {background:url('/resources/common/img/background_image.jpg') repeat center center;color:#fff;text-align:center;box-sizing:border-box}
-.k-index .web_section {width:100%;margin:0;text-align:center;}
-.k-index #header {width:100%;padding:90px 0 0 0;}
-.k-index #header .title {font-family:'Malgun Gothic';font-size:80px;font-weight:bold;line-height:150%}
-.k-index #container{position:relative;padding:80px 0 0 0}
-.k-index #container .txt {width:80%;margin:0 auto;font-family:'Malgun Gothic';font-size:25px;}
-.k-index #container .button {padding:70px 0 0 0}
-.k-index #footer{position:relative;padding:100px 0 50px 0}
-
-@media all and (max-width:1280px){
-
-}
-
-@media all and (max-width:1024px){
-	.k-index {margin:0}
-	.k-index #header {position:relative}
-
-}
-
-@media all and (max-width:1029px) {	
-}
-
-@media all and (max-width:1000px) {	
-
-}
-
-@media all and (max-width:768px) {	
-	.k-index #header .title {font-size:380%;;line-height:130%}
-	.k-index #footer {position:absolute;width:100%;font-size:13px;background:#333333;padding:20px 0;bottom:0;color:#cedcea}
-}
-
-@media all and (max-width:690px){
-	.k-index #header .title {width:90%;margin:0 auto;font-size:330%;;line-height:120%}
-	.k-index #footer {font-size:12px;}
-	.k-index #container .button img {width:79%}
-	.k-index #container .txt {width:90%;font-size:21px;}
-}
-
-@media all and (max-width:425px){
-	.k-index #header {padding:60px 0 0 0;}
-	.k-index #header .title {font-size:300%;}
-	.k-index #container {position:relative;padding:50px 0 0 0}
-	.k-index #container .txt {font-size:19px;}
-	.k-index #container .button {padding:70px 0 0 0}
-	.k-index #footer {font-size:12px;}
-}
-
-@media all and (max-width:390px){
-	.k-index #footer {font-size:11px;}
-}
-</style>
 <div id="wrap" class="k-index">
 	<div class="web_section">
 		<div id="header">

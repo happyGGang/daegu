@@ -87,8 +87,8 @@
 					</li>
 					<li>
 						<a href="/intro/${homepage.context_path}/search/loan/index.do">
-							<em><img src="/resources/common/img/nav5.png" alt="마이라이브러리"/></em>
-							<span>마이라이브러리</span>
+							<em><img src="/resources/common/img/nav5.png" alt="나의도서관"/></em>
+							<span>나의도서관</span>
 							<div>My Library</div>
 						</a>
 					</li>
@@ -131,8 +131,8 @@
 						</li>
 						<li>
 							<a href="/intro/${homepage.context_path}/search/loan/index.do">
-								<em><img src="/resources/common/img/nav5.png" alt="마이라이브러리"/></em>
-								<span>마이라이브러리</span>
+								<em><img src="/resources/common/img/nav5.png" alt="나의도서관"/></em>
+								<span>나의도서관</span>
 								<div>My Library</div>
 							</a>
 						</li>

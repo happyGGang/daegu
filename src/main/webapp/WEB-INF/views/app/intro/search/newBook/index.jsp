@@ -65,16 +65,16 @@ $(function() {
 
 			<th><label for="option01">서지형태</label></th>
 			<td class="search_left">
-				<form:radiobutton path="booktype" value="0" title="도서" label="도서"/>
-				<form:radiobutton path="booktype" value="1" title="간행물" label="간행물"/>
-				<form:radiobutton path="booktype" value="2" title="비도서" label="비도서"/>
+				<form:radiobutton path="booktype" value="0" title="도서" label=" 도서"/>
+				<form:radiobutton path="booktype" value="1" title="간행물" label=" 간행물"/>
+				<form:radiobutton path="booktype" value="2" title="비도서" label=" 비도서"/>
 			</td>
 
 			<th><label for="search_date03">간편검색</label></th>
 			<td class="search_left">
-				<form:radiobutton path="search_type" value="1" title="1주전" label="1주전"/>
-				<form:radiobutton path="search_type" value="2" title="1주전" label="2주전"/>
-				<form:radiobutton path="search_type" value="3" title="1주전" label="1달전"/>
+				<form:radiobutton path="search_type" value="1" title="1주전" label=" 1주전"/>
+				<form:radiobutton path="search_type" value="2" title="1주전" label=" 2주전"/>
+				<form:radiobutton path="search_type" value="3" title="1주전" label=" 1달전"/>
 			</td>
 			</tr>
 			</tbody>

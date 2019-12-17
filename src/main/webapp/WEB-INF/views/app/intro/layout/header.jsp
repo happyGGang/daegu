@@ -1,4 +1,7 @@
 <%@ page language="java" pageEncoding="utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -22,7 +25,14 @@
 <link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.mmenu.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/book/css/common.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/common/default.css"  />
+<c:choose>
+<c:when test="${homepage.context_path eq 'daegu'}">
+<link rel="stylesheet" type="text/css" href="/resources/common/css/intro/default_daegu.css"  />
+</c:when>
+<c:otherwise>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/intro/default.css"  />
+</c:otherwise>
+</c:choose>
 
 <!--[if lte IE 7]>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome-ie7.min.css"/>

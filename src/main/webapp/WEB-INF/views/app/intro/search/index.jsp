@@ -10,13 +10,6 @@ $(function() {
 
 	var $form = $('form#librarySearch');
 
-	//검색하기
-	$('a#search-btn').on('click', function(e) {
-		e.preventDefault();
-		$('input#viewPage').val('1');
-		doGetLoad('index.do', $form.serialize());
-	});
-
 	//정렬, N개씩보기
 	$('select#rowCount, select#sortType, select#sortField').on('change', function() {
 		$('a#search-btn').click();
@@ -97,6 +90,37 @@ $(function() {
 		window.open(url, '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=100,width=700,height=500');
 	});
 
+	//검색하기
+	$('a#search-btn').on('click', function(e) {
+		e.preventDefault();
+		$('input#viewPage').val('1');
+		doGetLoad('index.do', $form.serialize());
+	});
+
+	$('input#title').on('keyup', function(e) {
+		if (e.keyCode == 13 && $(this).val() != '') {
+			$('a#search-btn').click();
+		}
+	});
+
+	$('input#author').on('keyup', function(e) {
+		if (e.keyCode == 13 && $(this).val() != '') {
+			$('a#search-btn').click();
+		}
+	});
+
+	$('input#publer').on('keyup', function(e) {
+		if (e.keyCode == 13 && $(this).val() != '') {
+			$('a#search-btn').click();
+		}
+	});
+
+	$('input#keyword').on('keyup', function(e) {
+		if (e.keyCode == 13 && $(this).val() != '') {
+			$('a#search-btn').click();
+		}
+	});
+
 	//결과 내 재검색
 	$('a#subSearch').on('click', function(e) {
 		e.preventDefault();
@@ -104,7 +128,6 @@ $(function() {
 		var beforeText = $('input#'+type).val();
 		var newText = (beforeText == '') ? newText = $('input#subSearchText').val() : $('input#'+type).val()+ ' ' +$('input#subSearchText').val();
 		$('input#'+type).val(newText);
-		//$('a#search-btn').click();
 		$('input#viewPage').val('1');
 		doGetLoad('index.do', $form.serialize());
 	});
@@ -138,13 +161,16 @@ $(function() {
 		<div class="search-form">
 
 			<!-- 검색하기_일반 -->
-			<div class="searchbox detail_search" id="div_detail">
+			<div class="searchbox detail_search">
 				<div class="section">
 
-					<dl class="bold-box">
-						<dt><label for="title" class="title">제목</label></dt>
-						<dd><form:input path="title" class="text-area"/></dd>
-					</dl>
+					<div class="title-box">
+						<form:input path="title" class="text-area" placeholder="도서 제목을 입력하세요"/>
+					</div>
+
+					<div class="vk-btn">
+						<a id="vk-popup" class="btnNew2">다국어입력기</a>
+					</div>
 
 					<dl>
 						<dt><label for="author" class="title">저자</label></dt>
@@ -161,7 +187,7 @@ $(function() {
 					</dl>
 
 					<dl>
-						<dt>발행년도</dt>
+						<dt><label for="search_start_date" class="title">발행년도</label></dt>
 						<dd>
 							<div class="box">
 								<form:input path="search_start_date" class="text-area2" title="시작년도" numberOnly="true" maxlength="4" />
@@ -172,7 +198,7 @@ $(function() {
 					</dl>
 
 					<dl>
-						<dt>주제</dt>
+						<dt><label for="subjectCode" class="title">주제</label></dt>
 						<dd>
 							<form:select path="subjectCode">
 								<form:option value="">전체</form:option>
@@ -191,7 +217,7 @@ $(function() {
 					</dl>
 
 					<dl>
-						<dt>도서관</dt>
+						<dt><label for="manageCode" class="title">도서관</label></dt>
 						<dd>
 							<form:select path="manageCode">
 								<form:option value="ALL">전체 도서관</form:option>
@@ -201,7 +227,7 @@ $(function() {
 					</dl>
 
 					<dl>
-						<dt>자료형태</dt>
+						<dt><label for="booktype" class="title">자료형태</label></dt>
 						<dd>
 							<div class="" style="padding:3px 0 0 10px">
 							<form:radiobutton path="booktype" value="BOOK" class="radiocheck" checked="checked"/><label for="booktype1" class="booktype">도서</label>
@@ -214,9 +240,9 @@ $(function() {
 					<div class="end"></div>
 				</div>
 				<p class="btn_w">
-					<!-- <a id="search-btn" class="btnNew btn-warning btn-xs mT1">검색</a> -->
-					<input name="search_bt2" class="btnNew btn-warning btn-xs mT1" id="search-btn" type="submit" value="검색하기" />
-					<a id="vk-popup" class="btnNew2">다국어입력기</a>
+					<a id="search-btn" class="btnNew">검색하기</a>
+					<a id="reset-btn" class="btnNew1 reset-btn">검색초기화</a>
+					<!-- <input name="search_bt2" class="btnNew btn-warning btn-xs mT1" id="search-btn" type="submit" value="검색하기" /> -->
 				</p>
 			</div>
 			<!--// 검색하기_일반 -->
@@ -326,7 +352,7 @@ $(function() {
 									<div class="item">
 										<div class="bif">
 
-											<a href="${detailURL}">
+											<a href="${detailURL}" class="book-title">
 											<c:if test="${librarySearch.booktype eq 'BOOK'}">[도서]</c:if>
 											<c:if test="${librarySearch.booktype eq 'NONBOOK'}">[비도서]</c:if>
 											<c:if test="${librarySearch.booktype eq 'SERIAL'}">[간행물]</c:if>

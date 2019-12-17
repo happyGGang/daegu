@@ -59,7 +59,7 @@ $(function() {
 
 						<div class="form-box">
 							<p id="pwp" class="idtype" >
-							<label for="member_pw_tmp">비밀번호</label>
+							<label for="member_pw_tmp" class='blind'>비밀번호</label>
 							<input type="password" id="member_pw_tmp" maxlength="20" class="txt" value="" placeholder="비밀번호를 입력해주세요" />
 							</p>
 						</div>

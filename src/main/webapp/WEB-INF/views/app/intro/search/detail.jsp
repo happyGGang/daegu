@@ -3,7 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/book/search/css/default2.css"/>
 
 <script type="text/javascript">
 $(function() {
@@ -176,7 +176,8 @@ $(function() {
 			</thead>
 			<tbody>
 			<tr>
-				<td>${detail.CALL_NO}</td>
+				<td>${detail.CALL_NO}<br/>
+				<a href="javascript:alert('조치중')" id="btn_print" class="btn btn2">청구기호출력</a></td>
 				<td>${detail.REG_NO}</td>
 				<td>${detail.SHELF_LOC_NAME}</td>
 				<td>${detail.RETURN_PLAN_DATE}</td>

@@ -39,9 +39,9 @@ $(function() {
 
 			<th><label for="option01">서지형태</label></th>
 			<td class="search_left">
-				<form:radiobutton path="booktype" value="0" title="도서" label="도서"/>
-				<form:radiobutton path="booktype" value="1" title="간행물" label="간행물"/>
-				<form:radiobutton path="booktype" value="2" title="비도서" label="비도서"/>
+				<form:radiobutton path="booktype" value="0" title="도서" label=" 도서"/>
+				<form:radiobutton path="booktype" value="1" title="간행물" label=" 간행물"/>
+				<form:radiobutton path="booktype" value="2" title="비도서" label=" 비도서"/>
 			</td>
 
 			</tr>
