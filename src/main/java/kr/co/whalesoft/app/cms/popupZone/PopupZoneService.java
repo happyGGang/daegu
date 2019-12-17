@@ -42,7 +42,7 @@ public class PopupZoneService extends BaseService {
 	
 	@Transactional
 	public int addPopupZone(PopupZone popupZone, MultipartHttpServletRequest mpRequest) {
-		MultipartFile mFile = mpRequest.getFileMap().get("img_file_name_temp");
+		MultipartFile mFile = mpRequest.getFileMap().get("org_file_name_temp");
 		
 		if(mFile != null) {
 			String realFileName 	= Long.toString((System.currentTimeMillis()));
@@ -64,7 +64,7 @@ public class PopupZoneService extends BaseService {
 	}
 	
 	public int modifyPopupZone(PopupZone popupZone, MultipartHttpServletRequest mpRequest) {
-		MultipartFile mFile = mpRequest.getFileMap().get("img_file_name_temp");
+		MultipartFile mFile = mpRequest.getFileMap().get("org_file_name_temp");
 		
 		if(mFile != null) {
 			String realFileName 	= Long.toString((System.currentTimeMillis()));
