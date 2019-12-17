@@ -29,7 +29,6 @@ $(function() {
 					var option = {
 						url : 'save.do',
 						type : 'POST',
-						data : $('#mainImgForm').serialize(),
 						success: function(response) {
 							 if(response.valid) {
 								alert(response.message);
@@ -157,8 +156,8 @@ $(function() {
 <!-- 대구교육 소식지 신청 등록, 수정 form -->
 <form:form id="mainImgForm" modelAttribute="mainImg" method="post" action="save.do" enctype="multipart/form-data">
 	<form:hidden path="homepage_id"/>
-	<form:hidden path="img_idx"/>			
-	<form:hidden path="editMode"/>									
+	<form:hidden path="img_idx"/>
+	<form:hidden path="editMode"/>
 	<table class="type2">
 		<colgroup>
 	       <col width="130" />
@@ -167,12 +166,12 @@ $(function() {
        	<tbody>
 	        <tr>
 	         	<th>제목</th>
-	         	<td><form:input path="title" class="text" cssStyle="width:100%"/></td>
+	         	<td><form:input path="main_img_name" class="text" cssStyle="width:100%"/></td>
 	        </tr>
 	        <tr>
 	         	<th>이미지</th>
 	         	<td class="realFile">
-	         		<input type="file" id="img_file" name="img_file" class="text"/><form:hidden path="img_file_name"/>
+	         		<input type="file" id="img_file" name="img_file" class="text"/><form:hidden path="org_file_name"/>
 	         		<div class="ui-state-highlight">
 	         			<em>* 메인이미지는 500 KB 이하의 파일만 등록가능합니다.</em>
 					</div>
@@ -183,8 +182,8 @@ $(function() {
 		         	<th>현재 이미지</th>
 		         	<td class="realFile">
 		         		<c:choose>
-		         			<c:when test="${mainImg.real_file_name ne ''}">
-		         				<img style="width: 100%;" src="/data/mainImg/${mainImg.homepage_id}/${mainImg.real_file_name}" alt="${mainImg.real_file_name}"/>	
+		         			<c:when test="${mainImg.server_file_name ne ''}">
+		         				<img style="width: 100%;" src="/data/mainImg/${mainImg.homepage_id}/${mainImg.server_file_name}" alt="${mainImg.server_file_name}"/>	
 		         			</c:when>
 		         			<c:otherwise>
 		         				<img width="135" height="42" src="/resources/cms/img/noimg_135_42.gif" alt="이미지가 없습니다.">	

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
+import kr.co.whalesoft.framework.utils.ValidationUtils;
 
 @Controller
 @RequestMapping(value = {"/cms/mainImg"})
@@ -54,18 +55,21 @@ public class MainImgController extends BaseController {
 	public @ResponseBody JsonResponse save(Model model, MainImg mainImg, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
 		String editMode = mainImg.getEditMode();
-	/*	if(!teach.getEditMode().equals("DELETE")) {
-			ValidationUtils.rejectIfEmpty(result, "homepage_name", "홈페이지명을 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "homepage_type", "홈페이지 유형을 선택하세요.");
-			ValidationUtils.rejectIfEmpty(result, "domain", "도메인명을 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "folder", "폴더명을 입력하세요.");
-		}*/
+		if(!editMode.equals("DELETE")) {
+			ValidationUtils.rejectIfEmpty(result, "main_img_name", "제목을 입력하세요");
+			if(mainImg.getImg_file() == null && editMode.equals("ADD")) {
+				result.rejectValue("img_file", "파일을 선택하세요.");
+			}
+		}
+		
 		if(!result.hasErrors()) {
 			if(editMode.equals("ADD")) {
+				mainImg.setAdd_id(getSessionMemberId(request));
 				service.addMainImg(mainImg);
 				res.setValid(true);
 				res.setMessage("등록 되었습니다.");
 			} else if(editMode.equals("MODIFY")) {
+				mainImg.setModify_id(getSessionMemberId(request));
 				service.modifyMainImg(mainImg);
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");

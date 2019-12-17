@@ -89,9 +89,9 @@ $(function() {
 			<c:forEach var="i" varStatus="status" items="${mainImgList}">
 				<tr>
 					<td>${mainImg.listRowNum - status.index}</td>
-					<td>${i.title}</td>
+					<td>${i.main_img_name}</td>
 					<td>${i.use_yn}</td>
-					<td>${i.add_date}</td>
+					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>
 					<td>
 						<c:if test="${authU}">
 							<a href="" class="btn" id="dialog-modify" keyValue="${i.img_idx}">수정</a>
@@ -116,8 +116,8 @@ $(function() {
 	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 		<fieldset>
 			<form:select path="search_type" cssClass="selectmenu">
-				<form:option value="TITLE">제목</form:option>
-				<form:option value="USE_YN">사용여부</form:option>
+				<form:option value="main_img_name">제목</form:option>
+				<form:option value="use_yn">사용여부</form:option>
 			</form:select>
 			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
 			<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>

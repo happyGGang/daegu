@@ -47,8 +47,8 @@ public class MainImgService extends BaseService {
 			
 			File f = mainImgStorage.addFile(mFile, realFileName, filePath);
 			
-			mainImg.setImg_file_name(fileName);
-			mainImg.setReal_file_name(f.getName());
+			mainImg.setOrg_file_name(fileName);
+			mainImg.setServer_file_name(f.getName());
 			mainImg.setFile_extension(fileExtension);
 			mainImg.setFile_size(f.length());
 		}
@@ -67,8 +67,8 @@ public class MainImgService extends BaseService {
 			
 			File f = mainImgStorage.addFile(mFile, realFileName, filePath);
 			
-			mainImg.setImg_file_name(fileName);
-			mainImg.setReal_file_name(f.getName());
+			mainImg.setOrg_file_name(fileName);
+			mainImg.setServer_file_name(f.getName());
 			mainImg.setFile_extension(fileExtension);
 			mainImg.setFile_size(f.length());
 		}

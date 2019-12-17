@@ -69,10 +69,12 @@
 			CMS_MAIN_IMG
 		(
 			homepage_id, img_idx, main_img_name, org_file_name, server_file_name,
-			file_extension, file_size, use_yn, print_seq, add_date
+			file_extension, file_size, use_yn, print_seq,
+			add_id, add_date
 		) VALUES (
 			#{homepage_id}, #{img_idx}, #{main_img_name}, #{org_file_name}, #{server_file_name},
-			#{file_extension}, #{file_size}, #{use_yn}, #{print_seq}, SYSDATE
+			#{file_extension}, #{file_size}, #{use_yn}, #{print_seq},
+			#{add_id}, SYSDATE
 		)
 	</insert>
 
@@ -87,9 +89,10 @@
 			file_extension = #{file_extension},
 			file_size = #{file_size},
 			</if>
-
 			use_yn = #{use_yn},
-			print_seq = #{print_seq}
+			print_seq = #{print_seq},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	img_idx = #{img_idx}
