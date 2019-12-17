@@ -72,10 +72,12 @@ public class PopupController extends BaseController {
 		
 		if(!result.hasErrors()) {
 			if(popup.getEditMode().equals("ADD")) {
+				popup.setAdd_id(getSessionMemberId(request));
 				service.addPopup(popup, mpRequest);
 				res.setValid(true);
 				res.setMessage("등록 되었습니다.");
 			} else if(popup.getEditMode().equals("MODIFY")) {
+				popup.setModify_id(getSessionMemberId(request));
 				service.modifyPopup(popup, mpRequest);
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");

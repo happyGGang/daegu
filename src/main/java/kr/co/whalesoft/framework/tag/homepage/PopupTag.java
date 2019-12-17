@@ -43,7 +43,7 @@ public class PopupTag extends BodyTagSupport {
 					
 					HtmlTag img_tag = new HtmlTag("img");
 					img_tag.setAttribute("style", String.format("width:%spx;height:%spx", one.getWidth(), one.getHeight()));
-					img_tag.setAttribute("src", String.format("/data/popup/%s/%s", one.getHomepage_id(), one.getReal_file_name()));
+					img_tag.setAttribute("src", String.format("/data/popup/%s/%s", one.getHomepage_id(), one.getServer_file_name()));
 					img_tag.setAttribute("alt", one.getPopup_name());
 					a_tag_1.addSubTag(img_tag);
 					div_tag_2.addSubTag(a_tag_1);

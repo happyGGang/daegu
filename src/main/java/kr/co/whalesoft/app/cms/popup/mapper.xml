@@ -9,7 +9,7 @@
 			popup_idx, popup_name, html, html_use_yn, popup_type, link_url, 
 			use_yn, print_seq, width, height, x_position, 
 			y_position, org_file_name, server_file_name, file_extension, file_size, add_date, link_target,
-			start_date, end_date, common_yn
+			TO_CHAR(start_date, 'yyyy-MM-dd') AS start_date, TO_CHAR(end_date, 'yyyy-MM-dd') AS end_date, common_yn
 		FROM
 			CMS_POPUP
 		WHERE
@@ -29,7 +29,7 @@
 			popup_idx, popup_name, html, html_use_yn, popup_type, link_url, 
 			use_yn, print_seq, width, height, x_position, 
 			y_position, org_file_name, server_file_name, file_extension, file_size, add_date, link_target,
-			start_date, end_date, common_yn
+			TO_CHAR(start_date, 'yyyy-MM-dd') AS start_date, TO_CHAR(end_date, 'yyyy-MM-dd') AS end_date, common_yn
 		FROM
 			CMS_POPUP
 		WHERE
@@ -57,7 +57,7 @@
 			popup_idx, popup_name, html, html_use_yn, popup_type, link_url, 
 			use_yn, print_seq, width, height, x_position, 
 			y_position, org_file_name, server_file_name, file_extension, file_size, add_date, link_target,
-			start_date, end_date, common_yn
+			TO_CHAR(start_date, 'yyyy-MM-dd') AS start_date, TO_CHAR(end_date, 'yyyy-MM-dd') AS end_date, common_yn
 		FROM
 			CMS_POPUP
 		WHERE
@@ -74,16 +74,17 @@
 			homepage_id,
 			popup_idx, popup_name, html, html_use_yn, popup_type, link_url, 
 			use_yn, print_seq, width, height, x_position, 
-			y_position, add_date, link_target, start_date, end_date, common_yn
+			y_position, add_id, add_date, link_target, start_date, end_date, common_yn
 			<if test="server_file_name != null and server_file_name != ''">
 			, org_file_name, server_file_name, file_extension, file_size
 			</if>
-		) VALUES
+		)
+		VALUES
 		(
 			#{homepage_id},
 			#{popup_idx}, #{popup_name}, #{html}, #{html_use_yn}, #{popup_type}, #{link_url},
 			#{use_yn}, #{print_seq}, #{width}, #{height}, #{x_position},
-			#{y_position}, SYSDATE, #{link_target}, #{start_date}, #{end_date}, #{common_yn}
+			#{y_position}, #{add_id}, SYSDATE, #{link_target}, #{start_date}, #{end_date}, #{common_yn}
 			<if test="server_file_name != null and server_file_name != ''">
 			, #{org_file_name}, #{server_file_name}, #{file_extension}, #{file_size}
 			</if>
@@ -106,16 +107,18 @@
 			link_target = #{link_target},
 			start_date = #{start_date}, 
 			end_date = #{end_date},
-			common_yn = #{common_yn}
+			common_yn = #{common_yn},
 			<if test="server_file_name != null and server_file_name != ''">
-			,org_file_name = #{org_file_name}, 
+			org_file_name = #{org_file_name}, 
 			server_file_name = #{server_file_name}, 
 			file_extension = #{file_extension}, 
-			file_size = #{file_size}
+			file_size = #{file_size},
 			</if>
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
 		WHERE
-			homepage_id = #{homepage_id} AND
-			popup_idx = #{popup_idx} 
+			homepage_id = #{homepage_id}
+		AND	popup_idx = #{popup_idx} 
 	</update>
 	
 	<delete id="deletePopup">

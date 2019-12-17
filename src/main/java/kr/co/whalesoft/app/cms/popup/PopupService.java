@@ -49,8 +49,8 @@ public class PopupService extends BaseService {
 			
 			File f = popupStorage.addFile(mFile, realFileName, filePath);
 			
-			popup.setImg_file_name(fileName);
-			popup.setReal_file_name(realFileName);
+			popup.setOrg_file_name(fileName);
+			popup.setServer_file_name(realFileName);
 			popup.setFile_extension(fileExtension);
 			popup.setFile_size(f.length());
 		} 
@@ -72,8 +72,8 @@ public class PopupService extends BaseService {
 			
 			File f = popupStorage.addFile(mFile, realFileName, filePath);
 			
-			popup.setImg_file_name(fileName);
-			popup.setReal_file_name(realFileName);
+			popup.setOrg_file_name(fileName);
+			popup.setServer_file_name(realFileName);
 			popup.setFile_extension(fileExtension);
 			popup.setFile_size(f.length());
 		}
