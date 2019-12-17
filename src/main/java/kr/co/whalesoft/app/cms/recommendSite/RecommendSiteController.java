@@ -40,7 +40,7 @@ public class RecommendSiteController extends BaseController {
 		int count = service.getRecommendSiteListCount(recommendSite);
 		service.setPaging(model, count, recommendSite);
 		recommendSite.setTotalDataCount(count);
-		model.addAttribute("site", recommendSite);
+		model.addAttribute("recommendSite", recommendSite);
 		model.addAttribute("siteListCount", count);
 		model.addAttribute("siteList", service.getRecommendSiteList(recommendSite));
 
@@ -67,10 +67,12 @@ public class RecommendSiteController extends BaseController {
 
 		if (!result.hasErrors()) {
 			if (editMode.equals("ADD")) {
+				recommendSite.setAdd_id(getSessionMemberId(request));
 				service.addRecommendSite(recommendSite);
 				res.setValid(true);
 				res.setMessage("등록 되었습니다.");
 			} else if (editMode.equals("MODIFY")) {
+				recommendSite.setModify_id(getSessionMemberId(request));
 				service.modifyRecommendSite(recommendSite);
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");

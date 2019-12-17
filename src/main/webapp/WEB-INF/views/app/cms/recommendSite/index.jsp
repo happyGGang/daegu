@@ -24,7 +24,7 @@ $(function() {
 		e.preventDefault();
 	});
 	$('a#dialog-modify').on('click', function(e) {
-		$('#dialog-1').load('edit.do?editMode=MODIFY&homepage_id=' + $('#homepage_id').val() + '&site_idx=' + $(this).attr('keyValue'), function( response, status, xhr ) {
+		$('#dialog-1').load('edit.do?editMode=MODIFY&homepage_id=' + $('#homepage_id').val() + '&recommend_site_idx=' + $(this).attr('keyValue'), function( response, status, xhr ) {
 			$('#dialog-1').dialog('open');
 		});
 		
@@ -33,7 +33,7 @@ $(function() {
 	
 	$('a#delete-btn').on('click', function(e) {
 		if ( confirm('해당 사이트를 삭제 하시겠습니까?') ) {
-			$('#hiddenForm #site_idx').val($(this).attr('keyValue'));
+			$('#hiddenForm #recommend_site_idx').val($(this).attr('keyValue'));
 			if(doAjaxPost($('#hiddenForm'))) {
 				location.reload();
 			}
@@ -51,12 +51,12 @@ $(function() {
 	});
 });
 </script>
-<form:form id="hiddenForm" modelAttribute="site" action="save.do">
+<form:form id="hiddenForm" modelAttribute="recommendSite" action="save.do">
 	<form:hidden path="editMode" value="DELETE"/>
 	<form:hidden path="homepage_id"/>
-	<form:hidden path="site_idx"/>
+	<form:hidden path="recommend_site_idx"/>
 </form:form>
-<form:form id="siteListForm"  modelAttribute="site" action="index.do" >
+<form:form id="siteListForm"  modelAttribute="recommendSite" action="index.do" >
 <form:hidden id="homepage_id_1" path="homepage_id"/>
 
 	<div class="infodesk">
@@ -88,16 +88,16 @@ $(function() {
 		<tbody>
 			<c:forEach var="i" varStatus="status" items="${siteList}">
 				<tr>
-					<td>${site.listRowNum - status.index}</td>
-					<td>${i.site_name}</td>
-					<td>${i.site_desc}</td>
+					<td>${recommendSite.listRowNum - status.index}</td>
+					<td>${i.recommend_site_name}</td>
+					<td>${i.recommend_site_desc}</td>
 					<td>${i.link_target}</td>
 					<td>
 						<c:if test="${authU}">
-							<a href="" class="btn" id="dialog-modify" keyValue="${i.site_idx}">수정</a>
+							<a href="" class="btn" id="dialog-modify" keyValue="${i.recommend_site_idx}">수정</a>
 						</c:if>
 						<c:if test="${authD}">
-							<a href="" class="btn" id="delete-btn" keyValue="${i.site_idx}">삭제</a>
+							<a href="" class="btn" id="delete-btn" keyValue="${i.recommend_site_idx}">삭제</a>
 						</c:if>
 					</td>
 				</tr>
@@ -116,7 +116,7 @@ $(function() {
 	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 		<fieldset>
 			<form:select path="search_type" cssClass="selectmenu">
-				<form:option value="TITLE">제목</form:option>
+				<form:option value="recommend_site_name">사이트명</form:option>
 			</form:select>
 			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
 			<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>

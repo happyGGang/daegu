@@ -44,9 +44,9 @@ $(function() {
 
 </script>
 <!-- 대구교육 소식지 신청 등록, 수정 form -->
-<form:form id="siteForm" modelAttribute="site" method="post" action="save.do" >
+<form:form id="siteForm" modelAttribute="recommendSite" method="post" action="save.do" >
 	<form:hidden path="homepage_id"/>
-	<form:hidden path="site_idx"/>			
+	<form:hidden path="recommend_site_idx"/>			
 	<form:hidden path="editMode"/>									
 	<table class="type2">
 		<colgroup>
@@ -56,11 +56,11 @@ $(function() {
        	<tbody>
 	        <tr>
 	         	<th>사이트명</th>
-	         	<td><form:input path="site_name" class="text" cssStyle="width:100%"/></td>
+	         	<td><form:input path="recommend_site_name" class="text" cssStyle="width:100%"/></td>
 	        </tr>
 	        <tr>
 	         	<th>사이트설명</th>
-	         	<td><form:textarea path="site_desc" class="text" cssStyle="width:100%; height:200px;"/></td>
+	         	<td><form:textarea path="recommend_site_desc" class="text" cssStyle="width:100%; height:200px;"/></td>
 	        </tr>
 	        <tr>
 	         	<th>링크</th>
