@@ -16,6 +16,7 @@ $(document).ready(function() {
 
 	$('button#do-search').on('click', function(e) {
 		e.preventDefault();
+		$('input#viewPage').val('1');
 		doAjaxLoad('div#searchBox', 'search.do', $('form#searchForm').serialize());
 	});
 
