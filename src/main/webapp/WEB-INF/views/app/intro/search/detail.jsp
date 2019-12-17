@@ -258,7 +258,9 @@ $(function() {
 			</c:choose>
 
 			<c:if test="${detail.WORKING_STATUS ne 'BOL112N' and param.booktype ne 'NONBOOK'}">
+			<c:if test="${detail.RESERVATION_CNT < detail.RESERVATION_NUMBER}">
 			<a href="#" id="resve-req" class="btn">예약신청</a>
+			</c:if>
 			</c:if>
 
 			<a href="javascript:history.back();" id="goBack" class="btn"><i class="fa fa-book"></i><span>목록으로</span></a>

@@ -139,6 +139,13 @@ $(function() {
 		}
 	});
 
+	//검색초기화
+	$('a#reset-btn').on('click', function(e) {
+		e.preventDefault();
+		location.href='/intro/${homepage.context_path}/search/index.do';
+		$('#title').focus();
+	});
+	
 });
 </script>
 <form:form modelAttribute="librarySearch" id="detailForm" action="detail.do" method="post" >
@@ -241,7 +248,7 @@ $(function() {
 				</div>
 				<p class="btn_w">
 					<a id="search-btn" class="btnNew">검색하기</a>
-					<a id="reset-btn" class="btnNew1 reset-btn">검색초기화</a>
+					<a id="reset-btn" class="btnNew1">검색초기화</a>
 					<!-- <input name="search_bt2" class="btnNew btn-warning btn-xs mT1" id="search-btn" type="submit" value="검색하기" /> -->
 				</p>
 			</div>

@@ -79,7 +79,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 		</tr>
 		<tr>
 			<th>연도 <em><font color="red">(*)</font></em></th>
-			<td><form:input path="publer_year" style="width:10%" class="text" type="text" numberOnly="true" maxlength="4"/></td>
+			<td><form:input path="publer_year" style="width:40%" class="text" type="text" numberOnly="true" maxlength="4"/></td>
 		</tr>
 		<tr>
 			<th>ISBN</th>
@@ -91,7 +91,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 		</tr>
 		<tr>
 			<th>가격 <em><font color="red">(*)</font></em></th>
-			<td><form:input path="price" style="width:20%" class="text" type="text" maxlength="10" numberOnly="true" /></td>
+			<td><form:input path="price" style="width:40%" class="text" type="text" maxlength="10" numberOnly="true" /></td>
 		</tr>
 	</tbody></table>
 </form:form>

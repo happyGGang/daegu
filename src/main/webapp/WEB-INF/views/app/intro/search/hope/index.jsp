@@ -57,15 +57,14 @@ $(function() {
 						<div class="bif">
 							<div class="top" >
 								<div class="b-title">
-									<div class="box">${i.TITLE}</div>
+								서명 : <b>${i.TITLE}</b>
 								</div>
-								<div class="control">
-									<c:if test="${i.FURNISH_STATUS eq '1'}">
-									<a href="#" class="btn cancel-btn" title="취소" keyValue1="${i.REC_KEY}" >취소</a>
-									</c:if>
+								<div class="b-title">
+								저자 : <b>${i.AUTHOR}</b><span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span><br class="mobileBr"/>
+								출판사 : <b>${i.PUBLISHER}</b><span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span><br class="mobileBr"/>
+								출판년도 : <b>${i.PUBLISH_YEAR}</b>
 								</div>
 							</div>
-							<p class="info"><em>저자 : ${i.AUTHOR}</em> <span>/</span> <em>출판사 : ${i.PUBLISHER}</em> <span>/</span> <em>출판년도 : ${i.PUBLISH_YEAR}</em></p>
 						</div>
 						<div class="bci">
 							<table summary="신청정보">
@@ -95,6 +94,14 @@ $(function() {
 										<th>취소사유</th>
 										<td>${i.CANCEL_REASON}</td>
 									</tr>
+									<c:if test="${i.FURNISH_STATUS eq '1'}">
+									<tr>
+										<th>신청취소</th>
+										<td>
+											<a href="#" class="btn cancel-btn" title="취소" keyValue1="${i.REC_KEY}" >취소</a>
+										</td>
+									</tr>
+									</c:if>
 								</tbody>
 							</table>
 						</div>

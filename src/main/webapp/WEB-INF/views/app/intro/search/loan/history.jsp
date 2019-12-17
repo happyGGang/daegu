@@ -102,7 +102,13 @@ $(function() {
 								</tr>
 								<tr>
 									<th>상태</th>
-									<td>${i.STATUS}</td>
+									<td>
+									<c:if test="${i.STATUS eq '0'}">대출</c:if>
+									<c:if test="${i.STATUS eq '1'}">반납</c:if>
+									<c:if test="${i.STATUS eq '2'}">반납연기</c:if>
+									<c:if test="${i.STATUS eq '3'}">예약</c:if>
+									<c:if test="${i.STATUS eq '4'}">예약취소</c:if>
+									</td>
 								</tr>
 							</tbody>
 						</table>

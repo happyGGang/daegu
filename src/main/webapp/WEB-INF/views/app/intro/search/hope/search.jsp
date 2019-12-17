@@ -7,7 +7,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <link rel="stylesheet" type="text/css" href="/resources/book/css/serial.css">
 <style>
-.serial-wrap .search-results .row .item a.name{font-weight:800;font-size:140%;display:inline-block;zoom:1;*display:inline;padding: 0px 0;}
 .serial-wrap ul.con2{padding: 0px 0 2px;}
 .bif b {color:#ffa651;}
 </style>

@@ -19,9 +19,9 @@
 .book-list .smain .box .ws-toolbar,
 .book-list .smain .box .search-results{margin-right:24%}
 
-.book-list .search-info{padding:0 0 20px;margin-top:-16px}
+.book-list .search-info {padding:0 0 20px;margin-top:-16px}
 .book-list .search-info i{border-bottom:1px solid #feac86}
-.book-list .control{font-size:85%}
+.book-list .control {font-size:85%}
 .book-list .control i{margin:0 0 0 5px;font-weight:normal}
 .book-list .control .btn{background:#fff;padding:0 11px;line-height:25px;height:27px}
 .book-list .ws-toolbar{overflow:hidden;padding:0 0 10px}
@@ -32,12 +32,8 @@
 .book-list{border-top:1px solid #ddd}
 .book-list .row{position:relative;overflow:hidden;background:#f6f6f6;padding:15px 10% 20px;margin-bottom:15px}
 .book-list .row table{background:#fff}
-@media all and (max-width:1000px){
-	.book-list .row{padding-left:5%;padding-right:5%}
-}
-@media all and (max-width:767px){
-	.book-list .row{padding-left:3%;padding-right:3%}
-}
+
+
 .book-list .row .item a.name{font-weight:800;font-size:140%;display:inline-block;zoom:1;*display:inline;padding:7px 0}
 .book-list .row .item a.name em{font-style:normal}
 .book-list .row .item .bci{padding:15px 0 0}
@@ -48,9 +44,9 @@
 .book-list .row p.info em{font-style:normal}
 .book-list .row p.info span{margin:0 3px;color:#aaa}
 
-.book-list .top{overflow:hidden}
-.book-list .top .b-title{float:left;width:100%;margin-right:-115px}
-.book-list .top .b-title .box{margin-right:115px}
+.book-list .top {overflow:hidden;}
+.book-list .top .b-title{display:block;width:100%;}
+.book-list .top .b-title .box{}
 .book-list .control{width:115px;float:left;text-align:right}
 
 .kbtn{padding:30px 0 20px}
@@ -66,3 +62,21 @@ table.edit th{background:#f7f7f7}
 .checkbox label{line-height:22px;padding-left:10px}
 .checkbox label::before{border-color:#d2d2d2;width:20px;height:20px}
 .checkbox label::after{line-height:20px;left:2px}
+
+.mobileBr {display:none;}
+
+@media all and (max-width:1000px){
+	.book-list .row{padding-left:5%;padding-right:5%}
+}
+
+@media all and (max-width:767px){
+	.book-list .row{padding-left:3%;padding-right:3%}
+	.book-list .top .b-title{font-size:15px}
+	.bci table {font-size:15px;}
+	.mobileBr {display:block;}
+}
+
+@media all and (max-width:540px){
+	.book-list .top .b-title{font-size:14px}
+	.bci table {font-size:14px;}
+}

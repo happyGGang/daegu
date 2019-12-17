@@ -326,6 +326,8 @@ a.bBtn:hover {background:#0961ce}
 @media all and (max-width:767px){
 	.sview .sinfo{padding-left:3%;padding-right:3%}
 	a.bBtn {width:49%;float:none;}
+	.search-wrap .search-results .row .item p .mobileBr {display:block}
+	.webGuideLine {display:none;}
 }
 @media all and (max-width:540px){
 	.sview .sinfo .info ul li{font-size:13px}

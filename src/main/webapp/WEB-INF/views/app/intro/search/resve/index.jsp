@@ -58,16 +58,9 @@ $(function() {
 				<div class="item">
 					<div class="bif">
 						<div class="top">
-							<div class="b-title">
-								<div class="box"><a href="" class="name">${i.TITLE_INFO}</a></div>
-							</div>
-							<div class="control">
-								<c:if test="${i.STATUS eq '3'}">
-								<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
-								</c:if>
-							</div>
+							<div class="b-title">서명 : <b>${i.TITLE_INFO}</b></div>
+							<div class="b-title">저자 : <b>${i.AUTHOR}</b><span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span><br class="mobileBr"/>출판사 : <b>${i.PUBLISHER}</b></div>
 						</div>
-						<p class="info"><em>저자 : ${i.AUTHOR}</em> <span>/</span> <em>출판사 : ${i.PUBLISHER}</em> </p>
 					</div>
 					<div class="bci">
 						<table summary="신청정보">
@@ -88,6 +81,12 @@ $(function() {
 								<th>예약만기일</th>
 								<td>${i.RESERVATION_EXPIRE_DATE }</td>
 							</tr>
+							<c:if test="${i.STATUS eq '3'}">
+							<tr>
+								<th>예약취소</th>
+								<td><a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a></td>
+							</tr>
+							</c:if>
 							</tbody>
 						</table>
 					</div>
