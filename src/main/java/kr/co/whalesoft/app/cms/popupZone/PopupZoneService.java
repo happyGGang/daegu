@@ -52,12 +52,12 @@ public class PopupZoneService extends BaseService {
 			
 			File f = popupZoneStorage.addFile(mFile, realFileName, filePath);
 			
-			popupZone.setImg_file_name(fileName);
-			popupZone.setReal_file_name(realFileName);
+			popupZone.setOrg_file_name(fileName);
+			popupZone.setServer_file_name(realFileName);
 			popupZone.setFile_extension(fileExtension);
 			popupZone.setFile_size(f.length());
 		} else {
-			popupZone.setImg_file_name(null);
+			popupZone.setOrg_file_name(null);
 		}
 		
 		return dao.addPopupZone(popupZone);
@@ -74,12 +74,12 @@ public class PopupZoneService extends BaseService {
 			
 			File f = popupZoneStorage.addFile(mFile, realFileName, filePath);
 			
-			popupZone.setImg_file_name(fileName);
-			popupZone.setReal_file_name(realFileName);
+			popupZone.setOrg_file_name(fileName);
+			popupZone.setServer_file_name(realFileName);
 			popupZone.setFile_extension(fileExtension);
 			popupZone.setFile_size(f.length());
 		} else {
-			popupZone.setImg_file_name(null);
+			popupZone.setOrg_file_name(null);
 		}
 		
 		return dao.modifyPopupZone(popupZone);

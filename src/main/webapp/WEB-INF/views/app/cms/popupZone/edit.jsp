@@ -109,13 +109,13 @@ function getFileData(fileData) {
 	</colgroup>
 	<tbody>
 		<tr>
-			<th>팝업존명</th>
+			<th>팝업존명(<span style="color: red;font-weight: bold;">*</span>)</th>
 			<td>
 				<form:input path="popup_zone_name" cssStyle="width:200px;" cssClass="text" maxlength="20"/>
 			</td>
 		</tr>
 		<tr>
-			<th>게시일</th>
+			<th>게시일(<span style="color: red;font-weight: bold;">*</span>)</th>
 			<td>
 				<form:input path="start_date" cssClass="text ui-calendar"/> ~ <form:input path="end_date" cssClass="text ui-calendar"/>
 			</td>
@@ -123,7 +123,7 @@ function getFileData(fileData) {
 		<tr>
 			<th>이미지</th>
 			<td>
-				<input type="file" id="img_file_name_temp" name="img_file_name_temp" class="text" title="이미지 파일 첨부" accept=".gif,.jpeg,.jpg,.png"/>
+				<input type="file" id="org_file_name_temp" name="org_file_name_temp" class="text" title="이미지 파일 첨부" accept=".gif,.jpeg,.jpg,.png"/>
 				${homepage.homepage_id }
 				<c:choose>
 					<c:when test="${popupZone.homepage_id eq 'h1' }"><!-- 통합 -->
@@ -269,12 +269,12 @@ function getFileData(fileData) {
 		<tr>
 			<th>현재 이미지</th>
 			<td>
-				<img id="currentImg" name="currentImg" src="/data/popupZone/${popupZone.homepage_id}/${popupZone.real_file_name}" alt="${popupZone.real_file_name}"/>
+				<img id="currentImg" name="currentImg" src="/data/popupZone/${popupZone.homepage_id}/${popupZone.server_file_name}" alt="${popupZone.server_file_name}"/>
 			</td>
 		</tr>
 		</c:if>
 		<tr> 
-			<th>링크URL</th>
+			<th>링크URL(<span style="color: red;font-weight: bold;">*</span>)</th>
 			<td>
 				<form:input path="link_url" cssClass="text" cssStyle="width:300px;" maxlength="200"/>
 				<div class="ui-state-highlight">
@@ -292,7 +292,7 @@ function getFileData(fileData) {
 		<tr>
 			<th>출력 순서</th>
 			<td>
-				<form:input path="popup_zone_seq" cssStyle="width:30px;" cssClass="text spinner"/>
+				<form:input path="print_seq" cssStyle="width:30px;" cssClass="text spinner"/>
 			</td>
 		</tr>
 		<tr>

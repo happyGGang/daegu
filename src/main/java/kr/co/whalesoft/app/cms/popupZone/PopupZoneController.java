@@ -68,10 +68,12 @@ public class PopupZoneController extends BaseController {
 		
 		if(!result.hasErrors()) {
 			if(popupZone.getEditMode().equals("ADD")) {
+				popupZone.setAdd_id(getSessionMemberId(request));
 				service.addPopupZone(popupZone, mpRequest);
 				res.setValid(true);
 				res.setMessage("등록 되었습니다.");
 			} else if(popupZone.getEditMode().equals("MODIFY")) {
+				popupZone.setModify_id(getSessionMemberId(request));
 				service.modifyPopupZone(popupZone, mpRequest);
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");

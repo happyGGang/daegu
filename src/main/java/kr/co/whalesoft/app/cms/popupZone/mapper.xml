@@ -6,8 +6,8 @@
 		${pagingTop}
 		SELECT
 			homepage_id, popup_zone_idx, popup_zone_name, print_seq, use_yn,
-			add_date, start_date, end_date, org_file_name, server_file_name,
-			file_extension, file_size, link_url, link_target
+			add_id, add_date, TO_CHAR(start_date, 'yyyy-MM-dd') AS start_date, TO_CHAR(end_date, 'yyyy-MM-dd') AS end_date, org_file_name,
+			server_file_name, file_extension, file_size, link_url, link_target
 		FROM
 			CMS_POPUP_ZONE
 		WHERE
@@ -23,7 +23,7 @@
 	<select id="getPopupZoneAll" resultType="kr.co.whalesoft.app.cms.popupZone.PopupZone">
 		SELECT
 			homepage_id, popup_zone_idx, popup_zone_name, print_seq, use_yn,
-			add_date, start_date, end_date, org_file_name,
+			add_id, add_date, TO_CHAR(start_date, 'yyyy-MM-dd') AS start_date, TO_CHAR(end_date, 'yyyy-MM-dd') AS end_date, org_file_name,
 			server_file_name, file_extension, file_size, link_url, link_target
 		FROM
 			CMS_POPUP_ZONE
@@ -50,7 +50,7 @@
 	<select id="getPopupZoneOne" resultType="kr.co.whalesoft.app.cms.popupZone.PopupZone">
 		SELECT
 			homepage_id, popup_zone_idx, popup_zone_name, print_seq, use_yn,
-			add_date, start_date, end_date, org_file_name,
+			add_id, add_date, TO_CHAR(start_date, 'yyyy-MM-dd') AS start_date, TO_CHAR(end_date, 'yyyy-MM-dd') AS end_date, org_file_name,
 			server_file_name, file_extension, file_size, link_url, link_target
 		FROM
 			CMS_POPUP_ZONE
@@ -67,14 +67,14 @@
 			CMS_POPUP_ZONE
 		(
 			homepage_id, popup_zone_idx, popup_zone_name, print_seq, use_yn,
-			add_date, start_date, end_date, link_url, link_target
+			add_id, add_date, start_date, end_date, link_url, link_target
 			<if test="server_file_name != null and server_file_name != ''">
 			, org_file_name, server_file_name, file_extension, file_size
 			</if>
 		) VALUES
 		(
 			#{homepage_id},	#{popup_zone_idx}, #{popup_zone_name}, #{print_seq}, #{use_yn},
-			SYSDATE, #{start_date}, #{end_date}, #{link_url}, #{link_target}
+			#{add_id}, SYSDATE, #{start_date}, #{end_date}, #{link_url}, #{link_target}
 			<if test="server_file_name != null and server_file_name != ''">
 			, #{org_file_name}, #{server_file_name}, #{file_extension}, #{file_size}
 			</if>
@@ -89,7 +89,9 @@
 			end_date = #{end_date},
 			print_seq = #{print_seq},
 			link_url = #{link_url},
-			link_target = #{link_target}
+			link_target = #{link_target},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
 			<if test="server_file_name != null and server_file_name != ''">
 			, org_file_name = #{org_file_name}
 			, server_file_name = #{server_file_name}

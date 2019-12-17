@@ -255,13 +255,13 @@ function pasteHTML(filepath){
 	</colgroup>
 	<tbody>
 		<tr>
-			<th>팝업명(<span class="required">*</span>)</th>
+			<th>팝업명(<span style="color: red;font-weight: bold;">*</span>)</th>
 			<td>
 				<form:input path="popup_name" cssStyle="width:200px;" cssClass="text" maxlength="20"/>
 			</td>
 		</tr>
 		<tr>
-			<th>게시일(<span class="required">*</span>)</th>
+			<th>게시일(<span style="color: red;font-weight: bold;">*</span>)</th>
 			<td>
 				<form:input path="start_date" cssClass="text ui-calendar"/> ~ <form:input path="end_date" cssClass="text ui-calendar"/>
 			</td>
@@ -294,7 +294,7 @@ function pasteHTML(filepath){
 			</td>
 		</tr>
 		<tr>
-			<th>링크URL(<span class="required">*</span>)</th>
+			<th>링크URL(<span style="color: red;font-weight: bold;">*</span>)</th>
 			<td>
 				<form:input path="link_url" cssClass="text" cssStyle="width:300px;" maxlength="200"/>
 			</td>

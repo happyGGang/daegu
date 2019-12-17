@@ -25,7 +25,7 @@ public class PopupZoneTag extends BodyTagSupport {
 				HtmlTag li_tag = new HtmlTag("li");
 				HtmlTag a_tag = new HtmlTag("a");
 				HtmlTag img_tag = new HtmlTag("img");
-				img_tag.setAttribute("src", String.format("/data/popupZone/%s/%s", one.getHomepage_id(), one.getReal_file_name()));
+				img_tag.setAttribute("src", String.format("/data/popupZone/%s/%s", one.getHomepage_id(), one.getServer_file_name()));
 				img_tag.setAttribute("alt", one.getPopup_zone_name());
 				a_tag.addSubTag(img_tag);
 				
