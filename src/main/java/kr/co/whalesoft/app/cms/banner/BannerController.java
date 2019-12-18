@@ -1,6 +1,8 @@
 package kr.co.whalesoft.app.cms.banner;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,6 +43,11 @@ public class BannerController extends BaseController {
 			banner = (Banner)service.copyObjectPaging(banner, service.getBannerOne(banner));
 		} else {
 			checkAuth("C", model, request);
+			banner.setPrint_seq(service.getNextPrintSeq(banner.getHomepage_id()));
+			
+			if(StringUtils.isEmpty(banner.getUse_yn())) {
+				banner.setUse_yn("Y");
+			}
 		}
 		
 		model.addAttribute("banner", banner);

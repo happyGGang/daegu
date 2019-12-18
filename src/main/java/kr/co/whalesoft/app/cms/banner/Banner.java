@@ -17,7 +17,7 @@ public class Banner extends PagingUtils {
 	private Date add_date;
 	private String modify_id;
 	private String modify_date;
-	private String use_yn = "Y";
+	private String use_yn;
 	private String banner_link;
 	private String start_date;
 	private String end_date;

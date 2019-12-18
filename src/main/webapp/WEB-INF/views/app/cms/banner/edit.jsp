@@ -101,7 +101,7 @@ $(function() {
 	
 	$("#dialog-1").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
 		width: 600,
-		height: 400
+		height: 420
 	});
 	
 	//달력
@@ -143,7 +143,10 @@ function getFileData(fileData) {
 			<td>
 				<form:input path="banner_link" cssClass="text" cssStyle="width:300px;" maxlength="100"/>
 				<div class="ui-state-highlight">
-					<em>* 배너 클릭시 이동 할 URL 입니다.</em>
+					<em>
+						*배너 클릭시 이동 할 URL 입니다.<br>
+						* http:// 부터 전체 URL을 입력하세요
+					</em>
 				</div>	
 			</td>
 		</tr>

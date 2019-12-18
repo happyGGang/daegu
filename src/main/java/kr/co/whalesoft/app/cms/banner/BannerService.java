@@ -101,5 +101,9 @@ public class BannerService extends BaseService {
 		}
 		return f.getName();
 	}
+
+	public int getNextPrintSeq(String homepage_id) {
+		return dao.getNextPrintSeq(homepage_id);
+	}
 	
 }

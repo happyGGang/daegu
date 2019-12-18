@@ -12,6 +12,9 @@
 			CMS_BANNER
 		WHERE
 			homepage_id = #{homepage_id}
+		<if test="use_yn != null and use_yn != ''">
+		AND	use_yn = #{use_yn}
+		</if>
 		ORDER BY 
 			print_seq ASC
 		${pagingBottom}
@@ -36,7 +39,10 @@
 		FROM
 			CMS_BANNER
 		WHERE
-			homepage_id = #{homepage_id}		
+			homepage_id = #{homepage_id}
+		<if test="use_yn != null and use_yn != ''">
+		AND	use_yn = #{use_yn}
+		</if>		
     </select>
 	
 	<select id="getBannerOne" resultType="kr.co.whalesoft.app.cms.banner.Banner">
@@ -99,5 +105,14 @@
 			homepage_id = #{homepage_id}
 		AND	banner_idx = #{banner_idx}
 	</delete>
+	
+	<select id="getNextPrintSeq" resultType="int">
+		SELECT
+			NVL(MAX(print_seq), 0) + 10
+		FROM
+			CMS_BANNER
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
     
 </mapper>

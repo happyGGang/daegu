@@ -17,5 +17,7 @@ public interface BannerDao {
 	public int modifyBanner(Banner banner);
 
 	public int deleteBanner(Banner banner);
+
+	public int getNextPrintSeq(String homepage_id);
 	
 }
