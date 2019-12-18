@@ -9,7 +9,7 @@ public class PopupZone extends PagingUtils {
 	private int popup_zone_idx;
 	private String popup_zone_name;
 	private int print_seq; // 출력순서
-	private String use_yn = "Y";
+	private String use_yn;
 	private String add_id;
 	private Date add_date;
 	private String modify_id;
@@ -21,7 +21,7 @@ public class PopupZone extends PagingUtils {
 	private String file_extension;
 	private long file_size;
 	private String link_url;
-	private String link_target = "CURRENT"; // 새창으로보기
+	private String link_target; // 새창으로보기
 	private String content;
 
 	public PopupZone() {

@@ -1,6 +1,8 @@
 package kr.co.whalesoft.app.cms.popupZone;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,6 +52,15 @@ public class PopupZoneController extends BaseController {
 			popupZone = (PopupZone)service.copyObjectPaging(popupZone, service.getPopupZoneOne(popupZone));
 		} else {
 			checkAuth("C", model, request);
+			popupZone.setPrint_seq(service.getNextPrintSeq(popupZone.getHomepage_id()));
+			
+			if(StringUtils.isEmpty(popupZone.getUse_yn())) {
+				popupZone.setUse_yn("Y");
+			}
+			
+			if(StringUtils.isEmpty(popupZone.getLink_target())) {
+				popupZone.setLink_target("CURRENT");
+			}
 		}
 		
 		model.addAttribute("popupZone", popupZone);

@@ -17,5 +17,7 @@ public interface PopupZoneDao {
 	public int modifyPopupZone(PopupZone popupZone);
 
 	public int deletePopupZone(PopupZone popupZone);
+
+	public int getNextPrintSeq(String homepage_id);
 	
 }

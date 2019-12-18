@@ -15,6 +15,12 @@
 		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
 		AND	${search_type} LIKE '%'||#{search_text}||'%'
 		</if>
+		<if test="link_target != null and link_target != ''">
+		AND	link_target = #{link_target}
+		</if>
+		<if test="use_yn != null and use_yn != ''">
+		AND	use_yn = #{use_yn}
+		</if>
 		ORDER BY
 			print_seq ASC, add_date DESC
 		${pagingBottom}
@@ -44,6 +50,12 @@
 			homepage_id = #{homepage_id}
 		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
 		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="link_target != null and link_target != ''">
+		AND	link_target = #{link_target}
+		</if>
+		<if test="use_yn != null and use_yn != ''">
+		AND	use_yn = #{use_yn}
 		</if>
     </select>
 
@@ -110,5 +122,14 @@
 			homepage_id = #{homepage_id}
 		AND	popup_zone_idx = #{popup_zone_idx}
 	</delete>
+	
+	<select id="getNextPrintSeq" resultType="int">
+		SELECT
+			NVL(MAX(print_seq), 0) + 10
+		FROM
+			CMS_POPUP_ZONE
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
 
 </mapper>
