@@ -14,7 +14,7 @@ public class MainImg extends PagingUtils {
 	private String server_file_name; // 서버파일명
 	private String file_extension; // 파일 확장자
 	private long file_size; // 파일크기
-	private String use_yn = "Y"; // 사용여부
+	private String use_yn; // 사용여부
 	private int print_seq; // 출력순서
 	private String add_id; // 등록ID
 	private Date add_date; // 등록일시

@@ -79,4 +79,8 @@ public class MainImgService extends BaseService {
 	public int deleteMainImg(MainImg mainImg) {
 		return mainImgDao.deleteMainImg(mainImg);
 	}
+
+	public int getNextPrintSeq(String homepage_id) {
+		return mainImgDao.getNextPrintSeq(homepage_id);
+	}
 }

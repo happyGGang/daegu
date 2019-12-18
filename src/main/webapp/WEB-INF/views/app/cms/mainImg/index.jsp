@@ -49,6 +49,12 @@ $(function() {
 		
 		e.preventDefault();
 	});
+	
+	$('select#use_yn').on('change', function() {
+		$('#viewPage').val(1);
+		$('#mainImgListForm').submit();
+	});
+
 });
 </script>
 <form:form id="hiddenForm" modelAttribute="mainImg" action="save.do">
@@ -61,6 +67,11 @@ $(function() {
 
 	<div class="infodesk">
 		검색 결과 : 총 ${mainImgListCount}건
+		<form:select path="use_yn" cssClass="selectmenu">
+			<form:option value="">사용여부선택</form:option>
+			<form:option value="Y">사용함</form:option>
+			<form:option value="N">사용안함</form:option>
+		</form:select>
 		<div class="button">
 			<c:if test="${authC}">
 				<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
@@ -75,6 +86,7 @@ $(function() {
 			<col width="100" />
 			<col width="200" />
 			<col width="100" />
+			<col width="100" />
 		</colgroup>
 		<thead>
 			<tr>
@@ -82,6 +94,7 @@ $(function() {
 				<th>제목</th>
 				<th>사용여부</th>
 				<th>등록일</th>
+				<th>출력순서</th>
 				<th>기능</th>
 			</tr>
 		</thead>
@@ -90,8 +103,9 @@ $(function() {
 				<tr>
 					<td>${mainImg.listRowNum - status.index}</td>
 					<td>${i.main_img_name}</td>
-					<td>${i.use_yn}</td>
+					<td>${i.use_yn eq 'Y' ? '사용함' : '사용안함'}</td>
 					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>
+					<td>${i.print_seq}</td>
 					<td>
 						<c:if test="${authU}">
 							<a href="" class="btn" id="dialog-modify" keyValue="${i.img_idx}">수정</a>
@@ -117,7 +131,6 @@ $(function() {
 		<fieldset>
 			<form:select path="search_type" cssClass="selectmenu">
 				<form:option value="main_img_name">제목</form:option>
-				<form:option value="use_yn">사용여부</form:option>
 			</form:select>
 			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
 			<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>

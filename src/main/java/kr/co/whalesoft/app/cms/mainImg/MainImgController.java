@@ -1,6 +1,8 @@
 package kr.co.whalesoft.app.cms.mainImg;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,6 +47,12 @@ public class MainImgController extends BaseController {
 			model.addAttribute("mainImg", service.copyObjectPaging(mainImg, service.getMainImgOne(mainImg)));
 		} else {
 			checkAuth("C", model, request);
+			mainImg.setPrint_seq(service.getNextPrintSeq(mainImg.getHomepage_id()));
+			
+			if(StringUtils.isEmpty(mainImg.getUse_yn())) {
+				mainImg.setUse_yn("Y");
+			}
+			
 			model.addAttribute("mainImg", mainImg);
 		}
 		

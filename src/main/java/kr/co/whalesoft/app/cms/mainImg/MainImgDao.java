@@ -17,4 +17,6 @@ public interface MainImgDao  {
 	public int modifyMainImg(MainImg mainImg);
 	
 	public int deleteMainImg(MainImg mainImg);
+
+	public int getNextPrintSeq(String homepage_id);
 }
