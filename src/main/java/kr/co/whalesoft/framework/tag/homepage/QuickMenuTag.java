@@ -38,14 +38,6 @@ public class QuickMenuTag extends BodyTagSupport {
 				if ( StringUtils.isEmpty(one.getLink_url())) {
 					link_url = "javascript:alert('준비중입니다.');";
 				}
-				else {
-					if ( one.getLink_use_yn().trim().equals("N") ) {
-						link_url = one.getLink_url();
-					}
-					else {
-						link_url = String.format("/%s%s", homepage.getContext_path(), one.getLink_url());
-					}	
-				}
 				if ( StringUtils.isNotEmpty(one.getLink_target()) && one.getLink_target().equals("BLANK") ) {
 					a_tag.setAttribute("target", "_blank");
 				}
