@@ -14,6 +14,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome.min.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/select2.min.css"/>
 <link rel="stylesheet" type="text/css" href="/survey/resources/css/type2.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/cms/survey/css/skin2.css">
 <script type="text/javascript" src="/resources/common/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="/resources/common/js/default.js"></script>
 <script type="text/javascript" src="/resources/board/js/common.js"></script>
