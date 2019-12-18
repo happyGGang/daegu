@@ -76,7 +76,7 @@
 <form:hidden path="editMode"/>
 
 	<div class="infodesk">
-		검색 결과 : 총 ${fn:length(surveyList)}건
+		검색 결과 : 총 ${paging.totalDataCount}건
 		<div class="button">
 			<c:if test="${authC}">
 				<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
