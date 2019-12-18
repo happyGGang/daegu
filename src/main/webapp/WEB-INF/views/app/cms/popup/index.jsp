@@ -101,10 +101,6 @@ $(function(){
 			<form:option value="Y">사용함</form:option>
 			<form:option value="N">사용안함</form:option>
 		</form:select>
-		<form:select path="sortType" class="selectmenu">
-			<form:option value="ASC">오름차순</form:option>
-			<form:option value="DESC">내림차순</form:option>
-		</form:select>
 		<form:select path="rowCount" class="selectmenu" style="width:120px;">
 			<form:option value="10">10개씩 보기</form:option>
 			<form:option value="20">20개씩 보기</form:option>
@@ -142,13 +138,8 @@ $(function(){
 			<tr>
 				<td>${popup.listRowNum - status.index}</td>
 				<td class="left">${i.popup_name}</td>
-				<td>
-					<c:choose>
-						<c:when test="${i.link_target eq 'CURRENT'}">현채창</c:when>
-						<c:when test="${i.link_target eq 'BLANK'}">새창</c:when>
-					</c:choose>
-				</td>
-				<td width="50">${i.use_yn}</td>
+				<td>${i.link_target eq 'CURRENT' ? '현재창' : '새창'}</td>
+				<td width="50">${i.use_yn eq 'Y' ? '사용함' : '사용안함'}</td>
 				<td>${i.start_date} ~ ${i.end_date}</td>
 				<td>${i.print_seq}</td>
 				<td><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></td>
