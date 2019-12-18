@@ -17,4 +17,6 @@ public interface QuickMenuDao  {
 	public int modifyQuickMenu(QuickMenu quickMenu);
 	
 	public int deleteQuickMenu(QuickMenu quickMenu);
+
+	public int getNextPrintSeq(String homepage_id);
 }

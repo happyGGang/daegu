@@ -79,4 +79,8 @@ public class QuickMenuService extends BaseService {
 	public int deleteQuickMenu(QuickMenu quickMenu) {
 		return quickMenuDao.deleteQuickMenu(quickMenu);
 	}
+
+	public int getNextPrintSeq(String homepage_id) {
+		return quickMenuDao.getNextPrintSeq(homepage_id);
+	}
 }

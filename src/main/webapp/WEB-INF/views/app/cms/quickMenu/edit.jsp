@@ -73,10 +73,6 @@ $(function() {
 		height: 400
 	});
 	
-	if ( '${quickMenu.link_use_yn}' != '' ) {
-		$('[name="link_use_yn"].${quickMenu.link_use_yn}').click();	
-	}
-	
 	if ( '${quickMenu.view_yn}' != '' ) {
 		$('[name="view_yn"].${quickMenu.view_yn}').click();	
 	}
@@ -123,13 +119,6 @@ $(function() {
 				<td>
 					<form:radiobutton path="view_yn" class="Y" value="Y"/> <label for="view_yn1" style="cursor:pointer;">사용함</label>&nbsp;
 					<form:radiobutton path="view_yn" class="N" value="N"/> <label for="view_yn2" style="cursor:pointer;">사용안함</label>
-				</td>
-	        </tr>
-	        <tr>
-     			<th>내부링크사용여부</th>
-				<td>
-					<form:radiobutton path="link_use_yn" class="Y" value="Y"/> <label for="link_use_yn1" style="cursor:pointer;">사용함</label>&nbsp;
-					<form:radiobutton path="link_use_yn" class="N" value="N"/> <label for="link_use_yn2" style="cursor:pointer;">사용안함</label>
 				</td>
 	        </tr>
 	        <tr>

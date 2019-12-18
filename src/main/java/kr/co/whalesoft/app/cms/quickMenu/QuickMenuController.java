@@ -1,6 +1,8 @@
 package kr.co.whalesoft.app.cms.quickMenu;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,6 +48,12 @@ public class QuickMenuController extends BaseController {
 			model.addAttribute("quickMenu", service.copyObjectPaging(quickMenu, service.getQuickMenuOne(quickMenu)));
 		} else {
 			checkAuth("C", model, request);
+			quickMenu.setPrint_seq(service.getNextPrintSeq(quickMenu.getHomepage_id()));
+			
+			if(StringUtils.isEmpty(quickMenu.getView_yn())) {
+				quickMenu.setView_yn("Y");
+			}
+			
 			model.addAttribute("quickMenu", quickMenu);
 		}
 		

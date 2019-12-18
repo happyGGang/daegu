@@ -50,6 +50,11 @@ $(function() {
 		
 		e.preventDefault();
 	});
+	
+	$('select#view_yn, select#rowCount').on('change', function(e) {
+		$('#viewPage').val(1);
+		$('#quickMenuListForm').submit();
+	});
 });
 </script>
 <form:form id="hiddenForm" modelAttribute="quickMenu" action="save.do">
@@ -62,6 +67,18 @@ $(function() {
 
 	<div class="infodesk">
 		검색 결과 : 총 ${quickMenuListCount}건
+		<form:select path="view_yn" class="selectmenu">
+			<option value="">사용여부선택</option>
+			<form:option value="Y">사용함</form:option>
+			<form:option value="N">사용안함</form:option>
+		</form:select>
+		<form:select path="rowCount" class="selectmenu" style="width:120px;">
+			<form:option value="10">10개씩 보기</form:option>
+			<form:option value="20">20개씩 보기</form:option>
+			<form:option value="30">30개씩 보기</form:option>
+			<form:option value="100">100개씩 보기</form:option>
+			<form:option value="200">200개씩 보기</form:option>
+		</form:select>
 		<div class="button">
 			<c:if test="${authC}">
 				<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
@@ -72,23 +89,25 @@ $(function() {
 	<table class="type1 center">
 		<colgroup>
 			<col width="50" />
+			<col width="150">
 			<col width="200" />
 			<col width="" />
 			<col width="100" />
 			<col width="100" />
-			<col width="100" />
 			<col width="150" />
+			<col width="100" />
 			<col width="100" />
 		</colgroup>
 		<thead>
 			<tr>
 				<th>번호</th>
+				<th>아이콘</th>
 				<th>메뉴명</th>
 				<th>링크URL</th>
 				<th>링크대상</th>
 				<th>노출여부</th>
-				<th>링크사용여부</th>
 				<th>등록일</th>
+				<th>출력순서</th>
 				<th>기능</th>
 			</tr>
 		</thead>
@@ -96,12 +115,17 @@ $(function() {
 			<c:forEach var="i" varStatus="status" items="${quickMenuList}">
 				<tr>
 					<td>${quickMenu.listRowNum - status.index}</td>
+					<td>
+						<div class="item">
+							<a href="${i.link_url}" target="_blank"><img width="135" height="42" src="${getContextPath}/data/quickMenu/${quickMenu.homepage_id}/${i.server_file_name}" alt="${i.menu_name}"></a>							 
+						</div>
+					</td>
 					<td>${i.menu_name}</td>
 					<td>${i.link_url}</td>
 					<td>${i.link_target eq 'BLANK' ? '새창' : '현재창'}</td>
-					<td>${i.view_yn}</td>
-					<td>${i.link_use_yn}</td>
+					<td>${i.view_yn eq 'Y' ? '사용함' : '사용안함'}</td>
 					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>
+					<td>${i.print_seq}</td>
 					<td>
 						<c:if test="${authU}">
 							<a href="" class="btn" id="dialog-modify" keyValue="${i.quick_idx}">수정</a>

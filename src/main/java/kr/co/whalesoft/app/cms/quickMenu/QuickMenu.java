@@ -10,14 +10,13 @@ public class QuickMenu extends PagingUtils {
 
 	private int quick_idx; // 퀵메뉴IDX
 	private String menu_name; // 메뉴명
-	private String link_url; // 링크 URL
+	private String link_url = "#"; // 링크 URL
 	private String link_target = "CURRENT"; //링크 대상
 	private String org_file_name; //파일원본명
 	private String server_file_name; // 파일서버명
 	private String file_extension; // 파일 확장자
 	private long file_size; // 파일크기
-	private String view_yn = "Y";  //노출여부
-	private String link_use_yn = "Y";  //링크사용여부
+	private String view_yn;  //노출여부
 	private String add_id; // 등록ID
 	private Date add_date;  //등록일시
 	private String modify_id; //수정ID
@@ -120,16 +119,6 @@ public class QuickMenu extends PagingUtils {
 	
 	public void setView_yn(String view_yn) {
 		this.view_yn = view_yn;
-	}
-
-	
-	public String getLink_use_yn() {
-		return link_use_yn;
-	}
-
-	
-	public void setLink_use_yn(String link_use_yn) {
-		this.link_use_yn = link_use_yn;
 	}
 
 	
