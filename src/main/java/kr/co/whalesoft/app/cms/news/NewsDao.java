@@ -19,4 +19,6 @@ public interface NewsDao  {
 	public int deleteNews(News news);
 
 	public int getUseCnt(News news);
+
+	public int getNextPrintSeq(String homepage_id);
 }

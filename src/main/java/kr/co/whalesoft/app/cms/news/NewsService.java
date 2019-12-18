@@ -92,4 +92,8 @@ public class NewsService extends BaseService {
 	public int getUseCnt(News news) {
 		return newsDao.getUseCnt(news);
 	}
+
+	public int getNextPrintSeq(String homepage_id) {
+		return newsDao.getNextPrintSeq(homepage_id);
+	}
 }

@@ -18,7 +18,7 @@ public class News extends PagingUtils {
 	private Date add_date; // 등록일시
 	private String modify_id; // 수정ID
 	private Date modify_date; // 수정일시
-	private String use_yn = "N";
+	private String use_yn;
 
 	private MultipartFile file;
 	private String org_file_name; // 원본 파일명

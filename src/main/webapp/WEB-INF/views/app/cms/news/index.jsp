@@ -77,6 +77,11 @@ $(function() {
 		
 		e.preventDefault();
 	});
+	
+	$('select#use_yn, select#rowCount').on('change', function(e) {
+		$('#viewPage').val(1);
+		$('#newsListForm').submit();
+	});
 });
 </script>
 <form:form id="hiddenForm" modelAttribute="news" action="save.do">
@@ -89,7 +94,19 @@ $(function() {
 <form:hidden id="homepage_id_1" path="homepage_id"/>
 
 	<div class="infodesk">
-		검색 결과 : 총 ${newsListCount}건, 홈페이지 ID : ${news.homepage_id} 
+		검색 결과 : 총 ${newsListCount}건, 홈페이지 ID : ${news.homepage_id}
+		<form:select path="use_yn" class="selectmenu">
+			<option value="">사용여부선택</option>
+			<form:option value="Y">사용함</form:option>
+			<form:option value="N">사용안함</form:option>
+		</form:select>
+		<form:select path="rowCount" class="selectmenu" style="width:120px;">
+			<form:option value="10">10개씩 보기</form:option>
+			<form:option value="20">20개씩 보기</form:option>
+			<form:option value="30">30개씩 보기</form:option>
+			<form:option value="100">100개씩 보기</form:option>
+			<form:option value="200">200개씩 보기</form:option>
+		</form:select>
 		<div class="button">
 			<c:if test="${authC}">
 				<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
@@ -103,8 +120,9 @@ $(function() {
 			<col width="200" />
 			<col width="200" />
 			<col width="" />
-			<col width="200" />
 			<col width="100" />
+			<col width="80" />
+			<col width="80" />
 			<col width="100" />
 		</colgroup>
 		<thead>
@@ -115,6 +133,7 @@ $(function() {
 				<th>내용</th>
 				<th>등록일</th>
 				<th>사용여부</th>
+				<th>출력순서</th>
 				<th>기능</th>
 			</tr>
 		</thead>
@@ -126,7 +145,8 @@ $(function() {
 					<td>${i.sub_news_name}</td>
 					<td>${i.contents}</td>
 					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>
-					<td>${i.use_yn}</td>
+					<td>${i.use_yn eq 'Y' ? '사용함' : '사용안함'}</td>
+					<td>${i.print_seq}</td>
 					<td>
 						<c:if test="${authU}">
 							<a href="" class="btn" id="dialog-modify" keyValue="${i.news_idx}">수정</a>
@@ -139,7 +159,7 @@ $(function() {
 			</c:forEach>
 			<c:if test="${newsListCount eq 0}">
 				<tr>
-					<td colspan="7">조회된 자료가 없습니다.</td>
+					<td colspan="8">조회된 자료가 없습니다.</td>
 				</tr>
 			</c:if>
 		</tbody>
@@ -152,6 +172,7 @@ $(function() {
 		<fieldset>
 			<form:select path="search_type" cssClass="selectmenu">
 				<form:option value="news_name">제목</form:option>
+				<form:option value="sub_news_name">소제목</form:option>
 			</form:select>
 			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
 			<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>

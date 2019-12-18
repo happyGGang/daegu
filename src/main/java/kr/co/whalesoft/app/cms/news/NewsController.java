@@ -1,6 +1,8 @@
 package kr.co.whalesoft.app.cms.news;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,6 +50,12 @@ public class NewsController extends BaseController {
 			model.addAttribute("news", service.copyObjectPaging(news, service.getNewsOne(news)));
 		} else {
 			checkAuth("C", model, request);
+			news.setPrint_seq(service.getNextPrintSeq(news.getHomepage_id()));
+			
+			if(StringUtils.isEmpty(news.getUse_yn())) {
+				news.setUse_yn("Y");
+			}
+			
 			model.addAttribute("news", news);
 		}
 		
