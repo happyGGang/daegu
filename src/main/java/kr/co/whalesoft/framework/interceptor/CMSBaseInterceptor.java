@@ -68,6 +68,11 @@ public class CMSBaseInterceptor extends HandlerInterceptorAdapter {
 
 		} catch (Exception e) {}
 
+		int range = adminMenu.getMenu_url().indexOf("?");
+		if(range != -1) {
+			adminMenu.setMenu_url(adminMenu.getMenu_url().substring(0, range));
+		}
+		
 		AdminMenu result = adminMenuService.getAdminMenuOneByUrl(adminMenu);
 		if (result == null) {
 			if (getUri.startsWith("/wbuilder")) {
