@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
+import kr.co.whalesoft.framework.utils.ValidationUtils;
 
 /**
  * @author whaleesoft YONGJU 2019. 11. 28.
@@ -54,6 +55,8 @@ public class RecommendSiteController extends BaseController {
 			model.addAttribute("recommendSite", service.copyObjectPaging(recommendSite, service.getRecommendSiteOne(recommendSite)));
 		} else {
 			checkAuth("C", model, request);
+			recommendSite.setPrint_seq(service.getNextPrintSeq(recommendSite.getHomepage_id()));
+			
 			model.addAttribute("recommendSite", recommendSite);
 		}
 
@@ -64,6 +67,11 @@ public class RecommendSiteController extends BaseController {
 	public @ResponseBody JsonResponse save(Model model, RecommendSite recommendSite, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
 		String editMode = recommendSite.getEditMode();
+		
+		if(!editMode.equals("DELETE")) {
+			ValidationUtils.rejectIfEmpty(result, "recommend_site_name", "사이트명을 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "link_target", "링크를 입력하세요.");
+		}
 
 		if (!result.hasErrors()) {
 			if (editMode.equals("ADD")) {

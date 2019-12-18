@@ -76,4 +76,8 @@ public class RecommendSiteService extends BaseService {
 
 		return dao.deleteRecommendSite(recommendSite);
 	}
+
+	public int getNextPrintSeq(String homepage_id) {
+		return dao.getNextPrintSeq(homepage_id);
+	}
 }

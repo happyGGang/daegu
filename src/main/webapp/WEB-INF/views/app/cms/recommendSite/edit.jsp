@@ -36,8 +36,8 @@ $(function() {
 	});
 	
 	$("#dialog-1").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
-		width: 400,
-		height: 500
+		width: 450,
+		height: 420
 	});
 	
 });
@@ -55,16 +55,24 @@ $(function() {
        	</colgroup>
        	<tbody>
 	        <tr>
-	         	<th>사이트명</th>
+	         	<th>사이트명(<span style="color: red;font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="recommend_site_name" class="text" cssStyle="width:100%"/></td>
 	        </tr>
 	        <tr>
 	         	<th>사이트설명</th>
-	         	<td><form:textarea path="recommend_site_desc" class="text" cssStyle="width:100%; height:200px;"/></td>
+	         	<td><form:textarea path="recommend_site_desc" class="text" cssStyle="width:100%; height:100px;"/></td>
 	        </tr>
 	        <tr>
-	         	<th>링크</th>
-	         	<td><form:input path="link_target" class="text" cssStyle="width:100%"/></td>
+	         	<th>링크(<span style="color: red;font-weight: bold;">*</span>)</th>
+	         	<td>
+	         		<form:input path="link_target" class="text" cssStyle="width:100%"/>
+	         		<div class="ui-state-highlight">
+						<em>
+							* 클릭시 이동 할 URL 입니다.<br>
+							* http:// 부터 전체 URL을 입력하세요.
+						</em>
+					</div>
+	         	</td>
 	        </tr>
 	        <tr>
 				<th>출력 순서</th>

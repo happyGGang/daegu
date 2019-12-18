@@ -110,5 +110,14 @@
 			homepage_id = #{homepage_id}
 		AND	recommend_site_idx = #{recommend_site_idx}
 	</delete>
+	
+	<select id="getNextPrintSeq" resultType="int">
+		SELECT
+			NVL(MAX(print_seq), 0) + 10
+		FROM
+			CMS_RECOMMEND_SITE
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
 
 </mapper>

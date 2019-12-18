@@ -26,4 +26,6 @@ public interface RecommendSiteDao {
 	public int modifyRecommendSite(RecommendSite recommendSite);
 
 	public int deleteRecommendSite(RecommendSite recommendSite);
+
+	public int getNextPrintSeq(String homepage_id);
 }

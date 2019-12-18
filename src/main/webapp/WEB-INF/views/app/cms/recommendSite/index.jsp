@@ -49,6 +49,11 @@ $(function() {
 		
 		e.preventDefault();
 	});
+	
+	$('select#rowCount').on('change', function(e) {
+		$('#viewPage').val(1);
+		$('#siteListForm').submit();
+	});
 });
 </script>
 <form:form id="hiddenForm" modelAttribute="recommendSite" action="save.do">
@@ -61,6 +66,13 @@ $(function() {
 
 	<div class="infodesk">
 		검색 결과 : 총 ${siteListCount}건
+		<form:select path="rowCount" class="selectmenu" style="width:120px;">
+			<form:option value="10">10개씩 보기</form:option>
+			<form:option value="20">20개씩 보기</form:option>
+			<form:option value="30">30개씩 보기</form:option>
+			<form:option value="100">100개씩 보기</form:option>
+			<form:option value="200">200개씩 보기</form:option>
+		</form:select>
 		<div class="button">
 			<c:if test="${authC}">
 				<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
@@ -74,6 +86,7 @@ $(function() {
 			<col width="200" />
 			<col width="" />
 			<col width="200" />
+			<col width="100" />
 			<col width="150" />
 		</colgroup>
 		<thead>
@@ -82,6 +95,7 @@ $(function() {
 				<th>사이트명</th>
 				<th>사이트설명</th>
 				<th>링크</th>
+				<th>출력순서</th>
 				<th>기능</th>
 			</tr>
 		</thead>
@@ -92,6 +106,7 @@ $(function() {
 					<td>${i.recommend_site_name}</td>
 					<td>${i.recommend_site_desc}</td>
 					<td>${i.link_target}</td>
+					<td>${i.print_seq}</td>
 					<td>
 						<c:if test="${authU}">
 							<a href="" class="btn" id="dialog-modify" keyValue="${i.recommend_site_idx}">수정</a>

@@ -16,7 +16,7 @@ public class RecommendSite extends PagingUtils {
 	private int recommend_site_idx; // 사이트IDX
 	private String recommend_site_name; // 사이트명
 	private String recommend_site_desc; // 사이트설명
-	private String link_target; // 링크대상
+	private String link_target = "#"; // 링크대상
 	private int print_seq; // 출력순서
 	private String add_id; // 등록ID
 	private Date add_date; // 등록일시
