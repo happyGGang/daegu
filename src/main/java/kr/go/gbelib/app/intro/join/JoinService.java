@@ -620,7 +620,11 @@ public class JoinService extends BaseService {
 				Map<String, Object> addMember = MemberAPI.addMember(member);
 				String result = String.valueOf(addMember.get("RESULT_INFO"));
 				if (StringUtils.equals(result, "SUCCESS")) {
-					MemberAPI.agreeInfo(member.getManage_code(), String.valueOf(addMember.get("USER_KEY")), "N");
+					/**
+					 * 대구는 신규회원가입 시 무조건 책이음회원 Y
+					 * 2019.12.19
+					 */
+					MemberAPI.agreeInfo(member.getManage_code(), String.valueOf(addMember.get("USER_KEY")), "Y");
 					String sBirthDate = member.getBirth_day();
 					int birthYear = Integer.parseInt(sBirthDate.substring(0, 4));
 					int birthMonth = Integer.parseInt(sBirthDate.substring(4, 6));
