@@ -46,6 +46,17 @@ $(function() {
 		return false;
 	}
 
+	if ('${dupCheckKl}' == 'true') {
+		if ('${dupUserKl.USER_NO}' != '') {
+			alert('회원님의 대출번호는 ${dupUserKl.USER_NO}이며 책이음회원으로 이미 가입되어 있습니다..');
+		} else {
+			alert('이미 가입되어 있습니다.');
+		}
+
+		window.close();
+		return false;
+	}
+
 	if ('${board}' == 'true') {
 		window.opener.document.getElementById('board').submit();
 		window.close();

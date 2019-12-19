@@ -319,7 +319,7 @@ public class CommonJoinController extends BaseController {
 				String addResult = joinService.addMember(request, member);
 				if (addResult.equals("0")) {
 					res.setValid(true);
-					res.setMessage("신규회원 가입이 완료되었습니다.");
+					res.setMessage("신규회원 가입이 완료되었습니다. 신분증 지참 후 데스크에서 회원증을 발급받으시기 바랍니다.");
 					int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
 					res.setUrl(String.format("http%s://%s/%s/intro/login/index.do?menu_idx=%d", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path(), loginMenuIdx));
 					request.getSession().invalidate();
@@ -353,26 +353,51 @@ public class CommonJoinController extends BaseController {
 				}
 			} else if ( member.getEditMode().equals("INTEGRATION") ) {//통합회원 전환
 				Member certMember = (Member) request.getSession().getAttribute("certMember");
-				if(certMember != null) {
+				if (certMember != null) {
 					member.setCi_value(certMember.getCi_value());
 					member.setDi_value(certMember.getDi_value());
+					member.setRec_key(certMember.getRec_key());
+					member.setMember_name(certMember.getMember_name());
+					member.setBirth_day(certMember.getBirth_day());
+					member.setIn_ip(request.getRemoteAddr());
+					member.setSex(certMember.getSex());
+					member.setAge(certMember.getAge());
+					member.setManage_code(certMember.getManage_code());
+					if (StringUtils.isNotEmpty(certMember.getCell_phone())) {
+						member.setCell_phone(certMember.getCell_phone());
+						member.setCell_phone1(certMember.getCell_phone1());
+						member.setCell_phone2(certMember.getCell_phone2());
+						member.setCell_phone3(certMember.getCell_phone3());
+					}
+				} else {
+					res.setValid(true);
+					res.setMessage("세션이 만료되었습니다.");
+					res.setUrl(String.format("/%s/intro/login/index.do", homepage.getContext_path())); // 검색대 메인으로 Redirect.
 				}
-//				if ( MemberAPI.updateMember("WEB", member, true) ) {
-//					try {
-//						joinService.integrationMember(member);//회원통합 프로시저 콜
-//					}
-//					catch ( Exception e ) {
-//					}
-//					MemberAPI.agreePrtcInfo("WEB", member.getUser_id(), member.getLoca(), "1,2,6".split(","));
-//					res.setValid(true);
-//					res.setMessage("수정되었습니다.");
-////					int menuIdx = homepageService.getMenuIdxByLinkUrl(homepage.getHomepage_id(), "/intro/join/modifyForm.do");
-////					res.setUrl(String.format("https://%s/%s/intro/join/modifyForm.do?menu_idx=%d", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), menuIdx));
-//					res.setUrl(String.format("http://%s/%s/index.do", homepage.getDomainWithoutProtocol(), homepage.getContext_path()));
-//				} else {
-//					res.setValid(false);
-//					res.setMessage("수정 실패하였습니다. 잠시후 다시 시도해주세요..");
-//				}
+
+				ApiResponse modifyMember = MemberAPI.modifyMember(member);
+				if (modifyMember.getStatus()) {
+					//개인정보 동의
+					/**
+					 * 대구는 통합인증시 무조건 책이음회원 Y
+					 * 2019.12.19
+					 */
+					MemberAPI.agreeInfo(member.getManage_code(), member.getRec_key(), "Y");
+
+					//보호자동의
+					if (member.getAge().equals("2") && request.getSession().getAttribute("parentInfo") != null) {
+						Member parentInfo = (Member) request.getSession().getAttribute("parentInfo");
+						MemberAPI.useragentinfoinsert(member.getRec_key(), parentInfo.getMember_name(), member.getManage_code());
+					}
+
+					res.setValid(true);
+					res.setMessage("통합인증이 완료되었습니다.");
+					res.setUrl(String.format("/%s/index.do", homepage.getContext_path())); // 검색대 메인으로 Redirect.
+					request.getSession().invalidate();
+				} else {
+					res.setValid(true);
+					res.setMessage(modifyMember.getMessage());
+				}
 
 			}
 		} else {

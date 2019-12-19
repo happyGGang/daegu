@@ -425,6 +425,13 @@ public class JoinController extends BaseController {
 				model.addAttribute("dupUser", memberInfo.get(0));
 			}
 
+			// 3. 책이음 중복자 확인
+			List<Map<String, Object>> klmemberInfo = MemberAPI.checkDupUser("3", member);
+			if (klmemberInfo != null && klmemberInfo.size() > 0) {
+				model.addAttribute("dupCheckKl", true);
+				model.addAttribute("dupUserKl", memberInfo.get(0));
+			}
+
 			model.addAttribute("parent", false);
 		} else {
 			model.addAttribute("parent", false);
@@ -598,7 +605,7 @@ public class JoinController extends BaseController {
 				String addResult = joinService.addMember(request, member);
 				if (addResult.equals("0")) {
 					res.setValid(true);
-					res.setMessage("신규회원 가입이 완료되었습니다.");
+					res.setMessage("신규회원 가입이 완료되었습니다. 신분증 지참 후 데스크에서 회원증을 발급받으시기 바랍니다.");
 					res.setUrl(String.format("/intro/%s/login/index.do", homepage.getContext_path())); // 회원가입 후 홈페이지 메인으로 Redirect.
 					request.getSession().invalidate();
 				} else {
