@@ -121,6 +121,18 @@ $(function() {
 		}
 	});
 
+	$('input#search_start_date').on('keyup', function(e) {
+		if (e.keyCode == 13 && $(this).val() != '') {
+			$('a#search-btn').click();
+		}
+	});
+
+	$('input#search_end_date').on('keyup', function(e) {
+		if (e.keyCode == 13 && $(this).val() != '') {
+			$('a#search-btn').click();
+		}
+	});
+
 	//결과 내 재검색
 	$('a#subSearch').on('click', function(e) {
 		e.preventDefault();
@@ -146,7 +158,9 @@ $(function() {
 		$('#title').focus();
 	});
 
-	<c:if test="${not empty librarySearch.title}">
+
+
+	<c:if test="${librarySearch.totalDataCount > 0}">
 	location.href = '#search-btn';
 	</c:if>
 
