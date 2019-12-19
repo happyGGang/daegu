@@ -145,7 +145,11 @@ $(function() {
 		location.href='/intro/${homepage.context_path}/search/index.do';
 		$('#title').focus();
 	});
-	
+
+	<c:if test="${not empty librarySearch.title}">
+	location.href = '#search-btn';
+	</c:if>
+
 });
 </script>
 <form:form modelAttribute="librarySearch" id="detailForm" action="detail.do" method="post" >

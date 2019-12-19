@@ -41,7 +41,15 @@ $(function() {
 <!-- /contents-title-->
 
 <div class="DepthBtn">
-	<a href="/intro/${homepage.context_path}/search/hope/req.do" class="bBtn">희망도서신청</a>
+	<c:choose>
+	<c:when test="${homepage.context_path ne 'bukbu'}">
+<a href="/intro/${homepage.context_path}/search/hope/req.do" class="bBtn">희망도서신청</a>
+	</c:when>
+	<c:otherwise>
+<a href="#" class="bBtn not-hope">희망도서신청</a>
+	</c:otherwise>
+	</c:choose>
+	
 	<a href="/intro/${homepage.context_path}/search/hope/index.do" class="bBtn">신청내역보기</a>
 </div>
 

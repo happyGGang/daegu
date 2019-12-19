@@ -79,7 +79,14 @@
 						</a>
 					</li>
 					<li>
+						<c:choose>
+							<c:when test="${homepage.context_path ne 'bukbu'}">
 						<a href="/intro/${homepage.context_path}/search/hope/req.do">
+							</c:when>
+							<c:otherwise>
+						<a href="#" class="not-hope">
+							</c:otherwise>
+						</c:choose>
 							<em><img src="/resources/common/img/nav4.png" alt="희망도서신청내역"/></em>
 							<span>희망도서신청</span>
 							<div>Book Application</div>
