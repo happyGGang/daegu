@@ -82,13 +82,13 @@
 		WHERE
 			<choose>
 				<when test="value != 'root'">
-					context_path = #{value}
+			context_path = #{value}
 				</when>
 				<otherwise>
-					context_path is null
+			context_path is null
 				</otherwise>
 			</choose>
-			AND ROWNUM = 1
+		AND	ROWNUM = 1
 	</select>
 
 	<insert id="addHomepage">
@@ -135,7 +135,8 @@
 	</update>
 
 	<delete id="deleteHomepage">
-		DELETE FROM CMS_HOMEPAGE
+		DELETE FROM
+			CMS_HOMEPAGE
 		WHERE
 			homepage_id = #{homepage_id}
 	</delete>
@@ -167,9 +168,9 @@
 			CMS_HOMEPAGE A, WB_MEMBER_GROUP B, WB_MEMBER_GROUP_SUBORD C
 		WHERE
 			a.homepage_id = B.site_id
-		AND	B.member_group_idx  = C.member_group_idx
+		AND	B.member_group_idx = C.member_group_idx
 		AND	C.member_id = #{member_id}
-
-		ORDER BY homepage_name
+		ORDER BY
+			homepage_name
 	</select>
 </mapper>
