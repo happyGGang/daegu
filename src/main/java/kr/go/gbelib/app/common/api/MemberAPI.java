@@ -353,9 +353,13 @@ public class MemberAPI {
 			param.put("department", member.getCompany_depart());//근무지 부서명
 		}
 
-		if (StringUtils.isNotEmpty(member.getDi_value())) {
-			param.put("gpin_hash", member.getDi_value());//DI
-		}
+		/**
+		 * 대구는 DI 사용안함.
+		 * 2019.12.19
+		 */
+//		if (StringUtils.isNotEmpty(member.getDi_value())) {
+//			param.put("gpin_hash", member.getDi_value());//DI
+//		}
 
 		return CommonAPI.sendKCMS("userinfoinsert", param);
 	}
