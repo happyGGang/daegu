@@ -429,7 +429,7 @@ public class JoinController extends BaseController {
 			List<Map<String, Object>> klmemberInfo = MemberAPI.checkDupUser("3", member);
 			if (klmemberInfo != null && klmemberInfo.size() > 0) {
 				model.addAttribute("dupCheckKl", true);
-				model.addAttribute("dupUserKl", memberInfo.get(0));
+				model.addAttribute("dupUserKl", klmemberInfo.get(0));
 			}
 
 			model.addAttribute("parent", false);
