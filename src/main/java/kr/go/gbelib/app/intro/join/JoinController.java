@@ -349,7 +349,13 @@ public class JoinController extends BaseController {
 				//통합 선택한 회원
 				@SuppressWarnings ("unchecked")
 				Map<String, Object> integrationMember = (Map<String, Object>) request.getSession().getAttribute("integrationMember");
-				int	order = Integer.parseInt(String.valueOf(integrationMember.get("INTEGRATION_ORDER")));
+
+				int order = 0;
+				try {
+					order = Integer.parseInt(String.valueOf(integrationMember.get("INTEGRATION_ORDER")));
+				} catch (Exception e) {
+					System.out.println("@@@@@@@@@@@@@@@@ integrationMember : " + integrationMember);
+				}
 
 				if (order == 1 || order == 2) {//1순위 - 책이음회원 //2순위 - CI 있는 경우
 					request.getSession().setAttribute("integration", "o");
