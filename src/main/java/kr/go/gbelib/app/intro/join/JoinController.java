@@ -659,7 +659,11 @@ public class JoinController extends BaseController {
 				ApiResponse modifyMember = MemberAPI.modifyMember(member);
 				if (modifyMember.getStatus()) {
 					//개인정보 동의
-					MemberAPI.agreeInfo(member.getManage_code(), member.getRec_key(), "N");
+					/**
+					 * 대구는 통합인증시 무조건 책이음회원 Y
+					 * 2019.12.19
+					 */
+					MemberAPI.agreeInfo(member.getManage_code(), member.getRec_key(), "Y");
 
 					//보호자동의
 					if (member.getAge().equals("2") && request.getSession().getAttribute("parentInfo") != null) {
