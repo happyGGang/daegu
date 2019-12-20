@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.bookPackage.BookPackageDao">
+
+	<sql id="field">
+		book_package_idx, book_package_name, book_package_subject, author, publisher,
+		publish_year, isbn, book_price, book_pages, purpose,
+		loan_count, quantity, grade, category, keyword,
+		desc_link, image_link, content, add_id, add_date
+	</sql>
+
+	<select id="getBookPackageList" resultType="kr.go.gbelib.app.cms.module.bookPackage.BookPackage">
+		${pagingTop}
+		SELECT
+			<include refid="field"/>
+		FROM
+			BOOK_PACKAGE
+		ORDER BY book_package_idx DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getBookPackageOne" resultType="kr.go.gbelib.app.cms.module.bookPackage.BookPackage">
+		SELECT
+			<include refid="field"/>
+		FROM
+			BOOK_PACKAGE
+		WHERE
+			book_package_idx = #{book_package_idx}
+	</select>
+
+	<insert id="addBookPackage">
+		<selectKey keyProperty="book_package_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(book_package_idx), 0) + 1 FROM BOOK_PACKAGE
+		</selectKey>
+		INSERT INTO
+			BOOK_PACKAGE
+		(
+			book_package_idx, book_package_name, book_package_subject, author, publisher,
+			publish_year, isbn, book_price, book_pages, purpose,
+			loan_count, quantity, grade, category, keyword,
+			desc_link, image_link, content,
+			<if test="org_file_name != null and org_file_name != ''">
+			org_file_name, server_file_name, file_extension, file_size,
+			</if>
+			add_id, add_date
+		)
+		VALUES
+		(
+			#{book_package_idx}, #{book_package_name}, #{book_package_subject}, #{author}, #{publisher},
+			#{publish_year}, #{isbn}, #{book_price}, #{book_pages}, #{purpose},
+			#{loan_count}, #{quantity}, #{grade}, #{category}, REPLACE(#{keyword}, ' ', ''),
+			#{desc_link}, #{image_link}, #{content},
+			<if test="org_file_name != null and org_file_name != ''">
+			#{org_file_name}, #{server_file_name}, #{file_extension}, #{file_size},
+			</if>
+			#{add_id}, SYSDATE
+		)
+	</insert>
+	
+	<update id="modifyBookPackage">
+		UPDATE
+			BOOK_PACKAGE
+		SET
+			book_package_name = #{book_package_name},
+			book_package_subject = #{book_package_subject},
+			author = #{author},
+			publisher = #{publisher},
+			publish_year = #{publish_year},
+			isbn = #{isbn},
+			book_price = #{book_price},
+			book_pages = #{book_pages},
+			purpose = #{purpose},
+			loan_count = #{loan_count},
+			quantity = #{quantity},
+			grade = #{grade},
+			category = #{category},
+			keyword = #{keyword},
+			desc_link = #{desc_link},
+			image_link = #{image_link},
+			content = #{content},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
+		WHERE
+			book_package_idx = #{book_package_idx}
+	</update>
+	
+	<delete id="deleteBookPackage">
+		DELETE FROM
+			BOOK_PACKAGE
+		WHERE
+			book_package_idx = #{book_package_idx}
+	</delete>
+	
+</mapper>

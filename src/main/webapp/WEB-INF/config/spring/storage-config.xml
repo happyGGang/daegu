@@ -102,4 +102,9 @@
     	<property name="basedOnServletContext" value="true"/> 
   	</bean>
   	
+  	<bean id="bookPackageStorage" class="kr.co.whalesoft.framework.file.FileStorage">
+    	<property name="rootPath" value="/data/bookPackage"/>
+    	<property name="basedOnServletContext" value="true"/> 
+  	</bean>
+  	
 </beans>
