@@ -425,9 +425,9 @@ public class MemberAPI {
 
 		param.put("manage_code", manage_code);
 		param.put("userkey", rec_key);
-		if (StringUtils.equals(kl_member_yn, "Y")) {
+//		if (StringUtils.equals(kl_member_yn, "Y")) {
 			param.put("kl_agree_yn", "Y");
-		}
+//		}
 
 		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("useragreeinfoinsert", param);
 

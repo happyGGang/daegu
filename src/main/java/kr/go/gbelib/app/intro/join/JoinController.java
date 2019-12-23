@@ -359,7 +359,7 @@ public class JoinController extends BaseController {
 
 				if (order == 1 || order == 2) {//1순위 - 책이음회원 //2순위 - CI 있는 경우
 					request.getSession().setAttribute("integration", "o");
-					request.getSession().setAttribute("certMember", member);
+					request.getSession().setAttribute("certMemberintegration", member);
 
 					String selectedCi = (String) integrationMember.get("IPIN_HASH");
 
@@ -887,7 +887,7 @@ public class JoinController extends BaseController {
 
 		@SuppressWarnings ("unchecked")
 		Map<String, Object> integrationMember = (Map<String, Object>) request.getSession().getAttribute("integrationMember");
-		Member certMember = (Member) request.getSession().getAttribute("certMember");
+		Member certMember = (Member) request.getSession().getAttribute("certMemberintegration");
 
 		if (certMember.getSex().equals("1")) {
 			certMember.setSex("0");// 남
