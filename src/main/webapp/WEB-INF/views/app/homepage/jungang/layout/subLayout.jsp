@@ -1,0 +1,70 @@
+<%@ page language="java" pageEncoding="utf-8" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
+<tiles:insertAttribute name="header" />
+<script type="text/javascript">
+$(function() {
+	$('li#menu_${menuOne.parent_menu_idx }').addClass('active');
+	$('li#menu_${menuOne.menu_idx}').addClass('active');
+	var halbaeNode = $('li#menu_${menuOne.parent_menu_idx }').parent().parent()[0];
+	if ( halbaeNode != null && halbaeNode.nodeName == 'LI' ) {
+		$(halbaeNode).addClass('active');
+	}
+});
+</script>
+<div id="wrap">
+	
+	<tiles:insertAttribute name="top" />
+	<tiles:insertAttribute name="topMenu" />
+	
+	<div id="container" class="subpage">
+		<div class="sub-visual" <c:if test="${menuOne.menu_img ne null and menuOne.menu_img ne ''}">style="background-image: url('/data/menu/${menuOne.homepage_id}/${menuOne.menu_img}')"</c:if>>
+<!-- 			<p class="sv1"><b>Library with</b> citizens</p> -->
+<!-- 			<p class="sv2">Gyeongbuk Provincial Cheongsong Public Library</p> -->
+		</div>
+
+		<div class="doc-info">
+			<div class="section">
+				<ol>			
+					<li class="first"><a href="/${homepage.context_path}/index.do"><i class="fa fa-home"></i><span>HOME</span></a></li>
+					<homepageTag:docInfo oneMenu="${menuOne}" menuList="${menuLeftList}"/>
+				</ol>
+				<jsp:include page="/WEB-INF/views/app/homepage/common/snsShareBox.jsp" flush="false" />
+			</div>
+		</div>
+		<div class="section">
+			<c:if test="${menuOne ne null}">
+			<div class="lnb">
+				<h2><b>${menuLeftList[0].menu_name}</b></h2>
+				<homepageTag:leftMenu menuList="${menuLeftList}"/>
+			</div>
+			</c:if>
+			<div class="content">
+				<div class="doc">
+					<div class="doc-head">
+						<div class="doc-title">
+							<h3>${menuOne.menu_name}</h3>
+						</div>
+					</div>
+					<div class="doc-body con${menuOne.menu_idx}" id="contentArea">
+						<div class="body">
+							<tiles:insertAttribute name="body" />
+						</div>
+					</div>
+					<c:if test="${menuOne.manage_view_yn eq 'Y'}">
+						<div class="doc-admin">
+							<c:if test="${menuOne.manage_dept ne null and menuOne.manage_dept ne ''}"><span><label>담당부서</label> <em>: ${menuOne.manage_dept}</em></span></c:if>
+							<c:if test="${menuOne.manage_name ne null and menuOne.manage_name ne ''}"><span><label>담당자</label> <em>: ${menuOne.manage_name}</em></span></c:if>
+							<c:if test="${menuOne.manage_phone ne null and menuOne.manage_phone ne ''}"><span><label>전화번호</label> <em>: ${menuOne.manage_phone}</em></span></c:if>
+						</div>
+					</c:if>
+				</div>
+			</div>
+		</div>
+	
+	</div>
+
+</div>
+
+<tiles:insertAttribute name="footer" />
