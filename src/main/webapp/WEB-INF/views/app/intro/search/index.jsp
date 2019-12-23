@@ -87,7 +87,8 @@ $(function() {
 		e.preventDefault();
 		var url = $(this).data('param').replace('detail', 'print');
 
-		window.open(url, '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=100,width=700,height=500');
+		var popup = window.open(url, '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=100,width=700,height=500');
+		popup.focus();
 	});
 
 	//검색하기
@@ -512,7 +513,20 @@ $(function() {
 													${i.RETURN_PLAN_DATE}
 												</td>
 												<td>
-													<a href="#" class="btn_print" data-param="${detailURL}" class="btn btn2">자료위치<br/>인쇄</a>
+												<c:choose>
+													<c:when test="${i.WORKING_STATUS eq 'BOL112N'}">
+														<c:choose>
+															<c:when test="${i.RESERVATION_CNT > 0}">
+															
+															</c:when>
+															<c:otherwise>
+																<a href="#" class="btn_print" data-param="${detailURL}" class="btn btn2">자료위치<br/>인쇄</a>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+													</c:otherwise>
+												</c:choose>
 												</td>
 											</tr>
 										</tbody>

@@ -19,6 +19,11 @@ $(function() {
 		}
 	});
 
+	$('a#resve-req-not').on('click', function(e) {
+		e.preventDefault();
+		alert('허용 예약인원이 다 찼습니다. 이용에 불편함을 드려 죄송합니다.');
+	});
+
 	<%-- 무인대출예약 신청 --%>
 	$('a#unmanned-req').on('click', function(e) {
 		e.preventDefault();
@@ -185,7 +190,21 @@ $(function() {
 			<tbody>
 			<tr>
 				<td>${detail.CALL_NO}<br/>
-				<a href="#" id="btn_print" class="btn btn2">청구기호출력</a></td>
+				<c:choose>
+					<c:when test="${detail.WORKING_STATUS eq 'BOL112N'}">
+						<c:choose>
+							<c:when test="${detail.RESERVATION_CNT > 0}">
+							
+							</c:when>
+							<c:otherwise>
+								<a href="#" id="btn_print" class="btn btn2">청구기호출력</a>
+							</c:otherwise>
+						</c:choose>
+					</c:when>
+					<c:otherwise>
+					</c:otherwise>
+				</c:choose>
+				</td>
 				<td>${detail.REG_NO}</td>
 				<td>${detail.SHELF_LOC_NAME}</td>
 				<td>${detail.RETURN_PLAN_DATE}</td>
@@ -258,9 +277,16 @@ $(function() {
 			</c:choose>
 
 			<c:if test="${detail.WORKING_STATUS ne 'BOL112N' and param.booktype ne 'NONBOOK'}">
-			<c:if test="${detail.RESERVATION_CNT < detail.RESERVATION_NUMBER}">
-			<a href="#" id="resve-req" class="btn">예약신청</a>
-			</c:if>
+
+			<c:choose>
+				<c:when test="${detail.RESERVATION_CNT < detail.RESERVATION_NUMBER}">
+					<a href="#" id="resve-req" class="btn">예약신청</a>
+				</c:when>
+				<c:otherwise>
+					<a href="#" id="resve-req-not" class="btn btn5">예약불가</a>
+				</c:otherwise>
+			</c:choose>
+
 			</c:if>
 
 			<a href="javascript:history.back();" id="goBack" class="btn"><i class="fa fa-book"></i><span>목록으로</span></a>

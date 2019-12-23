@@ -337,16 +337,6 @@ $(function(){
 	 * if(!($('body').is('.old-ie'))){ }
 	 */
 
-	// 팝업존
-	if ($('div.popupzone ul').length > 0) {
-		$('div.popupzone ul').bxSlider({
-			mode:'fade',
-			auto:true,
-			controls:true,
-			autoHover:true
-		});
-	}
-
 	var bannerLength1 = $('div.banner-wrap.type1 ul.banner-roll').length;
 	var bannerLength2 = $('div.banner-wrap.type2 ul.banner-roll').length;
 	var bannerLength3 = $('div.banner-wrap.type1 ul.banner-rolls').length;

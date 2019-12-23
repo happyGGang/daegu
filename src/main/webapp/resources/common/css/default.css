@@ -2,6 +2,7 @@
 *{font-style:normal}
 
 /* 웹폰트 */
+/*
 @font-face{
 font-family:'Nanum Gothic';
 font-style:normal;
@@ -23,6 +24,15 @@ font-weight:800;
 src:url(../font/NanumGothic-ExtraBold.eot);
 src:local(※), url(../font/NanumGothic-ExtraBold.woff) format('woff');
 }
+*/
+
+@font-face{
+font-family:'MalgunGothic';
+font-style:normal;
+font-weight:400;
+src:url(../font/MalgunGothic.eot);
+src:local(※), url(../font/MalgunGothic.TTF) format('TTF');
+}
 
 /*! jQuery UI - v1.12.0 - 2016-08-28
 * http://jqueryui.com
@@ -32,8 +42,7 @@ src:local(※), url(../font/NanumGothic-ExtraBold.woff) format('woff');
 
 /* common */
 html,body{width:100%;height:100%}
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td,address{
-	font-family:'Nanum Gothic',Helvetica,Arial,Verdana,Geneva,sans-serif;margin:0;padding:0;line-height:150%;word-break:keep-all}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td,address{font-family:'MalgunGothic',Helvetica,Arial,Verdana,Geneva,sans-serif;margin:0;padding:0;line-height:150%;word-break:keep-all}
 body{font-weight:normal;font-size:14px}
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;margin:0;padding:0}
 h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}
@@ -54,10 +63,11 @@ pre,code,kbd,samp,tt{font-family:monospace;line-height:100%}
 select,input,textarea{font-family:inherit;font-size:inherit;font-weight:inherit}
 select{cursor:pointer}
 
+
 nav,
 .Gnb .gnb-menu>li.mmode,
 .mmode{display:none}
-.mm-panels .mmode{width:100%;text-align:right;height:66px;left:0;top:-66px;background:none;overflow:hidden}
+.mm-panels .mmode{width:100%;text-align:right;height:66px;left:0;top:-66px;background:none;overflow:hidden;border:1px solid #000}
 .mm-panels>.mm-panel.mmode:after,
 .mm-panels>.mm-panel.mmode:before{height:12px}
 .mm-panels .mmode a{display:inline-block;padding:5px 7px;border-radius:7px;text-align:center}
@@ -145,40 +155,6 @@ input[type="radio"][disabled],input[type="checkbox"][disabled],input[type="radio
 .slider .box .control .pager a,
 .control a,
 #footer{position:relative;z-index:5}
-#footer{clear:both}
-#footer .info a{vertical-align:middle;display:inline-block;zoom:1;*display:inline}
-#footer .info a b{font-size:105%}
-#footer .info a.admin{font-weight:bold;color:#2b74c0}
-.footer .site_link > div > div,
-#footer .site_link > div > div{position:relative;display:inline-block;border-right:1px solid #ccc;zoom:1;*display:inline;vertical-align:middle;margin:0}
-.footer .site_link > div > div > a.fsite,
-#footer .site_link > div > div > a.fsite{display:block;padding:0 8px;border:1px solid #ccc;border-right-width:0;text-align:left}
-.footer .site_link > div > div > ul,
-#footer .site_link > div > div > ul{position:absolute;bottom:30px;left:0;width:100%;text-align:left;border-top:1px solid #ccc;background:#fff}
-.footer .site_link > div > div > ul,
-#footer .site_link > div > div > ul{overflow-y:auto;border-right:1px solid #ccc}
-.footer .site_link > div > div > ul > li,
-#footer .site_link > div > div > ul > li{line-height:25px;border-left:1px solid #ccc}
-.footer .site_link > div > div > ul > li > a,
-#footer .site_link > div > div > ul > li > a{color:#666;display:block;padding:3px 6px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.footer .site_link > div > div > a > span,
-#footer .site_link > div > div > a > span{display:inline-block;zoom:1;*display:inline;vertical-align:middle;line-height:28px;height:28px}
-.footer .site_link > div > div > a > span.f1,
-#footer .site_link > div > div > a > span.f1{display:block;width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.footer .site_link > div > div > a > span.f2,
-#footer .site_link > div > div > a > span.f2{position:absolute;right:7px;top:0;width:20px}
-.footer .site_link > div > div > a > span > i,
-#footer .site_link > div > div > a > span > i{border-color:#888 transparent transparent transparent;border-style:solid;border-width:5px 4px 0 4px;width:0;height:0;left:50%;margin-right:4px;position:absolute;top:50%}
-.footer .site_link > div > div > a > span > i,
-.footer .site_link > div > div > a:hover > span > i,
-#footer .site_link > div > div > a > span > i,
-#footer .site_link > div > div > a:hover > span > i{margin-top:-2px}
-.footer .site_link > div > div > a.active > span > i,
-#footer .site_link > div > div > a.active > span > i{border-color:transparent transparent #888 transparent;border-width:0 4px 5px 4px}
-.footer .site_link > div > div > ul > li > a.disabled,
-#footer .site_link > div > div > ul > li > a.disabled{color:#999}
-.footer .site_link > div > div > ul > li > a:hover,
-#footer .site_link > div > div > ul > li > a:hover{background:#5897fb;color:#fff}
 
 /* 페이징 */
 .dataTables_paginate{overflow:hidden;padding:25px 0 0;text-align:center;font-size:0}
@@ -1397,7 +1373,7 @@ filter:alpha(opacity = 0.3*100);
 .tabmenu{padding-bottom:20px}
 .tab-menu>ul{padding:10px 0 0}
 .tab-menu>ul,
-.tabmenu>ul{/* font-size:0; */border-bottom:1px solid #1a518b;padding-left:1px}
+.tabmenu>ul{font-size:0;border-bottom:1px solid #1a518b;padding-left:1px}
 .tab-menu li,
 .tabmenu li{display:inline-block;zoom:1;*display:inline;vertical-align:bottom}
 .tab-menu li a,
@@ -1508,23 +1484,6 @@ filter:alpha(opacity = 0.3*100);
 .doc-body ul.rules > li strong{color:#4c4c4c}
 .doc-body ul.rules ul{padding:2px 0 2px 15px}
 .doc-body a.U{text-decoration:underline!important}
-
-/* 최신글 */
-.main .news li{position:relative;overflow:hidden;background:url('../img/arr-news.gif') no-repeat 0 center;padding:2px 75px 2px 10px}
-.main .news li i,
-.main .news li em,
-.main .news li span{font-style:normal;vertical-align:middle}
-.main .news li span{font-size:90%}
-.main .news li i{background:url('../img/icon_new.gif') no-repeat 0 0;width:10px;height:10px;font-size:0;line-height:0}
-.main .news li em{display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.main .news li span{position:absolute;right:0;top:3px;padding-right:1px}
-.main .news li.new a{display:flex}
-.main .news li.new a img{vertical-align:middle}
-.main .news li.new em{padding-right:15px;background:url('../img/icon_new.gif') no-repeat right center}
-.main .news li.notice a{color:#f43b40;font-weight:bold}
-.main .lt_photo a span{line-height:125%;display:block}
-.main .like_book .bx-controls-auto{display:none}
-.main a.noImg img{background:#ddd url('/resources/common/img/noImg-icon.gif') no-repeat center center}
 
 /* 레이어 팝업 */
 #popupLayer{position:absolute;width:100%}
@@ -1865,7 +1824,7 @@ padding:20px 15px 20px 215px; margin-bottom:25px}
 	.doc-info{border-top:1px solid #ebebeb}
 }
 
-.section{width:1000px;margin:0 auto} /* 기준 */
+.section {width:1260px;margin:0 auto} /* 기준 */
 .lnb{width:255px;float:left}
 .content{margin-right:-255px;width:100%;float:left}
 .doc{margin-right:255px}
@@ -1879,26 +1838,21 @@ padding:20px 15px 20px 215px; margin-bottom:25px}
 	.lnb>h2,
 	.lnb>ul{margin-right:55px}
 }
+
 @media all and (max-width:1000px){
 	.doc{margin-right:0}
-}
-@media screen and (min-width:1160px){
-	.section{width:1140px}
-}
-@media screen and (max-width:1160px){
-	.section{width:auto;margin:0 2%}
+	.section {width:100%;}
 }
 
 @media all and (max-width:650px){
 	.img_uio.mmo{display:none}
-	.m-menu{margin-right:-5px}
 	
 	.webList {display:none}
 	.mobileList {display:block}
 }
+
 @media all and (max-width:330px){
-	.m-menu{margin-right:-8px}
-	.m-menu a{margin-left:0}
+
 }
 
 /* 강의내용 상세보기 */
@@ -1959,4 +1913,4 @@ table td.leftblank { padding-left: 18px; }
 .expiry_box .expiry_t2 p {font-size: 230%; font-weight: bold;}
 .expiry_box .expiry_t2 .f_r {color: #fd4b4b;}
 
-
+.end {clear:both;}

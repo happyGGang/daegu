@@ -30,19 +30,40 @@ ol              { list-style-type: decimal !important;}
 ol ul, ul ol, ul ul, ol ol { margin-top: 0 !important; margin-bottom: 0 !important;}
 br { content: "\A" !important;}
 td { border: 0px !important; padding: 0px !important; border-top:1px dashed #ccc ;}
+.print_btn {text-align:center;padding-top:10px;}
+.print_btn a {padding:5px 13px;margin-left:2px;line-height:18px;background:#f9f9f9;border:1px solid #d5d5d5;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;text-decoration:none;}
+
 @media print {
   @page         { margin: 1% !important;}
   h3,body {margin:0;padding:0}
   blockquote,
   pre           { page-break-inside: avoid !important;}
   tr.first td{border-top:0}
+  .print_btn {display:none}
 }
 </style>
 <script>
-setTimeout(window.print(), 1000);
+//setTimeout(window.print(), 1000);
+
+function print_ac()
+{
+	window.print();
+	setTimeout (window.close,5000);
+}
+
+function doInit() {
+
+  window.onblur = doOutFocus;
+
+}
+
+function doOutFocus() {
+  window.focus();
+}
+
 </script>
 </head>
-<body topmargin="0">
+<body topmargin="0" onLoad="doInit()">
 	<div id="target">
 		<div style="font-size: 15px; font-weight: bold;font-family: 돋움"><h3>&nbsp;&nbsp;&nbsp;&nbsp;[자료위치안내]</h3></div>
 		<table cellspacing="0" cellpadding="0">
@@ -54,7 +75,7 @@ setTimeout(window.print(), 1000);
 			</colgroup>
 			<tbody>
 				<tr class="first">
-				   <td colspan="2" class="first last td1">------------------------------------------------------</td>
+				   <td colspan="2" class="first last td1">-------------------------------------------</td>
 				</tr>
 				<tr>
 					<td style="font-size: 14px; text-align: justify; font-weight: bold;font-family: 돋움" class="first td1">서&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;명 : </td>
@@ -77,10 +98,14 @@ setTimeout(window.print(), 1000);
 				    <td style="font-size: 14px; font-weight: bold;font-family: 돋움 " class="last td2">${detail.SHELF_LOC_NAME}</td>
 				</tr>
 				<tr>
-				   <td colspan="2" class="first last td1">------------------------------------------------------</td>
+				   <td colspan="2" class="first last td1">-------------------------------------------</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
+
+	<div class="print_btn"><a href="javascript:print_ac();">인쇄</a></div>
 </body>
 </html>
+
+
