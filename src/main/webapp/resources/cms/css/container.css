@@ -145,7 +145,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#60ffffff,endCol
 .ui-dialog-content table.type2 td .ui-state-highlight i,
 .ui-dialog-content table.type2 td .ui-state-error i,
 .ui-dialog-content table.type2 td .ui-state-highlight em,
-.ui-dialog-content table.type2 td .ui-state-error em{float:left;line-height:140%}
+.ui-dialog-content table.type2 td .ui-state-error em{/* float:left; */line-height:140%}
 .ui-dialog-content table.type2 td .ui-state-highlight em,
 .ui-dialog-content table.type2 td .ui-state-error em{margin-left:-17px;padding-left:17px}
 .ui-dialog-content table.type2 td .ui-state-highlight,

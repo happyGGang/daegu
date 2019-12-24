@@ -3,6 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<script src="${getContextPath}/resources/cms/js/malsup.jquery.form.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="/resources/common/smart_editor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript">
 var oEditors = [];
@@ -44,9 +45,37 @@ $(function() {
 				"class": 'btn btn1',
 				click: function() {
 					oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
-					if(doAjaxPost($('#bookPackageEdit'))) {
-						location.reload();
+// 					if(doAjaxPost($('#bookPackageEdit'))) {
+// 						location.reload();
+// 					}
+					var file = $('#mfile');
+					if ( $('#mfile').val() == '' ) {
+						$('#mfile').remove();
 					}
+
+					jQuery.ajaxSettings.traditional = true;
+					var option = {
+						url : 'save.do',
+						type : "POST",
+						success: function(response) {
+							 if(response.valid) {
+				                 if(response.message != null && response.message.replace(/\s/g,'').length!=0) {
+									alert(response.message);
+									location.reload();
+				                 }
+							} else {
+				                for(var i =0 ; i < response.result.length ; i++) {
+									alert(response.result[i].code);
+									$('#'+response.result[i].field).focus();
+									break;
+								}
+							}
+				         },
+				         error: function(jqXHR, textStatus, errorThrown) {
+				             alert('[' + textStatus + ']관리자에게 문의하세요. : ' + errorThrown);
+				         }
+					};
+					$('#bookPackageEdit').ajaxSubmit(option);
 				}
 			},{
 				text: "취소",
@@ -233,6 +262,12 @@ function getNaverData(arg) {
 	        	<td colspan="2">
 	        		<form:textarea path="content" rows="10" cols="100" cssStyle="width:95%;"/>
 	        	</td>
+	        </tr>
+	        <tr>
+	        	<th>도서이미지</th>
+	        	<td class="fileTd">
+        			<input type="file" id="mfile" name="mfile" class="text" title="파일선택" />
+        		</td>
 	        </tr>
 		</tbody>
 	</table>
