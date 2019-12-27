@@ -1,0 +1,180 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<script type="text/javascript">
+$(function() {
+	
+	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
+		autoOpen: false,
+		resizable: false,
+		modal: true,
+	    open: function(){
+	        $('.ui-widget-overlay').addClass('custom-overlay');
+	    },
+	    close: function(){
+	        $('.ui-widget-overlay').removeClass('custom-overlay');
+	        $('body > div.ui-dialog').remove();
+	    },
+		buttons: [
+			{
+				text: "저장",
+				"class": 'btn btn1',
+				click: function() {
+					if($('#agreeChk').prop('checked') == false) {
+						alert('신청 동의에 체크해주시기 바랍니다.');
+						$('#agreeChk').focus();
+						return false;
+					}
+					
+					if($('#agreeChk2').prop('checked') == false) {
+						alert('개인정보 동의에 체크해주시기 바랍니다.');
+						$('#agreeChk2').focus();
+						return false;
+					}
+					
+					if(doAjaxPost($('#pictureBookLoan'))) {
+						location.reload();
+					}
+				}
+			},{
+				text: "취소",
+				"class": 'btn',
+				click: function() {
+					$(this).dialog('destroy');
+				}
+			}
+		]
+	});
+
+	$("#dialog-1").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
+		width: 600,
+		height: 600
+	});
+	
+	var sysDate = new Date();
+	var sysYear = sysDate.getFullYear();
+	var sysMonth = sysDate.getMonth() + 1;
+	var currYear = '${pictureBook.loan_year}';
+	var currMonth = '${pictureBook.loan_month}';
+	
+	for(var i = 2016; i <= sysYear+1; i++) {
+		var selected = '';
+		selected = i == currYear ? 'selected="selected"' : '';
+		$('#loan_year').append('<option value="'+i+'" '+selected+'>'+i+'</option>');
+	}
+	
+	for(var j = 1; j <= 12; j++) {
+		var selected = '';
+		selected = j == currMonth ? 'selected="selected"' : '';
+		$('#loan_month').append('<option value="'+j+'" '+selected+'>'+j+'</option>');
+	}
+	
+});
+
+</script>
+<style>
+input[type="checkbox"]:focus {outline: 1px solid red;}
+</style>
+<form:form id="pictureBookLoan" modelAttribute="pictureBook" action="loanSave.do" method="POST">
+	<form:hidden path="editMode" id="editMode_u"/>
+	<form:hidden path="pay_yn" id="pay_yn_u"/>
+	<form:hidden path="picture_book_idx" id="book_package_idx_u"/>
+	<form:hidden path="picture_book_loan_idx" id="book_package_loan_idx_u"/>
+	<table class="type2">
+		<colgroup>
+			<col width="130" />
+			<col width="*"/>
+		</colgroup>
+		<tbody>
+			<tr>
+				<th>책 꾸러미명</th>
+				<td>${pictureBook.picture_book_subject}</td>
+			</tr>
+			<tr>
+				<th>대출기간(<span style="color: red;font-weight: bold;">*</span>)</th>
+				<td>
+					<form:select path="loan_year"></form:select>
+					<form:select path="loan_month"></form:select>
+					<div class="ui-state-highlight">
+						<i class="fa fa-question-circle"></i>
+						<em>원화꾸러미는 매달 26일(주말 공휴일인경우, 그 전날) 자동 반송 요청됩니다. 미리 반납 준비를 해주시기 바랍니다.</em>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>신청자(<span style="color: red;font-weight: bold;">*</span>)</th>
+				<td>
+					<form:input path="request_name" cssClass="text" cssStyle="width:100px;"/>
+				</td>
+			</tr>
+			<tr>
+				<th>휴대폰(<span style="color: red;font-weight: bold;">*</span>)</th>
+				<td>
+					<form:select path="phone_1" cssStyle="selectmenu">
+						<form:option value="010">010</form:option>
+						<form:option value="011">012</form:option>
+						<form:option value="016">016</form:option>
+						<form:option value="017">017</form:option>
+						<form:option value="018">018</form:option>
+						<form:option value="019">019</form:option>
+					</form:select>
+					<span>-</span>
+					<form:input path="phone_2" cssClass="text" cssStyle="width:50px;"/>
+					<span>-</span>
+					<form:input path="phone_3" cssClass="text" cssStyle="width:50px;"/>
+				</td>
+			</tr>
+			<tr>
+				<th>학교 연락처(<span style="color: red;font-weight: bold;">*</span>)</th>
+				<td>
+					<form:select path="school_tel_1" cssClass="selectmenu">
+						<form:option value="053">053</form:option>
+					</form:select>
+					<span>-</span>
+					<form:input path="school_tel_2" cssClass="text" cssStyle="width:50px;"/>
+					<span>-</span>
+					<form:input path="school_tel_3" cssClass="text" cssStyle="width:50px;"/>
+					<div class="ui-state-highlight">
+						<i class="fa fa-question-circle"></i>
+						<em>연락처는 원화택배 발송을 위한 필수 정보입니다. 꼭 기입하여 주세요.</em>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>신청사유</th>
+				<td>
+					<form:textarea path="request_content" cols="60" rows="5" cssStyle="width:95%;"/>
+				</td>
+			</tr>
+			<tr>
+				<th>진행상태</th>
+				<td>
+					<form:select path="request_status" cssClass="selectmenu">
+						<form:option value="1">신청완료</form:option>
+						<form:option value="2">대출중</form:option>
+						<form:option value="3">반납신청</form:option>
+						<form:option value="4">반납요청완료</form:option>
+						<form:option value="5">반납완료</form:option>
+						<form:option value="6">대출불가</form:option>
+					</form:select>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div>
+		<span>
+			그림책 원화는 매달 26일 자동 반납 요청되어 27일 배송했던 장소로 택배 기사님이 방문합니다. 기사님이 바로 수거하실 수 있도록 준비해 주시길 바랍니다.<br/>
+			※ 26일이 공휴일일 경우 그 전날, 주말일 경우 앞의 금요일에 자동 반납 요청됨
+		</span>
+		<input type="checkbox" id="agreeChk"><label for="agreeChk">위 내용을 확인하고 신청합니다.</label>
+	</div>
+	<div>
+		<h4>개인정보 수집 및 이용 안내</h4>
+		<ul>
+			<li>기재해주신 개인정보(학교명,이름, 연락처 등)는 도서관 서비스 제공을 위한 목적으로만 사용합니다.</li>
+		</ul>
+		<input type="checkbox" id="agreeChk2"><label for="agreeChk2">도서관 서비스를 제공 받기 위해 상기 개인정보(학교명, 이름, 연락처 등)제공 및 이용에 동의합니다.</label>
+	</div>
+</form:form>

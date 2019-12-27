@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.pictureBook.PictureBookDao">
+
+	<select id="getPictureBookList" resultType="kr.go.gbelib.app.cms.module.pictureBook.PictureBook">
+		${pagingTop}
+		SELECT
+			picture_book_idx, picture_book_name, picture_book_subject, author, publisher,
+			publish_year, isbn, picture_price, picture_count, keyword,
+			category, desc_link, thumb_image, content, pay_yn,
+			org_file_name, server_file_name, file_extension, file_size, add_id, add_date
+		FROM
+			PICTURE_BOOK
+		WHERE
+			pay_yn = #{pay_yn}
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="category != null and category != ''">
+		AND	category = #{category}
+		</if>
+		ORDER BY picture_book_idx DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getPictureBookCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			PICTURE_BOOK
+		WHERE
+			pay_yn = #{pay_yn}
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="category != null and category != ''">
+		AND	category = #{category}
+		</if>
+	</select>
+	
+	<select id="getPictureBookOne" resultType="kr.go.gbelib.app.cms.module.pictureBook.PictureBook">
+		SELECT
+			picture_book_idx, picture_book_name, picture_book_subject, author, publisher,
+			publish_year, isbn, picture_price, picture_count, keyword,
+			category, desc_link, thumb_image, content, pay_yn,
+			org_file_name, server_file_name, file_extension, file_size, add_id, add_date
+		FROM
+			PICTURE_BOOK
+		WHERE
+			pay_yn = #{pay_yn}
+		AND	picture_book_idx = #{picture_book_idx}
+	</select>
+	
+	<insert id="addPictureBook">
+		<selectKey keyProperty="picture_book_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(picture_book_idx), 0) + 1 FROM PICTURE_BOOK
+		</selectKey>
+		INSERT INTO
+			PICTURE_BOOK
+		(
+			picture_book_idx, picture_book_name, picture_book_subject, author, publisher,
+			publish_year, isbn, picture_price, picture_count, keyword,
+			category, desc_link, thumb_image, content, pay_yn,
+			<if test="org_file_name != null and org_file_name != ''">
+			org_file_name, server_file_name, file_extension, file_size,
+			</if>
+			add_id, add_date
+		)
+		VALUES
+		(
+			#{picture_book_idx}, #{picture_book_name}, #{picture_book_subject}, #{author}, #{publisher},
+			#{publish_year}, #{isbn}, #{picture_price}, #{picture_count}, #{keyword},
+			#{category}, #{desc_link}, #{thumb_image}, #{content}, #{pay_yn},
+			<if test="org_file_name != null and org_file_name != ''">
+			#{org_file_name}, #{server_file_name}, #{file_extension}, #{file_size},
+			</if>
+			#{add_id}, SYSDATE
+		)
+	</insert>
+	
+	<update id="modifyPictureBook">
+		UPDATE
+			PICTURE_BOOK
+		SET
+			picture_book_name = #{picture_book_name},
+			picture_book_subject = #{picture_book_subject},
+			author = #{author},
+			publisher = #{publisher},
+			publish_year = #{publish_year},
+			isbn = #{isbn},
+			picture_price = #{picture_price},
+			picture_count = #{picture_count},
+			keyword = #{keyword},
+			category = #{category},
+			desc_link = #{desc_link},
+			thumb_image = #{thumb_image},
+			content = #{content},
+			<if test="org_file_name != null and org_file_name != ''">
+			org_file_name = #{org_file_name},
+			server_file_name = #{server_file_name},
+			file_extension = #{file_extension},
+			file_size = #{file_size},
+			</if>
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
+		WHERE
+			pay_yn = #{pay_yn}
+		AND	picture_book_idx = #{picture_book_idx}
+	</update>
+	
+	<delete id="deletePictureBook">
+		DELETE FROM
+			PICTURE_BOOK
+		WHERE
+			pay_yn = #{pay_yn}
+		AND	picture_book_idx = #{picture_book_idx}
+	</delete>
+	
+	<select id="getLoanableMonth" resultType="kr.go.gbelib.app.cms.module.pictureBook.PictureBook">
+		SELECT
+			TO_CHAR(loan_start_date, 'yyyy') AS loan_year, TO_CHAR(loan_start_date, 'MM') AS loan_month
+		FROM
+			PICTURE_BOOK_LOAN
+		WHERE
+			picture_book_idx = #{picture_book_idx}
+		AND	TO_CHAR(loan_start_date, 'yyyy') = #{loan_year}
+	</select>
+	
+	<select id="getPictureBookLoanList" resultType="kr.go.gbelib.app.cms.module.pictureBook.PictureBook">
+		${pagingTop}
+		SELECT
+			a.picture_book_idx, b.picture_book_loan_idx, a.picture_book_subject, request_name, school_name,
+			loan_start_date, loan_end_date, TO_CHAR(loan_start_date, 'yyyy') AS loan_year, TO_CHAR(loan_start_date, 'MM') AS loan_month, pay_yn,
+			phone, school_tel, request_content, request_status, b.add_id, b.add_date
+		FROM
+			PICTURE_BOOK a, PICTURE_BOOK_LOAN b
+		WHERE
+			a.picture_book_idx = b.picture_book_idx
+		AND	pay_yn = #{pay_yn}
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="loan_year != null and loan_year != ''">
+		AND	TO_CHAR(loan_start_date, 'yyyy') = #{loan_year}
+		</if>
+		<if test="loan_month != null and loan_month != ''">
+		AND	TO_CHAR(loan_start_date, 'MM') = #{loan_month}
+		</if>
+		<if test="request_status != null and request_status != ''">
+		AND	request_status = #{request_status}
+		</if>
+		${pagingBottom}
+	</select>
+	
+	<select id="getPictureBookLoanCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			PICTURE_BOOK a, PICTURE_BOOK_LOAN b
+		WHERE
+			a.picture_book_idx = b.picture_book_idx
+		AND	pay_yn = #{pay_yn}
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="loan_year != null and loan_year != ''">
+		AND	TO_CHAR(loan_start_date, 'yyyy') = #{loan_year}
+		</if>
+		<if test="loan_month != null and loan_month != ''">
+		AND	TO_CHAR(loan_start_date, 'MM') = #{loan_month}
+		</if>
+		<if test="request_status != null and request_status != ''">
+		AND	request_status = #{request_status}
+		</if>
+	</select>
+	
+	<insert id="addPictureBookLoan">
+		<selectKey keyProperty="picture_book_loan_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(picture_book_loan_idx), 0) + 1 FROM PICTURE_BOOK_LOAN
+		</selectKey>
+		INSERT INTO
+			PICTURE_BOOK_LOAN
+		(
+			picture_book_idx, picture_book_loan_idx, request_name, school_name,
+			loan_start_date, loan_end_date, phone, school_tel,
+			request_content, request_status, add_id, add_date
+		)
+		VALUES
+		(
+			#{picture_book_idx}, #{picture_book_loan_idx}, #{request_name}, #{school_name},
+			#{loan_start_date}, #{loan_end_date}, #{phone}, #{school_tel},
+			#{request_content}, #{request_status}, #{add_id}, SYSDATE
+		)
+	</insert>
+	
+	<delete id="deletePictureBookLoan">
+		DELETE FROM
+			PICTURE_BOOK_LOAN
+		WHERE
+			picture_book_loan_idx = #{picture_book_loan_idx}
+	</delete>
+	
+	<delete id="deletePictureBookLoanAll">
+		DELETE FROM
+			PICTURE_BOOK_LOAN
+		WHERE
+			picture_book_idx = #{picture_book_idx}
+	</delete>
+	
+	<update id="statusChangeAll">
+		UPDATE
+			PICTURE_BOOK_LOAN
+		SET
+			request_status = #{request_status}
+		WHERE
+			picture_book_loan_idx IN
+			<foreach collection="picture_book_loan_arr" open="(" close=")" separator="," item="i">
+			#{i}
+			</foreach>
+	</update>
+	
+</mapper>
