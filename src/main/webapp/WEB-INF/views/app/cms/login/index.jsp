@@ -51,7 +51,7 @@ $(document).ready(function() {
 				<div class="title">
 					<h1>
 						<img src="/resources/cms/img/logo.png" alt="로고 이미지 입니다."/>
-						<b>통합 홈페이지 관리 시스템</b>
+						<b>도서관 통합 허브시스템</b>
 					</h1>
 					<i class='fa fa-power-off'></i>
 				</div>
