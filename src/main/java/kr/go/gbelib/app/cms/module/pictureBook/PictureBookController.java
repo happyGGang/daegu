@@ -166,7 +166,7 @@ public class PictureBookController extends BaseController {
 	public String loanEdit(Model model, PictureBook pictureBook, HttpServletRequest request) throws AuthException {
 		if(pictureBook.getEditMode().equals("MODIFY")) {
 			checkAuth("U", model, request);
-			model.addAttribute("pictureBook", service.copyObjectPaging(pictureBook, service.getPictureBookOne(pictureBook)));
+			model.addAttribute("pictureBook", service.copyObjectPaging(pictureBook, service.getPictureBookLoanOne(pictureBook)));
 		} else {
 			checkAuth("C", model, request);
 			model.addAttribute("pictureBook", pictureBook);
@@ -224,7 +224,7 @@ public class PictureBookController extends BaseController {
 				res.setMessage("등록되었습니다.");
 			} else if (pictureBook.getEditMode().equals("MODIFY")) {
 				pictureBook.setModify_id(getSessionMemberId(request));
-//				service.modifyPictureBook(pictureBook);
+				service.modifyPictureBookLoan(pictureBook);
 				res.setValid(true);
 				res.setMessage("수정되었습니다.");
 			} else if (pictureBook.getEditMode().equals("DELETE")) {
@@ -243,6 +243,16 @@ public class PictureBookController extends BaseController {
 		}
 
 		return res;
+	}
+	
+	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
+	public PictureBookView excel(Model model, PictureBook pictureBook, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		List<PictureBook> pictureBookLoanList = service.getPictureBookLoanList(pictureBook);
+		
+		model.addAttribute("pictureBook", pictureBook);
+		model.addAttribute("pictureBookLoanList", pictureBookLoanList);
+
+		return new PictureBookView();
 	}
 
 }

@@ -9,8 +9,8 @@ $(function() {
 	// 책 꾸러미 대출 수정
 	$('a.dialog-edit').on('click', function(e) {
 		e.preventDefault();
-		$('#dialog-2').load('loanEdit.do?editMode=MODIFY&picture_book_loan_idx='+$(this).attr('keyValue'), function(response, status, xhr) {
-			$('#dialog-2').dialog('open');
+		$('#dialog-1').load('loanEdit.do?editMode=MODIFY&picture_book_loan_idx='+$(this).attr('keyValue'), function(response, status, xhr) {
+			$('#dialog-1').dialog('open');
 		});		
 	});
 	
@@ -97,8 +97,7 @@ $(function() {
 	
 	$('a#excelDownload').on('click', function(e) {
 		e.preventDefault();
-		if('${fn:length(loanList)}' > 0) {
-			$('#editMode').val('pictureBookLoan');
+		if('${fn:length(pictureBookLoanList)}' > 0) {
 			$('#pictureBook').attr('method', 'POST');
 			$('#pictureBook').attr('action', 'excelDownload.do').submit();
 			$('form#pictureBook').submit();
@@ -181,11 +180,8 @@ $(function() {
 					<td>
 						<a href="#" class="dialog-edit" keyValue="${i.picture_book_loan_idx}">${i.picture_book_subject}</a>
 					</td>
-					<td class="center">${i.loan_year}-${i.loan_month}</td>
-					<td>
-						${i.school_name}<br/>
-						/${i.request_name}
-					</td>
+					<td class="center">${fn:substring(i.loan_start_date, 0, 7)}</td>
+					<td>${i.school_name}<br/>/${i.request_name}</td>
 					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>
 					<td>${i.pay_yn eq 'Y' ? '유료' : '무료'}</td>
 					<td>
@@ -243,4 +239,4 @@ $(function() {
 	</div>
 </form:form>
 
-<div id="dialog-2" class="dialog-common" title="대출정보"></div>
+<div id="dialog-1" class="dialog-common" title="대출정보"></div>

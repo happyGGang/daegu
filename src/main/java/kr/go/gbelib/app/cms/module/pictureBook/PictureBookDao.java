@@ -2,6 +2,8 @@ package kr.go.gbelib.app.cms.module.pictureBook;
 
 import java.util.List;
 
+import kr.co.whalesoft.framework.utils.PagingUtils;
+
 public interface PictureBookDao {
 
 	public List<PictureBook> getPictureBookList(PictureBook pictureBook);
@@ -19,6 +21,8 @@ public interface PictureBookDao {
 	public List<PictureBook> getPictureBookLoanList(PictureBook pictureBook);
 	
 	public int getPictureBookLoanCount(PictureBook pictureBook);
+	
+	public PictureBook getPictureBookLoanOne(PictureBook pictureBook);
 
 	public int addPictureBookLoan(PictureBook pictureBook);
 	

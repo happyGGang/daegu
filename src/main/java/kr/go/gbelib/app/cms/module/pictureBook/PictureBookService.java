@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.file.FileStorage;
+import kr.co.whalesoft.framework.utils.PagingUtils;
 
 @Service
 public class PictureBookService extends BaseService {
@@ -111,9 +112,29 @@ public class PictureBookService extends BaseService {
 	public int getPictureBookLoanCount(PictureBook pictureBook) {
 		return dao.getPictureBookLoanCount(pictureBook);
 	}
+	
+	public PictureBook getPictureBookLoanOne(PictureBook pictureBook) {
+		pictureBook = dao.getPictureBookLoanOne(pictureBook);
+		
+		String[] phone = pictureBook.getPhone().split("-");
+		pictureBook.setPhone_1(phone[0]);
+		pictureBook.setPhone_2(phone[1]);
+		pictureBook.setPhone_3(phone[2]);
+		
+		String[] school_tel = pictureBook.getSchool_tel().split("-");
+		pictureBook.setSchool_tel_1(school_tel[0]);
+		pictureBook.setSchool_tel_2(school_tel[1]);
+		pictureBook.setSchool_tel_3(school_tel[2]);
+		
+		return pictureBook;
+	}
 
 	public int addPictureBookLoan(PictureBook pictureBook) {
 		return dao.addPictureBookLoan(pictureBook);
+	}
+	
+	public int modifyPictureBookLoan(PictureBook pictureBook) {
+		return dao.modifyPictureBookLoan(pictureBook);
 	}
 	
 	public int deletePictureBookLoan(PictureBook pictureBook) {
@@ -123,6 +144,5 @@ public class PictureBookService extends BaseService {
 	public int statusChangeAll(PictureBook pictureBook) {
 		return dao.statusChangeAll(pictureBook);
 	}
-
 
 }

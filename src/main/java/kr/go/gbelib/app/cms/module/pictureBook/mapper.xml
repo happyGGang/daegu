@@ -174,6 +174,18 @@
 		</if>
 	</select>
 	
+	<select id="getPictureBookLoanOne" resultType="kr.go.gbelib.app.cms.module.pictureBook.PictureBook">
+		SELECT
+			a.picture_book_idx, b.picture_book_loan_idx, a.picture_book_subject, request_name, school_name,
+			loan_start_date, loan_end_date, TO_CHAR(loan_start_date, 'yyyy') AS loan_year, TO_CHAR(loan_start_date, 'MM') AS loan_month, pay_yn,
+			phone, school_tel, request_content, request_status, b.add_id, b.add_date
+		FROM
+			PICTURE_BOOK a, PICTURE_BOOK_LOAN b
+		WHERE
+			a.picture_book_idx = b.picture_book_idx
+		and b.picture_book_loan_idx = #{picture_book_loan_idx}
+	</select>
+	
 	<insert id="addPictureBookLoan">
 		<selectKey keyProperty="picture_book_loan_idx" resultType="int" order="BEFORE">
 			SELECT NVL(MAX(picture_book_loan_idx), 0) + 1 FROM PICTURE_BOOK_LOAN
@@ -192,6 +204,25 @@
 			#{request_content}, #{request_status}, #{add_id}, SYSDATE
 		)
 	</insert>
+	
+	<update id="modifyPictureBookLoan">
+		UPDATE
+			PICTURE_BOOK_LOAN
+		SET
+			request_name = #{request_name},
+			school_name = #{school_name},
+			loan_start_date = #{loan_start_date},
+			loan_end_date = #{loan_end_date},
+			phone = #{phone},
+			school_tel = #{school_tel},
+			request_content = #{request_content},
+			request_status = #{request_status},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
+		WHERE
+			picture_book_idx = #{picture_book_idx}
+		AND	picture_book_loan_idx = #{picture_book_loan_idx}
+	</update>
 	
 	<delete id="deletePictureBookLoan">
 		DELETE FROM

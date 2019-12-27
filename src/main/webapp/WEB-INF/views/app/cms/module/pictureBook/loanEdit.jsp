@@ -22,16 +22,18 @@ $(function() {
 				text: "저장",
 				"class": 'btn btn1',
 				click: function() {
-					if($('#agreeChk').prop('checked') == false) {
-						alert('신청 동의에 체크해주시기 바랍니다.');
-						$('#agreeChk').focus();
-						return false;
-					}
-					
-					if($('#agreeChk2').prop('checked') == false) {
-						alert('개인정보 동의에 체크해주시기 바랍니다.');
-						$('#agreeChk2').focus();
-						return false;
+					if($('#editMode_u').val() == 'ADD') {
+						if($('#agreeChk').prop('checked') == false) {
+							alert('신청 동의에 체크해주시기 바랍니다.');
+							$('#agreeChk').focus();
+							return false;
+						}
+						
+						if($('#agreeChk2').prop('checked') == false) {
+							alert('개인정보 동의에 체크해주시기 바랍니다.');
+							$('#agreeChk2').focus();
+							return false;
+						}
 					}
 					
 					if(doAjaxPost($('#pictureBookLoan'))) {
@@ -62,13 +64,13 @@ $(function() {
 	for(var i = 2016; i <= sysYear+1; i++) {
 		var selected = '';
 		selected = i == currYear ? 'selected="selected"' : '';
-		$('#loan_year').append('<option value="'+i+'" '+selected+'>'+i+'</option>');
+		$('#loan_year_edit').append('<option value="'+i+'" '+selected+'>'+i+'</option>');
 	}
 	
 	for(var j = 1; j <= 12; j++) {
 		var selected = '';
 		selected = j == currMonth ? 'selected="selected"' : '';
-		$('#loan_month').append('<option value="'+j+'" '+selected+'>'+j+'</option>');
+		$('#loan_month_edit').append('<option value="'+j+'" '+selected+'>'+j+'</option>');
 	}
 	
 });
@@ -95,8 +97,8 @@ input[type="checkbox"]:focus {outline: 1px solid red;}
 			<tr>
 				<th>대출기간(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
-					<form:select path="loan_year"></form:select>
-					<form:select path="loan_month"></form:select>
+					<form:select path="loan_year" id="loan_year_edit" cssClass="selectmenu"></form:select>
+					<form:select path="loan_month" id="loan_month_edit" cssClass="selectmenu"></form:select>
 					<div class="ui-state-highlight">
 						<i class="fa fa-question-circle"></i>
 						<em>원화꾸러미는 매달 26일(주말 공휴일인경우, 그 전날) 자동 반송 요청됩니다. 미리 반납 준비를 해주시기 바랍니다.</em>
@@ -112,7 +114,7 @@ input[type="checkbox"]:focus {outline: 1px solid red;}
 			<tr>
 				<th>휴대폰(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
-					<form:select path="phone_1" cssStyle="selectmenu">
+					<form:select path="phone_1" cssClass="selectmenu">
 						<form:option value="010">010</form:option>
 						<form:option value="011">012</form:option>
 						<form:option value="016">016</form:option>
@@ -163,18 +165,20 @@ input[type="checkbox"]:focus {outline: 1px solid red;}
 			</tr>
 		</tbody>
 	</table>
-	<div>
-		<span>
-			그림책 원화는 매달 26일 자동 반납 요청되어 27일 배송했던 장소로 택배 기사님이 방문합니다. 기사님이 바로 수거하실 수 있도록 준비해 주시길 바랍니다.<br/>
-			※ 26일이 공휴일일 경우 그 전날, 주말일 경우 앞의 금요일에 자동 반납 요청됨
-		</span>
-		<input type="checkbox" id="agreeChk"><label for="agreeChk">위 내용을 확인하고 신청합니다.</label>
-	</div>
-	<div>
-		<h4>개인정보 수집 및 이용 안내</h4>
-		<ul>
-			<li>기재해주신 개인정보(학교명,이름, 연락처 등)는 도서관 서비스 제공을 위한 목적으로만 사용합니다.</li>
-		</ul>
-		<input type="checkbox" id="agreeChk2"><label for="agreeChk2">도서관 서비스를 제공 받기 위해 상기 개인정보(학교명, 이름, 연락처 등)제공 및 이용에 동의합니다.</label>
+	<div ${pictureBook.editMode eq 'MODIFY' ? 'style="display: none;"' : ''}>
+		<div>
+			<span>
+				그림책 원화는 매달 26일 자동 반납 요청되어 27일 배송했던 장소로 택배 기사님이 방문합니다. 기사님이 바로 수거하실 수 있도록 준비해 주시길 바랍니다.<br/>
+				※ 26일이 공휴일일 경우 그 전날, 주말일 경우 앞의 금요일에 자동 반납 요청됨
+			</span>
+			<input type="checkbox" id="agreeChk"><label for="agreeChk">위 내용을 확인하고 신청합니다.</label>
+		</div>
+		<div>
+			<h4>개인정보 수집 및 이용 안내</h4>
+			<ul>
+				<li>기재해주신 개인정보(학교명,이름, 연락처 등)는 도서관 서비스 제공을 위한 목적으로만 사용합니다.</li>
+			</ul>
+			<input type="checkbox" id="agreeChk2"><label for="agreeChk2">도서관 서비스를 제공 받기 위해 상기 개인정보(학교명, 이름, 연락처 등)제공 및 이용에 동의합니다.</label>
+		</div>
 	</div>
 </form:form>
