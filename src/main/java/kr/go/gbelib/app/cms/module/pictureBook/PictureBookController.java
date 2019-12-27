@@ -46,13 +46,14 @@ public class PictureBookController extends BaseController {
 		return basePath + "index" + url;
 	}
 	
-	@RequestMapping (value = {"/view.*"}, method = RequestMethod.GET)
-	public String view(Model model, PictureBook pictureBook, HttpServletRequest request) throws AuthException {
+	@RequestMapping (value = {"/view{url}.*"}, method = RequestMethod.GET)
+	public String view(Model model, PictureBook pictureBook, HttpServletRequest request,  @PathVariable("url") String url) throws AuthException {
 		checkAuth("R", model, request);
 		String loan_year = pictureBook.getLoan_year();
 		
 		pictureBook = (PictureBook)service.copyObjectPaging(pictureBook, service.getPictureBookOne(pictureBook));
 		pictureBook.setLoan_year(loan_year);
+		pictureBook.setBefore_url(url);
 		
 		model.addAttribute("pictureBook", pictureBook);
 		model.addAttribute("loanableMonth", service.getLoanableMonth(pictureBook));

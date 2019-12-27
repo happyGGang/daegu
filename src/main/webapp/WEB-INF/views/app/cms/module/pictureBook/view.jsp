@@ -18,7 +18,7 @@ $(function() {
 	
 	$('#list-btn').on('click', function(e) {
 		e.preventDefault();
-		var url = 'index.do';
+		var url = 'index${pictureBook.before_url}.do';
 		doGetLoad(url, $('#pictureBook').serialize());
 	});
 	

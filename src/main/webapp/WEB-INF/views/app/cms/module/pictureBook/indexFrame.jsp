@@ -38,12 +38,12 @@ $(function() {
 	$('.dialog-view').on('click', function(e) {
 		e.preventDefault();
 		var formData = 'editMode=ADD&pay_yn='+$('#pay_yn').val() + '&viewPage='+$('#viewPage').val() + '&picture_book_idx='+$(this).attr('keyValue') + '&loan_year=2020';
-		doGetLoad('view.do', formData)
+		doGetLoad('viewFrame.do', formData)
 	});
 	
-	$('a#frame-btn').on('click', function(e) {
+	$('a#list-btn').on('click', function(e) {
 		e.preventDefault();
-		doGetLoad('indexFrame.do', $('form#pictureBook').serialize());
+		doGetLoad('index.do', $('form#pictureBook').serialize());
 	});
 	
 	$('button#search_btn').on('click', function(e) {
@@ -113,8 +113,8 @@ $(function() {
 			</h3>
 		</div>
 		<div class="btn-box">
-			<a href="#" class="dialog-req" keyValue="${i.picture_book_idx}">신청하기</a>
-			<a href="#" class="dialog-delete" keyValue="${i.picture_book_idx}">삭제</a>
+			<a href="#" class="dialog-view" keyValue="${i.picture_book_idx}">신청하기</a>
+			<a href="#" class="delete-btn" keyValue="${i.picture_book_idx}">삭제</a>
 		</div>
 	</div>
 	</c:forEach>
@@ -127,6 +127,7 @@ $(function() {
 
 <jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 	<jsp:param name="formId" value="#pictureBook"/>
+	<jsp:param name="pagingUrl" value="indexFrame.do"/>
 </jsp:include>
 
 <div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
