@@ -183,7 +183,7 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 						return false;
 					}
 				} else {
-					if (requestURL.startsWith("http://") && !request.getServerName().contains("localhost")) {
+					if(!StringUtils.equals(System.getProperty("spring.profiles.active"), "localServer")) {
 						List<String> parameters = new ArrayList<String>();
 						@SuppressWarnings ("unchecked")
 						Enumeration<String> result = request.getParameterNames();
