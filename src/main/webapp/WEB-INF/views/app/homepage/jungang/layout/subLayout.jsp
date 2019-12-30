@@ -1,5 +1,6 @@
-<%@ page language="java" pageEncoding="utf-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
 <tiles:insertAttribute name="header" />
@@ -13,24 +14,21 @@ $(function() {
 	}
 });
 </script>
+
 <div id="wrap">
-	
 	<tiles:insertAttribute name="top" />
 	<tiles:insertAttribute name="topMenu" />
-	
-	<div id="container" class="subpage">
-		<div class="sub-visual" <c:if test="${menuOne.menu_img ne null and menuOne.menu_img ne ''}">style="background-image: url('/data/menu/${menuOne.homepage_id}/${menuOne.menu_img}')"</c:if>>
-<!-- 			<p class="sv1"><b>Library with</b> citizens</p> -->
-<!-- 			<p class="sv2">Gyeongbuk Provincial Cheongsong Public Library</p> -->
-		</div>
 
+	<div id="container" class="subpage">
+
+		<div class="sub-visual" <c:if test="${not empty menuOne.menu_img}">style="background-image: url('/data/menu/${menuOne.homepage_id}/${menuOne.menu_img}')"</c:if>>
+		</div>
 		<div class="doc-info">
 			<div class="section">
-				<ol>			
+				<ol>
 					<li class="first"><a href="/${homepage.context_path}/index.do"><i class="fa fa-home"></i><span>HOME</span></a></li>
 					<homepageTag:docInfo oneMenu="${menuOne}" menuList="${menuLeftList}"/>
 				</ol>
-				<jsp:include page="/WEB-INF/views/app/homepage/common/snsShareBox.jsp" flush="false" />
 			</div>
 		</div>
 		<div class="section">
@@ -44,7 +42,9 @@ $(function() {
 				<div class="doc">
 					<div class="doc-head">
 						<div class="doc-title">
+							<c:if test="${menuOne.include_menu_name_yn eq 'Y'}">
 							<h3>${menuOne.menu_name}</h3>
+							</c:if>
 						</div>
 					</div>
 					<div class="doc-body con${menuOne.menu_idx}" id="contentArea">
@@ -52,19 +52,18 @@ $(function() {
 							<tiles:insertAttribute name="body" />
 						</div>
 					</div>
-					<c:if test="${menuOne.manage_view_yn eq 'Y'}">
-						<div class="doc-admin">
-							<c:if test="${menuOne.manage_dept ne null and menuOne.manage_dept ne ''}"><span><label>담당부서</label> <em>: ${menuOne.manage_dept}</em></span></c:if>
-							<c:if test="${menuOne.manage_name ne null and menuOne.manage_name ne ''}"><span><label>담당자</label> <em>: ${menuOne.manage_name}</em></span></c:if>
-							<c:if test="${menuOne.manage_phone ne null and menuOne.manage_phone ne ''}"><span><label>전화번호</label> <em>: ${menuOne.manage_phone}</em></span></c:if>
-						</div>
-					</c:if>
+					<div class="doc-admin">
+						<c:if test="${menuOne.manager_dept ne null and menuOne.manager_dept ne ''}"><span><label>담당부서</label> <em>: ${menuOne.manager_dept}</em></span></c:if>
+						<c:if test="${menuOne.manager_name ne null and menuOne.manager_name ne ''}"><span><label>담당자</label> <em>: ${menuOne.manager_name}</em></span></c:if>
+						<c:if test="${menuOne.manager_phone ne null and menuOne.manager_phone ne ''}"><span><label>전화번호</label> <em>: ${menuOne.manager_phone}</em></span></c:if>
+					</div>
 				</div>
 			</div>
 		</div>
-	
+
 	</div>
 
 </div>
 
 <tiles:insertAttribute name="footer" />
+

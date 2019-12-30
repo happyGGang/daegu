@@ -27,11 +27,11 @@ src:local(※), url(../font/NanumGothic-ExtraBold.woff) format('woff');
 */
 
 @font-face{
-font-family:'MalgunGothic';
-font-style:normal;
-font-weight:400;
-src:url(../font/MalgunGothic.eot);
-src:local(※), url(../font/MalgunGothic.TTF) format('TTF');
+	font-family:'MalgunGothic';
+	font-style:normal;
+	font-weight:400;
+	src:url('../font/MalgunGothic.eot');
+	src:local(※), url('../font/MalgunGothic.TTF') format('TTF');
 }
 
 /*! jQuery UI - v1.12.0 - 2016-08-28
@@ -42,8 +42,8 @@ src:local(※), url(../font/MalgunGothic.TTF) format('TTF');
 
 /* common */
 html,body{width:100%;height:100%}
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td,address{font-family:'MalgunGothic',Helvetica,Arial,Verdana,Geneva,sans-serif;margin:0;padding:0;line-height:150%;word-break:keep-all}
-body{font-weight:normal;font-size:14px}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td,address{font-family:'MalgunGothic','맑은 고딕',Helvetica,Arial,Verdana,Geneva,sans-serif;margin:0;padding:0;line-height:150%;word-break:keep-all}
+body{font-weight:normal;font-size:14px;color:#464646;}
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;margin:0;padding:0}
 h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}
 table,th,td{border-collapse:collapse;border-spacing:0;font-size:inherit;word-break:break-all}
@@ -62,7 +62,7 @@ hr.line{position:relative;width:100%;left:0;clear:both;background:#e5e5e5;margin
 pre,code,kbd,samp,tt{font-family:monospace;line-height:100%}
 select,input,textarea{font-family:inherit;font-size:inherit;font-weight:inherit}
 select{cursor:pointer}
-
+a {color:#000;}
 
 nav,
 .Gnb .gnb-menu>li.mmode,
@@ -91,7 +91,7 @@ body,
 a,
 a:link,
 a:visited,
-a:active{color:#4c4c4c;text-decoration:none}
+a:active{text-decoration:none}
 a:focus,
 a:hover{color:#2b74c0;cursor:pointer}
 
@@ -577,7 +577,7 @@ ul a i.kakaostory{height:17px;background:url('../img/contents/icon_kakao.png') n
 .wide .doc{margin-right:0;padding:0}
 
 /* 콘텐츠 */
-.doc-body{color:#666}
+.doc-body{}
 .doc-body table caption{position:absolute;top:0;left:0;width:0;height:0;overflow:hidden;font-size:0;line-height:0;text-indent:-999px}
 .doc-body table tbody .thead th,
 .doc-body table thead th{background:#f6f6f6}
@@ -707,7 +707,7 @@ a.baro img{display:inline-block;zoom:1;*display:inline;vertical-align:middle}
 .d_open_tit01{font-size:190%;color:#095077}
 
 /* 연혁 */
-.history-head{border-bottom:1px solid #ddd;padding:0 0 15px 20%;background:url('../img/contents/history_bg.gif') no-repeat 2% bottom}
+/*.history-head{border-bottom:1px solid #ddd;padding:0 0 15px 20%;background:url('../img/contents/history_bg.gif') no-repeat 2% bottom}
 .history-head .t1{font-size:250%;font-weight:800;line-height:120%;padding-bottom:8px}
 .history-head .t2{font-size:130%;letter-spacing:-1px;line-height:120%}
 .history-head .t2.eng{letter-spacing:0}
@@ -744,7 +744,7 @@ a.baro img{display:inline-block;zoom:1;*display:inline;vertical-align:middle}
 .history2 li label,
 .history2 li span{font-size:105%;display:inline-block;zoom:1;*display:inline;padding:1px 0}
 .history2 li div{background:url('/resources/common/img/contents/history2_arr.gif') no-repeat 0 5px;margin-left:-6px;padding-left:30px}
-
+*/
 /* 등록된 프로그램이 없습니다. */
 .nodata{border:1px solid #e5e5e5;border-radius:5px;padding:120px 15px;}
 .nodata i{font-size:150%;color:#888}
@@ -1369,7 +1369,7 @@ filter:alpha(opacity = 0.3*100);
 }
 
 /* 탭메뉴 */
-.tab-menu,
+/*.tab-menu,
 .tabmenu{padding-bottom:20px}
 .tab-menu>ul{padding:10px 0 0}
 .tab-menu>ul,
@@ -1431,11 +1431,11 @@ filter:alpha(opacity = 0.3*100);
 @media all and (max-width:767px){
 	.tablink.col2 li{width:96%}
 }
-
+*/
 /* 배너모음 */
 .banner-wrap{overflow:hidden}
 .banner-wrap>.banner-t{float:left;width:165px;padding-right:20px;padding-left:5px}
-.banner-wrap>.banner-t>h3{float:left;line-height:42px;height:42px;font-size:20px;font-weight:bold;letter-spacing:-1px}
+.banner-wrap>.banner-t > h3{float:left;line-height:42px;height:42px;font-size:20px;font-weight:bold;letter-spacing:-1px}
 .banner-wrap>.banner-box{float:left;width:100%;margin-right:-190px}
 .banner-wrap .banner-box>div{margin:0!important;margin-right:190px!important}
 .banner-wrap .banner-box .banner-roll li{height:42px}
@@ -1444,13 +1444,33 @@ filter:alpha(opacity = 0.3*100);
 .banner-wrap .banner-box .banner-roll a{font-size:0;line-height:0}
 .banner-wrap .banner-box .banner-roll i{display:none}
 .banner-wrap .banner-t .control{font-size:0;padding:10px 0 0 1px;float:right}
-.banner-wrap .banner-t .control a{font-size:13px;display:inline-block;zoom:1;*display:inline;text-align:center;vertical-align:middle;width:20px;height:20px;line-height:19px;border:1px solid #d5d5d5;margin-left:-1px}
+.banner-wrap .banner-t .control a {font-size:13px;display:inline-block;zoom:1;*display:inline;text-align:center;vertical-align:middle;width:20px;height:20px;line-height:19px;border:1px solid #d5d5d5;margin-left:-1px}
 .banner-wrap .banner-t .control a.stop,
 .banner-wrap .banner-t .control a.play{display:none}
 .banner-wrap .banner-t .control a.stop.active,
 .banner-wrap .banner-t .control a.play.active{display:inline-block;zoom:1;*display:inline}
 .banner-wrap .banner-t .control a i.fa{font-size:10px}
 .banner-wrap .banner-t .control a i.fa-navicon{font-size:11px}
+
+/* 배너모음2 */
+.banner-wrap>.banner-t2 {float:right;width:60px;}
+.banner-wrap>.banner-t2 > h3{float:left;line-height:42px;height:42px;font-size:20px;font-weight:bold;letter-spacing:-1px}
+.banner-wrap>.banner-box2 {float:left;width:100%;margin-right:-80px;margin-top:5px;}
+.banner-wrap .banner-box2 > div{margin:0!important;margin-right:80px!important}
+.banner-wrap .banner-box2 .banner-roll li{height:42px}
+.banner-wrap .banner-box2 .banner-roll li,
+.banner-wrap .banner-box2 .banner-roll span,
+.banner-wrap .banner-box2 .banner-roll a{font-size:0;line-height:0}
+.banner-wrap .banner-box2 .banner-roll i{display:none}
+.banner-wrap .banner-t2 .control {font-size:0;padding:0 0 0 1px;float:right}
+.banner-wrap .banner-t2 .control a {font-size:13px;display:inline-block;zoom:1;*display:inline;text-align:center;vertical-align:middle;width:25px;height:25px;line-height:24px;border:1px solid #d5d5d5;margin-left:-1px}
+.banner-wrap .banner-t2 .control a.stop,
+.banner-wrap .banner-t2 .control a.play{display:none}
+.banner-wrap .banner-t2 .control a.stop.active,
+.banner-wrap .banner-t2 .control a.play.active{display:inline-block;zoom:1;*display:inline;border-top:0;}
+.banner-wrap .banner-t2 .control a i.fa{font-size:10px}
+.banner-wrap .banner-t2 .control a i.fa-navicon{font-size:11px}
+.banner-wrap .banner-t2 .control a:last-child {border-top:0;}
 
 /* 배너모움 vertical */
 .banner-wrap.type2 .banner-box .banner-roll{text-align:center}

@@ -48,4 +48,16 @@ $(function(){
 		});
 	}
 
+	// 전광판(중앙도서관)
+	$('.panelZone ul').bxSlider({
+		mode:'vertical',
+		pager: false,
+		controls: false,
+		pagerType: 'short',
+		auto: true,
+		autoControls: true,
+		autoControlsCombine: true
+	});
+
+
 });

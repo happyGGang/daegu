@@ -69,10 +69,11 @@
 .main1 .search-box input:focus{outline:none}
 .main1 .search-box input,
 .main1 .search-box button{height:52px;line-height:51px;border-right:7px solid #05406e;}
+.main1 .search-box button{height:52px;line-height:51px;}
 .main1 .search-box button{position:absolute;right:0;width:77px;text-align:center;background:#fff url('/resources/homepage/dongbu/img/search-btn.png') no-repeat 90% center;font-size:0;}
 
-.main1 .search-box .main-box {width:100%;border:7px solid #05406e;overflow:hidden;}
-.main1 .search-box .main-box .title-box {position:absolute;left:0;background:#05406e;color:#fff;font-size:18px;padding:13px 0;width:150px;text-align:center;}
+.main1 .search-box .main-box {width:100%;border:7px solid #05406e;overflow:hidden;padding:0;margin:0;box-sizing:border-box;}
+.main1 .search-box .main-box .title-box {position:absolute;left:0;background:#05406e;color:#fff;font-size:18px;padding:14px 0;height:41px;line-height:39px;top:0;width:150px;text-align:center;border:0;}
 .main1 .search-box .box1{float:left;width:100%;margin-left:140px;}
 .main1 .search-box .box2{margin-right:80px}
 
@@ -91,36 +92,32 @@
 .main1 #holiday-box .box{margin-left:0}
 .main1 #holiday-box dl{padding:3px 0}
 
-
-.main #planList{padding:30px 0 0}
-.main #planList h3{font-size:18px;font-weight:bold}
-.main #planList h3,
-.main #planList span{display:inline-block;vertical-align:middle}
-.main #planList span{width:23px;height:23px;line-height:23px;background:#f43b40;text-align:center;color:#fff;border-radius:50%;margin-left:3px}
-
 .main1,.main2,.main3,.main4,.main5,.main6,.main7_banner{overflow:hidden}
+
+.main7_banner{padding:15px 0}
 .main7_banner h3{padding:0 0 8px;color:#232323}
 .main7_banner h3{padding:0}
-
+.main7_banner a {color:#8b8b8b;}
 
 .main3 {float:left;width:49%;height:220px;}
 .main4 {float:right;width:49.5%;}
 .main5 {float:right;width:33.1%;position:relative;}
 .main3 .box {padding:20px}
-.main4 .box {padding:0 20px}
+.main4 .box {padding:0;text-align:center;box-sizing:border-box;}
 .main3 > div {float:left}
 .main4 > div{/*order:1px solid #e4e4e4;margin-top:-1px;margin-bottom:-1px*/}
 .main3 > div > div{margin-left:-15px}
-.main3 .news{width:100%}
+.main3 .news {width:100%;margin-top:10px;}
 .main3 .news li {padding:4px 75px 4px 10px;}
 .main3 .news li a {font-size:15px;color:#000;font-weight:400;}
 .main3 .news li a:hover {color:#ed4024;}
+
 /* 최신글 */
 .main .news li{position:relative;overflow:hidden;padding:2px 75px 8px 69px}
 .main .news li i,
 .main .news li em,
 .main .news li span{font-style:normal;vertical-align:middle}
-.main .news li span{font-size:90%}
+.main .news li span{font-size:15px}
 .main .news li i{background:url('../img/icon_new.gif') no-repeat 0 0;width:10px;height:10px;font-size:0;line-height:0}
 .main .news li em{display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .main .news li span {position:absolute;right:0;top:3px;padding-right:1px}
@@ -141,32 +138,26 @@
 .main3 .more,.main4 .more{right:20px;top:25px;font-size:0;line-height:0;position:absolute;background:url('/resources/homepage/dongbu/img/more_bt.png') no-repeat 0 0;width:27px;height:24px}
 .main3 h3,
 
-.main3 .tabTitle {position:relative;text-align:left;margin:0;padding:0;overflow:hidden;}
-.main3 .tabTitle li {position:relative;display:inline-block;float:left;box-sizing:border-box;text-align:left;}
-.main3 .tabTitle li:nth-child(2) {padding: 20px 20px 0 0;}
-.main3 .tabTitle li:first-child a {}
-.main3 .tabTitle li.on a {color:#ed4024;font-weight:bold;padding:20px;}
-.main3 .tabTitle li a {position:relative;display:block;box-sizing:border-box;font-size:20px;color:#000;font-weight:bold;padding:20px;text-align:left;}
-.main3 .tabTitle li a:first-child {padding-left:0;}
-.main3 .tabTitle li a span {font-size:15px;padding: 0 0 0 5px;font-weight:normal;}
-.main3 .tabTitle .more-btn {right:20px;top:15px;font-size:0;line-height:0;position:absolute;background:url('/resources/homepage/dongbu/img/more_bt.png') no-repeat 0 0;width:27px;height:24px}
+.main3 .title {position:relative;text-align:left;margin:0;padding:0;overflow:hidden;}
+.main3 div.title {width:100%;overflow:hidden;}
+.main3 div.title li {display:inline-block;float:left;box-sizing:border-box;}
+.main3 div.title li:first-child {padding:15px 0 0 10px ;}
+.main3 div.title li:last-child {float:right;padding:12px 15px 0 0;}
+.main3 div.title h2 {font-size:19px;color:#000;font-weight:bold;}
+.main3 div.title a {font-size:0;line-height:0;background:url('/resources/homepage/seobu/img/more_btbtbt.png') no-repeat 0 0;}
 
 .main4 .tabMenuS {position:relative;text-align:center;margin:0;padding:0;overflow:hidden;}
 .main4 ul.tabMenuS > li {position:relative;display:inline-block;float:left;box-sizing:border-box;text-align:left;}
-.main4 ul.tabMenuS > li.on a {color:#0194d4;font-weight:bold;padding:20px 10px;}
-.main4 ul.tabMenuS > li a {position:relative;display:block;box-sizing:border-box;font-size:20px;color:#000;font-weight:bold;padding:20px 10px;}
+.main4 ul.tabMenuS > li.on a {color:#0194d4;font-weight:bold;padding:20px 10px 10px;}
+.main4 ul.tabMenuS > li a {position:relative;display:block;box-sizing:border-box;font-size:20px;color:#000;font-weight:bold;padding:20px 10px 10px;}
 .main4 ul.tabMenuS > li a span {font-size:15px;padding: 0 0 0 5px;font-weight:normal;}
-.main4 ul.tabMenuS .more-btn {right:20px;top:15px;font-size:0;line-height:0;position:absolute;background:url('/resources/homepage/dongbu/img/more_bt.png') no-repeat 0 0;width:27px;height:24px}
-
-.main3_4_box {float:left;width:66.7%;position:relative;overflow:hidden;}
+.main4 ul.tabMenuS .more-btn {right:10px;top:15px;font-size:0;line-height:0;position:absolute;background:url('/resources/homepage/dongbu/img/more_bt.png') no-repeat 0 0;width:27px;height:24px}
 
 .main4 h3{font-size:22px;line-height:30px}
-
-.main4 > div.box > ul > li {display:inline-block;width:20%;margin:0 2%}
+.main4 > div.box > ul > li {display:inline-block;width:21%;margin:0 1%}
 .main4 > div.box > ul > li > a {display:block}
 .main4 li img {width:100%}
 .main4 li span.title {display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;text-align:center;color:#000;font-weight:bold;}
-.main4 li span.author {display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;text-align:center;color:#5d5d5d;font-weight:normal;}
 
 .main6_bg{position:relative;width:100%;background:#f4f3f2;}
 .main6 {padding:35px 0 30px;}
@@ -191,7 +182,7 @@
 .main6 .popZone .bx-pager a {display:inline-block;font-size:0;overflow:hidden;float:left;padding:12px 0 0 12px;background:#878787;}
 .main6 .popZone .bx-pager a.active{background:rgba(32,132,212,0.95)}
 
-.movie {float:left;position:relative;width:25%;margin:0;padding:0;}
+.movie {float:left;position:relative;width:25%;margin:0;padding:0;box-sizing:border-box;}
 .movie h3 {font-size:19px;color:#000;font-weight:bold;}
 .movie .more-btn { right:20px;top:0;font-size:0;line-height:0;position:absolute;background:url('/resources/homepage/dongbu/img/more_bt.png') no-repeat 0 0;width:27px;height:24px }
 .movie .movieContent { width:100%;margin:0;padding:24px 0 8px;}
@@ -207,15 +198,15 @@
 
 
 .movie .movieContent ul {}
-.movie .movieContent ul li {}
+.movie .movieContent ul li {text-align:center;}
 .movie .movieContent ul li div {float:left;background:#000;color:#fff;padding:5px 10px;font-size:12px;}
 .movie .movieContent ul li span   {display:block;font-size:15px;color:#000;padding:0 0 2px 0 }
 .movie .movieContent ul li strong { clear:both;display:block;font-size:15px;color:#000;padding:10px 0 }
-.movie .movieContent .movieImg {float:left;position:relative;width:110px;margin-right:18px;}
-.movie .movieContent .movieEx {float:left;width:49%;}
+.movie .movieContent .movieImg {display:inline-block;position:relative;width:110px;margin-right:18px;}
+.movie .movieContent .movieEx {display:inline-block;width:49%;text-align:left;}
 
 
-.quickLink {float:left;position:relative;width:25%;margin:0;}
+.quickLink {float:right;position:relative;width:25%;margin:0;}
 .quickLink ul {}
 .quickLink ul li { margin-top:6px; }
 .quickLink ul li:first-child { margin-top: 0; }
@@ -230,8 +221,6 @@
 .display-panel {clear:both;width:100%;height:49px;background:url('/resources/homepage/dongbu/img/panel-bg.jpg') no-repeat;background-size:cover;}
 .display-panel div {line-height:49px;padding-left:38px;background:url('/resources/homepage/dongbu/img/panel-dot.png') no-repeat 3% center;color:#ffcc00;box-sizing:border-box;}
 
-.main7_banner{padding:15px 0}
-
 .mobileBr {display:none;}
 
 
@@ -239,11 +228,8 @@
 	.main6_bg .section {width:100%;}
 	.main_line .section {width:100%;}
 
-	.main3 .tabMenuS {padding-left:10px}
-	.main3 ul.tabMenuS > li a {font-size:16px;padding:20px 5px;}
-	.main4 ul.tabMenuS > li a {font-size:16px;padding:20px 10px;}
-	.main3 .tabMenuS li.on a {color:#ed4024;font-weight:bold;padding:20px 5px;}
-	.main3 .tabMenuS li a:first-child {padding-left:0;padding-right:20px;}
+	.main3 div.title h2 {font-size:17px;color:#000;font-weight:bold;}
+	.main4 ul.tabMenuS > li a {font-size:17px;padding:20px 10px 10px;}
 }
 
 @media all and (max-width:1200px){
@@ -252,13 +238,11 @@
 	.main6 .popZone li a {width:96%;margin:0 auto;padding:0 2%;}
 	.main6 .popZone li a img {width:100%;}
 
-	.movie {width:48%;padding-left:2%;margin-top:15px;}
-	.quickLink {width:48%;padding-right:2%;margin-top:15px;}
+	.movie {width:50%;padding-left:2%;margin-top:15px;box-sizing:border-box;}
+	.quickLink {width:48%;padding-right:2%;margin-top:15px;box-sizing:border-box;}
 }
 
 @media all and (max-width:1000px){
-	#header .search-box,
-	#header .search_link{margin-left:80px}
 	h1 img{display:none}
 	.main .qmenu .bx-controls{display:block}
 
@@ -272,7 +256,6 @@
 
 	.main .section{margin:0}
 	.main1 .section{margin:0}
-	.subpage .section,
 
 	.tnb .util,
 	.Gnb,
@@ -286,9 +269,6 @@
 
 	.main4,
 	.main6{width:100%}
-	.main1 .bx-wrapper li{width:100%!important}
-	.main1 .bx-wrapper li .box{width:auto;margin:0 3%}
-	.main2,.main3 .news{width:94%;margin:0 2%}	
 	.main3 .box,.main4 .box{height:auto}
 
 	.main .popZone li{text-align:center}
@@ -302,17 +282,11 @@
 	.main4 {float:right;width:49.5%;}
 	.main5 {float:none;width:100%;margin:21px 0 0 0;}
 
+	.main4 > div.box > ul > li {width:23%;margin:0 0.5%}
+
 }
 
 @media all and (max-width:767px){
-	.main1 li{background-position:70% 50%!important}
-	.main1 .box .t1{font-size:45px;line-height:120%}
-	.main1 .box .t1 p{font-size:45px;line-height:120%}
-	.main1 .box .t2{padding:13px 0 0;font-size:15px;letter-spacing:-0.5px;color:#3d9eca;font-weight:bold}	
-	.main2{top:320px}
-	.main2 .main2_box{left:50%;margin-left:-210px}
-	.main2 li{width:50%}	
-	.main4 .more{right:7.5%}
 	.main3{width:100%}
 
 	.main1 .section .txt {width:100%;text-align:center;padding-top:25px;}
@@ -335,6 +309,8 @@
 	.main1 #holiday-box .inBox1 .info dd {float:none;position:relative;font-size:17px;font-weight:bold;text-align:center;padding-left:18px;}
 	.main1 #holiday-box .inBox1 .bt-controls .bt-next{right:10px;}
 	.main1 #holiday-box .inBox1 .bt-controls .bt-prev{left:10px;}
+
+	.main3 .news li a {font-size:14px;}
 }
 
 @media all and (max-width:690px){
@@ -352,6 +328,13 @@
 	.quickLink ul li a.link01 {background:#fff none;}
 	.quickLink ul li a.link02 {background:#fff none;}
 	.quickLink ul li a.link03 {background:#fff none;}
+
+	.main4 li span.title {font-size:14px;}
+
+	.main3 div.title h2 {font-size:15px;}
+	.main4 ul.tabMenuS > li a {font-size:15px;}
+	.movie h3 {font-size:15px;}
+
 }
 
 @media all and (max-width:580px){
@@ -364,7 +347,7 @@
 	.main4 li.lt-gall4,
 	.main4 li.lt-gall5{display:none}
 
-	.main1 .search-box .main-box .title-box {font-size:15px;padding:15px 0;width:130px;text-align:center;}
+	.main1 .search-box .main-box .title-box {font-size:16px;width:130px;text-align:center;}
 	.main1 .search-box .box1{float:left;width:100%;margin-left:120px;}
 	.main1 .search-box input {font-size:15px;}
 	.main1 #holiday-box .inBox1 .title {font-size:21px;}
@@ -378,7 +361,7 @@
 }
 
 @media all and (max-width:425px){
-
+	.main4 li span.title {font-size:13px;}
 }
 
 @media all and (max-width:380px){

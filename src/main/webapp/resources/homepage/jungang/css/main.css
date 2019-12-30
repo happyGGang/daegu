@@ -18,7 +18,7 @@
 .main .qmenu .section .bx-viewport{overflow:visible!important}
 .main .qmenu .bx-wrapper{width:auto!important;margin:0 0px;position:static}
 .main .qmenu li{display:inline-block;text-align:center;width:12.5%}
-.main .qmenu li a{width:80px;height:80px;background:#8dd0ef no-repeat center center;display:block;margin:0 auto;font-size:12px;color:#444;font-weight:bold;letter-spacing:-1px;border-radius:100%}
+.main .qmenu li a{width:80px;height:80px;background:#8dd0ef no-repeat center center;display:block;margin:0 auto;font-size:15px;color:#444;font-weight:bold;letter-spacing:-1px;border-radius:100%}
 .main .qmenu li a span{display:block;height:20px;position:relative;top:85px}
 .main .qmenu li a:hover,
 .main .qmenu li a:focus{background-color:#84c11b}
@@ -101,13 +101,15 @@
 .main1,.main2,.main3,.main4,.main5,.main6,.main7_banner{overflow:hidden}
 .main7_banner h3{padding:0 0 8px;color:#232323}
 .main7_banner h3{padding:0}
+.main7_banner a {color:#8b8b8b;}
 
 /* 최신글 */
-.main .news li{position:relative;overflow:hidden;background:url('/resources/common/img/arr-news.gif') no-repeat 0 center;padding:2px 75px 2px 10px}
+.main .news li{position:relative;overflow:hidden;background:url('/resources/common/img/arr-news.gif') no-repeat 2% center;padding:2px 75px 2px 30px;}
+.main .news li.on-notice {background:url('/resources/homepage/jungang/img/on-notice-dot.png') no-repeat 0 center;}
 .main .news li i,
 .main .news li em,
 .main .news li span{font-style:normal;vertical-align:middle}
-.main .news li span{font-size:90%}
+.main .news li span{font-size:14px;letter-spacing:-1px;}
 .main .news li i{background:url('../img/icon_new.gif') no-repeat 0 0;width:10px;height:10px;font-size:0;line-height:0}
 .main .news li em{display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .main .news li span{position:absolute;right:0;top:3px;padding-right:1px}
@@ -128,7 +130,7 @@
 .main4 > div{/*ㅠorder:1px solid #e4e4e4;margin-top:-1px;margin-bottom:-1px*/}
 .main3 > div > div{margin-left:-15px}
 .main3 .news{width:100%}
-.main3 .news li {padding:4px 75px 4px 10px}
+.main3 .news li {padding:4px 75px 4px 23px}
 .main3 .news li a {font-size:15px;color:#000;}
 
 .main3 ul{}
@@ -184,8 +186,15 @@
 .main5 .popZone .bx-start { right:0; background-position:-92px 0; }
 .main5 .popZone .bx-stop { right:0; background-position:-61px 0;}
 
-.display-panel {clear:both;width:100%;height:49px;background:url('/resources/homepage/jungang/img/panel-bg.jpg') no-repeat;background-size:cover;}
-.display-panel div {line-height:49px;padding-left:38px;background:url('/resources/homepage/jungang/img/panel-dot.png') no-repeat 3% center;color:#ffcc00;box-sizing:border-box;}
+.display-panel {clear:both;position:relative;width:100%;height:49px;background:url('/resources/homepage/jungang/img/panel-bg.jpg') no-repeat;background-size:cover;}
+.display-panel div.panelZone {box-sizing:border-box;}
+.display-panel div.panelZone li {line-height:49px;background:url('/resources/homepage/jungang/img/panel-dot.png') no-repeat 3% center;color:#ffcc00;padding-left:38px;}
+.display-panel div.panelZone .bx-controls {position:absolute;right:18px;top:16px;z-index:150000000;}
+.display-panel div.panelZone .bx-start,
+.display-panel div.panelZone .bx-stop {position:absolute;width:13px;height:17px;font-size:0;background-image:url("/resources/homepage/jungang/img/panelZone_arr.png");background-repeat: no-repeat; background-position:0 0;background-size:initial;}
+.display-panel div.panelZone .bx-start {right:0;background-position:-13px 0;}
+.display-panel div.panelZone .bx-stop  {right:0;background-position:0 0;}
+
 
 .main6_bg{position:relative;width:100%;background:#dce7ee}
 .main6 a {display:block;color:#fff;text-align:center;padding:15px 0;}
@@ -258,7 +267,6 @@
 
 	.main .section{margin:0}
 	.main1 .section{margin:0}
-	.subpage .section,
 
 	.tnb .util,
 	.Gnb,

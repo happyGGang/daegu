@@ -125,37 +125,11 @@
 
 		<div class="qmenu">
 			<div class="section">
-			<!--
+
 				<ul data-call="bxslider" data-breaks="[{screen:0, slides:1},{screen:340, slides:2},{screen:450, slides:3},{screen:600, slides:4},{screen:767, slides:5},{screen:1000, slides:${fn:length(quickMenuList)}}]">
 					<homepageTag:quickMenu quickMenuList="${quickMenuList}" />
 				</ul>
-				-->
-				<ul data-call="bxslider" data-breaks="[{screen:0, slides:1},{screen:340, slides:3},{screen:450, slides:3},{screen:600, slides:5},{screen:767, slides:6},{screen:1000, slides:6}]">
-					<li class="qm1">
-					<a style="background-image:url('/resources/homepage/jungang/img/q1.png')" href="/cs/intro/search/index.do?menu_idx=8">
-					<span>자료검색</span></a></li>
-					<li class="qm2">
-					<a style="background-image:url('/resources/homepage/jungang/img/q2.png')" href="/cs/intro/search/loan/index.do?menu_idx=115">
-					<span>대출조회/예약</span></a></li>
-					<li class="qm3">
-					<a style="background-image:url('/resources/homepage/jungang/img/q3.png')" href="/cs/intro/search/hope/index.do?menu_idx=16">
-					<span>희망도서신청</span></a></li>
-					<li class="qm4">
-					<a style="background-image:url('/resources/homepage/jungang/img/q4.png')" target="_blank" href="http://www.nl.go.kr/nill/user/index.jsp">
-					<span>책바다</span></a></li>
-					<li class="qm5">
-					<a style="background-image:url('/resources/homepage/jungang/img/q5.png')" href="/cs/html.do?menu_idx=90">
-					<span>이용안내</span></a></li>
-					<li class="qm6">
-					<a style="background-image:url('/resources/homepage/jungang/img/q6.png')" href="/cs/board/index.do?menu_idx=74&manage_idx=228">
-					<span>자주하는질문</span></a></li>
-					<li class="qm7">
-					<a style="background-image:url('/resources/homepage/jungang/img/q7.png')" target="_blank" href="http://www.gbelib.kr/elib/index.do">
-					<span>전자도서관</span></a></li>
-					<li class="qm8">
-					<a style="background-image:url('/resources/homepage/jungang/img/q7.png')" target="_blank" href="http://www.gbelib.kr/elib/index.do">
-					<span>전자도서관</span></a></li>
-				</ul>
+
 			</div>
 		</div>
 
@@ -164,12 +138,14 @@
 			<div class="section">
 
 				<div class="main3">
-					<ul class="tabTitle">
-						<li><a href="#" data-link="/${homepage.context_path}/board/index.do?menu_idx=31&manage_idx=415">공지사항</a></li>
-						<a href="/${homepage.context_path}/board/index.do?menu_idx=58&manage_idx=226" class="more-btn more-more">더보기</a>
-					</ul>
+					<div class="title">
+						<ul>
+							<li><h2>공지사항</h2></li>
+							<li><a href="/${homepage.context_path}/board/index.do?menu_idx=87&manage_idx=12"><img src="/resources/homepage/seobu/img/more_bt.png" alt="더보기"/></a></li>
+						</ul>
+					</div>
 
-					<div class="news con" data-tab="tab1">
+					<div class="news">
 						<div class="box">
 							<ul>
 							<!--
@@ -234,28 +210,24 @@
 								<a class="goDetail" href="" >
 									<img src="/resources/homepage/jungang/img/book01.png" alt="${i.TITLE}" width="100px" height="150px">
 									<span class="title">욕대장</span>
-									<span class="author">박현숙</span>
 								</a>
 							</li>
 							<li>
 								<a class="goDetail" href="" keyValue1="${i.LOCA}" keyValue2="${i.CTRLNO}">
 									<img src="/resources/homepage/jungang/img/book02.png" alt="${i.TITLE}" width="100px" height="150px">
 									<span class="title">오즈의 의류수거함</span>
-									<span class="author">유영민</span>
 								</a>
 							</li>
 							<li>
 								<a class="goDetail" href="" keyValue1="${i.LOCA}" keyValue2="${i.CTRLNO}">
 									<img src="/resources/homepage/jungang/img/book03.png" alt="${i.TITLE}" width="100px" height="150px">
 									<span class="title">싱가포르 홀리데이</span>
-									<span class="author">이동미, 김현주</span>
 								</a>
 							</li>
 							<li>
 								<a class="goDetail" href="" keyValue1="${i.LOCA}" keyValue2="${i.CTRLNO}">
 									<img src="/resources/homepage/jungang/img/book03.png" alt="${i.TITLE}" width="100px" height="150px">
 									<span class="title">싱가포르 홀리데이</span>
-									<span class="author">이동미, 김현주</span>
 								</a>
 							</li>
 						</ul>
@@ -284,13 +256,15 @@
 				</div>
 
 				<div class="movie">
-					<h3>영화상영</h3>
-					<a class="more-btn more-more" href="/${homepage.context_path}/board/index.do?menu_idx=46&manage_idx=88">더보기</a>
-						<div class="movieContent">
-							<ul>
-								
-								<li>
-									<a href="//${homepage.context_path}/board/view.do?manage_idx=88&board_idx=1296104&menu_idx=46">
+					<div class="title">
+						<h3>영화상영</h3>
+						<a class="more-btn more-more" href="/${homepage.context_path}/board/index.do?menu_idx=46&manage_idx=88">더보기</a>
+					</div>
+					<div class="movieContent">
+						<ul>
+							
+							<li>
+								<a href="//${homepage.context_path}/board/view.do?manage_idx=88&board_idx=1296104&menu_idx=46">
 									<span class="movieImg">
 										<img src="/resources/homepage/dongbu/img/movie01.jpg" alt="미녀와 야수">
 									</span>
@@ -310,32 +284,32 @@
 										<b>장르</b>&nbsp;&nbsp;&nbsp;애니
 										</span>
 									</span>
-									</a>
-								</li>
+								</a>
+							</li>
 
-								<li>
-									<a href="/${homepage.context_path}/board/view.do?manage_idx=88&board_idx=1296104&menu_idx=46">
-									<span class="movieImg">
-										<img src="/resources/homepage/dongbu/img/movie01.jpg" alt="미녀와 야수">
+							<li>
+								<a href="/${homepage.context_path}/board/view.do?manage_idx=88&board_idx=1296104&menu_idx=46">
+								<span class="movieImg">
+									<img src="/resources/homepage/dongbu/img/movie01.jpg" alt="미녀와 야수">
+								</span>
+								<span class="movieEx">
+									<div>12세미만</div>
+									<strong class="title">미녀와 야수</strong>
+									<span class="date">
+									<b>날짜</b>&nbsp;&nbsp;&nbsp;2019.12.24.
 									</span>
-									<span class="movieEx">
-										<div>12세미만</div>
-										<strong class="title">미녀와 야수</strong>
-										<span class="date">
-										<b>날짜</b>&nbsp;&nbsp;&nbsp;2019.12.24.
-										</span>
-										<span class="time">
-										<b>시간</b>&nbsp;&nbsp;&nbsp;14:00
-										</span>
-										<span class="divid">
-										<b>장소</b>&nbsp;&nbsp;&nbsp;동부도서관
-										</span>
-										<span class="desc">
-										<b>장르</b>&nbsp;&nbsp;&nbsp;애니
-										</span>
+									<span class="time">
+									<b>시간</b>&nbsp;&nbsp;&nbsp;14:00
 									</span>
-									</a>
-								</li>
+									<span class="divid">
+									<b>장소</b>&nbsp;&nbsp;&nbsp;동부도서관
+									</span>
+									<span class="desc">
+									<b>장르</b>&nbsp;&nbsp;&nbsp;애니
+									</span>
+								</span>
+								</a>
+							</li>
 						</ul>
 					</div>
 				</div>

@@ -26,17 +26,17 @@ var pageMain = (function(){
 
 		});
 
-		movieSlider = function(){
-			if($('.movieContent ul li').length >0) {
-				$('.movieContent ul').bxSlider({
-					auto: true,
-					pager:false,
-					autoControls:true,
-					autoControlsCombine:true
-				});
-			}
-		};
+	};
 
+	movieSlider = function(){
+		if($('.movieContent ul li').length >0) {
+			$('.movieContent ul').bxSlider({
+				auto: true,
+				pager:false,
+				autoControls:true,
+				autoControlsCombine:true
+			});
+		}
 	};
 
 	return {

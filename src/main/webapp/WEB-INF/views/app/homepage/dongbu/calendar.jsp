@@ -34,13 +34,13 @@ $(function() {
 	$('a#before-btn').on('click', function(e) {
 		var plan_date = new Date($(this).attr('keyValue'));
 		plan_date.setMonth(plan_date.getMonth() - 1);
-		$('div.lt1').load('calendar2.do', 'plan_date='+plan_date.format('yyyy-MM'));
+		$('div#holiday-box').load('calendar2.do', 'plan_date='+plan_date.format('yyyy-MM'));
 		e.preventDefault();
 	});
 	$('a#next-btn').on('click', function(e) {
 		var plan_date = new Date($(this).attr('keyValue'));
 		plan_date.setMonth(plan_date.getMonth() + 1);
-		$('div.lt1').load('calendar2.do', 'plan_date='+plan_date.format('yyyy-MM'));
+		$('div#holiday-box').load('calendar2.do', 'plan_date='+plan_date.format('yyyy-MM'));
 		e.preventDefault();
 	});
 });

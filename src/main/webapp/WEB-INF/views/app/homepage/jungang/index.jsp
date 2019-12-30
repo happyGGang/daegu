@@ -138,7 +138,7 @@
 					<span>자료검색</span></a></li>
 					<li class="qm2">
 					<a style="background-image:url('/resources/homepage/jungang/img/q2.png')" href="/cs/intro/search/loan/index.do?menu_idx=115">
-					<span>대출조회/예약</span></a></li>
+					<span>대출조회</span></a></li>
 					<li class="qm3">
 					<a style="background-image:url('/resources/homepage/jungang/img/q3.png')" href="/cs/intro/search/hope/index.do?menu_idx=16">
 					<span>희망도서신청</span></a></li>
@@ -182,8 +182,9 @@
 										</li>
 									</c:forEach>
 									-->
-									<li><a href="#"><em>구입 예정 고문헌 목록 공개</em><span>2019.12.17</span></a></li>
-									<li><a href="#"><em>‘규남 하백원이 만든 자동양수기 자승차’</em><span>2019.12.17</span></a></li>
+									<li class="on-notice"><a href="#"><em>구입 예정 고문헌 목록 공개</em><span>2019.12.17</span></a></li>
+									<li class="on-notice"><a href="#"><em>‘규남 하백원이 만든 자동양수기 자승차’</em><span>2019.12.17</span></a></li>
+
 									<li><a href="#"><em>빅데이터로 보는 세상과 한국 경제</em><span>2019.12.17</span></a></li>
 									<li><a href="#"><em>대구광역시립도서관 온라인 서비스 일시..</em><span>2019.12.17</span></a></li>
 									<li><a href="#"><em>2019년도 대구광역시립도서관 이용만족..</em><span>2019.12.17</span></a></li>
@@ -298,8 +299,11 @@
 						</div>
 					</div>
 					<div class="display-panel">
-						<div>
-							오늘은 휴관일이 아닙니다.
+						<div class="panelZone">
+							<ul>
+								<li>오늘은 휴관일이 아닙니다1.</li>
+								<li>오늘은 휴관일이 아닙니다2.</li>
+							</ul>
 						</div>
 					</div>
 				</div>
@@ -319,8 +323,10 @@
 						</c:choose>
 					</div>
 				</div>
+
 			</div>
 		</div>
+
 
 		<div class="main6_bg">
 			<div class="main6 section">
@@ -332,6 +338,7 @@
 				<div class="lt6"><a href="/${homepage.context_path}/module/teach/index.do?menu_idx=160&group_idx=6">협력형 온라인 지식정보서비스<br/><span class="">사서에게물어보세요</span></a></div>
 			</div>
 		</div>
+
 
 		<div class="section">
 			<div class="main7_banner">
@@ -386,6 +393,7 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
 </div>
 	
