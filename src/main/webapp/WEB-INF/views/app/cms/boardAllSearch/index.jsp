@@ -61,14 +61,14 @@ $(document).ready(function() {
 		var formData = serializeCustom($form);
 		doGetLoad(url, formData);
 	});
-	
+
 	$('a#excelDownload').on('click', function(e) {
 		e.preventDefault();
 		$('#board').attr('action', 'excelDownload.do');
 		$('#board').submit();
 		$('#board').attr('action', 'index.do');
 	});
-	
+
 	$('a#csvDownload').on('click', function(e) {
 		e.preventDefault();
 		$('#board').attr('action', 'csvDownload.do');
@@ -98,8 +98,8 @@ $(document).ready(function() {
 	<c:if test="${member.admin}">
 	<form:checkbox path="board_mode" value="ADMIN" label="모든 도서관 보기" id="homepageIdisNull"/>
 	</c:if>
-	&nbsp;&nbsp;&nbsp;<form:checkbox path="hwp_only" value="Y" label="한글 첨부파일(.hwp)이 포함된 게시글 보기" id="hwp_only"/> 
-	&nbsp;&nbsp;&nbsp;<form:checkbox path="excel_only" value="Y" label="엑셀 첨부파일(.xlsx, xls)이 포함된 게시글 보기" id="excel_only"/> 
+	&nbsp;&nbsp;&nbsp;<form:checkbox path="hwp_only" value="Y" label="한글 첨부파일(.hwp)이 포함된 게시글 보기" id="hwp_only"/>
+	&nbsp;&nbsp;&nbsp;<form:checkbox path="excel_only" value="Y" label="엑셀 첨부파일(.xlsx, xls)이 포함된 게시글 보기" id="excel_only"/>
 	<br/>
 	게시판 선택 :
 	<form:select path="manage_idx" class="selectmenu" style="width:300px;">
@@ -169,7 +169,7 @@ $(document).ready(function() {
 						<dd class="file">
 							<ul>
 							<c:forEach var="j" varStatus="status" items="${i.boardFileList}">
-								<li><a href="${getContextPath}/board/boardFile/download/${i.manage_idx}/${j.board_idx}/${j.file_idx}.do"><i class="fa <boardTag:file_ext file_ext="${j.file_ext_name}"/>"></i><span>${j.file_name}</span></a></li>
+								<li><a href="${getContextPath}/board/boardFile/download/${i.manage_idx}/${j.board_idx}/${j.file_idx}.do"><i class="fa <boardTag:file_ext file_ext="${j.file_ext_name}"/>"></i><span>${j.org_file_name}</span></a></li>
 							</c:forEach>
 							</ul>
 						</dd>

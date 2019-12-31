@@ -84,7 +84,7 @@
 
 	<select id="getBoardFile" resultType="kr.co.whalesoft.app.board.boardFile.BoardFile">
 		SELECT
-			board_idx, file_idx, real_file_name, file_name, file_ext_name,
+			board_idx, file_idx, server_file_name, org_file_name, file_ext_name,
 			file_size
 		FROM
 			CMS_BOARD_FILE
