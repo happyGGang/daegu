@@ -42,7 +42,7 @@ src:local(※), url(../font/NanumGothic-ExtraBold.woff) format('woff');
 
 /* common */
 html,body{width:100%;height:100%}
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td,address{font-family:'MalgunGothic','맑은 고딕',Helvetica,Arial,Verdana,Geneva,sans-serif;margin:0;padding:0;line-height:150%;word-break:keep-all}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td,address {font-family:'MalgunGothic','맑은 고딕',Helvetica,Arial,Verdana,Geneva,sans-serif;margin:0;padding:0;line-height:150%;word-break:keep-all;font-size:15px;}
 body{font-weight:normal;font-size:14px;color:#464646;}
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;margin:0;padding:0}
 h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}
@@ -272,9 +272,9 @@ h1{z-index:6}
 .Gnb .gnb-menu:after{content:'';display:block;clear:both}
 .Gnb .SubMenu{text-align:left}
 .Gnb .gnb-menu>li{position:relative;display:inline-block;zoom:1;*display:inline;vertical-align:middle;
--webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
+-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
 .Gnb .gnb-menu>li:first-child{background:none}
-.Gnb .gnb-menu>li>a{display:block;height:100%;font-size:16px;color:#222;font-weight:bold}
+.Gnb .gnb-menu>li>a{display:block;height:100%;font-size:16px;color:#222;font-weight:bold;}
 .Gnb .gnb-menu>li>a.newWin i{font-weight:normal}
 .Gnb .gnb-menu>li.on>a,
 .Gnb .gnb-menu>li>a:hover,
@@ -283,7 +283,7 @@ h1{z-index:6}
 .Gnb .gnb-menu>li>.SubMenu{width:100%;left:0;position:absolute;white-space:normal;border-bottom:none}
 .Gnb .gnb-menu>li:first-child>.SubMenu{border-left:none}
 .Gnb .gnb-menu>li>.SubMenu>li{position:relative;z-index:6;display:block;text-align:left;clear:both;width:100%}
-.Gnb .gnb-menu>li>.SubMenu>li>a{display:block;height:100%;margin:0;padding:4px 0 4px 15px;border:none;background:none;color:#555;font-weight:normal}
+.Gnb .gnb-menu>li>.SubMenu>li>a{display:block;height:100%;margin:0;border:none;background:none;color:#555;font-weight:normal}
 .Gnb .gnb-menu>li>.SubMenu>li.on>a,
 .Gnb .gnb-menu>li>.SubMenu>li>a:hover,
 .Gnb .gnb-menu>li>.SubMenu>li>a:focus{text-decoration:none;font-weight:bold;background:#2b74c0}
