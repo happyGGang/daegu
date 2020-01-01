@@ -818,7 +818,12 @@ public class JoinController extends BaseController {
 			Member integrationMember = new Member();
 			integrationMember.setMember_name(String.valueOf(checkDupUser.get(0).get("NAME")));
 			integrationMember.setCell_phone(String.valueOf(checkDupUser.get(0).get("HANDPHONE")).replaceAll("-", ""));
-			integrationMember.setBirth_day(String.valueOf(checkDupUser.get(0).get("BIRTHDAY")).replaceAll("/", ""));
+			try {
+				integrationMember.setBirth_day(String.valueOf(checkDupUser.get(0).get("BIRTHDAY")).replaceAll("/", ""));
+			} catch (Exception e) {
+				joinService.alertMessage("해당 정보의 생년월일 정보가 누락되었습니다.\n\n데스크에서 생년월일정보 보정후 다시 통합인증을 진행해주세요.", request, response);
+				return null;
+			}
 
 			List<Map<String, Object>> integrationMemberList = MemberAPI.checkDupUser("4", integrationMember);
 			for (Map<String, Object> map : integrationMemberList) {
