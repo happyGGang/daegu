@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Properties;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -183,7 +186,7 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 						return false;
 					}
 				} else {
-					if(!StringUtils.equals(System.getProperty("spring.profiles.active"), "localServer")) {
+					if(StringUtils.containsIgnoreCase(request.getServerName(), "library.daegu.go.kr")) {
 						List<String> parameters = new ArrayList<String>();
 						@SuppressWarnings ("unchecked")
 						Enumeration<String> result = request.getParameterNames();
