@@ -125,7 +125,7 @@
 			#{ebook_yn}, #{charge_sms_receive_yn}, #{write_sms_receive_yn}, #{charge_email_receive_yn}, #{write_email_receive_yn},
 			#{board_email_send_yn}, #{satisfy_yn}, #{board_etc1}, #{approval_yn},
 			#{manager_name}, #{manager_dept}, #{manager_phone}, #{reply_list_yn},
-			#{board_skin}, #{request_code}, #{anonymize_yn}
+			#{board_type}, #{request_code}, #{anonymize_yn}
 		)
 
     </insert>

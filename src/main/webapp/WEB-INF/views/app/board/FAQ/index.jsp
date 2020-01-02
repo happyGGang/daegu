@@ -6,35 +6,35 @@
 <script>
 $(function(){
 	var article = $('.faq .article');
-	article.addClass('hide');
-	article.find('.a').slideUp(100);
-	
+	article.addClass('hidden');
+	article.find('.a').slideUp(0);
+
 	$('.faq .article .trigger').click(function(e){
 		e.preventDefault();
 		var myArticle = $(this).parents('.article:first');
-		if(myArticle.hasClass('hide')){
-			article.addClass('hide').removeClass('show');
+		if(myArticle.hasClass('hidden')){
+			article.addClass('hidden').removeClass('show');
 			article.find('.a').slideUp(100);
-			myArticle.removeClass('hide').addClass('show');
+			myArticle.removeClass('hidden').addClass('show');
 			myArticle.find('.a').slideDown(100);
 		} else {
-			myArticle.removeClass('show').addClass('hide');
+			myArticle.removeClass('show').addClass('hidden');
 			myArticle.find('.a').slideUp(100);
 		}
 	});
-	
+
 	$('.faq .hgroup .trigger').click(function(e){
 		e.preventDefault();
-		var hidden = $('.faq .article.hide').length;
+		var hidden = $('.faq .article.hidden').length;
 		if(hidden > 0){
-			article.removeClass('hide').addClass('show');
+			article.removeClass('hidden').addClass('show');
 			article.find('.a').slideDown(100);
 		} else {
-			article.removeClass('show').addClass('hide');
+			article.removeClass('show').addClass('hidden');
 			article.find('.a').slideUp(100);
 		}
 	});
-	
+
 });
 </script>
 <style>
@@ -42,11 +42,11 @@ $(function(){
 .faq{margin:0;padding:0;list-style:none;}
 .faq .q{margin:0;border-top:1px solid #ddd;}
 .faq .q a.trigger{display:block;padding:15px;font-weight:bold;color:#333;text-align:left;text-decoration:none !important;font-size:14px;}
-.faq .q span{font-size:14px;font-weight:bold;color:#e32c2c;margin-right:5px;} 
-.faq .hide .q a.trigger{background:none;font-size:14px;}
+.faq .q span{font-size:14px;font-weight:bold;color:#e32c2c;margin-right:5px;}
+.faq .hidden .q a.trigger{background:none;font-size:14px;}
 .faq .q a.trigger:hover{background:#f5fbfd;color:#e32c2c;}
 .faq .a{position:relative;margin:0;padding:10px 15px;line-height:1.5;background:#fdfcf5;overflow:hidden;padding-bottom:10px;padding-top:10px;border-top:1px dashed #ddd;}
-.faq .a .tit{font-size:14px;font-weight:bold;color:#e32c2c;display:inline-block;width:14px;position:absolute;top:14px;left:15px;} 
+.faq .a .tit{font-size:14px;font-weight:bold;color:#e32c2c;display:inline-block;width:14px;position:absolute;top:14px;left:15px;}
 .faq .a .aContent{margin-left:25px;padding:5px 0;}
 .faq .a .aContent p{line-height:20px;}
 .faq .a .aContent span, .faq .a .aContent p, .faq .a .aContent strong{font-size:13px !important;}
@@ -56,11 +56,11 @@ width:650px;padding:10px 0 10px 35px;margin:10px 0 7px 25px;border:1px dashed #c
 }
 .faq .goQna span{vertical-align:top;margin-right:7px;font-size:13px;}
 
-.faq .q.blue span{color:#2e91ed;} 
+.faq .q.blue span{color:#2e91ed;}
 .faq .q.blue a.trigger:hover,
 .faq .q.blue a.trigger:active,
-.faq .q.blue a.trigger:focus{color:#2e91ed;} 
-.faq .a.blue .tit{color:#2e91ed !important;} 
+.faq .q.blue a.trigger:focus{color:#2e91ed;}
+.faq .a.blue .tit{color:#2e91ed !important;}
 
 </style>
 <c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.top_html) > 0}">
@@ -73,29 +73,29 @@ ${boardManage.top_html}
 <div class="wrapper-bbs">
 	<div class="infodesk">
 		<c:if test="${fn:length(category1List) > 0}">
-		게시판 분류1 : 
+		게시판 분류1 :
 		<form:select path="category1" cssStyle="width:160px;" cssClass="selectmenu" >
 			<form:option value="">== 전체 ==</form:option>
 			<form:options itemLabel="code_name" itemValue="code_id" items="${category1List}"/>
 		</form:select>
 		</c:if>
 		<c:if test="${fn:length(category2List) > 0}">
-		게시판 분류2 : 
+		게시판 분류2 :
 		<form:select path="category2" cssStyle="width:160px;" cssClass="selectmenu" >
 			<form:option value="">== 전체 ==</form:option>
 			<form:options itemLabel="code_name" itemValue="code_id" items="${category2List}"/>
 		</form:select>
 		</c:if>
 	</div>
-	<div class="faqArea">	
+	<div class="faqArea">
 		<ul  class="faq">
 			<c:forEach var="i" varStatus="status" items="${boardList}">
-			<li class="article hide">
+			<li class="article hidden">
 				<div class="q blue">
 					<a class="trigger" href="#"><span>Q.</span> ${i.title}</a>
 				</div>
 				<div class="a">
-					<span class="tit">A.</span> 
+					<span class="tit">A.</span>
 					<div class="aContent">${i.content}</div>
 				</div>
 			</li>
@@ -106,7 +106,7 @@ ${boardManage.top_html}
 					<a class="trigger" href="#">데이터가 존재하지 않습니다.</a>
 				</div>
 			</li>
-			</c:if>			
+			</c:if>
 		</ul>
 	</div>
 	<div class="button bbs-btn right">

@@ -11,14 +11,14 @@ $(function(){
 		step: 1,
 		start: 1
 	});
-	
+
 	$('a#fieldManage_add').on('click', function(e) {
 		$('#fieldManageEditLayer').load('/cms/boardManage/fieldManage/edit.do?editMode=ADD&manage_idx=${fieldManage.manage_idx}', function() {
 			$('button#fieldManage_save').show();
 		});
 		e.preventDefault();
 	});
-	
+
 	$('select#board_column').on('change', function(e) {
 		var column_nm = $(this).children("option:selected").text()
 		$('input#board_column_nm').val(column_nm);
@@ -51,6 +51,7 @@ $(function(){
 				<tr class="gubun">
 					<td>
 						<form:select path="board_column" cssClass="selectmenu-search" cssStyle="width:150px;">
+							<form:option value="">==컬럼선택 ==</form:option>
 							<form:options itemLabel="board_column_nm" itemValue="board_column" items="${boardColumnInfoList}"/>
 						</form:select>
 					</td>
@@ -63,12 +64,12 @@ $(function(){
 					</td>
 					<td>
 						<form:select path="code_mapping" cssClass="selectmenu-search" cssStyle="width:150px;">
-							<form:option value="">== 코드선택 ==</form:option>
+							<form:option value="">==코드선택 ==</form:option>
 							<form:options itemLabel="group_name" itemValue="group_id" items="${codeGroupList}"/>
 						</form:select>
 					</td>
 				</tr>
-	
+
 				<tr>
 					<th rowspan="2" class="ceGroup">글목록</th>
 					<th>넓이</th>
@@ -90,7 +91,7 @@ $(function(){
 						<form:radiobutton path="content_link_yn" value="N" label="사용안함"/>
 					</td>
 				</tr>
-	
+
 				<tr>
 					<th rowspan="2" class="ceGroup">글등록</th>
 					<th>항목넓이</th>
@@ -112,7 +113,7 @@ $(function(){
 						<form:radiobutton path="admin_only" value="N" label="사용안함"/>
 					</td>
 				</tr>
-	
+
 				<tr>
 					<th rowspan="2" class="ceGroup">검색</th>
 					<th>순서</th>

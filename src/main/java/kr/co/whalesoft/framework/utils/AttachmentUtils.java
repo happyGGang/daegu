@@ -16,7 +16,7 @@ public class AttachmentUtils {
 //		String os = r.get("os");
 //		String version = r.get("version");
 //		String os_version = r.get("os_version");
-		
+
 		if("Chrome".equals(name) || "Edge".equals(name) || "Firefox".equals(name) || "Safari".equals(name)) {
 			return String.format("attachment; filename=\"%s\"; filename*=UTF-8''%s", filename, URLEncoder.encode(filename, "UTF-8").replaceAll("\\+", "%20"));
 		} else if("Internet Explorer".equals(name)) {
@@ -25,7 +25,7 @@ public class AttachmentUtils {
 			return String.format("attachment; filename=\"%s\";", filename);
 		}
 	}
-	
+
 	public static String getContentType(String extension) {
 		String ext = extension.toUpperCase();
 		if (ext.equals("HWP")) {
@@ -46,9 +46,11 @@ public class AttachmentUtils {
 			return "image/png";
 		} else if (ext.equals("JPG") || ext.equals("JPEG")) {
 			return "image/jpeg";
+		} else if (ext.equals("MP3")) {
+			return "audio/mpeg";
 		} else {
 			return "application/octet-stream";
 		}
 	}
-	
+
 }

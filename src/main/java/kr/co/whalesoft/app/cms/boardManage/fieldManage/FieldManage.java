@@ -10,48 +10,48 @@ public class FieldManage extends PagingUtils {
 
 	private int manage_idx;
 	private int field_idx;
-	
+
 	private String customType; //게시판 타입
 	private String orderByType; //정렬 타입
 	private String useColumnType; //사용 유무 컬럼 타입
-	
+
 	private String board_field_manage_idx; //게시판 템플릿코드
-	
+
 	private String board_column; //컬럼명
 	private String board_column_nm; //컬럼 한글명
 	private String board_content; //컬럼 내용
 	private String column_type; //컬럼 타입
 	private String code_mapping; //코드 매핑
-	
-	private String list_use_yn = "N"; //목록 사용여부
+
+	private String list_use_yn = "Y"; //목록 사용여부
 	private int list_seq; //목록 VIEW 순서
-	private int list_width; //목록 넓이
-	private int list_maxwidth; //목록 글 최대표시길이
+	private int list_width = 20; //목록 넓이
+	private int list_maxwidth = 20; //목록 글 최대표시길이
 	private String content_link_yn = "N"; //본문 링크 여부
-	
-	private String write_use_yn = "Y"; //등록 사용여부 
+
+	private String write_use_yn = "Y"; //등록 사용여부
 	private int write_seq; //등록 VIEW 순서
-	private String write_req_cont = "N";		//등록 필수저장여부
-	private int write_width; //등록 입력폼 길이
-	private int write_height; //등록 항목넓이(TEXTAREA 시 사용)
-	
+	private String write_req_cont = "Y";		//등록 필수저장여부
+	private int write_width = 20; //등록 입력폼 길이
+	private int write_height = 20; //등록 항목넓이(TEXTAREA 시 사용)
+
 	private String search_use_yn = "N"; //검색 사용여부
 	private int search_seq; //검색 순서
-	
-	private String upd_id; //수정 아이디
-	private Date upd_dttm; //수정일자
-	private String crt_id; //등록 아이디
-	private Date crt_dttm; //등록일자
-	
+
+	private String modify_id; //수정 아이디
+	private Date modify_date; //수정일자
+	private String add_id; //등록 아이디
+	private Date add_date; //등록일자
+
 	private int page; //현재 페이지(grid)
 	private String sortColumn; //정렬 컬럼
 	private String ascDescFlg; //정렬 방식(순차 : 역순)
 	private String admin_only = "N"; //관리자전용
-	
+
 	private List<String> column_list; //컬럼 목록
-	
+
 	public FieldManage() {}
-	
+
 	public FieldManage(int manage_idx) {
 		this.manage_idx = manage_idx;
 	}
@@ -240,38 +240,6 @@ public class FieldManage extends PagingUtils {
 		this.search_seq = search_seq;
 	}
 
-	public String getUpd_id() {
-		return upd_id;
-	}
-
-	public void setUpd_id(String upd_id) {
-		this.upd_id = upd_id;
-	}
-
-	public Date getUpd_dttm() {
-		return upd_dttm;
-	}
-
-	public void setUpd_dttm(Date upd_dttm) {
-		this.upd_dttm = upd_dttm;
-	}
-
-	public String getCrt_id() {
-		return crt_id;
-	}
-
-	public void setCrt_id(String crt_id) {
-		this.crt_id = crt_id;
-	}
-
-	public Date getCrt_dttm() {
-		return crt_dttm;
-	}
-
-	public void setCrt_dttm(Date crt_dttm) {
-		this.crt_dttm = crt_dttm;
-	}
-
 	public int getPage() {
 		return page;
 	}
@@ -320,5 +288,45 @@ public class FieldManage extends PagingUtils {
 			this.column_list.addAll(column_list);
 		}
 	}
-	
+
+
+	public String getModify_id() {
+		return modify_id;
+	}
+
+
+	public void setModify_id(String modify_id) {
+		this.modify_id = modify_id;
+	}
+
+
+	public Date getModify_date() {
+		return modify_date;
+	}
+
+
+	public void setModify_date(Date modify_date) {
+		this.modify_date = modify_date;
+	}
+
+
+	public String getAdd_id() {
+		return add_id;
+	}
+
+
+	public void setAdd_id(String add_id) {
+		this.add_id = add_id;
+	}
+
+
+	public Date getAdd_date() {
+		return add_date;
+	}
+
+
+	public void setAdd_date(Date add_date) {
+		this.add_date = add_date;
+	}
+
 }

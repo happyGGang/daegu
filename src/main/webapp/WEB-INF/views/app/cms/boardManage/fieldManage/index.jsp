@@ -8,7 +8,7 @@ $(function(){
 	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
 		resizable: true,
-		modal: true, 
+		modal: true,
 	    open: function(){
 	        $('.ui-widget-overlay').addClass('custom-overlay');
 	    },
@@ -35,22 +35,22 @@ $(function(){
 			}
 		]
 	});
-	
+
 	$("#dialog-2").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
-		width: 1000,
+		width: 1500,
 		height: 800
 	});
-	
+
 	$('.scroll thead th.edit-btn').append('<p style="width:59px"></p>');
-	
+
 	$('a#fieldManage_modify').on('click', function(e) {
 		$('#fieldManageEditLayer').load('/cms/boardManage/fieldManage/edit.do?editMode=MODIFY&manage_idx=${fieldManage.manage_idx}&board_column=' + $(this).attr('keyValue'), function() {
-			$('button#fieldManage_save').show();	
+			$('button#fieldManage_save').show();
 		});
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('a#fieldManage_delete').on('click', function(e) {
 		if(confirm('컬럼을 삭제 하시겠습니까?')) {
 			$.ajax({
@@ -67,7 +67,7 @@ $(function(){
 		}
 		e.preventDefault();
 	});
-	
+
 	$('#fieldManageEditLayer').load('/cms/boardManage/fieldManage/edit.do?editMode=FIRST&manage_idx=${fieldManage.manage_idx}');
 });
 </script>

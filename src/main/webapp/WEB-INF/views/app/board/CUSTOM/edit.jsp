@@ -20,37 +20,31 @@ ${boardManage.top_html}
 		<tbody>
 			<jsp:include page="/WEB-INF/views/app/board/common/edit/notice.jsp" flush="false" />
 			<jsp:include page="/WEB-INF/views/app/board/common/edit/category.jsp" flush="false" />
-			<tr> 
+			<tr>
 				<th>작성자</th>
-				<td>${member.dept_nm}</td>
+				<td>${member.member_name}</td>
 				<th>작성일</th>
-				<td><fmt:formatDate value="${board.editMode eq 'ADD'?getToday:board.add_date}" pattern="yyyy-MM-dd"/></td>
+				<td><fmt:formatDate value="${board.editMode eq 'ADD' ? getToday : board.add_date}" pattern="yyyy-MM-dd"/></td>
 			</tr>
 			<c:forEach var="i" varStatus="status" items="${fieldList}">
-			<c:if test="${i.board_column ne 'view_count' and !(i.admin_only eq 'Y' and board.parent_idx eq 0)}">
+			<c:if test="${i.board_column ne 'view_count' and !(i.admin_only eq 'Y' and board.parent_idx eq 0) and i.column_type ne 'cate'}">
 			<tr>
 				<th>${i.board_content}</th>
 				<td colspan="3">
 				<c:choose>
-				<c:when test="${i.column_type eq 'phone'}">
-					<boardTag:phoneFieldTag name="${i.board_column}" value="" />
-				</c:when>
-				<c:when test="${i.column_type eq 'email'}">
-					<boardTag:emailFieldTag name="${i.board_column}" value="" />
-				</c:when>
-				<c:when test="${i.column_type eq 'radio'}">
+				<c:when test="${i.column_type eq 'radi'}">
 					<customTag:getCodeList attibuteName="codeListByRadio" group_id="${i.code_mapping}"/>
 					<form:radiobuttons path="${i.board_column}" items="${codeListByRadio}" itemValue="code_id" itemLabel="code_name" delimiter=" " cssStyle="cursor:pointer;" />
 				</c:when>
-				<c:when test="${i.column_type eq 'checkBox'}">
+				<c:when test="${i.column_type eq 'chec'}">
 					<customTag:getCodeList attibuteName="codeListByCheckbox" group_id="${i.code_mapping}"/>
 					<form:checkboxes path="${i.board_column}" items="${codeListByCheckbox}" itemValue="code_id" itemLabel="code_name" delimiter=" " />
 				</c:when>
 				<c:when test="${i.column_type eq 'date'}">
 					<form:input type="text" path="${i.board_column}" cssClass="text ui-calendar customCalendar" readonly="true"/>
 				</c:when>
-				<c:when test="${i.column_type eq 'textArea'}">
-					<form:textarea path="${fn:toLowerCase(i.board_column)}" rows="10" cols="100" cssStyle="width:95%; display:none;"/>
+				<c:when test="${i.column_type eq 'area'}">
+					<form:textarea path="${fn:toLowerCase(i.board_column)}" rows="10" cols="100" cssStyle="width:95%; ${boardManage.editor_use_yn eq 'Y'?' display:none':''}"/>
 				</c:when>
 				<c:otherwise>
 					<form:input path="${i.board_column}" cssStyle="width:90%;" cssClass="text" />
@@ -60,13 +54,6 @@ ${boardManage.top_html}
 			</tr>
 			</c:if>
 			</c:forEach>
-			<tr>
-				<td colspan="4" class="editor">
-					<div class="bbs-textarea">
-						<form:textarea path="content" rows="10" cols="100" cssStyle="width:95%;${boardManage.editor_use_yn eq 'Y'?' display:none':''}"/>
-					</div>
-				</td>
-			</tr>
 			<jsp:include page="/WEB-INF/views/app/board/common/edit/ebook.jsp" flush="false" />
 			<c:if test="${boardManage.file_use_yn eq 'Y'}">
 			<tr>
@@ -81,7 +68,7 @@ ${boardManage.top_html}
 	</table>
 
 	<jsp:include page="/WEB-INF/views/app/board/common/edit/button.jsp" flush="false" />
-	
+
 </div>
 </form:form>
 <c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.bottom_html) > 0}">

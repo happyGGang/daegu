@@ -352,7 +352,7 @@ public class BoardController extends BaseController {
 			checkAuth("U", model, request);
 			Board boardOne = (Board)service.copyObjectPaging(boardManage, board, service.getBoardOne(board));
 
-			if ( StringUtils.isNotEmpty(boardOne.getUser_password()) ) {
+			if ( boardOne.getSecret_yn().equals("Y") && StringUtils.isNotEmpty(boardOne.getUser_password()) ) {
 				if ( !boardOne.getUser_password().equals(CalculateHashUtils.calculateHash(board.getUser_password())) ) {
 					service.alertMessage("비밀번호가 틀립니다.", request, response);
 					return null;

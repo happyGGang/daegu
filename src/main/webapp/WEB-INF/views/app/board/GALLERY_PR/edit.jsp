@@ -29,7 +29,7 @@
 				<th>작성자</th>
 				<td>${member.dept_nm}</td>
 				<th>작성일</th>
-				<td><fmt:formatDate value="${board.editMode eq 'ADD'?getToday:board.add_date}" pattern="yyyy-MM-dd"/></td>
+				<td><fmt:formatDate value="${board.editMode eq 'ADD' ? getToday : board.add_date}" pattern="yyyy-MM-dd"/></td>
 			</tr>
 			<jsp:include page="/WEB-INF/views/app/board/common/edit/ebook.jsp" flush="false" />
 			<tr>

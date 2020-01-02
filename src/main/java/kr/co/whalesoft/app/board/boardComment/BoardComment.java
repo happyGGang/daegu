@@ -20,28 +20,28 @@ public class BoardComment {
 	private String delete_yn; //삭제여부
 	private Date add_date; //등록날짜
 	private Date modify_date; //수정날짜
-	
-	private String ilus_user_id; //
-	private String ilus_user_seq; //
-	
+
+	private String las_user_id; //
+	private String las_user_seq; //
+
 	private int manage_idx;
 	private String imsi_v_18;
 	private String imsi_v_19;
 	private String imsi_v_20;
 	private int imsi_n_1;
-	
+
 	private String[] boardCommentFileArray; //첨부파일
 	private String[] deleteBoardCommentFileArray;//삭제대상첨부파일
 	private String beforeFilePath;
 	private String afterFilePath;
 	private int file_count;//첨부파일갯수
 	private List<BoardCommentFile> fileList = new ArrayList<BoardCommentFile>();
-	
+
 	public String getUrlParam(String mode) {
 		StringBuffer sb = new StringBuffer();
 		sb.append("board_idx=" + board_idx);
 		sb.append("&manage_idx=" + manage_idx);
-		
+
 		return sb.toString();
 	}
 
@@ -149,134 +149,136 @@ public class BoardComment {
 		this.modify_date = modify_date;
 	}
 
-	
-	public String getIlus_user_id() {
-		return ilus_user_id;
-	}
 
-	
-	public void setIlus_user_id(String ilus_user_id) {
-		this.ilus_user_id = ilus_user_id;
-	}
 
-	
-	public String getIlus_user_seq() {
-		return ilus_user_seq;
-	}
 
-	
-	public void setIlus_user_seq(String ilus_user_seq) {
-		this.ilus_user_seq = ilus_user_seq;
-	}
-
-	
 	public String getImsi_v_18() {
 		return imsi_v_18;
 	}
 
-	
+
 	public void setImsi_v_18(String imsi_v_18) {
 		this.imsi_v_18 = imsi_v_18;
 	}
 
-	
+
 	public String getImsi_v_19() {
 		return imsi_v_19;
 	}
 
-	
+
 	public void setImsi_v_19(String imsi_v_19) {
 		this.imsi_v_19 = imsi_v_19;
 	}
 
-	
+
 	public String getImsi_v_20() {
 		return imsi_v_20;
 	}
 
-	
+
 	public void setImsi_v_20(String imsi_v_20) {
 		this.imsi_v_20 = imsi_v_20;
 	}
 
-	
+
 	public int getImsi_n_1() {
 		return imsi_n_1;
 	}
 
-	
+
 	public void setImsi_n_1(int imsi_n_1) {
 		this.imsi_n_1 = imsi_n_1;
 	}
 
-	
+
 	public int getManage_idx() {
 		return manage_idx;
 	}
 
-	
+
 	public void setManage_idx(int manage_idx) {
 		this.manage_idx = manage_idx;
 	}
 
-	
+
 	public String[] getBoardCommentFileArray() {
 		return boardCommentFileArray;
 	}
 
-	
+
 	public void setBoardCommentFileArray(String[] boardCommentFileArray) {
 		this.boardCommentFileArray = boardCommentFileArray;
 	}
 
-	
+
 	public String[] getDeleteBoardCommentFileArray() {
 		return deleteBoardCommentFileArray;
 	}
 
-	
+
 	public void setDeleteBoardCommentFileArray(String[] deleteBoardCommentFileArray) {
 		this.deleteBoardCommentFileArray = deleteBoardCommentFileArray;
 	}
 
-	
+
 	public String getBeforeFilePath() {
 		return beforeFilePath;
 	}
 
-	
+
 	public void setBeforeFilePath(String beforeFilePath) {
 		this.beforeFilePath = beforeFilePath;
 	}
 
-	
+
 	public String getAfterFilePath() {
 		return afterFilePath;
 	}
 
-	
+
 	public void setAfterFilePath(String afterFilePath) {
 		this.afterFilePath = afterFilePath;
 	}
 
-	
+
 	public int getFile_count() {
 		return file_count;
 	}
 
-	
+
 	public void setFile_count(int file_count) {
 		this.file_count = file_count;
 	}
 
-	
+
 	public List<BoardCommentFile> getFileList() {
 		return fileList;
 	}
 
-	
+
 	public void setFileList(List<BoardCommentFile> fileList) {
 		this.fileList = fileList;
 	}
-	
+
+
+	public String getLas_user_id() {
+		return las_user_id;
+	}
+
+
+	public void setLas_user_id(String las_user_id) {
+		this.las_user_id = las_user_id;
+	}
+
+
+	public String getLas_user_seq() {
+		return las_user_seq;
+	}
+
+
+	public void setLas_user_seq(String las_user_seq) {
+		this.las_user_seq = las_user_seq;
+	}
+
 }

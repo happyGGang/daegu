@@ -799,17 +799,30 @@
 		<include refid="where"/>
 	</select>
 
-
-
 	<select id="getQnABoardCount" resultType="int">
-		SELECT COUNT(*) FROM CMS_BOARD
-		WHERE
-			manage_idx = #{manage_idx} AND
-			<if test='reply_list_yn == "N"'>
-			group_depth = 0 AND
-			</if>
-			delete_yn = #{delete_yn}
-			<include refid="where"/>
+		SELECT
+			COUNT(*)
+		FROM
+		(
+			SELECT
+				1
+			FROM
+			(
+				SELECT
+					board_idx, parent_idx
+				FROM
+					CMS_BOARD
+				WHERE
+					manage_idx = #{manage_idx}
+				AND	delete_yn = #{delete_yn}
+				<if test='reply_list_yn == "N"'>
+				AND	group_depth = 0
+				</if>
+				<include refid="where"/>
+			 ) A
+			START WITH A.parent_idx = 0
+	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
+		) CMS_BOARD_T
 	</select>
 
 	<select id="getBOOKBoardCount" resultType="int">

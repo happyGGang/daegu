@@ -9,37 +9,15 @@
 ${boardManage.top_html}
 </c:if>
 <jsp:include page="/WEB-INF/views/app/board/common/view/script.jsp" flush="false" />
-<script>
-$(document).ready(function() {
-    <%-- 답변 수정하기 --%>
-    $('a#board_reply_edit_btn').on('click', function(e) {
-    	$('#editMode').val('MODIFY');
-    	$('#board_idx').val($(this).attr('keyValue'));
-		var url = 'edit.do';
-		var formData = serializeCustom($('#board'));
-		doGetLoad(url, formData);
-		e.preventDefault();
-	});
-
-    <%-- 답변 삭제하기 --%>
-    $('a#board_reply_delete_btn').on('click', function(e) {
-    	e.preventDefault();
-    	$('#board_idx').val($(this).attr('keyValue'));
-    	if(confirm('답변을 삭제 하시겠습니까?')) {
-    		$('#board').attr('action', 'delete.do');
-    		doAjaxPost($('#board'));
-    	}
-	});
-});
-</script>
 <form:form modelAttribute="board" method="get">
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
 <jsp:include page="/WEB-INF/views/app/board/common/form_paging_param.jsp" flush="false" />
 <form:hidden path="editMode"/>
 <form:hidden path="target_manage_idx"/>
 <form:hidden path="category1"/>
-<form:hidden path="user_password"/>
+<c:if test="${board.delete_yn eq 'Y'}">
 <form:hidden path="boardIdxArray"/>
+</c:if>
 </form:form>
 <div class="wrapper-bbs">
 	<div class="bbs-view">
@@ -49,9 +27,8 @@ $(document).ready(function() {
 				<dt>${board.title}</dt>
 				<dd class="info">
 					<div class="panel-left">
-<%--						<i>답변상태</i><span>${board.request_state_str}</span> --%>
 						<c:choose>
-						<c:when test="${boardManage.anonymize_yn eq 'Y' and not authMBA}">
+						<c:when test="${boardManage.anonymize_yn eq 'Y' and not authMBA and board.notice_yn eq 'N'}">
 						<c:set var="user_name" value="${fn:substring(board.user_name, -1, 1)}**"/>
 						</c:when>
 						<c:otherwise>
@@ -83,6 +60,20 @@ $(document).ready(function() {
 			</dl>
 		</div>
 		<div class="bbs-view-body">
+			<c:if test="${fn:length(boardFile) > 0}">
+			<c:forEach var="i" varStatus="status" items="${boardFile}">
+			<div align="center">
+				<audio controls>
+					<source src="${getContextPath}/board/boardFile/download/${board.manage_idx}/${i.board_idx}/${i.file_idx}.do" type="audio/mpeg">
+					브라우저에서 오디오 요소를 지원하지 않습니다
+				</audio>
+				<br/>
+				${i.org_file_name}
+				<br/>
+				<br/>
+			</div>
+			</c:forEach>
+			</c:if>
 			${fn:replace(board.content, crlf, '<br/>')}
 <!-- 			<dl class="share"> -->
 <!-- 				<dt>공유하기</dt> -->
@@ -97,69 +88,13 @@ $(document).ready(function() {
 				<jsp:include page="/WEB-INF/views/app/board/common/view/file.jsp" flush="false" />
 			</dl>
 		</div>
+		<div class="bbs-comment" id="bbs-comment">
+
+		</div>
 	</div>
+	<jsp:include page="/WEB-INF/views/app/board/common/view/beforeNext.jsp" flush="false" />
 	<jsp:include page="/WEB-INF/views/app/board/common/view/button.jsp" flush="false" />
 </div>
-
-<c:forEach var="j" varStatus="status" items="${boardQnaList}">
-<div class="wrapper-bbs">
-	<div class="bbs-view">
-		<div class="bbs-view-header">
-			<dl>
-				<dt>${j.title}</dt>
-				<dd class="info">
-					<div class="panel-left">
-						<i>작성자</i><span>${j.user_name}<c:if test="${authMBA}">(${j.add_id})</c:if></span>
-						<i>작성일</i><span><fmt:formatDate value="${j.add_date}" pattern="yyyy.MM.dd HH:mm"/></span>
-						<c:if test="${not empty j.user_ip}">
-							<c:set value="${fn:split(j.user_ip, '.')}" var="user_ip"></c:set>
-							<c:choose>
-								<c:when test="${authMBA}">
-						<i>IP</i><span>${j.user_ip}</span>
-								</c:when>
-								<c:otherwise>
-									<c:if test="${fn:length(user_ip) == 4}">
-						<i>IP</i><span>*.*.*.${user_ip[3]}</span>
-									</c:if>
-								</c:otherwise>
-							</c:choose>
-						</c:if>
-					</div>
-				</dd>
-				<c:if test="${fn:length(j.boardFile) > 0}">
-				<dd class="file">
-					<ul>
-					<c:forEach var="i" varStatus="status" items="${j.boardFile}">
-						<li><a href="${getContextPath}/board/boardFile/download/${j.manage_idx}/${i.board_idx}/${i.file_idx}.do"><i class="fa <boardTag:file_ext file_ext="${i.file_ext_name}"/>"></i><span>${i.file_name}</span></a></li>
-					</c:forEach>
-					</ul>
-				</dd>
-				</c:if>
-			</dl>
-		</div>
-		<div class="bbs-view-body">
-			${fn:replace(j.content, crlf, '<br/>')}
-		</div>
-	</div>
-	<div class="button bbs-btn right">
-	<c:choose>
-	<c:when test="${board.delete_yn  eq 'Y'}">
-		<a href="" class="btn btn5" id="board_recovery_btn">게시물복구</a>
-	</c:when>
-	<c:otherwise>
-
-	<c:if test="${fn:length(boardQnaList) > 0 and authMBA}">
-		<a href="" class="btn modify" id="board_reply_edit_btn" keyValue="${boardQnaList[0].board_idx}"><i class="fa fa-pencil-square-o"></i><span>답변수정</span></a>
-		<a href="" class="btn delete" id="board_reply_delete_btn" keyValue="${boardQnaList[0].board_idx}"><i class="fa fa-trash-o"></i><span>답변삭제</span></a>
-	</c:if>
-	</c:otherwise>
-	</c:choose>
-	</div>
-</div>
-</c:forEach>
 <c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.bottom_html) > 0}">
 ${boardManage.bottom_html}
-</c:if>
-<c:if test="${boardManage.board_type eq 'QNA'}">
-<div id="dialog-1"></div>
 </c:if>

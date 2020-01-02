@@ -27,33 +27,33 @@ public class BoardCommentService extends BaseService {
 
 	@Autowired
 	private BoardCommentDao dao;
-	
+
 	@Autowired
 	private LoginService loginService;
-	
+
 	@Autowired
 	private HomepageService homepageService;
-	
+
 	@Autowired
 	private BoardDao boardDao;
-	
+
 	@Autowired
 	private BoardService boardService;
-	
+
 	@Autowired
 	private BoardCommentFileService boardCommentFileService;
-	
+
 	@Autowired
 	private MemberService memberService;
 
 	@Autowired
 	@Qualifier("boardCommentStorage")
 	private FileStorage boardCommentStorage;
-	
+
 	@Autowired
 	@Qualifier("boardCommentTempStorage")
 	private FileStorage boardCommentTempStorage;
-	
+
 	public List<BoardComment> getBoardComment(BoardComment boardComment) {
 		List<BoardComment> lsit = dao.getBoardComment(boardComment);
 		for ( BoardComment cmt : lsit ) {
@@ -61,15 +61,15 @@ public class BoardCommentService extends BaseService {
 		}
 		return lsit;
 	}
-	
+
 	public int getBoardCommentCount(BoardComment boardComment) {
 		return dao.getBoardCommentCount(boardComment);
 	}
-	
+
 	@Transactional
 	public int addBoardComment(BoardComment boardComment, HttpServletRequest request) {
 		Member member = (Member)loginService.getSessionMember(request);
-		
+
 		if (member.getLoginType().equals("CMS")) {
 			boardComment.setUser_id(member.getMember_id());
 		} else {
@@ -78,18 +78,18 @@ public class BoardCommentService extends BaseService {
 			} else {
 				boardComment.setUser_id(member.getMember_id());//web_id가 없는경우 대출자번호를 넣는다.
 			}
-			boardComment.setIlus_user_id(member.getMember_id());//
-			boardComment.setIlus_user_seq(member.getSeq_no());
+			boardComment.setLas_user_id(member.getMember_id());//
+			boardComment.setLas_user_seq(member.getSeq_no());
 		}
-		
+
 		boardComment.setUser_name(member.getMember_name());
 		boardComment.setUser_ip(RequestUtils.getClientIpAddr(request));
-		
+
 		boardComment.setBeforeFilePath(boardCommentTempStorage.getContextPath()+"/"+request.getSession().getId());
 		boardComment.setAfterFilePath(boardCommentStorage.getContextPath());
-		
+
 		boardComment.setComment_idx(dao.getCommentIdx(boardComment));
-		
+
 		BoardManage boardManage = (BoardManage)request.getAttribute("boardManage");
 		Board boardTmp = new Board();
 		boardTmp.setManage_idx(boardComment.getManage_idx());
@@ -103,14 +103,14 @@ public class BoardCommentService extends BaseService {
 		boardTmp.setCategory4Manage(boardManage.getCategory4());
 		boardTmp.setCategory5Manage(boardManage.getCategory5());
 		boardTmp = boardService.getBoardOne(boardTmp);
-		
-		
+
+
 		if	(boardManage.getBoard_type().equals("LOSTCARD")) {
 			Board board = new Board();
 			board.setGroup_idx(boardComment.getBoard_idx());
 			board.setManage_idx(boardComment.getManage_idx());
 			board.setRequest_state(boardComment.getImsi_v_18());
-			
+
 			boardDao.modifyLostCardBoard(board);
 		}
 		/**
@@ -126,7 +126,7 @@ public class BoardCommentService extends BaseService {
 			board.setGroup_idx(boardComment.getBoard_idx());
 			boardDao.modifyQnaBoard(board);
 		}
-		
+
 		/**
 		 * 유지보수 처리 완료
 		 * 글쓴사람에게 보낸다.
@@ -139,7 +139,7 @@ public class BoardCommentService extends BaseService {
 			board.setManage_idx(563);
 			board.setGroup_idx(boardComment.getBoard_idx());
 			board.setBoard_idx(boardComment.getBoard_idx());
-			
+
 			Board boardOne = boardService.getBoardOne(board);
 			Member boardMember = new Member();
 			boardMember.setMember_id(boardOne.getAdd_id());
@@ -147,28 +147,28 @@ public class BoardCommentService extends BaseService {
 			if (boardMember != null && StringUtils.isNotEmpty(boardMember.getCell_phone())) {
 				PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, boardMember.getCell_phone(), "["+boardTmp.getCategory1_name()+"] 유지보수 처리가 완료되었습니다. 프로젝트 사이트 확인 바랍니다.", homepage.getHomepage_send_tell(), true);
 			}
-			
+
 			boardDao.modifyQnaBoard(board);
 		}
-		
+
 		boardComment.setGroup_comment_idx(boardComment.getGroup_comment_idx());
-		
+
 		if (dao.addBoardComment(boardComment) > 0) {
-			
+
 			if(boardComment.getBoardCommentFileArray()!=null && boardComment.getBoardCommentFileArray().length > 0) {
 				boardCommentFileService.fileProcess(boardComment.getBoardCommentFileArray(), boardComment, "ADD", request);
 				boardComment.setFile_count(boardComment.getBoardCommentFileArray().length);
 //				dao.modifyBoardFileCount(boardComment);
 			}
-			
+
 		}
-		
+
 		return 1;
 	}
-	
+
 	public int modifyBoardComment(BoardComment boardComment, HttpServletRequest request) {
 		Member member = (Member)loginService.getSessionMember(request);
-		
+
 		if (member.getLoginType().equals("CMS")) {
 			boardComment.setUser_id(member.getMember_id());
 		} else {
@@ -177,17 +177,17 @@ public class BoardCommentService extends BaseService {
 			} else {
 				boardComment.setUser_id(member.getMember_id());//web_id가 없는경우 대출자번호를 넣는다.
 			}
-			boardComment.setIlus_user_id(member.getMember_id());//
-			boardComment.setIlus_user_seq(member.getSeq_no());
+			boardComment.setLas_user_id(member.getMember_id());//
+			boardComment.setLas_user_seq(member.getSeq_no());
 		}
-		
+
 		boardComment.setUser_name(member.getMember_name());
 		return dao.modifyBoardComment(boardComment);
 	}
-	
+
 	public int addBoardReplyComment(BoardComment boardComment, HttpServletRequest request) {
 		Member member = (Member)loginService.getSessionMember(request);
-		
+
 		if (member.getLoginType().equals("CMS")) {
 			boardComment.setUser_id(member.getMember_id());
 		} else {
@@ -196,17 +196,17 @@ public class BoardCommentService extends BaseService {
 			} else {
 				boardComment.setUser_id(member.getMember_id());//web_id가 없는경우 대출자번호를 넣는다.
 			}
-			boardComment.setIlus_user_id(member.getMember_id());//
-			boardComment.setIlus_user_seq(member.getSeq_no());
+			boardComment.setLas_user_id(member.getMember_id());//
+			boardComment.setLas_user_seq(member.getSeq_no());
 		}
 		boardComment.setUser_name(member.getMember_name());
 		boardComment.setUser_ip(RequestUtils.getClientIpAddr(request));
-		
+
 		return dao.addBoardReplyComment(boardComment);
 	}
-	
+
 	public int deleteBoardComment(BoardComment boardComment) {
 		return dao.deleteBoardComment(boardComment);
 	}
-	
+
 }

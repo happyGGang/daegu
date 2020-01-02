@@ -133,13 +133,7 @@ public class IndexController extends BaseController {
 			@PathVariable String contextPath) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
-		String filePath = "";
-
-		if (homepage != null && !homepage.getHomepage_id().equals("h5")) {
-			filePath = homepage.getFolder() + "/calendar";
-		} else if (homepage != null && homepage.getHomepage_id().equals("h5")) {
-			filePath = homepage.getFolder() + "/calendar2";
-		}
+		String filePath = homepage.getFolder() + "/calendar";
 
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM");
 

@@ -423,11 +423,12 @@
 
 	<select id="getNextPrintSeq" resultType="int">
 		SELECT
-			NVL(MAX(PRINT_SEQ), 0) + 10
+			NVL(MAX(print_seq), 0) + 10
 		FROM
 			CMS_MENU
 		WHERE
-			HOMEPAGE_ID = #{homepage_id} AND PARENT_MENU_IDX = #{menu_idx}
+			homepage_id = #{homepage_id}
+		AND	parent_menu_idx = #{menu_idx}
 	</select>
 
 	<!-- 홈페이지 삭제시 메뉴 삭제 -->

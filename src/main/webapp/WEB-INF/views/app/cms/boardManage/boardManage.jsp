@@ -14,39 +14,39 @@ $(function(){
 		$('#dialog-1').load('edit.do?editMode=ADD&homepage_id='+$('#homepage_id_1').val(), function( response, status, xhr ) {
 			$('#dialog-1').dialog('open');
 		});
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('select#homepage_id_1').on('change', function(e) {
 		if($(this).val() != '') {
 			$('#homepage_id_1').val($(this).val());
 			$('#boardManage2').submit();
 		}
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('a#dialog-modify').on('click', function(e) {
 		$('#dialog-1').load('edit.do?editMode=MODIFY&homepage_id='+$('#homepage_id_1').val()+'&manage_idx=' + $(this).attr('keyValue'), function( response, status, xhr ) {
 			$('#dialog-1').dialog('open');
 		});
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('a#dialog-field').on('click', function(e) {
 		$('#dialog-2').load('/cms/boardManage/fieldManage/index.do?homepage_id='+$('#homepage_id_1').val()+'&manage_idx=' + $(this).attr('keyValue'), function( response, status, xhr ) {
 			$('#dialog-2').dialog('open');
 		});
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('a#delete').on('click', function(e) {
 		if(confirm('선택된  게시판을 삭제 하시겠습니까?')) {
 			$('input#popup_idx_1').val($(this).attr('keyValue'));
-			
+
 			$.ajax({
 				url : 'delete.do',
 				async : false,
@@ -62,28 +62,28 @@ $(function(){
 				}
 			});
 		}
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('button#search_btn').on('click', function(e) {
 		$('#viewPage').attr('value', 1);
 		doGetLoad('index.do?' + $('#boardManage').serialize());
 		e.preventDefault();
 	});
-	
+
 	$('a#board_window_btn').on('click', function(e) {
 		window.open('/${homepageContextPath}/board/index.do?homepage_id=' + $(this).attr('keyValue1') + '&manage_idx=' + $(this).attr('keyValue2'), 'boardManage', 'width=1200,height=700,scrollbars=1');
 		e.preventDefault();
 	});
-	
+
 	$('select#rowCount').change(function(e) {
 		$('input#viewPage').attr('value', 1);
 		$('select#board_type').attr('value', '');
 		$('input#search_text').attr('value', '');
 		doGetLoad('index.do', serializeCustom($('#boardManage')));
 	});
-});	
+});
 </script>
 <form:form modelAttribute="boardManage" id="boardManage2" action="index.do" >
 <form:hidden id="homepage_id_1" path="homepage_id"/>
@@ -95,7 +95,7 @@ $(function(){
 	<div class="mask"></div>
 	</c:if>
 	<form:form modelAttribute="boardManage" action="index.do" method="get">
-	<form:hidden path="homepage_id"/>	
+	<form:hidden path="homepage_id"/>
 	<form:hidden path="editMode"/>
 	<div class="infodesk">
 		검색 결과 : ${paging.totalDataCount}건, 홈페이지 ID : ${boardManage.homepage_id}
@@ -126,7 +126,7 @@ $(function(){
 				</tr>
 			</thead>
 			<tbody>
-			
+
 			<c:forEach var="i" varStatus="status" items="${boardManageList}">
 				<tr>
 					<td class="num">${paging.listRowNum - status.index}</td>
@@ -139,19 +139,15 @@ $(function(){
 						<c:if test="${authU}">
 						<a href="" class="btn" id="dialog-modify" keyValue="${i.manage_idx}">수정</a>
 						</c:if>
+						<c:if test="${(fn:indexOf(i.board_skin, 'CUSTOM') > -1) and (i.homepage_id eq boardManage.homepage_id)}">
+						<a href="" class="btn" id="dialog-field" keyValue="${i.manage_idx}">필드</a>
+						</c:if>
 					</td>
-<%-- 					<c:if test="${member.superAdmin || member.homepageAdmin}"> --%>
-<!-- 					<td> -->
-<%-- 					<c:if test="${(fn:indexOf(i.board_type, 'CUSTOM') > -1) and (i.homepage_id eq boardManage.homepage_id)}"> --%>
-<%-- 						<a href="" class="btn" id="dialog-field" keyValue="${i.manage_idx}">필드</a> --%>
-<%-- 					</c:if> --%>
-<!-- 					</td> -->
-<%-- 					</c:if> --%>
 				</tr>
 			</c:forEach>
 			</tbody>
 		</table>
-		
+
 		<c:if test="${fn:length(boardManageList) < 1}">
 		<table class="bbs center">
 			<tr style="height:100%;">
@@ -159,11 +155,11 @@ $(function(){
 			</tr>
 		</table>
 		</c:if>
-		
+
 		<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 			<jsp:param name="formId" value="#boardManage"/>
 		</jsp:include>
-		
+
 		<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 			<fieldset>
 				<label class="blind">검색</label>
@@ -181,14 +177,14 @@ $(function(){
 			</fieldset>
 		</div>
 	</div>
-	</form:form>	
-	
+	</form:form>
+
 	<div id="dialog-1" class="dialog-common" title="게시판 정보">
 	</div>
-	
+
 	<div id="dialog-2" class="dialog-common" title="필드 정보">
-	</div>	
-	
+	</div>
+
 	<div id="dialog-searchLayer" class="dialog-common11" title="관리자 변경 검색">
 	</div>
 </div>

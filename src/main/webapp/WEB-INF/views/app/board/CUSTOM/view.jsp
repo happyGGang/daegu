@@ -5,9 +5,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="boardTag" uri="/WEB-INF/config/tld/boardTag.tld"%>
 <% pageContext.setAttribute("crlf", "\r\n"); %>
-<c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.top_html) > 0}">
-${boardManage.top_html}
-</c:if>
 <jsp:include page="/WEB-INF/views/app/board/common/view/script.jsp" flush="false" />
 <form:form modelAttribute="board" method="get">
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
@@ -15,20 +12,21 @@ ${boardManage.top_html}
 <form:hidden path="editMode"/>
 <form:hidden path="target_manage_idx"/>
 <form:hidden path="category1"/>
-<c:if test="${board.delete_yn eq 'Y'}">
-<form:hidden path="boardIdxArray"/>
-</c:if>
 </form:form>
 <div class="wrapper-bbs">
+	<c:if test="${boardManager.board_add_html_yn eq 'Y'}">
+	${boardManager.board_top_add_html}
+	</c:if>
 	<div class="bbs-view">
 		<div class="bbs-view-header">
 			<jsp:include page="/WEB-INF/views/app/board/common/view/moveOrCopy.jsp" flush="false" />
 			<dl>
 				<dt>${board.title}</dt>
+				<jsp:include page="/WEB-INF/views/app/board/common/view/ebook.jsp" flush="false" />
 				<dd class="info">
 					<div class="panel-left">
 						<c:choose>
-						<c:when test="${boardManage.anonymize_yn eq 'Y' and not authMBA and board.notice_yn eq 'N'}">
+						<c:when test="${boardManage.anonymize_yn eq 'Y' and not authMBA}">
 						<c:set var="user_name" value="${fn:substring(board.user_name, -1, 1)}**"/>
 						</c:when>
 						<c:otherwise>
@@ -37,19 +35,6 @@ ${boardManage.top_html}
 						</c:choose>
 						<i>작성자</i><span>${user_name}<c:if test="${authMBA}">(${board.add_id})</c:if></span>
 						<i>작성일</i><span><fmt:formatDate value="${board.add_date}" pattern="yyyy.MM.dd HH:mm"/></span>
-						<c:if test="${board.user_ip ne null and board.user_ip ne ''}">
-							<c:set value="${fn:split(board.user_ip, '.')}" var="user_ip"></c:set>
-							<c:choose>
-								<c:when test="${authMBA}">
-						<i>IP</i><span>${board.user_ip}</span>
-								</c:when>
-								<c:otherwise>
-									<c:if test="${fn:length(user_ip) == 4}">
-						<i>IP</i><span>*.*.*.${user_ip[3]}</span>
-									</c:if>
-								</c:otherwise>
-							</c:choose>
-						</c:if>
 					</div>
 					<div class="panel-right">
 						<a href="#bbs-comment">
@@ -59,6 +44,22 @@ ${boardManage.top_html}
 				</dd>
 			</dl>
 		</div>
+		<c:if test="${fn:length(fieldList) > 1}">
+			<div class="bbs-view-body">
+				<ul>
+			<c:forEach var="i" varStatus="status" items="${fieldList}">
+			<c:if test="${i.board_column ne 'title' and i.board_column ne 'view_count' and i.board_column ne 'user_name' and i.board_column ne 'add_date' and i.board_column ne 'content'}">
+				<li>
+				<i>${i.board_content}</i>
+
+				<span>${board[i.board_column]}</span>
+				</li>
+			</c:if>
+			</c:forEach>
+				</ul>
+			</div>
+		</c:if>
+
 		<div class="bbs-view-body">
 			${fn:replace(board.content, crlf, '<br/>')}
 <!-- 			<dl class="share"> -->
@@ -68,16 +69,16 @@ ${boardManage.top_html}
 <!-- 					<a href="" class="twitter"><i class="fa fa-twitter"></i> <span>트위터</span></a> -->
 <!-- 				</dd> -->
 <!-- 			</dl> -->
+
+			<jsp:include page="/WEB-INF/views/app/board/common/view/approval.jsp" flush="false" />
 		</div>
 		<div class="bbs-view-header">
 			<dl>
 				<jsp:include page="/WEB-INF/views/app/board/common/view/file.jsp" flush="false" />
 			</dl>
 		</div>
-		<div class="bbs-comment" id="bbs-comment">
-
-		</div>
 	</div>
+
 	<jsp:include page="/WEB-INF/views/app/board/common/view/beforeNext.jsp" flush="false" />
 	<jsp:include page="/WEB-INF/views/app/board/common/view/button.jsp" flush="false" />
 </div>

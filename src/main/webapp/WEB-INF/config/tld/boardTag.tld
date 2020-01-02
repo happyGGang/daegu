@@ -6,7 +6,7 @@
 	<tlib-version>1.0</tlib-version>
 	<short-name>cmsTag</short-name>
 	<uri>http://www.whalesoft.co.kr</uri>
-	
+
 	<tag>
 		<description>파일 확장자 리턴</description>
 		<name>file_ext</name>
@@ -18,7 +18,7 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<description>게시판 필드 출력</description>
 		<name>field_manage</name>
@@ -45,7 +45,7 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<description>게시물 목록을 가져온다.</description>
 		<name>getBoardList</name>
@@ -67,5 +67,48 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
+	<tag>
+		<description>게시물 목록을 가져온다.</description>
+		<name>customFieldIndex</name>
+		<tag-class>kr.co.whalesoft.framework.tag.board.CustomFieldIndexTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>manage_idx</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>board_idx</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>board_column</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>board_value</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>column_type</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>content_link_yn</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>code_mapping</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+
 </taglib>

@@ -24,18 +24,18 @@ public class Code extends PagingUtils {
 	private String add_id;
 	private String modify_id;
 	private boolean	load_on_demand; //tree폴더 여부
-	
+
 	private String mode;
-	
+
 	public Code() {}
 	public Code(String mode, String homepage_id) {
 		this.mode = mode;
-		if (mode.equals("CMS")) {
+		if ("CMS".equals(mode)) {
 			homepage_id = "CMS";
 		}
 		setHomepage_id(homepage_id);
 	}
-	
+
 	public String getGroup_id() {
 		return group_id;
 	}
@@ -99,7 +99,7 @@ public class Code extends PagingUtils {
 			return null;
 		}
 	}
-	
+
 	public void setCode_id_list(List<String> code_id_list) {
 		if(code_id_list != null) {
 			this.code_id_list = new ArrayList<String>();
@@ -148,5 +148,5 @@ public class Code extends PagingUtils {
 	public void setMode(String mode) {
 		this.mode = mode;
 	}
-	
+
 }

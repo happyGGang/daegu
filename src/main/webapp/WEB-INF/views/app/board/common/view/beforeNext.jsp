@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <script type="text/javascript">
@@ -10,7 +11,7 @@ $(document).ready(function() {
 		var url = 'view.do';
 		var formData = $('#board').serialize();
 		doGetLoad(url, formData);
-		
+
 		e.preventDefault();
 	});
 });
@@ -25,7 +26,17 @@ $(document).ready(function() {
 		</c:when>
 		<c:otherwise>
 			<td><a href="" keyValue="${prevBoard.board_idx}">${prevBoard.title}</a></td>
-			<td>${prevBoard.user_name}</td>
+
+			<c:choose>
+			<c:when test="${boardManage.anonymize_yn eq 'Y' and not authMBA}">
+			<c:set var="user_name" value="${fn:substring(prevBoard.user_name, -1, 1)}**"/>
+			</c:when>
+			<c:otherwise>
+			<c:set var="user_name" value="${prevBoard.user_name}"/>
+			</c:otherwise>
+			</c:choose>
+
+			<td>${user_name}</td>
 			<td class="datetime"><fmt:formatDate value="${prevBoard.modify_date}" pattern="yyyy.MM.dd"/></td>
 		</c:otherwise>
 		</c:choose>
@@ -38,7 +49,17 @@ $(document).ready(function() {
 		</c:when>
 		<c:otherwise>
 			<td><a href="" keyValue="${nextBoard.board_idx}">${nextBoard.title}</a></td>
-			<td>${nextBoard.user_name}</td>
+
+			<c:choose>
+			<c:when test="${boardManage.anonymize_yn eq 'Y' and not authMBA}">
+			<c:set var="user_name" value="${fn:substring(nextBoard.user_name, -1, 1)}**"/>
+			</c:when>
+			<c:otherwise>
+			<c:set var="user_name" value="${nextBoard.user_name}"/>
+			</c:otherwise>
+			</c:choose>
+
+			<td>${user_name}</td>
 			<td class="datetime"><fmt:formatDate value="${nextBoard.modify_date}" pattern="yyyy.MM.dd"/></td>
 		</c:otherwise>
 		</c:choose>

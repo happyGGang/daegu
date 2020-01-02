@@ -48,7 +48,8 @@ ${boardManage.top_html}
 					</c:if>
 					<td class="num">${paging.listRowNum - status.index}</td>
 					<td class="left important" style="padding-left:${(i.group_depth > 0 ? (i.group_depth-1)*15 : 0)+10}px;">
-						<a href="" keyValue="${i.board_idx}">
+						<c:set var="boardIdx" value="${i.parent_idx > 0 ? i.parent_idx : i.board_idx}"></c:set>
+						<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}" keyValue="${i.board_idx}">
 						<c:if test="${i.group_depth > 0}">
 							<i class="fa fa-reply"></i>
 						</c:if>
@@ -90,7 +91,7 @@ ${boardManage.top_html}
 	</div>
 
 	<jsp:include page="/WEB-INF/views/app/board/common/index/button.jsp" flush="false" />
-	
+
 	<jsp:include page="/WEB-INF/views/app/board/common/index/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#board"/>
 	</jsp:include>

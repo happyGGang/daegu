@@ -9,10 +9,10 @@
 		$(window).resize(function() {
 			$('.bbs_gallery img').height($('.bbs_gallery img').width() * 0.6);
 		}).trigger('resize');
-		
+
 		$('img.previewImg').error(function() {
 			var src=  $(this).attr('src');
-			$(this).attr('src', src.replace('/thumb', ''));	
+			$(this).attr('src', src.replace('/thumb', ''));
 			$(this).unbind("error").attr("src", src.replace('/thumb', ''));
 		});
 	});
@@ -28,6 +28,7 @@ ${boardManage.top_html}
 	<div class="table-wrap">
 		<ul class="bbs_gallery" id="board_tbody">
 			<c:forEach var="i" varStatus="status" items="${boardList}">
+			<c:set var="boardIdx" value="${i.parent_idx > 0 ? i.parent_idx : i.board_idx}"></c:set>
 			<li>
 				<c:if test="${board.delete_yn eq 'Y'}">
 				<td><form:checkbox path="boardIdxArray" value="${i.board_idx}"/></td>
@@ -37,24 +38,24 @@ ${boardManage.top_html}
 					<c:when test="${i.preview_img ne null}">
 						<c:choose>
 							<c:when test="${fn:contains(i.preview_img, 'http')}">
-						<a href="" keyValue="${i.board_idx}">
+						<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}" keyValue="${i.board_idx}">
 							<img src="${i.preview_img}" alt="${i.title}"/>
 						</a>
 							</c:when>
 							<c:otherwise>
-						<a href="" keyValue="${i.board_idx}">
+						<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}" keyValue="${i.board_idx}">
 							<img class="previewImg" src="/data/board/${i.manage_idx}/${i.board_idx}/thumb/${i.preview_img}" alt="${i.title}"/>
 						</a>
 							</c:otherwise>
 						</c:choose>
 					</c:when>
 					<c:otherwise>
-						<a href="" keyValue="${i.board_idx}"><img src="/resources/common/img/noimg-gall.png" alt="${i.title}"></a>
+						<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}" keyValue="${i.board_idx}"><img src="/resources/common/img/noimg-gall.png" alt="${i.title}"></a>
 					</c:otherwise>
 					</c:choose>
 				</div>
 				<div class="info">
-					<a href="" keyValue="${i.board_idx}">${i.title}</a>
+					<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}" keyValue="${i.board_idx}">${i.title}</a>
 					<div class="meta">
 						<c:choose>
 						<c:when test="${boardManage.anonymize_yn eq 'Y'}">
@@ -69,7 +70,7 @@ ${boardManage.top_html}
 						<abbr class="published"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></abbr>
 						<span class="txt-bar"></span>
 						<abbr class="published"><fmt:formatNumber value="${i.view_count}" pattern="#,###"/> </abbr>
-						
+
 					</div>
 				</div>
 			</li>
@@ -78,7 +79,7 @@ ${boardManage.top_html}
 	</div>
 
 	<jsp:include page="/WEB-INF/views/app/board/common/index/button.jsp" flush="false" />
-	
+
 	<jsp:include page="/WEB-INF/views/app/board/common/index/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#board"/>
 	</jsp:include>

@@ -89,7 +89,7 @@ public class BoardFileController extends BaseController {
 		service.addBoardFileCount(boardFile);
 
 		String fileName = boardFile.getOrg_file_name().substring(0,boardFile.getOrg_file_name().lastIndexOf("."));
-		String fileType = boardFile.getOrg_file_name().substring(boardFile.getOrg_file_name().lastIndexOf(".")+1).toUpperCase();
+		String fileType = boardFile.getOrg_file_name().substring(boardFile.getOrg_file_name().lastIndexOf(".")+1);
 		String fullFilename = fileName+"."+fileType;
 
 		//responseHeaders.set("charset", "utf-8");

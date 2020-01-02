@@ -6,7 +6,7 @@
 	<tlib-version>1.0</tlib-version>
 	<short-name>customTag</short-name>
 	<uri>http://www.whalesoft.co.kr</uri>
-	
+
 	<tag>
 		<description>특정글 바이트 단위로 자르기</description>
 		<name>cutStr</name>
@@ -28,7 +28,7 @@
 			<rtexprvalue>false</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<description>메뉴권한 체크박스 설정</description>
 		<name>menuAuthCheckbox</name>
@@ -60,12 +60,29 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
+	<tag>
+		<description>메뉴권한 체크박스 설정</description>
+		<name>getCodeList</name>
+		<tag-class>kr.co.whalesoft.framework.tag.CodeListTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>attibuteName</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>group_id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
 	<function>
 		<description>Javascript escape function</description>
 		<name>escapeJS</name>
 		<function-class>kr.co.whalesoft.framework.tag.EscapeJS</function-class>
 		<function-signature>java.lang.String escapeJS(java.lang.String)</function-signature>
 	</function>
-	
+
 </taglib>

@@ -1,194 +1,217 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.whalesoft.app.cms.boardManage.fieldManage.FieldManageDao">
-	
+
 	<select id="getBoardColumnInfo" resultType="kr.co.whalesoft.app.cms.boardManage.fieldManage.FieldManage">
-		SELECT  
-			LOWER(a.column_name) AS board_column, a.comments AS board_column_nm, 
+		SELECT
+			LOWER(a.column_name) AS board_column, a.comments AS board_column_nm,
 	        NVL(DECODE(b.data_type,'DATE',b.data_type,'VARCHAR2',b.data_type||'('||b.data_length||')',
 	        'NUMBER',DECODE(b.data_scale,0, b.data_type||'('||b.data_precision||')',
 	        b.data_type||'('||b.data_precision||','||b.data_scale||')')),'CLOB') AS type,
-	        DECODE(c.position,NULL,DECODE(b.nullable,'N','NN',''),'PK') AS constraints           
-		FROM    
-			USER_COL_COMMENTS a, 
-	        USER_TAB_COLUMNS b, 
+	        DECODE(c.position,NULL,DECODE(b.nullable,'N','NN',''),'PK') AS constraints
+		FROM
+			USER_COL_COMMENTS a,
+	        USER_TAB_COLUMNS b,
 	        (
-	        	SELECT 
-	        		table_name, column_name, position 
-	         	FROM   
-	         		USER_CONS_COLUMNS 
-	         	WHERE  
+	        	SELECT
+	        		table_name, column_name, position
+	         	FROM
+	         		USER_CONS_COLUMNS
+	         	WHERE
 	         		position IS NOT NULL
-	         ) c 
-		WHERE   
-			a.table_name  = b.table_name(+) AND
-			a.column_name = b.column_name(+) AND     
-			a.table_name  = c.table_name(+) AND
-			a.column_name = c.column_name(+) AND     
-			a.table_name = 'CMS_BOARD' AND     
-			a.column_name NOT IN 
+	         ) c
+		WHERE
+			a.table_name  = b.table_name(+)
+		AND	a.column_name = b.column_name(+)
+		AND	a.table_name  = c.table_name(+)
+		AND	a.column_name = c.column_name(+)
+		AND	a.table_name = 'CMS_BOARD'
+		AND	a.column_name NOT IN
 			(
-				'MANAGE_IDX', 'BOARD_IDX', 'GROUP_IDX', 'PARENT_IDX', 'GROUP_DEPTH', 
-				'DELETE_ID', 'DEL_DTTM','MODIFY_ID', 'UPD_DTTM2', 'USER_EMAIL_RECEIVE_YN', 
-				'USER_SMS_RECEIVE_YN', 'NOTICE_YN', 'SECRET_YN', 'NOTICE_START_DATE', 'NOTICE_END_DATE', 
-				'USER_PASSWD', 'FILE_COUNT', 'FILE_DOWNLOAD_COUNT' 
+				'MANAGE_IDX', 'BOARD_IDX', 'GROUP_IDX', 'PARENT_IDX', 'GROUP_DEPTH',
+				'DELETE_ID', 'DELETE_DATE','MODIFY_ID', 'MODIFY_DATE', 'USER_EMAIL_RECEIVE_YN',
+				'USER_SMS_RECEIVE_YN', 'NOTICE_YN', 'SECRET_YN', 'NOTICE_START_DATE', 'NOTICE_END_DATE',
+				'USER_PASSWD', 'FILE_COUNT', 'FILE_DOWNLOAD_COUNT', 'VIEW_COUNT', 'LAS_USER_ID', 'LAS_USER_SEQ',
+				'BOARD_TABLE', 'B_FILE1', 'B_FILE2', 'B_FILE3', 'B_FILE4', 'B_FILE5', 'B_NUM', 'B_REF',
+				'REQUEST_STATE', 'RECOMMEND_EMAIL_RECEEIVE_COUNT', 'RECOMMEND_COUNT', 'PREVIEW_IMG',
+				'ADD_ID', 'ADD_DATE', 'USER_IP', 'CONTENT_SUMMARY', 'USER_NAME', 'EBOOK_URL',
+				'REPORT_STATE', 'APPROVAL_COUNT', 'CONTRARY_COUNT', 'DELETE_YN'
 			)
-		ORDER BY b.column_id
+		ORDER BY
+			b.column_id
 	</select>
-	
+
 	<select id="getBoardFieldManage" resultType="kr.co.whalesoft.app.cms.boardManage.fieldManage.FieldManage">
 		SELECT
-			manage_idx,  
+			manage_idx,
 			board_column, board_column_nm, board_content, NVL(content_link_yn, 'N') AS content_link_yn, column_type,
 			code_mapping, NVL(list_use_yn, 'N') AS list_use_yn, list_seq, list_width, list_maxwidth,
 			NVL(write_use_yn, 'N') AS write_use_yn, write_seq, NVL(write_req_cont, 'N') AS write_req_cont, write_width, write_height,
-			NVL(search_use_yn, 'N') AS search_use_yn, search_seq, upd_id, upd_dttm, crt_id, crt_dttm,
+			NVL(search_use_yn, 'N') AS search_use_yn, search_seq, modify_id, modify_date, add_id, add_date,
 			admin_only
 		FROM
 			CMS_BOARD_FIELD_MANAGE
 		WHERE
 			manage_idx = #{manage_idx}
+		ORDER BY
+			list_seq
+
 	</select>
-	
+
 	<select id="getBoardFieldManageByList" resultType="kr.co.whalesoft.app.cms.boardManage.fieldManage.FieldManage">
 		SELECT
-			manage_idx,  
+			manage_idx,
 			LOWER(board_column) AS board_column, board_column_nm, board_content, NVL(content_link_yn, 'N') AS content_link_yn, column_type,
 			code_mapping, NVL(list_use_yn, 'N') AS list_use_yn, list_seq, list_width, list_maxwidth,
 			NVL(write_use_yn, 'N') AS write_use_yn, write_seq, NVL(write_req_cont, 'N') AS write_req_cont, write_width, write_height,
-			NVL(search_use_yn, 'N') AS search_use_yn, search_seq, upd_id, upd_dttm, crt_id, crt_dttm,
+			NVL(search_use_yn, 'N') AS search_use_yn, search_seq, modify_id, modify_date, add_id, add_date,
 			admin_only
 		FROM
 			CMS_BOARD_FIELD_MANAGE
 		WHERE
-			manage_idx = #{manage_idx} AND
-			list_use_yn = 'Y'
+			manage_idx = #{manage_idx}
+		AND	list_use_yn = 'Y'
 		ORDER BY list_seq ASC
 	</select>
-	
+
 	<select id="getBoardFieldManageByEdit" resultType="kr.co.whalesoft.app.cms.boardManage.fieldManage.FieldManage">
 		SELECT
-			manage_idx,  
+			manage_idx,
 			LOWER(board_column) AS board_column, board_column_nm, board_content, NVL(content_link_yn, 'N') AS content_link_yn, column_type,
 			code_mapping, NVL(list_use_yn, 'N') AS list_use_yn, list_seq, list_width, list_maxwidth,
 			NVL(write_use_yn, 'N') AS write_use_yn, write_seq, NVL(write_req_cont, 'N') AS write_req_cont, write_width, write_height,
-			NVL(search_use_yn, 'N') AS search_use_yn, search_seq, upd_id, upd_dttm, crt_id, crt_dttm,
+			NVL(search_use_yn, 'N') AS search_use_yn, search_seq, modify_id, modify_date, add_id, add_date,
 			admin_only
 		FROM
 			CMS_BOARD_FIELD_MANAGE
 		WHERE
-			manage_idx = #{manage_idx} AND
-			NVL(admin_only, 'N') != 'Y' AND
-			board_column NOT IN
-			(
-				'add_id', 'user_name', 'add_date'
-			)
+			manage_idx = #{manage_idx}
+		AND	NVL(admin_only, 'N') != 'Y'
+		AND	board_column NOT IN ('add_id', 'user_name', 'add_date')
 		ORDER BY write_seq ASC
 	</select>
-	
+
 	<select id="getBoardFieldManageByReply" resultType="kr.co.whalesoft.app.cms.boardManage.fieldManage.FieldManage">
 		SELECT
-			manage_idx,  
+			manage_idx,
 			LOWER(board_column) AS board_column, board_column_nm, board_content, NVL(content_link_yn, 'N') AS content_link_yn, column_type,
 			code_mapping, NVL(list_use_yn, 'N') AS list_use_yn, list_seq, list_width, list_maxwidth,
 			NVL(write_use_yn, 'N') AS write_use_yn, write_seq, NVL(write_req_cont, 'N') AS write_req_cont, write_width, write_height,
-			NVL(search_use_yn, 'N') AS search_use_yn, search_seq, upd_id, upd_dttm, crt_id, crt_dttm,
+			NVL(search_use_yn, 'N') AS search_use_yn, search_seq, modify_id, modify_date, add_id, add_date,
 			admin_only
 		FROM
 			CMS_BOARD_FIELD_MANAGE
 		WHERE
-			manage_idx = #{manage_idx} AND
-			NVL(admin_only, 'N') = 'Y' AND
-			board_column NOT IN
-			(
-				'add_id', 'user_name', 'add_date'
-			)
+			manage_idx = #{manage_idx}
+		AND	NVL(admin_only, 'N') = 'Y'
+		AND	board_column NOT IN ('add_id', 'user_name', 'add_date')
 		ORDER BY write_seq ASC
 	</select>
-	
+
 	<select id="getBoardFieldManageByView" resultType="kr.co.whalesoft.app.cms.boardManage.fieldManage.FieldManage">
 		SELECT
-			manage_idx,  
+			manage_idx,
 			LOWER(board_column) AS board_column, board_column_nm, board_content, NVL(content_link_yn, 'N') AS content_link_yn, column_type,
 			code_mapping, NVL(list_use_yn, 'N') AS list_use_yn, list_seq, list_width, list_maxwidth,
 			NVL(write_use_yn, 'N') AS write_use_yn, write_seq, NVL(write_req_cont, 'N') AS write_req_cont, write_width, write_height,
-			NVL(search_use_yn, 'N') AS search_use_yn, search_seq, upd_id, upd_dttm, crt_id, crt_dttm,
+			NVL(search_use_yn, 'N') AS search_use_yn, search_seq, modify_id, modify_date, add_id, add_date,
 			admin_only
 		FROM
 			CMS_BOARD_FIELD_MANAGE
 		WHERE
-			manage_idx = #{manage_idx} AND
-			board_column NOT IN('crt_id', 'add_date', 'user_name')
+			manage_idx = #{manage_idx}
+		AND	board_column NOT IN('add_id', 'add_date', 'user_name')
 		ORDER BY list_seq ASC
 	</select>
-	
+
 	<select id="getBoardFieldManageOne" resultType="kr.co.whalesoft.app.cms.boardManage.fieldManage.FieldManage">
 		SELECT
-			manage_idx, 
+			manage_idx,
 			board_column, board_column_nm, board_content, content_link_yn, column_type,
 			code_mapping, list_use_yn, list_seq, list_width, list_maxwidth,
 			write_use_yn, write_seq, write_req_cont, write_width, write_height,
-			search_use_yn, search_seq, upd_id, upd_dttm, crt_id, crt_dttm,
+			search_use_yn, search_seq, modify_id, modify_date, add_id, add_date,
 			admin_only
 		FROM
 			CMS_BOARD_FIELD_MANAGE
 		WHERE
-			manage_idx = #{manage_idx} AND
-			board_column = #{board_column}
+			manage_idx = #{manage_idx}
+		AND	board_column = #{board_column}
 	</select>
-	
+
 	<insert id="addBoardFieldManage">
 		INSERT INTO CMS_BOARD_FIELD_MANAGE
 		(
-			manage_idx, 
+			manage_idx,
 			board_column, board_column_nm, board_content, content_link_yn, column_type,
 			code_mapping, list_use_yn, list_seq, list_width, list_maxwidth,
 			write_use_yn, write_seq, write_req_cont, write_width, write_height,
-			search_use_yn, search_seq, upd_id, upd_dttm, crt_id, crt_dttm,
-			admin_only
-		) VALUES
+			search_use_yn, search_seq, add_id, add_date, admin_only
+		)
+			VALUES
 		(
-			#{manage_idx},  
+			#{manage_idx},
 			#{board_column}, #{board_column_nm}, #{board_content}, #{content_link_yn}, #{column_type},
 			#{code_mapping}, #{list_use_yn}, #{list_seq}, #{ list_width}, #{list_maxwidth},
 			#{write_use_yn}, #{write_seq}, #{write_req_cont}, #{write_width}, #{write_height},
-			#{search_use_yn}, #{search_seq}, #{upd_id}, #{upd_dttm}, #{crt_id}, #{crt_dttm},
-			#{admin_only}
+			#{search_use_yn}, #{search_seq}, #{add_id}, SYSDATE, #{admin_only}
 		)
 	</insert>
-	
+
 	<update id="modifyBoardFieldManage">
-		UPDATE CMS_BOARD_FIELD_MANAGE SET
-			board_column = #{board_column}, 
-			board_column_nm = #{board_column_nm}, 
-			board_content = #{board_content}, 
-			content_link_yn = #{content_link_yn}, 
+		UPDATE
+			CMS_BOARD_FIELD_MANAGE
+		SET
+			board_column = #{board_column},
+			board_column_nm = #{board_column_nm},
+			board_content = #{board_content},
+			content_link_yn = #{content_link_yn},
 			column_type = #{column_type},
-			code_mapping = #{code_mapping}, 
-			list_use_yn = #{list_use_yn}, 
-			list_seq = #{list_seq}, 
-			list_width = #{list_width}, 
+			code_mapping = #{code_mapping},
+			list_use_yn = #{list_use_yn},
+			list_seq = #{list_seq},
+			list_width = #{list_width},
 			list_maxwidth = #{list_maxwidth},
-			write_use_yn = #{write_use_yn}, 
-			write_seq = #{write_seq}, 
-			write_req_cont = #{write_req_cont}, 
-			write_width = #{write_width}, 
+			write_use_yn = #{write_use_yn},
+			write_seq = #{write_seq},
+			write_req_cont = #{write_req_cont},
+			write_width = #{write_width},
 			write_height= #{write_height},
-			search_use_yn = #{search_use_yn}, 
-			search_seq = #{search_seq}, 
-			upd_id = #{upd_id}, 
-			upd_dttm = SYSDATE,
+			search_use_yn = #{search_use_yn},
+			search_seq = #{search_seq},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE,
 			admin_only = #{admin_only}
 		WHERE
-			manage_idx = #{manage_idx} AND
-			board_column = #{board_column}
+			manage_idx = #{manage_idx}
+		AND	board_column = #{board_column}
 	</update>
-	
+
 	<delete id="deleteBoardFieldManage">
-		DELETE FROM CMS_BOARD_FIELD_MANAGE
+		DELETE FROM
+			CMS_BOARD_FIELD_MANAGE
 		WHERE
-			manage_idx = #{manage_idx} AND
-			board_column = #{board_column}
+			manage_idx = #{manage_idx}
+		AND	board_column = #{board_column}
 	</delete>
-	
+
+
+	<select id="getNextListSeq" resultType="int">
+		SELECT
+			NVL(MAX(list_seq), 0) + 10
+		FROM
+			CMS_BOARD_FIELD_MANAGE
+		WHERE
+			manage_idx = #{manage_idx}
+	</select>
+
+
+	<select id="getNextWriteSeq" resultType="int">
+		SELECT
+			NVL(MAX(write_seq), 0) + 10
+		FROM
+			CMS_BOARD_FIELD_MANAGE
+		WHERE
+			manage_idx = #{manage_idx}
+	</select>
 </mapper>
