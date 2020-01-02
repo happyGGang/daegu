@@ -138,7 +138,7 @@ $(function() {
 			</c:forEach>
 			<c:if test="${quickMenuListCount eq 0}">
 				<tr>
-					<td colspan="8">조회된 자료가 없습니다.</td>
+					<td colspan="9">조회된 자료가 없습니다.</td>
 				</tr>
 			</c:if>
 		</tbody>

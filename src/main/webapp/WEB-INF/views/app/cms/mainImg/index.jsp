@@ -118,7 +118,7 @@ $(function() {
 			</c:forEach>
 			<c:if test="${mainImgListCount eq 0}">
 				<tr>
-					<td colspan="5">조회된 자료가 없습니다.</td>
+					<td colspan="6">조회된 자료가 없습니다.</td>
 				</tr>
 			</c:if>
 		</tbody>
