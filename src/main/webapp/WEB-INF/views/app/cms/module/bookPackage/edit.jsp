@@ -230,16 +230,16 @@ function getNaverData(arg) {
 	        <tr>
 	        	<th>주류별</th>
 	        	<td>
-	        		<form:checkbox path="category" value="000" label="총류" checked="${fn:contains(bookPackage.category, '000') ? 'checked' : ''}"/>
-	        		<form:checkbox path="category" value="100" label="철학" checked="${fn:contains(bookPackage.category, '100') ? 'checked' : ''}"/>
-	        		<form:checkbox path="category" value="200" label="종교" checked="${fn:contains(bookPackage.category, '200') ? 'checked' : ''}"/>
-	        		<form:checkbox path="category" value="300" label="사회과학" checked="${fn:contains(bookPackage.category, '300') ? 'checked' : ''}"/>
-	        		<form:checkbox path="category" value="400" label="자연과학" checked="${fn:contains(bookPackage.category, '400') ? 'checked' : ''}"/>
-	        		<form:checkbox path="category" value="500" label="기술과학" checked="${fn:contains(bookPackage.category, '500') ? 'checked' : ''}"/>
-	        		<form:checkbox path="category" value="600" label="예술" checked="${fn:contains(bookPackage.category, '600') ? 'checked' : ''}"/>
-	        		<form:checkbox path="category" value="700" label="언어" checked="${fn:contains(bookPackage.category, '700') ? 'checked' : ''}"/>
-	        		<form:checkbox path="category" value="800" label="문학" checked="${fn:contains(bookPackage.category, '800') ? 'checked' : ''}"/>
-	        		<form:checkbox path="category" value="900" label="역사" checked="${fn:contains(bookPackage.category, '900') ? 'checked' : ''}"/>
+	        		<form:checkbox path="category" id="cate1" value="000" label="총류" checked="${fn:contains(bookPackage.category, '000') ? 'checked' : ''}"/>
+	        		<form:checkbox path="category" id="cate2" value="100" label="철학" checked="${fn:contains(bookPackage.category, '100') ? 'checked' : ''}"/>
+	        		<form:checkbox path="category" id="cate3" value="200" label="종교" checked="${fn:contains(bookPackage.category, '200') ? 'checked' : ''}"/>
+	        		<form:checkbox path="category" id="cate4" value="300" label="사회과학" checked="${fn:contains(bookPackage.category, '300') ? 'checked' : ''}"/>
+	        		<form:checkbox path="category" id="cate5" value="400" label="자연과학" checked="${fn:contains(bookPackage.category, '400') ? 'checked' : ''}"/>
+	        		<form:checkbox path="category" id="cate6" value="500" label="기술과학" checked="${fn:contains(bookPackage.category, '500') ? 'checked' : ''}"/>
+	        		<form:checkbox path="category" id="cate7" value="600" label="예술" checked="${fn:contains(bookPackage.category, '600') ? 'checked' : ''}"/>
+	        		<form:checkbox path="category" id="cate8" value="700" label="언어" checked="${fn:contains(bookPackage.category, '700') ? 'checked' : ''}"/>
+	        		<form:checkbox path="category" id="cate9" value="800" label="문학" checked="${fn:contains(bookPackage.category, '800') ? 'checked' : ''}"/>
+	        		<form:checkbox path="category" id="cate10" value="900" label="역사" checked="${fn:contains(bookPackage.category, '900') ? 'checked' : ''}"/>
 	        	</td>
 	        </tr>
 	        <tr>

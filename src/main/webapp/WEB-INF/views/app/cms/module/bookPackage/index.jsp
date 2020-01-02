@@ -78,13 +78,23 @@ $(function() {
 });
 </script>
 <style>
-.group-box {position: relative;padding: 10px;}
-.img-box {display:inline-block;width: 120px;height: 170px;border: 1px solid #ccc;}
-.content-box {position: absolute;display: inline-block;width: 75%;padding: 0 20px;}
-.book-desc {margin: 20px 0;}
-.keyword-box {border-top: 1px dashed #e5e5e5;padding-top: 15px;}
-.content-box span {display: inline-block;padding: 0 10px;background: #e8f2f7;border-radius: 20px;font-size: 12px;color: #7e8c93;}
-.btn-box {display: inline-block;position: absolute;right: 49px;top: 40%;}
+.group-box {position: relative;padding: 20px 10px;border-bottom: 1px solid #e5e5e5;}
+.img-box {display:inline-block;float:left;width: 120px;height: 170px;border: 1px solid #ccc;}
+.content-box {display: inline-block;width: 75%;padding: 0 20px;}
+.subject a {display: inline-block;margin-right: 20px;font-size: 19px;font-weight: bold;color: #222;}
+.subject .ing {display: inline-block;width: 35px;height: 35px;margin: 0 10px 8px 0;border-radius: 100%;background: #ff5700;font-size: 11px;line-height: 35px;color: #fff;letter-spacing: -0.075em;text-align: center;}
+.step1 {border: 1px solid #1ec0b0;color: #1ec0b0;}
+.step2 {border: 1px solid #f9a406;color: #f9a406;}
+.step1, .step2 {display: inline-block;margin-right: 5px;padding: 3px 5px;font-family: 'dotum';font-size: 11px;line-height: 1;letter-spacing: -1px;text-align: center;}
+ul.pub_info {padding: 10px 0 15px;}
+ul.pub_info li {display: inline-block;font-size: 13px;padding-right: 15px;}
+.book-desc {font-size: 13px;}
+.keyword-box {border-top: 1px dashed #e5e5e5;padding-top: 14px;margin-top: 18px;}
+.content-box span.keyword {display: inline-block;padding: 0 10px;background: #e8f2f7;border-radius: 20px;font-size: 12px;color: #7e8c93;}
+.btn-box {position: absolute;top: 35px;right: 0;text-align: center;}
+.btn-box a {display: block;height: 31px;padding: 0 25px;border-radius: 50px;border: 2px solid #d2dfe8;color: #5c90b5;line-height: 31px;}
+span.loan-cnt {display: inline-block;width: 60px;height: 60px;margin: 30px auto 0;border-radius: 100%;background: #1ba8ed;text-align: center;font-size: 13px;color: #8dd4f6;}
+span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat',sans-serif;font-size: 20px;letter-spacing: 0;color: #fff;}
 </style>
 
 <form:form modelAttribute="bookPackage" id="bookPackageDel" action="save.do" method="POST">
@@ -121,7 +131,7 @@ $(function() {
 		<form:option value="0">대출가능</form:option>
 	</form:select>
 	<div class="button">
-		<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>
+		<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>도서목록 다운받기</span></a>
 		<a href="#" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
 	</div>
 </div>
@@ -146,17 +156,20 @@ $(function() {
 			</c:choose>
 		</div>
 		<div class="content-box">
-			<h3>
-				<c:if test="${i.lender_count > 0}">대출중</c:if>
+			<div class="subject">
+				<c:if test="${i.lender_count > 0}"><span class="ing">대출중</span></c:if>
 				<a href="#" class="dialog-modify" keyValue="${i.book_package_idx}">${i.book_package_subject}</a>
-			</h3>
+			</div>
 			<div>
+				<span class="step1">
 				<c:choose>
 					<c:when test="${i.grade eq '3'}">초등</c:when>
 					<c:when test="${i.grade eq '4'}">중등</c:when>
 					<c:when test="${i.grade eq '5'}">고등</c:when>
 				</c:choose>
+				</span>
 				<c:forTokens items="${i.category}" delims="," var="category">
+				<span class="step2">
 				<c:choose>
 					<c:when test="${category eq '000'}">총류</c:when>
 					<c:when test="${category eq '100'}">철학</c:when>
@@ -169,24 +182,38 @@ $(function() {
 					<c:when test="${category eq '800'}">문학</c:when>
 					<c:when test="${category eq '900'}">역사</c:when>
 				</c:choose>
+				</span>
 				</c:forTokens>
 			</div>
-			<div>${i.author} | ${i.publisher} | ${i.publish_year}</div>
-			<div class="book-desc">${i.content}</div>
+			<div>
+				<ul class="pub_info">
+					<li>${i.author}</li>
+					<li>|</li>
+					<li>${i.publisher}</li>
+					<li>|</li>
+					<li>${i.publish_year}</li>
+				</ul>
+			</div>
+			<div class="book-desc">
+				${fn:substring(i.content, 0, 85)}<c:if test="${fn:length(i.content) > 85}">...</c:if>
+			</div>
 			<div class="keyword-box">
 				<c:forTokens items="${i.keyword}" delims="," var="keyword">
-				<span>${keyword}</span>
+				<span class="keyword">${keyword}</span>
 				</c:forTokens>
 			</div>
 		</div>
 		<div class="btn-box">
 			<a href="#" class="dialog-req" keyValue="${i.book_package_idx}">
 			<c:choose>
-				<c:when test="${i.lender_count > 0}">예약하기</c:when>
-				<c:otherwise>신청하기</c:otherwise>
+				<c:when test="${i.lender_count > 0}">예약신청</c:when>
+				<c:otherwise>대출신청</c:otherwise>
 			</c:choose>
 			</a>
-			<a href="#" class="dialog-delete" keyValue="${i.book_package_idx}">삭제</a>
+<%-- 			<a href="#" class="dialog-delete" keyValue="${i.book_package_idx}">삭제</a> --%>
+			<span class="loan-cnt">
+				<strong>${i.loan_count}</strong>권
+			</span>
 		</div>
 	</div>
 	</c:forEach>

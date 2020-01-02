@@ -3,11 +3,13 @@
 <mapper namespace="kr.go.gbelib.app.cms.module.bookPackage.BookPackageDao">
 
 	<sql id="field">
+		<![CDATA[
 		book_package_idx, book_package_name, book_package_subject, author, publisher,
 		publish_year, isbn, book_price, book_pages, purpose,
 		loan_count, quantity, grade, category, keyword,
 		org_file_name, server_file_name, file_extension, file_size,
-		desc_link, image_link, content, add_id, add_date
+		desc_link, image_link, REGEXP_REPLACE(content, '<[^>]*>', '') AS content, add_id, add_date
+		]]>
 	</sql>
 
 	<select id="getBookPackageList" resultType="kr.go.gbelib.app.cms.module.bookPackage.BookPackage">
