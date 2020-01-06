@@ -101,12 +101,14 @@ $(function() {
 </form>
 
 <form id="resveReqForm" action="resve/save.do" method="post" onsubmit="return false;">
+	<input type="hidden" name="_csrf" value="${_csrf.token}">
 	<input type="hidden" name="editMode" value="ADD">
 	<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
 	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
 </form>
 
 <form id="unmannedReqForm" action="unmanned/form.do" method="post">
+	<input type="hidden" name="_csrf" value="${_csrf.token}">
 	<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
 	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
 	<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
@@ -114,6 +116,7 @@ $(function() {
 </form>
 
 <form id="nightReqForm" action="night/form.do" method="post">
+	<input type="hidden" name="_csrf" value="${_csrf.token}">
 	<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
 	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
 	<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
@@ -121,11 +124,13 @@ $(function() {
 </form>
 
 <form id="basketReqForm" action="/${homepage.context_path}/intro/search/saveDeliveryBasket.do">
+	<input type="hidden" name="_csrf" value="${_csrf.token}">
 	<input type="hidden" id="book_key" name="book_key">
 	<input type="hidden" name="editMode" value="ADD">
 </form>
 
 <form id="sanghoReqForm" action="sangho/form.do" method="post">
+	<input type="hidden" name="_csrf" value="${_csrf.token}">
 	<input type="hidden" name="isbn" value="${fn:escapeXml(param.isbn)}">
 	<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
 	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
@@ -194,7 +199,7 @@ $(function() {
 					<c:when test="${detail.WORKING_STATUS eq 'BOL112N'}">
 						<c:choose>
 							<c:when test="${detail.RESERVATION_CNT > 0}">
-							
+
 							</c:when>
 							<c:otherwise>
 								<a href="#" id="btn_print" class="btn btn2">청구기호출력</a>
@@ -204,7 +209,6 @@ $(function() {
 					<c:otherwise>
 					</c:otherwise>
 				</c:choose>
-				</td>
 				<td>${detail.REG_NO}</td>
 				<td>${detail.SHELF_LOC_NAME}</td>
 				<td>${detail.RETURN_PLAN_DATE}</td>
@@ -276,18 +280,39 @@ $(function() {
 				</c:otherwise>
 			</c:choose>
 
-			<c:if test="${detail.WORKING_STATUS ne 'BOL112N' and param.booktype ne 'NONBOOK'}">
-
 			<c:choose>
-				<c:when test="${detail.RESERVATION_CNT < detail.RESERVATION_NUMBER}">
-					<a href="#" id="resve-req" class="btn">예약신청</a>
+				<c:when test="${detail.WORKING_STATUS eq 'BOL112N'}">
+					<c:choose>
+						<c:when test="${detail.RESERVATION_CNT > 0}">
+							<c:choose>
+								<c:when test="${detail.RESERVATION_CNT < detail.RESERVATION_NUMBER}">
+									<a href="#" id="resve-req" class="btn">예약신청</a>
+								</c:when>
+								<c:otherwise>
+									<a href="#" id="resve-req-not" class="btn btn5">예약불가</a>
+								</c:otherwise>
+							</c:choose>
+						</c:when>
+						<c:otherwise>
+
+						</c:otherwise>
+					</c:choose>
 				</c:when>
 				<c:otherwise>
-					<a href="#" id="resve-req-not" class="btn btn5">예약불가</a>
+					<c:choose>
+						<c:when test="${detail.RESERVATION_CNT < detail.RESERVATION_NUMBER}">
+							<a href="#" id="resve-req" class="btn">예약신청</a>
+						</c:when>
+						<c:otherwise>
+							<a href="#" id="resve-req-not" class="btn btn5">예약불가</a>
+						</c:otherwise>
+					</c:choose>
 				</c:otherwise>
 			</c:choose>
 
+			<c:if test="${detail.WORKING_STATUS ne 'BOL112N' and param.booktype ne 'NONBOOK'}">
 			</c:if>
+
 
 			<a href="javascript:history.back();" id="goBack" class="btn"><i class="fa fa-book"></i><span>목록으로</span></a>
 		</div>

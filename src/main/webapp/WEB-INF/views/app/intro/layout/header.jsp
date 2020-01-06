@@ -1,7 +1,11 @@
 <%@ page language="java" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<%
+	response.setHeader("X-Frame-Options", "DENY");
+	response.setHeader("X-Content-Type-Options", "nosniff");
+	response.setHeader("X-XSS-Protection", "1");
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
