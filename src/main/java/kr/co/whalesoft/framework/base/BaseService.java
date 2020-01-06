@@ -123,6 +123,7 @@ public abstract class BaseService {
 	}
 
 	public boolean alertMessage(String message, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		setResponseHeader(response);
 		response.setContentType("text/html; charset=" + request.getCharacterEncoding());
 		PrintWriter writer = response.getWriter();
 		writer.println("<script>");
@@ -135,6 +136,7 @@ public abstract class BaseService {
 	}
 
 	public boolean alertMessagePopup(String message, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		setResponseHeader(response);
 		response.setContentType("text/html; charset=" + request.getCharacterEncoding());
 		PrintWriter writer = response.getWriter();
 		writer.println("<script>");
@@ -147,6 +149,7 @@ public abstract class BaseService {
 	}
 
 	public boolean alertMessageDialog(String message, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		setResponseHeader(response);
 		response.setContentType("text/html; charset=" + request.getCharacterEncoding());
 		PrintWriter writer = response.getWriter();
 		writer.println("<script>");
@@ -158,6 +161,7 @@ public abstract class BaseService {
 	}
 
 	public boolean alertMessageAjax(String message, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		setResponseHeader(response);
 		response.setContentType("text/html; charset=" + request.getCharacterEncoding());
 		PrintWriter writer = response.getWriter();
 		writer.println("<script>");
@@ -169,6 +173,7 @@ public abstract class BaseService {
 	}
 
 	public boolean alertMessageAndUrl(String message, String url, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		setResponseHeader(response);
 		response.setContentType("text/html; charset=" + request.getCharacterEncoding());
 		PrintWriter writer = response.getWriter();
 		writer.println("<script>");
@@ -181,6 +186,7 @@ public abstract class BaseService {
 	}
 
 	public boolean alertMessageAndReload(String message, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		setResponseHeader(response);
 		response.setContentType("text/html; charset=" + request.getCharacterEncoding());
 		PrintWriter writer = response.getWriter();
 		writer.println("<script>");
@@ -193,6 +199,7 @@ public abstract class BaseService {
 	}
 
 	public boolean redirectUrl(String url, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		setResponseHeader(response);
 		response.setContentType("text/html; charset=" + request.getCharacterEncoding());
 		PrintWriter writer = response.getWriter();
 		writer.println("<script>");
@@ -201,5 +208,11 @@ public abstract class BaseService {
 		writer.flush();
 
 		return false;
+	}
+
+	private void setResponseHeader(HttpServletResponse response) {
+		response.setHeader("X-Frame-Options", "DENY");
+		response.setHeader("X-Content-Type-Options", "nosniff");
+		response.setHeader("X-XSS-Protection", "1");
 	}
 }
