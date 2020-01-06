@@ -22,6 +22,21 @@ $(function() {
 		});
 	});
 	
+	$('.dialog-edit').on('click', function(e) {
+		e.preventDefault();
+		$('#dialog-1').load('loanEdit.do?editMode=MODIFY&picture_book_loan_idx='+$(this).attr('keyValue'), function(response, status, xhr) {
+			$('#dialog-1').dialog('open');
+		});
+	});
+	
+	$('.dialog-req').on('click', function(e) {
+		e.preventDefault();
+		var formData = 'editMode=ADD&picture_book_idx='+$(this).attr('keyValue') + '&loan_year='+$(this).attr('keyValue2') + '&loan_month='+$(this).attr('keyValue3') + '&picture_book_subject='+encodeURI($(this).attr('keyValue4'));
+		$('#dialog-1').load('loanEdit.do?' + formData, function(response, status, xhr) {
+			$('#dialog-1').dialog('open');
+		});
+	});
+	
 	$('.delete-btn').on('click', function(e) {
 		e.preventDefault();
 		if(confirm('삭제하시겠습니까?')) {
@@ -64,7 +79,13 @@ $(function() {
 .book-desc {margin: 20px 0;}
 .keyword-box {border-top: 1px dashed #e5e5e5;padding-top: 15px;}
 .content-box span {display: inline-block;padding: 0 10px;background: #e8f2f7;border-radius: 20px;font-size: 12px;color: #7e8c93;}
-.btn-box {display: inline-block;}
+.btn-box {display:inline-block;width:70%;text-align: center;}
+.btn-box a {display: block;height: 31px;padding: 0 25px;border-radius: 50px;border: 2px solid #d2dfe8;color: #5c90b5;line-height: 31px;}
+
+ul.select-month {margin: 15px 0 auto;padding: 20px 0;border-top: 1px dashed #e5e5e5;}
+ul.select-month li {display: inline-block;width: 20px;line-height: 20px;font-size: 11px;font-weight: 600;text-align: center;margin: 0 4px;padding: 0;}
+ul.select-month li a {color: #d5d5d5;}
+ul.select-month li a.loan-ing {display: block;color: #fff;background-color: #ff5500;border-radius: 100%;}
 </style>
 
 <form:form modelAttribute="pictureBook" id="bookPackageDel" action="save.do" method="POST">
@@ -111,6 +132,20 @@ $(function() {
 			<h3>
 				<a href="#" class="dialog-modify" keyValue="${i.picture_book_idx}">${i.picture_book_subject}</a>
 			</h3>
+			<ul class="select-month">
+				<c:forEach items="${i.monthList}" var="month">
+				<li>
+					<c:choose>
+						<c:when test="${empty month.PICTURE_BOOK_LOAN_IDX}">
+						<a href="#" class="dialog-req" keyValue="${i.picture_book_idx}" keyValue2="${i.loan_year}" keyValue3="${month.LOAN_MONTH}" keyValue4="${i.picture_book_subject}">${month.LOAN_MONTH}</a>
+						</c:when>
+						<c:otherwise>
+						<a href="#" class="dialog-edit loan-ing" keyValue="${month.PICTURE_BOOK_LOAN_IDX}">${month.LOAN_MONTH}</a>
+						</c:otherwise>
+					</c:choose>
+				</li>
+				</c:forEach>
+			</ul>
 		</div>
 		<div class="btn-box">
 			<a href="#" class="dialog-view" keyValue="${i.picture_book_idx}">신청하기</a>
