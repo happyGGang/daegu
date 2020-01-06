@@ -22,6 +22,22 @@ $(function() {
 		});
 	});
 	
+	$('.dialog-edit').on('click', function(e) {
+		e.preventDefault();
+		$('#dialog-1').load('loanEdit.do?editMode=MODIFY&picture_book_loan_idx='+$(this).attr('keyValue'), function(response, status, xhr) {
+			$('#dialog-1').dialog('open');
+		});
+	});
+	
+	$('.dialog-req').on('click', function(e) {
+		e.preventDefault();
+		var formData = 'editMode=ADD&picture_book_idx='+$(this).attr('keyValue') + '&loan_year='+$(this).attr('keyValue2') + '&loan_month='+$(this).attr('keyValue3') + '&picture_book_subject='+encodeURI($(this).attr('keyValue4'));
+		$('#dialog-1').load('loanEdit.do?' + formData, function(response, status, xhr) {
+			$('#dialog-1').dialog('open');
+		});
+	});
+	
+	
 	$('.delete-btn').on('click', function(e) {
 		e.preventDefault();
 		if(confirm('삭제하시겠습니까?')) {
@@ -37,7 +53,7 @@ $(function() {
 	
 	$('.dialog-view').on('click', function(e) {
 		e.preventDefault();
-		var formData = 'editMode=ADD&pay_yn='+$('#pay_yn').val() + '&viewPage='+$('#viewPage').val() + '&picture_book_idx='+$(this).attr('keyValue') + '&loan_year=2020';
+		var formData = 'editMode=ADD&pay_yn='+$('#pay_yn').val() + '&viewPage='+$('#viewPage').val() + '&picture_book_idx='+$(this).attr('keyValue') + '&loan_year='+$(this).attr('keyValue2');
 		doGetLoad('view.do', formData)
 	});
 	
@@ -56,16 +72,33 @@ $(function() {
 		doGetLoad('index.do', $('form#pictureBook').serialize());
 	});
 	
+	var sysdate = new Date();
+	var currYear = sysdate.getFullYear();
+	var currMonth = sysdate.getMonth() + 1;
+	if(currMonth == 12) {
+		currYear++;
+	}
+	$('a.dialog-view').attr('keyValue2', currYear);
+	
 });
+function requestMonth() {
+	
+}
 </script>
 <style>
-.group-box {position: relative;padding: 10px;}
-.img-box {display:inline-block;width: 120px;height: 170px;border: 1px solid #ccc;}
-.content-box {position: absolute;display: inline-block;width: 75%;padding: 0 20px;}
-.book-desc {margin: 20px 0;}
-.keyword-box {border-top: 1px dashed #e5e5e5;padding-top: 15px;}
-.content-box span {display: inline-block;padding: 0 10px;background: #e8f2f7;border-radius: 20px;font-size: 12px;color: #7e8c93;}
-.btn-box {display: inline-block;position: absolute;right: 49px;top: 40%;}
+.group-box {position: relative;padding: 20px 10px;border-bottom: 1px solid #e5e5e5;}
+.img-box {display:inline-block;/* float:left */;width: 120px;height: 170px;border: 1px solid #ccc;}
+.content-box {position:absolute;display: inline-block;width: 75%;padding: 0 20px;}
+.subject a {display: inline-block;margin-right: 20px;font-size: 19px;font-weight: bold;color: #222;}
+.subject .ing {display: inline-block;width: 35px;height: 35px;margin: 0 10px 8px 0;border-radius: 100%;background: #ff5700;font-size: 11px;line-height: 35px;color: #fff;letter-spacing: -0.075em;text-align: center;}
+ul.pub_info {padding: 10px 0 15px;}
+ul.pub_info li {display: inline-block;font-size: 13px;padding-right: 15px;}
+.btn-box {position: absolute;top: 35px;right: 0;text-align: center;}
+.btn-box a {display: block;height: 31px;padding: 0 25px;border-radius: 50px;border: 2px solid #d2dfe8;color: #5c90b5;line-height: 31px;}
+ul.select-month {margin: 15px 0 auto;padding: 20px 0;border-top: 1px dashed #e5e5e5;}
+ul.select-month li {display: inline-block;width: 30px;line-height: 30px;font-size: 11px;font-weight: 600;text-align: center;margin: 0 8px;padding: 0;}
+ul.select-month li a {color: #d5d5d5;}
+ul.select-month li a.loan-ing {display: block;color: #fff;background-color: #ff5500;border-radius: 100%;}
 </style>
 
 <form:form modelAttribute="pictureBook" id="bookPackageDel" action="save.do" method="POST">
@@ -109,11 +142,35 @@ $(function() {
 			</c:choose>
 		</div>
 		<div class="content-box">
-			<h3>
+			<div class="subject">
 				<a href="#" class="dialog-modify" keyValue="${i.picture_book_idx}">${i.picture_book_subject}</a>
-			</h3>
-			<div>${i.author} | ${i.publisher} | ${i.publish_year}</div>
-			<div class="book-desc">${i.content}</div>
+			</div>
+			<div>
+				<ul class="pub_info">
+					<li>${i.author}</li>
+					<li>|</li>
+					<li>${i.publisher}</li>
+					<li>|</li>
+					<li>${i.publish_year}</li>
+				</ul>
+				<c:if test="${pictureBook.pay_yn eq 'Y'}">
+				<div class="book-desc">${i.content}</div>
+				</c:if>
+				<ul class="select-month">
+					<c:forEach items="${i.monthList}" var="month">
+					<li>
+						<c:choose>
+							<c:when test="${empty month.PICTURE_BOOK_LOAN_IDX}">
+							<a href="#" class="dialog-req" keyValue="${i.picture_book_idx}" keyValue2="${i.loan_year}" keyValue3="${month.LOAN_MONTH}" keyValue4="${i.picture_book_subject}">${month.LOAN_MONTH}</a>
+							</c:when>
+							<c:otherwise>
+							<a href="#" class="dialog-edit loan-ing" keyValue="${month.PICTURE_BOOK_LOAN_IDX}">${month.LOAN_MONTH}</a>
+							</c:otherwise>
+						</c:choose>
+					</li>
+					</c:forEach>
+				</ul>
+			</div>
 		</div>
 		<div class="btn-box">
 			<a href="#" class="dialog-view" keyValue="${i.picture_book_idx}">신청하기</a>

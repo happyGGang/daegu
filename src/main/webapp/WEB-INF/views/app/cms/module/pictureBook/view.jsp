@@ -26,12 +26,19 @@ $(function() {
 </script>
 <style>
 .group-box {position: relative;padding: 10px;}
-.img-box {display:inline-block;width: 120px;height: 170px;border: 1px solid #ccc;}
+.img-box {display:inline-block;width: 183px;height: 261px;border: 1px solid #ccc;}
 .content-box {position: absolute;display: inline-block;width: 75%;padding: 0 20px;}
-.book-desc {margin: 20px 0;}
-.keyword-box {border-top: 1px dashed #e5e5e5;padding-top: 15px;}
-.content-box span {display: inline-block;padding: 0 10px;background: #e8f2f7;border-radius: 20px;font-size: 12px;color: #7e8c93;}
-.btn-box {display: inline-block;position: absolute;right: 49px;top: 40%;}
+.content-box p {padding: 20px 0 40px;font-size: 25px;font-weight: bold;color: #222;}
+dl#author {overflow: hidden;width: 470px;font-size: 13px;}
+dl#author dt {float: left;width: 65px;margin-bottom: 15px;background: url(/img/common/bar_author.gif) no-repeat right;font-weight: bold;color: #222;}
+dl#author dd {float: left;width: 140px;margin-bottom: 15px;padding: 0 15px;}
+.book-desc {margin: 20px 0 40px;}
+.calendar-box #req-year {display:block;padding-left: 30px;background: url(/resources/common/img/calendar-icon.gif) no-repeat;font-size: 21px;font-weight: bold;color: #222;margin-bottom: 20px;}
+.calendar-box>div {display:inline-block;width: 130px;height: 120px;margin-right: 10px;}
+.calendar-box>div>span.req-month {width: 130px;margin-bottom: 10px;border-radius: 5px;background: #e8f2f7;text-align: center;font-weight: bold;line-height: 40px;color: #333;display: block;}
+.btn-box a{display: block;width: 128px;height: 34px;border-radius: 5px;font-size: 13px;font-weight: bold;line-height: 34px;letter-spacing: -0.05em;text-align: center;}
+.btn-box a.apply-req {border: 1px solid #8dd3f6;color: #1ba8ed;}
+.btn-box a.apply-ok {border: 1px solid #7f7f7f;color: #000;pointer-events: none;}
 </style>
 
 <form:form modelAttribute="pictureBook" id="bookPackageDel" action="save.do" method="POST">
@@ -61,28 +68,41 @@ $(function() {
 			</c:choose>
 		</div>
 		<div class="content-box">
-			<h3>
-				<a href="#" class="dialog-modify" keyValue="${pictureBook.picture_book_idx}">${pictureBook.picture_book_subject}</a>
-			</h3>
-			<div>작가 : ${pictureBook.author}</div>
-			<div>출판사 : ${pictureBook.publisher}</div>
-			<div>출판년도 : ${pictureBook.publish_year}</div>
-			<div>ISBN : ${pictureBook.isbn}</div>
-			<div>가격 : ${pictureBook.picture_price}</div>
+			<p>${pictureBook.picture_book_subject}</p>
+			<dl id="author">
+				<dt>작가</dt>
+				<dd>${pictureBook.author}</dd>
+				<dt>출판사</dt>
+				<dd>${pictureBook.publisher}</dd>
+				<dt>출판년도</dt>
+				<dd>${pictureBook.publish_year}</dd>
+				<c:if test="${not empty pictureBook.isbn}">
+				<dt>ISBN</dt>
+				<dd>${pictureBook.isbn}</dd>
+				</c:if>
+				<dt>가격</dt>
+				<dd>${pictureBook.picture_price}</dd>
+				<dt>액자개수</dt>
+				<dd>${pictureBook.picture_count}</dd>
+				<c:if test="${not empty pictureBook.keyword}">
+				<dt>주제</dt>
+				<dd>${pictureBook.keyword}</dd>
+				</c:if>
+			</dl>
 		</div>
 		<div class="book-desc">${pictureBook.content}</div>
-		<div>
-			<span>2020년</span>
+		<div class="calendar-box">
+			<span id="req-year">${pictureBook.loan_year}년</span>
 			<c:forEach var="month" begin="1" end="12">
-			<div style="display: inline-block;">
-				<span>${month}월</span>
-				<div>
+			<div>
+				<span class="req-month">${month}월</span>
+				<div class="btn-box">
 				<c:choose>
 					<c:when test="${loanableMonth[month]}">
-					<span>대출완료</span>
+					<a href="javascript:void(0)" class="apply-ok"><span>대출완료</span></a>
 					</c:when>
 					<c:otherwise>
-					<a href="#" class="dialog-req" keyValue="2020" keyValue2="${month}" style="color: blue;">대출신청</a>
+					<a href="#" class="dialog-req apply-req" keyValue="${pictureBook.loan_year}" keyValue2="${month}" style="color: blue;">대출신청</a>
 					</c:otherwise>
 				</c:choose>
 				</div>
@@ -93,6 +113,6 @@ $(function() {
 </div>
 </form:form>
 <div>
-	<a href="#" id="list-btn">목록으로</a>
+	<a href="#" id="list-btn" class="btn btn3">목록으로</a>
 </div>
 <div id="dialog-1" class="dialog-common" title="그림책 원화 신청 "></div>

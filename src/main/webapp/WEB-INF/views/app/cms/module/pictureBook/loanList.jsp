@@ -11,7 +11,7 @@ $(function() {
 		e.preventDefault();
 		$('#dialog-1').load('loanEdit.do?editMode=MODIFY&picture_book_loan_idx='+$(this).attr('keyValue'), function(response, status, xhr) {
 			$('#dialog-1').dialog('open');
-		});		
+		});
 	});
 	
 	$('a.cancle-btn').on('click', function(e) {

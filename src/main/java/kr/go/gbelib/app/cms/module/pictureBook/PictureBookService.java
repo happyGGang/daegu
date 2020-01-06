@@ -1,12 +1,12 @@
 package kr.go.gbelib.app.cms.module.pictureBook;
 
 import java.io.File;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
-import org.apache.xpath.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.file.FileStorage;
-import kr.co.whalesoft.framework.utils.PagingUtils;
 
 @Service
 public class PictureBookService extends BaseService {
@@ -27,7 +26,22 @@ public class PictureBookService extends BaseService {
 	private PictureBookDao dao;
 
 	public List<PictureBook> getPictureBookList(PictureBook pictureBook) {
-		return dao.getPictureBookList(pictureBook);
+		List<PictureBook> list = dao.getPictureBookList(pictureBook);
+		
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH)+1;
+		
+		if(month == 12) {
+			year++;
+		}
+		
+		for (PictureBook one : list) {
+			one.setLoan_year(String.valueOf(year));
+			one.setMonthList(dao.getMonthList(one));
+		}
+		
+		return list;
 	}
 	
 	public int getPictureBookCount(PictureBook pictureBook) {

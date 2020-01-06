@@ -1,6 +1,8 @@
 package kr.go.gbelib.app.cms.module.pictureBook;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,6 +28,8 @@ public class PictureBook extends PagingUtils {
 	private String server_file_name; // 서버파일명
 	private String file_extension; // 파일확장자
 	private long file_size; // 파일크기
+
+	List<Map<String, String>> monthList;
 
 	private MultipartFile mfile;
 
@@ -197,6 +201,14 @@ public class PictureBook extends PagingUtils {
 
 	public void setFile_size(long file_size) {
 		this.file_size = file_size;
+	}
+
+	public List<Map<String, String>> getMonthList() {
+		return monthList;
+	}
+
+	public void setMonthList(List<Map<String, String>> monthList) {
+		this.monthList = monthList;
 	}
 
 	public int getPicture_book_loan_idx() {

@@ -1,8 +1,7 @@
 package kr.go.gbelib.app.cms.module.pictureBook;
 
 import java.util.List;
-
-import kr.co.whalesoft.framework.utils.PagingUtils;
+import java.util.Map;
 
 public interface PictureBookDao {
 
@@ -35,5 +34,7 @@ public interface PictureBookDao {
 	public int deletePictureBookLoanAll(PictureBook pictureBook);
 	
 	public int statusChangeAll(PictureBook pictureBook);
+
+	public List<Map<String, String>> getMonthList(PictureBook pictureBook);
 
 }
