@@ -1449,6 +1449,7 @@ filter:alpha(opacity = 0.3*100);
 .banner-wrap .banner-t .control a.play{display:none}
 .banner-wrap .banner-t .control a.stop.active,
 .banner-wrap .banner-t .control a.play.active{display:inline-block;zoom:1;*display:inline}
+.banner-wrap .banner-t .control a i {font-weight:100;}
 .banner-wrap .banner-t .control a i.fa{font-size:10px}
 .banner-wrap .banner-t .control a i.fa-navicon{font-size:11px}
 
@@ -1468,9 +1469,68 @@ filter:alpha(opacity = 0.3*100);
 .banner-wrap .banner-t2 .control a.play{display:none}
 .banner-wrap .banner-t2 .control a.stop.active,
 .banner-wrap .banner-t2 .control a.play.active{display:inline-block;zoom:1;*display:inline;border-top:0;}
+.banner-wrap .banner-t2 .control a i {font-weight:100;}
 .banner-wrap .banner-t2 .control a i.fa{font-size:10px}
 .banner-wrap .banner-t2 .control a i.fa-navicon{font-size:11px}
 .banner-wrap .banner-t2 .control a:last-child {border-top:0;}
+
+/* 배너모음3 */
+.banner-wrap>.banner-t3{float:left;width:110px;padding-left:5px}
+.banner-wrap>.banner-t3 > h3{float:left;line-height:18px;height:25px;font-size:20px;font-weight:bold;letter-spacing:-1px}
+.banner-wrap>.banner-box3{float:left;width:100%;margin-right:-120px}
+.banner-wrap .banner-box3>div{margin:0!important;margin-right:120px!important}
+.banner-wrap .banner-box3 .banner-roll li{height:42px}
+.banner-wrap .banner-box3 .banner-roll li,
+.banner-wrap .banner-box3 .banner-roll span,
+.banner-wrap .banner-box3 .banner-roll a{font-size:0;line-height:0}
+.banner-wrap .banner-box3 .banner-roll i{display:none}
+.banner-wrap .banner-t3 .control{clear:both;font-size:0;padding:0;float:left}
+.banner-wrap .banner-t3 .control a {font-size:13px;display:inline-block;zoom:1;*display:inline;text-align:center;vertical-align:middle;width:20px;height:20px;line-height:19px;border:1px solid #d5d5d5;margin-left:-1px}
+.banner-wrap .banner-t3 .control a.stop,
+.banner-wrap .banner-t3 .control a.play{display:none}
+.banner-wrap .banner-t3 .control a.stop.active,
+.banner-wrap .banner-t3 .control a.play.active{display:inline-block;zoom:1;*display:inline}
+.banner-wrap .banner-t3 .control a i {font-weight:100;}
+.banner-wrap .banner-t3 .control a i.fa{font-size:10px}
+.banner-wrap .banner-t3 .control a i.fa-navicon{font-size:11px}
+
+.banner-wrap>.banner-t4{float:left;width:175px;padding-right:10px;padding-left:5px}
+.banner-wrap>.banner-t4 > h3{float:left;line-height:42px;height:42px;font-size:20px;font-weight:bold;letter-spacing:-1px}
+.banner-wrap>.banner-box4{float:left;width:100%;margin-right:-200px}
+.banner-wrap .banner-box4>div{margin:0!important;margin-right:200px!important}
+.banner-wrap .banner-box4 .banner-roll li{height:42px}
+.banner-wrap .banner-box4 .banner-roll li,
+.banner-wrap .banner-box4 .banner-roll span,
+.banner-wrap .banner-box4 .banner-roll a{font-size:0;line-height:0}
+.banner-wrap .banner-box4 .banner-roll i{display:none}
+.banner-wrap .banner-t4 .control{font-size:0;padding:10px 0 0 1px;float:right}
+.banner-wrap .banner-t4 .control a {font-size:13px;display:inline-block;zoom:1;*display:inline;text-align:center;vertical-align:middle;width:20px;height:20px;line-height:18px;border:1px solid #d5d5d5;border-radius:20px;margin-left:2px;}
+.banner-wrap .banner-t4 .control a.stop,
+.banner-wrap .banner-t4 .control a.play{display:none}
+.banner-wrap .banner-t4 .control a.stop.active,
+.banner-wrap .banner-t4 .control a.play.active{display:inline-block;zoom:1;*display:inline}
+.banner-wrap .banner-t4 .control a i {font-weight:100;}
+.banner-wrap .banner-t4 .control a i.fa{font-size:10px}
+.banner-wrap .banner-t4 .control a i.fa-navicon{font-size:11px}
+
+.banner-wrap>.banner-t5{float:left;width:160px;padding-right:15px;padding-left:5px}
+.banner-wrap>.banner-t5 > h3{float:left;line-height:42px;height:42px;font-size:20px;font-weight:bold;letter-spacing:-1px}
+.banner-wrap>.banner-box5{float:left;width:100%;margin-right:-180px}
+.banner-wrap .banner-box5>div{margin:0!important;margin-right:180px!important}
+.banner-wrap .banner-box5 .banner-roll li{height:42px}
+.banner-wrap .banner-box5 .banner-roll li,
+.banner-wrap .banner-box5 .banner-roll span,
+.banner-wrap .banner-box5 .banner-roll a{font-size:0;line-height:0}
+.banner-wrap .banner-box5 .banner-roll i{display:none}
+.banner-wrap .banner-t5 .control{font-size:0;padding:10px 0 0 1px;float:right}
+.banner-wrap .banner-t5 .control a {font-size:13px;display:inline-block;zoom:1;*display:inline;text-align:center;vertical-align:middle;width:20px;height:20px;line-height:18px;border:1px solid #d5d5d5;margin-left:2px;}
+.banner-wrap .banner-t5 .control a.stop,
+.banner-wrap .banner-t5 .control a.play{display:none}
+.banner-wrap .banner-t5 .control a.stop.active,
+.banner-wrap .banner-t5 .control a.play.active{display:inline-block;zoom:1;*display:inline}
+.banner-wrap .banner-t5 .control a i {font-weight:100;}
+.banner-wrap .banner-t5 .control a i.fa{font-size:10px}
+.banner-wrap .banner-t5 .control a i.fa-navicon{font-size:11px}
 
 /* 배너모움 vertical */
 .banner-wrap.type2 .banner-box .banner-roll{text-align:center}
@@ -1643,22 +1703,50 @@ box-shadow:0px 3px 5px 0px rgba(0,0,0,0.4);
 .doc-body .schedule-func .cal-func{text-align:right}
 
 /* 층별안내 */
-.floorInfo{background-color:#ebebeb;overflow:hidden;padding:15px}
-.floorInfo .tab-menu{width:18%;padding:0}
+.floorInfo{background-color:#fff; border:3px solid #ebebeb; overflow:hidden;padding:15px}
+.floorInfo .tab-menu{width:20%;padding:0}
 .floorInfo .tab-menu ul{padding:0;margin:5% 0}
-.floorInfo .tab-menu li{width:100%}
-.floorInfo .tab-menu li a{font-size:110%;padding:8px 0 9px;text-align:center}
+.floorInfo .tab-menu li{width:130%}
+.floorInfo .tab-menu li a{font-size:110%;text-align:center}
 .floorInfo .tab-menu,
 .floorInfo .box{float:left}
 .floorInfo .box{width:100%;margin-right:-18%;padding:0}
-.floorInfo .box .floorImg{margin-right:18%;padding:10px 0 10px 10px;text-align:center;font-size:0;line-height:0}
+.floorInfo .box .floorImg{margin-right:18%;text-align:center;font-size:0;line-height:0}
+.tabfloorimg {text-align: center;margin-bottom: 30px;}
+.floorInfo .box img {margin-left: 30px;}
+
+@media all and (max-width:1000px){
+    .floorInfo .box img {margin-left: 7px;margin-top: 17px;}
+}
+
 @media all and (max-width:500px){
-	.floorInfo .tab-menu li{width:25%}
+	.floorInfo .tab-menu li{width:15%; height:50px;}
 	.floorInfo .tab-menu,
 	.floorInfo .box,
 	.floorInfo .box .floorImg{float:none;width:auto;margin:0}
+	.floorInfo .tab-menu ul{margin:1% 0;}
+	.floorInfo .tab-menu li a{font-size:80%;padding:5px 0 5px;text-align:center}
 	.floorInfo .box .floorImg{padding-left:0}
+    .floorInfo .box img {margin-left: 0;margin-top: 10px;}
 }
+
+.floorInfo2{background-color:#ebebeb;overflow:hidden;padding:40px}
+.floorInfo2 .tab-menu{width:18%;padding:0}
+.floorInfo2 .tab-menu ul{padding:0;margin:5% 0}
+.floorInfo2 .tab-menu li{width:50%;float: left;}
+.floorInfo2 .tab-menu li a{font-size:110%;padding:5px 5px 0 5px;text-align:center;}
+.floorInfo2 .tab-menu,
+.floorInfo2 .box{float:left}
+.floorInfo2 .box{width:100%;margin-right:-18%;padding:0}
+.floorInfo2 .box .floorImg{margin-right:18%;padding:10px 0 10px 10px;text-align:center;font-size:0;line-height:0}
+@media all and (max-width:500px){
+	.floorInfo2 .tab-menu li{width:25%}
+	.floorInfo2 .tab-menu,
+	.floorInfo2 .box,
+	.floorInfo2 .box .floorImg{float:none;width:auto;margin:0}
+	.floorInfo2 .box .floorImg{padding-left:0}
+}
+
 
 /* 뷰어 다운로드 */
 .viewer_down li{padding:0 0 30px;overflow:hidden}

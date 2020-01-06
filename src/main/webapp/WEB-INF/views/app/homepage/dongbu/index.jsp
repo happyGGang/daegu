@@ -329,7 +329,7 @@
 		<div class="section">
 			<div class="main7_banner">
 				<div class="banner-wrap type1">
-					<div class="banner-t">
+					<div class="banner-t4">
 						<h3>배너모음</h3>
 						<div class="control">
 							<a class="prev" href="#prev"><i class="fa fa-chevron-left"></i><span class="blind">이전</span></a>
@@ -339,7 +339,7 @@
 							<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=154"><i class="fa fa-navicon"></i><span class="blind">더보기</span></a>
 						</div>
 					</div>
-					<div class="banner-box">
+					<div class="banner-box4">
 						<!-- <homepageTag:banner bannerList="${bannerList}"/> -->
 						<ul class="banner-roll">
 						<li>

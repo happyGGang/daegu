@@ -9,17 +9,9 @@
 				<div class="info">
 					<a href="/${homepage.context_path}/html.do?menu_idx=150"><b>개인정보처리방침</b></a>
 					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=151">이전개인정보처리방침</a>
-					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=151">이용약관</a>
-					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=151">영상정보처리방침</a>
-					<span class="bar">|</span>
 					<a href="/${homepage.context_path}/html.do?menu_idx=152">도서관서비스헌장</a>
 					<span class="bar">|</span>
 					<a href="/${homepage.context_path}/html.do?menu_idx=153">저작권신고</a>
-					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=153">사이트맵</a>
 					<span class="bar">|</span>
 					<a href="/${homepage.context_path}/html.do?menu_idx=153">성고충상담창구</a>
 				</div>
@@ -53,7 +45,7 @@
 		</div>
 
 	</div>
-
+</div>
 
 
 </body>

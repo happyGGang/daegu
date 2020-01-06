@@ -357,17 +357,16 @@
 		<div class="section">
 			<div class="main7_banner">
 				<div class="banner-wrap type1">
-					<div class="banner-t">
+					<div class="banner-t5">
 						<h3>배너모음</h3>
 						<div class="control">
 							<a class="prev" href="#prev"><i class="fa fa-chevron-left"></i><span class="blind">이전</span></a>
 							<a class="stop active" href="#stop"><i class="fa fa-pause"></i><span class="blind">정지</span></a>
 							<a class="play" href="#play"><i class="fa fa-play"></i><span class="blind">시작</span></a>
 							<a class="next" href="#next"><i class="fa fa-chevron-right"></i><span class="blind">다음</span></a>
-							<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=154"><i class="fa fa-navicon"></i><span class="blind">더보기</span></a>
 						</div>
 					</div>
-					<div class="banner-box">
+					<div class="banner-box5">
 						<!-- <homepageTag:banner bannerList="${bannerList}"/> -->
 						<ul class="banner-roll">
 						<li>

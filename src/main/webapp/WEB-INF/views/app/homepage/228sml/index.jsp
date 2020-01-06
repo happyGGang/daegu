@@ -66,7 +66,7 @@
 		// 팝업 관련 코드 END
 	
 		
-		$('div#holiday-box').load('calendar2.do');
+		$('div.cal-box').load('calendar3.do');
 
 		$('#main-search-btn').on('click', function() {
 			if( $('input#search_text_1').val() == '' ) {
@@ -88,37 +88,112 @@
 			<homepageTag:popup popupList="${popupList}" />
 		</div>
 	</div>
+
 	<div id="container" class="main">
 
 		<div class="main1">
 			<div class="section">
-
-				<div class="search-box">
-					<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
-						<input type="hidden" name="menu_idx" value="7">
-						<input type="hidden" name="search_type2" value="L_TITLEAUTHOR">
-						<fieldset>
-							<legend class="blind">통합검색</legend>
-							<div class="main-box">
-								<div class="title-box">통합자료검색</div>
-								<div class="box0">
-									<label for="search_type" class="search_type">
-										<select id="search_type" name="search_type" style="border:0;font-size:15px">
-											<option value="L_TITLE">서명</option>
-											<option value="L_AUTHOR">저자</option>
-											<option value="L_PUBLISHER">발행자</option>
-											<option value="L_KEYWORD">키워드</option>
-										</select>
-									</label>
-								</div>
-								<div class="box1">
-									<label for="search_text_1" class="blind">통합자료검색</label>
-									<input name="search_text" id="search_text_1" type="text" class="text" placeholder="검색어를 입력하세요" style="ime-mode:active;"/>
-								</div>
-								<button id="main-search-btn">검색</button>
+				<div class="main1box2">
+					<div class="main1box2box1">
+						<div class="main1box2box1box1">
+							<ul>
+								<li class="bg-lgray">
+									<a href="#">
+									<span class="wt">대출/예약현황</span>
+									<span class="wc">대출/예약 현황 조회<br/>하실 수 있습니다.</span>
+									<img src="/resources/homepage/${homepage.context_path}/img/quick01-bg.png" class="mi">
+									</a>
+								</li>
+								<li class="bg-lorange">
+									<a href="#">
+									<span class="wt">희망도서신청</span>
+									<span class="wc">원하시는 도서를<Br/>신청하세요</span>
+									<img src="/resources/homepage/${homepage.context_path}/img/quick02-bg.png" class="mi">
+									</a>
+								</li>
+								<li class="bg-lgray">
+									<a href="#">
+									<span class="wt">2ㆍ28청소년존</span>
+									<span class="wc">민주운동의 횃불 <br/>2·28</span>
+									<img src="/resources/homepage/${homepage.context_path}/img/quick03-bg.png" class="mi">
+									</a>
+								</li>
+								<li class="bg-orange">
+									<a href="#">
+									<span class="wt">온라인강좌신청</span>
+									<span class="wc">운영중인 프로그램을<br/>신청해보세요</span>
+									<img src="/resources/homepage/${homepage.context_path}/img/quick04-bg.png" class="mi">
+									</a>
+								</li>
+								<li class="bg-lgray">
+									<a href="#" style="z-index: 9;">
+									<span class="wt">영화상영</span>
+									<span class="wc">다양한 영화를<Br/>감상해 보세요</span>
+									<img src="/resources/homepage/${homepage.context_path}/img/quick05-bg.png" class="mi">
+									</a>
+								</li>
+								<li class="bg-dorange">
+									<a href="#">
+									<span class="wt">청소년자원봉사</span>
+									<span class="wc">책을 사랑하는<Br/>봉사자를 모집합니다.</span>
+									<img src="/resources/homepage/${homepage.context_path}/img/quick06-bg.png" class="mi">
+									</a>
+								</li>
+							</ul>
+						</div>
+						<div class="main1box2box1box2">
+							<div class="big-btn-box">
+								<h2>
+									<span>학교도서관지원서비스</span>
+									<span class="second-line">학교도서관</span>
+									<span class="third-line"><b>집중지원센터</b></span>
+								</h2>
 							</div>
-						</fieldset>
-					</form>
+						</div>
+					</div>
+
+					<div class="main1box2box2">
+						<div class="search-box">
+							<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
+								<input type="hidden" name="menu_idx" value="7">
+								<input type="hidden" name="search_type2" value="L_TITLEAUTHOR">
+								<fieldset>
+									<legend class="blind">통합검색</legend>
+									<div class="main-box">
+										<div class="title-box">통합자료검색</div>
+										<div class="box1">
+											<label for="search_text_1" class="blind">통합자료검색</label>
+											<input name="search_text" id="search_text_1" type="text" class="text" placeholder="검색어를 입력하세요." style="ime-mode:active;"/>
+										</div>
+										<button id="main-search-btn">검색</button>
+									</div>
+								</fieldset>
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<div class="main1box1">
+					<div class="quick-btn-box">
+						<h2>
+							<span>2ㆍ28기념학생도서관 사서가 추천하는</span>
+							<span><b>사서&북큐레이션</b></span>
+						</h2>
+						<div class="top-btn-box">
+							<ul>
+								<li><a href="">주제가 있는 책장(일반)</a></li>
+								<li><a href="">내마음에 꽂힌 책(청소년)</a></li>
+								<li><a href="">책이 나에게 말걸다(어린이)</a></li>
+								<li><a href="">초등교과연계도서</a></li>
+							</ul>
+						</div>
+						<div class="bottom-btn-box">
+							<ul>
+								<li><a href="">신착도서</a></li>
+								<li><a href="">추천도서</a></li>
+							</ul>
+						</div>
+					</div>
 				</div>
 
 			</div>
@@ -127,97 +202,6 @@
 		<div class="main2">
 			<div class="section">
 				<div class="main2box1">
-					<div class="main2box1box1">
-						<ul>
-							<li class="bg-blue"">
-								<a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=138">
-								<span class="wt">이용안내</span>
-								<span class="wc">남부도서관 이렇게 <br/>이용하세요!</span>
-								<img src="/resources/homepage/nambu/img/m_icon01.png" class="mi">
-								</a>
-							</li>
-							<li class="bg-lgray">
-								<a href="/${homepage.context_path}/intro/search/hope/index.do?menu_idx=27">
-								<span class="wt">마이페이지</span>
-								<span class="wc">대출조회 및<br>신청현황</span>
-								<img src="/resources/homepage/nambu/img/m_icon02.png" class="mi"></a>
-							</li>
-							<li class="bg-background01">
-								<a href="http://lib.ice.go.kr/elib/index.do" target="_blank">
-								<span class="wt">대구전자도서관</span>
-								<span class="wc">대구시민의 스마트한<br>독서생활이 시작되는 곳</span>
-								</a>
-							</li>
-							<li class="bg-green">
-								<a href="/${homepage.context_path}/html.do?menu_idx=21">
-								<span class="wt">독서회</span>
-								<span class="wc">독서와 토론이<br>있는 모임</span>
-								<img src="/resources/homepage/nambu/img/m_icon03.png" class="mi"></a>
-							</li>
-							<li class="bg-background02">
-								<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=179" style="z-index: 9;"><span class="wt">중국문화정보실</span>
-								<span class="wc">도서관 속 작은 중국</span>
-								</a>
-							</li>
-							<li class="bg-lgreen">
-								<a href="/${homepage.context_path}/html.do?menu_idx=28">
-								<span class="wt">수강신청</span>
-								<span class="wc">온라인 수강신청</span>
-								<img src="/resources/homepage/nambu/img/m_icon04.png" class="mi"></a>
-							</li>
-							<li class="bg-white">
-								<a href="/${homepage.context_path}/html.do?menu_idx=28">
-								<span class="wt">책나래</span>
-								<span class="wc">도서관 자료<br/>무료우편 서비스</span>
-								<img src="/resources/homepage/nambu/img/m_icon05.png" class="mi"></a>
-							</li>
-							<li class="bg-background03">
-								<a href="/${homepage.context_path}/html.do?menu_idx=28">
-								<span class="wt">책바다</span>
-								<span class="wc">국가상호대차<br/>서비스</span>
-								<img src="/resources/homepage/nambu/img/m_icon06.png" class="mi"></a>
-							</li>
-						</ul>
-					</div>
-
-
-					<div class="main2box1box2">
-							<div class="event-box">
-
-								<div class="box">
-									<h3>행사일</h3>
-									<span>2019.12.26</span>
-								</div>
-								<div class="slider-box">
-									<ul class="bxslider">
-										<li><a href="#">동화속 그림 전시회</a></li>
-										<li><a href="#">중국문화 학습동아리</a></li>
-										<li><a href="#">플러스 2배 대출</a></li>
-									</ul>
-								</div>
-
-							</div>
-
-							<div class="holiday-box">
-
-								<div class="box">
-										<h3>휴관일</h3>
-										<span>2019.12</span>
-								</div>
-								<div class="slider-box">
-									<ul class="bxslider">
-										<li>2</li>
-										<li>16</li>
-										<li>25</li>
-									</ul>
-								</div>
-
-							</div>
-						</ul>
-					</div>
-				</div>
-
-				<div class="main2box2">
 					<div class="popZone">
 						<c:choose>
 							<c:when test="${fn:length(popupZoneList) > 0}">
@@ -225,27 +209,20 @@
 							</c:when>
 							<c:otherwise>
 								<ul>
-									<li><a href="#"><img src="/resources/homepage/nambu/img/popupnone.jpg" alt="" /></a></li>
-									<li><a href="#"><img src="/resources/homepage/nambu/img/popupzone01.png" alt="" /></a></li>
+									<li><a href="#"><img src="/resources/homepage/${homepage.context_path}/img/popupnone.jpg" alt="" /></a></li>
+									<li><a href="#"><img src="/resources/homepage/${homepage.context_path}/img/popupzone01.png" alt="" /></a></li>
 								</ul>
 							</c:otherwise>
 						</c:choose>
 					</div>
 				</div>
-			</div>
-		</div>
-		
 
-		<div class="main3">
-			<div class="section">
-
-				<div class="main3box1">
-
+				<div class="main2box2">
 					<div class="notice">
 						<div class="title">
 							<ul>
 								<li><h2>공지사항</h2></li>
-								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=87&manage_idx=12"><img src="/resources/homepage/nambu/img/more_btbt.png" alt="더보기"/></a></li>
+								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=87&manage_idx=12"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
 							</ul>
 						</div>
 						<div class="cont">
@@ -280,7 +257,7 @@
 								</c:if>
 							-->
 								<li class="on-cont">
-									<img src="/resources/homepage/nambu/img/main_notice_img.png">
+									<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
 									<a href="#">
 										<span class="title">2019년 12월 31일 자료실 운영시간 변경 안내</span>
 										<p class="date">2019-12-24</p>
@@ -292,155 +269,53 @@
 								
 								<li>
 								<a href="#">
-									<span class="not-sub">2020년도 자료실 평일 및 주말 근무자 최종 합격자 안내
+									<em>2020년도 자료실 평일 및 주말 근무자 최종 합격자 안내</em>
 									<span class="date">2019.12.19</span>
 								</a>
 								</li>
 								<li>
 								<a href="#">
-									<span class="not-sub">2020년 겨울방학특별프로그램 학습자 모집
+									<em>2020년 겨울방학특별프로그램 학습자 모집</em>
 									<span class="date">2019.12.17</span>
 								</a>
 								</li>
 								<li>
 								<a href="#">
-									<span class="not-sub">공유재산 사용·수익허가(이용자 복합기) 낙찰자 결정 공고
+									<em>공유재산 사용·수익허가(이용자 복합기) 낙찰자 결정 공고</em>
 									<span class="date">2019.12.16</span>
 								</a>
 								</li>
 								<li>
 								<a href="#">
-									<span class="not-sub">공유재산 사용·수익허가(이용자 복합기) 낙찰자 결정 공고
-									<span class="date">2019.12.16</span>
-								</a>
-								</li>
-								<li>
-								<a href="#">
-									<span class="not-sub">공유재산 사용·수익허가(이용자 복합기) 낙찰자 결정 공고
+									<em>공유재산 사용·수익허가(이용자 복합기) 낙찰자 결정 공고</em>
 									<span class="date">2019.12.16</span>
 								</a>
 								</li>
 							</ul>
 						</div>
 					</div>
-
 				</div>
 
-				<div class="main3box2">
-					<div class="movie">
+				<div class="main2box3">
+					<div class="calendar-box">
 						<div class="title">
 							<ul>
-								<li><h2>영화상영</h2></li>
-								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=87&manage_idx=12"><img src="/resources/homepage/nambu/img/more_btbt.png" alt="더보기"/></a></li>
+								<li><h2>도서관휴관일 및 일정</h2></li>
+								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=87&manage_idx=12"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
 							</ul>
 						</div>
-						<div class="movieContent">
-							<ul>
-								
-								<li>
-									<a href="//${homepage.context_path}/board/view.do?manage_idx=88&board_idx=1296104&menu_idx=46">
-									<span class="movieImg">
-										<img src="/resources/homepage/dongbu/img/movie01.jpg" alt="미녀와 야수">
-									</span>
-									<span class="movieEx">
-										<div>12세미만</div>
-										<strong class="title">미녀와 야수</strong>
-										<span class="date">
-										<b>날짜</b>&nbsp;&nbsp;&nbsp;2019.12.24.
-										</span>
-										<span class="time">
-										<b>시간</b>&nbsp;&nbsp;&nbsp;14:00
-										</span>
-										<span class="divid">
-										<b>장소</b>&nbsp;&nbsp;&nbsp;동부도서관
-										</span>
-										<span class="desc">
-										<b>장르</b>&nbsp;&nbsp;&nbsp;애니
-										</span>
-									</span>
-									</a>
-								</li>
 
-								<li>
-									<a href="/${homepage.context_path}/board/view.do?manage_idx=88&board_idx=1296104&menu_idx=46">
-									<span class="movieImg">
-										<img src="/resources/homepage/dongbu/img/movie01.jpg" alt="미녀와 야수">
-									</span>
-									<span class="movieEx">
-										<div>12세미만</div>
-										<strong class="title">미녀와 야수</strong>
-										<span class="date">
-										<b>날짜</b>&nbsp;&nbsp;&nbsp;2019.12.24.
-										</span>
-										<span class="time">
-										<b>시간</b>&nbsp;&nbsp;&nbsp;14:00
-										</span>
-										<span class="divid">
-										<b>장소</b>&nbsp;&nbsp;&nbsp;동부도서관
-										</span>
-										<span class="desc">
-										<b>장르</b>&nbsp;&nbsp;&nbsp;애니
-										</span>
-									</span>
-									</a>
-								</li>
-							</ul>
+						<div class="cal-box">
+							
 						</div>
 					</div>
 				</div>
-
-				<div class="main3box3 tabS">
-					<div class="book">
-						<div class="title">
-							<ul class="tabMenuS">
-								<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=31&manage_idx=415">신간도서</a></li>
-								<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=32&manage_idx=416">대출베스트</a></li>
-								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=31&manage_idx=415" class="more-btn more-more"><img src="/resources/homepage/nambu/img/more_btbt.png" alt="더보기"/></a></li>
-							</ul>
-						</div>
-						<div class="box con" data-tab="tab1">
-							<ul class="book_photo">
-								<li>
-									<a class="goDetail" href="" >
-										<img src="/resources/homepage/jungang/img/book01.png" alt="${i.TITLE}" />
-										<span class="title">욕대장</span>
-									</a>
-								</li>
-								<li>
-									<a class="goDetail" href="" keyValue1="${i.LOCA}" keyValue2="${i.CTRLNO}">
-										<img src="/resources/homepage/jungang/img/book02.png" alt="${i.TITLE}" />
-										<span class="title">오즈의 의류수거함</span>
-									</a>
-								</li>
-							</ul>
-						</div>
-
-						<div class="box con" data-tab="tab2" style="display:none;">
-							<ul class="book_photo">
-								<li>
-									<a class="goDetail" href="" keyValue1="${i.LOCA}" keyValue2="${i.CTRLNO}">
-										<img src="/resources/homepage/jungang/img/book02.png" alt="${i.TITLE}" />
-										<span class="title">오즈의 의류수거함</span>
-									</a>
-								</li>
-								<li>
-									<a class="goDetail" href="" keyValue1="${i.LOCA}" keyValue2="${i.CTRLNO}">
-										<img src="/resources/homepage/jungang/img/book03.png" alt="${i.TITLE}" />
-										<span class="title">싱가포르 홀리데이</span>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-
 			</div>
 		</div>
-
+		
 		<div class="section">
 			<div class="main7_banner">
 				<div class="banner-wrap type1">
-
 					<div class="banner-box2">
 						<!-- <homepageTag:banner bannerList="${bannerList}"/> -->
 						<ul class="banner-roll">
@@ -488,11 +363,20 @@
 							<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=154"><i class="fa fa-navicon"></i><span class="blind">더보기</span></a>
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</div>
+
+		<div id="quick-slide">
+			<h4><img src="/resources/homepage/${homepage.context_path}/img/quick-title.png" alt="퀵메뉴"/></h4>
+			<ul>
+				<li><a href=""><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick001-bg.png" alt="책바다"></span><span class="txt">책바다</span></a></li>
+				<li><a href=""><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick002-bg.png" alt="책나래"></span><span class="txt">책나래</span></a></li>
+				<li><a href=""><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick003-bg.png" alt="사서에게 물어보세요"></span><span class="txt">사서에게<br/>물어보세요</span></a></li>
+			</ul>
+		</div>
+
 	</div>
-</div>
+
 	
 <tiles:insertAttribute name="footer" />

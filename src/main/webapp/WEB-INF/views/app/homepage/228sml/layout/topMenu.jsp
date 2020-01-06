@@ -16,9 +16,9 @@
 									<span>${sessionScope.member.member_name}님</span>
 							</a>
 							<a href="/${homepage.context_path}/module/myDashBoard/index.do?menu_idx=115" class="btn4">
-           						<i class="fa fa-bookmark"></i>
-          							 <span>MY Library</span>
-       						  </a>
+								<i class="fa fa-bookmark"></i>
+								<span>MY Library</span>
+       						</a>
 							<a href="/${homepage.context_path}/intro/login/logout.do" class="btn3">
 								<i class="fa fa-sign-out"></i>
 								<span>로그아웃</span>

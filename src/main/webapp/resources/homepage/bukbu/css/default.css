@@ -8,11 +8,11 @@ a:focus{color:#2b74c0}
 
 /* header */
 .tnb{position:relative;text-align:right;background:#2e3192;}
-.tnb .util{line-height:38px;height:40px}
-.tnb a{font-size:14px;color:#fff;font-weight:normal;display:inline-block}
+.tnb .util{height:40px}
+.tnb a{font-size:14px;color:#fff;font-weight:bold;display:inline-block;padding:1px 0 0 0;margin:0;box-sizing:border-box;}
 .tnb a:hover,
-.tnb a:focus{}
-
+.tnb a:focus{color:#03539e}
+.tnb a.sitemap-img2 {padding:0;vertical-align:middle;}
 
 #header .head{position:relative;z-index:2;clear:both}
 #header h1{position:absolute;z-index:10000;top:40px;}
@@ -39,18 +39,18 @@ a:focus{color:#2b74c0}
 .Gnb .gnb-menu>li.menu2>ul,
 .Gnb .gnb-menu>li.menu3>ul{text-align:center;}
 
-#footer {padding:0 0 50px;}
+#footer {padding:0 0 80px;}
 #footer .top {position:relative;padding:18px 0;border-top:1px solid #e4e4e4;border-bottom:1px solid #e4e4e4}
-#footer .bottom {padding:23px 0 0 0}
+#footer .bottom {padding:13px 0 0 0}
 #footer .bottom .section {}
-#footer .bottom .section .site_link {position:absolute;right:0;top:0;}
-#footer .bottom .section .site_link div > div{width:200px}
+#footer .bottom .section .site_link {position:absolute;right:0;top:15px;}
+#footer .bottom .section .site_link div > div{width:160px}
 #footer .bottom .section .site_link div > div,
 #footer .bottom .section .site_link a.btn{margin-bottom:5px}
-#footer .bottom .section .site_link a.btn{padding:7px 10px;border-radius:0;background:#1f5d97;border:0;color:#fff}
+#footer .bottom .section .site_link a.btn{padding:8px 17px;border-radius:0;background:#7b8294 url('/resources/homepage/duryu/img/footer-arrow.png') no-repeat center center;border:0;color:#fff;font-size:0;}
 #footer .bottom .section .site_link a.btn:hover,
-#footer .bottom .section .site_link a.btn:focus{background:#1a518b}
-#footer .info b{color:#0055d5}
+#footer .bottom .section .site_link a.btn:focus{background:#7b8294 url('/resources/homepage/duryu/img/footer-arrow.png') no-repeat center center;}
+#footer .info b{}
 #footer .info a,
 #footer .info span{vertical-align:middle;font-size:15px;color:#3b3b3b;}
 #footer .info .bar{display:inline-block;margin:0 18px;color:#3b3b3b;}
@@ -62,8 +62,9 @@ a:focus{color:#2b74c0}
 
 #footer{clear:both}
 #footer .info a {vertical-align:middle;display:inline-block;zoom:1;*display:inline;}
-#footer .info a b{font-size:105%}
+#footer .info a b{font-size:100%}
 #footer .info a.admin{font-weight:bold;color:#2b74c0}
+#footer .site_link > div {position:relative;display:inline-block;}
 .footer .site_link > div > div,
 #footer .site_link > div > div {position:relative;display:inline-block;zoom:1;*display:inline;margin:0;vertical-align:middle;margin-right:-5px;}
 .footer .site_link > div > div > a.fsite,
@@ -228,6 +229,17 @@ a.btnStyle{float: right;margin-top: 6px;}
 	#footer .top .info{text-align:left;width:1280px;}
 }
 
+@media all and (max-width:1070px){
+	#footer .site_link > div {display:block;}
+	#footer .info a {font-size:14px;}
+	#footer address{padding:5px 15px 0;box-sizing:border-box;}
+	#footer address em,
+	#footer address span{font-size:14px}
+
+	#footer .bottom .section .site_link {position:relative;width:98%;margin:18px auto 0;clear:both;text-align:center;}
+	#footer .bottom .section .site_link div > div{width:90%}
+}
+
 @media all and (max-width:1000px){
 	h1 img{display:none}
 
@@ -244,19 +256,12 @@ a.btnStyle{float: right;margin-top: 6px;}
 	.m-menu a{display:inline-block;text-align:center;vertical-align:middle;padding-top:7px;}
 	.m-menu a i{font-size:30px;width:45px;height:45px;line-height:45px;color:#000;}
 
-	.tnb {background:#fff;height:45px;padding:10px 0}
+	.tnb {background:#fff;height:55px;padding:10px 0}
 	.#footer .section{padding:0 1%;box-sizing:border-box;}
 }
 
 @media all and (max-width:850px){
 	.home-up {display:block;}
-	#footer .bottom .section .site_link {position:relative;width:98%;margin:18px auto 0;clear:both;text-align:center;}
-	#footer .bottom .section .site_link div > div{width:90%}
-
-	#footer .info a {font-size:14px;}
-	#footer address{padding:5px 0 0}
-	#footer address em,
-	#footer address span{font-size:14px}
 }
 
 @media all and (max-width:650px){
@@ -271,8 +276,7 @@ a.btnStyle{float: right;margin-top: 6px;}
 }
 
 @media all and (max-width:425px){
-	#footer address em,
-	#footer address span{font-size:11px}
+
 }
 
 @media all and (max-width:375px){

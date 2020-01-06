@@ -4,11 +4,10 @@ $(document).ready(function(){
 
 
 var pageMain = (function(){
-	var init, bindEvent, movieSlider;
+	var init, bindEvent;
 
 	init = function() {
 		bindEvent();
-		movieSlider();
 	};
 
 	bindEvent = function(){
@@ -30,17 +29,6 @@ var pageMain = (function(){
 
 	};
 
-	movieSlider = function(){
-		if($('.movieContent ul li').length >0) {
-			$('.movieContent ul').bxSlider({
-				auto: true,
-				pager:false,
-				autoControls:true,
-				autoControlsCombine:true
-			});
-		}
-	};
-
 	return {
 		init: init
 	}
@@ -60,12 +48,19 @@ $(function(){
 		});
 	}
 
-	$('.slider-box ul').bxSlider({
+	$('.movieContent ul').bxSlider({
+		auto: true,
+		pager:false,
+		autoControls:true,
+		autoControlsCombine:true
+	});
+
+	$('.event-box > ul').bxSlider({
 		mode:'vertical',
 		pager:false
 	});
 
-	$('.slider-box2 ul').bxSlider({
+	$('.holiday-box > ul').bxSlider({
 		mode:'vertical',
 		pager:false
 	});

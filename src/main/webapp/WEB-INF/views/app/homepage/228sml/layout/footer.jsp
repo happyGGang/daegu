@@ -9,19 +9,11 @@
 				<div class="info">
 					<a href="/${homepage.context_path}/html.do?menu_idx=150"><b>개인정보처리방침</b></a>
 					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=151">이전개인정보처리방침</a>
-					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=151">이용약관</a>
-					<span class="bar">|</span>
 					<a href="/${homepage.context_path}/html.do?menu_idx=151">영상정보처리방침</a>
 					<span class="bar">|</span>
 					<a href="/${homepage.context_path}/html.do?menu_idx=152">도서관서비스헌장</a>
 					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=153">저작권신고</a>
-					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=153">사이트맵</a>
-					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=153">성고충상담창구</a>
+					<a href="/${homepage.context_path}/html.do?menu_idx=153">찾아오시는길</a>
 				</div>
 			</div>
 		</div>
@@ -32,9 +24,9 @@
 					<p>
 						<em>(${homepage.zipcode}) <br class="mobileBr"/>${homepage.address1}</em><br class="mobileBr"/>
 						<em>전화 ${fn:split(homepage.homepage_tell,',')[0]}</em>
-						<em>팩스 ${homepage.homepage_fax }</em>
+						<!-- <em>팩스 ${homepage.homepage_fax }</em> -->
 					</p>
-					<span>Copyright © 2020 DAEGU METROPOLITAN NAMBU LIBRARY, <br class="mobileBr"/>All rights reserved.</span>
+					<span>Copyright © 2020 DAEGU METROPOLITAN 2·28 Student's Memorial Library, All rights reserved.</span>
 				</address>
 				<div class="site_link">
 					<div>
@@ -53,7 +45,7 @@
 		</div>
 
 	</div>
-
+</div>
 
 
 </body>

@@ -225,7 +225,7 @@
 		<div class="main2">
 			<div class="section">
 				<div class="main2box1">
-					<div class="book">
+					<div class="book tabS">
 						<div class="title">
 							<ul class="tabMenuS">
 								<li class="on"><a href="#tab1">신간도서</a> <a href="/${homepage.context_path}/board/index.do?menu_idx=31&manage_idx=415" class="more-btn more-more"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
@@ -430,7 +430,7 @@
 		<div class="section">
 			<div class="main7_banner">
 				<div class="banner-wrap type1">
-					<div class="banner-t">
+					<div class="banner-t3">
 						<h3>배너모음</h3>
 						<div class="control">
 							<a class="prev" href="#prev"><i class="fa fa-chevron-left"></i><span class="blind">이전</span></a>
@@ -440,7 +440,7 @@
 							<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=154"><i class="fa fa-navicon"></i><span class="blind">더보기</span></a>
 						</div>
 					</div>
-					<div class="banner-box">
+					<div class="banner-box3">
 						<!-- <homepageTag:banner bannerList="${bannerList}"/> -->
 						<ul class="banner-roll">
 						<li>
@@ -479,6 +479,24 @@
 					</div>
 				</div>
 			</div>
+		</div>
+
+		<div id="quick-slide">
+			<h4><img src="/resources/homepage/${homepage.context_path}/img/quick-title.png" alt="퀵메뉴"/></h4>
+			<ul>
+				<li><a href=""><span class="txt">디지털 정보코너<Br/>좌석예약</span></a></li>
+				<li><a href=""><span class="txt">희망도서신청</span></a></li>
+				<li><a href=""><span class="txt">도서예약</span></a></li>
+				<li><a href=""><span class="txt">영화상영일정</span></a></li>
+				<li><a href=""><span class="txt">강좌신청</span></a></li>
+				<li><a href=""><span class="txt">대출이력조회</span></a></li>
+				<li><a href=""><span class="txt">이용안내</span></a></li>
+				<li><a href=""><span class="txt">책바다신청</span></a></li>
+				<li><a href=""><span class="txt">묻고답하기</span></a></li>
+				<li><a href=""><span class="txt">RSS서비스</span></a></li>
+				<li><a href=""><span class="txt">업무추진비<Br/>집행내역</span></a></li>
+				<li><a href=""><span class="txt">행정정보공개</span></a></li>
+			</ul>
 		</div>
 
 	</div>

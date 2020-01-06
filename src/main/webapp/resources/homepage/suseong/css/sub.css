@@ -1,0 +1,8 @@
+@charset "UTF-8";
+
+#header {height:200px!important;background:url('/resources/homepage/suseong/img/top-background.png') no-repeat center 60%;background-size:cover;}
+#header .txt {display:none;}
+
+@media all and (max-width:1000px){
+	#header .txt {display:block;}
+}

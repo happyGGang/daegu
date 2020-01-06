@@ -283,7 +283,7 @@ Date.prototype.format = function(f) {
 	</div>
 
 	<div class="calendar-info">
-		휴관
-		행사
+		<span class="hu">휴관</span>
+		<span class="ev">행사</span>
 	</div>
 </div>

@@ -97,17 +97,16 @@
 .main2 .main2box2 .popZone li{text-align:right;padding:0;margin:0;}
 .main2 .main2box2 .popZone li a {display:inline-block;}
 .main2 .main2box2 .popZone li a img {width:408px;height:440px;border:1px solid #cccccc;}
-.main2 .main2box2 .popZone .bx-controls {position:absolute;bottom:36px;right:1px;z-index:150000000;}
+.main2 .main2box2 .popZone .bx-controls {position:absolute;bottom:56px;right:1px;z-index:150000000;width:100%;}
 .main2 .main2box2 .popZone .bx-prev, 
 .main2 .main2box2 .popZone .bx-next, 
 .main2 .main2box2 .popZone .bx-start,
-.main2 .main2box2 .popZone .bx-stop {position:absolute;width:31px;height:30px;font-size:0;background-image:url("/resources/homepage/nambu/img/popZone_arr.png");background-repeat: no-repeat; background-position:0 0;background-size:initial;}
-.main2 .main2box2 .popZone .bx-pager {position:absolute;text-align:center;right:93px;width:50px;height:30px;line-height:30px;background:#2f2f2f;color:#fff;}
-.main2 .main2box2 .popZone .bx-prev { right:61px; }
-.main2 .main2box2 .popZone .bx-next { right:31px; background-position:-30px 0; }
-.main2 .main2box2 .popZone .bx-start { right:0; background-position:-92px 0; }
-.main2 .main2box2 .popZone .bx-stop { right:0; background-position:-61px 0;}
-
+.main2 .main2box2 .popZone .bx-stop {position:absolute;width:50px;height:50px;font-size:0;background-image:url("/resources/homepage/228sml/img/popupzone-arrow-v2.png");background-repeat: no-repeat; background-position:0 0;background-size:initial;}
+.main2 .main2box2 .popZone .bx-pager {position:absolute;text-align:center;right:100px;width:70px;height:50px;line-height:50px;background:#2f2f2f;color:#fff;}
+.main2 .main2box2 .popZone .bx-prev { left:0; }
+.main2 .main2box2 .popZone .bx-next { right:0; background-position:-50px 0; }
+.main2 .main2box2 .popZone .bx-start { right:50px; background-position:-150px 0; }
+.main2 .main2box2 .popZone .bx-stop { right:50px; background-position:-100px 0;}
 
 .main3 .main3box1 {float:left;width:495px;}
 .main3 .main3box1 .notice {position:relative;border:1px solid #dadada;height:326px;}
@@ -144,7 +143,7 @@
 .main3 .main3box2 .movie div.title h2 {font-size:17px;color:#272727;font-weight:bold;}
 .main3 .main3box2 .movie div.title a {font-size:0;line-height:0;background:url('/resources/homepage/nambu/img/more_btbt.png') no-repeat 0 0;}
 
-.main3 .main3box2 .movie .btn { position: absolute; top: 0; right: 0; border-left: none; }
+.main3 .main3box2 .movie .btn {position:absolute;top:0;right:0;border-left:none;}
 .main3 .main3box2 .movie .movieContent { position:relative;width:250px;margin:0 auto;padding:33px 0 0;}
 .main3 .main3box2 .movie .movieContent .bx-controls {position:absolute;left:0;z-index:150000000;margin-top:3px;}
 .main3 .main3box2 .movie .movieContent .bx-prev, 
@@ -159,8 +158,8 @@
 
 .main3 .main3box2 .movie .movieContent ul {overflow:hidden;width:250px;margin:0 auto;}
 .main3 .main3box2 .movie .movieContent ul li div {float:left;background:#000;color:#fff;padding:5px 10px;font-size:12px;}
-.main3 .main3box2 .movie .movieContent ul li span   {display:block;font-size:15px;color:#000;padding:0 0 2px 0 }
-.main3 .main3box2 .movie .movieContent ul li strong { clear:both;display:block;font-size:15px;color:#000;padding:10px 0 }
+.main3 .main3box2 .movie .movieContent ul li span   {display:block;font-size:14px;color:#000;padding:0 0 2px 0 }
+.main3 .main3box2 .movie .movieContent ul li strong { clear:both;display:block;font-size:14px;color:#000;padding:10px 0 }
 .main3 .main3box2 .movie .movieContent .movieImg {float:left;position:relative;width:135px;margin-right:10px;}
 .main3 .main3box2 .movie .movieContent .movieImg img {width:100%;height:190px;}
 .main3 .main3box2 .movie .movieContent .movieEx {float:left;width:42%;}

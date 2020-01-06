@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
 <tiles:insertAttribute name="header" />
+<link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub.css">
 <script type="text/javascript">
 $(function() {
 	$('li#menu_${menuOne.parent_menu_idx }').addClass('active');
@@ -19,10 +20,6 @@ $(function() {
 	<tiles:insertAttribute name="topMenu" />
 	
 	<div id="container" class="subpage">
-		<div class="sub-visual" <c:if test="${menuOne.menu_img ne null and menuOne.menu_img ne ''}">style="background-image: url('/data/menu/${menuOne.homepage_id}/${menuOne.menu_img}')"</c:if>>
-<!-- 			<p class="sv1"><b>Library with</b> citizens</p> -->
-<!-- 			<p class="sv2">Gyeongbuk Provincial Cheongsong Public Library</p> -->
-		</div>
 
 		<div class="doc-info">
 			<div class="section">

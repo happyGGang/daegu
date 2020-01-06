@@ -7,22 +7,22 @@ a:hover,
 a:focus{color:#2b74c0}
 
 /* header */
-.tnb{position:relative;text-align:right}
-.tnb .util{line-height:85px;height:85px}
-.tnb a{font-size:15px;color:#484848;font-weight:bold;display:inline-block}
+.tnb{position:relative;text-align:right;background:#ecbd00;}
+.tnb .util{height:40px}
+.tnb a{font-size:15px;color:#fff;font-weight:bold;display:inline-block;padding:1px 0 0 0;margin:0;box-sizing:border-box;}
 .tnb a:hover,
 .tnb a:focus{color:#03539e}
+.tnb a.sitemap-img2 {padding:0;vertical-align:middle;}
 
 #header .head{position:relative;z-index:2;clear:both}
-#header h1{position:absolute;z-index:10000;top:15px;}
+#header h1{position:absolute;z-index:10000;top:50px;}
 .popupWrap{z-index:6}
 
 /* Gnb */
-.Gnb{clear:both;text-align:center;width:100%;height:63px;overflow:inherit;position:relative;background:#405d97;}
-.Gnb .gnb-menu{position:relative;text-align:center}
-.Gnb .gnb-menu>li{width:14.28%;padding:0;text-align:center;position:static}
-.Gnb .gnb-menu>li:last-child{padding-right:0}
-.Gnb .gnb-menu>li>a{padding:10px 0;line-height:43px;height:43px;font-size:18px;color:#fff;font-weight:bold}
+.Gnb{clear:both;text-align:center;width:100%;height:80px;overflow:inherit;position:relative;}
+.Gnb .gnb-menu{position:relative;text-align:right;padding-right:10px;}
+.Gnb .gnb-menu>li{padding:0 1.5%;text-align:center;position:static}
+.Gnb .gnb-menu>li>a{line-height:80px;height:80px;font-size:18px;color:#222;font-weight:bold;}
 .Gnb .gnb-menu>li>ul{display:none;background:#666;border:0;left:0;white-space:nowrap;text-align:right}
 .Gnb .gnb-menu>li.active>ul{display:block}
 .Gnb .gnb-menu>li>.SubMenu>li{width:auto;padding:0 5px}
@@ -30,28 +30,28 @@ a:focus{color:#2b74c0}
 .Gnb .gnb-menu>li>.SubMenu>li>a{font-size:13px;padding:0 5px;color:#eee}
 .Gnb .gnb-menu>li>.SubMenu>li>a:hover,
 .Gnb .gnb-menu>li>.SubMenu>li>a:focus{background:none;color:#fedc0a}
+.Gnb .gnb-menu>li.on>a,
+.Gnb .gnb-menu>li>a:hover,
+.Gnb .gnb-menu>li>a:focus{color:#03539e}
 .Gnb .mask,
 .Gnb .gnb-menu>li>ul{width:100%;background:#2568bf}
 .Gnb .gnb-menu>li.menu1>ul,
 .Gnb .gnb-menu>li.menu2>ul,
-.Gnb .gnb-menu>li.menu3>ul{text-align:center}
-.Gnb .mask,
-.Gnb .gnb-menu>li>ul{background:#2654a5}
-.Gnb .gnb-menu>li.on>a,
-.Gnb .gnb-menu>li>a:hover,
-.Gnb .gnb-menu>li>a:focus{color:#edd355}
+.Gnb .gnb-menu>li.menu3>ul{text-align:center;}
+.Gnb .g-menu {position:relative;}
+.Gnb .g-menu a.last-box {position:absolute;right:0;top:32px;}
 
-#footer {padding:0 0 50px;}
+#footer {padding:0 0 80px;}
 #footer .top {position:relative;padding:18px 0;border-top:1px solid #e4e4e4;border-bottom:1px solid #e4e4e4}
-#footer .bottom {padding:23px 0 0 0}
+#footer .bottom {padding:13px 0 0 0}
 #footer .bottom .section {}
-#footer .bottom .section .site_link {position:absolute;right:0;top:0;}
-#footer .bottom .section .site_link div > div{width:200px}
+#footer .bottom .section .site_link {position:absolute;right:0;top:15px;}
+#footer .bottom .section .site_link div > div{width:160px}
 #footer .bottom .section .site_link div > div,
 #footer .bottom .section .site_link a.btn{margin-bottom:5px}
-#footer .bottom .section .site_link a.btn{padding:7px 10px;border-radius:0;background:#1f5d97;border:0;color:#fff}
+#footer .bottom .section .site_link a.btn{padding:8px 17px;border-radius:0;background:#7b8294 url('/resources/homepage/duryu/img/footer-arrow.png') no-repeat center center;border:0;color:#fff;font-size:0;}
 #footer .bottom .section .site_link a.btn:hover,
-#footer .bottom .section .site_link a.btn:focus{background:#1a518b}
+#footer .bottom .section .site_link a.btn:focus{background:#7b8294 url('/resources/homepage/duryu/img/footer-arrow.png') no-repeat center center;}
 #footer .info b{color:#0055d5}
 #footer .info a,
 #footer .info span{vertical-align:middle;font-size:15px;color:#3b3b3b;}
@@ -64,8 +64,9 @@ a:focus{color:#2b74c0}
 
 #footer{clear:both}
 #footer .info a {vertical-align:middle;display:inline-block;zoom:1;*display:inline;}
-#footer .info a b{font-size:105%}
+#footer .info a b{font-size:100%}
 #footer .info a.admin{font-weight:bold;color:#2b74c0}
+#footer .site_link > div {position:relative;display:inline-block;}
 .footer .site_link > div > div,
 #footer .site_link > div > div {position:relative;display:inline-block;zoom:1;*display:inline;margin:0;vertical-align:middle;margin-right:-5px;}
 .footer .site_link > div > div > a.fsite,
@@ -97,7 +98,8 @@ a:focus{color:#2b74c0}
 .footer .site_link > div > div > ul > li > a:hover,
 #footer .site_link > div > div > ul > li > a:hover{background:#5897fb;color:#fff;}
 
-#footer .home-up {display:none;position:absolute;right:10px;bottom:10px;z-index:999999;}
+
+.home-up {display:none;position:absolute;right:10px;bottom:0;z-index:999999;}
 
 .main1 .section .txt .t2{padding-top:5px;padding-bottom:15px}
 .main .bx-controls.mainImg .bx-pager{display:block}
@@ -148,6 +150,7 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 .greeting .sign{padding:15px 0 0;font-size:120%}
 .greeting .sign span{color:#888;display:inline-block;zoom:1;*display:inline;vertical-align:middle}
 .greeting .sign span.name{margin-left:5px}
+
 @media all and (max-width:767px){
 	.greeting .t1{background-position:right 0;background-size:15%}
 	.greeting .box{padding-right:5%;background:none;}
@@ -162,6 +165,7 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 /* 연혁 */
 .history-head{background:url('../img/contents/history_bg.gif') no-repeat 2% 0}
 .history-head .t1{color:#2b74c0}
+
 @media (max-width:1000px){
 	.history-head{background-position:right 0}
 }
@@ -190,6 +194,7 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 .ciInfo .cI3 .t1,
 .ciInfo table.color-set > tbody > tr > td{padding:5px}
 .ciInfo table.color td{font-size:0;line-height:0;height:20px}
+
 @media (max-width:550px){
 	table.color-set > tbody > tr,
 	table.color-set > tbody > tr > td{display:block}
@@ -221,23 +226,45 @@ a.btnStyle{float: right;margin-top: 6px;}
 }
 
 @media all and (max-width:1150px){
+	.Gnb .gnb-menu>li{padding:0 0.7%;}
+
 	#footer .top { overflow-x:scroll }
 	#footer .top .info{text-align:left;width:1280px;}
 }
 
+@media all and (max-width:1070px){
+	#footer .site_link > div {display:block;}
+	#footer .info a {font-size:14px;}
+	#footer address{padding:5px 15px 0;box-sizing:border-box;}
+	#footer address em,
+	#footer address span{font-size:14px}
+
+	#footer .bottom .section .site_link {position:relative;width:98%;margin:18px auto 0;clear:both;text-align:center;}
+	#footer .bottom .section .site_link div > div{width:90%}
+}
+
 @media all and (max-width:1000px){
-	.tnb{height:45px;padding:10px 0}
-	#footer .section{padding:0 1%;box-sizing:border-box;}
+	h1 img{display:none}
+
+	.tnb .util,
+	.Gnb,
+	.main7_banner{display:none}
+	.mmode {display:block}
+
+	#header h1 {position:relative;height:auto;position:absolute;top:0;left:3px;width:50px}
+	#header h1 img {display:block}
+	#header h1,
+	#header h1 a {width:auto}
+
+	.m-menu a{display:inline-block;text-align:center;vertical-align:middle;padding-top:7px;}
+	.m-menu a i{font-size:30px;width:45px;height:45px;line-height:45px;color:#000;}
+
+	.tnb {background:#fff;height:55px;padding:10px 0}
+	.#footer .section{padding:0 1%;box-sizing:border-box;}
 }
 
 @media all and (max-width:850px){
-	#footer .home-up {display:block;}
-	#footer .bottom .section .site_link {position:relative;margin-top:18px;clear:both;}
-
-	#footer .info a {font-size:14px;}
-	#footer address{padding:5px 0 0}
-	#footer address em,
-	#footer address span{font-size:14px}
+	.home-up {display:block;}
 }
 
 @media all and (max-width:650px){
@@ -247,11 +274,19 @@ a.btnStyle{float: right;margin-top: 6px;}
 	#footer .top .info{text-align:left;width:1024px;}
 }
 
+@media all and (max-width:500px){
+	#footer .bottom .section .site_link div > div{width:86%}
+}
+
 @media all and (max-width:425px){
-	#footer address em,
-	#footer address span{font-size:11px}
+
 }
 
 @media all and (max-width:375px){
-	#footer address {letter-spacing:-.px;}
+	#footer address {letter-spacing:-.5px;}
+	#footer .bottom .section .site_link div > div{width:85%}
+}
+
+@media all and (max-width:330px){
+	#footer .bottom .section .site_link div > div{width:83%}
 }

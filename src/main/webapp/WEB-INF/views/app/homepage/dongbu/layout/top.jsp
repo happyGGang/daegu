@@ -14,6 +14,8 @@
 			</div>
 
 			<div class="util">
+						<a href="/${homepage.context_path}/index.do">홈으로</a>
+						<span class="txt-bar"></span>
 				<c:choose>
 					<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
 						<a href="#" id="memberInfoBtn">${sessionScope.member.member_name}님</a>
@@ -23,7 +25,6 @@
 						<a href="https://www.gbelib.kr/${homepage.context_path}/module/myDashBoard/index.do?menu_idx=175">나의도서관</a>
 					</c:when>
 					<c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
-						<span class="txt-bar"></span>
 						<font color="gray">관리자 로그인 중</font>
 						<span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/intro/login/logout.do">로그아웃</a>
@@ -32,15 +33,11 @@
 						<a href="https://www.gbelib.kr/${homepage.context_path}/intro/login/index.do?menu_idx=121">통합허브시스템 로그인</a>
 						<span class="txt-bar"></span>
 						<a href="https://www.gbelib.kr/${homepage.context_path}/intro/join/index.do?menu_idx=120">회원가입</a>
-						<span class="txt-bar"></span>
-						<a href="https://www.gbelib.kr/${homepage.context_path}/module/myDashBoard/index.do?menu_idx=175">아이디찾기</a>
-						<span class="txt-bar"></span>
-						<a href="https://www.gbelib.kr/${homepage.context_path}/module/myDashBoard/index.do?menu_idx=175">비밀번호찾기</a>
-						<span class="txt-bar"></span>
-						<a href="https://www.gbelib.kr/${homepage.context_path}/module/myDashBoard/index.do?menu_idx=175">통합회원인증</a>
-
 					</c:otherwise>
 				</c:choose>
+						<span class="txt-bar"></span>
+						<a href="https://www.gbelib.kr/${homepage.context_path}/module/myDashBoard/index.do?menu_idx=175">사이트맵</a>
+						<a href="" class="sitemap-img2" style="padding-left:18px;"><img src="/resources/homepage/${homepage.context_path}/img/twitter-btn.png" alt="트위터" /></a><a href="" class="sitemap-img2"><img src="/resources/homepage/${homepage.context_path}/img/facebook-btn.png" alt="페이스북" /></a>
 			</div>
 		</div>
 	</div>

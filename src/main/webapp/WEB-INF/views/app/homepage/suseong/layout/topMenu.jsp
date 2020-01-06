@@ -8,6 +8,9 @@
 				<!-- menu S -->
 				<div class="g-menu">
 					<homepageTag:topMenu menuList="${menuTreeList}" />
+
+					<a href="/${homepage.context_path}/module/myDashBoard/index.do?menu_idx=175" class="last-box"><img src="/resources/homepage/${homepage.context_path}/img/sitemap-btn.png" alt="사이트맵" /></a>
+
 					<div class="mmode">
 					<c:choose>
 						<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
@@ -49,5 +52,12 @@
 		</div>
 	</div>
 
+	<div class="section">
+		<div class="txt">
+			<span class="">꿈을 향한 힘찬 도전<Br/> <b>대구광역시립<em>수성도서관</em></b></span>
+		</div>
 
+		<div id="holiday-box">
+		</div>
+	</div>
 </div>

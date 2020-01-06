@@ -115,21 +115,18 @@
 .main3 .popZone li a {position:relative;display:inline-block;}
 .main3 .popZone li a img {width:600px;height:220px;}
 
-.main3 .popZone .bx-controls {position:absolute;top:25px;right:10px;z-index:150000000;}
+.main3 .popZone .bx-controls {position:absolute;top:25px;right:10px;z-index:150000000;width:100%;}
 .main3 .popZone .bx-prev, 
 .main3 .popZone .bx-next, 
 .main3 .popZone .bx-start,
 .main3 .popZone .bx-stop {position:absolute;width:31px;height:30px;font-size:0;background-image:url("/resources/homepage/seobu/img/popZone_arr.png");background-repeat: no-repeat; background-position:0 0;background-size:initial;}
-
+.main3 .popZone .bx-pager {position:absolute;text-align:center;right:94px;width:50px;height:31px;line-height:30px;color:#2f2f2f;font-weight:bold;}
 .main3 .popZone .bx-prev {right:62px;}
 .main3 .popZone .bx-next {right:0;background-position:-30px 0;}
 .main3 .popZone .bx-start {right:31px;background-position:-92px 0;}
 .main3 .popZone .bx-stop {right:31px;background-position:-61px 0;}
 
-.main3 .popZone .bx-pager {display:inline-block;float:left;height:12px;padding:6px 100px 0 0;}
-.main3 .popZone .bx-pager .bx-pager-item {display:inline-block;zoom:1;*display:inline;font-size:0;line-height:0;margin-left:3px;}
-.main3 .popZone .bx-pager a {display:inline-block;font-size:0;overflow:hidden;float:left;padding:12px 0 0 12px;background:#878787;}
-.main3 .popZone .bx-pager a.active{background:rgba(32,132,212,0.95)}
+
 
 .main4 {position:relative;}
 .main4 .quickLink01 {float:left;width:356px;}

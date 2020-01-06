@@ -33,11 +33,11 @@
 .main .qmenu .bx-controls .bx-prev{left:0;background:#fff url('../img/qmenuL.gif') no-repeat center center}
 .main .qmenu .bx-controls .bx-next{right:0;background:#fff url('../img/qmenuR.gif') no-repeat center center}
 
-.main_bg {background:url('/resources/homepage/jungang/img/main_img_bg2.jpg') repeat-x left center;width:100%;}
+.main_bg {background:url('/resources/homepage/jungang/img/main_img_bg2.jpg') repeat-x left center;width:100%;border}
 .main_line{width:100%;border-top:1px solid #dfdfdf;padding:20px 0;}
 
 .main1{position:relative;border-bottom:1px solid #dfdfdf}
-.main1 .section{height:315px;position:relative;}
+.main1 .section{height:314px;position:relative;}
 /*.main1 .section .txt{position:absolute;z-index:999;top:80px;left:0}*/
 .main1 .section .txt{text-align:left;padding-top:45px;}
 .main1 .bx-wrapper,

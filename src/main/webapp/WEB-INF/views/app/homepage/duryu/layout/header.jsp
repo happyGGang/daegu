@@ -23,7 +23,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/common/css/login.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/board/css/default.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/book/css/common.css"/>
-<link rel="stylesheet" type="text/css"href="/resources/common/css/sub_contents.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/homepage/duryu/css/sub_design.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/default.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/main.css"/>
 
@@ -48,3 +48,5 @@
 
 <a href="#container" class="skip-to">본문 바로가기</a>
 <a href="#navi" class="skip-to">메뉴 바로가기</a>
+
+

@@ -14,6 +14,8 @@
 			</div>
 
 			<div class="util">
+						<a href="/${homepage.context_path}/index.do">홈으로</a>
+						<span class="txt-bar"></span>
 				<c:choose>
 					<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
 						<a href="#" id="memberInfoBtn">${sessionScope.member.member_name}님</a>
@@ -28,7 +30,7 @@
 						<a href="/${homepage.context_path}/intro/login/logout.do">로그아웃</a>
 					</c:when>
 					<c:otherwise>
-						<a href="https://www.gbelib.kr/${homepage.context_path}/intro/login/index.do?menu_idx=121">로그인</a>
+						<a href="https://www.gbelib.kr/${homepage.context_path}/intro/login/index.do?menu_idx=121">통합허브시스템 로그인</a>
 						<span class="txt-bar"></span>
 						<a href="https://www.gbelib.kr/${homepage.context_path}/intro/join/index.do?menu_idx=120">회원가입</a>
 					</c:otherwise>
