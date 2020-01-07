@@ -47,7 +47,7 @@ $(function() {
 		$('select#loan_month').append('<option value="'+j+'" '+selected+'>'+j+'</option>'); 
 	}
 	
-	$('.listChage').on('click', function(e) {
+	$('.listChange').on('click', function(e) {
 		e.preventDefault();
 		$('#viewPage').val(1);
 		$('#pay_yn').val($(this).attr('keyValue'));
@@ -112,12 +112,22 @@ $(function() {
 });
 </script>
 <style type="text/css">
-.listChage {background-color: #ccc;}
-.listChage.on {background: none;}
+
+.listChange {display: table-cell;width: 200px;line-height: 45px;text-align: center;color: #555;font-size: 15px;border: 1px solid #ccc;background-color: #e5e5e5;}
+.listChange.on {position: relative;border: 1px solid #554246;background: #fff;font-weight: bold;color: #554246;}
+span.status {display: block;padding: 0 5px;border-radius: 3px;font-size: 12px;letter-spacing: -0.05em;color: #fff;}
+span.status.status1 {background-color: #36bc74;}
+span.status.status2 {background-color: #7d57de;}
+span.status.status3 {background-color: #1ba8ed;}
+span.status.status4 {background-color: #E5BA0F;}
+span.status.status5 {background-color: #CE3419;}
+span.status.status6 {background-color: #787b80;}
+a.sub-btn {display: inline-block;padding: 0 5px;border-radius: 3px;font-size: 12px;}
+a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 </style>
-<div>
-	<a href="#" class="listChage ${pictureBook.pay_yn eq 'N' ? 'on' : ''}" keyValue="N">무료</a>
-	<a href="#" class="listChage ${pictureBook.pay_yn eq 'Y' ? 'on' : ''}" keyValue="Y">유료</a>
+<div style="padding-bottom: 20px;">
+	<a href="#" class="listChange ${pictureBook.pay_yn eq 'N' ? 'on' : ''}" keyValue="N">무료</a>
+	<a href="#" class="listChange ${pictureBook.pay_yn eq 'Y' ? 'on' : ''}" keyValue="Y">유료</a>
 </div>
 <form:form modelAttribute="pictureBook" action="loanList.do" method="GET">
 <form:hidden path="editMode"/>
@@ -147,15 +157,15 @@ $(function() {
 	</div>
 	<table class="type1 center">
 		<colgroup>
-			<col width="4%" />
+			<col width="5%" />
 			<col width="7%" />
 			<col />
 			<col width="10%" />
-			<col width="10%"/>
-			<col width="10%" />
-			<col width="10%" />
+			<col width="12%"/>
 			<col width="10%" />
 			<col width="8%" />
+			<col width="10%" />
+			<col width="6%" />
 		</colgroup>
 		<thead>
 			<tr>
@@ -186,17 +196,17 @@ $(function() {
 					<td>${i.pay_yn eq 'Y' ? '유료' : '무료'}</td>
 					<td>
 						<c:choose>
-							<c:when test="${i.request_status eq '1'}">신청완료</c:when>
-							<c:when test="${i.request_status eq '2'}">대출중</c:when>
-							<c:when test="${i.request_status eq '3'}">반납신청</c:when>
-							<c:when test="${i.request_status eq '4'}">반납요청완료</c:when>
-							<c:when test="${i.request_status eq '5'}">반납완료</c:when>
-							<c:when test="${i.request_status eq '6'}">대출불가</c:when>
+							<c:when test="${i.request_status eq '1'}"><span class="status status2">신청완료</span></c:when>
+							<c:when test="${i.request_status eq '2'}"><span class="status status3">대출중</span></c:when>
+							<c:when test="${i.request_status eq '3'}"><span class="status status1">반납신청</span></c:when>
+							<c:when test="${i.request_status eq '4'}"><span class="status status4">반납요청완료</span></c:when>
+							<c:when test="${i.request_status eq '5'}"><span class="status status5">반납완료</span></c:when>
+							<c:when test="${i.request_status eq '6'}"><span class="status status6">대출불가</span></c:when>
 						</c:choose>
 					</td>
 					<td>
 						<c:if test="${i.request_status eq '1'}">
-						<a href="#" class="cancle-btn" keyValue="${i.picture_book_loan_idx}">취소</a>
+						<a href="#" class="cancle-btn sub-btn" keyValue="${i.picture_book_loan_idx}">취소</a>
 						</c:if>
 					</td>
 				</tr>

@@ -93,11 +93,8 @@ public class PictureBookService extends BaseService {
 	}
 
 	public int deletePictureBook(PictureBook pictureBook) {
-		int result = 0;
-		if(dao.deletePictureBookLoanAll(pictureBook) > 0) {
-			result = dao.deletePictureBook(pictureBook);
-		};
-		return result;
+		dao.deletePictureBookLoanAll(pictureBook);
+		return dao.deletePictureBook(pictureBook);
 	}
 	
 	public Map<Integer, Boolean> getLoanableMonth(PictureBook pictureBook) {

@@ -37,20 +37,6 @@ $(function() {
 		});
 	});
 	
-	
-	$('.delete-btn').on('click', function(e) {
-		e.preventDefault();
-		if(confirm('삭제하시겠습니까?')) {
-			$form.attr('action', 'save.do');
-			$form.attr('method', 'POST');
-			$('#editMode').val('DELETE');
-			$('#picture_book_idx').val($(this).attr('keyValue'));
-			if(doAjaxPost($form)) {
-				location.reload();
-			};
-		}
-	});
-	
 	$('.dialog-view').on('click', function(e) {
 		e.preventDefault();
 		var formData = 'editMode=ADD&pay_yn='+$('#pay_yn').val() + '&viewPage='+$('#viewPage').val() + '&picture_book_idx='+$(this).attr('keyValue') + '&loan_year='+$(this).attr('keyValue2');
@@ -86,6 +72,10 @@ function requestMonth() {
 }
 </script>
 <style>
+.month-txt ul {height: 30px;list-style-type: disc;}
+.month-txt ul li:first-child {float: right;color: #888;margin-left: 35px;}
+.month-txt ul li:nth-child(2) {float: right;color: #fd5c4a;margin-left: 35px;}
+p.point-txt {display: inline-block;padding-left: 22px;background: url(/resources/common/img/icon_point.gif) no-repeat 0 1px;font-size: 13px;line-height: 17px;color: #222;word-break: keep-all;}
 .group-box {position: relative;padding: 20px 10px;border-bottom: 1px solid #e5e5e5;}
 .img-box {display:inline-block;/* float:left */;width: 120px;height: 170px;border: 1px solid #ccc;}
 .content-box {position:absolute;display: inline-block;width: 75%;padding: 0 20px;}
@@ -94,7 +84,8 @@ function requestMonth() {
 ul.pub_info {padding: 10px 0 15px;}
 ul.pub_info li {display: inline-block;font-size: 13px;padding-right: 15px;}
 .btn-box {position: absolute;top: 35px;right: 0;text-align: center;}
-.btn-box a {display: block;height: 31px;padding: 0 25px;border-radius: 50px;border: 2px solid #d2dfe8;color: #5c90b5;line-height: 31px;}
+.btn-box a {display: block;height: 31px;padding: 0 20px 0 35px;border-radius: 50px;line-height: 32px;}
+.btn-box a.loan {border: 2px solid #d2dfe8;color: #5c90b5;background: url(/resources/common/img/icon_bt_apply01.png) no-repeat 14px 50%;}
 ul.select-month {margin: 15px 0 auto;padding: 20px 0;border-top: 1px dashed #e5e5e5;}
 ul.select-month li {display: inline-block;width: 30px;line-height: 30px;font-size: 11px;font-weight: 600;text-align: center;margin: 0 8px;padding: 0;}
 ul.select-month li a {color: #d5d5d5;}
@@ -121,6 +112,17 @@ ul.select-month li a.loan-ing {display: block;color: #fff;background-color: #ff5
 		<a href="#" class="btn btn3 left" id="frame-btn"><i class="fa fa-list"></i><span>액자형 전환</span></a>
 	</div>
 </div>
+<div class="month-txt">
+	<ul>
+		<li>신청불가능한 달</li>
+		<li>신청가능한 달</li>
+	</ul>
+</div>
+<c:if test="${pictureBook.pay_yn eq 'Y'}">
+<div style="margin-bottom: 5px;">
+	<p class="point-txt">길벗어린이 원화 액자로, 플라스틱 박스에 포장하여 보내드립니다.</p>
+</div>
+</c:if>
 <div>
 	<c:forEach items="${pictureBookList}" var="i" varStatus="status">
 	<div class="group-box">
@@ -173,8 +175,7 @@ ul.select-month li a.loan-ing {display: block;color: #fff;background-color: #ff5
 			</div>
 		</div>
 		<div class="btn-box">
-			<a href="#" class="dialog-view" keyValue="${i.picture_book_idx}">신청하기</a>
-			<a href="#" class="delete-btn" keyValue="${i.picture_book_idx}">삭제</a>
+			<a href="#" class="dialog-view loan" keyValue="${i.picture_book_idx}">신청하기</a>
 		</div>
 	</div>
 	</c:forEach>

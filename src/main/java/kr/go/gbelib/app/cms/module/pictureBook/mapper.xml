@@ -250,18 +250,6 @@
 			</foreach>
 	</update>
 	
-<!-- 	<select id="getMonthList" resultType="String"> -->
-<!-- 		SELECT  -->
-			
-<!-- 			TO_CHAR(loan_start_date, 'MM') AS loan_month -->
-<!-- 		FROM -->
-<!-- 			PICTURE_BOOK_LOAN -->
-<!-- 		WHERE -->
-<!-- 			picture_book_idx = #{picture_book_idx} -->
-<!-- 		AND	TO_CHAR(loan_start_date, 'yyyy') = #{loan_year} -->
-<!-- 	</select> -->
-	
-	
 	<select id="getMonthList" resultType="map">
 		SELECT
 			picture_book_loan_idx, b.loan_month

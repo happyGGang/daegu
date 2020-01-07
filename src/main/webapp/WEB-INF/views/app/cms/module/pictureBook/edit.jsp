@@ -72,6 +72,17 @@ $(function() {
 					$('#pictureBookEdit').ajaxSubmit(option);
 				}
 			},{
+				text: "삭제",
+				"class": 'btn',
+				click: function() {
+					if(confirm('삭제하시겠습니까?')) {
+						$('#editMode_u').val('DELETE');
+						if(doAjaxPost($('#pictureBookEdit'))) {
+							location.reload();
+						};
+					}
+				}
+			},{
 				text: "취소",
 				"class": 'btn',
 				click: function() {

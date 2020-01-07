@@ -37,19 +37,6 @@ $(function() {
 		});
 	});
 	
-	$('.delete-btn').on('click', function(e) {
-		e.preventDefault();
-		if(confirm('삭제하시겠습니까?')) {
-			$form.attr('action', 'save.do');
-			$form.attr('method', 'POST');
-			$('#editMode').val('DELETE');
-			$('#picture_book_idx').val($(this).attr('keyValue'));
-			if(doAjaxPost($form)) {
-				location.reload();
-			};
-		}
-	});
-	
 	$('.dialog-view').on('click', function(e) {
 		e.preventDefault();
 		var formData = 'editMode=ADD&pay_yn='+$('#pay_yn').val() + '&viewPage='+$('#viewPage').val() + '&picture_book_idx='+$(this).attr('keyValue') + '&loan_year=2020';
@@ -74,13 +61,18 @@ $(function() {
 });
 </script>
 <style>
-.group-box {position: relative;display: inline-block;padding: 10px;border: 1px solid #e5e5e5;width: 17%; text-align: center;}
+.month-txt ul {height: 30px;list-style-type: disc;}
+.month-txt ul li:first-child {float: right;color: #888;margin-left: 35px;}
+.month-txt ul li:nth-child(2) {float: right;color: #fd5c4a;margin-left: 35px;}
+.group-box {position: relative;display: inline-block;padding: 10px;border: 1px solid #e5e5e5;width: 198px; text-align: center;}
 .img-box {display:inline-block;width: 120px;height: 170px;border: 1px solid #ccc;}
 .book-desc {margin: 20px 0;}
 .keyword-box {border-top: 1px dashed #e5e5e5;padding-top: 15px;}
 .content-box span {display: inline-block;padding: 0 10px;background: #e8f2f7;border-radius: 20px;font-size: 12px;color: #7e8c93;}
-.btn-box {display:inline-block;width:70%;text-align: center;}
-.btn-box a {display: block;height: 31px;padding: 0 25px;border-radius: 50px;border: 2px solid #d2dfe8;color: #5c90b5;line-height: 31px;}
+.btn-box {display: inline-block;}
+.btn-box a {display: block;height: 31px;padding: 0 20px 0 35px;border-radius: 50px;line-height: 32px;}
+.btn-box a.loan {border: 2px solid #d2dfe8;color: #5c90b5;background: url(/resources/common/img/icon_bt_apply01.png) no-repeat 14px 50%;}
+
 
 ul.select-month {margin: 15px 0 auto;padding: 20px 0;border-top: 1px dashed #e5e5e5;}
 ul.select-month li {display: inline-block;width: 20px;line-height: 20px;font-size: 11px;font-weight: 600;text-align: center;margin: 0 4px;padding: 0;}
@@ -108,6 +100,12 @@ ul.select-month li a.loan-ing {display: block;color: #fff;background-color: #ff5
 		<a href="#" class="btn btn3 left" id="list-btn"><i class="fa fa-list"></i><span>리스트형 전환</span></a>
 	</div>
 </div>
+<div class="month-txt">
+	<ul>
+		<li>신청불가능한 달</li>
+		<li>신청가능한 달</li>
+	</ul>
+</div>
 <div>
 	<c:forEach items="${pictureBookList}" var="i" varStatus="status">
 	<div class="group-box">
@@ -132,6 +130,9 @@ ul.select-month li a.loan-ing {display: block;color: #fff;background-color: #ff5
 			<h3>
 				<a href="#" class="dialog-modify" keyValue="${i.picture_book_idx}">${i.picture_book_subject}</a>
 			</h3>
+			<div class="btn-box">
+				<a href="#" class="dialog-view loan" keyValue="${i.picture_book_idx}">신청하기</a>
+			</div>
 			<ul class="select-month">
 				<c:forEach items="${i.monthList}" var="month">
 				<li>
@@ -146,10 +147,6 @@ ul.select-month li a.loan-ing {display: block;color: #fff;background-color: #ff5
 				</li>
 				</c:forEach>
 			</ul>
-		</div>
-		<div class="btn-box">
-			<a href="#" class="dialog-view" keyValue="${i.picture_book_idx}">신청하기</a>
-			<a href="#" class="delete-btn" keyValue="${i.picture_book_idx}">삭제</a>
 		</div>
 	</div>
 	</c:forEach>

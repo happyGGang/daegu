@@ -51,8 +51,8 @@ $(function() {
 	});
 
 	$("#dialog-1").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
-		width: 600,
-		height: 600
+		width: 700,
+		height: 700
 	});
 	
 	var sysDate = new Date();
@@ -78,7 +78,17 @@ $(function() {
 </script>
 <style>
 input[type="checkbox"]:focus {outline: 1px solid red;}
+.title-info h3 {display: inline-block;font-weight: bold;color: #e94949;padding: 10px 65px;background: url(/resources/common/img/icon0105.gif) no-repeat 0px;background-size: 50px;}
+.title-info ul li {font-size: 14px;color: #222;margin-left: 20px;margin-bottom: 6px;list-style-type: disc;}
 </style>
+<div class="title-info">
+	<h3>꼭 읽어주세요!</h3>
+	<ul>
+		<li>대출 기간은 배송 기간 포함입니다.</li>
+		<li>다음 학교가 희망하는 일자부터 사용할 수 있도록 대출 기간을 반드시 지켜주십시오.</li>
+		<li>원화는 액자에 부착되어 있습니다. 원화 전시 중 학생들의 안전에 더욱 신경 써주십시오.</li>
+	</ul>
+</div>
 <form:form id="pictureBookLoan" modelAttribute="pictureBook" action="loanSave.do" method="POST">
 	<form:hidden path="editMode" id="editMode_u"/>
 	<form:hidden path="pay_yn" id="pay_yn_u"/>
@@ -167,18 +177,22 @@ input[type="checkbox"]:focus {outline: 1px solid red;}
 	</table>
 	<div ${pictureBook.editMode eq 'MODIFY' ? 'style="display: none;"' : ''}>
 		<div>
-			<span>
-				그림책 원화는 매달 26일 자동 반납 요청되어 27일 배송했던 장소로 택배 기사님이 방문합니다. 기사님이 바로 수거하실 수 있도록 준비해 주시길 바랍니다.<br/>
+			<span style="display: block;font-size: 13px;color: #3366bb;">
+				그림책 원화는 매달 26일 자동 반납 요청되어 27일 배송했던 장소로 택배 기사님이 방문합니다.<br>
+				기사님이 바로 수거하실 수 있도록 준비해 주시길 바랍니다.<br/>
 				※ 26일이 공휴일일 경우 그 전날, 주말일 경우 앞의 금요일에 자동 반납 요청됨
 			</span>
-			<input type="checkbox" id="agreeChk"><label for="agreeChk">위 내용을 확인하고 신청합니다.</label>
+			<input type="checkbox" id="agreeChk">
+			<label for="agreeChk" style="font-size: 13px;">위 내용을 확인하고 신청합니다.</label>
 		</div>
+		<br>
 		<div>
 			<h4>개인정보 수집 및 이용 안내</h4>
 			<ul>
-				<li>기재해주신 개인정보(학교명,이름, 연락처 등)는 도서관 서비스 제공을 위한 목적으로만 사용합니다.</li>
+				<li style="list-style-type: disc;font-size: 13px;margin-left: 15px;">기재해주신 개인정보(학교명,이름, 연락처 등)는 도서관 서비스 제공을 위한 목적으로만 사용합니다.</li>
 			</ul>
-			<input type="checkbox" id="agreeChk2"><label for="agreeChk2">도서관 서비스를 제공 받기 위해 상기 개인정보(학교명, 이름, 연락처 등)제공 및 이용에 동의합니다.</label>
+			<input type="checkbox" id="agreeChk2">
+			<label for="agreeChk2" style="font-size: 12px;">도서관 서비스를 제공 받기 위해 상기 개인정보(학교명, 이름, 연락처 등)제공 및 이용에 동의합니다.</label>
 		</div>
 	</div>
 </form:form>
