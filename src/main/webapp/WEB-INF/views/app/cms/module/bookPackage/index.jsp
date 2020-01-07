@@ -75,11 +75,41 @@ $(function() {
 		}
 	});
 	
+	$('#all-check').on('click', function(e) {
+		e.preventDefault();
+		if($(this).attr('keyValue') == 'N') {
+			$(this).attr('keyValue', 'Y');
+			$('.book_check').prop('checked', true);
+		} else {
+			$(this).attr('keyValue', 'N');
+			$('.book_check').prop('checked', false);
+		}
+	});
+	
+	$('#delete-check').on('click', function(e) {
+		e.preventDefault();
+		if(confirm('선택 항목들을 삭제하시겠습니까?')) {
+			$('form#bookPackage').attr('action', 'save.do');
+			$('form#bookPackage').attr('method', 'POST');
+			$('#editMode').val('DELETE_CHECK');
+			if(doAjaxPost($('form#bookPackage'))) {
+				location.reload();
+			}
+		}
+	});
+	
 });
 </script>
 <style>
+div#category-box {padding-bottom: 20px;border-bottom: 2px solid #554246;margin-bottom: 20px;}
+input[type="checkbox"].customCheck {display: none;}
+input[type="checkbox"].customCheck + label, input[type="checkbox"].customCheck:checked + label {display: inline-block;cursor: pointer;padding-left: 30px;padding-right: 15px;}
+input[type="checkbox"].customCheck + label {color: #222;background: url("/resources/common/img/icon_cate_chk.png") no-repeat;}
+input[type="checkbox"].customCheck:checked + label {color: #1ba8ed;background: url("/resources/common/img/icon_cate_chk_on.png") no-repeat;}
+
 .group-box {position: relative;padding: 20px 10px;border-bottom: 1px solid #e5e5e5;}
-.img-box {display:inline-block;float:left;width: 120px;height: 170px;border: 1px solid #ccc;}
+.book_check {position: absolute;left: 0;}
+.img-box {display:inline-block;float:left;width: 120px;height: 170px;border: 1px solid #ccc;margin-left: 10px;}
 .content-box {display: inline-block;width: 75%;padding: 0 20px;}
 .subject a {display: inline-block;margin-right: 20px;font-size: 19px;font-weight: bold;color: #222;}
 .subject .ing {display: inline-block;width: 35px;height: 35px;margin: 0 10px 8px 0;border-radius: 100%;background: #ff5700;font-size: 11px;line-height: 35px;color: #fff;letter-spacing: -0.075em;text-align: center;}
@@ -92,7 +122,9 @@ ul.pub_info li {display: inline-block;font-size: 13px;padding-right: 15px;}
 .keyword-box {border-top: 1px dashed #e5e5e5;padding-top: 14px;margin-top: 18px;}
 .content-box span.keyword {display: inline-block;padding: 0 10px;background: #e8f2f7;border-radius: 20px;font-size: 12px;color: #7e8c93;}
 .btn-box {position: absolute;top: 35px;right: 0;text-align: center;}
-.btn-box a {display: block;height: 31px;padding: 0 25px;border-radius: 50px;border: 2px solid #d2dfe8;color: #5c90b5;line-height: 31px;}
+.btn-box a {display: block;height: 31px;padding: 0 20px 0 35px;border-radius: 50px;line-height: 32px;}
+.btn-box a.loan {border: 2px solid #d2dfe8;color: #5c90b5;background: url(/resources/common/img/icon_bt_apply01.png) no-repeat 14px 50%;}
+.btn-box a.reserv {border: 2px solid #cbbcf2;color: #7d57de;background: url(/resources/common/img/icon_bt_apply01_3.png) no-repeat 14px 50%;}
 span.loan-cnt {display: inline-block;width: 60px;height: 60px;margin: 30px auto 0;border-radius: 100%;background: #1ba8ed;text-align: center;font-size: 13px;color: #8dd4f6;}
 span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat',sans-serif;font-size: 20px;letter-spacing: 0;color: #fff;}
 </style>
@@ -105,18 +137,18 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 <form:form modelAttribute="bookPackage" action="index.do" method="GET">
 <form:hidden path="editMode"/>
 <form:hidden path="book_package_idx"/>
-<div>
-	<form:checkbox path="category" value="all" checked="${fn:contains(bookPackage.category, 'all') ? 'checked' : ''}" label="전체" id="chkAll"/>
-	<form:checkbox path="category" value="000" checked="${fn:contains(bookPackage.category, '000') ? 'checked' : ''}" label="총류" class="categoryChk"/>
-	<form:checkbox path="category" value="100" checked="${fn:contains(bookPackage.category, '100') ? 'checked' : ''}" label="철학" class="categoryChk"/>
-	<form:checkbox path="category" value="200" checked="${fn:contains(bookPackage.category, '200') ? 'checked' : ''}" label="종교" class="categoryChk"/>
-	<form:checkbox path="category" value="300" checked="${fn:contains(bookPackage.category, '300') ? 'checked' : ''}" label="사회과학" class="categoryChk"/>
-	<form:checkbox path="category" value="400" checked="${fn:contains(bookPackage.category, '400') ? 'checked' : ''}" label="자연과학" class="categoryChk"/>
-	<form:checkbox path="category" value="500" checked="${fn:contains(bookPackage.category, '500') ? 'checked' : ''}" label="기술과학" class="categoryChk"/>
-	<form:checkbox path="category" value="600" checked="${fn:contains(bookPackage.category, '600') ? 'checked' : ''}" label="예술" class="categoryChk"/>
-	<form:checkbox path="category" value="700" checked="${fn:contains(bookPackage.category, '700') ? 'checked' : ''}" label="언어" class="categoryChk"/>
-	<form:checkbox path="category" value="800" checked="${fn:contains(bookPackage.category, '800') ? 'checked' : ''}" label="문학" class="categoryChk"/>
-	<form:checkbox path="category" value="900" checked="${fn:contains(bookPackage.category, '900') ? 'checked' : ''}" label="역사" class="categoryChk"/>
+<div id="category-box">
+	<form:checkbox path="category" value="all" checked="${fn:contains(bookPackage.category, 'all') ? 'checked' : ''}" label="전체" id="chkAll" class="customCheck"/>
+	<form:checkbox path="category" value="000" checked="${fn:contains(bookPackage.category, '000') ? 'checked' : ''}" label="총류" class="customCheck categoryChk"/>
+	<form:checkbox path="category" value="100" checked="${fn:contains(bookPackage.category, '100') ? 'checked' : ''}" label="철학" class="customCheck categoryChk"/>
+	<form:checkbox path="category" value="200" checked="${fn:contains(bookPackage.category, '200') ? 'checked' : ''}" label="종교" class="customCheck categoryChk"/>
+	<form:checkbox path="category" value="300" checked="${fn:contains(bookPackage.category, '300') ? 'checked' : ''}" label="사회과학" class="customCheck categoryChk"/>
+	<form:checkbox path="category" value="400" checked="${fn:contains(bookPackage.category, '400') ? 'checked' : ''}" label="자연과학" class="customCheck categoryChk"/>
+	<form:checkbox path="category" value="500" checked="${fn:contains(bookPackage.category, '500') ? 'checked' : ''}" label="기술과학" class="customCheck categoryChk"/>
+	<form:checkbox path="category" value="600" checked="${fn:contains(bookPackage.category, '600') ? 'checked' : ''}" label="예술" class="customCheck categoryChk"/>
+	<form:checkbox path="category" value="700" checked="${fn:contains(bookPackage.category, '700') ? 'checked' : ''}" label="언어" class="customCheck categoryChk"/>
+	<form:checkbox path="category" value="800" checked="${fn:contains(bookPackage.category, '800') ? 'checked' : ''}" label="문학" class="customCheck categoryChk"/>
+	<form:checkbox path="category" value="900" checked="${fn:contains(bookPackage.category, '900') ? 'checked' : ''}" label="역사" class="customCheck categoryChk"/>
 </div>
 <div class="infodesk">
 	<form:select path="grade" cssClass="selectmenu">
@@ -138,6 +170,7 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 <div>
 	<c:forEach items="${bookPackageList}" var="i" varStatus="status">
 	<div class="group-box">
+		<form:checkbox path="book_package_arr" cssClass="book_check" value="${i.book_package_idx}"/>
 		<div class="img-box">
 			<c:choose>
 				<c:when test="${not empty i.image_link}">
@@ -204,12 +237,14 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 			</div>
 		</div>
 		<div class="btn-box">
-			<a href="#" class="dialog-req" keyValue="${i.book_package_idx}">
 			<c:choose>
-				<c:when test="${i.lender_count > 0}">예약신청</c:when>
-				<c:otherwise>대출신청</c:otherwise>
+				<c:when test="${i.lender_count > 0}">
+					<a href="#" class="dialog-req reserv" keyValue="${i.book_package_idx}">예약신청</a>
+				</c:when>
+				<c:otherwise>
+					<a href="#" class="dialog-req loan" keyValue="${i.book_package_idx}">대출신청</a>
+				</c:otherwise>
 			</c:choose>
-			</a>
 <%-- 			<a href="#" class="dialog-delete" keyValue="${i.book_package_idx}">삭제</a> --%>
 			<span class="loan-cnt">
 				<strong>${i.loan_count}</strong>권
@@ -222,6 +257,8 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 		<h3>등록된 책 꾸러미 리스트가 없습니다.</h3>
 	</div>
 	</c:if>
+	<a href="#" id="all-check" class="btn" keyValue="N">전체 선택/해제</a>
+	<a href="#" id="delete-check" class="btn">선택 게시글삭제</a>
 </div>
 
 <jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">

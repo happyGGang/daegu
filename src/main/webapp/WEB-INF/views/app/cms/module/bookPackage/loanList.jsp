@@ -20,6 +20,7 @@ $(function() {
 		var msg = '';
 		
 		$('#editMode').val('returnReq');
+		$('form#bookPackage').attr('action', 'loanSave.do');
 		$('#book_package_loan_idx').val($(this).attr('keyValue'));
 		$('input[name="return_yn"]').val(return_yn);
 		$('input[name="return_yn"]').prop('checked', true);
@@ -92,7 +93,25 @@ $(function() {
 	
 });
 </script>
+<style type="text/css">
+input[name="return_yn"] {display: none;}
+input[name="return_yn"] + label, input[name="return_yn"].customCheck:checked + label {display: inline-block;cursor: pointer;padding-left: 30px;padding-right: 15px;}
+input[name="return_yn"] + label {color: #222;background: url("/resources/common/img/icon_cate_chk.png") no-repeat;}
+input[name="return_yn"]:checked + label {color: #1ba8ed;background: url("/resources/common/img/icon_cate_chk_on.png") no-repeat;}
 
+p.point-txt {display: inline-block;padding-left: 22px;background: url(/resources/common/img/icon_point.gif) no-repeat 0 1px;font-size: 13px;line-height: 17px;color: #222;word-break: keep-all;}
+span.status {display: block;padding: 0 5px;border-radius: 3px;font-size: 12px;letter-spacing: -0.05em;color: #fff;}
+span.status.status1 {background-color: #36bc74;}
+span.status.status2 {background-color: #7d57de;}
+span.status.status3 {background-color: #1ba8ed;}
+span.status.status4 {background-color: #E5BA0F;}
+span.status.status5 {background-color: #CE3419;}
+span.status.status6 {background-color: #787b80;}
+a.sub-btn {display: inline-block;padding: 0 5px;border-radius: 3px;font-size: 12px;}
+a.return {border: 1px solid #e94949;color: #e94949;}
+a.return2 {background: #e94949;color: #fff;}
+a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
+</style>
 <form:form modelAttribute="bookPackage" action="loanList.do" method="GET">
 <form:hidden path="editMode"/>
 <form:hidden path="book_package_loan_idx"/>
@@ -119,17 +138,20 @@ $(function() {
 			<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>
 		</div>
 	</div>
+	<div style="text-align: right;margin-bottom: 5px;">
+		<p class="point-txt"><strong>반납요청중</strong>을 클릭하면 반납요청을 취소할 수 있습니다.</p>
+	</div>
 	<table class="type1 center">
 		<colgroup>
 			<col width="5%" />
 			<col />
 			<col width="12%" />
-			<col width="12%" />
+			<col width="15%" />
 			<col width="12%"/>
-			<col width="12%" />
+			<col width="8%" />
+			<col width="5%" />
 			<col width="10%" />
-			<col width="12%" />
-			<col width="10%" />
+			<col width="8%" />
 		</colgroup>
 		<thead>
 			<tr>
@@ -148,19 +170,20 @@ $(function() {
 			<c:forEach var="i" varStatus="status" items="${loanList}">
 				<tr>
 					<td class="num">${paging.listRowNum - status.index}</td>
-					<td>
+					<td class="left">
 						<a href="#" class="dialog-edit" keyValue="${i.book_package_loan_idx}">
 							${i.book_package_subject}
 							<br/>
 							<c:if test="${i.request_status eq '1'}">
-							<span>(예약일: )</span>
+							<span>(예약일: ${i.loan_start_date}~${fn:substring(i.loan_end_date, 5, 10)})</span>
 							</c:if>
 						</a>
 					</td>
 					<td class="center">
-						${i.loan_start_date}
-						<br/><span>~</span><br/>
-						${i.loan_end_date}
+						<c:if test="${i.request_status ne '1'}">
+						${i.loan_start_date}<br/>
+						<span>~</span>${i.loan_end_date}
+						</c:if>
 					</td>
 					<td>
 						${i.school_name}<br/>
@@ -169,28 +192,30 @@ $(function() {
 					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>
 					<td>
 						<c:choose>
-							<c:when test="${i.request_status eq '0'}">신청중</c:when>
-							<c:when test="${i.request_status eq '1'}">예약상담중</c:when>
-							<c:when test="${i.request_status eq '2'}">대출중</c:when>
-							<c:when test="${i.request_status eq '3'}">반납완료</c:when>
-							<c:when test="${i.request_status eq '4'}">관리자취소</c:when>
-							<c:when test="${i.request_status eq '5'}">반납요청완료</c:when>
+							<c:when test="${i.request_status eq '0'}"><span class="status status1">신청중</span></c:when>
+							<c:when test="${i.request_status eq '1'}"><span class="status status2">예약상담중</span></c:when>
+							<c:when test="${i.request_status eq '2'}"><span class="status status3">대출중</span></c:when>
+							<c:when test="${i.request_status eq '3'}"><span class="status status4">반납완료</span></c:when>
+							<c:when test="${i.request_status eq '4'}"><span class="status status5">관리자취소</span></c:when>
+							<c:when test="${i.request_status eq '5'}"><span class="status status6">반납요청완료</span></c:when>
 						</c:choose>
 					</td>
-					<td>${i.quantity}</td>
+					<td>${i.quantity}권</td>
 					<td>
+						<c:if test="${i.request_status eq '2'}">
 						<c:choose>
 							<c:when test="${i.return_yn eq 'N'}">
-							<a href="#" class="return-req" keyValue="${i.book_package_loan_idx}" keyValue2="Y">반납요청</a>
+							<a href="#" class="return-req sub-btn return" keyValue="${i.book_package_loan_idx}" keyValue2="Y">반납요청</a>
 							</c:when>
 							<c:otherwise>
-							<a href="#" class="return-req" keyValue="${i.book_package_loan_idx}" keyValue2="N">반납요청중</a>
+							<a href="#" class="return-req sub-btn return2" keyValue="${i.book_package_loan_idx}" keyValue2="N">반납요청중</a>
 							</c:otherwise>
 						</c:choose>
+						</c:if>
 					</td>
 					<td>
 						<c:if test="${i.request_status eq '0' or i.request_status eq '1'}">
-						<a href="#" class="cancle-btn" keyValue="${i.book_package_loan_idx}">취소</a>
+						<a href="#" class="cancle-btn sub-btn" keyValue="${i.book_package_loan_idx}">취소</a>
 						</c:if>
 					</td>
 				</tr>

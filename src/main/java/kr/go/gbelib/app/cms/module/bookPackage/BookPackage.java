@@ -10,6 +10,7 @@ public class BookPackage extends PagingUtils {
 
 	// 책꾸러미리스트
 	private int book_package_idx; // 책 꾸러미 IDX
+	private int[] book_package_arr;
 	private String book_package_name; // 신청자명
 	private String book_package_subject; // 책 꾸러미명
 	private String author; // 저자
@@ -66,6 +67,14 @@ public class BookPackage extends PagingUtils {
 
 	public void setBook_package_idx(int book_package_idx) {
 		this.book_package_idx = book_package_idx;
+	}
+
+	public int[] getBook_package_arr() {
+		return book_package_arr;
+	}
+
+	public void setBook_package_arr(int[] book_package_arr) {
+		this.book_package_arr = book_package_arr;
 	}
 
 	public String getBook_package_name() {

@@ -16,6 +16,8 @@ public interface BookPackageDao {
 
 	public int deleteBookPackage(BookPackage bookPackage);
 	
+	public int deleteCheckBookPackage(BookPackage bookPackage);
+	
 	public List<BookPackage> getBookPackageLoanList(BookPackage bookPackage);
 	
 	public int getBookPackageLoanCount(BookPackage bookPackage);

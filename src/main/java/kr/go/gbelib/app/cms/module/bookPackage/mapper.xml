@@ -148,6 +148,16 @@
 			book_package_idx = #{book_package_idx}
 	</delete>
 	
+	<delete id="deleteCheckBookPackage">
+		DELETE FROM
+			BOOK_PACKAGE
+		WHERE
+			book_package_idx IN
+			<foreach collection="book_package_arr" open="(" close=")" separator="," item="i">
+			#{i}
+			</foreach>
+	</delete>
+	
 	<select id="getBookPackageLoanList" resultType="kr.go.gbelib.app.cms.module.bookPackage.BookPackage">
 		${pagingTop}
 		SELECT

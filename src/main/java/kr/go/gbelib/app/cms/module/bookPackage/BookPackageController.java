@@ -104,7 +104,7 @@ public class BookPackageController extends BaseController {
 	public @ResponseBody JsonResponse save(BookPackage bookPackage, BindingResult result, HttpServletRequest request) {
 		/* 유효성 검증 >>>>> */
 		JsonResponse res = new JsonResponse(request);
-		if(!bookPackage.getEditMode().equals("DELETE")) {
+		if(bookPackage.getEditMode().equals("ADD") || bookPackage.getEditMode().equals("MODIFY")) {
     		ValidationUtils.rejectIfEmpty(result, "book_package_name", "이름을 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "book_package_subject", "책꾸러미명을 입력하세요.");
 		}
@@ -125,6 +125,10 @@ public class BookPackageController extends BaseController {
 				service.deleteBookPackage(bookPackage);
 				res.setValid(true);
 				res.setMessage("삭제되었습니다.");
+			} else if(bookPackage.getEditMode().equals("DELETE_CHECK")) {
+				service.deleteCheckBookPackage(bookPackage);
+				res.setValid(true);
+				res.setMessage("선택 삭제 되었습니다.");
 			}
 		} else {
 			res.setValid(false);
