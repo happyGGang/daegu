@@ -1,4 +1,4 @@
-package kr.go.gbelib.app.cms.module.memberManage;
+package kr.go.gbelib.app.cms.module.supportMember;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,61 +17,61 @@ import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 
 @Controller
-@RequestMapping(value = {"/cms/module/memberManage"})
-public class MemberManageController extends BaseController {
+@RequestMapping(value = {"/cms/module/supportMember"})
+public class SupportMemberController extends BaseController {
 	
-	private final String basePath = "/cms/module/memberManage/";
+	private final String basePath = "/cms/module/supportMember/";
 	
 	@Autowired
-	private MemberManageService service;
+	private SupportMemberService service;
 	
 	@RequestMapping (value = {"/index.*"}, method = RequestMethod.GET)
-	public String index(Model model, MemberManage memberManage, HttpServletRequest request) {
+	public String index(Model model, SupportMember supportMember, HttpServletRequest request) {
 		
-		service.setPaging(model, service.getMemberManageCount(memberManage), memberManage);
+		service.setPaging(model, service.getSupportMemberCount(supportMember), supportMember);
 
-		model.addAttribute("memberManage", memberManage);
-		model.addAttribute("memberManageList", service.getMemberManageList(memberManage));
+		model.addAttribute("supportMember", supportMember);
+		model.addAttribute("supportMemberList", service.getSupportMemberList(supportMember));
 
 		return basePath + "index";
 	}
 	
 	@RequestMapping(value = {"/edit.*"})
-	public String edit(Model model, MemberManage memberManage, HttpServletRequest request) throws AuthException {
-		if(memberManage.getEditMode().equals("MODIFY")) {
+	public String edit(Model model, SupportMember supportMember, HttpServletRequest request) throws AuthException {
+		if(supportMember.getEditMode().equals("MODIFY")) {
 			checkAuth("U", model, request);
-			model.addAttribute("memberManage", service.copyObjectPaging(memberManage, service.getMemberManageOne(memberManage)));
+			model.addAttribute("supportMember", service.copyObjectPaging(supportMember, service.getSupportMemberOne(supportMember)));
 		} else {
 			checkAuth("C", model, request);
-			model.addAttribute("memberManage", memberManage);
+			model.addAttribute("supportMember", supportMember);
 		}
 		
 		return basePath + "edit_ajax";
 	}
 	
 	@RequestMapping (value = {"/save.*"}, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse save(MemberManage memberManage, BindingResult result, HttpServletRequest request) {
+	public @ResponseBody JsonResponse save(SupportMember supportMember, BindingResult result, HttpServletRequest request) {
 		/* 유효성 검증 >>>>> */
 		JsonResponse res = new JsonResponse(request);
-		if (memberManage.getEditMode().equals("ADD") && memberManage.getEditMode().equals("MODIFY")) {
+		if (supportMember.getEditMode().equals("ADD") || supportMember.getEditMode().equals("MODIFY")) {
     		ValidationUtils.rejectIfEmpty(result, "member_name", "이름을 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "member_id", "아이디를 입력하세요");
-    		if(memberManage.getEditMode().equals("ADD")) {
+    		if(supportMember.getEditMode().equals("ADD") || StringUtils.isNotEmpty(supportMember.getMember_password())) {
     			ValidationUtils.rejectIfEmpty(result, "member_password", "비밀번호를 입력하세요");
     			ValidationUtils.rejectIfEmpty(result, "password_check", "비밀번호 확인을 입력하세요");
     		}
     		ValidationUtils.rejectOnlyKor(result, "member_name", "이름은 한글만 입력할 수 있습니다.");
     		ValidationUtils.rejectOnlyEngNum(result, "member_id", "아이디는 영문/숫자만 사용하실 수 있습니다.");
     		
-    		if(memberManage.getMember_id().length() > 10) {
+    		if(supportMember.getMember_id().length() > 10) {
     			result.rejectValue("member_id", "아이디는 10자 이내만 사용하실 수 있습니다.");
     		}
     		
-    		if(memberManage.getEditMode().equals("ADD")) {
-        		if(memberManage.getMember_password().length() < 5) {
+    		if(supportMember.getEditMode().equals("ADD") || StringUtils.isNotEmpty(supportMember.getMember_password())) {
+        		if(supportMember.getMember_password().length() < 5) {
         			result.rejectValue("member_password", "비밀번호는 5자리 이상 입력해주세요.");
         		}
-        		if(!StringUtils.equals(memberManage.getMember_password(), memberManage.getPassword_check())) {
+        		if(!StringUtils.equals(supportMember.getMember_password(), supportMember.getPassword_check())) {
         			result.rejectValue("password_check", "비밀번호가 다릅니다.");
         		}
     		}
@@ -79,28 +79,28 @@ public class MemberManageController extends BaseController {
 		/* <<<<< 유효성 검증 */
 
 		if (!result.hasErrors()) {
-			if (memberManage.getEditMode().equals("ADD")) {
-				if(service.memberIdDuplCheck(memberManage) > 0) {
+			if (supportMember.getEditMode().equals("ADD")) {
+				if(service.memberIdDuplCheck(supportMember) > 0) {
 					res.setValid(false);
 					res.setMessage("아이디가 중복됩니다.");
 					return res;
 				}
 				
-				memberManage.setAdd_id(getSessionMemberId(request));
-				service.addMemberManage(memberManage);
+				supportMember.setAdd_id(getSessionMemberId(request));
+				service.addSupportMember(supportMember);
 				res.setValid(true);
 				res.setMessage("등록되었습니다.");
-			} else if (memberManage.getEditMode().equals("MODIFY")) {
-				memberManage.setModify_id(getSessionMemberId(request));
-				service.modifyMemberManage(memberManage);
+			} else if (supportMember.getEditMode().equals("MODIFY")) {
+				supportMember.setModify_id(getSessionMemberId(request));
+				service.modifySupportMember(supportMember);
 				res.setValid(true);
 				res.setMessage("수정되었습니다.");
-			} else if (memberManage.getEditMode().equals("DELETE")) {
-				service.deleteMemberManage(memberManage);
+			} else if (supportMember.getEditMode().equals("DELETE")) {
+				service.deleteSupportMember(supportMember);
 				res.setValid(true);
 				res.setMessage("삭제되었습니다.");
-			} else if(memberManage.getEditMode().equals("DELETE_CHECK")) {
-				service.deleteCheckMemberManage(memberManage);
+			} else if(supportMember.getEditMode().equals("DELETE_CHECK")) {
+				service.deleteCheckSupportMember(supportMember);
 				res.setValid(true);
 				res.setMessage("선택 항목 모두 삭제되었습니다.");
 			}

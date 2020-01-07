@@ -1,38 +1,38 @@
-package kr.go.gbelib.app.cms.module.memberManage;
+package kr.go.gbelib.app.cms.module.supportMember;
 
 import java.util.Date;
 
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
-public class MemberManage extends PagingUtils {
+public class SupportMember extends PagingUtils {
 
-	private int member_manage_idx;
-	private int[] member_manage_arr;
-	private String member_name;
-	private String member_id;
-	private String member_password;
-	private String password_check;
-	private String school;
-	private Date last_connect;
-	private String add_id;
-	private Date add_date;
-	private String modify_id;
-	private Date modify_date;
+	private int support_member_idx;
+	private int[] support_member_arr;
+	private String member_name; // 회원명
+	private String member_id; // 회원ID
+	private String member_password; // 회원 비밀번호
+	private String password_check; // 비밀번호 확인
+	private String school; // 학교명
+	private Date last_connect; // 마지막 접속일
+	private String add_id; // 등록ID
+	private Date add_date; // 등록일시
+	private String modify_id; // 수정ID
+	private Date modify_date; // 수정일시
 
-	public int getMember_manage_idx() {
-		return member_manage_idx;
+	public int getSupport_member_idx() {
+		return support_member_idx;
 	}
 
-	public void setMember_manage_idx(int member_manage_idx) {
-		this.member_manage_idx = member_manage_idx;
+	public void setSupport_member_idx(int support_member_idx) {
+		this.support_member_idx = support_member_idx;
 	}
 
-	public int[] getMember_manage_arr() {
-		return member_manage_arr;
+	public int[] getSupport_member_arr() {
+		return support_member_arr;
 	}
 
-	public void setMember_manage_arr(int[] member_manage_arr) {
-		this.member_manage_arr = member_manage_arr;
+	public void setSupport_member_arr(int[] support_member_arr) {
+		this.support_member_arr = support_member_arr;
 	}
 
 	public String getMember_name() {

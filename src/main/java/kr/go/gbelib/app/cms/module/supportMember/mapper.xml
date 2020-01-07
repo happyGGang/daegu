@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.go.gbelib.app.cms.module.memberManage.MemberManageDao">
+<mapper namespace="kr.go.gbelib.app.cms.module.supportMember.SupportMemberDao">
 
-	<select id="getMemberManageList" resultType="kr.go.gbelib.app.cms.module.memberManage.MemberManage">
+	<select id="getSupportMemberList" resultType="kr.go.gbelib.app.cms.module.supportMember.SupportMember">
 		${pagingTop}
 		SELECT
-			member_manage_idx, member_name, member_id, member_password, school,
+			support_member_idx, member_name, member_id, member_password, school,
 			last_connect, add_id, add_date
 		FROM
-			MEMBER_MANAGE
+			SUPPORT_MEMBER
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
 			<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
 			AND	${search_type} LIKE '%'||#{search_text}||'%'
@@ -17,11 +17,11 @@
 		${pagingBottom}
 	</select>
 	
-	<select id="getMemberManageCount" resultType="int">
+	<select id="getSupportMemberCount" resultType="int">
 		SELECT
 			COUNT(*)
 		FROM
-			MEMBER_MANAGE
+			SUPPORT_MEMBER
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
 			<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
 			AND	${search_type} LIKE '%'||#{search_text}||'%'
@@ -29,45 +29,45 @@
 		</trim>
 	</select>
 	
-	<select id="getMemberManageOne" resultType="kr.go.gbelib.app.cms.module.memberManage.MemberManage">
+	<select id="getSupportMemberOne" resultType="kr.go.gbelib.app.cms.module.supportMember.SupportMember">
 		SELECT
-			member_manage_idx, member_name, member_id, member_password, school,
+			support_member_idx, member_name, member_id, member_password, school,
 			last_connect, add_id, add_date
 		FROM
-			MEMBER_MANAGE
+			SUPPORT_MEMBER
 		WHERE
-			member_manage_idx = #{member_manage_idx}
+			support_member_idx = #{support_member_idx}
 	</select>
 	
 	<select id="memberIdDuplCheck" resultType="int">
 		SELECT
 			COUNT(*)
 		FROM
-			MEMBER_MANAGE
+			SUPPORT_MEMBER
 		WHERE
 			member_id = #{member_id}
 	</select>
 	
-	<insert id="addMemberManage">
-		<selectKey keyProperty="member_manage_idx" resultType="int" order="BEFORE">
-			SELECT NVL(MAX(member_manage_idx), 0) + 1 FROM MEMBER_MANAGE
+	<insert id="addSupportMember">
+		<selectKey keyProperty="support_member_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(support_member_idx), 0) + 1 FROM SUPPORT_MEMBER
 		</selectKey>
 		INSERT INTO
-			MEMBER_MANAGE
+			SUPPORT_MEMBER
 		(
-			member_manage_idx, member_name, member_id, member_password, school,
+			support_member_idx, member_name, member_id, member_password, school,
 			last_connect, add_id, add_date
 		)
 		VALUES
 		(
-			#{member_manage_idx}, #{member_name}, #{member_id}, #{member_password}, #{school},
+			#{support_member_idx}, #{member_name}, #{member_id}, #{member_password}, #{school},
 			#{last_connect}, #{add_id}, SYSDATE
 		)
 	</insert>
 	
-	<update id="modifyMemberManage">
+	<update id="modifySupportMember">
 		UPDATE
-			MEMBER_MANAGE
+			SUPPORT_MEMBER
 		SET
 			member_name = #{member_name},
 			member_id = #{member_id},
@@ -78,22 +78,22 @@
 			modify_id = #{modify_id},
 			modify_date = SYSDATE
 		WHERE
-			member_manage_idx = #{member_manage_idx}
+			support_member_idx = #{support_member_idx}
 	</update>
 	
-	<delete id="deleteMemberManage">
+	<delete id="deleteSupportMember">
 		DELETE FROM
-			MEMBER_MANAGE
+			SUPPORT_MEMBER
 		WHERE
-			member_manage_idx = #{member_manage_idx}
+			support_member_idx = #{support_member_idx}
 	</delete>
 	
-	<delete id="deleteCheckMemberManage">
+	<delete id="deleteCheckSupportMember">
 		DELETE FROM
-			MEMBER_MANAGE
+			SUPPORT_MEMBER
 		WHERE
-			member_manage_idx IN
-			<foreach collection="member_manage_arr" open="(" close=")" separator="," item="i">
+			support_member_idx IN
+			<foreach collection="support_member_arr" open="(" close=")" separator="," item="i">
 			#{i}
 			</foreach>
 	</delete>

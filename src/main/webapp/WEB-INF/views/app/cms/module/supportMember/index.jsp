@@ -5,7 +5,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script type="text/javascript">
 $(function() {
-	var $form = $('form#memberManage');
+	var $form = $('form#supportMember');
 	
 	$('#dialog-add').on('click', function(e) {
 		e.preventDefault();
@@ -16,7 +16,7 @@ $(function() {
 	
 	$('.modify-btn').on('click', function(e) {
 		e.preventDefault();
-		$('#dialog-1').load('edit.do?editMode=MODIFY&member_manage_idx='+$(this).attr('keyValue'), function( response, status, xhr ) {
+		$('#dialog-1').load('edit.do?editMode=MODIFY&support_member_idx='+$(this).attr('keyValue'), function( response, status, xhr ) {
 			$('#dialog-1').dialog('open');
 		});
 	});
@@ -27,7 +27,7 @@ $(function() {
 			$form.attr('action', 'save.do');
 			$form.attr('method', 'POST');
 			$('#editMode').val('DELETE');
-			$('#member_manage_idx').val($(this).attr('keyValue'));
+			$('#support_member_idx').val($(this).attr('keyValue'));
 			if(doAjaxPost($form)) {
 				location.reload();
 			}
@@ -59,9 +59,9 @@ $(function() {
 
 });
 </script>
-<form:form modelAttribute="memberManage" action="index.do" method="GET">
+<form:form modelAttribute="supportMember" action="index.do" method="GET">
 <form:hidden path="editMode"/>
-<form:hidden path="member_manage_idx"/>
+<form:hidden path="support_member_idx"/>
 
 <div class="infodesk">
 	검색 결과 : 총 ${paging.totalDataCount}건
@@ -94,10 +94,10 @@ $(function() {
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${memberManageList}" var="i" varStatus="status">
+			<c:forEach items="${supportMemberList}" var="i" varStatus="status">
 			<tr>
 				<td>
-					<form:checkbox path="member_manage_arr" cssClass="member-check" value="${i.member_manage_idx}"/>
+					<form:checkbox path="support_member_arr" cssClass="member-check" value="${i.support_member_idx}"/>
 				</td>
 				<td class="num">${paging.listRowNum - status.index}</td>
 				<td>${i.member_id }</td>
@@ -106,12 +106,12 @@ $(function() {
 				<td><fmt:formatDate value="${i.last_connect}" pattern="yyyy-MM-dd"/></td>
 				<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>
 				<td>
-					<a href="#" class="btn modify-btn" keyValue="${i.member_manage_idx}">수정</a>
-					<a href="#" class="btn delete-btn" keyValue="${i.member_manage_idx}">삭제</a>
+					<a href="#" class="btn modify-btn" keyValue="${i.support_member_idx}">수정</a>
+					<a href="#" class="btn delete-btn" keyValue="${i.support_member_idx}">삭제</a>
 				</td>
 			</tr>
 			</c:forEach>
-			<c:if test="${fn:length(memberManageList) < 1}">
+			<c:if test="${fn:length(supportMemberList) < 1}">
 			<tr>
 				<td colspan="8">등록된 회원정보가 없습니다.</td>
 			</tr>
@@ -124,7 +124,7 @@ $(function() {
 	</div>
 	
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
-		<jsp:param name="formId" value="#memberManage"/>
+		<jsp:param name="formId" value="#supportMember"/>
 	</jsp:include>
 	
 	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->

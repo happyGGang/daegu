@@ -22,7 +22,7 @@ $(function() {
 				text: "저장",
 				"class": 'btn btn1',
 				click: function() {
-					if(doAjaxPost($('#memberManageEdit'))) {
+					if(doAjaxPost($('#supportMemberEdit'))) {
 						location.reload();
 					}
 				}
@@ -43,9 +43,9 @@ $(function() {
 
 });
 </script>
-<form:form id="memberManageEdit" modelAttribute="memberManage" action="save.do" method="POST">
+<form:form id="supportMemberEdit" modelAttribute="supportMember" action="save.do" method="POST">
 	<form:hidden path="editMode" id="editMode_e"/>
-	<form:hidden path="member_manage_idx" id="member_manage_idx_e"/>
+	<form:hidden path="support_member_idx" id="support_member_idx_e"/>
 	<table class="type2">
 		<colgroup>
 	       <col width="150" />
@@ -73,7 +73,7 @@ $(function() {
 	        	</td>
 	        </tr>
 	        <tr>
-	        	<th>비밀번호<c:if test="${memberManage.editMode eq 'ADD'}">(<span style="color: red;font-weight: bold;">*</span>)</c:if></th>
+	        	<th>비밀번호<c:if test="${supportMember.editMode eq 'ADD'}">(<span style="color: red;font-weight: bold;">*</span>)</c:if></th>
 	        	<td>
 	        		<form:password path="member_password" cssClass="text"/>
 	        		<div class="ui-state-highlight">
@@ -83,7 +83,7 @@ $(function() {
 	        	</td>
 	        </tr>
 	        <tr>
-	        	<th>비밀번호 확인<c:if test="${memberManage.editMode eq 'ADD'}">(<span style="color: red;font-weight: bold;">*</span>)</c:if></th>
+	        	<th>비밀번호 확인<c:if test="${supportMember.editMode eq 'ADD'}">(<span style="color: red;font-weight: bold;">*</span>)</c:if></th>
 	        	<td>
 	        		<form:password path="password_check" cssClass="text"/>
 	        		<div class="ui-state-highlight">
