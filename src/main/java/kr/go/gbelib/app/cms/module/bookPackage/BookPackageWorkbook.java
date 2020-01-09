@@ -77,8 +77,46 @@ public class BookPackageWorkbook {
 				workbook.getSheet(0).addCell(new Label(3, row, String.valueOf(one.getPublish_year())));
 				workbook.getSheet(0).addCell(new Label(4, row, one.getLoan_count() + "권"));
 				workbook.getSheet(0).addCell(new Label(5, row, one.getQuantity() + "권"));
-				workbook.getSheet(0).addCell(new Label(6, row, one.getGrade()));
-				workbook.getSheet(0).addCell(new Label(7, row, one.getCategory()));
+				
+				String grade = "";
+				if(one.getGrade().equals("3")) {
+					grade = "초등";
+				} else if(one.getGrade().equals("4")) {
+					grade = "중등";
+				} else if(one.getGrade().equals("5")) {
+					grade = "고등";
+				}
+				workbook.getSheet(0).addCell(new Label(6, row, grade));
+				
+				String category = "";
+				String[] cateArr = one.getCategory().split(",");
+				for(int i = 0; i < cateArr.length; i++) {
+					String cate = cateArr[i];
+//				for (String cate : cateArr) {
+					if(cate.equals("000")) {
+						category += "총류";
+					} else if(cate.equals("100")) {
+						category += "철학";
+					} else if(cate.equals("200")) {
+						category += "종교";
+					} else if(cate.equals("300")) {
+						category += "사회과학";
+					} else if(cate.equals("400")) {
+						category += "자연과학";
+					} else if(cate.equals("500")) {
+						category += "기술과학";
+					} else if(cate.equals("600")) {
+						category += "예술";
+					} else if(cate.equals("700")) {
+						category += "언어";
+					} else if(cate.equals("800")) {
+						category += "문학";
+					} else if(cate.equals("900")) {
+						category += "역사";
+					}
+					category += i != cateArr.length-1 ? "," : "";
+				}
+				workbook.getSheet(0).addCell(new Label(7, row, category));
 				workbook.getSheet(0).addCell(new Label(8, row, one.getLender_count() > 0 ? "예약신청" : "대출신청"));
 				
 				row++;
@@ -142,7 +180,7 @@ public class BookPackageWorkbook {
 						break;
 				}
 				workbook.getSheet(0).addCell(new Label(8, row, request_status));
-				workbook.getSheet(0).addCell(new Label(4, row, one.getLoan_count() + "권"));
+				workbook.getSheet(0).addCell(new Label(9, row, one.getLoan_count() + "권"));
 				
 				row++;
 			}

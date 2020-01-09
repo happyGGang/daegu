@@ -47,7 +47,7 @@
 		SELECT
 			COUNT(*)
 		FROM
-			BOOK_PACKAGE
+			BOOK_PACKAGE a
 		<trim prefix="WHERE" prefixOverrides="AND">
 			<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
 			AND	${search_type} LIKE '%'||#{search_text}||'%'
@@ -72,7 +72,7 @@
 	<select id="getBookPackageOne" resultType="kr.go.gbelib.app.cms.module.bookPackage.BookPackage">
 		SELECT
 			<include refid="field"/>,
-			(SELECT COUNT(*) FROM BOOK_PACKAGE_LOAN WHERE book_package_idx = a.book_package_idx) AS lender_count
+			(SELECT COUNT(*) FROM BOOK_PACKAGE_LOAN WHERE book_package_idx = a.book_package_idx AND request_status NOT IN (3, 5)) AS lender_count
 		FROM
 			BOOK_PACKAGE a
 		WHERE
@@ -181,6 +181,9 @@
 		<if test="loan_start_date != null and loan_start_date != ''">
 		AND	TO_CHAR(loan_start_date, 'yyyy') = #{loan_start_date}
 		</if>
+		<if test="add_id != null and add_id != ''">
+		AND b.add_id = #{add_id}
+		</if>
 		ORDER BY b.book_package_loan_idx DESC
 		${pagingBottom}
 	</select>
@@ -203,6 +206,9 @@
 		</if>
 		<if test="loan_start_date != null and loan_start_date != ''">
 		AND	TO_CHAR(loan_start_date, 'yyyy') = #{loan_start_date}
+		</if>
+		<if test="add_id != null and add_id != ''">
+		AND b.add_id = #{add_id}
 		</if>
 	</select>
 	
@@ -234,7 +240,7 @@
 		(
 			#{book_package_idx}, #{book_package_loan_idx}, #{request_name}, #{school_name},
 			#{loan_start_date}, #{loan_end_date}, #{phone}, #{school_tel}, #{request_content},
-			0, 'N', #{add_id}, SYSDATE
+			#{request_status}, 'N', #{add_id}, SYSDATE
 		)
 	</insert>
 	

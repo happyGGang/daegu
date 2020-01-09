@@ -54,11 +54,59 @@ $(function() {
 });
 </script>
 <style>
+ht.tit {padding: 0 0 12px 10px;font-size: 13px;color: #333;margin-bottom: 25px;line-height: 30px;letter-spacing: -0.05em;}
+ul.rent_box{overflow: hidden;margin-bottom: 20px;padding: 20px 0;background: #ecf1f5;height: 150px;}
+ul.rent_box li {float: left;width: 420px;padding-top: 12px;background: url(/resources/common/img/support_line.gif) repeat-y;text-align: center;color: #222;}
+ul.rent_box li:first-child {background: none;}
+ul.rent_box li dt {padding: 61px 0 5px;font-size: 15px;font-weight: bold;color: #fff;letter-spacing: -0.05em;}
+ul.rent_box li dt.icon01 {background: url(/resources/common/img/support_icon01.png) no-repeat top center;}
+
 .group-box {display:inline-block;width: 150px;text-align: center;padding: 20px;}
 .content-box h3 {display: inline-block;}
 div.img-box {position: relative;display:inline-block;border: 1px solid #ccc;}
 div.img-box span.num {position: absolute;top: 30px;right: 22px;width: 18px;height: 18px;padding: 4px 4px;font-family: 'Montserrat',sans-serif;font-weight: 700;text-align: center;line-height: 17px;color: #fff;background-color: red;border-radius: 50%;}
 </style>
+<div>
+	<h4 class="tit">장서점검기 대여 신청 안내</h4>
+	<ul class="rent_box">
+		<li>
+			<dl>
+				<dt class="icon01">최대 신청대수</dt>
+				<dd><span class="eng">2</span>대</dd>
+			</dl>
+		</li>
+		<li>
+			<dl>
+				<dt class="icon02">최대 대출기간</dt>
+				<dd><span class="eng">1</span>주</dd>
+			</dl>
+		</li>
+	</ul>
+	<ul class="list mb40">
+		<li><strong class="red">대여일은 금요일, 반납일은 목요일</strong>로 지정되어 있습니다.
+			<ul class="list2">
+				<li>사용 희망일이 금요일이 아닌 경우, 사용 희망일 전 주 금요일에 미리 대여 신청 하십시오.</li>
+				<li>대여 신청은 대여하시려는 날짜의 2주 전부터 가능합니다.</li>
+			</ul>
+			<p>▶ 앞의 학교의 대여 기간에 따라 원하시는 일자에 대여 신청이 불가할 수 있습니다.</p>
+			<div style="margin-left:-11px;"><img src="/resources/common/img/support_calendar.jpg" alt="일주일 대여 예시" class="mimg"></div>
+		</li>
+		<li>예) 20일(화)이 사용희망일일 경우
+			<ul class="list2">
+				<li>20일(화) 전 주 금요일인 16일이 장서점검기 대여일</li>
+				<li>대여 신청은 16일의 2주 전 금요일인 2일부터 가능</li>
+				<li>목요일인 22일에 반납</li>
+			</ul>
+		</li>
+		<li>담당자 본인이 도서관에 방문하여 대출 / 직접 반납</li>
+		<li>장서점검기 2가지 모델이 있으니 이용에 참고바랍니다.
+			<ul class="list2">
+				<li>DT-970 모델 : 1, 2, 3, 8, 9번 장서점검기</li>
+				<li>북체커 모델 : 4, 5, 6, 7번 장서점검기</li>
+			</ul>
+		</li>
+	</ul>
+</div>
 <form:form modelAttribute="libraryCheck" action="index.do" method="GET">
 <form:hidden path="editMode"/>
 

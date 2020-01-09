@@ -9,9 +9,8 @@ $(function() {
 	// 책 꾸러미 대출 수정
 	$('a.dialog-edit').on('click', function(e) {
 		e.preventDefault();
-		$('#dialog-2').load('loanEdit.do?editMode=MODIFY&book_package_loan_idx='+$(this).attr('keyValue'), function(response, status, xhr) {
-			$('#dialog-2').dialog('open');
-		});		
+		var formData = 'editMode=MODIFY&menu_idx='+$('#menu_idx').val() + '&book_package_loan_idx='+$(this).attr('keyValue') + '&viewPage='+$('#viewPage').val();
+		doGetLoad('loanEdit.do', formData);
 	});
 	
 	$('a.return-req').on('click', function(e) {
@@ -114,8 +113,8 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 </style>
 <form:form modelAttribute="bookPackage" action="loanList.do" method="GET">
 <form:hidden path="editMode"/>
+<form:hidden path="menu_idx"/>
 <form:hidden path="book_package_loan_idx"/>
-<%-- <form:hidden path="return_yn"/> --%>
 	<div>
 		<form:checkbox path="return_yn" value="Y" label="반납요청"/>
 	</div>
@@ -143,13 +142,13 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 	</div>
 	<table class="type1 center">
 		<colgroup>
-			<col width="5%" />
+			<col width="6%" />
 			<col />
 			<col width="12%" />
-			<col width="15%" />
+			<col width="16%" />
 			<col width="12%"/>
-			<col width="8%" />
-			<col width="5%" />
+			<col width="10%" />
+			<col width="7%" />
 			<col width="10%" />
 			<col width="8%" />
 		</colgroup>
@@ -245,5 +244,3 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 		</fieldset>
 	</div>
 </form:form>
-
-<div id="dialog-2" class="dialog-common" title="대출리스트"></div>
