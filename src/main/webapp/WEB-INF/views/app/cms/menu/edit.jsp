@@ -344,7 +344,7 @@ $(function() {
 						</div>
 						<div class="menuType module">
 							<a href="" class="btn btn1" id="modal_MODULE">모듈 선택</a>
-							<div id="dialog_MODULE" class="dialog-common" title="게시판 선택"></div>
+							<div id="dialog_MODULE" class="dialog-common" title="모듈 선택"></div>
 							<table>
 								<tr>
 									<th>모듈번호</th>

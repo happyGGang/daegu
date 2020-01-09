@@ -6,7 +6,7 @@ $(function() {
 	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
 		resizable: true,
-		modal: true, 
+		modal: true,
 	    open: function() {
 	        $('.ui-widget-overlay').addClass('custom-overlay');
 	    },
@@ -22,13 +22,13 @@ $(function() {
 				}
 			}
 		]
-	}); 
-	
-	$("#dialog_MODULE").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
-		width: 600,
-		height: 400
 	});
-	
+
+	$("#dialog_MODULE").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
+		width: 1000,
+		height: 800
+	});
+
 	$('a#moduleUse').on('click', function(e) {
 		$('input#manage_idx').val($(this).attr('keyValue'));
 		$('td#edit_moduleIdx').html($(this).attr('keyValue'));
@@ -37,18 +37,18 @@ $(function() {
 		if ($('input.menuName').val() == '') {
 			$('input.menuName').html($(this).attr('moduleName'));
 		}
-		
+
 		if ( $(this).attr('keyValue') == '25' ) {
 			$('tr.moduleHtml').show();
 		}
 		else {
 			$('tr.moduleHtml').hide();
 		}
-		
+
 		$("#dialog_MODULE").dialog('destroy');
 		e.preventDefault();
 	});
-});	
+});
 </script>
 <div style="width:100%;">
 	<table class="type2 menuType-data">
