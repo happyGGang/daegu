@@ -68,6 +68,10 @@ transition:all 100ms ease}
 
 .resve-req{padding: 5px 13px;border: 1px solid #d5d5d5;border-radius: 3px;color: #4c4c4c;}
 .resve-req:hover {color: #000;}
+
+.bbs-view-header dd.file{padding:9px 15px;background:#f3f3f3}
+.bbs-view-header dd.file li{padding:1px 0}
+.bbs-view-header dd.file i{font-size:110%}
 </style>
 <script type="text/javascript" src="http://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
@@ -193,8 +197,13 @@ ${boardManage.top_html}
 			<c:set value="${fn:replace(board.content, crlf, '<br/>')}" var="content"></c:set>
 			${content}
 		</div>
-		<h4>소장위치</h4>
-		<table summary="도서 상태 및 등록 정보">
+		<div class="bbs-view-header">
+			<dl>
+				<jsp:include page="/WEB-INF/views/app/board/common/view/file.jsp" flush="false" />
+			</dl>
+		</div>
+		<h4 style="display: none;">소장위치</h4>
+		<table summary="도서 상태 및 등록 정보" style="display: none;">
 			<thead>
 				<tr>
 					<th>등록번호</th>
@@ -265,185 +274,7 @@ ${boardManage.top_html}
 			</tbody>
 		</table>
 
-
-		<c:forEach items="${ageChart.data}" var="i" varStatus="status">
-			<fmt:parseNumber var="currCount" value="${i.COUNT}" />
-			<c:if test="${status.first}">
-				<fmt:parseNumber var="maxCount" value="${i.COUNT}" />
-			</c:if>
-			<c:if test="${!status.first}">
-				<c:if test="${maxCount < currCount}">
-					<fmt:parseNumber var="maxCount" value="${i.COUNT}" />
-				</c:if>
-			</c:if>
-		</c:forEach>
-		<h4>연령별 선호도</h4>
-		<div id="graph1" class="graphArea">
-			<ul class="num" style="display: none;">
-				<li><fmt:formatNumber value="${maxCount}" type="number"/></li>
-				<li><fmt:formatNumber value="${(maxCount / 6) * 5}" pattern="0"/></li>
-				<li><fmt:formatNumber value="${(maxCount / 6) * 4}" pattern="0"/></li>
-				<li><fmt:formatNumber value="${(maxCount / 6) * 3}" pattern="0"/></li>
-				<li><fmt:formatNumber value="${(maxCount / 6) * 2}" pattern="0"/></li>
-				<li><fmt:formatNumber value="${(maxCount / 6) * 1}" pattern="0"/></li>
-				<li>0</li>
-			</ul>
-			<div class="graphWrap">
-				<ul class="graph">
-					<c:forEach var="i" varStatus="status" items="${ageChart.data}">
-						<li>
-							<div class="chart-info">
-								<div class="barWrap">
-									<div class="gauge" style="height:${i.COUNT / maxCount * 100}%;">
-										<div class="gauge_ly"><p><em>${i.COUNT}</em> 명</p></div>
-									</div>
-								</div>
-								<p class="txt">
-									${i.GRADE_CODE_NAME}
-								</p>
-							</div>
-						</li>
-					</c:forEach>
-				</ul>
-			</div>
-		</div>
-
 		<div style="clear:both">&nbsp;</div>
-
-		<c:if test="${fn:length(withBook.data) > 0}">
-		<h4>함께 빌려본 다른 도서 추천</h4>
-		<div class="smain">
-			<div class="box">
-				<div id="search-results" class="search-results wide">
-				<c:forEach items="${withBook.data}" var="i">
-					<div class="row">
-						<p class="admin">
-						</p>
-						<div class="thumb">
-							<c:if test="${i.img eq ''}">
-							<a vLoca="${i.libCode}" vCtrl="${i.rec_key}" vImg="${i.img}" isbn="${i.isbn}" tid="${i.tid}" class="goDetail">
-								<img src="/resources/homepage/geic/img/noimg2.png" alt="noImage"/>
-								<span>등록된 이미지가<br/>없습니다.</span>
-							</a>
-							</c:if>
-							<c:if test="${i.img ne ''}">
-							<a vLoca="${i.libCode}" vCtrl="${i.rec_key}" vImg="${i.img}" isbn="${i.isbn}" tid="${i.tid}" class="goDetail"><img src="${i.img}" alt="cover"/></a>
-							</c:if>
-						</div>
-						<div class="box">
-							<div class="item">
-								<div class="bif">
-									<a vLoca="${i.libCode}" vCtrl="${i.rec_key}" vImg="${i.img}" isbn="${i.isbn}" tid="${i.tid}" class="name goDetail">${i.title}</a>
-									<p>${i.author}</p>
-									<p>${i.publisher} ${i.YEAR}</p>
-									<p>${i.libName}</p>
-									<div class="stat">
-										<a href="#" class="showSlide" vLoca="${i.libCode}" vCtrl="${i.rec_key}"><span>이용가능여부</span><i class="fa fa-sort-down"></i></a>
-										<span><b>${i.placeName}</b> [${i.callno}]</span>
-									</div>
-								</div>
-								<div class="bci" style="display: none;">
-									<!-- ajax_area -->
-								</div>
-							</div>
-						</div>
-					</div>
-				</c:forEach>
-				</div>
-			</div>
-		</div>
-		</c:if>
-
-		<c:if test="${fn:length(callNoBrowsing.dsCallNoNext) > 0}">
-		<h4>동일 저자 다른 책 정보</h4>
-		<table summary="동일 저자 다른 책 정보">
-			<colgroup>
-				<col/>
-				<col width="20%"/>
-				<col width="15%"/>
-				<col width="15%"/>
-			</colgroup>
-			<thead>
-				<tr>
-					<th>서명</th>
-					<th>저자</th>
-					<th>등록번호</th>
-					<th>청구기호</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${callNoBrowsing.dsCallNoNext}" var="i" varStatus="statusi">
-				<tr>
-					<td class="txt-left">${i.TITLE}</td>
-					<td class="txt-left">${i.AUTHOR}</td>
-					<td class="txt-left">${i.ACSSON_NO}</td>
-					<td class="txt-left">${i.CALL_NO}</td>
-				</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		</c:if>
-
-		<c:if test="${fn:length(callNoBrowsing.dsCallNoPrev) > 0}">
-		<h4>동일 주제 다른 책 정보</h4>
-		<table summary="동일 주제 다른 책 정보">
-			<colgroup>
-				<col/>
-				<col width="20%"/>
-				<col width="15%"/>
-				<col width="15%"/>
-			</colgroup>
-			<thead>
-				<tr>
-					<th>서명</th>
-					<th>저자</th>
-					<th>등록번호</th>
-					<th>청구기호</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${callNoBrowsing.dsCallNoPrev}" var="i" varStatus="status">
-				<tr>
-					<td class="txt-left">${i.TITLE}</td>
-					<td class="txt-left">${i.AUTHOR}</td>
-					<td class="txt-left">${i.ACSSON_NO}</td>
-					<td class="txt-left">${i.CALL_NO}</td>
-				</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		</c:if>
-
-		<c:if test="${fn:length(sameBook) > 0}">
-		<h4>같은 책 소장정보</h4>
-		<table summary="같은 책 소장정보">
-			<thead>
-				<tr>
-					<th>도서관명</th>
-					<th>등록번호</th>
-					<th>소장위치</th>
-					<th>청구기호</th>
-					<th>상태</th>
-					<th>반납예정일</th>
-					<th style="display: none;">예약</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${sameBook}" var="j" varStatus="statusj">
-					<c:forEach items="${j.dsItemDetail}" var="i" varStatus="status">
-				<tr>
-					<td>${i.LOCA_NAME}</td>
-					<td>${i.PRINT_ACSSON_NO}</td>
-					<td class="txt-left">${i.SUB_LOCA_NAME}</td>
-					<td class="txt-left">${i.LABEL_PLACE_NO_NAME} ${i.CALL_NO}</td>
-					<td class="og">${i.DISPLAY_ITEM_STATUS}</td>
-					<td>${i.RETURN_PLAN_DATE}</td>
-				</tr>
-					</c:forEach>
-				</c:forEach>
-			</tbody>
-		</table>
-		</c:if>
 
 		<c:if test="${fn:length(naverDetail) > 0}">
 		<h4 style="clear: both;">포털 사이트 연동 상세정보</h4>

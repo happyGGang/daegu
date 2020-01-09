@@ -108,7 +108,7 @@ table.bbs tr.notice{background:#f5f6f7}
 					<c:if test="${i.file_count > 0}">
 						<i class="fa fa-floppy-o"></i>
 					</c:if>
-					</td> 
+					</td>
 				</tr>
 			</c:forEach>
 			<c:forEach var="i" varStatus="status" items="${boardNoticeList}">
@@ -123,7 +123,9 @@ table.bbs tr.notice{background:#f5f6f7}
 					</td>
 					</c:if>
 					<td class="important left title">
-						<a href="" keyValue="${i.board_idx}">
+						<c:set var="boardIdx" value="${i.parent_idx > 0 ? i.parent_idx : i.board_idx}"></c:set>
+						<c:set var="viewUrl" value="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}"></c:set>
+						<a href="${viewUrl}" keyValue="${i.board_idx}">
 							<span>${i.title}</span>
 							<c:if test="${i.date_gap <= boardManage.new_date_count}"><em class="new">새글</em></c:if>
 							<c:if test="${i.comment_count > 0}">
@@ -138,7 +140,7 @@ table.bbs tr.notice{background:#f5f6f7}
 					<c:if test="${i.file_count > 0}">
 						<i class="fa fa-floppy-o"></i>
 					</c:if>
-					</td> 
+					</td>
 				</tr>
 			</c:forEach>
 			<c:forEach var="i" varStatus="status" items="${boardList}">
@@ -153,7 +155,9 @@ table.bbs tr.notice{background:#f5f6f7}
 					</td>
 					</c:if>
 					<td class="important left title" style="padding-left:${(i.group_depth > 0 ? (i.group_depth-1)*15 : 0)+10}px;">
-						<a href="" keyValue="${i.board_idx}" keyValue2="/${i.imsi_v_19}/board/view.do?menu_idx=${i.imsi_n_2}&board_idx=${i.board_idx}&manage_idx=${i.manage_idx}">
+						<c:set var="boardIdx" value="${i.parent_idx > 0 ? i.parent_idx : i.board_idx}"></c:set>
+						<c:set var="viewUrl" value="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}"></c:set>
+						<a href="${viewUrl}" keyValue="${i.board_idx}">
 						<c:if test="${i.group_depth > 0}">
 							<i class="fa fa-reply"></i>
 						</c:if>
@@ -194,7 +198,7 @@ table.bbs tr.notice{background:#f5f6f7}
 	</div>
 
 	<jsp:include page="/WEB-INF/views/app/board/common/index/button.jsp" flush="false" />
-	
+
 	<jsp:include page="/WEB-INF/views/app/board/common/index/noticePaging.jsp" flush="false">
 		<jsp:param name="formId" value="#board"/>
 	</jsp:include>

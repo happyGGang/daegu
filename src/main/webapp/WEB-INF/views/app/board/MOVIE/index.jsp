@@ -151,6 +151,7 @@ $(function() {
 		$('a#monthSelect').on('click', function() {
 			var planDate = $('#plan_year').val() + '-' + $('#plan_month').val();
 			$('#plan_date').val(planDate);
+			$('#viewPage').val('1');
 			doGetLoad('index.do', serializeCustom($('#board')));
 		});
 
@@ -169,6 +170,7 @@ $(function() {
 			month = month < 10 ? "0"+month : month;
 			var planDate = year + '-' + month;
 			$('#plan_date').val(planDate);
+			$('#viewPage').val('1');
 			doGetLoad('index.do', serializeCustom($('#board')));
 
 		});
@@ -190,6 +192,7 @@ $(function() {
 
 			var planDate = year + '-' + month;
 			$('#plan_date').val(planDate);
+			$('#viewPage').val('1');
 			doGetLoad('index.do', serializeCustom($('#board')));
 
 		});

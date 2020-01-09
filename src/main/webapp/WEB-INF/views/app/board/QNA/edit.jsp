@@ -21,23 +21,13 @@ ${boardManage.top_html}
 	<caption>질문과 답변 글쓰기 내용 입력</caption>
 		<tbody>
 			<jsp:include page="/WEB-INF/views/app/board/common/edit/category.jsp" flush="false" />
-<%--
-			<c:if test="${board.group_depth > 0}">
-			<tr>
-				<th>답변상태</th>
-				<td colspan="3">
-					<form:select path="request_state" cssClass="selectmenu" cssStyle="width:100px;" items="${request_state_list}" itemLabel="code_name" itemValue="code_id"/>
-				</td>
-			</tr>
-			</c:if>
---%>
 			<tr>
 				<th>제목</th>
 				<td colspan="3">
 					<form:input path="title" cssClass="text" cssStyle="width:90%" maxlength="100" title="제목입력"/>
 				</td>
 			</tr>
-			<tr> 
+			<tr>
 				<th>작성자</th>
 				<td>
 					<jsp:include page="/WEB-INF/views/app/board/common/edit/userName.jsp" flush="false" />
@@ -45,7 +35,19 @@ ${boardManage.top_html}
 				<th>작성일</th>
 				<td><fmt:formatDate value="${board.editMode eq 'ADD' ? getToday : board.add_date}" pattern="yyyy-MM-dd"/></td>
 			</tr>
+			<c:if test="${board.group_depth > 0}">
+			<tr>
+				<th>처리상태</th>
+				<td colspan="3">
+					<form:select path="request_state" cssClass="selectmenu" cssStyle="width:100px;" items="${request_state_list}" itemLabel="code_name" itemValue="code_id"/>
+				</td>
+			</tr>
+			</c:if>
 			<c:if test="${boardManage.secret_use_yn eq 'Y'}">
+				<c:if test="${board.group_depth > 0}">
+				<input type="hidden" name="secret_yn" value="${empty requestBoard.secret_yn ? board.secret_yn : requestBoard.secret_yn}"/>
+				</c:if>
+				<c:if test="${board.group_depth == 0}">
 			<tr>
 				<th>비밀글 여부</th>
 				<td colspan="3">
@@ -59,7 +61,8 @@ ${boardManage.top_html}
 <%-- 					<form:input path="user_password"/> --%>
 <!-- 				</td> -->
 			</tr>
-			
+				</c:if>
+
 			</c:if>
 			<tr>
 				<td colspan="4" class="editor">
@@ -79,7 +82,7 @@ ${boardManage.top_html}
 			</c:if>
 		</tbody>
 	</table>
-	
+
 	<jsp:include page="/WEB-INF/views/app/board/common/edit/button.jsp" flush="false" />
 </div>
 </form:form>

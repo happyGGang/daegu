@@ -21,7 +21,7 @@ ${boardManage.top_html}
 				<col/>
 				<col class="important"/>
 				<col class="important"/>
-<%--				<col class="important mmm2"/> --%>
+				<col class="important mmm2"/>
 				<col class="mmm1"/>
 				<col class="mmm1"/>
 				<col class="mmm1"/>
@@ -33,7 +33,7 @@ ${boardManage.top_html}
 					</c:if>
 					<th style="width:6%">번호</th>
 					<th class="important" >제목</th>
-<%--					<th class="important" style="width:35px">처리상태</th> --%>
+					<th class="important" style="width:35px">처리상태</th>
 					<th class="important mmm2" style="width:8%">작성자</th>
 					<th class="mmm1">작성일</th>
 					<th class="mmm1" style="width:8%">조회수</th>
@@ -60,8 +60,11 @@ ${boardManage.top_html}
 							</c:if>
 						</a>
 					</td>
-<%--					<td class="important">${i.request_state_str}</td> --%>
+					<td class="important">${i.request_state_str}</td>
 					<c:choose>
+					<c:when test="${authMBA}">
+					<c:set var="user_name" value="${i.user_name}"/>
+					</c:when>
 					<c:when test="${boardManage.anonymize_yn eq 'Y'}">
 					<c:set var="user_name" value="${fn:substring(i.user_name, -1, 1)}**"/>
 					</c:when>
@@ -69,7 +72,7 @@ ${boardManage.top_html}
 					<c:set var="user_name" value="${i.user_name}"/>
 					</c:otherwise>
 					</c:choose>
-					<td class="important mmm2">${i.secret_yn ne 'Y'? user_name:'비공개'}</td>
+					<td class="important mmm2">${i.secret_yn ne 'Y'? user_name : (authMBA ? i.user_name : '비공개')}</td>
 					<td class="num mmm1"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd" /></td>
 					<td class="num mmm1">${i.view_count}</td>
 					<td class="file mmm1">

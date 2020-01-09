@@ -112,7 +112,7 @@ table.bbs tr.notice{background:#f5f6f7}
 					<c:set var="user_name" value="${i.user_name}"/>
 					</c:otherwise>
 					</c:choose>
-					<td class="mmm2 username">${i.secret_yn ne 'Y'? user_name:'비공개'}</td>
+					<td class="mmm2 username">${i.secret_yn ne 'Y'? user_name : (authMBA ? i.user_name : '비공개')}</td>
 					<td class="important num adddate"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd" /></td>
 					<td class="num mmm1">${i.view_count}</td>
 					<td class="file mmm1">
