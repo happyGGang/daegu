@@ -869,13 +869,14 @@ public class BoardController extends BaseController {
 					Member adminMember = new Member();
 					adminMember.setMember_id(parentBoard.getAdd_id());
 					adminMember = memberService.getMemberOne(adminMember);
-					try {
-						PushAPI.sendMessage((Homepage)request.getAttribute("homepage"), PushAPI.SMS_TYPE_SMS, adminMember.getCell_phone(), board.getRequest_state(), null, true);
-						res.setMessage("요청자 에게 알림을 보내고 등록 되었습니다.");
-					}
-					catch ( Exception e ) {
+
+//					try {
+//						PushAPI.sendMessage((Homepage)request.getAttribute("homepage"), PushAPI.SMS_TYPE_SMS, adminMember.getCell_phone(), board.getRequest_state(), null, true);
+//						res.setMessage("요청자 에게 알림을 보내고 등록 되었습니다.");
+//					}
+//					catch ( Exception e ) {
 						res.setMessage("등록 되었습니다.");
-					}
+//					}
 				}else{
 					res.setUrl(getBoardContext(request) + "/board/index.do");
 					res.setData(board.getUrlParam(boardManage, "index"));
