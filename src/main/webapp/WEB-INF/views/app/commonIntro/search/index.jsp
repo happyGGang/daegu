@@ -126,6 +126,7 @@ $(function() {
 <form:form modelAttribute="librarySearch" action="index.do" method="get">
 	<form:hidden path="menu_idx"/>
 	<form:hidden path="viewPage"/>
+	<form:hidden path="separateShelfCode"/>
 
 	<!-- contents-title-->
 	<div id="contents-title">

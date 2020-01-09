@@ -91,6 +91,7 @@ public class LibrarySearch extends PagingUtils {
 	private String shelfCode; // 자료실코드
 	private String subjectCode; // 주제부호( comma로 여러개 )
 	private String regCode; // 등록구분( comma로 여러개 )
+	private String separateShelfCode; // 별치기호( comma로 여러개 )
 
 	private String return_plan_date; // 반납예정일 YYYYMMDD
 	private String return_delay_cnt; // 반납연기횟수
@@ -818,6 +819,16 @@ public class LibrarySearch extends PagingUtils {
 
 	public void setWorker(String worker) {
 		this.worker = worker;
+	}
+
+
+	public String getSeparateShelfCode() {
+		return separateShelfCode;
+	}
+
+
+	public void setSeparateShelfCode(String separateShelfCode) {
+		this.separateShelfCode = separateShelfCode;
 	}
 
 }

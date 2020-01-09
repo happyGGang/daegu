@@ -99,6 +99,9 @@ public class LibSearchAPI {
 		// 등록구분. 여러개인 경우 comma(,)로 연결
 		if (StringUtils.isNotEmpty(librarySearch.getRegCode()))
 			param.put("reg_code", librarySearch.getRegCode());
+		// 별치기호. 여러개인 경우 comma(,)로 연결
+		if (StringUtils.isNotEmpty(librarySearch.getSeparateShelfCode()))
+			param.put("separate_shelf_code", librarySearch.getSeparateShelfCode());
 
 		try {
 			// 자료검색용
