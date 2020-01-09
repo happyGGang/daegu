@@ -209,6 +209,7 @@ $(function() {
 					<c:otherwise>
 					</c:otherwise>
 				</c:choose>
+				</td>
 				<td>${detail.REG_NO}</td>
 				<td>${detail.SHELF_LOC_NAME}</td>
 				<td>${detail.RETURN_PLAN_DATE}</td>
@@ -269,7 +270,7 @@ $(function() {
 			</c:if>
 
 			<c:choose>
-				<c:when test="${homepage.context_path eq 'bukbu' || homepage.context_path eq 'seobu' || homepage.context_path eq 'nambu' || homepage.context_path eq 'dongbu' || homepage.context_path eq 'jungang' || homepage.context_path eq 'duryu'}">
+				<c:when test="${homepage.context_path eq 'bukbu' || homepage.context_path eq 'seobu' || homepage.context_path eq 'nambu' || homepage.context_path eq 'dongbu' || homepage.context_path eq 'jungang' || homepage.context_path eq 'duryu' || homepage.context_path eq 'suseong' || homepage.context_path eq '228sml' || homepage.context_path eq '228lib' || homepage.context_path eq 'dalsung'}">
 
 				</c:when>
 				<c:otherwise>
@@ -312,7 +313,6 @@ $(function() {
 
 			<c:if test="${detail.WORKING_STATUS ne 'BOL112N' and param.booktype ne 'NONBOOK'}">
 			</c:if>
-
 
 			<a href="javascript:history.back();" id="goBack" class="btn"><i class="fa fa-book"></i><span>목록으로</span></a>
 		</div>
