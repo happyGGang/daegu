@@ -20,4 +20,8 @@ public interface SupportMemberDao {
 
 	public int deleteCheckSupportMember(SupportMember supportMember);
 
+	public SupportMember getSupportMemberLogin(SupportMember supportMember);
+
+	public int addLastLogin(SupportMember supportMember);
+
 }

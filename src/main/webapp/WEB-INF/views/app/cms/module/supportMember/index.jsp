@@ -87,7 +87,7 @@ $(function() {
 				<th>번호</th>
 				<th>아이디</th>
 				<th>이름</th>
-				<th>학교명</th>
+				<th>그룹</th>
 				<th>최근접속일</th>
 				<th>가입일</th>
 				<th>보기</th>
@@ -101,8 +101,15 @@ $(function() {
 				</td>
 				<td class="num">${paging.listRowNum - status.index}</td>
 				<td>${i.member_id }</td>
-				<td>${i.member_name}</td>
-				<td>${i.school}</td>
+				<td>${i.school_name}</td>
+				<td>
+					<c:choose>
+						<c:when test="${i.auth_group eq '1'}">총관리자</c:when>
+						<c:when test="${i.auth_group eq '2'}">비회원</c:when>
+						<c:when test="${i.auth_group eq '3'}">학교기관</c:when>
+						<c:when test="${i.auth_group eq '4'}">도서선정위원</c:when>
+					</c:choose>
+				</td>
 				<td><fmt:formatDate value="${i.last_connect}" pattern="yyyy-MM-dd"/></td>
 				<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>
 				<td>

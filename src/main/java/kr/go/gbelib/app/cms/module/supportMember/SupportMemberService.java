@@ -2,9 +2,14 @@ package kr.go.gbelib.app.cms.module.supportMember;
 
 import java.util.List;
 
+import javax.crypto.Cipher;
+
+import org.apache.commons.lang.StringUtils;
+import org.bouncycastle.util.encoders.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.utils.CalculateHashUtils;
 import kr.co.whalesoft.framework.utils.PagingUtils;
@@ -14,7 +19,7 @@ public class SupportMemberService extends BaseService {
 	
 	@Autowired
 	private SupportMemberDao dao;
-
+	
 	public List<SupportMember> getSupportMemberList(SupportMember supportMember) {
 		return dao.getSupportMemberList(supportMember);
 	}
@@ -49,4 +54,13 @@ public class SupportMemberService extends BaseService {
 		return dao.deleteCheckSupportMember(supportMember);
 	}
 
+	public SupportMember getSupportMemberLogin(SupportMember supportMember) {
+		supportMember.setMember_password(CalculateHashUtils.calculateHash(supportMember.getMember_password()));
+		return dao.getSupportMemberLogin(supportMember);
+	}
+
+	public int addLastLogin(SupportMember supportMember) {
+		return dao.addLastLogin(supportMember);
+	}
+	
 }

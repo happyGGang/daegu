@@ -48,56 +48,61 @@ $(function() {
 	<form:hidden path="support_member_idx" id="support_member_idx_e"/>
 	<table class="type2">
 		<colgroup>
-	       <col width="150" />
-	       <col width="*"/>
-       	</colgroup>
-       	<tbody>
-	        <tr>
+			<col width="150" />
+			<col width="*"/>
+		</colgroup>
+		<tbody>
+			<tr>
 				<th>이름(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
-					<form:input path="member_name" cssClass="text"/>
+					<form:input path="school_name" cssClass="text"/>
 					<div class="ui-state-highlight">
 						<i class="fa fa-question-circle"></i>
 						<em>한글만 사용하실 수 있습니다.</em>
 					</div>
 				</td>
-	        </tr>
-	        <tr>
-	        	<th>아이디(<span style="color: red;font-weight: bold;">*</span>)</th>
-	        	<td>
-	        		<form:input path="member_id" cssClass="text"/>
-	        		<div class="ui-state-highlight">
+			</tr>
+			<tr>
+				<th>아이디(<span style="color: red;font-weight: bold;">*</span>)</th>
+				<td>
+					<form:input path="member_id" cssClass="text"/>
+					<div class="ui-state-highlight">
 						<i class="fa fa-question-circle"></i>
 						<em>10자 이내의 영문/숫자만 사용하실 수 있습니다.</em>
 					</div>
-	        	</td>
-	        </tr>
-	        <tr>
-	        	<th>비밀번호<c:if test="${supportMember.editMode eq 'ADD'}">(<span style="color: red;font-weight: bold;">*</span>)</c:if></th>
-	        	<td>
-	        		<form:password path="member_password" cssClass="text"/>
-	        		<div class="ui-state-highlight">
+				</td>
+			</tr>
+			<tr>
+				<th>비밀번호<c:if test="${supportMember.editMode eq 'ADD'}">(<span style="color: red;font-weight: bold;">*</span>)</c:if></th>
+				<td>
+					<form:password path="member_password" cssClass="text"/>
+					<div class="ui-state-highlight">
 						<i class="fa fa-question-circle"></i>
 						<em>5자리 이상</em>
 					</div>
-	        	</td>
-	        </tr>
-	        <tr>
-	        	<th>비밀번호 확인<c:if test="${supportMember.editMode eq 'ADD'}">(<span style="color: red;font-weight: bold;">*</span>)</c:if></th>
-	        	<td>
-	        		<form:password path="password_check" cssClass="text"/>
-	        		<div class="ui-state-highlight">
+				</td>
+			</tr>
+			<tr>
+				<th>비밀번호 확인<c:if test="${supportMember.editMode eq 'ADD'}">(<span style="color: red;font-weight: bold;">*</span>)</c:if></th>
+				<td>
+					<form:password path="password_check" cssClass="text"/>
+					<div class="ui-state-highlight">
 						<i class="fa fa-question-circle"></i>
 						<em>비밀번호를 한번 더 입력하세요.</em>
 					</div>
-	        	</td>
-	        </tr>
-	        <tr>
-	        	<th>학교명</th>
-	        	<td>
-	        		<form:input path="school" cssClass="text"/>
-	        	</td>
-	        </tr>
+				</td>
+			</tr>
+			<tr>
+				<th>그룹</th>
+				<td>
+					<form:select path="auth_group">
+						<form:option value="1">총관리자</form:option>
+						<form:option value="2">비회원</form:option>
+						<form:option value="3">학교기관</form:option>
+						<form:option value="4">도서선정위원</form:option>
+					</form:select>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 </form:form>

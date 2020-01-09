@@ -35,6 +35,13 @@
 						<a href="https://www.gbelib.kr/${homepage.context_path}/intro/join/index.do?menu_idx=120">회원가입</a>
 					</c:otherwise>
 				</c:choose>
+				<c:choose>
+					<c:when test="${not empty sessionScope.supportMember}">
+						<span class="txt-bar"></span>
+						${sessionScope.supportMember.school_name}님
+						<a href="/${homepage.context_path}/module/supportMember/logout.do">학교도서관 로그아웃</a>
+					</c:when>
+				</c:choose>
 				<a href="/${homepage.context_path}/index.do" class="more-btbtbt"><img src="/resources/homepage/${homepage.context_path}/img/more_btbtbt.png" alt="사이트맵"/></a>
 			</div>
 		</div>

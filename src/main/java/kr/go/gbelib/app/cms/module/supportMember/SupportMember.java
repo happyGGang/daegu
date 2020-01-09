@@ -8,11 +8,11 @@ public class SupportMember extends PagingUtils {
 
 	private int support_member_idx;
 	private int[] support_member_arr;
-	private String member_name; // 회원명
+	private String school_name; // 학교명
 	private String member_id; // 회원ID
 	private String member_password; // 회원 비밀번호
 	private String password_check; // 비밀번호 확인
-	private String school; // 학교명
+	private String auth_group; // 그룹
 	private Date last_connect; // 마지막 접속일
 	private String add_id; // 등록ID
 	private Date add_date; // 등록일시
@@ -35,12 +35,12 @@ public class SupportMember extends PagingUtils {
 		this.support_member_arr = support_member_arr;
 	}
 
-	public String getMember_name() {
-		return member_name;
+	public String getSchool_name() {
+		return school_name;
 	}
 
-	public void setMember_name(String member_name) {
-		this.member_name = member_name;
+	public void setSchool_name(String school_name) {
+		this.school_name = school_name;
 	}
 
 	public String getMember_id() {
@@ -67,12 +67,12 @@ public class SupportMember extends PagingUtils {
 		this.password_check = password_check;
 	}
 
-	public String getSchool() {
-		return school;
+	public String getAuth_group() {
+		return auth_group;
 	}
 
-	public void setSchool(String school) {
-		this.school = school;
+	public void setAuth_group(String auth_group) {
+		this.auth_group = auth_group;
 	}
 
 	public Date getLast_connect() {

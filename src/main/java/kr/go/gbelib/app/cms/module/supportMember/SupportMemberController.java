@@ -54,13 +54,13 @@ public class SupportMemberController extends BaseController {
 		/* 유효성 검증 >>>>> */
 		JsonResponse res = new JsonResponse(request);
 		if (supportMember.getEditMode().equals("ADD") || supportMember.getEditMode().equals("MODIFY")) {
-    		ValidationUtils.rejectIfEmpty(result, "member_name", "이름을 입력하세요.");
+    		ValidationUtils.rejectIfEmpty(result, "school_name", "학교명을 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "member_id", "아이디를 입력하세요");
     		if(supportMember.getEditMode().equals("ADD") || StringUtils.isNotEmpty(supportMember.getMember_password())) {
     			ValidationUtils.rejectIfEmpty(result, "member_password", "비밀번호를 입력하세요");
     			ValidationUtils.rejectIfEmpty(result, "password_check", "비밀번호 확인을 입력하세요");
     		}
-    		ValidationUtils.rejectOnlyKor(result, "member_name", "이름은 한글만 입력할 수 있습니다.");
+    		ValidationUtils.rejectOnlyKor(result, "school_name", "학교명은 한글만 입력할 수 있습니다.");
     		ValidationUtils.rejectOnlyEngNum(result, "member_id", "아이디는 영문/숫자만 사용하실 수 있습니다.");
     		
     		if(supportMember.getMember_id().length() > 10) {

@@ -5,7 +5,7 @@
 	<select id="getSupportMemberList" resultType="kr.go.gbelib.app.cms.module.supportMember.SupportMember">
 		${pagingTop}
 		SELECT
-			support_member_idx, member_name, member_id, member_password, school,
+			support_member_idx, school_name, member_id, member_password, auth_group,
 			last_connect, add_id, add_date
 		FROM
 			SUPPORT_MEMBER
@@ -31,7 +31,7 @@
 	
 	<select id="getSupportMemberOne" resultType="kr.go.gbelib.app.cms.module.supportMember.SupportMember">
 		SELECT
-			support_member_idx, member_name, member_id, member_password, school,
+			support_member_idx, school_name, member_id, member_password, auth_group,
 			last_connect, add_id, add_date
 		FROM
 			SUPPORT_MEMBER
@@ -55,12 +55,12 @@
 		INSERT INTO
 			SUPPORT_MEMBER
 		(
-			support_member_idx, member_name, member_id, member_password, school,
+			support_member_idx, school_name, member_id, member_password, auth_group,
 			last_connect, add_id, add_date
 		)
 		VALUES
 		(
-			#{support_member_idx}, #{member_name}, #{member_id}, #{member_password}, #{school},
+			#{support_member_idx}, #{school_name}, #{member_id}, #{member_password}, #{auth_group},
 			#{last_connect}, #{add_id}, SYSDATE
 		)
 	</insert>
@@ -69,12 +69,12 @@
 		UPDATE
 			SUPPORT_MEMBER
 		SET
-			member_name = #{member_name},
+			school_name = #{school_name},
 			member_id = #{member_id},
 			<if test="member_password != null and member_password != ''">
 			member_password = #{member_password},
 			</if>
-			school = #{school},
+			auth_group = #{auth_group},
 			modify_id = #{modify_id},
 			modify_date = SYSDATE
 		WHERE
@@ -97,5 +97,25 @@
 			#{i}
 			</foreach>
 	</delete>
+	
+	<select id="getSupportMemberLogin" resultType="kr.go.gbelib.app.cms.module.supportMember.SupportMember">
+		SELECT
+			support_member_idx, school_name, member_id, member_password, auth_group,
+			last_connect, add_id, add_date
+		FROM
+			SUPPORT_MEMBER
+		WHERE
+			member_id = #{member_id}
+		AND	member_password = #{member_password}
+	</select>
+	
+	<update id="addLastLogin">
+		UPDATE
+			SUPPORT_MEMBER
+		SET
+			last_connect = SYSDATE
+		WHERE
+			member_id = #{member_id}
+	</update>
 	
 </mapper>
