@@ -84,6 +84,10 @@ public class JoinService extends BaseService {
 
 		    String sEncodeData = requestReplace(request.getParameter("EncodeData"), "encodeData");
 
+		    String sReservedParam1  = requestReplace(request.getParameter("param_r1"), "");
+			String sReservedParam2  = requestReplace(request.getParameter("param_r2"), "");
+			String sReservedParam3  = requestReplace(request.getParameter("param_r3"), "");
+
 		    final String sSiteCode = "BQ437";				// NICE로부터 부여받은 사이트 코드 - 대구시청
 		    final String sSitePassword = "7fdpBlHmR0Ee";			// NICE로부터 부여받은 사이트 패스워드 - 대구시청
 

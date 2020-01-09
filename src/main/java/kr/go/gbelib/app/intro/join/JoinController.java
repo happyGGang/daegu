@@ -26,6 +26,7 @@ import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.member.MemberService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
+import kr.co.whalesoft.framework.utils.StrUtil;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.cms.module.certLog.CertLog;
 import kr.go.gbelib.app.cms.module.certLog.CertLogService;
@@ -125,6 +126,9 @@ public class JoinController extends BaseController {
 		} else if (certType.toLowerCase().contains("gpin")) {
 			model.addAttribute("result", joinService.getIpinEncData(request, returnUrl));
 		}
+		Homepage homepage = getSessionHomepage(request);
+		model.addAttribute("currentContext", homepage.getContext_path());
+		System.out.println("@@@@@@@@@@@@@@@@ csrf : " + request.getAttribute("_csrf"));
 
 		request.getSession().setAttribute("certType", certType);
 		String mode = String.valueOf(request.getParameter("mode"));
@@ -235,7 +239,7 @@ public class JoinController extends BaseController {
 			model.addAttribute("findId", true);
 			request.getSession().setAttribute("findId", "o");
 			List<Map<String, Object>> memberInfo = MemberAPI.checkDupUser("1", member);
-			if (memberInfo == null) {
+			if (memberInfo == null || memberInfo.isEmpty() || memberInfo.size() == 0) {
 				model.addAttribute("dupCheck2", true);
 			} else {
 				request.getSession().setAttribute("certMember", memberInfo.get(0));
@@ -425,11 +429,18 @@ public class JoinController extends BaseController {
 				model.addAttribute("dupUser", memberInfo.get(0));
 			}
 
+			String sReservedParam1  = StrUtil.isNull(request.getParameter("param_r1"), "");
+			String sReservedParam2  = StrUtil.isNull(request.getParameter("param_r2"), "");
+			String sReservedParam3  = StrUtil.isNull(request.getParameter("param_r3"), "");
+
 			// 3. 책이음 중복자 확인
-			List<Map<String, Object>> klmemberInfo = MemberAPI.checkDupUser("3", member);
-			if (klmemberInfo != null && klmemberInfo.size() > 0) {
-				model.addAttribute("dupCheckKl", true);
-				model.addAttribute("dupUserKl", klmemberInfo.get(0));
+			// 2020.01.07 'daegu' 컨텍스트에서는 신규가입 시 책이음회원여부를 체크하지 않는다.
+			if (!StringUtils.equals(sReservedParam1, "daegu")) {
+				List<Map<String, Object>> klmemberInfo = MemberAPI.checkDupUser("3", member);
+				if (klmemberInfo != null && klmemberInfo.size() > 0) {
+					model.addAttribute("dupCheckKl", true);
+					model.addAttribute("dupUserKl", klmemberInfo.get(0));
+				}
 			}
 
 			model.addAttribute("parent", false);

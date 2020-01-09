@@ -11,7 +11,7 @@ $(function() {
 		alert('잘못된 경로로 접근 하였습니다.');
 		window.close();
 	}
-	
+
 	<c:choose>
 	<c:when test="${result['return'] ne 0}">
 	alert("${result['message']}");
@@ -35,6 +35,9 @@ $(function() {
 <input type="hidden" name="_csrf" value="${_csrf.token}">
 <input type="hidden" name="m" value="checkplusSerivce">
 <input type="hidden" name="EncodeData" value="${result['encData']}">
+<input type="hidden" name="param_r1" value="${currentContext}">
+<input type="hidden" name="param_r2" value="">
+<input type="hidden" name="param_r3" value="">
 </form>
 </c:if>
 
@@ -43,7 +46,7 @@ $(function() {
 <input type="hidden" name="_csrf" value="${_csrf.token}">
 <input type="hidden" name="m" value="pubmain">
 <input type="hidden" name="enc_data" value="${result['encData']}">
-<input type="hidden" name="param_r1" value="">
+<input type="hidden" name="param_r1" value="${currentContext}">
 <input type="hidden" name="param_r2" value="">
 <input type="hidden" name="param_r3" value="">
 </form>

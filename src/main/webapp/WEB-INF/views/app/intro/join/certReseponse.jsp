@@ -75,6 +75,11 @@ $(function() {
 		window.close();
 		return false;
 	} else if ('${findId}' == 'true') {
+		if ('${dupCheck2}' == 'true') {
+			alert('일치하는 회원이 없습니다');
+			window.close();
+			return false;
+		}
 		window.opener.document.getElementById('memberInfo').submit();
 		window.close();
 		return false;
