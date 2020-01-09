@@ -90,7 +90,7 @@
 	<div id="container" class="main">
 		<div class="main_bg">
 			<div class="main1">
-				<div class="section">
+				<div class="section" style="overflow:hidden;">
 					<div class="txt">
 						<img src="/resources/homepage/${homepage.context_path}/img/txt6.png" alt=""/>
 					</div>
@@ -124,7 +124,7 @@
 		</div>
 
 		<div class="qmenu">
-			<div class="section">
+			<div class="section" style="overflow:hidden;">
 
 				<ul data-call="bxslider" data-breaks="[{screen:0, slides:1},{screen:340, slides:2},{screen:450, slides:3},{screen:600, slides:4},{screen:767, slides:5},{screen:1000, slides:${fn:length(quickMenuList)}}]">
 					<homepageTag:quickMenu quickMenuList="${quickMenuList}" />
@@ -135,7 +135,7 @@
 
 
 		<div class="main_line">
-			<div class="section">
+			<div class="section" style="overflow:hidden;">
 
 				<div class="main3">
 					<div class="title">
@@ -239,7 +239,7 @@
 		</div>
 
 		<div class="main6_bg">
-			<div class="main6 section">
+			<div class="main6 section" style="overflow:hidden;">
 				<!-- 팝업존 -->
 				<div class="popZone">
 					<c:choose>

@@ -126,41 +126,16 @@
 		</div>
 
 		<div class="qmenu">
-			<div class="section">
-			<!--
+			<div class="section" style="overflow:hidden;">
 				<ul data-call="bxslider" data-breaks="[{screen:0, slides:1},{screen:340, slides:2},{screen:450, slides:3},{screen:600, slides:4},{screen:767, slides:5},{screen:1000, slides:${fn:length(quickMenuList)}}]">
 					<homepageTag:quickMenu quickMenuList="${quickMenuList}" />
-				</ul>
-				-->
-				<ul data-call="bxslider" data-breaks="[{screen:0, slides:1},{screen:340, slides:2},{screen:450, slides:3},{screen:600, slides:4},{screen:767, slides:5},{screen:1000, slides:7}]">
-					<li class="qm1">
-					<a style="background-image:url('/resources/homepage/jungang/img/q1.png')" href="/cs/intro/search/index.do?menu_idx=8">
-					<span>자료검색</span></a></li>
-					<li class="qm2">
-					<a style="background-image:url('/resources/homepage/jungang/img/q2.png')" href="/cs/intro/search/loan/index.do?menu_idx=115">
-					<span>대출조회</span></a></li>
-					<li class="qm3">
-					<a style="background-image:url('/resources/homepage/jungang/img/q3.png')" href="/cs/intro/search/hope/index.do?menu_idx=16">
-					<span>희망도서신청</span></a></li>
-					<li class="qm4">
-					<a style="background-image:url('/resources/homepage/jungang/img/q4.png')" target="_blank" href="http://www.nl.go.kr/nill/user/index.jsp">
-					<span>책바다</span></a></li>
-					<li class="qm5">
-					<a style="background-image:url('/resources/homepage/jungang/img/q5.png')" href="/cs/html.do?menu_idx=90">
-					<span>이용안내</span></a></li>
-					<li class="qm6">
-					<a style="background-image:url('/resources/homepage/jungang/img/q6.png')" href="/cs/board/index.do?menu_idx=74&manage_idx=228">
-					<span>자주하는질문</span></a></li>
-					<li class="qm7">
-					<a style="background-image:url('/resources/homepage/jungang/img/q7.png')" target="_blank" href="http://www.gbelib.kr/elib/index.do">
-					<span>전자도서관</span></a></li>
 				</ul>
 			</div>
 		</div>
 
 
 		<div class="main_line">
-			<div class="section">
+			<div class="section" style="overflow:hidden;">
 				<div class="main3_4_box">
 					<div style="">
 						<div class="main3 tabS">

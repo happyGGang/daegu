@@ -22,15 +22,18 @@ $(function() {
 	<div id="container" class="subpage">
 
 		<div class="sub-visual" <c:if test="${not empty menuOne.menu_img}">style="background-image: url('/data/menu/${menuOne.homepage_id}/${menuOne.menu_img}')"</c:if>>
-		</div>
-		<div class="doc-info">
-			<div class="section">
-				<ol>
-					<li class="first"><a href="/${homepage.context_path}/index.do"><i class="fa fa-home"></i><span>HOME</span></a></li>
-					<homepageTag:docInfo oneMenu="${menuOne}" menuList="${menuLeftList}"/>
-				</ol>
+			<div class="doc-info-bg">
+				<div class="doc-info">
+					<ol>
+						<li class="first"><a href="/${homepage.context_path}/index.do"><i class="fa fa-home"></i></a></li>
+						<homepageTag:docInfo oneMenu="${menuOne}" menuList="${menuLeftList}"/>
+					</ol>
+					<jsp:include page="/WEB-INF/views/app/homepage/common/snsShareBox.jsp" flush="false" />
+					<div class="end"></div>
+				</div>
 			</div>
 		</div>
+
 		<div class="section">
 			<c:if test="${menuOne ne null}">
 			<div class="lnb">
@@ -61,6 +64,7 @@ $(function() {
 			</div>
 		</div>
 
+		<div class="end"></div>
 	</div>
 
 </div>

@@ -21,19 +21,23 @@ $(function() {
 	
 	<div id="container" class="subpage">
 
-		<div class="doc-info">
-			<div class="section">
-				<ol>			
-					<li class="first"><a href="/${homepage.context_path}/index.do"><i class="fa fa-home"></i><span>HOME</span></a></li>
-					<homepageTag:docInfo oneMenu="${menuOne}" menuList="${menuLeftList}"/>
-				</ol>
-				<%--jsp:include page="/WEB-INF/views/app/homepage/common/snsShareBox.jsp" flush="false" /--%>
+		<div class="sub-visual-suseong">
+			<div class="doc-info-bg-suseong">
+				<div class="doc-info-suseong">
+					<ol>
+						<li class="first"><a href="/${homepage.context_path}/index.do"><i class="fa fa-home"></i></a></li>
+						<homepageTag:docInfo oneMenu="${menuOne}" menuList="${menuLeftList}"/>
+					</ol>
+					<jsp:include page="/WEB-INF/views/app/homepage/common/snsShareBox.jsp" flush="false" />
+					<div class="end"></div>
+				</div>
 			</div>
 		</div>
+
 		<div class="section">
 			<c:if test="${menuOne ne null}">
 			<div class="lnb">
-				<h2><b>${menuLeftList[0].menu_name}</b></h2>
+				<h2 style="margin-top:-63px;"><b>${menuLeftList[0].menu_name}</b></h2>
 				<homepageTag:leftMenu menuList="${menuLeftList}"/>
 			</div>
 			</c:if>

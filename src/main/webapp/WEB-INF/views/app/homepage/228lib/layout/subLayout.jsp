@@ -19,24 +19,23 @@ $(function() {
 	<tiles:insertAttribute name="topMenu" />
 	
 	<div id="container" class="subpage">
-		<div class="sub-visual" <c:if test="${menuOne.menu_img ne null and menuOne.menu_img ne ''}">style="background-image: url('/data/menu/${menuOne.homepage_id}/${menuOne.menu_img}')"</c:if>>
-<!-- 			<p class="sv1"><b>Library with</b> citizens</p> -->
-<!-- 			<p class="sv2">Gyeongbuk Provincial Cheongsong Public Library</p> -->
-		</div>
-
-		<div class="doc-info">
-			<div class="section">
-				<ol>			
-					<li class="first"><a href="/${homepage.context_path}/index.do"><i class="fa fa-home"></i><span>HOME</span></a></li>
-					<homepageTag:docInfo oneMenu="${menuOne}" menuList="${menuLeftList}"/>
-				</ol>
-				<%--jsp:include page="/WEB-INF/views/app/homepage/common/snsShareBox.jsp" flush="false" /--%>
+		<div class="sub-visual" <c:if test="${not empty menuOne.menu_img}">style="background-image: url('/data/menu/${menuOne.homepage_id}/${menuOne.menu_img}')"</c:if>>
+			<div class="doc-info-bg">
+				<div class="doc-info">
+					<ol>
+						<li class="first"><a href="/${homepage.context_path}/index.do"><i class="fa fa-home"></i></a></li>
+						<homepageTag:docInfo oneMenu="${menuOne}" menuList="${menuLeftList}"/>
+					</ol>
+					<jsp:include page="/WEB-INF/views/app/homepage/common/snsShareBox.jsp" flush="false" />
+					<div class="end"></div>
+				</div>
 			</div>
 		</div>
+
 		<div class="section">
 			<c:if test="${menuOne ne null}">
 			<div class="lnb">
-				<h2><b>${menuLeftList[0].menu_name}</b></h2>
+				<h2 style="margin-top:-159px;"><b>${menuLeftList[0].menu_name}</b></h2>
 				<homepageTag:leftMenu menuList="${menuLeftList}"/>
 			</div>
 			</c:if>
@@ -61,6 +60,7 @@ $(function() {
 			</div>
 		</div>
 	
+		<div class="end"></div>
 	</div>
 
 </div>

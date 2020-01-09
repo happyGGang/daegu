@@ -26,7 +26,7 @@
 <!--link rel="stylesheet"type="text/css"href="/resources/common/css/sub_contents.css"/-->
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/default.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/main.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/homepage/dongbu/css/sub_design.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/sub_design.css"/>
 
 <!--[if lte IE 7]>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome-ie7.min.css"/>
