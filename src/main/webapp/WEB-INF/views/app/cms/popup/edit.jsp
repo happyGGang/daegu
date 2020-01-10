@@ -32,7 +32,7 @@ $(function() {
 	nhn.husky.EZCreator.createInIFrame({
 		oAppRef: oEditors,
 		elPlaceHolder: "html",
-		sSkinURI: "${getContextPath}/resources/cms/smart_editor/SmartEditor2Skin.html",	
+		sSkinURI: "${getContextPath}/resources/cms/smart_editor/SmartEditor2Skin.html",
 		htParams : {
 			bUseToolbar : true,				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
 			bUseVerticalResizer : true,		// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
@@ -49,11 +49,11 @@ $(function() {
 		},
 		fCreator: "createSEditor2"
 	});
-	
+
 	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
 		resizable: true,
-		modal: true, 
+		modal: true,
 	    open: function(){
 	        $('.ui-widget-overlay').addClass('custom-overlay');
 	    },
@@ -88,7 +88,7 @@ $(function() {
 										alert(response.result[i].code);
 										$('#'+response.result[i].field).focus();
 										break;
-									}	
+									}
 								}
 							}
 				         },
@@ -107,26 +107,26 @@ $(function() {
 			}
 		]
 	});
-	
+
 	$("#dialog-1").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
 		width: 800,
 		height: 700
 	});
-	
+
 	$('input#start_date').datepicker({
-		maxDate: $('input#end_date').val(), 
+		maxDate: $('input#end_date').val(),
 		onClose: function(selectedDate){
 			$('input#end_date').datepicker('option', 'minDate', selectedDate);
 		}
 	});
-	
+
 	$('input#end_date').datepicker({
-		minDate: $('input#start_date').val(), 
+		minDate: $('input#start_date').val(),
 		onClose: function(selectedDate){
 			$('input#start_date').datepicker('option', 'maxDate', selectedDate);
 		}
 	});
-	
+
     var url = "/cms/popup/imgUpload.do";
 
     uploadButton = $('<button/>')
@@ -147,7 +147,7 @@ $(function() {
                 $this.remove();
             });
         });
-	
+
     $('#fileupload').change(function() {
 		if (this.files && this.files[0]) {
 			var reader = new FileReader();
@@ -199,7 +199,7 @@ $(function() {
              	$('div#htmlFiles a').on('click', function(e) {
             		e.preventDefault();
             		pasteHTML($(this).data('url'));
-            	});	
+            	});
             } else if (file.error) {
                 var error = $('<span class="text-danger"/>').text(file.error);
                 $('div#htmlFiles').append('<br>').append(error);
@@ -214,7 +214,7 @@ $(function() {
         });
     }).prop('disabled', !$.support.fileInput)
         .parent().addClass($.support.fileInput ? undefined : 'disabled');
-    
+
     $('input:radio[name="html_use_yn"]').on('click', function() {
     	if ( this.value === 'Y' ) {
     		$('tr.detailContent').show();
@@ -315,7 +315,7 @@ function pasteHTML(filepath){
 		</tr>
 		<tr class="detailContent">
 			<th>상세내용</th>
-			<td> 
+			<td>
 				<form:textarea path="html" cssStyle="width:100%;height:60px;"/>
 			</td>
 		</tr>
@@ -324,7 +324,7 @@ function pasteHTML(filepath){
 			<td>
 				<form:hidden id="org_file_name" path="org_file_name" />
 				<input id="fileupload" type="file" name="imgFile" accept=".gif,.jpeg,.jpg,.png">
-				
+
 			    <div id="progress" class="progress">
 			        <div class="progress-bar progress-bar-success"></div>
 			    </div>
@@ -335,7 +335,7 @@ function pasteHTML(filepath){
 			<td colspan="3">
 				<div id="htmlFiles" class="item">
 					<img src="/resources/cms/img/noimg_135_42.gif" alt="이미지 미리보기 입니다.">
-					<a></a>					 
+					<a></a>
 				</div>
 			</td>
 		</tr>
@@ -349,7 +349,7 @@ function pasteHTML(filepath){
 					<c:if test="${popup.org_file_name ne null}">
 						<img src="${getContextPath}/data/popup/${popup.homepage_id}/${popup.server_file_name}" alt="${popup.server_file_name}">
 					</c:if>
-					<a></a>					 
+					<a></a>
 				</div>
 			</td>
 		</tr>
@@ -369,7 +369,7 @@ function pasteHTML(filepath){
 				<form:radiobutton path="use_yn" value="N"/> <label for="use_yn2" style="cursor:pointer;">사용안함</label>
 			</td>
 		</tr>
-		<c:if test="${popup.homepage_id eq 'h1'}">
+		<c:if test="${popup.homepage_id eq 'h32'}">
 		<tr>
 			<th>공통적용여부</th>
 			<td>
