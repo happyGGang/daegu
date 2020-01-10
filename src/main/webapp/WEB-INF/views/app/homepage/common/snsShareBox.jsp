@@ -19,6 +19,7 @@ $(document).ready(function() {
 	});
 
 	$('a#closeshareBox').on('click', function(e) {
+		e.preventDefault();
 		$('div#share_layer').hide();
 	});
 
@@ -50,6 +51,6 @@ $(document).ready(function() {
 									</div>
 
 							</li>
-							<li class="last"><a href="" class="sub-qrcode"><img src="/resources/common/img/qr_icon.png" alt="qr코드 보기"></a></li>
+							<li class="last"><a href="" class="sub-qrcode" keyValue="true"><img src="/resources/common/img/qr_icon.png" alt="qr코드 보기"></a></li>
 						</ul>
 					</div>
