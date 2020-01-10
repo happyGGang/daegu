@@ -13,6 +13,15 @@
 			add_id, add_date
 		FROM
 			LIBRARY_CHECK a
+		<if test="loan_status != null and loan_status != ''">
+		WHERE
+			(SELECT COUNT(*) FROM LIBRARY_CHECK_LOAN WHERE library_check_idx = a.library_check_idx)
+			<choose>
+				<when test="loan_status == 0"><![CDATA[=]]></when>
+				<when test="loan_status == 1"><![CDATA[>]]></when>
+			</choose>
+			0
+		</if>
 		ORDER BY library_check_number ASC
 		${pagingBottom}
 	</select>
@@ -21,7 +30,17 @@
 		SELECT
 			COUNT(*)
 		FROM
-			LIBRARY_CHECK
+			LIBRARY_CHECK a
+		<if test="loan_status != null and loan_status != ''">
+		WHERE
+			(SELECT COUNT(*) FROM LIBRARY_CHECK_LOAN WHERE library_check_idx = a.library_check_idx)
+			
+			<choose>
+				<when test="loan_status == 0"><![CDATA[=]]></when>
+				<when test="loan_status == 1"><![CDATA[>]]></when>
+			</choose>
+			0
+		</if>
 	</select>
 	
 	<select id="getLibraryCheckOne" resultType="kr.go.gbelib.app.cms.module.libraryCheck.LibraryCheck">
@@ -67,7 +86,6 @@
 		UPDATE
 			LIBRARY_CHECK
 		SET
-			library_check_name = #{library_check_name},
 			library_check_number = #{library_check_number},
 			content = #{content},
 			<if test="org_file_name != null and org_file_name != ''">
@@ -118,6 +136,9 @@
 		<if test="request_status != null and request_status != ''">
 		AND	request_status = #{request_status}
 		</if>
+		<if test="add_id != null and add_id != ''">
+		AND	b.add_id = #{add_id}
+		</if>
 		${pagingBottom}
 	</select>
 	
@@ -136,6 +157,9 @@
 		</if>
 		<if test="request_status != null and request_status != ''">
 		AND	request_status = #{request_status}
+		</if>
+		<if test="add_id != null and add_id != ''">
+		AND	b.add_id = #{add_id}
 		</if>
 	</select>
 	
@@ -187,6 +211,13 @@
 		WHERE
 			library_check_loan_idx = #{library_check_loan_idx}
 	</update>
+	
+	<delete id="deleteLibraryCheckLoan">
+		DELETE FROM
+			LIBRARY_CHECK_LOAN
+		WHERE
+			library_check_loan_idx = #{library_check_loan_idx}
+	</delete>
 	
 	<select id="getWeekFriday" resultType="String">
 		SELECT

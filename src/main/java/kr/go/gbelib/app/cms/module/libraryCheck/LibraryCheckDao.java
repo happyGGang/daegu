@@ -29,6 +29,8 @@ public interface LibraryCheckDao {
 	public int addLibraryCheckLoan(LibraryCheck libraryCheck);
 	
 	public int modifyLibraryCheckLoan(LibraryCheck libraryCheck);
+	
+	public int deleteLibraryCheckLoan(LibraryCheck libraryCheck);
 
 	public String getWeekFriday(LibraryCheck libraryCheck);
 

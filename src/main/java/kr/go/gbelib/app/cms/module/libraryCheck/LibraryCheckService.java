@@ -120,6 +120,10 @@ public class LibraryCheckService extends BaseService {
 	public int modifyLibraryCheckLoan(LibraryCheck libraryCheck) {
 		return dao.modifyLibraryCheckLoan(libraryCheck);
 	}
+	
+	public int deleteLibraryCheckLoan(LibraryCheck libraryCheck) {
+		return dao.deleteLibraryCheckLoan(libraryCheck);
+	}
 
 	public String getWeekFriday(LibraryCheck libraryCheck) {
 		return dao.getWeekFriday(libraryCheck);
