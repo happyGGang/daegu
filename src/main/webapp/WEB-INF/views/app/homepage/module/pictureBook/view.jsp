@@ -5,23 +5,25 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script type="text/javascript">
 $(function() {
-	
 	var $form = $('form#pictureBook');
 	
-	$('.dialog-req').on('click', function(e) {
+	$('.request-btn').on('click', function(e) {
 		e.preventDefault();
 		var formData = $form.serialize() + '&loan_year='+$(this).attr('keyValue') + '&loan_month='+$(this).attr('keyValue2');
-		$('#dialog-1').load('loanEdit.do?' + formData, function(response, status, xhr) {
-			$('#dialog-1').dialog('open');
-		});
+// 		$('#dialog-1').load('loanEdit.do?' + formData, function(response, status, xhr) {
+// 			$('#dialog-1').dialog('open');
+// 		});
+		doGetLoad('loanEdit.do', formData);
 	});
 	
-	$('.dialog-edit').on('click', function(e) {
+	$('.edit-btn').on('click', function(e) {
 		e.preventDefault();
-		var formData = $form.serrialize() + 'picture_book_loan_idx='+$(this).attr('keyValue');
-		$('#dialog-1').load('loanEdit.do', function(response, status, xhr) {
-			$('#dialog-1').dialog('open');
-		});
+		if('${authGroup}' != '1') {
+			return false;
+		}
+		
+		var formData = $form.serialize() + '&picture_book_loan_idx='+$(this).attr('keyValue');
+		doGetLoad('loanEdit.do', formData);
 	});
 	
 	$('#list-btn').on('click', function(e) {
@@ -29,12 +31,11 @@ $(function() {
 		var url = 'index${pictureBook.before_url}.do';
 		doGetLoad(url, $('#pictureBook').serialize());
 	});
-	
 });
 </script>
 <style>
 .group-box {position: relative;padding: 10px;}
-.img-box {display:inline-block;width: 183px;height: 261px;border: 1px solid #ccc;}
+.img-box {display:inline-block;width: 183px;height: 261px;border: 1px solid #ccc;padding: 0;}
 .content-box {position: absolute;display: inline-block;width: 75%;padding: 0 20px;}
 .content-box p {padding: 20px 0 40px;font-size: 25px;font-weight: bold;color: #222;}
 dl#author {overflow: hidden;width: 470px;font-size: 13px;}
@@ -55,8 +56,9 @@ dl#author dd {float: left;width: 140px;margin-bottom: 15px;padding: 0 15px;}
 </form:form>
 
 <form:form modelAttribute="pictureBook" action="index.do" method="GET">
-<form:hidden path="viewPage"/>
 <form:hidden path="editMode"/>
+<form:hidden path="menu_idx"/>
+<form:hidden path="viewPage"/>
 <form:hidden path="pay_yn"/>
 <form:hidden path="picture_book_idx"/>
 <form:hidden path="picture_book_subject"/>
@@ -98,7 +100,9 @@ dl#author dd {float: left;width: 140px;margin-bottom: 15px;padding: 0 15px;}
 				</c:if>
 			</dl>
 		</div>
+		<c:if test="${pictureBook.pay_yn eq 'Y'}">
 		<div class="book-desc">${pictureBook.content}</div>
+		</c:if>
 		<div class="calendar-box">
 			<span id="req-year">${pictureBook.loan_year}년</span>
 			<c:forEach var="month" begin="1" end="12">
@@ -108,10 +112,10 @@ dl#author dd {float: left;width: 140px;margin-bottom: 15px;padding: 0 15px;}
 				<c:choose>
 					<c:when test="${loanableMonth[month].isMonth}">
 					<a href="javascript:void(0)" class="apply-ok"><span>대출완료</span></a>
-					<a href="#" class="dialog-edit" keyValue="${loanableMonth[month].picture_book_loan_idx}">${loanableMonth[month].school_name}/${loanableMonth[month].request_name}</a>
+					<a href="#" class="edit-btn" keyValue="${loanableMonth[month].picture_book_loan_idx}">${loanableMonth[month].school_name}/${loanableMonth[month].request_name}</a>
 					</c:when>
 					<c:otherwise>
-					<a href="#" class="dialog-req apply-req" keyValue="${pictureBook.loan_year}" keyValue2="${month}" style="color: blue;">대출신청</a>
+					<a href="#" class="request-btn apply-req" keyValue="${pictureBook.loan_year}" keyValue2="${month}" style="color: blue;">대출신청</a>
 					</c:otherwise>
 				</c:choose>
 				</div>
@@ -124,4 +128,3 @@ dl#author dd {float: left;width: 140px;margin-bottom: 15px;padding: 0 15px;}
 <div>
 	<a href="#" id="list-btn" class="btn btn3">목록으로</a>
 </div>
-<div id="dialog-1" class="dialog-common" title="그림책 원화 신청 "></div>

@@ -97,20 +97,31 @@ public class PictureBookService extends BaseService {
 		return dao.deletePictureBook(pictureBook);
 	}
 	
-	public Map<Integer, Boolean> getLoanableMonth(PictureBook pictureBook) {
-		Map<Integer, Boolean> map = new HashMap<Integer, Boolean>();
+	public Map<Integer, Map<String, Object>> getLoanableMonth(PictureBook pictureBook) {
+//		Map<Integer, Boolean> map = new HashMap<Integer, Boolean>();
+		Map<Integer, Map<String, Object>> map = new HashMap<Integer, Map<String, Object>>();
+		Map<String, Object> element = null;
+		
 		List<PictureBook> list = dao.getLoanableMonth(pictureBook);
 		
 		for (int i = 1; i < 12; i++) {
+			element = new HashMap<String, Object>();
 			boolean flag = false;
+			
 			for (int j = 0; j < list.size(); j++) {
 				if(i == Integer.parseInt(list.get(j).getLoan_month())) {
+					element.put("picture_book_loan_idx", list.get(j).getPicture_book_loan_idx());
+					element.put("school_name", list.get(j).getSchool_name());
+					element.put("request_name", list.get(j).getRequest_name());
+					
 					flag = true;
 					list.remove(j);
 					break;
 				}
 			}
-			map.put(i, flag ? true : false);
+			
+			element.put("isMonth", flag);
+			map.put(i, element);
 		}
 		
 		return map;

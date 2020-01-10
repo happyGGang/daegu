@@ -5,13 +5,18 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script type="text/javascript">
 $(function() {
+	var $form = $('form#pictureBook');
 	
 	// 책 꾸러미 대출 수정
-	$('a.dialog-edit').on('click', function(e) {
+	$('a.edit-btn').on('click', function(e) {
 		e.preventDefault();
-		$('#dialog-1').load('loanEdit.do?editMode=MODIFY&picture_book_loan_idx='+$(this).attr('keyValue'), function(response, status, xhr) {
-			$('#dialog-1').dialog('open');
-		});
+// 		if('${authGroup}' != '1') {
+// 			return false;
+// 		}
+		
+		$('#editMode').val('MODIFY');
+		$('#picture_book_loan_idx').val($(this).attr('keyValue'));
+		doGetLoad('loanEdit.do', $form.serialize());
 	});
 	
 	$('a.cancle-btn').on('click', function(e) {
@@ -19,9 +24,9 @@ $(function() {
 		if(confirm('해당 대출 신청을 취소하시겠습니까?')) {
 			$('#editMode').val('DELETE');
 			$('#picture_book_loan_idx').val($(this).attr('keyValue'));
-			$('#pictureBook').attr('action', 'loanSave.do');
-			$('#pictureBook').attr('method', 'POST');
-			if(doAjaxPost($('form#pictureBook'))) {
+			$form.attr('action', 'loanSave.do');
+			$form.attr('method', 'POST');
+			if(doAjaxPost($form)) {
 				location.reload();
 			}
 		}
@@ -44,7 +49,9 @@ $(function() {
 		if(currMonth == j) {
 			selected = 'selected="selected"';
 		}
-		$('select#loan_month').append('<option value="'+j+'" '+selected+'>'+j+'</option>'); 
+		
+		var valueMonth = j < 10 ? '0'+j : j;
+		$('select#loan_month').append('<option value="'+valueMonth+'" '+selected+'>'+valueMonth+'</option>');
 	}
 	
 	$('.listChange').on('click', function(e) {
@@ -131,6 +138,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 </div>
 <form:form modelAttribute="pictureBook" action="loanList.do" method="GET">
 <form:hidden path="editMode"/>
+<form:hidden path="menu_idx"/>
 <form:hidden path="pay_yn"/>
 <form:hidden path="picture_book_loan_idx"/>
 	<div class="infodesk">
@@ -157,7 +165,9 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 	</div>
 	<table class="type1 center">
 		<colgroup>
+			<c:if test="${sessionScope.authGroup eq '1'}">
 			<col width="5%" />
+			</c:if>
 			<col width="7%" />
 			<col />
 			<col width="10%" />
@@ -169,7 +179,9 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 		</colgroup>
 		<thead>
 			<tr>
+				<c:if test="${sessionScope.authGroup eq '1'}">
 				<th>선택</th>
+				</c:if>
 				<th>번호</th>
 				<th>원화명</th>
 				<th>대출기간</th>
@@ -183,12 +195,14 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 		<tbody>
 			<c:forEach var="i" varStatus="status" items="${pictureBookLoanList}">
 				<tr>
+					<c:if test="${sessionScope.authGroup eq '1'}">
 					<td>
 						<input type="checkbox" name="picture_book_loan_arr" class="loan_chk" value="${i.picture_book_loan_idx}"/>
 					</td>
+					</c:if>
 					<td class="num">${paging.listRowNum - status.index}</td>
 					<td>
-						<a href="#" class="dialog-edit" keyValue="${i.picture_book_loan_idx}">${i.picture_book_subject}</a>
+						<a href="#" class="edit-btn" keyValue="${i.picture_book_loan_idx}">${i.picture_book_subject}</a>
 					</td>
 					<td class="center">${fn:substring(i.loan_start_date, 0, 7)}</td>
 					<td>${i.school_name}<br/>/${i.request_name}</td>
@@ -248,5 +262,3 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 		</fieldset>
 	</div>
 </form:form>
-
-<div id="dialog-1" class="dialog-common" title="대출정보"></div>

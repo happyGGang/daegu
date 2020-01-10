@@ -118,7 +118,7 @@
 	
 	<select id="getLoanableMonth" resultType="kr.go.gbelib.app.cms.module.pictureBook.PictureBook">
 		SELECT
-			TO_CHAR(loan_start_date, 'yyyy') AS loan_year, TO_CHAR(loan_start_date, 'MM') AS loan_month
+			picture_book_loan_idx, school_name, request_name, TO_CHAR(loan_start_date, 'yyyy') AS loan_year, TO_CHAR(loan_start_date, 'MM') AS loan_month
 		FROM
 			PICTURE_BOOK_LOAN
 		WHERE
@@ -149,6 +149,9 @@
 		<if test="request_status != null and request_status != ''">
 		AND	request_status = #{request_status}
 		</if>
+		<if test="add_id != null and add_id != ''">
+		AND	b.add_id = #{add_id}
+		</if>
 		${pagingBottom}
 	</select>
 	
@@ -171,6 +174,9 @@
 		</if>
 		<if test="request_status != null and request_status != ''">
 		AND	request_status = #{request_status}
+		</if>
+		<if test="add_id != null and add_id != ''">
+		AND	b.add_id = #{add_id}
 		</if>
 	</select>
 	
