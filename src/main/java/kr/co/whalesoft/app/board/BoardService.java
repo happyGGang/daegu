@@ -132,11 +132,26 @@ public class BoardService extends BaseService {
 		}
 		return list;
 	}
+
 	@Cacheable(cacheName="getBoardByMain")
-	public List<Board> getBoardByMain(int manage_idx, int count, BoardManage boardManage) {
+	public List<Board> getBoardByMain(int manage_idx, int count, String boardType) {
 
 //		BoardManage boardManage = new BoardManage(manage_idx);
-		List<Board> list = dao.getBoardByMain(new Board(manage_idx, count, boardManage.getBoard_type()));
+		List<Board> list = dao.getBoardByMain(new Board(manage_idx, count, boardType));
+
+		for (Board board : list) {
+			if (!StringUtils.isEmpty(board.getContent_summary())) {
+				board.setContent_summary(board.getContent_summary().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "").replaceAll("<[^>]*..", ""));
+			}
+		}
+		return list;
+	}
+
+	@Cacheable(cacheName="getBoardByMainTopNotice")
+	public List<Board> getBoardByMainTopNotice(int manage_idx, int count, String boardType) {
+
+//		BoardManage boardManage = new BoardManage(manage_idx);
+		List<Board> list = dao.getBoardByMainTopNotice(new Board(manage_idx, count, boardType));
 
 		for (Board board : list) {
 			if (!StringUtils.isEmpty(board.getContent_summary())) {

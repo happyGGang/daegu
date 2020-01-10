@@ -82,6 +82,16 @@
         memoryStoreEvictionPolicy="LRU" />
 
 	<cache
+    	name="getBoardByMainTopNotice"
+    	eternal="false"
+        maxElementsInMemory="100"
+        overflowToDisk="false"
+        diskPersistent="false"
+        timeToIdleSeconds="0"
+        timeToLiveSeconds="60"
+        memoryStoreEvictionPolicy="LRU" />
+
+	<cache
     	name="getRecommendSiteListCache"
     	eternal="false"
         maxElementsInMemory="100"

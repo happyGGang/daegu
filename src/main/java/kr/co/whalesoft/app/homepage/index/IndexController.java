@@ -272,7 +272,8 @@ public class IndexController extends BaseController {
 					int manage_idx = Integer.parseInt(boardInfo[1]);
 					int count = Integer.parseInt(boardInfo[2]);
 					BoardManage boardManage = boardManageService.getBoardManageOne(new BoardManage(homepage_id, manage_idx));
-					model.addAttribute(key, boardService.getBoardByMain(manage_idx, count, boardManage));
+					model.addAttribute(key, boardService.getBoardByMain(manage_idx, count, boardManage.getBoard_type()));
+					model.addAttribute(key+"TopNotice", boardService.getBoardByMainTopNotice(manage_idx, 1, boardManage.getBoard_type()));
 				}
 			}
 		}catch (MissingResourceException ex) {

@@ -25,6 +25,8 @@ public interface BoardDao {
 
 	public List<Board> getBoardByMain(Board board);
 
+	public List<Board> getBoardByMainTopNotice(Board board);
+
 	public List<Board> getBoardByMainAll(Board board);
 
 	public List<Board> getBoardByDepMain(Board board);
