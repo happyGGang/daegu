@@ -132,10 +132,15 @@ a.cw-btn span, a.cg-btn span, a.cp-btn span, a.cdp-btn span {display:block;paddi
 .summaryDesc .innerBox .booknareimg {width:100%;height:101px; position: absolute;top: 80px;left: 30px;background: url('/resources/common/img/booknare.gif') no-repeat;}
 .summaryDesc .innerBox .bookeumimg {width:100%;height:145px; position: absolute;top:50px;left: 25px;background: url('/resources/common/img/bookeum.gif') no-repeat;}
 .summaryDesc .innerBox .askimg {width:100%;height:145px; position: absolute;top: 60px;left: 30px;background: url('/resources/common/img/ask.gif') no-repeat;}
-.summaryDesc .innerBox .copyimg {width:100%;height:145px; position: absolute;top: 35px;left: 30px;background: url('/resources/common/img/copy.gif') no-repeat;}
-.summaryDesc .innerBox .adviceimg {width:100%;height:145px; position: absolute;top:22px;left: 30px;background: url('/resources/common/img/advice.gif') no-repeat;}
-.summaryDesc .innerBox .rssimg {width:100%;height:145px; position: absolute;top: 22px;left: 30px;background: url('/resources/common/img/RSS_tit.gif') no-repeat;}
-.summaryDesc .innerBox .txtboximg {width:100%;height:145px; position: absolute;top:22px;left: 30px;background: url('/resources/common/img/txtbox.gif') no-repeat;}
+.summaryDesc .innerBox .rssimg {width:100%;height:145px; position: absolute;top: 40px;left: 30px;background: url('/resources/common/img/RSS_tit.gif') no-repeat;}
+.summaryDesc .innerBox .ticon_01 {width:100%;height:145px; position: absolute;top: 22px;left: 30px; background: url('/resources/common/img/ticon_01.png') no-repeat;}
+.summaryDesc .innerBox .ticon_02 {width:100%;height:145px; position: absolute;top: 22px;left: 30px; background: url('/resources/common/img/ticon_02.png') no-repeat;}
+.summaryDesc .innerBox .ticon_03 {width:100%;height:145px; position: absolute;top: 22px;left: 30px; background: url('/resources/common/img/ticon_03.png') no-repeat;}
+.summaryDesc .innerBox .ticon_04 {width:100%;height:145px; position: absolute;top: 22px;left: 30px; background: url('/resources/common/img/ticon_04.png') no-repeat;}
+.summaryDesc .innerBox .ticon_05 {width:100%;height:145px; position: absolute;top: 22px;left: 30px; background: url('/resources/common/img/ticon_05.png') no-repeat;}
+.summaryDesc .innerBox .ticon_06 {width:100%;height:145px; position: absolute;top: 22px;left: 30px; background: url('/resources/common/img/ticon_06.gif') no-repeat;}
+.summaryDesc .innerBox .txt_b01 {width:100%;height:145px; position: absolute;top: 22px;left: 30px; background: url('/resources/common/img/txt_b01.png') no-repeat;}
+.summaryDesc .innerBox .txt_b02 {width:100%;height:145px; position: absolute;top: 50px;left: 15px; background: url('/resources/common/img/txt_b02.png') no-repeat;}
 .summaryDesc .innerBox .img + .desc {display: table-cell;width: 100%;height: 100px;padding-left: 200px}
 .summaryDesc .innerBox .img + .desc::before {content: "";display: block;position: absolute;top: 20px;left: 170px;bottom: 20px;border-left: 1px solid #e4e4e4}
 .summaryDesc .innerBox .desc {word-break: keep-all;vertical-align: middle}
@@ -630,13 +635,13 @@ h4.tit.h4_t{margin-top:35px;}
 .txt_box .area .cont{width:100%;}
 .txt_box .icon_img{position:absolute;bottom:-35px;right:50px;}
 
-@media (max-width: 786px){
+@media (max-width: 1100px){
 .txt_box{}
 .txt_box .area{padding: 25px 35px 25px 20px;box-sizing:border-box;}
 .txt_box .area .cont{position:relative;z-index:1;}
 .txt_box .area .btxt{margin-bottom:10px;}
 .txt_box .icon_img{right:10px;bottom:20px;text-align:right;}
-.txt_box .icon_img img{width:50%;}
+.txt_box .icon_img img{display:none;}
 }
 
 /***********************서브컨텐츠***********************/
@@ -702,3 +707,41 @@ h4.tit.h4_t{margin-top:35px;}
 @media screen and (max-width:500px){
 	.history_wrap .history_con .box ul li span.fb3{width:110px}
 	}
+
+
+/*에니메이션 상단img*/
+
+.v-img {position:absolute;z-index:2;top:0;right:30px;width:450px;height:133px;transition: all 0.5s cubic-bezier(0.785, 0.135, 0.150, 0.860);animation-duration: 2s;animation-name:v_img;}
+
+@keyframes v_img {
+    from {right:80px; opacity:0}
+	to {right:30px; opacity:1}
+	 
+}
+@keyframes v_text {
+    from {padding-left:30px;  opacity:0}
+	to {padding-left:0px;  opacity:1}
+	 
+}
+
+/*백그라운드 하단img*/
+.v1{background:url('/resources/common/img/v1.png') no-repeat right bottom;}
+.v2{background:url('/resources/common/img/v2.png') no-repeat right bottom;}
+.v3{background:url('/resources/common/img/v3.png') no-repeat right bottom;}
+.v4{background:url('/resources/common/img/v4.png') no-repeat right bottom;}
+.v5{background:url('/resources/common/img/v5.png') no-repeat right bottom;}
+.v6{background:url('/resources/common/img/v6.png') no-repeat right bottom;}
+.v7{background:url('/resources/common/img/v7.png') no-repeat right bottom;}
+.lib_01{background:url('/resources/common/img/sub_bg01.png') no-repeat right bottom;}
+
+/*백그라운드 상단img*/
+.v1t{background:url('/resources/common/img/v1.png') no-repeat right top;}
+.v2t{background:url('/resources/common/img/v2.png') no-repeat right top;}
+.v3t{background:url('/resources/common/img/v3.png') no-repeat right top;}
+.v4t{background:url('/resources/common/img/v4.png') no-repeat right top;}
+.v5t{background:url('/resources/common/img/v5.png') no-repeat right top;}
+.v6t{background:url('/resources/common/img/v6.png') no-repeat right top;}
+.v7t{background:url('/resources/common/img/v7.png') no-repeat right top;}
+
+
+

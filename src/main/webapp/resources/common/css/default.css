@@ -531,8 +531,9 @@ transform:translatez(0);
 .lnb ul ul ul li.active > a{background-color:#ddd;font-weight:bold}
 
 /* 본문 */
-.doc-head{overflow:hidden}
-.doc-title h3{display:inline-block;zoom:1;*display:inline;word-break:break-all;font-size:28px;letter-spacing:-1px;padding:20px 0;font-weight:bold;color:#333}
+.doc-head{overflow:hidden;border-bottom: 1px dashed #ccc;margin-bottom:30px;}
+.doc-title {position:relative;height:133px;line-height:145px;}
+.doc-title h3{display:inline-block;zoom:1;*display:inline;word-break:break-all;font-size:33px; color:#0a3575; letter-spacing:-1px;font-weight:bold;}
 /*
 .doc-info{padding:0;overflow:hidden;border-bottom:1px solid #ebebeb}
 .doc-info li{display:inline-block;zoom:1;*display:inline;vertical-align:middle}

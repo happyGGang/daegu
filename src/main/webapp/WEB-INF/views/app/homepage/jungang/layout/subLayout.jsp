@@ -21,7 +21,7 @@ $(function() {
 
 	<div id="container" class="subpage">
 
-		<div class="sub-visual" <c:if test="${not empty menuOne.menu_img}">style="background-image: url('/data/menu/${menuOne.homepage_id}/${menuOne.menu_img}')"</c:if>>
+		<div class="sub-visual">
 			<div class="doc-info-bg">
 				<div class="doc-info">
 					<ol>
@@ -48,6 +48,8 @@ $(function() {
 							<c:if test="${menuOne.include_menu_name_yn eq 'Y'}">
 							<h3>${menuOne.menu_name}</h3>
 							</c:if>
+
+							<!-- <div class="v-img" <c:if test="${not empty menuOne.menu_img}">style="background: url('/data/menu/${menuOne.homepage_id}/${menuOne.menu_img}') no-repeat 100% 0"</c:if>></div> -->
 						</div>
 					</div>
 					<div class="doc-body con${menuOne.menu_idx}" id="contentArea">
