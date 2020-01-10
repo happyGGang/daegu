@@ -6,17 +6,21 @@
 <script type="text/javascript">
 $(function() {
 	
-	$('.dialog-view').on('click', function(e) {
+	$('#add-btn').on('click', function(e) {
+		e.preventDefault();
+		doGetLoad('edit.do', 'editMode=ADD&menu_idx='+$('#menu_idx').val());
+	});
+	
+	$('.view-btn').on('click', function(e) {
 		e.preventDefault();
 		if('${sessionScope.authGroup}' == '') {
 			return false;
 		}
-// 		var formData = 'menu_idx='+$('#menu_idx').val() + '&viewPage='+$('#viewPage').val() + '&book_package_idx='+$(this).attr('keyValue');
-		$('#book_package_idx').val($(this).attr('keyValue'));
-		doGetLoad('view.do', $('form#bookPackage').serialize());
+		var formData = 'menu_idx='+$('#menu_idx').val() + '&viewPage='+$('#viewPage').val() + '&book_package_idx='+$(this).attr('keyValue');
+		doGetLoad('view.do', formData);
 	});
 	
-	$('.dialog-delete').on('click', function(e) {
+	$('.delete-btn').on('click', function(e) {
 		e.preventDefault();
 		if(confirm('삭제하시겠습니까?')) {
 			$('#book_package_idx_d').val($(this).attr('keyValue'));
@@ -27,7 +31,7 @@ $(function() {
 	});
 	
 	// 책 꾸러미 대출 신청
-	$('.dialog-req').on('click', function(e) {
+	$('.request-btn').on('click', function(e) {
 		e.preventDefault();
 		var formData = 'editMode=ADD&menu_idx='+$('#menu_idx').val() + '&book_package_idx='+$(this).attr('keyValue');
 		doGetLoad('loanEdit.do', formData);
@@ -165,12 +169,17 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 	</form:select>
 	<div class="button">
 		<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>도서목록 다운받기</span></a>
+		<c:if test="${sessionScope.authGroup eq '1'}">
+		<a href="#" class="btn btn5 left" id="add-btn"><i class="fa fa-plus"></i><span>등록</span></a>
+		</c:if>
 	</div>
 </div>
 <div>
 	<c:forEach items="${bookPackageList}" var="i" varStatus="status">
 	<div class="group-box">
+		<c:if test="${sessionScope.authGroup eq '1'}">
 		<form:checkbox path="book_package_arr" cssClass="book_check" value="${i.book_package_idx}"/>
+		</c:if>
 		<div class="img-box">
 			<c:choose>
 				<c:when test="${not empty i.image_link}">
@@ -191,7 +200,7 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 		<div class="content-box">
 			<div class="subject">
 				<c:if test="${i.lender_count > 0}"><span class="ing">대출중</span></c:if>
-				<a href="#" class="dialog-view" keyValue="${i.book_package_idx}">${i.book_package_subject}</a>
+				<a href="#" class="view-btn" keyValue="${i.book_package_idx}">${i.book_package_subject}</a>
 			</div>
 			<div>
 				<span class="step1">
@@ -239,13 +248,13 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 		<div class="btn-box">
 			<c:choose>
 				<c:when test="${i.lender_count > 0}">
-					<a href="#" class="dialog-req reserv" keyValue="${i.book_package_idx}">예약신청</a>
+					<a href="#" class="request-btn reserv" keyValue="${i.book_package_idx}">예약신청</a>
 				</c:when>
 				<c:otherwise>
-					<a href="#" class="dialog-req loan" keyValue="${i.book_package_idx}">대출신청</a>
+					<a href="#" class="request-btn loan" keyValue="${i.book_package_idx}">대출신청</a>
 				</c:otherwise>
 			</c:choose>
-<%-- 			<a href="#" class="dialog-delete" keyValue="${i.book_package_idx}">삭제</a> --%>
+<%-- 			<a href="#" class="delete-btn" keyValue="${i.book_package_idx}">삭제</a> --%>
 			<span class="loan-cnt">
 				<strong>${i.loan_count}</strong>권
 			</span>
@@ -257,8 +266,10 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 		<h3>등록된 책 꾸러미 리스트가 없습니다.</h3>
 	</div>
 	</c:if>
-	<a href="#" id="all-check" class="btn" keyValue="N">전체 선택/해제</a>
-	<a href="#" id="delete-check" class="btn">선택 게시글삭제</a>
+	<c:if test="${sessionScope.authGroup eq '1'}">
+		<a href="#" id="all-check" class="btn" keyValue="N">전체 선택/해제</a>
+		<a href="#" id="delete-check" class="btn">선택 게시글삭제</a>
+	</c:if>
 </div>
 
 <jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">

@@ -13,6 +13,12 @@ $(function() {
 		history.back();
 	});
 	
+	$('#edit_btn').on('click', function(e) {
+		e.preventDefault();
+		$('#editMode').val('MODIFY');
+		doGetLoad('edit.do', $form.serialize());
+	});
+	
 	$('#delete_btn').on('click', function(e) {
 		if(confirm('삭제하시겠습니까?')) {
 			e.preventDefault();
@@ -121,8 +127,8 @@ table.type2 tbody tr td dl dd {display: inline-block;margin-right: 15px;}
 </form:form>
 <div class="button bbs-btn center">
 	<a href="" class="btn btn1 list" id="list_btn"><i class="fa fa-reorder"></i><span>목록으로</span></a>
-	<c:if test="${not empty sessionScope.authGroup}">
-<!-- 	<a href="" class="btn modify" id="edit_btn"><i class="fa fa-pencil-square-o"></i><span>수정</span></a> -->
+	<c:if test="${sessionScope.authGroup eq '1'}">
+	<a href="" class="btn modify" id="edit_btn"><i class="fa fa-pencil-square-o"></i><span>수정</span></a>
 	<a href="" class="btn delete" id="delete_btn"><i class="fa fa-trash-o"></i><span>삭제</span></a>
 	</c:if>
 </div>

@@ -3,12 +3,14 @@ package kr.go.gbelib.app.module.bookPackage;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +28,8 @@ import kr.go.gbelib.app.cms.module.bookPackage.BookPackage;
 import kr.go.gbelib.app.cms.module.bookPackage.BookPackageService;
 import kr.go.gbelib.app.cms.module.bookPackage.BookPackageView;
 import kr.go.gbelib.app.cms.module.supportMember.SupportMember;
+import kr.go.gbelib.app.common.api.LibSearchAPI;
+import kr.go.gbelib.app.intro.search.LibrarySearch;
 
 @Controller(value = "userBookPackage")
 @RequestMapping(value = {"/{homepagePath}/module/bookPackage"})
@@ -57,6 +61,59 @@ public class BookPackageController extends BaseController {
 		return String.format(basePath, homepage.getFolder()) + "index";
 	}
 	
+	@RequestMapping(value = {"/edit.*"})
+	public String edit(Model model, BookPackage bookPackage, HttpServletRequest request) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		
+		if(bookPackage.getEditMode().equals("MODIFY")) {
+			int menu_idx = bookPackage.getMenu_idx();
+			bookPackage = (BookPackage)service.copyObjectPaging(bookPackage, service.getBookPackageOne(bookPackage));
+			bookPackage.setMenu_idx(menu_idx);
+		}
+		model.addAttribute("bookPackage", bookPackage);
+		
+		return String.format(basePath, homepage.getFolder()) + "edit";
+	}
+	
+	@RequestMapping (value = {"/search.*"}, method = RequestMethod.GET)
+	public String search(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		Map<String, Object> map = null;
+		if (StringUtils.isNotEmpty(librarySearch.getSearch_text())) {
+			map = LibSearchAPI.getNaverList(librarySearch);
+			int totalCount = (Integer) map.get("totalCount");
+			@SuppressWarnings ("unchecked")
+			List<Map<String, Object>> itemList = (List<Map<String, Object>>) map.get("list");
+			if (itemList != null && itemList.size() > 0) {
+				for (Map<String, Object> map2 : itemList) {
+					String[] isbnArr = String.valueOf(map2.get("isbn")).split(" ");
+					for (int i = 0; i < isbnArr.length; i++) {
+						String isbn = String.valueOf(map2.get("isbn")).split(" ")[i];
+						map2.put("isbn"+isbn.length(), isbn);
+
+						LibrarySearch bookSerach = new LibrarySearch();
+						bookSerach.setIsbn(isbn);
+						Map<String, Object> sameBook = (Map<String, Object>) LibSearchAPI.getBookDetail(bookSerach);
+
+						int sameBookCount = LibSearchAPI.getSearchCount(sameBook);
+
+						if (sameBookCount > 0) {
+							map2.put("already"+isbn.length(), true);
+						}
+
+					}
+
+				}
+				service.setPaging(model, totalCount, librarySearch);
+				model.addAttribute("naverResult", map);
+			}
+		}
+		
+		model.addAttribute("librarySearch", librarySearch);
+		
+		return basePath + "search_ajax";
+	}
+	
 	@RequestMapping (value = {"/view.*"}, method = RequestMethod.GET)
 	public String view(Model model, BookPackage bookPackage, HttpServletRequest request) throws AuthException {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
@@ -81,10 +138,19 @@ public class BookPackageController extends BaseController {
 		/* <<<<< 유효성 검증 */
 
 		if (!result.hasErrors()) {
-			if (bookPackage.getEditMode().equals("MODIFY")) {
-				bookPackage.setModify_id(getSessionMemberId(request));
+			if (bookPackage.getEditMode().equals("ADD")) {
+				bookPackage.setAdd_id(sessionSupportMember(request).getMember_id());
+				service.addBookPackage(bookPackage);
+				res.setValid(true);
+				res.setUrl("index.do");
+				res.setData("menu_idx="+bookPackage.getMenu_idx());
+				res.setMessage("등록되었습니다.");
+			} else if (bookPackage.getEditMode().equals("MODIFY")) {
+				bookPackage.setModify_id(sessionSupportMember(request).getMember_id());
 				service.modifyBookPackage(bookPackage);
 				res.setValid(true);
+				res.setUrl("index.do");
+				res.setData("menu_idx="+bookPackage.getMenu_idx()+"&viewPage="+bookPackage.getViewPage());
 				res.setMessage("수정되었습니다.");
 			} else if (bookPackage.getEditMode().equals("DELETE")) {
 				service.deleteBookPackage(bookPackage);
@@ -116,7 +182,9 @@ public class BookPackageController extends BaseController {
     		return null;
         }
 		
-		bookPackage.setAdd_id(supportMember.getMember_id());
+		if(!supportMember.getAuth_group().equals("1")) {
+			bookPackage.setAdd_id(supportMember.getMember_id());
+		}
 		service.setPaging(model, service.getBookPackageLoanCount(bookPackage), bookPackage);
 		
 		model.addAttribute("bookPackage", bookPackage);
