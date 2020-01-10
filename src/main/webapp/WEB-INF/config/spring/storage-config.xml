@@ -117,4 +117,9 @@
     	<property name="basedOnServletContext" value="true"/>
   	</bean>
   	
+  	<bean id="archiveStorage" class="kr.co.whalesoft.framework.file.FileStorage">
+    	<property name="rootPath" value="/data/archive"/>
+    	<property name="basedOnServletContext" value="true"/>
+  	</bean>
+  	
 </beans>

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.archive.ArchiveDao">
+	
+	<select id="getArchiveBookCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			ARCHIVE_BOOK
+		WHERE 1=1
+		<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+	</select>
+	
+	<select id="getArchiveBookList" resultType="kr.go.gbelib.app.cms.module.archive.Archive">
+		${pagingTop}
+		SELECT
+			homepage_id,
+			book_idx, subject, regnumber, volume, author,
+			publisher, year, callnumber, place, code,
+			skin, logoimg, viewtype,
+			(
+				SELECT server_file_name
+				FROM ARCHIVE_PAGE z
+				WHERE z.book_idx = a.book_idx
+				AND code = 1
+			) AS server_file_name,
+			orig_width, orig_height, resize_width, resize_height,
+			add_date, add_id, mod_date, mod_id,
+			use_yn
+		FROM
+			ARCHIVE_BOOK a
+		WHERE 1=1
+		AND use_yn = 'Y'
+		<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		ORDER BY book_idx
+		${pagingBottom}
+	</select>
+	
+	<select id="getArchiveBookListCms" resultType="kr.go.gbelib.app.cms.module.archive.Archive">
+		${pagingTop}
+		SELECT
+			homepage_id,
+			book_idx, subject, regnumber, volume, author,
+			publisher, year, callnumber, place, code,
+			skin, logoimg, viewtype,
+			orig_width, orig_height, resize_width, resize_height,
+			add_date, add_id, mod_date, mod_id,
+			use_yn
+		FROM
+			ARCHIVE_BOOK
+		WHERE 1=1
+		<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		ORDER BY book_idx
+		${pagingBottom}
+	</select>
+	
+	<select id="getArchiveBook" resultType="kr.go.gbelib.app.cms.module.archive.Archive">
+		SELECT
+			homepage_id,
+			book_idx, subject, regnumber, volume, author,
+			publisher, year, callnumber, place, code,
+			skin, logoimg, viewtype,
+			orig_width, orig_height, resize_width, resize_height,
+			add_date, add_id, mod_date, mod_id,
+			use_yn
+		FROM
+			ARCHIVE_BOOK
+		WHERE
+			book_idx = #{book_idx}
+	</select>
+	
+	<insert id="addArchiveBook">
+		<selectKey keyProperty="book_idx" resultType="int" order="BEFORE">
+		SELECT NVL(MAX(book_idx), 0)+1 FROM ARCHIVE_BOOK
+		</selectKey>
+		INSERT INTO ARCHIVE_BOOK (
+			homepage_id,
+			book_idx, subject, regnumber, volume, author,
+			publisher, year, callnumber, place, code,
+			skin, logoimg, viewtype,
+			orig_width, orig_height, resize_width, resize_height,
+			add_date, add_id,
+			use_yn
+		) VALUES (
+			#{homepage_id},
+			#{book_idx}, #{subject}, #{regnumber}, #{volume}, #{author},
+			#{publisher}, #{year}, #{callnumber}, #{place}, #{code},
+			#{skin}, #{logoimg}, #{viewtype},
+			#{orig_width}, #{orig_height}, #{resize_width}, #{resize_height},
+			SYSDATE, #{add_id},
+			#{use_yn}
+		)
+	</insert>
+	
+	<update id="modArchiveBook">
+		UPDATE ARCHIVE_BOOK SET
+			subject = #{subject},
+			regnumber = #{regnumber},
+			orig_width = #{orig_width},
+			orig_height = #{orig_height},
+			resize_width = #{resize_width},
+			resize_height = #{resize_height},
+			use_yn = #{use_yn},
+			mod_id = #{mod_id},
+			mod_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND book_idx = #{book_idx} 
+	</update>
+	
+	<delete id="delArchiveBook">
+		DELETE FROM ARCHIVE_BOOK WHERE book_idx = #{book_idx}
+	</delete>
+	
+	<update id="reorderArchiveBook">
+		UPDATE ARCHIVE_PAGE a SET
+			(code, subject) =
+			(
+				SELECT rn, 'page'||rn
+				FROM (
+					SELECT page_idx, ROW_NUMBER() OVER (ORDER BY code) AS rn
+					FROM ARCHIVE_PAGE
+					WHERE book_idx = #{book_idx}
+				) z
+				WHERE z.page_idx = a.page_idx
+			)
+		WHERE
+			book_idx = #{book_idx}
+	</update>
+	
+	<update id="moveUpArchivePage">
+		UPDATE ARCHIVE_PAGE a SET
+			code = (SELECT code FROM ARCHIVE_PAGE z WHERE z.book_idx = #{book_idx} AND z.code &gt; a.code and rownum = 1)
+		WHERE
+			book_idx = #{book_idx}
+		AND page_idx = #{page_idx}
+	</update>
+	
+	<update id="moveDownArchivePage">
+		UPDATE ARCHIVE_PAGE a SET
+			code = (SELECT code FROM ARCHIVE_PAGE WHERE code)
+		WHERE
+			book_idx = #{book_idx}
+		AND page_idx = #{page_idx}
+	</update>
+	
+	<select id="getArchivePageCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			ARCHIVE_PAGE
+		WHERE
+			book_idx = #{book_idx}
+	</select>
+	
+	<select id="getArchivePageList" resultType="kr.go.gbelib.app.cms.module.archive.Archive">
+		SELECT
+			page_idx, book_idx, subject, code,
+			server_file_name, org_file_name,
+			add_date, add_id, mod_date, mod_id,
+			use_yn
+		FROM
+			ARCHIVE_PAGE
+		WHERE
+			book_idx = #{book_idx}
+		ORDER BY code
+	</select>
+	
+	<select id="getArchivePage" resultType="kr.go.gbelib.app.cms.module.archive.Archive">
+		SELECT
+			page_idx, book_idx, subject, code,
+			server_file_name, org_file_name,
+			add_date, add_id, mod_date, mod_id,
+			use_yn
+		FROM
+			ARCHIVE_PAGE
+		WHERE
+			page_idx = #{page_idx}
+		AND book_idx = #{book_idx}
+	</select>
+	
+	<insert id="addArchivePage">
+		<selectKey keyProperty="code" resultType="int" order="BEFORE">
+		SELECT NVL(MAX(code), 0)+1 FROM ARCHIVE_PAGE WHERE use_yn = 'Y' AND book_idx = #{book_idx}
+		</selectKey>
+		INSERT INTO ARCHIVE_PAGE (
+			page_idx, book_idx, subject, code,
+			server_file_name, org_file_name,
+			add_date, add_id,
+			use_yn
+		) VALUES (
+			ARCHIVE_PAGE_SEQ.NEXTVAL, #{book_idx}, 'page'||#{code}, #{code},
+			#{server_file_name}, #{org_file_name},
+			SYSDATE, #{add_id},
+			#{use_yn}
+		)
+	</insert>
+	
+	<update id="modArchivePage">
+		UPDATE ARCHIVE_PAGE SET
+			subject = NVL(#{subject}, 'page'||#{code}),
+			code = #{code},
+			mod_id = #{mod_id},
+			mod_date = SYSDATE,
+			use_yn = #{use_yn}
+		WHERE
+			page_idx = #{page_idx}
+		AND book_idx = #{book_idx}
+	</update>
+	
+	<delete id="delArchivePage">
+		DELETE FROM ARCHIVE_PAGE WHERE page_idx = #{page_idx}
+	</delete>
+	
+	<update id="modArchivePageFile">
+		UPDATE ARCHIVE_PAGE SET
+			server_file_name = #{server_file_name},
+			org_file_name = #{org_file_name}
+		WHERE
+			page_idx = #{page_idx}
+		AND book_idx = #{book_idx}
+	</update>
+	
+	<select id="getLowerArchivePage" resultType="kr.go.gbelib.app.cms.module.archive.Archive">
+		SELECT
+			page_idx, book_idx, subject, code,
+			server_file_name, org_file_name,
+			add_date, add_id, mod_date, mod_id,
+			use_yn
+		FROM
+			ARCHIVE_PAGE
+		WHERE
+			code =
+			(
+				SELECT NVL(MIN(code),0)
+				FROM ARCHIVE_PAGE
+				WHERE code &gt; #{code}
+				AND book_idx = #{book_idx}
+			)
+		AND book_idx = #{book_idx}
+		AND ROWNUM = 1
+	</select>
+
+	<select id="getHigherArchivePage" resultType="kr.go.gbelib.app.cms.module.archive.Archive">
+		SELECT
+			page_idx, book_idx, subject, code,
+			server_file_name, org_file_name,
+			add_date, add_id, mod_date, mod_id,
+			use_yn
+		FROM
+			ARCHIVE_PAGE
+		WHERE
+			code =
+			(
+				SELECT NVL(MAX(code),0)
+				FROM ARCHIVE_PAGE
+				WHERE code &lt; #{code}
+				AND book_idx = #{book_idx}
+			)
+		AND book_idx = #{book_idx}
+		AND ROWNUM = 1
+	</select>
+	
+	<update id="modCode">
+		UPDATE ARCHIVE_PAGE SET
+			code = #{code}
+		WHERE
+			book_idx = #{book_idx}
+		AND page_idx = #{page_idx}
+	</update>
+	
+</mapper>
