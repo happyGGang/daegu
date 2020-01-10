@@ -9,29 +9,29 @@ $(function(){
 	//모달창 링크 버튼
 	$('a#dialog-add').on('click', function(e) {
 		if ( $('#homepage_id_1').val() == '' ) {
-			alert('홈페이지정보가 없습니다.');	
+			alert('홈페이지정보가 없습니다.');
 		}
 		else {
 			$('#dialog-1').load('edit.do?editMode=ADD&homepage_id=${banner.homepage_id}', function( response, status, xhr ) {
 				$('#dialog-1').dialog('open');
 			});
 		}
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('a#dialog-modify').on('click', function(e) {
 		$('#dialog-1').load('edit.do?editMode=MODIFY&homepage_id=${banner.homepage_id}&banner_idx=' + $(this).attr('keyValue'), function( response, status, xhr ) {
 			$('#dialog-1').dialog('open');
 		});
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('a#delete').on('click', function(e) {
 		if(confirm('선택된 팝업을 삭제 하시겠습니까?')) {
 			$('input#banner_idx_1').val($(this).attr('keyValue'));
-			
+
 			$.ajax({
 				url : 'delete.do',
 				async : false,
@@ -45,30 +45,30 @@ $(function(){
 				}
 			});
 		}
-		
+
 		e.preventDefault();
-	}); 
-	
+	});
+
 	$('select#homepage_id_1').on('change', function(e) {
 		if($(this).val() != '') {
 			$('input#homepage_id_1').val($(this).val());
 			doGetLoad('index.do', serializeCustom($('#banner_1')));
 		}
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('button#search_btn').on('click', function(e) {
 		$('#viewPage').val(1);
 		doGetLoad('index.do', serializeCustom($('#banner_1')));
 	});
-	
+
 	$('select#use_yn, select#rowCount').on('change', function(e) {
 		$('#viewPage').val(1);
 		doGetLoad('index.do', serializeCustom($('#banner_1')));
 	});
-});	
-</script> 
+});
+</script>
 
 <form:form id="banner_1" modelAttribute="banner" method="POST" action="save.do" onsubmit="return false;">
 <form:hidden id="editMode_1" path="editMode"/>
@@ -105,8 +105,8 @@ $(function(){
 				<th width="200">이미지</th>
 				<th width="200">타이틀</th>
 				<th width="">링크URL</th>
-				<th width="50">사용여부</th>
-				<th width="50">출력순서</th>
+				<th width="60">사용여부</th>
+				<th width="70">출력순서</th>
 				<th width="150">등록일</th>
 				<th width="100">기능</th>
 			</tr>
@@ -119,10 +119,10 @@ $(function(){
 		</c:if>
 		<c:forEach var="i" varStatus="status" items="${bannerList}">
 			<tr>
-				<td width="50">${banner.listRowNum - status.index}</td>
+				<td width="50">${paging.listRowNum - status.index}</td>
 				<td width="200">
 					<div class="item">
-						<a href="${i.banner_link}" target="_blank"><img width="135" height="42" src="${getContextPath}/data/banner/${banner.homepage_id}/${i.server_file_name}" alt="${i.banner_name}"></a>							 
+						<a href="${i.banner_link}" target="_blank"><img width="135" height="42" src="${getContextPath}/data/banner/${banner.homepage_id}/${i.server_file_name}" alt="${i.banner_name}"></a>
 					</div>
 				</td>
 				<td class="left" width="200">${i.banner_name}</td>
@@ -144,11 +144,11 @@ $(function(){
 		</c:forEach>
 		</tbody>
 	</table>
-	
+
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#banner_1"/>
 	</jsp:include>
-	
+
 	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 		<fieldset>
 			<form:select path="search_type" cssClass="selectmenu">
@@ -157,10 +157,9 @@ $(function(){
 			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
 			<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
 		</fieldset>
-	</div>	
+	</div>
 </div>
 </form:form>
 
 <div id="dialog-1" class="dialog-common" title="베너 정보">
-</div>	
-	
+</div>
