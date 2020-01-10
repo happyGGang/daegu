@@ -13,7 +13,7 @@ $(function() {
 	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
 		resizable: true,
-		modal: true, 
+		modal: true,
 	    open: function(){
 	        $('.ui-widget-overlay').addClass('custom-overlay');
 	    },
@@ -26,7 +26,7 @@ $(function() {
 				"class": 'btn btn1',
 				click: function() {
 					jQuery.ajaxSettings.traditional = true;
-					
+
 					var option = {
 						url : 'save.do',
 						type : 'POST',
@@ -47,7 +47,7 @@ $(function() {
 										alert(response.result[i].code);
 										$('#'+response.result[i].field).focus();
 										break;
-									}	
+									}
 								}
 							}
 				         },
@@ -66,28 +66,28 @@ $(function() {
 			}
 		]
 	});
-	
+
 	$("#dialog-1").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
-		width: 600,
+		width: 800,
 		height: 600
 	});
-	
+
 	//달력
 	$('input#start_date').datepicker({
-		maxDate: $('input#end_date').val(), 
+		maxDate: $('input#end_date').val(),
 		onClose: function(selectedDate){
 			$('input#end_date').datepicker('option', 'minDate', selectedDate);
 		}
 	});
-	
+
 	$('input#end_date').datepicker({
-		minDate: $('input#start_date').val(), 
+		minDate: $('input#start_date').val(),
 		onClose: function(selectedDate){
 			$('input#start_date').datepicker('option', 'maxDate', selectedDate);
 		}
 	});
-	
-	
+
+
 });
 
 function getFileData(fileData) {
@@ -96,7 +96,7 @@ function getFileData(fileData) {
 	for (var i = 0; i < fileList.length; i++) {
 		alert(fileList[i].name);
 	}
-}	
+}
 </script>
 <form:form modelAttribute="popupZone" action="save.do" method="POST" onsubmit="return false;" enctype="multipart/form-data">
 <form:hidden path="editMode"/>
@@ -124,11 +124,10 @@ function getFileData(fileData) {
 			<th>이미지</th>
 			<td>
 				<input type="file" id="org_file_name_temp" name="org_file_name_temp" class="text" title="이미지 파일 첨부" accept=".gif,.jpeg,.jpg,.png"/>
-				${homepage.homepage_id }
 				<c:choose>
-					<c:when test="${popupZone.homepage_id eq 'h1' }"><!-- 통합 -->
+					<c:when test="${popupZone.homepage_id eq 'h1' }"><!-- 228기념학생도서관 -->
 					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 500 X 세로 148 입니다(픽셀단위)</em>
+						<em>* 팝업존 최적 이미지 사이즈는 가로 413 X 세로 325 입니다(픽셀단위)</em>
 					</div>
 					</c:when>
 					<c:when test="${popupZone.homepage_id eq 'h2' }"><!-- 구미 -->
@@ -262,7 +261,7 @@ function getFileData(fileData) {
 					</div>
 					</c:when>
 				</c:choose>
-				
+
 			</td>
 		</tr>
 		<c:if test="${popupZone.editMode eq 'MODIFY'}">
@@ -273,13 +272,13 @@ function getFileData(fileData) {
 			</td>
 		</tr>
 		</c:if>
-		<tr> 
+		<tr>
 			<th>링크URL(<span style="color: red;font-weight: bold;">*</span>)</th>
 			<td>
 				<form:input path="link_url" cssClass="text" cssStyle="width:300px;" maxlength="200"/>
 				<div class="ui-state-highlight">
 					<em>* 팝업존 클릭시 이동 할 URL 입니다.</em>
-				</div>	
+				</div>
 			</td>
 		</tr>
 		<tr>

@@ -19,39 +19,39 @@ public class PopupZoneService extends BaseService {
 
 	@Autowired
 	private PopupZoneDao dao;
-	
+
 	@Autowired
 	@Qualifier("popupZoneStorage")
 	private FileStorage popupZoneStorage;
-	
+
 	public List<PopupZone> getPopupZone(PopupZone popupZone) {
 		return dao.getPopupZone(popupZone);
 	}
 
 	public List<PopupZone> getPopupZoneAll(PopupZone popupZone) {
 		return dao.getPopupZoneAll(popupZone);
-	} 
-	
+	}
+
 	public int getPopupZoneCount(PopupZone popupZone) {
 		return dao.getPopupZoneCount(popupZone);
 	}
-	
+
 	public PopupZone getPopupZoneOne(PopupZone popupZone) {
 		return dao.getPopupZoneOne(popupZone);
 	}
-	
+
 	@Transactional
 	public int addPopupZone(PopupZone popupZone, MultipartHttpServletRequest mpRequest) {
 		MultipartFile mFile = mpRequest.getFileMap().get("org_file_name_temp");
-		
+
 		if(mFile != null) {
 			String realFileName 	= Long.toString((System.currentTimeMillis()));
 			String fileName 		= mFile.getOriginalFilename().substring(0, mFile.getOriginalFilename().lastIndexOf("."));
 			String fileExtension 	= FilenameUtils.getExtension(mFile.getOriginalFilename());
 			String filePath 		= "/" + popupZone.getHomepage_id();
-			
+
 			File f = popupZoneStorage.addFile(mFile, realFileName, filePath);
-			
+
 			popupZone.setOrg_file_name(fileName);
 			popupZone.setServer_file_name(realFileName);
 			popupZone.setFile_extension(fileExtension);
@@ -59,21 +59,21 @@ public class PopupZoneService extends BaseService {
 		} else {
 			popupZone.setOrg_file_name(null);
 		}
-		
+
 		return dao.addPopupZone(popupZone);
 	}
-	
+
 	public int modifyPopupZone(PopupZone popupZone, MultipartHttpServletRequest mpRequest) {
 		MultipartFile mFile = mpRequest.getFileMap().get("org_file_name_temp");
-		
+
 		if(mFile != null) {
 			String realFileName 	= Long.toString((System.currentTimeMillis()));
 			String fileName 		= mFile.getOriginalFilename().substring(0, mFile.getOriginalFilename().lastIndexOf("."));
 			String fileExtension 	= FilenameUtils.getExtension(mFile.getOriginalFilename());
 			String filePath 		= "/" + popupZone.getHomepage_id();
-			
+
 			File f = popupZoneStorage.addFile(mFile, realFileName, filePath);
-			
+
 			popupZone.setOrg_file_name(fileName);
 			popupZone.setServer_file_name(realFileName);
 			popupZone.setFile_extension(fileExtension);
@@ -81,14 +81,16 @@ public class PopupZoneService extends BaseService {
 		} else {
 			popupZone.setOrg_file_name(null);
 		}
-		
+
 		return dao.modifyPopupZone(popupZone);
 	}
-	
+
 	public int deletePopupZone(PopupZone popupZone) {
+		PopupZone popupZoneOne = dao.getPopupZoneOne(popupZone);
+		popupZoneStorage.deleteFile(popupZoneOne.getServer_file_name(), "/" + popupZone.getHomepage_id());
 		return dao.deletePopupZone(popupZone);
 	}
-	
+
 	public String addImgFile(String homepage_id, MultipartHttpServletRequest mpRequest) {
 		MultipartFile mFile = mpRequest.getFileMap().get("imgFile");
 		File f 			= null;
@@ -98,7 +100,7 @@ public class PopupZoneService extends BaseService {
 			String realFileName 	= Long.toString((System.currentTimeMillis()));
 			f = popupZoneStorage.addFile(mFile, realFileName, filePath);
 		}
-		
+
 		return f.getName();
 	}
 
