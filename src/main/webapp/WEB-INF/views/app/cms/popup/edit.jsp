@@ -375,6 +375,9 @@ function pasteHTML(filepath){
 			<td>
 				<form:radiobutton path="common_yn" value="Y"/> <label for="common_yn1" style="cursor:pointer;">사용함</label>&nbsp;
 				<form:radiobutton path="common_yn" value="N"/> <label for="common_yn2" style="cursor:pointer;">사용안함</label>
+				<div class="ui-state-highlight">
+					<i class="fa fa-question-circle"></i><em>사용할 경우 모든 도서관에서 노출됩니다.</em>
+				</div>
 			</td>
 		</tr>
 		</c:if>
