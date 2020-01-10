@@ -192,7 +192,7 @@
 						<div class="bottom-btn-box">
 							<ul>
 								<li><a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14">신착도서</a></li>
-								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=">추천도서</a></li>
+								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=75">추천도서</a></li>
 							</ul>
 						</div>
 					</div>
