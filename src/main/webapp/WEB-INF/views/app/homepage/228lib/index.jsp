@@ -195,23 +195,23 @@ do {
 								<div class="box con" data-tab="tab2" style="display:none;">
 									<ul class="book_photo">
 										<li>
-											<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=94&board_idx=${recommendBookList[listNum1].board_idx}">
+											<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=94&board_idx=${newBookBoardList[listNum1].board_idx}">
 												<c:choose>
-												<c:when test="${recommendBookList[listNum1].preview_img ne null}">
+												<c:when test="${newBookBoardList[listNum1].preview_img ne null}">
 													<c:choose>
-														<c:when test="${fn:contains(recommendBookList[listNum1].preview_img, 'http')}">
-														<img src="${recommendBookList[listNum1].preview_img}" alt="${recommendBookList[listNum1].title}" />
+														<c:when test="${fn:contains(newBookBoardList[listNum1].preview_img, 'http')}">
+														<img src="${newBookBoardList[listNum1].preview_img}" alt="${newBookBoardList[listNum1].title}" />
 														</c:when>
 														<c:otherwise>
-														<img src="/data/board/${recommendBookList[listNum1].manage_idx}/${recommendBookList[listNum1].board_idx}/${recommendBookList[listNum1].preview_img}" alt="${recommendBookList[listNum1].title}" title="${recommendBookList[listNum1].title}"/>
+														<img src="/data/board/${newBookBoardList[listNum1].manage_idx}/${newBookBoardList[listNum1].board_idx}/${newBookBoardList[listNum1].preview_img}" alt="${newBookBoardList[listNum1].title}" title="${newBookBoardList[listNum1].title}"/>
 														</c:otherwise>
 													</c:choose>
 												</c:when>
 												<c:otherwise>
-													<img src="/resources/common/img/noimg-gall.png" alt="${recommendBookList[listNum1].title}" title="${recommendBookList[listNum1].title}">
+													<img src="/resources/common/img/noimg-gall.png" alt="${newBookBoardList[listNum1].title}" title="${newBookBoardList[listNum1].title}">
 												</c:otherwise>
 												</c:choose>
-												<span class="title">${recommendBookList[listNum1].title}</span>
+												<span class="title">${newBookBoardList[listNum1].title}</span>
 											</a>
 										</li>
 									</ul>

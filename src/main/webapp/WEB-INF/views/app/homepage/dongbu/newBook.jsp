@@ -2,28 +2,77 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<script type="text/javascript">
-$(function() {
-	$('a.goDetail').on('click', function(e) {
-		e.preventDefault();
-		$('form#detailForm #vLoca').val($(this).attr('keyValue1'));
-		$('form#detailForm #vCtrl').val($(this).attr('keyValue2'));
-		$('form#detailForm').submit();
-	});
-});
-</script>
-<form id="detailForm" action="/${homepage.context_path}/intro/search/detail.do" method="post">
-	<input type="hidden" name="_csrf" value="${_csrf.token}">
-	<input id="vLoca" name="vLoca" type="hidden" value="">
-	<input id="vCtrl" name="vCtrl" type="hidden" value="">
-	<input id="vImg" name="vImg" type="hidden" value="">
-	<input id="detailMenuIdx" name="menu_idx" type="hidden" value="12">
-</form>
-<c:forEach var="i" items="${newBookList.dsNewBookList}" end="2">
-	<li>
-		<a class="goDetail" href="" keyValue1="${i.LOCA}" keyValue2="${i.CTRLNO}">
-			<img src="${i.COVER_SMALLURL ne '' ? i.COVER_SMALLURL : '/resources/homepage/cs/img/noimg1.png' }" alt="${i.TITLE}" width="80px" height="105px">
-			<span>${i.TITLE}</span>
-		</a>
-	</li>
-</c:forEach>
+<%@page import="java.util.Random"%>
+<%
+Random rnd = new Random();
+int listNum1 = rnd.nextInt(10);
+int listNum2 = 0;
+int listNum3 = 0;
+int listNum4 = 0;
+do {
+	listNum2 = rnd.nextInt(10);
+} while (listNum1 == listNum2);
+do {
+	listNum3 = rnd.nextInt(10);
+} while (listNum1 == listNum3 || listNum2 == listNum3);
+do {
+	listNum4 = rnd.nextInt(10);
+} while (listNum1 == listNum4 || listNum2 == listNum4 || listNum3 == listNum4);
+%>
+<c:set var="listNum1" value="<%=listNum1%>"></c:set>
+<c:set var="listNum2" value="<%=listNum2%>"></c:set>
+<c:set var="listNum3" value="<%=listNum3%>"></c:set>
+<c:set var="listNum4" value="<%=listNum4%>"></c:set>
+<li>
+	<a class="goDetail" href="/${homepage.context_path}/intro/search/detail.do?menu_idx=14&isbn=${newBookList[listNum1].ST_CODE}&regNo=${fn:escapeXml(newBookList[listNum1].REG_NO)}&manageCode=${fn:escapeXml(newBookList[listNum1].MANAGE_CODE)}&booktype=BO" >
+		<c:choose>
+		<c:when test="${empty newBookList[listNum1].aladin or empty newBookList[listNum1].aladin.cover}">
+		<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." width="100px" height="150px"/>
+		</c:when>
+		<c:otherwise>
+		<img src="${newBookList[listNum1].aladin.cover}" alt="${newBookList[listNum1].TITLE_INFO} 상세보기" width="100px" height="150px"/>
+		</c:otherwise>
+		</c:choose>
+		<span class="title">${newBookList[listNum1].TITLE_INFO}</span>
+	</a>
+</li>
+<li>
+	<a class="goDetail" href="/${homepage.context_path}/intro/search/detail.do?menu_idx=14&isbn=${newBookList[listNum2].ST_CODE}&regNo=${fn:escapeXml(newBookList[listNum2].REG_NO)}&manageCode=${fn:escapeXml(newBookList[listNum2].MANAGE_CODE)}&booktype=BO" >
+		<c:choose>
+		<c:when test="${empty newBookList[listNum2].aladin or empty newBookList[listNum2].aladin.cover}" >
+		<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." width="100px" height="150px"/>
+		</c:when>
+		<c:otherwise>
+		<img src="${newBookList[listNum2].aladin.cover}" alt="${newBookList[listNum2].TITLE_INFO} 상세보기" width="100px" height="150px"/>
+		</c:otherwise>
+		</c:choose>
+		<span class="title">${newBookList[listNum2].TITLE_INFO}</span>
+	</a>
+</li>
+<li>
+	<a class="goDetail" href="/${homepage.context_path}/intro/search/detail.do?menu_idx=14&isbn=${newBookList[listNum3].ST_CODE}&regNo=${fn:escapeXml(newBookList[listNum3].REG_NO)}&manageCode=${fn:escapeXml(newBookList[listNum3].MANAGE_CODE)}&booktype=BO" >
+		<c:choose>
+		<c:when test="${empty newBookList[listNum3].aladin or empty newBookList[listNum3].aladin.cover}" >
+		<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." width="100px" height="150px"/>
+		</c:when>
+		<c:otherwise>
+		<img src="${newBookList[listNum3].aladin.cover}" alt="${newBookList[listNum3].TITLE_INFO} 상세보기" width="100px" height="150px"/>
+		</c:otherwise>
+		</c:choose>
+		<span class="title">${newBookList[listNum3].TITLE_INFO}</span>
+	</a>
+</li>
+<li>
+	<a class="goDetail" href="/${homepage.context_path}/intro/search/detail.do?menu_idx=14&isbn=${newBookList[listNum4].ST_CODE}&regNo=${fn:escapeXml(newBookList[listNum4].REG_NO)}&manageCode=${fn:escapeXml(newBookList[listNum4].MANAGE_CODE)}&booktype=BO" >
+		<c:choose>
+		<c:when test="${empty newBookList[listNum4].aladin or empty newBookList[listNum4].aladin.cover}" >
+		<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." width="100px" height="150px"/>
+		</c:when>
+		<c:otherwise>
+		<img src="${newBookList[listNum4].aladin.cover}" alt="${newBookList[listNum4].TITLE_INFO} 상세보기" width="100px" height="150px"/>
+		</c:otherwise>
+		</c:choose>
+		<span class="title">${newBookList[listNum4].TITLE_INFO}</span>
+	</a>
+</li>
+

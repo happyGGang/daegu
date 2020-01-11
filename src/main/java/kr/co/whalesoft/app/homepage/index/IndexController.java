@@ -243,15 +243,87 @@ public class IndexController extends BaseController {
 	@RequestMapping(value = { "/{contextPath}/newBook.*" })
 	public String newBook(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
 		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-		String startDate 	= request.getParameter("startDate");
+		LibrarySearch ls = new LibrarySearch();
+		ls.setManageCode(homepage.getManage_code());
 
-		if ( StringUtils.isEmpty(startDate) ) {
-			startDate = sf.format(DateUtils.addDays(new Date(), -60));
+		//기본값 '1달 전'
+		//검색기간 설정
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		int beforeDays = -30;
+		ls.setSearch_start_date(sf.format(DateUtils.addDays(new Date(), beforeDays)));
+		ls.setSearch_end_date(sf.format(new Date()));
+
+		//서지형태 분류코드 설정.
+		//기본값 도서 "0"
+		//0 : 단행, 1: 연속간행물, 2:비도서
+		ls.setBooktype("0");
+
+		Map<String, Object> result = LibSearchAPI.getNewBookList(ls);
+		List<Map<String, Object>> list = null;
+
+		int count = LibSearchAPI.getSearchCount(result);
+		ls.setTotalDataCount(count);
+
+		if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+
+			list = LibSearchAPI.getListData(result);
+			for (Map<String, Object> map : list) {
+				if (map.containsKey("ISBN")) {
+					//알라딘 API 결과 가져오기
+					if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+						Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+						if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+							map.put("aladin", aladinData.get("item"));
+						}
+					}
+				}
+			}
 		}
 
-		model.addAttribute("newBookList", LibSearchAPI.getNewBookList(new LibrarySearch(homepage.getManage_code(), startDate, sf.format(new Date()))));
+		model.addAttribute("newBookList", list);
 		return basePath + homepage.getFolder() + "/newBook_ajax";
+	}
+
+	@RequestMapping(value = { "/{contextPath}/bestBook.*" })
+	public String bestBook(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
+		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
+		LibrarySearch ls = new LibrarySearch();
+		ls.setManageCode(homepage.getManage_code());
+
+		//서지형태 분류코드 설정.
+		//기본값 도서 "0"
+		//0 : 단행, 1: 연속간행물, 2:비도서
+		ls.setBooktype("0");
+
+		Map<String, Object> result = LibSearchAPI.getBestBookList(ls);
+		List<Map<String, Object>> list = null;
+
+		int count = LibSearchAPI.getSearchCount(result);
+
+		ls.setTotalDataCount(count);
+
+		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+
+			list = LibSearchAPI.getListData(result);
+			for ( Map<String, Object> map : list ) {
+				if ( map.containsKey("ISBN") ) {
+					LibrarySearch book = new LibrarySearch();
+					book.setIsbn(String.valueOf(map.get("ISBN")));
+					book.setManageCode(ls.getManageCode());
+					book.setRowCount(1);
+					Map<String, Object> bookDetail = null;
+					bookDetail = LibSearchAPI.getBookDetail(book);
+					List<Map<String, Object>> detailList = LibSearchAPI.getListData(bookDetail);
+					if ( detailList != null && detailList.size() > 0 ) {
+						map.put("IMAGE", detailList.get(0).get("IMAGE"));
+					}
+				}
+			}
+		}
+
+
+		model.addAttribute("bestBookList", list);
+		return basePath + homepage.getFolder() + "/bestBook_ajax";
 	}
 
 	private String doIndexProc(Model model, HttpServletRequest request, Board board) {
@@ -277,84 +349,12 @@ public class IndexController extends BaseController {
 
 		//신착자료 - 228민주, 남부
 		if (homepage.getHomepage_id().equals("h2") || homepage.getHomepage_id().equals("h3")) {
-			LibrarySearch ls = new LibrarySearch();
-			ls.setManageCode(homepage.getManage_code());
 
-			//기본값 '1달 전'
-			//검색기간 설정
-			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-			int beforeDays = -30;
-			ls.setSearch_start_date(sf.format(DateUtils.addDays(new Date(), beforeDays)));
-			ls.setSearch_end_date(sf.format(new Date()));
-
-			//서지형태 분류코드 설정.
-			//기본값 도서 "0"
-			//0 : 단행, 1: 연속간행물, 2:비도서
-			ls.setBooktype("0");
-
-			Map<String, Object> result = LibSearchAPI.getNewBookList(ls);
-			List<Map<String, Object>> list = null;
-
-			int count = LibSearchAPI.getSearchCount(result);
-			ls.setTotalDataCount(count);
-
-			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
-
-				list = LibSearchAPI.getListData(result);
-				for (Map<String, Object> map : list) {
-					if (map.containsKey("ISBN")) {
-						//알라딘 API 결과 가져오기
-						if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
-							Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
-							if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
-								map.put("aladin", aladinData.get("item"));
-							}
-						}
-					}
-				}
-			}
-
-			model.addAttribute("newBookList", list);
 		}
 
 		//대출베스트 - 남부
 		if (homepage.getHomepage_id().equals("h3")) {
-			LibrarySearch ls = new LibrarySearch();
-			ls.setManageCode(homepage.getManage_code());
 
-			//서지형태 분류코드 설정.
-			//기본값 도서 "0"
-			//0 : 단행, 1: 연속간행물, 2:비도서
-			ls.setBooktype("0");
-
-			Map<String, Object> result = LibSearchAPI.getBestBookList(ls);
-			List<Map<String, Object>> list = null;
-
-			int count = LibSearchAPI.getSearchCount(result);
-
-			ls.setTotalDataCount(count);
-
-			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
-
-				list = LibSearchAPI.getListData(result);
-				for ( Map<String, Object> map : list ) {
-					if ( map.containsKey("ISBN") ) {
-						LibrarySearch book = new LibrarySearch();
-						book.setIsbn(String.valueOf(map.get("ISBN")));
-						book.setManageCode(ls.getManageCode());
-						book.setRowCount(1);
-						Map<String, Object> bookDetail = null;
-						bookDetail = LibSearchAPI.getBookDetail(book);
-						List<Map<String, Object>> detailList = LibSearchAPI.getListData(bookDetail);
-						if ( detailList != null && detailList.size() > 0 ) {
-							map.put("IMAGE", detailList.get(0).get("IMAGE"));
-						}
-					}
-				}
-			}
-
-
-			model.addAttribute("bestBookList", list);
 		}
 
 		// 전자도서관

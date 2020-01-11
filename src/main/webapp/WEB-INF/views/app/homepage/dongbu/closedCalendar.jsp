@@ -58,10 +58,10 @@ $(function() {
 	</div>
 
 	<dl class="info">
-		<c:if test="${closeDayList.dd eq ''}">
+		<c:if test="${empty closeDayList.dd}">
 			<dd>등록된 휴일이 없습니다.</dd>
 		</c:if>
-		<c:if test="${closeDayList.dd ne ''}">
+		<c:if test="${not empty closeDayList.dd}">
 			<c:set var="dd" value="${fn:split(closeDayList.dd, ',')}"></c:set>
 			<dd>
 				<c:forEach items="${dd}" var="i">

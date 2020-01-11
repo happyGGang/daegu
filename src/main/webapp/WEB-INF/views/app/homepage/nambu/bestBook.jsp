@@ -14,7 +14,7 @@ do {
 <c:set var="listNum1" value="<%=listNum1%>"></c:set>
 <c:set var="listNum2" value="<%=listNum2%>"></c:set>
 <li>
-	<a class="goDetail" href="/${homepage.context_path}/intro/search/detail.do?menu_idx=14&isbn=${bestBookList[listNum1].ST_CODE}&regNo=${fn:escapeXml(bestBookList[listNum1].REG_NO)}&manageCode=${fn:escapeXml(bestBookList[listNum1].MANAGE_CODE)}&booktype=BO" >
+	<a class="goDetail" href="/${homepage.context_path}/intro/search/detail.do?menu_idx=15&isbn=${bestBookList[listNum1].ST_CODE}&regNo=${fn:escapeXml(bestBookList[listNum1].REG_NO)}&manageCode=${fn:escapeXml(bestBookList[listNum1].MANAGE_CODE)}&booktype=BO" >
 		<c:choose>
 		<c:when test="${empty bestBookList[listNum1].aladin or empty bestBookList[listNum1].aladin.cover}">
 		<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." />
@@ -27,7 +27,7 @@ do {
 	</a>
 </li>
 <li>
-	<a class="goDetail" href="/${homepage.context_path}/intro/search/detail.do?menu_idx=14&isbn=${bestBookList[listNum2].ST_CODE}&regNo=${fn:escapeXml(bestBookList[listNum2].REG_NO)}&manageCode=${fn:escapeXml(bestBookList[listNum2].MANAGE_CODE)}&booktype=BO" >
+	<a class="goDetail" href="/${homepage.context_path}/intro/search/detail.do?menu_idx=15&isbn=${bestBookList[listNum2].ST_CODE}&regNo=${fn:escapeXml(bestBookList[listNum2].REG_NO)}&manageCode=${fn:escapeXml(bestBookList[listNum2].MANAGE_CODE)}&booktype=BO" >
 		<c:choose>
 		<c:when test="${empty bestBookList[listNum2].aladin or empty bestBookList[listNum2].aladin.cover}">
 		<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." />
