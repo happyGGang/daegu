@@ -79,6 +79,8 @@ do {
 
 		$('div.holiday-box').load('calendar2.do');
 		$('div.event-box').load('calendar4.do');
+		$('ul.newBookUl').load('newBook.do');
+		$('ul.bestBookUl').load('bestBook.do');
 
 		$('#main-search-btn').on('click', function() {
 			if( $('input#search_text_1').val() == '' ) {
@@ -368,64 +370,14 @@ function searchCheck() {
 							</ul>
 						</div>
 						<div class="box con" data-tab="tab1">
-							<ul class="book_photo">
-								<li>
-									<a class="goDetail" href="/${homepage.context_path}/intro/search/detail.do?menu_idx=14&isbn=${newBookList[listNum1].ST_CODE}&regNo=${fn:escapeXml(newBookList[listNum1].REG_NO)}&manageCode=${fn:escapeXml(newBookList[listNum1].MANAGE_CODE)}&booktype=BO" >
-										<c:choose>
-										<c:when test="${empty newBookList[listNum1].aladin or empty newBookList[listNum1].aladin.cover}">
-										<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." />
-										</c:when>
-										<c:otherwise>
-										<img src="${newBookList[listNum1].aladin.cover}" alt="${newBookList[listNum1].TITLE_INFO} 상세보기" />
-										</c:otherwise>
-										</c:choose>
-										<span class="title">${newBookList[listNum1].TITLE_INFO}</span>
-									</a>
-								</li>
-								<li>
-									<a class="goDetail" href="/${homepage.context_path}/intro/search/detail.do?menu_idx=14&isbn=${newBookList[listNum2].ST_CODE}&regNo=${fn:escapeXml(newBookList[listNum2].REG_NO)}&manageCode=${fn:escapeXml(newBookList[listNum2].MANAGE_CODE)}&booktype=BO" >
-										<c:choose>
-										<c:when test="${empty newBookList[listNum2].aladin or empty newBookList[listNum2].aladin.cover}">
-										<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." />
-										</c:when>
-										<c:otherwise>
-										<img src="${newBookList[listNum2].aladin.cover}" alt="${newBookList[listNum2].TITLE_INFO} 상세보기" />
-										</c:otherwise>
-										</c:choose>
-										<span class="title">${newBookList[listNum2].TITLE_INFO}</span>
-									</a>
-								</li>
+							<ul class="book_photo newBookUl">
+
 							</ul>
 						</div>
 
 						<div class="box con" data-tab="tab2" style="display:none;">
-							<ul class="book_photo">
-								<li>
-									<a class="goDetail" href="/${homepage.context_path}/intro/search/detail.do?menu_idx=14&isbn=${bestBookList[listNum1].ST_CODE}&regNo=${fn:escapeXml(bestBookList[listNum1].REG_NO)}&manageCode=${fn:escapeXml(bestBookList[listNum1].MANAGE_CODE)}&booktype=BO" >
-										<c:choose>
-										<c:when test="${empty bestBookList[listNum1].aladin or empty bestBookList[listNum1].aladin.cover}">
-										<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." />
-										</c:when>
-										<c:otherwise>
-										<img src="${bestBookList[listNum1].aladin.cover}" alt="${bestBookList[listNum1].TITLE_INFO} 상세보기" />
-										</c:otherwise>
-										</c:choose>
-										<span class="title">${bestBookList[listNum1].TITLE}</span>
-									</a>
-								</li>
-								<li>
-									<a class="goDetail" href="/${homepage.context_path}/intro/search/detail.do?menu_idx=14&isbn=${bestBookList[listNum2].ST_CODE}&regNo=${fn:escapeXml(bestBookList[listNum2].REG_NO)}&manageCode=${fn:escapeXml(bestBookList[listNum2].MANAGE_CODE)}&booktype=BO" >
-										<c:choose>
-										<c:when test="${empty bestBookList[listNum2].aladin or empty bestBookList[listNum2].aladin.cover}">
-										<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." />
-										</c:when>
-										<c:otherwise>
-										<img src="${bestBookList[listNum2].aladin.cover}" alt="${bestBookList[listNum2].TITLE} 상세보기" />
-										</c:otherwise>
-										</c:choose>
-										<span class="title">${bestBookList[listNum2].TITLE}</span>
-									</a>
-								</li>
+							<ul class="book_photo bestBookUl">
+
 							</ul>
 						</div>
 					</div>

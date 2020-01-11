@@ -4,6 +4,17 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@page import="java.util.Random"%>
+<%
+Random rnd = new Random();
+int listNum1 = rnd.nextInt(10);
+int listNum2 = 0;
+do {
+	listNum2 = rnd.nextInt(10);
+} while (listNum1 == listNum2);
+%>
+<c:set var="listNum1" value="<%=listNum1%>"></c:set>
+<c:set var="listNum2" value="<%=listNum2%>"></c:set>
 <tiles:insertAttribute name="header" />
 <script type="text/javascript">
 	$(function() {
@@ -64,9 +75,10 @@
 			}
 		});
 		// 팝업 관련 코드 END
-	
-		
+
+
 		$('div.cal-box').load('calendar3.do');
+		$('ul.newBookUl').load('newBook.do');
 
 		$('#main-search-btn').on('click', function() {
 			if( $('input#search_text_1').val() == '' ) {
@@ -120,19 +132,19 @@
 						<div class="main1box1box2box1">
 							<ul>
 								<li class="bg-green">
-									<a href="#">
+									<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=30">
 									<span class="wt">수강신청</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick01-bg.png" class="mi">
 									</a>
 								</li>
 								<li class="bg-white">
-									<a href="#">
+									<a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=16">
 									<span class="wt">대출현황</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick02-bg.png" class="mi">
 									</a>
 								</li>
 								<li class="bg-lgreen">
-									<a href="#">
+									<a href="/${homepage.context_path}/html.do?menu_idx=26">
 									<span class="wt">희망도서신청</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick03-bg.png" class="mi">
 									</a>
@@ -144,13 +156,13 @@
 									</a>
 								</li>
 								<li class="bg-orange">
-									<a href="#">
+									<a href="/elib/index.do">
 									<span class="wt">전자도서관</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick05-bg.png" class="mi">
 									</a>
 								</li>
 								<li class="bg-lgray">
-									<a href="#">
+									<a href="/${homepage.context_path}/html.do?menu_idx=104">
 									<span class="wt">이용안내</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick06-bg.png" class="mi">
 									</a>
@@ -162,28 +174,37 @@
 							<div class="book tabS">
 								<div class="title">
 									<ul class="tabMenuS">
-										<li class="on"><a href="#tab1">신간도서</a></li>
-										<li><a href="#tab2">추천도서</a></li>
-										<li><a href="/${homepage.context_path}/board/index.do?menu_idx=31&manage_idx=415" class="more-btn more-more"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
+										<li class="on"><a href="#tab1" data-link="/intro/search/newBook/index.do?menu_idx=14">신간도서</a></li>
+										<li><a href="#tab2" data-link="/board/index.do?menu_idx=41&manage_idx=113">추천도서</a></li>
+										<li><a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class="more-btn more-more"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
 									</ul>
 								</div>
 								<div class="box con" data-tab="tab1">
-									<ul class="book_photo">
-										<li>
-											<a class="goDetail" href="" >
-												<img src="/resources/homepage/jungang/img/book01.png" alt="${i.TITLE}" />
-												<span class="title">욕대장</span>
-											</a>
-										</li>
+									<ul class="book_photo newBookUl">
+
 									</ul>
 								</div>
 
 								<div class="box con" data-tab="tab2" style="display:none;">
 									<ul class="book_photo">
 										<li>
-											<a class="goDetail" href="" keyValue1="${i.LOCA}" keyValue2="${i.CTRLNO}">
-												<img src="/resources/homepage/jungang/img/book02.png" alt="${i.TITLE}" />
-												<span class="title">오즈의 의류수거함</span>
+											<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${recommendBookList[listNum1].manage_idx}&board_idx=${recommendBookList[listNum1].board_idx}">
+												<c:choose>
+												<c:when test="${recommendBookList[listNum1].preview_img ne null}">
+													<c:choose>
+														<c:when test="${fn:contains(recommendBookList[listNum1].preview_img, 'http')}">
+														<img src="${recommendBookList[listNum1].preview_img}" alt="${recommendBookList[listNum1].title}" />
+														</c:when>
+														<c:otherwise>
+														<img src="/data/board/${recommendBookList[listNum1].manage_idx}/${recommendBookList[listNum1].board_idx}/${recommendBookList[listNum1].preview_img}" alt="${recommendBookList[listNum1].title}" title="${recommendBookList[listNum1].title}"/>
+														</c:otherwise>
+													</c:choose>
+												</c:when>
+												<c:otherwise>
+													<img src="/resources/common/img/noimg-gall.png" alt="${recommendBookList[listNum1].title}" title="${recommendBookList[listNum1].title}">
+												</c:otherwise>
+												</c:choose>
+												<span class="title">${recommendBookList[listNum1].title}</span>
 											</a>
 										</li>
 									</ul>
@@ -198,12 +219,11 @@
 					<div class="popZone">
 						<c:choose>
 							<c:when test="${fn:length(popupZoneList) > 0}">
-								<!-- <homepageTag:popupZone popupZoneList="${popupZoneList}" /> -->
+								<homepageTag:popupZone popupZoneList="${popupZoneList}" />
 							</c:when>
 							<c:otherwise>
 								<ul>
-									<li><a href="#"><img src="/resources/homepage/${homepage.context_path}/img/popupnone.jpg" alt="" /></a></li>
-									<li><a href="#"><img src="/resources/homepage/${homepage.context_path}/img/popupzone01.png" alt="" /></a></li>
+									<li><a href="#"><img src="/resources/homepage/${homepage.context_path}/img/popupnone.jpg" alt="등록된 팝업존이 없습니다." /></a></li>
 								</ul>
 							</c:otherwise>
 						</c:choose>
@@ -220,59 +240,65 @@
 						<div class="title">
 							<ul>
 								<li><h2>영화상영</h2></li>
-								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=87&manage_idx=12"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
+								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=223"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
 							</ul>
 						</div>
 						<div class="movieContent">
 							<ul>
-								
+								<c:forEach var="i" varStatus="status" items="${movieList}" >
 								<li>
-									<a href="//${homepage.context_path}/board/view.do?manage_idx=88&board_idx=1296104&menu_idx=46">
-									<span class="movieImg">
-										<img src="/resources/homepage/dongbu/img/movie01.jpg" alt="미녀와 야수">
-									</span>
-									<span class="movieEx">
-										<div>12세미만</div>
-										<strong class="title">미녀와 야수</strong>
-										<span class="date">
-										<b>날짜</b> 2019.12.24.
+									<a href="/${homepage.context_path}/board/view.do?menu_idx=60&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+										<span class="movieImg">
+										<c:choose>
+											<c:when test="${i.preview_img ne null}">
+												<c:choose>
+													<c:when test="${fn:contains(i.preview_img, 'http')}">
+														<img src="${i.preview_img}" alt="${i.title}"/>
+													</c:when>
+													<c:otherwise>
+														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}"/>
+													</c:otherwise>
+												</c:choose>
+											</c:when>
+											<c:otherwise>
+														<img src="/resources/common/img/noimg-gall.png" alt="${i.title}">
+											</c:otherwise>
+										</c:choose>
 										</span>
-										<span class="time">
-										<b>시간</b> 14:00
-										</span>
-										<span class="divid">
-										<b>장소</b> 남부도서관
-										</span>
-										<span class="desc">
-										<b>장르</b> 애니
-										</span>
-									</span>
-									</a>
-								</li>
 
-								<li>
-									<a href="/${homepage.context_path}/board/view.do?manage_idx=88&board_idx=1296104&menu_idx=46">
-									<span class="movieImg">
-										<img src="/resources/homepage/dongbu/img/movie01.jpg" alt="미녀와 야수">
-									</span>
-									<span class="movieEx">
-										<div>12세미만</div>
-										<strong class="title">미녀와 야수</strong>
-										<span class="date">
-										<b>날짜</b> 2019.12.24.
+										<span class="movieEx">
+											<c:if test="${i.imsi_v_12 ne null and i.imsi_v_12 ne '0'}">
+											<div>${fn:substring(i.imsi_v_12, 0, 15)}<c:if test="${fn:length(i.imsi_v_12) > 15}">...</c:if></div>
+											</c:if>
+											<strong class="title">${i.title}</strong>
+
+											<c:if test="${i.imsi_v_1 ne '' and i.imsi_v_2 ne ''}">
+											<span class="date">
+											<b>날짜</b> ${fn:replace(i.imsi_v_1, '-', '.')}.${i.imsi_v_2}
+											</span>
+											</c:if>
+
+											<c:if test="${i.imsi_v_3 ne null and i.imsi_v_4 ne null}">
+											<span class="time">
+											<b>시간</b> ${i.imsi_v_3}:${fn:length(i.imsi_v_4) == 1 ? '0' : ''}${i.imsi_v_4}
+											</span>
+											</c:if>
+
+											<c:if test="${i.imsi_v_6 ne null and i.imsi_v_6 ne '0'}">
+											<span class="divid">
+											<b>장소</b> ${i.imsi_v_6}
+											</span>
+											</c:if>
+
+											<c:if test="${i.imsi_v_9 ne null and i.imsi_v_9 ne '0'}">
+											<span class="desc">
+											<b>장르</b>  ${fn:substring(i.imsi_v_9, 0, 15)}<c:if test="${fn:length(i.imsi_v_9) > 15}">...</c:if>
+											</span>
+											</c:if>
 										</span>
-										<span class="time">
-										<b>시간</b> 14:00
-										</span>
-										<span class="divid">
-										<b>장소</b> 남부도서관
-										</span>
-										<span class="desc">
-										<b>장르</b> 애니
-										</span>
-									</span>
 									</a>
 								</li>
+								</c:forEach>
 							</ul>
 						</div>
 					</div>
@@ -280,9 +306,9 @@
 
 				<div class="main2box2">
 					<ul>
-						<li><a href=""><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick001-bg.png" alt="책바다"></span><span class="txt">책바다</span></a></li>
-						<li><a href=""><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick002-bg.png" alt="책나래"></span><span class="txt">책나래</span></a></li>
-						<li><a href=""><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick003-bg.png" alt="사서에게 물어보세요"></span><span class="txt">사서에게<br/>물어보세요</span></a></li>
+						<li><a href="/${homepage.context_path}/html.do?menu_idx=48"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick001-bg.png" alt="책바다"></span><span class="txt">책바다</span></a></li>
+						<li><a href="/${homepage.context_path}/html.do?menu_idx=49"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick002-bg.png" alt="책나래"></span><span class="txt">책나래</span></a></li>
+						<li><a href="/${homepage.context_path}/html.do?menu_idx=50"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick003-bg.png" alt="사서에게 물어보세요"></span><span class="txt">사서에게<br/>물어보세요</span></a></li>
 					</ul>
 				</div>
 
@@ -291,81 +317,53 @@
 						<div class="title">
 							<ul>
 								<li><h2>공지사항</h2></li>
-								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=87&manage_idx=12"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
+								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=84"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
 							</ul>
 						</div>
 						<div class="cont">
 							<ul class="list">
-							<!--
-								<c:forEach var="i" varStatus="status" items="${noticeList}" >
-								<c:if test="${status.first}">
-								<li class="on-cont">
-									<img src="${site.designRoot}/img/incheon_notice_img.png">
-									<a href="/${homepage.context_path}/board/view.do?menu_idx=87&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-										<span class="title">${i.title}</span>
-										<p class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></p>
-										<span class="content">
-												${fn:substring(fn:trim(i.content_summary), 0, 90)}...
-										</span>
-									</a>
-								</li>
-								</c:if>
-								<c:if test="${!status.first}">
-								<li><a href="/${homepage.context_path}/board/view.do?menu_idx=87&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-									<span class="not-sub">${i.title}
-										<img src="${site.designRoot}/img/incheon_new_icon.png"></span>
-										<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></span></a>
-								</li>
-								</c:if>
-								</c:forEach>
-
-								<c:if test="${fn:length(noticeList) < 1}">
-								<li class="noticeCont"  style="min-height: 160px; text-align: center; line-height: 150px">
-									등록된 데이터가 없습니다.
-								</li>
-								</c:if>
-							-->
+								<%--공지사항 상단--%>
+								<c:if test="${fn:length(noticeListTopNotice) < 1}">
 								<li class="on-cont">
 									<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
 									<a href="#">
-										<span class="title">2019년 12월 31일 자료실 운영시간 변경 안내</span>
-										<p class="date">2019-12-24</p>
+										<span class="title">등록된 공지사항이 없습니다.</span>
+										<p class="date"></p>
 										<span class="content">
-											2019년도 11월 2차 이용자 희망도서 처리결과를..
 										</span>
 									</a>
 								</li>
-								
-								<li>
-								<a href="#">
-									<em>2020년도 자료실 평일 및 주말 근무자 최종 합격자 안내</em>
-									<span class="date">2019.12.19</span>
-								</a>
+								</c:if>
+								<c:if test="${fn:length(noticeListTopNotice) > 0}">
+								<li class="on-cont">
+									<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
+									<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${noticeListTopNotice[0].manage_idx}&board_idx=${noticeListTopNotice[0].board_idx}">
+										<span class="title">${noticeListTopNotice[0].title}</span>
+										<p class="date"><fmt:formatDate value="${noticeListTopNotice[0].add_date}" pattern="yyyy-MM-dd"/></p>
+										<span class="content">
+											${fn:substring(fn:trim(noticeListTopNotice[0].content_summary), 0, 30)}...
+										</span>
+									</a>
 								</li>
+								</c:if>
+ 								<%--공지사항 상단--%>
+
+								<%--공지사항 목록--%>
+ 								<c:forEach var="i" varStatus="status" items="${noticeList}" >
 								<li>
-								<a href="#">
-									<em>2020년 겨울방학특별프로그램 학습자 모집</em>
-									<span class="date">2019.12.17</span>
-								</a>
+									<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+										<em>${i.title}</em>
+										<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
+									</a>
 								</li>
+								</c:forEach>
+
+								<c:if test="${fn:length(noticeList) < 1}">
 								<li>
-								<a href="#">
-									<em>공유재산 사용·수익허가(이용자 복합기) 낙찰자 결정 공고</em>
-									<span class="date">2019.12.16</span>
-								</a>
+									<em>등록된 공지사항이 없습니다.</em>
 								</li>
-								<li>
-								<a href="#">
-									<em>공유재산 사용·수익허가(이용자 복합기) 낙찰자 결정 공고</em>
-									<span class="date">2019.12.16</span>
-								</a>
-								</li>
-								<li>
-								<a href="#">
-									<em>공유재산 사용·수익허가(이용자 복합기) 낙찰자 결정 공고</em>
-									<span class="date">2019.12.16</span>
-								</a>
-								</li>
+								</c:if>
+								<%--공지사항 목록--%>
 							</ul>
 						</div>
 					</div>
@@ -380,7 +378,7 @@
 						</div>
 
 						<div class="cal-box">
-							
+
 						</div>
 
 						<div class="library-infomation">
@@ -405,7 +403,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="section">
 			<div class="main7_banner">
 				<div class="banner-wrap type1">
@@ -416,45 +414,11 @@
 							<a class="stop active" href="#stop"><i class="fa fa-pause"></i><span class="blind">정지</span></a>
 							<a class="play" href="#play"><i class="fa fa-play"></i><span class="blind">시작</span></a>
 							<a class="next" href="#next"><i class="fa fa-chevron-right"></i><span class="blind">다음</span></a>
-							<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=154"><i class="fa fa-navicon"></i><span class="blind">더보기</span></a>
+							<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=93"><i class="fa fa-navicon"></i><span class="blind">더보기</span></a>
 						</div>
 					</div>
 					<div class="banner-box3">
-						<!-- <homepageTag:banner bannerList="${bannerList}"/> -->
-						<ul class="banner-roll">
-						<li>
-						<span>
-						<a target="_blank" href="http://www.nl.go.kr/nl/index.jsp">
-						<img alt="국립중앙도서관" src="http://www.gbelib.kr/data/banner/h16/1484821791432"/></a></span></li>
-						<li>
-						<span>
-						<a target="_blank" href="http://www.nlcy.go.kr/index.do">
-						<img alt="국립어린이청소년도서관" src="http://www.gbelib.kr/data/banner/h16/1486009824941"/></a></span></li>
-						<li>
-						<span>
-						<a target="_blank" href="http://nlid.nl.go.kr/able?act=searchDetail03">
-						<img alt="국립장애인도서관" src="http://www.gbelib.kr/data/banner/h16/1486009952132"/></a></span></li>
-						<li>
-						<span>
-						<a target="_blank" href="http://www.gbe.kr/">
-						<img alt="경상북도교육청" src="http://www.gbelib.kr/data/banner/h16/1486009731009"/></a></span></li>
-						<li>
-						<span>
-						<a target="_blank" href="http://www.csed.go.kr/">
-						<img alt="청송교육지원청" src="http://www.gbelib.kr/data/banner/h16/1484821773110"/></a></span></li>
-						<li>
-						<span>
-						<a target="_blank" href="http://www.nl.go.kr/nill/user/index.jsp">
-						<img alt="책바다" src="http://www.gbelib.kr/data/banner/h16/1484821729632"/></a></span></li>
-						<li>
-						<span>
-						<a target="_blank" href="http://dream.nl.go.kr/dream/chaeknarae/index.do">
-						<img alt="책나래" src="http://www.gbelib.kr/data/banner/h16/1484821754536"/></a></span></li>
-						<li>
-						<span>
-						<a href="javascript:linkToAskNl('147022','경상북도립청송공공도서관');">
-						<img alt="사서에게물어보세요" src="http://www.gbelib.kr/data/banner/h16/1484821719719"/></a></span></li>
-						</ul>
+						<homepageTag:banner bannerList="${bannerList}"/>
 					</div>
 				</div>
 			</div>
@@ -462,5 +426,5 @@
 
 	</div>
 
-	
+
 <tiles:insertAttribute name="footer" />

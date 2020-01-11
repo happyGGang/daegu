@@ -78,6 +78,7 @@ do {
 
 
 		$('div.cal-box').load('calendar3.do');
+		$('ul.newBookUl').load('newBook.do');
 
 		$('#main-search-btn').on('click', function() {
 			if( $('input#search_text_1').val() == '' ) {
@@ -186,43 +187,31 @@ do {
 								</div>
 
 								<div class="box con" data-tab="tab1">
-									<ul class="book_photo">
-										<li>
-											<a class="goDetail" href="/${homepage.context_path}/intro/search/detail.do?menu_idx=14&isbn=${newBookList[listNum1].ST_CODE}&regNo=${fn:escapeXml(newBookList[listNum1].REG_NO)}&manageCode=${fn:escapeXml(newBookList[listNum1].MANAGE_CODE)}&booktype=BO" >
-												<c:choose>
-												<c:when test="${empty newBookList[listNum1].aladin or empty newBookList[listNum1].aladin.cover}">
-												<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." />
-												</c:when>
-												<c:otherwise>
-												<img src="${newBookList[listNum1].aladin.cover}" alt="${newBookList[listNum1].TITLE_INFO} 상세보기" />
-												</c:otherwise>
-												</c:choose>
-												<span class="title">${newBookList[listNum1].TITLE_INFO}</span>
-											</a>
-										</li>
+									<ul class="book_photo newBookUl">
+
 									</ul>
 								</div>
 
 								<div class="box con" data-tab="tab2" style="display:none;">
 									<ul class="book_photo">
 										<li>
-											<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=94&board_idx=${newBookBoardList[0].board_idx}">
+											<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=94&board_idx=${recommendBookList[listNum1].board_idx}">
 												<c:choose>
-												<c:when test="${newBookBoardList[0].preview_img ne null}">
+												<c:when test="${recommendBookList[listNum1].preview_img ne null}">
 													<c:choose>
-														<c:when test="${fn:contains(newBookBoardList[0].preview_img, 'http')}">
-														<img src="${newBookBoardList[0].preview_img}" alt="${newBookBoardList[0].title}" />
+														<c:when test="${fn:contains(recommendBookList[listNum1].preview_img, 'http')}">
+														<img src="${recommendBookList[listNum1].preview_img}" alt="${recommendBookList[listNum1].title}" />
 														</c:when>
 														<c:otherwise>
-														<img src="/data/board/${newBookBoardList[0].manage_idx}/${newBookBoardList[0].board_idx}/${newBookBoardList[0].preview_img}" alt="${newBookBoardList[0].title}" title="${newBookBoardList[0].title}"/>
+														<img src="/data/board/${recommendBookList[listNum1].manage_idx}/${recommendBookList[listNum1].board_idx}/${recommendBookList[listNum1].preview_img}" alt="${recommendBookList[listNum1].title}" title="${recommendBookList[listNum1].title}"/>
 														</c:otherwise>
 													</c:choose>
 												</c:when>
 												<c:otherwise>
-													<img src="/resources/common/img/noimg-gall.png" alt="${newBookBoardList[0].title}" title="${newBookBoardList[0].title}">
+													<img src="/resources/common/img/noimg-gall.png" alt="${recommendBookList[listNum1].title}" title="${recommendBookList[listNum1].title}">
 												</c:otherwise>
 												</c:choose>
-												<span class="title">${newBookBoardList[0].title}</span>
+												<span class="title">${recommendBookList[listNum1].title}</span>
 											</a>
 										</li>
 									</ul>
