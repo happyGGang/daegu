@@ -64,6 +64,8 @@ public class CommonAPI {
 		connection.setRequestProperty("Accept-Charset", "UTF-8");
 		connection.setRequestProperty("Accept-Language", "utf-8,ko;q=0.8,en-us;q=0.5,en;q=0.3");
 		connection.setDoOutput(true);
+		connection.setConnectTimeout(3000);
+		connection.setReadTimeout(3000);
 		return connection;
 	}
 
