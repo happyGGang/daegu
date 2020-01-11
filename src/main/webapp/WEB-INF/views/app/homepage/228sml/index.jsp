@@ -243,7 +243,7 @@
 								<c:if test="${fn:length(noticeListTopNotice) > 0}">
 								<li class="on-cont">
 									<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
-									<a href="#">
+									<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${noticeListTopNotice[0].manage_idx}&board_idx=${noticeListTopNotice[0].board_idx}">
 										<span class="title">${noticeListTopNotice[0].title}</span>
 										<p class="date"><fmt:formatDate value="${noticeListTopNotice[0].add_date}" pattern="yyyy-MM-dd"/></p>
 										<span class="content">
