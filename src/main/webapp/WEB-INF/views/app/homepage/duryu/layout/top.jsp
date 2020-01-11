@@ -38,7 +38,11 @@
 						<span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=92">사이트맵</a>
 
-						<a href="" class="sitemap-img2" style="padding-left:18px;"><img src="/resources/homepage/${homepage.context_path}/img/twitter-btn.png" alt="트위터" /></a><a href="" class="sitemap-img2"><img src="/resources/homepage/${homepage.context_path}/img/facebook-btn.png" alt="페이스북" /></a>
+						<a href="https://twitter.com/duryulibrary" target="_blank" class="sitemap-img2" style="padding-left:18px;">
+						<img src="/resources/homepage/${homepage.context_path}/img/twitter-btn.png" alt="트위터" /></a>
+
+						<a href="https://www.facebook.com/duryulib" target="_blank" class="sitemap-img2">
+						<img src="/resources/homepage/${homepage.context_path}/img/facebook-btn.png" alt="페이스북" /></a>
 			</div>
 		</div>
 	</div>

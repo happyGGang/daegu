@@ -4,6 +4,22 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@page import="java.util.Random"%>
+<%
+Random rnd = new Random();
+int listNum1 = rnd.nextInt(10);
+int listNum2 = 0;
+int listNum3 = 0;
+do {
+	listNum2 = rnd.nextInt(10);
+} while (listNum1 == listNum2);
+do {
+	listNum3 = rnd.nextInt(10);
+} while (listNum1 == listNum3 || listNum2 == listNum3);
+%>
+<c:set var="listNum1" value="<%=listNum1%>"></c:set>
+<c:set var="listNum2" value="<%=listNum2%>"></c:set>
+<c:set var="listNum3" value="<%=listNum3%>"></c:set>
 <tiles:insertAttribute name="header" />
 <script type="text/javascript">
 	$(function() {
@@ -64,9 +80,11 @@
 			}
 		});
 		// 팝업 관련 코드 END
-	
-		
+
+
 		$('div#holiday-box').load('calendar2.do');
+		$('ul.newBookUl').load('newBook.do');
+		$('ul.bestBookUl').load('bestBook.do');
 
 		$('#main-search-btn').on('click', function() {
 			if( $('input#search_text_1').val() == '' ) {
@@ -99,8 +117,8 @@
 
 					<div class="search-box">
 						<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
-							<input type="hidden" name="menu_idx" value="7">
-							<input type="hidden" name="search_type2" value="L_TITLEAUTHOR">
+							<input type="hidden" name="menu_idx" value="13">
+							<input type="hidden" name="booktype" value="BOOK">
 							<fieldset>
 								<legend class="blind">통합검색</legend>
 								<div class="main-box">
@@ -108,7 +126,7 @@
 									<div class="box1">
 										<div class="box2">
 											<label for="search_text_1" class="blind">통합자료검색</label>
-											<input name="search_text" id="search_text_1" type="text" class="text" placeholder="검색어를 입력하세요" style="ime-mode:active;"/>
+											<input name="title" id="search_text_1" type="text" class="text" placeholder="검색어를 입력하세요" style="ime-mode:active;"/>
 										</div>
 									</div>
 									<button id="main-search-btn">검색</button>
@@ -118,7 +136,7 @@
 					</div>
 
 					<div id="holiday-box" class="">
-						
+
 					</div>
 				</div>
 			</div>
@@ -140,45 +158,54 @@
 					<div style="">
 						<div class="main3 tabS">
 							<ul class="tabMenuS">
-								<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=31&manage_idx=415">공지사항</a></li>
+								<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=179">공지사항</a></li>
 								<li>/</li>
-								<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=32&manage_idx=416">입찰정보</a></li>
-								<a href="/${homepage.context_path}/board/index.do?menu_idx=58&manage_idx=226" class="more-btn more-more">더보기</a>
+								<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=76&manage_idx=180">입찰정보</a></li>
+								<a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=179" class="more-btn more-more">더보기</a>
 							</ul>
 
 							<div class="news con" data-tab="tab1">
 								<div class="box">
 									<ul>
-									<!--
-									<c:forEach var="i" items="${noticeList}">
-										<li>
-											<a href="/${homepage.context_path}/board/view.do?menu_idx=58&amp;manage_idx=${i.manage_idx}&amp;board_idx=${i.board_idx}"><em>${i.title}</em></a>
-											<span><fmt:formatDate value="${i.add_date}" pattern="MM.dd"/></span>
+										<c:forEach var="i" varStatus="status" items="${noticeListTopNotice}" >
+										<li class="on-notice">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+												<em>${i.title}</em>
+												<span><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
+											</a>
 										</li>
-									</c:forEach>
-									-->
-									<li class="on-notice"><a href="#"><em>구입 예정 고문헌 목록 공개</em><span>2019.12.17</span></a></li>
-									<li class="on-notice"><a href="#"><em>‘규남 하백원이 만든 자동양수기 자승차’</em><span>2019.12.17</span></a></li>
-
-									<li><a href="#"><em>빅데이터로 보는 세상과 한국 경제</em><span>2019.12.17</span></a></li>
-									<li><a href="#"><em>대구광역시립도서관 온라인 서비스 일시..</em><span>2019.12.17</span></a></li>
-									<li><a href="#"><em>2019년도 대구광역시립도서관 이용만족..</em><span>2019.12.17</span></a></li>
-									<li><a href="#"><em>빅데이터로 보는 세상과 한국 경제</em><span>2019.12.17</span></a></li>
-									<li><a href="#"><em>대구광역시립도서관 온라인 서비스 일시</em><span>2019.12.17</span></a></li>
+										</c:forEach>
+										<c:forEach var="i" varStatus="status" items="${noticeList}" >
+										<li>
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+												<em>${i.title}</em>
+												<span><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
+											</a>
+										</li>
+										</c:forEach>
 									</ul>
-								
 								</div>
 							</div>
 
 							<div class="news con" data-tab="tab2" style="display:none;">
 								<div class="box">
 									<ul>
-									<c:forEach var="i" items="${noticeList}">
+										<c:forEach var="i" varStatus="status" items="${bidListTopNotice}" >
 										<li>
-											<a href="/${homepage.context_path}/board/view.do?menu_idx=58&amp;manage_idx=${i.manage_idx}&amp;board_idx=${i.board_idx}"><em>${i.title}</em></a>
-											<span><fmt:formatDate value="${i.add_date}" pattern="MM.dd"/></span>
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=76&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+												<em>${i.title}</em>
+												<span><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
+											</a>
 										</li>
-									</c:forEach>
+										</c:forEach>
+										<c:forEach var="i" varStatus="status" items="${bidList}" >
+										<li>
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=76&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+												<em>${i.title}</em>
+												<span><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
+											</a>
+										</li>
+										</c:forEach>
 									</ul>
 								</div>
 							</div>
@@ -186,89 +213,90 @@
 
 						<div class="main4 tabS">
 							<ul class="tabMenuS">
-								<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=31&manage_idx=415">사서추천도서</a></li>
+								<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=175">사서추천도서</a></li>
 								<li>/</li>
-								<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=32&manage_idx=416">신간도서</a></li>
+								<li><a href="#tab2" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14">신간도서</a></li>
 								<li>/</li>
-								<li><a href="#tab3" data-link="/${homepage.context_path}/board/index.do?menu_idx=32&manage_idx=417">대출베스트</a></li>
-								<a href="/${homepage.context_path}/board/index.do?menu_idx=31&manage_idx=415" class="more-btn more-more">더보기</a>
+								<li><a href="#tab3" data-link="/${homepage.context_path}/intro/search/bestBook/index.do?menu_idx=15">대출베스트</a></li>
+								<a href="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=175" class="more-btn more-more">더보기</a>
 							</ul>
 
 							<div class="box con" data-tab="tab1">
 								<ul class="lt_photo">
 									<li>
-										<a class="goDetail" href="" >
-											<img src="/resources/homepage/jungang/img/book01.png" alt="${i.TITLE}" width="100px" height="150px">
-											<span class="title">욕대장</span>
-											<span class="author">박현숙</span>
+										<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${recommendBookList[listNum1].manage_idx}&board_idx=${recommendBookList[listNum1].board_idx}">
+											<c:choose>
+											<c:when test="${recommendBookList[listNum1].preview_img ne null}">
+												<c:choose>
+													<c:when test="${fn:contains(recommendBookList[listNum1].preview_img, 'http')}">
+													<img src="${recommendBookList[listNum1].preview_img}" alt="${recommendBookList[listNum1].title}" />
+													</c:when>
+													<c:otherwise>
+													<img src="/data/board/${recommendBookList[listNum1].manage_idx}/${recommendBookList[listNum1].board_idx}/${recommendBookList[listNum1].preview_img}" alt="${recommendBookList[listNum1].title}" title="${recommendBookList[listNum1].title}"/>
+													</c:otherwise>
+												</c:choose>
+											</c:when>
+											<c:otherwise>
+												<img src="/resources/common/img/noimg-gall.png" alt="${recommendBookList[listNum1].title}" title="${recommendBookList[listNum1].title}">
+											</c:otherwise>
+											</c:choose>
+											<span class="title">${recommendBookList[listNum1].title}</span>
+											<span class="author">${recommendBookList[listNum1].imsi_v_3}</span>
 										</a>
 									</li>
 									<li>
-										<a class="goDetail" href="" keyValue1="${i.LOCA}" keyValue2="${i.CTRLNO}">
-											<img src="/resources/homepage/jungang/img/book02.png" alt="${i.TITLE}" width="100px" height="150px">
-											<span class="title">오즈의 의류수거함</span>
-											<span class="author">유영민</span>
+										<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${recommendBookList[listNum2].manage_idx}&board_idx=${recommendBookList[listNum2].board_idx}">
+											<c:choose>
+											<c:when test="${recommendBookList[listNum2].preview_img ne null}">
+												<c:choose>
+													<c:when test="${fn:contains(recommendBookList[listNum2].preview_img, 'http')}">
+													<img src="${recommendBookList[listNum2].preview_img}" alt="${recommendBookList[listNum2].title}" />
+													</c:when>
+													<c:otherwise>
+													<img src="/data/board/${recommendBookList[listNum2].manage_idx}/${recommendBookList[listNum2].board_idx}/${recommendBookList[listNum2].preview_img}" alt="${recommendBookList[listNum2].title}" title="${recommendBookList[listNum2].title}"/>
+													</c:otherwise>
+												</c:choose>
+											</c:when>
+											<c:otherwise>
+												<img src="/resources/common/img/noimg-gall.png" alt="${recommendBookList[listNum2].title}" title="${recommendBookList[listNum2].title}">
+											</c:otherwise>
+											</c:choose>
+											<span class="title">${recommendBookList[listNum2].title}</span>
+											<span class="author">${recommendBookList[listNum2].imsi_v_3}</span>
 										</a>
 									</li>
 									<li>
-										<a class="goDetail" href="" keyValue1="${i.LOCA}" keyValue2="${i.CTRLNO}">
-											<img src="/resources/homepage/jungang/img/book03.png" alt="${i.TITLE}" width="100px" height="150px">
-											<span class="title">싱가포르 홀리데이</span>
-											<span class="author">이동미, 김현주</span>
+										<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${recommendBookList[listNum3].manage_idx}&board_idx=${recommendBookList[listNum3].board_idx}">
+											<c:choose>
+											<c:when test="${recommendBookList[listNum3].preview_img ne null}">
+												<c:choose>
+													<c:when test="${fn:contains(recommendBookList[listNum3].preview_img, 'http')}">
+													<img src="${recommendBookList[listNum3].preview_img}" alt="${recommendBookList[listNum3].title}" />
+													</c:when>
+													<c:otherwise>
+													<img src="/data/board/${recommendBookList[listNum3].manage_idx}/${recommendBookList[listNum3].board_idx}/${recommendBookList[listNum3].preview_img}" alt="${recommendBookList[listNum3].title}" title="${recommendBookList[listNum3].title}"/>
+													</c:otherwise>
+												</c:choose>
+											</c:when>
+											<c:otherwise>
+												<img src="/resources/common/img/noimg-gall.png" alt="${recommendBookList[listNum3].title}" title="${recommendBookList[listNum3].title}">
+											</c:otherwise>
+											</c:choose>
+											<span class="title">${recommendBookList[listNum3].title}</span>
+											<span class="author">${recommendBookList[listNum3].imsi_v_3}</span>
+
 										</a>
 									</li>
 								</ul>
 							</div>
 
 							<div class="box con" data-tab="tab2" style="display:none;">
-								<ul class="lt_photo">
-									<li>
-										<a class="goDetail" href="" >
-											<img src="/resources/homepage/jungang/img/book01.png" alt="${i.TITLE}" width="100px" height="150px">
-											<span class="title">욕대장</span>
-											<span class="author">박현숙</span>
-										</a>
-									</li>
-									<li>
-										<a class="goDetail" href="" keyValue1="${i.LOCA}" keyValue2="${i.CTRLNO}">
-											<img src="/resources/homepage/jungang/img/book02.png" alt="${i.TITLE}" width="100px" height="150px">
-											<span class="title">오즈의 의류수거함</span>
-											<span class="author">유영민</span>
-										</a>
-									</li>
-									<li>
-										<a class="goDetail" href="" keyValue1="${i.LOCA}" keyValue2="${i.CTRLNO}">
-											<img src="/resources/homepage/jungang/img/book03.png" alt="${i.TITLE}" width="100px" height="150px">
-											<span class="title">싱가포르 홀리데이</span>
-											<span class="author">이동미, 김현주</span>
-										</a>
-									</li>
+								<ul class="lt_photo newBookUl">
 								</ul>
 							</div>
 
 							<div class="box con" data-tab="tab3" style="display:none;">
-								<ul class="lt_photo">
-									<li>
-										<a class="goDetail" href="" >
-											<img src="/resources/homepage/jungang/img/book01.png" alt="${i.TITLE}" width="100px" height="150px">
-											<span class="title">욕대장</span>
-											<span class="author">박현숙</span>
-										</a>
-									</li>
-									<li>
-										<a class="goDetail" href="" keyValue1="${i.LOCA}" keyValue2="${i.CTRLNO}">
-											<img src="/resources/homepage/jungang/img/book02.png" alt="${i.TITLE}" width="100px" height="150px">
-											<span class="title">오즈의 의류수거함</span>
-											<span class="author">유영민</span>
-										</a>
-									</li>
-									<li>
-										<a class="goDetail" href="" keyValue1="${i.LOCA}" keyValue2="${i.CTRLNO}">
-											<img src="/resources/homepage/jungang/img/book03.png" alt="${i.TITLE}" width="100px" height="150px">
-											<span class="title">싱가포르 홀리데이</span>
-											<span class="author">이동미, 김현주</span>
-										</a>
-									</li>
+								<ul class="lt_photo bestBookUl">
 								</ul>
 							</div>
 						</div>
@@ -287,12 +315,11 @@
 					<div class="popZone">
 						<c:choose>
 							<c:when test="${fn:length(popupZoneList) > 0}">
-								<!-- <homepageTag:popupZone popupZoneList="${popupZoneList}" /> -->
+								<homepageTag:popupZone popupZoneList="${popupZoneList}" />
 							</c:when>
 							<c:otherwise>
 								<ul>
 									<li><a href="#"><img src="/resources/homepage/jungang/img/popupnone.jpg" alt="" /></a></li>
-									<li><a href="#"><img src="/resources/homepage/jungang/img/popupzone01.jpg" alt="" /></a></li>
 								</ul>
 							</c:otherwise>
 						</c:choose>
@@ -329,41 +356,7 @@
 						</div>
 					</div>
 					<div class="banner-box4">
-						<!-- <homepageTag:banner bannerList="${bannerList}"/> -->
-						<ul class="banner-roll">
-						<li>
-						<span>
-						<a target="_blank" href="http://www.nl.go.kr/nl/index.jsp">
-						<img alt="국립중앙도서관" src="http://www.gbelib.kr/data/banner/h16/1484821791432"/></a></span></li>
-						<li>
-						<span>
-						<a target="_blank" href="http://www.nlcy.go.kr/index.do">
-						<img alt="국립어린이청소년도서관" src="http://www.gbelib.kr/data/banner/h16/1486009824941"/></a></span></li>
-						<li>
-						<span>
-						<a target="_blank" href="http://nlid.nl.go.kr/able?act=searchDetail03">
-						<img alt="국립장애인도서관" src="http://www.gbelib.kr/data/banner/h16/1486009952132"/></a></span></li>
-						<li>
-						<span>
-						<a target="_blank" href="http://www.gbe.kr/">
-						<img alt="경상북도교육청" src="http://www.gbelib.kr/data/banner/h16/1486009731009"/></a></span></li>
-						<li>
-						<span>
-						<a target="_blank" href="http://www.csed.go.kr/">
-						<img alt="청송교육지원청" src="http://www.gbelib.kr/data/banner/h16/1484821773110"/></a></span></li>
-						<li>
-						<span>
-						<a target="_blank" href="http://www.nl.go.kr/nill/user/index.jsp">
-						<img alt="책바다" src="http://www.gbelib.kr/data/banner/h16/1484821729632"/></a></span></li>
-						<li>
-						<span>
-						<a target="_blank" href="http://dream.nl.go.kr/dream/chaeknarae/index.do">
-						<img alt="책나래" src="http://www.gbelib.kr/data/banner/h16/1484821754536"/></a></span></li>
-						<li>
-						<span>
-						<a href="javascript:linkToAskNl('147022','경상북도립청송공공도서관');">
-						<img alt="사서에게물어보세요" src="http://www.gbelib.kr/data/banner/h16/1484821719719"/></a></span></li>
-						</ul>
+						<homepageTag:banner bannerList="${bannerList}"/>
 					</div>
 				</div>
 			</div>
@@ -371,5 +364,5 @@
 
 	</div>
 </div>
-	
+
 <tiles:insertAttribute name="footer" />

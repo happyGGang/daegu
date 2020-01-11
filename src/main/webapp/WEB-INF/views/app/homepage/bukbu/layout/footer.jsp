@@ -7,11 +7,11 @@
 		<div class="top">
 			<div class="section">
 				<div class="info">
-					<a href="/${homepage.context_path}/html.do?menu_idx=150"><b>개인정보처리방침</b></a>
+					<a href="/${homepage.context_path}/html.do?menu_idx=86"><b>개인정보처리방침</b></a>
 					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=153">저작권보호정책</a>
+					<a href="/${homepage.context_path}/html.do?menu_idx=91">저작권보호정책</a>
 					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=153">찾아오시는길</a>
+					<a href="/${homepage.context_path}/html.do?menu_idx=109">찾아오시는길</a>
 				</div>
 			</div>
 		</div>

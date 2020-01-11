@@ -9,7 +9,7 @@
 				<div class="g-menu">
 					<homepageTag:topMenu menuList="${menuTreeList}" />
 
-					<a href="/${homepage.context_path}/module/myDashBoard/index.do?menu_idx=175" class="last-box"><img src="/resources/homepage/${homepage.context_path}/img/sitemap-btn.png" alt="사이트맵" /></a>
+					<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=92" class="last-box"><img src="/resources/homepage/${homepage.context_path}/img/sitemap-btn.png" alt="사이트맵" /></a>
 
 					<div class="mmode">
 					<c:choose>

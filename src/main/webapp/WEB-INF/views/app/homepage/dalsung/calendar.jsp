@@ -159,7 +159,7 @@ Date.prototype.format = function(f) {
 			<span>
 				<ul>
 					<c:if test="${empty closeDayList.dd}">
-						<li>등록된 휴일이 없습니다.1</li>
+						<li>등록된 휴일이 없습니다</li>
 					</c:if>
 					<c:if test="${not empty closeDayList.dd}">
 						<li>

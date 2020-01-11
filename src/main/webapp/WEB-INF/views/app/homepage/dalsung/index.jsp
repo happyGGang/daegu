@@ -110,15 +110,15 @@ do {
 					<div class="main1box1box1">
 						<div class="search-box">
 							<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
-								<input type="hidden" name="menu_idx" value="7">
-								<input type="hidden" name="search_type2" value="L_TITLEAUTHOR">
+								<input type="hidden" name="menu_idx" value="13">
+								<input type="hidden" name="booktype" value="BOOK">
 								<fieldset>
 									<legend class="blind">통합검색</legend>
 									<div class="main-box">
 										<div class="title-box"><img src="/resources/homepage/${homepage.context_path}/img/search-bg.png" alt=""></div>
 										<div class="box1">
 											<label for="search_text_1" class="blind">통합자료검색</label>
-											<input name="search_text" id="search_text_1" type="text" class="text" placeholder="찾으시는 도서명을 입력해 주세요." style="ime-mode:active;"/>
+											<input name="title" id="search_text_1" type="text" class="text" placeholder="찾으시는 도서명을 입력해 주세요." style="ime-mode:active;"/>
 										</div>
 										<button id="main-search-btn">검색</button>
 									</div>

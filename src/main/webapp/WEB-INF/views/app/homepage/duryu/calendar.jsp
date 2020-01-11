@@ -88,15 +88,31 @@ Date.prototype.format = function(f) {
 
 	$('a.showCal').on('click', function(e) {
 		var key = $(this).attr('keyValue');
-		$(".calAll").hide();
-		$("#popup_layer").show();
-		$("#"+key).show();
+// 		$(".calAll").hide();
+// 		$("#popup_layer").show();
+		if ($('div#eventDescription'+key).length > 0) {
+			$('span.eventDescription').html($('div#eventDescription'+key).html());
+		} else {
+			$('span.eventDescription').text('등록된 행사가 없습니다.');
+		}
+		$('a.showCal').removeClass('today');
+		$(this).addClass('today');
 		e.preventDefault();
 	});
 
 	$('.close').on('click', function(e) {
 		$("#popup_layer").hide();
 		$(".calAll").hide();
+	});
+
+	var currDate = '${currDate}';
+	var today = parseInt(currDate.split('.')[2])+'';
+	$('a.showCal').each(function() {
+		if ($(this).text() == today) {
+			$(this).click();
+			$(this).addClass('today');
+			$(this).closest('ul').show();
+		}
 	});
 
 });
@@ -113,26 +129,77 @@ Date.prototype.format = function(f) {
 	<div class="inBox0">
 		<div class="week-box">
 			<ul>
-				<li><a href="" class="today">6</a></li>
-				<li><a href="">7</a></li>
-				<li><a href="">8</a></li>
-				<li><a href="">9</a></li>
-				<li><a href="">10</a></li>
-				<li><a href="">11</a></li>
-				<li><a href="">12</a></li>
+				<c:forEach items="${calendarList}" var="i">
+				<ul style="display: none;">
+					<li class="sun">
+						<a class="showCal" keyValue="${i.sun}">${i.sun}</a>
+					</li>
+					<li>
+						<a class="showCal" keyValue="${i.mon}">${i.mon}</a>
+					</li>
+					<li>
+						<a class="showCal" keyValue="${i.tue}">${i.tue}</a>
+					</li>
+					<li>
+						<a class="showCal" keyValue="${i.wed}">${i.wed}</a>
+					</li>
+					<li>
+						<a class="showCal" keyValue="${i.thu}">${i.thu}</a>
+					</li>
+					<li>
+						<a class="showCal" keyValue="${i.fri}">${i.fri}</a>
+					</li>
+					<li class="sat">
+						<a class="showCal" keyValue="${i.sat}">${i.sat}</a>
+					</li>
+				</ul>
+			</c:forEach>
 			</ul>
 		</div>
 		<div class="event-box">
 			<span><h3 class="">오늘의<Br/>행&nbsp;&nbsp;&nbsp;사</h3></span>
-			<span>
+			<span class="eventDescription">
 				<ul>
-					<li>초등겨울방학특강</li>
-					<li>학부모를 위한 인문학강좌인문학강좌</li>
+					<li>등록된 행사가 없습니다.</li>
 				</ul>
 			</span>
 		</div>
 	</div>
 
+	<div class="planView" style="display: none;">
+	<div class="inbox" id="popup_layer" style="display:none;">
+			<c:forEach var="i" items="${calendarResult}" varStatus="status">
+				<div id="eventDescription${i.key}" class="calAll" style="display: none;">
+
+					<c:set var="l" value="${fn:length(i.value)}"></c:set>
+					<c:choose>
+						<c:when test="${l == 0}">
+						<ul>
+							<li>
+								등록된 행사가 없습니다.
+							</li>
+							<li>
+							</li>
+						</ul>
+						</c:when>
+						<c:otherwise>
+						<ul>
+						<c:if test="${l == 1}">
+						<li><c:out value="${i.value[0]}"/></li>
+						<li></li>
+						</c:if>
+						<c:if test="${l > 1}">
+						<li><c:out value="${i.value[0]}"/></li>
+						<li><c:out value="${i.value[1]}"/></li>
+						</c:if>
+						</ul>
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</c:forEach>
+		<a href="#" class="close closePlanView"><i class="fa fa-close"></i></a>
+	</div>
+	</div>
 
 	<div class="inBox1">
 		<div class="title">
@@ -140,10 +207,10 @@ Date.prototype.format = function(f) {
 		</div>
 
 		<dl class="info">
-			<c:if test="${closeDayList.dd eq ''}">
+			<c:if test="${empty closeDayList.dd}">
 				<dd>등록된 휴일이 없습니다.</dd>
 			</c:if>
-			<c:if test="${closeDayList.dd ne ''}">
+			<c:if test="${not empty closeDayList.dd}">
 				<c:set var="dd" value="${fn:split(closeDayList.dd, ',')}"></c:set>
 				<dd>
 					<c:forEach items="${dd}" var="i">

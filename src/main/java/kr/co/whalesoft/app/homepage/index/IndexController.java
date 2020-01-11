@@ -345,17 +345,16 @@ public class IndexController extends BaseController {
 		model.addAttribute("popupZoneList", popupZoneService.getPopupZoneAll(new PopupZone(homepage.getHomepage_id())));
 		model.addAttribute("quickMenuList", quickMenuService.getQuickMenuListAll(new QuickMenu(homepage.getHomepage_id())));
 
+		//강좌목록
+		if (homepage.getHomepage_id().equals("h7")) {
+			Teach t = new Teach();
+			t.setHomepage_id(homepage.getHomepage_id());
+			model.addAttribute("teachList", teachService.getTeachListForUser(t));
+		}
+
+
 		setBoardListToModel(homepage.getHomepage_id(), model);
 
-		//신착자료 - 228민주, 남부
-		if (homepage.getHomepage_id().equals("h2") || homepage.getHomepage_id().equals("h3")) {
-
-		}
-
-		//대출베스트 - 남부
-		if (homepage.getHomepage_id().equals("h3")) {
-
-		}
 
 		// 전자도서관
 		if (homepage.getHomepage_id().equals("h30")) {
@@ -405,7 +404,7 @@ public class IndexController extends BaseController {
 					int count = Integer.parseInt(boardInfo[2]);
 					BoardManage boardManage = boardManageService.getBoardManageOne(new BoardManage(homepage_id, manage_idx));
 					model.addAttribute(key, boardService.getBoardByMain(manage_idx, count, boardManage.getBoard_type()));
-					model.addAttribute(key+"TopNotice", boardService.getBoardByMainTopNotice(manage_idx, 1, boardManage.getBoard_type()));
+					model.addAttribute(key+"TopNotice", boardService.getBoardByMainTopNotice(manage_idx, 2, boardManage.getBoard_type()));
 				}
 			}
 		}catch (MissingResourceException ex) {
