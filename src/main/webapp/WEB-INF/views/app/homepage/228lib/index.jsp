@@ -138,35 +138,35 @@ do {
 									</a>
 								</li>
 								<li class="bg-white">
-									<a href="#">
+									<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=30">
 									<img src="/resources/homepage/${homepage.context_path}/img/quick02-bg.png" class="mi">
 									<span class="wt">평생교육강좌</span>
 									<span class="wc">다양한 교육문화<Br/>프로그램</span>
 									</a>
 								</li>
 								<li class="bg-navy">
-									<a href="#">
+									<a href="/${homepage.context_path}/html.do?menu_idx=114">
 									<img src="/resources/homepage/${homepage.context_path}/img/quick03-bg.png" class="mi">
 									<span class="wt">도서관 견학</span>
 									<span class="wc">어린이도서관<Br/>체험활동</span>
 									</a>
 								</li>
 								<li class="bg-white">
-									<a href="#">
+									<a href="/elib/index.do">
 									<img src="/resources/homepage/${homepage.context_path}/img/quick04-bg.png" class="mi">
 									<span class="wt">전자도서관</span>
 									<span class="wc">전자책,e러닝 등<Br/>다양한 디지털 콘텐츠</span>
 									</a>
 								</li>
 								<li class="bg-blue">
-									<a href="#">
+									<a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=95">
 									<img src="/resources/homepage/${homepage.context_path}/img/quick05-bg.png" class="mi">
 									<span class="wt">독서문화행사</span>
 									<span class="wc">서로 공감하고<br/>소통할 수 있는 프로그램</span>
 									</a>
 								</li>
 								<li class="bg-dgreen">
-									<a href="#">
+									<a href="javascript:alert('준비 중 입니다.');">
 									<img src="/resources/homepage/${homepage.context_path}/img/quick06-bg.png" class="mi">
 									<span class="wt">전시관 견학</span>
 									<span class="wc">해설 및 전시실 투어</span>
@@ -343,36 +343,10 @@ do {
 
 						<div class="cont con" data-tab="tab2" style="display:none;">
 							<ul class="list">
-								<%--자주묻는질문 상단--%>
-								<c:if test="${fn:length(faqListTopNotice) < 1}">
-								<li class="on-cont">
-									<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
-									<a href="#">
-										<span class="title">등록된 게시물이 없습니다.</span>
-										<p class="date"></p>
-										<span class="content">
-										</span>
-									</a>
-								</li>
-								</c:if>
-								<c:if test="${fn:length(faqListTopNotice) > 0}">
-								<li class="on-cont">
-									<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
-									<a href="/${homepage.context_path}/board/view.do?menu_idx=64&manage_idx=${faqListTopNotice[0].manage_idx}&board_idx=${faqListTopNotice[0].board_idx}">
-										<span class="title">${faqListTopNotice[0].title}</span>
-										<p class="date"><fmt:formatDate value="${faqListTopNotice[0].add_date}" pattern="yyyy-MM-dd"/></p>
-										<span class="content">
-											${fn:substring(fn:trim(faqListTopNotice[0].content_summary), 0, 30)}...
-										</span>
-									</a>
-								</li>
-								</c:if>
- 								<%--자주묻는질문 상단--%>
-
 								<%--자주묻는질문 목록--%>
  								<c:forEach var="i" varStatus="status" items="${faqList}" >
 								<li>
-									<a href="/${homepage.context_path}/board/view.do?menu_idx=64&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+									<a href="/${homepage.context_path}/board/index.do?menu_idx=64&manage_idx=${i.manage_idx}">
 										<em>${i.title}</em>
 										<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
 									</a>
