@@ -19,7 +19,7 @@ public class CalendarManage extends PagingUtils {
 	private String delete_yn;
 	private String weekday;
 	private List<String> weekdayArr = new ArrayList<String>();
-	
+
 	private String sun;
 	private String mon;
 	private String tue;
@@ -30,31 +30,33 @@ public class CalendarManage extends PagingUtils {
 	private String plan_year;
 	private String plan_month;
 	private String plan_date;
+	private String plan_day;
 	private String agency_name;
 	private String class_name;
 	private int count;
-	
+
+	private String yy;
 	private String mm;
 	private String dd;
 	private String link_url;
-	
+
 	private Date days;
 	private Date base_mon;
 	private String individual_yn = "N";
 	private String individual_yn2 = "N";//임시변수
 	private int group_count;
-	
+
 	public CalendarManage() {}
-	
+
 	public CalendarManage(String homepage_id, String plan_date) {
 		this.setHomepage_id(homepage_id);
 		this.plan_date = plan_date;
 	}
-	
+
 	public CalendarManage(String plan_date) {
 		this.plan_date = plan_date;
 	}
-	
+
 	public String getSun() {
 		return sun;
 	}
@@ -214,94 +216,114 @@ public class CalendarManage extends PagingUtils {
 		this.count = count;
 	}
 
-	
+
 	public String getLink_url() {
 		return link_url;
 	}
 
-	
+
 	public void setLink_url(String link_url) {
 		this.link_url = link_url;
 	}
 
-	
+
 	public Date getDays() {
 		return days;
 	}
 
-	
+
 	public void setDays(Date days) {
 		this.days = days;
 	}
 
-	
+
 	public Date getBase_mon() {
 		return base_mon;
 	}
 
-	
+
 	public void setBase_mon(Date base_mon) {
 		this.base_mon = base_mon;
 	}
 
-	
+
 	public int getGroup_idx() {
 		return group_idx;
 	}
 
-	
+
 	public void setGroup_idx(int group_idx) {
 		this.group_idx = group_idx;
 	}
 
-	
+
 	public String getIndividual_yn() {
 		return individual_yn;
 	}
 
-	
+
 	public void setIndividual_yn(String individual_yn) {
 		this.individual_yn = individual_yn;
 	}
 
-	
+
 	public List<String> getWeekdayArr() {
 		return weekdayArr;
 	}
 
-	
+
 	public void setWeekdayArr(List<String> weekdayArr) {
 		this.weekdayArr = weekdayArr;
 	}
 
-	
+
 	public int getGroup_count() {
 		return group_count;
 	}
 
-	
+
 	public void setGroup_count(int group_count) {
 		this.group_count = group_count;
 	}
 
-	
+
 	public String getIndividual_yn2() {
 		return individual_yn2;
 	}
 
-	
+
 	public void setIndividual_yn2(String individual_yn2) {
 		this.individual_yn2 = individual_yn2;
 	}
 
-	
+
 	public int getGroup_idx_tmp() {
 		return group_idx_tmp;
 	}
 
-	
+
 	public void setGroup_idx_tmp(int group_idx_tmp) {
 		this.group_idx_tmp = group_idx_tmp;
 	}
-	
+
+
+	public String getYy() {
+		return yy;
+	}
+
+
+	public void setYy(String yy) {
+		this.yy = yy;
+	}
+
+
+	public String getPlan_day() {
+		return plan_day;
+	}
+
+
+	public void setPlan_day(String plan_day) {
+		this.plan_day = plan_day;
+	}
+
 }

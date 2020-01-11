@@ -35,7 +35,7 @@ var pageMain = (function(){
 })();
 
 $(function(){
-	
+
 	// 팝업존(중앙도서관)
 	if ($('.popZone ul').length > 0) {
 		$('.popZone ul').bxSlider({
@@ -55,13 +55,13 @@ $(function(){
 		autoControlsCombine:true
 	});
 
-	$('.event-box > ul').bxSlider({
-		mode:'vertical',
-		pager:false
-	});
-
-	$('.holiday-box > ul').bxSlider({
-		mode:'vertical',
-		pager:false
-	});
+//	$('.event-box > ul').bxSlider({
+//		mode:'vertical',
+//		pager:false
+//	});
+//
+//	$('.holiday-box > ul').bxSlider({
+//		mode:'vertical',
+//		pager:false
+//	});
 });

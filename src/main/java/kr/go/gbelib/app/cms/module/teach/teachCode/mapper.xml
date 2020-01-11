@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.go.gbelib.app.cms.module.teach.teachCode.TeachCodeDao">
-    
+
     <sql id="field">
-		large_code, mid_code, small_code, code_name, remark, 
-		print_seq, add_date, add_id, mod_date, mod_id
+		large_code, mid_code, small_code, code_name, remark,
+		print_seq, add_date, add_id, modify_date, modify_id
     </sql>
-    
+
     <select id="getLargeCodeList" resultType="kr.go.gbelib.app.cms.module.teach.teachCode.TeachCode">
    		SELECT
    			<include refid="field" />
@@ -18,7 +18,7 @@
    		ORDER BY
    			print_seq
     </select>
-    
+
     <select id="getMidCodeList" resultType="kr.go.gbelib.app.cms.module.teach.teachCode.TeachCode">
    		SELECT
    			<include refid="field" />
@@ -31,7 +31,7 @@
    		ORDER BY
    			print_seq
     </select>
-    
+
     <select id="getSmallCodeList" resultType="kr.go.gbelib.app.cms.module.teach.teachCode.TeachCode">
    		SELECT
    			<include refid="field" />
@@ -44,7 +44,7 @@
    		ORDER BY
    			print_seq
     </select>
-    
+
     <insert id="addTeachCode">
     	<selectKey keyProperty="print_seq" order="BEFORE" resultType="int">
     		SELECT NVL(MAX(print_seq), 0)+1 FROM TEACH_CODE
@@ -63,8 +63,8 @@
     	INSERT INTO
     		TEACH_CODE
     	(
-	    	large_code, mid_code, small_code, code_name, remark, 
-			print_seq, add_date, add_id, mod_date, mod_id
+	    	large_code, mid_code, small_code, code_name, remark,
+			print_seq, add_date, add_id, modify_date, modify_id
     	)
     		VALUES
     	(
@@ -72,20 +72,20 @@
 			#{print_seq}, SYSDATE, #{cud_id}, SYSDATE, #{cud_id}
     	)
     </insert>
-    
+
     <update id="modifyTeachCode">
     	UPDATE
     		TEACH_CODE
     	SET
     		code_name = #{code_name},
-    		mod_date = SYSDATE,
-    		mod_id = #{cud_id}
+    		modify_date = SYSDATE,
+    		modify_id = #{cud_id}
     	WHERE
     		large_code = #{large_code}
     	AND	mid_code = #{mid_code}
     	AND	small_code = #{small_code}
     </update>
-    
+
     <delete id="deleteTeachCode">
     	DELETE FROM
     		TEACH_CODE
@@ -94,20 +94,20 @@
     	AND	mid_code = #{mid_code}
     	AND	small_code = #{small_code}
     </delete>
-    
+
     <update id="modifyPrintSeq">
     	UPDATE
     		TEACH_CODE
     	SET
     		print_seq = #{print_seq},
-    		mod_date = SYSDATE,
-    		mod_id = #{cud_id}
+    		modify_date = SYSDATE,
+    		modify_id = #{cud_id}
     	WHERE
     		large_code = #{large_code}
     	AND	mid_code = #{mid_code}
     	AND	small_code = #{small_code}
     </update>
-    
+
     <select id="getCodeInfo" resultType="int">
     	SELECT
     		COUNT(*)
@@ -118,5 +118,5 @@
    		AND	mid_code = #{mid_code}
    		AND	small_code = #{small_code}
     </select>
-    
+
 </mapper>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManageDao">
-	
+
 	<!-- 일정관리 컬럼  -->
 	<sql id="field">
-		homepage_id, cm_idx, start_date, start_time, end_date, 
+		homepage_id, cm_idx, start_date, start_time, end_date,
 		end_time, title, contents, date_type, link_url,
 		weekday, individual_yn
 	</sql>
@@ -12,8 +12,8 @@
 	<!-- 	일정관리 list -->
 	<select id="getCalendarManage" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">
 		SELECT
-			<include refid="field" />	
-		FROM 
+			<include refid="field" />
+		FROM
 			CMS_CALENDAR_MANAGE
 		WHERE
 			homepage_id = #{homepage_id}
@@ -25,10 +25,10 @@
 		</if>
 		AND	delete_yn = 'N'
 	</select>
-	
+
 	<select id="getCalendarManageOne" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">
 		SELECT
-			homepage_id, cm_idx, start_date, start_time, end_date, 
+			homepage_id, cm_idx, start_date, start_time, end_date,
 			end_time, title, contents, date_type, link_url,
 			individual_yn, group_idx,
 			CASE
@@ -45,43 +45,43 @@
 		AND	date_type = #{date_type}
 		AND	delete_yn = 'N'
 	</select>
-	
+
 	<select id="getCalendarManageOne2" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">
 		SELECT
 			MIN(start_date) AS start_date,
 			MAX(end_date) AS end_date,
 			MIN(start_time) AS start_time,
 			MAX(end_time) AS end_time
-		FROM 
+		FROM
 			CMS_CALENDAR_MANAGE a
 		WHERE
-			homepage_id = #{homepage_id} 
+			homepage_id = #{homepage_id}
 		AND	date_type = #{date_type}
 		AND	group_idx = #{group_idx}
 		AND	delete_yn = 'N'
 	</select>
-	
+
 	<select id="getCalendarManageCheckCount" resultType="int">
 		SELECT
 			COUNT(*)
-		FROM 
+		FROM
 			CMS_CALENDAR_MANAGE a
 		WHERE
-			homepage_id = #{homepage_id} 
+			homepage_id = #{homepage_id}
 		AND	start_date = #{start_date}
 		AND	end_date = #{end_date}
 		AND	group_idx = #{group_idx_tmp}
 		AND	individual_yn = 'Y'
 		AND	delete_yn = 'N'
 	</select>
-	
+
 	<!-- 휴관일 가져오기 -->
 	<select id="getClosedDate" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">
-		SELECT			
+		SELECT
 			TO_CHAR(TO_DATE(start_date,'yyyy-MM-dd'),'yyyy-MM-dd') AS start_date,
 			TO_CHAR(TO_DATE(end_date,'yyyy-MM-dd'),'yyyy-MM-dd') AS end_date,
 			homepage_id, cm_idx, start_time, end_time, title, contents, date_type, link_url
-		FROM 
+		FROM
 			CMS_CALENDAR_MANAGE
 		WHERE
 			homepage_id = #{homepage_id}
@@ -94,13 +94,14 @@
  			)
 		</if>
 	</select>
-	
+
 	<!-- 휴관일 가져오기 -->
 	<select id="getClosedDate2" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">
-		SELECT 
-			mm, LISTAGG(dd,', ') WITHIN GROUP (ORDER BY mm, dd) AS dd
+		SELECT
+			yy, mm, LISTAGG(dd,', ') WITHIN GROUP (ORDER BY mm, dd) AS dd
 		FROM (
 			SELECT
+				SUBSTR(start_date,0,4) as yy,
 				SUBSTR(start_date,6,2) as mm,
 				SUBSTR(start_date,9,2) as dd
 			FROM (
@@ -114,20 +115,20 @@
 				AND	delete_yn = 'N'
 				AND	SUBSTR(start_date,1,7) = #{plan_date}
 				)
-			ORDER BY DD	
+			ORDER BY DD
 			)
-		GROUP BY mm
+		GROUP BY yy, mm
 	</select>
-	
+
 	<!-- 휴관일 가져오기 -->
 	<select id="getClosedDate3" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">
-		SELECT 
+		SELECT
 			mm, LISTAGG(dd,', ') WITHIN GROUP (ORDER BY mm, dd) AS dd
 		FROM (
 			SELECT
 				SUBSTR(start_date,6,2) as mm,
 				SUBSTR(start_date,9,2) || '(' || to_char(to_date(start_date),'dy') || ')' as dd
-			FROM ( 
+			FROM (
 				SELECT
 					distinct start_date
 				FROM
@@ -136,18 +137,18 @@
 					homepage_id = #{homepage_id}
 				AND	date_type = '1'
 				AND	delete_yn = 'N'
-				AND	SUBSTR(start_date,1,7) = #{plan_date}
+				AND	start_date = #{plan_day}
 				)
-			ORDER BY DD	
+			ORDER BY DD
 			)
 		GROUP BY mm
 	</select>
-	
+
 	<!-- 행사 가져오기 -->
 	<select id="getCalendarManageDetail" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">
 		SELECT
-			<include refid="field" />	
-		FROM 
+			<include refid="field" />
+		FROM
 			CMS_CALENDAR_MANAGE
 		WHERE
 			homepage_id = #{homepage_id}
@@ -160,29 +161,35 @@
 	 		OR SUBSTR(end_date,1,7) = #{plan_date}
 	 		)
 		</if>
+	 	<if test="plan_day != null and plan_day != ''">
+	 	AND	(
+	 		start_date = #{plan_day}
+	 		OR end_date = #{plan_day}
+	 		)
+		</if>
 	 	AND	delete_yn = 'N'
 	</select>
-	
+
 	<!-- 휴관일 포함여부체크 -->
 	<select id="closedDateCheck" resultType="int">
-		SELECT 
-			COUNT(*) 
-		FROM 
+		SELECT
+			COUNT(*)
+		FROM
 			CMS_CALENDAR_MANAGE
-		WHERE 
+		WHERE
 			homepage_id = #{homepage_id}
 		AND	date_type = '1'
 		AND	delete_yn = 'N'
 		AND	START_DATE <![CDATA[<=]]> #{end_date}
 		AND	END_DATE <![CDATA[>=]]> #{start_date}
 	</select>
-	
+
 	<!-- 일정관리 등록 -->
 	<insert id="addCalendarManage">
 		INSERT INTO
 			CMS_CALENDAR_MANAGE
 		(
-			homepage_id, cm_idx, START_DATE, START_TIME, END_DATE, 
+			homepage_id, cm_idx, START_DATE, START_TIME, END_DATE,
 			END_TIME, TITLE, CONTENTS, date_type, link_url, group_idx,
 			individual_yn, weekday
 		)
@@ -193,35 +200,35 @@
 			'N', #{weekday}
 		)
 	</insert>
-	
+
 	<update id="modifyCalendarManage">
 		UPDATE
 			CMS_CALENDAR_MANAGE
 		SET
-			START_DATE = #{start_date}, 
+			START_DATE = #{start_date},
 			START_TIME = #{start_time},
-			END_DATE = #{end_date}, 
-			END_TIME = #{end_time}, 
+			END_DATE = #{end_date},
+			END_TIME = #{end_time},
 			TITLE = #{title},
 			CONTENTS = #{contents},
 			link_url = #{link_url},
 			individual_yn = #{individual_yn},
 			weekday = #{weekday}
 		WHERE
-			homepage_id = #{homepage_id} 
+			homepage_id = #{homepage_id}
 		AND	delete_yn = 'N'
 		<if test='individual_yn2 == "Y"'>
-		AND	cm_idx = #{cm_idx} 
+		AND	cm_idx = #{cm_idx}
 		</if>
 		<if test='individual_yn2 == "N"'>
-		AND	group_idx = #{group_idx} 
+		AND	group_idx = #{group_idx}
 		</if>
 		<if test='individual_yn2 == "E"'>
-		AND	group_idx = #{group_idx} 
-		AND	individual_yn != 'Y' 
+		AND	group_idx = #{group_idx}
+		AND	individual_yn != 'Y'
 		</if>
 	</update>
-	
+
 	<delete id="deleteCalendarManage">
 		UPDATE
 			CMS_CALENDAR_MANAGE
@@ -230,38 +237,38 @@
 		WHERE
 			homepage_id = #{homepage_id}
 		<if test='individual_yn2 == "Y"'>
-		AND	cm_idx = #{cm_idx} 
+		AND	cm_idx = #{cm_idx}
 		</if>
 		<if test='individual_yn2 == "N"'>
-		AND	group_idx = #{group_idx} 
+		AND	group_idx = #{group_idx}
 		</if>
 		<if test='individual_yn2 == "E"'>
 		AND	group_idx = #{group_idx}
-		AND	individual_yn != 'Y' 
-		</if> 
+		AND	individual_yn != 'Y'
+		</if>
 	</delete>
-	
+
 	<delete id="deleteCalendarManageGroup">
 		UPDATE
 			CMS_CALENDAR_MANAGE
 		SET
 			delete_yn = 'Y'
 		WHERE
-			homepage_id = #{homepage_id} 
+			homepage_id = #{homepage_id}
 		<if test='individual_yn2 == "Y"'>
-		AND	cm_idx = #{cm_idx} 
+		AND	cm_idx = #{cm_idx}
 		</if>
 		<if test='individual_yn2 == "N"'>
-		AND	group_idx = #{group_idx} 
+		AND	group_idx = #{group_idx}
 		</if>
 		<if test='individual_yn2 == "E"'>
 		AND	group_idx = #{group_idx}
-		AND	individual_yn != 'Y' 
-		</if> 
+		AND	individual_yn != 'Y'
+		</if>
 	</delete>
-	
+
 	<select id="getCalendar" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">
-		SELECT 
+		SELECT
 			MIN( DECODE( TO_CHAR(days, 'D'), 1, TO_CHAR(days, 'FMDD'))) as sun,
 			MIN( DECODE( TO_CHAR(days, 'D'), 2, TO_CHAR(days, 'FMDD'))) as mon,
 			MIN( DECODE( TO_CHAR(days, 'D'), 3, TO_CHAR(days, 'FMDD'))) as tue,
@@ -273,21 +280,21 @@
    		FROM
 			(
 			SELECT
-				(A.base_mon + ROWNUM -1) AS days, A.base_mon, 
+				(A.base_mon + ROWNUM -1) AS days, A.base_mon,
 				((TRUNC(base_mon + ROWNUM - 1, 'D') - TRUNC(TRUNC(base_mon + ROWNUM - 1, 'Y'), 'D')) / 7 + 1) AS WEEK_NUM
 			FROM
 				(
 				SELECT TO_DATE (#{plan_date}, 'yyyy-MM') base_mon FROM DUAL
 				) A, DICTIONARY B
 			) C
-		
+
 		WHERE C.DAYS <![CDATA[ <= ]]> LAST_DAY(base_mon)
   		GROUP BY WEEK_NUM
-  		ORDER BY WEEK_NUM 
+  		ORDER BY WEEK_NUM
 	</select>
-	
+
 	<select id="getCalendarListType" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">
-		SELECT 
+		SELECT
 			C.*,
 			TO_CHAR(c.days, 'd') AS weekday,
 			#{plan_date} AS PLAN_DATE
@@ -308,11 +315,11 @@
 		WHERE
 			C.DAYS <![CDATA[ <= ]]> LAST_DAY(base_mon)
 	</select>
-	
+
 	<!-- 일정 통계 일별 -->
-	<select id="getCalendarStatus" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">		
-		SELECT 
-			TO_CHAR(START_DATE, 'yyyy-MM-dd') AS START_DATE, SUM(COUNT) AS COUNT 
+	<select id="getCalendarStatus" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">
+		SELECT
+			TO_CHAR(START_DATE, 'yyyy-MM-dd') AS START_DATE, SUM(COUNT) AS COUNT
 		FROM (
 			SELECT DISTINCT(START_DATE + LEVEL -1) AS START_DATE, COUNT
 				FROM (
@@ -324,24 +331,24 @@
 					WHERE
 						delete_yn = 'N' AND
 						homepage_id = #{homepage_id}
-					GROUP BY START_DATE, END_DATE 
+					GROUP BY START_DATE, END_DATE
 				)
 			CONNECT BY START_DATE + LEVEL -1  <![CDATA[<=]]>  END_DATE
 			order by start_date desc
-			) 
-		WHERE				
+			)
+		WHERE
 			START_DATE BETWEEN TO_DATE(#{start_date},'yyyy-mm-dd') AND TO_DATE(#{end_date}, 'yyyy-mm-dd')
 		GROUP BY  ROLLUP (START_DATE )
 		ORDER BY START_DATE DESC
 	</select>
-	
+
 	<!-- 일정 통계 월별 -->
-	<select id="getCalendarMonthStatus" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">		
-		SELECT 
-			START_DATE, SUM(COUNT) AS COUNT 
-		FROM 
+	<select id="getCalendarMonthStatus" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">
+		SELECT
+			START_DATE, SUM(COUNT) AS COUNT
+		FROM
 			(
-			SELECT 
+			SELECT
 				TO_CHAR(START_DATE, 'YYYY-MM') AS START_DATE, SUM(COUNT) AS COUNT
 			FROM (
 				SELECT DISTINCT(START_DATE + LEVEL -1) AS START_DATE, COUNT
@@ -354,26 +361,26 @@
 						WHERE
 							delete_yn = 'N' AND
 							homepage_id = #{homepage_id}
-						GROUP BY START_DATE, END_DATE 
+						GROUP BY START_DATE, END_DATE
 					)
 				CONNECT BY START_DATE + LEVEL -1  <![CDATA[<=]]>  END_DATE
 				order by start_date desc
-				) 
-			WHERE				
+				)
+			WHERE
 				TO_CHAR(START_DATE,'YYYY') = #{start_year}
 			GROUP BY  ROLLUP (START_DATE)
 			)
 		GROUP BY START_DATE, COUNT
 		ORDER BY START_DATE DESC
 	</select>
-	
+
 	<!-- 일정 통계 연도별 -->
-	<select id="getCalendarYearStatus" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">		
-		SELECT 
+	<select id="getCalendarYearStatus" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">
+		SELECT
 			START_DATE, SUM(COUNT) AS COUNT
-		FROM 
+		FROM
 			(
-			SELECT 
+			SELECT
 				TO_CHAR(START_DATE, 'YYYY') AS start_date, SUM(count) AS count
 			FROM (
 				SELECT
@@ -393,8 +400,8 @@
 				CONNECT BY start_date + LEVEL -1  <![CDATA[<=]]>  end_date
 				ORDER BY start_date DESC
 				)
-			WHERE								
-				TO_CHAR(start_date,'YYYY') BETWEEN #{start_year} AND #{end_year}				
+			WHERE
+				TO_CHAR(start_date,'YYYY') BETWEEN #{start_year} AND #{end_year}
 			GROUP BY start_date
 			)
 		GROUP BY ROLLUP (start_date)
@@ -404,7 +411,7 @@
 	<select id="getNextCmIdx" resultType="int">
 		SELECT NVL(MAX(cm_idx),0)+1 FROM CMS_CALENDAR_MANAGE
 	</select>
-	
+
 	<select id="getGroupCount" resultType="int">
 		SELECT
 			COUNT(*)
@@ -414,7 +421,7 @@
 			homepage_id = #{homepage_id}
 		AND	group_idx = #{group_idx}
 	</select>
-	
+
 	<select id="isTodayClosed" resultType="int">
 		SELECT
 			COUNT(*)
@@ -426,5 +433,5 @@
 		AND	delete_yn = 'N'
 		AND	TO_CHAR(SYSDATE, 'yyyy-MM-dd') BETWEEN start_date AND end_date
 	</select>
-	
+
 </mapper>

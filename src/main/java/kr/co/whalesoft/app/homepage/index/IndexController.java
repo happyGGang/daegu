@@ -128,12 +128,12 @@ public class IndexController extends BaseController {
 		return "/homepage/calendar_ajax";
 	}
 
-	@RequestMapping(value = { "/{contextPath}/calendar2.*" }) // cdlib
+	@RequestMapping(value = { "/{contextPath}/calendar2.*" }) // 휴관일만 가져오기
 	public String calendar2(Model model, CalendarManage calendarManage, HttpServletRequest request,
 			@PathVariable String contextPath) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
-		String filePath = homepage.getFolder() + "/calendar";
+		String filePath = homepage.getFolder() + "/closedCalendar";
 
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM");
 
@@ -146,7 +146,7 @@ public class IndexController extends BaseController {
 		return basePath + filePath + "_ajax";
 	}
 
-	@RequestMapping(value = { "/{contextPath}/calendar3.*" }) // gmlib
+	@RequestMapping(value = { "/{contextPath}/calendar3.*" }) // 1개월 가져오기
 	public String calendar3(Model model, CalendarManage calendarManage, Board board, HttpServletRequest request,
 			@PathVariable String contextPath) throws ParseException {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
@@ -176,7 +176,9 @@ public class IndexController extends BaseController {
 		} else {
 			closedDay = calendarManageService.getClosedDate2(calendarManage);
 		}
+		calendarManage.setDate_type("2");
 		List<CalendarManage> eventDay = calendarManageService.getCalendarManageDetail(calendarManage);
+		calendarManage.setDate_type(null);
 		List<Board> movieDay = boardService.getBoardMovie(board);
 		List<Apply> applyDay = applyService.getOkApply(calendarManage);
 		List<Teach> teachDay = teachService.getTeachListForCalendar(calendarManage);
@@ -186,6 +188,54 @@ public class IndexController extends BaseController {
 		model.addAttribute("calendar", calendarManage);
 		model.addAttribute("calendarList", calendarList);
 		model.addAttribute("calendarResult", getCalendarMarkGumi(calendarManage.getPlan_date(), closedDay, eventDay, movieDay, applyDay, teachDay, facilityDay));
+		model.addAttribute("closeDayList", closedDay);
+		return basePath + filePath + "_ajax";
+	}
+
+	@RequestMapping(value = { "/{contextPath}/calendar4.*" }) // 1일 가져오기
+	public String calendar4(Model model, CalendarManage calendarManage, Board board, HttpServletRequest request,
+			@PathVariable String contextPath) throws ParseException {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		String filePath = "";
+
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/dailyCalendar";
+		}
+
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		if (StringUtils.isEmpty(calendarManage.getPlan_day())) {
+			calendarManage = new CalendarManage();
+			calendarManage.setPlan_day(sf.format(Calendar.getInstance().getTime()));
+		}
+
+		SimpleDateFormat sf2 = new SimpleDateFormat ("yyyy.MM.dd");
+		Date currentDay = new Date ();
+		String currDate = sf2.format ( currentDay );
+
+		calendarManage.setHomepage_id(homepage.getHomepage_id());
+		board.setHomepage_id(homepage.getHomepage_id());
+		board.setImsi_v_1(calendarManage.getPlan_day().substring(0,7));
+		board.setImsi_v_2(calendarManage.getPlan_day().substring(8));
+
+		CalendarManage closedDay = null;
+		closedDay = calendarManageService.getClosedDate3(calendarManage);
+		List<CalendarManage> eventDay = calendarManageService.getCalendarManageDetail(calendarManage);
+		List<Board> movieDay = boardService.getBoardMovie(board);
+		List<Apply> applyDay = applyService.getOkApply(calendarManage);
+		List<Teach> teachDay = teachService.getTeachListForCalendar(calendarManage);
+		List<FacilityReq> facilityDay = facilityReqService.getFacilityReqCalendar(calendarManage);
+//		List<CalendarManage> calendarList = calendarManageService.getCalendar(calendarManage);
+		model.addAttribute("currDate", currDate);
+		model.addAttribute("calendar", calendarManage);
+//		model.addAttribute("calendarList", calendarList);
+		Map<String, List<String>> calendarMarkGumi = getCalendarMarkGumi(calendarManage.getPlan_date(), closedDay, eventDay, movieDay, applyDay, teachDay, facilityDay);
+		String day = calendarManage.getPlan_day().split("-")[2];
+		if (day.startsWith("0")) {
+			day = day.replace("0", "");
+		}
+		List<String> calendarResult = calendarMarkGumi.get(day);
+		model.addAttribute("calendarResult", calendarResult);
 		model.addAttribute("closeDayList", closedDay);
 		return basePath + filePath + "_ajax";
 	}
@@ -224,6 +274,88 @@ public class IndexController extends BaseController {
 		model.addAttribute("quickMenuList", quickMenuService.getQuickMenuListAll(new QuickMenu(homepage.getHomepage_id())));
 
 		setBoardListToModel(homepage.getHomepage_id(), model);
+
+		//신착자료 - 228민주, 남부
+		if (homepage.getHomepage_id().equals("h2") || homepage.getHomepage_id().equals("h3")) {
+			LibrarySearch ls = new LibrarySearch();
+			ls.setManageCode(homepage.getManage_code());
+
+			//기본값 '1달 전'
+			//검색기간 설정
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+			int beforeDays = -30;
+			ls.setSearch_start_date(sf.format(DateUtils.addDays(new Date(), beforeDays)));
+			ls.setSearch_end_date(sf.format(new Date()));
+
+			//서지형태 분류코드 설정.
+			//기본값 도서 "0"
+			//0 : 단행, 1: 연속간행물, 2:비도서
+			ls.setBooktype("0");
+
+			Map<String, Object> result = LibSearchAPI.getNewBookList(ls);
+			List<Map<String, Object>> list = null;
+
+			int count = LibSearchAPI.getSearchCount(result);
+			ls.setTotalDataCount(count);
+
+			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+
+				list = LibSearchAPI.getListData(result);
+				for (Map<String, Object> map : list) {
+					if (map.containsKey("ISBN")) {
+						//알라딘 API 결과 가져오기
+						if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+							Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+							if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+								map.put("aladin", aladinData.get("item"));
+							}
+						}
+					}
+				}
+			}
+
+			model.addAttribute("newBookList", list);
+		}
+
+		//대출베스트 - 남부
+		if (homepage.getHomepage_id().equals("h3")) {
+			LibrarySearch ls = new LibrarySearch();
+			ls.setManageCode(homepage.getManage_code());
+
+			//서지형태 분류코드 설정.
+			//기본값 도서 "0"
+			//0 : 단행, 1: 연속간행물, 2:비도서
+			ls.setBooktype("0");
+
+			Map<String, Object> result = LibSearchAPI.getBestBookList(ls);
+			List<Map<String, Object>> list = null;
+
+			int count = LibSearchAPI.getSearchCount(result);
+
+			ls.setTotalDataCount(count);
+
+			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+
+				list = LibSearchAPI.getListData(result);
+				for ( Map<String, Object> map : list ) {
+					if ( map.containsKey("ISBN") ) {
+						LibrarySearch book = new LibrarySearch();
+						book.setIsbn(String.valueOf(map.get("ISBN")));
+						book.setManageCode(ls.getManageCode());
+						book.setRowCount(1);
+						Map<String, Object> bookDetail = null;
+						bookDetail = LibSearchAPI.getBookDetail(book);
+						List<Map<String, Object>> detailList = LibSearchAPI.getListData(bookDetail);
+						if ( detailList != null && detailList.size() > 0 ) {
+							map.put("IMAGE", detailList.get(0).get("IMAGE"));
+						}
+					}
+				}
+			}
+
+
+			model.addAttribute("bestBookList", list);
+		}
 
 		// 전자도서관
 		if (homepage.getHomepage_id().equals("h30")) {

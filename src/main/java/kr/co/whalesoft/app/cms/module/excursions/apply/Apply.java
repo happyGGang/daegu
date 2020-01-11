@@ -55,6 +55,7 @@ public class Apply extends PagingUtils {
 	private String fri;
 	private String sat;
 	private String plan_date;
+	private String plan_day;
 
 	private String search_api_type = "WEBID";
 
@@ -460,6 +461,16 @@ public class Apply extends PagingUtils {
 
 	public void setIsBlackList(int isBlackList) {
 		this.isBlackList = isBlackList;
+	}
+
+
+	public String getPlan_day() {
+		return plan_day;
+	}
+
+
+	public void setPlan_day(String plan_day) {
+		this.plan_day = plan_day;
 	}
 
 }

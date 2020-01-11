@@ -623,9 +623,6 @@
 		WHERE
 			manage_idx = #{manage_idx}
 		AND	delete_yn = 'N'
-		<if test="dept_cd != null and dept_cd == 'BOOK'">
-		AND	imsi_v_1 = TO_CHAR(SYSDATE, 'YYYY-MM')
-		</if>
 		ORDER BY board_idx DESC
 		${pagingBottom}
 	</select>
@@ -1395,6 +1392,9 @@
 			WHERE
 				imsi_v_1 IS NOT NULL
 			AND imsi_v_1 = #{imsi_v_1}
+			<if test="imsi_v_2 != null and imsi_v_2 != ''">
+			AND imsi_v_2 = #{imsi_v_2}
+			</if>
 			AND manage_idx = (
 								SELECT manage_idx FROM CMS_BOARD_MANAGE
 								WHERE board_type = 'MOVIE'

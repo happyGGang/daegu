@@ -31,44 +31,45 @@ $(function() {
 	String.prototype.zf = function(len){return "0".string(len - this.length) + this;};
 	Number.prototype.zf = function(len){return this.toString().zf(len);};
 
-	$('a#before-btn').on('click', function(e) {
+	$('a#prevEvent').on('click', function(e) {
 		var plan_date = new Date($(this).attr('keyValue'));
-		plan_date.setMonth(plan_date.getMonth() - 1);
-		$('div.lt1').load('calendar2.do', 'plan_date='+plan_date.format('yyyy-MM'));
+		plan_date.setDate(plan_date.getDate() - 1);
+		$('div.event-box').load('calendar4.do', 'plan_day='+plan_date.format('yyyy-MM-dd'));
 		e.preventDefault();
 	});
-	$('a#next-btn').on('click', function(e) {
+	$('a#nextEvent').on('click', function(e) {
 		var plan_date = new Date($(this).attr('keyValue'));
-		plan_date.setMonth(plan_date.getMonth() + 1);
-		$('div.lt1').load('calendar2.do', 'plan_date='+plan_date.format('yyyy-MM'));
+		plan_date.setDate(plan_date.getDate() + 1);
+		$('div.event-box').load('calendar4.do', 'plan_day='+plan_date.format('yyyy-MM-dd'));
 		e.preventDefault();
 	});
 });
 </script>
 
-<div class="inBox1">
-	<div class="title">
-		<strong>휴관일</strong>
-	</div>
+<ul>
+	<li>
+		<div class="box">
+			<h3>행사일</h3>
+			<span>${fn:replace(calendar.plan_day, '-', '.')}</span>
+		</div>
+		<div class="list-box">
+			<ul>
+				<c:if test="${empty calendarResult}">
+					<li><a href="#">등록된 일정이 없습니다.</a></li>
+				</c:if>
+				<c:if test="${not empty calendarResult}">
+					<c:forEach items="${calendarResult}" var="i">
+					<li>
+						<a href="#">${i}</a>
+					</li>
+					</c:forEach>
+				</c:if>
+			</ul>
+		</div>
+	</li>
+</ul>
 
-	<div class="bt-controls">
-		<a id="before-btn" class="bt-prev" href="" keyValue="${calendar.plan_date}">Prev</a>
-		<b>${fn:split(calendar.plan_date, '-')[0]}.${fn:split(calendar.plan_date, '-')[1]}</b>
-		<a id="next-btn" class="bt-next" href="" keyValue="${calendar.plan_date}">Next</a>
-	</div>
-
-	<dl class="info">
-		<c:if test="${closeDayList.dd eq ''}">
-			<dd>등록된 휴일이 없습니다.</dd>
-		</c:if>
-		<c:if test="${closeDayList.dd ne ''}">
-			<c:set var="dd" value="${fn:split(closeDayList.dd, ',')}"></c:set>
-			<dd>
-				<c:forEach items="${dd}" var="i">
-				<span>${i}</span>
-				</c:forEach>
-			</dd>
-		</c:if>
-	</dl>
+<div class="bx-controls-direction">
+	<a id="prevEvent" class="bx-prev" href="" keyValue="${calendar.plan_day}">Prev</a>
+	<a id="nextEvent" class="bx-next" href="" keyValue="${calendar.plan_day}">Next</a>
 </div>
-

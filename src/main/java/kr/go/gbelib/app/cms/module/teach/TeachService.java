@@ -29,7 +29,7 @@ public class TeachService extends BaseService {
 	private FileStorage teachStorage;
 
 	@Autowired
-	private TeachDao teachDao;
+	private TeachDao dao;
 
 	@Autowired
 	private StudentDao studentDao;
@@ -38,16 +38,16 @@ public class TeachService extends BaseService {
 	private HomepageService homepageService;
 
 	public List<Teach> getTeachListAll(Teach teach) {
-		return teachDao.getTeachListAll(teach);
+		return dao.getTeachListAll(teach);
 	}
 
 	public List<Teach> getTeachList(Teach teach) {
-		List<Teach> list = teachDao.getTeachList(teach);
+		List<Teach> list = dao.getTeachList(teach);
 
 		for (Teach teachOne : list) {
 			String teach_day = teachOne.getTeach_day();
 			teachOne.setTeach_day_arr(teach_day.split("\\,"));
-			teachOne.setHolidays(teachDao.getHolidays(teachOne));
+			teachOne.setHolidays(dao.getHolidays(teachOne));
 			if (StringUtils.isNotEmpty(teachOne.getProgram_age_div())) {
 				teachOne.setProgram_age_div_arr(Arrays.asList(teachOne.getProgram_age_div().split(",")));
 			}
@@ -56,17 +56,17 @@ public class TeachService extends BaseService {
 	}
 
 	public int getTeachListCount(Teach teach) {
-		return teachDao.getTeachListCount(teach);
+		return dao.getTeachListCount(teach);
 	}
 
 	public Teach getTeachOne(Teach teach) {
-		Teach result = teachDao.getTeachOne(teach);
+		Teach result = dao.getTeachOne(teach);
 		if (result != null) {
 			if (StringUtils.isNotEmpty(result.getProgram_age_div())) {
 				result.setProgram_age_div_arr(Arrays.asList(result.getProgram_age_div().split(",")));
 			}
 			result.setTeach_day_arr(result.getTeach_day().split("\\,"));
-			result.setHolidays(teachDao.getHolidays(result));
+			result.setHolidays(dao.getHolidays(result));
 		}
 
 		return result;
@@ -106,11 +106,11 @@ public class TeachService extends BaseService {
 			teach.setImage_file_size(f.length());
 		}
 
-		teach.setTeach_idx(teachDao.getNextTeachIdx(teach));
+		teach.setTeach_idx(dao.getNextTeachIdx(teach));
 		if (teach.getHolidays() != null && teach.getHolidays().size() > 0) {
 			for ( String str : teach.getHolidays() ) {
 				teach.setHoliday(str);
-				teachDao.addTeachHolidays(teach);
+				dao.addTeachHolidays(teach);
 			}
 		}
 
@@ -118,7 +118,7 @@ public class TeachService extends BaseService {
 			teach.setProgram_age_div(StringUtils.join(teach.getProgram_age_div_arr(), ","));
 		}
 
-		return teachDao.addTeach(teach);
+		return dao.addTeach(teach);
 	}
 
 	@Transactional
@@ -154,15 +154,15 @@ public class TeachService extends BaseService {
 			teach.setImage_file_size(f.length());
 		}
 
-		Teach beforeTeach 		= teachDao.getTeachOne(teach);
+		Teach beforeTeach 		= dao.getTeachOne(teach);
 		int beforeLimitCount 	= beforeTeach.getTeach_limit_count();
 		int afterLimitCount 	= teach.getTeach_limit_count();
 
 		if (teach.getHolidays() != null && teach.getHolidays().size() > 0) {
-			teachDao.deleteTeachHolidays(teach);
+			dao.deleteTeachHolidays(teach);
 			for ( String str : teach.getHolidays() ) {
 				teach.setHoliday(str);
-				teachDao.addTeachHolidays(teach);
+				dao.addTeachHolidays(teach);
 			}
 		}
 
@@ -170,7 +170,7 @@ public class TeachService extends BaseService {
 			teach.setProgram_age_div(StringUtils.join(teach.getProgram_age_div_arr(), ","));
 		}
 
-		int result 				= teachDao.modifyTeach(teach);
+		int result 				= dao.modifyTeach(teach);
 
 
 		if ( result > 0 ) {
@@ -196,10 +196,10 @@ public class TeachService extends BaseService {
 
 	@Transactional
 	public int deleteTeach(Teach teach) {
-		int result = teachDao.deleteTeach(teach);
+		int result = dao.deleteTeach(teach);
 		if ( result > 0) {
 			if (studentDao.deleteStudent(new Student(teach.getHomepage_id(), teach.getGroup_idx(), teach.getCategory_idx(), teach.getTeach_idx())) > 0) {
-				teachDao.deleteTeachHolidays(teach);
+				dao.deleteTeachHolidays(teach);
 			}
 		}
 
@@ -207,10 +207,10 @@ public class TeachService extends BaseService {
 	}
 
 	public List<Teach> getTeachListForCalendar(CalendarManage calendarManage) {
-		List<Teach> list = teachDao.getTeachListForCalendar(calendarManage);
+		List<Teach> list = dao.getTeachListForCalendar(calendarManage);
 		for (Teach teach : list) {
 			teach.setTeach_day_arr(teach.getTeach_day().split("\\,"));
-			teach.setHolidays(teachDao.getHolidays(teach));
+			teach.setHolidays(dao.getHolidays(teach));
 		}
 		return list;
 	}
@@ -229,22 +229,22 @@ public class TeachService extends BaseService {
 		teach.setSearchCate3(numbersOnly(teach.getSearchCate3()));
 		teach.setGroup_idx_list(numbersOnly(teach.getGroup_idx_list()));
 
-		List<Teach> list = teachDao.getTeachListForUser(teach);
+		List<Teach> list = dao.getTeachListForUser(teach);
 		if (list != null && list.size() > 0) {
 			for (Teach result : list) {
 				result.setTeach_day_arr(result.getTeach_day().split(","));
-				result.setHolidays(teachDao.getHolidays(result));
+				result.setHolidays(dao.getHolidays(result));
 			}
 		}
 		return list;
 	}
 
 	public List<Teach> getTeachListForAllHomepage(Teach teach) {
-		List<Teach> list = teachDao.getTeachListForAllHomepage(teach);
+		List<Teach> list = dao.getTeachListForAllHomepage(teach);
 		if (list != null && list.size() > 0) {
 			for (Teach result : list) {
 				result.setTeach_day_arr(result.getTeach_day().split(","));
-				result.setHolidays(teachDao.getHolidays(result));
+				result.setHolidays(dao.getHolidays(result));
 				if (StringUtils.isNotEmpty(result.getProgram_age_div())) {
 					result.setProgram_age_div_arr(Arrays.asList(result.getProgram_age_div().split(",")));
 				}
@@ -270,14 +270,14 @@ public class TeachService extends BaseService {
 		teach.setLogicFunction2(sanitizeLogicFunction(teach.getLogicFunction2()));
 		teach.setLogicFunction3(sanitizeLogicFunction(teach.getLogicFunction3()));
 		teach.setLogicFunction4(sanitizeLogicFunction(teach.getLogicFunction4()));
-		return teachDao.getTeachListForAllHomepageCount(teach);
+		return dao.getTeachListForAllHomepageCount(teach);
 	}
 
 	public Teach getTeachDetailForUser(Teach teach) {
-		teach = teachDao.getTeachDetailForUser(teach);
+		teach = dao.getTeachDetailForUser(teach);
 		if ( teach != null ) {
 			teach.setTeach_day_arr(teach.getTeach_day().split(","));
-			teach.setHolidays(teachDao.getHolidays(teach));
+			teach.setHolidays(dao.getHolidays(teach));
 			if (StringUtils.isNotEmpty(teach.getProgram_age_div())) {
 				teach.setProgram_age_div_arr(Arrays.asList(teach.getProgram_age_div().split(",")));
 			}
@@ -287,11 +287,11 @@ public class TeachService extends BaseService {
 	}
 
 	public List<Teach> getApplyList(Teach teach) {
-		List<Teach> list = teachDao.getApplyList(teach);
+		List<Teach> list = dao.getApplyList(teach);
 		if (list != null && list.size() > 0) {
 			for (Teach result : list) {
 				result.setTeach_day_arr(result.getTeach_day().split(","));
-				result.setHolidays(teachDao.getHolidays(result));
+				result.setHolidays(dao.getHolidays(result));
 				if (StringUtils.isNotEmpty(result.getProgram_age_div())) {
 					result.setProgram_age_div_arr(Arrays.asList(result.getProgram_age_div().split(",")));
 				}
@@ -301,7 +301,7 @@ public class TeachService extends BaseService {
 	}
 
 	public int getPrintMaxValue(Teach teach) {
-		return teachDao.getPrintMaxValue(teach);
+		return dao.getPrintMaxValue(teach);
 	}
 
 	public String getRootPath() {
@@ -309,39 +309,39 @@ public class TeachService extends BaseService {
 	}
 
 	public List<Teach> getSameTeachByName(Teach teach) {
-		return teachDao.getSameTeachByName(teach);
+		return dao.getSameTeachByName(teach);
 	}
 
 	public List<Teach> getMainViewTeachList(Teach teach) {
-		return teachDao.getMainViewTeachList(teach);
+		return dao.getMainViewTeachList(teach);
 	}
 
 	public List<Teach> getMainViewTeachListForAllHomepage(Teach teach) {
-		return teachDao.getMainViewTeachListForAllHomepage(teach);
+		return dao.getMainViewTeachListForAllHomepage(teach);
 	}
 
 	public int deleteFile(Teach teach) {
-		teach = teachDao.getTeachOne(teach);
+		teach = dao.getTeachOne(teach);
 		String fileName = teach.getReal_file_name();
 		String filePath = teach.getHomepage_id();
 		teachStorage.deleteFile(fileName, filePath);
-		return teachDao.deleteFile(teach);
+		return dao.deleteFile(teach);
 
 	}
 
 	public int deleteImage(Teach teach) {
-		teach = teachDao.getTeachOne(teach);
+		teach = dao.getTeachOne(teach);
 		String fileName = teach.getImage_real_file_name();
 		String filePath = teach.getHomepage_id();
 		teachStorage.deleteFile(fileName, filePath);
-		return teachDao.deleteImage(teach);
+		return dao.deleteImage(teach);
 	}
 
 	public void sendSmsTeachCancle() {
 
 		// homewas2_homepage3 컨테이너에서만 실행
 		if(StringUtils.equals(System.getProperty("whalesoft.container"), "homewas2_homepage3")) {
-			List<Teach> teachList = teachDao.getSchaduleTeach();
+			List<Teach> teachList = dao.getSchaduleTeach();
 
 			if(teachList != null) {
 				for(Teach teach : teachList) {

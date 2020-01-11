@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.go.gbelib.app.cms.module.facilityReq.FacilityReqDao">
-	
+
 	<select id="getFacilityReqListAll" resultType="kr.go.gbelib.app.cms.module.facilityReq.FacilityReq">
 		SELECT
 			homepage_id, facility_idx, facility_req_idx, apply_id,
@@ -11,13 +11,13 @@
 			FACILITY_REQ
 		WHERE
 			homepage_id = #{homepage_id}
-		AND	delete_yn = 'N'	
+		AND	delete_yn = 'N'
 		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
 		AND	${search_type} LIKE '%'||#{search_text}||'%'
 		</if>
 		ORDER BY facility_req_idx ASC
 	</select>
-	
+
 	<select id="getFacilityReqList" resultType="kr.go.gbelib.app.cms.module.facilityReq.FacilityReq">
 		SELECT
 			homepage_id, facility_idx, facility_req_idx, apply_id,
@@ -47,7 +47,7 @@
 		AND	facility_idx = #{facility_idx}
 		AND	facility_req_idx = #{facility_req_idx}
 	</select>
-	
+
 	<select id="checkFacilityReq" resultType="int">
 		SELECT
 			COUNT(*)
@@ -60,7 +60,7 @@
 		AND	delete_yn = 'N'
 		AND	apply_status != '3'
 	</select>
-	
+
 	<insert id="addFacilityReq">
 		<selectKey keyProperty="facility_req_idx" resultType="int" order="BEFORE">
 			SELECT NVL(MAX(facility_req_idx),0)+1 FROM FACILITY_REQ WHERE homepage_id = #{homepage_id} AND facility_idx = #{facility_idx}
@@ -79,7 +79,7 @@
 			SYSDATE, #{add_id}
 		)
 	</insert>
-	
+
 	<update id="modifyFacilityReq">
 		UPDATE
 			FACILITY_REQ
@@ -94,11 +94,11 @@
 		AND	facility_req_idx = #{facility_req_idx}
 		AND	delete_yn = 'N'
 	</update>
-	
+
 	<delete id="deleteFacilityReq">
 		UPDATE
 			FACILITY_REQ
-		SET 
+		SET
 			delete_yn = 'Y',
 			modify_date = SYSDATE,
 			modify_id = #{modify_id}
@@ -107,7 +107,7 @@
 		AND	facility_idx = #{facility_idx}
 		AND	facility_req_idx = #{facility_req_idx}
 	</delete>
-	
+
 	<update id="changeStatus">
 		UPDATE
 			FACILITY_REQ
@@ -116,11 +116,11 @@
 			modify_date = SYSDATE,
 			modify_id = #{modify_id}
 		WHERE
-			homepage_id = #{homepage_id} 
-		AND	facility_idx = #{facility_idx} 
+			homepage_id = #{homepage_id}
+		AND	facility_idx = #{facility_idx}
 		AND	facility_req_idx = #{facility_req_idx}
 	</update>
-	
+
 	<select id="getFacilityReqCalendar" resultType="kr.go.gbelib.app.cms.module.facilityReq.FacilityReq">
 		SELECT
 			A.homepage_id, A.facility_idx, A.facility_req_idx, A.apply_name, REGEXP_REPLACE(A.apply_name, '.', '*', 2) AS masking_name,
@@ -136,8 +136,11 @@
 		<if test="plan_date != null and plan_date != ''">
 	 	AND	#{plan_date} = SUBSTR(B.use_date, 1, 7)
 		</if>
+		<if test="plan_day != null and plan_day != ''">
+	 	AND	B.use_date = #{plan_day}
+		</if>
 	</select>
-	
+
 	<select id="getFacilityReqListByExcel" resultType="kr.go.gbelib.app.cms.module.facilityReq.FacilityReq">
 		SELECT
 			a.facility_name, a.use_date, b.apply_id, b.apply_name, b.apply_phone, b.apply_desc,
@@ -159,7 +162,7 @@
 		</if>
 		ORDER BY a.use_date
 	</select>
-	
+
 	<select id="getApplyList" resultType="kr.go.gbelib.app.cms.module.facilityReq.FacilityReq">
 		SELECT
 			b.homepage_id, b.facility_idx, b.facility_req_idx, a.facility_name, a.use_date,

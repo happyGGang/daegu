@@ -71,7 +71,6 @@ public class CalendarManageService extends BaseService {
 	}
 
 	public List<CalendarManage> getCalendarManageDetail(CalendarManage calendarManage) {
-		calendarManage.setDate_type("2");
 		return dao.getCalendarManageDetail(calendarManage);
 	}
 
@@ -160,16 +159,16 @@ public class CalendarManageService extends BaseService {
 
 	public int addCalendarManageFromLas(CalendarManage calendarManage, Homepage homepage) {
 		int resultRow = 0;
-		
+
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR, Integer.parseInt(calendarManage.getPlan_year()));
 		cal.set(Calendar.MONTH, Integer.parseInt(calendarManage.getPlan_month())-1);
 		String plan_date = calendarManage.getPlan_date();
 		int endDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-		
+
 		LibrarySearch librarySearch = new LibrarySearch();
 		librarySearch.setManageCode(homepage.getManage_code());
-		
+
 		for(int i = 1; i <= endDay; i++) {
 			String search_day = "0";
 			if(i < 10) {
@@ -179,7 +178,7 @@ public class CalendarManageService extends BaseService {
 			}
 			librarySearch.setSearch_start_date(plan_date.replace("-", "") + search_day);
 			Map<String, Object> holiDays = LibSearchAPI.getCheckHoliday(librarySearch);
-			
+
 			if(holiDays.get("RESULT_CODE").equals("1")) {
 				calendarManage.setStart_date(plan_date + "-" + search_day);
 				calendarManage.setEnd_date(plan_date + "-" + search_day);
@@ -194,7 +193,7 @@ public class CalendarManageService extends BaseService {
 				resultRow++;
 			}
 		}
-		
+
 		return resultRow;
 	}
 
