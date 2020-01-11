@@ -66,38 +66,34 @@ Date.prototype.format = function(f) {
 		e.preventDefault();
 	});
 */
-	$('#before-btn').on(
-			'click',
-			function(e) {
-				var plan_date = new Date($(this).attr('keyValue'));
-				plan_date.setMonth(plan_date.getMonth() - 1);
-				//plan_date.format('yyyy-MM')
-				$('div#planBox').load('calendar3.do',
-						'plan_date=' + plan_date.format('yyyy-MM'));
-				e.preventDefault();
-			});
-	$('#next-btn').on(
-			'click',
-			function(e) {
-				var plan_date = new Date($(this).attr('keyValue'));
-				plan_date.setMonth(plan_date.getMonth() + 1);
-				$('div#planBox').load('calendar3.do',
-						'plan_date=' + plan_date.format('yyyy-MM'));
-				e.preventDefault();
-			});
+		$('a#before-btn').on('click',function(e) {
+			var plan_date = new Date($(this).attr('keyValue'));
+			plan_date.setMonth(plan_date.getMonth() - 1);
+			//plan_date.format('yyyy-MM')
+			$('div.cal-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM'));
+			e.preventDefault();
+		});
 
-	$('a.showCal').on('click', function(e) {
-		var key = $(this).attr('keyValue');
-		$(".calAll").hide();
-		$("#popup_layer").show();
-		$("#"+key).show();
-		e.preventDefault();
-	});
+		$('a#next-btn').on('click',function(e) {
+			var plan_date = new Date($(this).attr('keyValue'));
+			plan_date.setMonth(plan_date.getMonth() + 1);
+			$('div.cal-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM'));
+			e.preventDefault();
+		});
 
-	$('.close').on('click', function(e) {
-		$("#popup_layer").hide();
-		$(".calAll").hide();
-	});
+		$('a.showCal').on('click', function(e) {
+			var key = $(this).attr('keyValue');
+			$(".calAll").hide();
+			$("#popup_layer").show();
+			$("#"+key).show();
+			e.preventDefault();
+		});
+
+		$('a.closePlanView').on('click', function(e) {
+			e.preventDefault();
+			$("#popup_layer").hide();
+			$(".calAll").hide();
+		});
 
 });
 </script>
@@ -132,10 +128,10 @@ Date.prototype.format = function(f) {
 									<c:set var="one" value="${fn:length(i.sun) < 2 ? '0' : '' }${i.sun}"></c:set>
 									<c:choose>
 										<c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
-											<a id="showCal" class="type-e" keyValue="${i.sun}">${i.sun}</a>
+											<a class="type-e showCal" keyValue="${i.sun}">${i.sun}</a>
 										</c:when>
 										<c:otherwise>
-											<a id="showCal" class="type-r" keyValue="${i.sun}">${i.sun}</a>
+											<a class="type-r showCal" keyValue="${i.sun}">${i.sun}</a>
 										</c:otherwise>
 									</c:choose>
 								</c:otherwise>
@@ -150,10 +146,10 @@ Date.prototype.format = function(f) {
 									<c:set var="one" value="${fn:length(i.tue) < 2 ? '0' : '' }${i.mon}"></c:set>
 									<c:choose>
 										<c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
-											<a id="showCal" class="type-e" keyValue="${i.mon}">${i.mon}</a>
+											<a class="type-e showCal" keyValue="${i.mon}">${i.mon}</a>
 										</c:when>
 										<c:otherwise>
-											<a id="showCal" class="type-r" keyValue="${i.mon}">${i.mon}</a>
+											<a class="type-r showCal" keyValue="${i.mon}">${i.mon}</a>
 										</c:otherwise>
 									</c:choose>
 								</c:otherwise>
@@ -168,10 +164,10 @@ Date.prototype.format = function(f) {
 									<c:set var="one" value="${fn:length(i.tue) < 2 ? '0' : '' }${i.tue}"></c:set>
 									<c:choose>
 										<c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
-											<a id="showCal" class="type-e" keyValue="${i.tue}">${i.tue}</a>
+											<a class="type-e showCal" keyValue="${i.tue}">${i.tue}</a>
 										</c:when>
 										<c:otherwise>
-											<a id="showCal" class="type-r" keyValue="${i.tue}">${i.tue}</a>
+											<a class="type-r showCal" keyValue="${i.tue}">${i.tue}</a>
 										</c:otherwise>
 									</c:choose>
 								</c:otherwise>
@@ -186,10 +182,10 @@ Date.prototype.format = function(f) {
 									<c:set var="one" value="${fn:length(i.wed) < 2 ? '0' : '' }${i.wed}"></c:set>
 									<c:choose>
 										<c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
-											<a id="showCal" class="type-e" keyValue="${i.wed}">${i.wed}</a>
+											<a class="type-e showCal" keyValue="${i.wed}">${i.wed}</a>
 										</c:when>
 										<c:otherwise>
-											<a id="showCal" class="type-r" keyValue="${i.wed}">${i.wed}</a>
+											<a class="type-r showCal" keyValue="${i.wed}">${i.wed}</a>
 										</c:otherwise>
 									</c:choose>
 								</c:otherwise>
@@ -204,10 +200,10 @@ Date.prototype.format = function(f) {
 									<c:set var="one" value="${fn:length(i.thu) < 2 ? '0' : '' }${i.thu}"></c:set>
 									<c:choose>
 										<c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
-											<a id="showCal" class="type-e" keyValue="${i.thu}">${i.thu}</a>
+											<a class="type-e showCal" keyValue="${i.thu}">${i.thu}</a>
 										</c:when>
 										<c:otherwise>
-											<a id="showCal" class="type-r" keyValue="${i.thu}">${i.thu}</a>
+											<a class="type-r showCal" keyValue="${i.thu}">${i.thu}</a>
 										</c:otherwise>
 									</c:choose>
 								</c:otherwise>
@@ -222,10 +218,10 @@ Date.prototype.format = function(f) {
 									<c:set var="one" value="${fn:length(i.fri) < 2 ? '0' : '' }${i.fri}"></c:set>
 									<c:choose>
 										<c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
-											<a id="showCal" class="type-e" keyValue="${i.fri}">${i.fri}</a>
+											<a class="type-e showCal" keyValue="${i.fri}">${i.fri}</a>
 										</c:when>
 										<c:otherwise>
-											<a id="showCal" class="type-r" keyValue="${i.fri}">${i.fri}</a>
+											<a class="type-r showCal" keyValue="${i.fri}">${i.fri}</a>
 										</c:otherwise>
 									</c:choose>
 								</c:otherwise>
@@ -240,10 +236,10 @@ Date.prototype.format = function(f) {
 									<c:set var="one" value="${fn:length(i.sat) < 2 ? '0' : '' }${i.sat}"></c:set>
 									<c:choose>
 										<c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
-											<a id="showCal" class="type-e" keyValue="${i.sat}">${i.sat}</a>
+											<a class="type-e showCal" keyValue="${i.sat}">${i.sat}</a>
 										</c:when>
 										<c:otherwise>
-											<a id="showCal" class="type-r" keyValue="${i.sat}">${i.sat}</a>
+											<a class="type-r showCal" keyValue="${i.sat}">${i.sat}</a>
 										</c:otherwise>
 									</c:choose>
 								</c:otherwise>
@@ -261,7 +257,7 @@ Date.prototype.format = function(f) {
 			<c:forEach var="i" items="${calendarResult}" varStatus="status">
 				<div id="${i.key}" class="calAll" style="display: none;">
 					<dl>
-						<dt>${calendar.plan_date}-${i.key}</dt>
+						<dt>${calendar.plan_date}-${fn:length(i.key) == 1 ? '0' : ''}${i.key}</dt>
 					</dl>
 					<c:forEach var="count" begin="0" end="${fn:length(i.value)}">
 						<c:choose>
@@ -278,7 +274,7 @@ Date.prototype.format = function(f) {
 					</c:forEach>
 				</div>
 			</c:forEach>
-		<a href="#" class="close"><i class="fa fa-close"></i></a>
+		<a href="#" class="close closePlanView"><i class="fa fa-close"></i></a>
 	</div>
 	</div>
 
