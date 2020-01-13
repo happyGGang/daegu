@@ -29,47 +29,47 @@ public class CategoryController extends BaseController {
 
 	@Autowired
 	private CategoryService categoryService;
-	
+
 	@Autowired
 	private CategoryGroupService categoryGroupService;
-	
+
 	@Autowired
 	private TeachSettingService teachSettingService;
-	
+
 	@Autowired
 	private TeachCode2Service teachCode2Service;
-	
+
 	@RequestMapping(value = {"/getCategoryList.*"})
 	public @ResponseBody Map<String, Object> getCategoryList(Model model, Category category, HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("categoryList", categoryService.getCategoryListAll(category));
 		return result;
 	}
-	
+
 	@RequestMapping(value = {"/getCategoryGroupList.*"})
 	public @ResponseBody List<CategoryGroup> getCategoryGroupList(Model model, CategoryGroup categoryGroup, HttpServletRequest request) {
 		return categoryGroupService.getCategoryGroupListAll(categoryGroup);
 	}
-	
+
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, CategoryGroup categoryGroup, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 //		if ( !getSessionIsAdmin(request) ) {
-			categoryGroup.setHomepage_id(getAsideHomepageId(request));	
+			categoryGroup.setHomepage_id(getAsideHomepageId(request));
 //		}
 		int count = categoryGroupService.getCategoryGroupListCount(categoryGroup);
 		categoryGroup.setTotalDataCount(count);
 		model.addAttribute("categoryGroup", categoryGroup);
 		model.addAttribute("categoryGroupListCount", count);
 		model.addAttribute("categoryGroupList", categoryGroupService.getCategoryGroupList(categoryGroup));
-		
+
 		TeachCode2 teachCode2 = new TeachCode2();
 		teachCode2.setTeach_code(15);
 		model.addAttribute("teachLargeCategoryList", teachCode2Service.getSubcategories(teachCode2));
-		
+
 		return basePath + "index";
 	}
-	
+
 	@RequestMapping(value = {"/category.*"})
 	public String category(Model model, Category category, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
@@ -79,22 +79,22 @@ public class CategoryController extends BaseController {
 		model.addAttribute("category", category);
 		model.addAttribute("categoryListCount", count);
 		model.addAttribute("categoryList", categoryService.getCategoryList(category));
-		
+
 		CategoryGroup cg = new CategoryGroup();
 		cg.setHomepage_id(category.getHomepage_id());
 		cg.setLarge_category_idx(category.getLarge_category_idx());
 		cg.setGroup_idx(category.getGroup_idx());
 		model.addAttribute("categoryGroupOne", categoryGroupService.getCategoryGroupOne(cg));
-		
+
 		return basePath + "category_ajax";
 	}
-	
+
 	@RequestMapping(value = {"/edit.*"})
 	public String edit(Model model, Category category) {
 		if(category.getEditMode().equals("MODIFY")) {
 			model.addAttribute("category", categoryService.copyObjectPaging(category, categoryService.getCategoryOne(category)));
-			
-//			CategoryGroup categoryGroup = new CategoryGroup(category.getHomepage_id()); 
+
+//			CategoryGroup categoryGroup = new CategoryGroup(category.getHomepage_id());
 //			categoryGroup.setGroup_idx(category.getGroup_idx());
 //			categoryGroup = categoryGroupService.getCategoryGroupOne(categoryGroup);
 //			Category categoryLimitTotal = categoryService.getReqLimitTotal(category);
@@ -108,7 +108,7 @@ public class CategoryController extends BaseController {
 //				TeachSetting teachSetting = new TeachSetting();
 //				teachSetting.setHomepage_id(categoryGroup.getHomepage_id());
 //				teachSetting = teachSettingService.getTeachSettingOne(teachSetting);
-//				
+//
 //				if (StringUtils.equals(teachSetting.getUse_yn(), "Y")) {
 //					if (categoryLimitTotal.getCnt() > 0) {
 //						model.addAttribute("possibleCount", teachSetting.getTerm_count() - categoryLimitTotal.getReq_limit_count());
@@ -123,10 +123,10 @@ public class CategoryController extends BaseController {
 		}
 		return basePath + "edit_ajax";
 	}
-	
+
 	@RequestMapping(value = {"/editGroup.*"})
 	public String editGroup(Model model, CategoryGroup categoryGroup) {
-		
+
 		if(categoryGroup.getEditMode().equals("MODIFY")) {
 			model.addAttribute("categoryGroup", categoryGroupService.copyObjectPaging(categoryGroup, categoryGroupService.getCategoryGroupOne(categoryGroup)));
 //			TeachSetting ts = new TeachSetting();
@@ -143,10 +143,10 @@ public class CategoryController extends BaseController {
 		} else {
 			model.addAttribute("categoryGroup", categoryGroup);
 		}
-		
+
 		return basePath + "editGroup_ajax";
 	}
-	
+
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Category category, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
@@ -154,9 +154,9 @@ public class CategoryController extends BaseController {
 		if(!category.getEditMode().equals("DELETE")) {
 			ValidationUtils.rejectIfEmpty(result, "category_name", "카테고리명을 입력하세요.");
 			ValidationUtils.rejectIfStringLength(result, "category_name", 50, "카테고리명");
-			
+
 //			if (StringUtils.equals(category.getReq_limit_yn(), "Y")) {
-//				CategoryGroup categoryGroup = new CategoryGroup(category.getHomepage_id()); 
+//				CategoryGroup categoryGroup = new CategoryGroup(category.getHomepage_id());
 //				categoryGroup.setGroup_idx(category.getGroup_idx());
 //				categoryGroup = categoryGroupService.getCategoryGroupOne(categoryGroup);
 //				Category categoryLimitTotal = categoryService.getReqLimitTotal(category);
@@ -176,7 +176,7 @@ public class CategoryController extends BaseController {
 //					TeachSetting teachSetting = new TeachSetting();
 //					teachSetting.setHomepage_id(categoryGroup.getHomepage_id());
 //					teachSetting = teachSettingService.getTeachSettingOne(teachSetting);
-//					
+//
 //					if (StringUtils.equals(teachSetting.getUse_yn(), "Y")) {
 //						if (categoryLimitTotal.getCnt() > 0) {
 //							int diff = teachSetting.getTerm_count() - (categoryLimitTotal.getReq_limit_count() + category.getReq_limit_count());
@@ -197,9 +197,9 @@ public class CategoryController extends BaseController {
 				result.reject("해당 카테고리에 생성된 강좌가 있으므로 삭제가 불가능 합니다.");
 			}
 		}
-		
-		
-		
+
+
+
 		if(!result.hasErrors()) {
 			if(editMode.equals("ADD")) {
 				category.setAdd_id(getSessionMemberId(request));
@@ -207,7 +207,7 @@ public class CategoryController extends BaseController {
 				res.setValid(true);
 				res.setMessage("등록 되었습니다.");
 			} else if(editMode.equals("MODIFY")) {
-				category.setMod_id(getSessionMemberId(request));
+				category.setModify_id(getSessionMemberId(request));
 				categoryService.modifyCategory(category);
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");
@@ -220,10 +220,10 @@ public class CategoryController extends BaseController {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
 		}
-		
+
 		return res;
 	}
-	
+
 	@RequestMapping(value = {"/saveGroup.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse saveGroup(CategoryGroup categoryGroup, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
@@ -231,7 +231,7 @@ public class CategoryController extends BaseController {
 		if(!categoryGroup.getEditMode().equals("DELETE")) {
 			ValidationUtils.rejectIfEmpty(result, "group_name", "그룹명을 입력하세요.");
 			ValidationUtils.rejectIfStringLength(result, "group_name", 50, "그룹명");
-			
+
 //			if (StringUtils.equals(categoryGroup.getReq_limit_yn(), "Y")) {
 //				TeachSetting teachSetting = new TeachSetting();
 //				teachSetting.setHomepage_id(categoryGroup.getHomepage_id());
@@ -256,7 +256,7 @@ public class CategoryController extends BaseController {
 				result.reject("해당 그룹에 생성된 카테고리가 있으므로 삭제가 불가능 합니다.");
 			}
 		}
-		
+
 		if(!result.hasErrors()) {
 			if(editMode.equals("ADD")) {
 				categoryGroup.setAdd_id(getSessionMemberId(request));
@@ -277,7 +277,7 @@ public class CategoryController extends BaseController {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
 		}
-		
+
 		return res;
 	}
 }
