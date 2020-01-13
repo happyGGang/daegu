@@ -186,7 +186,7 @@ $(function() {
 	<form:hidden path="menu_url_param"/>
 	<table class="type3">
 		<colgroup>
-			<col width="120"/>
+			<col width="150"/>
 			<col width="*"/>
 		</colgroup>
 		<tbody>

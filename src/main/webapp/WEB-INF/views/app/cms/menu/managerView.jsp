@@ -8,7 +8,7 @@ $(function() {
 	$('div#dialog_manager').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
 		resizable: false,
-		modal: true, 
+		modal: true,
 	    open: function(){
 	        $('.ui-widget-overlay').addClass('custom-overlay');
 	        $('button.cancel-btn').focus();
@@ -26,12 +26,12 @@ $(function() {
 			}
 		]
 	});
-	
+
 	$("div#dialog_manager").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
-		width: 650,
+		width: 800,
 		height: 500
 	});
-	
+
 	$('a.select-btn').on('click', function(e) {
 		e.preventDefault();
 		$('#manager_dept').val($(this).attr('keyValue1'));
@@ -40,18 +40,18 @@ $(function() {
 		$('#manager_idx').val($(this).attr('keyValue4'));
 		$('div#dialog_manager').dialog('destroy');
 	});
-	
+
 });
 
 </script>
 <table class="type1 center">
 	<colgroup>
 		<col width="50" />
+       	<col width="150" />
        	<col width="130" />
        	<col width="130" />
        	<col width="130" />
-       	<col width="130" />
-       	<col width="80"/>
+       	<col width="50"/>
       	</colgroup>
       	<thead>
       		<tr>

@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<script type="text/javascript">	
+<script type="text/javascript">
 $(document).ready(function() {
 
 	// 조직
@@ -15,7 +15,7 @@ $(document).ready(function() {
 			$('#dialog-1').dialog('open');
 		});
 	});
-	
+
 	<%-- 현황등록 --%>
 	$('a#dialog-status').on('click', function(e) {
 		e.preventDefault();
@@ -23,7 +23,7 @@ $(document).ready(function() {
 			$('#dialog-2').dialog('open');
 		});
 	});
-	
+
 	<%-- 현황수정 --%>
 	$('a.dialog-status-mod').on('click', function(e) {
 		e.preventDefault();
@@ -31,7 +31,7 @@ $(document).ready(function() {
 			$('#dialog-2').dialog('open');
 		});
 	});
-	
+
 	<%-- 현황삭제 --%>
 	$('a.status-del').on('click', function(e) {
 		e.preventDefault();
@@ -41,7 +41,7 @@ $(document).ready(function() {
 			doAjaxPost($('form#statusDelete'));
 		}
 	});
-	
+
 	// 업무
 	<%-- 업무등록 --%>
 	$('a#dialog-add').on('click', function(e) {
@@ -50,7 +50,7 @@ $(document).ready(function() {
 			$('#dialog-3').dialog('open');
 		});
 	});
-	
+
 	<%--부서등록--%>
 	$('a#dialog-organization').on('click', function(e) {
 		e.preventDefault();
@@ -58,7 +58,7 @@ $(document).ready(function() {
 			$('#dialog-4').dialog('open');
 		});
 	});
-	
+
 	<%-- 사용자수정 --%>
 	$('a.dialog-mod').on('click', function(e) {
 		e.preventDefault();
@@ -66,7 +66,7 @@ $(document).ready(function() {
 			$('#dialog-3').dialog('open');
 		});
 	});
-	
+
 	<%-- 사용자삭제 --%>
 	$('a.dialog-del').on('click', function(e) {
 		e.preventDefault();
@@ -76,20 +76,20 @@ $(document).ready(function() {
 				doGetLoad('index.do');
 			}
 		}
-		
+
 	});
-	
+
 	<%-- 미리보기 --%>
 	$('a#sample-btn').on('click', function(e) {
 		e.preventDefault();
-		window.open('/${homepage.context_path}/module/organization/index.do');
+		window.open('/${homepage.context_path}/module/organization/index.do?menu_idx=100');
 	});
-	
+
 	$('button#search_btn').on('click', function(e) {
 		$('#viewPage').val(1);
 		doGetLoad('index.do', serializeCustom($('#organization')));
 	});
-	
+
 	$('table.tspan').rowspan(0);
 });
 
@@ -101,14 +101,14 @@ $.fn.rowspan = function(colIdx, isStats) {
 				if($(this).html() == $(that).html()) {
 					rowspan = $(that).attr('rowspan') || 1;
 					rowspan = Number(rowspan)+1;
-					
+
 					$(that).attr('rowspan', rowspan);
-					
+
 					$(this).hide();
 				} else {
 					that = this;
 				}
-				
+
 				that = (that == null) ? this : that;
 			});
 		});
@@ -205,10 +205,10 @@ $.fn.rowspan = function(colIdx, isStats) {
 <form:form modelAttribute="organization" id="organizationWorkDel" action="delete.do" method="POST">
 	<form:hidden path="homepage_id" id="del_homepage_id"/>
 	<form:hidden path="organization_work_idx" id="del_organization_work_idx"/>
-</form:form> 
+</form:form>
 <form:form modelAttribute="organization" action="index.do" method="GET">
 	<form:hidden path="homepage_id"/>
-	
+
 	<c:forEach items="${organizationList}" var="i">
 		<h3>${i.organization_name}</h3>
 		<table class="center tspan" summary="${i.organization_name}의 직원현황입니다.">
