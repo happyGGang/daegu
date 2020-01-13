@@ -189,6 +189,9 @@ function getFileData(fileData) {
 			<th>출력 순서</th>
 			<td>
 				<form:input path="print_seq" cssStyle="width:30px;" cssClass="text spinner"/>
+				<div class="ui-state-highlight">
+					<i class="fa fa-question-circle"></i><em>오름차순 정렬. 낮을수록 앞에 출력됩니다.</em>
+				</div>
 			</td>
 		</tr>
 		<tr>

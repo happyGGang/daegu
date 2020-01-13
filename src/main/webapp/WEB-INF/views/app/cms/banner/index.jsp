@@ -131,7 +131,7 @@ $(function(){
 					${i.use_yn eq 'Y' ? '사용함' : '사용안함'}
 				</td>
 				<td width="50">${i.print_seq}</td>
-				<td width="150"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></td>
+				<td width="150"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>
 				<td width="120">
 					<c:if test="${authU}">
 						<a href="" class="btn" id="dialog-modify" keyValue="${i.banner_idx}">수정</a>
