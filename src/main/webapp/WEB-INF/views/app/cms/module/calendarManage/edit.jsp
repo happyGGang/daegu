@@ -196,7 +196,6 @@ $(function() {
 				<form:input path="link_url" cssStyle="width:90%;" cssClass="text" maxlength="500"/>
 				<div class="ui-state-highlight">
 					<em>링크URL 입력시 상세보기로 이동하지 않고 해당 링크로 이동합니다. 해당페이지의 전체 URL을 입력해주세요.</em>
-					<em>ex) /gbelib/board/view.do?menu_idx=128&manage_idx=521&board_idx=124366</em>
 				</div>
 			</td>
 		</tr>
