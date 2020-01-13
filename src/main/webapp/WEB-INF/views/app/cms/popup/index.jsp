@@ -9,30 +9,30 @@ $(function(){
 	//모달창 링크 버튼
 	$('a#dialog-add').on('click', function(e) {
 		if ( $('#homepage_id_1').val() == '' ) {
-			alert('홈페이지정보가 없습니다.');	
+			alert('홈페이지정보가 없습니다.');
 		}
 		else {
 			$('#dialog-1').load('edit.do?editMode=ADD&homepage_id=' + $('#homepage_id_1').val(), function( response, status, xhr ) {
 				$('#dialog-1').dialog('open');
 			});
 		}
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('a#dialog-modify').on('click', function(e) {
 		$('#dialog-1').load('edit.do?editMode=MODIFY&homepage_id=' + $(this).attr('keyValue') + '&popup_idx=' + $(this).attr('keyValue1'), function( response, status, xhr ) {
 			$('#dialog-1').dialog('open');
 		});
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('a#delete').on('click', function(e) {
 		if(confirm('선택된 팝업을 삭제 하시겠습니까?')) {
 			$('input#homepage_id_1').val($(this).attr('keyValue'));
 			$('input#popup_idx_1').val($(this).attr('keyValue1'));
-			
+
 			$.ajax({
 				url : 'delete.do',
 				async : false,
@@ -48,38 +48,38 @@ $(function(){
 							alert(data.message);
 						}
 						else {
-							alert(data.result);	
+							alert(data.result);
 						}
 					}
 				}
 			});
 		}
-		
+
 		e.preventDefault();
-	}); 
-	
+	});
+
 	$('select#homepage_id_1').on('change', function(e) {
 		if($(this).val() != '') {
 			$('input#homepage_id_1').val($(this).val());
 			$('#popup_1').attr('action', 'index.do');
 			doGetLoad('index.do', serializeCustom($('#popup_1')));
 		}
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('button#search_btn').on('click', function(e) {
 		$('#viewPage').val(1);
 		doGetLoad('index.do', serializeCustom($('#popup_1')));
 	});
-	
+
 	$('select#link_target, select#use_yn, select#sortType, select#rowCount').on('change', function() {
 		$('#viewPage').val(1);
 		doGetLoad('index.do', serializeCustom($('#popup_1')));
 	});
-	
-});	
-</script> 
+
+});
+</script>
 <form:form id="popup_1" modelAttribute="popup" method="POST" action="save.do" onsubmit="return false;">
 <form:hidden id="editMode_1" path="editMode"/>
 <form:hidden id="popup_idx_1" path="popup_idx"/>
@@ -114,16 +114,16 @@ $(function(){
 			</c:if>
 		</div>
 	</div>
-	
+
 	<table class="type1 center">
 		<thead>
 			<tr>
 				<th width="40">순번</th>
 				<th width="">팝업명</th>
 				<th width="100">링크타겟</th>
-				<th width="50">사용여부</th>
+				<th width="80">사용여부</th>
 				<th width="200">게시일</th>
-				<th width="50">출력순서</th>
+				<th width="80">출력순서</th>
 				<th width="120">등록일</th>
 				<th width="100">기능</th>
 			</tr>
@@ -155,11 +155,11 @@ $(function(){
 		</c:forEach>
 		</tbody>
 	</table>
-	
+
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#popup_1"/>
 	</jsp:include>
-	
+
 	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 		<fieldset>
 			<form:select path="search_type" cssClass="selectmenu">

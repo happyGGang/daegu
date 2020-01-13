@@ -250,7 +250,7 @@ function pasteHTML(filepath){
 <div id="imgFileTemp" hidden="hidden"></div>
 <table class="type2">
 	<colgroup>
-		<col width="130"/>
+		<col width="150"/>
 		<col width="*"/>
 	</colgroup>
 	<tbody>
@@ -297,6 +297,9 @@ function pasteHTML(filepath){
 			<th>링크URL(<span style="color: red;font-weight: bold;">*</span>)</th>
 			<td>
 				<form:input path="link_url" cssClass="text" cssStyle="width:300px;" maxlength="200"/>
+				<div class="ui-state-highlight">
+					<em>* 팝업 클릭시 이동 할 URL 입니다.</em>
+				</div>
 			</td>
 		</tr>
 		<tr>
