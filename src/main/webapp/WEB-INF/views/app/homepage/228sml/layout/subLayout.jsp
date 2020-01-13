@@ -11,6 +11,8 @@ $(function() {
 	if ( halbaeNode != null && halbaeNode.nodeName == 'LI' ) {
 		$(halbaeNode).addClass('active');
 	}
+	
+	$('div#menuRatingDiv').load('/${homepage.context_path}/module/menuRating/index.do?menu_idx=${param.menu_idx}');
 });
 </script>
 <div id="wrap">
@@ -44,12 +46,13 @@ $(function() {
 					<div class="doc-head">
 						<div class="doc-title">
 							<h3>${menuOne.menu_name}</h3>
-							<!-- <div class="v-img" <c:if test="${not empty menuOne.menu_img}">style="background: url('/data/menu/${menuOne.homepage_id}/${menuOne.menu_img}') no-repeat 100% 0"</c:if>></div> -->
+<%-- 							<div class="v-img" <c:if test="${not empty menuOne.menu_img}">style="background: url('/data/menu/${menuOne.homepage_id}/${menuOne.menu_img}') no-repeat 100% 0"</c:if>></div> --%>
 						</div>
 					</div>
 					<div class="doc-body con${menuOne.menu_idx}" id="contentArea">
 						<div class="body">
 							<tiles:insertAttribute name="body" />
+							<div id="menuRatingDiv"></div>
 						</div>
 					</div>
 					<div class="doc-admin">
