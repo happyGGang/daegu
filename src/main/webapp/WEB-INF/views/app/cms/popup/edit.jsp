@@ -250,7 +250,7 @@ function pasteHTML(filepath){
 <div id="imgFileTemp" hidden="hidden"></div>
 <table class="type2">
 	<colgroup>
-		<col width="150"/>
+		<col width="160"/>
 		<col width="*"/>
 	</colgroup>
 	<tbody>
@@ -335,7 +335,7 @@ function pasteHTML(filepath){
 		</tr>
 		<tr class="htmlPreview">
 			<th scope="row">이미지 미리보기</th>
-			<td colspan="3">
+			<td>
 				<div id="htmlFiles" class="item">
 					<img src="/resources/cms/img/noimg_135_42.gif" alt="이미지 미리보기 입니다.">
 					<a></a>
@@ -344,7 +344,7 @@ function pasteHTML(filepath){
 		</tr>
 		<tr class="imgPreview">
 			<th scope="row">이미지 미리보기</th>
-			<td colspan="3">
+			<td>
 				<div id="fileReaderFiles" class="item">
 					<c:if test="${popup.org_file_name eq null}">
 						<img src="/resources/cms/img/noimg_135_42.gif" alt="이미지 미리보기 입니다.">
@@ -354,6 +354,12 @@ function pasteHTML(filepath){
 					</c:if>
 					<a></a>
 				</div>
+			</td>
+		</tr>
+		<tr class="imgPreview">
+			<th scope="row">이미지 대체 텍스트</th>
+			<td>
+				<form:textarea path="alt_text" cssStyle="width:100%; height:60px;"/>
 			</td>
 		</tr>
 		<tr>

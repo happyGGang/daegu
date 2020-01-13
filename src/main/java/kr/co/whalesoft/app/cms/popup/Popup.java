@@ -33,6 +33,8 @@ public class Popup extends PagingUtils {
 
 	private String common_yn = "N";
 
+	private String alt_text; //대체 텍스트
+
 	public Popup() {
 	}
 
@@ -230,6 +232,16 @@ public class Popup extends PagingUtils {
 
 	public void setCommon_yn(String common_yn) {
 		this.common_yn = common_yn;
+	}
+
+
+	public String getAlt_text() {
+		return alt_text;
+	}
+
+
+	public void setAlt_text(String alt_text) {
+		this.alt_text = alt_text;
 	}
 
 }
