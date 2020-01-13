@@ -9,30 +9,30 @@ $(function() {
 		$('#viewPage').val(1);
 		$('#siteListForm').submit();
 	});
-	
-	
+
+
 	$('a#dialog-add').on('click', function(e) {
 		if ( $('#homepage_id_1').val() == '' ) {
-			alert('홈페이지정보가 없습니다.');	
+			alert('홈페이지정보가 없습니다.');
 		}
 		else {
 			$('#dialog-1').load('edit.do?editMode=ADD&homepage_id=' + $('#homepage_id').val(), function( response, status, xhr ) {
 				$('#dialog-1').dialog('open');
 			});
 		}
-		
+
 		e.preventDefault();
 	});
 	$('a#dialog-modify').on('click', function(e) {
 		$('#dialog-1').load('edit.do?editMode=MODIFY&homepage_id=' + $('#homepage_id').val() + '&recommend_site_idx=' + $(this).attr('keyValue'), function( response, status, xhr ) {
 			$('#dialog-1').dialog('open');
 		});
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('a#delete-btn').on('click', function(e) {
-		if ( confirm('해당 사이트를 삭제 하시겠습니까?') ) {
+		if ( confirm('해당 추천사이트를 삭제 하시겠습니까?') ) {
 			$('#hiddenForm #recommend_site_idx').val($(this).attr('keyValue'));
 			if(doAjaxPost($('#hiddenForm'))) {
 				location.reload();
@@ -40,16 +40,16 @@ $(function() {
 		}
 		e.preventDefault();
 	});
-	
+
 	$('select#homepage_id_1').on('change', function(e) {
 		if($(this).val() != '') {
 			$('input#homepage_id_1').val($(this).val());
 			$('#siteListForm').submit();
 		}
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('select#rowCount').on('change', function(e) {
 		$('#viewPage').val(1);
 		$('#siteListForm').submit();
@@ -127,7 +127,7 @@ $(function() {
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#siteListForm"/>
 	</jsp:include>
-	
+
 	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 		<fieldset>
 			<form:select path="search_type" cssClass="selectmenu">
@@ -138,5 +138,5 @@ $(function() {
 		</fieldset>
 	</div>
 </form:form>
-	
+
 <div id="dialog-1" class="dialog-common" title="추천사이트 정보"></div>
