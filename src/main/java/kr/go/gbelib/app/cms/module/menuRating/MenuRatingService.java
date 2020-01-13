@@ -21,7 +21,9 @@ public class MenuRatingService extends BaseService {
 		if(menuRating.equals("DAY")) {
 			
 		} else if(menuRating.equals("MONTH")) {
-			cal.set(Calendar.YEAR, Integer.parseInt(menuRating.getSearch_start_date()));
+			
+			cal.getTime().getYear();
+			cal.getTime().getMonth();
 		} else if(menuRating.equals("YEAR")) {
 			
 		}
