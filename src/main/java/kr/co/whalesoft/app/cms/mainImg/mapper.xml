@@ -5,7 +5,8 @@
 	<select id="getMainImgListAll" resultType="kr.co.whalesoft.app.cms.mainImg.MainImg">
 			SELECT
 				homepage_id, img_idx, main_img_name, org_file_name, server_file_name,
-				file_extension, file_size, use_yn, print_seq, add_date
+				file_extension, file_size, use_yn, print_seq, add_date,
+				alt_text
 			FROM
 				CMS_MAIN_IMG
 			WHERE
@@ -15,14 +16,15 @@
 			AND	${search_type} LIKE '%'||#{search_text}||'%'
 			</if>
 			ORDER BY
-				PRINT_SEQ ASC, add_date DESC
+				print_seq ASC, add_date DESC
 	</select>
 
 	<select id="getMainImgList" resultType="kr.co.whalesoft.app.cms.mainImg.MainImg">
 		${pagingTop}
 			SELECT
 				homepage_id, img_idx, main_img_name, org_file_name, server_file_name,
-				file_extension, file_size, use_yn, print_seq, add_date
+				file_extension, file_size, use_yn, print_seq, add_date,
+				alt_text
 			FROM
 				CMS_MAIN_IMG
 			WHERE
@@ -34,7 +36,7 @@
 			AND	use_yn = #{use_yn}
 			</if>
 			ORDER BY
-				PRINT_SEQ ASC, add_date DESC
+				print_seq ASC, add_date DESC
 		${pagingBottom}
 	</select>
 
@@ -58,7 +60,8 @@
 	<select id="getMainImgOne" resultType="kr.co.whalesoft.app.cms.mainImg.MainImg">
 		SELECT
 			homepage_id, img_idx, main_img_name, org_file_name, server_file_name,
-			file_extension, file_size, use_yn, print_seq, add_date
+			file_extension, file_size, use_yn, print_seq, add_date,
+			alt_text
 		FROM
 			CMS_MAIN_IMG
 		WHERE
@@ -76,11 +79,11 @@
 		(
 			homepage_id, img_idx, main_img_name, org_file_name, server_file_name,
 			file_extension, file_size, use_yn, print_seq,
-			add_id, add_date
+			add_id, add_date, alt_text
 		) VALUES (
 			#{homepage_id}, #{img_idx}, #{main_img_name}, #{org_file_name}, #{server_file_name},
 			#{file_extension}, #{file_size}, #{use_yn}, #{print_seq},
-			#{add_id}, SYSDATE
+			#{add_id}, SYSDATE, #{alt_text}
 		)
 	</insert>
 
@@ -97,6 +100,7 @@
 			</if>
 			use_yn = #{use_yn},
 			print_seq = #{print_seq},
+			alt_text = #{alt_text},
 			modify_id = #{modify_id},
 			modify_date = SYSDATE
 		WHERE
@@ -111,7 +115,7 @@
 			homepage_id = #{homepage_id}
 		AND	img_idx = #{img_idx}
 	</delete>
-	
+
 	<select id="getNextPrintSeq" resultType="int">
 		SELECT
 			NVL(MAX(print_seq), 0) + 10

@@ -20,6 +20,7 @@ public class MainImg extends PagingUtils {
 	private Date add_date; // 등록일시
 	private String modify_id; // 수정ID
 	private Date modify_date; // 수정일시
+	private String alt_text; // 대체 텍스트
 
 	private MultipartFile img_file;
 
@@ -132,6 +133,16 @@ public class MainImg extends PagingUtils {
 
 	public void setImg_file(MultipartFile img_file) {
 		this.img_file = img_file;
+	}
+
+
+	public String getAlt_text() {
+		return alt_text;
+	}
+
+
+	public void setAlt_text(String alt_text) {
+		this.alt_text = alt_text;
 	}
 
 }

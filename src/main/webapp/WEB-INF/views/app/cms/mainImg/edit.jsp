@@ -9,7 +9,7 @@ $(function() {
 	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
 		resizable: false,
-		modal: true, 
+		modal: true,
 	    open: function(){
 	        $('.ui-widget-overlay').addClass('custom-overlay');
 	    },
@@ -46,7 +46,7 @@ $(function() {
 										alert(response.result[i].code);
 										$('#'+response.result[i].field).focus();
 										break;
-									}	
+									}
 								}
 							}
 				         },
@@ -66,32 +66,32 @@ $(function() {
 			}
 		]
 	});
-	
+
 	$("#dialog-1").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
 		width: 600,
 		height: 500
 	});
-	
+
 	$('.ui-calendar').each(function() {
 		$(this).datepicker({
 			//기본달력
 		});
 	});
-	
+
 	if ( '${mainImg.use_yn}' != '' ) {
-		$('[name="use_yn"].${mainImg.use_yn}').click();	
+		$('[name="use_yn"].${mainImg.use_yn}').click();
 	}
-	
+
 	$('input#img_file').change(function() {
 
-		
+
 		var maxSize = 500 * 1024;
-		
+
 		var fileSize = 0;
-		
+
 		var version = detectIE();
 
-		
+
 		if (version === false) {
 			fileSize = $('input#img_file')[0].files[0].size;
 		} else {
@@ -101,7 +101,15 @@ $(function() {
 		if (fileSize > maxSize) {
 			alert('메인이미지는 500 KB 이하의 파일만 등록가능합니다.\n\n선택 파일 크기 : ' + parseInt(fileSize/1024) + ' KB');
 			$(this).val('');
+		} else {
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				$('img#previewImage').attr('src', e.target.result);
+			};
+			reader.readAsDataURL(this.files[0]);
 		}
+
+
 
 		// add details to debug result
 
@@ -110,7 +118,7 @@ $(function() {
 		 * returns version of IE or false, if browser is not Internet Explorer
 		 */
 	});
-	
+
 	function detectIE() {
 		  var ua = window.navigator.userAgent;
 
@@ -118,13 +126,13 @@ $(function() {
 
 		  // IE 10
 		  // ua = 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)';
-		  
+
 		  // IE 11
 		  // ua = 'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko';
-		  
+
 		  // Edge 12 (Spartan)
 		  // ua = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36 Edge/12.0';
-		  
+
 		  // Edge 13
 		  // ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586';
 
@@ -160,7 +168,7 @@ $(function() {
 	<form:hidden path="editMode"/>
 	<table class="type2">
 		<colgroup>
-	       <col width="130" />
+	       <col width="150" />
 	       <col width="*"/>
        	</colgroup>
        	<tbody>
@@ -177,21 +185,36 @@ $(function() {
 					</div>
 	         	</td>
 	        </tr>
+	        <tr class="htmlPreview">
+				<th scope="row">이미지 미리보기</th>
+				<td>
+					<div id="htmlFiles" class="item">
+						<img id="previewImage" src="/resources/cms/img/noimg_135_42.gif" alt="이미지 미리보기 입니다.">
+						<a></a>
+					</div>
+				</td>
+			</tr>
 	        <c:if test="${mainImg.editMode eq 'MODIFY'}">
 		        <tr>
 		         	<th>현재 이미지</th>
 		         	<td class="realFile">
 		         		<c:choose>
 		         			<c:when test="${mainImg.server_file_name ne ''}">
-		         				<img style="width: 100%;" src="/data/mainImg/${mainImg.homepage_id}/${mainImg.server_file_name}" alt="${mainImg.server_file_name}"/>	
+		         				<img style="width: 100%;" src="/data/mainImg/${mainImg.homepage_id}/${mainImg.server_file_name}" alt="${mainImg.server_file_name}"/>
 		         			</c:when>
 		         			<c:otherwise>
-		         				<img width="135" height="42" src="/resources/cms/img/noimg_135_42.gif" alt="이미지가 없습니다.">	
+		         				<img width="135" height="42" src="/resources/cms/img/noimg_135_42.gif" alt="이미지가 없습니다.">
 		         			</c:otherwise>
 		         		</c:choose>
 	         		</td>
 		        </tr>
 	        </c:if>
+	        <tr>
+				<th>대체 텍스트</th>
+				<td>
+					<form:textarea path="alt_text" cssStyle="width:100%; height:60px;" cssClass="text spinner"/>
+				</td>
+			</tr>
 	        <tr>
 				<th>출력 순서</th>
 				<td>
