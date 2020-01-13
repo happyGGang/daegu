@@ -76,13 +76,13 @@ $(function(){
 		<table class="type1 center">
 			<colgroup>
 				<%-- <col/> --%>
-				<col width="200"/>
+				<col width="250"/>
+<%-- 				<col/> --%>
 				<col/>
 				<col/>
 				<col/>
 				<col/>
-				<col/>
-				<col/>
+<%-- 				<col/> --%>
 				<c:if test="${sessionScope.member.admin}">
 				<col/>
 				</c:if>
@@ -92,12 +92,12 @@ $(function(){
 				<tr>
 					<!-- <th>홈페이지ID</th> -->
 					<th>홈페이지명</th>
-					<th>홈페이지유형</th>
+<!-- 					<th>홈페이지유형</th> -->
 					<th>도메인(domain)</th>
 					<th>컨텍스트</br>(contextPath)</th>
 					<th>폴더</th>
 					<th>홈페이지</br>바로가기</th>
-					<th>디지털좌석</br>예약관리시스템</br>바로가기</th>
+<!-- 					<th>디지털좌석</br>예약관리시스템</br>바로가기</th> -->
 					<!-- <th>임시페이지사용</th> -->
 					<c:if test="${sessionScope.member.admin}">
 					<th>출력순서</th>
@@ -115,13 +115,13 @@ $(function(){
 				<tr>
 					<%-- <td class="num">${i.homepage_id}</td> --%>
 					<td>${i.homepage_name}</td>
-					<td>
-						<c:forEach items="${homepageTypeList}" var="j">
-							<c:if test="${j.code_id eq i.homepage_type}">
-								${j.code_name}
-							</c:if>
-						</c:forEach>
-					</td>
+<!-- 					<td> -->
+<%-- 						<c:forEach items="${homepageTypeList}" var="j"> --%>
+<%-- 							<c:if test="${j.code_id eq i.homepage_type}"> --%>
+<%-- 								${j.code_name} --%>
+<%-- 							</c:if> --%>
+<%-- 						</c:forEach> --%>
+<!-- 					</td> -->
 					<td>${i.domain}</td>
 					<td>${i.context_path}</td>
 					<td>${i.folder}</td>
@@ -133,11 +133,11 @@ $(function(){
 							<a href="${i.domain}/${i.context_path}/index.do" class="btn" id="site-go" target="_blank">바로가기</a>
 						</c:if>
 					</td>
-					<td>
-						<c:if test="${i.context_path ne null}">
-							<a href="http://117.111.136.230/${i.context_path}" class="btn" id="site-go" target="_blank">바로가기</a>
-						</c:if>
-					</td>
+<!-- 					<td> -->
+<%-- 						<c:if test="${i.context_path ne null}"> --%>
+<%-- 							<a href="http://117.111.136.230/${i.context_path}" class="btn" id="site-go" target="_blank">바로가기</a> --%>
+<%-- 						</c:if> --%>
+<!-- 					</td> -->
 					<%-- <td>
 						${i.temp_use_yn eq 'Y'?'임시페이지사용':'사용안함'}
 					<c:if test="${i.temp_use_yn eq 'Y'}">

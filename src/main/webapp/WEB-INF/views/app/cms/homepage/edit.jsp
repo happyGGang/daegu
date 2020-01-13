@@ -63,7 +63,7 @@ $(function() {
 	});
 
 	$("#dialog-1").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
-		width: 700,
+		width: 800,
 		height: 830
 	});
 
@@ -90,7 +90,7 @@ $(function() {
 
 <table class="type2">
 	<colgroup>
-		<col width="130"/>
+		<col width="160"/>
 		<col width="*"/>
 	</colgroup>
 	<tbody>
@@ -148,7 +148,7 @@ $(function() {
 			<th>SMS발신 전화번호</th>
 			<td>
 				<form:input path="homepage_send_tell" cssStyle="width:178px;" cssClass="text"/>
-				<em>* 대표번호 한개만 입력바랍니다. 예) 054-123-1234 </em>
+				<em>* 대표번호 한개만 입력바랍니다. 예) 053-123-1234 </em>
 			</td>
 		</tr>
 		<tr>

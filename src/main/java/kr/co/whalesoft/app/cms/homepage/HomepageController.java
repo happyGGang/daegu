@@ -31,6 +31,7 @@ public class HomepageController extends BaseController {
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, Homepage homepage, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
+		homepage.setRowCount(30);
 		int count = service.getHomepageListCount();
 		service.setPaging(model, count, homepage);
 		model.addAttribute("homepageList", service.getHomepageList(homepage));
