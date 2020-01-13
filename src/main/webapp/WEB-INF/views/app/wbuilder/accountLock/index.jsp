@@ -35,7 +35,7 @@ $(function(){
 <form:form id="member_index" modelAttribute="member" action="save.do" method="post" onsubmit="return false;">
 <div class="infodesk">
 	검색 결과 : ${accountLockCount}건 
-	<form:select path="rowCount" class="selectmenu" style="width:100px;">
+	<form:select path="rowCount" class="selectmenu" style="width:150px;">
 		<form:option value="10">10개씩 보기</form:option>
 		<form:option value="20">20개씩 보기</form:option>
 		<form:option value="30">30개씩 보기</form:option>

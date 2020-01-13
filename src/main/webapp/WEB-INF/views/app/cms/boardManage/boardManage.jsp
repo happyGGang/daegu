@@ -99,7 +99,7 @@ $(function(){
 	<form:hidden path="editMode"/>
 	<div class="infodesk">
 		검색 결과 : ${paging.totalDataCount}건, 홈페이지 ID : ${boardManage.homepage_id}
-		<form:select path="rowCount" class="selectmenu" style="width:100px;">
+		<form:select path="rowCount" class="selectmenu" style="width:150px;">
 			<form:option value="10">10개씩 보기</form:option>
 			<form:option value="20">20개씩 보기</form:option>
 			<form:option value="30">30개씩 보기</form:option>
