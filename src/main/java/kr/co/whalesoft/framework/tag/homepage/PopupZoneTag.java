@@ -19,9 +19,8 @@ public class PopupZoneTag extends BodyTagSupport {
 	@Override
 	public int doEndTag() throws JspException {
 		HtmlTag ul_tag = new HtmlTag("ul");
-//		HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
-		if ( getPopupZoneList() != null ) {
-			for ( PopupZone one : getPopupZoneList() ) {
+		if (getPopupZoneList() != null) {
+			for (PopupZone one : getPopupZoneList()) {
 				HtmlTag li_tag = new HtmlTag("li");
 				HtmlTag a_tag = new HtmlTag("a");
 				HtmlTag img_tag = new HtmlTag("img");
@@ -31,7 +30,7 @@ public class PopupZoneTag extends BodyTagSupport {
 				a_tag.addSubTag(img_tag);
 
 				a_tag.setAttribute("href", one.getLink_url());
-				if ( one.getLink_target().equals("BLANK") ) {
+				if (one.getLink_target().equals("BLANK")) {
 					a_tag.setAttribute("target", "_blank");
 				}
 				li_tag.addSubTag(a_tag);
@@ -50,7 +49,7 @@ public class PopupZoneTag extends BodyTagSupport {
 	}
 
 	public List<PopupZone> getPopupZoneList() {
-		if(popupZoneList != null) {
+		if (popupZoneList != null) {
 			List<PopupZone> arrayList = new ArrayList<PopupZone>();
 			arrayList.addAll(this.popupZoneList);
 			return arrayList;
@@ -60,7 +59,7 @@ public class PopupZoneTag extends BodyTagSupport {
 	}
 
 	public void setPopupZoneList(List<PopupZone> popupZoneList) {
-		if(popupZoneList != null) {
+		if (popupZoneList != null) {
 			this.popupZoneList = new ArrayList<PopupZone>();
 			this.popupZoneList.addAll(popupZoneList);
 		}

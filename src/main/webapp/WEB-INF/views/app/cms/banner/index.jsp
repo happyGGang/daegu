@@ -29,7 +29,7 @@ $(function(){
 	});
 
 	$('a#delete').on('click', function(e) {
-		if(confirm('선택된 팝업을 삭제 하시겠습니까?')) {
+		if(confirm('선택된 배너를 삭제 하시겠습니까?')) {
 			$('input#banner_idx_1').val($(this).attr('keyValue'));
 
 			$.ajax({
@@ -103,7 +103,7 @@ $(function(){
 			<tr>
 				<th width="50">순번</th>
 				<th width="200">이미지</th>
-				<th width="200">타이틀</th>
+				<th width="200">배너명</th>
 				<th width="">링크URL</th>
 				<th width="60">사용여부</th>
 				<th width="70">출력순서</th>
