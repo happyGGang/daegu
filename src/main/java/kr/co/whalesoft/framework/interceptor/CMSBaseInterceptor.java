@@ -72,7 +72,7 @@ public class CMSBaseInterceptor extends HandlerInterceptorAdapter {
 		if(range != -1) {
 			adminMenu.setMenu_url(adminMenu.getMenu_url().substring(0, range));
 		}
-		
+
 		AdminMenu result = adminMenuService.getAdminMenuOneByUrl(adminMenu);
 		if (result == null) {
 			if (getUri.startsWith("/wbuilder")) {
@@ -82,8 +82,8 @@ public class CMSBaseInterceptor extends HandlerInterceptorAdapter {
 				adminMenu.setMenu_url(getUri.replaceFirst("^/cms", "/wbuilder"));
 				result = adminMenuService.getAdminMenuOneByUrl(adminMenu);
 			}
-
 		}
+
 		request.getSession().setAttribute("adminMenuInfo", result);
 		if (result != null) {
 			request.getSession().setAttribute("topMenuName", result.getMenu_name());

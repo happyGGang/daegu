@@ -200,7 +200,17 @@
 		FROM
 			CMS_ADMIN_MENU
 		WHERE
-			menu_url = #{menu_url}
+			menu_type = 'module'
+		AND	module_idx = (
+							SELECT
+								module_idx
+							FROM
+								WB_MODULE_MNGT
+							WHERE
+								module_type = 'CMS'
+							AND	link_url LIKE #{menu_url} || '%'
+							AND	rownum = 1
+							)
 	</select>
 
 	<select id="getParentAdminMenuOne" resultType="kr.co.whalesoft.app.cms.adminMenu.AdminMenu">

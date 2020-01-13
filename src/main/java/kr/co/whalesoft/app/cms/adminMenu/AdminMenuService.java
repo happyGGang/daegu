@@ -42,6 +42,16 @@ public class AdminMenuService extends BaseService {
 	}
 
 	public AdminMenu getAdminMenuOneByUrl(AdminMenu adminMenu) {
+		if (StringUtils.isBlank(adminMenu.getMenu_url())) {
+			return null;
+		} else {
+			String[] access_url = adminMenu.getMenu_url().split("\\/");
+			String[] url = new String[access_url.length-1];
+			for (int i = 0; i < url.length; i++) {
+				url[i] = access_url[i];
+			}
+			adminMenu.setMenu_url(StringUtils.join(url, "/"));
+		}
 		return dao.getAdminMenuOneByUrl(adminMenu);
 	}
 
