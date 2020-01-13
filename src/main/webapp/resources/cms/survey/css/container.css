@@ -170,7 +170,7 @@ background:url('/resources/common/img/ui-icon-fff-close.png') no-repeat center c
 #attach_area h4{font-size:13px;padding:10px 0;line-height:150%}
 .fileUploader{overflow:hidden;padding:10px;background:#f3f6f8;border:1px solid #e9e9e9;border-bottom:0;
 border-radius:5px 5px 0 0;-moz-border-radius:5px 5px 0 0;-webkit-border-radius:5px 5px 0 0}
-.fileUploader a{cursor:pointer} 
+.fileUploader a{cursor:pointer}
 .fileUploader .preview{border:1px solid #c7d1d4;background:#fff;padding:5px;float:left;margin-right:10px;
 border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px}
 .fileUploader .preview span#previewFile{display:block;width:85px;height:85px;line-height:85px;text-align:center;border:1px solid #ddd;background:#eee;color:#888}
@@ -256,8 +256,8 @@ table.type1 input[type="checkbox"]{width:15px;height:15px;vertical-align:middle;
 
 /* 메뉴 설정 */
 .group-menu{overflow:hidden}
-.group-menu .tree-area{float:left;width:40%}
-.group-menu .set-area{float:right;width:60%}
+.group-menu .tree-area{float:left;width:35%}
+.group-menu .set-area{float:right;width:65%}
 .group-menu .set-area .button{padding:10px 0;overflow:hidden}
 .group-menu .set-area .button .left{float:left}
 .group-menu .set-area .button .right{float:right;color:#888}
@@ -299,7 +299,7 @@ table.type1 input[type="checkbox"]{width:15px;height:15px;vertical-align:middle;
 .group-menu .set-area table table tr.first td,
 .group-menu .set-area .menuType tr.first th,
 .group-menu .set-area .menuType tr.first td{padding-top:10px}
-.group-menu .set-area .menuType th{width:70px;color:#427f10}
+.group-menu .set-area .menuType th{width:100px;color:#427f10}
 .group-menu .set-area .menuType td input.text{width:95%;cursor:auto}
 /* .group-menu .set-area table table,
 .group-menu .set-area .menuType table{border-top:1px solid #e8e4d9;margin-top:10px} */
