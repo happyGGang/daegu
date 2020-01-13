@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.whalesoft.app.cms.memberGroupSubord.MemberGroupSubordDao">
-	
+
 	<select id="getMemberGroupSubordTreeList" resultType="kr.co.whalesoft.app.cms.memberGroupSubord.MemberGroupSubord">
 		SELECT
 			LEVEL as groupLevel, A.*
 		FROM
 		(
 			SELECT
-				0 as member_group_idx, 
-				'CMS' AS site_id, 
-				'CMS' AS member_group_name, 
-				-1 AS parent_member_group_idx, 
-				'' AS remark, 
-				0 AS print_seq, 
+				0 as member_group_idx,
+				'CMS' AS site_id,
+				'CMS' AS member_group_name,
+				-1 AS parent_member_group_idx,
+				'' AS remark,
+				0 AS print_seq,
 				'Y' AS default_group_yn
 			FROM DUAL
 			UNION ALL
-			SELECT 
-				member_group_idx, 
-				site_id, 
-				member_group_name, 
-				parent_member_group_idx, 
-				remark, 
-				print_seq, 
+			SELECT
+				member_group_idx,
+				site_id,
+				member_group_name,
+				parent_member_group_idx,
+				remark,
+				print_seq,
 				default_group_yn
 	    	FROM
 	    		WB_MEMBER_GROUP a
@@ -32,11 +32,11 @@
 	    		site_id = #{site_id}
 	    	</if>
 	    ) A
-	    CONNECT BY PRIOR member_group_idx = parent_member_group_idx 
-		START WITH parent_member_group_idx = -1 
-		ORDER SIBLINGS BY site_id, print_seq	
+	    CONNECT BY PRIOR member_group_idx = parent_member_group_idx
+		START WITH parent_member_group_idx = -1
+		ORDER SIBLINGS BY site_id, print_seq
 	</select>
-	
+
 	<select id="getMemberGroupSubordList" resultType="kr.co.whalesoft.app.cms.memberGroupSubord.MemberGroupSubord">
 		SELECT
 			b.member_id, b.member_name
@@ -48,7 +48,7 @@
 		ORDER BY
 			b.member_name
 	</select>
-	
+
 	<select id="getMemberGroupSubordReadyList" resultType="kr.co.whalesoft.app.cms.memberGroupSubord.MemberGroupSubord">
 		SELECT
 			member_id, member_name
@@ -63,40 +63,40 @@
 						AND
 							B.member_group_idx = #{member_group_idx}
 						)
-		AND	(member_id like '%' || #{search_text} || '%' 
+		AND	(member_id like '%' || #{search_text} || '%'
 		OR	member_name like '%' || #{search_text} || '%')
 		ORDER BY
 			member_name
 	</select>
-	
+
 	<delete id="deleteMemberGroupSubord">
 		DELETE
 			WB_MEMBER_GROUP_SUBORD
 		WHERE
 			member_group_idx = #{member_group_idx}
 	</delete>
-	
+
 	<delete id="deleteMemberGroupSubord2">
 		DELETE
 			WB_MEMBER_GROUP_SUBORD
 		WHERE
 			member_id = #{member_id}
 	</delete>
-	
+
 	<insert id="addMemberGroupSubord">
 		INSERT INTO
 			WB_MEMBER_GROUP_SUBORD
 		(
-			member_id, member_group_idx, add_dttm, add_id
+			member_id, member_group_idx, add_date, add_id
 		)
 			VALUES
 		(
 			#{member_id},
-			#{member_group_idx}, SYSDATE, 
+			#{member_group_idx}, SYSDATE,
 			#{cud_id}
 		)
 	</insert>
-	
+
 	<select id="getAuthGroupIdxList" resultType="int">
 		SELECT
 			A.member_group_idx
@@ -110,7 +110,7 @@
 		</if>
 		GROUP BY A.member_group_idx
 	</select>
-	
+
 	<select id="getAuthGroupIdxList2" resultType="int">
 		SELECT
 			A.member_group_idx
@@ -120,7 +120,7 @@
 			member_id = #{member_id}
 		GROUP BY A.member_group_idx
 	</select>
-	
+
 	<select id="getAdminGroupCount" resultType="int">
 		SELECT
 			COUNT(*)
@@ -131,7 +131,7 @@
 		AND	B.member_id = #{member_id}
 		AND	A.admin_yn = 'Y'
 	</select>
-	
+
 	<select id="getSiteAdminGroupCount" resultType="int">
 		SELECT
 			COUNT(*)
@@ -142,7 +142,7 @@
 		AND	B.member_id = #{member_id}
 		AND	A.admin_group_yn = 'Y'
 	</select>
-	
+
 	<select id="getSiteAdminAuthCount" resultType="int">
 		SELECT
 			COUNT(*)
@@ -153,7 +153,7 @@
 		AND member_id = #{member_id}
 		AND module_type = 'CMS'
 	</select>
-	
+
 	<select id="getPmsGroupCount" resultType="int">
 		SELECT
 			COUNT(*)

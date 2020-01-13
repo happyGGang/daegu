@@ -83,7 +83,6 @@ public class LoginController extends BaseController {
 			member = (Member) result;
 			member.setLogin(true);
 			service.setSessionMember(member, request);
-			service.redirectUrl(returnUrl.replaceAll("^http://(www\\.)?gbelib\\.kr", "https://www.gbelib.kr"), request, response);
 
 			return null;
 		} else {

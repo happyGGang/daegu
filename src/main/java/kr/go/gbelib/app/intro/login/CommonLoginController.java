@@ -26,7 +26,6 @@ import kr.co.whalesoft.app.cms.login.LoginService;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.member.MemberService;
 import kr.co.whalesoft.app.cms.memberGroup.MemberGroup;
-import kr.co.whalesoft.app.cms.memberGroup.MemberGroupService;
 import kr.co.whalesoft.app.cms.memberGroupSubord.MemberGroupSubordService;
 import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.menu.MenuService;
@@ -59,9 +58,6 @@ public class CommonLoginController extends BaseController {
 
 	@Autowired
 	private HomepageAccessService homepageAccessService;
-
-	@Autowired
-	private MemberGroupService memberGroupService;
 
 	@Autowired
 	private MemberGroupSubordService memberGroupSubordService;
@@ -133,68 +129,36 @@ public class CommonLoginController extends BaseController {
 				memberService.addMemberLastLogin(member, request);
 
 				// 관리자확인
-				String memberId = member.getMember_id();
-				member.setMember_id(member.getWeb_id());
 				Member adminMember = memberService.getMemberOne(member);
 				if (adminMember != null) {
 					member.setAdmin(adminMember.isAdmin());
 					member.setAuthorityHomepageList(adminMember.getAuthorityHomepageList());
 				}
-				member.setMember_id(memberId);
 
 				if ((member.getAuthMap() == null || member.getAuthMap().isEmpty()) && !member.isAdmin()) {
-					if (StringUtils.equals(member.getUnAgreeFlag(), "0001")) {
-						// 통합회원
-						if (adminMember != null) {
-							// 관리자 링크회원이면 기존 그룹에 추가
-							member.setAuthGroupIdxList(memberGroupSubordService.getAuthGroupIdxList(adminMember));
-							// 통합회원그룹에 속하게 한다. 도서관은 하드코딩한다...
-							if (!member.getAuthGroupIdxList().contains(3)) {
-								member.getAuthGroupIdxList().add(3);
-							}
-						} else if (member.getAuthGroupIdxList() == null || member.getAuthGroupIdxList().size() < 1) {
-							// 관리자 링크회원 아니면 새로 생성
-							member.setAuthGroupIdxList(new ArrayList<Integer>());
-							// 통합회원그룹에 속하게 한다. 도서관은 하드코딩한다...
-							member.getAuthGroupIdxList().add(3);
-						}
-						// String imsiId = member.getMember_id();
-						// member.setMember_id(member.getSeq_no());
-						// 그룹-멤버 관계 테이블에 넣는다.
+
+					if (member.getAuthGroupIdxList() == null || member.getAuthGroupIdxList().size() < 1) {
+						member.setAuthGroupIdxList(new ArrayList<Integer>());
+
+						//통합회원그룹에 속하게 한다. 도서관은 하드코딩한다...
+						member.getAuthGroupIdxList().add(3);
+
+						MemberGroup memberGroup = new MemberGroup();
+						memberGroup.setSite_id(homepage.getHomepage_id());
+
+						//내 소속도서관의 사용자 그룹에만 지정한다.
+//						member.getAuthGroupIdxList().add(memberGroupService.getSiteUserGroupOne(memberGroup).getMember_group_idx());
+
+						//그룹-멤버 관계 테이블에 넣는다.
 						memberGroupSubordService.addAuthGroupMember(member);
-						// 권한맵을 새로 불러온다.
+						//권한맵을 새로 불러온다.
 						member.setAuthMap(memberService.getMemberAuth(member));
-					} else {
-						if (adminMember != null) {
-							member.setAuthGroupIdxList(memberGroupSubordService.getAuthGroupIdxList(adminMember));
-							Homepage homepageTmp = new Homepage();
-							homepageTmp.setLib_code(member.getLoca());
-							String locaHomepageId = homepageService.getHomepageOneByCode(homepageTmp).getHomepage_id();
 
-							MemberGroup memberGroup = new MemberGroup();
-							memberGroup.setSite_id(locaHomepageId);
-
-							// 내 소속도서관의 사용자 그룹에만 지정한다.
-							member.getAuthGroupIdxList().add(memberGroupService.getSiteUserGroupOne(memberGroup).getMember_group_idx());
-						}
-						if (member.getAuthGroupIdxList() == null || member.getAuthGroupIdxList().size() < 1) {
-							member.setAuthGroupIdxList(new ArrayList<Integer>());
-							// 통합회원그룹에 속하게 한다.
-							Homepage homepageTmp = new Homepage();
-							homepageTmp.setLib_code(member.getLoca());
-							String locaHomepageId = homepageService.getHomepageOneByCode(homepageTmp).getHomepage_id();
-
-							MemberGroup memberGroup = new MemberGroup();
-							memberGroup.setSite_id(locaHomepageId);
-
-							// 내 소속도서관의 사용자 그룹에만 지정한다.
-							member.getAuthGroupIdxList().add(memberGroupService.getSiteUserGroupOne(memberGroup).getMember_group_idx());
-						}
-						// 그룹-회원 관계테이블에 넣는다.
-						memberGroupSubordService.addAuthGroupMember(member);
-						// //권한정보를 다시 가져온다.
-						member.setAuthMap(memberService.getMemberAuth(member));
 					}
+					//그룹-회원 관계테이블에 넣는다.
+					memberGroupSubordService.addAuthGroupMember(member);
+//					//권한정보를 다시 가져온다.
+					member.setAuthMap(memberService.getMemberAuth(member));
 
 				}
 			} catch (Exception e) {
