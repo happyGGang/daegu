@@ -54,7 +54,6 @@ $(function() {
 
 	$('a#linkMemberSearch').on('click', function(e) {
 		$.get('getLinkMember.do?member_id='+$('#member input#member_id:visible').val(), function(response) {
-			console.log(response);
 			if( response.data.length > 0){
 
 				$('#member #link_member_yn').val('Y');
