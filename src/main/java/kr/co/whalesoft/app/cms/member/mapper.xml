@@ -5,7 +5,7 @@
 	<select id="getMember" resultType="kr.co.whalesoft.app.cms.member.Member">
 		${pagingTop}
 			SELECT
-				A.HOMEPAGE_ID, A.MEMBER_ID, A.MEMBER_NAME, A.PHONE, A.LINK_MEMBER_YN,
+				A.homepage_id, A.member_id, A.member_name, A.phone, A.link_member_yn,
 				A.add_date
 			FROM
 				CMS_MEMBER A
@@ -14,7 +14,7 @@
 					AND	A.${search_type} LIKE '%'||#{search_text}||'%'
 				</if>
 			ORDER BY
-				A.ADD_DATE DESC
+				A.add_date DESC
 		${pagingBottom}
 	</select>
 
@@ -28,35 +28,35 @@
 				AND	A.${search_type} LIKE '%'||#{search_text}||'%'
 			</if>
 		ORDER BY
-			A.ADD_DATE ASC
+			A.add_date ASC
 	</select>
 
 	<select id="getMemberOne" resultType="kr.co.whalesoft.app.cms.member.Member">
 		SELECT
-			A.MEMBER_ID, A.MEMBER_NAME, A.MEMBER_PW, A.BIRTH_DAY, A.EMAIL,
-			A.ZIPCODE, A.ADDRESS, A.PHONE, A.CELL_PHONE,
-			A.SMS_SERVICE_YN, A.EMAIL_SERVICE_YN, A.ADD_IP, A.ADD_DATE,
-			A.PW_CHANGE_DATE, A.LAST_LOGIN, A.LINK_MEMBER_YN, 'CMS' AS LOGINTYPE
+			A.member_id, A.member_name, A.member_pw, A.birth_day, A.email,
+			A.zipcode, A.address, A.phone, A.CELL_phone,
+			A.sms_service_yn, A.email_service_yn, A.add_ip, A.add_date,
+			A.pw_change_date, A.last_login, A.link_member_yn, 'CMS' AS LOGINTYPE
 		FROM
 			CMS_MEMBER A
 		WHERE
-			A.MEMBER_ID = #{member_id}
+			A.member_id = #{member_id}
 	</select>
 
 	<insert id="addMember">
 		INSERT INTO
 			CMS_MEMBER
 		(
-			MEMBER_ID, MEMBER_NAME, MEMBER_PW, BIRTH_DAY, EMAIL,
-			ZIPCODE, ADDRESS, PHONE, CELL_PHONE,
-			SMS_SERVICE_YN, EMAIL_SERVICE_YN, ADD_IP, ADD_DATE,
-			PW_CHANGE_DATE, LAST_LOGIN, LINK_MEMBER_YN
+			member_id, member_name, member_pw, birth_day, email,
+			zipcode, address, phone, CELL_phone,
+			sms_service_yn, email_service_yn, add_ip, add_date,
+			pw_change_date, last_login, link_member_yn, add_id
 		) VALUES
 		(
 			#{member_id}, #{member_name}, #{member_pw}, #{birth_day}, #{email},
 			#{zipcode}, #{address}, #{phone}, #{cell_phone},
 			#{sms_service_yn}, #{email_service_yn}, #{add_ip}, SYSDATE,
-			SYSDATE, SYSDATE, #{link_member_yn}
+			SYSDATE, SYSDATE, #{link_member_yn}, #{add_id}
 		)
 	</insert>
 
@@ -65,102 +65,90 @@
 			CMS_MEMBER
 		SET
 			<if test="member_pw != null and member_pw != '' " >
-			MEMBER_PW 	= #{member_pw},
+			member_pw 	= #{member_pw},
 			</if>
-			MEMBER_NAME 		= #{member_name},
-			EMAIL 		= #{email},
-			ZIPCODE 	= #{zipcode},
-			ADDRESS 	= #{address},
-			PHONE 		= #{phone},
-			CELL_PHONE 	= #{cell_phone},
-			SMS_SERVICE_YN = #{sms_service_yn},
-			EMAIL_SERVICE_YN = #{email_service_yn}
+			member_name = #{member_name},
+			email 		= #{email},
+			zipcode 	= #{zipcode},
+			address 	= #{address},
+			phone 		= #{phone},
+			cell_phone 	= #{cell_phone},
+			sms_service_yn = #{sms_service_yn},
+			email_service_yn = #{email_service_yn},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
 		WHERE
-			MEMBER_ID = #{member_id}
+			member_id = #{member_id}
 	</update>
 
 	<delete id="deleteMember">
 		DELETE FROM
 			CMS_MEMBER
 		WHERE
-			MEMBER_ID = #{member_id}
+			member_id = #{member_id}
 	</delete>
 
 	<select id="getMemberListNotAuth" resultType="kr.co.whalesoft.app.cms.member.Member">
-		SELECT MEMBER_ID, MEMBER_NAME
-		FROM CMS_MEMBER
-		WHERE MEMBER_ID NOT IN (select member_id from CMS_MEMBER_AUTH where AUTH_ID = #{search_auth})
+		SELECT
+			member_id, member_name
+		FROM
+			CMS_MEMBER
+		WHERE
+			member_id NOT IN (SELECT member_id FROM CMS_MEMBER_AUTH WHERE auth_id = #{search_auth})
 			<if test="homepage_id != 'CMS'">
-				AND HOMEPAGE_ID = #{homepage_id}
+				AND homepage_id = #{homepage_id}
 			</if>
-		ORDER BY MEMBER_ID
+		ORDER BY member_id
 	</select>
 
 	<select id="getMemberListInAuth" resultType="kr.co.whalesoft.app.cms.member.Member">
-		SELECT MEMBER_ID, MEMBER_NAME, PHONE, CELL_PHONE, EMAIL
-		FROM CMS_MEMBER
-		WHERE MEMBER_ID IN (select member_id from CMS_MEMBER_AUTH where AUTH_ID = #{search_auth})
+		SELECT
+			member_id, member_name, phone, cell_phone, email
+		FROM
+			CMS_MEMBER
+		WHERE
+			member_id IN (SELECT member_id FROM CMS_MEMBER_AUTH WHERE auth_id = #{search_auth})
 			<if test="homepage_id != 'CMS'">
-				AND HOMEPAGE_ID = #{homepage_id}
+				AND homepage_id = #{homepage_id}
 			</if>
-		ORDER BY MEMBER_ID
+		ORDER BY member_id
 	</select>
 
 	<select id="getMemberListInAuthCount" resultType="int">
-		SELECT COUNT(*)
-		FROM CMS_MEMBER
-		WHERE MEMBER_ID IN (select member_id from CMS_MEMBER_AUTH where AUTH_ID = #{search_auth})
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_MEMBER
+		WHERE
+			member_id IN (select member_id from CMS_MEMBER_AUTH where AUTH_ID = #{search_auth})
 			<if test="homepage_id != 'CMS'">
-				AND HOMEPAGE_ID = #{homepage_id}
+				AND homepage_id = #{homepage_id}
 			</if>
-		ORDER BY MEMBER_ID
+		ORDER BY member_id
 	</select>
 
 	<select id="checkMemberId" resultType="int">
-		SELECT COUNT(*) FROM CMS_MEMBER WHERE MEMBER_ID = #{member_id}
+		SELECT COUNT(*) FROM CMS_MEMBER WHERE member_id = #{member_id}
 	</select>
 
 	<select id="checkMemberAuthInHomepage" resultType="int">
-		SELECT COUNT(*)
-		FROM CMS_MEMBER a,(SELECT MEMBER_ID, MIN(TO_NUMBER(AUTH_ID)) AS AUTH_ID
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_MEMBER a ,(SELECT member_id, MIN(TO_NUMBER(AUTH_ID)) AS AUTH_ID
 							FROM CMS_MEMBER_AUTH
-							GROUP BY MEMBER_ID) b
-		WHERE a.MEMBER_ID = b.MEMBER_ID
-			AND a.HOMEPAGE_ID = #{homepage_id} AND b.AUTH_ID = #{auth_id}
+							GROUP BY member_id) b
+		WHERE a.member_id = b.member_id
+			AND a.homepage_id = #{homepage_id} AND b.AUTH_ID = #{auth_id}
 	</select>
 
 	<insert id="integrationMember">
 		insert into INTEGRATION_MEMBER
-		(ORIGIN_MEMBER_ID, CHANGE_MEMBER_ID, ORIGIN_SEQ_NO, CHANGE_SEQ_NO, ADD_DATE)
+		(origin_member_id, change_member_id, origin_seq_no, change_seq_no, add_date)
 		values
-		(#{integrationIdList}, #{integrationId}, #{integrationSeqNoList}, #{integrationSeqNo}, sysdate)
+		(#{integrationIdList}, #{integrationId}, #{integrationSeqNoList}, #{integrationSeqNo}, SYSDATE)
 	</insert>
 
-	<select id="getDlsMemberCount" resultType="int">
-		SELECT
-			COUNT(*)
-		FROM
-			DLS_MEMBER
-		WHERE
-			dls_id = #{dls_id}
-	</select>
-
-	<insert id="addDlsMember">
-		<selectKey keyProperty="dls_member_idx" order="BEFORE" resultType="int">
-			SELECT NVL(MAX(dls_member_idx),0)+1 FROM DLS_MEMBER
-		</selectKey>
-		INSERT	INTO
-			DLS_MEMBER
-		(
-			dls_member_idx, dls_id, lib_id, web_id, user_name,
-			user_ip, add_date
-		)
-		VALUES
-		(
-			#{dls_member_idx}, #{dls_id}, #{lib_id}, #{web_id}, #{user_name},
-			#{user_ip}, SYSDATE
-		)
-	</insert>
 
 	<insert id="addChangeNameHistory">
 		<selectKey keyProperty="idx" order="BEFORE" resultType="int">
@@ -227,22 +215,23 @@
 		SELECT
 			A.*,
 			(
-				select
-				  listagg((case  when site_id != 'CMS'
-				  THEN (SELECT homepage_alias from cms_homepage where homepage_id = site_id) || ' - ' || member_group_name
-				  else 'CMS - ' || member_group_name
-				  end), ', ') within group (order by member_group_name) as search_auth
-				from wb_member_group
-				where member_group_idx in (
-				select member_group_idx from wb_member_group_subord
-				where member_id = A.member_id
-				)
-			) as search_auth
+				SELECT
+				  LISTAGG((CASE  WHEN site_id != 'CMS'
+				  THEN (SELECT homepage_alias FROM CMS_HOMEPAGE WHERE homepage_id = site_id) || ' - ' || member_group_name
+				  ELSE 'CMS - ' || member_group_name
+				  END), ', ') WITHIN GROUP (ORDER BY member_group_name) AS search_auth
+				FROM WB_MEMBER_GROUP
+				WHERE member_group_idx IN (
+											SELECT member_group_idx
+											FROM WB_MEMBER_GROUP_SUBORD
+											WHERE member_id = A.member_id
+											)
+			) AS search_auth
 		FROM
 		(
 			${pagingTop}
 				SELECT DISTINCT
-					A.MEMBER_ID, A.MEMBER_NAME, A.PHONE, A.LINK_MEMBER_YN,
+					A.member_id, A.member_name, A.phone, A.link_member_yn,
 					A.add_date
 				FROM
 					CMS_MEMBER A
@@ -266,7 +255,7 @@
 				</otherwise>
 				</choose>
 				ORDER BY
-					A.ADD_DATE DESC
+					A.add_date DESC
 			${pagingBottom}
 		) A
 	</select>
@@ -275,7 +264,7 @@
 		SELECT
 			COUNT(*)
 		FROM
-			( SELECT DISTINCT A.MEMBER_ID
+			( SELECT DISTINCT A.member_id
 		FROM
 			CMS_MEMBER A
 		<choose>
@@ -323,9 +312,9 @@
 		AND	B.guest_group_yn ='Y'
 
 	</select>
-	
+
 	<update id="addMemberLastLogin">
-		MERGE INTO 
+		MERGE INTO
 			MEMBER_LAST_LOGIN a
 		USING dual
 		ON
@@ -342,5 +331,5 @@
 				#{seq_no}, SYSDATE, #{last_login_ip}, #{web_id}
 			)
 	</update>
-	
+
 </mapper>

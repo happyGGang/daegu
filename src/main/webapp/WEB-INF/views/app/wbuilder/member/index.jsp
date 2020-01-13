@@ -6,13 +6,13 @@
 
 <script type="text/javascript">
 $(function(){
-	
+
 	<%--검색--%>
 	$('button#search_btn').on('click', function(e) {
 		$('#viewPage').val(1);
 		doGetLoad('index.do', $('form#member_index').serialize());
 	});
-	
+
 	<%--사용자등록--%>
 	$('a#dialog-add').on('click', function(e) {
 		e.preventDefault();
@@ -20,7 +20,7 @@ $(function(){
 			$('#dialog-1').dialog('open');
 		});
 	});
-	
+
 	<%--사용자수정--%>
 	$('a.dialog-modify').on('click', function(e) {
 		e.preventDefault();
@@ -28,7 +28,7 @@ $(function(){
 			$('#dialog-1').dialog('open');
 		});
 	});
-	
+
 	<%--사용자삭제--%>
 	$('a.delete').on('click', function(e) {
 		e.preventDefault();
@@ -37,7 +37,7 @@ $(function(){
 			$('input#member_id_index').val($(this).attr('keyValue'));
 			if(doAjaxPost($('#member_index'))) {
 				location.reload();
-			}	
+			}
 		}
 	});
 
@@ -48,26 +48,27 @@ $(function(){
 			$('#dialog-3').dialog('open');
 		});
 	});
-	
+
 	<%--10개씩보기--%>
 	$('select#rowCount').change(function(e) {
 		$('#viewPage').val(1);
 		doGetLoad('index.do', $('form#member_index').serialize());
 	});
-});	
+});
 </script>
 <form:form id="member_index" modelAttribute="member" action="save.do" method="post" onsubmit="return false;">
 <div class="infodesk">
-	검색 결과 : ${memberListCount}건 
-	<form:select path="rowCount" class="selectmenu" style="width:100px;">
+	검색 결과 : ${memberListCount}건
+	<form:select path="rowCount" class="selectmenu" style="width:150px;">
 		<form:option value="10">10개씩 보기</form:option>
 		<form:option value="20">20개씩 보기</form:option>
 		<form:option value="30">30개씩 보기</form:option>
 		<form:option value="50">50개씩 보기</form:option>
+		<form:option value="100">100개씩 보기</form:option>
 		<form:option value="${memberListCount}">전체 보기</form:option>
 	</form:select>
 	<div class="button btn-group inline">
-		<a href="" class="btn btn5 left" id="dialog-add" ><i class="fa fa-plus"></i><span> 사용자 등록</span></a>	
+		<a href="" class="btn btn5 left" id="dialog-add" ><i class="fa fa-plus"></i><span> 사용자 등록</span></a>
 	</div>
 </div>
 
@@ -83,7 +84,7 @@ $(function(){
 				<th width="150">사용자ID</th>
 				<th width="150">사용자명</th>
 				<th width="150">전화번호</th>
-				<th width="130">사용자 구분</th>
+<!-- 				<th width="130">사용자 구분</th> -->
 				<th width="130">사용자 타입</th>
 				<th width="130">등록일자</th>
 				<th width="">기능</th>
@@ -101,8 +102,8 @@ $(function(){
 				<td width="150" class="left">${i.member_id}</td>
 				<td width="150">${i.member_name}</td>
 				<td width="150">${i.phone}</td>
-				<td width="130">${i.auth_name_list}</td>
-				<td width="130">${i.link_member_yn eq 'Y' ? '일루스 연결회원':''}</td>
+<%-- 				<td width="130">${i.auth_name_list}</td> --%>
+				<td width="130">${i.link_member_yn eq 'Y' ? 'LAS 연결회원':''}</td>
 				<td width="130"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/> </td>
 				<td width="">
 					<a href="#" class="btn dialog-modify" id="dialog-modify-${i.member_id}" keyValue="${i.member_id}">수정</a>
@@ -113,12 +114,12 @@ $(function(){
 		</c:forEach>
 		</tbody>
 	</table>
-	
+
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#member_index"/>
 		<jsp:param name="pagingUrl" value="index.do"/>
 	</jsp:include>
-	
+
 	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 		<fieldset>
 			<form:select path="search_type" cssClass="selectmenu">

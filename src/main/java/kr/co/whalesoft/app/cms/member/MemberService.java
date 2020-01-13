@@ -26,8 +26,6 @@ import com.ibatis.common.resources.Resources;
 
 import kr.co.whalesoft.app.cms.boardManage.BoardManage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
-import kr.co.whalesoft.app.cms.memberAuth.MemberAuth;
-import kr.co.whalesoft.app.cms.memberAuth.MemberAuthDao;
 import kr.co.whalesoft.app.cms.memberGroupAuth.MemberGroupAuthService;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.utils.CalculateHashUtils;
@@ -38,9 +36,6 @@ public class MemberService extends BaseService {
 
 	@Autowired
 	private MemberDao dao;
-
-	@Autowired
-	private MemberAuthDao memberAuthDao;
 
 	@Autowired
 	private MemberGroupAuthService memberGroupAuthService;
@@ -232,18 +227,6 @@ public class MemberService extends BaseService {
 
 		setMemberInfo(member);
 
-		//다중 권한 처리
-		if ( !StringUtils.isEmpty(member.getAuth_id()) ) {
-			memberAuthDao.deleteMemberAuth(new MemberAuth(member.getMember_id()));
-			String[] authList = member.getAuth_id().split(",");
-			for ( String oneAuth : authList ) {
-				MemberAuth memberAuth = new MemberAuth();
-				memberAuth.setMember_id(member.getMember_id());
-				memberAuth.setAuth_id(oneAuth);
-				memberAuthDao.addMemberAuth(memberAuth);
-			}
-		}
-
 		return dao.modifyMember(member);
 	}
 
@@ -253,7 +236,8 @@ public class MemberService extends BaseService {
 	 * @return
 	 */
 	public int deleteMember(Member member) {
-		memberAuthDao.deleteMemberAuth(new MemberAuth(member.getMember_id()));
+		member.setHomepage_id(null);
+		memberGroupAuthService.deleteMemberGroupAuth2(member);
 		return dao.deleteMember(member);
 	}
 
@@ -346,14 +330,6 @@ public class MemberService extends BaseService {
 
 	public List<Member> getMemberListInId(Member member) {
 		return dao.getMemberListInId(member);
-	}
-
-	public boolean isPassDlsId(Member member) {
-		return dao.getDlsMemberCount(member) > 0 ? true : false;
-	}
-
-	public int addDlsMember(Member member) {
-		return dao.addDlsMember(member);
 	}
 
 	public int addChangeNameHistory(Member member) {

@@ -6,7 +6,7 @@ import kr.co.whalesoft.app.cms.boardManage.BoardManage;
 public interface MemberDao {
 
 	public List<Member> getMember(Member member);
-	
+
 	public Member getMemberOne(Member member);
 
 	public int addMember(Member member);
@@ -16,13 +16,13 @@ public interface MemberDao {
 	public int deleteMember(Member member);
 
 	public int getMemberCount(Member member);
-	
+
 	public List<Member> getMemberListNotAuth(Member member);
 
 	public List<Member> getMemberListInAuth(Member member);
-	
+
 	public int checkMemberId(Member member);
-	
+
 	public int checkMemberAuthInHomepage(Member member);
 
 	public List<Member> getMemberListInId(Member member);
@@ -30,10 +30,6 @@ public interface MemberDao {
 	public int getMemberListInAuthCount(Member member);
 
 	public int integrationMember(Member member);
-
-	public int getDlsMemberCount(Member member);
-
-	public int addDlsMember(Member member);
 
 	public int addChangeNameHistory(Member member);
 
@@ -48,7 +44,7 @@ public interface MemberDao {
 	public List<Member> getMemberListBoardAdmin(BoardManage boardManage);
 
 	public List<String> getAnonymousAuth(Member member);
-	
+
 	public int addMemberLastLogin(Member member);
-	
+
 }

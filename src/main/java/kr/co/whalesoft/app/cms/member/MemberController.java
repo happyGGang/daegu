@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.whalesoft.app.cms.auth.AuthService;
 import kr.co.whalesoft.app.cms.code.CodeService;
-import kr.co.whalesoft.app.cms.memberAuth.MemberAuth;
 import kr.co.whalesoft.app.cms.memberGroup.MemberGroup;
 import kr.co.whalesoft.app.cms.memberGroup.MemberGroupService;
 import kr.co.whalesoft.app.cms.memberGroupSubord.MemberGroupSubordService;
@@ -21,6 +20,7 @@ import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
+import kr.go.gbelib.app.common.api.MemberAPI;
 
 @Controller
 @RequestMapping(value = {"/cms/member", "/wbuilder/member"})
@@ -90,20 +90,18 @@ public class MemberController extends BaseController {
 			model.addAttribute("member", member);
 		}
 
-		model.addAttribute("authList", authService.getAuth("AUTH001"));
+//		model.addAttribute("authList", authService.getAuth("AUTH001"));
 		model.addAttribute("cellPhoneCode", codeService.getCode(member.getHomepage_id(), "C0002"));
 		model.addAttribute("phoneCode", codeService.getCode(member.getHomepage_id(), "C0003"));
 		return returnUrl("edit_ajax", request);
 	}
 
-//	@RequestMapping(value = {"/getLinkMember.*"})
-//	public @ResponseBody JsonResponse getLinkMember(Model model, Member member, HttpServletRequest request) {
-//		member.setCheck_certify_data(member.getMember_id());
-//		member.setCheck_certify_type("WEBID");
-//		JsonResponse jr = new JsonResponse();
-//		jr.setData(MemberAPI.getMemberCertify("WEB",member));
-//		return jr;
-//	}
+	@RequestMapping(value = {"/getLinkMember.*"})
+	public @ResponseBody JsonResponse getLinkMember(Model model, Member member, HttpServletRequest request) {
+		JsonResponse jr = new JsonResponse();
+		jr.setData(MemberAPI.checkDupUser("0",member));
+		return jr;
+	}
 
 	@RequestMapping(value = { "/save.*" }, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Member member, BindingResult result, HttpServletRequest request) {
@@ -131,6 +129,7 @@ public class MemberController extends BaseController {
 //			if (Integer.parseInt(getSessionMemberInfo(request).getAuth_id()) <= 200) {
 			res.setValid(true);
 			member.setCud_id(getSessionMemberId(request));
+			member.setAdd_id(getSessionMemberId(request));
 			member.setAdd_ip(request.getRemoteAddr());
 			res.setData(member.getPram("index"));
 			res.setUrl("index.do");
@@ -155,20 +154,6 @@ public class MemberController extends BaseController {
 		}
 
 		return res;
-	}
-
-	@RequestMapping(value = {"/editGroup.*"})
-	public String editGroup(Model model, MemberAuth member, HttpServletRequest request) {
-		member.setAdmin(getSessionIsAdmin(request));
-		model.addAttribute("member", member);
-		member.setHomepage_id(getAsideHomepageId(request));
-		if ( member.getEditMode().equals("ADD") ) {
-			model.addAttribute("memberList", service.getMemberListNotAuth(member));
-		}
-		else if ( member.getEditMode().equals("DELETE") ) {
-			model.addAttribute("memberList", service.getMemberListInAuth(member));
-		}
-		return returnUrl("editGroup_ajax", request);
 	}
 
 	/**

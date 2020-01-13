@@ -6,7 +6,7 @@ import kr.co.whalesoft.framework.utils.PagingUtils;
 
 /**
  * 그룹권한 관리 테이블 : WB_MEMBER_GROUP_AUTH
- * 
+ *
  * @author YONGJU
  *
  */
@@ -18,14 +18,14 @@ public class MemberGroupAuth extends PagingUtils {
 	private int module_idx; // 모듈IDX
 	private String auth_code_id; // 권한코드ID
 	private String module_type; // 모듈타입
-	private Date add_dttm; // 등록일
+	private Date add_date; // 등록일
 	private String add_id; // 등록ID
 
 	private String member_id;
 
 	private String moduleType = "CMS";
 	private String auth_group_id; // 권한코드그룹ID
-	
+
 	private List<String> authCodeList; // 변수 전달을 위한 리스트
 
 	public int getMember_group_idx() {
@@ -76,12 +76,12 @@ public class MemberGroupAuth extends PagingUtils {
 		this.module_type = module_type;
 	}
 
-	public Date getAdd_dttm() {
-		return add_dttm;
+	public Date getAdd_date() {
+		return add_date;
 	}
 
-	public void setAdd_dttm(Date add_dttm) {
-		this.add_dttm = add_dttm;
+	public void setAdd_date(Date add_date) {
+		this.add_date = add_date;
 	}
 
 	public String getAdd_id() {
@@ -116,12 +116,12 @@ public class MemberGroupAuth extends PagingUtils {
 		this.authCodeList = authCodeList;
 	}
 
-	
+
 	public String getAuth_group_id() {
 		return auth_group_id;
 	}
 
-	
+
 	public void setAuth_group_id(String auth_group_id) {
 		this.auth_group_id = auth_group_id;
 	}

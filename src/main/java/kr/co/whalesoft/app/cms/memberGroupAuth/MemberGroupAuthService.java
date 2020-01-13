@@ -215,4 +215,14 @@ public class MemberGroupAuthService extends BaseService {
 	public boolean isSiteAdminGroup(Member member) {
 		return dao.getSiteAdminGroupCount(member) > 0 ? true : false;
 	}
+
+	/**
+	 * 그룹권한 삭제
+	 * @author whalesoft YONGJU 2020. 1. 13.
+	 * @param member
+	 * @return
+	 */
+	public int deleteMemberGroupAuth2(Member member) {
+		return dao.deleteMemberGroupAuth2(member);
+	}
 }

@@ -59,11 +59,12 @@ $(function(){
 <form:form id="member_index" modelAttribute="member" action="save.do" method="post" onsubmit="return false;">
 <div class="infodesk">
 	검색 결과 : ${memberListCount}건
-	<form:select path="rowCount" class="selectmenu" style="width:100px;">
+	<form:select path="rowCount" class="selectmenu" style="width:150px;">
 		<form:option value="10">10개씩 보기</form:option>
 		<form:option value="20">20개씩 보기</form:option>
 		<form:option value="30">30개씩 보기</form:option>
 		<form:option value="50">50개씩 보기</form:option>
+		<form:option value="100">100개씩 보기</form:option>
 		<form:option value="${memberListCount}">전체 보기</form:option>
 	</form:select>
 	<div class="button btn-group inline">
@@ -80,8 +81,8 @@ $(function(){
 		<thead>
 			<tr>
 				<th width="50">순번</th>
-				<th width="50">사용자ID</th>
-				<th width="80">사용자명</th>
+				<th width="100">사용자ID</th>
+				<th width="100">사용자명</th>
 				<th width="100">전화번호</th>
 <!-- 				<th width="130">사용자 구분</th> -->
 				<th width="100">사용자 타입</th>
@@ -103,7 +104,7 @@ $(function(){
 				<td width="80">${i.member_name}</td>
 				<td width="100">${i.phone}</td>
 <%-- 				<td width="130">${i.auth_name_list}</td> --%>
-				<td width="100">${i.link_member_yn eq 'Y' ? '일루스 연결회원':''}</td>
+				<td width="100">${i.link_member_yn eq 'Y' ? 'LAS 연결회원':''}</td>
 				<td width="130"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/> </td>
 				<td width="">${i.search_auth}</td>
 				<td width="">

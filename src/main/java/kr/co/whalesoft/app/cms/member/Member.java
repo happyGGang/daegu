@@ -29,6 +29,7 @@ public class Member extends PagingUtils implements Serializable {
 	private String email1;  //이메일
 	private String email2;  //이메일
 	private String zipcode;  //우편번호
+	private String address;  //주소
 	private String address1;  //주소
 	private String address2;  //동이하 주소
 	private String phone;  //전화번호
@@ -54,6 +55,9 @@ public class Member extends PagingUtils implements Serializable {
 
 	private String search_auth;
 	private String search_auth_name;
+
+	private String add_id;
+
 	/**
 	 * 변경이력
 	 */
@@ -731,9 +735,9 @@ public class Member extends PagingUtils implements Serializable {
 	@Override
 	public String toString() {
 		return String.format(
-				"Member [admin=%s, isLogin=%s, member_id=%s, member_name=%s, member_pw=%s, memberNewPw=%s, birth_day=%s, email=%s, email1=%s, email2=%s, zipcode=%s, address1=%s, address2=%s, phone=%s, phone1=%s, phone2=%s, phone3=%s, cell_phone=%s, cell_phone1=%s, cell_phone2=%s, cell_phone3=%s, sms_service_yn=%s, email_service_yn=%s, add_ip=%s, add_date=%s, pw_change_date=%s, last_login=%s, sex=%s, age=%s, search_auth=%s, search_auth_name=%s, history_idx=%s, use_yn=%s, in_ip=%s, in_date=%s, up_date=%s, auth_id=%s, auth_id_list=%s, auth_name=%s, auth_name_list=%s, modify_id=%s, modify_date=%s, modify_ip=%s, password_expiry_day=%s, seq_no=%s, user_no=%s, card_no=%s, card_password=%s, mobile_no=%s, web_id=%s, status_code=%s, loca=%s, loca_name=%s, user_id=%s, di_value=%s, ci_value=%s, agree_codes=%s, user_position=%s, agree_date=%s, company_name=%s, company_zipcode=%s, company_addr=%s, company_phone=%s, company_phone1=%s, company_phone2=%s, company_phone3=%s, parent_name=%s, parent_phone=%s, parent_phone1=%s, parent_phone2=%s, parent_phone3=%s, loginCode=%s, loginMsg=%s, loginType=%s, ageType=%s, certType=%s, certComplete=%s, sci_result=%s, menu_idx=%s, authgroupidlist=%s, admin=%s]",
+				"Member [admin=%s, isLogin=%s, member_id=%s, member_name=%s, member_pw=%s, memberNewPw=%s, birth_day=%s, email=%s, email1=%s, email2=%s, zipcode=%s, address=%s, address1=%s, address2=%s, phone=%s, phone1=%s, phone2=%s, phone3=%s, cell_phone=%s, cell_phone1=%s, cell_phone2=%s, cell_phone3=%s, sms_service_yn=%s, email_service_yn=%s, add_ip=%s, add_date=%s, pw_change_date=%s, last_login=%s, sex=%s, age=%s, search_auth=%s, search_auth_name=%s, history_idx=%s, use_yn=%s, in_ip=%s, in_date=%s, up_date=%s, auth_id=%s, auth_id_list=%s, auth_name=%s, auth_name_list=%s, modify_id=%s, modify_date=%s, modify_ip=%s, password_expiry_day=%s, seq_no=%s, user_no=%s, card_no=%s, card_password=%s, mobile_no=%s, web_id=%s, status_code=%s, loca=%s, loca_name=%s, user_id=%s, di_value=%s, ci_value=%s, agree_codes=%s, user_position=%s, agree_date=%s, company_name=%s, company_zipcode=%s, company_addr=%s, company_phone=%s, company_phone1=%s, company_phone2=%s, company_phone3=%s, parent_name=%s, parent_phone=%s, parent_phone1=%s, parent_phone2=%s, parent_phone3=%s, loginCode=%s, loginMsg=%s, loginType=%s, ageType=%s, certType=%s, certComplete=%s, sci_result=%s, menu_idx=%s, authgroupidlist=%s, admin=%s]",
 				admin, isLogin, member_id, member_name, member_pw, memberNewPw, birth_day, email, email1, email2,
-				zipcode, address1, address2, phone, phone1, phone2, phone3, cell_phone, cell_phone1, cell_phone2,
+				zipcode, address, address1, address2, phone, phone1, phone2, phone3, cell_phone, cell_phone1, cell_phone2,
 				cell_phone3, sms_service_yn, email_service_yn, add_ip, add_date, pw_change_date, last_login, sex, age,
 				search_auth, search_auth_name, history_idx, use_yn, in_ip, in_date, up_date, auth_id, auth_id_list,
 				auth_name, auth_name_list, modify_id, modify_date, modify_ip, password_expiry_day, seq_no, user_no,
@@ -1131,6 +1135,30 @@ public class Member extends PagingUtils implements Serializable {
 
 	public void setUser_manage_code(String user_manage_code) {
 		this.user_manage_code = user_manage_code;
+	}
+
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+
+	public String getAdd_id() {
+		return add_id;
+	}
+
+
+
+	public void setAdd_id(String add_id) {
+		this.add_id = add_id;
 	}
 
 }
