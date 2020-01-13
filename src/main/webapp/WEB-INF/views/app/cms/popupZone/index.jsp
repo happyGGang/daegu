@@ -9,29 +9,29 @@ $(function(){
 	//모달창 링크 버튼
 	$('a#dialog-add').on('click', function(e) {
 		if ( $('#homepage_id_1').val() == '' ) {
-			alert('홈페이지정보가 없습니다.');	
+			alert('홈페이지정보가 없습니다.');
 		}
 		else {
 			$('#dialog-1').load('edit.do?editMode=ADD&homepage_id=${popupZone.homepage_id}', function( response, status, xhr ) {
 				$('#dialog-1').dialog('open');
 			});
 		}
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('a#dialog-modify').on('click', function(e) {
 		$('#dialog-1').load('edit.do?editMode=MODIFY&homepage_id=${popupZone.homepage_id}&popup_zone_idx=' + $(this).attr('keyValue'), function( response, status, xhr ) {
 			$('#dialog-1').dialog('open');
 		});
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('a#delete').on('click', function(e) {
 		if(confirm('선택된 팝업존을 삭제 하시겠습니까?')) {
 			$('input#popup_zone_idx_1').val($(this).attr('keyValue'));
-			
+
 			$.ajax({
 				url : 'delete.do',
 				async : false,
@@ -45,30 +45,30 @@ $(function(){
 				}
 			});
 		}
-		
+
 		e.preventDefault();
-	}); 
-	
+	});
+
 	$('select#homepage_id_1').on('change', function(e) {
 		if($(this).val() != '') {
 			$('input#homepage_id_1').val($(this).val());
 			doGetLoad('index.do', serializeCustom($('#popup_zone_1')));
 		}
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('button#search_btn').on('click', function(e) {
 		$('#viewPage').val(1);
 		doGetLoad('index.do', serializeCustom($('#popup_zone_1')));
 	});
-	
+
 	$('select#use_yn, select#rowCount').on('change', function(e) {
 		$('#viewPage').val(1);
 		doGetLoad('index.do', serializeCustom($('#popup_zone_1')));
 	});
-});	
-</script> 
+});
+</script>
 <form:form id="popup_zone_1" modelAttribute="popupZone" method="POST" action="save.do" onsubmit="return false;">
 <form:hidden id="editMode_1" path="editMode"/>
 <form:hidden id="popup_zone_idx_1" path="popup_zone_idx"/>
@@ -102,9 +102,9 @@ $(function(){
 			<tr>
 				<th width="40">순번</th>
 				<th width="">팝업존명</th>
-				<th width="50">사용여부</th>
+				<th width="80">사용여부</th>
 				<th width="300">게시기간</th>
-				<th width="50">출력순서</th>
+				<th width="80">출력순서</th>
 				<th width="120">등록일</th>
 				<th width="100">기능</th>
 			</tr>
@@ -135,7 +135,7 @@ $(function(){
 		</c:forEach>
 		</tbody>
 	</table>
-	
+
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#popup_zone_1"/>
 	</jsp:include>
@@ -153,4 +153,4 @@ $(function(){
 </form:form>
 
 <div id="dialog-1" class="dialog-common" title="팝업존 정보">
-</div>	
+</div>

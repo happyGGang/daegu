@@ -15,27 +15,28 @@ public class PopupZoneTag extends BodyTagSupport {
 
 	private static final long serialVersionUID = 1L;
 	private List<PopupZone> popupZoneList;
-	
+
 	@Override
 	public int doEndTag() throws JspException {
-		HtmlTag ul_tag = new HtmlTag("ul"); 
+		HtmlTag ul_tag = new HtmlTag("ul");
 //		HttpServletRequest request = (HttpServletRequest)pageContext.getRequest();
 		if ( getPopupZoneList() != null ) {
-			for ( PopupZone one : getPopupZoneList() ) {				
+			for ( PopupZone one : getPopupZoneList() ) {
 				HtmlTag li_tag = new HtmlTag("li");
 				HtmlTag a_tag = new HtmlTag("a");
 				HtmlTag img_tag = new HtmlTag("img");
 				img_tag.setAttribute("src", String.format("/data/popupZone/%s/%s", one.getHomepage_id(), one.getServer_file_name()));
-				img_tag.setAttribute("alt", one.getPopup_zone_name());
+				img_tag.setAttribute("title", one.getPopup_zone_name());
+				img_tag.setAttribute("alt", one.getAlt_text());
 				a_tag.addSubTag(img_tag);
-				
+
 				a_tag.setAttribute("href", one.getLink_url());
 				if ( one.getLink_target().equals("BLANK") ) {
-					a_tag.setAttribute("target", "_blank");	
+					a_tag.setAttribute("target", "_blank");
 				}
 				li_tag.addSubTag(a_tag);
 				ul_tag.addSubTag(li_tag);
-				
+
 			}
 			try {
 				pageContext.getOut().println(ul_tag.toString().replaceAll("></img>", "/>"));
@@ -44,7 +45,7 @@ public class PopupZoneTag extends BodyTagSupport {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return EVAL_PAGE;
 	}
 

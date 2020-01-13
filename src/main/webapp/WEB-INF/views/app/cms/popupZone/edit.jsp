@@ -130,138 +130,59 @@ function getFileData(fileData) {
 						<em>* 팝업존 최적 이미지 사이즈는 가로 413 X 세로 325 입니다(픽셀단위)</em>
 					</div>
 					</c:when>
-					<c:when test="${popupZone.homepage_id eq 'h2' }"><!-- 구미 -->
+					<c:when test="${popupZone.homepage_id eq 'h2' }"><!-- 228민주운동기념회관 -->
 					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 328 X 세로 189 입니다(픽셀단위)</em>
+						<em>* 팝업존 최적 이미지 사이즈는 가로 413 X 세로 430 입니다(픽셀단위)</em>
 					</div>
 					</c:when>
-					<c:when test="${popupZone.homepage_id eq 'h3' }"><!-- 안동 -->
+					<c:when test="${popupZone.homepage_id eq 'h3' }"><!-- 남부 -->
 					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 400 X 세로 170 입니다(픽셀단위)</em>
+						<em>* 팝업존 최적 이미지 사이즈는 가로 410 X 세로 442 입니다(픽셀단위)</em>
 					</div>
 					</c:when>
-					<c:when test="${popupZone.homepage_id eq 'h4' }"><!-- 용상 -->
+					<c:when test="${popupZone.homepage_id eq 'h4' }"><!-- 달성 -->
 					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 189 X 세로 320 입니다(픽셀단위)</em>
+						<em>* 팝업존 최적 이미지 사이즈는 가로 410 X 세로 430 입니다(픽셀단위)</em>
 					</div>
 					</c:when>
-					<c:when test="${popupZone.homepage_id eq 'h5' }"><!-- 풍산 -->
+					<c:when test="${popupZone.homepage_id eq 'h5' }"><!-- 동부 -->
 					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 250 X 세로 173 입니다(픽셀단위)</em>
+						<em>* 팝업존 최적 이미지 사이즈는 가로 600 X 세로 220 입니다(픽셀단위)</em>
 					</div>
 					</c:when>
-					<c:when test="${popupZone.homepage_id eq 'h6' }"><!-- 상주 -->
+					<c:when test="${popupZone.homepage_id eq 'h6' }"><!-- 두류 -->
 					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 570 X 세로 158 입니다(픽셀단위)</em>
+						<em>* 팝업존 최적 이미지 사이즈는 가로 413 X 세로 328 입니다(픽셀단위)</em>
 					</div>
 					</c:when>
-					<c:when test="${popupZone.homepage_id eq 'h7' }"><!-- 화령 -->
+					<c:when test="${popupZone.homepage_id eq 'h7' }"><!-- 북부 -->
 					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 250 X 세로 303 입니다(픽셀단위)</em>
+						<em>* 팝업존 최적 이미지 사이즈는 가로 413 X 세로 328 입니다(픽셀단위)</em>
 					</div>
 					</c:when>
-					<c:when test="${popupZone.homepage_id eq 'h9' }"><!-- 외동 -->
+					<c:when test="${popupZone.homepage_id eq 'h8' }"><!-- 서부 -->
 					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 352 X 세로 268 입니다(픽셀단위)</em>
+						<em>* 팝업존 최적 이미지 사이즈는 가로 600 X 세로 220 입니다(픽셀단위)</em>
 					</div>
 					</c:when>
-					<c:when test="${popupZone.homepage_id eq 'h10' }"><!-- 영주 -->
+					<c:when test="${popupZone.homepage_id eq 'h9' }"><!-- 수성 -->
 					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 285 X 세로 230 입니다(픽셀단위)</em>
+						<em>* 팝업존 최적 이미지 사이즈는 가로 315 X 세로 313 입니다(픽셀단위)</em>
 					</div>
 					</c:when>
-					<c:when test="${popupZone.homepage_id eq 'h11' }"><!-- 풍기 -->
+					<c:when test="${popupZone.homepage_id eq 'h10' }"><!-- 중앙 -->
 					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 239 X 세로 270 입니다(픽셀단위)</em>
-					</div>
-					</c:when>
-					<c:when test="${popupZone.homepage_id eq 'h12' }"><!-- 영천금호 -->
-					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 295 X 세로 121 입니다(픽셀단위)</em>
-					</div>
-					</c:when>
-					<c:when test="${popupZone.homepage_id eq 'h13' }"><!-- 점촌 -->
-					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 300 X 세로 150 입니다(픽셀단위)</em>
-					</div>
-					</c:when>
-					<c:when test="${popupZone.homepage_id eq 'h14' }"><!-- 군위 -->
-					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 355 X 세로 146 입니다(픽셀단위)</em>
-					</div>
-					</c:when>
-					<c:when test="${popupZone.homepage_id eq 'h15' }"><!-- 의성 -->
-					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 295 X 세로 121 입니다(픽셀단위)</em>
-					</div>
-					</c:when>
-					<c:when test="${popupZone.homepage_id eq 'h16' }"><!-- 청송 -->
-					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 360 X 세로 150 입니다(픽셀단위)</em>
-					</div>
-					</c:when>
-					<c:when test="${popupZone.homepage_id eq 'h17' }"><!-- 영양 -->
-					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 335 X 세로 188 입니다(픽셀단위)</em>
-					</div>
-					</c:when>
-					<c:when test="${popupZone.homepage_id eq 'h18' }"><!-- 영덕 -->
-					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 325 X 세로 268 입니다(픽셀단위)</em>
-					</div>
-					</c:when>
-					<c:when test="${popupZone.homepage_id eq 'h19' }"><!-- 청도 -->
-					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 295 X 세로 122 입니다(픽셀단위)</em>
-					</div>
-					</c:when>
-					<c:when test="${popupZone.homepage_id eq 'h20' }"><!-- 고령 -->
-					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 467 X 세로 178 입니다(픽셀단위)</em>
-					</div>
-					</c:when>
-					<c:when test="${popupZone.homepage_id eq 'h21' }"><!-- 성주 -->
-					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 444 X 세로 168 입니다(픽셀단위)</em>
-					</div>
-					</c:when>
-					<c:when test="${popupZone.homepage_id eq 'h22' }"><!-- 칠곡 -->
-					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 295 X 세로 122 입니다(픽셀단위)</em>
-					</div>
-					</c:when>
-					<c:when test="${popupZone.homepage_id eq 'h23' }"><!-- 예천 -->
-					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 353 X 세로 270 입니다(픽셀단위)</em>
-					</div>
-					</c:when>
-					<c:when test="${popupZone.homepage_id eq 'h25' }"><!-- 울진 -->
-					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 570 X 세로 210 입니다(픽셀단위)</em>
-					</div>
-					</c:when>
-					<c:when test="${popupZone.homepage_id eq 'h26' }"><!-- 울릉 -->
-					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 352 X 세로 268 입니다(픽셀단위)</em>
-					</div>
-					</c:when>
-					<c:when test="${popupZone.homepage_id eq 'h27' }"><!-- 센터도서관 -->
-					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 399 X 세로 200 입니다(픽셀단위)</em>
-					</div>
-					</c:when>
-					<c:when test="${popupZone.homepage_id eq 'h28' }"><!-- 센터 -->
-					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 712 X 세로 360 입니다(픽셀단위)</em>
-					</div>
-					</c:when>
-					<c:when test="${popupZone.homepage_id eq 'h31' }"><!-- 학생문화회관 -->
-					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 559 X 세로 243 입니다(픽셀단위)</em>
+						<em>* 팝업존 최적 이미지 사이즈는 가로 395 X 세로 350 입니다(픽셀단위)</em>
 					</div>
 					</c:when>
 				</c:choose>
 
+			</td>
+		</tr>
+		<tr>
+			<th scope="row">이미지 대체 텍스트</th>
+			<td>
+				<form:textarea path="alt_text" cssStyle="width:100%; height:60px;"/>
 			</td>
 		</tr>
 		<c:if test="${popupZone.editMode eq 'MODIFY'}">
@@ -295,12 +216,6 @@ function getFileData(fileData) {
 				<div class="ui-state-highlight">
 					<i class="fa fa-question-circle"></i><em>오름차순 정렬. 낮을수록 앞에 출력됩니다.</em>
 				</div>
-			</td>
-		</tr>
-		<tr>
-			<th>내용</th>
-			<td>
-				<form:textarea path="content" class="text" cssStyle="width:100%;" rows="2"/>
 			</td>
 		</tr>
 		<tr>

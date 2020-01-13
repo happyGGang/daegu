@@ -23,6 +23,7 @@ public class PopupZone extends PagingUtils {
 	private String link_url;
 	private String link_target; // 새창으로보기
 	private String content;
+	private String alt_text; //대체 텍스트
 
 	public PopupZone() {
 	}
@@ -165,6 +166,16 @@ public class PopupZone extends PagingUtils {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+
+	public String getAlt_text() {
+		return alt_text;
+	}
+
+
+	public void setAlt_text(String alt_text) {
+		this.alt_text = alt_text;
 	}
 
 }
