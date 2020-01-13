@@ -42,7 +42,6 @@ import kr.go.gbelib.app.cms.module.category.group.CategoryGroupService;
 import kr.go.gbelib.app.cms.module.teach.Teach;
 import kr.go.gbelib.app.cms.module.teach.TeachService;
 import kr.go.gbelib.app.cms.module.teach.student.StudentService;
-import kr.go.gbelib.app.cms.module.teach.teachCode.TeachCodeService;
 import kr.go.gbelib.app.cms.module.teach.teachCode2.TeachCode2;
 import kr.go.gbelib.app.cms.module.teach.teachCode2.TeachCode2Service;
 
@@ -71,9 +70,6 @@ public class TeachController extends BaseController{
 	private CodeService codeService;
 
 	@Autowired
-	private TeachCodeService teachCodeService;
-
-	@Autowired
 	private TeachCode2Service teachCode2Service;
 
 	@Autowired
@@ -94,7 +90,7 @@ public class TeachController extends BaseController{
 			teach.setMember_key(getSessionUserSeqNo(request));
 		}
 
-		if ( homepage.getHomepage_id().equals("h1") ) {
+		if ( homepage.getHomepage_id().equals("h32") ) {
 			if (StringUtils.isEmpty(teach.getHomepage_id())) {
 				teach.setHomepage_id(homepage.getHomepage_id());
 			}
@@ -104,7 +100,7 @@ public class TeachController extends BaseController{
 			teachService.setPaging(model, teachService.getTeachListForAllHomepageCount(teach), teach);
 			model.addAttribute("teachList", teachService.getTeachListForAllHomepage(teach));
 			model.addAttribute("teach", teach);
-			if (!teach.getHomepage_id().equals("h1")) {
+			if (!teach.getHomepage_id().equals("h32")) {
 				model.addAttribute("groupList", categoryGroupService.getCategoryGroupListAll(new CategoryGroup(teach.getHomepage_id())));
 				model.addAttribute("categoryList", categoryService.getCategoryListAll(new Category(teach.getHomepage_id(), teach.getGroup_idx())));
 			}
@@ -157,7 +153,7 @@ public class TeachController extends BaseController{
 	public String detail(Model model, Teach teach, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 
-		if ( !"h1".equals(homepage.getHomepage_id()) ) {
+		if ( !"h32".equals(homepage.getHomepage_id()) ) {
 			teach.setHomepage_id(homepage.getHomepage_id());
 		}
 
@@ -223,7 +219,7 @@ public class TeachController extends BaseController{
 			return null;
 		}
 
-		String filePath = teachService.getRootPath()+ "/" + homepage_id + "/" + teach.getReal_file_name();
+		String filePath = teachService.getRootPath()+ "/" + homepage_id + "/" + teach.getServer_file_name();
 		File file = new File(filePath);
 
 //		if(file.length() > 0) {
@@ -243,7 +239,7 @@ public class TeachController extends BaseController{
 		}
 
 //		String fileName = "";
-		String fileName = String.format("%s.%s", teach.getPlan_file_name(),teach.getFile_extension() );
+		String fileName = String.format("%s.%s", teach.getOrg_file_name(),teach.getFile_extension() );
 //		String fileName = boardFile.getFile_name().substring(0,boardFile.getFile_name().lastIndexOf("."));
 		String fileType = teach.getFile_extension().toUpperCase();
 //		String fullFilename = fileName+"."+fileType;

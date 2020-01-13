@@ -38,8 +38,7 @@
 				WHEN (A.ATTEND_CNT/A.CNT)*100 >= #{cert_percent}
 				THEN '1'
 				ELSE '2'
-			END AS STUDENT_STATUS,
-			(SELECT COUNT(*) FROM BLACKLIST WHERE HOMEPAGE_ID = A.HOMEPAGE_ID AND MEMBER_KEY = A.MEMBER_KEY AND INSTR(BLACK_TYPE, '10') != 0) as isBlackList
+			END AS STUDENT_STATUS
 		FROM
 			(
 				SELECT
@@ -134,9 +133,7 @@
 			, STUDENT_NAME, STUDENT_BIRTH, STUDENT_SEX, STUDENT_ZIPCODE, STUDENT_ADDRESS, STUDENT_ADDRESS_DETAIL, STUDENT_SCHOOL, STUDENT_HACK, STUDENT_OLD
 			, SELF_INFO_YN, APPLY_TYPE, APPLY_STATUS, ADD_DATE, ADD_ID, DELETE_YN, FAMILY_RELATION, FAMILY_NAME, FAMILY_CELL_PHONE, FAMILY_CONFIRM_YN, FAMILY_DESC
 			, student_ban, student_remark, student_family_count,
-			student_location_code,
-			student_neis_cd,
-			student_training_num,
+			student_location_code,student_neis_cd,student_training_num,
 			student_organization, student_rank, student_course_taken_yn
 		) VALUES
 		(
@@ -189,8 +186,8 @@
 			FAMILY_CELL_PHONE		= #{family_cell_phone},
 			FAMILY_CONFIRM_YN		= #{family_confirm_yn},
 			FAMILY_DESC				= #{family_desc},
-			MOD_ID					= #{mod_id},
-			MOD_DATE				= SYSDATE
+			modify_id					= #{modify_id},
+			modify_date				= SYSDATE
 		WHERE
 			HOMEPAGE_ID 		= #{homepage_id}
 			AND GROUP_IDX 		= #{group_idx}
@@ -235,8 +232,8 @@
 			, STUDENT_SCHOOL 			= ''
 			, STUDENT_BAN 				= ''
 			, STUDENT_BUN 				= ''  -->
-			, MOD_ID					= #{mod_id}
-			, MOD_DATE					= SYSDATE
+			, modify_id					= #{modify_id}
+			, modify_date					= SYSDATE
 		WHERE
 			HOMEPAGE_ID = #{homepage_id} AND GROUP_IDX = #{group_idx} AND CATEGORY_IDX = #{category_idx} AND TEACH_IDX = #{teach_idx}
 			<if test="student_idx != null and student_idx > 0">
@@ -490,7 +487,7 @@
 			AND TEACH_IDX = #{teach_idx}
 			AND STUDENT_IDX = #{student_idx}
 	</update>
-	
+
 	<select id="sendSmsTeachCancle" resultType="kr.go.gbelib.app.cms.module.teach.student.Student">
 		SELECT
 			homepage_id, teach_idx, student_idx, member_id, applicant_cell_phone
@@ -500,5 +497,5 @@
 			teach_idx = #{teach_idx}
 		AND	apply_status != 99
 	</select>
-	
+
 </mapper>

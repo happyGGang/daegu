@@ -92,10 +92,10 @@ public class StudentController extends BaseController {
 		}
 
 		//블랙리스트 체크
-		if ( blackListService.checkBlackList(new BlackList(student.getHomepage_id(), getSessionUserSeqNo(request)), "10")) {
-			service.alertMessage("신청이 불가능합니다.\\n도서관에 문의해주세요.", request, response);
-			return null;
-		}
+//		if ( blackListService.checkBlackList(new BlackList(student.getHomepage_id(), getSessionUserSeqNo(request)), "10")) {
+//			service.alertMessage("신청이 불가능합니다.\\n도서관에 문의해주세요.", request, response);
+//			return null;
+//		}
 
 		//약관 연동부
 		Menu menuOne = (Menu) request.getAttribute("menuOne");

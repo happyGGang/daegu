@@ -8,47 +8,47 @@ $(function() {
 	$('button#search_btn').on('click', function(e) {
 		$('#viewPage').val(1);
 		$('#teachListForm').submit();
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('a#dialog-add').on('click', function(e) {
 		if ( $('#homepage_id_1').val() == '' ) {
-			alert('홈페이지정보가 없습니다.');	
+			alert('홈페이지정보가 없습니다.');
 		}
 		else {
 			$('#dialog-1').load('edit.do?editMode=ADD&homepage_id=' + $('#homepage_id_1').val() + '&group_idx=' + $('select#group_idx').val() + '&category_idx=' + $('select#category_idx').val() , function( response, status, xhr ) {
 				$('#dialog-1').dialog('open')
 			});
 		}
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('a.certificate-btn').on('click', function(e) {
 		$('#dialog-2').load('getTeachCertificateList.do?homepage_id=' + $('#homepage_id_1').val() + '&group_idx=' + $(this).attr('keyValue1') + '&category_idx=' + $(this).attr('keyValue2') + '&teach_idx=' + $(this).attr('keyValue3'), function( response, status, xhr ) {
 			$('#dialog-2').dialog('open')
 		});
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('a#dialog-search-cert').on('click', function(e) {
 		$('#dialog-3').load('getTeachCertificateListByDate.do?editMode=FIRST&homepage_id=' + $('#homepage_id_1').val(), function( response, status, xhr ) {
 			$('#dialog-3').dialog('open')
 		});
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('a.dialog-modify').on('click', function(e) {
 		$('#dialog-1').load('edit.do?editMode=MODIFY&homepage_id=' + $('#homepage_id_1').val() + '&group_idx=' + $(this).attr('keyValue1') + '&category_idx=' + $(this).attr('keyValue2') + '&teach_idx=' + $(this).attr('keyValue3'), function( response, status, xhr ) {
 			$('#dialog-1').dialog('open');
 		});
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('a.delete-btn').on('click', function(e) {
 		if (confirm("해당 강의를 삭제 하시겠습니까?")) {
 			$('#hiddenForm #group_idx').val($(this).attr('keyValue1'));
@@ -60,34 +60,34 @@ $(function() {
 		}
 		e.preventDefault();
 	});
-	
+
 	$('a#dialog-setting').on('click', function(e) {
 		if ( $('#homepage_id_1').val() == '' ) {
-			alert('홈페이지정보가 없습니다.');	
+			alert('홈페이지정보가 없습니다.');
 		} else {
 			$('#dialog-4').load('setting.do?homepage_id=' + $('#homepage_id_1').val() , function( response, status, xhr ) {
 				$('#dialog-4').dialog('open');
 			});
 		}
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('a#excelDownload').on('click', function(e) {
 		$('#hiddenForm').attr('action', 'excelDownload.do').submit();
 		$('#hiddenForm').attr('action', 'save.do');
 		e.preventDefault();
 	});
-	
+
 	$('select#homepage_id_1').on('change', function(e) {
 		if($(this).val() != '') {
 			$('input#homepage_id_1').val($(this).val());
 			$('#teachListForm').submit();
 		}
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('select#large_category_idx').on('change', function() {
 		$('#teachListForm select#group_idx option.all').prop('selected', true);
 		$('#teachListForm select#category_idx option.all').prop('selected', true);
@@ -96,7 +96,7 @@ $(function() {
 		$('#teachListForm #viewPage').val(1);
 		$('#teachListForm').submit();
 	});
-	
+
 	$('select#group_idx').on('change', function() {
 		$('#teachListForm select#category_idx option.all').prop('selected', true);
 		$('#teachListForm option.default').prop('selected', true);
@@ -104,23 +104,23 @@ $(function() {
 		$('#teachListForm #viewPage').val(1);
 		$('#teachListForm').submit();
 	});
-	
+
 	$('select#category_idx').on('change', function() {
 		$('#teachListForm option.default').prop('selected', true);
 		$('#teachListForm #search_text').val('');
 		$('#teachListForm #viewPage').val(1);
 		$('#teachListForm').submit();
 	});
-	
+
 	$('#teachListForm select#category_idx option').hide();
 	$('#teachListForm select#category_idx option.group_${teach.group_idx}').show();
 	$('#teachListForm select#category_idx option.all').show();
-	
+
 	$('a#csvDownload').on('click', function(e) {
 		e.preventDefault();
 		$('#hiddenForm').attr('action', 'csvDownload.do').submit();
 	});
-	
+
 });
 </script>
 <form:form id="hiddenForm" modelAttribute="teach" action="save.do">
@@ -133,23 +133,23 @@ $(function() {
 
 <form:form id="teachListForm"  modelAttribute="teach" action="index.do" >
 	<form:hidden id="homepage_id_1" path="homepage_id"/>
-	
+
 	<div class="infodesk">
 		검색 결과 : 총 ${teachListCount}건
 		<div class="button">
-			<span>대분류 : 
+			<span>대분류 :
 				<form:select path="large_category_idx">
 					<form:option class="all" value="0" label="전체" />
 					<form:options itemValue="teach_code" itemLabel="code_name" items="${teachLargeCategoryList}"/>
 				</form:select>
 			</span>
-			<span>중분류 : 
+			<span>중분류 :
 				<form:select path="group_idx">
 					<form:option class="all" value="0" label="전체" />
 					<form:options itemValue="group_idx" itemLabel="group_name" items="${categoryGroupList}"/>
 				</form:select>
 			</span>
-			<span>소분류 : 
+			<span>소분류 :
 				<form:select path="category_idx" >
 					<form:option class="all" value="0" label="전체" />
 					<c:forEach items="${categoryList}" var="i">
@@ -175,21 +175,21 @@ $(function() {
 			<col width="200" />
 			<col width="120" />
 			<col width="100" />
-			<col width="80" />
-			<col width="80" />
-			<col width="80" />
 			<col width="100" />
+			<col width="100" />
+			<col width="100" />
+			<col width="150" />
 		</colgroup>
 		<thead>
 			<tr>
 				<th>번호</th>
 				<th>강의분류</th>
 				<th>강의명</th>
-				<th>강의계획서</th>	
+				<th>강의계획서</th>
 				<th>강의대상</th>
 				<th>강좌일</th>
-				<th>강좌시간</th>	
-				<th>강의장소</th>	
+				<th>강좌시간</th>
+				<th>강의장소</th>
 				<th>참여/모집</th>
 				<th>참여/후보</th>
 				<th>참여/오프</th>
@@ -204,7 +204,7 @@ $(function() {
 					<td>
 						${i.teach_name}
 					</td>
-					<td><c:if test="${i.real_file_name ne null and i.real_file_name ne ''}"><a href="/cms/module/teach/download/${i.homepage_id}/${i.group_idx}/${i.category_idx}/${i.teach_idx}.do"><i class="fa fa-floppy-o"></i>${i.plan_file_name}</a></c:if></td>
+					<td><c:if test="${i.server_file_name ne null and i.server_file_name ne ''}"><a href="/cms/module/teach/download/${i.homepage_id}/${i.group_idx}/${i.category_idx}/${i.teach_idx}.do"><i class="fa fa-floppy-o"></i>${i.org_file_name}</a></c:if></td>
 					<td>${i.teach_target}</td>
 					<td>
 						${i.start_date} ~ ${i.end_date}<br/>
@@ -220,7 +220,7 @@ $(function() {
 								<c:when test="${j eq '7'}">토</c:when>
 							</c:choose>
 							<c:if test="${!status_j.last}">
-								, 
+								,
 							</c:if>
 						</c:forEach>
 						)
@@ -251,7 +251,7 @@ $(function() {
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#teachListForm"/>
 	</jsp:include>
-	
+
 	<div class="search txt-center" style="margin-top:25px;">
 		<fieldset>
 			<form:select path="search_type" cssClass="selectmenu">
@@ -265,14 +265,14 @@ $(function() {
 			<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>
 			<a href="#" id="csvDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>CSV저장</span></a>
 		</fieldset>
-		
+
 	</div>
 	<br/>
 	<div class="ui-state-highlight">
 		<em>* 강좌 삭제는 해당 강좌에 참여/후보/오프 신청 인원이 없는 강좌만 가능 합니다.</em>
 	</div>
 </form:form>
-	
+
 <div id="dialog-1" class="dialog-common" title="강좌 정보"></div>
 <div id="dialog-2" class="dialog-common" title="수료자 조회"></div>
 <div id="dialog-3" class="dialog-common" title="기간별 수료자 조회"></div>

@@ -7,10 +7,10 @@
 <script type="text/javascript">
 $(function(){
 	var date = new Date($('#teachBook input#sel_date').val());
-	
+
 	$('a#month_prev').on('click', function(e) {
 		e.preventDefault();
-		
+
 		date.setMonth(date.getMonth()-1);
 		var year = date.getFullYear();
 		var month = date.getMonth()+1 < 10? '0'+(date.getMonth()+1) : date.getMonth()+1;
@@ -19,15 +19,15 @@ $(function(){
 		$('#excelDownForm #sel_date').val(year+'-'+month);
 		var url = 'teachBook.do';
 		var param = $('form#teachBook').serialize();
-		
+
 		doAjaxLoad('#teachBookLayer', url, param);
 	});
-	
+
 	$('a#month_next').on('click', function(e) {
 		e.preventDefault();
-		
+
 		date.setMonth(date.getMonth()+1);
-		
+
 		var year = date.getFullYear();
 		var month = date.getMonth()+1 < 10? '0'+(date.getMonth()+1) : date.getMonth()+1;
 
@@ -35,10 +35,10 @@ $(function(){
 		$('#excelDownForm #sel_date').val(year+'-'+month);
 		var url = 'teachBook.do';
 		var param = $('form#teachBook').serialize();
-		
+
 		doAjaxLoad('#teachBookLayer', url, param);
 	});
-	
+
 	$('a.status-btn').on('click', function(e) {
 		e.preventDefault();
 		if ( $('#saveForm #teach_idx').val() == 0 ) {
@@ -48,12 +48,12 @@ $(function(){
 		var status 		= $('[name="status"]:checked').val();
 		var studentIdx 	= $(this).attr('keyValue2');
 		var teachDate 	= $(this).attr('keyValue3');
-		
+
 		if ( status == null ) {
 			alert('출석 종류를 선택해주세요.');
 			return;
 		}
-		
+
 		$('#saveForm #editMode').val('ONESAVE');
 		$('#saveForm #student_idx').val(studentIdx);
 		$('#saveForm #status').val(status);
@@ -62,7 +62,7 @@ $(function(){
 			$('#teachBookLayer').load('teachBook.do?homepage_id=' + $('#saveForm #homepage_id').val() + '&large_category_idx=' + $('#saveForm #large_category_idx').val() + '&group_idx=' + $('#saveForm #group_idx').val() + '&category_idx=' + $('#saveForm #category_idx').val() + '&teach_idx=' + $('#saveForm #teach_idx').val() + '&status='+status + '&sel_date='+$('#sel_date').val());
 		}
 	});
-	
+
 	$('a.date-btn').on('click', function(e) {
 		e.preventDefault();
 		if ( $('#saveForm #teach_idx').val() == 0 ) {
@@ -70,54 +70,55 @@ $(function(){
 			return;
 		}
 		var teachDate = $(this).attr('keyValue');
-		
+		var status 		= $('[name="status"]:checked').val();
 		$('#saveForm #editMode').val('TOPSAVE');
 		$('#saveForm #teach_date').val(teachDate);
 		if ( doAjaxPost($('#saveForm')) ) {
-			$('#teachBookLayer').load('teachBook.do?homepage_id=' + $('#saveForm #homepage_id').val() + '&large_category_idx=' + $('#saveForm #large_category_idx').val() + '&group_idx=' + $('#saveForm #group_idx').val() + '&category_idx=' + $('#saveForm #category_idx').val() + '&teach_idx=' + $('#saveForm #teach_idx').val() + '&status=1');
+			$('#teachBookLayer').load('teachBook.do?homepage_id=' + $('#saveForm #homepage_id').val() + '&large_category_idx=' + $('#saveForm #large_category_idx').val() + '&group_idx=' + $('#saveForm #group_idx').val() + '&category_idx=' + $('#saveForm #category_idx').val() + '&teach_idx=' + $('#saveForm #teach_idx').val() + '&status='+status);
 		}
 	});
-	
+
 	$('a.name-btn').on('click', function(e) {
 		e.preventDefault();
 		if ( $('#saveForm #teach_idx').val() == 0 ) {
 			alert('강좌를 선택해주세요.');
 			return;
 		}
+		var status 		= $('[name="status"]:checked').val();
 		var studentIdx = $(this).attr('keyValue');
 		$('#saveForm #editMode').val('LEFTSAVE');
 		$('#saveForm #student_idx').val(studentIdx);
 		if ( doAjaxPost($('#saveForm')) ) {
-			$('#teachBookLayer').load('teachBook.do?homepage_id=' + $('#saveForm #homepage_id').val() + '&large_category_idx=' + $('#saveForm #large_category_idx').val() + '&group_idx=' + $('#saveForm #group_idx').val() + '&category_idx=' + $('#saveForm #category_idx').val() + '&teach_idx=' + $('#saveForm #teach_idx').val() + '&status=1');
+			$('#teachBookLayer').load('teachBook.do?homepage_id=' + $('#saveForm #homepage_id').val() + '&large_category_idx=' + $('#saveForm #large_category_idx').val() + '&group_idx=' + $('#saveForm #group_idx').val() + '&category_idx=' + $('#saveForm #category_idx').val() + '&teach_idx=' + $('#saveForm #teach_idx').val() + '&status='+status);
 		}
 	});
-	
+
 	$('select.paySelect').change(function() {
 		var studentIdx 	= $(this).attr('keyValue1');
 		var payType 	= $(this).attr('keyValue2');
 		var value 		= $(this).val();
-		
+		var status 		= $('[name="status"]:checked').val();
 		$('#saveForm #editMode').val('PAYSAVE');
 		$('#saveForm #student_idx').val(studentIdx);
 		$('#saveForm #pay_type').val(payType);
 		$('#saveForm #pay_value').val(value);
-		
+
 		if ( doAjaxPost($('#saveForm')) ) {
-			$('#teachBookLayer').load('teachBook.do?homepage_id=' + $('#saveForm #homepage_id').val() + '&large_category_idx=' + $('#saveForm #large_category_idx').val() + '&group_idx=' + $('#saveForm #group_idx').val() + '&category_idx=' + $('#saveForm #category_idx').val() + '&teach_idx=' + $('#saveForm #teach_idx').val() + '&status=1');
+			$('#teachBookLayer').load('teachBook.do?homepage_id=' + $('#saveForm #homepage_id').val() + '&large_category_idx=' + $('#saveForm #large_category_idx').val() + '&group_idx=' + $('#saveForm #group_idx').val() + '&category_idx=' + $('#saveForm #category_idx').val() + '&teach_idx=' + $('#saveForm #teach_idx').val() + '&status='+status);
 		}
 	});
-	
+
 	$('#teachBookArea tbody td').css('height', '50px');
-});	
-</script> 
+});
+</script>
 <div class="infodesk">
 	<div class="button btn-group inline">
-		
+
 		<!-- <a href="" id="excel" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀 다운로드</span></a> -->
-	</div>                                                                                                
+	</div>
 </div>
 <div class="form-group menuTypeBox">
-	종류 : 
+	종류 :
 	<div class="radio">
 		<input type="radio" name="status" id="radio10" value="1" <c:if test="${teachBook.status eq 1}">checked="checked"</c:if>/>
 		<label for="radio10">출석 (●)</label>
@@ -280,7 +281,7 @@ $(function(){
 									<c:when test="${j.fri ne null and j.fri > 0}">
 										<td>
 											<fmt:parseDate var="curDate" value="${teachBook.sel_date}-${j.fri}" pattern="yyyy-MM-d"/>
-											<fmt:formatDate value="${curDate}" type="both" pattern="E"/>								
+											<fmt:formatDate value="${curDate}" type="both" pattern="E"/>
 										</td>
 									</c:when>
 								</c:choose>
@@ -313,7 +314,7 @@ $(function(){
 															<c:when test="${teachBookRepo[oneStudent.student_idx][plan_date] eq '3'}"><a class="status-btn" keyValue1="3" keyValue2="${oneStudent.student_idx}" keyValue3="${plan_date}">×</a></c:when>
 															<c:when test="${teachBookRepo[oneStudent.student_idx][plan_date] eq '4'}"><a class="status-btn" keyValue1="4" keyValue2="${oneStudent.student_idx}" keyValue3="${plan_date}">◇</a></c:when>
 															<c:when test="${teachBookRepo[oneStudent.student_idx][plan_date] eq '5'}"><a class="status-btn" keyValue1="5" keyValue2="${oneStudent.student_idx}" keyValue3="${plan_date}">■</a></c:when>
-															
+
 															<c:otherwise><a class="status-btn" keyValue1="0" keyValue2="${oneStudent.student_idx}" keyValue3="${plan_date}">-</a></c:otherwise>
 														</c:choose>
 													</td>
@@ -427,7 +428,7 @@ $(function(){
 											</select>
 										</td>
 									</tr>
-								</c:forEach>	
+								</c:forEach>
 							</c:when>
 							<c:otherwise>
 								<tr>

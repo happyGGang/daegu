@@ -12,40 +12,40 @@ $(function(){
 		doGetLoad('/${homepage.context_path}/module/teach/detail.do', serializeCustom($('form#teach')));
 		e.preventDefault();
 	});
-	
+
 	$('a.add').on('click', function(e) {
 		var $this = $(this);
-		doGetLoad('/${homepage.context_path}/module/teach/student/edit.do', 
+		doGetLoad('/${homepage.context_path}/module/teach/student/edit.do',
 				'editMode=ADD&homepage_id='+$this.attr('keyValue1')+'&group_idx='+$this.attr('keyValue2')+'&category_idx='+$this.attr('keyValue3')
 				+'&teach_idx='+$this.attr('keyValue4')+'&large_category_idx='+$this.attr('keyValue5')+ '&apply_status='+ $this.attr('apply_status')+'&menu_idx='+$('input#menu_idx').val());
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('a.cancel').on('click', function(e) {
 		e.preventDefault();
-		
+
 		if (confirm("취소하시면 해당강의에 재신청이 불가합니다.\n프로그램 신청을 취소하시겠습니까?")) {
 			$('input#homepage_id').val($(this).attr('keyValue1'));
 			$('input#category_idx').val($(this).attr('keyValue2'));
 			$('input#teach_idx').val($(this).attr('keyValue3'));
 			$('input#editMode').val('CANCEL');
-			
+
 			doAjaxPost($('form#teach'));
 		}
 	});
-	
+
 	$('a.teachBook-btn').on('click', function(e) {
 		e.preventDefault();
 		var $this = $(this);
 		doGetLoad('/${homepage.context_path}/module/teachBook/index.do','menu_idx='+$('#menu_idx').val()+'&homepage_id='+$this.attr('keyValue1')+'&group_idx='+$this.attr('keyValue2')+'&category_idx='+$this.attr('keyValue3')+'&teach_idx='+$this.attr('keyValue4')+'&large_category_idx='+$this.attr('keyValue5'));
 	});
-	
+
 	$('select#category_idx').change(function() {
-		
+
 		doGetLoad('/${homepage.context_path}/module/teach/index.do','menu_idx='+$('#menu_idx').val()+'&group_idx='+$('#group_idx').val()+'&category_idx='+$('#category_idx').val()+'&large_category_idx='+$('#large_category_idx').val());
 	});
-	
+
 	$('div.tabmenu a').on('click', function(e) {
 		e.preventDefault();
 		var url = 'index.do';
@@ -121,21 +121,21 @@ $(function(){
 																	<c:when test="${j eq '7'}">토</c:when>
 																</c:choose>
 																<c:if test="${!status_j.last}">
-																	, 
+																	,
 																</c:if>
 															</c:forEach>
 														) ${i.start_time} ~ ${i.end_time}
 							</div></li>
 							<li><div><label>강사명</label> : ${i.teacher_name}</div></li>
 							<li><div>
-				        		<label>강의계획서</label> : 
+				        		<label>강의계획서</label> :
 					         	<span class="important td1">
-					         		<c:if test="${i.real_file_name ne null and i.real_file_name ne '' }">
-					         			<a style="color:#00f" href="download/${i.homepage_id}/${i.group_idx}/${i.category_idx}/${i.teach_idx}.do"><i class="fa fa-floppy-o"></i> ${i.plan_file_name}</a>
+					         		<c:if test="${i.server_file_name ne null and i.server_file_name ne '' }">
+					         			<a style="color:#00f" href="download/${i.homepage_id}/${i.group_idx}/${i.category_idx}/${i.teach_idx}.do"><i class="fa fa-floppy-o"></i> ${i.org_file_name}</a>
 					         		</c:if>
 				         		</span>
 					        </div></li>
-							
+
 							<%-- <li><div><label>강좌설명</label> : ${i.teach_desc}</div></li> --%>
 							<li><div class="status">
 								<label>모집인원</label> :
@@ -217,7 +217,7 @@ $(function(){
 									<a href="javascript:void(0);" class="btn btn3" style="cursor: default;">
 									<i class="fa fa-times-circle"></i><span>신청불가(취소)</span></a>
 								</c:when> --%>
-							</c:choose>						
+							</c:choose>
 						</c:otherwise>
 					</c:choose>
 				</div>

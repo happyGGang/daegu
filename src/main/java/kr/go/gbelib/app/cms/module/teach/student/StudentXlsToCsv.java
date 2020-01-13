@@ -1,7 +1,6 @@
 package kr.go.gbelib.app.cms.module.teach.student;
 
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import jxl.Workbook;
 import jxl.write.WritableWorkbook;
-import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.framework.utils.AttachmentUtils;
 import kr.co.whalesoft.framework.utils.HangulEnDecoder;
 import kr.go.gbelib.app.cms.module.teach.Teach;

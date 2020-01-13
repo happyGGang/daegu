@@ -6,45 +6,47 @@ import kr.co.whalesoft.framework.utils.PagingUtils;
 import kr.go.gbelib.app.cms.module.teach.Teach;
 
 public class TeachBook extends PagingUtils {
+
 	/** TEACH_BOOK_TIME **/
-	private int teach_book_time_idx;  //출석부시간IDX
-	private String homepage_id;  //홈페이지ID
+	private int teach_book_time_idx; // 출석부시간IDX
+	private String homepage_id; // 홈페이지ID
 	private int group_idx;
-	private int category_idx;  //카테고리IDX
-	private int large_category_idx;  //대분류IDX
-	private int teach_idx;  //강좌IDX
-	private String teach_date;  //강좌날짜
-	private String delete_yn;  //삭제여부
-	
+	private int category_idx; // 카테고리IDX
+	private int large_category_idx; // 대분류IDX
+	private int teach_idx; // 강좌IDX
+	private String teach_date; // 강좌날짜
+	private String delete_yn; // 삭제여부
+
 	/** TEACH_BOOK_DETAIL **/
-	private int student_idx;  //수강생IDX
-	private String status;  //출석상태  , 1=출석 , 2=지각, 3=결석, 0=데이터 없음
-	private Date confirm_date;  //출석확인일자
-	private Date add_date;  //등록일
-	private String add_id;  //등록ID
-	private Date mod_date;  //수정일
-	private String mod_id;  //수정ID
-	
+	private int student_idx; // 수강생IDX
+	private String status; // 출석상태 , 1=출석 , 2=지각, 3=결석, 0=데이터 없음
+	private Date confirm_date; // 출석확인일자
+	private Date add_date; // 등록일
+	private String add_id; // 등록ID
+	private Date modify_date; // 수정일
+	private String modify_id; // 수정ID
+
 	private String sel_date;
 
 	private String[] studentList;
 	private String student_name;
-	
+
 	private String[] pay1List;
 	private String[] pay2List;
 	private String[] pay3List;
-	private String pay1; //수강료
-	private String pay2; //교재비
-	private String pay3; //재료비
-	
+	private String pay1; // 수강료
+	private String pay2; // 교재비
+	private String pay3; // 재료비
+
 	private String pay_type;
 	private String pay_value;
 	private String pay1_yn;
 	private String pay2_yn;
 	private String pay3_yn;
-	
-	public TeachBook() {}
-	
+
+	public TeachBook() {
+	}
+
 	public TeachBook(String homepage_id, int group_idx, int category_idx, int teach_idx) {
 		this.homepage_id = homepage_id;
 		this.group_idx = group_idx;
@@ -59,8 +61,7 @@ public class TeachBook extends PagingUtils {
 		this.teach_idx = teach.getTeach_idx();
 		this.teach_date = date;
 	}
-	
-	
+
 	public int getTeach_book_time_idx() {
 		return teach_book_time_idx;
 	}
@@ -103,14 +104,6 @@ public class TeachBook extends PagingUtils {
 
 	public String getAdd_id() {
 		return add_id;
-	}
-
-	public Date getMod_date() {
-		return mod_date;
-	}
-
-	public String getMod_id() {
-		return mod_id;
 	}
 
 	public void setTeach_book_time_idx(int teach_book_time_idx) {
@@ -157,14 +150,6 @@ public class TeachBook extends PagingUtils {
 		this.add_id = add_id;
 	}
 
-	public void setMod_date(Date mod_date) {
-		this.mod_date = mod_date;
-	}
-
-	public void setMod_id(String mod_id) {
-		this.mod_id = mod_id;
-	}
-
 	public String getSel_date() {
 		return sel_date;
 	}
@@ -175,9 +160,9 @@ public class TeachBook extends PagingUtils {
 
 	public String[] getStudentList() {
 		String[] ret = null;
-		if(this.studentList != null) {
+		if (this.studentList != null) {
 			ret = new String[this.studentList.length];
-			for(int i=0; i<this.studentList.length; i++) {
+			for (int i = 0; i < this.studentList.length; i++) {
 				ret[i] = this.studentList[i];
 			}
 		}
@@ -190,7 +175,7 @@ public class TeachBook extends PagingUtils {
 
 	public void setStudentList(String[] studentList) {
 		this.studentList = new String[studentList.length];
-		for(int i=0; i<studentList.length; i++) {
+		for (int i = 0; i < studentList.length; i++) {
 			this.studentList[i] = studentList[i];
 		}
 	}
@@ -295,14 +280,28 @@ public class TeachBook extends PagingUtils {
 		this.pay_value = pay_value;
 	}
 
-	
 	public int getLarge_category_idx() {
 		return large_category_idx;
 	}
 
-	
 	public void setLarge_category_idx(int large_category_idx) {
 		this.large_category_idx = large_category_idx;
 	}
-	
+
+	public Date getModify_date() {
+		return modify_date;
+	}
+
+	public String getModify_id() {
+		return modify_id;
+	}
+
+	public void setModify_date(Date modify_date) {
+		this.modify_date = modify_date;
+	}
+
+	public void setModify_id(String modify_id) {
+		this.modify_id = modify_id;
+	}
+
 }

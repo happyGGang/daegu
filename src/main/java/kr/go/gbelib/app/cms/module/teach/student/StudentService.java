@@ -36,51 +36,51 @@ import kr.go.gbelib.app.common.api.PushAPI;
 
 @Service
 public class StudentService extends BaseService {
-	
-	@Autowired 
+
+	@Autowired
 	private TeachDao teachDao;
-	
+
 	@Autowired
 	private StudentDao dao;
-	
+
 	@Autowired
 	private HomepageService homepageService;
-	 
+
 	@Autowired
 	private TeachSettingService teachSettingService;
-	
+
 	@Autowired
 	private CodeService codeService;
-	
+
 	public List<Student> getStudentListAll(Student student) {
 		return dao.getStudentListAll(student);
 	}
-	
+
 	public List<Student> getStudentList(Student student) {
 		return dao.getStudentList(student);
 	}
-	
+
 	public int getStudentListCount(Student student) {
 		return dao.getStudentListCount(student);
 	}
-	
+
 	public Student getStudentOne(Student student) {
 		return dao.getStudentOne(student);
 	}
-	
+
 	@Transactional
 	public Object[] addStudent(Student student, String addType) {
 		Object[] addResult = new Object[3];
 		student.setApply_type(addType);
 		Teach teach = null;
 		teach = teachDao.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));
-		
+
 //		TeachSetting ts = new TeachSetting(student.getHomepage_id(), student.getMember_key());
 //		String reject = teachSettingService.checkTeachSetting(ts);
 		student.setUserNo(student.getMember_key());
 		String reject = teachSettingService.checkTeachSettingCategoryGroup(student);
 		if (StringUtils.isNotEmpty(reject)) {
-			
+
 			addResult[0] = false;
 			addResult[0] = false;
 			addResult[1] = reject;
@@ -92,7 +92,7 @@ public class StudentService extends BaseService {
 			addResult[1] = reject;
 			return addResult;
 		}
-		
+
 		if (StringUtils.equals(teach.getAgent_yn(), "N")) {
 			student.setStudent_name(student.getApplicant_name());
 			student.setStudent_birth(student.getApplicant_birth());
@@ -101,33 +101,33 @@ public class StudentService extends BaseService {
 			student.setStudent_address(student.getApplicant_address());
 			student.setSelf_info_yn("Y");
 		}
-		
+
 		if ( "Y".equals(teach.getFamily_yn()) ) {
 			if ( StringUtils.isEmpty(student.getFamily_relation()) ){
 				addResult[0] = false;
 				addResult[1] = "보호자 정보를 입력해주세요.";
 				return addResult;
 			}
-			
+
 			if ( StringUtils.isEmpty(student.getFamily_name()) ){
 				addResult[0] = false;
 				addResult[1] = "보호자 정보를 입력해주세요.";
 				return addResult;
 			}
-			
+
 			if ( !"Y".equals(student.getFamily_confirm_yn()) ){
 				addResult[0] = false;
 				addResult[1] = "해당 강좌는 보호자 승인을 받아야합니다.";
 				return addResult;
 			}
 		}
-		
+
 		if ( dao.checkStudent(student) > 0 ) {
 			addResult[0] = false;
 			addResult[1] = "이미 신청하신 강좌입니다.";
 			return addResult;
 		}
-		
+
 		if ( teach != null ) {
 			if ( "Y".equals(teach.getMember_yn()) ) {
 				if ( student.getApi_user_id().startsWith("*") ) {
@@ -136,7 +136,7 @@ public class StudentService extends BaseService {
 					return addResult;
 				}
 			}
-			
+
 			if ( teach.getTeach_join_limit_value() != null && teach.getTeach_join_limit_value() != null ) {
 				String[] limitUnit = teach.getTeach_join_limit_unit().split(",");
 				String[] limitValue = teach.getTeach_join_limit_value().split(",");
@@ -158,14 +158,14 @@ public class StudentService extends BaseService {
 							addResult[1] = String.format("해당강좌는 나이 %s 세 이상 %s 세 이하 만 신청 가능합니다.", limitValue[i], limitValue[i+1]);
 							return addResult;
 						}
-					}	
+					}
 				}
 			}
-			
+
 			if (StringUtils.equals(teach.getLimit_hak_yn(), "Y")) {
 				int fromHak = Integer.parseInt(teach.getLimit_hak());
 				int toHak = Integer.parseInt(teach.getLimit_hak2());
-				
+
 				if (fromHak > student.getStudent_hack() || toHak < student.getStudent_hack()) {
 					String formHakStr = codeService.getCodeOne("CMS", "C0020", teach.getLimit_hak()).getCode_name();
 					String toHakStr = codeService.getCodeOne("CMS", "C0020", teach.getLimit_hak2()).getCode_name();
@@ -174,26 +174,26 @@ public class StudentService extends BaseService {
 					return addResult;
 				}
 			}
-			
-			
+
+
 			int limitCount 			= teach.getTeach_limit_count(); // 제한인원
 			int curJoinCount 		= teach.getTeach_join_count(); // 현재 참여인원
 			int backupCount 		= teach.getTeach_backup_count(); // 후보인원
 			int curBackupJoinCount 	= teach.getTeach_backup_join_count(); //현재 후보인원
-			int offlineCount 		= teach.getTeach_offline_count(); // 오프라인 인원 
+			int offlineCount 		= teach.getTeach_offline_count(); // 오프라인 인원
 			int curOfflineJoinCount = teach.getTeach_off_join_count(); // 현재 오프라인 인원
-			
+
 			if ( addType.equals("CMS") ) {
 				if ( offlineCount == 0 ) {
 					addResult[0] = false;
-					addResult[1] = "해당 강좌는 오프라인 모집이 없습니다."; 
+					addResult[1] = "해당 강좌는 오프라인 모집이 없습니다.";
 					return addResult;
 				}
-				
+
 				if ( offlineCount > curOfflineJoinCount ) {
 					student.setApply_status("1"); // 참여 상태
 					int result = dao.addStudent(student);
-					
+
 					if ( result > 0 ) {
 						addResult[0] = true;
 						addResult[1] = String.format("%s번째 오프라인 참여자로 신청 되었습니다.", curOfflineJoinCount + 1);
@@ -204,7 +204,7 @@ public class StudentService extends BaseService {
 						addResult[1] = "신청 실패 하였습니다.";
 						return addResult;
 					}
-				}	
+				}
 				else {
 					addResult[0] = false;
 					addResult[1] = String.format("신청 실패 했습니다.\n오프라인 모집 인원 : %s, 오프라인 참여 인원 : %s입니다.", offlineCount, curOfflineJoinCount);
@@ -271,17 +271,17 @@ public class StudentService extends BaseService {
 			return addResult;
 		}
 	}
-	
+
 	@Transactional
 	public int modifyStudent(Student student) {
 		int result = 0;
 		String applyStatus = student.getApply_status();
 		result = dao.modifyStudent(student);
-		
+
 		if ( result > 0 ) {
-			if ( applyStatus.equals("99") ) { // 신청 상태 : 취소 
-				student.setCancel_id(student.getMod_id());
-				cancelStudent(student);	
+			if ( applyStatus.equals("99") ) { // 신청 상태 : 취소
+				student.setCancel_id(student.getModify_id());
+				cancelStudent(student);
 			}
 			else  if ( student.getApply_status().equals("1") ) {
 /*				Teach teach = teachDao.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));
@@ -289,10 +289,10 @@ public class StudentService extends BaseService {
 				PushAPI.sendMessage(student.getHomepage_id(), PushAPI.SMS_TYPE_SMS, student.getApplicant_cell_phone(), message);*/
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	@Transactional
 	public int cancelStudent(Student student) {
 		if (student.getStudent_idx() < 1) {
@@ -315,7 +315,7 @@ public class StudentService extends BaseService {
 				int limitCount 		= teach.getTeach_limit_count(); // 제한인원
 				int curJoinCount 	= teach.getTeach_join_count(); // 현재 참여인원
 				int backupJoinCount = teach.getTeach_backup_join_count();
-				
+
 				if ( limitCount > curJoinCount ) {
 					if ( backupJoinCount > 0 ) {
 						Student firstBackupStudent = dao.getFirstBackupMember(teach);
@@ -325,7 +325,7 @@ public class StudentService extends BaseService {
 								Homepage homepage = homepageService.getHomepageOne(new Homepage(firstBackupStudent.getHomepage_id()));
 								PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, firstBackupStudent.getApplicant_cell_phone(), String.format("[%s] 해당 강좌 신청이 완료 되었습니다.", teach.getTeach_name()), homepage.getHomepage_send_tell(), true);
 							}
-						}	
+						}
 					}
 				}
 			}
@@ -340,7 +340,7 @@ public class StudentService extends BaseService {
 			student.setStudent_idx(st.getStudent_idx());
 		}
 		int result = dao.deleteStudent(student);
-		
+
 		if ( result > 0 ) {
 			Teach teach = new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx());
 			teach = teachDao.getTeachOne(teach);
@@ -363,10 +363,10 @@ public class StudentService extends BaseService {
 		}
 		return result;
 	}
-	
+
 	public int batchCancelStudent(Student student) {
 		int result = 0;
-		
+
 		if(student.getStudent_idx_arr() != null) {
 			for(Integer student_idx: student.getStudent_idx_arr()) {
 				Student one = new Student();
@@ -376,17 +376,17 @@ public class StudentService extends BaseService {
 				one.setTeach_idx(student.getTeach_idx());
 				one.setStudent_idx(student_idx);
 				one.setCancel_id(one.getCancel_id());
-				
+
 				result += cancelStudent(one);
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	public int batchDeleteStudent(Student student) {
 		int result = 0;
-		
+
 		if(student.getStudent_idx_arr() != null) {
 			for(Integer student_idx: student.getStudent_idx_arr()) {
 				Student one = new Student();
@@ -395,25 +395,25 @@ public class StudentService extends BaseService {
 				one.setCategory_idx(student.getCategory_idx());
 				one.setTeach_idx(student.getTeach_idx());
 				one.setStudent_idx(student_idx);
-				
+
 				result += deleteStudent(one);
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	public Student getCertificateInfo(Student student) {
 		return dao.getCertificateInfo(student);
 	}
-	
+
 	public List<Student> getTeachCertificateList(Student student) {
 		return dao.getTeachCertificateList(student);
 	}
-	
+
 	public String checkStudent(Student student) {
 		Teach targetTeach = teachDao.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));
-		
+
 		//해당강좌 중복 체크
 		if ( dao.checkStudent(student) > 0 ) {
 			return "이미 신청하신 강좌입니다.";
@@ -422,55 +422,55 @@ public class StudentService extends BaseService {
 		if ( targetTeach.getTeach_same_limit_count() != 0 ) {
 			if ( dao.checkStudentSameTeach(student) >= targetTeach.getTeach_same_limit_count() ) {
 				return "동일 강좌 수강내역이 있습니다.";
-			}	
+			}
 		}
-		
-		//동시간 수강 제한 : 신정한 사람의 강의 내역 중 같은 요일, 같은 시간 겹치는지 체크. 
+
+		//동시간 수강 제한 : 신정한 사람의 강의 내역 중 같은 요일, 같은 시간 겹치는지 체크.
 		/*String[] parsePattern = {"yyyy-MM-dd"};
 		Calendar cal = Calendar.getInstance() ;
 		List<Teach> teachList = teachDao.getTeachListOfStudent(student);
 		for ( Teach one : teachList ) {
 			String[] teachDay = one.getTeach_day().split(","); // 1 = 일 , 2 = 월 ~
-			Map<Integer, Object> teachDayRepo = new HashMap<Integer, Object>(); // 강의 요일을 담아둔다 
+			Map<Integer, Object> teachDayRepo = new HashMap<Integer, Object>(); // 강의 요일을 담아둔다
 			for ( String oneDay : teachDay ) {
-				teachDayRepo.put(Integer.parseInt(oneDay), "");	
+				teachDayRepo.put(Integer.parseInt(oneDay), "");
 			}
-			
-			
+
+
 			Date StartDate = DateUtils.parseDate(one.getStart_date(), parsePattern);
 			cal.setTime(StartDate);
 			int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
-		    
+
 		}*/
-		
-		
-		return null; 
+
+
+		return null;
 	}
-	
+
 	public void writeExcelDataSample(OutputStream out ) throws RowsExceededException, WriteException, IOException {
-		
+
 		WritableWorkbook workbook = Workbook.createWorkbook( out );
 		WritableSheet sheet = workbook.createSheet( "수강생등록", 0 );
-		
+
 		// 헤더 스타일
 		WritableCellFormat format = new WritableCellFormat();
 		format.setAlignment( Alignment.CENTRE );
 		format.setBackground( Colour.LIGHT_GREEN );
 
 		//중앙정렬
-		WritableCellFormat format1 = new WritableCellFormat();		
+		WritableCellFormat format1 = new WritableCellFormat();
 		format1.setAlignment(Alignment.CENTRE);
 
 		//테두리선,중앙정렬
-		WritableCellFormat format2 = new WritableCellFormat();		
+		WritableCellFormat format2 = new WritableCellFormat();
 		format2.setBorder(Border.ALL,BorderLineStyle.MEDIUM);
-		
+
 		//중앙정렬,배경색,테두리 색
 		WritableCellFormat format3 = new WritableCellFormat();
 		format3.setAlignment( Alignment.CENTRE );
 		format3.setBackground( Colour.LIGHT_GREEN );
 		format3.setBorder(Border.ALL,BorderLineStyle.MEDIUM);
-		
+
 		// 컬럼 폭 지정
 		sheet.setColumnView( 0,  20 );
 		sheet.setColumnView( 1,  20 );
@@ -501,7 +501,7 @@ public class StudentService extends BaseService {
 		sheet.setColumnView( 26, 20 );
 		sheet.setColumnView( 27, 20 );
 		sheet.setColumnView( 28, 20 );
-		
+
 		// 헤더 컬럼 지정
 		sheet.addCell( new Label( 0,  0, "신청자 ID", format ) );
 		sheet.addCell( new Label( 1,  0, "신청자 명", format ) );
@@ -532,7 +532,7 @@ public class StudentService extends BaseService {
 		sheet.addCell( new Label( 26, 0, "기관", format ) );
 		sheet.addCell( new Label( 27, 0, "직급", format ) );
 		sheet.addCell( new Label( 28, 0, "연수수강여부 (Y,N)", format ) );
-		
+
 		sheet.addCell( new Label( 0,  1, "ID") );
 		sheet.addCell( new Label( 1,  1, "홍길동") );
 		sheet.addCell( new Label( 2,  1, "19990101") );
@@ -566,47 +566,47 @@ public class StudentService extends BaseService {
 		sheet.addCell( new Label( 26, 1, "") );
 		sheet.addCell( new Label( 27, 1, "") );
 		sheet.addCell( new Label( 28, 1, "Y 또는 N") );
-		
-		
+
+
 		List<Code> locationCode = codeService.getCode("CMS", "C0022");
 		sheet.addCell( new Label( 23, 3, "코드 - 코드명") );
 		for ( int i = 0; i < locationCode.size(); i++ ) {
-			sheet.addCell( new Label( 22, i+4, locationCode.get(i).getCode_id() + " - " + locationCode.get(i).getCode_name()) );	
+			sheet.addCell( new Label( 22, i+4, locationCode.get(i).getCode_id() + " - " + locationCode.get(i).getCode_name()) );
 		}
-		
+
 		List<Code> hakCode = codeService.getCode("CMS", "C0020");
 		sheet.addCell( new Label( 15, 3, "코드-코드명") );
 		for ( int i = 0; i < hakCode.size(); i++ ) {
-			sheet.addCell( new Label( 15, i+4, hakCode.get(i).getCode_id() + " - " + hakCode.get(i).getCode_name()) );	
+			sheet.addCell( new Label( 15, i+4, hakCode.get(i).getCode_id() + " - " + hakCode.get(i).getCode_name()) );
 		}
-		
-		
+
+
 		workbook.write();
 		workbook.close();
 	}
-	
+
 	public List<Student> excelUpload(Student teachStaff, XlsUpload excel) throws Exception {
-		Workbook workbook = Workbook.getWorkbook( excel.getFile().getInputStream() ); 
+		Workbook workbook = Workbook.getWorkbook( excel.getFile().getInputStream() );
 		Sheet sheet = workbook.getSheet( 0 );
-		
+
 		int rowCount = sheet.getRows();
 		List<Student> students = new ArrayList<Student>();
-		
+
 		for ( int i = excel.getStartRow(); i < rowCount; i++ ) {
 			Student auth = getAuthenticationFromExcel( sheet, excel, i ,teachStaff);
 			if(auth == null) return null;
 			students.add( auth );
 		}
-		
+
 		workbook.close();
-		
+
 		return students;
 	}
-	
+
 	private Student getAuthenticationFromExcel( Sheet sheet, XlsUpload excel, int row ,Student student) {
-		
+
 		Student oneStudent = new Student();
-		
+
 		Cell member_id				= sheet.getCell( excel.getMember_id(), row );
 		Cell applicant_name			= sheet.getCell( excel.getApplicant_name(), row );
 		Cell applicant_birth		= sheet.getCell( excel.getApplicant_birth(), row );
@@ -636,7 +636,7 @@ public class StudentService extends BaseService {
 		Cell student_organization		= sheet.getCell( excel.getStudent_organization(), row );
 		Cell student_rank				= sheet.getCell( excel.getStudent_rank(), row );
 		Cell student_course_taken_yn	= sheet.getCell( excel.getStudent_course_taken_yn(), row );
-		
+
 		try {
 			if(member_id != null) oneStudent.setMember_id(member_id.getContents().trim());
 			if(applicant_name != null) oneStudent.setApplicant_name(applicant_name.getContents().trim());
@@ -688,7 +688,7 @@ public class StudentService extends BaseService {
 					if(student_address != null) oneStudent.setStudent_address(student_address.getContents().trim());
 				}
 			}
-			
+
 			if(student_old != null) oneStudent.setStudent_old(Integer.parseInt(student_old.getContents()));
 			if(student_school != null) oneStudent.setStudent_school(student_school.getContents());
 			if(student_hack != null) oneStudent.setStudent_hack(Integer.parseInt(student_hack.getContents()));
@@ -704,7 +704,7 @@ public class StudentService extends BaseService {
 				else {
 					yn = "N";
 				}
-				
+
 				oneStudent.setFamily_confirm_yn(yn);
 			}
 			if(family_desc != null) oneStudent.setFamily_desc(family_desc.getContents());
@@ -715,17 +715,17 @@ public class StudentService extends BaseService {
 			if(student_organization != null) oneStudent.setStudent_organization(student_organization.getContents());
 			if(student_rank != null) oneStudent.setStudent_rank(student_rank.getContents());
 			if(student_course_taken_yn != null) oneStudent.setStudent_course_taken_yn(student_course_taken_yn.getContents());
-			
+
 		}
 		catch ( Exception e ) {
 			e.printStackTrace();
 		}
-		
+
 		oneStudent.setAdd_id(student.getAdd_id());
-		
+
 		return oneStudent;
 	}
-	
+
 	public String checkValidation(Student student) {
 		SimpleDateFormat sfDate = new SimpleDateFormat("yyyy-MM-dd");
 		sfDate.setLenient(false);
@@ -735,20 +735,20 @@ public class StudentService extends BaseService {
 		} catch (ParseException e) {
 			return "생년월일 형식이 맞지 않습니다. YYYYMMDD 형식으로 입력해주세요.";
 		}
-		
+
 		if ( student.getStudent_old() == 0 ) {
 			return "나이는 0일수 없습니다.";
 		}
-		
+
 		String checkResult = checkStudent(student);
-		
+
 		if ( checkResult != null ) {
 			return checkResult;
 		}
-		
+
 		return null;
 	}
-	
+
 	public List<Student> getCertificateListByDate(Student student) {
 		return dao.getCertificateListByDate(student);
 	}
@@ -765,7 +765,7 @@ public class StudentService extends BaseService {
 	public int checkStudentSetting(TeachSetting ts) {
 		return dao.checkStudentSetting(ts);
 	}
-	
+
 	/**
 	 * 기간내 신청(취소제외) 횟수 - 소분류
 	 * @param student
@@ -774,7 +774,7 @@ public class StudentService extends BaseService {
 	public int checkStudentSetting2(Student student) {
 		return dao.checkStudentSetting2(student);
 	}
-	
+
 	/**
 	 * 기간내 신청(취소제외) 횟수 - 중분류
 	 * @param student
@@ -783,5 +783,5 @@ public class StudentService extends BaseService {
 	public int checkStudentSetting3(Student student) {
 		return dao.checkStudentSetting3(student);
 	}
-	
+
 }

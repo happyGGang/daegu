@@ -46,33 +46,33 @@ public class TeachBookController extends BaseController {
 
 	@Autowired
 	private TeachService teachService;
-	
+
 	@Autowired
 	private StudentService studentService;
-	
+
 	@Autowired
 	private TeachBookService teachBookService;
-	
+
 	@Autowired
 	private CalendarManageService calendarManageService;
-	
+
 	@Autowired
 	private CategoryService categoryService;
-	
+
 	@Autowired
 	private CategoryGroupService categoryGroupService;
-	
+
 	@Autowired
 	private CodeService codeService;
-	
+
 	@Autowired
 	private TeachCode2Service teachCode2Service;
-	
-	@RequestMapping(value = {"/index.*"}) 
+
+	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, TeachBook teachBook, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 //		if ( !getSessionIsAdmin(request) ) {
-			teachBook.setHomepage_id(getAsideHomepageId(request));	
+			teachBook.setHomepage_id(getAsideHomepageId(request));
 //		}
 
 		model.addAttribute("teachBook", teachBook);
@@ -81,16 +81,16 @@ public class TeachBookController extends BaseController {
 		model.addAttribute("teachList", teachService.getTeachListAll(teach));
 		model.addAttribute("categoryGroupList", categoryGroupService.getCategoryGroupListAll(new CategoryGroup(teachBook.getHomepage_id(), teachBook.getLarge_category_idx())));
 		model.addAttribute("categoryList", categoryService.getCategoryListAll(new Category(teachBook.getHomepage_id(), teachBook.getLarge_category_idx())));
-		
+
 		//강좌대분류
 		TeachCode2 teachCode2 = new TeachCode2(1);
 		teachCode2.setTeach_code(15);
 		model.addAttribute("teachLargeCategoryList", teachCode2Service.getSubcategories(teachCode2));
-		
+
 		return basePath + "index";
 	}
-	
-	@RequestMapping(value = {"/teachBook.*"}) 
+
+	@RequestMapping(value = {"/teachBook.*"})
 	public String teachBook(Model model, TeachBook teachBook, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 		Teach teachOne = teachService.getTeachOne(new Teach(teachBook.getHomepage_id(), teachBook.getGroup_idx(), teachBook.getCategory_idx(), teachBook.getTeach_idx()));
@@ -109,10 +109,10 @@ public class TeachBookController extends BaseController {
 		model.addAttribute("calendar", calendarManageService.getCalendar(new CalendarManage(teachBook.getSel_date())));
 		model.addAttribute("teachBook", teachBook);
 		model.addAttribute("teachBookRepo", makeTeachBook(studentList, teachBookList));
-		
+
 		return basePath + "teachBook_ajax";
 	}
-	
+
 	@RequestMapping(value = { "/save.*" }, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(TeachBook teachBook, BindingResult result, HttpServletRequest request) throws ParseException {
 
@@ -121,10 +121,10 @@ public class TeachBookController extends BaseController {
 		/* <<<<< 유효성 검증 */
 		String[] patternDate = {"yyyy-MM-dd"};
 		Date now = new Date();
-		
+
 		if (!result.hasErrors()) {
 			teachBook.setAdd_id(getSessionMemberId(request));
-			teachBook.setMod_id(getSessionMemberId(request));
+			teachBook.setModify_id(getSessionMemberId(request));
 			if ( teachBook.getEditMode().equals("ONESAVE") ) {
 				if ( now.before(DateUtils.parseDate(teachBook.getTeach_date(), patternDate)) ) {
 					res.setValid(false);
@@ -133,15 +133,15 @@ public class TeachBookController extends BaseController {
 				}
 				if ( teachBookService.checkTeachBookStudentByDate(teachBook) > 0 ) {
 					if ( teachBook.getStatus().equals("0") ) {
-						teachBookService.deleteTeachBook(teachBook); 
+						teachBookService.deleteTeachBook(teachBook);
 					}
 					else {
-						teachBookService.modifyTeachBook(teachBook);	
+						teachBookService.modifyTeachBook(teachBook);
 					}
 				}
 				else {
 					if ( !teachBook.getStatus().equals("0") ) {
-						teachBookService.addTeachBook(teachBook);	
+						teachBookService.addTeachBook(teachBook);
 					}
 				}
 			}
@@ -151,9 +151,9 @@ public class TeachBookController extends BaseController {
 					res.setMessage(String.format("해당 일자는 %s일 이후 출석체크 불가능 합니다.", teachBook.getTeach_date()));
 					return res;
 				}
-				
+
 				List<Student> studentList = studentService.getStudentListAll(new Student(teachBook.getHomepage_id(), teachBook.getGroup_idx(), teachBook.getCategory_idx(), teachBook.getTeach_idx(), "1"));
-				
+
 				for ( Student oneStudent : studentList ) {
 					teachBook.setStudent_idx(oneStudent.getStudent_idx());
 					teachBook.setStatus("1");
@@ -165,20 +165,20 @@ public class TeachBookController extends BaseController {
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(DateUtils.parseDate(teachBook.getSel_date(), pattern));
 				int lastDay = cal.getActualMaximum(Calendar.DATE);
-				
-				for ( int i = 1; i <= lastDay; i ++ ) { 
+
+				for ( int i = 1; i <= lastDay; i ++ ) {
 					String teachDate = i < 10 ? teachBook.getSel_date() + "-0" + i : teachBook.getSel_date() + "-" + i;
 					if ( DateUtils.parseDate(teachDate, patternDate).before(now) ) {
 						teachBook.setTeach_date(teachDate);
 						teachBook.setStatus("1");
-						teachBookService.mergeTeachBook(teachBook);	
+						teachBookService.mergeTeachBook(teachBook);
 					}
 				}
 			}
 			else if ( teachBook.getEditMode().equals("PAYSAVE") ) {
 				teachBookService.modifyStudentPay(teachBook);
 			}
-			
+
 			res.setValid(true);
 		} else {
 			res.setValid(false);
@@ -187,15 +187,15 @@ public class TeachBookController extends BaseController {
 
 		return res;
 	}
-	
+
 	@RequestMapping(value = { "/view.*" }, method = RequestMethod.GET)
 	public String view(Model model, TeachBook teachBook, HttpServletRequest request) {
 		model.addAttribute("teachBook", teachBook);
 		model.addAttribute("teachBookInfo", teachBookService.getTeachBookViewInfo(teachBook));
-		
+
 		return basePath + "view_ajax";
 	}
-	
+
 	@RequestMapping(value = { "/excelDownload.*" }, method = RequestMethod.GET)
 	public TeachBookSearchView excel(Model model, TeachBook teachBook, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Teach teachOne = teachService.getTeachOne(new Teach(teachBook.getHomepage_id(), teachBook.getGroup_idx(), teachBook.getCategory_idx(), teachBook.getTeach_idx()));
@@ -216,7 +216,7 @@ public class TeachBookController extends BaseController {
 		model.addAttribute("teachBookRepo", makeTeachBook(studentList, teachBookList));
 		return new TeachBookSearchView();
 	}
-	
+
 	@RequestMapping(value = {"/csvDownload.*"}, method = RequestMethod.GET)
 	public void csv(Model model, TeachBook teachBook, HttpServletRequest request, HttpServletResponse response) {
 		Teach teachOne = teachService.getTeachOne(new Teach(teachBook.getHomepage_id(), teachBook.getGroup_idx(), teachBook.getCategory_idx(), teachBook.getTeach_idx()));
@@ -235,27 +235,27 @@ public class TeachBookController extends BaseController {
 
 		new TeachBookXlsToCsv(studentList, codeList, teachOne, calendar, teachBook, teachBookRepo, "TeachBook.csv", request, response);
 	}
-	
+
 	private Map<Integer, Map<String, String>> makeTeachBook(List<Student> studentList, List<TeachBook> teachBookList) {
 		Map<Integer, Map<String, String>> teachBookStatusRepo = new HashMap<Integer, Map<String, String>>();
-		
+
 		// 학생별 Map<String,String> 만든다.
 		for ( TeachBook oneTeachBook : teachBookList ) {
 			int studentIdx = oneTeachBook.getStudent_idx();
 			String teachDate = oneTeachBook.getTeach_date();
 			Map<String, String> teachBookByStudent = null;
-			
+
 			if ( teachBookStatusRepo.containsKey(studentIdx) ) {
 				teachBookByStudent = teachBookStatusRepo.get(studentIdx);
 			}
 			else {
 				teachBookByStudent = new HashMap<String, String>();
 			}
-			
+
 			teachBookByStudent.put(teachDate, oneTeachBook.getStatus());
 			teachBookStatusRepo.put(studentIdx, teachBookByStudent);
 		}
-		
+
 		return teachBookStatusRepo;
 	}
 }

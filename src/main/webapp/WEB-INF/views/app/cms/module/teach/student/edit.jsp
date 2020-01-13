@@ -158,34 +158,42 @@ $(function() {
 	$('a.idCheck').on('click', function(e) {
 		$('#studentForm #member_key').val('');
 		$('#studentForm #applicant_name').val('');
-		$.get('checkId.do?homepage_id=' + $('#studentForm #homepage_id').val() + '&member_id='+ $('#studentForm #member_id').val() + '&search_api_type=' + $('[name="search_api_type"]:checked').val(), function(response) {
-			if ( response.resultMsg != null ) {
-				alert(response.resultMsg);
-			}
-			else {
-				$('#studentForm #member_key').val(response.memberInfo.SEQ_NO);
-				$('#studentForm #applicant_name').val(response.memberInfo.USER_NAME);
-				$('#studentForm #api_user_id').val(response.memberInfo.USER_ID);
-				var birthd = response.memberInfo.BIRTHD;
-				var birthd1 = birthd.substring(0,4);
-				var birthd2 = birthd.substring(4,6);
-				var birthd3 = birthd.substring(6);
-				$('#studentForm #applicant_birth').val(birthd1+'-'+birthd2+'-'+birthd3);
-				$('#studentForm #applicant_address').val(response.memberInfo.ADDRS);
-				$('#studentForm #applicant_zipcode').val(response.memberInfo.ZIP_CODE);
-				if (response.memberInfo.SEX == '0001') {
+		$.get('checkId.do?homepage_id=' + $('#studentForm #homepage_id').val() + '&member_id='+ $('#studentForm #member_id').val(), function(response) {
+			if( response.data.length > 0){
+
+
+				$('#studentForm #member_key').val(response.data[0]["REC_KEY"]);
+				$('#studentForm #applicant_name').val(response.data[0]["NAME"]);
+				$('#studentForm #api_user_id').val(response.data[0]["USER_ID"]);
+
+				$('#teacherForm #member_key').val(response.data[0]["REC_KEY"]);
+				$('#teacherForm #teacher_name').val(response.data[0]["NAME"]);
+
+				if(response.data[0]["BIRTHDAY"] != null){
+					var birthday = response.data[0]["BIRTHDAY"].split("\/");
+					$('#studentForm #applicant_birth').val(birthday[0]+'-'+birthday[1]+'-'+birthday[2]);
+				}
+
+				$('#studentForm #applicant_address').val(response.data[0]["H_ADDR1"]);
+				$('#studentForm #applicant_zipcode').val(response.data[0]["H_ZIPCODE"]);
+
+				if (response.data[0]["HANDPHONE"] == '0') {
 					$('input#as1').prop('checked', true);
 				} else {
 					$('input#as2').prop('checked', true);
 				}
-				var mobile = response.memberInfo.MOBILE_NO;
-				var mobile1 = mobile.substring(0,3);
-				var mobile2 = mobile.substring(3,7);
-				var mobile3 = mobile.substring(7);
-				$('#studentForm #applicant_cell_phone_1').val(mobile1);
-				$('#studentForm #applicant_cell_phone_2').val(mobile2);
-				$('#studentForm #applicant_cell_phone_3').val(mobile3);
+
+				if(response.data[0]["HANDPHONE"] != null){
+					var phone = response.data[0]["HANDPHONE"].split("\-");
+					$('#studentForm #applicant_cell_phone_1').val(phone[0]);
+					$('#studentForm #applicant_cell_phone_2').val(phone[1]);
+					$('#studentForm #applicant_cell_phone_3').val(phone[2]);
+				}
+
+			} else {
+				alert('검색한 사용자 없습니다.');
 			}
+
 		});
 		e.preventDefault();
 	});
@@ -249,7 +257,7 @@ $(function() {
 	         	<td>
 	         		<c:choose>
 	         			<c:when test="${student.editMode eq 'ADD' }">
-	         				<form:input path="member_id" class="text" /> <form:radiobutton path="search_api_type" value="WEBID" label="웹ID"/> <form:radiobutton path="search_api_type" value="USERID" label="대출번호"/> <a class="btn btn1 idCheck">ID 확인</a>
+	         				<form:input path="member_id" class="text" /> <a class="btn btn1 idCheck">ID 확인</a>
 	         			</c:when>
 	         			<c:otherwise>
 	         				${empty student.web_id ? student.member_id : student.web_id}

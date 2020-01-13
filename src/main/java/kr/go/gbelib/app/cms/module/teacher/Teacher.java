@@ -21,19 +21,19 @@ public class Teacher extends PagingUtils {
 	private String teacher_zipcode;
 	private String teacher_address; // 주소
 	private String teacher_history; // 이력
-	private String teacher_history_manage;//학과 경력
-	private String teacher_history_manage2;//자격증
+	private String teacher_history_manage;// 학과 경력
+	private String teacher_history_manage2;// 자격증
 	private String self_info_yn;
-	private String confirm_yn; //승인여부
+	private String confirm_yn; // 승인여부
 	private String add_date; // 등록일
-	private String add_id; //등록자
-	private String mod_date; //수정일
-	private String mod_id; //수정자
+	private String add_id; // 등록자
+	private String modify_date; // 수정일
+	private String modify_id; // 수정자
 	private String delete_yn; // 삭제여부
 
 	private String search_api_type = "WEBID";
 
-	//경력증명서 기능에 사용
+	// 경력증명서 기능에 사용
 	private long cert_seq_num;
 
 	private String group_name;
@@ -57,7 +57,9 @@ public class Teacher extends PagingUtils {
 
 	private String terms_yn = "Y";
 	private Date agree_date;
-	public Teacher() { }
+
+	public Teacher() {
+	}
 
 	public Teacher(String homepage_id, int teacher_idx) {
 		setHomepage_id(homepage_id);
@@ -176,22 +178,6 @@ public class Teacher extends PagingUtils {
 		this.add_id = add_id;
 	}
 
-	public String getMod_date() {
-		return mod_date;
-	}
-
-	public void setMod_date(String mod_date) {
-		this.mod_date = mod_date;
-	}
-
-	public String getMod_id() {
-		return mod_id;
-	}
-
-	public void setMod_id(String mod_id) {
-		this.mod_id = mod_id;
-	}
-
 	public String getTeacher_id() {
 		return teacher_id;
 	}
@@ -298,16 +284,7 @@ public class Teacher extends PagingUtils {
 
 	@Override
 	public String toString() {
-		return "Teacher [teacher_idx=" + teacher_idx + ", teacher_id=" + teacher_id + ", member_key=" + member_key
-				+ ", teacher_name=" + teacher_name + ", teacher_subject_name=" + teacher_subject_name + ", stage="
-				+ stage + ", teacher_birth=" + teacher_birth + ", teacher_sex=" + teacher_sex + ", teacher_phone="
-				+ teacher_phone + ", teacher_cell_phone=" + teacher_cell_phone + ", teacher_nationality="
-				+ teacher_nationality + ", teacher_zipcode=" + teacher_zipcode + ", teacher_address=" + teacher_address
-				+ ", teacher_history=" + teacher_history + ", self_info_yn=" + self_info_yn + ", confirm_yn="
-				+ confirm_yn + ", add_date=" + add_date + ", add_id=" + add_id + ", mod_date=" + mod_date + ", mod_id="
-				+ mod_id + ", delete_yn=" + delete_yn + ", search_api_type=" + search_api_type + ", teach_name="
-				+ teach_name + ", start_date=" + start_date + ", end_date=" + end_date + ", start_time=" + start_time
-				+ ", end_time=" + end_time + ", teach_count=" + teach_count + ", total_time=" + total_time + "]";
+		return "Teacher [teacher_idx=" + teacher_idx + ", teacher_id=" + teacher_id + ", member_key=" + member_key + ", teacher_name=" + teacher_name + ", teacher_subject_name=" + teacher_subject_name + ", stage=" + stage + ", teacher_birth=" + teacher_birth + ", teacher_sex=" + teacher_sex + ", teacher_phone=" + teacher_phone + ", teacher_cell_phone=" + teacher_cell_phone + ", teacher_nationality=" + teacher_nationality + ", teacher_zipcode=" + teacher_zipcode + ", teacher_address=" + teacher_address + ", teacher_history=" + teacher_history + ", self_info_yn=" + self_info_yn + ", confirm_yn=" + confirm_yn + ", add_date=" + add_date + ", add_id=" + add_id + ", modify_date=" + modify_date + ", modify_id=" + modify_id + ", delete_yn=" + delete_yn + ", search_api_type=" + search_api_type + ", teach_name=" + teach_name + ", start_date=" + start_date + ", end_date=" + end_date + ", start_time=" + start_time + ", end_time=" + end_time + ", teach_count=" + teach_count + ", total_time=" + total_time + "]";
 	}
 
 	public long getCert_seq_num() {
@@ -414,25 +391,36 @@ public class Teacher extends PagingUtils {
 		this.file_size = file_size;
 	}
 
+	public String getModify_date() {
+		return modify_date;
+	}
+
+	public String getModify_id() {
+		return modify_id;
+	}
+
+	public void setModify_date(String modify_date) {
+		this.modify_date = modify_date;
+	}
+
+	public void setModify_id(String modify_id) {
+		this.modify_id = modify_id;
+	}
 
 	public String getTerms_yn() {
 		return terms_yn;
 	}
 
-
 	public void setTerms_yn(String terms_yn) {
 		this.terms_yn = terms_yn;
 	}
-
 
 	public Date getAgree_date() {
 		return agree_date;
 	}
 
-
 	public void setAgree_date(Date agree_date) {
 		this.agree_date = agree_date;
 	}
-
 
 }

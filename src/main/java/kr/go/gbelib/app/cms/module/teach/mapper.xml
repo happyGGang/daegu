@@ -211,13 +211,13 @@
 			start_join_time, end_join_date, end_join_time, teach_day, start_date, START_TIME,
 			CANCLE_use_yn, START_CANCLE_DATE, END_CANCLE_DATE, START_CANCLE_TIME, END_CANCLE_TIME, CANCLE_GUID,
 			end_date, END_TIME, print_seq, TEACH_COUNT,
-			<if test="real_file_name != null and real_file_name != '' ">
+			<if test="server_file_name != null and server_file_name != '' ">
 			org_file_name,
 			server_file_name,
 			file_extension,
 			file_size,
 			</if>
-			<if test="image_real_file_name != null and image_real_file_name != '' ">
+			<if test="image_server_file_name != null and image_server_file_name != '' ">
 			IMAGE_org_file_name,
 			image_server_file_name,
 			IMAGE_file_extension,
@@ -233,15 +233,15 @@
 			#{start_join_time}, #{end_join_date}, #{end_join_time}, #{teach_day}, #{start_date}, #{start_time},
 			#{cancle_use_yn}, #{start_cancle_date}, #{end_cancle_date}, #{start_cancle_time}, #{end_cancle_time}, #{cancle_guid},
 			#{end_date}, #{end_time}, #{print_seq}, #{teach_count},
-			<if test="real_file_name != null and real_file_name != '' ">
-			#{plan_file_name},
-			#{real_file_name},
+			<if test="server_file_name != null and server_file_name != '' ">
+			#{org_file_name},
+			#{server_file_name},
 			#{file_extension},
 			#{file_size},
 			</if>
-			<if test="image_real_file_name != null and image_real_file_name != '' ">
-			#{image_plan_file_name},
-			#{image_real_file_name},
+			<if test="image_server_file_name != null and image_server_file_name != '' ">
+			#{image_org_file_name},
+			#{image_server_file_name},
 			#{image_file_extension},
 			#{image_file_size},
 			</if>
@@ -320,15 +320,15 @@
 			teach_join_limit_unit = #{teach_join_limit_unit},
 			teach_join_limit_value = #{teach_join_limit_value},
 
-			<if test="real_file_name != null and real_file_name != '' ">
-			plan_file_name 		= #{plan_file_name},
-			real_file_name 		= #{real_file_name},
+			<if test="server_file_name != null and server_file_name != '' ">
+			org_file_name 		= #{org_file_name},
+			server_file_name 		= #{server_file_name},
 			file_extension 		= #{file_extension},
 			file_size	 		= #{file_size},
 			</if>
-			<if test="image_real_file_name != null and image_real_file_name != '' ">
-			image_plan_file_name 		= #{image_plan_file_name},
-			image_real_file_name 		= #{image_real_file_name},
+			<if test="image_server_file_name != null and image_server_file_name != '' ">
+			image_org_file_name 		= #{image_org_file_name},
+			image_server_file_name 		= #{image_server_file_name},
 			image_file_extension 		= #{image_file_extension},
 			image_file_size	 		= #{image_file_size},
 			</if>
@@ -349,8 +349,8 @@
 			use_yn 				= #{use_yn},
 			certificate_yn		= #{certificate_yn},
 			survey_idx			= #{survey_idx},
-			mod_id				= #{mod_id},
-			mod_date			= SYSDATE,
+			modify_id				= #{modify_id},
+			modify_date			= SYSDATE,
 			program_classification1 = #{program_classification1},
 			program_classification2 = #{program_classification2},
 			program_classification3 = #{program_classification3},
@@ -1164,8 +1164,8 @@
 		UPDATE
 			TEACH
 		SET
-			image_real_file_name = '',
-			image_plan_file_name = '',
+			image_server_file_name = '',
+			image_org_file_name = '',
 			image_file_extension = '',
 			image_file_size = ''
 		WHERE

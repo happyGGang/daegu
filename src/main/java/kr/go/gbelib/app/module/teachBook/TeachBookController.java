@@ -122,7 +122,7 @@ public class TeachBookController extends BaseController {
 
 		if (!result.hasErrors()) {
 			teachBook.setAdd_id(getSessionMemberId(request));
-			teachBook.setMod_id(getSessionMemberId(request));
+			teachBook.setModify_id(getSessionMemberId(request));
 			if ( teachBook.getEditMode().equals("ONESAVE") ) {
 				if ( now.before(DateUtils.parseDate(teachBook.getTeach_date(), patternDate)) ) {
 					res.setValid(false);

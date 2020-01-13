@@ -27,39 +27,39 @@ public class TeachCode2Controller extends BaseController {
 
 	@Autowired
 	private TeachCode2Service service;
-	
+
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, TeachCode2 category, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
-		category.setHomepage_id(getAsideHomepageId(request));	
-		
+		category.setHomepage_id(getAsideHomepageId(request));
+
 		int count = service.getCategoryListCnt(category);
 		model.addAttribute("category", category);
 		model.addAttribute("categoryListCount", count);
 		model.addAttribute("categoryList", service.getCategoryList(category));
-		
+
 		return basePath + "index";
 	}
-	
+
 	@RequestMapping(value = {"/getSubcategories.*"}, method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> getSubcategories(Model model, TeachCode2 category, BindingResult result, HttpServletRequest request) {
 		List<TeachCode2> subcategories = service.getSubcategories(category);
-		
+
 		return makeMap(subcategories);
 	}
-	
+
 	private Map<String, Object> makeMap(Object object) {
 		Map<String, Object> data = new HashMap<String, Object>();
-		
+
 		if(object == null) {
 			data.put("data", new ArrayList<Code>());
 		} else {
 			data.put("data", object);
 		}
-		
+
 		return data;
 	}
-	
+
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Model model, TeachCode2 category, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
@@ -81,7 +81,7 @@ public class TeachCode2Controller extends BaseController {
 						res.setData(category);
 					}
 				} else if(editMode.equals("MODIFY")) {
-					category.setMod_id(getSessionMemberId(request));
+					category.setModify_id(getSessionMemberId(request));
 					if(service.nameDupCheck(category) > 0) {
 						res.setValid(false);
 						res.setMessage("분류명이 중복됩니다.");
@@ -111,22 +111,22 @@ public class TeachCode2Controller extends BaseController {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
 		}
-		
+
 		return res;
 	}
-	
+
 	@RequestMapping(value = {"/saveList.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse saveList(Model model, @RequestBody TeachCode2[] cateList, HttpServletRequest request) {
-		
+
 		JsonResponse res = new JsonResponse(request);
-		
+
 //		if ( Integer.parseInt(getSessionMemberInfo(request).getAuth_id()) <= 200 ) {
 			if(cateList == null || cateList.length == 0) {
 				res.setValid(false);
 				res.setMessage("저장할 분류가 없습니다.");
 			} else {
 				for(TeachCode2 cate: cateList) {
-					cate.setMod_id(getSessionMemberId(request));
+					cate.setModify_id(getSessionMemberId(request));
 				}
 				service.saveCategoryList(cateList);
 				res.setValid(true);
@@ -136,7 +136,7 @@ public class TeachCode2Controller extends BaseController {
 //			res.setValid(false);
 //			res.setMessage("권한이 없습니다.");
 //		}
-		
+
 		return res;
 	}
 }

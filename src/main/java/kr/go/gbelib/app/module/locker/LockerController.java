@@ -239,12 +239,12 @@ public class LockerController extends BaseController {
 		if(!result.hasErrors()) {
 			lockerReq.setHomepage_id(homepage.getHomepage_id());
 			lockerReq.setMember_key(getSessionUserSeqNo(request));
-			if(lockerReqService.getBlackListCheck(lockerReq) > 0) {
-				res.setValid(false);
-				res.setMessage("신청이 불가능 합니다.\n관리자에게 문의바랍니다..");
-			} else {
+//			if(lockerReqService.getBlackListCheck(lockerReq) > 0) {
+//				res.setValid(false);
+//				res.setMessage("신청이 불가능 합니다.\n관리자에게 문의바랍니다..");
+//			} else {
 				res.setValid(true);
-			}
+//			}
 		} else {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());

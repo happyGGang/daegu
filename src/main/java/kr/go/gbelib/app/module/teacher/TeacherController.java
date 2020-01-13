@@ -129,7 +129,7 @@ public class TeacherController extends BaseController {
 					res.setMessage("등록 되었습니다.");
 				}
 				else if(teacher.getEditMode().equals("MODIFY")) {
-					teacher.setMod_id(getSessionMemberId(request));
+					teacher.setModify_id(getSessionMemberId(request));
 					service.modifyTeacher(teacher);
 					res.setValid(true);
 					res.setMessage("수정 되었습니다.");

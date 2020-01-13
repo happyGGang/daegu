@@ -13,7 +13,7 @@ $(document).ready(function() {
 	edit_cate_dialog = $('div#edit_cate').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
 		resizable: false,
-		modal: true, 
+		modal: true,
 	    open: function(){
 	        $('.ui-widget-overlay').addClass('custom-overlay');
 	    },
@@ -21,7 +21,7 @@ $(document).ready(function() {
 	        $('.ui-widget-overlay').removeClass('custom-overlay');
 	    }
 	});
-	
+
 	$('select#cate1').on('change', function(e) {
 		var teach_code = $('select#cate1').val();
 		$.get('getSubcategories.do?teach_code=' + teach_code, function(data) {
@@ -33,41 +33,41 @@ $(document).ready(function() {
 			});
 		});
 	});
-	
+
 	$('a#up_cate').on('click', function(e) {
 		e.preventDefault();
-		
+
 		var idx = fm.cate1.options.selectedIndex;
-		
+
 		if(idx < 0) {
 			alert("1차 분류를 선택하세요.");
 			return;
 		}
-		
+
 		moveOption(idx, -1, fm.cate1.options);
 	});
-	
+
 	$('a#down_cate').on('click', function(e) {
 		e.preventDefault();
-		
+
 		var idx = fm.cate1.options.selectedIndex;
-		
+
 		if(idx < 0) {
 			alert("1차 분류를 선택하세요.");
 			return;
 		}
-		
+
 		moveOption(idx, 1, fm.cate1.options);
 	});
-	
+
 	$('a#save_list').on('click', function(e) {
 		e.preventDefault();
-		
+
 		if(confirm("1차 분류의 표시순서를 저장하시겠습니까?")) {
 			saveList(fm.cate1.options);
 		}
 	});
-	
+
 	$('a#add_cate').on('click', function(e) {
 		e.preventDefault();
 		$('input#editMode').val('ADD');
@@ -77,7 +77,7 @@ $(document).ready(function() {
 		$('#parent_name').text('최상위 분류');
 		openAddDialog(addOption('select#cate1'));
 	});
-	
+
 	$('a#modify_cate').on('click', function(e) {
 		e.preventDefault();
 		if(fm.cate1.options.selectedIndex < 0) {
@@ -92,41 +92,41 @@ $(document).ready(function() {
 		$('#parent_name').text('최상위 분류');
 		openModifyDialog(modifyOption('select#cate1'), deleteOption('select#cate1'));
 	});
-	
+
 	$('a#up_cate2').on('click', function(e) {
 		e.preventDefault();
-		
+
 		var idx = fm.cate2.options.selectedIndex;
-		
+
 		if(idx < 0) {
 			alert("2차 분류를 선택하세요.");
 			return;
 		}
-		
+
 		moveOption(idx, -1, fm.cate2.options);
 	});
-	
+
 	$('a#down_cate2').on('click', function(e) {
 		e.preventDefault();
-		
+
 		var idx = fm.cate2.options.selectedIndex;
-		
+
 		if(idx < 0) {
 			alert("2차 분류를 선택하세요.");
 			return;
 		}
-		
+
 		moveOption(idx, 1, fm.cate2.options);
 	});
-	
+
 	$('a#save_list2').on('click', function(e) {
 		e.preventDefault();
-		
+
 		if(confirm("2차 분류의 표시순서를 저장하시겠습니까?")) {
 			saveList(fm.cate2.options);
 		}
 	});
-	
+
 	$('a#add_cate2').on('click', function(e) {
 		e.preventDefault();
 
@@ -134,7 +134,7 @@ $(document).ready(function() {
 			alert("하위 분류를 추가할 1차 분류를 선택하세요.");
 			return;
 		}
-		
+
 		$('input#editMode').val('ADD');
 		$('input#parent_id').val($('select#cate1').val());
 		$('input#depth').val('2');
@@ -143,10 +143,10 @@ $(document).ready(function() {
 		$('input#code_name').val('');
 		openAddDialog(addOption('select#cate2'));
 	});
-	
+
 	$('a#modify_cate2').on('click', function(e) {
 		e.preventDefault();
-		
+
 		if(fm.cate2.options.selectedIndex < 0) {
 			alert("수정할 2차 분류를 선택하세요.");
 			return;
@@ -160,24 +160,24 @@ $(document).ready(function() {
 		$('#depth_text').text('2');
 		openModifyDialog(modifyOption('select#cate2'), deleteOption('select#cate2'));
 	});
-	
+
 });
 
 function moveOption(i, n, options) {
 	if(n < 0 && i == 0) return;
 	if(n > 0 && i >= options.length-1) return;
-	
+
 	var opt1 = options[i];
 	var opt2 = options[i+n];
-	
+
 	var text = opt1.text;
 	var value = opt1.value;
-	
+
 	opt1.text  = opt2.text;
 	opt1.value = opt2.value;
 	opt2.text = text;
 	opt2.value = value;
-	
+
 	options.selectedIndex = i+n;
 }
 
@@ -186,10 +186,10 @@ function saveList(options) {
 	for(var i = 0; i < options.length; i++) {
 		data_list.push({ teach_code: options[i].value, display_seq: (i + 1) });
 	}
-	
+
 	$.ajax({
 	    url: 'saveList.do',
-	    type: "POST", 
+	    type: "POST",
 	    contentType: "application/json; charset=utf-8",
 	    data: JSON.stringify(data_list),
 	    async: false,
@@ -293,7 +293,7 @@ function doAjaxPostResponse(form, ajaxBody) {
 	jQuery.ajaxSettings.traditional = true;
 	var formData = serializeObject(form);
 	var result;
-	
+
     $.ajax({
         type: "POST",
         url: form.attr('action'),
@@ -303,7 +303,7 @@ function doAjaxPostResponse(form, ajaxBody) {
         success: function(response) {
         	response = eval(response);
         	result = response;
-            if(response.valid) {            	
+            if(response.valid) {
                  if(response.message != null && response.message.replace(/\s/g,'').length!=0) {
                 	 alert(response.message);
                  }
@@ -334,7 +334,7 @@ function doAjaxPostResponse(form, ajaxBody) {
     					break;
     				}
                 }
-				
+
 				if(response.url != null && response.url.replace(/\s/g,'').length!=0) {
 					if(ajaxBody != null && ajaxBody.replace(/\s/g,'').length!=0) {
 						doAjaxLoad(ajaxBody, response.url, response.data);
@@ -348,7 +348,7 @@ function doAjaxPostResponse(form, ajaxBody) {
              alert('[' + textStatus + ']관리자에게 문의하세요. : ' + errorThrown);
          }
     });
-    
+
     return result;
 }
 </script>
@@ -373,7 +373,7 @@ function doAjaxPostResponse(form, ajaxBody) {
 		<c:if test="${authC or authU}">
 			<a class="btn i01" id="up_cate"><span>위로</span></a>
 			<a class="btn i02" id="down_cate"><span>아래</span></a>
-			<a class="btn" id="save_list"><span>저장</span></a>
+<!-- 			<a class="btn" id="save_list"><span>저장</span></a> -->
 			<a class="btn" id="add_cate"><span>추가</span></a>
 			<a class="btn" id="modify_cate"><span>수정</span></a>
 		</c:if>
@@ -389,7 +389,7 @@ function doAjaxPostResponse(form, ajaxBody) {
 		<c:if test="${authC or authU}">
 			<a class="btn i01" id="up_cate2"><span>위로</span></a>
 			<a class="btn i02" id="down_cate2"><span>아래</span></a>
-			<a class="btn" id="save_list2"><span>저장</span></a>
+<!-- 			<a class="btn" id="save_list2"><span>저장</span></a> -->
 			<a class="btn" id="add_cate2"><span>추가</span></a>
 			<a class="btn" id="modify_cate2"><span>수정</span></a>
 		</c:if>

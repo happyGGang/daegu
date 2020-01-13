@@ -34,8 +34,8 @@
 			e.preventDefault();
 			history.back();
 		});
-		
-		
+
+
 	});
 
 </script>
@@ -56,10 +56,10 @@
 				<col width="30%"/>
 			</colgroup>
 			<tbody>
-				<c:if test="${not empty teach.image_real_file_name}">
+				<c:if test="${not empty teach.image_server_file_name}">
 				<tr>
 					<th class="center" colspan="4">
-						<img src="/data/teach/${homepage.homepage_id}/img/${teach.image_real_file_name}" style="width: 100%;" > 
+						<img src="/data/teach/${homepage.homepage_id}/img/${teach.image_server_file_name}" style="width: 100%;" >
 					</th>
 				</tr>
 				</c:if>
@@ -71,10 +71,10 @@
 					<th class="center">강의 설명</th>
 					<td colspan="3">${teach.teach_desc}</td>
 				</tr>
-				
-				
-				
-				
+
+
+
+
 				<tr class="mAllpx">
 					<th class="center">강의장소</th>
 					<td>${teach.teach_stage}</td>
@@ -87,8 +87,8 @@
 					<th class="center">강의대상</th>
 					<td>${teach.teach_target}</td>
 				</tr>
-				
-				
+
+
 				<tr class="m330px">
 					<th class="center">강의장소</th>
 					<td colspan="3">${teach.teach_stage}</td>
@@ -105,11 +105,11 @@
 					<th class="center">강의대상</th>
 					<td colspan="3">${teach.teach_target}</td>
 				</tr>
-				
-				
-				
-				
-				
+
+
+
+
+
 				<c:if test="${teach.limit_hak_yn eq 'Y'}">
 				<tr>
 					<th class="center">학년제한</th>
@@ -119,9 +119,9 @@
 				<tr>
 					<th class="center">강의계획서</th>
 					<td colspan="3">
-						<c:if test="${teach.real_file_name ne null and teach.real_file_name ne '' }">
+						<c:if test="${teach.server_file_name ne null and teach.server_file_name ne '' }">
 							<a style="color: #00f" href="download/${teach.homepage_id}/${teach.group_idx}/${teach.category_idx}/${teach.teach_idx}.do">
-							<i class="fa fa-floppy-o"></i> ${teach.plan_file_name}</a>
+							<i class="fa fa-floppy-o"></i> ${teach.org_file_name}</a>
 						</c:if>
 					</td>
 				</tr>
@@ -133,9 +133,9 @@
 					<th class="center">강의기간(*)</th>
 					<td colspan="3">${teach.start_date} ~ ${teach.end_date}</td>
 				</tr>
-				
-				
-				
+
+
+
 				<tr class="mAllpx">
 					<th class="center">강의시간</th>
 					<td>${teach.start_time } ~ ${teach.end_time }</td>
@@ -152,13 +152,13 @@
 								<c:when test="${i eq '7'}">토</c:when>
 							</c:choose>
 							<c:if test="${!stats_j.last}">
-								, 
+								,
 							</c:if>
 						</c:forEach>
 					</td>
 				</tr>
-				
-				
+
+
 				<tr class="m330px";>
 					<th class="center">강의시간</th>
 					<td colspan="3">${teach.start_time } ~ ${teach.end_time }</td>
@@ -177,16 +177,16 @@
 								<c:when test="${i eq '7'}">토</c:when>
 							</c:choose>
 							<c:if test="${!stats_j.last}">
-								, 
+								,
 							</c:if>
 						</c:forEach>
 					</td>
 				</tr>
-				
-				
-				
-				
-				
+
+
+
+
+
 				<tr>
 					<th class="center">현재 참여 / 모집</th>
 					<td colspan="3">${teach.teach_join_count} 명 / ${teach.teach_limit_count} 명</td>

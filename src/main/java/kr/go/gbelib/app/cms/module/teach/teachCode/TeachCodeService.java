@@ -49,10 +49,10 @@ public class TeachCodeService extends BaseService {
 	}
 
 	public int modifyTeachCode(TeachCode teachCode) {
-		int dupCheck = dao.getCodeInfo(teachCode);
-		if (dupCheck > 0) {
-			return dupCheck;
-		}
+//		int dupCheck = dao.getCodeInfo(teachCode);
+//		if (dupCheck > 0) {
+//			return dupCheck;
+//		}
 		return dao.modifyTeachCode(teachCode);
 	}
 

@@ -58,12 +58,12 @@ public class Teach extends PagingUtils {
 	private String end_date;  //강의종료일
 	private String end_time;  //강의종료시간
 	private int teach_count;
-	private String plan_file_name;  //강의계획서파일명
-	private String real_file_name; //실제파일명
+	private String org_file_name;  //강의계획서파일명
+	private String server_file_name; //실제파일명
 	private String file_extension;  //파일확장자
 	private long file_size;  //파일 사이즈
-	private String image_plan_file_name;  //강의이미지파일명
-	private String image_real_file_name; //실제파일명
+	private String image_org_file_name;  //강의이미지파일명
+	private String image_server_file_name; //실제파일명
 	private String image_file_extension;  //파일확장자
 	private long image_file_size;  //파일 사이즈
 	private String member_yn = "N";  //정회원전용여부
@@ -74,7 +74,7 @@ public class Teach extends PagingUtils {
 	private String add_date;  //등록일
 	private String add_id;  //등록자
 	private String mod_date;  //수정일
-	private String mod_id;  //수정자
+	private String modify_id;  //수정자
 
 	private String family_yn = "N"; //가족 프로그램 여부(부모동의)
 	private String family_count_yn = "N"; //가족 프로그램 여부
@@ -335,12 +335,6 @@ public class Teach extends PagingUtils {
 	public void setEnd_time(String end_time) {
 		this.end_time = end_time;
 	}
-	public String getPlan_file_name() {
-		return plan_file_name;
-	}
-	public void setPlan_file_name(String plan_file_name) {
-		this.plan_file_name = plan_file_name;
-	}
 	public String getMember_yn() {
 		return member_yn;
 	}
@@ -419,12 +413,13 @@ public class Teach extends PagingUtils {
 	public void setMod_date(String mod_date) {
 		this.mod_date = mod_date;
 	}
-	public String getMod_id() {
-		return mod_id;
+	public String getModify_id() {
+		return modify_id;
 	}
-	public void setMod_id(String mod_id) {
-		this.mod_id = mod_id;
+	public void setModify_id(String modify_id) {
+		this.modify_id = modify_id;
 	}
+
 	public String getDelete_yn() {
 		return delete_yn;
 	}
@@ -525,14 +520,6 @@ public class Teach extends PagingUtils {
 		this.teach_offline_count = teach_offline_count;
 	}
 
-	public String getReal_file_name() {
-		return real_file_name;
-	}
-
-	public void setReal_file_name(String real_file_name) {
-		this.real_file_name = real_file_name;
-	}
-
 	public String getFile_extension() {
 		return file_extension;
 	}
@@ -597,14 +584,6 @@ public class Teach extends PagingUtils {
 		this.teach_same_limit_count = teach_same_limit_count;
 	}
 
-	public String getImage_plan_file_name() {
-		return image_plan_file_name;
-	}
-
-	public String getImage_real_file_name() {
-		return image_real_file_name;
-	}
-
 	public String getImage_file_extension() {
 		return image_file_extension;
 	}
@@ -613,13 +592,6 @@ public class Teach extends PagingUtils {
 		return image_file_size;
 	}
 
-	public void setImage_plan_file_name(String image_plan_file_name) {
-		this.image_plan_file_name = image_plan_file_name;
-	}
-
-	public void setImage_real_file_name(String image_real_file_name) {
-		this.image_real_file_name = image_real_file_name;
-	}
 
 	public void setImage_file_extension(String image_file_extension) {
 		this.image_file_extension = image_file_extension;
@@ -1140,6 +1112,46 @@ public class Teach extends PagingUtils {
 
 	public void setSchool_grade_yn(String school_grade_yn) {
 		this.school_grade_yn = school_grade_yn;
+	}
+
+
+	public String getOrg_file_name() {
+		return org_file_name;
+	}
+
+
+	public String getServer_file_name() {
+		return server_file_name;
+	}
+
+
+	public String getImage_org_file_name() {
+		return image_org_file_name;
+	}
+
+
+	public String getImage_server_file_name() {
+		return image_server_file_name;
+	}
+
+
+	public void setOrg_file_name(String org_file_name) {
+		this.org_file_name = org_file_name;
+	}
+
+
+	public void setServer_file_name(String server_file_name) {
+		this.server_file_name = server_file_name;
+	}
+
+
+	public void setImage_org_file_name(String image_org_file_name) {
+		this.image_org_file_name = image_org_file_name;
+	}
+
+
+	public void setImage_server_file_name(String image_server_file_name) {
+		this.image_server_file_name = image_server_file_name;
 	}
 
 }

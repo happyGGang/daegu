@@ -84,8 +84,8 @@ public class TeachService extends BaseService {
 
 			File f = teachStorage.addFile(mFile, realFileName, filePath);
 
-			teach.setReal_file_name(realFileName);
-			teach.setPlan_file_name(fileName);
+			teach.setServer_file_name(realFileName);
+			teach.setOrg_file_name(fileName);
 			teach.setFile_extension(fileExtension);
 			teach.setFile_size(f.length());
 		}
@@ -100,8 +100,8 @@ public class TeachService extends BaseService {
 
 			File f = teachStorage.addFile(mFile, realFileName, filePath);
 
-			teach.setImage_real_file_name(realFileName);
-			teach.setImage_plan_file_name(fileName);
+			teach.setImage_server_file_name(realFileName);
+			teach.setImage_org_file_name(fileName);
 			teach.setImage_file_extension(fileExtension);
 			teach.setImage_file_size(f.length());
 		}
@@ -133,8 +133,8 @@ public class TeachService extends BaseService {
 
 			File f = teachStorage.addFile(mFile, realFileName, filePath);
 
-			teach.setReal_file_name(realFileName);
-			teach.setPlan_file_name(fileName);
+			teach.setServer_file_name(realFileName);
+			teach.setOrg_file_name(fileName);
 			teach.setFile_extension(fileExtension);
 			teach.setFile_size(f.length());
 		}
@@ -148,8 +148,8 @@ public class TeachService extends BaseService {
 
 			File f = teachStorage.addFile(mFile, realFileName, filePath);
 
-			teach.setImage_real_file_name(realFileName);
-			teach.setImage_plan_file_name(fileName);
+			teach.setImage_server_file_name(realFileName);
+			teach.setImage_org_file_name(fileName);
 			teach.setImage_file_extension(fileExtension);
 			teach.setImage_file_size(f.length());
 		}
@@ -322,7 +322,7 @@ public class TeachService extends BaseService {
 
 	public int deleteFile(Teach teach) {
 		teach = dao.getTeachOne(teach);
-		String fileName = teach.getReal_file_name();
+		String fileName = teach.getServer_file_name();
 		String filePath = teach.getHomepage_id();
 		teachStorage.deleteFile(fileName, filePath);
 		return dao.deleteFile(teach);
@@ -331,7 +331,7 @@ public class TeachService extends BaseService {
 
 	public int deleteImage(Teach teach) {
 		teach = dao.getTeachOne(teach);
-		String fileName = teach.getImage_real_file_name();
+		String fileName = teach.getImage_server_file_name();
 		String filePath = teach.getHomepage_id();
 		teachStorage.deleteFile(fileName, filePath);
 		return dao.deleteImage(teach);

@@ -120,40 +120,15 @@ public class StudentController extends BaseController {
 	}
 
 	@RequestMapping(value = {"/checkId.*"}, method = RequestMethod.GET)
-	public @ResponseBody Map<String, Object> checkId(Model model, Student student, HttpServletRequest request) {
-		Map<String, Object> result = new HashMap<String, Object>();
+	public @ResponseBody JsonResponse checkId(Model model, Student student, HttpServletRequest request) {
+		JsonResponse res = new JsonResponse(request);
 
-		Member studentMember = new Member();
-		studentMember.setUser_id(student.getMember_id());
-		Map<String, String> memberInfo = null;
-		if ( student.getSearch_api_type().equals("WEBID") ) {
-//			studentMember.setCheck_certify_type("WEBID");
-//			studentMember.setCheck_certify_data(student.getMember_id());
-//
-//			memberInfo = MemberAPI.getMemberCertify("WEB", studentMember);
-//
-//			if ( memberInfo == null ) {
-//				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
-//				return result;
-//			} else {
-//				Member member = new Member();
-//				member.setUser_id(memberInfo.get("USER_ID"));
-//				memberInfo = MemberAPI.getMember("WEB", member);
-//			}
-		}
-		else {
-//			memberInfo = MemberAPI.getDupUser("WEB", studentMember, "0002", student.getMember_id());
-			Member member = new Member();
-			member.setUser_id(student.getMember_id());
-			memberInfo = MemberAPI.getMember("WEB", member);
-			if ( memberInfo == null ) {
-				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
-				return result;
-			}
-		}
+		Member member = new Member();
+		member.setMember_id(student.getMember_id());
 
-		result.put("memberInfo", memberInfo);
-		return result;
+		res.setData(MemberAPI.checkDupUser("0", member));
+
+		return res;
 	}
 
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
@@ -217,7 +192,7 @@ public class StudentController extends BaseController {
 				res.setValid((Boolean) addResult[0]);
 				res.setMessage((String) addResult[1]);
 			}else if(student.getEditMode().equals("MODIFY")) {
-				student.setMod_id(getSessionMemberId(request));
+				student.setModify_id(getSessionMemberId(request));
 				studentService.modifyStudent(student);
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");

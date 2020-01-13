@@ -1,9 +1,7 @@
 package kr.go.gbelib.app.cms.module.teacher;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import jxl.write.WritableWorkbook;
 import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.framework.base.BaseController;
@@ -106,7 +103,7 @@ public class TeacherController extends BaseController {
 					res.setMessage(checkResult);
 				}
 			} else if(teacher.getEditMode().equals("MODIFY")) {
-				teacher.setMod_id(getSessionMemberId(request));
+				teacher.setModify_id(getSessionMemberId(request));
 				service.modifyTeacher(teacher);
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");

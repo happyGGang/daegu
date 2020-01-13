@@ -7,15 +7,15 @@ import kr.co.whalesoft.framework.utils.PagingUtils;
 
 public class Student extends PagingUtils {
 	private List<Student> studentList = new ArrayList<Student>();
-	
+
 	private int large_category_idx;
 	private int group_idx;  //카테고리 그룹IDX
 	private int category_idx;  //카테고리IDX
 	private int teach_idx;  //강의IDX
 	private int student_idx;  //수강생IDX
-	
+
 	private String member_id;
-	private String member_key; //사용자 구분 키 
+	private String member_key; //사용자 구분 키
 	private String applicant_name;  //신청자명
 	private String applicant_birth;  //신청자생년월일
 	private int applicant_old;  //신청자나이
@@ -26,9 +26,9 @@ public class Student extends PagingUtils {
 	private String applicant_phone;  //신청자전화번호
 	private String applicant_cell_phone;  //신청자폰번호
 	private String web_id;
-	
+
 	private String self_yn;  //본인수강여부
-	
+
 	private String student_name;  //수강생명
 	private String student_birth;  //수강생생년월일
 	private int student_old;  //수강생나이
@@ -49,30 +49,30 @@ public class Student extends PagingUtils {
 	private String student_organization;//기관 (한글40자리)
 	private String student_rank;//직급 (한글20자리)
 	private String student_course_taken_yn;//연수수강여부
-	
-	
+
+
 	private String self_info_yn;  //개인정보동의여부
 	private String apply_type;
-	private String apply_status;  //신청상태 : 1 - 참여, 2 - 후보, 5 - 오프라인 참여 , 99 - 취소 
-	
-	private String pay1_yn; //수강료 납부 여부 
-	private String pay2_yn; //교재비 납부 여부 
-	private String pay3_yn; //재료비 납부 여부 
-	
+	private String apply_status;  //신청상태 : 1 - 참여, 2 - 후보, 5 - 오프라인 참여 , 99 - 취소
+
+	private String pay1_yn; //수강료 납부 여부
+	private String pay2_yn; //교재비 납부 여부
+	private String pay3_yn; //재료비 납부 여부
+
 	private String add_date;  //등록일
 	private String add_id;
-	private String mod_date;
-	private String mod_id;
+	private String modify_date;
+	private String modify_id;
 	private Date cancel_date; // 취소일
 	private String cancel_id; // 취소ID
 	private String delete_yn;  //삭제 여부
-	
+
 	private String family_relation; //법정대리인 관계
 	private String family_name; // 법정대리인 명
 	private String family_cell_phone; // 법정대리인 연락처
-	private String family_confirm_yn; // 법정대리인 승인 여부 
+	private String family_confirm_yn; // 법정대리인 승인 여부
 	private String family_desc;
-	
+
 	private String num;
 	private String teach_date;
 	private String teach_name;
@@ -80,41 +80,39 @@ public class Student extends PagingUtils {
 	private String homepage_name;
 	private String end_date;
 	private String end_time;
-	
-	
-	
+
+
+
 	private String teach_status;
 	private String student_status;
 	private int cert_percent = 70;
-	
-	private int isBlackList;
-	
+
 	private String search_api_type = "WEBID";
-	
+
 	private String api_user_id; // 대출번호만 담는 변수
-	
+
 	private String search_start_date;
 	private String search_end_date;
-	
+
 	private String userNo;
-	
+
 	private Date fromDate;
 	private Date toDate;
-	
+
 	private String fromDateStr;
 	private String toDateStr;
-	
+
 	private List<Integer> student_idx_arr;	// 체크박스로 일괄 삭제할 때 씀
-	
+
 	public Student() {}
-	
+
 	public Student(String homepage_id, int group_idx, int category_idx, int teach_idx) {
 		this.setHomepage_id(homepage_id);
 		this.group_idx = group_idx;
 		this.category_idx = category_idx;
 		this.teach_idx = teach_idx;
 	}
-	
+
 	public Student(String homepage_id, int group_idx, int category_idx, int teach_idx, String apply_status) {
 		this.setHomepage_id(homepage_id);
 		this.group_idx = group_idx;
@@ -122,7 +120,7 @@ public class Student extends PagingUtils {
 		this.teach_idx = teach_idx;
 		this.apply_status = apply_status;
 	}
-	
+
 	public int getCategory_idx() {
 		return category_idx;
 	}
@@ -274,12 +272,6 @@ public class Student extends PagingUtils {
 	public void setAdd_id(String add_id) {
 		this.add_id = add_id;
 	}
-	public String getMod_date() {
-		return mod_date;
-	}
-	public void setMod_date(String mod_date) {
-		this.mod_date = mod_date;
-	}
 	public String getApplicant_zipcode() {
 		return applicant_zipcode;
 	}
@@ -303,12 +295,6 @@ public class Student extends PagingUtils {
 	}
 	public void setStudent_address_detail(String student_address_detail) {
 		this.student_address_detail = student_address_detail;
-	}
-	public String getMod_id() {
-		return mod_id;
-	}
-	public void setMod_id(String mod_id) {
-		this.mod_id = mod_id;
 	}
 	public String getNum() {
 		return num;
@@ -382,12 +368,6 @@ public class Student extends PagingUtils {
 	public void setStudent_status(String student_status) {
 		this.student_status = student_status;
 	}
-	public int getIsBlackList() {
-		return isBlackList;
-	}
-	public void setIsBlackList(int isBlackList) {
-		this.isBlackList = isBlackList;
-	}
 	public int getGroup_idx() {
 		return group_idx;
 	}
@@ -447,7 +427,7 @@ public class Student extends PagingUtils {
 		this.pay3_yn = pay3_yn;
 	}
 
-	
+
 //	public List<Student> getStudentList() {
 //		if(studentList != null) {
 //			List<Student> arrayList = new ArrayList<Student>();
@@ -465,12 +445,12 @@ public class Student extends PagingUtils {
 //		}
 //	}
 
-	
+
 	public List<Student> getStudentList() {
 		return studentList;
 	}
 
-	
+
 	public void setStudentList(List<Student> studentList) {
 		this.studentList = studentList;
 	}
@@ -539,22 +519,22 @@ public class Student extends PagingUtils {
 		this.search_end_date = search_end_date;
 	}
 
-	
+
 	public String getWeb_id() {
 		return web_id;
 	}
 
-	
+
 	public void setWeb_id(String web_id) {
 		this.web_id = web_id;
 	}
 
-	
+
 	public String getStudent_family_count() {
 		return student_family_count;
 	}
 
-	
+
 	public void setStudent_family_count(String student_family_count) {
 		this.student_family_count = student_family_count;
 	}
@@ -563,127 +543,127 @@ public class Student extends PagingUtils {
 		return student_remark;
 	}
 
-	
+
 	public void setStudent_remark(String student_remark) {
 		this.student_remark = student_remark;
 	}
 
-	
+
 	public String getStudent_ban() {
 		return student_ban;
 	}
 
-	
+
 	public void setStudent_ban(String student_ban) {
 		this.student_ban = student_ban;
 	}
 
-	
+
 	public String getUserNo() {
 		return userNo;
 	}
 
-	
+
 	public void setUserNo(String userNo) {
 		this.userNo = userNo;
 	}
 
-	
+
 	public Date getFromDate() {
 		return fromDate;
 	}
 
-	
+
 	public void setFromDate(Date fromDate) {
 		this.fromDate = fromDate;
 	}
 
-	
+
 	public Date getToDate() {
 		return toDate;
 	}
 
-	
+
 	public void setToDate(Date toDate) {
 		this.toDate = toDate;
 	}
 
-	
+
 	public String getStudent_hack_str() {
 		return student_hack_str;
 	}
 
-	
+
 	public void setStudent_hack_str(String student_hack_str) {
 		this.student_hack_str = student_hack_str;
 	}
 
-	
+
 	public String getFromDateStr() {
 		return fromDateStr;
 	}
 
-	
+
 	public void setFromDateStr(String fromDateStr) {
 		this.fromDateStr = fromDateStr;
 	}
 
-	
+
 	public String getToDateStr() {
 		return toDateStr;
 	}
 
-	
+
 	public void setToDateStr(String toDateStr) {
 		this.toDateStr = toDateStr;
 	}
 
-	
+
 	public String getStudent_location_code() {
 		return student_location_code;
 	}
 
-	
+
 	public void setStudent_location_code(String student_location_code) {
 		this.student_location_code = student_location_code;
 	}
 
-	
+
 	public String getStudent_neis_cd() {
 		return student_neis_cd;
 	}
 
-	
+
 	public void setStudent_neis_cd(String student_neis_cd) {
 		this.student_neis_cd = student_neis_cd;
 	}
 
-	
+
 	public String getStudent_training_num() {
 		return student_training_num;
 	}
 
-	
+
 	public void setStudent_training_num(String student_training_num) {
 		this.student_training_num = student_training_num;
 	}
 
-	
+
 	public String getStudent_location_code_str() {
 		return student_location_code_str;
 	}
 
-	
+
 	public void setStudent_location_code_str(String student_location_code_str) {
 		this.student_location_code_str = student_location_code_str;
 	}
 
-	
+
 	public int getLarge_category_idx() {
 		return large_category_idx;
 	}
 
-	
+
 	public void setLarge_category_idx(int large_category_idx) {
 		this.large_category_idx = large_category_idx;
 	}
@@ -727,5 +707,25 @@ public class Student extends PagingUtils {
 	public void setStudent_idx_arr(List<Integer> student_idx_arr) {
 		this.student_idx_arr = student_idx_arr;
 	}
-	
+
+
+	public String getModify_date() {
+		return modify_date;
+	}
+
+
+	public String getModify_id() {
+		return modify_id;
+	}
+
+
+	public void setModify_date(String modify_date) {
+		this.modify_date = modify_date;
+	}
+
+
+	public void setModify_id(String modify_id) {
+		this.modify_id = modify_id;
+	}
+
 }

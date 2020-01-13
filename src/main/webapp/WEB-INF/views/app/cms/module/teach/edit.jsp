@@ -99,7 +99,7 @@ $(function() {
 	});
 
 	$("#dialog-1").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
-		width: 750,
+		width: 800,
 		height: 800
 	});
 
@@ -410,7 +410,7 @@ $(function() {
 
 	<table class="type2">
 		<colgroup>
-	       <col width="150" />
+	       <col width="160" />
 	       <col width="*"/>
        	</colgroup>
        	<tbody>
@@ -499,8 +499,8 @@ $(function() {
 	        <tr>
 	         	<th>강의이미지</th>
 	         	<td class="imagePlanFile">
-	         		<c:if test="${not empty teach.image_plan_file_name}">
-	         		<img src="/data/teach/${teach.homepage_id}/img/${teach.image_real_file_name}" style="max-width: 400px;" alt="강의 이미지 입니다.">
+	         		<c:if test="${not empty teach.image_org_file_name}">
+	         		<img src="/data/teach/${teach.homepage_id}/img/${teach.image_server_file_name}" style="max-width: 400px;" alt="강의 이미지 입니다.">
 	         		<a class="btn btn1 delete-image-btn">삭제</a>
 	         		<br/>
 	         		</c:if>
@@ -508,7 +508,7 @@ $(function() {
 	         		<div class="ui-state-highlight">
 						<em>* 파일 확장자가  gif, jpeg, jpg, png 인 경우에만 업로드 가능합니다. <br/> * 기타 파일(pdf, hwp 등)을 등록하실 경우 정상적으로 나타나지 않습니다. </em>
 					</div>
-	         		<form:hidden path="image_plan_file_name"/>
+	         		<form:hidden path="image_org_file_name"/>
          		</td>
 	        </tr>
 	        <tr>
@@ -575,7 +575,7 @@ $(function() {
 					</c:choose> --%>
 				</td>
 			</tr>
-			<tr>
+			<tr style="display: none;">
 				<th>접수취소 사용여부</th>
 				<td>
 					<form:radiobutton path="cancle_use_yn" cssClass="cancle_yn" value="Y" label="사용" cssStyle="cursor: pointer;"/>
@@ -585,7 +585,7 @@ $(function() {
 					</div>
 				</td>
 			</tr>
-			<tr>
+			<tr style="display: none;">
 				<th>접수취소기간</th>
 				<td>
 					<form:input path="start_cancle_date" class="text ui-calendar"/> <form:input path="start_cancle_time" class="text" style="width:50px;" maxlength="5"/> ~ <form:input path="end_cancle_date" class="text ui-calendar"/> <form:input path="end_cancle_time" class="text" style="width:50px;" maxlength="5"/>
@@ -594,7 +594,7 @@ $(function() {
 					</div>
 				</td>
 			</tr>
-			<tr>
+			<tr style="display: none;">
 				<th>취소 안내 SMS</th>
 				<td><form:textarea path="cancle_guid" class="text" cssStyle="width:100%;" rows="5" /></td>
 			</tr>
@@ -773,11 +773,11 @@ $(function() {
 	        <tr>
 	         	<th>강의계획서</th>
 	         	<td class="planFile">
-	         		<c:if test="${teach.plan_file_name ne null and teach.plan_file_name ne ''}">
-	         			<a href="/cms/module/teach/download/${teach.homepage_id}/${teach.group_idx}/${teach.category_idx}/${teach.teach_idx}.do"><i class="fa fa-floppy-o"></i>${teach.plan_file_name}</a><a class="btn btn1 delete-file-btn">삭제</a>
+	         		<c:if test="${teach.org_file_name ne null and teach.org_file_name ne ''}">
+	         			<a href="/cms/module/teach/download/${teach.homepage_id}/${teach.group_idx}/${teach.category_idx}/${teach.teach_idx}.do"><i class="fa fa-floppy-o"></i>${teach.org_file_name}</a><a class="btn btn1 delete-file-btn">삭제</a>
 	         			<br/>
 	         		</c:if>
-	         		<input type="file" id="plan_file" name="plan_file" class="text"/><form:hidden path="plan_file_name"/>
+	         		<input type="file" id="plan_file" name="plan_file" class="text"/><form:hidden path="org_file_name"/>
 	         		<button id="cancelFile">등록취소</button>
          		</td>
 	        </tr>

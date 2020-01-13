@@ -11,48 +11,36 @@ $(function(){
 		doAjaxLoad('#studentLayer', 'student.do', serializeCustom($('#studentListForm')));
 		e.preventDefault();
 	});
-	
+
 	$('a#dialog-add').on('click', function(e) {
 		if ( $('#homepage_id_1').val() == '' ) {
-			alert('홈페이지정보가 없습니다.');	
+			alert('홈페이지정보가 없습니다.');
 			return false;
 		}
 		if ( '${student.teach_idx}' == 0 ){
 			alert('선택된 강좌가 없습니다.');
 			return false;
 		}
-	
+
 		else{
 			$('#dialog-1').load('edit.do?editMode=ADD&homepage_id=${student.homepage_id}&group_idx=${student.group_idx}&category_idx=${student.category_idx}&teach_idx=${student.teach_idx}', function( response, status, xhr ) {
 				$('#dialog-1').dialog('open');
-			});	
+			});
 		}
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('a.dialog-modify').on('click', function(e) {
 		$('#dialog-1').load('edit.do?editMode=MODIFY&homepage_id=${student.homepage_id}&group_idx=${student.group_idx}&category_idx=${student.category_idx}&teach_idx=${student.teach_idx}&student_idx=' + $(this).attr('keyValue1'), function( response, status, xhr ) {
 			$('#dialog-1').dialog('open');
 		});
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('a.delete-btn').on('click', function(e) {
 		if ( confirm('해당 수강생을 삭제 하시겠습니까?') ) {
-			$('#delForm #student_idx').val($(this).attr('keyValue1'));
-			if(doAjaxPost($('#delForm'))) {
-				$('button.teach_btn_${student.group_idx}${student.category_idx}${student.teach_idx}').click();
-			}	
-		}
-		e.preventDefault();
-	});
-	
-	$('a.cancel_btn').on('click', function(e) {
-		if (confirm('해당 수강생의 신청을 취소하시겠습니까?')) {
-			$('#delForm > #editMode').val('CANCEL');
-			
 			$('#delForm #student_idx').val($(this).attr('keyValue1'));
 			if(doAjaxPost($('#delForm'))) {
 				$('button.teach_btn_${student.group_idx}${student.category_idx}${student.teach_idx}').click();
@@ -60,25 +48,37 @@ $(function(){
 		}
 		e.preventDefault();
 	});
-	
+
+	$('a.cancel_btn').on('click', function(e) {
+		if (confirm('해당 수강생의 신청을 취소하시겠습니까?')) {
+			$('#delForm > #editMode').val('CANCEL');
+
+			$('#delForm #student_idx').val($(this).attr('keyValue1'));
+			if(doAjaxPost($('#delForm'))) {
+				$('button.teach_btn_${student.group_idx}${student.category_idx}${student.teach_idx}').click();
+			}
+		}
+		e.preventDefault();
+	});
+
 	$('a#batch-delete-btn').on('click', function(e) {
 		var student_idx_arr = $('input.student_idx_arr:checked').map(function() { return $(this).val(); }).get().join(',');
-		
+
 		if ( !student_idx_arr ){
 			alert('선택된 수강생이 없습니다.');
 			return false;
 		}
-		
+
 		if ( confirm('선택한 수강생들을 삭제 하시겠습니까?') ) {
 			$('#delForm > #editMode').val('BATCH_DELETE');
 			$('#delForm #student_idx_arr').val(student_idx_arr);
 			if(doAjaxPost($('#delForm'))) {
 				$('button.teach_btn_${student.group_idx}${student.category_idx}${student.teach_idx}').click();
-			}	
+			}
 		}
 		e.preventDefault();
 	});
-	
+
 	$('a#batch-cancel-btn').on('click', function(e) {
 		var student_idx_arr = $('input.student_idx_arr:checked').map(function() { return $(this).val(); }).get().join(',');
 
@@ -86,7 +86,7 @@ $(function(){
 			alert('선택된 수강생이 없습니다.');
 			return false;
 		}
-		
+
 		if (confirm('선택한 수강생들의 신청을 취소하시겠습니까?')) {
 			$('#delForm > #editMode').val('BATCH_CANCEL');
 			$('#delForm #student_idx_arr').val(student_idx_arr);
@@ -96,17 +96,17 @@ $(function(){
 		}
 		e.preventDefault();
 	});
-	
+
 	$('a.dialog-certificate').on('click', function(e) {
 		$('#studentListForm input#student_idx').val($(this).attr('keyValue'));
 		$('#dialog-2').load('certificate.do?'+$('#studentListForm').serialize(), function( response, status, xhr ) {
 			$('#dialog-2').dialog('open');
 		});
-		
+
 		e.preventDefault();
 	});
-	
-	$('a.add_blackList').on('click', function(e) {		
+
+	$('a.add_blackList').on('click', function(e) {
 		$('#dialog-3').load('/cms/module/blackList/edit.do?editMode=ADD&black_type=10&after_click_btn=button.teach_btn_${student.group_idx}${student.category_idx}${student.teach_idx}&homepage_id=' + $(this).attr('homepage_id') + '&member_id=' + $(this).attr('keyValue')+ '&member_key=' + $(this).attr('keyValue1'), function( response, status, xhr ) {
 			$('#dialog-3').dialog({
 				width: 600,
@@ -114,13 +114,13 @@ $(function(){
 			});
 			$('#dialog-3').dialog('open');
 		});
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('a.delete_blackList').on('click', function(e) {
 		e.preventDefault();
-		
+
 		if (confirm('해당 수강생을 블랙리스트 목록에서 삭제하시겠습니까?')) {
 			var data = {
 					editMode : 'BLACKTYPEDELETE',
@@ -128,7 +128,7 @@ $(function(){
 					member_key : $(this).attr('keyValue'),
 					black_type	: '10'
 			}
-			
+
 			jQuery.ajaxSettings.traditional = true;
 		    $.ajax({
 		        type: "POST",
@@ -138,7 +138,7 @@ $(function(){
 		        dataType:'json',
 		        success: function(response) {
 		        	response = eval(response);
-		            if(response.valid) {            	
+		            if(response.valid) {
 		                 if(response.message != null && response.message.replace(/\s/g,'').length!=0) {
 		                	 alert(response.message);
 		                 }
@@ -165,36 +165,36 @@ $(function(){
 		    });
 		}
 	});
-	
+
 	$('a#excelDownload').on('click', function(e) {
 		if ( $('#homepage_id_1').val() == '' ) {
-			alert('홈페이지정보가 없습니다.');	
+			alert('홈페이지정보가 없습니다.');
 			return false;
 		}
 		if ( '${student.teach_idx}' == 0 ){
 			alert('선택된 강좌가 없습니다.');
 			return false;
 		}
-		
+
 		$('#delForm').attr('action', 'excelDownload.do').submit();
 		$('#delForm').attr('action', 'save.do');
 		e.preventDefault();
 	});
-	
+
 	$('a#csvDownload').on('click', function(e) {
 		e.preventDefault();
 		if ( $('#homepage_id_1').val() == '' ) {
-			alert('홈페이지정보가 없습니다.');	
+			alert('홈페이지정보가 없습니다.');
 			return false;
 		}
 		if ( '${student.teach_idx}' == 0 ){
 			alert('선택된 강좌가 없습니다.');
 			return false;
 		}
-		
+
 		$('#delForm').attr('action', 'csvDownload.do').submit();
 	});
-	
+
 	$('a.formPrint-btn').on('click', function(e) {
 		var divToPrint = $('div#printPage').clone();
 		divToPrint = divToPrint.show()[0];
@@ -204,23 +204,23 @@ $(function(){
 	    newWin.print();
 	    newWin.close();
 	});
-	
+
 	$('a#excelUpload').on('click', function(e) {
 		if ( $('#homepage_id_1').val() == '' ) {
-			alert('홈페이지정보가 없습니다.');	
+			alert('홈페이지정보가 없습니다.');
 			return false;
 		}
 		if ( '${student.teach_idx}' == 0 ){
 			alert('선택된 강좌가 없습니다.');
 			return false;
 		}
-		
+
 		if(confirm('열의순서와 값을 다시한번 확인하신 후 파일을 첨부해 주시기 바랍니다.\n 비고란 및 나이스 정보 등 해당 강좌에 맞게 작성하여 업로드 하시기 바랍니다. \n 해당사항이 없는 경우 입력하지 마시기 바랍니다. \n 작업은 시스템 사정에 따라 몇분정도가 소요될 수 있습니다.')) {
-			$('input#file').click();	
+			$('input#file').click();
 		}
 		e.preventDefault();
 	});
-	
+
 	$('input#file').change(function(e) {
 		var data = new FormData();
 		var sendFile = $('#file')[0].files;
@@ -246,14 +246,14 @@ $(function(){
 		        		htmlArr.push('<tr>');
 		        		htmlArr.push('<td>' + (i+1) + '</td>');
 		        		htmlArr.push('<td>'+v.member_id 			+'<input type="hidden" name="studentList['+i+'].member_id" value="'+v.member_id+'"></td>');
-		        		htmlArr.push('<td>'+v.applicant_name 		+'<input type="hidden" name="studentList['+i+'].applicant_name" value="'+v.applicant_name+'"></td>'); 		
+		        		htmlArr.push('<td>'+v.applicant_name 		+'<input type="hidden" name="studentList['+i+'].applicant_name" value="'+v.applicant_name+'"></td>');
 		        		htmlArr.push('<td>'+v.applicant_birth 		+'<input type="hidden" name="studentList['+i+'].applicant_birth" value="'+v.applicant_birth+'"></td>');
 		        		htmlArr.push('<td>'+v.applicant_sex 		+'<input type="hidden" name="studentList['+i+'].applicant_sex" value="'+v.applicant_sex+'"></td>');
-		        		htmlArr.push('<td>'+v.applicant_zipcode 	+'<input type="hidden" name="studentList['+i+'].applicant_zipcode" value="'+v.applicant_zipcode+'"></td>');	
+		        		htmlArr.push('<td>'+v.applicant_zipcode 	+'<input type="hidden" name="studentList['+i+'].applicant_zipcode" value="'+v.applicant_zipcode+'"></td>');
 		        		htmlArr.push('<td>'+v.applicant_address 	+'<input type="hidden" name="studentList['+i+'].applicant_address" value="'+v.applicant_address+'"></td>');
 		        		htmlArr.push('<td>'+v.applicant_cell_phone	+'<input type="hidden" name="studentList['+i+'].applicant_cell_phone" value="'+v.applicant_cell_phone+'"></td>');
 		        		htmlArr.push('<td>'+v.self_yn 				+'<input type="hidden" name="studentList['+i+'].self_yn" value="'+v.self_yn+'"></td>');
-		        		htmlArr.push('<td>'+v.student_name 			+'<input type="hidden" name="studentList['+i+'].student_name" value="'+v.student_name+'"></td>'); 		
+		        		htmlArr.push('<td>'+v.student_name 			+'<input type="hidden" name="studentList['+i+'].student_name" value="'+v.student_name+'"></td>');
 		        		htmlArr.push('<td>'+v.student_birth 		+'<input type="hidden" name="studentList['+i+'].student_birth" value="'+v.student_birth+'"></td>');
 		        		htmlArr.push('<td>'+v.student_old 			+'<input type="hidden" name="studentList['+i+'].student_old" value="'+v.student_old+'"></td>');
 		        		htmlArr.push('<td>'+v.student_sex 			+'<input type="hidden" name="studentList['+i+'].student_sex" value="'+v.student_sex+'"></td>');
@@ -271,13 +271,13 @@ $(function(){
 		        		htmlArr.push('<td>'+v.student_course_taken_yn +'<input type="hidden" name="studentList['+i+'].student_course_taken_yn" value="'+v.student_course_taken_yn+'"></td>');
 		        		htmlArr.push('</tr>');
 		        	});
-					$('div#dialog-4 tbody.dataList').html(htmlArr.join(''));		        	
-		        	
-		        	
+					$('div#dialog-4 tbody.dataList').html(htmlArr.join(''));
+
+
 		        	$('div#dialog-4.dialog-common').dialog({ //모달창 기본 스크립트 선언
 		        		autoOpen: true,
 		        		resizable: false,
-		        		modal: true, 
+		        		modal: true,
 		        	    open: function(){
 		        	        $('.ui-widget-overlay').addClass('custom-overlay');
 		        	    },
@@ -295,7 +295,7 @@ $(function(){
 			        					doAjaxPost($('#excelStudentList'));
 		        						$('#studentLayer').load('student.do?' + $('#studentListForm').serialize());
 		        						$(this).dialog('destroy');
-			        					
+
 		        					}
 		        				}
 		        			},{
@@ -307,28 +307,28 @@ $(function(){
 		        			}
 		        		]
 		        	});
-		        	
+
 		        	$("div#dialog-4").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
 		        		width: 1200,
 		        		height: 600
 		        	});
-		        	
+
 		        }
-			});	
-		} 
+			});
+		}
 	});
-	
+
 	$('a#excelDownloadSample').on('click', function(e) {
 		$('#excelDownloadSampleForm').submit();
 		e.preventDefault();
 	});
-	
+
 	$('input#checkAll').on('click', function(e) {
 		$('input[type=checkbox].student_idx_arr').prop('checked', $(this).is(':checked'));
 	});
-	
-});	
-</script> 
+
+});
+</script>
 <form:form id="delForm" modelAttribute="student" action="save.do">
 	<form:hidden path="editMode" value="DELETE"/>
 	<form:hidden path="homepage_id"/>
@@ -340,7 +340,7 @@ $(function(){
 	<form:hidden path="student_idx_arr"/>
 </form:form>
 
-<form:form id="studentListForm" modelAttribute="student" action="student.do"> 
+<form:form id="studentListForm" modelAttribute="student" action="student.do">
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="group_idx"/>
 	<form:hidden path="category_idx"/>
@@ -377,7 +377,7 @@ $(function(){
 				</c:when>
 				<c:otherwise>
 					<col width="6%" />
-					<col width="11%" />				
+					<col width="11%" />
 				</c:otherwise>
 			</c:choose>
 			<col width="10%" />
@@ -409,13 +409,13 @@ $(function(){
 				<td><form:checkbox path="student_idx_arr" cssClass="student_idx_arr" value="${i.student_idx}"/></td>
 				<td class="num">${((paging.viewPage-1)*paging.rowCount) + status.count}</td>
 				<td>
-					<font ${i.isBlackList > 0? 'style="color:#FF3636; font-weight:bold;"' : '' }>
+					<font>
 					${i.student_name}
 					<c:if test="${empty i.web_id}">
 						<c:set var="member__id" value=""></c:set>
 						<c:choose>
 						<c:when test="${fn:indexOf(i.member_id, '*') > -1}">
-							<c:set var="member__id" value="${fn:replace(i.member_id, '*', '') }"></c:set>	
+							<c:set var="member__id" value="${fn:replace(i.member_id, '*', '') }"></c:set>
 							<br/>(${fn:toLowerCase(member__id)})
 						</c:when>
 						<c:otherwise>
@@ -464,16 +464,6 @@ $(function(){
 					<c:if test="${authD}">
 					<a href="" class="btn delete-btn" keyValue1="${i.student_idx}">삭제</a><br/>
 					</c:if>
-					<c:if test="${i.isBlackList > 0 }">
-					<c:if test="${authC or authU}">
-					<a href="" class="btn btn4 delete_blackList" homepage_id="${i.homepage_id}" keyValue="${i.member_key}">블랙리스트 삭제</a>
-					</c:if>
-					</c:if>
-					<c:if test="${i.isBlackList < 1 }">
-					<c:if test="${authC or authU}">
-					<a href="" class="btn btn1 add_blackList" homepage_id="${i.homepage_id}" keyValue="${i.member_id}" keyValue1="${i.member_key}">블랙리스트 추가</a>
-					</c:if>
-					</c:if>
 					<c:if test="${teachInfo.teach_status eq '1' }">
 						<c:if test="${i.student_status eq '1' }">
 						<a href="" class="btn dialog-certificate" keyValue="${i.student_idx}">수료증 출력</a>
@@ -490,7 +480,7 @@ $(function(){
 		<jsp:param name="layerId" value="#studentLayer"/>
 		<jsp:param name="pagingUrl" value="student.do"/>
 	</jsp:include>
-	
+
 	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 		<fieldset>
 			<form:select path="search_type" cssClass="selectmenu">
