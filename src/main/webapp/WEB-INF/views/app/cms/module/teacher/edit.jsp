@@ -117,39 +117,42 @@ $(function() {
 	});
 
 	$("#dialog-1").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
-		width: 550,
-		height: 700
+		width: 600,
+		height: 800
 	});
 
 	$('a.idCheck').on('click', function(e) {
 		$.get('checkId.do?homepage_id=' + $('#homepage_id').val() + '&teacher_id='+ $('#teacher_id').val() + '&search_api_type=' + $('[name="search_api_type"]:checked').val(), function(response) {
-			if ( response.resultMsg != null ) {
-				alert(response.resultMsg);
-			}
-			else {
-				$('#teacherForm #member_key').val(response.memberInfo.SEQ_NO);
-				$('#teacherForm #teacher_name').val(response.memberInfo.USER_NAME);
-				var birthd = response.memberInfo.BIRTHD;
-				var birthd1 = birthd.substring(0,4);
-				var birthd2 = birthd.substring(4,6);
-				var birthd3 = birthd.substring(6);
-				$('#teacherForm #teacher_birth').val(birthd1+'-'+birthd2+'-'+birthd3);
+			if( response.data.length > 0){
 
-				$('#teacherForm #teacher_address').val(response.memberInfo.ADDRS);
-				$('#teacherForm #teacher_zipcode').val(response.memberInfo.ZIP_CODE);
-				if (response.memberInfo.SEX == '0001') {
+				$('#teacherForm #member_key').val(response.data[0]["REC_KEY"]);
+				$('#teacherForm #teacher_name').val(response.data[0]["NAME"]);
+
+				if(response.data[0]["HANDPHONE"] != null){
+					var phone = response.data[0]["HANDPHONE"].split("\-");
+					$('#teacherForm #cell_phone1').val(phone[0]);
+					$('#teacherForm #cell_phone2').val(phone[1]);
+					$('#teacherForm #cell_phone3').val(phone[2]);
+				}
+
+				if (response.data[0]["HANDPHONE"] == '0') {
 					$('input#teacher_sex1').prop('checked', true);
 				} else {
 					$('input#teacher_sex2').prop('checked', true);
 				}
-				var mobile = response.memberInfo.MOBILE_NO;
-				var mobile1 = mobile.substring(0,3);
-				var mobile2 = mobile.substring(3,7);
-				var mobile3 = mobile.substring(7);
-				$('#teacherForm #cell_phone1').val(mobile1);
-				$('#teacherForm #cell_phone2').val(mobile2);
-				$('#teacherForm #cell_phone3').val(mobile3);
+
+				$('#teacherForm #teacher_address').val(response.data[0]["H_ADDR1"]);
+				$('#teacherForm #teacher_zipcode').val(response.data[0]["H_ZIPCODE"]);
+
+				if(response.data[0]["BIRTHDAY"] != null){
+					var birthday = response.data[0]["BIRTHDAY"].split("\/");
+					$('#teacherForm #teacher_birth').val(birthday[0]+'-'+birthday[1]+'-'+birthday[2]);
+				}
+
+			} else {
+				alert('검색한 사용자 없습니다.');
 			}
+
 		});
 		e.preventDefault();
 	});
@@ -182,7 +185,7 @@ $(function() {
 	         	<td>
 	         		<c:choose>
 	         			<c:when test="${teacher.editMode eq 'ADD' }">
-	         				<form:input path="teacher_id" class="text" /> <form:radiobutton path="search_api_type" value="WEBID" label="웹ID"/> <form:radiobutton path="search_api_type" value="USERID" label="대출번호"/> <a class="btn btn1 idCheck">ID 확인</a>
+	         				<form:input path="teacher_id" class="text" /><a class="btn btn1 idCheck">ID 확인</a>
 	         			</c:when>
 	         			<c:otherwise>
 	         				${teacher.teacher_id}
@@ -191,7 +194,7 @@ $(function() {
          		</td>
         	</tr>
 			<tr>
-	         	<th>강사명</th>
+	         	<th>강사명 (<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
 	         		<c:choose>
 		         		<c:when test="${teacher.editMode eq 'ADD' }">
@@ -280,10 +283,10 @@ $(function() {
 	         	<th>강사이력</th>
 	         	<td><form:textarea path="teacher_history" class="text" style="width:100%;height:80px;"/></td>
         	</tr>
-        	<c:if test="${teacher.file_name != null and teacher.file_name != ''}">
+        	<c:if test="${teacher.org_file_name != null and teacher.org_file_name != ''}">
 	        	<tr>
 	        	 	<th>현재 첨부 파일</th>
-		         	<td><a href="/cms/module/teacher/download/${teacher.homepage_id}/${teacher.teacher_idx}.do"><i class="fa fa-floppy-o"></i> ${teacher.file_name}</a></td>
+		         	<td><a href="/cms/module/teacher/download/${teacher.homepage_id}/${teacher.teacher_idx}.do"><i class="fa fa-floppy-o"></i> ${teacher.org_file_name}</a></td>
 	        	</tr>
         	</c:if>
         	<tr>

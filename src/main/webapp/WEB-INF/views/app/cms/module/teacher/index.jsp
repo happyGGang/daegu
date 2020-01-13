@@ -129,8 +129,8 @@ $(function() {
 					<td>${i.teacher_phone}</td>
 					<td>${i.teacher_cell_phone}</td>
 					<td>
-						<c:if test="${i.file_name ne null and i.file_name ne ''}">
-							<a href="/cms/module/teacher/download/${i.homepage_id}/${i.teacher_idx}.do"><i class="fa fa-floppy-o"></i> ${i.file_name}</a>
+						<c:if test="${i.org_file_name ne null and i.org_file_name ne ''}">
+							<a href="/cms/module/teacher/download/${i.homepage_id}/${i.teacher_idx}.do"><i class="fa fa-floppy-o"></i> ${i.org_file_name}</a>
 						</c:if>
 					</td>
 					<td>

@@ -27,15 +27,15 @@ public class Teacher extends PagingUtils {
 	private String confirm_yn; //승인여부
 	private String add_date; // 등록일
 	private String add_id; //등록자
-	private String mod_date; //수정일 
+	private String mod_date; //수정일
 	private String mod_id; //수정자
 	private String delete_yn; // 삭제여부
-	
+
 	private String search_api_type = "WEBID";
 
-	//경력증명서 기능에 사용 
+	//경력증명서 기능에 사용
 	private long cert_seq_num;
-	
+
 	private String group_name;
 	private String category_name;
 	private String teach_name; // 이력 화면에 뿌릴 용도로 사용 (디비 컬럼 아님)
@@ -46,24 +46,24 @@ public class Teacher extends PagingUtils {
 	private int teach_count;
 	private int total_time;
 	private int sum_total_time;
-	
+
 	private MultipartFile file;
-	private String file_name;
-	private String real_file_name;
+	private String org_file_name;
+	private String server_file_name;
 	private String file_extension;
 	private long file_size;
-	
+
 	private String homepage_name;
-	
+
 	private String terms_yn = "Y";
 	private Date agree_date;
 	public Teacher() { }
-	
+
 	public Teacher(String homepage_id, int teacher_idx) {
 		setHomepage_id(homepage_id);
 		this.teacher_idx = teacher_idx;
 	}
-	
+
 	public int getTeacher_idx() {
 		return teacher_idx;
 	}
@@ -382,20 +382,20 @@ public class Teacher extends PagingUtils {
 		this.file = file;
 	}
 
-	public String getFile_name() {
-		return file_name;
+	public String getOrg_file_name() {
+		return org_file_name;
 	}
 
-	public void setFile_name(String file_name) {
-		this.file_name = file_name;
+	public void setOrg_file_name(String file_name) {
+		this.org_file_name = file_name;
 	}
 
-	public String getReal_file_name() {
-		return real_file_name;
+	public String getServer_file_name() {
+		return server_file_name;
 	}
 
-	public void setReal_file_name(String real_file_name) {
-		this.real_file_name = real_file_name;
+	public void setServer_file_name(String real_file_name) {
+		this.server_file_name = real_file_name;
 	}
 
 	public String getFile_extension() {
@@ -414,25 +414,25 @@ public class Teacher extends PagingUtils {
 		this.file_size = file_size;
 	}
 
-	
+
 	public String getTerms_yn() {
 		return terms_yn;
 	}
 
-	
+
 	public void setTerms_yn(String terms_yn) {
 		this.terms_yn = terms_yn;
 	}
 
-	
+
 	public Date getAgree_date() {
 		return agree_date;
 	}
 
-	
+
 	public void setAgree_date(Date agree_date) {
 		this.agree_date = agree_date;
 	}
 
-	
+
 }

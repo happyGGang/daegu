@@ -183,7 +183,7 @@ public class TeacherController extends BaseController {
 		teacherReqManage = service.getTeacherOne(teacherReqManage);
 		byte[] bytes = null;
 		if ( teacherReqManage != null ) {
-			String filePath = service.getRootPath()+ "/" + homepage_id + "/" + teacherReqManage.getReal_file_name();
+			String filePath = service.getRootPath()+ "/" + homepage_id + "/" + teacherReqManage.getServer_file_name();
 			File file = new File(filePath);
 
 			if(file.length() > 0) {
@@ -195,7 +195,7 @@ public class TeacherController extends BaseController {
 			}
 
 //			String fileName = "";
-			String fileName = teacherReqManage.getFile_name() + "." + teacherReqManage.getFile_extension();
+			String fileName = teacherReqManage.getOrg_file_name() + "." + teacherReqManage.getFile_extension();
 
 			response.setHeader("Content-Disposition", AttachmentUtils.getContentDisposition(fileName, request.getHeader("user-agent")));
 			response.setHeader("Content-Length", Long.toString(file.length()));
@@ -207,42 +207,15 @@ public class TeacherController extends BaseController {
     }
 
 	@RequestMapping(value = {"/checkId.*"}, method = RequestMethod.GET)
-	public @ResponseBody Map<String, Object> checkId(Model model, Teacher teacher, HttpServletRequest request) {
-		Map<String, Object> result = new HashMap<String, Object>();
+	public @ResponseBody JsonResponse checkId(Model model, Teacher teacher, HttpServletRequest request) {
+		JsonResponse res = new JsonResponse(request);
+
 
 		Member teacherMember = new Member();
-		teacherMember.setUser_id(teacher.getTeacher_id());
+		teacherMember.setMember_id(teacher.getTeacher_id());
 
-		Map<String, String> memberInfo = null;
-		if ( teacher.getSearch_api_type().equals("WEBID") ) {
-//			teacherMember.setCheck_certify_type("WEBID");
-//			teacherMember.setCheck_certify_data(teacher.getTeacher_id());
-//
-//			memberInfo = MemberAPI.getMemberCertify("WEB", teacherMember);
-//
-//			if ( memberInfo == null ) {
-//				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
-//				return result;
-//			} else {
-//				Member member = new Member();
-//				member.setUser_id(memberInfo.get("USER_ID"));
-//				memberInfo = MemberAPI.getMember("WEB", member);
-//			}
-
-		}
-		else {
-
-			Member member = new Member();
-			member.setUser_id(teacher.getTeacher_id());
-			memberInfo = MemberAPI.getMember("WEB", member);
-			if ( memberInfo == null ) {
-				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
-				return result;
-			}
-		}
-
-		result.put("memberInfo", memberInfo);
-		return result;
+		res.setData(MemberAPI.checkDupUser("0", teacherMember));
+		return res;
 	}
 
 	@RequestMapping(value = {"/searchTeacher.*"})
