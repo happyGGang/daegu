@@ -5,7 +5,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	var loading = $('<div id="loading" class="loading"></div><img id="loading_img" alt="loading" src="/resources/common/img/viewLoading.gif" />').appendTo(document.body).hide();
-	
+
 	$(window).ajaxStart(function(){
 		loading.show();
 	}).ajaxStop(function(){
@@ -37,7 +37,7 @@ $(document).ready(function(){
 	top: 50%;
 	left: 50%;
 	height: 35px;
-	margin-top: -75px; 
+	margin-top: -75px;
 	margin-left: -75px;
 	z-index: 200;
 }
@@ -61,7 +61,7 @@ $(document).ready(function(){
 	top: 50%;
 	left: 50%;
 	height: 35px;
-	margin-top: -75px; 
+	margin-top: -75px;
 	margin-left: -75px;
 	z-index: 200;
 }
@@ -69,7 +69,7 @@ $(document).ready(function(){
 <div class="page-subtitle">
 	<h3>
 		${topMenuName}
-		<a href="#" class="help" title="도움말"><i class="fa fa-question-circle"></i><span class="sr-only">안내</span></a>
+<!-- 		<a href="#" class="help" title="도움말"><i class="fa fa-question-circle"></i><span class="sr-only">안내</span></a> -->
 	</h3>
 	<p>${topMenuDesc}</p>
 	<div class="location">
