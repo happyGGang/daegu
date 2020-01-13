@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.whalesoft.app.cms.news.NewsDao">
-	
+
 	<select id="getNewsListAll" resultType="kr.co.whalesoft.app.cms.news.News">
 		SELECT
 			news_idx, homepage_id, news_name, sub_news_name, REPLACE(contents, CHR(10), '&lt;br/&gt;') AS contents,
-			print_seq, add_date, use_yn,
+			print_seq, add_date, use_yn, alt_text,
 			link_url, org_file_name, server_file_name, file_extension, file_size
 		FROM
 			CMS_NEWS
@@ -18,12 +18,12 @@
 		ORDER BY
 			print_seq ASC
 	</select>
-	
+
 	<select id="getNewsList" resultType="kr.co.whalesoft.app.cms.news.News">
 		${pagingTop}
 		SELECT
 			news_idx, homepage_id, news_name, sub_news_name, contents,
-			print_seq, add_date, use_yn,
+			print_seq, add_date, use_yn, alt_text,
 			link_url, org_file_name, server_file_name, file_extension, file_size
 		FROM
 			CMS_NEWS
@@ -39,7 +39,7 @@
 			print_seq ASC
 		${pagingBottom}
 	</select>
-	
+
 	<select id="getNewsListCount" resultType="int">
 		SELECT
 			COUNT(*)
@@ -56,11 +56,11 @@
 		ORDER BY
 			print_seq ASC
 	</select>
-	
+
 	<select id="getNewsOne" resultType="kr.co.whalesoft.app.cms.news.News">
 		SELECT
 			news_idx, homepage_id, news_name, sub_news_name, contents,
-			print_seq, add_date, use_yn,
+			print_seq, add_date, use_yn, alt_text,
 			link_url, org_file_name, server_file_name, file_extension, file_size
 		FROM
 			CMS_NEWS
@@ -68,32 +68,32 @@
 			homepage_id = #{homepage_id}
 		AND	news_idx = #{news_idx}
 	</select>
-	
+
 	<insert id="addNews">
 		<selectKey keyProperty="news_idx" resultType="int" order="BEFORE">
 			SELECT NVL(MAX(news_idx),0)+1 FROM CMS_NEWS WHERE homepage_id = #{homepage_id}
 		</selectKey>
-		
+
 		INSERT INTO
 			CMS_NEWS
 		(
 			news_idx, homepage_id, news_name, sub_news_name, contents,
-			print_seq, add_id, add_date, link_url, use_yn
+			print_seq, add_id, add_date, link_url, use_yn, alt_text
 			<if test="server_file_name != null and server_file_name != ''">
 			, org_file_name, server_file_name, file_extension, file_size
 			</if>
 		) VALUES (
 			#{news_idx}, #{homepage_id}, #{news_name}, #{sub_news_name}, #{contents},
-			#{print_seq}, #{add_id}, SYSDATE, #{link_url}, #{use_yn}
+			#{print_seq}, #{add_id}, SYSDATE, #{link_url}, #{use_yn}, #{alt_text}
 			<if test="server_file_name != null and server_file_name != ''">
 			, #{org_file_name}, #{server_file_name}, #{file_extension}, #{file_size}
 			</if>
 		)
 	</insert>
-	
+
 	<update id="modifyNews">
-		UPDATE 
-			CMS_NEWS 
+		UPDATE
+			CMS_NEWS
 		SET
 			news_name = #{news_name},
 			sub_news_name = #{sub_news_name},
@@ -101,6 +101,7 @@
 			print_seq = #{print_seq},
 			link_url = #{link_url},
 			use_yn = #{use_yn},
+			alt_text = #{alt_text},
 			<if test="server_file_name != null and server_file_name != ''">
 			org_file_name = #{org_file_name},
 			server_file_name = #{server_file_name},
@@ -109,11 +110,11 @@
 			</if>
 			modify_id = #{modify_id},
 			modify_date = SYSDATE
-		WHERE 
+		WHERE
 			homepage_id = #{homepage_id}
 		AND	news_idx = #{news_idx}
 	</update>
-	
+
 	<delete id="deleteNews">
 		DELETE FROM
 			CMS_NEWS
@@ -121,7 +122,7 @@
 			homepage_id = #{homepage_id}
 		AND	news_idx = #{news_idx}
 	</delete>
-	
+
 	<select id="getUseCnt" resultType="int">
 		SELECT
 			COUNT(*)
@@ -134,7 +135,7 @@
 		AND	${search_type} LIKE '%'||#{search_text}||'%'
 		</if>
 	</select>
-	
+
 	<select id="getNextPrintSeq" resultType="int">
 		SELECT
 			NVL(MAX(print_seq), 0) + 10
@@ -143,5 +144,5 @@
 		WHERE
 			homepage_id = #{homepage_id}
 	</select>
-	
+
 </mapper>

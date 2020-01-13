@@ -27,7 +27,7 @@ $(function() {
 	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
 		resizable: false,
-		modal: true, 
+		modal: true,
 	    open: function(){
 	        $('.ui-widget-overlay').addClass('custom-overlay');
 	    },
@@ -65,7 +65,7 @@ $(function() {
 										alert(response.result[i].code);
 										$('#'+response.result[i].field).focus();
 										break;
-									}	
+									}
 								}
 							}
 				         },
@@ -85,18 +85,18 @@ $(function() {
 			}
 		]
 	});
-	
+
 	$("#dialog-1").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
-		width: 500,
-		height: 550
+		width: 600,
+		height: 600
 	});
-	
+
 	$('.ui-calendar').each(function() {
 		$(this).datepicker({
 			//기본달력
 		});
 	});
-	
+
 	// 파일 업로드
 	var url = "/cms/popup/imgUpload.do";
 
@@ -118,7 +118,7 @@ $(function() {
                 $this.remove();
             });
         });
-	
+
     $('#fileupload').change(function() {
 		if (this.files && this.files[0]) {
 			var reader = new FileReader();
@@ -163,7 +163,7 @@ $(function() {
              	$('div#htmlFiles a').on('click', function(e) {
             		e.preventDefault();
             		pasteHTML($(this).data('url'));
-            	});	
+            	});
             } else if (file.error) {
                 var error = $('<span class="text-danger"/>').text(file.error);
                 $('div#htmlFiles').append('<br>').append(error);
@@ -184,12 +184,12 @@ $(function() {
 <!-- 대구교육 소식지 신청 등록, 수정 form -->
 <form:form id="newsForm" modelAttribute="news" method="post" action="save.do" onsubmit="return false;" enctype="multipart/form-data">
 	<form:hidden path="homepage_id"/>
-	<form:hidden path="news_idx"/>			
-	<form:hidden path="editMode"/>	
-	<div id="imgFileTemp" hidden="hidden"></div>								
+	<form:hidden path="news_idx"/>
+	<form:hidden path="editMode"/>
+	<div id="imgFileTemp" hidden="hidden"></div>
 	<table class="type2">
 		<colgroup>
-	       <col width="130" />
+	       <col width="150" />
 	       <col width="*"/>
        	</colgroup>
        	<tbody>
@@ -201,7 +201,7 @@ $(function() {
 	         	<th>소제목</th>
 	         	<td><form:input path="sub_news_name" class="text" cssStyle="width:100%"/></td>
 	        </tr>
-	        <tr> 
+	        <tr>
 				<th>링크URL(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
 					<form:input path="link_url" cssClass="text" cssStyle="width:300px;" maxlength="200"/>
@@ -218,7 +218,7 @@ $(function() {
 				<td>
 					<form:hidden id="org_file_name" path="org_file_name" />
 					<input id="fileupload" type="file" name="imgFile" accept=".gif,.jpeg,.jpg,.png">
-					
+
 				    <div id="progress" class="progress">
 				        <div class="progress-bar progress-bar-success"></div>
 				    </div>
@@ -234,10 +234,16 @@ $(function() {
 						<c:if test="${popup.org_file_name ne null}">
 							<img src="${getContextPath}/data/popup/${popup.homepage_id}/${popup.server_file_name}" alt="${popup.server_file_name}">
 						</c:if>
-						<a></a>					 
+						<a></a>
 					</div>
 				</td>
 			</tr>
+	        <tr>
+	         	<th>대체 텍스트</th>
+	         	<td>
+	         		<form:textarea path="alt_text" class="text" cssStyle="width:100%;" rows="3"/>
+	         	</td>
+	        </tr>
 	        <tr>
 	         	<th>내용(<span style="color: red;font-weight: bold;">*</span>)</th>
 	         	<td>
@@ -258,6 +264,9 @@ $(function() {
 				<th>출력 순서</th>
 				<td>
 					<form:input path="print_seq" cssStyle="width:30px;" cssClass="text spinner"/>
+					<div class="ui-state-highlight">
+					<i class="fa fa-question-circle"></i><em>오름차순 정렬. 낮을수록 앞에 출력됩니다.</em>
+				</div>
 				</td>
 			</tr>
 		</tbody>

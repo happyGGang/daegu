@@ -9,11 +9,11 @@ $(function() {
 		$('#viewPage').val(1);
 		$('#newsListForm').submit();
 	});
-	
-	
+
+
 	$('a#dialog-add').on('click', function(e) {
 		if ( $('#homepage_id_1').val() == '' ) {
-			alert('홈페이지정보가 없습니다.');	
+			alert('홈페이지정보가 없습니다.');
 		}
 		else {
 			$('#dialog-1').load('edit.do?editMode=ADD&homepage_id=' + $('#homepage_id').val(), function( response, status, xhr ) {
@@ -26,24 +26,14 @@ $(function() {
 		$('#dialog-1').load('edit.do?editMode=MODIFY&homepage_id=' + $('#homepage_id').val() + '&news_idx=' + $(this).attr('keyValue'), function( response, status, xhr ) {
 			$('#dialog-1').dialog('open');
 		});
-		
+
 		e.preventDefault();
 	});
-	
-// 	$('a#delete-btn').on('click', function(e) {
-// 		if ( confirm('해당 뉴스를 삭제 하시겠습니까?') ) {
-// 			$('#hiddenForm #news_idx').val($(this).attr('keyValue'));
-// 			if(doAjaxPost($('#hiddenForm'))) {
-// 				location.reload();
-// 			}	
-// 		}
-// 		e.preventDefault();
-// 	});
 
 	$('a#delete-btn').on('click', function(e) {
-		if(confirm('선택된 팝업을 삭제 하시겠습니까?')) {
+		if(confirm('해당 뉴스를 삭제 하시겠습니까?')) {
 			$('form#hiddenForm input#news_idx').val($(this).attr('keyValue'));
-			
+
 			$.ajax({
 				url : 'delete.do',
 				async : false,
@@ -59,25 +49,25 @@ $(function() {
 							alert(data.message);
 						}
 						else {
-							alert(data.result);	
+							alert(data.result);
 						}
 					}
 				}
 			});
 		}
-		
+
 		e.preventDefault();
-	}); 
-	
+	});
+
 	$('select#homepage_id_1').on('change', function(e) {
 		if($(this).val() != '') {
 			$('input#homepage_id_1').val($(this).val());
 			$('#newsListForm').submit();
 		}
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('select#use_yn, select#rowCount').on('change', function(e) {
 		$('#viewPage').val(1);
 		$('#newsListForm').submit();
@@ -121,9 +111,9 @@ $(function() {
 			<col width="200" />
 			<col width="" />
 			<col width="100" />
-			<col width="80" />
-			<col width="80" />
 			<col width="100" />
+			<col width="100" />
+			<col width="200" />
 		</colgroup>
 		<thead>
 			<tr>
@@ -167,7 +157,7 @@ $(function() {
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#newsListForm"/>
 	</jsp:include>
-	
+
 	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 		<fieldset>
 			<form:select path="search_type" cssClass="selectmenu">
@@ -179,5 +169,5 @@ $(function() {
 		</fieldset>
 	</div>
 </form:form>
-	
+
 <div id="dialog-1" class="dialog-common" title="뉴스 정보"></div>

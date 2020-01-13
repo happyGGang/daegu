@@ -18,7 +18,8 @@ public class News extends PagingUtils {
 	private Date add_date; // 등록일시
 	private String modify_id; // 수정ID
 	private Date modify_date; // 수정일시
-	private String use_yn;
+	private String use_yn = "Y";
+	private String alt_text; //대체텍스트
 
 	private MultipartFile file;
 	private String org_file_name; // 원본 파일명
@@ -159,6 +160,16 @@ public class News extends PagingUtils {
 
 	public void setFile_size(long file_size) {
 		this.file_size = file_size;
+	}
+
+
+	public String getAlt_text() {
+		return alt_text;
+	}
+
+
+	public void setAlt_text(String alt_text) {
+		this.alt_text = alt_text;
 	}
 
 }
