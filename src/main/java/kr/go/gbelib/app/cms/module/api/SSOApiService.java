@@ -234,14 +234,14 @@ public class SSOApiService extends BaseService {
 							//관리자 링크회원이면 기존 그룹에 추가
 							member.setAuthGroupIdxList(memberGroupSubordService.getAuthGroupIdxList(adminMember));
 							//통합회원그룹에 속하게 한다. 도서관은 하드코딩한다...
-							if (!member.getAuthGroupIdxList().contains(149)) {
-								member.getAuthGroupIdxList().add(149);
+							if (!member.getAuthGroupIdxList().contains(3)) {
+								member.getAuthGroupIdxList().add(3);
 							}
 						} else if (member.getAuthGroupIdxList() == null || member.getAuthGroupIdxList().size() < 1) {
 							//관리자 링크회원 아니면 새로 생성
 							member.setAuthGroupIdxList(new ArrayList<Integer>());
 							//통합회원그룹에 속하게 한다. 도서관은 하드코딩한다...
-							member.getAuthGroupIdxList().add(149);
+							member.getAuthGroupIdxList().add(3);
 						}
 //					String imsiId = member.getMember_id();
 //					member.setMember_id(member.getSeq_no());
