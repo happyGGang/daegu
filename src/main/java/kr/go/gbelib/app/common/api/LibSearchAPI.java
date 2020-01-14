@@ -1413,4 +1413,74 @@ public class LibSearchAPI {
 		return result;
 	}
 
+	/**
+	 * 도서관 정보나루
+	 * @author whalesoft YONGJU 2020. 1. 14.
+	 * @param isbn
+	 * @return
+	 */
+	public static Map<String, Object> getSrchDtlList(String isbn) {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		if (StringUtils.isEmpty(isbn)) {
+			return null;
+		} else {
+			param.put("isbn13", isbn);
+		}
+
+		param.put("loaninfoYN", "Y");
+		param.put("displayInfo", "age");
+
+
+		return CommonAPI.sendData4Library(param, "srchDtlList");
+	}
+
+	/**
+	 * @author YONGJU 2018. 4. 11.
+	 * @param isbn
+	 */
+	public static Map<String, Object> getKeywordList(String isbn) {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		if (StringUtils.isEmpty(isbn)) {
+			return null;
+		} else {
+			param.put("isbn13", isbn);
+		}
+
+		return CommonAPI.sendData4Library(param, "keywordList");
+	}
+
+	/**
+	 * @author YONGJU 2018. 4. 11.
+	 * @param isbn
+	 */
+	public static Map<String, Object> getRecommandList(String isbn) {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		String isbnOrg = isbn;
+		if (StringUtils.isNotEmpty(isbnOrg)) {
+			isbnOrg = isbnOrg.trim();
+		}
+
+		if (StringUtils.isNotEmpty(isbnOrg)) {
+			String isbnArr[] = isbnOrg.split(" ");
+			String isbnTemp = "";
+			for (int i = 0; i < isbnArr.length; i++) {
+				if (isbnArr[i].length() == 10) {
+					isbnTemp = isbnArr[i];
+					param.put("isbn13", isbnTemp.trim());
+				}
+				if (isbnArr[i].length() == 13) {
+					isbnTemp = isbnArr[i];
+					param.put("isbn13", isbnTemp.trim());
+				}
+			}
+		} else {
+			return null;
+		}
+
+		return CommonAPI.sendData4Library(param, "recommandList");
+	}
+
 }

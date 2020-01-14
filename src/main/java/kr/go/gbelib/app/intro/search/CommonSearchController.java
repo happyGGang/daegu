@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +41,6 @@ import kr.go.gbelib.app.cms.module.smsReception.SmsReceptionService;
 import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.common.api.MemberAPI;
-import kr.go.gbelib.app.common.api.PushAPI;
 
 @Controller
 @RequestMapping(value = {"/{homepagePath}/intro/search"})
@@ -62,7 +62,7 @@ public class CommonSearchController extends BaseController {
 
 	@Autowired
 	private HopebookConfigService hopebookConfigService;
-	
+
 	@Autowired
 	private SmsReceptionService smsReceptionService;
 
@@ -190,6 +190,148 @@ public class CommonSearchController extends BaseController {
 //			if (sanghoReqYnResult.containsKey("RESULT") && String.valueOf(sanghoReqYnResult.get("RESULT")).equals("OK")) {
 //				// 정상 신청가능
 //				map.put("SANGHO_REQ_YN", "Y");
+//			}
+
+			//도서관정보나루 도서별 이용분석
+			Map<String, Object> srchDtlList = LibSearchAPI.getSrchDtlList(librarySearch.getIsbn());
+			if (srchDtlList != null && !srchDtlList.isEmpty()) {
+				@SuppressWarnings ("unchecked")
+				Map<String, Object> data4Response = (Map<String, Object>) srchDtlList.get("response");
+				try {
+//					log.debug("@@@@@@@@@@@@@@@@@ data4Response.get(\"dfsdf\"): " + data4Response.get("sdfsdf"));
+//					log.debug("@@@@@@@@@@@@@@@@@ data4Response.get(\"error\"): " + data4Response.get("error"));
+					if(data4Response.get("error") == null) {
+						//함께 대출된 도서 - recBooks
+						@SuppressWarnings ("unchecked")
+						Map<String, Object> data4loanInfo =  (Map<String, Object>) data4Response.get("loanInfo");
+
+						@SuppressWarnings ("unchecked")
+						Map<String, Object> data4TotalInfo =  (Map<String, Object>) data4loanInfo.get("Total");
+
+						int data4LoanCnt =  Integer.parseInt(String.valueOf(data4TotalInfo.get("loanCnt")));
+						model.addAttribute("data4LoanCnt", data4LoanCnt);
+
+
+						@SuppressWarnings ("unchecked")
+						Map<String, Object> data4ageResult =  (Map<String, Object>) data4loanInfo.get("ageResult");
+						@SuppressWarnings ("unchecked")
+						List<Map<String, Object>> data4ageList =  (List<Map<String, Object>>) data4ageResult.get("age");
+						//연령별
+						model.addAttribute("data4ageList", data4ageList);
+					}
+				}catch ( Exception e ) {
+//					log.error("@@@@@@@@@@@@@@@@ srchDtlList : " + srchDtlList);
+//					log.error(e.getMessage());
+				}
+
+				model.addAttribute("srchDtlList", srchDtlList);
+			}
+
+			//도서관정보나루 키워드
+			Map<String, Object> keywordList = LibSearchAPI.getKeywordList(librarySearch.getIsbn());
+			if (keywordList != null && !keywordList.isEmpty()) {
+				@SuppressWarnings ("unchecked")
+				Map<String, Object> data4Response = (Map<String, Object>) keywordList.get("response");
+				try {
+//					log.debug("@@@@@@@@@@@@@@@@@ data4Response.get(\"error\"): " + data4Response.get("error"));
+					if(data4Response.get("error") == null) {
+						//키워드
+						@SuppressWarnings ("unchecked")
+						Map<String, Object> data4items =  (Map<String, Object>) data4Response.get("items");
+						@SuppressWarnings ("unchecked")
+						List<Map<String, Object>> data4ItemList =  (List<Map<String, Object>>) data4items.get("item");
+						List<JSONObject> jsonList = new ArrayList<JSONObject>();
+						for (Map<String, Object> map4 : data4ItemList) {
+							JSONObject jo = new JSONObject();
+							String text = String.valueOf(map4.get("word")).trim();
+
+							jo.put("text", text);
+
+							map4.put("text", "\""+text+"\"");
+							map4.remove("word");
+
+							String weight = String.valueOf(map4.get("weight")).trim();
+							map4.put("weight", weight);
+
+							jo.put("weight", Double.parseDouble(weight));
+
+							jsonList.add(jo);
+						}
+
+						model.addAttribute("data4ItemList", data4ItemList);
+						model.addAttribute("data4ItemList", jsonList);
+					}
+				}catch ( Exception e ) {
+//					log.error("@@@@@@@@@@@@@@@@ keywordList : " + keywordList);
+//					log.error(e.getMessage());
+				}
+
+				model.addAttribute("keywordList", keywordList);
+			}
+
+			//도서관정보나루 추천도서
+			Map<String, Object> recommandList = LibSearchAPI.getRecommandList(librarySearch.getIsbn());
+			if (recommandList != null && !recommandList.isEmpty()) {
+				@SuppressWarnings ("unchecked")
+				Map<String, Object> data4Response = (Map<String, Object>) recommandList.get("response");
+				try {
+//					log.debug("@@@@@@@@@@@@@@@@@ data4Response.get(\"error\"): " + data4Response.get("error"));
+					if(data4Response.get("error") == null) {
+						@SuppressWarnings ("unchecked")
+						Map<String, Object> docs =  (Map<String, Object>) data4Response.get("docs");
+						@SuppressWarnings ("unchecked")
+						List<Map<String, Object>> data4recommandList =  (List<Map<String, Object>>) docs.get("book");
+						model.addAttribute("data4recommandList", data4recommandList);
+					}
+				}catch ( Exception e ) {
+//					e.printStackTrace();
+//					log.error("@@@@@@@@@@@@@@@@ recommandList : " + recommandList);
+//					log.error(e.getMessage());
+				}
+
+				model.addAttribute("recommandList", recommandList);
+			}
+
+			//도서관정보나루 도서별 이용분석
+//			Map<String, Object> usageAnalysisList = LibSearchAPI.getRecommandList(librarySearch.getIsbn());
+//			if (usageAnalysisList != null && !usageAnalysisList.isEmpty()) {
+//				@SuppressWarnings ("unchecked")
+//				Map<String, Object> data4Response = (Map<String, Object>) usageAnalysisList.get("response");
+//				try {
+//					//함께 대출된 도서 - recBooks
+//					@SuppressWarnings ("unchecked")
+//					Map<String, Object> docs =  (Map<String, Object>) data4Response.get("docs");
+//					@SuppressWarnings ("unchecked")
+//					List<Map<String, Object>> data4recommandList =  (List<Map<String, Object>>) docs.get("book");
+//
+////					for ( Map<String, Object> map2 : data4recBooksList ) {
+////						Map<String, Object> data4Map = new HashMap<String, Object>();
+////						data4Map.put("ISBN", map2.get("isbn13"));
+////						Map<String, Object> data4aladinDetail = LibSearchAPI.getAladinDetail(data4Map);
+////						map2.put("aladin", data4aladinDetail.get("item"));
+////					}
+//					//함께 빌려본도서.
+//					model.addAttribute("data4recommandList", data4recommandList);
+//
+//
+//				}catch ( Exception e ) {
+//					log.error(e.getMessage());
+//				}
+//
+//				try {
+//					//연령별선호도 - loanGrps
+//					@SuppressWarnings ("unchecked")
+//					Map<String, Object> data4loanGrps =  (Map<String, Object>) data4Response.get("loanGrps");
+//					@SuppressWarnings ("unchecked")
+//					List<Map<String, Object>> data4loanGrpsList =  (List<Map<String, Object>>) data4loanGrps.get("loanGrp");
+//					//연령별 선호도
+//					model.addAttribute("data4loanGrpsList", data4loanGrpsList);
+//				}catch ( Exception e ) {
+//					log.error(e.getMessage());
+//				}
+//
+//
+//				model.addAttribute("usageAnalysisList", usageAnalysisList);
 //			}
 
 			model.addAttribute("detail", map);
@@ -1192,7 +1334,7 @@ public class CommonSearchController extends BaseController {
 		}
 
 		if (!result.hasErrors()) {
-			
+
 			Homepage homepage = getSessionHomepage(request);
 			SmsReception smsReception = new SmsReception();
 			smsReception.setHomepage_id(homepage.getHomepage_id());
@@ -1255,13 +1397,13 @@ public class CommonSearchController extends BaseController {
 							res.setValid(true);
 							res.setMessage("신청되었습니다.");
 						}
-						
+
 						// 신청자에게 SMS 전송
 						String message = "상호대차 신청이 완료 되었습니다.[" + librarySearch.getTitle() + "]";
 						if (isSmsReceive("WEBID", getSessionMemberId(request))) {
 //							PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, member.getMobile_no(), message, homepage.getHomepage_send_tell(), true);
 						}
-						
+
 						// 관리자에게 SMS 전송
 						String adminMessage = "상호대차 신청건이 발생하였습니다. 수령:"+String.valueOf(map.get("SHELF_LOC_NAME"))+" 도서명:"+librarySearch.getTitle();
 						for(SmsReception one : receptionsList) {
@@ -1361,8 +1503,8 @@ public class CommonSearchController extends BaseController {
 				res.setMessage("예약 신청 가능한 회원이 아닙니다.");
 				return res;
 			}
-			
-			Homepage homepage = getSessionHomepage(request); 
+
+			Homepage homepage = getSessionHomepage(request);
 			SmsReception smsReception = new SmsReception();
 			smsReception.setHomepage_id(homepage.getHomepage_id());
 			smsReception.setWork_code("0002");	// 상호대차:0001, 무인대출:0002, 야간대출:0003
@@ -1381,13 +1523,13 @@ public class CommonSearchController extends BaseController {
 			if (apiResult.getStatus()) {
 				res.setValid(true);
 				res.setMessage("예약 되었습니다.");
-				
+
 				// 신청자에게 SMS 전송
 				String message = "무인대출 신청이 완료 되었습니다.[" + librarySearch.getTitle() + "]";
 				if (isSmsReceive("WEBID", getSessionMemberId(request))) {
 //					PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, member.getMobile_no(), message, homepage.getHomepage_send_tell(), true);
 				}
-				
+
 				// 관리자에게 SMS 전송
 				String adminMessage = "무인대출 신청건이 발생하였습니다. 수령: 도서명:"+librarySearch.getTitle();
 				for(SmsReception one : receptionsList) {
@@ -1478,13 +1620,13 @@ public class CommonSearchController extends BaseController {
 				res.setMessage("예약 신청 가능한 회원이 아닙니다.");
 				return res;
 			}
-			
+
 			Homepage homepage = getSessionHomepage(request);
 			SmsReception smsReception = new SmsReception();
 			smsReception.setHomepage_id(homepage.getHomepage_id());
 			smsReception.setWork_code("0003");	// 상호대차:0001, 무인대출:0002, 야간대출:0003
 			List<SmsReception> receptionsList =  smsReceptionService.getSmsReceptionMembers(smsReception);
-			
+
 			// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
 			LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0003");
 			if(lasReqConfig != null) {
@@ -1498,13 +1640,13 @@ public class CommonSearchController extends BaseController {
 			if (apiResult.getStatus()) {
 				res.setValid(true);
 				res.setMessage("예약 되었습니다.");
-				
+
 				// 신청자에게 SMS 전송
 				String message = "야간대출 신청이 완료 되었습니다.[" + librarySearch.getTitle() + "]";
 				if (isSmsReceive("WEBID", getSessionMemberId(request))) {
 //					PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, member.getMobile_no(), message, homepage.getHomepage_send_tell(), true);
 				}
-				
+
 				// 관리자에게 SMS 전송
 				String adminMessage = "야간대출 신청건이 발생하였습니다. 수령: 도서명:"+librarySearch.getTitle();
 				for(SmsReception one : receptionsList) {

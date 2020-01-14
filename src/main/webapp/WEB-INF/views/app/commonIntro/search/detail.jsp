@@ -4,7 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
-
+<link rel="stylesheet" href="/resources/common/css/search/jqcloud.css" type="text/css">
+<script type="text/javascript" src="/resources/common/js/jqcloud.js"></script>
 <script type="text/javascript">
 $(function() {
 
@@ -74,11 +75,67 @@ $(function() {
 	});
 	</c:if>
 
+	try {
+		var words = JSON.parse('${data4ItemList}');
+		$('#cloud').jQCloud(words, {
+			autoResize: true
+		});
+	} catch (e) {
+		// TODO: handle exception
+	}
+
 	$('div#bookReviewDiv').load('/${homepage.context_path}/module/bookReview/index.do?menu_idx=${fn:escapeXml(param.menu_idx)}&manage_code=${fn:escapeXml(detail.MANAGE_CODE)}&reg_no=${fn:escapeXml(detail.REG_NO)}');
 });
 
 </script>
+<style>
+.tagCloud {overflow:hidden; padding:15px; border:1px solid #dfdfdf;}
+.tagCloud #cloud {height:200px;}
+.jqcloud {overflow:hidden; position:relative; font-size:0.750em; line-height:normal;}
+.jqcloud span {display:inline-block; padding:0;}
+.jqcloud a {font-weight:600; font-size:inherit; text-decoration:none;}
+.jqcloud span.w10 a {font-size:600%; color:#003b84;}
+.jqcloud span.w9 a {font-size:500%; color:#044eaa;}
+.jqcloud span.w8 a {font-size:450%; color:#1367ce;}
+.jqcloud span.w7 a {font-size:400%; color:#5393e1;}
+.jqcloud span.w6 a {font-size:350%; color:#61aadd;}
+.jqcloud span.w5 a {font-size:300%; color:#8cc0dd;}
+.jqcloud span.w4 a {font-size:250%; color:#555c64;}
+.jqcloud span.w3 a {font-size:200%; color:#757b82;}
+.jqcloud span.w2 a {font-size:160%; color:#757b82;}
+.jqcloud span.w1 a {font-size:160%; color:#757b82;}
 
+.bookTitle {margin:20px 0 8px; font-weight:600; font-size:1.154em; color:#333;}
+
+/* 선호도 그래프(막대) */
+.graphWrap {padding:15px; border:1px solid #dfdfdf;}
+.graphWrap .barGraph {margin:0 auto;}
+.barGraph .graphBox {position:relative; margin:20px 0 30px 30px;}
+.barGraph .axis-x {position:relative; z-index:2;}
+.barGraph .axis-x li {float:left; position:relative; height:200px; width:14.28571428571429%; text-align:center;}
+.barGraph .bar {display:block; position:absolute; bottom:0; left:50%; width:30px; height:100%; margin-left:-15px;}
+.barGraph .bar .fill {display:block; position:absolute; bottom:0; left:0; width:100%; background-color:#d9dee3;}
+.barGraph .bar .num {display:block; margin-top:-18px; font-weight:bold; font-size:1em; line-height:1em;}
+.barGraph .txt {position:absolute; bottom:-30px; left:0; width:100%; line-height:1em; vertical-align:text-top;}
+.axis-y {position:absolute; top:0; left:0; z-index:1; width:100%;}
+.axis-y .line {display:block; position:relative; width:100%; height:39px; border-top:1px solid #dfdfdf;}
+.axis-y .line .txt {position:absolute; top:-11px; left:-35px; width:30px; text-align:right;}
+#chart {position:relative; width:100%; height:200px; font-size:16px;}
+
+
+.kdcBookList {border-top:2px solid #666;}
+.kdcBookList > li {overflow:hidden; position:relative; padding:15px 0 10px 0; border-bottom:1px solid #dfdfdf;}
+.kdcBookList .btnMore {position:absolute; top:15px; right:0; width:10px; height:10px; padding:5px; border:1px solid #d9d9d9; background:#fff url(/kolaseek/include/image/button/ico_more.png) 50% 50% no-repeat;}
+.kdcBookList .kdcTitle {display:block; margin-bottom:8px; font-size:1.154em;}
+.kdcBookList .bookListz {}
+.kdcBookList .bookListz > li {float:left; width:20%; text-align:center; margin-bottom:5px;}
+.kdcBookList .bookListz .thumb {position:relative; max-width:122px; margin:0 auto 5px;}
+.kdcBookList .bookListz .thumb .img {display:block; width:120px; height:162px; border:1px solid #969696;}
+.kdcBookList .bookListz .thumb .img img {width:100%}
+.kdcBookList .bookListz .tit,.kdcBookList .bookListz .author {display:block; overflow:hidden; margin:0 5px; text-overflow:ellipsis; white-space:nowrap; word-break:normal;}
+.kdcBookList .bookListz .author {font-size:0.923em;}
+
+</style>
 <form id="storageReqForm" action="/${homepage.context_path}/module/myStorage/saveItem.do" method="post">
 	<input type="hidden" name="_csrf" value="${_csrf.token}">
 	<input type="hidden" id="editMode" name="editMode" value="ADD">
@@ -255,6 +312,64 @@ $(function() {
 
 			<a href="javascript:history.back();" id="goBack" class="btn"><i class="fa fa-book"></i><span>목록으로</span></a>
 		</div>
+
+		<!-- 선호도정보 -->
+		<h5 class="bookTitle">연령별 대출선호도 정보</h5>
+		<div class="graphWrap">
+			<!-- 막대그래프 -->
+			<c:if test="${not empty data4ageList}">
+			<div class="barGraph">
+				<div class="graphBox">
+					<ul class="axis-x clearfix">
+						<c:forEach var="i" varStatus="stauts" items="${data4ageList}">
+						<li>
+							<span class="bar"><span class="fill" style="height:${(i.loanCnt/data4LoanCnt)*100}%;"><em class="num">${i.loanCnt}건</em></span></span>
+							<p class="txt">${i.name}</p>
+						</li>
+						</c:forEach>
+					</ul>
+					<div class="axis-y">
+						<span class="line"><span class="txt">100</span></span>
+						<span class="line"><span class="txt">80</span></span>
+						<span class="line"><span class="txt">60</span></span>
+						<span class="line"><span class="txt">40</span></span>
+						<span class="line"><span class="txt">20</span></span>
+						<span class="line"><span class="txt">0</span></span>
+					</div>
+				</div>
+			</div>
+			</c:if>
+			<c:if test="${empty data4ageList}">
+			<div>데이터가 없습니다.</div>
+			</c:if>
+			<!-- //막대그래프 -->
+		</div>
+		<!-- 선호도정보 -->
+
+		<h5 class="bookTitle">이 책의 주요키워드</h5>
+		<div class="tagCloud">
+			<div id="cloud" class="jqcloud"></div>
+		</div>
+
+		<!-- 도서정보목록 -->
+		<strong class="kdcTitle">이 책과 같이 빌린 도서 정보</strong>
+
+		<ul class="bookListz">
+			<c:forEach items="${data4recommandList}" var="i" varStatus="status" begin="1" end="5" step="1">
+				<li>
+					<div class="thumb">
+						<a href="#None" class="cover" onclick="alert('이 책과 같이 빌린 도서 정보는 상세페이지를 지원하지 않습니다.')">
+							<span class="img">
+								<img src="${i.bookImageURL}" alt="${i.bookname}" >
+							</span>
+						</a>
+					</div>
+					${i.bookname}
+					<span class="author">${i.authors}</span>
+				</li>
+			</c:forEach>
+		</ul>
+
 
 		<h3 style="border-top: 1px solid #ccc;">서평</h3>
 		<div class="showFoldDiv" id="bookReviewDiv"></div>

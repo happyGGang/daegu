@@ -55,6 +55,8 @@ public class CommonAPI {
 	public final static String KCMS_API_URL = ResourceBundle.getBundle("api").getString("kcms.api.url");
 	public final static String SANGHO_API_URL = ResourceBundle.getBundle("api").getString("sangho.api.url");
 
+	public final static String DATA_4_LIBRARY_API_URL = ResourceBundle.getBundle("api").getString("data4library.api.url");
+	public final static String DATA_4_LIBRARY_API_KEY = ResourceBundle.getBundle("api").getString("data4library.api.key");
 
 	public static HttpURLConnection initConn(String urlStr) throws Exception {
 		URL url = new URL(urlStr);
@@ -686,6 +688,67 @@ public class CommonAPI {
 	public static JSONObject xmlToJson(String xmlString) {
 		JSONObject json = XML.toJSONObject(xmlString);
 		return json;
+	}
+
+	/**
+	 * 도서관 정보나루
+	 * @author YONGJU 2017. 12. 22.
+	 * @param param
+	 * @param mode
+	 * @return
+	 */
+	public static Map<String, Object> sendData4Library(Map<String, Object> param, String mode) {
+
+		BufferedReader br = null;
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		HttpURLConnection connection = null;
+		try {
+			String url = DATA_4_LIBRARY_API_URL + mode;
+			List<String> paramList = new ArrayList<String>();
+			param.put("authKey", DATA_4_LIBRARY_API_KEY);
+			if (param != null) {
+				Set<String> keys = param.keySet();
+				for (String oneKey : keys) {
+					if (oneKey.equals("authKey")) {
+						paramList.add(String.format("%s=%s", oneKey, param.get(oneKey)));
+					} else {
+						paramList.add(String.format("%s=%s", oneKey, URLEncoder.encode(String.valueOf(param.get(oneKey)), "UTF-8")));
+					}
+				}
+			}
+			connection = initConn(url + "?" + StringUtils.join(paramList, "&"));
+			connection.setRequestMethod("GET");
+			int responseCode = connection.getResponseCode();
+
+			if(responseCode==200) { // 정상 호출
+				br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
+			} else {  // 에러 발생
+				br = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+			}
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+			while ((inputLine = br.readLine()) != null) {
+				response.append(inputLine);
+			}
+			log.debug("@@@@@@@@@@@@@@@@@@ DATA_4_LIBRARY_API : " + url + "?" + StringUtils.join(paramList, "&"));
+			log.debug("@@@@@@@@@@@@@@@@@@ DATA_4_LIBRARY_API RESULT : " + response.toString());
+			resultMap = xmlToJson(response.toString()).toMap();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (br != null) {
+					br.close();
+				}
+				if (connection != null) {
+         			connection.disconnect();
+         		}
+			} catch (IOException e) {
+				log.error(e.getMessage());
+			}
+		}
+		return resultMap;
+
 	}
 
 }
