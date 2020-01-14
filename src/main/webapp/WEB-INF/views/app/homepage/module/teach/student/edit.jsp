@@ -237,50 +237,74 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
        	<tbody>
        		<tr style="display: none;">
 	         	<th>신청자 - 회원ID</th>
-	         	<td><form:input path="member_id" value="${memberInfo.USER_ID}" cssClass="text" readonly="true" title="회원 아이디 입력"/></td>
+	         	<td><form:input path="member_id" value="${memberInfo.member_id}" cssClass="text" readonly="true" title="회원 아이디 입력"/></td>
         	</tr>
 			<tr>
 	         	<th>신청자 - 성명</th>
-	         	<td>${memberInfo.USER_NAME}<form:hidden path="applicant_name" value="${memberInfo.USER_NAME}" cssClass="text" readonly="true" title="신청자 수"/></td>
+	         	<td>${memberInfo.member_name}<form:hidden path="applicant_name" value="${memberInfo.member_name}" cssClass="text" readonly="true" title="신청자 수"/></td>
         	</tr>
         	<tr>
 	         	<th>신청자 - 생년월일</th>
-	         	<c:set value="${fn:substring(memberInfo.BIRTHD,0,4)}" var="birth1"></c:set>
-	         	<c:set value="${fn:substring(memberInfo.BIRTHD,4,6)}" var="birth2"></c:set>
-	         	<c:set value="${fn:substring(memberInfo.BIRTHD,6,8)}" var="birth3"></c:set>
+	         	<c:set value="${fn:substring(memberInfo.birth_day,0,4)}" var="birth1"></c:set>
+	         	<c:set value="${fn:substring(memberInfo.birth_day,4,6)}" var="birth2"></c:set>
+	         	<c:set value="${fn:substring(memberInfo.birth_day,6,8)}" var="birth3"></c:set>
 	         	<c:set value="${birth1}-${birth2}-${birth3}" var="birth"></c:set>
 	         	<td>${birth}<form:hidden path="applicant_birth" value="${birth}" class="text ui-calendar" readonly="true" title="생년월일"/></td>
         	</tr>
         	<tr>
 	         	<th>신청자 - 성별</th>
 	         	<td>
-	         		${memberInfo.SEX eq '0001'? '남' : '여'}
-					<form:hidden path="applicant_sex" value="${memberInfo.SEX eq '0001'? 'M' : 'F'}" class="text" maxlength="6" readonly="true"/>
+	         		${memberInfo.sex eq '1'? '남' : '여'}
+					<form:hidden path="applicant_sex" value="${memberInfo.sex eq '1'? 'M' : 'F'}" class="text" maxlength="6" readonly="true"/>
          		</td>
 	        </tr>
 	        <tr>
 	         	<th>신청자 - 우편번호(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
-	         		${memberInfo.ZIP_CODE}
-	         		<form:hidden path="applicant_zipcode" value="${memberInfo.ZIP_CODE}" cssClass="text" cssStyle="width: 8%;" readonly="true"/>
-<!-- 	         		<button class="btn btn2 findPostCode" keyValue1="#applicant_zipcode" keyValue2="#applicant_address" keyValue3="#applicant_address">우편번호 찾기</button> -->
+	         		<c:choose>
+						<c:when test="${empty memberInfo.zipcode}">
+	         		<form:input path="applicant_zipcode" cssClass="text" cssStyle="width: 8%;" readonly="true"/>
+	         		<button class="btn btn2 findPostCode" keyValue1="#applicant_zipcode" keyValue2="#applicant_address" keyValue3="#applicant_address">우편번호 찾기</button>
+						</c:when>
+						<c:otherwise>
+	         		${memberInfo.zipcode}
+	         		<form:hidden path="applicant_zipcode" value="${memberInfo.zipcode}" cssClass="text" cssStyle="width: 8%;" readonly="true"/>
+						</c:otherwise>
+					</c:choose>
 	         	</td>
         	</tr>
 	        <tr>
 	         	<th>신청자 - 주소(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
-	         		${memberInfo.ADDRS}
-	         		<form:hidden path="applicant_address" value="${memberInfo.ADDRS}" cssClass="text" style="width:95%;" maxlength="60" readonly="true"/><br/>
+	         		<c:choose>
+						<c:when test="${empty memberInfo.zipcode}">
+					<form:input path="applicant_address"  cssClass="text" style="width:95%;" maxlength="100"/><br/>
+						</c:when>
+						<c:otherwise>
+	         		${memberInfo.address}
+	         		<form:hidden path="applicant_address" value="${memberInfo.address}" cssClass="text" style="width:95%;" maxlength="60" readonly="true"/><br/>
+						</c:otherwise>
+					</c:choose>
          		</td>
         	</tr>
 			<tr>
 				<th>신청자 - 휴대전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
 				<td>
-					${member.cell_phone1}-${member.cell_phone2}-${member.cell_phone3}
-					<form:hidden path="applicant_cell_phone" />
-					<input type="hidden" id="applicant_cell_phone_1" style="width:40px;" class="text" maxlength="3" numberonly="true" value="${member.cell_phone1}"/>
-					<input type="hidden" id="applicant_cell_phone_2" style="width:50px;" class="text" maxlength="4" numberonly="true" value="${member.cell_phone2}"/>
-					<input type="hidden" id="applicant_cell_phone_3" style="width:50px;" class="text" maxlength="4" numberonly="true" value="${member.cell_phone3}"/>
+					<c:choose>
+						<c:when test="${empty member.cell_phone1}">
+							<form:hidden path="applicant_cell_phone" />
+							<input type="text" id="applicant_cell_phone_1" name="applicant_cell_phone_1" style="width:40px;" class="text" maxlength="3" numberonly="true"/> -
+							<input type="text" id="applicant_cell_phone_2" name="applicant_cell_phone_2" style="width:50px;" class="text" maxlength="4" numberonly="true"/> -
+							<input type="text" id="applicant_cell_phone_3" name="applicant_cell_phone_3" style="width:50px;" class="text" maxlength="4" numberonly="true"/>
+						</c:when>
+						<c:otherwise>
+							${member.cell_phone1}-${member.cell_phone2}-${member.cell_phone3}
+							<form:hidden path="applicant_cell_phone" />
+							<input type="hidden" id="applicant_cell_phone_1" style="width:40px;" class="text" maxlength="3" numberonly="true" value="${member.cell_phone1}"/>
+							<input type="hidden" id="applicant_cell_phone_2" style="width:50px;" class="text" maxlength="4" numberonly="true" value="${member.cell_phone2}"/>
+							<input type="hidden" id="applicant_cell_phone_3" style="width:50px;" class="text" maxlength="4" numberonly="true" value="${member.cell_phone3}"/>
+						</c:otherwise>
+					</c:choose>
 				</td>
 			</tr>
 			<c:if test="${teach.agent_yn ne 'Y'}">

@@ -218,10 +218,10 @@ public class StudentService extends BaseService {
 					int result = dao.addStudent(student);
 					if ( result > 0 ) {
 						String message = String.format("[%s] 해당 강좌 신청이 완료 되었습니다.", teach.getTeach_name());
-						Homepage homepage = homepageService.getHomepageOne(new Homepage(student.getHomepage_id()));
-						if (isSmsReceive(student.getSearch_api_type(), student.getMember_id())) {
-							PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, student.getApplicant_cell_phone(), message, homepage.getHomepage_send_tell(), true);
-						}
+//						Homepage homepage = homepageService.getHomepageOne(new Homepage(student.getHomepage_id()));
+//						if (isSmsReceive(student.getSearch_api_type(), student.getMember_id())) {
+//							PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, student.getApplicant_cell_phone(), message, homepage.getHomepage_send_tell(), true);
+//						}
 						addResult[0] = true;
 						addResult[1] = String.format("%s번째 참여자로 신청 되었습니다.", curJoinCount + 1);
 						addResult[2] = true;
@@ -246,10 +246,10 @@ public class StudentService extends BaseService {
 							addResult[0] = true;
 							addResult[1] = String.format("%s번째 대기자로 신청 되었습니다.", curBackupJoinCount + 1);
 							String message = String.format("[%s] 해당 강좌에 대기자로 신청이 완료되었습니다.", teach.getTeach_name());
-							Homepage homepage = homepageService.getHomepageOne(new Homepage(student.getHomepage_id()));
-							if (isSmsReceive(student.getSearch_api_type(), student.getMember_id())) {
-								PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, student.getApplicant_cell_phone(), message, homepage.getHomepage_send_tell(), true);
-							}
+//							Homepage homepage = homepageService.getHomepageOne(new Homepage(student.getHomepage_id()));
+//							if (isSmsReceive(student.getSearch_api_type(), student.getMember_id())) {
+//								PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, student.getApplicant_cell_phone(), message, homepage.getHomepage_send_tell(), true);
+//							}
 							return addResult;
 						}
 						else {
@@ -302,10 +302,10 @@ public class StudentService extends BaseService {
 			Teach teach = new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx());
 			teach = teachDao.getTeachOne(teach);
 			//TODO 휴대문자 동의 여부 확인 후 전송
-			Homepage homepage = homepageService.getHomepageOne(new Homepage(student.getHomepage_id()));
-			if (isSmsReceive("USERID", st.getMember_id())) {
-				PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, st.getApplicant_cell_phone(), String.format("[%s] 해당 강좌 신청이 취소 되었습니다.", teach.getTeach_name()), homepage.getHomepage_send_tell(), true);
-			}
+//			Homepage homepage = homepageService.getHomepageOne(new Homepage(student.getHomepage_id()));
+//			if (isSmsReceive("USERID", st.getMember_id())) {
+//				PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, st.getApplicant_cell_phone(), String.format("[%s] 해당 강좌 신청이 취소 되었습니다.", teach.getTeach_name()), homepage.getHomepage_send_tell(), true);
+//			}
 		}
 		int result = dao.cancelStudent(student);
 		if ( result > 0 ) {
@@ -322,8 +322,8 @@ public class StudentService extends BaseService {
 						if ( firstBackupStudent != null ) {
 							if ( dao.updateJoinToBackupMember(firstBackupStudent) > 0 ) {
 								//대기자에서 정상참여로 변경될 경우
-								Homepage homepage = homepageService.getHomepageOne(new Homepage(firstBackupStudent.getHomepage_id()));
-								PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, firstBackupStudent.getApplicant_cell_phone(), String.format("[%s] 해당 강좌 신청이 완료 되었습니다.", teach.getTeach_name()), homepage.getHomepage_send_tell(), true);
+//								Homepage homepage = homepageService.getHomepageOne(new Homepage(firstBackupStudent.getHomepage_id()));
+//								PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, firstBackupStudent.getApplicant_cell_phone(), String.format("[%s] 해당 강좌 신청이 완료 되었습니다.", teach.getTeach_name()), homepage.getHomepage_send_tell(), true);
 							}
 						}
 					}
@@ -353,8 +353,8 @@ public class StudentService extends BaseService {
 						Student firstBackupStudent = dao.getFirstBackupMember(teach);
 						if ( firstBackupStudent != null ) {
 							if ( dao.updateJoinToBackupMember(firstBackupStudent) > 0 ) {
-								Homepage homepage = homepageService.getHomepageOne(new Homepage(firstBackupStudent.getHomepage_id()));
-								PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, homepage.getHomepage_send_tell(), String.format("[%s] 정상 참여 되었습니다.", teach.getTeach_name()), firstBackupStudent.getApplicant_cell_phone(), true);
+//								Homepage homepage = homepageService.getHomepageOne(new Homepage(firstBackupStudent.getHomepage_id()));
+//								PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, homepage.getHomepage_send_tell(), String.format("[%s] 정상 참여 되었습니다.", teach.getTeach_name()), firstBackupStudent.getApplicant_cell_phone(), true);
 							}
 						}
 					}

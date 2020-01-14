@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.whalesoft.app.board.Board;
 import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
 import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
@@ -66,23 +68,40 @@ public class StudentController extends BaseController {
 		return recommendSiteService.getRecommendSiteListAll(new RecommendSite(homepage.getHomepage_id()));
 	}
 
+	@RequestMapping(value = {"/cert.*"}, method = RequestMethod.GET)
+	public String cert(Model model, Student student, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+
+		return String.format(basePath, homepage.getFolder()) + "cert";
+
+	}
+
 	@RequestMapping(value = {"/edit.*"})
 	public String edit(Model model, Student student, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		checkAuth("R", model, request, "소속도서관에서 신청하시기 바랍니다.");
+		checkAuth("R", model, request);
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 
 
 		//로그인 체크
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			student.setBefore_url(String.format("http://www.gbelib.kr/%s/module/teach/index.do?menu_idx=%s&group_idx=%s&category_idx=%s", homepage.getContext_path(), student.getMenu_idx(), student.getGroup_idx(), student.getCategory_idx()));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://www.gbelib.kr/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), student.getMenu_idx(), student.getBefore_url()), request, response);
+		if ( !isLogin(request) && request.getSession().getAttribute("certMember") == null) {
+			service.alertMessageAndUrl("본인인증 후 신청가능합니다.", String.format("cert.do?menu_idx=%s&editMode=ADD&group_idx=%s&category_idx=%s&teach_idx=%d&large_category_idx=%d", student.getMenu_idx(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx(), student.getLarge_category_idx()), request, response);
 			return null;
 		}
-		if ( !homepage.getHomepage_id().equals("h1") ) {
+		if ( !homepage.getHomepage_id().equals("h32") ) {
 			student.setHomepage_id(homepage.getHomepage_id());
 		}
-		student.setMember_id(getSessionMemberId(request));
-		student.setMember_key(getSessionUserSeqNo(request));
+
+		Member certMember = (Member) request.getSession().getAttribute("certMember");
+		if (certMember != null) {
+			student.setMember_id("ANONYMOUS");
+			certMember.setMember_id("ANONYMOUS");
+			student.setMember_key(certMember.getCi_value());
+
+		} else {
+			student.setMember_id(getSessionMemberId(request));
+			student.setMember_key(getSessionMemberId(request));
+
+		}
 
 		// 그룹당 강의 제한 개수 . ->
 		String checkResult = service.checkStudent(student);
@@ -97,12 +116,14 @@ public class StudentController extends BaseController {
 //			return null;
 //		}
 
+		Member memberInfo = certMember == null ? getSessionMemberInfo(request) : certMember;
+
 		//약관 연동부
 		Menu menuOne = (Menu) request.getAttribute("menuOne");
 		model.addAttribute("termsList", termsService.getTermsListInModule(new Terms(menuOne.getManage_idx())));
 		model.addAttribute("hakList", codeService.getCode("CMS", "C0020"));
 		model.addAttribute("teach", teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx())));
-		model.addAttribute("memberInfo", MemberAPI.getMember("WEB", getSessionMemberInfo(request)));
+		model.addAttribute("memberInfo", memberInfo);
 		model.addAttribute("student", student);
 		model.addAttribute("cellPhoneCode", codeService.getCode("CMS", "C0002"));
 		model.addAttribute("phoneCode", codeService.getCode("CMS", "C0003"));
@@ -116,11 +137,20 @@ public class StudentController extends BaseController {
 		JsonResponse res = new JsonResponse(request);
 		Teach teachOne = null;
 
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+//		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+//			res.setValid(false);
+//			res.setMessage("로그인 후 이용가능합니다.");
+//			return res;
+//		}
+
+		if ( !isLogin(request) && request.getSession().getAttribute("certMember") == null) {
 			res.setValid(false);
-			res.setMessage("로그인 후 이용가능합니다.");
+			res.setMessage("본인인증 후 신청가능합니다.");
+			res.setUrl(String.format("cert.do?menu_idx=%s&editMode=ADD&group_idx=%s&category_idx=%s&teach_idx=%d&large_category_idx=%d", student.getMenu_idx(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx(), student.getLarge_category_idx()));
 			return res;
 		}
+
+
 		if(student.getEditMode().equals("ADD")) {
 			ValidationUtils.rejectIfEmpty(result, "member_id", "신청자ID를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "applicant_name", "신청자명을 입력하세요.");
@@ -202,15 +232,10 @@ public class StudentController extends BaseController {
 			}
 
 			if(student.getEditMode().equals("ADD")) {
-				String webId = getSessionWebId(request);
-				if (StringUtils.isNotEmpty(webId)) {
-					student.setAdd_id(getSessionWebId(request));
-				} else {
-					student.setAdd_id(getSessionMemberId(request));
-				}
-				student.setWeb_id(getSessionWebId(request));
-				student.setMember_key(getSessionUserSeqNo(request));
-				student.setApi_user_id(getSessionUserId(request));
+				student.setAdd_id(student.getMember_id());
+				student.setWeb_id(student.getMember_id());
+//				student.setMember_key(student.getMember_id());
+				student.setApi_user_id(student.getMember_id());
 				student.setSearch_api_type("USER_ID");
 
 //				String writer = quizReq.getName() + "/" + quizReq.getSchool() + "/" + quizReq.getBan();

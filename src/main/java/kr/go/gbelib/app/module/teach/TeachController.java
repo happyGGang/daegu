@@ -83,7 +83,7 @@ public class TeachController extends BaseController{
 
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, Teach teach, HttpServletRequest request, HttpServletResponse response) throws AuthException {
-		checkAuth("R", model, request, "소속도서관에서 신청하시기 바랍니다.");
+		checkAuth("R", model, request);
 
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 		if ( isLogin(request) && getSessionMemberLoginType(request).equals("HOMEPAGE") ) {
@@ -176,8 +176,8 @@ public class TeachController extends BaseController{
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 
 		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			teach.setBefore_url(String.format("http://www.gbelib.kr/%s/module/teach/applyList.do?menu_idx=%s", homepage.getContext_path(), teach.getMenu_idx()));
-			teachService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://www.gbelib.kr/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), teach.getMenu_idx(), teach.getBefore_url()), request, response);
+			teach.setBefore_url(String.format("/%s/module/teach/applyList.do?menu_idx=%s", homepage.getContext_path(), teach.getMenu_idx()));
+			teachService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), teach.getMenu_idx(), teach.getBefore_url()), request, response);
 			return null;
 		}
 
@@ -264,8 +264,8 @@ public class TeachController extends BaseController{
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 
 		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			teach.setBefore_url(String.format("http://www.gbelib.kr/%s/module/teach/applyList.do?menu_idx=%s", homepage.getContext_path(), teach.getMenu_idx()));
-			teachService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://www.gbelib.kr/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), teach.getMenu_idx(), teach.getBefore_url()), request, response);
+			teach.setBefore_url(String.format("/%s/module/teach/applyList.do?menu_idx=%s", homepage.getContext_path(), teach.getMenu_idx()));
+			teachService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), teach.getMenu_idx(), teach.getBefore_url()), request, response);
 			return null;
 		}
 
