@@ -37,10 +37,8 @@
 				guest_group_yn
 	    	FROM
 	    		WB_MEMBER_GROUP a
-	    	WHERE
-	    		guest_group_yn = 'N'
 	    	<if test="site_id != null and site_id != ''">
-	    	AND
+	    	WHERE
 	    		site_id = #{site_id}
 	    	</if>
 	    ) A
