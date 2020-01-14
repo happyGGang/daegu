@@ -173,6 +173,7 @@ public class CommonLoginController extends BaseController {
 			if (!isMobile) {
 				request.getSession().setAttribute("showUserInfo", true);
 			}
+			request.getSession().removeAttribute("certMember");
 
 			/**
 			 * 비밀번호 만료일자가 지난 경우 패스워드 변경유도 페이지로 이동.
