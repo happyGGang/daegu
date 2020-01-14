@@ -9,6 +9,14 @@ $(document).ready(function() {
 
 	<%-- 등록 --%>
 	<c:choose>
+	<c:when test="${sessionScope.member.anonymous}">
+	$('a#anonymous_btn').on('click', function(e) {
+		e.preventDefault();
+		var url = 'cert.do';
+		var formData = serializeCustom($form);
+		doGetLoad(url, formData);
+	});
+	</c:when>
 	<c:when test="${boardManage.manage_idx == 563 or boardManage.manage_idx == 592}">
 	$('a#board_edit_btn').on('click', function(e) {
 		e.preventDefault();

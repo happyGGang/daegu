@@ -15,6 +15,7 @@ import kr.co.whalesoft.app.cms.accessIp.AccessIpController;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.login.LoginService;
 import kr.co.whalesoft.app.cms.member.Member;
+import kr.co.whalesoft.app.cms.member.MemberService;
 import kr.co.whalesoft.app.cms.memberGroupAuth.MemberGroupAuthService;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JavaScriptUtils;
@@ -45,6 +46,8 @@ public class MemberAuthInterceptor extends HandlerInterceptorAdapter {
 	private MemberGroupAuthService memberGroupAuthService;
 
 
+	@Autowired
+	private MemberService memberService;
 
 	/**
 	 * 회원기본 권한 체크 인터셉터 함수
@@ -107,7 +110,7 @@ public class MemberAuthInterceptor extends HandlerInterceptorAdapter {
 //		List<String> authList = new ArrayList<String>();
 		//익명권한 부여
 		member.setAnonymous(true);
-//		member.setAuthMap(memberService.getAnonymousAuth(member));
+		member.setAuthMap(memberService.getAnonymousAuth(member));
 		//authList.add(AuthUtils.anonymous);
 		//member.setMember_auth(authList);
 		/** 임시 아이디 부여 **/

@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:choose>
-	<c:when test="${authMBA}">
+	<c:when test="${authMBA or sessionScope.member.admin}">
 		<c:choose>
 			<c:when test="${board.editMode eq 'MODIFY'}">
 				<c:choose>
@@ -19,15 +19,24 @@
 					<c:otherwise>
 ${board.user_name}
 					</c:otherwise>
-				</c:choose>	
+				</c:choose>
 			</c:when>
-			
+
 			<c:otherwise>
 <form:input path="user_name" value="${member.member_name }" cssClass="text"/>
 			</c:otherwise>
 		</c:choose>
 	</c:when>
 	<c:otherwise>
-${member.member_name}
+		<c:if test="${sessionScope.member.anonymous and board.editMode eq 'MODIFY'}">
+${board.user_name}
+		</c:if>
+		<c:if test="${sessionScope.member.anonymous and board.editMode eq 'ADD'}">
+${sessionScope.certMember.member_name}
+<form:hidden path="user_name" value="${sessionScope.certMember.member_name}" cssClass="text"/>
+		</c:if>
+		<c:if test="${!sessionScope.member.anonymous}">
+${sessionScope.member.member_name}
+		</c:if>
 	</c:otherwise>
 </c:choose>

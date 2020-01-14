@@ -352,12 +352,60 @@ public class BoardController extends BaseController {
 			checkAuth("U", model, request);
 			Board boardOne = (Board)service.copyObjectPaging(boardManage, board, service.getBoardOne(board));
 
-			if ( boardOne.getSecret_yn().equals("Y") && StringUtils.isNotEmpty(boardOne.getUser_password()) ) {
-				if ( !boardOne.getUser_password().equals(CalculateHashUtils.calculateHash(board.getUser_password())) ) {
-					service.alertMessage("비밀번호가 틀립니다.", request, response);
-					return null;
+
+
+			boolean isBoardAdmin = (Boolean) model.asMap().get("authMBA");
+			if (!isBoardAdmin) {
+				//회원의 비밀글인 경우
+				if (!boardOne.getAdd_id().equals("ANONYMOUS")) {
+					Member memberTemp = getSessionMemberInfo(request);
+					if (!memberTemp.getMember_id().equals(boardOne.getAdd_id())) {
+						service.alertMessage("권한이 없습니다.", request, response);
+						return null;
+					}
+				} else {
+					//비회원의 비밀글인 경우
+					Object certObject = request.getSession().getAttribute("certMember");
+					if (certObject == null || !(certObject instanceof Member)) {
+						service.alertMessage("권한이 없습니다.", request, response);
+						return null;
+					} else {
+						Member m = (Member) certObject;
+						if (!m.getCi_value().equals(boardOne.getImsi_v_20())) {
+							service.alertMessage("권한이 없습니다.", request, response);
+							return null;
+						}
+					}
 				}
 			}
+
+//			if (StringUtils.isNotBlank(boardOne.getImsi_v_20())) {
+//				Member memberTemp = getSessionMemberInfo(request);
+//				if (!memberTemp.getMember_id().equals(boardOne.getUser_id())) {
+//					service.alertMessage("권한이 없습니다.", request, response);
+//					return null;
+//				}
+//			} else {
+//				//비회원의 비밀글인 경우
+//				Object certObject = request.getSession().getAttribute("certMember");
+//				if (certObject == null || !(certObject instanceof Member)) {
+//					service.alertMessage("권한이 없습니다.", request, response);
+//					return null;
+//				} else {
+//					Member m = (Member) certObject;
+//					if (!m.getCi_value().equals(boardOne.getImsi_v_20())) {
+//						service.alertMessage("권한이 없습니다.", request, response);
+//						return null;
+//					}
+//				}
+//			}
+
+//			if ( boardOne.getSecret_yn().equals("Y") && StringUtils.isNotEmpty(boardOne.getUser_password()) ) {
+//				if ( !boardOne.getUser_password().equals(CalculateHashUtils.calculateHash(board.getUser_password())) ) {
+//					service.alertMessage("비밀번호가 틀립니다.", request, response);
+//					return null;
+//				}
+//			}
 
 			boardOne.setMenu_idx(board.getMenu_idx());
 			model.addAttribute("boardFile", boardFileService.getBoardFile(board.getBoard_idx()));
@@ -508,8 +556,18 @@ public class BoardController extends BaseController {
 
     			if (!isLogin(request)) {
     				//비로그인 상태에서는 볼 수 없다.
-    				service.alertMessage("비밀글은 본인과 관리자만 볼 수 있습니다.", request, response);
-    				return null;
+
+    				Object certObject = request.getSession().getAttribute("certMember");
+    				if (certObject != null && certObject instanceof Member) {
+    					Member m = (Member) certObject;
+    					if (StringUtils.isNotBlank(boardData.getImsi_v_20()) && !m.getCi_value().equals(boardData.getImsi_v_20())) {
+    						service.alertMessage("비밀글은 본인과 관리자만 볼 수 있습니다.", request, response);
+    						return null;
+    					}
+    				} else {
+    					service.alertMessage("비밀글은 본인과 관리자만 볼 수 있습니다.", request, response);
+    					return null;
+    				}
     			} else {
 
     				String boardAddId = boardData.getAdd_id();
@@ -791,6 +849,17 @@ public class BoardController extends BaseController {
 					board.setNotice_yn("N"); // 수정시 체크 해제 하고 저장하면 notice_yn = null 이된다.
 				}
 
+				Object certObject = request.getSession().getAttribute("certMember");
+				if (certObject != null && certObject instanceof Member) {
+					Member certMember = (Member) certObject;
+					Board boardOne = (Board)service.copyObjectPaging(boardManage, board, service.getBoardOne(board));
+					if (!boardOne.getImsi_v_20().equals(certMember.getCi_value())) {
+						res.setValid(false);
+						res.setMessage("권한이 없습니다.");
+						return res;
+					}
+				}
+
 				String modifyResult = (String) service.modifyBoard(boardManage, board, request);
 				if (modifyResult != null) {
 					res.setValid(true);
@@ -1032,5 +1101,44 @@ public class BoardController extends BaseController {
 		return res;
 	}
 
+	@RequestMapping(value = {"/cert.*"}, method = RequestMethod.GET)
+	public String cert(Model model, Board board, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+
+		String referer = request.getHeader("referer");
+		request.getSession().setAttribute("boardCertReferer", referer);
+
+		String basePath = "";
+		String homepageFolder = "";
+
+		if(homepage != null) {
+			homepageFolder = "/homepage/" + homepage.getFolder();
+		}
+
+		basePath = homepageFolder + "/board/common/";
+		model.addAttribute("board", board);
+		return basePath + "boardCert";
+
+	}
+
+	@RequestMapping(value = {"/cert2.*"}, method = RequestMethod.GET)
+	public String cert2(Model model, Board board, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+
+		String referer = request.getHeader("referer");
+		request.getSession().setAttribute("boardCertReferer", referer);
+
+		String basePath = "";
+		String homepageFolder = "";
+
+		if(homepage != null) {
+			homepageFolder = "/homepage/" + homepage.getFolder();
+		}
+
+		basePath = homepageFolder + "/board/common/";
+		model.addAttribute("board", board);
+		return basePath + "boardCert2";
+
+	}
 
 }

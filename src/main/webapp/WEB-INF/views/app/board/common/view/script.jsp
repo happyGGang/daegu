@@ -26,11 +26,47 @@ $(document).ready(function() {
 
 		e.preventDefault();
 	});
+    <%-- 수정하기 --%>
+    $('a#anonymous_edit_btn').on('click', function(e) {
+//     	if ( '${boardManage.board_type}' == 'QNA' ) {
+//     		if ( '${board.password_yn}' == 'Y' ) {
+//     			var password = prompt('비밀번호를 입력하세요.');
+//         		var beforeAction = $('#board').attr('action');
+//         		$('#board #user_password').val(password);
+//         		if ( password == null || password == '' ) {
+//         			return false;
+//         		}
+//     		}
+//     	}
+    	$('#editMode').val('MODIFY');
+		var url = 'edit.do';
+		var formData = serializeCustom($('#board'));
+		doGetLoad(url, formData);
+
+		e.preventDefault();
+	});
 
     <%-- 삭제하기 --%>
     $('a#board_delete_btn').on('click', function(e) {
     	e.preventDefault();
     	if(confirm('삭제 하시겠습니까?')) {
+    		$('#board').attr('action', 'delete.do');
+    		doAjaxPost($('#board'));
+    	}
+	});
+
+    <%-- 삭제하기 --%>
+    $('a#anonymous_delete_btn').on('click', function(e) {
+    	e.preventDefault();
+    	if(confirm('삭제 하시겠습니까?')) {
+//     		if ( '${board.password_yn}' == 'Y' ) {
+//     			var password = prompt('비밀번호를 입력하세요.');
+//         		var beforeAction = $('#board').attr('action');
+//         		$('#board #user_password').val(password);
+//         		if ( password == null || password == '' ) {
+//         			return false;
+//         		}
+//     		}
     		$('#board').attr('action', 'delete.do');
     		doAjaxPost($('#board'));
     	}

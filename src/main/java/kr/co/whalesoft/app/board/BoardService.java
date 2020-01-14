@@ -8,13 +8,23 @@ import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
+
+import com.googlecode.ehcache.annotations.Cacheable;
 
 import kr.co.whalesoft.app.board.boardFile.BoardFile;
 import kr.co.whalesoft.app.board.boardFile.BoardFileDao;
 import kr.co.whalesoft.app.board.boardFile.BoardFileService;
 import kr.co.whalesoft.app.cms.boardManage.BoardManage;
-import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.login.LoginService;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.module.boardAccess.BoardAccess;
@@ -27,17 +37,6 @@ import kr.co.whalesoft.framework.utils.CalculateHashUtils;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 import kr.co.whalesoft.framework.utils.RequestUtils;
 import kr.co.whalesoft.framework.utils.StrUtil;
-import net.sf.classifier4J.util.WFMultiPartPost;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
-
-import com.googlecode.ehcache.annotations.Cacheable;
 
 @Service
 public class BoardService extends BaseService {
@@ -269,6 +268,11 @@ public class BoardService extends BaseService {
 
 		if (member.isAnonymous()) {
 			board.setAdd_id("ANONYMOUS");
+			Object certObject = request.getSession().getAttribute("certMember");
+			if (certObject != null && certObject instanceof Member) {
+				Member certMember = (Member) certObject;
+				board.setImsi_v_20(certMember.getCi_value());
+			}
 		} else {
 			board.setAdd_id(member.getMember_id());
 		}
@@ -325,7 +329,7 @@ public class BoardService extends BaseService {
 		board.setContent_summary(StrUtil.previewContent(StrUtil.delHtmlTagPatterns(board.getContent()),1000));
 
 		if (member.isAnonymous()) {
-			board.setAdd_id("ANONYMOUS");
+			board.setModify_id("ANONYMOUS");
 		} else {
 			board.setAdd_id(member.getMember_id());
 		}
