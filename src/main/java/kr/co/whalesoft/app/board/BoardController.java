@@ -1140,5 +1140,10 @@ public class BoardController extends BaseController {
 		return basePath + "boardCert2";
 
 	}
+	
+	@RequestMapping(value = { "/rss.*" })
+	public String rss(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		return "/board/rss_ajax";
+	}
 
 }

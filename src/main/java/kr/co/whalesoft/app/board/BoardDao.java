@@ -139,4 +139,11 @@ public interface BoardDao {
 	public int modifyLostCardBoard(Board board);
 
 	public int checkLostCardBoard(Board board);
+
+	/**
+	 * @author whalesoft YONGJU 2020. 1. 14.
+	 * @param board
+	 * @return
+	 */
+	public List<Board> getBoardRSS(Board board);
 }

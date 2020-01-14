@@ -1884,6 +1884,34 @@
 			board_idx = #{board_idx}
 	</update>
 
-
+	<select id="getBoardRSS" resultType="kr.co.whalesoft.app.board.Board">
+		SELECT * FROM (
+			SELECT
+				b.homepage_id, a.manage_idx, a.board_idx, a.title, a.user_name,
+				a.content, a.content_summary, a.add_date, c.menu_idx
+			FROM
+				CMS_BOARD a, CMS_BOARD_MANAGE b, CMS_MENU c
+			WHERE 1=1
+			AND a.manage_idx = b.manage_idx
+			AND a.manage_idx = c.manage_idx
+			AND	a.delete_yn = 'N'
+			AND a.secret_yn = 'N'
+			AND a.group_depth = 0
+			AND a.parent_idx = 0
+			AND b.secret_use_yn = 'N'
+			AND b.board_type IN ('NOTICE', 'NORMAL', 'NEWS', 'GALLERY')
+			AND b.homepage_id = #{homepage_id}
+			AND c.homepage_id = #{homepage_id}
+			AND c.menu_type = 'BOARD'
+			AND c.use_yn = 'Y'
+			AND c.view_yn = 'Y'
+			AND a.manage_idx IN
+			<foreach collection="boardIdxArray" item="i" open="(" close=")" separator=",">
+			#{i}
+			</foreach>
+			ORDER BY a.board_idx DESC
+		)
+		WHERE ROWNUM &lt;= 50
+	</select>
 
 </mapper>

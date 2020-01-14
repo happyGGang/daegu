@@ -705,5 +705,9 @@ public class BoardService extends BaseService {
 	public int addFileDownloadCount(BoardFile boardFile) {
 		return dao.addFileDownloadCount(boardFile);
 	}
+	
+	public List<Board> getBoardRSS(Board board) {
+		return dao.getBoardRSS(board);
+	}
 
 }

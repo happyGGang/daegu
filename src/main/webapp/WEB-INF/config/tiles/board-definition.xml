@@ -5,6 +5,8 @@
 
 	<definition name="/board/*/*/*_ajax" templateExpression="/WEB-INF/views/app/board/{1}/{2}/{3}.jsp" />
 
+	<definition name="/board/*_ajax" templateExpression="/WEB-INF/views/app/board/{1}.jsp" />
+
 	<definition name="/board/*/*" templateExpression="/WEB-INF/views/app/board/common/boardLayout.jsp">
  		<put-attribute name="body" expression="/WEB-INF/views/app/board/{1}/{2}.jsp" />
  	</definition>
