@@ -10,21 +10,21 @@ $(function() {
 
 	$('#save-btn').on('click', function() {
 		if($('#apply_phone1').val() != "") {
-			$('#apply_phone').val($('#apply_phone1').val()+'-'+$('#apply_phone2').val()+'-'+$('#apply_phone3').val());	
-		}			
-		
+			$('#apply_phone').val($('#apply_phone1').val()+'-'+$('#apply_phone2').val()+'-'+$('#apply_phone3').val());
+		}
+
 		doAjaxPost($('#facilityReqForm'));
 	});
-	
+
 	$('#cancel-btn').on('click', function() {
 		var url = '/${homepage.context_path}/module/facility/index.do';
 		var formData = serializeParameter(['menu_idx']);
 		doGetLoad(url, formData);
 	});
-	
+
 	// 연락처 필드 숫자만 입력 가능
 	$(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(this).val().replace(/[^0-9]/gi,"") );});
-	
+
 });
 
 </script>
@@ -42,7 +42,7 @@ $(function() {
 <br/>
 
 	<form:hidden path="homepage_id"/>
-	<form:hidden path="editMode"/>									
+	<form:hidden path="editMode"/>
 	<form:hidden path="facility_req_idx"/>
 	<form:hidden path="facility_idx"/>
 	<form:hidden path="menu_idx"/>
@@ -50,31 +50,31 @@ $(function() {
 	<form:hidden path="member_key"/>
 	<table class="type1">
 		<colgroup>
-	       <col width="130" />
+	       <col width="160" />
 	       <col width="*"/>
        	</colgroup>
        	<tbody>
 	        <tr>
 	         	<th>시설물명</th>
 	         	<td>${facility.facility_name}</td>
-	        </tr>   
+	        </tr>
 	        <tr>
 	         	<th>이용일</th>
-	         	<td>${facility.use_date}</td>
-	        </tr>       		
+	         	<td>${facility.use_date} ${facility.start_time}~${facility.end_time}</td>
+	        </tr>
 	        <tr>
 	         	<th>신청자명 (<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
-        			<form:input path="apply_name" class="text" readonly="true" value="${member.member_name }"/>	
+        			<form:input path="apply_name" class="text" readonly="true" value="${member.member_name }"/>
          		</td>
 	        </tr>
 	        <tr>
 				<th>휴대전화번호 (<span style="color: red; font-weight: bold;">*</span>)</th>
 				<td>
 					<form:hidden path="apply_phone"/>
-					<form:input path="apply_phone1" class="text" cssStyle="width:40px;" maxlength="3" numberonly="true" value="${fn:substring(member.mobile_no,0,3)}"/>
-				 	- <form:input path="apply_phone2" class="text" cssStyle="width:50px;" maxlength="4" numberonly="true" value="${fn:substring(member.mobile_no,3,7)}"/>
-				 	- <form:input path="apply_phone3" class="text" cssStyle="width:50px;" maxlength="4" numberonly="true" value="${fn:substring(member.mobile_no,7,11)}"/>
+					<form:input path="apply_phone1" class="text" cssStyle="width:40px;" maxlength="3" numberonly="true" value="${member.cell_phone1}"/>
+				 	- <form:input path="apply_phone2" class="text" cssStyle="width:50px;" maxlength="4" numberonly="true" value="${member.cell_phone2}"/>
+				 	- <form:input path="apply_phone3" class="text" cssStyle="width:50px;" maxlength="4" numberonly="true" value="${member.cell_phone3}"/>
 				</td>
 			</tr>
 			<tr>

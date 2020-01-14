@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManageService;
@@ -33,6 +34,7 @@ import kr.go.gbelib.app.cms.module.facility.Facility;
 import kr.go.gbelib.app.cms.module.facility.FacilityService;
 import kr.go.gbelib.app.cms.module.facilityReq.FacilityReq;
 import kr.go.gbelib.app.cms.module.facilityReq.FacilityReqService;
+import kr.go.gbelib.app.cms.module.teach.student.Student;
 import kr.go.gbelib.app.common.api.PushAPI;
 
 @Controller(value="userFacility")
@@ -84,25 +86,38 @@ public class FacilityController extends BaseController {
 		model.addAttribute("facilityRepo", service.convertToRepo(service.getFacilityListByUser(facility)));
 //		model.addAttribute("facilityReq", facilityReq);
 //		model.addAttribute("facilityReqList", facilityReqService.getFacilityReqList(facilityReq));
-		
+
 		FacilityReq facilityReq = new FacilityReq();
 		facilityReq.setHomepage_id(homepage.getHomepage_id());
 		facilityReq.setApply_id(getSessionMemberId(request));
 		model.addAttribute("applyList", facilityReqService.getApplyList(facilityReq));
-		
+
 		return String.format(basePath, homepage.getFolder()) + "index";
+	}
+
+	@RequestMapping(value = {"/cert.*"}, method = RequestMethod.GET)
+	public String cert(Model model, FacilityReq facilityReq, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+
+		return String.format(basePath, homepage.getFolder()) + "cert";
+
 	}
 
 	@RequestMapping(value = {"/edit.*"})
 	public String edit(Model model, FacilityReq facilityReq, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-
-			facilityReq.setBefore_url(String.format("/%s/module/facility/index.do?menu_idx=%s", homepage.getContext_path(), facilityReq.getMenu_idx()));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), facilityReq.getMenu_idx(), facilityReq.getBefore_url()), request, response);
+		if ( !isLogin(request) && request.getSession().getAttribute("certMember") == null) {
+			service.alertMessageAndUrl("본인인증 후 신청가능합니다.", String.format("cert.do?menu_idx=%s&editMode=ADD&facility_idx=%d", facilityReq.getMenu_idx(), facilityReq.getFacility_idx()), request, response);
 			return null;
-	    }
+		}
+
+//		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+//
+//			facilityReq.setBefore_url(String.format("/%s/module/facility/index.do?menu_idx=%s", homepage.getContext_path(), facilityReq.getMenu_idx()));
+//			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), facilityReq.getMenu_idx(), facilityReq.getBefore_url()), request, response);
+//			return null;
+//	    }
 
 //		if ( blackListService.checkBlackList(new BlackList(homepage.getHomepage_id(), getSessionUserSeqNo(request)), "30")) {
 //			service.alertMessage("신청이 불가능합니다.\\n도서관에 문의해주세요.", request, response);
@@ -114,7 +129,16 @@ public class FacilityController extends BaseController {
 		facility.setFacility_idx(facilityReq.getFacility_idx());
 		model.addAttribute("facility",service.getFacilityOne(facility));
 
-		facilityReq.setApply_id(getSessionMemberId(request));
+		Member certMember = (Member) request.getSession().getAttribute("certMember");
+		if (certMember != null) {
+			facilityReq.setApply_id(certMember.getCi_value());
+
+		} else {
+			facilityReq.setApply_id(getSessionMemberId(request));
+
+		}
+
+		Member memberInfo = certMember == null ? getSessionMemberInfo(request) : certMember;
 		facilityReq.setHomepage_id(homepage.getHomepage_id());
 		if(facilityReq.getEditMode().equals("MODIFY")) {
 			//model.addAttribute("facility", service.copyObjectPaging(facility, service.getFacilityOne(facilityReq)));
@@ -126,7 +150,7 @@ public class FacilityController extends BaseController {
 		Menu menuOne = (Menu) request.getAttribute("menuOne");
 		model.addAttribute("termsList", termsService.getTermsListInModule(new Terms(menuOne.getManage_idx())));
 
-		model.addAttribute("member", getSessionMemberInfo(request));
+		model.addAttribute("member", memberInfo);
 //		model.addAttribute("prtcNotice",MemberAPI.getPrtcNoticeList("WEB"));
 		return String.format(basePath, homepage.getFolder()) + "edit";
 	}
@@ -145,7 +169,7 @@ public class FacilityController extends BaseController {
 
 		facilityReq.setHomepage_id(homepage.getHomepage_id());
 		facilityReq.setApply_id(getSessionMemberId(request));
-		
+
 		model.addAttribute("facilityReq", facilityReq);
 		model.addAttribute("applyList", facilityReqService.getApplyList(facilityReq));
 
@@ -159,6 +183,7 @@ public class FacilityController extends BaseController {
 		String editMode = facilityReq.getEditMode();
 
 		if ( facilityReq.getEditMode().equals("ADD") ) {
+			ValidationUtils.rejectIfEmpty(result, "apply_name", "신청자명을 입력해주세요");
 			ValidationUtils.rejectIfEmpty(result, "apply_phone1", "휴대번호를 입력해주세요.");
 			ValidationUtils.rejectIfEmpty(result, "apply_phone2", "휴대번호를 입력해주세요.");
 			ValidationUtils.rejectIfEmpty(result, "apply_phone3", "휴대번호를 입력해주세요.");
@@ -215,8 +240,14 @@ public class FacilityController extends BaseController {
 				}
 			}
 
-			facilityReq.setApply_id(getSessionMemberId(request));
-			facilityReq.setMember_key(getSessionMemberInfo(request).getSeq_no());
+			Member certMember = (Member) request.getSession().getAttribute("certMember");
+			if (certMember != null) {
+				facilityReq.setApply_id(certMember.getCi_value());
+
+			} else {
+				facilityReq.setApply_id(getSessionMemberId(request));
+
+			}
 
 			if ( editMode.equals("ADD") ) {
 				if ( facilityReqService.checkFacilityReq(facilityReq) > 0 ) {
@@ -225,18 +256,18 @@ public class FacilityController extends BaseController {
 					return res;
 				}
 
-				facilityReq.setAdd_id(getSessionMemberId(request));
+				facilityReq.setAdd_id(facilityReq.getApply_id());
 				facilityReqService.addFacilityReq(facilityReq);
 				res.setValid(true);
 				res.setMessage("정상 신청 되었습니다.");
 				res.setUrl("index.do?menu_idx=" + facilityReq.getMenu_idx());
-				if (StringUtils.equals(getSessionMemberInfo(request).getSms_service_yn(), "Y")) {
-					PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, facilityReq.getApply_phone(), "시설물 이용 신청이 정상 처리 되었습니다.", homepage.getHomepage_send_tell(), true);
-				}
+//				if (StringUtils.equals(getSessionMemberInfo(request).getSms_service_yn(), "Y")) {
+//					PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, facilityReq.getApply_phone(), "시설물 이용 신청이 정상 처리 되었습니다.", homepage.getHomepage_send_tell(), true);
+//				}
 
 			}
 			else if ( editMode.equals("CANCEL") ) {
-				facilityReq.setModify_id(getSessionMemberId(request));
+				facilityReq.setModify_id(facilityReq.getApply_id());
 				facilityReq.setApply_status("3");
 				facilityReqService.changeStatus(facilityReq);
 				res.setValid(true);
