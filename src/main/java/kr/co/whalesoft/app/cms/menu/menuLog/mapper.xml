@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.whalesoft.app.cms.menu.menuLog.MenuLogDao">
-    
+
 	<insert id="addMenuLog">
 		INSERT INTO CMS_MENU_LOG
 		(
-			work_type, work_date, member_id, work_ip, homepage_id, menu_idx, group_idx, menu_name, parent_menu_idx, 
+			work_type, work_date, member_id, work_ip, homepage_id, menu_idx, group_idx, menu_name, parent_menu_idx,
 			menu_url, menu_type, html, link_url
 		) VALUES
 		(
@@ -13,14 +13,58 @@
 			<if test=" work_type == 'parentMenuModify' ">
 				NVL((SELECT group_idx FROM CMS_MENU where homepage_id = #{homepage_id} AND menu_idx = #{parent_menu_idx}), 0),
 				NVL((SELECT menu_name FROM CMS_MENU where homepage_id = #{homepage_id} AND menu_idx = #{menu_idx}), ''),
-			</if> 
+			</if>
 			<if test=" work_type != 'parentMenuModify'">
 				#{group_idx},
 				#{menu_name},
 			</if>
-			#{parent_menu_idx}, 
+			#{parent_menu_idx},
 			#{menu_url}, #{menu_type}, #{html}, #{link_url}
 		)
 	</insert>
-	
+
+	<select id="getMenuLogCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_MENU_LOG
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+
+	<select id="getMenuLogList" resultType="kr.co.whalesoft.app.cms.menu.menuLog.MenuLog">
+		${pagingTop}
+		SELECT
+			work_type, to_char(work_date, 'yyyy-MM-dd hh24:mi:ss') as work_date, member_id, work_ip, menu_idx, group_idx, menu_name, parent_menu_idx,
+			menu_url, menu_type, html, link_url,
+			(select homepage_name from cms_homepage where homepage_id = A.homepage_id) as homepage_id
+		FROM
+			CMS_MENU_LOG A
+		WHERE
+			homepage_id = #{homepage_id}
+		ORDER BY
+			work_date DESC
+		${pagingBottom}
+	</select>
+
+	<select id="getMenuLogOne" resultType="kr.co.whalesoft.app.cms.menu.menuLog.MenuLog">
+		SELECT
+			work_type, to_char(work_date, 'yyyy-MM-dd hh24:mi:ss') as work_date, member_id, work_ip, homepage_id, menu_idx, group_idx, menu_name, parent_menu_idx,
+			menu_url, menu_type, html, link_url
+		FROM
+			CMS_MENU_LOG
+		WHERE
+			work_date = to_date(#{work_date}, 'yyyy-MM-dd hh24:mi:ss')
+	</select>
+
+	<update id="recovery">
+		UPDATE
+			CMS_MENU
+		SET
+			menu_name = #{menu_name},
+			menu_type = #{menu_type}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	menu_idx = #{menu_idx}
+	</update>
 </mapper>
