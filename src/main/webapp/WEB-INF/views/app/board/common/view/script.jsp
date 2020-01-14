@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="boardTag" uri="/WEB-INF/config/tld/boardTag.tld"%>
+<script src="${getContexPath}/resources/board/js/jquery.watermark.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
     <%-- 수정하기 --%>
@@ -177,6 +178,17 @@ $(document).ready(function() {
 		window.open("/${homepage.context_path}/module/myStorage/viewStorage.do?"+serializeCustom($('#storageReqForm')), "", "width=350, height=350");
 	});
 
+	$('div.bbs-view-body img').watermark({
+		text: '${homepage.homepage_name}',
+		textWidth : 180,
+		textSize : 15,
+		gravity: 'sw',
+	    opacity: 0.7,
+	    margin: 15,
+	    textColor : 'black',
+	    textBg : 'rgba(255, 255, 255, 0.2)',
+	    outputType : 'png'
+	});
 });
 
 function HTMLDecode(str) {
