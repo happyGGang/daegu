@@ -11,25 +11,25 @@
 .starR1.on {background: url("/resources/common/img/ico_starColor.png") no-repeat;background-size: 25px;}
 .starR2.on {background: url("/resources/common/img/ico_starColor.png") no-repeat;background-size: 25px;}
 
-div.book-review-write {position: relative;padding: 21px 100px 22px 162px;z-index: 1;background-color: #f2f2f2}
+div.book-review-write {position: relative;padding: 21px 20px 22px 20px;z-index: 1;background-color: #f2f2f2}
 div.book-review-write a {position: absolute;top: 0;right: 0;width: 100px;text-align: center;line-height: 73px;font-size: 110%;color: white;background: #959ca4;}
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
-	
+
 	$('.starRev span').on('click', function() {
 		$(this).parent().children('span').removeClass('on');
 		$(this).addClass('on').prevAll('span').addClass('on');
 		return false;
 	});
-	
+
 	$('#menu-rating-save').on('click', function(e) {
 		e.preventDefault();
 		var menu_rating_score = $('#starRevC .starR1.on, #starRevC .starR2.on').length * 0.5;
 		$('form#menuRating input#menu_rating_score').val(menu_rating_score);
 		doAjaxPost($('form#menuRating'), 'div#menuRatingDiv');
 	});
-	
+
 });
 </script>
 <form:form modelAttribute="menuRating" action="/${homepage.context_path}/module/menuRating/save.do" method="POST">
@@ -39,6 +39,7 @@ $(document).ready(function() {
 </form:form>
 <h3>메뉴 별점</h3>
 <div class="book-review-write">
+	만족도를 평가해주세요.
 	<div class="starRev" id="starRevC">
 		<span class="starR1 on"></span>
 		<span class="starR2"></span>

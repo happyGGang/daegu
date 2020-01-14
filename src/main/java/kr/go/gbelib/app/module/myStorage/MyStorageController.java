@@ -70,13 +70,13 @@ public class MyStorageController extends BaseController {
 
 	@RequestMapping(value="/getMyStorageTreeList.*", method=RequestMethod.GET)
 	public @ResponseBody List<MyStorage> getMyStorageTreeList(MyStorage myStorage, HttpServletRequest request) {
-		myStorage.setMember_key(getSessionUserSeqNo(request));
+		myStorage.setMember_key(getSessionMemberId(request));
 		return service.getMyStorageTreeList(myStorage);
 	}
 
 	@RequestMapping(value="/getMyStorageOne.*", method=RequestMethod.GET)
 	public @ResponseBody MyStorage getMyStorageOne(Model model, MyStorage myStorage, HttpServletRequest request) {
-		myStorage.setMember_key(getSessionUserSeqNo(request));
+		myStorage.setMember_key(getSessionMemberId(request));
 		return service.getMyStorageOne(myStorage);
 	}
 
@@ -92,7 +92,7 @@ public class MyStorageController extends BaseController {
 	@RequestMapping(value="/getItemList.*", method=RequestMethod.GET)
 	public String getItemList(Model model, MyItem myItem, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		myItem.setMember_key(getSessionUserSeqNo(request));
+		myItem.setMember_key(getSessionMemberId(request));
 		myItem.setHomepage_id(homepage.getHomepage_id());
 		model.addAttribute("myItemList", myItemService.getMyItemList(myItem));
 		return basePath + "myItem_ajax";
@@ -116,7 +116,7 @@ public class MyStorageController extends BaseController {
 			ValidationUtils.rejectIfEmpty(result, "storage_name", "보관함명을 입력하세요.");
 		}
 		myStorage.setHomepage_id(homepage.getHomepage_id());
-		myStorage.setMember_key(getSessionUserSeqNo(request));
+		myStorage.setMember_key(getSessionMemberId(request));
 
 		if ( !result.hasErrors() ) {
 			if ( myStorage.getEditMode().equals("ADD") ) {
@@ -159,7 +159,7 @@ public class MyStorageController extends BaseController {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 		myItem.setHomepage_id(homepage.getHomepage_id());
-		myItem.setMember_key(getSessionUserSeqNo(request));
+		myItem.setMember_key(getSessionMemberId(request));
 
 		if ( !result.hasErrors() ) {
 			if ( myItem.getEditMode().equals("ADD") ) {
