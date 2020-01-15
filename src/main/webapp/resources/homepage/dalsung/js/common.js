@@ -13,7 +13,7 @@ var pageMain = (function(){
 	bindEvent = function(){
 
 		// TAB
-		$(document).on('click', '.tabMenuS a', function(){
+		$(document).on('click', '.tabMenuS a.t-tabs', function(){
 			var target = this.getAttribute('href').replace('#','');
 			var $box = $(this).closest('.tabS');
 			var moreUrl = $(this).data('link');

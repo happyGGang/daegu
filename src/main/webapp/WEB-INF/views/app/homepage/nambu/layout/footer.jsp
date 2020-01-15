@@ -11,7 +11,7 @@
 					<span class="bar">|</span>
 					<a href="/${homepage.context_path}/board/index.do?menu_idx=87&manage_idx=249">이전개인정보처리방침</a>
 					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=86">이용약관</a>
+					<a href="/${homepage.context_path}/html.do?menu_idx=89">이용약관</a>
 					<span class="bar">|</span>
 					<a href="/${homepage.context_path}/html.do?menu_idx=88">영상정보처리방침</a>
 					<span class="bar">|</span>

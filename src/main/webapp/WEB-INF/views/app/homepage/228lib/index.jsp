@@ -153,7 +153,7 @@ do {
 									</a>
 								</li>
 								<li class="bg-white">
-									<a href="/elib/index.do">
+									<a href="#">
 									<img src="/resources/homepage/${homepage.context_path}/img/quick04-bg.png" class="mi">
 									<span class="wt">전자도서관</span>
 									<span class="wc">전자책,e러닝 등<Br/>다양한 디지털 콘텐츠</span>
@@ -180,8 +180,8 @@ do {
 							<div class="book tabS">
 								<div class="title">
 									<ul class="tabMenuS">
-										<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14">신간도서</a></li>
-										<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=94">추천도서</a></li>
+										<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class='t-tabs'>신간도서</a></li>
+										<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=94" class='t-tabs'>추천도서</a></li>
 										<li><a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class="more-btn more-more"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
 									</ul>
 								</div>
@@ -278,8 +278,8 @@ do {
 					<div class="notice tabS">
 						<div class="title">
 							<ul class="tabMenuS">
-								<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=97">공지사항</a></li>
-								<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=64&manage_idx=98">자주묻는질문</a></li>
+								<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=97" class='t-tabs'>공지사항</a></li>
+								<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=64&manage_idx=98" class='t-tabs'>자주묻는질문</a></li>
 								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=97" class="more-btn more-more"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
 							</ul>
 						</div>
@@ -331,7 +331,7 @@ do {
 						</div>
 
 						<div class="cont con" data-tab="tab2" style="display:none;">
-							<ul class="list">
+							<ul class="lists">
 								<%--자주묻는질문 목록--%>
  								<c:forEach var="i" varStatus="status" items="${faqList}" >
 								<li>

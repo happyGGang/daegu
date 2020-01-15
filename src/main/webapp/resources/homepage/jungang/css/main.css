@@ -164,9 +164,9 @@
 
 .main4 > div.box > ul > li {display:inline-block;width:28%;margin:0 2%}
 .main4 > div.box > ul > li > a {display:block}
-.main4 li img {width:100%}
-.main4 li span.title {display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;text-align:center;color:#000;font-weight:bold;}
-.main4 li span.author {display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;text-align:center;color:#5d5d5d;font-weight:normal;}
+.main4 li img {width:100%;height:130px;}
+.main4 li span.title {display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;text-align:center;color:#000;font-weight:bold;}
+.main4 li span.author {display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;text-align:center;color:#5d5d5d;font-weight:normal;}
 .main4 li.lt-gall4,
 .main4 li.lt-gall5{display:none}
 

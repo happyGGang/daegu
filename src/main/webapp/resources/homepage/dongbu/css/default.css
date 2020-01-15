@@ -195,7 +195,7 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 	table.color-set > tbody > tr > td{display:block}
 }
 
-/* 접속기록안내 */
+/* 접속기록안내
 #memberInfo{position:absolute;width:22%;left:98%;top:33%;background:#fff;margin-left:-37%;box-shadow:0px 1px 7px 0px rgba(0,0,0,0.5);z-index: 9;}
 #memberInfo .inbox{position:relative;border:1px solid #ccc;padding:10px;}
 #memberInfo .inbox dt{font-weight:bold;font-family:verdana;padding-bottom: 10px;}
@@ -213,6 +213,7 @@ a.btnStyle{float: right;margin-top: 6px;}
 .box2_1 { float: left; width: 34%; }
 .box3_1 { float: left; width: 38%; border-left: 1px solid #ddd; }
 .boxn { padding-top: 1%; padding-bottom: 1%; padding-left: 5%; }
+ */
 
 @media all and (max-width:1279px){
 	.tnb .section {position:relative;width:100%;}
@@ -230,6 +231,12 @@ a.btnStyle{float: right;margin-top: 6px;}
 
 @media all and (max-width:1000px){
 	.tnb{height:45px;padding:10px 0}
+
+	#header h1 {position:relative;width:80%;height:auto;position:absolute;top:7px;left:3px;width:50px}
+	#header h1 img {display:block;width:80%;}
+	#header h1,
+	#header h1 a {width:auto}
+
 	#footer .section{padding:0 1%;box-sizing:border-box;}
 }
 

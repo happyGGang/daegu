@@ -27,10 +27,10 @@ do {
 	<a class="goDetail" href="/${homepage.context_path}/intro/search/detail.do?menu_idx=15&isbn=${bestBookList[listNum1].ST_CODE}&regNo=${fn:escapeXml(bestBookList[listNum1].REG_NO)}&manageCode=${fn:escapeXml(bestBookList[listNum1].MANAGE_CODE)}&booktype=BO" >
 		<c:choose>
 		<c:when test="${empty bestBookList[listNum1].aladin or empty bestBookList[listNum1].aladin.cover}">
-		<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." width="100px" height="150px"/>
+		<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다."/>
 		</c:when>
 		<c:otherwise>
-		<img src="${bestBookList[listNum1].aladin.cover}" alt="${bestBookList[listNum1].TITLE} 상세보기" width="100px" height="150px"/>
+		<img src="${bestBookList[listNum1].aladin.cover}" alt="${bestBookList[listNum1].TITLE} 상세보기"/>
 		</c:otherwise>
 		</c:choose>
 		<span class="title">${bestBookList[listNum1].TITLE}</span>
@@ -41,10 +41,10 @@ do {
 	<a class="goDetail" href="/${homepage.context_path}/intro/search/detail.do?menu_idx=15&isbn=${bestBookList[listNum2].ST_CODE}&regNo=${fn:escapeXml(bestBookList[listNum2].REG_NO)}&manageCode=${fn:escapeXml(bestBookList[listNum2].MANAGE_CODE)}&booktype=BO" >
 		<c:choose>
 		<c:when test="${empty bestBookList[listNum2].aladin or empty bestBookList[listNum2].aladin.cover}">
-		<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." width="100px" height="150px"/>
+		<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다."/>
 		</c:when>
 		<c:otherwise>
-		<img src="${bestBookList[listNum2].aladin.cover}" alt="${bestBookList[listNum2].TITLE} 상세보기" width="100px" height="150px"/>
+		<img src="${bestBookList[listNum2].aladin.cover}" alt="${bestBookList[listNum2].TITLE} 상세보기"/>
 		</c:otherwise>
 		</c:choose>
 		<span class="title">${bestBookList[listNum2].TITLE}</span>
@@ -55,10 +55,10 @@ do {
 	<a class="goDetail" href="/${homepage.context_path}/intro/search/detail.do?menu_idx=15&isbn=${bestBookList[listNum3].ST_CODE}&regNo=${fn:escapeXml(bestBookList[listNum3].REG_NO)}&manageCode=${fn:escapeXml(bestBookList[listNum3].MANAGE_CODE)}&booktype=BO" >
 		<c:choose>
 		<c:when test="${empty bestBookList[listNum3].aladin or empty bestBookList[listNum3].aladin.cover}">
-		<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." width="100px" height="150px"/>
+		<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다."/>
 		</c:when>
 		<c:otherwise>
-		<img src="${bestBookList[listNum3].aladin.cover}" alt="${bestBookList[listNum3].TITLE} 상세보기" width="100px" height="150px"/>
+		<img src="${bestBookList[listNum3].aladin.cover}" alt="${bestBookList[listNum3].TITLE} 상세보기"/>
 		</c:otherwise>
 		</c:choose>
 		<span class="title">${bestBookList[listNum3].TITLE}</span>

@@ -152,7 +152,7 @@
 .main4 .book-s .box .book_photo li a span.img {width:120px;}
 .main4 .book-s .box .book_photo li a span.contents {position:absolute;padding-left:10px;display:inline-block;color:#000;}
 .main4 .book-s .box .book_photo li a span.contents p {font-size:13px;}
-.main4 .book-s .box .book_photo li a span.contents p.title {font-size:15px;font-weight:bold;margin:38px 0 18px 0;}
+.main4 .book-s .box .book_photo li a span.contents p.title {font-size:14px;font-weight:bold;margin:18px 0 18px 0;letter-spacing:-1px;}
 
 .quickLink02 {float:right;position:relative;width:310px;margin:0;}
 .quickLink02 ul {}

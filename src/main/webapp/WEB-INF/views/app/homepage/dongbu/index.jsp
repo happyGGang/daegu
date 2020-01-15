@@ -181,8 +181,8 @@
 
 				<div class="main4 tabS">
 					<ul class="tabMenuS">
-						<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14">신착자료</a></li>
-						<li><a href="#tab2" data-link="/${homepage.context_path}/intro/search/bestBook/index.do?menu_idx=15">대출베스트</a></li>
+						<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class='t-tabs'>신착자료</a></li>
+						<li><a href="#tab2" data-link="/${homepage.context_path}/intro/search/bestBook/index.do?menu_idx=15" class='t-tabs'>대출베스트</a></li>
 						<a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class="more-btn more-more">더보기</a>
 					</ul>
 
@@ -284,10 +284,10 @@
 
 				<div class="quickLink">
 					<ul>
-						<li><a href="http://cn.nl.go.kr/index.do" target="_blank">야간예약대출 <span class="plus-btn">+</span></a></li>
-						<li><a href="http://www.nl.go.kr/nill/user/index.jsp" target="_blank" class="link01">책이음 <span>공공도서관 도서대출</span> <span class="plus-btn">+</span></a></li>
-						<li><a href="http://www.nl.go.kr/ask"  target="_blank" class="link02">책나래 <span>장애인 도서관 자료 무료우편</span><span class="plus-btn">+</span></a></li>
-						<li><a href="/seogu/html.do?menu_idx=79" class="link03">책바다 <span>국가상호대차서비스</span><span class="plus-btn">+</span></a></li>
+						<li><a href="/${homepage.context_path}/intro/search/index.do?menu_idx=13">야간예약대출 <span class="plus-btn">+</span></a></li>
+						<li><a href="/${homepage.context_path}/html.do?menu_idx=51" class="link01">책이음 <span>공공도서관 도서대출</span> <span class="plus-btn">+</span></a></li>
+						<li><a href="/${homepage.context_path}/html.do?menu_idx=49"  class="link02">책나래 <span>장애인 도서관 자료 무료우편</span><span class="plus-btn">+</span></a></li>
+						<li><a href="/${homepage.context_path}/html.do?menu_idx=48" class="link03">책바다 <span>국가상호대차서비스</span><span class="plus-btn">+</span></a></li>
 						<li><a href="/${homepage.context_path}/html.do?menu_idx=50">사서에게물어보세요 <span class="plus-btn">+</span></a></li>
 					</ul>
 				</div>

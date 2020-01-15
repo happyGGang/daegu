@@ -33,7 +33,17 @@ do {
 		<img src="${bestBookList[listNum1].aladin.cover}" alt="${bestBookList[listNum1].TITLE} 상세보기" width="100px" height="150px"/>
 		</c:otherwise>
 		</c:choose>
-		<span class="title">${bestBookList[listNum1].TITLE}</span>
+		<c:set var="text0001" value="${bestBookList[listNum1].TITLE}"/>
+		<span class="title">
+		<c:choose>
+			<c:when test="${fn:length(text0001) > 12}">
+				${fn:substring(text0001, 0, 12)}...
+ 			</c:when>
+			<c:otherwise>
+				${text0001}
+			</c:otherwise>
+		</c:choose>
+		</span>
 	</a>
 </li>
 <li>
@@ -46,7 +56,17 @@ do {
 		<img src="${bestBookList[listNum2].aladin.cover}" alt="${bestBookList[listNum2].TITLE} 상세보기" width="100px" height="150px"/>
 		</c:otherwise>
 		</c:choose>
-		<span class="title">${bestBookList[listNum2].TITLE}</span>
+		<c:set var="text0002" value="${bestBookList[listNum2].TITLE}"/>
+		<span class="title">
+		<c:choose>
+			<c:when test="${fn:length(text0002) > 12}">
+				${fn:substring(text0002, 0, 12)}...
+ 			</c:when>
+			<c:otherwise>
+				${text0002}
+			</c:otherwise>
+		</c:choose>
+		</span>
 	</a>
 </li>
 <li>
@@ -59,7 +79,17 @@ do {
 		<img src="${bestBookList[listNum3].aladin.cover}" alt="${bestBookList[listNum3].TITLE} 상세보기" width="100px" height="150px"/>
 		</c:otherwise>
 		</c:choose>
-		<span class="title">${bestBookList[listNum3].TITLE}</span>
+		<c:set var="text0003" value="${bestBookList[listNum3].TITLE}"/>
+		<span class="title">
+		<c:choose>
+			<c:when test="${fn:length(text0003) > 12}">
+				${fn:substring(text0003, 0, 12)}...
+ 			</c:when>
+			<c:otherwise>
+				${text0003}
+			</c:otherwise>
+		</c:choose>
+		</span>
 	</a>
 </li>
 

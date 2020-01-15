@@ -158,7 +158,7 @@ do {
 								</a>
 							</li>
 							<li class="bg-lgray">
-								<a href="#">
+								<a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=16">
 								<img src="/resources/homepage/${homepage.context_path}/img/quick02-bg.png" class="mi">
 								<span class="wt">나의도서관</span>
 								<span class="wc">대출 및 도서신청 정보</span>
@@ -179,7 +179,7 @@ do {
 								</a>
 							</li>
 							<li class="bg-orange">
-								<a href="/elib/index.do">
+								<a href="#">
 								<img src="/resources/homepage/${homepage.context_path}/img/quick05-bg.png" class="mi">
 								<span class="wt">전자도서관</span>
 								<span class="wc">전자책, 오디오북 등<Br/>디지털 콘텐츠</span>
@@ -201,7 +201,7 @@ do {
 						<div class="title">
 							<ul>
 								<li><h2>도서관 행사</h2></li>
-								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=87&manage_idx=12"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
+								<li><a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=63"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
 							</ul>
 						</div>
 
@@ -219,8 +219,8 @@ do {
 					<div class="book tabS">
 						<div class="title">
 							<ul class="tabMenuS">
-								<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14">신간도서</a></li>
-								<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=233">추천도서</a></li>
+								<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class='t-tabs'>신간도서</a></li>
+								<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=233" class='t-tabs'>추천도서</a></li>
 								<li><a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class="more-btn more-more"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
 							</ul>
 						</div>
@@ -248,7 +248,17 @@ do {
 											<img src="/resources/common/img/noimg-gall.png" alt="${recommendBookList[listNum1].title}" title="${recommendBookList[listNum1].title}">
 										</c:otherwise>
 										</c:choose>
-										<span class="title">${recommendBookList[listNum1].title}</span>
+										<c:set var="text001" value="${recommendBookList[listNum1].title}"/>
+										<span class="title">
+										<c:choose>
+											<c:when test="${fn:length(text001) > 12}">
+												${fn:substring(text001, 0, 12)}...
+											</c:when>
+											<c:otherwise>
+												${text001}
+											</c:otherwise>
+										</c:choose>
+										</span>
 									</a>
 								</li>
 							</ul>
@@ -326,7 +336,7 @@ do {
 						<div class="title">
 							<ul>
 								<li><h2>영화상영</h2></li>
-								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=87&manage_idx=12"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
+								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=25"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
 							</ul>
 						</div>
 						<div class="movieContent">

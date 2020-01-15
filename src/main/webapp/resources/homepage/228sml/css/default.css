@@ -47,9 +47,9 @@ a:focus{color:#2b74c0}
 #footer .bottom .section .site_link div > div{width:160px}
 #footer .bottom .section .site_link div > div,
 #footer .bottom .section .site_link a.btn{margin-bottom:5px}
-#footer .bottom .section .site_link a.btn{padding:8px 17px;border-radius:0;background:#7b8294 url('/resources/homepage/duryu/img/footer-arrow.png') no-repeat center center;border:0;color:#fff;font-size:0;}
+#footer .bottom .section .site_link a.btn{padding:8px 17px;border-radius:0;background:#7b8294;border:0;color:#fff;font-size:15px;}
 #footer .bottom .section .site_link a.btn:hover,
-#footer .bottom .section .site_link a.btn:focus{background:#7b8294 url('/resources/homepage/duryu/img/footer-arrow.png') no-repeat center center;}
+#footer .bottom .section .site_link a.btn:focus{background:#7b8294;}
 #footer .info b{color:#0055d5}
 #footer .info a,
 #footer .info span{vertical-align:middle;font-size:15px;color:#3b3b3b;}
@@ -197,7 +197,7 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 	table.color-set > tbody > tr > td{display:block}
 }
 
-/* 접속기록안내 */
+/* 접속기록안내 
 #memberInfo{position:absolute;width:22%;left:98%;top:33%;background:#fff;margin-left:-37%;box-shadow:0px 1px 7px 0px rgba(0,0,0,0.5);z-index: 9;}
 #memberInfo .inbox{position:relative;border:1px solid #ccc;padding:10px;}
 #memberInfo .inbox dt{font-weight:bold;font-family:verdana;padding-bottom: 10px;}
@@ -215,7 +215,7 @@ a.btnStyle{float: right;margin-top: 6px;}
 .box2_1 { float: left; width: 34%; }
 .box3_1 { float: left; width: 38%; border-left: 1px solid #ddd; }
 .boxn { padding-top: 1%; padding-bottom: 1%; padding-left: 5%; }
-
+*/
 @media all and (max-width:1279px){
 	.tnb .section {position:relative;width:100%;}
 	.Gnb .section {width:100%;}
@@ -246,8 +246,8 @@ a.btnStyle{float: right;margin-top: 6px;}
 	.main7_banner{display:none}
 	.mmode {display:block}
 
-	#header h1 {position:relative;height:auto;position:absolute;top:0;left:3px;width:50px}
-	#header h1 img {display:block}
+	#header h1 {position:relative;width:80%;height:auto;position:absolute;top:7px;left:3px;width:50px}
+	#header h1 img {display:block;width:80%;}
 	#header h1,
 	#header h1 a {width:auto}
 

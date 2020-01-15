@@ -247,9 +247,9 @@ do {
 
 				<div class="book-s tabS">
 					<ul class="tabMenuS">
-						<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14">신착자료</a></li>
-						<li><a href="#tab2" data-link="/${homepage.context_path}/intro/search/bestBook/index.do?menu_idx=15">대출베스트</a></li>
-						<li><a href="#tab3" data-link="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=38">북큐레이션</a></li>
+						<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class='t-tabs'>신착자료</a></li>
+						<li><a href="#tab2" data-link="/${homepage.context_path}/intro/search/bestBook/index.do?menu_idx=15" class='t-tabs'>대출베스트</a></li>
+						<li><a href="#tab3" data-link="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=38" class='t-tabs'>북큐레이션</a></li>
 						<a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class="more-btn more-more">더보기</a>
 					</ul>
 
@@ -285,7 +285,17 @@ do {
 									</c:choose>
 									</span>
 									<span class="contents">
-										<p class="title">${curationList[listNum1].title}</p>
+										<c:set var="text001" value="${curationList[listNum1].title}"/>
+										<p class="title">
+										<c:choose>
+											<c:when test="${fn:length(text001) > 12}">
+												${fn:substring(text001, 0, 12)}...
+											</c:when>
+											<c:otherwise>
+												${text001}
+											</c:otherwise>
+										</c:choose>
+										</p>
 										<p><b>저자</b> ${curationList[listNum1].imsi_v_3}</p>
 										<p><b>발행자</b> ${curationList[listNum1].imsi_v_4}</p>
 									</span>
@@ -310,9 +320,18 @@ do {
 									</c:otherwise>
 									</c:choose>
 									</span>
-									<span class="contents">${curationList[listNum2].title}</span>
 									<span class="contents">
-										<p class="title">${curationList[listNum2].title}</p>
+										<c:set var="text002" value="${curationList[listNum2].title}"/>
+										<p class="title">
+										<c:choose>
+											<c:when test="${fn:length(text002) > 12}">
+												${fn:substring(text002, 0, 12)}...
+											</c:when>
+											<c:otherwise>
+												${text002}
+											</c:otherwise>
+										</c:choose>
+										</p>
 										<p><b>저자</b> ${curationList[listNum2].imsi_v_3}</p>
 										<p><b>발행자</b> ${curationList[listNum2].imsi_v_4}</p>
 									</span>
@@ -325,9 +344,9 @@ do {
 
 				<div class="quickLink02">
 					<ul>
-						<li class="qi1"><a href="http://cn.nl.go.kr/index.do" target="_blank">책나래</a></li>
-						<li class="qi2"><a href="http://www.nl.go.kr/nill/user/index.jsp" target="_blank" class="link01">책바다</a></li>
-						<li class="qi3"><a href="http://www.nl.go.kr/ask"  target="_blank" class="link02">사서에게물어보세요</a></li>
+						<li class="qi1"><a href="/${homepage.context_path}/html.do?menu_idx=49">책나래</a></li>
+						<li class="qi2"><a href="/${homepage.context_path}/html.do?menu_idx=48" class="link01">책바다</a></li>
+						<li class="qi3"><a href="/${homepage.context_path}/html.do?menu_idx=50" class="link02">사서에게물어보세요</a></li>
 						<li class="qi4"><a href="https://www.1365.go.kr/vols/main.do" target="_blank" class="link03">1365자원봉사신청</a></li>
 					</ul>
 				</div>

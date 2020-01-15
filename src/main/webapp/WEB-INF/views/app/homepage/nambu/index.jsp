@@ -149,7 +149,7 @@ function searchCheck() {
 					<div class="main2box1box1">
 						<ul>
 							<li class="bg-blue"">
-								<a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=103">
+								<a href="/${homepage.context_path}/html.do?menu_idx=104">
 								<span class="wt">이용안내</span>
 								<span class="wc">남부도서관 이렇게 <br/>이용하세요!</span>
 								<img src="/resources/homepage/nambu/img/m_icon01.png" class="mi">
@@ -162,7 +162,7 @@ function searchCheck() {
 								<img src="/resources/homepage/nambu/img/m_icon02.png" class="mi"></a>
 							</li>
 							<li class="bg-background01">
-								<a href="/elib/index.do" target="_blank">
+								<a href="#" target="_blank">
 								<span class="wt">대구<br class="qmobileBr"/>전자도서관</span>
 								<span class="wc">대구시민의 스마트한<br>독서생활이 시작되는 곳</span>
 								</a>
@@ -317,7 +317,7 @@ function searchCheck() {
 												</c:choose>
 											</c:when>
 											<c:otherwise>
-														<img src="/resources/common/img/noimg-gall.png" alt="${i.title}">
+														<img src="/resources/common/img/noImg2.png" alt="${i.title}">
 											</c:otherwise>
 										</c:choose>
 										</span>
@@ -364,8 +364,8 @@ function searchCheck() {
 					<div class="book">
 						<div class="title">
 							<ul class="tabMenuS">
-								<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14">신간도서</a></li>
-								<li><a href="#tab2" data-link="/${homepage.context_path}/intro/search/bestBook/index.do?menu_idx=15">대출베스트</a></li>
+								<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class='t-tabs'>신간도서</a></li>
+								<li><a href="#tab2" data-link="/${homepage.context_path}/intro/search/bestBook/index.do?menu_idx=15" class='t-tabs'>대출베스트</a></li>
 								<li><a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class="more-btn more-more"><img src="/resources/homepage/nambu/img/more_btbt.png" alt="더보기"/></a></li>
 							</ul>
 						</div>

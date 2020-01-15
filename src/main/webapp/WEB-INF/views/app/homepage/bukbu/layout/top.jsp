@@ -40,16 +40,10 @@
 
 						<a href="https://twitter.com/bukbulib" target="_blank" class="sitemap-img2" style="padding-left:18px;">
 							<img src="/resources/homepage/${homepage.context_path}/img/twitter-btn.png" alt="트위터" />
-						</a>
-
-						<a href="https://www.facebook.com/bukbulib" target="_blank" class="sitemap-img2">
+						</a><a href="https://www.facebook.com/bukbulib" target="_blank" class="sitemap-img2">
 							<img src="/resources/homepage/${homepage.context_path}/img/facebook-btn.png" alt="페이스북" />
-						</a>
-
-						<a href="https://www.instagram.com/bukbulib/" target="_blank" class="sitemap-img2">
-						<img src="/resources/homepage/${homepage.context_path}/img/instagram-btn.png" alt="인스타그램" /></a>
-
-						<a href="https://www.youtube.com/channel/UCQYHZF_a03fl3AIstSLd_Rw" target="_blank" class="sitemap-img2">
+						</a><a href="https://www.instagram.com/bukbulib/" target="_blank" class="sitemap-img2">
+						<img src="/resources/homepage/${homepage.context_path}/img/instagram-btn.png" alt="인스타그램" /></a><a href="https://www.youtube.com/channel/UCQYHZF_a03fl3AIstSLd_Rw" target="_blank" class="sitemap-img2">
 						<img src="/resources/homepage/${homepage.context_path}/img/youtube-btn.png" alt="유튜브" /></a>
 			</div>
 		</div>

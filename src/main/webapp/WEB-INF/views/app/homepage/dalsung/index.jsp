@@ -174,8 +174,8 @@ do {
 							<div class="book tabS">
 								<div class="title">
 									<ul class="tabMenuS">
-										<li class="on"><a href="#tab1" data-link="/intro/search/newBook/index.do?menu_idx=14">신간도서</a></li>
-										<li><a href="#tab2" data-link="/board/index.do?menu_idx=41&manage_idx=113">추천도서</a></li>
+										<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class='t-tabs'>신간도서</a></li>
+										<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=113" class='t-tabs'>추천도서</a></li>
 										<li><a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class="more-btn more-more"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
 									</ul>
 								</div>
@@ -204,7 +204,18 @@ do {
 													<img src="/resources/common/img/noimg-gall.png" alt="${recommendBookList[listNum1].title}" title="${recommendBookList[listNum1].title}">
 												</c:otherwise>
 												</c:choose>
-												<span class="title">${recommendBookList[listNum1].title}</span>
+
+												<c:set var="text001" value="${recommendBookList[listNum1].title}"/>
+												<span class="title">
+												<c:choose>
+													<c:when test="${fn:length(text001) > 12}">
+														${fn:substring(text001, 0, 12)}...
+													</c:when>
+													<c:otherwise>
+														${text001}
+													</c:otherwise>
+												</c:choose>
+												</span>
 											</a>
 										</li>
 									</ul>

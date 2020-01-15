@@ -7,21 +7,21 @@
 		<div class="top">
 			<div class="section">
 				<div class="info">
-					<a href="/${homepage.context_path}/html.do?menu_idx=150"><b>개인정보처리방침</b></a>
+					<a href="/${homepage.context_path}/html.do?menu_idx=86"><b>개인정보처리방침</b></a>
 					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=151">이전개인정보처리방침</a>
+					<a href="/${homepage.context_path}/board/index.do?menu_idx=87&manage_idx=184">이전개인정보처리방침</a>
 					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=151">이용약관</a>
+					<a href="/${homepage.context_path}/html.do?menu_idx=89">이용약관</a>
 					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=151">영상정보처리방침</a>
+					<a href="/${homepage.context_path}/html.do?menu_idx=88">영상정보처리방침</a>
 					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=152">도서관서비스헌장</a>
+					<a href="/${homepage.context_path}/html.do?menu_idx=90">도서관서비스헌장</a>
 					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=153">저작권신고</a>
+					<a href="/${homepage.context_path}/html.do?menu_idx=91">저작권신고</a>
 					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=153">사이트맵</a>
+					<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=92">사이트맵</a>
 					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=153">성고충상담창구</a>
+					<a href="/${homepage.context_path}/html.do?menu_idx=94">성고충상담창구</a>
 				</div>
 			</div>
 		</div>

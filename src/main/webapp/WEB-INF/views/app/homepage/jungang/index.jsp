@@ -158,9 +158,9 @@ do {
 					<div style="">
 						<div class="main3 tabS">
 							<ul class="tabMenuS">
-								<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=179">공지사항</a></li>
+								<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=179" class='t-tabs'>공지사항</a></li>
 								<li>/</li>
-								<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=76&manage_idx=180">입찰정보</a></li>
+								<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=76&manage_idx=180" class='t-tabs'>입찰정보</a></li>
 								<a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=179" class="more-btn more-more">더보기</a>
 							</ul>
 
@@ -213,11 +213,11 @@ do {
 
 						<div class="main4 tabS">
 							<ul class="tabMenuS">
-								<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=175">사서추천도서</a></li>
+								<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=175" class='t-tabs'>사서추천도서</a></li>
 								<li>/</li>
-								<li><a href="#tab2" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14">신간도서</a></li>
+								<li><a href="#tab2" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class='t-tabs'>신간도서</a></li>
 								<li>/</li>
-								<li><a href="#tab3" data-link="/${homepage.context_path}/intro/search/bestBook/index.do?menu_idx=15">대출베스트</a></li>
+								<li><a href="#tab3" data-link="/${homepage.context_path}/intro/search/bestBook/index.do?menu_idx=15" class='t-tabs'>대출베스트</a></li>
 								<a href="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=175" class="more-btn more-more">더보기</a>
 							</ul>
 
@@ -237,7 +237,7 @@ do {
 												</c:choose>
 											</c:when>
 											<c:otherwise>
-												<img src="/resources/common/img/noimg-gall.png" alt="${recommendBookList[listNum1].title}" title="${recommendBookList[listNum1].title}">
+												<img src="/resources/common/img/noImg2.png" alt="${recommendBookList[listNum1].title}" title="${recommendBookList[listNum1].title}">
 											</c:otherwise>
 											</c:choose>
 											<span class="title">${recommendBookList[listNum1].title}</span>
@@ -258,7 +258,7 @@ do {
 												</c:choose>
 											</c:when>
 											<c:otherwise>
-												<img src="/resources/common/img/noimg-gall.png" alt="${recommendBookList[listNum2].title}" title="${recommendBookList[listNum2].title}">
+												<img src="/resources/common/img/noImg2.png" alt="${recommendBookList[listNum2].title}" title="${recommendBookList[listNum2].title}">
 											</c:otherwise>
 											</c:choose>
 											<span class="title">${recommendBookList[listNum2].title}</span>
@@ -279,7 +279,7 @@ do {
 												</c:choose>
 											</c:when>
 											<c:otherwise>
-												<img src="/resources/common/img/noimg-gall.png" alt="${recommendBookList[listNum3].title}" title="${recommendBookList[listNum3].title}">
+												<img src="/resources/common/img/noImg2.png" alt="${recommendBookList[listNum3].title}" title="${recommendBookList[listNum3].title}">
 											</c:otherwise>
 											</c:choose>
 											<span class="title">${recommendBookList[listNum3].title}</span>
@@ -332,12 +332,12 @@ do {
 
 		<div class="main6_bg">
 			<div class="main6 section">
-				<div class="lt1"><a href="/${homepage.context_path}/intro/join/modifyForm.do?menu_idx=115">문화가 있는 도서관<br/><span class="">영화상영</span></a></div>
-				<div class="lt2"><a href="/${homepage.context_path}/intro/join/modifyForm.do?menu_idx=115">도서관에서 만나는 인문학 강연<br/><span class="">인문학동영상</span></a></div>
-				<div class="lt3"><a href="/${homepage.context_path}/module/teach/index.do?menu_idx=167&group_idx=14">어린이 1:1 맞춤형 독서정보안내<br/><span class="">북코디네이터</span></a></div>
-				<div class="lt4"><a href="/${homepage.context_path}/module/teach/index.do?menu_idx=160&group_idx=6">장애인 무료 택배 서비스<br/><span class="">책나래</span></a></div>
-				<div class="lt5"><a href="/${homepage.context_path}/module/teach/index.do?menu_idx=160&group_idx=6">국가상호대차 서비스<br/><span class="">책바다</span></a></div>
-				<div class="lt6"><a href="/${homepage.context_path}/module/teach/index.do?menu_idx=160&group_idx=6">협력형 온라인 지식정보서비스<br/><span class="">사서에게물어보세요</span></a></div>
+				<div class="lt1"><a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=178">문화가 있는 도서관<br/><span class="">영화상영</span></a></div>
+				<div class="lt2"><a href="/${homepage.context_path}/html.do?menu_idx=130">도서관에서 만나는 인문학 강연<br/><span class="">인문학동영상</span></a></div>
+				<div class="lt3"><a href="/${homepage.context_path}/html.do?menu_idx=128">어린이 1:1 맞춤형 독서정보안내<br/><span class="">북코디네이터</span></a></div>
+				<div class="lt4"><a href="/${homepage.context_path}/html.do?menu_idx=49">장애인 무료 택배 서비스<br/><span class="">책나래</span></a></div>
+				<div class="lt5"><a href="/${homepage.context_path}/html.do?menu_idx=48">국가상호대차 서비스<br/><span class="">책바다</span></a></div>
+				<div class="lt6"><a href="/${homepage.context_path}/html.do?menu_idx=50">협력형 온라인 지식정보서비스<br/><span class="">사서에게물어보세요</span></a></div>
 			</div>
 		</div>
 

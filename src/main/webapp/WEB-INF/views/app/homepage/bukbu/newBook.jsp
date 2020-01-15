@@ -23,6 +23,16 @@ do {
 		<img src="${newBookList[listNum1].aladin.cover}" alt="${newBookList[listNum1].TITLE_INFO} 상세보기" />
 		</c:otherwise>
 		</c:choose>
-		<span class="title">${newBookList[listNum1].TITLE_INFO}</span>
+		<c:set var="text01" value="${newBookList[listNum1].TITLE_INFO}"/>
+		<span class="title">
+		<c:choose>
+			<c:when test="${fn:length(text01) > 12}">
+				${fn:substring(text01, 0, 12)}...
+ 			</c:when>
+			<c:otherwise>
+				${text01}
+			</c:otherwise>
+		</c:choose>
+		</span>
 	</a>
 </li>

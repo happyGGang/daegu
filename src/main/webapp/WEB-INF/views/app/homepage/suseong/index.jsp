@@ -134,7 +134,7 @@ do {
 					<div class="title">
 						<ul>
 							<li><h2>공지사항</h2></li>
-							<li><a href="/${homepage.context_path}/board/index.do?menu_idx=87&manage_idx=56"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
+							<li><a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=56"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
 						</ul>
 					</div>
 					<div class="cont">
@@ -217,7 +217,17 @@ do {
 										<img src="/resources/common/img/noimg-gall.png" alt="${recommendBookList[listNum1].title}" title="${recommendBookList[listNum1].title}">
 									</c:otherwise>
 									</c:choose>
-									<span class="title">${recommendBookList[listNum1].title}</span>
+									<c:set var="text001" value="${recommendBookList[listNum1].title}"/>
+									<span class="title">
+									<c:choose>
+										<c:when test="${fn:length(text001) > 12}">
+											${fn:substring(text001, 0, 12)}...
+										</c:when>
+										<c:otherwise>
+											${text001}
+										</c:otherwise>
+									</c:choose>
+									</span>
 								</a>
 							</li>
 							<li>
@@ -237,7 +247,17 @@ do {
 										<img src="/resources/common/img/noimg-gall.png" alt="${recommendBookList[listNum2].title}" title="${recommendBookList[listNum2].title}">
 									</c:otherwise>
 									</c:choose>
-									<span class="title">${recommendBookList[listNum2].title}</span>
+									<c:set var="text002" value="${recommendBookList[listNum2].title}"/>
+									<span class="title">
+									<c:choose>
+										<c:when test="${fn:length(text002) > 12}">
+											${fn:substring(text002, 0, 12)}...
+										</c:when>
+										<c:otherwise>
+											${text002}
+										</c:otherwise>
+									</c:choose>
+									</span>
 								</a>
 							</li>
 							<li>
@@ -257,7 +277,17 @@ do {
 										<img src="/resources/common/img/noimg-gall.png" alt="${recommendBookList[listNum3].title}" title="${recommendBookList[listNum3].title}">
 									</c:otherwise>
 									</c:choose>
-									<span class="title">${recommendBookList[listNum3].title}</span>
+									<c:set var="text003" value="${recommendBookList[listNum3].title}"/>
+									<span class="title">
+									<c:choose>
+										<c:when test="${fn:length(text003) > 12}">
+											${fn:substring(text003, 0, 12)}...
+										</c:when>
+										<c:otherwise>
+											${text003}
+										</c:otherwise>
+									</c:choose>
+									</span>
 								</a>
 							</li>
 						</ul>
@@ -286,10 +316,10 @@ do {
 
 				<div class="left-quick-section">
 					<ul>
-						<li><a href="" class="quick-01"><span class="txt"><p>나의 도서관</p><p>대출 및 도서신청 정보</p></span><img src="/resources/homepage/${homepage.context_path}/img/go-bg.png" alt="나의 도서관" class='go-bg'></a></li>
-						<li><a href="" class="quick-02"><span class="txt"><p>책바다</p><p>국가상호대차서비스</p></span><img src="/resources/homepage/${homepage.context_path}/img/go-bg.png" alt="책바다" class='go-bg'></a></li>
-						<li><a href="" class="quick-03"><span class="txt"><p>책나래</p><p>장애인무료택배서비스</p></span><img src="/resources/homepage/${homepage.context_path}/img/go-bg.png" alt="책나래" class='go-bg'></a></li>
-						<li><a href="" class="quick-04"><span class="txt"><p>사서에게물어보세요</p><p>지식정보서비스</p></span><img src="/resources/homepage/${homepage.context_path}/img/go-bg.png" alt="사서에게물어보세요" class='go-bg'></a></li>
+						<li><a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=16" class="quick-01"><span class="txt"><p>나의 도서관</p><p>대출 및 도서신청 정보</p></span><img src="/resources/homepage/${homepage.context_path}/img/go-bg.png" alt="나의 도서관" class='go-bg'></a></li>
+						<li><a href="/${homepage.context_path}/html.do?menu_idx=48" class="quick-02"><span class="txt"><p>책바다</p><p>국가상호대차서비스</p></span><img src="/resources/homepage/${homepage.context_path}/img/go-bg.png" alt="책바다" class='go-bg'></a></li>
+						<li><a href="/${homepage.context_path}/html.do?menu_idx=49" class="quick-03"><span class="txt"><p>책나래</p><p>장애인무료택배서비스</p></span><img src="/resources/homepage/${homepage.context_path}/img/go-bg.png" alt="책나래" class='go-bg'></a></li>
+						<li><a href="/${homepage.context_path}/html.do?menu_idx=50" class="quick-04"><span class="txt"><p>사서에게물어보세요</p><p>지식정보서비스</p></span><img src="/resources/homepage/${homepage.context_path}/img/go-bg.png" alt="사서에게물어보세요" class='go-bg'></a></li>
 					</ul>
 				</div>
 			</div>
@@ -297,11 +327,11 @@ do {
 			<div class="right-section">
 				<div class="right-quick-section">
 					<ul>
-						<li><a href="" class="quick-01"><span class="txt"><p>수강신청</p><p>온라인 수강신청</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="수강신청" class='go-bg'></a></li>
-						<li><a href="" class="quick-02"><span class="txt"><p>평생교육강좌</p><p>다양한 교육문화/평생체험</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="평생교육강좌" class='go-bg'></a></li>
-						<li><a href="" class="quick-03"><span class="txt"><p>독서문화행사</p><p>소통하는 프로그램</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="독서문화행사" class='go-bg'></a></li>
-						<li><a href="" class="quick-04"><span class="txt"><p>시각장애인실</p><p>우리도서관 특색사업</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="시각장애인실" class='go-bg'></a></li>
-						<li><a href="" class="quick-05"><span class="txt"><p>소리인문학</p><p>책 읽는 즐거움 소리도서</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="소리인문학" class='go-bg'></a></li>
+						<li><a href="/${homepage.context_path}/module/teach/index.do?menu_idx=30" class="quick-01"><span class="txt"><p>수강신청</p><p>온라인 수강신청</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="수강신청" class='go-bg'></a></li>
+						<li><a href="/${homepage.context_path}/html.do?menu_idx=53" class="quick-02"><span class="txt"><p>평생교육강좌</p><p>다양한 교육문화/평생체험</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="평생교육강좌" class='go-bg'></a></li>
+						<li><a href="/${homepage.context_path}/html.do?menu_idx=56" class="quick-03"><span class="txt"><p>독서문화행사</p><p>소통하는 프로그램</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="독서문화행사" class='go-bg'></a></li>
+						<li><a href="/${homepage.context_path}/html.do?menu_idx=123" class="quick-04"><span class="txt"><p>시각장애인실</p><p>우리도서관 특색사업</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="시각장애인실" class='go-bg'></a></li>
+						<li><a href="/${homepage.context_path}/html.do?menu_idx=114" class="quick-05"><span class="txt"><p>소리인문학</p><p>책 읽는 즐거움 소리도서</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="소리인문학" class='go-bg'></a></li>
 					</ul>
 				</div>
 
@@ -309,7 +339,7 @@ do {
 					<div class="title">
 						<ul>
 							<li><h2>도서관 일정</h2></li>
-							<li><a href="/${homepage.context_path}/board/index.do?menu_idx=87&manage_idx=12"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
+							<li><a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=63"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
 						</ul>
 					</div>
 
@@ -343,12 +373,11 @@ do {
 		<div id="quick-slide">
 			<h4><img src="/resources/homepage/${homepage.context_path}/img/quick-title.png" alt="퀵메뉴"/></h4>
 			<ul>
-				<li><a href=""><span class="txt">전자도서관</span></a></li>
-				<li><a href=""><span class="txt">디지털자료실<br/>좌석예약</span></a></li>
-				<li><a href=""><span class="txt">영화상영</span></a></li>
-				<li><a href=""><span class="txt">희망도서신청</span></a></li>
-				<li><a href=""><span class="txt">학교도서관<br/>업무지원</span></a></li>
-				<li><a href=""><span class="txt">청소년<br/>자원봉사신청</span></a></li>
+				<li><a href="#"><span class="txt">전자도서관</span></a></li>
+				<li><a href="#"><span class="txt">디지털자료실<br/>좌석예약</span></a></li>
+				<li><a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=58"><span class="txt">영화상영</span></a></li>
+				<li><a href="/${homepage.context_path}/html.do?menu_idx=26"><span class="txt">희망도서신청</span></a></li>
+				<li><a href="https://www.1365.go.kr/vols/main.do" target="_blank"><span class="txt">청소년<br/>자원봉사신청</span></a></li>
 			</ul>
 		</div>
 

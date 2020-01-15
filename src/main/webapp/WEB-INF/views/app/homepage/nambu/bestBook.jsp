@@ -13,6 +13,7 @@ do {
 %>
 <c:set var="listNum1" value="<%=listNum1%>"></c:set>
 <c:set var="listNum2" value="<%=listNum2%>"></c:set>
+
 <li>
 	<a class="goDetail" href="/${homepage.context_path}/intro/search/detail.do?menu_idx=15&isbn=${bestBookList[listNum1].ST_CODE}&regNo=${fn:escapeXml(bestBookList[listNum1].REG_NO)}&manageCode=${fn:escapeXml(bestBookList[listNum1].MANAGE_CODE)}&booktype=BO" >
 		<c:choose>
@@ -23,7 +24,17 @@ do {
 		<img src="${bestBookList[listNum1].aladin.cover}" alt="${bestBookList[listNum1].TITLE_INFO} 상세보기" />
 		</c:otherwise>
 		</c:choose>
-		<span class="title">${bestBookList[listNum1].TITLE}</span>
+		<c:set var="text01" value="${bestBookList[listNum1].TITLE}"/>
+		<span class="title">
+		<c:choose>
+			<c:when test="${fn:length(text01) > 12}">
+				${fn:substring(text01, 0, 12)}...
+ 			</c:when>
+			<c:otherwise>
+				${text01}
+			</c:otherwise>
+		</c:choose>
+		</span>
 	</a>
 </li>
 <li>
@@ -36,6 +47,16 @@ do {
 		<img src="${bestBookList[listNum2].aladin.cover}" alt="${bestBookList[listNum2].TITLE} 상세보기" />
 		</c:otherwise>
 		</c:choose>
-		<span class="title">${bestBookList[listNum2].TITLE}</span>
+		<c:set var="text02" value="${bestBookList[listNum2].TITLE}"/>
+		<span class="title">
+		<c:choose>
+			<c:when test="${fn:length(text02) > 12}">
+				${fn:substring(text02, 0, 12)}...
+ 			</c:when>
+			<c:otherwise>
+				${text02}
+			</c:otherwise>
+		</c:choose>
+		</span>
 	</a>
 </li>

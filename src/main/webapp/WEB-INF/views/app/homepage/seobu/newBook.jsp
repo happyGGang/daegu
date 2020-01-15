@@ -26,7 +26,17 @@ do {
 		</c:choose>
 		</span>
 		<span class="contents">
-			<p class="title">${newBookList[listNum1].TITLE_INFO}</p>
+			<c:set var="texts01" value="${newBookList[listNum1].TITLE_INFO}"/>
+			<p class="title">
+			<c:choose>
+				<c:when test="${fn:length(texts01) > 12}">
+					${fn:substring(texts01, 0, 12)}...
+				</c:when>
+				<c:otherwise>
+					${texts01}
+				</c:otherwise>
+			</c:choose>
+			</p>
 			<p><b>저자</b> ${newBookList[listNum1].AUTHOR}</p>
 			<p><b>발행자</b> ${newBookList[listNum1].PUBLISHER}</p>
 		</span>
@@ -45,7 +55,17 @@ do {
 		</c:choose>
 		</span>
 		<span class="contents">
-			<p class="title">${newBookList[listNum2].TITLE_INFO}</p>
+			<c:set var="texts02" value="${newBookList[listNum2].TITLE_INFO}"/>
+			<p class="title">
+			<c:choose>
+				<c:when test="${fn:length(texts02) > 12}">
+					${fn:substring(texts02, 0, 12)}...
+				</c:when>
+				<c:otherwise>
+					${texts02}
+				</c:otherwise>
+			</c:choose>
+			</p>
 			<p><b>저자</b> ${newBookList[listNum2].AUTHOR}</p>
 			<p><b>발행자</b> ${newBookList[listNum2].PUBLISHER}</p>
 		</span>

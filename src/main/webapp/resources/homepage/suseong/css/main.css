@@ -85,7 +85,7 @@
 .main.container .center-section .book .box .book_photo {text-align:center;}
 .main.container .center-section .book .box .book_photo li {position:relative;display:inline-block;width:135px;margin:35px 20px 0 20px;vertical-align:top;}
 .main.container .center-section .book .box .book_photo li a img {width:100%;height:190px;border:1px solid #ddd;}
-.main.container .center-section .book .box .book_photo li a span.title {display:block;color:#000;font-size:15px;}
+.main.container .center-section .book .box .book_photo li a span.title {display:block;color:#000;font-size:14px;letter-spacing:-1.5px;}
 
 
 .main.container .right-section .right-quick-section {}

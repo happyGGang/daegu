@@ -13,13 +13,13 @@
 .main .qmenu li,
 .Gnb .gnb-menu>li>.SubMenu>li{zoom:1;*display:inline}
 
-.main .qmenu{padding:15px 0;background:#0194d4;}
+.main .qmenu{padding:25px 0;background:#0194d4;}
 .main .qmenu .section{position:relative;margin:0 auto;text-align:center;overflow:hidden}
 .main .qmenu .section .bx-viewport{overflow:visible!important}
 .main .qmenu .bx-wrapper{width:auto!important;margin:0 0px;position:static}
 .main .qmenu li{display:inline-block;text-align:center;width:12.5%}
-.main .qmenu li a{width:80px;height:80px;background:#fff no-repeat center center;display:block;margin:0 auto;font-size:15px;color:#fff;font-weight:bold;letter-spacing:-1px;border-radius:100%}
-.main .qmenu li a span{display:block;height:20px;position:relative;top:85px}
+.main .qmenu li a{width:80px;height:80px;background:#fff no-repeat center center;display:block;margin:0 auto;font-size:15px;color:#fff;font-weight:bold;letter-spacing:-1px;border-radius:100%;}
+.main .qmenu li a span{display:block;height:30px;position:relative;top:85px;text-align:center;font-size:14px;}
 .main .qmenu li a:hover,
 .main .qmenu li a:focus{background-color:#fdce21}
 .main .qmenu .bx-controls{display:none}

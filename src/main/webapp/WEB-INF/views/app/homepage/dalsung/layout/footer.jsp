@@ -26,7 +26,7 @@
 						<em>전화 ${fn:split(homepage.homepage_tell,',')[0]}</em>
 						<em>팩스 ${homepage.homepage_fax }</em>
 					</p>
-					<span>Copyright © 2020 DAEGU METROPOLITAN NAMBU LIBRARY, <br class="mobileBr"/>All rights reserved.</span>
+					<span>Copyright © 2020 DAEGU METROPOLITAN DALSUNG LIBRARY, <br class="mobileBr"/>All rights reserved.</span>
 				</address>
 				<div class="site_link">
 					<div>
