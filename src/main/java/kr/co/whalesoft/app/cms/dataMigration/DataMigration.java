@@ -7,10 +7,10 @@ public class DataMigration {
 
 	private List<String> manager_seq_arr;
 	private List<String> manage_idx_arr;
-	
+
 	private int board_idx;
 	private int manage_idx;
-	
+
 	private int manager_seq;  //
 	private int board_seq;  //
 	private int group_seq;  //
@@ -18,6 +18,7 @@ public class DataMigration {
 	private int group_step;  //
 	private String title;  //
 	private String content;  //
+	private String content_summary;  //
 	private String preview_content;  //
 	private String preview_img;  //
 	private String preview_img_name;  //
@@ -26,7 +27,9 @@ public class DataMigration {
 	private String user_email;  //
 	private String user_homepage;  //
 	private String user_phone;  //
+	private String user_password;  //
 	private String user_ip;  //
+	private String request_state;
 	private int board_file_count;  //
 	private String category1;  //
 	private String category2;  //
@@ -34,8 +37,8 @@ public class DataMigration {
 	private String category4;  //
 	private String category5;  //
 	private int view_count;  //
-	private String notice_yn;  //
-	private String secret_yn;  //
+	private String notice_yn = "N";  //
+	private String secret_yn = "N";  //
 	private Date notice_start_date;  //
 	private Date notice_end_date;  //
 	private String notice_start_date_str;  //
@@ -65,17 +68,19 @@ public class DataMigration {
 	private String imsi_v_18;
 	private String imsi_v_19;
 	private String imsi_v_20;
-	
+
+	private String fileColumns;
 	private String tableName;
-	
+	private String dbUser;
+
 	public DataMigration() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public DataMigration(String tableName) {
 		this.tableName = tableName;
 	}
-	
+
 	public String getTableName() {
 		return tableName;
 	}
@@ -184,10 +189,10 @@ public class DataMigration {
 	private String user_email_receive_yn;  //
 	private String user_sms_receive_yn;  //
 	private String writer_auth_key;  //
-	
+
 	private String add_date;
 	private String modify_date;
-	
+
 	private int file_idx;  //파일IDX
 	private String real_file_name;  //실제파일명
 	private String rename_file_name;  //실제파일명
@@ -196,15 +201,18 @@ public class DataMigration {
 	private int file_size;  //파일사이즈
 	private int file_down_count;  //다운로드 횟수
 	private int file_count;
-	
+
+	private String org_file_name;
+	private String server_file_name;
+
 	private int comment_idx;  //댓글IDX
 	private int group_comment_idx;  //그룹 코멘트 IDX
 	private int parent_comment_idx;  //상위 코멘트 IDX
 	private int group_comment_depth;  //그룹 코멘트 단계
 	private String comment_content;  //내용
-	private String delete_yn;  //삭제여부
+	private String delete_yn = "N";  //삭제여부
 
-	
+
 	public int getManager_seq() {
 		return manager_seq;
 	}
@@ -631,5 +639,75 @@ public class DataMigration {
 	public void setNotice_end_date_str(String notice_end_date_str) {
 		this.notice_end_date_str = notice_end_date_str;
 	}
-	
+
+
+	public String getContent_summary() {
+		return content_summary;
+	}
+
+
+	public void setContent_summary(String content_summary) {
+		this.content_summary = content_summary;
+	}
+
+
+	public String getUser_password() {
+		return user_password;
+	}
+
+
+	public void setUser_password(String user_password) {
+		this.user_password = user_password;
+	}
+
+
+	public String getRequest_state() {
+		return request_state;
+	}
+
+
+	public void setRequest_state(String request_state) {
+		this.request_state = request_state;
+	}
+
+
+	public String getDbUser() {
+		return dbUser;
+	}
+
+
+	public void setDbUser(String dbUser) {
+		this.dbUser = dbUser;
+	}
+
+
+	public String getFileColumns() {
+		return fileColumns;
+	}
+
+
+	public void setFileColumns(String fileColumns) {
+		this.fileColumns = fileColumns;
+	}
+
+
+	public String getOrg_file_name() {
+		return org_file_name;
+	}
+
+
+	public void setOrg_file_name(String org_file_name) {
+		this.org_file_name = org_file_name;
+	}
+
+
+	public String getServer_file_name() {
+		return server_file_name;
+	}
+
+
+	public void setServer_file_name(String server_file_name) {
+		this.server_file_name = server_file_name;
+	}
+
 }

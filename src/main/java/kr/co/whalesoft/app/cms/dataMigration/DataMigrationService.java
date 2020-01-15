@@ -11,6 +11,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import kr.co.whalesoft.app.board.Board;
 import kr.co.whalesoft.app.board.boardFile.BoardFile;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.dataSource.DataSource;
@@ -120,6 +121,140 @@ public class DataMigrationService extends BaseService{
 		return dao.insertBoardFile(map2);
 	}
 
+	public void fileMoveNN(Map<String, Object> orgMap, int manage_idx, String path) throws IOException {
+
+		String org = String.valueOf(orgMap.get("ORG_FILE_NAME"));
+		String server = String.valueOf(orgMap.get("SERVER_FILE_NAME"));
+
+		File sourceFile = new File(path + org);
+
+		File targetLocation = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/");// 대상폴더
+
+
+		if (!targetLocation.exists()) {
+			targetLocation.mkdir();
+		}
+
+//		try {
+			FileUtils.copyFileToDirectory(sourceFile, targetLocation);
+
+			File targetFile =  new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/" + org);// 대상폴더
+			File targetLocationRename = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/" + server);// 대상폴더
+			targetFile.renameTo(targetLocationRename);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+
+		File thumbFile = new File(path + "thum\\" + org);
+
+		if (thumbFile.exists()) {
+			targetLocation = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/thumb/");// 게시판번호
+
+			if (!targetLocation.exists()) {
+				targetLocation.mkdir();
+			}
+
+//			try {
+				FileUtils.copyFileToDirectory(thumbFile, targetLocation);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+
+			File newThumbFile = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/thumb/" + org);// 이동된 섬네일
+			File renameThumbFile = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/thumb/" + server);// 이동된 섬네일
+
+			newThumbFile.renameTo(renameThumbFile);
+		} else {
+			String ext = ".jpg|.bmp|.gif|.png|.jpeg";
+			String extname = String.valueOf(orgMap.get("FILE_EXT"));
+			if (ext.indexOf(extname) > -1) {
+//				thumbFile = new File("D:\\develop_tool\\board\\" + org);
+
+//				try {
+					FileUtil.thumbImgMake(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/", server, extname, 236, 163);
+//				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+//				}
+
+//				targetLocation = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/thumb/");// 게시판번호
+//
+//				if (!targetLocation.exists()) {
+//					targetLocation.mkdir();
+//				}
+//
+//				try {
+//					FileUtils.copyFileToDirectory(thumbFile, targetLocation);
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//
+//				File newThumbFile = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/thumb/" + org);// 이동된 섬네일
+//				File renameThumbFile = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/thumb/" + server);// 이동된 섬네일
+//
+//				newThumbFile.renameTo(renameThumbFile);
+			}
+		}
+
+
+
+	}
+	public void fileMoveDK(Map<String, Object> orgMap, int manage_idx, String path) throws Exception{
+
+		String fileName = String.valueOf(orgMap.get("S_FILE_NAME"));
+		String server = String.valueOf(orgMap.get("SERVER_FILE_NAME"));
+
+		File sourceFile = new File(path + fileName);
+
+		File targetLocation = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/");// 대상폴더
+
+
+		if (!targetLocation.exists()) {
+			targetLocation.mkdir();
+		}
+
+//		try {
+			FileUtils.copyFileToDirectory(sourceFile, targetLocation);
+
+			File targetFile =  new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/" + fileName);// 대상폴더
+			File targetLocationRename = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/" + server);// 대상폴더
+			targetFile.renameTo(targetLocationRename);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+
+		String ext = ".jpg|.bmp|.gif|.png|.jpeg";
+		String extname = String.valueOf(orgMap.get("FILE_EXT"));
+		if (ext.indexOf(extname) > -1) {
+//			thumbFile = new File("D:\\develop_tool\\board\\" + org);
+
+//			try {
+				FileUtil.thumbImgMake(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/", server, extname, 236, 163);
+//			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+//			}
+
+//			targetLocation = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/thumb/");// 게시판번호
+//
+//			if (!targetLocation.exists()) {
+//				targetLocation.mkdir();
+//			}
+//
+//			try {
+//				FileUtils.copyFileToDirectory(thumbFile, targetLocation);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//
+//			File newThumbFile = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/thumb/" + org);// 이동된 섬네일
+//			File renameThumbFile = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/thumb/" + server);// 이동된 섬네일
+//
+//			newThumbFile.renameTo(renameThumbFile);
+		}
+//		}
+
+
+
+	}
 	public void fileMoveDK(Map<String, Object> orgMap, int manage_idx) {
 
 		String fileName = String.valueOf(orgMap.get("REAL_FILE_NAME"));
@@ -371,6 +506,11 @@ public class DataMigrationService extends BaseService{
 	}
 
 	@DataSource(DataSourceType.SLAVE2)
+	public List<DataMigration> orgListDK2(DataMigration dm) {
+		return dao.orgListDK2(dm);
+	}
+
+	@DataSource(DataSourceType.SLAVE2)
 	public List<DataMigration> orgListINFO(int manager_seq) {
 		return dao.orgListINFO(manager_seq);
 	}
@@ -414,11 +554,11 @@ public class DataMigrationService extends BaseService{
 
 	public void makeThumb(int manage_idx, BoardFile boardFile) {
 		File path = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + boardFile.getBoard_idx() + "/");
-		File sourceFile = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + boardFile.getBoard_idx() + "/" + boardFile.getReal_file_name());// 원본파일
+		File sourceFile = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + boardFile.getBoard_idx() + "/" + boardFile.getServer_file_name());// 원본파일
 		String afterPath = boardStorage.getRootPath() + "/" + manage_idx + "/" + boardFile.getBoard_idx() + "/";
 
 		try {
-			FileUtil.thumbImgMake(afterPath, boardFile.getReal_file_name(), boardFile.getFile_ext_name(), 236, 163);
+			FileUtil.thumbImgMake(afterPath, boardFile.getServer_file_name(), boardFile.getFile_ext_name(), 236, 163);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -711,58 +851,192 @@ public class DataMigrationService extends BaseService{
 	}
 
 	/**
-	 * @author whalesoft YONGJU 2019. 10. 26.
-	 * @param outputStream
-	 * @param request
+	 * @author whalesoft YONGJU 2019. 12. 10.
+	 * @param manager_seq
+	 * @return
 	 */
-	public void table(OutputStream outputStream, HttpServletRequest request) throws Exception {
-		String sampleFilePath = request.getSession().getServletContext().getRealPath("/") + "/resources/module/teacher/table.xls";
-		Workbook workbook = null;
-
-		List<Map<String, Object>> map = getTableMap();
-
-		for (int i = 0; i < map.size(); i++) {
-			Map<String, Object> a = map.get(i);
-			a.put("data", getColumns(a));
-		}
-
-
-//		teacher = dao.getTeacherOne(teacher);
-//		teacher.setCert_seq_num(dao.getCertSeq());
-//		List<Teacher> historyList = dao.getHistoryList(teacher);
-//
-//		int limitRowCount = 13;
-//		if ( historyList.size() > limitRowCount ) {
-//			while ( historyList.size() != limitRowCount ) {
-//				historyList.remove(historyList.remove(0));
-//			}
-//		}
-//		else if ( historyList.size() < limitRowCount ) {
-//			while ( historyList.size() != limitRowCount ) {
-//				historyList.add(new Teacher());
-//			}
-//		}
-//
-//		int sum_total_time = 0;
-//		for ( Teacher one : historyList ) {
-//			sum_total_time = sum_total_time + one.getTotal_time();
-//		}
-//		teacher.setSum_total_time(sum_total_time);
-//
-//		SimpleDateFormat sfYear = new SimpleDateFormat("yyyy-MM-dd");
-//
-//		Date now = new Date();
-//		String[] nows = sfYear.format(now).split("-");
-
-		Map<String, Object> dataMap = new HashMap<String, Object>();
-//		dataMap.put("curYear", nows[0]);
-//		dataMap.put("curMonth", nows[1]);
-//		dataMap.put("curDay", nows[2]);
-//		dataMap.put("teacher", teacher);
-		dataMap.put("tableList", map);
-//		dataMap.put("homepageName", teacher.getHomepage_name());
-		workbook = new XLSTransformer().transformXLS(new BufferedInputStream(new FileInputStream(new File(sampleFilePath))), dataMap);
-
-		workbook.write(outputStream);
+	@DataSource(DataSourceType.SLAVE1)
+	public Map<String, String> getTableNameNN(int manager_seq) {
+		return dao.getTableNameNN(manager_seq);
 	}
+
+	/**
+	 * @author whalesoft YONGJU 2019. 12. 10.
+	 * @param tableName
+	 * @return
+	 */
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNN(String tableName) {
+		return dao.getListNN(tableName);
+	}
+
+	/**
+	 * @author whalesoft YONGJU 2019. 12. 10.
+	 * @param tableName
+	 * @return
+	 */
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNN228(String tableName) {
+		return dao.getListNN228(tableName);
+	}
+
+	/**
+	 * @author whalesoft YONGJU 2019. 12. 10.
+	 * @param tableName
+	 * @return
+	 */
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNJungang(String tableName) {
+		return dao.getListNNJungang(tableName);
+	}
+
+	/**
+	 * @author whalesoft YONGJU 2019. 12. 10.
+	 * @param tableName
+	 * @return
+	 */
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNBukbu(String tableName) {
+		return dao.getListNNBukbu(tableName);
+	}
+
+	/**
+	 * @author whalesoft YONGJU 2019. 12. 10.
+	 * @param tableName
+	 * @return
+	 */
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNNewBook(String tableName) {
+		return dao.getListNNNewBook(tableName);
+	}
+
+	/**
+	 * @author whalesoft YONGJU 2019. 12. 10.
+	 * @param tableName
+	 * @return
+	 */
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNNewBook228(String tableName) {
+		return dao.getListNNNewBook228(tableName);
+	}
+
+	/**
+	 * @author whalesoft YONGJU 2019. 12. 10.
+	 * @param tableName
+	 * @return
+	 */
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNNewBookBukbu(String tableName) {
+		return dao.getListNNNewBookBukbu(tableName);
+	}
+
+	/**
+	 * @author whalesoft YONGJU 2019. 12. 10.
+	 * @param tableName
+	 * @return
+	 */
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNNewBookSeobu(String tableName) {
+		return dao.getListNNNewBookSeobu(tableName);
+	}
+
+	/**
+	 * @author whalesoft YONGJU 2019. 12. 10.
+	 * @param tableName
+	 * @return
+	 */
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNNewBookJungang(String tableName) {
+		return dao.getListNNNewBookJungang(tableName);
+	}
+
+	/**
+	 * @author whalesoft YONGJU 2020. 1. 2.
+	 * @param string
+	 * @param one
+	 */
+	@DataSource(DataSourceType.SLAVE1)
+	public List<String> getFileListNN(DataMigration one) {
+		return dao.getFileListNN(one);
+	}
+
+	/**
+	 * @author whalesoft YONGJU 2020. 1. 2.
+	 * @param one
+	 */
+	@DataSource(DataSourceType.SLAVE1)
+	public Map<String, String> getFileDataNN(DataMigration one) {
+		return dao.getFileDataNN(one);
+	}
+
+	/**
+	 * @author whalesoft YONGJU 2020. 1. 2.
+	 * @param string
+	 * @return
+	 */
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNMovie(String string) {
+		return dao.getListNNMovie(string);
+	}
+
+	/**
+	 * @author whalesoft YONGJU 2020. 1. 2.
+	 * @param string
+	 * @return
+	 */
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNMovie228(String string) {
+		return dao.getListNNMovie228(string);
+	}
+
+	/**
+	 * @author whalesoft YONGJU 2020. 1. 2.
+	 * @param string
+	 * @return
+	 */
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNMovieBukbu(String string) {
+		return dao.getListNNMovieBukbu(string);
+	}
+
+	/**
+	 * @author whalesoft YONGJU 2020. 1. 2.
+	 * @param string
+	 * @return
+	 */
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNMovieSeobu(String string) {
+		return dao.getListNNMovieSeobu(string);
+	}
+
+	/**
+	 * @author whalesoft YONGJU 2020. 1. 2.
+	 * @param string
+	 * @return
+	 */
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNMovieJungang(String string) {
+		return dao.getListNNMovieJungang(string);
+	}
+
+	/**
+	 * @author whalesoft YONGJU 2020. 1. 2.
+	 * @param manager_seq
+	 * @return
+	 */
+	@DataSource(DataSourceType.SLAVE2)
+	public List<DataMigration> getListDK(int manager_seq) {
+		return dao.getListDK(manager_seq);
+	}
+
+	/**
+	 * @author whalesoft YONGJU 2020. 1. 2.
+	 * @param one
+	 * @return
+	 */
+	@DataSource(DataSourceType.SLAVE2)
+	public List<DataMigration> getListDKDepth(DataMigration one) {
+		return dao.getListDKDepth(one);
+	}
+
 }

@@ -40,6 +40,96 @@
 		(
 			manage_idx, board_idx, group_idx, parent_idx, group_depth,
 			notice_yn, notice_start_date, notice_end_date,
+			title, content, content_summary, delete_yn,
+			user_name, add_id, user_ip, add_date, secret_yn,
+			view_count,
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_password)">user_password,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_homepage)">user_homepage,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_phone)">user_phone,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_email)">user_email,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(request_state)">request_state,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(preview_img)">preview_img,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(board_file_count)">file_count,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category1)">category1,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category2)">category2,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category3)">category3,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category4)">category4,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category5)">category5,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_1)">imsi_v_1,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_2)">imsi_v_2,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_3)">imsi_v_3,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_4)">imsi_v_4,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_5)">imsi_v_5,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_6)">imsi_v_6,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_7)">imsi_v_7,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_8)">imsi_v_8,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_9)">imsi_v_9,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_10)">imsi_v_10,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_11)">imsi_v_11,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_12)">imsi_v_12,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_13)">imsi_v_13,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_14)">imsi_v_14,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_15)">imsi_v_15,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_16)">imsi_v_16,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_17)">imsi_v_17,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_18)">imsi_v_18,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_19)">imsi_v_19,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_20)">imsi_v_20,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_1)">imsi_d_1,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_2)">imsi_d_2,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_1)">imsi_n_1,</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_2)">imsi_n_2</if>
+		) VALUES
+		(
+			#{manage_idx}, #{board_idx}, #{group_seq}, #{parent_seq}, #{group_step},
+			#{notice_yn}, #{notice_start_date_str}, #{notice_end_date_str},
+			#{title}, #{content}, #{content_summary}, #{delete_yn},
+			#{user_name}, #{user_id}, #{user_ip}, TO_DATE(#{add_date}, 'YYYY-MM-DD HH24:MI:SS'), #{secret_yn},
+			#{view_count},
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_password)">#{user_password},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_homepage)">#{user_homepage},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_phone)">#{user_phone},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_email)">#{user_email},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(request_state)">#{request_state},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(preview_img)">#{preview_img},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(board_file_count)">#{board_file_count},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category1)">#{category1},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category2)">#{category2},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category3)">#{category3},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category4)">#{category4},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(category5)">#{category5},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_1)">#{imsi_v_1},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_2)">#{imsi_v_2},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_3)">#{imsi_v_3},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_4)">#{imsi_v_4},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_5)">#{imsi_v_5},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_6)">#{imsi_v_6},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_7)">#{imsi_v_7},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_8)">#{imsi_v_8},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_9)">#{imsi_v_9},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_10)">#{imsi_v_10},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_11)">#{imsi_v_11},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_12)">#{imsi_v_12},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_13)">#{imsi_v_13},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_14)">#{imsi_v_14},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_15)">#{imsi_v_15},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_16)">#{imsi_v_16},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_17)">#{imsi_v_17},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_18)">#{imsi_v_18},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_19)">#{imsi_v_19},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_v_20)">#{imsi_v_20},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_1)">#{imsi_d_1},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_d_2)">#{imsi_d_2},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_1)">#{imsi_n_1},</if>
+			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(imsi_n_2)">#{imsi_n_2}</if>
+		)
+	</insert>
+
+	<insert id="insertBoard2">
+		INSERT INTO CMS_BOARD
+		(
+			manage_idx, board_idx, group_idx, parent_idx, group_depth,
+			notice_yn, notice_start_date, notice_end_date,
 			title, content, content_summary,
 			delete_yn,
 			user_name, add_id, user_ip, add_date, secret_yn,
@@ -54,7 +144,6 @@
 			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(board_file_count)">file_count,</if>
 			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(board_file_download_count)">file_download_count,</if>
 			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(recom_count)">recommend_count,</if>
-			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(recom_email_receive_count)">recommend_email_receive_count,</if>
 			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(report_state)">report_state,</if>
 
 			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_homepage)">user_homepage,</if>
@@ -95,7 +184,6 @@
 			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(board_file_count)">#{board_file_count},</if>
 			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(board_file_download_count)">#{board_file_download_count},</if>
 			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(recom_count)">#{recom_count},</if>
-			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(recom_email_receive_count)">#{recom_email_receive_count},</if>
 			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(report_state)">#{report_state},</if>
 
 			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_homepage)">#{user_homepage},</if>
@@ -134,12 +222,12 @@
 		</selectKey>
 		INSERT INTO CMS_BOARD_FILE
 		(
-			board_idx, file_idx, real_file_name, file_name, file_ext_name,
-			file_size, add_date
+			board_idx, file_idx, server_file_name, org_file_name, file_ext_name,
+			file_size, add_date, add_id
 		) VALUES
 		(
-			#{board_idx}, #{file_idx}, #{FILE_NAME}, #{REAL_FILE_NAME}, #{FILE_EXT},
-			#{FILE_SIZE}, #{FILE_ADD_DATE}
+			#{board_idx}, #{file_idx}, #{SERVER_FILE_NAME}, #{ORG_FILE_NAME}, #{FILE_EXT},
+			#{FILE_SIZE}, SYSDATE, #{add_id}
 		)
 	</insert>
 
@@ -205,17 +293,13 @@
 	<!-- 	 -->
 	<select id="getFileDataDK" resultType="HashMap" >
 		SELECT
-			BF_Code as FILE_IDX,
-			BF_BB_Code as BOARD_seq,
-			BF_FileCName as REAL_FILE_NAME,
-			BF_FileOName as RENAME_FILE_NAME,
-			BF_FileExp as FILE_EXT,
-			BF_FileSize as FILE_SIZE
+			BF_FileCName as SERVER_FILE_NAME,
+			BF_FileOName as ORG_FILE_NAME
 		FROM
 			wdboard_files
 		WHERE
 			BF_BB_Code = #{bb_code}
-		ORDER BY BF_BB_Code, BF_Code
+		ORDER BY BF_Code
 	</select>
 
 	<select id="orgListDK" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
@@ -258,14 +342,13 @@
 	<select id="orgListDK2" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
 		SELECT
 			BK_Code as board_seq,
-<!-- 			case when BK_Category = '간행물' then '001' else '002' end category1, -->
+			<if test="category5 != null and category5 != ''">
 			case
-				when BK_Category = '유아' then '001'
-				when BK_Category = '어린이' then '002'
-				when bk_category = '청소년' then '003'
-				else '004' end category1,
-			BK_OFile as RENAME_FILE_NAME,
-			BK_CFile as REAL_FILE_NAME,
+				${category5}
+				else '0000' end category1,
+			</if>
+			BK_OFile as ORG_FILE_NAME,
+			BK_CFile as SERVER_FILE_NAME,
 			concat_ws('-', bk_year,(if (length(bk_month) = 1, concat('0',bk_month), bk_month))) as imsi_v_1,
 			BK_BName as title,
 			BK_Content as content,
@@ -276,14 +359,19 @@
 			if(bk_symbol = '0', '', bk_symbol) as imsi_v_7,
 			if(bk_day = '0', '', bk_day) as imsi_v_8,
 			BK_Hit as view_count,
-			BK_WDate as add_date,
+			from_unixtime(BK_WDate, '%Y-%m-%d %H:%i:%s') as add_date,
 			'N' as delete_yn,
-			'N' as secret_yn
+			'N' as secret_yn,
+			'admin' as user_id
 		FROM
 			wdbook
-<!-- 			wdread -->
 		where
+			<if test="imsi_n_1 > 0">
+			bk_bg_code = ${imsi_n_1}
+			</if>
+			<if test="imsi_n_1 == 0">
 			bk_bg_code = 1
+			</if>
 		ORDER BY
 			Bk_Code
 	</select>
@@ -291,14 +379,13 @@
 	<select id="orgListDK3" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
 		SELECT
 			MV_Code as board_seq,
-<!-- 			case when MV_Part = '일반' then '001' when MV_Part='어린이' then '002' else '003' end category1, -->
 			concat_ws('-', MV_Year,(if (length(MV_Month) = 1, concat('0',MV_Month), MV_Month))) as imsi_v_1,
-			MV_Day as imsi_v_2,
+			LPAD(MV_Day, 2, '0') as imsi_v_2,
 			MV_Hour as imsi_v_3,
 			MV_Minute as imsi_v_4,
-			MV_Time as imsi_v_5,
-			MV_OFile as RENAME_FILE_NAME,
-			MV_CFile as REAL_FILE_NAME,
+			from_unixtime(MV_Time, '%Y-%m-%d %H:%i:%s') as imsi_v_5,
+			MV_OFile as ORG_FILE_NAME,
+			MV_CFile as SERVER_FILE_NAME,
 			MV_Area as imsi_v_6,
 			MV_Subject as title,
 			MV_Producer as imsi_v_7,
@@ -307,14 +394,16 @@
 			MV_Contury as imsi_v_10,
 			MV_OpenDate as imsi_v_11,
 			MV_Grade as imsi_v_12,
-			MV_ShowTime as imsi_v_13,
+			replace(MV_ShowTime, '분', '') as imsi_v_13,
 			MV_MakeDate as imsi_v_14,
 			MV_Content as content,
 			MV_Hit as view_count,
-			MV_WDate as add_date,
-			'N' as delete_yn
+			from_unixtime(MV_WDate, '%Y-%m-%d %H:%i:%s') as add_date,
+			'N' as delete_yn,
+			'admin' as user_id
 		FROM
 			wdmovie
+		WHERE mv_year > 0
 		ORDER BY
 			MV_Code
 	</select>
@@ -1370,4 +1459,524 @@ and   a.column_name = b.column_name(+)
 and a.table_name = #{TABLE_NAME}
 order by a.table_name, a.column_id
 	</select>
+
+	<select id="getTableNameNN" resultType="hashMap">
+		SELECT
+			A_TABLENAME, A_LEVEL
+		FROM
+			board_config
+		where
+			a_num = #{value}
+	</select>
+
+	<select id="getListNN" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_num AS board_seq,
+			b_ref as parent_seq,
+			ifnull(b_id, 'admin') as user_id,
+			b_name AS user_name,
+			b_pwd AS user_password,
+			b_subject AS title,
+			b_email AS user_email,
+			b_jumin AS imsi_v_20,
+			concat(b_phone1 , b_phone2 , b_phone3) AS user_phone,
+			if(b_cate = 0, '', b_cate) as category1,
+			if(b_noticechk = ' ', 'N', b_noticechk) as notice_yn,
+			b_content AS content,
+			b_ip AS user_ip,
+			b_count AS view_count,
+			if(b_look = 'N', 'Y', 'N') as delete_yn,
+			if(b_open = 'N', 'Y', 'N') as secret_yn,
+			if(b_regdate = '', '2020-01-01 00:00:00', b_regdate) AS add_date,
+			b_temp1 AS imsi_v_1,
+			b_temp2 AS imsi_v_2,
+			b_temp3 AS imsi_v_3,
+			b_temp4 AS imsi_v_4,
+			b_temp5 AS imsi_v_5,
+			b_temp6 AS imsi_v_6,
+			b_temp7 AS imsi_v_7,
+			b_temp8 AS imsi_v_8
+		FROM
+			${value}
+		ORDER BY
+			b_num
+	</select>
+
+	<select id="getListNN228" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_num AS board_seq,
+			b_ref as parent_seq,
+			ifnull(b_id, 'admin') as user_id,
+			b_name AS user_name,
+			b_pwd AS user_password,
+			b_subject AS title,
+			b_email AS user_email,
+			b_jumin AS imsi_v_20,
+			concat(b_phone1 , b_phone2 , b_phone3) AS user_phone,
+			if(b_cate = 0, '', b_cate) as category1,
+			if(b_noticechk = ' ', 'N', b_noticechk) as notice_yn,
+			SUBSTR(b_notice_sdate,1,10) as notice_start_date_str,
+			SUBSTR(b_notice_edate,1,10) as notice_end_date_str,
+			b_content AS content,
+			b_ip AS user_ip,
+			b_count AS view_count,
+			if(b_look = 'N', 'Y', 'N') as delete_yn,
+			if(b_open = 'N', 'Y', 'N') as secret_yn,
+			if(b_regdate = '', '2020-01-01 00:00:00', replace(replace(b_regdate, '오후 ', ''), '오전 ', '')) AS add_date,
+			b_temp1 AS imsi_v_1,
+			b_temp2 AS imsi_v_2,
+			b_temp3 AS imsi_v_3,
+			b_temp4 AS imsi_v_4,
+			b_temp5 AS imsi_v_5,
+			b_temp6 AS imsi_v_6,
+			b_temp7 AS imsi_v_7,
+			b_temp8 AS imsi_v_8
+		FROM
+			${value}
+		ORDER BY
+			b_num
+	</select>
+
+	<select id="getListNNBukbu" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_num AS board_seq,
+			b_ref as parent_seq,
+			ifnull(b_id, 'admin') as user_id,
+			b_name AS user_name,
+			b_pwd AS user_password,
+			b_subject AS title,
+			b_email AS user_email,
+			b_jumin AS imsi_v_20,
+			concat(b_phone1 , b_phone2 , b_phone3) AS user_phone,
+			if(b_cate = 0, '', b_cate) as category1,
+			if(b_noticechk = ' ', 'N', b_noticechk) as notice_yn,
+			b_content AS content,
+			b_ip AS user_ip,
+			b_count AS view_count,
+			if(b_look = 'N', 'Y', 'N') as delete_yn,
+			if(b_open = 'N', 'Y', 'N') as secret_yn,
+			if(b_regdate = '', '2020-01-01 00:00:00', replace(replace(b_regdate, '오후 ', ''), '오전 ', '')) AS add_date,
+			b_temp1 AS imsi_v_1,
+			b_temp2 AS imsi_v_2,
+			b_temp3 AS imsi_v_3,
+			b_temp4 AS imsi_v_4,
+			b_temp5 AS imsi_v_5,
+			b_temp6 AS imsi_v_6,
+			b_temp7 AS imsi_v_7,
+			b_temp8 AS imsi_v_8
+		FROM
+			${value}
+		ORDER BY
+			b_num
+	</select>
+
+	<select id="getListNNJungang" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_num AS board_seq,
+			b_ref as parent_seq,
+			'admin' as user_id,
+			b_name AS user_name,
+			b_pwd AS user_password,
+			b_subject AS title,
+			b_email AS user_email,
+			b_jumin AS imsi_v_20,
+			concat(b_phone1 , b_phone2 , b_phone3) AS user_phone,
+			if(b_cate = 0, '', b_cate) as category1,
+			if(b_noticechk = ' ', 'N', b_noticechk) as notice_yn,
+			b_content AS content,
+			b_ip AS user_ip,
+			b_count AS view_count,
+			if(b_look = 'N', 'Y', 'N') as delete_yn,
+			if(b_open = 'N', 'Y', 'N') as secret_yn,
+			if(b_regdate = '', '2020-01-01 00:00:00', replace(replace(b_regdate, '오후 ', ''), '오전 ', '')) AS add_date,
+			b_temp1 AS imsi_v_1,
+			b_temp2 AS imsi_v_2,
+			b_temp3 AS imsi_v_3,
+			b_temp4 AS imsi_v_4,
+			b_temp5 AS imsi_v_5,
+			b_temp6 AS imsi_v_6,
+			b_temp7 AS imsi_v_7,
+			b_temp8 AS imsi_v_8
+		FROM
+			${value}
+		ORDER BY
+			b_num
+	</select>
+
+	<select id="getListNNNewBook" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_num AS board_seq,
+			ifnull(b_id, 'admin') as user_id,
+			'관리자' AS  user_name,
+			b_name AS imsi_v_3,
+			b_pwd AS user_password,
+			b_subject AS title,
+			concat(b_phone1 , '-', b_phone2) AS imsi_v_1,
+			if(b_cate = 28, '0001', if(b_cate = 29, '0001', if(b_cate = 30, '0002', '0003'))) as category1,
+			'N' as notice_yn,
+			b_content AS content,
+			b_ip AS user_ip,
+			b_count AS view_count,
+			if(b_look = 'N', 'Y', 'N') as delete_yn,
+			if(b_open = 'N', 'Y', 'N') as secret_yn,
+			b_regdate AS add_date,
+			b_temp1 AS imsi_v_4,
+			b_temp2 AS imsi_v_2,
+			b_temp3 AS imsi_v_7,
+			b_temp4 AS imsi_v_6
+		FROM
+			${value}
+		ORDER BY
+			b_regdate
+	</select>
+
+	<select id="getListNNNewBook228" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_num AS board_seq,
+			ifnull(b_id, 'admin') as user_id,
+			b_name AS  user_name,
+			b_name AS imsi_v_3,
+			b_pwd AS user_password,
+			b_subject AS title,
+			b_cate as category1,
+			'N' as notice_yn,
+			b_content AS content,
+			b_ip AS user_ip,
+			b_count AS view_count,
+			if(b_look = 'N', 'Y', 'N') as delete_yn,
+			if(b_open = 'N', 'Y', 'N') as secret_yn,
+			b_regdate AS add_date,
+			b_keyword AS preview_img,
+			b_temp1 AS imsi_v_1,
+			b_temp2 AS imsi_v_3,
+			b_temp3 AS imsi_v_4,
+			b_temp4 AS imsi_v_2,
+			b_temp5 AS imsi_v_7,
+			b_temp6 AS imsi_v_6
+		FROM
+			${value}
+		ORDER BY
+			b_regdate
+	</select>
+
+	<select id="getListNNNewBookBukbu" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_num AS board_seq,
+			ifnull(b_id, 'admin') as user_id,
+			b_name AS  user_name,
+			b_pwd AS user_password,
+			b_subject AS title,
+			b_cate as category1,
+			'N' as notice_yn,
+			b_content AS content,
+			b_ip AS user_ip,
+			b_count AS view_count,
+			if(b_look = 'N', 'Y', 'N') as delete_yn,
+			if(b_open = 'N', 'Y', 'N') as secret_yn,
+			b_regdate AS add_date,
+			b_keyword AS preview_img,
+			b_temp1 AS imsi_v_3,
+			b_temp2 AS imsi_v_4,
+			b_temp3 AS imsi_v_2,
+			concat(b_temp4, '-', b_temp5) AS imsi_v_1,
+			b_temp6 AS imsi_v_6,
+			b_temp7 AS imsi_v_7
+		FROM
+			${value}
+		ORDER BY
+			b_regdate
+	</select>
+
+	<select id="getListNNNewBookSeobu" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_num AS board_seq,
+			ifnull(b_id, 'admin') as user_id,
+			b_name AS  user_name,
+			b_pwd AS user_password,
+			b_subject AS title,
+			b_cate as category1,
+			'N' as notice_yn,
+			b_content AS content,
+			b_ip AS user_ip,
+			b_count AS view_count,
+			if(b_look = 'N', 'Y', 'N') as delete_yn,
+			if(b_open = 'N', 'Y', 'N') as secret_yn,
+			b_regdate AS add_date,
+			b_keyword AS preview_img,
+			b_temp1 AS imsi_v_1,
+			b_temp2 AS imsi_v_6
+
+		FROM
+			${value}
+		ORDER BY
+			b_regdate
+	</select>
+
+	<select id="getListNNNewBookJungang" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_num AS board_seq,
+			ifnull(b_id, 'admin') as user_id,
+			b_name AS  user_name,
+			b_pwd AS user_password,
+			b_subject AS title,
+			b_cate as category1,
+			'N' as notice_yn,
+			b_content AS content,
+			b_ip AS user_ip,
+			b_count AS view_count,
+			if(b_look = 'N', 'Y', 'N') as delete_yn,
+			if(b_open = 'N', 'Y', 'N') as secret_yn,
+			b_regdate AS add_date,
+			b_keyword AS preview_img,
+			SUBSTR(b_sdate,1,7) as imsi_v_1,
+			b_temp1 AS imsi_v_3,
+			b_temp2 AS imsi_v_4,
+			b_temp3 AS imsi_v_7
+
+		FROM
+			${value}
+		ORDER BY
+			b_regdate
+	</select>
+
+	<select id="getListNNMovie" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_num AS board_seq,
+			ifnull(b_id, 'admin') as user_id,
+			b_name AS  user_name,
+			b_pwd AS user_password,
+			b_subject AS title,
+			b_content AS content,
+			b_ip AS user_ip,
+			b_count AS view_count,
+			'N' as notice_yn,
+			if(b_look = 'N', 'Y', 'N') as delete_yn,
+			if(b_open = 'N', 'Y', 'N') as secret_yn,
+			b_regdate AS add_date,
+			SUBSTR(b_sdate,1,7) as imsi_v_1,
+			SUBSTR(b_sdate,9) as imsi_v_2,
+			'14' as imsi_v_3,
+			'00' as imsi_v_4,
+			replace(b_temp4,'분','') AS imsi_v_13,
+			b_temp1 AS imsi_v_7,
+			b_name AS imsi_v_8,
+			b_temp2 AS imsi_v_9,
+			b_temp3 AS imsi_v_12
+		FROM
+			${value}
+		ORDER BY
+			b_regdate
+	</select>
+
+	<select id="getListNNMovie228" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_num AS board_seq,
+			ifnull(b_id, 'admin') as user_id,
+			b_name AS  user_name,
+			b_pwd AS user_password,
+			b_subject AS title,
+			b_content AS content,
+			b_ip AS user_ip,
+			b_count AS view_count,
+			'N' as notice_yn,
+			if(b_look = 'N', 'Y', 'N') as delete_yn,
+			if(b_open = 'N', 'Y', 'N') as secret_yn,
+			b_regdate AS add_date,
+			SUBSTR(b_sdate,1,7) as imsi_v_1,
+			SUBSTR(b_sdate,9) as imsi_v_2,
+			'14' as imsi_v_3,
+			'00' as imsi_v_4,
+			b_temp2 AS imsi_v_6,
+			b_temp3 AS imsi_v_7,
+			b_temp4 AS imsi_v_8,
+			b_temp5 AS imsi_v_9,
+			b_temp6 AS imsi_v_12,
+			REPLACE(b_temp7, '분', '') AS imsi_v_13,
+			b_keyword AS preview_img
+		FROM
+			${value}
+		ORDER BY
+			b_regdate
+	</select>
+
+	<select id="getListNNMovieBukbu" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_num AS board_seq,
+			ifnull(b_id, 'admin') as user_id,
+			b_name AS  user_name,
+			b_pwd AS user_password,
+			b_subject AS title,
+			b_content AS content,
+			b_ip AS user_ip,
+			b_count AS view_count,
+			'N' as notice_yn,
+			if(b_look = 'N', 'Y', 'N') as delete_yn,
+			if(b_open = 'N', 'Y', 'N') as secret_yn,
+			b_regdate AS add_date,
+			SUBSTR(b_sdate,1,7) as imsi_v_1,
+			SUBSTR(b_sdate,9) as imsi_v_2,
+			b_temp1 AS imsi_v_7,
+			b_temp2 AS imsi_v_8,
+			REPLACE(b_temp3, '분', '') AS imsi_v_13,
+			b_temp4 AS imsi_v_12
+		FROM
+			${value}
+		WHERE
+			b_regdate != '0-00-00'
+		ORDER BY
+			b_regdate
+	</select>
+
+	<select id="getListNNMovieSeobu" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_num AS board_seq,
+			ifnull(b_id, 'admin') as user_id,
+			b_name AS  user_name,
+			b_pwd AS user_password,
+			b_subject AS title,
+			b_content AS content,
+			b_ip AS user_ip,
+			b_count AS view_count,
+			'N' as notice_yn,
+			if(b_look = 'N', 'Y', 'N') as delete_yn,
+			if(b_open = 'N', 'Y', 'N') as secret_yn,
+			b_regdate AS add_date,
+			SUBSTR(b_sdate,1,7) as imsi_v_1,
+			SUBSTR(b_sdate,9) as imsi_v_2,
+			'14' as imsi_v_3,
+			'00' as imsi_v_4,
+			replace(b_temp1,'분','') AS imsi_v_13
+		FROM
+			${value}
+		ORDER BY
+			b_regdate
+	</select>
+
+	<select id="getListNNMovieJungang" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_num AS board_seq,
+			ifnull(b_id, 'admin') as user_id,
+			b_name AS  user_name,
+			b_pwd AS user_password,
+			b_subject AS title,
+			b_content AS content,
+			b_ip AS user_ip,
+			b_count AS view_count,
+			'N' as notice_yn,
+			if(b_look = 'N', 'Y', 'N') as delete_yn,
+			if(b_open = 'N', 'Y', 'N') as secret_yn,
+			b_regdate AS add_date,
+			SUBSTR(b_sdate,1,7) as imsi_v_1,
+			SUBSTR(b_sdate,9) as imsi_v_2,
+			b_temp8 as imsi_v_3,
+			'00' as imsi_v_4,
+			b_temp2 AS imsi_v_6,
+			b_temp3 AS imsi_v_8,
+			b_temp4 AS imsi_v_7,
+			b_temp5 AS imsi_v_9,
+			b_temp6 AS imsi_v_12,
+			replace(b_temp7,'분','') AS imsi_v_13
+		FROM
+			${value}
+		ORDER BY
+			b_regdate
+	</select>
+
+	<select id="getFileListNN" resultType="string">
+		SELECT
+			column_name
+		FROM
+			INFORMATION_SCHEMA.columns
+		WHERE
+			table_schema = #{dbUser}
+		AND	table_name = #{tableName}
+		AND	COLUMN_NAME LIKE 'b_file%'
+		ORDER BY
+			ordinal_position
+	</select>
+
+	<select id="getFileDataNN" resultType="hashMap">
+		SELECT
+			${fileColumns}
+		FROM
+			${tableName}
+		WHERE
+			b_num = #{board_seq}
+	</select>
+
+
+
+	<select id="getListDK" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			BB_Code as board_seq,
+			BB_Board as manager_seq,
+			BB_Head as group_seq,
+			BB_Parent as parent_seq,
+			BB_Depth as group_step,
+			if(trim(bb_id) = '', 'admin', bb_id) as user_id,
+			if(BB_Category = '0', '', BB_category) as category1,
+			BB_Name as user_name,
+			BB_Pass as user_password,
+			BB_Email as user_email,
+			BB_Homepage as user_homepage,
+			BB_Subject as title,
+			BB_Content as content,
+			if(BB_Notice = '1', 'Y', 'N') as NOTICE_YN,
+			if(BB_Secret = '1', 'Y', 'N') as secret_yn,
+			if(BB_OPEN = '1', 'Y', 'N') as delete_yn,
+			BB_Hit as VIEW_COUNT,
+			BB_WIP as user_ip,
+			from_unixtime(BB_MDate, '%Y-%m-%d %H:%i:%s') as modify_date,
+			from_unixtime(BB_WDate, '%Y-%m-%d %H:%i:%s') as add_date,
+			if(BB_etc1 = '0', '', BB_etc1) as imsi_v_1,
+			if(BB_etc2 = '0', '', BB_etc2) as imsi_v_2,
+			if(BB_etc3 = '0', '', BB_etc3) as imsi_v_3
+		FROM
+			wdb_board
+		WHERE
+			BB_Board = #{manager_seq}
+		ORDER BY
+			BB_Head, BB_Parent, bb_depth
+	</select>
+
+	<select id="getListDKDepth" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			BB_Code as board_seq,
+			BB_Board as manager_seq,
+			BB_Head as group_seq,
+			BB_Parent as parent_seq,
+			BB_Depth as group_step,
+			ifnull(BB_ID, 'admin') as user_id,
+			if(BB_Category = '0', '', BB_category) as category1,
+<!-- 			case  -->
+<!-- 				when BB_Board=1 then '001'  -->
+<!-- 				else '002'  -->
+<!-- 			end category1, -->
+			BB_Name as user_name,
+			BB_Pass as user_password,
+			BB_Email as user_email,
+			BB_Link1 as imsi_v_1,
+			BB_Homepage as user_homepage,
+			BB_Subject as title,
+			BB_Content as content,
+			if(BB_Notice = '1', 'Y', 'N') as NOTICE_YN,
+			if(BB_Secret = '1', 'Y', 'N') as secret_yn,
+			if(BB_OPEN = '1', 'Y', 'N') as delete_yn,
+			BB_Hit as VIEW_COUNT,
+			BB_WIP as user_ip,
+			from_unixtime(BB_MDate, '%Y-%m-%d %H:%i:%s') as modify_date,
+			from_unixtime(BB_WDate, '%Y-%m-%d %H:%i:%s') as add_date,
+			BB_etc1 as imsi_v_1,
+			BB_etc2 as imsi_v_2,
+			BB_etc3 as imsi_v_3
+		FROM
+			wdb_board
+		WHERE
+			BB_Board = #{manager_seq}
+		AND	BB_Head = #{group_seq}
+		AND	BB_depth > 0
+		ORDER BY
+			BB_WDate
+	</select>
+
 </mapper>

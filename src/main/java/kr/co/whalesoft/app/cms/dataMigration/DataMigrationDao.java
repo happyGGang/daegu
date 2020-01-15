@@ -3,6 +3,7 @@ package kr.co.whalesoft.app.cms.dataMigration;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.whalesoft.app.board.Board;
 import kr.co.whalesoft.app.board.boardFile.BoardFile;
 
 public interface DataMigrationDao {
@@ -103,5 +104,145 @@ public interface DataMigrationDao {
 	 * @return
 	 */
 	List<Map<String, Object>> getColumns(Map<String, Object> a);
+
+	/**
+	 * @author whalesoft YONGJU 2019. 12. 10.
+	 * @param manager_seq
+	 * @return
+	 */
+	Map<String, String> getTableNameNN(int manager_seq);
+
+	/**
+	 * @author whalesoft YONGJU 2019. 12. 10.
+	 * @param tableName
+	 * @return
+	 */
+	List<DataMigration> getListNN(String tableName);
+
+	/**
+	 * @author whalesoft YONGJU 2019. 12. 10.
+	 * @param tableName
+	 * @return
+	 */
+	List<DataMigration> getListNN228(String tableName);
+
+	/**
+	 * @author whalesoft YONGJU 2019. 12. 10.
+	 * @param tableName
+	 * @return
+	 */
+	List<DataMigration> getListNNJungang(String tableName);
+
+	/**
+	 * @author whalesoft YONGJU 2019. 12. 10.
+	 * @param tableName
+	 * @return
+	 */
+	List<DataMigration> getListNNBukbu(String tableName);
+
+	/**
+	 * @author whalesoft YONGJU 2019. 12. 10.
+	 * @param tableName
+	 * @return
+	 */
+	List<DataMigration> getListNNNewBook(String tableName);
+
+	/**
+	 * @author whalesoft YONGJU 2019. 12. 10.
+	 * @param tableName
+	 * @return
+	 */
+	List<DataMigration> getListNNNewBook228(String tableName);
+
+	/**
+	 * @author whalesoft YONGJU 2019. 12. 10.
+	 * @param tableName
+	 * @return
+	 */
+	List<DataMigration> getListNNNewBookBukbu(String tableName);
+
+	/**
+	 * @author whalesoft YONGJU 2019. 12. 10.
+	 * @param tableName
+	 * @return
+	 */
+	List<DataMigration> getListNNNewBookSeobu(String tableName);
+
+	/**
+	 * @author whalesoft YONGJU 2019. 12. 10.
+	 * @param tableName
+	 * @return
+	 */
+	List<DataMigration> getListNNNewBookJungang(String tableName);
+
+	/**
+	 * @author whalesoft YONGJU 2020. 1. 2.
+	 * @param one
+	 * @return
+	 */
+	List<String> getFileListNN(DataMigration one);
+
+	/**
+	 * @author whalesoft YONGJU 2020. 1. 2.
+	 * @param one
+	 * @return
+	 */
+	Map<String, String> getFileDataNN(DataMigration one);
+
+	/**
+	 * @author whalesoft YONGJU 2020. 1. 2.
+	 * @param string
+	 * @return
+	 */
+	List<DataMigration> getListNNMovie(String string);
+
+	/**
+	 * @author whalesoft YONGJU 2020. 1. 2.
+	 * @param string
+	 * @return
+	 */
+	List<DataMigration> getListNNMovie228(String string);
+
+	/**
+	 * @author whalesoft YONGJU 2020. 1. 2.
+	 * @param string
+	 * @return
+	 */
+	List<DataMigration> getListNNMovieBukbu(String string);
+
+	/**
+	 * @author whalesoft YONGJU 2020. 1. 2.
+	 * @param string
+	 * @return
+	 */
+	List<DataMigration> getListNNMovieSeobu(String string);
+
+	/**
+	 * @author whalesoft YONGJU 2020. 1. 2.
+	 * @param string
+	 * @return
+	 */
+	List<DataMigration> getListNNMovieJungang(String string);
+
+	/**
+	 * @author whalesoft YONGJU 2020. 1. 2.
+	 * @param manager_seq
+	 * @return
+	 */
+	List<DataMigration> getListDK(int manager_seq);
+
+	/**
+	 * @author whalesoft YONGJU 2020. 1. 2.
+	 * @param one
+	 * @return
+	 */
+	List<DataMigration> getListDKDepth(DataMigration one);
+
+	/**
+	 * @author whalesoft YONGJU 2020. 1. 6.
+	 * @param dm
+	 * @return
+	 */
+	List<DataMigration> orgListDK2(DataMigration dm);
 
 }

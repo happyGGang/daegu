@@ -6,14 +6,6 @@
 <script type="text/javascript">
 $(function(){
 	$('button').click(function(){
-		var isNN = $('input#NN').is(':checked');
-		var isDK = $('input#DD').is(':checked');
-
-		if (isDK) {
-			$('form#dm').attr('action', 'savedk.do');
-		} else {
-			$('form#dm').attr('action', 'savenn.do');
-		}
 
 		var a = doAjaxPost($('form#dm'));
 		if (a) {
@@ -45,10 +37,8 @@ $(function(){
 
 });
 </script>
-<input type="radio" id="NN" name="dc" checked="checked"><label for="book">NN</label>
-<input type="radio" id="DK" name="dc"><label for="movie">DK</label>
-
-<form id="dm" name="dm" action="savenn.do" method="post" onsubmit="return false;">
+중앙도서관
+<form id="dm" name="dm" action="savejalib.do" method="post" onsubmit="return false;">
 <table class="type2">
 				<colgroup>
 					<col width="150"/>
