@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="true" scan="true">
 
-  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender"> 
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <!-- encoders are  by default assigned the type
          ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
     <encoder>
 	    <pattern>%date{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger.%method \(%file:%line\) {%mdc}%n	- %msg%n</pattern>
     </encoder>
   </appender>
-  
+
 	<!-- Application loggers -->
     <logger name="kr.co.whalesoft.app" level="debug" additivity="false">
         <appender-ref ref="STDOUT"/>
@@ -21,15 +21,15 @@
     <logger name="kr.co.whalesoft.framework" level="debug" additivity="false">
         <appender-ref ref="STDOUT"/>
     </logger>
-    
+
 	<logger name="kr.go.gbelib.app.common.api" level="debug" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
-    
+
 	<logger name="kr.co.whalesoft.app.cms.homepageAccess" level="error" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
-    
+
 	<!-- 3rdparty loggers -->
 	<logger name="org.springframework.core" level="error" additivity="false">
 		<appender-ref ref="STDOUT" />
@@ -130,7 +130,7 @@
 	<logger name="jdbc.resultsettable" level="error" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
-	
+
 	<logger name="org.apache" level="error" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
@@ -138,5 +138,5 @@
   <root level="error">
     <appender-ref ref="STDOUT" />
   </root>
-  
+
 </configuration>
