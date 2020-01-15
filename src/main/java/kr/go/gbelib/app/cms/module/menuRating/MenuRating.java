@@ -21,6 +21,7 @@ public class MenuRating extends PagingUtils {
 	private String search_date_type;
 	private String search_start_date;
 	private String search_end_date;
+	private String result_date;
 	private float rating_average_score;
 
 	public String getHomepage_id() {
@@ -117,6 +118,14 @@ public class MenuRating extends PagingUtils {
 
 	public void setSearch_end_date(String search_end_date) {
 		this.search_end_date = search_end_date;
+	}
+
+	public String getResult_date() {
+		return result_date;
+	}
+
+	public void setResult_date(String result_date) {
+		this.result_date = result_date;
 	}
 
 	public float getRating_average_score() {

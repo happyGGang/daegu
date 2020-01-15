@@ -7,15 +7,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.framework.base.BaseController;
 
@@ -27,9 +24,6 @@ public class MenuRatingController extends BaseController {
 	
 	@Autowired
 	private MenuRatingService service;
-	
-	@Autowired
-	private HomepageService homepageService;
 	
 	@RequestMapping (value = {"/index.*"}, method = RequestMethod.GET)
 	public String index(Model model, MenuRating menuRating, HttpServletRequest request) {
@@ -48,17 +42,20 @@ public class MenuRatingController extends BaseController {
 			menuRating.setSearch_end_date(today);
 		}
 		
-		List<MenuRating> menuRatingAverageList = service.getMenuRatingAverageScore(menuRating);
-		
-		service.setPaging(model, menuRatingAverageList.size(), menuRating);
-		
-//		homepageService.getHomepageOne(new Homepage(homepage_id));
-
 		model.addAttribute("menuRating", menuRating);
-		model.addAttribute("menuRatingAverageList", menuRatingAverageList);
-		model.addAttribute("homepageList", homepageService.getNormalHomepage());
 
 		return basePath + "index";
+	}
+	
+	@RequestMapping (value = {"/searchTable.*"}, method = RequestMethod.GET)
+	public String searchTable(Model model, MenuRating menuRating, HttpServletRequest request) {
+		
+		List<MenuRating> menuRatingAverageList = service.getMenuRatingAverageScore(menuRating);
+		service.setPaging(model, menuRatingAverageList.size(), menuRating);
+		
+		model.addAttribute("menuRatingAverageList", menuRatingAverageList);
+		
+		return basePath + "searchTable_ajax";
 	}
 
 }
