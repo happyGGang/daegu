@@ -20,17 +20,6 @@
 
 		<div class="bottom">
 			<div class="section" style="position:relative;">
-				<div class="bottom-top">
-					<div class="info">
-						<a href="/${homepage.context_path}/html.do?menu_idx=86"><b>개인정보처리방침</b></a>
-						<span class="bar">|</span>
-						<a href="/${homepage.context_path}/html.do?menu_idx=88">영상정보처리방침</a>
-						<span class="bar">|</span>
-						<a href="/${homepage.context_path}/html.do?menu_idx=90">도서관서비스헌장</a>
-						<span class="bar">|</span>
-						<a href="/${homepage.context_path}/html.do?menu_idx=109">찾아오시는길</a>
-					</div>
-				<div>
 				<address>
 					<p>
 						<em>(${homepage.zipcode}) <br class="mobileBr"/>${homepage.address1}</em><br class="mobileBr"/>
