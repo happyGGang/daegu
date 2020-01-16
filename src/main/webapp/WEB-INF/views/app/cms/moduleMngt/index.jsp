@@ -9,34 +9,34 @@ $(function() {
 		$('#viewPage').val(1);
 		$('#moduleMngtListForm').submit();
 	});
-	
-	
+
+
 	$('a#dialog-add').on('click', function(e) {
 		var module_type = $('select#module_type option:selected').val();
 		$('#dialog-1').load('edit.do?editMode=ADD&homepage_id=' + $('#homepage_id').val()+'&module_type='+module_type, function( response, status, xhr ) {
 			$('#dialog-1').dialog('open');
 		});
-		
+
 		e.preventDefault();
 	});
 	$('a.dialog-modify').on('click', function(e) {
 		$('#dialog-1').load('edit.do?editMode=MODIFY&homepage_id=' + $('#homepage_id').val() + '&module_idx=' + $(this).attr('keyValue'), function( response, status, xhr ) {
 			$('#dialog-1').dialog('open');
 		});
-		
+
 		e.preventDefault();
 	});
-	
+
 	$('a.delete-btn').on('click', function(e) {
 		if ( confirm('해당 모듈을 삭제 하시겠습니까?') ) {
 			$('#hiddenForm #module_idx').val($(this).attr('keyValue'));
 			if(doAjaxPost($('#hiddenForm'))) {
 				location.reload();
-			}	
+			}
 		}
 		e.preventDefault();
 	});
-	
+
 	$('a.dialog-terms').on('click', function(e) {
 		e.preventDefault();
 		$('#dialog-2').load('moduleTerms.do?module_idx=' + $(this).attr('keyValue'), function( response, status, xhr ) {
@@ -51,12 +51,12 @@ $(function() {
 			$('#dialog-3').dialog('open');
 		});
 	});
-	
+
 	$('select#rowCount, select#module_type').change(function(e) {
 		$('#viewPage').val(1);
 		$('#moduleMngtListForm').submit();
 	});
-	
+
 });
 </script>
 <form:form id="hiddenForm" modelAttribute="moduleMngt" action="save.do">
@@ -66,7 +66,7 @@ $(function() {
 
 <form:form id="moduleMngtListForm"  modelAttribute="moduleMngt" action="index.do" >
 	<div class="infodesk">
-		검색 결과 : 총 ${moduleMngtListCount}건 
+		검색 결과 : 총 ${moduleMngtListCount}건
 		<form:select path="rowCount" class="selectmenu" style="width:150px;">
 			<form:option value="10">10개씩 보기</form:option>
 			<form:option value="20">20개씩 보기</form:option>
@@ -77,7 +77,7 @@ $(function() {
 		<form:select path="module_type" class="selectmenu" style="width:100px;">
 			<form:option value="CMS" label="CMS" />
 			<form:option value="SITE" label="SITE" />
-		</form:select> 
+		</form:select>
 		<div class="button">
 			<c:if test="${authC}">
 				<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
@@ -119,7 +119,7 @@ $(function() {
 					<td>${i.link_url}</td>
 					<td>
 						<c:if test="${moduleMngt.module_type eq 'SITE'}">
-						<a href="" class="btn btn1 dialog-terms" keyValue="${i.module_idx}">약관등록</a>
+						<a href="" class="btn btn1 dialog-terms" keyValue="${i.module_idx}">약관설정</a>
 						</c:if>
 <%-- 						<a href="" class="btn btn2 dialog-auth" keyValue="${i.module_idx}">권한설정</a> --%>
 						<c:if test="${authU}">
@@ -141,7 +141,7 @@ $(function() {
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#moduleMngtListForm"/>
 	</jsp:include>
-	
+
 	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 		<fieldset>
 			<form:select path="search_type" cssClass="selectmenu">
@@ -152,7 +152,7 @@ $(function() {
 		</fieldset>
 	</div>
 </form:form>
-	
+
 <div id="dialog-1" class="dialog-common" title="모듈 정보"></div>
 <div id="dialog-2" class="dialog-common" title="모듈 약관 리스트"></div>
 <div id="dialog-3" class="dialog-common" title="모듈 권한정보"></div>

@@ -8,7 +8,7 @@ $(function() {
 	$('#dialog-2.dialog-common').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
 		resizable: false,
-		modal: true, 
+		modal: true,
 	    open: function(){
 	        $('.ui-widget-overlay').addClass('custom-overlay');
 	    },
@@ -25,41 +25,41 @@ $(function() {
 			}
 		]
 	});
-	
+
 	$("#dialog-2").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
 		width: 600,
 		height: 600
 	});
-	
+
 	$('a.deleteTerm-btn').on('click', function(e) {
 		e.preventDefault();
 		$('#moduleTermsForm #editMode').val('DELETE');
 		$('#moduleTermsForm #terms_idx').val($(this).attr('keyValue1'));
-		
+
 		if ( confirm('해당 약관을 제거 하시겠습니까?') ) {
 			if ( doAjaxPost($('#moduleTermsForm')) ) {
-				$('#dialog-2').load('moduleTerms.do?module_idx=' + $('#moduleTermsForm #module_idx').val());	
+				$('#dialog-2').load('moduleTerms.do?module_idx=' + $('#moduleTermsForm #module_idx').val());
 			}
 		}
-			
+
 	});
-	
+
 	$('a.addTerm-btn').on('click', function(e) {
 		e.preventDefault();
 		$('#moduleTermsForm #editMode').val('ADD');
 		$('#moduleTermsForm #terms_idx').val($(this).attr('keyValue1'));
-		
+
 		if ( doAjaxPost($('#moduleTermsForm')) ) {
 			$('#dialog-2').load('moduleTerms.do?module_idx=' + $('#moduleTermsForm #module_idx').val());
 		}
 	});
-	
+
 });
 
 </script>
 <form:form id="moduleTermsForm" modelAttribute="moduleMngt" action="saveTerms.do" >
 	<form:hidden path="editMode"/>
-	<form:hidden path="module_idx"/>			
+	<form:hidden path="module_idx"/>
 	<form:hidden path="terms_idx"/>
 </form:form>
 
@@ -86,7 +86,7 @@ $(function() {
 				<td class="left">${i.title}</td>
 				<td>${i.add_date}</td>
 				<td><a class="btn deleteTerm-btn" keyValue1="${i.terms_idx}" >제거</a></td>
-			</tr>	
+			</tr>
 		</c:forEach>
 	</tbody>
 </table>
@@ -114,7 +114,7 @@ $(function() {
 				<td class="left">${i.title}</td>
 				<td>${i.add_date}</td>
 				<td><a class="btn addTerm-btn" keyValue1="${i.terms_idx}">추가</a></td>
-			</tr>	
+			</tr>
 		</c:forEach>
 	</tbody>
 </table>

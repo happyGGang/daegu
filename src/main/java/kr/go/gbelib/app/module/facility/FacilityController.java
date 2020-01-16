@@ -130,19 +130,14 @@ public class FacilityController extends BaseController {
 		}
 
 		Member memberInfo = certMember == null ? getSessionMemberInfo(request) : certMember;
+		model.addAttribute("member", memberInfo);
 		facilityReq.setHomepage_id(homepage.getHomepage_id());
-		if(facilityReq.getEditMode().equals("MODIFY")) {
-			//model.addAttribute("facility", service.copyObjectPaging(facility, service.getFacilityOne(facilityReq)));
-		} else {
-			model.addAttribute("facilityReq", facilityReq);
-		}
+		model.addAttribute("facilityReq", facilityReq);
 
 		//약관 연동부
 		Menu menuOne = (Menu) request.getAttribute("menuOne");
-		model.addAttribute("termsList", termsService.getTermsListInModule(new Terms(menuOne.getManage_idx())));
+		model.addAttribute("termsList", termsService.getTermsListInModule(new Terms(homepage.getHomepage_id(), menuOne.getManage_idx())));
 
-		model.addAttribute("member", memberInfo);
-//		model.addAttribute("prtcNotice",MemberAPI.getPrtcNoticeList("WEB"));
 		return String.format(basePath, homepage.getFolder()) + "edit";
 	}
 
@@ -179,11 +174,6 @@ public class FacilityController extends BaseController {
 			ValidationUtils.rejectIfEmpty(result, "apply_phone2", "휴대번호를 입력해주세요.");
 			ValidationUtils.rejectIfEmpty(result, "apply_phone3", "휴대번호를 입력해주세요.");
 			ValidationUtils.rejectIfEmpty(result, "apply_desc", "사용목적을 입력하세요.");
-			if ( !"Y".equals(facilityReq.getSelf_info_yn()) ) {
-				res.setValid(false);
-				res.setMessage("개인정보 동의 후 신청이 가능합니다.");
-				return res;
-			}
 		}
 
 		if (!result.hasErrors()) {

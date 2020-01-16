@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.whalesoft.app.cms.moduleMngt.ModuleMngtDao">
-	
+
 	<select id="getModuleMngtListAll" resultType="kr.co.whalesoft.app.cms.moduleMngt.ModuleMngt">
 		SELECT
 			module_idx, module_type, module_name, remark, link_url,
-			link_param, auth_group_id, add_date, add_id, modify_date, modify_id
+			link_param, auth_group_id, add_date, add_id, modify_date, modify_id,
+			terms_group_id
 		FROM
 			WB_MODULE_MNGT
 		WHERE
@@ -16,16 +17,17 @@
 		ORDER BY
 			module_idx DESC
 	</select>
-	
+
 	<select id="getModuleMngtList" resultType="kr.co.whalesoft.app.cms.moduleMngt.ModuleMngt">
 		${pagingTop}
 			SELECT
 				module_idx, module_type, module_name, remark, link_url,
-				link_param, auth_group_id, add_date, add_id, modify_date, modify_id
+				link_param, auth_group_id, add_date, add_id, modify_date, modify_id,
+				terms_group_id
 			FROM
 				WB_MODULE_MNGT
 			WHERE
-				module_type = #{module_type}	
+				module_type = #{module_type}
 			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
 			AND	${search_type} LIKE '%'||#{search_text}||'%'
 			</if>
@@ -33,7 +35,7 @@
 				MODULE_IDX DESC
 		${pagingBottom}
 	</select>
-	
+
 	<select id="getModuleMngtListCount" resultType="int">
 		SELECT
 			COUNT(*)
@@ -47,16 +49,17 @@
 		ORDER BY
 			MODULE_IDX DESC
 	</select>
-	
+
 	<select id="getModuleMngtOne" resultType="kr.co.whalesoft.app.cms.moduleMngt.ModuleMngt">
 		SELECT
 			module_idx, module_type, module_name, remark, link_url,
-			link_param, auth_group_id, add_date, add_id, modify_date, modify_id
+			link_param, auth_group_id, add_date, add_id, modify_date, modify_id,
+			terms_group_id
 		FROM
 			WB_MODULE_MNGT
 		WHERE MODULE_IDX = #{module_idx}
 	</select>
-	
+
 	<insert id="addModuleMngt">
 		<selectKey keyProperty="module_idx" resultType="int" order="BEFORE">
 			SELECT NVL(MAX(module_idx),0)+1 FROM WB_MODULE_MNGT
@@ -64,45 +67,47 @@
 		INSERT INTO WB_MODULE_MNGT
 		(
 			module_idx, module_type, module_name, remark, link_url,
-			link_param, auth_group_id, add_date, add_id
+			link_param, auth_group_id, add_date, add_id, terms_group_id
 		)
 			VALUES
 		(
 			#{module_idx}, #{module_type}, #{module_name}, #{remark}, #{link_url},
-			#{link_param}, #{auth_group_id}, SYSDATE, #{add_id}
+			#{link_param}, #{auth_group_id}, SYSDATE, #{add_id}, #{terms_group_id}
 		)
 	</insert>
-	
+
 	<update id="modifyModuleMngt">
-		UPDATE 
-			WB_MODULE_MNGT 
+		UPDATE
+			WB_MODULE_MNGT
 		SET
-			module_name = #{module_name}, 
-			remark = #{remark}, 
+			module_name = #{module_name},
+			remark = #{remark},
 			link_url	= #{link_url},
 			link_param	= #{link_param},
+			auth_group_id = #{auth_group_id},
+			terms_group_id = #{terms_group_id},
 			modify_date 	= SYSDATE,
 			modify_id		= #{modify_id}
-		WHERE 
-			MODULE_IDX = #{module_idx} 
+		WHERE
+			MODULE_IDX = #{module_idx}
 	</update>
-	
+
 	<delete id="deleteModuleMngt">
 		DELETE FROM
 			WB_MODULE_MNGT
 		WHERE
 			module_idx = #{module_idx}
 	</delete>
-	
+
 	<insert id="addModuleTerms">
 		INSERT INTO CMS_MODULE_TERMS
 		(
 			MODULE_IDX, TERMS_IDX
 		) VALUES (
-			#{module_idx}, #{terms_idx} 
+			#{module_idx}, #{terms_idx}
 		)
 	</insert>
-	
+
 	<delete id="deleteModuleTerms">
 		DELETE FROM
 			CMS_MODULE_TERMS
@@ -110,5 +115,5 @@
 			module_idx = #{module_idx}
 		AND	terms_idx = #{terms_idx}
 	</delete>
-	
+
 </mapper>

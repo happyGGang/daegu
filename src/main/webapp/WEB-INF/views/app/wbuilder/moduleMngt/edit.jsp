@@ -9,7 +9,7 @@ $(function() {
 	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
 		resizable: false,
-		modal: true, 
+		modal: true,
 	    open: function(){
 	        $('.ui-widget-overlay').addClass('custom-overlay');
 	    },
@@ -34,12 +34,12 @@ $(function() {
 			}
 		]
 	});
-	
+
 	$("#dialog-1").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
 		width: 500,
 		height: 500
 	});
-	
+
 	$('.ui-calendar').each(function() {
 		$(this).datepicker({
 			//기본달력
@@ -50,8 +50,8 @@ $(function() {
 </script>
 <form:form id="moduleMngtForm" modelAttribute="moduleMngt" method="post" action="save.do" >
 	<form:hidden path="homepage_id"/>
-	<form:hidden path="module_idx"/>			
-	<form:hidden path="editMode"/>									
+	<form:hidden path="module_idx"/>
+	<form:hidden path="editMode"/>
 	<table class="type2">
 		<colgroup>
 	       <col width="130" />
@@ -64,7 +64,7 @@ $(function() {
 					<form:select path="module_type" class="selectmenu" style="width:100px;">
 						<form:option value="SITE" label="SITE" />
 						<form:option value="CMS" label="CMS" />
-					</form:select> 
+					</form:select>
 	         	</td>
 	        </tr>
 	        <tr>
@@ -84,15 +84,24 @@ $(function() {
 	         	<td><form:input path="link_param" class="text" cssStyle="width:100%"/></td>
 	        </tr>
 	        <tr>
+	         	<th>약관선택</th>
+	         	<td>
+	         		<form:select path="terms_group_id" class="selectmenu" style="width:100%;">
+	         			<form:option value="" label="--없음--"></form:option>
+	         			<form:options items="${termsCodeList}" itemValue="code_id" itemLabel="code_name"/>
+	         		</form:select>
+	         	</td>
+	        </tr>
+	        <tr>
 	         	<th>모듈권한선택</th>
 	         	<td>
-	         		<form:select path="auth_group_id" class="selectmenu" style="width:100px;">
+	         		<form:select path="auth_group_id" class="selectmenu" style="width:150px;">
 	         			<form:option value="" label="--없음--"></form:option>
 	         			<form:options items="${authCodeList}" itemValue="auth_group_id" itemLabel="auth_group_name"/>
 	         		</form:select>
 	         	</td>
 	        </tr>
-	        
+
 		</tbody>
 	</table>
 </form:form>

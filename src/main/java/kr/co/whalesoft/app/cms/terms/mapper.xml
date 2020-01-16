@@ -4,54 +4,63 @@
 
 	<select id="getTermsList" resultType="kr.co.whalesoft.app.cms.terms.Terms">
 		SELECT
-			TERMS_IDX, TERMS_TYPE, TITLE, CONTENTS, USE_YN, DELETE_YN, ADD_ID, TO_CHAR(ADD_DATE,'YYYY-MM-DD') AS ADD_DATE, MODIFY_ID, MODIFY_DATE,
+			homepage_id, terms_idx, terms_type, title, contents,
+			use_yn, delete_yn, add_id, add_date, modify_id,
+			modify_date,
 			(SELECT A.CODE_NAME FROM CMS_CODE A WHERE A.GROUP_ID = 'C0015' AND A.CODE_ID = CMS_TERMS.TERMS_TYPE) AS TERMS_TYPE_NAME
 		FROM
 			CMS_TERMS
-		WHERE DELETE_YN = 'N'
-			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
-			AND	${search_type} LIKE '%'||#{search_text}||'%'
-			</if>
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	DELETE_YN = 'N'
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
 		ORDER BY
-			TERMS_IDX ASC
+			TERMS_IDX DESC
 	</select>
-	
+
 	<select id="getTermsListCount" resultType="int">
 		SELECT
 			COUNT(*)
 		FROM
 			CMS_TERMS
-		WHERE DELETE_YN = 'N'
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	DELETE_YN = 'N'
 			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
 			AND	${search_type} LIKE '%'||#{search_text}||'%'
 			</if>
 		ORDER BY
 			TERMS_IDX ASC
 	</select>
-	
+
 	<select id="getTermsOne" resultType="kr.co.whalesoft.app.cms.terms.Terms">
 		SELECT
-			TERMS_IDX, TERMS_TYPE, TITLE, CONTENTS, USE_YN, DELETE_YN, ADD_ID, ADD_DATE, MODIFY_ID, MODIFY_DATE,
+			homepage_id, terms_idx, terms_type, title, contents,
+			use_yn, delete_yn, add_id, add_date, modify_id,
+			modify_date,
 			(SELECT A.CODE_NAME FROM CMS_CODE A WHERE A.GROUP_ID = 'C0015' AND A.CODE_ID = CMS_TERMS.TERMS_TYPE) AS TERMS_TYPE_NAME
 		FROM
 			CMS_TERMS
-		WHERE 
-			DELETE_YN = 'N' AND
-			TERMS_IDX = #{terms_idx}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	terms_idx = #{terms_idx}
+		AND	DELETE_YN = 'N'
 	</select>
-	
+
 	<insert id="addTerms">
 		<selectKey keyProperty="terms_idx" resultType="int" order="BEFORE">
 			SELECT NVL(MAX(terms_idx),0)+1 FROM CMS_TERMS
 		</selectKey>
 		INSERT INTO CMS_TERMS
 		(
-			TERMS_IDX, TERMS_TYPE, TITLE, CONTENTS, USE_YN, DELETE_YN, ADD_ID, ADD_DATE, MODIFY_ID, MODIFY_DATE
+			homepage_id, TERMS_IDX, TERMS_TYPE, TITLE, CONTENTS, USE_YN, DELETE_YN, ADD_ID, ADD_DATE
 		) VALUES (
-			#{terms_idx}, #{terms_type}, #{title}, #{contents}, #{use_yn}, 'N', #{add_id}, SYSDATE, #{add_id}, SYSDATE
+			#{homepage_id}, #{terms_idx}, #{terms_type}, #{title}, #{contents}, #{use_yn}, 'N', #{add_id}, SYSDATE
 		)
 	</insert>
-	
+
 	<update id="modifyTerms">
 		UPDATE CMS_TERMS
 		SET
@@ -62,30 +71,40 @@
 			MODIFY_ID = #{add_id},
 			MODIFY_DATE = SYSDATE
 		WHERE
-			TERMS_IDX = #{terms_idx}
+			homepage_id = #{homepage_id}
+		ANd	TERMS_IDX = #{terms_idx}
 	</update>
-	
+
 	<update id="deleteTerms">
-		UPDATE CMS_TERMS
+		UPDATE
+			CMS_TERMS
 		SET
 			DELETE_YN = 'Y'
 		WHERE
-			TERMS_IDX = #{terms_idx}
+			homepage_id = #{homepage_id}
+		AND	terms_idx = #{terms_idx}
 	</update>
 
 	<select id="getTermsListInModule" resultType="kr.co.whalesoft.app.cms.terms.Terms">
-		SELECT 
-			TERMS_IDX, TERMS_TYPE, TITLE, CONTENTS, USE_YN, DELETE_YN, ADD_ID, TO_CHAR(ADD_DATE,'YYYY-MM-DD') AS ADD_DATE, MODIFY_ID, MODIFY_DATE,
-			(SELECT A.CODE_NAME FROM CMS_CODE A WHERE A.GROUP_ID = 'C0015' AND A.CODE_ID = CMS_TERMS.TERMS_TYPE) AS TERMS_TYPE_NAME
+		SELECT
+			title, contents
 		FROM
-			CMS_TERMS
+			CMS_TERMS A, CMS_CODE B, WB_MODULE_MNGT C
 		WHERE
-			TERMS_IDX IN (SELECT TERMS_IDX FROM CMS_MODULE_TERMS WHERE MODULE_IDX = #{module_idx})
-			AND DELETE_YN = 'N' AND USE_YN = 'Y'
+			A.homepage_id = #{homepage_id}
+		AND	A.use_yn = 'Y'
+		AND	A.delete_yn = 'N'
+		AND	A.terms_type = b.code_id
+		AND	B.group_id = 'C0015'
+		AND	B.use_yn = 'Y'
+		AND	B.code_id = C.terms_group_id
+		AND	C.module_idx = #{module_idx}
+		ORDER BY
+			terms_idx
 	</select>
 
 	<select id="getTermsListNotInModule" resultType="kr.co.whalesoft.app.cms.terms.Terms">
-		SELECT 
+		SELECT
 			TERMS_IDX, TERMS_TYPE, TITLE, CONTENTS, USE_YN, DELETE_YN, ADD_ID, TO_CHAR(ADD_DATE,'YYYY-MM-DD') AS ADD_DATE, MODIFY_ID, MODIFY_DATE,
 			(SELECT A.CODE_NAME FROM CMS_CODE A WHERE A.GROUP_ID = 'C0015' AND A.CODE_ID = CMS_TERMS.TERMS_TYPE) AS TERMS_TYPE_NAME
 		FROM

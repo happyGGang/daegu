@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import kr.co.whalesoft.app.cms.authCode.AuthCodeService;
+import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.terms.Terms;
 import kr.co.whalesoft.app.cms.terms.TermsService;
 import kr.co.whalesoft.framework.base.BaseController;
@@ -30,6 +31,9 @@ public class ModuleMngtController extends BaseController {
 
 	@Autowired
 	private AuthCodeService authCodeService;
+
+	@Autowired
+	private CodeService codeService;
 
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, ModuleMngt moduleMngt, HttpServletRequest request) throws AuthException {
@@ -55,6 +59,7 @@ public class ModuleMngtController extends BaseController {
 		}
 
 		model.addAttribute("authCodeList", authCodeService.getAuthGroupList());
+		model.addAttribute("termsCodeList", codeService.getCode("CMS", "C0015"));
 
 		return basePath + "edit_ajax";
 	}

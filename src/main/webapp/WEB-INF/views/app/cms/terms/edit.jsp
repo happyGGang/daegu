@@ -10,7 +10,7 @@ $(function() {
 	nhn.husky.EZCreator.createInIFrame({
 		oAppRef: oEditors,
 		elPlaceHolder: "contents",
-		sSkinURI: "/resources/common/smart_editor/SmartEditor2Skin.html",	
+		sSkinURI: "/resources/common/smart_editor/SmartEditor2Skin.html",
 		htParams : {
 			bUseToolbar : true,				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
 			bUseVerticalResizer : true,		// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
@@ -21,11 +21,11 @@ $(function() {
 			}
 		}, //boolean
 		fOnAppLoad : function() {
-			
+
 		},
 		fCreator: "createSEditor2"
 	});
-	
+
 	try {
 		prevEditorDisplay = $('.bbs-textarea iframe').css('display');
 	} catch(e) { }
@@ -41,14 +41,14 @@ $(function() {
 				}
 			}
 		} catch(e) {
-			
+
 		}
 	});
-	
+
 	$('#dialog-1').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
 		resizable: true,
-		modal: true, 
+		modal: true,
 	    open: function(){
 	        $('.ui-widget-overlay').addClass('custom-overlay');
 	    },
@@ -82,7 +82,7 @@ $(function() {
 										alert(response.result[i].code);
 										$('#'+response.result[i].field).focus();
 										break;
-									}	
+									}
 								}
 							}
 				         },
@@ -101,16 +101,17 @@ $(function() {
 			}
 		]
 	});
-	
+
 	$("#dialog-1").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
-		width: 780,
-		height: 550
+		width: 850,
+		height: 600
 	});
-	
+
 });
 </script>
 <form:form modelAttribute="terms" action="save.do" method="POST" onsubmit="return false;" enctype="multipart/form-data">
 <form:hidden path="editMode"/>
+<form:hidden path="homepage_id"/>
 <form:hidden path="terms_idx"/>
 <table class="type2">
 	<colgroup>
@@ -121,24 +122,24 @@ $(function() {
 		<tr>
 			<th>약관구분</th>
 			<td>
-				<form:select path="terms_type" cssStyle="height:24px;">									
+				<form:select path="terms_type" cssStyle="height:24px;">
 					<c:forEach var="i" varStatus="status" items="${termsTypeList}">
 						<option value="${i.code_id}" <c:if test="${i.code_id eq terms.terms_type}">selected="selected"</c:if>>${i.code_name}</option>
 					</c:forEach>
 				</form:select>
 			</td>
 		</tr>
-		
+
 		<tr>
 			<th>제목</th>
 			<td>
 				<form:input path="title" cssStyle="width:200px;" cssClass="text" maxlength="20"/>
 			</td>
-		</tr>				
+		</tr>
 
 		<tr class="detailContent">
 			<th>상세내용</th>
-			<td> 
+			<td>
 				<div class="bbs-textarea">
 					<form:textarea path="contents" rows="10" cols="100" cssStyle="width:95%;"/>
 				</div>

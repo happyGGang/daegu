@@ -7,11 +7,11 @@
 <script>
 var oEditors = [];
 $(function() {
-	
+
 	$('#dialog-2').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
 		resizable: true,
-		modal: true, 
+		modal: true,
 	    open: function(){
 	        $('.ui-widget-overlay').addClass('custom-overlay');
 	    },
@@ -28,16 +28,17 @@ $(function() {
 			}
 		]
 	});
-	
+
 	$("#dialog-2").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
 		width: 780,
 		height: 550
 	});
-	
+
 });
 </script>
 <form:form modelAttribute="terms" action="save.do" method="POST" onsubmit="return false;" enctype="multipart/form-data">
 <form:hidden path="editMode"/>
+<form:hidden path="homepage_id"/>
 <form:hidden path="terms_idx"/>
 <table class="type2">
 	<colgroup>
@@ -51,17 +52,17 @@ $(function() {
 				${terms.terms_type_name }
 			</td>
 		</tr>
-		
+
 		<tr>
 			<th>제목</th>
 			<td>
 				${terms.title }
 			</td>
-		</tr>				
+		</tr>
 
 		<tr class="detailContent">
 			<th>상세내용</th>
-			<td> 
+			<td>
 				${terms.contents }
 			</td>
 		</tr>

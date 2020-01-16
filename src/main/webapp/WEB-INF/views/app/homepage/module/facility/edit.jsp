@@ -9,6 +9,14 @@
 $(function() {
 
 	$('#save-btn').on('click', function() {
+
+		<c:if test="${fn:length(termsList) > 0}">
+		if ( $('input[name="agree_codes"]:checked').length != $('input[name="agree_codes"]').length ) {
+			alert('약관 동의 하지 않았습니다.');
+			return false;
+		}
+		</c:if>
+
 		if($('#apply_phone1').val() != "") {
 			$('#apply_phone').val($('#apply_phone1').val()+'-'+$('#apply_phone2').val()+'-'+$('#apply_phone3').val());
 		}
@@ -28,19 +36,30 @@ $(function() {
 });
 
 </script>
-<c:forEach items="${termsList}" var="terms">
-	${terms.contents }
+
+
+
+<c:forEach items="${termsList}" var="terms" varStatus="status">
+	<c:if test="${status.first}">
+	<div class="join-wrap" style="padding: 0">
+	</c:if>
+	<h4>${terms.title}</h4>
+	<div class="Box" style="max-height:200px" tabindex="0" >
+		${terms.contents}
+	</div>
+	<div class="agree_codes" >
+		<div class="checkbox">
+			<input id="terms${status.count}" name="agree_codes" type="checkbox" style="opacity: inherit;">
+			<label style="position: static !important;" for="terms${status.count}">${terms.title} 동의</label><br>
+		</div>
+	</div>
+	<c:if test="${status.last}">
+	<br><br>
+	</div>
+	</c:if>
 </c:forEach>
 
 <form:form id="facilityReqForm" modelAttribute="facilityReq" method="post" action="save.do" >
-<div style="text-align: right"><b>이용약관 및 개인정보의 수집·이용 동의 여부</b>(<span style="color: red; font-weight: bold;">*</span>)
-	<form:select path="self_info_yn" cssClass="selectmenu" cssStyle="width : 70px">
-		<form:option value="Y" label="동의"/>
-		<form:option value="N" label="미동의"/>
-	</form:select>
-</div>
-<br/>
-
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="editMode"/>
 	<form:hidden path="facility_req_idx"/>

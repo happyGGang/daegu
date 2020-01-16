@@ -75,7 +75,7 @@
 		VALUES
 		(
 			#{homepage_id}, #{facility_idx}, #{facility_req_idx}, #{apply_id}, #{apply_name},
-			#{apply_phone}, #{apply_desc}, '1', #{self_info_yn}, 'N',
+			#{apply_phone}, #{apply_desc}, '1', 'Y', 'N',
 			SYSDATE, #{add_id}
 		)
 	</insert>

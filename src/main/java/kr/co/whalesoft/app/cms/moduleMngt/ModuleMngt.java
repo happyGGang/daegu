@@ -5,7 +5,7 @@ import kr.co.whalesoft.framework.utils.PagingUtils;
 
 /**
  * 모듈관리 개편
- * 
+ *
  * @author YONGJU
  *
  */
@@ -17,7 +17,8 @@ public class ModuleMngt extends PagingUtils {
 	private String remark; // 비고
 	private String link_url; // 링크URL
 	private String link_param; // 링크URL
-	private String auth_group_id; // 링크URL
+	private String auth_group_id; // 권한그룹코드ID
+	private String terms_group_id; // 약관그룹코드ID
 	private Date add_date; // 등록일
 	private String add_id; // 등록자
 	private Date modify_date; // 수정일
@@ -126,6 +127,16 @@ public class ModuleMngt extends PagingUtils {
 
 	public void setModify_date(Date modify_date) {
 		this.modify_date = modify_date;
+	}
+
+
+	public String getTerms_group_id() {
+		return terms_group_id;
+	}
+
+
+	public void setTerms_group_id(String terms_group_id) {
+		this.terms_group_id = terms_group_id;
 	}
 
 }
