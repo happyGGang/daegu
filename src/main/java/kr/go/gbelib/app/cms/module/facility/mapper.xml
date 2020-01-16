@@ -30,7 +30,7 @@
 			homepage_id = #{homepage_id}
 		AND	delete_yn = 'N'
 		AND	use_date LIKE #{plan_date}||'%'
-		ORDER BY use_date
+		ORDER BY use_date, start_time, end_time, facility_idx
 	</select>
 
 	<select id="getFacilityListByExcel" resultType="kr.go.gbelib.app.cms.module.facility.Facility">
@@ -47,7 +47,7 @@
 		<if test="excel_type != 'FULL'">
 		AND	use_date LIKE #{plan_date}||'%'
 		</if>
-		ORDER BY use_date
+		ORDER BY use_date, start_time, end_time, facility_idx
 	</select>
 
 	<select id="getFacilityListByUser" resultType="kr.go.gbelib.app.cms.module.facility.Facility">
@@ -73,7 +73,7 @@
 		AND	delete_yn = 'N'
 		AND	USE_YN = 'Y'
 		AND	use_date LIKE #{plan_date}||'%'
-		ORDER BY use_date
+		ORDER BY use_date, start_time, end_time, facility_idx
 	</select>
 
 	<select id="getFacilityOne" resultType="kr.go.gbelib.app.cms.module.facility.Facility">
