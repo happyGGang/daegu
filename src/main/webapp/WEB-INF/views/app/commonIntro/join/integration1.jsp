@@ -6,114 +6,72 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script type="text/javascript">
 $(function() {
-	
-	$('a.certtype').on('click', function(e) {
+	$('a#join-btn').on('click', function(e) {
 		e.preventDefault();
-		var parent = $(this).parent('div').find('p.success').length;
-		if (parent > 0) { return false; }
-		var wWidth = 360;
- 		var wHight = 120;
- 		var wX = (window.screen.width - wWidth) / 2;
- 		var wY = (window.screen.height - wHight) / 2;
-		var certWindow = window.open('', "certWindow", "directories=no,toolbar=no,resizeable=yes,left="+wX+",top="+(wY-200)+",width="+wWidth+",height="+wHight);
-		$('form#certForm input[name=certType]').val($(this).attr('id'));
-		$('form#certForm')[0].submit();
-		certWindow.focus();
-// 		alert('인증이 완료되었습니다.');
-		
-// 		var certtype = $(this).attr('certtype');
-// 		if (certtype == '') {
-			
-// 		}
+		if ($('input.tmp_user_no:checked').length < 1) {
+			alert('통합회원을 선택해주세요.');
+			return false;
+		}
+		$('input#user_no').val($('input.tmp_user_no:checked').val());
+		$('form#procForm').removeAttr('onsubmit');
+		$('form#procForm').submit();
 	});
-	
-	$('button#testMode').on('click', function(e) {
-		e.preventDefault();
-		var wWidth = 360;
- 		var wHight = 120;
- 		var wX = (window.screen.width - wWidth) / 2;
- 		var wY = (window.screen.height - wHight) / 2;
-		var certWindow = window.open('', "certWindow", "directories=no,toolbar=no,resizeable=yes,left="+wX+",top="+(wY-200)+",width="+wWidth+",height="+wHight);
-		$('form#certForm input[name=certType]').val($(this).attr('id'));
-		$('form#certForm')[0].submit();
-	});
-	
+
+	<%-- 1순위 책이음 회원--%>
+	if ($('input.tmp_user_no[data-kl=Y]').length > 0) {
+		$('input.tmp_user_no[data-kl=N]').remove();
+	} else if ($('input.tmp_user_no[data-ci=Y]').length > 0) {
+		<%-- 2순위 자관 && CI가 있는 회원--%>
+		$('input.tmp_user_no[data-ci=N]').remove();
+	}
+
+	<%-- 첫번째 강제 선택 --%>
+	$('input.tmp_user_no:first').prop('checked', true);
 });
 </script>
-<!-- <button id="testMode">테스트인증</button> -->
-<%-- <form id="certForm" name="certForm" action="/intro/join/cert.do" method="post" target="certWindow"> --%>
-<!-- 	<input type="hidden" name="certType"> -->
-<%-- </form> --%>
-	<form id="certForm" name="certForm" action="/intro/join/cert.do" method="post" target="certWindow">
-		<input type="hidden" name="certType">
-		<input type="hidden" name="testMode" value="T">
-		<input type="hidden" name="menu_idx" value="${param.menu_idx}">
-		<input type="hidden" name="_csrf" value="${_csrf.token}">
-	</form>
+
+<form id="procForm" name="procForm" method="post" action="integration2.do" onsubmit="return false;">
+	<input type="hidden" id="user_no" name="user_no" value=""/>
+	<input type="hidden" id="menu_idx" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}"/>
 
 
+	<div class="search-wrap">
 
-	<table class="joinNoline">
-		<tbody>
+		<table class="table_gray">
+			<thead>
 			<tr>
-				<td class="joinImg1" >
-					<img src="/resources/common/img/mem_prcs02_on.png">
-				</td>
-				<td class="active joinText">
-					본인인증
-				</td>
-				<td class="joinText">
-					<img src="/resources/common/img/mem_prcs_arrow.png"/>
-				</td>
-				<td class="joinImg2">
-					<img src="/resources/common/img/mem_prcs03.png">
-				</td>
-				<td class="joinText">
-					아이디 선택
-				</td>
-				<td class="joinText">
-					<img src="/resources/common/img/mem_prcs_arrow.png"/>
-				</td>
-				<td class="joinImg3">
-					<img src="/resources/common/img/mem_prcs04.png">
-				</td>
-				<td class="joinText">
-					정보수정
-				</td>
+				<th>선택</th>
+				<th>대출번호</th>
+				<th>이름</th>
+				<th>생년월일</th>
+				<th>핸드폰번호</th>
+				<th>비고</th>
 			</tr>
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				<c:forEach items="${integrationMemberList}" var="i" varStatus="status">
+				<tr>
+					<td>
+						<input type="radio" class="tmp_user_no" value="${i.USER_NO}" data-kl="${i.KL_MEMBER_YN}" data-ci="${i.ORDER2}"/>
+					</td>
+					<td>${i.USER_NO}</td>
+					<td>${i.NAME}</td>
+					<td>${i.BIRTHDAY}</td>
+					<td>${i.HANDPHONE}</td>
+					<td>
+						<c:if test="${i.KL_MEMBER_YN eq 'Y'}">
+						[ 책이음회원 - 통합우선순위 ]
+						</c:if>
+					</td>
+				</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 
-<div class="join-wrap" style="padding: 0">
 
-	<div class="info">
-	- * 본인인증이 되지 않은 아이디는 본인인증 후 통합회원으로 전환이 가능합니다. <br/>
-	- * 행정자치부 공공I-PIN센터에서 발급받은 식별ID 및 비밀번호를 이용하여 본인확인을 하는 주민번호 대체수단 서비스 입니다.<br/>
-   	 &nbsp; <b>공공I-PIN 신규발급 [<a href="http://www.gpin.go.kr" target="_blank">http://www.gpin.go.kr</a>]</b>
 	</div>
-	
-	<div id="memberCert" class="identi_select" style="${param.ageType eq 'under' ? 'display:none;':''}">
-			<p class="identy_a">
-				<a href="#" class="certtype" id="certSms">
-					<img src="/resources/common/img/identy1.png" alt="휴대폰 본인인증"/>
-					<span>휴대폰 본인인증</span>
-				</a>
-			</p>
-			<p class="identy_b">
-				<a href="#" class="certtype" id="certGpin">
-					<img src="/resources/common/img/identy2.png" alt="공공 I-PIN(아이핀)인증"/>
-					<span>공공 I-PIN(아이핀)인증</span>
-				</a>
-			</p>
-		</div>
-	
-	<form:form id="memberAgreeForm" modelAttribute="newMember" action="integration2.do" method="post">
-	<form:hidden path="editMode"/>
-	<form:hidden path="before_url"/>
-	<form:hidden path="ageType"/>
-	<form:hidden path="menu_idx"/>
-	
-	
-	</form:form>
-	
-</div>
+
+	<div style="text-align:center;padding:20px 0">
+	<a href="#" id="join-btn"  class="btn">확인</a>
+	</div>
+	</form>

@@ -235,6 +235,7 @@ public class CommonJoinController extends BaseController {
 			return null;
 		}
 
+		sessionMemberInfo.setMenu_idx(member.getMenu_idx());
 		sessionMemberInfo.setEditMode("MODIFY");
 		model.addAttribute("memberInfo", sessionMemberInfo);
 		model.addAttribute("telCode", codeService.getCode("CMS", "C0003"));
@@ -337,6 +338,8 @@ public class CommonJoinController extends BaseController {
 					sessionMember.setPhone3(member.getPhone3());
 					sessionMember.setEmail1(member.getEmail1());
 					sessionMember.setEmail2(member.getEmail2());
+					sessionMember.setSms_service_yn(member.getSms_service_yn());
+					sessionMember.setEmail_service_yn(member.getEmail_service_yn());
 					if (StringUtils.isNotBlank(member.getMemberNewPw())) {
 						ApiResponse updateMemberPasswd = MemberAPI.updateMemberPasswd(member);
 						if (updateMemberPasswd.getStatus()) {
@@ -682,24 +685,52 @@ public class CommonJoinController extends BaseController {
 	@RequestMapping(value = {"/integration.*"})
 	public String integration(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
-		Member sessionMember = getSessionMemberInfo(request);
-		sessionMember.setMenu_idx(member.getMenu_idx());
-		model.addAttribute("newMember", sessionMember);
-		Menu menuOne = (Menu) request.getAttribute("menuOne");
-		menuOne.setMenu_name("통합회원 전환");
-		request.setAttribute("menuOne", menuOne);
+
+		request.getSession().invalidate();
+		model.addAttribute("newMember", member);
+
 		return String.format(basePath, homepage.getFolder()) + "integration";
 	}
 
 	@RequestMapping(value = {"/integration1.*"})
 	public String integration1(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
-		Member sessionMember = getSessionMemberInfo(request);
-		sessionMember.setMenu_idx(member.getMenu_idx());
-		model.addAttribute("newMember", sessionMember);
-		Menu menuOne = (Menu) request.getAttribute("menuOne");
-		menuOne.setMenu_name("통합회원 전환");
-		request.setAttribute("menuOne", menuOne);
+		// 동일인 목록 가져오기
+		List<Map<String, Object>> checkDupUser = MemberAPI.checkDupUser("2", member);
+		if (checkDupUser == null || CollectionUtils.isEmpty(checkDupUser)) {
+			joinService.alertMessage("일치하는 회원이 없습니다.", request, response);
+			return null;
+		} else {
+			String userId = String.valueOf(checkDupUser.get(0).get("USER_ID"));
+			if (StringUtils.isNotEmpty(userId) && !StringUtils.containsIgnoreCase(userId, "null")) {
+				joinService.alertMessage("이미 통합인증을 완료한 정보입니다.", request, response);
+				return null;
+			}
+
+			Member integrationMember = new Member();
+			integrationMember.setMember_name(String.valueOf(checkDupUser.get(0).get("NAME")));
+			integrationMember.setCell_phone(String.valueOf(checkDupUser.get(0).get("HANDPHONE")).replaceAll("-", ""));
+			String birthday = String.valueOf(checkDupUser.get(0).get("BIRTHDAY"));
+			if (StringUtils.containsIgnoreCase(birthday, "null")) {
+				joinService.alertMessage("해당 정보의 생년월일 정보가 누락되었습니다. 데스크에서 생년월일 정보 보정후 다시 통합인증을 진행해주세요.", request, response);
+				return null;
+			} else {
+				integrationMember.setBirth_day(String.valueOf(checkDupUser.get(0).get("BIRTHDAY")).replaceAll("/", ""));
+			}
+
+			List<Map<String, Object>> integrationMemberList = MemberAPI.checkDupUser("4", integrationMember);
+			for (Map<String, Object> map : integrationMemberList) {
+				map.put("ORDER2", "N");
+				String ipin_hash = String.valueOf(map.get("IPIN_HASH"));
+				if (ipin_hash.length() > 80) {
+					map.put("ORDER2", "Y");
+				}
+			}
+
+			request.getSession().setAttribute("integrationMemberList", integrationMemberList);
+		}
+
+		model.addAttribute("newMember", member);
 		return String.format(basePath, homepage.getFolder()) + "integration1";
 	}
 
@@ -707,28 +738,70 @@ public class CommonJoinController extends BaseController {
 	public String integration2(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 
+		model.addAttribute("newMember", member);
+		@SuppressWarnings ("unchecked")
+		List<Map<String, Object>> intList = (List<Map<String, Object>>) request.getSession().getAttribute("integrationMemberList");
+		for (Map<String, Object> map : intList) {
+			String rec_key = String.valueOf(map.get("USER_NO"));
+			if (StringUtils.equals(rec_key, member.getUser_no())) {
 
-		Menu menuOne = (Menu) request.getAttribute("menuOne");
-		menuOne.setMenu_name("아이디 선택");
-		request.setAttribute("menuOne", menuOne);
+				String kl_member_yn = String.valueOf(map.get("KL_MEMBER_YN"));
+				String ipin_hash = String.valueOf(map.get("IPIN_HASH"));
+
+				//선택한 회원의 통합인증 순위
+				//1:책이음 회원
+				//2:CI 있음
+				//3:CI 없음
+				int integrationOrder = 0;
+				if (StringUtils.equals(kl_member_yn, "Y")) {
+					integrationOrder = 1;
+				} else if (ipin_hash.length() > 80) {
+					integrationOrder = 2;
+				} else {
+					integrationOrder = 3;
+				}
+				map.put("INTEGRATION_ORDER", integrationOrder);
+				request.getSession().setAttribute("integrationMember", map);
+
+			}
+		}
 		return String.format(basePath, homepage.getFolder()) + "integration2";
 	}
 
-	@RequestMapping(value = {"/integration3.*"})
+	@RequestMapping(value = {"/integration3.*"}, method=RequestMethod.POST)
 	public String integration3(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
-		//member = 일루스에서 선택한 회원.
-		Menu menuOne = (Menu) request.getAttribute("menuOne");
-		if (StringUtils.equals(member.getUnAgreeFlag(), "0002")) {
-			menuOne.setMenu_name("회원정보 수정");
-		} else {
-			menuOne.setMenu_name("통합회원 전환");
-		}
-		request.setAttribute("menuOne", menuOne);
 
-
+		// TODO 본인인증
+    	// -> 1순위로 선택한 책이음 회원 정보일 경우에는 중복체크 하지 않고 통과
+    	// -> 2순위로 선택한 자관 CI있는 회원정보일 경우에는 중복체크 하지 않고 통과
+    	// -> 3순위로 여러 정보 가운데 정보를 선택한 경우에는 반드시 CI중복체크를 진행
+    	model.addAttribute("newMember", member);
 
 		return String.format(basePath, homepage.getFolder()) + "integration3";
+	}
+
+	@RequestMapping(value = {"/integration4.*"}, method=RequestMethod.POST)
+	public String integration4(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
+		Homepage homepage = getSessionHomepage(request);
+
+		@SuppressWarnings ("unchecked")
+		Map<String, Object> integrationMember = (Map<String, Object>) request.getSession().getAttribute("integrationMember");
+		Member certMember = (Member) request.getSession().getAttribute("certMemberintegration");
+
+		if (certMember.getSex().equals("1")) {
+			certMember.setSex("0");// 남
+		} else {
+			certMember.setSex("1");// 여
+		}
+
+		certMember.setRec_key(String.valueOf(integrationMember.get("REC_KEY")));
+		certMember.setManage_code(homepage.getManage_code());
+		certMember.setEditMode("INTEGRATION");
+		request.getSession().setAttribute("certMember", certMember);
+		model.addAttribute("newMember", certMember);
+
+		return String.format(basePath, homepage.getFolder()) + "integration4";
 	}
 
 	/**

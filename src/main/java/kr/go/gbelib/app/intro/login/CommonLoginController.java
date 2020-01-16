@@ -154,11 +154,13 @@ public class CommonLoginController extends BaseController {
 						//권한맵을 새로 불러온다.
 						member.setAuthMap(memberService.getMemberAuth(member));
 
-					}
-					//그룹-회원 관계테이블에 넣는다.
-					memberGroupSubordService.addAuthGroupMember(member);
+					} else {
+						//그룹-회원 관계테이블에 넣는다.
+						memberGroupSubordService.addAuthGroupMember(member);
 //					//권한정보를 다시 가져온다.
-					member.setAuthMap(memberService.getMemberAuth(member));
+						member.setAuthMap(memberService.getMemberAuth(member));
+
+					}
 
 				}
 			} catch (Exception e) {
@@ -197,7 +199,7 @@ public class CommonLoginController extends BaseController {
 			// e.printStackTrace();
 			// }
 
-			return "redirect:" + returnUrl.replaceAll("^http://(www\\.)?gbelib\\.kr", "https://www.gbelib.kr");
+			return "redirect:" + returnUrl;
 
 		} else {
 			member.setHomepage_id(homepage.getHomepage_id());

@@ -22,6 +22,3 @@
 	<a href="/${homepage.context_path}/intro/join/findPwForm.do?menu_idx=7" class="btn btn02">비밀번호찾기</a>
 </div>
 
-<%
-request.getSession().invalidate();
-%>

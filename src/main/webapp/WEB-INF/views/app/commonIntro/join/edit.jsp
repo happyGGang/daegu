@@ -278,6 +278,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 						<div id="cell_phone_div">
 						<c:if test="${not empty newMember.cell_phone}">
 						${newMember.cell_phone}&nbsp;
+					 	<form:hidden path="cell_phone1" class="text" cssStyle="width:60px;" title="휴대폰 번호  첫번째 자리 입력" maxlength="3" numberOnly="true"/>
 					 	<form:hidden path="cell_phone2" class="text" cssStyle="width:60px;" title="휴대폰 번호  중간 자리 입력" maxlength="4" numberOnly="true"/>
 					 	<form:hidden path="cell_phone3" class="text" cssStyle="width:60px;" title="휴대폰 번호  끝 자리 입력"  maxlength="4" numberOnly="true"/>
 						</c:if>
