@@ -37,7 +37,7 @@ $(document).ready(function() {
 <form:hidden path="menu_idx"/>
 <form:hidden path="menu_rating_score"/>
 </form:form>
-<h3>메뉴 별점</h3>
+<h5>만족도 평가</h5>
 <div class="book-review-write">
 	만족도를 평가해주세요.
 	<div class="starRev" id="starRevC">

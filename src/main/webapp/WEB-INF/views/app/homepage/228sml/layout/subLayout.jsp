@@ -11,15 +11,17 @@ $(function() {
 	if ( halbaeNode != null && halbaeNode.nodeName == 'LI' ) {
 		$(halbaeNode).addClass('active');
 	}
-	
-	$('div#menuRatingDiv').load('/${homepage.context_path}/module/menuRating/index.do?menu_idx=${param.menu_idx}');
+
+	if (location.href.indexOf('html.do?') > -1) {
+		$('div#menuRatingDiv').load('/${homepage.context_path}/module/menuRating/index.do?menu_idx=${param.menu_idx}');
+	}
 });
 </script>
 <div id="wrap">
-	
+
 	<tiles:insertAttribute name="top" />
 	<tiles:insertAttribute name="topMenu" />
-	
+
 	<div id="container" class="subpage">
 		<div class="sub-visual" >
 			<div class="doc-info-bg">
@@ -63,7 +65,7 @@ $(function() {
 				</div>
 			</div>
 		</div>
-	
+
 		<div class="end"></div>
 	</div>
 
