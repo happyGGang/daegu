@@ -138,7 +138,7 @@ $(function() {
 </style>
 <form id="storageReqForm" action="/${homepage.context_path}/module/myStorage/saveItem.do" method="post">
 	<input type="hidden" name="_csrf" value="${_csrf.token}">
-	<input type="hidden" id="editMode" name="editMode" value="ADD">
+	<input type="hidden" id="itemEditMode" name="editMode" value="ADD">
 	<input type="hidden" id="item_name" name="item_name" value="${detail.TITLE_INFO}">
 	<input type="hidden" id="author" name="author" value="${detail.AUTHOR}">
 	<input type="hidden" id="publer" name="publer" value="${detail.PUBLISHER}">
@@ -148,7 +148,7 @@ $(function() {
 </form>
 
 <form id="resveReqForm" action="resve/save.do" method="post" onsubmit="return false;">
-	<input type="hidden" name="editMode" value="ADD">
+	<input type="hidden" id="reserveMode" name="editMode" value="ADD">
 	<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
 	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
 </form>
@@ -369,7 +369,6 @@ $(function() {
 				</li>
 			</c:forEach>
 		</ul>
-
 
 		<h3 style="border-top: 1px solid #ccc;">서평</h3>
 		<div class="showFoldDiv" id="bookReviewDiv"></div>
