@@ -76,9 +76,9 @@ public class CommonLoginController extends BaseController {
 		if (StringUtils.isEmpty(beforeUrl)) {
 			member.setBefore_url(request.getHeader("referer"));
 		}
-		int idmenuIdx = homepageService.getMenuIdxByLinkUrl(homepage.getHomepage_id(), "/intro/join/findMemberIdForm.do");
-		int pwmenuIdx = homepageService.getMenuIdxByLinkUrl(homepage.getHomepage_id(), "/intro/join/findMemberPwForm.do");
-		int joinmenuIdx = homepageService.getMenuIdxByLinkUrl(homepage.getHomepage_id(), "/intro/join/index.do");
+		int idmenuIdx = homepageService.getMenuIdxByProgramIdx(homepage.getHomepage_id(), 7);
+		int pwmenuIdx = homepageService.getMenuIdxByProgramIdx(homepage.getHomepage_id(), 8);
+		int joinmenuIdx = homepageService.getMenuIdxByProgramIdx(homepage.getHomepage_id(), 4);
 		int menuIdxBookConn = homepageService.getMenuIdxByProgramIdx(homepage.getHomepage_id(), 165);
 
 		model.addAttribute("menuIdxId", idmenuIdx);
