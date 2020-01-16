@@ -27,6 +27,7 @@ import kr.co.whalesoft.app.cms.module.survey.statistics.StatisticsService;
 import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
 import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.framework.base.BaseController;
+import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.WebFilterCheckUtils;
 
@@ -71,8 +72,9 @@ public class AnswerController extends BaseController {
 	}
 
 	@RequestMapping(value={"/index.*"}, method=RequestMethod.GET)
-	public String index(Model model, Survey survey, HttpServletRequest request, HttpServletResponse response) {
+	public String index(Model model, Survey survey, HttpServletRequest request, HttpServletResponse response) throws AuthException {
 		attributeInit(request, model);
+		checkAuth("R", model, request);
 		survey.setHomepage_id(homepage.getHomepage_id());
 
 		service.setPaging(model, surveyService.getUserSurveyCount(survey), survey);
@@ -84,6 +86,7 @@ public class AnswerController extends BaseController {
 
 	@RequestMapping(value={"/index2.*"}, method=RequestMethod.GET)
 	public String index2(Model model, Quest quest, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		checkAuth("R", model, request);
 		attributeInit(request, model);
 		homepage = (Homepage)request.getAttribute("homepage");
 
@@ -103,13 +106,15 @@ public class AnswerController extends BaseController {
 	}
 
 	@RequestMapping(value={"/index.*"}, method=RequestMethod.POST)
-	public String index(Model model, Quest quest, HttpServletRequest request) {
+	public String index(Model model, Quest quest, HttpServletRequest request) throws AuthException {
+		checkAuth("R", model, request);
 		attributeInit(request, model);
 		return basePath + getSkinCd(quest) + "/" + "index";
 	}
 
 	@RequestMapping(value = { "/statistics.*" }, method = RequestMethod.GET)
 	public String statistics(Model model, Quest quest, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		checkAuth("R", model, request);
 		attributeInit(request, model);
 
 		Survey survey = new Survey();
@@ -128,9 +133,9 @@ public class AnswerController extends BaseController {
 	}
 
 	@RequestMapping(value = { "/detail.*" }, method = RequestMethod.GET)
-	public String detail(Model model, Quest quest, HttpServletRequest request) {
+	public String detail(Model model, Quest quest, HttpServletRequest request) throws AuthException {
+		checkAuth("R", model, request);
 		attributeInit(request, model);
-
 		Survey survey = new Survey();
 		survey.setHomepage_id(quest.getHomepage_id());
 		survey.setSurvey_idx(quest.getSurvey_idx());
@@ -225,6 +230,7 @@ public class AnswerController extends BaseController {
 
 	@RequestMapping(value={"/edit.*"}, method=RequestMethod.GET)
 	public String edit(Model model, Quest quest, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		checkAuth("C", model, request);
 		attributeInit(request, model);
 		homepage = (Homepage)request.getAttribute("homepage");
 		Member member = (Member) getSessionMemberInfo(request);
