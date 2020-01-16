@@ -59,10 +59,8 @@ public class MemberAuthInterceptor extends HandlerInterceptorAdapter {
 		//접속 URI 가져오기
 		String getUri = request.getRequestURI().substring(request.getContextPath().length());
 
-		//컨텍스트 패스 지정
-		Member member = loginService.getSessionMember(request);
-
 		//로그인하지 않은 회원경우 처리
+		Member member = loginService.getSessionMember(request);
 		if(member==null) member = anonymousMemberCreate(member,request);
 
 		//Session의 사용자 이던 anonymous사용자이던 화면단에서 사용하기위해 추가
@@ -87,10 +85,9 @@ public class MemberAuthInterceptor extends HandlerInterceptorAdapter {
 				return alertMessage("접속 불가한 IP입니다.", request, response);
 			}
 
-			//권환 확인
+			//권한 확인
 			if(!cmsAuth(getUri, member, request, response)) {
 				return alertMessage("권한이 없습니다.", request, response);
-//				return false;
 			}
 		}
 

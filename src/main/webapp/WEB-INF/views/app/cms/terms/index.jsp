@@ -114,7 +114,7 @@ $(function() {
 		<fieldset>
 			<form:select path="search_type" cssClass="selectmenu">
 				<form:option value="TITLE">제목</form:option>
-				<form:option value="USE_YN">사용여부</form:option>
+				<form:option value="CONTENTS">내용</form:option>
 			</form:select>
 			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
 			<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
