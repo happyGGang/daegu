@@ -304,8 +304,9 @@ do {
 					<div class="display-panel">
 						<div class="panelZone">
 							<ul>
-								<li>오늘은 휴관일이 아닙니다1.</li>
-								<li>오늘은 휴관일이 아닙니다2.</li>
+								<c:forEach items="${newsList}" var="i" varStatus="status">
+									<li>${i.news_name}</li>
+								</c:forEach>
 							</ul>
 						</div>
 					</div>
