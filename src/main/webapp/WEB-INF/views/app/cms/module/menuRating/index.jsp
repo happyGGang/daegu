@@ -7,8 +7,41 @@ $(function(){
 	
 	$('button#searchBtn').on('click', function(e) {
 		e.preventDefault();
-// 		doGetLoad('index.do', $form.serialize());
 		$('#search-table').load('searchTable.do?'+$form.serialize());
+	});
+	
+	$('#excelDownload').on('click', function(e) {
+		e.preventDefault();
+		$('form#menuRatingExcel').attr('action', 'excelDownload.do');
+		$('form#menuRatingExcel').attr('method', 'POST');
+		$('#homepage_id_excel').val($('#homepage_id').val());
+		
+		var date_type = $('#search_date_type').val();
+		var start_date;
+		var end_date;
+		if(date_type == 'DAY') {
+			start_date = $('#start_date_day').val();
+			end_date = $('#end_date_day').val();
+		} else if(date_type == 'MONTH') {
+			start_date = $('#start_date_month').val();
+		} else if(date_type == 'YEAR') {
+			start_date = $('#start_date_year').val();
+			end_date = $('#end_date_year').val();
+		}
+		
+		$('#date_type_excel').val(date_type);
+		$('#start_date_excel').val(start_date);
+		$('#end_date_excel').val(end_date);
+		$('form#menuRatingExcel').submit();
+	});
+	
+	$('#csvDownload').on('click', function(e) {
+		e.preventDefault();
+		$('form#menuRatingExcel').attr('action', 'csvDownload.do');
+		$('form#menuRatingExcel').attr('method', 'POST');
+		$('#homepage_id_excel').val($('#homepage_id').val());
+		excelDataSerialize();
+		$('form#menuRatingExcel').submit();
 	});
 	
 	$('#search_date_type').on('change', function(e) {
@@ -55,10 +88,36 @@ $(function(){
 	});
 	
 });
+
+function excelDataSerialize() {
+	var date_type = $('#search_date_type').val();
+	var start_date;
+	var end_date;
+	if(date_type == 'DAY') {
+		start_date = $('#start_date_day').val();
+		end_date = $('#end_date_day').val();
+	} else if(date_type == 'MONTH') {
+		start_date = $('#start_date_month').val();
+	} else if(date_type == 'YEAR') {
+		start_date = $('#start_date_year').val();
+		end_date = $('#end_date_year').val();
+	}
+	
+	$('#date_type_excel').val(date_type);
+	$('#start_date_excel').val(start_date);
+	$('#end_date_excel').val(end_date);
+}
 </script>
 <style type="text/css">
 #select-date-day, #select-date-month, #select-date-year {display: inline;}
 </style>
+<form:form modelAttribute="menuRating" id="menuRatingExcel" action="excelDownload.do" method="POST">
+<form:hidden path="homepage_id" id="homepage_id_excel"/>
+<form:hidden path="search_date_type" id="date_type_excel"/>
+<form:hidden path="search_start_date" id="start_date_excel"/>
+<form:hidden path="search_end_date" id="end_date_excel"/>
+</form:form>
+
 <form:form modelAttribute="menuRating" action="index.do" method="GET" onsubmit="return false;">
 <div class="infodesk search">
 	<form:select class="selectmenu-search" style="width:220px" path="homepage_id">

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import kr.co.whalesoft.app.cms.homepage.HomepageService;
+import kr.co.whalesoft.app.cms.homepageAccess.HomepageAccess;
+import kr.co.whalesoft.app.cms.homepageAccess.HomepageAccessSearchView;
 import kr.co.whalesoft.framework.base.BaseController;
+import kr.go.gbelib.app.cms.module.facility.FacilityXlsToCsv;
 
 @Controller
 @RequestMapping(value = {"/cms/module/menuRating"})
@@ -56,6 +59,21 @@ public class MenuRatingController extends BaseController {
 		model.addAttribute("menuRatingAverageList", menuRatingAverageList);
 		
 		return basePath + "searchTable_ajax";
+	}
+	
+	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
+	public MenuRatingView excelDownload(Model model, MenuRating menuRating, HttpServletRequest request) {
+		model.addAttribute("menuRating", menuRating);
+		model.addAttribute("menuRatingList", service.getMenuRatingAverageScore(menuRating));
+
+		return new MenuRatingView();
+	}
+	
+	@RequestMapping(value = {"/csvDownload.*"}, method = RequestMethod.POST)
+	public void csvDownload(Model model, MenuRating menuRating, HttpServletRequest request, HttpServletResponse response) {
+		List<MenuRating> menuRatingList = service.getMenuRatingAverageScore(menuRating);
+
+		new MenuRatingXlsToCsv(menuRating, menuRatingList, request, response);
 	}
 
 }
