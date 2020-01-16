@@ -10,7 +10,8 @@
 
 	<select id ="getMenuRatingAverageScore" resultType="kr.go.gbelib.app.cms.module.menuRating.MenuRating">
 		SELECT
-			a.homepage_id, a.menu_idx, b.menu_name, TO_CHAR(a.add_date, <include refid="formmat_type"/>) AS result_date,
+<!-- 			a.homepage_id, a.menu_idx, b.menu_name, TO_CHAR(a.add_date, <include refid="formmat_type"/>) AS result_date, -->
+			a.homepage_id, a.menu_idx, b.menu_name, TO_CHAR(a.add_date, 'yyyy-MM-dd') AS result_date,
 			TRUNC(SUM(menu_rating_score)/COUNT(menu_rating_score), 2) AS rating_average_score
 		FROM
 			MENU_RATING a, CMS_MENU b
@@ -20,8 +21,10 @@
 		AND	a.homepage_id = 'h1'
 		AND	to_date(a.add_date, 'yyyy-MM-dd') <![CDATA[>=]]> TO_DATE(#{search_start_date})
 		AND	to_date(a.add_date, 'yyyy-MM-dd') <![CDATA[<=]]> TO_DATE(#{search_end_date})
-		GROUP BY TO_CHAR(a.add_date, <include refid="formmat_type"/>), a.homepage_id, a.menu_idx, b.menu_name
-		ORDER BY TO_CHAR(a.add_date, <include refid="formmat_type"/>) ASC, menu_idx ASC;
+<!-- 		GROUP BY TO_CHAR(a.add_date, <include refid="formmat_type"/>), a.homepage_id, a.menu_idx, b.menu_name -->
+<!-- 		ORDER BY TO_CHAR(a.add_date, <include refid="formmat_type"/>) ASC, menu_idx ASC -->
+		GROUP BY TO_CHAR(a.add_date, 'yyyy-MM-dd'), a.homepage_id, a.menu_idx, b.menu_name
+		ORDER BY TO_CHAR(a.add_date, 'yyyy-MM-dd') ASC, menu_idx ASC
 	</select>
 	
 	<insert id="addMenuRatingScore">
