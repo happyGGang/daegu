@@ -94,7 +94,8 @@ public class CommonAPI {
 				for ( String oneKey : keys ) {
 					paramList.add(String.format("%s=%s", oneKey, param.get(oneKey)));
 				}
-				log.debug("@@@@@@@@@@@@@@@@@@ KCMS_API_URL : " + apiUrl + "?" + StringUtils.join(paramList, "&"));
+				log.error("@@@@@@@@@@@@@@@@@@ KCMS_API_URL : " + apiUrl + "?" + StringUtils.join(paramList, "&"));
+
 				writer.write(StringUtils.join(paramList, "&"));
 			}
 
@@ -142,7 +143,7 @@ public class CommonAPI {
 			while ((inputLine = br.readLine()) != null) {
 				response.append(inputLine);
 			}
-			log.debug("@@@@@@@@@@@@@@@@@@ SANGHO API : " + url + "?" + StringUtils.join(paramList, "&"));
+			log.error("@@@@@@@@@@@@@@@@@@ SANGHO API : " + url + "?" + StringUtils.join(paramList, "&"));
 			try {
 				resultMap = xmlToJson(response.toString()).toMap();
 			}
@@ -211,7 +212,7 @@ public class CommonAPI {
 				for (String oneKey : keys) {
 					postParams.add(new BasicNameValuePair(oneKey, String.valueOf(param.get(oneKey))));
 				}
-				log.debug("@@@@@@@@@@@@@@@@@@ ILUS API : " + ILUS_API_URL + "?" + StringUtils.join(postParams, "&"));
+				log.error("@@@@@@@@@@@@@@@@@@ ILUS API : " + ILUS_API_URL + "?" + StringUtils.join(postParams, "&"));
 			}
 
 			httpPost.setEntity(new UrlEncodedFormEntity(postParams, UTF_8));
@@ -234,7 +235,7 @@ public class CommonAPI {
 
 		long end = System.currentTimeMillis();
 
-		log.debug("@@@@@@@@@@@@@@@@@@ ILUS API TIME : " + (end-start)/1000.0);
+		log.error("@@@@@@@@@@@@@@@@@@ ILUS API TIME : " + (end-start)/1000.0);
 
 		return doc;
 	}
@@ -255,7 +256,7 @@ public class CommonAPI {
 				for (String oneKey : keys) {
 					paramList.add(String.format("%s=%s", oneKey, param.get(oneKey)));
 				}
-				log.debug("@@@@@@@@@@@@@@@@@@ LIBONE API : " + LIBONE_API_URL + "?" + StringUtils.join(paramList, "&"));
+				log.error("@@@@@@@@@@@@@@@@@@ LIBONE API : " + LIBONE_API_URL + "?" + StringUtils.join(paramList, "&"));
 				writer.write(StringUtils.join(paramList, "&"));
 
 			}
@@ -295,7 +296,7 @@ public class CommonAPI {
 		}
 		long end = System.currentTimeMillis();
 
-		log.debug("@@@@@@@@@@@@@@@@@@ LIBONE API TIME : " + (end-start)/1000.0);
+		log.error("@@@@@@@@@@@@@@@@@@ LIBONE API TIME : " + (end-start)/1000.0);
 
 		return resultMap;
 	}
@@ -316,7 +317,7 @@ public class CommonAPI {
 				for (String oneKey : keys) {
 					postParams.add(new BasicNameValuePair(oneKey, String.valueOf(param.get(oneKey))));
 				}
-				log.debug("@@@@@@@@@@@@@@@@@@ LIBONE API 2 : " + LIBONE_API_URL + "?" + StringUtils.join(postParams, "&"));
+				log.error("@@@@@@@@@@@@@@@@@@ LIBONE API 2 : " + LIBONE_API_URL + "?" + StringUtils.join(postParams, "&"));
 			}
 
 			httpPost.setEntity(new UrlEncodedFormEntity(postParams));
@@ -432,7 +433,7 @@ public class CommonAPI {
 			while ((inputLine = br.readLine()) != null) {
 				response.append(inputLine);
 			}
-			log.debug("@@@@@@@@@@@@@@@@@@ NAVER API : " + url + "?" + StringUtils.join(paramList, "&"));
+			log.error("@@@@@@@@@@@@@@@@@@ NAVER API : " + url + "?" + StringUtils.join(paramList, "&"));
 			resultMap = xmlToJson(response.toString()).toMap();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -470,7 +471,7 @@ public class CommonAPI {
 				for (String oneKey : keys) {
 					paramList.add(String.format("%s=%s", oneKey, URLEncoder.encode(String.valueOf(param.get(oneKey)), "UTF-8")));
 				}
-				log.debug("@@@@@@@@@@@@@@@@@@ ALADIN API : " + url + "?" + StringUtils.join(paramList, "&"));
+				log.error("@@@@@@@@@@@@@@@@@@ ALADIN API : " + url + "?" + StringUtils.join(paramList, "&"));
 			}
 			connection = initConn(url + "?" + StringUtils.join(paramList, "&"));
 			connection.setRequestMethod("GET");
@@ -730,8 +731,8 @@ public class CommonAPI {
 			while ((inputLine = br.readLine()) != null) {
 				response.append(inputLine);
 			}
-			log.debug("@@@@@@@@@@@@@@@@@@ DATA_4_LIBRARY_API : " + url + "?" + StringUtils.join(paramList, "&"));
-			log.debug("@@@@@@@@@@@@@@@@@@ DATA_4_LIBRARY_API RESULT : " + response.toString());
+			log.error("@@@@@@@@@@@@@@@@@@ DATA_4_LIBRARY_API : " + url + "?" + StringUtils.join(paramList, "&"));
+			log.error("@@@@@@@@@@@@@@@@@@ DATA_4_LIBRARY_API RESULT : " + response.toString());
 			resultMap = xmlToJson(response.toString()).toMap();
 		} catch (Exception e) {
 			e.printStackTrace();
