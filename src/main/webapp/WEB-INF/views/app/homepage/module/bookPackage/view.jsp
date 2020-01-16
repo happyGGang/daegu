@@ -108,14 +108,11 @@ table.type2 tbody tr td dl dd {display: inline-block;margin-right: 15px;}
 							<img src="${bookPackage.image_link}" alt="${bookPackage.book_package_subject}">
 						</a>
 						</c:when>
-						<c:when test="${not empty i.server_file_name}">
+						<c:when test="${not empty bookPackage.server_file_name}">
 						<a href="#">
-							<img src="${getContextPath}/data/bookPackage/${bookPackage.server_file_name}" alt="${bookPackage.book_package_subject}">
+							<img src="${getContextPath}/data/bookPackage/${bookPackage.server_file_name}" alt="${bookPackage.book_package_subject}" style="max-width: 500px;margin: 0 auto;">
 						</a>
 						</c:when>
-						<c:otherwise>
-						<img src="/resources/common/img/noimg-gall.png" alt="no-image">
-						</c:otherwise>
 					</c:choose>
 					<br>
 					${bookPackage.content}

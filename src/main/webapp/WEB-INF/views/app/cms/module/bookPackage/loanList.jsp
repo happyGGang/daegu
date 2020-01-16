@@ -200,7 +200,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 							<c:when test="${i.request_status eq '5'}"><span class="status status6">반납요청완료</span></c:when>
 						</c:choose>
 					</td>
-					<td>${i.quantity}권</td>
+					<td>${i.loan_count}권</td>
 					<td>
 						<c:if test="${i.request_status eq '2'}">
 						<c:choose>

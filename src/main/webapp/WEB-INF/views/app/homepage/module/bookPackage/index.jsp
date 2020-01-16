@@ -203,6 +203,7 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 				<a href="#" class="view-btn" keyValue="${i.book_package_idx}">${i.book_package_subject}</a>
 			</div>
 			<div>
+				<c:if test="${not empty i.grade}">
 				<span class="step1">
 				<c:choose>
 					<c:when test="${i.grade eq '3'}">초등</c:when>
@@ -210,6 +211,7 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 					<c:when test="${i.grade eq '5'}">고등</c:when>
 				</c:choose>
 				</span>
+				</c:if>
 				<c:forTokens items="${i.category}" delims="," var="category">
 				<span class="step2">
 				<c:choose>
