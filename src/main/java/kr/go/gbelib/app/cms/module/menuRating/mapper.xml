@@ -2,19 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.go.gbelib.app.cms.module.menuRating.MenuRatingDao">
 
+	<sql id="formmat_type">
+		<if test='search_date_type == "DAY"'>'yyyy-MM-dd'</if>
+		<if test='search_date_type == "MONTH"'>'yyyy-MM'</if>
+		<if test='search_date_type == "YEAR"'>'yyyy'</if>
+	</sql>
+
 	<select id ="getMenuRatingAverageScore" resultType="kr.go.gbelib.app.cms.module.menuRating.MenuRating">
 		SELECT
-			a.homepage_id, a.menu_idx, b.menu_name,
-			SUM(menu_rating_score)/COUNT(menu_rating_score) AS rating_average_score
+			a.homepage_id, a.menu_idx, b.menu_name, TO_CHAR(a.add_date, <include refid="formmat_type"/>) AS result_date,
+			TRUNC(SUM(menu_rating_score)/COUNT(menu_rating_score), 2) AS rating_average_score
 		FROM
 			MENU_RATING a, CMS_MENU b
 		WHERE
 			a.homepage_id = b.homepage_id
 		AND	a.menu_idx = b.menu_idx
-		AND	a.homepage_id = #{homepage_id}
-		AND	a.add_date <![CDATA[>=]]> TO_DATE(#{search_start_date})
-		AND	a.add_date <![CDATA[<=]]> TO_DATE(#{search_end_date})
-		GROUP BY a.homepage_id, a.menu_idx, b.menu_name
+		AND	a.homepage_id = 'h1'
+		AND	to_date(a.add_date, 'yyyy-MM-dd') <![CDATA[>=]]> TO_DATE(#{search_start_date})
+		AND	to_date(a.add_date, 'yyyy-MM-dd') <![CDATA[<=]]> TO_DATE(#{search_end_date})
+		GROUP BY TO_CHAR(a.add_date, <include refid="formmat_type"/>), a.homepage_id, a.menu_idx, b.menu_name
+		ORDER BY TO_CHAR(a.add_date, <include refid="formmat_type"/>) ASC, menu_idx ASC;
 	</select>
 	
 	<insert id="addMenuRatingScore">

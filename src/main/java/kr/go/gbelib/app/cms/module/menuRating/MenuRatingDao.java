@@ -8,4 +8,6 @@ public interface MenuRatingDao {
 	
 	public int addMenuRatingScore(MenuRating menuRating);
 
+	
+
 }
