@@ -84,7 +84,11 @@ $(function(){
 	});
 
 	$('select#category1').on('change', function() {
-		$('input#category_use_yn1').prop('checked', true);
+		if ($(this).val() == '') {
+			$('input#category_use_yn').val('N');
+		} else {
+			$('input#category_use_yn').val('Y');
+		}
 	});
 });
 </script>
@@ -211,13 +215,14 @@ $(function(){
 						</td>
 					</tr>
 					<tr>
-						<th>카테고리 사용</th>
+						<th>글쓰기 전용 여부</th>
 						<td>
-							<form:radiobutton path="category_use_yn" cssClass="selectmenu" value="Y" label="사용함" />
-							<form:radiobutton path="category_use_yn" cssClass="selectmenu" value="N" label="사용안함" />
+							<form:radiobutton path="write_only_yn" cssClass="selectmenu" value="Y" label="사용함" />
+							<form:radiobutton path="write_only_yn" cssClass="selectmenu" value="N" label="사용안함" />
 						</td>
 						<th>카테고리 종류</th>
 						<td>
+							<form:hidden path="category_use_yn" />
 							<form:select path="category1" cssClass="selectmenu">
 								<form:option value="">==선택==</form:option>
 							<c:forEach var="i" varStatus="status" items="${codeGroupList}">

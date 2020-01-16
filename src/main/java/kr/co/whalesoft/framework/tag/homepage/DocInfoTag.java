@@ -45,7 +45,10 @@ public class DocInfoTag extends BodyTagSupport {
 			}
 
 			Stack<HtmlTag> docStack = new Stack<HtmlTag>();
-			int menuIdx = oneMenu.getMenu_idx();
+			int menuIdx = 0;
+			if (oneMenu != null) {
+				menuIdx = oneMenu.getMenu_idx();
+			}
 			while (menuIdx != 0) {
 				if (menuRepo.containsKey(menuIdx)) {
 					HtmlTag li_tag = new HtmlTag("li");

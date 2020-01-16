@@ -177,7 +177,9 @@ public abstract class BaseService {
 		response.setContentType("text/html; charset=" + request.getCharacterEncoding());
 		PrintWriter writer = response.getWriter();
 		writer.println("<script>");
-		writer.println("alert('" + message + "');");
+		if (StringUtils.isNotBlank(message)) {
+			writer.println("alert('" + message + "');");
+		}
 		writer.println("location.href = '"+url+"'");
 		writer.println("</script>");
 		writer.flush();

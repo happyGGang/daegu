@@ -22,7 +22,9 @@ ${boardManage.top_html}
 			<jsp:include page="/WEB-INF/views/app/board/common/edit/category.jsp" flush="false" />
 			<tr>
 				<th>작성자</th>
-				<td>${member.member_name}</td>
+				<td>
+					<jsp:include page="/WEB-INF/views/app/board/common/edit/userName.jsp" flush="false" />
+				</td>
 				<th>작성일</th>
 				<td><fmt:formatDate value="${board.editMode eq 'ADD' ? getToday : board.add_date}" pattern="yyyy-MM-dd"/></td>
 			</tr>

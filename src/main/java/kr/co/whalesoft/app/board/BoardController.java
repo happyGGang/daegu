@@ -187,7 +187,7 @@ public class BoardController extends BaseController {
 	}
 
 	@RequestMapping(value = {"/index.*"}, method = RequestMethod.GET)
-	public String index(Model model, Board board, HttpServletRequest request, RedirectAttributes redirectAttributes) throws AuthException {
+	public String index(Model model, Board board, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) throws Exception {
 		checkAuth("R", model, request);
 		log.debug("sortField : " + board.getSortField());
 		log.debug("sortType : " + board.getSortType());
@@ -195,7 +195,26 @@ public class BoardController extends BaseController {
 		String basePath = attributeInit(request, model, board, null);
 		String returnPath = basePath + "index";
 		BoardManage boardManage = (BoardManage)request.getAttribute("boardManage");
-		if (board.getManage_idx() != 236 && board.getManage_idx() != 521 && board.getManage_idx() != 523) {
+
+
+		if (boardManage.getWrite_only_yn().equals("Y") && !"CMS".equals(getSessionMemberLoginType(request))) {
+			StringBuffer sb = new StringBuffer();
+			sb.append(isLogin(request) ? "edit" : "cert");
+			sb.append(".do?manage_idx=").append(request.getParameter("manage_idx"));
+			if (StringUtils.isNotBlank(request.getParameter("menu_idx"))) {
+				if (Integer.parseInt(request.getParameter("menu_idx")) > 0) {
+					sb.append("&menu_idx=").append(request.getParameter("menu_idx"));
+				}
+			}
+			service.alertMessageAndUrl("", sb.toString(), request, response);
+			return null;
+		}
+
+
+		//999 대표 영화
+		//521 대표 공지
+		//526 대표뉴스
+		if (board.getManage_idx() != 999 && board.getManage_idx() != 521 && board.getManage_idx() != 523) {
 			//대표홈페이지 영화상영 게시판
 			board.setHomepage_id(boardManage.getHomepage_id());
 		}
@@ -792,7 +811,7 @@ public class BoardController extends BaseController {
 
 		/** 정규표현식 필터 **/
 		List<BoardRegexFilter> BoardRegexFilterList = boardRegexFilterService.getBoardRegexFilter();
-		if(BoardRegexFilterList != null && BoardRegexFilterList.size() > 0) {
+		if(BoardRegexFilterList != null && BoardRegexFilterList.size() > 0 && boardManage.getBoard_type().equals("CUSTOM")) {
 			for(BoardRegexFilter boardRegexFilter : BoardRegexFilterList) {
 				Pattern p = Pattern.compile(boardRegexFilter.getRegex_str());
 				Matcher mat1 = p.matcher(board.getTitle());
@@ -1140,7 +1159,7 @@ public class BoardController extends BaseController {
 		return basePath + "boardCert2";
 
 	}
-	
+
 	@RequestMapping(value = { "/rss.*" })
 	public String rss(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		return "/board/rss_ajax";

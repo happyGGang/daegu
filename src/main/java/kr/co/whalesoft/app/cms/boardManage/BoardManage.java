@@ -23,6 +23,7 @@ public class BoardManage extends BoardManageExt {
 	private String secret_use_yn = "N"; //비밀글 여부
 	private String request_code = "B0000"; //질의및 응답 처리 단계 코드 정의
 	private String anonymize_yn = "N"; //이름 블라인드 여부
+	private String write_only_yn = "N"; //글쓰기 전용 여부
 
 	/*** 추가설정 ***/
 	private String add_html_use_yn = "N"; //HTML 추가 사용
@@ -422,6 +423,16 @@ public class BoardManage extends BoardManageExt {
 
 	public void setManager_phone(String manager_phone) {
 		this.manager_phone = manager_phone;
+	}
+
+
+	public String getWrite_only_yn() {
+		return write_only_yn;
+	}
+
+
+	public void setWrite_only_yn(String write_only_yn) {
+		this.write_only_yn = write_only_yn;
 	}
 
 }

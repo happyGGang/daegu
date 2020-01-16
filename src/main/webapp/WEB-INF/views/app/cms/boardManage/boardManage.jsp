@@ -72,8 +72,15 @@ $(function(){
 		e.preventDefault();
 	});
 
-	$('a#board_window_btn').on('click', function(e) {
-		window.open('/${homepageContextPath}/board/index.do?homepage_id=' + $(this).attr('keyValue1') + '&manage_idx=' + $(this).attr('keyValue2'), 'boardManage', 'width=1200,height=700,scrollbars=1');
+
+
+	$('a.board_window_btn').on('click', function(e) {
+		var param = 'homepage_id=' + $(this).attr('keyValue1');
+		param += '&manage_idx=' + $(this).attr('keyValue2');
+		if ($(this).attr('keyValue3') != '0') {
+			param += '&menu_idx=' + $(this).attr('keyValue3');
+		}
+		window.open('/${homepageContextPath}/board/index.do?'+param, 'boardManage', 'width=1500,height=800,scrollbars=1');
 		e.preventDefault();
 	});
 
@@ -130,7 +137,7 @@ $(function(){
 			<c:forEach var="i" varStatus="status" items="${boardManageList}">
 				<tr>
 					<td class="num">${paging.listRowNum - status.index}</td>
-					<td class="left"><a href="" id="board_window_btn" keyValue1="${i.homepage_id}" keyValue2="${i.manage_idx}">${i.board_name}</a></td>
+					<td class="left"><a href="" class="board_window_btn" keyValue1="${i.homepage_id}" keyValue2="${i.manage_idx}" keyValue3="${i.menu_idx}">${i.board_name}</a></td>
 					<td class="num">${i.manage_idx}</td>
 					<td>${i.board_type}</td>
 					<td>${i.board_use_yn eq 'Y'?'사용함':'사용안함'}</td>
