@@ -128,7 +128,6 @@ public class JoinController extends BaseController {
 		}
 		Homepage homepage = getSessionHomepage(request);
 		model.addAttribute("currentContext", homepage.getContext_path());
-		System.out.println("@@@@@@@@@@@@@@@@ csrf : " + request.getAttribute("_csrf"));
 
 		request.getSession().setAttribute("certType", certType);
 		String mode = String.valueOf(request.getParameter("mode"));

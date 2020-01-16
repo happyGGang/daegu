@@ -76,7 +76,7 @@ public class SiteLinkTag extends BodyTagSupport {
 				boolean pass = true;
 				if (notIncludeHomepageIdList != null) {
 					for ( String str : notIncludeHomepageIdList ) {
-						if (oneHomepage.getHomepage_id().equals(str)) {
+						if (str.equals(oneHomepage.getHomepage_id())) {
 							pass = false;
 							break;
 						}
