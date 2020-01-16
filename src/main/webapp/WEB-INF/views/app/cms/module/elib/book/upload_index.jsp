@@ -11,10 +11,10 @@ $(function() {
 		$('#viewPage').val(1);
 		$('#bookListForm').submit();
 	});
-	
+
 	$('a#dialog-add').on('click', function(e) {
 		e.preventDefault();
-		
+
 		$('#dialog-1').load('edit.do?editMode=ADD&type=${book.type}', function( response, status, xhr ) {
 			$('#dialog-1').dialog('open');
 			$('select#cate1_dialog').select2();
@@ -32,7 +32,7 @@ $(function() {
 	});
 	$('a.dialog-modify').on('click', function(e) {
 		e.preventDefault();
-		
+
 		$('#dialog-1').load('edit.do?editMode=MODIFY&type=${book.type}&book_idx=' + $(this).data('book_idx'), function( response, status, xhr ) {
 			$('#dialog-1').dialog('open');
 			$('select#cate1_dialog').select2();
@@ -48,10 +48,10 @@ $(function() {
 			</c:if>
 		});
 	});
-	
+
 	$('a.delete-btn').on('click', function(e) {
 		e.preventDefault();
-		
+
 		if(confirm('삭제하시겠습니까?')) {
 			$('#hiddenForm_book_idx').val($(this).data('book_idx'));
 			if(doAjaxPost($('#hiddenForm'))) {
@@ -59,7 +59,7 @@ $(function() {
 			}
 		}
 	});
-	
+
 	$('a.approve-btn').on('click', function(e) {
 		if(confirm('승인하시겠습니까?')) {
 			$('#hiddenForm #editMode').val('approve');
@@ -72,10 +72,10 @@ $(function() {
 		}
 		e.preventDefault();
 	});
-	
+
 	$('a#excelDownload').on('click', function(e) {
 		e.preventDefault();
-		
+
 		if('${fn:length(bookList)}' > 0) {
 			$('#hiddenForm').attr('action', 'excelDownload.do').submit();
 			$('#hiddenForm').attr('action', 'save.do');
@@ -83,7 +83,7 @@ $(function() {
 			alert('해당 내역이 없습니다.');
 		}
 	});
-	
+
 	<c:if test="${book.type == 'ADO'}">
 	$('select#cate1').on('change', submit);
 	</c:if>
@@ -95,11 +95,11 @@ $(function() {
 	$('select#com_code').on('change', submit);
 	$('select#sortField').on('change', submit);
 	$('select#rowCount').on('change', submit);
-	
-	
+
+
 	$('a#fileUpload').on('click', function(e) {
 		e.preventDefault();
-		
+
 		if($('input#mfile').val() == '') {
 			alert('엑셀 파일을 선택해주세요.');
 			return;
@@ -112,16 +112,16 @@ $(function() {
 			alert('도서관을 선택해주세요.');
 			return;
 		}
-		
+
 		if(started) {
 			alert('작업을 진행 중입니다. 잠시 기다려주세요.');
 			return;
 		}
-		
+
 		if($('input[name=operation]:checked').val() != 'M') {
 			started = true;
 		}
-		
+
 		$('form#file-upload-form').submit();
 	});
 });
@@ -139,14 +139,14 @@ function submit(e) {
 	<li>2. 오류 메시지가 나오면 엑셀 파일을 수정한다</li>
 	<li>3. 오류 메시지 없이 완료되면 '실제 반영'을 선택하고 메타를 업로드한다</li>
 	<li>4. 업로드된 전자책은 '미승인' 상태가 되며 <br/>
-	&nbsp;&nbsp;&nbsp;&nbsp;<a href="//library.busan.go.kr/elib/module/elib/set.do?debug=true">https://library.busan.go.kr/elib/module/elib/set.do?debug=true</a> 를 열면<br/>
+	&nbsp;&nbsp;&nbsp;&nbsp;<a href="//library.daegu.go.kr/elib/module/elib/set.do?debug=true">https://library.daegu.go.kr/elib/module/elib/set.do?debug=true</a> 를 열면<br/>
 	&nbsp;&nbsp;&nbsp;&nbsp;현 세션이 일시적으로 미승인 자료만 열람 가능한 상태가 된다.<br/>
-	&nbsp;&nbsp;&nbsp;&nbsp;(취소는 <a href="//library.busan.go.kr/elib/module/elib/set.do?debug=false">https://library.busan.go.kr/elib/module/elib/set.do?debug=false</a>)
+	&nbsp;&nbsp;&nbsp;&nbsp;(취소는 <a href="//library.daegu.go.kr/elib/module/elib/set.do?debug=false">https://library.daegu.go.kr/elib/module/elib/set.do?debug=false</a>)
 	</li>
 	<li>5. 미승인 자료로 대출, 반납, 연장, 예약, 책 열기를 테스트한다</li>
 	<li>6. 전자책이 정상 작동하면 작업 종류를 '승인'으로 선택하고 메타를 다시 업로드 한다</li>
 </ul>
-<br/>	
+<br/>
 <h3>메타 수정</h3>
 <ul>
 	<li>1. '테스트 모드'를 선택하고 'Insert / Update' 작업으로 수정된 전자책 메타를 업로드한다</li>
@@ -325,7 +325,7 @@ function submit(e) {
 				<th>1차 카테고리</th>
 				<th>2차 카테고리</th>
 				<th>책제목</th>
-				<th>저자</th>	
+				<th>저자</th>
 				<th>출판사</th>
 				<th>기능</th>
 			</tr>
@@ -365,7 +365,7 @@ function submit(e) {
 		<jsp:param name="formId" value="#bookListForm"/>
 		<jsp:param name="pagingUrl" value="index.do"/>
 	</jsp:include>
-	
+
 	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 		<fieldset>
 			<form:select path="search_type" class="selectmenu">
@@ -381,6 +381,6 @@ function submit(e) {
 		</fieldset>
 	</div>
 </form:form>
-	
+
 <div id="dialog-1" class="dialog-common" title="콘텐츠 관리"></div>
 --%>
