@@ -63,12 +63,12 @@ $(function(){
 				var yearCount = $('#end_year').val() == $('#start_year').val()? 1 : $('#end_year').val() - $('#start_year').val();
 				$('#year_count').val(yearCount);
 			}
-			
+
 			$('div#graph1').load('accessGraph.do?' + serializeCustom($('#homepageAccessSearch')), function( response, status, xhr ) {
 				initGraph();
 			});
 			$('table#accessTableData').load('accessTable.do?' + serializeCustom($('#homepageAccessSearch')), function( response, status, xhr ) {
-			});	
+			});
 		}
 		e.preventDefault();
 	});
@@ -172,8 +172,8 @@ $(function(){
 			<option value="PC">PC 접속자수</option>
 			<option value="MOBILE">모바일 접속자수</option>
 		</form:select>
-		아이디(대출번호) :
-		<form:input path="member_id" cssClass="text" placeholder="" maxlength="20"/>
+<!-- 		아이디(대출번호) : -->
+<%-- 		<form:input path="member_id" cssClass="text" placeholder="" maxlength="20"/> --%>
 		<button id="searchBtn"><i class="fa fa-search"></i><span>검색</span></button>
 		<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>
 		<a href="#" id="csvDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>CSV저장</span></a>
