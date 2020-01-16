@@ -3,7 +3,7 @@ package kr.go.gbelib.app.cms.module.facility;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
 public class Facility extends PagingUtils implements Cloneable {
-	
+
 	private int facility_idx;  //시설물IDX
 	private String facility_name;  //시설물명
 	private String facility_desc;  //시설물설명
@@ -22,12 +22,14 @@ public class Facility extends PagingUtils implements Cloneable {
 	private String modify_date;  //수정일
 	private String modify_id;  //수정자
 
+	private String date_type;
+
 	// 등록시에만 사용하는 변수
 	private String start_date;  //사용 시작일
 	private String end_date;  //사용 종료일
-	private String use_day; // 사용 요일 
+	private String use_day; // 사용 요일
 	//
-	
+
 	private String sun;
 	private String mon;
 	private String tue;
@@ -38,19 +40,19 @@ public class Facility extends PagingUtils implements Cloneable {
 	private String plan_year;
 	private String plan_month;
 	private String plan_date;
-	
+
 	private int apply_count;
 	private String apply_yn;
 
 	private String excel_type;
-	
+
 	public Facility() { }
-	
-	public Facility(String homepage_id) { 
+
+	public Facility(String homepage_id) {
 		setHomepage_id(homepage_id);
 	}
-	
-	public Facility(String homepage_id, int facility_idx) { 
+
+	public Facility(String homepage_id, int facility_idx) {
 		setHomepage_id(homepage_id);
 		this.facility_idx = facility_idx;
 	}
@@ -294,7 +296,7 @@ public class Facility extends PagingUtils implements Cloneable {
 	public void setUse_date(String use_date) {
 		this.use_date = use_date;
 	}
-	
+
 	public Facility clone() {
 		Facility o = null;
 		try {
@@ -327,6 +329,16 @@ public class Facility extends PagingUtils implements Cloneable {
 
 	public void setExcel_type(String excel_type) {
 		this.excel_type = excel_type;
+	}
+
+
+	public String getDate_type() {
+		return date_type;
+	}
+
+
+	public void setDate_type(String date_type) {
+		this.date_type = date_type;
 	}
 
 }

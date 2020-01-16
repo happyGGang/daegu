@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.module.excursions.apply.Apply;
 import kr.co.whalesoft.framework.base.BaseController;
@@ -39,6 +40,9 @@ public class FacilityController extends BaseController {
 
 	@Autowired
 	private FacilityReqService facilityReqService;
+
+	@Autowired
+	private CodeService codeService;
 
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, Facility facility, HttpServletRequest request) throws AuthException {
@@ -67,6 +71,7 @@ public class FacilityController extends BaseController {
 			checkAuth("C", model, request);
 			model.addAttribute("facility", facility);
 		}
+		model.addAttribute("dateTypeList", codeService.getCode(facility.getHomepage_id(), "H0002"));
 
 		return basePath + "edit_ajax";
 	}
@@ -108,9 +113,16 @@ public class FacilityController extends BaseController {
 		if(!result.hasErrors()) {
 			if(editMode.equals("ADD")) {
 				facility.setAdd_id(getSessionMemberId(request));
-				service.addFacility(facility);
-				res.setValid(true);
-				res.setMessage("등록 되었습니다.");
+				int addResult = service.addFacility(facility);
+				if (addResult == 0) {
+					res.setValid(false);
+					res.setMessage("이용가능일자와 요일이 맞지 않습니다.");
+
+				} else {
+					res.setValid(true);
+					res.setMessage("등록 되었습니다.");
+
+				}
 			} else if(editMode.equals("MODIFY")) {
 				facility.setModify_id(getSessionMemberId(request));
 				service.modifyFacility(facility);
@@ -160,9 +172,9 @@ public class FacilityController extends BaseController {
 				return result;
 			}
 		}
-		
+
 		result.put("memberInfo", memberInfo);
-		
+
 		return result;
 	}
 

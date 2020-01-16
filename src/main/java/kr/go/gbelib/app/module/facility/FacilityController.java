@@ -55,15 +55,6 @@ public class FacilityController extends BaseController {
 	@Autowired
 	private TermsService termsService;
 
-	@Autowired
-	private RecommendSiteService recommendSiteService;
-
-	@ModelAttribute("recommendSiteList")
-	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		return recommendSiteService.getRecommendSiteListAll(new RecommendSite(homepage.getHomepage_id()));
-	}
-
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, Facility facility, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
@@ -81,7 +72,7 @@ public class FacilityController extends BaseController {
 		calendarManage.setPlan_date(facility.getPlan_date());
 
 		model.addAttribute("calendarList", service.getCalendar(facility));
-		model.addAttribute("calendarManageList", calendarManageService.getClosedDate(calendarManage));
+		model.addAttribute("calendarManageList", calendarManageService.getClosedDate2(calendarManage));
 		model.addAttribute("facility", facility);
 		model.addAttribute("facilityRepo", service.convertToRepo(service.getFacilityListByUser(facility)));
 //		model.addAttribute("facilityReq", facilityReq);

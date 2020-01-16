@@ -9,7 +9,7 @@ $(function() {
 	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
 		resizable: false,
-		modal: true, 
+		modal: true,
 	    open: function(){
 	        $('.ui-widget-overlay').addClass('custom-overlay');
 	    },
@@ -32,56 +32,75 @@ $(function() {
 					$(this).dialog('destroy');
 				}
 			}
-			
+
 		]
 	});
-	
+
 	$("#dialog-1").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
 		width: 700,
 		height: 700
 	});
-	
+
 	$('input#start_date').datepicker({
-		maxDate: $('input#end_date').val(), 
+		maxDate: $('input#end_date').val(),
 		onClose: function(selectedDate){
 			$('input#end_date').datepicker('option', 'minDate', selectedDate);
 		}
 	});
-	
+
 	$('input#end_date').datepicker({
-		minDate: $('input#start_date').val(), 
+		minDate: $('input#start_date').val(),
 		onClose: function(selectedDate){
 			$('input#start_date').datepicker('option', 'maxDate', selectedDate);
 		}
 	});
-	
+
 	$('input#apply_start_date').datepicker({
-		maxDate: $('input#apply_end_date').val(), 
+		maxDate: $('input#apply_end_date').val(),
 		onClose: function(selectedDate){
 			$('input#apply_end_date').datepicker('option', 'minDate', selectedDate);
 		}
 	});
-	
+
 	$('input#apply_end_date').datepicker({
-		minDate: $('input#apply_start_date').val(), 
+		minDate: $('input#apply_start_date').val(),
 		onClose: function(selectedDate){
 			$('input#apply_start_date').datepicker('option', 'maxDate', selectedDate);
 		}
 	});
-	
+
 });
 
 </script>
 <form:form id="facilityForm" modelAttribute="facility" method="post" action="save.do" >
 	<form:hidden path="homepage_id"/>
-	<form:hidden path="facility_idx"/>			
-	<form:hidden path="editMode"/>									
+	<form:hidden path="facility_idx"/>
+	<form:hidden path="editMode"/>
 	<table class="type2">
 		<colgroup>
 	       <col width="150" />
 	       <col width="*"/>
        	</colgroup>
        	<tbody>
+       		<tr>
+			<th>시설물 종류(<span style="color: red; font-weight: bold;">*</span>)</th>
+			<td>
+				<c:choose>
+					<c:when test="${facility.editMode eq 'ADD'}">
+						<form:select path="date_type" class="selectmenu">
+							<form:options items="${dateTypeList}" itemValue="code_id" itemLabel="code_name"/>
+						</form:select>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="i" items="${dateTypeList}">
+							<c:if test="${i.code_id eq facility.date_type}">${i.code_name}</c:if>
+						</c:forEach>
+							<form:hidden path="date_type"/>
+						</c:otherwise>
+				</c:choose>
+
+			</td>
+		</tr>
 	        <tr>
 	         	<th>시설물명 (<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="facility_name" class="text" cssStyle="width:100%" maxlength="15"/></td>
@@ -95,13 +114,13 @@ $(function() {
 				<td>
 					<c:choose>
 						<c:when test="${facility.editMode eq 'ADD'}">
-							<form:input path="start_date" class="text ui-calendar"/> ~ <form:input path="end_date" class="text ui-calendar"/>	
+							<form:input path="start_date" class="text ui-calendar"/> ~ <form:input path="end_date" class="text ui-calendar"/>
 						</c:when>
 						<c:otherwise>
 							${facility.use_date}
 						</c:otherwise>
 					</c:choose>
-					
+
 				</td>
 			</tr>
 			<tr>
@@ -125,8 +144,8 @@ $(function() {
 					<form:checkbox path="use_day" value="6" label="금"/>
 					<form:checkbox path="use_day" value="7" label="토"/>
 					<div class="ui-state-highlight">
-						* 사용요일 체크시 입력한 사용 기간 중 해당하는 요일만 등록 됩니다.<br/>  
-						* 사용요일 체크 안할시 입력한 사용 기간 모두 등록 됩니다. 
+						* 사용요일 체크시 입력한 사용 기간 중 해당하는 요일만 등록 됩니다.<br/>
+						* 사용요일 체크 안할시 입력한 사용 기간 모두 등록 됩니다.
 					</div>
 				</td>
 			</tr>
