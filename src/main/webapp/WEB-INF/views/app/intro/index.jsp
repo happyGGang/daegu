@@ -73,14 +73,7 @@ $(function() {
 			<li class="bg bg01"><a href="/intro/${homepage.context_path}/search/index.do" id="search-btn"><img src="/resources/common/img/bt001.png" alt="통합검색센터"  class="wbt"/><img src="/resources/common/img/mbt001.png" alt="통합검색센터" class="mbt"/></a></li>
 			<c:choose>
 			<c:when test="${sessionScope.member.login}">
-				<c:choose>
-				<c:when test="${homepage.context_path ne 'bukbu'}">
 			<li class="bg bg02"><a href="/intro/${homepage.context_path}/search/hope/req.do"><img src="/resources/common/img/bt004.png" alt="희망도서신청" class="wbt"/><img src="/resources/common/img/mbt004.png" alt="희망도서신청" class="mbt"/></a></li>
-				</c:when>
-				<c:otherwise>
-			<li class="bg bg02"><a href="#" class="not-hope"><img src="/resources/common/img/bt004.png" alt="희망도서신청" class="wbt"/><img src="/resources/common/img/mbt004.png" alt="희망도서신청" class="mbt"/></a></li>
-				</c:otherwise>
-				</c:choose>
 			<li class="bg bg03"><a href="/intro/${homepage.context_path}/search/loan/index.do" class="join-btn"><img src="/resources/common/img/bt005.png" alt="마이페이지" class="wbt"/><img src="/resources/common/img/mbt005.png" alt="마이페이지" class="mbt"/></a></li>
 			</c:when>
 			<c:otherwise>
