@@ -43,7 +43,6 @@
 <script type="text/javascript" src="/resources/common/js/common.js"></script>
 <script type="text/javascript" src="/resources/homepage/jungang/js/common.js"></script>
 <script type="text/javascript" src="/resources/common/js/kakao.min.js"></script>
-<script type="text/javascript" src="/resources/homepage/jungang/js/libindex.js"></script>
 </head>
 <body>
 
