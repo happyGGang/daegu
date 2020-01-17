@@ -72,7 +72,7 @@ $(function() {
 		</tbody>
 	</table>
 
-div class="join-wrap" style="padding:18px 0">
+	<div class="join-wrap" style="padding:18px 0">
 			<!-- <div class="info">
 				<ul class="con2">
 					<li>"대구통합도서관 허브시스템" 구축으로 대구통합도서관(공립 공공도서관 및 공립 작은도서관) 회원은 하나의 회원번호로 통합 운영됩니다. 대구시 통합회원으로 전환 후 이용하시기 바랍니다.</li>
