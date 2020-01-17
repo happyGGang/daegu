@@ -2,7 +2,6 @@ package kr.go.gbelib.app.module.excursions;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,8 +23,6 @@ import kr.co.whalesoft.app.cms.module.excursions.Excursions;
 import kr.co.whalesoft.app.cms.module.excursions.ExcursionsService;
 import kr.co.whalesoft.app.cms.module.excursions.apply.Apply;
 import kr.co.whalesoft.app.cms.module.excursions.apply.ApplyService;
-import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
-import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.app.cms.terms.Terms;
 import kr.co.whalesoft.app.cms.terms.TermsService;
 import kr.co.whalesoft.framework.base.BaseController;
@@ -52,15 +48,6 @@ public class ExcursionsController extends BaseController {
 
 	@Autowired
 	private CalendarManageService calendarManageService;
-
-	@Autowired
-	private RecommendSiteService recommendSiteService;
-
-	@ModelAttribute("recommendSiteList")
-	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		return recommendSiteService.getRecommendSiteListAll(new RecommendSite(homepage.getHomepage_id()));
-	}
 
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, Excursions excursions, HttpServletRequest request) {

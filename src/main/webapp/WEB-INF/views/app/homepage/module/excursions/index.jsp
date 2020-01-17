@@ -6,7 +6,7 @@
 
 <script type="text/javascript">
 $(function(){
-	
+
 	var sysDate = new Date();
 	var year = sysDate.getFullYear();
 	var month = sysDate.getMonth()+1;
@@ -15,29 +15,29 @@ $(function(){
 	for ( var i = 0; i < 15; i ++ ) {
 		var optionYear = (year + 1 - i);
 		var selectedAttr = '';
-		
+
 		if ( optionYear == planDate[0] ) {
 			selectedAttr = 'selected="selected"';
 		}
-		
+
 		$('#plan_year').append('<option ' + selectedAttr + ' value="' + optionYear + '">' + optionYear + '년</option>');
 	}
-	// 월 초기화 
+	// 월 초기화
 	for ( var j = 1; j < 13; j ++ ) {
 		var valueMonth = '0'+j;
 		var selectedAttr = '';
 		valueMonth = valueMonth.substr(valueMonth.length - 2, valueMonth.length);
-		
+
 		if ( j == planDate[1] ) {
 			selectedAttr = 'selected="selected"';
 		}
-		
+
 		$('#plan_month').append('<option ' + selectedAttr + ' value="' + valueMonth + '">' + j + '월</option>');
 	}
-	
+
 	$('#plan_year,#plan_month').on('change', function(e) {
 		var planDate = $('#plan_year').val() + '-' + $('#plan_month').val();
-		$('#plan_date').val(planDate);	
+		$('#plan_date').val(planDate);
 		if($('#pageType').val() == 'ajax') {
 			$('#excursions #pageType').val('ajax');
 			$('#tabCon2').load('module/excursions/index.do?'+serializeCustom($('#excursions')));
@@ -45,60 +45,60 @@ $(function(){
 			doGetLoad('index.do', serializeCustom($('#excursions')));
 		}
 	});
-		
-	$('a.modify').on('click', function(event) {	
+
+	$('a.modify').on('click', function(event) {
 		if($(this).attr('type') == 'calendar') {
 			doGetLoad('/${homepage.context_path}/module/calendarManage/edit.do', 'editMode=MODIFY&category_idx='+$(this).attr('keyValue2')+'&teach_idx='+$(this).attr('keyValue3'));
 		} else if ($(this).attr('type') == 'teach') {
-			doGetLoad('/${homepage.context_path}/module/teach/edit.do', 'editMode=MODIFY&category_idx=' + $(this).attr('keyValue') + '&teach_idx=' + $(this).attr('keyValue2')+ '&menu_idx=' + $('#menu_idx').val());	
+			doGetLoad('/${homepage.context_path}/module/teach/edit.do', 'editMode=MODIFY&category_idx=' + $(this).attr('keyValue') + '&teach_idx=' + $(this).attr('keyValue2')+ '&menu_idx=' + $('#menu_idx').val());
 		}
 		event.preventDefault();
 	});
-	
+
 	$(document).ready(function() {
 		if(month < 10) {
 			month = "0" + month;
 		}
 		setMonthSelect();
-	
+
 	<%--견학신청--%>
 	$('a#apply').on('click', function(event) {
 		if($('#pageType').val() == 'ajax') {
-			$('#tabCon2').load('/${homepage.context_path}/module/excursions/edit.do', 'editMode=ADD&excursions_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('keyValue2') + '&menu_idx=' + $('#menu_idx').val() + '&pageType=' + $('#pageType').val());	
+			$('#tabCon2').load('/${homepage.context_path}/module/excursions/edit.do', 'editMode=ADD&excursions_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('keyValue2') + '&menu_idx=' + $('#menu_idx').val() + '&pageType=' + $('#pageType').val());
 		} else {
 			doGetLoad('/${homepage.context_path}/module/excursions/edit.do', 'editMode=ADD&excursions_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('keyValue2') + '&menu_idx=' + $('#menu_idx').val() + '&pageType=' + $('#pageType').val() + '&date_type=' + $('#date_type').val());
 		}
-				
+
 		event.preventDefault();
 	});
-	
+
 	$('.monthYear').prepend(year + "년");
 	});
-	
+
 	function setMonthSelect() {
 		var plan_date = '${excursions.plan_date}';
 		for(var i=1; i<= 12; i++) {
-		
+
 			var monthValue = i;
 			if(i<10) {
 				monthValue = "0" + i;
 			}
 			var selected = '';
-			var value = year+"-"+monthValue;				
+			var value = year+"-"+monthValue;
 			if (plan_date == value) {
 				selected = 'selected="selected"';
 			}
 			$('#selectMonth').append("<option value = '"+value+"' " + selected + ">"+monthValue+"월</option>");
 		}
 	}
-	
+
 	$('#selectMonth').on('change', function(e) {
 		doGetLoad('index.do', serializeCustom($('#excursions')));
 	});
-	
-	$('a#before-btn').on('click', function(event) {			
+
+	$('a#before-btn').on('click', function(event) {
 		event.preventDefault();
-		
+
 		var year = $('#plan_year').val();
 		var month = $('#plan_month').val();
 		if(month == 1) {
@@ -107,26 +107,26 @@ $(function(){
 		} else {
 			month =  parseInt(month)-1;
 		}
-		
+
 		if( month < 10 ) {
 			var planDate = year + '-0' + month;
 		} else {
 			var planDate = year + '-' + month;
 		}
 		$('#plan_date').val(planDate);
-		
+
 		if($('#pageType').val() == 'ajax') {
 			$('#excursions #pageType').val('ajax');
 			$('#tabCon2').load('module/excursions/index.do?' + serializeCustom($('#excursions')));
 		} else {
 			doGetLoad('index.do', serializeCustom($('#excursions')));
 		}
-		
-	});	
-	
-	$('a#next-btn').on('click', function(event) {			
+
+	});
+
+	$('a#next-btn').on('click', function(event) {
 		event.preventDefault();
-		
+
 		var year = $('#plan_year').val();
 		var month = $('#plan_month').val();
 		if(month == 12) {
@@ -135,63 +135,63 @@ $(function(){
 		} else {
 			month =  parseInt(month)+1;
 		}
-		
+
 		if( month < 10 ) {
 			var planDate = year + '-0' + month;
 		} else {
 			var planDate = year + '-' + month;
 		}
 		$('#plan_date').val(planDate);
-		
+
 		if($('#pageType').val() == 'ajax') {
 			$('#excursions #pageType').val('ajax');
 			$('#tabCon2').load('module/excursions/index.do?' + serializeCustom($('#excursions')));
 		} else {
 			doGetLoad('index.do', serializeCustom($('#excursions')));
 		}
-		
+
 	});
-	
+
 	/* 달력 제어 시작 */
 	$('tr.week').each(function(i, e) {
 		var $this = $(this);
 		var liCountByTr = $this.find('li').length;
-		
+
 		var date = new Date();
-		var day = date.getDate();		
-		
+		var day = date.getDate();
+
 		if ( liCountByTr > 0) {
-			$this.find('td').each(function(i, e) {						
+			$this.find('td').each(function(i, e) {
 				var liCountByTd = $(this).find('li').length;
-				if ( liCountByTd > 0 ) {  
-					$(this).addClass('data'+liCountByTd); 
-				}				
+				if ( liCountByTd > 0 ) {
+					$(this).addClass('data'+liCountByTd);
+				}
 			});
 		} else {
 			$this.addClass('noData');
 		}
-		
+
 		$this.find('td').each(function(i, e) {
 			if($('#plan_year').val() + $('#plan_month').val() == year+""+month) {
 				if($(this).find("div").text() == day) {
 					$(this).addClass('today');
-				}	
+				}
 			}
-							
+
 		});
 	});
-	
+
 	function cwFunc(){
 		var cw = ($('#calendar td').width())-8;
 		$('#calendar td ul').css({'width':cw+'px'}).show();
 	}
 	cwFunc();
-	
+
 	$(window).resize(function(){
 		cwFunc();
 	});
 	/* 달력 제어 종료 */
-	
+
 });
 </script>
 <form:form modelAttribute="excursions">
@@ -206,7 +206,7 @@ $(function(){
 		<form:select path="plan_month" class="" style="width:65px;height:28px;"></form:select>
 		<a id="next-btn" href="#next" class="btn next"><i class="fa fa-angle-right"></i><span class="blind">다음달</span></a>
 	</div>
-	
+
 	<div id="calendar">
 	<table class="cal-tbl">
 		<thead>
@@ -232,8 +232,8 @@ $(function(){
 							<div>${i.sun}</div>
 							<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.sun) < 2? '0' : ''}${i.sun}" />
 							<ul>
-								<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" countApply="${countApply}" mode="admin" />
-							</ul>												
+								<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" mode="admin"/>
+							</ul>
 						</td>
 					</c:otherwise>
 					</c:choose>
@@ -246,7 +246,7 @@ $(function(){
 							<div>${i.mon}</div>
 							<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.mon) < 2? '0' : ''}${i.mon}" />
 							<ul>
-								<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" countApply="${countApply}" mode="admin" />
+								<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" mode="admin"/>
 							</ul>
 						</td>
 					</c:otherwise>
@@ -260,7 +260,7 @@ $(function(){
 							<div>${i.tue}</div>
 							<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.tue) < 2? '0' : ''}${i.tue}" />
 							<ul>
-								<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" countApply="${countApply}" mode="admin" />
+								<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" mode="admin"/>
 							</ul>
 						</td>
 					</c:otherwise>
@@ -274,7 +274,7 @@ $(function(){
 							<div>${i.wed}</div>
 							<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.wed) < 2? '0' : ''}${i.wed}" />
 							<ul>
-								<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" countApply="${countApply}" mode="admin" />
+								<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" mode="admin"/>
 							</ul>
 						</td>
 					</c:otherwise>
@@ -288,7 +288,7 @@ $(function(){
 							<div>${i.thu}</div>
 							<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.thu) < 2? '0' : ''}${i.thu}" />
 							<ul>
-								<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" countApply="${countApply}" mode="admin" />
+								<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" mode="admin"/>
 							</ul>
 						</td>
 					</c:otherwise>
@@ -302,7 +302,7 @@ $(function(){
 							<div>${i.fri}</div>
 							<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.fri) < 2? '0' : ''}${i.fri}" />
 							<ul>
-								<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" countApply="${countApply}" mode="admin" />
+								<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" mode="admin"/>
 							</ul>
 						</td>
 					</c:otherwise>
@@ -316,7 +316,7 @@ $(function(){
 							<div>${i.sat}</div>
 							<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.sat) < 2? '0' : ''}${i.sat}" />
 							<ul>
-								<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" countApply="${countApply}" mode="admin" />
+								<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" mode="admin"/>
 							</ul>
 						</td>
 					</c:otherwise>

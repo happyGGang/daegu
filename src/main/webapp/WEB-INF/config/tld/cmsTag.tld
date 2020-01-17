@@ -6,7 +6,7 @@
 	<tlib-version>1.0</tlib-version>
 	<short-name>cmsTag</short-name>
 	<uri>http://www.whalesoft.co.kr</uri>
-	
+
 	<tag>
 		<description>CMS메뉴 왼쪽메뉴</description>
 		<name>asideMenu</name>
@@ -18,7 +18,7 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<description>권한 체크박스 설정(설문)</description>
 		<name>authCheckbox</name>
@@ -55,7 +55,7 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<description>일정관리</description>
 		<name>calendarManage</name>
@@ -102,7 +102,7 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<description>일정관리(사용자)</description>
 		<name>calendarManageUser</name>
@@ -132,7 +132,7 @@
 			<name>moveList</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
-		</attribute>			
+		</attribute>
 		<attribute>
 			<name>plan_date</name>
 			<required>true</required>
@@ -149,7 +149,7 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<description>도서관견학</description>
 		<name>excursions</name>
@@ -176,7 +176,7 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<description>도서관견학(사용자)</description>
 		<name>excursionsUser</name>
@@ -191,14 +191,9 @@
 			<name>calendarManageList</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
-		</attribute>		
-		<attribute>
-			<name>applyList</name>
-			<required>true</required>
-			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
-			<name>countApply</name>
+			<name>applyList</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
@@ -213,7 +208,7 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<description>현장지원신청</description>
 		<name>support</name>
@@ -235,7 +230,7 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<description>현장지원신청(사용자)</description>
 		<name>supportUser</name>
@@ -245,7 +240,7 @@
 			<name>supportList</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
-		</attribute>		
+		</attribute>
 		<attribute>
 			<name>calendarManageList</name>
 			<required>true</required>
@@ -272,7 +267,7 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<description>출석부설정</description>
 		<name>teachBook</name>
@@ -294,7 +289,7 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<description>게시판 설정 권한 체크박스</description>
 		<name>boardManageCheckboxAuthTag</name>
@@ -326,5 +321,5 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 </taglib>
