@@ -330,8 +330,8 @@ $(function() {
 		</table>
 
 		<div class="btn-wrap">
-			<a href="#" id="save-btn" class="btn btn2">회원가입</a>
-			<a href="/intro/${homepage.context_path}/index.do" id="cancel-btn" class="btn btn03">취소</a>
+			<a href="/intro/${homepage.context_path}/index.do" id="cancel-btn" class="btn btn02">취소</a>
+			<a href="#" id="save-btn" class="btn btn03">회원가입</a>
 		</div>
 
 	</form:form>

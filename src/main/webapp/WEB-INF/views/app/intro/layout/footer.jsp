@@ -26,9 +26,10 @@ if(verNumber < 9){
 var idleTime = 0;
 function timerIncrement() {
     idleTime = idleTime + 1;
-    if (idleTime >= 5) {
+    if (idleTime >= 15) {
 		if (document.location.href.indexOf('join/edit') < 0 && document.location.href.indexOf('join/integration3') < 0) {
-			location.href = "/intro/${homepage.context_path}/login/logout.do";
+			//location.href = "/intro/${homepage.context_path}/login/logout.do";
+			location.href = "/intro/${homepage.context_path}/index.do";
 		}
     }
 }
