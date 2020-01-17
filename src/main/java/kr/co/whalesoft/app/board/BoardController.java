@@ -579,7 +579,11 @@ public class BoardController extends BaseController {
     				Object certObject = request.getSession().getAttribute("certMember");
     				if (certObject != null && certObject instanceof Member) {
     					Member m = (Member) certObject;
-    					if (StringUtils.isNotBlank(boardData.getImsi_v_20()) && !m.getCi_value().equals(boardData.getImsi_v_20())) {
+    					if (StringUtils.isBlank(boardData.getImsi_v_20())) {
+    						service.alertMessage("비밀글은 본인과 관리자만 볼 수 있습니다.", request, response);
+    						return null;
+    					}
+    					if (!m.getCi_value().equals(boardData.getImsi_v_20())) {
     						service.alertMessage("비밀글은 본인과 관리자만 볼 수 있습니다.", request, response);
     						return null;
     					}
