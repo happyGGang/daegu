@@ -161,15 +161,15 @@ public class MemberAuthInterceptor extends HandlerInterceptorAdapter {
 				//관리자 메뉴에 대한 접근권한 확인 로직
 				if (!member.isAdmin()) {
 					if (!memberGroupAuthService.hasAdminAuth(member)) {
-						if (!memberGroupAuthService.hasPmsAuth(member)) {
-							loginService.logout(request);
-							throw new AuthException();
-						} else {
-							//PMS 권한만 가졌다면 cms로는 못가게 한다.
-							if (!StringUtils.equals(siteType, "/pms")) {
-								return JavaScriptUtils.redirectUrl("/pms/index.do", request, response);
-							}
-						}
+//						if (!memberGroupAuthService.hasPmsAuth(member)) {
+//							loginService.logout(request);
+//							throw new AuthException();
+//						} else {
+//							//PMS 권한만 가졌다면 cms로는 못가게 한다.
+//							if (!StringUtils.equals(siteType, "/pms")) {
+//								return JavaScriptUtils.redirectUrl("/pms/index.do", request, response);
+//							}
+//						}
 //						return JavaScriptUtils.alertMessageAndHistoryBack(msg.getMessage(this,"cmsAuth.authError"), request, response);
 					}
 				}
