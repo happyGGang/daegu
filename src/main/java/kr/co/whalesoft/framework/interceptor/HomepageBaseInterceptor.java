@@ -186,7 +186,7 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 						return false;
 					}
 				} else {
-					if(StringUtils.containsIgnoreCase(request.getServerName(), "library.daegu.go.kr")) {
+					if(StringUtils.containsIgnoreCase(request.getServerName(), "library.daegu.go.kr") && requestURL.startsWith("http://")) {
 						List<String> parameters = new ArrayList<String>();
 						@SuppressWarnings ("unchecked")
 						Enumeration<String> result = request.getParameterNames();
