@@ -47,17 +47,25 @@ public class ArchiveService extends BaseService {
 	public int modArchiveBook(Archive archive) {
 		return dao.modArchiveBook(archive);
 	}
-	
+
+	@Transactional
 	public int delArchiveBook(Archive archive) {
+		String path = storage.getRootPath() + "/" + archive.getHomepage_id() + "/" + archive.getBook_idx();
+		FileUtils.deleteQuietly(new File(path));
+		dao.delArchiveBookPages(archive);
 		return dao.delArchiveBook(archive);
 	}
-
+	
 	public int reorderArchiveBook(Archive archive) {
 		return dao.reorderArchiveBook(archive);
 	}
 	
 	public int getArchivePageCount(Archive archive) {
 		return dao.getArchivePageCount(archive);
+	}
+	
+	public List<Archive> getArchivePageListCms(Archive archive) {
+		return dao.getArchivePageListCms(archive);
 	}
 	
 	public List<Archive> getArchivePageList(Archive archive) {
@@ -72,7 +80,7 @@ public class ArchiveService extends BaseService {
 		MultipartFile mFile = archive.getFile();
 		
 		if(mFile != null) {
-			String dir = "/" + archive.getBook_idx();
+			String dir = "/" + archive.getHomepage_id() + "/" + archive.getBook_idx();
 			String filename = mFile.getOriginalFilename();
 			String fileExtension = FilenameUtils.getExtension(mFile.getOriginalFilename());
 			String serverFilename 	= storage.generateUniqueFileName(storage.getRootPath() + dir) + "." + fileExtension;
@@ -86,7 +94,7 @@ public class ArchiveService extends BaseService {
 	
 	private void deleteFile(Archive archive) {
 		archive = dao.getArchivePage(archive);
-		String path = storage.getRootPath() + "/" + archive.getBook_idx() + "/" + archive.getServer_file_name();
+		String path = storage.getRootPath() + "/" + archive.getHomepage_id() + "/" + archive.getBook_idx() + "/" + archive.getServer_file_name();
 		FileUtils.deleteQuietly(new File(path));
 	}
 	

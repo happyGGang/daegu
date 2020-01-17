@@ -19,19 +19,23 @@
 <script type="text/javascript">
 $(function() {
 	$('button#search_btn').on('click', function(e) {
+		e.preventDefault();
+		
 		$('#viewPage').val(1);
 		$('#archivePageListForm').submit();
 	});
 	
 	$('a#dialog-add').on('click', function(e) {
+		e.preventDefault();
+
 		$('#dialog-1').load('edit.do?editMode=ADD&homepage_id=' + $('#homepage_id').val(), function(response, status, xhr) {
 			$('#dialog-1').dialog('open');
 		});
-		
-		e.preventDefault();
 	});
 	
 	$('a.dialog-modify').on('click', function(e) {
+		e.preventDefault();
+		
 		if($('#file_' + $(this).data('page_idx')).val() == '') {
 			$('#file_' + $(this).data('page_idx')).remove();
 		}
@@ -60,11 +64,11 @@ $(function() {
 	         }
 		};
 		$('#mod_form_' + $(this).data('page_idx')).ajaxSubmit(option);
-		
-		e.preventDefault();
 	});
 	
 	$('a.delete-btn').on('click', function(e) {
+		e.preventDefault();
+		
 		if(confirm('해당 페이지를 삭제하시겠습니까?')) {
 			$('#hiddenForm_book_idx').val($(this).data('book_idx'));
 			$('#hiddenForm_page_idx').val($(this).data('page_idx'));
@@ -72,10 +76,11 @@ $(function() {
 				location.reload();
 			}
 		}
-		e.preventDefault();
 	});
 	
 	$('a.delete-file-btn').on('click', function(e) {
+		e.preventDefault();
+		
 		if(confirm('이미지를 삭제하시겠습니까?')) {
 			$('#hiddenForm_book_idx').val($(this).data('book_idx'));
 			$('#hiddenForm_page_idx').val($(this).data('page_idx'));
@@ -84,10 +89,11 @@ $(function() {
 				location.reload();
 			}
 		}
-		e.preventDefault();
 	});
 	
 	$('a#batch-delete-btn').on('click', function(e) {
+		e.preventDefault();
+		
 		var cnt = $('input.page_idx_list:checked').length;
 		if(cnt == 0) {
 			alert('페이지를 선택해주세요.');
@@ -101,10 +107,11 @@ $(function() {
 				location.reload();
 			}
 		}
-		e.preventDefault();
 	});
 	
 	$('a#reorder-btn').on('click', function(e) {
+		e.preventDefault();
+		
 		if(confirm('순서일괄수정을 하시겠습니까?')) {
 			$('#hiddenForm').attr('action', 'save.do');
 			$('#hiddenForm_editMode').val('REORDER');
@@ -113,11 +120,11 @@ $(function() {
 				location.reload();
 			}
 		}
-		
-		e.preventDefault();
 	});
 	
 	$('a.move-up-btn').on('click', function(e) {
+		e.preventDefault();
+		
 		$('#hiddenForm').attr('action', 'page_move_up.do');
 		$('#hiddenForm_book_idx').val($(this).data('book_idx'));
 		$('#hiddenForm_page_idx').val($(this).data('page_idx'));
@@ -125,11 +132,11 @@ $(function() {
 		if(doAjaxPost($('#hiddenForm'))) {
 			location.reload();
 		}
-		
-		e.preventDefault();
 	});
 	
 	$('a.move-down-btn').on('click', function(e) {
+		e.preventDefault();
+		
 		$('#hiddenForm').attr('action', 'page_move_down.do');
 		$('#hiddenForm_book_idx').val($(this).data('book_idx'));
 		$('#hiddenForm_page_idx').val($(this).data('page_idx'));
@@ -137,19 +144,7 @@ $(function() {
 		if(doAjaxPost($('#hiddenForm'))) {
 			location.reload();
 		}
-		
-		e.preventDefault();
 	});
-	
-	$('select#homepage_id').on('change', function(e) {
-		if($(this).val() != '') {
-			$('input#homepage_id').val($(this).val());
-			$('#archiveListForm').submit();
-		}
-		
-		e.preventDefault();
-	});
-	
 });
 
 var fileNum = 0;
@@ -217,7 +212,6 @@ $(document).ready(function() {
         done : function(e, data) {
         	uploading = false;
         	data.files[0].status = -4;
-//         	previewUpload();
         	showFileList();
         },
         progressall: function (e, data) {
@@ -242,7 +236,7 @@ $(document).ready(function() {
     	deleteFiles();
     });
 
-    $('#file').on('change', function(e) {
+    $('#filelist_select').on('change', function(e) {
     	e.preventDefault();
     	preview();
     });
@@ -295,7 +289,7 @@ function showFileList() {
 				var textNode = document.createTextNode( text );
 
 				optionElement.appendChild( textNode );
-				optionElement.setAttribute( "value", file.makeValue );		// fileSize , 실제파일명 , 확장자명 으로 후에 변경 ( 확장자명 통일 jpeg -> jpg )
+				optionElement.setAttribute( "value", i );		// fileSize , 실제파일명 , 확장자명 으로 후에 변경 ( 확장자명 통일 jpeg -> jpg )
 				optionElement.setAttribute( "label", text );
 
 				selectObj.appendChild( optionElement );
@@ -323,11 +317,6 @@ function deleteFiles() {
 				selectObj.options[i].remove();
 				fileList.splice(i, 1);
 				i--;
-//             	previewObj.innerHTML = '미리보기';
-//             	if(splitValue[0] == $('preview_img').value) {
-//             		$('preview_img_layer').innerHTML = '';
-//             		$('preview_img').value = '';
-//             	}
 			}
 		}
 	}
@@ -347,6 +336,25 @@ function calculateFileSize( fileSize ) {
 		fileSize += "Byte";
 	return fileSize;
 }
+
+function preview() {
+	var selectObj = fileListAreaID;
+
+	if( selectObj.selectedIndex != -1 ) {
+		var fileId = selectObj.options[selectObj.selectedIndex].value;
+		var file = fileList[fileId];
+		if(file.files[0].name.match(/(\.|\/)(gif|jpe?g|png)$/i)) {
+			try {
+				var reader = new FileReader();
+				reader.onload = function(){
+					previewAreaID.innerHTML = '<img src="' + reader.result + '" style="width: 120px; height: 120px;">';
+				};
+				reader.readAsDataURL(file.files[0]);
+			} catch(e) {
+			}
+		}
+	}
+}
 </script>
 <form:form id="hiddenForm" modelAttribute="archive" action="page_delete.do" >
 <form:hidden id="hiddenForm_editMode" path="editMode" value="DEL"/>
@@ -361,16 +369,16 @@ function calculateFileSize( fileSize ) {
 	<form:hidden path="editMode" value="ADD"/>
 	
 	<div id="attach_area">
-		<div class="fileUploader">
+		<div class="fileUploader" style="width: 640px;">
 			<div class="file_attach_info">
 				<p>※ 파일명 순서대로 페이지가 생성됩니다. (가나다, ABC 순)</p>
 				<p><strong>파일 용량 :</strong> <span id="fileSizeView">0Byte</span></p>
 				<p><strong>파일 개수 :</strong> <span id="fileCountView">0</span>개</p>
 			</div>
-			<div class="preview">
+			<div class="preview" style="width: 120px; height: 120px; display: inline-block;">
 				<span id="preview">미리보기</span>
 			</div>
-			<div class="fileBox">
+			<div class="fileBox" style="width: 90%;">
 				<div class="fileListArea">
 					<form:select id="filelist_select" path="file" multiple="multiple" size="6" title="파일을 여기에 드래그 할 수 있습니다."/>
 					<div id="fsUploadProgress" class="fileResult">
@@ -404,7 +412,7 @@ function calculateFileSize( fileSize ) {
 
 	<br>
 	<div class="infodesk">
-		검색 결과 : 총 <fmt:formatNumber value="${archivePageListCount}" pattern="#,###" />건
+		검색 결과 : 총 <fmt:formatNumber value="${count}" pattern="#,###" />건
 	</div>
 	<table class="type1 center">
 		<colgroup>
@@ -442,7 +450,7 @@ function calculateFileSize( fileSize ) {
 					</td>
 					<td>
 						<c:if test="${not empty i.server_file_name}">
-						<img src="/data/archive/${i.book_idx}/${i.server_file_name}">
+						<img src="/data/archive/${archive.homepage_id}/${i.book_idx}/${i.server_file_name}">
 						<a href="" class="btn delete-file-btn" data-book_idx="${i.book_idx}" data-page_idx="${i.page_idx}">이미지 삭제</a>
 						</c:if>
 					</td>
@@ -461,7 +469,7 @@ function calculateFileSize( fileSize ) {
 				</tr>
 				</form:form>
 			</c:forEach>
-			<c:if test="${archivePageListCount eq 0}">
+			<c:if test="${count eq 0}">
 				<tr>
 					<td colspan="5">조회된 자료가 없습니다.</td>
 				</tr>

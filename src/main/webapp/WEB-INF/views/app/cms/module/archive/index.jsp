@@ -60,16 +60,6 @@ $(function() {
 		e.preventDefault();
 	});
 	
-// 	$('select#jokbo_type, select#rowCount, select#jokbo_year, select#jokbo_month').on('change', function() {
-// 		$('#viewPage').val(1);
-// 		$('#jokboListForm').submit();
-// 	});
-	
-// 	$('select#rowCount').on('change', function() {
-// 		$('#viewPage').val(1);
-// 		$('#jokboListForm').submit();
-// 	});
-	
 });
 </script>
 <form:form id="hiddenForm" modelAttribute="archive" action="delete.do" >

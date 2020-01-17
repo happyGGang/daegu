@@ -8,6 +8,7 @@
 		FROM
 			ARCHIVE_BOOK
 		WHERE 1=1
+		AND homepage_id = #{homepage_id}
 		<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
 		AND	${search_type} LIKE '%'||#{search_text}||'%'
 		</if>
@@ -33,6 +34,7 @@
 			ARCHIVE_BOOK a
 		WHERE 1=1
 		AND use_yn = 'Y'
+		AND homepage_id = #{homepage_id}
 		<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
 		AND	${search_type} LIKE '%'||#{search_text}||'%'
 		</if>
@@ -53,6 +55,7 @@
 		FROM
 			ARCHIVE_BOOK
 		WHERE 1=1
+		AND homepage_id = #{homepage_id}
 		<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
 		AND	${search_type} LIKE '%'||#{search_text}||'%'
 		</if>
@@ -110,12 +113,15 @@
 			mod_id = #{mod_id},
 			mod_date = SYSDATE
 		WHERE
-			homepage_id = #{homepage_id}
-		AND book_idx = #{book_idx} 
+			book_idx = #{book_idx} 
 	</update>
 	
 	<delete id="delArchiveBook">
 		DELETE FROM ARCHIVE_BOOK WHERE book_idx = #{book_idx}
+	</delete>
+	
+	<delete id="delArchiveBookPages">
+		DELETE FROM ARCHIVE_PAGE WHERE book_idx = #{book_idx}
 	</delete>
 	
 	<update id="reorderArchiveBook">
@@ -160,6 +166,20 @@
 	</select>
 	
 	<select id="getArchivePageList" resultType="kr.go.gbelib.app.cms.module.archive.Archive">
+		SELECT
+			page_idx, book_idx, subject, code,
+			server_file_name, org_file_name,
+			add_date, add_id, mod_date, mod_id,
+			use_yn
+		FROM
+			ARCHIVE_PAGE
+		WHERE
+			book_idx = #{book_idx}
+		AND (SELECT use_yn FROM ARCHIVE_BOOK WHERE book_idx = #{book_idx}) = 'Y'
+		ORDER BY code
+	</select>
+	
+	<select id="getArchivePageListCms" resultType="kr.go.gbelib.app.cms.module.archive.Archive">
 		SELECT
 			page_idx, book_idx, subject, code,
 			server_file_name, org_file_name,

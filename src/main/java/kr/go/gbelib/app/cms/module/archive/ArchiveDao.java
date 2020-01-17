@@ -18,11 +18,15 @@ public interface ArchiveDao {
 	
 	public int delArchiveBook(Archive archive);
 	
+	public int delArchiveBookPages(Archive archive);
+	
 	public int reorderArchiveBook(Archive archive);
 
 	public int getArchivePageCount(Archive archive);
 	
 	public List<Archive> getArchivePageList(Archive archive);
+	
+	public List<Archive> getArchivePageListCms(Archive archive);
 	
 	public Archive getArchivePage(Archive archive);
 	

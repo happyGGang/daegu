@@ -28,6 +28,7 @@ public class ArchiveController extends  BaseController {
 	@RequestMapping(value = {"/index.*"}, method = RequestMethod.GET)
 	public String index(Model model, Archive archive, HttpServletRequest request) throws AuthException {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		archive.setHomepage_id(homepage.getHomepage_id());
 		
 		int count = service.getArchiveBookCount(archive);
 		List<Archive> list = service.getArchiveBookList(archive);
@@ -36,7 +37,7 @@ public class ArchiveController extends  BaseController {
 		service.setPaging(model, count, archive);
 		
 		model.addAttribute("archive", archive);
-		model.addAttribute("archiveBookCount", count);
+		model.addAttribute("count", count);
 		model.addAttribute("archiveBookList", list);
 		
 		return String.format(basePath, homepage.getFolder()) + "index";
@@ -45,13 +46,14 @@ public class ArchiveController extends  BaseController {
 	@RequestMapping(value = {"/view.*"}, method = RequestMethod.GET)
 	public String edit(Model model, Archive archive, HttpServletRequest request) throws AuthException {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		archive.setHomepage_id(homepage.getHomepage_id());
 		
 		int count = service.getArchivePageCount(archive);
 		List<Archive> list = service.getArchivePageList(archive);
 //		archive = service.getArchivePage(archive);
 		
 		model.addAttribute("archive", archive);
-		model.addAttribute("archivePageCount", count);
+		model.addAttribute("count", count);
 		model.addAttribute("archivePageList", list);
 		
 		return String.format(basePath, homepage.getFolder()) + "view_ajax";

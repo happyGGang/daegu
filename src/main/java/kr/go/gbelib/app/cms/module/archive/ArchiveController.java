@@ -39,7 +39,7 @@ public class ArchiveController extends  BaseController {
 		service.setPaging(model, count, archive);
 		
 		model.addAttribute("archive", archive);
-		model.addAttribute("archiveBookCount", count);
+		model.addAttribute("count", count);
 		model.addAttribute("archiveBookList", list);
 		
 		return basePath + "index";
@@ -97,6 +97,7 @@ public class ArchiveController extends  BaseController {
 	@RequestMapping(value = {"/delete.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse delete(Model model, Archive archive, BindingResult result, HttpServletRequest request) throws AuthException {
 		JsonResponse res = new JsonResponse(request);
+		archive.setHomepage_id(getAsideHomepageId(request));
 		
 		if(!result.hasErrors()) {
 			service.delArchiveBook(archive);
@@ -115,11 +116,11 @@ public class ArchiveController extends  BaseController {
 		checkAuth("R", model, request);
 		
 		int count = service.getArchivePageCount(archive);
-		List<Archive> list = service.getArchivePageList(archive);
+		List<Archive> list = service.getArchivePageListCms(archive);
 //		archive = service.getArchivePage(archive);
 		
 		model.addAttribute("archive", archive);
-		model.addAttribute("archivePageCount", count);
+		model.addAttribute("count", count);
 		model.addAttribute("archivePageList", list);
 		
 		return basePath + "page_index";
@@ -136,6 +137,7 @@ public class ArchiveController extends  BaseController {
 			String member_id = getSessionMemberId(request);
 			archive.setAdd_id(member_id);
 			archive.setMod_id(member_id);
+			archive.setHomepage_id(getAsideHomepageId(request));
 			if("ADD".equals(editMode)) {
 				service.addArchivePage(archive);
 				res.setValid(true);

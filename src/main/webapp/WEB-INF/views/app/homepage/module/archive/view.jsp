@@ -19,7 +19,7 @@
 <script type="text/javascript">
 	flippingBook.pages = [
 		<c:forEach var="i" varStatus="status" items="${archivePageList}">
-		'/data/archive/${i.book_idx}/${i.server_file_name}'<c:if test="${!status.last}">,</c:if>
+		'/data/archive/${archive.homepage_id}/${i.book_idx}/${i.server_file_name}'<c:if test="${!status.last}">,</c:if>
 		</c:forEach>
 	];
 
@@ -41,7 +41,7 @@
 	flippingBook.settings.zoomImageWidth = 916;
 	flippingBook.settings.zoomImageHeight = 1296;
 	flippingBook.settings.downloadURL = "";
-	flippingBook.settings.zoomPath = "/data/archive/${archive.book_idx}/";
+	flippingBook.settings.zoomPath = "/data/archive/${archive.homepage_id}/${archive.book_idx}/";
 	flippingBook.settings.flipSound = "/resources/archive/skin1/sounds/01.mp3";
 	flippingBook.settings.staticShadowsDepth = "1";
 
