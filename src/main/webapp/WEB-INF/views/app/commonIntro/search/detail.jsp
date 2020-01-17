@@ -302,8 +302,10 @@ $(function() {
 			</c:if>
 
 			<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
+<!--
 			<a href="" id="unmanned-req" class="btn">무인예약신청</a>
 			<a href="" id="night-req" class="btn">야간예약신청</a>
+-->
 			</c:if>
 
 			<c:if test="${detail.WORKING_STATUS ne 'BOL112N' and param.booktype ne 'NONBOOK'}">

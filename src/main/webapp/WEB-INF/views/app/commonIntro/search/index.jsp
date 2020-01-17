@@ -17,8 +17,15 @@ $(function() {
 		doGetLoad('index.do', $form.serialize());
 	});
 
-	//정렬, N개씩보기
+	//정렬, N개씩보기 : 접근성에 안맞아서 주석처리
+	/*
 	$('select#rowCount, select#sortType, select#sortField').on('change', function() {
+		$('a#search-btn').click();
+	});
+	*/
+
+	//정렬, N개씩보기
+	$('a#sort-btn').on('click', function() {
 		$('a#search-btn').click();
 	});
 
@@ -114,6 +121,48 @@ $(function() {
 		}
 	});
 
+	$('input#title').on('keyup', function(e) {
+		if (e.keyCode == 13 && $(this).val() != '') {
+			$('a#search-btn').click();
+		}
+	});
+
+	$('input#author').on('keyup', function(e) {
+		if (e.keyCode == 13 && $(this).val() != '') {
+			$('a#search-btn').click();
+		}
+	});
+
+	$('input#publer').on('keyup', function(e) {
+		if (e.keyCode == 13 && $(this).val() != '') {
+			$('a#search-btn').click();
+		}
+	});
+
+	$('input#keyword').on('keyup', function(e) {
+		if (e.keyCode == 13 && $(this).val() != '') {
+			$('a#search-btn').click();
+		}
+	});
+
+	$('input#search_start_date').on('keyup', function(e) {
+		if (e.keyCode == 13 && $(this).val() != '') {
+			$('a#search-btn').click();
+		}
+	});
+
+	$('input#search_end_date').on('keyup', function(e) {
+		if (e.keyCode == 13 && $(this).val() != '') {
+			$('a#search-btn').click();
+		}
+	});
+
+	//검색초기화
+	$('a#reset-btn').on('click', function(e) {
+		e.preventDefault();
+		location.href='/${homepage.context_path}/intro/search/index.do?menu_idx=13';
+		$('#title').focus();
+	});
 });
 </script>
 <form:form modelAttribute="librarySearch" id="detailForm" action="detail.do" method="post" >
@@ -127,6 +176,7 @@ $(function() {
 	<form:hidden path="menu_idx"/>
 	<form:hidden path="viewPage"/>
 	<form:hidden path="separateShelfCode"/>
+	<form:hidden path="manageCode" value="${homepage.manage_code}"/>
 
 	<!-- contents-title-->
 	<div id="contents-title">
@@ -141,26 +191,42 @@ $(function() {
 			<!-- 검색하기_일반 -->
 			<div class="searchbox detail_search" id="div_detail">
 				<div class="section">
-					<dl>
-						<dt>도서관</dt>
-						<dd>
-							<form:select path="manageCode">
-								<form:option value="ALL">전체 도서관</form:option>
-								<form:option value="${homepage.manage_code}">${homepage.homepage_name}</form:option>
-							</form:select>
-						</dd>
-					</dl>
-					<dl>
-						<dt><label for="title" class="title">제목</label></dt>
-						<dd><form:input path="title" class="text-area"/></dd>
-					</dl>
+
+					<div class="title-box">
+						<form:input path="title" class="text-area" placeholder="도서 제목을 입력하세요"/>
+					</div>
+
+					<div class="vk-btn">
+						<a id="vk-popup" class="btnNew2">다국어입력기</a>
+					</div>
 
 					<dl>
 						<dt><label for="author" class="title">저자</label></dt>
 						<dd><form:input path="author" class="text-area"/></dd>
 					</dl>
+
 					<dl>
-						<dt>주제</dt>
+						<dt><label for="publer" class="title">발행처</label></dt>
+						<dd><form:input path="publer" class="text-area"/></dd>
+					</dl>
+					<dl>
+						<dt><label for="keyword" class="title">키워드</label></dt>
+						<dd><form:input path="keyword" class="text-area"/></dd>
+					</dl>
+
+					<dl>
+						<dt><label for="search_start_date" class="title">발행년도</label></dt>
+						<dd>
+							<div class="box">
+								<form:input path="search_start_date" class="text-area2" title="시작년도" numberOnly="true" maxlength="4" />
+								<span style="width:8%;text-align:center;">~</span>
+								<form:input path="search_end_date" class="text-area2" title="마지막년도" numberOnly="true" maxlength="4" />
+							</div>
+						</dd>
+					</dl>
+
+					<dl>
+						<dt><label for="subjectCode" class="title">주제</label></dt>
 						<dd>
 							<form:select path="subjectCode">
 								<form:option value="">전체</form:option>
@@ -177,26 +243,17 @@ $(function() {
 							</form:select>
 						</dd>
 					</dl>
-
+<!--
 					<dl>
-						<dt><label for="publer" class="title">발행처</label></dt>
-						<dd><form:input path="publer" class="text-area"/></dd>
-					</dl>
-					<dl>
-						<dt><label for="keyword" class="title">키워드</label></dt>
-						<dd><form:input path="keyword" class="text-area"/></dd>
-					</dl>
-
-					<dl>
-						<dt>발행년도</dt>
+						<dt><label for="manageCode" class="title">도서관</label></dt>
 						<dd>
-							<div class="box">
-								<form:input path="search_start_date" title="시작년도" numberOnly="true" maxlength="4" />
-								<span style="width:6%;text-align:center;">~</span>
-								<form:input path="search_end_date" title="마지막년도" numberOnly="true" maxlength="4" />
-							</div>
+							<form:select path="manageCode">
+								<form:option value="ALL">전체 도서관</form:option>
+								<form:option value="${homepage.manage_code}">${homepage.homepage_name}</form:option>
+							</form:select>
 						</dd>
 					</dl>
+-->
 
 					<dl>
 						<dt>자료형태</dt>
@@ -209,10 +266,11 @@ $(function() {
 						</dd>
 					</dl>
 
+					<div class="end"></div>
 				</div>
 				<p class="btn_w">
-					<a id="search-btn" class="btnNew btn-warning btn-xs mT1">검색</a>
-					<a id="vk-popup" class="btnNew2">다국어입력기</a>
+					<a id="search-btn" class="btnNew4">검색하기</a>
+					<a id="reset-btn" class="btnNew2">검색초기화</a>
 				</p>
 			</div>
 			<!--// 검색하기_일반 -->
@@ -236,20 +294,21 @@ $(function() {
 		<div id="search_result" class="search_result">
 
 			<div class="search-info" >
-				검색결과 총 <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/></b>건이 검색되었습니다.
+				※ 검색결과 총 <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/></b>건이 검색되었습니다.
 			</div>
 
-			<div>
-				<select id="subSearchType">
+			<div class="research-box">
+				<select id="subSearchType" class="text-area01">
 					<option value="title">서명</option>
 					<option value="author">저자</option>
 					<option value="publer">발행처</option>
 					<option value="keyword">키워드</option>
 				</select>
-				<input id="subSearchText" placeholder="결과 내 재검색">
-				<a href="#" id="subSearch">결과 내 재검색</a>
+				<input id="subSearchText" placeholder="결과 내 재검색" class="text-area01" />
+				<a href="#" id="subSearch" class="btn">결과 내 재검색</a>
 			</div>
 
+			<!-- 
 			<div class="search-condition">
 
 				<div class="mode">
@@ -260,6 +319,7 @@ $(function() {
 				</div>
 
 			</div>
+			 -->
 
 			<div class="smain">
 				<div class="box">
@@ -271,18 +331,18 @@ $(function() {
 						</div>
 
 						<div class="control">
-							<form:select path="sortField">
+							<form:select path="sortField" cssClass="text-area01">
 								<form:option value="NONE">정렬없음</form:option>
 								<form:option value="TITLE">제목</form:option>
 								<form:option value="AUTHOR">저자</form:option>
 								<form:option value="PUBLISHER">발행처</form:option>
 								<form:option value="PUB_YEAR">발행년도</form:option>
 							</form:select>
-							<form:select path="sortType">
+							<form:select path="sortType" cssClass="text-area01">
 								<form:option value="ASC">오름차순</form:option>
 								<form:option value="DESC">내림차순</form:option>
 							</form:select>
-							<form:select path="rowCount">
+							<form:select path="rowCount" cssClass="text-area01">
 								<form:option value="10" label="10건"></form:option>
 								<form:option value="20" label="20건"></form:option>
 								<form:option value="30" label="30건"></form:option>
@@ -290,7 +350,7 @@ $(function() {
 								<form:option value="50" label="50건"></form:option>
 								<form:option value="100" label="100건"></form:option>
 							</form:select>
-
+							<a href="#sort" id="sort-btn" class="btn">정렬</a>
 						</div>
 					</div>
 
