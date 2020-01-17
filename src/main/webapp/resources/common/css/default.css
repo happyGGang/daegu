@@ -533,7 +533,7 @@ transform:translatez(0);
 /* 본문 */
 .doc-head{overflow:hidden;border-bottom: 1px dashed #ccc;margin-bottom:30px;}
 .doc-title {position:relative;padding: 10px 0 15px 0;}
-.doc-title h3{display:inline-block;zoom:1;*display:inline;word-break:break-all;font-size:33px; color:#0a3575; letter-spacing:-1px;font-weight:bold;}
+.doc-title h3{display:inline-block;zoom:1;*display:inline;word-break:break-all;font-size:30px; color:#222; letter-spacing:-1px;font-weight:bold;}
 /*
 .doc-info{padding:0;overflow:hidden;border-bottom:1px solid #ebebeb}
 .doc-info li{display:inline-block;zoom:1;*display:inline;vertical-align:middle}
@@ -2180,3 +2180,6 @@ table td.leftblank { padding-left: 18px; }
 .expiry_box .expiry_t2 .f_r {color: #fd4b4b;}
 
 .end {clear:both;}
+
+
+

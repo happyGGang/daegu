@@ -616,12 +616,37 @@ $(function(){
 		}
 	});
 
+	if ($('div.popupzone ul').length > 0) {
+		$('div.popupzone ul').bxSlider({
+			mode:'fade',
+			auto:true,
+			controls:true,
+			autoHover:true
+		});
+	}
+
 	$('div.roomGuide div.popupzone ul').each(function(){
 		if($(this).children().length < 2){
 			$(this).parent().parent().find('div.bx-pager-item').hide();
 		}
 	});
-	
+
+
+	if ($('div.popupzone01 ul').length > 0) {
+		$('div.popupzone01 ul').bxSlider({
+			mode:'fade',
+			auto:true,
+			controls:true,
+			autoHover:true
+		});
+	}
+
+	$('div.roomGuide01 div.popupzone01 ul').each(function(){
+		if($(this).children().length < 2){
+			$(this).parent().parent().find('div.bx-pager-item').hide();
+		}
+	});
+
 	/*
 	var elibSiteLink = $('div.elib_top a.elibSite.type1');
 	if (elibSiteLink.length > 0) {

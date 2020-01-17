@@ -65,7 +65,7 @@ label.hidden {display:none;}
 .search-form .detail_search .section dl dd label.title {position:absolute;top:8px;left:10px;color:#666;cursor:text;}
 .search-form .detail_search .section dl dd input.text-area{display:block;width:96%;height:38px;line-height:38px;padding:0 2%;color:#333;font-size:18px;border:1px solid #bfbfbf;cursor:text;}
 .search-form .detail_search .section dl dd input.text-area2{display:block;height:38px;line-height:38px;padding:0 2%;color:#333;font-size:18px;border:1px solid #bfbfbf;cursor:text;}
-.search-form .detail_search .section dl dd select {-webkit-appearance: none; /* 네이티브 외형 감추기 */-moz-appearance:none;appearance none;height:40px;line-height:40px;font-size:18px;border:1px solid #bfbfbf;padding-left:10px;box-sizing:border-box;background:url('/resources/common/img/arrow_b.png') no-repeat 97% center;}
+.search-form .detail_search .section dl dd select {-webkit-appearance: none; /* 네이티브 외형 감추기 */-moz-appearance:none;appearance none;height:40px;line-height:40px;font-size:15px;border:1px solid #bfbfbf;padding-left:10px;box-sizing:border-box;background:url('/resources/common/img/arrow_b.png') no-repeat 97% center;}
 .search-form .detail_search .section dl dd select::-ms-expand {display:none;}
 .search-form .detail_search .section .box{position:relative;width:100%;display:inline-block;}
 .search-form .detail_search .section .box input,
