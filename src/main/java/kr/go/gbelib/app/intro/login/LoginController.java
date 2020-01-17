@@ -83,7 +83,7 @@ public class LoginController extends BaseController {
 			member = (Member) result;
 			member.setLogin(true);
 			service.setSessionMember(member, request);
-
+			service.redirectUrl(returnUrl, request, response);
 			return null;
 		} else {
 			member.setHomepage_id(homepage.getHomepage_id());
