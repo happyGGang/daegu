@@ -11,15 +11,15 @@ $(document).ready(function() {
 		$('input#survey_idx').val($(this).attr('keyValue'));
 		$('input#popup_yn').val($(this).attr('keyValue2'));
 		$('input#open_yn').val($(this).attr('keyValue3'));
-		$('input#survey_open_yn').val($(this).attr('keyValue4'));		
+		$('input#survey_open_yn').val($(this).attr('keyValue4'));
 
 		if($('input#popup_yn').val() == 'Y') {
 			window.open('/${homepage.context_path}/module/survey/edit.do?open_yn='+$(this).attr('keyValue3')+'&survey_idx='+$(this).attr('keyValue')+'&survey_open_yn='+$(this).attr('keyValue4')+'&homepage_id='+$('#homepage_id').val()+'&popup_yn='+$('input#popup_yn').val(), "설문지보기", "width=820, height=800, toolbar=no, menubar=no, scrollbars=yes");
 		} else {
-			doGetLoad('edit.do', $form.serialize());	
+			doGetLoad('edit.do', $form.serialize());
 		}
 	});
-	
+
 	$('select#rowCount').on('change', function() {
 		doGetLoad('index.do', $form.serialize());
 	});
@@ -89,8 +89,6 @@ $(document).ready(function() {
 		</c:if>
 	</div>
 
-	<jsp:include page="/WEB-INF/views/app/board/common/index/button.jsp" flush="false" />
-	
 	<form:hidden path="viewPage"/>
 	<div id="board_paging" class="dataTables_paginate">
 	<c:if test="${paging.firstPageNum > 0}">
@@ -98,11 +96,11 @@ $(document).ready(function() {
 	</c:if>
 	<c:if test="${paging.prevPageNum > 0}">
 		<a href="" class="paginate_button previous" keyValue="${paging.prevPageNum}">이전</a>
-	</c:if>	
+	</c:if>
 		<span>
 	<c:forEach var="i" varStatus="status" begin="${paging.startPageNum}" end="${paging.endPageNum}">
 	<c:choose>
-	<c:when test="${i eq paging.viewPage}">	
+	<c:when test="${i eq paging.viewPage}">
 		<a href="" class="paginate_button current" keyValue="${i}">${i}</a>
 	</c:when>
 	<c:otherwise>
@@ -118,7 +116,7 @@ $(document).ready(function() {
 	</c:if>
 		</span>
 	</div>
-	
+
 	<div class="search txt-center mmm2" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 		<fieldset>
 			<label for="search_type" class="blind">검색</label>
@@ -138,14 +136,14 @@ $(document).ready(function() {
 			doGetLoad('index.do', param);
 			e.preventDefault();
 		});
-		
+
 		$('button.btnSearch').on('click', function(e) {
 			e.preventDefault();
 			$('#viewPage').attr('value', '1');
 			var param = serializeCustom($('form#survey'));
 			doGetLoad('index.do', param);
 		});
-		
+
 		$('input#search_text').keyup(function(e) {
 			e.preventDefault();
 			if(e.keyCode == 13) {

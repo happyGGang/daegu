@@ -47,17 +47,8 @@ public class AnswerController extends BaseController {
 	@Autowired
 	private StatisticsService statisticsService;
 
-	@Autowired
-	private RecommendSiteService recommendSiteService;
-
 	private String basePath = null;
 	private Homepage homepage = null;
-
-	@ModelAttribute("recommendSiteList")
-	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		return recommendSiteService.getRecommendSiteListAll(new RecommendSite(homepage.getHomepage_id()));
-	}
 
 	private void attributeInit(HttpServletRequest request, Model model) {
 		homepage = (Homepage)request.getAttribute("homepage");
