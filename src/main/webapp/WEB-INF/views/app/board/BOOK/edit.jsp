@@ -163,7 +163,7 @@ function isEditorOn() {
 	}
 }
 
-function getIlusData(arg) {
+function getLasData(arg) {
 	arg = arg.split('///');
 	//${i.TITLE}//${i.PUBLER_YEAR}//${i.AUTHOR}//${i.PUBLER}//${i.ISBN}//${i.CALL_NO}//${i.i.COVER_SMALLURL}//${i.CTRLNO}//${i.PLACE_NAME}
 	$('input#title').val(arg[0]);
@@ -173,8 +173,7 @@ function getIlusData(arg) {
 	$('input#imsi_v_5').val(arg[4]);
 	$('input#imsi_v_7').val(arg[5]);
 	$('input#preview_img').val(arg[6]);
-	$('input#imsi_v_8').val(arg[7]);
-	$('input#imsi_v_6').val(arg[8]);
+	$('input#imsi_v_6').val(arg[7]);
 	return false;
 }
 
