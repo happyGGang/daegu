@@ -8,20 +8,6 @@ $(function() {
 	
 	var $form = $('form#pictureBook');
 	
-// 	$('#dialog-add').on('click', function(e) {
-// 		e.preventDefault();
-// 		$('#dialog-1').load('edit.do?editMode=ADD&pay_yn='+$('#pay_yn').val(), function( response, status, xhr ) {
-// 			$('#dialog-1').dialog('open');
-// 		});
-// 	});
-	
-// 	$('.dialog-modify').on('click', function(e) {
-// 		e.preventDefault();
-// 		$('#dialog-1').load('edit.do?editMode=MODIFY&pay_yn='+$('#pay_yn').val()+'&picture_book_idx='+$(this).attr('keyValue'), function(response, status, xhr) {
-// 			$('#dialog-1').dialog('open');
-// 		});
-// 	});
-	
 	$('.edit-btn').on('click', function(e) {
 		e.preventDefault();
 		if('${authGroup}' != '1') {

@@ -44,7 +44,9 @@ $(function() {
 		if(currMonth == j) {
 			selected = 'selected="selected"';
 		}
-		$('select#loan_month').append('<option value="'+j+'" '+selected+'>'+j+'</option>'); 
+		
+		var valueMonth = j < 10 ? '0'+j : j;
+		$('select#loan_month').append('<option value="'+valueMonth+'" '+selected+'>'+valueMonth+'</option>'); 
 	}
 	
 	$('.listChange').on('click', function(e) {
@@ -233,7 +235,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 	
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#pictureBook"/>
-		<jsp:param value="pagingUrl" name="loanList.do"/>
+		<jsp:param name="pagingUrl" value="loanList.do"/>
 	</jsp:include>
 	
 	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->

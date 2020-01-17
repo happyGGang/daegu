@@ -138,10 +138,10 @@ ul.select-month li a.loan-ing {display: block;color: #fff;background-color: #ff5
 				<li>
 					<c:choose>
 						<c:when test="${empty month.PICTURE_BOOK_LOAN_IDX}">
-						<a href="#" class="dialog-req" keyValue="${i.picture_book_idx}" keyValue2="${i.loan_year}" keyValue3="${month.LOAN_MONTH}" keyValue4="${i.picture_book_subject}">${month.LOAN_MONTH}</a>
+						<a href="#" class="dialog-req loan-ing" keyValue="${i.picture_book_idx}" keyValue2="${i.loan_year}" keyValue3="${month.LOAN_MONTH}" keyValue4="${i.picture_book_subject}">${month.LOAN_MONTH}</a>
 						</c:when>
 						<c:otherwise>
-						<a href="#" class="dialog-edit loan-ing" keyValue="${month.PICTURE_BOOK_LOAN_IDX}">${month.LOAN_MONTH}</a>
+						<a href="#" class="dialog-edit" keyValue="${month.PICTURE_BOOK_LOAN_IDX}">${month.LOAN_MONTH}</a>
 						</c:otherwise>
 					</c:choose>
 				</li>
