@@ -732,7 +732,7 @@ public class CommonAPI {
 				response.append(inputLine);
 			}
 			log.error("@@@@@@@@@@@@@@@@@@ DATA_4_LIBRARY_API : " + url + "?" + StringUtils.join(paramList, "&"));
-			log.error("@@@@@@@@@@@@@@@@@@ DATA_4_LIBRARY_API RESULT : " + response.toString());
+//			log.error("@@@@@@@@@@@@@@@@@@ DATA_4_LIBRARY_API RESULT : " + response.toString());
 			resultMap = xmlToJson(response.toString()).toMap();
 		} catch (Exception e) {
 			e.printStackTrace();
