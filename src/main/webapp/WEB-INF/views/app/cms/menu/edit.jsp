@@ -138,6 +138,14 @@ $(function() {
 		});
 	});
 
+	$('a.delete-manager-btn').on('click', function(e) {
+		e.preventDefault();
+		$('input#manager_idx').val('0');
+		$('input#manager_dept').val('');
+		$('input#manager_name').val('');
+		$('input#manager_phone').val('');
+	})
+
 	$('a#authGroup').on('click', function(e) {
 		e.preventDefault();
 		$('div#dialog_manager').load('managerView.do?homepage_id=' + $('input#homepage_id_1').val(), function( response, status, xhr ) {
@@ -433,6 +441,9 @@ $(function() {
 					<label>전화번호 : <form:input path="manager_phone" maxlength="13" size="13" cssclass="text" readonly="true"/></label>
 					<form:hidden path="manager_idx"/>
 					<a class="btn btn4 select-manager-btn">담당자선택</a>
+					<c:if test="${menu.manager_idx > 0}">
+					<a class="btn btn4 delete-manager-btn">담당자제외</a>
+					</c:if>
 					<div id="dialog_manager" class="dialog-common" title="담당자 선택"></div>
 				</td>
 			</tr>
