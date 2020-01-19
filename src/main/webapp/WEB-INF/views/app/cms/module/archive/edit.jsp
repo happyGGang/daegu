@@ -53,13 +53,40 @@ $(function() {
 	       <col width="*"/>
        	</colgroup>
        	<tbody>
+	        <tr>
+	         	<th>사용여부</th>
+				<td>
+					<form:radiobutton path="use_yn" value="Y"/> <label for="use_yn1" style="cursor:pointer;">사용함</label>&nbsp;
+					<form:radiobutton path="use_yn" value="N"/> <label for="use_yn2" style="cursor:pointer;">사용안함</label>
+				</td>
+	        </tr>
        		<tr>
-	         	<th>제목</th>
+	         	<th>서명</th>
 	         	<td><form:input path="subject" class="text" cssStyle="width:100%;"/></td>
+	        </tr>
+       		<tr>
+	         	<th>저자</th>
+	         	<td><form:input path="author" class="text" cssStyle="width:80%;"/></td>
+	        </tr>
+       		<tr>
+	         	<th>출판사</th>
+	         	<td><form:input path="publisher" class="text" cssStyle="width:80%;"/></td>
+	        </tr>
+       		<tr>
+	         	<th>발행년도</th>
+	         	<td><form:input path="year" class="text" cssStyle="width:80%;"/></td>
+	        </tr>
+       		<tr>
+	         	<th>청구기호</th>
+	         	<td><form:input path="callnumber" class="text" cssStyle="width:80%;"/></td>
 	        </tr>
        		<tr>
 	         	<th>등록번호</th>
 	         	<td><form:input path="regnumber" class="text" cssStyle="width:80%;"/></td>
+	        </tr>
+       		<tr>
+	         	<th>검색키워드</th>
+	         	<td><form:input path="keyword" class="text" cssStyle="width:80%;"/></td>
 	        </tr>
 	        <tr>
 	         	<th>원본 이미지 사이즈</th>
@@ -68,13 +95,6 @@ $(function() {
 	        <tr>
 	         	<th>축소 이미지 사이즈</th>
 	         	<td>가로: <form:input path="resize_width" class="text" cssStyle="width:50px;"/> px &nbsp;&nbsp;&nbsp;세로: <form:input path="resize_height" class="text" cssStyle="width:50px;"/> px<br><em>* 이미지 한장 사이즈입니다.</em></td>
-	        </tr>
-	        <tr>
-	         	<th>사용여부</th>
-				<td>
-					<form:radiobutton path="use_yn" value="Y"/> <label for="use_yn1" style="cursor:pointer;">사용함</label>&nbsp;
-					<form:radiobutton path="use_yn" value="N"/> <label for="use_yn2" style="cursor:pointer;">사용안함</label>
-				</td>
 	        </tr>
 		</tbody>
 	</table>

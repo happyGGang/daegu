@@ -38,7 +38,7 @@
 		<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
 		AND	${search_type} LIKE '%'||#{search_text}||'%'
 		</if>
-		ORDER BY book_idx
+		ORDER BY book_idx DESC
 		${pagingBottom}
 	</select>
 	
@@ -59,7 +59,7 @@
 		<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
 		AND	${search_type} LIKE '%'||#{search_text}||'%'
 		</if>
-		ORDER BY book_idx
+		ORDER BY book_idx DESC
 		${pagingBottom}
 	</select>
 	

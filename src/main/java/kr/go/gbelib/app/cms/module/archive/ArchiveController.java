@@ -33,10 +33,10 @@ public class ArchiveController extends  BaseController {
 		archive.setHomepage_id(getAsideHomepageId(request));
 		
 		int count = service.getArchiveBookCount(archive);
-		List<Archive> list = service.getArchiveBookListCms(archive);
-		
 		archive.setTotalDataCount(count);
 		service.setPaging(model, count, archive);
+
+		List<Archive> list = service.getArchiveBookListCms(archive);
 		
 		model.addAttribute("archive", archive);
 		model.addAttribute("count", count);

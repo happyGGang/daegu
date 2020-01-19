@@ -7,7 +7,7 @@ import kr.co.whalesoft.framework.utils.PagingUtils;
 public class Archive extends PagingUtils {
 	
 	private String homepage_id;
-	private int book_idx;
+	private long book_idx;
 	private String subject;
 	private String regnumber;
 	private String volume;
@@ -25,6 +25,7 @@ public class Archive extends PagingUtils {
 	private int orig_height;
 	private int resize_width;
 	private int resize_height;
+	private String keyword;
 	
 	private int page_idx;
 	private String page_idx_list;
@@ -45,10 +46,10 @@ public class Archive extends PagingUtils {
 	public void setHomepage_id(String homepage_id) {
 		this.homepage_id = homepage_id;
 	}
-	public int getBook_idx() {
+	public long getBook_idx() {
 		return book_idx;
 	}
-	public void setBook_idx(int book_idx) {
+	public void setBook_idx(long book_idx) {
 		this.book_idx = book_idx;
 	}
 	public String getSubject() {
@@ -224,6 +225,12 @@ public class Archive extends PagingUtils {
 	}
 	public void setPage_idx_list(String page_idx_list) {
 		this.page_idx_list = page_idx_list;
+	}
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 	@Override
 	public String toString() {
