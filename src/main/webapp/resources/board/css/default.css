@@ -5,7 +5,7 @@
 .bbs-edit .file_attach #attach_area h4{font-size:13px;padding:10px;line-height:150%}
 .fileUploader{overflow:hidden;padding:15px;background:#f7f7f7;border:1px solid #e5e5e5;border-bottom:0;
 border-radius:5px 5px 0 0;-moz-border-radius:5px 5px 0 0;-webkit-border-radius:5px 5px 0 0}
-.fileUploader a{cursor:pointer;padding:3px 8px} 
+.fileUploader a{cursor:pointer;padding:3px 8px}
 .fileUploader .preview{border:1px solid #e5e5e5;background:#fefefe;padding:5px;float:left;margin-right:10px;
 border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px}
 .fileUploader .preview span#previewFile{display:block;width:140px;height:140px;line-height:140px;text-align:center;color:#666;
@@ -54,6 +54,7 @@ border:1px solid #eee;background:#fff url('../img/patt1.gif')}
 .txt-right{text-align:right!important}
 
 .wrapper-bbs{padding:10px 0 20px;font-size:13px;background:#fff}
+.wrapper-bbs table{border-collapse: separate;}
 
 /* 테이블 상태 아이콘 */
 table.bbs td.process i,
@@ -182,7 +183,7 @@ table.bbs tbody tr:hover td{background:#f8f8f8}
 .elib_top .sub001 span{color:#e84c00;font-weight:bold}
 
 /*
-.divSelectWrap { float:right; position:relative; z-index: 10000;} 
+.divSelectWrap { float:right; position:relative; z-index: 10000;}
 .divSelectText { width:200px; background:#f05156; border:0; border-radius:3px; padding:2px 70px 4px 15px; color:#fff; position:relative;}
 .divSelectText i {position:absolute;right:10px;top:0;background:url('/resources/common/img/elib_arrow_icon.gif') no-repeat right center; width:20px; height:28px}
 .divSelectWrap ul{display:none;position:absolute;margin:0px;padding:0;width:98%;height:250px;left:1px;top:28px;text-align:left;border:1px solid #dedede;border-radius:3px;overflow:auto;overflow-x:hidden;overflow-y:auto;z-index:10000;}
@@ -492,7 +493,7 @@ a#closeSearch2 {color: #808080;font-size: 155%;float: right;margin: -19px -25px;
 	.detailSearch input {width: 70%;}
 	.detailSearch input.smalltxt {width: 56%;}
 	}
-	
+
 @media (max-width:550px) {
 	.detailSearch .searchBtn img { padding-left: 12px;}
 	.detailSearch .searchBtn { margin-left: 20%; }
