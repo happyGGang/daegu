@@ -3,6 +3,7 @@
  */
 package kr.co.whalesoft.app.cms.recommendSite;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import kr.co.whalesoft.framework.utils.PagingUtils;
@@ -11,7 +12,12 @@ import kr.co.whalesoft.framework.utils.PagingUtils;
  * @author whaleesoft YONGJU 2019. 11. 28.
  *
  */
-public class RecommendSite extends PagingUtils {
+public class RecommendSite extends PagingUtils implements Serializable {
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -4049108138785401850L;
 
 	private int recommend_site_idx; // 사이트IDX
 	private String recommend_site_name; // 사이트명

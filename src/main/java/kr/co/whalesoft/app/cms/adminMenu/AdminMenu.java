@@ -1,11 +1,17 @@
 package kr.co.whalesoft.app.cms.adminMenu;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
-public class AdminMenu extends PagingUtils {
+public class AdminMenu extends PagingUtils implements Serializable {
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -5498519563812169776L;
 
 	private int menu_idx; // 메뉴IDX
 	private int group_idx; // 메뉴그룹IDX
@@ -18,7 +24,7 @@ public class AdminMenu extends PagingUtils {
 
 	private int move_target_menu_idx; // 이동할 메뉴
 	private String menu_name; // 메뉴명
-	private String menu_desc; // 메뉴설명
+	private String menu_desc; // 메뉴설명implements Serializable
 	private String use_yn; // 메뉴사용여부
 	private String view_yn; // 메뉴표시여부
 	private String admin_access_yn = "N"; // 최고관리자전용여부
