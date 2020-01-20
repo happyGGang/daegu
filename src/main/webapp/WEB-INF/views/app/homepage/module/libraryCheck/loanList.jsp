@@ -208,7 +208,7 @@ $(function() {
 	
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#libraryCheck"/>
-		<jsp:param value="pagingUrl" name="loanList.do"/>
+		<jsp:param name="pagingUrl" value="loanList.do"/>
 	</jsp:include>
 	
 	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
