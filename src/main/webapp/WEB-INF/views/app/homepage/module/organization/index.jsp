@@ -82,9 +82,9 @@ $.fn.rowspan = function(colIdx, isStats) {
 .mid-bar {margin:60px 0px;}
 .doc-body-title h3 {font-size: 25px;padding: 20px 0;color: #333;background: none;}
 .organization_list {width:90%; margin: auto;}
-.organization_list .node .title{font-weight: bold;border-radius: 0px;font-size: 16px;height: 20px;padding: 5px 0px;margin: 0px;position: relative;background-color: #a8a8a8;top:2px;}
-.organization_list .node .title.level1 {background-color: #2e629c; color: #fff;}
-.organization_list .node .title.level2 {background-color: #ff7439; color: #fff;}
+.organization_list .node .title{font-weight: bold;border-radius: 20px; line-height: 30px;font-size: 16px;height: 30px;padding: 5px 0px;margin: 0px;position: relative;background-color: #a8a8a8;/*top:2px;*/}
+.organization_list .node .title.level1 {background-color: #30347d; color: #fff;}
+.organization_list .node .title.level2 {background-color: #ef8a22; color: #fff;}
 .organization_list .node .title.level3 {background-color: #41b903; color: #fff;}
 .organization_list .node .title.level4 {background-color: #d9b502; color: #fff;}
 .organization_list .node .title.level5 {background-color: #61b4db; color: #fff;}
@@ -144,7 +144,7 @@ $.fn.rowspan = function(colIdx, isStats) {
 			</tbody>
 		</table>
 		</c:if>
-		<br><br>
+
 		<div class="doc-body-title">
 			<h3>담당 업무</h3>
 		</div>

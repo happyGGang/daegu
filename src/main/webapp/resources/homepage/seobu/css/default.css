@@ -8,7 +8,7 @@ a:focus{color:#2b74c0}
 .tnb .util{line-height:34px;height:36px}
 .tnb a{font-size:14px;color:#fff;font-weight:normal;display:inline-block}
 .tnb a:hover,
-.tnb a:focus{color:#03539e}
+.tnb a:focus{}
 
 #header .head{position:relative;z-index:2;clear:both}
 #header h1{position:absolute;z-index:10000;top:40px;}
@@ -23,9 +23,9 @@ a:focus{color:#2b74c0}
 .Gnb .gnb-menu>li.active>ul{display:block}
 .Gnb .gnb-menu>li>.SubMenu>li{width:auto;padding:0 5px}
 .Gnb .gnb-menu>li>.SubMenu>li{display:inline-block}
-.Gnb .gnb-menu>li>.SubMenu>li>a{font-size:13px;padding:0 5px;color:#eee}
+.Gnb .gnb-menu>li>.SubMenu>li>a{font-size:14px;padding:0 5px;color:#eee}
 .Gnb .gnb-menu>li>.SubMenu>li>a:hover,
-.Gnb .gnb-menu>li>.SubMenu>li>a:focus{background:none;color:#fedc0a}
+.Gnb .gnb-menu>li>.SubMenu>li>a:focus{background:none;color: #eecd00;}
 .Gnb .gnb-menu>li.on>a,
 .Gnb .gnb-menu>li>a:hover,
 .Gnb .gnb-menu>li>a:focus{color:#03539e}
@@ -39,7 +39,7 @@ a:focus{color:#2b74c0}
 .main .bx-controls.mainImg .bx-pager{display:block}
 
 .Gnb .mask,
-.Gnb .gnb-menu>li>ul{background:#2654a5}
+.Gnb .gnb-menu>li>ul{background: #5481cd;}
 .Gnb .gnb-menu>li.on>a,
 .Gnb .gnb-menu>li>a:hover,
 .Gnb .gnb-menu>li>a:focus{color:#0027d4}

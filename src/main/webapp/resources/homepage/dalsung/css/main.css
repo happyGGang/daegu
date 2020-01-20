@@ -115,7 +115,7 @@
 .main2 .main2box3 .notice div.title h2 {display:block;font-size:17px;color:#000;font-weight:bold;padding:0 38px;box-sizing:border-box;height:45px;line-height:45px;letter-spacing:-1px;border-bottom:3px solid #ffaf24;}
 .main2 .main2box3 .notice div.title a {font-size:0;line-height:0;background:url('/resources/homepage/dalsung/img/more_btbt.png') no-repeat 0 0;}
 .main2 .main2box3 .notice div.cont {box-sizing:border-box;padding:0 3%;}
-.main2 .main2box3 .notice ul.list li {position:relative;overflow:hidden;background:url('/resources/common/img/arr-news.gif') no-repeat 2% center;padding:5px 75px 3px 20px;}
+.main2 .main2box3 .notice ul.list li {position:relative;overflow:hidden;background:url('/resources/common/img/arr-news.gif') no-repeat 2% center;padding: 2px 75px 3px 20px;}
 .main2 .main2box3 .notice ul.list li:nth-child(2) {margin-top:13px;}
 .main2 .main2box3 .notice ul.list li a {font-size:14px;font-weight:normal;color:#000;box-sizing:border-box;}
 .main2 .main2box3 .notice ul.list li a em {display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;font-style:normal;vertical-align:middle;}
@@ -209,9 +209,9 @@
 
 .main2 .main2box4 .library-infomation {position:relative;width:86%;margin:0 auto;background:#fff;border-radius:10px;padding:10px;box-sizing:border-box;}
 .main2 .main2box4 .library-infomation table {border-collapse:collapse;border:0;}
-.main2 .main2box4 .library-infomation table tbody td {padding:0;margin:0;border:0;font-weight:bold;box-sizing:border-box;padding-left:10px;}
-.main2 .main2box4 .library-infomation table tbody td.tit {color:#ffa200;vertical-align:top;}
-.main2 .main2box4 .library-infomation table tbody td.cont {color:#2f2a52;}
+.main2 .main2box4 .library-infomation table tbody td {padding:0;margin:0;border:0;font-weight:bold;box-sizing:border-box;padding: 0 5px 0 5px;}
+.main2 .main2box4 .library-infomation table tbody td.tit {color:#ffa200;vertical-align:top;font-size: 14px;}
+.main2 .main2box4 .library-infomation table tbody td.cont {color:#2f2a52;font-size: 14px;}
 .qmobileBr {display:none;}
 
 

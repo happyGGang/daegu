@@ -112,15 +112,15 @@
 #calendar .inBox0 .week-box li a {display:block;color:#fff;font-size:15px;height:25px;line-height:25px;border-radius:15px;}
 #calendar .inBox0 .week-box li a.today {background:#fff;;color:#fb8535;}
 
-#calendar .inBox0 .event-box {position:relative;width:90%;margin:0 auto;padding:10px 0;border-bottom:1px solid #fff;}
+#calendar .inBox0 .event-box {position:relative;width:90%;margin:0 auto;padding: 10px 0 25px 0;border-bottom:1px solid #fff;}
 #calendar .inBox0 .event-box span {display:inline-block;}
 #calendar .inBox0 .event-box span:first-child {position:absolute;width:45px;}
 #calendar .inBox0 .event-box span:last-child  {padding-left:55px;}
-#calendar .inBox0 .event-box span h3 {color:#000;font-size:14px;font-weight:bold;}
+#calendar .inBox0 .event-box span h3 {color:#000;/* font-size:14px; */font-weight:bold;}
 #calendar .inBox0 .event-box li {display:block;width:75%;color:#000;font-size:14px;background:url('/resources/common/img/arr-news.gif') no-repeat left center;padding-left:7px;box-sizing:border-box;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
 
-#calendar .inBox1 {position:relative;width:100%;padding:10px 0 5px 0;text-align:left;color:#000;}
-#calendar .inBox1 .title {float:left;position:relative;font-size:20px;padding:3px 18px 0 5px;}
+#calendar .inBox1 {position:relative;width:100%;padding: 10px 0 5px 0;text-align:left;color:#000;}
+#calendar .inBox1 .title {float:left;position:relative;font-size:20px;padding: 0px 18px 7px 5px;}
 #calendar .inBox1 .bt-controls {float:left;width:175px;text-align:center;position:relative;}
 #calendar .inBox1 .bt-controls b {font-size:20px;font-family:'Verdana';font-weight:bold;line-height:150%;padding:0;}
 #calendar .inBox1 .info dd {float:left;position:relative;font-weight:bold;text-align:center;}
@@ -167,7 +167,7 @@
 .main2 .main2box3 .notice div.title a {}
 
 .main2 .main2box3 .notice div.cont {box-sizing:border-box;padding:0 3%;}
-.main2 .main2box3 .notice ul.list li {position:relative;overflow:hidden;background:url('/resources/common/img/arr-news.gif') no-repeat 2% center;padding:5px 75px 3px 20px;}
+.main2 .main2box3 .notice ul.list li {position:relative;overflow:hidden;background:url('/resources/common/img/arr-news.gif') no-repeat 2% center;padding: 2px 75px 3px 20px;}
 .main2 .main2box3 .notice ul.list li:nth-child(2) {margin-top:13px;}
 .main2 .main2box3 .notice ul.list li a {font-size:14px;font-weight:normal;color:#000;box-sizing:border-box;}
 .main2 .main2box3 .notice ul.list li a em {display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;font-style:normal;vertical-align:middle;}
@@ -192,13 +192,13 @@
 .main2 .main2box4 .movie .movieContent .bx-controls {position:absolute;left:0;z-index:150000000;margin-top:3px;}
 .main2 .main2box4 .movie .movieContent ul {overflow:hidden;width:250px;margin:0 auto;}
 .main2 .main2box4 .movie .movieContent ul li div {float:left;background:#000;color:#fff;padding:5px 10px;font-size:12px;}
-.main2 .main2box4 .movie .movieContent ul li span   {display:block;font-size:15px;color:#000;padding:0 0 2px 0 }
-.main2 .main2box4 .movie .movieContent ul li strong { clear:both;display:block;font-size:15px;color:#000;padding:10px 0 }
+.main2 .main2box4 .movie .movieContent ul li span   {display:block;font-size: 14px;color:#000;padding:0 0 2px 0;}
+.main2 .main2box4 .movie .movieContent ul li strong {clear:both;display:block;font-size: 14px;color:#000;padding: 5px 0;}
 .main2 .main2box4 .movie .movieContent .movieImg {float:left;position:relative;width:135px;margin-right:10px;}
 .main2 .main2box4 .movie .movieContent .movieImg img {width:100%;height:190px;}
 .main2 .main2box4 .movie .movieContent .movieEx {float:left;width:42%;}
 .main2 .main2box4 .movie .bx-controls {text-align:center;width:100%;}
-.main2 .main2box4 .movie .bx-pager {display:block;margin:0 auto;height:12px;padding:6px 0 0 0;text-align:center;}
+.main2 .main2box4 .movie .bx-pager {display:block;margin:0 auto;height:12px;padding:0 0 0 0;text-align:center;}
 .main2 .main2box4 .movie .bx-pager .bx-pager-item {display:inline-block;zoom:1;*display:inline;font-size:0;line-height:0;margin-left:3px;}
 .main2 .main2box4 .movie .bx-pager a {display:inline-block;font-size:0;overflow:hidden;padding:12px 0 0 12px;background:#c7c7c7;border-radius:15px;}
 .main2 .main2box4 .movie .bx-pager a.active{background:rgba(0,0,0,0.95)}
