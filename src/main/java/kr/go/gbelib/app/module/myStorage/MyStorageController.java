@@ -245,10 +245,7 @@ public class MyStorageController extends BaseController {
 	@RequestMapping(value = { "/goMyStorage.*" }, method = RequestMethod.GET)
 	public String index(Model model, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		int menuIdx = homepageService.getMenuIdxByProgramIdx(homepage.getHomepage_id(), 24);
-		if(homepage.getHomepage_id().equals("h28")) {
-			menuIdx = 219;
-		}
+		int menuIdx = homepageService.getMenuIdxByProgramIdx(homepage.getHomepage_id(), 94);
 		return String.format("redirect:/%s/module/myStorage/index.do?menu_idx=%s", homepage.getContext_path(), menuIdx);
 	}
 }
