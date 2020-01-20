@@ -129,7 +129,7 @@
 
 		<div id="fbContents2">
 			<ul>
-				<li><input type="text" size="10" title="검색어를 입력하세요" id="p_keyword" name="search_text"  value="" style="height:14px;font-size:11px;"></li>
+				<li><input type="text" size="10" title="검색어를 입력하세요" id="p_keyword" name="search_text"  value="${archive.keyword}" style="height:14px;font-size:11px;"></li>
 				<li style="padding-left:3px;"><input type="image" src="/resources/archive/skin1/img/btnSearch.gif" alt="검색" /></li>
 				<li style="padding-left:4px;"><a href="#total" onclick="ebook_go1('index.do?book_idx=${archive.book_idx}');"><img src="/resources/archive/skin1/img/btnTotalview.gif" alt="전체보기" /></a></li>
 				<li style="padding-left:5px;"><img src="/resources/archive/skin1/img/btnDiv2.gif" width="7" height="22" border="0" class="div" alt="" /></li>

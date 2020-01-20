@@ -26,6 +26,7 @@ public class Archive extends PagingUtils {
 	private int resize_width;
 	private int resize_height;
 	private String keyword;
+	private String category;
 	
 	private int page_idx;
 	private String page_idx_list;
@@ -231,6 +232,12 @@ public class Archive extends PagingUtils {
 	}
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	@Override
 	public String toString() {

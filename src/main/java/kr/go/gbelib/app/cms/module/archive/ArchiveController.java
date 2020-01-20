@@ -54,6 +54,7 @@ public class ArchiveController extends  BaseController {
 		}
 		
 		model.addAttribute("archive", archive);
+		model.addAttribute("homepage_id", getAsideHomepageId(request));
 		
 		return basePath + "edit_ajax";
 	}

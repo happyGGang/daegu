@@ -60,6 +60,33 @@ $(function() {
 					<form:radiobutton path="use_yn" value="N"/> <label for="use_yn2" style="cursor:pointer;">사용안함</label>
 				</td>
 	        </tr>
+	        <c:choose>
+	        <c:when test="${homepage_id eq 'h10'}">
+	        <tr>
+	         	<th>카테고리</th>
+				<td>
+					<form:select path="category" cssClass="selectmenu">
+						<form:option value="1">리플렛(ebook)</form:option>
+						<form:option value="2">원문DB(ebook2)</form:option>
+					</form:select>
+				</td>
+	        </tr>
+	        </c:when>
+	        <c:when test="${homepage_id eq 'h32'}">
+	        <tr>
+	         	<th>카테고리</th>
+				<td>
+					<form:select path="category" cssClass="selectmenu">
+						<form:option value="1">도서관보</form:option>
+						<form:option value="2">도서관80년사</form:option>
+						<form:option value="3">중앙도서관100년사</form:option>
+						<form:option value="4">ebook2 자료</form:option>
+						<form:option value="99">기타</form:option>
+					</form:select>
+				</td>
+	        </tr>
+	        </c:when>
+	        </c:choose>
        		<tr>
 	         	<th>서명</th>
 	         	<td><form:input path="subject" class="text" cssStyle="width:100%;"/></td>
