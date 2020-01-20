@@ -129,7 +129,7 @@ public class LockerController extends BaseController {
 			return null;
 	    }
 
-		if ( blackListService.checkBlackList(new BlackList(homepage.getHomepage_id(), getSessionUserSeqNo(request)), "20")) {
+		if ( blackListService.checkBlackList(new BlackList(homepage.getHomepage_id(), getSessionMemberId(request)), "20")) {
 			service.alertMessage("신청이 불가능합니다.\\n도서관에 문의해주세요.", request, response);
 			return null;
 		}
@@ -143,7 +143,7 @@ public class LockerController extends BaseController {
 			model.addAttribute("locker", service.copyObjectPaging(lockerReq, lockerReqService.getLockerReqOne(lockerReq)));
 		} else {
 			lockerReq.setReq_name(member.getMember_name());
-			lockerReq.setApply_id(getSessionWebId(request));
+			lockerReq.setApply_id(getSessionMemberId(request));
 			lockerReq.setCell_phone1(member.getCell_phone1());
 			lockerReq.setCell_phone2(member.getCell_phone2());
 			lockerReq.setCell_phone3(member.getCell_phone3());
@@ -183,7 +183,7 @@ public class LockerController extends BaseController {
 
 		if(!result.hasErrors()) {
 
-			lockerReq.setApply_id(getSessionWebId(request));
+			lockerReq.setApply_id(getSessionMemberId(request));
 			lockerReq.setMember_key(getSessionMemberInfo(request).getSeq_no());
 
 			if(editMode.equals("ADD")) {
@@ -203,7 +203,7 @@ public class LockerController extends BaseController {
 						return res;
 					}
 				}
-				lockerReq.setAdd_id(getSessionWebId(request));
+				lockerReq.setAdd_id(getSessionMemberId(request));
 				lockerReqService.addLockerReq(lockerReq,"HOMEPAGE");
 				res.setValid(true);
 				res.setMessage("신청 되었습니다.");
@@ -212,7 +212,7 @@ public class LockerController extends BaseController {
 					PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, lockerReq.getCell_phone(), "사물함 배정이 완료 되었습니다.", homepage.getHomepage_send_tell(), true);
 				}
 			}	else if(editMode.equals("MODIFY")) {
-				lockerReq.setMod_id(getSessionWebId(request));
+				lockerReq.setMod_id(getSessionMemberId(request));
 				lockerReqService.modifyLocekrReq(lockerReq);
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");
@@ -238,7 +238,7 @@ public class LockerController extends BaseController {
 
 		if(!result.hasErrors()) {
 			lockerReq.setHomepage_id(homepage.getHomepage_id());
-			lockerReq.setMember_key(getSessionUserSeqNo(request));
+			lockerReq.setMember_key(getSessionMemberId(request));
 //			if(lockerReqService.getBlackListCheck(lockerReq) > 0) {
 //				res.setValid(false);
 //				res.setMessage("신청이 불가능 합니다.\n관리자에게 문의바랍니다..");

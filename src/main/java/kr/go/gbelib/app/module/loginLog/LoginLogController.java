@@ -37,7 +37,7 @@ public class LoginLogController extends BaseController {
 			return null;
 	    }
 //		setDefaultSearchYear(loginLog);
-//		loginLog.setMember_seq_no(getSessionUserSeqNo(request));
+//		loginLog.setMember_seq_no(getSessionMemberId(request));
 		loginLog.setLogin_type("HOMEPAGE");
 		loginLog.setMember_id(getSessionMemberId(request));
 		

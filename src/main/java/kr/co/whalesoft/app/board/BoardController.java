@@ -594,9 +594,9 @@ public class BoardController extends BaseController {
     			} else {
 
     				String boardAddId = boardData.getAdd_id();
-    				String webId = getSessionWebId(request);
-    				String userId = getSessionUserId(request);
-    				String seqNo = getSessionUserSeqNo(request);
+    				String webId = getSessionMemberId(request);
+    				String userId = getSessionMemberId(request);
+    				String seqNo = getSessionMemberId(request);
     				String sessionMemberId = getSessionMemberId(request);
 
     				if (boardData.getGroup_depth() > 0) {

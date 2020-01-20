@@ -36,7 +36,7 @@ public class AccessHistoryController extends BaseController {
 			return null;
 	    }
 		setDefaultSearchYear(accessHistory);
-		accessHistory.setMember_seq_no(getSessionUserSeqNo(request));
+		accessHistory.setMember_seq_no(getSessionMemberId(request));
 		service.setPaging(model, service.getAccessHistoryCount(accessHistory), accessHistory);
 		model.addAttribute("accessHistoryList", service.getAccessHistoryList(accessHistory));
 		model.addAttribute("accessHistory", accessHistory);

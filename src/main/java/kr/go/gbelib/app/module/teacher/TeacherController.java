@@ -79,7 +79,7 @@ public class TeacherController extends BaseController {
 
 		if ( teacher.getEditMode().equals("MODIFY") ) {
 			Teacher getTeacher =  service.getTeacherOne(teacher);
-			if ( getSessionUserSeqNo(request).equals(getTeacher.getMember_key()) ) {
+			if ( getSessionMemberId(request).equals(getTeacher.getMember_key()) ) {
 				model.addAttribute("teacher", service.copyObjectPaging(teacher, getTeacher));
 			}
 			else {

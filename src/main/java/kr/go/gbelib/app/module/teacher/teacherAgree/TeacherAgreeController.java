@@ -56,7 +56,7 @@ public class TeacherAgreeController extends BaseController {
 
 		Menu menuOne = (Menu) request.getAttribute("menuOne");
 		model.addAttribute("termsList", termsService.getTermsListInModule(new Terms(menuOne.getManage_idx())));
-		teacher.setMember_key(getSessionUserSeqNo(request));
+		teacher.setMember_key(getSessionMemberId(request));
 		teacher.setHomepage_id(homepage.getHomepage_id());
 		teacher.setMenu_idx(homepage.getMenu_idx());
 		model.addAttribute("teacherAgree", teacher);
@@ -80,7 +80,7 @@ public class TeacherAgreeController extends BaseController {
 
 		if ( teacher.getEditMode().equals("MODIFY") ) {
 			Teacher getTeacher =  service.getTeacherOne(teacher);
-			if ( getSessionUserSeqNo(request).equals(getTeacher.getMember_key()) ) {
+			if ( getSessionMemberId(request).equals(getTeacher.getMember_key()) ) {
 				model.addAttribute("teacher", service.copyObjectPaging(teacher, getTeacher));
 			}
 			else {
@@ -104,7 +104,7 @@ public class TeacherAgreeController extends BaseController {
 		teacher.setHomepage_id(homepage.getHomepage_id());
 
 		if (!result.hasErrors()) {
-			teacher.setMember_key(getSessionUserSeqNo(request));
+			teacher.setMember_key(getSessionMemberId(request));
 			if(teacher.getEditMode().equals("ADD")) {
 				service.addTeacherAgree(teacher);
 				res.setValid(true);

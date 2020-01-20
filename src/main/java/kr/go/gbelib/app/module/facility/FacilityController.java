@@ -110,7 +110,7 @@ public class FacilityController extends BaseController {
 //			return null;
 //	    }
 
-//		if ( blackListService.checkBlackList(new BlackList(homepage.getHomepage_id(), getSessionUserSeqNo(request)), "30")) {
+//		if ( blackListService.checkBlackList(new BlackList(homepage.getHomepage_id(), getSessionMemberId(request)), "30")) {
 //			service.alertMessage("신청이 불가능합니다.\\n도서관에 문의해주세요.", request, response);
 //			return null;
 //		}

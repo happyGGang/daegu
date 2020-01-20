@@ -108,7 +108,7 @@ public class MyDashBoardController extends BaseController{
 		Teach teach = new Teach();
 		teach.setHomepage_id(homepage.getHomepage_id());
 		if (isLogin(request)) {
-			teach.setMember_key(getSessionUserSeqNo(request));
+			teach.setMember_key(getSessionMemberId(request));
 		}
 		teach.setSearchStatus("Y");
 		teach.setStatus("noCancel");
@@ -134,7 +134,7 @@ public class MyDashBoardController extends BaseController{
 		//보관함 갯수
 		MyItem myItem = new MyItem();
 		myItem.setHomepage_id(homepage.getHomepage_id());
-		myItem.setMember_key(getSessionUserSeqNo(request));
+		myItem.setMember_key(getSessionMemberId(request));
 		int myItemCount = myItemService.getMyItemCount(myItem);
 		myDashBoard.setMyItemCount(myItemCount);
 

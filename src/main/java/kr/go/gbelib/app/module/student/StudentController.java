@@ -111,7 +111,7 @@ public class StudentController extends BaseController {
 		}
 
 		//블랙리스트 체크
-//		if ( blackListService.checkBlackList(new BlackList(student.getHomepage_id(), getSessionUserSeqNo(request)), "10")) {
+//		if ( blackListService.checkBlackList(new BlackList(student.getHomepage_id(), getSessionMemberId(request)), "10")) {
 //			service.alertMessage("신청이 불가능합니다.\\n도서관에 문의해주세요.", request, response);
 //			return null;
 //		}
@@ -258,7 +258,7 @@ public class StudentController extends BaseController {
 					res.setMessage((String) addResult[1]);
 				}
 			} else if (student.getEditMode().equals("CANCEL")) {
-				student.setMember_key(getSessionUserSeqNo(request));
+				student.setMember_key(getSessionMemberId(request));
 				service.cancelStudent(student);
 
 				res.setValid(true);

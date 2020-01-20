@@ -87,7 +87,7 @@ public class TeachController extends BaseController{
 
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 		if ( isLogin(request) && getSessionMemberLoginType(request).equals("HOMEPAGE") ) {
-			teach.setMember_key(getSessionUserSeqNo(request));
+			teach.setMember_key(getSessionMemberId(request));
 		}
 
 		if ( homepage.getHomepage_id().equals("h32") ) {
@@ -270,7 +270,7 @@ public class TeachController extends BaseController{
 		}
 
 		teach.setHomepage_id(homepage.getHomepage_id());
-		teach.setMember_key(getSessionUserSeqNo(request));
+		teach.setMember_key(getSessionMemberId(request));
 
 		model.addAttribute("teachList", teachService.getApplyList(teach));
 

@@ -52,7 +52,7 @@ public class BookReviewController extends BaseController {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 //		Map<String, Object> loanList = LibSearchAPI.getMyLibraryList("WEB", getSessionUserId(request), "LOAN", null);
-		
+
 		String bookReviewFlag = "F"; // FAIL
 //		if(loanList != null) {
 //			@SuppressWarnings("unchecked")
@@ -193,7 +193,7 @@ public class BookReviewController extends BaseController {
 	@RequestMapping(value = {"/history.*"}, method = RequestMethod.GET)
 	public String history(Model model, BookReview bookReview, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		bookReview.setBook_review_loan_id(getSessionUserId(request));
+		bookReview.setBook_review_loan_id(getSessionMemberId(request));
 
 		int bookReviewAllCnt = service.getbookReviewAllCnt(bookReview);
 		service.setPaging(model, bookReviewAllCnt, bookReview);
@@ -226,7 +226,7 @@ public class BookReviewController extends BaseController {
 
 	@RequestMapping(value = { "/excelDownload.*" }, method = RequestMethod.POST)
 	public BookReviewView excel(Model model, BookReview bookReview, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		bookReview.setBook_review_loan_id(getSessionUserId(request));
+		bookReview.setBook_review_loan_id(getSessionMemberId(request));
 		List<BookReview> bookReviewAll = service.getBookReviewXlsAndCsv(bookReview);
 
 		for(BookReview one : bookReviewAll) {
@@ -253,7 +253,7 @@ public class BookReviewController extends BaseController {
 
 	@RequestMapping(value = {"/csvDownload.*"}, method = RequestMethod.POST)
 	public void csv(BookReview bookReview, HttpServletRequest request, HttpServletResponse response) throws Exception{
-		bookReview.setBook_review_loan_id(getSessionUserId(request));
+		bookReview.setBook_review_loan_id(getSessionMemberId(request));
 		List<BookReview> bookReviewAll = service.getBookReviewXlsAndCsv(bookReview);
 
 		for(BookReview one : bookReviewAll) {

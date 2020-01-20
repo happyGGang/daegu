@@ -58,24 +58,12 @@ public abstract class BaseController {
 		return loginServiceBase.getSessionMember(request).getMember_id();
 	}
 
-	public String getSessionUserId(HttpServletRequest request) {
-		return loginServiceBase.getSessionMember(request).getUser_id();
-	}
-
-	public String getSessionWebId(HttpServletRequest request) {
-		return loginServiceBase.getSessionMember(request).getWeb_id();
-	}
-
 //	public String getSessionHomepageId(HttpServletRequest request) {
 //		return loginServiceBase.getSessionMember(request).getHomepage_id();
 //	}
 
 	public Homepage getSessionHomepageInfo(HttpServletRequest request) {
 		return homepageService.getHomepageOne(new Homepage(getAsideHomepageId(request)));
-	}
-
-	public String getSessionUserSeqNo(HttpServletRequest request) {
-		return loginServiceBase.getSessionMember(request).getSeq_no();
 	}
 
 	public boolean getSessionIsAdmin(HttpServletRequest request) {
