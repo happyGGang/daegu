@@ -8,7 +8,6 @@
 <link rel="stylesheet" type="text/css" href="/resources/common/css/default.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/login.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/board/css/default.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/homepage/ad/css/default.css"/>
 <link rel="stylesheet" href="${getContextPath}/resources/cms/jqTree/css/jqtree.css">
 <script type="text/javascript" src="/resources/common/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="/resources/common/js/default.js"></script>
@@ -69,54 +68,54 @@ function treeOnLoad() {
 	                source[0] = items[id];
 	            }
 	        }
-			
+
 			var $tree = $('#tree1').unbind().tree({
-				data : source , 
+				data : source ,
 				autoOpen: true,
 				dragAndDrop: true,
 				onCreateLi: function(node, $li) {
 					// Append a link to the jqtree-element div.
 					// The link has an url '#node-[id]' and a data property 'node-id'.
 					if(node.id != 0) {
-						var menuTreeHTML = ''; 
+						var menuTreeHTML = '';
 						/* menuTreeHTML += '<a href="#node-'+node.id+'" class="menu_edit" data-node-id="'+node.id +'" style="position: absolute; top:4px; *top:1px;  padding-left:5px; "><img width="42" height="13" src="/resources/cms/jqTree/img/btn_menuEdit.png" alt="메뉴수정하기" /></a>';
 						menuTreeHTML += '<a href="#node-'+node.id+'" class="content_edit" data-node-id="'+node.id +'" style="position: absolute; top:4px; *top:1px;  margin-left:50px; "><img width="50" height="13" src="/resources/cms/jqTree/img/btn_contentEdit.png" alt="콘텐츠수정하기" /></a>'; */
 						$li.find('.jqtree-element').append(menuTreeHTML);
 					}
 				}
 			});
-			
+
 			<%-- 왼쪽메뉴 트리 클릭했을 경우 --%>
 			$tree.on('tree.click', function(e) {
 				// Disable single selection
 	            var selected_node = e.node;
-	            
+
     			if(beforeSelected_node!='') {
-    				$tree.tree('removeFromSelection', beforeSelected_node);	
+    				$tree.tree('removeFromSelection', beforeSelected_node);
     			}
     			$tree.tree('addToSelection', selected_node);
-    			
+
     			beforeSelected_node = selected_node;
-    			
+
     			if(selected_node.id == 0) {
     				alert("'보관함' 에는 담을수 없습니다.");
     				$('#addItemForm #storage_idx').val(0);
     			} else {
     				$('#addItemForm #storage_idx').val(beforeSelected_node.id);
     			}
-						
+
     			e.preventDefault();
 			});
-			
+
 			$('.tree-menu li:last-child').addClass('last');
 		}
 	});
 }
 
 $(document).ready(function() {
-	
+
 	treeOnLoad();
-	
+
 	$('a.add').on('click', function(e) {
 		e.preventDefault();
 		if ( $('#addItemForm #storage_idx').val() > 0 ) {
@@ -127,16 +126,16 @@ $(document).ready(function() {
 		}
 		else {
 			alert('저장할 보관함을 선택해주세요.');
-		}				
-	});	
-	
+		}
+	});
+
 	$('a.close').on('click', function(e) {
 		e.preventDefault();
-		window.close();		
-	});	
-	
-	
-	
+		window.close();
+	});
+
+
+
 });
 </script>
 <form:form id="addItemForm" modelAttribute="myItem" action="/${homepage.context_path}/module/myStorage/saveItem.do" method="post" onsubmit="return false;">
