@@ -71,101 +71,6 @@ public class PictureBookController extends BaseController {
 		return String.format(basePath, homepage.getFolder()) + "view";
 	}
 	
-//	@RequestMapping(value = {"/edit.*"})
-//	public String edit(Model model, PictureBook pictureBook, HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		Homepage homepage = (Homepage) request.getAttribute("homepage");
-//		
-//		SupportMember supportMember = sessionSupportMember(request);
-//		if ( supportMember == null ) {
-//			pictureBook.setBefore_url(String.format("/%s/module/pictureBook/index.do?menu_idx=%s", homepage.getContext_path(), pictureBook.getMenu_idx()));
-//    		service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), pictureBook.getMenu_idx(), pictureBook.getBefore_url()), request, response);
-//    		return null;
-//        }
-//		
-//		if(pictureBook.getEditMode().equals("MODIFY")) {
-//			checkAuth("U", model, request);
-//			model.addAttribute("pictureBook", service.copyObjectPaging(pictureBook, service.getPictureBookOne(pictureBook)));
-//		} else {
-//			checkAuth("C", model, request);
-//			model.addAttribute("pictureBook", pictureBook);
-//		}
-//		
-//		return String.format(basePath, homepage.getFolder()) + "edit";
-//	}
-	
-//	@RequestMapping (value = {"/search.*"}, method = RequestMethod.GET)
-//	public String search(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		
-//		Map<String, Object> map = null;
-//		if (StringUtils.isNotEmpty(librarySearch.getSearch_text())) {
-//			map = LibSearchAPI.getNaverList(librarySearch);
-//			int totalCount = (Integer) map.get("totalCount");
-//			@SuppressWarnings ("unchecked")
-//			List<Map<String, Object>> itemList = (List<Map<String, Object>>) map.get("list");
-//			if (itemList != null && itemList.size() > 0) {
-//				for (Map<String, Object> map2 : itemList) {
-//					String[] isbnArr = String.valueOf(map2.get("isbn")).split(" ");
-//					for (int i = 0; i < isbnArr.length; i++) {
-//						String isbn = String.valueOf(map2.get("isbn")).split(" ")[i];
-//						map2.put("isbn"+isbn.length(), isbn);
-//
-//						LibrarySearch bookSerach = new LibrarySearch();
-//						bookSerach.setIsbn(isbn);
-//						Map<String, Object> sameBook = (Map<String, Object>) LibSearchAPI.getBookDetail(bookSerach);
-//
-//						int sameBookCount = LibSearchAPI.getSearchCount(sameBook);
-//
-//						if (sameBookCount > 0) {
-//							map2.put("already"+isbn.length(), true);
-//						}
-//
-//					}
-//
-//				}
-//				service.setPaging(model, totalCount, librarySearch);
-//				model.addAttribute("naverResult", map);
-//			}
-//		}
-//		
-//		model.addAttribute("librarySearch", librarySearch);
-//		
-//		return basePath + "search_ajax";
-//	}
-	
-//	@RequestMapping (value = {"/save.*"}, method = RequestMethod.POST)
-//	public @ResponseBody JsonResponse save(PictureBook pictureBook, BindingResult result, HttpServletRequest request) {
-//		/* 유효성 검증 >>>>> */
-//		JsonResponse res = new JsonResponse(request);
-//		if(!pictureBook.getEditMode().equals("DELETE")) {
-//    		ValidationUtils.rejectIfEmpty(result, "picture_book_name", "이름을 입력하세요.");
-//    		ValidationUtils.rejectIfEmpty(result, "picture_book_subject", "책꾸러미명을 입력하세요.");
-//		}
-//		/* <<<<< 유효성 검증 */
-//
-//		if (!result.hasErrors()) {
-//			if (pictureBook.getEditMode().equals("ADD")) {
-//				pictureBook.setAdd_id(getSessionMemberId(request));
-//				service.addPictureBook(pictureBook);
-//				res.setValid(true);
-//				res.setMessage("등록되었습니다.");
-//			} else if (pictureBook.getEditMode().equals("MODIFY")) {
-//				pictureBook.setModify_id(getSessionMemberId(request));
-//				service.modifyPictureBook(pictureBook);
-//				res.setValid(true);
-//				res.setMessage("수정되었습니다.");
-//			} else if (pictureBook.getEditMode().equals("DELETE")) {
-//				service.deletePictureBook(pictureBook);
-//				res.setValid(true);
-//				res.setMessage("삭제되었습니다.");
-//			}
-//		} else {
-//			res.setValid(false);
-//			res.setResult(result.getAllErrors());
-//		}
-//
-//		return res;
-//	}
-	
 	@RequestMapping (value = {"/loanList.*"}, method = RequestMethod.GET)
 	public String loanList(Model model, PictureBook pictureBook, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
@@ -173,7 +78,7 @@ public class PictureBookController extends BaseController {
 		SupportMember supportMember = sessionSupportMember(request);
 		if ( supportMember == null ) {
 			pictureBook.setBefore_url(String.format("/%s/module/pictureBook/loanList.do?menu_idx=%s", homepage.getContext_path(), pictureBook.getMenu_idx()));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), pictureBook.getMenu_idx(), pictureBook.getBefore_url()), request, response);
+			service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), pictureBook.getMenu_idx(), pictureBook.getBefore_url()), request, response);
 			return null;
 		}
 		
@@ -199,7 +104,7 @@ public class PictureBookController extends BaseController {
 		SupportMember supportMember = sessionSupportMember(request);
 		if ( supportMember == null ) {
 			pictureBook.setBefore_url(String.format("/%s/module/pictureBook/index.do?menu_idx=%s%%26pay_yn=%s", homepage.getContext_path(), pictureBook.getMenu_idx(), pictureBook.getPay_yn()));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), pictureBook.getMenu_idx(), pictureBook.getBefore_url()), request, response);
+			service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), pictureBook.getMenu_idx(), pictureBook.getBefore_url()), request, response);
 			return null;
 		}
 		
