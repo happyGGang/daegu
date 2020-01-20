@@ -94,7 +94,7 @@ $(function() {
 	});
 
 	//인기검색어
-	$('div#hotTrend').load('hotTrend.do');
+// 	$('div#hotTrend').load('hotTrend.do');
 
 	//청구기호 인쇄
 	$('a.btn_print').on('click', function(e) {
@@ -163,20 +163,43 @@ $(function() {
 		location.href='/${homepage.context_path}/intro/search/index.do?menu_idx=13';
 		$('#title').focus();
 	});
+
+	<%--패싯검색--%>
+	$('a.facetSearch').on('click', function(e) {
+		e.preventDefault();
+		var key = $(this).data('key');
+		var code = $(this).data('code');
+		if (key == 'LIB_GROUP') {
+			$('input#facet_manage_code').val(code);
+		} else if (key == 'AUTHOR_GROUP') {
+			$('input#facet_author').val(code);
+		} else if (key == 'PULISHER_GROUP') {
+			$('input#facet_publisher').val(code);
+		} else if (key == 'PUB_YEAR_GROUP') {
+			$('input#facet_pub_year').val(code);
+		} else if (key == 'SUBJECT_CODE') {
+			$('input#facet_subject_code').val(code);
+		} else if (key == 'MEDIA_GROUP') {
+			$('input#facet_media_code').val(code);
+		}
+		$('a#search-btn').click();
+	});
+
+	location.href = '#search_result';
+
 });
 </script>
-<form:form modelAttribute="librarySearch" id="detailForm" action="detail.do" method="post" >
-	<form:hidden path="menu_idx"/>
-	<form:hidden path="isbn"/>
-	<form:hidden path="regNo"/>
-	<form:hidden path="manageCode"/>
-</form:form>
 
 <form:form modelAttribute="librarySearch" action="index.do" method="get">
 	<form:hidden path="menu_idx"/>
 	<form:hidden path="viewPage"/>
 	<form:hidden path="separateShelfCode"/>
-	<form:hidden path="manageCode" value="${homepage.manage_code}"/>
+	<form:hidden path="facet_manage_code"/>
+	<form:hidden path="facet_author"/>
+	<form:hidden path="facet_publisher"/>
+	<form:hidden path="facet_pub_year"/>
+	<form:hidden path="facet_subject_code"/>
+	<form:hidden path="facet_media_code"/>
 
 	<!-- contents-title-->
 	<div id="contents-title">
@@ -308,7 +331,7 @@ $(function() {
 				<a href="#" id="subSearch" class="btn">결과 내 재검색</a>
 			</div>
 
-			<!-- 
+			<!--
 			<div class="search-condition">
 
 				<div class="mode">
@@ -708,7 +731,7 @@ $(function() {
 					</div>
 				</div>
 
-				<div class="filter-section">
+				<div class="filter-section" style="display: none;">
 					<div class="ws-filter" id="hotTrend" style="height:370px;">
 						<h4>실시간 검색어 순위</h4>
 						<div style="text-align: center;" >
@@ -717,6 +740,50 @@ $(function() {
 					</div>
 				</div>
 
+			</div>
+
+			<div class="rightCon" style="display: none;">
+
+					<div class="limitSrch">
+						<strong>제한검색</strong>
+						<ul class="depth1">
+							<c:forEach items="${facetGroup}" var="i" varStatus="status">
+								<c:set var="facetName" value=""></c:set>
+								<c:if test="${i.key eq 'AUTHOR_GROUP'}">
+									<c:set var="facetName" value="저자별"></c:set>
+								</c:if>
+								<c:if test="${i.key eq 'PUB_YEAR_GROUP'}">
+									<c:set var="facetName" value="년도별"></c:set>
+								</c:if>
+								<c:if test="${i.key eq 'SUBJECT_CODE'}">
+									<c:set var="facetName" value="주제별"></c:set>
+								</c:if>
+								<c:if test="${i.key eq 'PULISHER_GROUP'}">
+									<c:set var="facetName" value="출판사별"></c:set>
+								</c:if>
+								<c:if test="${i.key eq 'LIB_GROUP'}">
+									<c:set var="facetName" value="도서관별"></c:set>
+								</c:if>
+								<c:if test="${i.key eq 'MEDIA_GROUP'}">
+									<c:set var="facetName" value="매체별"></c:set>
+								</c:if>
+								<c:if test="${fn:length(i.value) > 0}">
+							<li class="active" id="${i.key}"><a href="#;">${facetName}</a>
+								<ul class="depth2">
+									<c:forEach items="${i.value}" var="j" varStatus="statusj" begin="0" end="4" step="1">
+										<li>
+											<a href="#" class="facetSearch" data-key="${i.key}" data-code="${j.CODE}">
+												<c:set var="facetValue" value="${not empty j.NAME ? j.NAME : j.CODE}"></c:set>
+												${facetValue}<span>(${j.COUNT})</span>
+											</a>
+										</li>
+									</c:forEach>
+								</ul>
+							</li>
+								</c:if>
+							</c:forEach>
+						</ul>
+					</div>
 			</div>
 
 		</div>

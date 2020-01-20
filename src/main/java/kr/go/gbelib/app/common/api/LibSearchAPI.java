@@ -103,6 +103,19 @@ public class LibSearchAPI {
 		if (StringUtils.isNotEmpty(librarySearch.getSeparateShelfCode()))
 			param.put("separate_shelf_code", librarySearch.getSeparateShelfCode());
 
+		if (StringUtils.isNotEmpty(librarySearch.getFacet_manage_code()))
+			param.put("facet_manage_code", librarySearch.getFacet_manage_code());
+		if (StringUtils.isNotEmpty(librarySearch.getFacet_author()))
+			param.put("facet_author", librarySearch.getFacet_author());
+		if (StringUtils.isNotEmpty(librarySearch.getFacet_media_code()))
+			param.put("facet_media_code", librarySearch.getFacet_media_code());
+		if (StringUtils.isNotEmpty(librarySearch.getFacet_pub_year()))
+			param.put("facet_pub_year", librarySearch.getFacet_pub_year());
+		if (StringUtils.isNotEmpty(librarySearch.getFacet_publisher()))
+			param.put("facet_publisher", librarySearch.getFacet_publisher());
+		if (StringUtils.isNotEmpty(librarySearch.getFacet_subject_code()))
+			param.put("facet_subject_code", librarySearch.getFacet_subject_code());
+
 		try {
 			// 자료검색용
 			param.put("manage_code", StringUtils.join(librarySearch.getLibraryCodes(), ",").replaceAll("lib_", ""));
@@ -221,6 +234,19 @@ public class LibSearchAPI {
 		if (StringUtils.isNotEmpty(librarySearch.getShelf_list())) {
 			param.put("search_shelf", librarySearch.getShelf_list());
 		}
+
+		if (StringUtils.isNotEmpty(librarySearch.getFacet_manage_code()))
+			param.put("facet_manage_code", librarySearch.getFacet_manage_code());
+		if (StringUtils.isNotEmpty(librarySearch.getFacet_author()))
+			param.put("facet_author", librarySearch.getFacet_author());
+		if (StringUtils.isNotEmpty(librarySearch.getFacet_media_code()))
+			param.put("facet_media_code", librarySearch.getFacet_media_code());
+		if (StringUtils.isNotEmpty(librarySearch.getFacet_pub_year()))
+			param.put("facet_pub_year", librarySearch.getFacet_pub_year());
+		if (StringUtils.isNotEmpty(librarySearch.getFacet_publisher()))
+			param.put("facet_publisher", librarySearch.getFacet_publisher());
+		if (StringUtils.isNotEmpty(librarySearch.getFacet_subject_code()))
+			param.put("facet_subject_code", librarySearch.getFacet_subject_code());
 
 		param.put("pageno", librarySearch.getViewPage());
 		param.put("display", librarySearch.getRowCount());
@@ -343,6 +369,19 @@ public class LibSearchAPI {
 		if (StringUtils.isNotEmpty(librarySearch.getShelf_list())) {
 			param.put("search_shelf", librarySearch.getShelf_list());
 		}
+
+		if (StringUtils.isNotEmpty(librarySearch.getFacet_manage_code()))
+			param.put("facet_manage_code", librarySearch.getFacet_manage_code());
+		if (StringUtils.isNotEmpty(librarySearch.getFacet_author()))
+			param.put("facet_author", librarySearch.getFacet_author());
+		if (StringUtils.isNotEmpty(librarySearch.getFacet_media_code()))
+			param.put("facet_media_code", librarySearch.getFacet_media_code());
+		if (StringUtils.isNotEmpty(librarySearch.getFacet_pub_year()))
+			param.put("facet_pub_year", librarySearch.getFacet_pub_year());
+		if (StringUtils.isNotEmpty(librarySearch.getFacet_publisher()))
+			param.put("facet_publisher", librarySearch.getFacet_publisher());
+		if (StringUtils.isNotEmpty(librarySearch.getFacet_subject_code()))
+			param.put("facet_subject_code", librarySearch.getFacet_subject_code());
 
 		try {
 			// 자료검색용
@@ -915,6 +954,34 @@ public class LibSearchAPI {
 		}
 
 		return cnt;
+	}
+
+	/**
+	 * === K.API 공통 ===
+	 *
+	 * KCMS API 자료검색 결과 FACET_GROUP을 반환
+	 *
+	 * @author YONGJU 2020. 01. 15.
+	 * @param map
+	 * @return
+	 */
+	@SuppressWarnings ("unchecked")
+	public static Map<String, Object> getFacetGroup(Map<String, Object> map) {
+		List<Map<String, Object>> list = null;
+		Map<String, Object> facet = null;
+
+		if (map != null && !map.isEmpty() && map.get("LIST_DATA") != null) {
+			list = new ArrayList<Map<String, Object>>();
+			list.addAll((List<Map<String, Object>>) map.get("LIST_DATA"));
+			if (list != null && list.size() > 0) {
+				Map<String, Object> countMap = list.get(0);
+				if (countMap != null && !countMap.isEmpty() && countMap.containsKey("FACET_GROUP")) {
+					facet = (Map<String, Object>) countMap.get("FACET_GROUP");
+				}
+			}
+		}
+
+		return facet;
 	}
 
 	/**

@@ -119,6 +119,13 @@ public class LibrarySearch extends PagingUtils {
 
 	private String shelf_list;	// 자료실 구분 (상세 검색 조건)
 
+	private String facet_manage_code; //패싯 도서관 관리코드
+	private String facet_author; //패싯 저자명
+	private String facet_publisher; //패싯 발행자
+	private String facet_pub_year; //패싯 발행년도
+	private String facet_subject_code; //패싯 분류기호의 첫번째 숫자(0~9)
+	private String facet_media_code; //패싯 매체구분
+
 	public String getSearchType() {
 		return searchType;
 	}
@@ -829,6 +836,66 @@ public class LibrarySearch extends PagingUtils {
 
 	public void setSeparateShelfCode(String separateShelfCode) {
 		this.separateShelfCode = separateShelfCode;
+	}
+
+
+	public String getFacet_manage_code() {
+		return facet_manage_code;
+	}
+
+
+	public String getFacet_author() {
+		return facet_author;
+	}
+
+
+	public String getFacet_publisher() {
+		return facet_publisher;
+	}
+
+
+	public String getFacet_pub_year() {
+		return facet_pub_year;
+	}
+
+
+	public String getFacet_subject_code() {
+		return facet_subject_code;
+	}
+
+
+	public String getFacet_media_code() {
+		return facet_media_code;
+	}
+
+
+	public void setFacet_manage_code(String facet_manage_code) {
+		this.facet_manage_code = facet_manage_code;
+	}
+
+
+	public void setFacet_author(String facet_author) {
+		this.facet_author = facet_author;
+	}
+
+
+	public void setFacet_publisher(String facet_publisher) {
+		this.facet_publisher = facet_publisher;
+	}
+
+
+	public void setFacet_pub_year(String facet_pub_year) {
+		this.facet_pub_year = facet_pub_year;
+	}
+
+
+	public void setFacet_subject_code(String facet_subject_code) {
+		this.facet_subject_code = facet_subject_code;
+	}
+
+
+	public void setFacet_media_code(String facet_media_code) {
+		this.facet_media_code = facet_media_code;
 	}
 
 }
