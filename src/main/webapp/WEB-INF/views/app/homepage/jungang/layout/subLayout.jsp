@@ -12,6 +12,10 @@ $(function() {
 	if ( halbaeNode != null && halbaeNode.nodeName == 'LI' ) {
 		$(halbaeNode).addClass('active');
 	}
+
+	if (location.href.indexOf('html.do?') > -1) {
+		$('div#menuRatingDiv').load('/${homepage.context_path}/module/menuRating/index.do?menu_idx=${param.menu_idx}');
+	}
 });
 </script>
 
@@ -55,13 +59,16 @@ $(function() {
 					<div class="doc-body con${menuOne.menu_idx}" id="contentArea">
 						<div class="body">
 							<tiles:insertAttribute name="body" />
+							<div id="menuRatingDiv"></div>
 						</div>
 					</div>
+					<c:if test="${not empty menuOne.manager_dept and not empty menuOne.manager_name and not empty menuOne.manager_phone}">
 					<div class="doc-admin">
 						<c:if test="${menuOne.manager_dept ne null and menuOne.manager_dept ne ''}"><span><label>담당부서</label> <em>: ${menuOne.manager_dept}</em></span></c:if>
 						<c:if test="${menuOne.manager_name ne null and menuOne.manager_name ne ''}"><span><label>담당자</label> <em>: ${menuOne.manager_name}</em></span></c:if>
 						<c:if test="${menuOne.manager_phone ne null and menuOne.manager_phone ne ''}"><span><label>전화번호</label> <em>: ${menuOne.manager_phone}</em></span></c:if>
 					</div>
+					</c:if>
 				</div>
 			</div>
 		</div>
