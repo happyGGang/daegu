@@ -133,7 +133,7 @@ public class LibraryCheckController extends BaseController {
 		SupportMember supportMember = sessionSupportMember(request);
 		if ( supportMember == null ) {
 			libraryCheck.setBefore_url(String.format("/%s/module/libraryCheck/loanList.do?menu_idx=%s", homepage.getContext_path(), libraryCheck.getMenu_idx()));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), libraryCheck.getMenu_idx(), libraryCheck.getBefore_url()), request, response);
+			service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), libraryCheck.getMenu_idx(), libraryCheck.getBefore_url()), request, response);
 			return null;
 		}
 		
@@ -157,7 +157,7 @@ public class LibraryCheckController extends BaseController {
 		SupportMember supportMember = sessionSupportMember(request);
 		if ( supportMember == null ) {
 			libraryCheck.setBefore_url(String.format("/%s/module/libraryCheck/index.do?menu_idx=%s", homepage.getContext_path(), libraryCheck.getMenu_idx()));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), libraryCheck.getMenu_idx(), libraryCheck.getBefore_url()), request, response);
+			service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), libraryCheck.getMenu_idx(), libraryCheck.getBefore_url()), request, response);
 			return null;
 		}
 
