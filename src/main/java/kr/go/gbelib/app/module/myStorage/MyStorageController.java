@@ -57,8 +57,8 @@ public class MyStorageController extends BaseController {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			myStorage.setBefore_url(String.format("http://www.gbelib.kr/%s/module/myStorage/index.do?menu_idx=%s", homepage.getContext_path(), myStorage.getMenu_idx()));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://www.gbelib.kr/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), myStorage.getMenu_idx(), myStorage.getBefore_url()), request, response);
+			myStorage.setBefore_url(String.format("/%s/module/myStorage/index.do?menu_idx=%s", homepage.getContext_path(), myStorage.getMenu_idx()));
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), myStorage.getMenu_idx(), myStorage.getBefore_url()), request, response);
 			return null;
 		}
 
