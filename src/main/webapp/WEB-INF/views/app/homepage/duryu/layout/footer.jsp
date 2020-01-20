@@ -28,7 +28,7 @@
 				</address>
 				<div class="site_link">
 					<div>
-						<homepageTag:siteLink homepageList="${homepageList}" defaultStr="대구광역시 공공도서관" notIncludeHomepageId="${homepage.homepage_id}"/>
+						<homepageTag:siteLink homepageList="${homepageList}" defaultStr="대구광역시 공공도서관" notIncludeHomepageId="${homepage.homepage_id},h30,h31,h32,h33"/>
 					</div>
 					<div>
 						<homepageTag:siteLink recommendSiteList="${recommendSiteList}" defaultStr="교육및지역관련기관"/>
