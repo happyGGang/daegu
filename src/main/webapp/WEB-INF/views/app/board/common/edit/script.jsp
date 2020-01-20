@@ -11,7 +11,7 @@ $(document).ready(function() {
 	nhn.husky.EZCreator.createInIFrame({
 		oAppRef: oEditors,
 		elPlaceHolder: "content",
-		sSkinURI: "/resources/common/smart_editor/SmartEditor2Skin.html",	
+		sSkinURI: "/resources/common/smart_editor/SmartEditor2Skin.html",
 		htParams : {
 			bUseToolbar : true,				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
 			bUseVerticalResizer : true,		// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
@@ -22,11 +22,11 @@ $(document).ready(function() {
 			}
 		}, //boolean
 		fOnAppLoad : function() {
-			
+
 		},
 		fCreator: "createSEditor2"
 	});
-	
+
 	try {
 		prevEditorDisplay = $('.bbs-textarea iframe').css('display');
 	} catch(e) { }
@@ -42,15 +42,17 @@ $(document).ready(function() {
 				}
 			}
 		} catch(e) {
-			
+
 		}
 	});
 	</c:if>
 	$('#board').after('<div id="previewBox" style="display:none;"><div></div></div>');
 	$('a#board_preview_btn').on('click', function(e) {
 		e.preventDefault();
-		
+		<c:if test="${boardManage.editor_use_yn eq 'Y'}">
 		oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
+		</c:if>
+		$('#cloneBoard').remove();
 		var cloneBoard = $('form#board').clone();
 		$(cloneBoard).attr('id', 'cloneBoard');
 		$(cloneBoard).css('display', 'none');
@@ -58,7 +60,7 @@ $(document).ready(function() {
 		$(cloneBoard).attr('target', 'previewWindow');
 		$(cloneBoard).attr('onsubmit', '');
 		$('#board').after(cloneBoard);
-		
+
 		var wWidth = $(window).width();
 	    var dWidth = wWidth * 0.8;
 	    var wHeight = $(window).height();
@@ -69,13 +71,13 @@ $(document).ready(function() {
 			title:'게시물 미리보기',
 			width: dWidth,
             height: dHeight,
-			position:{ 
+			position:{
 				my:"center",
 				at:"center",
 				of:window
 			},
 			close:function() {
-				previewBoxDialog.dialog("destroy");					
+				previewBoxDialog.dialog("destroy");
 			},
 			buttons: [
 				{
@@ -86,18 +88,18 @@ $(document).ready(function() {
 					}
 				}
 			]
-		}); 
-		
+		});
+
 // 		var previewWindow = window.open('', "previewWindow");
 // 		$('form#cloneBoard').submit();
-		
-		
+
+
 	});
-	
+
 	$('a#board_save_btn').on('click', function(e) {
 		e.preventDefault();
 		$('#boardFileArray > option').prop('selected', true);
-		
+
 		<c:if test="${boardManage.editor_use_yn eq 'Y'}">
 		if(isEditorOn()) {
 			oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
@@ -105,7 +107,7 @@ $(document).ready(function() {
 		</c:if>
 		doAjaxPostBoard($('#board'));
 	});
-	
+
 	$('a#board_index_btn').on('click', function(e) {
 		e.preventDefault();
 		var url = 'index.do';
@@ -113,46 +115,46 @@ $(document).ready(function() {
 		var formData = serializeParameter(['manage_idx', 'board_idx', 'menu_idx', 'category1', 'rowCount', 'viewPage', 'search_type', 'search_text']);
 		doGetLoad(url, formData);
 	});
-	
+
 	$('input.customCalendar').datepicker({
 		onClose: function(selectedDate) {
 			$(this).datepicker('option', 'minDate', selectedDate);
 		}
 	});
-	
+
 	$('input#notice_start_date').datepicker({
-		maxDate: $('input#notice_end_date').val(), 
+		maxDate: $('input#notice_end_date').val(),
 		onClose: function(selectedDate) {
 			$('input#notice_end_date').datepicker('option', 'minDate', selectedDate);
 		}
 	});
 	$('input#notice_end_date').datepicker({
-		minDate: $('input#notice_start_date').val(), 
+		minDate: $('input#notice_start_date').val(),
 		onClose: function(selectedDate) {
 			$('input#notice_start_date').datepicker('option', 'maxDate', selectedDate);
 		}
 	});
-	
+
 	$('input.custom_phone1, input.custom_phone2, input.custom_phone3').on('blur', function(e) {
 		var phone1 = $('input#' + $(this).attr('targetFieldId') + '_1').val();
 		var phone2 = $('input#' + $(this).attr('targetFieldId') + '_2').val();
 		var phone3 = $('input#' + $(this).attr('targetFieldId') + '_3').val();
-		
+
 		$('input#' + $(this).attr('targetFieldId')).val(phone1 + '-' + phone2 + '-' + phone3);
 	});
-	
+
 	$('input.custom_email1, input.custom_email2').on('blur', function(e) {
 		var email1 = $('input#' + $(this).attr('targetFieldId') + '_1').val();
 		var email2 = $('input#' + $(this).attr('targetFieldId') + '_2').val();
-		
+
 		$('input#' + $(this).attr('targetFieldId')).val(email1 + '@' + email2);
 	});
-	
+
 	$('a#ebook_btn').on('click', function(e) {
 		alert('E_Book 사이트로 이동합니다. \n왼쪽 E-Book생성 메뉴를 선택하셔서 pdf파일 업로드 하신후에 URL을 복사해주시기 바랍니다.');
 		window.open('http://ebook.dge.go.kr/program/administrator/administrator_action.jsp?adminId=admin&password=admin&amode=login', '_blank');
 	});
-	
+
 });
 
 function isEditorOn() {
@@ -168,7 +170,7 @@ function doAjaxPostBoard(form, ajaxBody) {
 	jQuery.ajaxSettings.traditional = true;
 	var formData = serializeObject(form);
 	var responseValid = false;
-	
+
     $.ajax({
         type: "POST",
         url: form.attr('action'),
@@ -178,7 +180,7 @@ function doAjaxPostBoard(form, ajaxBody) {
         success: function(response) {
         	response = eval(response);
         	responseValid = response.valid;
-            if(response.valid) {            	
+            if(response.valid) {
                  if(response.message != null && response.message.replace(/\s/g,'').length!=0) {
                 	 alert(response.message);
                  }
@@ -195,7 +197,7 @@ function doAjaxPostBoard(form, ajaxBody) {
                 	  */
                 	 if(ajaxBody != null && ajaxBody.replace(/\s/g,'').length!=0) {
                 		 doAjaxLoad(ajaxBody, response.url, response.data);
-                		 
+
                 	 } else {
                 		 doGetLoad(response.url, response.data);
                 	 }
@@ -214,7 +216,7 @@ function doAjaxPostBoard(form, ajaxBody) {
     					break;
     				}
                 }
-				
+
 				if(response.url != null && response.url.replace(/\s/g,'').length!=0) {
 					if(ajaxBody != null && ajaxBody.replace(/\s/g,'').length!=0) {
 						doAjaxLoad(ajaxBody, response.url, response.data);
@@ -228,7 +230,7 @@ function doAjaxPostBoard(form, ajaxBody) {
              alert('[' + textStatus + ']관리자에게 문의하세요. : ' + errorThrown);
          }
     });
-    
+
     return responseValid;
 }
 $(document).on("keyup", "input:text[numberOnly]", function() {
