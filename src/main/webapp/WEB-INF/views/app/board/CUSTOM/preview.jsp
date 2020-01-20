@@ -19,14 +19,14 @@ ${boardManage.top_html}
 				<dd class="info">
 					<div class="panel-left">
 						<c:choose>
-						<c:when test="${boardManage.anonymize_yn eq 'Y' and not authMBA}">
+						<c:when test="${boardManage.anonymize_yn eq 'Y' and not empty authMBA and not authMBA}">
 						<c:set var="user_name" value="${fn:substring(board.user_name, -1, 1)}**"/>
 						</c:when>
 						<c:otherwise>
 						<c:set var="user_name" value="${board.user_name}"/>
 						</c:otherwise>
 						</c:choose>
-						<i>작성자</i><span>${user_name}<c:if test="${authMBA}">(${board.add_id})</c:if></span>
+						<i>작성자</i><span>${user_name}<c:if test="${not empty authMBA and authMBA}">(${board.add_id})</c:if></span>
 						<i>작성일</i><span><fmt:formatDate value="${board.add_date}" pattern="yyyy.MM.dd HH:mm"/></span>
 					</div>
 					<div class="panel-right">
