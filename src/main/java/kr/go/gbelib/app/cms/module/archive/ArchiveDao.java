@@ -6,6 +6,8 @@ public interface ArchiveDao {
 	
 	public int getArchiveBookCount(Archive archive);
 	
+	public int getArchiveBookCountCms(Archive archive);
+	
 	public List<Archive> getArchiveBookList(Archive archive);
 	
 	public List<Archive> getArchiveBookListCms(Archive archive);

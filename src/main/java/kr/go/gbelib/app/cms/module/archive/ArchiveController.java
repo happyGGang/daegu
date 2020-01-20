@@ -32,7 +32,7 @@ public class ArchiveController extends  BaseController {
 		checkAuth("R", model, request);
 		archive.setHomepage_id(getAsideHomepageId(request));
 		
-		int count = service.getArchiveBookCount(archive);
+		int count = service.getArchiveBookCountCms(archive);
 		archive.setTotalDataCount(count);
 		service.setPaging(model, count, archive);
 

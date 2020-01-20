@@ -37,6 +37,7 @@ $(document).ready(function() {
 
 <form:form id="archiveBookListForm" modelAttribute="archive" action="index.do" >
 <form:hidden path="homepage_id"/>
+<form:hidden path="menu_idx"/>
 
 	<div class="infodesk">
 		검색 결과 : 총 <fmt:formatNumber value="${count}" pattern="#,###" />건

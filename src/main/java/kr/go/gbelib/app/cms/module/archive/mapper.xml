@@ -8,9 +8,28 @@
 		FROM
 			ARCHIVE_BOOK
 		WHERE 1=1
+		AND use_yn = 'Y'
 		AND homepage_id = #{homepage_id}
 		<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
 		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="category != null and category != ''">
+		AND category = #{category}
+		</if>
+	</select>
+	
+	<select id="getArchiveBookCountCms" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			ARCHIVE_BOOK
+		WHERE 1=1
+		AND homepage_id = #{homepage_id}
+		<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="category != null and category != ''">
+		AND category = #{category}
 		</if>
 	</select>
 	
@@ -35,8 +54,11 @@
 		WHERE 1=1
 		AND use_yn = 'Y'
 		AND homepage_id = #{homepage_id}
-		<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
+		<if test="search_type != null and search_type != '' and search_text != '' and search_text != '' ">
 		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="category != null and category != ''">
+		AND category = #{category}
 		</if>
 		ORDER BY book_idx DESC
 		${pagingBottom}
@@ -58,6 +80,9 @@
 		AND homepage_id = #{homepage_id}
 		<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
 		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="category != null and category != ''">
+		AND category = #{category}
 		</if>
 		ORDER BY book_idx DESC
 		${pagingBottom}

@@ -28,6 +28,10 @@ public class ArchiveService extends BaseService {
 		return dao.getArchiveBookCount(archive);
 	}
 	
+	public int getArchiveBookCountCms(Archive archive) {
+		return dao.getArchiveBookCountCms(archive);
+	}
+	
 	public List<Archive> getArchiveBookList(Archive archive) {
 		return dao.getArchiveBookList(archive);
 	}
