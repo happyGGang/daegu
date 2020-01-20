@@ -183,7 +183,7 @@ public class TeachController extends BaseController{
 
 		teach.setHomepage_id(homepage.getHomepage_id());
 		if (isLogin(request)) {
-			teach.setMember_key(getSessionUserSeqNo(request));
+			teach.setMember_key(getSessionMemberId(request));
 		}
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		if (StringUtils.isEmpty(teach.getSearchDateFrom())) {
