@@ -2070,9 +2070,10 @@ padding:20px 15px 20px 215px; margin-bottom:25px}
 	.doc{margin-right:0;padding:30px 0;overflow:hidden}
 	.doc-head{width:160px;float:left}
 	.doc-title{border-top:3px solid #2a9fe8;position:relative;z-index:1}
-	.doc-title h3{border-top:3px solid #1f5d97;margin-top:-3px;padding-right:10%;position:relative;z-index:2}
+	.doc-title h3{/*border-top:3px solid #1f5d97;*/margin-top:-3px;padding-right:10%;position:relative;z-index:2}
 	.doc-body{margin-right:-160px;float:left;width:100%}
 	.doc-body .body{margin-right:160px;margin-left:30px}
+	.shareArea {display:none;}
 
 	#footer .section{padding:0 1%;box-sizing:border-box;}
 	#footer .bottom .section .site_link {position:relative;margin-top:5px;clear:both;width:98%;margin:18px auto 0;clear:both;text-align:center;}
@@ -2097,11 +2098,15 @@ padding:20px 15px 20px 215px; margin-bottom:25px}
 
 @media all and (max-width:767px){
 	.doc-head{width:100%;float:none}
-	.doc-head h3{text-align:left;border-top:3px solid #1f5d97;padding-left:0;padding-right:40%;font-size:25px;padding-top:10px}
+	.doc-head h3{text-align:left;/*border-top:3px solid #1f5d97;*/padding-left:0;padding-right:40%;font-size:25px;padding-top:10px}
 	.doc-body,
 	.doc-body .body{float:none;margin:0}
-	.sub-visual{display:none}
-	.doc-info, .doc-info-suseong{border-top:1px solid #ebebeb}
+	/*.sub-visual{display:none}*/
+	.sub-visual{background:none;height:auto;position:relative;padding-top:60px;}
+	.doc-info {border-top:0;background:rgba(0,0,0,0.75);}
+	.doc-info-suseong {}
+	.doc{margin-right:0;padding:0;overflow:hidden}
+	.doc-title{border-top:0;position:relative;z-index:1}
 }
 
 @media all and (max-width:650px){
