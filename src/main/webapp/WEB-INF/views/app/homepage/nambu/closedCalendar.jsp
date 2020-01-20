@@ -53,19 +53,19 @@ $(function() {
 			<span>${fn:split(calendar.plan_date, '-')[0]}.${fn:split(calendar.plan_date, '-')[1]}</span>
 		</div>
 		<div class="list-box">
+			<c:if test="${empty closeDayList.dd}">
+				<span style="color: white; font-size: 15px;">등록된 휴일이 없습니다.</span>
+			</c:if>
+			<c:if test="${not empty closeDayList.dd}">
 			<ul>
-				<c:if test="${empty closeDayList.dd}">
-					<li>등록된 휴일이 없습니다.</li>
-				</c:if>
-				<c:if test="${not empty closeDayList.dd}">
-					<c:set var="dd" value="${fn:split(closeDayList.dd, ',')}"></c:set>
-					<c:forEach items="${dd}" var="i">
-					<li>
-						${i}
-					</li>
-					</c:forEach>
-				</c:if>
+				<c:set var="dd" value="${fn:split(closeDayList.dd, ',')}"></c:set>
+				<c:forEach items="${dd}" var="i">
+				<li>
+					${i}
+				</li>
+				</c:forEach>
 			</ul>
+			</c:if>
 		</div>
 	</li>
 </ul>
