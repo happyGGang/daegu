@@ -39,7 +39,22 @@ $(function() {
 		<div class="section">
 			<c:if test="${menuOne ne null}">
 			<div class="lnb">
-				<h2><b>${menuLeftList[0].menu_name}</b></h2>
+				<c:choose>
+					<c:when test="${menuLeftList[0].menu_idx eq '110'}">
+				<h2>
+					<b>
+						학교도서관<br/>집중지원센터
+					</b>
+				</h2>
+					</c:when>
+					<c:otherwise>
+				<h2>
+					<b>
+						${menuLeftList[0].menu_name}
+					</b>
+				</h2>
+					</c:otherwise>
+				</c:choose>
 				<homepageTag:leftMenu menuList="${menuLeftList}"/>
 			</div>
 			</c:if>
