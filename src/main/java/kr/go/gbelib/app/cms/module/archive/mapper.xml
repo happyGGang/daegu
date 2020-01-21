@@ -60,7 +60,7 @@
 		<if test="category != null and category != ''">
 		AND category = #{category}
 		</if>
-		ORDER BY book_idx DESC
+		ORDER BY category, code DESC, book_idx DESC
 		${pagingBottom}
 	</select>
 	
@@ -84,7 +84,7 @@
 		<if test="category != null and category != ''">
 		AND category = #{category}
 		</if>
-		ORDER BY book_idx DESC
+		ORDER BY code DESC, book_idx DESC
 		${pagingBottom}
 	</select>
 	
@@ -118,7 +118,8 @@
 		) VALUES (
 			#{homepage_id},
 			#{book_idx}, #{subject}, #{regnumber}, #{volume}, #{author},
-			#{publisher}, #{year}, #{callnumber}, #{place}, #{code},
+			#{publisher}, #{year}, #{callnumber}, #{place},
+			(SELECT NVL(MAX(code), 0)+1 FROM ARCHIVE_BOOK WHERE use_yn = 'Y' AND homepage_id = #{homepage_id}),
 			#{skin}, #{logoimg}, #{viewtype}, #{category},
 			#{orig_width}, #{orig_height}, #{resize_width}, #{resize_height},
 			SYSDATE, #{add_id},
