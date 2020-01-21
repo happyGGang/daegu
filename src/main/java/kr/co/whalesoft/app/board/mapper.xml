@@ -204,7 +204,13 @@
 				FROM CMS_BOARD_COMMENT a
 				WHERE a.board_idx = CMS_BOARD_T.board_idx AND
 				a.delete_yn = 'N'
-			) AS comment_count
+			) AS comment_count,
+			getCodeIdToCodeName(#{homepage_id},#{category1Manage},category1) as category1_name,
+			getCodeIdToCodeName(#{homepage_id},#{category2Manage},category2) as category2_name,
+			getCodeIdToCodeName(#{homepage_id},#{category3Manage},category3) as category3_name,
+			getCodeIdToCodeName(#{homepage_id},#{category4Manage},category4) as category4_name,
+			getCodeIdToCodeName(#{homepage_id},#{category5Manage},category5) as category5_name,
+			getCodeIdToCodeName('CMS',#{request_code},request_state) as request_state_str
 			FROM
 		(
 			${pagingTop}
@@ -216,13 +222,8 @@
 					view_count, notice_yn, title, add_id, content,
 					user_name, user_ip, delete_yn, add_date, modify_date,
 					file_count, preview_img, secret_yn, content_summary,
-					category1, category2, category3, category4, category5,request_state,
-					getCodeIdToCodeName(#{homepage_id},#{category1Manage},category1) as category1_name,
-					getCodeIdToCodeName(#{homepage_id},#{category2Manage},category2) as category2_name,
-					getCodeIdToCodeName(#{homepage_id},#{category3Manage},category3) as category3_name,
-					getCodeIdToCodeName(#{homepage_id},#{category4Manage},category4) as category4_name,
-					getCodeIdToCodeName(#{homepage_id},#{category5Manage},category5) as category5_name,
-					getCodeIdToCodeName('CMS',#{request_code},request_state) as request_state_str
+					category1, category2, category3, category4, category5,request_state
+
 				FROM
 					CMS_BOARD
 				WHERE
@@ -245,7 +246,13 @@
 				FROM CMS_BOARD_COMMENT a
 				WHERE a.board_idx = CMS_BOARD_T.board_idx AND
 				a.delete_yn = 'N'
-			) AS comment_count
+			) AS comment_count,
+			getCodeIdToCodeName(#{homepage_id},#{category1Manage},category1) as category1_name,
+			getCodeIdToCodeName(#{homepage_id},#{category2Manage},category2) as category2_name,
+			getCodeIdToCodeName(#{homepage_id},#{category3Manage},category3) as category3_name,
+			getCodeIdToCodeName(#{homepage_id},#{category4Manage},category4) as category4_name,
+			getCodeIdToCodeName(#{homepage_id},#{category5Manage},category5) as category5_name,
+			getCodeIdToCodeName('CMS',#{request_code},request_state) as request_state_str
 			FROM
 		(
 			${pagingTop}
@@ -257,13 +264,7 @@
 					view_count, notice_yn, title, add_id, content,
 					user_name, user_ip, delete_yn, add_date, modify_date,
 					file_count, preview_img, secret_yn, content_summary, file_download_count,
-					category1, category2, category3, category4, category5,request_state,
-					getCodeIdToCodeName(#{homepage_id},#{category1Manage},category1) as category1_name,
-					getCodeIdToCodeName(#{homepage_id},#{category2Manage},category2) as category2_name,
-					getCodeIdToCodeName(#{homepage_id},#{category3Manage},category3) as category3_name,
-					getCodeIdToCodeName(#{homepage_id},#{category4Manage},category4) as category4_name,
-					getCodeIdToCodeName(#{homepage_id},#{category5Manage},category5) as category5_name,
-					getCodeIdToCodeName('CMS',#{request_code},request_state) as request_state_str
+					category1, category2, category3, category4, category5,request_state
 				FROM
 					CMS_BOARD
 				WHERE
@@ -288,7 +289,13 @@
 				FROM CMS_BOARD_COMMENT a
 				WHERE a.board_idx = CMS_BOARD_T.board_idx AND
 				a.delete_yn = 'N'
-			) AS comment_count
+			) AS comment_count,
+			getCodeIdToCodeName(#{homepage_id},#{category1Manage},category1) as category1_name,
+			getCodeIdToCodeName(#{homepage_id},#{category2Manage},category2) as category2_name,
+			getCodeIdToCodeName(#{homepage_id},#{category3Manage},category3) as category3_name,
+			getCodeIdToCodeName(#{homepage_id},#{category4Manage},category4) as category4_name,
+			getCodeIdToCodeName(#{homepage_id},#{category5Manage},category5) as category5_name,
+			getCodeIdToCodeName('CMS',#{request_code},request_state) as request_state_str
 			FROM
 		(
 			${pagingTop}
@@ -300,13 +307,7 @@
 					view_count, notice_yn, title, add_id, content,
 					user_name, user_ip, delete_yn, add_date, modify_date,
 					file_count, preview_img, secret_yn, content_summary, file_download_count,
-					category1, category2, category3, category4, category5,request_state,
-					getCodeIdToCodeName(#{homepage_id},#{category1Manage},category1) as category1_name,
-					getCodeIdToCodeName(#{homepage_id},#{category2Manage},category2) as category2_name,
-					getCodeIdToCodeName(#{homepage_id},#{category3Manage},category3) as category3_name,
-					getCodeIdToCodeName(#{homepage_id},#{category4Manage},category4) as category4_name,
-					getCodeIdToCodeName(#{homepage_id},#{category5Manage},category5) as category5_name,
-					getCodeIdToCodeName('CMS',#{request_code},request_state) as request_state_str
+					category1, category2, category3, category4, category5,request_state
 				FROM
 					CMS_BOARD
 				WHERE
