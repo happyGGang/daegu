@@ -6,8 +6,8 @@
 <%pageContext.setAttribute("lf", "\n");%>
 <style type="text/css">
 .starRev .starR1, .starRev .starR1 {cursor: pointer;}
-.starR1 {position: relative;display: inline-block;width: 14px;height: 23px;background: url("/resources/common/img/ico_star.png") no-repeat;background-size: 25px;overflow: hidden;z-index: 2;}
-.starR2 {position: relative;display: inline-block;right: 19px;width: 28px;height: 24px;background: url("/resources/common/img/ico_star.png") no-repeat;background-size: 25px;margin-right: -25px;}
+.starR1 {position: relative;display: inline-block;width: 13.5px;height: 23px;background: url("/resources/common/img/ico_star.png") no-repeat;background-size: 25px;overflow: hidden;z-index: 2;}
+.starR2 {position: relative;display: inline-block;right: 18px;width: 28px;height: 23.5px;background: url("/resources/common/img/ico_star.png") no-repeat;background-size: 25px;margin-right: -25px;}
 .starR1.on {background: url("/resources/common/img/ico_starColor.png") no-repeat;background-size: 25px;}
 .starR2.on {background: url("/resources/common/img/ico_starColor.png") no-repeat;background-size: 25px;}
 
