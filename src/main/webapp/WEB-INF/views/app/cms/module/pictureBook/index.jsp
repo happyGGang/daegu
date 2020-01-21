@@ -40,7 +40,7 @@ $(function() {
 	$('.dialog-view').on('click', function(e) {
 		e.preventDefault();
 		var formData = 'editMode=ADD&pay_yn='+$('#pay_yn').val() + '&viewPage='+$('#viewPage').val() + '&picture_book_idx='+$(this).attr('keyValue') + '&loan_year='+$(this).attr('keyValue2');
-		doGetLoad('view.do', formData)
+		doGetLoad('view.do', formData);
 	});
 	
 	$('a#frame-btn').on('click', function(e) {
