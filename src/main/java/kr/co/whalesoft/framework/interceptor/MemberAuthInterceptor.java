@@ -161,6 +161,7 @@ public class MemberAuthInterceptor extends HandlerInterceptorAdapter {
 				//관리자 메뉴에 대한 접근권한 확인 로직
 				if (!member.isAdmin()) {
 					if (!memberGroupAuthService.hasAdminAuth(member)) {
+						return JavaScriptUtils.alertMessageAndUrl("권한이 없습니다", "/", request, response);
 //						if (!memberGroupAuthService.hasPmsAuth(member)) {
 //							loginService.logout(request);
 //							throw new AuthException();
