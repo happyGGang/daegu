@@ -166,7 +166,11 @@ public class MemberAPI {
 				param.put("h_zipcode", member.getZipcode());//집우편번호
 			}
 			if (StringUtils.isNotEmpty(member.getAddress1())) {
-				param.put("h_addr1", URLEncoder.encode(member.getAddress1(), "UTF-8"));//집주소
+				String addr = member.getAddress1();
+				if (StringUtils.isNotBlank(member.getAddress2())) {
+					addr += " " + member.getAddress2();
+				}
+				param.put("h_addr1", URLEncoder.encode(addr, "UTF-8"));//집주소
 			}
 			if (StringUtils.isNotBlank(member.getSms_service_yn())) {
 				param.put("sms_use_yn", member.getSms_service_yn());//SMS수신여부 Y/N
