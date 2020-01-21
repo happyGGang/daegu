@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import kr.co.whalesoft.app.cms.login.LoginService;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.member.MemberService;
 import kr.co.whalesoft.app.cms.memberGroupAuth.MemberGroupAuthService;
-import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JavaScriptUtils;
 import kr.co.whalesoft.framework.utils.MessageResolver;
 
