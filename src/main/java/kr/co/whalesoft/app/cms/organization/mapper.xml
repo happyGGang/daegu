@@ -425,15 +425,4 @@
 			)
 	</update>
 	
-	<select id="getOrganizationManage" resultType="kr.co.whalesoft.app.cms.organization.Organization">
-		SELECT
-			a.homepage_id, a.organization_idx, b.organization_work_idx, a.organization_name, b.position,  b.worker,
-			b.phone, b.work_info
-		FROM
-			ORGANIZATION a, ORGANIZATION_WORK b
-		WHERE
-			a.organization_idx = b.organization_idx
-		AND	a.homepage_id = #{homepage_id}
-	</select>
-
 </mapper>

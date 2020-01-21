@@ -74,6 +74,4 @@ public interface OrganizationDao {
 
 	public Organization getOrganizationChartYN(Organization organization);
 
-	public List<Organization> getOrganizationManage(Organization organization);
-
 }

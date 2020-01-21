@@ -459,7 +459,8 @@ public class MenuController extends BaseController {
 
 	@RequestMapping(value = {"/managerView.*"}, method = RequestMethod.GET)
 	public String managerView(Model model, Menu menu) {
-		model.addAttribute("manageList", organizationService.getOrganizationManage(new Organization(menu.getHomepage_id())));
+		model.addAttribute("manageList", organizationService.getOrganizationWorkList(new Organization(menu.getHomepage_id())));
+		
 		return basePath + "managerView_ajax";
 	}
 }

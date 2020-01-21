@@ -156,8 +156,4 @@ public class OrganizationService extends BaseService {
 		}
 	}
 
-	public List<Organization> getOrganizationManage(Organization organization) {
-		return dao.getOrganizationManage(organization);
-	}
-
 }
