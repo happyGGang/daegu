@@ -5,27 +5,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script>
 $(document).ready(function() {
-	$('div#board_paging a').on('click', function(e) {
-		$('#viewPage').attr('value', $(this).attr('keyValue'));
-		var param = serializeCustom($('form#accessHistory'));
-		doGetLoad('index.do', param);
+	<%--검색--%>
+	$('button#search_btn').on('click', function(e) {
 		e.preventDefault();
-	});
-	
-	$('a#board_btn_search').on('click', function(e) {
-		e.preventDefault();
-		$('#viewPage').attr('value', '1');
-		var param = serializeCustom($('form#accessHistory'));
-		doGetLoad('index.do', param);
-	});
-	
-	$('input#search_text_board').keyup(function(e) {
-		e.preventDefault();
-		if(e.keyCode == 13) {
-			$('#viewPage').attr('value', '1');
-			var param = serializeCustom($('form#accessHistory'));
-			doGetLoad('index.do', param);
-		}
+		$('#viewPage').val(1);
+		doGetLoad('index.do', $('form#archiveBookListForm').serialize());
 	});
 	
 	$('a.open_viewer').on('click', function(e) {
@@ -38,6 +22,7 @@ $(document).ready(function() {
 <form:form id="archiveBookListForm" modelAttribute="archive" action="index.do" >
 <form:hidden path="homepage_id"/>
 <form:hidden path="menu_idx"/>
+<form:hidden path="category"/>
 
 	<div class="infodesk">
 		검색 결과 : 총 <fmt:formatNumber value="${count}" pattern="#,###" />건

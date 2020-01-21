@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import kr.co.whalesoft.app.cms.login.LoginService;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.member.MemberService;
 import kr.co.whalesoft.app.cms.memberGroupAuth.MemberGroupAuthService;
-import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JavaScriptUtils;
 import kr.co.whalesoft.framework.utils.MessageResolver;
 
@@ -161,6 +159,7 @@ public class MemberAuthInterceptor extends HandlerInterceptorAdapter {
 				//관리자 메뉴에 대한 접근권한 확인 로직
 				if (!member.isAdmin()) {
 					if (!memberGroupAuthService.hasAdminAuth(member)) {
+						return JavaScriptUtils.alertMessageAndUrl("권한이 없습니다", "/", request, response);
 //						if (!memberGroupAuthService.hasPmsAuth(member)) {
 //							loginService.logout(request);
 //							throw new AuthException();

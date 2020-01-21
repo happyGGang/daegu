@@ -154,23 +154,23 @@ do {
 									</a>
 								</li>
 								<li class="bg-lgray">
-									<a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=16">
-									<span class="wt">마이페이지</span>
-									<span class="wc">대출조회 및 신청현황</span>
+									<a href="/${homepage.context_path}/html.do?menu_idx=56">
+									<span class="wt">독서문화행사</span>
+									<span class="wc">다양한 독서프로그램</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick02-bg.png" class="mi">
 									</a>
 								</li>
 								<li class="bg-lgreen">
-									<a href="/${homepage.context_path}/html.do?menu_idx=56">
-									<span class="wt">독서문화행사</span>
-									<span class="wc">서로 공감하고<br/>소통할 수 있는<br/>프로그램</span>
+									<a href="http://e-lib.tglnet.or.kr/daegu/home/main.jsp" target="_blank">
+									<span class="wt">전자도서관</span>
+									<span class="wc">전자책, 오디오북 등 디지털콘텐츠</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick03-bg.png" class="mi">
 									</a>
 								</li>
 								<li class="bg-lgray">
-									<a href="#">
-									<span class="wt">디지털코너</span>
-									<span class="wc">쉽고 빠른 디지털코너<br/>좌석예약</span>
+									<a href="http://seat.daegu.go.kr/wb_booking/?LIB_CODE=1" target="_blank">
+									<span class="wt">디지털정보코너</span>
+									<span class="wc">쉽고 빠른 좌석 예약</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick04-bg.png" class="mi">
 									</a>
 								</li>
@@ -182,10 +182,10 @@ do {
 									</a>
 								</li>
 								<li class="bg-blue">
-									<a href="#">
-									<span class="wt">전자도서관</span>
-									<span class="wc">다양한 디지털 콘텐츠</span>
-									<img src="/resources/homepage/${homepage.context_path}/img/quick06-bg.png" class="mi">
+									<a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=157">
+									<span class="wt">영화상영</span>
+									<span class="wc">재미있는 영화 감상</span>
+									<img src="/resources/homepage/${homepage.context_path}/img/quick07-bg.png" class="mi">
 									</a>
 								</li>
 							</ul>
