@@ -230,7 +230,7 @@ $(function(){
 		_str4 = '<img src="/resources/homepage/geic/img/active_on.png" alt="on"/>';
 	}
 
-	$('div.lnb > ul > li').each(function(){
+	$('div.lnb > ul > li, div.lnb > ul > li > ul > li').each(function(){
 		if($(this).find('ul').length > 0){
 			$(this).addClass('s');
 			if($(this).hasClass('active')){
@@ -239,32 +239,8 @@ $(function(){
 				$(this).children('a').append(_str2);
 			}
 			$(this).children('a').on('click',function(){
-				if($(this).parent().hasClass('active')){
-					location.href = $(this).next('ul').find('a:first').attr('href');
-					/*
-					 * $(this).children('i').remove(); $(this).append('<i
-					 * class="fa fa-plus"></i>');
-					 *
-					 * $('div.lnb > ul > li > ul').slideUp(80); $('div.lnb > ul >
-					 * li').removeClass('active');
-					 * $(this).parent().removeClass('active');
-					 */
-				}else{
-					location.href = $(this).next('ul').find('a:first').attr('href');
-					/*
-					 * $(this).parent().parent().children('li').each(function(){
-					 * if($(this).children('a').children('i').hasClass('fa-minus')) {
-					 * $(this).children('a').children('i').remove();
-					 * $(this).children('a').append('<i class="fa fa-plus"></i>'); }
-					 * }); $(this).children('i').remove(); $(this).append('<i
-					 * class="fa fa-minus"></i>');
-					 *
-					 * $('div.lnb > ul > li > ul').slideUp(80); $('div.lnb > ul >
-					 * li').removeClass('active');
-					 * $(this).parent().children('ul').slideDown(80);
-					 * $(this).parent().addClass('active');
-					 */
-				}
+
+				location.href = $(this).next('ul').find('a:first').attr('href');
 				return false;
 			});
 			if($(this).find('li').hasClass('active')){
