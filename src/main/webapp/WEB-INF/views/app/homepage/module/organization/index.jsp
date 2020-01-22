@@ -19,6 +19,7 @@ $(function() {
 	});
 
 
+	<c:if test="${fn:contains(organization.chart_yn, 'Y')}">
 	var datasource = {};
 	var items = [];
 	<c:forEach items="${organizationList}" var="i" varStatus="status">
@@ -54,6 +55,7 @@ $(function() {
 	$('div#orgChart').orgchart({
 		data : datasource
 	});
+	</c:if>
 });
 
 $.fn.rowspan = function(colIdx, isStats) {
