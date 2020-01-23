@@ -68,14 +68,14 @@
 #calendar .calendar-info span.hu {background:url('/resources/homepage/duryu/img/red-dot.png') no-repeat left center;}
 #calendar .calendar-info span.ev {background:url('/resources/homepage/duryu/img/blue-dot.png') no-repeat left center;}
 
-#calendar {width:86%;margin:0 auto;position:relative}
+#calendar {/* width:86%; */margin:0 auto;position:relative}
 .calendar {position:absolute;top:0px;z-index:800;width:1000px}
 .calendar .section{position:relative;overflow:hidden;text-align:center;margin:20px 20px;width:315px;float:right}
 .calendar .box{width:310px;margin-right:20px}
 .calendar h3{font-size:16px;color:#323232;font-weight:bold;line-height:36px;height:36px;text-align:left;float:left;padding-top:13px;}
-#calendar table,
-#calendar table th,
-#calendar table td{border:0;padding:0}
+/* #calendar table, */
+/* #calendar table th, */
+/* #calendar table td{border:0;padding:0} */
 #calendar .btn{border:0;background:none}
 #planList{overflow:hidden;padding-top:13px}
 #planList h3{font-size:15px;padding:0 10px 0 0;float:left;display:block;letter-spacing:-1px}
@@ -94,10 +94,10 @@
 .cal-func b span {font-size:19px;}
 .cal-func b em{color:#67940;font-weight:bold;}
 #calendar .cal-tbl {margin-top:10px;text-align:center;}
-#calendar .cal-tbl th{font-size:11px;}
+#calendar .cal-tbl th{font-size:11px;padding: 12px 0;}
 #calendar .cal-tbl th span {display:block;width:28px;height:28px;line-height:30px;color:#fff;font-size:13px;font-weight:bold;background:#2e3192;text-align:center;border-radius:50%;margin:0 auto;}
 #calendar .cal-tbl td{font-size:11px;padding:1% 0;;text-align:center;white-space:nowrap}
-#calendar .cal-tbl td div{margin:0 10%;width:20px;height:20px;line-height:20px;font-size:12px;margin:0 auto;}
+#calendar .cal-tbl td div{/* margin:0 10%; */width:20px;height:20px;line-height:20px;font-size:12px;/* margin:0 auto; */}
 #calendar .cal-tbl td a {display:block;border-radius:100%}
 #calendar .cal-tbl td a.type-r{background:url('/resources/homepage/duryu/img/blue-dot2.png') no-repeat center bottom;#0080f2;color:#0080f2}
 #calendar .cal-tbl td a.type-e{background:url('/resources/homepage/duryu/img/red-dot2.png') no-repeat center bottom;color:#ee2342}
