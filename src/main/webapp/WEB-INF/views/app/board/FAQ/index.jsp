@@ -48,8 +48,8 @@ $(function(){
 .faq .a{position:relative;margin:0;padding:10px 15px;line-height:1.5;background:#fdfcf5;overflow:hidden;padding-bottom:10px;padding-top:10px;border-top:1px dashed #ddd;}
 .faq .a .tit{font-size:14px;font-weight:bold;color:#e32c2c;display:inline-block;width:14px;position:absolute;top:14px;left:15px;}
 .faq .a .aContent{margin-left:25px;padding:5px 0;}
-.faq .a .aContent p{line-height:20px;}
-.faq .a .aContent span, .faq .a .aContent p, .faq .a .aContent strong{font-size:13px !important;}
+.faq .a .aContent p{line-height:28px;}
+.faq .a .aContent span, .faq .a .aContent p, .faq .a .aContent strong{font-size:15px !important;}
 .faq .goQna{
 width:650px;padding:10px 0 10px 35px;margin:10px 0 7px 25px;border:1px dashed #ccc;background:url('/resources/board/img/ico_tip.gif') #fff no-repeat 10px 12px;font-size:13px;font-weight:bold;
 -webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;
