@@ -52,10 +52,10 @@ public class CalendarManageController extends BaseController {
 
 	@Autowired
 	private HomepageService homepageService;
-	
+
 	@Autowired
 	private FacilityReqService facilityReqService;
-	
+
 	@Autowired
 	private BoardService boardService;
 
@@ -69,30 +69,24 @@ public class CalendarManageController extends BaseController {
 		if (calendarManage.getPlan_date() == null || calendarManage.getPlan_date().equals("")) {
 			calendarManage.setPlan_date(new SimpleDateFormat("yyyy-MM").format(new Date()));
 		}
-		
+
 		if (StringUtils.isNotEmpty(calendarManage.getPlan_date()) && calendarManage.getPlan_date().toLowerCase().contains("nan")) {
 			calendarManage.setPlan_date(new SimpleDateFormat("yyyy-MM").format(new Date()));
 		}
-		
+
 		Board board = new Board();
 		board.setHomepage_id(calendarManage.getHomepage_id());
 		board.setImsi_v_1(calendarManage.getPlan_date());
-		
-		//TODO 게시판 완료시 null 삭제
-//		model.addAttribute("moveList", boardService.getBoardMovie(board));
-		model.addAttribute("moveList", null);
 
+		model.addAttribute("moveList", boardService.getBoardMovie(board));
 		model.addAttribute("calendarList", service.getCalendar(calendarManage));
 		model.addAttribute("calendarListType", service.getCalendarListType(calendarManage));
 		model.addAttribute("calendarManage", calendarManage);
 		model.addAttribute("calendarManageList",service.getCalendarManage(calendarManage));
-//		model.addAttribute("okApplyList",applyService.getOkApply(calendarManage));
-//		model.addAttribute("teachList",teachService.getTeachListForCalendar(calendarManage));
-//		model.addAttribute("facilityReqList",facilityReqService.getFacilityReqCalendar(calendarManage));
-		//TODO 강좌완료시 null 삭재
-		model.addAttribute("okApplyList", new ArrayList<Apply>());
-		model.addAttribute("teachList", null);
-		model.addAttribute("facilityReqList", null);
+		model.addAttribute("okApplyList",applyService.getOkApply(calendarManage));
+		model.addAttribute("teachList",teachService.getTeachListForCalendar(calendarManage));
+		model.addAttribute("facilityReqList",facilityReqService.getFacilityReqCalendar(calendarManage));
+
 		model.addAttribute("url", url);
 		return basePath + "index" + url;
 	}
@@ -110,7 +104,7 @@ public class CalendarManageController extends BaseController {
 			checkAuth("C", model, request);
 			model.addAttribute("calendarManage", calendarManage);
 		}
-		
+
 		model.addAttribute("weekdayList", service.getDefaultWeekDay());
 
 		model.addAttribute("dateTypeList",codeService.getCode(calendarManage.getHomepage_id(), "C0006"));
@@ -130,57 +124,57 @@ public class CalendarManageController extends BaseController {
 
 		if (!result.hasErrors()) {
 			if (calendarManage.getEditMode().equals("ADD")) {
-				
+
 				String startDate = calendarManage.getStart_date();
 				String endDate = calendarManage.getEnd_date();
-				
+
 				DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				Date startDay = dateFormat.parse(startDate);
 				Date endDay = dateFormat.parse(endDate);
-				
+
 				Calendar start = Calendar.getInstance();
 				Calendar end = Calendar.getInstance();
-				
+
 				start.setTime(startDay);
 				end.setTime(endDay);
-				
+
 				if (calendarManage.getWeekdayArr() == null || StringUtils.equals(calendarManage.getWeekdayArr().get(0), "0")) {
 					calendarManage.setWeekday("1,2,3,4,5,6,7");
 				} else {
 					calendarManage.setWeekday(StringUtils.join(calendarManage.getWeekdayArr(), ","));
 				}
-				
+
 				String[] weekday = calendarManage.getWeekday().split(",");
-				
+
 				int nextIdx = service.getNextCmIdx(calendarManage);
 				calendarManage.setGroup_idx(nextIdx);
-				
+
 				while( start.compareTo( end ) !=1 ){
 					for(int i = 0; i < weekday.length; i++) {
 						int day = getDateDay(start, "yyyy-MM-dd");
-						
+
 						if(Integer.parseInt(weekday[i]) == day) {
-							
+
 							calendarManage.setStart_date(dateFormat.format(start.getTime()));
 							calendarManage.setEnd_date(dateFormat.format(start.getTime()));
-							
+
 							service.addCalendarManage(calendarManage);
 						}
 					}
 					start.add(Calendar.DATE, 1);
 				}
-					
+
 				res.setValid(true);
 				res.setMessage("등록 되었습니다.");
 			} else if (calendarManage.getEditMode().equals("MODIFY")) {
-				service.modifyCalendarManage(calendarManage);				
-				
+				service.modifyCalendarManage(calendarManage);
+
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");
 			} else if (calendarManage.getEditMode().equals("DELETE")) {
 				calendarManage.setIndividual_yn2(calendarManage.getIndividual_yn());
 				if (StringUtils.equals(calendarManage.getIndividual_yn(), "E")) {
-					calendarManage.setIndividual_yn("N");	
+					calendarManage.setIndividual_yn("N");
 				}
 				if (calendarManage.getIndividual_yn().equals("Y")) {
 					service.deleteCalendarManage(calendarManage);
@@ -197,7 +191,7 @@ public class CalendarManageController extends BaseController {
 
 		return res;
 	}
-	
+
 	@RequestMapping(value = { "/getLasHolidays.*" }, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse saveIlusHolidays(CalendarManage calendarManage, Homepage homepage, BindingResult result, HttpServletRequest request) {
 
@@ -215,12 +209,12 @@ public class CalendarManageController extends BaseController {
 
 		return res;
 	}
-	
+
 	public int getDateDay(Calendar date, String dateType) throws Exception {
 //	    String day = "" ;
-	     
+
 	    int dayNum = date.get(Calendar.DAY_OF_WEEK) ;
-	     
+
 //	    switch(dayNum){
 //	        case 1:
 //	            day = "일";
