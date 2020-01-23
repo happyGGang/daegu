@@ -356,6 +356,7 @@ table.center td{text-align:center}
 table td.left{text-align:left!important}
 table td.num{color:#888;font-size:85%;white-space:nowrap}
 table.nohead{border-top:2px solid #5e6062}
+table.nohead2 tr:first-child th, table.nohead2 tr:first-child td {border-top:2px solid #5e6062}
 table.thBg tbody th,
 table.nohead tbody th{background:#f9f9f9}
 .newWin a.newWin i,
@@ -1283,7 +1284,8 @@ background:url('../img/join_bt_01.png') no-repeat center bottom;backgrouns-size:
 .join-wrap .btn-wrap .btn1,
 .join-wrap .btn-wrap .btn1:hover,
 .join-wrap .btn-wrap .btn1:focus{background:#000;border-color:#000}
-.join-wrap table{clear:both;border-top:3px solid #999}
+/* .join-wrap table{clear:both;border-top:3px solid #999} */
+.join-wrap table tr.first th, .join-wrap table tr.first td {clear: both;border-top: 3px solid #999;}
 .join-wrap table .btn{height:26px;line-height:25px;padding:1px 10px;letter-spacing:-1px;font-size:90%}
 .join-wrap table th{background:#f8f8f8}
 .join-wrap table tbody th,

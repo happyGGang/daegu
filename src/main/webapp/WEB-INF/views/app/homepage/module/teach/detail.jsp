@@ -40,14 +40,13 @@
 
 </script>
 
-
 <div class="teach_wrap">
 	<div class="teach_top">
 		<h3>${teach.teach_name}</h3>
 	</div>
 
 	<div class="auto-scroll teach_detail">
-		<table class="tstyle nohead" id="teach_table" summary="강의 상세내용입니다.">
+		<table class="tstyle nohead2" id="teach_table" summary="강의 상세내용입니다.">
 			<caption>강의 상세내용입니다.</caption>
 			<colgroup>
 				<col width="20%"/>
