@@ -198,11 +198,13 @@ $(document).ready(function() {
 		});
 	});
 
-	<c:if test="${boardManage.comment_use_yn eq 'Y'}">
-	var url = '/board/boardComment/index.do';
-	var formData = 'board_idx=${board.board_idx}&manage_idx=${board.manage_idx}';
-	doAjaxLoad('div#bbs-comment', url, formData);
-	</c:if>
+	if('${boardManage.comment_use_yn}' == 'Y') {
+		var url = '/board/boardComment/index.do';
+		var formData = 'board_idx=${board.board_idx}&manage_idx=${board.manage_idx}';
+		doAjaxLoad('div#bbs-comment', url, formData);		
+	} else {
+		$('a[href="#bbs-comment"]').hide();
+	}
 
 	$('a#board_scrab_btn').on('click', function(e) {
 		e.preventDefault();
