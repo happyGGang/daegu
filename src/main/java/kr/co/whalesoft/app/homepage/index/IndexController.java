@@ -229,7 +229,7 @@ public class IndexController extends BaseController {
 		model.addAttribute("currDate", currDate);
 		model.addAttribute("calendar", calendarManage);
 //		model.addAttribute("calendarList", calendarList);
-		Map<String, List<String>> calendarMarkGumi = getCalendarMarkGumi(calendarManage.getPlan_date(), closedDay, eventDay, movieDay, applyDay, teachDay, facilityDay);
+		Map<String, List<String>> calendarMarkGumi = getCalendarMarkGumi(calendarManage.getPlan_day(), closedDay, eventDay, movieDay, applyDay, teachDay, facilityDay);
 		String day = calendarManage.getPlan_day().split("-")[2];
 		if (day.startsWith("0")) {
 			day = day.replace("0", "");
