@@ -6,7 +6,7 @@
 <script type="text/javascript">
 $(function() {
 	var $form = $('form#pictureBook');
-	
+
 	$('.request-btn').on('click', function(e) {
 		e.preventDefault();
 		var formData = $form.serialize() + '&loan_year='+$(this).attr('keyValue') + '&loan_month='+$(this).attr('keyValue2');
@@ -15,17 +15,17 @@ $(function() {
 // 		});
 		doGetLoad('loanEdit.do', formData);
 	});
-	
+
 	$('.edit-btn').on('click', function(e) {
 		e.preventDefault();
 		if('${authGroup}' != '1') {
 			return false;
 		}
-		
+
 		var formData = $form.serialize() + '&picture_book_loan_idx='+$(this).attr('keyValue');
 		doGetLoad('loanEdit.do', formData);
 	});
-	
+
 	$('#list-btn').on('click', function(e) {
 		e.preventDefault();
 		var url = 'index${pictureBook.before_url}.do';
@@ -110,7 +110,7 @@ dl#author dd {float: left;width: 140px;margin-bottom: 15px;padding: 0 15px;}
 				<span class="req-month">${month}월</span>
 				<div class="btn-box">
 				<c:choose>
-					<c:when test="${loanableMonth[month].isMonth}">
+					<c:when test="${not empty loanableMonth[month].isMonth and loanableMonth[month].isMonth}">
 					<a href="javascript:void(0)" class="apply-ok"><span>대출완료</span></a>
 					<a href="#" class="edit-btn" keyValue="${loanableMonth[month].picture_book_loan_idx}">${loanableMonth[month].school_name}/${loanableMonth[month].request_name}</a>
 					</c:when>
