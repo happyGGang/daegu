@@ -86,6 +86,12 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 			<th>가격 <em><font color="red">(*)</font></em></th>
 			<td><form:input path="price" style="width:20%" class="text" type="text" maxlength="10" numberOnly="true" /></td>
 		</tr>
+		<c:if test="${homepage.context_path ne 'nambu' and homepage.context_path ne 'std'}">
+		<tr>
+			<th>우선대출예약여부</th>
+			<td><form:checkbox path="reservation_yn" class="text" value="Y"/> <label for="reservation_yn1">우선대출을 원하실 경우 체크를 해주세요</label></td>
+		</tr>
+		</c:if>
 	</tbody></table>
 </form:form>
 

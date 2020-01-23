@@ -89,6 +89,7 @@ public class LibrarySearch extends PagingUtils {
 	private String regNo; // 등록번호
 	private String keyword; // 키워드
 	private String shelfCode; // 자료실코드
+	private String notShelfCode; // 자료실코드
 	private String subjectCode; // 주제부호( comma로 여러개 )
 	private String regCode; // 등록구분( comma로 여러개 )
 	private String separateShelfCode; // 별치기호( comma로 여러개 )
@@ -106,6 +107,7 @@ public class LibrarySearch extends PagingUtils {
 	private String hold_lib_code;
 	private String local_book_key;
 	private String kl_member_yn;
+	private String reservation_yn;//우선대출예약여부(Y/N)
 
 	private String address;
 	private String zip_code;
@@ -896,6 +898,26 @@ public class LibrarySearch extends PagingUtils {
 
 	public void setFacet_media_code(String facet_media_code) {
 		this.facet_media_code = facet_media_code;
+	}
+
+
+	public String getNotShelfCode() {
+		return notShelfCode;
+	}
+
+
+	public void setNotShelfCode(String notShelfCode) {
+		this.notShelfCode = notShelfCode;
+	}
+
+
+	public String getReservation_yn() {
+		return reservation_yn;
+	}
+
+
+	public void setReservation_yn(String reservation_yn) {
+		this.reservation_yn = reservation_yn;
 	}
 
 }

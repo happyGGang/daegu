@@ -571,6 +571,12 @@ public class LibSearchAPI {
 			param.put("sms_receipt_yn", "Y");
 		}
 
+		if (StringUtils.equals(librarySearch.getReservation_yn(), "Y")) {
+			param.put("reservation_yn", "Y");
+		} else {
+			param.put("reservation_yn", "N");
+		}
+
 		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("bookfurnishrequest", param);
 
 		String code = String.valueOf(sendKCMS.get("RESULT_INFO"));
@@ -791,6 +797,110 @@ public class LibSearchAPI {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("manage_code", manage_code);
 		return CommonAPI.sendKCMS("searchwordbest", param);
+	}
+
+	/**
+	 * K.API - 44
+	 *
+	 * 단행본 상세검색 조회 (단행본 일반검색은 getBookNormal)
+	 *
+	 * @author YONGJU 2017. 12. 13.
+	 * @param librarySearch
+	 * @return
+	 */
+	public static Map<String, Object> getBookAndNonbookDetail(LibrarySearch librarySearch) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		Map<String, Object> result = null;
+
+		try {
+			// 서명
+			if (StringUtils.isNotEmpty(librarySearch.getTitle()))
+				param.put("search_title", URLEncoder.encode(librarySearch.getTitle(), "UTF-8"));
+			// 저자
+			if (StringUtils.isNotEmpty(librarySearch.getAuthor()))
+				param.put("search_author", URLEncoder.encode(librarySearch.getAuthor(), "UTF-8"));
+			// 발행자
+			if (StringUtils.isNotEmpty(librarySearch.getPubler()))
+				param.put("search_publisher", URLEncoder.encode(librarySearch.getPubler(), "UTF-8"));
+			// 키워드
+			if (StringUtils.isNotEmpty(librarySearch.getKeyword()))
+				param.put("search_keyword", URLEncoder.encode(librarySearch.getKeyword(), "UTF-8"));
+		} catch (UnsupportedEncodingException e) {}
+
+		// ISBN
+		if (StringUtils.isNotEmpty(librarySearch.getIsbn())) {
+			String isbnArr[] = librarySearch.getIsbn().split(" ");
+			String isbn = "";
+			for (int i = 0; i < isbnArr.length; i++) {
+				if (isbnArr[i].length() == 10 || isbnArr[i].length() == 13) {
+					isbn = isbnArr[i];
+				}
+			}
+			if (StringUtils.isNotEmpty(isbn)) {
+				param.put("search_isbn_issn", isbn);
+			}
+		}
+		// 발행년시작 - YYYY
+		if (StringUtils.isNotEmpty(librarySearch.getSearch_start_date()))
+			param.put("search_year_start", librarySearch.getSearch_start_date());
+		// 발행년종료 - YYYY
+		if (StringUtils.isNotEmpty(librarySearch.getSearch_end_date()))
+			param.put("search_year_end", librarySearch.getSearch_end_date());
+		// 자료실코드
+		if (StringUtils.isNotEmpty(librarySearch.getShelfCode()))
+			param.put("search_shelf", librarySearch.getShelfCode());
+		//검색 제외 자료실코드. 여러개인 경우 comma(,)로 연결
+		if (StringUtils.isNotEmpty(librarySearch.getNotShelfCode()))
+			param.put("not_search_shelf", librarySearch.getNotShelfCode());
+		// 주제부호 : 분류기호의 첫번째 숫자(0~9). 여러 개인 경우 comma(,)로 연결. ※ IDX_BO_TBL의 CLASS_NO 필드의 첫번째 숫자값으로 확인 (ex : 816.6 -> 8)
+		if (StringUtils.isNotEmpty(librarySearch.getSubjectCode()))
+			param.put("subject_code", librarySearch.getSubjectCode());
+		// 등록구분. 여러개인 경우 comma(,)로 연결
+		if (StringUtils.isNotEmpty(librarySearch.getRegCode()))
+			param.put("reg_code", librarySearch.getRegCode());
+		// 매체구분. 여러개인 경우 comma(,)로 연결
+		if (StringUtils.isNotEmpty(librarySearch.getMedia_code()))
+			param.put("media_code", librarySearch.getMedia_code());
+		// 별치기호. 여러개인 경우 comma(,)로 연결
+		if (StringUtils.isNotEmpty(librarySearch.getSeparateShelfCode()))
+			param.put("separate_shelf_code", librarySearch.getSeparateShelfCode());
+
+		if (StringUtils.isNotEmpty(librarySearch.getFacet_manage_code()))
+			param.put("facet_manage_code", librarySearch.getFacet_manage_code());
+		if (StringUtils.isNotEmpty(librarySearch.getFacet_author()))
+			param.put("facet_author", librarySearch.getFacet_author());
+		if (StringUtils.isNotEmpty(librarySearch.getFacet_media_code()))
+			param.put("facet_media_code", librarySearch.getFacet_media_code());
+		if (StringUtils.isNotEmpty(librarySearch.getFacet_pub_year()))
+			param.put("facet_pub_year", librarySearch.getFacet_pub_year());
+		if (StringUtils.isNotEmpty(librarySearch.getFacet_publisher()))
+			param.put("facet_publisher", librarySearch.getFacet_publisher());
+		if (StringUtils.isNotEmpty(librarySearch.getFacet_subject_code()))
+			param.put("facet_subject_code", librarySearch.getFacet_subject_code());
+
+		try {
+			// 자료검색용
+			param.put("manage_code", StringUtils.join(librarySearch.getLibraryCodes(), ",").replaceAll("lib_", ""));
+		} catch (Exception e) {
+			// 신착도서 등 자료검색 제외
+			param.put("manage_code", librarySearch.getManageCode());
+		}
+
+		if (StringUtils.isNotEmpty(librarySearch.getShelf_list())) {
+			param.put("search_shelf", librarySearch.getShelf_list());
+		}
+
+		param.put("pageno", librarySearch.getViewPage());
+		param.put("display", librarySearch.getRowCount());
+		param.put("search_type", "detail");
+		if (!StringUtils.equals(librarySearch.getSortField(), "NONE")) {
+			param.put("orderby_item", librarySearch.getSortField());
+			param.put("orderby", librarySearch.getSortType());
+		}
+
+		result = CommonAPI.sendKCMS("bookandnonbooksearch", param);
+
+		return result;
 	}
 
 	/**

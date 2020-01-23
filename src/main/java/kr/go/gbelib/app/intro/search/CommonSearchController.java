@@ -108,6 +108,8 @@ public class CommonSearchController extends BaseController {
     			result = LibSearchAPI.getNonBookDetail(librarySearch);
     		} else if (librarySearch.getBooktype().equals("SERIAL")) {
     			result = LibSearchAPI.getSerialDetail(librarySearch);
+    		} else if (librarySearch.getBooktype().equals("BOOKANDNONBOOK")) {
+    			result = LibSearchAPI.getBookAndNonbookDetail(librarySearch);
     		}
 
     		List<Map<String, Object>> list = null;

@@ -266,25 +266,15 @@ $(function() {
 							</form:select>
 						</dd>
 					</dl>
-<!--
-					<dl>
-						<dt><label for="manageCode" class="title">도서관</label></dt>
-						<dd>
-							<form:select path="manageCode">
-								<form:option value="ALL">전체 도서관</form:option>
-								<form:option value="${homepage.manage_code}">${homepage.homepage_name}</form:option>
-							</form:select>
-						</dd>
-					</dl>
--->
 
 					<dl>
 						<dt>자료형태</dt>
 						<dd>
 							<div class="" style="padding:3px 0 0 10px">
-							<form:radiobutton path="booktype" value="BOOK" class="radiocheck" checked="checked"/><label for="booktype1" class="booktype">도서</label>
-							<form:radiobutton path="booktype" value="NONBOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype2" class="booktype">비도서</label>
-							<form:radiobutton path="booktype" value="SERIAL" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype3" class="booktype">간행물</label>
+							<form:radiobutton path="booktype" value="BOOKANDNONBOOK" class="radiocheck" checked="checked"/><label for="booktype1" class="booktype">통합</label>
+							<form:radiobutton path="booktype" value="BOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype2" class="booktype">도서</label>
+							<form:radiobutton path="booktype" value="NONBOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype3" class="booktype">비도서</label>
+<%-- 							<form:radiobutton path="booktype" value="SERIAL" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype4" class="booktype">간행물</label> --%>
 							</div>
 						</dd>
 					</dl>
@@ -381,7 +371,7 @@ $(function() {
 						<div class="imageType">
 							<c:forEach items="${bookSearch}" var="i">
 							<!-- 검색결과 루프 시작 -->
-							<c:set var="detailURL" value="detail.do?menu_idx=${fn:escapeXml(param.menu_idx)}&isbn=${fn:escapeXml(i.ST_CODE)}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype)}"></c:set>
+							<c:set var="detailURL" value="detail.do?menu_idx=${fn:escapeXml(param.menu_idx)}&isbn=${fn:escapeXml(i.ST_CODE)}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}"></c:set>
 							<div class="row">
 								<p class="admin">
 									<input name="print_param" type="checkbox" class="checkBook" value="${fn:escapeXml(i.ST_CODE)}_${fn:escapeXml(i.MANAGE_CODE)}"/>
@@ -406,8 +396,8 @@ $(function() {
 										<div class="bif">
 
 											<a href="${detailURL}">
-											<c:if test="${librarySearch.booktype eq 'BOOK'}">[도서]</c:if>
-											<c:if test="${librarySearch.booktype eq 'NONBOOK'}">[비도서]</c:if>
+											<c:if test="${i.MEDIA_CODE eq 'PR'}">[도서]</c:if>
+											<c:if test="${i.MEDIA_CODE ne 'PR'}">[비도서]</c:if>
 											<c:if test="${librarySearch.booktype eq 'SERIAL'}">[간행물]</c:if>
 											<span style='color:#e84e0e;font-weight:600'>${i.TITLE_INFO}</span>
 											</a>
@@ -555,7 +545,7 @@ $(function() {
 						<div class="textType" style="display:none">
 							<!-- 검색결과 루프 시작 -->
 							<c:forEach items="${bookSearch}" var="i">
-							<c:set var="detailURL" value="detail.do?menu_idx=${fn:escapeXml(param.menu_idx)}&isbn=${fn:escapeXml(i.ST_CODE)}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype)}"></c:set>
+							<c:set var="detailURL" value="detail.do?menu_idx=${fn:escapeXml(param.menu_idx)}&isbn=${fn:escapeXml(i.ST_CODE)}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}"></c:set>
 							<div class="row">
 								<div class="box">
 									<div class="item">
@@ -564,8 +554,8 @@ $(function() {
 										<input name="print_param" type="checkbox" class="checkBook" value="${fn:escapeXml(i.ST_CODE)}_${fn:escapeXml(i.MANAGE_CODE)}"/>
 
 											<a href="${detailURL}" class="name">
-												<c:if test="${librarySearch.booktype eq 'BOOK'}">[도서]</c:if>
-												<c:if test="${librarySearch.booktype eq 'NONBOOK'}">[비도서]</c:if>
+												<c:if test="${i.MEDIA_CODE eq 'PR'}">[도서]</c:if>
+												<c:if test="${i.MEDIA_CODE ne 'PR'}">[비도서]</c:if>
 												<c:if test="${librarySearch.booktype eq 'SERIAL'}">[간행물]</c:if>
 												<span style='color:#e84e0e;font-weight:600'>${i.TITLE_INFO}</span>
 											</a>
