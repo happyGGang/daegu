@@ -130,7 +130,7 @@
 .cal-func b span {font-size:29px;color:#000;}
 .cal-func b em{color:#000;font-weight:bold;}
 #calendar .cal-tbl {margin-top:10px;text-align:center;}
-#calendar .cal-tbl th{font-size:11px;padding: 12px 0;}
+#calendar .cal-tbl th{font-size:15px;padding: 12px 0;}
 #calendar .cal-tbl th span {display:block;width:28px;height:28px;line-height:30px;color:#fff;font-size:13px;font-weight:bold;background:#2e3192;text-align:center;border-radius:50%;margin:0 auto;}
 #calendar .cal-tbl td{font-size:11px;padding:1% 0;;text-align:center;white-space:nowrap}
 #calendar .cal-tbl td div{/* margin:0 10%; */width:20px;height:20px;line-height:20px;font-size:14px;/* margin:0 auto; */font-weight:bold;}
