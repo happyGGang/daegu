@@ -33,6 +33,7 @@ ${boardManage.top_html}
 				<c:forEach var="j" varStatus="status2" items="${fieldList}">
 				<boardTag:customFieldIndex manage_idx="${boardManage.manage_idx}" board_idx="${i.board_idx}" board_column="${j.board_column}" board_value="${i[j.board_column]}" column_type="${j.column_type}" content_link_yn="${j.content_link_yn}" code_mapping="${j.code_mapping}" />
 				</c:forEach>
+				<td class="important num adddate"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></td>
 				<c:if test="${boardManage.file_use_yn eq 'Y'}">
 					<td class="file mmm1">${i.file_count > 0?'<i class="fa fa-floppy-o"></i>':''}</td>
 				</c:if>
