@@ -9,6 +9,7 @@ $(function() {
 
 	$('.request-btn').on('click', function(e) {
 		e.preventDefault();
+		$('#editMode').val('ADD');
 		var formData = $form.serialize() + '&loan_year='+$(this).attr('keyValue') + '&loan_month='+$(this).attr('keyValue2');
 // 		$('#dialog-1').load('loanEdit.do?' + formData, function(response, status, xhr) {
 // 			$('#dialog-1').dialog('open');
@@ -22,6 +23,7 @@ $(function() {
 			return false;
 		}
 
+		$('#editMode').val('MODIFY');
 		var formData = $form.serialize() + '&picture_book_loan_idx='+$(this).attr('keyValue');
 		doGetLoad('loanEdit.do', formData);
 	});
@@ -112,13 +114,15 @@ dl#author dd {float: left;width: 140px;margin-bottom: 15px;padding: 0 15px;}
 				<c:choose>
 					<c:when test="${not empty loanableMonth[month].isMonth and loanableMonth[month].isMonth}">
 					<a href="javascript:void(0)" class="apply-ok"><span>대출완료</span></a>
-					<a href="#" class="edit-btn" keyValue="${loanableMonth[month].picture_book_loan_idx}">${loanableMonth[month].school_name}/${loanableMonth[month].request_name}</a>
 					</c:when>
 					<c:otherwise>
 					<a href="#" class="request-btn apply-req" keyValue="${pictureBook.loan_year}" keyValue2="${month}" style="color: blue;">대출신청</a>
 					</c:otherwise>
 				</c:choose>
 				</div>
+				<c:if test="${not empty loanableMonth[month].isMonth and loanableMonth[month].isMonth}">
+				<a href="#" class="edit-btn" keyValue="${loanableMonth[month].picture_book_loan_idx}">${loanableMonth[month].school_name}/${loanableMonth[month].request_name}</a>
+				</c:if>
 			</div>
 			</c:forEach>
 		</div>
