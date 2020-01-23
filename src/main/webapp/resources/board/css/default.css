@@ -113,6 +113,7 @@ table.bbs em{font-style:normal;font-size:90%}
 table.bbs em.new{
 width:12px;height:12px;background:url('../img/icon-new.gif') no-repeat 0 0;overflow:hidden;font-size:0;display:inline-block}
 table.bbs .fa-floppy-o{font-size:135%;color:#1557af}
+table.bbs .fa-lock {padding-left: 5px;}
 table.bbs input{vertical-align:middle}
 table.bbs tr.notice td{background:#f5f6f7}
 table.bbs tr.notice td.notice{padding-left:5px;padding-right:5px;color:#e86666}
