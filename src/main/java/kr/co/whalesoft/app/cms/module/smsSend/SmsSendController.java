@@ -261,7 +261,7 @@ public class SmsSendController extends BaseController{
 			homepage.setHomepage_id(smsSend.getHomepage_id());
 
 			if(homepageService.getHomepageOne(homepage).getLib_code() != null) {
-				smsSend.setHomepage_code(homepageService.getHomepageOne(homepage).getLib_code().substring(0,8));
+				smsSend.setHomepage_code(homepageService.getHomepageOne(homepage).getLib_code());
 			}
 
 		}
