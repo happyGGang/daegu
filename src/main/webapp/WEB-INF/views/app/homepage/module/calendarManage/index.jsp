@@ -179,7 +179,7 @@ $(function(){
 			<a id="next-btn" href="#next" class="btn next"><i class="fa fa-angle-right"></i><span class="blind">다음달</span></a>
 			<a href="#" style="float: right;" class="btn btn2 left" id="changeView"><i style="font-size: 100%;" class="fa fa-list" aria-hidden="true"></i><span style="margin-left: 5px;">목록형 보기</span></a>
 		</div>
-		<div id="calendar">
+		<div id="calendar" class="event-cal">
 			<div class="cal-func">
 				<div class="date-type">
 					<span class="type-r"><i></i><em>휴관일</em></span>

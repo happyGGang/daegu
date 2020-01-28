@@ -1765,6 +1765,11 @@ box-shadow:0px 3px 5px 0px rgba(0,0,0,0.4);
 .doc-body .schedule-func .cal-func{float:left;width:50%;padding:15px 0 0}
 .doc-body .schedule-func .cal-func{text-align:right}
 
+.event-cal {width: 100% !important;}
+.event-cal table th, .event-cal table td {border: 1px solid #e5e8eb !important;}
+.event-cal table th {margin: 0 10%;padding: 12px 0px !important;border-color: #d1d1d1 !important;border-top: 2px solid #5e6062 !important;font-size: 13px !important;}
+.event-cal .cal-tbl td div {margin: 5% !important;}
+
 /* 층별안내 */
 .floorInfo{background-color:#fff; border:3px solid #ebebeb; overflow:hidden;padding:15px}
 .floorInfo .tab-menu{width:20%;padding:0}
