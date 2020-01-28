@@ -112,7 +112,7 @@ public class JoinController extends BaseController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping (value = {"/cert.*"})
+	@RequestMapping (value = {"/cert.*"}, method = RequestMethod.POST)
 	public String cert(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String certType = request.getParameter("certType");
 		if (StringUtils.isEmpty(certType)) {
@@ -154,7 +154,7 @@ public class JoinController extends BaseController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping (value = {"/certResponse.*"}, method = RequestMethod.POST)
+	@RequestMapping (value = {"/certResponse.*"})
 	public String certResponse(Model model, Member member, HttpServletRequest request, HttpServletResponse response) {
 		response.setHeader("Cache-Control", "no-store");
 		response.setHeader("Pragma", "no-cache");
