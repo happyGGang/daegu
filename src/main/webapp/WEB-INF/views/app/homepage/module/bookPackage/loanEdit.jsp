@@ -102,6 +102,7 @@ input[type="checkbox"]:focus {outline: 1px solid red;}
 	<form:hidden path="editMode"/>
 	<form:hidden path="menu_idx"/>
 	<form:hidden path="viewPage"/>
+	<form:hidden path="rowCount"/>
 	<form:hidden path="book_package_idx"/>
 	<form:hidden path="book_package_loan_idx"/>
 	<table class="type2">

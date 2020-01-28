@@ -293,13 +293,13 @@ public class BookPackageController extends BaseController {
 				service.modifyBookPackageLoan(bookPackage);
 				res.setValid(true);
 				res.setUrl("loanList.do");
-				res.setData("menu_idx="+bookPackage.getMenu_idx() + "&viewPage="+bookPackage.getViewPage());
+				res.setData("menu_idx="+bookPackage.getMenu_idx() + "&viewPage="+bookPackage.getViewPage() + "&rowCount="+bookPackage.getRowCount());
 				res.setMessage("수정되었습니다.");
 			} else if (bookPackage.getEditMode().equals("DELETE")) {
 				service.deleteBookPackageLoan(bookPackage);
 				res.setValid(true);
 				res.setUrl("loanList.do");
-				res.setData("menu_idx="+bookPackage.getMenu_idx() + "&viewPage="+bookPackage.getViewPage());
+				res.setData("menu_idx="+bookPackage.getMenu_idx() + "&viewPage="+bookPackage.getViewPage() + "&rowCount="+bookPackage.getRowCount());
 				res.setMessage("삭제되었습니다.");
 			} else if(bookPackage.getEditMode().equals("returnReq")) {
 				service.modifyReturnReq(bookPackage);

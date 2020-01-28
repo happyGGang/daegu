@@ -9,7 +9,13 @@ $(function() {
 	// 책 꾸러미 대출 수정
 	$('a.dialog-edit').on('click', function(e) {
 		e.preventDefault();
-		var formData = 'editMode=MODIFY&menu_idx='+$('#menu_idx').val() + '&book_package_loan_idx='+$(this).attr('keyValue') + '&viewPage='+$('#viewPage').val();
+		if('${authGroup}' != '1') {
+			return false;
+		}
+		
+		$('#editMode').val('MODIFY');
+		$('#book_package_loan_idx').val($(this).attr('keyValue'));
+		var formData = $('form#bookPackage').serialize();
 		doGetLoad('loanEdit.do', formData);
 	});
 	
@@ -70,7 +76,7 @@ $(function() {
 		doGetLoad('loanList.do', $('form#bookPackage').serialize());
 	});
 	
-	$('select#request_status, select#loan_start_date').on('change', function() {
+	$('select#request_status, select#loan_start_date, select#rowCount').on('change', function() {
 		$('#viewPage').val(1);
 		doGetLoad('loanList.do', $('form#bookPackage').serialize());
 	});
@@ -132,6 +138,14 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 			<form:option value="4">관리자취소</form:option>
 			<form:option value="5">반납요청완료</form:option>
 		</form:select>
+		<form:select path="rowCount" cssClass="selectmenu">
+			<form:option value="10">10개씩보기</form:option>
+			<form:option value="20">20개씩보기</form:option>
+			<form:option value="30">30개씩보기</form:option>
+			<form:option value="50">50개씩보기</form:option>
+			<form:option value="100">100개씩보기</form:option>
+			<form:option value="${paging.totalDataCount}">전체 보기</form:option>
+		</form:select>
 		
 		<div class="button">
 			<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>
@@ -147,7 +161,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 			<col width="12%" />
 			<col width="16%" />
 			<col width="12%"/>
-			<col width="10%" />
+			<col width="11%" />
 			<col width="7%" />
 			<col width="10%" />
 			<col width="8%" />

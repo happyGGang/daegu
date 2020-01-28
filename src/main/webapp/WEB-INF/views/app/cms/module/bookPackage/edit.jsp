@@ -88,7 +88,7 @@ $(function() {
 	});
 
 	$("#dialog-1").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
-		width: 700,
+		width: 800,
 		height: 700
 	});
 
@@ -173,7 +173,7 @@ function getNaverData(arg) {
 	        <tr>
 	        	<th>ISBN</th>
 	        	<td>
-	        		<form:input path="isbn" cssClass="text" cssStyle="width:100px;"/>
+	        		<form:input path="isbn" cssClass="text" cssStyle="width:120px;"/>
 	        	</td>
 	        </tr>
 	        <tr>
@@ -245,7 +245,7 @@ function getNaverData(arg) {
 	        <tr>
 	        	<th>키워드</th>
 	        	<td>
-	        		<form:input path="keyword" cssClass="text" cssStyle="width:100px;"/> * 쉼표(,)로 구분지어 주세요.
+	        		<form:input path="keyword" cssClass="text" cssStyle="width:300px;"/> * 쉼표(,)로 구분지어 주세요.
 	        	</td>
 	        </tr>
 	        <tr>

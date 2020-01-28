@@ -16,7 +16,7 @@
 		${pagingTop}
 		SELECT
 			<include refid="field"/>,
-			(SELECT COUNT(*) FROM BOOK_PACKAGE_LOAN WHERE book_package_idx = a.book_package_idx) AS lender_count
+			(SELECT COUNT(*) FROM BOOK_PACKAGE_LOAN WHERE book_package_idx = a.book_package_idx AND request_status = 2) AS lender_count
 		FROM
 			BOOK_PACKAGE a
 		<trim prefix="WHERE" prefixOverrides="AND">
