@@ -112,7 +112,7 @@ public class JoinController extends BaseController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping (value = {"/cert.*"}, method = RequestMethod.POST)
+	@RequestMapping (value = {"/cert.*"})
 	public String cert(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String certType = request.getParameter("certType");
 		if (StringUtils.isEmpty(certType)) {
@@ -127,7 +127,7 @@ public class JoinController extends BaseController {
 			model.addAttribute("result", joinService.getIpinEncData(request, returnUrl));
 		}
 		Homepage homepage = getSessionHomepage(request);
-		model.addAttribute("currentContext", homepage.getContext_path());
+		request.getSession().setAttribute("currentContext", homepage.getContext_path());
 
 		request.getSession().setAttribute("certType", certType);
 		String mode = String.valueOf(request.getParameter("mode"));
@@ -428,13 +428,11 @@ public class JoinController extends BaseController {
 				model.addAttribute("dupUser", memberInfo.get(0));
 			}
 
-			String sReservedParam1  = StrUtil.isNull(request.getParameter("param_r1"), "");
-			String sReservedParam2  = StrUtil.isNull(request.getParameter("param_r2"), "");
-			String sReservedParam3  = StrUtil.isNull(request.getParameter("param_r3"), "");
+			String currentContext  = String.valueOf(request.getSession().getAttribute("currentContext"));
 
 			// 3. 책이음 중복자 확인
 			// 2020.01.07 'daegu' 컨텍스트에서는 신규가입 시 책이음회원여부를 체크하지 않는다.
-			if (!StringUtils.equals(sReservedParam1, "daegu")) {
+			if (!StringUtils.equals(currentContext, "daegu")) {
 				List<Map<String, Object>> klmemberInfo = MemberAPI.checkDupUser("3", member);
 				if (klmemberInfo != null && klmemberInfo.size() > 0) {
 					model.addAttribute("dupCheckKl", true);

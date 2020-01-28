@@ -35,9 +35,6 @@ $(function() {
 <input type="hidden" name="_csrf" value="${_csrf.token}">
 <input type="hidden" name="m" value="checkplusSerivce">
 <input type="hidden" name="EncodeData" value="${result['encData']}">
-<input type="hidden" name="param_r1" value="${currentContext}">
-<input type="hidden" name="param_r2" value="">
-<input type="hidden" name="param_r3" value="">
 </form>
 </c:if>
 
@@ -46,9 +43,6 @@ $(function() {
 <input type="hidden" name="_csrf" value="${_csrf.token}">
 <input type="hidden" name="m" value="pubmain">
 <input type="hidden" name="enc_data" value="${result['encData']}">
-<input type="hidden" name="param_r1" value="${currentContext}">
-<input type="hidden" name="param_r2" value="">
-<input type="hidden" name="param_r3" value="">
 </form>
 </c:if>
 
