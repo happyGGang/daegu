@@ -102,7 +102,7 @@ table.article-board td.last{white-space:nowrap}
 
 /* 게시판 목록 */
 table.bbs th,
-table.bbs td{padding:7px 10px;border-left:0;border-right:0}
+table.bbs td{padding:10px 10px;border-left:0;border-right:0}
 table.bbs td.dataEmpty,
 table td.dataEmpty{padding:10% 0;background:#fbfbfb;color:#888}
 table.bbs .fa-paperclip{font-size:120%;color:#888}
