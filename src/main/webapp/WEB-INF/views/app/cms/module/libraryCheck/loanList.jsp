@@ -38,7 +38,7 @@ $(function() {
 		doGetLoad('loanList.do', $('form#libraryCheck').serialize());
 	});
 	
-	$('select#library_check_number, select#request_status').on('change', function() {
+	$('select#library_check_number, select#request_status, select#rowCount').on('change', function() {
 		$('#viewPage').val(1);
 		doGetLoad('loanList.do', $('form#libraryCheck').serialize());
 	});
@@ -116,6 +116,14 @@ $(function() {
 			<form:option value="4">관리자취소</form:option>
 			<form:option value="5">반납요청완료</form:option>
 		</form:select>
+		<form:select path="rowCount" cssClass="selectmenu">
+			<form:option value="10">10개씩보기</form:option>
+			<form:option value="20">20개씩보기</form:option>
+			<form:option value="30">30개씩보기</form:option>
+			<form:option value="50">50개씩보기</form:option>
+			<form:option value="100">100개씩보기</form:option>
+			<form:option value="${paging.totalDataCount}">전체 보기</form:option>
+		</form:select>
 		
 		<div class="button">
 			<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>
@@ -123,15 +131,15 @@ $(function() {
 	</div>
 	<table class="type1 center">
 		<colgroup>
-			<col width="4%" />
+			<col width="5%" />
 			<col width="7%" />
 			<col />
-			<col width="10%" />
+			<col width="18%" />
 			<col width="10%"/>
+			<col width="15%" />
 			<col width="10%" />
 			<col width="10%" />
-			<col width="10%" />
-			<col width="8%" />
+			<col width="6%" />
 		</colgroup>
 		<thead>
 			<tr>

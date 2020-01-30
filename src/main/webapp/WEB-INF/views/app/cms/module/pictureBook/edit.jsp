@@ -160,7 +160,7 @@ function getNaverData(arg) {
 	        <tr>
 	        	<th>작가</th>
 	        	<td>
-	        		<form:input path="author" cssClass="text" cssStyle="width:100px;"/>
+	        		<form:input path="author" cssClass="text" cssStyle="width:150px;"/>
 	        	</td>
 	        </tr>
 	        <tr>
@@ -178,7 +178,7 @@ function getNaverData(arg) {
 	        <tr>
 	        	<th>ISBN</th>
 	        	<td>
-	        		<form:input path="isbn" cssClass="text" cssStyle="width:100px;"/>
+	        		<form:input path="isbn" cssClass="text" cssStyle="width:120px;"/>
 	        	</td>
 	        </tr>
 	        <tr>
