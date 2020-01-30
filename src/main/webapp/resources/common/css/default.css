@@ -697,7 +697,7 @@ ul.con2.pl5>li{background:none!important;padding-left:0}
 .faq-wrap dd{height:40px}
 .faq-wrap .faq_q dd,
 .faq-wrap .faq_a dd{padding-left:30px;margin:0}
-.faq-wrap .faq_a dd{height:auto;padding-bottom:30px;padding-left:40px} 
+.faq-wrap .faq_a dd{height:auto;padding-bottom:30px;padding-left:40px}
 .faq-wrap .faq_q a{display:block;font-weight:bold}
 .faq-wrap .faq_a{display:none;border-top:1px dashed #ddd}
 .faq-wrap .faq_a table{background:#fff}
@@ -966,7 +966,7 @@ padding:20px 15px 20px 215px;margin-bottom:25px}
 .op_wrap .item ul.con2{padding:2% 3%/* ;background:#fafafa;border-radius:15px */}
 .op_wrap .item ul.con2>li{padding:7px 4%;background-position:4% center;vertical-align:top;font-size:inherit;line-height:150%;border-top:1px solid #eee}
 .op_wrap .item ul.con2>li.first{border-top-width:0}
-.op_wrap .item ul.con2>li label{display:inline-block;zoom:1;*display:inline;font-weight:bold;}
+.op_wrap .item ul.con2>li label{display:inline-block;zoom:1;*display:inline;font-weight:bold;;width:64px}
 .op_wrap .item ul.con2>li>div.status>span{margin-right:5px}
 .op_wrap .item ul.con2>li>div{padding:0 20px 0 12px}
 .op_wrap .item{padding-bottom:10px;overflow:hidden;border-bottom:1px solid #d2d2d2;margin-bottom:25px}
@@ -1060,7 +1060,7 @@ ul.volunteer_order li.binbox{width:75px;height:87px}
 ul.volunteer_order li.arrow02{width:145px;padding:5px 13px 3px 12px;text-align:center}
 ul.volunteer_order li.arrow03{width:175px;padding:5px 13px 3px 12px;text-align:center}
 
-/* 시설이용 (사진 및 소개) 
+/* 시설이용 (사진 및 소개)
 .roomGuide{overflow:hidden}
 .roomGuide .popupzone{float:left;width:258px}
 .roomGuide .info{float:left;width:100%;margin-right:-258px}
@@ -1214,7 +1214,7 @@ table.td3-left tbody td.td3{text-align:left}
 .join-step li em{display:inline-block;zoom:1;*display:inline;vertical-align:middle;font-style:normal}
 .join-step li.step1 span{background:url('../img/step1-icon.gif') no-repeat center center}
 .join-step li.step2 span{background:url('../img/step2-icon.gif') no-repeat center center}
-.join-step li.step3 span{background:url('../img/step3-icon.gif') no-repeat center center} 
+.join-step li.step3 span{background:url('../img/step3-icon.gif') no-repeat center center}
 .join-wrap{padding-top:50px}
 .join-wrap>.box.step1>span{font-size:90%}
 .join-wrap>.box.ss{background:#f5f5f5}
@@ -1284,7 +1284,8 @@ background:url('../img/join_bt_01.png') no-repeat center bottom;backgrouns-size:
 .join-wrap .btn-wrap .btn1,
 .join-wrap .btn-wrap .btn1:hover,
 .join-wrap .btn-wrap .btn1:focus{background:#000;border-color:#000}
-.join-wrap table{clear:both;border-top:3px solid #999}
+/* .join-wrap table{clear:both;border-top:3px solid #999} */
+.join-wrap table tr.first th, .join-wrap table tr.first td {clear: both;border-top: 3px solid #999;}
 .join-wrap table .btn{height:26px;line-height:25px;padding:1px 10px;letter-spacing:-1px;font-size:90%}
 .join-wrap table th{background:#f8f8f8}
 .join-wrap table tbody th,
@@ -1764,6 +1765,7 @@ box-shadow:0px 3px 5px 0px rgba(0,0,0,0.4);
 .doc-body .schedule-func .cal-func{float:left;width:50%;padding:15px 0 0}
 .doc-body .schedule-func .cal-func{text-align:right}
 
+
 .event-cal {width: 100% !important;}
 .event-cal table th, .event-cal table td {border: 1px solid #e5e8eb !important;}
 .event-cal table th {margin: 0 10%;padding: 12px 0px !important;border-color: #d1d1d1 !important;border-top: 2px solid #5e6062 !important;font-size: 13px !important;}
@@ -1945,7 +1947,7 @@ table.service-step{border:0}
 /* .service-step td.ab div{z-index:2;position:absolute;top:-1px;padding:1px 0;width:100%;border:1px solid #fff;border-left-width:0;border-right-width:0;height:100%} */
 
 /* 정보공개처리절차 */
-.govCon1 table, 
+.govCon1 table,
 .govCon1 table tbody th,
 .govCon1 table tbody td{border:0;padding:0}
 .govCon1 table tbody th{background:#e0eed9;color:#458822}
@@ -2051,7 +2053,7 @@ padding:20px 15px 20px 215px; margin-bottom:25px}
 */
 
 @media all and (max-width:1279px){
-	#footer .section{width:100%;padding:0;}		
+	#footer .section{width:100%;padding:0;}
 }
 
 @media all and (max-width:1260px){
@@ -2117,7 +2119,7 @@ padding:20px 15px 20px 215px; margin-bottom:25px}
 
 @media all and (max-width:650px){
 	.img_uio.mmo{display:none}
-	
+
 	.webList {display:none}
 	.mobileList {display:block}
 

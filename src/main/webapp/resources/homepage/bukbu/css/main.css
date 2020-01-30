@@ -106,7 +106,7 @@
 #calendar .planView .inbox a.close{position:absolute;right:5px;top:0;font-size:120%}
 
 .main1 .main1box2 .library-infomation {position:relative;width:86%;margin:0 auto;margin-top:20px;}
-.main1 .main1box2 .library-infomation span {font-size:12px;}
+.main1 .main1box2 .library-infomation span {font-size:13px;}
 .main1 .main1box2 .library-infomation h4 {color:#2e3192;font-size:13px;font-weight:bold;}
 .main1 .main1box2 .library-infomation .top {width:100%;overflow:hidden;}
 .main1 .main1box2 .library-infomation .top .topBox1, .main1 .main1box2 .library-infomation .top .topBox2 {width:49.5%;background:#ededed;border-radius:3px;text-align:center;box-sizing:border-box;padding:10px;}

@@ -154,8 +154,8 @@ do {
 									</a>
 								</li>
 								<li class="bg-lgray">
-									<a href="/${homepage.context_path}/html.do?menu_idx=56">
-									<span class="wt">독서문화행사</span>
+									<a href="/${homepage.context_path}/board/index.do?menu_idx=124&manage_idx=146">
+									<span class="wt">도서관행사</span>
 									<span class="wc">다양한 독서프로그램</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick02-bg.png" class="mi">
 									</a>
@@ -177,7 +177,7 @@ do {
 								<li class="bg-lgreen">
 									<a href="/${homepage.context_path}/html.do?menu_idx=26" style="z-index: 9;">
 									<span class="wt">희망도서</span>
-									<span class="wc">읽고 싶은 책 신청</span>
+									<span class="wc">읽고 싶은 책 구입 신청</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick05-bg.png" class="mi">
 									</a>
 								</li>
@@ -197,7 +197,7 @@ do {
 					<div class="calendar-box">
 						<div class="title">
 							<ul>
-								<li><h2>휴관일 및 이용안내</h2></li>
+								<li><h2>휴관일 및 행사</h2></li>
 								<li><a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=63"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
 							</ul>
 						</div>
@@ -211,21 +211,21 @@ do {
 								<div class="topBox1">
 									<span><h4>종합자료실</h4></span>
 									<span>
-									평일 09:00 ~ 19:00<br/>
-									주말 09:00 ~ 17:00
+									<strong>평일 09:00~19:00<br/>
+									주말 09:00~17:00</strong>
 									</span>
 								</div>
 								<div class="topBox2">
 									<span><h4>어린이자료실</h4></span>
 									<span>
-									평일 09:00 ~ 18:00<br/>
-									주말 09:00 ~ 17:00
+									<strong>평일 09:00~18:00<br/>
+									주말 09:00~17:00</strong>
 									</span>
 								</div>
 							</div>
 							<div class="bottom">
 								<span><h4>자유학습실</h4></span>
-								<span>07:00 ~ 22:00</span>
+								<span><strong>07:00~22:00</strong></span>
 							</div>
 						</div>
 					</div>
@@ -432,14 +432,14 @@ do {
 				<li><a href="/${homepage.context_path}/html.do?menu_idx=26"><span class="txt">희망도서신청</span></a></li>
 				<li><a href="#"><span class="txt">도서예약</span></a></li>
 				<li><a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=157"><span class="txt">영화상영일정</span></a></li>
-				<li><a href="/${homepage.context_path}/module/teach/index.do?menu_idx=30"><span class="txt">강좌신청</span></a></li>
-				<li><a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=16"><span class="txt">대출이력조회</span></a></li>
+				<li><a href="/${homepage.context_path}/module/teach/index.do?menu_idx=30"><span class="txt">수강신청</span></a></li>
+				<li><a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=16"><span class="txt">대출현황</span></a></li>
 				<li><a href="/${homepage.context_path}/html.do?menu_idx=104"><span class="txt">이용안내</span></a></li>
-				<li><a href="/${homepage.context_path}/html.do?menu_idx=48"><span class="txt">책바다신청</span></a></li>
+				<!--<li><a href="/${homepage.context_path}/html.do?menu_idx=48"><span class="txt">책바다신청</span></a></li>-->
 				<li><a href="/${homepage.context_path}/board/index.do?menu_idx=65&manage_idx=148"><span class="txt">묻고답하기</span></a></li>
-				<li><a href="/${homepage.context_path}/html.do?menu_idx=69"><span class="txt">RSS서비스</span></a></li>
-				<li><a href="/${homepage.context_path}"><span class="txt">업무추진비<Br/>집행내역</span></a></li>
-				<li><a href="/${homepage.context_path}/bukbu/html.do?menu_idx=78"><span class="txt">행정정보공개</span></a></li>
+				<li><a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=1"><span class="txt">공지사항</span></a></li>
+				<!--<li><a href="/${homepage.context_path}"><span class="txt">업무추진비<Br/>집행내역</span></a></li>
+				<li><a href="/${homepage.context_path}/bukbu/html.do?menu_idx=78"><span class="txt">행정정보공개</span></a></li>-->
 			</ul>
 		</div>
 
