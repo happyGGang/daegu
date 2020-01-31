@@ -215,7 +215,7 @@ do {
 							<ul class="tabMenuS">
 								<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=175" class='t-tabs'>사서추천도서</a></li>
 								<li>/</li>
-								<li><a href="#tab2" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class='t-tabs'>신간도서</a></li>
+								<li><a href="#tab2" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=115" class='t-tabs'>신간도서</a></li>
 								<li>/</li>
 								<li><a href="#tab3" data-link="/${homepage.context_path}/intro/search/bestBook/index.do?menu_idx=15" class='t-tabs'>대출베스트</a></li>
 								<a href="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=175" class="more-btn more-more">더보기</a>
