@@ -11,7 +11,7 @@ $(document).ready(function() {
 		$('#viewPage').val(1);
 		doGetLoad('index.do', $('form#archiveBookListForm').serialize());
 	});
-	
+
 	$('a.open_viewer').on('click', function(e) {
 		var win = window.open('view.do?book_idx=' + $(this).data('book_idx'), '', 'scrollbars=no,toolbar=no,menubar=no,location=no,width=1000,height=650,location=no');
 	});
@@ -37,7 +37,7 @@ $(document).ready(function() {
 	<table class="type1 center">
 		<colgroup>
 			<col width="50" />
-			<col width="150" />
+			<col width="100" />
 			<col width="" />
 			<col width="100">
 			<col width="100" />
@@ -78,7 +78,7 @@ $(document).ready(function() {
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#archiveBookListForm"/>
 	</jsp:include>
-	
+
 	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 		<fieldset>
 			<form:select path="search_type" cssClass="selectmenu">

@@ -15,6 +15,27 @@ $(function() {
 	if (location.href.indexOf('html.do?') > -1) {
 		$('div#menuRatingDiv').load('/${homepage.context_path}/module/menuRating/index.do?menu_idx=${param.menu_idx}');
 	}
+
+	<c:choose>
+		<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
+			$('li#menu_4').remove();
+			$('li#menu_5').remove();
+			$('li#menu_6').remove();
+			$('li#menu_7').remove();
+			$('li#menu_8').remove();
+		</c:when>
+		<c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
+			$('li#menu_4').remove();
+			$('li#menu_5').remove();
+			$('li#menu_6').remove();
+			$('li#menu_7').remove();
+			$('li#menu_8').remove();
+		</c:when>
+		<c:otherwise>
+			$('li#menu_95').remove();
+			$('li#menu_96').remove();
+		</c:otherwise>
+	</c:choose>
 });
 </script>
 <div id="wrap">
@@ -69,6 +90,24 @@ $(function() {
 		</div>
 
 		<div class="end"></div>
+
+		<div id="quick-slide" style="margin-top:220px;">
+			<h4><img src="/resources/homepage/${homepage.context_path}/img/quick-title.png" alt="퀵메뉴"/></h4>
+			<ul>
+				<li><a href="#"><span class="txt">디지털 정보코너<Br/>좌석예약</span></a></li>
+				<li><a href="/${homepage.context_path}/html.do?menu_idx=26"><span class="txt">희망도서신청</span></a></li>
+				<li><a href="#"><span class="txt">도서예약</span></a></li>
+				<li><a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=157"><span class="txt">영화상영일정</span></a></li>
+				<li><a href="/${homepage.context_path}/module/teach/index.do?menu_idx=30"><span class="txt">수강신청</span></a></li>
+				<li><a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=16"><span class="txt">대출현황</span></a></li>
+				<li><a href="/${homepage.context_path}/html.do?menu_idx=104"><span class="txt">이용안내</span></a></li>
+				<!--<li><a href="/${homepage.context_path}/html.do?menu_idx=48"><span class="txt">책바다신청</span></a></li>-->
+				<li><a href="/${homepage.context_path}/board/index.do?menu_idx=65&manage_idx=148"><span class="txt">묻고답하기</span></a></li>
+				<li><a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=1"><span class="txt">공지사항</span></a></li>
+				<!--<li><a href="/${homepage.context_path}"><span class="txt">업무추진비<Br/>집행내역</span></a></li>
+				<li><a href="/${homepage.context_path}/bukbu/html.do?menu_idx=78"><span class="txt">행정정보공개</span></a></li>-->
+			</ul>
+		</div>
 	</div>
 
 </div>

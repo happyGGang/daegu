@@ -16,6 +16,28 @@ $(function() {
 	if (location.href.indexOf('html.do?') > -1) {
 		$('div#menuRatingDiv').load('/${homepage.context_path}/module/menuRating/index.do?menu_idx=${param.menu_idx}');
 	}
+
+	<c:choose>
+		<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
+			$('li#menu_4').remove();
+			$('li#menu_5').remove();
+			$('li#menu_6').remove();
+			$('li#menu_7').remove();
+			$('li#menu_8').remove();
+		</c:when>
+		<c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
+			$('li#menu_4').remove();
+			$('li#menu_5').remove();
+			$('li#menu_6').remove();
+			$('li#menu_7').remove();
+			$('li#menu_8').remove();
+		</c:when>
+		<c:otherwise>
+			$('li#menu_95').remove();
+			$('li#menu_96').remove();
+		</c:otherwise>
+	</c:choose>
+
 });
 </script>
 

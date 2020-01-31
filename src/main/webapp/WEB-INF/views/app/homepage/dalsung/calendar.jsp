@@ -118,8 +118,8 @@ Date.prototype.format = function(f) {
 });
 </script>
 
-<div id="calendar">
-	<div class="cal-func">
+<div id="calendar2">
+	<div class="cal-func2">
 		<a id="before-btn" href="#prev" class="btn prev" keyValue="${calendar.plan_date}"><img src="/resources/homepage/${homepage.context_path}/img/prev-cal-btn.png" alt=""><span class="blind">이전달</span></a>
 		<b class="date"><span>${fn:split(calendar.plan_date, '-')[0]}.</span> <em>${fn:split(calendar.plan_date, '-')[1]}</em></b>
 		<a id="next-btn" href="#next" class="btn next" keyValue="${calendar.plan_date}"><img src="/resources/homepage/${homepage.context_path}/img/next-cal-btn.png" alt=""><span class="blind">다음달</span></a>
