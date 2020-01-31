@@ -6,11 +6,11 @@
 <script type="text/javascript">
 $(function() {
 	
-	$('#add-btn').on('click', function(e) {
-		e.preventDefault();
-		var formData = 'editMode=ADD&menu_idx='+$('#menu_idx').val();
-		doGetLoad('edit.do', formData);
-	});
+// 	$('#add-btn').on('click', function(e) {
+// 		e.preventDefault();
+// 		var formData = 'editMode=ADD&menu_idx='+$('#menu_idx').val();
+// 		doGetLoad('edit.do', formData);
+// 	});
 	
 	$('a.view-btn').on('click', function(e) {
 		e.preventDefault();
@@ -18,28 +18,28 @@ $(function() {
 		doGetLoad('view.do', formData);
 	});
 	
-	$('a#allChk').on('click', function(e) {
-		e.preventDefault();
-		if($(this).attr('keyValue') == 'N') {
-			$(this).attr('keyValue', 'Y');
-			$('input[name="library_check_arr"]').prop('checked', true);
-		} else {
-			$(this).attr('keyValue', 'N');
-			$('input[name="library_check_arr"]').prop('checked', false);
-		}
-	});
+// 	$('a#allChk').on('click', function(e) {
+// 		e.preventDefault();
+// 		if($(this).attr('keyValue') == 'N') {
+// 			$(this).attr('keyValue', 'Y');
+// 			$('input[name="library_check_arr"]').prop('checked', true);
+// 		} else {
+// 			$(this).attr('keyValue', 'N');
+// 			$('input[name="library_check_arr"]').prop('checked', false);
+// 		}
+// 	});
 	
-	$('a#delete-chk').on('click', function(e) {
-		e.preventDefault();
-		if(confirm('선택한 장서점검기들을 삭제하시겠습니까?')) {
-			$('#editMode').val('DELETE_ALL');
-			$('form#libraryCheck').attr('action', 'save.do');
-			$('form#libraryCheck').attr('method', 'POST');
-			if(doAjaxPost($('form#libraryCheck'))) {
-				location.reload();
-			}
-		}
-	});
+// 	$('a#delete-chk').on('click', function(e) {
+// 		e.preventDefault();
+// 		if(confirm('선택한 장서점검기들을 삭제하시겠습니까?')) {
+// 			$('#editMode').val('DELETE_ALL');
+// 			$('form#libraryCheck').attr('action', 'save.do');
+// 			$('form#libraryCheck').attr('method', 'POST');
+// 			if(doAjaxPost($('form#libraryCheck'))) {
+// 				location.reload();
+// 			}
+// 		}
+// 	});
 	
 	$('a.request-btn').on('click', function(e) {
 		e.preventDefault();
@@ -136,7 +136,7 @@ div.img-box span.num {position: absolute;top: 30px;right: 22px;width: 18px;heigh
 				</a>
 			</div>
 			<div class="content-box">
-				<form:checkbox path="library_check_arr" value="${i.library_check_idx}"/>
+<%-- 				<form:checkbox path="library_check_arr" value="${i.library_check_idx}"/> --%>
 				<a href="#" class="view-btn" keyValue="${i.library_check_idx}">
 					<h4>장서점검기${i.library_check_number}</h4>
 				</a>
@@ -169,20 +169,20 @@ div.img-box span.num {position: absolute;top: 30px;right: 22px;width: 18px;heigh
 		</div>
 		</c:if>
 	</div>
-	<c:if test="${member.admin or authMBA}">
-	<a href="#" class="btn" id="allChk" keyValue="N">전체 선택/해제</a>
-	<a href="#" class="btn" id="delete-chk">선택 게시글 삭제</a>
-	</c:if>
+<%-- 	<c:if test="${member.admin or authMBA}"> --%>
+<!-- 	<a href="#" class="btn" id="allChk" keyValue="N">전체 선택/해제</a> -->
+<!-- 	<a href="#" class="btn" id="delete-chk">선택 게시글 삭제</a> -->
+<%-- 	</c:if> --%>
 	
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#libraryCheck"/>
 	</jsp:include>
 	
-	<c:if test="${member.admin or authMBA}">
-	<div class="infodesk">
-		<div class="button">
-			<a href="#" class="btn btn5 left" id="add-btn"><i class="fa fa-plus"></i><span>등록</span></a>
-		</div>
-	</div>
-	</c:if>
+<%-- 	<c:if test="${member.admin or authMBA}"> --%>
+<!-- 	<div class="infodesk"> -->
+<!-- 		<div class="button"> -->
+<!-- 			<a href="#" class="btn btn5 left" id="add-btn"><i class="fa fa-plus"></i><span>등록</span></a> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+<%-- 	</c:if> --%>
 </form:form>

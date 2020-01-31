@@ -46,38 +46,38 @@ $(function() {
 		doGetLoad('loanList.do', $('form#libraryCheck').serialize());
 	});
 	
-	$('#allChk').on('click', function(e) {
-		e.preventDefault();
-		if($(this).attr('keyValue') == 'N') {
-			$(this).attr('keyValue', 'Y');
-			$('.loan_chk').prop('checked', true);
-		} else {
-			$(this).attr('keyValue', 'N');
-			$('.loan_chk').prop('checked', false);
-		}
-	});
+// 	$('#allChk').on('click', function(e) {
+// 		e.preventDefault();
+// 		if($(this).attr('keyValue') == 'N') {
+// 			$(this).attr('keyValue', 'Y');
+// 			$('.loan_chk').prop('checked', true);
+// 		} else {
+// 			$(this).attr('keyValue', 'N');
+// 			$('.loan_chk').prop('checked', false);
+// 		}
+// 	});
 	
-	$('#status-change').on('click', function(e) {
-		e.preventDefault();
+// 	$('#status-change').on('click', function(e) {
+// 		e.preventDefault();
 		
-		if($('input[name="library_check_loan_arr"]:checked').length < 1) {
-			alert('변경할 신청 리스트를 선택하세요.');
-			return false;
-		}
+// 		if($('input[name="library_check_loan_arr"]:checked').length < 1) {
+// 			alert('변경할 신청 리스트를 선택하세요.');
+// 			return false;
+// 		}
 		
-		if($('select#statusAll option:selected').val() == '') {
-			alert('변경할 상태를 선택하세요.');
-			return false;
-		}
+// 		if($('select#statusAll option:selected').val() == '') {
+// 			alert('변경할 상태를 선택하세요.');
+// 			return false;
+// 		}
 		
-		$('select#request_status').val($('select#statusAll').val()).prop('selected', true);
-		$('#editMode').val('STATUS');
-		$('#libraryCheck').attr('action', 'loanSave.do');
-		$('#libraryCheck').attr('method', 'POST');
-		if(doAjaxPost($('#libraryCheck'))) {
-			location.reload();
-		}
-	});
+// 		$('select#request_status').val($('select#statusAll').val()).prop('selected', true);
+// 		$('#editMode').val('STATUS');
+// 		$('#libraryCheck').attr('action', 'loanSave.do');
+// 		$('#libraryCheck').attr('method', 'POST');
+// 		if(doAjaxPost($('#libraryCheck'))) {
+// 			location.reload();
+// 		}
+// 	});
 	
 	$('a#excelDownload').on('click', function(e) {
 		e.preventDefault();
@@ -136,10 +136,10 @@ $(function() {
 	</div>
 	<table class="type1 center">
 		<colgroup>
-			<c:if test="${member.admin or authMBA}">
-			<col width="4%" />
-			</c:if>
-			<col width="7%" />
+<%-- 			<c:if test="${member.admin or authMBA}"> --%>
+<%-- 			<col width="6%" /> --%>
+<%-- 			</c:if> --%>
+			<col width="6%" />
 			<col />
 			<col width="12%" />
 			<col width="12%"/>
@@ -150,9 +150,9 @@ $(function() {
 		</colgroup>
 		<thead>
 			<tr>
-				<c:if test="${member.admin or authMBA}">
-				<th>선택</th>
-				</c:if>
+<%-- 				<c:if test="${member.admin or authMBA}"> --%>
+<!-- 				<th>선택</th> -->
+<%-- 				</c:if> --%>
 				<th>번호</th>
 				<th>장서점검기</th>
 				<th>대출기간</th>
@@ -166,11 +166,11 @@ $(function() {
 		<tbody>
 			<c:forEach var="i" varStatus="status" items="${libraryCheckLoanList}">
 				<tr>
-					<c:if test="${member.admin or authMBA}">
-					<td>
-						<input type="checkbox" name="library_check_loan_arr" class="loan_chk" value="${i.library_check_loan_idx}"/>
-					</td>
-					</c:if>
+<%-- 					<c:if test="${member.admin or authMBA}"> --%>
+<!-- 					<td> -->
+<%-- 						<input type="checkbox" name="library_check_loan_arr" class="loan_chk" value="${i.library_check_loan_idx}"/> --%>
+<!-- 					</td> -->
+<%-- 					</c:if> --%>
 					<td class="num">${paging.listRowNum - status.index}</td>
 					<td>
 						<a href="#" class="edit-btn" keyValue="${i.library_check_loan_idx}">장서점검기${i.library_check_number}</a>
@@ -203,20 +203,20 @@ $(function() {
 			</c:if>
 		</tbody>
 	</table>
-	<c:if test="${member.admin or authMBA}">
-	<a href="#" id="allChk" keyValue="N">전체 선택/해제</a>
+<%-- 	<c:if test="${member.admin or authMBA}"> --%>
+<!-- 	<a href="#" id="allChk" keyValue="N">전체 선택/해제</a> -->
 	
-	<select id="statusAll" class="selectmenu">
-		<option value="">상태변경</option>
-		<option value="0">신청중</option>
-		<option value="1">예약상담중</option>
-		<option value="2">대출중</option>
-		<option value="3">반납완료</option>
-		<option value="4">관리자취소</option>
-		<option value="5">반납요청완료</option>
-	</select>
-	<a href="#" id="status-change" class="btn btn3">선택상태변경</a>
-	</c:if>
+<!-- 	<select id="statusAll" class="selectmenu"> -->
+<!-- 		<option value="">상태변경</option> -->
+<!-- 		<option value="0">신청중</option> -->
+<!-- 		<option value="1">예약상담중</option> -->
+<!-- 		<option value="2">대출중</option> -->
+<!-- 		<option value="3">반납완료</option> -->
+<!-- 		<option value="4">관리자취소</option> -->
+<!-- 		<option value="5">반납요청완료</option> -->
+<!-- 	</select> -->
+<!-- 	<a href="#" id="status-change" class="btn btn3">선택상태변경</a> -->
+<%-- 	</c:if> --%>
 	
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#libraryCheck"/>

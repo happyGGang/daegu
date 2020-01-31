@@ -7,17 +7,17 @@
 $(function() {
 	
 	// 책 꾸러미 대출 수정
-	$('a.dialog-edit').on('click', function(e) {
-		e.preventDefault();
-		if(!'${member.admin or authMBA}') {
-			return false;
-		}
+// 	$('a.dialog-edit').on('click', function(e) {
+// 		e.preventDefault();
+// 		if(!'${member.admin or authMBA}') {
+// 			return false;
+// 		}
 		
-		$('#editMode').val('MODIFY');
-		$('#book_package_loan_idx').val($(this).attr('keyValue'));
-		var formData = $('form#bookPackage').serialize();
-		doGetLoad('loanEdit.do', formData);
-	});
+// 		$('#editMode').val('MODIFY');
+// 		$('#book_package_loan_idx').val($(this).attr('keyValue'));
+// 		var formData = $('form#bookPackage').serialize();
+// 		doGetLoad('loanEdit.do', formData);
+// 	});
 	
 	$('a.return-req').on('click', function(e) {
 		e.preventDefault();
@@ -186,13 +186,13 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 				<tr>
 					<td class="num">${paging.listRowNum - status.index}</td>
 					<td class="left">
-						<a href="#" class="dialog-edit" keyValue="${i.book_package_loan_idx}">
+<%-- 						<a href="#" class="dialog-edit" keyValue="${i.book_package_loan_idx}"> --%>
 							${i.book_package_subject}
 							<br/>
 							<c:if test="${i.request_status eq '1'}">
 							<span>(예약일: ${i.loan_start_date}~${fn:substring(i.loan_end_date, 5, 10)})</span>
 							</c:if>
-						</a>
+<!-- 						</a> -->
 					</td>
 					<td class="center">
 						<c:if test="${i.request_status ne '1'}">

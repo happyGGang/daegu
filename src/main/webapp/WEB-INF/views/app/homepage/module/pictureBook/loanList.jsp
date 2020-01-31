@@ -8,12 +8,12 @@ $(function() {
 	var $form = $('form#pictureBook');
 	
 	// 책 꾸러미 대출 수정
-	$('a.edit-btn').on('click', function(e) {
-		e.preventDefault();
-		$('#editMode').val('MODIFY');
-		$('#picture_book_loan_idx').val($(this).attr('keyValue'));
-		doGetLoad('loanEdit.do', $form.serialize());
-	});
+// 	$('a.edit-btn').on('click', function(e) {
+// 		e.preventDefault();
+// 		$('#editMode').val('MODIFY');
+// 		$('#picture_book_loan_idx').val($(this).attr('keyValue'));
+// 		doGetLoad('loanEdit.do', $form.serialize());
+// 	});
 	
 	$('a.cancle-btn').on('click', function(e) {
 		e.preventDefault();
@@ -161,23 +161,23 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 	</div>
 	<table class="type1 center">
 		<colgroup>
-			<c:if test="${member.admin or authMBA}">
-			<col width="5%" />
-			</c:if>
-			<col width="7%" />
+<%-- 			<c:if test="${member.admin or authMBA}"> --%>
+<%-- 			<col width="5%" /> --%>
+<%-- 			</c:if> --%>
+			<col width="6%" />
 			<col />
 			<col width="10%" />
-			<col width="12%"/>
-			<col width="10%" />
+			<col width="15%"/>
+			<col width="12%" />
 			<col width="8%" />
 			<col width="10%" />
 			<col width="6%" />
 		</colgroup>
 		<thead>
 			<tr>
-				<c:if test="${member.admin or authMBA}">
-				<th>선택</th>
-				</c:if>
+<%-- 				<c:if test="${member.admin or authMBA}"> --%>
+<!-- 				<th>선택</th> -->
+<%-- 				</c:if> --%>
 				<th>번호</th>
 				<th>원화명</th>
 				<th>대출기간</th>
@@ -191,14 +191,15 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 		<tbody>
 			<c:forEach var="i" varStatus="status" items="${pictureBookLoanList}">
 				<tr>
-					<c:if test="${member.admin or authMBA}">
-					<td>
-						<input type="checkbox" name="picture_book_loan_arr" class="loan_chk" value="${i.picture_book_loan_idx}"/>
-					</td>
-					</c:if>
+<%-- 					<c:if test="${member.admin or authMBA}"> --%>
+<!-- 					<td> -->
+<%-- 						<input type="checkbox" name="picture_book_loan_arr" class="loan_chk" value="${i.picture_book_loan_idx}"/> --%>
+<!-- 					</td> -->
+<%-- 					</c:if> --%>
 					<td class="num">${paging.listRowNum - status.index}</td>
 					<td>
-						<a href="#" class="edit-btn" keyValue="${i.picture_book_loan_idx}">${i.picture_book_subject}</a>
+<%-- 						<a href="#" class="edit-btn" keyValue="${i.picture_book_loan_idx}">${i.picture_book_subject}</a> --%>
+						<a href="#" keyValue="${i.picture_book_loan_idx}">${i.picture_book_subject}</a>
 					</td>
 					<td class="center">${fn:substring(i.loan_start_date, 0, 7)}</td>
 					<td>${i.school_name}<br/>/${i.request_name}</td>
@@ -228,18 +229,18 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 			</c:if>
 		</tbody>
 	</table>
-	<a href="#" id="allChk" keyValue="N">전체 선택/해제</a>
+<!-- 	<a href="#" id="allChk" keyValue="N">전체 선택/해제</a> -->
 	
-	<select id="statusAll" class="selectmenu">
-		<option value="">상태변경</option>
-		<option value="1">신청완료</option>
-		<option value="2">대출중</option>
-		<option value="3">반납신청</option>
-		<option value="4">반납요청완료</option>
-		<option value="5">반납완료</option>
-		<option value="6">대출불가</option>
-	</select>
-	<a href="#" id="status-change" class="btn btn3">선택상태변경</a>
+<!-- 	<select id="statusAll" class="selectmenu"> -->
+<!-- 		<option value="">상태변경</option> -->
+<!-- 		<option value="1">신청완료</option> -->
+<!-- 		<option value="2">대출중</option> -->
+<!-- 		<option value="3">반납신청</option> -->
+<!-- 		<option value="4">반납요청완료</option> -->
+<!-- 		<option value="5">반납완료</option> -->
+<!-- 		<option value="6">대출불가</option> -->
+<!-- 	</select> -->
+<!-- 	<a href="#" id="status-change" class="btn btn3">선택상태변경</a> -->
 	
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#pictureBook"/>

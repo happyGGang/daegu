@@ -11,25 +11,25 @@ $(function() {
 		doGetLoad('index.do', $('form#libraryCheck').serialize());
 	});
 	
-	$('a#modify-btn').on('click', function(e) {
-		e.preventDefault();
-// 		$('#dialog-1').load('edit.do?editMode=MODIFY&library_check_idx='+$(this).attr('keyValue'), function( response, status, xhr ) {
-// 			$('#dialog-1').dialog('open');
-// 		});
-		$('#editMode').val('MODIFY');
-		var formData = $('form#libraryCheck').serialize() + '&library_check_idx='+$(this).attr('keyValue');
-		doGetLoad('edit.do', formData);
-	});
+// 	$('a#modify-btn').on('click', function(e) {
+// 		e.preventDefault();
+// // 		$('#dialog-1').load('edit.do?editMode=MODIFY&library_check_idx='+$(this).attr('keyValue'), function( response, status, xhr ) {
+// // 			$('#dialog-1').dialog('open');
+// // 		});
+// 		$('#editMode').val('MODIFY');
+// 		var formData = $('form#libraryCheck').serialize() + '&library_check_idx='+$(this).attr('keyValue');
+// 		doGetLoad('edit.do', formData);
+// 	});
 	
-	$('a#delete-btn').on('click', function(e) {
-		e.preventDefault();
-		if(confirm('정말 삭제하시겠습니까?')) {
-			$('#library_check_idx_d').val($(this).attr('keyValue'));
-			if(doAjaxPost($('form#bookPackageDel'))) {
-				doGetLoad('index.do', $('form#libraryCheck').serialize());
-			}
-		}
-	});
+// 	$('a#delete-btn').on('click', function(e) {
+// 		e.preventDefault();
+// 		if(confirm('정말 삭제하시겠습니까?')) {
+// 			$('#library_check_idx_d').val($(this).attr('keyValue'));
+// 			if(doAjaxPost($('form#bookPackageDel'))) {
+// 				doGetLoad('index.do', $('form#libraryCheck').serialize());
+// 			}
+// 		}
+// 	});
 	
 });
 </script>
@@ -55,9 +55,9 @@ $(function() {
 <div class="infodesk">
 	<div class="button">
 		<a href="#" class="btn" id="list-btn">목록으로</a>
-		<c:if test="${member.admin or authMBA}">
-		<a href="#" class="btn btn3" id="modify-btn" keyValue="${libraryCheck.library_check_idx}">수정</a>
-		<a href="#" class="btn btn4" id="delete-btn" keyValue="${libraryCheck.library_check_idx}">삭제</a>
-		</c:if>
+<%-- 		<c:if test="${member.admin or authMBA}"> --%>
+<%-- 		<a href="#" class="btn btn3" id="modify-btn" keyValue="${libraryCheck.library_check_idx}">수정</a> --%>
+<%-- 		<a href="#" class="btn btn4" id="delete-btn" keyValue="${libraryCheck.library_check_idx}">삭제</a> --%>
+<%-- 		</c:if> --%>
 	</div>
 </div>
