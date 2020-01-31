@@ -55,7 +55,7 @@ $(function() {
 <div class="infodesk">
 	<div class="button">
 		<a href="#" class="btn" id="list-btn">목록으로</a>
-		<c:if test="${sessionScope.authGroup eq '1'}">
+		<c:if test="${member.admin or authMBA}">
 		<a href="#" class="btn btn3" id="modify-btn" keyValue="${libraryCheck.library_check_idx}">수정</a>
 		<a href="#" class="btn btn4" id="delete-btn" keyValue="${libraryCheck.library_check_idx}">삭제</a>
 		</c:if>

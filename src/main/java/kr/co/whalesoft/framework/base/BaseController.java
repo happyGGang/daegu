@@ -22,6 +22,7 @@ import kr.co.whalesoft.app.cms.login.LoginService;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.MessageResolver;
+import kr.go.gbelib.app.cms.module.supportMember.SupportMember;
 
 public abstract class BaseController {
 
@@ -233,7 +234,12 @@ public abstract class BaseController {
 			throw new AuthException(msg);
 		}
 	}
-
+	
+	public SupportMember sessionLoginSupport(HttpServletRequest request) {
+		SupportMember supportMember = (SupportMember)request.getSession().getAttribute("loginSupport");
+		return supportMember;
+	}
+	
 //	/**
 //	 *
 //	 * @param authCode

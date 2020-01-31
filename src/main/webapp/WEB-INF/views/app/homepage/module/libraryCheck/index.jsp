@@ -123,9 +123,7 @@ div.img-box span.num {position: absolute;top: 30px;right: 22px;width: 18px;heigh
 		<c:forEach items="${libraryCheckList}" var="i">
 		<div class="group-box">
 			<div class="img-box">
-				<c:if test="${sessionScope.authGroup eq '1'}">
 				<a href="#" class="view-btn" keyValue="${i.library_check_idx}">
-				</c:if>
 					<span class="num">${i.library_check_number}</span>
 					<c:choose>
 						<c:when test="${not empty i.server_file_name}">
@@ -171,7 +169,7 @@ div.img-box span.num {position: absolute;top: 30px;right: 22px;width: 18px;heigh
 		</div>
 		</c:if>
 	</div>
-	<c:if test="${sessionScope.authGroup eq '1'}">
+	<c:if test="${member.admin or authMBA}">
 	<a href="#" class="btn" id="allChk" keyValue="N">전체 선택/해제</a>
 	<a href="#" class="btn" id="delete-chk">선택 게시글 삭제</a>
 	</c:if>
@@ -180,7 +178,7 @@ div.img-box span.num {position: absolute;top: 30px;right: 22px;width: 18px;heigh
 		<jsp:param name="formId" value="#libraryCheck"/>
 	</jsp:include>
 	
-	<c:if test="${sessionScope.authGroup eq '1'}">
+	<c:if test="${member.admin or authMBA}">
 	<div class="infodesk">
 		<div class="button">
 			<a href="#" class="btn btn5 left" id="add-btn"><i class="fa fa-plus"></i><span>등록</span></a>

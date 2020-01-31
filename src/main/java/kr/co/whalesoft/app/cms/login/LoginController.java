@@ -80,6 +80,7 @@ public class LoginController extends BaseController {
 		member.setMember_id(login.getMember_id());
 		member.setMember_pw(login.getMember_pw());
 
+		request.getSession().removeAttribute("loginSupport");
 		String loginResult = service.login(member, request);
 		if(loginResult.equals("LOGIN")) {
 			/**

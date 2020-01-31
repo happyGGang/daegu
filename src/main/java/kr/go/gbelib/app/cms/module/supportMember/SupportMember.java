@@ -19,6 +19,8 @@ public class SupportMember extends PagingUtils {
 	private String modify_id; // 수정ID
 	private Date modify_date; // 수정일시
 
+	private boolean login; // 로그인상태
+
 	public int getSupport_member_idx() {
 		return support_member_idx;
 	}
@@ -113,6 +115,14 @@ public class SupportMember extends PagingUtils {
 
 	public void setModify_date(Date modify_date) {
 		this.modify_date = modify_date;
+	}
+
+	public boolean isLogin() {
+		return login;
+	}
+
+	public void setLogin(boolean login) {
+		this.login = login;
 	}
 
 }

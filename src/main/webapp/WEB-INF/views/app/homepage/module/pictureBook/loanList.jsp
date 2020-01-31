@@ -10,10 +10,6 @@ $(function() {
 	// 책 꾸러미 대출 수정
 	$('a.edit-btn').on('click', function(e) {
 		e.preventDefault();
-// 		if('${authGroup}' != '1') {
-// 			return false;
-// 		}
-		
 		$('#editMode').val('MODIFY');
 		$('#picture_book_loan_idx').val($(this).attr('keyValue'));
 		doGetLoad('loanEdit.do', $form.serialize());
@@ -165,7 +161,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 	</div>
 	<table class="type1 center">
 		<colgroup>
-			<c:if test="${sessionScope.authGroup eq '1'}">
+			<c:if test="${member.admin or authMBA}">
 			<col width="5%" />
 			</c:if>
 			<col width="7%" />
@@ -179,7 +175,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 		</colgroup>
 		<thead>
 			<tr>
-				<c:if test="${sessionScope.authGroup eq '1'}">
+				<c:if test="${member.admin or authMBA}">
 				<th>선택</th>
 				</c:if>
 				<th>번호</th>
@@ -195,7 +191,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 		<tbody>
 			<c:forEach var="i" varStatus="status" items="${pictureBookLoanList}">
 				<tr>
-					<c:if test="${sessionScope.authGroup eq '1'}">
+					<c:if test="${member.admin or authMBA}">
 					<td>
 						<input type="checkbox" name="picture_book_loan_arr" class="loan_chk" value="${i.picture_book_loan_idx}"/>
 					</td>

@@ -27,6 +27,15 @@ ${board.user_name}
 			</c:otherwise>
 		</c:choose>
 	</c:when>
+	<c:when test="${loginSupport.login}">
+		<c:if test="${board.editMode eq 'MODIFY'}">
+			${loginSupport.school_name}
+		</c:if>
+		<c:if test="${board.editMode eq 'ADD'}">
+			${loginSupport.school_name}
+			<form:hidden path="user_name" value="${loginSupport.school_name}" cssClass="text"/>
+		</c:if>
+	</c:when>
 	<c:otherwise>
 		<c:if test="${sessionScope.member.anonymous and board.editMode eq 'MODIFY'}">
 ${board.user_name}

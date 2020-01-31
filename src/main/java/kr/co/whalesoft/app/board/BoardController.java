@@ -47,6 +47,7 @@ import kr.co.whalesoft.framework.utils.CalculateHashUtils;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.StrUtil;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
+import kr.go.gbelib.app.cms.module.supportMember.SupportMember;
 import kr.go.gbelib.app.cms.module.themeBook.ThemeBook;
 import kr.go.gbelib.app.cms.module.themeBook.ThemeBookService;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
@@ -185,6 +186,15 @@ public class BoardController extends BaseController {
 		log.debug("board basePath : " + basePath);
 		return basePath;
 	}
+	
+	public boolean manageCompareIdx(int manage_idx, int... args) {
+		for (int i : args) {
+			if(manage_idx == i) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	@RequestMapping(value = {"/index.*"}, method = RequestMethod.GET)
 	public String index(Model model, Board board, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) throws Exception {
@@ -195,7 +205,22 @@ public class BoardController extends BaseController {
 		String basePath = attributeInit(request, model, board, null);
 		String returnPath = basePath + "index";
 		BoardManage boardManage = (BoardManage)request.getAttribute("boardManage");
-
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+		if (homepage == null) {
+			//cms에서는 homepage 객체가 없어서 따로 가져옴.
+			Homepage homepageOne = homepageService.getHomepageOne(new Homepage(board.getHomepage_id()));
+			model.addAttribute("homepage", homepageOne);
+		}
+		
+		// 228도서관 지원센터 회원인증 확인
+		SupportMember loginSupport = sessionLoginSupport(request);
+		if(manageCompareIdx(board.getManage_idx(), 212, 213, 224, 225, 226, 227, 228, 230)) {
+			if ( loginSupport == null && !getSessionIsAdmin(request)) {
+	    		board.setBefore_url(String.format("/%s/board/index.do?menu_idx=%s%%26manage_idx=%s", homepage.getContext_path(), board.getMenu_idx(), board.getManage_idx()));
+	    		service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
+	    		return null;
+	        }
+		}
 
 		if (boardManage.getWrite_only_yn().equals("Y") && !"CMS".equals(getSessionMemberLoginType(request))) {
 			StringBuffer sb = new StringBuffer();
@@ -337,6 +362,26 @@ public class BoardController extends BaseController {
 			Homepage homepageOne = homepageService.getHomepageOne(new Homepage(board.getHomepage_id()));
 			model.addAttribute("homepage", homepageOne);
 		}
+		
+		// 228도서관 지원센터 회원인증 확인
+		SupportMember loginSupport = sessionLoginSupport(request);
+		if(manageCompareIdx(board.getManage_idx(), 212, 213, 224, 225, 226, 227, 228, 230)) {
+			if ( loginSupport == null && !getSessionIsAdmin(request)) {
+	    		board.setBefore_url(String.format("/%s/board/index.do?menu_idx=%s%%26manage_idx=%s", homepage.getContext_path(), board.getMenu_idx(), boardManage.getManage_idx()));
+	    		service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
+	    		return null;
+	        }
+			
+			// 3 : 학교지원일 경우, 4 : 선정위원일 경우
+			String suppot_auth = loginSupport == null ? "0" : loginSupport.getAuth_group();
+			if((!suppot_auth.equals("3") && !getSessionIsAdmin(request)) && manageCompareIdx(board.getManage_idx(), 212, 213, 225, 226, 228)) {
+				service.alertMessage("관리자 또는 학교기관만 이용할 수 있습니다.", request, response);
+			} else if((!suppot_auth.equals("4") && !getSessionIsAdmin(request)) && manageCompareIdx(board.getManage_idx(), 230)) {
+				service.alertMessage("관리자 또는 도서선정위원만 이용할 수 있습니다.", request, response);
+			} else {
+				service.alertMessage("관리자만 이용할 수 있습니다.", request, response);
+			}
+		}
 
 		if (board.getManage_idx() == 563) {
 			Member memberTemp = getSessionMemberInfo(request);
@@ -368,10 +413,10 @@ public class BoardController extends BaseController {
 		}
 		//수정일 경우
 		if(board.getEditMode().equals("MODIFY")) {
-			checkAuth("U", model, request);
+			if(loginSupport == null) {
+				checkAuth("U", model, request);
+			}
 			Board boardOne = (Board)service.copyObjectPaging(boardManage, board, service.getBoardOne(board));
-
-
 
 			boolean isBoardAdmin = (Boolean) model.asMap().get("authMBA");
 			if (!isBoardAdmin) {
@@ -432,7 +477,9 @@ public class BoardController extends BaseController {
 			model.addAttribute("board", service.copyObjectPaging(board, boardOne));
 
 		} else {
-			checkAuth("C", model, request);
+			if(loginSupport == null) {
+				checkAuth("C", model, request);
+			}
 			model.addAttribute("board", board);
 			model.addAttribute("getToday", new Date());
 

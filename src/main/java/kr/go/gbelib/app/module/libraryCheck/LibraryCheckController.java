@@ -36,11 +36,6 @@ public class LibraryCheckController extends BaseController {
 	@Autowired
 	private LibraryCheckService service;
 	
-	public SupportMember sessionSupportMember(HttpServletRequest request) {
-		SupportMember supportMember = (SupportMember)request.getSession().getAttribute("supportMember");
-		return supportMember;
-	}
-	
 	@RequestMapping (value = {"/index.*"}, method = RequestMethod.GET)
 	public String index(Model model, LibraryCheck libraryCheck, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
@@ -95,15 +90,16 @@ public class LibraryCheckController extends BaseController {
 		}
 
 		if (!result.hasErrors()) {
+			String session_id = getSessionIsAdmin(request) ? getSessionMemberId(request) : sessionLoginSupport(request).getMember_id();
 			if (libraryCheck.getEditMode().equals("ADD")) {
-				libraryCheck.setAdd_id(sessionSupportMember(request).getMember_id());
+				libraryCheck.setAdd_id(session_id);
 				service.addLibraryCheck(libraryCheck);
 				res.setValid(true);
 				res.setUrl("index.do");
 				res.setData("menu_idx="+libraryCheck.getMenu_idx());
 				res.setMessage("등록되었습니다.");
 			} else if (libraryCheck.getEditMode().equals("MODIFY")) {
-				libraryCheck.setModify_id(sessionSupportMember(request).getMember_id());
+				libraryCheck.setModify_id(session_id);
 				service.modifyLibraryCheck(libraryCheck);
 				res.setUrl("index.do");
 				res.setData("menu_idx="+libraryCheck.getMenu_idx() + "&viewPage="+libraryCheck.getViewPage());
@@ -130,14 +126,14 @@ public class LibraryCheckController extends BaseController {
 	public String loanList(Model model, LibraryCheck libraryCheck, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		
-		SupportMember supportMember = sessionSupportMember(request);
-		if ( supportMember == null ) {
+		SupportMember supportMember = sessionLoginSupport(request);
+		if ( supportMember == null && !getSessionIsAdmin(request) ) {
 			libraryCheck.setBefore_url(String.format("/%s/module/libraryCheck/loanList.do?menu_idx=%s", homepage.getContext_path(), libraryCheck.getMenu_idx()));
 			service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), libraryCheck.getMenu_idx(), libraryCheck.getBefore_url()), request, response);
 			return null;
 		}
 		
-		if(!supportMember.getAuth_group().equals("1")) {
+		if(!getSessionIsAdmin(request)) {
 			libraryCheck.setAdd_id(supportMember.getMember_id());
 		}
 		
@@ -154,8 +150,8 @@ public class LibraryCheckController extends BaseController {
 	public String loanEdit(Model model, LibraryCheck libraryCheck, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		
-		SupportMember supportMember = sessionSupportMember(request);
-		if ( supportMember == null ) {
+		SupportMember loginSupport = sessionLoginSupport(request);
+		if (loginSupport == null && !getSessionIsAdmin(request)) {
 			libraryCheck.setBefore_url(String.format("/%s/module/libraryCheck/index.do?menu_idx=%s", homepage.getContext_path(), libraryCheck.getMenu_idx()));
 			service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), libraryCheck.getMenu_idx(), libraryCheck.getBefore_url()), request, response);
 			return null;
@@ -220,17 +216,18 @@ public class LibraryCheckController extends BaseController {
 		/* <<<<< 유효성 검증 */
 
 		if (!result.hasErrors()) {
-			String param = "menu_idx="+libraryCheck.getMenu_idx() + "&viewPage="+libraryCheck.getViewPage();
-			
+			String session_id = getSessionIsAdmin(request) ? getSessionMemberId(request) : sessionLoginSupport(request).getMember_id();
+			String param = "menu_idx="+libraryCheck.getMenu_idx() + "&viewPage="+libraryCheck.getViewPage()
+				+ "&search_type="+libraryCheck.getSearch_type() + "&search_text="+libraryCheck.getSearch_text();
 			if (libraryCheck.getEditMode().equals("ADD")) {
-				libraryCheck.setAdd_id(sessionSupportMember(request).getMember_id());
+				libraryCheck.setAdd_id(session_id);
 				service.addLibraryCheckLoan(libraryCheck);
 				res.setValid(true);
 				res.setUrl("index.do");
 				res.setData(param);
 				res.setMessage("등록되었습니다.");
 			} else if (libraryCheck.getEditMode().equals("MODIFY")) {
-				libraryCheck.setModify_id(sessionSupportMember(request).getMember_id());
+				libraryCheck.setModify_id(session_id);
 				service.modifyLibraryCheckLoan(libraryCheck);
 				res.setValid(true);
 				res.setUrl("loanList.do");

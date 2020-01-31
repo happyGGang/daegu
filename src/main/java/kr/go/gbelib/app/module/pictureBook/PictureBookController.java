@@ -37,11 +37,6 @@ public class PictureBookController extends BaseController {
 	@Autowired
 	private PictureBookService service;
 	
-	public SupportMember sessionSupportMember(HttpServletRequest request) {
-		SupportMember supportMember = (SupportMember)request.getSession().getAttribute("supportMember");
-		return supportMember;
-	}
-	
 	@RequestMapping (value = {"/index{url}.*"}, method = RequestMethod.GET)
 	public String index(Model model, PictureBook pictureBook, HttpServletRequest request, @PathVariable("url") String url) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
@@ -75,8 +70,8 @@ public class PictureBookController extends BaseController {
 	public String loanList(Model model, PictureBook pictureBook, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		
-		SupportMember supportMember = sessionSupportMember(request);
-		if ( supportMember == null ) {
+		SupportMember loginSupport = sessionLoginSupport(request);
+		if (loginSupport == null && !getSessionIsAdmin(request)) {
 			pictureBook.setBefore_url(String.format("/%s/module/pictureBook/loanList.do?menu_idx=%s", homepage.getContext_path(), pictureBook.getMenu_idx()));
 			service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), pictureBook.getMenu_idx(), pictureBook.getBefore_url()), request, response);
 			return null;
@@ -86,9 +81,10 @@ public class PictureBookController extends BaseController {
 			pictureBook.setPay_yn("N");
 		}
 		
-		if(!supportMember.getAuth_group().equals("1")) {
-			pictureBook.setAdd_id(supportMember.getMember_id());
+		if(!getSessionIsAdmin(request)) {
+			pictureBook.setAdd_id(loginSupport.getMember_id());
 		}
+		
 		service.setPaging(model, service.getPictureBookLoanCount(pictureBook), pictureBook);
 
 		model.addAttribute("pictureBook", pictureBook);
@@ -101,15 +97,17 @@ public class PictureBookController extends BaseController {
 	public String loanEdit(Model model, PictureBook pictureBook, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		
-		SupportMember supportMember = sessionSupportMember(request);
-		if ( supportMember == null ) {
+		SupportMember loginSupport = sessionLoginSupport(request);
+		if (loginSupport == null && !getSessionIsAdmin(request)) {
 			pictureBook.setBefore_url(String.format("/%s/module/pictureBook/index.do?menu_idx=%s%%26pay_yn=%s", homepage.getContext_path(), pictureBook.getMenu_idx(), pictureBook.getPay_yn()));
 			service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), pictureBook.getMenu_idx(), pictureBook.getBefore_url()), request, response);
 			return null;
 		}
 		
 		if(pictureBook.getEditMode().equals("MODIFY")) {
-			model.addAttribute("pictureBook", service.copyObjectPaging(pictureBook, service.getPictureBookLoanOne(pictureBook)));
+			PictureBook pictureBookOne = (PictureBook)service.copyObjectPaging(pictureBook, service.getPictureBookLoanOne(pictureBook));
+			pictureBookOne.setMenu_idx(pictureBook.getMenu_idx());
+			model.addAttribute("pictureBook", pictureBookOne);
 		} else {
 			model.addAttribute("pictureBook", pictureBook);
 		}
@@ -158,22 +156,26 @@ public class PictureBookController extends BaseController {
 				pictureBook.setLoan_start_date(loan_year + "-" + loan_month + "-" + "01");
 				pictureBook.setLoan_end_date(loan_year + "-" + loan_month + "-" + cal.getActualMaximum(Calendar.DAY_OF_MONTH));
 				
-				pictureBook.setSchool_name(sessionSupportMember(request).getSchool_name());
+				pictureBook.setSchool_name(sessionLoginSupport(request) != null ? sessionLoginSupport(request).getSchool_name() : "관리자");
 			}
 			
-			String param = "menu_idx="+pictureBook.getMenu_idx() + "&pay_yn="+pictureBook.getPay_yn() + "&viewPage="+ pictureBook.getViewPage();
+			String param = "menu_idx="+pictureBook.getMenu_idx() + "&pay_yn="+pictureBook.getPay_yn() + "&viewPage="+ pictureBook.getViewPage()
+				+ "&search_type="+pictureBook.getSearch_type() + "&search_text="+pictureBook.getSearch_text();
+			String session_id = getSessionIsAdmin(request) ? getSessionMemberId(request) : sessionLoginSupport(request).getMember_id();
 			if (pictureBook.getEditMode().equals("ADD")) {
-				pictureBook.setAdd_id(sessionSupportMember(request).getMember_id());
+				pictureBook.setAdd_id(session_id);
 				service.addPictureBookLoan(pictureBook);
 				res.setValid(true);
 				res.setUrl("index.do");
 				res.setData(param);
 				res.setMessage("등록되었습니다.");
 			} else if (pictureBook.getEditMode().equals("MODIFY")) {
-				pictureBook.setModify_id(sessionSupportMember(request).getMember_id());
+				pictureBook.setModify_id(session_id);
 				service.modifyPictureBookLoan(pictureBook);
 				res.setValid(true);
 				res.setMessage("수정되었습니다.");
+				res.setUrl("loanList.do");
+				res.setData(param);
 			} else if (pictureBook.getEditMode().equals("DELETE")) {
 				service.deletePictureBookLoan(pictureBook);
 				res.setValid(true);

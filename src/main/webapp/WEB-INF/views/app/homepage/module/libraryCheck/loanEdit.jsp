@@ -41,6 +41,8 @@ $(function() {
 	<form:hidden path="viewPage"/>
 	<form:hidden path="library_check_idx"/>
 	<form:hidden path="library_check_loan_idx"/>
+	<form:hidden path="search_type"/>
+	<form:hidden path="search_text"/>
 	<table class="type2">
 		<colgroup>
 			<col width="130" />

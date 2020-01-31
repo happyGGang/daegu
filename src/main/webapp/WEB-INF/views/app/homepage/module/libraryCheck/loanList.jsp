@@ -9,7 +9,11 @@ $(function() {
 	// 책 꾸러미 대출 수정
 	$('a.edit-btn').on('click', function(e) {
 		e.preventDefault();
-		var formData = 'menu_idx='+$('#menu_idx').val()+'&editMode=MODIFY&library_check_loan_idx='+$(this).attr('keyValue')+'&viewPage='+$('#viewPage').val();
+// 		var formData = 'menu_idx='+$('#menu_idx').val()+'&editMode=MODIFY&library_check_loan_idx='+$(this).attr('keyValue')+'&viewPage='+$('#viewPage').val();
+// 		doGetLoad('loanEdit.do', formData);
+		$('#editMode').val('MODIFY');
+		$('#library_check_loan_idx').val($(this).attr('keyValue'));
+		var formData = $('form#libraryCheck').serialize();
 		doGetLoad('loanEdit.do', formData);
 	});
 	
@@ -132,7 +136,7 @@ $(function() {
 	</div>
 	<table class="type1 center">
 		<colgroup>
-			<c:if test="${sessionScope.authGroup eq '1'}">
+			<c:if test="${member.admin or authMBA}">
 			<col width="4%" />
 			</c:if>
 			<col width="7%" />
@@ -146,7 +150,7 @@ $(function() {
 		</colgroup>
 		<thead>
 			<tr>
-				<c:if test="${sessionScope.authGroup eq '1'}">
+				<c:if test="${member.admin or authMBA}">
 				<th>선택</th>
 				</c:if>
 				<th>번호</th>
@@ -162,7 +166,7 @@ $(function() {
 		<tbody>
 			<c:forEach var="i" varStatus="status" items="${libraryCheckLoanList}">
 				<tr>
-					<c:if test="${sessionScope.authGroup eq '1'}">
+					<c:if test="${member.admin or authMBA}">
 					<td>
 						<input type="checkbox" name="library_check_loan_arr" class="loan_chk" value="${i.library_check_loan_idx}"/>
 					</td>
@@ -199,7 +203,7 @@ $(function() {
 			</c:if>
 		</tbody>
 	</table>
-	<c:if test="${sessionScope.authGroup eq '1'}">
+	<c:if test="${member.admin or authMBA}">
 	<a href="#" id="allChk" keyValue="N">전체 선택/해제</a>
 	
 	<select id="statusAll" class="selectmenu">

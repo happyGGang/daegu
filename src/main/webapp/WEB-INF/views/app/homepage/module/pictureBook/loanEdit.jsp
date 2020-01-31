@@ -71,6 +71,8 @@ input[type="checkbox"]:focus {outline: 1px solid red;}
 	<form:hidden path="viewPage"/>
 	<form:hidden path="picture_book_idx"/>
 	<form:hidden path="picture_book_loan_idx"/>
+	<form:hidden path="search_type"/>
+	<form:hidden path="search_text"/>
 	<table class="type2">
 		<colgroup>
 			<col width="130" />

@@ -40,11 +40,6 @@ public class BookPackageController extends BaseController {
 	@Autowired
 	private BookPackageService service;
 	
-	public SupportMember sessionSupportMember(HttpServletRequest request) {
-		SupportMember supportMember = (SupportMember)request.getSession().getAttribute("supportMember");
-		return supportMember;
-	}
-	
 	@RequestMapping(value = {"/index.*"}, method = RequestMethod.GET)
 	public String index(Model model, BookPackage bookPackage, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
@@ -139,14 +134,14 @@ public class BookPackageController extends BaseController {
 
 		if (!result.hasErrors()) {
 			if (bookPackage.getEditMode().equals("ADD")) {
-				bookPackage.setAdd_id(sessionSupportMember(request).getMember_id());
+				bookPackage.setAdd_id(sessionLoginSupport(request).getMember_id());
 				service.addBookPackage(bookPackage);
 				res.setValid(true);
 				res.setUrl("index.do");
 				res.setData("menu_idx="+bookPackage.getMenu_idx());
 				res.setMessage("등록되었습니다.");
 			} else if (bookPackage.getEditMode().equals("MODIFY")) {
-				bookPackage.setModify_id(sessionSupportMember(request).getMember_id());
+				bookPackage.setModify_id(sessionLoginSupport(request).getMember_id());
 				service.modifyBookPackage(bookPackage);
 				res.setValid(true);
 				res.setUrl("index.do");
@@ -174,16 +169,16 @@ public class BookPackageController extends BaseController {
 	@RequestMapping (value = {"/loanList.*"}, method = RequestMethod.GET)
 	public String bookPackageLoanList(Model model, BookPackage bookPackage, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		SupportMember loginSupport = sessionLoginSupport(request);
 		
-		SupportMember supportMember = sessionSupportMember(request);
-		if ( supportMember == null ) {
+		if (loginSupport == null && !getSessionIsAdmin(request)) {
     		bookPackage.setBefore_url(String.format("/%s/module/bookPackage/loanList.do?menu_idx=%s", homepage.getContext_path(), bookPackage.getMenu_idx()));
     		service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), bookPackage.getMenu_idx(), bookPackage.getBefore_url()), request, response);
     		return null;
         }
 		
-		if(!supportMember.getAuth_group().equals("1")) {
-			bookPackage.setAdd_id(supportMember.getMember_id());
+		if(!getSessionIsAdmin(request)) {
+			bookPackage.setAdd_id(loginSupport.getMember_id());
 		}
 		service.setPaging(model, service.getBookPackageLoanCount(bookPackage), bookPackage);
 		
@@ -197,8 +192,8 @@ public class BookPackageController extends BaseController {
 	public String bookPackageReq(Model model, BookPackage bookPackage, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		
-		SupportMember supportMember = sessionSupportMember(request);
-		if ( supportMember == null ) {
+		SupportMember loginSupport = sessionLoginSupport(request);
+		if (loginSupport == null && !getSessionIsAdmin(request)) {
     		bookPackage.setBefore_url(String.format("/%s/module/bookPackage/index.do?menu_idx=%s", homepage.getContext_path(), bookPackage.getMenu_idx()));
     		service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), bookPackage.getMenu_idx(), bookPackage.getBefore_url()), request, response);
     		return null;
@@ -235,8 +230,7 @@ public class BookPackageController extends BaseController {
 				bookPackage.setRequest_status("1");
 			}
 			
-			bookPackage.setSchool_name(supportMember.getSchool_name());
-			
+			bookPackage.setSchool_name(loginSupport != null ? loginSupport.getSchool_name() : "관리자");
 		}
 		
 		bookPackage.setMenu_idx(menu_idx);
@@ -281,15 +275,16 @@ public class BookPackageController extends BaseController {
 		/* <<<<< 유효성 검증 */
 
 		if (!result.hasErrors()) {
+			String session_id = getSessionIsAdmin(request) ? getSessionMemberId(request) : sessionLoginSupport(request).getMember_id();
 			if (bookPackage.getEditMode().equals("ADD")) {
-				bookPackage.setAdd_id(sessionSupportMember(request).getMember_id());
+				bookPackage.setAdd_id(session_id);
 				service.addBookPackageLoan(bookPackage);
 				res.setValid(true);
 				res.setUrl("index.do");
 				res.setData("menu_idx="+bookPackage.getMenu_idx());
 				res.setMessage("등록되었습니다.");
 			} else if (bookPackage.getEditMode().equals("MODIFY")) {
-				bookPackage.setModify_id(sessionSupportMember(request).getMember_id());
+				bookPackage.setModify_id(session_id);
 				service.modifyBookPackageLoan(bookPackage);
 				res.setValid(true);
 				res.setUrl("loanList.do");
@@ -300,7 +295,7 @@ public class BookPackageController extends BaseController {
 				res.setValid(true);
 				res.setUrl("loanList.do");
 				res.setData("menu_idx="+bookPackage.getMenu_idx() + "&viewPage="+bookPackage.getViewPage() + "&rowCount="+bookPackage.getRowCount());
-				res.setMessage("삭제되었습니다.");
+				res.setMessage("취소되었습니다.");
 			} else if(bookPackage.getEditMode().equals("returnReq")) {
 				service.modifyReturnReq(bookPackage);
 				res.setValid(true);

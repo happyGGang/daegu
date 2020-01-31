@@ -9,6 +9,14 @@ $(document).ready(function() {
 
 	<%-- 등록 --%>
 	<c:choose>
+	<c:when test="${not empty loginSupport}">
+	$('a#board_edit_btn').on('click', function(e) {
+		e.preventDefault();
+		var url = 'edit.do';
+		var formData = serializeCustom($form);
+		doGetLoad(url, formData);
+	});
+	</c:when>
 	<c:when test="${sessionScope.member.anonymous}">
 	$('a#anonymous_btn').on('click', function(e) {
 		e.preventDefault();

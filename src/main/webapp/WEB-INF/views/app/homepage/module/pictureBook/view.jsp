@@ -11,15 +11,12 @@ $(function() {
 		e.preventDefault();
 		$('#editMode').val('ADD');
 		var formData = $form.serialize() + '&loan_year='+$(this).attr('keyValue') + '&loan_month='+$(this).attr('keyValue2');
-// 		$('#dialog-1').load('loanEdit.do?' + formData, function(response, status, xhr) {
-// 			$('#dialog-1').dialog('open');
-// 		});
 		doGetLoad('loanEdit.do', formData);
 	});
 
 	$('.edit-btn').on('click', function(e) {
 		e.preventDefault();
-		if('${authGroup}' != '1') {
+		if(!'${member.admin or authMBA}') {
 			return false;
 		}
 

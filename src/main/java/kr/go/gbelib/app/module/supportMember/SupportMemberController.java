@@ -41,14 +41,15 @@ public class SupportMemberController {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		String returnUrl = supportMember.getBefore_url();
 		
-    	supportMember = service.getSupportMemberLogin(supportMember);
-    	if(supportMember == null) {
+		SupportMember loginSupport = service.getSupportMemberLogin(supportMember);
+    	if(loginSupport == null) {
     		service.alertMessage("아이디 또는 비밀번호를 다시 확인하세요", request, response);
     	} else {
-			service.addLastLogin(supportMember);
+    		loginSupport.setLogin(true);
+			service.addLastLogin(loginSupport);
 			request.getSession().removeAttribute("member");
-			request.getSession().setAttribute("supportMember", supportMember);
-			request.getSession().setAttribute("authGroup", supportMember.getAuth_group());
+			request.getSession().setAttribute("loginSupport", loginSupport);
+//			request.getSession().setAttribute("authGroup", loginSupport.getAuth_group());
 		}
     	
 		if (StringUtils.isEmpty(returnUrl) || returnUrl.indexOf("/login/") > -1) {
@@ -60,7 +61,7 @@ public class SupportMemberController {
 		
 		model.addAttribute("supportMember", supportMember);
 
-		return "redirect:" + returnUrl.replaceAll("^http://(www\\.)?gbelib\\.kr", "https://www.gbelib.kr");
+		return "redirect:" + returnUrl.replaceAll("^http://(www\\.)?library\\.daegu\\.go\\.kr", "https://library.daegu.go.kr");
 	}
 	
 	@RequestMapping (value = "/logout.*", method = RequestMethod.GET)

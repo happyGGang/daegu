@@ -13,9 +13,6 @@ $(function() {
 	
 	$('.view-btn').on('click', function(e) {
 		e.preventDefault();
-		if('${sessionScope.authGroup}' == '') {
-			return false;
-		}
 		var formData = 'menu_idx='+$('#menu_idx').val() + '&viewPage='+$('#viewPage').val() + '&book_package_idx='+$(this).attr('keyValue');
 		doGetLoad('view.do', formData);
 	});
@@ -169,7 +166,7 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 	</form:select>
 	<div class="button">
 		<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>도서목록 다운받기</span></a>
-		<c:if test="${sessionScope.authGroup eq '1'}">
+		<c:if test="${member.admin or authMBA}">
 		<a href="#" class="btn btn5 left" id="add-btn"><i class="fa fa-plus"></i><span>등록</span></a>
 		</c:if>
 	</div>
@@ -177,7 +174,7 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 <div>
 	<c:forEach items="${bookPackageList}" var="i" varStatus="status">
 	<div class="group-box">
-		<c:if test="${sessionScope.authGroup eq '1'}">
+		<c:if test="${member.admin or authMBA}">
 		<form:checkbox path="book_package_arr" cssClass="book_check" value="${i.book_package_idx}"/>
 		</c:if>
 		<div class="img-box">
@@ -268,7 +265,7 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 		<h3>등록된 책 꾸러미 리스트가 없습니다.</h3>
 	</div>
 	</c:if>
-	<c:if test="${sessionScope.authGroup eq '1'}">
+	<c:if test="${member.admin or authMBA}">
 		<a href="#" id="all-check" class="btn" keyValue="N">전체 선택/해제</a>
 		<a href="#" id="delete-check" class="btn">선택 게시글삭제</a>
 	</c:if>

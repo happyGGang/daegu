@@ -10,7 +10,7 @@ $(function() {
 	
 	$('.edit-btn').on('click', function(e) {
 		e.preventDefault();
-		if('${authGroup}' != '1') {
+		if(!'${member.admin or authMBA}') {
 			return false;
 		}
 		

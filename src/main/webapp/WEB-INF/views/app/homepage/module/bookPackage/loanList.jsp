@@ -9,7 +9,7 @@ $(function() {
 	// 책 꾸러미 대출 수정
 	$('a.dialog-edit').on('click', function(e) {
 		e.preventDefault();
-		if('${authGroup}' != '1') {
+		if(!'${member.admin or authMBA}') {
 			return false;
 		}
 		
@@ -48,6 +48,8 @@ $(function() {
 		e.preventDefault();
 		if(confirm('해당 대출 신청을 취소하시겠습니까?')) {
 			$('#editMode').val('DELETE');
+			$('form#bookPackage').attr('action', 'loanSave.do');
+			$('form#bookPackage').attr('method', 'POST');
 			$('#book_package_loan_idx').val($(this).attr('keyValue'));
 			if(doAjaxPost($('form#bookPackage'))) {
 				location.reload();

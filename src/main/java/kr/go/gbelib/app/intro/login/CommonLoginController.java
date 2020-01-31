@@ -93,6 +93,7 @@ public class CommonLoginController extends BaseController {
 	@RequestMapping (value = {"/loginProc.*"})
 	public String loginProc(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable ("homepagePath") String homepagePath, RedirectAttributes redirectAttributes) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
+		request.getSession().removeAttribute("loginSupport");
 
 		// 아이디, 비번, 이름 복호화
 		if (memberService.decryptMember(member) == false) {

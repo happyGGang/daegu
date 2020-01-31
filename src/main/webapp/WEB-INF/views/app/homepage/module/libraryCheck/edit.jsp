@@ -82,8 +82,8 @@ $(function() {
 	        <tr>
 	        	<th>이름(<span style="color: red;font-weight: bold;">*</span>)</th>
 	        	<td>
-        			${sessionScope.supportMember.school_name}
-        			<form:hidden path="library_check_name" value="${sessionScope.supportMember.school_name}"/>
+        			${not empty loginSupport ? loginSupport.school_name : '관리자'}
+        			<form:hidden path="library_check_name" value="${not empty loginSupport ? loginSupport.school_name : '관리자'}"/>
 		        	<div class="ui-state-error">
 						<i class="fa fa-warning"></i><em>한글만 사용하실 수 있습니다.</em>
 					</div>

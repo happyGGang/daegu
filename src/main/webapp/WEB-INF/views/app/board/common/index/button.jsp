@@ -30,6 +30,9 @@
 			<a href="" class="btn btn1 write" id="anonymous_btn"><i class="fa fa-pencil"></i><span>글쓰기</span></a>
 			</c:if>
 		</c:if>
+		<c:if test="${loginSupport.login}">
+			<a href="" class="btn btn1 write" id="board_edit_btn"><i class="fa fa-pencil"></i><span>회원 글쓰기</span></a>
+		</c:if>
 	</c:otherwise>
 </c:choose>
 </div>
