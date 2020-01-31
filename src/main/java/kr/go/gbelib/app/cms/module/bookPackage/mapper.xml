@@ -173,12 +173,21 @@
 		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
 		AND	${search_type} LIKE '%'||#{search_text}||'%'
 		</if>
-		<if test="return_yn != null and return_yn != ''">
-		AND	return_yn = #{return_yn}
-		</if>
-		<if test="request_status != null and request_status != ''">
-		AND	request_status = #{request_status}
-		</if>
+<!-- 		<if test="return_yn != null and return_yn != ''"> -->
+<!-- 		AND	return_yn = #{return_yn} -->
+<!-- 		</if> -->
+<!-- 		<if test="request_status != null and request_status != ''"> -->
+<!-- 		AND	request_status = #{request_status} -->
+<!-- 		</if> -->
+		<choose>
+			<when test="return_yn != null and return_yn != ''">
+			AND	return_yn = #{return_yn}
+			AND	request_status = '2'
+			</when>
+			<when test="request_status != null and request_status != ''">
+			AND	request_status = #{request_status}
+			</when>
+		</choose>
 		<if test="loan_start_date != null and loan_start_date != ''">
 		AND	TO_CHAR(loan_start_date, 'yyyy') = #{loan_start_date}
 		</if>
