@@ -89,7 +89,7 @@ public class StudentController extends BaseController {
 			student.setMember_id("ANONYMOUS");
 			certMember.setMember_id("ANONYMOUS");
 			student.setMember_key(certMember.getCi_value());
-
+			certMember.setSex(certMember.getSex().equals("0") ? "1" : "0");
 		} else {
 			student.setMember_id(getSessionMemberId(request));
 			student.setMember_key(getSessionMemberId(request));
@@ -108,6 +108,7 @@ public class StudentController extends BaseController {
 //			service.alertMessage("신청이 불가능합니다.\\n도서관에 문의해주세요.", request, response);
 //			return null;
 //		}
+
 
 		Member memberInfo = certMember == null ? getSessionMemberInfo(request) : certMember;
 
