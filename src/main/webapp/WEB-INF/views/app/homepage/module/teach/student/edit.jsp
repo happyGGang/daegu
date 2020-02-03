@@ -203,17 +203,27 @@ $(function() {
 });
 $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(this).val().replace(/[^0-9]/gi,"") );});
 </script>
-<c:forEach items="${termsList}" var="terms">
-	${terms.contents }
+<c:forEach items="${termsList}" var="terms" varStatus="status">
+	<c:if test="${status.first}">
+	<div class="join-wrap" style="padding: 0">
+	</c:if>
+	<h4>${terms.title}</h4>
+	<div class="Box" style="max-height:200px" tabindex="0" >
+		${terms.contents}
+	</div>
+	<div class="agree_codes" >
+		<div class="checkbox">
+			<input id="terms${status.count}" name="agree_codes" type="checkbox" style="opacity: inherit;">
+			<label style="position: static !important;" for="terms${status.count}">${terms.title} 동의</label><br>
+		</div>
+	</div>
+	<c:if test="${status.last}">
+	<br><br>
+	</div>
+	</c:if>
 </c:forEach>
 
 <form:form id="studentForm" modelAttribute="student" method="post" action="save.do" onsubmit="return false;">
-	<div style="text-align: right"><b>이용약관 및 개인정보의 수집·이용 동의 여부</b>(<span style="color: red; font-weight: bold;">*</span>)
-		<form:select path="self_info_yn" cssClass="selectmenu" cssStyle="width : 70px" title="동의여부">
-			<form:option value="Y" label="동의"/>
-			<form:option value="N" label="미동의"/>
-		</form:select>
-	</div>
 
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="large_category_idx"/>
@@ -225,6 +235,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	<form:hidden path="menu_idx"/>
 	<form:hidden path="apply_status"/>
 	<form:hidden path="member_key" />
+	<input type="hidden" name="self_info_yn" value="Y"/>
 	<h3>신청자정보</h3>
 	<div style="text-align: right; ${param.ageType eq 'under' ? 'display:none;':''}">
 		(<span style="color: red; font-weight: bold;">*</span>) 항목은 필수 입력값입니다.
