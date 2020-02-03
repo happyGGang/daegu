@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManageService;
@@ -29,6 +30,7 @@ import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.co.whalesoft.framework.utils.WebFilterCheckUtils;
+import kr.go.gbelib.app.cms.module.facilityReq.FacilityReq;
 import kr.go.gbelib.app.common.api.PushAPI;
 
 @Controller(value="userExcursions")
@@ -79,14 +81,27 @@ public class ExcursionsController extends BaseController {
 		}
 
 	}
+	
+	@RequestMapping(value = {"/cert.*"}, method = RequestMethod.GET)
+	public String cert(Model model, Excursions excursions, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+
+		return String.format(basePath, homepage.getFolder()) + "cert";
+
+	}
 
 	@RequestMapping(value = {"/edit.*"})
 	public String edit(Model model, Apply apply, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			apply.setBefore_url(String.format("http://www.gbelib.kr/%s/html.do?menu_idx=%s", homepage.getContext_path(), apply.getMenu_idx()));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://www.gbelib.kr/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), apply.getMenu_idx(), apply.getBefore_url()), request, response);
+//		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+//			apply.setBefore_url(String.format("http://www.gbelib.kr/%s/html.do?menu_idx=%s", homepage.getContext_path(), apply.getMenu_idx()));
+//			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://www.gbelib.kr/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), apply.getMenu_idx(), apply.getBefore_url()), request, response);
+//			return null;
+//		}
+		
+		if ( !isLogin(request) && request.getSession().getAttribute("certMember") == null) {
+			service.alertMessageAndUrl("본인인증 후 신청가능합니다.", String.format("cert.do?menu_idx=%s&editMode=ADD&excursions_idx=%d", apply.getMenu_idx(), apply.getExcursions_idx()), request, response);
 			return null;
 		}
 
@@ -94,8 +109,17 @@ public class ExcursionsController extends BaseController {
 //			service.alertMessage("신청이 불가능합니다.\\n도서관에 문의해주세요.", request, response);
 //			return null;
 //		}
+		
+		Member certMember = (Member) request.getSession().getAttribute("certMember");
+		if (certMember != null) {
+			apply.setApply_id(certMember.getCi_value());
+		} else {
+			apply.setApply_id(getSessionMemberId(request));
+		}
 
-		apply.setApply_id(getSessionMemberId(request));
+		Member memberInfo = certMember == null ? getSessionMemberInfo(request) : certMember;
+		model.addAttribute("member", memberInfo);
+
 		apply.setHomepage_id(homepage.getHomepage_id());
 		if(apply.getEditMode().equals("MODIFY")) {
 			//model.addAttribute("facility", service.copyObjectPaging(facility, service.getFacilityOne(facilityReq)));
@@ -110,9 +134,7 @@ public class ExcursionsController extends BaseController {
 		//약관 연동부
 		Menu menuOne = (Menu) request.getAttribute("menuOne");
 		model.addAttribute("termsList", termsService.getTermsListInModule(new Terms(menuOne.getManage_idx())));
-
 		model.addAttribute("excursions", service.getExcursionsOne(excursions));
-		model.addAttribute("member", getSessionMemberInfo(request));
 //		model.addAttribute("prtcNotice",MemberAPI.getPrtcNoticeList("WEB"));
 		if ( "ajax".equals(apply.getPageType()) ) {
 			return String.format(basePath, homepage.getFolder()) + "edit_ajax";
@@ -221,8 +243,15 @@ public class ExcursionsController extends BaseController {
 				res.setTargetOpener(true);
 				return res;
 			}
+			
+			Member certMember = (Member) request.getSession().getAttribute("certMember");
+			if (certMember != null) {
+				apply.setApply_id(certMember.getCi_value());
+			} else {
+				apply.setApply_id(getSessionMemberId(request));
+			}
 
-			apply.setApplicant_member_id(getSessionMemberId(request));
+			apply.setApplicant_member_id(apply.getApply_id());
 			apply.setMember_key(getSessionMemberInfo(request).getSeq_no());
 
 			if(apply.getEditMode().equals("ADD")) {
@@ -241,8 +270,8 @@ public class ExcursionsController extends BaseController {
 						return res;
 					}
 				}
-
-				apply.setAdd_id(getSessionMemberId(request));
+				
+				apply.setAdd_id(apply.getApply_id());
 				apply.setStart_date(excursions.getStart_date());
 				apply.setStart_time(excursions.getStart_time());
 				apply.setEnd_date(excursions.getEnd_date());
