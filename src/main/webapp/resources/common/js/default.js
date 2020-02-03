@@ -239,9 +239,14 @@ $(function(){
 				$(this).children('a').append(_str2);
 			}
 			$(this).children('a').on('click',function(){
+				if ($(this).next('ul').find('a:first').next('ul').length > 0) {
+					location.href = $(this).next('ul').find('a:first').next('ul').find('a:first').attr('href');
+					return false;
+				} else {
+					location.href = $(this).next('ul').find('a:first').attr('href');
+					return false;
 
-				location.href = $(this).next('ul').find('a:first').attr('href');
-				return false;
+				}
 			});
 			if($(this).find('li').hasClass('active')){
 					$(this).children('a').children(_str3).remove();
