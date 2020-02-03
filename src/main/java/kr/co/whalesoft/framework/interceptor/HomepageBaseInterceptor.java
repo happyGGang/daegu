@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Properties;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -168,10 +165,9 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 			if ( uri.startsWith("/intro/") ) {
 
 				// SSL 적용을 위한 로직
-				String requestURL = request.getRequestURL().toString();
 				if (!uri.contains("join") && !uri.contains("login")) {
 
-					if (requestURL.startsWith("https://")) {
+					if (request.isSecure()) {
 						// Request Parameter 리다이렉트로 전달.
 						List<String> parameters = new ArrayList<String>();
 						@SuppressWarnings ("unchecked")
@@ -186,18 +182,25 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 						return false;
 					}
 				} else {
-					if(StringUtils.containsIgnoreCase(request.getServerName(), "library.daegu.go.kr") && requestURL.startsWith("http://")) {
-						List<String> parameters = new ArrayList<String>();
-						@SuppressWarnings ("unchecked")
-						Enumeration<String> result = request.getParameterNames();
-						while (result.hasMoreElements()) {
-							String attributeName = (String) result.nextElement();
-							parameters.add(String.format("%s=%s", attributeName, request.getParameter(attributeName)));
-						}
 
-						String redirectUrl = String.format("https://%s:443%s?%s", request.getServerName(), uri, StringUtils.join(parameters, "&"));
-						response.sendRedirect(redirectUrl);
-						return false;
+					String referer = request.getHeader("referer");
+					if (StringUtils.isNotBlank(referer)) {
+						String refArr[] = referer.split("\\/");
+						if ("intro".equals(refArr[3])) {//http://localhost/intro/
+							if(StringUtils.containsIgnoreCase(request.getServerName(), "library.daegu.go.kr") && !request.isSecure()) {
+								List<String> parameters = new ArrayList<String>();
+								@SuppressWarnings ("unchecked")
+								Enumeration<String> result = request.getParameterNames();
+								while (result.hasMoreElements()) {
+									String attributeName = (String) result.nextElement();
+									parameters.add(String.format("%s=%s", attributeName, request.getParameter(attributeName)));
+								}
+
+								String redirectUrl = String.format("https://%s:443%s?%s", request.getServerName(), uri, StringUtils.join(parameters, "&"));
+								response.sendRedirect(redirectUrl);
+								return false;
+							}
+						}
 					}
 				}
 
