@@ -213,18 +213,18 @@ do {
 
 						<div class="main4 tabS">
 							<ul class="tabMenuS">
-								<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=175" class='t-tabs'>사서추천도서</a></li>
+								<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=115&manage_idx=174" class='t-tabs'>사서추천도서</a></li>
 								<li>/</li>
-								<li><a href="#tab2" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=115" class='t-tabs'>신간도서</a></li>
+								<li><a href="#tab2" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class='t-tabs'>신간도서</a></li>
 								<li>/</li>
 								<li><a href="#tab3" data-link="/${homepage.context_path}/intro/search/bestBook/index.do?menu_idx=15" class='t-tabs'>대출베스트</a></li>
-								<a href="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=175" class="more-btn more-more">더보기</a>
+								<a href="/${homepage.context_path}/board/index.do?menu_idx=115&manage_idx=174" class="more-btn more-more">더보기</a>
 							</ul>
 
 							<div class="box con" data-tab="tab1">
 								<ul class="lt_photo">
 									<li>
-										<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${recommendBookList[listNum1].manage_idx}&board_idx=${recommendBookList[listNum1].board_idx}">
+										<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=115&manage_idx=${recommendBookList[listNum1].manage_idx}&board_idx=${recommendBookList[listNum1].board_idx}">
 											<c:choose>
 											<c:when test="${recommendBookList[listNum1].preview_img ne null}">
 												<c:choose>
@@ -245,7 +245,7 @@ do {
 										</a>
 									</li>
 									<li>
-										<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${recommendBookList[listNum2].manage_idx}&board_idx=${recommendBookList[listNum2].board_idx}">
+										<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=115&manage_idx=${recommendBookList[listNum2].manage_idx}&board_idx=${recommendBookList[listNum2].board_idx}">
 											<c:choose>
 											<c:when test="${recommendBookList[listNum2].preview_img ne null}">
 												<c:choose>
@@ -266,7 +266,7 @@ do {
 										</a>
 									</li>
 									<li>
-										<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${recommendBookList[listNum3].manage_idx}&board_idx=${recommendBookList[listNum3].board_idx}">
+										<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=115&manage_idx=${recommendBookList[listNum3].manage_idx}&board_idx=${recommendBookList[listNum3].board_idx}">
 											<c:choose>
 											<c:when test="${recommendBookList[listNum3].preview_img ne null}">
 												<c:choose>
