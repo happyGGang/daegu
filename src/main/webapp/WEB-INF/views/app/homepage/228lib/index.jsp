@@ -259,7 +259,7 @@ do {
 							<li><span class="dot">-</span> <span class="txt">토~일</span> 09:00 ~ 17:00</li>
 						</ul>
 
-						<p>※매주 월요일 및 법정공휴일은 휴관입니다</p>
+						<p style="font-size:13px;">※매주 월요일 및 법정공휴일은 휴관입니다</p>
 					</div>
 
 				</div>

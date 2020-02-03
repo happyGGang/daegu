@@ -36,7 +36,7 @@
 					</c:otherwise>
 				</c:choose>
 				<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=92">사이트맵</a>
-				<a href="#" class="last-box">2·28민주운동기념사업회</a>
+				<a href="http://www.228.or.kr" class="last-box" target="_blank">2·28민주운동기념사업회</a>
 			</div>
 		</div>
 	</div>

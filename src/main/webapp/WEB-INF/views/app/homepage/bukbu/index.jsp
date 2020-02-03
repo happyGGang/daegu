@@ -162,7 +162,7 @@ do {
 								</li>
 								<li class="bg-lgreen">
 									<a href="http://e-lib.tglnet.or.kr/daegu/home/main.jsp" target="_blank">
-									<span class="wt">전자도서관</span>
+									<span class="wt">대구전자도서관</span>
 									<span class="wc">전자책, 오디오북 등 디지털콘텐츠</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick03-bg.png" class="mi">
 									</a>
@@ -176,7 +176,7 @@ do {
 								</li>
 								<li class="bg-lgreen">
 									<a href="/${homepage.context_path}/html.do?menu_idx=26" style="z-index: 9;">
-									<span class="wt">희망도서</span>
+									<span class="wt">희망도서신청</span>
 									<span class="wc">읽고 싶은 책 구입 신청</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick05-bg.png" class="mi">
 									</a>
