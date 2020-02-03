@@ -161,11 +161,6 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
-			<name>countApply</name>
-			<required>true</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
 			<name>plan_date</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>

@@ -228,7 +228,7 @@ $(function(){
 						<td class="top" style="vertical-align: top;">
 							<div style="background: #ff4e4e; color: white; margin-bottom: 5px;font-size: 15px;font-weight: bold;">${i.sun}</div>
 							<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.sun) < 2? '0' : ''}${i.sun}" />
-							<tag:excursions plan_date="${plan_date}" excursionsList="${excursionsList}" countApply="${countApply}" mode="admin" />
+							<tag:excursions plan_date="${plan_date}" excursionsList="${excursionsList}" mode="admin" />
 						</td>
 					</c:otherwise>
 					</c:choose>
@@ -240,7 +240,7 @@ $(function(){
 						<td class="top" style="vertical-align: top;">
 							<div style="background: #e6e6e6; margin-bottom: 5px;font-size: 15px;font-weight: bold;">${i.mon}</div>
 							<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.mon) < 2? '0' : ''}${i.mon}" />
-							<tag:excursions plan_date="${plan_date}" excursionsList="${excursionsList}" countApply="${countApply}" mode="admin" />
+							<tag:excursions plan_date="${plan_date}" excursionsList="${excursionsList}" mode="admin" />
 						</td>
 					</c:otherwise>
 					</c:choose>
@@ -252,7 +252,7 @@ $(function(){
 						<td class="top" style="vertical-align: top;">
 							<div style="background: #e6e6e6; margin-bottom: 5px;font-size: 15px;font-weight: bold;">${i.tue}</div>
 							<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.tue) < 2? '0' : ''}${i.tue}" />
-							<tag:excursions plan_date="${plan_date}" excursionsList="${excursionsList}" countApply="${countApply}" mode="admin" />
+							<tag:excursions plan_date="${plan_date}" excursionsList="${excursionsList}" mode="admin" />
 						</td>
 					</c:otherwise>
 					</c:choose>
@@ -264,7 +264,7 @@ $(function(){
 						<td class="top" style="vertical-align: top;">
 							<div style="background: #e6e6e6; margin-bottom: 5px;font-size: 15px;font-weight: bold;">${i.wed}</div>
 							<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.wed) < 2? '0' : ''}${i.wed}" />
-							<tag:excursions plan_date="${plan_date}" excursionsList="${excursionsList}" countApply="${countApply}" mode="admin" />
+							<tag:excursions plan_date="${plan_date}" excursionsList="${excursionsList}" mode="admin" />
 						</td>
 					</c:otherwise>
 					</c:choose>
@@ -276,7 +276,7 @@ $(function(){
 						<td class="top" style="vertical-align: top;">
 							<div style="background: #e6e6e6; margin-bottom: 5px;font-size: 15px;font-weight: bold;">${i.thu}</div>
 							<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.thu) < 2? '0' : ''}${i.thu}" />
-							<tag:excursions plan_date="${plan_date}" excursionsList="${excursionsList}" countApply="${countApply}" mode="admin" />
+							<tag:excursions plan_date="${plan_date}" excursionsList="${excursionsList}" mode="admin" />
 						</td>
 					</c:otherwise>
 					</c:choose>
@@ -288,7 +288,7 @@ $(function(){
 						<td class="top" style="vertical-align: top;">
 							<div style="background: #e6e6e6; margin-bottom: 5px;font-size: 15px;font-weight: bold;">${i.fri}</div>
 							<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.fri) < 2? '0' : ''}${i.fri}" />
-							<tag:excursions plan_date="${plan_date}" excursionsList="${excursionsList}" countApply="${countApply}" mode="admin" />
+							<tag:excursions plan_date="${plan_date}" excursionsList="${excursionsList}" mode="admin" />
 						</td>
 					</c:otherwise>
 					</c:choose>
@@ -300,7 +300,7 @@ $(function(){
 						<td class="top" style="vertical-align: top;">
 							<div style="background: #dee7f9; margin-bottom: 5px;font-size: 15px;font-weight: bold;">${i.sat}</div>
 							<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.sat) < 2? '0' : ''}${i.sat}" />
-							<tag:excursions plan_date="${plan_date}" excursionsList="${excursionsList}" countApply="${countApply}" mode="admin" />
+							<tag:excursions plan_date="${plan_date}" excursionsList="${excursionsList}" mode="admin" />
 						</td>
 					</c:otherwise>
 					</c:choose>
