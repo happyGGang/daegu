@@ -122,7 +122,7 @@ public class TeachController extends BaseController{
 			teach.setHomepage_id(homepage.getHomepage_id());
 			model.addAttribute("teach", teach);
 			model.addAttribute("teachList", teachService.getTeachListForUser(teach));
-			model.addAttribute("myTeachListMenuIdx", menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 13)));//수강신청내역 menu_idx
+			model.addAttribute("myTeachListMenuIdx", menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 93)));//수강신청내역 menu_idx
 			model.addAttribute("categoryList", categoryService.getCategoryListAll(new Category(homepage.getHomepage_id())));
 			return String.format(basePath, homepage.getFolder()) + "index";
 		}

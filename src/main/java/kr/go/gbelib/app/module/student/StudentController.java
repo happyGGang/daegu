@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.whalesoft.app.board.Board;
 import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.member.Member;
@@ -30,13 +29,10 @@ import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.co.whalesoft.framework.utils.WebFilterCheckUtils;
-import kr.go.gbelib.app.cms.module.blackList.BlackList;
-import kr.go.gbelib.app.cms.module.blackList.BlackListService;
 import kr.go.gbelib.app.cms.module.teach.Teach;
 import kr.go.gbelib.app.cms.module.teach.TeachService;
 import kr.go.gbelib.app.cms.module.teach.student.Student;
 import kr.go.gbelib.app.cms.module.teach.student.StudentService;
-import kr.go.gbelib.app.common.api.MemberAPI;
 
 @Controller(value="userStudent")
 @RequestMapping(value = {"/{homepagePath}/module/teach/student"})
@@ -52,9 +48,6 @@ public class StudentController extends BaseController {
 
 	@Autowired
 	private CodeService codeService;
-
-	@Autowired
-	private BlackListService blackListService;
 
 	@Autowired
 	private TermsService termsService;

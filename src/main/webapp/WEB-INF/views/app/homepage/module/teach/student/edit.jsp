@@ -245,17 +245,13 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
         	</tr>
         	<tr>
 	         	<th>신청자 - 생년월일</th>
-	         	<c:set value="${fn:substring(memberInfo.birth_day,0,4)}" var="birth1"></c:set>
-	         	<c:set value="${fn:substring(memberInfo.birth_day,4,6)}" var="birth2"></c:set>
-	         	<c:set value="${fn:substring(memberInfo.birth_day,6,8)}" var="birth3"></c:set>
-	         	<c:set value="${birth1}-${birth2}-${birth3}" var="birth"></c:set>
-	         	<td>${birth}<form:hidden path="applicant_birth" value="${birth}" class="text ui-calendar" readonly="true" title="생년월일"/></td>
+	         	<td>${memberInfo.birth_day}<form:hidden path="applicant_birth" value="${memberInfo.birth_day}" class="text ui-calendar" readonly="true" title="생년월일"/></td>
         	</tr>
         	<tr>
 	         	<th>신청자 - 성별</th>
 	         	<td>
-	         		${memberInfo.sex eq '1'? '남' : '여'}
-					<form:hidden path="applicant_sex" value="${memberInfo.sex eq '1'? 'M' : 'F'}" class="text" maxlength="6" readonly="true"/>
+	         		${memberInfo.sex eq '0'? '남' : '여'}
+					<form:hidden path="applicant_sex" value="${memberInfo.sex eq '0'? 'M' : 'F'}" class="text" maxlength="6" readonly="true"/>
          		</td>
 	        </tr>
 	        <tr>

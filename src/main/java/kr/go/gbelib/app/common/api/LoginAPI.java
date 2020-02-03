@@ -78,6 +78,7 @@ public class LoginAPI {
 					String address = String.valueOf(memberInfo.get("H_ADDR1"));
 					if (StringUtils.isNotEmpty(address) && !StringUtils.equals(address, "null")) {
 						member.setAddress1(address);
+						member.setAddress(address);
 					}
 
 					String handphone = String.valueOf(memberInfo.get("HANDPHONE"));
