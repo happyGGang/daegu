@@ -59,7 +59,7 @@ public class MemberAuthInterceptor extends HandlerInterceptorAdapter {
 
 		//로그인하지 않은 회원경우 처리
 		Member member = loginService.getSessionMember(request);
-		if(member==null) member = anonymousMemberCreate(member,request);
+		if(member==null || !member.isLogin()) member = anonymousMemberCreate(member,request);
 
 		//Session의 사용자 이던 anonymous사용자이던 화면단에서 사용하기위해 추가
 		request.setAttribute("member", member);

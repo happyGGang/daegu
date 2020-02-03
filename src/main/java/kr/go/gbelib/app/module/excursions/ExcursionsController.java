@@ -27,6 +27,7 @@ import kr.co.whalesoft.app.cms.module.excursions.apply.ApplyService;
 import kr.co.whalesoft.app.cms.terms.Terms;
 import kr.co.whalesoft.app.cms.terms.TermsService;
 import kr.co.whalesoft.framework.base.BaseController;
+import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.co.whalesoft.framework.utils.WebFilterCheckUtils;
@@ -52,7 +53,8 @@ public class ExcursionsController extends BaseController {
 	private CalendarManageService calendarManageService;
 
 	@RequestMapping(value = {"/index.*"})
-	public String index(Model model, Excursions excursions, HttpServletRequest request) {
+	public String index(Model model, Excursions excursions, HttpServletRequest request) throws AuthException {
+		checkAuth("R", model, request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 		excursions.setHomepage_id(homepage.getHomepage_id());
@@ -92,6 +94,7 @@ public class ExcursionsController extends BaseController {
 
 	@RequestMapping(value = {"/edit.*"})
 	public String edit(Model model, Apply apply, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		checkAuth("C", model, request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 //		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {

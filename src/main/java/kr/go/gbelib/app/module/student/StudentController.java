@@ -71,7 +71,7 @@ public class StudentController extends BaseController {
 
 	@RequestMapping(value = {"/edit.*"})
 	public String edit(Model model, Student student, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		checkAuth("R", model, request);
+		checkAuth("C", model, request);
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 
 

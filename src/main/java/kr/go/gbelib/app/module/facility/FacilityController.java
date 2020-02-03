@@ -27,6 +27,7 @@ import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.app.cms.terms.Terms;
 import kr.co.whalesoft.app.cms.terms.TermsService;
 import kr.co.whalesoft.framework.base.BaseController;
+import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.co.whalesoft.framework.utils.WebFilterCheckUtils;
@@ -56,7 +57,8 @@ public class FacilityController extends BaseController {
 	private TermsService termsService;
 
 	@RequestMapping(value = {"/index.*"})
-	public String index(Model model, Facility facility, HttpServletRequest request) {
+	public String index(Model model, Facility facility, HttpServletRequest request) throws AuthException {
+		checkAuth("R", model, request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		facility.setHomepage_id(homepage.getHomepage_id());
 
@@ -96,6 +98,7 @@ public class FacilityController extends BaseController {
 
 	@RequestMapping(value = {"/edit.*"})
 	public String edit(Model model, FacilityReq facilityReq, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		checkAuth("C", model, request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 		if ( !isLogin(request) && request.getSession().getAttribute("certMember") == null) {
