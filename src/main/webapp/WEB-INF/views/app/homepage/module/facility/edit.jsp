@@ -9,13 +9,14 @@
 $(function() {
 
 	$('#save-btn').on('click', function() {
-
-		<c:if test="${fn:length(termsList) > 0}">
-		if ( $('input[name="agree_codes"]:checked').length != $('input[name="agree_codes"]').length ) {
-			alert('약관 동의 하지 않았습니다.');
-			return false;
+		
+		var agreeLength = $('div.agree_codes input[name="agree_codes"]').length;
+		for(var i = 1; i <= agreeLength; i++) {
+			if(!$('#terms'+i).prop('checked')) {
+				alert($('#terms'+i).attr('keyValue') + ' 동의 하지 않았습니다.');
+				return false;
+			}
 		}
-		</c:if>
 
 		if($('#apply_phone1').val() != "") {
 			$('#apply_phone').val($('#apply_phone1').val()+'-'+$('#apply_phone2').val()+'-'+$('#apply_phone3').val());
@@ -49,7 +50,7 @@ $(function() {
 	</div>
 	<div class="agree_codes" >
 		<div class="checkbox">
-			<input id="terms${status.count}" name="agree_codes" type="checkbox" style="opacity: inherit;">
+			<input id="terms${status.count}" name="agree_codes" type="checkbox" keyValue="${terms.title}" style="opacity: inherit;">
 			<label style="position: static !important;" for="terms${status.count}">${terms.title} 동의</label><br>
 		</div>
 	</div>

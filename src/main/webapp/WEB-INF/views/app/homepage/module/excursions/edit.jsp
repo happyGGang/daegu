@@ -58,6 +58,14 @@ $(function() {
 	}
 
 	$('#save-btn').on('click', function() {
+		var agreeLength = $('div.agree_codes input[name="agree_codes"]').length;
+		for(var i = 1; i <= agreeLength; i++) {
+			if(!$('#terms'+i).prop('checked')) {
+				alert($('#terms'+i).attr('keyValue') + ' 동의 하지 않았습니다.');
+				return false;
+			}
+		}
+		
 		$('#applicant_tel').val($('#applicant_tel_1').val()+'-'+$('#applicant_tel_2').val()+'-'+$('#applicant_tel_3').val());
 		$('#agency_tel').val($('#agency_tel_1').val()+'-'+$('#agency_tel_2').val()+'-'+$('#agency_tel_3').val());
 		$.ajax({
@@ -112,8 +120,24 @@ $(function() {
 });
 </script>
 
-<c:forEach items="${termsList}" var="terms">
-	${terms.contents }
+<c:forEach items="${termsList}" var="terms" varStatus="status">
+	<c:if test="${status.first}">
+	<div class="join-wrap" style="padding: 0">
+	</c:if>
+	<h4>${terms.title}</h4>
+	<div class="Box" style="max-height:200px" tabindex="0" >
+		${terms.contents}
+	</div>
+	<div class="agree_codes" >
+		<div class="checkbox">
+			<input id="terms${status.count}" name="agree_codes" type="checkbox" keyValue="${terms.title}" style="opacity: inherit;">
+			<label style="position: static !important;" for="terms${status.count}">${terms.title} 동의</label><br>
+		</div>
+	</div>
+	<c:if test="${status.last}">
+	<br><br>
+	</div>
+	</c:if>
 </c:forEach>
 
 <form:form modelAttribute="apply" id="excursionsEdit" action="/${homepage.context_path}/module/excursions/save.do" method="post" onsubmit="return false;">

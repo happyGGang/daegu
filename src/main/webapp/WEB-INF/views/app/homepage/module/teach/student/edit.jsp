@@ -44,6 +44,14 @@ $(function() {
 	});
 
 	$('#save-btn').on('click', function() {
+		var agreeLength = $('div.agree_codes input[name="agree_codes"]').length;
+		for(var i = 1; i <= agreeLength; i++) {
+			if(!$('#terms'+i).prop('checked')) {
+				alert($('#terms'+i).attr('keyValue') + ' 동의 하지 않았습니다.');
+				return false;
+			}
+		}
+		
 		var $form = {};
 		$form = $.extend(true, $form, $('#studentForm'));
 		$form.find('input[name=applicant_sex]').prop('disabled', false);
@@ -72,10 +80,10 @@ $(function() {
 			return false;
 		}
 
-		if ( $form.find('#self_info_yn').val() != 'Y' ) {
-			alert('이용약관 및 개인정보의 수집·이용 동의 하여야 신청이 가능합니다.');
-			return false;
-		}
+// 		if ( $form.find('#self_info_yn').val() != 'Y' ) {
+// 			alert('이용약관 및 개인정보의 수집·이용 동의 하여야 신청이 가능합니다.');
+// 			return false;
+// 		}
 
 		var cellPhone1 = $form.find('#applicant_cell_phone_1').val();
 		if ( cellPhone1 == '' ) {
@@ -213,7 +221,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	</div>
 	<div class="agree_codes" >
 		<div class="checkbox">
-			<input id="terms${status.count}" name="agree_codes" type="checkbox" style="opacity: inherit;">
+			<input id="terms${status.count}" name="agree_codes" type="checkbox" keyValue="${terms.title}" style="opacity: inherit;">
 			<label style="position: static !important;" for="terms${status.count}">${terms.title} 동의</label><br>
 		</div>
 	</div>
