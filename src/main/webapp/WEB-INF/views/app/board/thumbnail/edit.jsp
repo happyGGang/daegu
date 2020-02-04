@@ -8,6 +8,7 @@
 ${boardManage.top_html}
 </c:if>
 <jsp:include page="/WEB-INF/views/app/board/common/edit/script.jsp" flush="false" />
+<jsp:include page="/WEB-INF/views/app/board/common/edit/terms.jsp" flush="false" />
 <form:form modelAttribute="board" action="save.do" method="post" onsubmit="return false;">
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
 <jsp:include page="/WEB-INF/views/app/board/common/form_paging_param.jsp" flush="false" />

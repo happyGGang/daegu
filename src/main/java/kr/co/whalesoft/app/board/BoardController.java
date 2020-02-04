@@ -41,6 +41,8 @@ import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.member.MemberService;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManageService;
+import kr.co.whalesoft.app.cms.terms.Terms;
+import kr.co.whalesoft.app.cms.terms.TermsService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.CalculateHashUtils;
@@ -86,6 +88,8 @@ public class BoardController extends BaseController {
 	private ThemeBookService themeBookService;
 	@Autowired
 	private CalendarManageService calendarManageService;
+	@Autowired
+	private TermsService termsService;
 
 	private String getBoardContext(HttpServletRequest request) {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
@@ -484,6 +488,7 @@ public class BoardController extends BaseController {
 			model.addAttribute("getToday", new Date());
 
 		}
+		model.addAttribute("termsList", termsService.getTermsListInBoard(new Terms(homepage.getHomepage_id(), boardManage.getManage_idx())));
 
 		boardFileService.initBoardFile(board, request);
 

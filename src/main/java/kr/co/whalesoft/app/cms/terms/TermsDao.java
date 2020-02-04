@@ -19,4 +19,6 @@ public interface TermsDao {
 	public List<Terms> getTermsListInModule(Terms terms);
 
 	public List<Terms> getTermsListNotInModule(Terms terms);
+
+	public List<Terms> getTermsListInBoard(Terms terms);
 } 

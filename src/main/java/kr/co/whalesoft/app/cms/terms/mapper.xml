@@ -113,5 +113,22 @@
 			TERMS_IDX NOT IN (SELECT TERMS_IDX FROM CMS_MODULE_TERMS WHERE MODULE_IDX = #{module_idx})
 			AND DELETE_YN = 'N' AND USE_YN = 'Y'
 	</select>
+	
+	<select id="getTermsListInBoard" resultType="kr.co.whalesoft.app.cms.terms.Terms">
+		SELECT
+			title, contents
+		FROM
+			CMS_TERMS a, CMS_CODE b
+		WHERE
+			A.homepage_id = #{homepage_id}
+		AND	A.use_yn = 'Y'
+		AND	A.delete_yn = 'N'
+		AND	A.terms_type = b.code_id
+		AND	B.group_id = 'C0015'
+		AND	B.use_yn = 'Y'
+		AND	B.code_id = 6
+		ORDER BY
+			terms_idx
+	</select>
 
 </mapper>

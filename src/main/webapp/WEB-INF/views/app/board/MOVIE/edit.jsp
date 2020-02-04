@@ -53,6 +53,15 @@ $(document).ready(function() {
 	
 	$('a#board_save_btn').on('click', function(e) {
 		e.preventDefault();
+		
+		var agreeLength = $('div.agree_codes input[name="agree_codes"]').length;
+		for(var i = 1; i <= agreeLength; i++) {
+			if(!$('#terms'+i).prop('checked')) {
+				alert($('#terms'+i).attr('keyValue') + ' 동의 하지 않았습니다.');
+				return false;
+			}
+		}
+		
 		$('#boardFileArray > option').prop('selected', true);
 		
 		<c:if test="${boardManage.editor_use_yn eq 'Y'}">
@@ -132,6 +141,7 @@ Date.prototype.yyyymmdd = function()
 }
 
 </script>
+<jsp:include page="/WEB-INF/views/app/board/common/edit/terms.jsp" flush="false" />
 <form:form modelAttribute="board" action="save.do" method="post" onsubmit="return false;">
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
 <jsp:include page="/WEB-INF/views/app/board/common/form_paging_param.jsp" flush="false" />

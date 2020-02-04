@@ -44,4 +44,8 @@ public class TermsService extends BaseService {
 	public List<Terms> getTermsListNotInModule(Terms terms) {
 		return dao.getTermsListNotInModule(terms);
 	}
+
+	public List<Terms> getTermsListInBoard(Terms terms) {
+		return dao.getTermsListInBoard(terms);
+	}
 }
