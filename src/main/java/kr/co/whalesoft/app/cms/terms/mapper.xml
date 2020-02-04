@@ -118,7 +118,7 @@
 		SELECT
 			title, contents
 		FROM
-			CMS_TERMS a, CMS_CODE b
+			CMS_TERMS A, CMS_CODE B, CMS_BOARD_MANAGE C
 		WHERE
 			A.homepage_id = #{homepage_id}
 		AND	A.use_yn = 'Y'
@@ -127,6 +127,8 @@
 		AND	B.group_id = 'C0015'
 		AND	B.use_yn = 'Y'
 		AND	B.code_id = 6
+		AND	C.terms_yn = 'Y'
+		AND C.manage_idx = #{module_idx}
 		ORDER BY
 			terms_idx
 	</select>

@@ -262,6 +262,15 @@ $(function(){
 						</td>
 					</tr>
 					<tr>
+						<th>개인 동의 여부</th>
+						<td>
+							<form:radiobutton path="terms_yn" value="Y" label="사용함" />
+							<form:radiobutton path="terms_yn" value="N" label="사용안함" />
+						</td>
+						<th></th>
+						<td></td>
+					</tr>
+					<tr>
 						<th>금지 확장자 파일</th>
 						<td colspan="3">
 							<form:input path="file_ban_ext" cssClass="text" cssStyle="width:99%;"/>
