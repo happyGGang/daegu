@@ -84,6 +84,9 @@
 		WHERE
 			member_group_idx = #{member_group_idx}
 		AND	module_type = #{moduleType}
+		AND site_id = #{site_id}
+		AND menu_idx = #{menu_idx}
+		AND module_idx = #{module_idx}
 		AND	auth_code_id NOT IN ('C','R','U','D')
 	</delete>
 

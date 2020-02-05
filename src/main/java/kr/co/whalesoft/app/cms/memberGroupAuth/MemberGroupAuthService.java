@@ -37,7 +37,7 @@ public class MemberGroupAuthService extends BaseService {
 	public int addMemberGroupAuth(MemberGroupAuth memberGroupAuth, HttpServletRequest request) {
 		int result = 0;
 		if (StringUtils.equals(memberGroupAuth.getModule_type(), "MODULE")) {
-//			result = dao.deleteMemberGroupAuthModule(memberGroupAuth);
+			result = dao.deleteMemberGroupAuthModule(memberGroupAuth); 
 		} else {
 			memberGroupAuth.setSite_id(memberGroupAuth.getHomepage_id());
 			result = dao.deleteMemberGroupAuth(memberGroupAuth);
