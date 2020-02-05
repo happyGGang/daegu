@@ -58,7 +58,7 @@ label.hidden {display:none;}
 .search-form .detail_search .section .title-box {position:relative;width:97%;margin:0 auto;box-sizing:border-box;display:inline-block;margin:18px;border-style:solid;border-image:linear-gradient(to right, #3cb13a 0%, #6466c3 100%);border-image-slice:1;background:#fff;border-image-width:20px;padding:15px;}
 .search-form .detail_search .section .title-box input {width:96%;height:70px;line-height:70px;padding:0 2%;color:#333;font-size:24px;border:0;cursor:text;}
 .search-form .detail_search .section .vk-btn {width:97%;margin:0 auto 20px;text-align:right;}
-.search-form .detail_search .section .vk-btn a {padding:7px 2%;background:#333;color:#ffcc00;vertical-align:middle}
+.search-form .detail_search .section .vk-btn a {padding:7px 2%;background:#333;color:#ffcc00;vertical-align:middle;font-size:13px;letter-spacing:-1.5px;}
 .search-form .detail_search .section dl {position:relative;display:inline-block;float:left;width:46%;height:38px;margin:0 1.5% 10px 2.5%;}
 .search-form .detail_search .section dl dt{float:left;width:80px;color:#000;font-weight:bold;height:32px;line-height:32px;}
 .search-form .detail_search .section dl dd{position:relative;margin-left:90px;}
@@ -115,7 +115,7 @@ label.hidden {display:none;}
 	.search-form .detail_search .section .title-box input {width:96%;}
 	.search-form .detail_search .section .vk-btn {width:94%;}
 
-	.search-form .detail_search .section .vk-btn a {font-size:15px;}
+	.search-form .detail_search .section .vk-btn a {}
 
 	.search-form .detail_search .reset-btn {display:inline-block;}
 
@@ -287,11 +287,11 @@ transition : all .3s ease}
 .search_result .re-search select {float:left;display:inline-block;height:32px;font-size:15px;line-height:32px;vertical-align:middle}
 .search_result .re-search input {float:left;display:inline-block;height:30px;font-size:15px;line-height:30px;vertical-align:middle;margin-left:3px;padding-left:5px;}
 
-a.btnNew  {padding:12px 3%;background:#00429a;color:#fff;border-radius:7px;font-size: 15px;}
+a.btnNew  {padding:15px 3%;background:#000;color:#fff;border-radius:7px;}
 a.btnNew1 {padding:15px 3%;background:#494949;color:#fff;border-radius:7px;}
-a.btnNew2 {padding:12px 3%;background:#494949;color:#fff;vertical-align:middle;font-size: 15px;}
+a.btnNew2 {padding:9px 3%;background:#494949;color:#fff;vertical-align:middle;}
 a.btnNew3 {padding:8px 2%;border:1px solid #c9c9c9;border-radius:0;vertical-align:middle}
-a.btnNew4 {padding:12px 2%;background:#00429a;color:#fff;border-radius:0;vertical-align:middle;font-size: 15px;}
+a.btnNew4 {padding:9px 2%;background:#000;color:#fff;border-radius:0;vertical-align:middle}
 a.btnNew3 img {vertical-align:middle}
 input.btnNew {border:0;padding:9px 3%;background:#000;color:#fff;vertical-align:middle}
 
@@ -388,6 +388,53 @@ textarea.textArea {width: 100%;height: 200px;border-top: 1px solid;}
 .listArea {overflow: auto;height: 200px;border-top: 1px solid;border-left: 1px solid #cbcbcb;border-right: 1px solid #cbcbcb;border-bottom: 1px solid #cbcbcb;padding: 7px 20px 10px 20px;line-height: 2.08;}
 
 
+/* 선호도 그래프(막대) */
+.graphWrap {padding:15px;height:270px;border:1px solid #dfdfdf;}
+.graphWrap .barGraph {margin:0 auto;}
+.barGraph .graphBox {position:relative;margin:25px 20px 0 40px;}
+.barGraph .axis-x {position:relative; z-index:2;}
+.barGraph .axis-x li {float:left; position:relative; height:200px; width:16.66669%; text-align:center;}
+.barGraph .bar {display:block; position:absolute; bottom:0; left:50%; width:30px; height:100%; margin-left:-15px;}
+.barGraph .bar .fill {display:block; position:absolute; bottom:0; left:0; width:100%; background-color:#d9dee3;}
+.barGraph .bar .num {display:block; margin-top:-18px; font-weight:bold; font-size:1em; line-height:1em;}
+.barGraph .txt {position:absolute; bottom:-30px; left:0; width:100%; line-height:1em; vertical-align:text-top;}
+.axis-y {position:absolute; top:0; left:0; z-index:1; width:100%;}
+.axis-y .line {display:block; position:relative; width:100%; height:39px; border-top:1px solid #dfdfdf;}
+.axis-y .line .txt {position:absolute; top:-11px; left:-35px; width:30px; text-align:right;}
+#chart {position:relative; width:100%; height:200px; font-size:16px;}
+
+/* 태그 클라우드 */
+.tagCloud {overflow:hidden; padding:15px; border:1px solid #dfdfdf;}
+.tagCloud #cloud {height:200px;}
+.jqcloud {overflow:hidden; position:relative; font-size:0.750em; line-height:normal;}
+.jqcloud span {display:inline-block; padding:0;}
+.jqcloud a {font-weight:600; font-size:inherit; text-decoration:none;}
+.jqcloud span.w10 a {font-size:600%; color:#003b84;}
+.jqcloud span.w9 a {font-size:500%; color:#044eaa;}
+.jqcloud span.w8 a {font-size:450%; color:#1367ce;}
+.jqcloud span.w7 a {font-size:400%; color:#5393e1;}
+.jqcloud span.w6 a {font-size:350%; color:#61aadd;}
+.jqcloud span.w5 a {font-size:300%; color:#8cc0dd;}
+.jqcloud span.w4 a {font-size:250%; color:#555c64;}
+.jqcloud span.w3 a {font-size:200%; color:#757b82;}
+.jqcloud span.w2 a {font-size:160%; color:#757b82;}
+.jqcloud span.w1 a {font-size:160%; color:#757b82;}
+
+.bookTitle {margin:50px 0 10px; font-weight:600; font-size:1.154em; color:#333;}
+
+.kdcBookList {padding:0 0 30px 0;}
+.kdcBookList > li {overflow:hidden; position:relative; padding:15px 0 10px 0; border-bottom:1px solid #dfdfdf;}
+.kdcBookList .btnMore {position:absolute; top:15px; right:0; width:10px; height:10px; padding:5px; border:1px solid #d9d9d9; background:#fff;}
+.kdcBookList .kdcTitle {display:block; margin-bottom:8px; font-size:1.154em;}
+.kdcBookList .bookListz {display:block;overflow:hidden;padding:18px 0;}
+.kdcBookList .bookListz > li {float:left; width:16.66666%; text-align:center; margin-bottom:5px;}
+.kdcBookList .bookListz .thumb {position:relative; max-width:122px; margin:0 auto 5px;}
+.kdcBookList .bookListz .thumb .img {display:block; width:120px; height:162px; border:1px solid #969696;}
+.kdcBookList .bookListz .thumb .img img {width:100%}
+.kdcBookList .bookListz .tit, .kdcBookList .bookListz .author {display:block; overflow:hidden; margin:0 5px; text-overflow:ellipsis; white-space:nowrap; word-break:normal;}
+.kdcBookList .bookListz .tit, .kdcBookList .bookListz .author {font-size:13px;}
+
+
 @media all and (max-width:1000px){
 	.search-wrap .smain .ws-filter{display:none}
 	.ws-filter-top{display:inline}
@@ -396,7 +443,9 @@ textarea.textArea {width: 100%;height: 200px;border-top: 1px solid;}
 	.search-wrap .smain .box .search-results{float:none;margin:0}
 	.search-bot .notice {width: 67%!important;}
 	.info .txt{width: 67%;}
+	.kdcBookList .bookListz > li {width:33.33333%;}
 }
+
 @media all and (max-width:767px){
 	.ws-toolbar,
 	.ws-filter h4{height:58px;/* padding:0 0 10px; */}
@@ -409,6 +458,9 @@ textarea.textArea {width: 100%;height: 200px;border-top: 1px solid;}
 
 	.search-form .detail_search .section dl dd input.text-area{width:95.5%;}
 	.search-wrap .search-results .row .bci {font-size:15px;}
+}
+
+@media all and (max-width:690px){
 }
 
 @media all and (max-width:590px){
@@ -430,4 +482,5 @@ textarea.textArea {width: 100%;height: 200px;border-top: 1px solid;}
 @media all and (max-width:450px){
 	#search_detail .table_gray th, #search_detail .table_gray td {font-size:12px}
 	.bbs-result {font-size:13px;}
+	.kdcBookList .bookListz > li {width:50%;}
 }

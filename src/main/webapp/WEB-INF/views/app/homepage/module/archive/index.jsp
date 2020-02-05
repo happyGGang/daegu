@@ -36,12 +36,12 @@ $(document).ready(function() {
 	</div>
 	<table class="type1 center">
 		<colgroup>
-			<col width="50" />
-			<col width="100" />
-			<col width="" />
-			<col width="100">
-			<col width="100" />
-			<col width="100" />
+			<col width="10%" />
+			<col width="25%" />
+			<col width="15%" />
+			<col width="20%" />
+			<col width="20%"/>
+			<col width="10%" />
 		</colgroup>
 		<thead>
 			<tr>
@@ -59,7 +59,7 @@ $(document).ready(function() {
 					<td>${paging.listRowNum - status.index}</td>
 					<td>
 						<a href="#" class="open_viewer" data-book_idx="${i.book_idx}">
-							<img src="/data/archive/${i.homepage_id}/${i.book_idx}/${i.server_file_name}" alt="${i.subject}">
+							<img src="/data/archive/${i.homepage_id}/${i.book_idx}/${i.server_file_name}" alt="${i.subject}" style="width:100%;">
 						</a>
 					</td>
 					<td><a href="#" class="open_viewer" data-book_idx="${i.book_idx}">${i.subject}</a></td>
