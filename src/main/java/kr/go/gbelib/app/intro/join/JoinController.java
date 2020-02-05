@@ -433,11 +433,12 @@ public class JoinController extends BaseController {
 			// 3. 책이음 중복자 확인
 			// 2020.01.07 'daegu' 컨텍스트에서는 신규가입 시 책이음회원여부를 체크하지 않는다.
 			if (!StringUtils.equals(currentContext, "daegu")) {
-				List<Map<String, Object>> klmemberInfo = MemberAPI.checkDupUser("3", member);
-				if (klmemberInfo != null && klmemberInfo.size() > 0) {
-					model.addAttribute("dupCheckKl", true);
-					model.addAttribute("dupUserKl", klmemberInfo.get(0));
-				}
+				// 2020.02.05 책이음 속도 문제로인해 책이음가입여부 제외
+//				List<Map<String, Object>> klmemberInfo = MemberAPI.checkDupUser("3", member);
+//				if (klmemberInfo != null && klmemberInfo.size() > 0) {
+//					model.addAttribute("dupCheckKl", true);
+//					model.addAttribute("dupUserKl", klmemberInfo.get(0));
+//				}
 			}
 
 			model.addAttribute("parent", false);

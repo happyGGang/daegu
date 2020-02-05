@@ -186,7 +186,7 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 					String referer = request.getHeader("referer");
 					if (StringUtils.isNotBlank(referer)) {
 						String refArr[] = referer.split("\\/");
-						if ("intro".equals(refArr[3])) {//http://localhost/intro/
+						if (refArr.length >= 4 && "intro".equals(refArr[3])) {//http://localhost/intro/
 							if(StringUtils.containsIgnoreCase(request.getServerName(), "library.daegu.go.kr") && !request.isSecure()) {
 								List<String> parameters = new ArrayList<String>();
 								@SuppressWarnings ("unchecked")
