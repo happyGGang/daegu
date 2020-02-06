@@ -88,7 +88,7 @@ $(function() {
 												<a href="${detailURL}"><span style='color:#e84e0e;font-weight:600'>${i.TITLE}</span></a>
 												<p><font style="color:#5e5e5e;">저자</font> : ${i.AUTHOR}</p>
 												<p><font style="color:#5e5e5e">출판사</font> : ${i.PUBLISHER}</p>
-												<p><font style="color:#5e5e5e">출판년도</font> : ${i.PUB_YEAR}</p>
+												<p><font style="color:#5e5e5e">출판년도</font> : ${i.PUBLISH_YEAR}</p>
 												<p><font style="color:#5e5e5e">소장처</font> : <span style="color:#ff0000;font-weight:bold">${i.LIB_NAME}</span></p>
 												<p><font style="color:#5e5e5e">청구기호</font> : ${i.CALL_NO}<p>
 												<p><font style="color:#5e5e5e">자료실위치</font> : ${i.SHELF_LOC_NAME}<p>
