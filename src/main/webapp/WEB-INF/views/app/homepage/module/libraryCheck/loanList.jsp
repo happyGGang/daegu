@@ -6,17 +6,6 @@
 <script type="text/javascript">
 $(function() {
 	
-	// 책 꾸러미 대출 수정
-	$('a.edit-btn').on('click', function(e) {
-		e.preventDefault();
-// 		var formData = 'menu_idx='+$('#menu_idx').val()+'&editMode=MODIFY&library_check_loan_idx='+$(this).attr('keyValue')+'&viewPage='+$('#viewPage').val();
-// 		doGetLoad('loanEdit.do', formData);
-		$('#editMode').val('MODIFY');
-		$('#library_check_loan_idx').val($(this).attr('keyValue'));
-		var formData = $('form#libraryCheck').serialize();
-		doGetLoad('loanEdit.do', formData);
-	});
-	
 	$('a.cancle-btn').on('click', function(e) {
 		e.preventDefault();
 		if(confirm('해당 대출 신청을 취소하시겠습니까?')) {
@@ -28,12 +17,6 @@ $(function() {
 				location.reload();
 			}
 		}
-	});
-	
-	$('.listChage').on('click', function(e) {
-		e.preventDefault();
-		$('#viewPage').val(1);
-		doGetLoad('loanList.do', $('form#libraryCheck').serialize());
 	});
 	
 	$('button#search_btn').on('click', function(e) {
@@ -95,10 +78,6 @@ $(function() {
 	
 });
 </script>
-<style type="text/css">
-.listChage {background-color: #ccc;}
-.listChage.on {background: none;}
-</style>
 <form:form modelAttribute="libraryCheck" action="loanList.do" method="GET">
 <form:hidden path="menu_idx"/>
 <form:hidden path="editMode"/>
@@ -172,9 +151,7 @@ $(function() {
 <!-- 					</td> -->
 <%-- 					</c:if> --%>
 					<td class="num">${paging.listRowNum - status.index}</td>
-					<td>
-						<a href="#" class="edit-btn" keyValue="${i.library_check_loan_idx}">장서점검기${i.library_check_number}</a>
-					</td>
+					<td>장서점검기${i.library_check_number}</td>
 					<td class="center">${i.loan_start_date}<br/>~${i.loan_end_date}</td>
 					<td>${i.hope_date}</td>
 					<td>${i.school_name}<br/>/${i.request_name}</td>
