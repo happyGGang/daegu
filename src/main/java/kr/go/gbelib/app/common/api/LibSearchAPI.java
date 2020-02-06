@@ -979,6 +979,8 @@ public class LibSearchAPI {
 		}
 		param.put("booktype", booktype);// 자료타입 BO:단행본, SE:연속간행물
 		param.put("worker", librarySearch.getWorker());// 장비ID
+		param.put("exprire_date_cnt", librarySearch.getExprire_date_cnt());// 예약만기일수
+
 
 		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("unmannedloanreserve", param);
 

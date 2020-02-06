@@ -36,7 +36,8 @@ $(function() {
 <form:form modelAttribute="librarySearch" action="save.do" method="post" onsubmit="return false;">
 <form:hidden path="bookkey"/>
 <form:hidden path="booktype"/>
-<form:hidden path="title" value="${detail.TITLE_INFO}"/>
+<input type="hidden" name="title" value="${detail.TITLE_INFO}"/>
+<input type="hidden" name="expire_date_cnt" value="7"/>
 <div class="delibery_info">
 
 	<div class="" style="padding:10px 0;font-size:120%">(<span style="color:red;font-weight:bold;">*</span>) 항목은 필수 입력값입니다.</div>

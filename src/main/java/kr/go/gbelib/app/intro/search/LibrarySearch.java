@@ -108,6 +108,7 @@ public class LibrarySearch extends PagingUtils {
 	private String local_book_key;
 	private String kl_member_yn;
 	private String reservation_yn;//우선대출예약여부(Y/N)
+	private String exprire_date_cnt;
 
 	private String address;
 	private String zip_code;
@@ -918,6 +919,16 @@ public class LibrarySearch extends PagingUtils {
 
 	public void setReservation_yn(String reservation_yn) {
 		this.reservation_yn = reservation_yn;
+	}
+
+
+	public String getExprire_date_cnt() {
+		return exprire_date_cnt;
+	}
+
+
+	public void setExprire_date_cnt(String exprire_date_cnt) {
+		this.exprire_date_cnt = exprire_date_cnt;
 	}
 
 }
