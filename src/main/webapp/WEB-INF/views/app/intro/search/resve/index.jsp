@@ -81,6 +81,25 @@ $(function() {
 								<th>예약만기일</th>
 								<td>${i.RESERVATION_EXPIRE_DATE }</td>
 							</tr>
+							<tr>
+								<th>예약형태</th>
+								<td>
+								<c:choose>
+									<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'N'}">
+									일반예약
+									</c:when>
+									<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
+									무인예약신청
+									</c:when>
+									<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
+									무인예약대기
+									</c:when>
+									<c:otherwise>
+									일반예약
+									</c:otherwise>
+								</c:choose>
+								</td>
+							</tr>
 							<c:if test="${i.STATUS eq '3'}">
 							<tr>
 								<th>예약취소</th>

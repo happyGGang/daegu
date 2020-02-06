@@ -58,9 +58,7 @@ $(function() {
 				<th>수령장소</th>
 				<td class="left">
 					<form:select path="worker" style="border:1px solid #c9c9c9;border-radius:4px;height:30px">
-						<form:option value="">--- 장소를 선택하세요 ---</form:option>
-						<option value="SYSUB02">수영역</option>
-						<option value="SYSUB01">남천동메가마트</option>
+						<form:option value="SUB01">반월당역 예약대출기</form:option>
 					</form:select>
 				</td>
 			 </tr>

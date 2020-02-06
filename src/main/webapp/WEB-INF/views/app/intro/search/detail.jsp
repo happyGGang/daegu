@@ -270,14 +270,16 @@ $(function() {
 			</c:if>
 
 			<c:choose>
-				<c:when test="${homepage.context_path eq 'bukbu' || homepage.context_path eq 'seobu' || homepage.context_path eq 'nambu' || homepage.context_path eq 'dongbu' || homepage.context_path eq 'jungang' || homepage.context_path eq 'duryu' || homepage.context_path eq 'suseong' || homepage.context_path eq '228sml' || homepage.context_path eq '228lib' || homepage.context_path eq 'dalsung'}">
-
+				<c:when test="${homepage.context_path eq 'jungang'}">
+					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
+					<c:if test="${detail.RESERVATION_CNT eq '0'}">
+					<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
+					<!-- <a href="#night" id="night-req" class="btn">야간예약신청</a> -->
+					</c:if>
+					</c:if>
 				</c:when>
 				<c:otherwise>
-					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
-					<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
-					<a href="#night" id="night-req" class="btn">야간예약신청</a>
-					</c:if>
+
 				</c:otherwise>
 			</c:choose>
 
