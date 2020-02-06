@@ -89,6 +89,12 @@ do {
 				$('#mainSearchForm').submit();
 		});
 
+		var week = ['일', '월', '화', '수', '목', '금', '토'];
+		$('t.dddd').each(function() {
+			var dayOfWeek = week[new Date($(this).data('d')).getDay()];
+			$(this).text($(this).text() + '(' + dayOfWeek + ')');
+		});
+
 });
 </script>
 <div id="wrap">
@@ -281,17 +287,14 @@ do {
 											<c:if test="${i.imsi_v_12 ne null and i.imsi_v_12 ne '0'}">
 											<div>${fn:substring(i.imsi_v_12, 0, 15)}<c:if test="${fn:length(i.imsi_v_12) > 15}">...</c:if></div>
 											</c:if>
-											<strong class="title">${i.title}</strong>
+											<strong class="title" style="text-align: center;">${i.title}</strong>
 
 											<c:if test="${i.imsi_v_1 ne '' and i.imsi_v_2 ne ''}">
 											<span class="date">
-											<b>날짜</b> ${fn:replace(i.imsi_v_1, '-', '.')}.${i.imsi_v_2}
-											</span>
-											</c:if>
-
+											<t class="dddd" data-d="${i.imsi_v_1}-${i.imsi_v_2}">${fn:split(i.imsi_v_1, '-')[1]}.${i.imsi_v_2}</t>
 											<c:if test="${i.imsi_v_3 ne null and i.imsi_v_4 ne null}">
-											<span class="time">
-											<b>시간</b> ${i.imsi_v_3}:${fn:length(i.imsi_v_4) == 1 ? '0' : ''}${i.imsi_v_4}
+											</c:if>
+											${i.imsi_v_3}:${fn:length(i.imsi_v_4) == 1 ? '0' : ''}${i.imsi_v_4}
 											</span>
 											</c:if>
 
