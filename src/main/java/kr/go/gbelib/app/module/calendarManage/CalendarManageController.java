@@ -101,22 +101,15 @@ public class CalendarManageController extends BaseController {
 		board.setHomepage_id(homepage.getHomepage_id());
 		board.setImsi_v_1(calendarManage.getPlan_date());
 
-//		model.addAttribute("moveList", boardService.getBoardMovie(board));
-		//TODO 게시판 완료시 null 삭제
-		model.addAttribute("moveList", null);
+		model.addAttribute("moveList", boardService.getBoardMovie(board));
 		model.addAttribute("calendarList", service.getCalendar(calendarManage));
 		model.addAttribute("calendarListType", service.getCalendarListType(calendarManage));
 		model.addAttribute("calendarManage", calendarManage);
 		model.addAttribute("calendarManageList", service.getCalendarManage(calendarManage));
-//		model.addAttribute("okApplyList", applyService.getOkApply(calendarManage));
-//		model.addAttribute("teachList", teachService.getTeachListForCalendar(calendarManage));
-//		model.addAttribute("facilityReqList",facilityReqService.getFacilityReqCalendar(calendarManage));
-//		model.addAttribute("dateTypeList", codeService.getCode(calendarManage.getHomepage_id(), "C0001"));
-		//TODO 강좌완료시 null 삭재
-		model.addAttribute("okApplyList", null);
-		model.addAttribute("teachList", null);
-		model.addAttribute("facilityReqList", null);
-		model.addAttribute("dateTypeList", null);
+		model.addAttribute("okApplyList", applyService.getOkApply(calendarManage));
+		model.addAttribute("teachList", teachService.getTeachListForCalendar(calendarManage));
+		model.addAttribute("facilityReqList",facilityReqService.getFacilityReqCalendar(calendarManage));
+		model.addAttribute("dateTypeList", codeService.getCode(calendarManage.getHomepage_id(), "C0001"));
 
 		return String.format(basePath, homepage.getFolder()) + "index_list";
 	}
