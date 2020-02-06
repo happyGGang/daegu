@@ -42,7 +42,7 @@ ${boardManage.top_html}
 				<tr class="notice">
 					<td class="num notice"><span>공지</span></td>
 					<td class="important left">
-						<a href="" keyValue="${i.board_idx}">
+						<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&viewPage=${board.viewPage}">
 							<span>${i.title}</span>
 							<c:if test="${i.date_gap <= boardManage.new_date_count}"><em class="new">새글</em></c:if>
 							<c:if test="${i.comment_count > 0}">
@@ -56,7 +56,7 @@ ${boardManage.top_html}
 					<c:if test="${i.file_count > 0}">
 						<i class="fa fa-floppy-o"></i>
 					</c:if>
-					</td> 
+					</td>
 				</tr>
 			</c:forEach>
 			<c:forEach var="i" varStatus="status" items="${boardList}">
@@ -66,7 +66,7 @@ ${boardManage.top_html}
 					</c:if>
 					<td class="num">${paging.listRowNum - status.index}</td>
 					<td class="important left" style="padding-left:${(i.group_depth > 0 ? (i.group_depth-1)*15 : 0)+10}px;">
-						<a href="" keyValue="${i.board_idx}">
+						<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&viewPage=${board.viewPage}">
 						<c:if test="${i.group_depth > 0}">
 							<i class="fa fa-reply"></i>
 						</c:if>
@@ -98,7 +98,7 @@ ${boardManage.top_html}
 	</div>
 
 	<jsp:include page="/WEB-INF/views/app/board/common/index/button.jsp" flush="false" />
-	
+
 	<jsp:include page="/WEB-INF/views/app/board/common/index/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#board"/>
 	</jsp:include>

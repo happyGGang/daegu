@@ -92,7 +92,7 @@ ${boardManage.top_html}
 			<c:forEach var="i" varStatus="status" items="${boardList}">
 			<li class="article hidden">
 				<div class="q blue">
-					<a class="trigger" href="#"><span>Q.</span> ${i.title}</a>
+					<a class="trigger" href="#"><span>${i.category1_name} Q.</span> ${i.title}</a>
 				</div>
 				<div class="a">
 					<span class="tit">A.</span>
@@ -119,7 +119,7 @@ ${boardManage.top_html}
 		</c:when>
 		<c:otherwise>
 			<c:if test="${authMBA}">
-			<a href="" class="btn btn4" id="board_manage_btn"><span>관리</span></a>
+			<a href="index.do?menu_idx=${param.menu_idx}&manage_idx=${boardManage.manage_idx}&board_mode=admin&viewPage=1" class="btn btn4" id="board_manage_btn"><span>관리</span></a>
 			</c:if>
 <!-- 			<a href="" class="btn btn4" id="board_deleteRecovery_btn"><span>삭제 게시물 보기</span></a> -->
 			<c:if test="${authC}">

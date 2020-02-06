@@ -27,7 +27,7 @@ ${board.user_name}
 			</c:otherwise>
 		</c:choose>
 	</c:when>
-	<c:when test="${loginSupport.login}">
+	<c:when test="${not empty loginSupport.login and loginSupport.login}">
 		<c:if test="${board.editMode eq 'MODIFY'}">
 			${loginSupport.school_name}
 		</c:if>

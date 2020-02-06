@@ -9,7 +9,7 @@
 	<c:when test="${member.admin or authMBA}">
 		<c:choose>
 			<c:when test="${board.delete_yn eq 'Y'}">
-				<a href="" class="btn btn2" id="board_normal_btn"></i><span>일반 게시물 보기</span></a>
+				<a href="../board/index.do" class="btn btn2" id="board_normal_btn"></i><span>일반 게시물 보기</span></a>
 				<a href="" class="btn btn1" id="board_recovery_btn"></i><span>게시물 복구</span></a>
 				<a href="" class="btn btn5" id="board_delete_btn"></i><span>완전 삭제</span></a>
 			</c:when>
@@ -30,7 +30,7 @@
 			<a href="" class="btn btn1 write" id="anonymous_btn"><i class="fa fa-pencil"></i><span>글쓰기</span></a>
 			</c:if>
 		</c:if>
-		<c:if test="${loginSupport.login}">
+		<c:if test="${not empty loginSupport.login and loginSupport.login}">
 			<a href="" class="btn btn1 write" id="board_edit_btn"><i class="fa fa-pencil"></i><span>회원 글쓰기</span></a>
 		</c:if>
 	</c:otherwise>

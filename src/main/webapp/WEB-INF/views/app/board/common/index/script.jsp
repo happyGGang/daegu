@@ -121,24 +121,6 @@ $(document).ready(function() {
 		doGetLoad(url, formData);
 	});
 
-	$('a#board_manage_btn').on('click', function(e) {
-		e.preventDefault();
-		var url = '../board/index.do';
-		$('input#board_mode').val('admin');
-		$('#viewPage').attr('value', '1');
-		var formData = serializeCustom($form);
-		doGetLoad(url, formData);
-	});
-
-
-	$('a#board_normal_btn').on('click', function(e) {
-		e.preventDefault();
-		var url = '../board/index.do';
-		$('#viewPage').attr('value', '1');
-		var formData = serializeCustom($form);
-		doGetLoad(url, formData);
-	});
-
 	$('a#board_delete_btn').on('click', function(e) {
 		e.preventDefault();
 		var checkList = $('input[name=boardIdxArray]:checked').length;
