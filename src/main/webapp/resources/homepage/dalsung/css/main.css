@@ -137,75 +137,75 @@
 .main2 .main2box4 .calendar-box div.title a {font-size:0;line-height:0;background:url('/resources/homepage/duryu/img/more_btbt.png') no-repeat 0 0;}
 
 .main2 .main2box4 .calendar-box .cal-box {position:relative;}
-#calendar .calendar-info {text-align:right;}
-#calendar .calendar-info span {display:inline-block;padding-left:7px;}
-#calendar .calendar-info span.hu {background:url('/resources/homepage/duryu/img/red-dot.png') no-repeat left center;}
-#calendar .calendar-info span.ev {background:url('/resources/homepage/duryu/img/blue-dot.png') no-repeat left center;}
+#calendar2 .calendar-info {text-align:right;}
+#calendar2 .calendar-info span {display:inline-block;padding-left:7px;}
+#calendar2 .calendar-info span.hu {background:url('/resources/homepage/duryu/img/red-dot.png') no-repeat left center;}
+#calendar2 .calendar-info span.ev {background:url('/resources/homepage/duryu/img/blue-dot.png') no-repeat left center;}
 
-#calendar {width:86%;margin:0 auto;position:relative}
+#calendar2 {width:86%;margin:0 auto;position:relative}
 .calendar {position:absolute;top:0px;z-index:800;width:1000px}
 .calendar .section{position:relative;overflow:hidden;text-align:center;margin:20px 20px;width:315px;float:right}
 .calendar .box{width:310px;margin-right:20px}
 .calendar h3{font-size:16px;color:#323232;font-weight:bold;line-height:36px;height:36px;text-align:left;float:left;padding-top:13px;}
-#calendar table,
-#calendar table th,
-#calendar table td{border:0;padding:0}
-#calendar .btn{border:0;background:none}
+#calendar2 table,
+#calendar2 table th,
+#calendar2 table td{border:0;padding:0}
+#calendar2 .btn{border:0;background:none}
 #planList{overflow:hidden;padding-top:13px}
 #planList h3{font-size:15px;padding:0 10px 0 0;float:left;display:block;letter-spacing:-1px}
 #planList span{float:left;margin:5px 3px 0;width:25px;height:25px;font-weight:bold;line-height:25px;display:block;background-color:#ee882c;color:#fff;border-radius:100%;font-size:12px}
-.cal-func {text-align:center;padding:0 0 5px 0;}
-.cal-func a.btn {padding:10px 10px 5px 10px;color:#fff;font-size:15px;}
-.cal-func a.btn:focus,
-.cal-func a.btn:hover{color:#222}
-.cal-func a {}
-.cal-func b {height:18px;line-height:18px}
-.cal-func a,
-.cal-func b,
-.cal-func span,
-.cal-func em {vertical-align:middle}
-.cal-func b {font-size:25px;font-weight:normal;}
-.cal-func b span {font-size:19px;color:#fff;}
-.cal-func b em{color:#fff;font-weight:bold;}
-#calendar .cal-tbl {margin-top:10px;text-align:center;}
-#calendar .cal-tbl th{font-size:11px;}
-#calendar .cal-tbl th span {display:block;width:28px;height:28px;line-height:30px;color:#fff;font-size:13px;font-weight:bold;background:#2e3192;text-align:center;border-radius:50%;margin:0 auto;}
-#calendar .cal-tbl td{font-size:11px;padding:1% 0;;text-align:center;white-space:nowrap}
-#calendar .cal-tbl td div{margin:0 10%;width:20px;height:20px;line-height:20px;font-size:12px;margin:0 auto;}
-#calendar .cal-tbl td a {display:block;border-radius:100%}
-#calendar .cal-tbl td a.type-r{background:url('/resources/homepage/duryu/img/blue-dot2.png') no-repeat center bottom;#0080f2;color:#0080f2}
-#calendar .cal-tbl td a.type-e{background:url('/resources/homepage/duryu/img/red-dot2.png') no-repeat center bottom;color:#ee2342}
-#calendar .planView{position:absolute;width:80%;left:50%;top:30%;background:#fff;margin-left:-40%;box-shadow:0px 1px 7px 0px rgba(0,0,0,0.5)}
-#calendar .planView .inbox{position:relative;border:1px solid #ccc;padding:10px}
-#calendar .planView .inbox dt{font-weight:bold;font-size:11px;font-family:verdana}
-#calendar .planView .inbox dd{padding:3px 0}
-#calendar .planView .inbox a.close{position:absolute;right:5px;top:0;font-size:120%}
+.cal-func2 {text-align:center;padding:0 0 5px 0;}
+.cal-func2 a.btn {padding:10px 10px 5px 10px;color:#fff;font-size:15px;}
+.cal-func2 a.btn:focus,
+.cal-func2 a.btn:hover{color:#222}
+.cal-func2 a {}
+.cal-func2 b {height:18px;line-height:18px}
+.cal-func2 a,
+.cal-func2 b,
+.cal-func2 span,
+.cal-func2 em {vertical-align:middle}
+.cal-func2 b {font-size:25px;font-weight:normal;}
+.cal-func2 b span {font-size:19px;color:#fff;}
+.cal-func2 b em{color:#fff;font-weight:bold;font-style:normal;}
+#calendar2 .cal-tbl {margin-top:10px;text-align:center;}
+#calendar2 .cal-tbl th{font-size:11px;}
+#calendar2 .cal-tbl th span {display:block;width:28px;height:28px;line-height:30px;color:#fff;font-size:13px;font-weight:bold;background:#2e3192;text-align:center;border-radius:50%;margin:0 auto;}
+#calendar2 .cal-tbl td{font-size:11px;padding:1% 0;;text-align:center;white-space:nowrap}
+#calendar2 .cal-tbl td div{margin:0 10%;width:20px;height:20px;line-height:20px;font-size:12px;margin:0 auto;}
+#calendar2 .cal-tbl td a {display:block;border-radius:100%}
+#calendar2 .cal-tbl td a.type-r{background:url('/resources/homepage/duryu/img/blue-dot2.png') no-repeat center bottom;#0080f2;color:#0080f2}
+#calendar2 .cal-tbl td a.type-e{background:url('/resources/homepage/duryu/img/red-dot2.png') no-repeat center bottom;color:#ee2342}
+#calendar2 .planView{position:absolute;width:80%;left:50%;top:30%;background:#fff;margin-left:-40%;box-shadow:0px 1px 7px 0px rgba(0,0,0,0.5)}
+#calendar2 .planView .inbox{position:relative;border:1px solid #ccc;padding:10px}
+#calendar2 .planView .inbox dt{font-weight:bold;font-size:11px;font-family:verdana}
+#calendar2 .planView .inbox dd{padding:3px 0}
+#calendar2 .planView .inbox a.close{position:absolute;right:5px;top:0;font-size:120%}
 
-#calendar .inBox0 .week-box {position:relative;width:100%;padding:10px 0;text-align:center;background:#2f2a52;border-radius:25px;}
-#calendar .inBox0 .week-box li {display:inline-block;width:10%;}
-#calendar .inBox0 .week-box li a {display:block;color:#fff;font-size:15px;height:25px;line-height:25px;border-radius:15px;}
-#calendar .inBox0 .week-box li a.today {background:#ffa200;;color:#fff;}
+#calendar2 .inBox0 .week-box {position:relative;width:100%;padding:10px 0;text-align:center;background:#2f2a52;border-radius:25px;}
+#calendar2 .inBox0 .week-box li {display:inline-block;width:10%;}
+#calendar2 .inBox0 .week-box li a {display:block;color:#fff;font-size:15px;height:25px;line-height:25px;border-radius:15px;}
+#calendar2 .inBox0 .week-box li a.today {background:#ffa200;;color:#fff;}
 
-#calendar .inBox0 .event-box {position:relative;width:90%;margin:0 auto;padding:5px 0;overflow:hidden;}
-#calendar .inBox0 .event-box span {display:inline-block;}
-#calendar .inBox0 .event-box span:first-child {position:absolute;width:45px;height:38px;}
-#calendar .inBox0 .event-box span:last-child  {padding-left:55px;}
-#calendar .inBox0 .event-box span h3 {color:#2f2a52;font-size:14px;font-weight:800;}
-#calendar .inBox0 .event-box li {display:block;width:80%;color:#fff;font-size:14px;padding-left:3px;box-sizing:border-box;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
+#calendar2 .inBox0 .event-box {position:relative;width:90%;margin:0 auto;padding:5px 0;overflow:hidden;}
+#calendar2 .inBox0 .event-box span {display:inline-block;}
+#calendar2 .inBox0 .event-box span:first-child {position:absolute;width:45px;height:38px;}
+#calendar2 .inBox0 .event-box span:last-child  {padding-left:55px;}
+#calendar2 .inBox0 .event-box span h3 {color:#2f2a52;font-size:14px;font-weight:800;}
+#calendar2 .inBox0 .event-box li {display:block;width:80%;color:#fff;font-size:14px;padding-left:3px;box-sizing:border-box;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
 
-#calendar .inBox1 {position:relative;width:100%;padding:10px 0 5px 0;text-align:left;color:#000;}
-#calendar .inBox1 .title {float:left;position:relative;font-size:20px;padding:3px 18px 0 5px;}
-#calendar .inBox1 .bt-controls {float:left;width:175px;text-align:center;position:relative;}
-#calendar .inBox1 .bt-controls b {font-size:20px;font-family:'Verdana';font-weight:bold;line-height:150%;padding:0;}
-#calendar .inBox1 .info dd {float:left;position:relative;font-weight:bold;text-align:center;}
-#calendar .inBox1 .info dd span{display:inline-block;background:#fb8535;font-weight:bold;color:#fff;font-size:15px;text-align:center;width:30px;height:30px;line-height:30px;margin-right:3px;border-radius:25px;}
+#calendar2 .inBox1 {position:relative;width:100%;padding:10px 0 5px 0;text-align:left;color:#000;}
+#calendar2 .inBox1 .title {float:left;position:relative;font-size:20px;padding:3px 18px 0 5px;}
+#calendar2 .inBox1 .bt-controls {float:left;width:175px;text-align:center;position:relative;}
+#calendar2 .inBox1 .bt-controls b {font-size:20px;font-family:'Verdana';font-weight:bold;line-height:150%;padding:0;}
+#calendar2 .inBox1 .info dd {float:left;position:relative;font-weight:bold;text-align:center;}
+#calendar2 .inBox1 .info dd span{display:inline-block;background:#fb8535;font-weight:bold;color:#fff;font-size:15px;text-align:center;width:30px;height:30px;line-height:30px;margin-right:3px;border-radius:25px;}
 
-#calendar .inBox1 .bt-controls .bt-next{top:1px;right:0;font-size:0;line-height:0;width:32px;height:32px;z-index:500;position:absolute}
-#calendar .inBox1 .bt-controls .bt-prev{top:1px;left:0;font-size:0;line-height:0;width:32px;height:32px;z-index:500;position:absolute}
-#calendar .inBox1 .bt-controls .bt-next{background:url('/resources/homepage/duryu/img/libCloseBtr.png') no-repeat center center}
-#calendar .inBox1 .bt-controls .bt-prev{background:url('/resources/homepage/duryu/img/libCloseBtl.png') no-repeat center center}
-#calendar .box{margin-left:0}
-#calendar dl{padding:3px 0}
+#calendar2 .inBox1 .bt-controls .bt-next{top:1px;right:0;font-size:0;line-height:0;width:32px;height:32px;z-index:500;position:absolute}
+#calendar2 .inBox1 .bt-controls .bt-prev{top:1px;left:0;font-size:0;line-height:0;width:32px;height:32px;z-index:500;position:absolute}
+#calendar2 .inBox1 .bt-controls .bt-next{background:url('/resources/homepage/duryu/img/libCloseBtr.png') no-repeat center center}
+#calendar2 .inBox1 .bt-controls .bt-prev{background:url('/resources/homepage/duryu/img/libCloseBtl.png') no-repeat center center}
+#calendar2 .box{margin-left:0}
+#calendar2 dl{padding:3px 0}
 
 .main2 .main2box4 .library-infomation {position:relative;width:86%;margin:0 auto;background:#fff;border-radius:10px;padding:10px;box-sizing:border-box;}
 .main2 .main2box4 .library-infomation table {border-collapse:collapse;border:0;}

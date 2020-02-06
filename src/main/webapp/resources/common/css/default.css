@@ -259,7 +259,7 @@ input.text.ui-spinner-input{border:none;background:none;margin-top:0;margin-bott
 input.ui-calendar{width:110px;background:#fff url('../img/calendar-icon.gif') no-repeat 89px center;vertical-align:middle;cursor:pointer}
 
 #header{position:relative;z-index:3;clear:both}
-#container{position:relative;z-index:2}
+#container{position:relative;z-index:6;}
 h1{z-index:6}
 .tnb{position:relative;z-index:4}
 .Gnb{z-index:5}

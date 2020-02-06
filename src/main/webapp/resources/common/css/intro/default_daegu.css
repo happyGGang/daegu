@@ -6,17 +6,20 @@ html{height:100%}
 .nav{text-align:center}
 .nav li{display:inline-block;zoom:1;*display:inline}
 
-
 .k-index {background:url('/resources/common/img/background_image.jpg') repeat center center;background-size:cover;color:#fff;text-align:center;box-sizing:border-box}
 
 .k-index .web_section {width:100%;margin:0;text-align:center;}
-.k-index #header {width:100%;padding:90px 0 0 0;}
-.k-index #header .title {font-family:'Busan';font-size:80px;font-weight:bold;line-height:150%}
+.k-index #header {width:100%;padding:70px 0 0 0;}
+.k-index #header .tit_box{padding: 10px 0 30px 0;}
+.k-index #header .title01 {font-size:40px;line-height:120%;margin:20px 0 0 0;}
+.k-index #header .title02 {font-size:60px;line-height:120%;margin:20px 0 0 0;}
 
-
-.k-index #container{position:relative;padding:80px 0 0 0}
-.k-index #container .txt {width:80%;margin:0 auto;font-family:'Malgun Gothic';font-size:25px;}
-.k-index #container .button {padding:70px 0 0 0}
+.k-index #container{position:relative;padding:40px 0 0 0}
+.k-index #header span {display:inline-block;padding: 0 4%;}
+.k-index #container .txt {width: 90%;margin:0 auto;font-family:'Malgun Gothic';font-size:18px;}
+.k-index #container .cons{margin:0 auto;color:#cecece;}
+.k-index #container .cons a{color:#ffd300;}
+.k-index #container .button {padding:30px 0 30px 0}
 .k-index #footer{position:relative;padding:100px 0 50px 0}
 
 
@@ -86,11 +89,21 @@ html{height:100%}
 }
 
 @media all and (max-width:767px){
+    .k-index #header{width: 100%;padding: 20px 0 0 0;}
 	.rsv-info {line-height:1.4; margin: 110px 0 0px 0;}
 	.rsv-info br {display:block;}
 	.rsv-info p{margin-bottom:10px;}
 	.rsv-info p.ico:before {left:10px;}
 	.rsv-info p.ico:after {right:10px;}
+	.k-index #header .tit_box {width:80%; margin: 0 auto;}
+	.k-index #header .tit_box2 {width:80%; margin: 0 auto;}
+	.k-index #header .tit_box{padding: 10px 0 15px 0;}
+    .k-index #container{padding: 20px 0 0 0;}
+    .k-index #container .cons{width: 70%;margin:0 auto;font-size: 80%;color:#cecece;}
+	.k-index #header span.symbol01, .k-index #header span.symbol02 {width: 150px;transition:all .3s ease;}
+	.k-index #header .title01 {font-size:120%;line-height:120%;margin:0px 0 0 0;transition: all .3s ease;}
+    .k-index #header .title02 {font-size: 160%;line-height:130%;margin:10px 0 0 0;transition: all .3s ease;}
+	.k-index #container .txt {line-height:130%;transition: all .3s ease;}
 }
 
 @media all and (max-width:449px){
@@ -100,6 +113,7 @@ html{height:100%}
 	.rsv-info p.ico:before, .rsv-info p.ico:after {position:absolute}
 	.rsv-info p.ico:before {left:10px;}
 	.rsv-info p.ico:after {right:10px;}
+
 }
 
 .doc-title h3{padding-top:0}
@@ -256,8 +270,9 @@ html{height:100%}
 @media all and (max-width:690px){
 	.k-index #header .title {width:90%;margin:0 auto;font-size:330%;;line-height:120%}
 	.k-index #footer {font-size:12px;}
-	.k-index #container .button img {width:79%}
-	.k-index #container .txt {width:90%;font-size:21px;}
+	.k-index #container .button img {width: 70%;transition:all .3s ease;}
+	.k-index #container .txt {font-size: 90%;transition: all .3s ease;}
+	.k-index #container .cons{width: 70%;margin:0 auto;font-size: 80%;color:#cecece;}
 
 	.m-siteLink li a, .siteLink li a {font-size: 13px;}
 
@@ -271,17 +286,20 @@ html{height:100%}
 }
 
 @media all and (max-width:425px){
-	.k-index #header {padding:60px 0 0 0;}
+	.k-index #header {padding: 20px 0 0 0;}
 	.k-index #header .title {font-size:300%;}
-	.k-index #container {position:relative;padding:50px 0 0 0}
-	.k-index #container .txt {font-size:19px;}
-	.k-index #container .button {padding:70px 0 0 0}
+	.k-index #container {position:relative;padding: 20px 0 0 0;}
+	.k-index #container .txt {/* font-size: 100%; */}
+	.k-index #container .button {padding: 20px 0 15px 0;}
 	.k-index #footer {font-size:12px;}
+	.k-index #container .cons{width: 90%;margin:0 auto;font-size: 80%;text-align: center;color:#cecece;}
 }
 
 @media all and (max-width:390px){
 	.k-index #footer {font-size:11px;}
 	.m-siteLink li a, .siteLink li a {font-size: 12px;}
+	.k-index #container .cons{width: 90%;margin:0 auto;font-size: 80%;color:#cecece;}
+    .k-index #header span.symbol01, .k-index #header span.symbol02 {width: 100px;transition:all .3s ease;}
 }
 
 @media all and (max-width:375px){

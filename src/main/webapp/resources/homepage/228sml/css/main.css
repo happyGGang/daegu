@@ -106,48 +106,48 @@
 .main2 .main2box3 .calendar-box div.title h2 {display:block;font-size:17px;color:#272727;font-weight:bold;padding-left:10px;box-sizing:border-box;height:50px;line-height:50px;letter-spacing:-1px;}
 .main2 .main2box3 .calendar-box div.title a {font-size:0;line-height:0;background:url('/resources/homepage/228sml/img/more_btbt.png') no-repeat 0 0;}
 
-#calendar .calendar-info {text-align:right;}
-#calendar .calendar-info span {display:inline-block;padding-left:7px;}
-#calendar .calendar-info span.hu {background:url('/resources/homepage/228sml/img/red-dot.png') no-repeat left center;}
-#calendar .calendar-info span.ev {background:url('/resources/homepage/228sml/img/blue-dot.png') no-repeat left center;}
+#calendar2 .calendar-info {text-align:right;}
+#calendar2 .calendar-info span {display:inline-block;padding-left:7px;}
+#calendar2 .calendar-info span.hu {background:url('/resources/homepage/228sml/img/red-dot.png') no-repeat left center;}
+#calendar2 .calendar-info span.ev {background:url('/resources/homepage/228sml/img/blue-dot.png') no-repeat left center;}
 
-#calendar {width:86%;margin:0 auto;position:relative}
+#calendar2 {width:86%;margin:0 auto;position:relative}
 .calendar {position:absolute;top:0px;z-index:800;width:1000px}
 .calendar .section{position:relative;overflow:hidden;text-align:center;margin:20px 20px;width:315px;float:right}
 .calendar .box{width:310px;margin-right:20px}
 .calendar h3{font-size:16px;color:#323232;font-weight:bold;line-height:36px;height:36px;text-align:left;float:left;padding-top:13px;}
-#calendar table,
-#calendar table th,
-#calendar table td{border:0;padding:0}
-#calendar .btn{border:0;background:none}
+#calendar2 table,
+#calendar2 table th,
+#calendar2 table td{border:0;padding:0}
+#calendar2 .btn{border:0;background:none}
 #planList{overflow:hidden;padding-top:13px}
 #planList h3{font-size:15px;padding:0 10px 0 0;float:left;display:block;letter-spacing:-1px}
 #planList span{float:left;margin:5px 3px 0;width:25px;height:25px;font-weight:bold;line-height:25px;display:block;background-color:#ee882c;color:#fff;border-radius:100%;font-size:12px}
-.cal-func {text-align:center;padding:18px 0 0 0;}
-.cal-func a.btn {padding:5px;color:#888;font-size:15px;border:1px solid #000;}
-.cal-func a.btn:focus,
-.cal-func a.btn:hover{color:#222}
-.cal-func a {}
-.cal-func b {height:18px;line-height:18px}
-.cal-func a,
-.cal-func b,
-.cal-func span,
-.cal-func em {vertical-align:middle}
-.cal-func b {font-size:25px;font-weight:normal;}
-.cal-func b em{color:#67940;font-weight:bold;}
-#calendar .cal-tbl {margin-top:10px;text-align:center;}
-#calendar .cal-tbl th{font-size:11px;}
-#calendar .cal-tbl th span {display:block;width:28px;height:28px;line-height:30px;color:#fff;font-size:13px;font-weight:bold;background:#2e3192;text-align:center;border-radius:50%;margin:0 auto;}
-#calendar .cal-tbl td{font-size:11px;padding:1% 0;;text-align:center;white-space:nowrap}
-#calendar .cal-tbl td div{margin:0 10%;width:20px;height:20px;line-height:20px;font-size:12px;margin:0 auto;}
-#calendar .cal-tbl td a {display:block;border-radius:100%}
-#calendar .cal-tbl td a.type-r{background:url('/resources/homepage/228sml/img/blue-dot2.png') no-repeat center bottom;#0080f2;color:#0080f2}
-#calendar .cal-tbl td a.type-e{background:url('/resources/homepage/228sml/img/red-dot2.png') no-repeat center bottom;color:#ee2342}
-#calendar .planView{position:absolute;width:80%;left:50%;top:30%;background:#fff;margin-left:-40%;box-shadow:0px 1px 7px 0px rgba(0,0,0,0.5)}
-#calendar .planView .inbox{position:relative;border:1px solid #ccc;padding:10px}
-#calendar .planView .inbox dt{font-weight:bold;font-size:11px;font-family:verdana}
-#calendar .planView .inbox dd{padding:3px 0}
-#calendar .planView .inbox a.close{position:absolute;right:5px;top:0;font-size:120%}
+.cal-func2 {text-align:center;padding:18px 0 0 0;}
+.cal-func2 a.btn {padding:5px;color:#888;font-size:15px;border:1px solid #000;}
+.cal-func2 a.btn:focus,
+.cal-func2 a.btn:hover{color:#222}
+.cal-func2 a {}
+.cal-func2 b {height:18px;line-height:18px}
+.cal-func2 a,
+.cal-func2 b,
+.cal-func2 span,
+.cal-func2 em {vertical-align:middle}
+.cal-func2 b {font-size:25px;font-weight:normal;}
+.cal-func2 b em{color:#67940;font-weight:bold;font-style:normal;}
+#calendar2 .cal-tbl {margin-top:10px;text-align:center;}
+#calendar2 .cal-tbl th{font-size:11px;}
+#calendar2 .cal-tbl th span {display:block;width:28px;height:28px;line-height:30px;color:#fff;font-size:13px;font-weight:bold;background:#2e3192;text-align:center;border-radius:50%;margin:0 auto;}
+#calendar2 .cal-tbl td{font-size:11px;padding:1% 0;;text-align:center;white-space:nowrap}
+#calendar2 .cal-tbl td div{margin:0 10%;width:20px;height:20px;line-height:20px;font-size:12px;margin:0 auto;}
+#calendar2 .cal-tbl td a {display:block;border-radius:100%}
+#calendar2 .cal-tbl td a.type-r{background:url('/resources/homepage/228sml/img/blue-dot2.png') no-repeat center bottom;#0080f2;color:#0080f2}
+#calendar2 .cal-tbl td a.type-e{background:url('/resources/homepage/228sml/img/red-dot2.png') no-repeat center bottom;color:#ee2342}
+#calendar2 .planView{position:absolute;width:80%;left:50%;top:30%;background:#fff;margin-left:-40%;box-shadow:0px 1px 7px 0px rgba(0,0,0,0.5)}
+#calendar2 .planView .inbox{position:relative;border:1px solid #ccc;padding:10px}
+#calendar2 .planView .inbox dt{font-weight:bold;font-size:11px;font-family:verdana}
+#calendar2 .planView .inbox dd{padding:3px 0}
+#calendar2 .planView .inbox a.close{position:absolute;right:5px;top:0;font-size:120%}
 
 
 
