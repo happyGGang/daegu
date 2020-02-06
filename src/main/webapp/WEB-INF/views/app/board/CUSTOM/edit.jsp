@@ -47,7 +47,13 @@ ${boardManage.top_html}
 					<form:input type="text" path="${i.board_column}" cssClass="text ui-calendar customCalendar" readonly="true"/>
 				</c:when>
 				<c:when test="${i.column_type eq 'area'}">
+					<c:if test="${i.board_column eq 'content'}">
+					<div class="bbs-textarea">
+					</c:if>
 					<form:textarea path="${fn:toLowerCase(i.board_column)}" rows="10" cols="100" cssStyle="width:95%; ${boardManage.editor_use_yn eq 'Y'?' display:none':''}"/>
+					<c:if test="${i.board_column eq 'content'}">
+					</div>
+					</c:if>
 				</c:when>
 				<c:otherwise>
 					<form:input path="${i.board_column}" cssStyle="width:90%;" cssClass="text" />
