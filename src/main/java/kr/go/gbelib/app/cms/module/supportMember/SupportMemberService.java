@@ -42,7 +42,9 @@ public class SupportMemberService extends BaseService {
 	}
 	
 	public int modifySupportMember(SupportMember supportMember) {
-		supportMember.setMember_password(CalculateHashUtils.calculateHash(supportMember.getMember_password()));
+		if(StringUtils.isNotEmpty(supportMember.getMember_password())) {
+			supportMember.setMember_password(CalculateHashUtils.calculateHash(supportMember.getMember_password()));
+		}
 		return dao.modifySupportMember(supportMember);
 	}
 

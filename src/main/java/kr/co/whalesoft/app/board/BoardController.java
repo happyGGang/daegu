@@ -378,11 +378,11 @@ public class BoardController extends BaseController {
 			
 			// 3 : 학교지원일 경우, 4 : 선정위원일 경우
 			String suppot_auth = loginSupport == null ? "0" : loginSupport.getAuth_group();
-			if((!suppot_auth.equals("3") && !getSessionIsAdmin(request)) && manageCompareIdx(board.getManage_idx(), 212, 213, 225, 226, 228)) {
+			if((!suppot_auth.equals("3") && !getSessionIsAdmin(request)) && manageCompareIdx(board.getManage_idx(), 213, 225, 226, 228)) {
 				service.alertMessage("관리자 또는 학교기관만 이용할 수 있습니다.", request, response);
 			} else if((!suppot_auth.equals("4") && !getSessionIsAdmin(request)) && manageCompareIdx(board.getManage_idx(), 230)) {
 				service.alertMessage("관리자 또는 도서선정위원만 이용할 수 있습니다.", request, response);
-			} else {
+			} else if(!getSessionIsAdmin(request) && manageCompareIdx(board.getManage_idx(), 212, 224, 227)) {
 				service.alertMessage("관리자만 이용할 수 있습니다.", request, response);
 			}
 		}
