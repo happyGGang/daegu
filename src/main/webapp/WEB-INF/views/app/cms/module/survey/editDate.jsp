@@ -6,40 +6,40 @@
 <script type="text/javascript" src="/resources/common/smart_editor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	
+
 	$('a#save_btn').on('click', function(e) {
 		e.preventDefault();
 		if ( doAjaxPost($('#survey')) ) {
 			var url = 'index.do';
 			var formData = serializeParameter(['viewPage', 'homepage_id']);
-			
+
 			doGetLoad(url, formData);
 		}
 	});
-	
+
 	$('a#list_btn').on('click', function(e) {
 		e.preventDefault();
-		
+
 		var url = 'index.do';
 		var formData = serializeParameter(['viewPage', 'homepage_id']);
-		
+
 		doGetLoad(url, formData);
 	});
-	
+
 	$('input#survey_start_date').datepicker({
-		maxDate: $('input#survey_end_date').val(), 
+		maxDate: $('input#survey_end_date').val(),
 		onClose: function(selectedDate){
 			$('input#survey_end_date').datepicker('option', 'minDate', selectedDate);
 		}
 	});
-	
+
 	$('input#survey_end_date').datepicker({
-		minDate: $('input#survey_start_date').val(), 
+		minDate: $('input#survey_start_date').val(),
 		onClose: function(selectedDate){
 			$('input#survey_start_date').datepicker('option', 'maxDate', selectedDate);
 		}
 	});
-		
+
 });
 </script>
 <style>
@@ -49,7 +49,7 @@ table tbody th{text-align: center; font-weight: bold !important;}
 <form:hidden path="homepage_id" />
 <form:hidden path="survey_idx" />
 <form:hidden path="editMode"/>
-	<fieldset>			
+	<fieldset>
 		<table class="type2" summary="새로운 설문을 등록할 수 있습니다.">
 			<h5>설문조사 기본설정</h5>
 			<colgroup>
@@ -57,6 +57,10 @@ table tbody th{text-align: center; font-weight: bold !important;}
 				<col/>
 			</colgroup>
 			<tbody>
+				<tr>
+					<th>안내</th>
+					<td>응답자가 있는 경우 설문 기간만 수정하실 수 있습니다.</td>
+				</tr>
 				<tr>
 					<th>조사자</th>
 					<td>${survey.add_id}</td>

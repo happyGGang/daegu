@@ -7,7 +7,7 @@
 <script>
 $(document).ready(function() {
 	var $form = $('form#quest');
-	
+
 	<%--설문조사 완료--%>
 	$('a.save').on('click', function(e) {
 		e.preventDefault();
@@ -18,7 +18,7 @@ $(document).ready(function() {
 			data : serializeObject($('form#quest')),
 			method : 'POST',
 			dataType : 'json',
-			success : function(data) {				
+			success : function(data) {
 				if(data.valid) {
     				if(data.targetOpener) {
     					window.open(data.url, '', 'width=500,height=510');
@@ -33,7 +33,7 @@ $(document).ready(function() {
 						var url = '/${homepage.context_path}/module/survey/index.do';
 						var formData = serializeParameter(['menu_idx']);
 						doGetLoad(url, formData);
-					}				
+					}
 				} else {
     				if(data.targetOpener) {
     					window.open(data.url, '', 'width=500,height=510');
@@ -52,7 +52,7 @@ $(document).ready(function() {
 			}
 		});
 	});
-	
+
 	$('a.close').on('click', function(e) {
 		e.preventDefault();
 		window.close();
@@ -64,26 +64,26 @@ $(document).ready(function() {
 		var formData = serializeParameter(['menu_idx']);
 		doGetLoad(url, formData);
 	});
-	
-	$('a.statistics').on('click', function(e) {		
+
+	$('a.statistics').on('click', function(e) {
 		window.open('/${homepage.context_path}/module/survey/statistics.do?survey_idx='+$('#survey_idx').val()+'&homepage_id='+$('#homepage_id').val(), 'survey_quest', 'width=820, height=800, status=no, menubar=no, toolbar=no. scrollbars=yes');
 		e.preventDefault();
 	});
-	
-	
+
+
 	$('input[type=checkbox], input[type=radio]').on('click', function() {
 		var td = $(this).parents('td.aL');
 		var branch = $(this).attr('branchIdx');
-		
+
 		$('td.aL[questIdx='+branch+'] input').prop('disabled', false);
 		$('td.aL[questIdx='+branch+'] hidden').prop('disabled', false);
-		
-		
+
+
 		$(td).find('input').each(function() {
 			var checked = $(this).is(':checked');
-			
+
 			if(!checked) {
-				var branchIdx = $(this).attr('branchIdx');				
+				var branchIdx = $(this).attr('branchIdx');
 				if(branchIdx != branch) {
 					$('td.aL[questIdx='+branchIdx+'] input[type=radio]').prop('checked', false);
 					$('td.aL[questIdx='+branchIdx+'] input[type=text]').val('');
@@ -92,9 +92,9 @@ $(document).ready(function() {
 				}
 			}
 		});
-		
+
 	});
-	
+
 	$('input[type=checkbox], input[type=radio], input[type=text]').prop('disabled', true);
 });
 
@@ -167,7 +167,7 @@ table td { border: none !important;}
 			</tr>
 		<c:set var="questIdx" value="${questIdx+1}" />
 		</c:when>
-		
+
 		<c:when test="${i.quest_type eq 'MULTI'}">
 			<tr>
 				<td class="qustionNum"><span>Q${questIdx + 1}</span></td>
@@ -240,12 +240,12 @@ table td { border: none !important;}
 							</c:forEach>
 							<form:hidden path="answer_list[${questIdx}].short_answer" size="25" maxlength="20"  disabled="${i.branch > 0 ? true : false}"/>
 						</tbody>
-					</table> 
+					</table>
 				</td>
 			</tr>
 		<c:set var="questIdx" value="${questIdx+1}"/>
 		</c:when>
-		
+
 		<c:when test="${i.quest_type eq 'DESCRIPTION'}">
 		<tr>
 			<td class="qustionNum"><span>Q${questIdx+1}</span></td>
@@ -284,6 +284,6 @@ table td { border: none !important;}
 </div>
 </form:form>
 <div class="brdBtn">
-	<a href="#" class="button save">닫기</a>
+	<a href="javascript:window.close();" class="button">닫기</a>
 </div>
 <!--// 버튼 -->
