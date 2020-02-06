@@ -1013,6 +1013,44 @@ public class LibSearchAPI {
 	}
 
 	/**
+	 * K.API - 70
+	 *
+	 * SMS 발송
+	 *
+	 * @author whalesoft YONGJU 2020. 2. 6.
+	 * @param LibrarySearch librarySearch
+	 * @param String msg
+	 * @param String ip
+	 *
+	 * @param librarySearch.manageCode
+	 * @param librarySearch.userKey
+	 * @return
+	 */
+	public static ApiResponse sendSms(LibrarySearch librarySearch, String msg, String ip) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("api_key", "79724C6D73152DC1035B16B6198665D34A640D5D11E8ACD60083FA80FE417E58");
+		param.put("manage_code", librarySearch.getManageCode());
+		param.put("userkey", librarySearch.getUserkey());
+		try {
+			param.put("msg", URLEncoder.encode(msg, "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			log.error("@@@@@@@@@@@@@@@@ sendsms utf8 encode error : " + msg);
+		}
+		param.put("client_ip", ip);
+		param.put("worker", "HOMEPAGE");
+
+		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("sendsms", param);
+
+		String code = String.valueOf(sendKCMS.get("RESULT_INFO"));
+
+		if ("SUCCESS".equals(code)) {
+			return new ApiResponse(true);
+		} else {
+			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
+		}
+	}
+
+	/**
 	 * K.API - 74
 	 *
 	 * MARC 조회
