@@ -218,7 +218,7 @@ public class BoardController extends BaseController {
 		
 		// 228도서관 지원센터 회원인증 확인
 		SupportMember loginSupport = sessionLoginSupport(request);
-		if(manageCompareIdx(board.getManage_idx(), 212, 213, 224, 225, 226, 227, 228, 230)) {
+		if(manageCompareIdx(board.getManage_idx(), 226, 230)) {
 			if ( loginSupport == null && !getSessionIsAdmin(request)) {
 	    		board.setBefore_url(String.format("/%s/board/index.do?menu_idx=%s%%26manage_idx=%s", homepage.getContext_path(), board.getMenu_idx(), board.getManage_idx()));
 	    		service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
@@ -583,6 +583,7 @@ public class BoardController extends BaseController {
 	public String view(Model model, Board board, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		checkAuth("R", model, request);
 		String basePath = attributeInit(request, model, board, "VIEW");
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
 
 		BoardManage boardManage = (BoardManage)request.getAttribute("boardManage");
 		board.setHomepage_id(boardManage.getHomepage_id());
@@ -592,6 +593,15 @@ public class BoardController extends BaseController {
 		board.setCategory3Manage(boardManage.getCategory3());
 		board.setCategory4Manage(boardManage.getCategory4());
 		board.setCategory5Manage(boardManage.getCategory5());
+		
+		SupportMember loginSupport = sessionLoginSupport(request);
+		if(manageCompareIdx(board.getManage_idx(), 212)) {
+			if ( loginSupport == null && !getSessionIsAdmin(request)) {
+	    		board.setBefore_url(String.format("/%s/board/index.do?menu_idx=%s%%26manage_idx=%s", homepage.getContext_path(), board.getMenu_idx(), board.getManage_idx()));
+	    		service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
+	    		return null;
+	        }
+		}
 
 		Board boardData = null;
 		if (boardManage.getBoard_type().equals("MOVIE")) {
@@ -704,7 +714,6 @@ public class BoardController extends BaseController {
 
 		if(boardManage.getBoard_type().equals("BOOK") || boardManage.getBoard_type().equals("THEMEBOOK")) {
 			LibrarySearch librarySearch = new LibrarySearch();
-			Homepage homepage = (Homepage)request.getAttribute("homepage");
 
 			if(homepage == null) {
 				homepage = new Homepage(getAsideHomepageId(request));
