@@ -9,7 +9,7 @@
 $(document).ready(function() {
 	var board_idx = $('input#comment_board_idx').val();
 	var manage_idx = $('input#comment_manage_idx').val();
-	
+
 	<%-- 코멘트 등록 --%>
 	$('button#boardComment_add_btn').on('click', function(e) {
 		e.preventDefault();
@@ -26,7 +26,7 @@ $(document).ready(function() {
 		</c:otherwise>
 		</c:choose>
 	});
-	
+
 	<%-- 댓글 삭제 --%>
 	$('a#boardComment_delete_btn').on('click', function(e) {
 		e.preventDefault();
@@ -35,12 +35,12 @@ $(document).ready(function() {
 		} catch (e) {
 		}
 		if(confirm('삭제 하시겠습니까?')) {
-			var param = 
+			var param =
 			{
 				'board_idx' : $('input#comment_board_idx').val(),
 				'comment_idx' : $(this).attr('keyValue')
 			};
-			
+
 			$.ajax({
 		        type: 'post',
 		        url: '/board/boardComment/delete.do',
@@ -66,7 +66,7 @@ $(document).ready(function() {
 		    });
 		}
 	});
-	
+
 	<%-- 댓글 수정 --%>
 	$('a#boardComment_modify_btn').on('click', function(e) {
 		e.preventDefault();
@@ -74,23 +74,23 @@ $(document).ready(function() {
 		$('div#boardComment_contentModify_' + $(this).attr('keyValue')).toggle();
 		$('div#boardComment_contentReply_' + $(this).attr('keyValue')).hide();
 	});
-	
+
 	<%-- 댓글 수정(저장) --%>
 	$('button#boardComment_modify_save_btn').on('click', function(e) {
 		e.preventDefault();
 		var comment_content = $(this).parents('div.bbs-comment-write').find('textarea').val();
-		
-		var param = 
+
+		var param =
 		{
 			'editMode' : 'MODIFY',
 			'board_idx' : board_idx,
 			'comment_idx' : $(this).attr('keyValue'),
 			'comment_content' : comment_content
 		};
-		
+
 		commentSave(param);
 	});
-	
+
 	<%-- 댓글 답글 --%>
 	$('button#boardComment_reply_btn').on('click', function(e) {
 		e.preventDefault();
@@ -98,13 +98,13 @@ $(document).ready(function() {
 		$('div#boardComment_contentReply_' + $(this).attr('keyValue')).toggle();
 		$('div#boardComment_contentModify_' + $(this).attr('keyValue')).hide();
 	});
-	
+
 	<%-- 댓글 답글(저장) --%>
 	$('button#boardComment_reply_save_btn').on('click', function(e) {
 		e.preventDefault();
 		var comment_content = $(this).parents('div.bbs-comment-write').find('textarea').val();
-		
-		var param = 
+
+		var param =
 		{
 			'editMode' : 'REPLY',
 			'board_idx' : board_idx,
@@ -114,10 +114,10 @@ $(document).ready(function() {
 			'group_comment_depth' : $(this).attr('group_comment_depth'),
 			'comment_content' : comment_content
 		};
-		
+
 		commentSave(param);
 	});
-	
+
 	function commentSave(param) {
 		try {
 			$('#boardCommentFileArray > option').prop('selected', true);
@@ -156,7 +156,7 @@ $(document).ready(function() {
 <form:form modelAttribute="boardComment" action="/board/boardComment/save.do" method="post" onsubmit="return false;">
 <c:if test="${boardComment.manage_idx eq '563'}">
 	<ul style="float: right;">
-	<c:if test="${authMBA and board.request_state eq '0'}">
+	<c:if test="${not empty authMBA and authMBA and board.request_state eq '0'}">
 	<li style="margin-top:-30px;">
 		<form:checkbox path="imsi_v_20" value="Y" label="접수" cssStyle="vertical-align:middle;"/>
 		<form:select path="imsi_v_19" cssClass="selectmenu" items="${phoneList}" itemLabel="code_name" itemValue="remark">
@@ -164,19 +164,19 @@ $(document).ready(function() {
 	</li>
 	</c:if>
 	<c:choose>
-	<c:when test="${authMBA or (authMBRE and board.request_state eq '1')}">
+	<c:when test="${not empty authMBA and authMBA or (not empty authMBRE and authMBRE and board.request_state eq '1')}">
 	<li style="margin-top:-35px;">
 		<form:checkbox path="imsi_v_18" value="Y" label="처리완료" cssStyle="vertical-align:middle;"/>
 	</li>
 	</c:when>
-	<c:when test="${authMBA or (authMBRE and board.request_state eq '0' and board.category1 eq '0020')}">
+	<c:when test="${not empty authMBA and authMBA or (not empty authMBRE and authMBRE and board.request_state eq '0' and board.category1 eq '0020')}">
 	<div style="margin-top:-35px;">
 		<form:checkbox path="imsi_v_18" value="Y" label="처리완료" cssStyle="vertical-align:middle;"/>
 	</li>
 	</c:when>
 	</c:choose>
 	</ul>
-	
+
 </c:if>
 <form:hidden id="comment_board_idx" path="board_idx" />
 <form:hidden id="comment_manage_idx" path="manage_idx" />
@@ -244,6 +244,6 @@ $(document).ready(function() {
 		</div>
 	</div>
 	</c:forEach>
-	
-	
+
+
 </div>

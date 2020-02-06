@@ -5,16 +5,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="button bbs-btn right">
 <c:choose>
-<c:when test="${board.delete_yn  eq 'Y' and authMBA}">
+<c:when test="${board.delete_yn  eq 'Y' and not empty authMBA and authMBA}">
 	<a href="" class="btn btn5" id="board_recovery_btn">게시물복구</a>
 </c:when>
 <c:otherwise>
-<c:if test="${authMBA and boardManage.reply_use_yn eq 'Y'}">
+<c:if test="${not empty authMBA and authMBA and boardManage.reply_use_yn eq 'Y'}">
 	<a href="" class="btn reply" id="board_reply_btn"><i class="fa fa-pencil"></i><span>답변하기</span></a>
 </c:if>
-<c:if test="${authMBA or authD}">
+<c:if test="${(not empty authMBA and authMBA) or (not empty authD and authD)}">
 	<c:choose>
-		<c:when test="${authMBA}">
+		<c:when test="${not empty authMBA and authMBA}">
 	<a href="" class="btn delete" id="board_delete_btn"><i class="fa fa-trash-o"></i><span>삭제</span></a>
 		</c:when>
 		<c:otherwise>
@@ -29,9 +29,9 @@
 		</c:otherwise>
 	</c:choose>
 </c:if>
-<c:if test="${authMBA or authU}">
+<c:if test="${(not empty authMBA and authMBA) or (not empty authU and authU)}">
 	<c:choose>
-		<c:when test="${authMBA}">
+		<c:when test="${not empty authMBA and authMBA}">
 	<a href="" class="btn modify" id="board_edit_btn"><i class="fa fa-pencil-square-o"></i><span>수정</span></a>
 		</c:when>
 		<c:otherwise>
