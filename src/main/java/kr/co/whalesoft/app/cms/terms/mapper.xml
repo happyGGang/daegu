@@ -4,7 +4,7 @@
 
 	<select id="getTermsList" resultType="kr.co.whalesoft.app.cms.terms.Terms">
 		SELECT
-			homepage_id, terms_idx, terms_type, title, contents,
+			homepage_id, terms_idx, terms_type, manage_idx, title, contents,
 			use_yn, delete_yn, add_id, add_date, modify_id,
 			modify_date,
 			(SELECT A.CODE_NAME FROM CMS_CODE A WHERE A.GROUP_ID = 'C0015' AND A.CODE_ID = CMS_TERMS.TERMS_TYPE) AS TERMS_TYPE_NAME
@@ -37,7 +37,7 @@
 
 	<select id="getTermsOne" resultType="kr.co.whalesoft.app.cms.terms.Terms">
 		SELECT
-			homepage_id, terms_idx, terms_type, title, contents,
+			homepage_id, terms_idx, terms_type, manage_idx, title, contents,
 			use_yn, delete_yn, add_id, add_date, modify_id,
 			modify_date,
 			(SELECT A.CODE_NAME FROM CMS_CODE A WHERE A.GROUP_ID = 'C0015' AND A.CODE_ID = CMS_TERMS.TERMS_TYPE) AS TERMS_TYPE_NAME
@@ -55,9 +55,9 @@
 		</selectKey>
 		INSERT INTO CMS_TERMS
 		(
-			homepage_id, TERMS_IDX, TERMS_TYPE, TITLE, CONTENTS, USE_YN, DELETE_YN, ADD_ID, ADD_DATE
+			homepage_id, TERMS_IDX, TERMS_TYPE, manage_idx, TITLE, CONTENTS, USE_YN, DELETE_YN, ADD_ID, ADD_DATE
 		) VALUES (
-			#{homepage_id}, #{terms_idx}, #{terms_type}, #{title}, #{contents}, #{use_yn}, 'N', #{add_id}, SYSDATE
+			#{homepage_id}, #{terms_idx}, #{terms_type}, #{manage_idx}, #{title}, #{contents}, #{use_yn}, 'N', #{add_id}, SYSDATE
 		)
 	</insert>
 
@@ -65,6 +65,9 @@
 		UPDATE CMS_TERMS
 		SET
 			TERMS_TYPE = #{terms_type},
+			<if test="manage_idx != null and manage_idx != 0">
+			manage_idx = #{manage_idx},
+			</if>
 			TITLE = #{title},
 			CONTENTS = #{contents},
 			USE_YN = #{use_yn},
@@ -124,11 +127,12 @@
 		AND	A.use_yn = 'Y'
 		AND	A.delete_yn = 'N'
 		AND	A.terms_type = b.code_id
+		AND A.manage_idx = #{manage_idx}
 		AND	B.group_id = 'C0015'
 		AND	B.use_yn = 'Y'
 		AND	B.code_id = 6
 		AND	C.terms_yn = 'Y'
-		AND C.manage_idx = #{module_idx}
+		AND C.manage_idx = #{manage_idx}
 		ORDER BY
 			terms_idx
 	</select>

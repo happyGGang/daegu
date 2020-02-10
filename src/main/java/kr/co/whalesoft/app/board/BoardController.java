@@ -488,7 +488,7 @@ public class BoardController extends BaseController {
 			model.addAttribute("getToday", new Date());
 
 		}
-		model.addAttribute("termsList", termsService.getTermsListInBoard(new Terms(homepage.getHomepage_id(), boardManage.getManage_idx())));
+		model.addAttribute("termsList", termsService.getTermsListInBoard(new Terms(homepage.getHomepage_id(), boardManage.getManage_idx(), "board")));
 
 		boardFileService.initBoardFile(board, request);
 

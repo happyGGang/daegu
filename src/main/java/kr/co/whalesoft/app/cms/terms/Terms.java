@@ -14,6 +14,8 @@ public class Terms extends PagingUtils {
 
 	private String terms_type_name;
 
+	private int manage_idx;
+
 	private String title;
 
 	private String contents;
@@ -30,15 +32,19 @@ public class Terms extends PagingUtils {
 
 	private Date modify_date;
 
-	public Terms() { }
+	public Terms() {}
 
 	public Terms(int module_idx) {
 		this.module_idx = module_idx;
 	}
 
-	public Terms(String homepage_id, int module_idx) {
+	public Terms(String homepage_id, int manage_idx, String type) {
 		super.setHomepage_id(homepage_id);
-		this.module_idx = module_idx;
+		if(type.equals("module")) {
+			this.module_idx = manage_idx;
+		} else if(type.equals("board")) {
+			this.manage_idx = manage_idx;
+		}
 	}
 
 	public int getTerms_idx() {
@@ -97,7 +103,6 @@ public class Terms extends PagingUtils {
 		this.add_id = add_id;
 	}
 
-
 	public String getModify_id() {
 		return modify_id;
 	}
@@ -106,13 +111,20 @@ public class Terms extends PagingUtils {
 		this.modify_id = modify_id;
 	}
 
-
 	public String getTerms_type_name() {
 		return terms_type_name;
 	}
 
 	public void setTerms_type_name(String terms_type_name) {
 		this.terms_type_name = terms_type_name;
+	}
+
+	public int getManage_idx() {
+		return manage_idx;
+	}
+
+	public void setManage_idx(int manage_idx) {
+		this.manage_idx = manage_idx;
 	}
 
 	public int getModule_idx() {
@@ -123,21 +135,17 @@ public class Terms extends PagingUtils {
 		this.module_idx = module_idx;
 	}
 
-
 	public Date getAdd_date() {
 		return add_date;
 	}
-
 
 	public Date getModify_date() {
 		return modify_date;
 	}
 
-
 	public void setAdd_date(Date add_date) {
 		this.add_date = add_date;
 	}
-
 
 	public void setModify_date(Date modify_date) {
 		this.modify_date = modify_date;

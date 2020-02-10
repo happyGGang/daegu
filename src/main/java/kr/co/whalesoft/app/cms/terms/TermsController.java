@@ -2,6 +2,8 @@ package kr.co.whalesoft.app.cms.terms;
 
 import javax.servlet.http.HttpServletRequest;
 
+import kr.co.whalesoft.app.cms.boardManage.BoardManage;
+import kr.co.whalesoft.app.cms.boardManage.BoardManageService;
 import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
@@ -27,6 +29,9 @@ public class TermsController extends BaseController {
 
 	@Autowired
 	private CodeService codeService;
+	
+	@Autowired
+	private BoardManageService boardManageService;
 
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, Terms terms, HttpServletRequest request) throws AuthException {
@@ -55,6 +60,7 @@ public class TermsController extends BaseController {
 
 		model.addAttribute("terms", terms);
 		model.addAttribute("termsTypeList", codeService.getCode("CMS", "C0015"));
+		model.addAttribute("boardManageTermsList", boardManageService.getBoardManageTerms(terms.getHomepage_id()));
 
 		return basePath + "edit_ajax";
 	}

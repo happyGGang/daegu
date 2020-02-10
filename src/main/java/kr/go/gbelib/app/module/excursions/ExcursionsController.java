@@ -136,7 +136,7 @@ public class ExcursionsController extends BaseController {
 
 		//약관 연동부
 		Menu menuOne = (Menu) request.getAttribute("menuOne");
-		model.addAttribute("termsList", termsService.getTermsListInModule(new Terms(homepage.getHomepage_id(), menuOne.getManage_idx())));
+		model.addAttribute("termsList", termsService.getTermsListInModule(new Terms(homepage.getHomepage_id(), menuOne.getManage_idx(), "module")));
 		model.addAttribute("excursions", service.getExcursionsOne(excursions));
 //		model.addAttribute("prtcNotice",MemberAPI.getPrtcNoticeList("WEB"));
 		if ( "ajax".equals(apply.getPageType()) ) {

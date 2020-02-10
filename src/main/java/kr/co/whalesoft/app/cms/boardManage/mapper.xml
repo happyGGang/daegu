@@ -271,4 +271,16 @@
 			board_use_yn = 'Y'
 		ORDER BY manage_idx DESC
     </select>
+    
+    <select id="getBoardManageTerms" resultType="kr.co.whalesoft.app.cms.boardManage.BoardManage">
+    	SELECT
+    		homepage_id, manage_idx, board_name
+    	FROM
+    		CMS_BOARD_MANAGE
+    	WHERE
+    		homepage_id = #{homepage_id}
+    	AND	board_use_yn = 'Y'
+    	AND	terms_yn = 'Y'
+    	ORDER BY manage_idx DESC
+    </select>
 </mapper>

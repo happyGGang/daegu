@@ -65,7 +65,6 @@ $(function() {
 					var option = {
 						url : 'save.do',
 						type : 'POST',
-						data : $('#terms').serialize(),
 						success: function(response) {
 							 if(response.valid) {
 								alert(response.message);
@@ -106,6 +105,22 @@ $(function() {
 		width: 850,
 		height: 600
 	});
+	
+	
+	if($('#terms_type').val() == 6) {
+		$('#manage_idx').removeAttr('disabled');
+		$('#manage_idx').show();
+	}
+	$('#terms_type').on('change', function(e) {
+		e.preventDefault();
+		if($(this).val() == 6) {
+			$('#manage_idx').removeAttr('disabled');
+			$('#manage_idx').show();
+		} else {
+			$('#manage_idx').attr('disabled', 'true');
+			$('#manage_idx').hide();
+		}
+	});
 
 });
 </script>
@@ -126,6 +141,11 @@ $(function() {
 					<c:forEach var="i" varStatus="status" items="${termsTypeList}">
 						<option value="${i.code_id}" <c:if test="${i.code_id eq terms.terms_type}">selected="selected"</c:if>>${i.code_name}</option>
 					</c:forEach>
+				</form:select>
+				
+				<form:select path="manage_idx" disabled="true" cssStyle="display: none;">
+					<form:option value="0">게시판 선택</form:option>
+					<form:options items="${boardManageTermsList}" itemLabel="board_name" itemValue="manage_idx"/>
 				</form:select>
 			</td>
 		</tr>

@@ -139,7 +139,7 @@ public class FacilityController extends BaseController {
 
 		//약관 연동부
 		Menu menuOne = (Menu) request.getAttribute("menuOne");
-		model.addAttribute("termsList", termsService.getTermsListInModule(new Terms(homepage.getHomepage_id(), menuOne.getManage_idx())));
+		model.addAttribute("termsList", termsService.getTermsListInModule(new Terms(homepage.getHomepage_id(), menuOne.getManage_idx(), "module")));
 
 		return String.format(basePath, homepage.getFolder()) + "edit";
 	}

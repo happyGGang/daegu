@@ -32,4 +32,7 @@ public interface BoardManageDao {
 	public String[] getMyAdminBoardManage(String admin_id);
 	
 	public List<BoardManage> getThemeBookBoardManage(BoardManage boardManage);
+
+	public List<BoardManage> getBoardManageTerms(String homepage_id);
+	
 }

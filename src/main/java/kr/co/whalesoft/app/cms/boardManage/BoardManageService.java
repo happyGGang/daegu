@@ -80,4 +80,8 @@ public class BoardManageService extends BaseService {
 		return dao.getThemeBookBoardManage(boardManage);
 	}
 
+	public List<BoardManage> getBoardManageTerms(String homepage_id) {
+		return dao.getBoardManageTerms(homepage_id);
+	}
+
 }
