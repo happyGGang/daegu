@@ -61,7 +61,7 @@ ul.rent_box li:first-child {background: none;}
 ul.rent_box li dt {padding: 61px 0 5px;font-size: 15px;font-weight: bold;color: #fff;letter-spacing: -0.05em;}
 ul.rent_box li dt.icon01 {background: url(/resources/common/img/support_icon01.png) no-repeat top center;}
 
-.group-box {display:inline-block;width: 150px;text-align: center;padding: 20px;}
+.group-box {display:inline-block;width: 150px;vertical-align: top;text-align: center;padding: 20px;}
 .content-box h3 {display: inline-block;}
 div.img-box {position: relative;display:inline-block;border: 1px solid #ccc;}
 div.img-box span.num {position: absolute;top: 30px;right: 22px;width: 18px;height: 18px;padding: 4px 4px;font-family: 'Montserrat',sans-serif;font-weight: 700;text-align: center;line-height: 17px;color: #fff;background-color: red;border-radius: 50%;}

@@ -242,4 +242,16 @@
 			</foreach>
 	</update>
 	
+	<select id="getLibraryCheckLoanExcelList" resultType="kr.go.gbelib.app.cms.module.libraryCheck.LibraryCheck">
+		SELECT
+			b.library_check_idx, library_check_loan_idx, a.library_check_number, TO_CHAR(loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
+			TO_CHAR(hope_date, 'yyyy-MM-dd') AS hope_date, school_name, request_name, phone, school_tel,
+			request_status, b.add_id, b.add_date
+		FROM
+			LIBRARY_CHECK a, LIBRARY_CHECK_LOAN b
+		WHERE
+			a.library_check_idx = b.library_check_idx
+		ORDER BY b.add_date DESC
+	</select>
+	
 </mapper>

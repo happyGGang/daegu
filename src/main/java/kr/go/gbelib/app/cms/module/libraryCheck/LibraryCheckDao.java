@@ -36,4 +36,6 @@ public interface LibraryCheckDao {
 
 	public int modifyLibraryCheckStatus(LibraryCheck libraryCheck);
 
+	public List<LibraryCheck> getLibraryCheckLoanExcelList(LibraryCheck libraryCheck);
+
 }

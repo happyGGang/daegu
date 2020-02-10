@@ -252,7 +252,7 @@ public class LibraryCheckController extends BaseController {
 	
 	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
 	public LibraryCheckView excel(Model model, LibraryCheck libraryCheck, HttpServletRequest request, HttpServletResponse response) throws Exception{
-		List<LibraryCheck> libraryCheckLoanList = service.getLibraryCheckLoanList(libraryCheck);
+		List<LibraryCheck> libraryCheckLoanList = service.getLibraryCheckLoanExcelList(libraryCheck);
 		
 		model.addAttribute("libraryCheck", libraryCheck);
 		model.addAttribute("libraryCheckLoanList", libraryCheckLoanList);

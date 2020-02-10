@@ -133,4 +133,8 @@ public class LibraryCheckService extends BaseService {
 		return dao.modifyLibraryCheckStatus(libraryCheck);
 	}
 
+	public List<LibraryCheck> getLibraryCheckLoanExcelList(LibraryCheck libraryCheck) {
+		return dao.getLibraryCheckLoanExcelList(libraryCheck);
+	}
+
 }
