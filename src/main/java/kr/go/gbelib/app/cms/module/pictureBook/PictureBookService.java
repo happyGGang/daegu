@@ -140,13 +140,23 @@ public class PictureBookService extends BaseService {
 		
 		String[] phone = pictureBook.getPhone().split("-");
 		pictureBook.setPhone_1(phone[0]);
-		pictureBook.setPhone_2(phone[1]);
-		pictureBook.setPhone_3(phone[2]);
+		if(phone.length == 3) {
+			pictureBook.setPhone_2(phone[1]);
+			pictureBook.setPhone_3(phone[2]);
+		} else {
+			pictureBook.setPhone_2(null);
+			pictureBook.setPhone_3(null);
+		}
 		
 		String[] school_tel = pictureBook.getSchool_tel().split("-");
 		pictureBook.setSchool_tel_1(school_tel[0]);
-		pictureBook.setSchool_tel_2(school_tel[1]);
-		pictureBook.setSchool_tel_3(school_tel[2]);
+		if(school_tel.length == 3) {
+			pictureBook.setSchool_tel_2(school_tel[1]);
+			pictureBook.setSchool_tel_3(school_tel[2]);
+		} else {
+			pictureBook.setSchool_tel_2(null);
+			pictureBook.setSchool_tel_3(null);
+		}
 		
 		return pictureBook;
 	}
