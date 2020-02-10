@@ -285,4 +285,17 @@
 		ORDER BY loan_month
 	</select>
 	
+	<select id="getPictureBookLoanExcelList" resultType="kr.go.gbelib.app.cms.module.pictureBook.PictureBook">
+		SELECT
+			a.picture_book_idx, b.picture_book_loan_idx, a.picture_book_subject, request_name, school_name,
+			loan_start_date, loan_end_date, TO_CHAR(loan_start_date, 'yyyy') AS loan_year, TO_CHAR(loan_start_date, 'MM') AS loan_month, pay_yn,
+			phone, school_tel, request_content, request_status, b.add_id, b.add_date
+		FROM
+			PICTURE_BOOK a, PICTURE_BOOK_LOAN b
+		WHERE
+			a.picture_book_idx = b.picture_book_idx
+		AND	pay_yn = #{pay_yn}
+		ORDER BY a.picture_book_subject ASC, b.loan_start_date ASC
+	</select>
+	
 </mapper>

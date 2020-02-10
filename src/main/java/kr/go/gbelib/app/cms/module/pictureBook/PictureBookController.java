@@ -248,7 +248,7 @@ public class PictureBookController extends BaseController {
 	
 	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
 	public PictureBookView excel(Model model, PictureBook pictureBook, HttpServletRequest request, HttpServletResponse response) throws Exception{
-		List<PictureBook> pictureBookLoanList = service.getPictureBookLoanList(pictureBook);
+		List<PictureBook> pictureBookLoanList = service.getPictureBookLoanExcelList(pictureBook);
 		
 		model.addAttribute("pictureBook", pictureBook);
 		model.addAttribute("pictureBookLoanList", pictureBookLoanList);

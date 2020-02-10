@@ -177,4 +177,8 @@ public class PictureBookService extends BaseService {
 		return dao.statusChangeAll(pictureBook);
 	}
 
+	public List<PictureBook> getPictureBookLoanExcelList(PictureBook pictureBook) {
+		return dao.getPictureBookLoanExcelList(pictureBook);
+	}
+
 }

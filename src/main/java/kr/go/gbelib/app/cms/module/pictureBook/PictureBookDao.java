@@ -37,4 +37,6 @@ public interface PictureBookDao {
 
 	public List<Map<String, String>> getMonthList(PictureBook pictureBook);
 
+	public List<PictureBook> getPictureBookLoanExcelList(PictureBook pictureBook);
+
 }
