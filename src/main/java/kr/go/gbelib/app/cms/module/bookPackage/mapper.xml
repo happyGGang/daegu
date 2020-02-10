@@ -285,4 +285,27 @@
 			book_package_loan_idx = #{book_package_loan_idx}
 	</delete>
 	
+	<select id="getBookPackageExcelList" resultType="kr.go.gbelib.app.cms.module.bookPackage.BookPackage">
+		SELECT
+			book_package_idx, book_package_name, book_package_subject, author, publisher,
+			publish_year, loan_count, quantity, grade, category,
+			(SELECT COUNT(*) FROM BOOK_PACKAGE_LOAN WHERE book_package_idx = a.book_package_idx AND request_status = 2) AS lender_count
+		FROM
+			BOOK_PACKAGE a
+		ORDER BY book_package_idx DESC
+	</select>
+	
+	<select id="getBookPackageLoanExcelList" resultType="kr.go.gbelib.app.cms.module.bookPackage.BookPackage">
+		SELECT
+			b.book_package_idx, b.book_package_loan_idx, a.book_package_subject, b.request_name, b.school_name,
+			a.quantity, a.loan_count,
+			TO_CHAR(b.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(b.loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
+			b.phone, b.school_tel, b.request_content, b.request_status, b.return_yn,
+			b.add_id, b.add_date
+		FROM
+			BOOK_PACKAGE a, BOOK_PACKAGE_LOAN b
+		WHERE
+			a.book_package_idx = b.book_package_idx
+		ORDER BY b.book_package_loan_idx DESC
+	</select>
 </mapper>

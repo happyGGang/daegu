@@ -313,9 +313,9 @@ public class BookPackageController extends BaseController {
 	public BookPackageView excel(Model model, BookPackage bookPackage, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		List<BookPackage> bookPackageList = null;
 		if(bookPackage.getEditMode().equals("bookPackage")) {
-			bookPackageList = service.getBookPackageList(bookPackage);
+			bookPackageList = service.getBookPackageExcelList(bookPackage);
 		} else {
-			bookPackageList = service.getBookPackageLoanList(bookPackage);
+			bookPackageList = service.getBookPackageLoanExcelList(bookPackage);
 		}
 		
 		model.addAttribute("bookPackage", bookPackage);

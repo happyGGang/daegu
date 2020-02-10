@@ -32,4 +32,8 @@ public interface BookPackageDao {
 
 	public int deleteBookPackageLoan(BookPackage bookPackage);
 
+	public List<BookPackage> getBookPackageExcelList(BookPackage bookPackage);
+
+	public List<BookPackage> getBookPackageLoanExcelList(BookPackage bookPackage);
+
 }
