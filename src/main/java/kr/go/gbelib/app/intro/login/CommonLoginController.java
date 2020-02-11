@@ -231,7 +231,8 @@ public class CommonLoginController extends BaseController {
 	@RequestMapping (value = "/logout.*", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		Homepage homepage = getSessionHomepage(request);
-		String redirectURL = request.isSecure() ? "https://" : "http://" + request.getServerName() + "/" + homepage.getContext_path();
+		String redirectURL = request.isSecure() ? "https://" : "http://";
+		redirectURL +=  request.getServerName() + "/" + homepage.getContext_path();
 
 		String relogin = request.getParameter("relogin");
 		if (StringUtils.equals(relogin, "true")) {
