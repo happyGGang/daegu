@@ -37,6 +37,8 @@ $(function() {
 			$('.search-results .textType').css('display','block');
 		}
 	});
+
+
 });
 </script>
 <form:form modelAttribute="librarySearch" action="index.do" method="GET" onsubmit="return false;">
@@ -76,6 +78,19 @@ $(function() {
 				<form:radiobutton path="search_type" value="1" title="1주전" label="1주전"/>
 				<form:radiobutton path="search_type" value="2" title="1주전" label="2주전"/>
 				<form:radiobutton path="search_type" value="3" title="1주전" label="1달전"/>
+			</td>
+			</tr>
+			<tr>
+
+			<th><label for="option01">자료실</label></th>
+			<td class="search_left" colspan="3">
+				<ul>
+					<li style="margin-bottom: 5px;"><form:radiobutton path="shelfCode" value="ALL" label="전체"/></li>
+					<c:forEach items="${shelfList}" var="i" varStatus="status">
+					<li style="width: 33%; float: left;"><form:radiobutton path="shelfCode" value="${i.CODE}" label="${i.DESCRIPTION}"/></li>
+					</c:forEach>
+
+				</ul>
 			</td>
 			</tr>
 			</tbody>

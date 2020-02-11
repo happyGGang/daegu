@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -753,6 +754,17 @@ public class LibSearchAPI {
 
 		if (StringUtils.isNotEmpty(librarySearch.getMedia_code())) {
 			param.put("media_code", librarySearch.getMedia_code());
+		}
+
+//		if (!CollectionUtils.isEmpty(librarySearch.getShelfCodeList())) {
+//			param.put("shelf_loc_code", StringUtils.join(librarySearch.getShelfCodeList(), ","));
+//		}
+		if (StringUtils.isNotEmpty(librarySearch.getShelfCode()) && !StringUtils.equals(librarySearch.getShelfCode(), "ALL")) {
+			param.put("shelf_loc_code", librarySearch.getShelfCode());
+		}
+
+		if (StringUtils.isNotEmpty(librarySearch.getSubjectCode())) {
+			param.put("subject_code", librarySearch.getSubjectCode());
 		}
 
 		param.put("option", librarySearch.getBooktype());

@@ -522,6 +522,14 @@ public class CommonSearchController extends BaseController {
 			librarySearch.setManageCode(homepage.getManage_code());
 		}
 
+
+		Map<String, Object> subLocaInfo = LibSearchAPI.getSubLocaInfo("19", homepage.getManage_code());
+		model.addAttribute("shelfList", LibSearchAPI.getListData(subLocaInfo, "LIST_DATA"));
+
+		if (StringUtils.isEmpty(librarySearch.getShelfCode())) {
+			librarySearch.setShelfCode("ALL");
+		}
+
 		//기본값 '1달 전'
 		if (StringUtils.isEmpty(librarySearch.getSearch_type())) {
 			librarySearch.setSearch_type("3");

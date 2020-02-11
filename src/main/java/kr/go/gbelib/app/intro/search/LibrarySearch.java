@@ -89,6 +89,7 @@ public class LibrarySearch extends PagingUtils {
 	private String regNo; // 등록번호
 	private String keyword; // 키워드
 	private String shelfCode; // 자료실코드
+	private List<String> shelfCodeList; // 자료실코드
 	private String notShelfCode; // 자료실코드
 	private String subjectCode; // 주제부호( comma로 여러개 )
 	private String regCode; // 등록구분( comma로 여러개 )
@@ -929,6 +930,16 @@ public class LibrarySearch extends PagingUtils {
 
 	public void setExprire_date_cnt(String exprire_date_cnt) {
 		this.exprire_date_cnt = exprire_date_cnt;
+	}
+
+
+	public List<String> getShelfCodeList() {
+		return shelfCodeList;
+	}
+
+
+	public void setShelfCodeList(List<String> shelfCodeList) {
+		this.shelfCodeList = shelfCodeList;
 	}
 
 }
