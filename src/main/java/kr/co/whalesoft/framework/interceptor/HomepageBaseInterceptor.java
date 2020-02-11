@@ -168,16 +168,8 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 				if (!uri.contains("join") && !uri.contains("login")) {
 
 					if (request.isSecure()) {
-						// Request Parameter 리다이렉트로 전달.
-						List<String> parameters = new ArrayList<String>();
-						@SuppressWarnings ("unchecked")
-						Enumeration<String> result = request.getParameterNames();
-						while (result.hasMoreElements()) {
-							String attributeName = (String) result.nextElement();
-							parameters.add(String.format("%s=%s", attributeName, request.getParameter(attributeName)));
-						}
 
-						String redirectUrl = String.format("http://%s:80%s?%s", request.getServerName(), uri, StringUtils.join(parameters, "&"));
+						String redirectUrl = String.format("http://%s:80%s?%s", request.getServerName(), uri, request.getQueryString());
 						response.sendRedirect(redirectUrl);
 						return false;
 					}
@@ -188,15 +180,7 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 						String refArr[] = referer.split("\\/");
 						if (refArr.length >= 4 && "intro".equals(refArr[3])) {//http://localhost/intro/
 							if(StringUtils.containsIgnoreCase(request.getServerName(), "library.daegu.go.kr") && !request.isSecure()) {
-								List<String> parameters = new ArrayList<String>();
-								@SuppressWarnings ("unchecked")
-								Enumeration<String> result = request.getParameterNames();
-								while (result.hasMoreElements()) {
-									String attributeName = (String) result.nextElement();
-									parameters.add(String.format("%s=%s", attributeName, request.getParameter(attributeName)));
-								}
-
-								String redirectUrl = String.format("https://%s:443%s?%s", request.getServerName(), uri, StringUtils.join(parameters, "&"));
+								String redirectUrl = String.format("https://%s:443%s?%s", request.getServerName(), uri, request.getQueryString());
 								response.sendRedirect(redirectUrl);
 								return false;
 							}
