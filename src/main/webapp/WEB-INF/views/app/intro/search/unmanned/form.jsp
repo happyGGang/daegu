@@ -37,7 +37,7 @@ $(function() {
 <form:hidden path="bookkey"/>
 <form:hidden path="booktype"/>
 <input type="hidden" name="title" value="${detail.TITLE_INFO}"/>
-<input type="hidden" name="expire_date_cnt" value="7"/>
+<input type="hidden" name="exprire_date_cnt" value="7"/>
 
 <div class="delibery_info">
 
