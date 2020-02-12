@@ -23,6 +23,10 @@
 			OR SUBSTR(end_date,1,7) = #{plan_date}
 		)
 		</if>
+		<if test="date_type != null and date_type != ''">
+		AND	date_type IN (${date_type})
+		</if>
+
 		AND	delete_yn = 'N'
 	</select>
 

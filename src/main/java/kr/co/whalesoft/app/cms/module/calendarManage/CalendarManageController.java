@@ -210,6 +210,24 @@ public class CalendarManageController extends BaseController {
 		return res;
 	}
 
+	@RequestMapping(value = { "/getLasHolidaysYear.*" }, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse saveIlusHolidaysYear(CalendarManage calendarManage, Homepage homepage, BindingResult result, HttpServletRequest request) {
+
+		JsonResponse res = new JsonResponse(request);
+
+		if (!result.hasErrors()) {
+			homepage = homepageService.getHomepageOne(homepage);
+			int resultRow = service.addCalendarManageFromLasYear(calendarManage, homepage);
+			res.setValid(true);
+			res.setMessage(resultRow+"건 등록 되었습니다.");
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+
+		return res;
+	}
+
 	public int getDateDay(Calendar date, String dateType) throws Exception {
 //	    String day = "" ;
 
