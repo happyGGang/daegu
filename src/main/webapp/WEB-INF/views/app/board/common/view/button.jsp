@@ -12,7 +12,7 @@
 <c:if test="${not empty authMBA and authMBA and boardManage.reply_use_yn eq 'Y'}">
 	<a href="" class="btn reply" id="board_reply_btn"><i class="fa fa-pencil"></i><span>답변하기</span></a>
 </c:if>
-<c:if test="${(not empty authMBA and authMBA) or (not empty authD and authD)}">
+<c:if test="${(not empty authMBA and authMBA) or (not empty authD and authD) or (not empty loginSupport.login and loginSupport.login)}">
 	<c:choose>
 		<c:when test="${not empty authMBA and authMBA}">
 	<a href="" class="btn delete" id="board_delete_btn"><i class="fa fa-trash-o"></i><span>삭제</span></a>
@@ -25,11 +25,14 @@
 				<c:when test="${member.member_id eq board.add_id or member.web_id eq board.add_id}">
 	<a href="" class="btn delete" id="board_delete_btn"><i class="fa fa-trash-o"></i><span>삭제</span></a>
 				</c:when>
+				<c:when test="${not empty loginSupport.member_id and loginSupport.member_id eq board.add_id}">
+				<a href="" class="btn delete" id="board_delete_btn"><i class="fa fa-trash-o"></i><span>삭제</span></a>
+				</c:when>
 			</c:choose>
 		</c:otherwise>
 	</c:choose>
 </c:if>
-<c:if test="${(not empty authMBA and authMBA) or (not empty authU and authU)}">
+<c:if test="${(not empty authMBA and authMBA) or (not empty authU and authU) or (not empty loginSupport.login and loginSupport.login)}">
 	<c:choose>
 		<c:when test="${not empty authMBA and authMBA}">
 	<a href="" class="btn modify" id="board_edit_btn"><i class="fa fa-pencil-square-o"></i><span>수정</span></a>
@@ -41,6 +44,9 @@
 				</c:when>
 				<c:when test="${member.member_id eq board.add_id or member.web_id eq board.add_id}">
 	<a href="" class="btn modify" id="board_edit_btn"><i class="fa fa-pencil-square-o"></i><span>수정</span></a>
+				</c:when>
+				<c:when test="${not empty loginSupport.member_id and loginSupport.member_id eq board.add_id}">
+				<a href="" class="btn modify" id="board_edit_btn"><i class="fa fa-pencil-square-o"></i><span>수정</span></a>
 				</c:when>
 			</c:choose>
 		</c:otherwise>

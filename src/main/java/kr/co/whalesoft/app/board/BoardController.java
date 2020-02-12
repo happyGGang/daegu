@@ -422,7 +422,17 @@ public class BoardController extends BaseController {
 			}
 			Board boardOne = (Board)service.copyObjectPaging(boardManage, board, service.getBoardOne(board));
 
-			boolean isBoardAdmin = (Boolean) model.asMap().get("authMBA");
+			boolean isBoardAdmin;
+			if(loginSupport == null) {
+				isBoardAdmin = (Boolean) model.asMap().get("authMBA");
+			} else {
+				if(!loginSupport.getMember_id().equals(boardOne.getAdd_id())) {
+					service.alertMessage("권한이 없습니다.", request, response);
+					return null;
+				}
+				isBoardAdmin = true;
+			}
+			
 			if (!isBoardAdmin) {
 				//회원의 비밀글인 경우
 				if (!boardOne.getAdd_id().equals("ANONYMOUS")) {

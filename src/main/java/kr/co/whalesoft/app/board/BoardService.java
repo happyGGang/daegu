@@ -37,6 +37,7 @@ import kr.co.whalesoft.framework.utils.CalculateHashUtils;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 import kr.co.whalesoft.framework.utils.RequestUtils;
 import kr.co.whalesoft.framework.utils.StrUtil;
+import kr.go.gbelib.app.cms.module.supportMember.SupportMember;
 
 @Service
 public class BoardService extends BaseService {
@@ -267,11 +268,16 @@ public class BoardService extends BaseService {
 		}
 
 		if (member.isAnonymous()) {
-			board.setAdd_id("ANONYMOUS");
-			Object certObject = request.getSession().getAttribute("certMember");
-			if (certObject != null && certObject instanceof Member) {
-				Member certMember = (Member) certObject;
-				board.setImsi_v_20(certMember.getCi_value());
+			SupportMember supportMember = (SupportMember)request.getSession().getAttribute("loginSupport");
+			if(!member.isLogin() && supportMember != null) {
+				board.setAdd_id(supportMember.getMember_id());
+			} else {
+				board.setAdd_id("ANONYMOUS");
+				Object certObject = request.getSession().getAttribute("certMember");
+				if (certObject != null && certObject instanceof Member) {
+					Member certMember = (Member) certObject;
+					board.setImsi_v_20(certMember.getCi_value());
+				}
 			}
 		} else {
 			board.setAdd_id(member.getMember_id());
@@ -329,7 +335,12 @@ public class BoardService extends BaseService {
 		board.setContent_summary(StrUtil.previewContent(StrUtil.delHtmlTagPatterns(board.getContent()),1000));
 
 		if (member.isAnonymous()) {
-			board.setModify_id("ANONYMOUS");
+			SupportMember supportMember = (SupportMember)request.getSession().getAttribute("loginSupport");
+			if(!member.isLogin() && supportMember != null) {
+				board.setAdd_id(supportMember.getMember_id());
+			} else {
+				board.setModify_id("ANONYMOUS");
+			}
 		} else {
 			board.setAdd_id(member.getMember_id());
 		}
