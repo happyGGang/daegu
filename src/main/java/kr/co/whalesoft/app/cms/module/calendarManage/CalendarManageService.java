@@ -197,6 +197,42 @@ public class CalendarManageService extends BaseService {
 		return resultRow;
 	}
 
+	public int addCalendarManageFromLasYear(CalendarManage calendarManage, Homepage homepage) {
+		int resultRow = 0;
+
+		String plan_date = calendarManage.getPlan_date();
+
+		LibrarySearch librarySearch = new LibrarySearch();
+		librarySearch.setManageCode(homepage.getManage_code());
+
+		String y = plan_date.split("-")[0];
+
+		for (int i = 1; i <= 12; i++) {
+			String m = i < 10 ? "0" + i : "" + i;
+			for (int j = 1; j <= 31; j++) {
+				String d = j < 10 ? "0" + j : "" + j;
+				librarySearch.setSearch_start_date(y+m+d);
+				Map<String, Object> holiDays = LibSearchAPI.getCheckHoliday(librarySearch);
+				if(holiDays.get("RESULT_CODE").equals("1")) {
+					calendarManage.setStart_date(y+ "-" +m+ "-" +d);
+					calendarManage.setEnd_date(y+ "-" +m+ "-" +d);
+					calendarManage.setStart_time("");
+					calendarManage.setEnd_time("");
+
+					calendarManage.setTitle("휴관일");
+					calendarManage.setContents("자료시스템에서 가져온 휴관일 입니다.");
+
+					calendarManage.setDate_type("1");//휴관
+					addCalendarManage(calendarManage);
+					resultRow++;
+				}
+			}
+		}
+
+
+		return resultRow;
+	}
+
 	private String getDashDate(String start_date) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
