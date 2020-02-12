@@ -261,7 +261,7 @@
 	
 	<select id="getMonthList" resultType="map">
 		SELECT
-			picture_book_loan_idx, b.loan_month
+			picture_book_loan_idx, b.loan_month, b.last_month
 		FROM
 			(
 			SELECT 
@@ -275,7 +275,8 @@
 			) a,
 			(
 			SELECT
-				ROWNUM AS loan_month
+				ROWNUM AS loan_month,
+				(CASE WHEN TO_CHAR(SYSDATE, 'MM') > ROWNUM THEN 'Y' ELSE 'N' END) AS last_month
 			FROM
 				DUAL
 			CONNECT BY ROWNUM <![CDATA[<=]]> 12

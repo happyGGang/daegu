@@ -10,7 +10,7 @@ $(function() {
 	
 	$('.edit-btn').on('click', function(e) {
 		e.preventDefault();
-		if('${member.admin or authMBA}') {
+		if('${member.admin or authMBA}' == 'false' || $(this).data('last') == 'Y') {
 			return false;
 		}
 		
@@ -126,11 +126,11 @@ ul.select-month li a.loan-ing {display: block;color: #fff;background-color: #ff5
 				<c:forEach items="${i.monthList}" var="month">
 				<li>
 					<c:choose>
-						<c:when test="${empty month.PICTURE_BOOK_LOAN_IDX}">
+						<c:when test="${empty month.PICTURE_BOOK_LOAN_IDX and month.LAST_MONTH eq 'N'}">
 						<a href="#" class="request-btn loan-ing" keyValue="${i.picture_book_idx}" keyValue2="${i.loan_year}" keyValue3="${month.LOAN_MONTH}" keyValue4="${i.picture_book_subject}">${month.LOAN_MONTH}</a>
 						</c:when>
 						<c:otherwise>
-						<a href="#" class="edit-btn" keyValue="${month.PICTURE_BOOK_LOAN_IDX}">${month.LOAN_MONTH}</a>
+						<a href="#" class="edit-btn" keyValue="${month.PICTURE_BOOK_LOAN_IDX}" data-last="${month.LAST_MONTH}">${month.LOAN_MONTH}</a>
 						</c:otherwise>
 					</c:choose>
 				</li>
