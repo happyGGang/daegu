@@ -30,7 +30,10 @@ import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfigService;
+import kr.go.gbelib.app.cms.module.lasReqConfig.LasReqConfig;
 import kr.go.gbelib.app.cms.module.lasReqConfig.LasReqConfigService;
+import kr.go.gbelib.app.cms.module.smsReception.SmsReception;
+import kr.go.gbelib.app.cms.module.smsReception.SmsReceptionService;
 import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 
@@ -51,6 +54,9 @@ public class LibrarySearchController extends BaseController {
 
 	@Autowired
 	private LasReqConfigService lasReqConfigService;
+
+	@Autowired
+	private SmsReceptionService smsReceptionService;
 
 	/**
 	 * 검색
@@ -1215,19 +1221,43 @@ public class LibrarySearchController extends BaseController {
 				return res;
 			}
 
+			Homepage homepage = getSessionHomepage(request);
+			SmsReception smsReception = new SmsReception();
+			smsReception.setHomepage_id(homepage.getHomepage_id());
+			smsReception.setWork_code("0002");	// 상호대차:0001, 무인대출:0002, 야간대출:0003
+			List<SmsReception> receptionsList =  smsReceptionService.getSmsReceptionMembers(smsReception);
+
 			// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
-//			LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0004");
-//			if(lasReqConfig != null) {
-//				res.setValid(false);
-//				res.setMessage(lasReqConfig.getRes_msg());
-//				return res;
-//			}
+			LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0004");
+			if(lasReqConfig != null) {
+				res.setValid(false);
+				res.setMessage(lasReqConfig.getRes_msg());
+				return res;
+			}
 
 			librarySearch.setUserkey(member.getRec_key());
 			ApiResponse apiResult = LibSearchAPI.unmannedloanreserve(librarySearch);
 			if (apiResult.getStatus()) {
 				res.setValid(true);
 				res.setMessage("예약 되었습니다.");
+
+				// 신청자에게 SMS 전송
+				String message = "무인대출 신청이 완료 되었습니다.[" + librarySearch.getTitle() + "]";
+//				if (isSmsReceive("WEBID", getSessionMemberId(request))) {
+//					PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, member.getMobile_no(), message, homepage.getHomepage_send_tell(), true);
+//				}
+
+				// 관리자에게 SMS 전송
+				String adminMessage = "무인대출 신청건이 발생하였습니다. 수령: 도서명:"+librarySearch.getTitle();
+				for(SmsReception one : receptionsList) {
+					//TODO 테스트 후 sysout 삭제 및 주석 취소
+					System.out.println("@@@@@@@@@@ sms homepage : " + homepage.getHomepage_name() + "/" + homepage.getHomepage_id());
+					System.out.println("@@@@@@@@@@ sms reception : " + one.getReception_phone());
+					System.out.println("@@@@@@@@@@ sms homepage tel : " + homepage.getHomepage_send_tell());
+					System.out.println("@@@@@@@@@@ sms message : " + adminMessage);
+//					PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, one.getReception_phone(), adminMessage, homepage.getHomepage_send_tell(), true);
+				}
+
 			} else {
 				res.setValid(false);
 				res.setMessage(apiResult.getMessage());
