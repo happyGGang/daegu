@@ -57,13 +57,16 @@ $(document).ready(function() {
 .sview .sbtn .btn2{background:#666;border-color:#666}
 </style>
 
-<c:set var="b_idx" value="${fn:length(boyList) - 1}"></c:set>
+<c:set var="b_idx" value="0"></c:set>
 <c:set var="selected" value="deactive"></c:set>
 <div class="tabmenu tab1">
 	<ul>
 		<c:forEach items="${boyList}" var="i" varStatus="status">
 		<c:if test="${fn:escapeXml(i.selection_year) eq fn:escapeXml(param.selection_year)}">
 		<c:set var="b_idx" value="${status.index}"></c:set>
+		<c:set var="selected" value="active"></c:set>
+		</c:if>
+		<c:if test="${empty param.selection_year and status.first}">
 		<c:set var="selected" value="active"></c:set>
 		</c:if>
 
@@ -89,7 +92,7 @@ $(document).ready(function() {
 			<div class="info">
 				<ul>
 					<li>
-						<b>${book.book_name}</b>
+						<a href="/${homepage.context_path}/intro/search/detail.do?menu_idx=13&isbn=${book.book_isbn}&regNo=${book.book_regno}&manageCode=${homepage.manage_code}&booktype=BOOK"><b>${book.book_name}</b></a>
 					</li>
 					<li>저자 : ${book.book_author}</li>
 					<li>출판사 : ${book.book_publisher}</li>

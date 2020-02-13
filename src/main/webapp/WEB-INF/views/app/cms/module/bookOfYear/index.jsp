@@ -15,12 +15,21 @@ $(function(){
 		e.preventDefault();
 	});
 
-	$('a#dialog-modify').on('click', function(e) {
+	$('a.dialog-modify').on('click', function(e) {
 		$('#dialog-1').load('edit.do?editMode=MODIFY&homepage_id=${bookOfYear.homepage_id}&selection_year=' + $(this).attr('keyValue'), function( response, status, xhr ) {
 			$('#dialog-1').dialog('open');
 		});
 
 		e.preventDefault();
+	});
+
+	$('a.delete').on('click', function(e) {
+		e.preventDefault();
+		if (confirm('삭제하시겠습니까?')) {
+			$('input#selection_year_1').val($(this).attr('keyValue'));
+			$('input#editMode_1').val('DELETE');
+			doAjaxPost($('form#boy'));
+		}
 	});
 
 	$('select#homepage_id_1').on('change', function(e) {
@@ -50,14 +59,7 @@ $(function(){
 <form:hidden id="homepage_id_1" path="homepage_id"/>
 <div id="editDisable" class="disableBox">
 	<div class="infodesk">
-		검색 결과 : ${paging.totalDataCount}건
-		<form:select path="rowCount" class="selectmenu" style="width:120px;">
-			<form:option value="10">10개씩 보기</form:option>
-			<form:option value="20">20개씩 보기</form:option>
-			<form:option value="30">30개씩 보기</form:option>
-			<form:option value="100">100개씩 보기</form:option>
-			<form:option value="200">200개씩 보기</form:option>
-		</form:select>
+		검색 결과 : ${fn:length(boyList)}건
 		<div class="button btn-group inline">
 			<c:if test="${authC}">
 				<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
@@ -90,10 +92,10 @@ $(function(){
 				<td width="150"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>
 				<td width="120">
 					<c:if test="${authU}">
-						<a href="#" class="btn" id="dialog-modify" keyValue="${i.selection_year}">수정</a>
+						<a href="#" class="btn dialog-modify" keyValue="${i.selection_year}">수정</a>
 					</c:if>
 					<c:if test="${authD}">
-						<a href="#" class="btn" id="delete" keyValue="${i.selection_year}">삭제</a>
+						<a href="#" class="btn delete" keyValue="${i.selection_year}">삭제</a>
 					</c:if>
 				</td>
 			</tr>
@@ -101,20 +103,6 @@ $(function(){
 		</tbody>
 	</table>
 
-	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
-		<jsp:param name="formId" value="#boy"/>
-	</jsp:include>
-
-	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
-		<fieldset>
-			<form:select path="search_type" cssClass="selectmenu">
-				<form:option value="book_name">도서명</form:option>
-				<form:option value="book_author">저자</form:option>
-			</form:select>
-			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
-			<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
-		</fieldset>
-	</div>
 </div>
 </form:form>
 

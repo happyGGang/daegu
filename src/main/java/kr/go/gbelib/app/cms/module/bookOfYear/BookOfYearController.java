@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
@@ -32,11 +34,15 @@ public class BookOfYearController extends BaseController {
 	@Autowired
 	private BookOfYearService service;
 
+	@Autowired
+	private HomepageService homepageService;
+
 	@RequestMapping (value = {"/index{url}.*"}, method = RequestMethod.GET)
 	public String index(Model model, BookOfYear boy, HttpServletRequest request, @PathVariable ("url") String url) throws AuthException {
 		checkAuth("R", model, request);
 		boy.setHomepage_id(getAsideHomepageId(request));
-		service.setPaging(model, service.getBookOfYearCount(boy), boy);
+
+//		service.setPaging(model, service.getBookOfYearCount(boy), boy);
 		model.addAttribute("boy", boy);
 		model.addAttribute("boyList", service.getBookOfYearList(boy));
 
@@ -45,6 +51,8 @@ public class BookOfYearController extends BaseController {
 
 	@RequestMapping (value = {"/edit.*"}, method = RequestMethod.GET)
 	public String edit(Model model, BookOfYear boy, HttpServletRequest request) throws AuthException {
+		Homepage homepage = homepageService.getHomepageOne(new Homepage(getAsideHomepageId(request)));
+		model.addAttribute("homepage", homepage);
 
 		if (boy.getEditMode().equals("MODIFY")) {
 			checkAuth("U", model, request);

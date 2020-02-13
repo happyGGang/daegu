@@ -113,7 +113,7 @@ function getLasData(arg) {
 		<tr>
 			<th>출판년도</th>
 			<td>
-				<form:input path="book_year" cssClass="text" />
+				<form:input path="book_year" cssClass="text" maxlength="4" />
 			</td>
 		</tr>
 		<tr>

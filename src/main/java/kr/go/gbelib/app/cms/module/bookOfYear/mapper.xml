@@ -15,7 +15,6 @@
 	</select>
 
 	<select id="getBookOfYearList" resultType="kr.go.gbelib.app.cms.module.bookOfYear.BookOfYear">
-		${pagingTop}
 		SELECT
 			homepage_id, selection_year, book_name, book_author, book_publisher,
 			book_year, book_regno, book_isbn, book_img_url, book_content,
@@ -29,7 +28,6 @@
 		</if>
 		ORDER BY
 			selection_year DESC
-		${pagingBottom}
 	</select>
 
 	<select id="getBookOfYearOne" resultType="kr.go.gbelib.app.cms.module.bookOfYear.BookOfYear">
