@@ -90,6 +90,13 @@ table.bbs tr.notice{background:#f5f6f7}
 					<td class="num">${paging.listRowNum - status.index}</td>
 					<td class="important left title" style="padding-left:${(i.group_depth > 0 ? (i.group_depth-1)*15 : 0)+10}px;">
 						<c:set var="boardIdx" value="${i.parent_idx > 0 ? i.parent_idx : i.board_idx}"></c:set>
+						<c:if test="${fn:length(category1List) > 0 and board.manage_idx eq '212'}">
+							<c:forEach items="${category1List}" var="cate1">
+								<c:if test="${i.category1 eq cate1.code_id}">
+									<span style="color: #979797;">[${cate1.code_name}]</span>
+								</c:if>
+							</c:forEach>
+						</c:if>
 						<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}" keyValue="${i.board_idx}">
 						<c:if test="${i.group_depth > 0}">
 							<i class="fa fa-reply"></i>
