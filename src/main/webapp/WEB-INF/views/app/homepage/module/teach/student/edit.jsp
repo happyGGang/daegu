@@ -51,7 +51,7 @@ $(function() {
 				return false;
 			}
 		}
-		
+
 		var $form = {};
 		$form = $.extend(true, $form, $('#studentForm'));
 		$form.find('input[name=applicant_sex]').prop('disabled', false);
@@ -273,6 +273,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 					<form:hidden path="applicant_sex" value="${memberInfo.sex eq '0'? 'M' : 'F'}" class="text" maxlength="6" readonly="true"/>
          		</td>
 	        </tr>
+	        <c:if test="${teach.address_yn eq 'Y'}">
 	        <tr>
 	         	<th>신청자 - 우편번호(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
@@ -302,6 +303,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 					</c:choose>
          		</td>
         	</tr>
+        	</c:if>
 			<tr>
 				<th>신청자 - 휴대전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
 				<td>
@@ -384,7 +386,11 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
         	<c:if test="${teach.remark_yn eq 'Y'}">
 				<tr>
 					<th>비고</th>
-					<td><form:input path="student_remark" cssClass="text" style="width:100%" title="비고 창"/></td>
+					<td><form:input path="student_remark" cssClass="text" style="width:100%" title="비고 창"/>
+					<div class="ui-state-highlight">
+						<em>${teach.remark_comment}</em>
+					</div>
+					</td>
 				</tr>
 			</c:if>
 			<c:if test="${teach.neis_location_yn eq 'Y'}">
@@ -473,10 +479,12 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	         		<form:radiobutton id="ss2" path="student_sex" cssClass="F" value="F" label="여" cssStyle="vertical-align: middle;" title="성별 여자"/>
          		</td>
 	        </tr>
+	        <c:if test="${teach.address_yn eq 'Y'}">
 	        <tr>
 	         	<th>수강생 - 우편번호(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="student_zipcode" cssClass="text" cssStyle="width: 8%;" title="우편번호"/><button class="btn btn2 findPostCode" keyValue1="#student_zipcode" keyValue2="#student_address" keyValue3="#student_address" >우편번호 찾기</button></td>
         	</tr>
+        	</c:if>
 	        <tr>
 	         	<th>수강생 - 주소(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
@@ -544,7 +552,11 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
         	<c:if test="${teach.remark_yn eq 'Y'}">
 				<tr>
 					<th>수강생 - 비고</th>
-					<td><form:input path="student_remark" cssClass="text" style="width:100%" title="비고창"/></td>
+					<td><form:input path="student_remark" cssClass="text" style="width:100%" title="비고창"/>
+					<div class="ui-state-highlight">
+						<em>${teach.remark_comment}</em>
+					</div>
+					</td>
 				</tr>
 			</c:if>
         	<c:if test="${teach.neis_location_yn eq 'Y'}">

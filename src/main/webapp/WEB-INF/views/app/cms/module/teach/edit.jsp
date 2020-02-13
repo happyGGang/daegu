@@ -839,6 +839,16 @@ $(function() {
 				</td>
 	        </tr> --%>
 	        <tr>
+	         	<th>주소입력여부</th>
+	         	<td>
+	         		<form:radiobutton path="address_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
+					<form:radiobutton path="address_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/>
+					<div class="ui-state-highlight">
+						<em>* 사용 시 '주소' 입력항목이 노출됩니다.</em>
+					</div>
+				</td>
+	        </tr>
+	        <tr>
 	         	<th>가족프로그램여부</th>
 	         	<td>
 	         		<form:radiobutton path="family_count_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
@@ -885,6 +895,15 @@ $(function() {
 					<form:radiobutton path="remark_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/>
 					<div class="ui-state-highlight">
 						<em>* 사용 시 '비고' 입력항목이 노출됩니다.</em>
+					</div>
+				</td>
+	        </tr>
+	        <tr>
+	         	<th>비고안내문구</th>
+	         	<td>
+					<form:input path="remark_comment" class="text" cssStyle="width:90%" />
+					<div class="ui-state-highlight">
+						<em>* '비고' 입력 사용 시 안내 문구를 입력할 수 있습니다.</em>
 					</div>
 				</td>
 	        </tr>

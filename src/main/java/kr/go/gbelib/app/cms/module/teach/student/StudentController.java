@@ -146,8 +146,8 @@ public class StudentController extends BaseController {
 			ValidationUtils.rejectNumbers(result, "applicant_name", "신청자명에는 숫자를 입력할 수 없습니다.");
 			ValidationUtils.rejectIfEmpty(result, "applicant_birth", "신청자 생년월일을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "applicant_sex", "신청자 성별을 선택하세요.");
-			ValidationUtils.rejectIfEmpty(result, "applicant_zipcode", "신청자 우편번호를 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "applicant_address", "신청자 주소를 입력하세요.");
+//			ValidationUtils.rejectIfEmpty(result, "applicant_zipcode", "신청자 우편번호를 입력하세요.");
+//			ValidationUtils.rejectIfEmpty(result, "applicant_address", "신청자 주소를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "applicant_cell_phone", "신청자 휴대전화번호를 입력하세요.");
 			ValidationUtils.rejectPhone(result, "applicant_cell_phone", "폰번호 형식이 잘못되었습니다.");
 
@@ -155,16 +155,16 @@ public class StudentController extends BaseController {
 			ValidationUtils.rejectNumbers(result, "student_name", "수강생명에는 숫자를 입력할 수 없습니다.");
 			ValidationUtils.rejectIfEmpty(result, "student_birth", "수강생 생년월일을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "student_sex", "수강생 성별을 선택하세요.");
-			ValidationUtils.rejectIfEmpty(result, "student_zipcode", "수강생 우편번호를 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "student_address", "수강생 주소를 입력하세요.");
+//			ValidationUtils.rejectIfEmpty(result, "student_zipcode", "수강생 우편번호를 입력하세요.");
+//			ValidationUtils.rejectIfEmpty(result, "student_address", "수강생 주소를 입력하세요.");
 
 			ValidationUtils.rejectIfStringLength(result, "student_name", 20, "수강생명");
-			ValidationUtils.rejectIfStringLength(result, "student_address", 200, "수강생 주소");
+//			ValidationUtils.rejectIfStringLength(result, "student_address", 200, "수강생 주소");
 			ValidationUtils.rejectIfStringLength(result, "student_name", 20, "수강생명");
 
 			ValidationUtils.rejectIfStringLength(result, "applicant_name", 20, "신청자명");
 
-			ValidationUtils.rejectIfStringLength(result, "applicant_address", 200, "신청자 주소");
+//			ValidationUtils.rejectIfStringLength(result, "applicant_address", 200, "신청자 주소");
 
 			ValidationUtils.rejectIfStringLength(result, "applicant_cell_phone", 13, "신청자 휴대전화번호");
 

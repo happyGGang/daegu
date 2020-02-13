@@ -153,20 +153,29 @@ public class StudentController extends BaseController {
 			ValidationUtils.rejectNumbers(result, "applicant_name", "신청자명에는 숫자를 입력할 수 없습니다.");
 			ValidationUtils.rejectIfEmpty(result, "applicant_birth", "신청자 생년월일을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "applicant_sex", "신청자 성별을 선택하세요.");
-			ValidationUtils.rejectIfEmpty(result, "applicant_zipcode", "신청자 우편번호를 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "applicant_address", "신청자 주소를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "applicant_cell_phone", "신청자 폰번호를 입력하세요.");
 			ValidationUtils.rejectPhone(result, "applicant_cell_phone", "휴대전화번호 형식이 잘못되었습니다.");
 
 			teachOne = teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));
+
+			if (StringUtils.equals(teachOne.getAddress_yn(), "Y")) {
+				ValidationUtils.rejectIfEmpty(result, "applicant_zipcode", "신청자 우편번호를 입력하세요.");
+				ValidationUtils.rejectIfEmpty(result, "applicant_address", "신청자 주소를 입력하세요.");
+			}
 
 			if (StringUtils.equals(teachOne.getAgent_yn(), "Y")) {
 				ValidationUtils.rejectIfEmpty(result, "student_name", "수강생명을 입력하세요.");
 				ValidationUtils.rejectNumbers(result, "student_name", "수강생명에는 숫자를 입력할 수 없습니다.");
 				ValidationUtils.rejectIfEmpty(result, "student_birth", "수강생 생년월일을 입력하세요.");
 				ValidationUtils.rejectIfEmpty(result, "student_sex", "수강생 성별을 선택하세요.");
-				ValidationUtils.rejectIfEmpty(result, "student_zipcode", "수강생 우편번호를 입력하세요.");
-				ValidationUtils.rejectIfEmpty(result, "student_address", "수강생 주소를 입력하세요.");
+				if (StringUtils.equals(teachOne.getAddress_yn(), "Y")) {
+    				ValidationUtils.rejectIfEmpty(result, "student_zipcode", "수강생 우편번호를 입력하세요.");
+    				ValidationUtils.rejectIfEmpty(result, "student_address", "수강생 주소를 입력하세요.");
+				}
+			}
+
+			if (StringUtils.equals(teachOne.getAddress_yn(), "Y")) {
+				ValidationUtils.rejectIfEmpty(result, "student_family_count", "가족인원수를 입력하세요");
 			}
 
 			if (StringUtils.equals(teachOne.getFamily_count_yn(), "Y")) {

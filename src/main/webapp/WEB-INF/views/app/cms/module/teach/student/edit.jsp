@@ -281,11 +281,11 @@ $(function() {
          		</td>
 	        </tr>
 	        <tr>
-	         	<th>신청자 - 우편번호(<span style="color: red; font-weight: bold;">*</span>)</th>
+	         	<th>신청자 - 우편번호</th>
 	         	<td><form:input path="applicant_zipcode" class="text" readonly="true" cssStyle="width: 15%;"/><button class="btn btn2 findPostCode" keyValue1="#applicant_zipcode" keyValue2="#applicant_address" keyValue3="#applicant_address">우편번호 찾기</button></td>
         	</tr>
 	        <tr>
-	         	<th>신청자 - 주소(<span style="color: red; font-weight: bold;">*</span>)</th>
+	         	<th>신청자 - 주소</th>
 	         	<td>
 	         		<form:input path="applicant_address" class="text" style="width:100%;" maxlength="60"/><br/>
          		</td>
@@ -338,11 +338,11 @@ $(function() {
 	         	<td><input id="student_old" name="student_old" class="text" style="width:30px" maxlength="3" /></td>
         	</tr>
 	        <tr>
-	         	<th>수강생 - 우편번호(<span style="color: red; font-weight: bold;">*</span>)</th>
+	         	<th>수강생 - 우편번호</th>
 	         	<td><form:input path="student_zipcode" class="text" readonly="true" cssStyle="width: 15%;"/><button class="btn btn2 findPostCode student_zipcode" keyValue1="#student_zipcode" keyValue2="#student_address" keyValue3="#student_address">우편번호 찾기</button></td>
         	</tr>
 	        <tr>
-	         	<th>수강생 - 주소(<span style="color: red; font-weight: bold;">*</span>)</th>
+	         	<th>수강생 - 주소</th>
 	         	<td>
 	         		<form:input path="student_address" class="text" style="width:100%;" maxlength="60"/><br/>
 	         	</td>

@@ -94,6 +94,8 @@ public class Teach extends PagingUtils {
 	private String organization_yn = "N";//기관 입력여부
 	private String rank_yn = "N";//직급 입력여부
 	private String course_taken_yn = "N";//연수수강여부 입력여부
+	private String address_yn = "N";//주소입력여부
+	private String remark_comment;
 
 	private String delete_yn;
 
@@ -1152,6 +1154,26 @@ public class Teach extends PagingUtils {
 
 	public void setImage_server_file_name(String image_server_file_name) {
 		this.image_server_file_name = image_server_file_name;
+	}
+
+
+	public String getAddress_yn() {
+		return address_yn;
+	}
+
+
+	public void setAddress_yn(String address_yn) {
+		this.address_yn = address_yn;
+	}
+
+
+	public String getRemark_comment() {
+		return remark_comment;
+	}
+
+
+	public void setRemark_comment(String remark_comment) {
+		this.remark_comment = remark_comment;
 	}
 
 }
