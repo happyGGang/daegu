@@ -63,10 +63,17 @@ ul.rent_box li:first-child {background: none;}
 ul.rent_box li dt {padding: 61px 0 5px;font-size: 15px;font-weight: bold;color: #fff;letter-spacing: -0.05em;}
 ul.rent_box li dt.icon01 {background: url(/resources/common/img/support_icon01.png) no-repeat top center;}
 
-.group-box {display:inline-block;width: 150px;text-align: center;padding: 20px;}
+ul.list {margin-bottom: 40px;}
+ul.list>li {padding-left: 12px;margin-bottom: 6px;line-height: 22px;color: #222;word-break: keep-all;background: url(/resources/common/img/icon_list.gif) no-repeat 0 10px;}
+ul.list2 {margin: 8px 0 12px 0;}
+ul.list2>li {padding-left: 11px;margin-bottom: 4px;line-height: 20px;color: #555;background: url(/resources/common/img/icon_list2.gif) no-repeat 0 7px;}
+strong.red {color: #FF0000;}
+
+.group-box {display:inline-block;width: 150px;text-align: center;padding: 20px;vertical-align: top;}
 .content-box h4 {display: inline-block;background: none;}
 div.img-box {position: relative;display:inline-block;border: 1px solid #ccc;padding: 0;}
 div.img-box span.num {position: absolute;top: 30px;right: 22px;width: 18px;height: 18px;padding: 4px 4px;font-family: 'Montserrat',sans-serif;font-weight: 700;text-align: center;line-height: 17px;color: #fff;background-color: red;border-radius: 50%;}
+
 </style>
 <div>
 	<h4 class="tit">장서점검기 대여 신청 안내</h4>

@@ -77,7 +77,18 @@ ul.select-month {margin: 15px 0 auto;padding: 20px 0;border-top: 1px dashed #e5e
 ul.select-month li {display: inline-block;width: 25px;line-height: 25px;font-size: 11px;font-weight: 600;text-align: center;margin: 0 8px;padding: 0;}
 ul.select-month li a {color: #d5d5d5;}
 ul.select-month li a.loan-ing {display: block;color: #fff;background-color: #ff5500;border-radius: 100%;}
+div.pay-ul ul {list-style: disc;padding-left: 20px;margin-bottom: 30px;font-weight: bold;}
 </style>
+
+<c:if test="${pictureBook.pay_yn eq 'Y'}">
+<div class="pay-ul">
+	<ul>
+		<li>원화꾸러미(유료)는 자동발송되지 않습니다. 학교에서 직접 택배 신청을 하셔서 다음 기관으로 발송해주시기 바랍니다.</li>
+		<li>배송비는 대출중인 학교에서 선불로 지급하셔야 합니다.</li>
+		<li>글자 없이 그림 원화로만 제공되는 원화꾸러미입니다.</li>
+	</ul>
+</div>
+</c:if>
 
 <form:form modelAttribute="pictureBook" id="bookPackageDel" action="save.do" method="POST">
 <form:hidden path="editMode" id="editMode_d" value="DELETE"/>
