@@ -46,17 +46,40 @@
 		</div>
 		<c:if test="${fn:length(fieldList) > 1}">
 			<div class="bbs-view-body">
-				<ul>
-			<c:forEach var="i" varStatus="status" items="${fieldList}">
-			<c:if test="${i.board_column ne 'title' and i.board_column ne 'view_count' and i.board_column ne 'user_name' and i.board_column ne 'add_date' and i.board_column ne 'content'}">
-				<li>
-				<i>${i.board_content}</i>
+				<div style="margin-top: -25px; background: #fffef9; border: 1.5px solid #f6f7e5; padding: 15px; border-radius: 10px;">
+					<ul>
+				<c:forEach var="i" varStatus="status" items="${fieldList}">
+				<c:if test="${i.board_column ne 'title' and i.board_column ne 'view_count' and i.board_column ne 'user_name' and i.board_column ne 'add_date' and i.board_column ne 'content'}">
+					<li style="margin-bottom: 10px;">
+					<i>${i.board_content} : </i>
 
-				<span>${board[i.board_column]}</span>
-				</li>
-			</c:if>
-			</c:forEach>
-				</ul>
+					<c:choose>
+						<c:when test="${i.board_column eq 'category1'}">
+						<span>${board.category1_name}</span>
+						</c:when>
+						<c:when test="${i.board_column eq 'category2'}">
+						<span>${board.category2_name}</span>
+						</c:when>
+						<c:when test="${i.board_column eq 'category3'}">
+						<span>${board.category3_name}</span>
+						</c:when>
+						<c:when test="${i.board_column eq 'category4'}">
+						<span>${board.category4_name}</span>
+						</c:when>
+						<c:when test="${i.board_column eq 'category5'}">
+						<span>${board.category5_name}</span>
+						</c:when>
+
+						<c:otherwise>
+						<span>${board[i.board_column]}</span>
+						</c:otherwise>
+					</c:choose>
+
+					</li>
+				</c:if>
+				</c:forEach>
+					</ul>
+				</div>
 			</div>
 		</c:if>
 
