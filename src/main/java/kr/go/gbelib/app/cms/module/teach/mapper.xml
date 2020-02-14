@@ -991,7 +991,7 @@
 			a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
 			getCodeIdToCodeName('CMS', 'C0020', a.limit_hak) AS LIMIT_HAK_STR,
 			getCodeIdToCodeName('CMS', 'C0020', a.limit_hak2) AS LIMIT_HAK2_STR,
-			a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.course_taken_yn
+			a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.course_taken_yn, wait_num
 		FROM
 		(
 			SELECT
@@ -1014,7 +1014,26 @@
 				, e.student_idx,
 				a.IMAGE_org_file_name, a.image_server_file_name, a.IMAGE_file_extension, a.IMAGE_file_size,
 				a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
-				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.course_taken_yn
+				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.course_taken_yn,
+				(
+				SELECT wait_num FROM
+					(
+					SELECT ROWNUM AS wait_num, teach_idx, member_key FROM
+						(
+						SELECT
+							member_key, teach_idx
+						FROM
+							STUDENT
+						WHERE
+							homepage_id = #{homepage_id}
+						AND	apply_status = 2
+						AND delete_yn = 'N'
+						ORDER BY apply_status ASC, student_idx ASC
+						)
+					)
+				WHERE member_key = #{member_key}
+				AND	teach_idx = a.teach_idx
+				) AS wait_num
 			FROM
 				TEACH a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d, STUDENT e
 			WHERE a.homepage_id = b.homepage_id(+)

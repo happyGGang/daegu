@@ -123,6 +123,8 @@ public class Teach extends PagingUtils {
 	private String homepage_alias;
 	private String homepage_name;
 	private String context_path;
+	
+	private int wait_num; // 대기자 번호
 
 	// 통합검색 - 상세검색용 변수
 	private String searchKeyword1;//searchType1 의 검색어
@@ -681,6 +683,14 @@ public class Teach extends PagingUtils {
 
 	public void setContext_path(String context_path) {
 		this.context_path = context_path;
+	}
+	
+	public int getWait_num() {
+		return wait_num;
+	}
+	
+	public void setWait_num(int wait_num) {
+		this.wait_num = wait_num;
 	}
 
 	public String getSearchKeyword1() {

@@ -175,7 +175,14 @@ $(function(){
 							<c:if test="${i.limit_hak_yn eq 'Y'}">
 							<li><div><label>학년제한</label> : ${i.limit_hak_str} ~ ${i.limit_hak2_str}</div></li>
 							</c:if>
-							<li><div><label>수강생</label> : ${i.student_name} ( ${i.student_sex eq 'M' ? '남' : '여'} )</div></li>
+							<li>
+								<div>
+									<label>수강생</label> : ${i.student_name} ( ${i.student_sex eq 'M' ? '남' : '여'} )
+									<c:if test="${i.teach_status eq '3'and i.wait_num != 0}">
+									<span>현재 대기번호 ${i.wait_num}번 입니다.</span>
+									</c:if>
+								</div>
+							</li>
 						</ul>
 					</div>
 				</div>
