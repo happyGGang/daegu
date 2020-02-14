@@ -255,7 +255,7 @@ public class StudentController extends BaseController {
 				Object[] addResult = service.addStudent(student, "HOMEPAGE");
 				res.setValid((Boolean) addResult[0]);
 
-				if("Y".equals(teachOne.getCancle_use_yn()) && addResult != null && addResult.length >= 3 && (Boolean) addResult[2]  == true) {
+				if("Y".equals(teachOne.getCancle_use_yn()) && addResult != null && addResult.length >= 3 && addResult[2] != null && (Boolean) addResult[2]  == true) {
 					String strDate = teachOne.getStart_cancle_date() + " " + teachOne.getStart_cancle_time();
 					String endDate = teachOne.getEnd_cancle_date() + " " + teachOne.getEnd_cancle_time();
 					res.setMessage((String) addResult[1] + "\n" + teachOne.getTeach_name()+" 과정이 신청되었습니다.\n수강 취소 기간은 " + strDate + "~" + endDate + "까지 입니다");
