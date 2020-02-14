@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.ibatis.binding.BindingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -294,6 +295,14 @@ public class TeachService extends BaseService {
 				result.setHolidays(dao.getHolidays(result));
 				if (StringUtils.isNotEmpty(result.getProgram_age_div())) {
 					result.setProgram_age_div_arr(Arrays.asList(result.getProgram_age_div().split(",")));
+				}
+				if(result.getTeach_status().equals("3")) {
+					try {
+						result.setMember_key(teach.getMember_key());
+						result.setWait_num(dao.getWaitingNumber(result));
+					} catch(BindingException be) {
+						result.setWait_num(0);
+					}
 				}
 			}
 		}

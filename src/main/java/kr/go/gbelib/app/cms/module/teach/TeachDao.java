@@ -62,5 +62,7 @@ public interface TeachDao  {
 	public List<Teach> getSchaduleTeach();
 
 	public int modifySmsFlag(Teach teach);
+	
+	public int getWaitingNumber(Teach result);
 
 }
