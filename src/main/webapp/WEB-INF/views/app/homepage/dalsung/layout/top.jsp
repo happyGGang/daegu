@@ -38,8 +38,8 @@
 				
 				<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=92"><img src="/resources/homepage/${homepage.context_path}/img/sitemap-btn.png" alt="사이트맵" class="sitemap-img"></a>
 
-				<a href="#twitter"><img src="/resources/homepage/${homepage.context_path}/img/twitter-icon-btn.png" alt="트위터" class="sitemap-img2"></a>
-				<a href="#facebook"><img src="/resources/homepage/${homepage.context_path}/img/facebook-icon-btn.png" alt="페이스북" class="sitemap-img2"></a>
+				<a href="https://twitter.com/dalseonglib" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/twitter-icon-btn.png" alt="트위터" class="sitemap-img2"></a>
+				<a href="https://www.facebook.com/dalseonglibrary" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/facebook-icon-btn.png" alt="페이스북" class="sitemap-img2"></a>
 			</div>
 		</div>
 	</div>
