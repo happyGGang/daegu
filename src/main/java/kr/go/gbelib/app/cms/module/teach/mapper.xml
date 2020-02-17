@@ -39,9 +39,9 @@
 			getCodeIdToCodeName('CMS', 'C0020', a.limit_hak) AS LIMIT_HAK_STR,
 			getCodeIdToCodeName('CMS', 'C0020', a.limit_hak2) AS LIMIT_HAK2_STR,
 			a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.course_taken_yn,
-			(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx) as large_category_name,
+			(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) as large_category_name,
 			program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
-			(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.program_subject) as program_subject_name,
+			(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.program_subject and homepage_id = a.homepage_id) as program_subject_name,
 			(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = '--' AND	small_code = '--') as program_classification1_name,
 			(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = '--') as program_classification2_name,
 			(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = a.program_classification3) as program_classification3_name
@@ -87,9 +87,9 @@
 				getCodeIdToCodeName('CMS', 'C0020', a.limit_hak) AS LIMIT_HAK_STR,
 				getCodeIdToCodeName('CMS', 'C0020', a.limit_hak2) AS LIMIT_HAK2_STR,
 				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.course_taken_yn,
-				(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx) as large_category_name,
+				(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) as large_category_name,
 				program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
-			(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.program_subject) as program_subject_name,
+			(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.program_subject and homepage_id = a.homepage_id) as program_subject_name,
 			(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = '--' AND	small_code = '--') as program_classification1_name,
 			(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = '--') as program_classification2_name,
 			(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = a.program_classification3) as program_classification3_name
@@ -171,9 +171,9 @@
 				getCodeIdToCodeName('CMS', 'C0020', a.limit_hak) AS LIMIT_HAK_STR,
 				getCodeIdToCodeName('CMS', 'C0020', a.limit_hak2) AS LIMIT_HAK2_STR,
 				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.course_taken_yn,
-				(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx) as large_category_name,
+				(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) as large_category_name,
 				program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
-				(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.program_subject) as program_subject_name,
+				(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.program_subject and homepage_id = a.homepage_id) as program_subject_name,
 				(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = '--' AND	small_code = '--') as program_classification1_name,
 				(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = '--') as program_classification2_name,
 				(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = a.program_classification3) as program_classification3_name,
@@ -452,9 +452,9 @@
 				getCodeIdToCodeName('CMS', 'C0020', a.limit_hak) AS LIMIT_HAK_STR,
 				getCodeIdToCodeName('CMS', 'C0020', a.limit_hak2) AS LIMIT_HAK2_STR,
 				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.course_taken_yn,
-				(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx) as large_category_name,
+				(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) as large_category_name,
 				program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
-				(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.program_subject) as program_subject_name,
+				(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.program_subject and homepage_id = a.homepage_id) as program_subject_name,
 				(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = '--' AND	small_code = '--') as program_classification1_name,
 				(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = '--') as program_classification2_name,
 				(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = a.program_classification3) as program_classification3_name
@@ -476,7 +476,7 @@
 				a.IMAGE_org_file_name, a.image_server_file_name, a.IMAGE_file_extension, a.IMAGE_file_size, a.LIMIT_HAK_YN,
 				a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
 				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.course_taken_yn,
-				(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx) as large_category_name,
+				(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) as large_category_name,
 				program_classification1, program_classification2, program_classification3, program_subject, program_age_div
 			FROM
 				TEACH a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d
@@ -580,9 +580,9 @@
 					getCodeIdToCodeName('CMS', 'C0020', a.limit_hak) AS LIMIT_HAK_STR,
 					getCodeIdToCodeName('CMS', 'C0020', a.limit_hak2) AS LIMIT_HAK2_STR,
 					a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.course_taken_yn,
-					(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx) as large_category_name,
+					(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) as large_category_name,
 					program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
-					(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.program_subject) as program_subject_name,
+					(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.program_subject and homepage_id = a.homepage_id) as program_subject_name,
 					(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = '--' AND	small_code = '--') as program_classification1_name,
 					(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = '--') as program_classification2_name,
 					(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = a.program_classification3) as program_classification3_name
@@ -603,7 +603,7 @@
 					a.IMAGE_org_file_name, a.image_server_file_name, a.IMAGE_file_extension, a.IMAGE_file_size, a.LIMIT_HAK_YN,
 					a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
 					a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.course_taken_yn,
-					(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx) as large_category_name,
+					(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) as large_category_name,
 					program_classification1, program_classification2, program_classification3, program_subject, program_age_div
 				FROM
 					(SELECT * FROM TEACH WHERE 1 = 1
@@ -1233,7 +1233,7 @@
 		WHERE
 			teach_idx = #{teach_idx}
 	</update>
-	
+
 	<select id="getWaitingNumber" resultType="int">
 		SELECT wait_num FROM
 			(

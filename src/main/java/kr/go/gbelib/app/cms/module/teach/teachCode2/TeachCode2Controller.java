@@ -43,6 +43,8 @@ public class TeachCode2Controller extends BaseController {
 
 	@RequestMapping(value = {"/getSubcategories.*"}, method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> getSubcategories(Model model, TeachCode2 category, BindingResult result, HttpServletRequest request) {
+		category.setHomepage_id(getAsideHomepageId(request));
+
 		List<TeachCode2> subcategories = service.getSubcategories(category);
 
 		return makeMap(subcategories);
@@ -64,49 +66,44 @@ public class TeachCode2Controller extends BaseController {
 	public @ResponseBody JsonResponse save(Model model, TeachCode2 category, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
 		String editMode = category.getEditMode();
+		category.setHomepage_id(getAsideHomepageId(request));
 		if(!editMode.equals("DELETE")) {
 			ValidationUtils.rejectIfEmpty(result, "code_name", "분류명을 입력하세요.");
 		}
 		if(!result.hasErrors()) {
-//			if ( Integer.parseInt(getSessionMemberInfo(request).getAuth_id()) <= 200 ) {
-				if(editMode.equals("ADD")) {
-					category.setAdd_id(getSessionMemberId(request));
-					if(service.nameDupCheck(category) > 0) {
-						res.setValid(false);
-						res.setMessage("분류명이 중복됩니다.");
-					} else {
-						service.addCategory(category);
-						res.setValid(true);
-						res.setMessage("등록되었습니다.");
-						res.setData(category);
-					}
-				} else if(editMode.equals("MODIFY")) {
-					category.setModify_id(getSessionMemberId(request));
-					if(service.nameDupCheck(category) > 0) {
-						res.setValid(false);
-						res.setMessage("분류명이 중복됩니다.");
-					} else {
-						service.modifyCategory(category);
-						res.setValid(true);
-						res.setMessage("수정되었습니다.");
-						res.setData(category);
-					}
-				} else if(editMode.equals("DELETE")) {
-					if(service.subCategoryCheck(category) > 0) {
-						res.setValid(false);
-						res.setMessage("하위 분류가 존재하므로 삭제할 수 없습니다.");
-					} else {
-						service.deleteCategory(category);
-						res.setValid(true);
-						res.setMessage("삭제되었습니다.");
-						res.setData(category);
-					}
+			if(editMode.equals("ADD")) {
+				category.setAdd_id(getSessionMemberId(request));
+				if(service.nameDupCheck(category) > 0) {
+					res.setValid(false);
+					res.setMessage("분류명이 중복됩니다.");
+				} else {
+					service.addCategory(category);
+					res.setValid(true);
+					res.setMessage("등록되었습니다.");
+					res.setData(category);
 				}
-//			}
-//			else {
-//				res.setValid(false);
-//				res.setMessage("권한이 없습니다.");
-//			}
+			} else if(editMode.equals("MODIFY")) {
+				category.setModify_id(getSessionMemberId(request));
+				if(service.nameDupCheck(category) > 0) {
+					res.setValid(false);
+					res.setMessage("분류명이 중복됩니다.");
+				} else {
+					service.modifyCategory(category);
+					res.setValid(true);
+					res.setMessage("수정되었습니다.");
+					res.setData(category);
+				}
+			} else if(editMode.equals("DELETE")) {
+				if(service.subCategoryCheck(category) > 0) {
+					res.setValid(false);
+					res.setMessage("하위 분류가 존재하므로 삭제할 수 없습니다.");
+				} else {
+					service.deleteCategory(category);
+					res.setValid(true);
+					res.setMessage("삭제되었습니다.");
+					res.setData(category);
+				}
+			}
 		} else {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
@@ -117,7 +114,6 @@ public class TeachCode2Controller extends BaseController {
 
 	@RequestMapping(value = {"/saveList.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse saveList(Model model, @RequestBody TeachCode2[] cateList, HttpServletRequest request) {
-
 		JsonResponse res = new JsonResponse(request);
 
 //		if ( Integer.parseInt(getSessionMemberInfo(request).getAuth_id()) <= 200 ) {
@@ -126,6 +122,7 @@ public class TeachCode2Controller extends BaseController {
 				res.setMessage("저장할 분류가 없습니다.");
 			} else {
 				for(TeachCode2 cate: cateList) {
+					cate.setHomepage_id(getAsideHomepageId(request));
 					cate.setModify_id(getSessionMemberId(request));
 				}
 				service.saveCategoryList(cateList);
@@ -139,4 +136,5 @@ public class TeachCode2Controller extends BaseController {
 
 		return res;
 	}
+
 }

@@ -392,6 +392,7 @@ $(function() {
 
 	});
 
+	$('select#program_age_div_arr option:eq(0)').prop('selected', true);
 });
 
 </script>
@@ -414,7 +415,7 @@ $(function() {
 	       <col width="*"/>
        	</colgroup>
        	<tbody>
-			<tr>
+			<tr style="display: none;">
 	         	<th>프로그램분류 (<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
 	         		대분류 : <form:select path="program_classification1" cssClass="program_class" items="${teachLargeCodeList}" itemLabel="code_name" itemValue="large_code" /> &nbsp;&nbsp;
@@ -422,16 +423,16 @@ $(function() {
 	         		소분류 : <form:select path="program_classification3" cssClass="program_class" items="${teachSmallCodeList}" itemLabel="code_name" itemValue="small_code" /> &nbsp;&nbsp;
          		</td>
         	</tr>
-			<tr>
+			<tr style="display: none;">
 	         	<th>프로그램 주제구분 (<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
 	         		<form:select path="program_subject" cssClass="program_subject" items="${teachSubjectCodeList}" itemLabel="code_name" itemValue="teach_code" />
          		</td>
         	</tr>
-			<tr>
+			<tr style="display: none;">
 	         	<th>프로그램 연령구분 (<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
-	         		<form:checkboxes items="${teachAgeDivCodeList}" path="program_age_div_arr" itemLabel="code_name" itemValue="teach_code" cssStyle="margin-left:10px;"/>
+	         		<form:select items="${teachAgeDivCodeList}" path="program_age_div_arr" itemLabel="code_name" itemValue="teach_code" cssStyle="margin-left:10px;"/>
          		</td>
         	</tr>
         	<tr>

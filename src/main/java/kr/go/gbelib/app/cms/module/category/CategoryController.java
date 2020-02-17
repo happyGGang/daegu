@@ -65,6 +65,7 @@ public class CategoryController extends BaseController {
 
 		TeachCode2 teachCode2 = new TeachCode2();
 		teachCode2.setTeach_code(15);
+		teachCode2.setHomepage_id(categoryGroup.getHomepage_id());
 		model.addAttribute("teachLargeCategoryList", teachCode2Service.getSubcategories(teachCode2));
 
 		return basePath + "index";

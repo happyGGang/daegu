@@ -25,7 +25,7 @@
 			SELECT
 				homepage_id, group_idx, category_idx, category_name, print_seq, use_yn,
 				(SELECT group_name FROM TEACH_CATEGORY_GROUP WHERE homepage_id = a.homepage_id AND group_idx = a.group_idx) AS group_name,
-				(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx) AS large_category_name,
+				(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) AS large_category_name,
 				req_limit_yn, req_limit_type, req_limit_count, large_category_idx
 			FROM
 				TEACH_CATEGORY a
@@ -63,7 +63,7 @@
 		SELECT
 			homepage_id, group_idx, category_idx, category_name, print_seq, use_yn,
 			(SELECT group_name FROM TEACH_CATEGORY_GROUP WHERE homepage_id = a.homepage_id AND group_idx = a.group_idx) AS group_name,
-			(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx) AS large_category_name,
+			(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) AS large_category_name,
 			req_limit_yn, req_limit_type, req_limit_count, large_category_idx
 		FROM
 			TEACH_CATEGORY a

@@ -107,6 +107,7 @@ public class TeachController extends BaseController{
 
 			//프로그램 주제구분
 			TeachCode2 teachCode2 = new TeachCode2(1);
+			teachCode2.setHomepage_id(teach.getHomepage_id());
 			model.addAttribute("teachSubjectCodeList", teachCode2Service.getSubcategories(teachCode2));
 
 			//프로그램 연령구분
@@ -124,6 +125,20 @@ public class TeachController extends BaseController{
 			model.addAttribute("teachList", teachService.getTeachListForUser(teach));
 			model.addAttribute("myTeachListMenuIdx", menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 93)));//수강신청내역 menu_idx
 			model.addAttribute("categoryList", categoryService.getCategoryListAll(new Category(homepage.getHomepage_id())));
+
+			//프로그램 주제구분
+			TeachCode2 teachCode2 = new TeachCode2(1);
+			teachCode2.setHomepage_id(teach.getHomepage_id());
+			model.addAttribute("teachSubjectCodeList", teachCode2Service.getSubcategories(teachCode2));
+
+			//프로그램 연령구분
+			teachCode2.setTeach_code(8);
+			model.addAttribute("teachAgeDivCodeList", teachCode2Service.getSubcategories(teachCode2));
+
+			//강좌대분류
+			teachCode2.setTeach_code(15);
+			model.addAttribute("teachLargeCategoryList", teachCode2Service.getSubcategories(teachCode2));
+
 			return String.format(basePath, homepage.getFolder()) + "index";
 		}
 	}

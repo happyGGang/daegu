@@ -10,6 +10,7 @@
 		WHERE
 			delete_yn = 'N'
 		AND depth = #{depth}
+		AND	homepage_id = #{homepage_id}
 		ORDER BY display_seq
 	</select>
 
@@ -21,6 +22,7 @@
 		WHERE
 			delete_yn = 'N'
 		AND depth = #{depth}
+		AND	homepage_id = #{homepage_id}
 		ORDER BY display_seq
 	</select>
 
@@ -33,6 +35,7 @@
 		WHERE
 			delete_yn = 'N'
 		AND depth = #{depth}
+		AND	homepage_id = #{homepage_id}
 		ORDER BY display_seq
 	</select>
 
@@ -44,6 +47,7 @@
 		WHERE
 			delete_yn = 'N'
 		AND teach_code = #{teach_code}
+		AND	homepage_id = #{homepage_id}
 	</select>
 
 	<select id="getSubcategories" resultType="kr.go.gbelib.app.cms.module.teach.teachCode2.TeachCode2">
@@ -54,6 +58,7 @@
 		WHERE
 			delete_yn = 'N'
 		AND parent_id = #{teach_code}
+		AND	homepage_id = #{homepage_id}
 	</select>
 
 	<select id="subCategoryCheck" resultType="int">
@@ -64,6 +69,7 @@
 		WHERE
 			delete_yn = 'N'
 		AND parent_id = #{teach_code}
+		AND	homepage_id = #{homepage_id}
 	</select>
 
 	<select id="nameDupCheck" resultType="int">
@@ -75,28 +81,43 @@
 			delete_yn = 'N'
 		AND parent_id = #{parent_id}
 		AND code_name = #{code_name}
+		AND	homepage_id = #{homepage_id}
 		<if test="teach_code != null and teach_code != ''">
 		AND teach_code != #{teach_code}
 		</if>
 	</select>
 
 	<select id="getDepth" resultType="int">
-		SELECT NVL(MAX(depth),0)+1 FROM TEACH_CODE2 WHERE delete_yn = 'N' AND teach_code = #{parent_id}
+		SELECT
+			NVL(MAX(depth),0)+1
+		FROM
+			TEACH_CODE2
+		WHERE
+			delete_yn = 'N'
+		AND	teach_code = #{parent_id}
+		AND	homepage_id = #{homepage_id}
 	</select>
 
 	<select id="getMaxDisplaySeq" resultType="int">
-		SELECT NVL(MAX(display_seq),0)+1 AS display_seq FROM TEACH_CODE2 WHERE delete_yn = 'N' AND depth = #{depth}
+		SELECT
+			NVL(MAX(display_seq),0)+1 AS display_seq
+		FROM
+			TEACH_CODE2
+		WHERE
+			delete_yn = 'N'
+		AND depth = #{depth}
+		AND	homepage_id = #{homepage_id}
 	</select>
 
 	<insert id="addCategory">
 		<selectKey keyProperty="teach_code" resultType="int" order="BEFORE">
-			SELECT NVL(MAX(teach_code),0)+1 FROM TEACH_CODE2
+			SELECT NVL(MAX(teach_code),0)+1 FROM TEACH_CODE2 WHERE homepage_id = #{homepage_id}
 		</selectKey>
 
 		INSERT INTO TEACH_CODE2 (
-			teach_code, code_name, depth, display_seq, parent_id, code_type, add_date, add_id
+			homepage_id, teach_code, code_name, depth, display_seq, parent_id, code_type, add_date, add_id
 		) VALUES (
-			#{teach_code}, #{code_name}, #{depth}, #{display_seq}, #{parent_id}, #{code_type}, SYSDATE, #{add_id}
+			#{homepage_id}, #{teach_code}, #{code_name}, #{depth}, #{display_seq}, #{parent_id}, #{code_type}, SYSDATE, #{add_id}
 		)
 	</insert>
 
@@ -107,6 +128,7 @@
 			modify_id = #{modify_id}
 		WHERE
 			teach_code = #{teach_code}
+		AND	homepage_id = #{homepage_id}
 	</update>
 
 	<delete id="deleteCategory">
@@ -114,10 +136,15 @@
 			delete_yn = 'Y'
 		WHERE
 			teach_code = #{teach_code}
+		AND	homepage_id = #{homepage_id}
 	</delete>
 
 	<delete id="forceDeleteCategory">
-		DELETE FROM TEACH_CODE2 WHERE teach_code = #{teach_code} OR parent_id = #{parent_id}
+		DELETE
+			FROM TEACH_CODE2
+		WHERE
+			(teach_code = #{teach_code} OR parent_id = #{parent_id})
+		AND	homepage_id = #{homepage_id}
 	</delete>
 
 	<update id="modifyDisplaySeq">
@@ -127,6 +154,7 @@
 			modify_id = #{modify_id}
 		WHERE
 			teach_code = #{teach_code}
+		AND	homepage_id = #{homepage_id}
 	</update>
 
 </mapper>

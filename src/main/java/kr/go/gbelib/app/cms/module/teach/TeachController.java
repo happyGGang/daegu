@@ -119,6 +119,7 @@ public class TeachController extends BaseController {
 
 		//프로그램 주제구분
 		TeachCode2 teachCode2 = new TeachCode2(1);
+		teachCode2.setHomepage_id(teach.getHomepage_id());
 		model.addAttribute("teachSubjectCodeList", teachCode2Service.getSubcategories(teachCode2));
 
 		//프로그램 연령구분
@@ -175,6 +176,7 @@ public class TeachController extends BaseController {
 
 		//프로그램 주제구분
 		TeachCode2 teachCode2 = new TeachCode2(1);
+		teachCode2.setHomepage_id(teach.getHomepage_id());
 		model.addAttribute("teachSubjectCodeList", teachCode2Service.getSubcategories(teachCode2));
 
 		//프로그램 연령구분

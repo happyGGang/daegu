@@ -49,10 +49,17 @@ $(function(){
 	$('div.tabmenu a').on('click', function(e) {
 		e.preventDefault();
 		var url = 'index.do';
-		$('input#category_idx').attr('value', $(this).attr('keyValue'));
+		$('input#searchCate1').attr('value', $(this).attr('keyValue'));
 		var $form = $('form#teach');
 		var formData = serializeCustom($form);
 		doGetLoad(url, formData);
+	});
+
+	$('a.toggle-btn').on('click', function(e) {
+		var a = $(this).attr('keyValue3');
+		$('div#'+a).toggle();
+
+		e.preventDefault();
 	});
 
 });
@@ -63,24 +70,17 @@ $(function(){
 	<form:hidden path="menu_idx"/>
 	<form:hidden path="category_idx"/>
 	<form:hidden path="large_category_idx"/>
+	<form:hidden path="searchCate1"/>
 
-	<c:choose>
-		<c:when test="${teach.group_idx > 0 and fn:length(categoryList) > 0}">
-			<div class="tabmenu tab1">
-				<ul>
-					<li class="${teach.category_idx eq 0 ? 'active':''}"><a href="" keyValue=""style="font-size: 13px;">전체</a></li>
-					<c:forEach items="${categoryList}" var="i" varStatus="status">
-						<c:if test="${teach.group_idx eq i.group_idx}">
-					<li class="${teach.category_idx eq i.category_idx ? 'active':''}"><a href="" keyValue="${i.category_idx}" style="font-size: 13px;">${i.category_name}</a></li>
-						</c:if>
-					</c:forEach>
-				</ul>
-			</div>
-		</c:when>
-		<c:otherwise>
-			<form:hidden path="category_idx"/>
-		</c:otherwise>
-	</c:choose>
+	<div class="tabmenu tab1">
+		<ul>
+			<li class="${empty teach.searchCate1 ? 'active':''}"><a href="" keyValue=""style="font-size: 13px;">전체</a></li>
+			<c:forEach items="${teachLargeCategoryList}" var="i" varStatus="status">
+			<li class="${teach.searchCate1 eq i.teach_code ? 'active':''}"><a href="" keyValue="${i.teach_code}" style="font-size: 13px;">${i.code_name}</a></li>
+			</c:forEach>
+		</ul>
+	</div>
+
 </form:form>
 <c:if test="${fn:length(teachList) <1 }">
 	<div class="nodata">
@@ -97,13 +97,14 @@ $(function(){
 					<c:if test="${fn:length(i.teach_name) > 20}">
 					<br/>
 					</c:if>
-					<a href="" class="name detail-btn" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}">
+					<a href="" class="name toggle-btn" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}">
 						${i.teach_name}
 					</a>
-					<a href="" class="name detail-btn btn btn6" style="float:right; text-align:center; width:85px; font-size: 13px;" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}">
+					<a href="" class="name toggle-btn btn btn6" style="float:right; text-align:center; width:85px; font-size: 13px;" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}">
 						<i class="fa fa-search"></i>상세보기
 					</a>
 				</div>
+				<div class="sk-box" id="${i.teach_idx}" style="display: none;">
 				<div class="box">
 					<div class="box2">
 						<ul class="con2">
@@ -171,6 +172,12 @@ $(function(){
 							<c:if test="${i.limit_hak_yn eq 'Y'}">
 							<li><div><label>학년제한</label> : ${i.limit_hak_str} ~ ${i.limit_hak2_str}</div></li>
 							</c:if>
+							<li>
+								<div>
+									<label>상세내용</label> :
+									<a href="#" title="강좌 상세정보 보기" class="detail-btn btn" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}">강좌 상세정보 보기</a>
+								</div>
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -213,6 +220,7 @@ $(function(){
 							<i class="fa fa-times-circle"></i><span>신청불가(취소)</span></a>
 						</c:when> --%>
 					</c:choose>
+				</div>
 				</div>
 			</div>
 		</c:forEach>

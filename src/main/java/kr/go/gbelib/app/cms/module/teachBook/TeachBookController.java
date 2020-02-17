@@ -85,6 +85,7 @@ public class TeachBookController extends BaseController {
 		//강좌대분류
 		TeachCode2 teachCode2 = new TeachCode2(1);
 		teachCode2.setTeach_code(15);
+		teachCode2.setHomepage_id(getAsideHomepageId(request));
 		model.addAttribute("teachLargeCategoryList", teachCode2Service.getSubcategories(teachCode2));
 
 		return basePath + "index";
