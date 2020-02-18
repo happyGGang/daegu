@@ -40,6 +40,11 @@ $(function() {
 <a href="${prefix}resve/index.do" class="bBtn">대출예약조회</a>
 </div>
 
+<div>
+대출연체 권수 : ${member.overdue_cnt}<br/>
+대출정지만기일 : ${member.loan_stop_date eq 'null' ? '해당없음' : member.loan_stop_date}
+</div>
+
 <div class="book-list">
 <c:if test="${fn:length(loanList) < 1 }"> <h3>현재 대출 중인 도서가 없습니다.</h3></c:if>
 <c:forEach items="${loanList}" var="i">
@@ -65,14 +70,10 @@ $(function() {
 								${i.LOAN_TYPE_CODE}
 								</td>
 							</tr>
-							<tr>
-								<th>대출연장횟수</th>
-								<td>${i.DELAY_CNT}</td>
-							</tr>
-							<tr>
-								<th>대출일</th>
-								<td>${i.LOAN_DATE}</td>
-							</tr>
+<!-- 							<tr> -->
+<!-- 								<th>대출일</th> -->
+<%-- 								<td>${i.LOAN_DATE}</td> --%>
+<!-- 							</tr> -->
 							<tr>
 								<th>반납예정일</th>
 								<td>${i.RETURN_PLAN_DATE}</td>
@@ -91,7 +92,7 @@ $(function() {
 							<tr>
 								<th>반납연기</th>
 								<td>
-									<a href="#" class="btn delay-btn" keyValue1="${i.PK}">신청</a>
+<%-- 									<a href="#" class="btn delay-btn" keyValue1="${i.PK}">신청</a> --%>
 								</td>
 							</tr>
 							</c:if>
