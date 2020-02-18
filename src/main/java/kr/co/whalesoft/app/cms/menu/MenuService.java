@@ -191,7 +191,9 @@ public class MenuService extends BaseService {
 	}
 
 	public int modifyChildMenu(Menu menu) {
-		return dao.modifyChildMenu(menu);
+		dao.modifyChildMenu(menu);
+		dao.modifyMenuFullPathName(menu);
+		return 1;
 	}
 
 	public List<Menu> getSoloMenuList(Menu menu) {

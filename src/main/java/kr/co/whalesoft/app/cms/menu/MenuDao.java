@@ -62,4 +62,10 @@ public interface MenuDao {
 	public int getMenuIdxByProgramIdx(Menu menu);
 
 	public List<Menu> getMenuTreeListWithAuth(MemberGroupAuth memberGroupAuth);
+
+	/**
+	 * @author whalesoft YONGJU 2020. 2. 18.
+	 * @param menu
+	 */
+	public int modifyMenuFullPathName(Menu menu);
 }

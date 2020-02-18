@@ -323,31 +323,11 @@
 		SET
 			parent_menu_idx = #{move_target_menu_idx},
 			GROUP_IDX = NVL((SELECT GROUP_IDX FROM CMS_MENU WHERE HOMEPAGE_ID = #{homepage_id} AND MENU_IDX = #{move_target_menu_idx}), #{menu_idx} ),
-			MENU_FULL_PATH_NAME = (
-				SELECT
-	                LTRIM(SYS_CONNECT_BY_PATH(MENU_NAME,' > '),' >') || ' > ' || (select menu_name from cms_menu where homepage_id = #{homepage_id} and menu_idx = #{menu_idx}) AS MENU_FULL_PATH_NAME
-				FROM
-					(select * from cms_menu where homepage_id = #{homepage_id})
-                WHERE HOMEPAGE_ID = #{homepage_id} AND MENU_IDX = #{move_target_menu_idx}
-				CONNECT BY PRIOR MENU_IDX = PARENT_MENU_IDX
-				START WITH PARENT_MENU_IDX = 0 AND HOMEPAGE_ID = #{homepage_id}
-			),
-			modify_date = SYSDATE,
 			modify_id = #{modify_id},
 			modify_date = SYSDATE
 		WHERE
 			HOMEPAGE_ID = #{homepage_id} AND
 			MENU_IDX = #{menu_idx}
-
-
-		<!-- UPDATE CMS_MENU SET
-			PARENT_MENU_IDX = #{move_target_menu_idx},
-			GROUP_IDX = NVL((SELECT GROUP_IDX FROM CMS_MENU WHERE HOMEPAGE_ID = #{homepage_id} AND MENU_IDX = #{move_target_menu_idx}), 0),
-			modify_date = SYSDATE,
-			modify_id = #{modify_id}
-		WHERE
-			HOMEPAGE_ID = #{homepage_id} AND
-			MENU_IDX = #{menu_idx} -->
 	</update>
 
 	<update id="modifyChildMenu">
@@ -564,5 +544,29 @@
 		START WITH PARENT_MENU_IDX = -1
 		ORDER SIBLINGS BY PRINT_SEQ
 	</select>
+
+	<update id="modifyMenuFullPathName">
+	UPDATE
+		CMS_MENU A
+	SET
+		a.menu_full_path_name = (
+									SELECT
+										LTRIM(SYS_CONNECT_BY_PATH(MENU_NAME,' > '),' >') AS menu_name
+									FROM
+									(
+										SELECT
+											menu_idx, menu_name, parent_menu_idx, print_seq
+								    	FROM
+								    		CMS_MENU a
+								    	WHERE
+								    		homepage_id = #{homepage_id}
+						    		) b
+							    	WHERE b.menu_idx = a.menu_idx
+									CONNECT BY PRIOR menu_idx = parent_menu_idx
+									START WITH parent_menu_idx = 0
+								)
+		WHERE
+			a.homepage_id = #{homepage_id}
+	</update>
 
 </mapper>
