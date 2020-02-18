@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.facilityStudy.FacilityStudyDao">
+
+	<sql id="where">
+		<if test="apply_status != null and apply_status != ''">
+		AND	apply_status = #{apply_status}
+		</if>
+		<if test="apply_name != null and apply_name != ''">
+		AND	apply_name = #{apply_name}
+		</if>
+		<if test="apply_password != null and apply_password != ''">
+		AND	apply_password = #{apply_password}
+		</if>
+		<if test="study_date != null and study_date != ''">
+		AND	study_date = #{study_date}
+		</if>
+		<if test="search_text != null and search_text != ''">
+		AND	${search_type} = #{search_text}
+		</if>
+
+	</sql>
+
+	<select id="getFacilityStudyCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			FACILITY_STUDY
+		WHERE
+			homepage_id = #{homepage_id}
+		<include refid="where"></include>
+	</select>
+
+	<select id="getFacilityStudyList" resultType="kr.go.gbelib.app.cms.module.facilityStudy.FacilityStudy">
+		${pagingTop}
+		SELECT
+			homepage_id, study_idx, study_num, study_date, study_time,
+			apply_name, apply_password, apply_phone1, apply_phone2, study_name,
+			study_purpose, apply_count, apply_list, apply_date, apply_status,
+			cancel_reason
+		FROM
+			FACILITY_STUDY
+		WHERE
+			homepage_id = #{homepage_id}
+		<include refid="where"></include>
+		ORDER BY
+			study_date DESC, study_num, study_time, apply_status
+		${pagingBottom}
+	</select>
+
+	<select id="getFacilityStudyOne" resultType="kr.go.gbelib.app.cms.module.facilityStudy.FacilityStudy">
+		SELECT
+			homepage_id, study_idx, study_num, study_date, study_time,
+			apply_name, apply_password, apply_phone1, apply_phone2, study_name,
+			study_purpose, apply_count, apply_list, apply_date, apply_status,
+			cancel_reason
+		FROM
+			FACILITY_STUDY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	study_idx = #{study_idx}
+		<include refid="where"></include>
+	</select>
+
+	<update id="deleteFacilityStudy">
+		DELETE
+		FROM
+			FACILITY_STUDY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	study_idx = #{study_idx}
+	</update>
+
+	<update id="approveFacilityStudy">
+		UPDATE
+			FACILITY_STUDY
+		SET
+			apply_status = '1'
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	study_idx = #{study_idx}
+	</update>
+
+	<update id="cancelFacilityStudy">
+		UPDATE
+			FACILITY_STUDY
+		SET
+			apply_status = '2',
+			cancel_reason = '관리자 취소'
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	study_idx = #{study_idx}
+	</update>
+
+	<update id="cancelUserFacilityStudy">
+		UPDATE
+			FACILITY_STUDY
+		SET
+			apply_status = '2',
+			cancel_reason = '이용자 취소'
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	study_idx = #{study_idx}
+		AND	apply_name = #{apply_name}
+		AND	apply_password = #{apply_password}
+	</update>
+
+	<update id="readyFacilityStudy">
+		UPDATE
+			FACILITY_STUDY
+		SET
+			apply_status = '0'
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	study_idx = #{study_idx}
+	</update>
+
+	<insert id="addFacilityStudy">
+		<selectKey keyProperty="study_idx" order="BEFORE" resultType="int">
+			SELECT NVL(MAX(study_idx),0) + 1 FROM FACILITY_STUDY
+		</selectKey>
+		INSERT INTO
+			FACILITY_STUDY
+		(
+			homepage_id, study_idx, study_num, study_date, study_time,
+			apply_name, apply_password, apply_phone1, apply_phone2, study_name,
+			study_purpose, apply_count, apply_list, apply_date, apply_status
+		)
+			VALUES
+		(
+			#{homepage_id}, #{study_idx}, #{study_num}, #{study_date}, #{study_time},
+			#{apply_name}, #{apply_password}, #{apply_phone1}, #{apply_phone2}, #{study_name},
+			#{study_purpose}, #{apply_count}, #{apply_list}, SYSDATE, '0'
+		)
+	</insert>
+
+	<select id="getFacilityStudyDailyList" resultType="kr.go.gbelib.app.cms.module.facilityStudy.FacilityStudy">
+		SELECT
+			homepage_id, study_idx, study_num, study_date, study_time,
+			apply_name, apply_password, apply_phone1, apply_phone2, study_name,
+			study_purpose, apply_count, apply_list, apply_date, apply_status,
+			cancel_reason
+		FROM
+			FACILITY_STUDY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	study_date = #{plan_date}
+		AND	apply_status != '2'
+		ORDER BY study_num
+	</select>
+
+	<update id="modifyFacilityStudy">
+		UPDATE
+			FACILITY_STUDY
+		SET
+			study_num = #{study_num},
+			study_date = #{study_date},
+			study_time = #{study_time},
+			apply_name = #{apply_name},
+			apply_phone1 = #{apply_phone1},
+			apply_phone2 = #{apply_phone2},
+			study_name = #{study_name},
+			study_purpose = #{study_purpose},
+			apply_count = #{apply_count},
+			apply_list = #{apply_list}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	study_idx = #{study_idx}
+	</update>
+
+	<select id="isAlready" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			FACILITY_STUDY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	study_date = #{study_date}
+		AND	study_time = #{study_time}
+		AND	study_idx != #{study_idx}
+		AND	apply_status != '2'
+	</select>
+
+</mapper>
