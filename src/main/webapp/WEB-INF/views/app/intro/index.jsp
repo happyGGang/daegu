@@ -21,17 +21,29 @@ $(function() {
 <div id="wrap" class="k-index">
 	<div class="web_section">
 		<div id="header">
-			<div class="title">
-				대구 통합 도서관<br/>통합회원 인증센터
+		<div>
+			<span class="symbol01"><img src="/resources/common/img/symbol01.png" onerror="" alt="대구광역시"></span>
+			<span class="symbol02"><img src="/resources/common/img/symbol02.png" onerror="" alt="행복한 시민 자랑스러운 대구"></span>
+		</div>
+		<div class="tit_box">
+		<img src="/resources/common/img/dg_tit.png" alt="대구 도서관 통합허브시스템 ID 지금부터 만들 수 있어요 ">  
+		</div>
+			<div class="tit_box2">
+				<img src="/resources/common/img/main_text.png" alt="알기 쉽고, 기억하기 쉬운 나만의 아이디 대구통합도서관 회원가입으로 미리 만드세요">  
 			</div>
 		</div>
-
 		<div id="container">
 			<div class="txt">
-				대구 통합 도서관을 이용하시기 위해서는 반드시 통합회원으로 가입하여야 하므로 통합회원가입 신청하시길 바랍니다.
+				대구지역 96개 공립 도서관의 회원정보를 단계적으로 통합하여<br/>
+                <strong>2020년 말까지 하나의 도서관처럼 이용할 수 있는 서비스</strong>로 확대됩니다.<br/>
+                이제 <font color="#ffd300"><strong>하나의 ID</strong></font>로 모든 서비스를 이용 할 수 있습니다. 
 			</div>
 			<div class="button">
-				<a href="/intro/${homepage.context_path}/join/integration.do" class="goBtn"><img src="/resources/common/img/joinBtn.png" alt="login"/></a>
+				<a href="/intro/${homepage.context_path}/join/index.do?" class="goBtn"><img src="/resources/common/img/joinBtn2.png" alt="login"/></a>
+			</div>
+						<div class="cons">
+				대구광역시립도서관 회원이시면 통합인증을 하여주시기 바랍니다. <a href="/intro/${homepage.context_path}/join/integration.do" class="goBtn">[인증하러가기]</a><br/>
+                현재 만든 ID는 소속도서관이 통합되어야 사용 할 수 있습니다.
 			</div>
 		</div>
 	</div>
