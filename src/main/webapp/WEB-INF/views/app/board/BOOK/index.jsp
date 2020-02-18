@@ -8,7 +8,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	var $form = $('#board');
-	
+
 	<%-- 등록 --%>
 	$('a#board_edit_btn').on('click', function(e) {
 		e.preventDefault();
@@ -16,7 +16,7 @@ $(document).ready(function() {
 		var formData = serializeCustom($form);
 		doGetLoad(url, formData);
 	});
-	
+
 	<%-- 상세보기 --%>
 	$('div.row a').on('click', function(e) {
 		e.preventDefault();
@@ -25,7 +25,7 @@ $(document).ready(function() {
 		var formData = serializeCustom($form);
 		doGetLoad(url, formData);
 	});
-	
+
 	$('div.tabmenu a').on('click', function(e) {
 		e.preventDefault();
 		var url = 'index.do';
@@ -34,13 +34,13 @@ $(document).ready(function() {
 		var formData = serializeCustom($form);
 		doGetLoad(url, formData);
 	});
-	
+
 	$('select#rowCount').on('change', function() {
 		var url = 'index.do';
 		var formData = serializeCustom($form);
 		doGetLoad(url, formData);
 	});
-	
+
 	<c:if test="${authMBA}">
 	$('a#board_deleteRecovery_btn').on('click', function(e) {
 		e.preventDefault();
@@ -56,8 +56,8 @@ $(document).ready(function() {
 		var formData = serializeCustom($form);
 		doGetLoad(url, formData);
 	});
-	
-	
+
+
 	$('a#board_normal_btn').on('click', function(e) {
 		e.preventDefault();
 		var url = '../board/index.do';
@@ -68,11 +68,11 @@ $(document).ready(function() {
 });
 </script>
 <script type="text/javascript">
-$(function() { 
-	$(window).resize(function() { 
+$(function() {
+	$(window).resize(function() {
 		$('.search-results img').height($('img#refImg').width() * 0.6);
 	}).trigger('resize');
-	
+
 	$(function(){
 
 		var sysDate = new Date();
@@ -83,70 +83,77 @@ $(function() {
 		for ( var i = 0; i < 15; i ++ ) {
 			var optionYear = (year + 1 - i);
 			var selectedAttr = '';
-			
+
 			if ( optionYear == planDate[0] ) {
 				selectedAttr = 'selected="selected"';
 			}
-			
+
 			$('#plan_year').append('<option ' + selectedAttr + ' value="' + optionYear + '">' + optionYear + '년</option>');
 		}
-		// 월 초기화 
+		// 월 초기화
 		for ( var j = 1; j < 13; j ++ ) {
 			var valueMonth = '0'+j;
 			var selectedAttr = '';
 			valueMonth = valueMonth.substr(valueMonth.length - 2, valueMonth.length);
-			
+
 			if ( j == planDate[1] ) {
 				selectedAttr = 'selected="selected"';
 			}
-			
+
 			$('#plan_month').append('<option ' + selectedAttr + ' value="' + valueMonth + '">' + j + '월</option>');
 		}
-		
+
 		$('#plan_year,#plan_month').on('change', function(e) {
-			var planDate = $('#plan_year').val() + '-' + $('#plan_month').val();
-			$('#plan_date').val(planDate);
-			doGetLoad('index.do', serializeCustom($('#board')));
+// 			var planDate = $('#plan_year').val() + '-' + $('#plan_month').val();
+// 			$('#plan_date').val(planDate);
+// 			doGetLoad('index.do', serializeCustom($('#board')));
 		});
-		
-		$('a#before-btn').on('click', function(event) {			
+
+		$('a#before-btn').on('click', function(event) {
 			event.preventDefault();
-			
+
 			var year = $('#plan_year').val();
 			var month = $('#plan_month').val();
-			
+
 			if(month == 1) {
 				year = parseInt(year)-1;
 				month = 12;
 			} else {
 				month =  parseInt(month)-1;
 			}
-			month = month < 10 ? "0"+month : month; 
+			month = month < 10 ? "0"+month : month;
 			var planDate = year + '-' + month;
 			$('#plan_date').val(planDate);
 			doGetLoad('index.do', serializeCustom($('#board')));
-			
-		});	
-		
-		$('a#next-btn').on('click', function(event) {			
+
+		});
+
+		$('a#next-btn').on('click', function(event) {
 			event.preventDefault();
-			
+
 			var year = $('#plan_year').val();
 			var month = $('#plan_month').val();
-			
+
 			if(month == 12) {
 				year = parseInt(year)+1;
 				month = 1;
 			} else {
 				month =  parseInt(month)+1;
 			}
-			
-			month = month < 10 ? "0"+month : month; 
-			
+
+			month = month < 10 ? "0"+month : month;
+
 			var planDate = year + '-' + month;
 			$('#plan_date').val(planDate);
 			doGetLoad('index.do', serializeCustom($('#board')));
-			
+
+		});
+
+		$('a#monthSelect').on('click', function() {
+			var planDate = $('#plan_year').val() + '-' + $('#plan_month').val();
+			$('#plan_date').val(planDate);
+			$('#viewPage').val('1');
+			doGetLoad('index.do', serializeCustom($('#board')));
 		});
 	});
 });
@@ -172,14 +179,15 @@ ${boardManage.top_html}
 </div>
 </c:if>
 <div class="txt-right ym_btns">
-	추천년월 : 		
+	추천년월 :
 	<a id="before-btn" href="#prev" class="btn prev"><i class="fa fa-angle-left"></i><span class="blind">이전달</span></a>
 	<label for="plan_year"></label>
 	<form:select path="plan_year" class="" style="width:80px;height:28px;"></form:select>
 	<label for="plan_month"></label>
 	<form:select path="plan_month" class="" style="width:65px;height:28px;"></form:select>
+	<a href="#" id="monthSelect" class="btn btn1">이동</a>
 	<a id="next-btn" href="#next" class="btn next"><i class="fa fa-angle-right"></i><span class="blind">다음달</span></a>
-</div>		
+</div>
 <div class="serial-wrap">
 	<div class="smain">
 		<div class="box">
@@ -244,7 +252,7 @@ ${boardManage.top_html}
 
 			</div>
 			<jsp:include page="/WEB-INF/views/app/board/common/index/button.jsp" flush="false" />
-	
+
 			<jsp:include page="/WEB-INF/views/app/board/common/index/paging.jsp" flush="false">
 				<jsp:param name="formId" value="#board"/>
 			</jsp:include>

@@ -255,6 +255,7 @@ ${boardManage.top_html}
 			<a id="before-btn" href="#prev" class="btn prev"><i class="fa fa-angle-left"></i><span class="blind">이전달</span></a>
 			<form:select path="plan_year" class="" style="width:80px;height:28px;" title="년"></form:select>
 			<form:select path="plan_month" class="" style="width:65px;height:28px;" title="월"></form:select>
+			<a href="#" id="monthSelect" class="btn btn1">이동</a>
 			<a id="next-btn" href="#next" class="btn next"><i class="fa fa-angle-right"></i><span class="blind">다음달</span></a>
 		</div>
 	</c:otherwise>
