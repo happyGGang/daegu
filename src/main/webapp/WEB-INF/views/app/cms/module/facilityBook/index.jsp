@@ -93,6 +93,37 @@ $(function() {
 		var select_day = $(this).attr('keyValue2');
 		var plan_date = $('#plan_date').val() + '-' + (select_day < 10 ? 0 + select_day : select_day);
 		
+		var sysdate = new Date();
+		var currYear = sysdate.getFullYear();
+		var currMonth = sysdate.getMonth()+1;
+		var currDate = sysdate.getDate();
+		
+		// 해당 달에는 등록가능
+		var compareMonth = currYear + '-' + (currMonth < 10 ? '0' + currMonth : currMonth);
+		
+		// 다음 달 부터는 20일 이후에 가능하도록
+		var nY = currYear;
+		var nM = currMonth;
+		
+		if(nM == 12) {
+			nY += 1;
+			nM = 1;
+		} else {
+			nM += 1;
+		}
+		nM = nM < 10 ? '0' + nM : nM;
+		var nPlanDate = nY + '-' + nM;
+		if((nPlanDate != $('#plan_date').val() || currDate < 20) && ($('#plan_date').val() != compareMonth)) {
+			alert('20일 이전에는 다음달 예약을 하실 수 없습니다.');
+			return false;
+		}
+		
+		// 지난 일정은 등록이 되지 않게
+		if(new Date(plan_date) - sysdate < 0) {
+			alert('지난 시설은 이용하실 수 없습니다.');
+			return false;
+		}
+		
 		var formData = 'homepage_id='+$('#homepage_id').val()+'&editMode=ADD&plan_date='+plan_date
 			+'&apply_time_code='+$(this).attr('keyValue');
 		$('#dialog-1').load('edit.do?' + formData, function( response, status, xhr ) {

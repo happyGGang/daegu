@@ -88,28 +88,35 @@ $(function(){
 		var currMonth = sysdate.getMonth()+1;
 		var currDate = sysdate.getDate();
 		
-// 		var plan_year = $('#plan_year').val();
-// 		var plan_month = $('#plan_month').val();
-		
-// 		var currDay = new Date(year, month+1, sysDate.getDate());
-// 		var selectDay = new Date($('#plan_year').val(), $('#plan_month').val(), $(this).attr('keyValue2'));
-// 		var diff = selectDay - currDay;
-// 		var diffTime = 24 * 60 * 60 * 1000;
-// 		var sub = diff/diffTime;
-// 		if(sub > 20) {
-// 			alert('20일 이전에는 다음달 예약을 하실 수 없습니다.');
-// 			return false;
-// 		}
-		
+		// 해당 달에는 등록가능
 		var compareMonth = currYear + '-' + (currMonth < 10 ? '0' + currMonth : currMonth);
-		if($('#plan_date').val() != compareMonth && currDate < 20) {
+		
+		// 다음 달 부터는 20일 이후에 가능하도록
+		var nY = currYear;
+		var nM = currMonth;
+		
+		if(nM == 12) {
+			nY += 1;
+			nM = 1;
+		} else {
+			nM += 1;
+		}
+		nM = nM < 10 ? '0' + nM : nM;
+		var nPlanDate = nY + '-' + nM;
+		if((nPlanDate != $('#plan_date').val() || currDate < 20) && ($('#plan_date').val() != compareMonth)) {
 			alert('20일 이전에는 다음달 예약을 하실 수 없습니다.');
+			return false;
+		}
+		
+		// 지난 일정은 등록이 되지 않게
+		if(new Date(plan_date) - sysdate < 0) {
+			alert('지난 시설은 이용하실 수 없습니다.');
 			return false;
 		}
 		
 		var formData = 'menu_idx='+$('#menu_idx').val()+'&homepage_id='+$('#homepage_id').val()+'&editMode=ADD&plan_date='+plan_date
 			+'&apply_time_code='+$(this).attr('keyValue');
-// 		doGetLoad('edit.do', formData);
+		doGetLoad('edit.do', formData);
 	});
 
 });
