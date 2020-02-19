@@ -100,9 +100,16 @@ $(function(){
 					<a href="" class="name toggle-btn" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}">
 						${i.teach_name}
 					</a>
+
 					<a href="" class="name toggle-btn btn btn6" style="float:right; text-align:center; width:85px; font-size: 13px;" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}">
 						<i class="fa fa-search"></i>상세보기
 					</a>
+					<span style="float: right;">
+					<c:if test="${fn:length(i.teach_target) > 0}">
+						<b>대상 : </b> ${i.teach_target} <span>/</span>
+					</c:if>
+					<b>접수현황 : </b><span ${i.teach_join_count > 0 and (i.teach_join_count eq i.teach_limit_count)? 'style="color:red;padding:0; vertical-align:baseline;"' : 'style="color:orange; padding:0; vertical-align:baseline;"'}>${i.teach_join_count}</span> / ${i.teach_limit_count}
+					</span>
 				</div>
 				<div class="sk-box" id="${i.teach_idx}" style="display: none;">
 				<div class="box">
