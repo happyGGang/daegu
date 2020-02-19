@@ -436,12 +436,12 @@ $(function() {
 												<!-- 대출가능 여부 [ END ] -->
 											</p>
 											<c:if test="${not empty i.APPENDIX_INFO}">
-											<p><font style="color:#5e5e5e">부록</font> : ${i.APPENDIX_INFO[0].DESCRIPTION}</p>
+											<p><font style="color:#5e5e5e">부록여부</font> : ${i.APPENDIX_INFO[0].DESCRIPTION} (${i.APPENDIX_INFO[0].APPENDIX_CNT}개)</p>
 											</c:if>
 											<!--
-											JU : 아동, MS : 중학생, AD : 성인, PU : 일반, ES : 초등, HS : 고등, SP : 특수, 기타 :
+											JU : 아동, MS : 중학생, AD : 성인, PU : 일반, ES : 초등, HS : 고등, SP : 특수, 기타 : 
 											-->
-											<p><font style="color:#5e5e5e">이용대상</font> :
+											<p><font style="color:#5e5e5e">이용대상</font> : 
 														<c:choose>
 															<c:when test="${i.USE_OBJECT_CODE eq 'JU'}">
 																<span style="">아동</span>
@@ -636,7 +636,11 @@ $(function() {
 													</c:otherwise>
 												</c:choose>
 												<!-- 대출가능 여부 [ END ] -->
-												<br class="mobileBr"/><span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span> <font style="color:#5e5e5e">이용대상</font> :
+												<c:if test="${not empty i.APPENDIX_INFO}">
+												<br class="mobileBr"/><span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+												<font style="color:#5e5e5e">부록여부</font> : ${i.APPENDIX_INFO[0].DESCRIPTION} (${i.APPENDIX_INFO[0].APPENDIX_CNT}개)
+												</c:if>
+												<br class="mobileBr"/><span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span> <font style="color:#5e5e5e">이용대상</font> : 
 														<c:choose>
 															<c:when test="${i.USE_OBJECT_CODE eq 'JU'}">
 																<span style="">아동</span>
@@ -760,7 +764,7 @@ $(function() {
 				<div class="filter-section">
 					<div class="ws-filter" id="hotTrend" style="height:370px;">
 						<h4>실시간 검색어 순위</h4>
-						<div style="text-align:center;" >
+						<div style="text-align: center;" >
 							불러오는 중...
 						</div>
 					</div>

@@ -404,7 +404,7 @@ $(function() {
 
 											<p><font style="color:#5e5e5e;">저자</font> : ${i.AUTHOR}</p>
 											<p><font style="color:#5e5e5e">발행처</font> : ${i.PUBLISHER}, ${i.PUB_YEAR}</p>
-											<p><font style="color:#5e5e5e">소장도서관</font> : <span style="color:#ff0000;font-weight:bold">${i.LIB_NAME}</span></p>
+											<p><font style="color:#5e5e5e">소장도서관</font> : <span style="color:#ff0000;font-weight:bold">${i.LIB_NAME}</span> / <font style="color:#5e5e5e">소장위치</font> : <span style="font-weight:800;">${i.SHELF_LOC_NAME}</span></p>
 											<p><font style="color:#5e5e5e">청구기호</font> : ${i.CALL_NO}</p>
 											<p><font style="color:#5e5e5e">대출가능여부</font> :
 												<!-- 대출가능 여부 [START] -->
@@ -432,31 +432,62 @@ $(function() {
 													<c:otherwise>
 														<c:choose>
 															<c:when test="${i.WORKING_STATUS == 'BOL211O'}">
-																<span style="color:#ff0000">대출불가(관외대출중)</span>
+																<span style="color:#ff0000">대출불가(관외대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
 															</c:when>
 															<c:when test="${i.WORKING_STATUS == 'BOL212O'}">
-																<span style="color:#ff0000">대출불가(관내대출중)</span>
+																<span style="color:#ff0000">대출불가(관내대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
 															</c:when>
 															<c:when test="${i.WORKING_STATUS == 'BOL511O'}">
-																<span style="color:#ff0000">대출불가(타관반납중)</span>
+																<span style="color:#ff0000">대출불가(타관반납중)(예약 : ${i.RESERVATION_CNT}명)</span>
 															</c:when>
 															<c:when test="${i.WORKING_STATUS == 'BOL611O'}">
-																<span style="color:#ff0000">대출불가(타관대출중)</span>
+																<span style="color:#ff0000">대출불가(타관대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
 															</c:when>
 															<c:otherwise>
-																<span style="color:#ff0000">대출불가</span>
+																<span style="color:#ff0000">대출불가(예약 : ${i.RESERVATION_CNT}명)</span>
 															</c:otherwise>
 														</c:choose>
 													</c:otherwise>
 												</c:choose>
 												<!-- 대출가능 여부 [ END ] -->
 											</p>
-
+<!--
+											JU : 아동, MS : 중학생, AD : 성인, PU : 일반, ES : 초등, HS : 고등, SP : 특수, 기타 : 
+											-->
 											<c:if test="${not empty i.APPENDIX_INFO}">
-											<p><font style="color:#5e5e5e">부록</font> : ${i.APPENDIX_INFO[0].DESCRIPTION}</p>
+											<p><font style="color:#5e5e5e">부록여부</font> : ${i.APPENDIX_INFO[0].DESCRIPTION} (${i.APPENDIX_INFO[0].APPENDIX_CNT}개)</p>
 											</c:if>
-
-											<p><font style="color:#5e5e5e">소장위치</font> : <span style="font-weight:800;">${i.SHELF_LOC_NAME}</span></p>
+											<p>
+											<font style="color:#5e5e5e">이용대상</font> : 
+														<c:choose>
+															<c:when test="${i.USE_OBJECT_CODE eq 'JU'}">
+																<span style="">아동</span>
+															</c:when>
+															<c:when test="${i.USE_OBJECT_CODE eq 'MS'}">
+																<span style="">중학생</span>
+															</c:when>
+															<c:when test="${i.USE_OBJECT_CODE eq 'AD'}">
+																<span style="">성인</span>
+															</c:when>
+															<c:when test="${i.USE_OBJECT_CODE eq 'PU'}">
+																<span style="">일반</span>
+															</c:when>
+															<c:when test="${i.USE_OBJECT_CODE eq 'ES'}">
+																<span style="">초등</span>
+															</c:when>
+															<c:when test="${i.USE_OBJECT_CODE eq 'HS'}">
+																<span style="">고등</span>
+															</c:when>
+															<c:when test="${i.USE_OBJECT_CODE eq 'SP'}">
+																<span style="">특수</span>
+															</c:when>
+															<c:otherwise>
+																<span style="">기타</span>
+															</c:otherwise>
+														</c:choose>
+											</p>
+											<p><font style="color:#5e5e5e">매체구분</font> : <span style="">${i.MEDIA_NAME}</span></p>
+											<!-- <p><font style="color:#5e5e5e">소장위치</font> : <span style="font-weight:800;">${i.SHELF_LOC_NAME}</span></p> -->
 											<div class="stat">
 												<a href="#showSlide" class="showSlide"><span>소장정보</span></a>
 											</div>
@@ -512,19 +543,19 @@ $(function() {
 													<c:otherwise>
 														<c:choose>
 															<c:when test="${i.WORKING_STATUS == 'BOL211O'}">
-																<span style="color:#ff0000">대출불가(관외대출중)</span>
+																<span style="color:#ff0000">대출불가(관외대출중)</span><br/>(예약 : ${i.RESERVATION_CNT}명)
 															</c:when>
 															<c:when test="${i.WORKING_STATUS == 'BOL212O'}">
-																<span style="color:#ff0000">대출불가(관내대출중)</span>
+																<span style="color:#ff0000">대출불가(관내대출중)</span><br/>(예약 : ${i.RESERVATION_CNT}명)
 															</c:when>
 															<c:when test="${i.WORKING_STATUS == 'BOL511O'}">
-																<span style="color:#ff0000">대출불가(타관반납중)</span>
+																<span style="color:#ff0000">대출불가(타관반납중)</span><br/>(예약 : ${i.RESERVATION_CNT}명)
 															</c:when>
 															<c:when test="${i.WORKING_STATUS == 'BOL611O'}">
-																<span style="color:#ff0000">대출불가(타관대출중)</span>
+																<span style="color:#ff0000">대출불가(타관대출중)</span><br/>(예약 : ${i.RESERVATION_CNT}명)
 															</c:when>
 															<c:otherwise>
-																<span style="color:#ff0000">대출불가</span>
+																<span style="color:#ff0000">대출불가</span><br/>(예약 : ${i.RESERVATION_CNT}명)
 															</c:otherwise>
 														</c:choose>
 													</c:otherwise>
