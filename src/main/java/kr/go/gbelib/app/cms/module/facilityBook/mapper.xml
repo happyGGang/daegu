@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.facilityBook.FacilityBookDao">
+
+	<sql id="field">
+		homepage_id, facility_book_idx, apply_name, phone, sub_phone, facility_book_name,
+		TO_CHAR(apply_date, 'yyyy-MM-dd') AS apply_date, apply_time_code, curcles_name, man_count, woman_count, attend_list,
+		apply_status, add_date, add_id
+	</sql>
+
+	<select id="getCalendar" resultType="kr.go.gbelib.app.cms.module.facilityBook.FacilityBook">
+		SELECT
+			MIN( DECODE( TO_CHAR(days, 'D'), 1, TO_CHAR(days, 'FMDD'))) AS sun,
+			MIN( DECODE( TO_CHAR(days, 'D'), 2, TO_CHAR(days, 'FMDD'))) AS mon,
+			MIN( DECODE( TO_CHAR(days, 'D'), 3, TO_CHAR(days, 'FMDD'))) AS tue,
+			MIN( DECODE( TO_CHAR(days, 'D'), 4, TO_CHAR(days, 'FMDD'))) AS wed,
+			MIN( DECODE( TO_CHAR(days, 'D'), 5, TO_CHAR(days, 'FMDD'))) AS thu,
+			MIN( DECODE( TO_CHAR(days, 'D'), 6, TO_CHAR(days, 'FMDD'))) AS fri,
+			MIN( DECODE( TO_CHAR(days, 'D'), 7, TO_CHAR(days, 'FMDD'))) AS sat
+   		FROM
+   			(
+			SELECT
+				(A.base_mon + ROWNUM -1) AS days, A.base_mon,
+				((TRUNC(BASE_MON + ROWNUM - 1, 'D') - TRUNC(TRUNC(BASE_MON + ROWNUM - 1, 'Y'), 'D')) / 7 + 1) AS week_num
+			FROM
+				(
+				SELECT
+					TO_DATE(#{plan_date}, 'yyyy-MM') base_mon
+				FROM
+					DUAL
+				) A, DICTIONARY B
+			) C
+		WHERE
+			C.days <![CDATA[<=]]> LAST_DAY(base_mon)
+  		GROUP BY week_num
+  		ORDER BY week_num
+	</select>
+	
+	<select id="getApplyList" resultType="kr.go.gbelib.app.cms.module.facilityBook.FacilityBook">
+		SELECT
+			<include refid="field" />, modify_date, modify_id
+		FROM
+			FACILITY_BOOK
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	TO_CHAR(apply_date, 'yyyy-MM') = #{plan_date}
+		ORDER BY apply_date ASC, apply_time_code ASC
+	</select>
+	
+	<insert id="addFacilityBook">
+		<selectKey keyProperty="facility_book_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(facility_book_idx), 0) + 1 FROM FACILITY_BOOK WHERE homepage_id = #{homepage_id}
+		</selectKey>
+		INSERT INTO
+			FACILITY_BOOK
+		(
+			homepage_id, facility_book_idx, apply_name, phone, sub_phone, facility_book_name,
+			apply_date, apply_time_code, curcles_name, man_count, woman_count, attend_list,
+			apply_status, add_date, add_id
+		)
+		VALUES
+		(
+			#{homepage_id}, #{facility_book_idx}, #{apply_name}, #{phone}, #{sub_phone}, #{facility_book_name},
+			#{apply_date}, #{apply_time_code}, #{curcles_name}, #{man_count}, #{woman_count}, #{attend_list},
+			'0', SYSDATE, #{add_id}
+		)
+	</insert>
+	
+	<select id="getFacilityBookDuplCheck" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			FACILITY_BOOK
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	TO_CHAR(apply_date, 'yyyy-MM-dd') = #{apply_date}
+		AND	apply_time_code = #{apply_time_code}
+	</select>
+	
+	<select id="getCloseDuplCheck" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			FACILITY_BOOK_CLOSE
+		WHERE
+			homepage_id = 'h10'
+		AND	TO_CHAR(close_date, 'yyyy-MM-dd') = #{apply_date}
+		AND	close_time = #{apply_time_code}
+	</select>
+	
+	<update id="modifyFacilityBook">
+		UPDATE
+			FACILITY_BOOK
+		SET
+			apply_name = #{apply_name},
+			phone = #{phone},
+			sub_phone = #{sub_phone},
+			facility_book_name = #{facility_book_name},
+			apply_date = #{apply_date},
+			apply_time_code = #{apply_time_code},
+			curcles_name = #{curcles_name},
+			man_count = #{man_count},
+			woman_count = #{woman_count},
+			attend_list = #{attend_list},
+			apply_status = #{apply_status},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	facility_book_idx = #{facility_book_idx}
+	</update>
+	
+	<select id="getFacilityBookAll" resultType="kr.go.gbelib.app.cms.module.facilityBook.FacilityBook">
+		${pagingTop}
+		SELECT
+			<include refid="field" />, modify_date, modify_id
+		FROM
+			FACILITY_BOOK
+		WHERE
+			homepage_id = #{homepage_id}
+		ORDER BY add_date DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getFacilityBookCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			FACILITY_BOOK
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+	
+	<select id="getFacilityBookOne" resultType="kr.go.gbelib.app.cms.module.facilityBook.FacilityBook">
+		SELECT
+			<include refid="field" />, modify_date, modify_id
+		FROM
+			FACILITY_BOOK
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	facility_book_idx = #{facility_book_idx}
+	</select>
+	
+	<select id="getFacilityBookClose" resultType="kr.go.gbelib.app.cms.module.facilityBook.FacilityBook">
+		SELECT
+			homepage_id, close_idx, TO_CHAR(close_date, 'yyyy-MM-dd') AS close_date, close_time, add_date, add_id
+		FROM
+			FACILITY_BOOK_CLOSE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	TO_CHAR(close_date, 'yyyy-MM') = #{plan_date}
+	</select>
+	
+	<insert id="addFacilityBookClose">
+		<selectKey keyProperty="close_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(close_idx), 0) + 1 FROM FACILITY_BOOK_CLOSE WHERE homepage_id = #{homepage_id}
+		</selectKey>
+		INSERT INTO
+			FACILITY_BOOK_CLOSE
+		(
+			homepage_id, close_idx, close_date, close_time, add_date, add_id
+		)
+		VALUES
+		(
+			#{homepage_id}, #{close_idx}, #{close_date}, #{close_time}, SYSDATE, #{add_id}
+		)
+	</insert>
+	
+</mapper>
