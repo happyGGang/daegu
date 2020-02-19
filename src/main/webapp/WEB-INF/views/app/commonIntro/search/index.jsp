@@ -451,6 +451,11 @@ $(function() {
 												</c:choose>
 												<!-- 대출가능 여부 [ END ] -->
 											</p>
+
+											<c:if test="${not empty i.APPENDIX_INFO}">
+											<p><font style="color:#5e5e5e">부록</font> : ${i.APPENDIX_INFO[0].DESCRIPTION}</p>
+											</c:if>
+
 											<p><font style="color:#5e5e5e">소장위치</font> : <span style="font-weight:800;">${i.SHELF_LOC_NAME}</span></p>
 											<div class="stat">
 												<a href="#showSlide" class="showSlide"><span>소장정보</span></a>
