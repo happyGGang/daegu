@@ -4,10 +4,28 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script>
 $(function() {
-	
+	var $form = $('#facilityBookStatus');
+		
+	$('select.apply_status_change').on('change', function(e) {
+		e.preventDefault();
+		if(confirm('선택한 신청 상태를 변경하시겠습니까?')) {
+			$('#statusMode').val('STATUS');
+			$('#status_facility_book_idx').val($(this).attr('keyValue'));
+			$('#status_apply_status').val($(this).val());
+			$('#status_view_page').val($('#viewPage').val());
+			doAjaxPost($form, '#apply_list_box');
+		}
+	});
 });
 </script>
-<form:form modelAttribute="facilityBook" action="apply.do" method="GET">
+<form:form modelAttribute="facilityBook" id="facilityBookStatus" action="save.do" method="POST">
+<form:hidden path="editMode" id="statusMode"/>
+<form:hidden path="homepage_id" id="status_homepage_id"/>
+<form:hidden path="facility_book_idx" id="status_facility_book_idx"/>
+<form:hidden path="apply_status" id="status_apply_status"/>
+<form:hidden path="viewPage" id="status_view_page"/>
+</form:form>
+<form:form modelAttribute="facilityBook" id="facilityBookApply" action="apply.do" method="GET">
 	<div class="table-wrap">
 		<table class="type1 center">
 			<colgroup>
@@ -43,14 +61,14 @@ $(function() {
 								<c:when test="${i.apply_time_code eq '0'}">오전</c:when>
 								<c:when test="${i.apply_time_code eq '1'}">오후</c:when>
 							</c:choose>
-							&nbsp;시간
+							시간
 							</span>
 						</td>
 						<td>
-						<c:choose>
-							<c:when test="${i.apply_status eq '0'}">대기</c:when>
-							<c:when test="${i.apply_status eq '1'}">승인</c:when>
-						</c:choose>
+							<select class="apply_status_change" keyValue="${i.facility_book_idx}">
+								<option value="0" ${i.apply_status eq '0' ? 'selected' :  ''} label="대기" />
+								<option value="1" ${i.apply_status eq '1' ? 'selected' :  ''} label="승인" />
+							</select>
 						</td>
 					</tr>
 				</c:forEach>
@@ -64,7 +82,7 @@ $(function() {
 	</div>
 	
 	<jsp:include page="/WEB-INF/views/app/cms/module/facilityBook/paging.jsp" flush="false">
-		<jsp:param name="formId" value="#facilityBook"/>
+		<jsp:param name="formId" value="#facilityBookApply"/>
 		<jsp:param name="pagingUrl" value="applyList.do"/>
 		<jsp:param name="ajaxBody" value="apply_list_box"/>
 	</jsp:include>

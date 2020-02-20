@@ -14,6 +14,10 @@ public interface FacilityBookDao {
 	
 	public int getCloseDuplCheck(FacilityBook facilityBook);
 	
+	public int modifyFacilityBook(FacilityBook facilityBook);
+	
+	public int changeStatus(FacilityBook facilityBook);
+	
 	public List<FacilityBook> getFacilityBookAll(FacilityBook facilityBook);
 	
 	public int getFacilityBookCount(FacilityBook facilityBook);
@@ -21,8 +25,6 @@ public interface FacilityBookDao {
 	public FacilityBook getFacilityBookOne(FacilityBook facilityBook);
 
 	public int addFacilityBookClose(FacilityBook facilityBook);
-
-	public int modifyFacilityBook(FacilityBook facilityBook);
 
 	public List<FacilityBook> getFacilityBookClose(FacilityBook facilityBook);
 

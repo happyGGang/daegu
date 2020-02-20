@@ -83,30 +83,32 @@ public class FacilityBookController extends BaseController {
 	public @ResponseBody JsonResponse save(FacilityBook facilityBook, BindingResult result, HttpServletRequest request) {
 		/* 유효성 검증 >>>>> */
 		JsonResponse res = new JsonResponse(request);
-		ValidationUtils.rejectIfEmpty(result, "apply_name", "신청인을 입력하세요.");
-		ValidationUtils.rejectIfEmpty(result, "phone1", "신청자 연락처를 입력하세요.");
-		ValidationUtils.rejectIfEmpty(result, "phone2", "신청자 연락처를 입력하세요.");
-		ValidationUtils.rejectIfEmpty(result, "phone3", "신청자 연락처를 입력하세요.");
-		ValidationUtils.rejectIfEmpty(result, "sub_phone1", "참여인원 연락처를 입력하세요.");
-		ValidationUtils.rejectIfEmpty(result, "sub_phone2", "참여인원 연락처를 입력하세요.");
-		ValidationUtils.rejectIfEmpty(result, "sub_phone3", "참여인원 연락처를 입력하세요.");
-		ValidationUtils.rejectIfEmpty(result, "apply_date", "이용시간을 입력하세요.");
-		ValidationUtils.rejectIfEmpty(result, "curcles_name", "모임명을 입력하세요.");
-		
-		if(facilityBook.getMan_count() == 0 && facilityBook.getWoman_count() == 0) {
-			result.rejectValue("man_count", "참여인원을 입력하세요.");
-		}
-		ValidationUtils.rejectIfEmpty(result, "attend_list", "참가자 명단을 입력하세요.");
-		ValidationUtils.rejectIfEmpty(result, "add_id", "신청인을 입력하세요.");
-		
-		String[] date_arr = facilityBook.getApply_date().split("-");
+		if(facilityBook.getEditMode().equals("ADD") || facilityBook.getEditMode().equals("MODIFY")) {
+    		ValidationUtils.rejectIfEmpty(result, "apply_name", "신청인을 입력하세요.");
+    		ValidationUtils.rejectIfEmpty(result, "phone1", "신청자 연락처를 입력하세요.");
+    		ValidationUtils.rejectIfEmpty(result, "phone2", "신청자 연락처를 입력하세요.");
+    		ValidationUtils.rejectIfEmpty(result, "phone3", "신청자 연락처를 입력하세요.");
+    		ValidationUtils.rejectIfEmpty(result, "sub_phone1", "참여인원 연락처를 입력하세요.");
+    		ValidationUtils.rejectIfEmpty(result, "sub_phone2", "참여인원 연락처를 입력하세요.");
+    		ValidationUtils.rejectIfEmpty(result, "sub_phone3", "참여인원 연락처를 입력하세요.");
+    		ValidationUtils.rejectIfEmpty(result, "apply_date", "이용시간을 입력하세요.");
+    		ValidationUtils.rejectIfEmpty(result, "curcles_name", "모임명을 입력하세요.");
+    		
+    		if(facilityBook.getMan_count() == 0 && facilityBook.getWoman_count() == 0) {
+    			result.rejectValue("man_count", "참여인원을 입력하세요.");
+    		}
+    		ValidationUtils.rejectIfEmpty(result, "attend_list", "참가자 명단을 입력하세요.");
+    		ValidationUtils.rejectIfEmpty(result, "add_id", "신청인을 입력하세요.");
+    		
+    		String[] date_arr = facilityBook.getApply_date().split("-");
 
-		DateTime reference = new DateTime(Integer.parseInt(date_arr[0]), Integer.parseInt(date_arr[1]), 20, 0, 0);
-		long ref = reference.plusMonths(-1).getMillis();
-		DateTime today = new DateTime();
+    		DateTime reference = new DateTime(Integer.parseInt(date_arr[0]), Integer.parseInt(date_arr[1]), 20, 0, 0);
+    		long ref = reference.plusMonths(-1).getMillis();
+    		DateTime today = new DateTime();
 
-		if (ref > today.getMillis()) {
-			result.reject("20일 이후 신청 가능합니다.");
+    		if (ref > today.getMillis()) {
+    			result.reject("20일 이후 신청 가능합니다.");
+    		}
 		}
 		
 		if(facilityBook.getEditMode().equals("ADD")) {

@@ -35,6 +35,14 @@ public class FacilityBookService extends BaseService {
 		return dao.getCloseDuplCheck(facilityBook);
 	}
 	
+	public int modifyFacilityBook(FacilityBook facilityBook) {
+		return dao.modifyFacilityBook(facilityBook);
+	}
+	
+	public int changeStatus(FacilityBook facilityBook) {
+		return dao.changeStatus(facilityBook);
+	}
+	
 	public Map<String, Map<String, FacilityBook>> convertToRepo(List<FacilityBook> list) {
 		Map<String, Map<String, FacilityBook>> map = new HashMap<String, Map<String, FacilityBook>>();
 		
@@ -73,10 +81,6 @@ public class FacilityBookService extends BaseService {
 
 	public int addFacilityBookClose(FacilityBook facilityBook) {
 		return dao.addFacilityBookClose(facilityBook);
-	}
-
-	public int modifyFacilityBook(FacilityBook facilityBook) {
-		return dao.modifyFacilityBook(facilityBook);
 	}
 
 	public Map<String, Map<String, FacilityBook>> getFacilityBookClose(FacilityBook facilityBook) {

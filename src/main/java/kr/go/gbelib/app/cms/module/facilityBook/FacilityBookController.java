@@ -107,27 +107,38 @@ public class FacilityBookController extends BaseController {
 				result.rejectValue("man_count", "참여인원을 입력하세요.");
 			}
 			ValidationUtils.rejectIfEmpty(result, "attend_list", "참가자 명단을 입력하세요.");
+			
+			String[] date_arr = facilityBook.getApply_date().split("-");
+
+			DateTime reference = new DateTime(Integer.parseInt(date_arr[0]), Integer.parseInt(date_arr[1]), 20, 0, 0);
+			long ref = reference.plusMonths(-1).getMillis();
+			DateTime today = new DateTime();
+
+			if (ref > today.getMillis()) {
+				result.reject("20일 이후 신청 가능합니다.");
+			}
 		}
 		
-		String[] date_arr = facilityBook.getApply_date().split("-");
-
-		DateTime reference = new DateTime(Integer.parseInt(date_arr[0]), Integer.parseInt(date_arr[1]), 20, 0, 0);
-		long ref = reference.plusMonths(-1).getMillis();
-		DateTime today = new DateTime();
-
-		if (ref > today.getMillis()) {
-			result.reject("20일 이후 신청 가능합니다.");
-		}
-		
-		if(facilityBook.getEditMode().equals("ADD")) {
-			int duplChk = service.getFacilityBookDuplCheck(facilityBook);
-			if(duplChk > 0) {
-				result.reject("해당 시설은 이미 신청자가 있습니다.");
+		if(facilityBook.getEditMode().equals("ADD") || facilityBook.getEditMode().equals("CLOSE")) {
+			if(facilityBook.getEditMode().equals("CLOSE")) {
+				facilityBook.setApply_date(facilityBook.getClose_date());
+				facilityBook.setApply_time_code(facilityBook.getClose_time());
 			}
 			
-			int closeDuplChk = service.getCloseDuplCheck(facilityBook);
-			if(closeDuplChk > 0) {
-				result.reject("해당 시설은 휴관입니다.");
+			String[] apply_time_arr = facilityBook.getApply_time_code().split(",");
+			
+			for (String time : apply_time_arr) {
+				facilityBook.setApply_time_code(time);
+				
+				int duplChk = service.getFacilityBookDuplCheck(facilityBook);
+				if(duplChk > 0) {
+					result.reject("해당 시설은 이미 신청자가 있습니다.");
+				}
+				
+				int closeDuplChk = service.getCloseDuplCheck(facilityBook);
+				if(closeDuplChk > 0) {
+					result.reject("해당 시설은 휴관입니다.");
+				}
 			}
 		}
 		/* <<<<< 유효성 검증 */
@@ -153,7 +164,13 @@ public class FacilityBookController extends BaseController {
 				}
 				res.setValid(true);
 				res.setMessage("휴관일 등록되었습니다.");
-			} 
+			} else if(facilityBook.getEditMode().equals("STATUS")) {
+				service.changeStatus(facilityBook);
+				res.setValid(true);
+				res.setUrl("applyList.do");
+				res.setData("viewPage="+facilityBook.getViewPage());
+				res.setMessage("상태 변경되었습니다.");
+			}
 		} else {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());

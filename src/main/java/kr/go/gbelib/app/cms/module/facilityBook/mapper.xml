@@ -110,6 +110,16 @@
 		AND	facility_book_idx = #{facility_book_idx}
 	</update>
 	
+	<update id="changeStatus">
+		UPDATE
+			FACILITY_BOOK
+		SET
+			apply_status = #{apply_status}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	facility_book_idx = #{facility_book_idx}
+	</update>
+	
 	<select id="getFacilityBookAll" resultType="kr.go.gbelib.app.cms.module.facilityBook.FacilityBook">
 		${pagingTop}
 		SELECT
