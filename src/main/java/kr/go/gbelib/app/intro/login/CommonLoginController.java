@@ -115,6 +115,7 @@ public class CommonLoginController extends BaseController {
 			return null;
 		}
 
+		member.setManage_code(homepage.getManage_code());
 		member.setLoginType("HOMEPAGE");
 		Object result = LoginAPI.login(member);
 		if (result instanceof Member) {
