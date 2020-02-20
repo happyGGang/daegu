@@ -5,6 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
 <tiles:insertAttribute name="header" />
+<link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub_default.css"/>
 <c:choose>
 <c:when test="${param.type == 'EBK'}">
 <c:set var="label"				value="전자책"/>
@@ -73,118 +74,142 @@ $(function() {
 });
 </script>
 
-<div id="wrap">
+<div id="wrap" style="background:#fff;">
 
-	<div id="header">
+	<div id="subheader">
 		<tiles:insertAttribute name="top" />
 		<tiles:insertAttribute name="topMenu" />
+
+		<div class="sub-comment">
+			손 끝에서 시작되는 <b>가장 스마트한 생활</b>
+		</div>
+
+		<div class="section search">
+			<div class="sub_search-box">
+				<form id="mainSearchForm" method="POST" action="/elib/module/elib/search/index.do">
+					<input type="hidden" name="menu_idx" value="2">
+					<fieldset>
+						<legend class="blind">통합검색</legend>
+						<div class="box">
+							<div class="b1">
+								<input type="text" class="text" name="search_text" id="search_text" placeholder="책을 찾는 설레임!"/>
+							</div>
+							<div class="b2">
+								<button id="main-search-btn">SEARCH</button>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
 	</div>
 
-	<div id="sub-container">
+	<div id="sub-container" class="sub container">
 		<div class="doc-info">
-			<div class="section">
+			<div class="section page-navigation">
 				<ol>
 					<li class="first">
 						<a href="/${homepage.context_path}/index.do">
-							<img src="/resources/homepage/${homepage.context_path}/img/home.png" alt="HOME">
+							<img src="/resources/homepage/${homepage.context_path}/img/home-loc.png" alt="HOME">
 						</a>
 					</li>
 					<homepageTag:docInfo oneMenu="${menuOne}" menuList="${menuLeftList}"/>
 				</ol>
 
 				<jsp:include page="/WEB-INF/views/app/homepage/${homepage.context_path}/snsShareBox.jsp" flush="false" />
+				<div class="end"></div>
 			</div>
 		</div>
 
 		<div class="section">
-		<c:if test="${menuOne ne null}">
-		<div class="lnb">
-			<h2><b>${fn:escapeXml(menuLeftList[0].menu_name)}</b></h2>
-			<c:choose>
-			<c:when test="${param.type == 'EBK' || param.type == 'ADO' || param.type == 'WEB'}">
-			<ul class="SubMenu">
-				<li id="menu_${menu_idx_new}"<c:if test="${param.menu_idx == menu_idx_new}"> class="active"</c:if>><a href="/elib/module/elib/book/index.do?menu_idx=${menu_idx_new}&menu=NEW&type=${fn:escapeXml(param.type)}"><span>신착${label}</span></a></li>
+			<c:if test="${menuOne ne null}">
+			<div class="lnb">
+				<h2><b>${fn:escapeXml(menuLeftList[0].menu_name)}</b></h2>
 				<c:choose>
-				<c:when test="${param.type == 'EBK'}">
-				<li id="menu_${menu_idx_best}"<c:if test="${param.menu_idx == menu_idx_best}"> class="active"</c:if>><a href="/elib/module/elib/book/index.do?menu_idx=${menu_idx_best}&menu=BEST&type=${fn:escapeXml(param.type)}"><span>인기${label}</span></a></li>
-				</c:when>
-				<c:otherwise>
-				<li id="menu_${menu_idx_best}"<c:if test="${param.menu_idx == menu_idx_best}"> class="active"</c:if>><a href="/elib/module/elib/book/index.do?menu_idx=${menu_idx_best}&menu=RECOMMEND&type=${fn:escapeXml(param.type)}"><span>인기${label}</span></a></li>
-				</c:otherwise>
-				</c:choose>
-				<!-- <li id="menu_${menu_idx_recommend}"<c:if test="${param.menu_idx == menu_idx_recommend}"> class="active"</c:if>><a href="/elib/module/elib/book/index.do?menu_idx=${menu_idx_recommend}&menu=RECOMMEND&type=${fn:escapeXml(param.type)}"><span>좋아요순</span></a></li> -->
-			</ul>
-			<ul class="SubMenu">
-				<c:if test="${not empty categoryMenuList}">
-				<li id="menu_${menu_idx_category}"><a href="/elib/module/elib/book/index.do?menu_idx=${menu_idx_category}&menu=CATEGORY&type=${fn:escapeXml(param.type)}"><span>주제별</span></a>
-					<ul class="SubMenu" style="display: block;">
-						<c:forEach items="${categoryMenuList}" var="i" varStatus="status">
-						<li style="line-height: 0%;"<c:if test="${param.parent_id == i.cate_id}"> class="active"</c:if>>
-						<br/>
-						<a href="#" class="elib-left-menu" style="padding:20px 30px;" data-key="parent_id=${i.cate_id}" data-menu_idx="${menu_idx_category}" data-menu="CATEGORY">
-							<span${fn:length(i.cate_name) >= 10 ? ' style="font-size: 12px;"' : ''}>${i.cate_name}</span>
-							<span style="color: #aaa; font-weight: normal; font-size: 12px;">(<fmt:formatNumber value="${i.cnt}" pattern="#,###" />)</span>
-						</a><br/>
-						</li>
-						</c:forEach>
-					</ul>
-				</li>
-				</c:if>
-				<c:if test="${not empty compMenuList}">
-				<li id="menu_${menu_idx_provider}"><a href="/elib/module/elib/book/index.do?menu_idx=${menu_idx_provider}&menu=PROVIDER&type=${fn:escapeXml(param.type)}"><span>유통사별</span></a>
-					<ul class="SubMenu" style="display: block;">
-						<c:forEach items="${compMenuList}" var="i" varStatus="status">
-						<c:if test="${i.com_code ne 'ARTN'}">
-						<li style="line-height: 0%;"<c:if test="${param.com_code == i.com_code}"> class="active"</c:if>>
-						<br/>
-						<a href="#" class="elib-left-menu" style="padding:20px 30px;" data-key="com_code=${i.com_code}" data-menu_idx="${menu_idx_provider}" data-menu="PROVIDER">
-							<span>${i.comp_name}</span>
-							<span style="color: #aaa; font-weight: normal; font-size: 12px;">(<fmt:formatNumber value="${i.cnt}" pattern="#,###" />)</span>
-						</a><br/>
-						</li>
-						</c:if>
-						</c:forEach>
-					</ul>
-				</li>
-				</c:if>
+				<c:when test="${param.type == 'EBK' || param.type == 'ADO' || param.type == 'WEB'}">
+				<ul class="SubMenu">
+					<li id="menu_${menu_idx_new}"<c:if test="${param.menu_idx == menu_idx_new}"> class="active"</c:if>><a href="/elib/module/elib/book/index.do?menu_idx=${menu_idx_new}&menu=NEW&type=${fn:escapeXml(param.type)}"><span>신착${label}</span></a></li>
+					<c:choose>
+					<c:when test="${param.type == 'EBK'}">
+					<li id="menu_${menu_idx_best}"<c:if test="${param.menu_idx == menu_idx_best}"> class="active"</c:if>><a href="/elib/module/elib/book/index.do?menu_idx=${menu_idx_best}&menu=BEST&type=${fn:escapeXml(param.type)}"><span>인기${label}</span></a></li>
+					</c:when>
+					<c:otherwise>
+					<li id="menu_${menu_idx_best}"<c:if test="${param.menu_idx == menu_idx_best}"> class="active"</c:if>><a href="/elib/module/elib/book/index.do?menu_idx=${menu_idx_best}&menu=RECOMMEND&type=${fn:escapeXml(param.type)}"><span>인기${label}</span></a></li>
+					</c:otherwise>
+					</c:choose>
+					<!-- <li id="menu_${menu_idx_recommend}"<c:if test="${param.menu_idx == menu_idx_recommend}"> class="active"</c:if>><a href="/elib/module/elib/book/index.do?menu_idx=${menu_idx_recommend}&menu=RECOMMEND&type=${fn:escapeXml(param.type)}"><span>좋아요순</span></a></li> -->
+				</ul>
+				<ul class="SubMenu">
+					<c:if test="${not empty categoryMenuList}">
+					<li id="menu_${menu_idx_category}"><a href="/elib/module/elib/book/index.do?menu_idx=${menu_idx_category}&menu=CATEGORY&type=${fn:escapeXml(param.type)}"><span>주제별</span></a>
+						<ul class="SubMenu" style="display: block;">
+							<c:forEach items="${categoryMenuList}" var="i" varStatus="status">
+							<li style="line-height: 0%;"<c:if test="${param.parent_id == i.cate_id}"> class="active"</c:if>>
+							<br/>
+							<a href="#" class="elib-left-menu" style="padding:20px 30px;" data-key="parent_id=${i.cate_id}" data-menu_idx="${menu_idx_category}" data-menu="CATEGORY">
+								<span${fn:length(i.cate_name) >= 10 ? ' style="font-size: 12px;"' : ''}>${i.cate_name}</span>
+								<span style="color: #aaa; font-weight: normal; font-size: 12px;">(<fmt:formatNumber value="${i.cnt}" pattern="#,###" />)</span>
+							</a><br/>
+							</li>
+							</c:forEach>
+						</ul>
+					</li>
+					</c:if>
+					<c:if test="${not empty compMenuList}">
+					<li id="menu_${menu_idx_provider}"><a href="/elib/module/elib/book/index.do?menu_idx=${menu_idx_provider}&menu=PROVIDER&type=${fn:escapeXml(param.type)}"><span>유통사별</span></a>
+						<ul class="SubMenu" style="display: block;">
+							<c:forEach items="${compMenuList}" var="i" varStatus="status">
+							<c:if test="${i.com_code ne 'ARTN'}">
+							<li style="line-height: 0%;"<c:if test="${param.com_code == i.com_code}"> class="active"</c:if>>
+							<br/>
+							<a href="#" class="elib-left-menu" style="padding:20px 30px;" data-key="com_code=${i.com_code}" data-menu_idx="${menu_idx_provider}" data-menu="PROVIDER">
+								<span>${i.comp_name}</span>
+								<span style="color: #aaa; font-weight: normal; font-size: 12px;">(<fmt:formatNumber value="${i.cnt}" pattern="#,###" />)</span>
+							</a><br/>
+							</li>
+							</c:if>
+							</c:forEach>
+						</ul>
+					</li>
+					</c:if>
+					<!--
+					<c:if test="${not empty deviceMenuList}">
+					<li id="menu_${menu_idx_device}"><a href="/elib/module/elib/book/index.do?menu_idx=${menu_idx_device}&menu=DEVICE&type=${fn:escapeXml(param.type)}"><span>지원기기별</span></a>
+						<ul class="SubMenu" style="display: block;">
+							<c:forEach items="${deviceMenuList}" var="i" varStatus="status">
+							<li style="line-height: 0%;"<c:if test="${param.device == i.device}"> class="active"</c:if>>
+							<br/>
+							<a href="#" class="elib-left-menu" style="padding:20px 30px;" data-key="device=${i.device}" data-menu_idx="${menu_idx_device}" data-menu="DEVICE">
+								<span>${i.label}</span>
+								<p style="color: #aaa; font-weight: normal; font-size: 12px; margin-top: 10px;">(<fmt:formatNumber value="${i.cnt}" pattern="#,###" />)</p>
+							</a><br/>
+							</li>
+							</c:forEach>
+						</ul>
+					</li>
+					</c:if>
+					-->
+				</ul>
 				<!--
-				<c:if test="${not empty deviceMenuList}">
-				<li id="menu_${menu_idx_device}"><a href="/elib/module/elib/book/index.do?menu_idx=${menu_idx_device}&menu=DEVICE&type=${fn:escapeXml(param.type)}"><span>지원기기별</span></a>
-					<ul class="SubMenu" style="display: block;">
-						<c:forEach items="${deviceMenuList}" var="i" varStatus="status">
-						<li style="line-height: 0%;"<c:if test="${param.device == i.device}"> class="active"</c:if>>
-						<br/>
-						<a href="#" class="elib-left-menu" style="padding:20px 30px;" data-key="device=${i.device}" data-menu_idx="${menu_idx_device}" data-menu="DEVICE">
-							<span>${i.label}</span>
-							<p style="color: #aaa; font-weight: normal; font-size: 12px; margin-top: 10px;">(<fmt:formatNumber value="${i.cnt}" pattern="#,###" />)</p>
-						</a><br/>
-						</li>
-						</c:forEach>
-					</ul>
-				</li>
+				<c:if test="${param.type == 'WEB'}">
+				<ul class="SubMenu">
+					<li id="menu_27"><a href="/elib/module/elib/book/index.do?menu_idx=27&menu=NEW&type=WEB"><span>e러닝 목록</span></a>
+						<ul class="SubMenu" style="display: block;">
+							<li style="line-height: 0%;" <c:if test="${param.menu_idx == 27}"> class="active"</c:if>>
+								<a href="/elib/module/elib/book/index.do?menu_idx=27&menu=NEW&type=WEB" style="padding:20px 30px;"><span>온라인 지식채널</span></a>
+							</li>
+						</ul>
+					</li>
+				</ul>
 				</c:if>
 				-->
-			</ul>
-			<!--
-			<c:if test="${param.type == 'WEB'}">
-			<ul class="SubMenu">
-				<li id="menu_27"><a href="/elib/module/elib/book/index.do?menu_idx=27&menu=NEW&type=WEB"><span>e러닝 목록</span></a>
-					<ul class="SubMenu" style="display: block;">
-						<li style="line-height: 0%;" <c:if test="${param.menu_idx == 27}"> class="active"</c:if>>
-							<a href="/elib/module/elib/book/index.do?menu_idx=27&menu=NEW&type=WEB" style="padding:20px 30px;"><span>온라인 지식채널</span></a>
-						</li>
-					</ul>
-				</li>
-			</ul>
+				</c:when>
+				<c:otherwise>
+				<homepageTag:leftMenu menuList="${menuLeftList}"/>
+				</c:otherwise>
+				</c:choose>
+			</div>
 			</c:if>
-			-->
-			</c:when>
-			<c:otherwise>
-			<homepageTag:leftMenu menuList="${menuLeftList}"/>
-			</c:otherwise>
-			</c:choose>
-		</div>
-		</c:if>
 			<div class="content">
 
 				<div class="doc">
@@ -209,11 +234,13 @@ $(function() {
 				</div>
 
 			</div>
+
+			<div class="end"></div>
 		</div>
 	</div>
 
 
-	<div id="footer">
+	<div id="footer" style="border-top:1px solid #bdbdbd;">
 		<tiles:insertAttribute name="footer" />
 	</div>
 

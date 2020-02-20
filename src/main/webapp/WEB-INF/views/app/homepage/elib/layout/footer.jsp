@@ -4,28 +4,12 @@
 
 		<div class="info">
 			<div class="section">
-				<div class="left-link">
-					<ul>
-						<li><a href="/${homepage.context_path}/html.do?menu_idx=166">행정서비스헌장</a></li>
-						<li><a href="/${homepage.context_path}/html.do?menu_idx=167">이메일무단수집거부</a></li>
-						<li><a href="/${homepage.context_path}/html.do?menu_idx=168"><b>개인정보처리방침</b></a></li>
-						<li><a href="/${homepage.context_path}/html.do?menu_idx=164">영상정보처리기기</a></li>
-					</ul>
-				</div>
-
-				<div class="right-location">
-					<select id="recommendSite1" class="recommendSite1">
-						<option value="">유관기관</option>
-						<option value="http://lib.sen.go.kr" label="통합도서관"></option>
-						<option value="http://e-lib.sen.go.kr" label="전자도서관"></option>
-					</select>
-
-					<select id="recommendSite2" class="recommendSite2">
-						<option value="">부산지역 도서관</option>
-						<option value="http://lib.sen.go.kr" label="통합도서관"></option>
-						<option value="http://e-lib.sen.go.kr" label="전자도서관"></option>
-					</select>
-				</div>
+				<ul>
+					<li><a href="/${homepage.context_path}/html.do?menu_idx=166" target="_blank">대구광역시통합도서관</a></li>
+					<li><a href="http://www.nl.go.kr/nl/" title="국립중앙도서관 바로가기(새창열림)" target="_blank">국립중앙도서관</a></li>
+					<li><a href="https://www.nanet.go.kr/main.do" title="국립중앙도서관 바로가기(새창열림)" target="_blank">국회도서관</a></li>
+					<li><a href="http://www.dlibrary.go.kr" title="국립중앙도서관 바로가기(새창열림)" target="_blank">국가전자도서관</a></li>
+				</ul>
 			</div>
 		</div>
 
@@ -33,24 +17,27 @@
 			<div class="site_address">
 				<address>
 					<p>
-						<em>(우 38637) 경북 경산시 원효로 60 (계양동, 경상북도교육청정보센터)</em><Br class="mobile-view" />
-						<em>전화 053-810-9923</em>
-						<em>팩스 053-810-9940</em>
+						<em>주소 : (41939) 대구광역시 중구 공평로 10길 25 (동인동 2가)</em><Br class="mobile-view" />
+						<em>전화번호 : 053)231-2038  I  팩스 : 053)231-9973</em>
 					</p>
-					<span>Copyright &copy; by Gyeongsangbuk-do office education Digital Library, All rights reserved.</span>
+					
 				</address>
 			</div>
 
-			<div class="site_sns">
-				<ul>
-					<li><a href="javascript:alert('준비중입니다.');"><img src="/resources/homepage/${homepage.context_path}/img/facebook-btn.png" alt="페이스북"></a></li>
-					<li><a href="javascript:alert('준비중입니다.');"><img src="/resources/homepage/${homepage.context_path}/img/twitter-btn.png" alt="트위터"></a></li>
-				</ul>
+			<div class="site_link">
+				<select id="recommendSite1" class="recommendSite1">
+					<option value="">대구통합공공도서관</option>
+					<option value="http://library.daegu.go.kr/dgportal/index.do" label="통합도서관"></option>
+					<option value="http://library.daegu.go.kr/elib/index.do" label="전자도서관"></option>
+				</select>
 			</div>
 
 			<div style="clear:both"></div>
 		</div>
 
+		<div class="copyright">
+			<span>Copyright &copy; by Daegu Digital Library, All rights reserved.</span>
+		</div>
 		<div class="home-up">
 			<img src="/resources/homepage/${homepage.context_path}/img/m-top-btn.png" alt="위로" id="homeup">
 		</div>
