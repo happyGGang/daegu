@@ -8,9 +8,6 @@ $(function() {
 });
 </script>
 <form:form modelAttribute="facilityBook" action="apply.do" method="GET">
-	<form:hidden path="homepage_id"/>
-	<form:hidden path="menu_idx"/>
-	
 	<div class="table-wrap">
 		<table class="type1 center">
 			<colgroup>
@@ -66,8 +63,9 @@ $(function() {
 		</table>
 	</div>
 	
-	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
+	<jsp:include page="/WEB-INF/views/app/cms/module/facilityBook/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#facilityBook"/>
-		<jsp:param name="pagingUrl" value="apply.do"/>
+		<jsp:param name="pagingUrl" value="applyList.do"/>
+		<jsp:param name="ajaxBody" value="apply_list_box"/>
 	</jsp:include>
 </form:form>
