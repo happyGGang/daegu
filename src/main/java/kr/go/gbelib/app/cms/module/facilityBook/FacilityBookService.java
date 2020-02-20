@@ -24,9 +24,6 @@ public class FacilityBookService extends BaseService {
 	}
 	
 	public int addFacilityBook(FacilityBook facilityBook) {
-//		if(dao.getFacilityBookDuplCheck(facilityBook) > 0) {
-//			return -1;
-//		}
 		return dao.addFacilityBook(facilityBook);
 	}
 	

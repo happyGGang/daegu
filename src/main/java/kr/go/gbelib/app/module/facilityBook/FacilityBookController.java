@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -98,14 +99,26 @@ public class FacilityBookController extends BaseController {
 		ValidationUtils.rejectIfEmpty(result, "attend_list", "참가자 명단을 입력하세요.");
 		ValidationUtils.rejectIfEmpty(result, "add_id", "신청인을 입력하세요.");
 		
-		int duplChk = service.getFacilityBookDuplCheck(facilityBook);
-		if(duplChk > 0) {
-			result.reject("해당 시설은 이미 신청자가 있습니다.");
+		String[] date_arr = facilityBook.getApply_date().split("-");
+
+		DateTime reference = new DateTime(Integer.parseInt(date_arr[0]), Integer.parseInt(date_arr[1]), 20, 0, 0);
+		long ref = reference.plusMonths(-1).getMillis();
+		DateTime today = new DateTime();
+
+		if (ref > today.getMillis()) {
+			result.reject("20일 이후 신청 가능합니다.");
 		}
 		
-		int closeDuplChk = service.getCloseDuplCheck(facilityBook);
-		if(closeDuplChk > 0) {
-			result.reject("해당 시설은 휴관입니다.");
+		if(facilityBook.getEditMode().equals("ADD")) {
+			int duplChk = service.getFacilityBookDuplCheck(facilityBook);
+			if(duplChk > 0) {
+				result.reject("해당 시설은 이미 신청자가 있습니다.");
+			}
+			
+			int closeDuplChk = service.getCloseDuplCheck(facilityBook);
+			if(closeDuplChk > 0) {
+				result.reject("해당 시설은 휴관입니다.");
+			}
 		}
 		/* <<<<< 유효성 검증 */
 
@@ -134,8 +147,9 @@ public class FacilityBookController extends BaseController {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		
 		facilityBook.setHomepage_id(homepage.getHomepage_id());
-		
 		service.setPaging(model, service.getFacilityBookCount(facilityBook), facilityBook);
+		
+		model.addAttribute("facilityBook", facilityBook);
 		model.addAttribute("applyList", service.getFacilityBookAll(facilityBook));
 
 		return String.format(basePath, homepage.getFolder()) + "apply";

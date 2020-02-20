@@ -93,32 +93,19 @@ $(function() {
 		var select_day = $(this).attr('keyValue2');
 		var plan_date = $('#plan_date').val() + '-' + (select_day < 10 ? 0 + select_day : select_day);
 		
-		var sysdate = new Date();
-		var currYear = sysdate.getFullYear();
-		var currMonth = sysdate.getMonth()+1;
-		var currDate = sysdate.getDate();
+		var plan_arr = plan_date.split('-');
+		var reference = new Date(plan_arr[0], plan_arr[1]-1, 1, 9, 0);
+		reference.setDate(reference.getDate() - 1);
+		var ref = reference.setDate(20);
+		var today = new Date();
 		
-		// 해당 달에는 등록가능
-		var compareMonth = currYear + '-' + (currMonth < 10 ? '0' + currMonth : currMonth);
-		
-		// 다음 달 부터는 20일 이후에 가능하도록
-		var nY = currYear;
-		var nM = currMonth;
-		
-		if(nM == 12) {
-			nY += 1;
-			nM = 1;
-		} else {
-			nM += 1;
-		}
-		nM = nM < 10 ? '0' + nM : nM;
-		var nPlanDate = nY + '-' + nM;
-		if((nPlanDate != $('#plan_date').val() || currDate < 20) && ($('#plan_date').val() != compareMonth)) {
+		if(ref > today.getTime()) {
 			alert('20일 이전에는 다음달 예약을 하실 수 없습니다.');
 			return false;
 		}
 		
 		// 지난 일정은 등록이 되지 않게
+		var sysdate = new Date();
 		if(new Date(plan_date) - sysdate < 0) {
 			alert('지난 시설은 이용하실 수 없습니다.');
 			return false;
@@ -146,6 +133,9 @@ $(function() {
 		e.preventDefault();
 		return false;
 	});
+	
+	
+	$('#apply_list_box').load('applyList.do?'+$('#facilityBookListForm').serialize(), function(response, status, xhr) {});
 
 	$('td.top').height(150);
 });
@@ -685,6 +675,7 @@ $(function() {
 			</tbody>
 		</table>
 	</div>
+	<div id="apply_list_box"></div>
 </form:form>
 <div id="dialog-1" class="dialog-common" title="토론실대여"></div>
 <div id="dialog-2" class="dialog-common" title="휴관일"></div>
