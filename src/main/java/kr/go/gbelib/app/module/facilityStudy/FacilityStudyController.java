@@ -166,8 +166,15 @@ public class FacilityStudyController extends BaseController {
 			if (ref > today.getMillis()) {
 				result.reject("20일 이후 신청 가능합니다.");
 			}
-
-
+			
+			CalendarManage cm = new CalendarManage();
+			cm.setHomepage_id(homepage.getHomepage_id());
+			cm.setPlan_day(fs.getStudy_date());
+			cm = calendarManageService.getClosedDate3(cm);
+			if(cm != null) {
+				result.reject("휴관일에는 신청할 수 없습니다.");
+			}
+			
 		}
 
 		JsonResponse res = new JsonResponse(request);

@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage;
+import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManageService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
@@ -33,6 +35,9 @@ public class FacilityStudyController extends BaseController {
 
 	@Autowired
 	private FacilityStudyService service;
+	
+	@Autowired
+	private CalendarManageService calendarManageService;
 
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, FacilityStudy facilityStudy, HttpServletRequest request) throws AuthException {
@@ -70,6 +75,14 @@ public class FacilityStudyController extends BaseController {
 		facilityStudy.setHomepage_id(getAsideHomepageId(request));
 
 		JsonResponse res = new JsonResponse(request);
+		
+		CalendarManage cm = new CalendarManage();
+		cm.setHomepage_id(getAsideHomepageId(request));
+		cm.setPlan_day(facilityStudy.getStudy_date());
+		cm = calendarManageService.getClosedDate3(cm);
+		if(cm != null) {
+			result.reject("휴관일에는 신청할 수 없습니다.");
+		}
 
 		if (!result.hasErrors()) {
 			if (facilityStudy.getEditMode().equals("DELETE")) {
