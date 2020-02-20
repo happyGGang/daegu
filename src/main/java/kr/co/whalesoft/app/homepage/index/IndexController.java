@@ -28,6 +28,7 @@ import kr.co.whalesoft.app.cms.banner.BannerService;
 import kr.co.whalesoft.app.cms.boardManage.BoardManage;
 import kr.co.whalesoft.app.cms.boardManage.BoardManageService;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.mainImg.MainImg;
 import kr.co.whalesoft.app.cms.mainImg.MainImgService;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage;
@@ -95,6 +96,9 @@ public class IndexController extends BaseController {
 
 	@Autowired
 	private BoardManageService boardManageService;
+
+	@Autowired
+	private HomepageService homepageService;
 
 	@RequestMapping(value = { "index.*" })
 	public String index(Model model, HttpServletRequest request) {
@@ -326,6 +330,44 @@ public class IndexController extends BaseController {
 		return basePath + homepage.getFolder() + "/bestBook_ajax";
 	}
 
+	@RequestMapping(value = { "/{contextPath}/recommendBook.*" })
+	public String recommendBook(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
+		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
+
+		String homepage_id = request.getParameter("hid");
+		int manage_idx = 0;
+		int menu_idx = 41;
+		Homepage bookHomepage = homepageService.getHomepageOne(new Homepage(homepage_id));
+		if ("h1".equals(homepage_id)) {
+			manage_idx = 75;
+		} else if ("h2".equals(homepage_id)) {
+			manage_idx = 94;
+		} else if ("h3".equals(homepage_id)) {
+			manage_idx = 102;
+		} else if ("h4".equals(homepage_id)) {
+			manage_idx = 113;
+		} else if ("h5".equals(homepage_id)) {
+			manage_idx = 254;
+		} else if ("h6".equals(homepage_id)) {
+			manage_idx = 233;
+		} else if ("h7".equals(homepage_id)) {
+			manage_idx = 144;
+		} else if ("h8".equals(homepage_id)) {
+			manage_idx = 38;
+		} else if ("h9".equals(homepage_id)) {
+			manage_idx = 31;
+		} else if ("h10".equals(homepage_id)) {
+			manage_idx = 174;
+			menu_idx = 115;
+		}
+
+		model.addAttribute("recommendBookMenuIdx", menu_idx);
+		model.addAttribute("recommendBookContextPath", bookHomepage.getContext_path());
+		model.addAttribute("recommendBookList", boardService.getBoardByMain(manage_idx, 10, "BOOK"));
+
+		return basePath + homepage.getFolder() + "/recommendBook_ajax";
+	}
+
 	private String doIndexProc(Model model, HttpServletRequest request, Board board) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
@@ -351,6 +393,8 @@ public class IndexController extends BaseController {
 			t.setHomepage_id(homepage.getHomepage_id());
 			model.addAttribute("teachList", teachService.getTeachListForUser(t));
 		}
+
+		//대표도서관
 
 
 		setBoardListToModel(homepage.getHomepage_id(), model);

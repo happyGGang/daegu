@@ -79,23 +79,15 @@ do {
 
 		$('div.holiday-box').load('calendar2.do');
 		$('div.event-box').load('calendar4.do');
-		$('ul.newBookUl').load('newBook.do');
+		$('ul.newBookUl').load('recommendBook.do?hid=h10');
 		$('ul.bestBookUl').load('bestBook.do');
 
-		$('#main-search-btn').on('click', function() {
-			if( $('input#search_text_1').val() == '' ) {
-				alert('검색어를 입력하세요.');
-				$('input#search_text_1').focus();
-				return false;
-			}
-				$('#mainSearchForm').submit();
+		$('select#recommendBook1').on('change', function() {
+			$('ul.newBookUl').load('recommendBook.do?hid='+$(this).val());
 		});
 
-});
 
-function searchCheck() {
-	$('input#search_text_1').attr('name', $('select#search_type').val());
-}
+});
 </script>
 <div id="wrap">
 	<tiles:insertAttribute name="top" />
@@ -159,18 +151,17 @@ function searchCheck() {
 					<div class="title">
 						<h2><b>추천도서</b></h2>
 						<p>
-							<select id="recommendSite1" class="recommendSite1">
-								<option value="">도서관을 선택해주세요.</option>
-								<option value="AD">중앙도서관</option>
-								<option value="AB">두류도서관</option>
-								<option value="AH">동부도서관</option>
-								<option value="AF">서부도서관</option>
-								<option value="AG">남부도서관</option>
-								<option value="AC">북부도서관</option>
-								<option value="AJ">달성도서관</option>
-								<option value="AE">수성도서관</option>
-								<option value="AA">228기념학생도서관</option>
-								<option value="AL">228민주운동기념회관</option>
+							<select id="recommendBook1" class="recommendSite1">
+								<option value="h10">중앙도서관</option>
+								<option value="h6">두류도서관</option>
+								<option value="h5">동부도서관</option>
+								<option value="h8">서부도서관</option>
+								<option value="h3">남부도서관</option>
+								<option value="h7">북부도서관</option>
+								<option value="h4">달성도서관</option>
+								<option value="h9">수성도서관</option>
+								<option value="h1">228기념학생도서관</option>
+								<option value="h2">228민주운동기념회관</option>
 							</select>
 						</p>
 					</div>

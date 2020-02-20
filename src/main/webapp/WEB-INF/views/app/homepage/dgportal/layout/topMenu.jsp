@@ -1,6 +1,18 @@
 <%@ page language="java" pageEncoding="utf-8" %>
 <%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script>
+$(function() {
+	$('#main-search-btn').on('click', function() {
+		if( $('input#search_text_1').val() == '' ) {
+			alert('검색어를 입력하세요.');
+			$('input#search_text_1').focus();
+			return false;
+		}
+			$('#mainSearchForm').submit();
+	});
+})
+</script>
 	<div class="head">
 		<div class="Gnb">
 			<h2 class="blind">주메뉴</h2>
@@ -57,9 +69,9 @@
 				<li></li>
 				<li>
 				<div class="search-box">
-					<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do" onsubmit="searchCheck();">
-						<input type="hidden" name="menu_idx" value="13">
-						<input type="hidden" name="booktype" value="BOOK">
+					<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
+						<input type="hidden" name="menu_idx" value="7">
+						<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
 						<fieldset>
 							<legend class="blind">통합검색</legend>
 							<div class="main-box">
@@ -68,7 +80,7 @@
 								</div>
 								<div class="box1">
 									<label for="search_text_1" class="blind">통합자료검색</label>
-									<input name="search_text" id="search_text_1" type="text" class="text searchText" placeholder="검색어를 입력하세요" style="ime-mode:active;"/>
+									<input name="title" id="search_text_1" type="text" class="text searchText" placeholder="검색어를 입력하세요" style="ime-mode:active;"/>
 								</div>
 								<button id="main-search-btn">검색</button>
 							</div>
