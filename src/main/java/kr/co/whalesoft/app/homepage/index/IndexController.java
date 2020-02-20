@@ -31,6 +31,8 @@ import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.mainImg.MainImg;
 import kr.co.whalesoft.app.cms.mainImg.MainImgService;
+import kr.co.whalesoft.app.cms.menu.Menu;
+import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManageService;
 import kr.co.whalesoft.app.cms.module.excursions.apply.Apply;
@@ -99,6 +101,9 @@ public class IndexController extends BaseController {
 
 	@Autowired
 	private HomepageService homepageService;
+
+	@Autowired
+	private MenuService menuService;
 
 	@RequestMapping(value = { "index.*" })
 	public String index(Model model, HttpServletRequest request) {
@@ -395,6 +400,27 @@ public class IndexController extends BaseController {
 		}
 
 		//대표도서관
+		if (homepage.getHomepage_id().equals("h32")) {
+			Teach t = new Teach();
+			t.setRowCount(16);
+			t.setTotalDataCount(16);
+			List<Teach> teachListForAllHomepage = teachService.getTeachListForAllHomepage(t);
+			for (Teach teach : teachListForAllHomepage) {
+				Homepage h = new Homepage(teach.getHomepage_id());
+				h = homepageService.getHomepageOne(h);
+				teach.setHomepage_name(h.getHomepage_name());
+				teach.setContext_path(h.getContext_path());
+				if (teach.getHomepage_id().equals("h7")) {
+					teach.setMenu_idx(30);
+				} else {
+					Menu m = new Menu();
+					m.setHomepage_id(teach.getHomepage_id());
+					m.setMenu_idx(97);
+					teach.setMenu_idx(menuService.getMenuIdxByProgramIdx(m));
+				}
+			}
+			model.addAttribute("teachList", teachListForAllHomepage);
+		}
 
 
 		setBoardListToModel(homepage.getHomepage_id(), model);

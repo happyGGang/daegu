@@ -32,7 +32,8 @@
 
 		$('a#back-btn').on('click', function(e) {
 			e.preventDefault();
-			history.back();
+			location.href = 'index.do?menu_idx=${fn:escapeXml(param.menu_idx)}';
+// 			location.href = 'index.do?menu_idx=${fn:escapeXml(param.menu_idx)}&searchCate1=${fn:escapeXml(param.large_category_idx)}';
 		});
 
 
