@@ -160,7 +160,7 @@ do {
 							<ul class="tabMenuS">
 								<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=179" class='t-tabs'>공지사항</a></li>
 								<li>/</li>
-								<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=76&manage_idx=180" class='t-tabs'>입찰정보</a></li>
+								<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=160&manage_idx=180" class='t-tabs'>입찰정보</a></li>
 								<a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=179" class="more-btn more-more">더보기</a>
 							</ul>
 
@@ -192,7 +192,7 @@ do {
 									<ul>
 										<c:forEach var="i" varStatus="status" items="${bidListTopNotice}" >
 										<li>
-											<a href="/${homepage.context_path}/board/view.do?menu_idx=76&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=160&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 												<em>${i.title}</em>
 												<span><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
 											</a>
@@ -200,7 +200,7 @@ do {
 										</c:forEach>
 										<c:forEach var="i" varStatus="status" items="${bidList}" >
 										<li>
-											<a href="/${homepage.context_path}/board/view.do?menu_idx=76&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=160&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 												<em>${i.title}</em>
 												<span><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
 											</a>
