@@ -15,6 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
+import kr.co.whalesoft.app.cms.menu.Menu;
+import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.file.FileStorage;
@@ -37,6 +39,9 @@ public class TeachService extends BaseService {
 
 	@Autowired
 	private HomepageService homepageService;
+
+	@Autowired
+	private MenuService menuService;
 
 	public List<Teach> getTeachListAll(Teach teach) {
 		return dao.getTeachListAll(teach);
@@ -244,8 +249,14 @@ public class TeachService extends BaseService {
 		List<Teach> list = dao.getTeachListForAllHomepage(teach);
 		if (list != null && list.size() > 0) {
 			for (Teach result : list) {
+				Homepage homepage = homepageService.getHomepageOne(new Homepage(result.getHomepage_id()));
+				result.setContext_path(homepage.getContext_path());
 				result.setTeach_day_arr(result.getTeach_day().split(","));
 				result.setHolidays(dao.getHolidays(result));
+				Menu m = new Menu();
+				m.setHomepage_id(homepage.getHomepage_id());
+				m.setMenu_idx(97);
+				result.setMenu_idx(menuService.getMenuIdxByProgramIdx(m));
 				if (StringUtils.isNotEmpty(result.getProgram_age_div())) {
 					result.setProgram_age_div_arr(Arrays.asList(result.getProgram_age_div().split(",")));
 				}

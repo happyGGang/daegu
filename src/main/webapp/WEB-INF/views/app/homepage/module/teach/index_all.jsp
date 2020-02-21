@@ -11,17 +11,17 @@ $(function(){
 		param += '&group_idx='+$(this).attr('keyValue1');
 		param += '&category_idx='+$(this).attr('keyValue2');
 		param += '&teach_idx='+$(this).attr('keyValue3');
-		param += '&menu_idx='+$('input#menu_idx').val();
+		param += '&menu_idx='+$(this).attr('keyValue5');
 
-		doGetLoad('/${homepage.context_path}/module/teach/detail.do', param);
+		doGetLoad('/'+$(this).attr('keyValue4')+'/module/teach/detail.do', param);
 		e.preventDefault();
 	});
 
 	$('a.add').on('click', function(e) {
 		var $this = $(this);
-		doGetLoad('/${homepage.context_path}/module/teach/student/edit.do',
+		doGetLoad('/'+$this.attr('keyValue5')+'/module/teach/student/edit.do',
 				'editMode=ADD&homepage_id='+$this.attr('keyValue1')+'&group_idx='+$this.attr('keyValue2')+'&category_idx='+$this.attr('keyValue3')
-				+'&teach_idx='+$this.attr('keyValue4')+ '&apply_status='+ $this.attr('apply_status')+'&menu_idx='+$('input#menu_idx').val());
+				+'&teach_idx='+$this.attr('keyValue4')+ '&apply_status='+ $this.attr('apply_status')+'&menu_idx='+$this.attr('keyValue6'));
 
 		e.preventDefault();
 	});
@@ -77,25 +77,25 @@ $(function(){
 	});
 
 	$('select#homepage_id').on('change', function() {
-		$('select#group_idx').val('0');
-		$('select#category_idx').val('0');
-		$('select#group_idx option:not(.ALL)').remove();
-		$('select#category_idx option:not(.ALL)').remove();
+// 		$('select#group_idx').val('0');
+// 		$('select#category_idx').val('0');
+// 		$('select#group_idx option:not(.ALL)').remove();
+// 		$('select#category_idx option:not(.ALL)').remove();
 /* 		$('select#group_idx').select2({minimumResultsForSearch: Infinity});
 		$('select#category_idx').select2({minimumResultsForSearch: Infinity}); */
 
-		$.get('getGroupList.do?homepage_id='+$('select#homepage_id option:selected').val()+'&large_category_idx='+$('select#large_category_idx').val(), function(response) {
-			if ( response.resultMsg != null ) {
-				alert(response.resultMsg);
-			}
-			else {
-				if( response.data != null){
-					for (var i=0; i<response.data.length; i++) {
-						$('select#group_idx').append('<option value="'+response.data[i].group_idx+'">'+response.data[i].group_name+'</option>');
-					}
-				}
-			}
-		});
+// 		$.get('getGroupList.do?homepage_id='+$('select#homepage_id option:selected').val()+'&large_category_idx='+$('select#large_category_idx').val(), function(response) {
+// 			if ( response.resultMsg != null ) {
+// 				alert(response.resultMsg);
+// 			}
+// 			else {
+// 				if( response.data != null){
+// 					for (var i=0; i<response.data.length; i++) {
+// 						$('select#group_idx').append('<option value="'+response.data[i].group_idx+'">'+response.data[i].group_name+'</option>');
+// 					}
+// 				}
+// 			}
+// 		});
 	});
 	$('select#large_category_idx').on('change', function() {
 		$('select#group_idx').val('0');
@@ -148,50 +148,26 @@ $(function(){
 	<form:hidden path="editMode"/>
 	<form:hidden path="menu_idx"/>
 
-	<div id="libraryList" class="bbs-notice" style="margin-top:10px;margin-bottom:20px;" >
+	<div id="libraryList" class="bbs-notice" style="margin-top:10px;margin-bottom:20px;">
 		<ul>
 			<li style="padding-bottom: 5px;">
 				도&nbsp;&nbsp;서&nbsp;&nbsp;관 :
 				<form:select path="homepage_id"  cssClass="selectmenu" cssStyle="width: 250px;" title="도서관 선택">
 					<form:option value="h1" label="전체" />
 					<c:forEach var="i" varStatus="status" items="${homepageList}">
-					<c:if test="${i.homepage_id ne 'h1' and i.homepage_id ne 'h29' and i.homepage_id ne 'h30' and i.homepage_id ne 'h32' and i.homepage_id ne 'h27' and i.homepage_id ne 'c0' and i.homepage_id ne 'c1'}">
+					<c:if test="${i.homepage_id ne 'h32' and i.homepage_id ne 'h31' and i.homepage_id ne 'h30' and i.homepage_id ne 'h33' and i.homepage_id ne 'h34' and i.homepage_id ne 'c0' and i.homepage_id ne 'c1'}">
 					<form:option value="${i.homepage_id}" label="${i.homepage_name}" />
 					</c:if>
 					</c:forEach>
 				</form:select>
 			</li>
 			<li style="padding-bottom: 5px;">
-				분&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;류 :
-				<form:select path="large_category_idx" cssClass="selectmenu" cssStyle="width: 200px;" title="대분류선택">
-					<form:option value="0" label="전체" class="ALL"/>
-					<c:forEach var="i" varStatus="status" items="${teachLargeCategoryList}">
-					<form:option value="${i.teach_code}" label="${i.code_name}" />
-					</c:forEach>
-				</form:select>
-				<form:select path="group_idx" cssClass="selectmenu" cssStyle="width: 200px;" title="중분류선택">
-					<form:option value="0" label="전체" class="ALL"/>
-					<c:forEach var="i" varStatus="status" items="${groupList}">
-					<form:option value="${i.group_idx}" label="${i.group_name}" />
-					</c:forEach>
-				</form:select>
-				<form:select path="category_idx" cssClass="selectmenu" cssStyle="width: 200px;"  title="소분류선택">
-					<form:option value="0" label="전체" class="ALL"/>
-					<c:forEach var="i" varStatus="status" items="${categoryList}">
-					<form:option value="${i.category_idx}" label="${i.category_name}" />
-					</c:forEach>
-				</form:select>
+				접수기간 : <form:input path="start_join_date" title="접수시작일, 입력예시 2020-01-01" cssClass="text ui-calendar"/><label for="start_join_date" class="blind">접수시작일</label> ~
+						<form:input path="end_join_date" title="접수종료일, 입력예시 2020-12-31" cssClass="text ui-calendar" /><label for="end_join_date" class="blind">접수종료일</label>
 			</li>
 			<li style="padding-bottom: 5px;">
-				연령구분 : <form:checkboxes items="${teachAgeDivCodeList}" path="program_age_div_arr" itemLabel="code_name" itemValue="teach_code" cssStyle="margin-left:10px;"/>
-			</li>
-			<li style="padding-bottom: 5px;">
-				접수기간 : <form:input path="start_join_date" title="접수시작일, 입력예시 2017-01-01" cssClass="text ui-calendar"/><label for="start_join_date" class="blind">접수시작일</label> ~
-						<form:input path="end_join_date" title="접수종료일, 입력예시 2017-12-31" cssClass="text ui-calendar" /><label for="end_join_date" class="blind">접수종료일</label>
-			</li>
-			<li style="padding-bottom: 5px;">
-				강좌기간 : <form:input path="start_date" title="강의시작일, 입력예시 2017-01-01" cssClass="text ui-calendar"/><label for="start_date" class="blind">강의시작일</label> ~
-						<form:input path="end_date" title="강의종료일, 입력예시 2017-12-31" cssClass="text ui-calendar" /><label for="end_date" class="blind">강의종료일</label>
+				강좌기간 : <form:input path="start_date" title="강의시작일, 입력예시 2020-01-01" cssClass="text ui-calendar"/><label for="start_date" class="blind">강의시작일</label> ~
+						<form:input path="end_date" title="강의종료일, 입력예시 2020-12-31" cssClass="text ui-calendar" /><label for="end_date" class="blind">강의종료일</label>
 			</li>
 			<li style="padding-bottom: 5px;">
 				상&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;태 :
@@ -230,7 +206,7 @@ $(function(){
 			<div class="item" id="${i.homepage_id}_${i.group_idx}_${i.category_idx}_${i.teach_idx}">
 				<div class="op_title category">
 					<span class="ca ${i.context_path}">${i.homepage_alias}</span><span class="ca ty2">${i.group_name} ${i.category_name}</span>
-					<a href="#" class="name detail-btn" keyValue="${i.homepage_id}" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}">${i.teach_name}</a>
+					<a href="#" class="name detail-btn" keyValue="${i.homepage_id}" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}" keyValue4="${i.context_path}" keyValue5="${i.menu_idx}">${i.teach_name}</a>
 				</div>
 				<div class="box">
 					<div class="box2">
@@ -258,7 +234,7 @@ $(function(){
 							<li><div>
 				        		<label>강의계획서</label> :
 					         	<span class="important td1">
-					         		<c:if test="${i.real_file_name ne null and i.real_file_name ne '' }">
+					         		<c:if test="${i.server_file_name ne null and i.server_file_name ne '' }">
 					         			<a style="color:#00f" href="download/${i.homepage_id}/${i.group_idx}/${i.category_idx}/${i.teach_idx}.do"><i class="fa fa-floppy-o"></i> ${i.plan_file_name}</a>
 					         		</c:if>
 				         		</span>
@@ -302,11 +278,11 @@ $(function(){
 				<div class="stat">
 							<c:choose>
 								<c:when test="${i.teach_status eq '0'}">
-									<a href="#" class="btn btn1 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" apply_status="1">
+									<a href="#" class="btn btn1 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.context_path}" keyValue6="${i.menu_idx}" apply_status="1">
 									<i class="fa fa-pencil-square-o"></i><span>수강신청 </span></a>
 								</c:when>
 								<c:when test="${i.teach_status eq '1'}">
-									<a href="#" class="btn btn1 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" apply_status="2">
+									<a href="#" class="btn btn1 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.context_path}" keyValue6="${i.menu_idx}" apply_status="2">
 									<i class="fa fa-pencil-square-o"></i><span>대기자신청</span></a>
 								</c:when>
 								<c:when test="${i.teach_status eq '2'}">

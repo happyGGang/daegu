@@ -134,6 +134,71 @@ public class LibrarySearchController extends BaseController {
 		return basePath + "index";
 	}
 
+	@RequestMapping(value = {"/indexAll.*"})
+	public String indexAll(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = getSessionHomepage(request);
+		List<Homepage> normalHomepage = homepageService.getNormalHomepage();
+		// 소장처 코드
+		if ( StringUtils.isEmpty(librarySearch.getManageCode()) ) {
+			librarySearch.setManageCode(homepage.getManage_code());
+		}
+
+		if ( librarySearch.getLibraryCodes() == null ) {
+			List<String> libraryCodes = new ArrayList<String>();
+			if ( !StringUtils.isEmpty(homepage.getManage_code()) ) {
+				libraryCodes.add(homepage.getManage_code());
+			} else {
+				for (Homepage home : normalHomepage) {
+					libraryCodes.add(home.getManage_code());
+				}
+			}
+			librarySearch.setLibraryCodes(libraryCodes);
+		}
+
+		if (StringUtils.isNotEmpty(librarySearch.getBooktype())) {
+			Map<String, Object> result = new HashMap<String, Object>();
+
+			if ( librarySearch.getBooktype().equals("BOOK") ) {
+				result = LibSearchAPI.getBookDetail(librarySearch);
+			} else if (librarySearch.getBooktype().equals("NONBOOK")) {
+				result = LibSearchAPI.getNonBookDetail(librarySearch);
+			} else if (librarySearch.getBooktype().equals("SERIAL")) {
+				result = LibSearchAPI.getSerialDetail(librarySearch);
+			} else if (librarySearch.getBooktype().equals("BOOKANDNONBOOK")) {
+				result = LibSearchAPI.getBookAndNonbookDetail(librarySearch);
+			}
+
+			List<Map<String, Object>> list = null;
+
+			int count = LibSearchAPI.getSearchCount(result);
+
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
+
+			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+				list = LibSearchAPI.getListData(result);
+
+				//알라딘 API 결과 가져오기
+				for (Map<String, Object> map : list) {
+					if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+						Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+						if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+							map.put("aladin", aladinData.get("item"));
+						}
+					}
+
+				}
+			}
+
+			model.addAttribute("bookSearch", list);
+		}
+
+		model.addAttribute("homepageList", normalHomepage);
+		model.addAttribute("librarySearch", librarySearch);
+
+		return basePath + "indexAll";
+	}
+
 	/**
 	 * 인기검색어
 	 * @author whalesoft YONGJU 2019. 11. 14.
