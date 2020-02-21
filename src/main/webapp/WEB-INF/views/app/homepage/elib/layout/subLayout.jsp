@@ -87,7 +87,7 @@ $(function() {
 		<div class="section search">
 			<div class="sub_search-box">
 				<form id="mainSearchForm" method="POST" action="/elib/module/elib/search/index.do">
-					<input type="hidden" name="menu_idx" value="2">
+					<input type="hidden" name="menu_idx" value="80">
 					<fieldset>
 						<legend class="blind">통합검색</legend>
 						<div class="box">

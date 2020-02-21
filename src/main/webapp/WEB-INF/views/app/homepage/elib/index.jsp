@@ -232,67 +232,33 @@ function getCookie(name){
 				<div class="tit"><strong>NOTICE</strong></div>
 				<div class="con">
 					<ul>
-					<!--
 						<c:forEach var="i" varStatus="status" items="${noticeList}" >
+						<fmt:formatDate value="${i.add_date}" pattern="yyyy.MM" var="noticeDate"/>
+						<fmt:formatDate value="${i.add_date}" pattern="dd" var="noticeDay"/>
 						<li>
-							<a href="/${homepage.context_path}/board/view.do?menu_idx=30&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-							<span class="day"><b><fmt:formatDate value="${i.add_date}" pattern="MM"/></b><br/><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM"/></span>
-							<span class="cont">
-								<div class="notice-title">
-									<span class="notice-alarm">공지</span> <span>${i.title}</span>
-								</div>
-								<div class="notice-contents">
-									${fn:substring(fn:trim(i.content_summary), 0, 50)}...
-								</div>
-							</span>
-							<span class="ico"></span>
+							<a href="/${homepage.context_path}/board/view.do?menu_idx=72&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+								<span class="day"><b>${noticeDay}</b><br/>${noticeDate}</span>
+								<span class="cont">
+									<div class="notice-title">
+										<span class="notice-alarm">공지</span> <span>${i.title}</span>
+									</div>
+									<div class="notice-contents">
+										${fn:substring(fn:trim(i.content_summary), 0, 50)}...
+									</div>
+								</span>
+								<span class="ico"></span>
 							</a>
 						</li>
 						</c:forEach>
-
-						<c:if test="${fn:length(noticeList) < 1}">
-						<li>
-							<em>등록된 공지사항이 없습니다.</em>
-						</li>
-						</c:if>
-					-->
-						<li>
-							<a href="#">
-								<span class="day"><b>02</b><br/>2020.02</span>
-								<span class="cont">
-									<div class="notice-title">
-										<span class="notice-alarm">공지</span> <span>2020년 2월 14일 부산도서관 2차 사업 완료보고회 안내</span>
-									</div>
-									<div class="notice-contents">
-										2019년 지난해 1차사업에 이은 2020년 9월 오픈 예정인 부산도서관을 위한 2차 홈페...
-									</div>
-								</span>
-								<span class="ico"></span>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<span class="day"><b>02</b><br/>2020.02</span>
-								<span class="cont">
-									<div class="notice-title">
-										<span class="notice-alarm">공지</span> <span>2020년 2월 14일 부산도서관 2차 사업 완료보고회 안내</span>
-									</div>
-									<div class="notice-contents">
-										2019년 지난해 1차사업에 이은 2020년 9월 오픈 예정인 부산도서관을 위한 2차 홈페...
-									</div>
-								</span>
-								<span class="ico"></span>
-							</a>
-						</li>
 					</ul>
 				</div>
 				<div class="more-btn center pd30t pd30b">
-					<a href="#"><img src="/resources/homepage/${homepage.context_path}/img/notice-more.png" alt="더보기"></a>
+					<a href="/${homepage.context_path}/board/index.do?menu_idx=72&manage_idx=284"><img src="/resources/homepage/${homepage.context_path}/img/notice-more.png" alt="더보기"></a>
 				</div>
 			</div>
 
 		</div>
-		
+
 	</div>
 
 	<div class="visual-two">

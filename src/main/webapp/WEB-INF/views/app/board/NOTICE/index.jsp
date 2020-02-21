@@ -6,7 +6,7 @@
 <c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.top_html) > 0}">
 ${boardManage.top_html}
 </c:if>
-<c:if test="${boardManage.manage_idx eq '521'}">
+<c:if test="${boardManage.manage_idx eq '282'}">
 <style>
 table.bbs tr.notice{background:#f5f6f7}
 @media (max-width: 430px) and (min-width: 0px) {
@@ -25,7 +25,7 @@ table.bbs tr.notice{background:#f5f6f7}
 }
 </style>
 </c:if>
-<c:if test="${boardManage.manage_idx ne '521'}">
+<c:if test="${boardManage.manage_idx ne '282'}">
 <style>
 table.bbs tr.notice{background:#f5f6f7}
 @media (max-width: 430px) and (min-width: 0px) {
@@ -54,7 +54,7 @@ table.bbs tr.notice{background:#f5f6f7}
 				<col width="5%">
 				</c:if>
 				<col width="8%">
-				<c:if test="${boardManage.manage_idx eq '521'}">
+				<c:if test="${boardManage.manage_idx eq '282'}">
 				<col width="10%">
 				</c:if>
 				<col>
@@ -69,7 +69,7 @@ table.bbs tr.notice{background:#f5f6f7}
 					<th><input type="checkbox" id="checkAll"> </th>
 					</c:if>
 					<th>번호</th>
-					<c:if test="${boardManage.manage_idx eq '521'}">
+					<c:if test="${boardManage.manage_idx eq '282'}">
 					<th class=" category">도서관</th>
 					</c:if>
 					<th class="">제목</th>
@@ -87,13 +87,13 @@ table.bbs tr.notice{background:#f5f6f7}
 					<td></td>
 					</c:if>
 					<td class="num notice"><span>통합</span></td>
-					<c:if test="${boardManage.manage_idx eq '521'}">
+					<c:if test="${boardManage.manage_idx eq '282'}">
 					<td class="category important td2 cate">
 						<span class="ca ${i.imsi_v_19}">${i.imsi_v_20}</span>
 					</td>
 					</c:if>
 					<td class="important left title">
-						<a href="/gbelib/board/view.do?menu_idx=128&board_idx=${i.board_idx}&manage_idx=521" gbelib="true" >
+						<a href="/dgportal/board/view.do?menu_idx=22&board_idx=${i.board_idx}&manage_idx=282" gbelib="true" >
 							<span>${i.title}</span>
 							<c:if test="${i.date_gap <= boardManage.new_date_count}"><em class="new">새글</em></c:if>
 							<c:if test="${i.comment_count > 0}">
@@ -117,14 +117,18 @@ table.bbs tr.notice{background:#f5f6f7}
 					<td></td>
 					</c:if>
 					<td class="num notice"><span>공지</span></td>
-					<c:if test="${boardManage.manage_idx eq '521'}">
+					<c:if test="${boardManage.manage_idx eq '282'}">
 					<td class="category important td2">
 						<span class="ca ${i.imsi_v_19}">대표</span>
 					</td>
 					</c:if>
 					<td class="important left title">
 						<c:set var="boardIdx" value="${i.parent_idx > 0 ? i.parent_idx : i.board_idx}"></c:set>
-						<c:set var="viewUrl" value="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}"></c:set>
+						<c:set var="portal" value=""></c:set>
+						<c:if test="${boardManage.manage_idx eq '282'}">
+						<c:set var="portal" value="/${i.imsi_v_19}/board/"></c:set>
+						</c:if>
+						<c:set var="viewUrl" value="${portal}view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}"></c:set>
 						<a href="${viewUrl}" keyValue="${i.board_idx}">
 							<span>${i.title}</span>
 							<c:if test="${i.date_gap <= boardManage.new_date_count}"><em class="new">새글</em></c:if>
@@ -149,14 +153,18 @@ table.bbs tr.notice{background:#f5f6f7}
 					<td><form:checkbox path="boardIdxArray" value="${i.board_idx}"/></td>
 					</c:if>
 					<td class="num">${paging.listRowNum - status.index}</td>
-					<c:if test="${boardManage.manage_idx eq '521'}">
+					<c:if test="${boardManage.manage_idx eq '282'}">
 					<td class="category important td2">
 						<span class="ca ${i.imsi_v_19}">${i.imsi_v_20}</span>
 					</td>
 					</c:if>
 					<td class="important left title" style="padding-left:${(i.group_depth > 0 ? (i.group_depth-1)*15 : 0)+10}px;">
 						<c:set var="boardIdx" value="${i.parent_idx > 0 ? i.parent_idx : i.board_idx}"></c:set>
-						<c:set var="viewUrl" value="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}"></c:set>
+						<c:set var="portal" value=""></c:set>
+						<c:if test="${boardManage.manage_idx eq '282'}">
+						<c:set var="portal" value="/${i.imsi_v_19}/board/"></c:set>
+						</c:if>
+						<c:set var="viewUrl" value="${portal}view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}"></c:set>
 						<a href="${viewUrl}" keyValue="${i.board_idx}">
 						<c:if test="${i.group_depth > 0}">
 							<i class="fa fa-reply"></i>

@@ -93,7 +93,7 @@
 				WHERE a.board_idx = CMS_BOARD_T.board_idx AND
 				a.delete_yn = 'N'
 			) AS comment_count
-			<if test='(manage_idx == 521 or manage_idx == 523 ) and delete_yn == "N"'>
+			<if test='(manage_idx == 282 or manage_idx == 523 ) and delete_yn == "N"'>
 			,
 			(
 				SELECT
@@ -150,14 +150,15 @@
 					CMS_BOARD
 				WHERE
 					<choose>
-						<when test='(manage_idx == 521 or manage_idx == 523) and delete_yn == "N"'>
-					manage_idx in (
+						<when test='(manage_idx == 282 or manage_idx == 523) and delete_yn == "N"'>
+					manage_idx in
+									(
 									SELECT
 										manage_idx
 									FROM
 										cms_board_manage
 									WHERE
-										<if test="manage_idx == 521">
+										<if test="manage_idx == 282">
 										board_type = 'NOTICE'
 										<if test="homepage_id != null and homepage_id != 'h1'">
 										AND	homepage_id = #{homepage_id}
@@ -180,10 +181,10 @@
 			 ) A
 			START WITH A.parent_idx = 0
 	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
-	    	<if test='(manage_idx == 521 or manage_idx == 523) and delete_yn == "N"'>
+	    	<if test='(manage_idx == 282 or manage_idx == 523) and delete_yn == "N"'>
 			ORDER SIBLINGS BY A.add_date DESC
 	    	</if>
-	    	<if test='manage_idx != 521 and manage_idx != 523'>
+	    	<if test='manage_idx != 282 and manage_idx != 523'>
 	    		<trim prefix="ORDER SIBLINGS BY">
 	    			A.add_date DESC, A.board_idx DESC
 <!-- 	    			<if test="sortField != null and sortField != ''">  A.${sortField} ${sortType} </if> -->
@@ -664,7 +665,7 @@
 			FROM
 				CMS_BOARD
 			WHERE
-				manage_idx IN ('1','2','23','31','300') AND
+				manage_idx IN (88,179,97,109,84,123,132,1,161,56) AND
 				delete_yn = 'N' AND
 				notice_yn = 'Y' AND
 				(notice_start_date <![CDATA[<=]]> TO_CHAR(SYSDATE,'yyyy-MM-dd') OR notice_start_date IS NULL) AND
@@ -781,21 +782,20 @@
 			ORDER BY A.add_date desc
 			${pagingBottom}
 		) CMS_BOARD_T
-		WHERE RNUM <![CDATA[<]]> 6
 	</select>
 
 	<select id="getBoardCount" resultType="int" >
 		SELECT COUNT(*) FROM CMS_BOARD
 		WHERE
 			<choose>
-				<when test='(manage_idx == 521 or manage_idx == 523) and delete_yn == "N"'>
+				<when test='(manage_idx == 282 or manage_idx == 523) and delete_yn == "N"'>
 			manage_idx in (
 							SELECT
 								manage_idx
 							FROM
 								cms_board_manage
 							WHERE
-								<if test="manage_idx == 521">
+								<if test="manage_idx == 282">
 								board_type = 'NOTICE'
 								<if test="homepage_id != null and homepage_id != 'h1'">
 								AND	homepage_id = #{homepage_id}
@@ -918,7 +918,7 @@
 		FROM
 			CMS_BOARD
 		WHERE
-			manage_idx = 521 AND
+			manage_idx = 282 AND
 			delete_yn = 'N' AND
 			group_depth = 0 AND
 			imsi_v_1 = 'Y' AND
@@ -1541,7 +1541,7 @@
 				WHERE a.manage_idx = CMS_BOARD_T.manage_idx AND
 				a.menu_type = 'BOARD'
 			) AS menu_idx
-			<if test='manage_idx == 521'>
+			<if test='manage_idx == 282'>
 			,
 			(
 				SELECT

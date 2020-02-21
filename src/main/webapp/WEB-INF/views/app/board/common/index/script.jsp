@@ -44,7 +44,7 @@ $(document).ready(function() {
 	</c:choose>
 
 	<c:choose>
-		<c:when test="${boardManage.manage_idx == 521 or boardManage.manage_idx == 523}">
+		<c:when test="${boardManage.manage_idx == 282 or boardManage.manage_idx == 523}">
 	<%-- 상세보기 --%>
 	$('#board_tbody a').on('click', function(e) {
 		e.preventDefault();
@@ -58,7 +58,7 @@ $(document).ready(function() {
 		}
 	});
 
-		<c:if test="${boardManage.manage_idx == 521 or boardManage.manage_idx == 523}">
+		<c:if test="${boardManage.manage_idx == 282 or boardManage.manage_idx == 523}">
 		$('a#libSelect').on('click', function(e) {
 		e.preventDefault();
 		var url = 'index.do';
@@ -71,8 +71,8 @@ $(document).ready(function() {
 	<%-- 상세보기 --%>
 // 	$('#board_tbody a').on('click', function(e) {
 // 		e.preventDefault();
-// 		var is521 = $(this).attr('gbelib');
-// 		if (is521) {
+// 		var is282 = $(this).attr('gbelib');
+// 		if (is282) {
 // 			doGetLoad($(this).attr('href'));
 // 		} else {
 // 			$('#board_idx').val($(this).attr('keyValue'));
@@ -146,6 +146,28 @@ $(document).ready(function() {
     		$('#board').attr('action', 'recovery.do');
     		doAjaxPost($('#board'));
     	}
+	});
+
+	<%-- 카테고리변경 --%>
+	$('a#board_move_btn').on('click', function(e) {
+		e.preventDefault();
+		var checkList = $('input[name=boardIdxArray]:checked').length;
+		if (checkList < 1) {
+			alert('선택된 게시물이 없습니다.');
+			return false;
+		}
+		var manage_idx = $(this).data('idx');
+		$('div#categoryMoveDialog').dialog({
+			modal : true
+		});
+
+	});
+
+	<%-- 카테고리변경 --%>
+	$('a#moveCategoryCancel').on('click', function(e) {
+		e.preventDefault();
+		$('div#categoryMoveDialog').dialog('destroy');
+
 	});
 
 	$('input#checkAll').on('click', function() {

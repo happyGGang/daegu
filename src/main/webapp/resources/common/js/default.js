@@ -223,11 +223,11 @@ $(function(){
 	var _str3 = 'i';
 	var _str4 = '<i class="fa fa-minus"></i>';
 
-	if(window.location.pathname.match("^/geic/")) {
-		_str1 = '<img src="/resources/homepage/geic/img/active_on.png" alt="on"/>';
-		_str2 = '<img src="/resources/homepage/geic/img/active_off.png" alt="off"/>';
-		_str3 = 'img';
-		_str4 = '<img src="/resources/homepage/geic/img/active_on.png" alt="on"/>';
+	if(window.location.pathname.match("^/dgportal/") || window.location.pathname.match("^/elib/")) {
+		var _str1 = '<i class="fa fa-ellipsis-v fa-2x"></i>';
+		var _str2 = '<i class="fa fa-ellipsis-v fa-2x"></i>';
+		var _str3 = '';
+		var _str4 = '<i class="fa fa-ellipsis-v fa-2x"></i>';
 	}
 
 	$('div.lnb > ul > li, div.lnb > ul > li > ul > li').each(function(){
@@ -248,6 +248,7 @@ $(function(){
 
 				}
 			});
+
 			if($(this).find('li').hasClass('active')){
 					$(this).children('a').children(_str3).remove();
 					$(this).children('a').append(_str4);
@@ -321,6 +322,7 @@ $(function(){
 	var bannerLength1 = $('div.banner-wrap.type1 ul.banner-roll').length;
 	var bannerLength2 = $('div.banner-wrap.type2 ul.banner-roll').length;
 	var bannerLength3 = $('div.banner-wrap.type1 ul.banner-rolls').length;
+	var bannerLength4 = $('div.banner-wrap.type3 ul.banner-roll').length;
 
 	var banner2 = $('div.banner-wrap.type2');
 	var bannerWrap = $('div.banner-wrap');
@@ -334,6 +336,7 @@ $(function(){
 	var bannerSlider1;
 	var bannerSlider2;
 	var bannerSlider3;
+	var bannerSlider4;
 
 	if (bannerLength1 > 0) {
 		bannerSlider1 = $('div.banner-wrap.type1 ul.banner-roll').bxSlider({
@@ -381,6 +384,20 @@ $(function(){
 			autoHover:true,
 			pager:false,
 			controls:true
+		});
+	}
+
+	if (bannerLength4 > 0) {
+		bannerSlider4 = $('div.banner-wrap.type3 ul.banner-roll').bxSlider({
+			slideWidth:187,
+			speed:500,
+			moveSlides:1,
+			maxSlides:8,
+			slideMargin:10,
+			auto:autoType,
+			autoHover:true,
+			pager:false,
+			controls:false
 		});
 	}
 
@@ -452,6 +469,8 @@ $(function(){
 	    	bannerSlider2.goToPrevSlide();
 	    }else if(bannerSlider3 != null ){
 	    	bannerSlider3.goToPrevSlide();
+	    }else if(bannerSlider4 != null ){
+	    	bannerSlider4.goToPrevSlide();
 	    }
 	    return false;
 	});
@@ -462,6 +481,8 @@ $(function(){
 	    	bannerSlider2.goToNextSlide();
 	    }else if(bannerSlider3 != null ){
 	    	bannerSlider3.goToNextSlide();
+	    }else if(bannerSlider4 != null ){
+	    	bannerSlider4.goToNextSlide();
 	    }
 	    return false;
 	});

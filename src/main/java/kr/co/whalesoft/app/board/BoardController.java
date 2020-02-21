@@ -190,7 +190,7 @@ public class BoardController extends BaseController {
 		log.debug("board basePath : " + basePath);
 		return basePath;
 	}
-	
+
 	public boolean manageCompareIdx(int manage_idx, int... args) {
 		for (int i : args) {
 			if(manage_idx == i) {
@@ -215,7 +215,7 @@ public class BoardController extends BaseController {
 			Homepage homepageOne = homepageService.getHomepageOne(new Homepage(board.getHomepage_id()));
 			model.addAttribute("homepage", homepageOne);
 		}
-		
+
 		// 228도서관 지원센터 회원인증 확인
 		SupportMember loginSupport = sessionLoginSupport(request);
 		if(manageCompareIdx(board.getManage_idx(), 226, 230)) {
@@ -241,19 +241,19 @@ public class BoardController extends BaseController {
 
 
 		//999 대표 영화
-		//521 대표 공지
-		//526 대표뉴스
-		if (board.getManage_idx() != 999 && board.getManage_idx() != 521 && board.getManage_idx() != 523) {
-			//대표홈페이지 영화상영 게시판
+		//282 대표 공지
+		//526 대표뉴스 대구는 대표뉴스없음
+//		if (board.getManage_idx() != 999 && board.getManage_idx() != 282 && board.getManage_idx() != 523) {
+		if (board.getManage_idx() != 282 ) {
 			board.setHomepage_id(boardManage.getHomepage_id());
 		}
 		model.addAttribute("boardNoticeList", service.getBoardNotice(board));
-		if (boardManage.getBoard_type().equals("NOTICE") && board.getManage_idx() != 521) {
+		if (boardManage.getBoard_type().equals("NOTICE") && board.getManage_idx() != 282) {
 			model.addAttribute("boardNoticeList2", service.getBoardNotice2(board));
 		}
-		if (boardManage.getBoard_type().equals("NEWS") && board.getManage_idx() != 523) {
-			model.addAttribute("boardNoticeList2", service.getBoardNews2(board));
-		}
+//		if (boardManage.getBoard_type().equals("NEWS") && board.getManage_idx() != 523) {
+//			model.addAttribute("boardNoticeList2", service.getBoardNews2(board));
+//		}
 
 
 		if (boardManage.getBoard_type().equals("NOTICE")  && StringUtils.isEmpty(board.getStart_date())) {
@@ -366,7 +366,7 @@ public class BoardController extends BaseController {
 			Homepage homepageOne = homepageService.getHomepageOne(new Homepage(board.getHomepage_id()));
 			model.addAttribute("homepage", homepageOne);
 		}
-		
+
 		// 228도서관 지원센터 회원인증 확인
 		SupportMember loginSupport = sessionLoginSupport(request);
 		if(manageCompareIdx(board.getManage_idx(), 212, 213, 224, 225, 226, 227, 228, 230)) {
@@ -375,7 +375,7 @@ public class BoardController extends BaseController {
 	    		service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
 	    		return null;
 	        }
-			
+
 			// 3 : 학교지원일 경우, 4 : 선정위원일 경우
 			String suppot_auth = loginSupport == null ? "0" : loginSupport.getAuth_group();
 			if((!suppot_auth.equals("3") && !getSessionIsAdmin(request)) && manageCompareIdx(board.getManage_idx(), 213, 225, 226, 228)) {
@@ -432,7 +432,7 @@ public class BoardController extends BaseController {
 				}
 				isBoardAdmin = true;
 			}
-			
+
 			if (!isBoardAdmin) {
 				//회원의 비밀글인 경우
 				if (!boardOne.getAdd_id().equals("ANONYMOUS")) {
@@ -603,7 +603,7 @@ public class BoardController extends BaseController {
 		board.setCategory3Manage(boardManage.getCategory3());
 		board.setCategory4Manage(boardManage.getCategory4());
 		board.setCategory5Manage(boardManage.getCategory5());
-		
+
 		SupportMember loginSupport = sessionLoginSupport(request);
 		if(manageCompareIdx(board.getManage_idx(), 212)) {
 			if ( loginSupport == null && !getSessionIsAdmin(request)) {

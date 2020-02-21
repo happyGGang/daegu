@@ -77,13 +77,14 @@ do {
 		// 팝업 관련 코드 END
 
 
-		$('div.holiday-box').load('calendar2.do');
-		$('div.event-box').load('calendar4.do');
+		$('div.calendar-box').load('calendar5.do?homepage_id=h10');
 		$('ul.newBookUl').load('recommendBook.do?hid=h10');
-		$('ul.bestBookUl').load('bestBook.do');
 
 		$('select#recommendBook1').on('change', function() {
 			$('ul.newBookUl').load('recommendBook.do?hid='+$(this).val());
+		});
+		$('select#recommendSite1').on('change', function() {
+			$('div.calendar-box').load('calendar5.do?homepage_id='+$(this).val());
 		});
 
 
@@ -193,46 +194,19 @@ do {
 
 				<div class="cont cultureList">
 					<ul>
+						<c:forEach items="${teachList}" var="i" varStatus="status">
+						<c:set var="imgnum" value="${(status.count % 4)+1}"></c:set>
 						<li>
-						<a href="${i.imsi_v_1}" class="border${i.category1} bgimg001">
+						<a href="/${i.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=${i.menu_idx}&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}" class="border bgimg00${imgnum}">
 							<span class="txt">
-								<p class="lib-name">중앙도서관1</p>
-								<p class="tit">영어뮤지컬<br/>갈라콘서트</p>
-								<p class="len"><b>접수</b><br/>2020.01.08 ~ 2020.01.10</p>
+								<p class="lib-name">${i.homepage_name}</p>
+								<p class="tit">${i.teach_name}</p>
+								<p class="len"><b>접수</b><br/>${i.start_join_date} ~ ${i.end_join_date}</p>
 							</span>
 							<span class="btnn"><img src="/resources/homepage/${homepage.context_path}/img/more-culture-btn.png" alt="신청하기"></span>
 						</a>
 						</li>
-						<li>
-						<a href="${i.imsi_v_1}" class="border${i.category1} bgimg002">
-							<span class="txt">
-								<p class="lib-name">중앙도서관</p>
-								<p class="tit">영어뮤지컬<br/>갈라콘서트</p>
-								<p class="len"><b>접수</b><br/>2020.01.08 ~ 2020.01.10</p>
-							</span>
-							<span class="btnn"><img src="/resources/homepage/${homepage.context_path}/img/more-culture-btn.png" alt="신청하기"></span>
-						</a>
-						</li>
-						<li>
-						<a href="${i.imsi_v_1}" class="border${i.category1} bgimg003">
-							<span class="txt">
-								<p class="lib-name">중앙도서관</p>
-								<p class="tit">영어뮤지컬<br/>갈라콘서트</p>
-								<p class="len"><b>접수</b><br/>2020.01.08 ~ 2020.01.10</p>
-							</span>
-							<span class="btnn"><img src="/resources/homepage/${homepage.context_path}/img/more-culture-btn.png" alt="신청하기"></span>
-						</a>
-						</li>
-						<li>
-						<a href="${i.imsi_v_1}" class="border${i.category1} bgimg004">
-							<span class="txt">
-								<p class="lib-name">중앙도서관</p>
-								<p class="tit">영어뮤지컬<br/>갈라콘서트</p>
-								<p class="len"><b>접수</b><br/>2020.01.08 ~ 2020.01.10</p>
-							</span>
-							<span class="btnn"><img src="/resources/homepage/${homepage.context_path}/img/more-culture-btn.png" alt="신청하기"></span>
-						</a>
-						</li>
+						</c:forEach>
 					</ul>
 				</div>
 
@@ -250,34 +224,15 @@ do {
 					<div class="story_list">
 						<a href="#" class="more-notice"><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt="더보기"></a>
 						<ul class="clearfix list">
+							<c:forEach items="${noticeBoardList}" var="i" varStatus="status">
 							<li>
-								<a href="javascript:void(0);" class="wrap">
-									<p class="tit title0001">2020년 겨울학기 영유아 독서문화프로그램 참가자..</p>
-									<span class="date">2019.05.31</span>
+								<a href="/${i.imsi_v_19}/board/view.do?manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&menu_idx=${i.imsi_n_2}" class="wrap">
+									<p class="tit title000${status.count}">${i.title}</p>
+									<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
 								</a>
-								<a href="#" class="link library0001">북부</a>
+								<a href="#" class="link library000${status.count}">${i.imsi_v_20}</a>
 							</li>
-										<li>
-								<a href="javascript:void(0);" class="wrap">
-									<p class="tit title0002">2020 작은도서관 찾아가는 지역작가와의</p>
-									<span class="date">2019.03.23</span>
-								</a>
-								<a href="#" class="link library0002">두류</a>
-							</li>
-										<li>
-								<a href="javascript:void(0);" class="wrap">
-									<p class="tit title0003">2020 대구시립도서관 축제 안내</p>
-									<span class="date">2019.02.18</span>
-								</a>
-								<a href="#" class="link library0003">동부</a>
-							</li>
-										<li>
-								<a href="javascript:void(0);" class="wrap">
-									<p class="tit title0004">2020년 하반기 작은도서관 관계자 연수 안내</p>
-									<span class="date">2019.01.30</span>
-								</a>
-								<a href="#" class="link library0004">남부</a>
-							</li>
+							</c:forEach>
 						</ul>
 					</div>
 
@@ -287,24 +242,20 @@ do {
 								<h2><b>이달의</b> 휴관일</h2>
 								<p>
 									<select id="recommendSite1" class="recommendSite1" style="color:#fff;">
-										<option value="" style="color:#000;">도서관을 선택해주세요.</option>
-										<option value="AD" style="color:#000;">중앙도서관</option>
-										<option value="AB" style="color:#000;">두류도서관</option>
-										<option value="AH" style="color:#000;">동부도서관</option>
-										<option value="AF" style="color:#000;">서부도서관</option>
-										<option value="AG" style="color:#000;">남부도서관</option>
-										<option value="AC" style="color:#000;">북부도서관</option>
-										<option value="AJ" style="color:#000;">달성도서관</option>
-										<option value="AE" style="color:#000;">수성도서관</option>
-										<option value="AA" style="color:#000;">228기념학생도서관</option>
-										<option value="AL" style="color:#000;">228민주운동기념회관</option>
+										<option value="h10" style="color:#000;">중앙도서관</option>
+										<option value="h6" style="color:#000;">두류도서관</option>
+										<option value="h5" style="color:#000;">동부도서관</option>
+										<option value="h8" style="color:#000;">서부도서관</option>
+										<option value="h3" style="color:#000;">남부도서관</option>
+										<option value="h7" style="color:#000;">북부도서관</option>
+										<option value="h4" style="color:#000;">달성도서관</option>
+										<option value="h9" style="color:#000;">수성도서관</option>
+										<option value="h1" style="color:#000;">228기념학생도서관</option>
+										<option value="h2" style="color:#000;">228민주운동기념회관</option>
 									</select>
 								</p>
 							</div>
 							<div class="calendar-box">
-								<span class="">1</span>
-								<span class="">12</span>
-								<span class="">30</span>
 							</div>
 						</div>
 					</div>

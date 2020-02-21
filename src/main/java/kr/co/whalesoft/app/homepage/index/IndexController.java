@@ -249,6 +249,25 @@ public class IndexController extends BaseController {
 		return basePath + filePath + "_ajax";
 	}
 
+	@RequestMapping(value = { "/{contextPath}/calendar5.*" }) // homepage_id로 휴관일만 가져오기
+	public String calendar5(Model model, CalendarManage calendarManage, HttpServletRequest request,
+			@PathVariable String contextPath) {
+		Homepage h = (Homepage) request.getAttribute("homepage");
+		Homepage homepage = homepageService.getHomepageOne(new Homepage(calendarManage.getHomepage_id()));
+
+		String filePath = h.getFolder() + "/closedCalendar";
+
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM");
+
+		if (StringUtils.isEmpty(calendarManage.getPlan_date())) {
+			calendarManage = new CalendarManage(sf.format(Calendar.getInstance().getTime()));
+		}
+		calendarManage.setHomepage_id(homepage.getHomepage_id());
+		model.addAttribute("calendar", calendarManage);
+		model.addAttribute("closeDayList", calendarManageService.getClosedDate2(calendarManage));
+		return basePath + filePath + "_ajax";
+	}
+
 	@RequestMapping(value = { "/{contextPath}/newBook.*" })
 	public String newBook(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
 		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
@@ -420,6 +439,10 @@ public class IndexController extends BaseController {
 				}
 			}
 			model.addAttribute("teachList", teachListForAllHomepage);
+			Board b = new Board();
+			b.setRowCount(4);
+			b.setTotalDataCount(4);
+			model.addAttribute("noticeBoardList", boardService.getAllHomepageBoardListByMain(b));
 		}
 
 
