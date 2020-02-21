@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.whalesoft.app.board.Board;
@@ -33,6 +34,9 @@ public class ApiController extends BaseController {
 	@Autowired
 	private ElibApiService2 elibApiService2;
 	
+	@Autowired
+	private ElibLoginApiService elibLoginApiService;
+	
 	private static final String LOGIN_PAGE = "/elib/intro/login/index.do?menu_idx=43";
 	
 	@RequestMapping(value = {"/board.*"})
@@ -55,6 +59,11 @@ public class ApiController extends BaseController {
 	@RequestMapping(value = {"/elib2.*"})
 	public @ResponseBody ElibXmlResult index(Lending lending, HttpServletRequest request, HttpServletResponse response) {
 		return elibApiService2.doApi(lending, request, response);
+	}
+	
+	@RequestMapping(value = {"elib_login.*"})
+	public @ResponseBody ElibLoginXmlResult index(@RequestParam(required=false, defaultValue="elib_login_api") String login_uid, @RequestParam(required=false, defaultValue="elib_login_api") String login_pwd, HttpServletRequest request, HttpServletResponse response) {
+		return elibLoginApiService.doApi(login_uid, login_pwd, request, response);
 	}
 	
 	@RequestMapping(value = {"/sso.*"})
