@@ -331,7 +331,7 @@ do {
 						<li><a href="/${homepage.context_path}/html.do?menu_idx=53" class="quick-02"><span class="txt"><p>평생교육강좌</p><p>다양한 교육문화/평생체험</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="평생교육강좌" class='go-bg'></a></li>
 						<li><a href="/${homepage.context_path}/html.do?menu_idx=56" class="quick-03"><span class="txt"><p>독서문화행사</p><p>소통하는 프로그램</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="독서문화행사" class='go-bg'></a></li>
 						<li><a href="/${homepage.context_path}/html.do?menu_idx=123" class="quick-04"><span class="txt"><p>시각장애인실</p><p>우리도서관 특색사업</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="시각장애인실" class='go-bg'></a></li>
-						<li><a href="/${homepage.context_path}/html.do?menu_idx=114" class="quick-05"><span class="txt"><p>소리인문학</p><p>책 읽는 즐거움 소리도서</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="소리인문학" class='go-bg'></a></li>
+						<!--<li><a href="/${homepage.context_path}/html.do?menu_idx=114" class="quick-05"><span class="txt"><p>소리인문학</p><p>책 읽는 즐거움 소리도서</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="소리인문학" class='go-bg'></a></li>-->
 					</ul>
 				</div>
 
@@ -374,7 +374,7 @@ do {
 			<h4><img src="/resources/homepage/${homepage.context_path}/img/quick-title.png" alt="퀵메뉴"/></h4>
 			<ul>
 				<li><a href="#"><span class="txt">전자도서관</span></a></li>
-				<li><a href="#"><span class="txt">디지털자료실<br/>좌석예약</span></a></li>
+				<!--li><a href="#"><span class="txt">디지털자료실<br/>좌석예약</span></a></li-->
 				<li><a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=58"><span class="txt">영화상영</span></a></li>
 				<li><a href="/${homepage.context_path}/html.do?menu_idx=26"><span class="txt">희망도서신청</span></a></li>
 				<li><a href="https://www.1365.go.kr/vols/main.do" target="_blank"><span class="txt">청소년<br/>자원봉사신청</span></a></li>

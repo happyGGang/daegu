@@ -53,9 +53,9 @@
 	</div>
 
 	<div class="section">
-		<div class="txt">
+		<!--<div class="txt">
 			<span class="">꿈을 향한 힘찬 도전<Br/> <b>대구광역시립<em>수성도서관</em></b></span>
-		</div>
+		</div>-->
 
 		<div id="holiday-box">
 		</div>
