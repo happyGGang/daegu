@@ -83,6 +83,16 @@ $(function() {
 	} catch (e) {
 		// TODO: handle exception
 	}
+	
+	<c:if test="${loginPortal.login}">
+	<%-- 대표도서관 택배대출 관심도서 --%>
+	$('#interest').on('click', function(e) {
+		e.preventDefault();
+		if(confirm('택배서비스 관심도서 추가하겠습니까?')) {
+			doAjaxPost($('#bookExpressForm'));
+		}
+	});
+	</c:if >
 
 	$('div#bookReviewDiv').load('/${homepage.context_path}/module/bookReview/index.do?menu_idx=${fn:escapeXml(param.menu_idx)}&manage_code=${fn:escapeXml(detail.MANAGE_CODE)}&reg_no=${fn:escapeXml(detail.REG_NO)}');
 });
@@ -134,6 +144,17 @@ $(function() {
 	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
 	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
 	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
+</form>
+</c:if>
+
+<c:if test="${loginPortal.login}">
+<form id="bookExpressForm" action="/${homepage.context_path}/module/bookExpress/save.do" method="post">
+	<input type="hidden" name="editMode" value="INTEREST">
+	<input type="hidden" name="book_name" value="${detail.TITLE_INFO} / ${detail.AUTHOR}">
+	<input type="hidden" name="book_reg_no" value="${detail.REG_NO}">
+	<input type="hidden" name="book_call_no" value="${detail.CALL_NO}">
+	<input type="hidden" name="thumb_image" value="${detail.IMAGE}">
+	<input type="hidden" name="library_code" value="${detail.LIB_CODE}">
 </form>
 </c:if>
 
@@ -268,6 +289,9 @@ $(function() {
 			</c:if>
 
 			<a href="javascript:history.back();" id="goBack" class="btn"><i class="fa fa-book"></i><span>목록으로</span></a>
+			<c:if test="${loginPortal.login}">
+			<a href="#" id="interest" class="btn"><span>관심도서</span></a>
+			</c:if>
 		</div>
 
 		<!-- 선호도정보 -->

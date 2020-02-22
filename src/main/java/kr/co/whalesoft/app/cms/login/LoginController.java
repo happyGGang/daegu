@@ -81,6 +81,7 @@ public class LoginController extends BaseController {
 		member.setMember_pw(login.getMember_pw());
 
 		request.getSession().removeAttribute("loginSupport");
+		request.getSession().removeAttribute("loginPortal");
 		String loginResult = service.login(member, request);
 		if(loginResult.equals("LOGIN")) {
 			/**

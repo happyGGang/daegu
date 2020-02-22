@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.module.bookExpress.BookExpressDao">
+
+	<select id="getInterestBookList" resultType="kr.go.gbelib.app.module.bookExpress.BookExpress">
+		${pagingTop}
+		SELECT
+			book_express_idx, library_code, agency_name, agency_id, book_reg_no, book_call_no,
+			book_name, thumb_image, request_status, add_date, add_id
+		FROM
+			BOOK_EXPRESS
+		WHERE
+			request_status = '0'
+		AND	agency_id = #{agency_id}
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		${pagingBottom}
+	</select>
+	
+	<select id="getInterestBookCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			BOOK_EXPRESS
+		WHERE
+			request_status = '0'
+		AND	agency_id = #{agency_id}
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+	</select>
+	
+	<select id="interestBookCheck" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			BOOK_EXPRESS
+		WHERE
+			request_status = '0'
+		AND	library_code = #{library_code}
+		AND	book_reg_no = #{book_reg_no}
+		AND	book_call_no = #{book_call_no}
+		AND	agency_id = #{agency_id}
+	</select>
+	
+	<insert id="addInterestBook">
+		<selectKey keyProperty="book_express_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(book_express_idx), 0) + 1 FROM BOOK_EXPRESS
+		</selectKey>
+		INSERT INTO
+			BOOK_EXPRESS
+		(
+			book_express_idx, library_code, agency_name, agency_id, book_reg_no, book_call_no,
+			book_name, thumb_image, request_status, add_date, add_id
+		)
+		VALUES
+		(
+			#{book_express_idx}, #{library_code}, #{agency_name}, #{agency_id}, #{book_reg_no}, #{book_call_no},
+			#{book_name}, #{thumb_image}, 0, SYSDATE, #{add_id}
+		)
+	</insert>
+
+	<update id="modifyBookExpress">
+		UPDATE
+			BOOK_EXPRESS
+		SET
+			request_status = #{request_status},
+			request_date = SYSDATE,
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
+		WHERE
+			book_express_idx IN
+			<foreach collection="book_express_arr" item="i" open="(" close=")" separator=","> 
+			#{i}
+			</foreach>
+	</update>
+	
+	<select id="getBookExpressList" resultType="kr.go.gbelib.app.module.bookExpress.BookExpress">
+		${pagingTop}
+		SELECT
+			book_express_idx, library_code, agency_name, agency_id, book_reg_no,
+			book_call_no, book_name, thumb_image, request_status, request_date,
+			request_name, request_phone, reason, add_date, add_id
+		FROM
+			BOOK_EXPRESS
+		WHERE
+		<choose>
+			<when test="request_status == null or request_status == ''">
+			request_status != '0'
+			</when>
+			<otherwise>
+			request_status = #{request_status}
+			</otherwise>
+		</choose>
+		<if test="library_code != null and library_code != ''">
+		AND	library_code = #{library_code}
+		</if>
+		<if test="agency_id != null and agency_id != ''">
+		AND	agency_id = #{agency_id}
+		</if>
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		${pagingBottom}
+	</select>
+	
+	<select id="getBookExpressCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			BOOK_EXPRESS
+		WHERE
+		<choose>
+			<when test="request_status == null or request_status == ''">
+			request_status != '0'
+			</when>
+			<otherwise>
+			request_status = #{request_status}
+			</otherwise>
+		</choose>
+		<if test="library_code != null and library_code != ''">
+		AND	library_code = #{library_code}
+		</if>
+		<if test="agency_id != null and agency_id != ''">
+		AND	agency_id = #{agency_id}
+		</if>
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+	</select>
+	
+	<update id="setReason">
+		UPDATE
+			BOOK_EXPRESS
+		SET
+			reason = #{reason}
+		WHERE
+			book_express_idx = #{book_express_idx}
+	</update>
+	
+	<update id="setRequestExpress">
+		UPDATE
+			BOOK_EXPRESS
+		SET
+			request_name = #{request_name},
+			request_phone = #{request_phone}
+		WHERE
+			book_express_idx = #{book_express_idx}
+	</update>
+
+</mapper>

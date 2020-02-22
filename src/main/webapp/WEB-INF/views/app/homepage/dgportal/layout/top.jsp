@@ -27,6 +27,11 @@
 						<span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/intro/login/logout.do">로그아웃</a>
 					</c:when>
+					<c:when test="${sessionScope.loginPortal.login}">
+						${sessionScope.loginPortal.agency_name}님
+						<span class="txt-bar"></span>
+						<a href="/${homepage.context_path}/module/portalMember/logout.do">학교도서관 로그아웃</a>
+					</c:when>
 					<c:otherwise>
 						<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=4">로그인</a>
 						<span class="txt-bar"></span>
