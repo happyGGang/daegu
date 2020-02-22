@@ -203,7 +203,7 @@ $(function() {
 
 	<!-- contents-title-->
 	<div id="contents-title">
-		<h2>어떤 도서<span style="font-weight:300">를 찾고 싶으세요?</span></h2>
+		<!-- <h2>어떤 도서<span style="font-weight:300">를 찾고 싶으세요?</span></h2> -->
 	</div>
 	<!-- /contents-title-->
 

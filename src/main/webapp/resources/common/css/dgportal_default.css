@@ -554,9 +554,10 @@ ul a i.kakaostory{height:17px;background:url('../img/contents/icon_kakao.png') n
 .doc-info {width:100%;position:relative;padding:0 0 10px 0;box-sizing:border-box;z-index:2;border-bottom:1px solid #d3d7dd;}
 .doc-info ol { float:left;}
 .doc-info ol li.first {padding:0 0 15px 10px;}
-.doc-info ol li.second { background:none; }
+.doc-info ol li.second, .doc-info ol li:nth-child(2) { background:none; }
 .doc-info ol li {font-size:14px;padding-left:25px;margin-left:0px;background:url("../img/doc_arrow_b.png") no-repeat 0 50%;}
 .doc-info ol li:first-child {background:none;}
+.doc-info ol li:nth-child(2) {padding-left:10px;}
 .doc-info ul {}
 .doc-info ul { width: 100%; }
 .doc-info li.first img { margin-top: 10px; }

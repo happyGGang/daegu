@@ -87,7 +87,7 @@ do {
 			$('div.calendar-box').load('calendar5.do?homepage_id='+$(this).val());
 		});
 
-
+		$('.Gnb .gnb-menu > li.menu7').remove();
 });
 </script>
 <div id="wrap">
@@ -186,7 +186,7 @@ do {
 
 				<div class="title">
 					대구통합도서관의<br/>
-					<b>독서문화행사</b>
+					<b>평생교육강좌</b>
 					<em>우리 도서관에는<br/>
 					어떤 강좌가 있을까?</em><br/><br/>
 					<a href="#"><img src="/resources/homepage/${homepage.context_path}/img/culture-icon.png" alt="독서문화행사 안내"></a>
@@ -222,15 +222,15 @@ do {
 					</div>
 
 					<div class="story_list">
-						<a href="#" class="more-notice"><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt="더보기"></a>
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=22&manage_idx=282" class="more-notice"><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt="더보기"></a>
 						<ul class="clearfix list">
 							<c:forEach items="${noticeBoardList}" var="i" varStatus="status">
 							<li>
 								<a href="/${i.imsi_v_19}/board/view.do?manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&menu_idx=${i.imsi_n_2}" class="wrap">
-									<p class="tit title000${status.count}">${i.title}</p>
+									<p class="tit title${i.imsi_v_19}">${i.title}</p>
 									<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
 								</a>
-								<a href="#" class="link library000${status.count}">${i.imsi_v_20}</a>
+								<a href="#" class="link library${i.imsi_v_19}">${i.imsi_v_20}</a>
 							</li>
 							</c:forEach>
 						</ul>
@@ -275,44 +275,7 @@ do {
 							</div>
 						</div>
 						<div class="banner-box6">
-							<!-- <homepageTag:banner bannerList="${bannerList}"/> -->
-							<ul class="banner-roll">
-							<li>
-							<span>
-							<a target="_blank" href="http://book.nl.go.kr/iplls/Index.do">
-							<img alt="책이음" src="/data/banner/h10/1579226827630"/></a></span></li>
-							<li>
-							<span>
-							<a target="_blank" href="https://www.safetyreport.go.kr/#main">
-							<img alt="안전신문고" src="/data/banner/h10/1579225804097"/></a></span></li>
-							<li>
-							<span>
-							<a target="_blank" href="http://www.nl.go.kr/nl/index.jsp">
-							<img alt="국립중앙도서관" src="/data/banner/h10/1579226089985"/></a></span></li>
-							<li>
-							<span>
-							<a target="_blank" href="https://www.nanet.go.kr/main.do">
-							<img alt="국회도서관" src="/data/banner/h10/1579226325578"/></a></span></li>
-							<li>
-							<span>
-							<a target="_blank" href="https://www.kla.kr/jsp/main.do">
-							<img alt="한국도서관" src="/data/banner/h10/1579226374166"/></a></span></li>
-							<li>
-							<span>
-							<a target="_blank" href="http://www.dge.go.kr/main/main.do">
-							<img alt="대구광역시교육청" src="/data/banner/h10/1579226606788"/></a></span></li>
-							<li>
-							<span>
-							<a target="_blank" href="http://www.nl.go.kr/nill/user/">
-							<img alt="책바다" src="/data/banner/h10/1579228091444"/></a></span></li>
-							<li>
-							<span>
-							<a target="_blank" href="http://dream.nl.go.kr/dream/chaeknarae">
-							<img alt="책나래" src="/data/banner/h10/1579227302592"/></a></span></li>
-							<li>
-							<span>
-							<a target="_blank" href=" http://www.daegu.go.kr/">
-							<img alt="대구광역시" src="/data/banner/h10/1579227343291"/></a></span></li></ul>
+							<homepageTag:banner bannerList="${bannerList}"/>
 						</div>
 						<div class="banner-t6-right">
 							<div class="control">

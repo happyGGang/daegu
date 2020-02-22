@@ -25,17 +25,15 @@
 
 				<div class="info-box">
 					<div class="info">
-						<a href="/${homepage.context_path}/html.do?menu_idx=86"><b>개인정보처리방침</b></a>
+						<a href="/${homepage.context_path}/html.do?menu_idx=46"><b>개인정보처리방침</b></a>
 						<span class="bar">|</span>
-						<a href="/${homepage.context_path}/html.do?menu_idx=90">도서관서비스헌장</a>
+						<a href="/${homepage.context_path}/html.do?menu_idx=49">도서관서비스헌장</a>
 						<span class="bar">|</span>
-						<a href="/${homepage.context_path}/html.do?menu_idx=91">저작권정책</a>
+						<a href="/${homepage.context_path}/html.do?menu_idx=52">저작권정책</a>
 						<span class="bar">|</span>
-						<a href="/${homepage.context_path}/html.do?menu_idx=91">이메일무단수집거부</a>
+						<a href="/${homepage.context_path}/html.do?menu_idx=50">이메일무단수집거부</a>
 						<span class="bar">|</span>
-						<a href="/${homepage.context_path}/html.do?menu_idx=94">뷰어다운로드</a>
-						<span class="bar">|</span>
-						<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=92">찾아오시는길</a>
+						<a href="/${homepage.context_path}/html.do?menu_idx=51">뷰어다운로드</a>
 					</div>
 				</div>
 			</div>

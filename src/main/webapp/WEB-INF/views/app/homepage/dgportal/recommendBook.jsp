@@ -18,27 +18,29 @@ do {
 
 <li>
 	<a class="goDetail" href="/${recommendBookContextPath}/board/view.do?menu_idx=${recommendBookMenuIdx}&manage_idx=${book1.manage_idx}&board_idx=${book1.board_idx}">
-		<img src="/resources/homepage/${recommendBookContextPath}/img/book-line.png" alt="" class="book-line">
+		<img src="/resources/homepage/dgportal/img/book-line.png" alt="" class="book-line">
 		<c:choose>
 			<c:when test="${fn:contains(book1.preview_img, 'http')}">
-			<img src="${book1.preview_img}" alt="${book1.title}" title="${book1.title}" class="book-shadow"/>
+			<img src="${book1.preview_img}" alt="${book1.title}" title="${book1.title}"/>
 			</c:when>
 			<c:otherwise>
-			<img src="/data/board/${book1.manage_idx}/${book1.board_idx}/${book1.preview_img}" alt="${book1.title}" title="${book1.title}" class="book-shadow"/>
+			<img src="/data/board/${book1.manage_idx}/${book1.board_idx}/${book1.preview_img}" alt="${book1.title}" title="${book1.title}" />
 			</c:otherwise>
 		</c:choose>
+			<img src="/resources/homepage/dgportal/img/book-shadow.png" alt="book-shadow" class="book-shadow" />
 	</a>
 </li>
 <li>
 	<a class="goDetail" href="/${recommendBookContextPath}/board/view.do?menu_idx=${recommendBookMenuIdx}&manage_idx=${book2.manage_idx}&board_idx=${book2.board_idx}" >
-		<img src="/resources/homepage/${recommendBookContextPath}/img/book-line.png" alt="" class="book-line">
+		<img src="/resources/homepage/dgportal/img/book-line.png" alt="" class="book-line">
 		<c:choose>
 			<c:when test="${fn:contains(book2.preview_img, 'http')}">
-			<img src="${book2.preview_img}" alt="${book2.title}" title="${book2.title}" class="book-shadow"/>
+			<img src="${book2.preview_img}" alt="${book2.title}" title="${book2.title}"/>
 			</c:when>
 			<c:otherwise>
-			<img src="/data/board/${book2.manage_idx}/${book2.board_idx}/${book2.preview_img}" alt="${book2.title}" title="${book2.title}" class="book-shadow"/>
+			<img src="/data/board/${book2.manage_idx}/${book2.board_idx}/${book2.preview_img}" alt="${book2.title}" title="${book2.title}"/>
 			</c:otherwise>
 		</c:choose>
+		<img src="/resources/homepage/dgportal/img/book-shadow.png" alt="book-shadow" class="book-shadow" />
 	</a>
 </li>
