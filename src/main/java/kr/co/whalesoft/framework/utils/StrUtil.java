@@ -348,6 +348,8 @@ public class StrUtil {
         	content = m.replaceAll(" ");
 		} catch (StackOverflowError e) {
 			return "";
+		} catch (Exception e) {
+			return "";
 		}
 
         return content;

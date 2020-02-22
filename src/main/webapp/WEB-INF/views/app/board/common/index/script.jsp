@@ -147,6 +147,11 @@ $(document).ready(function() {
     		doAjaxPost($('#board'));
     	}
 	});
+	<%-- 게시물 복구 --%>
+	$('a#board_normal_btn').on('click', function(e) {
+		e.preventDefault();
+		location.href = location.href.replace('/boardDelete/', '/board/');
+	});
 
 	<%-- 카테고리변경 --%>
 	$('a#board_move_btn').on('click', function(e) {

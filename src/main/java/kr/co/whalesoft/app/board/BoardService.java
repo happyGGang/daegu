@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -310,8 +311,10 @@ public class BoardService extends BaseService {
 		}
 
 //		board.setContent(xssFilter.doFilter(board.getContent()));
-		board.setContent(board.getContent().replaceAll(board.getBeforeFilePath(), board.getAfterFilePath() + "/" + boardManage.getManage_idx() + "/" + board.getBoard_idx()));
-		board.setContent_summary(StrUtil.previewContent(StrUtil.delHtmlTagPatterns(board.getContent()),1000));
+		if (StringUtils.isNotBlank(board.getContent())) {
+			board.setContent(board.getContent().replaceAll(board.getBeforeFilePath(), board.getAfterFilePath() + "/" + boardManage.getManage_idx() + "/" + board.getBoard_idx()));
+			board.setContent_summary(StrUtil.previewContent(StrUtil.delHtmlTagPatterns(board.getContent()),1000));
+		}
 
 		if(dao.addBoard(board) > 0) {
 
@@ -716,9 +719,24 @@ public class BoardService extends BaseService {
 	public int addFileDownloadCount(BoardFile boardFile) {
 		return dao.addFileDownloadCount(boardFile);
 	}
-	
+
 	public List<Board> getBoardRSS(Board board) {
 		return dao.getBoardRSS(board);
+	}
+
+	/**
+	 * @author whalesoft YONGJU 2020. 2. 22.
+	 * @param board
+	 * @return
+	 */
+	public Map<String, Object> getBoardLibInfoCategoryCount(Board board) {
+		List<Map<String, Object>> list = dao.getBoardLibInfoCategoryCount(board);
+		 Map<String, Object> map = new HashMap<String, Object>();
+		for (Map<String, Object> m : list) {
+			map.put((String) m.get("CATEGORY2"), m.get("CNT"));
+		}
+
+		return map;
 	}
 
 }

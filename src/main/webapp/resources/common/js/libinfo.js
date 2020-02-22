@@ -21,15 +21,8 @@ $(function() {
 		$('a.mp7on').removeClass('on');
 		$('a.mp8on').removeClass('on');
 
-		$('.all-lib').css('display','none');
-		$('.donggu').css('display','block');
-		$('.bukgu').css('display','none');
-		$('.suseonggu').css('display','none');
-		$('.junggu').css('display','none');
-		$('.namgu').css('display','none');
-		$('.seogu').css('display','none');
-		$('.dalseogu').css('display','none');
-		$('.dalseonggun').css('display','none');
+		$('select#category1').val('0002').attr('selected', 'true');
+		$('select#category1').change();
 	});
 
 	$('a.mp2on').on('click', function(e) {
@@ -53,15 +46,8 @@ $(function() {
 		$('a.mp7on').removeClass('on');
 		$('a.mp8on').removeClass('on');
 
-		$('.all-lib').css('display','none');
-		$('.donggu').css('display','none');
-		$('.bukgu').css('display','block');
-		$('.suseonggu').css('display','none');
-		$('.junggu').css('display','none');
-		$('.namgu').css('display','none');
-		$('.seogu').css('display','none');
-		$('.dalseogu').css('display','none');
-		$('.dalseonggun').css('display','none');
+		$('select#category1').val('0005').attr('selected', 'true');
+		$('select#category1').change();
 	});
 
 	$('a.mp3on').on('click', function(e) {
@@ -85,15 +71,8 @@ $(function() {
 		$('a.mp7on').removeClass('on');
 		$('a.mp8on').removeClass('on');
 
-		$('.all-lib').css('display','none');
-		$('.donggu').css('display','none');
-		$('.bukgu').css('display','none');
-		$('.suseonggu').css('display','block');
-		$('.junggu').css('display','none');
-		$('.namgu').css('display','none');
-		$('.seogu').css('display','none');
-		$('.dalseogu').css('display','none');
-		$('.dalseonggun').css('display','none');
+		$('select#category1').val('0007').attr('selected', 'true');
+		$('select#category1').change();
 	});
 
 	$('a.mp4on').on('click', function(e) {
@@ -117,15 +96,8 @@ $(function() {
 		$('a.mp7on').removeClass('on');
 		$('a.mp8on').removeClass('on');
 
-		$('.all-lib').css('display','none');
-		$('.donggu').css('display','none');
-		$('.bukgu').css('display','none');
-		$('.suseonggu').css('display','none');
-		$('.junggu').css('display','block');
-		$('.namgu').css('display','none');
-		$('.seogu').css('display','none');
-		$('.dalseogu').css('display','none');
-		$('.dalseonggun').css('display','none');
+		$('select#category1').val('0001').attr('selected', 'true');
+		$('select#category1').change();
 	});
 
 	$('a.mp5on').on('click', function(e) {
@@ -149,15 +121,8 @@ $(function() {
 		$('a.mp7on').removeClass('on');
 		$('a.mp8on').removeClass('on');
 
-		$('.all-lib').css('display','none');
-		$('.donggu').css('display','none');
-		$('.bukgu').css('display','none');
-		$('.suseonggu').css('display','none');
-		$('.junggu').css('display','none');
-		$('.namgu').css('display','block');
-		$('.seogu').css('display','none');
-		$('.dalseogu').css('display','none');
-		$('.dalseonggun').css('display','none');
+		$('select#category1').val('0004').attr('selected', 'true');
+		$('select#category1').change();
 	});
 
 	$('a.mp6on').on('click', function(e) {
@@ -181,15 +146,8 @@ $(function() {
 		$('a.mp7on').removeClass('on');
 		$('a.mp8on').removeClass('on');
 
-		$('.all-lib').css('display','none');
-		$('.donggu').css('display','none');
-		$('.bukgu').css('display','none');
-		$('.suseonggu').css('display','none');
-		$('.junggu').css('display','none');
-		$('.namgu').css('display','none');
-		$('.seogu').css('display','block');
-		$('.dalseogu').css('display','none');
-		$('.dalseonggun').css('display','none');
+		$('select#category1').val('0003').attr('selected', 'true');
+		$('select#category1').change();
 	});
 
 	$('a.mp7on').on('click', function(e) {
@@ -213,15 +171,8 @@ $(function() {
 		$('a.mp7on').addClass('on');
 		$('a.mp8on').removeClass('on');
 
-		$('.all-lib').css('display','none');
-		$('.donggu').css('display','none');
-		$('.bukgu').css('display','none');
-		$('.suseonggu').css('display','none');
-		$('.junggu').css('display','none');
-		$('.namgu').css('display','none');
-		$('.seogu').css('display','none');
-		$('.dalseogu').css('display','block');
-		$('.dalseonggun').css('display','none');
+		$('select#category1').val('0006').attr('selected', 'true');
+		$('select#category1').change();
 	});
 
 	$('a.mp8on').on('click', function(e) {
@@ -245,14 +196,7 @@ $(function() {
 		$('a.mp7on').removeClass('on');
 		$('a.mp8on').addClass('on');
 
-		$('.all-lib').css('display','none');
-		$('.donggu').css('display','none');
-		$('.bukgu').css('display','none');
-		$('.suseonggu').css('display','none');
-		$('.junggu').css('display','none');
-		$('.namgu').css('display','none');
-		$('.seogu').css('display','none');
-		$('.dalseogu').css('display','none');
-		$('.dalseonggun').css('display','block');
+		$('select#category1').val('0008').attr('selected', 'true');
+		$('select#category1').change();
 	});
 });

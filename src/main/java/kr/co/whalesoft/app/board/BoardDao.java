@@ -146,4 +146,11 @@ public interface BoardDao {
 	 * @return
 	 */
 	public List<Board> getBoardRSS(Board board);
+
+	/**
+	 * @author whalesoft YONGJU 2020. 2. 22.
+	 * @param board
+	 * @return
+	 */
+	public List<Map<String, Object>> getBoardLibInfoCategoryCount(Board board);
 }
