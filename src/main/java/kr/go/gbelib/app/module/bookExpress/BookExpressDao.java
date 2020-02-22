@@ -1,6 +1,7 @@
 package kr.go.gbelib.app.module.bookExpress;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BookExpressDao {
 
@@ -17,6 +18,8 @@ public interface BookExpressDao {
 	public List<BookExpress> getBookExpressList(BookExpress bookExpress);
 
 	public int getBookExpressCount(BookExpress bookExpress);
+	
+	public Map<String, Integer> getStatusCount(BookExpress bookExpress);
 
 	public int setReason(BookExpress bookExpress);
 

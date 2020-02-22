@@ -1,6 +1,8 @@
 package kr.go.gbelib.app.module.bookExpress;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +41,10 @@ public class BookExpressService extends BaseService {
 
 	public int getBookExpressCount(BookExpress bookExpress) {
 		return dao.getBookExpressCount(bookExpress);
+	}
+	
+	public Map<String, Integer> getStatusCount(BookExpress bookExpress) {
+		return dao.getStatusCount(bookExpress);
 	}
 
 	public int setReason(BookExpress bookExpress) {

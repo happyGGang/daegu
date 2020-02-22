@@ -73,6 +73,7 @@ public class BookExpressController extends BaseController {
 		model.addAttribute("bookExpress", bookExpress);
 		model.addAttribute("homepageList", homepageService.getNormalHomepage());
 		model.addAttribute("bookExpressList", service.getBookExpressList(bookExpress));
+		model.addAttribute("statusCount", service.getStatusCount(bookExpress));
 
 		return String.format(basePath, homepage.getFolder()) + "list";
 	}

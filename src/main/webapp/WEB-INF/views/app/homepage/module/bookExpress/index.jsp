@@ -6,11 +6,6 @@
 <script type="text/javascript">
 $(function() {
 	
-// 	$('#add-btn').on('click', function(e) {
-// 		e.preventDefault();
-// 		doGetLoad('edit.do', 'editMode=ADD&menu_idx='+$('#menu_idx').val());
-// 	});
-	
 	$('.view-btn').on('click', function(e) {
 		e.preventDefault();
 		var formData = 'menu_idx='+$('#menu_idx').val() + '&viewPage='+$('#viewPage').val() + '&book_package_idx='+$(this).attr('keyValue');

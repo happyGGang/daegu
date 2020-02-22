@@ -130,6 +130,35 @@
 		</if>
 	</select>
 	
+	<select id="getStatusCount" resultType="map">
+		SELECT
+			MAX(DECODE(request_status, 1, cnt, 0)) AS status1,
+			MAX(DECODE(request_status, 2, cnt, 0)) AS status2,
+			MAX(DECODE(request_status, 3, cnt, 0)) AS status3,
+			MAX(DECODE(request_status, 4, cnt, 0)) AS status4,
+			MAX(DECODE(request_status, 5, cnt, 0)) AS status5,
+			MAX(DECODE(request_status, 6, cnt, 0)) AS status6
+		FROM
+			(
+			SELECT
+				request_status, COUNT(*) AS cnt
+			FROM
+				BOOK_EXPRESS
+			<trim prefix="WHERE" prefixOverrides="AND">
+				<if test="library_code != null and library_code != ''">
+				AND	library_code = #{library_code}
+				</if>
+				<if test="agency_id != null and agency_id != ''">
+				AND	agency_id = #{agency_id}
+				</if>
+			</trim>
+			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+			GROUP BY request_status
+			)
+	</select>
+	
 	<update id="setReason">
 		UPDATE
 			BOOK_EXPRESS

@@ -86,19 +86,19 @@ $(function() {
 <form:hidden path="request_name"/>
 <form:hidden path="request_phone"/>
 <div>
-	<span><a href="#" class="btn-status" keyValue="">전체</a></span>
+	<span><a href="#" class="btn-status" keyValue="">전체 : ${paging.totalDataCount}</a></span>
 	<span>|</span>
-	<span><a href="#" class="btn-status" keyValue="1" style="color: #AAAAAA;">신청중</a></span>
+	<span><a href="#" class="btn-status" keyValue="1" style="color: #AAAAAA;">신청중 : ${statusCount.STATUS1}</a></span>
 	<span>|</span>
-	<span><a href="#" class="btn-status" keyValue="2">처리중</a></span>
+	<span><a href="#" class="btn-status" keyValue="2">처리중 : ${statusCount.STATUS2}</a></span>
 	<span>|</span>
-	<span><a href="#" class="btn-status" keyValue="3" style="color: #FF0000;">처리불가</a></span>
+	<span><a href="#" class="btn-status" keyValue="3" style="color: #FF0000;">처리불가 : ${statusCount.STATUS3}</a></span>
 	<span>|</span>
-	<span><a href="#" class="btn-status" keyValue="4" style="color: #FF8800;">보류</a></span>
+	<span><a href="#" class="btn-status" keyValue="4" style="color: #FF8800;">보류 : ${statusCount.STATUS4}</a></span>
 	<span>|</span>
-	<span><a href="#" class="btn-status" keyValue="5" style="color: #4488BB;">발송완료</a></span>
+	<span><a href="#" class="btn-status" keyValue="5" style="color: #4488BB;">발송완료 : ${statusCount.STATUS5}</a></span>
 	<span>|</span>
-	<span><a href="#" class="btn-status" keyValue="6" style="color: #008800;">반납</a></span>
+	<span><a href="#" class="btn-status" keyValue="6" style="color: #008800;">반납 : ${statusCount.STATUS6}</a></span>
 </div>
 <div>
 	전체 ${paging.totalDataCount}개 (페이지 ${paging.viewPage}/${paging.totalPageCount}) [EXCEL]
