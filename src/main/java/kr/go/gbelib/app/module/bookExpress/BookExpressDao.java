@@ -25,4 +25,6 @@ public interface BookExpressDao {
 
 	public int setRequestExpress(BookExpress bookExpress);
 
+	public List<BookExpress> getBookExpressXls(BookExpress bookExpress);
+
 }

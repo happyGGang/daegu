@@ -1,5 +1,9 @@
 package kr.go.gbelib.app.module.bookExpress;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,9 +17,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
+import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
+import kr.go.gbelib.app.cms.module.bookReview.BookReview;
 import kr.go.gbelib.app.cms.module.portalMember.PortalMember;
+import kr.go.gbelib.app.common.api.LibSearchAPI;
+import kr.go.gbelib.app.intro.search.LibrarySearch;
+import kr.go.gbelib.app.module.bookReview.BookReviewView;
 
 @Controller
 @RequestMapping(value = {"/{homepagePath}/module/bookExpress"})
@@ -150,6 +159,21 @@ public class BookExpressController extends BaseController {
 		}
 
 		return res;
+	}
+	
+	@RequestMapping(value = { "/excelDownload.*" }, method = RequestMethod.POST)
+	public BookExpressView excel(Model model, BookExpress bookExpress, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		PortalMember loginPortal = sessionLoginPortal(request);
+		
+		if (loginPortal.getAuth_group().equals("2")) {
+			bookExpress.setLibrary_code(loginPortal.getLibrary_code());
+		} else if(loginPortal.getAuth_group().equals("3")) {
+			bookExpress.setAgency_id(loginPortal.getAgency_id());
+		}
+		
+		model.addAttribute("bookExpressXls", service.getBookExpressXls(bookExpress));
+
+		return new BookExpressView();
 	}
 
 }

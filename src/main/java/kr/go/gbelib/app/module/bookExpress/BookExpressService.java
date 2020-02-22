@@ -55,4 +55,8 @@ public class BookExpressService extends BaseService {
 		return dao.setRequestExpress(bookExpress);
 	}
 
+	public List<BookExpress> getBookExpressXls(BookExpress bookExpress) {
+		return dao.getBookExpressXls(bookExpress);
+	}
+
 }

@@ -177,5 +177,22 @@
 		WHERE
 			book_express_idx = #{book_express_idx}
 	</update>
+	
+	<select id="getBookExpressXls" resultType="kr.go.gbelib.app.module.bookExpress.BookExpress">
+		SELECT
+			book_express_idx, library_code, agency_name, agency_id, book_reg_no,
+			book_call_no, book_name, thumb_image, request_status, request_date,
+			request_name, request_phone, reason, add_date, add_id
+		FROM
+			BOOK_EXPRESS
+		WHERE
+			request_status != '0'
+		<if test="library_code != null and library_code != ''">
+		AND	library_code = #{library_code}
+		</if>
+		<if test="agency_id != null and agency_id != ''">
+		AND	agency_id = #{agency_id}
+		</if>
+	</select>
 
 </mapper>

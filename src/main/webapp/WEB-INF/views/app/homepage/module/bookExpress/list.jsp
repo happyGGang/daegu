@@ -75,8 +75,17 @@ $(function() {
 		doGetLoad('list.do', serializeCustom($('#bookExpress')));
 	});
 	
+	$('a#btn-excel').on('click', function(e) {
+		e.preventDefault();
+		$('#excelDownForm').attr('action', 'excelDownload.do');
+		$('#excelDownForm').submit();
+	});
+	
 });
 </script>
+
+<form:form id="excelDownForm" modelAttribute="bookExpress" action="excelDownload.do" method="POST">
+</form:form>
 
 <form:form modelAttribute="bookExpress" action="save.do" method="POST">
 <form:hidden path="menu_idx"/>
@@ -101,7 +110,8 @@ $(function() {
 	<span><a href="#" class="btn-status" keyValue="6" style="color: #008800;">반납 : ${statusCount.STATUS6}</a></span>
 </div>
 <div>
-	전체 ${paging.totalDataCount}개 (페이지 ${paging.viewPage}/${paging.totalPageCount}) [EXCEL]
+	전체 ${paging.totalDataCount}개 (페이지 ${paging.viewPage}/${paging.totalPageCount})
+	<a href="#" id="btn-excel" class="btn">EXCEL</a>
 	<form:select path="request_status" cssClass="selectmenu">
 		<form:option value="">전체</form:option>
 		<form:option value="1">신청중</form:option>
@@ -112,6 +122,7 @@ $(function() {
 		<form:option value="6">반납</form:option>
 	</form:select>
 </div>
+<br>
 <div>
 	<table class="type2 center">
 		<colgroup>
