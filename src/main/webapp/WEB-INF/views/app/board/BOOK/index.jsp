@@ -164,7 +164,6 @@ ${boardManage.top_html}
 </c:if>
 <jsp:include page="/WEB-INF/views/app/board/common/index/script.jsp" flush="false" />
 <form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
-<form:hidden path="homepage_id"/>
 <form:hidden path="category1"/>
 <form:hidden path="plan_date"/>
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
@@ -176,6 +175,20 @@ ${boardManage.top_html}
 		<li class="${board.category1 eq i.code_id ? 'active':''}"><a href="" keyValue="${i.code_id}" style="font-size: 13px;">${i.code_name}</a></li>
 		</c:forEach>
 	</ul>
+</div>
+</c:if>
+<c:if test="${boardManage.manage_idx eq '195'}">
+<div style="float: left;">
+도서관 :
+	<form:select path="homepage_id" cssClass="selectmenu" cssStyle="width:250px;" title="도서관 선택">
+		<form:option value="" label="-전체-"></form:option>
+		<c:forEach var="i" varStatus="status" items="${homepageList}">
+		<c:if test="${i.homepage_id ne 'h31' and i.homepage_id ne 'h33' and i.homepage_id ne 'h34'}">
+		<form:option value="${i.homepage_id}" label="${i.homepage_name}" />
+		</c:if>
+		</c:forEach>
+	</form:select>
+	<a href="#" id="libSelect" class="btn1 btn">이동</a>
 </div>
 </c:if>
 <div class="txt-right ym_btns">
@@ -222,6 +235,12 @@ ${boardManage.top_html}
 									${fn:substring(i.title, 0, 30)}<c:if test="${fn:length(i.title) > 30}">...</c:if>
 								</a>
 								<ul class="con2">
+									<c:if test="${boardManage.manage_idx eq '195'}">
+									<li>
+										${i.imsi_v_18}
+										<c:if test="${not empty i.imsi_v_17}"> [${i.imsi_v_17}]</c:if>
+									</li>
+									</c:if>
 									<c:if test="${i.imsi_v_3 ne null and i.imsi_v_3 ne '' and i.imsi_v_3 ne '0'}">
 									<li>저자 : ${fn:substring(i.imsi_v_3, 0, 20)}<c:if test="${fn:length(i.imsi_v_3) > 20}">...</c:if></li>
 									</c:if>

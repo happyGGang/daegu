@@ -44,7 +44,7 @@ $(document).ready(function() {
 	</c:choose>
 
 	<c:choose>
-		<c:when test="${boardManage.manage_idx == 282 or boardManage.manage_idx == 523}">
+		<c:when test="${boardManage.manage_idx == 282 or boardManage.manage_idx == 195}">
 	<%-- 상세보기 --%>
 	$('#board_tbody a').on('click', function(e) {
 		e.preventDefault();
@@ -58,7 +58,7 @@ $(document).ready(function() {
 		}
 	});
 
-		<c:if test="${boardManage.manage_idx == 282 or boardManage.manage_idx == 523}">
+		<c:if test="${boardManage.manage_idx == 282 or boardManage.manage_idx == 195}">
 		$('a#libSelect').on('click', function(e) {
 		e.preventDefault();
 		var url = 'index.do';

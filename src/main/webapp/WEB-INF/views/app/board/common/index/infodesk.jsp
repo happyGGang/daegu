@@ -21,7 +21,7 @@
 		<form:options itemLabel="code_name" itemValue="code_id" items="${category2List}"/>
 	</form:select>
 	</c:if>
-	<c:if test="${boardManage.manage_idx eq '282' or boardManage.manage_idx eq '523'}">
+	<c:if test="${boardManage.manage_idx eq '282' or boardManage.manage_idx eq '195'}">
 	도서관 :
 	<form:select path="homepage_id" cssClass="selectmenu" cssStyle="width:250px;" title="도서관 선택">
 		<form:option value="h1" label="-전체-"></form:option>

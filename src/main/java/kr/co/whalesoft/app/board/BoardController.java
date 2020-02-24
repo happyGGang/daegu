@@ -241,10 +241,11 @@ public class BoardController extends BaseController {
 
 
 		//999 대표 영화
-		//282 대표 공지
 		//526 대표뉴스 대구는 대표뉴스없음
+		//282 대표 공지
+		//195 대표 추천도서
 //		if (board.getManage_idx() != 999 && board.getManage_idx() != 282 && board.getManage_idx() != 523) {
-		if (board.getManage_idx() != 282 ) {
+		if (board.getManage_idx() != 282 && board.getManage_idx() != 195) {
 			board.setHomepage_id(boardManage.getHomepage_id());
 		}
 		model.addAttribute("boardNoticeList", service.getBoardNotice(board));
