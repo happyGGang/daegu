@@ -852,6 +852,7 @@
 										cms_board_manage
 									WHERE
 										board_type = 'NOTICE'
+									AND	homepage_id != 'h30'
 									)
 				AND	delete_yn = 'N'
 			 ) A
