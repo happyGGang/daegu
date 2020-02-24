@@ -12,11 +12,19 @@ $(function() {
 
 	var $form = $('form#librarySearch');
 
+	jQuery.ajaxSettings.traditional = true;
+
+	$('div#cms_paging a').on('click', function(e) {
+		e.preventDefault();
+		$('#viewPage').attr('value', parseInt($(this).attr('keyValue')));
+		doGetLoad('indexAll.do', $('form#librarySearch').serialize());
+	});
+
 	//검색하기
 	$('a#search-btn').on('click', function(e) {
 		e.preventDefault();
 		$('input#viewPage').val('1');
-		doGetLoad('index.do', $form.serialize());
+		doGetLoad('indexAll.do', $form.serialize());
 	});
 
 	//정렬, N개씩보기 : 접근성에 안맞아서 주석처리
@@ -75,7 +83,7 @@ $(function() {
 
 	//외국어 입력기
 	$('#vk-popup').on('click', function(e) {
-		PopupVirtualKeyboard.toggle('search_text','vk');
+		PopupVirtualKeyboard.toggle('title','vk');
 	});
 
 	//전체 선택
@@ -162,7 +170,7 @@ $(function() {
 	//검색초기화
 	$('a#reset-btn').on('click', function(e) {
 		e.preventDefault();
-		location.href='/${homepage.context_path}/intro/search/index.do?menu_idx=13';
+		location.href='/intro/${homepage.context_path}/search/indexAll.do';
 		$('#title').focus();
 	});
 
@@ -226,7 +234,7 @@ $(function() {
 	});
 
 	$('#checkAll').change(function(e) {
-		$('div#libraryList input:checkbox').prop('checked', $(this).prop('checked'));
+		$('div#libraryList input:checkbox, div#mapWrap input:checkbox').prop('checked', $(this).prop('checked'));
 	});
 
 	$('.libSel-close-btn').on('click', function(e) {
@@ -234,9 +242,13 @@ $(function() {
 		$(this).parents('.library-box-inmap').hide();
 	});
 
-	$('.libraryCodes1').on('click', function() {
-		$('.libraryCodes1 input:checkbox').prop('checked', $(this).prop('checked'));
+	$('input.libCheck').on('click', function() {
+		$('input.lib_'+$(this).val()).prop('checked', $(this).prop('checked'));
 	});
+
+	<c:if test="${librarySearch.totalDataCount > 0}">
+	location.href = '#subSearchText';
+	</c:if>
 });
 
 </script>
@@ -244,6 +256,9 @@ $(function() {
 <!-- contents-title-->
 <div id="contents-title"></div>
 <!-- /contents-title-->
+
+<form:form modelAttribute="librarySearch" action="indexAll.do" method="get">
+	<form:hidden path="viewPage"/>
 
 <div class="search-wrap">
 
@@ -254,7 +269,7 @@ $(function() {
 				<div class="section">
 
 					<div class="title-box">
-						<input id="title" name="title" placeholder="도서 제목을 입력하세요" class="text-area" type="text" value=""/><a id="vk-popup" class="btnNew2 foreign-inp">다국어입력기</a>
+						<form:input path="title" class="text-area" placeholder="도서 제목을 입력하세요"/><a id="vk-popup" class="btnNew2 foreign-inp">다국어입력기</a>
 					</div>
 
 					<div class="main-menu">
@@ -269,25 +284,25 @@ $(function() {
 					<div class="hide detail-search-form">
 						<dl>
 							<dt><label for="author" class="title">저자</label></dt>
-							<dd><input id="author" name="author" class="text-area" type="text" value=""/></dd>
+							<dd><form:input path="author" class="text-area"/></dd>
 						</dl>
 
 						<dl>
 							<dt><label for="publer" class="title">발행처</label></dt>
-							<dd><input id="publer" name="publer" class="text-area" type="text" value=""/></dd>
+							<dd><form:input path="publer" class="text-area"/></dd>
 						</dl>
 						<dl>
 							<dt><label for="keyword" class="title">키워드</label></dt>
-							<dd><input id="keyword" name="keyword" class="text-area" type="text" value=""/></dd>
+							<dd><form:input path="keyword" class="text-area"/></dd>
 						</dl>
 
 						<dl>
 							<dt><label for="search_start_date" class="title">발행년도</label></dt>
 							<dd>
 								<div class="box">
-									<input id="search_start_date" name="search_start_date" title="시작년도" numberOnly="true" class="text-area2" type="text" value="" maxlength="4"/>
+									<form:input path="search_start_date" class="text-area2" title="시작년도" numberOnly="true" maxlength="4" />
 									<span style="width:8%;text-align:center;">~</span>
-									<input id="search_end_date" name="search_end_date" title="마지막년도" numberOnly="true" class="text-area2" type="text" value="" maxlength="4"/>
+									<form:input path="search_end_date" class="text-area2" title="마지막년도" numberOnly="true" maxlength="4" />
 								</div>
 							</dd>
 						</dl>
@@ -295,19 +310,19 @@ $(function() {
 						<dl>
 							<dt><label for="subjectCode" class="title">주제</label></dt>
 							<dd>
-								<select id="subjectCode" name="subjectCode">
-									<option value="">전체</option>
-									<option value="0">총류</option>
-									<option value="1">철학</option>
-									<option value="2">종교</option>
-									<option value="3">사회과학</option>
-									<option value="4">순수과학</option>
-									<option value="5">기술과학</option>
-									<option value="6">예술</option>
-									<option value="7">언어</option>
-									<option value="8">문학</option>
-									<option value="9">역사</option>
-								</select>
+								<form:select path="subjectCode">
+									<form:option value="">전체</form:option>
+									<form:option value="0">총류</form:option>
+									<form:option value="1">철학</form:option>
+									<form:option value="2">종교</form:option>
+									<form:option value="3">사회과학</form:option>
+									<form:option value="4">순수과학</form:option>
+									<form:option value="5">기술과학</form:option>
+									<form:option value="6">예술</form:option>
+									<form:option value="7">언어</form:option>
+									<form:option value="8">문학</form:option>
+									<form:option value="9">역사</form:option>
+								</form:select>
 							</dd>
 						</dl>
 
@@ -315,10 +330,9 @@ $(function() {
 							<dt><label for="booktype" class="title">자료형태</label></dt>
 							<dd>
 								<div class="" style="padding:3px 0 0 10px">
-								<input id="booktype1" name="booktype" class="radiocheck" checked="checked" type="radio" value="BOOKANDNONBOOK"/><label for="booktype1" class="booktype">통합</label>
-								<input id="booktype2" name="booktype" style="margin-left:18px;" class="radiocheck" type="radio" value="BOOK"/><label for="booktype2" class="booktype">도서</label>
-								<input id="booktype3" name="booktype" style="margin-left:18px;" class="radiocheck" type="radio" value="NONBOOK"/><label for="booktype3" class="booktype">비도서</label>
-
+								<form:radiobutton path="booktype" value="BOOKANDNONBOOK" class="radiocheck" checked="checked"/><label for="booktype1" class="booktype">통합</label>
+								<form:radiobutton path="booktype" value="BOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype2" class="booktype">도서</label>
+								<form:radiobutton path="booktype" value="NONBOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype3" class="booktype">비도서</label>
 								</div>
 							</dd>
 						</dl>
@@ -335,40 +349,17 @@ $(function() {
 
 				<div id="libraryList" class="libraryList" style="display:none;" >
 					<div>
-						<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label><input type="hidden" name="_libraryCodes" value="on"/>
+						<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
 					</div>
 					<div>
 						<ul>
+							<c:forEach items="${homepageList}" var="i" varStatus="status">
+							<c:if test="${i.homepage_id ne 'h30' and i.homepage_id ne 'h31' and i.homepage_id ne 'h32' and i.homepage_id ne 'h33' and i.homepage_id ne 'h34'}">
 							<li>
-								<input id="libraryCodes1" class="libraryCodes1" name="libraryCodes" type="checkbox" value="AD"/><label for="libraryCodes1">대구광역시립 중앙도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+								<form:checkbox path="libraryCodes" class="libCheck lib_${i.manage_code}" value="${i.manage_code}" label="${i.homepage_name}" />
 							</li>
-							<li>
-								<input id="libraryCodes2" class="libraryCodes2" name="libraryCodes" type="checkbox" value="AH"/><label for="libraryCodes2">대구광역시립 동부도서관</label><input type="hidden" name="_libraryCodes" value="on"/>	
-							</li>
-							<li>
-								<input id="libraryCodes3" class="libraryCodes3" name="libraryCodes" type="checkbox" value="AF"/><label for="libraryCodes3">대구광역시립 서부도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
-							</li>
-							<li>
-								<input id="libraryCodes4" class="libraryCodes4" name="libraryCodes" type="checkbox" value="AG"/><label for="libraryCodes4">대구광역시립 남부도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
-							</li>
-							<li>
-								<input id="libraryCodes5" class="libraryCodes5" name="libraryCodes" type="checkbox" value="AC"/><label for="libraryCodes5">대구광역시립 북부도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
-							</li>
-							<li>
-								<input id="libraryCodes6" class="libraryCodes6" name="libraryCodes" type="checkbox" value="AE"/><label for="libraryCodes6">대구광역시립 수성도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
-							</li>
-							<li>
-								<input id="libraryCodes7" class="libraryCodes7" name="libraryCodes" type="checkbox" value="AB"/><label for="libraryCodes7">대구광역시립 두류도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
-							</li>
-							<li>
-								<input id="libraryCodes8" class="libraryCodes8" name="libraryCodes" type="checkbox" value="AJ"/><label for="libraryCodes8">대구광역시립 달성도서관</label><input type="hidden" name="_libraryCodes" value="on"/>	
-							</li>
-							<li>
-								<input id="libraryCodes9" class="libraryCodes9" name="libraryCodes" type="checkbox" value="AA"/><label for="libraryCodes9">대구2·28기념학생도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
-							</li>
-							<li>
-								<input id="libraryCodes10" class="libraryCodes10" name="libraryCodes" type="checkbox" value="AL"/><label for="libraryCodes10">2·28민주운동기념회관도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
-							</li>
+							</c:if>
+							</c:forEach>
 						</ul>
 					</div>
 					<div class="end"></div>
@@ -391,8 +382,8 @@ $(function() {
 							<div class="hide library-box-inmap">
 								<div class="title">동구 <a href="#" class="libSel-close-btn">X</a></div>
 								<div class="libSel">
-									<span class=""><input type="checkbox" name="_libraryCodes" id="libraryCodes21" class="libraryCodes2" value="AH"> <label for="libraryCodes21">동부도서관</label></span>
-									<span class=""><input type="checkbox" name="_libraryCodes" id="libraryCodes101" class="libraryCodes10" value="AA"> <label for="libraryCodes101">대구2·28기념학생도서관</label></span>
+									<span class=""><form:checkbox path="libraryCodes" class="libCheck lib_AH" value="AH" label="동부도서관" /></span>
+									<span class=""><form:checkbox path="libraryCodes" class="libCheck lib_AA" value="AA" label="대구2·28기념학생도서관" /></span>
 								</div>
 							</div>
 						</li>
@@ -401,7 +392,7 @@ $(function() {
 							<div class="hide library-box-inmap">
 								<div class="title">북구 <a href="#" class="libSel-close-btn">X</a></div>
 								<div class="libSel">
-									<span class=""><input type="checkbox" name="_libraryCodes" id="libraryCodes51" class="libraryCodes5" value="AC"> <label for="libraryCodes51">북부도서관</label></span>
+									<span class=""><form:checkbox path="libraryCodes" class="libCheck lib_AC" value="AC" label="북부도서관" /></span>
 								</div>
 							</div>
 						</li>
@@ -410,7 +401,7 @@ $(function() {
 							<div class="hide library-box-inmap">
 								<div class="title">수성구 <a href="#" class="libSel-close-btn">X</a></div>
 								<div class="libSel">
-									<span class=""><input type="checkbox" name="_libraryCodes" id="libraryCodes61" class="libraryCodes6" value="AE"> <label for="libraryCodes61">수성도서관</label></span>
+									<span class=""><form:checkbox path="libraryCodes" class="libCheck lib_AE" value="AE" label="수성도서관" /></span>
 								</div>
 							</div>
 						</li>
@@ -419,7 +410,7 @@ $(function() {
 							<div class="hide library-box-inmap">
 								<div class="title">남구 <a href="#" class="libSel-close-btn">X</a></div>
 								<div class="libSel">
-									<span class=""><input type="checkbox" name="_libraryCodes" id="libraryCodes41" class="libraryCodes4" value="AG"> <label for="libraryCodes41">남부도서관</label></span>
+									<span class=""><form:checkbox path="libraryCodes" class="libCheck lib_AG" value="AG" label="남부도서관" /></span>
 								</div>
 							</div>
 						</li>
@@ -428,8 +419,8 @@ $(function() {
 							<div class="hide library-box-inmap">
 								<div class="title">중구 <a href="#" class="libSel-close-btn">X</a></div>
 								<div class="libSel">
-									<span class=""><input type="checkbox" name="_libraryCodes" id="libraryCodes11" class="libraryCodes1" value="AD"> <label for="libraryCodes11">중앙도서관</label></span>
-									<span class=""><input type="checkbox" name="_libraryCodes" id="libraryCodes91" class="libraryCodes9" value="AL"> <label for="libraryCodes91">2·28민주운동기념회관도서관</label></span>
+									<span class=""><form:checkbox path="libraryCodes" class="libCheck lib_AD" value="AD" label="중앙도서관" /></span>
+									<span class=""><form:checkbox path="libraryCodes" class="libCheck lib_AL" value="AL" label="2·28민주운동기념회관도서관" /></span>
 								</div>
 							</div>
 						</li>
@@ -438,7 +429,7 @@ $(function() {
 							<div class="hide library-box-inmap">
 								<div class="title">서구 <a href="#" class="libSel-close-btn">X</a></div>
 								<div class="libSel">
-									<span class=""><input type="checkbox" name="_libraryCodes" id="libraryCodes31" class="libraryCodes3" value="AF"> <label for="libraryCodes31">서부도서관</label></span>
+									<span class=""><form:checkbox path="libraryCodes" class="libCheck lib_AF" value="AF" label="서부도서관" /></span>
 								</div>
 							</div>
 						</li>
@@ -447,7 +438,7 @@ $(function() {
 							<div class="hide library-box-inmap">
 								<div class="title">달서구 <a href="#" class="libSel-close-btn">X</a></div>
 								<div class="libSel">
-									<span class=""><input type="checkbox" name="_libraryCodes" id="libraryCodes71" class="libraryCodes7" value="AB"> <label for="libraryCodes71">두류도서관</label></span>
+									<span class=""><form:checkbox path="libraryCodes" class="libCheck lib_AB" value="AB" label="두류도서관" /></span>
 								</div>
 							</div>
 						</li>
@@ -456,7 +447,7 @@ $(function() {
 							<div class="hide library-box-inmap">
 								<div class="title">달성군 <a href="#" class="libSel-close-btn">X</a></div>
 								<div class="libSel">
-									<span class=""><input type="checkbox" name="_libraryCodes" id="libraryCodes81" class="libraryCodes8" value="AJ"> <label for="libraryCodes81">달성도서관</label></span>
+									<span class=""><form:checkbox path="libraryCodes" class="libCheck lib_AJ" value="AJ" label="달성도서관" /></span>
 								</div>
 							</div>
 						</li>
@@ -564,7 +555,7 @@ $(function() {
 						<div class="imageType">
 							<c:forEach items="${bookSearch}" var="i">
 							<!-- 검색결과 루프 시작 -->
-							<c:set var="detailURL" value="detail.do?menu_idx=${fn:escapeXml(param.menu_idx)}&isbn=${fn:escapeXml(i.ST_CODE)}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}"></c:set>
+							<c:set var="detailURL" value="detail.do?isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}"></c:set>
 							<div class="row">
 								<p class="admin">
 									<input name="print_param" type="checkbox" class="checkBook" value="${fn:escapeXml(i.ST_CODE)}_${fn:escapeXml(i.MANAGE_CODE)}"/>
@@ -645,13 +636,13 @@ $(function() {
 												<!-- 대출가능 여부 [ END ] -->
 											</p>
 <!--
-											JU : 아동, MS : 중학생, AD : 성인, PU : 일반, ES : 초등, HS : 고등, SP : 특수, 기타 : 
+											JU : 아동, MS : 중학생, AD : 성인, PU : 일반, ES : 초등, HS : 고등, SP : 특수, 기타 :
 											-->
 											<c:if test="${not empty i.APPENDIX_INFO}">
 											<p><font style="color:#5e5e5e">부록여부</font> : ${i.APPENDIX_INFO[0].DESCRIPTION} (${i.APPENDIX_INFO[0].APPENDIX_CNT}개)</p>
 											</c:if>
 											<p>
-											<font style="color:#5e5e5e">이용대상</font> : 
+											<font style="color:#5e5e5e">이용대상</font> :
 														<c:choose>
 															<c:when test="${i.USE_OBJECT_CODE eq 'JU'}">
 																<span style="">아동</span>
@@ -768,13 +759,38 @@ $(function() {
 							</div>
 							</c:forEach>
 							<!-- 검색결과루프 끝 -->
-							<jsp:include page="/WEB-INF/views/app/intro/search/paging.jsp" flush="false" />
+							<div id="cms_paging" class="dataTables_paginate">
+							<c:if test="${paging.firstPageNum > 0}">
+								<a href="" class="paginate_button previous" keyValue="${paging.firstPageNum}">처음</a>
+							</c:if>
+							<c:if test="${paging.prevPageNum > 0}">
+								<a href="" class="paginate_button previous" keyValue="${paging.prevPageNum}">이전</a>
+							</c:if>
+								<span>
+							<c:forEach var="i" varStatus="status" begin="${paging.startPageNum}" end="${paging.endPageNum}">
+							<c:choose>
+							<c:when test="${i eq paging.viewPage}">
+								<a id="${i}" href="" class="paginate_button current" keyValue="${i}">${i}</a>
+							</c:when>
+							<c:otherwise>
+								<a id="${i}" href="" class="paginate_button" keyValue="${i}">${i}</a>
+							</c:otherwise>
+							</c:choose>
+							</c:forEach>
+							<c:if test="${paging.nextPageNum > 0}">
+								<a href="" class="paginate_button next" keyValue="${paging.nextPageNum}">다음</a>
+							</c:if>
+							<c:if test="${paging.totalPageCount ne paging.lastPageNum}">
+								<a href="" class="paginate_button next" keyValue="${paging.totalPageCount}">맨끝</a>
+							</c:if>
+								</span>
+							</div>
 						</div>
 
 						<div class="textType" style="display:none">
 							<!-- 검색결과 루프 시작 -->
 							<c:forEach items="${bookSearch}" var="i">
-							<c:set var="detailURL" value="detail.do?menu_idx=${fn:escapeXml(param.menu_idx)}&isbn=${fn:escapeXml(i.ST_CODE)}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}"></c:set>
+							<c:set var="detailURL" value="detail.do?isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}"></c:set>
 							<div class="row">
 								<div class="box">
 									<div class="item">
@@ -945,7 +961,32 @@ $(function() {
 							</div>
 							</c:forEach>
 							<!-- 검색결과루프 끝 -->
-							<jsp:include page="/WEB-INF/views/app/intro/search/paging.jsp" flush="false" />
+							<div id="cms_paging" class="dataTables_paginate">
+							<c:if test="${paging.firstPageNum > 0}">
+								<a href="" class="paginate_button previous" keyValue="${paging.firstPageNum}">처음</a>
+							</c:if>
+							<c:if test="${paging.prevPageNum > 0}">
+								<a href="" class="paginate_button previous" keyValue="${paging.prevPageNum}">이전</a>
+							</c:if>
+								<span>
+							<c:forEach var="i" varStatus="status" begin="${paging.startPageNum}" end="${paging.endPageNum}">
+							<c:choose>
+							<c:when test="${i eq paging.viewPage}">
+								<a id="${i}" href="" class="paginate_button current" keyValue="${i}">${i}</a>
+							</c:when>
+							<c:otherwise>
+								<a id="${i}" href="" class="paginate_button" keyValue="${i}">${i}</a>
+							</c:otherwise>
+							</c:choose>
+							</c:forEach>
+							<c:if test="${paging.nextPageNum > 0}">
+								<a href="" class="paginate_button next" keyValue="${paging.nextPageNum}">다음</a>
+							</c:if>
+							<c:if test="${paging.totalPageCount ne paging.lastPageNum}">
+								<a href="" class="paginate_button next" keyValue="${paging.totalPageCount}">맨끝</a>
+							</c:if>
+								</span>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -1010,7 +1051,8 @@ $(function() {
 		</c:if>
 
 	</div>
-</div>
+
+</form:form>
 
 
 

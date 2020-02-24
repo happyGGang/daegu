@@ -22,6 +22,7 @@ $(function() {
 		$('a.mp8on').removeClass('on');
 
 		$('select#category1').val('0002').attr('selected', 'true');
+		$('select#category2').val('').attr('selected', 'true');
 		$('select#category1').change();
 	});
 
@@ -47,6 +48,7 @@ $(function() {
 		$('a.mp8on').removeClass('on');
 
 		$('select#category1').val('0005').attr('selected', 'true');
+		$('select#category2').val('').attr('selected', 'true');
 		$('select#category1').change();
 	});
 
@@ -72,6 +74,7 @@ $(function() {
 		$('a.mp8on').removeClass('on');
 
 		$('select#category1').val('0007').attr('selected', 'true');
+		$('select#category2').val('').attr('selected', 'true');
 		$('select#category1').change();
 	});
 
@@ -97,6 +100,7 @@ $(function() {
 		$('a.mp8on').removeClass('on');
 
 		$('select#category1').val('0001').attr('selected', 'true');
+		$('select#category2').val('').attr('selected', 'true');
 		$('select#category1').change();
 	});
 
@@ -122,6 +126,7 @@ $(function() {
 		$('a.mp8on').removeClass('on');
 
 		$('select#category1').val('0004').attr('selected', 'true');
+		$('select#category2').val('').attr('selected', 'true');
 		$('select#category1').change();
 	});
 
@@ -147,6 +152,7 @@ $(function() {
 		$('a.mp8on').removeClass('on');
 
 		$('select#category1').val('0003').attr('selected', 'true');
+		$('select#category2').val('').attr('selected', 'true');
 		$('select#category1').change();
 	});
 
@@ -172,6 +178,7 @@ $(function() {
 		$('a.mp8on').removeClass('on');
 
 		$('select#category1').val('0006').attr('selected', 'true');
+		$('select#category2').val('').attr('selected', 'true');
 		$('select#category1').change();
 	});
 
@@ -197,6 +204,7 @@ $(function() {
 		$('a.mp8on').addClass('on');
 
 		$('select#category1').val('0008').attr('selected', 'true');
+		$('select#category2').val('').attr('selected', 'true');
 		$('select#category1').change();
 	});
 });
