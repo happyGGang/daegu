@@ -110,9 +110,9 @@ $(function() {
 				<td>${i.agency_name}</td>
 				<td>
 					<c:choose>
-						<c:when test="${i.auth_group eq '1'}">관리자</c:when>
 						<c:when test="${i.auth_group eq '2'}">도서관</c:when>
 						<c:when test="${i.auth_group eq '3'}">학교기관</c:when>
+						<c:when test="${i.auth_group eq '4'}">사서</c:when>
 					</c:choose>
 				</td>
 				<td><fmt:formatDate value="${i.last_connect}" pattern="yyyy-MM-dd"/></td>
