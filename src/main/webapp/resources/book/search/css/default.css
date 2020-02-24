@@ -59,6 +59,7 @@ label.hidden {display:none;}
 .search-form .detail_search .section .title-box input {width:96%;height:70px;line-height:70px;padding:0 2%;color:#333;font-size:24px;border:0;cursor:text;}
 .search-form .detail_search .section .vk-btn {width:97%;margin:0 auto 20px;text-align:right;}
 .search-form .detail_search .section .vk-btn a {padding:7px 2%;background:#333;color:#ffcc00;vertical-align:middle;font-size:13px;letter-spacing:-1.5px;}
+.search-form .detail_search .section a.foreign-inp {position:absolute;top:28px;right:20px;display:inline-block;padding:10px 2%;background:#333;color:#ffcc00;vertical-align:middle;font-size:13px;letter-spacing:-1.5px;}
 .search-form .detail_search .section dl {position:relative;display:inline-block;float:left;width:46%;height:38px;margin:0 1.5% 10px 2.5%;}
 .search-form .detail_search .section dl dt{float:left;width:80px;color:#000;font-weight:bold;height:32px;line-height:32px;}
 .search-form .detail_search .section dl dd{position:relative;margin-left:90px;}
@@ -89,6 +90,86 @@ label.hidden {display:none;}
 .research-box {padding-bottom:5px;}
 .research-box select.text-area01, select.text-area01 {display:inline-block;height:30px;line-height:31px;padding:0;color:#333;font-size:15px;border:1px solid #bfbfbf;cursor:text;vertical-align:middle;}
 .research-box input.text-area01 {display:inline-block;height:30px;line-height:31px;padding:0 1%;color:#333;font-size:15px;border:1px solid #bfbfbf;cursor:text;vertical-align:middle;}
+
+.b {font-weight:bold;}
+.cp {cursor: pointer;}
+.cpd {cursor: pointer;}
+.cpd:hover {text-decoration:underline;}
+.cd {cursor: default;}
+.tcenter {text-align: center !important;}
+.tleft {text-align: left !important;}
+.tright {text-align: right !important;}
+.clear {clear:both;height:0;font-size:1px;}
+.left {float:left;}
+.right {float:right;}
+.hide {display:none;}
+.inline {display:inline;}
+
+div.main-menu {padding-right:15px;padding-left:15px;margin-top:10px;margin-bottom:10px;}
+div.main-menu ul {list-style:none;overflow:auto;}
+div.main-menu ul li {list-style:none;display:inline-block;padding-right:10px;padding-left:10px;font-size:13px;}
+div.main-menu ul li.last {border-right:none;}
+div.main-menu div.right {font-size:18px;font-weight:bold;color:#6C6C6C;vertical-align:middle;}
+
+#mapWrap {text-align:center;background-color:#fff;}
+#mapWrap > div {position:relative;width:655px;height:655px;background-image:url('/resources/common/img/map.png');margin:0 auto;}
+#mapWrap ul {width:655px;height:655px;list-style:none;font-size:12px;}
+#mapWrap ul li {position:absolute;padding:0;margin:0;}
+#mapWrap a {text-decoration:none;font-size:15px;font-weight:800;color:#000;}
+#mapWrap a:hover {}
+
+/* 도서검색 선택 */
+#libraryList {border:1px solid #dadada;padding:30px 0 30px 69px;box-sizing:border-box;}
+#libraryList input{margin-right:3px}
+#libraryList input,
+#libraryList label {color:#222;font-size:15px;vertical-align:middle;cursor:pointer}
+#libraryList li {display:inline-block;zoom:1;*display:inline;float:left;width:25%;padding:3px 0;box-sizing:border-box;}
+
+@media all and (max-width:1000px){
+	#libraryList li{width:33.33%}
+}
+@media all and (max-width:850px){
+	#libraryList li{width:50%;vertical-align:top;font-size:12px;letter-spacing:-1px}
+}
+
+@media all and (max-width:680px){
+	#libraryList {padding:2% 10%;}
+}
+
+@media all and (max-width:540px){
+	#libraryList {padding:6%;}
+	#libraryList label {font-size:13px;letter-spacing:-1.5px;}
+}
+
+@media all and (max-width:450px){
+	#libraryList li{width:100%}
+}
+
+.library-box-inmap {position:absolute;left:0;top:23px;width:200px;background:#fff;border:1px solid #a7a7a7;text-align:left;box-sizing:border-box;}
+.library-box-inmap div.title {position:relative;padding:5px 10px;box-sizing:border-box;background:#ebebec;}
+.library-box-inmap div.title a {position:absolute;right:10px;top:5px;}
+.library-box-inmap div.libSel {padding:10px;box-sizing:border-box;}
+.library-box-inmap div.libSel span {display:block;}
+.library-box-inmap div.libSel span label, .library-box-inmap div.libSel span input {vertical-align:middle;}
+
+.info-box {width:100%;margin-top:50px;}
+.info-box-title {position:relative;width:80%;margin:0 auto -25px;background:#475ab9;color:#fff;padding:10px 30px;box-sizing:border-box;border-radius:5px;}
+.info-box .section1 {width:1260px;margin:0 auto;}
+.info-box .section2 {width:1260px;margin:0 auto;border:5px solid #475ab9;border-radius:5px;padding:30px;box-sizing:border-box;}
+.info-box .section2 span {display:inline-block;}
+.info-box .section2 span.tt1 {display:inline-block;position:absolute;width:135px;background:#f9bc00;color:#fff;border-radius:30px;text-align:center;box-sizing:border-box;padding:15px 0;}
+.info-box .section2 span.tc1 {padding-left:145px;padding-top:15px;box-sizing:border-box;}
+.info-box .section2 span.tt2 {display:inline-block;position:absolute;width:135px;background:#e83e30;color:#fff;border-radius:30px;text-align:center;box-sizing:border-box;padding:15px 0;}
+.info-box .section2 span.tc2 {padding-left:145px;padding-top:5px;box-sizing:border-box;word-break:break-all;}
+.info-box .section2 span.tc2 a {font-weight:800;}
+.info-box .section2 span.tc2 p {word-break:break-all;font-size:13px;}
+.default-db {display:block;padding:10px 0 50px;border-bottom:1px solid #b9c1da;}
+.etc-db {clear:both;display:block;padding:20px 0 10px;}
+
+@media all and (max-width:1260px){
+	.info-box .section1 {width:100%;margin:0;}
+	.info-box .section2 {width:100%;margin:0;}
+}
 
 @media all and (max-width:1000px){
 	.search-form .detail_search .section {width:100%;margin:0;}
@@ -131,6 +212,19 @@ label.hidden {display:none;}
 	.search-form .detail_search .section .title-box {position:relative;width:92%;}
 	.search-form .detail_search .section .title-box input {width:96%;}
 	.search-form .detail_search .section .vk-btn {width:92%;}
+
+	.search-form .detail_search .btn_w a {font-size:13px;letter-spacing:-1px}
+
+	#mapWrap {display:none;}
+	.info-box-title {font-size:14px;text-align:center;}
+	.info-box .section2 span {display:block;}
+	.info-box .section2 span.tt1 {display:block;position:static;width:100%;padding:10px 0;font-size:14px;}
+	.info-box .section2 span.tc1 {padding-left:0;padding-top:15px;box-sizing:border-box;font-size:14px;}
+	.info-box .section2 span.tt2 {display:block;position:static;width:100%;padding:10px 0;font-size:14px;}
+	.info-box .section2 span.tc2 {padding-left:0;padding-top:15px;box-sizing:border-box;font-size:14px;word-break:break-all;}
+	.web-br {display:none;}
+	.default-db {display:block;padding:10px 0 20px;}
+	.etc-db {clear:both;display:block;padding:20px 0 10px;}
 }
 
 @media all and (max-width:425px){
@@ -147,22 +241,8 @@ label.hidden {display:none;}
 	.search-form .detail_search .section .vk-btn {width:91%;}
 }
 
-/* 도서검색 선택 */
-#libraryList input{margin-right:3px}
-#libraryList input,
-#libraryList label{vertical-align:middle;cursor:pointer}
-#libraryList li{width:33.33%;display:inline-block;zoom:1;*display:inline}
-#libraryList ul{font-size:0;line-height:0}
 
-@media all and (max-width:1000px){
-	#libraryList li{width:33.33%}
-}
-@media all and (max-width:850px){
-	#libraryList li{width:50%;vertical-align:top;font-size:12px;letter-spacing:-1px}
-}
-@media all and (max-width:450px){
-	#libraryList li{width:100%}
-}
+
 
 
 .ws-toolbar,
@@ -292,6 +372,7 @@ a.btnNew1 {padding:15px 3%;background:#494949;color:#fff;border-radius:7px;}
 a.btnNew2 {padding:9px 3%;background:#494949;color:#fff;vertical-align:middle;}
 a.btnNew3 {padding:8px 2%;border:1px solid #c9c9c9;border-radius:0;vertical-align:middle}
 a.btnNew4 {padding:9px 2%;background:#000;color:#fff;border-radius:0;vertical-align:middle}
+a.btnNew5 {padding:15px 3%;background:#3f70bc;color:#fff;border-radius:7px;}
 a.btnNew3 img {vertical-align:middle}
 input.btnNew {border:0;padding:9px 3%;background:#000;color:#fff;vertical-align:middle}
 
@@ -373,10 +454,12 @@ span.middot {background: url(/resources/common/img/doc-arr2.gif) no-repeat 0 10p
 .botbutton .addStorage {background: url('/resources/book/search/img/btn_my.png') no-repeat;background-position: 10%;}
 .botbutton .button1 {float: right;}
 
+/*
 .ws-toolbar .checkbox input[type="checkbox"] {width: 17px; height: 17px; opacity: 100;}
 .ws-toolbar .checkbox label {padding-left: 0px;}
 .ws-toolbar .checkbox label::before {display: none;}
 .ws-toolbar .checkbox label::after {display: none;}
+*/
 
 textarea.textArea {width: 100%;height: 200px;border-top: 1px solid;}
 .search-wrap h3 { margin-top: 15px; clear: both;}

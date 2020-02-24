@@ -553,20 +553,21 @@ ul a i.kakaostory{height:17px;background:url('../img/contents/icon_kakao.png') n
 .doc-info-bg {width:100%;position:absolute;bottom:0;background-color:rgba(0,0,0,0.35);}
 .doc-info {width:100%;position:relative;padding:0 0 10px 0;box-sizing:border-box;z-index:2;border-bottom:1px solid #d3d7dd;}
 .doc-info ol { float:left;}
-.doc-info ol li.first {padding:0 0 15px 10px;}
+.doc-info ol li.first {padding: 0 0 15px 0px;}
 .doc-info ol li.second, .doc-info ol li:nth-child(2) { background:none; }
-.doc-info ol li {font-size:14px;padding-left:25px;margin-left:0px;background:url("../img/doc_arrow_b.png") no-repeat 0 50%;}
+.doc-info ol li {font-size:14px;padding-left: 20px;margin-left:0px;background: url("../img/doc_arrow_b.png") no-repeat 0% 50%;}
 .doc-info ol li:first-child {background:none;}
-.doc-info ol li:nth-child(2) {padding-left:10px;}
+.doc-info ol li:nth-child(2) {padding-left: 3px;}
 .doc-info ul {}
 .doc-info ul { width: 100%; }
 .doc-info li.first img { margin-top: 10px; }
-.doc-info li, .doc-info ol li .fa-home, .doc-info li a { height: 33px; line-height: 33px; font-size: 12px; }
+.doc-info li, .doc-info ol li .fa-home, .doc-info li a {height: 36px;line-height: 36px;font-size: 12px;}
 .doc-info li { display: inline-block; zoom: 1; vertical-align: middle; }
-.doc-info ol li a { color:#000;text-decoration:none;font-size:13px; }
+.doc-info ol li a {color:#000;text-decoration:none;font-size: 14px;}
+
 .doc-info ol li.on a { color:#fff;text-decoration:none;font-weight:bold; }
-.doc-info ul li {float:left;padding:10px 0;}
-.doc-info ul li:last-child {}
+.doc-info ul li {float:left;padding: 7px 0;}
+.doc-info ol li:last-child a {font-weight:bold;}
 .shareArea img { padding:0px 11px;vertical-align:middle }
 .shareArea { position:absolute;right:0;height:auto;display:inline-block;text-align:right; }
 
@@ -588,7 +589,7 @@ ul a i.kakaostory{height:17px;background:url('../img/contents/icon_kakao.png') n
 .doc-info-suseong ul li:last-child {border-right:1px solid #004fd2;}
 
 /* 서브페이지 공유버튼 */
-div#share_layer {display:none;position:absolute;top:60px;right:0px;background:#fff;overflow:hidden;height:63px;z-index:7}
+div#share_layer {display:none;position:absolute;top: 65px;right:0px;background:#fff;overflow:hidden;height:63px;z-index:7;}
 div.shareAllBtns ul.shareBox {position:relative;width:180px;}
 div.shareAllBtns ul.shareBox > li {border:0;padding:0;width:32px;height:32px;margin:5px;display:inline-block;}
 div.shareAllBtn ul.shareBox li:last-child {padding:0;margin:0;}
@@ -2009,9 +2010,11 @@ padding:20px 15px 20px 215px; margin-bottom:25px}
 #footer .bottom address span{font-size:13px}
 #footer .copyright {padding:15px 0;text-align:Center;background:#777576;color:#c3c3c3;font-size:13px;}
 
-.home-up {position:absolute;right:10px;bottom:10px;z-index:999999;}
+.home-up {position:absolute;right: 120px;bottom:10px;z-index:999999;}
 
-
+@media all and (max-width:850px){
+	.home-up {display:block;right: 10px;bottom:50px;}
+}
 /*
 @media screen and (min-width:1355px){
 	.lnb{width:25%}

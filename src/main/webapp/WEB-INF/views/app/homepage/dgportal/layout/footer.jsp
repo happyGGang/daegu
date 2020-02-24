@@ -52,7 +52,7 @@
 		</div>
 
 		<div class="copyright">
-			Copyright © 2020 DAEGU METROPOLITAN INTEGRATION LIBRARY, <br class="mobileBr"/>All rights reserved.
+			Copyright © Daegu Metropolitan City Integration Library. <br class="mobileBr"/>All rights reserved.
 		</div>
 
 		<div class="home-up">

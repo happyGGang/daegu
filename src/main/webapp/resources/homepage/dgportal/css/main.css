@@ -109,7 +109,7 @@
 
 .main4 {position:relative;background-image:url('../img/main4-bg.jpg');background-repeat: no-repeat;background-position:center center;position:relative;width:100%;background-attachment:fixed;height:625px;z-index:32;}
 .section_story {}
-.section_story .title_bx {color:#fff;font-weight:200;font-size:33px;position:relative;top:-20px;letter-spacing:-1px;background:url("/resources/homepage/dgportal/img/notice-title-bg.png") no-repeat 0 0;padding:60px 30px 50px 30px;}
+.section_story .title_bx {color:#fff;font-weight:200;font-size:33px;position:relative;top: -50px;letter-spacing:-1px;background:url("/resources/homepage/dgportal/img/notice-title-bg.png") no-repeat 0 0;padding:60px 30px 50px 30px;}
 .section_story:before { z-index:1;content:'';border-left:1px solid rgba(255, 255, 255, 0.5);position:absolute;top:0;left:50%;height:100%;display:block; }
 .section_story .story_list { position:relative;z-index:2;width:50%;display:inline-block;margin-top:30px; }
 .section_story .story_list li { position:relative;padding-right:60px;line-height:40px;padding:15px 60px 15px 25px; background:url('/resources/homepage/dgportal/img/notice-dot.png') no-repeat left 28%; }

@@ -36,7 +36,7 @@
 		</div>
 
 		<div class="copyright">
-			<span>Copyright &copy; by Daegu Digital Library, All rights reserved.</span>
+			<span>Copyright © Daegu Electronic Library. All rights reserved.</span>
 		</div>
 		<div class="home-up">
 			<img src="/resources/homepage/${homepage.context_path}/img/m-top-btn.png" alt="위로" id="homeup">
