@@ -12,7 +12,6 @@ ${boardManage.top_html}
 <div class="wrapper-bbs">
 	<div class="bbs-view">
 		<div class="bbs-view-header">
-			<jsp:include page="/WEB-INF/views/app/board/common/view/moveOrCopy.jsp" flush="false" />
 			<dl>
 				<dt>${board.title}</dt>
 				<dd class="info">
@@ -25,12 +24,12 @@ ${boardManage.top_html}
 						<c:set var="user_name" value="${board.user_name}"/>
 						</c:otherwise>
 						</c:choose>
-						<i>작성자</i><span>${user_name}<c:if test="${authMBA}">(${board.add_id})</c:if></span>
+						<i>작성자</i><span>${user_name}<c:if test="${not empty authMBA and authMBA}">(${board.add_id})</c:if></span>
 						<i>작성일</i><span><fmt:formatDate value="${board.add_date}" pattern="yyyy.MM.dd HH:mm"/></span>
 						<c:if test="${board.user_ip ne null and board.user_ip ne ''}">
 							<c:set value="${fn:split(board.user_ip, '.')}" var="user_ip"></c:set>
 							<c:choose>
-								<c:when test="${authMBA}">
+								<c:when test="${not empty authMBA and authMBA}">
 						<i>IP</i><span>${board.user_ip}</span>
 								</c:when>
 								<c:otherwise>
@@ -58,7 +57,7 @@ ${boardManage.top_html}
 			</dl>
 		</div>
 		<div class="bbs-comment" id="bbs-comment">
-			
+
 		</div>
 		<div class="button bbs-btn center">
 		* '미리보기' 기능은 제목과 내용 확인용으로만 제공되며 일반기능은 사용 불가능합니다.
