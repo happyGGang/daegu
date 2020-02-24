@@ -27,8 +27,8 @@
 						<span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/intro/login/logout.do">로그아웃</a>
 					</c:when>
-					<c:when test="${sessionScope.loginPortal.login}">
-						${sessionScope.loginPortal.agency_name}님
+					<c:when test="${not empty sessionScope.loginPortal and sessionScope.loginPortal.login}">
+						${not empty sessionScope.loginPortal and sessionScope.loginPortal.agency_name}님
 						<span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/module/portalMember/logout.do">학교도서관 로그아웃</a>
 					</c:when>
