@@ -134,4 +134,13 @@ public class PortalMember extends PagingUtils {
 		this.login = login;
 	}
 
+	@Override
+	public String toString() {
+		return "PortalMember [portal_member_idx=" + portal_member_idx + ", agency_name=" + agency_name + 
+				", agency_id=" + agency_id + ", agency_password=" + agency_password + 
+				", auth_group=" + auth_group + ", library_code=" + library_code + ", last_connect=" + last_connect + ", add_id=" + add_id + 
+				", add_date=" + add_date + ", modify_id=" + modify_id + ", modify_date=" + modify_date + "]";
+	}
+
+	
 }

@@ -1,5 +1,11 @@
 package kr.go.gbelib.app.cms.module.portalMember;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
@@ -118,6 +124,82 @@ public class PortalMemberController extends BaseController {
 		}
 
 		return res;
+	}
+	
+	@RequestMapping(value= {"/mysqlToTibero"})
+	public void mysqlToTibero(Model model, PortalMember portalMember, HttpServletRequest request) {
+		
+		List<Map<String, Object>> listMap = service.getPortalMemberMySQL();
+		for (Map<String, Object> map : listMap) {
+			PortalMember pm = new PortalMember();
+			String m_id = String.valueOf(map.get("m_id"));
+			
+			pm.setPortal_member_idx(Integer.parseInt(String.valueOf(map.get("m_num"))));
+			pm.setAgency_name(String.valueOf(map.get("m_name")).equals("") ? "empty" : String.valueOf(map.get("m_name")));
+			pm.setAgency_id(m_id.equals("") ? "empty" : m_id);
+			pm.setAgency_password("575a524847727342455372387759465a3973783074505552755a6747326c6d7a797657707758504b7a38553d");
+			
+			String level = String.valueOf(map.get("m_level"));
+			String auth_group = "";
+			if(level.equals("6")) { // 도서관
+				auth_group = "2";
+			} else if(level.equals("7") || level.equals("8") || level.equals("9") || level.equals("10")) { // 학교기관
+				auth_group = "3";
+			} else if(level.equals("3")) { // 사서
+				auth_group = "4";
+			} else if(level.equals("1")) { // 관리자
+				auth_group = "1";
+			} else { // 2:비회원, 5:강사, 11:작은도서관
+				auth_group = "0";
+			}
+			pm.setAuth_group(auth_group);
+			
+			String lib_code = "";
+			if(m_id.equals("7240043")) { // 중앙도서관
+				lib_code = "122004";
+			} else if(m_id.equals("7240044")) { // 두류도서관
+				lib_code = "122002";
+			} else if(m_id.equals("7240045")) { // 북부도서관
+				lib_code = "122003";
+			} else if(m_id.equals("7240047")) { // 228기념
+				lib_code = "122001";
+			} else if(m_id.equals("7240048")) { // 서부도서관
+				lib_code = "122008";
+			} else if(m_id.equals("7240049")) { // 동부도서관
+				lib_code = "122010";
+			} else if(m_id.equals("7240050")) { // 남부도서관
+				lib_code = "122009";
+			} else if(m_id.equals("7240051")) { // 달성도서관
+				lib_code = "122011";
+			} else if(m_id.equals("7240278")) { // 수성도서관
+				lib_code = "122007";
+			} else {
+				lib_code = null;
+			}
+			pm.setLibrary_code(lib_code);
+			
+			try {
+    			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    			String last_connect = String.valueOf(map.get("m_lastdate"));
+    			
+    			if(StringUtils.isNotEmpty(last_connect) && last_connect != "null") {
+    				pm.setLast_connect(sdf.parse(last_connect + " 00:00:00"));
+    			}
+    			
+    			pm.setAdd_date(sdf.parse(String.valueOf(map.get("m_date"))));
+    			pm.setAdd_id(m_id.equals("") ? "empty" : m_id);
+    			
+    			String modify_date = String.valueOf(map.get("m_modymate"));
+				if(StringUtils.isNotEmpty(modify_date) && modify_date != "null") {
+					pm.setModify_date(sdf.parse(modify_date));
+					pm.setModify_id(m_id.equals("") ? "empty" : m_id);
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+			service.addMyGration(pm);
+		}
 	}
 
 }

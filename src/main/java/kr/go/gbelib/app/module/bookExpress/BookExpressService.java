@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.whalesoft.framework.base.BaseService;
+import kr.co.whalesoft.framework.dataSource.DataSource;
+import kr.co.whalesoft.framework.dataSource.DataSourceType;
 
 @Service
 public class BookExpressService extends BaseService {
@@ -57,6 +59,15 @@ public class BookExpressService extends BaseService {
 
 	public List<BookExpress> getBookExpressXls(BookExpress bookExpress) {
 		return dao.getBookExpressXls(bookExpress);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<Map<String, Object>> getBookExpressMySQL() {
+		return dao.getBookExpressMySQL();
+	}
+
+	public int addMyGration(BookExpress bookExpress) {
+		return dao.addMyGration(bookExpress);
 	}
 
 }

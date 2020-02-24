@@ -1,6 +1,7 @@
 package kr.go.gbelib.app.cms.module.portalMember;
 
 import java.util.List;
+import java.util.Map;
 
 public interface PortalMemberDao {
 
@@ -23,5 +24,9 @@ public interface PortalMemberDao {
 	public PortalMember getPortalMemberLogin(PortalMember portalMember);
 
 	public int addLastLogin(PortalMember loginPortal);
+
+	public List<Map<String, Object>> getPortalMemberMySQL();
+
+	public int addMyGration(PortalMember portalMember);
 
 }

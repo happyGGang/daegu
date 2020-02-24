@@ -1,12 +1,15 @@
 package kr.go.gbelib.app.cms.module.portalMember;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.whalesoft.framework.base.BaseService;
+import kr.co.whalesoft.framework.dataSource.DataSourceType;
+import kr.co.whalesoft.framework.dataSource.DataSource;
 import kr.co.whalesoft.framework.utils.CalculateHashUtils;
 
 @Service
@@ -54,6 +57,15 @@ public class PortalMemberService extends BaseService {
 
 	public int addLastLogin(PortalMember loginPortal) {
 		return dao.addLastLogin(loginPortal);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<Map<String, Object>> getPortalMemberMySQL() {
+		return dao.getPortalMemberMySQL();
+	}
+
+	public int addMyGration(PortalMember portalMember) {
+		return dao.addMyGration(portalMember);
 	}
 
 }

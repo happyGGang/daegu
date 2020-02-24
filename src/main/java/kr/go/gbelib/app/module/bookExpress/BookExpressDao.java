@@ -27,4 +27,8 @@ public interface BookExpressDao {
 
 	public List<BookExpress> getBookExpressXls(BookExpress bookExpress);
 
+	public List<Map<String, Object>> getBookExpressMySQL();
+
+	public int addMyGration(BookExpress bookExpress);
+
 }

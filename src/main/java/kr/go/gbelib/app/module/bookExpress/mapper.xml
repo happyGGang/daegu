@@ -194,5 +194,25 @@
 		AND	agency_id = #{agency_id}
 		</if>
 	</select>
+	
+	<select id="getBookExpressMySQL" resultType="map">
+			SELECT * FROM BOOK_EXPRESS
+	</select>
+	
+	<insert id="addMyGration">
+		INSERT INTO
+			BOOK_EXPRESS
+		(
+			book_express_idx, library_code, agency_name, agency_id, book_reg_no,
+			book_call_no, book_name, thumb_image, request_status, request_date,
+			request_name, request_phone, reason, add_date, add_id, modify_date, modify_id
+		)
+		VALUES
+		(
+			#{book_express_idx}, #{library_code}, #{agency_name}, #{agency_id}, #{book_reg_no},
+			#{book_call_no}, #{book_name}, #{thumb_image}, #{request_status}, #{request_date},
+			#{request_name}, #{request_phone}, #{reason}, #{add_date}, #{add_id}, #{modify_date}, #{modify_id}
+		)
+	</insert>
 
 </mapper>

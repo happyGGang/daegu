@@ -118,4 +118,25 @@
 			agency_id = #{agency_id}
 	</update>
 	
+	<select id="getPortalMemberMySQL" resultType="map">
+		SELECT
+			*
+		FROM
+			MEMBER
+	</select>
+	
+	<insert id="addMyGration">
+		INSERT INTO
+			PORTAL_MEMBER
+		(
+			portal_member_idx, agency_name, agency_id, agency_password,
+			auth_group, library_code, last_connect, add_id, add_date, modify_id, modify_date
+		)
+		VALUES
+		(
+			#{portal_member_idx}, #{agency_name}, #{agency_id}, #{agency_password},
+			#{auth_group}, #{library_code}, #{last_connect}, #{add_id}, #{add_date}, #{modify_id}, #{modify_date}
+		)
+	</insert>
+	
 </mapper>

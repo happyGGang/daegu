@@ -1,6 +1,9 @@
 package kr.go.gbelib.app.module.bookExpress;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -174,6 +177,75 @@ public class BookExpressController extends BaseController {
 		model.addAttribute("bookExpressXls", service.getBookExpressXls(bookExpress));
 
 		return new BookExpressView();
+	}
+	
+	@RequestMapping(value= {"/mysqlToTibero"})
+	public void mysqlToTibero(Model model, BookExpress bookExpress, HttpServletRequest request) {
+		
+		List<Map<String, Object>> mapList = service.getBookExpressMySQL();
+		for (Map<String, Object> map : mapList) {
+			BookExpress be = new BookExpress();
+			
+			be.setBook_express_idx(Integer.parseInt(String.valueOf(map.get("be_num"))));
+			String be_lib_id = String.valueOf(map.get("be_lib_id"));
+			
+			String lib_code = "";
+			if(be_lib_id.equals("7240043")) { // 중앙도서관
+				lib_code = "122004";
+			} else if(be_lib_id.equals("7240044")) { // 두류도서관
+				lib_code = "122002";
+			} else if(be_lib_id.equals("7240045")) { // 북부도서관
+				lib_code = "122003";
+			} else if(be_lib_id.equals("7240047")) { // 228기념
+				lib_code = "122001";
+			} else if(be_lib_id.equals("7240048")) { // 서부도서관
+				lib_code = "122008";
+			} else if(be_lib_id.equals("7240049")) { // 동부도서관
+				lib_code = "122010";
+			} else if(be_lib_id.equals("7240050")) { // 남부도서관
+				lib_code = "122009";
+			} else if(be_lib_id.equals("7240051")) { // 달성도서관
+				lib_code = "122011";
+			} else if(be_lib_id.equals("7240278")) { // 수성도서관
+				lib_code = "122007";
+			} else {
+				lib_code = "0";
+			}
+			be.setLibrary_code(lib_code);
+			
+			be.setAgency_name(String.valueOf(map.get("be_m_name")));
+			String be_m_id = String.valueOf(map.get("be_m_id"));
+			be.setAgency_id(be_m_id);
+			be.setBook_reg_no(String.valueOf(map.get("be_book_regno")));
+			be.setBook_call_no(String.valueOf(map.get("be_book_callno")));
+			be.setBook_name(String.valueOf(map.get("be_book_title")));
+			be.setThumb_image(String.valueOf(map.get("be_book_image")));
+			be.setRequest_status(String.valueOf(map.get("be_status")));
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			try {
+				String request_date = String.valueOf(map.get("be_request_date"));
+				if(request_date != null && request_date != "null") {
+					be.setRequest_date(sdf.parse(request_date));
+				}
+				
+				be.setAdd_date(sdf.parse(String.valueOf(map.get("be_write_date"))));
+				String modify_date = String.valueOf(map.get("be_modi_date"));
+				if(modify_date != null && modify_date != "null") {
+					be.setModify_date(sdf.parse(modify_date));
+					be.setModify_id(be_m_id);
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+			be.setRequest_name(String.valueOf(map.get("be_worker")));
+			be.setRequest_phone(String.valueOf(map.get("be_worker_phone")));
+			be.setReason(String.valueOf(map.get("be_comment")));
+			be.setAdd_id(be_m_id);
+			
+			service.addMyGration(be);
+		}
 	}
 
 }
