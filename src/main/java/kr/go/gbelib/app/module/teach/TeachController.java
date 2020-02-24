@@ -90,7 +90,7 @@ public class TeachController extends BaseController{
 			teach.setMember_key(getSessionMemberId(request));
 		}
 
-		if ( homepage.getHomepage_id().equals("h32") ) {
+		if ( homepage.getHomepage_id().equals("h32") && teach.getEditMode().equals("ALL")) {
 			if (StringUtils.isEmpty(teach.getHomepage_id())) {
 				teach.setHomepage_id(homepage.getHomepage_id());
 			}
