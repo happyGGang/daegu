@@ -161,6 +161,7 @@
 									WHERE
 										<if test="manage_idx == 282">
 										board_type = 'NOTICE'
+										AND	homepage_id != 'h30'
 										<if test="homepage_id != null and homepage_id != 'h1'">
 										AND	homepage_id = #{homepage_id}
 										</if>
@@ -872,6 +873,7 @@
 							WHERE
 								<if test="manage_idx == 282">
 								board_type = 'NOTICE'
+								AND	homepage_id != 'h30'
 								<if test="homepage_id != null and homepage_id != 'h1'">
 								AND	homepage_id = #{homepage_id}
 								</if>
