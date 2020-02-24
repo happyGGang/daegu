@@ -20,6 +20,9 @@ do {
 	<a class="goDetail" href="/${recommendBookContextPath}/board/view.do?menu_idx=${recommendBookMenuIdx}&manage_idx=${book1.manage_idx}&board_idx=${book1.board_idx}">
 		<img src="/resources/homepage/dgportal/img/book-line.png" alt="" class="book-line">
 		<c:choose>
+			<c:when test="${empty book1.preview_img}">
+			<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="${book1.title}" title="${book1.title}"/>
+			</c:when>
 			<c:when test="${fn:contains(book1.preview_img, 'http')}">
 			<img src="${book1.preview_img}" alt="${book1.title}" title="${book1.title}"/>
 			</c:when>
@@ -34,6 +37,9 @@ do {
 	<a class="goDetail" href="/${recommendBookContextPath}/board/view.do?menu_idx=${recommendBookMenuIdx}&manage_idx=${book2.manage_idx}&board_idx=${book2.board_idx}" >
 		<img src="/resources/homepage/dgportal/img/book-line.png" alt="" class="book-line">
 		<c:choose>
+			<c:when test="${empty book2.preview_img}">
+			<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="${book2.title}" title="${book2.title}"/>
+			</c:when>
 			<c:when test="${fn:contains(book2.preview_img, 'http')}">
 			<img src="${book2.preview_img}" alt="${book2.title}" title="${book2.title}"/>
 			</c:when>
