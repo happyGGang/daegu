@@ -74,26 +74,28 @@ public class StudentController extends BaseController {
 		checkAuth("C", model, request);
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 
+		Teach teachOne = teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));
 
-		//로그인 체크
-		if ( !isLogin(request) && request.getSession().getAttribute("certMember") == null) {
-			service.alertMessageAndUrl("본인인증 후 신청가능합니다.", String.format("cert.do?menu_idx=%s&editMode=ADD&group_idx=%s&category_idx=%s&teach_idx=%d&large_category_idx=%d", student.getMenu_idx(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx(), student.getLarge_category_idx()), request, response);
+		if (teachOne == null) {
+			service.alertMessage("잘못된 경로로 접근하였습니다", request, response);
 			return null;
 		}
-		if ( !homepage.getHomepage_id().equals("h32") ) {
-			student.setHomepage_id(homepage.getHomepage_id());
+		
+		if (StringUtils.equals(teachOne.getMember_yn(), "N") && !isLogin(request)) {
+			student.setBefore_url(String.format("/%s/module/teach/index.do?menu_idx=%s&group_idx=%s&category_idx=%s", homepage.getContext_path(), student.getMenu_idx(), student.getGroup_idx(), student.getCategory_idx()));
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), student.getMenu_idx(), student.getBefore_url()), request, response);
+			return null;
 		}
-
-		Member certMember = (Member) request.getSession().getAttribute("certMember");
-		if (certMember != null) {
+		
+		if (StringUtils.equals(teachOne.getMember_yn(), "Y")) {
 			student.setMember_id("ANONYMOUS");
-			certMember.setMember_id("ANONYMOUS");
-			student.setMember_key(certMember.getCi_value());
-			certMember.setSex(certMember.getSex().equals("0") ? "1" : "0");
 		} else {
 			student.setMember_id(getSessionMemberId(request));
 			student.setMember_key(getSessionMemberId(request));
-
+		}
+		
+		if ( !homepage.getHomepage_id().equals("h32") ) {
+			student.setHomepage_id(homepage.getHomepage_id());
 		}
 
 		// 그룹당 강의 제한 개수 . ->
@@ -109,9 +111,6 @@ public class StudentController extends BaseController {
 //			return null;
 //		}
 
-
-		Member memberInfo = certMember == null ? getSessionMemberInfo(request) : certMember;
-
 		//약관 연동부
 		Menu menuOne = (Menu) request.getAttribute("menuOne");
 		Terms t = new Terms(menuOne.getManage_idx());
@@ -119,7 +118,7 @@ public class StudentController extends BaseController {
 		model.addAttribute("termsList", termsService.getTermsListInModule(t));
 		model.addAttribute("hakList", codeService.getCode("CMS", "C0020"));
 		model.addAttribute("teach", teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx())));
-		model.addAttribute("memberInfo", memberInfo);
+		model.addAttribute("memberInfo", getSessionMemberInfo(request));
 		model.addAttribute("student", student);
 		model.addAttribute("cellPhoneCode", codeService.getCode("CMS", "C0002"));
 		model.addAttribute("phoneCode", codeService.getCode("CMS", "C0003"));
@@ -131,29 +130,27 @@ public class StudentController extends BaseController {
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Model model, Student student, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
-		Teach teachOne = null;
+		Teach teachOne = teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));
 
-//		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-//			res.setValid(false);
-//			res.setMessage("로그인 후 이용가능합니다.");
-//			return res;
-//		}
-
-		if ( !isLogin(request) && request.getSession().getAttribute("certMember") == null) {
+		if (teachOne == null) {
 			res.setValid(false);
-			res.setMessage("본인인증 후 신청가능합니다.");
-			res.setUrl(String.format("cert.do?menu_idx=%s&editMode=ADD&group_idx=%s&category_idx=%s&teach_idx=%d&large_category_idx=%d", student.getMenu_idx(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx(), student.getLarge_category_idx()));
+			result.reject("잘못된 경로로 접근하였습니다.");
 			return res;
+		} else {
+			if (StringUtils.equals(teachOne.getMember_yn(), "N") && !isLogin(request)) {
+				res.setValid(false);
+				res.setMessage("로그인 후 이용가능합니다.");
+				return res;
+			}
 		}
 
-
 		if(student.getEditMode().equals("ADD")) {
-			ValidationUtils.rejectIfEmpty(result, "member_id", "신청자ID를 입력하세요.");
+//			ValidationUtils.rejectIfEmpty(result, "member_id", "신청자ID를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "applicant_name", "신청자명을 입력하세요.");
 			ValidationUtils.rejectNumbers(result, "applicant_name", "신청자명에는 숫자를 입력할 수 없습니다.");
 			ValidationUtils.rejectIfEmpty(result, "applicant_birth", "신청자 생년월일을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "applicant_sex", "신청자 성별을 선택하세요.");
-			ValidationUtils.rejectIfEmpty(result, "applicant_cell_phone", "신청자 폰번호를 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "applicant_cell_phone", "신청자 휴대전화번호를 입력하세요.");
 			ValidationUtils.rejectPhone(result, "applicant_cell_phone", "휴대전화번호 형식이 잘못되었습니다.");
 
 			teachOne = teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));
@@ -237,8 +234,23 @@ public class StudentController extends BaseController {
 			}
 
 			if(student.getEditMode().equals("ADD")) {
-				student.setAdd_id(student.getMember_id());
+				String memberId = getSessionMemberId(request);
+				if (StringUtils.equals(teachOne.getMember_yn(), "Y") && !isLogin(request)) {
+					memberId = "ANONYMOUS";
+				}
+
+				if (StringUtils.isNotEmpty(memberId)) {
+					student.setAdd_id(getSessionMemberId(request));
+					if (StringUtils.equals(teachOne.getMember_yn(), "Y") && !isLogin(request)) {
+						student.setAdd_id(memberId);
+					}
+				} else {
+					student.setAdd_id(getSessionMemberId(request));
+				}
 				student.setWeb_id(student.getMember_id());
+				if (StringUtils.equals(teachOne.getMember_yn(), "Y") && !isLogin(request)) {
+					student.setWeb_id(memberId);
+				}
 //				student.setMember_key(student.getMember_id());
 				student.setApi_user_id(student.getMember_id());
 				student.setSearch_api_type("USER_ID");

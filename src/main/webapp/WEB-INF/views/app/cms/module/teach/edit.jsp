@@ -670,12 +670,12 @@ $(function() {
 				</td>
 			</tr>
 			<tr>
-				<th>정회원 여부</th>
+				<th>비회원 신청여부</th>
 				<td>
 					<form:radiobutton path="member_yn" value="Y"/> <label for="member_yn1" style="cursor:pointer;">Y</label>&nbsp;
 					<form:radiobutton path="member_yn" value="N"/> <label for="member_yn2" style="cursor:pointer;">N</label>
 					<div class="ui-state-highlight">
-						<em>* Y 일 경우 해당 강좌는 정회원(대출회원)만 신청 가능합니다.</em>
+						<em>* Y 일 경우 해당 강좌는 비회원도 신청 가능합니다.</em>
 					</div>
 				</td>
 			</tr>

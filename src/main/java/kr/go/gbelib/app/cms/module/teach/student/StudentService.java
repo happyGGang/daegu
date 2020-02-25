@@ -122,20 +122,22 @@ public class StudentService extends BaseService {
 			}
 		}
 
-		if ( dao.checkStudent(student) > 0 ) {
-			addResult[0] = false;
-			addResult[1] = "이미 신청하신 강좌입니다.";
-			return addResult;
+		if (!student.getMember_id().equals("ANONYMOUS")) {
+			if ( dao.checkStudent(student) > 0 ) {
+				addResult[0] = false;
+				addResult[1] = "이미 신청하신 강좌입니다.";
+				return addResult;
+			}
 		}
 
 		if ( teach != null ) {
-			if ( "Y".equals(teach.getMember_yn()) ) {
-				if ( student.getApi_user_id().startsWith("*") ) {
-					addResult[0] = false;
-					addResult[1] = String.format("해당 강좌는 정회원(대출회원) 제한이 있습니다.");
-					return addResult;
-				}
-			}
+//			if ( "Y".equals(teach.getMember_yn()) ) {
+//				if ( student.getApi_user_id().startsWith("*") ) {
+//					addResult[0] = false;
+//					addResult[1] = String.format("해당 강좌는 정회원(대출회원) 제한이 있습니다.");
+//					return addResult;
+//				}
+//			}
 
 			if ( teach.getTeach_join_limit_value() != null && teach.getTeach_join_limit_value() != null ) {
 				String[] limitUnit = teach.getTeach_join_limit_unit().split(",");

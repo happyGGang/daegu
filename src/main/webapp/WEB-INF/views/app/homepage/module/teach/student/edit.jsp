@@ -10,18 +10,36 @@ $(function() {
 		var value = $(this).is(':checked') ? 'Y' : 'N';
 		if ( value === 'Y' ) {
 			$('#student_name').val($('#applicant_name').val());
-			$('#student_name').prop('readonly', true);
+//			$('#student_name').prop('readonly', true);
 			$('#student_birth').val($('#applicant_birth').val());
-			$("#student_birth").datepicker('disable');
-			$('input[name=student_sex].'+$('#applicant_sex').val()).prop('checked', true);
-			$('input[name=student_sex]').prop('disabled', true);
+//			$("#student_birth").datepicker('disable');
+			if($('#applicant_sex1').length == 0) {
+				if ($('#applicant_sex').val() == 'M') {
+					$('input[name=student_sex].M').prop('checked', true);
+				} else {
+					$('input[name=student_sex].F').prop('checked', true);
+				}
+			} else {
+				if ($('#applicant_sex1').is(':checked')) {
+					$('input[name=student_sex].M').prop('checked', true);
+				} else {
+					$('input[name=student_sex].F').prop('checked', true);
+				}
+			}
 			/* $('#student_sex').val($('#applicant_sex').val()); */
 			$('#student_zipcode').val($('#applicant_zipcode').val());
-			$('#student_zipcode').prop('readonly', true);
+ 			$('#student_zipcode').prop('readonly', true);
 			$('#student_address').val($('#applicant_address').val());
-			$('#student_address').prop('readonly', true);
+ 			$('#student_address').prop('readonly', true);
 			$('#student_address_detail').val($('#applicant_address_detail').val());
-			$('#student_address_detail').prop('readonly', true);
+ 			$('#student_address_detail').prop('readonly', true);
+			try {
+				var applicant_cell_phone = $('#applicant_cell_phone').val();
+				var numbers = applicant_cell_phone.split('-');
+				$('#student_cell_phone_1').val(numbers[0]);
+				$('#student_cell_phone_2').val(numbers[1]);
+				$('#student_cell_phone_3').val(numbers[2]);
+			} catch(e) { }
 		}
 		else {
 			$('#student_name').val('');
@@ -36,6 +54,12 @@ $(function() {
 			$('#student_address').prop('readonly', false);
 			$('#student_address_detail').val('');
 			$('#student_address_detail').prop('readonly', false);
+			$('#student_cell_phone_1').val('');
+			$('#student_cell_phone_2').val('');
+			$('#student_cell_phone_3').val('');
+			$('#student_cell_phone_1').prop('readonly', false);
+			$('#student_cell_phone_2').prop('readonly', false);
+			$('#student_cell_phone_3').prop('readonly', false);
 		}
 	});
 
@@ -74,6 +98,23 @@ $(function() {
 			alert('신청자 생년월일이 입력되지 않았습니다. 회원정보 수정후 신청 해주세요.');
 			return false;
 		}
+		
+		if ( $form.find ("#applicant_name").val() == '' ) {
+			alert('성명이 입력되지 않았습니다.');
+			$("#applicant_name").focus();
+			return false;
+		}
+
+		if ( $form.find ("#applicant_birth").val() == '' ) {
+			alert('생년월일이 입력되지 않았습니다.');
+			$("#applicant_birth").focus();
+			return false;
+		}
+		
+		if ( $("[name=applicant_sex]").val() == '' ) {
+			alert('성별이 입력되지 않았습니다.');
+			return false;
+		}
 
 		if ( $form.find ("#student_birth").val() == '' ) {
 			alert('수강생 생년월일이 입력되지 않았습니다.');
@@ -87,23 +128,50 @@ $(function() {
 
 		var cellPhone1 = $form.find('#applicant_cell_phone_1').val();
 		if ( cellPhone1 == '' ) {
+			$form.find('#applicant_cell_phone_1').focus();
 			alert('휴대전화번호를 입력해주세요.');
 			return false;
 		}
 		var cellPhone2 = $form.find('#applicant_cell_phone_2').val();
 		if ( cellPhone2 == '' ) {
+			$form.find('#applicant_cell_phone_2').focus();
 			alert('휴대전화번호를 입력해주세요.');
 			return false;
 		}
 		var cellPhone3 = $form.find('#applicant_cell_phone_3').val();
 		if ( cellPhone3 == '' ) {
+			$form.find('#applicant_cell_phone_3').focus();
+			alert('휴대전화번호를 입력해주세요.'); 
+			return false;
+		}
+		
+		<c:if test="${teach.agent_yn eq 'Y'}">
+		var cellPhone1_s = $form.find('#student_cell_phone_1').val();
+		if ( cellPhone1_s == '' ) {
+			$form.find('#student_cell_phone_1').focus();
 			alert('휴대전화번호를 입력해주세요.');
 			return false;
 		}
+		var cellPhone2_s = $form.find('#student_cell_phone_2').val();
+		if ( cellPhone2_s == '' ) {
+			$form.find('#student_cell_phone_2').focus();
+			alert('휴대전화번호를 입력해주세요.');
+			return false;
+		}
+		var cellPhone3_s = $form.find('#student_cell_phone_3').val();
+		if ( cellPhone3_s == '' ) {
+			$form.find('#student_cell_phone_3').focus();
+			alert('휴대전화번호를 입력해주세요.');
+			return false;
+		}
+		
+		$form.find('#student_cell_phone').val(cellPhone1_s+'-'+cellPhone2_s+'-'+cellPhone3_s);
+		</c:if>
 
 		<c:if test="${teach.school_info_yn eq 'Y'}">
 		var schoolName = $form.find('#student_school').val();
 		if ( schoolName == '' ) {
+			$form.find('#student_school').focus();
 			alert('학교명을 입력해주세요.');
 			return false;
 		}
@@ -111,6 +179,7 @@ $(function() {
 		<c:if test="${teach.school_grade_yn eq 'Y'}">
 		var schoolHak = $form.find('#student_hack option:selected').val();
 		if ( schoolHak == '0' ) {
+			$form.find('#student_hack option:selected').focus();
 			alert('학년을 선택해주세요.');
 			return false;
 		}
@@ -193,21 +262,49 @@ $(function() {
 	});
 
 	$('input#applicant_birth').datepicker({
-		yearRange: 'c-70:c',
+		yearRange: 'c-120:c',
 		maxDate:0,
 		onClose: function(selectedDate){
-			$('input#applicant_zipcode').focus();
+			var tmp =  selectedDate.replace(/[^0-9]/g,'');
+			var tmp2 = '';
+			if(tmp.length < 8 ||  tmp.length > 8){
+				alert('YYYY-MM-DD 형식으로 입력해주세요');
+			}else{
+				tmp2 += tmp.substr(0,4);
+				tmp2 += '-';
+				tmp2 += tmp.substr(4,2);
+				tmp2 += '-';
+				tmp2 += tmp.substr(6,2);
+ 				$('input#applicant_birth').val(tmp2);
+ 				$('input#student_zipcode').focus();
+			}
+				$('input#student_zipcode').focus();
 		}
 	});
 	$('input#student_birth').datepicker({
-		yearRange: 'c-70:c',
+		yearRange: 'c-120:c',
 		maxDate:0,
 		onClose: function(selectedDate){
-			$('input#student_zipcode').focus();
+			var tmp =  selectedDate.replace(/[^0-9]/g,'');
+			var tmp2 = '';
+			if(tmp.length < 8 ||  tmp.length > 8){
+				alert('YYYY-MM-DD 형식으로 입력해주세요');
+			}else{
+				tmp2 += tmp.substr(0,4);
+				tmp2 += '-';
+				tmp2 += tmp.substr(4,2);
+				tmp2 += '-';
+				tmp2 += tmp.substr(6,2);
+ 				$('input#applicant_birth').val(tmp2);
+ 				$('input#student_zipcode').focus();
+			}
+				$('input#student_zipcode').focus();
 		}
 	});
 
+	<c:if test="${sessionScope.member.login}">
 	$("#applicant_birth").datepicker('disable');
+	</c:if>
 });
 $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(this).val().replace(/[^0-9]/gi,"") );});
 </script>
@@ -259,18 +356,51 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	         	<td><form:input path="member_id" value="${memberInfo.member_id}" cssClass="text" readonly="true" title="회원 아이디 입력"/></td>
         	</tr>
 			<tr>
-	         	<th>신청자 - 성명</th>
-	         	<td>${memberInfo.member_name}<form:hidden path="applicant_name" value="${memberInfo.member_name}" cssClass="text" readonly="true" title="신청자 수"/></td>
-        	</tr>
-        	<tr>
-	         	<th>신청자 - 생년월일</th>
-	         	<td>${memberInfo.birth_day}<form:hidden path="applicant_birth" value="${memberInfo.birth_day}" class="text ui-calendar" readonly="true" title="생년월일"/></td>
-        	</tr>
-        	<tr>
-	         	<th>신청자 - 성별</th>
+	         	<th>신청자 - 성명(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
-	         		${memberInfo.sex eq '0'? '남' : '여'}
-					<form:hidden path="applicant_sex" value="${memberInfo.sex eq '0'? 'M' : 'F'}" class="text" maxlength="6" readonly="true"/>
+	         		<c:choose>
+	         		<c:when test="${sessionScope.member.login}">
+	         		${memberInfo.member_name}
+	         		<form:hidden path="applicant_name" value="${memberInfo.member_name}" cssClass="text" />
+	         		</c:when>
+	         		<c:otherwise>
+	         		<form:input path="applicant_name" value="${memberInfo.member_name}" cssClass="text" />
+	         		</c:otherwise>
+	         		</c:choose>
+	         	</td>
+        	</tr>
+        	<tr>
+	         	<th>신청자 - 생년월일(<span style="color: red; font-weight: bold;">*</span>)</th>
+	         	<td>
+		         	<c:choose>
+	         		<c:when test="${sessionScope.member.login}">
+	         		<form:hidden path="applicant_birth" value="${memberInfo.birth_day}" />
+	         		${sessionScope.member.birth_day}
+	         		</c:when>
+	         		<c:otherwise>
+	         		<form:input path="applicant_birth" value="${memberInfo.birth_day}" cssClass="text ui-calendar" />
+	         		</c:otherwise>
+		         	</c:choose>
+	         	</td>
+        	</tr>
+        	<tr>
+	         	<th>신청자 - 성별(<span style="color: red; font-weight: bold;">*</span>)</th>
+	         	<td>
+		         	<c:choose>
+	         		<c:when test="${sessionScope.member.login}">
+	         		<form:hidden path="applicant_sex" value="${memberInfo.sex eq '0' ? 'M' : 'F'}" cssClass="text" />
+	         			<c:if test="${memberInfo.sex eq '0'}">
+	         				남자
+	         			</c:if>
+	         			<c:if test="${memberInfo.sex eq '1'}">
+	         				여자
+	         			</c:if>
+	         		</c:when>
+	         		<c:otherwise>
+	         		<form:radiobutton path="applicant_sex" cssClass="M" value="M" label="남" cssStyle="vertical-align: middle;"/>
+	         		<form:radiobutton path="applicant_sex" cssClass="F" value="F" label="여" cssStyle="vertical-align: middle;"/>
+    	     		</c:otherwise>
+	    	     	</c:choose>
          		</td>
 	        </tr>
 	        <c:if test="${teach.address_yn eq 'Y'}">
