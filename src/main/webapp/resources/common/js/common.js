@@ -330,6 +330,8 @@ $(document).ready(function() {
 				$('div#container > div.section > div.content > div.doc > div.doc-body').prepend('<div id="qrcodeView" style="position:relative ;z-index: 99999; display:none;"></div>');
 			} else if ( url.indexOf('gbelib') != -1) {
 				$('div#container div.section > div.content > div.doc > div.doc-body').prepend('<div id="qrcodeView" style="position:relative ;z-index: 99999; display:none;"></div>');
+			} else if ( url.indexOf('elib') != -1) {
+				$('div#sub-container div.section > div.content > div.doc > div.doc-body').prepend('<div id="qrcodeView" style="position:relative ;z-index: 99999; display:none;"></div>');
 			} else {
 				$('div#container > div.section > div.content > div.doc').prepend('<div id="qrcodeView" style="position:relative ;z-index: 99999; display:none;"></div>');
 			}

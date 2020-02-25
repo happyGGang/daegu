@@ -117,12 +117,12 @@ table.bbs tr.notice{background:#f5f6f7}
 				<div class="selection01">
 					<div class="all-lib" style="display:block">
 					<ul>
-						<li class="lib01"><div><span><a href="#" class="libType" data-key="23">공공도서관</a></span><b>${empty categoryCount['23'] ? '0' : categoryCount['23']}</b></div></li>
-						<li class="lib02"><div><span><a href="#" class="libType" data-key="24">전문도서관</a></span><b>${empty categoryCount['24'] ? '0' : categoryCount['24']}</b></div></li>
-						<li class="lib03"><div><span><a href="#" class="libType" data-key="25">대학도서관</a></span><b>${empty categoryCount['25'] ? '0' : categoryCount['25']}</b></div></li>
-						<li class="lib04"><div><span><a href="#" class="libType" data-key="26">작은도서관</a></span><b>${empty categoryCount['26'] ? '0' : categoryCount['26']}</b></div></li>
-						<li class="lib05"><div><span><a href="#" class="libType" data-key="29">학교도서관</a></span><b>${empty categoryCount['29'] ? '0' : categoryCount['29']}</b></div></li>
-						<li class="lib06"><div><span><a href="#" class="libType" data-key="28">기타</a></span><b>${empty categoryCount['28'] ? '0' : categoryCount['28']}</b></div></li>
+						<li class="lib01"><div><a href="#" class="libType" data-key="23"><span>공공도서관</span><b>${empty categoryCount['23'] ? '0' : categoryCount['23']}</b></a></div></li>
+						<li class="lib02"><div><a href="#" class="libType" data-key="24"><span>전문도서관</span><b>${empty categoryCount['24'] ? '0' : categoryCount['24']}</b></a></div></li>
+						<li class="lib03"><div><a href="#" class="libType" data-key="25"><span>대학도서관</span><b>${empty categoryCount['25'] ? '0' : categoryCount['25']}</b></a></div></li>
+						<li class="lib04"><div><a href="#" class="libType" data-key="26"><span>작은도서관</span><b>${empty categoryCount['26'] ? '0' : categoryCount['26']}</b></a></div></li>
+						<li class="lib05"><div><a href="#" class="libType" data-key="29"><span>학교도서관</span><b>${empty categoryCount['29'] ? '0' : categoryCount['29']}</b></a></div></li>
+						<li class="lib06"><div><a href="#" class="libType" data-key="28"><span>기타</span><b>${empty categoryCount['28'] ? '0' : categoryCount['28']}</b></a></div></li>
 					</ul>
 					<p> </p>
 <%-- 					<p>총 <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/></b>개의 도서관이 검색되었습니다.</p> --%>

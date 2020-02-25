@@ -8,6 +8,8 @@ ${boardManage.top_html}
 </c:if>
 <c:if test="${boardManage.manage_idx eq '282'}">
 <style>
+
+
 table.bbs tr.notice{background:#f5f6f7}
 @media (max-width: 430px) and (min-width: 0px) {
 	table.bbs col.col1 {
@@ -70,7 +72,7 @@ table.bbs tr.notice{background:#f5f6f7}
 					</c:if>
 					<th>번호</th>
 					<c:if test="${boardManage.manage_idx eq '282'}">
-					<th class=" category">도서관</th>
+					<th class="category">도서관</th>
 					</c:if>
 					<th class="">제목</th>
 					<!-- <th>처리상태</th> -->
@@ -89,7 +91,7 @@ table.bbs tr.notice{background:#f5f6f7}
 					<td class="num notice"><span>통합</span></td>
 					<c:if test="${boardManage.manage_idx eq '282'}">
 					<td class="category important td2 cate">
-						<span class="ca ${i.imsi_v_19}">${i.imsi_v_20}</span>
+						<span class="ca bg-${i.imsi_v_19}">${i.imsi_v_20}</span>
 					</td>
 					</c:if>
 					<td class="important left title">
@@ -119,7 +121,7 @@ table.bbs tr.notice{background:#f5f6f7}
 					<td class="num notice"><span>공지</span></td>
 					<c:if test="${boardManage.manage_idx eq '282'}">
 					<td class="category important td2">
-						<span class="ca ${i.imsi_v_19}">대표</span>
+						<span class="ca bg-${i.imsi_v_19}">대표</span>
 					</td>
 					</c:if>
 					<td class="important left title">
@@ -155,7 +157,7 @@ table.bbs tr.notice{background:#f5f6f7}
 					<td class="num">${paging.listRowNum - status.index}</td>
 					<c:if test="${boardManage.manage_idx eq '282'}">
 					<td class="category important td2">
-						<span class="ca ${i.imsi_v_19}">${i.imsi_v_20}</span>
+						<span class="ca bg-${i.imsi_v_19}">${i.imsi_v_20}</span>
 					</td>
 					</c:if>
 					<td class="important left title" style="padding-left:${(i.group_depth > 0 ? (i.group_depth-1)*15 : 0)+10}px;">

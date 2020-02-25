@@ -23,6 +23,18 @@ $(function() {
 		$('div#menuRatingDiv').load('/${homepage.context_path}/module/menuRating/index.do?menu_idx=${param.menu_idx}');
 	}
 
+	$('select#recommendSite1').on('change', function() {
+		if ($(this).val() != '') {
+			window.open($(this).val());
+		}
+	});
+
+	$('select#recommendSite2').on('change', function() {
+		if ($(this).val() != '') {
+			window.open($(this).val());
+		}
+	});
+
 	$('.Gnb .gnb-menu > li.menu7').remove();
 });
 </script>

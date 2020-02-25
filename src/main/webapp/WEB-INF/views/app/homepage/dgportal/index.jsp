@@ -83,8 +83,20 @@ do {
 		$('select#recommendBook1').on('change', function() {
 			$('ul.newBookUl').load('recommendBook.do?hid='+$(this).val());
 		});
-		$('select#recommendSite1').on('change', function() {
+		$('select#holidaySite1').on('change', function() {
 			$('div.calendar-box').load('calendar5.do?homepage_id='+$(this).val());
+		});
+
+		$('select#recommendSite1').on('change', function() {
+			if ($(this).val() != '') {
+				window.open($(this).val());
+			}
+		});
+
+		$('select#recommendSite2').on('change', function() {
+			if ($(this).val() != '') {
+				window.open($(this).val());
+			}
 		});
 
 		$('.Gnb .gnb-menu > li.menu7').remove();
@@ -139,9 +151,9 @@ do {
 					</div>
 					<div class="cont">
 						<ul>
-							<li><a href="#"><strong class="quick-01"></strong><span class="">통합자료검색</span></a></li>
+							<li><a href="/${homepage.context_path}/intro/search/index.do?menu_idx=7#search_result"><strong class="quick-01"></strong><span class="">통합자료검색</span></a></li>
 							<li class="txt-line"></li>
-							<li><a href="#"><strong class="quick-02"></strong><span class="">대구BOOK</span></a></li>
+							<li><a href="/${homepage.context_path}/html.do?menu_idx=8"><strong class="quick-02"></strong><span class="">대구BOOK</span></a></li>
 							<li class="txt-line"></li>
 							<li><a href="#"><strong class="quick-03"></strong><span class="">대구전자도서관</span></a></li>
 						</ul>
@@ -189,7 +201,7 @@ do {
 					<b>평생교육강좌</b>
 					<em>우리 도서관에는<br/>
 					어떤 강좌가 있을까?</em><br/><br/>
-					<a href="#"><img src="/resources/homepage/${homepage.context_path}/img/culture-icon.png" alt="독서문화행사 안내"></a>
+					<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=11&editMode=ALL"><img src="/resources/homepage/${homepage.context_path}/img/culture-icon.png" alt="독서문화행사 안내"></a>
 				</div>
 
 				<div class="cont cultureList">
@@ -241,7 +253,7 @@ do {
 							<div class="title">
 								<h2><b>이달의</b> 휴관일</h2>
 								<p>
-									<select id="recommendSite1" class="recommendSite1" style="color:#fff;">
+									<select id="holidaySite1" class="holidaySite1" style="color:#fff;">
 										<option value="h10" style="color:#000;">중앙도서관</option>
 										<option value="h6" style="color:#000;">두류도서관</option>
 										<option value="h5" style="color:#000;">동부도서관</option>
@@ -281,7 +293,7 @@ do {
 							<div class="control">
 								<a class="stop active" href="#stop"><i class="fa fa-pause"></i><span class="blind">정지</span></a>
 								<a class="play" href="#play"><i class="fa fa-play"></i><span class="blind">시작</span></a>
-								<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=93"><i class="fa fa-navicon"></i><span class="blind">더보기</span></a>
+								<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=61"><i class="fa fa-navicon"></i><span class="blind">더보기</span></a>
 							</div>
 						</div>
 					</div>

@@ -11,15 +11,24 @@
 				</div>
 				<div class="site_link">
 					<select id="recommendSite1" class="recommendSite1" style="color:#fff;">
-						<option value="" style="color:#000;">대구통합공공도서관</option>
+						<option value="" style="color:#000;">대구광역시립도서관</option>
 						<option value="http://library.daegu.go.kr/dgportal/index.do" label="통합도서관" style="color:#000;"></option>
-						<option value="http://library.daegu.go.kr/elib/index.do" label="전자도서관" style="color:#000;"></option>
+						<option value="http://library.daegu.go.kr/jungang/index.do" label="중앙도서관" style="color:#000;"></option>
+						<option value="http://library.daegu.go.kr/dongbu/index.do" label="동부도서관" style="color:#000;"></option>
+						<option value="http://library.daegu.go.kr/nambu/index.do" label="남부도서관" style="color:#000;"></option>
+						<option value="http://library.daegu.go.kr/seobu/index.do" label="서부도서관" style="color:#000;"></option>
+						<option value="http://library.daegu.go.kr/bukbu/index.do" label="북부도서관" style="color:#000;"></option>
+						<option value="http://library.daegu.go.kr/duryu/index.do" label="두류도서관" style="color:#000;"></option>
+						<option value="http://library.daegu.go.kr/suseong/index.do" label="수성도서관" style="color:#000;"></option>
+						<option value="http://library.daegu.go.kr/dalseong/index.do" label="달성도서관" style="color:#000;"></option>
+						<option value="http://library.daegu.go.kr/228/index.do" label="228기념학생도서관" style="color:#000;"></option>
+						<option value="http://library.daegu.go.kr/228lib/index.do" label="228민주운동기념회관" style="color:#000;"></option>
 					</select>
 
 					<select id="recommendSite2" class="recommendSite2" style="color:#fff;">
 						<option value="" style="color:#000;">관련사이트</option>
-						<option value="http://library.daegu.go.kr/dgportal/index.do" label="통합도서관" style="color:#000;"></option>
-						<option value="http://library.daegu.go.kr/elib/index.do" label="전자도서관" style="color:#000;"></option>
+						<option value="http://www.daegu.go.kr" label="대구광역시청" style="color:#000;"></option>
+						<option value="http://www.dge.go.kr" label="대구광역시교육청" style="color:#000;"></option>
 					</select>
 				</div>
 

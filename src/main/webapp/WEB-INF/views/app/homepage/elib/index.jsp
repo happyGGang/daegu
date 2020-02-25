@@ -112,7 +112,7 @@ $(function() {
 			$(boxText).slideToggle();
 		}
 	});
-
+	$('.Gnb .gnb-menu > li.menu7').remove();
 
 });
 

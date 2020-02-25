@@ -27,7 +27,7 @@ a:focus{color:#2b74c0}
 .Gnb .gnb-menu > li.active > ul{display:block}
 .Gnb .gnb-menu > li > .SubMenu > li{width:auto;padding:0 5px}
 .Gnb .gnb-menu > li > .SubMenu > li{display:inline-block}
-.Gnb .gnb-menu > li > .SubMenu > li > a{font-size:20px;padding:0 5px;color:#fff;}
+.Gnb .gnb-menu > li > .SubMenu > li > a{font-size: 18px;padding:0 5px;color:#fff;}
 .Gnb .gnb-menu > li > .SubMenu > li > a:hover,
 .Gnb .gnb-menu > li > .SubMenu > li > a:focus{background:none;color:#222}
 .Gnb .mask, .Gnb .gnb-menu > li > ul{width:100%;}
@@ -38,6 +38,7 @@ a:focus{color:#2b74c0}
 .Gnb .gnb-menu > li.on > a,
 .Gnb .gnb-menu > li > a:hover,
 .Gnb .gnb-menu > li > a:focus{color:#fb3d69}
+.Gnb a.site-map {position:absolute;right:20px;top:23px;}
 
 #header .sub-menu li .section .txt .t2{padding-top:5px;padding-bottom:15px}
 .main .bx-controls.mainImg .bx-pager{display:block}

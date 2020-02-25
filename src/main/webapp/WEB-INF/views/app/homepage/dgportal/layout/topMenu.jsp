@@ -57,15 +57,16 @@ $(function() {
 				</div>
 				<!-- menu E -->
 			</div>
+			<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=53" class="site-map"><img src="/resources/homepage/${homepage.context_path}/img/site-map-icon.png" alt="사이트맵"></a>
 			<div class="mask">&nbsp;</div>
 		</div>
 	</div>
 	<div class="sub-menu">
 		<div class="section">
 			<ul>
-				<li><a href="" class="quick-btn01">통합자료검색</a></li>
+				<li><a href="/${homepage.context_path}/intro/search/index.do?menu_idx=7#search_result" class="quick-btn01">통합자료검색</a></li>
 				<li></li>
-				<li><a href="" class="quick-btn02">사서직무교육</a></li>
+				<li><a href="/${homepage.context_path}/board/index.do?menu_idx=18&manage_idx=287" class="quick-btn02">도서관찾기</a></li>
 				<li></li>
 				<li>
 				<div class="search-box">

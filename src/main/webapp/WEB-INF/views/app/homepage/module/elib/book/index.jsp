@@ -253,7 +253,7 @@ function changeLibrary() {
 		</div>
 		</c:if>
 		<c:if test="${book.type != 'WEB'}">
-		<div class="sort">
+		<div class="sort" style="display:none;">
 			<section class="bands">
 				<div class="wrp">
 					<div class="combo-wrap">

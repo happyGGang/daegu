@@ -13,13 +13,13 @@
 .main .qmenu li,
 .Gnb .gnb-menu>li>.SubMenu>li{zoom:1;*display:inline}
 
-.main .qmenu{padding:25px 0;background:#0194d4;}
+.main .qmenu{padding:35px 0 25px;background:#0194d4;}
 .main .qmenu .section{position:relative;margin:0 auto;text-align:center;overflow:hidden}
 .main .qmenu .section .bx-viewport{overflow:visible!important}
 .main .qmenu .bx-wrapper{width:auto!important;margin:0 0px;position:static}
-.main .qmenu li{display:inline-block;text-align:center;width:12.5%}
-.main .qmenu li a{width:80px;height:80px;background:#fff no-repeat center center;display:block;margin:0 auto;font-size:15px;color:#fff;font-weight:bold;letter-spacing:-1px;border-radius:100%;}
-.main .qmenu li a span{display:block;height:30px;position:relative;top:85px;text-align:center;font-size:14px;}
+.main .qmenu li{display:inline-block;text-align:center;width:12.5%;}
+.main .qmenu li a{width:110px;height:110px;background:#fff no-repeat center center;display:block;margin:0 auto;font-size:15px;color:#fff;font-weight:bold;letter-spacing:-1px;border-radius:100%;}
+.main .qmenu li span{display:block;height:30px;position:relative;top:115px;text-align:center;font-size:14px;letter-spacing:-1.5px}
 .main .qmenu li a:hover,
 .main .qmenu li a:focus{background-color:#fdce21}
 .main .qmenu .bx-controls{display:none}
@@ -29,7 +29,7 @@
 .main .qmenu .bx-controls .bx-next{position:absolute;top:0;width:40px;font-size:0;line-height:0}
 .main .qmenu .bx-controls .bx-prev,
 .main .qmenu .bx-controls .bx-next,
-.main .qmenu li{height:104px}
+.main .qmenu li{height:145px}
 .main .qmenu .bx-controls .bx-prev{left:0;background:url('../img/qmenuL.png') no-repeat center center}
 .main .qmenu .bx-controls .bx-next{right:0;background:url('../img/qmenuR.png') no-repeat center center}
 

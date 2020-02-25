@@ -393,7 +393,7 @@ $(function(){
 			speed:500,
 			moveSlides:1,
 			maxSlides:8,
-			slideMargin:10,
+			slideMargin:5,
 			auto:autoType,
 			autoHover:true,
 			pager:false,

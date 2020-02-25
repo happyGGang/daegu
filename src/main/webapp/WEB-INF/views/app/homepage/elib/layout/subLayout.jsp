@@ -71,6 +71,8 @@ $(function() {
 	if (location.href.indexOf('html.do?') > -1) {
 		$('div#menuRatingDiv').load('/${homepage.context_path}/module/menuRating/index.do?menu_idx=${param.menu_idx}');
 	}
+
+	$('.Gnb .gnb-menu > li.menu7').remove();
 });
 </script>
 
