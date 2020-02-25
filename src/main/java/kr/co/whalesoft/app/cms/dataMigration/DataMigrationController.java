@@ -2156,6 +2156,200 @@ public class DataMigrationController extends BaseController {
 		return res;
 	}
 
+	/**
+	 * 중앙도서관 - NN
+	 * @author whalesoft YONGJU 2019. 12. 10.
+	 * @param model
+	 * @param dm
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = {"/hublib.*"})
+	public String hublib(Model model, DataMigration dm, HttpServletRequest request, HttpServletResponse response) {
+		return basePath + "hublib";
+	}
+
+	/**
+	 * 중앙도서관
+	 * @author whalesoft YONGJU 2019. 12. 10.
+	 * @param dm
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping (value = {"/savehublib.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse savehublib(DataMigration dm, HttpServletRequest request) {
+
+		List<String> manager_seq_arr = dm.getManager_seq_arr();
+		List<String> manage_idx_arr = dm.getManage_idx_arr();
+		Map<Integer, Integer> idxMap = new HashMap<Integer, Integer>();
+		for (int i = 0; i < manager_seq_arr.size(); i++) {
+			if (StringUtils.isEmpty(manager_seq_arr.get(i))) {
+				continue;
+			} else {
+
+				int manager_seq = Integer.parseInt(manager_seq_arr.get(i));//MYSQL게시판번호
+				int manage_idx = Integer.parseInt(manage_idx_arr.get(i));//CMS게시판번호
+
+
+				//테이블명 가져오기
+				Map<String, String> tableConfig = service.getTableNameNN(manager_seq);
+
+				//파일목록 가져오기
+				dm.setDbUser("dglib_hublib");
+				dm.setTableName(tableConfig.get("A_TABLENAME"));
+				List<String> fileList = service.getFileListNN(dm);
+				String fileColumns = StringUtils.join(fileList, ", ");
+
+				List<DataMigration> dataMap = null;
+				if (StringUtils.containsIgnoreCase(tableConfig.get("A_LEVEL"), "book")) {
+					dataMap = service.getListNNNewBookJungang(tableConfig.get("A_TABLENAME"));
+				} else if (StringUtils.containsIgnoreCase(tableConfig.get("A_LEVEL"), "movie")) {
+					dataMap = service.getListNNMovieJungang(tableConfig.get("A_TABLENAME"));
+				} else if (StringUtils.containsIgnoreCase(tableConfig.get("A_LEVEL"), "nninc_lib")) {
+					dataMap = service.getListNNHubLib(tableConfig.get("A_TABLENAME"));
+
+				} else {
+					dataMap = service.getListNNHub(tableConfig.get("A_TABLENAME"));
+
+				}
+				int result = 0;
+				for (int j = 0; j < dataMap.size(); j++) {
+					DataMigration one = dataMap.get(j);
+
+					int boardIdx = service.getNextBoardIdx();
+					one.setBoard_idx(boardIdx);
+					one.setGroup_seq(boardIdx);
+					one.setManage_idx(manage_idx);
+
+					idxMap.put(one.getBoard_seq(), boardIdx);
+					if (one.getParent_seq() != 0) {
+						if (one.getBoard_seq() != one.getParent_seq()) {
+							if (idxMap.get(one.getParent_seq()) != null) {
+								one.setGroup_seq(idxMap.get(one.getParent_seq()));
+								one.setParent_seq(idxMap.get(one.getParent_seq()));
+								one.setGroup_step(1);
+							}
+						} else {
+							one.setGroup_seq(boardIdx);
+							one.setParent_seq(0);
+						}
+					} else {
+						one.setGroup_seq(boardIdx);
+						one.setParent_seq(0);
+					}
+
+
+					if (StringUtils.containsIgnoreCase(tableConfig.get("A_LEVEL"), "qna")) {
+						one.setUser_id("unknown");
+					}
+					one.setUser_id(StringUtils.defaultIfEmpty(one.getUser_id(), "unknown"));
+
+					if (manage_idx != 216) {
+						try {
+							one.setContent_summary(StrUtil.previewContent(StrUtil.delHtmlTagPatterns(one.getContent()),1000));
+						} catch (Exception e) {
+							// TODO: handle exception
+						}
+					}
+
+					Map<String, Object> map1 = null;
+
+					List<Map<String, Object>> orgFileMap = new ArrayList<Map<String, Object>>();
+					String filePath = "F:\\프로젝트\\대구시교육청도서관\\db\\jungang\\board";
+
+					one.setFileColumns(fileColumns);
+					one.setTableName(tableConfig.get("A_TABLENAME"));
+					Map<String, String> fileDataNN = service.getFileDataNN(one);
+
+					if (!fileDataNN.isEmpty()) {
+						for (int k = 1; k <= fileList.size(); k++) {
+							String columnName = "b_file"+k;
+							if (fileDataNN.containsKey(columnName) && StringUtils.isNotBlank(fileDataNN.get(columnName))) {
+								map1 = new HashMap<String, Object>();
+								String fileName = fileDataNN.get(columnName);
+								map1.put("ORG_FILE_NAME", fileName);
+								map1.put("FILE_EXT", fileName.substring(fileName.lastIndexOf(".")+1));
+								File f = new File(filePath + tableConfig.get("A_TABLENAME") + "\\" + fileName);
+								map1.put("FILE_SIZE", f.length());
+								String filename = "";
+								String datetime = new SimpleDateFormat("yyyyMMddHHmm").format(new Date());
+								String rndchars = RandomStringUtils.randomAlphanumeric(7);
+								filename = datetime + "_" + rndchars + "." + map1.get("FILE_EXT");
+								map1.put("SERVER_FILE_NAME", filename);
+								orgFileMap.add(map1);
+							}
+						}
+
+					}
+
+					one.setContent(one.getContent().replaceAll("http://www.tglnet.or.kr/userfiles/", "/data/userfiles/h10/"));
+					one.setContent(one.getContent().replaceAll("/userfiles/", "/data/userfiles/h10/"));
+
+
+					if (orgFileMap != null && orgFileMap.size() > 0) {
+						String content = "";
+						for (Map<String, Object> map2 : orgFileMap) {
+							String ext = "jpg|bmp|gif|png|jpeg";
+							if (ext.indexOf(String.valueOf(map2.get("FILE_EXT")).toLowerCase()) > -1) {
+								if (!StringUtils.containsIgnoreCase(tableConfig.get("A_LEVEL"), "movie")) {
+									content += "<p><img src=\"/data/board/"+manage_idx+"/"+boardIdx+"/"+String.valueOf(map2.get("SERVER_FILE_NAME"))+"\" ></p>";
+								}
+								if (StringUtils.isEmpty(one.getPreview_img())) {
+									one.setPreview_img(String.valueOf(map2.get("SERVER_FILE_NAME")));
+								}
+							}
+						}
+						one.setContent(content + one.getContent());
+					}
+
+					one.setBoard_file_count(orgFileMap.size());
+
+					if (StringUtils.equals(one.getAdd_date(), "-00-00")) {
+
+					}
+					one.setTitle(StringUtils.defaultIfEmpty(one.getTitle(), "제목없음"));
+					if (manage_idx == 185 || manage_idx == 185) {
+						one.setRequest_state("4");
+					}
+					result += service.insertBoard(one);
+
+					if (orgFileMap != null && orgFileMap.size() > 0) {
+						for (Map<String, Object> map2 : orgFileMap) {
+							map2.put("board_idx", boardIdx);
+							String fileExt = String.valueOf(map2.get("FILE_EXT"));
+							if (StringUtils.isNotEmpty(fileExt) && !fileExt.startsWith(".")) {
+								map2.put("FILE_EXT", "."+fileExt.toLowerCase());
+							}
+							map2.put("add_id", one.getUser_id());
+							String path = filePath+"\\"+tableConfig.get("A_TABLENAME")+"\\";
+							try {
+								service.fileMoveNN(map2, manage_idx, path);
+								service.insertBoardFile(map2);
+							} catch (Exception e) {
+								// TODO: handle exception
+							}
+						}
+					}
+
+					System.out.println("@@@@@@@@@@@@@@@@ manage_idx : " + manage_idx);
+					System.out.println("@@@@@@@@@@@@@@@@ progress : " + (j+1) + " / " + dataMap.size());
+					System.out.println("@@@@@@@@@@@@@@@@ result : " + result + " / " + dataMap.size());
+
+				}
+
+			}
+
+
+		}
+
+
+		JsonResponse res = new JsonResponse(request);
+		res.setValid(true);
+
+		return res;
+	}
+
 
 
 	/**

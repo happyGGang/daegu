@@ -1039,4 +1039,24 @@ public class DataMigrationService extends BaseService{
 		return dao.getListDKDepth(one);
 	}
 
+	/**
+	 * @author whalesoft YONGJU 2020. 2. 22.
+	 * @param string
+	 * @return
+	 */
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNHub(String string) {
+		return dao.getListNNHub(string);
+	}
+
+	/**
+	 * @author whalesoft YONGJU 2020. 2. 22.
+	 * @param string
+	 * @return
+	 */
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNHubLib(String string) {
+		return dao.getListNNHubLib(string);
+	}
+
 }

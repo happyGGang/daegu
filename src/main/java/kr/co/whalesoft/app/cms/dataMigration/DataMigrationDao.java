@@ -245,4 +245,18 @@ public interface DataMigrationDao {
 	 */
 	List<DataMigration> orgListDK2(DataMigration dm);
 
+	/**
+	 * @author whalesoft YONGJU 2020. 2. 22.
+	 * @param string
+	 * @return
+	 */
+	List<DataMigration> getListNNHub(String string);
+
+	/**
+	 * @author whalesoft YONGJU 2020. 2. 22.
+	 * @param string
+	 * @return
+	 */
+	List<DataMigration> getListNNHubLib(String string);
+
 }

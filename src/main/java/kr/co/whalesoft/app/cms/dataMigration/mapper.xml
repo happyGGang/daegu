@@ -1979,4 +1979,72 @@ order by a.table_name, a.column_id
 			BB_WDate
 	</select>
 
+
+	<select id="getListNNHub" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_num AS board_seq,
+			b_ref as parent_seq,
+			'admin' as user_id,
+			b_name AS user_name,
+			b_pwd AS user_password,
+			b_subject AS title,
+			b_email AS user_email,
+			b_jumin AS imsi_v_20,
+			concat(b_phone1 , b_phone2 , b_phone3) AS user_phone,
+			if(b_cate = 0, '', b_cate) as category1,
+			if(b_noticechk = ' ', 'N', b_noticechk) as notice_yn,
+			b_content AS content,
+			b_ip AS user_ip,
+			b_count AS view_count,
+			if(b_look = 'N', 'Y', 'N') as delete_yn,
+			if(b_open = 'N', 'Y', 'N') as secret_yn,
+			if(b_regdate = '', '2020-01-01 00:00:00', replace(replace(b_regdate, '오후 ', ''), '오전 ', '')) AS add_date,
+			b_temp1 AS imsi_v_1,
+			b_temp2 AS imsi_v_2,
+			b_temp3 AS imsi_v_3,
+			b_temp4 AS imsi_v_4,
+			b_temp5 AS imsi_v_5,
+			b_temp6 AS imsi_v_6,
+			b_temp7 AS imsi_v_7,
+			b_temp8 AS imsi_v_8
+		FROM
+			${value}
+		ORDER BY
+			b_num
+	</select>
+
+
+	<select id="getListNNHubLib" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_num AS board_seq,
+			b_ref as parent_seq,
+			'admin' as user_id,
+			b_name AS user_name,
+			b_pwd AS user_password,
+			b_subject AS title,
+			b_email AS user_email,
+			concat(b_phone1 , b_phone2 , b_phone3) AS user_phone,
+			if(b_cate = 0, '', b_cate) as category2,
+			if(b_catename = 0, '', b_catename) as category1,
+			if(b_noticechk = ' ', 'N', b_noticechk) as notice_yn,
+			b_content AS content,
+			b_ip AS user_ip,
+			b_count AS view_count,
+			if(b_look = 'N', 'Y', 'N') as delete_yn,
+			if(b_open = 'N', 'Y', 'N') as secret_yn,
+			if(b_regdate = '', '2020-01-01 00:00:00', replace(replace(b_regdate, '오후 ', ''), '오전 ', '')) AS add_date,
+			b_temp1 AS imsi_v_1,
+			concat(b_addr1, ' ', b_addr2) AS imsi_v_2,
+			b_temp3 AS imsi_v_3,
+			b_temp4 AS imsi_v_4,
+			b_temp5 AS imsi_v_5,
+			b_temp6 AS imsi_v_6,
+			b_temp7 AS imsi_v_7,
+			b_temp8 AS imsi_v_8
+		FROM
+			${value}
+		ORDER BY
+			b_num
+	</select>
+
 </mapper>
