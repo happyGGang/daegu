@@ -26,7 +26,9 @@ public class LoginAPI {
 	public static Object login(Member member) throws Exception {
 		Map<String, Object> param = new HashMap<String, Object>();
 
-		param.put("manage_code", member.getManage_code());
+		if (StringUtils.isNotEmpty(member.getManage_code()) && member.getManage_code().length() == 2) {
+			param.put("manage_code", member.getManage_code());
+		}
 		param.put("password", CalculateHashUtils.calculateHashSHA256(member.getMember_pw()));// PW는 sha256
 		param.put("id", URLEncoder.encode(member.getMember_id(), "UTF-8"));
 
