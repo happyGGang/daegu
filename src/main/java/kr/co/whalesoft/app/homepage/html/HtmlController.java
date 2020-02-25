@@ -37,4 +37,10 @@ public class HtmlController extends BaseController {
 		}
 		return basePath + homepage.getFolder() + "/html";
 	}
+
+	@RequestMapping(value = {"/{contextPath}/elibsso.*"})
+	public String elibsso(Model model, Menu menu, HttpServletRequest request) {
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+		return basePath + homepage.getFolder() + "/elibsso";
+	}
 }
