@@ -153,7 +153,7 @@ $(function(){
 			<li style="padding-bottom: 5px;">
 				도&nbsp;&nbsp;서&nbsp;&nbsp;관 :
 				<form:select path="homepage_id"  cssClass="selectmenu" cssStyle="width: 250px;" title="도서관 선택">
-					<form:option value="h1" label="전체" />
+					<form:option value="" label="전체" />
 					<c:forEach var="i" varStatus="status" items="${homepageList}">
 					<c:if test="${i.homepage_id ne 'h32' and i.homepage_id ne 'h31' and i.homepage_id ne 'h30' and i.homepage_id ne 'h33' and i.homepage_id ne 'h34' and i.homepage_id ne 'c0' and i.homepage_id ne 'c1'}">
 					<form:option value="${i.homepage_id}" label="${i.homepage_name}" />
