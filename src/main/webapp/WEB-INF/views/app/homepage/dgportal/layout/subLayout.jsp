@@ -35,6 +35,27 @@ $(function() {
 		}
 	});
 
+	<c:choose>
+		<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
+			$('li#menu_41').remove();
+			$('li#menu_42').remove();
+			$('li#menu_43').remove();
+			$('li#menu_44').remove();
+			$('li#menu_45').remove();
+		</c:when>
+		<c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
+			$('li#menu_41').remove();
+			$('li#menu_42').remove();
+			$('li#menu_43').remove();
+			$('li#menu_44').remove();
+			$('li#menu_45').remove();
+		</c:when>
+		<c:otherwise>
+			$('li#menu_62').remove();
+			$('li#menu_63').remove();
+		</c:otherwise>
+	</c:choose>
+
 	$('.Gnb .gnb-menu > li.menu7').remove();
 });
 </script>

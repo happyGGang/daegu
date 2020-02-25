@@ -258,12 +258,12 @@ input.text.ui-spinner-input{border:none;background:none;margin-top:0;margin-bott
 .ui-spinner a{cursor:pointer}
 input.ui-calendar{width:110px;background:#fff url('../img/calendar-icon.gif') no-repeat 89px center;vertical-align:middle;cursor:pointer}
 
-#header{position:relative;z-index:3;clear:both}
-#container{position:relative;z-index:6;}
+#header{position:relative;z-index:7;clear:both}
+#container{position:relative;z-index:3;}
 h1{z-index:6}
 .tnb{position:relative;z-index:4}
 .Gnb{z-index:5}
-.popupWrap{position:relative;z-index:2}
+.popupWrap{position:relative;z-index:999999}
 
 .Gnb{width:100%;left:0;top:0;overflow:hidden}
 .Gnb:after{content:'';display:block;clear:both}
@@ -1632,7 +1632,7 @@ filter:alpha(opacity = 0.3*100);
 .doc-body a.U{text-decoration:underline!important}
 
 /* 레이어 팝업 */
-#popupLayer{position:absolute;width:100%}
+#popupLayer{position:absolute;width:100%;z-index:999999;}
 #popupLayer>div{
 -webkit-box-shadow:0px 3px 5px 0px rgba(0,0,0,0.4);
 -moz-box-shadow:0px 3px 5px 0px rgba(0,0,0,0.4);

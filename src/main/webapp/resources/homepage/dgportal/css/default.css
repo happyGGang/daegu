@@ -33,7 +33,10 @@ a:focus{color:#2b74c0}
 .Gnb .mask, .Gnb .gnb-menu > li > ul{width:100%;}
 .Gnb .gnb-menu > li.menu1 > ul,
 .Gnb .gnb-menu > li.menu2 > ul,
-.Gnb .gnb-menu > li.menu3 > ul{text-align:center}
+.Gnb .gnb-menu > li.menu3 > ul{text-align:left}
+.Gnb .gnb-menu > li.menu2 > ul {margin-left:300px;}
+.Gnb .gnb-menu > li.menu3 > ul {margin-left:200px;}
+.Gnb .gnb-menu > li.menu4 > ul {margin-left:-200px;}
 .Gnb .mask {background:url('../img/submenu-bg.png') repeat-x left center;}
 .Gnb .gnb-menu > li.on > a,
 .Gnb .gnb-menu > li > a:hover,
