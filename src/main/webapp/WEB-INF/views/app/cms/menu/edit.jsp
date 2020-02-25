@@ -155,19 +155,19 @@ $(function() {
 
 	$('a.preview-btn').on('click', function(e) {
 		//e.preventDefault();
-		if ( $('[name="menu_type"]:checked').val() == 'HTML' ) {
+		if ( $('input[name="menu_type"]:checked').val() == 'HTML' ) {
 			window.open("/${homepage.context_path}/html.do?menu_idx=${menu.menu_idx}");
 		}
-		else if ( $('[name="menu_type"]:checked').val() == 'BOARD' ) {
+		else if ( $('input[name="menu_type"]:checked').val() == 'BOARD' ) {
 			window.open("/${homepage.context_path}/board/index.do?menu_idx=${menu.menu_idx}&manage_idx=${boardManage.manage_idx}");
 		}
-		else if ( $('[name="menu_type"]:checked').val() == 'PROGRAM' ) {
-			window.open("/${homepage.context_path}${moduleManage.link_url}");
+		else if ( $('input[name="menu_type"]:checked').val() == 'PROGRAM' ) {
+			window.open("/${homepage.context_path}${moduleMngt.link_url}?menu_idx=${menu.menu_idx}"+$('#moduleLinkParam').val());
 		}
-		else if ( $('[name="menu_type"]:checked').val() == 'LINK' ) {
+		else if ( $('input[name="menu_type"]:checked').val() == 'LINK' ) {
 			window.open("${menu.link_url}");
 		}
-		else if ( $('[name="menu_type"]:checked').val() == 'LINK_OUTER' ) {
+		else if ( $('input[name="menu_type"]:checked').val() == 'LINK_OUTER' ) {
 			window.open("${menu.link_url}");
 		}
 	});
