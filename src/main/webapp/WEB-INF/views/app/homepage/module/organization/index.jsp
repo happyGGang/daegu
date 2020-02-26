@@ -154,10 +154,10 @@ $.fn.rowspan = function(colIdx, isStats) {
 		<h3>${i.organization_name}</h3>
 		<table class="center tspan" summary="${i.organization_name}의 직원현황입니다.">
 			<colgroup>
-				<col class="col14">
+				<col class="col14" width="20%">
 				<col class="col15" width="15%">
 				<col class="col16">
-				<col class="col17">
+				<col class="col17" width="15%">
 			</colgroup>
 			<thead>
 				<tr>
