@@ -33,76 +33,97 @@ $(document).ready(function() {
 
 
 <style>
-.sview h4{font-size:130%;font-weight:bold;padding:10px 0}
-.sview .sinfo{margin:15px 0;background: #fffef9;overflow:hidden;padding: 25px 40px;border: 1.5px solid #f6f7e5;}
-@media all and (max-width:1000px){
-	.sview .sinfo{padding-left:5%;padding-right:5%}
-}
-@media all and (max-width:767px){
-	.sview .sinfo{padding-left:3%;padding-right:3%}
-}
-.sview .sinfo .thumb img{border:1px solid #d5d5d5}
-.sview .sinfo .thumb{float:left;width:20%;font-size:0;line-height:0}
-.sview .sinfo .info{float:left;width:100%;margin-right: -20%;}
-.sview .sinfo .info ul{margin: -1% 20% 1% 4%;}
-.sview .sinfo .info ul li{padding: 5px 0px;line-height:110%;}
-.sview b.title{font-size:135%;font-weight:800;line-height: 160%;}
-.sview .sinfo .info ul li.ibtn{border:0;text-align:right;padding:15px 0 0}
-.sview .sinfo .info ul li.ibtn a i{margin:0 0 0 5px}
 
-.sview .sbtn{text-align:center;padding:30px 0 20px}
-.sview .sbtn .btn{padding:7px 2%}
-.sview .sbtn .btn i{font-size:130%}
-.sview .sbtn .btn1{background:#fe6d02;border-color:#fe6d02}
-.sview .sbtn .btn2{background:#666;border-color:#666}
+.book-wr {background:url('/resources/homepage/dgportal/img/book_pttr.gif') repeat;padding:3px;}
+.book-wr .book-box {position:relative;background:#fdfdfd;padding: 30px 30px 35px 30px;min-height: 230px;}
+.book-wr .book-box .book-thum {position:absolute;top:30px;left:30px;width:340px;height:auto;}
+.book-wr .book-box .book-thum .img {display:block;position:relative;width: 180px;height: 228px;padding-bottom: 0;overflow:hidden;box-shadow:10px 10px 0px #eee;}
+.book-wr .book-box .book-thum .img img {position: relative;top:0;left:0;width: 180px;height: 228px;}
+.book-wr .book-box .book-cont {position:relative;margin-left: 220px;}
+.book-wr .book-box .book-cont .byear {font-size: 1.125em;line-height:1;color: #ed145b;padding-top: 0;padding-left: 0;}
+.book-wr .book-box .book-cont .btit {font-size: 1.375em;line-height:1;color:#222;font-weight: bold;padding-top: 10px;padding-left: 0;}
+.book-wr .book-box .book-cont .stit {font-size:20px;line-height:1;margin-top:30px;margin-bottom:5px;}
+.book-wr .book-box .book-cont .stit span {display:inline-block;vertical-align:top;border-top:2px solid #005baa;color:#005baa;padding-top:7px;}
+.book-wr .book-box .book-cont .bname {margin-top: 10px;}
+.book-wr .book-box .book-cont .btxt {margin-top:20px}
+
+.book-wr .book-box .book-thum2 {position:absolute;top:30px;left:30px;width: 280px;height:auto;}
+.book-wr .book-box .book-thum2 .img {display:block;position:relative;width: 100%;height: 375px;padding-bottom: 0;overflow:hidden;box-shadow:10px 10px 0px #eee;}
+.book-wr .book-box .book-thum2 .img img {position: relative;top:0;left:0;width: 280px;height: 375px;}
+.book-wr .book-box .book-cont2 {position:relative;margin-left: 320px;}
+.book-wr .book-box .book-cont2 .byear {font-size: 1.375em;line-height:1;color: #000;padding-bottom: 20px;padding-top:0;padding-left: 0;}
+.book-wr .book-box .book-cont2 .btit {font-size: 1.375em;line-height:1;color:#222;font-weight: bold;padding-top: 5px;padding-left: 0;}
+.book-wr .book-box .book-cont2 .stit {font-size:20px;line-height:1;margin-top:30px;margin-bottom:5px;}
+.book-wr .book-box .book-cont2 .stit span {display:inline-block;vertical-align:top;border-top:2px solid #005baa;color:#005baa;padding-top:7px;}
+.book-wr .book-box .book-cont2 .bname {margin-top:20px}
+.book-wr .book-box .book-cont2 .btxt {margin-top:20px}
+
+@media only screen and (max-width:1199px){
+	.book-wr .book-box {padding-left:25px;padding-right:25px;}
+	.book-wr .book-box .book-thum {left:25px;}
+	.book-wr .book-box .book-thum2 {left:25px;}
+}
+@media only screen and (max-width:999px){
+	.book-wr .book-box {padding-bottom:55px;}
+	.book-wr .book-box .book-thum {position:static;top:auto;left:auto;float:left;margin-right:30px;width:38%;margin-bottom:0;}
+	.book-wr .book-box .book-cont {margin-left:0;}
+	.book-wr .book-box .book-cont .btit {font-size:25px}
+	.book-wr .book-box .book-cont .stit {margin-top:35px}
+
+	.book-wr .book-box .book-thum2 {position:static;top:auto;left:auto;float:left;margin-right:30px;width:38%;margin-bottom:0;}
+	 .book-wr .book-box .book-cont2 {margin-left:0;}
+}
+@media only screen and (max-width:899px){
+	.book-wr .book-box {padding:30px 20px 55px;}
+	.book-wr .book-box .book-thum {width:28%;margin-bottom:10px;}
+	.book-wr .book-box .book-thum .img {box-shadow:7px 7px 0 #eee;}
+	.book-wr .book-box .book-thum {float:none;width:auto;max-width: 180px;min-height: 228px;margin:0 auto 20px;}
+
+    .book-wr .book-box .book-thum2 {width:28%;margin-bottom:10px;}
+	.book-wr .book-box .book-thum2 .img {box-shadow:7px 7px 0 #eee;height: 228px;}
+	.book-wr .book-box .book-thum2 {float:none;width:auto;max-width: 180px;min-height: 228px;margin:0 auto 20px;}
+
+	.book-wr .book-box .book-cont {text-align:center;}
+	.book-wr .book-box .book-cont:nth-child(2) {min-height:auto;}
+	.book-wr .book-box .book-cont .btit, .book-wr .book-box .book-cont .btn-home {display:inline-block;vertical-align:middle;margin-bottom:10px;}
+	.book-wr .book-box .book-cont .btit {margin-top:-4px;margin-right:10px;}
+	.book-wr .book-box .book-cont .stit {text-align:left;margin-top:20px;}
+	.book-wr .book-box .book-cont .btxt, .book-wr .book-box .book-cont p {margin-top:5px;text-align:left;}
+	.book-wr .book-box .book-cont .bname {margin-top:5px;text-align:left;}
+	.book-wr .book-box .book-cont .c-txt {text-align:left;}
+	.book-wr .book-box .book-thum2 .img img {height: 228px;}
+
+}
+@media only screen and (max-width:649px){
+	.book-wr .book-box {padding-left:10px;padding-right:10px;padding-top: 20px;}
+	.book-wr .book-box .book-cont .btit {font-size:22px;padding-top:10px;}
+	.book-wr .book-box .book-cont .stit {font-size:17px;margin-bottom:10px}
+	.book-wr .book-box .book-cont .btxt, .book-wr .book-box .book-cont p {margin-top:5px;text-align:left;}
+	.book-wr .book-box .book-cont .c-txt {line-height:22px;font-size:14px;}
+}
+@media only screen and (max-width:599px){
+	.book-wr .book-box .book-thum .gradu-info {margin-bottom:5px}
+	.book-wr .book-box .book-cont .btit {margin-right:5px;font-size:20px}
+}
+@media only screen and (max-width:499px){
+	.book-wr .book-box {padding-bottom: 20px;}
+}
+h3.byear { background: none;}
 </style>
 
-<c:set var="b_idx" value="0"></c:set>
-<c:set var="selected" value="deactive"></c:set>
-<div class="tabmenu tab1">
-	<ul>
-		<c:forEach items="${boyList}" var="i" varStatus="status">
-		<c:if test="${fn:escapeXml(i.selection_year) eq fn:escapeXml(param.selection_year)}">
-		<c:set var="b_idx" value="${status.index}"></c:set>
-		<c:set var="selected" value="active"></c:set>
-		</c:if>
-		<c:if test="${empty param.selection_year and status.first}">
-		<c:set var="selected" value="active"></c:set>
-		</c:if>
-
-		<li class="${selected}">
-			<a href="/${homepage.context_path}/module/bookOfYear/index.do?menu_idx=${fn:escapeXml(param.menu_idx)}&selection_year=${fn:escapeXml(i.selection_year)}">
-			${i.selection_year}년
-			</a>
-		</li>
-
-		<c:set var="selected" value="deactive"></c:set>
-
-		</c:forEach>
-	</ul>
-</div>
-
-<c:set var="book" value="${boyList[b_idx]}"></c:set>
-<div class="search-wrap">
-	<div class="sview">
-		<div class="sinfo">
-			<div class="thumb">
-				<img src="${book.book_img_url}" alt="${book.book_name}">
-			</div>
-			<div class="info">
-				<ul>
-					<li>
-						<a href="/${homepage.context_path}/intro/search/detail.do?menu_idx=13&isbn=${book.book_isbn}&regNo=${book.book_regno}&manageCode=${homepage.manage_code}&booktype=BOOK"><b>${book.book_name}</b></a>
-					</li>
-					<li>저자 : ${book.book_author}</li>
-					<li>출판사 : ${book.book_publisher}</li>
-					<li>출판년도 : ${book.book_year}</li>
-				</ul>
-			</div>
-		</div>
-		<div>
-			<c:set value="${fn:replace(book.book_content, crlf, '<br/>')}" var="content"></c:set>
+<c:forEach items="${boyList}" var="i" varStatus="status">
+<div class="book-wr mg20t">
+    <div class="book-box">
+      <div class="book-thum"><span class="img"> <img alt="" src="${i.book_img_url}"> </span> </div>
+      <div class="book-cont">
+        <h3 class="byear">${i.selection_year}년 선정도서</h3>
+        <p class="btit">${i.book_name}</p>
+        <p class="bname">저자명 : ${i.book_name}｜출판사 : ${i.book_publisher}｜출판년도 : ${i.book_year}</p>
+        <p class="btxt">
+        	<c:set value="${fn:replace(i.book_content, crlf, '<br/>')}" var="content"></c:set>
 			${content}
-		</div>
-	</div>
-</div>
+        </p>
+      </div>
+    </div>
+  </div>
+</c:forEach>
