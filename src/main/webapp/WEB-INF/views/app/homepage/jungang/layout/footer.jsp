@@ -31,7 +31,7 @@
 				<address>
 					<p>
 						<em>(${homepage.zipcode}) <br class="mobileBr"/>${homepage.address1}</em><br class="mobileBr"/>
-						<em>전화 
+						<em>전화
 							<b>${fn:split(homepage.homepage_tell,',')[0]}</b></em>
 						<!--<em>/</em>
 						<em>팩스 <b>${homepage.homepage_fax }</b></em> -->
@@ -43,7 +43,7 @@
 						<homepageTag:siteLink homepageList="${homepageList}" defaultStr="대구광역시 공공도서관" notIncludeHomepageId="${homepage.homepage_id},h30,h31,h32,h33"/>
 					</div>
 					<div>
-						<homepageTag:siteLink recommendSiteList="${recommendSiteList}" defaultStr="교육및지역관련기관"/>
+						<homepageTag:siteLink recommendSiteList="${recommendSiteList}" defaultStr="교육 및 지역관련기관"/>
 					</div>
 				</div>
 			</div>
