@@ -1284,8 +1284,8 @@ public class LibSearchAPI {
 			return null;
 		}
 
-//		return CommonAPI.sendALADIN(param, "detail");
-		return null;
+		return CommonAPI.sendALADIN(param, "detail");
+//		return null;
 	}
 
 
