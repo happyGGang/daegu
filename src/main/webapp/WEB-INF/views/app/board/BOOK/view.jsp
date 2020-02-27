@@ -166,7 +166,7 @@ ${boardManage.top_html}
 				<img src="${board.preview_img}" alt="${board.title}">
 					</c:when>
 					<c:otherwise>
-				<img src="/data/board/${param.manage_idx}/${boardFile[0].board_idx}/${boardFile[0].server_file_name}" alt="${board.title}">
+				<img src="/data/board/${board.manage_idx}/${boardFile[0].board_idx}/${boardFile[0].server_file_name}" alt="${board.title}">
 					</c:otherwise>
 				</c:choose>
 <!-- 				<p class="noImg"> -->
