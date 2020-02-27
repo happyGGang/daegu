@@ -854,14 +854,14 @@ public class CommonSearchController extends BaseController {
 				ApiResponse hopeUserCheck = LibSearchAPI.hopeUserCheck(member.getRec_key(), librarySearch.getIsbn(), librarySearch.getManageCode());
 
 				if (hopeUserCheck.getStatus()) {
-//					ApiResponse apiResult = LibSearchAPI.reqHope(librarySearch, member);
-//					if (apiResult.getStatus()) {
+					ApiResponse apiResult = LibSearchAPI.reqHope(librarySearch, member);
+					if (apiResult.getStatus()) {
 						res.setValid(true);
 						res.setMessage("신청 되었습니다.");
-//					} else {
-//						res.setValid(false);
-//						res.setMessage(apiResult.getMessage());
-//					}
+					} else {
+						res.setValid(false);
+						res.setMessage(apiResult.getMessage());
+					}
 				} else {
 					res.setValid(false);
 					res.setMessage(hopeUserCheck.getMessage());
