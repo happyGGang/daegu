@@ -12,6 +12,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -704,7 +705,17 @@ public class BoardService extends BaseService {
 	 * @return
 	 */
 	public int moveBoardCategory(Board board) {
-		return dao.moveBoardCategory(board);
+		if (CollectionUtils.sizeIsEmpty(board.getBoardIdxArray())) {
+			return dao.moveBoardCategory(board);
+		} else {
+			for (String idx : board.getBoardIdxArray()) {
+				board.setBoard_idx(Integer.parseInt(idx));
+				board.setTarget_category(board.getMoveCategory1Target());
+				dao.moveBoardCategory(board);
+			}
+			return 1;
+		}
+
 	}
 
 	/**

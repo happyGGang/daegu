@@ -10,29 +10,29 @@ import kr.co.whalesoft.app.cms.boardManage.BoardManage;
 public class Board extends BoardExt {
 
 	@Override
-	protected Object clone() throws CloneNotSupportedException{
+	protected Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
 
 	private String homepage_id;
 	private int menu_idx;
-	private int manage_idx; //게시판 관리번호
-	private int board_idx; //게시물 번호
-	private int parent_idx; //상위 게시물 번호
-	private int group_idx; //그룹 게시물 번호
-	private int group_depth; //그룹 게시물 단계
-	private int view_count; //조회수
-	private String title; //제목
-	private String content; //내용
-	private String content_summary; //내용요약
-	private String user_id; //등록자ID
-	private String user_name; //등록자명
-	private String user_ip; //등록자IP
-	private String notice_yn = "N"; //공지사항여부
-	private String delete_yn = "N"; //삭제여부
-	private String secret_yn = "N"; //비밀글여부
-	private String request_code = "B0000";  //요청 처리 기본 코드 'B0000'공통 코드 사용
-	private String request_state; //질문답변 상태('B0000'공통 코드 사용 대기 : 0, 접수 : 1, 진행중: 2, 완료 : 3)
+	private int manage_idx; // 게시판 관리번호
+	private int board_idx; // 게시물 번호
+	private int parent_idx; // 상위 게시물 번호
+	private int group_idx; // 그룹 게시물 번호
+	private int group_depth; // 그룹 게시물 단계
+	private int view_count; // 조회수
+	private String title; // 제목
+	private String content; // 내용
+	private String content_summary; // 내용요약
+	private String user_id; // 등록자ID
+	private String user_name; // 등록자명
+	private String user_ip; // 등록자IP
+	private String notice_yn = "N"; // 공지사항여부
+	private String delete_yn = "N"; // 삭제여부
+	private String secret_yn = "N"; // 비밀글여부
+	private String request_code = "B0000"; // 요청 처리 기본 코드 'B0000'공통 코드 사용
+	private String request_state; // 질문답변 상태('B0000'공통 코드 사용 대기 : 0, 접수 : 1, 진행중: 2, 완료 : 3)
 	private String request_state_str;
 	private String reply_list_yn = "Y";
 	private List<BoardFile> boardFile = null;
@@ -60,17 +60,17 @@ public class Board extends BoardExt {
 	private String plan_month;
 	private String plan_date;
 
-	private String context_path;//ge 공지사항
+	private String context_path;// ge 공지사항
 
-	private String preview_img; //미리보기 이미지
+	private String preview_img; // 미리보기 이미지
 
-	private int date_gap; //등록날짜와 현재날짜의 일수 차이
+	private int date_gap; // 등록날짜와 현재날짜의 일수 차이
 
-	private String[] boardFileArray; //첨부파일
+	private String[] boardFileArray; // 첨부파일
 
-	private String[] deleteBoardFileArray;//삭제대상첨부파일
+	private String[] deleteBoardFileArray;// 삭제대상첨부파일
 
-	private String[] boardIdxArray;//완전삭제리스트
+	private String[] boardIdxArray;// 완전삭제리스트
 
 	private String beforeFilePath;
 	private String afterFilePath;
@@ -83,21 +83,21 @@ public class Board extends BoardExt {
 	private int target_manage_idx;
 	private String target_category;
 
-	private List<String> mailingList; //메일링 리스트(메일수신 연동)
+	private List<String> mailingList; // 메일링 리스트(메일수신 연동)
 
 	private String board_mode;
 	private int file_count;
-	private int comment_count; //덧글 개수
+	private int comment_count; // 덧글 개수
 
-	private	String notice_start_date; //공지사항시작일자
-	private	String notice_end_date; //공지사항종료일자
+	private String notice_start_date; // 공지사항시작일자
+	private String notice_end_date; // 공지사항종료일자
 
-	private String add_id; //등록ID
-	private Date add_date; //등록날짜
-	private String modify_id; //수정ID
-	private Date modify_date; //수정날짜
-	private String delete_id; //삭제ID
-	private Date delete_date; //삭제날짜
+	private String add_id; // 등록ID
+	private Date add_date; // 등록날짜
+	private String modify_id; // 수정ID
+	private Date modify_date; // 수정날짜
+	private String delete_id; // 삭제ID
+	private Date delete_date; // 삭제날짜
 
 	private List managerList;
 
@@ -106,7 +106,7 @@ public class Board extends BoardExt {
 
 	private String themeBookSubject;
 
-	private String module;//모듈 레이아웃 용( ex 새책드림 )
+	private String module;// 모듈 레이아웃 용( ex 새책드림 )
 
 	private String board_type;
 	private String start_date;
@@ -114,7 +114,14 @@ public class Board extends BoardExt {
 	private String searchStartDate;
 	private String searchEndDate;
 
-	public Board() {}
+	private String moveCategory1Target; // 카테고리 변경
+	private String moveCategory2Target; // 카테고리 변경
+	private String moveCategory3Target; // 카테고리 변경
+	private String moveCategory4Target; // 카테고리 변경
+	private String moveCategory5Target; // 카테고리 변경
+
+	public Board() {
+	}
 
 	/******** 기록관 ***********/
 	private String b_num;
@@ -126,15 +133,16 @@ public class Board extends BoardExt {
 	private String b_file5;
 
 	// 통합검색 - 상세검색용 변수
-	private String searchKeyword1;//searchType1 의 검색어
-	private String searchKeyword2;//searchType2 의 검색어
-	private String searchKeyword3;//searchType3 의 검색어
-	private String searchKeyword4;//searchType4 의 검색어
-	private String logicFunction1;//searchKeyowrd1 뒤의 조건절 (AND, OR, NOT 중 택 1)
-	private String logicFunction2;//searchKeyowrd2 뒤의 조건절 (AND, OR, NOT 중 택 1)
-	private String logicFunction3;//searchKeyowrd3 뒤의 조건절 (AND, OR, NOT 중 택 1)
-	private String logicFunction4;//searchKeyowrd4 뒤의 조건절 (AND, OR, NOT 중 택 1)
+	private String searchKeyword1;// searchType1 의 검색어
+	private String searchKeyword2;// searchType2 의 검색어
+	private String searchKeyword3;// searchType3 의 검색어
+	private String searchKeyword4;// searchType4 의 검색어
+	private String logicFunction1;// searchKeyowrd1 뒤의 조건절 (AND, OR, NOT 중 택 1)
+	private String logicFunction2;// searchKeyowrd2 뒤의 조건절 (AND, OR, NOT 중 택 1)
+	private String logicFunction3;// searchKeyowrd3 뒤의 조건절 (AND, OR, NOT 중 택 1)
+	private String logicFunction4;// searchKeyowrd4 뒤의 조건절 (AND, OR, NOT 중 택 1)
 	private boolean paggingUsed;
+
 	public Board(int manage_idx, int row_count) {
 		this.manage_idx = manage_idx;
 		setRowCount(row_count);
@@ -148,14 +156,14 @@ public class Board extends BoardExt {
 		this.dept_cd = dept_cd;
 	}
 
-	public Board (int board_idx, String preview_img) {
+	public Board(int board_idx, String preview_img) {
 		this.board_idx = board_idx;
 		this.preview_img = preview_img;
 	}
 
 	public String getUrlParam(BoardManage boardManage, String mode) {
 		StringBuffer sb = new StringBuffer();
-		if(menu_idx > 0) {
+		if (menu_idx > 0) {
 			sb.append("menu_idx=" + menu_idx);
 			sb.append("&manage_idx=" + manage_idx);
 		} else {
@@ -171,8 +179,8 @@ public class Board extends BoardExt {
 
 		sb.append("&rowCount=" + getRowCount());
 
-		if(mode.equals("view")) {
-			if(parent_idx == 0) {
+		if (mode.equals("view")) {
+			if (parent_idx == 0) {
 				sb.append("&board_idx=" + board_idx);
 			} else {
 				sb.append("&board_idx=" + parent_idx);
@@ -185,10 +193,11 @@ public class Board extends BoardExt {
 
 	/**
 	 * 시큐어 코딩
+	 *
 	 * @return
 	 */
 	public List getManagerList() {
-		if(managerList != null) {
+		if (managerList != null) {
 			List<Integer> arrayList = new ArrayList<Integer>();
 			arrayList.addAll(this.managerList);
 			return arrayList;
@@ -198,7 +207,7 @@ public class Board extends BoardExt {
 	}
 
 	public void setManagerList(List managerList) {
-		if(managerList != null) {
+		if (managerList != null) {
 			this.managerList = new ArrayList();
 			this.managerList.addAll(managerList);
 		}
@@ -207,151 +216,197 @@ public class Board extends BoardExt {
 	public int getManage_idx() {
 		return manage_idx;
 	}
+
 	public void setManage_idx(int manage_idx) {
 		this.manage_idx = manage_idx;
 	}
+
 	public int getBoard_idx() {
 		return board_idx;
 	}
+
 	public void setBoard_idx(int board_idx) {
 		this.board_idx = board_idx;
 	}
+
 	public int getParent_idx() {
 		return parent_idx;
 	}
+
 	public void setParent_idx(int parent_idx) {
 		this.parent_idx = parent_idx;
 	}
+
 	public int getGroup_idx() {
 		return group_idx;
 	}
+
 	public void setGroup_idx(int group_idx) {
 		this.group_idx = group_idx;
 	}
+
 	public int getGroup_depth() {
 		return group_depth;
 	}
+
 	public void setGroup_depth(int group_depth) {
 		this.group_depth = group_depth;
 	}
+
 	public int getView_count() {
 		return view_count;
 	}
+
 	public void setView_count(int view_count) {
 		this.view_count = view_count;
 	}
+
 	public String getNotice_yn() {
 		return notice_yn;
 	}
+
 	public void setNotice_yn(String notice_yn) {
 		this.notice_yn = notice_yn;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public String getContent() {
 		return content;
 	}
+
 	public void setContent(String content) {
 		this.content = content;
 	}
+
 	public String getContent_summary() {
 		return content_summary;
 	}
+
 	public void setContent_summary(String content_summary) {
 		this.content_summary = content_summary;
 	}
+
 	public String getDelete_yn() {
 		return delete_yn;
 	}
+
 	public void setDelete_yn(String delete_yn) {
 		this.delete_yn = delete_yn;
 	}
+
 	public String getSecret_yn() {
 		return secret_yn;
 	}
+
 	public void setSecret_yn(String secret_yn) {
 		this.secret_yn = secret_yn;
 	}
+
 	public Date getAdd_date() {
 		return add_date;
 	}
+
 	public void setAdd_date(Date add_date) {
 		this.add_date = add_date;
 	}
+
 	public Date getModify_date() {
 		return modify_date;
 	}
+
 	public void setModify_date(Date modify_date) {
 		this.modify_date = modify_date;
 	}
+
 	public String getCategory1() {
 		return category1;
 	}
+
 	public void setCategory1(String category1) {
 		this.category1 = category1;
 	}
+
 	public String getCategory2() {
 		return category2;
 	}
+
 	public void setCategory2(String category2) {
 		this.category2 = category2;
 	}
+
 	public String getCategory3() {
 		return category3;
 	}
+
 	public void setCategory3(String category3) {
 		this.category3 = category3;
 	}
+
 	public String getCategory4() {
 		return category4;
 	}
+
 	public void setCategory4(String category4) {
 		this.category4 = category4;
 	}
+
 	public String getCategory5() {
 		return category5;
 	}
+
 	public void setCategory5(String category5) {
 		this.category5 = category5;
 	}
+
 	public String getBoard_skin() {
 		return board_skin;
 	}
+
 	public void setBoard_skin(String board_skin) {
 		this.board_skin = board_skin;
 	}
+
 	public String getBoard_name() {
 		return board_name;
 	}
+
 	public void setBoard_name(String board_name) {
 		this.board_name = board_name;
 	}
+
 	public String getPreview_img() {
 		return preview_img;
 	}
+
 	public void setPreview_img(String preview_img) {
 		this.preview_img = preview_img;
 	}
+
 	public int getDate_gap() {
 		return date_gap;
 	}
+
 	public void setDate_gap(int date_gap) {
 		this.date_gap = date_gap;
 	}
 
 	/**
 	 * 시큐어 코딩
+	 *
 	 * @return
 	 */
 	public String[] getBoardFileArray() {
 		String[] ret = null;
-		if(this.boardFileArray != null) {
+		if (this.boardFileArray != null) {
 			ret = new String[this.boardFileArray.length];
-			for(int i=0; i<this.boardFileArray.length; i++) {
+			for (int i = 0; i < this.boardFileArray.length; i++) {
 				ret[i] = this.boardFileArray[i];
 			}
 		}
@@ -360,24 +415,26 @@ public class Board extends BoardExt {
 
 	/**
 	 * 시큐어 코딩
+	 *
 	 * @param boardFileArray
 	 */
 	public void setBoardFileArray(String[] boardFileArray) {
 		this.boardFileArray = new String[boardFileArray.length];
-		for(int i=0; i<boardFileArray.length; i++) {
+		for (int i = 0; i < boardFileArray.length; i++) {
 			this.boardFileArray[i] = boardFileArray[i];
 		}
 	}
 
 	/**
 	 * 시큐어 코딩
+	 *
 	 * @return
 	 */
 	public String[] getDeleteBoardFileArray() {
 		String[] ret = null;
-		if(this.deleteBoardFileArray != null) {
+		if (this.deleteBoardFileArray != null) {
 			ret = new String[this.deleteBoardFileArray.length];
-			for(int i=0; i<this.deleteBoardFileArray.length; i++) {
+			for (int i = 0; i < this.deleteBoardFileArray.length; i++) {
 				ret[i] = this.deleteBoardFileArray[i];
 			}
 		}
@@ -386,44 +443,55 @@ public class Board extends BoardExt {
 
 	/**
 	 * 시큐어 코딩
+	 *
 	 * @param deleteBoardFileArray
 	 */
 	public void setDeleteBoardFileArray(String[] deleteBoardFileArray) {
 		this.deleteBoardFileArray = new String[deleteBoardFileArray.length];
-		for(int i=0; i<deleteBoardFileArray.length; i++) {
+		for (int i = 0; i < deleteBoardFileArray.length; i++) {
 			this.deleteBoardFileArray[i] = deleteBoardFileArray[i];
 		}
 	}
+
 	public String getBeforeFilePath() {
 		return beforeFilePath;
 	}
+
 	public void setBeforeFilePath(String beforeFilePath) {
 		this.beforeFilePath = beforeFilePath;
 	}
+
 	public String getAfterFilePath() {
 		return afterFilePath;
 	}
+
 	public void setAfterFilePath(String afterFilePath) {
 		this.afterFilePath = afterFilePath;
 	}
+
 	public String getAdd_date_str() {
 		return add_date_str;
 	}
+
 	public void setAdd_date_str(String add_date_str) {
 		this.add_date_str = add_date_str;
 	}
+
 	public int getTarget_manage_idx() {
 		return target_manage_idx;
 	}
+
 	public void setTarget_manage_idx(int target_manage_idx) {
 		this.target_manage_idx = target_manage_idx;
 	}
+
 	/**
 	 * 시큐어 코딩
+	 *
 	 * @return
 	 */
 	public List<String> getMailingList() {
-		if(mailingList != null) {
+		if (mailingList != null) {
 			List<String> arrayList = new ArrayList<String>();
 			arrayList.addAll(this.mailingList);
 			return arrayList;
@@ -433,74 +501,96 @@ public class Board extends BoardExt {
 	}
 
 	public void setMailingList(List<String> mailingList) {
-		if(mailingList != null) {
+		if (mailingList != null) {
 			this.mailingList = new ArrayList<String>();
 			this.mailingList.addAll(mailingList);
 		}
 	}
+
 	public String getBoard_mode() {
 		return board_mode;
 	}
+
 	public void setBoard_mode(String board_mode) {
 		this.board_mode = board_mode;
 	}
+
 	public int getFile_count() {
 		return file_count;
 	}
+
 	public void setFile_count(int file_count) {
 		this.file_count = file_count;
 	}
+
 	public int getComment_count() {
 		return comment_count;
 	}
+
 	public void setComment_count(int comment_count) {
 		this.comment_count = comment_count;
 	}
+
 	public String getHomepage_id() {
 		return homepage_id;
 	}
+
 	public void setHomepage_id(String homepage_id) {
 		this.homepage_id = homepage_id;
 	}
+
 	public String getAdd_id() {
 		return add_id;
 	}
+
 	public void setAdd_id(String add_id) {
 		this.add_id = add_id;
 	}
+
 	public String getModify_id() {
 		return modify_id;
 	}
+
 	public void setModify_id(String modify_id) {
 		this.modify_id = modify_id;
 	}
+
 	public String getDelete_id() {
 		return delete_id;
 	}
+
 	public void setDelete_id(String delete_id) {
 		this.delete_id = delete_id;
 	}
+
 	public Date getDelete_date() {
 		return delete_date;
 	}
+
 	public void setDelete_date(Date delete_date) {
 		this.delete_date = delete_date;
 	}
+
 	public String getUser_id() {
 		return user_id;
 	}
+
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
+
 	public String getUser_name() {
 		return user_name;
 	}
+
 	public void setUser_name(String user_name) {
 		this.user_name = user_name;
 	}
+
 	public String getUser_ip() {
 		return user_ip;
 	}
+
 	public void setUser_ip(String user_ip) {
 		this.user_ip = user_ip;
 	}
@@ -753,8 +843,6 @@ public class Board extends BoardExt {
 		this.category5_name = category5_name;
 	}
 
-
-
 	public String getReply_list_yn() {
 		return reply_list_yn;
 	}
@@ -771,8 +859,6 @@ public class Board extends BoardExt {
 		this.request_code = request_code;
 	}
 
-
-
 	public List<BoardFile> getBoardFile() {
 		return boardFile;
 	}
@@ -783,13 +869,14 @@ public class Board extends BoardExt {
 
 	/**
 	 * 시큐어 코딩
+	 *
 	 * @return
 	 */
 	public String[] getBoardIdxArray() {
 		String[] ret = null;
-		if(this.boardIdxArray != null) {
+		if (this.boardIdxArray != null) {
 			ret = new String[this.boardIdxArray.length];
-			for(int i=0; i<this.boardIdxArray.length; i++) {
+			for (int i = 0; i < this.boardIdxArray.length; i++) {
 				ret[i] = this.boardIdxArray[i];
 			}
 		}
@@ -798,11 +885,12 @@ public class Board extends BoardExt {
 
 	/**
 	 * 시큐어 코딩
+	 *
 	 * @param boardIdxArray
 	 */
 	public void setBoardIdxArray(String[] boardIdxArray) {
 		this.boardIdxArray = new String[boardIdxArray.length];
-		for(int i=0; i<boardIdxArray.length; i++) {
+		for (int i = 0; i < boardIdxArray.length; i++) {
 			this.boardIdxArray[i] = boardIdxArray[i];
 		}
 	}
@@ -911,34 +999,68 @@ public class Board extends BoardExt {
 		this.paggingUsed = paggingUsed;
 	}
 
-
 	public String getSearchStartDate() {
 		return searchStartDate;
 	}
-
 
 	public void setSearchStartDate(String searchStartDate) {
 		this.searchStartDate = searchStartDate;
 	}
 
-
 	public String getSearchEndDate() {
 		return searchEndDate;
 	}
-
 
 	public void setSearchEndDate(String searchEndDate) {
 		this.searchEndDate = searchEndDate;
 	}
 
-
 	public String getTarget_category() {
 		return target_category;
 	}
 
-
 	public void setTarget_category(String target_category) {
 		this.target_category = target_category;
+	}
+
+	public String getMoveCategory1Target() {
+		return moveCategory1Target;
+	}
+
+	public void setMoveCategory1Target(String moveCategory1Target) {
+		this.moveCategory1Target = moveCategory1Target;
+	}
+
+	public String getMoveCategory2Target() {
+		return moveCategory2Target;
+	}
+
+	public void setMoveCategory2Target(String moveCategory2Target) {
+		this.moveCategory2Target = moveCategory2Target;
+	}
+
+	public String getMoveCategory3Target() {
+		return moveCategory3Target;
+	}
+
+	public void setMoveCategory3Target(String moveCategory3Target) {
+		this.moveCategory3Target = moveCategory3Target;
+	}
+
+	public String getMoveCategory4Target() {
+		return moveCategory4Target;
+	}
+
+	public void setMoveCategory4Target(String moveCategory4Target) {
+		this.moveCategory4Target = moveCategory4Target;
+	}
+
+	public String getMoveCategory5Target() {
+		return moveCategory5Target;
+	}
+
+	public void setMoveCategory5Target(String moveCategory5Target) {
+		this.moveCategory5Target = moveCategory5Target;
 	}
 
 }
