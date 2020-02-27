@@ -1,7 +1,6 @@
 package kr.go.gbelib.app.module.myStorage;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,8 +21,6 @@ import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
-import kr.go.gbelib.app.common.api.LibSearchAPI;
-import kr.go.gbelib.app.intro.search.LibrarySearch;
 import kr.go.gbelib.app.module.myItem.MyItem;
 import kr.go.gbelib.app.module.myItem.MyItemService;
 
@@ -175,7 +172,7 @@ public class MyStorageController extends BaseController {
 						MyItem item = new MyItem(myItem.getHomepage_id(), myItem.getMember_key());
 						item.setStorage_idx(myItem.getStorage_idx());
 
-						item.setItem_name(String.valueOf(lib_rec_tid[0]));
+						item.setItem_name(String.valueOf(lib_rec_tid[0]).replaceAll(";;;", ","));
 						item.setPubler(String.valueOf(lib_rec_tid[1]));
 						item.setLoca(String.valueOf(lib_rec_tid[2]));
 						item.setCtrl_no(lib_rec_tid[3]);
