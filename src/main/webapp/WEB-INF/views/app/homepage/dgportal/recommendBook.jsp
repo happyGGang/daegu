@@ -20,18 +20,14 @@ do {
 <li>
 	<a class="goDetail" href="javascript:alert('등록된 추천도서가 없습니다.')">
 		<img src="/resources/homepage/dgportal/img/book-line.png" alt="" class="book-line">
-		<c:choose>
 			<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="추천도서 없음" title="추천도서 없음"/>
-		</c:choose>
 			<img src="/resources/homepage/dgportal/img/book-shadow.png" alt="book-shadow" class="book-shadow" />
 	</a>
 </li>
 <li>
 	<a class="goDetail" href="javascript:alert('등록된 추천도서가 없습니다.')">
 		<img src="/resources/homepage/dgportal/img/book-line.png" alt="" class="book-line">
-		<c:choose>
 			<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="추천도서 없음" title="추천도서 없음"/>
-		</c:choose>
 			<img src="/resources/homepage/dgportal/img/book-shadow.png" alt="book-shadow" class="book-shadow" />
 	</a>
 </li>
@@ -58,9 +54,7 @@ do {
 <li>
 	<a class="goDetail" href="javascript:alert('등록된 추천도서가 없습니다.')">
 		<img src="/resources/homepage/dgportal/img/book-line.png" alt="" class="book-line">
-		<c:choose>
 			<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="추천도서 없음" title="추천도서 없음"/>
-		</c:choose>
 			<img src="/resources/homepage/dgportal/img/book-shadow.png" alt="book-shadow" class="book-shadow" />
 	</a>
 </li>
