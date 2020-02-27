@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.whalesoft.framework.base.BaseService;
+import kr.co.whalesoft.framework.dataSource.DataSource;
+import kr.co.whalesoft.framework.dataSource.DataSourceType;
 import kr.co.whalesoft.framework.file.FileStorage;
 
 @Service
@@ -179,6 +181,24 @@ public class PictureBookService extends BaseService {
 
 	public List<PictureBook> getPictureBookLoanExcelList(PictureBook pictureBook) {
 		return dao.getPictureBookLoanExcelList(pictureBook);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<Map<String, Object>> getMySqlList(String table_name) {
+		return dao.getMySqlList(table_name);
+	}
+	
+	public int addParseTibero(PictureBook pictureBook) {
+		return dao.addParseTibero(pictureBook);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<Map<String, Object>> getMySqlList2(String a_num) {
+		return dao.getMySqlList2(a_num);
+	}
+	
+	public int addParseTibero2(PictureBook pictureBook) {
+		return dao.addParseTibero2(pictureBook);
 	}
 
 }

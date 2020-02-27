@@ -1,5 +1,10 @@
 package kr.go.gbelib.app.module.bookPackage;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -10,14 +15,17 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.framework.base.BaseController;
@@ -322,6 +330,115 @@ public class BookPackageController extends BaseController {
 		model.addAttribute("bookPackageList", bookPackageList);
 
 		return new BookPackageView();
+	}
+	
+	@RequestMapping(value= {"/mysqlToTibero.*"}, method = RequestMethod.GET)
+	public void mysqlToTibero(Model model, BookPackage bookPackage, HttpServletRequest request) {
+		List<Map<String, Object>> listMap = service.getMysqlToTibero();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
+		for (Map<String, Object> map : listMap) {
+			BookPackage bp = new BookPackage();
+			
+			bp.setBook_package_idx(Integer.parseInt(String.valueOf(map.get("b_num"))));
+			bp.setBook_package_name(String.valueOf(map.get("b_name")));
+			bp.setBook_package_subject(String.valueOf(map.get("b_subject")));
+			bp.setAuthor(String.valueOf(map.get("b_temp1")));
+			bp.setPublisher(String.valueOf(map.get("b_temp2")));
+			
+			String b3 = String.valueOf(map.get("b_temp3"));
+			try {
+				bp.setPublish_year(Integer.parseInt(b3));
+			} catch(NumberFormatException e) {
+				bp.setPublish_year(1900);
+			}
+			
+			bp.setIsbn(String.valueOf(map.get("b_temp4")));
+			
+			String b5 = String.valueOf(map.get("b_temp5")).replace(",", "");
+			try {
+				bp.setBook_price(Integer.parseInt(b5));
+			} catch(NumberFormatException e) {
+				bp.setBook_price(0);
+			}
+			String b7 = String.valueOf(map.get("b_temp7")).replace(",", "").trim();
+			if(StringUtils.isNotEmpty(b7)) {
+				bp.setBook_pages(Integer.parseInt(b7));
+			} else {
+				bp.setBook_pages(0);
+			}
+			
+			bp.setPurpose(String.valueOf(map.get("b_temp8")));
+			String b12 = String.valueOf(map.get("b_temp12"));
+			if(StringUtils.isNotEmpty(b12)) {
+				bp.setLoan_count(Integer.parseInt(b12));
+			}
+			String b15 = String.valueOf(map.get("b_temp15"));
+			if(StringUtils.isNotEmpty(b15)) {
+				bp.setQuantity(Integer.parseInt(b15));
+			}
+			bp.setGrade(String.valueOf(map.get("b_temp9")));
+			bp.setCategory(String.valueOf(map.get("b_temp10")));
+			bp.setKeyword(String.valueOf(map.get("b_temp11")));
+			bp.setDesc_link(String.valueOf(map.get("b_temp13")));
+			bp.setImage_link(String.valueOf(map.get("b_temp14")));
+			bp.setContent(String.valueOf(map.get("b_content")));
+			bp.setOrg_file_name(String.valueOf(map.get("b_file1")));
+			
+			String file_name = String.valueOf(map.get("b_file1"));
+			if(StringUtils.isNotEmpty(file_name)) {
+				try {
+					
+					File f = new File("C:\\Users\\whalesoft\\Desktop\\대구시통합도서관\\image\\board_12\\" + file_name);
+					FileInputStream is = new FileInputStream(f);
+					MultipartFile mp = new MockMultipartFile("file", f.getName(), "text/plain", IOUtils.toByteArray(is));
+					bp.setMfile(mp);
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				} catch(IOException e2) {
+					e2.printStackTrace();
+				}
+			}
+			
+			try {
+				bp.setAdd_date(sdf.parse(String.valueOf(map.get("b_regdate"))));
+				bp.setAdd_id(String.valueOf(map.get("b_id")));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+			System.out.println("@@@@@@@@@@@@@@ data : " + bp.toString());
+//			service.addMysqlToTibero(bp);
+			
+		}
+		
+		
+		List<Map<String, Object>> listMap2 = service.getMysqlToTibero2();;
+		
+		for (Map<String, Object> map2 : listMap2) {
+			BookPackage bp = new BookPackage();
+			
+			bp.setBook_package_idx(Integer.parseInt(String.valueOf(map2.get("b_num"))));
+			bp.setBook_package_loan_idx(Integer.parseInt(String.valueOf(map2.get("bb_num"))));
+			bp.setRequest_name(String.valueOf(map2.get("bb_manager")));
+			bp.setSchool_name(String.valueOf(map2.get("bb_school")));
+			bp.setLoan_start_date(String.valueOf(map2.get("bb_sdate")));
+			bp.setLoan_end_date(String.valueOf(map2.get("bb_edate")));
+			bp.setPhone(String.valueOf(map2.get("bb_phone")));
+			bp.setSchool_tel(String.valueOf(map2.get("bb_school_tel")));
+			bp.setRequest_content(String.valueOf(map2.get("bb_content")));
+			bp.setRequest_status(String.valueOf(map2.get("bb_status")));
+			bp.setReturn_yn(String.valueOf(map2.get("bb_return")));
+			
+			try {
+				bp.setAdd_date(sdf.parse(String.valueOf(map2.get("bb_regdate"))));
+				bp.setAdd_id(String.valueOf(map2.get("m_id")));
+			} catch(ParseException e) {
+				e.printStackTrace();
+			}
+			
+			System.out.println("@@@@@@@@@@@@@@ data2 : " + bp.toString2());
+		}
 	}
 
 }

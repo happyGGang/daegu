@@ -254,4 +254,42 @@
 		ORDER BY b.add_date DESC
 	</select>
 	
+	<select id="getMySqlList" resultType="map">
+		select * from board_28
+	</select>
+	
+	<insert id="addParseTibero">
+		INSERT INTO
+			LIBRARY_CHECK
+		(
+			library_check_idx, library_check_name, library_check_number, content,
+			add_id, add_date
+		)
+		VALUES
+		(
+			#{library_check_idx}, #{library_check_name}, #{library_check_number}, #{content},
+			#{add_id}, #{add_date}
+		)
+	</insert>
+	
+	<select id="getMySqlList2" resultType="map">
+		select * from board_rental_loan
+	</select>
+	
+	<insert id="addParseTibero2">
+		INSERT INTO
+			LIBRARY_CHECK_LOAN
+		(
+			library_check_idx, library_check_loan_idx, loan_start_date, loan_end_date, hope_date,
+			school_name, request_name, phone, school_tel, request_status,
+			add_id, add_date
+		)
+		VALUES
+		(
+			#{library_check_idx}, #{library_check_loan_idx}, #{loan_start_date}, #{loan_end_date}, #{hope_date},
+			#{school_name}, #{request_name}, #{phone}, #{school_tel}, #{request_status},
+			#{add_id}, #{add_date}
+		)
+	</insert>
+	
 </mapper>

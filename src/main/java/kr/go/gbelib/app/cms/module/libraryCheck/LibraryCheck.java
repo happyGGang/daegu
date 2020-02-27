@@ -1,5 +1,6 @@
 package kr.go.gbelib.app.cms.module.libraryCheck;
 
+import java.util.Arrays;
 import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -300,6 +301,15 @@ public class LibraryCheck extends PagingUtils {
 
 	public void setModify_date(Date modify_date) {
 		this.modify_date = modify_date;
+	}
+
+	@Override
+	public String toString() {
+		return "LibraryCheck [library_check_idx=" + library_check_idx + ", library_check_name=" + library_check_name + ", library_check_number=" + library_check_number + ", content=" + content + ", add_id=" + add_id + ", add_date=" + add_date + "]";
+	}
+	
+	public String toString2() {
+		return "LibraryCheck [library_check_idx=" + library_check_idx + ", library_check_loan_idx=" + library_check_loan_idx + ", loan_start_date=" + loan_start_date + ", loan_end_date=" + loan_end_date + ", hope_date=" + hope_date + ", school_name=" + school_name + ", request_name=" + request_name + ", phone=" + phone + ", school_tel=" + school_tel + ", request_status=" + request_status + ", add_id=" + add_id + ", add_date=" + add_date + "]";
 	}
 
 }

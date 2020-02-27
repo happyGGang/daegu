@@ -299,4 +299,52 @@
 		ORDER BY a.picture_book_subject ASC, b.loan_start_date ASC
 	</select>
 	
+	<select id="getMySqlList" resultType="map" parameterType="String">
+		SELECT * FROM ${value}
+	</select>
+	
+	<insert id="addParseTibero">
+		INSERT INTO
+			PICTURE_BOOK
+		(
+			picture_book_idx, picture_book_name, picture_book_subject, author, publisher,
+			publish_year, isbn, picture_price, picture_count, keyword,
+			category, desc_link, thumb_image, content, pay_yn,
+			<if test="org_file_name != null and org_file_name != ''">
+			org_file_name, server_file_name, file_extension, file_size,
+			</if>
+			add_id, add_date
+		)
+		VALUES
+		(
+			#{picture_book_idx}, #{picture_book_name}, #{picture_book_subject}, #{author}, #{publisher},
+			#{publish_year}, #{isbn}, #{picture_price}, #{picture_count}, #{keyword},
+			#{category}, #{desc_link}, #{thumb_image}, #{content}, #{pay_yn},
+			<if test="org_file_name != null and org_file_name != ''">
+			#{org_file_name}, #{server_file_name}, #{file_extension}, #{file_size},
+			</if>
+			#{add_id}, #{add_date}
+		)
+	</insert>
+	
+	<select id="getMySqlList2" resultType="map" parameterType="String">
+		select * from board_picture_loan where a_num = ${value}
+	</select>
+	
+	<insert id="addParseTibero2">
+		INSERT INTO
+			PICTURE_BOOK_LOAN
+		(
+			picture_book_idx, picture_book_loan_idx, request_name, school_name,
+			loan_start_date, loan_end_date, phone, school_tel,
+			request_content, request_status, add_id, add_date
+		)
+		VALUES
+		(
+			#{picture_book_idx}, #{picture_book_loan_idx}, #{request_name}, #{school_name},
+			#{loan_start_date}, #{loan_end_date}, #{phone}, #{school_tel},
+			#{request_content}, #{request_status}, #{add_id}, #{add_date}
+		)
+	</insert>
+	
 </mapper>

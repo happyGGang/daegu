@@ -1,6 +1,7 @@
 package kr.go.gbelib.app.cms.module.bookPackage;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BookPackageDao {
 	
@@ -35,5 +36,11 @@ public interface BookPackageDao {
 	public List<BookPackage> getBookPackageExcelList(BookPackage bookPackage);
 
 	public List<BookPackage> getBookPackageLoanExcelList(BookPackage bookPackage);
+
+	public List<Map<String, Object>> getMysqlToTibero();
+
+	public int addMysqlToTibero(BookPackage bookPackage);
+
+	public List<Map<String, Object>> getMysqlToTibero2();
 
 }

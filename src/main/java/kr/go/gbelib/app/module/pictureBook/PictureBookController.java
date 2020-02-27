@@ -1,7 +1,10 @@
 package kr.go.gbelib.app.module.pictureBook;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -202,6 +205,110 @@ public class PictureBookController extends BaseController {
 		model.addAttribute("pictureBookLoanList", pictureBookLoanList);
 
 		return new PictureBookView();
+	}
+	
+	@RequestMapping(value = {"/mysql_to_tibero.*"}, method = RequestMethod.GET)
+	public void mysqlToTibero(Model model, PictureBook pictureBook) {
+		
+		// TODO: 무료 : 595959, 유료 : 18353408
+		// 무료, 유료 두번 해야함, 유료일 떄 무료의 최대 인덱스값 - 유료 최소 인덱스 값을 plus_num에 지정
+		String a_num = "595959";
+		int plus_num = 17;
+		String table = "";
+		
+		if(a_num.equals("595959")) {
+			table = "board_23";
+		} else if(a_num.equals("18353408")) {
+			table = "board_32";
+		}
+		
+		List<Map<String, Object>> list = service.getMySqlList(table);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
+		for (Map<String, Object> map : list) {
+			PictureBook pb = new PictureBook();
+			
+			if(a_num.equals("595959")) {
+				pb.setPicture_book_idx(Integer.parseInt(String.valueOf(map.get("b_num"))));
+			} else {
+				pb.setPicture_book_idx(Integer.parseInt(String.valueOf(map.get("b_num")))+plus_num);
+			}
+			pb.setPicture_book_name(String.valueOf(map.get("b_name")));
+			pb.setPicture_book_subject(String.valueOf(map.get("b_subject")));
+			pb.setAuthor(String.valueOf(map.get("b_temp1")));
+			pb.setPublisher(String.valueOf(map.get("b_temp2")));
+			
+			String b3 = String.valueOf(map.get("b_temp3"));
+			if(StringUtils.isNotEmpty(b3)) {
+				pb.setPublish_year(Integer.parseInt(b3));
+			}
+			
+			pb.setIsbn(String.valueOf(map.get("b_temp4")));
+			
+			String b5 = String.valueOf(map.get("b_temp5")).replace(",", "");
+			if(StringUtils.isNotEmpty(b5)) {
+				pb.setPicture_price(Integer.parseInt(b5));
+			}
+			
+			String b6 = String.valueOf(map.get("b_temp6"));
+			if(StringUtils.isNotEmpty(b6)) {
+				pb.setPicture_count(Integer.parseInt(b6));
+			}
+			
+			pb.setKeyword(String.valueOf(map.get("b_temp7")).replace(" ", ""));
+			pb.setCategory(String.valueOf(map.get("b_temp8")));
+			pb.setDesc_link(String.valueOf(map.get("b_temp9")));
+			pb.setThumb_image(String.valueOf(map.get("b_temp10")));
+			pb.setContent(String.valueOf(map.get("b_content")));
+			if(a_num.equals("595959")) {
+				pb.setPay_yn("N");
+			} else {
+				pb.setPay_yn("Y");
+			}
+			
+			try {
+				pb.setAdd_id(String.valueOf(map.get("b_id")));
+				pb.setAdd_date(sdf.parse(String.valueOf(map.get("b_regdate"))));
+			} catch(ParseException e) {
+				e.printStackTrace();
+			}
+			
+			
+			System.out.println("@@@@@@@@@@@@@@@ " + pb.toString());
+//			service.addParseTibero(pb);
+		}
+		
+		List<Map<String, Object>> list2 = service.getMySqlList2(a_num);
+
+		for (Map<String, Object> map : list2) {
+			PictureBook pb = new PictureBook();
+			
+			if(a_num.equals("595959")) {
+				pb.setPicture_book_idx(Integer.parseInt(String.valueOf(map.get("b_num"))));
+			} else {
+				pb.setPicture_book_idx(Integer.parseInt(String.valueOf(map.get("b_num")))+plus_num);
+			}
+			pb.setPicture_book_loan_idx(Integer.parseInt(String.valueOf(map.get("bb_num"))));
+			pb.setRequest_name(String.valueOf(map.get("bb_manager")));
+			pb.setSchool_name(String.valueOf(map.get("bb_school")));
+			pb.setLoan_start_date(String.valueOf(map.get("bb_sdate")));
+			pb.setLoan_end_date(String.valueOf(map.get("bb_edate")));
+			pb.setPhone(String.valueOf(map.get("bb_phone")));
+			pb.setSchool_tel(String.valueOf(map.get("bb_school_tel")));
+			pb.setRequest_content(String.valueOf(map.get("bb_content")));
+			pb.setRequest_status(String.valueOf(map.get("bb_status")));
+			
+			try {
+				pb.setAdd_date(sdf.parse(String.valueOf(map.get("bb_regdate"))));
+				pb.setAdd_id(String.valueOf(map.get("m_id")));
+			} catch(ParseException e) {
+				e.printStackTrace();
+			}
+			
+			System.out.println("@@@@@@@@@@@@@@@ " + pb.toString2());
+//			service.addParseTibero2(pb);
+		}
+		
 	}
 
 }

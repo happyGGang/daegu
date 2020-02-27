@@ -403,4 +403,14 @@ public class PictureBook extends PagingUtils {
 		this.mfile = mfile;
 	}
 
+	@Override
+	public String toString() {
+		return "PictureBook [picture_book_idx=" + picture_book_idx + ", picture_book_name=" + picture_book_name + ", picture_book_subject=" + picture_book_subject + ", author=" + author + ", publisher=" + publisher + ", publish_year=" + publish_year + ", isbn=" + isbn + ", picture_price=" + picture_price + ", picture_count=" + picture_count + ", keyword=" + keyword + ", category=" + category + ", desc_link=" + desc_link + ", thumb_image=" + thumb_image + ", content=" + content + ", pay_yn=" + pay_yn + ", add_id=" + add_id + ", add_date=" + add_date + "]";
+	}
+	
+	public String toString2() {
+		return "PictureBook [picture_book_idx=" + picture_book_idx + ", picture_book_loan_idx=" + picture_book_loan_idx + ", request_name=" + request_name + ", school_name=" + school_name + ", loan_start_date=" + loan_start_date + ", loan_end_date=" + loan_end_date + ", phone=" + phone + ", school_tel=" + school_tel + ", request_content=" + request_content + ", request_status=" + request_status + ", add_id=" + add_id + ", add_date=" + add_date + "]";
+	}
+	
+	
 }

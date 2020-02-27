@@ -308,4 +308,13 @@
 			a.book_package_idx = b.book_package_idx
 		ORDER BY b.book_package_loan_idx DESC
 	</select>
+	
+	<select id="getMysqlToTibero" resultType="map">
+		SELECT * FROM BOARD_12
+	</select>
+	
+	<select id="getMysqlToTibero2" resultType="map">
+		SELECT * FROM BOARD_BOOK_LOAN
+	</select>
+	
 </mapper>

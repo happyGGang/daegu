@@ -1,6 +1,7 @@
 package kr.go.gbelib.app.cms.module.supportMember;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.crypto.Cipher;
 
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.framework.base.BaseService;
+import kr.co.whalesoft.framework.dataSource.DataSource;
+import kr.co.whalesoft.framework.dataSource.DataSourceType;
 import kr.co.whalesoft.framework.utils.CalculateHashUtils;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
@@ -63,6 +66,15 @@ public class SupportMemberService extends BaseService {
 
 	public int addLastLogin(SupportMember supportMember) {
 		return dao.addLastLogin(supportMember);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<Map<String, Object>> getMySqlList() {
+		return dao.getMySqlList();
+	}
+
+	public int addParseTibero(SupportMember sm) {
+		return dao.addParseTibero(sm);
 	}
 	
 }

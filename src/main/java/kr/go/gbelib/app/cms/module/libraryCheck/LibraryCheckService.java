@@ -2,6 +2,7 @@ package kr.go.gbelib.app.cms.module.libraryCheck;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.whalesoft.framework.base.BaseService;
+import kr.co.whalesoft.framework.dataSource.DataSource;
+import kr.co.whalesoft.framework.dataSource.DataSourceType;
 import kr.co.whalesoft.framework.file.FileStorage;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
@@ -135,6 +138,24 @@ public class LibraryCheckService extends BaseService {
 
 	public List<LibraryCheck> getLibraryCheckLoanExcelList(LibraryCheck libraryCheck) {
 		return dao.getLibraryCheckLoanExcelList(libraryCheck);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<Map<String, Object>> getMySqlList() {
+		return dao.getMySqlList();
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<Map<String, Object>> getMySqlList2() {
+		return dao.getMySqlList2();
+	}
+
+	public int addParseTibero(LibraryCheck lc) {
+		return dao.addParseTibero(lc);
+	}
+	
+	public int addParseTibero2(LibraryCheck lc) {
+		return dao.addParseTibero2(lc);
 	}
 
 }

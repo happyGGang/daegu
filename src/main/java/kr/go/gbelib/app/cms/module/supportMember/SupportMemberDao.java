@@ -1,6 +1,7 @@
 package kr.go.gbelib.app.cms.module.supportMember;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SupportMemberDao {
 
@@ -23,5 +24,9 @@ public interface SupportMemberDao {
 	public SupportMember getSupportMemberLogin(SupportMember supportMember);
 
 	public int addLastLogin(SupportMember supportMember);
+
+	public List<Map<String, Object>> getMySqlList();
+
+	public int addParseTibero(SupportMember sm);
 
 }

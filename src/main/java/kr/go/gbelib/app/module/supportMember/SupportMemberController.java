@@ -1,5 +1,10 @@
 package kr.go.gbelib.app.module.supportMember;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.whalesoft.app.cms.homepage.Homepage;
-import kr.co.whalesoft.app.cms.member.MemberService;
-import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.go.gbelib.app.cms.module.supportMember.SupportMember;
 import kr.go.gbelib.app.cms.module.supportMember.SupportMemberService;
 
@@ -72,6 +75,44 @@ public class SupportMemberController {
 		String redirectURL = request.isSecure() ? "https://" : "http://" + request.getServerName() + "/" + homepage.getContext_path();
 		return "redirect:" + redirectURL + "/index.do";
 	}
-
+	
+	@RequestMapping(value = {"/mysql_to_tibero"}, method = RequestMethod.GET)
+	public void mysqlToTibero() {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
+		List<Map<String, Object>> list = service.getMySqlList();
+		
+		for (Map<String, Object> map : list) {
+			SupportMember sm = new SupportMember();
+			
+			sm.setSupport_member_idx(Integer.parseInt(String.valueOf(map.get("m_num"))));
+			sm.setSchool_name(String.valueOf(map.get("m_name")));
+			sm.setMember_id(String.valueOf(map.get("m_id")));
+			sm.setMember_password("575a524847727342455372387759465a3973783074505552755a6747326c6d7a797657707758504b7a38553d");
+			sm.setAuth_group(String.valueOf(map.get("m_level")));
+			
+    		try {
+    			String lastdate = String.valueOf(map.get("m_lastdate"));
+    			if(StringUtils.isNotEmpty(lastdate)) {
+    				sm.setLast_connect(sdf.parse(lastdate));
+    			}
+    			sm.setAdd_id(String.valueOf(map.get("m_id")));
+    			sm.setAdd_date(sdf.parse(String.valueOf(map.get("m_date"))));
+    			
+    			
+    			String moddate = String.valueOf(map.get("m_modymate"));
+    			if(StringUtils.isNotEmpty(moddate)) {
+    				sm.setModify_date(sdf.parse(moddate));
+    				sm.setModify_id(String.valueOf(map.get("m_id")));
+    			}
+    		} catch (ParseException e) {
+    			e.printStackTrace();
+    		}
+    		
+    		System.out.println("@@@@@@@@@@ : " + sm.toString());
+    		service.addParseTibero(sm);
+		}
+		
+	}
 
 }

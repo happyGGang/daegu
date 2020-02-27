@@ -125,4 +125,9 @@ public class SupportMember extends PagingUtils {
 		this.login = login;
 	}
 
+	@Override
+	public String toString() {
+		return "SupportMember [support_member_idx=" + support_member_idx + ", school_name=" + school_name + ", member_id=" + member_id + ", member_password=" + member_password + ", auth_group=" + auth_group + ", last_connect=" + last_connect + ", add_id=" + add_id + ", add_date=" + add_date + ", modify_id=" + modify_id + ", modify_date=" + modify_date + "]";
+	}
+
 }

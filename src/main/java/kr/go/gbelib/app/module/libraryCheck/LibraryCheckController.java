@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -258,6 +259,59 @@ public class LibraryCheckController extends BaseController {
 		model.addAttribute("libraryCheckLoanList", libraryCheckLoanList);
 
 		return new LibraryCheckView();
+	}
+	
+	@RequestMapping(value = {"/mysql_to_tibero.*"}, method = RequestMethod.GET)
+	public void mysqlToTibero() {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		List<Map<String, Object>> list = service.getMySqlList();
+		
+		for (Map<String, Object> map : list) {
+			LibraryCheck lc = new LibraryCheck();
+			
+			lc.setLibrary_check_idx(Integer.parseInt(String.valueOf(map.get("b_num"))));
+			lc.setLibrary_check_name(String.valueOf(map.get("b_name")));
+			lc.setLibrary_check_number(Integer.parseInt(String.valueOf(map.get("b_subject"))));
+			lc.setContent(String.valueOf(map.get("b_content")));
+			
+			try {
+				lc.setAdd_id(String.valueOf(map.get("b_id")));
+				lc.setAdd_date(sdf.parse(String.valueOf(map.get("b_regdate"))));
+			} catch(ParseException e) {
+				e.printStackTrace();
+			}
+			
+			System.out.println("@@@@@@@@@@ : " + lc.toString());
+//			service.addParseTibero(lc);
+		}
+		
+		List<Map<String, Object>> list2 = service.getMySqlList2();
+		for (Map<String, Object> map : list2) {
+			LibraryCheck lc = new LibraryCheck();
+			
+			lc.setLibrary_check_idx(Integer.parseInt(String.valueOf(map.get("b_num"))));
+			lc.setLibrary_check_loan_idx(Integer.parseInt(String.valueOf(map.get("bb_num"))));
+			lc.setLoan_start_date(String.valueOf(map.get("bb_sdate")));
+			lc.setLoan_end_date(String.valueOf(map.get("bb_edate")));
+			lc.setHope_date(String.valueOf(map.get("bb_hope_date")));
+			lc.setSchool_name(String.valueOf(map.get("bb_school")));
+			lc.setRequest_name(String.valueOf(map.get("bb_manager")));
+			lc.setPhone(String.valueOf(map.get("bb_phone")));
+			lc.setSchool_tel(String.valueOf(map.get("bb_school_tel")));
+			lc.setRequest_status(String.valueOf(map.get("bb_status")));
+			
+			try {
+				lc.setAdd_id(String.valueOf(map.get("m_id")));
+				lc.setAdd_date(sdf.parse(String.valueOf(map.get("bb_regdate"))));
+			} catch(ParseException e) {
+				e.printStackTrace();
+			}
+			
+			System.out.println("@@@@@@@@@@ : " + lc.toString2());
+//			service.addParseTibero2(lc);
+		}
+		
 	}
 
 }

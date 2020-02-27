@@ -39,4 +39,12 @@ public interface PictureBookDao {
 
 	public List<PictureBook> getPictureBookLoanExcelList(PictureBook pictureBook);
 
+	public List<Map<String, Object>> getMySqlList(String table_name);
+
+	public List<Map<String, Object>> getMySqlList2(String a_num);
+
+	public int addParseTibero(PictureBook pictureBook);
+	
+	public int addParseTibero2(PictureBook pictureBook);
+
 }

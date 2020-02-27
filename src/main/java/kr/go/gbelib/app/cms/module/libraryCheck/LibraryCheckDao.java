@@ -1,6 +1,7 @@
 package kr.go.gbelib.app.cms.module.libraryCheck;
 
 import java.util.List;
+import java.util.Map;
 
 public interface LibraryCheckDao {
 
@@ -38,4 +39,11 @@ public interface LibraryCheckDao {
 
 	public List<LibraryCheck> getLibraryCheckLoanExcelList(LibraryCheck libraryCheck);
 
+	public List<Map<String, Object>> getMySqlList();
+
+	public List<Map<String, Object>> getMySqlList2();
+
+	public int addParseTibero(LibraryCheck lc);
+	
+	public int addParseTibero2(LibraryCheck lc);
 }
