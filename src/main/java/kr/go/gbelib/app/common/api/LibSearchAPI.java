@@ -483,6 +483,8 @@ public class LibSearchAPI {
 		param.put("userkey", librarySearch.getUserkey());
 		param.put("pageno", librarySearch.getViewPage());
 		param.put("display", librarySearch.getRowCount());
+		param.put("orderby_item", "FURNISH_DATE");
+		param.put("orderby", "DESC");
 
 		return CommonAPI.sendKCMS("bookfurnishlist", param);
 
