@@ -21,7 +21,7 @@ table.bbs tr.notice{background:#f5f6f7}
 	td.txtBar{display: inline-block;width: 1px;height: 10px;font-size: 0px;line-height: 0;text-indent: -9999px;vertical-align: top;margin: 3px 5px;background: rgb(217, 217, 217);}
 }
 </style>
-
+<c:set var="categoryMovae" value="${not empty authMBA and authMBA and boardManage.category_use_yn eq 'Y'}"></c:set>
 <jsp:include page="/WEB-INF/views/app/board/common/index/script.jsp" flush="false" />
 <form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
@@ -31,7 +31,7 @@ table.bbs tr.notice{background:#f5f6f7}
 		<table class="bbs center" summary="일반 게시판">
 			<caption>일반게시판</caption>
 			<colgroup>
-				<c:if test="${board.delete_yn eq 'Y'}">
+				<c:if test="${board.delete_yn eq 'Y' or categoryMovae}">
 				<col width="5%">
 				</c:if>
 				<col width="10%">
@@ -43,7 +43,7 @@ table.bbs tr.notice{background:#f5f6f7}
 			</colgroup>
 			<thead>
 				<tr>
-					<c:if test="${board.delete_yn eq 'Y'}">
+					<c:if test="${board.delete_yn eq 'Y' or categoryMovae}">
 					<th><input type="checkbox" id="checkAll"> </th>
 					</c:if>
 					<th>번호</th>
@@ -58,7 +58,7 @@ table.bbs tr.notice{background:#f5f6f7}
 			<tbody id="board_tbody">
 			<c:forEach var="i" varStatus="status" items="${boardNoticeList}">
 				<tr class="notice">
-					<c:if test="${board.delete_yn eq 'Y'}">
+					<c:if test="${board.delete_yn eq 'Y' or categoryMovae}">
 					<td></td>
 					</c:if>
 					<td class="num notice"><span>공지</span></td>
@@ -84,7 +84,7 @@ table.bbs tr.notice{background:#f5f6f7}
 			</c:forEach>
 			<c:forEach var="i" varStatus="status" items="${boardList}">
 				<tr${i.group_depth > 0?' class="reply"':''}>
-					<c:if test="${board.delete_yn eq 'Y'}">
+					<c:if test="${board.delete_yn eq 'Y' or categoryMovae}">
 					<td><form:checkbox path="boardIdxArray" value="${i.board_idx}"/></td>
 					</c:if>
 					<td class="num">${paging.listRowNum - status.index}</td>

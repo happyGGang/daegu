@@ -6,6 +6,7 @@
 <c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.top_html) > 0}">
 ${boardManage.top_html}
 </c:if>
+<c:set var="categoryMovae" value="${not empty authMBA and authMBA and boardManage.category_use_yn eq 'Y'}"></c:set>
 <jsp:include page="/WEB-INF/views/app/board/common/index/script.jsp" flush="false" />
 <form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
@@ -15,7 +16,7 @@ ${boardManage.top_html}
 	<div class="table-wrap">
 		<table class="bbs center">
 			<colgroup>
-				<c:if test="${board.delete_yn eq 'Y'}">
+				<c:if test="${board.delete_yn eq 'Y' or categoryMovae}">
 				<col width="5%">
 				</c:if>
 				<col width="10%">
@@ -26,7 +27,7 @@ ${boardManage.top_html}
 			</colgroup>
 			<thead>
 				<tr>
-					<c:if test="${board.delete_yn eq 'Y'}">
+					<c:if test="${board.delete_yn eq 'Y' or categoryMovae}">
 					<th><input type="checkbox" id="checkAll"> </th>
 					</c:if>
 					<th>번호</th>
@@ -60,8 +61,9 @@ ${boardManage.top_html}
 				</tr>
 			</c:forEach>
 			<c:forEach var="i" varStatus="status" items="${boardList}">
+				<c:set var="category1name" value="${empty i.category1_name ? '' : '['}${i.category1_name}${empty i.category1_name ? '' : '] '}"></c:set>
 				<tr${i.group_depth > 0?' class="reply"':''}>
-					<c:if test="${board.delete_yn eq 'Y'}">
+					<c:if test="${board.delete_yn eq 'Y' or categoryMovae}">
 					<td><form:checkbox path="boardIdxArray" value="${i.board_idx}"/></td>
 					</c:if>
 					<td class="num">${paging.listRowNum - status.index}</td>
@@ -70,7 +72,7 @@ ${boardManage.top_html}
 						<c:if test="${i.group_depth > 0}">
 							<i class="fa fa-reply"></i>
 						</c:if>
-							<span>${i.secret_yn eq 'Y'?'<i class="fa fa-lock"></i>':''}${i.title}</span>
+							<span>${category1name}${i.secret_yn eq 'Y'?'<i class="fa fa-lock"></i>':''}${i.title}</span>
 							<c:if test="${i.date_gap <= boardManage.new_date_count}"><em class="new">새글</em></c:if>
 							<c:if test="${i.comment_count > 0}">
 							<span class="comment"><em>댓글</em> <i>${i.comment_count}</i></span>

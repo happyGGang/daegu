@@ -16,6 +16,7 @@
 			<c:otherwise>
 				<c:if test="${categoryMove}">
 					<a href="" class="btn btn5" id="board_move_btn" data-idx="${boardManage.manage_idx}"></i><span>분류 변경</span></a>
+					<form:hidden path="moveCategory1Target"/>
 				</c:if>
 				<a href="" class="btn btn4" id="board_deleteRecovery_btn"><span>삭제 게시물 보기</span></a>
 				<c:if test="${authC}">
@@ -46,7 +47,7 @@
 		<div style="text-align: center;">분류1</div>
 		<ul>
 			<c:forEach items="${category1List}" var="i" varStatus="status">
-			<li><input type="radio" id="moveCategory1Target${i.code_id}" name="moveCategory1Target" value="${i.code_id}" /><label for="moveCategory1Target${i.code_id}">${i.code_name}</label> </li>
+			<li><input type="radio" id="moveCategory1Target${i.code_id}" name="moveCategory1Target_" value="${i.code_id}" /><label for="moveCategory1Target${i.code_id}">${i.code_name}</label> </li>
 			</c:forEach>
 		</ul>
 	</div>

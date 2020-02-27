@@ -169,6 +169,20 @@ $(document).ready(function() {
 	});
 
 	<%-- 카테고리변경 --%>
+	$('a#moveCategory').on('click', function(e) {
+		e.preventDefault();
+		var checkList = $('input[name=moveCategory1Target_]:checked').length;
+		if (checkList < 1) {
+			alert('선택된 카테고리가 없습니다.');
+			return false;
+		}
+		$('form#board input#moveCategory1Target').val($('input[name=moveCategory1Target_]:checked').val());
+		$('#board').attr('action', 'moveBoardCategory.do');
+   		doAjaxPost($('#board'));
+
+	});
+
+	<%-- 카테고리변경 --%>
 	$('a#moveCategoryCancel').on('click', function(e) {
 		e.preventDefault();
 		$('div#categoryMoveDialog').dialog('destroy');
