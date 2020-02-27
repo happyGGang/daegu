@@ -47,6 +47,7 @@ $(function(){
 
 	$('a#search-btn').on('click', function(e) {
 		e.preventDefault();
+		$('#viewPage').attr('value', '1');
 		doGetLoad('index.do', $('form#teach').serialize());
 	});
 
