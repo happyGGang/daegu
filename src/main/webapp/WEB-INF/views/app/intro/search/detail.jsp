@@ -104,7 +104,7 @@ $(function() {
 	<input type="hidden" name="_csrf" value="${_csrf.token}">
 	<input type="hidden" name="editMode" value="ADD">
 	<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
-	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
+	<input type="hidden" name="booktype" value="${fn:startsWith(detail.WORKING_STATUS, 'BO') ? 'BO' : 'SE'}">
 </form>
 
 <form id="unmannedReqForm" action="unmanned/form.do" method="post">

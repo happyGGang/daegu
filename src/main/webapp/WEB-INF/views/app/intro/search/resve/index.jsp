@@ -100,12 +100,24 @@ $(function() {
 								</c:choose>
 								</td>
 							</tr>
-							<c:if test="${i.STATUS eq '3'}">
-							<tr>
-								<th>예약취소</th>
-								<td><a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a></td>
-							</tr>
+
+							<c:if test="${i.UNMANNED_RESERVATION_LOAN eq 'N'}">
+								<c:if test="${i.STATUS eq '3'}">
+								<tr>
+									<th>예약취소</th>
+									<td><a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a></td>
+								</tr>
+								</c:if>
 							</c:if>
+							<c:if test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
+								<tr>
+									<th>예약취소</th>
+									<td><a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a></td>
+								</tr>
+							</c:if>
+							<c:if test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
+							</c:if>
+
 							</tbody>
 						</table>
 					</div>
