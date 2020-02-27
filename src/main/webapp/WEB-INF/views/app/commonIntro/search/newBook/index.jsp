@@ -87,7 +87,17 @@ $(function() {
 				<ul>
 					<li style="margin-bottom: 5px;"><form:radiobutton path="shelfCode" value="ALL" label="전체"/></li>
 					<c:forEach items="${shelfList}" var="i" varStatus="status">
+					<c:choose>
+					<c:when test="${homepage.context_path eq 'jungang'}">
+						<c:if test="${i.CODE eq 'AD20' or i.CODE eq 'AD04' or i.CODE eq 'AD06' or i.CODE eq 'AD15' or i.CODE eq 'AD12' or i.CODE eq 'AD36'}">
 					<li style="width: 33%; float: left;"><form:radiobutton path="shelfCode" value="${i.CODE}" label="${i.DESCRIPTION}"/></li>
+						</c:if>
+					</c:when>
+					<c:otherwise>
+					<li style="width: 33%; float: left;"><form:radiobutton path="shelfCode" value="${i.CODE}" label="${i.DESCRIPTION}"/></li>
+					</c:otherwise>
+					</c:choose>
+
 					</c:forEach>
 
 				</ul>
