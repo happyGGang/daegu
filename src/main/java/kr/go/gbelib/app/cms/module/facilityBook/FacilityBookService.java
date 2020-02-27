@@ -108,4 +108,8 @@ public class FacilityBookService extends BaseService {
 		return map;
 	}
 
+	public int deleteFacilityBook(FacilityBook facilityBook) {
+		return dao.deleteFacilityBook(facilityBook);
+	}
+
 }

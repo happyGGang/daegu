@@ -13,7 +13,42 @@ $(function() {
 			$('#status_facility_book_idx').val($(this).attr('keyValue'));
 			$('#status_apply_status').val($(this).val());
 			$('#status_view_page').val($('#viewPage').val());
-			doAjaxPost($form, '#apply_list_box');
+			if(doAjaxPost($form)) {
+				location.reload();
+			}
+		}
+	});
+	
+	$('a#chk-delete').on('click', function(e) {
+		e.preventDefault();
+		
+		$('input[name=facility_book_arr]:checked').each(function() {
+		    $form.append('<input type="hidden" name="facility_book_arr" value="' + $(this).val() + '"/>');
+		});
+		
+		if(confirm('선택 삭제 하시겠습니까?')) {
+			$('#statusMode').val('DELETE_REQ');
+			if(doAjaxPost($form)) {
+				location.reload();
+			}
+		}
+	});
+	
+	$('a#chk-status').on('click', function(e) {
+		e.preventDefault();
+		
+		$('input[name=facility_book_arr]:checked').each(function() {
+		    $form.append('<input type="hidden" name="facility_book_arr" value="' + $(this).val() + '"/>');
+		});
+		
+		if(confirm('선택 일괄 승인 하시겠습니까?')) {
+			$('#statusMode').val('STATUS_CHK');
+			$('#facility_book_arr').val($(''));
+			$('#status_apply_status').val(1);
+			$('#status_view_page').val($('#viewPage').val());
+			if(doAjaxPost($form)) {
+				location.reload();
+			}
 		}
 	});
 });
@@ -26,9 +61,11 @@ $(function() {
 <form:hidden path="viewPage" id="status_view_page"/>
 </form:form>
 <form:form modelAttribute="facilityBook" id="facilityBookApply" action="apply.do" method="GET">
+
 	<div class="table-wrap">
 		<table class="type1 center">
 			<colgroup>
+				<col width="60"/>
 				<col width="100"/>
 				<col width="200"/>
 				<col width="250"/>
@@ -37,6 +74,7 @@ $(function() {
 			</colgroup>
 			<thead>
 				<tr>
+					<th>선택</th>
 					<th>번호</th>
 					<th>신청인</th>
 					<th>시설명</th>
@@ -47,6 +85,9 @@ $(function() {
 			<tbody>
 				<c:forEach var="i" varStatus="status" items="${applyList}">
 					<tr>
+						<td>
+							<input type="checkbox" name="facility_book_arr" value="${i.facility_book_idx}">
+						</td>
 						<td class="num">${paging.listRowNum - status.index}</td>
 						<td>${i.apply_name}</td>
 						<td>
@@ -79,6 +120,11 @@ $(function() {
 				</c:if>
 			</tbody>
 		</table>
+		<br>
+		<div class="button">
+			<a href="#" id="chk-delete" class="btn btn2">선택 삭제</a>
+			<a href="#" id="chk-status" class="btn btn3">선택 승인</a>
+		</div>
 	</div>
 	
 	<jsp:include page="/WEB-INF/views/app/cms/module/facilityBook/paging.jsp" flush="false">

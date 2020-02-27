@@ -7,6 +7,7 @@ import kr.co.whalesoft.framework.utils.PagingUtils;
 public class FacilityBook extends PagingUtils {
 
 	private int facility_book_idx; // 시설물IDX
+	private int[] facility_book_arr;
 	private String apply_name; // 신청자
 	private String phone; // 신청자 연락처
 	private String phone1;
@@ -54,6 +55,14 @@ public class FacilityBook extends PagingUtils {
 
 	public void setFacility_book_idx(int facility_book_idx) {
 		this.facility_book_idx = facility_book_idx;
+	}
+
+	public int[] getFacility_book_arr() {
+		return facility_book_arr;
+	}
+	
+	public void setFacility_book_arr(int[] facility_book_arr) {
+		this.facility_book_arr = facility_book_arr;
 	}
 
 	public String getApply_name() {

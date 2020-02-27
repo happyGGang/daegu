@@ -117,7 +117,15 @@
 			apply_status = #{apply_status}
 		WHERE
 			homepage_id = #{homepage_id}
+		<if test="editMode != null and editMode != '' and editMode == 'STATUS'">
 		AND	facility_book_idx = #{facility_book_idx}
+		</if>
+		<if test="editMode != null and editMode != '' and editMode == 'STATUS_CHK'">
+		AND	facility_book_idx IN
+			<foreach collection="facility_book_arr" item="i" open="(" close=")" separator=",">
+			#{i}
+			</foreach>
+		</if>
 	</update>
 	
 	<select id="getFacilityBookAll" resultType="kr.go.gbelib.app.cms.module.facilityBook.FacilityBook">
@@ -175,5 +183,15 @@
 			#{homepage_id}, #{close_idx}, #{close_date}, #{close_time}, SYSDATE, #{add_id}
 		)
 	</insert>
+	
+	<delete id="deleteFacilityBook">
+		DELETE FROM
+			FACILITY_BOOK
+		WHERE
+			facility_book_idx IN
+			<foreach collection="facility_book_arr" item="i" open="(" close=")" separator=",">
+			#{i}
+			</foreach>
+	</delete>
 	
 </mapper>

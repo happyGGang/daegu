@@ -303,7 +303,12 @@ $(function() {
 												<c:when test="${not empty applyList[planDate].PM}">
 												<span>
 													<a href="#" class="btn-modify" keyValue="${applyList[planDate].PM.facility_book_idx}">
+														<c:if test="${applyList[planDate].PM.apply_status eq '1'}">
+														<img alt="승인" src="/resources/module/4f_sn.gif">
+														</c:if>
+														<c:if test="${applyList[planDate].PM.apply_status ne '1'}">
 														<img alt="4층" src="/resources/module/4f_dae.gif">
+														</c:if>
 													</a>
 												</span>
 												</c:when>
@@ -373,7 +378,12 @@ $(function() {
 												<c:when test="${not empty applyList[planDate].PM}">
 												<span>
 													<a href="#" class="btn-modify" keyValue="${applyList[planDate].PM.facility_book_idx}">
+														<c:if test="${applyList[planDate].PM.apply_status eq '1'}">
+														<img alt="승인" src="/resources/module/4f_sn.gif">
+														</c:if>
+														<c:if test="${applyList[planDate].PM.apply_status ne '1'}">
 														<img alt="4층" src="/resources/module/4f_dae.gif">
+														</c:if>
 													</a>
 												</span>
 												</c:when>
@@ -443,7 +453,12 @@ $(function() {
 												<c:when test="${not empty applyList[planDate].PM}">
 												<span>
 													<a href="#" class="btn-modify" keyValue="${applyList[planDate].PM.facility_book_idx}">
+														<c:if test="${applyList[planDate].PM.apply_status eq '1'}">
+														<img alt="승인" src="/resources/module/4f_sn.gif">
+														</c:if>
+														<c:if test="${applyList[planDate].PM.apply_status ne '1'}">
 														<img alt="4층" src="/resources/module/4f_dae.gif">
+														</c:if>
 													</a>
 												</span>
 												</c:when>
@@ -513,7 +528,12 @@ $(function() {
 												<c:when test="${not empty applyList[planDate].PM}">
 												<span>
 													<a href="#" class="btn-modify" keyValue="${applyList[planDate].PM.facility_book_idx}">
+														<c:if test="${applyList[planDate].PM.apply_status eq '1'}">
+														<img alt="승인" src="/resources/module/4f_sn.gif">
+														</c:if>
+														<c:if test="${applyList[planDate].PM.apply_status ne '1'}">
 														<img alt="4층" src="/resources/module/4f_dae.gif">
+														</c:if>
 													</a>
 												</span>
 												</c:when>
@@ -583,7 +603,12 @@ $(function() {
 												<c:when test="${not empty applyList[planDate].PM}">
 												<span>
 													<a href="#" class="btn-modify" keyValue="${applyList[planDate].PM.facility_book_idx}">
+														<c:if test="${applyList[planDate].PM.apply_status eq '1'}">
+														<img alt="승인" src="/resources/module/4f_sn.gif">
+														</c:if>
+														<c:if test="${applyList[planDate].PM.apply_status ne '1'}">
 														<img alt="4층" src="/resources/module/4f_dae.gif">
+														</c:if>
 													</a>
 												</span>
 												</c:when>
@@ -652,8 +677,13 @@ $(function() {
 												</c:when>
 												<c:when test="${not empty applyList[planDate].PM}">
 												<span>
-													<a href="#" class="" keyValue="${applyList[planDate].PM.facility_book_idx}">
+													<a href="#" class="btn-modify" keyValue="${applyList[planDate].PM.facility_book_idx}">
+														<c:if test="${applyList[planDate].PM.apply_status eq '1'}">
+														<img alt="승인" src="/resources/module/4f_sn.gif">
+														</c:if>
+														<c:if test="${applyList[planDate].PM.apply_status ne '1'}">
 														<img alt="4층" src="/resources/module/4f_dae.gif">
+														</c:if>
 													</a>
 												</span>
 												</c:when>

@@ -164,12 +164,18 @@ public class FacilityBookController extends BaseController {
 				}
 				res.setValid(true);
 				res.setMessage("휴관일 등록되었습니다.");
-			} else if(facilityBook.getEditMode().equals("STATUS")) {
+			} else if(facilityBook.getEditMode().equals("STATUS") || facilityBook.getEditMode().equals("STATUS_CHK")) {
 				service.changeStatus(facilityBook);
 				res.setValid(true);
-				res.setUrl("applyList.do");
-				res.setData("viewPage="+facilityBook.getViewPage());
+//				res.setUrl("applyList.do");
+//				res.setData("viewPage="+facilityBook.getViewPage());
 				res.setMessage("상태 변경되었습니다.");
+			} else if(facilityBook.getEditMode().equals("DELETE_REQ")) {
+				service.deleteFacilityBook(facilityBook);
+				res.setValid(true);
+				res.setMessage("선택 삭제되었습니다.");
+//				res.setUrl("index.do");
+//				res.setData("viewPage=1");
 			}
 		} else {
 			res.setValid(false);

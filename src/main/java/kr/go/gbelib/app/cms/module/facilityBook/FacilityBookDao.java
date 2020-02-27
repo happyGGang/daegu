@@ -28,4 +28,6 @@ public interface FacilityBookDao {
 
 	public List<FacilityBook> getFacilityBookClose(FacilityBook facilityBook);
 
+	public int deleteFacilityBook(FacilityBook facilityBook);
+
 }
