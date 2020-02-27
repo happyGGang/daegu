@@ -32,21 +32,7 @@ $(function() {
 		$('form#nightReqForm').submit();
 	});
 
-	$('a.addBasket').on('click', function(e) {
-		e.preventDefault();
-		if (!confirm('택배 보관함에  추가 하시겠습니까?')) {
-			return false;
-		}
-		$('#basketReqForm #book_key').val($(this).data('basket'));
-
-		if ( doAjaxPost($('#basketReqForm')) ) {
-			if (confirm('보관함에 추가되었습니다. 보관함으로 이동하시겠습니까?')) {
-				location.href = '/${homepage.context_path}/intro/search/deliveryBasket/index.do?menu_idx=${deliveryMenuMenuIdx}';
-			}
-		}
-	});
-
-	$('a.addStorage').on('click', function(e) {
+	$('a#addStorage').on('click', function(e) {
 		e.preventDefault();
 		/* if ( doAjaxPost($('storageReqForm')) ) {
 
@@ -104,16 +90,16 @@ $(function() {
 	<input type="hidden" id="itemEditMode" name="editMode" value="ADD">
 	<input type="hidden" id="item_name" name="item_name" value="${detail.TITLE_INFO}">
 	<input type="hidden" id="author" name="author" value="${detail.AUTHOR}">
-	<input type="hidden" id="publer" name="publer" value="${detail.PUBLISHER}">
+	<input type="hidden" id="publer" name="publer" value="${fn:escapeXml(param.booktype)}">
 	<input type="hidden" id="loca" name="loca" value="${detail.MANAGE_CODE}">
-	<input type="hidden" id="ctrl_no" name="ctrl_no" value="${detail.ST_CODE}">
-	<input type="hidden" id="img_url" name="img_url" value="${detail.IMAGE}">
+	<input type="hidden" id="ctrl_no" name="ctrl_no" value="${fn:escapeXml(param.regNo)}">
+	<input type="hidden" id="img_url" name="img_url" value="${fn:escapeXml(param.menu_idx)}">
 </form>
 
 <form id="resveReqForm" action="resve/save.do" method="post" onsubmit="return false;">
 	<input type="hidden" id="reserveMode" name="editMode" value="ADD">
 	<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
-	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
+	<input type="hidden" name="booktype" value="${fn:startsWith(detail.WORKING_STATUS, 'BO') ? 'BO' : 'SE'}">
 </form>
 
 <form id="unmannedReqForm" action="unmanned/form.do" method="post">
@@ -287,10 +273,11 @@ $(function() {
 			<c:if test="${detail.WORKING_STATUS ne 'BOL112N' and param.booktype ne 'NONBOOK'}">
 			<a href="#" id="resve-req" class="btn">예약신청</a>
 			</c:if>
+			<a href="#" id="addStorage" class="btn"><span>관심도서 추가</span></a>
 
 			<a href="javascript:history.back();" id="goBack" class="btn"><i class="fa fa-book"></i><span>목록으로</span></a>
 			<c:if test="${not empty loginPortal and loginPortal.login}">
-			<a href="#" id="interest" class="btn"><span>관심도서</span></a>
+			<a href="#" id="interest" class="btn"><span>교수학습 택배용 관심도서</span></a>
 			</c:if>
 		</div>
 

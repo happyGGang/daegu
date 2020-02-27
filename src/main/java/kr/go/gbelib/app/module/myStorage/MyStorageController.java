@@ -169,20 +169,17 @@ public class MyStorageController extends BaseController {
 					res.setMessage("보관함에 정상 등록 되었습니다.");
 				} else {
 					for (String str : myItem.getStrList()) {
-						String[] lib_rec_tid = str.split("_");
-						Map<String, Object> bookDetail = LibSearchAPI.getBookDetail(new LibrarySearch(lib_rec_tid[0], lib_rec_tid[1]));
+
+						String[] lib_rec_tid = str.split("\\^\\^\\^");
+
 						MyItem item = new MyItem(myItem.getHomepage_id(), myItem.getMember_key());
 						item.setStorage_idx(myItem.getStorage_idx());
-						@SuppressWarnings ("unchecked")
-						List<Map<String, Object>> dsItemDetail = (List<Map<String, Object>>) bookDetail.get("dsItemDetail");
-						Map<String, Object> detailOne = dsItemDetail.get(0);
 
-						item.setItem_name(String.valueOf(detailOne.get("TITLE")));
-						item.setAuthor(String.valueOf(detailOne.get("AUTHOR")));
-						item.setPubler(String.valueOf(detailOne.get("PUBLISHER")));
-						item.setLoca(String.valueOf(detailOne.get("LOCA")));
-						item.setCtrl_no(lib_rec_tid[1]);
-						item.setImg_url(lib_rec_tid[3]);
+						item.setItem_name(String.valueOf(lib_rec_tid[0]));
+						item.setPubler(String.valueOf(lib_rec_tid[1]));
+						item.setLoca(String.valueOf(lib_rec_tid[2]));
+						item.setCtrl_no(lib_rec_tid[3]);
+						item.setImg_url(lib_rec_tid[4]);
 						myItemService.addMyItem(item);
 					}
 					res.setValid(true);

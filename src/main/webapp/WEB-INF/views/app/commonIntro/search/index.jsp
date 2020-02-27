@@ -187,6 +187,21 @@ $(function() {
 
 	location.href = '#search_result';
 
+	$('a#addStorage').on('click', function(e) {
+		e.preventDefault();
+		/* if ( doAjaxPost($('storageReqForm')) ) {
+
+		} */
+		var strList = '';
+		$('input[name=print_param]:visible:checked').each(function() {
+			if (strList != '') {
+				strList += '&';
+			}
+			strList += 'strList='+$(this).val();
+		});
+
+		window.open("/${homepage.context_path}/module/myStorage/viewStorage.do?"+strList, "", "width=450, height=400");
+	});
 });
 </script>
 
@@ -319,6 +334,9 @@ $(function() {
 				</select>
 				<input id="subSearchText" placeholder="결과 내 재검색" class="text-area01" />
 				<a href="#" id="subSearch" class="btn">결과 내 재검색</a>
+				<div style="float: right;">
+				<a href="#" id="addStorage" class="btn">관심도서 추가</a>
+				</div>
 			</div>
 
 			<!--
@@ -374,11 +392,11 @@ $(function() {
 							<c:set var="detailURL" value="detail.do?menu_idx=${fn:escapeXml(param.menu_idx)}&isbn=${fn:escapeXml(i.ST_CODE)}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}"></c:set>
 							<div class="row">
 								<p class="admin">
-									<input name="print_param" type="checkbox" class="checkBook" value="${fn:escapeXml(i.ST_CODE)}_${fn:escapeXml(i.MANAGE_CODE)}"/>
+									<input name="print_param" type="checkbox" class="checkBook" value="${i.TITLE_INFO}^^^${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}^^^${fn:escapeXml(i.MANAGE_CODE)}^^^${fn:escapeXml(i.REG_NO)}^^^${fn:escapeXml(param.menu_idx)}"/>
 								</p>
 								<div class="thumb">
 									<c:choose>
-										<c:when test="${i.IMAGE eq '' or fn:contains(i.IMAGE, 'noimg')}">
+										<c:when test="${empty i.aladin or empty i.aladin.cover}">
 											<a href="${detailURL}" class="noImg">
 												<img src="/resources/common/img/noImg2.png" alt="${i.TITLE_INFO}"/>
 												<span>등록된 이미지가<br/>없습니다.</span>
@@ -386,7 +404,7 @@ $(function() {
 										</c:when>
 										<c:otherwise>
 											<a href="${detailURL}">
-												<img src="${i.IMAGE}" alt="${i.TITLE_INFO}"/>
+												<img src="${i.aladin.cover}" alt="${i.TITLE_INFO}"/>
 											</a>
 										</c:otherwise>
 									</c:choose>
@@ -452,13 +470,13 @@ $(function() {
 												<!-- 대출가능 여부 [ END ] -->
 											</p>
 <!--
-											JU : 아동, MS : 중학생, AD : 성인, PU : 일반, ES : 초등, HS : 고등, SP : 특수, 기타 : 
+											JU : 아동, MS : 중학생, AD : 성인, PU : 일반, ES : 초등, HS : 고등, SP : 특수, 기타 :
 											-->
 											<c:if test="${not empty i.APPENDIX_INFO}">
 											<p><font style="color:#5e5e5e">부록여부</font> : ${i.APPENDIX_INFO[0].DESCRIPTION} (${i.APPENDIX_INFO[0].APPENDIX_CNT}개)</p>
 											</c:if>
 											<p>
-											<font style="color:#5e5e5e">이용대상</font> : 
+											<font style="color:#5e5e5e">이용대상</font> :
 														<c:choose>
 															<c:when test="${i.USE_OBJECT_CODE eq 'JU'}">
 																<span style="">아동</span>
@@ -587,7 +605,7 @@ $(function() {
 									<div class="item">
 										<div class="bif">
 
-										<input name="print_param" type="checkbox" class="checkBook" value="${fn:escapeXml(i.ST_CODE)}_${fn:escapeXml(i.MANAGE_CODE)}"/>
+										<input name="print_param" type="checkbox" class="checkBook" value="${i.TITLE_INFO}^^^${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}^^^${fn:escapeXml(i.MANAGE_CODE)}^^^${fn:escapeXml(i.REG_NO)}^^^${fn:escapeXml(param.menu_idx)}"/>
 
 											<a href="${detailURL}" class="name">
 												<c:if test="${i.MEDIA_CODE eq 'PR'}">[도서]</c:if>
