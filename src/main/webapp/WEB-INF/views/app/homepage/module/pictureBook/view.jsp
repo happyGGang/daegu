@@ -42,7 +42,7 @@ dl#author dt {float: left;width: 65px;margin-bottom: 15px;background: url(/img/c
 dl#author dd {float: left;width: 140px;margin-bottom: 15px;padding: 0 15px;}
 .book-desc {margin: 20px 0 40px;}
 .calendar-box #req-year {display:block;padding-left: 30px;background: url(/resources/common/img/calendar-icon.gif) no-repeat;font-size: 21px;font-weight: bold;color: #222;margin-bottom: 20px;}
-.calendar-box>div {display:inline-block;width: 130px;height: 120px;margin-right: 10px;vertical-align: top;padding-bottom: 25px;}
+.calendar-box>div {display:inline-block;width: 130px;height: 140px;margin-right: 10px;vertical-align: top;padding-bottom: 25px;}
 .calendar-box>div>span.req-month {width: 130px;margin-bottom: 10px;border-radius: 5px;background: #e8f2f7;text-align: center;font-weight: bold;line-height: 40px;color: #333;display: block;}
 .btn-box a{display: block;width: 128px;height: 34px;border-radius: 5px;font-size: 13px;font-weight: bold;line-height: 34px;letter-spacing: -0.05em;text-align: center;}
 .btn-box a.apply-req {border: 1px solid #8dd3f6;color: #1ba8ed;}
