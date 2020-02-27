@@ -46,16 +46,13 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 
 <form:form id="reqHopeForm" modelAttribute="librarySearch" action="save.do" method="post">
 	<form:hidden path="editMode" value="ADD"/>
+	<input type="hidden" name="manageCode" value="${homepage.manage_code}"/>
 	<table class="edit">
 		<tbody>
 		<!-- 신청도서관 부분 추가 : 한개의 검색대에서 두개 이상의 도서관이 존재하여 신청 도서관을 선택해야하는 경우를 생각하여 CMS관리자에서 신청도서관 설정할수 있도록 하는게 맞을것 같음.  -->
 		<tr>
 			<th>신청도서관 <em><font color="red">(*)</font></em></th>
-			<td>
-				<form:select path="manageCode">
-					<form:option value="${homepage.manage_code}">${homepage.homepage_name}</form:option>
-				</form:select>
-			</td>
+			<td>${homepage.homepage_name}</td>
 		</tr>
 		<!-- 신청도서관 부분 추가 -->
 		<tr>
