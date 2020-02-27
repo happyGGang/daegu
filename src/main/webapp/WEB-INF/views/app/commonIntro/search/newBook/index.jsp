@@ -44,6 +44,7 @@ $(function() {
 <form:form modelAttribute="librarySearch" action="index.do" method="GET" onsubmit="return false;">
 	<form:hidden path="viewPage"/>
 	<form:hidden path="menu_idx"/>
+	<form:hidden path="subjectCode"/>
 
 	<!-- contents-title-->
 	<div id="contents-title">
