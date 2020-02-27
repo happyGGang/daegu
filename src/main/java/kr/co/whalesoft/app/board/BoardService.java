@@ -741,11 +741,14 @@ public class BoardService extends BaseService {
 	 * @return
 	 */
 	public Map<String, Object> getBoardLibInfoCategoryCount(Board board) {
+		String c2 = board.getCategory2();
+		board.setCategory2("");
 		List<Map<String, Object>> list = dao.getBoardLibInfoCategoryCount(board);
 		 Map<String, Object> map = new HashMap<String, Object>();
 		for (Map<String, Object> m : list) {
 			map.put((String) m.get("CATEGORY2"), m.get("CNT"));
 		}
+		board.setCategory2(c2);
 
 		return map;
 	}
