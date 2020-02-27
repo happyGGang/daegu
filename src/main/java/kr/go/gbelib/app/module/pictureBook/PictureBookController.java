@@ -44,7 +44,7 @@ public class PictureBookController extends BaseController {
 	public String index(Model model, PictureBook pictureBook, HttpServletRequest request, @PathVariable("url") String url) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		
-		service.setPaging(model, service.getPictureBookCount(pictureBook), pictureBook);
+//		service.setPaging(model, service.getPictureBookCount(pictureBook), pictureBook);
 		
 		model.addAttribute("pictureBook", pictureBook);
 		model.addAttribute("pictureBookList", service.getPictureBookList(pictureBook));

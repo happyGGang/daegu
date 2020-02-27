@@ -26,7 +26,7 @@ $(function() {
 	
 	$('.view-btn').on('click', function(e) {
 		e.preventDefault();
-		var formData = 'editMode=ADD&menu_idx='+$('#menu_idx').val() + '&pay_yn='+$('#pay_yn').val() + '&viewPage='+$('#viewPage').val() + '&picture_book_idx='+$(this).attr('keyValue') + '&loan_year='+$(this).attr('keyValue2');
+		var formData = 'editMode=ADD&menu_idx='+$('#menu_idx').val() + '&pay_yn='+$('#pay_yn').val() + '&picture_book_idx='+$(this).attr('keyValue') + '&loan_year='+$(this).attr('keyValue2');
 		doGetLoad('view.do', formData)
 	});
 	
@@ -194,9 +194,9 @@ div.pay-ul ul {list-style: disc;padding-left: 20px;margin-bottom: 30px;font-weig
 	</c:if>
 </div>
 
-<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
-	<jsp:param name="formId" value="#pictureBook"/>
-</jsp:include>
+<%-- <jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false"> --%>
+<%-- 	<jsp:param name="formId" value="#pictureBook"/> --%>
+<%-- </jsp:include> --%>
 
 <div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 	<fieldset>

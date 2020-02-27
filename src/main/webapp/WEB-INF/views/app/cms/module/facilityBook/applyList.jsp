@@ -115,7 +115,7 @@ $(function() {
 				</c:forEach>
 				<c:if test="${fn:length(applyList) < 1}">
 					<tr>
-						<td colspan="5">데이터가 존재하지 않습니다.</td>
+						<td colspan="6">데이터가 존재하지 않습니다.</td>
 					</tr>
 				</c:if>
 			</tbody>

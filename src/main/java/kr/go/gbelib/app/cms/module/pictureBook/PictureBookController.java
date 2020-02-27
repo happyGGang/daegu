@@ -38,7 +38,7 @@ public class PictureBookController extends BaseController {
 	@RequestMapping (value = {"/index{url}.*"}, method = RequestMethod.GET)
 	public String index(Model model, PictureBook pictureBook, HttpServletRequest request, @PathVariable("url") String url) {
 		
-		service.setPaging(model, service.getPictureBookCount(pictureBook), pictureBook);
+//		service.setPaging(model, service.getPictureBookCount(pictureBook), pictureBook);
 		
 		model.addAttribute("pictureBook", pictureBook);
 		model.addAttribute("pictureBookList", service.getPictureBookList(pictureBook));

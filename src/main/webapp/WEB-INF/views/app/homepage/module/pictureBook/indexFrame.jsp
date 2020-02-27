@@ -26,7 +26,7 @@ $(function() {
 	
 	$('.view-btn').on('click', function(e) {
 		e.preventDefault();
-		var formData = 'editMode=ADD&menu_idx='+$('#menu_idx').val() + '&pay_yn='+$('#pay_yn').val() + '&viewPage='+$('#viewPage').val() + '&picture_book_idx='+$(this).attr('keyValue') + '&loan_year=2020';
+		var formData = 'editMode=ADD&menu_idx='+$('#menu_idx').val() + '&pay_yn='+$('#pay_yn').val() + '&picture_book_idx='+$(this).attr('keyValue') + '&loan_year=2020';
 		doGetLoad('viewFrame.do', formData)
 	});
 	
@@ -51,7 +51,7 @@ $(function() {
 .month-txt ul {height: 30px;list-style-type: disc;}
 .month-txt ul li:first-child {float: right;color: #888;margin-left: 35px;}
 .month-txt ul li:nth-child(2) {float: right;color: #fd5c4a;margin-left: 35px;}
-.group-box {position: relative;display: inline-block;padding: 10px;border: 1px solid #e5e5e5;width: 198px; text-align: center;}
+.group-box {position: relative;display: inline-block;padding: 10px;border: 1px solid #e5e5e5;width: 22.3%; text-align: center;margin: 5px 0;}
 .img-box {display:inline-block;width: 120px;height: 170px;border: 1px solid #ccc;padding: 0;}
 .book-desc {margin: 20px 0;}
 .keyword-box {border-top: 1px dashed #e5e5e5;padding-top: 15px;}
@@ -157,10 +157,10 @@ div.pay-ul ul {list-style: disc;padding-left: 20px;margin-bottom: 30px;font-weig
 	</c:if>
 </div>
 
-<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
-	<jsp:param name="formId" value="#pictureBook"/>
-	<jsp:param name="pagingUrl" value="indexFrame.do"/>
-</jsp:include>
+<%-- <jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false"> --%>
+<%-- 	<jsp:param name="formId" value="#pictureBook"/> --%>
+<%-- 	<jsp:param name="pagingUrl" value="indexFrame.do"/> --%>
+<%-- </jsp:include> --%>
 
 <div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 	<fieldset>
