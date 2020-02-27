@@ -153,7 +153,7 @@ do {
 									</a>
 								</li>
 								<li class="bg-white">
-									<a href="#">
+									<a href="/${homepage.context_path}/elibsso.do?menu_idx=46">
 									<img src="/resources/homepage/${homepage.context_path}/img/quick04-bg.png" class="mi">
 									<span class="wt">전자도서관</span>
 									<span class="wc">전자책,e러닝 등<Br/>다양한 디지털 콘텐츠</span>

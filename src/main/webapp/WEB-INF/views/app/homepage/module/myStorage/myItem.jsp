@@ -6,26 +6,27 @@
 $(function(){
 	$('a.delete-btn').on('click', function(e) {
 		e.preventDefault();
-		
+
 		if ( confirm('해당 자료를 정말 삭제 하시겠습니까?') ) {
 			$('#itemDeleteForm #storage_idx').val($(this).attr('keyValue1'));
 			$('#itemDeleteForm #item_idx').val($(this).attr('keyValue2'));
-			
+
 			if ( doAjaxPost($('#itemDeleteForm')) ) {
 				$('#itemLayer').load('getItemList.do?homepage_id=${myStorage.homepage_id}&storage_idx=' + $(this).attr('keyValue1'));
-			}	
+			}
 		}
 	});
-	
+
 	$('a.detail-btn').on('click', function(e) {
 		e.preventDefault();
 		var loca = $(this).attr('keyValue1');
 		var ctrl_no = $(this).attr('keyValue2');
 		var img_url = $(this).attr('keyValue3');
+		var booktype = $(this).attr('keyValue4');
 		var item_type = $(this).attr('itemType');
 		if (item_type == '1') {
-			var param = 'vLoca=' + loca + '&vCtrl=' + ctrl_no + '&vImg=' + img_url;
-			window.open("/${homepage.context_path}/intro/search/detailPopup.do?" + param, "", "width=600, height=500");
+			var param = 'menu_idx=' + img_url + '&regNo=' + ctrl_no + '&manageCode=' + loca + '&booktype=' + booktype;
+			window.open("/${homepage.context_path}/intro/search/detail.do?" + param, "");
 		} else {
 // 			window.open("/${homepage.context_path}/intro/search/detailPopup.do?" + param, "", "width=600, height=500");
 			location.href = img_url;
@@ -65,7 +66,7 @@ $(function(){
 								<%-- <td >${i.author}</td>
 								<td >${i.publer}</td> --%>
 								<td width="">
-									<a class="btn btn detail-btn" itemType="${i.item_type}" keyValue1="${i.loca}" keyValue2="${i.ctrl_no}" keyValue3="${i.img_url}">상세보기</a>
+									<a class="btn btn detail-btn" itemType="${i.item_type}" keyValue1="${i.loca}" keyValue2="${i.ctrl_no}" keyValue3="${i.img_url}" keyValue4="${i.publer}">상세보기</a>
 									<a class="btn btn delete-btn" itemType="${i.item_type}" keyValue1="${i.storage_idx}" keyValue2="${i.item_idx}">삭제</a>
 								</td>
 							</tr>
@@ -75,4 +76,4 @@ $(function(){
 			</table>
 		</div>
 	</div>
-</div>	
+</div>

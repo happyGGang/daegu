@@ -162,7 +162,7 @@ function searchCheck() {
 								<img src="/resources/homepage/nambu/img/m_icon02.png" class="mi"></a>
 							</li>
 							<li class="bg-background01">
-								<a href="#" target="_blank">
+								<a href="/${homepage.context_path}/elibsso.do?menu_idx=46">
 								<span class="wt">대구<br class="qmobileBr"/>전자도서관</span>
 								<span class="wc">대구시민의 스마트한<br>독서생활이 시작되는 곳</span>
 								</a>
@@ -268,7 +268,7 @@ function searchCheck() {
 								</li>
 								</c:if>
  								<%--공지사항 상단--%>
-
+								<div class="end"></div>
  								<%--공지사항 목록--%>
  								<c:forEach var="i" varStatus="status" items="${noticeList}" >
 								<li>

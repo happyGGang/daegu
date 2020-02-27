@@ -161,7 +161,7 @@ do {
 									</a>
 								</li>
 								<li class="bg-lgreen">
-									<a href="http://e-lib.tglnet.or.kr/daegu/home/main.jsp" target="_blank">
+									<a href="/${homepage.context_path}/elibsso.do?menu_idx=46">
 									<span class="wt">대구전자도서관</span>
 									<span class="wc">전자책, 오디오북 등 디지털콘텐츠</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick03-bg.png" class="mi">
@@ -427,6 +427,7 @@ do {
 
 	</div>
 
+	<!-- 퀵메뉴 분리 20200226 -->
 	<div id="quick-slide">
 		<h4><img src="/resources/homepage/${homepage.context_path}/img/quick-title.png" alt="퀵메뉴"/></h4>
 		<ul>
