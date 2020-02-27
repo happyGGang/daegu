@@ -14,6 +14,7 @@
 			AND	${search_type} LIKE '%'||#{search_text}||'%'
 			</if>
 		</trim>
+		ORDER BY add_date DESC
 		${pagingBottom}
 	</select>
 	
