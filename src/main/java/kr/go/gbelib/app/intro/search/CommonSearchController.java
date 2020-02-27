@@ -143,6 +143,65 @@ public class CommonSearchController extends BaseController {
 		return String.format(basePath, homepage.getFolder()) + "index";
 	}
 
+	@RequestMapping(value = {"/indexAll.*"})
+	public String indexAll(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
+		Homepage homepage = getSessionHomepage(request);
+
+		List<Homepage> normalHomepage = homepageService.getNormalHomepage();
+		// 소장처 코드
+		if ( librarySearch.getLibraryCodes() == null ) {
+			List<String> libraryCodes = new ArrayList<String>();
+			libraryCodes.add("ALL");
+			for (Homepage home : normalHomepage) {
+				libraryCodes.add(home.getManage_code());
+			}
+			librarySearch.setLibraryCodes(libraryCodes);
+		}
+
+		if (StringUtils.isNotEmpty(librarySearch.getBooktype())) {
+			Map<String, Object> result = new HashMap<String, Object>();
+
+			if ( librarySearch.getBooktype().equals("BOOK") ) {
+				result = LibSearchAPI.getBookDetail(librarySearch);
+			} else if (librarySearch.getBooktype().equals("NONBOOK")) {
+				result = LibSearchAPI.getNonBookDetail(librarySearch);
+			} else if (librarySearch.getBooktype().equals("SERIAL")) {
+				result = LibSearchAPI.getSerialDetail(librarySearch);
+			} else if (librarySearch.getBooktype().equals("BOOKANDNONBOOK")) {
+				result = LibSearchAPI.getBookAndNonbookDetail(librarySearch);
+			}
+
+			List<Map<String, Object>> list = null;
+
+			int count = LibSearchAPI.getSearchCount(result);
+
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
+
+			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+				list = LibSearchAPI.getListData(result);
+
+				//알라딘 API 결과 가져오기
+				for (Map<String, Object> map : list) {
+					if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+						Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+						if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+							map.put("aladin", aladinData.get("item"));
+						}
+					}
+				}
+			}
+
+			model.addAttribute("bookSearch", list);
+			model.addAttribute("facetGroup", LibSearchAPI.getFacetGroup(result));
+		}
+
+		model.addAttribute("homepageList", normalHomepage);
+		model.addAttribute("librarySearch", librarySearch);
+
+		return String.format(basePath, homepage.getFolder()) + "indexAll";
+	}
+
 	/**
 	 * 자료 상세페이지
 	 * @author whalesoft YONGJU 2019. 11. 29.

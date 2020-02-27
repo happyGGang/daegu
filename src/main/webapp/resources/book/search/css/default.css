@@ -382,6 +382,10 @@ a.bBtn:hover {background:#0961ce}
 .warningTxt {padding:10px 0;font-size:18px}
 .hopeWarning {border:1px solid #adb5c0;border-radius:5px;box-sizing:border-box;padding:20px;font-size:15px}
 
+.search_result .result-count-library {box-sizing:border-box;margin:20px 0 0 0;padding:20px;border:1px solid #b4b4b4}
+.search_result .result-count-library li {width:24.5%;display:inline-block}
+.search_result .result-count-library li a {font-size:15px;font-weight:normal}
+
 /* .sview{border-top:2px solid #5e6062} */
 .sview h4{font-size:130%;font-weight:bold;padding:10px 0}
 .sview .sinfo{margin:15px 0;background:#fffef9;overflow:hidden;padding: 25px 40px;border: 1.5px solid #f6f7e5;}
@@ -405,6 +409,7 @@ a.bBtn:hover {background:#0961ce}
 
 @media all and (max-width:1040px){
 	a.bBtn {width:49.3%;float:none;}
+	.search_result .result-count-library li {width:32%;}
 }
 @media all and (max-width:1000px){
 	.sview .sinfo{padding-left:5%;padding-right:5%}
@@ -414,11 +419,25 @@ a.bBtn:hover {background:#0961ce}
 	a.bBtn {width:49%;float:none;}
 	.search-wrap .search-results .row .item p .mobileBr {display:block}
 	.webGuideLine {display:none;}
+	.search_result .result-count-library li a {font-size:13px;font-weight:normal}
 }
+
+@media all and (max-width:649px){
+	.search_result .result-count-library li {width:49%;}
+}
+
 @media all and (max-width:540px){
 	.sview .sinfo .info ul li{font-size:13px}
 	.bookDetailInfo .bookDetailInfoTbl {font-size:13px}
 	a.bBtn {width:100%;float:none;}
+}
+
+@media all and (max-width:425px){
+	.search_result .result-count-library li a {font-size:12px;font-weight:normal}
+}
+
+@media all and (max-width:375px){
+	.search_result .result-count-library li {width:100%;}
 }
 
 /* 소장자료_2018.07.16 추가 */

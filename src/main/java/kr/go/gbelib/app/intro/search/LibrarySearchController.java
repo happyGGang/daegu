@@ -126,6 +126,7 @@ public class LibrarySearchController extends BaseController {
     		}
 
     		model.addAttribute("bookSearch", list);
+    		model.addAttribute("facetGroup", LibSearchAPI.getFacetGroup(result));
 		}
 
 		model.addAttribute("homepageList", normalHomepage);
@@ -188,6 +189,7 @@ public class LibrarySearchController extends BaseController {
 			}
 
 			model.addAttribute("bookSearch", list);
+			model.addAttribute("facetGroup", LibSearchAPI.getFacetGroup(result));
 		}
 
 		model.addAttribute("homepageList", normalHomepage);

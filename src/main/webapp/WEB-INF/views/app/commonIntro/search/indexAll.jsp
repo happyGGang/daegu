@@ -267,6 +267,7 @@ $(function() {
 
 <form:form modelAttribute="librarySearch" action="indexAll.do" method="get">
 	<form:hidden path="viewPage"/>
+	<form:hidden path="menu_idx"/>
 
 <div class="search-wrap">
 
@@ -466,12 +467,12 @@ $(function() {
 			</div>
 			-->
 			<div class="info-box">
-				<div class="section1">
+				<div class="section3">
 					<div class="info-box-title">
 						아래는 구군립 도서관 검색 목록입니다. 구군립도서관 검색을 위해서는 아래 안내에 따라 이용을 부탁드립니다.
 					</div>
 				</div>
-				<div class="section2">
+				<div class="section4">
 					<div class="etc-db">
 						<span class="tt2">대구광역시 <br class="web-br"/>구군립도서관</span> <span class="tc2">아래는 구군립 도서관 목록입니다. 구군립 도서관 자료검색을 원하시면 <a href="#" target="_blank">'여기'</a>를 눌러 주세요<br/><p>안심도서관,신천도서관,서구어린이도서관,비산도서관,서구영어도서관,비원도서관,원고개도서관,대명어울림도서관,이천어울림도서관,구수산도서관,대현도서관,태전도서관,범어도서관,용학도서관,고산도서관,책숲길도서관,물망이도서관,파동도서관,무학도서관,도원도서관,달서어린이,성서도서관,본리도서관,달서가족문화도서관,달서영어도서관,달성군립도서관</p></span>
 						<div id="main_db_table_groups" class="main-db-table-groups"></div>
