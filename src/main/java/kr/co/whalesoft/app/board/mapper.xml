@@ -705,6 +705,9 @@
 		AND	imsi_v_1 >= TO_CHAR(SYSDATE, 'YYYY-MM')
 		AND	imsi_v_2 >= TO_CHAR(SYSDATE, 'DD')
 		</if>
+		<if test='dept_cd != null and dept_cd == "PORTAL"'>
+		AND	imsi_v_1 = TO_CHAR(SYSDATE, 'YYYY-MM')
+		</if>
 		ORDER BY board_idx DESC
 		${pagingBottom}
 	</select>

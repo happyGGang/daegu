@@ -387,7 +387,7 @@ public class IndexController extends BaseController {
 
 		model.addAttribute("recommendBookMenuIdx", menu_idx);
 		model.addAttribute("recommendBookContextPath", bookHomepage.getContext_path());
-		model.addAttribute("recommendBookList", boardService.getBoardByMain(manage_idx, 10, "BOOK"));
+		model.addAttribute("recommendBookList", boardService.getBoardByMain(manage_idx, 2, "PORTAL"));
 
 		return basePath + homepage.getFolder() + "/recommendBook_ajax";
 	}
