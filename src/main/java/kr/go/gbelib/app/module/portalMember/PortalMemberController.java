@@ -82,7 +82,8 @@ public class PortalMemberController extends BaseController {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		
 		request.getSession().invalidate();
-		String redirectURL = request.isSecure() ? "https://" : "http://" + request.getServerName() + "/" + homepage.getContext_path();
+		String redirectURL = (request.isSecure() ? "https://" : "http://") + request.getServerName() + "/" + homepage.getContext_path();
+		
 		return "redirect:" + redirectURL + "/index.do";
 	}
 
