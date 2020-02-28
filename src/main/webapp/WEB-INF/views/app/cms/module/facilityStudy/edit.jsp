@@ -44,6 +44,13 @@ $(function() {
 	$('input#study_date').datepicker({
 		minDate : 0
 	});
+	
+	
+	$('#man_count, #woman_count').on('change', function() {
+		var count = parseInt($('#apply_count').text());
+		count = parseInt($('#man_count').val()) + parseInt($('#woman_count').val());
+		$('#apply_count').text(count);
+	});
 
 });
 
@@ -115,12 +122,23 @@ $(function() {
 	        <tr>
 				<th>참여인원</th>
 				<td>
-					<form:select path="apply_count">
+					남:
+					<form:select path="man_count">
+						<form:option value="0">0명</form:option>
+						<form:option value="2">2명</form:option>
+						<form:option value="4">4명</form:option>
+						<form:option value="6">6명</form:option>
+						<form:option value="8">8명</form:option>
+					</form:select>/
+					여:
+       				<form:select path="woman_count">
+						<form:option value="0">0명</form:option>
 						<form:option value="2">2명</form:option>
 						<form:option value="4">4명</form:option>
 						<form:option value="6">6명</form:option>
 						<form:option value="8">8명</form:option>
 					</form:select>
+					총 <span id="apply_count">0</span>명
 				</td>
 			</tr>
 	        <tr>
