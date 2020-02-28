@@ -2,8 +2,11 @@ package kr.go.gbelib.app.cms.module.facilityBook;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
@@ -19,6 +22,8 @@ import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
+import kr.go.gbelib.app.cms.module.bookPackage.BookPackage;
+import kr.go.gbelib.app.cms.module.bookPackage.BookPackageView;
 
 @Controller
 @RequestMapping(value = {"/cms/module/facilityBook"})
@@ -196,6 +201,16 @@ public class FacilityBookController extends BaseController {
 		model.addAttribute("applyList", service.getFacilityBookAll(facilityBook));
 
 		return basePath + "applyList_ajax";
+	}
+	
+	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
+	public FacilityBookView excel(Model model, FacilityBook facilityBook, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		List<FacilityBook> facilityBookList = service.getApplyList(facilityBook);
+		
+		model.addAttribute("bookPackage", facilityBook);
+		model.addAttribute("facilityBookList", facilityBookList);
+
+		return new FacilityBookView();
 	}
 	
 }

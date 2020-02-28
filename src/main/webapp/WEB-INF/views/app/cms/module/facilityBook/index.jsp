@@ -135,6 +135,22 @@ $(function() {
 	});
 	
 	
+	$('a#excel-btn').on('click', function(e) {
+		e.preventDefault();
+		if(parseInt('${fn:length(applyList)}') > 0) {
+			$('#editMode').val('EXCEL');
+			$('#facilityBookListForm').attr('method', 'POST');
+			$('#facilityBookListForm').attr('action', 'excelDownload.do').submit();
+			$('form#facilityBookListForm').submit();
+			
+			$('#facilityBookListForm').attr('method', 'GET');
+			$('#facilityBookListForm').attr('action', 'index.do');
+		} else {
+			alert('해당 내역이 없습니다.');
+		}
+	});
+	
+	
 	$('#apply_list_box').load('applyList.do?'+$('#facilityBookListForm').serialize(), function(response, status, xhr) {});
 
 	$('td.top').height(150);
@@ -152,6 +168,7 @@ $(function() {
 	        <a id="next-btn" href="#next" class="btn next"><i class="fa fa-angle-right"></i><span class="blind">다음달</span></a>
 	    </div>
 	    <div class="button">
+	    	<a href="#" id="excel-btn" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>EXCEL</span></a>
 			<a href="" class="btn btn5 left" id="dialog-close"><i class="fa fa-plus"></i><span>휴관일</span></a>
 		</div>
 	</div>

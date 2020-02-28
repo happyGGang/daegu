@@ -51,6 +51,15 @@ $(function() {
 			}
 		}
 	});
+	
+	$('#all_check').on('click', function() {
+		if($(this).prop('checked')) {
+			$('input[name=facility_book_arr]').prop('checked', true);
+		} else {
+			$('input[name=facility_book_arr]').prop('checked', false);
+		}
+	});
+	
 });
 </script>
 <form:form modelAttribute="facilityBook" id="facilityBookStatus" action="save.do" method="POST">
@@ -65,7 +74,7 @@ $(function() {
 	<div class="table-wrap">
 		<table class="type1 center">
 			<colgroup>
-				<col width="60"/>
+				<col width="50"/>
 				<col width="100"/>
 				<col width="200"/>
 				<col width="250"/>
@@ -74,7 +83,9 @@ $(function() {
 			</colgroup>
 			<thead>
 				<tr>
-					<th>선택</th>
+					<th>
+						<input type="checkbox" id="all_check">
+					</th>
 					<th>번호</th>
 					<th>신청인</th>
 					<th>시설명</th>
