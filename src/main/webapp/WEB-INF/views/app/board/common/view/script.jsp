@@ -72,12 +72,24 @@ $(document).ready(function() {
     	}
 	});
 
+
     <%-- 목록가기 --%>
 	$('a#board_index_btn').on('click', function(e) {
 		e.preventDefault();
+		<c:choose>
+		<c:when test="${boardManage.manage_idx == 282 or boardManage.manage_idx == 195}">
+		var url = 'index.do';
+		$('input#manage_idx').val('282');
+		var formData = serializeParameter(['manage_idx', 'menu_idx', 'category1', 'rowCount', 'viewPage', 'search_type', 'search_text']);
+		doGetLoad(url, formData);
+		</c:when>
+		<c:otherwise>
 		var url = 'index.do';
 		var formData = serializeParameter(['manage_idx', 'menu_idx', 'category1', 'rowCount', 'viewPage', 'search_type', 'search_text']);
 		doGetLoad(url, formData);
+		</c:otherwise>
+		</c:choose>
+
 	});
 
 	<%-- 답변하기 --%>
@@ -201,7 +213,7 @@ $(document).ready(function() {
 	if('${boardManage.comment_use_yn}' == 'Y') {
 		var url = '/board/boardComment/index.do';
 		var formData = 'board_idx=${board.board_idx}&manage_idx=${board.manage_idx}';
-		doAjaxLoad('div#bbs-comment', url, formData);		
+		doAjaxLoad('div#bbs-comment', url, formData);
 	} else {
 		$('a[href="#bbs-comment"]').hide();
 	}
