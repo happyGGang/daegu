@@ -162,13 +162,13 @@
 										<if test="manage_idx == 282">
 										board_type = 'NOTICE'
 										AND	homepage_id != 'h30'
-										<if test="homepage_id != null and homepage_id != 'h1'">
+										<if test="homepage_id != null and homepage_id != 'h32'">
 										AND	homepage_id = #{homepage_id}
 										</if>
 										</if>
 										<if test="manage_idx == 523">
 										board_type = 'NEWS'
-										<if test="homepage_id != null and homepage_id != 'h1'">
+										<if test="homepage_id != null and homepage_id != 'h32'">
 										AND	homepage_id = #{homepage_id}
 										</if>
 										</if>
@@ -878,13 +878,13 @@
 								<if test="manage_idx == 282">
 								board_type = 'NOTICE'
 								AND	homepage_id != 'h30'
-								<if test="homepage_id != null and homepage_id != 'h1'">
+								<if test="homepage_id != null and homepage_id != 'h32'">
 								AND	homepage_id = #{homepage_id}
 								</if>
 								</if>
 								<if test="manage_idx == 523">
 								board_type = 'NEWS'
-								<if test="homepage_id != null and homepage_id != 'h1'">
+								<if test="homepage_id != null and homepage_id != 'h32'">
 								AND	homepage_id = #{homepage_id}
 								</if>
 								</if>
@@ -1767,7 +1767,7 @@
 			FROM CMS_BOARD
 			WHERE 1=1
 			<if test="homepage_id != 'ALL'">
-				AND manage_idx in (select manage_idx from cms_board_manage where homepage_id = 'h1')
+				AND manage_idx in (select manage_idx from cms_board_manage where homepage_id = 'h32')
 			</if>
 			<if test="date_type == 'DAY'">
 				AND add_date BETWEEN TO_DATE(#{start_date}||' 00:00:00', 'yyyy-mm-dd hh24:mi:ss') AND TO_DATE(#{end_date}||' 23:59:59', 'yyyy-mm-dd hh24:mi:ss')
