@@ -53,7 +53,7 @@ $(function() {
 		doGetLoad('index.do', $('form#pictureBook').serialize());
 	});
 	
-	$('select#category, select#rowCount').on('change', function() {
+	$('select#category').on('change', function() {
 		$('#viewPage').val(1);
 		doGetLoad('index.do', $('form#pictureBook').serialize());
 	});
@@ -106,14 +106,6 @@ ul.select-month li a.loan-ing {display: block;color: #fff;background-color: #ff5
 		<form:option value="">원화유형별보기</form:option>
 		<form:option value="18">글 있음</form:option>
 		<form:option value="17">글 없음</form:option>
-	</form:select>
-	<form:select path="rowCount" cssClass="selectmenu">
-		<form:option value="10">10개씩보기</form:option>
-		<form:option value="20">20개씩보기</form:option>
-		<form:option value="30">30개씩보기</form:option>
-		<form:option value="50">50개씩보기</form:option>
-		<form:option value="100">100개씩보기</form:option>
-		<form:option value="${paging.totalDataCount}">전체 보기</form:option>
 	</form:select>
 	<div class="button">
 		<a href="#" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>

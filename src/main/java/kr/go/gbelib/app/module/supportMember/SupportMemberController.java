@@ -72,7 +72,7 @@ public class SupportMemberController {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		
 		request.getSession().invalidate();
-		String redirectURL = request.isSecure() ? "https://" : "http://" + request.getServerName() + "/" + homepage.getContext_path();
+		String redirectURL = (request.isSecure() ? "https://" : "http://") + request.getServerName() + "/" + homepage.getContext_path();
 		return "redirect:" + redirectURL + "/index.do";
 	}
 	
@@ -88,7 +88,7 @@ public class SupportMemberController {
 			sm.setSupport_member_idx(Integer.parseInt(String.valueOf(map.get("m_num"))));
 			sm.setSchool_name(String.valueOf(map.get("m_name")));
 			sm.setMember_id(String.valueOf(map.get("m_id")));
-			sm.setMember_password("575a524847727342455372387759465a3973783074505552755a6747326c6d7a797657707758504b7a38553d");
+			sm.setMember_password(String.valueOf(map.get("m_id")));
 			sm.setAuth_group(String.valueOf(map.get("m_level")));
 			
     		try {

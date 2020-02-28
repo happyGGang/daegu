@@ -23,7 +23,8 @@ public class FacilityStudy extends PagingUtils {
 	private String apply_phone2; // 휴대전화2
 	private String study_name; // 모임명
 	private String study_purpose; // 신청목적
-	private int apply_count; // 참여인원
+	private int man_count;	// 남자인원
+	private int woman_count; // 여자인원
 	private String apply_list; // 참가자명단
 	private Date apply_date; // 신청일시
 	private String apply_status; // 신청상태 0:대기, 1:승인, 2:취소
@@ -110,13 +111,21 @@ public class FacilityStudy extends PagingUtils {
 	public void setStudy_purpose(String study_purpose) {
 		this.study_purpose = study_purpose;
 	}
-
-	public int getApply_count() {
-		return apply_count;
+	
+	public int getMan_count() {
+		return man_count;
+	}
+	
+	public void setMan_count(int man_count) {
+		this.man_count = man_count;
 	}
 
-	public void setApply_count(int apply_count) {
-		this.apply_count = apply_count;
+	public int getWoman_count() {
+		return woman_count;
+	}
+
+	public void setWoman_count(int woman_count) {
+		this.woman_count = woman_count;
 	}
 
 	public String getApply_list() {

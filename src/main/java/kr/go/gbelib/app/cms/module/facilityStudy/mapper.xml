@@ -36,7 +36,7 @@
 		SELECT
 			homepage_id, study_idx, study_num, study_date, study_time,
 			apply_name, apply_password, apply_phone1, apply_phone2, study_name,
-			study_purpose, apply_count, apply_list, apply_date, apply_status,
+			study_purpose, man_count, woman_count, apply_list, apply_date, apply_status,
 			cancel_reason
 		FROM
 			FACILITY_STUDY
@@ -52,7 +52,7 @@
 		SELECT
 			homepage_id, study_idx, study_num, study_date, study_time,
 			apply_name, apply_password, apply_phone1, apply_phone2, study_name,
-			study_purpose, apply_count, apply_list, apply_date, apply_status,
+			study_purpose, man_count, woman_count, apply_list, apply_date, apply_status,
 			cancel_reason
 		FROM
 			FACILITY_STUDY
@@ -124,13 +124,13 @@
 		(
 			homepage_id, study_idx, study_num, study_date, study_time,
 			apply_name, apply_password, apply_phone1, apply_phone2, study_name,
-			study_purpose, apply_count, apply_list, apply_date, apply_status
+			study_purpose, man_count, woman_count, apply_list, apply_date, apply_status
 		)
 			VALUES
 		(
 			#{homepage_id}, #{study_idx}, #{study_num}, #{study_date}, #{study_time},
 			#{apply_name}, #{apply_password}, #{apply_phone1}, #{apply_phone2}, #{study_name},
-			#{study_purpose}, #{apply_count}, #{apply_list}, SYSDATE, '0'
+			#{study_purpose}, #{man_count}, #{woman_count}, #{apply_list}, SYSDATE, '0'
 		)
 	</insert>
 
@@ -138,7 +138,7 @@
 		SELECT
 			homepage_id, study_idx, study_num, study_date, study_time,
 			apply_name, apply_password, apply_phone1, apply_phone2, study_name,
-			study_purpose, apply_count, apply_list, apply_date, apply_status,
+			study_purpose, man_count, woman_count, apply_list, apply_date, apply_status,
 			cancel_reason
 		FROM
 			FACILITY_STUDY
@@ -161,7 +161,8 @@
 			apply_phone2 = #{apply_phone2},
 			study_name = #{study_name},
 			study_purpose = #{study_purpose},
-			apply_count = #{apply_count},
+			man_count = #{man_count},
+			woman_count = #{woman_count},
 			apply_list = #{apply_list}
 		WHERE
 			homepage_id = #{homepage_id}

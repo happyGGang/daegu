@@ -177,7 +177,7 @@ public class PictureBookController extends BaseController {
 				service.modifyPictureBookLoan(pictureBook);
 				res.setValid(true);
 				res.setMessage("수정되었습니다.");
-				res.setUrl("loanList.do");
+				res.setUrl("index.do");
 				res.setData(param);
 			} else if (pictureBook.getEditMode().equals("DELETE")) {
 				service.deletePictureBookLoan(pictureBook);
