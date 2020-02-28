@@ -22,8 +22,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManageService;
+import kr.co.whalesoft.app.cms.terms.Terms;
+import kr.co.whalesoft.app.cms.terms.TermsService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
@@ -45,6 +48,9 @@ public class FacilityStudyController extends BaseController {
 
 	@Autowired
 	private CalendarManageService calendarManageService;
+	
+	@Autowired
+	private TermsService termsService;
 
 	@RequestMapping (value = {"/index{url}.*"}, method = RequestMethod.GET)
 	public String index(Model model, FacilityStudy facilityStudy, HttpServletRequest request, @PathVariable ("url") String url) {
@@ -92,8 +98,11 @@ public class FacilityStudyController extends BaseController {
 			model.addAttribute("facilityStudy", service.copyObjectPaging(fs, service.getFacilityStudyOne(fs)));
 
 		} else {
+			//약관 연동부
+			Menu menuOne = (Menu)request.getAttribute("menuOne");
+			model.addAttribute("termsList", termsService.getTermsListInModule(new Terms(homepage.getHomepage_id(), menuOne.getManage_idx(), "module")));
+			
 			model.addAttribute("facilityStudy", fs);
-
 		}
 
 		return String.format(basePath, homepage.getFolder()) + "edit";
@@ -152,7 +161,10 @@ public class FacilityStudyController extends BaseController {
 			ValidationUtils.rejectIfStringLength(result, "study_name", 100, "모임명");
 			ValidationUtils.rejectIfEmpty(result, "study_purpose", "'신청목적' 필수 입력 항목입니다.");
 			ValidationUtils.rejectIfStringLength(result, "study_purpose", 500, "신청목적");
-			ValidationUtils.rejectIfEmpty(result, "apply_count", "'참여인원' 필수 입력 항목입니다.");
+			if(fs.getMan_count() == 0 && fs.getWoman_count() == 0) {
+    			result.rejectValue("man_count", "참여인원을 입력하세요.");
+    		}
+			
 			ValidationUtils.rejectIfEmpty(result, "apply_list", "'참가자명단' 필수 입력 항목입니다.");
 			ValidationUtils.rejectIfStringLength(result, "apply_list", 500, "참가자명단");
 
