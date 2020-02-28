@@ -124,8 +124,11 @@ table.bbs tr.notice{background:#f5f6f7}
 						<li class="lib05"><div><a href="#" class="libType" data-key="29"><span>학교도서관</span><b>${empty categoryCount['29'] ? '0' : categoryCount['29']}</b></a></div></li>
 						<li class="lib06"><div><a href="#" class="libType" data-key="28"><span>기타</span><b>${empty categoryCount['28'] ? '0' : categoryCount['28']}</b></a></div></li>
 					</ul>
-					<p> </p>
-<%-- 					<p>총 <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/></b>개의 도서관이 검색되었습니다.</p> --%>
+					<c:set var="libtotal" value="0"></c:set>
+					<c:forEach items="${categoryCount}" var="i">
+					<c:set var="libtotal" value="${libtotal + i.value}"></c:set>
+					</c:forEach>
+					<p>총 <b><fmt:formatNumber value="${libtotal}" pattern="#,###"/></b>개의 도서관이 검색되었습니다.</p>
 					</div>
 				</div>
 
