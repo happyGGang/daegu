@@ -73,8 +73,9 @@ public class SupportMemberService extends BaseService {
 		return dao.getMySqlList();
 	}
 
-	public int addParseTibero(SupportMember sm) {
-		return dao.addParseTibero(sm);
+	public int addParseTibero(SupportMember supportMember) {
+		supportMember.setMember_password(CalculateHashUtils.calculateHash(supportMember.getMember_password()));
+		return dao.addParseTibero(supportMember);
 	}
 	
 }
