@@ -168,9 +168,9 @@ function searchCheck() {
 								</a>
 							</li>
 							<li class="bg-green">
-								<a href="/${homepage.context_path}/html.do?menu_idx=110">
-								<span class="wt">독서회</span>
-								<span class="wc">독서와 토론이<br>있는 모임</span>
+								<a href="http://seat.daegu.go.kr/wb_booking/?LIB_CODE=5" target="_blank">
+								<span class="wt">좌석예약</span>
+								<span class="wc">디지털자료실<br>좌석예약</span>
 								<img src="/resources/homepage/nambu/img/m_icon03.png" class="mi"></a>
 							</li>
 							<li class="bg-background02">

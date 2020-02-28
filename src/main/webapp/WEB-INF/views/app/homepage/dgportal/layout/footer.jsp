@@ -27,8 +27,15 @@
 
 					<select id="recommendSite2" class="recommendSite2" style="color:#fff;">
 						<option value="" style="color:#000;">관련사이트</option>
-						<option value="http://www.daegu.go.kr" label="대구광역시청" style="color:#000;"></option>
-						<option value="http://www.dge.go.kr" label="대구광역시교육청" style="color:#000;"></option>
+						<option value="http://www.nl.go.kr/nl/" label="국립중앙도서관" style="color:#000;"></option>
+						<option value="https://www.nanet.go.kr/main.do" label="국회도서관" style="color:#000;"></option>
+						<option value="http://www.dlibrary.go.kr/JavaClient/jsp/ndli/index.jsp?LOGSTATUS=notok&NLSSOTOKEN=" label="국가전자도서관" style="color:#000;"></option>
+						<option value="https://library.scourt.go.kr/main.jsp" label="법원도서관" style="color:#000;"></option>
+						<option value="https://www.libsta.go.kr/" label="국가도서관통계시스템" style="color:#000;"></option>
+						<option value="https://www.kla.kr/jsp/main.do" label="한국도서관협회" style="color:#000;"></option>
+						<option value="https://www.mcst.go.kr/kor/main.jsp" label="문화체육관광부" style="color:#000;"></option>
+						<option value="https://www.data.go.kr/" label="공공데이터포털" style="color:#000;"></option>
+						<option value="https://www.gov.kr/portal/main" label="대한민국정부포털" style="color:#000;"></option>
 					</select>
 				</div>
 

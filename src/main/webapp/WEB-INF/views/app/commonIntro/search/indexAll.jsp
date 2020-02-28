@@ -466,17 +466,15 @@ $(function() {
 				</div>
 			</div>
 			-->
-			<div class="info-box">
+			<div class="info-boxes">
 				<div class="section3">
 					<div class="info-box-title">
-						아래는 구군립 도서관 검색 목록입니다. 구군립도서관 검색을 위해서는 아래 안내에 따라 이용을 부탁드립니다.
+						구군립도서관 검색을 위해서는 아래 안내에 따라 이용을 부탁드립니다.
 					</div>
 				</div>
 				<div class="section4">
 					<div class="etc-db">
 						<span class="tt2">대구광역시 <br class="web-br"/>구군립도서관</span> <span class="tc2">아래는 구군립 도서관 목록입니다. 구군립 도서관 자료검색을 원하시면 <a href="#" target="_blank">'여기'</a>를 눌러 주세요<br/><p>안심도서관,신천도서관,서구어린이도서관,비산도서관,서구영어도서관,비원도서관,원고개도서관,대명어울림도서관,이천어울림도서관,구수산도서관,대현도서관,태전도서관,범어도서관,용학도서관,고산도서관,책숲길도서관,물망이도서관,파동도서관,무학도서관,도원도서관,달서어린이,성서도서관,본리도서관,달서가족문화도서관,달서영어도서관,달성군립도서관</p></span>
-						<div id="main_db_table_groups" class="main-db-table-groups"></div>
-						<div id="main_db_table" class="main-db-table"></div>
 					</div>
 				</div>
 			</div>
@@ -527,19 +525,6 @@ $(function() {
 				<input id="subSearchText" placeholder="결과 내 재검색" class="text-area01" />
 				<a href="#" id="subSearch" class="btn">결과 내 재검색</a>
 			</div>
-
-			<!--
-			<div class="search-condition">
-
-				<div class="mode">
-					<ul>
-						<li><a href="#;" class="btn-View imgView on">이미지형 표지형 설정</a></li>
-						<li><a href="#;" class="btn-View listView">목록형 표지형 설정</a></li>
-					</ul>
-				</div>
-
-			</div>
-			 -->
 
 			<div class="smain">
 				<div class="box">
@@ -658,7 +643,7 @@ $(function() {
 												</c:choose>
 												<!-- 대출가능 여부 [ END ] -->
 											</p>
-<!--
+											<!--
 											JU : 아동, MS : 중학생, AD : 성인, PU : 일반, ES : 초등, HS : 고등, SP : 특수, 기타 :
 											-->
 											<c:if test="${not empty i.APPENDIX_INFO}">
@@ -783,231 +768,29 @@ $(function() {
 							</c:forEach>
 							<!-- 검색결과루프 끝 -->
 							<div id="cms_paging" class="dataTables_paginate">
-							<c:if test="${paging.firstPageNum > 0}">
-								<a href="" class="paginate_button previous" keyValue="${paging.firstPageNum}">처음</a>
-							</c:if>
-							<c:if test="${paging.prevPageNum > 0}">
-								<a href="" class="paginate_button previous" keyValue="${paging.prevPageNum}">이전</a>
-							</c:if>
-								<span>
-							<c:forEach var="i" varStatus="status" begin="${paging.startPageNum}" end="${paging.endPageNum}">
-							<c:choose>
-							<c:when test="${i eq paging.viewPage}">
-								<a id="${i}" href="" class="paginate_button current" keyValue="${i}">${i}</a>
-							</c:when>
-							<c:otherwise>
-								<a id="${i}" href="" class="paginate_button" keyValue="${i}">${i}</a>
-							</c:otherwise>
-							</c:choose>
-							</c:forEach>
-							<c:if test="${paging.nextPageNum > 0}">
-								<a href="" class="paginate_button next" keyValue="${paging.nextPageNum}">다음</a>
-							</c:if>
-							<c:if test="${paging.totalPageCount ne paging.lastPageNum}">
-								<a href="" class="paginate_button next" keyValue="${paging.totalPageCount}">맨끝</a>
-							</c:if>
-								</span>
-							</div>
-						</div>
-
-						<div class="textType" style="display:none">
-							<!-- 검색결과 루프 시작 -->
-							<c:forEach items="${bookSearch}" var="i">
-							<c:set var="detailURL" value="detail.do?isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}"></c:set>
-							<div class="row">
-								<div class="box">
-									<div class="item">
-										<div class="bif">
-
-										<input name="print_param" type="checkbox" class="checkBook" value="${fn:escapeXml(i.ST_CODE)}_${fn:escapeXml(i.MANAGE_CODE)}"/>
-
-											<a href="${detailURL}" class="name">
-												<c:if test="${i.MEDIA_CODE eq 'PR'}">[도서]</c:if>
-												<c:if test="${i.MEDIA_CODE ne 'PR'}">[비도서]</c:if>
-												<c:if test="${librarySearch.booktype eq 'SERIAL'}">[간행물]</c:if>
-												<span style='color:#e84e0e;font-weight:600'>${i.TITLE_INFO}</span>
-											</a>
-											<p>
-												<font style="color:#5e5e5e;">저자</font> : ${fn:escapeXml(i.AUTHOR)}
-												<br class="mobileBr"/>
-												<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
-												<font style="color:#5e5e5e">발행처</font> : ${i.PUBLISHER}, ${i.PUB_YEAR}
-
-												<br class="mobileBr"/>
-												<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
-												<font style="color:#5e5e5e">청구기호</font> : ${i.CALL_NO}
-
-												<br class="mobileBr"/>
-												<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
-												<font style="color:#5e5e5e">매체구분</font> : ${i.MEDIA_NAME}
-
-												<br/>
-												<font style="color:#5e5e5e">소장도서관 </font> : <span style="color:#ff0000;font-weight:bold">${i.LIB_NAME}</span>
-
-												<br class="mobileBr"/>
-												<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
-												<font style="color:#5e5e5e">소장위치</font> : <span style="font-weight:800;">${i.SHELF_LOC_NAME}</span>
-
-												<br class="mobileBr"/>
-												<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
-
-												<font style="color:#5e5e5e">대출가능여부</font> :
-												<!-- 대출가능 여부 [START] -->
-												<c:choose>
-													<c:when test="${i.WORKING_STATUS == 'BOL112N'}">
-														<c:choose>
-															<c:when test="${i.RESERVATION_CNT > '0'}">
-																<span style="color:#ff0000">대출불가(예약도서)</span>
-															</c:when>
-															<c:otherwise>
-																<c:choose>
-																	<c:when test="${i.USE_LIMIT_CODE eq 'CD'}">
-																		대출불가(열람제한도서)
-																	</c:when>
-																	<c:when test="${i.USE_LIMIT_CODE eq 'IZ'}">
-																		귀중자료(관내열람만가능)
-																	</c:when>
-																	<c:otherwise>
-																		대출가능
-																	</c:otherwise>
-																</c:choose>
-															</c:otherwise>
-														</c:choose>
-													</c:when>
-													<c:otherwise>
-														<c:choose>
-															<c:when test="${i.WORKING_STATUS == 'BOL211O'}">
-																<span style="color:#ff0000">대출불가(관외대출중)</span>
-															</c:when>
-															<c:when test="${i.WORKING_STATUS == 'BOL212O'}">
-																<span style="color:#ff0000">대출불가(관내대출중)</span>
-															</c:when>
-															<c:when test="${i.WORKING_STATUS == 'BOL511O'}">
-																<span style="color:#ff0000">대출불가(타관반납중)</span>
-															</c:when>
-															<c:when test="${i.WORKING_STATUS == 'BOL611O'}">
-																<span style="color:#ff0000">대출불가(타관대출중)</span>
-															</c:when>
-															<c:otherwise>
-																<span style="color:#ff0000">대출불가</span>
-															</c:otherwise>
-														</c:choose>
-													</c:otherwise>
-												</c:choose>
-												<!-- 대출가능 여부 [ END ] -->
-											</p>
-
-											<div class="stat">
-												<a href="#showSlide" class="showSlide" ><span>소장정보</span></a>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="bci" style="display:none;">
-									<table summary="도서 상태 및 등록 정보" style="text-align:center" class="statusBox">
-										<caption>도서 상태 및 등록 정보</caption>
-										<colgroup>
-											<col width="20%">
-											<col width="20%">
-											<col width="20%">
-											<col width="20%">
-											<col width="20%">
-										</colgroup>
-										<thead>
-											<tr>
-												<th>소장<br class="mBr"/>위치</th>
-												<th>등록<br class="mBr"/>번호</th>
-												<th>대출가능<br class="mBr"/>여부</th>
-												<th>반납<br class="mBr"/>예정일</th>
-												<th>자료위치<br class="mBr"/>인쇄</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>${i.SHELF_LOC_NAME}</td>
-												<td>${i.REG_NO}</td>
-												<td>
-												<!-- 대출가능 여부 [START] -->
-												<c:choose>
-													<c:when test="${i.WORKING_STATUS == 'BOL112N'}">
-														<c:choose>
-															<c:when test="${i.RESERVATION_CNT > '0'}">
-																<span style="color:#ff0000">대출불가(예약도서)</span>
-															</c:when>
-															<c:otherwise>
-																<c:choose>
-																	<c:when test="${i.USE_LIMIT_CODE eq 'CD'}">
-																		대출불가(열람제한도서)
-																	</c:when>
-																	<c:when test="${i.USE_LIMIT_CODE eq 'IZ'}">
-																		귀중자료(관내열람만가능)
-																	</c:when>
-																	<c:otherwise>
-																		대출가능
-																	</c:otherwise>
-																</c:choose>
-															</c:otherwise>
-														</c:choose>
-													</c:when>
-													<c:otherwise>
-														<c:choose>
-															<c:when test="${i.WORKING_STATUS == 'BOL211O'}">
-																<span style="color:#ff0000">대출불가(관외대출중)</span>
-															</c:when>
-															<c:when test="${i.WORKING_STATUS == 'BOL212O'}">
-																<span style="color:#ff0000">대출불가(관내대출중)</span>
-															</c:when>
-															<c:when test="${i.WORKING_STATUS == 'BOL511O'}">
-																<span style="color:#ff0000">대출불가(타관반납중)</span>
-															</c:when>
-															<c:when test="${i.WORKING_STATUS == 'BOL611O'}">
-																<span style="color:#ff0000">대출불가(타관대출중)</span>
-															</c:when>
-															<c:otherwise>
-																<span style="color:#ff0000">대출불가</span>
-															</c:otherwise>
-														</c:choose>
-													</c:otherwise>
-												</c:choose>
-												<!-- 대출가능 여부 [ END ] -->
-												</td>
-												<td>
-													${i.RETURN_PLAN_DATE}
-												</td>
-												<td>
-													<a href="#" class="btn_print" data-param="${detailURL}" class="btn btn2">자료위치<br/>인쇄</a>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-							</c:forEach>
-							<!-- 검색결과루프 끝 -->
-							<div id="cms_paging" class="dataTables_paginate">
-							<c:if test="${paging.firstPageNum > 0}">
-								<a href="" class="paginate_button previous" keyValue="${paging.firstPageNum}">처음</a>
-							</c:if>
-							<c:if test="${paging.prevPageNum > 0}">
-								<a href="" class="paginate_button previous" keyValue="${paging.prevPageNum}">이전</a>
-							</c:if>
-								<span>
-							<c:forEach var="i" varStatus="status" begin="${paging.startPageNum}" end="${paging.endPageNum}">
-							<c:choose>
-							<c:when test="${i eq paging.viewPage}">
-								<a id="${i}" href="" class="paginate_button current" keyValue="${i}">${i}</a>
-							</c:when>
-							<c:otherwise>
-								<a id="${i}" href="" class="paginate_button" keyValue="${i}">${i}</a>
-							</c:otherwise>
-							</c:choose>
-							</c:forEach>
-							<c:if test="${paging.nextPageNum > 0}">
-								<a href="" class="paginate_button next" keyValue="${paging.nextPageNum}">다음</a>
-							</c:if>
-							<c:if test="${paging.totalPageCount ne paging.lastPageNum}">
-								<a href="" class="paginate_button next" keyValue="${paging.totalPageCount}">맨끝</a>
-							</c:if>
+								<c:if test="${paging.firstPageNum > 0}">
+									<a href="" class="paginate_button previous" keyValue="${paging.firstPageNum}">처음</a>
+								</c:if>
+								<c:if test="${paging.prevPageNum > 0}">
+									<a href="" class="paginate_button previous" keyValue="${paging.prevPageNum}">이전</a>
+								</c:if>
+									<span>
+								<c:forEach var="i" varStatus="status" begin="${paging.startPageNum}" end="${paging.endPageNum}">
+								<c:choose>
+								<c:when test="${i eq paging.viewPage}">
+									<a id="${i}" href="" class="paginate_button current" keyValue="${i}">${i}</a>
+								</c:when>
+								<c:otherwise>
+									<a id="${i}" href="" class="paginate_button" keyValue="${i}">${i}</a>
+								</c:otherwise>
+								</c:choose>
+								</c:forEach>
+								<c:if test="${paging.nextPageNum > 0}">
+									<a href="" class="paginate_button next" keyValue="${paging.nextPageNum}">다음</a>
+								</c:if>
+								<c:if test="${paging.totalPageCount ne paging.lastPageNum}">
+									<a href="" class="paginate_button next" keyValue="${paging.totalPageCount}">맨끝</a>
+								</c:if>
 								</span>
 							</div>
 						</div>
@@ -1022,11 +805,9 @@ $(function() {
 						</div>
 					</div>
 				</div>
-
 			</div>
 
 			<div class="rightCon" style="display: none;">
-
 					<div class="limitSrch">
 						<strong>제한검색</strong>
 						<ul class="depth1">

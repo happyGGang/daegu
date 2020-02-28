@@ -186,7 +186,7 @@ do {
 								</a>
 							</li>
 							<li class="bg-lgray">
-								<a href="#">
+								<a href="https://www.youth.go.kr/youth/" target="_blank">
 								<img src="/resources/homepage/${homepage.context_path}/img/quick06-bg.png" class="mi">
 								<span class="wt">자원봉사</span>
 								<span class="wc">자원봉사활동 안내</span>

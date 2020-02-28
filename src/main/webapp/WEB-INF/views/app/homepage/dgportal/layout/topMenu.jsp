@@ -11,6 +11,16 @@ $(function() {
 		}
 			$('#mainSearchForm').submit();
 	});
+
+	<c:choose>
+		<c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
+
+		</c:when>
+		<c:otherwise>
+			$('li#menu_30').remove();
+			$('li#menu_31').remove();
+		</c:otherwise>
+	</c:choose>
 })
 </script>
 	<div class="head">
@@ -64,7 +74,7 @@ $(function() {
 	<div class="sub-menu">
 		<div class="section">
 			<ul>
-				<li><a href="/${homepage.context_path}/intro/search/index.do?menu_idx=7#search_result" class="quick-btn01">통합자료검색</a></li>
+				<li><a href="/${homepage.context_path}/intro/search/indexAll.do?menu_idx=7" class="quick-btn01">통합자료검색</a></li>
 				<li></li>
 				<li><a href="/${homepage.context_path}/board/index.do?menu_idx=18&manage_idx=287" class="quick-btn02">도서관찾기</a></li>
 				<li></li>

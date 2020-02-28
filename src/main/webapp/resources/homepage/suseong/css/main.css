@@ -6,7 +6,7 @@
 
 */
 
-.main.container {margin-top:-55px;}
+.main.container {margin-top: 35px;}
 .main.container .section {position:relative;overflow:hidden;}
 .main.container .left-section {position:relative;float:left;width:315px;}
 .main.container .center-section {position:absolute;width:618px;left:321px;}
@@ -157,7 +157,7 @@
 #calendar2 .planView .inbox a.close{position:absolute;right:5px;top:0;font-size:120%}
 
 
-#calendar-holiday .inBox1 {position:relative;width:100%;padding:10px 0 5px 0;text-align:left;color:#000;}
+#calendar-holiday .inBox1 {position:relative;width:100%;padding: 85px 0 5px 0;text-align:left;color:#000;}
 #calendar-holiday .inBox1 .title {float:left;position:relative;font-size:20px;padding:3px 18px 0 5px;}
 #calendar-holiday .inBox1 .info dd {float:left;position:relative;font-weight:bold;text-align:center;}
 #calendar-holiday .inBox1 .info dd span{display:inline-block;background:#ff002a;font-weight:bold;color:#fff;font-size:15px;text-align:center;width:30px;height:30px;line-height:30px;margin-right:3px;border-radius:5px;}
@@ -171,7 +171,7 @@
 .qmobileBr {display:none;}
 .mobileBr {display:none;}
 
-#quick-slide {position:absolute;width:103px;height:auto;left:50%;top:46px;margin-left:650px;}
+#quick-slide {position:absolute;width:103px;height:auto;left:50%;top: -25px;margin-left:650px;}
 #quick-slide ul {border:1px solid #dadada;border-top:0;box-sizing:border-box;text-align:center;padding:10px;margin-top:-20px;}
 #quick-slide ul li {padding:18px 0;border-bottom:1px solid #dadada;}
 #quick-slide ul li a span {display:block;}

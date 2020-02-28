@@ -4,11 +4,11 @@ a:hover,
 a:focus{color:#2b74c0}
 
 /* header */
-.tnb{position:relative;text-align:center}
+.tnb {position:relative;text-align:left}
 .tnb .section {position:relative;}
 .tnb h1{}
 .tnb .util{position:absolute;top:0;right:0;line-height:85px;height:85px}
-.tnb a{font-size:15px;color:#484848;font-weight:bold;display:inline-block}
+.tnb a {font-size:15px;color:#484848;font-weight:bold;display:inline-block}
 .tnb a:hover,
 .tnb a:focus{}
 .tnb a.more-btbtbt img {vertical-align:middle;padding-left:15px;}

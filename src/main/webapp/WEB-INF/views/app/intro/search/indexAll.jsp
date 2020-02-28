@@ -465,7 +465,7 @@ $(function() {
 				</div>
 			</div>
 			-->
-			<div class="info-box">
+			<div class="info-boxes">
 				<div class="section1">
 					<div class="info-box-title">
 						아래는 구군립 도서관 검색 목록입니다. 구군립도서관 검색을 위해서는 아래 안내에 따라 이용을 부탁드립니다.

@@ -213,7 +213,7 @@ do {
 
 						<div class="main4 tabS">
 							<ul class="tabMenuS">
-								<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=115&manage_idx=174" class='t-tabs'>사서추천도서</a></li>
+								<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=115&manage_idx=174" class='t-tabs'>권장도서</a></li>
 								<li>/</li>
 								<li><a href="#tab2" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class='t-tabs'>신간도서</a></li>
 								<li>/</li>

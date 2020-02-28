@@ -13,7 +13,7 @@
 #header .sub-menu li .search-box {width:100%;}
 #header .sub-menu li .search-box fieldset{position:relative;overflow:hidden}
 #header .sub-menu li .search-box legend {background:#21409a;color:#fff;}
-#header .sub-menu li .search-box input {border:0;background:transparent;width:100%;padding-left:18px;font-size:17px;color:#fff;border-radius:0;}
+#header .sub-menu li .search-box input {border:0;background:transparent;width: 82%;padding-left:18px;font-size:17px;color:#fff;border-radius:0;border-bottom: 1px solid #fff;}
 #header .sub-menu li .search-box input::placeholder {color:#fff;}
 #header .sub-menu li .search-box input:focus{outline:none}
 #header .sub-menu li .search-box input,
@@ -129,6 +129,7 @@
 .section_story .story_list .wrap.on .tit.titledalseong { color:#8c60a5; }	/*달성*/
 .section_story .story_list .wrap.on .tit.title228sml { color:#e83e30; }		/*228기념*/
 .section_story .story_list .wrap.on .tit.title228lib{ color:#006958; }		/*228민주*/
+.section_story .story_list .wrap.on .tit.titledgportal {color:#000;}
 
 .section_story .story_list .link {line-height:60px;height:60px;width:60px;margin-right:-30px;color:#fff;font-size:15px;text-align:center;}
 .section_story .story_list .link.librarynambu {background-color:#00c9d3;}
@@ -141,7 +142,7 @@
 .section_story .story_list .link.librarydalseong {background-color:#8c60a5;}
 .section_story .story_list .link.library228sml {background-color:#e83e30;}
 .section_story .story_list .link.library228lib {background-color:#006958;}
-
+.section_story .story_list .link.librarydgportal {background-color:#000;}
 /*.section_story .story_list .wrap.on + .link:before { font-family:xeicon!important;display:inline-block;speak:none;font-style:normal;font-weight:400;font-variant:normal;text-transform:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;content:""; }*/
 .section_story .story_list .wrap .tit { font-size:17px;letter-spacing:-0.5px;font-weight:500;display:block;word-wrap:normal;white-space:nowrap;overflow:hidden;-o-text-overflow:ellipsis;text-overflow:ellipsis; }
 .section_story .story_list .wrap .date { display:block;font-weight:300;font-size:16px; }

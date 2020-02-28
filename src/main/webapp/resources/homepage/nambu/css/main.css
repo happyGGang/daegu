@@ -45,11 +45,11 @@
 
 .main2 {margin-top:10px;}
 .main2 .main2box1 {width:840px;display:inline-block;height:auto;overflow:hidden;padding:0;margin:0;float:left;}
-.main2 .main2box1 .main2box1box1 span.wt {display:block;font-size:23px;letter-spacing:-1px;font-weight:bold;}
-.main2 .main2box1 .main2box1box1 span.wc {display:block;font-size:14px;position:relative;padding-top:13px;display:inline-block;letter-spacing:-1px;}
+.main2 .main2box1 .main2box1box1 span.wt {display:block;font-size:23px;letter-spacing:-1px;font-weight:bold;line-height: 130%;}
+.main2 .main2box1 .main2box1box1 span.wc {display:block;font-size:14px;position:relative;padding-top:13px;display:inline-block;letter-spacing:-1px;line-height: 140%;}
 .main2 .main2box1 .main2box1box1 ul {width:100%;display:inline-block;float:right;;}
 .main2 .main2box1 .main2box1box1 ul li {position:relative;float:left;width:20%;display:inline-block;height:168px!important;}
-.main2 .main2box1 .main2box1box1 ul li a {position:relative;display:block;height:100%;padding-top:40px;padding-left:25px;color:#fff;box-sizing:border-box;letter-spacing:-1px;}
+.main2 .main2box1 .main2box1box1 ul li a {position:relative;display:block;height:100%;padding-top: 30px;padding-left:25px;color:#fff;box-sizing:border-box;letter-spacing:-1px;}
 .main2 .main2box1 .main2box1box1 ul li.li-bg a{width: 83%;height:87%;padding-top:12%;padding-left: 10%;padding-right: 7%;}
 .main2 .main2box1 .main2box1box1 ul li.bg-blue a {}
 .main2 .main2box1 .main2box1box1 ul li.bg-lgray a {color:#272727;}
@@ -97,11 +97,11 @@
 .main2 .main2box2 .popZone li{text-align:right;padding:0;margin:0;}
 .main2 .main2box2 .popZone li a {display:inline-block;}
 .main2 .main2box2 .popZone li a img {width:408px;height:440px;border:1px solid #cccccc;}
-.main2 .main2box2 .popZone .bx-controls {position:absolute;bottom:56px;right:1px;z-index:150000000;width:100%;}
+.main2 .main2box2 .popZone .bx-controls {position:absolute;bottom:56px;right:1px;z-index:150000;width:100%;}
 .main2 .main2box2 .popZone .bx-prev,
 .main2 .main2box2 .popZone .bx-next,
 .main2 .main2box2 .popZone .bx-start,
-.main2 .main2box2 .popZone .bx-stop {position:absolute;width:50px;height:50px;font-size:0;background-image:url("/resources/homepage/228sml/img/popupzone-arrow-v2.png");background-repeat: no-repeat; background-position:0 0;background-size:initial;}
+.main2 .main2box2 .popZone .bx-stop {position:absolute;width:50px;height:50px;font-size:0;background-image:url("/resources/homepage/nambu/img/popupzone-arrow-v2.png");background-repeat: no-repeat; background-position:0 0;background-size:initial;z-index:150001;}
 .main2 .main2box2 .popZone .bx-pager {position:absolute;text-align:center;right:100px;width:70px;height:50px;line-height:50px;background:#2f2f2f;color:#fff;}
 .main2 .main2box2 .popZone .bx-prev { left:0; }
 .main2 .main2box2 .popZone .bx-next { right:0; background-position:-50px 0; }

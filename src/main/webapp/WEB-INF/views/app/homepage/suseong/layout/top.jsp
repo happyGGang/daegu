@@ -14,10 +14,12 @@
 			</div>
 
 			<div class="util">
+					<c:if test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
+						<b style="font-weight:200;font-size:13px;">${sessionScope.member.member_name}님</b>&nbsp;&nbsp;&nbsp;
+					</c:if>
 						<a href="/${homepage.context_path}/index.do">홈으로</a>
 				<c:choose>
 					<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
-						<a href="#" id="memberInfoBtn">${sessionScope.member.member_name}님</a>
 						<a href="/${homepage.context_path}/intro/login/logout.do">로그아웃</a>
 						<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=95">정보수정</a>
 					</c:when>

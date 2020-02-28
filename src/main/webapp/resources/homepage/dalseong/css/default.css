@@ -33,7 +33,15 @@ a:focus{color:#2b74c0}
 .Gnb .gnb-menu>li>ul{width:100%;background:#2f2a52}
 .Gnb .gnb-menu>li.menu1>ul,
 .Gnb .gnb-menu>li.menu2>ul,
-.Gnb .gnb-menu>li.menu3>ul{text-align:center}
+.Gnb .gnb-menu>li.menu3>ul {text-align:left;}
+.Gnb .gnb-menu>li.menu4>ul,
+.Gnb .gnb-menu>li.menu5>ul {text-align:center;}
+
+.Gnb .gnb-menu>li.menu2>ul {margin-left:200px;}
+.Gnb .gnb-menu>li.menu3>ul {margin-left:380px;}
+.Gnb .gnb-menu>li.menu5>ul {margin-left:280px;}
+
+
 .Gnb .mask,
 .Gnb .gnb-menu>li>ul{background:#2f2a52}
 .Gnb .gnb-menu>li.on>a,
