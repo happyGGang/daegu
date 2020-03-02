@@ -536,7 +536,7 @@
 	    	WHERE
 	    		HOMEPAGE_ID = #{homepage_id}
 	    	AND	a.use_yn = 'Y'
-	    	ANd a.view_yn = 'Y'
+<!-- 	    	ANd a.view_yn = 'Y' -->
 	    	AND	a.manage_idx = b.module_idx(+)
 	    	AND	b.module_type(+) = 'SITE'
     	) A
