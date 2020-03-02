@@ -80,7 +80,7 @@ $(function() {
 	});
 	</c:if >
 
-	$('div#bookReviewDiv').load('/${homepage.context_path}/module/bookReview/index.do?menu_idx=${fn:escapeXml(param.menu_idx)}&manage_code=${fn:escapeXml(detail.MANAGE_CODE)}&reg_no=${fn:escapeXml(detail.REG_NO)}');
+// 	$('div#bookReviewDiv').load('/${homepage.context_path}/module/bookReview/index.do?menu_idx=${fn:escapeXml(param.menu_idx)}&manage_code=${fn:escapeXml(detail.MANAGE_CODE)}&reg_no=${fn:escapeXml(detail.REG_NO)}');
 });
 
 </script>
@@ -275,7 +275,8 @@ $(function() {
 			</c:if>
 			<a href="#" id="addStorage" class="btn"><span>관심도서 추가</span></a>
 
-			<a href="javascript:history.back();" id="goBack" class="btn"><i class="fa fa-book"></i><span>목록으로</span></a>
+			<a href="index.do?menu_idx=${param.menu_idx}" id="goBack" class="btn"><i class="fa fa-book"></i><span>목록으로</span></a>
+
 			<c:if test="${not empty loginPortal and loginPortal.login}">
 			<a href="#" id="interest" class="btn"><span>교수학습 택배용 관심도서</span></a>
 			</c:if>
@@ -343,7 +344,7 @@ $(function() {
 			</ul>
 		</div>
 
-		<h3 style="border-top: 1px solid #ccc;">서평</h3>
+		<h3 style="border-top: 1px solid #ccc; display: none;">서평</h3>
 		<div class="showFoldDiv" id="bookReviewDiv"></div>
 	</div>
 </div>
