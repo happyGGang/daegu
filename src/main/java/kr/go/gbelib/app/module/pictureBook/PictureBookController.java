@@ -212,8 +212,8 @@ public class PictureBookController extends BaseController {
 		
 		// TODO: 무료 : 595959, 유료 : 18353408
 		// 무료, 유료 두번 해야함, 유료일 떄 무료의 최대 인덱스값 - 유료 최소 인덱스 값을 plus_num에 지정
-		String a_num = "595959";
-		int plus_num = 17;
+		String a_num = "18353408";
+		int plus_num = 20;
 		String table = "";
 		
 		if(a_num.equals("595959")) {
@@ -294,7 +294,8 @@ public class PictureBookController extends BaseController {
 			pb.setLoan_start_date(String.valueOf(map.get("bb_sdate")));
 			pb.setLoan_end_date(String.valueOf(map.get("bb_edate")));
 			pb.setPhone(String.valueOf(map.get("bb_phone")));
-			pb.setSchool_tel(String.valueOf(map.get("bb_school_tel")));
+			String school_tel = String.valueOf(map.get("bb_school_tel"));
+			pb.setSchool_tel(StringUtils.isEmpty(school_tel) ? "053-000-0000" : school_tel);
 			pb.setRequest_content(String.valueOf(map.get("bb_content")));
 			pb.setRequest_status(String.valueOf(map.get("bb_status")));
 			
@@ -306,7 +307,7 @@ public class PictureBookController extends BaseController {
 			}
 			
 			System.out.println("@@@@@@@@@@@@@@@ " + pb.toString2());
-//			service.addParseTibero2(pb);
+			service.addParseTibero2(pb);
 		}
 		
 	}

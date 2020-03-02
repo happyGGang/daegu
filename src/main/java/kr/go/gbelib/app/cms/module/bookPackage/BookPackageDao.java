@@ -43,4 +43,6 @@ public interface BookPackageDao {
 
 	public List<Map<String, Object>> getMysqlToTibero2();
 
+	public int addMysqlToTibero2(BookPackage bp);
+
 }

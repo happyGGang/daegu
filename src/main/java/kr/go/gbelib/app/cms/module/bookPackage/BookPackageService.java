@@ -154,4 +154,8 @@ public class BookPackageService extends BaseService {
 		return dao.getMysqlToTibero2();
 	}
 
+	public int addMysqlToTibero2(BookPackage bp) {
+		return dao.addMysqlToTibero2(bp);
+	}
+
 }

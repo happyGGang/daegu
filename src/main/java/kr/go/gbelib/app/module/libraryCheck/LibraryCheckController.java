@@ -283,7 +283,7 @@ public class LibraryCheckController extends BaseController {
 			}
 			
 			System.out.println("@@@@@@@@@@ : " + lc.toString());
-//			service.addParseTibero(lc);
+			service.addParseTibero(lc);
 		}
 		
 		List<Map<String, Object>> list2 = service.getMySqlList2();
@@ -309,7 +309,7 @@ public class LibraryCheckController extends BaseController {
 			}
 			
 			System.out.println("@@@@@@@@@@ : " + lc.toString2());
-//			service.addParseTibero2(lc);
+			service.addParseTibero2(lc);
 		}
 		
 	}

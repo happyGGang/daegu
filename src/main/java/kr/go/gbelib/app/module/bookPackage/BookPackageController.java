@@ -423,12 +423,13 @@ public class BookPackageController extends BaseController {
 			bp.setRequest_name(String.valueOf(map2.get("bb_manager")));
 			bp.setSchool_name(String.valueOf(map2.get("bb_school")));
 			bp.setLoan_start_date(String.valueOf(map2.get("bb_sdate")));
-			bp.setLoan_end_date(String.valueOf(map2.get("bb_edate")));
+			bp.setLoan_end_date(String.valueOf(map2.get("bb_edate")) == "" ? String.valueOf(map2.get("bb_sdate")) : String.valueOf(map2.get("bb_edate")));
 			bp.setPhone(String.valueOf(map2.get("bb_phone")));
-			bp.setSchool_tel(String.valueOf(map2.get("bb_school_tel")));
+			String school_tel = String.valueOf(map2.get("bb_school_tel"));
+			bp.setSchool_tel(StringUtils.isEmpty(school_tel) ? "053-0000-0000" : school_tel);
 			bp.setRequest_content(String.valueOf(map2.get("bb_content")));
 			bp.setRequest_status(String.valueOf(map2.get("bb_status")));
-			bp.setReturn_yn(String.valueOf(map2.get("bb_return")));
+			bp.setReturn_yn(String.valueOf(map2.get("bb_return")) == "" ? "N" : String.valueOf(map2.get("bb_return")));
 			
 			try {
 				bp.setAdd_date(sdf.parse(String.valueOf(map2.get("bb_regdate"))));
@@ -438,6 +439,7 @@ public class BookPackageController extends BaseController {
 			}
 			
 			System.out.println("@@@@@@@@@@@@@@ data2 : " + bp.toString2());
+			service.addMysqlToTibero2(bp);
 		}
 	}
 

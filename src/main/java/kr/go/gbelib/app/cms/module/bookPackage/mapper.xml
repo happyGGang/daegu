@@ -317,4 +317,39 @@
 		SELECT * FROM BOARD_BOOK_LOAN
 	</select>
 	
+	<insert id="addMysqlToTibero">
+		insert into book_package
+		(
+			book_package_idx, book_package_name, book_package_subject, author, publisher,
+			publish_year, isbn, book_price, book_pages, purpose,
+			loan_count, quantity, grade, category, keyword,
+			org_file_name, server_file_name, file_extension, file_size,
+			desc_link, image_link, content, add_id, add_date, modify_id, modify_date
+		)
+		values
+		(
+			#{book_package_idx}, #{book_package_name}, #{book_package_subject}, #{author}, #{publisher},
+			#{publish_year}, #{isbn}, #{book_price}, #{book_pages}, #{purpose},
+			#{loan_count}, #{quantity}, #{grade}, #{category}, #{keyword},
+			#{org_file_name}, #{server_file_name}, #{file_extension}, #{file_size},
+			#{desc_link}, #{image_link}, #{content}, #{add_id}, #{add_date}, #{modify_id}, #{modify_date}
+		)
+	</insert>
+	
+	<insert id="addMysqlToTibero2">
+		INSERT INTO
+			BOOK_PACKAGE_LOAN
+		(
+			book_package_idx, book_package_loan_idx, request_name, school_name,
+			loan_start_date, loan_end_date, phone, school_tel, request_content,
+			request_status, return_yn, add_id, add_date
+		)
+		VALUES
+		(
+			#{book_package_idx}, #{book_package_loan_idx}, #{request_name}, #{school_name},
+			#{loan_start_date}, #{loan_end_date}, #{phone}, #{school_tel}, #{request_content},
+			#{request_status}, #{return_yn}, #{add_id}, #{add_date}
+		)
+	</insert>
+	
 </mapper>
