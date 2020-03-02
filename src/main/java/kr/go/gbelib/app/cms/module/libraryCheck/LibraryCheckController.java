@@ -193,6 +193,10 @@ public class LibraryCheckController extends BaseController {
 				service.modifyLibraryCheckLoan(libraryCheck);
 				res.setValid(true);
 				res.setMessage("수정되었습니다.");
+			} else if(libraryCheck.getEditMode().equals("DELETE")) {
+				service.deleteLibraryCheckLoan(libraryCheck);
+				res.setValid(true);
+				res.setMessage("취소되었습니다.");
 			} else if(libraryCheck.getEditMode().equals("STATUS")) {
 				service.modifyLibraryCheckStatus(libraryCheck);
 				res.setValid(true);
