@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script>
+function copyToClipboard(s) {
+    var $temp = jQuery("<input>");
+    jQuery("body").append($temp);
+    $temp.val(s).select();
+    document.execCommand("copy");
+    $temp.remove();
+    alert('복사되었습니다.');
+}
+</script>
 <c:choose>
 <c:when test="${html ne null}">
 ${html.html}
