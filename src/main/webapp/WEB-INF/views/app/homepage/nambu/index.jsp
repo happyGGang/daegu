@@ -115,7 +115,7 @@ function searchCheck() {
 				<div class="search-box">
 					<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do" onsubmit="searchCheck();">
 						<input type="hidden" name="menu_idx" value="13">
-						<input type="hidden" name="booktype" value="BOOK">
+						<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
 						<fieldset>
 							<legend class="blind">통합검색</legend>
 							<div class="main-box">
@@ -174,7 +174,7 @@ function searchCheck() {
 								<img src="/resources/homepage/nambu/img/m_icon03.png" class="mi"></a>
 							</li>
 							<li class="bg-background02">
-								<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=126" style="z-index: 9;">
+								<a href="http://library.daegu.go.kr/nambu_china/index.html" target="_blank" style="z-index: 9;">
 								<span class="wt">중국문화<br class="qmobileBr"/>정보실</span>
 								<span class="wc">도서관 속 작은 중국</span>
 								</a>

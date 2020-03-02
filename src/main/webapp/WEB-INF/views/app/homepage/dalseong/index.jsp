@@ -117,7 +117,7 @@ do {
 						<div class="search-box">
 							<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
 								<input type="hidden" name="menu_idx" value="13">
-								<input type="hidden" name="booktype" value="BOOK">
+								<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
 								<fieldset>
 									<legend class="blind">통합검색</legend>
 									<div class="main-box">
@@ -313,6 +313,19 @@ do {
 									</a>
 								</li>
 								</c:forEach>
+								<c:if test="${fn:length(movieList) < 1}">
+								<li>
+									<a href="javascript:alert('상영예정 영화가 없습니다.'); return false;">
+										<span class="movieImg">
+											<img src="/resources/common/img/noImg2.png" alt="${i.title}">
+										</span>
+
+										<span class="movieEx">
+											<strong class="title">상영예정 영화가 없습니다.</strong>
+										</span>
+									</a>
+								</li>
+								</c:if>
 							</ul>
 						</div>
 					</div>

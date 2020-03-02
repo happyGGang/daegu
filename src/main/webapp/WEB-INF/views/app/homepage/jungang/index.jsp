@@ -118,7 +118,7 @@ do {
 					<div class="search-box">
 						<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
 							<input type="hidden" name="menu_idx" value="13">
-							<input type="hidden" name="booktype" value="BOOK">
+							<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
 							<fieldset>
 								<legend class="blind">통합검색</legend>
 								<div class="main-box">
@@ -335,7 +335,7 @@ do {
 			<div class="main6 section">
 				<div class="lt1"><a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=178">문화가 있는 도서관<br/><span class="">영화상영</span></a></div>
 				<div class="lt2"><a href="/${homepage.context_path}/html.do?menu_idx=130">도서관에서 만나는 인문학 강연<br/><span class="">인문학동영상</span></a></div>
-				<div class="lt3"><a href="/${homepage.context_path}/html.do?menu_idx=128">어린이 1:1 맞춤형 독서정보안내<br/><span class="">북코디네이터</span></a></div>
+				<div class="lt3"><a href="/${homepage.context_path}/html.do?menu_idx=152">어린이 1:1 맞춤형 독서정보안내<br/><span class="">북코디네이터</span></a></div>
 				<div class="lt4"><a href="/${homepage.context_path}/html.do?menu_idx=49">장애인 무료 택배 서비스<br/><span class="">책나래</span></a></div>
 				<div class="lt5"><a href="/${homepage.context_path}/html.do?menu_idx=48">국가상호대차 서비스<br/><span class="">책바다</span></a></div>
 				<div class="lt6"><a href="/${homepage.context_path}/html.do?menu_idx=50">협력형 온라인 지식정보서비스<br/><span class="">사서에게물어보세요</span></a></div>
@@ -353,7 +353,7 @@ do {
 							<a class="stop active" href="#stop"><i class="fa fa-pause"></i><span class="blind">정지</span></a>
 							<a class="play" href="#play"><i class="fa fa-play"></i><span class="blind">시작</span></a>
 							<a class="next" href="#next"><i class="fa fa-chevron-right"></i><span class="blind">다음</span></a>
-							<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=154"><i class="fa fa-navicon"></i><span class="blind">더보기</span></a>
+							<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=93"><i class="fa fa-navicon"></i><span class="blind">더보기</span></a>
 						</div>
 					</div>
 					<div class="banner-box4">

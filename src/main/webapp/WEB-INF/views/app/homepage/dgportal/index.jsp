@@ -151,11 +151,11 @@ do {
 					</div>
 					<div class="cont">
 						<ul>
-							<li><a href="/${homepage.context_path}/intro/search/index.do?menu_idx=7#search_result"><strong class="quick-01"></strong><span class="">통합자료검색</span></a></li>
+							<li><a href="/${homepage.context_path}/intro/search/indexAll.do?menu_idx=7"><strong class="quick-01"></strong><span class="">통합자료검색</span></a></li>
 							<li class="txt-line"></li>
 							<li><a href="/${homepage.context_path}/html.do?menu_idx=8"><strong class="quick-02"></strong><span class="">대구BOOK</span></a></li>
 							<li class="txt-line"></li>
-							<li><a href="#"><strong class="quick-03"></strong><span class="">대구전자도서관</span></a></li>
+							<li><a href="/${homepage.context_path}/elibsso.do?menu_idx=13"><strong class="quick-03"></strong><span class="">대구전자도서관</span></a></li>
 						</ul>
 					</div>
 				</div>

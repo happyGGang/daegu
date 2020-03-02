@@ -111,7 +111,7 @@ do {
 						<div class="search-box">
 							<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
 								<input type="hidden" name="menu_idx" value="13">
-								<input type="hidden" name="booktype" value="BOOK">
+								<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
 								<fieldset>
 									<legend class="blind">통합검색</legend>
 									<div class="main-box">
@@ -172,14 +172,14 @@ do {
 								</a>
 							</li>
 							<li class="bg-lgray">
-								<a href="/${homepage.context_path}/html.do?menu_idx=116">
+								<a href="/duryu/module/archive/index.do?menu_idx=121">
 								<img src="/resources/homepage/${homepage.context_path}/img/quick04-bg.png" class="mi">
 								<span class="wt">족보자료</span>
 								<span class="wc">족보원문DB, 족보상식 등<Br/>다양한 족보이야기</span>
 								</a>
 							</li>
 							<li class="bg-orange">
-								<a href="#">
+								<a href="/duryu/elibsso.do?menu_idx=46">
 								<img src="/resources/homepage/${homepage.context_path}/img/quick05-bg.png" class="mi">
 								<span class="wt">전자도서관</span>
 								<span class="wc">전자책, 오디오북 등<Br/>디지털 콘텐츠</span>
