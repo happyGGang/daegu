@@ -154,8 +154,11 @@ public class BookExpressController extends BaseController {
 				service.setRequestExpress(bookExpress);
 				res.setValid(true);
 				res.setMessage("신청자 정보 등록 되었습니다.");
+			} else if(bookExpress.getEditMode().equals("DELETE_CHECK")) {
+				service.deleteCheckBookExpress(bookExpress);
+				res.setValid(true);
+				res.setMessage("선택 삭제 되었습니다.");
 			}
-			
 		} else {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());

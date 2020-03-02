@@ -77,6 +77,16 @@
 			</foreach>
 	</update>
 	
+	<delete id="deleteCheckBookExpress">
+		DELETE FROM
+			BOOK_EXPRESS
+		WHERE
+			book_express_idx IN
+			<foreach collection="book_express_arr" open="(" close=")" separator="," item="i">
+			#{i}
+			</foreach>
+	</delete>
+	
 	<select id="getBookExpressList" resultType="kr.go.gbelib.app.module.bookExpress.BookExpress">
 		${pagingTop}
 		SELECT

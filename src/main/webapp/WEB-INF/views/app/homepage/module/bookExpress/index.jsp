@@ -6,65 +6,11 @@
 <script type="text/javascript">
 $(function() {
 	
-	$('.view-btn').on('click', function(e) {
-		e.preventDefault();
-		var formData = 'menu_idx='+$('#menu_idx').val() + '&viewPage='+$('#viewPage').val() + '&book_package_idx='+$(this).attr('keyValue');
-		doGetLoad('view.do', formData);
-	});
-	
-	$('.delete-btn').on('click', function(e) {
-		e.preventDefault();
-		if(confirm('삭제하시겠습니까?')) {
-			$('#book_package_idx_d').val($(this).attr('keyValue'));
-			if(doAjaxPost($('form#bookPackageDel'))) {
-				location.reload();
-			};
-		}
-	});
-	
-	// 책 꾸러미 대출 신청
-	$('.request-btn').on('click', function(e) {
-		e.preventDefault();
-		var formData = 'editMode=ADD&menu_idx='+$('#menu_idx').val() + '&book_package_idx='+$(this).attr('keyValue');
-		doGetLoad('loanEdit.do', formData);
-	});
-	
-	$('input#chkAll').on('click', function() {
-		$('.categoryChk').prop('checked', false);
-		$('#viewPage').val(1);
-		doGetLoad('index.do', serializeCustom($('form#bookPackage')));
-	});
-	
-	$('.categoryChk').on('click', function() {
-		$('input#chkAll').prop('checked', false);
-		$('#viewPage').val(1);
-		doGetLoad('index.do', serializeCustom($('form#bookPackage')));
-	});
-	
-	$('select#grade, select#lender_count').on('change', function() {
-		$('#viewPage').val(1);
-		doGetLoad('index.do', serializeCustom($('form#bookPackage')));
-	});
-	
 	$('button#search_btn').on('click', function(e) {
 		$('#viewPage').val(1);
-		doGetLoad('index.do', serializeCustom($('form#bookPackage')));
+		doGetLoad('index.do', serializeCustom($('form#bookExpress')));
 	});
 	
-	$('a#excelDownload').on('click', function(e) {
-		e.preventDefault();
-		if('${fn:length(bookPackageList)}' > 0) {
-			$('#editMode').val('bookPackage');
-			$('#bookPackage').attr('method', 'POST');
-			$('#bookPackage').attr('action', 'excelDownload.do').submit();
-			$('form#bookPackage').submit();
-			
-			$('#bookPackage').attr('method', 'GET');
-			$('#bookPackage').attr('action', 'index.do');
-		} else {
-			alert('해당 내역이 없습니다.');
-		}
-	});
 	
 	$('#all-check').on('click', function(e) {
 		e.preventDefault();
@@ -99,10 +45,8 @@ $(function() {
 			return false;
 		}
 		if(confirm('선택 항목들을 삭제하시겠습니까?')) {
-			$('form#bookPackage').attr('action', 'save.do');
-			$('form#bookPackage').attr('method', 'POST');
 			$('#editMode').val('DELETE_CHECK');
-			if(doAjaxPost($('form#bookPackage'))) {
+			if(doAjaxPost($('form#bookExpress'))) {
 				location.reload();
 			}
 		}
@@ -110,7 +54,6 @@ $(function() {
 	
 });
 </script>
-
 
 <form:form modelAttribute="bookExpress" action="save.do" method="POST">
 <form:hidden path="menu_idx"/>

@@ -14,6 +14,8 @@ public interface BookExpressDao {
 	public int addInterestBook(BookExpress bookExpress);
 	
 	public int modifyBookExpress(BookExpress bookExpress);
+	
+	public int deleteCheckBookExpress(BookExpress bookExpress);
 
 	public List<BookExpress> getBookExpressList(BookExpress bookExpress);
 

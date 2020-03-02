@@ -36,6 +36,10 @@ public class BookExpressService extends BaseService {
 	public int modifyBookExpress(BookExpress bookExpress) {
 		return dao.modifyBookExpress(bookExpress);
 	}
+	
+	public int deleteCheckBookExpress(BookExpress bookExpress) {
+		return dao.deleteCheckBookExpress(bookExpress);
+	}
 
 	public List<BookExpress> getBookExpressList(BookExpress bookExpress) {
 		return dao.getBookExpressList(bookExpress);
