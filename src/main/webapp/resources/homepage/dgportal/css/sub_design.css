@@ -14,7 +14,7 @@
 .mg5t {margin-top:5px;}
 .mg10t {margin-top:10px;}
 .mg15t {margin-top:15px;}
-.mg20t {margin-top:20px;}
+.mg20t {margin-top: 20px;}
 .mg25t {margin-top:25px;}
 .mg30t {margin-top:30px;}
 .mg40t {margin-top:40px;}
@@ -88,7 +88,7 @@
 
 .btn_link02 {position:relative;display:inline-block;transition:all .25s ease;background-color: #ca0464;color:#fff;border: 1px solid #ca0464;box-sizing:border-box;}
 .btn_link02:hover, .btn_link02:focus {border: 1px solid #ca0464;background-color:#fff;color: #ca0464;}
-.btn_link02 span {display:block;padding: 0 60px 0px 20px;height:53px;line-height:53px;letter-spacing: -1px;}
+.btn_link02 span {display:block;padding: 0 60px 0px 20px;height:53px;line-height:53px;letter-spacing: -1.5px;}
 .btn_link02 .ico {position:absolute;right:0px;top:0;padding:0;width:50px;height:53px;background-color: #ca0464;-webkit-transition:right .25s ease;transition:right .25s ease-out;}
 .btn_link02:hover .ico {right:-10px;height:53px;}
 
@@ -673,15 +673,15 @@ div[class^="dpt-list-type"] li[class^="ico"]:after {content:"";display:block;bac
 
 
 /* -------- 도서관서비스안내02 -------- */
-.dpt-intro-type02 .role-head {position:relative;margin-bottom:34px}
-.dpt-intro-type02 .role-head .role-head-tit {position:absolute;right:0;bottom: -15px;display:table;background:#014898 url('/resources/homepage/dgportal/img/pttr.png');width:300px;height:190px;text-align:center;}
+.dpt-intro-type02 .role-head {position:relative;margin-bottom: 30px;}
+.dpt-intro-type02 .role-head .role-head-tit {position:absolute;right:0;bottom: -15px;display:table;background:#014898 url('/resources/homepage/dgportal/img/pttr.png');width:300px;height: 220px;text-align:center;}
 .dpt-intro-type02 .role-head .role-head-tit:before {content:"";position:absolute;top: -70px;right: 5px;display:block;background: url('/resources/homepage/dgportal/img/ptn05.png') no-repeat 0 0;width: 133px;height: 1150px;}
 .dpt-intro-type02 .role-head-tit .txtBox {display:table-cell;padding:4px 15px 0;vertical-align:middle;}
 .dpt-intro-type02 .txtBox h3.ptit {margin-bottom:5px;padding-top:0;color:#fff;font-size:1.75em;font-weight:500;line-height:1.3;word-break:break-word;padding-left: 0;}
 .dpt-intro-type02 .txtBox .ptitEng {display:block;color:rgba(255, 255, 255, .6);font-size:.938em;font-weight:500;line-height:1.46;}
-.dpt-intro-type02 .role-body {border-bottom:1px solid #dbdbdb;padding-bottom:30px}
+.dpt-intro-type02 .role-body {border-bottom:1px solid #dbdbdb;padding-bottom: 35px;}
 .dpt-intro-type02 .role-body .subMsg {margin-left:-1px;color:#555;line-height:1.625;}
-.dpt-intro-type02 .role-body .tit {color:#222;font-size:1.375em;/* padding-bottom:20px; */font-weight: bold;line-height: 140%;}
+.dpt-intro-type02 .role-body .tit {color:#222;font-size: 1.5em;/* padding-bottom:20px; */font-weight: bold;line-height: 140%;}
 .dpt-intro-type02 .role-body .tit:after {content: '';display: block;width: 25px;height: 1px;background-color: #323232;margin: 20px auto;}
 .dpt-intro-type02 .role-body .txt {padding:0 60px; font-size:1.063em}
 .dpt-intro-type02 .role-body .txt strong {color:#10539e}
@@ -748,7 +748,7 @@ div[class^="dpt-list-type"] li[class^="ico"]:after {content:"";display:block;bac
 	.dpt-intro-type04 .role-head .role-head-tit:before {background-size: 80px auto;width: 80px;height: 60px;right: 5px;top: -30px;}
 }
 @media all and (max-width:499px) {
-	.dpt-intro-type02 .ImgBox img {display:block;width:100%;height:auto;padding-bottom:0}
+	.dpt-intro-type02 .ImgBox img {display:block;width:100%;height:auto;padding-bottom:0;}
 	.dpt-intro-type02 .role-head .role-head-tit {position:relative;right:auto;top:auto;bottom: 0;width:100%;height:auto;}
 	.dpt-intro-type02 .role-head-tit .txtBox {padding:15px}
 	.dpt-intro-type03 .ImgBox img {display:block;width:100%;height:auto;padding-bottom:0}
@@ -958,32 +958,40 @@ div[class^="dpt-list-type"] li[class^="ico"]:after {content:"";display:block;bac
 
 
 /*도서관정보나루*/
-.dataF-wr{}
+.dataF-wr{position: relative;}
+.dataF-wr .info_list:before {background:url('/resources/homepage/dgportal/img/df_img01.png') no-repeat 0 0;}
+.dataF-wr .info_list:before {content:'';position:absolute;left:50%;width: 135px;height: 134px;margin-left: -70px;margin-top: 210px;transition: all 0.3s;}
 
-.dataF-wr .em {position:relative;background: #355cb9;margin:0 auto;text-align:center;margin-bottom:30px;width: 180px;height: 180px;border-radius: 100%;}
+/*.dataF-wr .em {position:relative;background: #355cb9;margin:0 auto;text-align:center;margin-bottom:30px;width: 180px;height: 180px;border-radius: 100%;}*/
 .dataF-wr .tit {background-color:#2c469c;color:#fff;text-align:center;font-size:20px;max-width:35%;padding:10px 30px;margin:auto;font-weight:normal;}
-/*.dataF-wr .em p  {padding: 0 40px 40px 40px;color:#fff;font-size:15px;}
-.dataF-wr .em h4:before {content:"";display:block;position:absolute;width:64px;height:64px;background:url('/resources/homepage/dgportal/img/em_icon01.png') no-repeat 0 0;margin-left:-32px;left:50%;top: -20px;}
-.dataF-wr .em h4:after {border-left:1px solid #dedede}*/
+span.dts{font-size:13px;color: #555;border-radius:30px;background:#eee;padding:10px 10px;margin:20px auto;display:block;width:30%;}
 
-.dataF-wr .info_list{margin-top:44px;}
-.dataF-wr h4.tit span.dts{font-size: 15px;font-weight:300;line-height: 180%;}
+.dataF-wr .info_list{margin-top: 35px;}
 .dataF-wr .info_list:after{content:'';display:block;clear:both;}
-.dataF-wr .info_list > li{float:left;width:50%;padding: 50px 25px 25px 25px;box-sizing:border-box;border:1px solid #e0e0e0;margin: -1px 0 0 -1px;height: 250px;text-align:center;}
+.dataF-wr .info_list > li{float:left;width:50%;padding: 40px 25px 25px 25px;box-sizing:border-box;border:1px solid #e0e0e0;margin: -1px 0 0 -1px;height: 280px;text-align:center;}
 .dataF-wr .info_list .title{font-size: 1.5em;color:#333;font-weight:500;line-height:30px;margin-top:10px;}
 .dataF-wr .info_list .dot_txt_list{margin-top:20px}
 .dataF-wr .info_list .dot_txt_list > li{line-height: 25px;/* text-align:left; */}
 
 	@media screen and (max-width:1024px){	
-	.dataF-wr .info_list{display:flex;flex-wrap:wrap;}
-	.dataF-wr .info_list > li{padding:30px 15px;height:auto;}
-}
+	.dataF-wr .info_list{display: flex;flex-wrap:wrap;}
+	.dataF-wr .info_list:before {content:'';position:absolute;left:50%;width: 167px;height: 238px;margin-left: -90px;margin-top: -150px;}
+	.dataF-wr .info_list > li{padding:30px 15px;height:auto;margin: -1px 0 0 0;}
+     }
+	
+	@media screen and (max-width:768px){	
+	.dataF-wr .info_list:before {background:url('/resources/homepage/dgportal/img/df_img01_.png') no-repeat 0 0;}
+    .dataF-wr .info_list:before {content:'';position:absolute;left:50%;width: 167px;height: 238px;margin-left: -90px;margin-top: -150px;}
+     }
+
 	@media screen and (max-width:520px){	
-	.dataF-wr .info_list{margin-top:25px;}
+	.dataF-wr .info_list{margin-top: 145px;}
 	.dataF-wr .info_list > li{width:100%;padding:30px 15px;margin:-1px 0 0 0;}
 	.dataF-wr .info_list .title{font-size:18px;line-height:26px;margin-top:8px;}
 	.dataF-wr .info_list .dot_txt_list{margin-top:15px}
 	.dataF-wr .info_list .dot_txt_list > li{line-height:22px}
+
+
 }
 
 /* 도서관서비스헌장 */
