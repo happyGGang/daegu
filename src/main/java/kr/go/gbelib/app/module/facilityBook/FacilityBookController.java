@@ -91,6 +91,7 @@ public class FacilityBookController extends BaseController {
     		ValidationUtils.rejectIfEmpty(result, "sub_phone1", "참여인원 연락처를 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "sub_phone2", "참여인원 연락처를 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "sub_phone3", "참여인원 연락처를 입력하세요.");
+    		ValidationUtils.rejectPhone(result, "sub_phone", "참여인원 연락처 형식이 올바르지 않습니다.");
     		ValidationUtils.rejectIfEmpty(result, "apply_date", "이용시간을 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "curcles_name", "모임명을 입력하세요.");
     		
