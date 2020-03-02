@@ -166,7 +166,7 @@ $(document).on("keyup change", "input:text[numberOnly]", function() {
 <div class="join-wrap" style="padding: 0;">
 	<form:form modelAttribute="memberInfo" id="memberInfoForm" action="save.do" onsubmit="return false;">
 		<form:hidden path="editMode" value="MODIFY"/>
-		<form:hidden path="menu_idx"/>
+		<form:hidden path="menu_idx" value="${param.menu_idx}"/>
 		<table id="memberForm">
 			<tbody>
 				<tr>
