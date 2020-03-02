@@ -8,8 +8,18 @@
 			<div class="section">
 				<div class="info">
 					<a href="/${homepage.context_path}/html.do?menu_idx=86"><b>개인정보처리방침</b></a>
+							<span class="bar">|</span>
+					<a href="/${homepage.context_path}/html.do?menu_idx=89">이용약관</a>
+							<span class="bar">|</span>
+					<a href="/${homepage.context_path}/html.do?menu_idx=88">영상정보처리방침</a>
+							<span class="bar">|</span>
+					<a href="/${homepage.context_path}/html.do?menu_idx=90">도서관헌장</a>
+							<span class="bar">|</span>
+					<a href="/${homepage.context_path}/html.do?menu_idx=91">저작권신고</a>
 					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=91">저작권보호정책</a>
+					<a href="/duryu/sitemap/index.do?menu_idx=92">사이트맵</a>
+							<span class="bar">|</span>
+					<a href="/${homepage.context_path}/html.do?menu_idx=94">성고충상담창구</a>
 					<span class="bar">|</span>
 					<a href="/${homepage.context_path}/html.do?menu_idx=109">찾아오시는길</a>
 				</div>

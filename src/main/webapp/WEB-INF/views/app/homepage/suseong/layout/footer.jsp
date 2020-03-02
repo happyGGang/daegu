@@ -15,9 +15,9 @@
 				</div>
 
 				<div class="sns-link">
-					<a href="#kakao"><img src="/resources/homepage/${homepage.context_path}/img/kakao-icon-btn.png" alt="카카오톡"></a>
-					<a href="#facebook"><img src="/resources/homepage/${homepage.context_path}/img/facebook-icon-btn.png" alt="페이스북"></a>
-					<a href="#twitter"><img src="/resources/homepage/${homepage.context_path}/img/twitter-icon-btn.png" alt="트위터"></a>
+					<a href="https://story.kakao.com/suseonglib" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/kakao-icon-btn.png" alt="카카오톡"></a>
+					<a href="https://www.facebook.com/suseonglibrary" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/facebook-icon-btn.png" alt="페이스북"></a>
+					<a href="https://twitter.com/suseonglib2500" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/twitter-icon-btn.png" alt="트위터"></a>
 				</div>
 			</div>
 		</div>
