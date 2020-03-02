@@ -15,6 +15,10 @@ $(document).ready(function() {
 	$('a.open_viewer').on('click', function(e) {
 		var win = window.open('view.do?book_idx=' + $(this).data('book_idx'), '', 'scrollbars=no,toolbar=no,menubar=no,location=no,width=1000,height=650,location=no');
 	});
+
+	$('select#rowCount').on('change', function() {
+		$('button#search_btn').click();
+	});
 });
 
 </script>
