@@ -44,11 +44,12 @@ dl#author dt {float: left;width: 65px;margin-bottom: 15px;background: url(/img/c
 dl#author dd {float: left;width: 140px;margin-bottom: 15px;padding: 0 15px;}
 .book-desc {margin: 20px 0 40px;}
 .calendar-box #req-year {display:block;padding-left: 30px;background: url(/resources/common/img/calendar-icon.gif) no-repeat;font-size: 21px;font-weight: bold;color: #222;margin-bottom: 20px;}
-.calendar-box>div {display:inline-block;width: 130px;height: 140px;vertical-align: top;margin-right: 10px;padding-bottom: 30px;}
+.calendar-box>div {display:inline-block;width: 130px;height: 140px;vertical-align: top;margin-right: 10px;padding-bottom: 30px;word-break: normal;}
 .calendar-box>div>span.req-month {width: 130px;margin-bottom: 10px;border-radius: 5px;background: #e8f2f7;text-align: center;font-weight: bold;line-height: 40px;color: #333;display: block;}
 .btn-box a{display: block;width: 128px;height: 34px;border-radius: 5px;font-size: 13px;font-weight: bold;line-height: 34px;letter-spacing: -0.05em;text-align: center;}
 .btn-box a.apply-req {border: 1px solid #8dd3f6;color: #1ba8ed;}
 .btn-box a.apply-ok {border: 1px solid #7f7f7f;color: #000;pointer-events: none;}
+.btn-box a.apply-last {border: 1px solid #bebebe;color: #7d7d7d;pointer-events: none;}
 </style>
 
 <form:form modelAttribute="pictureBook" id="bookPackageDel" action="save.do" method="POST">
@@ -110,6 +111,9 @@ dl#author dd {float: left;width: 140px;margin-bottom: 15px;padding: 0 15px;}
 				<c:choose>
 					<c:when test="${not empty loanableMonth[month].isMonth and loanableMonth[month].isMonth}">
 					<a href="javascript:void(0)" class="apply-ok"><span>대출완료</span></a>
+					</c:when>
+					<c:when test="${not empty pictureBook.monthList and pictureBook.monthList[month-1].LAST_MONTH eq 'Y'}">
+					<a href="javascript:void(0)" class="apply-last"><span>마감</span></a>
 					</c:when>
 					<c:otherwise>
 					<a href="#" class="dialog-req apply-req" keyValue="${pictureBook.loan_year}" keyValue2="${month}" style="color: blue;">대출신청</a>

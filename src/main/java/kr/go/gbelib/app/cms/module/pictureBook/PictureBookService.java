@@ -100,13 +100,12 @@ public class PictureBookService extends BaseService {
 	}
 	
 	public Map<Integer, Map<String, Object>> getLoanableMonth(PictureBook pictureBook) {
-//		Map<Integer, Boolean> map = new HashMap<Integer, Boolean>();
 		Map<Integer, Map<String, Object>> map = new HashMap<Integer, Map<String, Object>>();
 		Map<String, Object> element = null;
 		
 		List<PictureBook> list = dao.getLoanableMonth(pictureBook);
 		
-		for (int i = 1; i < 12; i++) {
+		for (int i = 1; i <= 12; i++) {
 			element = new HashMap<String, Object>();
 			boolean flag = false;
 			
@@ -125,6 +124,7 @@ public class PictureBookService extends BaseService {
 			element.put("isMonth", flag);
 			map.put(i, element);
 		}
+		pictureBook.setMonthList(dao.getMonthList(pictureBook));
 		
 		return map;
 	}

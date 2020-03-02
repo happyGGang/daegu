@@ -142,6 +142,11 @@ input[type="checkbox"]:focus {outline: 1px solid red;}
 			<tr>
 				<th>진행상태</th>
 				<td>
+				<c:choose>
+					<c:when test="${loginSupport.auth_group eq '3'}">
+					<form:hidden path="request_status" value="1"/>신청완료
+					</c:when>
+					<c:otherwise>
 					<form:select path="request_status" cssClass="selectmenu">
 						<form:option value="1">신청완료</form:option>
 						<form:option value="2">대출중</form:option>
@@ -150,6 +155,8 @@ input[type="checkbox"]:focus {outline: 1px solid red;}
 						<form:option value="5">반납완료</form:option>
 						<form:option value="6">대출불가</form:option>
 					</form:select>
+					</c:otherwise>
+				</c:choose>	
 				</td>
 			</tr>
 		</tbody>
