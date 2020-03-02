@@ -85,7 +85,7 @@ $(document).ready(function() {
 		</c:when>
 		<c:otherwise>
 		var url = 'index.do';
-		var formData = serializeParameter(['manage_idx', 'menu_idx', 'category1', 'rowCount', 'viewPage', 'search_type', 'search_text']);
+		var formData = serializeParameter(['manage_idx', 'menu_idx', 'category1', 'rowCount', 'viewPage', 'search_type', 'search_text', 'imsi_v_1', 'imsi_v_2']);
 		doGetLoad(url, formData);
 		</c:otherwise>
 		</c:choose>

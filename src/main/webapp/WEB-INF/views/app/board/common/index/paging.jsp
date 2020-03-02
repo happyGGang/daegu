@@ -12,11 +12,11 @@
 </c:if>
 <c:if test="${paging.prevPageNum > 0}">
 	<a href="" class="paginate_button previous" keyValue="${paging.prevPageNum}">이전</a>
-</c:if>	
+</c:if>
 	<span>
 <c:forEach var="i" varStatus="status" begin="${paging.startPageNum}" end="${paging.endPageNum}">
 <c:choose>
-<c:when test="${i eq paging.viewPage}">	
+<c:when test="${i eq paging.viewPage}">
 	<a href="" class="paginate_button current" keyValue="${i}">${i}</a>
 </c:when>
 <c:otherwise>
@@ -40,7 +40,9 @@
 			<form:option value="title+content">제목+내용</form:option>
 			<form:option value="title">제목</form:option>
 			<form:option value="content">내용</form:option>
+			<c:if test="${boardManage.board_type ne 'FAQ'}">
 			<form:option value="user_name">글작성자</form:option>
+			</c:if>
 		</form:select>
 		<form:input path="search_text" id="search_text_board" cssClass="text" accesskey="s" title="검색어" alt="검색어"  placeholder="검색어를 입력하세요" cssStyle="ime-mode:active;" />
 		<label for="search_text_board" class="blind">검색어</label>
@@ -56,14 +58,14 @@ $(document).ready(function() {
 		doGetLoad('index.do', param);
 		e.preventDefault();
 	});
-	
+
 	$('a#board_btn_search').on('click', function(e) {
 		e.preventDefault();
 		$('#viewPage').attr('value', '1');
 		var param = serializeCustom($('<%=formId%>'));
 		doGetLoad('index.do', param);
 	});
-	
+
 	$('input#search_text_board').keyup(function(e) {
 		e.preventDefault();
 		if(e.keyCode == 13) {

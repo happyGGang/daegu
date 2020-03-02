@@ -26,7 +26,7 @@ $(document).ready(function() {
 		var param = serializeCustom($('<%=formId%>'));
 		doGetLoad('index.do', param);
 	});
-	
+
 	$('input#search_text').keyup(function(e) {
 		e.preventDefault();
 		if(e.keyCode == 13) {

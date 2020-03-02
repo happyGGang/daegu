@@ -250,11 +250,13 @@ ${boardManage.top_html}
 									<c:if test="${i.imsi_v_2 ne null and i.imsi_v_2 ne '0'}">
 									<li>출판년도 : ${i.imsi_v_2}</li>
 									</c:if>
+									<c:if test="${boardManage.manage_idx ne '195'}">
 									<c:if test="${i.imsi_v_6 ne null and i.imsi_v_6 ne '0'}">
 									<li>소장자료실 : ${i.imsi_v_6}</li>
 									</c:if>
 									<c:if test="${i.imsi_v_7 ne null and i.imsi_v_7 ne '0'}">
 									<li>청구기호 : ${i.imsi_v_7}</li>
+									</c:if>
 									</c:if>
 								</ul>
 							</div>
