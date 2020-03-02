@@ -94,6 +94,11 @@ $(function() {
 					<li style="width: 33%; float: left;"><form:radiobutton path="shelfCode" value="${i.CODE}" label="${i.DESCRIPTION}"/></li>
 						</c:if>
 					</c:when>
+					<c:when test="${homepage.context_path eq 'dongbu'}">
+						<c:if test="${fn:indexOf(i.DESCRIPTION, '제적') < 0}">
+					<li style="width: 33%; float: left;"><form:radiobutton path="shelfCode" value="${i.CODE}" label="${i.DESCRIPTION}"/></li>
+						</c:if>
+					</c:when>
 					<c:otherwise>
 					<li style="width: 33%; float: left;"><form:radiobutton path="shelfCode" value="${i.CODE}" label="${i.DESCRIPTION}"/></li>
 					</c:otherwise>
