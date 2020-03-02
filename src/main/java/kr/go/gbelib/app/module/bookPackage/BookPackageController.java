@@ -319,6 +319,12 @@ public class BookPackageController extends BaseController {
 	
 	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
 	public BookPackageView excel(Model model, BookPackage bookPackage, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		SupportMember sm = sessionLoginSupport(request);
+		
+		if(sm != null && sm.getAuth_group().equals("3")) {
+			bookPackage.setAdd_id(sm.getMember_id());
+		}
+		
 		List<BookPackage> bookPackageList = null;
 		if(bookPackage.getEditMode().equals("bookPackage")) {
 			bookPackageList = service.getBookPackageExcelList(bookPackage);

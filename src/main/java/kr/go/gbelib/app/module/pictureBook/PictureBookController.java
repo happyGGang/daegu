@@ -199,6 +199,12 @@ public class PictureBookController extends BaseController {
 	
 	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
 	public PictureBookView excel(Model model, PictureBook pictureBook, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		SupportMember sm = sessionLoginSupport(request);
+		
+		if(sm != null && sm.getAuth_group().equals("3")) {
+			pictureBook.setAdd_id(sm.getMember_id());
+		}
+		
 		List<PictureBook> pictureBookLoanList = service.getPictureBookLoanExcelList(pictureBook);
 		
 		model.addAttribute("pictureBook", pictureBook);

@@ -251,6 +251,9 @@
 			LIBRARY_CHECK a, LIBRARY_CHECK_LOAN b
 		WHERE
 			a.library_check_idx = b.library_check_idx
+		<if test="add_id != null and add_id != ''">
+		AND	b.add_id = #{add_id}
+		</if>
 		ORDER BY b.add_date DESC
 	</select>
 	
