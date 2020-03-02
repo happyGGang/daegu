@@ -94,10 +94,10 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 				request.getSession().setAttribute("homepage", homepage);
 
 				//추천사이트
-				if (request.getSession().getAttribute("recommendSiteList") == null) {
+//				if (request.getSession().getAttribute("recommendSiteList") == null) {
 					List<RecommendSite> recommendSiteListAll = recommendSiteService.getRecommendSiteListCache(homepage.getHomepage_id());
 					request.getSession().setAttribute("recommendSiteList", recommendSiteListAll);
-				}
+//				}
 
 				/**
 				 * 접속 통계 + 로그 남기기
