@@ -65,6 +65,7 @@ public class PortalMemberService extends BaseService {
 	}
 
 	public int addMyGration(PortalMember portalMember) {
+		portalMember.setAgency_password(CalculateHashUtils.calculateHash(portalMember.getAgency_password()));
 		return dao.addMyGration(portalMember);
 	}
 

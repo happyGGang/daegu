@@ -137,7 +137,7 @@ public class PortalMemberController extends BaseController {
 			pm.setPortal_member_idx(Integer.parseInt(String.valueOf(map.get("m_num"))));
 			pm.setAgency_name(String.valueOf(map.get("m_name")).equals("") ? "empty" : String.valueOf(map.get("m_name")));
 			pm.setAgency_id(m_id.equals("") ? "empty" : m_id);
-			pm.setAgency_password("575a524847727342455372387759465a3973783074505552755a6747326c6d7a797657707758504b7a38553d");
+			pm.setAgency_password(m_id.equals("") ? "empty" : m_id);
 			
 			String level = String.valueOf(map.get("m_level"));
 			String auth_group = "";

@@ -378,7 +378,36 @@ public class BookPackageController extends BaseController {
 				bp.setQuantity(Integer.parseInt(b15));
 			}
 			bp.setGrade(String.valueOf(map.get("b_temp9")));
-			bp.setCategory(String.valueOf(map.get("b_temp10")));
+			
+			String keyword = String.valueOf(map.get("b_temp10"));
+			String [] keyarr = keyword.split(",");
+			keyword = "";
+			for (String key : keyarr) {
+				
+				if(key.equals("6")) {
+					keyword += ",000";
+				} else if(key.equals("7")) {
+					keyword += ",100";
+				} else if(key.equals("8")) {
+					keyword += ",200";
+				} else if(key.equals("9")) {
+					keyword += ",300";
+				} else if(key.equals("10")) {
+					keyword += ",400";
+				} else if(key.equals("11")) {
+					keyword += ",500";
+				} else if(key.equals("12")) {
+					keyword += ",600";
+				} else if(key.equals("13")) {
+					keyword += ",700";
+				} else if(key.equals("14")) {
+					keyword += ",800";
+				} else if(key.equals("15")) {
+					keyword += ",900";
+				}
+			}
+			
+			bp.setCategory(keyword.equals("") ? null : keyword.substring(1));
 			bp.setKeyword(String.valueOf(map.get("b_temp11")));
 			bp.setDesc_link(String.valueOf(map.get("b_temp13")));
 			bp.setImage_link(String.valueOf(map.get("b_temp14")));
@@ -408,7 +437,7 @@ public class BookPackageController extends BaseController {
 			}
 			
 			System.out.println("@@@@@@@@@@@@@@ data : " + bp.toString());
-//			service.addMysqlToTibero(bp);
+			service.addMysqlToTibero(bp);
 			
 		}
 		
@@ -438,8 +467,8 @@ public class BookPackageController extends BaseController {
 				e.printStackTrace();
 			}
 			
-			System.out.println("@@@@@@@@@@@@@@ data2 : " + bp.toString2());
-			service.addMysqlToTibero2(bp);
+//			System.out.println("@@@@@@@@@@@@@@ data2 : " + bp.toString2());
+//			service.addMysqlToTibero2(bp);
 		}
 	}
 
