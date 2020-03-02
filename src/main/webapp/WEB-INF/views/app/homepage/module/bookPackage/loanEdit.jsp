@@ -181,6 +181,11 @@ input[type="checkbox"]:focus {outline: 1px solid red;}
 			<tr>
 				<th>진행상태</th>
 				<td>
+				<c:choose>
+					<c:when test="${loginSupport.auth_group eq '3'}">
+					<form:hidden path="request_status" value="0"/>신청중
+					</c:when>
+					<c:otherwise>
 					<form:select path="request_status" cssClass="selectmenu">
 						<form:option value="0">신청중</form:option>
 						<form:option value="1">예약상담중</form:option>
@@ -189,6 +194,8 @@ input[type="checkbox"]:focus {outline: 1px solid red;}
 						<form:option value="4">관리자취소</form:option>
 						<form:option value="5">반납요청완료</form:option>
 					</form:select>
+					</c:otherwise>
+				</c:choose>
 				</td>
 			</tr>
 		</tbody>

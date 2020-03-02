@@ -237,7 +237,7 @@ public class BookPackageController extends BaseController {
 			} else if (bookPackage.getEditMode().equals("DELETE")) {
 				service.deleteBookPackageLoan(bookPackage);
 				res.setValid(true);
-				res.setMessage("삭제되었습니다.");
+				res.setMessage("취소되었습니다.");
 			} else if(bookPackage.getEditMode().equals("returnReq")) {
 				service.modifyReturnReq(bookPackage);
 				res.setValid(true);
