@@ -73,7 +73,7 @@ $(function() {
 
 	//외국어 입력기
 	$('#vk-popup').on('click', function(e) {
-		PopupVirtualKeyboard.toggle('search_text','vk');
+		PopupVirtualKeyboard.toggle('title','vk');
 	});
 
 	//전체 선택
