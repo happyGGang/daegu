@@ -349,7 +349,7 @@ public class CommonJoinController extends BaseController {
 					res.setValid(true);
 					res.setMessage("수정되었습니다.");
 					loginService.setSessionMember(sessionMember, request);
-					res.setUrl(String.format("/%s/join/modifyCheck.do?menu_idx=%d", homepage.getContext_path(), member.getMenu_idx()));
+					res.setUrl(String.format("/%s/intro/join/modifyCheck.do?menu_idx=%d", homepage.getContext_path(), member.getMenu_idx()));
 				} else {
 					res.setValid(false);
 					res.setMessage("수정 실패하였습니다. 잠시후 다시 시도해주세요.");
