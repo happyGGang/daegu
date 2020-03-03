@@ -194,6 +194,9 @@ public class StudentService extends BaseService {
 
 				if ( offlineCount > curOfflineJoinCount ) {
 					student.setApply_status("1"); // 참여 상태
+					if (StringUtils.isEmpty(student.getMember_id())) {
+						student.setMember_id("ANONYMOUS");
+					}
 					int result = dao.addStudent(student);
 
 					if ( result > 0 ) {
@@ -543,12 +546,12 @@ public class StudentService extends BaseService {
 		sheet.addCell( new Label( 5,  1, "대구광역시") );
 		sheet.addCell( new Label( 6,  1, "010-1234-5678") );
 		sheet.addCell( new Label( 7,  1, "Y") );
-		sheet.addCell( new Label( 8,  1, "") );
-		sheet.addCell( new Label( 9,  1, "") );
-		sheet.addCell( new Label( 10, 1, "18") );
-		sheet.addCell( new Label( 11, 1, "") );
-		sheet.addCell( new Label( 12, 1, "") );
-		sheet.addCell( new Label( 13, 1, "") );
+		sheet.addCell( new Label( 8,  1, "수강생") );
+		sheet.addCell( new Label( 9,  1, "20000101") );
+		sheet.addCell( new Label( 10, 1, "20") );
+		sheet.addCell( new Label( 11, 1, "여") );
+		sheet.addCell( new Label( 12, 1, "12345") );
+		sheet.addCell( new Label( 13, 1, "대구광역시") );
 		sheet.addCell( new Label( 14, 1, "대구고등학교") );
 		sheet.addCell( new Label( 15, 1, "2") );
 		sheet.addCell( new Label( 15, 2, "학년은 반드시 코드로 입력하여야합니다. 아래 내용을 참조하여 입력하세요") );
@@ -567,7 +570,7 @@ public class StudentService extends BaseService {
 		sheet.addCell( new Label( 25, 1, "나이스 연수지명번호 입력시 입력하세요") );
 		sheet.addCell( new Label( 26, 1, "") );
 		sheet.addCell( new Label( 27, 1, "") );
-		sheet.addCell( new Label( 28, 1, "Y 또는 N") );
+		sheet.addCell( new Label( 28, 1, "Y") );
 
 
 		List<Code> locationCode = codeService.getCode("CMS", "C0022");

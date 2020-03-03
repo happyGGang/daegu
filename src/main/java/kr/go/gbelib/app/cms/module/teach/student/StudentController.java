@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,9 +16,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import kr.co.whalesoft.app.cms.code.Code;
 import kr.co.whalesoft.app.cms.code.CodeService;
-import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
@@ -29,7 +31,6 @@ import kr.go.gbelib.app.cms.module.category.group.CategoryGroup;
 import kr.go.gbelib.app.cms.module.category.group.CategoryGroupService;
 import kr.go.gbelib.app.cms.module.teach.Teach;
 import kr.go.gbelib.app.cms.module.teach.TeachService;
-import kr.go.gbelib.app.cms.module.teach.TeachXlsToCsv;
 import kr.go.gbelib.app.cms.module.teach.teachCode2.TeachCode2;
 import kr.go.gbelib.app.cms.module.teach.teachCode2.TeachCode2Service;
 import kr.go.gbelib.app.common.api.MemberAPI;
@@ -139,8 +140,8 @@ public class StudentController extends BaseController {
 		if ( !student.getEditMode().equals("DELETE") && !student.getEditMode().equals("CANCEL") && !student.getEditMode().equals("SAVELIST")
 				&& !student.getEditMode().equals("BATCH_DELETE") && !student.getEditMode().equals("BATCH_CANCEL") ) {
 			if ( student.getEditMode().equals("ADD") ) {
-				ValidationUtils.rejectIfEmpty(result, "member_id", "신청자ID를 입력하세요.");
-				ValidationUtils.rejectIfEmpty(result, "member_key", "ID 확인을 해주세요.");
+//				ValidationUtils.rejectIfEmpty(result, "member_id", "신청자ID를 입력하세요.");
+//				ValidationUtils.rejectIfEmpty(result, "member_key", "ID 확인을 해주세요.");
 			}
 
 			ValidationUtils.rejectIfEmpty(result, "applicant_name", "신청자명을 입력하세요.");
@@ -215,6 +216,10 @@ public class StudentController extends BaseController {
 					one.setGroup_idx(student.getGroup_idx());
 					one.setCategory_idx(student.getCategory_idx());
 					one.setTeach_idx(student.getTeach_idx());
+					one.setAdd_id(getSessionMemberId(request));
+					if (StringUtils.isEmpty(one.getMember_id())) {
+						one.setMember_id("ANONYMOUS");
+					}
 					studentList.set(i, one);
 
 					Member studentMember = new Member();
