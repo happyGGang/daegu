@@ -24,6 +24,8 @@ public interface SupportMemberDao {
 	public SupportMember getSupportMemberLogin(SupportMember supportMember);
 
 	public int addLastLogin(SupportMember supportMember);
+	
+	public int passwordChange(SupportMember supportMember);
 
 	public List<Map<String, Object>> getMySqlList();
 

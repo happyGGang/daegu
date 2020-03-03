@@ -67,6 +67,11 @@ public class SupportMemberService extends BaseService {
 	public int addLastLogin(SupportMember supportMember) {
 		return dao.addLastLogin(supportMember);
 	}
+	
+	public int passwordChange(SupportMember supportMember) {
+		supportMember.setMember_password(CalculateHashUtils.calculateHash(supportMember.getMember_password()));
+		return dao.passwordChange(supportMember);
+	}
 
 	@DataSource(DataSourceType.SLAVE1)
 	public List<Map<String, Object>> getMySqlList() {
@@ -77,5 +82,5 @@ public class SupportMemberService extends BaseService {
 		supportMember.setMember_password(CalculateHashUtils.calculateHash(supportMember.getMember_password()));
 		return dao.addParseTibero(supportMember);
 	}
-	
+
 }

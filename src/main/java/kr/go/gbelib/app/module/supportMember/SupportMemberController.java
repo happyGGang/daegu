@@ -12,12 +12,19 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.menu.Menu;
+import kr.co.whalesoft.app.cms.menu.MenuService;
+import kr.co.whalesoft.framework.base.BaseController;
+import kr.co.whalesoft.framework.utils.JsonResponse;
+import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.cms.module.supportMember.SupportMember;
 import kr.go.gbelib.app.cms.module.supportMember.SupportMemberService;
 
@@ -29,6 +36,9 @@ public class SupportMemberController {
 	
 	@Autowired
 	private SupportMemberService service;
+	
+	@Autowired
+	private MenuService menuService;
 	
 	@RequestMapping (value = {"/index.*"}, method = RequestMethod.GET)
 	public String loginForm(Model model, SupportMember supportMember, HttpServletRequest request) {
@@ -52,7 +62,6 @@ public class SupportMemberController {
 			service.addLastLogin(loginSupport);
 			request.getSession().removeAttribute("member");
 			request.getSession().setAttribute("loginSupport", loginSupport);
-//			request.getSession().setAttribute("authGroup", loginSupport.getAuth_group());
 		}
     	
 		if (StringUtils.isEmpty(returnUrl) || returnUrl.indexOf("/login/") > -1) {
@@ -74,6 +83,49 @@ public class SupportMemberController {
 		request.getSession().invalidate();
 		String redirectURL = (request.isSecure() ? "https://" : "http://") + request.getServerName() + "/" + homepage.getContext_path();
 		return "redirect:" + redirectURL + "/index.do";
+	}
+	
+	@RequestMapping (value = "/passwordForm.*", method = RequestMethod.GET)
+	public String passwordChange(Model model, SupportMember supportMember, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		SupportMember sessionMember = (SupportMember)request.getSession().getAttribute("loginSupport");
+		
+		if(sessionMember == null) {
+			supportMember.setBefore_url(String.format("/%s/module/supportMember/passwordForm.do?menu_idx=%s", homepage.getContext_path(), supportMember.getMenu_idx()));
+			service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), supportMember.getMenu_idx(), supportMember.getBefore_url()), request, response);
+			return null;
+		}
+		
+		return String.format(basePath, homepage.getFolder()) + "passwordForm";
+	}
+	
+	@RequestMapping (value = {"/passwordChange.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse save(SupportMember supportMember, BindingResult result, HttpServletRequest request) {
+		/* 유효성 검증 >>>>> */
+		JsonResponse res = new JsonResponse(request);
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		
+		if(supportMember.getMember_password().length() < 5) {
+			result.rejectValue("member_password", "비밀번호는 5자리 이상 입력해주세요.");
+		}
+		if(!StringUtils.equals(supportMember.getMember_password(), supportMember.getPassword_check())) {
+			result.rejectValue("password_check", "비밀번호가 다릅니다.");
+		}
+		/* <<<<< 유효성 검증 */
+
+		if (!result.hasErrors()) {
+			service.passwordChange(supportMember);
+			request.getSession().invalidate();
+			res.setValid(true);
+			res.setMessage("비밀번호 변경되었습니다.");
+			res.setUrl("index.do");
+			res.setData("menu_idx="+menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 119)));
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+		
+		return res;
 	}
 	
 	@RequestMapping(value = {"/mysql_to_tibero"}, method = RequestMethod.GET)
