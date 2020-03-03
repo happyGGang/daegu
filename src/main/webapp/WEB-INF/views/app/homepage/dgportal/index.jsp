@@ -242,7 +242,7 @@ do {
 									<p class="tit title${i.imsi_v_19}">${i.title}</p>
 									<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
 								</a>
-								<a href="#" class="link library${i.imsi_v_19}">${i.imsi_v_20}</a>
+								<a href="/${i.imsi_v_19}/board/view.do?manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&menu_idx=${i.imsi_n_2}" class="link library${i.imsi_v_19}">${i.imsi_v_20}</a>
 							</li>
 							</c:forEach>
 						</ul>
