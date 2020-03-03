@@ -50,6 +50,14 @@
   		<put-attribute name="body" expression="/WEB-INF/views/app/homepage/elibsso.jsp" />
 	</definition>
 
+	<definition name="/homepage/*/elib" templateExpression="/WEB-INF/views/app/homepage/{1}/layout/subLayout.jsp">
+		<put-attribute name="header" expression="/WEB-INF/views/app/homepage/{1}/layout/header.jsp" />
+  		<put-attribute name="footer" expression="/WEB-INF/views/app/homepage/{1}/layout/footer.jsp" />
+  		<put-attribute name="top" expression="/WEB-INF/views/app/homepage/{1}/layout/top.jsp" />
+  		<put-attribute name="topMenu" expression="/WEB-INF/views/app/homepage/{1}/layout/topMenu.jsp" />
+  		<put-attribute name="body" expression="/WEB-INF/views/app/homepage/elib.jsp" />
+	</definition>
+
 	<definition name="/homepage/*/htmlEdit" templateExpression="/WEB-INF/views/app/homepage/{1}/layout/subLayout.jsp">
 		<put-attribute name="header" expression="/WEB-INF/views/app/homepage/{1}/layout/header.jsp" />
   		<put-attribute name="footer" expression="/WEB-INF/views/app/homepage/{1}/layout/footer.jsp" />

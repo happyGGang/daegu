@@ -43,4 +43,10 @@ public class HtmlController extends BaseController {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 		return basePath + homepage.getFolder() + "/elibsso";
 	}
+
+	@RequestMapping(value = {"/{contextPath}/elib.*"})
+	public String elib(Model model, Menu menu, HttpServletRequest request) {
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+		return basePath + homepage.getFolder() + "/elib";
+	}
 }
