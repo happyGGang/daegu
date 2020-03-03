@@ -98,7 +98,7 @@ $(function() {
 			alert('신청자 생년월일이 입력되지 않았습니다. 회원정보 수정후 신청 해주세요.');
 			return false;
 		}
-		
+
 		if ( $form.find ("#applicant_name").val() == '' ) {
 			alert('성명이 입력되지 않았습니다.');
 			$("#applicant_name").focus();
@@ -110,7 +110,7 @@ $(function() {
 			$("#applicant_birth").focus();
 			return false;
 		}
-		
+
 		if ( $("[name=applicant_sex]").val() == '' ) {
 			alert('성별이 입력되지 않았습니다.');
 			return false;
@@ -141,10 +141,10 @@ $(function() {
 		var cellPhone3 = $form.find('#applicant_cell_phone_3').val();
 		if ( cellPhone3 == '' ) {
 			$form.find('#applicant_cell_phone_3').focus();
-			alert('휴대전화번호를 입력해주세요.'); 
+			alert('휴대전화번호를 입력해주세요.');
 			return false;
 		}
-		
+
 		<c:if test="${teach.agent_yn eq 'Y'}">
 		var cellPhone1_s = $form.find('#student_cell_phone_1').val();
 		if ( cellPhone1_s == '' ) {
@@ -164,7 +164,7 @@ $(function() {
 			alert('휴대전화번호를 입력해주세요.');
 			return false;
 		}
-		
+
 		$form.find('#student_cell_phone').val(cellPhone1_s+'-'+cellPhone2_s+'-'+cellPhone3_s);
 		</c:if>
 
@@ -405,15 +405,14 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	        </tr>
 	        <c:if test="${teach.address_yn eq 'Y'}">
 	        <tr>
-	         	<th>신청자 - 우편번호(<span style="color: red; font-weight: bold;">*</span>)</th>
+	         	<th>신청자 - 주소찾기(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
 	         		<c:choose>
 						<c:when test="${empty memberInfo.zipcode}">
-	         		<form:input path="applicant_zipcode" cssClass="text" cssStyle="width: 8%;" readonly="true"/>
-	         		<button class="btn btn2 findPostCode" keyValue1="#applicant_zipcode" keyValue2="#applicant_address" keyValue3="#applicant_address">우편번호 찾기</button>
+	         		<form:hidden path="applicant_zipcode" cssClass="text" cssStyle="width: 8%;" readonly="true"/>
+	         		<button class="btn btn2 findPostCode" keyValue1="#applicant_zipcode" keyValue2="#applicant_address" keyValue3="#applicant_address">주소 찾기</button>
 						</c:when>
 						<c:otherwise>
-	         		${memberInfo.zipcode}
 	         		<form:hidden path="applicant_zipcode" value="${memberInfo.zipcode}" cssClass="text" cssStyle="width: 8%;" readonly="true"/>
 						</c:otherwise>
 					</c:choose>
@@ -425,6 +424,9 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	         		<c:choose>
 						<c:when test="${empty memberInfo.zipcode}">
 					<form:input path="applicant_address"  cssClass="text" style="width:95%;" maxlength="100"/><br/>
+					<div class="ui-state-highlight">
+						<em>* 개인정보보호를 위해 동/면/리 단위까지 입력하시기 바랍니다.</em>
+					</div>
 						</c:when>
 						<c:otherwise>
 	         		${memberInfo.address}
@@ -443,6 +445,11 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 							<input type="text" id="applicant_cell_phone_1" name="applicant_cell_phone_1" style="width:40px;" class="text" maxlength="3" numberonly="true"/> -
 							<input type="text" id="applicant_cell_phone_2" name="applicant_cell_phone_2" style="width:50px;" class="text" maxlength="4" numberonly="true"/> -
 							<input type="text" id="applicant_cell_phone_3" name="applicant_cell_phone_3" style="width:50px;" class="text" maxlength="4" numberonly="true"/>
+							<c:if test="${teach.family_yn eq 'Y'}">
+							<div class="ui-state-highlight">
+								<em>* 연락처가 없는 경우 보호자의 연락처를 입력하시기 바랍니다.</em>
+							</div>
+							</c:if>
 						</c:when>
 						<c:otherwise>
 							${member.cell_phone1}-${member.cell_phone2}-${member.cell_phone3}
@@ -611,14 +618,17 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	        </tr>
 	        <c:if test="${teach.address_yn eq 'Y'}">
 	        <tr>
-	         	<th>수강생 - 우편번호(<span style="color: red; font-weight: bold;">*</span>)</th>
-	         	<td><form:input path="student_zipcode" cssClass="text" cssStyle="width: 8%;" title="우편번호"/><button class="btn btn2 findPostCode" keyValue1="#student_zipcode" keyValue2="#student_address" keyValue3="#student_address" >우편번호 찾기</button></td>
+	         	<th>수강생 - 주소찾기(<span style="color: red; font-weight: bold;">*</span>)</th>
+	         	<td><form:hidden path="student_zipcode" cssClass="text" cssStyle="width: 8%;" title="우편번호"/><button class="btn btn2 findPostCode" keyValue1="#student_zipcode" keyValue2="#student_address" keyValue3="#student_address" >주소 찾기</button></td>
         	</tr>
         	</c:if>
 	        <tr>
 	         	<th>수강생 - 주소(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
 	         		<form:input path="student_address" cssClass="text" style="width:95%;" maxlength="60" title="주소입력"/><br/>
+	         		<div class="ui-state-highlight">
+						<em>* 개인정보보호를 위해 동/면/리 단위까지 입력하시기 바랍니다.</em>
+					</div>
 	         	</td>
         	</tr>
 	        <c:if test="${teach.family_yn eq 'Y'}">

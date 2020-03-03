@@ -80,20 +80,20 @@ public class StudentController extends BaseController {
 			service.alertMessage("잘못된 경로로 접근하였습니다", request, response);
 			return null;
 		}
-		
+
 		if (StringUtils.equals(teachOne.getMember_yn(), "N") && !isLogin(request)) {
 			student.setBefore_url(String.format("/%s/module/teach/index.do?menu_idx=%s&group_idx=%s&category_idx=%s", homepage.getContext_path(), student.getMenu_idx(), student.getGroup_idx(), student.getCategory_idx()));
 			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), student.getMenu_idx(), student.getBefore_url()), request, response);
 			return null;
 		}
-		
+
 		if (StringUtils.equals(teachOne.getMember_yn(), "Y")) {
 			student.setMember_id("ANONYMOUS");
 		} else {
 			student.setMember_id(getSessionMemberId(request));
 			student.setMember_key(getSessionMemberId(request));
 		}
-		
+
 		if ( !homepage.getHomepage_id().equals("h32") ) {
 			student.setHomepage_id(homepage.getHomepage_id());
 		}
@@ -156,7 +156,7 @@ public class StudentController extends BaseController {
 			teachOne = teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));
 
 			if (StringUtils.equals(teachOne.getAddress_yn(), "Y")) {
-				ValidationUtils.rejectIfEmpty(result, "applicant_zipcode", "신청자 우편번호를 입력하세요.");
+//				ValidationUtils.rejectIfEmpty(result, "applicant_zipcode", "신청자 우편번호를 입력하세요.");
 				ValidationUtils.rejectIfEmpty(result, "applicant_address", "신청자 주소를 입력하세요.");
 			}
 
@@ -166,13 +166,9 @@ public class StudentController extends BaseController {
 				ValidationUtils.rejectIfEmpty(result, "student_birth", "수강생 생년월일을 입력하세요.");
 				ValidationUtils.rejectIfEmpty(result, "student_sex", "수강생 성별을 선택하세요.");
 				if (StringUtils.equals(teachOne.getAddress_yn(), "Y")) {
-    				ValidationUtils.rejectIfEmpty(result, "student_zipcode", "수강생 우편번호를 입력하세요.");
+//    				ValidationUtils.rejectIfEmpty(result, "student_zipcode", "수강생 우편번호를 입력하세요.");
     				ValidationUtils.rejectIfEmpty(result, "student_address", "수강생 주소를 입력하세요.");
 				}
-			}
-
-			if (StringUtils.equals(teachOne.getAddress_yn(), "Y")) {
-				ValidationUtils.rejectIfEmpty(result, "student_family_count", "가족인원수를 입력하세요");
 			}
 
 			if (StringUtils.equals(teachOne.getFamily_count_yn(), "Y")) {
