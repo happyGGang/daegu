@@ -21,6 +21,7 @@ ${boardManage.top_html}
 	<table class="bbs-edit">
 	<caption>질문과 답변 글쓰기 내용 입력</caption>
 		<tbody>
+			<jsp:include page="/WEB-INF/views/app/board/common/edit/notice.jsp" flush="false" />
 			<jsp:include page="/WEB-INF/views/app/board/common/edit/category.jsp" flush="false" />
 			<tr>
 				<th>제목</th>

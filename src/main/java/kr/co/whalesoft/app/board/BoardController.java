@@ -714,7 +714,7 @@ public class BoardController extends BaseController {
 //
 		model.addAttribute("board", boardData);
 //
-		if(boardManage.getBoard_type().equals("QNA")) {
+		if(boardManage.getBoard_type().equals("QNA") && boardData.getNotice_yn().equals("N")) {
 			List<Board> qnaReplyList = service.getQnABoardOne(boardData);
 			for(Board qnaBoard:qnaReplyList){
 				qnaBoard.setBoardFile(boardFileService.getBoardFile(qnaBoard.getBoard_idx()));

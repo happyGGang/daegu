@@ -41,6 +41,47 @@ ${boardManage.top_html}
 				</tr>
 			</thead>
 			<tbody id="board_tbody">
+			<c:forEach var="i" varStatus="status" items="${boardNoticeList}">
+				<tr class="notice">
+					<c:if test="${board.delete_yn eq 'Y'}">
+					<td></td>
+					</c:if>
+					<td class="num notice"><span>공지</span></td>
+					<td class="left important" style="padding-left:${(i.group_depth > 0 ? (i.group_depth-1)*15 : 0)+10}px;">
+						<c:set var="boardIdx" value="${i.parent_idx > 0 ? i.parent_idx : i.board_idx}"></c:set>
+						<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}" keyValue="${i.board_idx}">
+						<c:if test="${i.group_depth > 0}">
+							<i class="fa fa-reply"></i>
+						</c:if>
+							<span>${i.title}</span>${i.secret_yn eq 'Y'?'<i class="fa fa-lock"></i>':''}
+							<c:if test="${i.date_gap <= boardManage.new_date_count}"><em class="new">새글</em></c:if>
+							<c:if test="${i.comment_count > 0}">
+							<span class="comment"><em>댓글</em> <i>${i.comment_count}</i></span>
+							</c:if>
+						</a>
+					</td>
+					<td class="important"></td>
+					<c:choose>
+					<c:when test="${authMBA}">
+					<c:set var="user_name" value="${i.user_name}"/>
+					</c:when>
+					<c:when test="${boardManage.anonymize_yn eq 'Y'}">
+					<c:set var="user_name" value="${fn:substring(i.user_name, -1, 1)}**"/>
+					</c:when>
+					<c:otherwise>
+					<c:set var="user_name" value="${i.user_name}"/>
+					</c:otherwise>
+					</c:choose>
+					<td class="important mmm2">${i.secret_yn ne 'Y'? user_name : (authMBA ? i.user_name : '비공개')}</td>
+					<td class="num mmm1"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd" /></td>
+					<td class="num mmm1">${i.view_count}</td>
+					<td class="file mmm1">
+					<c:if test="${i.file_count > 0}">
+						<i class="fa fa-floppy-o"></i>
+					</c:if>
+					</td>
+				</tr>
+			</c:forEach>
 			<c:forEach var="i" varStatus="status" items="${boardList}">
 				<tr${i.group_depth > 0?' class="reply"':''}>
 					<c:if test="${board.delete_yn eq 'Y'}">
