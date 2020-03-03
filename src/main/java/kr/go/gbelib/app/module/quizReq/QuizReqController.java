@@ -111,22 +111,22 @@ public class QuizReqController extends BaseController {
 
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Model model, QuizReq quizReq, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		JsonResponse res = new JsonResponse(request);
 		String editMode = quizReq.getEditMode();
 
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			quizReq.setBefore_url(String.format("/%s/module/quizReq/index.do?menu_idx=%s", homepage.getContext_path(), quizReq.getMenu_idx()));
-			res.setValid(false);
-			res.setMessage("로그인 후 이용가능합니다.");
-			res.setUrl(String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), quizReq.getMenu_idx(), quizReq.getBefore_url()));
-			return res;
-		}
-
 		if ( !quizReq.getEditMode().equals("DELETE") ) {
 			ValidationUtils.rejectIfEmpty(result, "name", "이름을 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "phone", "휴대전화번호를 입력하세요.");
+			ValidationUtils.rejectPhone(result, "phone", "휴대전화번호 형식(01x-xxxx-xxxx)이 올바르지 않습니다.");
 		}
-
+		
+		int matchLength = StringUtils.countMatches(quizReq.getQuiz_answer(), "<whale>") + 1;
+		int answer_length = quizReq.getQuiz_answer().split("<whale>").length;
+		if(matchLength - answer_length > 0) {
+			int answer_num = answer_length + 1;
+			result.reject(answer_num + "번 문항에 답하지 않으셨습니다.");
+		}
+		
 		if ( !result.hasErrors() ) {
 			if ( editMode.equals("ADD") ) {
 				quizReq.setAdd_id(getSessionMemberId(request));
