@@ -217,7 +217,14 @@ public class BoardController extends BaseController {
 		// 228도서관 지원센터 회원인증 확인
 		SupportMember loginSupport = sessionLoginSupport(request);
 		if(manageCompareIdx(board.getManage_idx(), 226, 230)) {
-			if ( loginSupport == null && !getSessionIsAdmin(request)) {
+			checkAuth("R", model, request);
+			boolean isSiteAdmin = false;
+			try {
+				isSiteAdmin = (Boolean) model.asMap().get("authMBA");
+			} catch (Exception e) {
+				isSiteAdmin = false;
+			}
+			if ( loginSupport == null && !getSessionIsAdmin(request) && !isSiteAdmin) {
 	    		board.setBefore_url(String.format("/%s/board/index.do?menu_idx=%s%%26manage_idx=%s", homepage.getContext_path(), board.getMenu_idx(), board.getManage_idx()));
 	    		service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
 	    		return null;
@@ -372,19 +379,26 @@ public class BoardController extends BaseController {
 		// 228도서관 지원센터 회원인증 확인
 		SupportMember loginSupport = sessionLoginSupport(request);
 		if(manageCompareIdx(board.getManage_idx(), 212, 213, 224, 225, 226, 227, 228, 230)) {
-			if ( loginSupport == null && !getSessionIsAdmin(request)) {
-	    		board.setBefore_url(String.format("/%s/board/index.do?menu_idx=%s%%26manage_idx=%s", homepage.getContext_path(), board.getMenu_idx(), boardManage.getManage_idx()));
-	    		service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
-	    		return null;
+			checkAuth("R", model, request);
+			boolean isSiteAdmin = false;
+			try {
+				isSiteAdmin = (Boolean) model.asMap().get("authMBA");
+			} catch (Exception e) {
+				isSiteAdmin = false;
+			}
+			if ( loginSupport == null && !getSessionIsAdmin(request) && !isSiteAdmin) {
+				board.setBefore_url(String.format("/%s/board/index.do?menu_idx=%s%%26manage_idx=%s", homepage.getContext_path(), board.getMenu_idx(), boardManage.getManage_idx()));
+				service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
+				return null;
 	        }
 
 			// 3 : 학교지원일 경우, 4 : 선정위원일 경우
 			String suppot_auth = loginSupport == null ? "0" : loginSupport.getAuth_group();
-			if((!suppot_auth.equals("3") && !getSessionIsAdmin(request)) && manageCompareIdx(board.getManage_idx(), 213, 225, 226, 228)) {
+			if((!suppot_auth.equals("3") && !getSessionIsAdmin(request)) && !isSiteAdmin && manageCompareIdx(board.getManage_idx(), 213, 225, 226, 228)) {
 				service.alertMessage("관리자 또는 학교기관만 이용할 수 있습니다.", request, response);
-			} else if((!suppot_auth.equals("4") && !getSessionIsAdmin(request)) && manageCompareIdx(board.getManage_idx(), 230)) {
+			} else if((!suppot_auth.equals("4") && !getSessionIsAdmin(request)) && !isSiteAdmin && manageCompareIdx(board.getManage_idx(), 230)) {
 				service.alertMessage("관리자 또는 도서선정위원만 이용할 수 있습니다.", request, response);
-			} else if(!getSessionIsAdmin(request) && manageCompareIdx(board.getManage_idx(), 212, 224, 227)) {
+			} else if(!getSessionIsAdmin(request) && !isSiteAdmin && manageCompareIdx(board.getManage_idx(), 212, 224, 227)) {
 				service.alertMessage("관리자만 이용할 수 있습니다.", request, response);
 			}
 		}
