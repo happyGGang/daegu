@@ -216,7 +216,7 @@ public class BoardController extends BaseController {
 
 		// 228도서관 지원센터 회원인증 확인
 		SupportMember loginSupport = sessionLoginSupport(request);
-		if(manageCompareIdx(board.getManage_idx(), 226, 230)) {
+		if(manageCompareIdx(board.getManage_idx(), 225, 226, 228, 230)) {
 			checkAuth("R", model, request);
 			boolean isSiteAdmin = false;
 			try {
@@ -229,8 +229,14 @@ public class BoardController extends BaseController {
 	    		service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
 	    		return null;
 	        }
+			
+			if (boardManage.getWrite_only_yn().equals("Y") && !"CMS".equals(getSessionMemberLoginType(request))) {
+				String write_url = "edit.do?manage_idx="+request.getParameter("manage_idx")+"&menu_idx="+request.getParameter("menu_idx");
+				service.alertMessageAndUrl("", write_url, request, response);
+				return null;
+			}
 		}
-
+		
 		if (boardManage.getWrite_only_yn().equals("Y") && !"CMS".equals(getSessionMemberLoginType(request))) {
 			StringBuffer sb = new StringBuffer();
 			sb.append(isLogin(request) ? "edit" : "cert");
@@ -626,7 +632,7 @@ public class BoardController extends BaseController {
 		board.setCategory5Manage(boardManage.getCategory5());
 
 		SupportMember loginSupport = sessionLoginSupport(request);
-		if(manageCompareIdx(board.getManage_idx(), 212)) {
+		if(manageCompareIdx(board.getManage_idx(), 212, 224, 227, 228, 230, 281)) {
 			if ( loginSupport == null && !getSessionIsAdmin(request)) {
 	    		board.setBefore_url(String.format("/%s/board/index.do?menu_idx=%s%%26manage_idx=%s", homepage.getContext_path(), board.getMenu_idx(), board.getManage_idx()));
 	    		service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
