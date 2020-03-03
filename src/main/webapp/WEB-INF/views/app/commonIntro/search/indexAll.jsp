@@ -250,6 +250,10 @@ $(function() {
 	location.href = '#subSearchText';
 	</c:if>
 
+	<c:if test="${librarySearch.totalDataCount > 0}">
+	$("#libraryList").hide();
+	</c:if>
+
 	$('a.facetSearch').on('click', function(e) {
 		e.preventDefault();
 		$('input[name=libraryCodes]').prop('checked', false);
@@ -356,6 +360,7 @@ $(function() {
 					<a href="javascript:void(0);" id="btn_search_target" class="btnNew5">도서관선택</a>
 				</div>
 
+
 				<div id="libraryList" class="libraryList">
 					<div>
 						<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
@@ -373,6 +378,7 @@ $(function() {
 					</div>
 					<div class="end"></div>
 				</div>
+
 			</div>
 			<!--// 검색하기_일반 -->
 		</div>
@@ -466,7 +472,7 @@ $(function() {
 				</div>
 			</div>
 			-->
-			<div class="info-boxes">
+			<div class="info-boxes" style="display:none;">
 				<div class="section3">
 					<div class="info-box-title">
 						구군립도서관 검색을 위해서는 아래 안내에 따라 이용을 부탁드립니다.
@@ -794,6 +800,9 @@ $(function() {
 								</span>
 							</div>
 						</div>
+					</div>
+					<div style="padding-top:30px ;text-align:right">
+						<a href="https://www.aladin.co.kr/home/welcome.aspx" target="_blank" style="color:#000">도서 DB 이미지 제공 : 알라딘 인터넷서점(www.aladin.co.kr)</a> <img src="/resources/common/img/aladin_01.png" alt="alandin" align="absmiddle"/>
 					</div>
 				</div>
 

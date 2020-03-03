@@ -5,17 +5,17 @@
 
 <div class="dpt-intro-type02">
   <div class="role-head">
-    <div class="ImgBox"> <img src="/resources/homepage/dgportal/img/about_06.jpg" alt="" org_width="620" org_height="280" isinit="true" class="vis-img"> </div>
+    <div class="ImgBox"> <img src="/resources/homepage/dgportal/img/sv_top_img06.jpg" alt="" org_width="620" org_height="280" isinit="true" class="vis-img"> </div>
     <div class="role-head-tit">
       <div class="txtBox">
         <h3 class="ptit">대구전자도서관</h3>
         <span class="ptitEng">대구시민의 스마트한<br>
         독서생활이 시작되는 곳</span>
-		    <p class="center"><a href="javascript:void(0);" class="btn_link02 newWin mg10t" id="e_lib_go" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank"><span>대구전자도서관 바로가기</span><span class="ico ico_link"></span><i class="fa fa-external-link"></i></a></p>
+		    <p class="center"><a href="javascript:void(0);" class="btn_link03 newWin mg10t" id="e_lib_go" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank"><span>대구전자도서관 바로가기</span><span class="ico ico_link"></span><i class="fa fa-external-link"></i></a></p>
 		</div>
     </div>
   </div>
-  <div class="role-body c">
+  <div class="role-body center">
     <p class="tit">대구지역 공공도서관 회원이면 누구나 이용할 수 있는 대구전자도서관입니다.</p>
     <p>현재 이용가능 콘텐츠는 전자책, 오디오북, 국내학회지 원문DB, 음악라이브러리입니다.</p>
 
@@ -103,7 +103,7 @@
 
 				<form id="goEbookTest" action="https://real.e-lib.tglnet.or.kr/elib_sso.asp" method="post" accept-charset="utf-8"> 
 		
-<c:if test="${homepage.context_path eq 'jungang'}">
+<c:if test="${homepage.context_path eq 'jungang' or homepage.context_path eq 'dgportal'}">
 				<input type="hidden"  name="lib_code" value="122004" />
 </c:if>
 <c:if test="${homepage.context_path eq 'dongbu'}">
@@ -161,7 +161,7 @@
 					</c:choose>
 				</c:when>
 				<c:otherwise>
-					alert('로그인후 이용가능합니다.');
+					alert('로그인후 이용가능합니다.'); location.href='/${homepage.context_path}/intro/login/index.do?menu_idx=4';
 					return false;
 				</c:otherwise>
 			</c:choose>

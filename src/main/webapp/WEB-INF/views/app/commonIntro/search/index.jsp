@@ -770,6 +770,10 @@ $(function() {
 							<!-- 검색결과루프 끝 -->
 							<jsp:include page="/WEB-INF/views/app/intro/search/paging.jsp" flush="false" />
 						</div>
+
+						<div style="padding-top:30px ;text-align:right">
+							<a href="https://www.aladin.co.kr/home/welcome.aspx" target="_blank" style="color:#000">도서 DB 이미지 제공 : 알라딘 인터넷서점(www.aladin.co.kr)</a> <img src="/resources/common/img/aladin_01.png" alt="alandin" align="absmiddle"/>
+						</div>
 					</div>
 				</div>
 
