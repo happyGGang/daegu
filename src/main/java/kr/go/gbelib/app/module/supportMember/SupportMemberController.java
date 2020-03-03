@@ -44,6 +44,11 @@ public class SupportMemberController {
 	public String loginForm(Model model, SupportMember supportMember, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		
+		SupportMember sessionMember = (SupportMember)request.getSession().getAttribute("loginSupport");
+		if(sessionMember != null) {
+			return "redirect:" + String.format("passwordForm.do?menu_idx=%s", menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 120)));
+		}
+		
 		model.addAttribute("supportMember", supportMember);
 
 		return String.format(basePath, homepage.getFolder()) + "index";
