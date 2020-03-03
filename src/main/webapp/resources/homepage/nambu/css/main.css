@@ -97,11 +97,11 @@
 .main2 .main2box2 .popZone li{text-align:right;padding:0;margin:0;}
 .main2 .main2box2 .popZone li a {display:inline-block;}
 .main2 .main2box2 .popZone li a img {width:408px;height:440px;border:1px solid #cccccc;}
-.main2 .main2box2 .popZone .bx-controls {position:absolute;bottom:56px;right:1px;z-index:150000;width:100%;}
+.main2 .main2box2 .popZone .bx-controls {position:absolute;bottom:56px;right:1px;z-index:150000000;width:100%;}
 .main2 .main2box2 .popZone .bx-prev,
 .main2 .main2box2 .popZone .bx-next,
 .main2 .main2box2 .popZone .bx-start,
-.main2 .main2box2 .popZone .bx-stop {position:absolute;width:50px;height:50px;font-size:0;background-image:url("/resources/homepage/nambu/img/popupzone-arrow-v2.png");background-repeat: no-repeat; background-position:0 0;background-size:initial;z-index:150001;}
+.main2 .main2box2 .popZone .bx-stop {position:absolute;width:50px;height:50px;font-size:0;background-image:url("/resources/homepage/nambu/img/popupzone-arrow-v2.png");background-repeat: no-repeat; background-position:0 0;background-size:initial;}
 .main2 .main2box2 .popZone .bx-pager {position:absolute;text-align:center;right:100px;width:70px;height:50px;line-height:50px;background:#2f2f2f;color:#fff;}
 .main2 .main2box2 .popZone .bx-prev { left:0; }
 .main2 .main2box2 .popZone .bx-next { right:0; background-position:-50px 0; }

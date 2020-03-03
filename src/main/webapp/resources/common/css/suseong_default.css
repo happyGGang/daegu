@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 *{font-style:normal}
 
 /* 웹폰트 */
@@ -280,16 +280,25 @@ h1{z-index:6}
 .Gnb .gnb-menu>li>a:hover,
 .Gnb .gnb-menu>li>a:focus{color:#2b74c0}
 .Gnb .gnb-menu>li>a img.OpenImg{margin:2px 0 0 5px}
-.Gnb .gnb-menu>li>.SubMenu{width:100%;left:0;position:absolute;white-space:normal;border-bottom:none}
-.Gnb .gnb-menu>li:first-child>.SubMenu{border-left:none}
+.Gnb .gnb-menu>li>.SubMenu{width:100%;left:0;position:absolute;white-space:normal;border-bottom:none;}
+.Gnb .gnb-menu>li:first-child>.SubMenu{border-left:none;}
 .Gnb .gnb-menu>li>.SubMenu>li{position:relative;z-index:6;display:block;text-align:left;clear:both;width:100%}
-.Gnb .gnb-menu>li>.SubMenu>li>a{display:block;height:100%;margin:0;border:none;background:none;color:#555;font-weight:normal}
+.Gnb .gnb-menu>li>.SubMenu>li>a{display:block;height:100%;margin:0;border:none;background:none;color:#555;}
 .Gnb .gnb-menu>li>.SubMenu>li.on>a,
 .Gnb .gnb-menu>li>.SubMenu>li>a:hover,
 .Gnb .gnb-menu>li>.SubMenu>li>a:focus{text-decoration:none;font-weight:bold;background:#2b74c0}
 .Gnb .gnb-menu>li>.SubMenu>li>ul{display:none}
 .Gnb .mask,
-.Gnb .gnb-menu>li>.SubMenu{height:44px;line-height:44px}
+.Gnb .gnb-menu>li>.SubMenu{height:44px;line-height:44px;background: #416190;border-radius: 8px;margin: 3px 0 0 0;width: auto;left: inherit;right: 0;}
+
+.Gnb .gnb-menu>li.menu1>.SubMenu{margin-right:0%}
+.Gnb .gnb-menu>li.menu2>.SubMenu{margin-right:53%}
+.Gnb .gnb-menu>li.menu3>.SubMenu{margin-right:34%}
+.Gnb .gnb-menu>li.menu4>.SubMenu{margin-right:10%}
+.Gnb .gnb-menu>li.menu5>.SubMenu{margin-right:18%}
+.Gnb .gnb-menu>li.menu6>.SubMenu{margin-right:0}
+.Gnb .gnb-menu>li.menu6>.SubMenu{margin-right:0}
+
 
 nav .gnb-menu>li>a>span{font-size:14px}
 nav#menu a:not(.mm-title):hover,
@@ -1662,7 +1671,7 @@ box-shadow:0px 3px 5px 0px rgba(0,0,0,0.4);
 #popupLayer .popup-cont{clear:both}
 #popupLayer .popup-cont.type1{font-size:0;line-height:0}
 #popupLayer .bx-viewport{background:#fff}
-#popupLayer .popup-func{border:1px solid #e5e5e5;background:#fdfdfd;overflow:hidden}
+#popupLayer .popup-func{/* border:1px solid #e5e5e5; */background:#fdfdfd;overflow:hidden;}
 #popupLayer .popup-func .checkbox{float:left;line-height:34px;margin-left:8px}
 #popupLayer .popup-func .checkbox label::before,
 #popupLayer .popup-func .checkbox label::after{top:7px}

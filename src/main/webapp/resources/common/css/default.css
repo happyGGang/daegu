@@ -495,7 +495,7 @@ transform:translatez(0);
 .lnb>ul{margin-right:40px}
 .lnb>ul{overflow:hidden}
 .lnb h2 {display:block;background:#124ea2 url("/resources/common/img/lnb_bg.png") no-repeat center center;background-size:cover;margin-top:-162px;}
-.lnb h2 b { display:block;color:#fff;font-size:30px;padding:65px 0;margin:0;text-align:center;text-align:center;font-weight:bold; }
+.lnb h2 b {display:block;color:#fff;line-height: 130%;font-size:30px;padding: 56px 0;margin:0;text-align:center;font-weight:bold;}
 
 .lnb li.s a{position:relative}
 .lnb li.s i{position:absolute;top:50%;right:15px;margin-top:-7px}
@@ -1986,7 +1986,7 @@ padding:20px 15px 20px 215px; margin-bottom:25px}
 }
 
 /*공통 푸터*/
-#footer {padding:0 0 50px;}
+#footer {padding:0 0 50px;z-index:3;}
 #footer .top {position:relative;height:50px;border-top:1px solid #e4e4e4;border-bottom:1px solid #e4e4e4}
 #footer .bottom {padding:23px 0 0 0}
 #footer .bottom .section {}
