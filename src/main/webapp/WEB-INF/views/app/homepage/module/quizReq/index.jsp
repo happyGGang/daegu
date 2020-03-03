@@ -54,41 +54,36 @@ $(function() {
 			return;
 		}
 
-		if ( "${member.loginType eq 'HOMEPAGE' and member.login }" == 'true' ) {
-			var answerList = [];
-			$('div.txt-box').each(function(i, divE) {
-				var $this = $(this);
-				var type = $this.attr('keyValue');
-				if ( type == 'TEXT' ) {
-					answerList.push($this.find('textarea').val());
-				}
-				else if ( type == 'RADIO' ) {
-					answerList.push($this.find('input:radio:checked').val());
-				}
-				else if ( type == 'CHECK' ) {
-					var checkAnswer = [];
-					$this.find('input:checkbox:checked').each(function(i, checkE) {
-						checkAnswer.push($(this).val());
-					});
-					answerList.push(checkAnswer.join(','));
-				}
-			});
-			$('#quizReq #quiz_answer').val(answerList.join('<whale>'));
+		var answerList = [];
+		$('div.txt-box').each(function(i, divE) {
+			var $this = $(this);
+			var type = $this.attr('keyValue');
+			if ( type == 'TEXT' ) {
+				answerList.push($this.find('textarea').val());
+			}
+			else if ( type == 'RADIO' ) {
+				answerList.push($this.find('input:radio:checked').val());
+			}
+			else if ( type == 'CHECK' ) {
+				var checkAnswer = [];
+				$this.find('input:checkbox:checked').each(function(i, checkE) {
+					checkAnswer.push($(this).val());
+				});
+				answerList.push(checkAnswer.join(','));
+			}
+		});
+		$('#quizReq #quiz_answer').val(answerList.join('<whale>'));
 
-			var $form = $('#quizReq').clone();
-			if ( $form.find('#hak').val() == '' ) {
-				$form.find('#hak').val(0);
-			}
-			if ( $form.find('#ban').val() == '' ) {
-				$form.find('#ban').val(0);
-			}
-
-			if ( doAjaxPost($form) ) {
-				location.reload();
-			}
+		var $form = $('#quizReq').clone();
+		if ( $form.find('#hak').val() == '' ) {
+			$form.find('#hak').val(0);
 		}
-		else {
-			alert('로그인 후 이용 가능 합니다.');
+		if ( $form.find('#ban').val() == '' ) {
+			$form.find('#ban').val(0);
+		}
+
+		if ( doAjaxPost($form) ) {
+			location.reload();
 		}
 	});
 });
@@ -227,8 +222,7 @@ ${quiz.top_html}
 					<th>이름</th>
 					<td>
 						<label for="name"></label>
-						${member.member_name}
-						<form:hidden path="name" class="text" title="이름" value="${member.member_name}"/>
+						<form:input path="name" cssClass="text" title="이름" value="${member.member_name}"/>
 				</tr>
 				<tr>
 					<th>휴대전화번호 </th>
@@ -244,7 +238,6 @@ ${quiz.top_html}
 							<form:input path="phone" class="text" title="휴대전화번호 입력" value=""/>
 						</c:otherwise>
 					</c:choose>
-					<span class="info">(퀴즈응모는 한사람당 한번씩만 가능합니다)</span></td>
 				</tr>
 				<%-- <tr>
 					<th>주소</th>
@@ -280,14 +273,7 @@ ${quiz.top_html}
 	</form:form>
 </div>
 <div class="btn-area center">
-	<c:if test="${!member.login}">
-		<div class="ui-state-error">
-			로그인 후 퀴즈 응모가 가능 합니다.
-		</div><br/>
-	</c:if>
-	<c:if test="${member.login and not empty quiz.quiz_name}">
 	<a href="" class="btn save-btn">확인</a>
-	</c:if>
 </div>
 
 

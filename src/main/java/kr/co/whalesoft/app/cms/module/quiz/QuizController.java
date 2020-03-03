@@ -141,16 +141,10 @@ public class QuizController extends BaseController {
 					res.setMessage("등록 되었습니다.");
 				}
 			} else if(editMode.equals("MODIFY")) {
-				int alreadyCount = service.getAreadyQuizOne(quiz);
-				if (alreadyCount >= 1) {
-					res.setValid(false);
-					res.setMessage("해당연도에 동일한 타입이 존재합니다.");
-				} else {
-					quiz.setModify_id(getSessionMemberId(request));
-					service.modifyQuiz(quiz);
-					res.setValid(true);
-					res.setMessage("수정 되었습니다.");
-				}
+				quiz.setModify_id(getSessionMemberId(request));
+				service.modifyQuiz(quiz);
+				res.setValid(true);
+				res.setMessage("수정 되었습니다.");
 			} else if(editMode.equals("DELETE")) {
 				service.deleteQuiz(quiz);
 				res.setValid(true);
