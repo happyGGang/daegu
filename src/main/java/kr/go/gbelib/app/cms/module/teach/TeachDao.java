@@ -8,43 +8,43 @@ import kr.go.gbelib.app.cms.module.teach.student.Student;
 public interface TeachDao  {
 
 	public List<Teach> getTeachList(Teach teach);
-	
+
 	public List<Teach> getTeachListAll(Teach teach);
-	
+
 	public int getTeachListCount(Teach teach);
-	
+
 	public Teach getTeachOne(Teach teach);
-	
+
 	public int addTeach(Teach teach);
-	
+
 	public int modifyTeach(Teach teach);
-	
+
 	public int deleteTeach(Teach teach);
-	
+
 	public List<Teach> getTeachListForCalendar(CalendarManage calendarManage);
-	
+
 	public List<Teach> getTeachListForUser(Teach teach);
-	
+
 	public List<Teach> getTeachListForAllHomepage(Teach teach);
-	
+
 	public Teach getTeachDetailForUser(Teach teach);
-	
+
 	public int changeTeachStatus(Teach teach);
-	
+
 	public int mergeBackupMember(Teach teach);
-	
+
 	public List<Teach> getApplyList(Teach teach);
-	
+
 	public int getPrintMaxValue(Teach teach);
-	
+
 	public List<Teach> getTeachListOfStudent(Student student);
 
 	public List<Teach> getSameTeachByName(Teach teach);
-	
+
 	public List<Teach> getMainViewTeachList(Teach teach);
 
 	public List<Teach> getMainViewTeachListForAllHomepage(Teach teach);
-	
+
 	public int deleteFile(Teach teach);
 
 	public int getTeachListForAllHomepageCount(Teach teach);
@@ -62,7 +62,14 @@ public interface TeachDao  {
 	public List<Teach> getSchaduleTeach();
 
 	public int modifySmsFlag(Teach teach);
-	
+
 	public int getWaitingNumber(Teach result);
+
+	/**
+	 * @author whalesoft YONGJU 2020. 2. 28.
+	 * @param result
+	 * @return
+	 */
+	public String getTeacherName(Teach result);
 
 }

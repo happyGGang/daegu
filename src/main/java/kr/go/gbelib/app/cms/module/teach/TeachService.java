@@ -57,6 +57,9 @@ public class TeachService extends BaseService {
 			if (StringUtils.isNotEmpty(teachOne.getProgram_age_div())) {
 				teachOne.setProgram_age_div_arr(Arrays.asList(teachOne.getProgram_age_div().split(",")));
 			}
+			if (StringUtils.isEmpty(teachOne.getTeacher_name())) {
+				teachOne.setTeacher_name(dao.getTeacherName(teachOne));
+			}
 		}
 		return list;
 	}
@@ -73,6 +76,9 @@ public class TeachService extends BaseService {
 			}
 			result.setTeach_day_arr(result.getTeach_day().split("\\,"));
 			result.setHolidays(dao.getHolidays(result));
+			if (StringUtils.isEmpty(result.getTeacher_name())) {
+				result.setTeacher_name(dao.getTeacherName(result));
+			}
 		}
 
 		return result;
@@ -240,6 +246,9 @@ public class TeachService extends BaseService {
 			for (Teach result : list) {
 				result.setTeach_day_arr(result.getTeach_day().split(","));
 				result.setHolidays(dao.getHolidays(result));
+				if (StringUtils.isEmpty(result.getTeacher_name())) {
+					result.setTeacher_name(dao.getTeacherName(result));
+				}
 			}
 		}
 		return list;
@@ -259,6 +268,9 @@ public class TeachService extends BaseService {
 				result.setMenu_idx(menuService.getMenuIdxByProgramIdx(m));
 				if (StringUtils.isNotEmpty(result.getProgram_age_div())) {
 					result.setProgram_age_div_arr(Arrays.asList(result.getProgram_age_div().split(",")));
+				}
+				if (StringUtils.isEmpty(result.getTeacher_name())) {
+					result.setTeacher_name(dao.getTeacherName(result));
 				}
 			}
 		}
@@ -292,6 +304,9 @@ public class TeachService extends BaseService {
 			teach.setHolidays(dao.getHolidays(teach));
 			if (StringUtils.isNotEmpty(teach.getProgram_age_div())) {
 				teach.setProgram_age_div_arr(Arrays.asList(teach.getProgram_age_div().split(",")));
+			}
+			if (StringUtils.isEmpty(teach.getTeacher_name())) {
+				teach.setTeacher_name(dao.getTeacherName(teach));
 			}
 		}
 

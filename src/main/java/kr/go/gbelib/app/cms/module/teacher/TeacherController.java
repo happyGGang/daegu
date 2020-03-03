@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -74,11 +75,16 @@ public class TeacherController extends BaseController {
 
 		if ( teacher.getEditMode().equals("ADD") || teacher.getEditMode().equals("MODIFY") ) {
 			if ( teacher.getEditMode().equals("ADD") ) {
-				ValidationUtils.rejectIfEmpty(result, "teacher_id", "강사ID를 입력하세요.");
+//				ValidationUtils.rejectIfEmpty(result, "teacher_id", "강사ID를 입력하세요.");
 				ValidationUtils.rejectIfEmpty(result, "teacher_name", "강사명을 입력하세요.");
 				ValidationUtils.rejectIfEmpty(result, "teacher_sex", "강사성별을 선택하세요.");
-
+				if (StringUtils.isEmpty(teacher.getTeacher_id())) {
+					teacher.setTeacher_id("ANONYMOUSE");
+					teacher.setMember_key("ANONYMOUSE");
+				}
 			}
+			ValidationUtils.rejectPhone2(result, "teacher_phone", "전화번호 형식이 잘못되었습니다.");
+			ValidationUtils.rejectPhone(result, "teacher_cell_phone", "휴대전화번호 형식이 잘못되었습니다.");
 			ValidationUtils.rejectExceptNumber(result, "teacher_zipcode", "우편번호는 숫자만 입력 가능합니다.");
 			ValidationUtils.rejectIfStringLength(result, "teacher_name", 50, "강사명");
 			ValidationUtils.rejectIfStringLength(result, "teacher_subject_name", 100, "과목명");
@@ -86,8 +92,6 @@ public class TeacherController extends BaseController {
 			ValidationUtils.rejectIfStringLength(result, "teacher_nationality", 30, "국적");
 			ValidationUtils.rejectIfStringLength(result, "teacher_zipcode", 20, "우편번호");
 			ValidationUtils.rejectIfStringLength(result, "teacher_address", 200, "주소");
-			ValidationUtils.rejectPhone2(result, "teacher_phone", "전화번호 형식이 잘못되었습니다.");
-			ValidationUtils.rejectPhone(result, "teacher_cell_phone", "폰번호 형식이 잘못되었습니다.");
 		}
 
 		if(!result.hasErrors()) {

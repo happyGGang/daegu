@@ -123,7 +123,7 @@ $(function() {
 
 	$('a.idCheck').on('click', function(e) {
 		$.get('checkId.do?homepage_id=' + $('#homepage_id').val() + '&teacher_id='+ $('#teacher_id').val() + '&search_api_type=' + $('[name="search_api_type"]:checked').val(), function(response) {
-			if( response.data.length > 0){
+			if( response.data != null && response.data.length > 0){
 
 				$('#teacherForm #member_key').val(response.data[0]["REC_KEY"]);
 				$('#teacherForm #teacher_name').val(response.data[0]["NAME"]);
@@ -198,7 +198,7 @@ $(function() {
 	         	<td>
 	         		<c:choose>
 		         		<c:when test="${teacher.editMode eq 'ADD' }">
-		         			<form:input path="teacher_name" class="text" readonly="true" />
+		         			<form:input path="teacher_name" class="text" />
 	         			</c:when>
 	         			<c:otherwise>
 	         				${teacher.teacher_name}

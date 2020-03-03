@@ -552,7 +552,7 @@ $(function() {
 	         	<th>강사명</th>
 	         	<td>
 	         		<form:hidden path="teacher_idx"/>
- 	         		<form:input path="teacher_name" class="text" readonly="true"/> <a class="btn btn1 teacher-btn">검색</a>
+ 	         		<form:input path="teacher_name" class="text" /> <a class="btn btn1 teacher-btn">검색</a>
 	         	</td>
 	        </tr>
 	        <tr>

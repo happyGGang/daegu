@@ -210,7 +210,7 @@
 			TEACH_STATUS, TEACH_LIMIT_COUNT, TEACH_JOIN_UNIT, TEACH_BACKUP_COUNT, TEACH_OFFLINE_COUNT, teacher_idx, start_join_date, LIMIT_HAK_YN,
 			start_join_time, end_join_date, end_join_time, teach_day, start_date, START_TIME,
 			CANCLE_use_yn, START_CANCLE_DATE, END_CANCLE_DATE, START_CANCLE_TIME, END_CANCLE_TIME, CANCLE_GUID,
-			end_date, END_TIME, print_seq, TEACH_COUNT,
+			end_date, END_TIME, print_seq, TEACH_COUNT, teacher_name,
 			<if test="server_file_name != null and server_file_name != '' ">
 			org_file_name,
 			server_file_name,
@@ -232,7 +232,7 @@
 			#{teach_status}, #{teach_limit_count}, #{teach_join_unit}, #{teach_backup_count}, #{teach_offline_count}, #{teacher_idx}, #{start_join_date}, #{limit_hak_yn},
 			#{start_join_time}, #{end_join_date}, #{end_join_time}, #{teach_day}, #{start_date}, #{start_time},
 			#{cancle_use_yn}, #{start_cancle_date}, #{end_cancle_date}, #{start_cancle_time}, #{end_cancle_time}, #{cancle_guid},
-			#{end_date}, #{end_time}, #{print_seq}, #{teach_count},
+			#{end_date}, #{end_time}, #{print_seq}, #{teach_count}, #{teacher_name},
 			<if test="server_file_name != null and server_file_name != '' ">
 			#{org_file_name},
 			#{server_file_name},
@@ -265,6 +265,7 @@
 			LIMIT_HAK2			= #{limit_hak2},
 			LIMIT_HAK_YN		= #{limit_hak_yn},
 			TEACH_STATUS 		= #{teach_status},
+			teacher_name 		= #{teacher_name},
 			<if test="teach_count != null and teach_count != ''">
 			TEACH_COUNT = #{teach_count},
 			</if>
@@ -1255,4 +1256,12 @@
 			member_key = #{member_key}
 	</select>
 
+	<select id="getTeacherName" resultType="string">
+		SELECT
+			teacher_name
+		FROM
+			TEACH
+		WHERE
+			teach_idx = #{teach_idx}
+	</select>
 </mapper>
