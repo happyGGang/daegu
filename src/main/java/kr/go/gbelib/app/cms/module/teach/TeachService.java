@@ -79,9 +79,48 @@ public class TeachService extends BaseService {
 			if (StringUtils.isEmpty(result.getTeacher_name())) {
 				result.setTeacher_name(dao.getTeacherName(result));
 			}
+			String[] start_join_time = divideTime(result.getStart_join_time());
+			String[] end_join_time = divideTime(result.getEnd_join_time());
+			String[] start_cancle_time = divideTime(result.getStart_cancle_time());
+			String[] end_cancle_time = divideTime(result.getEnd_cancle_time());
+			String[] start_time = divideTime(result.getStart_time());
+			String[] end_time = divideTime(result.getEnd_time());
+
+			if (start_join_time != null) {
+				result.setStart_join_time1(start_join_time[0]);
+				result.setStart_join_time2(start_join_time[1]);
+			}
+			if (end_join_time != null) {
+				result.setEnd_join_time1(end_join_time[0]);
+				result.setEnd_join_time2(end_join_time[1]);
+			}
+			if (start_cancle_time != null) {
+				result.setStart_cancle_time1(start_cancle_time[0]);
+				result.setStart_cancle_time2(start_cancle_time[1]);
+			}
+			if (end_cancle_time != null) {
+				result.setEnd_cancle_time1(end_cancle_time[0]);
+				result.setEnd_cancle_time2(end_cancle_time[1]);
+			}
+			if (start_time != null) {
+				result.setStart_time1(start_time[0]);
+				result.setStart_time2(start_time[1]);
+			}
+			if (end_time != null) {
+				result.setEnd_time1(end_time[0]);
+				result.setEnd_time2(end_time[1]);
+			}
 		}
 
 		return result;
+	}
+
+	private String[] divideTime(String s) {
+		if (StringUtils.isBlank(s)) {
+			return null;
+		} else {
+			return s.split("\\:");
+		}
 	}
 
 	@Transactional

@@ -60,6 +60,20 @@ $(function() {
 
 					$('select#holidays option').prop('selected', true);
 
+					var sjt1 = $('input#start_join_time1').val();
+					var sjt2 = $('input#start_join_time2').val();
+					$('input#start_join_time').val(sjt1+':'+sjt2);
+					var ejt1 = $('input#end_join_time1').val();
+					var ejt2 = $('input#end_join_time2').val();
+					$('input#end_join_time').val(ejt1+':'+ejt2);
+					var st1 = $('input#start_time1').val();
+					var st2 = $('input#start_time2').val();
+					$('input#start_time').val(sjt1+':'+sjt2);
+					var et1 = $('input#end_time1').val();
+					var et2 = $('input#end_time2').val();
+					$('input#end_time').val(ejt1+':'+ejt2);
+
+
 					var option = {
 						url : 'save.do',
 						type : 'POST',
@@ -558,7 +572,14 @@ $(function() {
 	        <tr>
 				<th>접수기간 (<span style="color: red; font-weight: bold;">*</span>)</th>
 				<td>
-					<form:input path="start_join_date" class="text ui-calendar"/> <form:input path="start_join_time" class="text" style="width:50px;" maxlength="5"/> ~ <form:input path="end_join_date" class="text ui-calendar"/> <form:input path="end_join_time" class="text" style="width:50px;" maxlength="5"/>
+					<form:input path="start_join_date" class="text ui-calendar"/>
+					<form:hidden path="start_join_time" class="text" style="width:50px;" maxlength="5"/>
+					<form:input path="start_join_time1" class="text" style="width:20px;" maxlength="2"/> :
+					<form:input path="start_join_time2" class="text" style="width:20px;" maxlength="2"/> ~
+					<form:input path="end_join_date" class="text ui-calendar"/>
+					<form:hidden path="end_join_time" class="text" style="width:50px;" maxlength="5"/>
+					<form:input path="end_join_time1" class="text" style="width:20px;" maxlength="2"/> :
+					<form:input path="end_join_time2" class="text" style="width:20px;" maxlength="2"/>
 					<div class="ui-state-highlight">
 						<em>* 시간 입력 ex) 10:30</em>
 					</div>
@@ -741,7 +762,12 @@ $(function() {
 			<tr>
 				<th>강의시간 (<span style="color: red; font-weight: bold;">*</span>)</th>
 				<td>
-					<form:input path="start_time" class="text" style="width:50px;" maxlength="5"/> ~ <form:input path="end_time" class="text" style="width:50px;" maxlength="5"/>
+					<form:hidden path="start_time" class="text" style="width:50px;" maxlength="5"/>
+					<form:input path="start_time1" class="text" style="width:20px;" maxlength="2"/> :
+					<form:input path="start_time2" class="text" style="width:20px;" maxlength="2"/> ~
+					<form:hidden path="end_time" class="text" style="width:50px;" maxlength="5"/>
+					<form:input path="end_time1" class="text" style="width:20px;" maxlength="2"/> :
+					<form:input path="end_time2" class="text" style="width:20px;" maxlength="2"/>
 					<%-- <c:choose>
 						<c:when test="${teach.editMode eq 'ADD'}">
 							<form:input path="start_time" class="text" style="width:50px;" maxlength="5"/> ~ <form:input path="end_time" class="text" style="width:50px;" maxlength="5"/>

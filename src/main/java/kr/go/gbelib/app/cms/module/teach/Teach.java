@@ -43,20 +43,32 @@ public class Teach extends PagingUtils {
 	private String teach_join_limit_value; //접수 제한 값
 	private String start_join_date;  //접수시작일
 	private String start_join_time;  //접수시작시간
+	private String start_join_time1;  //접수시작시간
+	private String start_join_time2;  //접수시작시간
 	private String end_join_date;  //접수종료일
 	private String end_join_time;  //접수종료시간
+	private String end_join_time1;  //접수종료시간
+	private String end_join_time2;  //접수종료시간
 	private String cancle_use_yn = "N"; //취소사용여부
 	private String start_cancle_date;  //취소시작일
 	private String start_cancle_time;  //취소시작시간
+	private String start_cancle_time1;  //취소시작시간
+	private String start_cancle_time2;  //취소시작시간
 	private String end_cancle_date;  //취소종료일
 	private String end_cancle_time;  //취소종료시간
+	private String end_cancle_time1;  //취소종료시간
+	private String end_cancle_time2;  //취소종료시간
 	private String cancle_guid; // 취소안내내용
 	private int sms_flag;	// sms전송상태
 	private String teach_day;  //강의요일
 	private String start_date;  //강의시작일
 	private String start_time;  //강의시작시간
+	private String start_time1;  //강의시작시간
+	private String start_time2;  //강의시작시간
 	private String end_date;  //강의종료일
 	private String end_time;  //강의종료시간
+	private String end_time1;  //강의종료시간
+	private String end_time2;  //강의종료시간
 	private int teach_count;
 	private String org_file_name;  //강의계획서파일명
 	private String server_file_name; //실제파일명
@@ -123,7 +135,7 @@ public class Teach extends PagingUtils {
 	private String homepage_alias;
 	private String homepage_name;
 	private String context_path;
-	
+
 	private int wait_num; // 대기자 번호
 
 	// 통합검색 - 상세검색용 변수
@@ -684,11 +696,11 @@ public class Teach extends PagingUtils {
 	public void setContext_path(String context_path) {
 		this.context_path = context_path;
 	}
-	
+
 	public int getWait_num() {
 		return wait_num;
 	}
-	
+
 	public void setWait_num(int wait_num) {
 		this.wait_num = wait_num;
 	}
@@ -1184,6 +1196,126 @@ public class Teach extends PagingUtils {
 
 	public void setRemark_comment(String remark_comment) {
 		this.remark_comment = remark_comment;
+	}
+
+
+	public String getStart_join_time1() {
+		return start_join_time1;
+	}
+
+
+	public void setStart_join_time1(String start_join_time1) {
+		this.start_join_time1 = start_join_time1;
+	}
+
+
+	public String getStart_join_time2() {
+		return start_join_time2;
+	}
+
+
+	public void setStart_join_time2(String start_join_time2) {
+		this.start_join_time2 = start_join_time2;
+	}
+
+
+	public String getEnd_join_time1() {
+		return end_join_time1;
+	}
+
+
+	public void setEnd_join_time1(String end_join_time1) {
+		this.end_join_time1 = end_join_time1;
+	}
+
+
+	public String getEnd_join_time2() {
+		return end_join_time2;
+	}
+
+
+	public void setEnd_join_time2(String end_join_time2) {
+		this.end_join_time2 = end_join_time2;
+	}
+
+
+	public String getStart_cancle_time1() {
+		return start_cancle_time1;
+	}
+
+
+	public void setStart_cancle_time1(String start_cancle_time1) {
+		this.start_cancle_time1 = start_cancle_time1;
+	}
+
+
+	public String getStart_cancle_time2() {
+		return start_cancle_time2;
+	}
+
+
+	public void setStart_cancle_time2(String start_cancle_time2) {
+		this.start_cancle_time2 = start_cancle_time2;
+	}
+
+
+	public String getEnd_cancle_time1() {
+		return end_cancle_time1;
+	}
+
+
+	public void setEnd_cancle_time1(String end_cancle_time1) {
+		this.end_cancle_time1 = end_cancle_time1;
+	}
+
+
+	public String getEnd_cancle_time2() {
+		return end_cancle_time2;
+	}
+
+
+	public void setEnd_cancle_time2(String end_cancle_time2) {
+		this.end_cancle_time2 = end_cancle_time2;
+	}
+
+
+	public String getStart_time1() {
+		return start_time1;
+	}
+
+
+	public void setStart_time1(String start_time1) {
+		this.start_time1 = start_time1;
+	}
+
+
+	public String getStart_time2() {
+		return start_time2;
+	}
+
+
+	public void setStart_time2(String start_time2) {
+		this.start_time2 = start_time2;
+	}
+
+
+	public String getEnd_time1() {
+		return end_time1;
+	}
+
+
+	public void setEnd_time1(String end_time1) {
+		this.end_time1 = end_time1;
+	}
+
+
+	public String getEnd_time2() {
+		return end_time2;
+	}
+
+
+	public void setEnd_time2(String end_time2) {
+		this.end_time2 = end_time2;
 	}
 
 }
