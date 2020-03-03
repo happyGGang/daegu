@@ -96,7 +96,7 @@ $(function() {
 				<th>그룹</th>
 				<td>
 					<form:select path="auth_group">
-<%-- 						<form:option value="1">총관리자</form:option> --%>
+						<form:option value="1">총관리자</form:option>
 <%-- 						<form:option value="2">비회원</form:option> --%>
 						<form:option value="3">학교기관</form:option>
 						<form:option value="4">도서선정위원</form:option>

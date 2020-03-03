@@ -185,7 +185,7 @@ public class BookPackageController extends BaseController {
     		return null;
         }
 		
-		if(!getSessionIsAdmin(request)) {
+		if(!getSessionIsAdmin(request) && !loginSupport.getAuth_group().equals("1")) {
 			bookPackage.setAdd_id(loginSupport.getMember_id());
 		}
 		service.setPaging(model, service.getBookPackageLoanCount(bookPackage), bookPackage);
@@ -321,7 +321,7 @@ public class BookPackageController extends BaseController {
 	public BookPackageView excel(Model model, BookPackage bookPackage, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		SupportMember sm = sessionLoginSupport(request);
 		
-		if(sm != null && sm.getAuth_group().equals("3")) {
+		if(sm != null && !sm.getAuth_group().equals("1")) {
 			bookPackage.setAdd_id(sm.getMember_id());
 		}
 		

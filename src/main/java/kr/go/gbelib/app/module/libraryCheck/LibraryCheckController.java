@@ -134,7 +134,7 @@ public class LibraryCheckController extends BaseController {
 			return null;
 		}
 		
-		if(!getSessionIsAdmin(request)) {
+		if(!getSessionIsAdmin(request) && !supportMember.getAuth_group().equals("1")) {
 			libraryCheck.setAdd_id(supportMember.getMember_id());
 		}
 		
@@ -255,7 +255,7 @@ public class LibraryCheckController extends BaseController {
 	public LibraryCheckView excel(Model model, LibraryCheck libraryCheck, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		SupportMember sm = sessionLoginSupport(request);
 		
-		if(sm != null && sm.getAuth_group().equals("3")) {
+		if(sm != null && !sm.getAuth_group().equals("1")) {
 			libraryCheck.setAdd_id(sm.getMember_id());
 		}
 		
