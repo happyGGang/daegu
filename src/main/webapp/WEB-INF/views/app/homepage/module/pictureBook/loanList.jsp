@@ -7,13 +7,11 @@
 $(function() {
 	var $form = $('form#pictureBook');
 	
-	// 책 꾸러미 대출 수정
-// 	$('a.edit-btn').on('click', function(e) {
-// 		e.preventDefault();
-// 		$('#editMode').val('MODIFY');
-// 		$('#picture_book_loan_idx').val($(this).attr('keyValue'));
-// 		doGetLoad('loanEdit.do', $form.serialize());
-// 	});
+	$('a.view-btn').on('click', function(e) {
+		e.preventDefault();
+		var formData = 'menu_idx='+$('#menu_idx').val() + '&picture_book_loan_idx='+$(this).attr('keyValue') + '&viewPage='+$('#viewPage').val();
+		doGetLoad('loanView.do', formData);
+	});
 	
 	$('a.cancle-btn').on('click', function(e) {
 		e.preventDefault();
@@ -198,8 +196,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 <%-- 					</c:if> --%>
 					<td class="num">${paging.listRowNum - status.index}</td>
 					<td>
-<%-- 						<a href="#" class="edit-btn" keyValue="${i.picture_book_loan_idx}">${i.picture_book_subject}</a> --%>
-						<a href="#" keyValue="${i.picture_book_loan_idx}">${i.picture_book_subject}</a>
+						<a href="#" class="view-btn" keyValue="${i.picture_book_loan_idx}">${i.picture_book_subject}</a>
 					</td>
 					<td class="center">${fn:substring(i.loan_start_date, 0, 7)}</td>
 					<td>${i.school_name}<br/>/${i.request_name}</td>

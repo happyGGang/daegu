@@ -99,6 +99,7 @@ public class PagingUtils extends BeanUtils {
 		if(!isEmpty(pagingUtils.getEditMode())) {
 			this.setEditMode(pagingUtils.getEditMode());
 		}
+		super.setMenu_idx(pagingUtils.getMenu_idx());
 	}
 	
 	private boolean isEmpty(String str) {

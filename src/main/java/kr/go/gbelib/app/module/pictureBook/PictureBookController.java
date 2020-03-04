@@ -96,6 +96,16 @@ public class PictureBookController extends BaseController {
 		return String.format(basePath, homepage.getFolder()) + "loanList";
 	}
 	
+	@RequestMapping (value = {"/loanView.*"}, method = RequestMethod.GET)
+	public String view(Model model, PictureBook pictureBook, HttpServletRequest request) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		
+		pictureBook = (PictureBook)service.copyObjectPaging(pictureBook, service.getPictureBookLoanOne(pictureBook));
+		model.addAttribute("pictureBook", pictureBook);
+
+		return String.format(basePath, homepage.getFolder()) + "loanView";
+	}
+	
 	@RequestMapping(value = {"/loanEdit.*"})
 	public String loanEdit(Model model, PictureBook pictureBook, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
