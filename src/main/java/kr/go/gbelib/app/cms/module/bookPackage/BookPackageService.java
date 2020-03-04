@@ -115,6 +115,10 @@ public class BookPackageService extends BaseService {
 	public int deleteBookPackageLoan(BookPackage bookPackage) {
 		return dao.deleteBookPackageLoan(bookPackage);
 	}
+	
+	public int statusChangeAll(BookPackage bookPackage) {
+		return dao.statusChangeAll(bookPackage);
+	}
 
 	public List<BookPackage> getBookPackageExcelList(BookPackage bookPackage) {
 		return dao.getBookPackageExcelList(bookPackage);

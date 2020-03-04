@@ -32,6 +32,8 @@ public interface BookPackageDao {
 	public int modifyReturnReq(BookPackage bookPackage);
 
 	public int deleteBookPackageLoan(BookPackage bookPackage);
+	
+	public int statusChangeAll(BookPackage bookPackage);
 
 	public List<BookPackage> getBookPackageExcelList(BookPackage bookPackage);
 

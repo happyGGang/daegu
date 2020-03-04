@@ -78,6 +78,39 @@ $(function() {
 		doGetLoad('loanList.do', $('form#bookPackage').serialize());
 	});
 	
+	$('#allChk').on('click', function(e) {
+		e.preventDefault();
+		if($(this).attr('keyValue') == 'N') {
+			$(this).attr('keyValue', 'Y');
+			$('.loan_chk').prop('checked', true);
+		} else {
+			$(this).attr('keyValue', 'N');
+			$('.loan_chk').prop('checked', false);
+		}
+	});
+	
+	$('#status-change').on('click', function(e) {
+		e.preventDefault();
+		
+		if($('input[name="book_package_loan_arr"]:checked').length < 1) {
+			alert('변경할 신청 리스트를 선택하세요.');
+			return false;
+		}
+		
+		if($('select#statusAll option:selected').val() == '') {
+			alert('변경할 상태를 선택하세요.');
+			return false;
+		}
+		
+		$('select#request_status').val($('select#statusAll').val()).prop('selected', true);
+		$('#editMode').val('STATUS');
+		$('#bookPackage').attr('action', 'loanSave.do');
+		$('#bookPackage').attr('method', 'POST');
+		if(doAjaxPost($('#bookPackage'))) {
+			location.reload();
+		}
+	});
+	
 	$('a#excelDownload').on('click', function(e) {
 		e.preventDefault();
 		if('${fn:length(loanList)}' > 0) {
@@ -154,6 +187,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 	<table class="type1 center">
 		<colgroup>
 			<col width="5%" />
+			<col width="5%" />
 			<col />
 			<col width="12%" />
 			<col width="15%" />
@@ -165,6 +199,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 		</colgroup>
 		<thead>
 			<tr>
+				<th>선택</th>
 				<th>번호</th>
 				<th>책꾸러미명</th>
 				<th>대출기간</th>
@@ -179,6 +214,9 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 		<tbody>
 			<c:forEach var="i" varStatus="status" items="${loanList}">
 				<tr>
+					<td>
+						<input type="checkbox" name="book_package_loan_arr" class="loan_chk" value="${i.book_package_loan_idx}"/>
+					</td>
 					<td class="num">${paging.listRowNum - status.index}</td>
 					<td class="left">
 						<a href="#" class="dialog-edit" keyValue="${i.book_package_loan_idx}">
@@ -237,6 +275,17 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 			</c:if>
 		</tbody>
 	</table>
+	<a href="#" id="allChk" keyValue="N">전체 선택/해제</a>
+	<select id="statusAll" class="selectmenu">
+		<option value="">상태전체</option>
+		<option value="0">신청중</option>
+		<option value="1">예약상담중</option>
+		<option value="2">대출중</option>
+		<option value="3">반납완료</option>
+		<option value="4">관리자취소</option>
+		<option value="5">반납요청완료</option>
+	</select>
+	<a href="#" id="status-change" class="btn btn3">선택상태변경</a>
 	
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#bookPackage"/>

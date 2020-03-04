@@ -6,19 +6,6 @@
 <script type="text/javascript">
 $(function() {
 	
-	// 책 꾸러미 대출 수정
-// 	$('a.dialog-edit').on('click', function(e) {
-// 		e.preventDefault();
-// 		if(!'${member.admin or authMBA}') {
-// 			return false;
-// 		}
-		
-// 		$('#editMode').val('MODIFY');
-// 		$('#book_package_loan_idx').val($(this).attr('keyValue'));
-// 		var formData = $('form#bookPackage').serialize();
-// 		doGetLoad('loanEdit.do', formData);
-// 	});
-	
 	$('a.return-req').on('click', function(e) {
 		e.preventDefault();
 		var return_yn = $(this).attr('keyValue2')
@@ -81,6 +68,39 @@ $(function() {
 	$('select#request_status, select#loan_start_date, select#rowCount').on('change', function() {
 		$('#viewPage').val(1);
 		doGetLoad('loanList.do', $('form#bookPackage').serialize());
+	});
+	
+	$('#allChk').on('click', function(e) {
+		e.preventDefault();
+		if($(this).attr('keyValue') == 'N') {
+			$(this).attr('keyValue', 'Y');
+			$('.loan_chk').prop('checked', true);
+		} else {
+			$(this).attr('keyValue', 'N');
+			$('.loan_chk').prop('checked', false);
+		}
+	});
+	
+	$('#status-change').on('click', function(e) {
+		e.preventDefault();
+		
+		if($('input[name="book_package_loan_arr"]:checked').length < 1) {
+			alert('변경할 신청 리스트를 선택하세요.');
+			return false;
+		}
+		
+		if($('select#statusAll option:selected').val() == '') {
+			alert('변경할 상태를 선택하세요.');
+			return false;
+		}
+		
+		$('select#request_status').val($('select#statusAll').val()).prop('selected', true);
+		$('#editMode').val('STATUS');
+		$('#bookPackage').attr('action', 'loanSave.do');
+		$('#bookPackage').attr('method', 'POST');
+		if(doAjaxPost($('#bookPackage'))) {
+			location.reload();
+		}
 	});
 	
 	$('a#excelDownload').on('click', function(e) {
@@ -158,6 +178,9 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 	</div>
 	<table class="type1 center">
 		<colgroup>
+			<c:if test="${member.admin or loginSupport.auth_group eq '1'}">
+			<col width="6%" />
+			</c:if>
 			<col width="6%" />
 			<col />
 			<col width="12%" />
@@ -170,6 +193,9 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 		</colgroup>
 		<thead>
 			<tr>
+				<c:if test="${member.admin or loginSupport.auth_group eq '1'}">
+				<th>선택</th>
+				</c:if>
 				<th>번호</th>
 				<th>책꾸러미명</th>
 				<th>대출기간</th>
@@ -184,15 +210,18 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 		<tbody>
 			<c:forEach var="i" varStatus="status" items="${loanList}">
 				<tr>
+					<c:if test="${member.admin or loginSupport.auth_group eq '1'}">
+					<td>
+						<input type="checkbox" name="book_package_loan_arr" class="loan_chk" value="${i.book_package_loan_idx}"/>
+					</td>
+					</c:if>
 					<td class="num">${paging.listRowNum - status.index}</td>
 					<td class="left">
-<%-- 						<a href="#" class="dialog-edit" keyValue="${i.book_package_loan_idx}"> --%>
-							${i.book_package_subject}
-							<br/>
-							<c:if test="${i.request_status eq '1'}">
-							<span>(예약일: ${i.loan_start_date}~${fn:substring(i.loan_end_date, 5, 10)})</span>
-							</c:if>
-<!-- 						</a> -->
+						${i.book_package_subject}
+						<br/>
+						<c:if test="${i.request_status eq '1'}">
+						<span>(예약일: ${i.loan_start_date}~${fn:substring(i.loan_end_date, 5, 10)})</span>
+						</c:if>
 					</td>
 					<td class="center">
 						<c:if test="${i.request_status ne '1'}">
@@ -242,6 +271,19 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 			</c:if>
 		</tbody>
 	</table>
+	<c:if test="${member.admin or loginSupport.auth_group eq '1'}">
+	<a href="#" id="allChk" keyValue="N">전체 선택/해제</a>
+	<select id="statusAll" class="selectmenu">
+		<option value="">상태전체</option>
+		<option value="0">신청중</option>
+		<option value="1">예약상담중</option>
+		<option value="2">대출중</option>
+		<option value="3">반납완료</option>
+		<option value="4">관리자취소</option>
+		<option value="5">반납요청완료</option>
+	</select>
+	<a href="#" id="status-change" class="btn btn3">선택상태변경</a>
+	</c:if>
 	
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#bookPackage"/>

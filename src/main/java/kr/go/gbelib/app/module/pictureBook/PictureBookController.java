@@ -193,7 +193,7 @@ public class PictureBookController extends BaseController {
 				service.deletePictureBookLoan(pictureBook);
 				res.setValid(true);
 				res.setMessage("삭제되었습니다.");
-			} else if(pictureBook.getEditMode().equals("status")) {
+			} else if(pictureBook.getEditMode().equals("STATUS")) {
 				service.statusChangeAll(pictureBook);
 				res.setValid(true);
 				res.setMessage("상태가 모두 변경되었습니다.");

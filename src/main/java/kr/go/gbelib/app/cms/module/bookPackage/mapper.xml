@@ -285,6 +285,18 @@
 			book_package_loan_idx = #{book_package_loan_idx}
 	</delete>
 	
+	<update id="statusChangeAll">
+		UPDATE
+			BOOK_PACKAGE_LOAN
+		SET
+			request_status = #{request_status}
+		WHERE
+			book_package_loan_idx IN
+			<foreach collection="book_package_loan_arr" open="(" close=")" separator="," item="i">
+			#{i}
+			</foreach>
+	</update>
+	
 	<select id="getBookPackageExcelList" resultType="kr.go.gbelib.app.cms.module.bookPackage.BookPackage">
 		SELECT
 			book_package_idx, book_package_name, book_package_subject, author, publisher,

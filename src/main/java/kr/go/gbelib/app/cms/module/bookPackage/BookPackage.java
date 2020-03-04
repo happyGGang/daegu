@@ -39,6 +39,7 @@ public class BookPackage extends PagingUtils {
 
 	// 대출신청리스트
 	private int book_package_loan_idx; // 책꾸러미 대출IDX
+	private int[] book_package_loan_arr;
 	private String loan_start_date; // 대출시작기간
 	private String loan_end_date; // 대출종료기간
 	private String school_name; // 학교명
@@ -269,6 +270,14 @@ public class BookPackage extends PagingUtils {
 		this.book_package_loan_idx = book_package_loan_idx;
 	}
 
+	public int[] getBook_package_loan_arr() {
+		return book_package_loan_arr;
+	}
+
+	public void setBook_package_loan_arr(int[] book_package_loan_arr) {
+		this.book_package_loan_arr = book_package_loan_arr;
+	}
+
 	public String getLoan_start_date() {
 		return loan_start_date;
 	}
@@ -421,13 +430,11 @@ public class BookPackage extends PagingUtils {
 		this.modify_date = modify_date;
 	}
 
-	
-
 	@Override
 	public String toString() {
 		return "BookPackage [book_package_idx=" + book_package_idx + ", book_package_name=" + book_package_name + ", book_package_subject=" + book_package_subject + ", author=" + author + ", publisher=" + publisher + ", publish_year=" + publish_year + ", isbn=" + isbn + ", book_price=" + book_price + ", book_pages=" + book_pages + ", purpose=" + purpose + ", loan_count=" + loan_count + ", quantity=" + quantity + ", grade=" + grade + ", category=" + category + ", keyword=" + keyword + ", desc_link=" + desc_link + ", image_link=" + image_link + ", content=" + content + ", mfile=" + mfile + ", add_id=" + add_id + ", add_date=" + add_date + "]";
 	}
-	
+
 	public String toString2() {
 		return "BookPackage [book_package_idx=" + book_package_idx + ", book_package_loan_idx=" + book_package_loan_idx + ", loan_start_date=" + loan_start_date + ", loan_end_date=" + loan_end_date + ", school_name=" + school_name + ", request_name=" + request_name + ", phone=" + phone + ", school_tel=" + school_tel + ", request_content=" + request_content + ", request_status=" + request_status + ", return_yn=" + return_yn + ", add_id=" + add_id + ", add_date=" + add_date + "]";
 	}

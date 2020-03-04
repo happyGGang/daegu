@@ -90,7 +90,7 @@ $(function() {
 		}
 		
 		$('select#request_status').val($('select#statusAll').val()).prop('selected', true);
-		$('#editMode').val('status');
+		$('#editMode').val('STATUS');
 		$('#pictureBook').attr('action', 'loanSave.do');
 		$('#pictureBook').attr('method', 'POST');
 		doAjaxPost($('#pictureBook'));
@@ -159,9 +159,9 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 	</div>
 	<table class="type1 center">
 		<colgroup>
-<%-- 			<c:if test="${member.admin or authMBA}"> --%>
-<%-- 			<col width="5%" /> --%>
-<%-- 			</c:if> --%>
+			<c:if test="${member.admin or loginSupport.auth_group eq '1'}">
+			<col width="6%" />
+			</c:if>
 			<col width="6%" />
 			<col />
 			<col width="10%" />
@@ -173,9 +173,9 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 		</colgroup>
 		<thead>
 			<tr>
-<%-- 				<c:if test="${member.admin or authMBA}"> --%>
-<!-- 				<th>선택</th> -->
-<%-- 				</c:if> --%>
+				<c:if test="${member.admin or loginSupport.auth_group eq '1'}">
+				<th>선택</th>
+				</c:if>
 				<th>번호</th>
 				<th>원화명</th>
 				<th>대출기간</th>
@@ -189,11 +189,11 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 		<tbody>
 			<c:forEach var="i" varStatus="status" items="${pictureBookLoanList}">
 				<tr>
-<%-- 					<c:if test="${member.admin or authMBA}"> --%>
-<!-- 					<td> -->
-<%-- 						<input type="checkbox" name="picture_book_loan_arr" class="loan_chk" value="${i.picture_book_loan_idx}"/> --%>
-<!-- 					</td> -->
-<%-- 					</c:if> --%>
+					<c:if test="${member.admin or loginSupport.auth_group eq '1'}">
+					<td>
+						<input type="checkbox" name="picture_book_loan_arr" class="loan_chk" value="${i.picture_book_loan_idx}"/>
+					</td>
+					</c:if>
 					<td class="num">${paging.listRowNum - status.index}</td>
 					<td>
 						<a href="#" class="view-btn" keyValue="${i.picture_book_loan_idx}">${i.picture_book_subject}</a>
@@ -226,18 +226,20 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 			</c:if>
 		</tbody>
 	</table>
-<!-- 	<a href="#" id="allChk" keyValue="N">전체 선택/해제</a> -->
+	<c:if test="${member.admin or loginSupport.auth_group eq '1'}">
+	<a href="#" id="allChk" keyValue="N">전체 선택/해제</a>
 	
-<!-- 	<select id="statusAll" class="selectmenu"> -->
-<!-- 		<option value="">상태변경</option> -->
-<!-- 		<option value="1">신청완료</option> -->
-<!-- 		<option value="2">대출중</option> -->
-<!-- 		<option value="3">반납신청</option> -->
-<!-- 		<option value="4">반납요청완료</option> -->
-<!-- 		<option value="5">반납완료</option> -->
-<!-- 		<option value="6">대출불가</option> -->
-<!-- 	</select> -->
-<!-- 	<a href="#" id="status-change" class="btn btn3">선택상태변경</a> -->
+	<select id="statusAll" class="selectmenu">
+		<option value="">상태변경</option>
+		<option value="1">신청완료</option>
+		<option value="2">대출중</option>
+		<option value="3">반납신청</option>
+		<option value="4">반납요청완료</option>
+		<option value="5">반납완료</option>
+		<option value="6">대출불가</option>
+	</select>
+	<a href="#" id="status-change" class="btn btn3">선택상태변경</a>
+	</c:if>
 	
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#pictureBook"/>
