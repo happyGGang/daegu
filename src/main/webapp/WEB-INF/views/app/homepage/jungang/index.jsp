@@ -305,7 +305,7 @@ do {
 						<div class="panelZone">
 							<ul>
 								<c:forEach items="${newsList}" var="i" varStatus="status">
-									<li>${i.news_name}</li>
+									<li><a href="${i.link_url}" style="color:#ffcc00;">${i.news_name}</a></li>
 								</c:forEach>
 							</ul>
 						</div>
