@@ -4,13 +4,12 @@
 package kr.go.gbelib.app.module.facilityStudy;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,7 +47,7 @@ public class FacilityStudyController extends BaseController {
 
 	@Autowired
 	private CalendarManageService calendarManageService;
-	
+
 	@Autowired
 	private TermsService termsService;
 
@@ -101,7 +100,7 @@ public class FacilityStudyController extends BaseController {
 			//약관 연동부
 			Menu menuOne = (Menu)request.getAttribute("menuOne");
 			model.addAttribute("termsList", termsService.getTermsListInModule(new Terms(homepage.getHomepage_id(), menuOne.getManage_idx(), "module")));
-			
+
 			model.addAttribute("facilityStudy", fs);
 		}
 
@@ -164,7 +163,7 @@ public class FacilityStudyController extends BaseController {
 			if(fs.getMan_count() == 0 && fs.getWoman_count() == 0) {
     			result.rejectValue("man_count", "참여인원을 입력하세요.");
     		}
-			
+
 			ValidationUtils.rejectIfEmpty(result, "apply_list", "'참가자명단' 필수 입력 항목입니다.");
 			ValidationUtils.rejectIfStringLength(result, "apply_list", 500, "참가자명단");
 
@@ -178,7 +177,7 @@ public class FacilityStudyController extends BaseController {
 			if (ref > today.getMillis()) {
 				result.reject("20일 이후 신청 가능합니다.");
 			}
-			
+
 			CalendarManage cm = new CalendarManage();
 			cm.setHomepage_id(homepage.getHomepage_id());
 			cm.setPlan_day(fs.getStudy_date());
@@ -186,7 +185,7 @@ public class FacilityStudyController extends BaseController {
 			if(cm != null) {
 				result.reject("휴관일에는 신청할 수 없습니다.");
 			}
-			
+
 		}
 
 		JsonResponse res = new JsonResponse(request);
