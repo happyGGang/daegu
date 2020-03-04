@@ -16,19 +16,40 @@ $(function() {
 		history.back();
 	});
 	
+	
+	var str_date1 = $('#loan_start_date').val() == '' ? new Date() : new Date($('#loan_start_date').val());
+	if(str_date1.getDay() == 6) {
+		str_date1.setDate(str_date1.getDate() + 6);
+	}
+	var str_date2 = new Date(str_date1);
+	str_date2.setDate(str_date2.getDate() + 7);
+	
+	var minDate = str_date1.getFullYear()+'-'+(str_date1.getMonth()+1)+'-'+str_date1.getDate();
+	var maxDate = str_date2.getFullYear()+'-'+(str_date2.getMonth()+1)+'-'+str_date2.getDate();
+	
 	$('input#loan_start_date').datepicker({
-		maxDate: $('input#loan_end_date').val(),
+		minDate: minDate,
+		maxDate: maxDate,
 		onClose: function(selectedDate){
 			$('input#loan_end_date').datepicker('option', 'minDate', selectedDate);
+			var date = $(this).datepicker('getDate');
+			date.setDate(date.getDate() + 6);
+			var end_year = date.getFullYear();
+			var end_month = (date.getMonth()+1 < 10 ? '0' : '') + (date.getMonth()+1);
+			var end_date = (date.getDate() < 10 ? '0' : '') + date.getDate();
+			$('input#loan_end_date').val(end_year+'-'+end_month+'-'+end_date);
+		},
+		beforeShowDay: function(date) {
+			return [date.getDay() == 5];
 		}
 	});
-
-	$('input#loan_end_date').datepicker({
-		minDate: $('input#loan_start_date').val(),
-		onClose: function(selectedDate){
-			$('input#loan_start_date').datepicker('option', 'maxDate', selectedDate);
-		}
-	});
+	
+	var end_date = new Date(str_date1);
+	end_date.setDate(end_date.getDate() + 6);
+	var end_year = end_date.getFullYear();
+	var end_month = (end_date.getMonth()+1 < 10 ? '0' : '') + (end_date.getMonth()+1);
+	var end_date = (end_date.getDate() < 10 ? '0' : '') + end_date.getDate();
+	$('input#loan_end_date').val(end_year+'-'+end_month+'-'+end_date);
 	
 	$('input#hope_date').datepicker();
 	
@@ -58,7 +79,7 @@ $(function() {
 				<td>
 					<form:input path="loan_start_date" cssClass="text ui-calendar"/>
 					<span>~</span>
-					<form:input path="loan_end_date" cssClass="text ui-calendar"/>
+					<form:input path="loan_end_date" cssClass="text ui-calendar" readonly="true"/>
 					<div class="ui-state-highlight">
 						<i class="fa fa-question-circle"></i>
 						<em>대출 요일은 금요일, 반납요일은 목요일로 대출기간은 1주입니다.</em>
