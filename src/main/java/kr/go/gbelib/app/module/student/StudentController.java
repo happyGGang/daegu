@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
-import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
 import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
@@ -247,7 +246,9 @@ public class StudentController extends BaseController {
 				if (StringUtils.equals(teachOne.getMember_yn(), "Y") && !isLogin(request)) {
 					student.setWeb_id(memberId);
 				}
-//				student.setMember_key(student.getMember_id());
+				if (!"ANONYMOUS".equals(memberId)) {
+					student.setMember_key(student.getMember_id());
+				}
 				student.setApi_user_id(student.getMember_id());
 				student.setSearch_api_type("USER_ID");
 
