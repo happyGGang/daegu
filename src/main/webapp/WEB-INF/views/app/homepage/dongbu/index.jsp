@@ -143,7 +143,7 @@
 					<div class="title">
 						<ul>
 							<li><h2>공지사항</h2></li>
-							<li><a href="/${homepage.context_path}/board/index.do?menu_idx=87&manage_idx=12"><img src="/resources/homepage/seobu/img/more_bt.png" alt="더보기"/></a></li>
+							<li><a href="/dongbu/board/index.do?menu_idx=36&manage_idx=123"><img src="/resources/homepage/seobu/img/more_bt.png" alt="더보기"/></a></li>
 						</ul>
 					</div>
 

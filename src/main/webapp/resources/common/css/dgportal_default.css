@@ -236,11 +236,11 @@ input.text.ui-spinner-input{border:none;background:none;margin-top:0;margin-bott
 input.ui-calendar{width:110px;background:#fff url('../img/calendar-icon.gif') no-repeat 89px center;vertical-align:middle;cursor:pointer}
 
 #header{position:relative;z-index:3;clear:both}
-#container{position:relative;z-index:6;}
+#container{position:relative;z-index:2;}
 h1{z-index:6}
 .tnb{position:relative;z-index:4}
 .Gnb{z-index:5}
-.popupWrap{position:relative;z-index:2}
+.popupWrap{position:relative;z-index:88;}
 
 .Gnb{width:100%;left:0;top:0;overflow:hidden}
 .Gnb:after{content:'';display:block;clear:both}
@@ -1635,8 +1635,8 @@ filter:alpha(opacity = 0.3*100);
 .doc-body a.U{text-decoration:underline!important}
 
 /* 레이어 팝업 */
-#popupLayer{position:absolute;width:100%}
-#popupLayer>div{
+#popupLayer {position:absolute;width:100%;z-index:1000;}
+#popupLayer > div{
 -webkit-box-shadow:0px 3px 5px 0px rgba(0,0,0,0.4);
 -moz-box-shadow:0px 3px 5px 0px rgba(0,0,0,0.4);
 box-shadow:0px 3px 5px 0px rgba(0,0,0,0.4);
@@ -1994,7 +1994,8 @@ padding:20px 15px 20px 215px; margin-bottom:25px}
 #footer .top .footer-logo {position:relative;text-align:center;padding:30px 0 20px;}
 #footer .top .site_link {position:relative;}
 #footer .top .info {padding:20px 0 5px;border-bottom:1px solid #72b2e7;}
-#footer .top .info b{color:#383d50}
+#footer .top .info b{color:#383d50;font-size:14px;}
+#footer .top .info a{font-size:14px;}
 #footer .top .info a,
 #footer .top .info span{vertical-align:middle;font-size:15px;color:#fff;line-height:50px;}
 #footer .top .info .bar{display:inline-block;margin:0 13px;color:#72b2e7;}
@@ -2043,7 +2044,7 @@ padding:20px 15px 20px 215px; margin-bottom:25px}
 
 @media all and (max-width:1000px){
 	.doc{margin-right:0}
-	.content{float:none;width:94%;margin:0 auto;}
+	.content{float:none;width:94%;margin:0 auto;margin-bottom: 50px;}
 
 	.doc-info, .doc-info-suseong {width:100%;margin:0;padding:0;}
 
@@ -2073,7 +2074,7 @@ padding:20px 15px 20px 215px; margin-bottom:25px}
 	#footer .bottom-top .info {display:none;}
 	#footer .top {display:block;}
 	#footer .top .info-box{ overflow-x:scroll }
-	#footer .top .info{text-align:center;width:800px;}
+	#footer .top .info{text-align:center;width:800px;padding: 0 0 0 5px;}
 }
 
 @media all and (max-width:768px){
@@ -2103,7 +2104,8 @@ padding:20px 15px 20px 215px; margin-bottom:25px}
 
 	#footer .site_link select {width:96%;padding:0 2%;margin:2px 0}
 	#footer .top .info a,
-	#footer .top .info span{font-size:13px;}
+	#footer .top .info span{font-size: 12px;}
+	#footer .top .footer-logo {position:relative;text-align:center;padding: 15px 0 10px 0;margin: 0 auto;width: 50%;}
 }
 
 @media all and (max-width:545px){

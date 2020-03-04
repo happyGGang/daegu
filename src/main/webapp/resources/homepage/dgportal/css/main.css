@@ -29,7 +29,7 @@
 
 .main1,.main5,.main6,.main7_banner{overflow:hidden}
 
-.main0 {position:relative;background: url('../img/main-visual.jpg') repeat-x center center;width:100%;height: 595px;z-index:30;}
+.main0 {position:relative;background: url('../img/main-visual.jpg') repeat-x center center;width:100%;height: 575px;z-index:30;}
 .main0 .popZone {position:relative;width:400px;padding-top:70px;}
 .main0 .popZone li{text-align:left;padding:0;margin:0;}
 .main0 .popZone li a {display:inline-block;}
@@ -47,7 +47,7 @@
 
 
 .main1 {position:relative;z-index:30;}
-.main1 .quickmenu {padding:30px 0;}
+.main1 .quickmenu {padding: 20px 0 15px 0;}
 .main1 .quickmenu .section {position:relative;width:1260px;margin:0 auto;text-align:center;overflow:hidden}
 .main1 .quickmenu li {display:inline-block;float:left;text-align:center;width:210px;height:145px;}
 .main1 .quickmenu li a {display:block;background-position:center center;background-repeat:no-repeat;width:100%;height:100px;margin:0 auto;font-size:15px;color:#222;font-weight:bold;letter-spacing:-1px;font-size:17px;transition:all 0.3s;}
@@ -112,7 +112,7 @@
 .section_story .title_bx {color:#fff;font-weight:200;font-size:33px;position:relative;top: -50px;letter-spacing:-1px;background:url("/resources/homepage/dgportal/img/notice-title-bg.png") no-repeat 0 0;padding:60px 30px 50px 30px;}
 .section_story:before { z-index:1;content:'';border-left:1px solid rgba(255, 255, 255, 0.5);position:absolute;top:0;left:50%;height:100%;display:block; }
 .section_story .story_list {position:relative;z-index:2;width:50%;display:inline-block;margin-top: 0px;}
-.section_story .story_list li { position:relative;padding-right:60px;line-height:40px;padding:15px 60px 15px 25px; background:url('/resources/homepage/dgportal/img/notice-dot.png') no-repeat left 28%; }
+.section_story .story_list li {position:relative;padding-right:60px;line-height:40px;padding:15px 60px 15px 25px;background:url('/resources/homepage/dgportal/img/notice-dot.png') no-repeat left 28%;}
 .section_story .story_list .link {position:absolute;right:0;top:50%;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%);height:9px;width:9px;border-radius:50%;margin-right:-5px;background-color:#fff;}
 .section_story .story_list .more-notice {position:absolute;right:0;top: -100px;height:77px;width:77px;border-radius:50%;margin-right:-38px;}
 .section_story .story_list .wrap { color:#fff;display:block;padding-right:75px;position:relative;filter:alpha(opacity=50);}
@@ -127,7 +127,7 @@
 .section_story .story_list .wrap.on .tit.titleseobu { color:#ec008c; }		/*서부*/
 .section_story .story_list .wrap.on .tit.titlesuseong { color:#ed145b; }	/*수성*/
 .section_story .story_list .wrap.on .tit.titledalseong { color:#8c60a5; }	/*달성*/
-.section_story .story_list .wrap.on .tit.title228sml { color:#e83e30; }		/*228기념*/
+.section_story .story_list .wrap.on .tit.title228 { color:#e83e30; }		/*228기념*/
 .section_story .story_list .wrap.on .tit.title228lib{ color:#006958; }		/*228민주*/
 .section_story .story_list .wrap.on .tit.titledgportal {color: #fff;}
 
@@ -140,7 +140,7 @@
 .section_story .story_list .link.libraryseobu {background-color:#ec008c;}
 .section_story .story_list .link.librarysuseong {background-color:#ed145b;}
 .section_story .story_list .link.librarydalseong {background-color:#8c60a5;}
-.section_story .story_list .link.library228sml {background-color:#e83e30;}
+.section_story .story_list .link.library228 {background-color:#e83e30;}
 .section_story .story_list .link.library228lib {background-color:#006958;}
 .section_story .story_list .link.librarydgportal {background-color: #000;}
 /*.section_story .story_list .wrap.on + .link:before { font-family:xeicon!important;display:inline-block;speak:none;font-style:normal;font-weight:400;font-variant:normal;text-transform:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;content:""; }*/
@@ -214,7 +214,7 @@
 
 	.main2 .main2box2 .book {position:relative;text-align:center;}
 	.main2 .main2box2 .book li {position:relative;display:inline-block;width:41%;text-align:center;margin:25px 10px;vertical-align:top;}
-	.main2 .main2box2 .book li img {width:100%;min-height: 200px;height:auto;}
+	.main2 .main2box2 .book li img {width:100%;min-height: 300px;height:auto;}
 	.main2 .main2box2 .book li img.book-line, .main2 .main2box2 .book li img.book-shadow {display:none;}
 
 	.main3 {z-index:30;box-sizing:border-box;padding:80px 0 0 0;}
@@ -293,7 +293,7 @@
 
 	.main2 .main2box2 .book {position:relative;text-align:center;}
 	.main2 .main2box2 .book li {position:relative;display:inline-block;width:41%;height:auto;text-align:center;margin:25px 10px;vertical-align:top;}
-	.main2 .main2box2 .book li img {width:100%;min-height: 465px;}
+	.main2 .main2box2 .book li img {width:100%;max-height: 390px;}
 	.main2 .main2box2 .book li img.book-line, .main2 .main2box2 .book li img.book-shadow {display:none;}
 
 	.main3 {z-index:30;box-sizing:border-box;padding:30px 0 0 0;height:550px;}
@@ -301,7 +301,7 @@
 	.main4 {height:auto;}
 	.section_story .title_bx {font-weight:600;font-size:25px;top: -10px;box-sizing:border-box;background:none;padding: 55px 0 0 20px;}
 	.section_story {}
-	.section_story:before {left:auto;right:45px;height:63.6%}
+	.section_story:before {left:auto;right:45px;height:63.6%;}
 	.section_story .story_list {width:100%;padding-right:15px;padding-bottom: 20px;box-sizing:border-box;} 
 	.section_story .story_list li {box-sizing:border-box;padding-right:40px;margin-left:20px;}
 	.section_story .story_list .link {line-height:60px;height:60px;width:60px;margin-right:0px;color:#fff;font-size:15px;text-align:center;}
@@ -347,7 +347,7 @@
 	.main3 .title b {font-size:23px;font-weight:800;}
 	.main0 {position:relative;background: url('../img/main-visual.jpg') repeat-x 70% center;width:100%;height: 560px;z-index:30;}
 	#header .sub-menu{position:relative;z-index:2;clear:both;background:url('../img/submenu-bg.png') repeat-x 50% center;height:90px;}
-    .main2 .main2box2 .book li img{min-height: 303px;}
+    .main2 .main2box2 .book li img{max-height: 240px;}
 
 }
 

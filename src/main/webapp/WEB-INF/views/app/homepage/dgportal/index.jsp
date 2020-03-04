@@ -77,8 +77,8 @@ do {
 		// 팝업 관련 코드 END
 
 
-		$('div.calendar-box').load('calendar5.do?homepage_id=h10');
-		$('ul.newBookUl').load('recommendBook.do?hid=h10');
+		$('div.calendar-box').load('calendar5.do?homepage_id=h1');
+		$('ul.newBookUl').load('recommendBook.do?hid=h1');
 
 		$('select#recommendBook1').on('change', function() {
 			$('ul.newBookUl').load('recommendBook.do?hid='+$(this).val());
@@ -165,16 +165,16 @@ do {
 						<h2><b>추천도서</b></h2>
 						<p>
 							<select id="recommendBook1" class="recommendSite1">
-								<option value="h10">중앙도서관</option>
-								<option value="h6">두류도서관</option>
-								<option value="h5">동부도서관</option>
-								<option value="h8">서부도서관</option>
-								<option value="h3">남부도서관</option>
-								<option value="h7">북부도서관</option>
-								<option value="h4">달성도서관</option>
-								<option value="h9">수성도서관</option>
-								<option value="h1">228기념학생도서관</option>
-								<option value="h2">228민주운동기념회관</option>
+								<option value="h1">대구 2·28기념학생도서관</option>
+								<option value="h2">대구 2·28민주운동기념회관</option>
+								<option value="h3">대구광역시립 남부도서관</option>
+								<option value="h4">대구광역시립 달성도서관</option>
+								<option value="h5">대구광역시립 동부도서관</option>
+								<option value="h6">대구광역시립 두류도서관</option>
+								<option value="h7">대구광역시립 북부도서관</option>
+								<option value="h8">대구광역시립 서부도서관</option>
+								<option value="h9">대구광역시립 수성도서관</option>
+								<option value="h10">대구광역시립 중앙도서관</option>
 							</select>
 						</p>
 					</div>
@@ -254,16 +254,16 @@ do {
 								<h2><b>이달의</b> 휴관일</h2>
 								<p>
 									<select id="holidaySite1" class="holidaySite1" style="color:#fff;">
-										<option value="h10" style="color:#000;">중앙도서관</option>
-										<option value="h6" style="color:#000;">두류도서관</option>
-										<option value="h5" style="color:#000;">동부도서관</option>
-										<option value="h8" style="color:#000;">서부도서관</option>
-										<option value="h3" style="color:#000;">남부도서관</option>
-										<option value="h7" style="color:#000;">북부도서관</option>
-										<option value="h4" style="color:#000;">달성도서관</option>
-										<option value="h9" style="color:#000;">수성도서관</option>
-										<option value="h1" style="color:#000;">228기념학생도서관</option>
-										<option value="h2" style="color:#000;">228민주운동기념회관</option>
+										<option value="h1" style="color:#000;">대구2·28기념학생도서관</option>
+										<option value="h2" style="color:#000;">대구2·28민주운동기념회관</option>
+										<option value="h3" style="color:#000;">대구광역시립 남부도서관</option>
+										<option value="h4" style="color:#000;">대구광역시립 달성도서관</option>
+										<option value="h5" style="color:#000;">대구광역시립 동부도서관</option>
+										<option value="h6" style="color:#000;">대구광역시립 두류도서관</option>
+										<option value="h7" style="color:#000;">대구광역시립 북부도서관</option>
+										<option value="h8" style="color:#000;">대구광역시립 서부도서관</option>
+										<option value="h9" style="color:#000;">대구광역시립 수성도서관</option>
+										<option value="h10" style="color:#000;">대구광역시립 중앙도서관</option>
 									</select>
 								</p>
 							</div>
