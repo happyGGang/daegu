@@ -8,7 +8,7 @@
 		</selectKey>
 
 		INSERT INTO USER_API_LOG (
-			log_idx, api_mode, code, msg, params, user_ip, log_date
+			log_idx, api_mode, code, msg, params, user_ip, add_date
 		) VALUES (
 			#{log_idx}, #{api_mode}, #{code}, #{msg}, #{params}, #{user_ip}, SYSDATE
 		)
