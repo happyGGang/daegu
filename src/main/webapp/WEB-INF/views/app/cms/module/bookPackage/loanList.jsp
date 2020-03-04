@@ -181,6 +181,17 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 			<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>
 		</div>
 	</div>
+	<div class="search txt-center">
+		<fieldset>
+			<form:select path="search_type" cssClass="selectmenu">
+				<form:option value="book_package_subject">책꾸러미명</form:option>
+				<form:option value="school_name">학교명</form:option>
+				<form:option value="request_name">신청자</form:option>
+			</form:select>
+			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
+			<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
+		</fieldset>
+	</div>
 	<div style="text-align: right;margin-bottom: 5px;">
 		<p class="point-txt"><strong>반납요청중</strong>을 클릭하면 반납요청을 취소할 수 있습니다.</p>
 	</div>
@@ -291,18 +302,6 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 		<jsp:param name="formId" value="#bookPackage"/>
 		<jsp:param name="pagingUrl" value="loanList.do"/>
 	</jsp:include>
-	
-	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
-		<fieldset>
-			<form:select path="search_type" cssClass="selectmenu">
-				<form:option value="book_package_subject">책꾸러미명</form:option>
-				<form:option value="school_name">학교명</form:option>
-				<form:option value="request_name">신청자</form:option>
-			</form:select>
-			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
-			<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
-		</fieldset>
-	</div>
 </form:form>
 
 <div id="dialog-2" class="dialog-common" title="대출리스트"></div>
