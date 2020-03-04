@@ -229,15 +229,15 @@ public class BoardController extends BaseController {
 	    		service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
 	    		return null;
 	        }
-			
+
 			if (boardManage.getWrite_only_yn().equals("Y") && !"CMS".equals(getSessionMemberLoginType(request)) && !loginSupport.getAuth_group().equals("1")) {
 				String write_url = "edit.do?manage_idx="+request.getParameter("manage_idx")+"&menu_idx="+request.getParameter("menu_idx");
 				service.alertMessageAndUrl("", write_url, request, response);
 				return null;
 			}
 		}
-		
-		if (boardManage.getWrite_only_yn().equals("Y") && !"CMS".equals(getSessionMemberLoginType(request)) && !loginSupport.isLogin()) {
+
+		if (boardManage.getWrite_only_yn().equals("Y") && !"CMS".equals(getSessionMemberLoginType(request)) && (loginSupport != null && !loginSupport.isLogin())) {
 			StringBuffer sb = new StringBuffer();
 			sb.append(isLogin(request) ? "edit" : "cert");
 			sb.append(".do?manage_idx=").append(request.getParameter("manage_idx"));
