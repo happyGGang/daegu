@@ -9,3 +9,6 @@
 	<c:if test="${status.count % 6 == 0}"><br/></c:if>
 	</c:forEach>
 </c:if>
+<c:if test="${empty closeDayList or empty closeDayList.dd}">
+	<span class="" style="width: 250px;">등록된 휴관일이 없습니다.</span>
+</c:if>
