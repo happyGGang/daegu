@@ -3,7 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="categoryMove" value="${not empty authMBA and authMBA and boardManage.category_use_yn eq 'Y'}"></c:set>
+<c:set var="categoryMove" value="${not empty authMBA and authMBA and boardManage.category_use_yn eq 'Y' and boardManage.manage_idx ne '195'}"></c:set>
 <div class="button bbs-btn right" style="clear: both;">
 <c:choose>
 	<c:when test="${member.admin or authMBA}">
