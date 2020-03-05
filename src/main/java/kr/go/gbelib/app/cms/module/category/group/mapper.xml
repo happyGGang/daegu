@@ -87,7 +87,7 @@
 			group_name = #{group_name},
 			print_seq = #{print_seq},
 			use_yn = #{use_yn},
-			modify_id = #{modify_id},
+			modify_id = #{mod_id},
 			modify_date = SYSDATE,
 			req_limit_yn = #{req_limit_yn},
 			req_limit_type = #{req_limit_type},
