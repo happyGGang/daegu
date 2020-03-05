@@ -222,12 +222,20 @@
 	
 	<select id="getWeekFriday" resultType="String">
 		SELECT
-			TO_CHAR(TRUNC(NVL(MAX(b.loan_end_date), SYSDATE), 'd')+5, 'yyyy-MM-dd') AS loan_start_date
+			TO_CHAR(TRUNC(NVL(loan_end_date, SYSDATE + 7), 'd')+5, 'yyyy-MM-dd') AS loan_start_date
 		FROM
-			LIBRARY_CHECK a, LIBRARY_CHECK_LOAN b
-		WHERE
-			a.library_check_idx = b.library_check_idx
-		AND	b.library_check_idx = #{library_check_idx}
+			(
+			SELECT
+				CASE
+					WHEN MAX(loan_end_date) <![CDATA[<]]> SYSDATE THEN SYSDATE + 7
+					ELSE MAX(loan_end_date)
+				END AS loan_end_date
+			FROM
+				LIBRARY_CHECK a, LIBRARY_CHECK_LOAN b
+			WHERE
+				a.library_check_idx = b.library_check_idx
+			AND	b.library_check_idx = #{library_check_idx}
+			)
 	</select>
 	
 	<update id="modifyLibraryCheckStatus">
