@@ -222,12 +222,12 @@
 	
 	<select id="getWeekFriday" resultType="String">
 		SELECT
-			TO_CHAR(TRUNC(NVL(loan_end_date, SYSDATE + 7), 'd')+5, 'yyyy-MM-dd') AS loan_start_date
+			TO_CHAR(TRUNC(NVL(loan_end_date, SYSDATE), 'd')+5, 'yyyy-MM-dd') AS loan_start_date
 		FROM
 			(
 			SELECT
 				CASE
-					WHEN MAX(loan_end_date) <![CDATA[<]]> SYSDATE THEN SYSDATE + 7
+					WHEN MAX(loan_end_date) <![CDATA[<]]> SYSDATE THEN SYSDATE
 					ELSE MAX(loan_end_date)
 				END AS loan_end_date
 			FROM

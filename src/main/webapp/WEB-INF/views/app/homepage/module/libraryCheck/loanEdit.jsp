@@ -17,7 +17,7 @@ $(function() {
 	});
 	
 	
-	var str_date1 = $('#loan_start_date').val() == '' ? new Date() : new Date($('#loan_start_date').val());
+	var str_date1 = new Date($('#loan_start_date').val());
 	if(str_date1.getDay() == 6) {
 		str_date1.setDate(str_date1.getDate() + 6);
 	}
