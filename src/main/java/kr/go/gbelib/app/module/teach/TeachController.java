@@ -41,6 +41,8 @@ import kr.go.gbelib.app.cms.module.category.Category;
 import kr.go.gbelib.app.cms.module.category.CategoryService;
 import kr.go.gbelib.app.cms.module.category.group.CategoryGroup;
 import kr.go.gbelib.app.cms.module.category.group.CategoryGroupService;
+import kr.go.gbelib.app.cms.module.portalMember.PortalMember;
+import kr.go.gbelib.app.cms.module.supportMember.SupportMember;
 import kr.go.gbelib.app.cms.module.teach.Teach;
 import kr.go.gbelib.app.cms.module.teach.TeachService;
 import kr.go.gbelib.app.cms.module.teach.student.StudentService;
@@ -84,14 +86,24 @@ public class TeachController extends BaseController{
 	}
 
 	@RequestMapping(value = {"/index.*"})
-	public String index(Model model, Teach teach, HttpServletRequest request, HttpServletResponse response) throws AuthException {
+	public String index(Model model, Teach teach, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		checkAuth("R", model, request);
 
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 		if ( isLogin(request) && getSessionMemberLoginType(request).equals("HOMEPAGE") ) {
 			teach.setMember_key(getSessionMemberId(request));
 		}
-
+		
+		// 대표도서관 사서 인증
+		PortalMember loginPortal = sessionLoginPortal(request);
+		String portal_auth = loginPortal == null ? "0" : loginPortal.getAuth_group();
+		int menu_idx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 97));
+		if ( homepage.getHomepage_id().equals("h32") && teach.getMenu_idx() == menu_idx && !portal_auth.equals("4") ) {
+			teach.setBefore_url(String.format("/%s/module/teach/index.do?menu_idx=%s", homepage.getContext_path(), teach.getMenu_idx()));
+			teachService.alertMessageAndUrl("학교도서관 사서 회원 인증 후 이용가능합니다.", String.format("/%s/module/portalMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), teach.getMenu_idx(), teach.getBefore_url()), request, response);
+			return null;
+		}
+		
 		if ( homepage.getHomepage_id().equals("h32") && teach.getEditMode().equals("ALL")) {
 			if (StringUtils.isEmpty(teach.getHomepage_id())) {
 				teach.setHomepage_id(homepage.getHomepage_id());
@@ -146,10 +158,20 @@ public class TeachController extends BaseController{
 	}
 
 	@RequestMapping(value = {"/edit.*"})
-	public String edit(Model model, Teach teach, HttpServletRequest request) throws AuthException {
+	public String edit(Model model, Teach teach, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 
 		String calendarPath = "/homepage/" + homepage.getFolder() + "/module/calendarManage/";
+		
+		// 대표도서관 사서 인증
+		PortalMember loginPortal = sessionLoginPortal(request);
+		String portal_auth = loginPortal == null ? "0" : loginPortal.getAuth_group();
+		int portal_menu_idx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 97));
+		if ( homepage.getHomepage_id().equals("h32") && teach.getMenu_idx() == portal_menu_idx && !portal_auth.equals("4") ) {
+			teach.setBefore_url(String.format("/%s/module/teach/index.do?menu_idx=%s", homepage.getContext_path(), teach.getMenu_idx()));
+			teachService.alertMessageAndUrl("학교도서관 사서 회원 인증 후 이용가능합니다.", String.format("/%s/module/portalMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), teach.getMenu_idx(), teach.getBefore_url()), request, response);
+			return null;
+		}
 
 		teach.setHomepage_id(homepage.getHomepage_id());
 		if ( teach.getEditMode().equals("MODIFY") ) {

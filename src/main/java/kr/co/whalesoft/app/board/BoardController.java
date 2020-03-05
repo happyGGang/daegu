@@ -47,6 +47,7 @@ import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.StrUtil;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
+import kr.go.gbelib.app.cms.module.portalMember.PortalMember;
 import kr.go.gbelib.app.cms.module.supportMember.SupportMember;
 import kr.go.gbelib.app.cms.module.themeBook.ThemeBook;
 import kr.go.gbelib.app.cms.module.themeBook.ThemeBookService;
@@ -213,17 +214,18 @@ public class BoardController extends BaseController {
 			Homepage homepageOne = homepageService.getHomepageOne(new Homepage(board.getHomepage_id()));
 			model.addAttribute("homepage", homepageOne);
 		}
+		
+		boolean isSiteAdmin = false;
+		try {
+			isSiteAdmin = (Boolean) model.asMap().get("authMBA");
+		} catch (Exception e) {
+			isSiteAdmin = false;
+		}
 
 		// 228도서관 지원센터 회원인증 확인
 		SupportMember loginSupport = sessionLoginSupport(request);
 		if(manageCompareIdx(board.getManage_idx(), 225, 226, 224, 227, 228, 230, 281)) {
 			checkAuth("R", model, request);
-			boolean isSiteAdmin = false;
-			try {
-				isSiteAdmin = (Boolean) model.asMap().get("authMBA");
-			} catch (Exception e) {
-				isSiteAdmin = false;
-			}
 			if (loginSupport == null && !getSessionIsAdmin(request) && !isSiteAdmin) {
 	    		board.setBefore_url(String.format("/%s/board/index.do?menu_idx=%s%%26manage_idx=%s", homepage.getContext_path(), board.getMenu_idx(), board.getManage_idx()));
 	    		service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
@@ -236,7 +238,16 @@ public class BoardController extends BaseController {
 				return null;
 			}
 		}
-
+		
+		// 대표도서관 사서 인증
+		PortalMember loginPortal = sessionLoginPortal(request);
+		String portal_auth = loginPortal == null ? "0" : loginPortal.getAuth_group();
+		if(!portal_auth.equals("4") && manageCompareIdx(board.getManage_idx(), 203, 288)) {
+			board.setBefore_url(String.format("/%s/board/index.do?menu_idx=%s%%26manage_idx=%s", homepage.getContext_path(), board.getMenu_idx(), board.getManage_idx()));
+    		service.alertMessageAndUrl("대표도서관 사서 회원 인증 후 이용가능합니다.", String.format("/%s/module/portalMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
+    		return null;
+		}
+		
 		if (boardManage.getWrite_only_yn().equals("Y") && !"CMS".equals(getSessionMemberLoginType(request)) && (loginSupport != null && !loginSupport.isLogin())) {
 			StringBuffer sb = new StringBuffer();
 			sb.append(isLogin(request) ? "edit" : "cert");
@@ -407,6 +418,16 @@ public class BoardController extends BaseController {
 			} else if(!getSessionIsAdmin(request) && !suppot_auth.equals("1") && !isSiteAdmin && manageCompareIdx(board.getManage_idx(), 212, 224, 227)) {
 				service.alertMessage("관리자만 이용할 수 있습니다.", request, response);
 			}
+		}
+		
+		// 대표도서관 사서 인증
+		PortalMember loginPortal = sessionLoginPortal(request);
+		String portal_auth = loginPortal == null ? "0" : loginPortal.getAuth_group();
+		if(!portal_auth.equals("4") && manageCompareIdx(board.getManage_idx(), 203, 288)) {
+//			board.setBefore_url(String.format("/%s/board/index.do?menu_idx=%s%%26manage_idx=%s", homepage.getContext_path(), board.getMenu_idx(), board.getManage_idx()));
+//    		service.alertMessageAndUrl("대표도서관 사서 회원 인증 후 이용가능합니다.", String.format("/%s/module/portalMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
+			service.alertMessage("대표도서관 사서 회원 인증 후 이용가능합니다.", request, response);
+    		return null;
 		}
 
 		if (board.getManage_idx() == 563) {
