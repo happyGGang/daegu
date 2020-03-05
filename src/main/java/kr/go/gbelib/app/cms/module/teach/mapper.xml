@@ -996,7 +996,14 @@
 		FROM
 		(
 			SELECT
+				<choose>
+					<when test="member_key != null and member_key != ''">
 				(SELECT COUNT(*) FROM STUDENT WHERE homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	STUDENT_IDX = e.STUDENT_IDX AND	MEMBER_KEY = e.MEMBER_KEY) as STATUS,
+					</when>
+					<otherwise>
+				(SELECT COUNT(*) FROM STUDENT WHERE homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	STUDENT_IDX = e.STUDENT_IDX AND	applicant_name = e.applicant_name AND student_password = e.student_password) as STATUS,
+					</otherwise>
+				</choose>
 				e.APPLY_STATUS,
 				a.homepage_id, a.group_idx, a.category_idx, a.teach_idx, a.teach_name, a.teach_desc, a.TEACH_ETC, a.teach_stage, a.teach_target, a.LIMIT_HAK, a.LIMIT_HAK2,
 				a.TEACH_LIMIT_COUNT, a.TEACH_JOIN_UNIT, a.TEACH_BACKUP_COUNT, a.TEACH_OFFLINE_COUNT, a.start_join_date,
@@ -1030,7 +1037,15 @@
 				AND	a.category_idx = e.category_idx
 				AND	a.teach_idx = e.teach_idx
 				AND	a.homepage_id = #{homepage_id}
+				<choose>
+					<when test="member_key != null and member_key != ''">
 				AND	e.MEMBER_KEY = #{member_key}
+					</when>
+					<otherwise>
+				AND	e.applicant_name = #{apply_name}
+				AND	e.student_password = #{apply_password}
+					</otherwise>
+				</choose>
 				AND	e.delete_yn = 'N'
 			<if test="searchDateFrom != null and searchDateFrom != ''">
 				AND	e.add_date >= TO_DATE(#{searchDateFrom}, 'YYYY-MM-DD')

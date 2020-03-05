@@ -23,6 +23,7 @@ import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.file.Download;
+import kr.co.whalesoft.framework.utils.CalculateHashUtils;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.cms.module.category.Category;
@@ -190,6 +191,9 @@ public class StudentController extends BaseController {
 		if(!result.hasErrors()) {
 			if(student.getEditMode().equals("ADD")) {
 				student.setAdd_id(getSessionMemberId(request));
+				if (StringUtils.isNotEmpty(student.getStudent_password())) {
+					student.setStudent_password(CalculateHashUtils.calculateHash(student.getStudent_password()));
+				}
 				Object[] addResult = studentService.addStudent(student, "CMS");
 				res.setValid((Boolean) addResult[0]);
 				res.setMessage((String) addResult[1]);

@@ -574,6 +574,14 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 				</tr>
 			</c:if>
 			</c:if>
+        	<c:if test="${teach.member_yn eq 'Y' && !sessionScope.member.login}">
+				<tr>
+					<th>비밀번호(<span style="color: red; font-weight: bold;">*</span>)</th>
+					<td>
+						<form:password path="student_password" cssClass="text" style="width:20%" maxlength="20" title="비밀번호"/>
+					</td>
+				</tr>
+			</c:if>
 			<tr style="display: none">
 	         	<th>수강생 - 나이(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><input id="student_old" name="student_old" class="text" maxlength="3" numberOnly="true" style="width:30px;" title="수강생 나이"/></td>

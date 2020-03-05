@@ -19,40 +19,40 @@ import kr.co.whalesoft.framework.utils.AttachmentUtils;
 import kr.go.gbelib.app.cms.module.teach.Teach;
 
 public class TeachApplySearchView  extends AbstractJExcelView {
-	
+
 	@Override
 	protected void buildExcelDocument(Map<String, Object> model, WritableWorkbook workbook, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		@SuppressWarnings("unchecked")
 		List<Teach> teachList = (List<Teach>) model.get("teachList");
 		String sheetName = "강의신청이력 리스트";	//시트이름
 		workbook.createSheet(sheetName, 0);	//시트설정
-		
+
 		String fileName = "강의신청이력 리스트.xls";
-		
+
 		response.setHeader("Content-Disposition", AttachmentUtils.getContentDisposition(fileName, request.getHeader("user-agent")));
 		response.setHeader("Content-Transfer-Encoding", "binary");
 		response.setHeader("Pragma", "no-cache");
 		response.setContentType("Application/Msexcel");
-		
+
 		// 헤더 스타일
 		WritableCellFormat format = new WritableCellFormat();
 		format.setAlignment( Alignment.CENTRE );
 		format.setBackground( Colour.LIGHT_GREEN );
 
 		//중앙정렬
-		WritableCellFormat format1 = new WritableCellFormat();		
+		WritableCellFormat format1 = new WritableCellFormat();
 		format1.setAlignment(Alignment.CENTRE);
 
 		//테두리선,중앙정렬
-		WritableCellFormat format2 = new WritableCellFormat();		
+		WritableCellFormat format2 = new WritableCellFormat();
 		format2.setBorder(Border.ALL,BorderLineStyle.MEDIUM);
-		
+
 		//중앙정렬,배경색,테두리 색
 		WritableCellFormat format3 = new WritableCellFormat();
 		format3.setAlignment( Alignment.CENTRE );
 		format3.setBackground( Colour.LIGHT_GREEN );
 		format3.setBorder(Border.ALL,BorderLineStyle.MEDIUM);
-		
+
 		// 컬럼 폭 지정
 		workbook.getSheet(0).setColumnView( 0, 10 );
 		workbook.getSheet(0).setColumnView( 1, 20 );
@@ -67,7 +67,7 @@ public class TeachApplySearchView  extends AbstractJExcelView {
 		workbook.getSheet(0).setColumnView( 10, 20 );
 		workbook.getSheet(0).setColumnView( 11, 20 );
 		workbook.getSheet(0).setColumnView( 12, 20 );
-		
+
 		// 헤더 컬럼 지정
 		workbook.getSheet(0).addCell( new Label( 0, 0, "번호", format ) );
 		workbook.getSheet(0).addCell( new Label( 1, 0, "강의명", format ) );
@@ -82,10 +82,10 @@ public class TeachApplySearchView  extends AbstractJExcelView {
 		workbook.getSheet(0).addCell( new Label( 10, 0, "수강생-이름", format ) );
 		workbook.getSheet(0).addCell( new Label( 11, 0, "수강생-생년월일", format ) );
 		workbook.getSheet(0).addCell( new Label( 12, 0, "수강생-성별", format ) );
-		
+
 		int row = 1;
 		for ( Teach org : teachList ) {
-			workbook.getSheet(0).addCell( new Label( 0, row, String.valueOf(org.getTeach_idx())));
+			workbook.getSheet(0).addCell( new Label( 0, row, String.valueOf(row)));
 			workbook.getSheet(0).addCell( new Label( 1, row, org.getTeach_name(),format1 ) );
 			workbook.getSheet(0).addCell( new Label( 2, row, org.getTeach_desc(),format1 ) );
 			workbook.getSheet(0).addCell( new Label( 3, row, org.getTeach_target(),format1 ) );

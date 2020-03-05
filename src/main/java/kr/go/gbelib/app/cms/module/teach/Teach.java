@@ -165,6 +165,10 @@ public class Teach extends PagingUtils {
 	private String program_classification3_name;//프로그램 소분류(TeachSmallCode)
 	private String program_subject_name;//프로그램 주제구분(TeachCode2)
 
+	private String apply_name;
+	private String apply_password;
+
+
 	public Teach() {}
 
 	public Teach(String homepage_id, int mainViewCount) {
@@ -1317,5 +1321,27 @@ public class Teach extends PagingUtils {
 	public void setEnd_time2(String end_time2) {
 		this.end_time2 = end_time2;
 	}
+
+
+	public String getApply_name() {
+		return apply_name;
+	}
+
+
+	public void setApply_name(String apply_name) {
+		this.apply_name = apply_name;
+	}
+
+
+	public String getApply_password() {
+		return apply_password;
+	}
+
+
+	public void setApply_password(String apply_password) {
+		this.apply_password = apply_password;
+	}
+
+
 
 }

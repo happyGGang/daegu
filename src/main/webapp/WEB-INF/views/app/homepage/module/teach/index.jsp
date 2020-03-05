@@ -81,6 +81,10 @@ $(function(){
 		</ul>
 	</div>
 
+	<div style="text-align: right; margin-bottom: 20px; ">
+		<a href="anonyApplyCheck.do?menu_idx=${fn:escapeXml(param.menu_idx)}" class="btn btn1">비회원 신청확인</a>
+	</div>
+
 </form:form>
 <c:if test="${fn:length(teachList) <1 }">
 	<div class="nodata">

@@ -25,6 +25,7 @@ import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.app.cms.terms.Terms;
 import kr.co.whalesoft.app.cms.terms.TermsService;
 import kr.co.whalesoft.framework.base.BaseController;
+import kr.co.whalesoft.framework.utils.CalculateHashUtils;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.co.whalesoft.framework.utils.WebFilterCheckUtils;
@@ -197,6 +198,9 @@ public class StudentController extends BaseController {
 			if (StringUtils.equals(teachOne.getCourse_taken_yn(), "Y")) {
 				ValidationUtils.rejectIfEmpty(result, "student_course_taken_yn", "연수수강여부를 입력하세요.");
 			}
+			if (StringUtils.equals(teachOne.getMember_yn(), "Y") && !isLogin(request)) {
+				ValidationUtils.rejectIfEmpty(result, "student_password", "비밀번호를 입력하세요.");
+			}
 
 			if ( !student.getSelf_info_yn().equals("Y") ) {
 				res.setValid(false);
@@ -232,6 +236,7 @@ public class StudentController extends BaseController {
 				String memberId = getSessionMemberId(request);
 				if (StringUtils.equals(teachOne.getMember_yn(), "Y") && !isLogin(request)) {
 					memberId = "ANONYMOUS";
+					student.setStudent_password(CalculateHashUtils.calculateHash(student.getStudent_password()));
 				}
 
 				if (StringUtils.isNotEmpty(memberId)) {
@@ -278,6 +283,23 @@ public class StudentController extends BaseController {
 				res.setValid(true);
 				res.setMessage("취소 되었습니다.");
 				res.setUrl("applyList.do");
+				res.setData("group_idx=" + student.getGroup_idx() + "&category_idx=" + student.getCategory_idx() + "&menu_idx=" + student.getMenu_idx());
+			} else if (student.getEditMode().equals("ANONYCANCEL")) {
+
+				if (request.getSession().getAttribute("studentAnonyCert") == null) {
+					res.setValid(true);
+					res.setMessage("잘못된 접근입니다. (세션 만료)");
+					return res;
+				}
+				Teach teach = (Teach) request.getSession().getAttribute("studentAnonyCert");
+
+				student.setApplicant_name(teach.getApply_name());
+				student.setStudent_password(teach.getApply_password());
+				service.cancelStudent(student);
+
+				res.setValid(true);
+				res.setMessage("취소 되었습니다.");
+				res.setUrl("anonyApplyList.do");
 				res.setData("group_idx=" + student.getGroup_idx() + "&category_idx=" + student.getCategory_idx() + "&menu_idx=" + student.getMenu_idx());
 			}
 		} else {

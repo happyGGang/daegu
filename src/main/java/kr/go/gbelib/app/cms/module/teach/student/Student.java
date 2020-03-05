@@ -49,7 +49,7 @@ public class Student extends PagingUtils {
 	private String student_organization;//기관 (한글40자리)
 	private String student_rank;//직급 (한글20자리)
 	private String student_course_taken_yn;//연수수강여부
-
+	private String student_password;//비회원 패스워드
 
 	private String self_info_yn;  //개인정보동의여부
 	private String apply_type;
@@ -726,6 +726,16 @@ public class Student extends PagingUtils {
 
 	public void setModify_id(String modify_id) {
 		this.modify_id = modify_id;
+	}
+
+
+	public String getStudent_password() {
+		return student_password;
+	}
+
+
+	public void setStudent_password(String student_password) {
+		this.student_password = student_password;
 	}
 
 }

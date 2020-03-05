@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.AttachmentUtils;
+import kr.co.whalesoft.framework.utils.CalculateHashUtils;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.go.gbelib.app.cms.module.category.Category;
 import kr.go.gbelib.app.cms.module.category.CategoryService;
@@ -221,6 +223,55 @@ public class TeachController extends BaseController{
 		return String.format(basePath, homepage.getFolder()) + "applyList";
 	}
 
+	@RequestMapping(value = {"/anonyApplyCheck.*"})
+	public String anonyApplyCheck(Model model, Teach teach, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+
+		return String.format(basePath, homepage.getFolder()) + "anonyApplyCheck";
+	}
+
+	@RequestMapping(value = {"/anonyApplyList.*"})
+	public String anonyApplyList(Model model, Teach teach, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+
+		HttpSession session = request.getSession();
+
+		if (StringUtils.isNotEmpty(teach.getApply_name()) && StringUtils.isNotEmpty(teach.getApply_password())) {
+    		teach.setApply_password(CalculateHashUtils.calculateHash(teach.getApply_password()));
+			session.setAttribute("studentAnonyCert", teach);
+    	} else {
+    		if (session.getAttribute("studentAnonyCert") == null) {
+    			return String.format(basePath, homepage.getFolder()) + "anonyApplyCheck";
+    		}
+    	}
+
+		Teach tmp = (Teach) session.getAttribute("studentAnonyCert");
+		teach.setApply_name(tmp.getApply_name());
+		teach.setApply_password(tmp.getApply_password());
+
+		teach.setHomepage_id(homepage.getHomepage_id());
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		if (StringUtils.isEmpty(teach.getSearchDateFrom())) {
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.MONTH, -1);
+			teach.setSearchDateFrom(sdf.format(cal.getTime()));
+		}
+		if (StringUtils.isEmpty(teach.getSearchDateTo())) {
+			teach.setSearchDateTo(sdf.format(new Date()));
+		}
+
+		model.addAttribute("statusCode", codeService.getCode("CMS", "C0005"));
+
+		if (teach.getSearchStatus().equals("Y")) {
+			model.addAttribute("teachList", teachService.getApplyList(teach));
+		} else {
+			model.addAttribute("teachList", studentService.getCertificateListByDate(teach));
+		}
+
+		return String.format(basePath, homepage.getFolder()) + "anonyApplyList";
+	}
+
 	@RequestMapping(value = "/download/{homepage_id}/{group_idx}/{category_idx}/{teach_idx}.*", method = RequestMethod.GET)
 	@ResponseBody
     public ResponseEntity<byte[]> getFile(@PathVariable("homepage_id") String homepage_id, @PathVariable("group_idx") int group_idx, @PathVariable("category_idx") int category_idx, @PathVariable("teach_idx") int teach_idx, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -288,6 +339,27 @@ public class TeachController extends BaseController{
 		teach.setMember_key(getSessionMemberId(request));
 
 		model.addAttribute("teachList", teachService.getApplyList(teach));
+
+		return new TeachApplySearchView();
+	}
+
+	@RequestMapping(value = {"/anonyExcelDownload.*"})
+	public TeachApplySearchView anonyExcelDownload(Model model, Teach teach, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+
+		try {
+			Teach tmp = (Teach) request.getSession().getAttribute("studentAnonyCert");
+			teach.setApply_name(tmp.getApply_name());
+			teach.setApply_password(tmp.getApply_password());
+
+			teach.setHomepage_id(homepage.getHomepage_id());
+
+			model.addAttribute("teachList", teachService.getApplyList(teach));
+		} catch (Exception e) {
+			teachService.alertMessageAndUrl("잘못된 접근입니다 (세션 만료)", String.format("anonyApplyCheck.do?menu_idx=%d", teach.getMenu_idx()),request, response);
+			return null;
+		}
+
 
 		return new TeachApplySearchView();
 	}

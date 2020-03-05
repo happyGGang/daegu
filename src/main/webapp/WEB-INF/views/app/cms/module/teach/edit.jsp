@@ -68,10 +68,10 @@ $(function() {
 					$('input#end_join_time').val(ejt1+':'+ejt2);
 					var st1 = $('input#start_time1').val();
 					var st2 = $('input#start_time2').val();
-					$('input#start_time').val(sjt1+':'+sjt2);
+					$('input#start_time').val(st1+':'+st2);
 					var et1 = $('input#end_time1').val();
 					var et2 = $('input#end_time2').val();
-					$('input#end_time').val(ejt1+':'+ejt2);
+					$('input#end_time').val(et1+':'+et2);
 
 
 					var option = {

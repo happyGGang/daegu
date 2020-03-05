@@ -477,6 +477,17 @@ $(function() {
 					</td>
 				</tr>
 			</c:if>
+			<c:if test="${teach.member_yn eq 'Y' and not empty student.student_password}">
+				<tr>
+					<th>비밀번호(<span style="color: red; font-weight: bold;">*</span>)</th>
+					<td>
+						<form:password path="student_password" cssClass="text" style="width:20%" maxlength="20" title="비밀번호"/>
+						<div class="ui-state-highlight">
+							<em>* 입력하는 경우에만 변경됩니다.</em>
+						</div>
+					</td>
+				</tr>
+			</c:if>
 		</tbody>
 	</table>
 </form:form>
