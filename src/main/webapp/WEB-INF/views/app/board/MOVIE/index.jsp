@@ -208,7 +208,7 @@ $(function() {
 	});
 });
 </script>
-
+<c:set var="categoryMovae" value="${not empty authMBA and authMBA and boardManage.category_use_yn eq 'Y'}"></c:set>
 <c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.top_html) > 0}">
 ${boardManage.top_html}
 </c:if>
@@ -268,7 +268,7 @@ ${boardManage.top_html}
 				<c:forEach var="i" varStatus="status" items="${boardList}">
 				<div class="row">
 					<div class="thumb">
-					<c:if test="${board.delete_yn eq 'Y'}">
+					<c:if test="${board.delete_yn eq 'Y' or categoryMovae}">
 					<td><form:checkbox path="boardIdxArray" value="${i.board_idx}"/></td>
 					</c:if>
 						<c:choose>
