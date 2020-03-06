@@ -85,6 +85,39 @@ do {
 		});
 		$('select#holidaySite1').on('change', function() {
 			$('div.calendar-box').load('calendar5.do?homepage_id='+$(this).val());
+			var val = $(this).val();
+
+			if (val == 'h1') {
+				$('div.info-more-boxes a').attr('href', '/228/module/calendarManage/index.do?menu_idx=63');
+
+			} else if (val == 'h2') {
+				$('div.info-more-boxes a').attr('href', '/228lib/module/calendarManage/index.do?menu_idx=63');
+
+			} else if (val == 'h3') {
+				$('div.info-more-boxes a').attr('href', '/nambu/module/calendarManage/index.do?menu_idx=63');
+
+			} else if (val == 'h4') {
+				$('div.info-more-boxes a').attr('href', '/dalseong/module/calendarManage/index.do?menu_idx=63');
+
+			} else if (val == 'h5') {
+				$('div.info-more-boxes a').attr('href', '/dongbu/module/calendarManage/index.do?menu_idx=63');
+
+			} else if (val == 'h6') {
+				$('div.info-more-boxes a').attr('href', '/duryu/module/calendarManage/index.do?menu_idx=63');
+
+			} else if (val == 'h7') {
+				$('div.info-more-boxes a').attr('href', '/bukbu/module/calendarManage/index.do?menu_idx=63');
+
+			} else if (val == 'h8') {
+				$('div.info-more-boxes a').attr('href', '/seobu/module/calendarManage/index.do?menu_idx=63');
+
+			} else if (val == 'h9') {
+				$('div.info-more-boxes a').attr('href', '/suseong/module/calendarManage/index.do?menu_idx=63');
+
+			} else if (val == 'h10') {
+				$('div.info-more-boxes a').attr('href', '/jungang/module/calendarManage/index.do?menu_idx=63');
+
+			}
 		});
 
 		$('select#recommendSite1').on('change', function() {
@@ -271,7 +304,7 @@ do {
 							</div>
 
 							<div class="info-more-boxes">
-								<a href="#">휴관일 더보기</a>
+								<a href="/228/module/calendarManage/index.do?menu_idx=63"  target="_blank">휴관일 더보기</a>
 							</div>
 
 						</div>
