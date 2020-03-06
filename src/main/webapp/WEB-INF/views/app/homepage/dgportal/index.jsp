@@ -207,12 +207,12 @@ do {
 				<div class="cont cultureList">
 					<ul>
 						<c:forEach items="${teachList}" var="i" varStatus="status">
-						<c:set var="imgnum" value="${(status.count % 4)+1}"></c:set>
+						<c:set var="imgnum" value="${(status.count % 8)+1}"></c:set>
 						<li>
 						<a href="/${i.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=${i.menu_idx}&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}" class="border bgimg00${imgnum}">
 							<span class="txt">
 								<p class="lib-name">${i.homepage_name}</p>
-								<p class="tit">${i.teach_name}</p>
+								<p class="tit">${fn:substring(i.teach_name, 0, 15)}<c:if test="${fn:length(i.teach_name) > 15}">...</c:if></p>
 								<p class="len"><b>접수</b><br/>${i.start_join_date} ~ ${i.end_join_date}</p>
 							</span>
 							<span class="btnn"><img src="/resources/homepage/${homepage.context_path}/img/more-culture-btn.png" alt="신청하기"></span>
@@ -269,6 +269,11 @@ do {
 							</div>
 							<div class="calendar-box">
 							</div>
+
+							<div class="info-more-boxes">
+								<a href="#">휴관일 더보기</a>
+							</div>
+
 						</div>
 					</div>
 

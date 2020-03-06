@@ -179,7 +179,7 @@ do {
 								</a>
 							</li>
 							<li class="bg-orange">
-								<a href="/duryu/elibsso.do?menu_idx=46">
+								<a href="/duryu/elib.do?menu_idx=46">
 								<img src="/resources/homepage/${homepage.context_path}/img/quick05-bg.png" class="mi">
 								<span class="wt">전자도서관</span>
 								<span class="wc">전자책, 오디오북 등<Br/>디지털 콘텐츠</span>

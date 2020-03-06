@@ -423,6 +423,7 @@ $(function(){
 			aTagList.on('click', function(e) {
 				$(this).parent().parent().parent().find('span.f1').text($(this).text());
 				$(this).parent().parent().parent().parent().find('> a').attr('href', $(this).attr('href'));
+				$(this).parent().parent().parent().parent().find('> a').attr('target', '_blank');
 				if(!window.location.pathname.match("^/elib/")) {
 					e.preventDefault();
 				}

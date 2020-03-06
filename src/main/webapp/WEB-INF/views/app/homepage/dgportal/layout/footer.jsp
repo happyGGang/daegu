@@ -10,7 +10,48 @@
 					<img src="/resources/homepage/${homepage.context_path}/img/footer_logo.png" alt="대구광역시 통합도서관" />
 				</div>
 				<div class="site_link">
-					<select id="recommendSite1" class="recommendSite1" style="color:#fff;">
+					<div class="out">
+						<div>
+							<a class="fsite type1">
+								<span class="f1">대구광역시 통합도서관</span>
+							</a>
+							<ul style="display:none">
+							<li class="disabled"><a href="#">대구광역시 통합도서관</a></li>
+							<li class="disabled"><a title="대구2ㆍ28기념학생도서관" href="http://library.daegu.go.kr/228/index.do">대구2ㆍ28기념학생도서관</a></li>
+							<li class="disabled"><a title="대구2ㆍ28민주운동기념회관" href="http://library.daegu.go.kr/228lib/index.do">대구2ㆍ28민주운동기념회관</a></li>
+							<li class="disabled"><a title="대구광역시립 남부도서관" href="http://library.daegu.go.kr/nambu/index.do">대구광역시립 남부도서관</a></li>
+							<li class="disabled"><a title="대구광역시립 달성도서관" href="http://library.daegu.go.kr/dalseong/index.do">대구광역시립 달성도서관</a></li>
+							<li class="disabled"><a title="대구광역시립 동부도서관" href="http://library.daegu.go.kr/dongbu/index.do">대구광역시립 동부도서관</a></li>
+							<li class="disabled"><a title="대구광역시립 두류도서관" href="http://library.daegu.go.kr/duryu/index.do">대구광역시립 두류도서관</a></li>
+							<li class="disabled"><a title="대구광역시립 북부도서관" href="http://library.daegu.go.kr/bukbu/index.do">대구광역시립 북부도서관</a></li>
+							<li class="disabled"><a title="대구광역시립 수성도서관" href="http://library.daegu.go.kr/suseong/index.do">대구광역시립 수성도서관</a></li>
+							<li class="disabled"><a title="대구광역시립 중앙도서관" href="http://library.daegu.go.kr/jungang/index.do">대구광역시립 중앙도서관</a></li>
+							</ul>
+						</div>
+						<a href="#" class="btn">이동</a>
+					</div>
+
+					<div class="out">
+						<div>
+							<a class="fsite type1">
+								<span class="f1">관련사이트</span>
+							</a>
+							<ul style="display:none">
+							<li class="disabled"><a href="#">관련사이트</a></li>
+							<li class="disabled"><a title="대구2ㆍ28기념학생도서관" href="http://www.nl.go.kr/nl/">국립중앙도서관</a></li>
+							<li class="disabled"><a title="대구2ㆍ28민주운동기념회관" href="https://www.nanet.go.kr/main.do">국회도서관</a></li>
+							<li class="disabled"><a title="대구광역시립 남부도서관" href="http://www.dlibrary.go.kr/JavaClient/jsp/ndli/index.jsp?LOGSTATUS=notok&NLSSOTOKEN=">국가전자도서관</a></li>
+							<li class="disabled"><a title="대구광역시립 달성도서관" href="https://library.scourt.go.kr/main.jsp">법원도서관</a></li>
+							<li class="disabled"><a title="대구광역시립 동부도서관" href="https://www.libsta.go.kr/">국가도서관통계시스템</a></li>
+							<li class="disabled"><a title="한국도서관협회" href="https://www.kla.kr/jsp/main.do">한국도서관협회</a></li>
+							<li class="disabled"><a title="문화체육관광부" href="https://www.mcst.go.kr/kor/main.jsp">문화체육관광부</a></li>
+							<li class="disabled"><a title="공공데이터포털" href="https://www.data.go.kr/">공공데이터포털</a></li>
+							<li class="disabled"><a title="대한민국정부포털" href="https://www.gov.kr/portal/main">대한민국정부포털</a></li>
+							</ul>
+						</div>
+						<a href="#" class="btn">이동</a>
+					</div>
+					<!-- <select id="recommendSite1" class="recommendSite1" style="color:#fff;">
 						<option value="" style="color:#000;">대구광역시립도서관</option>
 						<option value="http://library.daegu.go.kr/228/index.do" label="대구2·28기념학생도서관" style="color:#000;"></option>
 						<option value="http://library.daegu.go.kr/228lib/index.do" label="대구2·28민주운동기념회관" style="color:#000;"></option>
@@ -36,7 +77,9 @@
 						<option value="https://www.mcst.go.kr/kor/main.jsp" label="문화체육관광부" style="color:#000;"></option>
 						<option value="https://www.data.go.kr/" label="공공데이터포털" style="color:#000;"></option>
 						<option value="https://www.gov.kr/portal/main" label="대한민국정부포털" style="color:#000;"></option>
-					</select>
+					</select> -->
+
+
 				</div>
 
 				<div class="info-box">

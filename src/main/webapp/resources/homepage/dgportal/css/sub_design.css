@@ -69,6 +69,15 @@
 .doc-body ul.con4 > li { padding: 4px 0 }
 .doc-body ul.con2 {padding-left: 13px;}
 
+
+html {
+/* Prevent font scaling in landscape */
+-webkit-text-size-adjust: none; /*Chrome, Safari, newer versions of Opera*/
+-moz-text-size-adjust: none; /*Firefox*/
+-ms-text-size-adjust: none;  /*Ie*/
+-o-text-size-adjust: none; /*old versions of Opera*/
+}
+
 /*준비중*/
 .comming-soon{background:url('/resources/common/img/icon-w.gif') no-repeat center 0}
 .comming-soon{margin:5% 0;text-align:center;padding:85px 0 30px}

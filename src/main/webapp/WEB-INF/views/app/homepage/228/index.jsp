@@ -133,7 +133,7 @@
 									</a>
 								</li>
 								<li class="bg-dorange">
-									<a href="/228/html.do?menu_idx=173">
+									<a href="/228/html.do?menu_idx=178">
 									<span class="wt">오너의작은책장</span>
 									<span class="wc">책을 사업장까지<br> 무료로 배달해드립니다.</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick06-bg.png" class="mi">
@@ -319,6 +319,7 @@
 				<li><a href="/${homepage.context_path}/html.do?menu_idx=49"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick002-bg.png" alt="책나래"></span><span class="txt">책나래</span></a></li>
 				<li><a href="/${homepage.context_path}/html.do?menu_idx=50"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick003-bg.png" alt="사서에게 물어보세요"></span><span class="txt">사서에게<br/>물어보세요</span></a></li>
 				<li><a href="https://www.youth.go.kr/youth/" target="_blank"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick004-bg.png" alt="청소년자원봉사"></span><span class="txt">청소년<br/>자원봉사</span></a></li>
+				<li><a href="http://seat.daegu.go.kr/wb_booking/?LIB_CODE=4" target="_blank"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick005-bg.png" alt="청소년자원봉사"></span><span class="txt">좌석예약<br/>시스템</span></a></li>
 			</ul>
 		</div>
 

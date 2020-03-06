@@ -154,9 +154,11 @@
 .site-recomender .site-recomender-inbox .title p select {width:300px;height:48px;padding:0 0 0 20px;border-radius:7px;border:1px solid #fff;background:url('../img/recommandsite-arrow-w.png') no-repeat 95% 50%;color:#fff;-webkit-appearance:none;-moz-appearance:none;appearance:none;color:#000;font-size:15px;}
 .site-recomender .site-recomender-inbox .title p select::-ms-expand {display:none;}
 .site-recomender .site-recomender-inbox .calendar-box {text-align:center;padding:30px 0;}
+.site-recomender .site-recomender-inbox .calendar-box .info dd {background:none;}
 .site-recomender .site-recomender-inbox .calendar-box span {display:inline-block;background:#ffffff;width:43px;height:43px;line-height:44px;color:#222;border-radius:50%;font-weight:bold;margin-bottom: 5px;}
-
-
+.site-recomender .site-recomender-inbox .calendar-box span.none-holiday {background:none;color:#fff;font-weight:normal;}
+.site-recomender .site-recomender-inbox .info-more-boxes {width:60%;margin:0 auto;border-top:1px solid #888380;padding:18px 0;box-sizing:border-box;}
+.site-recomender .site-recomender-inbox .info-more-boxes a {color:#fff;font-size:15px;font-weight:bold;}
 
 .main5 {position:relative;background:#f4f4f4;box-sizing:border-box;padding:20px 0;}
 .main5 .main7_banner {margin:7px 0;box-sizing:border-box;}

@@ -162,7 +162,7 @@ do {
 									</a>
 								</li>
 								<li class="bg-orange">
-									<a href="/${homepage.context_path}/elibsso.do?menu_idx=46">
+									<a href="/${homepage.context_path}/elib.do?menu_idx=46">
 									<span class="wt">전자도서관</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick05-bg.png" class="mi">
 									</a>

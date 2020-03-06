@@ -161,7 +161,7 @@ do {
 									</a>
 								</li>
 								<li class="bg-lgreen">
-									<a href="/${homepage.context_path}/elibsso.do?menu_idx=46">
+									<a href="/${homepage.context_path}/elib.do?menu_idx=46">
 									<span class="wt">대구전자도서관</span>
 									<span class="wc">전자책, 오디오북 등 디지털콘텐츠</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick03-bg.png" class="mi">

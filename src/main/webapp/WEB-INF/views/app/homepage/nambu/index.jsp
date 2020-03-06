@@ -162,7 +162,7 @@ function searchCheck() {
 								<img src="/resources/homepage/nambu/img/m_icon02.png" class="mi"></a>
 							</li>
 							<li class="bg-background01">
-								<a href="/${homepage.context_path}/elibsso.do?menu_idx=46">
+								<a href="/${homepage.context_path}/elib.do?menu_idx=46">
 								<span class="wt">대구<br class="qmobileBr"/>전자도서관</span>
 								<span class="wc">대구시민의 스마트한<br>독서생활이 시작되는 곳</span>
 								</a>
