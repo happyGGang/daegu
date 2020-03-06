@@ -97,7 +97,7 @@ public class PictureBookController extends BaseController {
 	}
 	
 	@RequestMapping (value = {"/loanView.*"}, method = RequestMethod.GET)
-	public String view(Model model, PictureBook pictureBook, HttpServletRequest request) {
+	public String loanView(Model model, PictureBook pictureBook, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		
 		pictureBook = (PictureBook)service.copyObjectPaging(pictureBook, service.getPictureBookLoanOne(pictureBook));

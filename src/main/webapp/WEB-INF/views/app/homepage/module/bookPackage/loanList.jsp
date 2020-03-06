@@ -6,6 +6,12 @@
 <script type="text/javascript">
 $(function() {
 	
+	$('a.btn-view').on('click', function(e) {
+		e.preventDefault();
+		var formData = 'menu_idx='+$('#menu_idx').val() + '&book_package_loan_idx='+$(this).attr('keyValue') + '&viewPage='+$('#viewPage').val();
+		doGetLoad('loanView.do', formData);
+	});
+	
 	$('a.return-req').on('click', function(e) {
 		e.preventDefault();
 		var return_yn = $(this).attr('keyValue2')
@@ -228,7 +234,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 					</c:if>
 					<td class="num">${paging.listRowNum - status.index}</td>
 					<td class="left">
-						${i.book_package_subject}
+						<a href="#" class="btn-view" keyValue="${i.book_package_loan_idx}">${i.book_package_subject}</a>
 						<br/>
 						<c:if test="${i.request_status eq '1'}">
 						<span>(예약일: ${i.loan_start_date}~${fn:substring(i.loan_end_date, 5, 10)})</span>

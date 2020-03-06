@@ -16,7 +16,23 @@ $(function() {
 		history.back();
 	});
 	
-	
+<c:choose>
+	<c:when test="${(not empty loginSupport and loginSupport.auth_group eq '1') or member.admin}">
+	$('input#loan_start_date').datepicker({
+		maxDate: $('input#loan_end_date').val(),
+		onClose: function(selectedDate){
+			$('input#loan_end_date').datepicker('option', 'minDate', selectedDate);
+		}
+	});
+
+	$('input#loan_end_date').datepicker({
+		minDate: $('input#loan_start_date').val(),
+		onClose: function(selectedDate){
+			$('input#loan_start_date').datepicker('option', 'maxDate', selectedDate);
+		}
+	});
+	</c:when>
+	<c:otherwise>
 	var str_date1 = new Date($('#loan_start_date').val());
 	if(str_date1.getDay() == 6) {
 		str_date1.setDate(str_date1.getDate() + 6);
@@ -50,11 +66,12 @@ $(function() {
 	var end_month = (end_date.getMonth()+1 < 10 ? '0' : '') + (end_date.getMonth()+1);
 	var end_date = (end_date.getDate() < 10 ? '0' : '') + end_date.getDate();
 	$('input#loan_end_date').val(end_year+'-'+end_month+'-'+end_date);
+	</c:otherwise>
+</c:choose>
 	
 	$('input#hope_date').datepicker();
 	
 });
-
 </script>
 <form:form id="libraryCheckLoan" modelAttribute="libraryCheck" action="loanSave.do" method="POST">
 	<form:hidden path="menu_idx"/>

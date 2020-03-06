@@ -6,6 +6,12 @@
 <script type="text/javascript">
 $(function() {
 	
+	$('a.btn-view').on('click', function(e) {
+		e.preventDefault();
+		var formData = 'menu_idx='+$('#menu_idx').val() + '&library_check_loan_idx='+$(this).attr('keyValue') + '&viewPage='+$('#viewPage').val();
+		doGetLoad('loanView.do', formData);
+	});
+	
 	$('a.cancle-btn').on('click', function(e) {
 		e.preventDefault();
 		if(confirm('해당 대출 신청을 취소하시겠습니까?')) {
@@ -119,8 +125,8 @@ $(function() {
 <%-- 			<col width="6%" /> --%>
 <%-- 			</c:if> --%>
 			<col width="6%" />
-			<col />
 			<col width="12%" />
+			<col />
 			<col width="12%"/>
 			<col width="15%" />
 			<col width="12%" />
@@ -151,8 +157,10 @@ $(function() {
 <!-- 					</td> -->
 <%-- 					</c:if> --%>
 					<td class="num">${paging.listRowNum - status.index}</td>
-					<td>장서점검기${i.library_check_number}</td>
-					<td class="center">${i.loan_start_date}<br/>~${i.loan_end_date}</td>
+					<td>
+						<a href="#" class="btn-view" keyValue="${i.library_check_loan_idx}">장서점검기${i.library_check_number}</a>
+					</td>
+					<td class="center">${i.loan_start_date}~${i.loan_end_date}</td>
 					<td>${i.hope_date}</td>
 					<td>${i.school_name}<br/>/${i.request_name}</td>
 					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>

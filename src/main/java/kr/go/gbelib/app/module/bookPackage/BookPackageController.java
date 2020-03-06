@@ -196,6 +196,16 @@ public class BookPackageController extends BaseController {
 		return String.format(basePath, homepage.getFolder()) + "loanList";
 	}
 	
+	@RequestMapping (value = {"/loanView.*"}, method = RequestMethod.GET)
+	public String loanView(Model model, BookPackage bookPackage, HttpServletRequest request) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		
+		bookPackage = (BookPackage)service.copyObjectPaging(bookPackage, service.getBookPackageLoanOne(bookPackage));
+		model.addAttribute("bookPackage", bookPackage);
+
+		return String.format(basePath, homepage.getFolder()) + "loanView";
+	}
+	
 	@RequestMapping(value = {"/loanEdit.*"})
 	public String bookPackageReq(Model model, BookPackage bookPackage, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");

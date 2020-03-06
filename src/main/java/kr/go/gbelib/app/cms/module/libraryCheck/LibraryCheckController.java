@@ -151,18 +151,6 @@ public class LibraryCheckController extends BaseController {
     		ValidationUtils.rejectIfEmpty(result, "school_tel_2", "학교 연락처를 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "school_tel_3", "학교 연락처를 입력하세요.");
     		
-    		try {
-    			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-				Date startDate = sdf.parse(libraryCheck.getLoan_start_date());
-				Date endDate = sdf.parse(libraryCheck.getLoan_end_date());
-				
-				if((int)(endDate.getTime() - startDate.getTime()) / (24*60*60*1000) > 6) {
-					result.reject("대출기간은 일주일을 넘길 수 없습니다.");
-				}
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-    		
     		String phone = libraryCheck.getPhone_1() + "-" + libraryCheck.getPhone_2() + "-" + libraryCheck.getPhone_3();
 			String school_tel = libraryCheck.getSchool_tel_1() + "-" + libraryCheck.getSchool_tel_2() + "-" + libraryCheck.getSchool_tel_3();
 			libraryCheck.setPhone(phone);
