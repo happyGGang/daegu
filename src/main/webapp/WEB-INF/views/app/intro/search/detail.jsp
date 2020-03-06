@@ -293,6 +293,16 @@ AD20 종합자료실
 					</c:if>
 					</c:if>
 				</c:when>
+				<c:when test="${homepage.context_path eq '228'}">
+					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
+					<c:if test="${detail.RESERVATION_CNT eq '0'}">
+					<c:if test="${detail.SHELF_LOC_CODE eq 'AA04'}">
+					<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
+					<!-- <a href="#night" id="night-req" class="btn">야간예약신청</a> -->
+					</c:if>
+					</c:if>
+					</c:if>
+				</c:when>
 				<c:otherwise>
 
 				</c:otherwise>

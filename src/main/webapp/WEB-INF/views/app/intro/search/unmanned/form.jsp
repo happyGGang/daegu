@@ -37,7 +37,12 @@ $(function() {
 <form:hidden path="bookkey"/>
 <form:hidden path="booktype"/>
 <input type="hidden" name="title" value="${detail.TITLE_INFO}"/>
+<c:if test="${homepage.context_path eq 'jungang'}">
 <input type="hidden" name="exprire_date_cnt" value="7"/>
+</c:if>
+<c:if test="${homepage.context_path eq '228'}">
+<input type="hidden" name="exprire_date_cnt" value="3"/>
+</c:if>
 
 <div class="delibery_info">
 
@@ -60,7 +65,12 @@ $(function() {
 				<th>수령장소</th>
 				<td class="left">
 					<form:select path="worker" style="border:1px solid #c9c9c9;border-radius:4px;height:30px">
+						<c:if test="${homepage.context_path eq 'jungang'}">
 						<form:option value="SUB01">반월당역 예약대출기</form:option>
+						</c:if>
+						<c:if test="${homepage.context_path eq '228'}">
+						<form:option value="DBECOBOXLIB01">예약대출기</form:option>
+						</c:if>
 					</form:select>
 				</td>
 			 </tr>

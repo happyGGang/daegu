@@ -1,8 +1,13 @@
 <%@ page language="java" pageEncoding="utf-8" %>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
+
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 var idCheck = false;
@@ -216,6 +221,63 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 			<caption>회원가입 정보입력. 아이디,비밀번호,성명,성별,생년월일,휴대폰 번호,주소,소속도서관,집전화번호,이메일 등을 입력</caption>
 			<tbody>
 				<tr>
+				<th>
+					<span style="color: red;">*</span> 소속도서관
+				</th>
+				<td>
+				<c:if test="${homepage.context_path eq 'dgportal'}">
+				<!--대구광역시립 중앙도서관<input type="hidden" name="manage_code" value='AD' />-->
+				
+				<select name='manage_code'>
+					<option value="AD">대구광역시립 중앙도서관</option>
+					<option value="AA">대구2ㆍ28기념학생도서관</option>
+					<option value="AL">대구2ㆍ28민주운동기념회관</option>
+					<option value="AG">대구광역시립 남부도서관</option>
+					<option value="AJ">대구광역시립 달성도서관</option>
+					<option value="AH">대구광역시립 동부도서관</option>
+					<option value="AB">대구광역시립 두류도서관</option>
+					<option value="AC">대구광역시립 북부도서관</option>
+					<option value="AF">대구광역시립 서부도서관</option>
+					<option value="AE">대구광역시립 수성도서관</option>
+				</select>
+				<div class="ui-state-highlight" style="margin-top:7px">
+					<span>* 소속 도서관은 변경이 어려우니 신중하게 선택하여 주시기 바랍니다.</span>
+				</div>
+				</c:if>
+
+				<c:if test="${homepage.context_path eq '228'}">
+				대구2ㆍ28기념학생도서관<input type="hidden" name="manage_code" value='AA' />
+				</c:if>
+				<c:if test="${homepage.context_path eq '228lib'}">
+				대구2ㆍ28민주운동기념회관<input type="hidden" name="manage_code" value='AL' />
+				</c:if>
+				<c:if test="${homepage.context_path eq 'nambu'}">
+				대구광역시립 남부도서관<input type="hidden" name="manage_code" value='AG' />
+				</c:if>
+				<c:if test="${homepage.context_path eq 'dalseong'}">
+				대구광역시립 달성도서관<input type="hidden" name="manage_code" value='AJ' />
+				</c:if>
+				<c:if test="${homepage.context_path eq 'dongbu'}">
+				대구광역시립 동부도서관<input type="hidden" name="manage_code" value='AH' />
+				</c:if>
+				<c:if test="${homepage.context_path eq 'duryu'}">
+				대구광역시립 두류도서관<input type="hidden" name="manage_code" value='AB' />
+				</c:if>
+				<c:if test="${homepage.context_path eq 'bukbu'}">
+				대구광역시립 북부도서관<input type="hidden" name="manage_code" value='AC' />
+				</c:if>
+				<c:if test="${homepage.context_path eq 'seobu'}">
+				대구광역시립 서부도서관<input type="hidden" name="manage_code" value='AF' />
+				</c:if>
+				<c:if test="${homepage.context_path eq 'suseong'}">
+				대구광역시립 수성도서관<input type="hidden" name="manage_code" value='AE' />
+				</c:if>
+				<c:if test="${homepage.context_path eq 'jungang'}">
+				대구광역시립 중앙도서관<input type="hidden" name="manage_code" value='AD' />
+				</c:if>
+				</td>
+				</tr>
+				<tr>
 					<th>
 						<span style="color: red;">*</span> 아이디
 					</th>
@@ -311,14 +373,15 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 						</div>
 					</td>
 				</tr>
-				<tr>
+
+				<!-- <tr>
 					<th>
 						<span style="color: red;">*</span> 소속도서관
 					</th>
 					<td>
 						${homepage.homepage_name}
 					</td>
-				</tr>
+				</tr> -->
 				<tr>
 					<th>
 						집전화번호
