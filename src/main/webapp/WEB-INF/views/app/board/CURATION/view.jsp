@@ -169,17 +169,13 @@ ${boardManage.top_html}
 					<li>
 						<b>${board.title}</b>
 					</li>
-					<c:if test="${board.imsi_v_3 ne null and board.imsi_v_3 ne '' and board.imsi_v_3 ne '0'}">
-					<li>저자 : ${board.imsi_v_3}</li>
-					</c:if>
-					<c:if test="${board.imsi_v_4 ne null and board.imsi_v_4 ne '' and board.imsi_v_4 ne '0'}">
-					<li>출판사 : ${board.imsi_v_4}</li>
+					<li>작성자 : 관리자</li>
+					<li>조회 : ${board.view_count}</li>
+					<c:if test="${board.imsi_v_1 ne null and board.imsi_v_1 ne '' and board.imsi_v_1 ne '0'}">
+					<li>전시기간 : ${board.imsi_v_1}</li>
 					</c:if>
 					<c:if test="${board.imsi_v_2 ne null and board.imsi_v_2 ne '0'}">
-					<li>출판년도 : ${board.imsi_v_2}</li>
-					</c:if>
-					<c:if test="${board.imsi_v_7 ne null and board.imsi_v_7 ne '0'}">
-					<li>청구기호 : ${board.imsi_v_7}</li>
+					<li>전시장소 : ${board.imsi_v_2}</li>
 					</c:if>
 				</ul>
 			</div>

@@ -152,7 +152,6 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 <form:hidden path="group_idx"/>
 <form:hidden path="parent_idx"/>
 <form:hidden path="preview_img"/>
-<form:hidden path="imsi_v_8"/>
 <div class="wrapper-bbs">
 	<table class="bbs-edit">
 		<tbody>

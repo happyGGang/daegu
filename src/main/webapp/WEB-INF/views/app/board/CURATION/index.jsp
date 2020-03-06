@@ -26,15 +26,6 @@ $(document).ready(function() {
 		doGetLoad(url, formData);
 	});
 
-	$('div.tabmenu a').on('click', function(e) {
-		e.preventDefault();
-		var url = 'index.do';
-		$('#viewPage').attr('value', '1');
-		$('input#category1').attr('value', $(this).attr('keyValue'));
-		var formData = serializeCustom($form);
-		doGetLoad(url, formData);
-	});
-
 	$('select#rowCount').on('change', function() {
 		var url = 'index.do';
 		var formData = serializeCustom($form);
@@ -84,14 +75,6 @@ ${boardManage.top_html}
 <form:hidden path="plan_date"/>
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
 <c:if test="${fn:length(category1List) > 0}">
-<div class="tabmenu tab1">
-	<ul>
-		<li class="${board.category1 eq null ? 'active':''}"><a href="" keyValue=""style="font-size: 13px;">전체</a></li>
-		<c:forEach items="${category1List}" var="i" varStatus="status">
-		<li class="${board.category1 eq i.code_id ? 'active':''}"><a href="" keyValue="${i.code_id}" style="font-size: 13px;">${i.code_name}</a></li>
-		</c:forEach>
-	</ul>
-</div>
 </c:if>
 <c:if test="${boardManage.manage_idx eq '195'}">
 <div style="float: left;">
@@ -140,12 +123,20 @@ ${boardManage.top_html}
 					<div class="box">
 						<div class="item">
 							<div class="bif">
-								<a href="" class="name" keyValue="${i.board_idx}" title="${i.title}">
-									${fn:substring(i.title, 0, 30)}<c:if test="${fn:length(i.title) > 30}">...</c:if>
+								<a href="" class="name" keyValue="${i.board_idx}" title="${i.title}" style="display: block;white-space: nowrap;">
+									${i.title}
 								</a>
+								<div>
+									<span>관리자</span>
+									<span style="position: absolute;right: 10px;">조회 ${i.view_count}</span>
+								</div>
 								<ul class="con2">
+									<c:if test="${i.imsi_v_1 ne null and i.imsi_v_1 ne '' and i.imsi_v_1 ne '0'}">
 									<li>전시기간 : ${i.imsi_v_1}</li>
+									</c:if>
+									<c:if test="${i.imsi_v_2 ne null and i.imsi_v_2 ne '' and i.imsi_v_2 ne '0'}">
 									<li>전시장소 : ${i.imsi_v_2}</li>
+									</c:if>
 								</ul>
 							</div>
 						</div>
@@ -158,7 +149,6 @@ ${boardManage.top_html}
 					<p>등록된 데이터가 없습니다.</p>
 				</div>
 				</c:if>
-
 			</div>
 			<jsp:include page="/WEB-INF/views/app/board/common/index/button.jsp" flush="false" />
 
