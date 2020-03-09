@@ -23,9 +23,9 @@ ${boardManage.top_html}
 						<c:set var="user_name" value="${board.user_name}"/>
 						</c:otherwise>
 						</c:choose>
-						<i>작성자</i><span>${user_name}<c:if test="${authMBA}">(${board.add_id})</c:if></span>
+						<i>작성자</i><span>${user_name}<c:if test="${not empty authMBA and authMBA}">(${board.add_id})</c:if></span>
 						<i>작성일</i><span><fmt:formatDate value="${board.add_date}" pattern="yyyy.MM.dd HH:mm"/></span>
-						<c:if test="${board.user_ip ne null and board.user_ip ne ''}">
+						<c:if test="${not empty board and board.user_ip ne null and board.user_ip ne ''}">
 							<c:set value="${fn:split(board.user_ip, '.')}" var="user_ip"></c:set>
 							<c:choose>
 								<c:when test="${authMBA}">
@@ -56,7 +56,7 @@ ${boardManage.top_html}
 			</dl>
 		</div>
 		<div class="bbs-comment" id="bbs-comment">
-			
+
 		</div>
 	</div>
 	<div class="button bbs-btn center">
