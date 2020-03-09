@@ -253,4 +253,34 @@ public class CommonLoginController extends BaseController {
 		return "redirect:" + redirectURL + "/index.do";
 	}
 
+	/**
+	 * 모바일 회원증
+	 * @author whalesoft YONGJU 2019. 11. 16.
+	 * @param context_path
+	 * @param model
+	 * @param member
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping (value = {"/mobileCard.*"})
+	public String mobileCard(@PathVariable ("homepagePath") String homepagePath, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = getSessionHomepage(request);
+
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/" + homepage.getContext_path() + "/intro/login/index.do?menu_idx="+loginMenuIdx, request, response);
+			return null;
+		}
+
+		Member member = getSessionMemberInfo(request);
+
+		if (StringUtils.isBlank(member.getUser_no())) {
+			service.alertMessage("대출회원만 가능합니다.", request, response);
+			return null;
+		}
+
+		return String.format(basePath, homepage.getFolder()) + "mobileCard";
+	}
+
 }
