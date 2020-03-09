@@ -256,7 +256,7 @@ do {
 					<div class="box con" data-tab="tab1">
 						<ul class="book_photo">
 							<li>
-								<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${curationList[listNum1].manage_idx}&board_idx=${curationList[listNum1].board_idx}">
+								<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=138&manage_idx=${curationList[listNum1].manage_idx}&board_idx=${curationList[listNum1].board_idx}">
 									<span class="img">
 									<c:choose>
 									<c:when test="${curationList[listNum1].preview_img ne null}">
@@ -292,7 +292,7 @@ do {
 								</a>
 							</li>
 							<li>
-								<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${curationList[listNum2].manage_idx}&board_idx=${curationList[listNum2].board_idx}">
+								<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=138&manage_idx=${curationList[listNum2].manage_idx}&board_idx=${curationList[listNum2].board_idx}">
 									<span class="img">
 									<c:choose>
 									<c:when test="${curationList[listNum2].preview_img ne null}">
