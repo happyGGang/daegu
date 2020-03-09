@@ -213,8 +213,13 @@ Date.prototype.format = function(f) {
 			<c:if test="${not empty closeDayList.dd}">
 				<c:set var="dd" value="${fn:split(closeDayList.dd, ',')}"></c:set>
 				<dd>
-					<c:forEach items="${dd}" var="i">
+					<c:forEach items="${dd}" var="i" begin="0" end="13" varStatus="status">
+					<c:if test="${!status.last}">
 					<span>${i}</span>
+					</c:if>
+					<c:if test="${status.last}">
+					<span>...</span>
+					</c:if>
 					</c:forEach>
 				</dd>
 			</c:if>
