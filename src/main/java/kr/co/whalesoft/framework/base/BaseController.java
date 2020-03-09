@@ -241,6 +241,16 @@ public abstract class BaseController {
 		return supportMember;
 	}
 	
+	public boolean getSessionSupportAdmin(HttpServletRequest request) {
+		boolean isAdmin = false;
+		SupportMember supportMember = (SupportMember)request.getSession().getAttribute("loginSupport");
+		if(supportMember != null && supportMember.getAuth_group().equals("1")) {
+			isAdmin = true;
+		}
+		
+		return isAdmin;
+	}
+	
 	public PortalMember sessionLoginPortal(HttpServletRequest request) {
 		PortalMember portalMember = (PortalMember)request.getSession().getAttribute("loginPortal");
 		return portalMember;

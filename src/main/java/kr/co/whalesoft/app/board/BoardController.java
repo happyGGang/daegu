@@ -224,20 +224,23 @@ public class BoardController extends BaseController {
 
 		// 228도서관 지원센터 회원인증 확인
 		SupportMember loginSupport = sessionLoginSupport(request);
+		boolean supportAuth = false;
 		if(manageCompareIdx(board.getManage_idx(), 225, 226, 224, 227, 228, 230, 281)) {
-			checkAuth("R", model, request);
 			if (loginSupport == null && !getSessionIsAdmin(request) && !isSiteAdmin) {
 	    		board.setBefore_url(String.format("/%s/board/index.do?menu_idx=%s%%26manage_idx=%s", homepage.getContext_path(), board.getMenu_idx(), board.getManage_idx()));
 	    		service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
 	    		return null;
+	        } else {
+	        	supportAuth = true;
 	        }
 
-			if (boardManage.getWrite_only_yn().equals("Y") && !"CMS".equals(getSessionMemberLoginType(request)) && !loginSupport.getAuth_group().equals("1")) {
+			if (boardManage.getWrite_only_yn().equals("Y") && !"CMS".equals(getSessionMemberLoginType(request)) && !loginSupport.isAdmin()) {
 				String write_url = "edit.do?manage_idx="+request.getParameter("manage_idx")+"&menu_idx="+request.getParameter("menu_idx");
 				service.alertMessageAndUrl("", write_url, request, response);
 				return null;
 			}
 		}
+		model.addAttribute("supportAuth", supportAuth);
 		
 		// 대표도서관 사서 인증
 		PortalMember loginPortal = sessionLoginPortal(request);
@@ -652,14 +655,28 @@ public class BoardController extends BaseController {
 		board.setCategory4Manage(boardManage.getCategory4());
 		board.setCategory5Manage(boardManage.getCategory5());
 
+		
 		SupportMember loginSupport = sessionLoginSupport(request);
-		if(manageCompareIdx(board.getManage_idx(), 212)) {
+		boolean supportAdmin = false;
+		boolean supportAuth = false;
+		if(manageCompareIdx(board.getManage_idx(), 212, 225, 226)) {
 			if ( loginSupport == null && !getSessionIsAdmin(request)) {
 	    		board.setBefore_url(String.format("/%s/board/index.do?menu_idx=%s%%26manage_idx=%s", homepage.getContext_path(), board.getMenu_idx(), board.getManage_idx()));
 	    		service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
 	    		return null;
 	        }
+			
+			if(loginSupport != null) {
+				if(loginSupport.isLogin() == true) {
+					supportAuth = true;
+				}
+				if(loginSupport.isAdmin() == true) {
+					supportAdmin = true;
+				}
+			}
 		}
+		model.addAttribute("supportAdmin", supportAdmin);
+		model.addAttribute("supportAuth", supportAuth);
 
 		Board boardData = null;
 		if (boardManage.getBoard_type().equals("MOVIE")) {
@@ -690,7 +707,7 @@ public class BoardController extends BaseController {
 			}
 
 
-			if(!isBoardAdmin) {
+			if(!isBoardAdmin && !supportAdmin) {
 				//게시판관리자는 그냥 통과한다.
 
     			if (!isLogin(request)) {

@@ -20,6 +20,7 @@ public class SupportMember extends PagingUtils {
 	private Date modify_date; // 수정일시
 
 	private boolean login; // 로그인상태
+	private boolean admin;
 
 	public int getSupport_member_idx() {
 		return support_member_idx;
@@ -123,6 +124,14 @@ public class SupportMember extends PagingUtils {
 
 	public void setLogin(boolean login) {
 		this.login = login;
+	}
+	
+	public boolean isAdmin() {
+		return admin;
+	}
+	
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 
 	@Override

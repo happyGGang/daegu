@@ -65,6 +65,11 @@ public class SupportMemberController {
     	} else {
     		loginSupport.setLogin(true);
 			service.addLastLogin(loginSupport);
+			
+			if(loginSupport.getAuth_group().equals("1")) {
+				loginSupport.setAdmin(true);
+			}
+			
 			request.getSession().removeAttribute("member");
 			request.getSession().setAttribute("loginSupport", loginSupport);
 		}
