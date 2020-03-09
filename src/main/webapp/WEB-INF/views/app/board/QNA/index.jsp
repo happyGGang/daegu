@@ -61,18 +61,7 @@ ${boardManage.top_html}
 						</a>
 					</td>
 					<td class="important"></td>
-					<c:choose>
-					<c:when test="${authMBA or (not empty loginSupport and loginSupport.admin)}">
-					<c:set var="user_name" value="${i.user_name}"/>
-					</c:when>
-					<c:when test="${boardManage.anonymize_yn eq 'Y'}">
-					<c:set var="user_name" value="${fn:substring(i.user_name, -1, 1)}**"/>
-					</c:when>
-					<c:otherwise>
-					<c:set var="user_name" value="${i.user_name}"/>
-					</c:otherwise>
-					</c:choose>
-					<td class="important mmm2">${i.secret_yn ne 'Y'? user_name : (authMBA or (not empty loginSupport and loginSupport.admin) ? i.user_name : '비공개')}</td>
+					<td class="important mmm2">${i.user_name}</td>
 					<td class="num mmm1"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd" /></td>
 					<td class="num mmm1">${i.view_count}</td>
 					<td class="file mmm1">
@@ -101,7 +90,7 @@ ${boardManage.top_html}
 							</c:if>
 						</a>
 					</td>
-					<td class="important">${i.request_state_str}</td>
+					<td class="important">${i.notice_yn eq 'Y' ? '' : i.request_state_str}</td>
 					<c:choose>
 					<c:when test="${authMBA or (not empty loginSupport and loginSupport.admin)}">
 					<c:set var="user_name" value="${i.user_name}"/>

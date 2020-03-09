@@ -51,6 +51,9 @@ $(document).ready(function() {
 					<div class="panel-left">
 <%--						<i>답변상태</i><span>${board.request_state_str}</span> --%>
 						<c:choose>
+						<c:when test="${board.notice_yn eq 'Y'}">
+						<c:set var="user_name" value="${board.user_name}"/>
+						</c:when>
 						<c:when test="${boardManage.anonymize_yn eq 'Y' and not authMBA and not supportAdmin}">
 						<c:set var="user_name" value="${fn:substring(board.user_name, -1, 1)}**"/>
 						</c:when>
