@@ -250,7 +250,7 @@ do {
 						<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=138&manage_idx=290" class='t-tabs'>북큐레이션</a></li>
 						<li><a href="#tab2" data-link="/${homepage.context_path}/intro/search/bestBook/index.do?menu_idx=15" class='t-tabs'>대출베스트</a></li>
 						<li><a href="#tab3" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class='t-tabs'>신착자료</a></li>
-						<a href="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=38" class="more-btn more-more">더보기</a>
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=138&manage_idx=290" class="more-btn more-more">더보기</a>
 					</ul>
 
 					<div class="box con" data-tab="tab1">
