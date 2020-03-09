@@ -94,16 +94,6 @@ public class TeachController extends BaseController{
 			teach.setMember_key(getSessionMemberId(request));
 		}
 		
-		// 대표도서관 사서 인증
-		PortalMember loginPortal = sessionLoginPortal(request);
-		String portal_auth = loginPortal == null ? "0" : loginPortal.getAuth_group();
-		int menu_idx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 97));
-		if ( homepage.getHomepage_id().equals("h32") && teach.getMenu_idx() == menu_idx && !portal_auth.equals("4") ) {
-			teach.setBefore_url(String.format("/%s/module/teach/index.do?menu_idx=%s", homepage.getContext_path(), teach.getMenu_idx()));
-			teachService.alertMessageAndUrl("학교도서관 사서 회원 인증 후 이용가능합니다.", String.format("/%s/module/portalMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), teach.getMenu_idx(), teach.getBefore_url()), request, response);
-			return null;
-		}
-		
 		if ( homepage.getHomepage_id().equals("h32") && teach.getEditMode().equals("ALL")) {
 			if (StringUtils.isEmpty(teach.getHomepage_id())) {
 				teach.setHomepage_id(homepage.getHomepage_id());

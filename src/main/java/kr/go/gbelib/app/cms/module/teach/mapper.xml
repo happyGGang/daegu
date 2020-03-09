@@ -38,7 +38,7 @@
 			a.IMAGE_org_file_name, a.image_server_file_name, a.IMAGE_file_extension, a.IMAGE_file_size, a.LIMIT_HAK_YN,
 			getCodeIdToCodeName('CMS', 'C0020', a.limit_hak) AS LIMIT_HAK_STR,
 			getCodeIdToCodeName('CMS', 'C0020', a.limit_hak2) AS LIMIT_HAK2_STR,
-			a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.course_taken_yn,
+			a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.organization_yn, a.course_taken_yn,
 			(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) as large_category_name,
 			program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
 			(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.program_subject and homepage_id = a.homepage_id) as program_subject_name,
@@ -86,7 +86,7 @@
 				a.IMAGE_org_file_name, a.image_server_file_name, a.IMAGE_file_extension, a.IMAGE_file_size, a.LIMIT_HAK_YN,
 				getCodeIdToCodeName('CMS', 'C0020', a.limit_hak) AS LIMIT_HAK_STR,
 				getCodeIdToCodeName('CMS', 'C0020', a.limit_hak2) AS LIMIT_HAK2_STR,
-				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.course_taken_yn,
+				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.organization_yn, a.course_taken_yn,
 				(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) as large_category_name,
 				program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
 			(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.program_subject and homepage_id = a.homepage_id) as program_subject_name,
@@ -170,7 +170,7 @@
 				a.IMAGE_org_file_name, a.image_server_file_name, a.IMAGE_file_extension, a.IMAGE_file_size, a.LIMIT_HAK_YN,
 				getCodeIdToCodeName('CMS', 'C0020', a.limit_hak) AS LIMIT_HAK_STR,
 				getCodeIdToCodeName('CMS', 'C0020', a.limit_hak2) AS LIMIT_HAK2_STR,
-				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.course_taken_yn,
+				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.organization_yn, a.course_taken_yn,
 				(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) as large_category_name,
 				program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
 				(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.program_subject and homepage_id = a.homepage_id) as program_subject_name,
@@ -225,7 +225,7 @@
 			</if>
 			FAMILY_YN, MEMBER_YN, use_yn, CERTIFICATE_YN, SURVEY_IDX, ADD_DATE, ADD_ID, TEACH_JOIN_LIMIT_UNIT, TEACH_JOIN_LIMIT_VALUE,
 			family_count_yn, agent_yn, school_info_yn, school_grade_yn, remark_yn, address_yn, remark_comment,
-			neis_location_yn, neis_cd_yn, neis_training_num_yn, large_category_idx, rank_yn, course_taken_yn,
+			neis_location_yn, neis_cd_yn, neis_training_num_yn, large_category_idx, rank_yn, organization_yn, course_taken_yn,
 			program_classification1, program_classification2, program_classification3, program_subject, program_age_div
 		) VALUES (
 			#{homepage_id}, #{group_idx}, #{category_idx}, #{teach_idx}, #{teach_name}, #{teach_desc}, #{teach_etc}, #{teach_stage}, #{teach_target}, #{limit_hak}, #{limit_hak2}, #{calendar_view_yn},
@@ -247,7 +247,7 @@
 			</if>
 			#{family_yn}, #{member_yn}, #{use_yn}, #{certificate_yn}, #{survey_idx}, SYSDATE, #{add_id}, #{teach_join_limit_unit}, #{teach_join_limit_value},
 			#{family_count_yn}, #{agent_yn}, #{school_info_yn}, #{school_grade_yn}, #{remark_yn}, #{address_yn}, #{remark_comment},
-			#{neis_location_yn}, #{neis_cd_yn}, #{neis_training_num_yn}, #{large_category_idx}, #{rank_yn}, #{course_taken_yn},
+			#{neis_location_yn}, #{neis_cd_yn}, #{neis_training_num_yn}, #{large_category_idx}, #{rank_yn}, #{organization_yn}, #{course_taken_yn},
 			#{program_classification1}, #{program_classification2}, #{program_classification3}, #{program_subject}, #{program_age_div}
 		)
 	</insert>
@@ -342,6 +342,7 @@
 			neis_cd_yn = #{neis_cd_yn},
 			neis_training_num_yn = #{neis_training_num_yn},
 			rank_yn = #{rank_yn},
+			organization_yn = #{organization_yn},
 			course_taken_yn = #{course_taken_yn},
 			calendar_view_yn	= #{calendar_view_yn},
 			member_yn			= #{member_yn},
@@ -452,7 +453,7 @@
 				a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
 				getCodeIdToCodeName('CMS', 'C0020', a.limit_hak) AS LIMIT_HAK_STR,
 				getCodeIdToCodeName('CMS', 'C0020', a.limit_hak2) AS LIMIT_HAK2_STR,
-				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.course_taken_yn,
+				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.organization_yn, a.course_taken_yn,
 				(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) as large_category_name,
 				program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
 				(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.program_subject and homepage_id = a.homepage_id) as program_subject_name,
@@ -476,7 +477,7 @@
 				NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='1' AND	APPLY_TYPE = 'CMS' GROUP BY teach_idx), 0) AS TEACH_OFF_JOIN_COUNT,
 				a.IMAGE_org_file_name, a.image_server_file_name, a.IMAGE_file_extension, a.IMAGE_file_size, a.LIMIT_HAK_YN,
 				a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
-				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.course_taken_yn,
+				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.organization_yn, a.course_taken_yn,
 				(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) as large_category_name,
 				program_classification1, program_classification2, program_classification3, program_subject, program_age_div
 			FROM
@@ -580,7 +581,7 @@
 					a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
 					getCodeIdToCodeName('CMS', 'C0020', a.limit_hak) AS LIMIT_HAK_STR,
 					getCodeIdToCodeName('CMS', 'C0020', a.limit_hak2) AS LIMIT_HAK2_STR,
-					a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.course_taken_yn,
+					a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.organization_yn, a.course_taken_yn,
 					(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) as large_category_name,
 					program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
 					(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.program_subject and homepage_id = a.homepage_id) as program_subject_name,
@@ -603,7 +604,7 @@
 					NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='1' AND	APPLY_TYPE = 'CMS' GROUP BY teach_idx), 0) AS TEACH_OFF_JOIN_COUNT,
 					a.IMAGE_org_file_name, a.image_server_file_name, a.IMAGE_file_extension, a.IMAGE_file_size, a.LIMIT_HAK_YN,
 					a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
-					a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.course_taken_yn,
+					a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.organization_yn, a.course_taken_yn,
 					(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) as large_category_name,
 					program_classification1, program_classification2, program_classification3, program_subject, program_age_div
 				FROM
@@ -756,7 +757,7 @@
 					NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='1' AND	APPLY_TYPE = 'CMS' GROUP BY teach_idx), 0) AS TEACH_OFF_JOIN_COUNT,
 					a.IMAGE_org_file_name, a.image_server_file_name, a.IMAGE_file_extension, a.IMAGE_file_size, a.LIMIT_HAK_YN,
 					a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
-					a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.course_taken_yn
+					a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.organization_yn, a.course_taken_yn
 				FROM
 					(SELECT * FROM TEACH WHERE 1 = 1
 					<if test="search_text != null and search_text != ''">
@@ -879,7 +880,7 @@
 				a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
 				getCodeIdToCodeName('CMS', 'C0020', a.limit_hak) AS LIMIT_HAK_STR,
 				getCodeIdToCodeName('CMS', 'C0020', a.limit_hak2) AS LIMIT_HAK2_STR,
-				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.course_taken_yn
+				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.organization_yn, a.course_taken_yn
 		FROM
 		(
 			SELECT
@@ -896,7 +897,7 @@
 				NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='1' AND	APPLY_TYPE = 'CMS' GROUP BY teach_idx), 0) AS TEACH_OFF_JOIN_COUNT,
 				a.IMAGE_org_file_name, a.image_server_file_name, a.IMAGE_file_extension, a.IMAGE_file_size, a.LIMIT_HAK_YN,
 				a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
-				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.course_taken_yn
+				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.organization_yn, a.course_taken_yn
 			FROM
 				TEACH a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d
 			WHERE a.homepage_id = b.homepage_id(+)
@@ -992,7 +993,7 @@
 			a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
 			getCodeIdToCodeName('CMS', 'C0020', a.limit_hak) AS LIMIT_HAK_STR,
 			getCodeIdToCodeName('CMS', 'C0020', a.limit_hak2) AS LIMIT_HAK2_STR,
-			a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.course_taken_yn
+			a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.organization_yn, a.course_taken_yn
 		FROM
 		(
 			SELECT
@@ -1022,7 +1023,7 @@
 				, e.student_idx,
 				a.IMAGE_org_file_name, a.image_server_file_name, a.IMAGE_file_extension, a.IMAGE_file_size,
 				a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
-				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.course_taken_yn
+				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.organization_yn, a.course_taken_yn
 			FROM
 				TEACH a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d, STUDENT e
 			WHERE a.homepage_id = b.homepage_id(+)
