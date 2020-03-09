@@ -11,13 +11,13 @@
 					<div class="mmode">
 					<c:choose>
 						<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
-							<a href="/${homepage.context_path}/intro/join/accessInfo.do?menu_idx=115" class="mobilemeberinfo">
+							<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=95" class="mobilemeberinfo">
 								<i class="fa fa-user"></i>
 									<span>${sessionScope.member.member_name}님</span>
 							</a>
-							<a href="/${homepage.context_path}/module/myDashBoard/index.do?menu_idx=115" class="btn4">
+							<a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=16" class="btn4">
 								<i class="fa fa-bookmark"></i>
-								<span>MY Library</span>
+								<span>나의도서관</span>
        						</a>
 							<a href="/${homepage.context_path}/intro/login/logout.do" class="btn3">
 								<i class="fa fa-sign-out"></i>
@@ -31,11 +31,11 @@
 							</a>
 						</c:when>
 						<c:otherwise>
-							<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=121" class="btn1">
+							<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=4" class="btn1">
 								<i class="fa fa-lock"></i>
 								<span>로그인</span>
 							</a>
-							<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=120" class="btn2">
+							<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=5" class="btn2">
 								<i class="fa fa-user-plus"></i>
 								<span>회원가입</span>
 							</a>

@@ -24,6 +24,7 @@
 							<li class="disabled"><a title="대구광역시립 동부도서관" href="http://library.daegu.go.kr/dongbu/index.do">대구광역시립 동부도서관</a></li>
 							<li class="disabled"><a title="대구광역시립 두류도서관" href="http://library.daegu.go.kr/duryu/index.do">대구광역시립 두류도서관</a></li>
 							<li class="disabled"><a title="대구광역시립 북부도서관" href="http://library.daegu.go.kr/bukbu/index.do">대구광역시립 북부도서관</a></li>
+							<li class="disabled"><a title="대구광역시립 서부도서관" href="http://library.daegu.go.kr/seobu/index.do">대구광역시립 서부도서관</a></li>
 							<li class="disabled"><a title="대구광역시립 수성도서관" href="http://library.daegu.go.kr/suseong/index.do">대구광역시립 수성도서관</a></li>
 							<li class="disabled"><a title="대구광역시립 중앙도서관" href="http://library.daegu.go.kr/jungang/index.do">대구광역시립 중앙도서관</a></li>
 							</ul>
@@ -34,10 +35,11 @@
 					<div class="out">
 						<div>
 							<a class="fsite type1">
-								<span class="f1">관련사이트</span>
+								<span class="f1">교육 및 지역관련기관</span>
 							</a>
 							<ul style="display:none">
-							<li class="disabled"><a href="#">관련사이트</a></li>
+							<li class="disabled"><a href="#">교육 및 지역관련기관</a></li>
+							<li class="disabled"><a title="대구평생학습포털" href="https://tong.daegu.go.kr/">대구평생학습포털</a></li>
 							<li class="disabled"><a title="대구2ㆍ28기념학생도서관" href="http://www.nl.go.kr/nl/">국립중앙도서관</a></li>
 							<li class="disabled"><a title="대구2ㆍ28민주운동기념회관" href="https://www.nanet.go.kr/main.do">국회도서관</a></li>
 							<li class="disabled"><a title="대구광역시립 남부도서관" href="http://www.dlibrary.go.kr/JavaClient/jsp/ndli/index.jsp?LOGSTATUS=notok&NLSSOTOKEN=">국가전자도서관</a></li>

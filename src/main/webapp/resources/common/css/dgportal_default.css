@@ -2151,11 +2151,11 @@ padding:20px 15px 20px 215px; margin-bottom:25px}
 
 	#footer .site_link select {width:96%;padding:0 2%;margin:2px 0}
 	#footer .top .info a,
-	#footer .top .info span{font-size: 12px;}
+	#footer .top .info span{font-size: 14px;}
 	#footer .top .footer-logo {position:relative;text-align:center;padding: 15px 0 10px 0;margin: 0 auto;width: 50%;}
 
 
-	#footer .top .section .site_link div.out {width:100%;margin-bottom:5px;}
+	#footer .top .section .site_link div.out {width:90%;margin-bottom:5px;}
 	#footer .top .section .site_link div > div {width:85%;}
 	#footer .top .section .site_link a.btn{width:13%;padding:7px 0;text-align:Center;}
 }
