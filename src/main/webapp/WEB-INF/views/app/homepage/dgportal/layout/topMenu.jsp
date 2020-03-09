@@ -12,16 +12,7 @@ $(function() {
 			$('#mainSearchForm').submit();
 	});
 
-	<c:choose>
-		<c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
-
-		</c:when>
-		<c:otherwise>
-			$('li#menu_30').remove();
-			$('li#menu_31').remove();
-		</c:otherwise>
-	</c:choose>
-})
+});
 </script>
 	<div class="head">
 		<div class="Gnb">
