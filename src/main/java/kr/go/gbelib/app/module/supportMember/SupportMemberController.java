@@ -71,6 +71,7 @@ public class SupportMemberController {
 			}
 			
 			request.getSession().removeAttribute("member");
+			request.getSession().removeAttribute("loginPortal");
 			request.getSession().setAttribute("loginSupport", loginSupport);
 		}
     	

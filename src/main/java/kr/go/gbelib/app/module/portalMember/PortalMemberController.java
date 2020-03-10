@@ -59,6 +59,7 @@ public class PortalMemberController extends BaseController {
     		loginPortal.setLogin(true);
 			service.addLastLogin(loginPortal);
 			request.getSession().removeAttribute("member");
+			request.getSession().removeAttribute("loginSupport");
 			request.getSession().setAttribute("loginPortal", loginPortal);
 		}
     	
