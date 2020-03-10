@@ -1037,7 +1037,9 @@
 				AND	a.group_idx = e.group_idx
 				AND	a.category_idx = e.category_idx
 				AND	a.teach_idx = e.teach_idx
+				<if test="editMode != null and editMode != '' and editMode != 'ALL'">
 				AND	a.homepage_id = #{homepage_id}
+				</if>
 				<choose>
 					<when test="member_key != null and member_key != ''">
 				AND	e.MEMBER_KEY = #{member_key}

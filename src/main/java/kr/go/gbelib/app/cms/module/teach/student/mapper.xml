@@ -425,8 +425,12 @@
 					CASE WHEN a.teach_count = 0 THEN 0 ELSE ((SELECT NVL(SUM(DECODE(status, '1', 1, '2', 1, 0)) - TRUNC(SUM(DECODE(status, '2', 1, 0))/3), 0) FROM TEACH_BOOK WHERE HOMEPAGE_ID = b.HOMEPAGE_ID AND GROUP_IDX = b.GROUP_IDX AND CATEGORY_IDX = b.CATEGORY_IDX AND TEACH_IDX = b.TEACH_IDX AND STUDENT_IDX = b.STUDENT_IDX)/a.teach_count)*100 END as ATTEND_CNT
 				FROM (SELECT *
 						FROM TEACH
+						<trim prefix="WHERE" prefixOverrides="AND">
+						<if test="editMode != null and editMode != '' and editMode != 'ALL'">
 						WHERE HOMEPAGE_ID = #{homepage_id}
+						</if>
 						AND DELETE_YN = 'N'
+						</trim>
 						) a, STUDENT b
 				WHERE b.HOMEPAGE_ID = a.HOMEPAGE_ID
 				AND b.GROUP_IDX = a.GROUP_IDX
