@@ -180,97 +180,16 @@ ${boardManage.top_html}
 				</ul>
 			</div>
 		</div>
-		<div>
+		<div class="bbs-view-body">
 			<c:set value="${fn:replace(board.content, crlf, '<br/>')}" var="content"></c:set>
 			${content}
+			<jsp:include page="/WEB-INF/views/app/board/common/view/approval.jsp" flush="false" />
 		</div>
 		<div class="bbs-view-header">
 			<dl>
+				<jsp:include page="/WEB-INF/views/app/board/common/view/file.jsp" flush="false" />
 			</dl>
 		</div>
-		<h4 style="display: none;">소장위치</h4>
-		<table summary="도서 상태 및 등록 정보" style="display: none;">
-			<thead>
-				<tr>
-					<th>등록번호</th>
-					<th>소장위치</th>
-					<th>청구기호</th>
-					<th>상태</th>
-					<th>반납예정일</th>
-					<th>예약</th>
-<!-- 					<th>기능</th> -->
-				</tr>
-			</thead>
-			<tbody>
-				<c:set var="is_any_reservable" value="false"/>
-				<c:forEach items="${detail.dsItemDetail}" var="i" varStatus="status">
-				<tr>
-					<td>${i.PRINT_ACSSON_NO}</td>
-					<td class="txt-left">${i.SUB_LOCA_NAME}</td>
-					<td class="txt-left">${LABEL_PLACE_NO_NAME} ${i.CALL_NO}</td>
-					<td class="og">${i.DISPLAY_ITEM_STATUS}</td>
-					<td>${i.RETURN_PLAN_DATE}</td>
-				</tr>
-				</c:forEach>
-				<c:if test="${fn:length(detail.dsItemDetail) < 1 }">
-				<tr>
-					<td colspan="7">조회된 자료가 없습니다.</td>
-				</tr>
-				</c:if>
-			</tbody>
-		</table>
-
-		<div style="clear:both">&nbsp;</div>
-
-		<c:if test="${fn:length(naverDetail) > 0}">
-		<h4 style="clear: both;">포털 사이트 연동 상세정보</h4>
-		<table summary="포털 사이트 연동 상세정보">
-			<colgroup>
-				<col width="10%"/>
-				<col/>
-			</colgroup>
-			<tbody>
-				<c:forEach items="${naverDetail}" var="i" varStatus="status">
-				<c:if test="${status.count > 1}">
-				<tr>
-					<td colspan="2" style="text-align: left;"></td>
-				</tr>
-				</c:if>
-				<tr>
-					<th>저자</th>
-					<td style="text-align: left;">${i.author} </td>
-				</tr>
-				<tr>
-					<th>출판사</th>
-					<td style="text-align: left;">${i.publisher} </td>
-				</tr>
-				<tr>
-					<th>출간일</th>
-					<td style="text-align: left;">${i.pubdate}</td>
-				</tr>
-				<tr>
-					<th>ISBN</th>
-					<td style="text-align: left;">${i.isbn} </td>
-				</tr>
-				<tr>
-					<th>정가</th>
-					<td style="text-align: left;">
-						<c:if test="${i.price ne ''}">
-						${i.price}
-						</c:if>
-						<c:if test="${i.price eq ''}">
-						절판
-						</c:if>
-					</td>
-				</tr>
-				<tr>
-					<th>요약</th>
-					<td style="text-align: left;">${i.description} </td>
-				</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		</c:if>
 
 		<jsp:include page="/WEB-INF/views/app/board/common/view/button.jsp" flush="false" />
 	</div>
