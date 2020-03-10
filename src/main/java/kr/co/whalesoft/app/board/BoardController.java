@@ -943,6 +943,10 @@ public class BoardController extends BaseController {
 				service.alertMessage("처리가 완료된 게시물에는 답변을 추가 할 수 없습니다.", request, response);
 			} catch (Exception e) {}
 		}
+		
+		if (boardManage.getBoard_type().equals("QNA")){
+			board.setRequest_state("4");
+		}
 
 		board.setParent_idx(board.getBoard_idx());
 		board.setGroup_depth(board.getGroup_depth()+1);
