@@ -5,48 +5,48 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="button bbs-btn right">
 <c:choose>
-<c:when test="${board.delete_yn  eq 'Y' and (not empty authMBA and authMBA or supportAdmin)}">
+<c:when test="${board.delete_yn eq 'Y' and (not empty authMBA and authMBA or supportAdmin or portalAuth eq '2')}">
 	<a href="" class="btn btn5" id="board_recovery_btn">게시물복구</a>
 </c:when>
 <c:otherwise>
-<c:if test="${(not empty authMBA and authMBA or supportAdmin) and boardManage.reply_use_yn eq 'Y'}">
+<c:if test="${(not empty authMBA and authMBA or supportAdmin or portalAuth eq '2') and boardManage.reply_use_yn eq 'Y'}">
 	<a href="" class="btn reply" id="board_reply_btn"><i class="fa fa-pencil"></i><span>답변하기</span></a>
 </c:if>
-<c:if test="${(not empty authMBA and authMBA) or (not empty authD and authD) or supportAdmin}">
+<c:if test="${(not empty authMBA and authMBA) or (not empty authD and authD) or supportAuth or portalAuth ne '0'}">
 	<c:choose>
-		<c:when test="${not empty authMBA and authMBA or supportAdmin}">
+		<c:when test="${not empty authMBA and authMBA or supportAdmin or portalAuth eq '2'}">
 	<a href="" class="btn delete" id="board_delete_btn"><i class="fa fa-trash-o"></i><span>삭제</span></a>
 		</c:when>
 		<c:otherwise>
 			<c:choose>
-				<c:when test="${sessionScope.member.anonymous}">
+				<c:when test="${(supportAuth and not empty loginSupport.member_id and loginSupport.member_id eq board.add_id) or (not empty loginPortal and loginPortal.agency_id eq board.add_id)}">
+	<a href="" class="btn delete" id="board_delete_btn"><i class="fa fa-trash-o"></i><span>삭제</span></a>
+				</c:when>
+				<c:when test="${sessionScope.member.anonymous and empty loginSupport and empty loginPortal}">
 	<a href="" class="btn delete" id="anonymous_delete_btn"><i class="fa fa-trash-o"></i><span>삭제</span></a>
 				</c:when>
 				<c:when test="${member.member_id eq board.add_id or member.web_id eq board.add_id}">
 	<a href="" class="btn delete" id="board_delete_btn"><i class="fa fa-trash-o"></i><span>삭제</span></a>
 				</c:when>
-				<c:when test="${supportAuth and not empty loginSupport.member_id and loginSupport.member_id eq board.add_id}">
-				<a href="" class="btn delete" id="board_delete_btn"><i class="fa fa-trash-o"></i><span>삭제</span></a>
-				</c:when>
 			</c:choose>
 		</c:otherwise>
 	</c:choose>
 </c:if>
-<c:if test="${(not empty authMBA and authMBA) or (not empty authU and authU) or supportAdmin}">
+<c:if test="${(not empty authMBA and authMBA) or (not empty authU and authU) or supportAuth or portalAuth ne '0'}">
 	<c:choose>
-		<c:when test="${not empty authMBA and authMBA or supportAdmin}">
+		<c:when test="${not empty authMBA and authMBA or supportAdmin or portalAuth eq '2'}">
 	<a href="" class="btn modify" id="board_edit_btn"><i class="fa fa-pencil-square-o"></i><span>수정</span></a>
 		</c:when>
 		<c:otherwise>
 			<c:choose>
-				<c:when test="${sessionScope.member.anonymous}">
+				<c:when test="${not empty loginSupport.member_id and loginSupport.member_id eq board.add_id or not empty loginPortal and loginPortal.agency_id eq board.add_id}">
+	<a href="" class="btn modify" id="board_edit_btn"><i class="fa fa-pencil-square-o"></i><span>수정</span></a>
+				</c:when>
+				<c:when test="${sessionScope.member.anonymous and empty loginSupport and empty loginPortal}">
 	<a href="" class="btn modify" id="anonymous_edit_btn"><i class="fa fa-pencil-square-o"></i><span>수정</span></a>
 				</c:when>
 				<c:when test="${member.member_id eq board.add_id or member.web_id eq board.add_id}">
 	<a href="" class="btn modify" id="board_edit_btn"><i class="fa fa-pencil-square-o"></i><span>수정</span></a>
-				</c:when>
-				<c:when test="${not empty loginSupport.member_id and loginSupport.member_id eq board.add_id}">
-				<a href="" class="btn modify" id="board_edit_btn"><i class="fa fa-pencil-square-o"></i><span>수정</span></a>
 				</c:when>
 			</c:choose>
 		</c:otherwise>

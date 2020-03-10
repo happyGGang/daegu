@@ -16,6 +16,9 @@ ${boardManage.top_html}
 		<table class="bbs center">
 			<thead>
 				<tr>
+					<c:if test="${board.delete_yn eq 'Y'}">
+					<th><input type="checkbox" id="checkAll"> </th>
+					</c:if>
 					<th>번호</th>
 				<c:forEach var="i" varStatus="status" items="${fieldList}">
 					<th>${i.board_content}</th>
@@ -29,6 +32,9 @@ ${boardManage.top_html}
 			<tbody id="board_tbody">
 			<c:forEach var="i" varStatus="status" items="${boardNoticeList}">
 				<tr class="notice">
+					<c:if test="${board.delete_yn eq 'Y'}">
+					<td></td>
+					</c:if>
 					<td class="num notice"><span>공지</span></td>
 				<c:forEach var="j" varStatus="status2" items="${fieldList}">
 				<boardTag:customFieldIndex manage_idx="${boardManage.manage_idx}" board_idx="${i.board_idx}" board_column="${j.board_column}" board_value="${i[j.board_column]}" column_type="${j.column_type}" content_link_yn="${j.content_link_yn}" code_mapping="${j.code_mapping}" />
@@ -41,6 +47,9 @@ ${boardManage.top_html}
 			</c:forEach>
 			<c:forEach var="i" varStatus="status" items="${boardList}">
 				<tr${i.group_depth > 0?' class="reply"':''}>
+					<c:if test="${board.delete_yn eq 'Y'}">
+					<td><form:checkbox path="boardIdxArray" value="${i.board_idx}"/></td>
+					</c:if>
 					<td class="num">${paging.listRowNum - status.index}</td>
 				<c:forEach var="j" varStatus="status2" items="${fieldList}">
 				<boardTag:customFieldIndex manage_idx="${boardManage.manage_idx}" board_idx="${i.board_idx}" board_column="${j.board_column}" board_value="${i[j.board_column]}" column_type="${j.column_type}" content_link_yn="${j.content_link_yn}" code_mapping="${j.code_mapping}" />

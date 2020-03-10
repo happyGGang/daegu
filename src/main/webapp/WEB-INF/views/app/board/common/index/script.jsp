@@ -9,7 +9,7 @@ $(document).ready(function() {
 
 	<%-- 등록 --%>
 	<c:choose>
-	<c:when test="${not empty loginSupport}">
+	<c:when test="${not empty loginSupport or portalAuth eq '2' or portalAuth eq '4'}">
 	$('a#board_edit_btn').on('click', function(e) {
 		e.preventDefault();
 		var url = 'edit.do';

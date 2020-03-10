@@ -39,6 +39,7 @@ import kr.co.whalesoft.framework.utils.CalculateHashUtils;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 import kr.co.whalesoft.framework.utils.RequestUtils;
 import kr.co.whalesoft.framework.utils.StrUtil;
+import kr.go.gbelib.app.cms.module.portalMember.PortalMember;
 import kr.go.gbelib.app.cms.module.supportMember.SupportMember;
 
 @Service
@@ -271,8 +272,11 @@ public class BoardService extends BaseService {
 
 		if (member.isAnonymous()) {
 			SupportMember supportMember = (SupportMember)request.getSession().getAttribute("loginSupport");
+			PortalMember portalMember = (PortalMember)request.getSession().getAttribute("loginPortal");
 			if(!member.isLogin() && supportMember != null) {
 				board.setAdd_id(supportMember.getMember_id());
+			} else if(!member.isLogin() && portalMember != null) {
+				board.setAdd_id(portalMember.getAgency_id());
 			} else {
 				board.setAdd_id("ANONYMOUS");
 				Object certObject = request.getSession().getAttribute("certMember");
@@ -340,8 +344,11 @@ public class BoardService extends BaseService {
 
 		if (member.isAnonymous()) {
 			SupportMember supportMember = (SupportMember)request.getSession().getAttribute("loginSupport");
+			PortalMember portalMember = (PortalMember)request.getSession().getAttribute("loginPortal");
 			if(!member.isLogin() && supportMember != null) {
-				board.setAdd_id(supportMember.getMember_id());
+				board.setModify_id(supportMember.getMember_id());
+			} else if(!member.isLogin() && portalMember != null) {
+				board.setModify_id(portalMember.getAgency_id());
 			} else {
 				board.setModify_id("ANONYMOUS");
 			}
@@ -382,11 +389,16 @@ public class BoardService extends BaseService {
 
 	public int deleteBoard(Board board, HttpServletRequest request) {
 		Member member = (Member)loginService.getSessionMember(request);
-
-		if (member.getLoginType().equals("CMS")) {
+		SupportMember supportMember = (SupportMember)request.getSession().getAttribute("loginSupport");
+		PortalMember portalMember = (PortalMember)request.getSession().getAttribute("loginPortal");
+		if (member.isLogin() && member.getLoginType().equals("CMS")) {
 			board.setModify_id(member.getMember_id());
 		} else {
-			if (StringUtils.isNotEmpty(member.getWeb_id())) {
+			if(!member.isLogin() && supportMember != null) {
+				board.setModify_id(supportMember.getMember_id());
+			} else if(!member.isLogin() && portalMember != null) {
+				board.setModify_id(portalMember.getAgency_id());
+			} else if (StringUtils.isNotEmpty(member.getWeb_id())) {
 				board.setModify_id(member.getWeb_id());//일반이용자는 web_id로만 한다
 			} else {
 				board.setModify_id(member.getMember_id());//web_id가 없는경우 대출자번호를 넣는다.

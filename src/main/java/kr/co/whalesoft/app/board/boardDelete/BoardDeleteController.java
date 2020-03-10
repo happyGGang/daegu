@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -30,6 +31,8 @@ import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.StrUtil;
+import kr.go.gbelib.app.cms.module.portalMember.PortalMember;
+import kr.go.gbelib.app.cms.module.supportMember.SupportMember;
 
 @Controller
 @RequestMapping(value = {"/boardDelete", "/{homepagePath}/boardDelete"})
@@ -67,24 +70,28 @@ public class BoardDeleteController extends BaseController {
 			if(boardManage.getBoard_type().indexOf("CUSTOM") > -1) {
 				List<FieldManage> fieldList = null;
 
-//				if(mode != null && mode.equals("EDIT")) {
-//					fieldList = fieldManageService.getBoardFieldManageByEdit(new FieldManage(boardManage.getManage_idx()));
-//					model.addAttribute("fieldList", fieldList);
-//				} else if(mode != null && mode.equals("REPLY")) {
-//					fieldList = fieldManageService.getBoardFieldManageByReply(new FieldManage(boardManage.getManage_idx()));
-//					model.addAttribute("fieldList", fieldList);
-//				} else {
-//					fieldList = fieldManageService.getBoardFieldManageByList(new FieldManage(boardManage.getManage_idx()));
-//					model.addAttribute("fieldList", fieldList);
-//				}
+				if(mode != null && mode.equals("EDIT")) {
+					fieldList = fieldManageService.getBoardFieldManageByEdit(new FieldManage(boardManage.getManage_idx()));
+					model.addAttribute("fieldList", fieldList);
+				} else if(mode != null && mode.equals("REPLY")) {
+					fieldList = fieldManageService.getBoardFieldManageByReply(new FieldManage(boardManage.getManage_idx()));
+					model.addAttribute("fieldList", fieldList);
+				} else if(mode != null && mode.equals("VIEW")) {
+					fieldList = fieldManageService.getBoardFieldManageByView(new FieldManage(boardManage.getManage_idx()));
+					model.addAttribute("fieldList", fieldList);
+				} else {
+					fieldList = fieldManageService.getBoardFieldManageByList(new FieldManage(boardManage.getManage_idx()));
+					model.addAttribute("fieldList", fieldList);
+				}
 
 				List<String> columnList = new ArrayList<String>();
-//				for(FieldManage fieldManage : fieldList) {
-//					columnList.add(fieldManage.getBoard_column());
-//				}
+				for(FieldManage fieldManage : fieldList) {
+					columnList.add(fieldManage.getBoard_column());
+				}
 
 				board.setBoard_field_list(columnList);
 			}
+			
 
 //			if(boardManage.getCategory_use_yn() != null && boardManage.getCategory_use_yn().equals("Y")) {
 //				if(boardManage.getCategory1() != null && !boardManage.getCategory1().equals("")) {
@@ -101,9 +108,18 @@ public class BoardDeleteController extends BaseController {
 
 		basePath = homepageFolder + "/board/" + boardManage.getBoard_type() + "/";
 	}
+	
+	public boolean manageCompareIdx(int manage_idx, int... args) {
+		for (int i : args) {
+			if(manage_idx == i) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	@RequestMapping(value = {"/index.*"}, method = RequestMethod.GET)
-	public String index(Model model, Board board, HttpServletRequest request) throws AuthException {
+	public String index(Model model, Board board, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 		BoardManage boardManage = (BoardManage)request.getAttribute("boardManage");
 		checkAuth("R", model, request);
@@ -114,6 +130,52 @@ public class BoardDeleteController extends BaseController {
 			homepageFolder = "/homepage/" + homepage.getFolder();
 			contextPath = "/" + homepage.getContext_path();
 		}
+		
+		boolean isSiteAdmin = false;
+		try {
+			isSiteAdmin = (Boolean) model.asMap().get("authMBA");
+		} catch (Exception e) {
+			isSiteAdmin = false;
+		}
+
+		// 228도서관 지원센터 회원인증 확인
+		SupportMember loginSupport = sessionLoginSupport(request);
+		boolean supportAdmin = false;
+		boolean supportAuth = false;
+		if(manageCompareIdx(board.getManage_idx(), 225, 226, 224, 227, 228, 230, 281)) {
+			if (loginSupport == null && !getSessionIsAdmin(request) && !isSiteAdmin) {
+	    		board.setBefore_url(String.format("/%s/board/index.do?menu_idx=%s%%26manage_idx=%s", homepage.getContext_path(), board.getMenu_idx(), board.getManage_idx()));
+	    		service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
+	    		return null;
+	        }
+			
+			if(loginSupport != null) {
+				if(loginSupport.isLogin() == true) {
+					supportAuth = true;
+				}
+				if(loginSupport.isAdmin() == true) {
+					supportAdmin = true;
+				}
+			}
+			
+			if (boardManage.getWrite_only_yn().equals("Y") && !"CMS".equals(getSessionMemberLoginType(request)) && !loginSupport.isAdmin()) {
+				String write_url = "edit.do?manage_idx="+request.getParameter("manage_idx")+"&menu_idx="+request.getParameter("menu_idx");
+				service.alertMessageAndUrl("", write_url, request, response);
+				return null;
+			}
+		}
+		model.addAttribute("supportAdmin", supportAdmin);
+		model.addAttribute("supportAuth", supportAuth);
+		
+		// 대표도서관 사서 인증
+		PortalMember loginPortal = sessionLoginPortal(request);
+		String portal_auth = loginPortal == null ? "0" : loginPortal.getAuth_group();
+		if(!portal_auth.equals("2") && !portal_auth.equals("4") && manageCompareIdx(board.getManage_idx(), 203, 288)) {
+			board.setBefore_url(String.format("/%s/board/index.do?menu_idx=%s%%26manage_idx=%s", homepage.getContext_path(), board.getMenu_idx(), board.getManage_idx()));
+    		service.alertMessageAndUrl("대표도서관 사서 회원 인증 후 이용가능합니다.", String.format("/%s/module/portalMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
+    		return null;
+		}
+		model.addAttribute("portalAuth", portal_auth);
 
 		if (boardManage.getBoard_type().equals("NOTICE")  && StringUtils.isEmpty(board.getStart_date())) {
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");

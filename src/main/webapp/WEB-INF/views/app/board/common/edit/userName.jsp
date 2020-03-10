@@ -29,11 +29,20 @@ ${board.user_name}
 	</c:when>
 	<c:when test="${not empty loginSupport.login and loginSupport.login}">
 		<c:if test="${board.editMode eq 'MODIFY'}">
-			${loginSupport.school_name}
+			${board.user_name}
 		</c:if>
 		<c:if test="${board.editMode eq 'ADD'}">
 			${loginSupport.school_name}
 			<form:hidden path="user_name" value="${loginSupport.school_name}" cssClass="text"/>
+		</c:if>
+	</c:when>
+	<c:when test="${not empty loginPortal and loginPortal.login}">
+		<c:if test="${board.editMode eq 'MODIFY'}">
+			${board.user_name}
+		</c:if>
+		<c:if test="${board.editMode eq 'ADD'}">
+			${loginPortal.agency_name}
+			<form:hidden path="user_name" value="${loginPortal.agency_name}" cssClass="text"/>
 		</c:if>
 	</c:when>
 	<c:otherwise>

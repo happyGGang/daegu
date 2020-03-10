@@ -33,12 +33,12 @@ $(function() {
 
 <div class="login-box">
 	<div class="login-head">
-		<p><b>택배서비스 회원인증</b></p>
+		<p><b>대표도서관 회원인증</b></p>
 	</div>
 	<div class="login-body">
 		<div class="tab">
 			<dl class="tcon t1">
-				<dt class="blind">택배서비스 회원인증</dt>
+				<dt class="blind">대표도서관 회원인증</dt>
 				<div class="loginBox1">
 				<dd class="login">
 					<div class="loginImgBox">

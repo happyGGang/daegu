@@ -64,11 +64,9 @@ public class PortalMemberController extends BaseController {
     	
 		if (StringUtils.isEmpty(returnUrl) || returnUrl.indexOf("/login/") > -1) {
 			int menu_idx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 11));
-//			returnUrl = String.format("%s/%s/index.do", homepage.getDomain(), homepagePath);
-			returnUrl = String.format("%s/%s/intro/search/index.do?menu_idx=%s", homepage.getDomain(), homepagePath, menu_idx);
+			returnUrl = String.format("%s/%s/module/portalMember/index.do?menu_idx=%s", homepage.getDomain(), homepagePath, menu_idx);
 			if (request.getRequestURL().toString().contains("localhost")) {
-//				returnUrl = String.format("%s/%s/index.do", "http://localhost", homepagePath);
-				returnUrl = String.format("%s/%s/intro/search/index.do?menu_idx=%s", "http://localhost", homepagePath, menu_idx);
+				returnUrl = String.format("%s/%s/module/portalMember/index.do?menu_idx=%s", "http://localhost", homepagePath, menu_idx);
 			}
 		}
 		
