@@ -33,7 +33,6 @@ import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
 import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.framework.base.BaseController;
-import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.AttachmentUtils;
 import kr.co.whalesoft.framework.utils.CalculateHashUtils;
 import kr.co.whalesoft.framework.utils.JsonResponse;
@@ -42,7 +41,6 @@ import kr.go.gbelib.app.cms.module.category.CategoryService;
 import kr.go.gbelib.app.cms.module.category.group.CategoryGroup;
 import kr.go.gbelib.app.cms.module.category.group.CategoryGroupService;
 import kr.go.gbelib.app.cms.module.portalMember.PortalMember;
-import kr.go.gbelib.app.cms.module.supportMember.SupportMember;
 import kr.go.gbelib.app.cms.module.teach.Teach;
 import kr.go.gbelib.app.cms.module.teach.TeachService;
 import kr.go.gbelib.app.cms.module.teach.student.StudentService;
@@ -93,7 +91,7 @@ public class TeachController extends BaseController{
 		if ( isLogin(request) && getSessionMemberLoginType(request).equals("HOMEPAGE") ) {
 			teach.setMember_key(getSessionMemberId(request));
 		}
-		
+
 		if ( homepage.getHomepage_id().equals("h32") && teach.getEditMode().equals("ALL")) {
 			if (StringUtils.isEmpty(teach.getHomepage_id())) {
 				teach.setHomepage_id(homepage.getHomepage_id());
@@ -152,7 +150,7 @@ public class TeachController extends BaseController{
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 
 		String calendarPath = "/homepage/" + homepage.getFolder() + "/module/calendarManage/";
-		
+
 		// 대표도서관 사서 인증
 		PortalMember loginPortal = sessionLoginPortal(request);
 		String portal_auth = loginPortal == null ? "0" : loginPortal.getAuth_group();

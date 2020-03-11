@@ -836,6 +836,27 @@ $(function() {
 				</td>
 	        </tr>
 	        <tr>
+	         	<th>생년월일 입력여부 (<span style="color: red; font-weight: bold;">*</span>)</th>
+	         	<td>
+	         		<form:radiobutton path="birth_yn" class="Y" value="Y"/> <label for="birth_yn1" style="cursor:pointer;">사용함</label>&nbsp;
+					<form:radiobutton path="birth_yn" class="N" value="N"/> <label for="birth_yn2" style="cursor:pointer;">사용안함</label>
+					<div class="ui-state-highlight">
+						<em>* 사용 시 '생년월일' 입력항목이 노출됩니다.</em>
+					</div>
+				</td>
+	        </tr>
+	        <tr>
+	         	<th>성별 입력여부 (<span style="color: red; font-weight: bold;">*</span>)</th>
+	         	<td>
+	         		<form:radiobutton path="sex_yn" class="Y" value="Y"/> <label for="sex_yn1" style="cursor:pointer;">사용함</label>&nbsp;
+					<form:radiobutton path="sex_yn" class="N" value="N"/> <label for="sex_yn2" style="cursor:pointer;">사용안함</label>
+					<div class="ui-state-highlight">
+						<em>* 사용 시 '성별' 입력항목이 노출됩니다.</em>
+					</div>
+				</td>
+	        </tr>
+
+	        <tr>
 	        	<th>법정대리인동의여부</th>
 	         	<td>
 	         		<form:radiobutton path="family_yn" class="Y" value="Y"/> <label for="family_yn1" style="cursor:pointer;">사용</label>&nbsp;

@@ -148,8 +148,13 @@ public class StudentController extends BaseController {
 //			ValidationUtils.rejectIfEmpty(result, "member_id", "신청자ID를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "applicant_name", "신청자명을 입력하세요.");
 			ValidationUtils.rejectNumbers(result, "applicant_name", "신청자명에는 숫자를 입력할 수 없습니다.");
-			ValidationUtils.rejectIfEmpty(result, "applicant_birth", "신청자 생년월일을 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "applicant_sex", "신청자 성별을 선택하세요.");
+
+			if (StringUtils.equals(teachOne.getBirth_yn(), "Y")) {
+				ValidationUtils.rejectIfEmpty(result, "applicant_birth", "신청자 생년월일을 입력하세요.");
+			}
+			if (StringUtils.equals(teachOne.getSex_yn(), "Y")) {
+				ValidationUtils.rejectIfEmpty(result, "applicant_sex", "신청자 성별을 선택하세요.");
+			}
 			ValidationUtils.rejectIfEmpty(result, "applicant_cell_phone", "신청자 휴대전화번호를 입력하세요.");
 			ValidationUtils.rejectPhone(result, "applicant_cell_phone", "휴대전화번호 형식이 잘못되었습니다.");
 
@@ -163,8 +168,12 @@ public class StudentController extends BaseController {
 			if (StringUtils.equals(teachOne.getAgent_yn(), "Y")) {
 				ValidationUtils.rejectIfEmpty(result, "student_name", "수강생명을 입력하세요.");
 				ValidationUtils.rejectNumbers(result, "student_name", "수강생명에는 숫자를 입력할 수 없습니다.");
-				ValidationUtils.rejectIfEmpty(result, "student_birth", "수강생 생년월일을 입력하세요.");
-				ValidationUtils.rejectIfEmpty(result, "student_sex", "수강생 성별을 선택하세요.");
+				if (StringUtils.equals(teachOne.getBirth_yn(), "Y")) {
+    				ValidationUtils.rejectIfEmpty(result, "student_birth", "수강생 생년월일을 입력하세요.");
+				}
+				if (StringUtils.equals(teachOne.getSex_yn(), "Y")) {
+					ValidationUtils.rejectIfEmpty(result, "student_sex", "수강생 성별을 선택하세요.");
+				}
 				if (StringUtils.equals(teachOne.getAddress_yn(), "Y")) {
 //    				ValidationUtils.rejectIfEmpty(result, "student_zipcode", "수강생 우편번호를 입력하세요.");
     				ValidationUtils.rejectIfEmpty(result, "student_address", "수강생 주소를 입력하세요.");

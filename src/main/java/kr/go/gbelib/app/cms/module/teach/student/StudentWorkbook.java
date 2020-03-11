@@ -159,7 +159,9 @@ public class StudentWorkbook {
 //			}
 
 			String student_sex = "";
-			if (org.getStudent_sex().equals("M")) {
+			if (org.getStudent_sex() == null) {
+
+			} else if ("M".equals(org.getStudent_sex())) {
 				student_sex = "남자";
 			} else {
 				student_sex = "여자";

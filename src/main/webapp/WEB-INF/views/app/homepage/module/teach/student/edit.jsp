@@ -83,21 +83,25 @@ $(function() {
 		$form.find ("#applicant_birth").prop('disabled', false);
 		$form.find ("#student_birth").prop('disabled', false);
 
-		if ($("#student_birth").length > 0) {
-			var selectedYear = $form.find ("#student_birth").val().split('-')[0];
-			var currentYear = new Date().getUTCFullYear();
-			$form.find('input#student_old').val((currentYear - selectedYear) + 1);
-		} else {
-			var selectedYear = $form.find ("#applicant_birth").val().split('-')[0];
-			var currentYear = new Date().getUTCFullYear();
-			$form.find('input#student_old').val((currentYear - selectedYear) + 1);
-		}
+		$form.find('input#student_old').val('0');
+		<c:if test="${teach.birth_yn eq 'Y'}">
+			if ($("#student_birth").length > 0) {
+				var selectedYear = $form.find ("#student_birth").val().split('-')[0];
+				var currentYear = new Date().getUTCFullYear();
+				$form.find('input#student_old').val((currentYear - selectedYear) + 1);
+			} else {
+				var selectedYear = $form.find ("#applicant_birth").val().split('-')[0];
+				var currentYear = new Date().getUTCFullYear();
+				$form.find('input#student_old').val((currentYear - selectedYear) + 1);
+			}
+		</c:if>
 
-
+		<c:if test="${teach.birth_yn eq 'Y'}">
 		if ( $form.find ("#applicant_birth").val() == '--' ) {
 			alert('신청자 생년월일이 입력되지 않았습니다. 회원정보 수정후 신청 해주세요.');
 			return false;
 		}
+		</c:if>
 
 		if ( $form.find ("#applicant_name").val() == '' ) {
 			alert('성명이 입력되지 않았습니다.');
@@ -105,21 +109,27 @@ $(function() {
 			return false;
 		}
 
+		<c:if test="${teach.birth_yn eq 'Y'}">
 		if ( $form.find ("#applicant_birth").val() == '' ) {
 			alert('생년월일이 입력되지 않았습니다.');
 			$("#applicant_birth").focus();
 			return false;
 		}
+		</c:if>
 
+		<c:if test="${teach.sex_yn eq 'Y'}">
 		if ( $("[name=applicant_sex]").val() == '' ) {
 			alert('성별이 입력되지 않았습니다.');
 			return false;
 		}
+		</c:if>
 
+		<c:if test="${teach.birth_yn eq 'Y'}">
 		if ( $form.find ("#student_birth").val() == '' ) {
 			alert('수강생 생년월일이 입력되지 않았습니다.');
 			return false;
 		}
+		</c:if>
 
 // 		if ( $form.find('#self_info_yn').val() != 'Y' ) {
 // 			alert('이용약관 및 개인정보의 수집·이용 동의 하여야 신청이 가능합니다.');
@@ -369,6 +379,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	         		</c:choose>
 	         	</td>
         	</tr>
+        	<c:if test="${teach.birth_yn eq 'Y'}">
         	<tr>
 	         	<th>신청자 - 생년월일(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
@@ -383,6 +394,8 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 		         	</c:choose>
 	         	</td>
         	</tr>
+        	</c:if>
+        	<c:if test="${teach.sex_yn eq 'Y'}">
         	<tr>
 	         	<th>신청자 - 성별(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
@@ -403,6 +416,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	    	     	</c:choose>
          		</td>
 	        </tr>
+	        </c:if>
 	        <c:if test="${teach.address_yn eq 'Y'}">
 	        <tr>
 	         	<th>신청자 - 주소찾기(<span style="color: red; font-weight: bold;">*</span>)</th>
@@ -618,10 +632,13 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	         	<th>수강생 - 성명(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="student_name" cssClass="text" title="수강생 수"/></td>
         	</tr>
+        	<c:if test="${teach.birth_yn eq 'Y'}">
         	<tr>
 	         	<th>수강생 - 생년월일(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="student_birth" cssClass="text ui-calendar" maxlength="6" title="생년월일 입력"/></td>
         	</tr>
+        	</c:if>
+        	<c:if test="${teach.sex_yn eq 'Y'}">
         	<tr>
 	         	<th>수강생 - 성별(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
@@ -629,6 +646,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	         		<form:radiobutton id="ss2" path="student_sex" cssClass="F" value="F" label="여" cssStyle="vertical-align: middle;" title="성별 여자"/>
          		</td>
 	        </tr>
+	        </c:if>
 	        <c:if test="${teach.address_yn eq 'Y'}">
 	        <tr>
 	         	<th>수강생 - 주소찾기(<span style="color: red; font-weight: bold;">*</span>)</th>

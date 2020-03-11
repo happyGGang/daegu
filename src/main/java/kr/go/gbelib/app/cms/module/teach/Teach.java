@@ -108,6 +108,8 @@ public class Teach extends PagingUtils {
 	private String course_taken_yn = "N";//연수수강여부 입력여부
 	private String address_yn = "N";//주소입력여부
 	private String remark_comment;
+	private String birth_yn = "Y";//생년월일 입력여부
+	private String sex_yn = "Y";//성별입력여부
 
 	private String delete_yn;
 
@@ -1340,6 +1342,26 @@ public class Teach extends PagingUtils {
 
 	public void setApply_password(String apply_password) {
 		this.apply_password = apply_password;
+	}
+
+
+	public String getBirth_yn() {
+		return birth_yn;
+	}
+
+
+	public void setBirth_yn(String birth_yn) {
+		this.birth_yn = birth_yn;
+	}
+
+
+	public String getSex_yn() {
+		return sex_yn;
+	}
+
+
+	public void setSex_yn(String sex_yn) {
+		this.sex_yn = sex_yn;
 	}
 
 
