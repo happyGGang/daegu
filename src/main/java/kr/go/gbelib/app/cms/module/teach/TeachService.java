@@ -369,6 +369,17 @@ public class TeachService extends BaseService {
 						result.setWait_num(0);
 					}
 				}
+				
+				if(teach.getHomepage_id().equals("h32")) {
+					Homepage homepage = homepageService.getHomepageOne(new Homepage(result.getHomepage_id()));
+					result.setContext_path(homepage.getContext_path());
+					result.setHomepage_alias(homepage.getHomepage_alias());
+					
+					Menu m = new Menu();
+					m.setHomepage_id(homepage.getHomepage_id());
+					m.setMenu_idx(93);
+					result.setMenu_idx(menuService.getMenuIdxByProgramIdx(m));
+				}
 			}
 		}
 		return list;

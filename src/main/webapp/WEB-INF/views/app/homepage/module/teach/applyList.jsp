@@ -7,10 +7,20 @@
 <script type="text/javascript">
 $(function(){
 	$('a.detail-btn').on('click', function(e) {
-		$('#teach #group_idx').val($(this).attr('keyValue1'));
-		$('#teach #category_idx').val($(this).attr('keyValue2'));
-		$('#teach #teach_idx').val($(this).attr('keyValue3'));
-		doGetLoad('/${homepage.context_path}/module/teach/detail.do', serializeCustom($('form#teach')));
+		if('${homepage.homepage_id}' == 'h32') {
+			var param = 'homepage_id='+$(this).attr('keyValue');
+			param += '&group_idx='+$(this).attr('keyValue1');
+			param += '&category_idx='+$(this).attr('keyValue2');
+			param += '&teach_idx='+$(this).attr('keyValue3');
+			param += '&menu_idx='+$(this).attr('keyValue5');
+
+			doGetLoad('/'+$(this).attr('keyValue4')+'/module/teach/detail.do', param);
+		} else {
+			$('#teach #group_idx').val($(this).attr('keyValue1'));
+			$('#teach #category_idx').val($(this).attr('keyValue2'));
+			$('#teach #teach_idx').val($(this).attr('keyValue3'));
+			doGetLoad('/${homepage.context_path}/module/teach/detail.do', serializeCustom($('form#teach')));
+		}
 		e.preventDefault();
 	});
 	
@@ -114,8 +124,17 @@ $(function(){
 		<c:forEach items="${teachList}" var="i">
 			<div class="item">
 				<div class="op_title category">
-					<span class="ca ty2">${i.group_name} ${i.category_name}</span>
-					<a href="" class="name detail-btn" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}">${i.teach_name}</a>
+					<c:choose>
+						<c:when test="${homepage.homepage_id eq 'h32'}">
+							<span class="ca ${i.context_path}">${i.homepage_alias}</span>
+							<span class="ca ty2">${i.group_name} ${i.category_name}</span>
+							<a href="#" class="name detail-btn" keyValue="${i.homepage_id}" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}" keyValue4="${i.context_path}" keyValue5="${i.menu_idx}">${i.teach_name}</a>
+						</c:when>
+						<c:otherwise>
+							<span class="ca ty2">${i.group_name} ${i.category_name}</span>
+							<a href="" class="name detail-btn" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}">${i.teach_name}</a>
+						</c:otherwise>
+					</c:choose>
 				</div>
 				<div class="box">
 					<div class="box2">
