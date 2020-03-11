@@ -36,6 +36,8 @@ import kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfig;
 import kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfigService;
 import kr.go.gbelib.app.cms.module.lasReqConfig.LasReqConfig;
 import kr.go.gbelib.app.cms.module.lasReqConfig.LasReqConfigService;
+import kr.go.gbelib.app.cms.module.newBookConfig.NewBookConfig;
+import kr.go.gbelib.app.cms.module.newBookConfig.NewBookConfigService;
 import kr.go.gbelib.app.cms.module.smsReception.SmsReception;
 import kr.go.gbelib.app.cms.module.smsReception.SmsReceptionService;
 import kr.go.gbelib.app.common.api.ApiResponse;
@@ -65,6 +67,9 @@ public class CommonSearchController extends BaseController {
 
 	@Autowired
 	private SmsReceptionService smsReceptionService;
+	
+	@Autowired
+	private NewBookConfigService newBookConfigService;
 
 	/**
 	 * 자료검색
@@ -583,7 +588,19 @@ public class CommonSearchController extends BaseController {
 
 
 		Map<String, Object> subLocaInfo = LibSearchAPI.getSubLocaInfo("19", homepage.getManage_code());
-		model.addAttribute("shelfList", LibSearchAPI.getListData(subLocaInfo, "LIST_DATA"));
+		List<Map<String, Object>> shelfList = LibSearchAPI.getListData(subLocaInfo, "LIST_DATA");
+		List<String> code_arr = newBookConfigService.getShelfCodeList(new NewBookConfig(homepage.getHomepage_id()));
+		for (Map<String, Object> map : shelfList) {
+			if(code_arr == null) {
+				break;
+			}
+			
+			if(code_arr.contains(map.get("CODE"))) {
+				map.put("CHECKED", true);
+			}
+		}
+		
+		model.addAttribute("shelfList", shelfList);
 
 		if (StringUtils.isEmpty(librarySearch.getShelfCode())) {
 			librarySearch.setShelfCode("ALL");

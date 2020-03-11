@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.newBookConfig.NewBookConfigDao">
+
+	<select id="getShelfCodeList" resultType="String">
+		SELECT
+			shelf_code
+		FROM
+			NEW_BOOK_CONFIG
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+	
+	<insert id="newBookConfigSave">
+		INSERT INTO NEW_BOOK_CONFIG
+		(
+			homepage_id, shelf_code, add_id, add_date
+		)
+		VALUES
+		(
+			#{homepage_id}, #{shelf_code}, #{add_id}, SYSDATE
+		)
+	</insert>
+	
+	<delete id="newBookConfigDelete">
+		DELETE FROM
+			NEW_BOOK_CONFIG
+		WHERE
+			homepage_id = #{homepage_id}
+	</delete>
+
+</mapper>
