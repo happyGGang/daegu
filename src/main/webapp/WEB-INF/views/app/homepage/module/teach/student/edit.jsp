@@ -305,7 +305,7 @@ $(function() {
 				tmp2 += tmp.substr(4,2);
 				tmp2 += '-';
 				tmp2 += tmp.substr(6,2);
- 				$('input#applicant_birth').val(tmp2);
+//  				$('input#applicant_birth').val(tmp2);
  				$('input#student_zipcode').focus();
 			}
 				$('input#student_zipcode').focus();
