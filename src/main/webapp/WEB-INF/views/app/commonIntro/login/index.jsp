@@ -68,8 +68,8 @@ $(function() {
 							</div>
 						</div>
 					</fieldset>
-					<div class="" style="color:#3f70bc;font-weight:bold;font-size:13px;padding-left:18px;">
-						· 기존 회원은 통합회원인증 후 로그인할 수 있습니다.
+					<div class="" style="color:#3f70bc;font-weight:bold;font-size: 14px;padding: 15px 0 15px 18px;">
+						※ 기존 회원은 통합회원 인증 후 로그인할 수 있습니다.
 					</div>
 				</dd>
 				</div>
