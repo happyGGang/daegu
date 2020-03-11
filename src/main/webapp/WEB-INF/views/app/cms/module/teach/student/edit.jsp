@@ -372,47 +372,6 @@ $(function() {
 					</form:select>
 				</td>
 			</tr>
-			<c:if test="${teach.family_yn eq 'Y'}">
-				<tr>
-					<th>보호자 관계</th>
-					<td><form:input path="family_relation" cssClass="text"/></td>
-				</tr>
-				<tr>
-					<th>보호자 이름</th>
-					<td><form:input path="family_name" cssClass="text"/></td>
-				</tr>
-				<tr>
-					<th>보호자연락처</th>
-					<td>
-						<form:hidden path="family_cell_phone" cssClass="text"/>
-						<input id="family_cell_phone_1" style="width:40px;" class="text" maxlength="3" numberonly="true" /> -
-						<input id="family_cell_phone_2" style="width:50px;" class="text" maxlength="4" numberonly="true" /> -
-						<input id="family_cell_phone_3" style="width:50px;" class="text" maxlength="4" numberonly="true" />
-						<div class="ui-state-highlight">
-							<em>* ex) 010-1234-5678</em>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<th>보호자 동의여부</th>
-					<td>
-						<form:radiobutton path="family_confirm_yn" value="Y" label="동의" cssStyle="vertical-align: middle;"/>
-	         			<form:radiobutton path="family_confirm_yn" value="N" label="미동의" cssStyle="vertical-align: middle;"/>
-         			</td>
-				</tr>
-				<tr>
-					<th>비고</th>
-					<td>
-						<form:input path="family_desc" cssClass="text"/>
-					</td>
-				</tr>
-			</c:if>
-			<c:if test="${teach.family_count_yn eq 'Y'}">
-				<tr>
-					<th>가족 인원 수</th>
-					<td><form:input path="student_family_count" cssClass="text" numberOnly="true"/></td>
-				</tr>
-			</c:if>
         	<c:if test="${teach.school_info_yn eq 'Y'}">
         	<tr>
 	         	<th>수강생 - 학교</th>
@@ -486,6 +445,47 @@ $(function() {
 							<em>* 입력하는 경우에만 변경됩니다.</em>
 						</div>
 					</td>
+				</tr>
+			</c:if>
+			<c:if test="${teach.family_yn eq 'Y'}">
+				<tr>
+					<th>보호자 관계</th>
+					<td><form:input path="family_relation" cssClass="text"/></td>
+				</tr>
+				<tr>
+					<th>보호자 이름</th>
+					<td><form:input path="family_name" cssClass="text"/></td>
+				</tr>
+				<tr>
+					<th>보호자연락처</th>
+					<td>
+						<form:hidden path="family_cell_phone" cssClass="text"/>
+						<input id="family_cell_phone_1" style="width:40px;" class="text" maxlength="3" numberonly="true" /> -
+						<input id="family_cell_phone_2" style="width:50px;" class="text" maxlength="4" numberonly="true" /> -
+						<input id="family_cell_phone_3" style="width:50px;" class="text" maxlength="4" numberonly="true" />
+						<div class="ui-state-highlight">
+							<em>* ex) 010-1234-5678</em>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>보호자 동의여부</th>
+					<td>
+						<form:radiobutton path="family_confirm_yn" value="Y" label="동의" cssStyle="vertical-align: middle;"/>
+	         			<form:radiobutton path="family_confirm_yn" value="N" label="미동의" cssStyle="vertical-align: middle;"/>
+         			</td>
+				</tr>
+				<tr>
+					<th>비고</th>
+					<td>
+						<form:input path="family_desc" cssClass="text"/>
+					</td>
+				</tr>
+			</c:if>
+			<c:if test="${teach.family_count_yn eq 'Y'}">
+				<tr>
+					<th>가족 인원 수</th>
+					<td><form:input path="student_family_count" cssClass="text" numberOnly="true"/></td>
 				</tr>
 			</c:if>
 		</tbody>

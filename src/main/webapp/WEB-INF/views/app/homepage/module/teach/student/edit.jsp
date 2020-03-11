@@ -662,47 +662,6 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 					</div>
 	         	</td>
         	</tr>
-	        <c:if test="${teach.family_yn eq 'Y'}">
-				<tr>
-					<th>보호자 관계(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td><form:input path="family_relation" cssClass="text"/></td>
-				</tr>
-				<tr>
-					<th>보호자 이름(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td><form:input path="family_name" cssClass="text" title="보호자 관계"/></td>
-				</tr>
-				<tr>
-					<th>보호자연락처(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td>
-						<form:hidden path="family_cell_phone" cssClass="text"/>
-						<input id="family_cell_phone_1" style="width:40px;" class="text" maxlength="3" numberonly="true" title="연락처 앞자리"/> -
-						<input id="family_cell_phone_2" style="width:50px;" class="text" maxlength="4" numberonly="true" title="연락처 뒤자리"/> -
-						<input id="family_cell_phone_3" style="width:50px;" class="text" maxlength="4" numberonly="true" title="연락처 끝자리"/>
-						<div class="ui-state-highlight">
-							<em>* ex) 010-1234-5678</em>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<th>보호자 동의여부(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td>
-						<form:radiobutton path="family_confirm_yn" value="Y" label="동의" cssStyle="vertical-align: middle;" title="보호자 동의 "/>
-	         			<form:radiobutton path="family_confirm_yn" value="N" label="미동의" cssStyle="vertical-align: middle;" title="보호자 미동의"/>
-         			</td>
-				</tr>
-				<tr>
-					<th>비고</th>
-					<td>
-						<form:input path="family_desc" cssClass="text" style="width:100%" title="비고창"/>
-					</td>
-				</tr>
-			</c:if>
-	        <c:if test="${teach.family_count_yn eq 'Y'}">
-				<tr>
-					<th>가족 인원 수</th>
-					<td><form:input path="student_family_count" cssClass="text" numberOnly="true" title="가족인원수"/></td>
-				</tr>
-			</c:if>
         	<c:if test="${teach.school_info_yn eq 'Y'}">
         	<tr>
 	         	<th>수강생 - 학교(<span style="color: red; font-weight: bold;">*</span>)</th>
@@ -771,6 +730,47 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 						<form:radiobutton path="student_course_taken_yn" value="Y" label="이수" cssStyle="vertical-align: middle;" title="연수수강여부 이수"/>
 	         			<form:radiobutton path="student_course_taken_yn" value="N" label="미이수" cssStyle="vertical-align: middle;" title="연수수강여부 미이수"/>
 					</td>
+				</tr>
+			</c:if>
+			 <c:if test="${teach.family_yn eq 'Y'}">
+				<tr>
+					<th>보호자 관계(<span style="color: red; font-weight: bold;">*</span>)</th>
+					<td><form:input path="family_relation" cssClass="text"/></td>
+				</tr>
+				<tr>
+					<th>보호자 이름(<span style="color: red; font-weight: bold;">*</span>)</th>
+					<td><form:input path="family_name" cssClass="text" title="보호자 관계"/></td>
+				</tr>
+				<tr>
+					<th>보호자연락처(<span style="color: red; font-weight: bold;">*</span>)</th>
+					<td>
+						<form:hidden path="family_cell_phone" cssClass="text"/>
+						<input id="family_cell_phone_1" style="width:40px;" class="text" maxlength="3" numberonly="true" title="연락처 앞자리"/> -
+						<input id="family_cell_phone_2" style="width:50px;" class="text" maxlength="4" numberonly="true" title="연락처 뒤자리"/> -
+						<input id="family_cell_phone_3" style="width:50px;" class="text" maxlength="4" numberonly="true" title="연락처 끝자리"/>
+						<div class="ui-state-highlight">
+							<em>* ex) 010-1234-5678</em>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>보호자 동의여부(<span style="color: red; font-weight: bold;">*</span>)</th>
+					<td>
+						<form:radiobutton path="family_confirm_yn" value="Y" label="동의" cssStyle="vertical-align: middle;" title="보호자 동의 "/>
+	         			<form:radiobutton path="family_confirm_yn" value="N" label="미동의" cssStyle="vertical-align: middle;" title="보호자 미동의"/>
+         			</td>
+				</tr>
+				<tr>
+					<th>비고</th>
+					<td>
+						<form:input path="family_desc" cssClass="text" style="width:100%" title="비고창"/>
+					</td>
+				</tr>
+			</c:if>
+	        <c:if test="${teach.family_count_yn eq 'Y'}">
+				<tr>
+					<th>가족 인원 수</th>
+					<td><form:input path="student_family_count" cssClass="text" numberOnly="true" title="가족인원수"/></td>
 				</tr>
 			</c:if>
 		</tbody>
