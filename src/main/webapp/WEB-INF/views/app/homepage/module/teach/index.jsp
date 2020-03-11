@@ -99,8 +99,7 @@ $(function(){
 				<div class="op_title category">
 					<span class="ca ty2">${i.group_name} ${i.category_name}</span>
 					<c:if test="${fn:length(i.teach_name) > 20}">
-					<br/>
-					</c:if>
+										</c:if>
 					<a href="" class="name toggle-btn" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}">
 						${i.teach_name}
 					</a>
@@ -108,11 +107,15 @@ $(function(){
 					<a href="" class="name toggle-btn btn btn6" style="float:right; text-align:center; width:85px; font-size: 13px;" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}">
 						<i class="fa fa-search"></i>상세보기
 					</a>
-					<span style="float: right;">
+					<span style="float: right;font-size:14px;padding-top:8px;margin-right:5px;letter-spacing:-1px;">
 					<c:if test="${fn:length(i.teach_target) > 0}">
-						<b>대상 : </b> ${i.teach_target} <span>/</span>
+						<b>대상 : </b> ${i.teach_target} <span>｜</span>
 					</c:if>
 					<b>접수현황 : </b><span ${i.teach_join_count > 0 and (i.teach_join_count eq i.teach_limit_count)? 'style="color:red;padding:0; vertical-align:baseline;"' : 'style="color:orange; padding:0; vertical-align:baseline;"'}>${i.teach_join_count}</span> / ${i.teach_limit_count}
+					<c:if test="${i.teach_backup_count > 0}">
+						<span>｜</span> <b>대기현황 : </b>
+						<span ${i.teach_backup_join_count > 0 and (i.teach_backup_join_count eq i.teach_backup_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_backup_join_count}</span> / ${i.teach_backup_count}
+					</c:if>
 					</span>
 				</div>
 				<div class="sk-box" id="${i.teach_idx}" style="display: none;">
@@ -153,7 +156,7 @@ $(function(){
 								<label>모집인원</label> :
 								<span><strong>온라인</strong> ${i.teach_limit_count}명 </span>
 								<c:if test="${i.teach_offline_count > 0}"><span>, <strong>오프라인</strong> ${i.teach_offline_count}명</span></c:if>
-								<c:if test="${i.teach_backup_count > 0}"><span>, ( <strong>후보자</strong> ${i.teach_backup_count}명 )</span></c:if>
+								<c:if test="${i.teach_backup_count > 0}"><span>, ( <strong>대기인원</strong> ${i.teach_backup_count}명 )</span></c:if>
 							</div></li>
 							<li><div class="status">
 								<label>접수현황</label> :
@@ -170,7 +173,7 @@ $(function(){
 								<c:if test="${i.teach_backup_count > 0}">
 									<span>
 										(
-										후보자 :
+										대기현황 :
 										<span ${i.teach_backup_join_count > 0 and (i.teach_backup_join_count eq i.teach_backup_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_backup_join_count}</span> / ${i.teach_backup_count}
 										)
 									</span>

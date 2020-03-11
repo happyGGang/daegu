@@ -588,8 +588,13 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
         	</tr>
 		</tbody>
 	</table>
-	<div class="ui-state-error">
+	<div class="ui-state-error" style="margin:5px 0;box-sizing:border-box;padding:5px 10px;">
+		<c:if test="${sessionScope.member.login}">
 		* 신청자정보 변경 시 My Library > 회원정보 수정에서 수정후 신청하시기 바랍니다.
+		</c:if>
+		<c:if test="${!sessionScope.member.login}">
+		* [수강신청]화면 - '비회원 신청 확인'
+		</c:if>
 	</div>
 	<br/>
 	<c:if test="${teach.agent_yn eq 'Y'}">
