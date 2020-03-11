@@ -39,7 +39,7 @@ border:1px solid #eee;background:#fff url('../img/patt1.gif')}
 .category span.ca.ty3{background-color:#f62d2d;color:#fff}
 .category span.ca.ty4{background-color:#f6872d;color:#fff} */
 .category span.ca.ty1{background-color:#00c4ac;color:#fff}
-.category span.ca.ty2{background-color:#5f7f3f;color:#fff}
+.category span.ca.ty2{background-color:#3f4f82;color:#fff}
 .category span.ca.ty3{background-color:#425b71;color:#fff}
 .category span.ca.ty4{background-color:#7b5b9e;color:#fff}
 .category span.ca.ty5{background-color:#36b5d6;color:#fff}
@@ -57,6 +57,8 @@ border:1px solid #eee;background:#fff url('../img/patt1.gif')}
 .category span.ca.bg-dalseong { background:#8c60a5;color:#fff; }	/*달성*/
 .category span.ca.bg-228 { background:#e83e30;color:#fff; }		/*228기념*/
 .category span.ca.bg-228lib{ background:#006958;color:#fff; }		/*228민주*/
+
+.category span.ca.ty2{font-size: 12px;padding: 2px 10px;}
 
 /* 정렬 */
 .txt-left{text-align:left!important}

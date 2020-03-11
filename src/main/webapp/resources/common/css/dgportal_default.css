@@ -23,6 +23,11 @@ body{font-weight:normal;font-size:14px;color:#464646;}
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;margin:0;padding:0}
 h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}
 table,th,td{border-collapse:collapse;border-spacing:0;font-size:inherit;word-break:break-all}
+table.t_list.tac thead {
+    text-align: center;
+    background: #6f7894;
+    color: #fff;
+}
 ul,ol{list-style:none}
 fieldset,img{border:0}
 address,caption,cite,code,dfn,em,strong,th,var{font-style:normal}
@@ -295,10 +300,10 @@ nav#menu a:not(.mm-next):hover{color:#e32b31}
 .infodesk .button{float:right}
 
 /* 기본 테이블 */
-table{width:100%;border-top:1px solid #dee1e7;border-bottom:2px solid #ccc}
+table{width:100%;border-top:1px solid #dee1e7;border-bottom:2px solid #ccc;font-size: 14px;}
 table.disabled{opacity:.8}
 table th,
-table td{padding:5px 10px;border:1px solid #e5e8eb;vertical-align:middle}
+table td{padding:5px 10px;border:1px solid #e5e8eb;vertical-align:middle;}
 table th.first,
 table td.first{border-left-width:0px}
 table th.btw,
@@ -1187,7 +1192,7 @@ table.td3-left tbody td.td3{text-align:left}
 .lnb .newWin i{display:inline-block;zoom:1;*display:inline;margin-left:5px;font-size:90%}
 
 /* 회원가입 */
-.join-wrap{padding:15px 10%}
+.join-wrap{padding: 15px 0;}
 @media all and (max-width:767px){
 	.join-wrap{padding:15px 0}
 }
@@ -1200,7 +1205,7 @@ table.td3-left tbody td.td3{text-align:left}
 .join-step li.step1 span{background:url('../img/step1-icon.gif') no-repeat center center}
 .join-step li.step2 span{background:url('../img/step2-icon.gif') no-repeat center center}
 .join-step li.step3 span{background:url('../img/step3-icon.gif') no-repeat center center}
-.join-wrap{padding-top:50px}
+.join-wrap{padding-top: 20px;}
 .join-wrap>.box.step1>span{font-size:90%}
 .join-wrap>.box.ss{background:#f5f5f5}
 @media all and (max-width:767px){
@@ -1270,7 +1275,7 @@ background:url('../img/join_bt_01.png') no-repeat center bottom;backgrouns-size:
 .join-wrap .btn-wrap .btn1:hover,
 .join-wrap .btn-wrap .btn1:focus{background:#000;border-color:#000}
 /* .join-wrap table{clear:both;border-top:3px solid #999} */
-.join-wrap table tr.first th, .join-wrap table tr.first td {clear: both;border-top: 3px solid #999;}
+.table tr.first th, table tr.first td {clear: both;/* border-top: 2px solid #999; */}
 .join-wrap table .btn{height:26px;line-height:25px;padding:1px 10px;letter-spacing:-1px;font-size:90%}
 .join-wrap table th{background:#f8f8f8}
 .join-wrap table tbody th,
@@ -1994,7 +1999,7 @@ padding:20px 15px 20px 215px; margin-bottom:25px}
 #footer .top .footer-logo {position:relative;text-align:center;padding:30px 0 20px;}
 #footer .top .site_link {position:relative;}
 #footer .top .info {padding:20px 0 5px;border-bottom:1px solid #72b2e7;}
-#footer .top .info b{color:#383d50;font-size:14px;}
+#footer .top .info b{color:#383d50;font-size: 15px;}
 #footer .top .info a{font-size:14px;}
 #footer .top .info a,
 #footer .top .info span{vertical-align:middle;font-size:15px;color:#fff;line-height:50px;}
@@ -2031,11 +2036,11 @@ padding:20px 15px 20px 215px; margin-bottom:25px}
 .footer .site_link > div > div > a.fsite,
 #footer .site_link > div > div > a.fsite{display:block;padding:7px;border-right-width:0;text-align:left;background:none;box-sizing:border-box;}
 .footer .site_link > div > div > ul,
-#footer .site_link > div > div > ul{position:absolute;bottom:30px;left:0;width:100%;text-align:left;border-top:1px solid #ccc;background:#fff}
+#footer .site_link > div > div > ul{position:absolute;bottom:30px;left:0;width:100%;text-align:left;border-top:1px solid #ccc;background:#fff;}
 .footer .site_link > div > div > ul,
-#footer .site_link > div > div > ul{overflow-y:auto;border-right:1px solid #ccc}
+#footer .site_link > div > div > ul{overflow-y:auto;border-right:1px solid #ccc;margin-bottom: 12px;width: 210px;padding-left: 0;left: -3px;}
 .footer .site_link > div > div > ul > li,
-#footer .site_link > div > div > ul > li{line-height:25px;border-left:1px solid #ccc}
+#footer .site_link > div > div > ul > li{line-height: 22px;border-left:1px solid #ccc;padding-left: 3px;}
 .footer .site_link > div > div > ul > li > a,
 #footer .site_link > div > div > ul > li > a{color:#666;display:block;padding:3px 6px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
 .footer .site_link > div > div > a > span,
@@ -2151,7 +2156,8 @@ padding:20px 15px 20px 215px; margin-bottom:25px}
 
 	#footer .site_link select {width:96%;padding:0 2%;margin:2px 0}
 	#footer .top .info a,
-	#footer .top .info span{font-size: 14px;}
+	#footer .top .info span{font-size: 13px;}
+	#footer .top .info b{font-size: 13px;}
 	#footer .top .footer-logo {position:relative;text-align:center;padding: 15px 0 10px 0;margin: 0 auto;width: 50%;}
 
 
@@ -2162,6 +2168,8 @@ padding:20px 15px 20px 215px; margin-bottom:25px}
 
 @media all and (max-width:545px){
 
+    #footer .top .info{text-align:center;width: 630px;padding: 0;}
+    #footer .top .info .bar{display:inline-block;margin:0 5px;color:#72b2e7;}
 }
 
 @media all and (max-width:500px){
