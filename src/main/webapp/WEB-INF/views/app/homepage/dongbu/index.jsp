@@ -183,6 +183,7 @@
 					<ul class="tabMenuS">
 						<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class='t-tabs'>신착자료</a></li>
 						<li><a href="#tab2" data-link="/${homepage.context_path}/intro/search/bestBook/index.do?menu_idx=15" class='t-tabs'>대출베스트</a></li>
+						<li><a href="#tab3" data-link="/${homepage.context_path}/board/index.do?menu_idx=129&manage_idx=${bookCuration1[0].manage_idx}" class='t-tabs'>사서&북큐레이션</a></li>
 						<a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class="more-btn more-more">더보기</a>
 					</ul>
 
@@ -196,6 +197,62 @@
 						</ul>
 					</div>
 
+					<div class="box con" data-tab="tab3" style="display:none;">
+						<ul class="lt_photo bookQuration">
+							<li>
+								<a class="goDetail" href="/${homepage.context_path}/board/index.do?menu_idx=130&manage_idx=${bookCuration1[0].manage_idx}">
+									<c:choose>
+									<c:when test="${empty bookCuration1[0].preview_img}">
+									<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." width="100px" height="150px"/>
+									</c:when>
+									<c:otherwise>
+									<img src="/data/board/${bookCuration1[0].manage_idx}/${bookCuration1[0].board_idx}/${bookCuration1[0].preview_img}" alt="${bookCuration1[0].title}" width="100px" height="150px"/>
+									</c:otherwise>
+									</c:choose>
+									<span class="title">${bookCuration1[0].title}</span>
+								</a>
+							</li>
+							<li>
+								<a class="goDetail" href="/${homepage.context_path}/board/index.do?menu_idx=131&manage_idx=${bookCuration2[0].manage_idx}">
+									<c:choose>
+									<c:when test="${empty bookCuration2[0].preview_img}">
+									<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." width="100px" height="150px"/>
+									</c:when>
+									<c:otherwise>
+									<img src="/data/board/${bookCuration2[0].manage_idx}/${bookCuration2[0].board_idx}/${bookCuration2[0].preview_img}" alt="${bookCuration2[0].title}" width="100px" height="150px"/>
+									</c:otherwise>
+									</c:choose>
+									<span class="title">${bookCuration2[0].title}</span>
+								</a>
+							</li>
+							<li>
+								<a class="goDetail" href="/${homepage.context_path}/board/index.do?menu_idx=132&manage_idx=${bookCuration3[0].manage_idx}">
+									<c:choose>
+									<c:when test="${empty bookCuration3[0].preview_img}">
+									<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." width="100px" height="150px"/>
+									</c:when>
+									<c:otherwise>
+									<img src="/data/board/${bookCuration3[0].manage_idx}/${bookCuration3[0].board_idx}/${bookCuration3[0].preview_img}" alt="${bookCuration3[0].title}" width="100px" height="150px"/>
+									</c:otherwise>
+									</c:choose>
+									<span class="title">${bookCuration3[0].title}</span>
+								</a>
+							</li>
+							<li>
+								<a class="goDetail" href="/${homepage.context_path}/board/index.do?menu_idx=133&manage_idx=${bookCuration4[0].manage_idx}">
+									<c:choose>
+									<c:when test="${empty bookCuration4[0].preview_img}">
+									<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." width="100px" height="150px"/>
+									</c:when>
+									<c:otherwise>
+									<img src="/data/board/${bookCuration4[0].manage_idx}/${bookCuration4[0].board_idx}/${bookCuration4[0].preview_img}" alt="${bookCuration4[0].title}" width="100px" height="150px"/>
+									</c:otherwise>
+									</c:choose>
+									<span class="title">${bookCuration4[0].title}</span>
+								</a>
+							</li>
+						</ul>
+					</div>
 				</div>
 
 			</div>
