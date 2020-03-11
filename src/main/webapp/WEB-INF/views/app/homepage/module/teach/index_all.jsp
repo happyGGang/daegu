@@ -231,7 +231,10 @@ $(function(){
 															</c:forEach>
 														) ${i.start_time} ~ ${i.end_time}
 							</div></li>
+							<c:if test="${not empty i.teacher_name}">
 							<li><div><label>강사명</label> : ${i.teacher_name}</div></li>
+							</c:if>
+							<c:if test="${not empty i.server_file_name}">
 							<li><div>
 				        		<label>강의계획서</label> :
 					         	<span class="important td1">
@@ -240,6 +243,7 @@ $(function(){
 					         		</c:if>
 				         		</span>
 					        </div></li>
+					        </c:if>
 
 							<%-- <li><div><label>강좌설명</label> : ${i.teach_desc}</div></li> --%>
 							<li><div class="status">
