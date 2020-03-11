@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
 public class Archive extends PagingUtils {
-	
+
 	private String homepage_id;
 	private long book_idx;
 	private String subject;
@@ -27,7 +27,8 @@ public class Archive extends PagingUtils {
 	private int resize_height;
 	private String keyword;
 	private String category;
-	
+	private String category_name;
+
 	private int page_idx;
 	private String page_idx_list;
 	private String pageimg;
@@ -35,12 +36,12 @@ public class Archive extends PagingUtils {
 	private String org_file_name;
 	private String server_file_name;
 	private String file_idx;
-	
+
 	private String add_date;
 	private String add_id;
 	private String mod_date;
 	private String mod_id;
-	
+
 	public String getHomepage_id() {
 		return homepage_id;
 	}
@@ -247,5 +248,13 @@ public class Archive extends PagingUtils {
 				skin, logoimg, use_yn, viewtype, orig_width, orig_height, resize_width, resize_height, page_idx,
 				pageimg, file, org_file_name, server_file_name, add_date, add_id, mod_date, mod_id);
 	}
-	
+
+	public String getCategory_name() {
+		return category_name;
+	}
+
+	public void setCategory_name(String category_name) {
+		this.category_name = category_name;
+	}
+
 }

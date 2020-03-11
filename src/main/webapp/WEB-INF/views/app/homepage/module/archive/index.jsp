@@ -19,9 +19,30 @@ $(document).ready(function() {
 	$('select#rowCount').on('change', function() {
 		$('button#search_btn').click();
 	});
+
+	$('div.tabmenu a').on('click', function(e) {
+		var url = 'index.do';
+		$('input#category').attr('value', $(this).attr('keyValue'));
+		$('input#viewPage').attr('value', '1');
+		var $form = $('form#archiveBookListForm');
+		var formData = serializeCustom($form);
+		doGetLoad(url, formData);
+		e.preventDefault();
+	});
 });
 
 </script>
+
+<c:if test="${not empty categoryList}">
+<div class="tabmenu tab1">
+	<ul>
+		<li class="${empty archive.category ? 'active':''}"><a href="" keyValue=""style="font-size: 13px;">전체</a></li>
+		<c:forEach items="${categoryList}" var="i" varStatus="status">
+		<li class="${archive.category eq i.code_id ? 'active':''}"><a href="" keyValue="${i.code_id}" style="font-size: 13px;">${i.code_name}</a></li>
+		</c:forEach>
+	</ul>
+</div>
+</c:if>
 
 <form:form id="archiveBookListForm" modelAttribute="archive" action="index.do" >
 <form:hidden path="homepage_id"/>

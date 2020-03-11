@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
@@ -19,43 +20,48 @@ import kr.go.gbelib.app.cms.module.archive.ArchiveService;
 @Controller
 @RequestMapping(value = {"/{homepagePath}/module/archive"})
 public class ArchiveController extends  BaseController {
-	
+
 	private String basePath = "/homepage/%s/module/archive/";
-	
+
 	@Autowired
 	private ArchiveService service;
-	
+
+	@Autowired
+	private CodeService codeService;
+
 	@RequestMapping(value = {"/index.*"}, method = RequestMethod.GET)
 	public String index(Model model, Archive archive, HttpServletRequest request) throws AuthException {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		archive.setHomepage_id(homepage.getHomepage_id());
-		
+
 		int count = service.getArchiveBookCount(archive);
 		archive.setTotalDataCount(count);
 		service.setPaging(model, count, archive);
-		
+
 		List<Archive> list = service.getArchiveBookList(archive);
-		
+
 		model.addAttribute("archive", archive);
 		model.addAttribute("count", count);
 		model.addAttribute("archiveBookList", list);
-		
+
+		model.addAttribute("categoryList", codeService.getCode(homepage.getHomepage_id(), "H0004"));
+
 		return String.format(basePath, homepage.getFolder()) + "index";
 	}
-	
+
 	@RequestMapping(value = {"/view.*"}, method = RequestMethod.GET)
 	public String edit(Model model, Archive archive, HttpServletRequest request) throws AuthException {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		archive.setHomepage_id(homepage.getHomepage_id());
-		
+
 		int count = service.getArchivePageCount(archive);
 		List<Archive> list = service.getArchivePageList(archive);
-		
+
 		model.addAttribute("archive", archive);
 		model.addAttribute("count", count);
 		model.addAttribute("archivePageList", list);
-		
+
 		return String.format(basePath, homepage.getFolder()) + "view_ajax";
 	}
-	
+
 }
