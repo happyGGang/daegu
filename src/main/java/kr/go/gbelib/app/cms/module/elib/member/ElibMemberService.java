@@ -2,6 +2,7 @@ package kr.go.gbelib.app.cms.module.elib.member;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,12 +54,15 @@ public class ElibMemberService extends BaseService {
 		ElibMember member1 = dao.getMemberById(member);
 		
 		if(member1 == null) {
-			member.setBirth_day(member.getBirth_day().replaceAll("-", ""));
+			member.setBirth_day(StringUtils.defaultString(member.getBirth_day()).replaceAll("[^0-9]", ""));
 			if(dao.addMember(member) == 0) {
 				return -1;
 			} else {
 				return 1;
 			}
+		} else if(StringUtils.isEmpty(member1.getBirth_day()) || StringUtils.isEmpty(member1.getSex()) || StringUtils.isEmpty(member1.getSeq_no())) {
+			dao.modifyMember(member);
+			return 1;
 		} else {
 			return 0;
 		}

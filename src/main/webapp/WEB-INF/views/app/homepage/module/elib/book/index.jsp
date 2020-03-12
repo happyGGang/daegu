@@ -25,7 +25,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		$('#sortField').val('lend_total');
 		$('#sortType').val('DESC');
-		
+
 		var url = 'index.do';
 		var formData = serializeParameter(['menu_idx', 'menu', 'type', 'sortField', 'sortType', 'parent_id', 'com_code', 'device', 'library_code']);
 		doGetLoad(url, formData);
@@ -34,7 +34,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		$('#sortField').val('book_name');
 		$('#sortType').val('ASC');
-		
+
 		var url = 'index.do';
 		var formData = serializeParameter(['menu_idx', 'menu', 'type', 'sortField', 'sortType', 'parent_id', 'com_code', 'device', 'library_code']);
 		doGetLoad(url, formData);
@@ -43,12 +43,12 @@ $(document).ready(function() {
 		e.preventDefault();
 		$('#sortField').val('book_pubdt');
 		$('#sortType').val('DESC');
-		
+
 		var url = 'index.do';
 		var formData = serializeParameter(['menu_idx', 'menu', 'type', 'sortField', 'sortType', 'parent_id', 'com_code', 'device', 'library_code']);
 		doGetLoad(url, formData);
 	});
-	
+
 	$('a.category_link').on('click', function(e) {
 		e.preventDefault();
 		$('#menu').val($(this).data('menu'));
@@ -60,7 +60,7 @@ $(document).ready(function() {
 		var formData = serializeParameter(['menu_idx', 'menu', 'type', field1_name, field2_name]);
 		doGetLoad(url, formData);
 	});
-	
+
 	$('a.book_link').on('click', function(e) {
 		e.preventDefault();
 		$('#book_idx').val($(this).data('book_idx'));
@@ -68,7 +68,7 @@ $(document).ready(function() {
 		$('form#bookListForm').submit();
 		$('form#bookListForm').prop('action', 'index.do');
 	});
-	
+
 	<c:if test="${book.type != 'WEB'}">
 	/*웹접근성 커스텀 셀렉트 박스*/
 	function wrapNum(str, val) {
@@ -143,8 +143,8 @@ function changeLibrary() {
 			</c:forEach>
 		</tr>
 	</table>
-	
-	
+
+
 	<div class="bestbook_l">
 		<ul>
 		</ul>
@@ -161,6 +161,11 @@ function changeLibrary() {
 	</c:if>
 	<div class="box">
 		<c:choose>
+		<c:when test="${param.parent_id == 0}">
+		<c:forEach items="${categoryList}" var="i" varStatus="status">
+		<a href="#" class="category_link" data-menu_idx="17" data-menu="CATEGORY" data-field1_name="parent_id" data-field1_value="${i.cate_id}">${i.cate_name}<span style="color: #AAA; font-weight: normal; font-size: 12px;">(<fmt:formatNumber value="${i.cnt}" pattern="#,###" />)</span></a>
+		</c:forEach>
+		</c:when>
 		<c:when test="${not empty subcategoryList}">
 		<c:forEach items="${subcategoryList}" var="i" varStatus="status">
 		<a href="#" class="category_link" data-menu_idx="17" data-menu="CATEGORY" data-field1_name="parent_id" data-field1_value="${i.parent_id}" data-field2_name="cate_id" data-field2_value="${i.cate_id}">${i.cate_name}<span style="color: #AAA; font-weight: normal; font-size: 12px;">(<fmt:formatNumber value="${i.cnt}" pattern="#,###" />)</span></a>
@@ -209,7 +214,7 @@ function changeLibrary() {
 	<div class="box">
 		<c:forEach items="${libraryList}" var="i" varStatus="status">
 		<c:if test="${i.CNT != '0'}">
-		<a href="#" class="category_link" data-menu_idx="49" data-menu="LIBRARY" data-field1_name="library_code" data-field1_value="${i.HOMEPAGE_CODE}">${i.HOMEPAGE_NAME}<span style="color: #AAA; font-weight: normal; font-size: 12px;">(<fmt:formatNumber value="${i.CNT}" pattern="#,###" />)</span></a>
+		<a href="#" class="category_link" data-menu_idx="49" data-menu="LIBRARY" data-field1_name="library_code" data-field1_value="${i.MANAGE_CODE}">${i.HOMEPAGE_NAME}<span style="color: #AAA; font-weight: normal; font-size: 12px;">(<fmt:formatNumber value="${i.CNT}" pattern="#,###" />)</span></a>
 		</c:if>
 		</c:forEach>
 	</div>
@@ -253,10 +258,10 @@ function changeLibrary() {
 		</div>
 		</c:if>
 		<c:if test="${book.type != 'WEB'}">
-		<div class="sort" style="display:none;">
+		<div class="sort">
 			<section class="bands">
 				<div class="wrp">
-					<div class="combo-wrap">
+					<div class="combo-wrap" style="display: none;">
 						<c:choose>
 						<c:when test="${book.library_code == '9999999'}">
 						<c:set var="library_code_select_value" value="경상북도교육청 통합전자도서관"/>
@@ -385,12 +390,12 @@ function changeLibrary() {
 						}
 						pageContext.setAttribute("body", body);
 					} catch (Exception e) {
-						
+
 					}
 				%>
                	<c:if test="${fn:length(body) > 200}">
                	<c:set var="body" value="${fn:substring(body, 0, 200)}..."/>
-               	</c:if>	
+               	</c:if>
             	<span class="snipet">${fn:escapeXml(body)}</span>
 			</div>
             <div class="meta">

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.go.gbelib.app.cms.module.elib.book.BookDao">
-	
+
 	<sql id="search">
 		<choose>
 		<when test='approved_yn == "N"'>
@@ -11,7 +11,7 @@
 		AND approved_yn != 'N'
 		</otherwise>
 		</choose>
-		<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' "> 
+		<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
 		AND	UPPER(REPLACE(a.${search_type}, ' ')) LIKE '%'||UPPER(REPLACE(#{search_text}, ' '))||'%'
 		</if>
 		<if test="parent_id != null and parent_id != ''">
@@ -30,9 +30,12 @@
 		AND a.device = #{device}
 		</if>
 	</sql>
-	
+
 	<sql id="sort">
 		<choose>
+		<when test="option == 'CHECK_DUPLICATES'">
+		ORDER BY a.isbn13, a.book_idx DESC
+		</when>
 		<when test="sortField != null and sortField != ''">
 		ORDER BY DECODE(a.library_code,'9999999',1,99) ASC, a.${sortField} ${sortType} NULLS LAST, a.book_idx DESC
 		</when>
@@ -41,15 +44,15 @@
 		</otherwise>
 		</choose>
 	</sql>
-	
+
 	<sql id="audiobookColumns">
 		,f.play_time, f.play_size, f.link_url, f.mobile_link_url
 	</sql>
-	
+
 	<sql id="elearningColumns">
 		,lesson_no ,lesson_name ,lesson_url, mobile_url
 	</sql>
-	
+
 	<select id="getBookListCnt" resultType="int">
 		SELECT
 			COUNT(*) AS cnt
@@ -62,7 +65,7 @@
 		</if>
 		<include refid="search"/>
 	</select>
-	
+
 	<select id="getBookList" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
 		${pagingTop}
 		SELECT
@@ -103,7 +106,7 @@
 		<include refid="sort"/>
 		${pagingBottom}
 	</select>
-	
+
 	<select id="getBookListCntCms" resultType="int">
 		SELECT
 			COUNT(*) AS cnt
@@ -117,21 +120,30 @@
 		AND a.cate_id = b.cate_id
 		AND a.book_idx = g.book_idx (+)
 		AND a.book_code = h.book_code (+)
+		<if test="option !='CHECK_DUPLICATES'">
 		<if test="type != null and type != ''">
 		AND a.type = #{type}
 		</if>
-		<if test="option == 'BESTBOOK'">
+		</if>
+		<choose>
+		<when test="option == 'BESTBOOK'">
 		AND g.bestbook_idx IS NULL
-		</if>
-		<if test="option == 'CATEGORYBESTBOOK'">
+		</when>
+		<when test="option == 'CATEGORYBESTBOOK'">
 		AND h.cat_bestbook_idx IS NULL
-		</if>
+		</when>
+		<when test="option =='CHECK_DUPLICATES'">
+		AND a.isbn13 IS NOT NULL
+		AND (SELECT COUNT(z.book_idx) FROM elib_book z WHERE z.isbn13 IS NOT NULL AND a.isbn13 = z.isbn13) > 1
+		</when>
+		</choose>
 		<include refid="search"/>
 	</select>
-	
+
 	<select id="getBookListCms" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
 		${pagingTop}
 		SELECT
+			a.type, CASE a.type WHEN 'EBK' THEN '전자책' WHEN 'ADO' THEN '오디오북' WHEN 'WEB' THEN '온라인강좌' END AS type_name,
 			a.book_idx, a.book_code, a.cate_id, a.book_name, a.author_name,
 			a.book_pubname, a.isbn13, a.book_lend,
 			a.lend_total, a.max_lend, a.book_reserve, a.com_code, TO_CHAR(a.book_pubdt, 'YYYY-MM-DD') AS book_pubdt,
@@ -161,20 +173,28 @@
 		AND a.library_code = SUBSTR(e.lib_code, 1, 8)
 		AND a.book_idx = g.book_idx (+)
 		AND a.book_code = h.book_code (+)
+		<if test="option !='CHECK_DUPLICATES'">
 		<if test="type != null and type != ''">
 		AND a.type = #{type}
 		</if>
-		<if test="option == 'BESTBOOK'">
+		</if>
+		<choose>
+		<when test="option == 'BESTBOOK'">
 		AND g.bestbook_idx IS NULL
-		</if>
-		<if test="option == 'CATEGORYBESTBOOK'">
+		</when>
+		<when test="option == 'CATEGORYBESTBOOK'">
 		AND h.cat_bestbook_idx IS NULL
-		</if>
+		</when>
+		<when test="option =='CHECK_DUPLICATES'">
+		AND a.isbn13 IS NOT NULL
+		AND (SELECT COUNT(z.book_idx) FROM elib_book z WHERE z.isbn13 IS NOT NULL AND a.isbn13 = z.isbn13) > 1
+		</when>
+		</choose>
 		<include refid="search"/>
 		<include refid="sort"/>
 		${pagingBottom}
 	</select>
-	
+
 	<select id="getBookListCntUpload" resultType="int">
 		SELECT
 			COUNT(*) AS cnt
@@ -183,7 +203,7 @@
 		WHERE 1=1
 		<include refid="search"/>
 	</select>
-	
+
 	<select id="getBookListUpload" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
 		${pagingTop}
 		SELECT
@@ -220,7 +240,7 @@
 		<include refid="sort"/>
 		${pagingBottom}
 	</select>
-	
+
 	<select id="getBookListAll" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
 		SELECT
 			a.book_idx, a.book_code, a.cate_id, a.book_name, a.author_name,
@@ -253,7 +273,7 @@
 		<include refid="search"/>
 		<include refid="sort"/>
 	</select>
-	
+
 	<select id="getBookInfo" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
 		SELECT
 			a.book_idx, a.book_code, a.cate_id, a.book_name, a.author_name,
@@ -287,7 +307,7 @@
 		AND a.book_code = h.book_code (+)
 		AND a.library_code = SUBSTR(e.lib_code, 1, 8)
 	</select>
-	
+
 	<select id="codeDupCheck" resultType="int">
 		SELECT
 			COUNT(*) AS cnt
@@ -298,8 +318,8 @@
 		AND library_code = #{library_code}
 		AND com_code = #{com_code}
 	</select>
-	
-	<select id="elearningCodeDupCheck" resultType="int"> 
+
+	<select id="elearningCodeDupCheck" resultType="int">
 		SELECT
 			COUNT(*) AS cnt
 		FROM
@@ -308,7 +328,7 @@
 			lesson_name = #{lesson_name}
 		AND lesson_no = #{lesson_no}
 	</select>
-	
+
 	<select id="audiobookCodeDupCheck" resultType="int">
 		SELECT
 			COUNT(*) AS cnt
@@ -318,7 +338,7 @@
 			audio_name = #{audio_name}
 		AND audio_no = #{audio_no}
 	</select>
-	
+
 	<select id="getBookIdx" resultType="Integer">
 		SELECT
 			book_idx
@@ -329,7 +349,7 @@
 		AND	library_code = #{library_code}
 		AND com_code = #{com_code}
 	</select>
-	
+
 	<select id="getLessonNo" resultType="Integer">
 		SELECT
 			lesson_no
@@ -339,7 +359,7 @@
 			lesson_name = #{lesson_name}
 		AND book_idx = #{book_idx}
 	</select>
-	
+
 	<select id="getCourseIdx" resultType="Integer">
 		SELECT
 			course_idx
@@ -349,7 +369,7 @@
 			lesson_name = #{lesson_name}
 		AND lesson_no = #{lesson_no}
 	</select>
-	
+
 	<select id="getAudioIdx" resultType="Integer">
 		SELECT
 			audio_idx
@@ -359,12 +379,12 @@
 			audio_name = #{audio_name}
 		AND audio_no = #{audio_no}
 	</select>
-	
+
 	<insert id="addBook">
 		<selectKey keyProperty="book_idx" order="BEFORE" resultType="int">
 			SELECT NVL(MAX(book_idx),0)+1 FROM ELIB_BOOK
 		</selectKey>
-		
+
 		INSERT INTO ELIB_BOOK (
 			book_idx, book_code, book_name, author_name, book_pubname,
 			isbn13, format, book_image, parent_id, device,
@@ -379,7 +399,7 @@
 			#{type}, #{add_id}, SYSDATE, #{approved_yn}, #{cate_id}
 		)
 	</insert>
-	
+
 	<insert id="addBookInfo">
 		INSERT INTO ELIB_BOOKINFO (
 			book_idx, book_code, book_info, author_info, book_table, add_id, add_date
@@ -420,7 +440,7 @@
 		WHERE
 			book_idx = #{book_idx}
 	</update>
-	
+
 	<update id="modifyBookInfo">
 		UPDATE ELIB_BOOKINFO SET
 			book_code = #{book_code},
@@ -432,11 +452,11 @@
 		WHERE
 			book_idx = #{book_idx}
 	</update>
-	
+
 	<select id="dupCnt" resultType="int">
 		select count(*) from elib_bookinfo where book_idx = #{book_idx}
 	</select>
-	
+
 	<delete id="deleteBook">
 		DELETE FROM ELIB_BOOK
 		WHERE book_idx = #{book_idx}
@@ -451,7 +471,7 @@
 	<delete id="deleteBookInfo">
 		DELETE FROM ELIB_BOOKINFO WHERE book_idx = #{book_idx}
 	</delete>
-	
+
 	<insert id="addAudiobook">
 		<selectKey keyProperty="audio_idx" order="BEFORE" resultType="int">
 			SELECT NVL(MAX(audio_idx),0)+1 FROM ELIB_AUDIOBOOK
@@ -462,7 +482,7 @@
 			#{audio_idx}, #{book_idx}, #{play_time}, #{play_size}, #{link_url}, #{mobile_link_url}, #{add_id}, SYSDATE, #{audio_no}, #{audio_name}
 		)
 	</insert>
-	
+
 	<update id="modifyAudiobook">
 		UPDATE ELIB_AUDIOBOOK SET
 			play_time = #{play_time},
@@ -474,34 +494,34 @@
 		WHERE
 			book_idx = #{book_idx}
 	</update>
-	
+
 	<delete id="deleteAudiobook">
 		DELETE FROM ELIB_AUDIOBOOK WHERE book_idx = #{book_idx}
 	</delete>
-	
+
 	<update id="recommendBook">
 		UPDATE ELIB_BOOK SET
 			recommend_cnt = recommend_cnt + 1
 		WHERE
 			book_idx = #{book_idx}
 	</update>
-	
+
 	<insert id="addRecommendLog">
 		INSERT INTO ELIB_RECOMMEND (
-			recommend_idx, book_idx, regdt, member_id
+			recommend_idx, book_idx, add_date, member_id
 		) values (
 			ELIB_RECOMMEND_SEQ.NEXTVAL, #{book_idx}, SYSDATE, #{member_id}
 		)
 	</insert>
-	
+
 	<delete id="deleteRecommendLog">
 		DELETE FROM ELIB_RECOMMEND WHERE book_idx = #{book_idx}
 	</delete>
-	
+
 	<select id="recommendDupCheck" resultType="int">
 		SELECT COUNT(*) AS cnt FROM ELIB_RECOMMEND WHERE book_idx = #{book_idx} AND member_id = #{member_id}
 	</select>
-	
+
 	<sql id="getBookSearchedListSql">
 		FROM
 			ELIB_BOOK a,
@@ -552,13 +572,13 @@
 		</if>
 <!-- 		<include refid="sort"/> -->
 	</sql>
-	
+
 	<select id="getBookSearchedListCnt" resultType="int">
 		SELECT
 			COUNT(*)
 		<include refid="getBookSearchedListSql"/>
 	</select>
-	
+
 	<select id="getBookSearchedList" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
 		${pagingTop}
 		SELECT
@@ -582,7 +602,7 @@
 		<include refid="getBookSearchedListSql"/>
 		${pagingBottom}
 	</select>
-	
+
 	<sql id="getBookCountByTypeSql">
 		select
 			type, count(type) as cnt,
@@ -615,11 +635,11 @@
 		</if>
 		group by type
 	</sql>
-	
+
 	<select id="getBookCountByTypeCnt" resultType="int">
 		select count(*) as cnt from (<include refid="getBookCountByTypeSql"/>)
 	</select>
-	
+
 	<select id="getBookCountByType" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
 		${pagingTop}
 		select * from
@@ -629,7 +649,7 @@
 		order by cnt desc
 		${pagingBottom}
 	</select>
-	
+
 	<sql id="getBookCountByAuthorSql">
 		select author_name, count(author_name) as cnt
 		from elib_book
@@ -656,11 +676,11 @@
 		</if>
 		group by author_name
 	</sql>
-	
+
 	<select id="getBookCountByAuthorCnt" resultType="int">
 		select count(*) as cnt from (<include refid="getBookCountByAuthorSql"/>)
 	</select>
-	
+
 	<select id="getBookCountByAuthor" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
 		${pagingTop}
 		select * from
@@ -670,7 +690,7 @@
 		order by cnt desc
 		${pagingBottom}
 	</select>
-	
+
 	<sql id="getBookCountByPublisherSql">
 		select book_pubname, count(book_pubname) as cnt
 		from elib_book
@@ -697,11 +717,11 @@
 		</if>
 		group by book_pubname
 	</sql>
-	
+
 	<select id="getBookCountByPublisherCnt" resultType="int">
 		select count(*) as cnt from (<include refid="getBookCountByPublisherSql"/>)
 	</select>
-	
+
 	<select id="getBookCountByPublisher" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
 		${pagingTop}
 		select * from
@@ -711,7 +731,7 @@
 		order by cnt desc
 		${pagingBottom}
 	</select>
-	
+
 	<sql id="getBookCountByYearSql">
 		select to_char(book_pubdt, 'YYYY') as book_year, count(book_pubdt) as cnt
 		from elib_book
@@ -737,11 +757,11 @@
 		</if>
 		group by to_char(book_pubdt, 'YYYY')
 	</sql>
-	
+
 	<select id="getBookCountByYearCnt" resultType="int">
 		select count(*) as cnt from (<include refid="getBookCountByYearSql"/>)
 	</select>
-	
+
 	<select id="getBookCountByYear" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
 		${pagingTop}
 		select * from
@@ -751,7 +771,7 @@
 		order by cnt desc
 		${pagingBottom}
 	</select>
-	
+
 	<sql id="getBookCountByDeviceSql">
 		SELECT
 			device,
@@ -806,11 +826,11 @@
 		</if>
 		GROUP BY device
 	</sql>
-	
+
 	<select id="getBookCountByDeviceCnt" resultType="int">
 		select count(*) as cnt from (<include refid="getBookCountByDeviceSql"/>)
 	</select>
-	
+
 	<select id="getBookCountByDevice" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
 		${pagingTop}
 		select * from
@@ -820,7 +840,7 @@
 		order by cnt desc
 		${pagingBottom}
 	</select>
-	
+
 	<select id="getCourseList" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
 		SELECT
 			course_idx, lesson_no, lesson_name, lesson_url, book_idx, pop_width, pop_height, player_use, mobile_url
@@ -830,7 +850,7 @@
 			book_idx = #{book_idx}
 		ORDER BY course_idx
 	</select>
-	
+
 	<select id="getAudioList" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
 		SELECT
 			audio_idx, book_idx, play_time, play_size, link_url, mobile_link_url, add_id, add_date, audio_no, audio_name
@@ -840,7 +860,7 @@
 			book_idx = #{book_idx}
 		ORDER BY audio_idx
 	</select>
-	
+
 	<insert id="addElearning">
 		<selectKey keyProperty="course_idx" order="BEFORE" resultType="int">
 			SELECT NVL(MAX(course_idx),0)+1 FROM ELIB_COURSE
@@ -851,7 +871,7 @@
 			#{course_idx}, #{lesson_no}, #{lesson_name}, #{lesson_url}, #{book_idx}, 0, 0, 'N', #{mobile_url}
 		)
 	</insert>
-	
+
 	<update id="modifyElearning">
 		UPDATE ELIB_COURSE SET
 			lesson_no = #{lesson_no},
@@ -861,30 +881,30 @@
 		WHERE
 			course_idx = #{course_idx}
 	</update>
-	
+
 	<update id="deleteElearning">
 		DELETE FROM ELIB_COURSE WHERE book_idx = #{book_idx}
 	</update>
-	
+
 	<update id="approveBook">
 		UPDATE ELIB_BOOK SET
 			approved_yn = 'Y'
 		WHERE
 			book_idx = #{book_idx}
 	</update>
-	
+
 	<update id="disapproveBook">
 		UPDATE ELIB_BOOK SET
 			approved_yn = 'N'
 		WHERE
 			book_idx = #{book_idx}
 	</update>
-	
+
 	<update id="approveBookAll">
 		UPDATE ELIB_BOOK SET
 			approved_yn = 'Y'
 		WHERE
 			approved_yn != 'Y'
 	</update>
-	
+
 </mapper>

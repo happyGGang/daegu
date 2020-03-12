@@ -1,10 +1,12 @@
 package kr.go.gbelib.app.cms.module.api;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ import kr.go.gbelib.app.cms.module.elib.lending.Lending;
 import kr.go.gbelib.app.cms.module.elib.lending.LendingService;
 import kr.go.gbelib.app.cms.module.elib.member.ElibMember;
 import kr.go.gbelib.app.cms.module.elib.member.ElibMemberService;
+import kr.go.gbelib.app.common.api.MemberAPI;
 
 @Service
 public class ElibApiService2 extends BaseService {
@@ -33,30 +36,6 @@ public class ElibApiService2 extends BaseService {
 
 	@Autowired
 	private ElibMemberService elibMemberService;
-
-	private Map<String, String> getMember(ElibMember elibMember) {
-		Member member = new Member();
-		member.setUser_id(elibMember.getMember_id());
-//		member.setCheck_certify_type("WEBID");
-//		member.setCheck_certify_data(elibMember.getMember_id());
-//		Map<String, String> data = MemberAPI.getMemberCertify("WEB", member);
-//		return data;
-		return null;
-	}
-
-	private int addMemberIfNotExists(Lending lending) throws ElibException {
-		ElibMember member = new ElibMember();
-		member.setMember_id(lending.getMember_id());
-
-		Map<String, String> data = getMember(member);
-		if(data != null) {
-			member.setSeq_no(data.get("SEQ_NO"));
-			member.setLibrary_code(data.get("LOCA"));
-		}
-
-		Book book = bookService.getBookInfo(new Book(lending.getBook_idx()));
-		return elibMemberService.addMemberIfNotExists(member, book);
-	}
 
 	public ElibXmlResult doApi(Lending lending, HttpServletRequest request, HttpServletResponse response) {
 		int xmlResult = 0;
@@ -98,36 +77,76 @@ public class ElibApiService2 extends BaseService {
 				apiLogService.addApiLog(new ApiLog("ELIB2", "-992", errmsg, makeParamUrl(lending), request.getRemoteAddr()));
 				return new ElibXmlResult("false", "-992", errmsg);
 			}
-
-			addMemberIfNotExists(lending);
+			
+			Member member = new Member(lending.getUser_id());
+			List<Map<String, Object>> checkDupUser = MemberAPI.checkDupUser("0", member);
+			if(CollectionUtils.isEmpty(checkDupUser)) {
+				String errmsg = "해당 회원이 존재하지 않습니다.";
+				apiLogService.addApiLog(new ApiLog("ELIB2", "-991", errmsg, makeParamUrl(lending), request.getRemoteAddr()));
+				return new ElibXmlResult("false", "-991", errmsg);
+			} else {
+				Map<String, Object> userMap = checkDupUser.get(0);
+				
+				String member_class = String.valueOf(userMap.get("MEMBER_CLASS"));
+				if(StringUtils.equals(member_class, "2")) {
+					String errmsg = "이용자님은 현재 미승인 회원입니다. 소속도서관에서 정회원으로 승인 받은 후 전자도서관을 이용 바랍니다";
+					apiLogService.addApiLog(new ApiLog("ELIB2", "-990", errmsg, makeParamUrl(lending), request.getRemoteAddr()));
+					return new ElibXmlResult("false", "-990", errmsg);
+				}
+				
+				String user_class = String.valueOf(userMap.get("USER_CLASS"));
+				if(StringUtils.equals(user_class, "1")) {
+					String errmsg = "대출중지 상태입니다.";
+					apiLogService.addApiLog(new ApiLog("ELIB2", "-989", errmsg, makeParamUrl(lending), request.getRemoteAddr()));
+					return new ElibXmlResult("false", "-989", errmsg);
+				}
+				
+				ElibMember elibMember = new ElibMember();
+				elibMember.setMember_id(lending.getMember_id());
+				elibMember.setLibrary_code(lending.getLibrary_code());
+				elibMember.setSeq_no(String.valueOf(userMap.get("REC_KEY")));
+				
+				String gpinSex = String.valueOf(userMap.get("GPIN_SEX"));
+				if (StringUtils.isNotEmpty(gpinSex) && !StringUtils.equals(gpinSex, "null")) {
+					elibMember.setSex(gpinSex); // 성별 (0 : 남자, 1 : 여자)
+				}
+				
+				String brithsday = String.valueOf(userMap.get("BIRTHDAY"));
+				if (StringUtils.isNotEmpty(brithsday) && !StringUtils.equals(brithsday, "null")) {
+					elibMember.setBirth_day(StringUtils.defaultString(brithsday).replaceAll("[^0-9]", ""));
+				}
+				
+				book = bookService.getBookInfo(new Book(lending.getBook_idx()));
+				elibMemberService.addMemberIfNotExists(elibMember, book);
+			}
 
 			if("1".equals(cmd)) {
 				// 대출
-				xmlResult = lendingService.borrowProc(lending, false);
+				xmlResult = lendingService.borrowProcNoApi(lending, false);
 				msg = getMsg(cmd, xmlResult);
 				apiLogService.addApiLog(new ApiLog("ELIB2", cmd, String.valueOf(xmlResult) + ", " + msg, makeParamUrl(lending), request.getRemoteAddr()));
 				return toXml(xmlResult, msg);
 			} else if("2".equals(cmd)) {
 				// 반납
-				xmlResult = lendingService.returnProc(lending);
+				xmlResult = lendingService.returnProcNoApi(lending);
 				msg = getMsg(cmd, xmlResult);
 				apiLogService.addApiLog(new ApiLog("ELIB2", cmd, String.valueOf(xmlResult) + ", " + msg, makeParamUrl(lending), request.getRemoteAddr()));
 				return toXml(xmlResult, msg);
 			} else if("3".equals(cmd)) {
 				// 예약
-				xmlResult = lendingService.reserveProc(lending);
+				xmlResult = lendingService.reserveProcNoApi(lending);
 				msg = getMsg(cmd, xmlResult);
 				apiLogService.addApiLog(new ApiLog("ELIB2", cmd, String.valueOf(xmlResult) + ", " + msg, makeParamUrl(lending), request.getRemoteAddr()));
 				return toXml(xmlResult, msg);
 			} else if("4".equals(cmd)) {
 				// 예약 취소
-				xmlResult = lendingService.reserveCancel(lending);
+				xmlResult = lendingService.reserveCancelNoApi(lending);
 				msg = getMsg(cmd, xmlResult);
 				apiLogService.addApiLog(new ApiLog("ELIB2", cmd, String.valueOf(xmlResult) + ", " + msg, makeParamUrl(lending), request.getRemoteAddr()));
 				return toXml(xmlResult, msg);
 			} else if("5".equals(cmd)) {
 				// 연장
-				xmlResult = lendingService.extendProc(lending, book);
+				xmlResult = lendingService.extendProcNoApi(lending, book);
 				msg = getMsg(cmd, xmlResult);
 				apiLogService.addApiLog(new ApiLog("ELIB2", cmd, String.valueOf(xmlResult) + ", " + msg, makeParamUrl(lending), request.getRemoteAddr()));
 				return toXml(xmlResult, msg);

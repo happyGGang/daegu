@@ -280,43 +280,23 @@ public class ElibController extends BaseController {
 		}
 
 		Member member = getSessionMemberInfo(request);
+		String member_class = member.getMember_class();
 		String user_class = member.getUser_class();
 
-		if(!StringUtils.isEmpty(user_class)) {
-			if(!user_class.equals("0")) {
-				res.setValid(false);
-				res.setMessage("이용자님은 현재 홈페이지 가입회원(준회원)입니다. 소속도서관에서 정회원으로 승인 받은 후 대출하시기 바랍니다");
-				res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
-				return res;
-			}
+		if(StringUtils.equals(member_class, "2")) {
+			res.setValid(false);
+			res.setMessage("이용자님은 현재 미승인 회원입니다. 소속도서관에서 정회원으로 승인 받은 후 전자도서관을 이용 바랍니다");
+			res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
+			return res;
 		}
 
-//		if(bean instanceof Book || bean instanceof Lending) {
-//			String library_code = "";
-//
-//			if(bean instanceof Book) {
-//				library_code = ((Book) bean).getLibrary_code();
-//			} else if(bean instanceof Lending) {
-//				library_code = ((Lending) bean).getLibrary_code();
-//			} else if(bean instanceof Comment) {
-//				library_code = ((Comment) bean).getLibrary_code();
-//			}
-
-//			if( StringUtils.equals(member.getStatus_code(), "1") ) {
-//				res.setValid(false);
-//				res.setMessage("이용자님은 현재 홈페이지 가입회원(준회원)입니다. 소속도서관에서 정회원으로 승인 받은 후 대출하시기 바랍니다");
-//				res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
-//				return res;
-//			}
-
-//			if( library_code != null && library_code.length() > 0 && !StringUtils.equals(library_code, "9999999") && !StringUtils.equals(library_code, member.getLoca()) ) {
-//				res.setValid(false);
-//				res.setMessage("소속 도서관 회원만 이용 가능합니다.");
-//				res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
-//				return res;
-//			}
-//		}
-
+		if(StringUtils.equals(user_class, "1")) {
+			res.setValid(false);
+			res.setMessage("대출중지 상태입니다.");
+			res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
+			return res;
+		}
+		
 		res.setValid(true);
 
 		return res;
@@ -349,47 +329,27 @@ public class ElibController extends BaseController {
 		}
 
 		Member member = getSessionMemberInfo(request);
+		String member_class = member.getMember_class();
 		String user_class = member.getUser_class();
 
-		if(!StringUtils.isEmpty(user_class)) {
-			if(!user_class.equals("0")) {
-				try {
-					service.alertMessageAndUrl("이용자님은 현재 홈페이지 가입회원(준회원)입니다. 소속도서관에서 정회원으로 승인 받은 후 대출하시기 바랍니다.", String.format("/%s/index.do", homepage.getContext_path()), request, response);
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
-				return false;
+		if(StringUtils.equals(member_class, "2")) {
+			try {
+				service.alertMessageAndUrl("이용자님은 현재 미승인 회원입니다. 소속도서관에서 정회원으로 승인 받은 후 전자도서관을 이용 바랍니다", String.format("/%s/index.do", homepage.getContext_path()), request, response);
+			} catch(Exception e) {
+				e.printStackTrace();
 			}
+			return false;
 		}
 
-//		if(bean instanceof Book || bean instanceof Lending) {
-//			String library_code = "";
-//
-//			if(bean instanceof Book) {
-//				library_code = ((Book) bean).getLibrary_code();
-//			} else if(bean instanceof Lending) {
-//				library_code = ((Lending) bean).getLibrary_code();
-//			}
-
-//			if( StringUtils.equals(member.getStatus_code(), "1") ) {
-//				try {
-//					service.alertMessageAndUrl("이용자님은 현재 홈페이지 가입회원(준회원)입니다. 소속도서관에서 정회원으로 승인 받은 후 대출하시기 바랍니다.", String.format("/%s/index.do", homepage.getContext_path()), request, response);
-//				} catch(Exception e) {
-//					e.printStackTrace();
-//				}
-//				return false;
-//			}
-
-//			if( library_code != null && library_code.length() > 0 && !StringUtils.equals(library_code, "9999999") && !StringUtils.equals(library_code, member.getLoca()) ) {
-//				try {
-//					service.alertMessageAndUrl("소속 도서관 회원만 이용 가능합니다.", String.format("/%s/index.do", homepage.getContext_path()), request, response);
-//				} catch(Exception e) {
-//					e.printStackTrace();
-//				}
-//				return false;
-//			}
-//		}
-
+		if(StringUtils.equals(user_class, "1")) {
+			try {
+				service.alertMessageAndUrl("대출중지 상태입니다.", String.format("/%s/index.do", homepage.getContext_path()), request, response);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			return false;
+		}
+		
 		return true;
 	}
 
@@ -1255,6 +1215,13 @@ public class ElibController extends BaseController {
 		}
 
 		return device;
+	}
+
+	@RequestMapping(value = {"/asp/{directory}/{file}.*"})
+	public String index(Model model, HttpServletRequest request, @PathVariable ("directory") String d, @PathVariable ("file") String f) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		return String.format(basePath, homepage.getFolder()) + d +"/" + f;
 	}
 
 }

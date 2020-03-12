@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.go.gbelib.app.cms.module.elib.lending.LendingDao">
-	
+
 	<sql id="search">
 		<if test="search_type != null and search_type != '' and search_text != '' and search_text != '' ">
 		<choose>
@@ -48,7 +48,7 @@
 <!-- 		AND e.homepage_id = #{homepage_id} -->
 <!-- 		</if> -->
 	</sql>
-	
+
 	<sql id="sort">
 		<choose>
 		<when test="sortField != null and sortField != ''">
@@ -79,7 +79,7 @@
 		</otherwise>
 		</choose>
 	</sql>
-	
+
 	<sql id="sort2">
 		<choose>
 		<when test="sortField != null and sortField != ''">
@@ -104,7 +104,7 @@
 		</otherwise>
 		</choose>
 	</sql>
-	
+
 	<sql id="lendMemberList">
 		SELECT
 			a.user_idx, b.lend_idx, b.book_idx, TO_CHAR(b.lend_dt, 'YYYY-MM-DD') AS lend_dt, TO_CHAR(b.return_due_dt, 'YYYY-MM-DD') AS return_due_dt,
@@ -130,24 +130,24 @@
 		</if>
 		<include refid="search"/>
 		<if test="search_sdt != null and search_sdt != ''">
-		AND #{search_sdt} &lt;= TO_CHAR(b.lend_dt, 'YYYY-MM-DD') 
+		AND #{search_sdt} &lt;= TO_CHAR(b.lend_dt, 'YYYY-MM-DD')
 		</if>
 		<if test="search_edt != null and search_edt != ''">
 		AND TO_CHAR(b.lend_dt, 'YYYY-MM-DD') &lt;= #{search_edt}
 		</if>
 		<include refid="sort"/>
 	</sql>
-	
+
 	<select id="getLendMemberListAll" resultType="kr.go.gbelib.app.cms.module.elib.lending.Lending">
 		<include refid="lendMemberList"/>
 	</select>
-	
+
 	<select id="getLendMemberList" resultType="kr.go.gbelib.app.cms.module.elib.lending.Lending">
 		${pagingTop}
 		<include refid="lendMemberList"/>
 		${pagingBottom}
 	</select>
-	
+
 	<select id="getLendMemberListCnt" resultType="int">
 		SELECT
 			COUNT(*) AS cnt
@@ -165,13 +165,13 @@
 		</if>
 		<include refid="search"/>
 		<if test="search_sdt != null and search_sdt != ''">
-		AND #{search_sdt} &lt;= TO_CHAR(b.lend_dt, 'YYYY-MM-DD') 
+		AND #{search_sdt} &lt;= TO_CHAR(b.lend_dt, 'YYYY-MM-DD')
 		</if>
 		<if test="search_edt != null and search_edt != ''">
 		AND TO_CHAR(b.lend_dt, 'YYYY-MM-DD') &lt;= #{search_edt}
 		</if>
 	</select>
-	
+
 	<select id="getReserveMemberListCnt" resultType="int">
 		SELECT
 			COUNT(*) AS cnt
@@ -190,13 +190,13 @@
 		</if>
 		<include refid="search"/>
 		<if test="search_sdt != null and search_sdt != ''">
-		AND #{search_sdt} &lt;= TO_CHAR(b.reserve_dt, 'YYYY-MM-DD') 
+		AND #{search_sdt} &lt;= TO_CHAR(b.reserve_dt, 'YYYY-MM-DD')
 		</if>
 		<if test="search_edt != null and search_edt != ''">
 		AND TO_CHAR(b.reserve_dt, 'YYYY-MM-DD') &lt;= #{search_edt}
 		</if>
 	</select>
-	
+
 	<sql id="reserveMemberList">
 		SELECT
 			a.user_idx, b.reserve_idx, b.book_idx, TO_CHAR(b.reserve_dt, 'YYYY-MM-DD') AS reserve_dt, TO_CHAR(b.lendable_dt, 'YYYY-MM-DD') AS lendable_dt, TO_CHAR(b.lend_dt, 'YYYY-MM-DD') AS lend_dt,
@@ -223,14 +223,14 @@
 		</if>
 		<include refid="search"/>
 		<if test="search_sdt != null and search_sdt != ''">
-		AND #{search_sdt} &lt;= TO_CHAR(b.reserve_dt, 'YYYY-MM-DD') 
+		AND #{search_sdt} &lt;= TO_CHAR(b.reserve_dt, 'YYYY-MM-DD')
 		</if>
 		<if test="search_edt != null and search_edt != ''">
 		AND TO_CHAR(b.reserve_dt, 'YYYY-MM-DD') &lt;= #{search_edt}
 		</if>
 		<include refid="sort2"/>
 	</sql>
-	
+
 	<select id="getReserveMemberListAll" resultType="kr.go.gbelib.app.cms.module.elib.lending.Lending">
 		<include refid="reserveMemberList"/>
 	</select>
@@ -240,7 +240,7 @@
 		<include refid="reserveMemberList"/>
 		${pagingBottom}
 	</select>
-	
+
 	<select id="getLending" resultType="kr.go.gbelib.app.cms.module.elib.lending.Lending">
 		SELECT
 			a.lend_idx, a.user_idx, a.book_idx, a.lend_dt, a.return_due_dt, a.return_dt,
@@ -263,8 +263,8 @@
 		</otherwise>
 		</choose>
 	</select>
-	
-	
+
+
 	<select id="getLendingByLendIdx" resultType="kr.go.gbelib.app.cms.module.elib.lending.Lending">
 		SELECT
 			a.lend_idx, a.user_idx, a.book_idx, a.lend_dt, a.return_due_dt, a.return_dt,
@@ -276,7 +276,7 @@
 			a.lend_idx = #{lend_idx}
 <!-- 		and	a.book_idx = #{book_idx} -->
 	</select>
-	
+
 	<update id="returnLending">
 		UPDATE ELIB_LEND SET
 			return_dt = SYSDATE,
@@ -296,7 +296,7 @@
 		</otherwise>
 		</choose>
 	</update>
-	
+
 	<select id="getBookReserveList" resultType="kr.go.gbelib.app.cms.module.elib.lending.Lending">
 		SELECT
 			a.reserve_idx, a.user_idx, a.book_idx, a.com_code, a.member_id, TO_CHAR(a.lendable_dt, 'YYYY-MM-DD') AS lendable_dt
@@ -307,7 +307,7 @@
 		AND a.section = '1'
 		ORDER BY a.lendable_dt, a.reserve_idx
 	</select>
-	
+
 	<select id="getUserBorrowCnt" resultType="int">
 		SELECT
 			COUNT(*) AS cnt
@@ -317,7 +317,7 @@
 			return_dt IS NULL
 		AND member_id = #{member_id}
 	</select>
-	
+
 	<select id="getBookLendCnt" resultType="int">
 		SELECT
 			COUNT(*) AS cnt
@@ -327,7 +327,7 @@
 			return_dt IS NULL
 		AND book_idx = #{book_idx}
 	</select>
-	
+
 	<select id="getNotReturnedCnt" resultType="int">
 		SELECT
 			COUNT(*) AS cnt
@@ -338,7 +338,7 @@
 		AND member_id = #{member_id}
 		AND book_idx = #{book_idx}
 	</select>
-	
+
 	<select id="getDupReserveCnt" resultType="int">
 		SELECT
 			COUNT(*) AS cnt
@@ -349,7 +349,7 @@
 		AND member_id = #{member_id}
 		AND book_idx = #{book_idx}
 	</select>
-	
+
 	<select id="getDupLendingCnt" resultType="int">
 		SELECT
 			COUNT(*) AS cnt
@@ -360,7 +360,7 @@
 		AND member_id = #{member_id}
 		AND book_idx = #{book_idx}
 	</select>
-	
+
 	<insert id="addLending">
 		INSERT INTO ELIB_LEND (
 			lend_idx, com_code, book_idx, extention_count, lend_dt, return_due_dt, device, member_id
@@ -370,7 +370,7 @@
 			#{device}, #{member_id}
 		)
 	</insert>
-	
+
 	<update id="updateLendReserveCnt">
 		UPDATE ELIB_BOOK SET
 			book_lend    = (SELECT COUNT(*) FROM ELIB_LEND z WHERE z.book_idx = #{book_idx} AND z.return_flag is null),
@@ -378,7 +378,7 @@
 			lend_total   = (SELECT COUNT(*) FROM ELIB_LEND z WHERE z.book_idx = #{book_idx})
 		WHERE book_idx = #{book_idx}
 	</update>
-	
+
 	<select id="getNotReturnedList" resultType="kr.go.gbelib.app.cms.module.elib.lending.Lending">
 		SELECT
 			lend_idx, com_code, user_idx, book_idx, extention_count, lend_dt, TO_CHAR(return_due_dt, 'YYYY-MM-DD') AS return_due_dt, device, member_id
@@ -389,7 +389,7 @@
 		AND book_idx = #{book_idx}
 		ORDER BY return_due_dt, lend_idx
 	</select>
-	
+
 	<update id="updateLendableDt">
 		UPDATE ELIB_RESERVE SET
 			lendable_dt = TO_DATE(#{lendable_dt}, 'YYYY-MM-DD HH24:MI:SS')
@@ -407,7 +407,7 @@
 		</otherwise>
 		</choose>
 	</update>
-	
+
 	<select id="getReserveCnt" resultType="int">
 		SELECT
 			COUNT(*) AS cnt
@@ -426,7 +426,7 @@
 		</otherwise>
 		</choose>
 	</select>
-	
+
 	<select id="getReserve" resultType="kr.go.gbelib.app.cms.module.elib.lending.Lending">
 		SELECT
 			book_idx, lendable_dt
@@ -445,7 +445,7 @@
 		</otherwise>
 		</choose>
 	</select>
-	
+
 	<delete id="deleteReserve">
 		UPDATE ELIB_RESERVE SET
 			section = '2',
@@ -463,7 +463,7 @@
 		</otherwise>
 		</choose>
 	</delete>
-	
+
 	<select id="getBookReserveCnt" resultType="int">
 		SELECT
 			COUNT(*) AS cnt
@@ -473,7 +473,7 @@
 			section = '1'
 		AND book_idx = #{book_idx}
 	</select>
-	
+
 	<select id="getMemberReserveCnt" resultType="int">
 		SELECT
 			COUNT(*) AS cnt
@@ -483,7 +483,7 @@
 			section = '1'
 		AND member_id = #{member_id}
 	</select>
-	
+
 	<insert id="addReserve">
 		INSERT INTO ELIB_RESERVE (
 			reserve_idx, com_code, user_idx, book_idx, section, reserve_dt, reserve_yn, device, member_id
@@ -491,7 +491,7 @@
 			ELIB_RESERVE_SEQ.NEXTVAL, #{com_code}, #{user_idx}, #{book_idx}, 1, SYSDATE, 'N', #{device}, #{member_id}
 		)
 	</insert>
-	
+
 	<sql id="getFavorite">
 		FROM
 			ELIB_INTEREST_BOOK a,
@@ -502,30 +502,30 @@
 		AND a.member_id = #{member_id}
 		AND b.library_code = c.lib_code
 		<if test="start_date != null and start_date != ''">
-		AND TO_CHAR(a.regdt, 'YYYY-MM-DD') &gt;= #{start_date}
+		AND TO_CHAR(a.add_date, 'YYYY-MM-DD') &gt;= #{start_date}
 		</if>
 		<if test="end_date != null and end_date != ''">
-		AND TO_CHAR(a.regdt, 'YYYY-MM-DD') &lt;= #{end_date}
+		AND TO_CHAR(a.add_date, 'YYYY-MM-DD') &lt;= #{end_date}
 		</if>
 	</sql>
-	
+
 	<select id="getFavoritesListCnt" resultType="int">
 		SELECT
 			COUNT(*) AS cnt
 		<include refid="getFavorite"/>
 	</select>
-	
+
 	<select id="getFavoritesList" resultType="kr.go.gbelib.app.cms.module.elib.lending.Lending">
 		${pagingTop}
 		SELECT
-			TO_CHAR(a.regdt, 'YYYY-MM-DD') AS favorite_regdt, b.book_idx, b.book_code, b.book_name, b.book_image, b.com_code,
+			TO_CHAR(a.add_date, 'YYYY-MM-DD') AS favorite_regdt, b.book_idx, b.book_code, b.book_name, b.book_image, b.com_code,
 			b.format, b.author_name, b.book_pubname, TO_CHAR(b.book_pubdt, 'YYYY-MM-DD') AS book_pubdt, b.library_code,
 			b.add_date, b.max_lend, CASE WHEN b.library_code = '9999999' THEN '통합' ELSE c.homepage_name END AS library_name,
 			b.type, (SELECT comp_name FROM ELIB_COMPANY f where INSTR(f.com_code, b.com_code) > 0) AS comp_name
 		<include refid="getFavorite"/>
 		${pagingBottom}
 	</select>
-	
+
 	<select id="getDupFavoritesCnt" resultType="int">
 		SELECT
 			COUNT(*) AS cnt
@@ -535,15 +535,15 @@
 			book_idx = #{book_idx}
 		AND member_id = #{member_id}
 	</select>
-	
+
 	<insert id="addFavorite">
 		INSERT INTO ELIB_INTEREST_BOOK (
-			book_idx, type, regdt, member_id
+			book_idx, type, add_date, member_id
 		) VALUES (
 			#{book_idx}, #{type}, SYSDATE, #{member_id}
 		)
 	</insert>
-	
+
 	<delete id="deleteFavorite">
 		DELETE FROM
 			ELIB_INTEREST_BOOK
@@ -551,7 +551,7 @@
 			book_idx = #{book_idx}
 		AND member_id = #{member_id}
 	</delete>
-	
+
 	<select id="getBooksToAutoReturn" resultType="kr.go.gbelib.app.cms.module.elib.lending.Lending">
 		SELECT
 			a.lend_idx, a.com_code, a.user_idx, a.book_idx, a.extention_count,
@@ -566,7 +566,7 @@
 		AND a.return_due_dt &lt;= SYSDATE
 		AND a.return_dt IS NULL
 	</select>
-	
+
 	<select id="getReservesLendable" resultType="kr.go.gbelib.app.cms.module.elib.lending.Lending">
 		SELECT
 			a.book_idx, a.book_code, a.com_code, a.book_name, a.book_lend, a.max_lend, a.book_reserve
@@ -577,11 +577,11 @@
 		AND book_lend &lt; max_lend
 		AND	book_reserve &gt; 0
 	</select>
-	
+
 	<select id="getBookstoAutoUpdateLendableDt" resultType="kr.go.gbelib.app.cms.module.elib.lending.Lending">
 		SELECT
 			a.reserve_idx, a.book_idx, a.com_code, a.section,
-			a.reserve_dt, a.lendable_dt, a.lend_dt, 
+			a.reserve_dt, a.lendable_dt, a.lend_dt,
 			b.book_reserve, b.book_code
 		FROM
 			ELIB_RESERVE a,
@@ -592,7 +592,7 @@
 		AND a.lendable_dt &lt;= SYSDATE
 		ORDER BY a.reserve_idx
 	</select>
-	
+
 	<update id="extendLending">
 		UPDATE ELIB_LEND SET
 			return_due_dt = return_due_dt + NVL((SELECT ext_lend_term FROM ELIB_CONFIG_LEND WHERE config_idx=1), 7)
@@ -612,7 +612,7 @@
 		</otherwise>
 		</choose>
 	</update>
-	
+
 	<update id="reserveToLending">
 		UPDATE ELIB_RESERVE SET
 			section = '0',
@@ -631,52 +631,52 @@
 		</otherwise>
 		</choose>
 	</update>
-	
+
 	<update id="setMsgConfirmN">
 		UPDATE ELIB_LEND SET
 			msg_confirm_yn = 'N'
 		WHERE
 			lend_idx = #{lend_idx}
 	</update>
-	
+
 	<insert id="addLendingWithReturn">
 		INSERT INTO ELIB_LEND (
-			lend_idx, com_code, book_idx, extention_count, lend_dt, 
+			lend_idx, com_code, book_idx, extention_count, lend_dt,
 			return_due_dt, return_dt, return_flag, device, member_id
 		) VALUES (
-			ELIB_LEND_SEQ.NEXTVAL, #{com_code}, #{book_idx}, 0, SYSDATE, 
+			ELIB_LEND_SEQ.NEXTVAL, #{com_code}, #{book_idx}, 0, SYSDATE,
 			SYSDATE, SYSDATE, 'Y', #{device}, #{member_id}
-		) 
+		)
 	</insert>
-	
+
 	<insert id="addAutdioBookStat">
 		INSERT INTO ELIB_AUDIO_STAT (
-			idx, device, reg_dt, book_idx, member_id
+			idx, device, add_date, book_idx, member_id
 		) VALUES (
 			ELIB_AUDIO_STAT_SEQ.NEXTVAL, #{device}, SYSDATE, #{book_idx}, #{member_id}
 		)
 	</insert>
-	
+
 	<insert id="addElearnStat">
 		INSERT INTO ELIB_ELEARN_STAT (
-			idx, book_idx, lesson_no, device, reg_dt, 
+			idx, book_idx, lesson_no, device, add_date,
 			member_id, user_idx
 		) VALUES (
-			ELIB_ELEARN_STAT_SEQ.NEXTVAL, #{book_idx}, #{lesson_no}, #{device}, SYSDATE, 
+			ELIB_ELEARN_STAT_SEQ.NEXTVAL, #{book_idx}, #{lesson_no}, #{device}, SYSDATE,
 			#{member_id}, 0
 		)
 	</insert>
-	
+
 	<insert id="addExtlinkStat">
 		<selectKey keyProperty="book_idx" order="BEFORE" resultType="int">
 			SELECT NVL(MAX(idx),0)+1 FROM ELIB_EXTLINK_STAT
 		</selectKey>
-		
+
 		INSERT INTO ELIB_EXTLINK_STAT (
-			idx, device, com_code, member_id, reg_dt
+			idx, device, com_code, member_id, add_date
 		) VALUES (
 			ELIB_EXTLINK_STAT_SEQ.NEXTVAL, #{device}, #{com_code}, #{member_id}, SYSDATE
 		)
 	</insert>
-	
+
 </mapper>

@@ -24,54 +24,49 @@ public class LendingAutoReturnService {
 	 * dispatcherServlet.xml 에서 on, off 설정
 	 */
 	public void autoReturn() {
-		// homewas2_homepage3 컨테이너에서만 실행
-		if(StringUtils.equals(System.getProperty("whalesoft.container"), "homewas2_homepage3")) {
+		logger.info("### autoReturn starts ###");
+		System.out.println("### autoReturn starts ###");
 
-			logger.info("### autoReturn starts ###");
-			System.out.println("### autoReturn starts ###");
+		List<Lending> lendingList = dao.getBooksToAutoReturn();
 
-			List<Lending> lendingList = dao.getBooksToAutoReturn();
+		if(lendingList == null) return;
 
-			if(lendingList == null) return;
-
-			if(!StringUtils.equals(System.getProperty("spring.profiles.active"), "localServer")) {
-				for(Lending lending: lendingList) {
-					try {
-						service.autoReturnProc(lending);
-					} catch (ElibException e) {
-						System.out.println("### autoReturn API 호출 에러(lend_idx: " + lending.getLend_idx() + "): " + e.getMessage());
-						try { service.autoReturnProcNoApi(lending); } catch (Exception e1) {}
-					} catch (Exception e) {
-						System.out.println("### autoReturn 기타 에러");
-						try { service.autoReturnProcNoApi(lending); } catch (Exception e1) {}
-						e.printStackTrace();
-					}
+		if(!StringUtils.equals(System.getProperty("spring.profiles.active"), "localServer")) {
+			for(Lending lending: lendingList) {
+				try {
+					service.autoReturnProc(lending);
+				} catch (ElibException e) {
+					System.out.println("### autoReturn API 호출 에러(lend_idx: " + lending.getLend_idx() + "): " + e.getMessage());
+					try { service.autoReturnProcNoApi(lending); } catch (Exception e1) {}
+				} catch (Exception e) {
+					System.out.println("### autoReturn 기타 에러");
+					try { service.autoReturnProcNoApi(lending); } catch (Exception e1) {}
+					e.printStackTrace();
 				}
 			}
-
-			List<Lending> reserveList = dao.getReservesLendable();
-
-			if(reserveList != null && !StringUtils.equals(System.getProperty("spring.profiles.active"), "localServer")) {
-				for(Lending reserve: reserveList) {
-					try {
-						service.autoReserveToLendProc(reserve);
-					} catch (ElibException e) {
-						System.out.println("### autoReturn API 호출 에러(lend_idx: " + reserve.getReserve_idx() + "): " + e.getMessage());
-						try { service.autoReserveToLendProcNoApi(reserve); } catch (Exception e1) {}
-					} catch (Exception e) {
-						System.out.println("### autoReturn 기타 에러");
-						try { service.autoReserveToLendProcNoApi(reserve); } catch (Exception e1) {}
-						e.printStackTrace();
-					}
-				}
-			}
-
-			autoUpdateLendableDt();
-
-			logger.info("### autoReturn ends ###");
-			System.out.println("### autoReturn ends ###");
-
 		}
+
+		List<Lending> reserveList = dao.getReservesLendable();
+
+		if(reserveList != null && !StringUtils.equals(System.getProperty("spring.profiles.active"), "localServer")) {
+			for(Lending reserve: reserveList) {
+				try {
+					service.autoReserveToLendProc(reserve);
+				} catch (ElibException e) {
+					System.out.println("### autoReturn API 호출 에러(lend_idx: " + reserve.getReserve_idx() + "): " + e.getMessage());
+					try { service.autoReserveToLendProcNoApi(reserve); } catch (Exception e1) {}
+				} catch (Exception e) {
+					System.out.println("### autoReturn 기타 에러");
+					try { service.autoReserveToLendProcNoApi(reserve); } catch (Exception e1) {}
+					e.printStackTrace();
+				}
+			}
+		}
+
+		autoUpdateLendableDt();
+
+		logger.info("### autoReturn ends ###");
+		System.out.println("### autoReturn ends ###");
 	}
 
 	public void autoUpdateLendableDt() {

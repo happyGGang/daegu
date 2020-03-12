@@ -2,11 +2,6 @@ package kr.go.gbelib.app.cms.module.elib.lending;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -20,7 +15,6 @@ import kr.co.whalesoft.framework.base.BaseService;
 import kr.go.gbelib.app.cms.module.elib.api.APIService;
 import kr.go.gbelib.app.cms.module.elib.api.ElibException;
 import kr.go.gbelib.app.cms.module.elib.book.Book;
-import kr.go.gbelib.app.cms.module.elib.book.BookDao;
 import kr.go.gbelib.app.cms.module.elib.book.BookService;
 import kr.go.gbelib.app.cms.module.elib.config.Config;
 import kr.go.gbelib.app.cms.module.elib.config.ConfigService;
@@ -33,9 +27,6 @@ public class LendingService extends BaseService {
 
 	@Autowired
 	private ConfigService configService;
-
-	@Autowired
-	private BookDao bookDao;
 
 	@Autowired
 	private BookService bookService;

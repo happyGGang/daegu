@@ -21,10 +21,16 @@
 	
 	<update id="modifyMember">
 		UPDATE ELIB_MEMBER SET
-			seq_no = #{seq_no},
 			library_code = #{library_code},
+			<if test="seq_no != null and seq_no != ''">
+			seq_no = #{seq_no},
+			</if>
+			<if test="sex != null and sex != ''">
 			sex = #{sex},
+			</if>
+			<if test="birth_day != null and birth_day != ''">
 			birth_day = #{birth_day}
+			</if>
 		WHERE
 			member_id = #{member_id}
 	</update>

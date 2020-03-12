@@ -28,7 +28,7 @@
 		a.lend_dt
 		</when>
 		<otherwise>
-		a.reg_dt
+		a.add_date
 		</otherwise>
 		</choose>
 	</sql>
@@ -39,7 +39,7 @@
 		lend_dt
 		</when>
 		<otherwise>
-		reg_dt
+		add_date
 		</otherwise>
 		</choose>
 	</sql>
@@ -222,10 +222,10 @@
 		    FROM ELIB_COMMENT z
 		    WHERE b.book_idx = z.book_idx
 		    <if test="search_sdt != null and search_sdt != ''">
-		    AND #{search_sdt} &lt;= TO_CHAR(z.regdt, 'YYYY-MM-DD')
+		    AND #{search_sdt} &lt;= TO_CHAR(z.add_date, 'YYYY-MM-DD')
 		    </if>
 		    <if test="search_edt != null and search_edt != ''">
-		    AND TO_CHAR(z.regdt, 'YYYY-MM-DD') &lt;= #{search_edt}
+		    AND TO_CHAR(z.add_date, 'YYYY-MM-DD') &lt;= #{search_edt}
 		    </if>
 		  ) AS comments_cnt,
 		  b.book_reserve as reserves_cnt
@@ -262,10 +262,10 @@
 			AND y.library_code = #{library_code}
 			</if>
 		    <if test="search_sdt != null and search_sdt != ''">
-		    AND #{search_sdt} &lt;= TO_CHAR(z.regdt, 'YYYY-MM-DD')
+		    AND #{search_sdt} &lt;= TO_CHAR(z.add_date, 'YYYY-MM-DD')
 		    </if>
 		    <if test="search_edt != null and search_edt != ''">
-		    AND TO_CHAR(z.regdt, 'YYYY-MM-DD') &lt;= #{search_edt}
+		    AND TO_CHAR(z.add_date, 'YYYY-MM-DD') &lt;= #{search_edt}
 		    </if>
 		  ) AS comments_cnt,
   		  (
@@ -355,10 +355,10 @@
 		    FROM ELIB_COMMENT z
 		    WHERE z.book_idx = b.book_idx 
 		    <if test="search_sdt != null and search_sdt != ''">
-		    AND #{search_sdt} &lt;= TO_CHAR(z.regdt, 'YYYY-MM-DD')
+		    AND #{search_sdt} &lt;= TO_CHAR(z.add_date, 'YYYY-MM-DD')
 		    </if>
 		    <if test="search_edt != null and search_edt != ''">
-		    AND TO_CHAR(z.regdt, 'YYYY-MM-DD') &lt;= #{search_edt}
+		    AND TO_CHAR(z.add_date, 'YYYY-MM-DD') &lt;= #{search_edt}
 		    </if>
 		  ) AS comments_cnt,
 		  (
@@ -592,7 +592,7 @@
 			    AND #{search_sdt} &lt;= TO_CHAR(a.regdt, 'YYYY-MM-DD')
 			    </if>
 			    <if test="search_edt != null and search_edt != ''">
-			    AND TO_CHAR(a.regdt, 'YYYY-MM-DD') &lt;= #{search_edt}
+			    AND TO_CHAR(a.add_date, 'YYYY-MM-DD') &lt;= #{search_edt}
 			    </if>
 		        <include refid="search"/>
 		        <if test="member_id != null and member_id != ''">
