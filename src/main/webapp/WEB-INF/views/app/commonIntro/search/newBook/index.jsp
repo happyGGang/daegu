@@ -88,7 +88,7 @@ $(function() {
 				<ul>
 					<li style="margin-bottom: 5px;"><form:radiobutton path="shelfCode" value="ALL" label="전체"/></li>
 					<c:forEach items="${shelfList}" var="i" varStatus="status">
-						<c:if test="${i.CHECKED}">
+						<c:if test="${not empty i.CHECKED and i.CHECKED}">
 						<li style="width: 33%; float: left;"><form:radiobutton path="shelfCode" value="${i.CODE}" label="${i.DESCRIPTION}"/></li>
 						</c:if>
 					</c:forEach>
