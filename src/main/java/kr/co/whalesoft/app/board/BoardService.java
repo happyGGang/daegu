@@ -97,7 +97,8 @@ public class BoardService extends BaseService {
 		} else {
 			if(boardManage.getBoard_type().equals("QNA")) {
 				return dao.getQnABoard(board);
-			} else if(boardManage.getBoard_type().equals("BOOK") || boardManage.getBoard_type().equals("THEMEBOOK")) {
+			} else if(boardManage.getBoard_type().equals("BOOK") || boardManage.getBoard_type().equals("THEMEBOOK")
+					|| boardManage.getBoard_type().equals("BOOK_PORTAL")) {
 				return dao.getBOOKBoard(board);
 			} else if(boardManage.getBoard_type().equals("MOVIE")) {
 				return dao.getMovieBoard(board);
@@ -141,6 +142,20 @@ public class BoardService extends BaseService {
 
 //		BoardManage boardManage = new BoardManage(manage_idx);
 		List<Board> list = dao.getBoardByMain(new Board(manage_idx, count, boardType));
+
+		for (Board board : list) {
+			if (!StringUtils.isEmpty(board.getContent_summary())) {
+				board.setContent_summary(board.getContent_summary().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "").replaceAll("<[^>]*..", ""));
+			}
+		}
+		return list;
+	}
+	
+	@Cacheable(cacheName="getBoardByMain")
+	public List<Board> getBoardByMain(int manage_idx, int count, String boardType, String homepage_id) {
+
+//		BoardManage boardManage = new BoardManage(manage_idx);
+		List<Board> list = dao.getBoardByMain(new Board(manage_idx, count, boardType, homepage_id));
 
 		for (Board board : list) {
 			if (!StringUtils.isEmpty(board.getContent_summary())) {
@@ -193,7 +208,8 @@ public class BoardService extends BaseService {
 
 		if(boardManage.getBoard_type().equals("QNA")) {
 			return dao.getQnABoardCount(board);
-		} else if(boardManage.getBoard_type().equals("BOOK") || boardManage.getBoard_type().equals("MOVIE") || boardManage.getBoard_type().equals("THEMEBOOK")) {
+		} else if(boardManage.getBoard_type().equals("BOOK") || boardManage.getBoard_type().equals("MOVIE") || boardManage.getBoard_type().equals("THEMEBOOK")
+				|| boardManage.getBoard_type().equals("BOOK_PORTAL")) {
 			return dao.getBOOKBoardCount(board);
 		} else {
 			return dao.getBoardCount(board);

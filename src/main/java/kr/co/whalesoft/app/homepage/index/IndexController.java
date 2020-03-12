@@ -359,35 +359,11 @@ public class IndexController extends BaseController {
 		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
 
 		String homepage_id = request.getParameter("hid");
-		int manage_idx = 0;
-		int menu_idx = 41;
-		Homepage bookHomepage = homepageService.getHomepageOne(new Homepage(homepage_id));
-		if ("h1".equals(homepage_id)) {
-			manage_idx = 75;
-		} else if ("h2".equals(homepage_id)) {
-			manage_idx = 94;
-		} else if ("h3".equals(homepage_id)) {
-			manage_idx = 102;
-		} else if ("h4".equals(homepage_id)) {
-			manage_idx = 113;
-		} else if ("h5".equals(homepage_id)) {
-			manage_idx = 254;
-		} else if ("h6".equals(homepage_id)) {
-			manage_idx = 233;
-		} else if ("h7".equals(homepage_id)) {
-			manage_idx = 144;
-		} else if ("h8".equals(homepage_id)) {
-			manage_idx = 38;
-		} else if ("h9".equals(homepage_id)) {
-			manage_idx = 31;
-		} else if ("h10".equals(homepage_id)) {
-			manage_idx = 174;
-			menu_idx = 115;
-		}
+		int manage_idx = 292;
 
-		model.addAttribute("recommendBookMenuIdx", menu_idx);
-		model.addAttribute("recommendBookContextPath", bookHomepage.getContext_path());
-		model.addAttribute("recommendBookList", boardService.getBoardByMain(manage_idx, 2, "PORTAL"));
+		model.addAttribute("recommendBookMenuIdx", 64);
+		model.addAttribute("recommendBookContextPath", homepage.getContext_path());
+		model.addAttribute("recommendBookList", boardService.getBoardByMain(manage_idx, 2, "PORTAL", homepage_id));
 
 		return basePath + homepage.getFolder() + "/recommendBook_ajax";
 	}

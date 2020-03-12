@@ -76,13 +76,13 @@ do {
 		});
 		// 팝업 관련 코드 END
 
-
 		$('div.calendar-box').load('calendar5.do?homepage_id=h1');
-		$('ul.newBookUl').load('recommendBook.do?hid=h1');
-
+		
+		$('ul.newBookUl').load('recommendBook.do?hid=010');
 		$('select#recommendBook1').on('change', function() {
 			$('ul.newBookUl').load('recommendBook.do?hid='+$(this).val());
 		});
+		
 		$('select#holidaySite1').on('change', function() {
 			$('div.calendar-box').load('calendar5.do?homepage_id='+$(this).val());
 			var val = $(this).val();
@@ -198,23 +198,28 @@ do {
 						<h2><b>추천도서</b></h2>
 						<p>
 							<select id="recommendBook1" class="recommendSite1">
-								<option value="h1">대구 2·28기념학생도서관</option>
-								<option value="h2">대구 2·28민주운동기념회관</option>
-								<option value="h3">대구광역시립 남부도서관</option>
-								<option value="h4">대구광역시립 달성도서관</option>
-								<option value="h5">대구광역시립 동부도서관</option>
-								<option value="h6">대구광역시립 두류도서관</option>
-								<option value="h7">대구광역시립 북부도서관</option>
-								<option value="h8">대구광역시립 서부도서관</option>
-								<option value="h9">대구광역시립 수성도서관</option>
-								<option value="h10">대구광역시립 중앙도서관</option>
+								<option value="010">중앙</option>
+								<option value="020">228학생</option>
+								<option value="030">남부</option>
+								<option value="040">동부</option>
+								<option value="050">서부</option>
+								<option value="060">수성</option>
+								<option value="070">북부</option>
+								<option value="080">두류</option>
+								<option value="090">달성</option>
+								<option value="100">안심</option>
+								<option value="110">구수산</option>
+								<option value="120">범어</option>
+								<option value="130">용학</option>
+								<option value="140">고산</option>
+								<option value="150">달서구립</option>
+								<option value="160">달서군립</option>
 							</select>
 						</p>
 					</div>
 					<div class="book">
 						<div class="box con">
 							<ul class="book_photo newBookUl">
-
 							</ul>
 						</div>
 					</div>

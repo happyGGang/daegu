@@ -37,6 +37,14 @@
 			</otherwise>
 		</choose>
 
+		<if test="manage_idx == 292">
+			<if test="imsi_v_5 != null and imsi_v_5 != ''">
+				AND	imsi_v_5 = #{imsi_v_5}
+			</if>
+			<if test="imsi_v_6 != null and imsi_v_6 != ''">
+				AND	imsi_v_6 = #{imsi_v_6}
+			</if>
+		</if>
 
 		<if test="imsi_v_3 != null and imsi_v_3 != ''">
 			AND imsi_v_3 = #{imsi_v_3}
@@ -707,6 +715,7 @@
 		</if>
 		<if test='dept_cd != null and dept_cd == "PORTAL"'>
 		AND	imsi_v_1 = TO_CHAR(SYSDATE, 'YYYY-MM')
+		AND	imsi_v_5 = #{homepage_id}
 		</if>
 		ORDER BY board_idx DESC
 		${pagingBottom}

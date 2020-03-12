@@ -312,7 +312,7 @@ public class BoardController extends BaseController {
 		}
 
 		//BOOK게시판
-		if (boardManage.getBoard_type().equals("BOOK")){
+		if (boardManage.getBoard_type().equals("BOOK") || boardManage.getBoard_type().equals("BOOK_PORTAL")){
 			if(board.getPlan_date() == null || board.getPlan_date().equals("")) {
 				board.setPlan_date(new SimpleDateFormat("yyyy-MM").format(new Date()));
 			}
