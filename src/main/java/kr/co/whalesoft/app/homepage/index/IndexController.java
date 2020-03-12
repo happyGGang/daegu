@@ -363,9 +363,9 @@ public class IndexController extends BaseController {
 		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
 
 		String category2 = request.getParameter("category2");
-		int manage_idx = 292;
+		int manage_idx = 299;
 
-		model.addAttribute("recommendBookMenuIdx", 64);
+		model.addAttribute("recommendBookMenuIdx", 67);
 		model.addAttribute("recommendBookContextPath", homepage.getContext_path());
 		
 		Board board = new Board();
@@ -426,12 +426,13 @@ public class IndexController extends BaseController {
 				}
 			}
 			model.addAttribute("teachList", teachListForAllHomepage);
+			
 			Board b = new Board();
 			b.setRowCount(4);
 			b.setTotalDataCount(4);
 			model.addAttribute("noticeBoardList", boardService.getAllHomepageBoardListByMain(b));
 			
-			String boardCategory2 = boardManageService.getBoardManageOne(new BoardManage(homepage.getHomepage_id(), 292)).getCategory2();
+			String boardCategory2 = boardManageService.getBoardManageOne(new BoardManage(homepage.getHomepage_id(), 299)).getCategory2();
 			model.addAttribute("category2List", codeService.getCode(homepage.getHomepage_id(), boardCategory2));
 		}
 
