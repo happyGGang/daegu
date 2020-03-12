@@ -376,15 +376,7 @@
 			#{isbn13}, #{format}, #{book_image}, #{parent_id}, #{device},
 			#{library_code}, #{max_lend}, #{use_yn}, #{book_lend},
 			#{book_reserve}, #{com_code}, TO_DATE(#{book_pubdt}, 'YYYY-MM-DD'), SYSDATE,
-			#{type}, #{add_id}, SYSDATE, #{approved_yn},
-			<choose>
-			<when test="type == 'ADO'">
-			#{parent_id}
-			</when>
-			<otherwise>
-			#{cate_id}
-			</otherwise>
-			</choose>
+			#{type}, #{add_id}, SYSDATE, #{approved_yn}, #{cate_id}
 		)
 	</insert>
 	
