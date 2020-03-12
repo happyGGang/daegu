@@ -40,102 +40,13 @@ import kr.go.gbelib.app.cms.module.elib.config.ConfigService;
 import kr.go.gbelib.app.cms.module.elib.member.ElibMember;
 
 @Service
-public class KyoboAPIService extends BaseService {
+public class OpmsAPIService extends BaseService {
 	
 	private static final String USER_AGENT = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)";
-	private static final String LEND_URL = "http://ebook.busan.go.kr:8091/Kyobo_T3/Process/%s.asp";
-	private static final String MEMBER_URL = "http://ebook.busan.go.kr:8091/member_sync.asp";
-	private static final String VIEW_URL = "http://ebook.busan.go.kr:8091/borrow_data.asp";
+	private static final String LEND_URL = "http://152.99.21.148:8000/external/book_sync.asp";
+	private static final String MEMBER_URL = "http://152.99.21.148:8000/external/member_sync.asp";
+//	private static final String VIEW_URL = "/external/opms_pop.asp";
 	private static final int TIMEOUT = 30 * 1000;
-	
-	@Autowired
-	ConfigService configService;
-	
-	private Map<String, String> parse(String xml, String encoding) {
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder = null;
-		ByteArrayInputStream input = null;
-		Document doc = null;
-		Map<String, String> map = new HashMap<String, String>();
-		String result = "";
-		String msgcode = "";
-		
-		try {
-			builder = factory.newDocumentBuilder();
-			input = new ByteArrayInputStream(xml.getBytes(encoding));
-			doc = builder.parse(input);
-			XPath xPath =  XPathFactory.newInstance().newXPath();
-			String resultPath = "/if_res/result/text()";
-			String msgcodePath = "/if_res/msgcode/text()";
-			XPathExpression resultExpr = xPath.compile(resultPath);
-			XPathExpression msgExpr = xPath.compile(msgcodePath);
-			result = (String) resultExpr.evaluate(doc, XPathConstants.STRING);
-			msgcode = (String) msgExpr.evaluate(doc, XPathConstants.STRING);
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (XPathExpressionException e) {
-			e.printStackTrace();
-		}
-		
-		map.put("result", result);
-		map.put("msgcode", msgcode);
-		
-		return map;
-	}
-	
-	private Map<String, String> parse2(String xml, String encoding) {
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder = null;
-		ByteArrayInputStream input = null;
-		Document doc = null;
-		Map<String, String> map = new HashMap<String, String>();
-		String result = "";
-		String msgcode = "";
-		String msg = "";
-		String borrowid = "";
-		
-		try {
-			builder = factory.newDocumentBuilder();
-			input = new ByteArrayInputStream(xml.getBytes(encoding));
-			doc = builder.parse(input);
-			XPath xPath =  XPathFactory.newInstance().newXPath();
-			String resultPath = "/channel/result/text()";
-			String msgcodePath = "/channel/msgcode/text()";
-			String msgPath = "/channel/msg/text()";
-			String borrowidPath = "/channel/borrowid/text()";
-			XPathExpression resultExpr = xPath.compile(resultPath);
-			XPathExpression msgcodeExpr = xPath.compile(msgcodePath);
-			XPathExpression msgExpr = xPath.compile(msgPath);
-			XPathExpression borrowidExpr = xPath.compile(borrowidPath);
-			result = (String) resultExpr.evaluate(doc, XPathConstants.STRING);
-			msgcode = (String) msgcodeExpr.evaluate(doc, XPathConstants.STRING);
-			msg = (String) msgExpr.evaluate(doc, XPathConstants.STRING);
-			borrowid = (String) borrowidExpr.evaluate(doc, XPathConstants.STRING);
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (XPathExpressionException e) {
-			e.printStackTrace();
-		}
-		
-		map.put("result", result);
-		map.put("msgcode", msgcode);
-		map.put("msg", msg);
-		map.put("borrowid", borrowid);
-
-		return map;
-	}
 	
 	private String getText(Document doc, String path) {
 		XPath xPath =  XPathFactory.newInstance().newXPath();
@@ -152,7 +63,7 @@ public class KyoboAPIService extends BaseService {
 		}
 	}
 	
-	private Map<String, String> parse3(String xml, String encoding) {
+	private Map<String, String> parse(String xml, String encoding) {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = null;
 		ByteArrayInputStream input = null;
@@ -164,13 +75,8 @@ public class KyoboAPIService extends BaseService {
 			input = new ByteArrayInputStream(xml.getBytes(encoding));
 			doc = builder.parse(input);
 			
-			map.put("borrowID", getText(doc, "/BorrowData/BorrowID/text()"));
-			map.put("type", getText(doc, "/BorrowData/filetype/text()"));
-			map.put("libraryCd", getText(doc, "/BorrowData/libraryCd/text()"));
-			map.put("drmHost", getText(doc, "/BorrowData/drmHost/text()"));
-			map.put("libraryUrl", getText(doc, "/BorrowData/libraryUrl/text()"));
-			map.put("libraryNm", getText(doc, "/BorrowData/libraryNm/text()"));
-			map.put("result", getText(doc, "/BorrowData/result/text()"));
+			map.put("result", getText(doc, "/root/result/text()"));
+			map.put("message", getText(doc, "/root/message/text()"));
 
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
@@ -197,8 +103,8 @@ public class KyoboAPIService extends BaseService {
 		StringBuilder result = new StringBuilder();
 		String line = "";
 		
-		log.debug("@@@@@@@@@@ KyoboAPIService send url: " + url + "?" + pairsToString(params));
-		System.out.println("@@@@@@@@@@ KyoboAPIService send url: " + url + "?" + pairsToString(params));
+		log.debug("@@@@@@@@@@ OpmsAPIService send url: " + url + "?" + pairsToString(params));
+		System.out.println("@@@@@@@@@@ OpmsAPIService send url: " + url + "?" + pairsToString(params));
 		
 		try {
 			post.setHeader("User-Agent", USER_AGENT);
@@ -222,8 +128,8 @@ public class KyoboAPIService extends BaseService {
 		
 		String resultString = result.toString();
 		
-		log.debug("@@@@@@@@@@ KyoboAPIService send result: " + resultString);
-		System.out.println("@@@@@@@@@@ KyoboAPIService send result: " + resultString);
+		log.debug("@@@@@@@@@@ OpmsAPIService send result: " + resultString);
+		System.out.println("@@@@@@@@@@ OpmsAPIService send result: " + resultString);
 		
 		return resultString;
 	}
@@ -246,14 +152,16 @@ public class KyoboAPIService extends BaseService {
 	 * @param book
 	 * @return
 	 */
+/*
 	public Map<String, String> view(Book book) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		
-		params.add(new BasicNameValuePair("barcode", book.getBook_code()));
+		params.add(new BasicNameValuePair("eancode", book.getBook_code()));
 		params.add(new BasicNameValuePair("user_id", book.getMember_id()));
 		
-		return parse3(send(VIEW_URL, params, "UTF-8"), "UTF-8");
+		return parse3(send(getServerUrl(book) + VIEW_URL, params, "UTF-8"), "UTF-8");
 	}
+*/
 	
 	/**
 	 * 대출
@@ -261,19 +169,13 @@ public class KyoboAPIService extends BaseService {
 	 * @return
 	 */
 	public Map<String, String> lend(Book book) {
-		int lend_max_term = 7;
-		Config config =  configService.getConfig();
-		
-		if(config != null) lend_max_term = config.getLend_max_term();
-		
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 
-		params.add(new BasicNameValuePair("barcode", book.getBook_code()));
+		params.add(new BasicNameValuePair("cmd", "lent"));
 		params.add(new BasicNameValuePair("user_id", book.getMember_id()));
-		params.add(new BasicNameValuePair("borrow_type", "W"));
-		params.add(new BasicNameValuePair("borrow_date", String.valueOf(lend_max_term+1)));
+		params.add(new BasicNameValuePair("eancode", book.getBook_code()));
 
-		return parse2(send(String.format(LEND_URL, "Content_Borrow_Proc_If"), params, "EUC-KR"), "EUC-KR");
+		return parse(send(LEND_URL, params, "UTF-8"), "UTF-8");
 	}
 	
 	/**
@@ -284,10 +186,11 @@ public class KyoboAPIService extends BaseService {
 	public Map<String, String> rtn(Book book) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 
-		params.add(new BasicNameValuePair("barcode", book.getBook_code()));
+		params.add(new BasicNameValuePair("cmd", "return"));
 		params.add(new BasicNameValuePair("user_id", book.getMember_id()));
+		params.add(new BasicNameValuePair("eancode", book.getBook_code()));
 
-		return parse2(send(String.format(LEND_URL, "Content_Return_Proc_If"), params, "EUC-KR"), "EUC-KR");
+		return parse(send(LEND_URL, params, "UTF-8"), "UTF-8");
 	}
 
 	/**
@@ -298,11 +201,11 @@ public class KyoboAPIService extends BaseService {
 	public Map<String, String> reserve(Book book) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 
-		params.add(new BasicNameValuePair("barcode", book.getBook_code()));
+		params.add(new BasicNameValuePair("cmd", "reserve"));
 		params.add(new BasicNameValuePair("user_id", book.getMember_id()));
-		params.add(new BasicNameValuePair("reserve_type", "W"));
+		params.add(new BasicNameValuePair("eancode", book.getBook_code()));
 
-		return parse2(send(String.format(LEND_URL, "Content_Reserve_Proc_If"), params, "EUC-KR"), "EUC-KR");
+		return parse(send(LEND_URL, params, "UTF-8"), "UTF-8");
 	}
 	
 	/**
@@ -313,10 +216,11 @@ public class KyoboAPIService extends BaseService {
 	public Map<String, String> cancel(Book book) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 
-		params.add(new BasicNameValuePair("barcode", book.getBook_code()));
+		params.add(new BasicNameValuePair("cmd", "cancel"));
 		params.add(new BasicNameValuePair("user_id", book.getMember_id()));
+		params.add(new BasicNameValuePair("eancode", book.getBook_code()));
 
-		return parse2(send(String.format(LEND_URL, "Content_Reserve_Cancel_Proc_If"), params, "EUC-KR"), "EUC-KR");
+		return parse(send(LEND_URL, params, "UTF-8"), "UTF-8");
 	}
 	
 	/**
@@ -325,23 +229,19 @@ public class KyoboAPIService extends BaseService {
 	 * @return
 	 */
 	public Map<String, String> extend(Book book) {
-		int lend_max_term = 7;
-		Config config =  configService.getConfig();
-		
-		if(config != null) lend_max_term = config.getLend_max_term();
-		
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 
-		params.add(new BasicNameValuePair("barcode", book.getBook_code()));
+		params.add(new BasicNameValuePair("cmd", "extension"));
 		params.add(new BasicNameValuePair("user_id", book.getMember_id()));
-		params.add(new BasicNameValuePair("borrow_date", String.valueOf(lend_max_term)));
+		params.add(new BasicNameValuePair("eancode", book.getBook_code()));
 
-		return parse2(send(String.format(LEND_URL, "Content_Extend_Proc_If"), params, "EUC-KR"), "EUC-KR");
+		return parse(send(LEND_URL, params, "UTF-8"), "UTF-8");
 	}
 	
+/*
 	private List<NameValuePair> makeParamPairs(String cmd, ElibMember member) {
 		String user_id = member.getMember_id();
-		String user_ps = member.getSeq_no();
+		String user_ps = member.getP_id();
 		String user_name = member.getMember_id();
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 
@@ -354,6 +254,7 @@ public class KyoboAPIService extends BaseService {
 		
 		return params;
 	}
+*/
 	
 	/**
 	 * 회원 가입
@@ -361,25 +262,36 @@ public class KyoboAPIService extends BaseService {
 	 * @return
 	 */
 	public Map<String, String> signup(ElibMember member, Book book) {
-		return parse(send(MEMBER_URL, makeParamPairs("I", member), "EUC-KR"), "EUC-KR");
+		String user_id = member.getMember_id();
+//		String user_pw = member.getP_id();
+//		String user_name = member.getMember_id();
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+		params.add(new BasicNameValuePair("cmd", "I"));
+		params.add(new BasicNameValuePair("user_id", user_id));
+		params.add(new BasicNameValuePair("user_name", user_id));
+		params.add(new BasicNameValuePair("user_pw", user_id));
+		params.add(new BasicNameValuePair("group", book.getLibrary_code()));
+		
+		return parse(send(MEMBER_URL, params, "UTF-8"), "UTF-8");
 	}
 	
-	/**
-	 * 회원 정보 수정
-	 * @param member
-	 * @return
-	 */
-	public Map<String, String> edit(ElibMember member) {
-		return parse(send(MEMBER_URL, makeParamPairs("U", member), "EUC-KR"), "EUC-KR");
-	}
-	
-	/**
-	 * 회원 탈퇴
-	 * @param member
-	 * @return
-	 */
-	public Map<String, String> delete(ElibMember member) {
-		return parse(send(MEMBER_URL, makeParamPairs("D", member), "EUC-KR"), "EUC-KR");
-	}
+//	/**
+//	 * 회원 정보 수정
+//	 * @param member
+//	 * @return
+//	 */
+//	public Map<String, String> edit(ElibMember member) {
+//		return parse(send(MEMBER_URL, makeParamPairs("U", member), "UTF-8"), "UTF-8");
+//	}
+//	
+//	/**
+//	 * 회원 탈퇴
+//	 * @param member
+//	 * @return
+//	 */
+//	public Map<String, String> delete(ElibMember member) {
+//		return parse(send(MEMBER_URL, makeParamPairs("D", member), "UTF-8"), "UTF-8");
+//	}
 	
 }

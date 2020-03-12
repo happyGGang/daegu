@@ -458,13 +458,7 @@ public class ElibController extends BaseController {
 				model.addAttribute("memberIdBase64", new String(Base64.encodeBase64(lending.getMember_id().getBytes())));
 				List<Map<String, String>> mobileList = new ArrayList<Map<String, String>>();
 				for(Lending l: lendingList) {
-					if(StringUtils.equals(l.getCom_code(), "KYOB")) {
-						try {
-							mobileList.add(apiService.view(new Book(l)));
-						} catch(Exception e) {
-							mobileList.add(null);
-						}
-					} else if(StringUtils.equals(l.getCom_code(), "FXLI")) {
+					if(StringUtils.equals(l.getCom_code(), "FXLI")) {
 						try {
 							Map<String, String> map = apiService.appUrl(new Book(l), member, getMobileOS(request));
 							mobileList.add(map);

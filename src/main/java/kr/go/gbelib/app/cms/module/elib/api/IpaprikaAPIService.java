@@ -20,6 +20,7 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
@@ -38,11 +39,11 @@ import kr.go.gbelib.app.cms.module.elib.book.Book;
 import kr.go.gbelib.app.cms.module.elib.member.ElibMember;
 
 @Service
-public class AladinAPIService extends BaseService {
+public class IpaprikaAPIService extends BaseService {
 	
 	private static final String USER_AGENT = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)";
-	private static final String LEND_URL = "http://ebook.busan.go.kr:8088/data/api/xml_action.php";
-	private static final String MEMBER_URL = "http://ebook.busan.go.kr:8088/data/api/xml_user.php";
+	private static final String LEND_URL = "http://e-lib.ice.go.kr:8180/Supply_Api/Api_Etc/In_Api_Order_Proc.aspx";
+	private static final String MEMBER_URL = "http://e-lib.ice.go.kr:8180/Supply_Api/Api_Etc/In_Api_Member_Proc.aspx";
 	private static final int TIMEOUT = 30 * 1000;
 	
 	private String getText(Document doc, String path) {
@@ -71,8 +72,8 @@ public class AladinAPIService extends BaseService {
 			builder = factory.newDocumentBuilder();
 			input = new ByteArrayInputStream(xml.getBytes("UTF-8"));
 			doc = builder.parse(input);
-			map.put("result", getText(doc, "//Result/ResultCode/text()"));
-			map.put("msgcode", getText(doc, "//Result/Message/text()"));
+			map.put("result", getText(doc, "//ERROR_CODE/text()"));
+			map.put("msg", getText(doc, "//ERROR_MSG/text()"));
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
@@ -100,8 +101,8 @@ public class AladinAPIService extends BaseService {
 		StringBuilder result = new StringBuilder();
 		String line = "";
 		
-		log.debug("AladinAPIService send url: " + url + "?" + pairsToString(params));
-		System.out.println("@@@@@@@@@@@@@@ AladinAPIService send url: " + url + "?" + pairsToString(params));
+		log.debug("IpaprikaAPIService send url: " + url + "?" + pairsToString(params));
+		System.out.println("@@@@@@@@@@@@@@ IpaprikaAPIService send url: " + url + "?" + pairsToString(params));
 		
 		try {
 			post.setHeader("User-Agent", USER_AGENT);
@@ -125,8 +126,8 @@ public class AladinAPIService extends BaseService {
 		
 		String resultString = result.toString();
 		
-		log.debug("AladinAPIService send result: " + resultString);
-		System.out.println("@@@@@@@@@@@@@@ AladinAPIService send result: " + resultString);
+		log.debug("IpaprikaAPIService send result: " + resultString);
+		System.out.println("@@@@@@@@@@@@@@ IpaprikaAPIService send result: " + resultString);
 		
 		return resultString;
 	}
@@ -146,12 +147,15 @@ public class AladinAPIService extends BaseService {
 	
 	private List<NameValuePair> makeParamPairs(String mode, Book book) {
 		String user_id = book.getMember_id();
-		String goods_id = book.getBook_code();
+		String eancode = book.getBook_code();
+		String file_type = book.getFormat();
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 
 		params.add(new BasicNameValuePair("mode", mode));
 		params.add(new BasicNameValuePair("user_id", user_id));
-		params.add(new BasicNameValuePair("goods_id", goods_id));
+		params.add(new BasicNameValuePair("eancode", eancode));
+		params.add(new BasicNameValuePair("file_type", file_type));
+		params.add(new BasicNameValuePair("platform_type", "PC"));
 		
 		return params;
 	}
@@ -162,7 +166,7 @@ public class AladinAPIService extends BaseService {
 	 * @return
 	 */
 	public Map<String, String> lend(Book book) {
-		return parse(send(LEND_URL, makeParamPairs("lent", book)));
+		return parse(send(LEND_URL, makeParamPairs("LOAN", book)));
 	}
 	
 	/**
@@ -171,7 +175,7 @@ public class AladinAPIService extends BaseService {
 	 * @return
 	 */
 	public Map<String, String> rtn(Book book) {
-		return parse(send(LEND_URL, makeParamPairs("return", book)));
+		return parse(send(LEND_URL, makeParamPairs("RET", book)));
 	}
 
 	/**
@@ -180,7 +184,7 @@ public class AladinAPIService extends BaseService {
 	 * @return
 	 */
 	public Map<String, String> reserve(Book book) {
-		return parse(send(LEND_URL, makeParamPairs("reserve", book)));
+		return parse(send(LEND_URL, makeParamPairs("WAIT", book)));
 	}
 	
 	/**
@@ -189,7 +193,7 @@ public class AladinAPIService extends BaseService {
 	 * @return
 	 */
 	public Map<String, String> cancel(Book book) {
-		return parse(send(LEND_URL, makeParamPairs("cancel", book)));
+		return parse(send(LEND_URL, makeParamPairs("C_WAIT", book)));
 	}
 	
 	/**
@@ -198,7 +202,7 @@ public class AladinAPIService extends BaseService {
 	 * @return
 	 */
 	public Map<String, String> extend(Book book) {
-		return parse(send(LEND_URL, makeParamPairs("extension", book)));
+		return parse(send(LEND_URL, makeParamPairs("EXTEND", book)));
 	}
 	
 	private List<NameValuePair> makeParamPairs(ElibMember member) {
@@ -209,13 +213,7 @@ public class AladinAPIService extends BaseService {
 
 		params.add(new BasicNameValuePair("user_id", user_id));
 		params.add(new BasicNameValuePair("user_pw", user_pw));
-		params.add(new BasicNameValuePair("user_nm", user_nm));
-		params.add(new BasicNameValuePair("user_level", "G1"));
-		try {
-			params.add(new BasicNameValuePair("user_level_name", URLEncoder.encode("대출회원", "UTF-8")));
-		} catch (UnsupportedEncodingException e) {
-			params.add(new BasicNameValuePair("user_level_name", "G1"));
-		}
+		params.add(new BasicNameValuePair("user_name", user_nm));
 		
 		return params;
 	}

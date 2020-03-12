@@ -41,13 +41,13 @@ import kr.go.gbelib.app.cms.module.elib.member.ElibMember;
 public class Yes24APIService extends BaseService {
 
 	private static final String USER_AGENT = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)";
-	private static final String LEND_URL = "http://ebook.busan.go.kr:8086/YES24/yes24_action_new.asp";
-	private static final String MEMBER_URL = "http://ebook.busan.go.kr:8086/YES24/yes24_member_sync.asp";
-	private static final String APP_URL = "http://ebook.busan.go.kr:8086/%s/device_url.asp?user_id=%s&goods_id=%s&device_type=phone";
+	private static final String LEND_URL = "http://152.99.21.148:8081/YES24/yes24_action_new.asp";
+	private static final String MEMBER_URL = "http://152.99.21.148:8081/YES24/yes24_member_sync.asp";
+	private static final String APP_URL = "http://152.99.21.148:8081/%s/device_url.asp?user_id=%s&goods_id=%s&device_type=phone";
 	private static final int TIMEOUT = 30 * 1000;
 
 	private String libraryCodeToSiteCode(String libraryCode) {
-		return "B2B_BUSAN";
+		return "";
 	}
 
 	private String getText(Document doc, String path) {
