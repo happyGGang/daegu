@@ -82,7 +82,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		var url = 'index.do';
 		//var formData = serializeCustom($('#board').serialize());
-		var formData = serializeParameter(['manage_idx', 'board_idx', 'menu_idx', 'category1', 'rowCount', 'viewPage', 'search_type', 'search_text']);
+		var formData = serializeParameter(['manage_idx', 'board_idx', 'menu_idx', 'rowCount', 'viewPage', 'search_type', 'search_text']);
 		doGetLoad(url, formData);
 	});
 
@@ -192,7 +192,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 <div class="wrapper-bbs">
 	<table class="bbs-edit">
 		<tbody>
-			<jsp:include page="/WEB-INF/views/app/board/common/edit/category.jsp" flush="false" />
+<%-- 			<jsp:include page="/WEB-INF/views/app/board/common/edit/category.jsp" flush="false" /> --%>
 			<tr>
 				<th>제목(서명)</th>
 				<td colspan="3">
@@ -232,32 +232,14 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 			<tr>
 				<th>구분</th>
 				<td>
-					<form:select path="imsi_v_6" cssClass="selectmenu">
-						<form:option value="100">유아</form:option>
-						<form:option value="200">어린이</form:option>
-						<form:option value="300">청소년</form:option>
-						<form:option value="400">일반</form:option>
+					<form:select path="category1" cssStyle="width:160px;" cssClass="selectmenu">
+						<form:options itemLabel="code_name" itemValue="code_id" items="${category1List}"/>
 					</form:select>
 				</td>
 				<th>도서관명</th>
 				<td>
-					<form:select path="imsi_v_5" cssClass="selectmenu">
-						<form:option value="010">중앙</form:option>
-						<form:option value="020">228학생</form:option>
-						<form:option value="030">남부</form:option>
-						<form:option value="040">동부</form:option>
-						<form:option value="050">서부</form:option>
-						<form:option value="060">수성</form:option>
-						<form:option value="070">북부</form:option>
-						<form:option value="080">두류</form:option>
-						<form:option value="090">달성</form:option>
-						<form:option value="100">안심</form:option>
-						<form:option value="110">구수산</form:option>
-						<form:option value="120">범어</form:option>
-						<form:option value="130">용학</form:option>
-						<form:option value="140">고산</form:option>
-						<form:option value="150">달서구립</form:option>
-						<form:option value="160">달서군립</form:option>
+					<form:select path="category2" cssStyle="width:160px;" cssClass="selectmenu">
+						<form:options itemLabel="code_name" itemValue="code_id" items="${category2List}"/>
 					</form:select>
 				</td>
 			</tr>

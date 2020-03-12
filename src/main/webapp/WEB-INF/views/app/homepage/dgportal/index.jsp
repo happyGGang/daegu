@@ -78,9 +78,9 @@ do {
 
 		$('div.calendar-box').load('calendar5.do?homepage_id=h1');
 		
-		$('ul.newBookUl').load('recommendBook.do?hid=010');
+		$('ul.newBookUl').load('recommendBook.do?category2=${category2List[0].code_id}');
 		$('select#recommendBook1').on('change', function() {
-			$('ul.newBookUl').load('recommendBook.do?hid='+$(this).val());
+			$('ul.newBookUl').load('recommendBook.do?category2='+$(this).val());
 		});
 		
 		$('select#holidaySite1').on('change', function() {
@@ -198,22 +198,9 @@ do {
 						<h2><b>추천도서</b></h2>
 						<p>
 							<select id="recommendBook1" class="recommendSite1">
-								<option value="010">중앙</option>
-								<option value="020">228학생</option>
-								<option value="030">남부</option>
-								<option value="040">동부</option>
-								<option value="050">서부</option>
-								<option value="060">수성</option>
-								<option value="070">북부</option>
-								<option value="080">두류</option>
-								<option value="090">달성</option>
-								<option value="100">안심</option>
-								<option value="110">구수산</option>
-								<option value="120">범어</option>
-								<option value="130">용학</option>
-								<option value="140">고산</option>
-								<option value="150">달서구립</option>
-								<option value="160">달서군립</option>
+								<c:forEach items="${category2List}" var="cate2">
+								<option value="${cate2.code_id}" label="${cate2.code_name}">
+								</c:forEach>
 							</select>
 						</p>
 					</div>

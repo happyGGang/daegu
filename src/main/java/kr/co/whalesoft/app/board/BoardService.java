@@ -124,6 +124,20 @@ public class BoardService extends BaseService {
 	}
 
 	@Cacheable(cacheName="getBoardByMain")
+	public List<Board> getBoardByMain(Board board) {
+
+//		BoardManage boardManage = new BoardManage(manage_idx);
+		List<Board> list = dao.getBoardByMain(board);
+
+		for (Board one : list) {
+			if (!StringUtils.isEmpty(one.getContent_summary())) {
+				one.setContent_summary(one.getContent_summary().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "").replaceAll("<[^>]*..", ""));
+			}
+		}
+		return list;
+	}
+
+	@Cacheable(cacheName="getBoardByMain")
 	public List<Board> getBoardByMain(int manage_idx, int count) {
 
 //		BoardManage boardManage = new BoardManage(manage_idx);
@@ -142,20 +156,6 @@ public class BoardService extends BaseService {
 
 //		BoardManage boardManage = new BoardManage(manage_idx);
 		List<Board> list = dao.getBoardByMain(new Board(manage_idx, count, boardType));
-
-		for (Board board : list) {
-			if (!StringUtils.isEmpty(board.getContent_summary())) {
-				board.setContent_summary(board.getContent_summary().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "").replaceAll("<[^>]*..", ""));
-			}
-		}
-		return list;
-	}
-	
-	@Cacheable(cacheName="getBoardByMain")
-	public List<Board> getBoardByMain(int manage_idx, int count, String boardType, String homepage_id) {
-
-//		BoardManage boardManage = new BoardManage(manage_idx);
-		List<Board> list = dao.getBoardByMain(new Board(manage_idx, count, boardType, homepage_id));
 
 		for (Board board : list) {
 			if (!StringUtils.isEmpty(board.getContent_summary())) {

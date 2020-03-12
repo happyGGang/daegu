@@ -156,14 +156,6 @@ public class Board extends BoardExt {
 		this.dept_cd = dept_cd;
 	}
 
-	public Board(int manage_idx, int row_count, String dept_cd, String homepage_id) {
-		this.manage_idx = manage_idx;
-		setRowCount(row_count);
-		setTotalDataCount(row_count);
-		this.dept_cd = dept_cd;
-		setHomepage_id(homepage_id);
-	}
-
 	public Board(int board_idx, String preview_img) {
 		this.board_idx = board_idx;
 		this.preview_img = preview_img;

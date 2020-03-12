@@ -155,12 +155,6 @@ $(function() {
 			doGetLoad('index.do', serializeCustom($('#board')));
 		});
 		
-		$('select#imsi_v_5, select#imsi_v_6').on('change', function() {
-			var planDate = $('#plan_year').val() + '-' + $('#plan_month').val();
-			$('#plan_date').val(planDate);
-			$('#viewPage').val('1');
-			doGetLoad('index.do', serializeCustom($('#board')));
-		});
 	});
 });
 </script>
@@ -170,19 +164,8 @@ ${boardManage.top_html}
 </c:if>
 <jsp:include page="/WEB-INF/views/app/board/common/index/script.jsp" flush="false" />
 <form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
-<form:hidden path="category1"/>
 <form:hidden path="plan_date"/>
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
-<c:if test="${fn:length(category1List) > 0}">
-<div class="tabmenu tab1">
-	<ul>
-		<li class="${board.category1 eq null ? 'active':''}"><a href="" keyValue=""style="font-size: 13px;">전체</a></li>
-		<c:forEach items="${category1List}" var="i" varStatus="status">
-		<li class="${board.category1 eq i.code_id ? 'active':''}"><a href="" keyValue="${i.code_id}" style="font-size: 13px;">${i.code_name}</a></li>
-		</c:forEach>
-	</ul>
-</div>
-</c:if>
 <c:if test="${boardManage.manage_idx eq '195'}">
 <div style="float: left;">
 도서관 :
@@ -199,33 +182,15 @@ ${boardManage.top_html}
 </c:if>
 <div class="txt-left">
 	구분 :
-	<form:select path="imsi_v_6" cssClass="selectmenu">
-		<form:option value="">전체</form:option>
-		<form:option value="100">유아</form:option>
-		<form:option value="200">어린이</form:option>
-		<form:option value="300">청소년</form:option>
-		<form:option value="400">일반</form:option>
+	<form:select path="category1" cssStyle="width:160px;" cssClass="selectmenu">
+		<form:option value="" label="전체"/>
+		<form:options itemLabel="code_name" itemValue="code_id" items="${category1List}"/>
 	</form:select>
 	
 	도서관명:
-	<form:select path="imsi_v_5" cssClass="selectmenu">
-		<form:option value="">전체</form:option>
-		<form:option value="010">중앙</form:option>
-		<form:option value="020">228학생</form:option>
-		<form:option value="030">남부</form:option>
-		<form:option value="040">동부</form:option>
-		<form:option value="050">서부</form:option>
-		<form:option value="060">수성</form:option>
-		<form:option value="070">북부</form:option>
-		<form:option value="080">두류</form:option>
-		<form:option value="090">달성</form:option>
-		<form:option value="100">안심</form:option>
-		<form:option value="110">구수산</form:option>
-		<form:option value="120">범어</form:option>
-		<form:option value="130">용학</form:option>
-		<form:option value="140">고산</form:option>
-		<form:option value="150">달서구립</form:option>
-		<form:option value="160">달서군립</form:option>
+	<form:select path="category2" cssStyle="width:160px;" cssClass="selectmenu">
+		<form:option value="" label="전체"/>
+		<form:options itemLabel="code_name" itemValue="code_id" items="${category2List}"/>
 	</form:select>
 </div>
 <div class="txt-right ym_btns">
@@ -286,33 +251,15 @@ ${boardManage.top_html}
 									</c:if>
 									<li>
 										구분 :
-										<c:choose>
-											<c:when test="${i.imsi_v_6 eq '100'}">유아</c:when>
-											<c:when test="${i.imsi_v_6 eq '200'}">어린이</c:when>
-											<c:when test="${i.imsi_v_6 eq '300'}">청소년</c:when>
-											<c:when test="${i.imsi_v_6 eq '400'}">일반</c:when>
-										</c:choose>
+										<c:forEach items="${category1List}" var="cate1">
+											<c:if test="${cate1.code_id eq i.category1}">${cate1.code_name}</c:if>
+										</c:forEach>
 									</li>
 									<li>
 										도서관명 :
-										<c:choose>
-											<c:when test="${i.imsi_v_5 eq '010'}">중앙</c:when>
-											<c:when test="${i.imsi_v_5 eq '020'}">228학생</c:when>
-											<c:when test="${i.imsi_v_5 eq '030'}">남부</c:when>
-											<c:when test="${i.imsi_v_5 eq '040'}">동부</c:when>
-											<c:when test="${i.imsi_v_5 eq '050'}">서부</c:when>
-											<c:when test="${i.imsi_v_5 eq '060'}">수성</c:when>
-											<c:when test="${i.imsi_v_5 eq '070'}">북부</c:when>
-											<c:when test="${i.imsi_v_5 eq '080'}">두류</c:when>
-											<c:when test="${i.imsi_v_5 eq '090'}">달성</c:when>
-											<c:when test="${i.imsi_v_5 eq '100'}">안심</c:when>
-											<c:when test="${i.imsi_v_5 eq '110'}">구수산</c:when>
-											<c:when test="${i.imsi_v_5 eq '120'}">범어</c:when>
-											<c:when test="${i.imsi_v_5 eq '130'}">용학</c:when>
-											<c:when test="${i.imsi_v_5 eq '140'}">고산</c:when>
-											<c:when test="${i.imsi_v_5 eq '150'}">달서구립</c:when>
-											<c:when test="${i.imsi_v_5 eq '160'}">달서군립</c:when>
-										</c:choose>
+										<c:forEach items="${category2List}" var="cate2">
+											<c:if test="${cate2.code_id eq i.category2}">${cate2.code_name}</c:if>
+										</c:forEach>
 									</li>
 								</ul>
 							</div>

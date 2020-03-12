@@ -27,6 +27,7 @@ import kr.co.whalesoft.app.cms.banner.Banner;
 import kr.co.whalesoft.app.cms.banner.BannerService;
 import kr.co.whalesoft.app.cms.boardManage.BoardManage;
 import kr.co.whalesoft.app.cms.boardManage.BoardManageService;
+import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.mainImg.MainImg;
@@ -104,6 +105,9 @@ public class IndexController extends BaseController {
 
 	@Autowired
 	private MenuService menuService;
+
+	@Autowired
+	private CodeService codeService;
 
 	@RequestMapping(value = { "index.*" })
 	public String index(Model model, HttpServletRequest request) {
@@ -358,12 +362,19 @@ public class IndexController extends BaseController {
 	public String recommendBook(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
 		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
 
-		String homepage_id = request.getParameter("hid");
+		String category2 = request.getParameter("category2");
 		int manage_idx = 292;
 
 		model.addAttribute("recommendBookMenuIdx", 64);
 		model.addAttribute("recommendBookContextPath", homepage.getContext_path());
-		model.addAttribute("recommendBookList", boardService.getBoardByMain(manage_idx, 2, "PORTAL", homepage_id));
+		
+		Board board = new Board();
+		board.setManage_idx(manage_idx);
+		board.setRowCount(2);
+		board.setTotalDataCount(2);
+		board.setDept_cd("PORTAL");
+		board.setCategory2(category2);
+		model.addAttribute("recommendBookList", boardService.getBoardByMain(board));
 
 		return basePath + homepage.getFolder() + "/recommendBook_ajax";
 	}
@@ -419,8 +430,10 @@ public class IndexController extends BaseController {
 			b.setRowCount(4);
 			b.setTotalDataCount(4);
 			model.addAttribute("noticeBoardList", boardService.getAllHomepageBoardListByMain(b));
+			
+			String boardCategory2 = boardManageService.getBoardManageOne(new BoardManage(homepage.getHomepage_id(), 292)).getCategory2();
+			model.addAttribute("category2List", codeService.getCode(homepage.getHomepage_id(), boardCategory2));
 		}
-
 
 		setBoardListToModel(homepage.getHomepage_id(), model);
 

@@ -47,33 +47,15 @@ ${boardManage.top_html}
 					</c:if>
 					<li>
 						구분 : 
-						<c:choose>
-							<c:when test="${board.imsi_v_6 eq '100'}">유아</c:when>
-							<c:when test="${board.imsi_v_6 eq '200'}">어린이</c:when>
-							<c:when test="${board.imsi_v_6 eq '300'}">청소년</c:when>
-							<c:when test="${board.imsi_v_6 eq '400'}">일반</c:when>
-						</c:choose>
+						<c:forEach items="${category1List}" var="cate1">
+							<c:if test="${cate1.code_id eq board.category1}">${cate1.code_name}</c:if>
+						</c:forEach>
 					</li>
 					<li>
 						도서관명 : 
-						<c:choose>
-							<c:when test="${board.imsi_v_5 eq '010'}">중앙</c:when>
-							<c:when test="${board.imsi_v_5 eq '020'}">228학생</c:when>
-							<c:when test="${board.imsi_v_5 eq '030'}">남부</c:when>
-							<c:when test="${board.imsi_v_5 eq '040'}">동부</c:when>
-							<c:when test="${board.imsi_v_5 eq '050'}">서부</c:when>
-							<c:when test="${board.imsi_v_5 eq '060'}">수성</c:when>
-							<c:when test="${board.imsi_v_5 eq '070'}">북부</c:when>
-							<c:when test="${board.imsi_v_5 eq '080'}">두류</c:when>
-							<c:when test="${board.imsi_v_5 eq '090'}">달성</c:when>
-							<c:when test="${board.imsi_v_5 eq '100'}">안심</c:when>
-							<c:when test="${board.imsi_v_5 eq '110'}">구수산</c:when>
-							<c:when test="${board.imsi_v_5 eq '120'}">범어</c:when>
-							<c:when test="${board.imsi_v_5 eq '130'}">용학</c:when>
-							<c:when test="${board.imsi_v_5 eq '140'}">고산</c:when>
-							<c:when test="${board.imsi_v_5 eq '150'}">달서구립</c:when>
-							<c:when test="${board.imsi_v_5 eq '160'}">달서군립</c:when>
-						</c:choose>
+						<c:forEach items="${category2List}" var="cate2">
+							<c:if test="${cate2.code_id eq board.category2}">${cate2.code_name}</c:if>
+						</c:forEach>
 					</li>
 				</ul>
 			</div>
