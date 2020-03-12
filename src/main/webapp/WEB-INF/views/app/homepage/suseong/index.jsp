@@ -369,8 +369,9 @@ do {
 				</div>
 			</div>
 		</div>
-
-		<div id="quick-slide">
+			</div>
+         <!--퀵메뉴-->
+		 <div id="quick-slide">
 			<h4><img src="/resources/homepage/${homepage.context_path}/img/quick-title.png" alt="퀵메뉴"/></h4>
 			<ul>
 				<li><a href="/${homepage.context_path}/elib.do?menu_idx=46"><span class="txt">전자도서관</span></a></li>
@@ -380,9 +381,5 @@ do {
 				<li><a href="https://www.1365.go.kr/vols/main.do" target="_blank"><span class="txt">청소년<br/>자원봉사신청</span></a></li>
 			</ul>
 		</div>
-
-
-	</div>
-
-
+        <!--//퀵메뉴-->
 <tiles:insertAttribute name="footer" />

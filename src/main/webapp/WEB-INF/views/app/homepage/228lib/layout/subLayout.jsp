@@ -38,6 +38,23 @@ $(function() {
 	</c:choose>
 });
 </script>
+
+<script>
+function link()
+{
+    document.form1.action = "https://www.nl.go.kr/NL/contents/N30502000000.do";
+	document.form1.lib_name.value = "대구2ㆍ28민주운동기념회관";
+    document.form1.lib_id.value = "127058";
+    document.form1.target="mashup";
+    document.form1.submit();
+}
+</script>
+
+<form name="form1" method="post">
+<input type=hidden name='lib_name'>
+<input type=hidden name='lib_id'>
+</form>
+
 <div id="wrap">
 
 	<tiles:insertAttribute name="top" />

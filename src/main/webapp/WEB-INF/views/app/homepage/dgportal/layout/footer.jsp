@@ -27,6 +27,14 @@
 							<li class="disabled"><a title="대구광역시립 서부도서관" href="http://library.daegu.go.kr/seobu/index.do">대구광역시립 서부도서관</a></li>
 							<li class="disabled"><a title="대구광역시립 수성도서관" href="http://library.daegu.go.kr/suseong/index.do">대구광역시립 수성도서관</a></li>
 							<li class="disabled"><a title="대구광역시립 중앙도서관" href="http://library.daegu.go.kr/jungang/index.do">대구광역시립 중앙도서관</a></li>
+							<li class="disabled"><a title="동구 통합도서관" href="http://www.donggu-lib.kr/">동구 통합도서관</a></li>
+							<li class="disabled"><a title="서구 통합도서관" href="http://lib.dgs.go.kr/main.do">서구 통합도서관</a></li>
+							<li class="disabled"><a title="남구 통합도서관" href="http://lib.nam.daegu.kr/main.do">남구 통합도서관</a></li>
+							<li class="disabled"><a title="북구 통합도서관" href="http://lib.hbcf.or.kr/intro/">북구 통합도서관</a></li>
+							<li class="disabled"><a title="수성구 통합도서관" href="http://library.suseong.kr/">수성구 통합도서관</a></li>
+							<li class="disabled"><a title="달서구 통합도서관" href="http://www.dalseolib.kr/main/">달서구 통합도서관</a></li>
+							<li class="disabled"><a title="달성군 통합도서관" href="http://www.dalseonglib.kr/index.php">달성군 통합도서관</a></li>
+
 							</ul>
 						</div>
 						<a href="#" class="btn">이동</a>
@@ -86,7 +94,7 @@
 
 				<div class="info-box">
 					<div class="info">
-						<a href="/${homepage.context_path}/html.do?menu_idx=46"><b>개인정보처리방침</b></a>
+						<a href="http://www.daegu.go.kr/index.do?menu_id=00050250" target="_blank"><b>개인정보처리방침</b></a>
 						<span class="bar">|</span>
 						<a href="/${homepage.context_path}/html.do?menu_idx=49">도서관서비스헌장</a>
 						<span class="bar">|</span>

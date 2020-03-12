@@ -431,7 +431,7 @@ do {
 	<div id="quick-slide">
 		<h4><img src="/resources/homepage/${homepage.context_path}/img/quick-title.png" alt="퀵메뉴"/></h4>
 		<ul>
-			<li><a href="#"><span class="txt">디지털 정보코너<Br/>좌석예약</span></a></li>
+			<li><a href="http://seat.daegu.go.kr/wb_booking/?LIB_CODE=1" target="_blank"><span class="txt">디지털 정보코너<Br/>좌석예약</span></a></li>
 			<li><a href="/${homepage.context_path}/html.do?menu_idx=26"><span class="txt">희망도서신청</span></a></li>
 			<li><a href="#"><span class="txt">도서예약</span></a></li>
 			<li><a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=157"><span class="txt">영화상영일정</span></a></li>
