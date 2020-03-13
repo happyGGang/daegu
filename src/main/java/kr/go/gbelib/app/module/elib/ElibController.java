@@ -1173,7 +1173,7 @@ public class ElibController extends BaseController {
 			}
 		}
 
-		return "redirect:https://library.busan.go.kr/elib/index.do";
+		return "redirect:https://library.daegu.go.kr/elib/index.do";
 	}
 
 	@RequestMapping(value = {"/redirect.*", "/goto.*", "/redirec.*"})
