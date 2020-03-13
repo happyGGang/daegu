@@ -26,13 +26,16 @@ $(function(){
 	
 	$('a.cancel').on('click', function(e) {
 		e.preventDefault();
-		
 		if (confirm("해당 강좌 신청을 취소하시겠습니까? 취소후 해당 강좌에 대해 재신청 가능합니다.")) {
 			$('input#homepage_id').val($(this).attr('keyValue1'));
 			$('input#group_idx').val($(this).attr('keyValue2'));
 			$('input#category_idx').val($(this).attr('keyValue3'));
 			$('input#teach_idx').val($(this).attr('keyValue4'));
-			$('input#editMode').val('CANCEL');
+			if('${homepage.homepage_id}' == 'h32') {
+				$('input#editMode').val('CANCEL_ALL');
+			} else {
+				$('input#editMode').val('CANCEL');
+			}
 			
 			doAjaxPost($('form#teach'));
 		}

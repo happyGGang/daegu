@@ -102,6 +102,7 @@ public class TeachController extends BaseController{
 			teachService.setPaging(model, teachService.getTeachListForAllHomepageCount(teach), teach);
 			model.addAttribute("teachList", teachService.getTeachListForAllHomepage(teach));
 			model.addAttribute("teach", teach);
+			model.addAttribute("myTeachListMenuIdx", menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 93)));//수강신청내역 menu_idx
 			if (!teach.getHomepage_id().equals("h32")) {
 				model.addAttribute("groupList", categoryGroupService.getCategoryGroupListAll(new CategoryGroup(teach.getHomepage_id())));
 				model.addAttribute("categoryList", categoryService.getCategoryListAll(new Category(teach.getHomepage_id(), teach.getGroup_idx())));

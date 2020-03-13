@@ -295,7 +295,7 @@ $(function(){
 									<i class="fa fa-circle-o"></i><span>신청완료</span></a>
 								</c:when>
 								<c:when test="${i.teach_status eq '3'}">
-									<a href="/${homepage.context_path}/module/teach/applyList.do?menu_idx=${myTeachListMenuIdx}" class="btn btn2">
+									<a href="/${homepage.context_path}/module/teach/applyList.do?menu_idx=${myTeachListMenuIdx}&editMode=ALL" class="btn btn2">
 									<i class="fa fa-circle-o"></i><span>대기자 신청완료</span></a>
 								</c:when>
 								<c:when test="${i.teach_status eq '9'}">

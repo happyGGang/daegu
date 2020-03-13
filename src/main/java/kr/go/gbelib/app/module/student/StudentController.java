@@ -285,14 +285,14 @@ public class StudentController extends BaseController {
 				} else {
 					res.setMessage((String) addResult[1]);
 				}
-			} else if (student.getEditMode().equals("CANCEL")) {
+			} else if (student.getEditMode().equals("CANCEL") || student.getEditMode().equals("CANCEL_ALL")) {
 				student.setMember_key(getSessionMemberId(request));
 				service.cancelStudent(student);
 
 				res.setValid(true);
 				res.setMessage("취소 되었습니다.");
 				res.setUrl("applyList.do");
-				res.setData("group_idx=" + student.getGroup_idx() + "&category_idx=" + student.getCategory_idx() + "&menu_idx=" + student.getMenu_idx());
+				res.setData("group_idx=" + student.getGroup_idx() + "&category_idx=" + student.getCategory_idx() + "&menu_idx=" + student.getMenu_idx() + (student.getEditMode().equals("CANCEL_ALL") ? "&editMode=ALL" : ""));
 			} else if (student.getEditMode().equals("ANONYCANCEL")) {
 
 				if (request.getSession().getAttribute("studentAnonyCert") == null) {
