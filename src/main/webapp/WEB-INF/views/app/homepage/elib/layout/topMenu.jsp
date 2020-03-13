@@ -16,16 +16,20 @@
 
 			<!-- menu E -->
 			<div class="mmode">
+						<a href="/${homepage.context_path}/intro/login/mobileCard.do?menu_idx=81" class="btn4">
+							<i class="fa fa-bookmark"></i>
+							<span>모바일회원증</span>
+						</a>
 				<c:choose>
 					<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
-						<a href="/${homepage.context_path}/intro/join/accessInfo.do?menu_idx=115" class="mobilemeberinfo">
-							<i class="fa fa-user"></i>
-								<span>${sessionScope.member.member_name}님</span>
-						</a>
-						<a href="https://www.gbelib.kr/${homepage.context_path}/module/myDashBoard/index.do?menu_idx=73" class="btn4">
-							<i class="fa fa-bookmark"></i>
-								 <span>MY Library</span>
-						  </a>
+							<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=83" class="mobilemeberinfo">
+								<i class="fa fa-user"></i>
+									<span>${sessionScope.member.member_name}님</span>
+							</a>
+							<!-- <a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=16" class="btn4">
+								<i class="fa fa-bookmark"></i>
+								<span>나의도서관</span>
+							</a> -->
 						<a href="/${homepage.context_path}/intro/login/logout.do" class="btn3">
 							<i class="fa fa-sign-out"></i>
 							<span>로그아웃</span>
@@ -38,14 +42,18 @@
 						</a>
 					</c:when>
 					<c:otherwise>
-						<a href="https://www.gbelib.kr/${homepage.context_path}/intro/login/index.do?menu_idx=121" class="btn1">
+						<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=43" class="btn1">
 							<i class="fa fa-lock"></i>
 							<span>LOGIN</span>
 						</a>
-						<a href="https://www.gbelib.kr/${homepage.context_path}/intro/join/index.do?menu_idx=42" class="btn2">
+						<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=42" class="btn2">
 							<i class="fa fa-user-plus"></i>
 							<span>JOIN</span>
 						</a>
+							<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=82" class="btn2">
+								<i class="fa fa-user-plus"></i>
+								<span>통합인증</span>
+							</a>
 					</c:otherwise>
 				</c:choose>
 			</div>

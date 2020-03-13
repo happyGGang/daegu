@@ -12,16 +12,20 @@
 					<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=92" class="last-box"><img src="/resources/homepage/${homepage.context_path}/img/sitemap-btn.png" alt="사이트맵" /></a>
 
 					<div class="mmode">
+							<a href="/${homepage.context_path}/intro/login/mobileCard.do?menu_idx=145" class="btn4">
+								<i class="fa fa-bookmark"></i>
+								<span>모바일회원증</span>
+       						</a>
 					<c:choose>
 						<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
-							<a href="/${homepage.context_path}/intro/join/accessInfo.do?menu_idx=115" class="mobilemeberinfo">
+							<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=95" class="mobilemeberinfo">
 								<i class="fa fa-user"></i>
 									<span>${sessionScope.member.member_name}님</span>
 							</a>
-							<a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=16" class="btn4">
-           						<i class="fa fa-bookmark"></i>
-          						<span>나의도서관</span>
-       						  </a>
+							<!-- <a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=16" class="btn4">
+								<i class="fa fa-bookmark"></i>
+								<span>나의도서관</span>
+							</a> -->
 							<a href="/${homepage.context_path}/intro/login/logout.do" class="btn3">
 								<i class="fa fa-sign-out"></i>
 								<span>로그아웃</span>
@@ -41,6 +45,10 @@
 							<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=5" class="btn2">
 								<i class="fa fa-user-plus"></i>
 								<span>회원가입</span>
+							</a>
+							<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=8" class="btn2">
+								<i class="fa fa-user-plus"></i>
+								<span>통합인증</span>
 							</a>
 						</c:otherwise>
 					</c:choose>
