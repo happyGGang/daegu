@@ -31,6 +31,8 @@ public interface CalendarManageDao {
 	
 	public CalendarManage getClosedDate3(CalendarManage calendarManage);
 	
+	public CalendarManage getClosedDate4(CalendarManage calendarManage);
+	
 	public List<CalendarManage> getCalendarManageDetail(CalendarManage calendarManage);
 
 	public List<CalendarManage> getCalendarListType(CalendarManage calendarManage);

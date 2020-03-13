@@ -69,6 +69,10 @@ public class CalendarManageService extends BaseService {
 	public CalendarManage getClosedDate3(CalendarManage calendarManage) {
 		return dao.getClosedDate3(calendarManage);
 	}
+	
+	public CalendarManage getClosedDate4(CalendarManage calendarManage) {
+		return dao.getClosedDate4(calendarManage);
+	}
 
 	public List<CalendarManage> getCalendarManageDetail(CalendarManage calendarManage) {
 		return dao.getCalendarManageDetail(calendarManage);

@@ -155,7 +155,11 @@ public class IndexController extends BaseController {
 		}
 		calendarManage.setHomepage_id(homepage.getHomepage_id());
 		model.addAttribute("calendar", calendarManage);
-		model.addAttribute("closeDayList", calendarManageService.getClosedDate2(calendarManage));
+		if(homepage.getHomepage_id().equals("h10")) {
+			model.addAttribute("closeDayList", calendarManageService.getClosedDate4(calendarManage));
+		} else {
+			model.addAttribute("closeDayList", calendarManageService.getClosedDate2(calendarManage));
+		}
 		return basePath + filePath + "_ajax";
 	}
 
@@ -339,15 +343,12 @@ public class IndexController extends BaseController {
 			list = LibSearchAPI.getListData(result);
 			for ( Map<String, Object> map : list ) {
 				if ( map.containsKey("ISBN") ) {
-					LibrarySearch book = new LibrarySearch();
-					book.setIsbn(String.valueOf(map.get("ISBN")));
-					book.setManageCode(ls.getManageCode());
-					book.setRowCount(1);
-					Map<String, Object> bookDetail = null;
-					bookDetail = LibSearchAPI.getBookDetail(book);
-					List<Map<String, Object>> detailList = LibSearchAPI.getListData(bookDetail);
-					if ( detailList != null && detailList.size() > 0 ) {
-						map.put("IMAGE", detailList.get(0).get("IMAGE"));
+					//알라딘 API 결과 가져오기
+					if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+						Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+						if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+							map.put("aladin", aladinData.get("item"));
+						}
 					}
 				}
 			}
