@@ -52,13 +52,13 @@
 			<td>
 				<c:choose>
 				<c:when test="${i.type eq 'EBK'}">
-				https://library.busan.go.kr/elib/module/elib/book/view.do?menu_idx=14&type=EBK&book_idx=${i.book_idx}
+				https://library.daegu.go.kr/elib/module/elib/book/view.do?menu_idx=14&type=EBK&book_idx=${i.book_idx}
 				</c:when>
 				<c:when test="${i.type eq 'ADO'}">
-				https://library.busan.go.kr/elib/module/elib/book/view.do?menu_idx=19&type=ADO&book_idx=${i.book_idx}
+				https://library.daegu.go.kr/elib/module/elib/book/view.do?menu_idx=19&type=ADO&book_idx=${i.book_idx}
 				</c:when>
 				<c:when test="${i.type eq 'WEB'}">
-				https://library.busan.go.kr/elib/module/elib/book/view.do?menu_idx=27&type=WEB&book_idx=${i.book_idx}
+				https://library.daegu.go.kr/elib/module/elib/book/view.do?menu_idx=27&type=WEB&book_idx=${i.book_idx}
 				</c:when>
 				</c:choose>
 			</td>
