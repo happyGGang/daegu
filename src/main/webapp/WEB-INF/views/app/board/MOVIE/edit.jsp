@@ -117,6 +117,49 @@ $(document).ready(function() {
 		$('input#imsi_v_2').val(dd);
 	});
 	</c:if>
+	
+	$('#board').after('<div id="previewBox" style="display:none;"><div></div></div>');
+	$('a#board_preview_btn').on('click', function(e) {
+		e.preventDefault();
+		oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
+		var cloneBoard = $('form#board').clone();
+		$(cloneBoard).attr('id', 'cloneBoard');
+		$(cloneBoard).css('display', 'none');
+		$(cloneBoard).attr('action', 'preview.do');
+		$(cloneBoard).attr('target', 'previewWindow');
+		$(cloneBoard).attr('onsubmit', '');
+		$('#board').after(cloneBoard);
+
+		var wWidth = $(window).width();
+	    var dWidth = wWidth * 0.8;
+	    var wHeight = $(window).height();
+	    var dHeight = wHeight * 0.8;
+		$('div#previewBox > div').load('preview.do', $('form#cloneBoard').serialize());
+		var previewBoxDialog = $('div#previewBox > div').dialog({
+			modal:true,
+			title:'게시물 미리보기',
+			width: dWidth,
+            height: dHeight,
+			position:{
+				my:"center",
+				at:"center",
+				of:window
+			},
+			close:function() {
+				previewBoxDialog.dialog("destroy");
+			},
+			buttons: [
+				{
+					text: "닫기",
+					"class": 'btn btn1',
+					click: function() {
+						previewBoxDialog.dialog("destroy");
+					}
+				}
+			]
+		});
+	});
+	
 });
 
 function isEditorOn() {
