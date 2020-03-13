@@ -100,6 +100,16 @@ div.pay-ul ul {list-style: disc;padding-left: 20px;margin-bottom: 30px;font-weig
 <form:hidden path="menu_idx"/>
 <form:hidden path="pay_yn"/>
 <form:hidden path="picture_book_idx"/>
+<div class="search txt-center">
+	<fieldset>
+		<form:select path="search_type" cssClass="selectmenu">
+			<form:option value="picture_book_subject">서명</form:option>
+			<form:option value="keyword">키워드</form:option>
+		</form:select>
+		<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
+		<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
+	</fieldset>
+</div>
 <div class="infodesk">
 	<form:select path="category" cssClass="selectmenu">
 		<form:option value="">원화유형별보기</form:option>
@@ -190,16 +200,6 @@ div.pay-ul ul {list-style: disc;padding-left: 20px;margin-bottom: 30px;font-weig
 <%-- 	<jsp:param name="formId" value="#pictureBook"/> --%>
 <%-- </jsp:include> --%>
 
-<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
-	<fieldset>
-		<form:select path="search_type" cssClass="selectmenu">
-			<form:option value="picture_book_subject">서명</form:option>
-			<form:option value="keyword">키워드</form:option>
-		</form:select>
-		<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
-		<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
-	</fieldset>
-</div>
 </form:form>
 
 <div id="dialog-1" class="dialog-common" title="그림책 원화 "></div>

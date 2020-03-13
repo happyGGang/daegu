@@ -152,6 +152,16 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 	<form:checkbox path="category" value="800" checked="${fn:contains(bookPackage.category, '800') ? 'checked' : ''}" label="문학" class="customCheck categoryChk"/>
 	<form:checkbox path="category" value="900" checked="${fn:contains(bookPackage.category, '900') ? 'checked' : ''}" label="역사" class="customCheck categoryChk"/>
 </div>
+<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
+	<fieldset>
+		<form:select path="search_type" cssClass="selectmenu">
+			<form:option value="book_package_subject">서명</form:option>
+			<form:option value="keyword">키워드</form:option>
+		</form:select>
+		<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
+		<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
+	</fieldset>
+</div>
 <div class="infodesk">
 	<form:select path="grade" cssClass="selectmenu">
 		<form:option value="">수준별보기</form:option>
@@ -275,14 +285,4 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 	<jsp:param name="formId" value="#bookPackage"/>
 </jsp:include>
 
-<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
-	<fieldset>
-		<form:select path="search_type" cssClass="selectmenu">
-			<form:option value="book_package_subject">서명</form:option>
-			<form:option value="keyword">키워드</form:option>
-		</form:select>
-		<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
-		<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
-	</fieldset>
-</div>
 </form:form>
