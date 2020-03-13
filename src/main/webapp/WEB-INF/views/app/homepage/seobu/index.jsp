@@ -254,28 +254,29 @@ do {
 					</ul>
 
 					<div class="box con" data-tab="tab1">
-						<ul class="book_photo">
+						<ul class="book_photo">	
+							<c:forEach items="${curationList}" var="curation">
 							<li>
-								<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=138&manage_idx=${curationList[listNum1].manage_idx}&board_idx=${curationList[listNum1].board_idx}">
+								<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=138&manage_idx=${curation.manage_idx}&board_idx=${curation.board_idx}">
 									<span class="img">
 									<c:choose>
-									<c:when test="${curationList[listNum1].preview_img ne null}">
+									<c:when test="${curation.preview_img ne null}">
 										<c:choose>
-											<c:when test="${fn:contains(curationList[listNum1].preview_img, 'http')}">
-											<img src="${curationList[listNum1].preview_img}" alt="${curationList[listNum1].title}" />
+											<c:when test="${fn:contains(curation.preview_img, 'http')}">
+											<img src="${curation.preview_img}" alt="${curation.title}" />
 											</c:when>
 											<c:otherwise>
-											<img src="/data/board/${curationList[listNum1].manage_idx}/${curationList[listNum1].board_idx}/${curationList[listNum1].preview_img}" alt="${curationList[listNum1].title}" title="${curationList[listNum1].title}"/>
+											<img src="/data/board/${curation.manage_idx}/${curation.board_idx}/${curation.preview_img}" alt="${curation.title}" title="${curation.title}"/>
 											</c:otherwise>
 										</c:choose>
 									</c:when>
 									<c:otherwise>
-										<img src="/resources/common/img/noimg-gall.png" alt="${curationList[listNum1].title}" title="${curationList[listNum1].title}">
+										<img src="/resources/common/img/noimg-gall.png" alt="${curation.title}" title="${curation.title}">
 									</c:otherwise>
 									</c:choose>
 									</span>
 									<span class="contents">
-										<c:set var="text001" value="${curationList[listNum1].title}"/>
+										<c:set var="text001" value="${curation.title}"/>
 										<p class="title">
 										<c:choose>
 											<c:when test="${fn:length(text001) > 12}">
@@ -286,47 +287,11 @@ do {
 											</c:otherwise>
 										</c:choose>
 										</p>
-										<p><b>저자</b> ${curationList[listNum1].imsi_v_3}</p>
-										<p><b>발행자</b> ${curationList[listNum1].imsi_v_4}</p>
+										<p><b>전시장소</b> ${curation.imsi_v_2}</p>
 									</span>
 								</a>
 							</li>
-							<li>
-								<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=138&manage_idx=${curationList[listNum2].manage_idx}&board_idx=${curationList[listNum2].board_idx}">
-									<span class="img">
-									<c:choose>
-									<c:when test="${curationList[listNum2].preview_img ne null}">
-										<c:choose>
-											<c:when test="${fn:contains(curationList[listNum2].preview_img, 'http')}">
-											<img src="${curationList[listNum2].preview_img}" alt="${curationList[listNum2].title}" />
-											</c:when>
-											<c:otherwise>
-											<img src="/data/board/${curationList[listNum2].manage_idx}/${curationList[listNum2].board_idx}/${curationList[listNum2].preview_img}" alt="${curationList[listNum2].title}" title="${curationList[listNum2].title}"/>
-											</c:otherwise>
-										</c:choose>
-									</c:when>
-									<c:otherwise>
-										<img src="/resources/common/img/noimg-gall.png" alt="${curationList[listNum2].title}" title="${curationList[listNum2].title}">
-									</c:otherwise>
-									</c:choose>
-									</span>
-									<span class="contents">
-										<c:set var="text002" value="${curationList[listNum2].title}"/>
-										<p class="title">
-										<c:choose>
-											<c:when test="${fn:length(text002) > 12}">
-												${fn:substring(text002, 0, 12)}...
-											</c:when>
-											<c:otherwise>
-												${text002}
-											</c:otherwise>
-										</c:choose>
-										</p>
-										<p><b>저자</b> ${curationList[listNum2].imsi_v_3}</p>
-										<p><b>발행자</b> ${curationList[listNum2].imsi_v_4}</p>
-									</span>
-								</a>
-							</li>
+							</c:forEach>
 						</ul>
 
 					</div>
