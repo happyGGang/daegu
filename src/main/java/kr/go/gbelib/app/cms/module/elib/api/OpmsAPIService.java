@@ -28,23 +28,20 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.go.gbelib.app.cms.module.elib.book.Book;
-import kr.go.gbelib.app.cms.module.elib.config.Config;
-import kr.go.gbelib.app.cms.module.elib.config.ConfigService;
 import kr.go.gbelib.app.cms.module.elib.member.ElibMember;
 
 @Service
 public class OpmsAPIService extends BaseService {
 	
 	private static final String USER_AGENT = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)";
-	private static final String LEND_URL = "http://152.99.21.148:8000/external/book_sync.asp";
-	private static final String MEMBER_URL = "http://152.99.21.148:8000/external/member_sync.asp";
+	private static final String LEND_URL = "http://e-lib.tglnet.or.kr:8000/smt_api/eco/execute/%s.asp";
+	private static final String MEMBER_URL = "http://e-lib.tglnet.or.kr:8000/eco/eco_login_sso2.asp";
 //	private static final String VIEW_URL = "/external/opms_pop.asp";
 	private static final int TIMEOUT = 30 * 1000;
 	
@@ -75,8 +72,8 @@ public class OpmsAPIService extends BaseService {
 			input = new ByteArrayInputStream(xml.getBytes(encoding));
 			doc = builder.parse(input);
 			
-			map.put("result", getText(doc, "/root/result/text()"));
-			map.put("message", getText(doc, "/root/message/text()"));
+			map.put("result", getText(doc, "//sucess/text()"));
+			map.put("message", getText(doc, "//Message/text()"));
 
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
@@ -171,11 +168,10 @@ public class OpmsAPIService extends BaseService {
 	public Map<String, String> lend(Book book) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 
-		params.add(new BasicNameValuePair("cmd", "lent"));
 		params.add(new BasicNameValuePair("user_id", book.getMember_id()));
-		params.add(new BasicNameValuePair("eancode", book.getBook_code()));
+		params.add(new BasicNameValuePair("book_code", book.getBook_code()));
 
-		return parse(send(LEND_URL, params, "UTF-8"), "UTF-8");
+		return parse(send(String.format(LEND_URL, "lend"), params, "UTF-8"), "UTF-8");
 	}
 	
 	/**
@@ -186,11 +182,10 @@ public class OpmsAPIService extends BaseService {
 	public Map<String, String> rtn(Book book) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 
-		params.add(new BasicNameValuePair("cmd", "return"));
 		params.add(new BasicNameValuePair("user_id", book.getMember_id()));
-		params.add(new BasicNameValuePair("eancode", book.getBook_code()));
+		params.add(new BasicNameValuePair("book_code", book.getBook_code()));
 
-		return parse(send(LEND_URL, params, "UTF-8"), "UTF-8");
+		return parse(send(String.format(LEND_URL, "return"), params, "UTF-8"), "UTF-8");
 	}
 
 	/**
@@ -201,11 +196,10 @@ public class OpmsAPIService extends BaseService {
 	public Map<String, String> reserve(Book book) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 
-		params.add(new BasicNameValuePair("cmd", "reserve"));
 		params.add(new BasicNameValuePair("user_id", book.getMember_id()));
-		params.add(new BasicNameValuePair("eancode", book.getBook_code()));
+		params.add(new BasicNameValuePair("book_code", book.getBook_code()));
 
-		return parse(send(LEND_URL, params, "UTF-8"), "UTF-8");
+		return parse(send(String.format(LEND_URL, "reserve"), params, "UTF-8"), "UTF-8");
 	}
 	
 	/**
@@ -216,11 +210,10 @@ public class OpmsAPIService extends BaseService {
 	public Map<String, String> cancel(Book book) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 
-		params.add(new BasicNameValuePair("cmd", "cancel"));
 		params.add(new BasicNameValuePair("user_id", book.getMember_id()));
-		params.add(new BasicNameValuePair("eancode", book.getBook_code()));
+		params.add(new BasicNameValuePair("book_code", book.getBook_code()));
 
-		return parse(send(LEND_URL, params, "UTF-8"), "UTF-8");
+		return parse(send(String.format(LEND_URL, "cancel"), params, "UTF-8"), "UTF-8");
 	}
 	
 	/**
@@ -231,30 +224,11 @@ public class OpmsAPIService extends BaseService {
 	public Map<String, String> extend(Book book) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 
-		params.add(new BasicNameValuePair("cmd", "extension"));
 		params.add(new BasicNameValuePair("user_id", book.getMember_id()));
-		params.add(new BasicNameValuePair("eancode", book.getBook_code()));
+		params.add(new BasicNameValuePair("book_code", book.getBook_code()));
 
-		return parse(send(LEND_URL, params, "UTF-8"), "UTF-8");
+		return parse(send(String.format(LEND_URL, "extend"), params, "UTF-8"), "UTF-8");
 	}
-	
-/*
-	private List<NameValuePair> makeParamPairs(String cmd, ElibMember member) {
-		String user_id = member.getMember_id();
-		String user_ps = member.getP_id();
-		String user_name = member.getMember_id();
-		List<NameValuePair> params = new ArrayList<NameValuePair>();
-
-		params.add(new BasicNameValuePair("cmd", cmd));
-		params.add(new BasicNameValuePair("user_id", user_id));
-		params.add(new BasicNameValuePair("user_ps", user_ps));
-		params.add(new BasicNameValuePair("user_name", user_name));
-		params.add(new BasicNameValuePair("user_type", "T1"));
-		params.add(new BasicNameValuePair("user_type_name", "T1"));
-		
-		return params;
-	}
-*/
 	
 	/**
 	 * 회원 가입
@@ -267,31 +241,11 @@ public class OpmsAPIService extends BaseService {
 //		String user_name = member.getMember_id();
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 
-		params.add(new BasicNameValuePair("cmd", "I"));
-		params.add(new BasicNameValuePair("user_id", user_id));
-		params.add(new BasicNameValuePair("user_name", user_id));
-		params.add(new BasicNameValuePair("user_pw", user_id));
-		params.add(new BasicNameValuePair("group", book.getLibrary_code()));
+		params.add(new BasicNameValuePair("ID", user_id));
+		params.add(new BasicNameValuePair("NAME", user_id));
+		params.add(new BasicNameValuePair("PW", user_id));
 		
 		return parse(send(MEMBER_URL, params, "UTF-8"), "UTF-8");
 	}
-	
-//	/**
-//	 * 회원 정보 수정
-//	 * @param member
-//	 * @return
-//	 */
-//	public Map<String, String> edit(ElibMember member) {
-//		return parse(send(MEMBER_URL, makeParamPairs("U", member), "UTF-8"), "UTF-8");
-//	}
-//	
-//	/**
-//	 * 회원 탈퇴
-//	 * @param member
-//	 * @return
-//	 */
-//	public Map<String, String> delete(ElibMember member) {
-//		return parse(send(MEMBER_URL, makeParamPairs("D", member), "UTF-8"), "UTF-8");
-//	}
 	
 }

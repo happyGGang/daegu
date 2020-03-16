@@ -40,7 +40,7 @@ public class APIService extends BaseService {
 			return null;
 		} else if(com_code.equals(OPMS)) {
 			String result = map.get("result");
-			if(StringUtils.equals(result, "True")) {
+			if(StringUtils.equals(result, "Y")) {
 				return map;
 			} else {
 				throw new ElibException("[OPMS] " + map.get("message"), map);
@@ -139,8 +139,7 @@ public class APIService extends BaseService {
 			String result = map.get("result");
 			String message = StringUtils.defaultString(map.get("message"));
 			
-			if(!(StringUtils.equals(result, "True") || StringUtils.equals(result, "Y"))
-					&& message.indexOf("E_017") > -1) {
+			if(StringUtils.equals(result, "Y") && message.indexOf("반납된 컨텐츠 이거나 반납할 데이타가 없습니다.") > -1) {
 				return map;
 			} else {
 				return catchFail(OPMS, map);

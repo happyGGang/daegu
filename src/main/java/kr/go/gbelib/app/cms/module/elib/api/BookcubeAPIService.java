@@ -39,9 +39,9 @@ import kr.go.gbelib.app.cms.module.elib.member.ElibMember;
 public class BookcubeAPIService extends BaseService {
 	
 	private static final String USER_AGENT = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)";
-	private static final String LEND_URL = "http://152.99.21.148:9080/FxLibrary/RESTful";
-	private static final String MEMBER_URL = "http://152.99.21.148:9080/FxLibrary/RESTful/userReg";
-	private static final String APP_URL = "http://152.99.21.148:9080/FxLibrary/app/appCall";
+	private static final String LEND_URL = "http://e-lib.tglnet.or.kr:9080/FxLibrary/RESTful";
+	private static final String MEMBER_URL = "http://e-lib.tglnet.or.kr:9080/FxLibrary/RESTful/userReg";
+	private static final String APP_URL = "http://e-lib.tglnet.or.kr:9080/FxLibrary/app/appCall";
 	private static final int TIMEOUT = 30 * 1000;
 	
 	private Map<String, String> parse(String xml) {

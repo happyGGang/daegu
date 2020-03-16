@@ -147,14 +147,6 @@ function readBook(arg) {
 	}
 }
 
-function kyob_read(url) {
-	var popupPlayer = window.open(url, "KYOB", 'width=640,height=480,scrollbars=yes');
-	if (popupPlayer == null) {
-		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.busan.go.kr 추가");
-		return false;
-	} 
-}
-
 function yesb_read(url) {
 	var popupPlayer = window.open(url, "YESB", 'width=640,height=480,scrollbars=yes');
 	if (popupPlayer == null) {
@@ -171,17 +163,9 @@ function yesb_read2(url) {
 	}
 }
 
-function y2bk_read(url) {
-	var popupPlayer = window.open(url, "Y2BK", 'width=640,height=480,scrollbars=yes');
-	if (popupPlayer == null) {
-		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.busan.go.kr 추가");
-		return false;
-	} 
-}
-
 function fxli_read(book_num) {
 	$('input#book_num').val(book_num);
-	$('form#frm_fx').prop('action', 'http://ebook.busan.go.kr:8080/FxLibrary/dependency/sso/sso.jsp');
+	$('form#frm_fx').prop('action', 'http://e-lib.tglnet.or.kr:9080/FxLibrary/dependency/sso/sso.jsp');
 	$('form#frm_fx').prop('target', 'FXLI');
 	var popupPlayer = window.open('', "FXLI", 'width=640,height=760,scrollbars=yes');
 	if (popupPlayer == null) {
@@ -191,26 +175,18 @@ function fxli_read(book_num) {
 	$('form#frm_fx').submit();
 }
 
-function alad_read(url) {
-	var popupPlayer = window.open(url, "ALAD", 'width=640,height=480,scrollbars=yes');
-	/*
+function opms_read(url) {
+	var popupPlayer = window.open(url, "OPMS", 'width=523,height=475,scrollbars=yes');
 	if (popupPlayer == null) {
-		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.jbe.go.kr 추가");
+		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.ice.go.kr 추가");
 		return false;
-	}
-	*/
+	} 
 }
 
 function checkApp(url, com_code) {
 	var _APP_INSTALL_URL_IOS, _APP_INSTALL_URL_IPAD, _APP_INSTALL_URL_ANDROID, _APP_SCHEME, _APP_PACKAGE_ID;
 
-	if(com_code == 'KYOB') {
-		_APP_INSTALL_URL_IOS = "https://apps.apple.com/kr/app/id1449446747";
-		_APP_INSTALL_URL_IPAD = "https://apps.apple.com/kr/app/id1449446747";
-		_APP_INSTALL_URL_ANDROID = "market://details?id=kr.co.kyobobook.KEL";
-		_APP_SCHEME = "kyobolibrarykel";
-		_APP_PACKAGE_ID = "kr.co.kyobobook.KEL​";
-	} else if(com_code == 'FXLI') {
+	if(com_code == 'FXLI') {
 		_APP_INSTALL_URL_IOS = "https://itunes.apple.com/us/app/bugkyubeujeonjadoseogwan/id1007007455?l=ko&ls=1&mt=8";
 		_APP_INSTALL_URL_IPAD = "https://itunes.apple.com/us/app/bugkyubeujeonjadoseogwanhd/id1007080008?l=ko&ls=1&mt=8";
 		_APP_INSTALL_URL_ANDROID = "market://details?id=com.bookcube.digitallibrary";
@@ -222,12 +198,13 @@ function checkApp(url, com_code) {
 		_APP_INSTALL_URL_ANDROID = "market://details?id=com.yes24.yes24viewer";
 		_APP_SCHEME = "yes24lib-yes24viewer";
 		_APP_PACKAGE_ID = "com.yes24.yes24viewer";
-	} else if(com_code == 'ALAD') {
-		_APP_INSTALL_URL_IOS = "https://itunes.apple.com/kr/app/alladin-jeonjadoseogwan/id897344878?mt=8";
-		_APP_INSTALL_URL_IPAD = "https://itunes.apple.com/kr/app/alladin-jeonjadoseogwan/id897344878?mt=8";
-		_APP_INSTALL_URL_ANDROID = "https://play.google.com/store/apps/details?id=kr.co.aladin.elibrary";
-		_APP_SCHEME = "aladinelibrary";
-		_APP_PACKAGE_ID = "kr.co.aladin.elibrary";
+	}
+	else if(com_code == 'OPMS') {
+		_APP_INSTALL_URL_IOS = "https://itunes.apple.com/kr/app/id1281509812?mt=8";
+		_APP_INSTALL_URL_IPAD = "https://itunes.apple.com/kr/app/id1281509812?mt=8";
+		_APP_INSTALL_URL_ANDROID = "market://details?id=com.wjopms.ebooklibrary";
+		_APP_SCHEME = "wjopms";
+		_APP_PACKAGE_ID = "com.wjopms.ebooklibrary";
 	}
 	
 	var ua = navigator.userAgent;
@@ -246,16 +223,8 @@ function checkApp(url, com_code) {
             location.href = url;
         } else {
             if (url.indexOf("://") > -1) {
-				if(com_code == 'KYOB') {
-			    	if(confirm('뷰어앱이 설치되어 있으면 확인(승인)을 클릭하시고,\n설치되어 있지 않다면 취소를 클릭하세요. (플레이 스토어 이동)')) {
-				        location.href = url;
-			    	} else {
-			            location.href = _APP_INSTALL_URL_ANDROID;
-			    	}
-				} else {
-	                var targetScheme = url.split("://");
-	                location.href = "intent://" + targetScheme[1] + "#Intent;scheme=" + _APP_SCHEME + ";action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=" + _APP_PACKAGE_ID + ";end";
-				}
+                var targetScheme = url.split("://");
+                location.href = "intent://" + targetScheme[1] + "#Intent;scheme=" + _APP_SCHEME + ";action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=" + _APP_PACKAGE_ID + ";end";
             } else {
             	location.href = url;
             }
@@ -266,6 +235,42 @@ function checkApp(url, com_code) {
     	} else {
             window.location.href = _APP_INSTALL_URL_IPAD;
     	}
+    } else {
+    	alert('모바일 기기는 안드로이드, 아이폰, 아이패드만 지원합니다.');
+    }
+}
+
+function opmsCheckApp(server_url, book_id, user_id) {
+	var _APP_INSTALL_URL_IOS = "https://itunes.apple.com/app/id1281509812?l=ko&ls=1&mt=8";
+	var _APP_INSTALL_URL_IPAD = "https://itunes.apple.com/app/id1281509812?l=ko&ls=1&mt=8";
+	var _APP_INSTALL_URL_ANDROID = "https://play.google.com/store/apps/details?id=com.wjopms.ebooklibrary";
+	var _APP_SCHEME = "wjopms";
+	var _APP_PACKAGE_ID = "com.wjopms.ebooklibrary";
+	
+	var ua = navigator.userAgent;
+	var isIphone = ua.indexOf('iPhone') !== -1 || ua.indexOf('iPod') !== -1;
+	var isIpad = ua.indexOf('iPad') !== -1;
+	var isAndroid = ua.indexOf('Android') !== -1;
+	
+    if (isIphone) {
+    	var url = 'wjopms://app?script=download&host=' + server_url + '&book_id=' + book_id + '&user_id=' + user_id + '&subview=V_MYBOOKS';
+        var now = new Date().valueOf();
+        setTimeout(function() {
+            if (new Date().valueOf() - now > 2000) return;
+            window.location.href = _APP_INSTALL_URL_IOS;
+        }, 25);
+        window.location.href = url;
+    } else if (isAndroid) {
+    	var url = 'intent://app?script=download&host=' + server_url + '&book_id=' + book_id + '&user_id=' + user_id + '&subview=V_MYBOOKS#Intent;scheme=wjopms;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.wjopms.ebooklibrary;end';
+		window.location.href = url;
+    } else if (isIpad) {
+    	var url = 'wjopms://app?script=download&host=' + server_url + '&book_id=' + book_id + '&user_id=' + user_id + '&subview=V_MYBOOKS';
+        var now = new Date().valueOf();
+        setTimeout(function() {
+            if (new Date().valueOf() - now > 2000) return;
+            window.location.href = _APP_INSTALL_URL_IPAD;
+        }, 25);
+        window.location.href = url;
     } else {
     	alert('모바일 기기는 안드로이드, 아이폰, 아이패드만 지원합니다.');
     }
@@ -374,33 +379,15 @@ function checkApp(url, com_code) {
 	            <div style="float: right;">
 	            	<c:if test="${lending.menu == 'LENDING'}">
 					<c:choose>
-					<c:when test="${i.com_code == 'KYOB' && !isMobile}">
-					<c:set var="read" value="javascript:kyob_read('http://ebook.busan.go.kr:8091/view_if.asp?user_id=${lending.member_id}&barcode=${i.book_code}'); return false;"/>
-					</c:when>
-					<c:when test="${i.com_code == 'KYOB' && isMobile}">
-					<c:set var="data" value="${mobileList[status.index]}"/>
-					<c:choose>
-					<c:when test="${fn:indexOf(i.format, 'EPUB') > -1 && fn:indexOf(i.format, 'PDF') > -1}">
-						<c:set var="ebook_type" value="epub"/>
-					</c:when>
-					<c:otherwise>
-						<c:set var="ebook_type" value="${fn:toLowerCase(i.format)}"/>
-					</c:otherwise>
-					</c:choose>
-					<c:set var="read" value="checkApp('kyobolibrarykel://download?barcode=${i.book_code}&seqBarcode=${data['seq_barcode']}&type=${ebook_type}&size=21819500&education=0&ttsYn=Y&userId=${memberIdBase64}&password=${memberIdBase64}&libraryCd=${data['libraryCd']}&borrowId=${data['borrowID']}&libraryUrl=${data['libraryUrl']}&libraryNm=${data['libraryNm']}&drmHost=${data['drmHost']}', '${i.com_code}'); return false;"/>
-					</c:when>
 					<c:when test="${i.com_code == 'YESB'}">
-						<c:set var="site_code" value="B2B_BUSAN"/>
+						<c:set var="site_code" value=""/>
 						<c:choose>
-						<c:when test="${i.type =='WEB'}">
-							<c:set var="read" value="javascript:yesb_read2('http://ebook.busan.go.kr:8086/YES24/yes24_booklearning_view.asp?user_id=${lending.member_id}&goods_id=${i.book_code}&site_code=${site_code}'); return false;"/>
-						</c:when>
 						<c:when test="${isMobile}">
 							<c:set var="data" value="${mobileList[status.index]}"/>
 							<c:set var="read" value="checkApp('${data['appurl']}', '${i.com_code}'); return false;"/>
 						</c:when>
 						<c:otherwise>
-							<c:set var="read" value="javascript:yesb_read('http://ebook.busan.go.kr:8086/YES24/yes24viewer_open.asp?user_id=${lending.member_id}&goods_id=${i.book_code}&site_code=${site_code}'); return false;"/>
+							<c:set var="read" value="javascript:yesb_read('http://e-lib.tglnet.or.kr:8081/YES24/yes24viewer_open.asp?user_id=${lending.member_id}&goods_id=${i.book_code}&site_code=${site_code}'); return false;"/>
 						</c:otherwise>
 						</c:choose>
 					</c:when>
@@ -416,14 +403,14 @@ function checkApp(url, com_code) {
 						</c:otherwise>
 						</c:choose>
 					</c:when>
-					<c:when test="${i.com_code == 'ALAD'}">
+					<c:when test="${i.com_code == 'OPMS'}">
 						<c:choose>
-						<c:when test="${isMobile}">
-							<c:set var="read" value="checkApp('aladinelibrary://view?user_id=${lending.member_id}&user_pw=df906e4bba5fbceeccfe5300d5441902&goods_id=${i.book_code}&site_code=busan', '${i.com_code}'); return false;"/>
+						<c:when test="${!isMobile}">
+							<c:set var="read" value="javascript:opms_read('http://e-lib.tglnet.or.kr:8000/opms_pop.asp?user_id=${lending.member_id}&eancode=${i.book_code}'); return false;"/>
 						</c:when>
-						<c:otherwise>
-							<c:set var="read" value="javascript:alad_read('http://ebook.busan.go.kr:8088/bbs/library_viewer.php?user_id=${lending.member_id}&goods_id=${i.book_code}'); return false;"/>
-						</c:otherwise>
+						<c:when test="${isMobile}">
+							<c:set var="read" value="opmsCheckApp('http://e-lib.tglnet.or.kr:8000', '${i.book_code}', '${lending.member_id}'); return false;"/>
+						</c:when>
 						</c:choose>
 					</c:when>
 					<c:otherwise>

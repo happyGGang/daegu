@@ -41,9 +41,9 @@ import kr.go.gbelib.app.cms.module.elib.member.ElibMember;
 public class Yes24APIService extends BaseService {
 
 	private static final String USER_AGENT = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)";
-	private static final String LEND_URL = "http://152.99.21.148:8081/YES24/yes24_action_new.asp";
-	private static final String MEMBER_URL = "http://152.99.21.148:8081/YES24/yes24_member_sync.asp";
-	private static final String APP_URL = "http://152.99.21.148:8081/%s/device_url.asp?user_id=%s&goods_id=%s&device_type=phone";
+	private static final String LEND_URL = "http://e-lib.tglnet.or.kr:8081/YES24/yes24_action_new.asp";
+	private static final String MEMBER_URL = "http://e-lib.tglnet.or.kr:8081/YES24/yes24_member_sync.asp";
+	private static final String APP_URL = "http://e-lib.tglnet.or.kr:8081/%s/device_url.asp?user_id=%s&goods_id=%s&device_type=phone";
 	private static final int TIMEOUT = 30 * 1000;
 
 	private String libraryCodeToSiteCode(String libraryCode) {
@@ -77,7 +77,7 @@ public class Yes24APIService extends BaseService {
 			input = new ByteArrayInputStream(xml.getBytes("UTF-8"));
 			doc = builder.parse(input);
 			map.put("result", getText(doc, "//result/text()"));
-			map.put("msgcode", getText(doc, "//msgcode/text()"));
+			map.put("msgcode", getText(doc, "//Message/text()"));
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
