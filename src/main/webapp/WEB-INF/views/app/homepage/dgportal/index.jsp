@@ -188,7 +188,7 @@ do {
 							<li class="txt-line"></li>
 							<li><a href="/${homepage.context_path}/html.do?menu_idx=8"><strong class="quick-02"></strong><span class="">대구BOOK</span></a></li>
 							<li class="txt-line"></li>
-							<li><a href="/${homepage.context_path}/elibsso.do?menu_idx=13"><strong class="quick-03"></strong><span class="">대구전자도서관</span></a></li>
+							<li><a href="/${homepage.context_path}/elib.do?menu_idx=13"><strong class="quick-03"></strong><span class="">대구전자도서관</span></a></li>
 						</ul>
 					</div>
 				</div>
@@ -199,7 +199,7 @@ do {
 						<p>
 							<select id="recommendBook1" class="recommendSite1">
 								<c:forEach items="${category2List}" var="cate2">
-								<option value="${cate2.code_id}" label="${cate2.code_name}">
+								<option value="${cate2.code_id}" style="color:#000;">${cate2.code_name}</option>
 								</c:forEach>
 							</select>
 						</p>

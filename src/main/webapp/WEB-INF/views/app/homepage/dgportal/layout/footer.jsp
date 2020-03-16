@@ -13,10 +13,10 @@
 					<div class="out">
 						<div>
 							<a class="fsite type1">
-								<span class="f1">대구광역시 통합도서관</span>
+								<span class="f1">대구광역시 공공도서관</span>
 							</a>
 							<ul style="display:none">
-							<li class="disabled"><a href="#">대구광역시 통합도서관</a></li>
+							<li class="disabled"><a href="#">대구광역시 공공도서관</a></li>
 							<li class="disabled"><a title="대구2ㆍ28기념학생도서관" href="http://library.daegu.go.kr/228/index.do">대구2ㆍ28기념학생도서관</a></li>
 							<li class="disabled"><a title="대구2ㆍ28민주운동기념회관" href="http://library.daegu.go.kr/228lib/index.do">대구2ㆍ28민주운동기념회관</a></li>
 							<li class="disabled"><a title="대구광역시립 남부도서관" href="http://library.daegu.go.kr/nambu/index.do">대구광역시립 남부도서관</a></li>

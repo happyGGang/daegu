@@ -159,7 +159,7 @@ function getCookie(name){
 			<div class="quickMenu">
 				<ul>
 					<li class="quick-1">
-					<a href="/${homepage.context_path}/module/elib/book/index.do?menu_idx=17&menu=CATEGORY&type=EBK&parent_id=1158" class="quick01">
+					<a href="#" title="인기강좌 바로가기" class="quick01">
 						<div>
 							<h4>인기강좌</h4>
 							<p>맞춤형 e-러닝 학습</p>
@@ -167,7 +167,7 @@ function getCookie(name){
 					</a>
 					</li>
 					<li class="quick-2">
-					<a href="/${homepage.context_path}/module/elib/book/index.do?menu_idx=30&menu=CATEGORY&type=WEB&parent_id=1136" class="quick02">
+					<a href="http://kiss.kstudy.com/?c_code=5228431201215032441&code=0008" title="학술DB 홈페이지 바로가기(새창열림)" target="_blank" class="quick02">
 						<div>
 							<h4>학술DB</h4>
 							<p>국내학술지 원문 데이터</p>
@@ -175,7 +175,7 @@ function getCookie(name){
 					</a>
 					</li>
 					<li class="quick-3">
-					<a href="/${homepage.context_path}/module/elib/book/index.do?menu_idx=30&menu=CATEGORY&type=WEB&parent_id=1132" class="quick03">
+					<a href="http://tglnet.naxosmusiclibrary.com/nml3_refer.asp" title="클래식감상 홈페이지 바로가기(새창열림)" target="_blank" class="quick03">
 						<div>
 							<h4>클래식감상</h4>
 							<p>아름다운 음악 이야기</p>
@@ -183,15 +183,15 @@ function getCookie(name){
 					</a>
 					</li>
 					<li class="quick-4">
-					<a href="/${homepage.context_path}/module/elib/book/index.do?menu_idx=17&menu=CATEGORY&type=EBK&parent_id=1158" class="quick04">
+					<a href="#" title="전자자료검색 바로가기" class="quick04">
 						<div>
-							<h4>통합자료검색</h4>
-							<p>도서관별, 대학교별</p>
+							<h4>전자자료검색</h4>
+							<p>전자자료 통합검색</p>
 						</div>
 					</a>
 					</li>
 					<li class="quick-5">
-					<a href="/${homepage.context_path}/module/elib/book/index.do?menu_idx=30&menu=CATEGORY&type=WEB&parent_id=1136" class="quick05">
+					<a href="#" title="신간 E-BOOK 바로가기" class="quick05">
 						<div>
 							<h4>신간 E-BOOK</h4>
 							<p>신간전자자료</p>
@@ -199,7 +199,7 @@ function getCookie(name){
 					</a>
 					</li>
 					<li class="quick-6">
-					<a href="/${homepage.context_path}/module/elib/book/index.do?menu_idx=30&menu=CATEGORY&type=WEB&parent_id=1132" class="quick06">
+					<a href="#" title="지금 E-BOOK 바로가기" class="quick06">
 						<div>
 							<h4>지금 E-BOOK</h4>
 							<p>베스트전자자료</p>
@@ -207,7 +207,7 @@ function getCookie(name){
 					</a>
 					</li>
 					<li class="quick-7">
-					<a href="/${homepage.context_path}/module/elib/book/index.do?menu_idx=30&menu=CATEGORY&type=WEB&parent_id=1132" class="quick07">
+					<a href="/${homepage.context_path}/html.do?menu_idx=31" title="전자도서관 이용안내 바로가기" class="quick07">
 						<div>
 							<h4 style="color:#000;">전자도서관</h4>
 							<p style="color:#000;">이렇게 이용하세요</p>
@@ -215,9 +215,9 @@ function getCookie(name){
 					</a>
 					</li>
 					<li class="quick-8">
-					<a href="/${homepage.context_path}/module/elib/book/index.do?menu_idx=30&menu=CATEGORY&type=WEB&parent_id=1132" class="quick08">
+					<a href="/${homepage.context_path}/board/index.do?menu_idx=74&manage_idx=285" title="자주하는질문 바로가기"class="quick08">
 						<div class="fq">
-							<h4>자주묻는<Br/>질문</h4>
+							<h4>자주하는<Br/>질문</h4>
 						</div>
 					</a>
 					</li>
@@ -253,7 +253,7 @@ function getCookie(name){
 					</ul>
 				</div>
 				<div class="more-btn center pd30t pd30b">
-					<a href="/${homepage.context_path}/board/index.do?menu_idx=72&manage_idx=284"><img src="/resources/homepage/${homepage.context_path}/img/notice-more.png" alt="더보기"></a>
+					<a href="/${homepage.context_path}/board/index.do?menu_idx=72&manage_idx=284"><img src="/resources/homepage/${homepage.context_path}/img/notice-more.png" alt="공지사항 더보기"></a>
 				</div>
 			</div>
 

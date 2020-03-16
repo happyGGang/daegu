@@ -2,21 +2,21 @@
 @media all and (max-width:768px){
 	#subheader {z-index:33;width:100%;height:170px;box-sizing:border-box;}
 	#subheader .tnb { display: none; }
-	#subheader .Gnb { width: 100%; left:0; margin:0; box-sizing: border-box; }
-	#subheader .Gnb h1 { position:absolute;/*left:10px;top:10px; */z-index: 1; }
+	#subheader .Gnb {width: 100%;left:0;margin:0;box-sizing: border-box;}
+	#subheader .Gnb h1 {position:absolute;/*left:10px;top:10px; */z-index: 1;left: 3px;}
 	#subheader .Gnb h1 img {width: 180px;}
 
 	#subheader .Gnb .g-menu { display:none; }
-	#subheader .m-menu { display:block;position:absolute;margin:0;padding:0;right:10px;top:35px;width:50px;}
+	#subheader .m-menu {display:block;position:absolute;margin:0;padding:0;right: 0px;top: 30px;width: 42px;}
 	#subheader .m-menu a { display:block;color:#fff;width:100%;height:auto; }
 
 	.sub-comment {display:none;}
 
 	.sub_search-box {border:5px solid #000;border-radius:5px;padding:0;background:#fff;height:45px;margin:0;}
 	.sub_search-box .box{border:0;border-radius:0;background:#fff;overflow:hidden;position:relative;height: auto;}
-	.sub_search-box .b1{padding:0}
+	.sub_search-box .b1{padding:0;}
 	.sub_search-box .b1 input {width:100%;box-sizing:border-box;border:0;border-radius:0;background:#fff;color:#293433;font-size:15px;font-weight:bold;padding: 0 15% 0 3%;font-weight:bold;}
-	.sub_search-box .b2{position:absolute;top:0;right:0;width:17%;height:100%;}
+	.sub_search-box .b2{position:absolute;top:0;right:0;width: 21%;height:100%;}
 	.sub_search-box button{background:#000;border:0;border-radius:0;color:#fff;font-size:13px;font-weight:bold;text-align:center;height:100%!important;}
 	.sub_search-box button{width:100%;font-family:"Malgun Gothic";}
 	.sub_search-box button, .sub_search-box input, .sub_search-box select, .sub_search-box .select2-container .select2-selection--single, .main.container .left-section .sub_search-box .select2-container--default .select2-selection--single .select2-selection__arrow, .sub_search-box .select2-container--default .select2-selection--single .select2-selection__rendered{height:45px;line-height:35px}

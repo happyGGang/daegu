@@ -53,10 +53,12 @@ a:focus{color:#2b74c0}
 .Gnb .gnb-menu > li.menu2 > ul {text-align:left}
 .Gnb .gnb-menu > li.menu3 > ul {text-align:center}
 .Gnb .gnb-menu > li.menu4 > ul {text-align:right}
-.Gnb .gnb-menu > li.menu1 > ul {margin-left:200px;}
-.Gnb .gnb-menu > li.menu2 > ul {margin-left:380px;}
-.Gnb .gnb-menu > li.menu3 > ul {}
-.Gnb .gnb-menu > li.menu4 > ul {margin-left:-350px;}
+.Gnb .gnb-menu > li.menu1 > ul {margin-left:130px;}
+.Gnb .gnb-menu > li.menu2 > ul {margin-left:280px;}
+.Gnb .gnb-menu > li.menu3 > ul {margin-left:-90px;}
+.Gnb .gnb-menu > li.menu4 > ul {margin-left:-450px;}
+.Gnb .gnb-menu > li.menu5 > ul {margin-left:150px;}
+.Gnb .gnb-menu > li.menu6 > ul {margin-left:350px;}
 
 .Gnb .mask{width:100%;background:#fff;margin-top:2px}
 .Gnb .gnb-menu > li > .SubMenu{letter-spacing:-1px}
@@ -168,7 +170,7 @@ a:focus{color:#2b74c0}
 .lnb ul ul li.active > a{color: #414141;}
 
 /* 본문 */
-.doc-title h3{font-size: 27px;padding: 25px 0 25px 0;}
+.doc-title h3{font-size: 27px;padding: 20px 0 20px 0;}
 .doc-info {width:100%;position:relative;top:0;background:#e2bec7;z-index:100;box-sizing:border-box;}
 .doc-info .section.page-navigation {padding-left: 284px;box-sizing:border-box;}
 .doc-info li {display:inline-block;zoom:1;*display:inline;vertical-align:middle;padding:15px 0}
@@ -196,7 +198,7 @@ a:focus{color:#2b74c0}
 .doc-info ul li a:hover{color:#fff;}
 .doc-info ul li a.font:hover span{background:#777}
 .doc-info span{vertical-align:middle}
-.doc-info ul li a{line-height:32px;height:32px;color:#fff;margin-top:-1px}
+.doc-info ul li a{line-height:32px;height:32px;color:#fff;margin-top:-1px;}
 .doc-info ul li.modify{line-height:30px;padding:15px 20px;}
 .doc-info ul li.print,.doc-info ul li.sns,.doc-info ul li.cord{line-height:36px;width:60px;}
 .doc-info ul li a .snsBtn{line-height:30px;}
@@ -214,11 +216,11 @@ a:focus{color:#2b74c0}
 .sub_search-box button, .sub_search-box input, .sub_search-box select, .sub_search-box .select2-container .select2-selection--single, .main.container .left-section .sub_search-box .select2-container--default .select2-selection--single .select2-selection__arrow, .sub_search-box .select2-container--default .select2-selection--single .select2-selection__rendered{height:55px;line-height:49px}
 
 /*서브페이지 공유버튼*/
-div#shareBtnArea{position:absolute;;background:none;top:50px;margin:15px 0 0 -90px;z-index:999997!important;width:auto;box-shadow:none;}
+div#shareBtnArea{position:absolute;background:none;top:50px;margin: 15px 0 0 -90px;z-index:999997!important;width:auto;box-shadow:none;}
 ul.shareBox {position:relative;border:0;z-index:999998!important;}
 ul.shareBox > li {border:0;padding:0;width:30px;height:30px;margin:3px;display:inline-block;}
 ul.shareBox > li:last-child {border:0;}
-ul.shareBox img.shareIcon { margin-top:-1px;}
+ul.shareBox img.shareIcon {margin-top:-1px;}
 
 /* 접속기록안내 */
 #memberInfo{position:absolute;width:22%;left:98%;top:18%;background:#fff;margin-left:-35%;box-shadow:0px 1px 7px 0px rgba(0,0,0,0.5);z-index: 9;}
@@ -261,9 +263,9 @@ span.txt-bar{padding:1px 0;background:#ccc;vertical-align:middle}
 
 #footer .site_address {float:left;padding:45px 0;}
 #footer .site_link {float:right;padding:35px 0;}
-#footer select {width:200px;height:48px;padding:0 0 0 20px;border-radius:7px;border:1px solid #222;background:url('../img/recommandsite-arrow.gif') no-repeat 95% 50%;color:#fff;-webkit-appearance:none;-moz-appearance:none;appearance:none;color:#000;}
+#footer select {width: 245px;height:48px;padding: 0 0 0 15px;border-radius:7px;border:1px solid #222;background:url('../img/recommandsite-arrow.gif') no-repeat 95% 50%;color:#fff;-webkit-appearance:none;-moz-appearance:none;appearance:none;color:#000;font-size: 14px;}
 #footer select::-ms-expand {display:none;}
-#footer .home-up {display:none;position:absolute;right:10px;bottom: 135px;z-index:999999;}
+#footer .home-up {display:none;position:absolute;right: 3%;bottom: 135px;z-index:999999;}
 
 @media all and (max-width:1800px){
 	.sectionx {width:1600px;margin:0 auto;} 
@@ -279,8 +281,8 @@ span.txt-bar{padding:1px 0;background:#ccc;vertical-align:middle}
 	.quickMenu li.quick-6 {top:300px;left:640px;width:320px;}
 	.quickMenu li.quick-7 {top:300px;left:960px;width:320px;}
 
-	.quickMenu li a.quick08 {background:url("../img/faq-arrow.png") no-repeat 50% 30%;}
-	.quickMenu li a div.fq {position:absolute;height:auto;width:100%;top:initial;bottom:20%;text-align:center;}
+	.quickMenu li a.quick08 {background: url("../img/faq-arrow-m.png") no-repeat 50% 30%;transition: all 0.3s;}
+	.quickMenu li a div.fq {position:absolute;height:auto;width:100%;top:initial;bottom: 20%;text-align:center;}
 	.quickMenu li a div.fq h4 {font-size:23px;color:#fff;font-weight:bold;}
 
 	.quickMenu li.quick-8 {width:320px;height:300px;border-radius:0;top:300px;left:1280px;}
@@ -325,15 +327,19 @@ span.txt-bar{padding:1px 0;background:#ccc;vertical-align:middle}
 	.notice div.tit {width:100%;text-align:center;color:#000!important;margin-top:10px;font-size:34px;}
 	.notice .con li a span.ico {right:20px;}
 
-	.doc{margin-right:0;padding: 0 0;overflow:hidden;}
+	.doc{margin-right:0;padding: 0 0;overflow:hidden;margin: 0 3% 3% 3%;}
 
 	.doc-info ul{display:block}
-	.doc-info ul li.sns{padding:15px 0;border-left:0}
+	.doc-info ul {padding-right: 0px;}
+	.doc-info ul li.sns{padding:15px 0;border-left:0;}
+	.doc-info ul li.print,.doc-info ul li.sns,.doc-info ul li.cord{line-height:36px;width: 48px;}
+	ul.shareBox > li {border:0;padding:0;width:30px;height:30px;margin:3px;display: inline-block;}
+	div#shareBtnArea{position:absolute;background:none;top:50px;margin: 15px 0 0 -40px;z-index:999997!important;width:auto;box-shadow:none;}
 	ul li.modify,ul li.print,ul li.cord{display:none}
 
 	.doc-info .section.page-navigation {padding-left:1.5%;box-sizing:border-box;}
 
-	.doc-head {width:100%;clear:both;background:url('../img/h2-bg.gif') repeat-x 0 0;box-sizing:border-box;padding:0 1.5%;border-bottom: 0;}
+	.doc-head {width:100%;clear:both;background:url('../img/h2-bg.gif') repeat-x 0 0;box-sizing:border-box;border-bottom: 0;}
 	.doc-head h3{border-top:3px solid #1f5d97;padding-right:10%}
 	.doc-body {clear:both;width:100%}
 	.doc-body .body{margin-right:0;margin-left:0;margin-bottom: 30px;box-sizing:border-box;padding:0 1.5%;}
@@ -347,25 +353,25 @@ span.txt-bar{padding:1px 0;background:#ccc;vertical-align:middle}
 	.notice .con li a span.ico {display:none;}
 
 	#footer {padding:0;border-top:1px solid #ccc;}
-	#footer .section.address {box-sizing:border-box;padding:0 1.5%;}
+	#footer .section.address {box-sizing:border-box;padding: 0 2.5%;}
 	#footer .site_address {float:none;width:100%;padding:15px 0;text-align:center;}
-	#footer .site_link {float:none;width:100%;padding: 10px 0;}
-	#footer .site_link select {width:100%;}
+	#footer .site_link {float:none;width:100%;padding: 0 0 10px 0;margin: 0 auto;}
+	#footer .site_link select {width: 100%;margin: 0 auto;}
 }
 
 @media all and (max-width:840px){
-	.section.search {width:96%;margin:20px auto;}
-}
+	.section.search {width: 93%;padding-top: 20px;margin: 0 auto;/* border: 1px solid #000; */}
+} 
 
 @media all and (max-width:768px){
 	#header {position:absolute;z-index:33;width:100%;height:90px;box-sizing:border-box;}
-	#container.main.container {position:relative;z-index:2;padding-top:90px;}
+	#container.main.container {position:relative;z-index:2;padding-top:82px;}
 	#header .tnb { display: none; }
 	#header .Gnb { width: 100%; left:0; margin:0; box-sizing: border-box; }
 	#header .Gnb h1 {position:absolute;/* left:10px; *//* top:10px; */z-index: 1;}
 	#header .Gnb h1 img {width: 180px;}
 	#header .Gnb .g-menu { display:none; }
-	#header .m-menu {display:block;position:absolute;margin:0;padding:0;right:10px;top: 35px;width:50px;}
+	#header .m-menu {display:block;position:absolute;margin:0;padding:0;right: 0px;top: 30px;width: 42px;}
 	#header .m-menu a { display:block;color:#fff;width:100%;height:auto; }
 
 	.mainTitle {display:none;}
@@ -383,9 +389,10 @@ span.txt-bar{padding:1px 0;background:#ccc;vertical-align:middle}
 	
 	.subpage .section{padding:0 3%}
 
-	.doc-head{width:100%;float:none}
+	.doc-head{width:100%;float:none;}
 	.doc-head h3{text-align:left;border-top:3px solid #1f5d97;padding-left:0;padding-right:40%;}
-	.doc-body, .doc-body .body{float:none;margin: 0 0 35px 0;}
+	.doc-title h3{font-size: 23px;padding: 15px 0 15px 0;}
+	.doc-body, .doc-body .body{float:none;margin: auto;}
 
 	.web-view, .web-img {display:none}
 	.mobile-view, .mobile-img {display:block}
@@ -410,7 +417,7 @@ span.txt-bar{padding:1px 0;background:#ccc;vertical-align:middle}
 
 	#footer .info .section {width:800px;}
 	#footer .info .section li a {font-size:13px;}
-	#footer .home-up {display:block;}
+	#footer .home-up {display:block;bottom: 123px;}
   	#footer .home-up img{width:45px}
 
 
@@ -421,7 +428,8 @@ span.txt-bar{padding:1px 0;background:#ccc;vertical-align:middle}
 }
 
 @media all and (max-width:600px){
-	.quickMenu li a div.fq h4 {font-size:18px;color:#fff;font-weight:bold;}
+	.quickMenu li a div.fq h4 {font-size: 17px;color:#fff;font-weight:bold;display: inline-block;}
+
 	.quickMenu li a div.fq p {font-size:13px;color:#fff;}
 	.quickMenu li a div h4 {font-size:18px;color:#fff;font-weight:bold;}
 	.quickMenu li a div p {font-size:13px;color:#fff;}
@@ -431,8 +439,9 @@ span.txt-bar{padding:1px 0;background:#ccc;vertical-align:middle}
 	.quickMenu li a.quick03 {background-size:50%}
 	.quickMenu li a.quick04 {background-size:50%}
 	.quickMenu li a.quick05 {background-size:50%}
-	.quickMenu li a.quick06 {background-size:50%}
-	.quickMenu li a.quick07 {background-size:50%}
+	.quickMenu li a.quick06 {background-size:50%;}
+	.quickMenu li a.quick07 {background-size:50%;}
+	.quickMenu li a.quick08 {background-size: 50%;}
 }
 
 @media all and (max-width:500px){
@@ -447,12 +456,13 @@ span.txt-bar{padding:1px 0;background:#ccc;vertical-align:middle}
 	.quickMenu li.quick-5 {width:50%;top:400px;left:0;height:200px;}
 	.quickMenu li.quick-6 {width:50%;top:400px;left:50%;height:200px;}
 	.quickMenu li.quick-7 {width:50%;top:600px;left:0%;height:200px;}
-	.quickMenu li.quick-8 {width:50%;top:600px;left:50%;height:200px;}
+	.quickMenu li.quick-8 {width: 50%;top:600px;left:50%;height:200px;}
 
 	#footer .site-link li a {font-size:13px;}
 	#footer address em, #footer address span{font-size:12px}
-    #footer .info li {display:inline-block;/* width:20%; */padding-right: 20px;}
-    #footer .info .section{text-align: left;padding-left: 9px;}
+    #footer .info li {display:inline-block;/* width:20%; */padding-right: 15px;}
+    #footer .info .section{text-align: left;padding-left: 12px;}
+    #footer .copyright {font-size:12px;}
 
 	.doc-info ol li{padding:0 5px}
 	.doc-info ol li.first{padding: 15px 5px; border-right: 0;}
@@ -462,8 +472,9 @@ span.txt-bar{padding:1px 0;background:#ccc;vertical-align:middle}
 	.notice .con li a span.day b {font-size:30px;}
 	.notice .con li a span.cont > div.notice-title > span {width:80%;}
 
-	.visual-two {font-size:18px;height:140px;line-height:140px;}
-
+	.visual-two {font-size:18px;height:140px;line-height: 150px;}
+    .quickMenu li a div.fq {position:absolute;width: 100%;top:initial;bottom: 29%;text-align: center;}
+	.quickMenu li a div.fq h4 br {display:none}
 }
 
 @media all and (max-width:440px){
@@ -472,7 +483,7 @@ span.txt-bar{padding:1px 0;background:#ccc;vertical-align:middle}
 
 @media all and (max-width:425px){
 	.quickMenu li a div h4 {font-size:17px;color:#fff;font-weight:bold;}
-	.quickMenu li a div p {font-size:12px;letter-spacing:-1.5px;}
+	.quickMenu li a div p {font-size:12px;letter-spacing: -0.5px;}
 
 	.notice div.tit {font-size:24px;}
 	.notice .con li a span.cont > div.notice-title > span {width:76%;}
@@ -480,6 +491,9 @@ span.txt-bar{padding:1px 0;background:#ccc;vertical-align:middle}
 
 @media all and (max-width:400px){
 	.visual-two {font-size:16px;}
+	.quickMenu li a div {position:absolute;width:100%;bottom:18%;text-align:center;padding:0;}
+	.quickMenu li a div.fq {position:absolute;width: 100%;top:initial;bottom: 27%;text-align: center;padding: 0;}
+
 }
 
 @media all and (max-width:375px){
@@ -495,7 +509,7 @@ span.txt-bar{padding:1px 0;background:#ccc;vertical-align:middle}
 
 	#footer address{text-align:center;}
 	#footer .site_address {font-size:12px;letter-spacing:-1px;}
-	#footer .copyright {font-size:12px;}
+	.doc-info ul li.print,.doc-info ul li.sns,.doc-info ul li.cord{line-height:36px;width:30px;}
 }
 
 @media all and (max-width:330px){

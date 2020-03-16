@@ -14,10 +14,11 @@
 		    <p class="center">
 			<c:choose>
 			<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
-			<a href="/${homepage.context_path}/elibsso.do" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank">
+			<a href="</${homepage.context_path}/elibsso.do" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank">
 			</c:when>
 			<c:otherwise>
-			<a href="javascript:void(0);" onclick="alert('로그인후 이용바랍니다.'); location.href='/${homepage.context_path}/intro/login/index.do?menu_idx=4';" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank">
+			<!--a href="javascript:void(0);" onclick="alert('로그인후 이용바랍니다.'); location.href='/${homepage.context_path}/intro/login/index.do?menu_idx=4';" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank"-->
+            <a href="javascript:void(0);" onclick="alert('대구전자도서관 이관 작업으로 서비스가 일시중지됩니다. 2020.3.16. 00:00 ~ 2020.3.17. 24:00');" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank">
 			</c:otherwise>
 			</c:choose>
 			<span>대구전자도서관 바로가기</span><span class="ico ico_link"></span><i class="fa fa-external-link"></i></a></p>
@@ -31,7 +32,7 @@
   </div>
   <h3 class="contTit_line">회원가입 및 절차</h3>
   <ul class="con">
-    <li>지역 공공도서관 도서회원로 가입하기
+    <li>지역 공공도서관 도서회원으로 가입하기
       <ul>
         <li>대구전자도서관에서 별도 회원가입 불가</li>
       </ul>
@@ -85,7 +86,7 @@
   </ul>
   <h4 class="contSTit_line">지역 도서관 중 회원가입 도서관 선택 후 회원 인증하기</h4>
   <ul class="con">
-    <li>회원 가입 도서관 선택 후 회원 인증하기(PC 화면애서 대구전자도서관 회원 인증 필요)</li>
+    <li>회원 가입 도서관 선택 후 회원 인증하기(PC 화면에서 대구전자도서관 회원 인증 필요)</li>
   </ul>
   <h4 class="contSTit_line">내 손안에서 다양한 도서관 서비스 이용하기 </h4>
   <ul class="con">
