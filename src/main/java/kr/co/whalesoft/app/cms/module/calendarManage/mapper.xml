@@ -102,7 +102,7 @@
 	<!-- 휴관일 가져오기 -->
 	<select id="getClosedDate2" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">
 		SELECT
-			yy, mm, LISTAGG(dd,', ') WITHIN GROUP (ORDER BY mm, dd) AS dd
+			yy, mm, LISTAGG(dd,',') WITHIN GROUP (ORDER BY mm, dd) AS dd
 		FROM (
 			SELECT
 				SUBSTR(start_date,0,4) as yy,
@@ -150,32 +150,22 @@
 	
 	<select id="getClosedDate4" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">
 		SELECT
-			yy, mm, LISTAGG(dd,', ') WITHIN GROUP (ORDER BY mm, dd) AS dd
+			SUBSTR(start_date,0,4) as yy,
+			SUBSTR(start_date,6,2) as mm,
+			SUBSTR(start_date,9,2) || '~' || SUBSTR(end_date,9,2) as dd
 		FROM
 			(
 			SELECT
-				SUBSTR(start_date, 0, 4) AS yy,
-				SUBSTR(start_date, 6, 2) AS mm,
-				CASE
-					WHEN start_date = end_date THEN SUBSTR(start_date, 9, 2)
-					ELSE SUBSTR(start_date, 9, 2)||'~'||SUBSTR(end_date, 9, 2)
-				END dd
+				distinct MIN(start_date) AS start_date, MAX(end_date) AS end_date
 			FROM
-				(
-				SELECT
-					MIN(start_date) as start_date, MAX(end_date) AS end_date
-				FROM
-					CMS_CALENDAR_MANAGE
-				WHERE
-					homepage_id = #{homepage_id}
-				AND	date_type = 1
-				AND	delete_yn = 'N'
-				AND	SUBSTR(start_date,1,7) = #{plan_date}
-				GROUP BY group_idx
-				)
-			ORDER by dd
+				CMS_CALENDAR_MANAGE
+			WHERE
+				homepage_id = #{homepage_id}
+			AND	date_type = '1'
+			AND	delete_yn = 'N'
+			AND	SUBSTR(start_date,1,7) = #{plan_date}
 			)
-		GROUP BY yy, mm
+		ORDER BY DD
 	</select>
 
 	<!-- 행사 가져오기 -->
