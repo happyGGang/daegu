@@ -173,5 +173,9 @@ public class ArchiveService extends BaseService {
 		archive2.setCode(tmp);
 		dao.modCode(archive2);
 	}
+
+	public int addViewCount(Archive archive) {
+		return dao.addViewCount(archive);
+	}
 	
 }

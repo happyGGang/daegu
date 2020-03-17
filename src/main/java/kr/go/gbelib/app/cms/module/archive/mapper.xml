@@ -349,5 +349,17 @@
 			book_idx = #{book_idx}
 		AND page_idx = #{page_idx}
 	</update>
+	
+	<insert id="addViewCount">
+		INSERT INTO
+			ARCHIVE_STATISTICS
+		(
+			homepage_id, book_idx, access_idx, access_date
+		)
+		VALUES
+		(
+			#{homepage_id}, #{book_idx}, ARCHIVE_STATISTICS_SEQ.NEXTVAL, SYSDATE
+		)
+	</insert>
 
 </mapper>

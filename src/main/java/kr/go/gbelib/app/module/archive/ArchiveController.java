@@ -56,6 +56,8 @@ public class ArchiveController extends  BaseController {
 
 		int count = service.getArchivePageCount(archive);
 		List<Archive> list = service.getArchivePageList(archive);
+		
+		service.addViewCount(archive);
 
 		model.addAttribute("archive", archive);
 		model.addAttribute("count", count);

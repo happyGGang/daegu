@@ -45,5 +45,7 @@ public interface ArchiveDao {
 	public Archive getHigherArchivePage(Archive archive);
 	
 	public int modCode(Archive archive);
+
+	public int addViewCount(Archive archive);
 	
 }
