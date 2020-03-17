@@ -13,7 +13,7 @@
 <c:set var="menu_idx_best"      value="15"/>
 <c:set var="menu_idx_recommend" value="16"/>
 <c:set var="menu_idx_category"  value="17"/>
-<c:set var="menu_idx_provider"  value="18"/>
+<c:set var="menu_idx_provider"  value="14"/>
 <c:set var="menu_idx_device"    value="49"/>
 </c:when>
 <c:when test="${param.type == 'ADO'}">
@@ -143,7 +143,7 @@ $(function() {
 				</ul>
 				<ul class="SubMenu">
 					<c:if test="${not empty categoryMenuList}">
-					<li id="menu_${menu_idx_category}"><a href="/elib/module/elib/book/index.do?menu_idx=${menu_idx_category}&menu=CATEGORY&type=${fn:escapeXml(param.type)}"><span>주제별</span></a>
+					<li id="menu_${menu_idx_category}"><a href="/elib/module/elib/book/index.do?menu_idx=${menu_idx_category}&menu=CATEGORY&type=${fn:escapeXml(param.type)}">주제별</a>
 						<ul class="SubMenu" style="display: block;">
 							<c:forEach items="${categoryMenuList}" var="i" varStatus="status">
 							<li style="line-height: 0%;"<c:if test="${param.parent_id == i.cate_id}"> class="active"</c:if>>
@@ -158,7 +158,7 @@ $(function() {
 					</li>
 					</c:if>
 					<c:if test="${not empty compMenuList}">
-					<li id="menu_${menu_idx_provider}"><a href="/elib/module/elib/book/index.do?menu_idx=${menu_idx_provider}&menu=PROVIDER&type=${fn:escapeXml(param.type)}"><span>유통사별</span></a>
+					<li id="menu_${menu_idx_provider}"><a href="/elib/module/elib/book/index.do?menu_idx=${menu_idx_provider}&menu=PROVIDER&type=${fn:escapeXml(param.type)}">유통사별</a>
 						<ul class="SubMenu" style="display: block;">
 							<c:forEach items="${compMenuList}" var="i" varStatus="status">
 							<c:if test="${i.com_code ne 'ARTN'}">
