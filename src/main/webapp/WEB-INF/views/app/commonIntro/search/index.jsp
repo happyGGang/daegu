@@ -215,6 +215,10 @@ $(function() {
 	<form:hidden path="facet_pub_year"/>
 	<form:hidden path="facet_subject_code"/>
 	<form:hidden path="facet_media_code"/>
+	
+	<c:if test="${librarySearch.booktype eq 'BOOKANDNONBOOK'}">
+	<form:hidden path="shelfCode"/>
+	</c:if>
 
 	<!-- contents-title-->
 	<div id="contents-title">
