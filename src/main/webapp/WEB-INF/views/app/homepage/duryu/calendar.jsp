@@ -214,8 +214,8 @@ Date.prototype.format = function(f) {
 				<c:set var="dd" value="${fn:split(closeDayList.dd, ',')}"></c:set>
 				<dd>
 					<c:forEach items="${dd}" var="i" begin="0" end="13" varStatus="status">
-					<c:if test="${!status.last}">
-					<span>${i}</span>
+					<c:if test="${!status.last or fn:length(dd) == 1}">
+					<span style="width: auto; height: auto;padding: 1px 10px;">${i}</span>
 					</c:if>
 					<c:if test="${status.last}">
 					<span>...</span>

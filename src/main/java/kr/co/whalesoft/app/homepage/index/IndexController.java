@@ -155,7 +155,7 @@ public class IndexController extends BaseController {
 		}
 		calendarManage.setHomepage_id(homepage.getHomepage_id());
 		model.addAttribute("calendar", calendarManage);
-		if(homepage.getHomepage_id().equals("h10")) {
+		if(homepage.getHomepage_id().equals("h4") || homepage.getHomepage_id().equals("h8")) {
 			model.addAttribute("closeDayList", calendarManageService.getClosedDate4(calendarManage));
 		} else {
 			model.addAttribute("closeDayList", calendarManageService.getClosedDate2(calendarManage));
@@ -191,7 +191,11 @@ public class IndexController extends BaseController {
 		if("geic".equals(contextPath)) {
 			closedDay = calendarManageService.getClosedDate3(calendarManage);
 		} else {
-			closedDay = calendarManageService.getClosedDate2(calendarManage);
+			if(homepage.getHomepage_id().equals("h6") || homepage.getHomepage_id().equals("h4")) {
+				closedDay = calendarManageService.getClosedDate4(calendarManage);	
+			} else {
+				closedDay = calendarManageService.getClosedDate2(calendarManage);
+			}
 		}
 		calendarManage.setDate_type("2");
 		List<CalendarManage> eventDay = calendarManageService.getCalendarManageDetail(calendarManage);
@@ -437,7 +441,7 @@ public class IndexController extends BaseController {
 			model.addAttribute("category2List", codeService.getCode(homepage.getHomepage_id(), boardCategory2));
 		}
 
-		setBoardListToModel(homepage.getHomepage_id(), model);
+//		setBoardListToModel(homepage.getHomepage_id(), model);
 
 
 		// 전자도서관

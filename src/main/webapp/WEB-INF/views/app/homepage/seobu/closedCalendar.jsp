@@ -66,7 +66,7 @@ $(function() {
 			<c:set var="dd" value="${fn:split(closeDayList.dd, ',')}"></c:set>
 			<dd>
 				<c:forEach items="${dd}" var="i">
-				<span>${i}</span>
+				<span style="width: auto;height: auto;padding: 1px 10px;">${i}</span>
 				</c:forEach>
 			</dd>
 		</c:if>
