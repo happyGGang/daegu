@@ -242,7 +242,7 @@ public class BookcubeAPIService extends BaseService {
 	 */
 	public Map<String, String> appUrl(Book book, ElibMember member, String device) {
 		String member_id = member.getMember_id();
-		String fxli_library_code = "bcp00228";
+		String fxli_library_code = "bcp00106";
 		
 		return parse2(send(String.format(APP_URL + "/%s/%s/%s/%s/%s/%s/%s/%s", device, fxli_library_code, book.getBook_code(), member_id, member_id, member_id, "general", member_id), new ArrayList<NameValuePair>()));
 	}

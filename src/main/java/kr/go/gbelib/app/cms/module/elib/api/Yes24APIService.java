@@ -43,12 +43,8 @@ public class Yes24APIService extends BaseService {
 	private static final String USER_AGENT = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)";
 	private static final String LEND_URL = "http://e-lib.tglnet.or.kr:8081/YES24/yes24_action_new.asp";
 	private static final String MEMBER_URL = "http://e-lib.tglnet.or.kr:8081/YES24/yes24_member_sync.asp";
-	private static final String APP_URL = "http://e-lib.tglnet.or.kr:8081/%s/device_url.asp?user_id=%s&goods_id=%s&device_type=phone";
+	private static final String APP_URL = "http://e-lib.tglnet.or.kr:8081/YES24/api/device_url.asp";
 	private static final int TIMEOUT = 30 * 1000;
-
-	private String libraryCodeToSiteCode(String libraryCode) {
-		return "";
-	}
 
 	private String getText(Document doc, String path) {
 		XPath xPath =  XPathFactory.newInstance().newXPath();
@@ -182,7 +178,7 @@ public class Yes24APIService extends BaseService {
 	private List<NameValuePair> makeParamPairs(String mode, Book book) {
 		String user_id = book.getMember_id();
 		String goods_id = book.getBook_code();
-		String site_code = libraryCodeToSiteCode(book.getLibrary_code());
+		String site_code = "";
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 
 		params.add(new BasicNameValuePair("mode", mode));
@@ -244,7 +240,7 @@ public class Yes24APIService extends BaseService {
 		String user_id = member.getMember_id();
 		String user_pw = member.getSeq_no();
 		String user_nm = member.getMember_id();
-		String site_code = libraryCodeToSiteCode(member.getLibrary_code());
+		String site_code = "";
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 
 		params.add(new BasicNameValuePair("user_id", user_id));
@@ -285,8 +281,13 @@ public class Yes24APIService extends BaseService {
 	 */
 	public Map<String, String> appUrl(Book book, ElibMember member, String device) {
 		String member_id = member.getMember_id();
-		String yes24_library_code = libraryCodeToSiteCode(book.getLibrary_code());
-		return parse2(send(String.format(APP_URL, yes24_library_code, member_id, book.getBook_code()), new ArrayList<NameValuePair>()));
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		
+		params.add(new BasicNameValuePair("user_id", member_id));
+		params.add(new BasicNameValuePair("goods_id", book.getBook_code()));
+		params.add(new BasicNameValuePair("device_type", "phone"));
+
+		return parse2(send(APP_URL, params));
 	}
 
 }
