@@ -56,7 +56,7 @@ $(document).ready(function() {
 	<c:when test="${member.login && member.member_class == '2'}">
 	$('a#book_borrow, a#book_reserve, a#book_addfavorite, a#book_recommend').on('click', function(e) {
 		e.preventDefault();
-		alert('이용자님은 현재 미승인 회원입니다. 부산광역시 소속도서관에서 정회원으로 승인 받은 후 전자도서관을 이용 바랍니다');
+		alert('이용자님은 현재 미승인 회원입니다. 대구광역시 도서관 소속도서관에서 정회원으로 승인 받은 후 전자도서관을 이용 바랍니다');
 	});
 	</c:when>
 	<c:when test="${member.login && member.member_class == '0'}">
@@ -104,7 +104,7 @@ $(document).ready(function() {
 		$form.prop('action', '../lending/save.do');
 		if(doAjaxPost($form)) {
 			if(confirm('지금 나의 관심도서 목록을 확인하시겠습니까?')) {
-				location.href = '/${homepage.context_path}/module/elib/lending/index.do?menu_idx=96&menu=MYSTUDY'
+				location.href = '/${homepage.context_path}/module/elib/lending/index.do?menu_idx=78&menu=MYSTUDY'
 			}
 		}
 		$form.prop('action', 'index.do');
@@ -150,7 +150,7 @@ $(document).ready(function() {
 	<c:when test="${member.login && member.member_class == '2'}">
 	$('a.course_view').on('click', function(e) {
 		e.preventDefault();
-		alert('이용자님은 현재 미승인 회원입니다. 부산광역시 소속도서관에서 정회원으로 승인 받은 후 전자도서관을 이용 바랍니다');
+		alert('이용자님은 현재 미승인 회원입니다. 대구광역시 통합도서관에서 정회원으로 승인 받은 후 전자도서관을 이용 바랍니다');
 	});
 	</c:when>
 	<c:when test="${member.login && member.member_class == '0'}">
@@ -242,7 +242,7 @@ $(document).ready(function() {
 	<c:when test="${member.login && member.member_class == '2'}">
 	$('a.audio_view').on('click', function(e) {
 		e.preventDefault();
-		alert('이용자님은 현재 미승인 회원입니다. 부산광역시 소속도서관에서 정회원으로 승인 받은 후 전자도서관을 이용 바랍니다');
+		alert('이용자님은 현재 미승인 회원입니다. 대구광역시 통합도서관에서 정회원으로 승인 받은 후 전자도서관을 이용 바랍니다');
 	});
 	</c:when>
 	<c:when test="${member.login && member.member_class == '0'}">
@@ -284,7 +284,7 @@ $(document).ready(function() {
 	</c:choose>
 	</c:if>
 
-	$('#comments').load('/${homepage.context_path}/module/elib/book/comments.do?book_idx=${book.book_idx}');
+	//$('#comments').load('/${homepage.context_path}/module/elib/book/comments.do?book_idx=${book.book_idx}');
 
 	<c:if test="${param.show_comments == 'Y'}">
 	$('div.tabmenu > ul > li > a[data-target="comments"]').click();
@@ -413,7 +413,9 @@ function go_to_login() {
 						</c:if>
 					</li>
 					<li>소속도서관: ${fn:escapeXml(book.library_name)}</li>
-					<li>대출 가능 여부: ${fn:escapeXml(book.status)}<span class="txt-bar">&nbsp;</span>대출 : ${fn:escapeXml(book.book_lend)}<%-- / ${fn:escapeXml(book.max_lend)}--%><span class="txt-bar">&nbsp;</span>예약 : ${fn:escapeXml(book.book_reserve)}</li>
+<%--
+					<li>대출 가능 여부: ${fn:escapeXml(book.status)}<span class="txt-bar">&nbsp;</span>대출 : ${fn:escapeXml(book.book_lend)}<%-- / ${fn:escapeXml(book.max_lend)}--%><%--<span class="txt-bar">&nbsp;</span>예약 : ${fn:escapeXml(book.book_reserve)}</li>
+--%>
 					<li>지원 기기: ${fn:escapeXml(book.label)}<span class="txt-bar">&nbsp;</span>서비스 형태: ${fn:escapeXml(book.format)}</li>
 					<li>좋아요: ${fn:escapeXml(book.recommend_cnt)}</li>
 				</ul>

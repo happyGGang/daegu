@@ -404,7 +404,7 @@ function changeLibrary() {
 				<span class="txt-bar">&nbsp;</span>
             	<label>공급사:</label>
 				<span>${fn:escapeXml(i.comp_name)}</span>
-				<c:if test="${i.type == 'EBK'}">
+				<c:if test="${i.type == 'EBK' && 1 == 2}">
 				<span class="txt-bar">&nbsp;</span>
 				<span>대출 가능 여부: ${fn:escapeXml(i.status)}</span>
 				<span class="txt-bar">&nbsp;</span>

@@ -3,7 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="tag" uri="/WEB-INF/config/tld/customTag.tld" %>
-<link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/book/search/css/default_elib.css"/>
 <script src="/resources/cms/js/vk/vk_popup.js?vk_skin=flat_gray&vk_layout=ZW Shona"></script>
 <script type="text/javascript">
 var authorViewPage = 1;
@@ -383,7 +383,9 @@ function addOnClickListeners() {
 										<p>${fn:replace(i.author_name, book.search_text, replaceStr)}</p>
 										<p>${fn:replace(i.book_pubname, book.search_text, replaceStr)}, ${i.book_pubdt}</p>
 										<p>${i.library_name}</p>
+<%--
 										<p>대출 가능 여부: ${fn:escapeXml(i.status)}<span class="txt-bar">&nbsp;</span>대출 : ${fn:escapeXml(i.book_lend)}<span class="txt-bar">&nbsp;</span>예약 : ${i.book_reserve}</p>
+--%>
 									</div>
 								</div>
 							</div>

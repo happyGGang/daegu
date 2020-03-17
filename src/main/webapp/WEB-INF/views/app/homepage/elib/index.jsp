@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+
 <tiles:insertAttribute name="header" />
 <script type="text/javascript">
 $(function() {
@@ -159,7 +161,7 @@ function getCookie(name){
 			<div class="quickMenu">
 				<ul>
 					<li class="quick-1">
-					<a href="#" title="인기강좌 바로가기" class="quick01">
+					<a href="/${homepage.context_path}/module/elib/asp/contents/elearning.do?menu_idx=27" title="인기강좌 바로가기" class="quick01">
 						<div>
 							<h4>인기강좌</h4>
 							<p>맞춤형 e-러닝 학습</p>
@@ -183,7 +185,7 @@ function getCookie(name){
 					</a>
 					</li>
 					<li class="quick-4">
-					<a href="#" title="전자자료검색 바로가기" class="quick04">
+					<a href="/${homepage.context_path}/module/elib/search/index.do?menu_idx=80" title="전자자료검색 바로가기" class="quick04">
 						<div>
 							<h4>전자자료검색</h4>
 							<p>전자자료 통합검색</p>
@@ -191,7 +193,7 @@ function getCookie(name){
 					</a>
 					</li>
 					<li class="quick-5">
-					<a href="#" title="신간 E-BOOK 바로가기" class="quick05">
+					<a href="/${homepage.context_path}/module/elib/book/index.do?menu_idx=14&menu=NEW&type=EBK" title="신간 E-BOOK 바로가기" class="quick05">
 						<div>
 							<h4>신간 E-BOOK</h4>
 							<p>신간전자자료</p>
@@ -199,7 +201,7 @@ function getCookie(name){
 					</a>
 					</li>
 					<li class="quick-6">
-					<a href="#" title="지금 E-BOOK 바로가기" class="quick06">
+					<a href="/${homepage.context_path}/module/elib/book/index.do?menu_idx=15&menu=BEST&type=EBK" title="지금 E-BOOK 바로가기" class="quick06">
 						<div>
 							<h4>지금 E-BOOK</h4>
 							<p>베스트전자자료</p>
@@ -215,9 +217,9 @@ function getCookie(name){
 					</a>
 					</li>
 					<li class="quick-8">
-					<a href="/${homepage.context_path}/board/index.do?menu_idx=74&manage_idx=285" title="자주하는질문 바로가기"class="quick08">
+					<a href="/${homepage.context_path}/html.do?menu_idx=85" title="스마트도서관 바로가기"class="quick08">
 						<div class="fq">
-							<h4>자주하는<Br/>질문</h4>
+							<h4>스마트<Br/>도서관</h4>
 						</div>
 					</a>
 					</li>
@@ -274,3 +276,5 @@ function getCookie(name){
 
 </body>
 </html>
+
+
