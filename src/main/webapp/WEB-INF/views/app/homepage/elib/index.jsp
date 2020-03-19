@@ -177,7 +177,7 @@ function getCookie(name){
 					</a>
 					</li>
 					<li class="quick-3">
-					<a href="http://tglnet.naxosmusiclibrary.com/nml3_refer.asp" title="클래식감상 홈페이지 바로가기(새창열림)" target="_blank" class="quick03">
+					<a href="/${homepage.context_path}/html.do?menu_idx=25" title="클래식감상 홈페이지 바로가기(새창열림)" class="quick03">
 						<div>
 							<h4>클래식감상</h4>
 							<p>아름다운 음악 이야기</p>

@@ -33,7 +33,7 @@ $(document).ready(function() {
 
 <ul>
 	<c:if test="${member.loginType eq 'CMS' and member.login}">
-		<li class="modify"><a href="/cms/menu/${homepage.context_path}/htmlEdit.do?menu_idx=${menuOne.menu_idx}">본문내용 수정</a></li>
+		<!-- <li class="modify"><a href="/cms/menu/${homepage.context_path}/htmlEdit.do?menu_idx=${menuOne.menu_idx}">본문내용 수정</a></li> -->
 	</c:if>
 	<li class="print"><a href="#" class="noBox" title="새창열림"  onclick="contentPrint(); return false;"><img src="/resources/homepage/${homepage.context_path}/img/print.png" alt="페이지 내용 인쇄" ></a></li>
 	<li style="position:relative" class="sns"><a href="" class="noBox shareBtn snsBtn"><img src="/resources/homepage/${homepage.context_path}/img/sns.png" alt="SNS 공유 목록" class="shareBtn"/></a>

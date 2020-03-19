@@ -46,7 +46,7 @@
 							<i class="fa fa-lock"></i>
 							<span>LOGIN</span>
 						</a>
-						<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=42" class="btn2">
+						<a href="https://library.daegu.go.kr/dgportal/intro/join/index.do?menu_idx=42" class="btn2" target="_blank">
 							<i class="fa fa-user-plus"></i>
 							<span>JOIN</span>
 						</a>
@@ -64,6 +64,6 @@
 
 <script>
 $(document).ready(function() {
-	$('ul.gnb-menu li.menu_3').hide();
+	//$('ul.gnb-menu li.menu_3').hide();
 })
 </script>
