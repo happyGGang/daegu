@@ -14,11 +14,12 @@
 		    <p class="center">
 			<c:choose>
 			<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
-			<a href="</${homepage.context_path}/elibsso.do" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank">
+			<a href="http://library.daegu.go.kr/elib/index.do" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank">
 			</c:when>
 			<c:otherwise>
 			<!--a href="javascript:void(0);" onclick="alert('로그인후 이용바랍니다.'); location.href='/${homepage.context_path}/intro/login/index.do?menu_idx=4';" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank"-->
-            <a href="javascript:void(0);" onclick="alert('대구전자도서관 이관 작업으로 서비스가 일시중지됩니다. 2020.3.16. 00:00 ~ 2020.3.17. 24:00');" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank">
+            <!-- <a href="javascript:void(0);" onclick="alert('대구전자도서관 이관 작업으로 서비스가 일시중지됩니다. 2020.3.16. 00:00 ~ 2020.3.17. 24:00'); return false;" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank"> -->
+			<a href="http://library.daegu.go.kr/elib/index.do" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank">
 			</c:otherwise>
 			</c:choose>
 			<span>대구전자도서관 바로가기</span><span class="ico ico_link"></span><i class="fa fa-external-link"></i></a></p>
@@ -37,11 +38,11 @@
         <li>대구전자도서관에서 별도 회원가입 불가</li>
       </ul>
     </li>
-    <li>공공도서관 홈페이지에서 회원 인증 후 개인정보 수집 및 이용 동의하기
+    <!--li>공공도서관 홈페이지에서 회원 인증 후 개인정보 수집 및 이용 동의하기
       <ul>
         <li>최초 방문 시 인증 한번으로 재 로그인부터는 자동 접속</li>
       </ul>
-    </li>
+    </li-->
     <li>대구전자도서관 홈페이지에서 전자책 및 오디오북 메뉴 클릭 후 이용하기
       <ul>
         <li>지역 공공도서관에 있는 전자책 및 오디오북 이용 가능</li>
@@ -52,8 +53,8 @@
     <ul>
       <li>
         <div class="top_img"> <img alt="" src="/resources/homepage/dgportal/img/elib_list01.png"> </div>
-        <span class="bottom_txt">공공도서관 회원인증 후<br>
-        개인정보 수집 이용 동의</span> </li>
+        <span class="bottom_txt">대구광역시공공도서관<br>
+        회원가입</span> </li>
       <li>
         <div class="top_img"> <img alt="" src="/resources/homepage/dgportal/img/elib_list02.png"> </div>
         <span class="bottom_txt">대구전자도서관에서<br>
@@ -86,7 +87,7 @@
   </ul>
   <h4 class="contSTit_line">지역 도서관 중 회원가입 도서관 선택 후 회원 인증하기</h4>
   <ul class="con">
-    <li>회원 가입 도서관 선택 후 회원 인증하기(PC 화면에서 대구전자도서관 회원 인증 필요)</li>
+    <li>회원 가입 도서관 선택 후 회원 인증하기</li>
   </ul>
   <h4 class="contSTit_line">내 손안에서 다양한 도서관 서비스 이용하기 </h4>
   <ul class="con">

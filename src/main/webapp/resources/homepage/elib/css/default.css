@@ -19,7 +19,7 @@ a:focus{color:#2b74c0}
 #sub-container {position:relative;z-index:2;background:#fff;}
 
 #footer {position:relative;z-index:1;}
-.popupWrap{z-index:6}
+.popupWrap{z-index:999999999}
 #container .sectionx {clear:both;overflow:hidden}
 .sectionx {width:1800px;margin:0 auto;} 
 
@@ -54,7 +54,7 @@ a:focus{color:#2b74c0}
 .Gnb .gnb-menu > li.menu3 > ul {text-align:center}
 .Gnb .gnb-menu > li.menu4 > ul {text-align:right}
 .Gnb .gnb-menu > li.menu1 > ul {margin-left:130px;}
-.Gnb .gnb-menu > li.menu2 > ul {margin-left:280px;}
+.Gnb .gnb-menu > li.menu2 > ul {margin-left:350px;}
 .Gnb .gnb-menu > li.menu3 > ul {margin-left:-90px;}
 .Gnb .gnb-menu > li.menu4 > ul {margin-left:-450px;}
 .Gnb .gnb-menu > li.menu5 > ul {margin-left:150px;}
@@ -222,7 +222,7 @@ ul.shareBox > li {border:0;padding:0;width:30px;height:30px;margin:3px;display:i
 ul.shareBox > li:last-child {border:0;}
 ul.shareBox img.shareIcon {margin-top:-1px;}
 
-/* 접속기록안내 */
+/* 접속기록안내
 #memberInfo{position:absolute;width:22%;left:98%;top:18%;background:#fff;margin-left:-35%;box-shadow:0px 1px 7px 0px rgba(0,0,0,0.5);z-index: 9;}
 #memberInfo .inbox{position:relative;border:1px solid #ccc;padding:10px;}
 #memberInfo .inbox dt{font-weight:bold;font-family:verdana;padding-bottom: 10px;}
@@ -240,7 +240,7 @@ a.btnStyle{float: right;margin-top: 6px;}
 .box2_1 { float: left; width: 34%; }
 .box3_1 { float: left; width: 38%; border-left: 1px solid #ddd; }
 .boxn { padding-top: 1%; padding-bottom: 1%; padding-left: 5%; }
-
+ */
 
 span.txt-bar{padding:1px 0;background:#ccc;vertical-align:middle}
 

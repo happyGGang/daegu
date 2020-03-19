@@ -241,6 +241,9 @@ function checkApp(url, com_code) {
 }
 
 function opmsCheckApp(server_url, book_id, user_id) {
+	alert('현재 웅진 OPMS 전자책 모바일 앱 오류로 인해 일시적으로 중단되오니 당분간 PC버전에서 사용하여 주시기 바랍니다. \n\r이용에 불편함을 드려 죄송합니다.');
+	return;
+	/*
 	var _APP_INSTALL_URL_IOS = "https://itunes.apple.com/app/id1281509812?l=ko&ls=1&mt=8";
 	var _APP_INSTALL_URL_IPAD = "https://itunes.apple.com/app/id1281509812?l=ko&ls=1&mt=8";
 	var _APP_INSTALL_URL_ANDROID = "https://play.google.com/store/apps/details?id=com.wjopms.ebooklibrary";
@@ -274,6 +277,7 @@ function opmsCheckApp(server_url, book_id, user_id) {
     } else {
     	alert('모바일 기기는 안드로이드, 아이폰, 아이패드만 지원합니다.');
     }
+	*/
 }
 </script>
 
@@ -369,12 +373,14 @@ function opmsCheckApp(server_url, book_id, user_id) {
 				<c:if test="${lending.menu == 'MYSTUDY'}">
             	<label>보관함 등록일:</label>
 				<span>${i.favorite_regdt}</span>
+<%--
 				<span class="txt-bar">&nbsp;</span>
 				<span>대출 가능 여부: ${i.status}</span>
 				<span class="txt-bar">&nbsp;</span>
-				<span>대출 : ${i.book_lend}<%-- / ${fn:escapeXml(i.max_lend)}--%></span>
+				<span>대출 : ${i.book_lend}<%-- / ${fn:escapeXml(i.max_lend)}--%><%--</span>
 				<span class="txt-bar">&nbsp;</span>
 				<span>예약 : ${i.book_reserve}</span>
+--%>
 				</c:if>
 	            <div style="float: right;">
 	            	<c:if test="${lending.menu == 'LENDING'}">

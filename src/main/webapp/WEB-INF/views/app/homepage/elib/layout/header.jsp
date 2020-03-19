@@ -24,6 +24,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/common/css/login.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/board/css/default.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/default.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub_design.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/book/css/common.css"/>
 <!--[if lte IE 7]>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome-ie7.min.css"/>
