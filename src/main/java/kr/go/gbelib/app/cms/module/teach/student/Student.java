@@ -103,6 +103,8 @@ public class Student extends PagingUtils {
 	private String toDateStr;
 
 	private List<Integer> student_idx_arr;	// 체크박스로 일괄 삭제할 때 씀
+	
+	private String agree_codes; // 선택 약관
 
 	public Student() {}
 
@@ -736,6 +738,16 @@ public class Student extends PagingUtils {
 
 	public void setStudent_password(String student_password) {
 		this.student_password = student_password;
+	}
+
+	
+	public String getAgree_codes() {
+		return agree_codes;
+	}
+
+	
+	public void setAgree_codes(String agree_codes) {
+		this.agree_codes = agree_codes;
 	}
 
 }

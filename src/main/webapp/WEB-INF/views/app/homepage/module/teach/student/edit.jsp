@@ -68,7 +68,7 @@ $(function() {
 	});
 
 	$('#save-btn').on('click', function() {
-		var agreeLength = $('div.agree_codes input[name="agree_codes"]').length;
+		var agreeLength = $('div.agree_codes input.agree_check').length;
 		for(var i = 1; i <= agreeLength; i++) {
 			if(!$('#terms'+i).prop('checked') && $('#terms'+i).attr('keyValue2') == 'Y') {
 				alert($('#terms'+i).attr('keyValue') + ' 동의 하지 않았습니다.');
@@ -216,6 +216,12 @@ $(function() {
 
 		$form.find('#family_cell_phone').val(cellPhone1+'-'+cellPhone2+'-'+cellPhone3);
 		</c:if>
+		
+		var agree_codes = [];
+		$('input.agree_check:checked').each(function() {
+			agree_codes.push($(this).attr('keyValue'));
+		});
+		$form.find('#agree_codes').val(agree_codes.join(','));
 
 		if (doAjaxPost($form)) {
 			doGetLoad('/${homepage.context_path}/module/teach/index.do', 'group_idx='+$('input#group_idx').val()+'&menu_idx='+$('input#menu_idx').val());
@@ -328,7 +334,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	</div>
 	<div class="agree_codes">
 		<div class="checkbox">
-			<input id="terms${status.count}" name="agree_codes" type="checkbox" keyValue="${terms.title}" keyValue2="${terms.required_yn}" style="opacity: inherit;">
+			<input id="terms${status.count}" class="agree_check" type="checkbox" keyValue="${terms.title}" keyValue2="${terms.required_yn}" style="opacity: inherit;">
 			<label style="position: static !important;" for="terms${status.count}">${terms.title} 동의</label><br>
 		</div>
 	</div>
@@ -339,7 +345,6 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 </c:forEach>
 
 <form:form id="studentForm" modelAttribute="student" method="post" action="save.do" onsubmit="return false;">
-
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="large_category_idx"/>
 	<form:hidden path="group_idx"/>
@@ -350,6 +355,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	<form:hidden path="menu_idx"/>
 	<form:hidden path="apply_status"/>
 	<form:hidden path="member_key" />
+	<form:hidden path="agree_codes"/>
 	<input type="hidden" name="self_info_yn" value="Y"/>
 	<h3>신청자정보</h3>
 	<div style="text-align: right; ${param.ageType eq 'under' ? 'display:none;':''}">
