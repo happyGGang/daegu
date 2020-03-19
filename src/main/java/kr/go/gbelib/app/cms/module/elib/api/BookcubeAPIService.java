@@ -27,6 +27,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicNameValuePair;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -42,6 +43,7 @@ public class BookcubeAPIService extends BaseService {
 	private static final String LEND_URL = "http://e-lib.tglnet.or.kr:9080/FxLibrary/RESTful";
 	private static final String MEMBER_URL = "http://e-lib.tglnet.or.kr:9080/FxLibrary/RESTful/userReg";
 	private static final String APP_URL = "http://e-lib.tglnet.or.kr:9080/FxLibrary/app/appCall";
+	private static final String BOOKINFO_URL = "http://e-lib.tglnet.or.kr/FxLibrary/dependency/program/api_book.jsp";
 	private static final int TIMEOUT = 30 * 1000;
 	
 	private Map<String, String> parse(String xml) {
@@ -114,6 +116,47 @@ public class BookcubeAPIService extends BaseService {
 			doc = builder.parse(input);
 			map.put("result", getText(doc, "//result/text()"));
 			map.put("appurl", getText(doc, "//appurl/text()"));
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return map;
+	}
+	
+	private Map<String, String> parse3(String xml) {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = null;
+		ByteArrayInputStream input = null;
+		Document doc = null;
+		Map<String, String> map = new HashMap<String, String>();
+		
+		try {
+			builder = factory.newDocumentBuilder();
+			input = new ByteArrayInputStream(xml.getBytes("UTF-8"));
+			doc = builder.parse(input);
+			map.put("result", getText(doc, "//ResultCode/text()"));
+			map.put("message", getText(doc, "//Message/text()"));
+			map.put("bookcode", getText(doc, "//bookcode/text()"));
+			map.put("book_status", getText(doc, "//book_status/text()"));
+			map.put("library", getText(doc, "//library/text()"));
+			map.put("category", getText(doc, "//category/text()"));
+			map.put("title", getText(doc, "//title/text()"));
+			map.put("author", getText(doc, "//author/text()"));
+			map.put("publisher", getText(doc, "//publisher/text()"));
+			map.put("publication_date", getText(doc, "//publication_date/text()"));
+			map.put("cover", getText(doc, "//cover/text()"));
+			map.put("format", getText(doc, "//format/text()"));
+			map.put("loan_cnt", getText(doc, "//loan_cnt/text()"));
+			map.put("max_loan_cnt", getText(doc, "//max_loan_cnt/text()"));
+			map.put("reserve_cnt", getText(doc, "//reserve_cnt/text()"));
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
@@ -245,6 +288,15 @@ public class BookcubeAPIService extends BaseService {
 		String fxli_library_code = "bcp00106";
 		
 		return parse2(send(String.format(APP_URL + "/%s/%s/%s/%s/%s/%s/%s/%s", device, fxli_library_code, book.getBook_code(), member_id, member_id, member_id, "general", member_id), new ArrayList<NameValuePair>()));
+	}
+	
+	public Map<String, String> bookinfo(Book book) {
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		
+		params.add(new BasicNameValuePair("api_key", "26db46d3a9498def373ab866d893ef9fa76b530c913fcd093d461cd94348d972"));
+		params.add(new BasicNameValuePair("bookcode", book.getBook_code()));
+		
+		return parse3(send(BOOKINFO_URL, params));
 	}
 	
 }

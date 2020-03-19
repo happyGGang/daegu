@@ -1,18 +1,10 @@
 package kr.go.gbelib.app.cms.module.elib.book;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.whalesoft.framework.base.BaseService;
+import kr.go.gbelib.app.cms.module.elib.api.BookcubeAPIService;
+import kr.go.gbelib.app.cms.module.elib.api.Yes24APIService;
 import kr.go.gbelib.app.cms.module.elib.comment.Comment;
 import kr.go.gbelib.app.cms.module.elib.comment.CommentDao;
-import kr.go.gbelib.app.cms.module.elib.config.Config;
-import kr.go.gbelib.app.cms.module.elib.config.ConfigDao;
-import kr.go.gbelib.app.cms.module.elib.lending.Lending;
-import kr.go.gbelib.app.cms.module.elib.lending.LendingDao;
 
 @Service
 public class BookService extends BaseService {
@@ -39,12 +29,44 @@ public class BookService extends BaseService {
 //	@Autowired
 //	private ElibCategoryService elibCategoryService;
 	
+	@Autowired
+	private Yes24APIService yes24APIService;
+	
+	@Autowired
+	private BookcubeAPIService bookcubeAPIService;
+	
+	private void updateCnt(Book book) {
+		if("YESB".equals(book.getCom_code())) {
+			Map<String, String> bookinfo = yes24APIService.bookinfo(book);
+			try {
+				book.setBook_lend(Integer.parseInt(String.valueOf(bookinfo.get("loan_cnt"))));
+			} catch(Exception e) { }
+			try {
+				book.setBook_reserve(Integer.parseInt(String.valueOf(bookinfo.get("reserve_cnt"))));
+			} catch(Exception e) { }
+		} else if("FXLI".equals(book.getCom_code())) {
+			Map<String, String> bookinfo = bookcubeAPIService.bookinfo(book);
+			try {
+				book.setBook_lend(Integer.parseInt(String.valueOf(bookinfo.get("loan_cnt"))));
+			} catch(Exception e) { }
+			try {
+				book.setBook_reserve(Integer.parseInt(String.valueOf(bookinfo.get("reserve_cnt"))));
+			} catch(Exception e) { }
+		}
+	}
+	
 	public int getBookListCnt(Book book) {
 		return dao.getBookListCnt(book);
 	}
 	
 	public List<Book> getBookList(Book book) {
-		return dao.getBookList(book);
+		List<Book> bookList = dao.getBookList(book);
+
+		for(Book b: bookList) {
+			updateCnt(b);
+		}
+		
+		return bookList;
 	}
 	
 	public int getBookListCntCms(Book book) {
@@ -64,7 +86,13 @@ public class BookService extends BaseService {
 	}
 	
 	public List<Book> getBookListAll(Book book) {
-		return dao.getBookListAll(book);
+		List<Book> bookList = dao.getBookListAll(book);
+
+		for(Book b: bookList) {
+			updateCnt(b);
+		}
+		
+		return bookList;
 	}
 	
 	public List<Book> getCompList(Book book) {
@@ -72,7 +100,11 @@ public class BookService extends BaseService {
 	}
 	
 	public Book getBookInfo(Book book) {
-		return dao.getBookInfo(book);
+		Book b = dao.getBookInfo(book);
+
+		updateCnt(b);
+		
+		return b;
 	}
 
 	@Transactional

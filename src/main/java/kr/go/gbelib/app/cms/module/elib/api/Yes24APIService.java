@@ -44,6 +44,7 @@ public class Yes24APIService extends BaseService {
 	private static final String LEND_URL = "http://e-lib.tglnet.or.kr:8081/YES24/yes24_action_new.asp";
 	private static final String MEMBER_URL = "http://e-lib.tglnet.or.kr:8081/YES24/yes24_member_sync.asp";
 	private static final String APP_URL = "http://e-lib.tglnet.or.kr:8081/YES24/api/device_url.asp";
+	private static final String BOOKINFO_URL = "http://e-lib.tglnet.or.kr:8081/YES24/bookinfo.asp";
 	private static final int TIMEOUT = 30 * 1000;
 
 	private String getText(Document doc, String path) {
@@ -138,8 +139,6 @@ public class Yes24APIService extends BaseService {
 		ByteArrayInputStream input = null;
 		Document doc = null;
 		Map<String, String> map = new HashMap<String, String>();
-		String result = "";
-		String desc = "";
 
 		try {
 			builder = factory.newDocumentBuilder();
@@ -162,6 +161,47 @@ public class Yes24APIService extends BaseService {
 		return map;
 	}
 
+	private Map<String, String> parse3(String xml) {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = null;
+		ByteArrayInputStream input = null;
+		Document doc = null;
+		Map<String, String> map = new HashMap<String, String>();
+		
+		try {
+			builder = factory.newDocumentBuilder();
+			input = new ByteArrayInputStream(xml.getBytes("UTF-8"));
+			doc = builder.parse(input);
+			map.put("result", getText(doc, "//ResultCode/text()"));
+			map.put("message", getText(doc, "//Message/text()"));
+			map.put("bookcode", getText(doc, "//bookcode/text()"));
+			map.put("book_status", getText(doc, "//book_status/text()"));
+			map.put("library", getText(doc, "//library/text()"));
+			map.put("category", getText(doc, "//category/text()"));
+			map.put("title", getText(doc, "//title/text()"));
+			map.put("author", getText(doc, "//author/text()"));
+			map.put("publisher", getText(doc, "//publisher/text()"));
+			map.put("publication_date", getText(doc, "//publication_date/text()"));
+			map.put("cover", getText(doc, "//cover/text()"));
+			map.put("format", getText(doc, "//format/text()"));
+			map.put("loan_cnt", getText(doc, "//loan_cnt/text()"));
+			map.put("max_loan_cnt", getText(doc, "//max_loan_cnt/text()"));
+			map.put("reserve_cnt", getText(doc, "//reseve_cnt/text()"));
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return map;
+	}
+	
 	private String pairsToString (List<NameValuePair> pairs) {
 		StringBuilder sb = new StringBuilder();
 
@@ -288,6 +328,14 @@ public class Yes24APIService extends BaseService {
 		params.add(new BasicNameValuePair("device_type", "phone"));
 
 		return parse2(send(APP_URL, params));
+	}
+	
+	public Map<String, String> bookinfo(Book book) {
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		
+		params.add(new BasicNameValuePair("bookcode", book.getBook_code()));
+		
+		return parse3(send(BOOKINFO_URL, params));
 	}
 
 }
