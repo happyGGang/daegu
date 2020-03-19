@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -21,6 +22,14 @@ $(function() {
 				text: "저장",
 				"class": 'btn btn1',
 				click: function() {
+					var agreeLength = $('input.agree_check').length;
+					for(var i = 1; i <= agreeLength; i++) {
+						if(!$('#terms'+i).prop('checked') && $('#terms'+i).attr('keyValue2') == 'Y') {
+							alert($('#terms'+i).attr('keyValue') + ' 동의 하지 않았습니다.');
+							return false;
+						}
+					}
+					
 					var $form = {};
 					$form = $.extend(true, $form, $('#studentForm'));
 					$form.find('input[name="student_sex"]').prop('disabled', false);
@@ -300,6 +309,19 @@ $(function() {
 					<div class="ui-state-highlight">
 						<em>* ex) 010-1234-5678</em>
 					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>약관</th>
+				<td>
+					<ul>
+						<c:forEach items="${termsList}" var="terms" varStatus="status">
+						<li>
+							<input type="checkbox" name=agree_codes id="terms${status.count}" class="agree_check" value="${terms.terms_idx}" keyValue="${terms.title}" keyValue2="${terms.required_yn}" ${fn:contains(student.agree_codes, terms.terms_idx) ? 'checked' : ''}>
+							<label for="terms${status.count}">${terms.title}</label>
+						</li>
+						</c:forEach>
+					</ul>
 				</td>
 			</tr>
 		</table>

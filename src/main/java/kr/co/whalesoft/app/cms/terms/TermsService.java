@@ -3,6 +3,7 @@ package kr.co.whalesoft.app.cms.terms;
 import java.util.List;
 
 import kr.co.whalesoft.framework.base.BaseService;
+import kr.go.gbelib.app.cms.module.teach.Teach;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,4 +49,9 @@ public class TermsService extends BaseService {
 	public List<Terms> getTermsListInBoard(Terms terms) {
 		return dao.getTermsListInBoard(terms);
 	}
+	
+	public List<Terms> getTermsListByTeach(Teach teach) {
+		return dao.getTermsListByTeach(teach);
+	}
+
 }

@@ -118,6 +118,7 @@
 			AND DELETE_YN = 'N' AND USE_YN = 'Y'
 	</select>
 	
+	
 	<select id="getTermsListInBoard" resultType="kr.co.whalesoft.app.cms.terms.Terms">
 		SELECT
 			title, contents
@@ -136,6 +137,30 @@
 		AND C.manage_idx = #{manage_idx}
 		ORDER BY
 			terms_idx
+	</select>
+	
+	<select id="getTermsListByTeach" resultType="kr.co.whalesoft.app.cms.terms.Terms">
+		SELECT
+			terms_idx, title, required_yn
+		FROM
+			CMS_TERMS
+		WHERE
+			use_yn = 'Y'
+		AND	delete_yn = 'N'
+		AND	terms_idx IN
+						(
+						SELECT
+							DISTINCT REGEXP_SUBSTR(terms, '[^,]+', 1, LEVEL)
+						FROM
+							TEACH
+						WHERE
+							delete_yn = 'N'
+						AND	homepage_id = #{homepage_id}
+						AND	teach_idx = #{teach_idx}
+						AND category_idx = #{category_idx}
+						AND group_idx = #{group_idx}
+						CONNECT BY LEVEL <![CDATA[<=]]> LENGTH(REGEXP_REPLACE(terms, '[^,]+', '')) + 1
+						)
 	</select>
 	
 </mapper>

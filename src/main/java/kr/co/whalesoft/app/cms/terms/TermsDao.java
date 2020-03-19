@@ -2,6 +2,8 @@ package kr.co.whalesoft.app.cms.terms;
 
 import java.util.List;
 
+import kr.go.gbelib.app.cms.module.teach.Teach;
+
 public interface TermsDao {
 	
 	public List<Terms> getTermsList(Terms terms);
@@ -21,4 +23,7 @@ public interface TermsDao {
 	public List<Terms> getTermsListNotInModule(Terms terms);
 
 	public List<Terms> getTermsListInBoard(Terms terms);
+	
+	public List<Terms> getTermsListByTeach(Teach teach);
+
 } 

@@ -104,7 +104,7 @@
 			getCodeIdToCodeName('CMS', 'C0022', student_location_code) AS student_location_code_str,
 			student_neis_cd,
 			student_training_num,
-			student_organization, student_rank, student_course_taken_yn, student_password
+			student_organization, student_rank, student_course_taken_yn, student_password, agree_codes
 		FROM
 			STUDENT
 		WHERE DELETE_YN = 'N'
@@ -193,6 +193,7 @@
 			<if test="student_password != null and student_password != ''">
 			student_password = #{student_password},
 			</if>
+			agree_codes = #{agree_codes},
 			APPLY_STATUS 			= #{apply_status},
 			FAMILY_RELATION			= #{family_relation},
 			FAMILY_NAME				= #{family_name},

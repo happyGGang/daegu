@@ -123,6 +123,9 @@ public class StudentController extends BaseController {
 		model.addAttribute("statusCode", codeService.getCode("CMS", "C0005"));
 		model.addAttribute("hakList", codeService.getCode("CMS", "C0020"));
 		model.addAttribute("traingLocationList", codeService.getCode("CMS", "C0022"));
+		
+		//약관선택
+		model.addAttribute("termsList", termsService.getTermsListByTeach(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx())));
 
 		return basePath + "edit_ajax";
 	}
