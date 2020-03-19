@@ -318,7 +318,7 @@ $(function() {
 						<c:forEach items="${termsList}" var="terms" varStatus="status">
 						<li>
 							<input type="checkbox" name=agree_codes id="terms${status.count}" class="agree_check" value="${terms.terms_idx}" keyValue="${terms.title}" keyValue2="${terms.required_yn}" ${fn:contains(student.agree_codes, terms.terms_idx) ? 'checked' : ''}>
-							<label for="terms${status.count}">${terms.title}</label>
+							<label for="terms${status.count}">${terms.required_yn eq 'Y' ? '[필수]' : '[선택]'} ${terms.title}</label>
 						</li>
 						</c:forEach>
 					</ul>
