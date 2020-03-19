@@ -3,6 +3,18 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('input#secret_yn_yes').on('click', function() {
+		$('input#user_phone').prop('disabled', false);
+	});
+	
+	$('input#secret_yn_no').on('click', function() {
+		$('input#user_phone').prop('disabled', true);
+		$('input#user_phone').val('');
+	});
+});
+</script>
 <c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.top_html) > 0}">
 ${boardManage.top_html}
 </c:if>
@@ -52,16 +64,16 @@ ${boardManage.top_html}
 				<c:if test="${board.group_depth == 0}">
 			<tr>
 				<th>비밀글 여부</th>
-				<td colspan="3">
+				<td>
 					<form:radiobutton path="secret_yn" id="secret_yn_yes" value="Y"/>
 					<label for="secret_yn_yes">예</label>
 					<form:radiobutton path="secret_yn" id="secret_yn_no" value="N" />
 					<label for="secret_yn_no">아니오</label>
 				</td>
-<!-- 				<th>패스워드</th> -->
-<!-- 				<td> -->
-<%-- 					<form:input path="user_password"/> --%>
-<!-- 				</td> -->
+				<th>연락처</th>
+				<td>
+					<form:input path="user_phone" cssClass="text" disabled="true"/><br><span>비밀글만 입력가능(관리자만 열람 가능)</span>
+				</td>
 			</tr>
 				</c:if>
 
