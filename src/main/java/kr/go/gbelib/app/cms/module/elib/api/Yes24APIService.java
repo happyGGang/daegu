@@ -325,7 +325,7 @@ public class Yes24APIService extends BaseService {
 		
 		params.add(new BasicNameValuePair("user_id", member_id));
 		params.add(new BasicNameValuePair("goods_id", book.getBook_code()));
-		params.add(new BasicNameValuePair("device_type", "phone"));
+		params.add(new BasicNameValuePair("device_type", device));
 
 		return parse2(send(APP_URL, params));
 	}

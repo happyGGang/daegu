@@ -416,17 +416,12 @@ public class ElibController extends BaseController {
 	}
 
 	private String getMobileOS(HttpServletRequest request) {
-		String ua = request.getHeader("User-Agent");
-		String os = "android";
-
-		if(ua.indexOf("iPhone") > -1 || ua.indexOf("iPod") > -1) {
-			return "ios";
-		} else if(ua.indexOf("iPad") > -1) {
-			return "ipad";
-		} else if(ua.indexOf("Android") > -1 ) {
-			return "android";
+		String device = getDevice(request.getHeader("User-Agent"));
+		
+		if("I".equals(device)) {
+			return "iOS";
 		} else {
-			return os;
+			return "Android";
 		}
 	}
 
