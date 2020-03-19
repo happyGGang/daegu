@@ -1,5 +1,6 @@
 package kr.go.gbelib.app.module.student;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -115,7 +116,21 @@ public class StudentController extends BaseController {
 		Menu menuOne = (Menu) request.getAttribute("menuOne");
 		Terms t = new Terms(menuOne.getManage_idx());
 		t.setHomepage_id(homepage.getHomepage_id());
-		model.addAttribute("termsList", termsService.getTermsListInModule(t));
+		// 홈페이지 강좌의 약관 전체 리스트
+		List<Terms> termsList = termsService.getTermsListInModule(t);
+		List<Terms> termsResult = new ArrayList<Terms>();
+		// 강좌 관리에서 선택한 약관
+		String[] termsArr = teachOne.getTerms().split(",");
+		for (Terms termsOne : termsList) {
+			for (String s : termsArr) {
+				if(termsOne.getTerms_idx() == Integer.parseInt(s)) {
+					termsResult.add(termsOne);
+					break;
+				}
+			}
+		}
+		
+		model.addAttribute("termsList", termsResult);
 		model.addAttribute("hakList", codeService.getCode("CMS", "C0020"));
 		model.addAttribute("teach", teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx())));
 		model.addAttribute("memberInfo", getSessionMemberInfo(request));

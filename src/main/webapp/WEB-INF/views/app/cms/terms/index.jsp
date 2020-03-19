@@ -68,6 +68,7 @@ $(function() {
 			<col width="200" />
 			<col width="" />
 			<col width="150" />
+			<col width="150" />
 			<col width="200" />
 			<col width="150" />
 		</colgroup>
@@ -76,6 +77,7 @@ $(function() {
 				<th>번호</th>
 				<th>약관분류</th>
 				<th>제목</th>
+				<th>필수여부</th>
 				<th>사용여부</th>
 				<th>등록일</th>
 				<th>기능</th>
@@ -87,6 +89,7 @@ $(function() {
 					<td>${i.terms_idx}</td>
 					<td>${i.terms_type_name}</td>
 					<td><a href="" id="dialog-view" keyValue="${i.terms_idx}">${i.title}</a></td>
+					<td>${i.required_yn eq 'Y' ? '필수' : '선택'}</td>
 					<td>${i.use_yn eq 'Y' ? '사용' : '미사용'}</td>
 					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/> </td>
 					<td>

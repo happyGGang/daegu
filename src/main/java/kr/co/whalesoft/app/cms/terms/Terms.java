@@ -21,6 +21,8 @@ public class Terms extends PagingUtils {
 	private String contents;
 
 	private String use_yn = "Y";
+	
+	private String required_yn = "Y";
 
 	private String delete_yn;
 
@@ -85,6 +87,14 @@ public class Terms extends PagingUtils {
 
 	public void setUse_yn(String use_yn) {
 		this.use_yn = use_yn;
+	}
+	
+	public String getRequired_yn() {
+		return required_yn;
+	}
+
+	public void setRequired_yn(String required_yn) {
+		this.required_yn = required_yn;
 	}
 
 	public String getDelete_yn() {

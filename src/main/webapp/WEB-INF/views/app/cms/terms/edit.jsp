@@ -151,6 +151,14 @@ $(function() {
 		</tr>
 
 		<tr>
+			<th>필수여부</th>
+			<td>
+				<form:radiobutton path="required_yn" value="Y" label="필수"/>
+				<form:radiobutton path="required_yn" value="N" label="선택"/>
+			</td>
+		</tr>
+
+		<tr>
 			<th>제목</th>
 			<td>
 				<form:input path="title" cssStyle="width:200px;" cssClass="text" maxlength="20"/>

@@ -27,6 +27,8 @@ import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.module.survey.SurveyService;
+import kr.co.whalesoft.app.cms.terms.Terms;
+import kr.co.whalesoft.app.cms.terms.TermsService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.AttachmentUtils;
@@ -80,6 +82,9 @@ public class TeachController extends BaseController {
 
 	@Autowired
 	private TeachCode2Service teachCode2Service;
+	
+	@Autowired
+	private TermsService termsService;
 
 	@RequestMapping(value = {"/getTeachList.*"})
 	public @ResponseBody Map<String, Object> getTeachList(Model model, Teach teach, HttpServletRequest request) {
@@ -186,7 +191,11 @@ public class TeachController extends BaseController {
 		//강좌대분류
 		teachCode2.setTeach_code(15);
 		model.addAttribute("teachLargeCategoryList", teachCode2Service.getSubcategories(teachCode2));
-
+		
+		//약관선택
+		Terms t = new Terms(97);
+		t.setHomepage_id(teach.getHomepage_id());
+		model.addAttribute("termsList", termsService.getTermsListInModule(t));
 
 		if ( teach.getEditMode().equals("MODIFY") ) {
 			checkAuth("U", model, request);

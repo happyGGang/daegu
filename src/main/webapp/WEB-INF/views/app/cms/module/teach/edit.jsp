@@ -77,7 +77,7 @@ $(function() {
 					var option = {
 						url : 'save.do',
 						type : 'POST',
-						data : $('#teachForm').serialize(),
+// 						data : $('#teachForm').serialize(),
 						success: function(response) {
 							 if(response.valid) {
 								alert(response.message);
@@ -561,6 +561,15 @@ $(function() {
 	        <tr>
 	         	<th>모집오프라인인원</th>
 	         	<td><form:input path="teach_offline_count" class="text" cssStyle="width:30px" maxlength="5"/></td>
+	        </tr>
+	        <tr>
+	        	<th>약관선택 </th>
+	        	<td>
+	        		<c:forEach items="${termsList}" var="i" varStatus="status">
+	        			<input type="checkbox" name="terms" id="terms${status.count}" value="${i.terms_idx}" ${fn:contains(teach.terms, i.terms_idx) ? 'checked' : ''}>
+	        			<label for="terms${status.count}">${i.title}</label>
+	        		</c:forEach>
+	        	</td>
 	        </tr>
 	        <tr>
 	         	<th>강사명</th>

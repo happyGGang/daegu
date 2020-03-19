@@ -170,6 +170,7 @@ public class Teach extends PagingUtils {
 	private String apply_name;
 	private String apply_password;
 
+	private String terms; // 약관여부 선택
 
 	public Teach() {}
 
@@ -1364,6 +1365,14 @@ public class Teach extends PagingUtils {
 		this.sex_yn = sex_yn;
 	}
 
+	
+	public String getTerms() {
+		return terms;
+	}
 
+	public void setTerms(String terms) {
+		this.terms = terms;
+	}
 
+	
 }

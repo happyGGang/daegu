@@ -177,7 +177,7 @@
 				(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = '--' AND	small_code = '--') as program_classification1_name,
 				(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = '--') as program_classification2_name,
 				(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = a.program_classification3) as program_classification3_name,
-				a.CANCLE_use_yn, a.START_CANCLE_DATE, a.END_CANCLE_DATE, a.START_CANCLE_TIME, a.END_CANCLE_TIME, a.CANCLE_GUID
+				a.CANCLE_use_yn, a.START_CANCLE_DATE, a.END_CANCLE_DATE, a.START_CANCLE_TIME, a.END_CANCLE_TIME, a.CANCLE_GUID, a.terms
 			FROM
 				TEACH a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d
 			WHERE a.homepage_id = b.homepage_id(+)
@@ -361,7 +361,8 @@
 			program_classification2 = #{program_classification2},
 			program_classification3 = #{program_classification3},
 			program_subject = #{program_subject},
-			program_age_div = #{program_age_div}
+			program_age_div = #{program_age_div},
+			terms = #{terms}
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	large_category_idx = #{large_category_idx}

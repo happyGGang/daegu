@@ -441,7 +441,7 @@ public class IndexController extends BaseController {
 			model.addAttribute("category2List", codeService.getCode(homepage.getHomepage_id(), boardCategory2));
 		}
 
-//		setBoardListToModel(homepage.getHomepage_id(), model);
+		setBoardListToModel(homepage.getHomepage_id(), model);
 
 
 		// 전자도서관

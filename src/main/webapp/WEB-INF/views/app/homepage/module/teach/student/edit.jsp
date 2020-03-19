@@ -70,7 +70,7 @@ $(function() {
 	$('#save-btn').on('click', function() {
 		var agreeLength = $('div.agree_codes input[name="agree_codes"]').length;
 		for(var i = 1; i <= agreeLength; i++) {
-			if(!$('#terms'+i).prop('checked')) {
+			if(!$('#terms'+i).prop('checked') && $('#terms'+i).attr('keyValue2') == 'Y') {
 				alert($('#terms'+i).attr('keyValue') + ' 동의 하지 않았습니다.');
 				return false;
 			}
@@ -326,9 +326,9 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	<div class="Box" style="max-height:200px" tabindex="0" >
 		${terms.contents}
 	</div>
-	<div class="agree_codes" >
+	<div class="agree_codes">
 		<div class="checkbox">
-			<input id="terms${status.count}" name="agree_codes" type="checkbox" keyValue="${terms.title}" style="opacity: inherit;">
+			<input id="terms${status.count}" name="agree_codes" type="checkbox" keyValue="${terms.title}" keyValue2="${terms.required_yn}" style="opacity: inherit;">
 			<label style="position: static !important;" for="terms${status.count}">${terms.title} 동의</label><br>
 		</div>
 	</div>

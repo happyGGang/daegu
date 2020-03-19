@@ -5,7 +5,7 @@
 	<select id="getTermsList" resultType="kr.co.whalesoft.app.cms.terms.Terms">
 		SELECT
 			homepage_id, terms_idx, terms_type, manage_idx, title, contents,
-			use_yn, delete_yn, add_id, add_date, modify_id,
+			use_yn, required_yn, delete_yn, add_id, add_date, modify_id,
 			modify_date,
 			(SELECT A.CODE_NAME FROM CMS_CODE A WHERE A.GROUP_ID = 'C0015' AND A.CODE_ID = CMS_TERMS.TERMS_TYPE) AS TERMS_TYPE_NAME
 		FROM
@@ -38,7 +38,7 @@
 	<select id="getTermsOne" resultType="kr.co.whalesoft.app.cms.terms.Terms">
 		SELECT
 			homepage_id, terms_idx, terms_type, manage_idx, title, contents,
-			use_yn, delete_yn, add_id, add_date, modify_id,
+			use_yn, required_yn, delete_yn, add_id, add_date, modify_id,
 			modify_date,
 			(SELECT A.CODE_NAME FROM CMS_CODE A WHERE A.GROUP_ID = 'C0015' AND A.CODE_ID = CMS_TERMS.TERMS_TYPE) AS TERMS_TYPE_NAME
 		FROM
@@ -55,9 +55,9 @@
 		</selectKey>
 		INSERT INTO CMS_TERMS
 		(
-			homepage_id, TERMS_IDX, TERMS_TYPE, manage_idx, TITLE, CONTENTS, USE_YN, DELETE_YN, ADD_ID, ADD_DATE
+			homepage_id, TERMS_IDX, TERMS_TYPE, manage_idx, TITLE, CONTENTS, USE_YN, REQUIRED_YN, DELETE_YN, ADD_ID, ADD_DATE
 		) VALUES (
-			#{homepage_id}, #{terms_idx}, #{terms_type}, #{manage_idx}, #{title}, #{contents}, #{use_yn}, 'N', #{add_id}, SYSDATE
+			#{homepage_id}, #{terms_idx}, #{terms_type}, #{manage_idx}, #{title}, #{contents}, #{use_yn}, #{required_yn}, 'N', #{add_id}, SYSDATE
 		)
 	</insert>
 
@@ -71,6 +71,7 @@
 			TITLE = #{title},
 			CONTENTS = #{contents},
 			USE_YN = #{use_yn},
+			REQUIRED_YN = #{required_yn},
 			MODIFY_ID = #{add_id},
 			MODIFY_DATE = SYSDATE
 		WHERE
@@ -90,7 +91,7 @@
 
 	<select id="getTermsListInModule" resultType="kr.co.whalesoft.app.cms.terms.Terms">
 		SELECT
-			title, contents
+			terms_idx, title, contents, required_yn
 		FROM
 			CMS_TERMS A, CMS_CODE B, WB_MODULE_MNGT C
 		WHERE
@@ -136,5 +137,5 @@
 		ORDER BY
 			terms_idx
 	</select>
-
+	
 </mapper>
