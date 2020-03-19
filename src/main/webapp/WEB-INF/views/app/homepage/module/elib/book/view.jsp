@@ -413,9 +413,7 @@ function go_to_login() {
 						</c:if>
 					</li>
 					<li>소속도서관: ${fn:escapeXml(book.library_name)}</li>
-<%--
-					<li>대출 가능 여부: ${fn:escapeXml(book.status)}<span class="txt-bar">&nbsp;</span>대출 : ${fn:escapeXml(book.book_lend)}<%-- / ${fn:escapeXml(book.max_lend)}--%><%--<span class="txt-bar">&nbsp;</span>예약 : ${fn:escapeXml(book.book_reserve)}</li>
---%>
+					<li>대출 가능 여부: ${fn:escapeXml(book.status)}<span class="txt-bar">&nbsp;</span>대출 : ${fn:escapeXml(book.book_lend)}<%-- / ${fn:escapeXml(book.max_lend)}--%><span class="txt-bar">&nbsp;</span>예약 : ${fn:escapeXml(book.book_reserve)}</li>
 					<li>지원 기기: ${fn:escapeXml(book.label)}<span class="txt-bar">&nbsp;</span>서비스 형태: ${fn:escapeXml(book.format)}</li>
 					<li>좋아요: ${fn:escapeXml(book.recommend_cnt)}</li>
 				</ul>

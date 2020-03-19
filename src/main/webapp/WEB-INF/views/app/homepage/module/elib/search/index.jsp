@@ -383,9 +383,7 @@ function addOnClickListeners() {
 										<p>${fn:replace(i.author_name, book.search_text, replaceStr)}</p>
 										<p>${fn:replace(i.book_pubname, book.search_text, replaceStr)}, ${i.book_pubdt}</p>
 										<p>${i.library_name}</p>
-<%--
 										<p>대출 가능 여부: ${fn:escapeXml(i.status)}<span class="txt-bar">&nbsp;</span>대출 : ${fn:escapeXml(i.book_lend)}<span class="txt-bar">&nbsp;</span>예약 : ${i.book_reserve}</p>
---%>
 									</div>
 								</div>
 							</div>

@@ -373,14 +373,12 @@ function opmsCheckApp(server_url, book_id, user_id) {
 				<c:if test="${lending.menu == 'MYSTUDY'}">
             	<label>보관함 등록일:</label>
 				<span>${i.favorite_regdt}</span>
-<%--
 				<span class="txt-bar">&nbsp;</span>
 				<span>대출 가능 여부: ${i.status}</span>
 				<span class="txt-bar">&nbsp;</span>
-				<span>대출 : ${i.book_lend}<%-- / ${fn:escapeXml(i.max_lend)}--%><%--</span>
+				<span>대출 : ${i.book_lend}<%-- / ${fn:escapeXml(i.max_lend)}--%></span>
 				<span class="txt-bar">&nbsp;</span>
 				<span>예약 : ${i.book_reserve}</span>
---%>
 				</c:if>
 	            <div style="float: right;">
 	            	<c:if test="${lending.menu == 'LENDING'}">
