@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.co.whalesoft.app.cms.code.Code;
 import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.member.Member;
+import kr.co.whalesoft.app.cms.terms.Terms;
+import kr.co.whalesoft.app.cms.terms.TermsService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.file.Download;
@@ -61,6 +63,9 @@ public class StudentController extends BaseController {
 
 	@Autowired
 	private TeachCode2Service teachCode2Service;
+	
+	@Autowired
+	private TermsService termsService;
 
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, Student student, HttpServletRequest request) throws AuthException {
@@ -312,6 +317,12 @@ public class StudentController extends BaseController {
 		model.addAttribute("teach", teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx())));
 		model.addAttribute("student", student);
 		model.addAttribute("studentResult", studentService.getStudentListAll(student));
+		
+		// 약관 연동
+		Terms t = new Terms(97);
+		t.setHomepage_id(student.getHomepage_id());
+		model.addAttribute("termsList", termsService.getTermsListInModule(t));
+		
 		return new StudentSearchView();
 	}
 
@@ -320,10 +331,15 @@ public class StudentController extends BaseController {
 		List<Student> teachList = studentService.getStudentListAll(student);
 		Teach teach = teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));
 
-		model.addAttribute("student", student);
-		model.addAttribute("studentResult", studentService.getStudentListAll(student));
+//		model.addAttribute("student", student);
+//		model.addAttribute("studentResult", studentService.getStudentListAll(student));
+		
+		// 약관 연동
+		Terms t = new Terms(97);
+		t.setHomepage_id(student.getHomepage_id());
+		List<Terms> termsList = termsService.getTermsListInModule(t);
 
-		new StudentXlsToCsv(teachList, "Student.csv", teach, request, response);
+		new StudentXlsToCsv(teachList, "Student.csv", teach, termsList, request, response);
 	}
 
 	@RequestMapping(value = {"/excelUpload.*"}, method = RequestMethod.POST)

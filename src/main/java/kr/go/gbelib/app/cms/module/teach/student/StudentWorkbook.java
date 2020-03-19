@@ -14,11 +14,12 @@ import jxl.format.Colour;
 import jxl.write.Label;
 import jxl.write.WritableCellFormat;
 import jxl.write.WritableWorkbook;
+import kr.co.whalesoft.app.cms.terms.Terms;
 import kr.go.gbelib.app.cms.module.teach.Teach;
 
 public class StudentWorkbook {
 
-	protected WritableWorkbook workbookForm(WritableWorkbook workbook, List<Student> studentList, Teach teach, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	protected WritableWorkbook workbookForm(WritableWorkbook workbook, List<Student> studentList, Teach teach, List<Terms> termsList, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		workbook.createSheet(teach.getTeach_name(), 0); // 시트설정
 
@@ -143,6 +144,7 @@ public class StudentWorkbook {
 			workbook.getSheet(0).setColumnView(column, 20);
 			workbook.getSheet(0).addCell(new Label(column++, 1, "연수수강여부(Y,N)", format));
 		}
+		workbook.getSheet(0).addCell(new Label(column++, 1, "약관동의", format));
 
 
 		int row = 2;
@@ -238,7 +240,16 @@ public class StudentWorkbook {
 			if ( StringUtils.equals(teach.getCourse_taken_yn(), "Y")) {
 				workbook.getSheet(0).addCell(new Label(column++, row, org.getStudent_course_taken_yn(), format1));
 			}
-
+			
+			String terms_title = "";
+			for(int i = 0; i < termsList.size(); i++) {
+				Terms terms = termsList.get(i);
+				if(StringUtils.contains(org.getAgree_codes(), String.valueOf(terms.getTerms_idx()))) {
+					terms_title += terms.getTitle() + (i < termsList.size()-1 ? "," : "");
+				}
+			}
+			workbook.getSheet(0).addCell(new Label(column++, row, terms_title, format1));
+			
 			row++;
 		}
 

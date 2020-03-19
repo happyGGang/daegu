@@ -219,7 +219,7 @@ $(function() {
 		
 		var agree_codes = [];
 		$('input.agree_check:checked').each(function() {
-			agree_codes.push($(this).attr('keyValue'));
+			agree_codes.push($(this).attr('keyValue3'));
 		});
 		$form.find('#agree_codes').val(agree_codes.join(','));
 
@@ -334,7 +334,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	</div>
 	<div class="agree_codes">
 		<div class="checkbox">
-			<input id="terms${status.count}" class="agree_check" type="checkbox" keyValue="${terms.title}" keyValue2="${terms.required_yn}" style="opacity: inherit;">
+			<input id="terms${status.count}" class="agree_check" type="checkbox" keyValue="${terms.title}" keyValue2="${terms.required_yn}" keyValue3="${terms.terms_idx}" style="opacity: inherit;">
 			<label style="position: static !important;" for="terms${status.count}">${terms.title} 동의</label><br>
 		</div>
 	</div>

@@ -8,17 +8,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import jxl.Workbook;
 import jxl.write.WritableWorkbook;
+import kr.co.whalesoft.app.cms.terms.Terms;
 import kr.co.whalesoft.framework.utils.AttachmentUtils;
 import kr.co.whalesoft.framework.utils.HangulEnDecoder;
 import kr.go.gbelib.app.cms.module.teach.Teach;
 
 public class StudentXlsToCsv {
 
-	public StudentXlsToCsv(List<Student> studentList, String fileName, Teach teach, HttpServletRequest request, HttpServletResponse response) {
+	public StudentXlsToCsv(List<Student> studentList, String fileName, Teach teach, List<Terms> termsList, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			OutputStream out = response.getOutputStream();
 			WritableWorkbook workbook = Workbook.createWorkbook(out);
-			workbook = new StudentWorkbook().workbookForm(workbook, studentList, teach, request, response);
+			workbook = new StudentWorkbook().workbookForm(workbook, studentList, teach, termsList, request, response);
 			response.reset();
 
 			response.setHeader("Content-Disposition", AttachmentUtils.getContentDisposition(fileName, request.getHeader("user-agent")));

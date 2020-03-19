@@ -13,7 +13,7 @@
 			getCodeIdToCodeName('CMS', 'C0022', student_location_code) AS student_location_code_str,
 			student_neis_cd,
 			student_training_num,
-			student_organization, student_rank, student_course_taken_yn
+			student_organization, student_rank, student_course_taken_yn, agree_codes
 		FROM
 			STUDENT
 		WHERE DELETE_YN 		= 'N' AND
