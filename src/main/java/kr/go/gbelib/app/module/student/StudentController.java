@@ -120,14 +120,16 @@ public class StudentController extends BaseController {
 		List<Terms> termsList = termsService.getTermsListInModule(t);
 		List<Terms> termsResult = new ArrayList<Terms>();
 		// 강좌 관리에서 선택한 약관
-		String[] termsArr = teachOne.getTerms().split(",");
-		for (Terms termsOne : termsList) {
-			for (String s : termsArr) {
-				if(termsOne.getTerms_idx() == Integer.parseInt(s)) {
-					termsResult.add(termsOne);
-					break;
-				}
-			}
+		if(teachOne.getTerms() != null) {
+    		String[] termsArr = teachOne.getTerms().split(",");
+    		for (Terms termsOne : termsList) {
+    			for (String s : termsArr) {
+    				if(termsOne.getTerms_idx() == Integer.parseInt(s)) {
+    					termsResult.add(termsOne);
+    					break;
+    				}
+    			}
+    		}
 		}
 		
 		model.addAttribute("termsList", termsResult);
