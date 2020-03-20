@@ -110,7 +110,11 @@ $(function() {
 	if($('#terms_type').val() == 6) {
 		$('#manage_idx').removeAttr('disabled');
 		$('#manage_idx').show();
+	} else if($('#terms_type').val() == 8) {
+		$('input[name="required_yn"]').removeAttr('disabled');
+		$('tr#required_tr').show();
 	}
+	
 	$('#terms_type').on('change', function(e) {
 		e.preventDefault();
 		if($(this).val() == 6) {
@@ -119,6 +123,14 @@ $(function() {
 		} else {
 			$('#manage_idx').attr('disabled', 'true');
 			$('#manage_idx').hide();
+		}
+		
+		if($(this).val() == 8) {
+			$('input[name="required_yn"]').removeAttr('disabled');
+			$('tr#required_tr').show();
+		} else {
+			$('input[name="required_yn"]').attr('disabled', true);
+			$('tr#required_tr').hide();
 		}
 	});
 
@@ -150,11 +162,11 @@ $(function() {
 			</td>
 		</tr>
 
-		<tr>
+		<tr id="required_tr" style="display: none;">
 			<th>필수여부</th>
 			<td>
-				<form:radiobutton path="required_yn" value="Y" label="필수"/>
-				<form:radiobutton path="required_yn" value="N" label="선택"/>
+				<form:radiobutton path="required_yn" value="Y" label="필수" disabled="true"/>
+				<form:radiobutton path="required_yn" value="N" label="선택" disabled="true"/>
 			</td>
 		</tr>
 
