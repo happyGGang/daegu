@@ -53,8 +53,15 @@ $(function() {
 								<div class="box"><a href="" class="name">${i.TITLE_INFO}</a></div>
 							</div>
 							<div class="control">
-								<c:if test="${i.STATUS eq '3'}">
-								<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
+								<c:if test="${i.UNMANNED_RESERVATION_LOAN eq 'N'}">
+									<c:if test="${i.STATUS eq '3'}">
+									<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
+									</c:if>
+								</c:if>
+								<c:if test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
+									<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
+								</c:if>
+								<c:if test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
 								</c:if>
 							</div>
 						</div>
@@ -78,6 +85,25 @@ $(function() {
 							<tr>
 								<th>예약만기일</th>
 								<td>${i.RESERVATION_EXPIRE_DATE }</td>
+							</tr>
+							<tr>
+								<th>예약형태</th>
+								<td>
+								<c:choose>
+									<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'N'}">
+									일반예약
+									</c:when>
+									<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
+									무인예약신청
+									</c:when>
+									<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
+									무인예약대기
+									</c:when>
+									<c:otherwise>
+									일반예약
+									</c:otherwise>
+								</c:choose>
+								</td>
 							</tr>
 							</tbody>
 						</table>

@@ -100,7 +100,7 @@
 .main7_banner a {color:#8b8b8b;}
 
 .main3 {float:left;width:49%;}
-.main4 {float:right;width:49.5%;}
+.main4 {float:left;width:49.5%;}
 .main5 {float:right;width:33.1%;position:relative;}
 .main3 .box {padding:20px}
 .main4 .box {padding:0;text-align:center;box-sizing:border-box;}
@@ -141,17 +141,17 @@
 .main3 .title {position:relative;text-align:left;margin:0;padding:0;overflow:hidden;}
 .main3 div.title {width:100%;overflow:hidden;}
 .main3 div.title li {display:inline-block;float:left;box-sizing:border-box;}
-.main3 div.title li:first-child {padding:15px 0 0 10px ;}
-.main3 div.title li:last-child {float:right;padding:12px 15px 0 0;}
+.main3 div.title li:first-child {padding:5px 0 0 10px ;}
+.main3 div.title li:last-child {float:right;padding:2px 15px 0 0;}
 .main3 div.title h2 {font-size:19px;color:#000;font-weight:bold;}
 .main3 div.title a {font-size:0;line-height:0;background:url('/resources/homepage/seobu/img/more_btbtbt.png') no-repeat 0 0;}
 
 .main4 .tabMenuS {position:relative;text-align:center;margin:0;padding:0;overflow:hidden;}
 .main4 ul.tabMenuS > li {position:relative;display:inline-block;float:left;box-sizing:border-box;text-align:left;}
-.main4 ul.tabMenuS > li.on a {color:#0194d4;font-weight:bold;padding:20px 10px 10px;}
-.main4 ul.tabMenuS > li a {position:relative;display:block;box-sizing:border-box;font-size:20px;color:#000;font-weight:bold;padding:20px 10px 10px;}
+.main4 ul.tabMenuS > li.on a {color:#0194d4;font-weight:bold;padding:0 10px 10px;}
+.main4 ul.tabMenuS > li a {position:relative;display:block;box-sizing:border-box;font-size:20px;color:#000;font-weight:bold;padding:0 10px 10px;}
 .main4 ul.tabMenuS > li a span {font-size:15px;padding: 0 0 0 5px;font-weight:normal;}
-.main4 ul.tabMenuS .more-btn {right:10px;top:15px;font-size:0;line-height:0;position:absolute;background:url('/resources/homepage/dongbu/img/more_bt.png') no-repeat 0 0;width:27px;height:24px}
+.main4 ul.tabMenuS .more-btn {right:10px;top:0;font-size:0;line-height:0;position:absolute;background:url('/resources/homepage/dongbu/img/more_bt.png') no-repeat 0 0;width:27px;height:24px}
 
 .main4 h3{font-size:22px;line-height:30px}
 .main4 > div.box > ul > li {display:inline-block;width:21%;margin:0 1%}
@@ -161,32 +161,33 @@
 
 .main6_bg{position:relative;width:100%;background:#f4f3f2;}
 .main6 {padding:35px 0 30px;}
-.main6 .popZone    {float:left;position:relative;width:50%;padding:0;margin:0;}
-.main6 .popZone li {position:relative;text-align:left;padding:0;margin:0;}
-.main6 .popZone li a {position:relative;display:inline-block;}
-.main6 .popZone li a img {width:600px;height:220px;border:1px solid #cccccc;}
 
-.main6 .popZone .bx-controls {position:absolute;top:10px;right:38px;z-index:150000000;}
-.main6 .popZone .bx-prev, 
-.main6 .popZone .bx-next, 
-.main6 .popZone .bx-start,
-.main6 .popZone .bx-stop {position:absolute;width:31px;height:30px;font-size:0;background-image:url("/resources/homepage/dongbu/img/popZone_arr.png");background-repeat: no-repeat; background-position:0 0;background-size:initial;}
+.main_line .popZone    {float:right;position:relative;width:50%;padding:0;margin:0;}
+.main_line .popZone li {position:relative;text-align:left;padding:0;margin:0;}
+.main_line .popZone li a {position:relative;display:inline-block;}
+.main_line .popZone li a img {width:600px;height:220px;border:1px solid #cccccc;}
 
-.main6 .popZone .bx-prev {right:62px;}
-.main6 .popZone .bx-next {right:0;background-position:-30px 0;}
-.main6 .popZone .bx-start {right:31px;background-position:-92px 0;}
-.main6 .popZone .bx-stop {right:31px;background-position:-61px 0;}
+.main_line .popZone .bx-controls {position:absolute;top:10px;right:38px;z-index:150000000;}
+.main_line .popZone .bx-prev, 
+.main_line .popZone .bx-next, 
+.main_line .popZone .bx-start,
+.main_line .popZone .bx-stop {position:absolute;width:31px;height:30px;font-size:0;background-image:url("/resources/homepage/dongbu/img/popZone_arr.png");background-repeat: no-repeat; background-position:0 0;background-size:initial;}
 
-.main6 .popZone .bx-pager {display:inline-block;float:left;height:12px;padding:6px 100px 0 0;}
-.main6 .popZone .bx-pager .bx-pager-item {display:inline-block;zoom:1;*display:inline;font-size:0;line-height:0;margin-left:3px;}
-.main6 .popZone .bx-pager a {display:inline-block;font-size:0;overflow:hidden;float:left;padding:12px 0 0 12px;background:#878787;}
-.main6 .popZone .bx-pager a.active{background:rgba(32,132,212,0.95)}
+.main_line .popZone .bx-prev {right:62px;}
+.main_line .popZone .bx-next {right:0;background-position:-30px 0;}
+.main_line .popZone .bx-start {right:31px;background-position:-92px 0;}
+.main_line .popZone .bx-stop {right:31px;background-position:-61px 0;}
+
+.main_line .popZone .bx-pager {display:inline-block;float:left;height:12px;padding:6px 100px 0 0;}
+.main_line .popZone .bx-pager .bx-pager-item {display:inline-block;zoom:1;*display:inline;font-size:0;line-height:0;margin-left:3px;}
+.main_line .popZone .bx-pager a {display:inline-block;font-size:0;overflow:hidden;float:left;padding:12px 0 0 12px;background:#878787;}
+.main_line .popZone .bx-pager a.active{background:rgba(32,132,212,0.95)}
 
 .movie {float:left;position:relative;width:25%;margin:0;padding:0;box-sizing:border-box;}
 .movie h3 {font-size:19px;color:#000;font-weight:bold;}
 .movie .more-btn { right:20px;top:0;font-size:0;line-height:0;position:absolute;background:url('/resources/homepage/dongbu/img/more_bt.png') no-repeat 0 0;width:27px;height:24px }
 .movie .movieContent { width:100%;margin:0;padding:24px 0 8px;}
-.movie .movieContent .bx-controls {position:absolute;top:-3px;left:150px;z-index:150000000;}
+.movie .movieContent .bx-controls {position:absolute;top:0;left:150px;z-index:150000000;}
 .movie .movieContent .bx-prev, 
 .movie .movieContent .bx-next, 
 .movie .movieContent .bx-start,
@@ -229,17 +230,29 @@
 	.main_line .section {width:100%;}
 
 	.main3 div.title h2 {font-size:17px;color:#000;font-weight:bold;}
-	.main4 ul.tabMenuS > li a {font-size:17px;padding:20px 10px 10px;}
+	.main4 ul.tabMenuS > li a {font-size:17px;padding:0 10px 10px;}
 }
 
 @media all and (max-width:1200px){
 	.main6 {padding:20px 0 15px;}
-	.main6 .popZone {float:none;width:100%;text-align:center;}
-	.main6 .popZone li a {width:96%;margin:0 auto;padding:0 2%;}
-	.main6 .popZone li a img {width:100%;}
+	.main_line .popZone {width:50%;text-align:center;}
+	.main_line .popZone li a {width:96%;margin:0 auto;padding:0 2%;}
+	.main_line .popZone li a img {width:100%;}
 
+	.movie {width:25%;padding-left:2%;box-sizing:border-box;}
+	.movie .movieContent .bx-controls {position:absolute;top:0;left:190px;z-index:150000000;}
+	.quickLink {width:25%;padding-right:2%;box-sizing:border-box;}
+}
+
+@media all and (max-width:1140px){
+	.main6 {padding:20px 0 15px;}
+	.main_line .popZone {width:50%;text-align:center;}
+	.main_line .popZone li a {width:96%;margin:0 auto;padding:0 2%;}
+	.main_line .popZone li a img {width:100%;}
+
+	.main4 {width:100%}
 	.movie {width:50%;padding-left:2%;margin-top:15px;box-sizing:border-box;}
-	.quickLink {width:48%;padding-right:2%;margin-top:15px;box-sizing:border-box;}
+	.quickLink {width:50%;padding-right:2%;margin-top:15px;box-sizing:border-box;}
 }
 
 @media all and (max-width:1000px){
@@ -279,7 +292,6 @@
 
 	.main3_4_box {float:none;width:100%;}
 	.main3 {float:left;width:49.5%;}
-	.main4 {float:right;width:49.5%;}
 	.main5 {float:none;width:100%;margin:21px 0 0 0;}
 
 	.main4 > div.box > ul > li {width:23%;margin:0 0.5%}
@@ -300,6 +312,7 @@
 
 	.main3 {float:none;width:100%;}
 	.main4 {float:none;width:100%;}
+	.main_line .popZone {width:100%;text-align:center;}
 
 	.main1 #holiday-box {margin:0;padding:15px 0;}
 	.main1 #holiday-box .inBox1 {text-align:center;}
@@ -353,10 +366,12 @@
 	.main1 #holiday-box .inBox1 .title {font-size:21px;}
 }
 
-@media all and (max-width:520px){
+@media all and (max-width:550px){
 	.movie {width:96%;padding:2%}
-	.quickLink {width:96%;padding:2%}
+	.quickLink {float:left;width:98%;padding-left:2%;padding-right:2%}
+}
 
+@media all and (max-width:520px){
 	.movie .movieContent .bx-controls {top:6px;}
 }
 

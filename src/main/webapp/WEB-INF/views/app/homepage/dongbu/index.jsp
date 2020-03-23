@@ -179,6 +179,25 @@
 
 				</div>
 
+				<!-- 팝업존 -->
+				<div class="popZone">
+					<c:choose>
+						<c:when test="${fn:length(popupZoneList) > 0}">
+							<homepageTag:popupZone popupZoneList="${popupZoneList}" />
+						</c:when>
+						<c:otherwise>
+							<ul>
+								<li><a href="#"><img src="/resources/homepage/dongbu/img/popupnone.jpg" alt="등록된 팝업존이 없습니다." /></a></li>
+							</ul>
+						</c:otherwise>
+					</c:choose>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="main6_bg">
+			<div class="main6 section" style="overflow:hidden;">
 				<div class="main4 tabS">
 					<ul class="tabMenuS">
 						<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class='t-tabs'>신착자료</a></li>
@@ -231,25 +250,6 @@
 							</c:forEach>
 						</ul>
 					</div>
-				</div>
-
-			</div>
-		</div>
-
-		<div class="main6_bg">
-			<div class="main6 section" style="overflow:hidden;">
-				<!-- 팝업존 -->
-				<div class="popZone">
-					<c:choose>
-						<c:when test="${fn:length(popupZoneList) > 0}">
-							<homepageTag:popupZone popupZoneList="${popupZoneList}" />
-						</c:when>
-						<c:otherwise>
-							<ul>
-								<li><a href="#"><img src="/resources/homepage/dongbu/img/popupnone.jpg" alt="등록된 팝업존이 없습니다." /></a></li>
-							</ul>
-						</c:otherwise>
-					</c:choose>
 				</div>
 
 				<div class="movie">
