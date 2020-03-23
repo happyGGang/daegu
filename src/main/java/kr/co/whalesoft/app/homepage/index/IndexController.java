@@ -155,7 +155,7 @@ public class IndexController extends BaseController {
 		}
 		calendarManage.setHomepage_id(homepage.getHomepage_id());
 		model.addAttribute("calendar", calendarManage);
-		if(homepage.getHomepage_id().equals("h4") || homepage.getHomepage_id().equals("h8")) {
+		if(homepage.getHomepage_id().equals("h4") || homepage.getHomepage_id().equals("h5") || homepage.getHomepage_id().equals("h8") || homepage.getHomepage_id().equals("h9")) {
 			model.addAttribute("closeDayList", calendarManageService.getClosedDate4(calendarManage));
 		} else {
 			model.addAttribute("closeDayList", calendarManageService.getClosedDate2(calendarManage));
@@ -262,8 +262,7 @@ public class IndexController extends BaseController {
 	}
 
 	@RequestMapping(value = { "/{contextPath}/calendar5.*" }) // homepage_id로 휴관일만 가져오기
-	public String calendar5(Model model, CalendarManage calendarManage, HttpServletRequest request,
-			@PathVariable String contextPath) {
+	public String calendar5(Model model, CalendarManage calendarManage, HttpServletRequest request, @PathVariable String contextPath) {
 		Homepage h = (Homepage) request.getAttribute("homepage");
 		Homepage homepage = homepageService.getHomepageOne(new Homepage(calendarManage.getHomepage_id()));
 
