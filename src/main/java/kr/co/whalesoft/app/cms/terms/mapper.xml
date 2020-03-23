@@ -150,16 +150,21 @@
 		AND	terms_idx IN
 						(
 						SELECT
-							DISTINCT REGEXP_SUBSTR(terms, '[^,]+', 1, LEVEL)
+							SUBSTR(terms, INSTR(terms, ',', 1, LEVEL) + 1, INSTR(terms, ',', 1, LEVEL + 1) - INSTR(terms, ',', 1, LEVEL) - 1) AS terms
 						FROM
-							TEACH
-						WHERE
-							delete_yn = 'N'
-						AND	homepage_id = #{homepage_id}
-						AND	teach_idx = #{teach_idx}
-						AND category_idx = #{category_idx}
-						AND group_idx = #{group_idx}
-						CONNECT BY LEVEL <![CDATA[<=]]> LENGTH(REGEXP_REPLACE(terms, '[^,]+', '')) + 1
+							(
+							SELECT
+								',' || terms || ',' AS terms
+							FROM
+								TEACH
+							WHERE
+								delete_yn = 'N'
+							AND	homepage_id = #{homepage_id}
+							AND	teach_idx = #{teach_idx}
+							AND	category_idx = #{category_idx}
+							AND	group_idx = #{group_idx}
+							)
+						CONNECT BY LEVEL <![CDATA[<=]]> LENGTH(terms) - LENGTH(REPLACE(terms, ',')) - 1
 						)
 	</select>
 	
