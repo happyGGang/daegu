@@ -289,8 +289,8 @@ public class CommonJoinController extends BaseController {
 				ValidationUtils.rejectExceptNumber(result, "card_password", 4, "대출증 비밀번호 설정은 숫자 4자리로 입력해주세요.");
 			}
 //			ValidationUtils.rejectIfEmpty(result, "member_pw", "비밀번호를 입력해주세요.");
-//			ValidationUtils.rejectIfEmpty(result, "cell_phone2", "휴대폰 번호를 입력하세요.");
-//			ValidationUtils.rejectIfEmpty(result, "cell_phone3", "휴대폰 번호를 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "cell_phone2", "휴대폰 번호를 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "cell_phone3", "휴대폰 번호를 입력하세요.");
 //			ValidationUtils.rejectExceptNumber(result, "cell_phone2", 3, 4, "휴대전화 4자리로 입력해주세요.");
 //			ValidationUtils.rejectExceptNumber(result, "cell_phone3", 4, "휴대전화 4자리로 입력해주세요.");
 //			ValidationUtils.rejectIfEmpty(result, "zipcode", "주소를 입력해주세요.");
@@ -336,6 +336,9 @@ public class CommonJoinController extends BaseController {
 					sessionMember.setPhone1(member.getPhone1());
 					sessionMember.setPhone2(member.getPhone2());
 					sessionMember.setPhone3(member.getPhone3());
+					sessionMember.setCell_phone1(member.getCell_phone1());
+					sessionMember.setCell_phone2(member.getCell_phone2());
+					sessionMember.setCell_phone3(member.getCell_phone3());
 					sessionMember.setEmail1(member.getEmail1());
 					sessionMember.setEmail2(member.getEmail2());
 					sessionMember.setSms_service_yn(member.getSms_service_yn());

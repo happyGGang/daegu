@@ -249,12 +249,13 @@ $(document).on("keyup change", "input:text[numberOnly]", function() {
 					</th>
 					<td>
 						<div id="cell_phone_div">
-						<c:set var="handphone" value="${fn:replace(memberInfo.cell_phone, '-', ' - ')}"></c:set>
-						${handphone}
-						<form:checkbox path="sms_service_yn" value="Y" label=" SMS 수신 여부" cssStyle="vertical-align: middle;"/>
-						<div class="highlight">
-						<label for="sms_service_yn1"> * 입력한 휴대폰 번호로 반납 및 연체문자가 수신됩니다.</label>
-						</div>
+							<form:input path="cell_phone1" class="text" cssStyle="width:60px;" title="휴대폰 번호 첫번째 자리 입력" maxlength="3" numberOnly="true"/>
+						 	- <form:input path="cell_phone2" class="text" cssStyle="width:60px;" title="휴대폰 번호  중간 자리 입력" maxlength="4" numberOnly="true"/>
+						 	- <form:input path="cell_phone3" class="text" cssStyle="width:60px;" title="휴대폰 번호  끝 자리 입력"  maxlength="4" numberOnly="true"/>
+							<form:checkbox path="sms_service_yn" value="Y" label=" SMS 수신 여부" cssStyle="vertical-align: middle;"/>
+							<div class="highlight">
+								<label for="sms_service_yn1"> * 입력한 휴대폰 번호로 반납 및 연체문자가 수신됩니다.</label>
+							</div>
 						</div>
 					</td>
 				</tr>
