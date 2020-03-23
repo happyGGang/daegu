@@ -92,12 +92,15 @@
 .main3 .notice div.title h2 {font-size:19px;color:#000;font-weight:bold;}
 .main3 .notice div.title a {font-size:0;line-height:0;background:url('/resources/homepage/seobu/img/more_btbtbt.png') no-repeat 0 0;}
 
-.main3 .notice div.cont {box-sizing:border-box;padding:0 3%;}
+.main3 .notice div.cont {box-sizing:border-box;padding:20px 3% 0;}
 
-.main3 .notice ul.list li {position:relative;overflow:hidden;background:url('/resources/common/img/arr-news.gif') no-repeat 2% center;padding:5px 75px 3px 20px;}
-.main3 .notice ul.list li:nth-child(2) {margin-top:13px;}
-.main3 .notice ul.list li a {font-size:15px;font-weight:normal;color:#000;box-sizing:border-box;}
-.main3 .notice ul.list li a em {display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;font-style:normal;vertical-align:middle;}
+.main3 .notice ul.list li {position:relative;overflow:hidden;background:url('/resources/common/img/arr-news.gif') no-repeat 2% center;padding:5px 75px 3px 23px;}
+.main3 .notice ul.list li.on-notice {background:url('/resources/homepage/jungang/img/on-notice-dot.png') no-repeat 0 center;}
+.main .notice li em,
+.main .notice li span{font-style:normal;vertical-align:middle}
+.main .notice li span{font-size:14px;letter-spacing:-1px;}
+.main .notice li em{display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.main .notice li span{position:absolute;right:0;top:3px;padding-right:1px}
 
 .main3 .notice ul.list li.on-cont {display:inline-block;width:100%;box-sizing:border-box;padding:20px 15px 10px 15px;background:none;border-bottom:1px solid #dddddd}
 .main3 .notice ul.list li.on-cont a {padding-left:15px;width:80%;display:block;box-sizing:border-box;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;}

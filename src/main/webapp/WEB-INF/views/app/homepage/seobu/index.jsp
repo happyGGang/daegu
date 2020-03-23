@@ -170,32 +170,27 @@ do {
 						<ul class="list">
 							<%--공지사항 상단--%>
 							<c:if test="${fn:length(noticeListTopNotice) < 1}">
-							<li class="on-cont">
+							<li class="on-notice">
 								<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
 								<a href="#">
-									<span class="title">등록된 공지사항이 없습니다.</span>
-									<p class="date"></p>
-									<span class="content">
-									</span>
+									<em>등록된 공지사항이 없습니다.</em>
+									<span></span>
 								</a>
 							</li>
 							</c:if>
-							<c:if test="${fn:length(noticeListTopNotice) > 0}">
-							<li class="on-cont">
-								<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
-								<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${noticeListTopNotice[0].manage_idx}&board_idx=${noticeListTopNotice[0].board_idx}">
-									<span class="title">${noticeListTopNotice[0].title}</span>
-									<p class="date"><fmt:formatDate value="${noticeListTopNotice[0].add_date}" pattern="yyyy-MM-dd"/></p>
-									<span class="content">
-										${fn:substring(fn:trim(noticeListTopNotice[0].content_summary), 0, 30)}...
-									</span>
+							
+							<c:forEach var="i" varStatus="status" items="${noticeListTopNotice}" >
+							<li class="on-notice">
+								<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+									<em>${i.title}</em>
+									<span><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
 								</a>
 							</li>
-							</c:if>
-								<%--공지사항 상단--%>
+							</c:forEach>
+							<%--공지사항 상단--%>
 
 							<%--공지사항 목록--%>
-								<c:forEach var="i" varStatus="status" items="${noticeList}" >
+							<c:forEach var="i" varStatus="status" items="${noticeList}" >
 							<li>
 								<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 									<em>${i.title}</em>
