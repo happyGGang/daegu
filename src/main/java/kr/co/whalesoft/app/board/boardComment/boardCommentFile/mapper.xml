@@ -4,7 +4,7 @@
 
 	<select id="getBoardCommentFile" resultType="kr.co.whalesoft.app.board.boardComment.boardCommentFile.BoardCommentFile">
 		SELECT
-			comment_idx, comment_file_idx, real_file_name, file_name, file_ext_name,
+			comment_idx, comment_file_idx, server_file_name, org_file_name, file_ext_name,
 			file_size
 		FROM
 			CMS_BOARD_COMMENT_FILE
@@ -16,7 +16,7 @@
 	
 	<select id="getBoardCommentFileOne" resultType="kr.co.whalesoft.app.board.boardComment.boardCommentFile.BoardCommentFile">
 		SELECT
-			comment_idx, comment_file_idx, real_file_name, file_name, file_ext_name,
+			comment_idx, comment_file_idx, server_file_name, org_file_name, file_ext_name,
 			file_size
 		FROM
 			CMS_BOARD_COMMENT_FILE
@@ -31,11 +31,11 @@
 		</selectKey>
 		INSERT INTO CMS_BOARD_COMMENT_FILE
 		(
-			comment_idx, comment_file_idx, real_file_name, file_name, file_ext_name,
+			comment_idx, comment_file_idx, server_file_name, org_file_name, file_ext_name,
 			file_size, add_date
 		) VALUES
 		(
-			#{comment_idx}, #{comment_file_idx}, #{real_file_name}, #{file_name}, #{file_ext_name},
+			#{comment_idx}, #{comment_file_idx}, #{server_file_name}, #{file_name}, #{file_ext_name},
 			#{file_size}, SYSDATE
 		)
 	</insert>

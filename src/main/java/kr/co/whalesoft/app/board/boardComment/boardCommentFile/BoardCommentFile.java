@@ -9,8 +9,8 @@ public class BoardCommentFile {
 	private int file_list_seq;
 	private int comment_idx;
 	private int comment_file_idx;
-	private String real_file_name;
-	private String file_name;
+	private String server_file_name;
+	private String org_file_name;
 	private String file_ext_name;
 	private int file_size;
 	private Date add_date;
@@ -42,10 +42,10 @@ public class BoardCommentFile {
 		this.msg = msg;
 	}
 	
-	public BoardCommentFile(File file, String real_file_name, String file_url) {
+	public BoardCommentFile(File file, String server_file_name, String file_url) {
 		if(file!=null) {
-			this.file_name = file.getName();
-			this.real_file_name = real_file_name;
+			this.org_file_name = file.getName();
+			this.server_file_name = server_file_name;
 			this.file_url = file_url+"/";
 			this.valid = true;
 		} else {
@@ -55,16 +55,16 @@ public class BoardCommentFile {
 	
 	public BoardCommentFile(String[] boardDataArray, BoardComment boardComment) {
 		this.comment_idx = boardComment.getComment_idx();
-		this.file_name = boardDataArray[0].replaceAll(";;", ",");
-		this.real_file_name = boardDataArray[1];
+		this.org_file_name = boardDataArray[0].replaceAll(";;", ",");
+		this.server_file_name = boardDataArray[1];
 		this.file_size = Integer.parseInt(boardDataArray[2]);
 		this.file_ext_name = boardDataArray[3];
 	}
 	
 	public BoardCommentFile(String[] boardDataArray, BoardComment boardComment, String file_path) {
 		this.comment_idx = boardComment.getComment_idx();
-		this.file_name = boardDataArray[0].replaceAll(";;", ",");
-		this.real_file_name = boardDataArray[1];
+		this.org_file_name = boardDataArray[0].replaceAll(";;", ",");
+		this.server_file_name = boardDataArray[1];
 		this.file_size = Integer.parseInt(boardDataArray[2]);
 		this.file_ext_name = boardDataArray[3];
 		this.file_path = file_path;
@@ -101,26 +101,25 @@ public class BoardCommentFile {
 	}
 
 	
-	public String getReal_file_name() {
-		return real_file_name;
+	public String getServer_file_name() {
+		return server_file_name;
 	}
 
 	
-	public void setReal_file_name(String real_file_name) {
-		this.real_file_name = real_file_name;
+	public void setServer_file_name(String server_file_name) {
+		this.server_file_name = server_file_name;
 	}
 
 	
-	public String getFile_name() {
-		return file_name;
+	public String getOrg_file_name() {
+		return org_file_name;
 	}
 
 	
-	public void setFile_name(String file_name) {
-		this.file_name = file_name;
+	public void setOrg_file_name(String org_file_name) {
+		this.org_file_name = org_file_name;
 	}
 
-	
 	public String getFile_ext_name() {
 		return file_ext_name;
 	}

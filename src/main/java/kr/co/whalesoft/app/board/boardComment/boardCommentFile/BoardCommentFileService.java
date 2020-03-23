@@ -101,11 +101,11 @@ public class BoardCommentFileService extends BaseService {
 	public void deleteFile(BoardCommentFile boardCommentFile, HttpServletRequest request) throws IOException {
 		String mode = request.getParameter("mode");
 		if (mode.equals("ADD")) {
-			String fileName = boardCommentFile.getFile_name();
+			String fileName = boardCommentFile.getOrg_file_name();
 			String filePath = request.getSession().getId() + "/";
 			boardCommentTempStorage.deleteFile(fileName, filePath);
 		} else if (mode.equals("MODIFY")) {
-			String fileName = boardCommentFile.getFile_name();
+			String fileName = boardCommentFile.getOrg_file_name();
 			String filePath = request.getParameter("manage_idx") + "/" + boardCommentFile.getComment_idx() + "/";
 			boardCommentStorage.deleteFile(fileName, filePath);
 		}
@@ -152,7 +152,7 @@ public class BoardCommentFileService extends BaseService {
 					BoardCommentFile boardCommentFile = new BoardCommentFile(fileInfo.split("//"), boardComment);
 					
 					FileUtil.fileMove(beforePath, afterPath, fileInfo.split("//")[1]);
-					FileUtil.thumbImgMake(afterPath, boardCommentFile.getReal_file_name(), boardCommentFile.getFile_ext_name(), 236, 163);
+					FileUtil.thumbImgMake(afterPath, boardCommentFile.getServer_file_name(), boardCommentFile.getFile_ext_name(), 236, 163);
 					dao.addBoardCommentFile(boardCommentFile);
 				}
 				
@@ -169,7 +169,7 @@ public class BoardCommentFileService extends BaseService {
 					
 					//FileUtil.fileMove(beforePath, afterPath, fileInfo.split("//")[1]);
 					
-					FileUtil.thumbImgMake(afterPath, boardFile.getReal_file_name(), boardFile.getFile_ext_name(), 236, 163);
+					FileUtil.thumbImgMake(afterPath, boardFile.getServer_file_name(), boardFile.getFile_ext_name(), 236, 163);
 					dao.addBoardCommentFile(boardFile);
 				}
 				

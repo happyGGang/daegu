@@ -67,7 +67,7 @@ public class BoardCommentFileController extends BaseController {
 			service.alertMessage("파일이 존재하지 않습니다.", request, response);
 			return null;
 		}
-		String filePath = service.getFilePath() + "/" + manage_idx + "/" + comment_idx + "/" + boardFile.getReal_file_name();
+		String filePath = service.getFilePath() + "/" + manage_idx + "/" + comment_idx + "/" + boardFile.getServer_file_name();
 		File file = new File(filePath);
 
 		byte[] bytes = null;
@@ -82,8 +82,8 @@ public class BoardCommentFileController extends BaseController {
 
 		service.addBoardCommentFileCount(boardFile);
 
-		String fileName = boardFile.getFile_name().substring(0,boardFile.getFile_name().lastIndexOf("."));
-		String fileType = boardFile.getFile_name().substring(boardFile.getFile_name().lastIndexOf(".")+1).toUpperCase();
+		String fileName = boardFile.getOrg_file_name().substring(0,boardFile.getOrg_file_name().lastIndexOf("."));
+		String fileType = boardFile.getOrg_file_name().substring(boardFile.getOrg_file_name().lastIndexOf(".")+1).toUpperCase();
 		String fullFilename = fileName+"."+fileType;
 
 		//responseHeaders.set("charset", "utf-8");
