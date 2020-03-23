@@ -8,7 +8,7 @@ $(function() {
 
 	$('#save-btn').on('click', function(e) {
 		e.preventDefault();
-		if (!confirm('무인예약 신청을 하시겠습니까?')) {
+		if (!confirm('무인예약 신청을 하시겠습니까?\n도서연체시 대출불가')) {
 			return false;
 		}
 
@@ -85,7 +85,8 @@ $(function() {
 			 </tr>
 		</tbody>
 	</table>
-	<div class="btnArea" style="text-align: center; padding-top: 25px;">
+	<div class="btnArea" style="text-align: center; padding-top: 15px;">
+		<p style="color: red;font-weight: bold;padding-bottom: 10px;">도서연체중에는 무인예약대출불가 (본인 대출상태 확인필요)</p>
 		<a href="#" id="save-btn" class="btn btn03">확인</a>
 		<a href="javascript:history.back();" class="btn btn02">취소</a>
 	</div>
