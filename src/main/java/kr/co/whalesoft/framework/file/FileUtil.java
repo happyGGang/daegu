@@ -186,7 +186,7 @@ public class FileUtil {
 				if( boardCommentFileList!=null && boardCommentFileList.size() > 0 ) {
 					for( int j=0;j<boardCommentFileList.size();j++ ) {
 						boardCommentFile = boardCommentFileList.get( j );
-						String fileName = boardCommentFile.getReal_file_name();
+						String fileName = boardCommentFile.getServer_file_name();
 						if( children[i].equals(fileName) ) {
 							exist = true;
 							break;
