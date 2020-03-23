@@ -166,6 +166,7 @@
 							)
 						CONNECT BY LEVEL <![CDATA[<=]]> LENGTH(terms) - LENGTH(REPLACE(terms, ',')) - 1
 						)
+		ORDER BY terms_idx ASC
 	</select>
 	
 </mapper>

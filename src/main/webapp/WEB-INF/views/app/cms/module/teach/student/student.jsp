@@ -269,6 +269,7 @@ $(function(){
 		        		htmlArr.push('<td>'+v.student_organization	+'<input type="hidden" name="studentList['+i+'].student_organization" value="'+v.student_organization+'"></td>');
 		        		htmlArr.push('<td>'+v.student_rank			+'<input type="hidden" name="studentList['+i+'].student_rank" value="'+v.student_rank+'"></td>');
 		        		htmlArr.push('<td>'+v.student_course_taken_yn +'<input type="hidden" name="studentList['+i+'].student_course_taken_yn" value="'+v.student_course_taken_yn+'"></td>');
+		        		htmlArr.push('<td>'+v.agree_codes			+'<input type="hidden" name="studentList['+i+'].agree_codes" value="'+v.agree_codes+'"></td>');
 		        		htmlArr.push('</tr>');
 		        	});
 					$('div#dialog-4 tbody.dataList').html(htmlArr.join(''));
@@ -316,9 +317,15 @@ $(function(){
 		        }
 			});
 		}
+		
+		$('#file').val('');
 	});
 
 	$('a#excelDownloadSample').on('click', function(e) {
+		$('#studentListForm #homepage_id').clone().appendTo('#excelDownloadSampleForm');
+		$('#studentListForm #group_idx').clone().appendTo('#excelDownloadSampleForm');
+		$('#studentListForm #category_idx').clone().appendTo('#excelDownloadSampleForm');
+		$('#studentListForm #teach_idx').clone().appendTo('#excelDownloadSampleForm');
 		$('#excelDownloadSampleForm').submit();
 		e.preventDefault();
 	});
@@ -544,6 +551,7 @@ $(function(){
 				<th>기관</th>
 				<th>직급</th>
 				<th>연수수강여부</th>
+				<th>선택약관</th>
 			</tr>
 		</thead>
 		<tbody class="dataList">

@@ -27,6 +27,7 @@ import kr.co.whalesoft.app.cms.code.Code;
 import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
+import kr.co.whalesoft.app.cms.terms.Terms;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.go.gbelib.app.cms.module.teach.Teach;
 import kr.go.gbelib.app.cms.module.teach.TeachDao;
@@ -452,7 +453,7 @@ public class StudentService extends BaseService {
 		return null;
 	}
 
-	public void writeExcelDataSample(OutputStream out ) throws RowsExceededException, WriteException, IOException {
+	public void writeExcelDataSample(OutputStream out, List<Terms> termsList) throws RowsExceededException, WriteException, IOException {
 
 		WritableWorkbook workbook = Workbook.createWorkbook( out );
 		WritableSheet sheet = workbook.createSheet( "수강생등록", 0 );
@@ -537,6 +538,11 @@ public class StudentService extends BaseService {
 		sheet.addCell( new Label( 26, 0, "기관", format ) );
 		sheet.addCell( new Label( 27, 0, "직급", format ) );
 		sheet.addCell( new Label( 28, 0, "연수수강여부 (Y,N)", format ) );
+		//약관
+		for(int i = 0; i < termsList.size(); i++) {
+			Terms terms = termsList.get(i);
+			sheet.addCell( new Label( 29+i, 0, terms.getTitle(), format ) );
+		}
 
 		sheet.addCell( new Label( 0,  1, "ID") );
 		sheet.addCell( new Label( 1,  1, "홍길동") );
@@ -571,7 +577,10 @@ public class StudentService extends BaseService {
 		sheet.addCell( new Label( 26, 1, "") );
 		sheet.addCell( new Label( 27, 1, "") );
 		sheet.addCell( new Label( 28, 1, "Y") );
-
+		//약관
+		for(int i = 0; i < termsList.size(); i++) {
+			sheet.addCell( new Label( 29+i, 1, "Y" ) );
+		}
 
 		List<Code> locationCode = codeService.getCode("CMS", "C0022");
 		sheet.addCell( new Label( 23, 3, "코드 - 코드명") );
@@ -590,7 +599,7 @@ public class StudentService extends BaseService {
 		workbook.close();
 	}
 
-	public List<Student> excelUpload(Student teachStaff, XlsUpload excel) throws Exception {
+	public List<Student> excelUpload(Student teachStaff, List<Terms> termsList, XlsUpload excel) throws Exception {
 		Workbook workbook = Workbook.getWorkbook( excel.getFile().getInputStream() );
 		Sheet sheet = workbook.getSheet( 0 );
 
@@ -598,7 +607,7 @@ public class StudentService extends BaseService {
 		List<Student> students = new ArrayList<Student>();
 
 		for ( int i = excel.getStartRow(); i < rowCount; i++ ) {
-			Student auth = getAuthenticationFromExcel( sheet, excel, i ,teachStaff);
+			Student auth = getAuthenticationFromExcel( sheet, excel, i ,teachStaff, termsList);
 			if(auth == null) return null;
 			students.add( auth );
 		}
@@ -608,7 +617,7 @@ public class StudentService extends BaseService {
 		return students;
 	}
 
-	private Student getAuthenticationFromExcel( Sheet sheet, XlsUpload excel, int row ,Student student) {
+	private Student getAuthenticationFromExcel( Sheet sheet, XlsUpload excel, int row ,Student student, List<Terms> termsList) {
 
 		Student oneStudent = new Student();
 
@@ -720,6 +729,19 @@ public class StudentService extends BaseService {
 			if(student_organization != null) oneStudent.setStudent_organization(student_organization.getContents());
 			if(student_rank != null) oneStudent.setStudent_rank(student_rank.getContents());
 			if(student_course_taken_yn != null) oneStudent.setStudent_course_taken_yn(student_course_taken_yn.getContents());
+			
+			//약관
+			List<String> termsArr = new ArrayList<String>();
+			for(int i = 0; i < termsList.size(); i++) {
+				// 약관 29번째 column 부터 시작
+				Cell student_terms_yn = sheet.getCell(29 + i, row);
+				if(student_terms_yn != null) {
+					if(student_terms_yn.getContents().trim().equals("Y")) {
+						termsArr.add(String.valueOf(termsList.get(i).getTerms_idx()));
+					}
+				}
+			}
+			oneStudent.setAgree_codes(StringUtils.join(termsArr, ","));
 
 		}
 		catch ( Exception e ) {

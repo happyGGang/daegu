@@ -348,8 +348,10 @@ public class StudentController extends BaseController {
 	@RequestMapping(value = {"/excelUpload.*"}, method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> excelUpload(Model model, Student student, HttpServletRequest request, XlsUpload excel) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
-
-		List<Student> list = studentService.excelUpload(student, excel);
+		
+		//약관선택
+		List<Terms> termsList = termsService.getTermsListByTeach(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));
+		List<Student> list = studentService.excelUpload(student, termsList, excel);
 
 		result.put("studentList", list);
 //			List<String> resultMsg = new ArrayList<String>();
@@ -371,8 +373,11 @@ public class StudentController extends BaseController {
 
 	@RequestMapping(value = {"/excelDownloadSample.*"}, method = RequestMethod.GET)
 	public void excelDownloadSample(Model model, Student student, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		//약관선택
+		List<Terms> termsList = termsService.getTermsListByTeach(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));
+		
 		Download down = new Download( request, response, "수강생등록Sample.xls" );
-		studentService.writeExcelDataSample( down.getOutputStream() );
+		studentService.writeExcelDataSample( down.getOutputStream(), termsList );
 		down.close();
 	}
 
