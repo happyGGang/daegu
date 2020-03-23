@@ -205,6 +205,7 @@ $(function(){
 									</c:if>
 								</div>
 							</li>
+							<li><div><label>신청일시</label> : ${i.add_date}</div></li>
 						</ul>
 					</div>
 				</div>

@@ -996,7 +996,8 @@
 			a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
 			getCodeIdToCodeName('CMS', 'C0020', a.limit_hak) AS LIMIT_HAK_STR,
 			getCodeIdToCodeName('CMS', 'C0020', a.limit_hak2) AS LIMIT_HAK2_STR,
-			a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn
+			a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn,
+			A.add_date
 		FROM
 		(
 			SELECT
@@ -1026,7 +1027,8 @@
 				, e.student_idx,
 				a.IMAGE_org_file_name, a.image_server_file_name, a.IMAGE_file_extension, a.IMAGE_file_size,
 				a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
-				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn
+				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn,
+				e.add_date
 			FROM
 				TEACH a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d, STUDENT e
 			WHERE a.homepage_id = b.homepage_id(+)

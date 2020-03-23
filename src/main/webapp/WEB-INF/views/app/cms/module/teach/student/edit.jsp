@@ -262,7 +262,7 @@ $(function() {
        	</colgroup>
        	<tbody>
        		<tr>
-	         	<th>신청자 - ID(<span style="color: red; font-weight: bold;">*</span>)</th>
+	         	<th>신청자 - ID</th>
 	         	<td>
 	         		<c:choose>
 	         			<c:when test="${student.editMode eq 'ADD' }">
