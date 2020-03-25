@@ -17,6 +17,8 @@ public interface StudentDao  {
 	
 	public int addStudent(Student student);
 	
+	public int getStudentIdx(Student student);
+	
 	public int modifyStudent(Student student);
 	
 	public int deleteStudent(Student student);
@@ -50,5 +52,9 @@ public interface StudentDao  {
 	public int checkStudentSetting3(Student student);
 
 	public List<Student> sendSmsTeachCancle(Student student);
+
+	public int addStudentFile(Student student);
+
+	public Student getStudentFileOne(Student student);
 	
 }

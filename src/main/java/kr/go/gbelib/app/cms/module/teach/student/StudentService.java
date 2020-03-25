@@ -1,15 +1,21 @@
 package kr.go.gbelib.app.cms.module.teach.student;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -25,18 +31,21 @@ import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 import kr.co.whalesoft.app.cms.code.Code;
 import kr.co.whalesoft.app.cms.code.CodeService;
-import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.terms.Terms;
 import kr.co.whalesoft.framework.base.BaseService;
+import kr.co.whalesoft.framework.file.FileStorage;
 import kr.go.gbelib.app.cms.module.teach.Teach;
 import kr.go.gbelib.app.cms.module.teach.TeachDao;
 import kr.go.gbelib.app.cms.module.teachSetting.TeachSetting;
 import kr.go.gbelib.app.cms.module.teachSetting.TeachSettingService;
-import kr.go.gbelib.app.common.api.PushAPI;
 
 @Service
 public class StudentService extends BaseService {
+	
+	@Autowired
+	@Qualifier("studentStorage")
+	private FileStorage studentStorage;
 
 	@Autowired
 	private TeachDao teachDao;
@@ -52,7 +61,7 @@ public class StudentService extends BaseService {
 
 	@Autowired
 	private CodeService codeService;
-
+	
 	public List<Student> getStudentListAll(Student student) {
 		return dao.getStudentListAll(student);
 	}
@@ -185,6 +194,8 @@ public class StudentService extends BaseService {
 			int curBackupJoinCount 	= teach.getTeach_backup_join_count(); //현재 후보인원
 			int offlineCount 		= teach.getTeach_offline_count(); // 오프라인 인원
 			int curOfflineJoinCount = teach.getTeach_off_join_count(); // 현재 오프라인 인원
+			
+			student.setStudent_idx(dao.getStudentIdx(student));
 
 			if ( addType.equals("CMS") ) {
 				if ( offlineCount == 0 ) {
@@ -198,14 +209,37 @@ public class StudentService extends BaseService {
 					if (StringUtils.isEmpty(student.getMember_id())) {
 						student.setMember_id("ANONYMOUS");
 					}
-					int result = dao.addStudent(student);
+					
+					MultipartFile mFile = student.getApply_file();
+					String serverFileName = "";
+					String filePath = "";
+					if ( mFile != null ) {
+						serverFileName 	= Long.toString((System.currentTimeMillis()));
+						String orgFileName 		= mFile.getOriginalFilename().substring(0, mFile.getOriginalFilename().lastIndexOf("."));
+						String fileExtension 	= FilenameUtils.getExtension(mFile.getOriginalFilename());
+						filePath 		= "/" + student.getHomepage_id();
 
+						File f = studentStorage.addFile(mFile, serverFileName, filePath);
+
+						student.setServer_file_name(serverFileName);
+						student.setOrg_file_name(orgFileName);
+						student.setFile_extension(fileExtension);
+						student.setFile_size(f.length());
+						
+						dao.addStudentFile(student);
+					}
+					
+					int result = dao.addStudent(student);
+					
 					if ( result > 0 ) {
 						addResult[0] = true;
 						addResult[1] = String.format("%s번째 오프라인 참여자로 신청 되었습니다.", curOfflineJoinCount + 1);
 						return addResult;
 					}
 					else {
+						if ( mFile != null ) {
+							studentStorage.deleteFile(serverFileName, filePath);
+						}
 						addResult[0] = false;
 						addResult[1] = "신청 실패 하였습니다.";
 						return addResult;
@@ -221,6 +255,26 @@ public class StudentService extends BaseService {
 				// 강의 제한 인원 보다 참여인원이 작거나 같을때 수강생 등록한다.
 				if ( limitCount > curJoinCount ) {
 					student.setApply_status("1");
+					
+					MultipartFile mFile = student.getApply_file();
+					String serverFileName = "";
+					String filePath = "";
+					if ( mFile != null ) {
+						serverFileName 	= Long.toString((System.currentTimeMillis()));
+						String orgFileName 		= mFile.getOriginalFilename().substring(0, mFile.getOriginalFilename().lastIndexOf("."));
+						String fileExtension 	= FilenameUtils.getExtension(mFile.getOriginalFilename());
+						filePath 		= "/" + student.getHomepage_id();
+
+						File f = studentStorage.addFile(mFile, serverFileName, filePath);
+
+						student.setServer_file_name(serverFileName);
+						student.setOrg_file_name(orgFileName);
+						student.setFile_extension(fileExtension);
+						student.setFile_size(f.length());
+						
+						dao.addStudentFile(student);
+					}
+					
 					int result = dao.addStudent(student);
 					if ( result > 0 ) {
 						String message = String.format("[%s] 해당 강좌 신청이 완료 되었습니다.", teach.getTeach_name());
@@ -234,6 +288,10 @@ public class StudentService extends BaseService {
 						return addResult;
 					}
 					else {
+						if ( mFile != null ) {
+							studentStorage.deleteFile(serverFileName, filePath);
+						}
+						
 						addResult[0] = false;
 						addResult[1] = "신청 실패 하였습니다.";
 						return addResult;
@@ -809,6 +867,14 @@ public class StudentService extends BaseService {
 	 */
 	public int checkStudentSetting3(Student student) {
 		return dao.checkStudentSetting3(student);
+	}
+	
+	public String getRootPath() {
+		return studentStorage.getRootPath();
+	}
+
+	public Student getStudentFileOne(Student student) {
+		return dao.getStudentFileOne(student);
 	}
 
 }

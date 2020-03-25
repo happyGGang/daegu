@@ -3,6 +3,9 @@ package kr.go.gbelib.app.cms.module.teach.student;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
 public class Student extends PagingUtils {
@@ -101,6 +104,14 @@ public class Student extends PagingUtils {
 
 	private String fromDateStr;
 	private String toDateStr;
+	
+	private MultipartFile apply_file;
+	
+	private int file_idx; // 수강생 파일 idx
+	private String org_file_name;  //강의이미지파일명
+	private String server_file_name; //실제파일명
+	private String file_extension;  //파일확장자
+	private long file_size;  //파일 사이즈
 
 	private List<Integer> student_idx_arr;	// 체크박스로 일괄 삭제할 때 씀
 	
@@ -700,6 +711,54 @@ public class Student extends PagingUtils {
 
 	public void setStudent_course_taken_yn(String student_course_taken_yn) {
 		this.student_course_taken_yn = student_course_taken_yn;
+	}
+	
+	public MultipartFile getApply_file() {
+		return apply_file;
+	}
+	
+	public void setApply_file(MultipartFile apply_file) {
+		this.apply_file = apply_file;
+	}
+	
+	public int getFile_idx() {
+		return file_idx;
+	}
+	
+	public void setFile_idx(int file_idx) {
+		this.file_idx = file_idx;
+	}
+
+	public String getOrg_file_name() {
+		return org_file_name;
+	}
+
+	public void setOrg_file_name(String org_file_name) {
+		this.org_file_name = org_file_name;
+	}
+	
+	public String getServer_file_name() {
+		return server_file_name;
+	}
+	
+	public void setServer_file_name(String server_file_name) {
+		this.server_file_name = server_file_name;
+	}
+	
+	public String getFile_extension() {
+		return file_extension;
+	}
+
+	public void setFile_extension(String file_extension) {
+		this.file_extension = file_extension;
+	}
+	
+	public long getFile_size() {
+		return file_size;
+	}
+
+	public void setFile_size(long file_size) {
+		this.file_size = file_size;
 	}
 
 	public List<Integer> getStudent_idx_arr() {

@@ -471,6 +471,9 @@ $(function(){
 					<c:if test="${authD}">
 					<a href="" class="btn delete-btn" keyValue1="${i.student_idx}">삭제</a><br/>
 					</c:if>
+					<c:if test="${not empty i.server_file_name}">
+					<a href="download/${i.homepage_id}/${i.group_idx}/${i.category_idx}/${i.teach_idx}/${i.student_idx}.do" class="btn file_btn">파일</a>
+					</c:if>
 					<c:if test="${teachInfo.teach_status eq '1' }">
 						<c:if test="${i.student_status eq '1' }">
 						<a href="" class="btn dialog-certificate" keyValue="${i.student_idx}">수료증 출력</a>

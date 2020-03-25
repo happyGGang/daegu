@@ -171,6 +171,7 @@ public class Teach extends PagingUtils {
 	private String apply_password;
 
 	private String terms; // 약관여부 선택
+	private String apply_file_yn; // 신청첨부파일 여부
 
 	public Teach() {}
 
@@ -1374,5 +1375,12 @@ public class Teach extends PagingUtils {
 		this.terms = terms;
 	}
 
-	
+	public String getApply_file_yn() {
+		return apply_file_yn;
+	}
+
+	public void setApply_file_yn(String apply_file_yn) {
+		this.apply_file_yn = apply_file_yn;
+	}
+
 }

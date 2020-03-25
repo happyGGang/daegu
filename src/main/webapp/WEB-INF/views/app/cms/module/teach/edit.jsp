@@ -1025,6 +1025,13 @@ $(function() {
 				</td>
 	        </tr>
 	        <tr>
+	        	<th>신청첨부파일 여부</th>
+	        	<td>
+	        		<form:radiobutton path="apply_file_yn" value="Y" label="사용"/>
+	        		<form:radiobutton path="apply_file_yn" value="N" label="미사용"/>
+	        	</td>
+	        </tr>
+	        <tr>
 	         	<th>휴강일설정</th>
 	         	<td>
 	         		<div style="float: left; margin-right: 10px;">

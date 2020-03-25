@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/resources/cms/js/malsup.jquery.form.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function() {
 	$('input#self_yn1').on('click', function() {
@@ -154,6 +155,11 @@ $(function() {
 			alert('휴대전화번호를 입력해주세요.');
 			return false;
 		}
+		
+		var applyFile = $('#apply_file');
+		if ($('#apply_file').val() == '') {
+			$('#apply_file').remove();
+		}
 
 		<c:if test="${teach.agent_yn eq 'Y'}">
 		var cellPhone1_s = $form.find('#student_cell_phone_1').val();
@@ -223,9 +229,46 @@ $(function() {
 		});
 		$form.find('#agree_codes').val(agree_codes.join(','));
 
-		if (doAjaxPost($form)) {
-			doGetLoad('/${homepage.context_path}/module/teach/index.do', 'group_idx='+$('input#group_idx').val()+'&menu_idx='+$('input#menu_idx').val());
-		}
+		
+		var option = {
+			url : 'save.do',
+			type : 'POST',
+			success: function(response) {
+				if(response.valid) {
+					if(response.message != null && response.message.replace(/\s/g,'').length!=0) {
+						alert(response.message);
+					}
+					
+					doGetLoad('/${homepage.context_path}/module/teach/index.do', 'group_idx='+$('input#group_idx').val()+'&menu_idx='+$('input#menu_idx').val());
+				} else {
+					$('td.applyFile').append(applyFile);
+					if(response.message != null && response.message.replace(/\s/g,'').length!=0) {
+						alert(response.message);
+					} else {
+						if (response.result != null && response.result.length > 0) {
+							for(var i =0 ; i < response.result.length ; i++) {
+								alert(response.result[i].code);
+								$('#'+response.result[i].field).focus();
+								$('#'+response.result[i].field, $form).css('border-color', 'red');
+								$('#'+response.result[i].field, $form).on('change', function() {
+									$(this).css('border-color', '');
+								});
+								break;
+							}
+						}
+					}
+				}
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				$('td.applyFile').append(applyFile);
+				alert('[' + textStatus + ']관리자에게 문의하세요. : ' + errorThrown);
+			}
+		};
+		$form.ajaxSubmit(option);
+		
+// 		if (doAjaxPost($form)) {
+// 			doGetLoad('/${homepage.context_path}/module/teach/index.do', 'group_idx='+$('input#group_idx').val()+'&menu_idx='+$('input#menu_idx').val());
+// 		}
 	});
 
 	$('.findPostCode').on('click', function(e){
@@ -344,7 +387,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	</c:if>
 </c:forEach>
 
-<form:form id="studentForm" modelAttribute="student" method="post" action="save.do" onsubmit="return false;">
+<form:form id="studentForm" modelAttribute="student" method="post" action="save.do" onsubmit="return false;" enctype="multipart/form-data">
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="large_category_idx"/>
 	<form:hidden path="group_idx"/>
@@ -481,6 +524,12 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 					</c:choose>
 				</td>
 			</tr>
+			<c:if test="${teach.apply_file_yn eq 'Y'}">
+			<tr>
+				<th>첨부파일</th>
+				<td class="applyFile"><input type="file" id="apply_file" name="apply_file" class="text" accept=".hwp"></td>
+			</tr>
+			</c:if>
 			<c:if test="${teach.agent_yn ne 'Y'}">
 			<c:if test="${teach.family_yn eq 'Y'}">
 				<tr>
