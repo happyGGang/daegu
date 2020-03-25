@@ -57,7 +57,7 @@ $(document).ready(function() {
 		var field2_name = $(this).data('field2_name');
 		$('#' + field2_name).val($(this).data('field2_value'));
 		var url = 'index.do';
-		var formData = serializeParameter(['menu_idx', 'menu', 'type', field1_name, field2_name]);
+		var formData = serializeParameter(['menu_idx', 'menu', 'type', field1_name, field2_name]) + '#cateId';
 		doGetLoad(url, formData);
 	});
 
@@ -149,7 +149,7 @@ function changeLibrary() {
 		<ul>
 		</ul>
 	</div>
-	<h2>카테고리</h2>
+	<h2 id="cateId">카테고리</h2>
 	<c:if test="${isMobile and not empty subcategoryList and not empty categoryList}">
 	<div class="box">
 		<c:forEach items="${categoryList}" var="i" varStatus="status">
