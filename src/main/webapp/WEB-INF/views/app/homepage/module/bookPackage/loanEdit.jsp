@@ -64,18 +64,32 @@ $(function() {
 		history.back();
 	});
 	
+	var currDate = new Date();
+	currDate.setDate(currDate.getDate() + 3);
+	var str_min_date = currDate.getFullYear()+'-'+(currDate.getMonth()+1)+'-'+currDate.getDate();
+	currDate.setDate(currDate.getDate() + 14);
+	var str_max_date = currDate.getFullYear()+'-'+(currDate.getMonth()+1)+'-'+currDate.getDate();
+	
 	$('input#loan_start_date').datepicker({
-		maxDate: $('input#loan_end_date').val(),
+		minDate: str_min_date,
+		maxDate: str_max_date,
 		onClose: function(selectedDate){
 			$('input#loan_end_date').datepicker('option', 'minDate', selectedDate);
+			
+			var week2 = new Date(selectedDate);
+			week2.setDate(week2.getDate() + 60);
+			var end_max_date = week2.getFullYear()+'-'+(week2.getMonth()+1)+'-'+week2.getDate();
+			$('input#loan_end_date').datepicker('option', 'maxDate', end_max_date);
 		}
 	});
 
+	var week2 = new Date(str_min_date);
+	week2.setDate(week2.getDate() + 60);
+	var end_max_date = week2.getFullYear()+'-'+(week2.getMonth()+1)+'-'+week2.getDate();
+	
 	$('input#loan_end_date').datepicker({
 		minDate: $('input#loan_start_date').val(),
-		onClose: function(selectedDate){
-			$('input#loan_start_date').datepicker('option', 'maxDate', selectedDate);
-		}
+		maxDate: end_max_date
 	});
 	
 	$('#school_name').focus();
