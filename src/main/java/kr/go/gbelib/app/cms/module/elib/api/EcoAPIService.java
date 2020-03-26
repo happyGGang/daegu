@@ -53,7 +53,6 @@ public class EcoAPIService extends BaseService {
 		try {
 			input = new ByteArrayInputStream(xml.getBytes(encoding));
 			Map<String, Object> tmp = new ObjectMapper().readValue(input,  HashMap.class);
-			System.out.println("@@@@@@@@@@ parse tmp: " + tmp);
 			tmp = (HashMap<String, Object>) tmp.get("Result");
 			result = (String) tmp.get("ResultCode");
 			msgcode = (String) tmp.get("ResultMessage");
@@ -82,7 +81,7 @@ public class EcoAPIService extends BaseService {
 		String line = "";
 		
 		log.debug("@@@@@@@@@@ EcoAPIService send url: " + url + "?" + pairsToString(params));
-		System.out.println("@@@@@@@@@@ EcoAPIService send url: " + url + "?" + pairsToString(params));
+//		System.out.println("@@@@@@@@@@ EcoAPIService send url: " + url + "?" + pairsToString(params));
 		
 		try {
 			post.setHeader("User-Agent", USER_AGENT);
@@ -107,7 +106,7 @@ public class EcoAPIService extends BaseService {
 		String resultString = result.toString();
 		
 		log.debug("@@@@@@@@@@ EcoAPIService send result: " + resultString);
-		System.out.println("@@@@@@@@@@ EcoAPIService send result: " + resultString);
+//		System.out.println("@@@@@@@@@@ EcoAPIService send result: " + resultString);
 		
 		return resultString;
 	}

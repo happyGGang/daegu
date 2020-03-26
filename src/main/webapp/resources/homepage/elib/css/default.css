@@ -15,7 +15,7 @@ a:focus{color:#2b74c0}
 #container {position:relative;z-index:2;background:url('/resources/homepage/elib/img/main-background.jpg') no-repeat center top;background-size:cover;}
 #container.main.container {position:relative;z-index:2;padding-top: 310px;}
 
-#subheader {position:relative;z-index:1;background:url('/resources/homepage/elib/img/sub-background.jpg') no-repeat center top;height:455px;}
+#subheader {position:relative;z-index:1;background:url('/resources/homepage/elib/img/sub-background.jpg') no-repeat center top;height: 430px;}
 #sub-container {position:relative;z-index:2;background:#fff;}
 
 #footer {position:relative;z-index:1;}
@@ -203,7 +203,7 @@ a:focus{color:#2b74c0}
 .doc-info ul li.print,.doc-info ul li.sns,.doc-info ul li.cord{line-height:36px;width:60px;}
 .doc-info ul li a .snsBtn{line-height:30px;}
 
-.sub-comment {padding-top: 190px;text-align:center;color:#ca957c;font-size:35px;letter-spacing: -3px;}
+.sub-comment {padding-top: 170px;text-align:center;color:#ca957c;font-size:35px;letter-spacing: -3px;}
 
 .section.search {width:800px;margin: 15px auto 0;background:none;border:0;}
 .sub_search-box {border:5px solid #000;border-radius:5px;padding:0;background:#fff;height:55px;margin:0;}
