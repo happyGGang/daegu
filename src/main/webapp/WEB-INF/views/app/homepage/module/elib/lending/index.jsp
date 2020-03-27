@@ -281,6 +281,24 @@ function opmsCheckApp(server_url, book_id, user_id) {
     }
 	*/
 }
+
+function goto_store() {
+	alert('스토어로 이동합니다');
+	
+	var ua = navigator.userAgent;
+	var isIphone = ua.indexOf('iPhone') !== -1 || ua.indexOf('iPod') !== -1;
+	var isIpad = ua.indexOf('iPad') !== -1;
+	var isAndroid = ua.indexOf('Android') !== -1;
+	
+	if(isIphone || isIpad) {
+		window.location.href = 'https://apps.apple.com/kr/app/id574705183';
+	} else if(isAndroid) {
+		window.location.href = 'market://details?id=eco.app.daegu_mobile';
+    } else {
+    	alert('모바일 기기는 안드로이드, 아이폰, 아이패드만 지원합니다.');
+    }
+
+}
 </script>
 
 <form id="frm_fx" name="frm_fx" method="post" action="http://ebook.busan.go.kr:8080/FxLibrary/dependency/sso/sso.jsp" target="_blank" accept-charset="utf-8">
@@ -382,6 +400,9 @@ function opmsCheckApp(server_url, book_id, user_id) {
 	            <div style="float: right;">
 	            	<c:if test="${lending.menu == 'LENDING'}">
 	            	<c:choose>
+	            	<c:when test="${isMobile}">
+	            		<c:set var="read" value="goto_store(); return false;"/>
+	            	</c:when>
 					<c:when test="${i.com_code == 'BQ'}">
 						<c:set var="site_code" value=""/>
 						<c:choose>
