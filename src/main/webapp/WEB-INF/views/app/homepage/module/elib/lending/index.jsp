@@ -413,7 +413,7 @@ function opmsCheckApp(server_url, book_id, user_id) {
 					</c:when>
 					<c:when test="${i.com_code == 'EC' and empty i.viewer_url}">
 						<%-- TODO: ECO 뷰어 URL 받아서 교체해야 함 --%>
-						<c:set var="read" value="javascript:eco_read('http://e-lib.tglnet.or.kr:8099/ebookPlatform/b2b_homepage/B2B06_MyPage/chkViewer.do?libCode=122004&ownerCode=EC&userId=${lending.member_id}&contentsKey=${i.book_code}'); return false;"/>
+						<c:set var="read" value="javascript:eco_read('http://e-lib.tglnet.or.kr:8099/ebookPlatform/b2b_homepage/B2B06_MyPage/chkViewer.jsp?libCode=122004&ownerCode=EC&userId=${lending.member_id}&contentsKey=${i.book_code}'); return false;"/>
 					</c:when>
 					<c:when test="${i.com_code == 'BX'}">
 						<c:choose>
