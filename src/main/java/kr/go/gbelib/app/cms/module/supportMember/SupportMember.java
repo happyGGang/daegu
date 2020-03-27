@@ -1,7 +1,10 @@
 package kr.go.gbelib.app.cms.module.supportMember;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
+import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
 public class SupportMember extends PagingUtils {
@@ -21,6 +24,11 @@ public class SupportMember extends PagingUtils {
 
 	private boolean login; // 로그인상태
 	private boolean admin;
+
+	/* 권한 */
+	private List<Integer> authGroupIdxList;// 권한그룹목록
+	private List<Homepage> authorityHomepageList;// 관리홈페이지리스트
+	private Map<String, Object> authMap; // 내권한목록
 
 	public int getSupport_member_idx() {
 		return support_member_idx;
@@ -132,6 +140,30 @@ public class SupportMember extends PagingUtils {
 	
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
+	}
+
+	public List<Integer> getAuthGroupIdxList() {
+		return authGroupIdxList;
+	}
+
+	public void setAuthGroupIdxList(List<Integer> authGroupIdxList) {
+		this.authGroupIdxList = authGroupIdxList;
+	}
+
+	public List<Homepage> getAuthorityHomepageList() {
+		return authorityHomepageList;
+	}
+
+	public void setAuthorityHomepageList(List<Homepage> authorityHomepageList) {
+		this.authorityHomepageList = authorityHomepageList;
+	}
+
+	public Map<String, Object> getAuthMap() {
+		return authMap;
+	}
+
+	public void setAuthMap(Map<String, Object> authMap) {
+		this.authMap = authMap;
 	}
 
 	@Override

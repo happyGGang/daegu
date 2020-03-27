@@ -10,7 +10,10 @@ import org.bouncycastle.util.encoders.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.member.Member;
+import kr.co.whalesoft.app.cms.member.MemberService;
+import kr.co.whalesoft.app.cms.memberGroupAuth.MemberGroupAuthService;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.dataSource.DataSource;
 import kr.co.whalesoft.framework.dataSource.DataSourceType;
@@ -22,6 +25,15 @@ public class SupportMemberService extends BaseService {
 	
 	@Autowired
 	private SupportMemberDao dao;
+	
+	@Autowired
+	private MemberGroupAuthService memberGroupAuthService;
+	
+	@Autowired
+	private HomepageService homepageService;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	public List<SupportMember> getSupportMemberList(SupportMember supportMember) {
 		return dao.getSupportMemberList(supportMember);
@@ -61,7 +73,23 @@ public class SupportMemberService extends BaseService {
 
 	public SupportMember getSupportMemberLogin(SupportMember supportMember) {
 		supportMember.setMember_password(CalculateHashUtils.calculateHash(supportMember.getMember_password()));
-		return dao.getSupportMemberLogin(supportMember);
+		
+		supportMember = dao.getSupportMemberLogin(supportMember);
+		if(supportMember != null) {
+			Member member = new Member(supportMember.getMember_id());
+			//최고관리자 여부
+			supportMember.setAdmin(memberGroupAuthService.isAdminGroup(member));
+			//관리사이트 목록
+			supportMember.setAuthorityHomepageList(homepageService.getMySiteList(member));
+			if (!supportMember.isAdmin()) {
+				/**
+				 * 최고관리자가 아닌경우 authMap을 세팅한다.
+				 */
+				supportMember.setAuthMap(memberService.getMemberAuth(member));
+			}
+		}
+		
+		return supportMember;
 	}
 
 	public int addLastLogin(SupportMember supportMember) {

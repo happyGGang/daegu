@@ -42,6 +42,10 @@
 	    		site_id = #{site_id}
 	    	</if>
 	    ) A
+	    <if test="editMode != null and editMode != '' and editMode == 'SUPPORT'">
+	    WHERE
+	    	remark = '228'
+	    </if>
 	    CONNECT BY PRIOR member_group_idx = parent_member_group_idx
 		START WITH parent_member_group_idx = -1
 		ORDER SIBLINGS BY

@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.whalesoft.app.cms.member.Member;
+import kr.co.whalesoft.app.cms.memberGroup.MemberGroup;
+import kr.co.whalesoft.app.cms.memberGroup.MemberGroupService;
+import kr.co.whalesoft.app.cms.memberGroupSubord.MemberGroupSubordService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
@@ -25,6 +29,12 @@ public class SupportMemberController extends BaseController {
 	@Autowired
 	private SupportMemberService service;
 	
+	@Autowired
+	private MemberGroupService memberGroupService;
+	
+	@Autowired
+	private MemberGroupSubordService memberGroupSubordService;
+	
 	@RequestMapping (value = {"/index.*"}, method = RequestMethod.GET)
 	public String index(Model model, SupportMember supportMember, HttpServletRequest request) {
 		
@@ -34,6 +44,22 @@ public class SupportMemberController extends BaseController {
 		model.addAttribute("supportMemberList", service.getSupportMemberList(supportMember));
 
 		return basePath + "index";
+	}
+	
+	@RequestMapping (value = {"/grouping.*"}, method = RequestMethod.GET)
+	public String grouping(Model model, SupportMember supportMember, HttpServletRequest request) throws AuthException {
+		checkAuth("C", model, request);
+		checkAuth("U", model, request);
+		MemberGroup memberGroup = new MemberGroup();
+		memberGroup.setSite_id(getAsideHomepageId(request));
+		//내권한 사이트목록 가져와서 집어넣기.
+		memberGroup.setEditMode("SUPPORT");
+		model.addAttribute("getMemberGroupList", memberGroupService.getMemberGroupList(memberGroup));
+		
+		Member member = new Member(supportMember.getMember_id());
+		supportMember.setAuthGroupIdxList(memberGroupSubordService.getAuthGroupIdxList(member));
+		model.addAttribute("supportMember", supportMember);
+		return basePath + "grouping_ajax";
 	}
 	
 	@RequestMapping(value = {"/edit.*"})

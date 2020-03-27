@@ -34,6 +34,14 @@ $(function() {
 		}
 	});
 	
+	<%--그룹설정--%>
+	$('a.grouping').on('click', function(e) {
+		e.preventDefault();
+		$('#dialog-2').load('grouping.do?member_id=' + $(this).attr('keyValue'), function( response, status, xhr ) {
+			$('#dialog-2').dialog('open');
+		});
+	});
+	
 	$('#allCheck').on('click', function(e) {
 		e.preventDefault();
 		if($(this).attr('keyValue') == 'N') {
@@ -79,7 +87,7 @@ $(function() {
 			<col />
 			<col width="12%"/>
 			<col width="12%"/>
-			<col width="12%"/>
+			<col width="15%"/>
 		</colgroup>
 		<thead>
 			<tr>
@@ -115,6 +123,7 @@ $(function() {
 				<td>
 					<a href="#" class="btn modify-btn" keyValue="${i.support_member_idx}">수정</a>
 					<a href="#" class="btn delete-btn" keyValue="${i.support_member_idx}">삭제</a>
+					<a href="#" class="btn btn3 grouping" keyValue="${i.member_id}">그룹설정</a>
 				</td>
 			</tr>
 			</c:forEach>
@@ -148,3 +157,4 @@ $(function() {
 </form:form>
 
 <div id="dialog-1" class="dialog-common" title="회원관리 "></div>
+<div id="dialog-2" class="dialog-common" title="그룹설정"></div>

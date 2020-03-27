@@ -480,9 +480,9 @@ public class BoardController extends BaseController {
 		}
 		//수정일 경우
 		if(board.getEditMode().equals("MODIFY")) {
-			if(loginSupport == null && loginPortal == null) {
+//			if(loginSupport == null && loginPortal == null) {
 				checkAuth("U", model, request);
-			}
+//			}
 			Board boardOne = (Board)service.copyObjectPaging(boardManage, board, service.getBoardOne(board));
 
 			boolean isBoardAdmin = false;
@@ -560,9 +560,9 @@ public class BoardController extends BaseController {
 			model.addAttribute("board", service.copyObjectPaging(board, boardOne));
 
 		} else {
-			if(loginSupport == null && loginPortal == null) {
+//			if(loginSupport == null && loginPortal == null) {
 				checkAuth("C", model, request);
-			}
+//			}
 			model.addAttribute("board", board);
 			model.addAttribute("getToday", new Date());
 

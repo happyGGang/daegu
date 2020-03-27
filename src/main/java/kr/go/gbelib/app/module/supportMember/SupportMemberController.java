@@ -20,11 +20,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.menu.MenuService;
-import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
-import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.cms.module.supportMember.SupportMember;
 import kr.go.gbelib.app.cms.module.supportMember.SupportMemberService;
 
@@ -66,13 +65,19 @@ public class SupportMemberController {
     		loginSupport.setLogin(true);
 			service.addLastLogin(loginSupport);
 			
-			if(loginSupport.getAuth_group().equals("1")) {
-				loginSupport.setAdmin(true);
-			}
-			
 			request.getSession().removeAttribute("member");
 			request.getSession().removeAttribute("loginPortal");
 			request.getSession().setAttribute("loginSupport", loginSupport);
+			
+			// Member
+			Member member = new Member();
+			member.setMember_id(supportMember.getMember_id());
+			member.setMember_pw(supportMember.getMember_password());
+			member.setLogin(true);
+			member.setAuthorityHomepageList(loginSupport.getAuthorityHomepageList());
+			member.setAuthMap(loginSupport.getAuthMap());
+			member.setAdmin(loginSupport.isAdmin());
+			request.getSession().setAttribute("member", member);
 		}
     	
 		if (StringUtils.isEmpty(returnUrl) || returnUrl.indexOf("/login/") > -1) {
