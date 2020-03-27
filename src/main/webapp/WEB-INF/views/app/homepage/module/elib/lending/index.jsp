@@ -37,6 +37,7 @@ $(document).ready(function() {
 			}
 		}
 	});
+<%--
 	$('a.book_extend').on('click', function(e) {
 		e.preventDefault();
 		var $form = $('form#lendingListForm');
@@ -52,6 +53,7 @@ $(document).ready(function() {
 			}
 		}
 	});
+--%>
 	</c:if>
 	<c:if test="${lending.menu == 'RESERVE'}">
 	$('a.book_cancel').on('click', function(e) {
@@ -183,28 +185,30 @@ function opms_read(url) {
 	} 
 }
 
+function eco_read(url) {
+	var whole = 'http://<%=request.getServerName()%>/elib/module/elib/redirect.do?url=' + encodeURIComponent(url);
+	var popupPlayer = window.open(whole, "ECO", 'width=425,height=355,scrollbars=yes');
+	if (popupPlayer == null) {
+		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.ice.go.kr 추가");
+		return false;
+	} 
+}
+
 function checkApp(url, com_code) {
 	var _APP_INSTALL_URL_IOS, _APP_INSTALL_URL_IPAD, _APP_INSTALL_URL_ANDROID, _APP_SCHEME, _APP_PACKAGE_ID;
 
-	if(com_code == 'FXLI') {
+	if(com_code == 'BQ') {
 		_APP_INSTALL_URL_IOS = "https://itunes.apple.com/us/app/bugkyubeujeonjadoseogwan/id1007007455?l=ko&ls=1&mt=8";
 		_APP_INSTALL_URL_IPAD = "https://itunes.apple.com/us/app/bugkyubeujeonjadoseogwanhd/id1007080008?l=ko&ls=1&mt=8";
 		_APP_INSTALL_URL_ANDROID = "market://details?id=com.bookcube.digitallibrary";
 		_APP_SCHEME = "bookcubedigitallibrary";
 		_APP_PACKAGE_ID = "com.bookcube.digitallibrary";
-	} else if(com_code == 'YESB') {
+	} else if(com_code == 'YE') {
 		_APP_INSTALL_URL_IOS = "https://itunes.apple.com/kr/app/%EC%A0%84%EC%9E%90%EB%8F%84%EC%84%9C%EA%B4%80-%EB%B7%B0%EC%96%B4/id1353292577?&mt=8";
 		_APP_INSTALL_URL_IPAD = "https://itunes.apple.com/kr/app/%EC%A0%84%EC%9E%90%EB%8F%84%EC%84%9C%EA%B4%80-%EB%B7%B0%EC%96%B4/id1353292577?&mt=8";
 		_APP_INSTALL_URL_ANDROID = "market://details?id=com.yes24.yes24viewer";
 		_APP_SCHEME = "yes24lib-yes24viewer";
 		_APP_PACKAGE_ID = "com.yes24.yes24viewer";
-	}
-	else if(com_code == 'OPMS') {
-		_APP_INSTALL_URL_IOS = "https://itunes.apple.com/kr/app/id1281509812?mt=8";
-		_APP_INSTALL_URL_IPAD = "https://itunes.apple.com/kr/app/id1281509812?mt=8";
-		_APP_INSTALL_URL_ANDROID = "market://details?id=com.wjopms.ebooklibrary";
-		_APP_SCHEME = "wjopms";
-		_APP_PACKAGE_ID = "com.wjopms.ebooklibrary";
 	}
 	
 	var ua = navigator.userAgent;
@@ -257,23 +261,21 @@ function opmsCheckApp(server_url, book_id, user_id) {
 	
     if (isIphone) {
     	var url = 'wjopms://app?script=download&host=' + server_url + '&book_id=' + book_id + '&user_id=' + user_id + '&subview=V_MYBOOKS';
-        var now = new Date().valueOf();
-        setTimeout(function() {
-            if (new Date().valueOf() - now > 2000) return;
+    	if(confirm('뷰어앱이 설치되어 있으면 확인(승인)을 클릭하시고,\n설치되어 있지 않다면 취소를 클릭하세요. (앱스토어 이동)')) {
+	        window.location.href = url;
+    	} else {
             window.location.href = _APP_INSTALL_URL_IOS;
-        }, 25);
-        window.location.href = url;
+    	}
     } else if (isAndroid) {
     	var url = 'intent://app?script=download&host=' + server_url + '&book_id=' + book_id + '&user_id=' + user_id + '&subview=V_MYBOOKS#Intent;scheme=wjopms;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.wjopms.ebooklibrary;end';
 		window.location.href = url;
     } else if (isIpad) {
     	var url = 'wjopms://app?script=download&host=' + server_url + '&book_id=' + book_id + '&user_id=' + user_id + '&subview=V_MYBOOKS';
-        var now = new Date().valueOf();
-        setTimeout(function() {
-            if (new Date().valueOf() - now > 2000) return;
-            window.location.href = _APP_INSTALL_URL_IPAD;
-        }, 25);
-        window.location.href = url;
+    	if(confirm('뷰어앱이 설치되어 있으면 확인(승인)을 클릭하시고,\n설치되어 있지 않다면 취소를 클릭하세요. (앱스토어 이동)')) {
+	        window.location.href = url;
+    	} else {
+            window.location.href = _APP_INSTALL_URL_IOS;
+    	}
     } else {
     	alert('모바일 기기는 안드로이드, 아이폰, 아이패드만 지원합니다.');
     }
@@ -349,9 +351,6 @@ function opmsCheckApp(server_url, book_id, user_id) {
             	<label>소속도서관:</label>
 				<span>${fn:escapeXml(i.library_name)}</span>
             	<br/>
-            	<label>공급사:</label>
-				<span>${fn:escapeXml(i.comp_name)}</span>
-				<br/>
 				<c:if test="${lending.menu == 'LENDING'}">
             	<label>대출일:</label>
 				<span>${fn:escapeXml(i.lend_dt)}</span>
@@ -382,52 +381,66 @@ function opmsCheckApp(server_url, book_id, user_id) {
 				</c:if>
 	            <div style="float: right;">
 	            	<c:if test="${lending.menu == 'LENDING'}">
-					<c:choose>
-					<c:when test="${i.com_code == 'YESB'}">
+	            	<c:choose>
+					<c:when test="${i.com_code == 'BQ'}">
 						<c:set var="site_code" value=""/>
 						<c:choose>
 						<c:when test="${isMobile}">
 							<c:set var="data" value="${mobileList[status.index]}"/>
 							<c:set var="read" value="checkApp('${data['appurl']}', '${i.com_code}'); return false;"/>
 						</c:when>
-						<c:otherwise>
-							<c:set var="read" value="javascript:yesb_read('http://e-lib.tglnet.or.kr:8081/YES24/yes24viewer_open.asp?user_id=${lending.member_id}&goods_id=${i.book_code}&site_code=${site_code}'); return false;"/>
-						</c:otherwise>
-						</c:choose>
-					</c:when>
-					<c:when test="${i.com_code == 'FXLI'}">
-						<c:set var="site_code" value=""/>
-						<c:choose>
-						<c:when test="${isMobile}">
-							<c:set var="data" value="${mobileList[status.index]}"/>
-							<c:set var="read" value="checkApp('${data['appurl']}', '${i.com_code}'); return false;"/>
-						</c:when>
-						<c:otherwise>
+						<c:when test="${empty i.viewer_url}">
 							<c:set var="read" value="fxli_read('${i.book_code}'); return false;"/>
+						</c:when>
+						<c:otherwise>
+							<c:set var="read" value="yesb_read('${i.viewer_url}'); return false;"/>
 						</c:otherwise>
 						</c:choose>
 					</c:when>
-					<c:when test="${i.com_code == 'OPMS'}">
+					<c:when test="${i.com_code == 'YE'}">
 						<c:choose>
-						<c:when test="${!isMobile}">
-							<c:set var="read" value="javascript:opms_read('http://e-lib.tglnet.or.kr:8000/opms_pop.asp?user_id=${lending.member_id}&eancode=${i.book_code}'); return false;"/>
+						<c:when test="${isMobile}">
+							<c:set var="data" value="${mobileList[status.index]}"/>
+							<c:set var="read" value="checkApp('${data['appurl']}', '${i.com_code}'); return false;"/>
 						</c:when>
+						<c:when test="${empty i.viewer_url}">
+							<c:set var="read" value="javascript:yesb_read('http://e-lib.tglnet.or.kr:8081/YES24/yes24viewer_open.asp?user_id=${lending.member_id}&goods_id=${i.book_code}&site_code='); return false;"/>
+						</c:when>
+						<c:otherwise>
+							<c:set var="read" value="yesb_read('${i.viewer_url}'); return false;"/>
+						</c:otherwise>
+						</c:choose>
+					</c:when>
+					<c:when test="${i.com_code == 'EC' and empty i.viewer_url}">
+						<%-- TODO: ECO 뷰어 URL 받아서 교체해야 함 --%>
+						<c:set var="read" value="javascript:eco_read('http://e-lib.tglnet.or.kr:8099/ebookPlatform/b2b_homepage/B2B06_MyPage/chkViewer.do?libCode=122004&ownerCode=EC&userId=${lending.member_id}&contentsKey=${i.book_code}'); return false;"/>
+					</c:when>
+					<c:when test="${i.com_code == 'BX'}">
+						<c:choose>
 						<c:when test="${isMobile}">
 							<c:set var="read" value="opmsCheckApp('http://e-lib.tglnet.or.kr:8000', '${i.book_code}', '${lending.member_id}'); return false;"/>
 						</c:when>
+						<c:when test="${empty i.viewer_url}">
+							<c:set var="read" value="javascript:opms_read('http://e-lib.tglnet.or.kr:8000/opms_pop.asp?user_id=${lending.member_id}&eancode=${i.book_code}'); return false;"/>
+						</c:when>
+						<c:otherwise>
+							<c:set var="read" value="yesb_read('${i.viewer_url}'); return false;"/>
+						</c:otherwise>
 						</c:choose>
 					</c:when>
 					<c:otherwise>
-					<c:set var="read" value="alert('뷰어를 불러오던 중 오류가 발생했습니다.'); return false;"/>
+						<c:set var="read" value="yesb_read('${i.viewer_url}'); return false;"/>
 					</c:otherwise>
 					</c:choose>
 
 	            	<span><a href="#" class="btn btn1 book_view" data-book_code="${i.book_code}" onclick="${read}" data-type="${i.type}">책읽기</a></span>
 	            	<span><a href="#" class="btn btn4 book_return" data-book_idx="${i.book_idx}" data-lend_idx="${i.lend_idx}" data-type="${i.type}">반납하기</a></span>
+<%--
 	            	<span><a href="#" class="btn btn5 book_extend" data-book_idx="${i.book_idx}" data-lend_idx="${i.lend_idx}" data-type="${i.type}">연장하기</a></span>
+--%>
 	            	</c:if>
 	            	<c:if test="${lending.menu == 'RESERVE'}">
-	            	<span><a href="#" class="btn btn4 book_cancel" data-book_idx="${i.book_idx}" data-reserve_idx="${i.reserve_idx}" data-type="${i.type}">예약취소</a></span>
+	            	<span><a href="#" class="btn btn4 book_cancel" data-book_idx="${i.book_idx}" data-reserve_idx="${i.lend_idx}" data-type="${i.type}">예약취소</a></span>
 	            	</c:if>
 	            	<c:if test="${lending.menu == 'MYSTUDY'}">
 	            	<c:choose>

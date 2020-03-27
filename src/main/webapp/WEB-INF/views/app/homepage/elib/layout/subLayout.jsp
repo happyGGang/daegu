@@ -150,7 +150,6 @@ $(function() {
 							<br/>
 							<a href="#" class="elib-left-menu" style="padding:20px 30px;" data-key="parent_id=${i.cate_id}" data-menu_idx="${menu_idx_category}" data-menu="CATEGORY">
 								<span${fn:length(i.cate_name) >= 10 ? ' style="font-size: 12px;"' : ''}>${i.cate_name}</span>
-								<span style="color: #aaa; font-weight: normal; font-size: 12px;">(<fmt:formatNumber value="${i.cnt}" pattern="#,###" />)</span>
 							</a><br/>
 							</li>
 							</c:forEach>

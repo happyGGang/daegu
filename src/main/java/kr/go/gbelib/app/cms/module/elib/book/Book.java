@@ -11,7 +11,7 @@ public class Book extends PagingUtils {
 	
 	private int book_idx;
 	private String book_code;
-	private int cate_id = 0;
+	private String cate_id = "000";
 	private int cate_id_1;
 	private String cate_name;
 	private String book_name;
@@ -33,7 +33,7 @@ public class Book extends PagingUtils {
 	private String type_name = "전자책";
 	private String format;
 	private String book_image;
-	private int parent_id;
+	private String parent_id = "000";
 	private String parent_name;
 	private int recommend_cnt = 0;
 	private int library_idx = 0;
@@ -87,6 +87,8 @@ public class Book extends PagingUtils {
 	private String mkSessData;
 	private int audio_no;
 	private String audio_name;
+	private boolean isReservable;
+	private boolean isLendable;
 
 	private String approved_yn = "Y";
 	private MultipartFile mfile;
@@ -111,9 +113,6 @@ public class Book extends PagingUtils {
 	}
 	public String getBook_code() {
 		return book_code;
-	}
-	public int getCate_id() {
-		return cate_id;
 	}
 	public int getCate_id_1() {
 		return cate_id_1;
@@ -177,9 +176,6 @@ public class Book extends PagingUtils {
 	}
 	public String getBook_image() {
 		return book_image;
-	}
-	public int getParent_id() {
-		return parent_id;
 	}
 	public String getParent_name() {
 		return parent_name;
@@ -274,9 +270,6 @@ public class Book extends PagingUtils {
 	public void setBook_code(String book_code) {
 		this.book_code = book_code;
 	}
-	public void setCate_id(int cate_id) {
-		this.cate_id = cate_id;
-	}
 	public void setCate_id_1(int cate_id_1) {
 		this.cate_id_1 = cate_id_1;
 	}
@@ -339,9 +332,6 @@ public class Book extends PagingUtils {
 	}
 	public void setBook_image(String book_image) {
 		this.book_image = book_image;
-	}
-	public void setParent_id(int parent_id) {
-		this.parent_id = parent_id;
 	}
 	public void setParent_name(String parent_name) {
 		this.parent_name = parent_name;
@@ -585,6 +575,30 @@ public class Book extends PagingUtils {
 	}
 	public void setAudio_name(String audio_name) {
 		this.audio_name = audio_name;
+	}
+	public boolean isReservable() {
+		return isReservable;
+	}
+	public void setReservable(boolean isReservable) {
+		this.isReservable = isReservable;
+	}
+	public boolean isLendable() {
+		return isLendable;
+	}
+	public void setLendable(boolean isLendable) {
+		this.isLendable = isLendable;
+	}
+	public String getCate_id() {
+		return cate_id;
+	}
+	public void setCate_id(String cate_id) {
+		this.cate_id = cate_id;
+	}
+	public String getParent_id() {
+		return parent_id;
+	}
+	public void setParent_id(String parent_id) {
+		this.parent_id = parent_id;
 	}
 	@Override
 	public String toString() {

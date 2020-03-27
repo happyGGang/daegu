@@ -405,16 +405,10 @@ function go_to_login() {
 					<li>
 						<b>${fn:escapeXml(book.book_name)}</b>
 					</li>
-					<li>카테고리 : ${fn:escapeXml(book.parent_name)} &gt; ${fn:escapeXml(book.cate_name)}</li>
 					<li>저자 : ${fn:escapeXml(book.author_name)}<span class="txt-bar">&nbsp;</span>출판사 : ${fn:escapeXml(book.book_pubname)}<span class="txt-bar">&nbsp;</span>출판년도 : ${fn:escapeXml(book.book_pubdt)}</li>
-					<li>공급사 : ${fn:escapeXml(book.comp_name)}
-						<c:if test="${not empty viewer_url}">
-						<span class="txt-bar">&nbsp;</span><a href="${viewer_url}" target="_blank" style="color:#fe6d02;">뷰어 다운로드 페이지 이동</a>
-						</c:if>
-					</li>
 					<li>소속도서관: ${fn:escapeXml(book.library_name)}</li>
 					<li>대출 가능 여부: ${fn:escapeXml(book.status)}<span class="txt-bar">&nbsp;</span>대출 : ${fn:escapeXml(book.book_lend)}<%-- / ${fn:escapeXml(book.max_lend)}--%><span class="txt-bar">&nbsp;</span>예약 : ${fn:escapeXml(book.book_reserve)}</li>
-					<li>지원 기기: ${fn:escapeXml(book.label)}<span class="txt-bar">&nbsp;</span>서비스 형태: ${fn:escapeXml(book.format)}</li>
+					<li>서비스 형태: ${fn:escapeXml(book.format)}</li>
 					<li>좋아요: ${fn:escapeXml(book.recommend_cnt)}</li>
 				</ul>
 			</div>
@@ -439,10 +433,10 @@ function go_to_login() {
 				<a href="#" class="btn btn1" id="book_view" data-url="${book.mobile_link_url}&user_id=${member.member_id}&user_name=${member.member_id}"><span>바로보기</span></a>
 				</c:when>
 --%>
-				<c:when test="${book.status == '대출 가능'}">
+				<c:when test="${book.lendable}">
 				<a href="#" class="btn btn1" id="book_borrow"><span>대출하기</span></a>
 				</c:when>
-				<c:when test="${book.status == '예약 가능'}">
+				<c:when test="${book.reservable}">
 				<a href="#" class="btn btn2" id="book_reserve"><span>예약하기</span></a>
 				</c:when>
 				<c:when test="${book.status == '3'}">

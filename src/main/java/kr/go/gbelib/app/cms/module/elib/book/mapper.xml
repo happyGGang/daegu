@@ -522,6 +522,10 @@
 		SELECT COUNT(*) AS cnt FROM ELIB_RECOMMEND WHERE book_idx = #{book_idx} AND member_id = #{member_id}
 	</select>
 
+	<select id="recommendsCnt" resultType="int">
+		SELECT COUNT(*) AS cnt FROM ELIB_RECOMMEND WHERE book_idx = #{book_idx}
+	</select>
+
 	<sql id="getBookSearchedListSql">
 		FROM
 			ELIB_BOOK a,
@@ -906,5 +910,5 @@
 		WHERE
 			approved_yn != 'Y'
 	</update>
-
+	
 </mapper>
