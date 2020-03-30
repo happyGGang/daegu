@@ -3,10 +3,10 @@ package kr.go.gbelib.app.cms.module.supportMember;
 import java.util.List;
 import java.util.Map;
 
-import javax.crypto.Cipher;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
-import org.bouncycastle.util.encoders.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,6 @@ import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.dataSource.DataSource;
 import kr.co.whalesoft.framework.dataSource.DataSourceType;
 import kr.co.whalesoft.framework.utils.CalculateHashUtils;
-import kr.co.whalesoft.framework.utils.PagingUtils;
 
 @Service
 public class SupportMemberService extends BaseService {
@@ -61,6 +60,10 @@ public class SupportMemberService extends BaseService {
 			supportMember.setMember_password(CalculateHashUtils.calculateHash(supportMember.getMember_password()));
 		}
 		return dao.modifySupportMember(supportMember);
+	}
+	
+	public int modifySupportMemberGroup(SupportMember supportMember) {
+		return dao.modifySupportMemberGroup(supportMember);
 	}
 
 	public int deleteSupportMember(SupportMember supportMember) {
@@ -109,6 +112,11 @@ public class SupportMemberService extends BaseService {
 	public int addParseTibero(SupportMember supportMember) {
 		supportMember.setMember_password(CalculateHashUtils.calculateHash(supportMember.getMember_password()));
 		return dao.addParseTibero(supportMember);
+	}
+
+	public SupportMember getSessionSupport(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		return (SupportMember)session.getAttribute("loginSupport");
 	}
 
 }

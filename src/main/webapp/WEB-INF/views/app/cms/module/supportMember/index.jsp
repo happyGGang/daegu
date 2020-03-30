@@ -37,7 +37,7 @@ $(function() {
 	<%--그룹설정--%>
 	$('a.grouping').on('click', function(e) {
 		e.preventDefault();
-		$('#dialog-2').load('grouping.do?member_id=' + $(this).attr('keyValue'), function( response, status, xhr ) {
+		$('#dialog-2').load('grouping.do?member_id=' + $(this).attr('keyValue') + '&support_member_idx=' + $(this).attr('keyValue2'), function( response, status, xhr ) {
 			$('#dialog-2').dialog('open');
 		});
 	});
@@ -64,6 +64,11 @@ $(function() {
 			}
 		}
 	});
+	
+	$('select#rowCount').on('change', function() {
+		$('#viewPage').val(1);
+		doGetLoad('index.do', $('form#supportMember').serialize());
+	});
 
 });
 </script>
@@ -76,6 +81,14 @@ $(function() {
 	<div class="button">
 		<a href="#" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
 	</div>
+	<form:select path="rowCount" cssClass="selectmenu">
+		<form:option value="10">10개씩보기</form:option>
+		<form:option value="20">20개씩보기</form:option>
+		<form:option value="30">30개씩보기</form:option>
+		<form:option value="50">50개씩보기</form:option>
+		<form:option value="100">100개씩보기</form:option>
+		<form:option value="${paging.totalDataCount}">전체 보기</form:option>
+	</form:select>
 </div>
 <div>
 	<table class="type1 center">
@@ -123,7 +136,7 @@ $(function() {
 				<td>
 					<a href="#" class="btn modify-btn" keyValue="${i.support_member_idx}">수정</a>
 					<a href="#" class="btn delete-btn" keyValue="${i.support_member_idx}">삭제</a>
-					<a href="#" class="btn btn3 grouping" keyValue="${i.member_id}">그룹설정</a>
+					<a href="#" class="btn btn3 grouping" keyValue="${i.member_id}" keyValue2="${i.support_member_idx}">그룹설정</a>
 				</td>
 			</tr>
 			</c:forEach>

@@ -53,7 +53,7 @@ $(function() {
 		</colgroup>
 		<tbody>
 			<tr>
-				<th>이름(<span style="color: red;font-weight: bold;">*</span>)</th>
+				<th>기관명(학교명)(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
 					<form:input path="school_name" cssClass="text"/>
 					<div class="ui-state-highlight">
@@ -90,17 +90,6 @@ $(function() {
 						<i class="fa fa-question-circle"></i>
 						<em>비밀번호를 한번 더 입력하세요.</em>
 					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>그룹</th>
-				<td>
-					<form:select path="auth_group">
-						<form:option value="1">총관리자</form:option>
-<%-- 						<form:option value="2">비회원</form:option> --%>
-						<form:option value="3">학교기관</form:option>
-						<form:option value="4">도서선정위원</form:option>
-					</form:select>
 				</td>
 			</tr>
 		</tbody>

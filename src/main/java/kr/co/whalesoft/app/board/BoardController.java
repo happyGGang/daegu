@@ -44,6 +44,7 @@ import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManageService;
 import kr.co.whalesoft.app.cms.terms.Terms;
 import kr.co.whalesoft.app.cms.terms.TermsService;
 import kr.co.whalesoft.framework.base.BaseController;
+import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.StrUtil;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
@@ -430,13 +431,29 @@ public class BoardController extends BaseController {
 			}
 
 			// 3 : 학교지원일 경우, 4 : 선정위원일 경우
-			String suppot_auth = loginSupport == null ? "0" : loginSupport.getAuth_group();
-			if((suppot_auth.equals("4") && !getSessionIsAdmin(request)) && !isSiteAdmin && manageCompareIdx(board.getManage_idx(), 213, 225, 226, 228)) {
-				service.alertMessage("관리자 또는 학교기관만 이용할 수 있습니다.", request, response);
-			} else if((suppot_auth.equals("3") && !getSessionIsAdmin(request)) && !isSiteAdmin && manageCompareIdx(board.getManage_idx(), 230)) {
-				service.alertMessage("관리자 또는 도서선정위원만 이용할 수 있습니다.", request, response);
-			} else if(!getSessionIsAdmin(request) && !suppot_auth.equals("1") && !isSiteAdmin && manageCompareIdx(board.getManage_idx(), 212, 224, 227)) {
-				service.alertMessage("관리자만 이용할 수 있습니다.", request, response);
+//			String suppot_auth = loginSupport == null ? "0" : loginSupport.getAuth_group();
+//			if((suppot_auth.equals("4") && !getSessionIsAdmin(request)) && !isSiteAdmin && manageCompareIdx(board.getManage_idx(), 213, 225, 226, 228)) {
+//				service.alertMessage("관리자 또는 학교기관만 이용할 수 있습니다.", request, response);
+//			} else if((suppot_auth.equals("3") && !getSessionIsAdmin(request)) && !isSiteAdmin && manageCompareIdx(board.getManage_idx(), 230)) {
+//				service.alertMessage("관리자 또는 도서선정위원만 이용할 수 있습니다.", request, response);
+//			} else if(!getSessionIsAdmin(request) && !suppot_auth.equals("1") && !isSiteAdmin && manageCompareIdx(board.getManage_idx(), 212, 224, 227)) {
+//				service.alertMessage("관리자만 이용할 수 있습니다.", request, response);
+//			}
+			
+			try {
+				checkAuth("C", model, request);
+				checkAuth("U", model, request);
+			} catch(AuthException ax) {
+				if(!getSessionIsAdmin(request) && !isSiteAdmin && manageCompareIdx(board.getManage_idx(), 213, 225, 226, 228)) {
+					service.alertMessage("관리자 또는 학교기관만 이용할 수 있습니다.", request, response);
+					return null;
+				} else if((!getSessionIsAdmin(request)) && !isSiteAdmin && manageCompareIdx(board.getManage_idx(), 230)) {
+					service.alertMessage("관리자 또는 도서선정위원만 이용할 수 있습니다.", request, response);
+					return null;
+				} else if(!getSessionIsAdmin(request) && !isSiteAdmin && manageCompareIdx(board.getManage_idx(), 212, 224, 227)) {
+					service.alertMessage("관리자만 이용할 수 있습니다.", request, response);
+					return null;
+				}
 			}
 		}
 		model.addAttribute("supportAdmin", supportAdmin);

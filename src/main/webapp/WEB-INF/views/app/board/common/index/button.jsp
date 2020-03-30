@@ -6,7 +6,7 @@
 <c:set var="categoryMove" value="${not empty authMBA and authMBA and boardManage.category_use_yn eq 'Y' and boardManage.manage_idx ne '195'}"></c:set>
 <div class="button bbs-btn right" style="clear: both;">
 <c:choose>
-	<c:when test="${member.admin or authMBA or supportAdmin or portalAuth eq '2'}">
+	<c:when test="${member.admin or authMBA or authMBS or portalAuth eq '2'}">
 		<c:choose>
 			<c:when test="${board.delete_yn eq 'Y'}">
 				<a href="" class="btn btn2" id="board_normal_btn"></i><span>일반 게시물 보기</span></a>
@@ -19,7 +19,7 @@
 					<form:hidden path="moveCategory1Target"/>
 				</c:if>
 				<a href="" class="btn btn4" id="board_deleteRecovery_btn"><span>삭제 게시물 보기</span></a>
-				<c:if test="${authC or supportAuth or portalAuth ne 0}">
+				<c:if test="${authC or portalAuth ne 0}">
 				<a href="" class="btn btn1 write" id="board_edit_btn"><i class="fa fa-pencil"></i><span>글쓰기</span></a>
 				</c:if>
 			</c:otherwise>

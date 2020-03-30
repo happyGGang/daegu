@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,7 +24,8 @@ import kr.co.whalesoft.framework.utils.CalculateHashUtils;
 import kr.co.whalesoft.framework.utils.StaticVariables;
 import kr.go.gbelib.app.cms.module.elib.lending.Lending;
 import kr.go.gbelib.app.cms.module.elib.lending.LendingService;
-import kr.go.gbelib.app.common.api.LibSearchAPI;
+import kr.go.gbelib.app.cms.module.supportMember.SupportMember;
+import kr.go.gbelib.app.cms.module.supportMember.SupportMemberService;
 import kr.go.gbelib.app.common.api.LoginAPI;
 import kr.go.gbelib.app.module.loginLog.LoginLog;
 import kr.go.gbelib.app.module.loginLog.LoginLogService;
@@ -47,6 +47,9 @@ public class LoginService extends BaseService {
 
 	@Autowired
 	private LoginLogService loginLogService;
+	
+	@Autowired
+	private SupportMemberService supportMemberService;
 
 	/**
 	 * 로그인 처리
@@ -66,6 +69,24 @@ public class LoginService extends BaseService {
 		// 비번 틀려서 계정이 잠김
 		if("Y".equals(accountLockService.isLocked(new AccountLock(getMember, request.getRemoteAddr())))) {
 			return "LOCKED";
+		}
+		
+		// 학교도서관 체크
+		SupportMember supportMember = new SupportMember();
+		supportMember.setMember_id(getMember.getMember_id());
+		supportMember.setMember_password(orgPassword);
+		supportMember = supportMemberService.getSupportMemberLogin(supportMember);
+		
+		if(member == null && supportMember!= null) {
+			supportMemberService.addLastLogin(supportMember);
+			member = new Member();
+    		member.setMember_id(supportMember.getMember_id());
+    		member.setMember_pw(supportMember.getMember_password());
+    		member.setMember_name(supportMember.getSchool_name());
+    		member.setAdmin(supportMember.isAdmin());
+    		member.setAuthorityHomepageList(supportMember.getAuthorityHomepageList());
+    		member.setAuthMap(supportMember.getAuthMap());
+    		member.setLink_member_yn("N");
 		}
 
 		// 로그인 체크

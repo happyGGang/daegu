@@ -65,18 +65,18 @@ public class SupportMemberController {
     		loginSupport.setLogin(true);
 			service.addLastLogin(loginSupport);
 			
-			request.getSession().removeAttribute("member");
 			request.getSession().removeAttribute("loginPortal");
 			request.getSession().setAttribute("loginSupport", loginSupport);
 			
 			// Member
 			Member member = new Member();
-			member.setMember_id(supportMember.getMember_id());
-			member.setMember_pw(supportMember.getMember_password());
+			member.setMember_id(loginSupport.getMember_id());
+			member.setMember_name(loginSupport.getSchool_name());
 			member.setLogin(true);
 			member.setAuthorityHomepageList(loginSupport.getAuthorityHomepageList());
 			member.setAuthMap(loginSupport.getAuthMap());
 			member.setAdmin(loginSupport.isAdmin());
+			member.setLoginType("HOMEPAGE");
 			request.getSession().setAttribute("member", member);
 		}
     	

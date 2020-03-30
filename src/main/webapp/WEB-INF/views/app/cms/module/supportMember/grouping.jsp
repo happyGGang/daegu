@@ -20,8 +20,9 @@ $(function() {
 				text: "저장",
 				"class": 'btn btn1',
 				click: function() {
+					$('input#auth_group').val($('input.group_check:checked').attr('keyValue2'));
 					if(doAjaxPost($('#memberGrouping'))) {
-						$(this).dialog('destroy');
+						location.reload();
 					}
 				}
 			},{
@@ -39,14 +40,16 @@ $(function() {
 		height: 300
 	});
 	
-	$('#checkAll').on('click', function() {
-		$('tbody input:checkbox').prop('checked', $(this).prop('checked'));
+	$('input.group_check').on('click', function() {
+		$('input.group_check').not(this).prop("checked", false);
 	});
 	
 });
 </script>
-<form:form modelAttribute="supportMember" id="memberGrouping" action="/cms/member/saveGroup.do" onsubmit="return false;">
+<form:form modelAttribute="supportMember" id="memberGrouping" action="saveGroup.do" onsubmit="return false;">
 <form:hidden path="member_id"/>
+<form:hidden path="support_member_idx"/>
+<form:hidden path="auth_group"/>
 <table class="type2 center">
 	<colgroup>
 		<col width="50"/>
@@ -55,7 +58,7 @@ $(function() {
 	</colgroup>
 	<thead>
 		<tr>
-			<th><input id="checkAll" type="checkbox"></th>
+			<th></th>
 			<th>그룹명</th>
 			<th>설명</th>
 		</tr>
@@ -65,7 +68,14 @@ $(function() {
 		<tr>
 			<c:set var="isSite" value="${i.site_id ne 'CMS' and i.parent_member_group_idx eq 0 ? 'th' : 'td'}"></c:set>
 			<c:set var="_isSite" value="${i.site_id ne 'CMS' and i.parent_member_group_idx eq 0}"></c:set>
-			<${isSite}><c:if test="${!_isSite}"><form:checkbox id="checkAll${status.index}" path="authGroupIdxList" value="${i.member_group_idx}"/></c:if></${isSite}>
+			
+			<c:choose>
+				<c:when test="${status.count == 1}"><c:set var="auth_group" value="1" /></c:when>
+				<c:when test="${status.count == 2}"><c:set var="auth_group" value="3" /></c:when>
+				<c:when test="${status.count == 3}"><c:set var="auth_group" value="4" /></c:when>
+			</c:choose>
+			
+			<${isSite}><c:if test="${!_isSite}"><form:checkbox id="checkAll${status.index}" path="authGroupIdxList" cssClass="group_check" value="${i.member_group_idx}" keyValue2="${auth_group}"/></c:if></${isSite}>
 			<${isSite} style="text-align: left;"><label for="checkAll${status.index}" style="padding-left:${(i.member_group_depth-1)*15}px;">${i.member_group_name}</label></${isSite}>
 			<${isSite} style="text-align: left;"><label for="checkAll${status.index}">${i.remark}</label></${isSite}>
 		</tr>

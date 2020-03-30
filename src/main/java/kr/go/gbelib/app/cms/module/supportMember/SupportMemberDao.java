@@ -16,6 +16,8 @@ public interface SupportMemberDao {
 	public int addSupportMember(SupportMember supportMember);
 	
 	public int modifySupportMember(SupportMember supportMember);
+	
+	public int modifySupportMemberGroup(SupportMember supportMember);
 
 	public int deleteSupportMember(SupportMember supportMember);
 
