@@ -68,92 +68,17 @@ $(document).ready(function() {
 		$('form#bookListForm').submit();
 		$('form#bookListForm').prop('action', 'index.do');
 	});
-
-	<c:if test="${book.type != 'WEB'}">
-	/*웹접근성 커스텀 셀렉트 박스*/
-	function wrapNum(str, val) {
-	  if (!val || str.toLowerCase().indexOf(val.toLowerCase()) === -1) {
-		return str;
-	  }
-	  var regex = new RegExp(val, 'i');
-	  return str.replace(regex, '<span class="underline">$&</span>');
-	}
-
-	var box = {
-	  'single': new Combobo({
-		input: '#combobox-single',
-		list: '.bands .listbox',
-		activeClass: 'active',
-		noResultsText: '검색 결과가 없습니다.',
-		optionValue: 'underline'
-//		,selectionValue: function(option) {
-//			  var inputVal = box.single.input.value;
-//	          return wrapNum(option.getAttribute("data-value"), inputVal);
-//		}
-	  }).on('selection', function(e) {
-		var value = e.option.getAttribute("data-value");
-		$('input#library_code').val(value);
-		changeLibrary();
-	  })
-	};
-	/*********************************/
-	function groupChangeHandler(newGroup) {
-	  var groupLabel = newGroup.querySelector('.optgroup-label').innerText;
-	  var len = Array.prototype.slice.call(
-		newGroup.querySelectorAll('.option')
-	  ).filter(function (opt) {
-		return opt.style.display !== 'none';
-	  }).length;
-
-	  return groupLabel + ' group entered, with ' + len + ' options.';
-	}
-
-	window.box = box;
-
-	// handle trigger clicks to toggle state of its combobox
-	Array.prototype.slice.call(
-	  document.querySelectorAll('.trigger')
-	).forEach(function (trigger) {
-	  var instName = trigger.getAttribute('data-trigger');
-	  var inst = box[instName];
-	  trigger.addEventListener('click', function (e) {
-		e.stopPropagation();
-		inst[inst.isOpen ? 'closeList' : 'openList']();
-	  });
-	});
-	</c:if>
 });
-
-function changeLibrary() {
-	var url = 'index.do';
-	var formData = serializeParameter(['menu_idx', 'menu', 'type', 'sortField', 'sortType', 'parent_id', 'com_code', 'device', 'library_code']);
-	doGetLoad(url, formData);
-}
 </script>
 <c:choose>
 <c:when test="${book.menu == 'CATEGORY'}">
 <div class="elib_cate">
 <%--	<h2>${book.parent_name}</h2> --%>
-	<table class="bestbook_l_table">
-		<tr>
-			<c:forEach items="${categoryBestBookList}" var="i" varStatus="status">
-			<td>
-				<span class="num">${status.index+1}</span><span class="book"><a href="/elib/module/elib/book/view.do?menu_idx=15&menu=BEST&type=EBK&book_idx=${i.book_idx}"><img src="${i.book_image}" alt="${fn:escapeXml(i.book_name)}"/></a></span>
-			</td>
-			</c:forEach>
-		</tr>
-	</table>
-
-
-	<div class="bestbook_l">
-		<ul>
-		</ul>
-	</div>
 	<h2 id="cateId">카테고리</h2>
 	<c:if test="${isMobile and not empty subcategoryList and not empty categoryList}">
 	<div class="box">
 		<c:forEach items="${categoryList}" var="i" varStatus="status">
-		<a href="#" class="category_link" data-menu_idx="17" data-menu="CATEGORY" data-field1_name="parent_id" data-field1_value="${i.cate_id}">${i.cate_name}<span style="color: #AAA; font-weight: normal; font-size: 12px;">(<fmt:formatNumber value="${i.cnt}" pattern="#,###" />)</span></a>
+		<a href="#" class="category_link" data-menu_idx="17" data-menu="CATEGORY" data-field1_name="parent_id" data-field1_value="${i.cate_id}">${i.cate_name}</a>
 		</c:forEach>
 	</div>
 	<div style="margin-bottom: 10px;"></div>
@@ -161,19 +86,19 @@ function changeLibrary() {
 	</c:if>
 	<div class="box">
 		<c:choose>
-		<c:when test="${param.parent_id == 0}">
+		<c:when test="${param.parent_id == '000'}">
 		<c:forEach items="${categoryList}" var="i" varStatus="status">
-		<a href="#" class="category_link" data-menu_idx="17" data-menu="CATEGORY" data-field1_name="parent_id" data-field1_value="${i.cate_id}">${i.cate_name}<span style="color: #AAA; font-weight: normal; font-size: 12px;">(<fmt:formatNumber value="${i.cnt}" pattern="#,###" />)</span></a>
+		<a href="#" class="category_link" data-menu_idx="17" data-menu="CATEGORY" data-field1_name="parent_id" data-field1_value="${i.cate_id}">${i.cate_name}</a>
 		</c:forEach>
 		</c:when>
 		<c:when test="${not empty subcategoryList}">
 		<c:forEach items="${subcategoryList}" var="i" varStatus="status">
-		<a href="#" class="category_link" data-menu_idx="17" data-menu="CATEGORY" data-field1_name="parent_id" data-field1_value="${i.parent_id}" data-field2_name="cate_id" data-field2_value="${i.cate_id}">${i.cate_name}<span style="color: #AAA; font-weight: normal; font-size: 12px;">(<fmt:formatNumber value="${i.cnt}" pattern="#,###" />)</span></a>
+		<a href="#" class="category_link" data-menu_idx="17" data-menu="CATEGORY" data-field1_name="parent_id" data-field1_value="${i.parent_id}" data-field2_name="cate_id" data-field2_value="${i.cate_id}">${i.cate_name}</a>
 		</c:forEach>
 		</c:when>
 		<c:when test="${not empty categoryList}">
 		<c:forEach items="${categoryList}" var="i" varStatus="status">
-		<a href="#" class="category_link" data-menu_idx="17" data-menu="CATEGORY" data-field1_name="parent_id" data-field1_value="${i.cate_id}">${i.cate_name}<span style="color: #AAA; font-weight: normal; font-size: 12px;">(<fmt:formatNumber value="${i.cnt}" pattern="#,###" />)</span></a>
+		<a href="#" class="category_link" data-menu_idx="17" data-menu="CATEGORY" data-field1_name="parent_id" data-field1_value="${i.cate_id}">${i.cate_name}</a>
 		</c:forEach>
 		</c:when>
 		</c:choose>
@@ -250,6 +175,7 @@ function changeLibrary() {
 			</c:choose>
 			<span><fmt:formatNumber value="${bookListCnt}" pattern="#,###" /></span> 종의 ${type_name} 있습니다.    &nbsp; <span>${book.viewPage}</span>  of <fmt:formatNumber value="${book.totalPageCount}" pattern="#,###" /> page
 		</div>
+<%--
 		<c:if test="${book.menu == 'CATEGORY' || book.menu == 'PROVIDER' || book.menu == 'DEVICE'}">
 		<div class="sort">
 			<a href="#" id="by_popularity" class="btn<c:if test="${book.sortField == 'lend_total'}"> active</c:if>">인기순</a>
@@ -257,102 +183,7 @@ function changeLibrary() {
 			<a href="#" id="by_date" class="btn<c:if test="${book.sortField == 'book_pubdt'}"> active</c:if>">최신순</a>
 		</div>
 		</c:if>
-		<c:if test="${book.type != 'WEB'}">
-		<div class="sort">
-			<section class="bands">
-				<div class="wrp">
-					<div class="combo-wrap" style="display: none;">
-						<c:choose>
-						<c:when test="${book.library_code == '9999999'}">
-						<c:set var="library_code_select_value" value="경상북도교육청 통합전자도서관"/>
-						</c:when>
-						<c:when test="${book.library_code == '00147002'}">
-						<c:set var="library_code_select_value" value="경상북도교육청 고령도서관"/>
-						</c:when>
-						<c:when test="${book.library_code == '00147003'}">
-						<c:set var="library_code_select_value" value="경상북도교육청 구미도서관"/>
-						</c:when>
-						<c:when test="${book.library_code == '00147008'}">
-						<c:set var="library_code_select_value" value="경상북도교육청 상주도서관"/>
-						</c:when>
-						<c:when test="${book.library_code == '00147009'}">
-						<c:set var="library_code_select_value" value="경상북도교육청 성주도서관"/>
-						</c:when>
-						<c:when test="${book.library_code == '00147010'}">
-						<c:set var="library_code_select_value" value="경상북도교육청 안동도서관"/>
-						</c:when>
-						<c:when test="${book.library_code == '00147012'}">
-						<c:set var="library_code_select_value" value="경상북도교육청 영양도서관"/>
-						</c:when>
-						<c:when test="${book.library_code == '00147013'}">
-						<c:set var="library_code_select_value" value="경상북도교육청 영일도서관"/>
-						</c:when>
-						<c:when test="${book.library_code == '00147014'}">
-						<c:set var="library_code_select_value" value="경상북도교육청 금호도서관"/>
-						</c:when>
-						<c:when test="${book.library_code == '00147017'}">
-						<c:set var="library_code_select_value" value="경상북도교육청 울릉도서관"/>
-						</c:when>
-						<c:when test="${book.library_code == '00147018'}">
-						<c:set var="library_code_select_value" value="경상북도교육청 울진도서관"/>
-						</c:when>
-						<c:when test="${book.library_code == '00147020'}">
-						<c:set var="library_code_select_value" value="경상북도교육청 점촌도서관"/>
-						</c:when>
-						<c:when test="${book.library_code == '00147022'}">
-						<c:set var="library_code_select_value" value="경상북도교육청 청송도서관"/>
-						</c:when>
-						<c:when test="${book.library_code == '00147031'}">
-						<c:set var="library_code_select_value" value="경상북도교육청 영덕도서관"/>
-						</c:when>
-						<c:when test="${book.library_code == '00147032'}">
-						<c:set var="library_code_select_value" value="경상북도교육청 영주선비도서관"/>
-						</c:when>
-						<c:otherwise>
-						<c:set var="library_code_select_value" value=""/>
-						</c:otherwise>
-						</c:choose>
-						<input type="text" name="library_code_select" class="combobox" id="combobox-single" placeholder="도서관 전체리스트" value="${library_code_select_value}">
-						<i aria-hidden="true" class="fa trigger fa-caret-down" data-trigger="single"></i>
-						<div class="listbox">
-							<c:choose>
-							<c:when test="${book.type == 'EBK'}">
-							<div class="option" data-value="">전체</div>
-							<div class="option" data-value="9999999">경상북도교육청 통합전자도서관</div>
-							<div class="option" data-value="00147010">경상북도교육청 안동도서관</div>
-							<div class="option" data-value="00147008">경상북도교육청 상주도서관</div>
-							<div class="option" data-value="00147032">경상북도교육청 영주선비도서관</div>
-							<div class="option" data-value="00147013">경상북도교육청 영일도서관</div>
-							<div class="option" data-value="00147014">경상북도교육청 금호도서관</div>
-							<div class="option" data-value="00147020">경상북도교육청 점촌도서관</div>
-							<div class="option" data-value="00147012">경상북도교육청 영양도서관</div>
-							<div class="option" data-value="00147031">경상북도교육청 영덕도서관</div>
-							<div class="option" data-value="00147002">경상북도교육청 고령도서관</div>
-							<div class="option" data-value="00147009">경상북도교육청 성주도서관</div>
-							<div class="option" data-value="00147018">경상북도교육청 울진도서관</div>
-							<div class="option" data-value="00147017">경상북도교육청 울릉도서관</div>
-							</c:when>
-							<c:when test="${book.type == 'ADO'}">
-							<div class="option" data-value="">전체</div>
-							<div class="option" data-value="9999999">경상북도교육청 통합전자도서관</div>
-							<div class="option" data-value="00147003">경상북도교육청 구미도서관</div>
-							<div class="option" data-value="00147010">경상북도교육청 안동도서관</div>
-							<div class="option" data-value="00147008">경상북도교육청 상주도서관</div>
-							<div class="option" data-value="00147032">경상북도교육청 영주선비도서관</div>
-							<div class="option" data-value="00147013">경상북도교육청 영일도서관</div>
-							<div class="option" data-value="00147022">경상북도교육청 청송도서관</div>
-							<div class="option" data-value="00147031">경상북도교육청 영덕도서관</div>
-							<div class="option" data-value="00147018">경상북도교육청 울진도서관</div>
-							</c:when>
-							<c:otherwise>
-							</c:otherwise>
-							</c:choose>
-						</div>
-					</div>
-				</div>
-			</section>
-		</div>
-		</c:if>
+--%>
 		<div style="clear:both"></div>
 	</div>
 </div>
@@ -401,9 +232,6 @@ function changeLibrary() {
             <div class="meta">
             	<label>소속도서관:</label>
 				<span>${fn:escapeXml(i.library_name)}</span>
-				<span class="txt-bar">&nbsp;</span>
-            	<label>공급사:</label>
-				<span>${fn:escapeXml(i.comp_name)}</span>
 				<c:if test="${i.type == 'EBK'}">
 				<span class="txt-bar">&nbsp;</span>
 				<span>대출 가능 여부: ${fn:escapeXml(i.status)}</span>
@@ -419,8 +247,10 @@ function changeLibrary() {
 	</li>
 	</c:forEach>
 </ul>
+<c:if test="${book.menu == 'CATEGORY'}">
 <jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 	<jsp:param name="formId" value="#bookListForm"/>
 	<jsp:param name="pagingUrl" value="index.do"/>
 </jsp:include>
+</c:if>
 </form:form>
