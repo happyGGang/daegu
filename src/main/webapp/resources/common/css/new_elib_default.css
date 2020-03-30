@@ -562,7 +562,7 @@ transform:translatez(0);
 
 /* ���� */
 .doc-head{overflow:hidden;border-bottom: 1px solid #d3d7dd;margin-bottom: 40px;}
-.doc-title h3{display:inline-block;zoom:1;*display:inline;word-break:break-all;font-size:28px;letter-spacing:-1px;padding: 0 0 20px 0;/* font-weight:bold; */color:#333;}
+.doc-title h3{display:inline-block;zoom:1;*display:inline;word-break:break-all;font-size:28px;letter-spacing:-1px;padding: 0 0 20px 0;font-weight:bold;color:#333;}
 .doc-info{padding:0;}
 .doc-info li{display:inline-block;zoom:1;*display:inline;vertical-align:middle}
 .doc-info li a{display:block}
@@ -1880,7 +1880,7 @@ padding:20px 15px 20px 215px; margin-bottom:25px}
 	.doc-body .body{margin-right:160px;margin-left:30px}
 }
 @media all and (max-width:768px){
-	.doc-head{width:100%;float:none;margin-bottom:10px}
+	.doc-head{width:100%;float:none}
 	.doc-head h3{text-align:left;border-top:3px solid #1f5d97;padding-left:0;padding-right:40%;font-size:25px;padding-top:10px}
 	.doc-body,
 	.doc-body .body{float:none;margin:0}

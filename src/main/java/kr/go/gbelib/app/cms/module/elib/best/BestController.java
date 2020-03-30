@@ -101,8 +101,8 @@ public class BestController extends BaseController {
 			book.setSortType("DESC");
 		}
 		
-		if(StringUtils.isEmpty(book.getParent_id())) {
-			book.setParent_id("000");
+		if(book.getParent_id() == 0) {
+			book.setParent_id(1);
 		}
 		
 		book.setOption("CATEGORYBESTBOOK");

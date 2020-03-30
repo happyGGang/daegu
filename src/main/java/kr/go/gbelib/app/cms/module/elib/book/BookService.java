@@ -172,13 +172,12 @@ public class BookService extends BaseService {
 	
 	@Transactional
 	public int recommendBook(Book book) {
+		
 		if(dao.recommendDupCheck(book) > 0) return -1;
 		
+		dao.recommendBook(book);
+		
 		return dao.addRecommendLog(book);
-	}
-	
-	public int getBookRecommendCnt(Book book) {
-		return dao.recommendsCnt(book);
 	}
 	
 	public List<Book> getBookSearchedList(Book book) {

@@ -4,14 +4,11 @@ import kr.co.whalesoft.framework.utils.PagingUtils;
 
 public class ElibCategory extends PagingUtils {
 
-	private String cate_id = "000";
-	private String code;
-	private String cate_code;
+	private int cate_id;
 	private String cate_name;
 	private int depth = 1;
 	private int display_seq;
-	private String parent_id = "000";
-	private String parent_code;
+	private int parent_id;
 	private String parent_name;
 	private String type = "EBK";
 	private String add_date; // 등록일
@@ -25,6 +22,10 @@ public class ElibCategory extends PagingUtils {
 	public ElibCategory() {
 	}
 
+	public ElibCategory(int cate_id) {
+		this.setCate_id(cate_id);
+	}
+
 	public ElibCategory(String type) {
 		this.setType(type);
 	}
@@ -34,10 +35,18 @@ public class ElibCategory extends PagingUtils {
 		this.setDepth(depth);
 	}
 
-	public ElibCategory(String type, int depth, String parent_id) {
+	public ElibCategory(String type, int depth, int parent_id) {
 		this.setType(type);
 		this.setDepth(depth);
 		this.setParent_id(parent_id);
+	}
+
+	public int getCate_id() {
+		return cate_id;
+	}
+
+	public void setCate_id(int cate_id) {
+		this.cate_id = cate_id;
 	}
 
 	public String getCate_name() {
@@ -62,6 +71,14 @@ public class ElibCategory extends PagingUtils {
 
 	public void setDisplay_seq(int display_seq) {
 		this.display_seq = display_seq;
+	}
+
+	public int getParent_id() {
+		return parent_id;
+	}
+
+	public void setParent_id(int parent_id) {
+		this.parent_id = parent_id;
 	}
 
 	public String getType() {
@@ -136,44 +153,4 @@ public class ElibCategory extends PagingUtils {
 		this.parent_name = parent_name;
 	}
 
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	public String getCate_code() {
-		return cate_code;
-	}
-
-	public void setCate_code(String cate_code) {
-		this.cate_code = cate_code;
-	}
-
-	public String getParent_code() {
-		return parent_code;
-	}
-
-	public void setParent_code(String parent_code) {
-		this.parent_code = parent_code;
-	}
-
-	public String getCate_id() {
-		return cate_id;
-	}
-
-	public void setCate_id(String cate_id) {
-		this.cate_id = cate_id;
-	}
-
-	public String getParent_id() {
-		return parent_id;
-	}
-
-	public void setParent_id(String parent_id) {
-		this.parent_id = parent_id;
-	}
-	
 }

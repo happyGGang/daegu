@@ -7,7 +7,7 @@ public class Lending extends PagingUtils {
 
 	private int lend_idx;
 	private int book_idx;
-	private String cate_id = "000";
+	private int cate_id;
 	private String lend_dt;
 	private String return_due_dt;
 	private String return_dt;
@@ -33,7 +33,7 @@ public class Lending extends PagingUtils {
 	private int library_idx;
 	private String library_name;
 	private String seq_no;
-	private String parent_id = "000";
+	private int parent_id;
 	private String reserve_yn;
 	private int reserve_idx;
 	private String section;
@@ -57,9 +57,6 @@ public class Lending extends PagingUtils {
 	private String search_sdt;
 	private String search_edt;
 	private String format;
-	private boolean isReservable;
-	private boolean isLendable;
-	private String viewer_url;
 	
 	public Lending() {}
 	public Lending(int lend_idx) {
@@ -74,6 +71,9 @@ public class Lending extends PagingUtils {
 	}
 	public int getBook_idx() {
 		return book_idx;
+	}
+	public int getCate_id() {
+		return cate_id;
 	}
 	public String getLend_dt() {
 		return lend_dt;
@@ -135,6 +135,9 @@ public class Lending extends PagingUtils {
 	public void setBook_idx(int book_idx) {
 		this.book_idx = book_idx;
 	}
+	public void setCate_id(int cate_id) {
+		this.cate_id = cate_id;
+	}
 	public void setLend_dt(String lend_dt) {
 		this.lend_dt = lend_dt;
 	}
@@ -188,6 +191,12 @@ public class Lending extends PagingUtils {
 	}
 	public void setSeq_no(String seq_no) {
 		this.seq_no = seq_no;
+	}
+	public int getParent_id() {
+		return parent_id;
+	}
+	public void setParent_id(int parent_id) {
+		this.parent_id = parent_id;
 	}
 	public String getReserve_yn() {
 		return reserve_yn;
@@ -372,36 +381,6 @@ public class Lending extends PagingUtils {
 	}
 	public void setFormat(String format) {
 		this.format = format;
-	}
-	public boolean isReservable() {
-		return isReservable;
-	}
-	public void setReservable(boolean isReservable) {
-		this.isReservable = isReservable;
-	}
-	public boolean isLendable() {
-		return isLendable;
-	}
-	public void setLendable(boolean isLendable) {
-		this.isLendable = isLendable;
-	}
-	public String getCate_id() {
-		return cate_id;
-	}
-	public void setCate_id(String cate_id) {
-		this.cate_id = cate_id;
-	}
-	public String getParent_id() {
-		return parent_id;
-	}
-	public void setParent_id(String parent_id) {
-		this.parent_id = parent_id;
-	}
-	public String getViewer_url() {
-		return viewer_url;
-	}
-	public void setViewer_url(String viewer_url) {
-		this.viewer_url = viewer_url;
 	}
 	
 }

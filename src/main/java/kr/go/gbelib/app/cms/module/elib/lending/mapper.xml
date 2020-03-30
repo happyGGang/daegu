@@ -494,9 +494,13 @@
 
 	<sql id="getFavorite">
 		FROM
-			ELIB_INTEREST_BOOK a
-		WHERE 1=1
+			ELIB_INTEREST_BOOK a,
+			ELIB_BOOK b,
+			CMS_HOMEPAGE c
+		WHERE
+			a.book_idx = b.book_idx
 		AND a.member_id = #{member_id}
+		AND b.library_code = c.lib_code
 		<if test="start_date != null and start_date != ''">
 		AND TO_CHAR(a.add_date, 'YYYY-MM-DD') &gt;= #{start_date}
 		</if>
@@ -514,7 +518,10 @@
 	<select id="getFavoritesList" resultType="kr.go.gbelib.app.cms.module.elib.lending.Lending">
 		${pagingTop}
 		SELECT
-			TO_CHAR(a.add_date, 'YYYY-MM-DD') AS favorite_regdt, a.book_idx
+			TO_CHAR(a.add_date, 'YYYY-MM-DD') AS favorite_regdt, b.book_idx, b.book_code, b.book_name, b.book_image, b.com_code,
+			b.format, b.author_name, b.book_pubname, TO_CHAR(b.book_pubdt, 'YYYY-MM-DD') AS book_pubdt, b.library_code,
+			b.add_date, b.max_lend, CASE WHEN b.library_code = '9999999' THEN '통합' ELSE c.homepage_name END AS library_name,
+			b.type, (SELECT comp_name FROM ELIB_COMPANY f where INSTR(f.com_code, b.com_code) > 0) AS comp_name
 		<include refid="getFavorite"/>
 		${pagingBottom}
 	</select>

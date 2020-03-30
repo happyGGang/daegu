@@ -58,8 +58,6 @@ public interface BookDao {
 	
 	public int recommendDupCheck(Book book);
 	
-	public int recommendsCnt(Book book);
-	
 	public List<Book> getBookSearchedList(Book book);
 	
 	public int getBookSearchedListCnt(Book book);

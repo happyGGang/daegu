@@ -350,10 +350,10 @@ public class APIService extends BaseService {
 		if(com_code == null) {
 			return null;
 		}
-		else if(com_code.equals("BQ")) {
+		else if(com_code.equals(BOOKCUBE)) {
 			return catchFail(BOOKCUBE, bookcubeAPIService.appUrl(book, member, device));
 		}
-		else if(com_code.equals("YE")) {
+		else if(com_code.equals(YES24)) {
 			return catchFail(YES24, yes24APIService.appUrl(book, member, device));
 		}
 		else {

@@ -444,8 +444,6 @@ public class IndexController extends BaseController {
 
 
 		// 전자도서관
-		// ECO 전자도서관 API로 변경 후 주석 처리
-/*
 		if (homepage.getHomepage_id().equals("h30")) {
 			Book book = new Book();
 			//신착도서
@@ -476,7 +474,6 @@ public class IndexController extends BaseController {
 			book.setType("ADO");
 			model.addAttribute("bestBookList3", bestService.getMainBookList(book));
 		}
-*/
 
 		log.debug("jsp Page : "+basePath + filePath);
 

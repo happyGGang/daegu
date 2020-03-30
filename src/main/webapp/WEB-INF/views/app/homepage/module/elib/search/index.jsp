@@ -257,8 +257,71 @@ function addOnClickListeners() {
 		</div>
 		<br/>
 		<div class="search-info" >
+			<div class="ws-filter-top">
+				<c:if test="${bookListCnt > 1}">
+				<h4><a href="" class="bi" onclick="return false;">검색결과 제한</a></h4>
+				<ul>
+					<li class="li-group"><a href="" class="bi" onclick="return false;">유형별</a>
+						<ul>
+							<c:forEach items="${moreByType}" var="j">
+								<c:set var="cnt" value="${j.cnt}"></c:set>
+								<li><a href="#" class="doSearchType" data-type="${j.type}"><span>${j.name}</span><em>(${j.cnt})</em></a></li>
+							</c:forEach>
+						</ul>
+					</li>
+					<li class="li-group"><a href="" class="bi" onclick="return false;">저자별</a>
+						<ul>
+							<c:set var="authorCnt" value="0"></c:set>
+							<c:forEach items="${moreByAuthor}" var="j">
+								<c:set var="authorCnt" value="${j.cnt}"></c:set>	
+								<li><a href="#" class="doSearchWriter" data-author_name="${j.author_name}"><span>${j.author_name}</span><em>(${j.cnt})</em></a></li>
+							</c:forEach>
+						</ul>
+						<c:if test="${countByAuthor > 5}">
+							<p><a href="#" class="moreAuthor">더보기 +</a></p>
+						</c:if>
+					</li>
+					<li class="li-group"><a href="" class="bi" onclick="return false;">출판사</a>
+						<ul>
+							<c:set var="publisherCnt" value="0"></c:set>
+							<c:forEach items="${moreByPublisher}" var="j">
+								<c:set var="publisherCnt" value="${j.cnt}"></c:set>
+								<li><a href="#" class="doSearchPublisher" data-book_pubname="${j.book_pubname}"><span>${j.book_pubname}</span><em>(${j.cnt})</em></a></li>
+							</c:forEach>
+						</ul>
+						<c:if test="${countByPublisher > 5}">
+							<p><a href="#" class="morePublisher">더보기 +</a></p>
+						</c:if>
+					</li>
+					<li class="li-group"><a href="" class="bi" onclick="return false;">연도별</a>
+						<ul>
+							<c:set var="yearCnt" value="0"></c:set>
+							<c:forEach items="${moreByYear}" var="j">
+								<c:set var="yearCnt" value="${j.cnt}"></c:set>
+								<li><a href="#" class="doSearchYear" data-book_year="${j.book_year}"><span>${j.book_year}</span><em>(${j.cnt})</em></a></li>
+							</c:forEach>
+						</ul>
+						<c:if test="${countByYear > 5}">
+							<p><a href="#" class="moreYear">더보기 +</a></p>
+						</c:if>
+					</li>
+					<li class="li-group"><a href="" class="bi" onclick="return false;">기기별</a>
+						<ul>
+							<c:set var="deviceCnt" value="0"></c:set>
+							<c:forEach items="${moreByDevice}" var="j">
+								<c:set var="deviceCnt" value="${j.cnt}"></c:set>
+								<li><a href="#" class="doSearchDevice" data-device="${j.device}"><span>${j.label}</span><em>(${j.cnt})</em></a></li>
+							</c:forEach>
+						</ul>
+						<c:if test="${countByDevice > 5}">
+							<p><a href="#" class="moreDevice">더보기 +</a></p>
+						</c:if>
+					</li>
+				</ul>
+			</div>
 			<br/>
 			검색결과 '<b class="og"><i id="book_search_text">${book.search_text}</i></b>'에 대한 <b id="book_viewPage">${book.viewPage}</b>/<span id="book_totalPageCount">${book.totalPageCount}</span>페이지, 총 <b id="book_totalDataCount">${book.totalDataCount}</b>건
+			</c:if>
 		</div>
 		<c:if test="${book.search_text ne null and book.search_text ne ''}">
 		<c:if test="${bookListCnt < 1}">
@@ -331,6 +394,70 @@ function addOnClickListeners() {
 						<jsp:param name="pagingUrl" value="index.do"/>
 					</jsp:include>
 				</div>
+			</div>
+			
+			<div class="ws-filter">
+				<h4>검색결과 제한</h4>
+				<ul>
+				
+					<li class="li-group active"><a href="" class="bi" onclick="return false;">유형별</a>
+						<ul>
+							<c:forEach items="${moreByType}" var="j">
+								<c:set var="cnt" value="${j.cnt}"></c:set>
+								<li><a href="#" class="doSearchType" data-type="${j.type}"><span>${j.name}</span><em>(${j.cnt})</em></a></li>
+							</c:forEach>
+						</ul>
+					</li>
+					
+					<li class="li-group active"><a href="" class="bi" onclick="return false;">저자별</a>
+						<ul>
+							<c:set var="authorCnt" value="0"></c:set>
+							<c:forEach items="${moreByAuthor}" var="j">
+								<c:set var="authorCnt" value="${j.cnt}"></c:set>	
+								<li><a href="#" class="doSearchWriter" data-author_name="${j.author_name}"><span>${j.author_name}</span><em>(${j.cnt})</em></a></li>
+							</c:forEach>
+						</ul>
+						<c:if test="${countByAuthor > 5}">
+							<p><a href="#" class="moreAuthor">더보기 +</a></p>
+						</c:if>
+					</li>
+					<li class="li-group active"><a href="" class="bi" onclick="return false;">출판사</a>
+						<ul>
+							<c:set var="publisherCnt" value="0"></c:set>
+							<c:forEach items="${moreByPublisher}" var="j">
+								<c:set var="publisherCnt" value="${j.cnt}"></c:set>
+								<li><a href="#" class="doSearchPublisher" data-book_pubname="${j.book_pubname}"><span>${j.book_pubname}</span><em>(${j.cnt})</em></a></li>
+							</c:forEach>
+						</ul>
+						<c:if test="${countByPublisher > 5}">
+							<p><a href="#" class="morePublisher">더보기 +</a></p>
+						</c:if>
+					</li>
+					<li class="li-group active"><a href="" class="bi" onclick="return false;">연도별</a>
+						<ul>
+							<c:set var="yearCnt" value="0"></c:set>
+							<c:forEach items="${moreByYear}" var="j">
+								<c:set var="yearCnt" value="${j.cnt}"></c:set>
+								<li><a href="#" class="doSearchYear" data-book_year="${j.book_year}"><span>${j.book_year}</span><em>(${j.cnt})</em></a></li>
+							</c:forEach>
+						</ul>
+						<c:if test="${countByYear > 5}">
+							<p><a href="#" class="moreYear">더보기 +</a></p>
+						</c:if>
+					</li>
+					<li class="li-group active"><a href="" class="bi" onclick="return false;">기기별</a>
+						<ul>
+							<c:set var="deviceCnt" value="0"></c:set>
+							<c:forEach items="${moreByDevice}" var="j">
+								<c:set var="deviceCnt" value="${j.cnt}"></c:set>
+								<li><a href="#" class="doSearchDevice" data-device="${j.device}"><span>${j.label}</span><em>(${j.cnt})</em></a></li>
+							</c:forEach>
+						</ul>
+						<c:if test="${countByDevice > 5}">
+							<p><a href="#" class="moreDevice">더보기 +</a></p>
+						</c:if>
+					</li>
+				</ul>
 			</div>
 		</div>
 		</c:if>

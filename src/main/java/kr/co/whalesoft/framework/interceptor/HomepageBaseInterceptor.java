@@ -1,5 +1,7 @@
 package kr.co.whalesoft.framework.interceptor;
 
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
@@ -28,8 +30,8 @@ import kr.co.whalesoft.app.cms.menu.menuAccess.MenuAccess;
 import kr.co.whalesoft.app.cms.menu.menuAccess.MenuAccessService;
 import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
 import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
-import kr.go.gbelib.app.cms.module.elib.api.DgElibAPIService;
 import kr.go.gbelib.app.cms.module.elib.category.ElibCategory;
+import kr.go.gbelib.app.cms.module.elib.category.ElibCategoryService;
 import kr.go.gbelib.app.cms.module.elib.code.ElibCode;
 import kr.go.gbelib.app.cms.module.elib.code.ElibCodeService;
 
@@ -50,7 +52,10 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 	private MenuAccessService menuAccessService;
 
 	@Autowired
-	private DgElibAPIService dgElibAPIService;
+	private ElibCategoryService elibCategoryService;
+
+	@Autowired
+	private ElibCodeService elibCodeService;
 
 	@Autowired
 	private RecommendSiteService recommendSiteService;
@@ -140,8 +145,14 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 						elibCode.setApproved_yn("Y");
 					}
 
-					List<ElibCategory> categoryList = dgElibAPIService.getLeftCategory();
+					List<ElibCategory> categoryList = elibCategoryService.getCategoryWithCntList(elibCategory);
 					request.setAttribute("categoryMenuList", categoryList);
+
+					List<ElibCode> compList = elibCodeService.getCompWithCntList(elibCode);
+					request.setAttribute("compMenuList", compList);
+
+//					List<Book> deviceList = bookService.getBookCountByDevice(book);
+//					request.setAttribute("deviceMenuList", deviceList);
 				}
 			} else {
 //				return false;
