@@ -155,11 +155,7 @@ public class IndexController extends BaseController {
 		}
 		calendarManage.setHomepage_id(homepage.getHomepage_id());
 		model.addAttribute("calendar", calendarManage);
-		if(homepage.getHomepage_id().equals("h4") || homepage.getHomepage_id().equals("h5") || homepage.getHomepage_id().equals("h8") || homepage.getHomepage_id().equals("h9")) {
-			model.addAttribute("closeDayList", calendarManageService.getClosedDate4(calendarManage));
-		} else {
-			model.addAttribute("closeDayList", calendarManageService.getClosedDate2(calendarManage));
-		}
+		model.addAttribute("closeDayList", calendarManageService.getClosedDate2(calendarManage));
 		return basePath + filePath + "_ajax";
 	}
 
