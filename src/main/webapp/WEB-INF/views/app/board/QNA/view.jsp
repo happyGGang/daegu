@@ -55,14 +55,14 @@ $(document).ready(function() {
 						<c:when test="${board.notice_yn eq 'Y'}">
 						<c:set var="user_name" value="${board.user_name}"/>
 						</c:when>
-						<c:when test="${boardManage.anonymize_yn eq 'Y' and not authMBA and not supportAdmin}">
+						<c:when test="${boardManage.anonymize_yn eq 'Y' and not authMBA and not authMBS}">
 						<c:set var="user_name" value="${fn:substring(board.user_name, -1, 1)}**"/>
 						</c:when>
 						<c:otherwise>
 						<c:set var="user_name" value="${board.user_name}"/>
 						</c:otherwise>
 						</c:choose>
-						<i>작성자</i><span>${user_name}<c:if test="${authMBA or supportAdmin}">(${board.add_id})</c:if></span>
+						<i>작성자</i><span>${user_name}<c:if test="${authMBA or authMBS}">(${board.add_id})</c:if></span>
 						<c:if test="${board.secret_yn eq 'Y' and not empty board.user_phone}">
 						<i>연락처</i><span>${board.user_phone}</span>
 						</c:if>
@@ -70,7 +70,7 @@ $(document).ready(function() {
 						<c:if test="${board.user_ip ne null and board.user_ip ne ''}">
 							<c:set value="${fn:split(board.user_ip, '.')}" var="user_ip"></c:set>
 							<c:choose>
-								<c:when test="${authMBA or supportAdmin}">
+								<c:when test="${authMBA or authMBS}">
 						<i>IP</i><span>${board.user_ip}</span>
 								</c:when>
 								<c:otherwise>
@@ -116,12 +116,12 @@ $(document).ready(function() {
 				<dt>${j.title}</dt>
 				<dd class="info">
 					<div class="panel-left">
-						<i>작성자</i><span>${j.user_name}<c:if test="${authMBA or supportAdmin}">(${j.add_id})</c:if></span>
+						<i>작성자</i><span>${j.user_name}<c:if test="${authMBA or authMBS}">(${j.add_id})</c:if></span>
 						<i>작성일</i><span><fmt:formatDate value="${j.add_date}" pattern="yyyy.MM.dd HH:mm"/></span>
 						<c:if test="${not empty j.user_ip}">
 							<c:set value="${fn:split(j.user_ip, '.')}" var="user_ip"></c:set>
 							<c:choose>
-								<c:when test="${authMBA or supportAdmin}">
+								<c:when test="${authMBA or authMBS}">
 						<i>IP</i><span>${j.user_ip}</span>
 								</c:when>
 								<c:otherwise>
@@ -155,7 +155,7 @@ $(document).ready(function() {
 	</c:when>
 	<c:otherwise>
 
-	<c:if test="${fn:length(boardQnaList) > 0 and authMBA}">
+	<c:if test="${fn:length(boardQnaList) > 0 and authMBA or authMBS}">
 		<a href="" class="btn modify" id="board_reply_edit_btn" keyValue="${boardQnaList[0].board_idx}"><i class="fa fa-pencil-square-o"></i><span>답변수정</span></a>
 		<a href="" class="btn delete" id="board_reply_delete_btn" keyValue="${boardQnaList[0].board_idx}"><i class="fa fa-trash-o"></i><span>답변삭제</span></a>
 	</c:if>
