@@ -275,7 +275,11 @@ ${boardManage.top_html}
 			</tbody>
 		</table>
 		</c:if>
-
+		<div class="bbs-view">
+			<div class="bbs-comment" id="bbs-comment">
+		
+			</div>
+		</div>
 		<jsp:include page="/WEB-INF/views/app/board/common/view/button.jsp" flush="false" />
 	</div>
 </div>

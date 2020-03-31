@@ -72,6 +72,11 @@ ${boardManage.top_html}
 <!-- 		<div class="sbtn"> -->
 <!-- 			<a href="" class="btn"><span>목록으로</span></a> -->
 <!-- 		</div> -->
+		<div class="bbs-view">
+			<div class="bbs-comment" id="bbs-comment">
+		
+			</div>
+		</div>
 		<jsp:include page="/WEB-INF/views/app/board/common/view/button.jsp" flush="false" />
 	</div>
 </div>

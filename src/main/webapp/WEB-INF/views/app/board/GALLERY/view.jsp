@@ -73,6 +73,9 @@ ${boardManage.top_html}
 				<jsp:include page="/WEB-INF/views/app/board/common/view/file.jsp" flush="false" />
 			</dl>
 		</div>
+		<div class="bbs-comment" id="bbs-comment">
+			
+		</div>
 	</div>
 	<jsp:include page="/WEB-INF/views/app/board/common/view/beforeNext.jsp" flush="false" />
 	<jsp:include page="/WEB-INF/views/app/board/common/view/button.jsp" flush="false" />

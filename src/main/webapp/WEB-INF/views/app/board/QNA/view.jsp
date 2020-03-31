@@ -9,6 +9,7 @@
 ${boardManage.top_html}
 </c:if>
 <jsp:include page="/WEB-INF/views/app/board/common/view/script.jsp" flush="false" />
+
 <script>
 $(document).ready(function() {
     <%-- 답변 수정하기 --%>
@@ -154,15 +155,25 @@ $(document).ready(function() {
 	</c:when>
 	<c:otherwise>
 
-	<c:if test="${fn:length(boardQnaList) > 0 and authMBA and supportAdmin}">
+	<c:if test="${fn:length(boardQnaList) > 0 and authMBA}">
 		<a href="" class="btn modify" id="board_reply_edit_btn" keyValue="${boardQnaList[0].board_idx}"><i class="fa fa-pencil-square-o"></i><span>답변수정</span></a>
 		<a href="" class="btn delete" id="board_reply_delete_btn" keyValue="${boardQnaList[0].board_idx}"><i class="fa fa-trash-o"></i><span>답변삭제</span></a>
 	</c:if>
 	</c:otherwise>
 	</c:choose>
+	<div class="bbs-view-header">
+		<dl>
+			<jsp:include page="/WEB-INF/views/app/board/common/view/file.jsp" flush="false" />
+		</dl>
+	</div>
 	</div>
 </div>
 </c:forEach>
+<div class="bbs-view">
+	<div class="bbs-comment" id="bbs-comment">
+		
+	</div>
+</div>
 <c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.bottom_html) > 0}">
 ${boardManage.bottom_html}
 </c:if>

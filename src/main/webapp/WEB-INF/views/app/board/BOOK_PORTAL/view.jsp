@@ -77,8 +77,13 @@ ${boardManage.top_html}
 			</dl>
 		</div>
 		<div style="clear:both">&nbsp;</div>
-
+		<div class="bbs-view">
+			<div class="bbs-comment" id="bbs-comment">
+		
+			</div>
+		</div>
 		<jsp:include page="/WEB-INF/views/app/board/common/view/button.jsp" flush="false" />
+		
 	</div>
 </div>
 
