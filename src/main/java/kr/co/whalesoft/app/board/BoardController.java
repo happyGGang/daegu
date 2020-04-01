@@ -238,12 +238,15 @@ public class BoardController extends BaseController {
 				if(loginSupport.isLogin() == true) {
 					supportAuth = true;
 				}
-				if(loginSupport.isAdmin() == true) {
-					supportAdmin = true;
+				
+				try {
+					supportAdmin = (Boolean) model.asMap().get("authMBS");
+				} catch (Exception e) {
+					supportAdmin = false;
 				}
 			}
 			
-			if (boardManage.getWrite_only_yn().equals("Y") && !"CMS".equals(getSessionMemberLoginType(request)) && !loginSupport.isAdmin()) {
+			if (boardManage.getWrite_only_yn().equals("Y") && !"CMS".equals(getSessionMemberLoginType(request)) && !supportAdmin) {
 				String write_url = "edit.do?manage_idx="+request.getParameter("manage_idx")+"&menu_idx="+request.getParameter("menu_idx");
 				service.alertMessageAndUrl("", write_url, request, response);
 				return null;
@@ -931,7 +934,7 @@ public class BoardController extends BaseController {
 				model.addAttribute("boardManageAll", boardManageAll);
 			}
 		}
-
+		
 		/**
 		 * 유지보수게시판
 		 */

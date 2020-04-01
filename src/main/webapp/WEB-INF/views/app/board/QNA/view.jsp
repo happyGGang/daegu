@@ -161,11 +161,6 @@ $(document).ready(function() {
 	</c:if>
 	</c:otherwise>
 	</c:choose>
-	<div class="bbs-view-header">
-		<dl>
-			<jsp:include page="/WEB-INF/views/app/board/common/view/file.jsp" flush="false" />
-		</dl>
-	</div>
 	</div>
 </div>
 </c:forEach>
