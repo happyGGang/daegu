@@ -1,6 +1,19 @@
 <%@ page language="java" pageEncoding="utf-8" %>
 <%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script>
+$(function() {
+	<c:choose>
+	<c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
+
+	</c:when>
+	<c:otherwise>
+		$('li#menu_149').remove();
+		$('li.menu_149').remove();
+	</c:otherwise>
+</c:choose>
+})
+</script>
 	<div class="head">
 		<div class="Gnb">
 			<h2 class="blind">주메뉴</h2>
