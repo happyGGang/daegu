@@ -37,6 +37,10 @@ public class TopMenuTag extends BodyTagSupport {
 		HtmlTag liTag_lvl3 = null;
 		boolean check_lvl3 = false;
 
+		HtmlTag ulTag_lvl4 = null;
+		HtmlTag liTag_lvl4 = null;
+		boolean check_lvl4 = false;
+
 		int ulMenuCount = 1;
 		if(menuList != null) {
 			for(Menu menu : menuList) {
@@ -123,6 +127,22 @@ public class TopMenuTag extends BodyTagSupport {
 					ulTag_lvl3.addSubTag(liTag_lvl3);
 					if ( !"Y".equals(menu.getView_yn()) ) {
 						liTag_lvl3.setAttribute("style", "display:none");
+					}
+				} else if(menu.getMenu_level() == 4) {
+					if(!check_lvl4) {
+						check_lvl4 = true;
+						ulTag_lvl4 = new HtmlTag("ul");
+						liTag_lvl3.addSubTag(ulTag_lvl4);
+					}
+					if(menu.getMenu_type().equals("LINK_OUTER")) {
+						targetStr = "target=\"_blank\"";
+					}
+					liTag_lvl4 = new HtmlTag("li");
+					liTag_lvl4.setAttribute("class", "4Depth menu_"+menu.getMenu_idx());
+					liTag_lvl4.setContent("<a href=\"" + link_url + "\" " + targetStr + "><span>" + menu.getMenu_name() + "</span></a>");
+					ulTag_lvl4.addSubTag(liTag_lvl4);
+					if ( !"Y".equals(menu.getView_yn()) ) {
+						liTag_lvl4.setAttribute("style", "display:none");
 					}
 				}
 			}
