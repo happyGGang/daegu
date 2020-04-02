@@ -36,6 +36,17 @@ $(function() {
 			$('li#menu_96').remove();
 		</c:otherwise>
 	</c:choose>
+	
+	<c:choose>
+		<c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
+		
+		</c:when>
+		<c:otherwise>
+			$('li#menu_149').remove();
+			$('li.menu_149').remove();
+		</c:otherwise>
+	</c:choose>                                                                                 
+	
 });
 </script>
 <script>
