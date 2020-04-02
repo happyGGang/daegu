@@ -36,6 +36,12 @@ $(function() {
 <form:hidden path="bookkey"/>
 <form:hidden path="booktype"/>
 <form:hidden path="title" value="${detail.TITLE_INFO}"/>
+<c:if test="${homepage.context_path eq 'jungang'}">
+<input type="hidden" name="exprire_date_cnt" value="7"/>
+</c:if>
+<c:if test="${homepage.context_path eq '228'}">
+<input type="hidden" name="exprire_date_cnt" value="3"/>
+</c:if>
 
 <div class="delibery_info">
 
@@ -54,7 +60,7 @@ $(function() {
 				<th>소장도서관</th>
 				<td class="left">${detail.LIB_NAME}</td>
 			 </tr>
-			 <tr>
+			 <!-- <tr>
 				<th>수령장소</th>
 				<td class="left">
 					<form:select path="worker" style="border:1px solid #c9c9c9;border-radius:4px;height:30px">
@@ -63,7 +69,7 @@ $(function() {
 						<option value="SYSUB01">남천동메가마트</option>
 					</form:select>
 				</td>
-			 </tr>
+			 </tr> -->
 			 <tr>
 				<th>도서명</th>
 				<td class="left">${detail.TITLE_INFO}</td>

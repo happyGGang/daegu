@@ -263,13 +263,82 @@ $(function() {
 			<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
 			</c:if>
 
+			<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'thak81' ||  sessionScope.member.member_id eq 'angelmar' ||  sessionScope.member.member_id eq 'qhagottkf' ||  sessionScope.member.member_id eq 'jjoo0204' ||  sessionScope.member.member_id eq 'phm0825' ||  sessionScope.member.member_id eq 'sji71kdc' ||  sessionScope.member.member_id eq 'win0829' ||  sessionScope.member.member_id eq 'xntls77' ||  sessionScope.member.member_id eq 'qhfka12095' ||  sessionScope.member.member_id eq 'mingxanne' ||  sessionScope.member.member_id eq 'tmddms586' ||  sessionScope.member.member_id eq 'kmk1969' ||  sessionScope.member.member_id eq 'ysil20' ||  sessionScope.member.member_id eq 'hoya1022' ||  sessionScope.member.member_id eq 'nihonmat' ||  sessionScope.member.member_id eq 'limimi' ||  sessionScope.member.member_id eq 'one0224' ||  sessionScope.member.member_id eq 'cmk1024' ||  sessionScope.member.member_id eq 'hades530'}">
+
+
+			<c:if test="${detail.WORKING_STATUS eq 'BOL112N'}">
+			
+			<c:choose>
+				<c:when test="${detail.RESERVATION_CNT > '0'}">
+
+				</c:when>
+				<c:otherwise>
+					<c:choose>
+					<c:when test="${homepage.context_path eq 'jungang'}">
+					<%
+					org.joda.time.DateTime now = new org.joda.time.DateTime();
+					int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
+					int hour = now.getHourOfDay();
+
+					if(12 <= hour && hour < 17)
+					{
+					%>
+					<a href="#night" id="night-req" class="btn">워킹스루예약신청</a>
+					<% 
+					} 
+					else 
+					{ 
+					%>
+					<a href="#" class="btn btn1" onclick="alert('신청가능 시간이 아닙니다.');">워킹스루예약신청</a>
+					<%
+					}
+					%>
+					</c:when>
+					<c:otherwise>
+					<%
+					org.joda.time.DateTime now = new org.joda.time.DateTime();
+					int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
+					int hour = now.getHourOfDay();
+
+					if(dayOfWeek == 1 || dayOfWeek == 2 || dayOfWeek == 3 || dayOfWeek == 4 || dayOfWeek == 5)
+					{
+						if(12 <= hour && hour < 17)
+						{
+					%>
+						<a href="#night" id="night-req" class="btn">워킹스루예약신청</a>
+						<% 
+						} 
+						else 
+						{ 
+						%>
+						<a href="#" class="btn btn1" onclick="alert('신청가능 시간이 아닙니다.');">워킹스루예약신청</a>
+						<%
+						}
+						%>
+					<% 
+					} 
+					else
+					{
+					%>
+						<a href="#" class="btn btn1" onclick="alert('신청가능 요일이 아닙니다.');">워킹스루예약신청</a>
+					<%
+					}
+					%>
+					</c:otherwise>
+					</c:choose>
+				</c:otherwise>
+			</c:choose>
+
+			</c:if>
+
+			</c:if>
+
 			<c:choose>
 				<c:when test="${homepage.context_path eq 'jungang'}">
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
 					<c:if test="${detail.RESERVATION_CNT eq '0'}">
 					<c:if test="${detail.SHELF_LOC_CODE eq 'AD02' || detail.SHELF_LOC_CODE eq 'AD03' || detail.SHELF_LOC_CODE eq 'AD04' || detail.SHELF_LOC_CODE eq 'AD06' || detail.SHELF_LOC_CODE eq 'AD07' || detail.SHELF_LOC_CODE eq 'AD08' || detail.SHELF_LOC_CODE eq 'AD14' || detail.SHELF_LOC_CODE eq 'AD18' || detail.SHELF_LOC_CODE eq 'AD19' || detail.SHELF_LOC_CODE eq 'AD20'}">
 					<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
-					<!-- <a href="#night" id="night-req" class="btn">야간예약신청</a> -->
 					</c:if>
 					</c:if>
 					</c:if>
@@ -278,8 +347,7 @@ $(function() {
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
 					<c:if test="${detail.RESERVATION_CNT eq '0'}">
 					<c:if test="${detail.SHELF_LOC_CODE eq 'AA04'}">
-					<!-- <a href="#muin" id="unmanned-req" class="btn">무인예약신청</a> -->
-					<!-- <a href="#night" id="night-req" class="btn">야간예약신청</a> -->
+					<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
 					</c:if>
 					</c:if>
 					</c:if>
