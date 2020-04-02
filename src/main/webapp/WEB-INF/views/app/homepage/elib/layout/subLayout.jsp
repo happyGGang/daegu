@@ -45,7 +45,7 @@ $(function() {
 	$('a.elib-left-menu').on('click', function(e) {
 		e.preventDefault();
 		var url = '/${homepage.context_path}/module/elib/book/index.do';
-		var formData = 'menu_idx=' + $(this).data('menu_idx') + '&menu=' + $(this).data('menu') + '&type=${fn:escapeXml(param.type)}&' + $(this).data('key');
+		var formData = 'menu_idx=' + $(this).data('menu_idx') + '&menu=' + $(this).data('menu') + '&type=${fn:escapeXml(param.type)}&' + $(this).data('key') + '&cate_id=total#cateId';
 		doGetLoad(url, formData);
 	});
 

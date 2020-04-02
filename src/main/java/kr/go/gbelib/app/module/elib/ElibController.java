@@ -183,36 +183,46 @@ public class ElibController extends BaseController {
 		String menu = book.getMenu();
 		if("CATEGORY".equals(menu)) {
 			List<ElibCategory> categoryList = dgElibAPIService.getLeftCategory();
-			List<ElibCategory> subcategoryList = dgElibAPIService.getSubCategory(book);
-
-			model.addAttribute("subcategoryList", subcategoryList);
 			model.addAttribute("book", withLabels(book, categoryList));
 
-			if("000".equals(book.getCate_id())) {
+//			List<ElibCategory> subcategoryList = dgElibAPIService.getSubCategory(book);
+//			model.addAttribute("subcategoryList", subcategoryList);
+
+			Map<String, Object> categorySearch = dgElibAPIService.categorySearch(book);
+			List<Book> bookList = (List<Book>) categorySearch.get("bookList");
+			int count = book.getTotalDataCount();
+			bookService.setPaging(model, count, book);
+
+			List<ElibCategory> subcategoryList = (List<ElibCategory>) categorySearch.get("subCategory");
+			model.addAttribute("subcategoryList", subcategoryList);
+
+
+//			if("total".equals(book.getCate_id())) {
 				ElibCategory elibCategory = new ElibCategory();
 				for(ElibCategory x: categoryList) {
 					if(x.getCate_id().equals(book.getParent_id())) {
 						elibCategory.setCate_name(x.getCate_name());
 					}
 				}
-				model.addAttribute("category", elibCategory);
-			} else {
-				ElibCategory elibCategory = new ElibCategory();
-				for(ElibCategory x: subcategoryList) {
-					if(x.getCate_id().equals(book.getCate_id())) {
-						try {
-							elibCategory.setCate_name(x.getCate_name().replaceAll("\\(.*$", ""));
-						} catch(Exception e) {
-							elibCategory.setCate_name(x.getCate_name());
+//				model.addAttribute("category", elibCategory);
+//			} else {
+//				ElibCategory elibCategory = new ElibCategory();
+				if (subcategoryList != null && subcategoryList.size() > 0) {
+					for(ElibCategory x: subcategoryList) {
+						if (StringUtils.isNotEmpty(x.getCate_id())) {
+							if(x.getCate_id().equals(book.getCate_id())) {
+								try {
+									elibCategory.setCate_name(elibCategory.getCate_name() + " - " + x.getCate_name().replaceAll("\\(.*$", ""));
+								} catch(Exception e) {
+									elibCategory.setCate_name(elibCategory.getCate_name() + " - " + x.getCate_name());
+								}
+							}
 						}
 					}
 				}
 				model.addAttribute("category", elibCategory);
-			}
+//			}
 
-			List<Book> bookList = dgElibAPIService.categorySearch(book);
-			int count = book.getTotalDataCount();
-			bookService.setPaging(model, count, book);
 
 			model.addAttribute("bookList", setStatus(bookList, request));
 			model.addAttribute("bookListCnt", count);

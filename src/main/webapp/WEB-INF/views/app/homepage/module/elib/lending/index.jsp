@@ -189,6 +189,8 @@ function opms_read(url) {
 }
 
 function eco_read(url) {
+	var p = /libCode=[0-9]{6}/gi;
+	url = url.replace(p, 'libCode=000000');
 	var whole = '/elib/module/elib/redirect.do?url=' + encodeURIComponent(url);
 	var popupPlayer = window.open(whole, "ECO", 'width=425,height=355,scrollbars=yes');
 	if (popupPlayer == null) {

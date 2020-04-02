@@ -443,7 +443,9 @@ public class DgElibAPIService extends BaseService {
 	 * @param
 	 * @return
 	 */
-	public List<Book> categorySearch(Book book) {
+	public Map<String, Object> categorySearch(Book book) {
+		Map<String, Object> returnResult = new HashMap<String, Object>();
+
 		List<Book> bookList = new ArrayList<Book>();
 
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -459,7 +461,7 @@ public class DgElibAPIService extends BaseService {
 
 		Map<String, Object> result = parse(send("http://e-lib.tglnet.or.kr/daegu/Search.do", params, "UTF-8"), "UTF-8");
 		if(result == null || "SUCCESS".equals(str(result.get("STATUS"))) == false) {
-			return bookList;
+			return returnResult;
 		} else {
 			book.setTotalDataCount(toZero(num(result.get("total_count"))));
 
@@ -467,8 +469,23 @@ public class DgElibAPIService extends BaseService {
 			for(Map<String, Object> m: list) {
 				bookList.add(toBook(m));
 			}
+			returnResult.put("bookList", bookList);
 
-			return bookList;
+			List<ElibCategory> categoryList = new ArrayList<ElibCategory>();
+			Map<String, Object> categoryInfo = (Map<String, Object>) result.get("category_info");
+			List<Map<String, Object>> categoryListTmp = (List<Map<String, Object>>) categoryInfo.get("category_list");
+			for (Map<String, Object> m : categoryListTmp) {
+				ElibCategory c = new ElibCategory();
+				c.setDepth(2);
+				c.setCate_name(str(m.get("sub_category_desc")));;
+				c.setCate_id(str(m.get("sub_category")));
+				c.setParent_id(book.getParent_id());
+				categoryList.add(c);
+			}
+			returnResult.put("subCategory", categoryList);
+
+
+			return returnResult;
 		}
 	}
 
