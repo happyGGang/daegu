@@ -247,7 +247,7 @@ $(document).ready(function() {
 	</li>
 	</c:forEach>
 </ul>
-<c:if test="${book.menu == 'CATEGORY'}">
+<c:if test="${book.menu ne 'BEST'}">
 <jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 	<jsp:param name="formId" value="#bookListForm"/>
 	<jsp:param name="pagingUrl" value="index.do"/>

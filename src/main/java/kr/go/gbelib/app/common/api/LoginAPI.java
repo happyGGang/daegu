@@ -2,6 +2,7 @@ package kr.go.gbelib.app.common.api;
 
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -63,7 +64,15 @@ public class LoginAPI {
 				member.setUser_manage_code(String.valueOf(userMap.get("USER_MANAGE_CODE")));
 				member.setEmail_service_yn(String.valueOf(userMap.get("MAILING_USE_YN")));
 				member.setSms_service_yn(String.valueOf(userMap.get("SMS_USE_YN")));
-//				member.setLoca(toHomepageCode(member.getUser_manage_code()));
+
+				try {
+					Map<String, Object> libSettingInfoView = LibSearchAPI.getLibSettingInfoView(member.getUser_manage_code(), null, null, null, null, null);
+					List<Map<String, String>> libMap = (List<Map<String, String>>) libSettingInfoView.get("LIB_SETTING_INFO");
+					member.setLib_code(libMap.get(0).get("LIB_CODE"));
+				} catch (Exception e) {
+					log.error("getlibcode error");
+				}
+
 
 				Map<String, Object> userInfo = MemberAPI.getUserInfo(member.getMember_id(), member.getMember_pw());
 				Map<String, Object> memberInfo = null;

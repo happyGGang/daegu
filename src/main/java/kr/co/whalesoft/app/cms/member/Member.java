@@ -162,6 +162,7 @@ public class Member extends PagingUtils implements Serializable {
 
 	//KCMS용 변수
 	private String manage_code;
+	private String lib_code;
 
 
 	public String getPram(String mode) {
@@ -1159,6 +1160,18 @@ public class Member extends PagingUtils implements Serializable {
 
 	public void setAdd_id(String add_id) {
 		this.add_id = add_id;
+	}
+
+
+
+	public String getLib_code() {
+		return lib_code;
+	}
+
+
+
+	public void setLib_code(String lib_code) {
+		this.lib_code = lib_code;
 	}
 
 }

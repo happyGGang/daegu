@@ -68,7 +68,7 @@ $(document).ready(function() {
 		$form.prop('action', '../lending/save.do');
 		if(doAjaxPost($form)) {
 			if(confirm('지금 대출 목록을 확인하시겠습니까?')) {
-				location.href = '/${homepage.context_path}/module/elib/lending/index.do?menu_idx=4&menu=LENDING'
+				location.href = '/${homepage.context_path}/module/elib/lending/index.do?menu_idx=39&menu=LENDING'
 			}
 		}
 		$form.prop('action', 'index.do');
@@ -90,7 +90,7 @@ $(document).ready(function() {
 		$form.prop('action', '../lending/save.do');
 		if(doAjaxPost($form)) {
 			if(confirm('지금 예약 목록을 확인하시겠습니까?')) {
-				location.href = '/${homepage.context_path}/module/elib/lending/index.do?menu_idx=5&menu=RESERVE'
+				location.href = '/${homepage.context_path}/module/elib/lending/index.do?menu_idx=48&menu=RESERVE'
 			}
 		}
 		$form.prop('action', 'index.do');
@@ -134,7 +134,7 @@ $(document).ready(function() {
 		console.log('view.jsp member:', '${member}');
 		console.log('view.jsp member.status_code:', '${member.status_code}')
 		alert('로그인 후 이용 가능합니다.');
-		location.href = '/elib/intro/login/index.do?menu_idx=4&before_url=' + encodeURIComponent(window.location.pathname + window.location.search + window.location.hash);
+		location.href = '/elib/intro/login/index.do?menu_idx=39&before_url=' + encodeURIComponent(window.location.pathname + window.location.search + window.location.hash);
 	});
 	</c:otherwise>
 	</c:choose>
@@ -225,7 +225,7 @@ $(document).ready(function() {
 	$('a.course_view').on('click', function(e) {
 		e.preventDefault();
 		alert('로그인 후 이용 가능합니다.');
-		location.href = '/elib/intro/login/index.do?menu_idx=4&before_url=' + encodeURIComponent(window.location.pathname + window.location.search + window.location.hash);
+		location.href = '/elib/intro/login/index.do?menu_idx=43&before_url=' + encodeURIComponent(window.location.pathname + window.location.search + window.location.hash);
 	});
 	</c:otherwise>
 	</c:choose>
@@ -278,7 +278,7 @@ $(document).ready(function() {
 	$('a.audio_view').on('click', function(e) {
 		e.preventDefault();
 		alert('로그인 후 이용 가능합니다.');
-		location.href = '/elib/intro/login/index.do?menu_idx=4&before_url=' + encodeURIComponent(window.location.pathname + window.location.search + window.location.hash);
+		location.href = '/elib/intro/login/index.do?menu_idx=43&before_url=' + encodeURIComponent(window.location.pathname + window.location.search + window.location.hash);
 	});
 	</c:otherwise>
 	</c:choose>
@@ -351,7 +351,7 @@ function yesb_read(url) {
 
 function go_to_login() {
 	alert('로그인 후 이용 가능합니다.');
-	location.href = '/elib/intro/login/index.do?menu_idx=4&before_url=' + encodeURIComponent(window.location.pathname + window.location.search + window.location.hash);
+	location.href = '/elib/intro/login/index.do?menu_idx=43&before_url=' + encodeURIComponent(window.location.pathname + window.location.search + window.location.hash);
 }
 </script>
 

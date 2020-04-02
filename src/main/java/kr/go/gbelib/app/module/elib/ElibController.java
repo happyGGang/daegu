@@ -55,6 +55,7 @@ import kr.go.gbelib.app.cms.module.elib.lending.Lending;
 import kr.go.gbelib.app.cms.module.elib.lending.LendingService;
 import kr.go.gbelib.app.cms.module.elib.member.ElibMember;
 import kr.go.gbelib.app.cms.module.elib.member.ElibMemberService;
+import kr.go.gbelib.app.common.api.LibSearchAPI;
 
 @Controller
 @RequestMapping(value = {"/{homepagePath}/module/elib"})
@@ -91,7 +92,7 @@ public class ElibController extends BaseController {
 
 	@Autowired
 	private DgElibAPIService dgElibAPIService;
-	
+
 	@ModelAttribute("recommendSiteList")
 	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
@@ -186,7 +187,7 @@ public class ElibController extends BaseController {
 
 			model.addAttribute("subcategoryList", subcategoryList);
 			model.addAttribute("book", withLabels(book, categoryList));
-			
+
 			if("000".equals(book.getCate_id())) {
 				ElibCategory elibCategory = new ElibCategory();
 				for(ElibCategory x: categoryList) {
@@ -208,7 +209,7 @@ public class ElibController extends BaseController {
 				}
 				model.addAttribute("category", elibCategory);
 			}
-			
+
 			List<Book> bookList = dgElibAPIService.categorySearch(book);
 			int count = book.getTotalDataCount();
 			bookService.setPaging(model, count, book);
@@ -227,26 +228,26 @@ public class ElibController extends BaseController {
 		} else if("NEW".equals(menu)) {
 			book.setSortField("BOOK_PUBDT");
 			book.setSortType("DESC");
-			model.addAttribute("book", book);
-			
-			int count = book.getRowCount();
-			bookService.setPaging(model, count, book);
-			
+
 			List<Book> bookList = dgElibAPIService.getNewEbook(book);
 
-			model.addAttribute("bookList", setStatus(bookList, request));
-			model.addAttribute("bookListCnt", count);
-			
-			return String.format(basePath, homepage.getFolder()) + "book/index";
-		} else if("BEST".equals(menu)) {
-			book.setSortField("BOOK_LEND");
-			book.setSortType("DESC");
-			
-			List<Book> bookList = dgElibAPIService.loanBestSearch(book);
-			
 			int count = book.getTotalDataCount();
 			bookService.setPaging(model, count, book);
-			
+
+			model.addAttribute("book", book);
+			model.addAttribute("bookList", setStatus(bookList, request));
+			model.addAttribute("bookListCnt", count);
+
+			return String.format(basePath, homepage.getFolder()) + "book/index";
+		}  else if("BEST".equals(menu)) {
+			book.setSortField("BOOK_LEND");
+			book.setSortType("DESC");
+
+			List<Book> bookList = dgElibAPIService.loanBestSearch(book);
+
+			int count = book.getTotalDataCount();
+			bookService.setPaging(model, count, book);
+
 			model.addAttribute("book", book);
 			model.addAttribute("bookList", setStatus(bookList, request));
 			model.addAttribute("bookListCnt", count);
@@ -270,7 +271,7 @@ public class ElibController extends BaseController {
 			model.addAttribute("book", book);
 			model.addAttribute("bookList", setStatus(bookList, request));
 			model.addAttribute("bookListCnt", count);
-			
+
 			return String.format(basePath, homepage.getFolder()) + "book/index";
 		}
 
@@ -320,7 +321,7 @@ public class ElibController extends BaseController {
 			res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
 			return res;
 		}
-		
+
 		res.setValid(true);
 
 		return res;
@@ -373,7 +374,7 @@ public class ElibController extends BaseController {
 			}
 			return false;
 		}
-		
+
 		return true;
 	}
 
@@ -433,7 +434,7 @@ public class ElibController extends BaseController {
 
 	private String getMobileOS(HttpServletRequest request) {
 		String device = getDevice(request.getHeader("User-Agent"));
-		
+
 		if("I".equals(device)) {
 			return "iOS";
 		} else {
@@ -454,11 +455,17 @@ public class ElibController extends BaseController {
 		List<Lending> lendingList = null;
 		lending.setMember_id(getSessionMemberId(request));
 
+		Member sessionMember = getSessionMemberInfo(request);
+		lending.setUser_manage_code(sessionMember.getUser_manage_code());
+		Map<String, Object> libSettingInfoView = LibSearchAPI.getLibSettingInfoView(sessionMember.getUser_manage_code(), null, null, null, null, null);
+		List<Map<String, String>> libMap = (List<Map<String, String>>) libSettingInfoView.get("LIB_SETTING_INFO");
+		lending.setLibcode(libMap.get(0).get("LIB_CODE"));
+
 		if("LENDING".equals(menu)) {
 			lendingList = dgElibAPIService.loanList(lending);
 			count = lending.getTotalDataCount();
 			lendingService.setPaging(model, count, lending);
-			
+
 			Device device = DeviceUtils.getCurrentDevice(request);
 			ElibMember member = new ElibMember(getSessionMemberInfo(request));
 
@@ -500,12 +507,12 @@ public class ElibController extends BaseController {
 			lendingService.setPaging(model, count, lending);
 		} else if("MYSTUDY".equals(menu)) {
 			List<Lending> orig = lendingService.getFavoritesList(lending);
-			List<Lending> list = new ArrayList<Lending>(); 
-			
+			List<Lending> list = new ArrayList<Lending>();
+
 			for(Lending x: orig) {
 				list.add(dgElibAPIService.detailInfo(x));
 			}
-			
+
 			lendingList = setStatus(list, request);
 			count = lendingService.getFavoritesListCnt(lending);
 			lendingService.setPaging(model, count, lending);
@@ -645,6 +652,11 @@ public class ElibController extends BaseController {
 
 		if(!result.hasErrors()) {
 			lending.setMember_id(getSessionMemberId(request));
+			Member sessionMember = getSessionMemberInfo(request);
+			lending.setUser_manage_code(sessionMember.getUser_manage_code());
+			Map<String, Object> libSettingInfoView = LibSearchAPI.getLibSettingInfoView(sessionMember.getUser_manage_code(), null, null, null, null, null);
+			List<Map<String, String>> libMap = (List<Map<String, String>>) libSettingInfoView.get("LIB_SETTING_INFO");
+			lending.setLibcode(libMap.get(0).get("LIB_CODE"));
 
 			if(elibAccessIpService.getBannedIpCnt(new ElibAccessIp(request.getRemoteAddr())) > 0) {
 				res.setValid(false);
@@ -897,7 +909,7 @@ public class ElibController extends BaseController {
 
 		if ( !StringUtils.isEmpty(book.getSearch_text()) ) {
 			setApporve_yn(book, request);
-			
+
 			int count = 0;
 			int rowCount = book.getRowCount();
 

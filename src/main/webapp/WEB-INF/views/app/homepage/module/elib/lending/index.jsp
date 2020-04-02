@@ -13,19 +13,19 @@ $(document).ready(function() {
 		$('#type').val($(this).data('type'));
 		$('form#lendingListForm').submit();
 	});
-	
+
 	<c:if test="${lending.menu == 'LENDING'}">
-<%--	
+<%--
 	$('a.book_view').on('click', function(e) {
 		e.preventDefault();
 		window.open('http://elib.gbelib.kr:8085/view_if.asp?user_id=${lending.member_id}&barcode=' + $(this).data('book_code'));
 	});
---%>	
-	
+--%>
+
 	$('a.book_return').on('click', function(e) {
 		e.preventDefault();
 		var $form = $('form#lendingListForm');
-		
+
 		if(confirm('반납하시겠습니까?')) {
 			$('#editMode').val('RETURN');
 			$('#book_idx').val($(this).data('book_idx'));
@@ -41,7 +41,7 @@ $(document).ready(function() {
 	$('a.book_extend').on('click', function(e) {
 		e.preventDefault();
 		var $form = $('form#lendingListForm');
-		
+
 		if(confirm('연장하시겠습니까?')) {
 			$('#editMode').val('EXTEND');
 			$('#book_idx').val($(this).data('book_idx'));
@@ -59,7 +59,7 @@ $(document).ready(function() {
 	$('a.book_cancel').on('click', function(e) {
 		e.preventDefault();
 		var $form = $('form#lendingListForm');
-		
+
 		if(confirm('취소하시겠습니까?')) {
 			$('#editMode').val('CANCEL');
 			$('#book_idx').val($(this).data('book_idx'));
@@ -75,7 +75,7 @@ $(document).ready(function() {
 	$('a.book_borrow').on('click', function(e) {
 		e.preventDefault();
 		var $form = $('form#lendingListForm');
-		
+
 		$('#editMode').val('BORROW');
 		$('#book_idx').val($(this).data('book_idx'));
 		$form.prop('action', 'save.do');
@@ -86,11 +86,11 @@ $(document).ready(function() {
 		}
 		$form.prop('action', 'index.do');
 	})
-	
+
 	$('a.book_reserve').on('click', function(e) {
 		e.preventDefault();
 		var $form = $('form#lendingListForm');
-		
+
 		$('#editMode').val('RESERVE');
 		$('#book_idx').val($(this).data('book_idx'));
 		$form.prop('action', 'save.do');
@@ -101,11 +101,11 @@ $(document).ready(function() {
 		}
 		$form.prop('action', 'index.do');
 	})
-	
+
 	$('a.book_deletefavorite').on('click', function(e) {
 		e.preventDefault();
 		var $form = $('form#lendingListForm');
-		
+
 		if(confirm('삭제하시겠습니까?')) {
 			$('#editMode').val('DELETEFAVORITE');
 			$('#book_idx').val($(this).data('book_idx'));
@@ -116,21 +116,21 @@ $(document).ready(function() {
 		}
 	});
 	</c:if>
-	
+
 	//달력(통계 기간 선택 오류 방지)
 	$('input#dateStart').datepicker({
-		maxDate: $('input#dateEnd').val(), 
+		maxDate: $('input#dateEnd').val(),
 		onClose: function(selectedDate){
 			$('input#dateEnd').datepicker('option', 'minDate', selectedDate);
 		}
 	});
 	$('input#dateEnd').datepicker({
-		minDate: $('input#dateStart').val(), 
+		minDate: $('input#dateStart').val(),
 		onClose: function(selectedDate){
 			$('input#dateStart').datepicker('option', 'maxDate', selectedDate);
 		}
 	});
-	
+
 	$('button#searchBtn').on('click', function(e) {
 		$('#viewPage').attr('value', '1');
 		var param = $(lendingListForm).serialize();
@@ -143,35 +143,38 @@ function readBook(arg) {
 	if (arg != null && arg != '' && arg.length > 0) {
 		var newWinBook = window.open(arg);
 		if (newWinBook == null) {
-			alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.busan.go.kr 추가");
+			alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.daegu.go.kr 추가");
 			return false;
-		} 
+		}
 	}
 }
 
 function yesb_read(url) {
 	var popupPlayer = window.open(url, "YESB", 'width=640,height=480,scrollbars=yes');
 	if (popupPlayer == null) {
-		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.busan.go.kr 추가");
+		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.daegu.go.kr 추가");
 		return false;
-	} 
+	}
 }
 
 function yesb_read2(url) {
 	var popupPlayer = window.open(url, "YESB", 'width=715,height=415,scrollbars=yes');
 	if (popupPlayer == null) {
-		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.busan.go.kr 추가");
+		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.daegu.go.kr 추가");
 		return false;
 	}
 }
 
-function fxli_read(book_num) {
+function fxli_read(book_num, lib_code) {
 	$('input#book_num').val(book_num);
+	$('input#param_1').val(lib_code + '_' + '${lending.member_id}'.toUpperCase());
+	$('input#param_2').val(lib_code + '_' + '${lending.member_id}'.toUpperCase());
+	$('input#param_3').val(lib_code + '_' + '${lending.member_id}'.toUpperCase());
 	$('form#frm_fx').prop('action', 'http://e-lib.tglnet.or.kr:9080/FxLibrary/dependency/sso/sso.jsp');
 	$('form#frm_fx').prop('target', 'FXLI');
 	var popupPlayer = window.open('', "FXLI", 'width=640,height=760,scrollbars=yes');
 	if (popupPlayer == null) {
-		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.busan.go.kr 추가");
+		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.daegu.go.kr 추가");
 		return false;
 	}
 	$('form#frm_fx').submit();
@@ -182,16 +185,16 @@ function opms_read(url) {
 	if (popupPlayer == null) {
 		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.ice.go.kr 추가");
 		return false;
-	} 
+	}
 }
 
 function eco_read(url) {
-	var whole = 'http://<%=request.getServerName()%>/elib/module/elib/redirect.do?url=' + encodeURIComponent(url);
+	var whole = '/elib/module/elib/redirect.do?url=' + encodeURIComponent(url);
 	var popupPlayer = window.open(whole, "ECO", 'width=425,height=355,scrollbars=yes');
 	if (popupPlayer == null) {
 		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.ice.go.kr 추가");
 		return false;
-	} 
+	}
 }
 
 function checkApp(url, com_code) {
@@ -210,12 +213,12 @@ function checkApp(url, com_code) {
 		_APP_SCHEME = "yes24lib-yes24viewer";
 		_APP_PACKAGE_ID = "com.yes24.yes24viewer";
 	}
-	
+
 	var ua = navigator.userAgent;
 	var isIphone = ua.indexOf('iPhone') !== -1 || ua.indexOf('iPod') !== -1;
 	var isIpad = ua.indexOf('iPad') !== -1;
 	var isAndroid = ua.indexOf('Android') !== -1;
-	
+
     if (isIphone) {
     	if(confirm('뷰어앱이 설치되어 있으면 확인(승인)을 클릭하시고,\n설치되어 있지 않다면 취소를 클릭하세요. (앱스토어 이동)')) {
 	        window.location.href = url;
@@ -253,12 +256,12 @@ function opmsCheckApp(server_url, book_id, user_id) {
 	var _APP_INSTALL_URL_ANDROID = "https://play.google.com/store/apps/details?id=com.wjopms.ebooklibrary";
 	var _APP_SCHEME = "wjopms";
 	var _APP_PACKAGE_ID = "com.wjopms.ebooklibrary";
-	
+
 	var ua = navigator.userAgent;
 	var isIphone = ua.indexOf('iPhone') !== -1 || ua.indexOf('iPod') !== -1;
 	var isIpad = ua.indexOf('iPad') !== -1;
 	var isAndroid = ua.indexOf('Android') !== -1;
-	
+
     if (isIphone) {
     	var url = 'wjopms://app?script=download&host=' + server_url + '&book_id=' + book_id + '&user_id=' + user_id + '&subview=V_MYBOOKS';
     	if(confirm('뷰어앱이 설치되어 있으면 확인(승인)을 클릭하시고,\n설치되어 있지 않다면 취소를 클릭하세요. (앱스토어 이동)')) {
@@ -284,12 +287,12 @@ function opmsCheckApp(server_url, book_id, user_id) {
 
 function goto_store() {
 	alert('스토어로 이동합니다');
-	
+
 	var ua = navigator.userAgent;
 	var isIphone = ua.indexOf('iPhone') !== -1 || ua.indexOf('iPod') !== -1;
 	var isIpad = ua.indexOf('iPad') !== -1;
 	var isAndroid = ua.indexOf('Android') !== -1;
-	
+
 	if(isIphone || isIpad) {
 		window.location.href = 'https://apps.apple.com/kr/app/id574705183';
 	} else if(isAndroid) {
@@ -300,11 +303,11 @@ function goto_store() {
 
 }
 </script>
-
-<form id="frm_fx" name="frm_fx" method="post" action="http://ebook.busan.go.kr:8080/FxLibrary/dependency/sso/sso.jsp" target="_blank" accept-charset="utf-8">
-    <input type="hidden" name="param_1" value="${lending.member_id}">
-    <input type="hidden" name="param_2" value="${lending.member_id}">
-    <input type="hidden" name="param_3" value="${lending.member_id}">
+<span style="color: white;">${lending.libcode }</span>
+<form id="frm_fx" name="frm_fx" method="post" action="http://ebook.daegu.go.kr:8080/FxLibrary/dependency/sso/sso.jsp" target="_blank" accept-charset="utf-8">
+    <input type="hidden" name="param_1" id="param_1" value="${lending.member_id}">
+    <input type="hidden" name="param_2" id="param_2" value="${lending.member_id}">
+    <input type="hidden" name="param_3" id="param_3" value="${lending.member_id}">
     <input type="hidden" name="pathtype" value="PC">
     <input type="hidden" name="next" value="bookplayer">
  	<input type="hidden" name="book_num" id="book_num">
@@ -411,7 +414,7 @@ function goto_store() {
 							<c:set var="read" value="checkApp('${data['appurl']}', '${i.com_code}'); return false;"/>
 						</c:when>
 						<c:when test="${empty i.viewer_url}">
-							<c:set var="read" value="fxli_read('${i.book_code}'); return false;"/>
+							<c:set var="read" value="fxli_read('${i.book_code}', '${i.library_code}'); return false;"/>
 						</c:when>
 						<c:otherwise>
 							<c:set var="read" value="yesb_read('${i.viewer_url}'); return false;"/>

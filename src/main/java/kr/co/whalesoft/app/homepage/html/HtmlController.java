@@ -1,10 +1,12 @@
 package kr.co.whalesoft.app.homepage.html;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.whalesoft.app.cms.homepage.Homepage;
@@ -48,5 +50,17 @@ public class HtmlController extends BaseController {
 	public String elib(Model model, Menu menu, HttpServletRequest request) {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 		return basePath + homepage.getFolder() + "/elib";
+	}
+
+	@RequestMapping(value = {"/{contextPath}/html/{ssoMode}.*"})
+	public String html2(Model model, Menu menu, @PathVariable("ssoMode") String ssoMode, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+
+//		if (!isLogin(request)) {
+//			menuHtmlService.alertMessage("로그인 후 이용가능합니다.", request, response);
+//			return null;
+//		}
+
+		return basePath + homepage.getFolder() + "/html/" + ssoMode;
 	}
 }

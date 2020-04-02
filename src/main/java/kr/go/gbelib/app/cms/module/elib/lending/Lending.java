@@ -60,7 +60,8 @@ public class Lending extends PagingUtils {
 	private boolean isReservable;
 	private boolean isLendable;
 	private String viewer_url;
-	
+	private String user_manage_code;
+
 	public Lending() {}
 	public Lending(int lend_idx) {
 		this.lend_idx = lend_idx;
@@ -315,19 +316,19 @@ public class Lending extends PagingUtils {
 	public void setBarcode(String barcode) {
 		this.barcode = barcode;
 	}
-	
+
 	public String getLibcode() {
 		return libcode;
 	}
-	
+
 	public void setLibcode(String libcode) {
 		this.libcode = libcode;
 	}
-	
+
 	public String getLesson_no() {
 		return lesson_no;
 	}
-	
+
 	public void setLesson_no(String lesson_no) {
 		this.lesson_no = lesson_no;
 	}
@@ -403,5 +404,13 @@ public class Lending extends PagingUtils {
 	public void setViewer_url(String viewer_url) {
 		this.viewer_url = viewer_url;
 	}
-	
+
+	public String getUser_manage_code() {
+		return user_manage_code;
+	}
+
+	public void setUser_manage_code(String user_manage_code) {
+		this.user_manage_code = user_manage_code;
+	}
+
 }

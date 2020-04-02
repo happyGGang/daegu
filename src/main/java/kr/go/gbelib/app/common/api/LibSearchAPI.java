@@ -813,6 +813,41 @@ public class LibSearchAPI {
 	}
 
 	/**
+	 * K.API - 37
+	 *
+	 * 도서관 설정정보 조회
+	 *
+	 * @author whalesoft YONGJU 2020. 4. 2.
+	 * @param manage_code 검색대상 도서관 관리코드 여러 개인 경우 comma(,)로 연결 미입력시 전체도서관 검색
+	 * @param option 0 : KBILL 미사용 조회, 1 : KBILL 사용 조회 (미입력시 기본값 : 0)
+	 * @param offer_yn KBILL 사용 시 상호대차 제공여부
+	 * @param loan_yn KBILL 사용 시 상호대차 대출가능여부
+	 * @param return_yn KBILL 사용 시 상호대차 반납가능여부
+	 * @param group_code KBILL 사용 시 상호대차 그룹코드
+	 * @return
+	 */
+	public static Map<String, Object> getLibSettingInfoView(String manage_code, String option, String offer_yn, String loan_yn, String return_yn, String group_code) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("manage_code", manage_code);
+		if (StringUtils.isNotEmpty(option)) {
+			param.put("option", option);
+		}
+		if (StringUtils.isNotEmpty(offer_yn)) {
+			param.put("offer_yn", offer_yn);
+		}
+		if (StringUtils.isNotEmpty(loan_yn)) {
+			param.put("loan_yn", loan_yn);
+		}
+		if (StringUtils.isNotEmpty(return_yn)) {
+			param.put("return_yn", return_yn);
+		}
+		if (StringUtils.isNotEmpty(group_code)) {
+			param.put("group_code", group_code);
+		}
+		return CommonAPI.sendKCMS("libsettinginfoview", param);
+	}
+
+	/**
 	 * K.API - 44
 	 *
 	 * 단행본 상세검색 조회 (단행본 일반검색은 getBookNormal)
