@@ -49,7 +49,7 @@ $(document).ready(function() {
 	$('#board').after('<div id="previewBox" style="display:none;"><div></div></div>');
 	$('a#board_preview_btn').on('click', function(e) {
 		e.preventDefault();
-		<c:if test="${boardManage.editor_use_yn eq 'Y'}">
+		<c:if test="${boardManage.editor_use_yn eq 'Y' and !isMobile}">
 		oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
 		</c:if>
 		$('#cloneBoard').remove();
@@ -98,7 +98,7 @@ $(document).ready(function() {
 
 	$('a#board_save_btn').on('click', function(e) {
 		e.preventDefault();
-		
+
 		var agreeLength = $('div.agree_codes input[name="agree_codes"]').length;
 		for(var i = 1; i <= agreeLength; i++) {
 			if(!$('#terms'+i).prop('checked')) {
@@ -106,7 +106,7 @@ $(document).ready(function() {
 				return false;
 			}
 		}
-		
+
 		$('#boardFileArray > option').prop('selected', true);
 
 		<c:if test="${boardManage.editor_use_yn eq 'Y'}">
