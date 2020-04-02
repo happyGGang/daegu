@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.framework.base.BaseController;
+import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.cms.module.libraryCheck.LibraryCheck;
@@ -38,7 +39,8 @@ public class LibraryCheckController extends BaseController {
 	private LibraryCheckService service;
 	
 	@RequestMapping (value = {"/index.*"}, method = RequestMethod.GET)
-	public String index(Model model, LibraryCheck libraryCheck, HttpServletRequest request) {
+	public String index(Model model, LibraryCheck libraryCheck, HttpServletRequest request) throws AuthException {
+		checkAuth("R", model, request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		
 		service.setPaging(model, service.getLibraryCheckCount(libraryCheck), libraryCheck);
@@ -50,10 +52,11 @@ public class LibraryCheckController extends BaseController {
 	}
 	
 	@RequestMapping (value = {"/edit.*"}, method = RequestMethod.GET)
-	public String edit(Model model, LibraryCheck libraryCheck, HttpServletRequest request) {
+	public String edit(Model model, LibraryCheck libraryCheck, HttpServletRequest request) throws AuthException {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 		if(libraryCheck.getEditMode().equals("MODIFY")) {
+			checkAuth("U", model, request);
 			int menu_idx = libraryCheck.getMenu_idx();
 			libraryCheck = (LibraryCheck)service.copyObjectPaging(libraryCheck, service.getLibraryCheckOne(libraryCheck));
 			libraryCheck.setMenu_idx(menu_idx);
@@ -64,7 +67,8 @@ public class LibraryCheckController extends BaseController {
 	}
 	
 	@RequestMapping (value = {"/view.*"}, method = RequestMethod.GET)
-	public String view(Model model, LibraryCheck libraryCheck, HttpServletRequest request) {
+	public String view(Model model, LibraryCheck libraryCheck, HttpServletRequest request) throws AuthException {
+		checkAuth("R", model, request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		int menu_idx = libraryCheck.getMenu_idx();
 
@@ -125,6 +129,7 @@ public class LibraryCheckController extends BaseController {
 	
 	@RequestMapping (value = {"/loanList.*"}, method = RequestMethod.GET)
 	public String loanList(Model model, LibraryCheck libraryCheck, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		checkAuth("R", model, request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		
 		SupportMember supportMember = sessionLoginSupport(request);
@@ -148,7 +153,8 @@ public class LibraryCheckController extends BaseController {
 	}
 	
 	@RequestMapping (value = {"/loanView.*"}, method = RequestMethod.GET)
-	public String loanView(Model model, LibraryCheck libraryCheck, HttpServletRequest request) {
+	public String loanView(Model model, LibraryCheck libraryCheck, HttpServletRequest request) throws AuthException {
+		checkAuth("R", model, request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		
 		libraryCheck = (LibraryCheck)service.copyObjectPaging(libraryCheck, service.getLibraryCheckLoanOne(libraryCheck));
@@ -169,10 +175,12 @@ public class LibraryCheckController extends BaseController {
 		}
 
 		if(libraryCheck.getEditMode().equals("MODIFY")) {
+			checkAuth("U", model, request);
 			int menu_idx = libraryCheck.getMenu_idx();
 			libraryCheck = (LibraryCheck)service.copyObjectPaging(libraryCheck, service.getLibraryCheckLoanOne(libraryCheck));
 			libraryCheck.setMenu_idx(menu_idx);
 		} else {
+			checkAuth("C", model, request);
 			libraryCheck.setLoan_start_date(service.getWeekFriday(libraryCheck));
 		}
 		

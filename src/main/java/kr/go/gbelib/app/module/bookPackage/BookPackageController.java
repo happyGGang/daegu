@@ -49,7 +49,8 @@ public class BookPackageController extends BaseController {
 	private BookPackageService service;
 	
 	@RequestMapping(value = {"/index.*"}, method = RequestMethod.GET)
-	public String index(Model model, BookPackage bookPackage, HttpServletRequest request) {
+	public String index(Model model, BookPackage bookPackage, HttpServletRequest request) throws AuthException {
+		checkAuth("R", model, request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		
 		if(bookPackage.getCategory() == null) {
@@ -65,10 +66,12 @@ public class BookPackageController extends BaseController {
 	}
 	
 	@RequestMapping(value = {"/edit.*"})
-	public String edit(Model model, BookPackage bookPackage, HttpServletRequest request) {
+	public String edit(Model model, BookPackage bookPackage, HttpServletRequest request) throws AuthException {
+		
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		
 		if(bookPackage.getEditMode().equals("MODIFY")) {
+			checkAuth("U", model, request);
 			int menu_idx = bookPackage.getMenu_idx();
 			bookPackage = (BookPackage)service.copyObjectPaging(bookPackage, service.getBookPackageOne(bookPackage));
 			bookPackage.setMenu_idx(menu_idx);
@@ -176,6 +179,7 @@ public class BookPackageController extends BaseController {
 	
 	@RequestMapping (value = {"/loanList.*"}, method = RequestMethod.GET)
 	public String bookPackageLoanList(Model model, BookPackage bookPackage, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		checkAuth("R", model, request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		SupportMember loginSupport = sessionLoginSupport(request);
 		
@@ -197,7 +201,8 @@ public class BookPackageController extends BaseController {
 	}
 	
 	@RequestMapping (value = {"/loanView.*"}, method = RequestMethod.GET)
-	public String loanView(Model model, BookPackage bookPackage, HttpServletRequest request) {
+	public String loanView(Model model, BookPackage bookPackage, HttpServletRequest request) throws AuthException {
+		checkAuth("R", model, request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		
 		bookPackage = (BookPackage)service.copyObjectPaging(bookPackage, service.getBookPackageLoanOne(bookPackage));
@@ -220,6 +225,7 @@ public class BookPackageController extends BaseController {
 		int menu_idx = bookPackage.getMenu_idx();
 		
 		if(bookPackage.getEditMode().equals("MODIFY")) {
+			checkAuth("U", model, request);
 			
 			bookPackage = (BookPackage)service.copyObjectPaging(bookPackage, service.getBookPackageLoanOne(bookPackage));
 			String[] phone = bookPackage.getPhone().split("-");
@@ -233,6 +239,7 @@ public class BookPackageController extends BaseController {
 			bookPackage.setSchool_tel_3(school_tel[2]);
 			
 		} else {
+			checkAuth("C", model, request);
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Calendar cal = Calendar.getInstance();

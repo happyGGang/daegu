@@ -41,7 +41,8 @@ public class PictureBookController extends BaseController {
 	private PictureBookService service;
 	
 	@RequestMapping (value = {"/index{url}.*"}, method = RequestMethod.GET)
-	public String index(Model model, PictureBook pictureBook, HttpServletRequest request, @PathVariable("url") String url) {
+	public String index(Model model, PictureBook pictureBook, HttpServletRequest request, @PathVariable("url") String url) throws AuthException {
+		checkAuth("R", model, request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		
 //		service.setPaging(model, service.getPictureBookCount(pictureBook), pictureBook);
@@ -54,6 +55,7 @@ public class PictureBookController extends BaseController {
 	
 	@RequestMapping (value = {"/view{url}.*"}, method = RequestMethod.GET)
 	public String view(Model model, PictureBook pictureBook, HttpServletRequest request,  @PathVariable("url") String url) throws AuthException {
+		checkAuth("R", model, request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		int menu_idx = pictureBook.getMenu_idx();
 		String loan_year = pictureBook.getLoan_year();
@@ -71,6 +73,7 @@ public class PictureBookController extends BaseController {
 	
 	@RequestMapping (value = {"/loanList.*"}, method = RequestMethod.GET)
 	public String loanList(Model model, PictureBook pictureBook, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		checkAuth("R", model, request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		
 		SupportMember loginSupport = sessionLoginSupport(request);
@@ -97,7 +100,8 @@ public class PictureBookController extends BaseController {
 	}
 	
 	@RequestMapping (value = {"/loanView.*"}, method = RequestMethod.GET)
-	public String loanView(Model model, PictureBook pictureBook, HttpServletRequest request) {
+	public String loanView(Model model, PictureBook pictureBook, HttpServletRequest request) throws AuthException {
+		checkAuth("R", model, request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		
 		pictureBook = (PictureBook)service.copyObjectPaging(pictureBook, service.getPictureBookLoanOne(pictureBook));
@@ -118,10 +122,12 @@ public class PictureBookController extends BaseController {
 		}
 		
 		if(pictureBook.getEditMode().equals("MODIFY")) {
+			checkAuth("U", model, request);
 			PictureBook pictureBookOne = (PictureBook)service.copyObjectPaging(pictureBook, service.getPictureBookLoanOne(pictureBook));
 			pictureBookOne.setMenu_idx(pictureBook.getMenu_idx());
 			model.addAttribute("pictureBook", pictureBookOne);
 		} else {
+			checkAuth("C", model, request);
 			model.addAttribute("pictureBook", pictureBook);
 		}
 		
