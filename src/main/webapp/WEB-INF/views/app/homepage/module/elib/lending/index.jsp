@@ -343,7 +343,7 @@ function goto_store() {
 		<div class="thumb">
 			<a href="#" class="book_link" data-book_idx="${i.book_idx}" data-type="${i.type}" style="background:url(/resources/board/img/lock-bg.gif) no-repeat center center">
 				<c:if test="${not empty i.book_image}">
-				<img src="${i.book_image}" alt="${i.book_name}"/>
+				<img src="${i.book_image}" alt="${i.book_name}" onerror="this.src='/resources/homepage/dgportal/img/book_noimg.png'"/>
 				</c:if>
 				<c:if test="${empty i.book_image}">
 				<img src="/resources/common/img/noImg.gif" alt="noImage"/>

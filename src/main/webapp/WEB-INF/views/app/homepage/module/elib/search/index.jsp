@@ -307,7 +307,7 @@ function addOnClickListeners() {
 									</c:when>
 									<c:otherwise>
 										<a href="#" data-book_idx="${i.book_idx}" data-type="${i.type}" class="goDetail">
-											<img src="${i.book_image}" alt="${i.book_name}"/>
+											<img src="${i.book_image}" alt="${i.book_name}" onerror="this.src='/resources/homepage/dgportal/img/book_noimg.png'"/>
 										</a>
 									</c:otherwise>
 								</c:choose>
