@@ -44,6 +44,7 @@ $(function() {
 		<c:otherwise>
 			$('li#menu_149').remove();
 			$('li.menu_149').remove();
+			$('a[href="/dongbu/board/index.do?menu_idx=149&manage_idx=302"]').parent().remove();
 		</c:otherwise>
 	</c:choose>
 
