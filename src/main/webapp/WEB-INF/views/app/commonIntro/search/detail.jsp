@@ -80,6 +80,12 @@ $(function() {
 	});
 	</c:if >
 
+	if (document.referrer.indexOf('/intro/search/index.do') > -1) {
+		$('a#goBack').on('click', function(e) {
+			e.preventDefault();
+			history.back();
+		});
+	}
 // 	$('div#bookReviewDiv').load('/${homepage.context_path}/module/bookReview/index.do?menu_idx=${fn:escapeXml(param.menu_idx)}&manage_code=${fn:escapeXml(detail.MANAGE_CODE)}&reg_no=${fn:escapeXml(detail.REG_NO)}');
 });
 
@@ -267,7 +273,7 @@ $(function() {
 
 
 			<c:if test="${detail.WORKING_STATUS eq 'BOL112N'}">
-			
+
 			<c:choose>
 				<c:when test="${detail.RESERVATION_CNT > '0'}">
 
@@ -284,10 +290,10 @@ $(function() {
 					{
 					%>
 					<a href="#night" id="night-req" class="btn">워킹스루예약신청</a>
-					<% 
-					} 
-					else 
-					{ 
+					<%
+					}
+					else
+					{
 					%>
 					<a href="#" class="btn btn1" onclick="alert('신청가능 시간이 아닙니다.');">워킹스루예약신청</a>
 					<%
@@ -306,17 +312,17 @@ $(function() {
 						{
 					%>
 						<a href="#night" id="night-req" class="btn">워킹스루예약신청</a>
-						<% 
-						} 
-						else 
-						{ 
+						<%
+						}
+						else
+						{
 						%>
 						<a href="#" class="btn btn1" onclick="alert('신청가능 시간이 아닙니다.');">워킹스루예약신청</a>
 						<%
 						}
 						%>
-					<% 
-					} 
+					<%
+					}
 					else
 					{
 					%>
