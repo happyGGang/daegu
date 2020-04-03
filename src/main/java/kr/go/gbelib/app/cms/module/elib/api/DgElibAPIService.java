@@ -96,6 +96,8 @@ public class DgElibAPIService extends BaseService {
 			e.printStackTrace();
 		} finally {
 			if(response != null) try { response.close(); } catch (IOException e) { 	}
+			if(rd != null) try { rd.close(); } catch (IOException e) { 	}
+			if(client != null) try { client.close(); } catch (IOException e) { 	}
 		}
 
 		String resultString = result.toString();
