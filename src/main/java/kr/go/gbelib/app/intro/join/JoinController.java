@@ -266,6 +266,29 @@ public class JoinController extends BaseController {
 			return basePath + "certReseponse_ajax";
 		}
 
+		// 핸드폰 인증 변경
+		// mode = "changeTel";
+		if (StringUtils.isNotEmpty(mode) && mode.equals("changetel")) {
+			model.addAttribute("changeTel", true);
+//			request.getSession().setAttribute("changeTel", "o");
+			
+			Member sessionMember = getSessionMemberInfo(request);
+			Map<String, Object> certMember = MemberAPI.checkDupUser("1", member).get(0);
+			
+			if (StringUtils.equals(sessionMember.getRec_key(), String.valueOf(certMember.get("REC_KEY")))
+					&& StringUtils.equals(sessionMember.getMember_id(), String.valueOf(certMember.get("USER_ID")))) {
+				String cell_phone = member.getCell_phone();
+				if (StringUtils.isNotEmpty(cell_phone) && !StringUtils.equals(cell_phone, "null")) {
+					sessionMember.setCell_phone(cell_phone);
+					sessionMember.setCell_phone1(member.getCell_phone1());
+					sessionMember.setCell_phone2(member.getCell_phone2());
+					sessionMember.setCell_phone3(member.getCell_phone3());
+				}
+			}
+			
+			return basePath + "certReseponse_ajax";
+		}
+
 		// 비회원 게시판 글쓰기
 		// mode = "board";
 		if (StringUtils.isNotEmpty(mode) && mode.equals("board")) {

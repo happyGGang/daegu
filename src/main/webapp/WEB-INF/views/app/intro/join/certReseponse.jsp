@@ -111,6 +111,13 @@ $(function() {
 			window.close();
 			return false;
 		}
+	} else if ('${changeTel}' == 'true') {
+		window.opener.$('#cell_phone1').val('${member.cell_phone1}');
+		window.opener.$('#cell_phone2').val('${member.cell_phone2}');
+		window.opener.$('#cell_phone3').val('${member.cell_phone3}');
+		
+		window.close();
+		return false;
 	} else {
 		if ('${parent}' == 'true') {
 			var certType = '${certType}';
