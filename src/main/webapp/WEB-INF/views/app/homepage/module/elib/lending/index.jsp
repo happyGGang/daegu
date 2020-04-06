@@ -189,14 +189,28 @@ function opms_read(url) {
 }
 
 function eco_read(url) {
-	var p = /libCode=[0-9]{6}/gi;
-	url = url.replace(p, 'libCode=000000');
+	//var p = /libCode=[0-9]{6}/gi;
+	//url = url.replace(p, 'libCode=000000');
 	var whole = '/elib/module/elib/redirect.do?url=' + encodeURIComponent(url);
 	var popupPlayer = window.open(whole, "ECO", 'width=425,height=355,scrollbars=yes');
 	if (popupPlayer == null) {
 		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.ice.go.kr 추가");
 		return false;
 	}
+}
+
+function eco_read2(libCode, ownerCode, contentsKey) {
+	$('input#libCode').val(libCode);
+	$('input#ownerCode').val(ownerCode);
+	$('input#contentsKey').val(contentsKey);
+	$('form#frm_eco').prop('action', 'http://e-lib.tglnet.or.kr:8099/ebookPlatform/b2b_homepage/B2B06_MyPage/chkViewer.jsp');
+	$('form#frm_eco').prop('target', 'ECO');
+	var popupPlayer = window.open('', "ECO", 'width=425,height=355,scrollbars=yes');
+	if (popupPlayer == null) {
+		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.ice.go.kr 추가");
+		return false;
+	}
+	$('form#frm_eco').submit();
 }
 
 function checkApp(url, com_code) {
@@ -314,6 +328,14 @@ function goto_store() {
     <input type="hidden" name="next" value="bookplayer">
  	<input type="hidden" name="book_num" id="book_num">
 </form>
+
+<form id="frm_eco" name="frm_eco" method="post" action="http://e-lib.tglnet.or.kr:8099/ebookPlatform/b2b_homepage/B2B06_MyPage/chkViewer.jsp" target="_blank" accept-charset="utf-8">
+    <input type="hidden" name="libCode" id="libCode" value="${sessionScope.member.lib_code}">
+    <input type="hidden" name="ownerCode" id="ownerCode" value="${lending.member_id}">
+    <input type="hidden" name="userId" id="userId" value="${lending.member_id}">
+    <input type="hidden" name="contentsKey" id="contentsKey" value="">
+</form>
+
 <form:form id="lendingListForm" modelAttribute="lending" action="view.do" method="GET">
 <form:hidden path="editMode"/>
 <form:hidden path="menu_idx"/>
@@ -416,7 +438,7 @@ function goto_store() {
 							<c:set var="read" value="checkApp('${data['appurl']}', '${i.com_code}'); return false;"/>
 						</c:when>
 						<c:when test="${empty i.viewer_url}">
-							<c:set var="read" value="fxli_read('${i.book_code}', '${i.library_code}'); return false;"/>
+							<c:set var="read" value="fxli_read('${i.book_code}', '${sessionScope.member.lib_code}'); return false;"/>
 						</c:when>
 						<c:otherwise>
 							<c:set var="read" value="yesb_read('${i.viewer_url}'); return false;"/>
@@ -439,7 +461,13 @@ function goto_store() {
 					</c:when>
 					<c:when test="${i.com_code == 'EC' and empty i.viewer_url}">
 						<%-- TODO: ECO 뷰어 URL 받아서 교체해야 함 --%>
-						<c:set var="read" value="javascript:eco_read('http://e-lib.tglnet.or.kr:8099/ebookPlatform/b2b_homepage/B2B06_MyPage/chkViewer.jsp?libCode=122004&ownerCode=EC&userId=${lending.member_id}&contentsKey=${i.book_code}'); return false;"/>
+						<%--<c:set var="read" value="javascript:eco_read('http://e-lib.tglnet.or.kr:8099/ebookPlatform/b2b_homepage/B2B06_MyPage/chkViewer.jsp?libCode=${sessionScope.member.lib_code}&ownerCode=EC&userId=${lending.member_id}&contentsKey=${i.book_code}'); return false;"/>--%>
+						<c:set var="read" value="javascript:eco_read2('${sessionScope.member.lib_code}','EC', '${i.book_code}'); return false;"/>
+					</c:when>
+					<c:when test="${i.com_code == 'KP' and empty i.viewer_url}">
+						<%-- TODO: ECO 뷰어 URL 받아서 교체해야 함 --%>
+						<%-- <c:set var="read" value="javascript:eco_read('http://e-lib.tglnet.or.kr:8099/ebookPlatform/b2b_homepage/B2B06_MyPage/chkViewer.jsp?libCode=${sessionScope.member.lib_code}&ownerCode=KP&userId=${lending.member_id}&contentsKey=${i.book_code}'); return false;"/> --%>
+						<c:set var="read" value="javascript:eco_read2('${sessionScope.member.lib_code}','KP', '${i.book_code}'); return false;"/>
 					</c:when>
 					<c:when test="${i.com_code == 'BX'}">
 						<c:choose>
@@ -459,10 +487,10 @@ function goto_store() {
 					</c:otherwise>
 					</c:choose>
 
-	            	<span><a href="#" class="btn btn1 book_view" data-book_code="${i.book_code}" onclick="${read}" data-type="${i.type}">책읽기</a></span>
-	            	<span><a href="#" class="btn btn4 book_return" data-book_idx="${i.book_idx}" data-lend_idx="${i.lend_idx}" data-type="${i.type}">반납하기</a></span>
+					<span><a href="#" class="btn btn1 book_view" data-book_code="${i.book_code}" onclick="${read}" data-type="${i.type}">책읽기</a></span>
+					<span><a href="#" class="btn btn4 book_return" data-book_idx="${i.book_idx}" data-lend_idx="${i.lend_idx}" data-type="${i.type}">반납하기</a></span>
 <%--
-	            	<span><a href="#" class="btn btn5 book_extend" data-book_idx="${i.book_idx}" data-lend_idx="${i.lend_idx}" data-type="${i.type}">연장하기</a></span>
+					<span><a href="#" class="btn btn5 book_extend" data-book_idx="${i.book_idx}" data-lend_idx="${i.lend_idx}" data-type="${i.type}">연장하기</a></span>
 --%>
 	            	</c:if>
 	            	<c:if test="${lending.menu == 'RESERVE'}">
