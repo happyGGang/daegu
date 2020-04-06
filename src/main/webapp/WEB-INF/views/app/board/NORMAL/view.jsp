@@ -41,11 +41,11 @@ ${boardManage.top_html}
 							<c:set value="${fn:split(board.user_ip, '.')}" var="user_ip"></c:set>
 							<c:choose>
 								<c:when test="${authMBA}">
-						<i>IP</i><span>${board.user_ip}</span>
+						<!-- <i>IP</i><span>${board.user_ip}</span> -->
 								</c:when>
 								<c:otherwise>
 									<c:if test="${fn:length(user_ip) == 4}">
-						<i>IP</i><span>*.*.*.${user_ip[3]}</span>
+						<!-- <i>IP</i><span>*.*.*.${user_ip[3]}</span> -->
 									</c:if>
 								</c:otherwise>
 							</c:choose>
