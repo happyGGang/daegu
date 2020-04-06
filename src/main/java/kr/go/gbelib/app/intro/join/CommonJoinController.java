@@ -848,4 +848,32 @@ public class CommonJoinController extends BaseController {
 		return String.format(basePath, homepage.getFolder()) + "passwordExpiry";
 	}
 
+	/**
+	 * DLS 인증 페이지
+	 * @author whalesoft YONGJU 2020. 4. 6.
+	 * @param model
+	 * @param member
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = {"/dls.*"})
+	public String dls(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = getSessionHomepage(request);
+
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+			return null;
+		}
+
+		if (StringUtils.equals(member.getMember_class(), "0")) {
+			joinService.alertMessage("이미 인증된 회원입니다.", request, response);
+			return null;
+		}
+
+		return String.format(basePath, homepage.getFolder()) + "dls";
+	}
+
 }
