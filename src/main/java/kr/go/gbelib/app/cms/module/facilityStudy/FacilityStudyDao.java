@@ -52,6 +52,8 @@ public interface FacilityStudyDao {
 	 * @return
 	 */
 	public int cancelFacilityStudy(FacilityStudy facilityStudy);
+	
+	public int cancelTxtFacilityStudy(FacilityStudy facilityStudy);
 
 	/**
 	 * @author whalesoft YONGJU 2020. 2. 17.

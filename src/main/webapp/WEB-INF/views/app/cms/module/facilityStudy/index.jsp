@@ -56,12 +56,13 @@ $(function(){
 	});
 
 	$('select.changeStatus').on('change', function() {
+		var $select = $(this);
 		var idx = $(this).data('idx');
 		var status = $(this).val();
 		var editMode = '';
 		if (status == '1') {
 			editMode = 'APPROVE';
-		} else if (status == '2') {
+		} else if (status == '2' || status == '3') {
 			editMode = 'CANCEL';
 		} else if (status == '0') {
 			editMode = 'READY';
@@ -73,10 +74,35 @@ $(function(){
 			success: function(response) {
 				if (response.valid) {
 					alert('수정되었습니다.');
+					if(status == '3') {
+						$select.siblings('div').show();
+					} else {
+						$select.siblings('div').hide();
+					}
 				}
 			},
 			error : function() {
 				alert('수정에 실패했습니다.')
+			}
+		});
+	});
+	
+	$('.cancel_txt_save').on('click', function(e) {
+		e.preventDefault();
+		var idx = $(this).attr('keyValue');
+		var editMode = 'CANCLE_TXT';
+		var cancel_txt = $(this).siblings('.cancel_txt').val();
+		$.ajax({
+			type: "POST",
+			url: 'save.do',
+			data: {'study_idx':idx, 'editMode':editMode, 'cancel_txt':cancel_txt},
+			success: function(response) {
+				if (response.valid) {
+					alert(response.message);
+				}
+			},
+			error : function() {
+				alert('취소사유 입력에 실패했습니다.')
 			}
 		});
 	});
@@ -107,13 +133,13 @@ $(function(){
 		<thead>
 			<tr>
 				<th width="50">순번</th>
-				<th width="200">사용일자</th>
-				<th width="200">사용시설</th>
+				<th width="150">사용일자</th>
+				<th width="100">사용시설</th>
 				<th width="50">사용시간</th>
 				<th width="100">모임명</th>
 				<th width="100">신청자명</th>
 				<th width="150">신청일</th>
-				<th width="100">상태</th>
+				<th width="200">상태</th>
 				<th width="100">기능</th>
 			</tr>
 		</thead>
@@ -126,8 +152,8 @@ $(function(){
 		<c:forEach var="i" varStatus="status" items="${facilityStudyList}">
 			<tr>
 				<td width="50">${paging.listRowNum - status.index}</td>
-				<td width="200">${i.study_date}</td>
-				<td width="200">
+				<td width="150">${i.study_date}</td>
+				<td width="100">
 					<c:if test="${i.study_num eq 1}">스터디룸 1팀</c:if>
 					<c:if test="${i.study_num eq 2}">스터디룸 2팀</c:if>
 					<c:if test="${i.study_num eq 3}">스터디룸 3팀</c:if>
@@ -144,12 +170,17 @@ $(function(){
 					${i.apply_name}
 				</td>
 				<td width="150"><fmt:formatDate value="${i.apply_date}" pattern="yyyy-MM-dd"/></td>
-				<td width="150">
+				<td width="200">
 					<select class="changeStatus" data-idx="${i.study_idx}">
 						<option value="0" <c:if test="${i.apply_status eq '0'}">selected</c:if>>대기</option>
 						<option value="1" <c:if test="${i.apply_status eq '1'}">selected</c:if>>승인</option>
-						<option value="2" <c:if test="${i.apply_status eq '2'}">selected</c:if>>취소</option>
+						<option value="3" <c:if test="${i.apply_status eq '3'}">selected</c:if>>관리자취소</option>
+						<option value="2" <c:if test="${i.apply_status eq '2'}">selected</c:if>>이용자취소</option>
 					</select>
+					<div style="display:${i.apply_status eq '3' ? 'block' : 'none'};">
+						<form:input path="cancel_txt" id="cancle_txt_${status.count}" class="cancel_txt" placeholder="취소사유를 입력하세요." value="${i.cancel_txt}"/>
+						<a href="#" class="cancel_txt_save btn" keyValue="${i.study_idx}">저장</a>
+					</div>
 				</td>
 				<td width="120">
 					<a href="" class="btn dialog-modify" keyValue="${i.study_idx}">수정</a>

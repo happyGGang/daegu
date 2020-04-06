@@ -175,7 +175,7 @@ public class FacilityStudyController extends BaseController {
 			DateTime today = new DateTime();
 
 			if (ref > today.getMillis()) {
-				result.reject("20일 이후 신청 가능합니다.");
+				result.reject("익월 신청은 20일 이후 가능합니다");
 			}
 
 			CalendarManage cm = new CalendarManage();

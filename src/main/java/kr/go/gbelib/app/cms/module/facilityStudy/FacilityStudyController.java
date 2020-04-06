@@ -97,6 +97,10 @@ public class FacilityStudyController extends BaseController {
 				service.cancelFacilityStudy(facilityStudy);
 				res.setValid(true);
 				res.setMessage("취소되었습니다.");
+			} else if (facilityStudy.getEditMode().equals("CANCLE_TXT")) {
+				service.cancelTxtFacilityStudy(facilityStudy);
+				res.setValid(true);
+				res.setMessage("취소사유 저장되었습니다.");
 			} else if (facilityStudy.getEditMode().equals("READY")) {
 				service.readyFacilityStudy(facilityStudy);
 				res.setValid(true);

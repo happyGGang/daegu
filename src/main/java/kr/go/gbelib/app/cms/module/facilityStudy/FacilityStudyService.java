@@ -81,7 +81,17 @@ public class FacilityStudyService extends BaseService{
 	 * @param facilityStudy
 	 */
 	public int cancelFacilityStudy(FacilityStudy facilityStudy) {
+		if(facilityStudy.getApply_status().equals("2")) {
+			facilityStudy.setCancel_reason("이용자 취소");
+		} else if(facilityStudy.getApply_status().equals("3")) {
+			facilityStudy.setCancel_reason("관리자 취소");
+		}
+		
 		return dao.cancelFacilityStudy(facilityStudy);
+	}
+	
+	public int cancelTxtFacilityStudy(FacilityStudy facilityStudy) {
+		return dao.cancelTxtFacilityStudy(facilityStudy);
 	}
 
 	/**

@@ -37,7 +37,7 @@
 			homepage_id, study_idx, study_num, study_date, study_time,
 			apply_name, apply_password, apply_phone1, apply_phone2, study_name,
 			study_purpose, man_count, woman_count, apply_list, apply_date, apply_status,
-			cancel_reason
+			cancel_reason, cancel_txt
 		FROM
 			FACILITY_STUDY
 		WHERE
@@ -85,8 +85,18 @@
 		UPDATE
 			FACILITY_STUDY
 		SET
-			apply_status = '2',
-			cancel_reason = '관리자 취소'
+			apply_status = #{apply_status},
+			cancel_reason = #{cancel_reason}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	study_idx = #{study_idx}
+	</update>
+	
+	<update id="cancelTxtFacilityStudy">
+		UPDATE
+			FACILITY_STUDY
+		SET
+			cancel_txt = #{cancel_txt}
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	study_idx = #{study_idx}
