@@ -8,7 +8,7 @@ $(function() {
 
 	$('#save-btn').on('click', function(e) {
 		e.preventDefault();
-		if (!confirm('야간예약 신청을 하시겠습니까?')) {
+		if (!confirm('워킹스루 신청을 하시겠습니까?')) {
 			return false;
 		}
 
@@ -28,7 +28,7 @@ $(function() {
 
 <!-- contents-title-->
 <div id="contents-title">
-	<h2>야간예약 신청을 위한 신청사항<span style="font-weight:300">을 확인하세요.</span></h2>
+	<h2>워킹스루 신청을 위한 신청사항<span style="font-weight:300">을 확인하세요.</span></h2>
 </div>
 <!-- /contents-title-->
 
@@ -36,15 +36,9 @@ $(function() {
 <form:hidden path="bookkey"/>
 <form:hidden path="booktype"/>
 <form:hidden path="title" value="${detail.TITLE_INFO}"/>
-<c:if test="${homepage.context_path eq 'jungang'}">
-<input type="hidden" name="exprire_date_cnt" value="7"/>
-</c:if>
-<c:if test="${homepage.context_path eq '228'}">
-<input type="hidden" name="exprire_date_cnt" value="3"/>
-</c:if>
+<form:hidden path="exprire_date_cnt" value="7"/>
 
 <div class="delibery_info">
-
 	<div class="" style="padding:10px 0;font-size:120%">(<span style="color:red;font-weight:bold;">*</span>) 항목은 필수 입력값입니다.</div>
 	<table class="table_01">
 		<colgroup>

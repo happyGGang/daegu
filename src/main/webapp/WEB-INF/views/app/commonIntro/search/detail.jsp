@@ -274,13 +274,13 @@ $(function() {
 
 			<c:if test="${detail.WORKING_STATUS eq 'BOL112N'}">
 
+			<c:if test="${detail.SHELF_LOC_CODE eq 'AD20' || detail.SHELF_LOC_CODE eq 'AD18' || detail.SHELF_LOC_CODE eq 'AD19' || detail.SHELF_LOC_CODE eq 'AD04' || detail.SHELF_LOC_CODE eq 'AD02' || detail.SHELF_LOC_CODE eq 'AD03' || detail.SHELF_LOC_CODE eq 'AD06' || detail.SHELF_LOC_CODE eq 'AD07' || detail.SHELF_LOC_CODE eq 'AD14' || detail.SHELF_LOC_CODE eq 'AD08' || detail.SHELF_LOC_CODE eq 'AD12' || detail.SHELF_LOC_CODE eq 'AD01' || detail.SHELF_LOC_CODE eq 'AD11' || detail.SHELF_LOC_CODE eq 'AD27' || detail.SHELF_LOC_CODE eq 'AH01' || detail.SHELF_LOC_CODE eq 'AH02' || detail.SHELF_LOC_CODE eq 'AH06' || detail.SHELF_LOC_CODE eq 'AH07' || detail.SHELF_LOC_CODE eq 'AH08' || detail.SHELF_LOC_CODE eq 'AH14' || detail.SHELF_LOC_CODE eq 'AH18' || detail.SHELF_LOC_CODE eq 'AH21' || detail.SHELF_LOC_CODE eq 'AH23' || detail.SHELF_LOC_CODE eq 'AH24' || detail.SHELF_LOC_CODE eq 'AH27' || detail.SHELF_LOC_CODE eq 'AG01' || detail.SHELF_LOC_CODE eq 'AG02' || detail.SHELF_LOC_CODE eq 'AG06' || detail.SHELF_LOC_CODE eq 'AG05' || detail.SHELF_LOC_CODE eq 'AG21' || detail.SHELF_LOC_CODE eq 'AG22' || detail.SHELF_LOC_CODE eq 'AG23' || detail.SHELF_LOC_CODE eq 'AG10' || detail.SHELF_LOC_CODE eq 'AG11' || detail.SHELF_LOC_CODE eq 'AG12' || detail.SHELF_LOC_CODE eq 'AG15' || detail.SHELF_LOC_CODE eq 'AG17' || detail.SHELF_LOC_CODE eq 'AA03' || detail.SHELF_LOC_CODE eq 'AA04' || detail.SHELF_LOC_CODE eq 'AA09' || detail.SHELF_LOC_CODE eq 'AA10' || detail.SHELF_LOC_CODE eq 'AA11' || detail.SHELF_LOC_CODE eq 'AA14' || detail.SHELF_LOC_CODE eq 'AA15' || detail.SHELF_LOC_CODE eq 'AA16' || detail.SHELF_LOC_CODE eq 'AA17' || detail.SHELF_LOC_CODE eq 'AA18' || detail.SHELF_LOC_CODE eq 'AA20' || detail.SHELF_LOC_CODE eq 'AA21' || detail.SHELF_LOC_CODE eq 'AA22' || detail.SHELF_LOC_CODE eq 'AA23' || detail.SHELF_LOC_CODE eq 'AA37' || detail.SHELF_LOC_CODE eq 'AA31' || detail.SHELF_LOC_CODE eq 'AA39' || detail.SHELF_LOC_CODE eq 'AA01' || detail.SHELF_LOC_CODE eq 'AA12' || detail.SHELF_LOC_CODE eq 'AA13' || detail.SHELF_LOC_CODE eq 'AA24' || detail.SHELF_LOC_CODE eq 'AA25' || detail.SHELF_LOC_CODE eq 'AA26' || detail.SHELF_LOC_CODE eq 'AA27' || detail.SHELF_LOC_CODE eq 'AA28' || detail.SHELF_LOC_CODE eq 'AF01' || detail.SHELF_LOC_CODE eq 'AF03' || detail.SHELF_LOC_CODE eq 'AF04' || detail.SHELF_LOC_CODE eq 'AF08' || detail.SHELF_LOC_CODE eq 'AF11' || detail.SHELF_LOC_CODE eq 'AF12' || detail.SHELF_LOC_CODE eq 'AF13' || detail.SHELF_LOC_CODE eq 'AE28' || detail.SHELF_LOC_CODE eq 'AC01' || detail.SHELF_LOC_CODE eq 'AC02' || detail.SHELF_LOC_CODE eq 'AC03' || detail.SHELF_LOC_CODE eq 'AC04' || detail.SHELF_LOC_CODE eq 'AC05' || detail.SHELF_LOC_CODE eq 'AC06' || detail.SHELF_LOC_CODE eq 'AC07' || detail.SHELF_LOC_CODE eq 'AC09' || detail.SHELF_LOC_CODE eq 'AC10' || detail.SHELF_LOC_CODE eq 'AC11' || detail.SHELF_LOC_CODE eq 'AC12' || detail.SHELF_LOC_CODE eq 'AB01' || detail.SHELF_LOC_CODE eq 'AB02' || detail.SHELF_LOC_CODE eq 'AB03' || detail.SHELF_LOC_CODE eq 'AB05' || detail.SHELF_LOC_CODE eq 'AB06' || detail.SHELF_LOC_CODE eq 'AJ01' || detail.SHELF_LOC_CODE eq 'AJ02' || detail.SHELF_LOC_CODE eq 'AJ09' || detail.SHELF_LOC_CODE eq 'AJ06' || detail.SHELF_LOC_CODE eq 'AJ07' || detail.SHELF_LOC_CODE eq 'AJ04'}">
+
 			<c:choose>
 				<c:when test="${detail.RESERVATION_CNT > '0'}">
 
 				</c:when>
 				<c:otherwise>
-					<c:choose>
-					<c:when test="${homepage.context_path eq 'jungang'}">
 					<%
 					org.joda.time.DateTime now = new org.joda.time.DateTime();
 					int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
@@ -289,51 +289,20 @@ $(function() {
 					if(12 <= hour && hour < 17)
 					{
 					%>
-					<a href="#night" id="night-req" class="btn">워킹스루예약신청</a>
-					<%
-					}
-					else
-					{
-					%>
-					<a href="#" class="btn btn1" onclick="alert('신청가능 시간이 아닙니다.');">워킹스루예약신청</a>
-					<%
-					}
-					%>
-					</c:when>
-					<c:otherwise>
-					<%
-					org.joda.time.DateTime now = new org.joda.time.DateTime();
-					int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
-					int hour = now.getHourOfDay();
-
-					if(dayOfWeek == 1 || dayOfWeek == 2 || dayOfWeek == 3 || dayOfWeek == 4 || dayOfWeek == 5)
-					{
-						if(12 <= hour && hour < 17)
-						{
-					%>
 						<a href="#night" id="night-req" class="btn">워킹스루예약신청</a>
-						<%
-						}
-						else
-						{
-						%>
-						<a href="#" class="btn btn1" onclick="alert('신청가능 시간이 아닙니다.');">워킹스루예약신청</a>
-						<%
-						}
-						%>
 					<%
 					}
 					else
 					{
 					%>
-						<a href="#" class="btn btn1" onclick="alert('신청가능 요일이 아닙니다.');">워킹스루예약신청</a>
+						<a href="#" class="btn btn1" onclick="alert('신청가능 시간이 아닙니다.');">워킹스루예약신청</a>
 					<%
 					}
 					%>
-					</c:otherwise>
-					</c:choose>
 				</c:otherwise>
 			</c:choose>
+
+			</c:if>
 
 			</c:if>
 
