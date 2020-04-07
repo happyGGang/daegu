@@ -9,7 +9,7 @@ $(function() {
 	$('#book_viewPage').text('${book.viewPage}');
 	$('#book_totalPageCount').text('${book.totalPageCount}');
 	$('#book_totalDataCount').text('${book.totalDataCount}');
-	
+
 	$('a.goDetail').on('click', function(e) {
 		e.preventDefault();
 		$('#detail_book_idx').val($(this).data('book_idx'))
@@ -26,12 +26,12 @@ $(function() {
 			<c:choose>
 				<c:when test="${i.book_image eq ''}">
 					<a href="#" data-book_idx="${i.book_idx}" data-type="${i.type}" class="goDetail noImg">
-						<img src="/resources/common/img/noImg.gif" alt="noImage"/>
+						<img src="/resources/common/img/noImg.gif" alt="noImage" />
 					</a>
 				</c:when>
 				<c:otherwise>
 					<a href="#" data-book_idx="${i.book_idx}" data-type="${i.type}" class="goDetail">
-						<img src="${i.book_image}" alt="${i.book_name}"/>
+						<img src="${i.book_image}" alt="${i.book_name}" onerror="this.src='/resources/homepage/dgportal/img/book_noimg.png'"/>
 					</a>
 				</c:otherwise>
 			</c:choose>
@@ -44,6 +44,8 @@ $(function() {
 					<p>${fn:replace(i.author_name, book.search_text, replaceStr)}</p>
 					<p>${fn:replace(i.book_pubname, book.search_text, replaceStr)}, ${i.book_pubdt}</p>
 					<p>${i.library_name}</p>
+					<br/>
+					<p>대출 가능 여부: ${fn:escapeXml(i.status)}<span class="txt-bar">&nbsp;</span>대출 : ${fn:escapeXml(i.book_lend)}<span class="txt-bar">&nbsp;</span>예약 : ${i.book_reserve}</p>
 				</div>
 				<div class="bci" style="display: none;">
 					<!-- ajax_area -->

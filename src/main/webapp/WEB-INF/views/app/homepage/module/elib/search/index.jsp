@@ -25,7 +25,7 @@ $(function() {
 		$('#book').submit();
 		//doGetLoad('search.do', serializeCustom($('#book')));
 	});
-	
+
 	addOnClickListeners();
 
 	<%-- 저자 더 보기 --%>
@@ -81,7 +81,7 @@ $(function() {
 			}
 		});
 	});
-	
+
 	<%-- 기기 더 보기 --%>
 	$('a.moreDevice').on('click', function(e) {
 		e.preventDefault();
@@ -99,23 +99,23 @@ $(function() {
 			}
 		});
 	});
-	
+
 	$('#vk-popup').on('click', function(e) {
 		PopupVirtualKeyboard.toggle('search_text','vk');
 	});
-	
+
 	$('#checkAll').change(function(e) {
 		$('div#libraryList input:checkbox').prop('checked', $(this).prop('checked'));
 	});
-	
+
 	$('#checkAllBook').change(function(e) {
 		$('input.checkBook').prop('checked', $(this).prop('checked'));
 	});
-	
+
 	$('li.li-group a.bi').on('click', function() {
 		$(this).parent('li').toggleClass('active');
 	});
-	
+
 	$('a#addMyLib').on('click', function(e) {
 		e.preventDefault();
 		var len = $('input.checkBook:checked').length;
@@ -127,18 +127,18 @@ $(function() {
 		alert('준비중입니다');
 		//내 보관함 이동.
 	});
-	
+
 	$('select#rowCount').on('change', function() {
 		$('#do-search').click();
 	});
-	
+
 	$('a.goDetail').on('click', function(e) {
 		e.preventDefault();
 		$('#detail_book_idx').val($(this).data('book_idx'))
 		$('#detail_type').val($(this).data('type'))
 		$('form#detailForm').submit();
 	});
-	
+
 	if ($('input#viewPage').val() != '1') {
 		jQuery.ajaxSettings.traditional = true;
 		var param = serializeObject($('#book'));
@@ -167,7 +167,7 @@ function addOnClickListeners() {
 		loadIndex();
 		e.preventDefault();
 	});
-	
+
 	$('a.doSearchWriter').on('click', function(e) {
 		$('#viewPage').val(1);
 		$('#type').val('');
@@ -178,7 +178,7 @@ function addOnClickListeners() {
 		loadIndex();
 		e.preventDefault();
 	});
-	
+
 	$('a.doSearchPublisher').on('click', function(e) {
 		$('#viewPage').val(1);
 		$('#type').val('');
@@ -189,7 +189,7 @@ function addOnClickListeners() {
 		loadIndex();
 		e.preventDefault();
 	});
-	
+
 	$('a.doSearchYear').on('click', function(e) {
 		$('#viewPage').val(1);
 		$('#type').val('');
@@ -200,7 +200,7 @@ function addOnClickListeners() {
 		loadIndex();
 		e.preventDefault();
 	});
-	
+
 	$('a.doSearchDevice').on('click', function(e) {
 		$('#viewPage').val(1);
 		$('#type').val('');
@@ -320,6 +320,7 @@ function addOnClickListeners() {
 										<p>${fn:replace(i.author_name, book.search_text, replaceStr)}</p>
 										<p>${fn:replace(i.book_pubname, book.search_text, replaceStr)}, ${i.book_pubdt}</p>
 										<p>${i.library_name}</p>
+										<br/>
 										<p>대출 가능 여부: ${fn:escapeXml(i.status)}<span class="txt-bar">&nbsp;</span>대출 : ${fn:escapeXml(i.book_lend)}<span class="txt-bar">&nbsp;</span>예약 : ${i.book_reserve}</p>
 									</div>
 								</div>
