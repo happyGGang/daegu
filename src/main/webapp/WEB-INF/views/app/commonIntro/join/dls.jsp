@@ -54,7 +54,8 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 
 <div class="join-wrap" style="padding: 0">
 
-	<h4>개인정보 제3자 제공 내역</h4>
+	<h4>개인정보 제3자 제공 동의(비대면 인증)</h4>
+	<p>대구광역시 공립도서관에서는 비대면 인증을 통한 정회원 자격 부여를 위하여 수집한 개인정보를 아래와 같이 제3자 제공합니다</p>
 	<div class="Box" style="height:200px">
 		<br>
 
@@ -62,12 +63,14 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 		<caption class="disnone">개인정보 처리 및 위탁에 관한 안내</caption>
 		<colgroup>
 			<col width="15%"/>
+			<col width="15%"/>
 			<col width="30%"/>
 			<col width=""/>
 			<col width="15%"/>
 		</colgroup>
 		<thead>
 		<tr>
+		<td>제공하는 기관</td>
 		<td>제공받는 기관</td>
 		<td>제공목적</td>
 		<td>제공항목</td>
@@ -76,20 +79,21 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 		</thead>
 		<tbody>
 		<tr>
-		<td>국립중앙도서관 및 지역센터</td>
-		<td>책이음서비스 이용</td>
-		<td>도서회원번호,성명,출생년도,성별, 휴대폰번호,CI값,도서대출내역</td>
-		<td>회원 탈퇴시까지</td>
+		<td>대구광역시</td>
+		<td>대구미래<br/>교육연구원</td>
+		<td>대구광역시 공립도서관<Br/>이용을 위한 비대면 인증</td>
+		<td>DLS에 등록된<br/>성명, 아이디, 비밀번호</td>
+		<td>인증 후 즉시 파기(미보유)</td>
 		</tr>
 		<tr>
-		<td>책이음서비스
-			 참여 도서관</td>
-		<td>책이음서비스를 통한 회원가입</td>
-		<td>아이디, 비밀번호, 도서회원번호, 성명, 생년월일, 성별, 휴대폰번호, 주소, CI값, 도서대출내역 법정대리인 성명 및 연락처, 이메일, 전화번호(자택), 근무처(학교명), 근무지(학교)연락처, 근무지(학교)주소</td>
-		<td>회원 탈퇴시까지</td>
+		<td>대구광역시<br/>교육연구원</td>
+		<td>대구광역시</td>
+		<td>DLS 인증 안내] 메뉴 클릭</td>
+		<td>DLS 정보 확인 요청에 대한 존재 유무</td>
+		<td>인증 후 즉시 파기(미보유)</td>
 		</tr>
 		<tr>
-		<td colspan="4">개인정보 제3자 제공에 거부할 권리가 있습니다. 다만 동의를 거부 할 경우 책이음서비스 회원가입이 되지 않으며, 도서관에서 제공하는 서비스 이용에 제한이 있을 수 있습니다.</td>
+		<td colspan="5">개인정보 제3자 제공에 대한 동의를 거부할 권리가 있습니다. 그러나 동의를 거부 할 경우 대구광역시 공립도서관 정회원 자격이 부여되지 않으며, 도서관에서 제공하는 서비스 이용에 제한을 받을 수 있습니다.</td>
 		</tr>
 		</tbody>
 		</table>
