@@ -70,6 +70,17 @@
 			homepage_id = #{homepage_id}
 		AND	study_idx = #{study_idx}
 	</update>
+	
+	<delete id="deleteFacilityStudyALL">
+		DELETE FROM
+			FACILITY_STUDY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	study_idx IN
+		<foreach collection="study_idx_arr" item="i" open="(" close=")" separator=",">
+		${i}
+		</foreach>
+	</delete>
 
 	<update id="approveFacilityStudy">
 		UPDATE
@@ -190,6 +201,21 @@
 		AND	study_time = #{study_time}
 		AND	study_idx != #{study_idx}
 		AND	apply_status != '2'
+	</select>
+	
+	<select id="getFacilityStudyAll" resultType="kr.go.gbelib.app.cms.module.facilityStudy.FacilityStudy">
+		SELECT
+			homepage_id, study_idx, study_num, study_date, study_time,
+			apply_name, apply_password, apply_phone1, apply_phone2, study_name,
+			study_purpose, man_count, woman_count, apply_list, apply_date, apply_status,
+			cancel_reason, cancel_txt
+		FROM
+			FACILITY_STUDY
+		WHERE
+			homepage_id = #{homepage_id}
+		<include refid="where"></include>
+		ORDER BY
+			study_date DESC, study_num, study_time, apply_status
 	</select>
 
 </mapper>

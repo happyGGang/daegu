@@ -14,6 +14,7 @@ import kr.co.whalesoft.framework.utils.PagingUtils;
 public class FacilityStudy extends PagingUtils {
 
 	private int study_idx; // 신청IDX
+	private int[] study_idx_arr; // 신청IDX_arr
 	private int study_num; // 스터디룸번호
 	private String study_date; // 사용일자
 	private String study_time; // 사용시간
@@ -39,6 +40,14 @@ public class FacilityStudy extends PagingUtils {
 
 	public void setStudy_idx(int study_idx) {
 		this.study_idx = study_idx;
+	}
+
+	public int[] getStudy_idx_arr() {
+		return study_idx_arr;
+	}
+
+	public void setStudy_idx_arr(int[] study_idx_arr) {
+		this.study_idx_arr = study_idx_arr;
 	}
 
 	public int getStudy_num() {

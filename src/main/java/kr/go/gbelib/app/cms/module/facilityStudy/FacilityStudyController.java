@@ -5,8 +5,10 @@ package kr.go.gbelib.app.cms.module.facilityStudy;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +91,10 @@ public class FacilityStudyController extends BaseController {
 				service.deleteFacilityStudy(facilityStudy);
 				res.setValid(true);
 				res.setMessage("삭제되었습니다.");
+			} else if (facilityStudy.getEditMode().equals("DELETE_ALL")) {
+				service.deleteFacilityStudyALL(facilityStudy);
+				res.setValid(true);
+				res.setMessage("일괄 삭제되었습니다.");
 			} else if (facilityStudy.getEditMode().equals("APPROVE")) {
 				service.approveFacilityStudy(facilityStudy);
 				res.setValid(true);
@@ -134,5 +140,15 @@ public class FacilityStudyController extends BaseController {
 		}
 
 		return res;
+	}
+	
+	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
+	public FacilityStudyView excel(Model model, FacilityStudy facilityStudy, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		facilityStudy.setHomepage_id(getAsideHomepageId(request));
+		List<FacilityStudy> facilityStudyList = service.getFacilityStudyAll(facilityStudy);
+		model.addAttribute("facilityStudy", facilityStudy);
+		model.addAttribute("facilityStudyList", facilityStudyList);
+
+		return new FacilityStudyView();
 	}
 }

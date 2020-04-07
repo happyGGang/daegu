@@ -67,6 +67,10 @@ public class FacilityStudyService extends BaseService{
 	public int deleteFacilityStudy(FacilityStudy facilityStudy) {
 		return dao.deleteFacilityStudy(facilityStudy);
 	}
+	
+	public int deleteFacilityStudyALL(FacilityStudy facilityStudy) {
+		return dao.deleteFacilityStudyALL(facilityStudy);
+	}
 
 	/**
 	 * @author whalesoft YONGJU 2020. 2. 17.
@@ -150,6 +154,10 @@ public class FacilityStudyService extends BaseService{
 	 */
 	public boolean isAlready(FacilityStudy facilityStudy) {
 		return dao.isAlready(facilityStudy) > 0 ? true : false;
+	}
+	
+	public List<FacilityStudy> getFacilityStudyAll(FacilityStudy facilityStudy) {
+		return dao.getFacilityStudyAll(facilityStudy);
 	}
 
 }

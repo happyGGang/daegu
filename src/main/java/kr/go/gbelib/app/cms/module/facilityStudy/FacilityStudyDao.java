@@ -38,6 +38,8 @@ public interface FacilityStudyDao {
 	 * @return
 	 */
 	public int deleteFacilityStudy(FacilityStudy facilityStudy);
+	
+	public int deleteFacilityStudyALL(FacilityStudy facilityStudy);
 
 	/**
 	 * @author whalesoft YONGJU 2020. 2. 17.
@@ -96,5 +98,7 @@ public interface FacilityStudyDao {
 	 * @return
 	 */
 	public int isAlready(FacilityStudy facilityStudy);
+	
+	public List<FacilityStudy> getFacilityStudyAll(FacilityStudy facilityStudy);
 
 }

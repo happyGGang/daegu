@@ -106,9 +106,44 @@ $(function(){
 			}
 		});
 	});
+	
+	$('a#excel-btn').on('click', function(e) {
+		e.preventDefault();
+		$('form#facilityStudyExcel').submit();
+	});
+	
+	$('input#all_check').on('click', function() {
+		if($(this).prop('checked')) {
+			$('input.check_arr').prop('checked', true);
+		} else {
+			$('input.check_arr').prop('checked', false);
+		}
+	});
+	
+	$('a#all-delete-btn').on('click', function(e) {
+		e.preventDefault();
+		if(confirm('선택하신 항목 일괄 삭제하시겠습니까?')) {
+			$('#editMode_1').val('DELETE_ALL');
+			$.ajax({
+				url : 'save.do',
+				async : false,
+				data : $('#facilityStudy_1').serialize(),
+				method : 'POST',
+				success : function(data) {
+					if(data.valid) {
+						alert(data.message);
+						location.reload();
+					}
+				}
+			});
+		}
+	});
+	
 });
 </script>
-
+<form id="facilityStudyExcel" method="POST" action="excelDownload.do">
+<input type="hidden" name="editMode" value="EXCEL">
+</form>
 <form:form id="facilityStudy_1" modelAttribute="facilityStudy" method="POST" action="save.do" onsubmit="return false;">
 <form:hidden id="editMode_1" path="editMode"/>
 <form:hidden id="study_idx_1" path="study_idx"/>
@@ -124,14 +159,16 @@ $(function(){
 			<form:option value="200">200개씩 보기</form:option>
 		</form:select>
 		<div class="button btn-group inline">
+			<a href="" class="btn btn3 left" id="excel-btn"><i class="fa fa-plus"></i><span>EXCEL</span></a>&nbsp;
 			<c:if test="${authC}">
-				<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
+			<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
 			</c:if>
 		</div>
 	</div>
 	<table class="type1 center">
 		<thead>
 			<tr>
+				<th width="30"><input type="checkbox" id="all_check"></th>
 				<th width="50">순번</th>
 				<th width="150">사용일자</th>
 				<th width="100">사용시설</th>
@@ -151,6 +188,9 @@ $(function(){
 		</c:if>
 		<c:forEach var="i" varStatus="status" items="${facilityStudyList}">
 			<tr>
+				<td>
+					<form:checkbox path="study_idx_arr" class="check_arr" value="${i.study_idx}"/>
+				</td>
 				<td width="50">${paging.listRowNum - status.index}</td>
 				<td width="150">${i.study_date}</td>
 				<td width="100">
@@ -178,7 +218,7 @@ $(function(){
 						<option value="2" <c:if test="${i.apply_status eq '2'}">selected</c:if>>이용자취소</option>
 					</select>
 					<div style="display:${i.apply_status eq '3' ? 'block' : 'none'};">
-						<form:input path="cancel_txt" id="cancle_txt_${status.count}" class="cancel_txt" placeholder="취소사유를 입력하세요." value="${i.cancel_txt}"/>
+						<input id="cancel_txt_${status.count}" class="cancel_txt" placeholder="취소사유를 입력하세요." value="${i.cancel_txt}">
 						<a href="#" class="cancel_txt_save btn" keyValue="${i.study_idx}">저장</a>
 					</div>
 				</td>
@@ -192,6 +232,7 @@ $(function(){
 		</c:forEach>
 		</tbody>
 	</table>
+	<a href="" class="btn left" id="all-delete-btn"><i class="fa fa-plus"></i><span>일괄삭제</span></a>
 
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#facilityStudy_1"/>
