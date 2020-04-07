@@ -28,13 +28,19 @@ ${boardManage.top_html}
 					<form:input path="title" cssClass="text" cssStyle="width:90%" maxlength="100" />
 				</td>
 			</tr>
-			<tr> 
+			<tr>
 				<th>작성자</th>
 				<td>
 					<jsp:include page="/WEB-INF/views/app/board/common/edit/userName.jsp" flush="false" />
 				</td>
 				<th>작성일</th>
 				<td><fmt:formatDate value="${board.editMode eq 'ADD' ? getToday : board.add_date}" pattern="yyyy-MM-dd"/></td>
+			</tr>
+			<tr>
+				<th>연락처</th>
+				<td colspan="3">
+					<form:input path="user_phone"/>
+				</td>
 			</tr>
 			<c:if test="${boardManage.secret_use_yn eq 'Y'}">
 			<tr>
@@ -65,7 +71,7 @@ ${boardManage.top_html}
 			</c:if>
 		</tbody>
 	</table>
-	
+
 	<jsp:include page="/WEB-INF/views/app/board/common/edit/button.jsp" flush="false" />
 </div>
 </form:form>
