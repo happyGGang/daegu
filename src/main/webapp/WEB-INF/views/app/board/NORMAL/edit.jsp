@@ -39,7 +39,7 @@ ${boardManage.top_html}
 			<tr>
 				<th>연락처</th>
 				<td colspan="3">
-					<form:input path="user_phone"/>
+					<form:input path="user_phone" cssClass="text"/>
 				</td>
 			</tr>
 			<c:if test="${boardManage.secret_use_yn eq 'Y'}">
