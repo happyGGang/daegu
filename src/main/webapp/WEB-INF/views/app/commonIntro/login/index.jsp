@@ -49,6 +49,7 @@ $(function() {
 						<form:form modelAttribute="member" action="loginProc.do" onsubmit="return false;">
 							<form:hidden path="member_pw" cssStyle="display:none;" />
 							<form:hidden path="member_id"/>
+							<form:hidden path="before_url"/>
 							<div class="form-box">
 								<label class="blind" for="member_id_tmp">아이디</label>
 								<input id="member_id_tmp" class="txt" placeholder="아이디" title="아이디" maxlength="20" /></p>

@@ -571,6 +571,105 @@ public class MemberAPI {
 		}
 	}
 
+	/**
+	 * K.API - 91
+	 * @author whalesoft YONGJU 2020. 4. 7.
+	 * @param dlsMember
+	 */
+	public static Map<String, Object> regularUserInfoInsert(Member member) {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		//필수입력값
+		param.put("id", member.getMember_id());
+		param.put("password", CalculateHashUtils.calculateHashSHA256(member.getMember_pw()));
+		param.put("name", member.getMember_name());
+		param.put("birthday_year", member.getBirth_day().substring(0, 4));
+		param.put("birthday_month", member.getBirth_day().substring(4, 6));
+		param.put("birthday_day", member.getBirth_day().substring(6, 8));
+		param.put("birthday_type", "+");//+:양력, -:음력
+		param.put("h_zipcode", member.getZipcode());//집우편번호
+		String addr = member.getAddress1();
+		if (StringUtils.isNotBlank(member.getAddress2())) {
+			addr += " "+member.getAddress2();
+		}
+		param.put("h_addr1", addr);//집주소
+		param.put("sms_use_yn", member.getSms_service_yn());//SMS수신여부 Y/N
+		param.put("mailing_use_yn", member.getEmail_service_yn());//이메일수신여부 Y/N
+		param.put("gpin_sex", member.getSex());//성멸 0:남, 1:여
+		param.put("manage_code", member.getManage_code());//도서관부호
+		if (StringUtils.isNotEmpty(member.getCi_value())) {
+			try {
+				param.put("ipin_hash", URLEncoder.encode(member.getCi_value(), "UTF-8"));
+			} catch (UnsupportedEncodingException e) {
+			}//CI
+		}
+		param.put("client_ip", member.getIn_ip());//요청IP
+
+		//선택입력값
+		if (StringUtils.isNotEmpty(member.getPhone1()) && StringUtils.isNotEmpty(member.getPhone2()) && StringUtils.isNotEmpty(member.getPhone3())) {
+			param.put("home_exchange_phone", member.getPhone1());//집 전화번호 첫자리
+			param.put("home_phone1", member.getPhone2());//집전화번호 가운데(첫자리 있는 경우 필수)
+			param.put("home_phone2", member.getPhone3());//집전화번호 뒷자리(첫자리 있는 경우 필수)
+		}
+
+		if (StringUtils.isNotEmpty(member.getCell_phone1()) && StringUtils.isNotEmpty(member.getCell_phone2()) && StringUtils.isNotEmpty(member.getCell_phone3())) {
+			param.put("exchange_mobile", member.getCell_phone1());//휴대전화번호 첫자리
+			param.put("mobile1", member.getCell_phone2());//휴대전화번호 가운데(첫자리 있는 경우 필수)
+			param.put("mobile2", member.getCell_phone3());//휴대전화번호 가운데(첫자리 있는 경우 필수)
+		}
+
+		if (StringUtils.isNotEmpty(member.getEmail1()) && StringUtils.isNotEmpty(member.getEmail2())) {
+			param.put("email_id", member.getEmail1());//이메일 아이디
+			param.put("email_domain", member.getEmail2());//이메일 도메인(이메일 있는 경우 필수)
+		}
+
+		if (StringUtils.isNotEmpty(member.getCompany_phone1()) && StringUtils.isNotEmpty(member.getCompany_phone2()) && StringUtils.isNotEmpty(member.getCompany_phone3())) {
+			param.put("office_exchange_phone", member.getCompany_phone1());//근무지 전화번호 첫자리
+			param.put("office_phone1", member.getCompany_phone2());//근무지 전화번호 가운데(첫자리 있는 경우 필수)
+			param.put("office_phone2", member.getCompany_phone3());//근무지 전화번호 가운데(첫자리 있는 경우 필수)
+		}
+
+		if (StringUtils.isNotEmpty(member.getCompany_zipcode())) {
+			param.put("w_zipcode", member.getCompany_zipcode());//근무지 우편번호
+		}
+
+		if (StringUtils.isNotEmpty(member.getCompany_addr())) {
+			param.put("w_addr1", member.getCompany_addr());//근무지 주소
+		}
+
+		if (StringUtils.isNotEmpty(member.getCompany_name())) {
+			param.put("office_name", member.getCompany_name());//근무지 명
+		}
+
+		if (StringUtils.isNotEmpty(member.getCompany_depart())) {
+			param.put("department", member.getCompany_depart());//근무지 부서명
+		}
+
+		param.put("dls_id", member.getIntegrationId());//dls아이디
+		param.put("user_class_code", "016");//이용자 직급 코드(016(DLS인증회원) 고정)
+
+		String user_position_code = "001"; //중앙, 228학생
+		if (member.getUser_manage_code().equals("AA") || member.getUser_manage_code().equals("AH")) {
+			user_position_code = "002"; //228기념, 동부
+		} else if (member.getUser_manage_code().equals("AF")) {
+			user_position_code = "003"; //서부
+		} else if (member.getUser_manage_code().equals("AG")) {
+			user_position_code = "004"; //남부
+		} else if (member.getUser_manage_code().equals("AC")) {
+			user_position_code = "005"; //북부
+		} else if (member.getUser_manage_code().equals("AE")) {
+			user_position_code = "006"; //수성
+		} else if (member.getUser_manage_code().equals("AB")) {
+			user_position_code = "007"; //두류
+		} else if (member.getUser_manage_code().equals("AJ")) {
+			user_position_code = "008"; //달성
+		}
+		param.put("user_position_code", user_position_code);//이용자소속코드
+		param.put("worker", "통합도서관홈페이지");
+
+		return CommonAPI.sendKCMS("regularUserInfoInsert", param);
+	}
+
 
 
 }

@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -321,8 +322,9 @@ public class CommonJoinController extends BaseController {
 				if (addResult.equals("0")) {
 					res.setValid(true);
 					res.setMessage("신규회원 가입이 완료되었습니다. 신분증 지참 후 데스크에서 회원증을 발급받으시기 바랍니다.");
-					int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-					res.setUrl(String.format("http%s://%s/%s/intro/login/index.do?menu_idx=%d", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path(), loginMenuIdx));
+					int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 123));
+//					res.setUrl(String.format("http%s://%s/%s/intro/changeover.do?menu_idx=%d", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path(), loginMenuIdx));
+					res.setUrl(String.format("http://211.224.118.223:8010/%s/intro/join/changeover.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx));
 					request.getSession().invalidate();
 				} else {
 					res.setValid(true);
@@ -849,6 +851,23 @@ public class CommonJoinController extends BaseController {
 	}
 
 	/**
+	 * 회원가입 후 페이지
+	 * @author whalesoft YONGJU 2020. 4. 6.
+	 * @param model
+	 * @param member
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = {"/changeover.*"})
+	public String changeover(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = getSessionHomepage(request);
+
+		return String.format(basePath, homepage.getFolder()) + "changeover";
+	}
+
+	/**
 	 * DLS 인증 페이지
 	 * @author whalesoft YONGJU 2020. 4. 6.
 	 * @param model
@@ -864,16 +883,81 @@ public class CommonJoinController extends BaseController {
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+			String before_url = String.format("/%s/intro/join/dls.do?menu_idx=%d", homepage.getContext_path(), member.getMenu_idx());
+			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d&before_url=%s", homepage.getContext_path(), loginMenuIdx, before_url), request, response);
 			return null;
 		}
 
-		if (StringUtils.equals(member.getMember_class(), "0")) {
-			joinService.alertMessage("이미 인증된 회원입니다.", request, response);
+		Member sessionMemberInfo = getSessionMemberInfo(request);
+		if (StringUtils.equals(sessionMemberInfo.getMember_class(), "0")) {
+			joinService.alertMessageAndUrl("이미 인증된 회원입니다.", String.format("/%s/index.do", homepage.getContext_path()), request, response);
 			return null;
 		}
 
 		return String.format(basePath, homepage.getFolder()) + "dls";
 	}
+
+	@RequestMapping(value = {"/dlsCheck.*"}, method = RequestMethod.POST)
+	public String dlsCheck(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = getSessionHomepage(request);
+
+		model.addAttribute("loginCheck", true);
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			model.addAttribute("loginCheck", false);
+		}
+
+		model.addAttribute("memberClass", true);
+		Member sessionMemberInfo = getSessionMemberInfo(request);
+		if (StringUtils.equals(sessionMemberInfo.getMember_class(), "0")) {
+			model.addAttribute("memberClass", false);
+		}
+
+		model.addAttribute("dlsMember", member);
+		HttpSession session = request.getSession();
+		session.setAttribute("dlsMember", member);
+
+		return String.format(basePath, homepage.getFolder()) + "dlsCheck_ajax";
+	}
+
+	@RequestMapping (value = {"/dlsCheckA.*"})
+	public String dlsCheckA(Model model, HttpServletRequest request, HttpServletResponse response) {
+		Homepage homepage = getSessionHomepage(request);
+
+		String ck_flag = request.getParameter("ck_flag");
+
+		model.addAttribute("certFailed", true);
+		model.addAttribute("certResult", false);
+		if (StringUtils.equals(ck_flag, "true")) {
+			model.addAttribute("certFailed", false);
+
+			HttpSession session = request.getSession();
+			Member dlsMember = (Member) session.getAttribute("dlsMember");//dls 인증 데이터(아이디, 이름, 패스워드)
+
+			//dls id 세팅
+			Member sessionMemberInfo = getSessionMemberInfo(request);//로그인한 사용자정보
+			sessionMemberInfo.setIntegrationId(dlsMember.getMember_id());//인증받은 dls id 세팅
+
+			//ci 세팅
+			List<Map<String, Object>> checkDupUser = MemberAPI.checkDupUser("0", sessionMemberInfo);//아이디로 조회
+			String ci = String.valueOf(checkDupUser.get(0).get("IPIN_HASH"));//ci값 꺼내기
+			sessionMemberInfo.setCi_value(ci);//ci 세팅
+
+			String birth_day = sessionMemberInfo.getBirth_day();
+			sessionMemberInfo.setBirth_day(birth_day.replaceAll("-", ""));//생년월일세팅
+			sessionMemberInfo.setManage_code(sessionMemberInfo.getUser_manage_code());//도서관부호 세팅
+			sessionMemberInfo.setIn_ip(request.getRemoteAddr());//아이피 세팅
+
+			Map<String, Object> regularUserInfoInsert = MemberAPI.regularUserInfoInsert(sessionMemberInfo);
+
+			String regular = String.valueOf(regularUserInfoInsert.get("RESULT_INFO"));
+			if (StringUtils.equals(regular, "SUCCESS")) {
+				model.addAttribute("certResult", true);
+			}
+		}
+
+
+		return String.format(basePath, homepage.getFolder()) + "dlsCheckA_ajax";
+	}
+
 
 }
