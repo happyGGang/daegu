@@ -3,6 +3,14 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script type="text/javascript">
+$(document).ready(function() {
+
+	if ('${board.editMode}' == 'ADD') {
+		$('input[name=secret_yn][value=Y]').prop('checked', true);
+	}
+});
+</script>
 <c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.top_html) > 0}">
 ${boardManage.top_html}
 </c:if>
@@ -60,7 +68,7 @@ $(document).ready(function() {
 				return false;
 			}
 		}
-		
+
 		$('#boardFileArray > option').prop('selected', true);
 
 		var imsi1 = $('input#imsi_v_1_1').val();

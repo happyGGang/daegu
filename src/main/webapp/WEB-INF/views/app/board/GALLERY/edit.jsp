@@ -3,6 +3,14 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script type="text/javascript">
+$(document).ready(function() {
+
+	if ('${board.editMode}' == 'ADD') {
+		$('input[name=secret_yn][value=Y]').prop('checked', true);
+	}
+});
+</script>
 <c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.top_html) > 0}">
 ${boardManage.top_html}
 </c:if>
@@ -25,7 +33,7 @@ ${boardManage.top_html}
 					<form:input path="title" cssClass="text" cssStyle="width:90%" maxlength="100" />
 				</td>
 			</tr>
-			<tr> 
+			<tr>
 				<th>작성자</th>
 				<td>
 					<jsp:include page="/WEB-INF/views/app/board/common/edit/userName.jsp" flush="false" />

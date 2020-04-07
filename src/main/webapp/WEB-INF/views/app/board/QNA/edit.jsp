@@ -8,11 +8,15 @@ $(document).ready(function() {
 	$('input#secret_yn_yes').on('click', function() {
 		$('input#user_phone').prop('disabled', false);
 	});
-	
+
 	$('input#secret_yn_no').on('click', function() {
 		$('input#user_phone').prop('disabled', true);
 		$('input#user_phone').val('');
 	});
+
+	if ('${board.editMode}' == 'ADD') {
+		$('input[name=secret_yn][value=Y]').prop('checked', true);
+	}
 });
 </script>
 <c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.top_html) > 0}">

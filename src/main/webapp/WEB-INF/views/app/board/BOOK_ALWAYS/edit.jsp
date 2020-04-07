@@ -60,7 +60,7 @@ $(document).ready(function() {
 				return false;
 			}
 		}
-		
+
 		$('#boardFileArray > option').prop('selected', true);
 
 		var imsi1 = $('input#imsi_v_1_1').val();
@@ -159,6 +159,10 @@ $(document).ready(function() {
 			var ilusList = window.open('/${homepage.context_path}/intro/search/indexForBoard.do', 'ilusLnkBook', 'width=800 height=600,scrollbars=yes');
 		}
 	});
+
+	if ('${board.editMode}' == 'ADD') {
+		$('input[name=secret_yn][value=Y]').prop('checked', true);
+	}
 });
 
 function isEditorOn() {

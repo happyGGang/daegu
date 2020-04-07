@@ -5,6 +5,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="boardTag" uri="/WEB-INF/config/tld/boardTag.tld"%>
 <%@ taglib prefix="customTag" uri="/WEB-INF/config/tld/customTag.tld"%>
+<script type="text/javascript">
+$(document).ready(function() {
+
+	if ('${board.editMode}' == 'ADD') {
+		$('input[name=secret_yn][value=Y]').prop('checked', true);
+	}
+});
+</script>
 <c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.top_html) > 0}">
 ${boardManage.top_html}
 </c:if>
