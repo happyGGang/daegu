@@ -323,8 +323,7 @@ public class CommonJoinController extends BaseController {
 					res.setValid(true);
 					res.setMessage("신규회원 가입이 완료되었습니다. 신분증 지참 후 데스크에서 회원증을 발급받으시기 바랍니다.");
 					int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 123));
-//					res.setUrl(String.format("http%s://%s/%s/intro/changeover.do?menu_idx=%d", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path(), loginMenuIdx));
-					res.setUrl(String.format("http://211.224.118.223:8010/%s/intro/join/changeover.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx));
+					res.setUrl(String.format("http%s://%s/%s/intro/join/changeover.do?menu_idx=%d", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path(), loginMenuIdx));
 					request.getSession().invalidate();
 				} else {
 					res.setValid(true);
