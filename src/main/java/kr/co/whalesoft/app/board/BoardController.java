@@ -215,7 +215,7 @@ public class BoardController extends BaseController {
 			Homepage homepageOne = homepageService.getHomepageOne(new Homepage(board.getHomepage_id()));
 			model.addAttribute("homepage", homepageOne);
 		}
-		
+
 		boolean isSiteAdmin = false;
 		try {
 			isSiteAdmin = (Boolean) model.asMap().get("authMBA");
@@ -233,19 +233,19 @@ public class BoardController extends BaseController {
 	    		service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
 	    		return null;
 	        }
-			
+
 			if(loginSupport != null) {
 				if(loginSupport.isLogin() == true) {
 					supportAuth = true;
 				}
-				
+
 				try {
 					supportAdmin = (Boolean) model.asMap().get("authMBS");
 				} catch (Exception e) {
 					supportAdmin = false;
 				}
 			}
-			
+
 			if (boardManage.getWrite_only_yn().equals("Y") && !"CMS".equals(getSessionMemberLoginType(request)) && !supportAdmin) {
 				String write_url = "edit.do?manage_idx="+request.getParameter("manage_idx")+"&menu_idx="+request.getParameter("menu_idx");
 				service.alertMessageAndUrl("", write_url, request, response);
@@ -254,7 +254,7 @@ public class BoardController extends BaseController {
 		}
 		model.addAttribute("supportAdmin", supportAdmin);
 		model.addAttribute("supportAuth", supportAuth);
-		
+
 		// 대표도서관 사서 인증
 		PortalMember loginPortal = sessionLoginPortal(request);
 		String portal_auth = loginPortal == null ? "0" : loginPortal.getAuth_group();
@@ -264,7 +264,7 @@ public class BoardController extends BaseController {
     		return null;
 		}
 		model.addAttribute("portalAuth", portal_auth);
-		
+
 		if (boardManage.getWrite_only_yn().equals("Y") && !"CMS".equals(getSessionMemberLoginType(request)) && (loginSupport != null && !loginSupport.isLogin())) {
 			StringBuffer sb = new StringBuffer();
 			sb.append(isLogin(request) ? "edit" : "cert");
@@ -426,7 +426,7 @@ public class BoardController extends BaseController {
 				service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
 				return null;
 	        }
-			
+
 			if(loginSupport != null) {
 				if(loginSupport.isAdmin() == true) {
 					supportAdmin = true;
@@ -442,7 +442,7 @@ public class BoardController extends BaseController {
 //			} else if(!getSessionIsAdmin(request) && !suppot_auth.equals("1") && !isSiteAdmin && manageCompareIdx(board.getManage_idx(), 212, 224, 227)) {
 //				service.alertMessage("관리자만 이용할 수 있습니다.", request, response);
 //			}
-			
+
 			try {
 				checkAuth("C", model, request);
 				checkAuth("U", model, request);
@@ -460,7 +460,7 @@ public class BoardController extends BaseController {
 			}
 		}
 		model.addAttribute("supportAdmin", supportAdmin);
-		
+
 		// 대표도서관 사서 인증
 		PortalMember loginPortal = sessionLoginPortal(request);
 		String portal_auth = loginPortal == null ? "0" : loginPortal.getAuth_group();
@@ -698,7 +698,7 @@ public class BoardController extends BaseController {
 		board.setCategory4Manage(boardManage.getCategory4());
 		board.setCategory5Manage(boardManage.getCategory5());
 
-		
+
 		SupportMember loginSupport = sessionLoginSupport(request);
 		boolean supportAdmin = false;
 		boolean supportAuth = false;
@@ -708,7 +708,7 @@ public class BoardController extends BaseController {
 	    		service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
 	    		return null;
 	        }
-			
+
 			if(loginSupport != null) {
 				if(loginSupport.isLogin() == true) {
 					supportAuth = true;
@@ -720,7 +720,7 @@ public class BoardController extends BaseController {
 		}
 		model.addAttribute("supportAdmin", supportAdmin);
 		model.addAttribute("supportAuth", supportAuth);
-		
+
 		// 대표도서관 사서 인증
 		PortalMember loginPortal = sessionLoginPortal(request);
 		String portal_auth = loginPortal == null ? "0" : loginPortal.getAuth_group();
@@ -788,11 +788,11 @@ public class BoardController extends BaseController {
     				String userId = getSessionMemberId(request);
     				String seqNo = getSessionMemberId(request);
     				String sessionMemberId = getSessionMemberId(request);
-    				
+
     				if(loginSupport != null) {
     					webId = loginSupport.getMember_id();
     				}
-    				
+
     				if(loginPortal != null) {
     					webId = loginPortal.getAgency_id();
     				}
@@ -934,7 +934,7 @@ public class BoardController extends BaseController {
 				model.addAttribute("boardManageAll", boardManageAll);
 			}
 		}
-		
+
 		/**
 		 * 유지보수게시판
 		 */
@@ -967,7 +967,7 @@ public class BoardController extends BaseController {
 				service.alertMessage("처리가 완료된 게시물에는 답변을 추가 할 수 없습니다.", request, response);
 			} catch (Exception e) {}
 		}
-		
+
 		if (boardManage.getBoard_type().equals("QNA")){
 			board.setRequest_state("4");
 		}
@@ -1223,6 +1223,22 @@ public class BoardController extends BaseController {
 //				res.setData(board.getUrlParam(boardManage, "index"));
 //				res.setMessage("답변글이 있는 게시물은 삭제를 하실 수 없습니다.");
 //			} else {
+
+    			Object certObject = request.getSession().getAttribute("certMember");
+    			if (certObject != null && certObject instanceof Member) {
+    				Member certMember = (Member) certObject;
+    				Board boardOne = (Board)service.copyObjectPaging(boardManage, board, service.getBoardOne(board));
+    				if (!boardOne.getImsi_v_20().equals(certMember.getCi_value())) {
+    					res.setValid(false);
+    					res.setMessage("권한이 없습니다.");
+    					return res;
+    				}
+    			} else if (!isLogin(request)) {
+    				res.setValid(false);
+					res.setMessage("권한이 없습니다.");
+					return res;
+    			}
+
 				Member sessionMemberInfo = getSessionMemberInfo(request);
 				board.setDelete_id(sessionMemberInfo.getMember_id());
 				service.deleteBoard(board, request);

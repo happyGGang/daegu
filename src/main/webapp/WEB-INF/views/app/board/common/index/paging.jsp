@@ -37,12 +37,21 @@
 	<fieldset>
 		<label class="blind" for="search_type">검색조건</label>
 		<form:select path="search_type" cssClass="selectmenu" cssStyle="width:100px;">
-			<form:option value="title+content">제목+내용</form:option>
-			<form:option value="title">제목</form:option>
-			<form:option value="content">내용</form:option>
-			<c:if test="${boardManage.board_type ne 'FAQ'}">
-			<form:option value="user_name">글작성자</form:option>
-			</c:if>
+			<c:choose>
+			<c:when test="${boardManage.manage_idx eq 158}">
+				<form:option value="title+content">작가+작품</form:option>
+				<form:option value="title">향토작가</form:option>
+				<form:option value="content">대표작품</form:option>
+			</c:when>
+			<c:otherwise>
+				<form:option value="title+content">제목+내용</form:option>
+				<form:option value="title">제목</form:option>
+				<form:option value="content">내용</form:option>
+				<c:if test="${boardManage.board_type ne 'FAQ'}">
+				<form:option value="user_name">글작성자</form:option>
+				</c:if>
+			</c:otherwise>
+			</c:choose>
 		</form:select>
 		<form:input path="search_text" id="search_text_board" cssClass="text" accesskey="s" title="검색어" alt="검색어"  placeholder="검색어를 입력하세요" cssStyle="ime-mode:active;" />
 		<label for="search_text_board" class="blind">검색어</label>
