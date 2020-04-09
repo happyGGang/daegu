@@ -27,6 +27,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -739,6 +740,19 @@ public class DgElibAPIService extends BaseService {
 		} else {
 			return toLending(result, lending);
 		}
+	}
+
+	@Async
+	public void elibLogin(Member member) {
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("method", "sso_excuteLoginMobile"));
+		params.add(new BasicNameValuePair("userLoginId", member.getMember_id()));
+		params.add(new BasicNameValuePair("libraryCode", member.getLib_code()));
+		params.add(new BasicNameValuePair("userName", member.getMember_name()));
+		params.add(new BasicNameValuePair("user_insert", "Y"));
+
+		Map<String, Object> result = parse(send("http://e-lib.tglnet.or.kr/daegu/Login.do", params, "UTF-8"), "UTF-8");
+
 	}
 
 }

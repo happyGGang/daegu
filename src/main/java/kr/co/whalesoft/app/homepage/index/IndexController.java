@@ -32,6 +32,7 @@ import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.mainImg.MainImg;
 import kr.co.whalesoft.app.cms.mainImg.MainImgService;
+import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage;
@@ -47,6 +48,7 @@ import kr.co.whalesoft.app.cms.popupZone.PopupZoneService;
 import kr.co.whalesoft.app.cms.quickMenu.QuickMenu;
 import kr.co.whalesoft.app.cms.quickMenu.QuickMenuService;
 import kr.co.whalesoft.framework.base.BaseController;
+import kr.go.gbelib.app.cms.module.elib.api.DgElibAPIService;
 import kr.go.gbelib.app.cms.module.elib.best.BestService;
 import kr.go.gbelib.app.cms.module.elib.book.Book;
 import kr.go.gbelib.app.cms.module.facilityReq.FacilityReq;
@@ -108,6 +110,9 @@ public class IndexController extends BaseController {
 
 	@Autowired
 	private CodeService codeService;
+
+	@Autowired
+	private DgElibAPIService dgElibAPIService;
 
 	@RequestMapping(value = { "index.*" })
 	public String index(Model model, HttpServletRequest request) {
@@ -188,7 +193,7 @@ public class IndexController extends BaseController {
 			closedDay = calendarManageService.getClosedDate3(calendarManage);
 		} else {
 			if(homepage.getHomepage_id().equals("h6") || homepage.getHomepage_id().equals("h4")) {
-				closedDay = calendarManageService.getClosedDate4(calendarManage);	
+				closedDay = calendarManageService.getClosedDate4(calendarManage);
 			} else {
 				closedDay = calendarManageService.getClosedDate2(calendarManage);
 			}
@@ -367,7 +372,7 @@ public class IndexController extends BaseController {
 
 		model.addAttribute("recommendBookMenuIdx", 67);
 		model.addAttribute("recommendBookContextPath", homepage.getContext_path());
-		
+
 		Board board = new Board();
 		board.setManage_idx(manage_idx);
 		board.setRowCount(2);
@@ -426,18 +431,24 @@ public class IndexController extends BaseController {
 				}
 			}
 			model.addAttribute("teachList", teachListForAllHomepage);
-			
+
 			Board b = new Board();
 			b.setRowCount(4);
 			b.setTotalDataCount(4);
 			model.addAttribute("noticeBoardList", boardService.getAllHomepageBoardListByMain(b));
-			
+
 			String boardCategory2 = boardManageService.getBoardManageOne(new BoardManage(homepage.getHomepage_id(), 299)).getCategory2();
 			model.addAttribute("category2List", codeService.getCode(homepage.getHomepage_id(), boardCategory2));
 		}
 
 		setBoardListToModel(homepage.getHomepage_id(), model);
 
+		if (homepage.getHomepage_id().equals("h30") && isLogin(request) && "HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			Member sessionMemberInfo = getSessionMemberInfo(request);
+			if (StringUtils.equals(sessionMemberInfo.getMember_class(), "0")) {// 정회원만 가능
+				dgElibAPIService.elibLogin(sessionMemberInfo);
+			}
+		}
 
 		// 전자도서관
 		// ECO 전자도서관 API로 변경 후 주석 처리
