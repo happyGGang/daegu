@@ -53,14 +53,24 @@ ${boardManage.top_html}
 				<th>작성일</th>
 				<td><fmt:formatDate value="${board.editMode eq 'ADD' ? getToday : board.add_date}" pattern="yyyy-MM-dd"/></td>
 			</tr>
-			<c:if test="${board.group_depth > 0}">
+			<c:choose>
+			<c:when test="${board.group_depth > 0}">
 			<tr>
 				<th>처리상태</th>
 				<td colspan="3">
 					<form:select path="request_state" cssClass="selectmenu" cssStyle="width:100px;" items="${request_state_list}" itemLabel="code_name" itemValue="code_id"/>
 				</td>
 			</tr>
-			</c:if>
+			</c:when>
+			<c:when test="${board.editMode eq 'MODIFY'}">
+			<tr style="display: none;">
+				<th>처리상태</th>
+				<td colspan="3">
+					<form:select path="request_state" cssClass="selectmenu" cssStyle="width:100px;" items="${request_state_list}" itemLabel="code_name" itemValue="code_id"/>
+				</td>
+			</tr>
+			</c:when>
+			</c:choose>
 			<c:if test="${boardManage.secret_use_yn eq 'Y'}">
 				<c:if test="${board.group_depth > 0}">
 				<input type="hidden" name="secret_yn" value="${empty requestBoard.secret_yn ? board.secret_yn : requestBoard.secret_yn}"/>
