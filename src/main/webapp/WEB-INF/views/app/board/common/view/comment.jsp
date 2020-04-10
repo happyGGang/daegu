@@ -203,7 +203,20 @@ $(document).ready(function() {
 	<div class="bcl${i.group_comment_depth > 0?' reply':''}" style="padding-left:${(i.group_comment_depth + 1) * 15}px">
 		<div class="bcl-box">
 			<div class="bcl-header">
-				<span class="name">${i.user_name}</span>
+				<span class="name">
+					<c:choose>
+					<c:when test="${authMBA or (not empty loginSupport and loginSupport.admin)}">
+					<c:set var="user_name" value="${i.user_name}"/>
+					</c:when>
+					<c:when test="${boardManage.anonymize_yn eq 'Y'}">
+					<c:set var="user_name" value="${fn:substring(i.user_name, -1, 1)}**"/>
+					</c:when>
+					<c:otherwise>
+					<c:set var="user_name" value="${i.user_name}"/>
+					</c:otherwise>
+					</c:choose>
+					${user_name}
+				</span>
 				<abbr class="published" title="<fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd HH:mm" />"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd HH:mm" /></abbr>
 				<button class="btn-init" id="boardComment_reply_btn" keyValue="${i.comment_idx}"><i class="fa fa-reply"></i> <span>답글</span></button>
 			</div>
