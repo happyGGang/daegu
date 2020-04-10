@@ -53,7 +53,7 @@ $(document).ready(function() {
 
 	$('a#board_save_btn').on('click', function(e) {
 		e.preventDefault();
-		
+
 		var agreeLength = $('div.agree_codes input[name="agree_codes"]').length;
 		for(var i = 1; i <= agreeLength; i++) {
 			if(!$('#terms'+i).prop('checked')) {
@@ -61,7 +61,7 @@ $(document).ready(function() {
 				return false;
 			}
 		}
-		
+
 		$('#boardFileArray > option').prop('selected', true);
 
 		var imsi1 = $('input#imsi_v_1_1').val();
@@ -271,7 +271,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 			</tr>
 			<c:if test="${boardManage.file_use_yn eq 'Y'}">
 			<tr>
-				<td colspan="4" class="file_attach mmm1">
+				<td colspan="4" class="file_attach">
 					<jsp:include page="/WEB-INF/views/app/board/common/edit/jqueryFileUpload.jsp" flush="false">
 						<jsp:param name="formId"  value="#board"/>
 					</jsp:include>

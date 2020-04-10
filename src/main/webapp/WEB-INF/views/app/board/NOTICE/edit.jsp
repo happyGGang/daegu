@@ -56,7 +56,7 @@ ${boardManage.top_html}
 			</tr>
 			<c:if test="${boardManage.file_use_yn eq 'Y'}">
 			<tr>
-				<td colspan="4" class="file_attach mmm1">
+				<td colspan="4" class="file_attach">
 					<jsp:include page="/WEB-INF/views/app/board/common/edit/jqueryFileUpload.jsp" flush="false">
 						<jsp:param name="formId"  value="#board"/>
 					</jsp:include>

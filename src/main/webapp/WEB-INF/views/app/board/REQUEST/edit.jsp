@@ -85,7 +85,7 @@ ${boardManage.top_html}
 			</dl>
 		</div>
 		<div class="bbs-comment" id="bbs-comment">
-			
+
 		</div>
 	</div>
 	</c:if>
@@ -161,7 +161,7 @@ ${boardManage.top_html}
 					<form:input path="title" cssClass="text" cssStyle="width:90%" maxlength="100" />
 				</td>
 			</tr>
-			<tr> 
+			<tr>
 				<th>작성자</th>
 				<td>${member.member_name}</td>
 				<th>작성일</th>
@@ -187,7 +187,7 @@ ${boardManage.top_html}
 			</tr>
 			<c:if test="${boardManage.file_use_yn eq 'Y'}">
 			<tr>
-				<td colspan="4" class="file_attach mmm1">
+				<td colspan="4" class="file_attach">
 					<jsp:include page="/WEB-INF/views/app/board/common/edit/jqueryFileUpload.jsp" flush="false">
 						<jsp:param name="formId"  value="#board"/>
 					</jsp:include>
@@ -196,7 +196,7 @@ ${boardManage.top_html}
 			</c:if>
 		</tbody>
 	</table>
-	
+
 	<jsp:include page="/WEB-INF/views/app/board/common/edit/button.jsp" flush="false" />
 </div>
 </form:form>

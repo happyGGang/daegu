@@ -150,9 +150,19 @@ input[type="radio"][disabled],input[type="checkbox"][disabled],input[type="radio
 
 @media (max-width:767px){/* 태블릿 */
 	.mmm1{display:none!important}
+	.fileUploader .preview {display: none !important;}
+	.fileUploader .file_attach_info {padding: 0 0 5px 0px !important;}
+	.fileUploader .file_info, .fileUploader .fileListArea {margin-right: 0px !important;}
+	.fileUploader .fileListArea select#boardFileArray {height: 200px !important;}
+	.fileUploader .file_info #inEditorButton {display: none !important;}
 }
 @media (max-width:500px){/* 모바일 */
 	.mmm2{display:none!important}
+	.fileUploader .preview {display: none !important;}
+	.fileUploader .file_attach_info {padding: 0 0 5px 0px !important;}
+	.fileUploader .file_info, .fileUploader .fileListArea {margin-right: 0px !important;}
+	.fileUploader .fileListArea select#boardFileArray {height: 200px !important;}
+	.fileUploader .file_info #inEditorButton {display: none !important;}
 }
 
 .txt-bar{width:1px;height:9px;margin:0 5px;background:#e2e2e2;display:inline-block;zoom:1;*display:inline}
