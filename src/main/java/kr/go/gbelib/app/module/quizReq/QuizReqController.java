@@ -25,8 +25,6 @@ import kr.co.whalesoft.app.cms.module.quizQuestion.QuizQuestion;
 import kr.co.whalesoft.app.cms.module.quizQuestion.QuizQuestionService;
 import kr.co.whalesoft.app.cms.module.quizReq.QuizReq;
 import kr.co.whalesoft.app.cms.module.quizReq.QuizReqService;
-import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
-import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.app.cms.terms.Terms;
 import kr.co.whalesoft.app.cms.terms.TermsService;
 import kr.co.whalesoft.framework.base.BaseController;
@@ -55,15 +53,6 @@ public class QuizReqController extends BaseController {
 	@Autowired
 	private TermsService termsService;
 
-	@Autowired
-	private RecommendSiteService recommendSiteService;
-
-	@ModelAttribute("recommendSiteList")
-	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		return recommendSiteService.getRecommendSiteListAll(new RecommendSite(homepage.getHomepage_id()));
-	}
-
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, QuizReq quizReq, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
@@ -79,7 +68,10 @@ public class QuizReqController extends BaseController {
 		// 등록된 퀴즈 타입이 있는지 확인
 		if ( quizTypeList.size() > 0 ) {
 			Menu menuOne = (Menu) request.getAttribute("menuOne");
-			model.addAttribute("termsList", termsService.getTermsListInModule(new Terms(menuOne.getManage_idx())));
+			Terms t = new Terms();
+			t.setModule_idx(menuOne.getManage_idx());
+			t.setHomepage_id(homepage.getHomepage_id());
+			model.addAttribute("termsList", termsService.getTermsListInModule(t));
 			model.addAttribute("quizTypeList", quizTypeList);
 			// 첫번째 퀴즈 타입의 해당하는 년,월 의 퀴즈를 가져옴.
 
@@ -106,6 +98,9 @@ public class QuizReqController extends BaseController {
 		}
 		model.addAttribute("member", getSessionMemberInfo(request));
 		model.addAttribute("quizReq", quizReq);
+
+
+
 		return String.format(basePath, homepage.getFolder()) + "index";
 	}
 
@@ -119,14 +114,14 @@ public class QuizReqController extends BaseController {
 			ValidationUtils.rejectIfEmpty(result, "phone", "휴대전화번호를 입력하세요.");
 			ValidationUtils.rejectPhone(result, "phone", "휴대전화번호 형식(01x-xxxx-xxxx)이 올바르지 않습니다.");
 		}
-		
+
 		int matchLength = StringUtils.countMatches(quizReq.getQuiz_answer(), "<whale>") + 1;
 		int answer_length = quizReq.getQuiz_answer().split("<whale>").length;
 		if(matchLength - answer_length > 0) {
 			int answer_num = answer_length + 1;
 			result.reject(answer_num + "번 문항에 답하지 않으셨습니다.");
 		}
-		
+
 		if ( !result.hasErrors() ) {
 			if ( editMode.equals("ADD") ) {
 				quizReq.setAdd_id(getSessionMemberId(request));

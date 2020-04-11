@@ -54,6 +54,14 @@ $(function() {
 			return;
 		}
 
+		var agreeLength = $('div.agree_codes input.agree_check').length;
+		for(var i = 1; i <= agreeLength; i++) {
+			if(!$('#terms'+i).prop('checked') && $('#terms'+i).attr('keyValue2') == 'Y') {
+				alert($('#terms'+i).attr('keyValue') + ' 동의 하지 않았습니다.');
+				return false;
+			}
+		}
+
 		var answerList = [];
 		$('div.txt-box').each(function(i, divE) {
 			var $this = $(this);
@@ -258,17 +266,27 @@ ${quiz.top_html}
 		${quiz.bottom_html}
 		</c:if>
 
-		<c:forEach items="${termsList}" var="terms">
-			${terms.contents }
+		<c:forEach items="${termsList}" var="terms" varStatus="status">
+			<c:if test="${status.first}">
+			<div class="join-wrap" style="padding: 0">
+			</c:if>
+			<h4>${terms.title}</h4>
+			<div class="Box" style="max-height:200px" tabindex="0" >
+				${terms.contents}
+			</div>
+			<div class="agree_codes">
+				<div class="checkbox">
+					<input id="terms${status.count}" class="agree_check" type="checkbox" keyValue="${terms.title}" keyValue2="${terms.required_yn}" keyValue3="${terms.terms_idx}" style="opacity: inherit;">
+					<label style="position: static !important;" for="terms${status.count}">${terms.title} 동의 ${terms.required_yn eq 'Y' ? '[필수]' : '[선택]'}</label>
+				</div>
+			</div>
+			<c:if test="${status.last}">
+			<br><br>
+			</div>
+			</c:if>
 		</c:forEach>
-		<c:if test="${fn:length(termsList) > 0}">
-		<div style="text-align: right"><b>이용약관 및 개인정보의 수집·이용 동의 여부</b>(<span style="color: red; font-weight: bold;">*</span>)
-			<form:select path="terms_yn" cssClass="selectmenu" cssStyle="width : 70px" title="개인정보 이용동의 선택">
-				<form:option value="Y" label="동의"/>
-				<form:option value="N" label="미동의"/>
-			</form:select>
-		</div>
-		</c:if>
+
+
 		</c:if>
 	</form:form>
 </div>
