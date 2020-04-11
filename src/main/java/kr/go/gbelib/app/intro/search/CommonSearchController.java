@@ -1487,9 +1487,9 @@ public class CommonSearchController extends BaseController {
 
 						// 신청자에게 SMS 전송
 						String message = "상호대차 신청이 완료 되었습니다.[" + librarySearch.getTitle() + "]";
-						if (isSmsReceive("WEBID", getSessionMemberId(request))) {
+//						if (isSmsReceive("WEBID", getSessionMemberId(request))) {
 //							PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, member.getMobile_no(), message, homepage.getHomepage_send_tell(), true);
-						}
+//						}
 
 						// 관리자에게 SMS 전송
 						String adminMessage = "상호대차 신청건이 발생하였습니다. 수령:"+String.valueOf(map.get("SHELF_LOC_NAME"))+" 도서명:"+librarySearch.getTitle();
@@ -1613,9 +1613,9 @@ public class CommonSearchController extends BaseController {
 
 				// 신청자에게 SMS 전송
 				String message = "무인대출 신청이 완료 되었습니다.[" + librarySearch.getTitle() + "]";
-				if (isSmsReceive("WEBID", getSessionMemberId(request))) {
+//				if (isSmsReceive("WEBID", getSessionMemberId(request))) {
 //					PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, member.getMobile_no(), message, homepage.getHomepage_send_tell(), true);
-				}
+//				}
 
 				// 관리자에게 SMS 전송
 				String adminMessage = "무인대출 신청건이 발생하였습니다. 수령: 도서명:"+librarySearch.getTitle();
@@ -1722,13 +1722,13 @@ public class CommonSearchController extends BaseController {
 				return res;
 			}
 
-			Map<String, Object> nightLoanReserveCnt = LibSearchAPI.getNightLoanReserveCnt(librarySearch, "USER");
+			Map<String, Object> nightLoanReserveCnt = LibSearchAPI.getNightLoanReserveCnt(librarySearch, "DATA");
 			String nightLoanResult = String.valueOf(nightLoanReserveCnt.get("RESULT_INFO"));
 			if (StringUtils.equals(nightLoanResult, "SUCCESS")) {
 				String limit_cnt = String.valueOf(nightLoanReserveCnt.get("TOTAL"));
 				try {
 					int limit_count = Integer.parseInt(limit_cnt);
-					if (limit_count >= 50) {
+					if (limit_count >= 250) {
 						res.setValid(false);
 						res.setMessage("해당 도서관의 금일 워킹스루 예약가능 인원이 모두 찼습니다. 내일 다시 신청해주세요");
 						return res;
@@ -1753,21 +1753,21 @@ public class CommonSearchController extends BaseController {
 				res.setMessage("예약 되었습니다.");
 
 				// 신청자에게 SMS 전송
-				String message = "야간대출 신청이 완료 되었습니다.[" + librarySearch.getTitle() + "]";
-				if (isSmsReceive("WEBID", getSessionMemberId(request))) {
+//				String message = "야간대출 신청이 완료 되었습니다.[" + librarySearch.getTitle() + "]";
+//				if (isSmsReceive("WEBID", getSessionMemberId(request))) {
 //					PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, member.getMobile_no(), message, homepage.getHomepage_send_tell(), true);
-				}
+//				}
 
 				// 관리자에게 SMS 전송
-				String adminMessage = "야간대출 신청건이 발생하였습니다. 수령: 도서명:"+librarySearch.getTitle();
-				for(SmsReception one : receptionsList) {
-					//TODO 테스트 후 sysout 삭제 및 주석 취소
-					System.out.println("@@@@@@@@@@ sms homepage : " + homepage.getHomepage_name() + "/" + homepage.getHomepage_id());
-					System.out.println("@@@@@@@@@@ sms reception : " + one.getReception_phone());
-					System.out.println("@@@@@@@@@@ sms homepage tel : " + homepage.getHomepage_send_tell());
-					System.out.println("@@@@@@@@@@ sms message : " + adminMessage);
+//				String adminMessage = "야간대출 신청건이 발생하였습니다. 수령: 도서명:"+librarySearch.getTitle();
+//				for(SmsReception one : receptionsList) {
+//					//TODO 테스트 후 sysout 삭제 및 주석 취소
+//					System.out.println("@@@@@@@@@@ sms homepage : " + homepage.getHomepage_name() + "/" + homepage.getHomepage_id());
+//					System.out.println("@@@@@@@@@@ sms reception : " + one.getReception_phone());
+//					System.out.println("@@@@@@@@@@ sms homepage tel : " + homepage.getHomepage_send_tell());
+//					System.out.println("@@@@@@@@@@ sms message : " + adminMessage);
 //					PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, one.getReception_phone(), adminMessage, homepage.getHomepage_send_tell(), true);
-				}
+//				}
 			} else {
 				res.setValid(false);
 				res.setMessage(apiResult.getMessage());
