@@ -52,7 +52,7 @@ ${boardManage.top_html}
 					</c:if>
 					<td class="num">${paging.listRowNum - status.index}</td>
 				<c:forEach var="j" varStatus="status2" items="${fieldList}">
-				<boardTag:customFieldIndex manage_idx="${boardManage.manage_idx}" board_idx="${i.board_idx}" board_column="${j.board_column}" board_value="${i[j.board_column]}" column_type="${j.column_type}" content_link_yn="${j.content_link_yn}" code_mapping="${j.code_mapping}" />
+				<boardTag:customFieldIndex manage_idx="${boardManage.manage_idx}" board_idx="${i.board_idx}" board_column="${j.board_column}" board_value="${i[j.board_column]}" column_type="${j.column_type}" content_link_yn="${j.content_link_yn}" code_mapping="${j.code_mapping}" comment_count="${i.comment_count}" />
 				</c:forEach>
 				<td class="important num adddate"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd" /></td>
 				<c:if test="${boardManage.file_use_yn eq 'Y'}">

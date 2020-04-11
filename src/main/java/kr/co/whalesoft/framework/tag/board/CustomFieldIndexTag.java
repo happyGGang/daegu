@@ -33,6 +33,8 @@ public class CustomFieldIndexTag extends BodyTagSupport {
 	private String content_link_yn = "N";
 	private String code_mapping;
 
+	private int comment_count;
+
 	private final int manage_idx_type1[] = {19, 23, 28, 100, 366};
 	private boolean check_type;
 
@@ -101,6 +103,11 @@ public class CustomFieldIndexTag extends BodyTagSupport {
 			if (StringUtils.isNotBlank(menu_idx)) {
 				url += String.format("&menu_idx=%s", menu_idx);
 			}
+
+			if (board_column.equals("title") && comment_count > 0) {
+				return_str += ("<span class=\"comment\"><em>댓글</em> <i>"+comment_count+"</i></span>");
+			}
+
 			tdTag.setContent(String.format("<a href=\"%s\">%s</a>", url, return_str));
 		} else {
 			tdTag.setContent(return_str);
@@ -177,6 +184,16 @@ public class CustomFieldIndexTag extends BodyTagSupport {
 
 	public void setColumn_type(String column_type) {
 		this.column_type = column_type;
+	}
+
+
+	public int getComment_count() {
+		return comment_count;
+	}
+
+
+	public void setComment_count(int comment_count) {
+		this.comment_count = comment_count;
 	}
 
 }
