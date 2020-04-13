@@ -575,8 +575,10 @@ public class MemberAPI {
 	 * K.API - 91
 	 * @author whalesoft YONGJU 2020. 4. 7.
 	 * @param dlsMember
+	 * @param mode - DLS : 독서교육종합시스템, UNTACT : 비대면
+	 *
 	 */
-	public static Map<String, Object> regularUserInfoInsert(Member member) {
+	public static Map<String, Object> regularUserInfoInsert(Member member, String mode) {
 		Map<String, Object> param = new HashMap<String, Object>();
 
 		//필수입력값
@@ -645,8 +647,13 @@ public class MemberAPI {
 			param.put("department", member.getCompany_depart());//근무지 부서명
 		}
 
-		param.put("dls_id", member.getIntegrationId());//dls아이디
-		param.put("user_class_code", "016");//이용자 직급 코드(016(DLS인증회원) 고정)
+		if (StringUtils.equals(mode, "DLS")) {
+			param.put("dls_id", member.getIntegrationId());//dls아이디
+			param.put("user_class_code", "016");//이용자 직급 코드(016(DLS인증회원) 고정)
+		}
+		if (StringUtils.equals(mode, "UNTACT")) {
+			param.put("user_class_code", "017");//이용자 직급 코드(017(비대면인증회원) 고정)
+		}
 
 		String user_position_code = "001"; //중앙, 228학생
 		if (member.getUser_manage_code().equals("AA") || member.getUser_manage_code().equals("AH")) {

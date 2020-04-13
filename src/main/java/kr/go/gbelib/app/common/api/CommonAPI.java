@@ -11,9 +11,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -256,7 +259,7 @@ public class CommonAPI {
 				for (String oneKey : keys) {
 					paramList.add(String.format("%s=%s", oneKey, param.get(oneKey)));
 				}
-				log.error("@@@@@@@@@@@@@@@@@@ LIBONE API : " + LIBONE_API_URL + "?" + StringUtils.join(paramList, "&"));
+//				log.error("@@@@@@@@@@@@@@@@@@ LIBONE API : " + LIBONE_API_URL + "?" + StringUtils.join(paramList, "&"));
 				writer.write(StringUtils.join(paramList, "&"));
 
 			}
@@ -296,7 +299,7 @@ public class CommonAPI {
 		}
 		long end = System.currentTimeMillis();
 
-		log.error("@@@@@@@@@@@@@@@@@@ LIBONE API TIME : " + (end-start)/1000.0);
+//		log.error("@@@@@@@@@@@@@@@@@@ LIBONE API TIME : " + (end-start)/1000.0);
 
 		return resultMap;
 	}
@@ -317,7 +320,7 @@ public class CommonAPI {
 				for (String oneKey : keys) {
 					postParams.add(new BasicNameValuePair(oneKey, String.valueOf(param.get(oneKey))));
 				}
-				log.error("@@@@@@@@@@@@@@@@@@ LIBONE API 2 : " + LIBONE_API_URL + "?" + StringUtils.join(postParams, "&"));
+//				log.error("@@@@@@@@@@@@@@@@@@ LIBONE API 2 : " + LIBONE_API_URL + "?" + StringUtils.join(postParams, "&"));
 			}
 
 			httpPost.setEntity(new UrlEncodedFormEntity(postParams));
@@ -433,7 +436,7 @@ public class CommonAPI {
 			while ((inputLine = br.readLine()) != null) {
 				response.append(inputLine);
 			}
-			log.error("@@@@@@@@@@@@@@@@@@ NAVER API : " + url + "?" + StringUtils.join(paramList, "&"));
+//			log.error("@@@@@@@@@@@@@@@@@@ NAVER API : " + url + "?" + StringUtils.join(paramList, "&"));
 			resultMap = xmlToJson(response.toString()).toMap();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -471,7 +474,9 @@ public class CommonAPI {
 				for (String oneKey : keys) {
 					paramList.add(String.format("%s=%s", oneKey, URLEncoder.encode(String.valueOf(param.get(oneKey)), "UTF-8")));
 				}
-				log.error("@@@@@@@@@@@@@@@@@@ ALADIN API : " + url + "?" + StringUtils.join(paramList, "&"));
+				if (System.getProperty("spring.profiles.active").equals("localServer")) {
+					log.error("@@@@@@@@@@@@@@@@@@ ALADIN API : " + url + "?" + StringUtils.join(paramList, "&"));
+				}
 			}
 			connection = initConn(url + "?" + StringUtils.join(paramList, "&"));
 			connection.setRequestMethod("GET");
@@ -509,6 +514,120 @@ public class CommonAPI {
 
 		return resultMap;
 
+	}
+
+	/**
+	 * 비대면 확인 API
+	 * @author whalesoft YONGJU 2020. 4. 10.
+	 * @param juminNo 주민등록번호
+	 * @param name 성명
+	 * @return
+	 */
+	public static Map<String, Object> sendUntact(String juminNo, String name) {
+		long startTime = System.currentTimeMillis();
+		String rnd1 = Double.toString(java.lang.Math.random()).substring(2, 6);
+		String rnd2 = Double.toString(java.lang.Math.random()).substring(2, 6);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS", Locale.KOREA);
+		String cur = sdf.format(new Date());
+		String transactionUniqueId = cur + rnd1 + rnd2;
+
+		NewGpkiUtil g = null;
+		String xml = null;
+
+		boolean useGPKI = true;
+
+		StringBuffer sb = new StringBuffer();
+
+		sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\t\n");
+		sb.append("<Envelope xmlns=\"http://schemas.xmlsoap.org/soap/envelope/\">\n");
+		sb.append("   <Header>\n");
+		sb.append("      <commonHeader xmlns=\"http://ccais.mopas.go.kr/dh/jmn/services/jumin/ResideInsttCnfirm/types\">\n");
+		sb.append("         <serviceName>ResideInsttCnfirmService</serviceName>\n");
+		sb.append("         <useSystemCode>6271102CMC</useSystemCode>\n");
+		sb.append("         <certServerId>SVR6271102001</certServerId>\n");
+		sb.append("         <transactionUniqueId>" + transactionUniqueId + "</transactionUniqueId>\n");
+		sb.append("         <userDeptCode>6271102</userDeptCode>\n");
+		sb.append("         <userName>이경애</userName>\n");
+		sb.append("      </commonHeader>\n");
+		sb.append("   </Header>\n");
+		sb.append("   <Body>\n");
+		sb.append("      <getResideInsttCnfirm xmlns=\"http://ccais.mopas.go.kr/dh/jmn/services/jumin/ResideInsttCnfirm/types\">\n");
+		sb.append("         <orgCode>1174000001</orgCode>\n");
+		sb.append("         <id>" + juminNo + "</id>\n");
+		sb.append("         <name>" + name + "</name>\n");
+		sb.append("      </getResideInsttCnfirm>\n");
+		sb.append("   </Body>\n");
+		sb.append("</Envelope>\n");
+
+		xml = sb.toString();
+
+		// 행정망
+//		String serviceUrl = "http://hub.share.go.kr/jmn/infoservice/jumin/ResideInsttCnfirmService";
+		String serviceUrl = "http://10.50.3.97/jmn/infoservice/jumin/ResideInsttCnfirmService";
+
+		String dcriptMsg = "";
+
+		if (useGPKI) {
+
+			String encoded = null;
+			String requestXml = null;
+			try {
+				String targetServerId = "SVR1311000030"; // 수정금지
+				g = ShareGpki.getGpkiUtil(targetServerId);
+
+				String charset = "UTF-8";
+
+				String original = xml.split("<getResideInsttCnfirm xmlns=\"http://ccais.mopas.go.kr/dh/jmn/services/jumin/ResideInsttCnfirm/types\">")[1].split("</getResideInsttCnfirm>")[0];
+
+				byte[] encrypted = g.encrypt(original.getBytes(charset), targetServerId);
+				byte[] signed = g.sign(encrypted);
+				encoded = g.encode(signed);
+
+//				System.out.println(xml);
+
+				requestXml = xml;
+				{
+					requestXml = requestXml.replace(original, encoded);
+				}
+
+//				System.out.println(requestXml);
+
+			} catch (Throwable e) {
+				e.printStackTrace();
+			}
+
+			String responseMsg = GpkiClient.doService(serviceUrl, requestXml);
+//			System.out.println(responseMsg);
+			String responseEncData = responseMsg.split("<getResideInsttCnfirmResponse xmlns=\"http://ccais.mopas.go.kr/dh/jmn/services/jumin/ResideInsttCnfirm/types\">")[1]
+					.split("</getResideInsttCnfirmResponse>")[0];
+
+//			System.out.println(responseMsg);
+
+			String decrypted = "";
+			{
+				byte[] decoded;
+				try {
+					decoded = g.decode(responseEncData);
+					byte[] validated = g.validate(decoded);
+					decrypted = new String(g.decrypt(validated), "UTF-8");
+					decrypted = decrypted.replace("><", ">\n<");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			dcriptMsg = responseMsg.replace(responseEncData, decrypted);
+//			System.out.println(dcriptMsg);
+
+			System.out.println("응답시간 : " + (System.currentTimeMillis() - startTime) + " ms");
+
+		} else {
+			String responseMsg = GpkiClient.doService(serviceUrl, xml);
+			System.out.println(responseMsg);
+		}
+
+
+		return xmlToJson(dcriptMsg).toMap();
 	}
 
 	public static String getElementValueByName(Document doc, String elementName) {
@@ -731,7 +850,7 @@ public class CommonAPI {
 			while ((inputLine = br.readLine()) != null) {
 				response.append(inputLine);
 			}
-			log.error("@@@@@@@@@@@@@@@@@@ DATA_4_LIBRARY_API : " + url + "?" + StringUtils.join(paramList, "&"));
+//			log.error("@@@@@@@@@@@@@@@@@@ DATA_4_LIBRARY_API : " + url + "?" + StringUtils.join(paramList, "&"));
 //			log.error("@@@@@@@@@@@@@@@@@@ DATA_4_LIBRARY_API RESULT : " + response.toString());
 			resultMap = xmlToJson(response.toString()).toMap();
 		} catch (Exception e) {

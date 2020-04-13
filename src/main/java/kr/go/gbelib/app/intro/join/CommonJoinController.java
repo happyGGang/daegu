@@ -32,6 +32,7 @@ import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.common.api.ApiResponse;
+import kr.go.gbelib.app.common.api.CommonAPI;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.common.api.MemberAPI;
 
@@ -863,6 +864,12 @@ public class CommonJoinController extends BaseController {
 	public String changeover(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 
+		int dlsMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 124));
+		int untactMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 125));
+
+		model.addAttribute("dlsMenuIdx", dlsMenuIdx);
+		model.addAttribute("untactMenuIdx", untactMenuIdx);
+
 		return String.format(basePath, homepage.getFolder()) + "changeover";
 	}
 
@@ -896,6 +903,17 @@ public class CommonJoinController extends BaseController {
 		return String.format(basePath, homepage.getFolder()) + "dls";
 	}
 
+	/**
+	 * DLS 인증 폼
+	 *
+	 * @author whalesoft YONGJU 2020. 4. 10.
+	 * @param model
+	 * @param member
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = {"/dlsCheck.*"}, method = RequestMethod.POST)
 	public String dlsCheck(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
@@ -918,6 +936,14 @@ public class CommonJoinController extends BaseController {
 		return String.format(basePath, homepage.getFolder()) + "dlsCheck_ajax";
 	}
 
+	/**
+	 * DLS 인증
+	 * @author whalesoft YONGJU 2020. 4. 10.
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping (value = {"/dlsCheckA.*"})
 	public String dlsCheckA(Model model, HttpServletRequest request, HttpServletResponse response) {
 		Homepage homepage = getSessionHomepage(request);
@@ -946,7 +972,7 @@ public class CommonJoinController extends BaseController {
 			sessionMemberInfo.setManage_code(sessionMemberInfo.getUser_manage_code());//도서관부호 세팅
 			sessionMemberInfo.setIn_ip(request.getRemoteAddr());//아이피 세팅
 
-			Map<String, Object> regularUserInfoInsert = MemberAPI.regularUserInfoInsert(sessionMemberInfo);
+			Map<String, Object> regularUserInfoInsert = MemberAPI.regularUserInfoInsert(sessionMemberInfo, "DLS");
 
 			String regular = String.valueOf(regularUserInfoInsert.get("RESULT_INFO"));
 			if (StringUtils.equals(regular, "SUCCESS")) {
@@ -958,5 +984,171 @@ public class CommonJoinController extends BaseController {
 		return String.format(basePath, homepage.getFolder()) + "dlsCheckA_ajax";
 	}
 
+
+	/**
+	 * 비대면 확인 입력 폼 - 준회원이 비대면 확인 서비스를 통해 정회원으로 전환
+	 * @author whalesoft YONGJU 2020. 4. 10.
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping (value = {"/untactForm.*"})
+	public String untactForm(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = getSessionHomepage(request);
+
+		//로그인여부확인
+		//비로그인은 이용불가
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+			String before_url = String.format("/%s/intro/join/untactForm.do?menu_idx=%d", homepage.getContext_path(), member.getMenu_idx());
+			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d&before_url=%s", homepage.getContext_path(), loginMenuIdx, before_url), request, response);
+			return null;
+		}
+
+		//정회원여부확인
+		//정회원은 이용불가
+		Member sessionMemberInfo = getSessionMemberInfo(request);
+		if (StringUtils.equals(sessionMemberInfo.getMember_class(), "0")) {
+			joinService.alertMessageAndUrl("이미 인증 받은 회원입니다.", String.format("/%s/index.do", homepage.getContext_path()), request, response);
+			return null;
+		}
+
+
+		return String.format(basePath, homepage.getFolder()) + "untactForm";
+	}
+
+	/**
+	 * 비대면 확인 로직
+	 * 주민등록번호와 이름을 입력 받는다.
+	 *
+	 * @author whalesoft YONGJU 2020. 4. 10.
+	 * @param result
+	 * @param request
+	 * @return
+	 */
+	@SuppressWarnings ("unchecked")
+	@RequestMapping (value = {"/untactCheck.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse untactCheck(Member member, BindingResult result, HttpServletRequest request) {
+
+		JsonResponse res = new JsonResponse(request);
+
+		//로그인여부확인
+		//비로그인은 이용불가
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			result.reject("로그인 후 이용가능합니다.");
+		}
+
+		//정회원여부확인
+		//정회원은 이용불가
+		Member sessionMemberInfo = getSessionMemberInfo(request);
+		if (StringUtils.equals(sessionMemberInfo.getMember_class(), "0")) {
+			result.reject("이미 인증 받은 회원입니다.");
+		}
+
+		String jumin1 = request.getParameter("jumin1");
+		if (StringUtils.isEmpty(jumin1)) {
+			result.reject("주민등록번호 앞 6자리를 입력하세요.");
+		}
+
+		String jumin2 = request.getParameter("jumin2");
+		if (StringUtils.isEmpty(jumin2)) {
+			result.reject("주민등록번호 뒤 7자리를 입력하세요.");
+		}
+
+		if (StringUtils.isEmpty(sessionMemberInfo.getMember_name())) {
+			result.reject("비정상적인 접근입니다.");
+		}
+
+
+		if (!result.hasErrors()) {
+			String member_name = sessionMemberInfo.getMember_name();
+
+			Map<String, Object> sendUntact = CommonAPI.sendUntact(jumin1 + jumin2, member_name);
+//			System.out.println("@@@@@@@@@@@@@@@@ sendUntact : " + sendUntact);
+
+			Map<String, Object> envelope = (Map<String, Object>) sendUntact.get("soap:Envelope");
+			Map<String, Object> body = (Map<String, Object>) envelope.get("soap:Body");
+			Map<String, Object> getResideInsttCnfirmResponse = (Map<String, Object>) body.get("getResideInsttCnfirmResponse");
+
+//			System.out.println("@@@@@@@@@@@@@@@@ untact result serviceResult : " + getResideInsttCnfirmResponse.get("serviceResult"));
+//			System.out.println("@@@@@@@@@@@@@@@@ untact result name : " + getResideInsttCnfirmResponse.get("name"));
+//			System.out.println("@@@@@@@@@@@@@@@@ untact result hangkikCd : " + getResideInsttCnfirmResponse.get("hangkikCd"));
+
+			String serviceResult = String.valueOf(getResideInsttCnfirmResponse.get("serviceResult"));
+
+			/**
+			 * 서비스 결과
+			 * 1:성공
+			 * 2:주민등록번호오류
+			 * 3:성명오류
+			 * 4:거주자아님
+			 * 9:시스템오류
+			 * 99:등록된이용기관이아님
+			 */
+			if (!StringUtils.equals(serviceResult, "1")) {
+				System.out.println("@@@@@@@@@@@@@@@@ untact result serviceResult : " + serviceResult);
+				System.out.println("@@@@@@@@@@@@@@@@ untact failed MemberId : " + getSessionMemberId(request));
+				res.setValid(false);
+				res.setMessage("주민등록번호를 확인해주세요.");
+				return res;
+			}
+
+			//행정동코드
+			String hangkikCd = String.valueOf(getResideInsttCnfirmResponse.get("hangkikCd"));
+
+			if (StringUtils.isEmpty(hangkikCd) || StringUtils.equalsIgnoreCase(hangkikCd, "null")) {
+				System.out.println("@@@@@@@@@@@@@@@@ untact result hangkikCd is empty : " + getResideInsttCnfirmResponse);
+				res.setValid(false);
+				res.setMessage("인증에 오류가 발생하였습니다. 다시 시도해주세요.");
+				return res;
+			}
+
+			if (!StringUtils.startsWith(hangkikCd, "27")) {
+				System.out.println("@@@@@@@@@@@@@@@@ untact result hangkikCd : " + getResideInsttCnfirmResponse.get("hangkikCd"));
+				System.out.println("@@@@@@@@@@@@@@@@ untact result name : " + getResideInsttCnfirmResponse.get("name"));
+				res.setValid(false);
+				res.setMessage("대구광역시 거주자만 인증 가능합니다.");
+				return res;
+			}
+
+			//ci 세팅
+			List<Map<String, Object>> checkDupUser = MemberAPI.checkDupUser("0", sessionMemberInfo);//아이디로 조회
+			String ci = String.valueOf(checkDupUser.get(0).get("IPIN_HASH"));//ci값 꺼내기
+			sessionMemberInfo.setCi_value(ci);//ci 세팅
+
+			String birth_day = sessionMemberInfo.getBirth_day();
+			sessionMemberInfo.setBirth_day(birth_day.replaceAll("-", ""));//생년월일세팅
+			sessionMemberInfo.setManage_code(sessionMemberInfo.getUser_manage_code());//도서관부호 세팅
+			sessionMemberInfo.setIn_ip(request.getRemoteAddr());//아이피 세팅
+
+			Map<String, Object> regularUserInfoInsert = MemberAPI.regularUserInfoInsert(sessionMemberInfo, "UNTACT");
+
+			String regular = String.valueOf(regularUserInfoInsert.get("RESULT_INFO"));
+			if (StringUtils.equals(regular, "SUCCESS")) {
+				res.setValid(true);
+				res.setMessage("인증완료되었습니다. 재 로그인 후 이용가능합니다.");
+    			Homepage homepage = getSessionHomepage(request);
+    			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+    			res.setUrl(String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx));
+			} else {
+				res.setValid(false);
+				try {
+					System.out.println("@@@@@@@@@@@@@@@@ untact failed MemberId 1 : " + getSessionMemberId(request));
+					res.setMessage(String.valueOf(regularUserInfoInsert.get("RESULT_MESSAGE")));
+				} catch (Exception e) {
+					res.setMessage("인증에 실패하였습니다. 도서관으로 문의 바랍니다.");
+					System.out.println("@@@@@@@@@@@@@@@@ untact failed MemberId 2 : " + getSessionMemberId(request));
+				}
+			}
+
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+
+		return res;
+	}
 
 }
