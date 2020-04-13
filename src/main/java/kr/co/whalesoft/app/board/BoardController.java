@@ -1032,7 +1032,7 @@ public class BoardController extends BaseController {
 		}
 		/** 정규표현식 필터 **/
 
-		if(boardManage.getBoard_type().indexOf("CUSTOM") > -1) {
+		if(boardManage.getBoard_type().indexOf("CUSTOM") > -1 && !board.getEditMode().equals("REPLY")) {
 			List<FieldManage> fieldList = fieldManageService.getBoardFieldManageByEdit(new FieldManage(boardManage.getManage_idx()));
 
 			if(fieldList != null) {
@@ -1043,7 +1043,7 @@ public class BoardController extends BaseController {
 				}
 			}
 		//OTHERBOARDEDIT일 경우 Validation 처리 하지 않음 나중에 제거
-		} else if(!board.getEditMode().equals("OTHERBOARDEDIT")){
+		} else if(!board.getEditMode().equals("OTHERBOARDEDIT") && !board.getEditMode().equals("REPLY")){
 			ValidationUtils.rejectIfEmpty(result, "title", "제목을 입력하세요.");
 			if(boardManage.getCategory1() != null && !boardManage.getCategory1().equals("")) {
 				ValidationUtils.rejectIfEmpty(result, "category1", "게시판 분류1을 입력하세요.");
