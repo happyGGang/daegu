@@ -269,12 +269,19 @@ $(function() {
 			<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
 			</c:if>
 
-			<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'thak81' ||  sessionScope.member.member_id eq 'angelmar' ||  sessionScope.member.member_id eq 'qhagottkf' ||  sessionScope.member.member_id eq 'jjoo0204' ||  sessionScope.member.member_id eq 'phm0825' ||  sessionScope.member.member_id eq 'sji71kdc' ||  sessionScope.member.member_id eq 'win0829' ||  sessionScope.member.member_id eq 'xntls77' ||  sessionScope.member.member_id eq 'qhfka12095' ||  sessionScope.member.member_id eq 'mingxanne' ||  sessionScope.member.member_id eq 'tmddms586' ||  sessionScope.member.member_id eq 'kmk1969' ||  sessionScope.member.member_id eq 'ysil20' ||  sessionScope.member.member_id eq 'hoya1022' ||  sessionScope.member.member_id eq 'nihonmat' ||  sessionScope.member.member_id eq 'limimi' ||  sessionScope.member.member_id eq 'one0224' ||  sessionScope.member.member_id eq 'cmk1024' ||  sessionScope.member.member_id eq 'hades530'}">
+<%--
+			<c:choose>
+				<c:when test="${detail.MANAGE_CODE eq 'AA' || detail.MANAGE_CODE eq 'AG' || detail.MANAGE_CODE eq 'AF' || detail.MANAGE_CODE eq 'AE' || detail.MANAGE_CODE eq 'AJ' || detail.MANAGE_CODE eq 'AL'}">
 
 
+			
+				</c:when>
+				<c:otherwise>
+--%>
+			<!--워킹스루 시작-->
 			<c:if test="${detail.WORKING_STATUS eq 'BOL112N'}">
 
-			<c:if test="${detail.SHELF_LOC_CODE eq 'AD20' || detail.SHELF_LOC_CODE eq 'AD18' || detail.SHELF_LOC_CODE eq 'AD19' || detail.SHELF_LOC_CODE eq 'AD04' || detail.SHELF_LOC_CODE eq 'AD02' || detail.SHELF_LOC_CODE eq 'AD03' || detail.SHELF_LOC_CODE eq 'AD06' || detail.SHELF_LOC_CODE eq 'AD07' || detail.SHELF_LOC_CODE eq 'AD14' || detail.SHELF_LOC_CODE eq 'AD08' || detail.SHELF_LOC_CODE eq 'AD12' || detail.SHELF_LOC_CODE eq 'AD01' || detail.SHELF_LOC_CODE eq 'AD11' || detail.SHELF_LOC_CODE eq 'AD27' || detail.SHELF_LOC_CODE eq 'AH01' || detail.SHELF_LOC_CODE eq 'AH02' || detail.SHELF_LOC_CODE eq 'AH06' || detail.SHELF_LOC_CODE eq 'AH07' || detail.SHELF_LOC_CODE eq 'AH08' || detail.SHELF_LOC_CODE eq 'AH14' || detail.SHELF_LOC_CODE eq 'AH18' || detail.SHELF_LOC_CODE eq 'AH21' || detail.SHELF_LOC_CODE eq 'AH23' || detail.SHELF_LOC_CODE eq 'AH24' || detail.SHELF_LOC_CODE eq 'AH27' || detail.SHELF_LOC_CODE eq 'AG01' || detail.SHELF_LOC_CODE eq 'AG02' || detail.SHELF_LOC_CODE eq 'AG06' || detail.SHELF_LOC_CODE eq 'AG05' || detail.SHELF_LOC_CODE eq 'AG21' || detail.SHELF_LOC_CODE eq 'AG22' || detail.SHELF_LOC_CODE eq 'AG23' || detail.SHELF_LOC_CODE eq 'AG10' || detail.SHELF_LOC_CODE eq 'AG11' || detail.SHELF_LOC_CODE eq 'AG12' || detail.SHELF_LOC_CODE eq 'AG15' || detail.SHELF_LOC_CODE eq 'AG17' || detail.SHELF_LOC_CODE eq 'AA03' || detail.SHELF_LOC_CODE eq 'AA04' || detail.SHELF_LOC_CODE eq 'AA09' || detail.SHELF_LOC_CODE eq 'AA10' || detail.SHELF_LOC_CODE eq 'AA11' || detail.SHELF_LOC_CODE eq 'AA14' || detail.SHELF_LOC_CODE eq 'AA15' || detail.SHELF_LOC_CODE eq 'AA16' || detail.SHELF_LOC_CODE eq 'AA17' || detail.SHELF_LOC_CODE eq 'AA18' || detail.SHELF_LOC_CODE eq 'AA20' || detail.SHELF_LOC_CODE eq 'AA21' || detail.SHELF_LOC_CODE eq 'AA22' || detail.SHELF_LOC_CODE eq 'AA23' || detail.SHELF_LOC_CODE eq 'AA37' || detail.SHELF_LOC_CODE eq 'AA31' || detail.SHELF_LOC_CODE eq 'AA39' || detail.SHELF_LOC_CODE eq 'AA01' || detail.SHELF_LOC_CODE eq 'AA12' || detail.SHELF_LOC_CODE eq 'AA13' || detail.SHELF_LOC_CODE eq 'AA24' || detail.SHELF_LOC_CODE eq 'AA25' || detail.SHELF_LOC_CODE eq 'AA26' || detail.SHELF_LOC_CODE eq 'AA27' || detail.SHELF_LOC_CODE eq 'AA28' || detail.SHELF_LOC_CODE eq 'AF01' || detail.SHELF_LOC_CODE eq 'AF03' || detail.SHELF_LOC_CODE eq 'AF04' || detail.SHELF_LOC_CODE eq 'AF08' || detail.SHELF_LOC_CODE eq 'AF11' || detail.SHELF_LOC_CODE eq 'AF12' || detail.SHELF_LOC_CODE eq 'AF13' || detail.SHELF_LOC_CODE eq 'AE28' || detail.SHELF_LOC_CODE eq 'AC01' || detail.SHELF_LOC_CODE eq 'AC02' || detail.SHELF_LOC_CODE eq 'AC03' || detail.SHELF_LOC_CODE eq 'AC04' || detail.SHELF_LOC_CODE eq 'AC05' || detail.SHELF_LOC_CODE eq 'AC06' || detail.SHELF_LOC_CODE eq 'AC07' || detail.SHELF_LOC_CODE eq 'AC09' || detail.SHELF_LOC_CODE eq 'AC10' || detail.SHELF_LOC_CODE eq 'AC11' || detail.SHELF_LOC_CODE eq 'AC12' || detail.SHELF_LOC_CODE eq 'AB01' || detail.SHELF_LOC_CODE eq 'AB02' || detail.SHELF_LOC_CODE eq 'AB03' || detail.SHELF_LOC_CODE eq 'AB05' || detail.SHELF_LOC_CODE eq 'AB06' || detail.SHELF_LOC_CODE eq 'AJ01' || detail.SHELF_LOC_CODE eq 'AJ02' || detail.SHELF_LOC_CODE eq 'AJ09' || detail.SHELF_LOC_CODE eq 'AJ06' || detail.SHELF_LOC_CODE eq 'AJ07' || detail.SHELF_LOC_CODE eq 'AJ04'}">
+			<c:if test="${detail.SHELF_LOC_CODE eq 'AD20' || detail.SHELF_LOC_CODE eq 'AD18' || detail.SHELF_LOC_CODE eq 'AD19' || detail.SHELF_LOC_CODE eq 'AD04' || detail.SHELF_LOC_CODE eq 'AD02' || detail.SHELF_LOC_CODE eq 'AD03' || detail.SHELF_LOC_CODE eq 'AD06' || detail.SHELF_LOC_CODE eq 'AD07' || detail.SHELF_LOC_CODE eq 'AD14' || detail.SHELF_LOC_CODE eq 'AD08' || detail.SHELF_LOC_CODE eq 'AD12' || detail.SHELF_LOC_CODE eq 'AD01' || detail.SHELF_LOC_CODE eq 'AD11' || detail.SHELF_LOC_CODE eq 'AD27' || detail.SHELF_LOC_CODE eq 'AH01' || detail.SHELF_LOC_CODE eq 'AH02' || detail.SHELF_LOC_CODE eq 'AH06' || detail.SHELF_LOC_CODE eq 'AH07' || detail.SHELF_LOC_CODE eq 'AH08' || detail.SHELF_LOC_CODE eq 'AH14' || detail.SHELF_LOC_CODE eq 'AH18' || detail.SHELF_LOC_CODE eq 'AH21' || detail.SHELF_LOC_CODE eq 'AH23' || detail.SHELF_LOC_CODE eq 'AH24' || detail.SHELF_LOC_CODE eq 'AH27' || detail.SHELF_LOC_CODE eq 'AG01' || detail.SHELF_LOC_CODE eq 'AG02' || detail.SHELF_LOC_CODE eq 'AG06' || detail.SHELF_LOC_CODE eq 'AG05' || detail.SHELF_LOC_CODE eq 'AG10' || detail.SHELF_LOC_CODE eq 'AG11' || detail.SHELF_LOC_CODE eq 'AG12' || detail.SHELF_LOC_CODE eq 'AG15' || detail.SHELF_LOC_CODE eq 'AG17' || detail.SHELF_LOC_CODE eq 'AA03' || detail.SHELF_LOC_CODE eq 'AA04' || detail.SHELF_LOC_CODE eq 'AA09' || detail.SHELF_LOC_CODE eq 'AA10' || detail.SHELF_LOC_CODE eq 'AA11' || detail.SHELF_LOC_CODE eq 'AA14' || detail.SHELF_LOC_CODE eq 'AA15' || detail.SHELF_LOC_CODE eq 'AA16' || detail.SHELF_LOC_CODE eq 'AA17' || detail.SHELF_LOC_CODE eq 'AA18' || detail.SHELF_LOC_CODE eq 'AA20' || detail.SHELF_LOC_CODE eq 'AA21' || detail.SHELF_LOC_CODE eq 'AA22' || detail.SHELF_LOC_CODE eq 'AA23' || detail.SHELF_LOC_CODE eq 'AA37' || detail.SHELF_LOC_CODE eq 'AA31' || detail.SHELF_LOC_CODE eq 'AA39' || detail.SHELF_LOC_CODE eq 'AA01' || detail.SHELF_LOC_CODE eq 'AA12' || detail.SHELF_LOC_CODE eq 'AA13' || detail.SHELF_LOC_CODE eq 'AA24' || detail.SHELF_LOC_CODE eq 'AA25' || detail.SHELF_LOC_CODE eq 'AA26' || detail.SHELF_LOC_CODE eq 'AA27' || detail.SHELF_LOC_CODE eq 'AA28' || detail.SHELF_LOC_CODE eq 'AF01' || detail.SHELF_LOC_CODE eq 'AF03' || detail.SHELF_LOC_CODE eq 'AF04' || detail.SHELF_LOC_CODE eq 'AF08' || detail.SHELF_LOC_CODE eq 'AF11' || detail.SHELF_LOC_CODE eq 'AF12' || detail.SHELF_LOC_CODE eq 'AF13' || detail.SHELF_LOC_CODE eq 'AE28' || detail.SHELF_LOC_CODE eq 'AC01' || detail.SHELF_LOC_CODE eq 'AC02' || detail.SHELF_LOC_CODE eq 'AC03' || detail.SHELF_LOC_CODE eq 'AC04' || detail.SHELF_LOC_CODE eq 'AC05' || detail.SHELF_LOC_CODE eq 'AC06' || detail.SHELF_LOC_CODE eq 'AC07' || detail.SHELF_LOC_CODE eq 'AC12' || detail.SHELF_LOC_CODE eq 'AB01' || detail.SHELF_LOC_CODE eq 'AB02' || detail.SHELF_LOC_CODE eq 'AB03' || detail.SHELF_LOC_CODE eq 'AB05' || detail.SHELF_LOC_CODE eq 'AB06' || detail.SHELF_LOC_CODE eq 'AJ01' || detail.SHELF_LOC_CODE eq 'AJ02' || detail.SHELF_LOC_CODE eq 'AJ09' || detail.SHELF_LOC_CODE eq 'AJ06' || detail.SHELF_LOC_CODE eq 'AJ07' || detail.SHELF_LOC_CODE eq 'AJ04' || detail.SHELF_LOC_CODE eq 'AJ48'}">
 
 			<c:choose>
 				<c:when test="${detail.RESERVATION_CNT > '0'}">
@@ -305,8 +312,11 @@ $(function() {
 			</c:if>
 
 			</c:if>
+<%--
+				</c:otherwise>
+			</c:choose>
+--%>
 
-			</c:if>
 
 			<c:choose>
 				<c:when test="${homepage.context_path eq 'jungang'}">
@@ -322,7 +332,7 @@ $(function() {
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
 					<c:if test="${detail.RESERVATION_CNT eq '0'}">
 					<c:if test="${detail.SHELF_LOC_CODE eq 'AA04'}">
-					<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
+					<!-- <a href="#muin" id="unmanned-req" class="btn">무인예약신청</a> -->
 					</c:if>
 					</c:if>
 					</c:if>
@@ -333,14 +343,33 @@ $(function() {
 			</c:choose>
 
 			<c:choose>
-				<c:when test="${detail.SHELF_LOC_CODE eq 'AD39' || detail.SHELF_LOC_CODE eq 'AD40'}">
-
+				<c:when test="${homepage.context_path eq 'seobu'}">
 				</c:when>
 				<c:otherwise>
 					<c:choose>
-						<c:when test="${detail.WORKING_STATUS eq 'BOL112N'}">
+						<c:when test="${detail.SHELF_LOC_CODE eq 'AD39' || detail.SHELF_LOC_CODE eq 'AD40'}">
+
+						</c:when>
+						<c:otherwise>
 							<c:choose>
-								<c:when test="${detail.RESERVATION_CNT > 0}">
+								<c:when test="${detail.WORKING_STATUS eq 'BOL112N'}">
+									<c:choose>
+										<c:when test="${detail.RESERVATION_CNT > 0}">
+											<c:choose>
+												<c:when test="${detail.RESERVATION_CNT < detail.RESERVATION_NUMBER}">
+													<a href="#" id="resve-req" class="btn">예약신청</a>
+												</c:when>
+												<c:otherwise>
+													<a href="#" id="resve-req-not" class="btn btn5">예약불가</a>
+												</c:otherwise>
+											</c:choose>
+										</c:when>
+										<c:otherwise>
+
+										</c:otherwise>
+									</c:choose>
+								</c:when>
+								<c:otherwise>
 									<c:choose>
 										<c:when test="${detail.RESERVATION_CNT < detail.RESERVATION_NUMBER}">
 											<a href="#" id="resve-req" class="btn">예약신청</a>
@@ -349,26 +378,12 @@ $(function() {
 											<a href="#" id="resve-req-not" class="btn btn5">예약불가</a>
 										</c:otherwise>
 									</c:choose>
-								</c:when>
-								<c:otherwise>
-
-								</c:otherwise>
-							</c:choose>
-						</c:when>
-						<c:otherwise>
-							<c:choose>
-								<c:when test="${detail.RESERVATION_CNT < detail.RESERVATION_NUMBER}">
-									<a href="#" id="resve-req" class="btn">예약신청</a>
-								</c:when>
-								<c:otherwise>
-									<a href="#" id="resve-req-not" class="btn btn5">예약불가</a>
 								</c:otherwise>
 							</c:choose>
 						</c:otherwise>
 					</c:choose>
 				</c:otherwise>
 			</c:choose>
-
 
 			<a href="#" id="addStorage" class="btn"><span>관심도서 추가</span></a>
 

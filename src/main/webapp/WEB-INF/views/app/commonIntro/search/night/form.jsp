@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
 <script type="text/javascript">
 $(function() {
@@ -34,9 +35,44 @@ $(function() {
 
 <form:form modelAttribute="librarySearch" action="save.do" method="post" onsubmit="return false;">
 <form:hidden path="bookkey"/>
-<form:hidden path="booktype"/>
 <form:hidden path="title" value="${detail.TITLE_INFO}"/>
-<form:hidden path="exprire_date_cnt" value="7"/>
+<input type="hidden" name="booktype" id="booktype" value="${fn:substring(detail.WORKING_STATUS,0,2) }"/>
+<input type="hidden" name="exprire_date_cnt" id="exprire_date_cnt" value="7"/>
+<c:choose>
+<c:when test="${detail.MANAGE_CODE eq 'AA'}">
+<input type="hidden" name="worker" id="worker" value="DGL0001"/>
+</c:when>
+<c:when test="${detail.MANAGE_CODE eq 'AL'}">
+<input type="hidden" name="worker" id="worker" value="DGL0002"/>
+</c:when>
+<c:when test="${detail.MANAGE_CODE eq 'AG'}">
+<input type="hidden" name="worker" id="worker" value="DGL0003"/>
+</c:when>
+<c:when test="${detail.MANAGE_CODE eq 'AJ'}">
+<input type="hidden" name="worker" id="worker" value="DGL0004"/>
+</c:when>
+<c:when test="${detail.MANAGE_CODE eq 'AH'}">
+<input type="hidden" name="worker" id="worker" value="DGL0005"/>
+</c:when>
+<c:when test="${detail.MANAGE_CODE eq 'AB'}">
+<input type="hidden" name="worker" id="worker" value="DGL0006"/>
+</c:when>
+<c:when test="${detail.MANAGE_CODE eq 'AC'}">
+<input type="hidden" name="worker" id="worker" value="DGL0007"/>
+</c:when>
+<c:when test="${detail.MANAGE_CODE eq 'AF'}">
+<input type="hidden" name="worker" id="worker" value="DGL0008"/>
+</c:when>
+<c:when test="${detail.MANAGE_CODE eq 'AE'}">
+<input type="hidden" name="worker" id="worker" value="DGL0009"/>
+</c:when>
+<c:when test="${detail.MANAGE_CODE eq 'AD'}">
+<input type="hidden" name="worker" id="worker" value="DGL0010"/>
+</c:when>
+<c:otherwise>
+<input type="hidden" name="worker" id="worker" value="DGL0010"/>
+</c:otherwise>
+</c:choose>
 
 <div class="delibery_info">
 	<div class="" style="padding:10px 0;font-size:120%">(<span style="color:red;font-weight:bold;">*</span>) 항목은 필수 입력값입니다.</div>
