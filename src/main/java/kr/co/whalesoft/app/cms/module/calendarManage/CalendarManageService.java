@@ -64,31 +64,33 @@ public class CalendarManageService extends BaseService {
 
 	public CalendarManage getClosedDate2(CalendarManage calendarManage) {
 		CalendarManage result = dao.getClosedDate2(calendarManage);
-		
-		if(result != null) {
-			String[] dd_arr = result.getDd().split(",");
-			
-			int front = 0;
-			List<String> ddList = new ArrayList<String>();
-			String new_dd = "";
-			
-			for (int i = 0; i < dd_arr.length; i++) {
-				if(Integer.parseInt(dd_arr[i]) - front != 1) {
-					if(ddList.size() == 1) {
-						new_dd += ddList.get(0) + ",";
-					} else if (ddList.size() > 1) {
-						new_dd += ddList.get(0) + "~" + ddList.get(ddList.size()-1) + ",";
-					}
-					ddList = new ArrayList<String>();
-				}
-				ddList.add(dd_arr[i]);
-				front = Integer.parseInt(dd_arr[i]);
-				
-				if(i == dd_arr.length-1) {
-					new_dd += dd_arr[i];
-				}
+		String h_id = calendarManage.getHomepage_id();
+		if(h_id.equals("h5") || h_id.equals("h8") || h_id.equals("h9") || h_id.equals("h10")) {
+			if(result != null) {
+    			String[] dd_arr = result.getDd().split(",");
+    			
+    			int front = 0;
+    			List<String> ddList = new ArrayList<String>();
+    			String new_dd = "";
+    			
+    			for (int i = 0; i < dd_arr.length; i++) {
+    				if(Integer.parseInt(dd_arr[i]) - front != 1) {
+    					if(ddList.size() == 1) {
+    						new_dd += ddList.get(0) + ",";
+    					} else if (ddList.size() > 1) {
+    						new_dd += ddList.get(0) + "~" + ddList.get(ddList.size()-1) + ",";
+    					}
+    					ddList = new ArrayList<String>();
+    				}
+    				ddList.add(dd_arr[i]);
+    				front = Integer.parseInt(dd_arr[i]);
+    				
+    				if(i == dd_arr.length-1) {
+    					new_dd += dd_arr[i];
+    				}
+    			}
+    			result.setDd(new_dd);
 			}
-			result.setDd(new_dd);
 		}
 		
 		return result;
