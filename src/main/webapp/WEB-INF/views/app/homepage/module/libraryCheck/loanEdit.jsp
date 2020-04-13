@@ -33,39 +33,48 @@ $(function() {
 	});
 	</c:when>
 	<c:otherwise>
-	var str_date1 = new Date($('#loan_start_date').val());
-	if(str_date1.getDay() == 6) {
-		str_date1.setDate(str_date1.getDate() + 6);
-	}
-	var str_date2 = new Date(str_date1);
-	str_date2.setDate(str_date2.getDate() + 7);
-	
-	var minDate = str_date1.getFullYear()+'-'+(str_date1.getMonth()+1)+'-'+str_date1.getDate();
-	var maxDate = str_date2.getFullYear()+'-'+(str_date2.getMonth()+1)+'-'+str_date2.getDate();
-	
 	$('input#loan_start_date').datepicker({
-		minDate: minDate,
-		maxDate: maxDate,
 		onClose: function(selectedDate){
 			$('input#loan_end_date').datepicker('option', 'minDate', selectedDate);
 			var date = $(this).datepicker('getDate');
-			date.setDate(date.getDate() + 6);
-			var end_year = date.getFullYear();
-			var end_month = (date.getMonth()+1 < 10 ? '0' : '') + (date.getMonth()+1);
-			var end_date = (date.getDate() < 10 ? '0' : '') + date.getDate();
-			$('input#loan_end_date').val(end_year+'-'+end_month+'-'+end_date);
+			if(date != null) {
+				date.setDate(date.getDate() + 6);
+				var end_year = date.getFullYear();
+				var end_month = (date.getMonth()+1 < 10 ? '0' : '') + (date.getMonth()+1);
+				var end_date = (date.getDate() < 10 ? '0' : '') + date.getDate();
+				$('input#loan_end_date').val(end_year+'-'+end_month+'-'+end_date);
+			}
 		},
-		beforeShowDay: function(date) {
-			return [date.getDay() == 5];
-		}
+		beforeShowDay: available
 	});
 	
-	var end_date = new Date(str_date1);
-	end_date.setDate(end_date.getDate() + 6);
-	var end_year = end_date.getFullYear();
-	var end_month = (end_date.getMonth()+1 < 10 ? '0' : '') + (end_date.getMonth()+1);
-	var end_date = (end_date.getDate() < 10 ? '0' : '') + end_date.getDate();
-	$('input#loan_end_date').val(end_year+'-'+end_month+'-'+end_date);
+	//선택가능 날짜 
+	var availableDates = [];
+	try {
+		var a = '${possible_date}'.split(',');
+		for (var i = 0; i < a.length; i++) {
+			availableDates[i] = a[i];
+		}
+	} catch (e) {
+	}
+	function available(date) { // date <--- calendar의 일자(예:'2020-04-17')를 하나씩 가져온다.
+		var thismonth = date.getMonth()+1;
+		var thisday = date.getDate();
+		if(thismonth<10){
+			thismonth = "0"+thismonth;
+		}
+
+		if(thisday<10){
+			thisday = "0"+thisday;
+		}
+
+	    ymd = date.getFullYear() + "-" + thismonth + "-" + thisday;
+	    if ($.inArray(ymd, availableDates) >= 0) {
+	        return [true];
+	    } else {
+	        return [false];
+	    }
+	}
 	</c:otherwise>
 </c:choose>
 	

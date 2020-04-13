@@ -2,7 +2,9 @@ package kr.go.gbelib.app.module.libraryCheck;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -181,7 +183,37 @@ public class LibraryCheckController extends BaseController {
 			libraryCheck.setMenu_idx(menu_idx);
 		} else {
 			checkAuth("C", model, request);
-			libraryCheck.setLoan_start_date(service.getWeekFriday(libraryCheck));
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String week_fri1 = "";
+			String week_fri2 = "";
+			
+			Calendar cal = Calendar.getInstance();
+			int fri_num = 6 - cal.get(Calendar.DAY_OF_WEEK);
+			cal.add(Calendar.DATE, fri_num);
+			week_fri1 = sdf.format(cal.getTime());
+			
+			cal.add(Calendar.DATE, 7);
+			week_fri2 = sdf.format(cal.getTime());
+			
+			String possible_date = "";
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("library_check_idx", libraryCheck.getLibrary_check_idx());
+			map.put("loan_start_date", week_fri1);
+			if(service.getPossibleDate(map)) {
+				possible_date = week_fri1;
+			}
+			map.put("loan_start_date", week_fri2);
+			if(service.getPossibleDate(map)) {
+				possible_date += (possible_date.equals("") ? "" : ",")+ week_fri2;
+			}
+			
+			if(possible_date.equals("")) {
+				service.alertMessage("이미 예약중인 장서점검기는 예약할 수 없습니다", request, response);
+				return null;
+			}
+			
+			model.addAttribute("possible_date", possible_date);
 		}
 		
 		model.addAttribute("libraryCheck", libraryCheck);

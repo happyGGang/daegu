@@ -18,28 +18,28 @@ $(function() {
 		doGetLoad('view.do', formData);
 	});
 	
-// 	$('a#allChk').on('click', function(e) {
-// 		e.preventDefault();
-// 		if($(this).attr('keyValue') == 'N') {
-// 			$(this).attr('keyValue', 'Y');
-// 			$('input[name="library_check_arr"]').prop('checked', true);
-// 		} else {
-// 			$(this).attr('keyValue', 'N');
-// 			$('input[name="library_check_arr"]').prop('checked', false);
-// 		}
-// 	});
+	$('a#allChk').on('click', function(e) {
+		e.preventDefault();
+		if($(this).attr('keyValue') == 'N') {
+			$(this).attr('keyValue', 'Y');
+			$('input[name="library_check_arr"]').prop('checked', true);
+		} else {
+			$(this).attr('keyValue', 'N');
+			$('input[name="library_check_arr"]').prop('checked', false);
+		}
+	});
 	
-// 	$('a#delete-chk').on('click', function(e) {
-// 		e.preventDefault();
-// 		if(confirm('선택한 장서점검기들을 삭제하시겠습니까?')) {
-// 			$('#editMode').val('DELETE_ALL');
-// 			$('form#libraryCheck').attr('action', 'save.do');
-// 			$('form#libraryCheck').attr('method', 'POST');
-// 			if(doAjaxPost($('form#libraryCheck'))) {
-// 				location.reload();
-// 			}
-// 		}
-// 	});
+	$('a#delete-chk').on('click', function(e) {
+		e.preventDefault();
+		if(confirm('선택한 장서점검기들을 삭제하시겠습니까?')) {
+			$('#editMode').val('DELETE_ALL');
+			$('form#libraryCheck').attr('action', 'save.do');
+			$('form#libraryCheck').attr('method', 'POST');
+			if(doAjaxPost($('form#libraryCheck'))) {
+				location.reload();
+			}
+		}
+	});
 	
 	$('a.request-btn').on('click', function(e) {
 		e.preventDefault();
@@ -111,7 +111,7 @@ div.img-box span.num {position: absolute;top: 30px;right: 22px;width: 18px;heigh
   </ul>
 </div><br>
 <form:form modelAttribute="libraryCheck" action="index.do" method="GET">
-  <%-- <form:hidden path="editMode"/> --%>
+  <form:hidden path="editMode"/>
   <form:hidden path="menu_idx"/>
   <form:select path="loan_status" cssClass="selectmenu">
     <form:option value="">상태전체</form:option>
@@ -128,21 +128,21 @@ div.img-box span.num {position: absolute;top: 30px;right: 22px;width: 18px;heigh
           </c:choose>
           </a> </div>
         <div class="content-box">
-          <%-- 				<form:checkbox path="library_check_arr" value="${i.library_check_idx}"/> --%>
+        	<c:if test="${member.admin or loginSupport.auth_group eq '1'}">
+        		<form:checkbox path="library_check_arr" value="${i.library_check_idx}"/>
+			</c:if>
           <a href="#" class="view-btn" keyValue="${i.library_check_idx}">
           <h4>장서점검기${i.library_check_number}</h4>
           </a>
           <div>
             <c:choose>
-              <c:when test="${i.lender_count < 1}"> <a href="#" class="request-btn" keyValue="${i.library_check_idx}" keyValue2="${i.library_check_number}" keyValue3="0">신청하기</a> </c:when>
+              <c:when test="${i.lender_count == 0}"> <a href="#" class="request-btn" keyValue="${i.library_check_idx}" keyValue2="${i.library_check_number}" keyValue3="0">신청하기</a> </c:when>
               <c:otherwise>
                 <c:choose>
-                  <c:when test="${empty i.loan_start_date and empty i.loan_end_date}"> <a href="#" class="request-btn" keyValue="${i.library_check_idx}" keyValue2="${i.library_check_number}" keyValue3="1">예약하기</a> </c:when>
+                  <c:when test="${i.lender_count == 1}"> <a href="#" class="request-btn" keyValue="${i.library_check_idx}" keyValue2="${i.library_check_number}" keyValue3="1">예약하기</a> </c:when>
                   <c:otherwise>
-                    <%-- 								<a href="#" class="request-btn" keyValue="${i.library_check_idx}" keyValue2="${i.library_check_number}" keyValue3="1"> --%>
                     <a href="javascript:void(0);">예약중<br/>
-                    ${i.loan_start_date}~${i.loan_end_date}</a> 
-                    <!-- 								</a> --> 
+                    ${i.loan_start_date}~${i.loan_end_date}</a>
                   </c:otherwise>
                 </c:choose>
               </c:otherwise>
@@ -157,14 +157,14 @@ div.img-box span.num {position: absolute;top: 30px;right: 22px;width: 18px;heigh
       </div>
     </c:if>
   </div>
-  <%-- 	<c:if test="${member.admin or authMBA}"> --%>
-  <!-- 	<a href="#" class="btn" id="allChk" keyValue="N">전체 선택/해제</a> --> 
-  <!-- 	<a href="#" class="btn" id="delete-chk">선택 게시글 삭제</a> -->
-  <%-- 	</c:if> --%>
+  	<c:if test="${member.admin or loginSupport.auth_group eq '1'}">
+  	<a href="#" class="btn" id="allChk" keyValue="N">전체 선택/해제</a> 
+  	<a href="#" class="btn" id="delete-chk">선택 게시글 삭제</a>
+  	</c:if>
   <jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
   <jsp:param name="formId" value="#libraryCheck"/>
   </jsp:include>
-  <%-- 	<c:if test="${member.admin or authMBA}"> --%>
+<%--   	<c:if test="${member.admin or authMBS}"> --%>
   <!-- 	<div class="infodesk"> --> 
   <!-- 		<div class="button"> --> 
   <!-- 			<a href="#" class="btn btn5 left" id="add-btn"><i class="fa fa-plus"></i><span>등록</span></a> --> 

@@ -7,9 +7,6 @@
 		SELECT
 			library_check_idx, library_check_name, library_check_number, content,
 			org_file_name, server_file_name, file_extension, file_size,
-			(SELECT COUNT(*) FROM LIBRARY_CHECK_LOAN WHERE library_check_idx = a.library_check_idx) AS lender_count,
-			(SELECT TO_CHAR(MIN(loan_start_date), 'yyyy-MM-dd') FROM LIBRARY_CHECK_LOAN WHERE library_check_idx = a.library_check_idx AND request_status = '1') AS loan_start_date,
-			(SELECT TO_CHAR(MIN(loan_end_date), 'MM-dd') FROM LIBRARY_CHECK_LOAN WHERE library_check_idx = a.library_check_idx AND request_status = '1') AS loan_end_date,
 			add_id, add_date
 		FROM
 			LIBRARY_CHECK a
@@ -220,24 +217,6 @@
 			library_check_loan_idx = #{library_check_loan_idx}
 	</delete>
 	
-	<select id="getWeekFriday" resultType="String">
-		SELECT
-			TO_CHAR(TRUNC(NVL(loan_end_date, SYSDATE), 'd')+5, 'yyyy-MM-dd') AS loan_start_date
-		FROM
-			(
-			SELECT
-				CASE
-					WHEN MAX(loan_end_date) <![CDATA[<]]> SYSDATE THEN SYSDATE
-					ELSE MAX(loan_end_date)
-				END AS loan_end_date
-			FROM
-				LIBRARY_CHECK a, LIBRARY_CHECK_LOAN b
-			WHERE
-				a.library_check_idx = b.library_check_idx
-			AND	b.library_check_idx = #{library_check_idx}
-			)
-	</select>
-	
 	<update id="modifyLibraryCheckStatus">
 		UPDATE
 			LIBRARY_CHECK_LOAN
@@ -302,5 +281,16 @@
 			#{add_id}, #{add_date}
 		)
 	</insert>
+	
+	<select id="getPossibleDate" resultType="int" parameterType="map">
+		SELECT
+			COUNT(*)
+		FROM
+			LIBRARY_CHECK_LOAN
+		WHERE
+			library_check_idx = #{library_check_idx}
+		AND	loan_start_date <![CDATA[<=]]> TO_DATE(#{loan_start_date})
+		AND	loan_end_date <![CDATA[>=]]> TO_DATE(#{loan_start_date})
+	</select>
 	
 </mapper>

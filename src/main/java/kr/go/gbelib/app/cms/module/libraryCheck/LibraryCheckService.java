@@ -1,6 +1,9 @@
 package kr.go.gbelib.app.cms.module.libraryCheck;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +17,6 @@ import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.dataSource.DataSource;
 import kr.co.whalesoft.framework.dataSource.DataSourceType;
 import kr.co.whalesoft.framework.file.FileStorage;
-import kr.co.whalesoft.framework.utils.PagingUtils;
 
 @Service
 public class LibraryCheckService extends BaseService {
@@ -27,7 +29,50 @@ public class LibraryCheckService extends BaseService {
 	private LibraryCheckDao dao;
 	
 	public List<LibraryCheck> getLibraryCheckList(LibraryCheck libraryCheck) {
-		return dao.getLibraryCheckList(libraryCheck);
+		
+		List<LibraryCheck> result = dao.getLibraryCheckList(libraryCheck);
+		
+		for (LibraryCheck one : result) {
+    		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    		String week_fri1 = "";
+    		String week_fri2 = "";
+    		
+    		Calendar cal = Calendar.getInstance();
+    		int fri_num = 6 - cal.get(Calendar.DAY_OF_WEEK);
+    		cal.add(Calendar.DATE, fri_num);
+    		week_fri1 = sdf.format(cal.getTime());
+    		
+    		cal.add(Calendar.DATE, 7);
+    		week_fri2 = sdf.format(cal.getTime());
+    		
+    		String possible_date = "";
+    		Map<String, Object> map = new HashMap<String, Object>();
+    		map.put("library_check_idx", one.getLibrary_check_idx());
+    		map.put("loan_start_date", week_fri1);
+    		if(!getPossibleDate(map)) {
+    			possible_date = week_fri1;
+    		}
+    		map.put("loan_start_date", week_fri2);
+    		if(!getPossibleDate(map)) {
+    			possible_date += (possible_date.equals("") ? "" : ",")+ week_fri2;
+    		}
+    		
+    		if(possible_date.equals("")) {
+    			one.setLender_count(0);
+    		} else if(possible_date.indexOf(",") > -1) {
+    			one.setLender_count(2);
+    			one.setLoan_start_date(week_fri2);
+    			
+    			cal.add(Calendar.DATE, 6);
+    			String week_fri3 = sdf.format(cal.getTime());
+    			one.setLoan_end_date(week_fri3);
+    		} else {
+    			one.setLender_count(1);
+    		}
+    		
+		}
+		
+		return result;
 	}
 	
 	public int getLibraryCheckCount(LibraryCheck libraryCheck) {
@@ -128,10 +173,6 @@ public class LibraryCheckService extends BaseService {
 		return dao.deleteLibraryCheckLoan(libraryCheck);
 	}
 
-	public String getWeekFriday(LibraryCheck libraryCheck) {
-		return dao.getWeekFriday(libraryCheck);
-	}
-
 	public int modifyLibraryCheckStatus(LibraryCheck libraryCheck) {
 		return dao.modifyLibraryCheckStatus(libraryCheck);
 	}
@@ -156,6 +197,10 @@ public class LibraryCheckService extends BaseService {
 	
 	public int addParseTibero2(LibraryCheck lc) {
 		return dao.addParseTibero2(lc);
+	}
+
+	public boolean getPossibleDate(Map<String, Object> map) {
+		return dao.getPossibleDate(map) > 0 ? false : true;
 	}
 
 }

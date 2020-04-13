@@ -139,12 +139,12 @@ div.img-box span.num {position: absolute;top: 30px;right: 22px;width: 18px;heigh
 				</a>
 				<div>
 					<c:choose>
-						<c:when test="${i.lender_count < 1}">
+						<c:when test="${i.lender_count == 0}">
 						<a href="#" class="dialog-req" keyValue="${i.library_check_idx}" keyValue2="${i.library_check_number}" keyValue3="0">신청하기</a>
 						</c:when>
 						<c:otherwise>
 							<c:choose>
-								<c:when test="${empty i.loan_start_date and empty i.loan_end_date}">
+								<c:when test="${i.lender_count == 1}">
 								<a href="#" class="dialog-req" keyValue="${i.library_check_idx}" keyValue2="${i.library_check_number}" keyValue3="1">예약하기</a>
 								</c:when>
 								<c:otherwise>

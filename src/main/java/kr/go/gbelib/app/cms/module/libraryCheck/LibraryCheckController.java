@@ -130,7 +130,6 @@ public class LibraryCheckController extends BaseController {
 			model.addAttribute("libraryCheck", service.copyObjectPaging(libraryCheck, service.getLibraryCheckLoanOne(libraryCheck)));
 		} else {
 			checkAuth("C", model, request);
-			libraryCheck.setLoan_start_date(service.getWeekFriday(libraryCheck));
 			model.addAttribute("libraryCheck", libraryCheck);
 		}
 

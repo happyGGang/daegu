@@ -33,8 +33,6 @@ public interface LibraryCheckDao {
 	
 	public int deleteLibraryCheckLoan(LibraryCheck libraryCheck);
 
-	public String getWeekFriday(LibraryCheck libraryCheck);
-
 	public int modifyLibraryCheckStatus(LibraryCheck libraryCheck);
 
 	public List<LibraryCheck> getLibraryCheckLoanExcelList(LibraryCheck libraryCheck);
@@ -46,4 +44,6 @@ public interface LibraryCheckDao {
 	public int addParseTibero(LibraryCheck lc);
 	
 	public int addParseTibero2(LibraryCheck lc);
+
+	public int getPossibleDate(Map<String, Object> map);
 }
