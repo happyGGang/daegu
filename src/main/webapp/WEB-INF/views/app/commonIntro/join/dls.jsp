@@ -8,6 +8,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script type="text/javascript">
 $(function() {
+
 	$('#save-btn').on('click', function(e) {
 		e.preventDefault();
 
@@ -47,15 +48,17 @@ $(function() {
 	$('th.th1').css('text-align', 'right');
 
 });
+
 $(document).on("keyup", "input:text[numberOnly]", function() {
 	$(this).val($(this).val().replace(/[^0-9]/gi, ""));
 });
+
 </script>
 
 <div class="join-wrap" style="padding: 0">
 
-	<h4>개인정보 제3자 제공 동의(비대면 인증)</h4>
-	<p>대구광역시 공립도서관에서는 비대면 인증을 통한 정회원 자격 부여를 위하여 수집한 개인정보를 아래와 같이 제3자 제공합니다</p>
+	<h4>개인정보 제3자 제공 동의(대구학생인증)</h4>
+	<p>대구광역시 공립도서관에서는 대구학생인증을 통한 정회원 자격 부여를 위하여 수집한 개인정보를 아래와 같이 제3자 제공합니다</p>
 	<div class="Box" style="height:200px">
 		<br>
 
@@ -88,8 +91,8 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 		<tr>
 		<td>대구광역시<br/>교육연구원</td>
 		<td>대구광역시</td>
-		<td>DLS 인증 안내] 메뉴 클릭</td>
-		<td>DLS 정보 확인 요청에 대한 존재 유무</td>
+		<td>대구학생인증 안내 메뉴 클릭</td>
+		<td>대구학생인증 정보 확인 요청에 대한 존재 유무</td>
 		<td>인증 후 즉시 파기(미보유)</td>
 		</tr>
 		<tr>
@@ -113,11 +116,11 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 
 		<div style="border-top:2px solid #ccc">
 		<table id="memberForm" style="${param.ageType eq 'under' ? 'display:none;':''}">
-			<caption>DLS인증</caption>
+			<caption>대구학생인증</caption>
 			<tbody>
 				<tr>
 					<th>
-						DLS회원인증
+						대구학생인증
 					</th>
 					<td>
 						<div style="padding-top: 5px; padding-bottom: 5px; " id="dlsForm">
@@ -140,5 +143,5 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 		</div>
 
 	</form:form>
-	<br/>
+	<br/><br/>
 </div>

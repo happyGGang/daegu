@@ -49,29 +49,30 @@ $(function() {
 
 <div class="dataF-wr">
   <ul class="info_list">
-    <li>
+       <li>
       <div class="list_cell">
-        <p class="icon"><img src="/resources/common/img/dw01.png" alt="" width="164"></p>
-        <p class="title">DLS 회원 인증</p>
+        <p class="icon"><img src="/resources/common/img/dw02.png" alt="" width="164"></p>
+        <p class="title">대구시민인증</p>
         <ul class="dot_txt_list">
-          <li>독서교육종합지원시스템(DLS)에 가입된 회원은 추가 인증을 통해 비대면 회원가입으로 전자도서관 이용이 가능합니다.<br>
-            아래의 <strong>DLS회원인증</strong> 버튼을 클릭하시면 추가 인증 페이지로 이동합니다. 일반 이용자분들은 추후 비대면 인증 회원가입 서비스가 도입될 예정이오니 <strong>메인으로</strong> 버튼 클릭 후 이동하여 주시기 바랍니다.</li>
+          <li>자격 확인이 필요한 행정·공공 서비스 이용 신청 시 신청인이 직접 본인 동의하에 행정안전부 행정정보공동이용 시스템을 통해 신청 자격을 확인하는 서비스입니다.<br>
+            독서교육종합지원시스템(DLS)에 가입된 회원이 아닌 일반 이용자분들은 아래의 <strong>대구시민인증</strong> 버튼을 클릭하시면 추가 인증 페이지로 이동합니다.</li>
         </ul>
       </div>
     </li>
-    <li>
+	
+	<li>
       <div class="list_cell">
-        <p class="icon"><img src="/resources/common/img/dw02.png" alt="" width="164"></p>
-        <p class="title">비대면 회원 인증</p>
+        <p class="icon"><img src="/resources/common/img/dw01.png" alt="" width="164"></p>
+        <p class="title">대구학생인증</p>
         <ul class="dot_txt_list">
-          <li>자격 확인이 필요한 행정·공공 서비스 이용 신청 시 신청인이 직접 본인 동의하에 행정안전부 행정정보공동이용 시스템을 통해 신청 자격을 확인하는 서비스입니다.<br>
-            독서교육종합지원시스템(DLS)에 가입된 회원이 아닌 일반 이용자분들은 아래의 <strong>비대면회원인증</strong> 버튼을 클릭 후 이동하여 주시기 바랍니다.</li>
+          <li>독서교육종합지원시스템(DLS)에 가입된 회원은 추가 인증을 통해 비대면 회원가입으로 전자도서관 이용이 가능합니다.<br>
+            아래의 <strong>대구학생인증</strong> 버튼을 클릭하시면 추가 인증 페이지로 이동합니다.</li>
         </ul>
       </div>
     </li>
   </ul>
 </div>
 <div class="btn-wrap" style="text-align:center;padding:20px 0">
-	<a href="dls.do?menu_idx=${dlsMenuIdx}" class="btn btn01" style="background: #3c6ad9;border: 1px solid #3c6ad9;color:#fff;">DLS회원인증</a>
-	<a href="untactForm.do?menu_idx=${untactMenuIdx}" class="btn btn02" style="background: #f56627;border: 1px solid #f56627;color:#fff;">비대면회원인증</a>
+	<a href="untactForm.do?menu_idx=${untactMenuIdx}" class="btn btn02" style="background: #f56627;border: 1px solid #f56627;color:#fff;">대구시민인증</a>
+	<a href="dls.do?menu_idx=${dlsMenuIdx}" class="btn btn01" style="background: #3c6ad9;border: 1px solid #3c6ad9;color:#fff;">대구학생인증</a>
 	<a href="/dgportal/index.do" class="btn btn03">메인으로</a> </div>

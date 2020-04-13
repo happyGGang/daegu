@@ -43,7 +43,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 
 <div class="join-wrap" style="padding: 0">
 
-	<h4>개인정보 제3자 제공 동의(비대면 인증)</h4>
+	<h4>개인정보 제3자 제공 동의(대구시민인증)</h4>
 
 	<div class="Box" style="height:300px">
 		<br>
@@ -68,7 +68,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 	</div>
 
 	<div class="agree_codes" style="margin-bottom: 20px;">
-		<input id="agree_codes4" name="agree_codes" req="0001" type="checkbox" value="3"><label for="agree_codes4">비대면 자격 확인 조회를 위하여 개인정보를 처리하는 것에 동의 합니다.</label><input type="hidden" name="_agree_codes" value="on"><br>
+		<input id="agree_codes4" name="agree_codes" req="0001" type="checkbox" value="3"><label for="agree_codes4">대구시민 자격 확인 조회를 위하여 개인정보를 처리하는 것에 동의 합니다.</label><input type="hidden" name="_agree_codes" value="on"><br>
 	</div>
 	<form:form id="memberJoinForm" modelAttribute="member" action="untactCheck.do" method="post" onsubmit="return false;">
 		<form:hidden path="editMode"/>
@@ -79,11 +79,11 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 
 		<div style="border-top:2px solid #ccc">
 		<table id="memberForm">
-			<caption>비대면 회원인증</caption>
+			<caption>대구시민인증</caption>
 			<tbody>
 				<tr>
 					<th>
-						비대면 회원인증
+						대구시민인증
 					</th>
 					<td>
 						<div style="padding-top: 5px; padding-bottom: 5px; " id="dlsForm">
