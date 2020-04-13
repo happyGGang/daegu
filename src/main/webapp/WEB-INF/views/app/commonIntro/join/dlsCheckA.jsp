@@ -17,7 +17,7 @@ $(function() {
 	} else {
 		if ('${certResult}' == 'true') {
 			alert('인증 되었습니다. 재 로그인 후 이용하시기 바랍니다.');
-			window.opener.location.href = '/${homepage.context_path}/login/logout.do';
+			window.opener.location.href = '/${homepage.context_path}/intro/login/logout.do';
 			window.close();
 		} else {
 			alert('인증에 실패하였습니다.');
