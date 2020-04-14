@@ -325,12 +325,13 @@ public class ElibController extends BaseController {
 			return res;
 		}
 
-		if(StringUtils.equals(user_class, "1")) {
-			res.setValid(false);
-			res.setMessage("대출중지 상태입니다.");
-			res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
-			return res;
-		}
+//		20200414 - 중앙도서관 대출중지회원도 전자도서관 이용 가능하도록 수정요청
+//		if(StringUtils.equals(user_class, "1")) {
+//			res.setValid(false);
+//			res.setMessage("대출중지 상태입니다.");
+//			res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
+//			return res;
+//		}
 
 		res.setValid(true);
 
@@ -376,14 +377,16 @@ public class ElibController extends BaseController {
 			return false;
 		}
 
-		if(StringUtils.equals(user_class, "1")) {
-			try {
-				service.alertMessageAndUrl("대출중지 상태입니다.", String.format("/%s/index.do", homepage.getContext_path()), request, response);
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-			return false;
-		}
+		//20200414 - 중앙도서관 대출중지회원도 전자도서관 이용 가능하도록 수정요청
+
+//		if(StringUtils.equals(user_class, "1")) {
+//			try {
+//				service.alertMessageAndUrl("대출중지 상태입니다.", String.format("/%s/index.do", homepage.getContext_path()), request, response);
+//			} catch(Exception e) {
+//				e.printStackTrace();
+//			}
+//			return false;
+//		}
 
 		return true;
 	}
