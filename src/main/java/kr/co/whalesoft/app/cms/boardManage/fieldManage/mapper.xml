@@ -86,7 +86,7 @@
 			CMS_BOARD_FIELD_MANAGE
 		WHERE
 			manage_idx = #{manage_idx}
-		AND	NVL(admin_only, 'N') != 'Y'
+<!-- 		AND	NVL(admin_only, 'N') != 'Y' -->
 		AND	board_column NOT IN ('add_id', 'user_name', 'add_date')
 		ORDER BY write_seq ASC
 	</select>
