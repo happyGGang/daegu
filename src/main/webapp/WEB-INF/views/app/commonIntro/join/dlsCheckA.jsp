@@ -16,7 +16,7 @@ $(function() {
 		window.close();
 	} else {
 		if ('${certResult}' == 'true') {
-			alert('인증 되었습니다. 재 로그인 후 이용하시기 바랍니다.');
+			alert('인증이 완료되었습니다.\r\n※ 재로그인 후 이용 가능하며, 현재 비대면 인증 회원은 전자도서관만 이용 가능합니다.');
 			window.opener.location.href = '/${homepage.context_path}/intro/login/logout.do';
 			window.close();
 		} else {

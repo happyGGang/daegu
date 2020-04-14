@@ -1128,10 +1128,12 @@ public class CommonJoinController extends BaseController {
 			String regular = String.valueOf(regularUserInfoInsert.get("RESULT_INFO"));
 			if (StringUtils.equals(regular, "SUCCESS")) {
 				res.setValid(true);
-				res.setMessage("인증완료되었습니다. 재 로그인 후 이용가능합니다.");
+				res.setMessage("인증이 완료되었습니다.\\r\\n※ 재로그인 후 이용 가능하며, 현재 비대면 인증 회원은 전자도서관만 이용 가능합니다.");
     			Homepage homepage = getSessionHomepage(request);
-    			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-    			res.setUrl(String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx));
+//    			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+//    			res.setUrl(String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx));
+    			res.setUrl(String.format("/%s/intro/login/logout.do", homepage.getContext_path()));
+
 			} else {
 				res.setValid(false);
 				try {
