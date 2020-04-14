@@ -47,12 +47,14 @@ $(document).ready(function() {
 	});
 
 	<c:choose>
+	<%--
 	<c:when test="${member.login && member.user_class == '1'}">
 	$('a#book_borrow, a#book_reserve, a#book_addfavorite, a#book_recommend').on('click', function(e) {
 		e.preventDefault();
 		alert('대출중지 상태입니다.');
 	});
 	</c:when>
+	--%>
 	<c:when test="${member.login && member.member_class == '2'}">
 	$('a#book_borrow, a#book_reserve, a#book_addfavorite, a#book_recommend').on('click', function(e) {
 		e.preventDefault();
@@ -141,12 +143,14 @@ $(document).ready(function() {
 
 	<c:if test="${book.type == 'WEB'}">
 	<c:choose>
+<%--
 	<c:when test="${member.login && member.user_class == '1'}">
 	$('a.course_view').on('click', function(e) {
 		e.preventDefault();
 		alert('대출중지 상태입니다.');
 	});
 	</c:when>
+--%>
 	<c:when test="${member.login && member.member_class == '2'}">
 	$('a.course_view').on('click', function(e) {
 		e.preventDefault();
@@ -233,12 +237,14 @@ $(document).ready(function() {
 
 	<c:if test="${book.type == 'ADO' && (book.com_code ne 'FXLI' and book.com_code ne 'KYOB' and book.com_code ne 'ALAD')}">
 	<c:choose>
+	<%--
 	<c:when test="${member.login && member.user_class == '1'}">
 	$('a.audio_view').on('click', function(e) {
 		e.preventDefault();
 		alert('대출중지 상태입니다.');
 	});
 	</c:when>
+	--%>
 	<c:when test="${member.login && member.member_class == '2'}">
 	$('a.audio_view').on('click', function(e) {
 		e.preventDefault();
@@ -400,6 +406,7 @@ function go_to_login() {
 				</p>
 				</c:if>
 			</div>
+
 			<div class="info">
 				<ul>
 					<li>
@@ -434,7 +441,14 @@ function go_to_login() {
 				</c:when>
 --%>
 				<c:when test="${book.lendable}">
-				<a href="#" class="btn btn1" id="book_borrow"><span>대출하기</span></a>
+					<c:choose>
+					<c:when test="${fn:escapeXml(book.library_name) eq null || fn:escapeXml(book.library_name) eq ''}">
+						
+					</c:when>
+					<c:otherwise>
+					<a href="#" class="btn btn1" id="book_borrow"><span>대출하기</span></a>
+					</c:otherwise>
+					</c:choose>
 				</c:when>
 				<c:when test="${book.reservable}">
 				<a href="#" class="btn btn2" id="book_reserve"><span>예약하기</span></a>
@@ -454,7 +468,15 @@ function go_to_login() {
 				</c:when>
 				</c:choose>
 				<a href="#" class="btn btn3" id="book_recommend"><span>좋아요</span></a>
+				<c:choose>
+				<c:when test="${fn:escapeXml(book.library_name) eq null || fn:escapeXml(book.library_name) eq ''}">
+					
+				</c:when>
+				<c:otherwise>
 				<a href="#" class="btn btn4" id="book_addfavorite"><span>나의 관심도서</span></a>
+				</c:otherwise>
+				</c:choose>
+				
 			</div>
 		</div>
 		<div class="tabmenu tab1">
