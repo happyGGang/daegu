@@ -38,7 +38,7 @@ ${boardManage.top_html}
 				<td><fmt:formatDate value="${board.editMode eq 'ADD' ? getToday : board.add_date}" pattern="yyyy-MM-dd"/></td>
 			</tr>
 			<c:forEach var="i" varStatus="status" items="${fieldList}">
-			<c:if test="${i.board_column ne 'view_count' and !(i.admin_only eq 'Y' and board.parent_idx eq 0) and i.column_type ne 'cate'}">
+			<c:if test="${i.board_column ne 'view_count' and i.column_type ne 'cate'}">
 			<tr>
 				<th>${i.board_content}</th>
 				<td colspan="3">
