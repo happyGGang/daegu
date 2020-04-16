@@ -7,6 +7,11 @@
 <style>
 table.integration2Table tbody th, table.integration2Table tbody td {text-align: center;padding:6px 0px!important;}
 
+
+/*조언*/
+.doc-body .txt-box-adv2 {border: 1px solid #e8e5e2;padding: 2% 2% 1% 2%;margin: 0 0 1% 0;border-radius: 5px;color: #c10064;overflow: hidden;background: #f9f7f5;font-size: 14px;}
+.doc-body .txt-box-adv:after {background: url('/resources/homepage/dgportal/img/icon_adv.png') no-repeat 0 0;}
+
 /*인증*/
 .dataF-wr{position: relative;}
 .ataF-wr .info_list:before {content:'';position:absolute;left:50%;width: 135px;height: 134px;margin-left: -70px;margin-top: 210px;transition: all 0.3s;}
@@ -15,7 +20,7 @@ span.dts{font-size:13px;color: #555;border-radius:30px;background:#eee;padding:1
 
 .dataF-wr .info_list{/* margin-top: 35px; */}
 .dataF-wr .info_list:after{content:'';display:block;clear:both;}
-.dataF-wr .info_list > li{float:left;width:50%;padding: 40px 25px 25px 25px;box-sizing:border-box;border:1px solid #e0e0e0;margin: -1px 0 0 -1px;min-height: 440px;text-align:center;}
+.dataF-wr .info_list > li{float:left;width:50%;padding: 40px 25px 25px 25px;box-sizing:border-box;border:1px solid #e0e0e0;margin: -1px 0 0 -1px;min-height: 450px;text-align:center;}
 .dataF-wr .info_list > li.dw01{float:left;width:50%;padding: 40px 25px 25px 25px;box-sizing:border-box;border:1px solid #e0e0e0;margin: -1px 0 0 -1px;min-height: 400px;text-align:center;}
 .dataF-wr .info_list > li.dw02{float:left;width:50%;padding: 40px 25px 25px 25px;box-sizing:border-box;border:1px solid #e0e0e0;margin: -1px 0 0 -1px;min-height: 400px;text-align:center;}
 .dataF-wr .info_list .title{font-size: 1.5em;color:#333;font-weight:500;line-height:30px;margin-top:10px;font-weight: bold;}
@@ -30,6 +35,7 @@ span.dts{font-size:13px;color: #555;border-radius:30px;background:#eee;padding:1
 
 @media screen and (max-width:768px){
 .dataF-wr .info_list:before {content:'';position:absolute;left:50%;width: 167px;height: 238px;margin-left: -90px;margin-top: -150px;}
+.doc-body .txt-box-adv2 {padding: 5% 2% 2% 2%;background: #f9f7f5;}
 }
 
 @media screen and (max-width:690px){
@@ -41,13 +47,14 @@ span.dts{font-size:13px;color: #555;border-radius:30px;background:#eee;padding:1
 }
 </style>
 
+
 <script type="text/javascript">
 $(function() {
 
 });
 </script>
 
-<div class="dataF-wr">
+<div class="dataF-wr mg15f">
   <ul class="info_list">
        <li>
       <div class="list_cell">
@@ -71,6 +78,12 @@ $(function() {
       </div>
     </li>
   </ul>
+</div>
+<div class="txt-box-adv2">
+   <ul class="con">
+       <li>신규 회원가입하여 로그인 후 인증 가능합니다. (기존 회원은 통합회원 인증 후 사용 가능)</li>
+       <li>현재 <b>비대면 인증 회원은 전자도서관만 이용 가능</b>합니다.</li> 
+    </ul>
 </div>
 <div class="btn-wrap" style="text-align:center;padding:20px 0">
 	<a href="untactForm.do?menu_idx=${untactMenuIdx}" class="btn btn02" style="background: #f56627;border: 1px solid #f56627;color:#fff;">대구시민인증</a>
