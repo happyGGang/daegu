@@ -40,9 +40,9 @@
 		</trim>
 		ORDER BY book_package_idx DESC
 		${pagingBottom}
-		
+
 	</select>
-	
+
 	<select id="getBookPackageCount" resultType="int">
 		SELECT
 			COUNT(*)
@@ -68,7 +68,7 @@
 			</if>
 		</trim>
 	</select>
-	
+
 	<select id="getBookPackageOne" resultType="kr.go.gbelib.app.cms.module.bookPackage.BookPackage">
 		SELECT
 			<include refid="field"/>,
@@ -107,7 +107,7 @@
 			#{add_id}, SYSDATE
 		)
 	</insert>
-	
+
 	<update id="modifyBookPackage">
 		UPDATE
 			BOOK_PACKAGE
@@ -140,14 +140,14 @@
 		WHERE
 			book_package_idx = #{book_package_idx}
 	</update>
-	
+
 	<delete id="deleteBookPackage">
 		DELETE FROM
 			BOOK_PACKAGE
 		WHERE
 			book_package_idx = #{book_package_idx}
 	</delete>
-	
+
 	<delete id="deleteCheckBookPackage">
 		DELETE FROM
 			BOOK_PACKAGE
@@ -157,7 +157,7 @@
 			#{i}
 			</foreach>
 	</delete>
-	
+
 	<select id="getBookPackageLoanList" resultType="kr.go.gbelib.app.cms.module.bookPackage.BookPackage">
 		${pagingTop}
 		SELECT
@@ -191,7 +191,7 @@
 		ORDER BY b.book_package_loan_idx DESC
 		${pagingBottom}
 	</select>
-	
+
 	<select id="getBookPackageLoanCount" resultType="int">
 		SELECT
 			COUNT(*)
@@ -218,8 +218,8 @@
 		AND b.add_id = #{add_id}
 		</if>
 	</select>
-	
-	<select id="getBookPackageLoanOne" resultType="kr.go.gbelib.app.cms.module.bookPackage.BookPackage">		
+
+	<select id="getBookPackageLoanOne" resultType="kr.go.gbelib.app.cms.module.bookPackage.BookPackage">
 		SELECT
 			b.book_package_idx, b.book_package_loan_idx, a.book_package_subject, b.request_name, b.school_name, a.quantity,
 			TO_CHAR(b.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(b.loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
@@ -231,7 +231,7 @@
 			a.book_package_idx = b.book_package_idx
 		AND	book_package_loan_idx = #{book_package_loan_idx}
 	</select>
-	
+
 	<insert id="addBookPackageLoan">
 		<selectKey keyProperty="book_package_loan_idx" resultType="int" order="BEFORE">
 			SELECT NVL(MAX(book_package_loan_idx), 0) + 1 FROM BOOK_PACKAGE_LOAN
@@ -250,7 +250,7 @@
 			#{request_status}, 'N', #{add_id}, SYSDATE
 		)
 	</insert>
-	
+
 	<update id="modifyBookPackageLoan">
 		UPDATE
 			BOOK_PACKAGE_LOAN
@@ -268,7 +268,7 @@
 		WHERE
 			book_package_loan_idx = #{book_package_loan_idx}
 	</update>
-	
+
 	<update id="modifyReturnReq">
 		UPDATE
 			BOOK_PACKAGE_LOAN
@@ -277,14 +277,14 @@
 		WHERE
 			book_package_loan_idx = #{book_package_loan_idx}
 	</update>
-	
+
 	<delete id="deleteBookPackageLoan">
 		DELETE FROM
 			BOOK_PACKAGE_LOAN
 		WHERE
 			book_package_loan_idx = #{book_package_loan_idx}
 	</delete>
-	
+
 	<update id="statusChangeAll">
 		UPDATE
 			BOOK_PACKAGE_LOAN
@@ -296,7 +296,7 @@
 			#{i}
 			</foreach>
 	</update>
-	
+
 	<select id="getBookPackageExcelList" resultType="kr.go.gbelib.app.cms.module.bookPackage.BookPackage">
 		SELECT
 			book_package_idx, book_package_name, book_package_subject, author, publisher,
@@ -306,7 +306,7 @@
 			BOOK_PACKAGE a
 		ORDER BY book_package_idx DESC
 	</select>
-	
+
 	<select id="getBookPackageLoanExcelList" resultType="kr.go.gbelib.app.cms.module.bookPackage.BookPackage">
 		SELECT
 			b.book_package_idx, b.book_package_loan_idx, a.book_package_subject, b.request_name, b.school_name,
@@ -323,15 +323,15 @@
 		</if>
 		ORDER BY b.book_package_loan_idx DESC
 	</select>
-	
+
 	<select id="getMysqlToTibero" resultType="map">
 		SELECT * FROM BOARD_12
 	</select>
-	
+
 	<select id="getMysqlToTibero2" resultType="map">
 		SELECT * FROM BOARD_BOOK_LOAN
 	</select>
-	
+
 	<insert id="addMysqlToTibero">
 		insert into book_package
 		(
@@ -350,7 +350,7 @@
 			#{desc_link}, #{image_link}, #{content}, #{add_id}, #{add_date}, #{modify_id}, #{modify_date}
 		)
 	</insert>
-	
+
 	<insert id="addMysqlToTibero2">
 		INSERT INTO
 			BOOK_PACKAGE_LOAN
@@ -366,5 +366,26 @@
 			#{request_status}, #{return_yn}, #{add_id}, #{add_date}
 		)
 	</insert>
-	
+
+	<select id="getBookPackageLoanDate" resultType="kr.go.gbelib.app.cms.module.bookPackage.BookPackage">
+		SELECT
+			TO_CHAR(b.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(b.loan_end_date, 'yyyy-MM-dd') AS loan_end_date
+		FROM
+			BOOK_PACKAGE a, BOOK_PACKAGE_LOAN b
+		WHERE
+			a.book_package_idx = b.book_package_idx
+		AND	b.book_package_idx = #{book_package_idx}
+		AND	request_status IN ('0', '1', '2')
+		AND	loan_start_date > SYSDATE
+	</select>
+
+	<select id="getBookPackageLoanDateList" resultType="string">
+		<![CDATA[
+		SELECT
+			TO_CHAR(TO_DATE(#{start_date}, 'YYYY-MM-DD') + LEVEL - 1, 'YYYY-MM-DD') AS IN_DATE
+		FROM
+			DUAL
+		CONNECT BY LEVEL <= TO_DATE(#{end_date}, 'YYYY-MM-DD') - TO_DATE(#{start_date}, 'YYYY-MM-DD') + 1
+		]]>
+	</select>
 </mapper>

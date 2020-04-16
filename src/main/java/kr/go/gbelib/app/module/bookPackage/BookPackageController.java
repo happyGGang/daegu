@@ -6,7 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -42,21 +45,21 @@ import kr.go.gbelib.app.intro.search.LibrarySearch;
 @Controller(value = "userBookPackage")
 @RequestMapping(value = {"/{homepagePath}/module/bookPackage"})
 public class BookPackageController extends BaseController {
-	
+
 	private String basePath = "/homepage/%s/module/bookPackage/";
-	
+
 	@Autowired
 	private BookPackageService service;
-	
+
 	@RequestMapping(value = {"/index.*"}, method = RequestMethod.GET)
 	public String index(Model model, BookPackage bookPackage, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		
+
 		if(bookPackage.getCategory() == null) {
 			bookPackage.setCategory("all");
 		}
-		
+
 		service.setPaging(model, service.getBookPackageCount(bookPackage), bookPackage);
 
 		model.addAttribute("bookPackage", bookPackage);
@@ -64,12 +67,12 @@ public class BookPackageController extends BaseController {
 
 		return String.format(basePath, homepage.getFolder()) + "index";
 	}
-	
+
 	@RequestMapping(value = {"/edit.*"})
 	public String edit(Model model, BookPackage bookPackage, HttpServletRequest request) throws AuthException {
-		
+
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		
+
 		if(bookPackage.getEditMode().equals("MODIFY")) {
 			checkAuth("U", model, request);
 			int menu_idx = bookPackage.getMenu_idx();
@@ -77,13 +80,13 @@ public class BookPackageController extends BaseController {
 			bookPackage.setMenu_idx(menu_idx);
 		}
 		model.addAttribute("bookPackage", bookPackage);
-		
+
 		return String.format(basePath, homepage.getFolder()) + "edit";
 	}
-	
+
 	@RequestMapping (value = {"/search.*"}, method = RequestMethod.GET)
 	public String search(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
+
 		Map<String, Object> map = null;
 		if (StringUtils.isNotEmpty(librarySearch.getSearch_text())) {
 			map = LibSearchAPI.getNaverList(librarySearch);
@@ -114,25 +117,25 @@ public class BookPackageController extends BaseController {
 				model.addAttribute("naverResult", map);
 			}
 		}
-		
+
 		model.addAttribute("librarySearch", librarySearch);
-		
+
 		return basePath + "search_ajax";
 	}
-	
+
 	@RequestMapping (value = {"/view.*"}, method = RequestMethod.GET)
 	public String view(Model model, BookPackage bookPackage, HttpServletRequest request) throws AuthException {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		int menu_idx = bookPackage.getMenu_idx();
-		
+
 		bookPackage = (BookPackage)service.copyObjectPaging(bookPackage, service.getBookPackageOne(bookPackage));
 		bookPackage.setMenu_idx(menu_idx);
-		
+
 		model.addAttribute("bookPackage", bookPackage);
 
 		return String.format(basePath, homepage.getFolder()) + "view";
 	}
-	
+
 	@RequestMapping (value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(BookPackage bookPackage, BindingResult result, HttpServletRequest request) {
 		/* 유효성 검증 >>>>> */
@@ -176,94 +179,112 @@ public class BookPackageController extends BaseController {
 
 		return res;
 	}
-	
+
 	@RequestMapping (value = {"/loanList.*"}, method = RequestMethod.GET)
 	public String bookPackageLoanList(Model model, BookPackage bookPackage, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		checkAuth("R", model, request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		SupportMember loginSupport = sessionLoginSupport(request);
-		
+
 		if (loginSupport == null && !getSessionIsAdmin(request)) {
     		bookPackage.setBefore_url(String.format("/%s/module/bookPackage/loanList.do?menu_idx=%s", homepage.getContext_path(), bookPackage.getMenu_idx()));
     		service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), bookPackage.getMenu_idx(), bookPackage.getBefore_url()), request, response);
     		return null;
         }
-		
+
 		if(!getSessionIsAdmin(request) && !loginSupport.getAuth_group().equals("1")) {
 			bookPackage.setAdd_id(loginSupport.getMember_id());
 		}
 		service.setPaging(model, service.getBookPackageLoanCount(bookPackage), bookPackage);
-		
+
 		model.addAttribute("bookPackage", bookPackage);
 		model.addAttribute("loanList", service.getBookPackageLoanList(bookPackage));
 
 		return String.format(basePath, homepage.getFolder()) + "loanList";
 	}
-	
+
 	@RequestMapping (value = {"/loanView.*"}, method = RequestMethod.GET)
 	public String loanView(Model model, BookPackage bookPackage, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		
+
 		bookPackage = (BookPackage)service.copyObjectPaging(bookPackage, service.getBookPackageLoanOne(bookPackage));
 		model.addAttribute("bookPackage", bookPackage);
 
 		return String.format(basePath, homepage.getFolder()) + "loanView";
 	}
-	
+
 	@RequestMapping(value = {"/loanEdit.*"})
 	public String bookPackageReq(Model model, BookPackage bookPackage, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		
+
 		SupportMember loginSupport = sessionLoginSupport(request);
 		if (loginSupport == null && !getSessionIsAdmin(request)) {
     		bookPackage.setBefore_url(String.format("/%s/module/bookPackage/index.do?menu_idx=%s", homepage.getContext_path(), bookPackage.getMenu_idx()));
     		service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), bookPackage.getMenu_idx(), bookPackage.getBefore_url()), request, response);
     		return null;
         }
-		
+
 		int menu_idx = bookPackage.getMenu_idx();
-		
+
 		if(bookPackage.getEditMode().equals("MODIFY")) {
 			checkAuth("U", model, request);
-			
+
 			bookPackage = (BookPackage)service.copyObjectPaging(bookPackage, service.getBookPackageLoanOne(bookPackage));
 			String[] phone = bookPackage.getPhone().split("-");
 			bookPackage.setPhone_1(phone[0]);
 			bookPackage.setPhone_2(phone[1]);
 			bookPackage.setPhone_3(phone[2]);
-			
+
 			String[] school_tel = bookPackage.getSchool_tel().split("-");
 			bookPackage.setSchool_tel_1(school_tel[0]);
 			bookPackage.setSchool_tel_2(school_tel[1]);
 			bookPackage.setSchool_tel_3(school_tel[2]);
-			
+
 		} else {
 			checkAuth("C", model, request);
-			
+
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Calendar cal = Calendar.getInstance();
 			cal.add(Calendar.DATE, 3);
-			
+
 			bookPackage = (BookPackage)service.copyObjectPaging(bookPackage, service.getBookPackageOne(bookPackage));
 			bookPackage.setLoan_start_date(sdf.format(cal.getTime()));
-			
-			
+
+
 			if(bookPackage.getLender_count() > 1) {
 				service.alertMessage("해당 도서에 이미 예약자가 있습니다.", request, response);
 			} else if(bookPackage.getLender_count() > 0) {
 				bookPackage.setRequest_status("1");
 			}
-			
+
 			bookPackage.setSchool_name(loginSupport != null ? loginSupport.getSchool_name() : "관리자");
+
+			BookPackage bp = new BookPackage();
+			bp.setBook_package_idx(bookPackage.getBook_package_idx());
+			List<BookPackage> loanList = service.getBookPackageLoanDate(bp);
+			List<String> loanDateList = new ArrayList<String>();
+			for (BookPackage bp2 : loanList) {
+				Map<String, String> map = new HashMap<String, String>();
+				map.put("start_date", bp2.getLoan_start_date());
+				map.put("end_date", bp2.getLoan_end_date());
+				List<String> bookPackageLoanDateList = service.getBookPackageLoanDateList(map);
+				loanDateList.addAll(service.getBookPackageLoanDateList(map));
+
+				//신청, 예약, 대출중 데이터의 대출 종료일에서 3일을 추가한다.
+				cal.setTime(sdf.parse(bookPackageLoanDateList.get(bookPackageLoanDateList.size()-1)));
+				cal.add(Calendar.DATE, 3);
+				bookPackage.setLoan_start_date(sdf.format(cal.getTime()));
+			}
+			model.addAttribute("loanDateList", StringUtils.join(loanDateList, ","));
 		}
-		
+
 		bookPackage.setMenu_idx(menu_idx);
 		model.addAttribute("bookPackage", bookPackage);
-		
+
 		return String.format(basePath, homepage.getFolder()) + "loanEdit";
 	}
-	
+
 	@RequestMapping (value = {"/loanSave.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse bookPackageReqSave(BookPackage bookPackage, BindingResult result, HttpServletRequest request) {
 		/* 유효성 검증 >>>>> */
@@ -278,24 +299,24 @@ public class BookPackageController extends BaseController {
     		ValidationUtils.rejectIfEmpty(result, "school_tel_2", "학교 연락처를 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "school_tel_3", "학교 연락처를 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "request_content", "신청사유를 입력하세요.");
-    		
+
     		String phone = bookPackage.getPhone_1() + "-" + bookPackage.getPhone_2() + "-" + bookPackage.getPhone_3();
 			String school_tel = bookPackage.getSchool_tel_1() + "-" + bookPackage.getSchool_tel_2() + "-" + bookPackage.getSchool_tel_3();
 			bookPackage.setPhone(phone);
 			bookPackage.setSchool_tel(school_tel);
-			
+
 			Pattern pattern1 = Pattern.compile("^01[0|1|6|7|8|9]-?[\\d]{3,4}-?[\\d]{4}$");
     		Matcher matcher1 = pattern1.matcher(bookPackage.getPhone());
     		if (!matcher1.matches()) {
     			result.rejectValue("phone_2", "휴대폰 형식이 올바르지 않습니다.");
     		}
-    		
+
 			Pattern pattern2 = Pattern.compile("^[\\d]{2,3}-?[\\d]{3,4}-?[\\d]{4}$");
     		Matcher matcher2 = pattern2.matcher(bookPackage.getSchool_tel());
     		if (!matcher2.matches()) {
     			result.rejectValue("school_tel_2", "학교 연락처 형식이 올바르지 않습니다.");
     		}
-    		
+
 		}
 		/* <<<<< 유효성 검증 */
 
@@ -337,51 +358,51 @@ public class BookPackageController extends BaseController {
 
 		return res;
 	}
-	
+
 	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
 	public BookPackageView excel(Model model, BookPackage bookPackage, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		SupportMember sm = sessionLoginSupport(request);
-		
+
 		if(sm != null && !sm.getAuth_group().equals("1")) {
 			bookPackage.setAdd_id(sm.getMember_id());
 		}
-		
+
 		List<BookPackage> bookPackageList = null;
 		if(bookPackage.getEditMode().equals("bookPackage")) {
 			bookPackageList = service.getBookPackageExcelList(bookPackage);
 		} else {
 			bookPackageList = service.getBookPackageLoanExcelList(bookPackage);
 		}
-		
+
 		model.addAttribute("bookPackage", bookPackage);
 		model.addAttribute("bookPackageList", bookPackageList);
 
 		return new BookPackageView();
 	}
-	
+
 	@RequestMapping(value= {"/mysqlToTibero.*"}, method = RequestMethod.GET)
 	public void mysqlToTibero(Model model, BookPackage bookPackage, HttpServletRequest request) {
 		List<Map<String, Object>> listMap = service.getMysqlToTibero();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		
+
 		for (Map<String, Object> map : listMap) {
 			BookPackage bp = new BookPackage();
-			
+
 			bp.setBook_package_idx(Integer.parseInt(String.valueOf(map.get("b_num"))));
 			bp.setBook_package_name(String.valueOf(map.get("b_name")));
 			bp.setBook_package_subject(String.valueOf(map.get("b_subject")));
 			bp.setAuthor(String.valueOf(map.get("b_temp1")));
 			bp.setPublisher(String.valueOf(map.get("b_temp2")));
-			
+
 			String b3 = String.valueOf(map.get("b_temp3"));
 			try {
 				bp.setPublish_year(Integer.parseInt(b3));
 			} catch(NumberFormatException e) {
 				bp.setPublish_year(1900);
 			}
-			
+
 			bp.setIsbn(String.valueOf(map.get("b_temp4")));
-			
+
 			String b5 = String.valueOf(map.get("b_temp5")).replace(",", "");
 			try {
 				bp.setBook_price(Integer.parseInt(b5));
@@ -394,7 +415,7 @@ public class BookPackageController extends BaseController {
 			} else {
 				bp.setBook_pages(0);
 			}
-			
+
 			bp.setPurpose(String.valueOf(map.get("b_temp8")));
 			String b12 = String.valueOf(map.get("b_temp12"));
 			if(StringUtils.isNotEmpty(b12)) {
@@ -405,12 +426,12 @@ public class BookPackageController extends BaseController {
 				bp.setQuantity(Integer.parseInt(b15));
 			}
 			bp.setGrade(String.valueOf(map.get("b_temp9")));
-			
+
 			String keyword = String.valueOf(map.get("b_temp10"));
 			String [] keyarr = keyword.split(",");
 			keyword = "";
 			for (String key : keyarr) {
-				
+
 				if(key.equals("6")) {
 					keyword += ",000";
 				} else if(key.equals("7")) {
@@ -433,18 +454,18 @@ public class BookPackageController extends BaseController {
 					keyword += ",900";
 				}
 			}
-			
+
 			bp.setCategory(keyword.equals("") ? null : keyword.substring(1));
 			bp.setKeyword(String.valueOf(map.get("b_temp11")));
 			bp.setDesc_link(String.valueOf(map.get("b_temp13")));
 			bp.setImage_link(String.valueOf(map.get("b_temp14")));
 			bp.setContent(String.valueOf(map.get("b_content")));
 			bp.setOrg_file_name(String.valueOf(map.get("b_file1")));
-			
+
 			String file_name = String.valueOf(map.get("b_file1"));
 			if(StringUtils.isNotEmpty(file_name)) {
 				try {
-					
+
 					File f = new File("C:\\Users\\whalesoft\\Desktop\\대구시통합도서관\\image\\board_12\\" + file_name);
 					FileInputStream is = new FileInputStream(f);
 					MultipartFile mp = new MockMultipartFile("file", f.getName(), "text/plain", IOUtils.toByteArray(is));
@@ -455,25 +476,25 @@ public class BookPackageController extends BaseController {
 					e2.printStackTrace();
 				}
 			}
-			
+
 			try {
 				bp.setAdd_date(sdf.parse(String.valueOf(map.get("b_regdate"))));
 				bp.setAdd_id(String.valueOf(map.get("b_id")));
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-			
+
 			System.out.println("@@@@@@@@@@@@@@ data : " + bp.toString());
 			service.addMysqlToTibero(bp);
-			
+
 		}
-		
-		
+
+
 		List<Map<String, Object>> listMap2 = service.getMysqlToTibero2();;
-		
+
 		for (Map<String, Object> map2 : listMap2) {
 			BookPackage bp = new BookPackage();
-			
+
 			bp.setBook_package_idx(Integer.parseInt(String.valueOf(map2.get("b_num"))));
 			bp.setBook_package_loan_idx(Integer.parseInt(String.valueOf(map2.get("bb_num"))));
 			bp.setRequest_name(String.valueOf(map2.get("bb_manager")));
@@ -486,14 +507,14 @@ public class BookPackageController extends BaseController {
 			bp.setRequest_content(String.valueOf(map2.get("bb_content")));
 			bp.setRequest_status(String.valueOf(map2.get("bb_status")));
 			bp.setReturn_yn(String.valueOf(map2.get("bb_return")) == "" ? "N" : String.valueOf(map2.get("bb_return")));
-			
+
 			try {
 				bp.setAdd_date(sdf.parse(String.valueOf(map2.get("bb_regdate"))));
 				bp.setAdd_id(String.valueOf(map2.get("m_id")));
 			} catch(ParseException e) {
 				e.printStackTrace();
 			}
-			
+
 //			System.out.println("@@@@@@@@@@@@@@ data2 : " + bp.toString2());
 //			service.addMysqlToTibero2(bp);
 		}

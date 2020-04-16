@@ -18,26 +18,26 @@ import kr.co.whalesoft.framework.utils.PagingUtils;
 
 @Service
 public class BookPackageService extends BaseService {
-	
+
 	@Autowired
 	@Qualifier("bookPackageStorage")
 	private FileStorage bookPackageStorage;
-	
+
 	@Autowired
 	private BookPackageDao dao;
-	
+
 	public List<BookPackage> getBookPackageList(BookPackage bookPackage) {
 		return dao.getBookPackageList(bookPackage);
 	}
-	
+
 	public int getBookPackageCount(BookPackage bookPackage) {
 		return dao.getBookPackageCount(bookPackage);
 	}
-	
+
 	public BookPackage getBookPackageOne(BookPackage bookPackage) {
 		return dao.getBookPackageOne(bookPackage);
 	}
-	
+
 	public int addBookPackage(BookPackage bookPackage) {
 		MultipartFile mFile = bookPackage.getMfile();
 
@@ -55,7 +55,7 @@ public class BookPackageService extends BaseService {
 			bookPackage.setFile_extension(fileExtension);
 			bookPackage.setFile_size(f.length());
 		}
-		
+
 		return dao.addBookPackage(bookPackage);
 	}
 
@@ -76,26 +76,26 @@ public class BookPackageService extends BaseService {
 			bookPackage.setFile_extension(fileExtension);
 			bookPackage.setFile_size(f.length());
 		}
-		
+
 		return dao.modifyBookPackage(bookPackage);
 	}
 
 	public int deleteBookPackage(BookPackage bookPackage) {
 		return dao.deleteBookPackage(bookPackage);
 	}
-	
+
 	public int deleteCheckBookPackage(BookPackage bookPackage) {
 		return dao.deleteCheckBookPackage(bookPackage);
 	}
-	
+
 	public List<BookPackage> getBookPackageLoanList(BookPackage bookPackage) {
 		return dao.getBookPackageLoanList(bookPackage);
 	}
-	
+
 	public int getBookPackageLoanCount(BookPackage bookPackage) {
 		return dao.getBookPackageLoanCount(bookPackage);
 	}
-	
+
 	public BookPackage getBookPackageLoanOne(BookPackage bookPackage) {
 		return dao.getBookPackageLoanOne(bookPackage);
 	}
@@ -103,7 +103,7 @@ public class BookPackageService extends BaseService {
 	public int addBookPackageLoan(BookPackage bookPackage) {
 		return dao.addBookPackageLoan(bookPackage);
 	}
-	
+
 	public int modifyBookPackageLoan(BookPackage bookPackage) {
 		return dao.modifyBookPackageLoan(bookPackage);
 	}
@@ -115,7 +115,7 @@ public class BookPackageService extends BaseService {
 	public int deleteBookPackageLoan(BookPackage bookPackage) {
 		return dao.deleteBookPackageLoan(bookPackage);
 	}
-	
+
 	public int statusChangeAll(BookPackage bookPackage) {
 		return dao.statusChangeAll(bookPackage);
 	}
@@ -123,7 +123,7 @@ public class BookPackageService extends BaseService {
 	public List<BookPackage> getBookPackageExcelList(BookPackage bookPackage) {
 		return dao.getBookPackageExcelList(bookPackage);
 	}
-	
+
 	public List<BookPackage> getBookPackageLoanExcelList(BookPackage bookPackage) {
 		return dao.getBookPackageLoanExcelList(bookPackage);
 	}
@@ -149,7 +149,7 @@ public class BookPackageService extends BaseService {
 			bookPackage.setFile_extension(fileExtension);
 			bookPackage.setFile_size(f.length());
 		}
-		
+
 		return dao.addMysqlToTibero(bookPackage);
 	}
 
@@ -161,5 +161,28 @@ public class BookPackageService extends BaseService {
 	public int addMysqlToTibero2(BookPackage bp) {
 		return dao.addMysqlToTibero2(bp);
 	}
+
+	/**
+	 * 책꾸러미 신청 목록 가져오기
+	 *
+	 * @author whalesoft YONGJU 2020. 4. 16.
+	 * @param bp book_package_idx
+	 * @return loan_start_date, loan_end_date
+	 */
+	public List<BookPackage> getBookPackageLoanDate(BookPackage bp) {
+		return dao.getBookPackageLoanDate(bp);
+	}
+
+	/**
+	 * 대출일자 목록 가져오기
+	 *
+	 * @author whalesoft YONGJU 2020. 4. 16.
+	 * @param map {loan_start_date:'2020-01-01', loan_end_date:'2020-01-05'}
+	 * @return ['2020-01-01', '2020-01-02', '2020-01-03', '2020-01-04', '2020-01-05']
+	 */
+	public List<String> getBookPackageLoanDateList(Map<String, String> map) {
+		return dao.getBookPackageLoanDateList(map);
+	}
+
 
 }

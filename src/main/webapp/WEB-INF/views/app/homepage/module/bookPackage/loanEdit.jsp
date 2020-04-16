@@ -5,10 +5,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <script type="text/javascript">
 $(function() {
-	
+
 	$('#save-btn').on('click', function(e) {
 		e.preventDefault();
-		
+
 		if($('#loan_start_date').val() == '') {
 			alert('대출시작기간을 선택하세요.');
 			$('#loan_start_date').focus();
@@ -49,51 +49,85 @@ $(function() {
 			$('#request_content').focus();
 			return false;
 		}
-		
+
 		if($('#agree').prop('checked') == false && $('#editMode').val() == 'ADD') {
 			alert('개인정보 수집 및 이용에 동의를 하셔야 합니다.');
 			$('#agree').focus();
 			return false;
 		}
-		
+
 		doAjaxPost($('#bookPackageLoan'));
 	});
-	
+
 	$('#cancel-btn').on('click', function(e) {
 		e.preventDefault();
 		history.back();
 	});
-	
-	var currDate = new Date();
-	currDate.setDate(currDate.getDate() + 3);
+
+	var currDate = new Date('${bookPackage.loan_start_date}');
 	var str_min_date = currDate.getFullYear()+'-'+(currDate.getMonth()+1)+'-'+currDate.getDate();
 	currDate.setDate(currDate.getDate() + 14);
 	var str_max_date = currDate.getFullYear()+'-'+(currDate.getMonth()+1)+'-'+currDate.getDate();
-	
+
 	$('input#loan_start_date').datepicker({
 		minDate: str_min_date,
 		maxDate: str_max_date,
 		onClose: function(selectedDate){
 			$('input#loan_end_date').datepicker('option', 'minDate', selectedDate);
-			
+
 			var week2 = new Date(selectedDate);
 			week2.setDate(week2.getDate() + 60);
 			var end_max_date = week2.getFullYear()+'-'+(week2.getMonth()+1)+'-'+week2.getDate();
 			$('input#loan_end_date').datepicker('option', 'maxDate', end_max_date);
-		}
+
+			week2.setDate(week2.getDate() - 46);
+			var end_min_date = week2.getFullYear()+'-'+(week2.getMonth()+1)+'-'+week2.getDate();
+			$('input#loan_end_date').datepicker('option', 'minDate', end_min_date);
+		},
+		beforeShowDay: available
 	});
+	var availableDates = [];
+	try {
+		var a = '${loanDateList}'.split(',');
+		for (var i = 0; i < a.length; i++) {
+			availableDates[i] = a[i];
+		}
+	} catch (e) {
+	}
+	function available(date) { // date <--- calendar의 일자(예:'2020-04-17')를 하나씩 가져온다.
+		var thismonth = date.getMonth()+1;
+		var thisday = date.getDate();
+		if(thismonth<10){
+			thismonth = "0"+thismonth;
+		}
+
+		if(thisday<10){
+			thisday = "0"+thisday;
+		}
+
+	    ymd = date.getFullYear() + "-" + thismonth + "-" + thisday;
+	    if ($.inArray(ymd, availableDates) >= 0) {
+	        return [false];
+	    } else {
+	        return [true];
+	    }
+	}
 
 	var week2 = new Date(str_min_date);
 	week2.setDate(week2.getDate() + 60);
 	var end_max_date = week2.getFullYear()+'-'+(week2.getMonth()+1)+'-'+week2.getDate();
-	
+
+	week2.setDate(week2.getDate() - 46);
+	var end_min_date = week2.getFullYear()+'-'+(week2.getMonth()+1)+'-'+week2.getDate();
+
 	$('input#loan_end_date').datepicker({
-		minDate: $('input#loan_start_date').val(),
-		maxDate: end_max_date
+		minDate: end_min_date,
+		maxDate: end_max_date,
+		beforeShowDay: available
 	});
-	
+
 	$('#school_name').focus();
-	
+
 });
 
 </script>
