@@ -228,17 +228,17 @@ $(document).ready(function() {
 		window.open("/${homepage.context_path}/module/myStorage/viewStorage.do?"+serializeCustom($('#storageReqForm')), "", "width=350, height=350");
 	});
 
-	$('div.bbs-view-body img').watermark({
-		text: '${homepage.homepage_name}',
-		textWidth : 180,
-		textSize : 15,
-		gravity: 'sw',
-	    opacity: 0.7,
-	    margin: 15,
-	    textColor : 'black',
-	    textBg : 'rgba(255, 255, 255, 0.2)',
-	    outputType : 'png'
-	});
+// 	$('div.bbs-view-body img').watermark({
+// 		text: '${homepage.homepage_name}',
+// 		textWidth : 180,
+// 		textSize : 15,
+// 		gravity: 'sw',
+// 	    opacity: 0.7,
+// 	    margin: 15,
+// 	    textColor : 'black',
+// 	    textBg : 'rgba(255, 255, 255, 0.2)',
+// 	    outputType : 'png'
+// 	});
 });
 
 function HTMLDecode(str) {
