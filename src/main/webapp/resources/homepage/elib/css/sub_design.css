@@ -765,6 +765,31 @@ div[class^="dpt-list-type"] li[class^="ico"]:after {content:"";display:block;bac
 .tit_wrap dt strong{display:block;font-size: 36px;font-weight:normal;line-height:40px;}
 .tit_wrap dd{margin-top:25px;font-size:15px;line-height:25px;}
 
+/*기타 박스*/
+.tbox-wr .em {position:relative;background: #355cb9;margin:0 auto;text-align:center;margin-bottom:30px;}
+.tbox-wr .em h4.tit {position:relative;padding: 55px 0 20px;margin:0 auto;text-align:center;font-weight:bold;color:#fff;font-size:20px;}
+.tbox-wr .em p  {padding: 0 40px 40px 40px;color:#fff;font-size:15px;}
+.tbox-wr .em h4:before {content:"";display:block;position:absolute;width:64px;height:64px;background:url('/resources/homepage/elib/img/em_icon01.png') no-repeat 0 0;margin-left:-32px;left:50%;top:-30px;}
+.tbox-wr .em h4 span:after {content: '';display: block;width: 25px;height: 1px;background-color: #323232;margin: 20px auto;}
+
+.tbox-wr .vw {position:relative;background: #355cb9;margin:0 auto;text-align:center;margin-bottom: 20px;}
+.tbox-wr .vw h4.tit {position:relative;padding: 55px 0 20px;margin:0 auto;text-align:center;font-weight:bold;color:#fff;font-size:20px;}
+.tbox-wr .vw p  {padding: 0 40px 40px 40px;color:#fff;font-size:15px;}
+.tbox-wr .vw h4:before {content:"";display:block;position:absolute;width:64px;height:64px;background:url('/resources/homepage/elib/img/vw_icon01.png') no-repeat 0 0;margin-left:-32px;left:50%;top:-30px;}
+
+.kog-wr { background: url('/resources/homepage/elib/img/book_pttr.gif') repeat;padding: 3px;}
+.kog-wr .kog {position:relative;background: #fff;margin:0 auto;text-align:center;}
+.kog-wr .kog h4.tit {position:relative;padding: 55px 0 20px;margin:0 auto;text-align:center;font-weight:bold;color: #222;font-size:20px;}
+.kog-wr .kog p  {padding:0 40px 40px 40px;color: #222;}
+.kog-wr .kog h4:before {content:"";display:block;position:absolute;width:64px;height:64px;background:url('/resources/homepage/elib/img/kog_icon01.png') no-repeat 0 0;margin-left:-32px;left:50%;top:-30px;}
+
+
+@media (max-width: 768px){
+.tbox-wr .em p, .kog-wr .kog p {padding:0 20px 40px 20px;}
+.kog-wr {margin-top:40px;}
+
+}
+
 /* 스마트도서관*/
 .biz_work2 .work{display:inline-block;width:100%;color:#000;border-bottom:1px solid #e5e5e5;}
 .biz_work2 .work_tit{float:left;width: 35%;height: 300px;font-size: 22px;line-height: 1.5;letter-spacing:-0.05em;color: #444;}
@@ -863,6 +888,7 @@ background:url(/nanum/site/builder/skin/library_skin01/img/common/icon_tit_bg.gi
 .audian_bgbox {position: relative;height: 317px;background: url("/resources/homepage/elib/img/audian_bg.jpg") no-repeat;background-size: 100%;}
 .kiss_bgbox {position: relative;height: 317px;background: url("/resources/homepage/elib/img/kiss_bg.jpg") no-repeat;background-size: 100%;}
 .naxos_bgbox {position: relative;height: 317px;background: url("/resources/homepage/elib/img/naxos_bg.jpg") no-repeat;background-size: 100%;}
+.audiorac_bgbox {position: relative;height: 317px;background: url("/resources/homepage/elib/img/audiorac_bg.jpg") no-repeat;background-size: 100%;}
 
 .lf-txt {position: absolute;top: 61px;left: 50px;width: 460px;color: #fff;}
 .lf-txt2 {position: absolute;top: 61px;left: 30px;width: 460px;color: #fff;}
@@ -899,6 +925,12 @@ background:url(/nanum/site/builder/skin/library_skin01/img/common/icon_tit_bg.gi
 .btn_link07 .ico {position:absolute;right:0px;top:0;padding:0;width:50px;height:53px;background-color:#0b253e;-webkit-transition:right .25s ease;transition:right .25s ease-out;}
 .btn_link07:hover .ico {right:-10px;height:53px;}
 
+.btn_link08 {position:relative;display:inline-block;transition:all .25s ease;background-color:#fff;color:#fff;border:1px solid #3a59bb;box-sizing:border-box;}
+.btn_link08:hover, .btn_link08:focus {border:1px solid #3a59bb;background-color:#fff;color:#3a59bb;}
+.btn_link08 span {display:block;padding:0 72px 0px 23px;height:53px;line-height:53px; color:#3a59bb;}
+.btn_link08 .ico {position:absolute;right:0px;top:0;padding:0;width:50px;height:53px;background-color:#3a59bb;-webkit-transition:right .25s ease;transition:right .25s ease-out;}
+.btn_link07:hover .ico {right:-10px;height:53px;}
+
 @media(max-width:1260px){
 .join_wrap dl{float:none;width:100%;height:auto;margin:0 0 20px 0;padding:20px 40px;box-sizing:border-box;}
 .join_wrap dl:first-child{min-height: 0;padding-bottom: 30px;margin-left:0}
@@ -926,6 +958,8 @@ background:url(/nanum/site/builder/skin/library_skin01/img/common/icon_tit_bg.gi
 /*책이음 서비스*/
 .img-box {border: 1px solid #e1e1e1;background: #f8f8f8;text-align: center;padding: 35px 30px 30px 30px;}
 .img-box2 {border: 1px solid #e1e1e1;background: #f8f8f8;text-align: center;padding: 35px 40px 30px 40px;}
+.img-box3 {border: 1px solid #e1e1e1;background: #fff;text-align: center;padding: 35px 30px 30px 30px;}
+
 .processList01 {position: relative;}
 .processList01 > li {display: inline-block;position: relative;padding: 20px 20px;/* margin-top: 10px; */margin-left: 20px;width: 200px;height: 185px;text-align: left;background: #fff;border: 1px solid #ccc;/* border-top: 2px solid #437fc1; *//* border-bottom: 1px solid #437fc1; */box-sizing: border-box;vertical-align: top;font-size: 14px;color: #333;transition : all 0.5s ease;-webkit-transition : all 0.5s ease;/* font-weight: 600; */border-radius: 5px;}
 .processList01 > li:first-child {margin-left: 0;}
@@ -1011,3 +1045,55 @@ background:url(/nanum/site/builder/skin/library_skin01/img/common/icon_tit_bg.gi
 
 .book-y li:last-child {padding-top: 5px}
 }
+
+
+/*전자책이용방법-상단 안내*/
+.dataF-wr{position: relative;}
+.dataF-wr .info_list:before {background:url('/resources/homepage/dgportal/img/df_img01.png') no-repeat 0 0;}
+.dataF-wr .info_list:before {content:'';position:absolute;left:50%;width: 135px;height: 134px;margin-left: -70px;margin-top: 210px;transition: all 0.3s;}
+
+/*.dataF-wr .em {position:relative;background: #355cb9;margin:0 auto;text-align:center;margin-bottom:30px;width: 180px;height: 180px;border-radius: 100%;}*/
+.dataF-wr .tit {background-color:#2c469c;color:#fff;text-align:center;font-size:20px;max-width:35%;padding:10px 30px;margin:auto;font-weight:normal;}
+span.dts{font-size:13px;color: #555;border-radius:30px;background:#eee;padding:10px 10px;margin:20px auto;display:block;width:30%;}
+
+.dataF-wr .info_list{/* margin-top: 35px; */}
+.dataF-wr .info_list:after{content:'';display:block;clear:both;}
+.dataF-wr .info_list > li{float:left;width:50%;padding: 40px 25px 25px 25px;box-sizing:border-box;border:1px solid #e0e0e0;margin: -1px 0 0 -1px;min-height: 420px;text-align:center;}
+.dataF-wr .info_list .title{font-size: 1.5em;color:#333;font-weight:500;line-height:30px;margin-top:10px;}
+.dataF-wr .info_list .dot_txt_list{margin-top:20px}
+.dataF-wr .info_list .dot_txt_list > li{line-height: 25px;/* text-align:left; */}
+
+	@media screen and (max-width:1024px){	
+	.dataF-wr .info_list{display: flex;flex-wrap:wrap;}
+	.dataF-wr .info_list:before {content:'';position:absolute;left:50%;width: 167px;height: 238px;margin-left: -90px;margin-top: -150px;}
+	.dataF-wr .info_list > li{padding:30px 15px;height:auto;margin: -1px 0 0 0;}
+     }
+	
+	@media screen and (max-width:768px){	
+	.dataF-wr .info_list:before {background:url('/resources/homepage/dgportal/img/df_img01_.png') no-repeat 0 0;}
+    .dataF-wr .info_list:before {content:'';position:absolute;left:50%;width: 167px;height: 238px;margin-left: -90px;margin-top: -150px;}
+     }
+
+	@media screen and (max-width:520px){	
+	.dataF-wr .info_list{/* margin-top: 145px; */}
+	.dataF-wr .info_list > li{width:100%;padding:30px 15px;min-height: 330px;margin:-1px 0 0 0;}
+	.dataF-wr .info_list .title{font-size:18px;line-height:26px;margin-top:8px;}
+	.dataF-wr .info_list .dot_txt_list{margin-top:15px}
+	.dataF-wr .info_list .dot_txt_list > li{line-height:22px}
+}
+
+
+/*전자책이용방법*/
+.guid .gd-sct {margin-bottom: 60px; color:#7c7c7c;}
+.gd-sct.b-line {border-bottom: 1px solid #e4e5e6;padding-bottom: 30px;margin: 12px 0 20px 0;}
+.gd-sct>h4 {font-size: 18px;color: #000;line-height: 1;margin: 15px 0 10px 0;}
+.gd-sct>h4 strong {position: relative;display: inline-block;width: 40px;color: #0075c2;}
+.gd-sct>h4 strong:after {position: absolute;top: 3px;right: 7px;width:1px;height: 15px;background: #e4e5e6;content:'';}
+.gd-sct h5 {font-size: 17px;color: #0075c2;}
+.gd-sct h6 {color: #000; font-size:15px; font-weight: 400;}
+.gd-sct .list {color:#7c7c7c;}
+.gd-sct .list2 {padding-left: 20px}
+.gd-col2 {width: 770px; margin-left: 30px; *zoom: 1;}
+.gd-col2:after {display: block; width: 0; height: 0; content: ''; clear: both;}
+.gd-col2 >.left {float: left; width:50%;}
+.gd-col2 >.right {float: right; width:50%;}

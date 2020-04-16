@@ -976,17 +976,17 @@ padding:20px 15px 20px 215px;margin-bottom:25px}
 /* 운영프로그램 */
 .op_wrap{overflow:hidden;position:relative;padding-top:1px}
 .op_wrap .item ul.con2{padding:2% 3%/* ;background:#fafafa;border-radius:15px */}
-.op_wrap .item ul.con2>li{padding:7px 4%;background-position:4% center;vertical-align:top;font-size:inherit;line-height:150%;border-top:1px solid #eee}
+.op_wrap .item ul.con2>li{padding: 7px 2%;background-position: 2% center;vertical-align:top;font-size:inherit;line-height:150%;border-top:1px solid #eee;}
 .op_wrap .item ul.con2>li.first{border-top-width:0}
-.op_wrap .item ul.con2>li label{display:inline-block;zoom:1;*display:inline;font-weight:bold;;width:64px}
+.op_wrap .item ul.con2>li label{display:inline-block;zoom:1;*display:inline;font-weight:bold;width: 75px;}
 .op_wrap .item ul.con2>li>div.status>span{margin-right:5px}
 .op_wrap .item ul.con2>li>div{padding:0 20px 0 12px}
-.op_wrap .item{padding-bottom:10px;overflow:hidden;border-bottom:1px solid #d2d2d2;margin-bottom:25px}
-.op_wrap .item .op_title{border-bottom:1px solid #e9e9e9;border-top:2px solid #5e6062;padding:10px 3%;background:#f8f8f8}
-.op_wrap .item .op_title span{width:auto;margin-right:7px;padding:2px 15px}
+.op_wrap .item{/* padding-bottom:10px; */overflow:hidden;/* border-bottom:1px solid #d2d2d2; */margin-bottom: 10px;}
+.op_wrap .item .op_title{/* border-bottom:1px solid #e9e9e9; */border: 1px solid #b4b4b4;border-radius: 5px;padding: 10px 1.5% 10px 1.5%;background:#f8f8f8;}
+.op_wrap .item .op_title span{width:auto;/* margin-right: 5px; */padding: 0px 0 2px 0;}
 .op_wrap .item .op_title span,
 .op_wrap .item .op_title a{vertical-align:middle;display:inline-block;zoom:1;*display:inline}
-.op_wrap .item a.name{font-weight:800;font-size:160%;padding:7px 0}
+.op_wrap .item a.name{font-weight:800;font-size: 105%;padding: 8px 0 7px 0;letter-spacing: -0.05em;}
 .op_wrap .item a.name em{font-style:normal}
 .op_wrap ul.con2{padding:5px 0 2px}
 
@@ -1032,7 +1032,6 @@ padding:20px 15px 20px 215px;margin-bottom:25px}
 @media all and (max-width:450px){
 	.op_wrap .search-info{margin-top:5px}
 }
-
 /* 금빛봉사단+평생학습관 */
 .corpsIntro .intro img.bgImg{float:right}
 .corpsIntro .intro p{padding:0 0 15px}
