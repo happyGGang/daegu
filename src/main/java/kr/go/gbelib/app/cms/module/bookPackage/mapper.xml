@@ -376,7 +376,10 @@
 			a.book_package_idx = b.book_package_idx
 		AND	b.book_package_idx = #{book_package_idx}
 		AND	request_status IN ('0', '1', '2')
-		AND	loan_start_date > SYSDATE
+		AND	(
+				loan_start_date > SYSDATE OR
+				loan_end_date > SYSDATE
+			)
 	</select>
 
 	<select id="getBookPackageLoanDateList" resultType="string">
