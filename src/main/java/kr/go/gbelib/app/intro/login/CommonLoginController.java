@@ -74,7 +74,7 @@ public class CommonLoginController extends BaseController {
 
 		String beforeUrl = member.getBefore_url();
 		if (StringUtils.isEmpty(beforeUrl)) {
-			member.setBefore_url(request.getHeader("referer"));
+//			member.setBefore_url(request.getHeader("referer"));
 		}
 		int idmenuIdx = homepageService.getMenuIdxByProgramIdx(homepage.getHomepage_id(), 7);
 		int pwmenuIdx = homepageService.getMenuIdxByProgramIdx(homepage.getHomepage_id(), 8);
