@@ -71,7 +71,7 @@ public class StudentController extends BaseController {
 
 	@Autowired
 	private TeachCode2Service teachCode2Service;
-	
+
 	@Autowired
 	private TermsService termsService;
 
@@ -131,7 +131,7 @@ public class StudentController extends BaseController {
 		model.addAttribute("statusCode", codeService.getCode("CMS", "C0005"));
 		model.addAttribute("hakList", codeService.getCode("CMS", "C0020"));
 		model.addAttribute("traingLocationList", codeService.getCode("CMS", "C0022"));
-		
+
 		//약관선택
 		model.addAttribute("termsList", termsService.getTermsListByTeach(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx())));
 
@@ -328,12 +328,12 @@ public class StudentController extends BaseController {
 		model.addAttribute("teach", teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx())));
 		model.addAttribute("student", student);
 		model.addAttribute("studentResult", studentService.getStudentListAll(student));
-		
+
 		// 약관 연동
 		Terms t = new Terms(97);
 		t.setHomepage_id(student.getHomepage_id());
 		model.addAttribute("termsList", termsService.getTermsListInModule(t));
-		
+
 		return new StudentSearchView();
 	}
 
@@ -344,7 +344,7 @@ public class StudentController extends BaseController {
 
 //		model.addAttribute("student", student);
 //		model.addAttribute("studentResult", studentService.getStudentListAll(student));
-		
+
 		// 약관 연동
 		Terms t = new Terms(97);
 		t.setHomepage_id(student.getHomepage_id());
@@ -356,7 +356,7 @@ public class StudentController extends BaseController {
 	@RequestMapping(value = {"/excelUpload.*"}, method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> excelUpload(Model model, Student student, HttpServletRequest request, XlsUpload excel) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
-		
+
 		//약관선택
 		List<Terms> termsList = termsService.getTermsListByTeach(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));
 		List<Student> list = studentService.excelUpload(student, termsList, excel);
@@ -383,19 +383,20 @@ public class StudentController extends BaseController {
 	public void excelDownloadSample(Model model, Student student, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		//약관선택
 		List<Terms> termsList = termsService.getTermsListByTeach(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));
-		
+
+		Teach teachOne = teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));
 		Download down = new Download( request, response, "수강생등록Sample.xls" );
-		studentService.writeExcelDataSample( down.getOutputStream(), termsList );
+		studentService.writeExcelDataSample( down.getOutputStream(), termsList, teachOne );
 		down.close();
 	}
-	
+
 	@RequestMapping(value = "/download/{homepage_id}/{group_idx}/{category_idx}/{teach_idx}/{student_idx}.*", method = RequestMethod.GET)
 	@ResponseBody
     public ResponseEntity<byte[]> getFile(@PathVariable("homepage_id") String homepage_id, @PathVariable("group_idx") int group_idx, @PathVariable("category_idx") int category_idx, @PathVariable("teach_idx") int teach_idx, @PathVariable("student_idx") int student_idx, HttpServletRequest request, HttpServletResponse response) throws Exception {
     	Student student = new Student(homepage_id, group_idx, category_idx, teach_idx);
     	student.setStudent_idx(student_idx);
     	student = studentService.getStudentFileOne(student);
-    	
+
 		HttpHeaders responseHeaders = new HttpHeaders();
 		byte[] bytes = null;
 
@@ -407,7 +408,7 @@ public class StudentController extends BaseController {
 
 		String filePath = studentService.getRootPath()+ "/" + homepage_id + "/" + student.getServer_file_name();
 		File file = new File(filePath);
-		
+
 		if(file.length() > 0) {
 			bytes = FileCopyUtils.copyToByteArray(file);
 		} else {
@@ -427,5 +428,5 @@ public class StudentController extends BaseController {
 
 	    return new ResponseEntity<byte[]>(bytes, responseHeaders, HttpStatus.OK);
     }
-    
+
 }

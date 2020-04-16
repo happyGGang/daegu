@@ -215,7 +215,7 @@ $(function(){
 			return false;
 		}
 
-		if(confirm('열의순서와 값을 다시한번 확인하신 후 파일을 첨부해 주시기 바랍니다.\n 비고란 및 나이스 정보 등 해당 강좌에 맞게 작성하여 업로드 하시기 바랍니다. \n 해당사항이 없는 경우 입력하지 마시기 바랍니다. \n 작업은 시스템 사정에 따라 몇분정도가 소요될 수 있습니다.')) {
+		if(confirm('열의순서와 값을 다시한번 확인하신 후 파일을 첨부해 주시기 바랍니다.\n 비고란 및 나이스 정보 등 해당 강좌에 맞게 작성하여 업로드 하시기 바랍니다. \n 노란색 열은 필수 입력항목입니다.\n 해당사항이 없는 경우 입력하지 마시기 바랍니다. \n 작업은 시스템 사정에 따라 몇분정도가 소요될 수 있습니다.')) {
 			$('input#file').click();
 		}
 		e.preventDefault();
@@ -252,28 +252,31 @@ $(function(){
 		        		htmlArr.push('<td>'+v.applicant_zipcode 	+'<input type="hidden" name="studentList['+i+'].applicant_zipcode" value="'+v.applicant_zipcode+'"></td>');
 		        		htmlArr.push('<td>'+v.applicant_address 	+'<input type="hidden" name="studentList['+i+'].applicant_address" value="'+v.applicant_address+'"></td>');
 		        		htmlArr.push('<td>'+v.applicant_cell_phone	+'<input type="hidden" name="studentList['+i+'].applicant_cell_phone" value="'+v.applicant_cell_phone+'"></td>');
-		        		htmlArr.push('<td>'+v.self_yn 				+'<input type="hidden" name="studentList['+i+'].self_yn" value="'+v.self_yn+'"></td>');
 		        		htmlArr.push('<td>'+v.student_name 			+'<input type="hidden" name="studentList['+i+'].student_name" value="'+v.student_name+'"></td>');
 		        		htmlArr.push('<td>'+v.student_birth 		+'<input type="hidden" name="studentList['+i+'].student_birth" value="'+v.student_birth+'"></td>');
-		        		htmlArr.push('<td>'+v.student_old 			+'<input type="hidden" name="studentList['+i+'].student_old" value="'+v.student_old+'"></td>');
 		        		htmlArr.push('<td>'+v.student_sex 			+'<input type="hidden" name="studentList['+i+'].student_sex" value="'+v.student_sex+'"></td>');
 		        		htmlArr.push('<td>'+v.student_zipcode 		+'<input type="hidden" name="studentList['+i+'].student_zipcode" value="'+v.student_zipcode+'"></td>');
 		        		htmlArr.push('<td>'+v.student_address 		+'<input type="hidden" name="studentList['+i+'].student_address" value="'+v.student_address+'"></td>');
-		        		htmlArr.push('<td>'+v.student_school 		+'<input type="hidden" name="studentList['+i+'].student_school" value="'+v.student_school+'"></td>');
-		        		htmlArr.push('<td>'+v.student_hack 			+'<input type="hidden" name="studentList['+i+'].student_hack" value="'+v.student_hack+'"></td>');
-		        		htmlArr.push('<td>'+v.self_info_yn 			+'<input type="hidden" name="studentList['+i+'].self_info_yn" value="'+v.self_info_yn+'"></td>');
 		        		htmlArr.push('<td>'+v.family_relation 		+'<input type="hidden" name="studentList['+i+'].family_relation" value="'+v.family_relation+'"></td>');
 		        		htmlArr.push('<td>'+v.family_name 			+'<input type="hidden" name="studentList['+i+'].family_name" value="'+v.family_name+'"></td>');
 		        		htmlArr.push('<td>'+v.family_cell_phone		+'<input type="hidden" name="studentList['+i+'].family_cell_phone" value="'+v.family_cell_phone+'"></td>');
 		        		htmlArr.push('<td>'+v.family_confirm_yn		+'<input type="hidden" name="studentList['+i+'].family_confirm_yn" value="'+v.family_confirm_yn+'"></td>');
+		        		htmlArr.push('<td>'+v.family_desc			+'<input type="hidden" name="studentList['+i+'].family_desc" value="'+v.family_desc+'"></td>');
+		        		htmlArr.push('<td>'+v.student_family_count	+'<input type="hidden" name="studentList['+i+'].student_family_count" value="'+v.student_family_count+'"></td>');
+		        		htmlArr.push('<td>'+v.student_school 		+'<input type="hidden" name="studentList['+i+'].student_school" value="'+v.student_school+'"></td>');
+		        		htmlArr.push('<td>'+(v.student_hack == 0 ? "" : v.student_hack)	+'<input type="hidden" name="studentList['+i+'].student_hack" value="'+(v.student_hack == 0 ? "1" : v.student_hack)+'"></td>');
+		        		htmlArr.push('<td>'+v.student_remark		+'<input type="hidden" name="studentList['+i+'].student_remark" value="'+v.student_remark+'"></td>');
+		        		htmlArr.push('<td>'+v.student_location_code	+'<input type="hidden" name="studentList['+i+'].student_location_code" value="'+v.student_location_code+'"></td>');
+		        		htmlArr.push('<td>'+v.student_neis_cd		+'<input type="hidden" name="studentList['+i+'].student_neis_cd" value="'+v.student_neis_cd+'"></td>');
+		        		htmlArr.push('<td>'+v.student_training_num	+'<input type="hidden" name="studentList['+i+'].student_training_num" value="'+v.student_training_num+'"></td>');
 		        		htmlArr.push('<td>'+v.student_organization	+'<input type="hidden" name="studentList['+i+'].student_organization" value="'+v.student_organization+'"></td>');
 		        		htmlArr.push('<td>'+v.student_rank			+'<input type="hidden" name="studentList['+i+'].student_rank" value="'+v.student_rank+'"></td>');
 		        		htmlArr.push('<td>'+v.student_course_taken_yn +'<input type="hidden" name="studentList['+i+'].student_course_taken_yn" value="'+v.student_course_taken_yn+'"></td>');
 		        		htmlArr.push('<td>'+v.agree_codes			+'<input type="hidden" name="studentList['+i+'].agree_codes" value="'+v.agree_codes+'"></td>');
+		        		htmlArr.push('<td style="display:none">'+v.student_old 			+'<input type="hidden" name="studentList['+i+'].student_old" value="'+v.student_old+'"></td>');
 		        		htmlArr.push('</tr>');
 		        	});
 					$('div#dialog-4 tbody.dataList').html(htmlArr.join(''));
-
 
 		        	$('div#dialog-4.dialog-common').dialog({ //모달창 기본 스크립트 선언
 		        		autoOpen: true,
@@ -317,7 +320,7 @@ $(function(){
 		        }
 			});
 		}
-		
+
 		$('#file').val('');
 	});
 
@@ -530,30 +533,33 @@ $(function(){
 		<thead>
 			<tr>
 				<th>번호</th>
-				<th>신청자-ID</th>
-				<th>신청자-명</th>
-				<th>신청자-생년월일</th>
-				<th>신청자-성별</th>
-				<th>신청자-우편번호</th>
-				<th>신청자-주소</th>
-				<th>신청자-휴대전화번호</th>
-				<th>신청자 수강생 동일여부</th>
-				<th>수강생-명</th>
-				<th>수강생-생년월일</th>
-				<th>수강생-나이</th>
-				<th>수강생-성별</th>
-				<th>수강생-우편번호</th>
-				<th>수강생-주소</th>
-				<th>수강생-학교</th>
-				<th>수강생-학년</th>
-				<th>개인정보 동의 여부</th>
+				<th>신청자 ID</th>
+				<th>신청자 명</th>
+				<th>신청자 생년월일</th>
+				<th>신청자 성별(남,여)</th>
+				<th>신청자 우편번호</th>
+				<th>신청자 주소</th>
+				<th>신청자 휴대전화번호번호</th>
+				<th>수강생 명동일여부</th>
+				<th>수강생 생년월일</th>
+				<th>수강생 성별(남,여)</th>
+				<th>수강생 우편번호</th>
+				<th>수강생 주소</th>
 				<th>보호자 관계</th>
-				<th>보호자 이름</th>
+				<th>보호자 성명</th>
 				<th>보호자 연락처</th>
-				<th>보호자 동의 여부</th>
-				<th>기관</th>
-				<th>직급</th>
-				<th>연수수강여부</th>
+				<th>보호자 동의 여부(Y,N)</th>
+				<th>보호자 비고여부</th>
+				<th>가족 인원 수</th>
+				<th>학교</th>
+				<th>학년</th>
+				<th>일반 비고부</th>
+				<th>코드 입력
+				<th>나이스 개인번호
+				<th>나이스 연수지명번호
+				<th>기관
+				<th>직급
+				<th>연수수강여부 (Y,N)
 				<th>선택약관</th>
 			</tr>
 		</thead>

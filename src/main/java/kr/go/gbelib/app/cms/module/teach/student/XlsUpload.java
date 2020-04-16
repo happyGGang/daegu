@@ -7,15 +7,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 엑셀 업로드
- * 
- * @author 
+ *
+ * @author
  */
 public class XlsUpload implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private transient MultipartFile file;
-	
+
 	private int member_id 			= 0;
 	private int applicant_name 		= 1;  //신청자명
 	private int applicant_birth 	= 2;  //신청자생년월일
@@ -23,32 +23,33 @@ public class XlsUpload implements Serializable {
 	private int applicant_zipcode 	= 4;  //신청자우편번호
 	private int applicant_address 	= 5;  //신청자주소
 	private int applicant_cell_phone = 6;  //신청자폰번호
-	private int self_yn 			= 7;  //본인수강여부
-	private int student_name 		= 8;  //수강생명
-	private int student_birth 		= 9;  //수강생생년월일
-	private int student_old 		= 10;  //수강생나이
-	private int student_sex 		= 11;  //수강생성별
-	private int student_zipcode 	= 12;  //수강생우편번호
-	private int student_address 	= 13;  //수강생주소
-	private int student_school 		= 14;  //수강생학교
-	private int student_hack 		= 15;  //수강생학년
-	private int self_info_yn 		= 16;  //개인정보동의여부
-	private int family_relation		= 17;  //보호자 관계
-	private int family_name 		= 18;  //보호자 이름
-	private int family_cell_phone	= 19;  //보호자 연락처
-	private int family_confirm_yn	= 20;  //보호자 동의 여부
-	private int family_desc	= 21;  //가족프로그램 비고
-	private int student_remark	= 22;  //일반 비고
-	private int student_location_code	= 23;  //나이스 지역코드
-	private int student_neis_cd	= 24;  //나이스 개인번호
-	private int student_training_num	= 25;  //나이스 연수지명번호
-	private int student_organization	= 26;  //기관
-	private int student_rank			= 27;  //직급
-	private int student_course_taken_yn	= 28;  //연수수강여부
-	
-	
+	private int student_name 		= 7;  //수강생명
+	private int student_birth 		= 8;  //수강생생년월일
+	private int student_sex 		= 9;  //수강생성별
+	private int student_zipcode 	= 10;  //수강생우편번호
+	private int student_address 	= 11;  //수강생주소
+	private int family_relation		= 12;  //보호자 관계
+	private int family_name 		= 13;  //보호자 이름
+	private int family_cell_phone	= 14;  //보호자 연락처
+	private int family_confirm_yn	= 15;  //보호자 동의 여부
+	private int family_desc	= 16;  //보호자 비고
+	private int student_family_count	= 17;  //가족인원수
+	private int student_school 		= 18;  //수강생학교
+	private int student_hack 		= 19;  //수강생학년
+	private int student_remark	= 20;  //일반 비고
+	private int student_location_code	= 21;  //나이스 지역코드
+	private int student_neis_cd	= 22;  //나이스 개인번호
+	private int student_training_num	= 23;  //나이스 연수지명번호
+	private int student_organization	= 24;  //기관
+	private int student_rank			= 25;  //직급
+	private int student_course_taken_yn	= 26;  //연수수강여부
+
+//	private int self_info_yn 		= 16;  //개인정보동의여부
+//	private int self_yn 			= 7;  //본인수강여부
+//	private int student_old 		= 10;  //수강생나이
+
 	private Integer startRow				= 1;
-	
+
 	public MultipartFile getFile() {
 		return file;
 	}
@@ -105,13 +106,13 @@ public class XlsUpload implements Serializable {
 		this.applicant_cell_phone = applicant_cell_phone;
 	}
 
-	public int getSelf_yn() {
-		return self_yn;
-	}
-
-	public void setSelf_yn(int self_yn) {
-		this.self_yn = self_yn;
-	}
+//	public int getSelf_yn() {
+//		return self_yn;
+//	}
+//
+//	public void setSelf_yn(int self_yn) {
+//		this.self_yn = self_yn;
+//	}
 
 	public int getStudent_name() {
 		return student_name;
@@ -129,13 +130,13 @@ public class XlsUpload implements Serializable {
 		this.student_birth = student_birth;
 	}
 
-	public int getStudent_old() {
-		return student_old;
-	}
-
-	public void setStudent_old(int student_old) {
-		this.student_old = student_old;
-	}
+//	public int getStudent_old() {
+//		return student_old;
+//	}
+//
+//	public void setStudent_old(int student_old) {
+//		this.student_old = student_old;
+//	}
 
 	public int getStudent_sex() {
 		return student_sex;
@@ -173,12 +174,13 @@ public class XlsUpload implements Serializable {
 	public void setStudent_hack(int student_hack) {
 		this.student_hack = student_hack;
 	}
-	public int getSelf_info_yn() {
-		return self_info_yn;
-	}
-	public void setSelf_info_yn(int self_info_yn) {
-		this.self_info_yn = self_info_yn;
-	}
+//	public int getSelf_info_yn() {
+//		return self_info_yn;
+//	}
+//	public void setSelf_info_yn(int self_info_yn) {
+//		this.self_info_yn = self_info_yn;
+//	}
+
 	public Integer getStartRow() {
 		return startRow;
 	}
@@ -222,52 +224,52 @@ public class XlsUpload implements Serializable {
 		this.family_confirm_yn = family_confirm_yn;
 	}
 
-	
+
 	public int getFamily_desc() {
 		return family_desc;
 	}
 
-	
+
 	public void setFamily_desc(int family_desc) {
 		this.family_desc = family_desc;
 	}
 
-	
+
 	public int getStudent_remark() {
 		return student_remark;
 	}
 
-	
+
 	public void setStudent_remark(int student_remark) {
 		this.student_remark = student_remark;
 	}
 
-	
+
 	public int getStudent_location_code() {
 		return student_location_code;
 	}
 
-	
+
 	public void setStudent_location_code(int student_location_code) {
 		this.student_location_code = student_location_code;
 	}
 
-	
+
 	public int getStudent_neis_cd() {
 		return student_neis_cd;
 	}
 
-	
+
 	public void setStudent_neis_cd(int student_neis_cd) {
 		this.student_neis_cd = student_neis_cd;
 	}
 
-	
+
 	public int getStudent_training_num() {
 		return student_training_num;
 	}
 
-	
+
 	public void setStudent_training_num(int student_training_num) {
 		this.student_training_num = student_training_num;
 	}
@@ -303,5 +305,15 @@ public class XlsUpload implements Serializable {
 	public void setStudent_course_taken_yn(int student_course_taken_yn) {
 		this.student_course_taken_yn = student_course_taken_yn;
 	}
-	
+
+
+	public int getStudent_family_count() {
+		return student_family_count;
+	}
+
+
+	public void setStudent_family_count(int student_family_count) {
+		this.student_family_count = student_family_count;
+	}
+
 }
