@@ -1,5 +1,6 @@
 package kr.go.gbelib.app.cms.module.teach.student;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -144,7 +145,29 @@ public class StudentWorkbook {
 			workbook.getSheet(0).setColumnView(column, 20);
 			workbook.getSheet(0).addCell(new Label(column++, 1, "연수수강여부(Y,N)", format));
 		}
-		workbook.getSheet(0).addCell(new Label(column++, 1, "약관동의", format));
+		String terms_title = "";
+		if (StringUtils.isNotBlank(teach.getTerms())) {
+			String[] termsArr = teach.getTerms().split(",");
+			for (int i = 0; i < termsArr.length; i++) {
+				for(int j = 0; j < termsList.size(); j++) {
+					Terms terms = termsList.get(j);
+					if (terms.getTerms_idx() == Integer.parseInt(termsArr[i])) {
+						terms_title = terms.getTitle();
+					}
+				}
+				workbook.getSheet(0).setColumnView(column, 20);
+				workbook.getSheet(0).addCell(new Label(column++, 1, terms_title, format));
+			}
+		}
+//		for(int i = 0; i < termsList.size(); i++) {
+//			Terms terms = termsList.get(i);
+////			if(StringUtils.contains(org.getAgree_codes(), String.valueOf(terms.getTerms_idx()))) {
+////				terms_title += terms.getTitle() + (i < termsList.size()-1 ? "," : "");
+////			}
+//			workbook.getSheet(0).setColumnView(column, 20);
+//			workbook.getSheet(0).addCell(new Label(column++, 1, terms.getTitle(), format));
+//		}
+//		workbook.getSheet(0).addCell(new Label(column++, 1, "약관동의", format));
 
 
 		int row = 2;
@@ -188,7 +211,7 @@ public class StudentWorkbook {
 //			}
 			column = 0;
 			workbook.getSheet(0).addCell(new Label(column++, row, String.valueOf((row-1))));
-			workbook.getSheet(0).addCell(new Label(column++, row, org.getWeb_id(), format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, org.getMember_id(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, org.getApplicant_name(), format1));
 			/*workbook.getSheet(0).addCell(new Label(3, row, org.getApplicant_birth(), format1));
 			workbook.getSheet(0).addCell(new Label(4, row, applicant_sex, format1));
@@ -240,16 +263,39 @@ public class StudentWorkbook {
 			if ( StringUtils.equals(teach.getCourse_taken_yn(), "Y")) {
 				workbook.getSheet(0).addCell(new Label(column++, row, org.getStudent_course_taken_yn(), format1));
 			}
-			
-			String terms_title = "";
-			for(int i = 0; i < termsList.size(); i++) {
-				Terms terms = termsList.get(i);
-				if(StringUtils.contains(org.getAgree_codes(), String.valueOf(terms.getTerms_idx()))) {
-					terms_title += terms.getTitle() + (i < termsList.size()-1 ? "," : "");
+
+			if (StringUtils.isNotBlank(teach.getTerms())) {
+				String[] termsArr = teach.getTerms().split(",");
+				for (int i = 0; i < termsArr.length; i++) {
+					terms_title = "N";
+					if (StringUtils.isNotBlank(org.getAgree_codes())) {
+						String[] agreeArr = org.getAgree_codes().split(",");
+						if (Arrays.asList(agreeArr).contains(termsArr[i])) {
+							terms_title = "Y";
+						}
+					}
+					workbook.getSheet(0).addCell(new Label(column++, row, terms_title, format1));
 				}
 			}
-			workbook.getSheet(0).addCell(new Label(column++, row, terms_title, format1));
-			
+
+
+//			for(int i = 0; i < termsList.size(); i++) {
+//				terms_title = "N";
+//				Terms terms = termsList.get(i);
+//				if (StringUtils.isNotBlank(org.getAgree_codes())) {
+//					String[] agreeArr = org.getAgree_codes().split(",");
+//					if (Arrays.asList(agreeArr).contains(terms.getTerms_idx())) {
+//						terms_title = "Y";
+//					}
+//				}
+//				workbook.getSheet(0).addCell(new Label(column++, row, terms_title, format1));
+//
+////				if(StringUtils.contains(org.getAgree_codes(), String.valueOf(terms.getTerms_idx()))) {
+////					terms_title += terms.getTitle() + (i < termsList.size()-1 ? "," : "");
+////				}
+//			}
+//			workbook.getSheet(0).addCell(new Label(column++, row, terms_title, format1));
+
 			row++;
 		}
 
