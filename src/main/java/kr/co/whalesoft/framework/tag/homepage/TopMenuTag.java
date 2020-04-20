@@ -76,6 +76,7 @@ public class TopMenuTag extends BodyTagSupport {
 				if(menu.getMenu_level() == 1) {
 					check_lvl2 = false;
 					check_lvl3 = false;
+					check_lvl4 = false;
 					liTag_lvl1 = new HtmlTag("li");
 					if(menu.getMenu_type().equals("LINK_OUTER")) {
 						targetStr = "target=\"_blank\"";
@@ -92,6 +93,7 @@ public class TopMenuTag extends BodyTagSupport {
 					}
 				} else if(menu.getMenu_level() == 2) {
 					check_lvl3 = false;
+					check_lvl4 = false;
 					if(!check_lvl2) {
 						check_lvl2 = true;
 						ulTag_lvl2 = new HtmlTag("ul");
@@ -113,6 +115,7 @@ public class TopMenuTag extends BodyTagSupport {
 						liTag_lvl2.setAttribute("style", "display:none");
 					}
 				} else if(menu.getMenu_level() == 3) {
+					check_lvl4 = false;
 					if(!check_lvl3) {
 						check_lvl3 = true;
 						ulTag_lvl3 = new HtmlTag("ul");
