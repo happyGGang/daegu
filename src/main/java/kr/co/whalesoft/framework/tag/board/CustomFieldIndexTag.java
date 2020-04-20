@@ -27,6 +27,7 @@ public class CustomFieldIndexTag extends BodyTagSupport {
 
 	private int manage_idx;
 	private int board_idx;
+	private int parent_idx;
 	private String board_column;
 	private String board_value;
 	private String column_type;
@@ -108,6 +109,9 @@ public class CustomFieldIndexTag extends BodyTagSupport {
 				return_str += ("<span class=\"comment\"><em>댓글</em> <i>"+comment_count+"</i></span>");
 			}
 
+			if (board_column.equals("title") && parent_idx > 0) {
+				return_str = "<i class=\"fa fa-reply\"></i>" + return_str;
+			}
 			tdTag.setContent(String.format("<a href=\"%s\">%s</a>", url, return_str));
 		} else {
 			tdTag.setContent(return_str);
@@ -195,5 +199,17 @@ public class CustomFieldIndexTag extends BodyTagSupport {
 	public void setComment_count(int comment_count) {
 		this.comment_count = comment_count;
 	}
+
+
+	public int getParent_idx() {
+		return parent_idx;
+	}
+
+
+	public void setParent_idx(int parent_idx) {
+		this.parent_idx = parent_idx;
+	}
+
+
 
 }

@@ -46,13 +46,13 @@ ${boardManage.top_html}
 				</tr>
 			</c:forEach>
 			<c:forEach var="i" varStatus="status" items="${boardList}">
-				<tr${i.group_depth > 0?' class="reply"':''}>
+				<tr${i.parent_idx > 0?' class="reply"':''}>
 					<c:if test="${board.delete_yn eq 'Y'}">
 					<td><form:checkbox path="boardIdxArray" value="${i.board_idx}"/></td>
 					</c:if>
 					<td class="num">${paging.listRowNum - status.index}</td>
 				<c:forEach var="j" varStatus="status2" items="${fieldList}">
-				<boardTag:customFieldIndex manage_idx="${boardManage.manage_idx}" board_idx="${i.board_idx}" board_column="${j.board_column}" board_value="${i[j.board_column]}" column_type="${j.column_type}" content_link_yn="${j.content_link_yn}" code_mapping="${j.code_mapping}" comment_count="${i.comment_count}" />
+				<boardTag:customFieldIndex manage_idx="${boardManage.manage_idx}" board_idx="${i.board_idx}" board_column="${j.board_column}" board_value="${i[j.board_column]}" column_type="${j.column_type}" content_link_yn="${j.content_link_yn}" code_mapping="${j.code_mapping}" comment_count="${i.comment_count}" parent_idx="${i.parent_idx}"/>
 				</c:forEach>
 				<td class="important num adddate"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd" /></td>
 				<c:if test="${boardManage.file_use_yn eq 'Y'}">
