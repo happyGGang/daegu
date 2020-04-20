@@ -124,7 +124,11 @@
 	    showFileList();
 	});
 </script>
-
+<c:if test="${isMobile}">
+<style>
+.fileUploader .fileListArea:before{content:'이 영역의 빈 공간을 클릭하시면 목록을 조회할 수 있습니다.'; top: 25%;}
+</style>
+</c:if>
 <input type="hidden" id="preview_img" />
 <form:hidden path="deleteBoardFileArray" />
 <div id="attach_area">
