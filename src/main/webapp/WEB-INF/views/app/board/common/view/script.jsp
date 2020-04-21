@@ -9,16 +9,16 @@
 $(document).ready(function() {
     <%-- 수정하기 --%>
     $('a#board_edit_btn').on('click', function(e) {
-    	if ( '${boardManage.board_type}' == 'QNA' ) {
-    		if ( '${board.password_yn}' == 'Y') {
-    			var password = prompt('비밀번호를 입력하세요.');
-        		var beforeAction = $('#board').attr('action');
-        		$('#board #user_password').val(password);
-        		if ( password == null || password == '' ) {
-        			return false;
-        		}
-    		}
-    	}
+//     	if ( '${boardManage.board_type}' == 'QNA' ) {
+//     		if ( '${board.password_yn}' == 'Y') {
+//     			var password = prompt('비밀번호를 입력하세요.');
+//         		var beforeAction = $('#board').attr('action');
+//         		$('#board #user_password').val(password);
+//         		if ( password == null || password == '' ) {
+//         			return false;
+//         		}
+//     		}
+//     	}
     	$('#editMode').val('MODIFY');
 		var url = 'edit.do';
 		var formData = serializeCustom($('#board'));
@@ -58,17 +58,48 @@ $(document).ready(function() {
     <%-- 삭제하기 --%>
     $('a#anonymous_delete_btn').on('click', function(e) {
     	e.preventDefault();
+		if ('${!authMBA and sessionScope.member.member_id ne board.add_id and board.add_id ne "ANONYMOUS"}' == 'true') {
+			alert('권한이 없습니다.');
+			return false;
+		}
     	if(confirm('삭제 하시겠습니까?')) {
-//     		if ( '${board.password_yn}' == 'Y' ) {
-//     			var password = prompt('비밀번호를 입력하세요.');
-//         		var beforeAction = $('#board').attr('action');
-//         		$('#board #user_password').val(password);
-//         		if ( password == null || password == '' ) {
-//         			return false;
-//         		}
-//     		}
-    		$('#board').attr('action', 'delete.do');
-    		doAjaxPost($('#board'));
+    		$('div#dialog-1').dialog({
+    		    modal : true,
+    		    buttons : [
+    		    	{
+    					text: "확인",
+    					"class": 'btn btn1',
+    					click: function() {
+    						var p = $('input#tmpPass').val();
+    						if (p == null || p == '') {
+    							alert('비밀번호를 입력하세요.');
+    							$('input#tmpPass').focus();
+    							return alse;
+    						}
+
+    						if ($('input#up').length > 0) {
+    							$('input#up').val(p);
+    						} else {
+		   						var up = $('<input type="hidden" id="up" name="user_password">');
+		   						up.val(p);
+		   						$('#board').append(up);
+    						}
+    						$('#board').attr('action', 'delete.do');
+    						doAjaxPost($('#board'));
+    					}
+    				},{
+    					text: "취소",
+    					"class": 'btn',
+    					click: function() {
+    						$('input#tmpPass').val('');
+    						$('#dialog-1').dialog('destroy');
+    					}
+    				}
+    		    ],
+    		    close : function() {
+    		    	$('input#tmpPass').val('');
+    		    }
+    		});
     	}
 	});
 

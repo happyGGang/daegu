@@ -22,7 +22,7 @@
 				<c:when test="${not empty loginPortal and loginPortal.agency_id eq board.add_id}">
 	<a href="" class="btn delete" id="board_delete_btn"><i class="fa fa-trash-o"></i><span>삭제</span></a>
 				</c:when>
-				<c:when test="${sessionScope.member.anonymous and empty loginSupport and empty loginPortal}">
+				<c:when test="${sessionScope.member.anonymous and board.add_id eq 'ANONYMOUS' and empty loginSupport and empty loginPortal}">
 	<a href="" class="btn delete" id="anonymous_delete_btn"><i class="fa fa-trash-o"></i><span>삭제</span></a>
 				</c:when>
 				<c:when test="${member.member_id eq board.add_id or member.web_id eq board.add_id}">
@@ -42,7 +42,7 @@
 				<c:when test="${not empty loginPortal and loginPortal.agency_id eq board.add_id}">
 	<a href="" class="btn modify" id="board_edit_btn"><i class="fa fa-pencil-square-o"></i><span>수정</span></a>
 				</c:when>
-				<c:when test="${sessionScope.member.anonymous and empty loginPortal}">
+				<c:when test="${sessionScope.member.anonymous and board.add_id eq 'ANONYMOUS' and empty loginPortal}">
 	<a href="" class="btn modify" id="anonymous_edit_btn"><i class="fa fa-pencil-square-o"></i><span>수정</span></a>
 				</c:when>
 				<c:when test="${member.member_id eq board.add_id or member.web_id eq board.add_id}">

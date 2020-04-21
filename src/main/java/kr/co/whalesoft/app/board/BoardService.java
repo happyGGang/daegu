@@ -352,7 +352,7 @@ public class BoardService extends BaseService {
 	@Transactional
 	public String modifyBoard(BoardManage boardManage, Board board, HttpServletRequest request) {
 		Member member = (Member)loginService.getSessionMember(request);
-		if ( StringUtils.isNotEmpty(board.getUser_password()) ) {
+		if ( StringUtils.isNotEmpty(board.getUser_password()) && board.getUser_password().length() != 88 ) {
 			board.setUser_password(CalculateHashUtils.calculateHash(board.getUser_password().trim()));
 		}
 //		board.setContent(xssFilter.doFilter(board.getContent()));
@@ -367,9 +367,11 @@ public class BoardService extends BaseService {
 				board.setModify_id(portalMember.getAgency_id());
 			} else {
 				board.setModify_id("ANONYMOUS");
+				board.setAdd_id("ANONYMOUS");
 			}
 		} else {
 			board.setAdd_id(member.getMember_id());
+			board.setModify_id(member.getMember_id());
 		}
 
 		String filterCheck = null;
@@ -779,6 +781,15 @@ public class BoardService extends BaseService {
 		board.setCategory2(c2);
 
 		return map;
+	}
+
+	public void initPass() {
+		List<Board> list = dao.getAnonyList();
+		for (Board board : list) {
+			board.setUser_password(CalculateHashUtils.calculateHash(board.getImsi_v_17()));
+			dao.updatePassword(board);
+			System.out.println("@@@@@@@@@@@@@@@@ iipp : " + board.getBoard_idx());
+		}
 	}
 
 }

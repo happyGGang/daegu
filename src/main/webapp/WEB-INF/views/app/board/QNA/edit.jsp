@@ -86,11 +86,24 @@ ${boardManage.top_html}
 				</td>
 				<th>연락처</th>
 				<td>
-					<form:input path="user_phone" cssClass="text" disabled="true"/><br><span>비밀글만 입력가능(관리자만 열람 가능)</span>
+					<form:input path="user_phone" cssClass="text" /><br><span>비밀글만 입력가능(관리자만 열람 가능)</span>
 				</td>
 			</tr>
+
 				</c:if>
 
+			</c:if>
+			<c:if test="${!authMBA and ((not empty sessionScope.board and sessionScope.board eq 'o') or board.add_id eq 'ANONYMOUS') and board.editMode ne 'REPLY'}">
+			<tr>
+				<th>
+					<c:if test="${board.editMode eq 'ADD'}">임시 비밀번호</c:if>
+					<c:if test="${board.editMode eq 'MODIFY'}">비밀번호 확인</c:if>
+				</th>
+				<td colspan="3">
+					<form:password path="user_password" cssStyle="width:35%" Class="text" maxlength="20"/>
+					<c:if test="${board.editMode eq 'MODIFY'}">글 등록 시 입력한 비밀번호를 입력해주세요.</c:if>
+				</td>
+			</tr>
 			</c:if>
 			<tr>
 				<td colspan="4" class="editor">

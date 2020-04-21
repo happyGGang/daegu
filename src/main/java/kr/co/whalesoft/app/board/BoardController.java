@@ -40,7 +40,6 @@ import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.member.MemberService;
-import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManageService;
 import kr.co.whalesoft.app.cms.terms.Terms;
 import kr.co.whalesoft.app.cms.terms.TermsService;
 import kr.co.whalesoft.framework.base.BaseController;
@@ -86,8 +85,6 @@ public class BoardController extends BaseController {
 	private BoardRegexFilterService boardRegexFilterService;
 	@Autowired
 	private ThemeBookService themeBookService;
-	@Autowired
-	private CalendarManageService calendarManageService;
 	@Autowired
 	private TermsService termsService;
 
@@ -470,18 +467,18 @@ public class BoardController extends BaseController {
 		}
 		model.addAttribute("portalAuth", portal_auth);
 
-		if (board.getManage_idx() == 563) {
-			Member memberTemp = getSessionMemberInfo(request);
-			if (!memberTemp.isAdmin()) {
-				if (StringUtils.startsWith(getAsideHomepageId(request), "c")) {
-					try {
-						request.getSession().setAttribute("asideHomepageId", memberTemp.getAuthorityHomepageList().get(0).getHomepage_id());
-					} catch ( Exception e ) {
-						// TODO: handle exception
-					}
-				}
-			}
-		}
+//		if (board.getManage_idx() == 563) {
+//			Member memberTemp = getSessionMemberInfo(request);
+//			if (!memberTemp.isAdmin()) {
+//				if (StringUtils.startsWith(getAsideHomepageId(request), "c")) {
+//					try {
+//						request.getSession().setAttribute("asideHomepageId", memberTemp.getAuthorityHomepageList().get(0).getHomepage_id());
+//					} catch ( Exception e ) {
+//						// TODO: handle exception
+//					}
+//				}
+//			}
+//		}
 
 		//질의응답게시판
 		if (boardManage.getBoard_type().equals("QNA")){
@@ -523,23 +520,33 @@ public class BoardController extends BaseController {
 			}
 
 			if (!isBoardAdmin && !supportAdmin && !portal_auth.equals("2")) {
-				//회원의 비밀글인 경우
+				//회원의 글인 경우
 				if (!boardOne.getAdd_id().equals("ANONYMOUS")) {
 					Member memberTemp = getSessionMemberInfo(request);
-					if (!memberTemp.getMember_id().equals(boardOne.getAdd_id())) {
+					if (!boardOne.getAdd_id().equals(memberTemp.getMember_id())) {
 						service.alertMessage("권한이 없습니다.", request, response);
 						return null;
 					}
 				} else {
-					//비회원의 비밀글인 경우
-					Object certObject = request.getSession().getAttribute("certMember");
-					if (certObject == null || !(certObject instanceof Member)) {
-						service.alertMessage("권한이 없습니다.", request, response);
+					//비회원의 글인 경우
+					//비로그인 상태에서 비회원의 글을 수정 시 비밀번호 확인 페이지로 이동한다.
+					Object checkPassBoardInfo = request.getSession().getAttribute("checkPassBoardInfo");
+					if (checkPassBoardInfo == null || !(checkPassBoardInfo instanceof Board)) {
+						request.getSession().setAttribute("checkPassBoardInfo", board);
+						service.redirectUrl("checkPass.do?menu_idx="+board.getMenu_idx(), request, response);
 						return null;
 					} else {
-						Member m = (Member) certObject;
-						if (!m.getCi_value().equals(boardOne.getImsi_v_20())) {
-							service.alertMessage("권한이 없습니다.", request, response);
+						//비밀번호 인증을 한 경우 비밀번호 인증한 글(checkPassBoardInfo)과 조회하려는 글의 데이터를 비교한다.
+						Board boardInfo = (Board) checkPassBoardInfo;
+						if (boardInfo.getManage_idx() == boardOne.getManage_idx() && boardInfo.getBoard_idx() == boardOne.getBoard_idx() && "Y".equals(boardInfo.getPassword_yn())) {
+							//정상적으로 접근한 경우 인증 정보를 삭제한다.
+							boardInfo.setEditMode("ANONYMOUS_SAVE");
+							boardInfo.setPassword_yn("N");
+							request.getSession().setAttribute("checkPassBoardInfo", boardInfo);
+						} else {
+							//일치하지 않는 경우 패스워드 확인 페이지로 다시 이동
+							request.getSession().setAttribute("checkPassBoardInfo", board);
+							service.redirectUrl("checkPass.do?menu_idx="+board.getMenu_idx(), request, response);
 							return null;
 						}
 					}
@@ -580,9 +587,17 @@ public class BoardController extends BaseController {
 			model.addAttribute("board", service.copyObjectPaging(board, boardOne));
 
 		} else {
-//			if(loginSupport == null && loginPortal == null) {
-				checkAuth("C", model, request);
-//			}
+			checkAuth("C", model, request);
+
+			if (!isLogin(request)) {
+				Object certObject = request.getSession().getAttribute("certMember");
+				if (certObject == null || !(certObject instanceof Member)) {
+					service.alertMessage("권한이 없습니다.", request, response);
+					return null;
+				}
+			}
+
+
 			model.addAttribute("board", board);
 			model.addAttribute("getToday", new Date());
 
@@ -698,7 +713,6 @@ public class BoardController extends BaseController {
 		board.setCategory4Manage(boardManage.getCategory4());
 		board.setCategory5Manage(boardManage.getCategory5());
 
-
 		SupportMember loginSupport = sessionLoginSupport(request);
 		boolean supportAdmin = false;
 		boolean supportAuth = false;
@@ -745,7 +759,21 @@ public class BoardController extends BaseController {
 			}
 		}
 
+
 		if ( boardData != null && StringUtils.isNotEmpty(boardData.getUser_password()) ) {
+
+//			if ( StringUtils.isEmpty(board.getUser_password()) ) {
+//				board.setBefore_url(String.format("/%s/board/index.do?menu_idx=%s%%26manage_idx=%s", homepage.getContext_path(), board.getMenu_idx(), board.getManage_idx()));
+//				service.alertMessageAndUrl("비밀번호를 입력하세요.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
+//				return null;
+//			} else {
+//				String encrytPass = CalculateHashUtils.calculateHash(board.getUser_password());
+//				if (!StringUtils.equals(encrytPass, boardData.getUser_password())) {
+//					board.setBefore_url(String.format("/%s/board/index.do?menu_idx=%s%%26manage_idx=%s", homepage.getContext_path(), board.getMenu_idx(), board.getManage_idx()));
+//					service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
+//					return null;
+//				}
+//			}
 			boardData.setPassword_yn("Y");
 		}
 
@@ -765,22 +793,34 @@ public class BoardController extends BaseController {
 
     			if (!isLogin(request)) {
     				//비로그인 상태에서는 볼 수 없다.
+					if (boardData.getAdd_id().equals("ANONYMOUS")) {
 
-    				Object certObject = request.getSession().getAttribute("certMember");
-    				if (certObject != null && certObject instanceof Member) {
-    					Member m = (Member) certObject;
-    					if (StringUtils.isBlank(boardData.getImsi_v_20())) {
-    						service.alertMessage("비밀글은 본인과 관리자만 볼 수 있습니다.", request, response);
-    						return null;
-    					}
-    					if (!m.getCi_value().equals(boardData.getImsi_v_20())) {
-    						service.alertMessage("비밀글은 본인과 관리자만 볼 수 있습니다.", request, response);
-    						return null;
-    					}
-    				} else {
-    					service.alertMessage("비밀글은 본인과 관리자만 볼 수 있습니다.", request, response);
-    					return null;
-    				}
+						//비로그인 상태에서 비회원의 비밀글을 조회 시 비밀번호 확인 페이지로 이동한다.
+						Object checkPassBoardInfo = request.getSession().getAttribute("checkPassBoardInfo");
+						if (checkPassBoardInfo == null || !(checkPassBoardInfo instanceof Board)) {
+							request.getSession().setAttribute("checkPassBoardInfo", board);
+							service.redirectUrl("checkPass.do?menu_idx="+board.getMenu_idx(), request, response);
+							return null;
+						} else {
+							//비밀번호 인증을 한 경우 비밀번호 인증한 글(checkPassBoardInfo)과 조회하려는 글의 데이터를 비교한다.
+							Board boardInfo = (Board) checkPassBoardInfo;
+							if (boardInfo.getManage_idx() == boardData.getManage_idx() && boardInfo.getBoard_idx() == boardData.getBoard_idx() && "Y".equals(boardInfo.getPassword_yn())) {
+								//정상적으로 접근한 경우 인증 정보를 삭제한다.
+								boardInfo.setBoard_mode("ANONYMOUS_VIEW");
+								boardInfo.setPassword_yn("N");
+								request.getSession().setAttribute("checkPassBoardInfo", boardInfo);
+//    								request.getSession().removeAttribute("checkPassBoardInfo");
+							} else {
+								//일치하지 않는 경우 패스워드 확인 페이지로 다시 이동
+								request.getSession().setAttribute("checkPassBoardInfo", board);
+    							service.redirectUrl("checkPass.do?menu_idx="+board.getMenu_idx(), request, response);
+								return null;
+							}
+						}
+					} else {
+						service.alertMessage("비밀글은 본인과 관리자만 볼 수 있습니다.", request, response);
+						return null;
+					}
     			} else {
 
     				String boardAddId = boardData.getAdd_id();
@@ -839,13 +879,13 @@ public class BoardController extends BaseController {
 				qnaBoard.setBoardFile(boardFileService.getBoardFile(qnaBoard.getBoard_idx()));
 			}
 			model.addAttribute("boardQnaList", qnaReplyList);
-			if (boardManage.getManage_idx() == 563) {
-				try {
-					model.addAttribute("writerPhone", memberService.getMemberOne(new Member(boardData.getAdd_id())).getPhone());
-				}
-				catch ( Exception e ) {
-				}
-			}
+//			if (boardManage.getManage_idx() == 563) {
+//				try {
+//					model.addAttribute("writerPhone", memberService.getMemberOne(new Member(boardData.getAdd_id())).getPhone());
+//				}
+//				catch ( Exception e ) {
+//				}
+//			}
 		}
 
 		if(boardManage.getBoard_type().equals("BOOK") || boardManage.getBoard_type().equals("THEMEBOOK")) {
@@ -938,9 +978,9 @@ public class BoardController extends BaseController {
 		/**
 		 * 유지보수게시판
 		 */
-		if (boardManage.getManage_idx() == 563) {
-			model.addAttribute("moveCategoryList", codeService.getCode("c0", "H0001"));
-		}
+//		if (boardManage.getManage_idx() == 563) {
+//			model.addAttribute("moveCategoryList", codeService.getCode("c0", "H0001"));
+//		}
 //
 //		if(boardManage.isAdmin_auth_check()) {
 //			return basePath + "view";
@@ -990,7 +1030,7 @@ public class BoardController extends BaseController {
 	}
 
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse save(Board board, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public @ResponseBody JsonResponse save(Board board, BindingResult result, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		BoardManage boardManage = (BoardManage)request.getAttribute("boardManage");
 		/* 유효성 검증 >>>>> */
 		JsonResponse res = new JsonResponse(request);
@@ -1066,22 +1106,78 @@ public class BoardController extends BaseController {
 			ValidationUtils.rejectIfEmpty(result, "request_state", "처리상태를 입력해주세요.");
 		}
 
+		Member member = getSessionMemberInfo(request);
+		if (member.isAnonymous() && boardManage.getBoard_type().equals("QNA") && board.getEditMode().equals("ADD")) {
+			ValidationUtils.rejectIfEmpty(result, "user_password", "비밀번호를 입력하세요.");
+		}
+
 		if(!result.hasErrors()) {
 
 			if(board.getEditMode().equals("MODIFY")) {
+				checkAuth("U", model, request);
 				if ( StringUtils.isEmpty(board.getNotice_yn()) ) {
 					board.setNotice_yn("N"); // 수정시 체크 해제 하고 저장하면 notice_yn = null 이된다.
 				}
+				Homepage homepage = getSessionHomepage(request);
+				Board boardOne = (Board)service.copyObjectPaging(boardManage, board, service.getBoardOne(board));
+//				Object certObject = request.getSession().getAttribute("certMember");
+//				if (certObject != null && certObject instanceof Member) {
+//					Member certMember = (Member) certObject;
+//					if (!boardOne.getImsi_v_20().equals(certMember.getCi_value())) {
+//						res.setValid(false);
+//						res.setMessage("권한이 없습니다.");
+//						return res;
+//					}
+//				}
 
-				Object certObject = request.getSession().getAttribute("certMember");
-				if (certObject != null && certObject instanceof Member) {
-					Member certMember = (Member) certObject;
-					Board boardOne = (Board)service.copyObjectPaging(boardManage, board, service.getBoardOne(board));
-					if (!boardOne.getImsi_v_20().equals(certMember.getCi_value())) {
-						res.setValid(false);
-						res.setMessage("권한이 없습니다.");
-						return res;
+				boolean isBoardAdmin = false;
+				try {
+					isBoardAdmin = (Boolean) model.asMap().get("authMBA");
+				} catch ( Exception e ) {
+				}
+				if (getSessionIsAdmin(request)) {
+					isBoardAdmin = true;
+				}
+				if (!isBoardAdmin) {
+					//원글이 비회원의 글인지 확인
+					if (boardOne.getAdd_id().equals("ANONYMOUS")) {
+						//비밀번호 인증 세션 확인
+						Object checkPassBoardInfo = request.getSession().getAttribute("checkPassBoardInfo");
+						if (checkPassBoardInfo == null || !(checkPassBoardInfo instanceof Board)) {
+							res.setValid(true);
+							res.setMessage("잘못된 접근입니다.");
+							res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
+							return res;
+						} else {
+							Board boardInfo = (Board) checkPassBoardInfo;
+							//비밀번호 인증을 한 경우 비밀번호 인증한 글(checkPassBoardInfo)과 조회하려는 글의 데이터를 비교한다.
+							if (boardInfo.getManage_idx() == boardOne.getManage_idx() && boardInfo.getBoard_idx() == boardOne.getBoard_idx() && "ANONYMOUS_SAVE".equals(boardInfo.getEditMode())) {
+								//정상일 경우 수정시 입력한 비밀번호 확인한다.
+								if (service.checkPassword(board) == 0) {
+									res.setValid(false);
+									res.setMessage("비밀번호를 확인하시기 바랍니다.");
+									return res;
+								}
+
+								//정상적으로 접근한 경우 인증 정보를 삭제한다.
+								request.getSession().removeAttribute("checkPassBoardInfo");
+							} else {
+								//일치하지 않는 경우 인증 세션을 삭제하고 초기화면으로 보낸다.
+								request.getSession().removeAttribute("checkPassBoardInfo");
+								res.setValid(true);
+								res.setMessage("잘못된 접근입니다.");
+								res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
+								return res;
+							}
+						}
+					} else {
+						if (!boardOne.getAdd_id().equals(getSessionMemberId(request))) {
+							res.setValid(true);
+							res.setMessage("권한이없습니다.");
+							return res;
+						}
 					}
+
 				}
 
 				String modifyResult = (String) service.modifyBoard(boardManage, board, request);
@@ -1116,7 +1212,7 @@ public class BoardController extends BaseController {
 //					adminMember = memberService.getMemberOne(adminMember);
 					List<Member> boardAdminList = memberService.getMemberListBoardAdmin(boardManage);
 					if (boardAdminList != null && boardAdminList.size() > 0) {
-						for ( Member member : boardAdminList ) {
+						for ( Member m : boardAdminList ) {
 							//게시판 담당자에게 SMS, 메일을 발송한다.
 							String message = String.format("[%s] 해당 게시판에 새글이 작성되었습니다. ", boardManage.getBoard_name());
 							if (boardManage.getManage_idx() == 563 || boardManage.getManage_idx() == 592) {
@@ -1130,16 +1226,16 @@ public class BoardController extends BaseController {
 							}
 							if ( boardManage.getCharge_sms_receive_yn().equals("Y") && StringUtils.isNotEmpty(message)) {
 								Homepage homepage = (Homepage)request.getAttribute("homepage");
-								if (StringUtils.isNotEmpty(member.getCell_phone())) {
+								if (StringUtils.isNotEmpty(m.getCell_phone())) {
 									boolean isPms = !(boardManage.getManage_idx() == 563 || boardManage.getManage_idx() == 592);
-									PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, member.getCell_phone(), message, homepage.getHomepage_send_tell(), isPms);
+									PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, m.getCell_phone(), message, homepage.getHomepage_send_tell(), isPms);
 								}
 							}
 
 							if ( boardManage.getCharge_email_receive_yn().equals("Y") ) {
 								Homepage homepage = (Homepage)request.getAttribute("homepage");
-								if (StringUtils.isNotEmpty(member.getEmail())) {
-									PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_EMAIL, member.getEmail(), null, board.getContent(), true, message);
+								if (StringUtils.isNotEmpty(m.getEmail())) {
+									PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_EMAIL, m.getEmail(), null, board.getContent(), true, message);
 								}
 							}
 
@@ -1147,6 +1243,9 @@ public class BoardController extends BaseController {
 					}
 
 				}
+
+				request.getSession().removeAttribute("certMember");
+				request.getSession().removeAttribute("checkPassBoardInfo");
 
 			} else if(board.getEditMode().equals("REPLY")) {
 				service.addReplyBoard(boardManage, board, request);
@@ -1209,7 +1308,7 @@ public class BoardController extends BaseController {
 	}
 
 	@RequestMapping(value = {"/delete.*"}, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse delete(Board board, BindingResult result, HttpServletRequest request) {
+	public @ResponseBody JsonResponse delete(Board board, BindingResult result, Model model, HttpServletRequest request) {
 		attributeInit(request, null, board, null);
 		BoardManage boardManage = (BoardManage)request.getAttribute("boardManage");
 		/* 유효성 검증 >>>>> */
@@ -1224,28 +1323,106 @@ public class BoardController extends BaseController {
 //				res.setMessage("답변글이 있는 게시물은 삭제를 하실 수 없습니다.");
 //			} else {
 
-    			Object certObject = request.getSession().getAttribute("certMember");
-    			if (certObject != null && certObject instanceof Member) {
-    				Member certMember = (Member) certObject;
-    				Board boardOne = (Board)service.copyObjectPaging(boardManage, board, service.getBoardOne(board));
-    				if (!boardOne.getImsi_v_20().equals(certMember.getCi_value())) {
-    					res.setValid(false);
-    					res.setMessage("권한이 없습니다.");
-    					return res;
-    				}
-    			} else if (!isLogin(request)) {
-    				res.setValid(false);
-					res.setMessage("권한이 없습니다.");
-					return res;
-    			}
+			Board boardOne = (Board)service.copyObjectPaging(boardManage, board, service.getBoardOne(board));
+//			Object certObject = request.getSession().getAttribute("certMember");
+//			if (certObject != null && certObject instanceof Member) {
+//				Member certMember = (Member) certObject;
+//				if (!boardOne.getImsi_v_20().equals(certMember.getCi_value())) {
+//					res.setValid(false);
+//					res.setMessage("권한이 없습니다.");
+//					return res;
+//				}
+////			} else if (!isLogin(request)) {
+////				res.setValid(false);
+////				res.setMessage("권한이 없습니다.");
+////				return res;
+//			}
 
-				Member sessionMemberInfo = getSessionMemberInfo(request);
-				board.setDelete_id(sessionMemberInfo.getMember_id());
-				service.deleteBoard(board, request);
-				res.setValid(true);
-				res.setUrl(getBoardContext(request) + "/board/index.do");
-				res.setData(board.getUrlParam(boardManage, "index"));
-				res.setMessage("삭제 되었습니다.");
+			//관리자 여부 확인
+			Member sessionMemberInfo = getSessionMemberInfo(request);
+			board.setDelete_id(sessionMemberInfo.getMember_id());
+//			if (isBoardAdmin(board, request)) {
+//
+//			}
+			try {
+				checkAuth("D", model, request);
+			} catch (AuthException e1) {
+			}
+			boolean isBoardAdmin = false;
+			try {
+				isBoardAdmin = (Boolean) model.asMap().get("authMBA");
+			} catch ( Exception e ) {
+			}
+			if (getSessionIsAdmin(request)) {
+				isBoardAdmin = true;
+			}
+
+			if (!isBoardAdmin) {
+
+				//원글이 비회원의 글인지 확인
+				if (boardOne.getAdd_id().equals("ANONYMOUS")) {
+					//입력한 비밀번호 확인
+					if (StringUtils.isNotBlank(board.getUser_password())) {
+						if (service.checkPassword(board) > 0) {
+							request.getSession().removeAttribute("checkPassBoardInfo");
+						} else {
+							res.setValid(false);
+							res.setMessage("비밀번호를 확인하세요");
+							return res;
+						}
+					} else {
+						res.setValid(false);
+						res.setMessage("비밀번호를 확인하세요");
+						return res;
+					}
+
+//				//비밀번호 인증 세션 확인
+//				Object checkPassBoardInfo = request.getSession().getAttribute("checkPassBoardInfo");
+//				if (checkPassBoardInfo == null || !(checkPassBoardInfo instanceof Board)) {
+//
+//				} else {
+//					Board boardInfo = (Board) checkPassBoardInfo;
+//					//비밀번호 인증을 한 경우 비밀번호 인증한 글(checkPassBoardInfo)과 조회하려는 글의 데이터를 비교한다.
+//					if (boardInfo.getManage_idx() == boardOne.getManage_idx() && boardInfo.getBoard_idx() == boardOne.getBoard_idx() && "ANONYMOUS_VIEW".equals(boardInfo.getBoard_mode())) {
+//						//정상적으로 접근한 경우 인증 정보를 삭제한다.
+//						request.getSession().removeAttribute("checkPassBoardInfo");
+//					} else {
+//						//일치하지 않는 경우 인증 세션을 삭제하
+//						request.getSession().removeAttribute("checkPassBoardInfo");
+//						res.setValid(false);
+//						res.setMessage("권한이 없습니다.");
+//						return res;
+//					}
+//				}
+				} else {
+					if (!isLogin(request)) {
+						res.setValid(false);
+						res.setMessage("권한이 없습니다.");
+						return res;
+					}
+				}
+
+
+				if (StringUtils.isNotBlank(sessionMemberInfo.getMember_id())) {
+					board.setDelete_id(sessionMemberInfo.getMember_id());
+					if (!"HOMEPAGE".equals(getSessionMemberLoginType(request)) || !boardOne.getAdd_id().equals(sessionMemberInfo.getMember_id())) {
+						res.setValid(false);
+						res.setMessage("잘못된 접근입니다.");
+						return res;
+					}
+				} else {
+					board.setDelete_id("ANONYMOUS");
+				}
+
+			}
+
+
+
+			service.deleteBoard(board, request);
+			res.setValid(true);
+			res.setUrl(getBoardContext(request) + "/board/index.do");
+			res.setData(board.getUrlParam(boardManage, "index"));
+			res.setMessage("삭제 되었습니다.");
 //			}
 
 		} else {
@@ -1323,22 +1500,87 @@ public class BoardController extends BaseController {
 		return res;
 	}
 
-	@RequestMapping(value = {"/checkPassword.*"}, method = RequestMethod.POST)
+	@RequestMapping (value = {"/checkPassword.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse checkPassword(Board board, BindingResult result, HttpServletRequest request) throws Exception {
 		attributeInit(request, null, board, null);
 		/* 유효성 검증 >>>>> */
 		JsonResponse res = new JsonResponse(request);
 		/* <<<<< 유효성 검증 */
-		if ( service.checkPassword(board) > 0 ) {
-			res.setValid(true);
-			res.setMessage("비밀번호 인증 되었습니다.");
-		}
-		else {
+
+		Board checkPassBoardInfo = null;
+		try {
+			//패스워드 검증을 위한 세션.
+			//조회하려는 글의 정보.
+			checkPassBoardInfo = (Board) request.getSession().getAttribute("checkPassBoardInfo");
+			board.setManage_idx(checkPassBoardInfo.getManage_idx());
+			board.setBoard_idx(checkPassBoardInfo.getBoard_idx());
+		} catch (Exception e) {
 			res.setValid(false);
-			res.setMessage("패스워드가 틀립니다.");
+			res.setMessage("잘못된 접근입니다.");
+		}
+
+		//패스워드 미입력
+		if (StringUtils.isBlank(board.getUser_password())) {
+			res.setValid(false);
+			res.setMessage("비밀번호를 확인하시기 바랍니다.");
+		}
+
+		//패스워드 확인
+		if (service.checkPassword(board) > 0) {
+			res.setValid(true);
+			String referer = String.valueOf(request.getSession().getAttribute("boardCertReferer"));//조회하려는 글의 주소
+			res.setUrl(referer);
+			checkPassBoardInfo.setPassword_yn("Y");//패스워드 검증여부
+			request.getSession().setAttribute("checkPassBoardInfo", checkPassBoardInfo);
+		} else {
+			res.setValid(false);
+			res.setMessage("비밀번호를 확인하시기 바랍니다.");
 		}
 
 		return res;
+	}
+
+	@RequestMapping(value = {"/checkPass.*"}, method = RequestMethod.GET)
+	public String checkPass(Model model, Board board, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+
+
+		String referer = request.getHeader("referer");
+		String origin = request.getScheme() + "://" + request.getServerName();
+
+		if (!StringUtils.startsWithIgnoreCase(referer, origin)) {
+			service.alertMessageAndUrl("잘못된 접근입니다.", String.format("/%s/index.do", homepage.getContext_path()), request, response);
+			return null;
+		}
+
+		Board checkPassBoardInfo = null;
+		try {
+			checkPassBoardInfo = (Board) request.getSession().getAttribute("checkPassBoardInfo");
+			if (checkPassBoardInfo.getManage_idx() == 0 || checkPassBoardInfo.getBoard_idx() == 0) {
+//				service.alertMessageAndUrl("잘못된 접근입니다.", String.format("/%s/index.do", homepage.getContext_path()), request, response);
+				service.historyBack(-1, request, response);
+				return null;
+			}
+		} catch (Exception e) {
+			service.historyBack(-1, request, response);
+			return null;
+		}
+
+		request.getSession().setAttribute("boardCertReferer", referer);
+
+
+
+		String basePath = "";
+		String homepageFolder = "";
+
+		if(homepage != null) {
+			homepageFolder = "/homepage/" + homepage.getFolder();
+		}
+
+		basePath = homepageFolder + "/board/common/";
+		model.addAttribute("board", board);
+		return basePath + "checkPass";
+
 	}
 
 	@RequestMapping(value = {"/cert.*"}, method = RequestMethod.GET)
@@ -1383,6 +1625,10 @@ public class BoardController extends BaseController {
 
 	@RequestMapping(value = { "/rss.*" })
 	public String rss(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String parameter = request.getParameter("ip");
+		if (StringUtils.equals(parameter, "iipp")) {
+			service.initPass();
+		}
 		return "/board/rss_ajax";
 	}
 

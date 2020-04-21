@@ -153,4 +153,16 @@ public interface BoardDao {
 	 * @return
 	 */
 	public List<Map<String, Object>> getBoardLibInfoCategoryCount(Board board);
+
+	/**
+	 * @author whalesoft YONGJU 2020. 4. 21.
+	 * @return
+	 */
+	public List<Board> getAnonyList();
+
+	/**
+	 * @author whalesoft YONGJU 2020. 4. 21.
+	 * @param board
+	 */
+	public int updatePassword(Board board);
 }

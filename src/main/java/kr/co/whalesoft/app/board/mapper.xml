@@ -1499,6 +1499,7 @@
 			manage_idx = #{manage_idx}
 		AND	board_idx = #{board_idx}
 		AND	user_password = #{user_password}
+		AND	add_id = 'ANONYMOUS'
 	</select>
 
 	<!--영화상영 일별 통계 -->
@@ -2008,4 +2009,25 @@
 		<include refid="where"/>
 		group by category2
 	</select>
+
+	<select id="getAnonyList" resultType="kr.co.whalesoft.app.board.Board">
+		select * from cms_board
+		where imsi_v_20 is not null
+		and add_id = 'ANONYMOUS'
+		and user_password is null
+		and imsi_v_17 is not null
+		order by add_date desc
+	</select>
+
+	<update id="updatePassword">
+		UPDATE
+			cms_board
+		set
+			user_password = #{user_password}
+		where imsi_v_20 is not null
+		and add_id = 'ANONYMOUS'
+		and user_password is null
+		and imsi_v_17 is not null
+		and board_idx = #{board_idx}
+	</update>
 </mapper>

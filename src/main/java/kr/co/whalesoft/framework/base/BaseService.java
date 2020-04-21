@@ -212,6 +212,18 @@ public abstract class BaseService {
 		return false;
 	}
 
+	public boolean historyBack(int depth, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		setResponseHeader(response);
+		response.setContentType("text/html; charset=" + request.getCharacterEncoding());
+		PrintWriter writer = response.getWriter();
+		writer.println("<script>");
+		writer.println("history.go("+depth+");");
+		writer.println("</script>");
+		writer.flush();
+
+		return false;
+	}
+
 	private void setResponseHeader(HttpServletResponse response) {
 		response.setHeader("X-Frame-Options", "DENY");
 		response.setHeader("X-Content-Type-Options", "nosniff");

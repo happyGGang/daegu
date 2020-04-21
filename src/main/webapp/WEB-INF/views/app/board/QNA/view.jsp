@@ -39,7 +39,6 @@ $(document).ready(function() {
 <form:hidden path="editMode"/>
 <form:hidden path="target_manage_idx"/>
 <form:hidden path="category1"/>
-<form:hidden path="user_password"/>
 <form:hidden path="boardIdxArray"/>
 </form:form>
 <div class="wrapper-bbs">
@@ -166,12 +165,14 @@ $(document).ready(function() {
 </c:forEach>
 <div class="bbs-view">
 	<div class="bbs-comment" id="bbs-comment">
-		
+
 	</div>
 </div>
 <c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.bottom_html) > 0}">
 ${boardManage.bottom_html}
 </c:if>
 <c:if test="${boardManage.board_type eq 'QNA'}">
-<div id="dialog-1"></div>
+<div id="dialog-1" style="display: none;" title="비밀번호 입력">
+	<input type="password" id="tmpPass" style="width:250px;" class="text" maxlength="20" />
+</div>
 </c:if>
