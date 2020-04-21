@@ -155,7 +155,7 @@ $(function() {
 			alert('휴대전화번호를 입력해주세요.');
 			return false;
 		}
-		
+
 		var applyFile = $('#apply_file');
 		if ($('#apply_file').val() == '') {
 			$('#apply_file').remove();
@@ -222,14 +222,14 @@ $(function() {
 
 		$form.find('#family_cell_phone').val(cellPhone1+'-'+cellPhone2+'-'+cellPhone3);
 		</c:if>
-		
+
 		var agree_codes = [];
 		$('input.agree_check:checked').each(function() {
 			agree_codes.push($(this).attr('keyValue3'));
 		});
 		$form.find('#agree_codes').val(agree_codes.join(','));
 
-		
+
 		var option = {
 			url : 'save.do',
 			type : 'POST',
@@ -238,8 +238,17 @@ $(function() {
 					if(response.message != null && response.message.replace(/\s/g,'').length!=0) {
 						alert(response.message);
 					}
-					
-					doGetLoad('/${homepage.context_path}/module/teach/index.do', 'group_idx='+$('input#group_idx').val()+'&menu_idx='+$('input#menu_idx').val());
+
+// 					doGetLoad('/${homepage.context_path}/module/teach/index.do', 'group_idx='+$('input#group_idx').val()+'&menu_idx='+$('input#menu_idx').val());
+					try {
+						if (document.referrer.startsWith(location.origin)) {
+							history.back();
+						} else {
+							doGetLoad('/${homepage.context_path}/module/teach/index.do', 'menu_idx='+$('input#menu_idx').val());
+						}
+					} catch (e) {
+						doGetLoad('/${homepage.context_path}/module/teach/index.do', 'menu_idx='+$('input#menu_idx').val());
+					}
 				} else {
 					$('td.applyFile').append(applyFile);
 					if(response.message != null && response.message.replace(/\s/g,'').length!=0) {
@@ -265,7 +274,7 @@ $(function() {
 			}
 		};
 		$form.ajaxSubmit(option);
-		
+
 // 		if (doAjaxPost($form)) {
 // 			doGetLoad('/${homepage.context_path}/module/teach/index.do', 'group_idx='+$('input#group_idx').val()+'&menu_idx='+$('input#menu_idx').val());
 // 		}
