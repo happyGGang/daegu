@@ -4,6 +4,14 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<c:if test="${homepage.context_path eq '228lib'}">
+<script type="text/javascript">
+	location.href="/${homepage.context_path}/index.do";
+	return;
+</script>
+</c:if>
+
 <style>
 table.integration2Table tbody th, table.integration2Table tbody td {text-align: center;padding:6px 0px!important;}
 
@@ -46,14 +54,11 @@ span.dts{font-size:13px;color: #555;border-radius:30px;background:#eee;padding:1
 .dataF-wr .info_list .dot_txt_list > li{line-height:22px}
 }
 </style>
-
-
 <script type="text/javascript">
 $(function() {
 
 });
 </script>
-
 <div class="dataF-wr mg15f">
   <ul class="info_list">
        <li>
@@ -82,7 +87,7 @@ $(function() {
 <div class="txt-box-adv2">
    <ul class="con">
        <li>신규 회원가입하여 로그인 후 인증 가능합니다. (기존 회원은 통합회원 인증 후 사용 가능)</li>
-       <li>현재 <b>비대면 인증 회원은 전자도서관만 이용 가능</b>합니다.</li> 
+       <li><b>비대면 인증 회원은 원칙적으로 전자도서관만 이용할 수 있으며</b>, 임시휴관 기간 동안 한시적으로 워킹스루 예약대출 서비스를 이용할 수 있습니다. (무인예약 및 스마트도서관 제외) </li> 
     </ul>
 </div>
 <div class="btn-wrap" style="text-align:center;padding:20px 0">
