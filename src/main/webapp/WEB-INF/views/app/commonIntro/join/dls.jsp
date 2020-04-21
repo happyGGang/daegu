@@ -58,8 +58,9 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 <div class="join-wrap" style="padding: 0">
 
 	<h4>개인정보 제3자 제공 동의(대구학생인증)</h4>
-	<p>대구광역시 공립도서관에서는 대구학생인증을 통한 정회원 자격 부여를 위하여 수집한 개인정보를 아래와 같이 제3자 제공합니다</p>
-	<div class="Box" style="height:200px">
+	<p>※ 대구광역시 공립도서관에서는 대구학생인증을 통한 정회원 자격 부여를 위하여 수집한 개인정보를 아래와 같이 제3자 제공합니다</p>
+	<p style="font-weight:bold;color:#b93b74;">※ DLS 아이디/패스워드 정보를 모를 경우 해당 학교에 문의하여 주시기 바랍니다.</p>
+	<div class="Box" style="height:200px;margin-top:10px;">
 		<br>
 
 		<table class="t_list tac" summary="개인정보 처리 및 위탁에 관한 안내표">
