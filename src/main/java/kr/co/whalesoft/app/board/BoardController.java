@@ -967,7 +967,7 @@ public class BoardController extends BaseController {
 					String targetAuthInfo = bm.getHomepage_id()+"_" + bm.getMenu_idx()+"_" + bm.getManage_idx();
 					if(memberInfo.isAdmin()) {
 						boardManageAll.add(bm);
-					} else if(authMap.containsKey(targetAuthInfo + "_C") || authMap.containsKey(targetAuthInfo + "_MBA")) {
+					} else if(authMap.containsKey(targetAuthInfo + "_C") || authMap.containsKey(targetAuthInfo + "_MBA") || authMap.containsKey(bm.getHomepage_id() + "_A")) {
 						boardManageAll.add(bm);
 					}
 				}
