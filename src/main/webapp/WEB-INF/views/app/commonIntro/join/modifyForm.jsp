@@ -160,9 +160,9 @@ $(function() {
 	$('a.certtype').on('click', function(e) {
 		e.preventDefault();
 		var wWidth = 360;
- 		var wHight = 120;
- 		var wX = (window.screen.width - wWidth) / 2;
- 		var wY = (window.screen.height - wHight) / 2;
+		var wHight = 120;
+		var wX = (window.screen.width - wWidth) / 2;
+		var wY = (window.screen.height - wHight) / 2;
 		var certWindow = window.open('', "certWindow", "directories=no,toolbar=no,resizeable=yes,left="+wX+",top="+(wY-200)+",width="+wWidth+",height="+wHight);
 		$('form#certForm input[name=certType]').val($(this).attr('id'));
 		$('form#certForm')[0].submit();
@@ -266,9 +266,9 @@ $(document).on("keyup change", "input:text[numberOnly]", function() {
 					</th>
 					<td>
 						<div id="cell_phone_div">
-							<form:input path="cell_phone1" class="text" cssStyle="width:60px;" title="휴대폰 번호 첫번째 자리 입력" maxlength="3" numberOnly="true"/>
-						 	- <form:input path="cell_phone2" class="text" cssStyle="width:60px;" title="휴대폰 번호  중간 자리 입력" maxlength="4" numberOnly="true"/>
-						 	- <form:input path="cell_phone3" class="text" cssStyle="width:60px;" title="휴대폰 번호  끝 자리 입력"  maxlength="4" numberOnly="true"/>
+							<form:input path="cell_phone1" class="text" cssStyle="width:60px;" title="휴대폰 번호 첫번째 자리 입력" maxlength="3" numberOnly="true" readonly="true"/>
+							- <form:input path="cell_phone2" class="text" cssStyle="width:60px;" title="휴대폰 번호  중간 자리 입력" maxlength="4" numberOnly="true" readonly="true"/>
+							- <form:input path="cell_phone3" class="text" cssStyle="width:60px;" title="휴대폰 번호  끝 자리 입력"  maxlength="4" numberOnly="true" readonly="true"/>
 							<form:checkbox path="sms_service_yn" value="Y" label=" SMS 수신 여부" cssStyle="vertical-align: middle;"/>
 							<a href="#" id="sms" class="btn certtype" title="새창열림">인증확인</a>
 							<div class="highlight">
