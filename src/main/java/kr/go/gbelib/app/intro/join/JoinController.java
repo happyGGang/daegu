@@ -26,7 +26,6 @@ import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.member.MemberService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
-import kr.co.whalesoft.framework.utils.StrUtil;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.cms.module.certLog.CertLog;
 import kr.go.gbelib.app.cms.module.certLog.CertLogService;
@@ -271,10 +270,10 @@ public class JoinController extends BaseController {
 		if (StringUtils.isNotEmpty(mode) && mode.equals("changetel")) {
 			model.addAttribute("changeTel", true);
 //			request.getSession().setAttribute("changeTel", "o");
-			
+
 			Member sessionMember = getSessionMemberInfo(request);
 			Map<String, Object> certMember = MemberAPI.checkDupUser("1", member).get(0);
-			
+
 			if (StringUtils.equals(sessionMember.getRec_key(), String.valueOf(certMember.get("REC_KEY")))
 					&& StringUtils.equals(sessionMember.getMember_id(), String.valueOf(certMember.get("USER_ID")))) {
 				String cell_phone = member.getCell_phone();
@@ -285,7 +284,7 @@ public class JoinController extends BaseController {
 					sessionMember.setCell_phone3(member.getCell_phone3());
 				}
 			}
-			
+
 			return basePath + "certReseponse_ajax";
 		}
 
@@ -438,10 +437,11 @@ public class JoinController extends BaseController {
 		} else if (!StringUtils.isEmpty(certType) && !certType.contains("parent")) {
 			// 실제 가입자 인증
 			// 1. ci중복자 확인(책이음 가입자 확인)
-			// List<Map<String, Object>> memberInfoKl = MemberAPI.checkDupUserId("3", member);
-			// if (memberInfoKl != null && memberInfoKl.size() > 0) {
-			// model.addAttribute("dupCheckKl", true);
-			// }
+			List<Map<String, Object>> memberInfoKl = MemberAPI.checkDupUser("3", member);
+			if (memberInfoKl != null && memberInfoKl.size() > 0) {
+				model.addAttribute("dupCheckKl", true);
+				model.addAttribute("dupUser", memberInfoKl.get(0));
+			}
 
 			// 2. ci중복자 확인
 			List<Map<String, Object>> memberInfo = MemberAPI.checkDupUser("1", member);

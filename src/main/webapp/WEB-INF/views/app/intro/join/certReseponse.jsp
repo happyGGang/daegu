@@ -33,6 +33,17 @@ $(function() {
 	}
 
 
+	if ('${dupCheckKl}' == 'true') {
+		if ('${dupUser.USER_NO}' != '') {
+			alert('회원님의 대출번호는 ${dupUser.USER_NO}이며 책이음회원으로 이미 가입되어 있습니다.');
+		} else {
+			alert('이미 가입되어 있습니다.');
+		}
+
+		window.close();
+		return false;
+	}
+
 	if ('${dupCheck}' == 'true') {
 		if ('${dupUser.USER_CLASS}' == '3') {
 			alert('탈퇴 회원입니다. 도서관으로 문의 바랍니다.');
@@ -40,17 +51,6 @@ $(function() {
 			alert('중복된 이용자가 있습니다.\n\n대출번호는 ${dupUser.USER_NO}입니다.');
 		} else {
 			alert('준회원으로 가입되어 있습니다.');
-		}
-
-		window.close();
-		return false;
-	}
-
-	if ('${dupCheckKl}' == 'true') {
-		if ('${dupUserKl.USER_NO}' != '') {
-			alert('회원님의 대출번호는 ${dupUserKl.USER_NO}이며 책이음회원으로 이미 가입되어 있습니다..');
-		} else {
-			alert('이미 가입되어 있습니다.');
 		}
 
 		window.close();
@@ -115,7 +115,7 @@ $(function() {
 		window.opener.$('#cell_phone1').val('${member.cell_phone1}');
 		window.opener.$('#cell_phone2').val('${member.cell_phone2}');
 		window.opener.$('#cell_phone3').val('${member.cell_phone3}');
-		
+
 		window.close();
 		return false;
 	} else {
