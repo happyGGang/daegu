@@ -389,7 +389,7 @@ $(function() {
 
 			<a href="index.do?menu_idx=${param.menu_idx}" id="goBack" class="btn"><i class="fa fa-book"></i><span>목록으로</span></a>
 
-			<c:if test="${not empty loginPortal and loginPortal.login}">
+			<c:if test="${not empty loginPortal and loginPortal.login and detail.MANAGE_CODE ne 'AJ'}">
 			<a href="#" id="interest" class="btn"><span>교수학습 택배용 관심도서</span></a>
 			</c:if>
 		</div>

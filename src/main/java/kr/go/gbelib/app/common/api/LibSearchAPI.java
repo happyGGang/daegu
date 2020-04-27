@@ -93,6 +93,9 @@ public class LibSearchAPI {
 		// 자료실코드
 		if (StringUtils.isNotEmpty(librarySearch.getShelfCode()))
 			param.put("search_shelf", librarySearch.getShelfCode());
+		//검색 제외 자료실코드. 여러개인 경우 comma(,)로 연결
+		if (StringUtils.isNotEmpty(librarySearch.getNotShelfCode()))
+			param.put("not_search_shelf", librarySearch.getNotShelfCode());
 		// 주제부호 : 분류기호의 첫번째 숫자(0~9). 여러 개인 경우 comma(,)로 연결. ※ IDX_BO_TBL의 CLASS_NO 필드의 첫번째 숫자값으로 확인 (ex : 816.6 -> 8)
 		if (StringUtils.isNotEmpty(librarySearch.getSubjectCode()))
 			param.put("subject_code", librarySearch.getSubjectCode());
@@ -234,6 +237,9 @@ public class LibSearchAPI {
 		if (StringUtils.isNotEmpty(librarySearch.getShelf_list())) {
 			param.put("search_shelf", librarySearch.getShelf_list());
 		}
+		//검색 제외 자료실코드. 여러개인 경우 comma(,)로 연결
+		if (StringUtils.isNotEmpty(librarySearch.getNotShelfCode()))
+			param.put("not_search_shelf", librarySearch.getNotShelfCode());
 
 		if (StringUtils.isNotEmpty(librarySearch.getFacet_manage_code()))
 			param.put("facet_manage_code", librarySearch.getFacet_manage_code());
@@ -359,6 +365,9 @@ public class LibSearchAPI {
 		// 자료실코드
 		if (StringUtils.isNotEmpty(librarySearch.getShelfCode()))
 			param.put("search_shelf", librarySearch.getShelfCode());
+		//검색 제외 자료실코드. 여러개인 경우 comma(,)로 연결
+		if (StringUtils.isNotEmpty(librarySearch.getNotShelfCode()))
+			param.put("not_search_shelf", librarySearch.getNotShelfCode());
 		// 주제부호 : 분류기호의 첫번째 숫자(0~9). 여러 개인 경우 comma(,)로 연결. ※ IDX_BO_TBL의 CLASS_NO 필드의 첫번째 숫자값으로 확인 (ex : 816.6 -> 8)
 		if (StringUtils.isNotEmpty(librarySearch.getSubjectCode()))
 			param.put("subject_code", librarySearch.getSubjectCode());

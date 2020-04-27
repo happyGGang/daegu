@@ -106,6 +106,9 @@ public class CommonSearchController extends BaseController {
 
 		if (StringUtils.isNotEmpty(librarySearch.getBooktype())) {
     		Map<String, Object> result = new HashMap<String, Object>();
+    		
+    		// 자료실 제외 코드 : [두류]보존서고(1,2,3)
+    		librarySearch.setNotShelfCode("AB08,AB09,AB10");
 
     		if ( librarySearch.getBooktype().equals("BOOK") ) {
     			result = LibSearchAPI.getBookDetail(librarySearch);
@@ -165,6 +168,9 @@ public class CommonSearchController extends BaseController {
 
 		if (StringUtils.isNotEmpty(librarySearch.getBooktype())) {
 			Map<String, Object> result = new HashMap<String, Object>();
+			
+			// 자료실 제외 코드 : [두류]보존서고(1,2,3)
+			librarySearch.setNotShelfCode("AB08,AB09,AB10");
 
 			if ( librarySearch.getBooktype().equals("BOOK") ) {
 				result = LibSearchAPI.getBookDetail(librarySearch);
