@@ -519,6 +519,9 @@ public class ElibController extends BaseController {
 			count = lending.getTotalDataCount();
 			lendingService.setPaging(model, count, lending);
 		} else if("MYSTUDY".equals(menu)) {
+			count = lendingService.getFavoritesListCnt(lending);
+			lendingService.setPaging(model, count, lending);
+			
 			List<Lending> orig = lendingService.getFavoritesList(lending);
 			List<Lending> list = new ArrayList<Lending>();
 
@@ -527,8 +530,6 @@ public class ElibController extends BaseController {
 			}
 
 			lendingList = setStatus(list, request);
-			count = lendingService.getFavoritesListCnt(lending);
-			lendingService.setPaging(model, count, lending);
 		}
 
 		model.addAttribute("lending", lending);
