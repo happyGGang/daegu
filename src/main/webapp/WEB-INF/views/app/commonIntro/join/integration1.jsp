@@ -20,6 +20,7 @@ $(function() {
 	<%-- 1순위 책이음 회원--%>
 	if ($('input.tmp_user_no[data-kl=Y]').length > 0) {
 		$('input.tmp_user_no[data-kl=N]').remove();
+		$("input.tmp_user_no[data-kl='']").remove();
 	} else if ($('input.tmp_user_no[data-ci=Y]').length > 0) {
 		<%-- 2순위 자관 && CI가 있는 회원--%>
 		$('input.tmp_user_no[data-ci=N]').remove();
