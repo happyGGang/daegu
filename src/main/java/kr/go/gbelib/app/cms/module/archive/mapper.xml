@@ -105,7 +105,7 @@
 			<if test="category != null and category != ''">
 			AND category = #{category}
 			</if>
-			ORDER BY code DESC, book_idx DESC
+			ORDER BY category, code DESC, book_idx DESC
 			${pagingBottom}
 			) a
 	</select>
@@ -349,7 +349,7 @@
 			book_idx = #{book_idx}
 		AND page_idx = #{page_idx}
 	</update>
-	
+
 	<insert id="addViewCount">
 		INSERT INTO
 			ARCHIVE_STATISTICS
