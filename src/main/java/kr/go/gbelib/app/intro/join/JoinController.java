@@ -437,11 +437,11 @@ public class JoinController extends BaseController {
 		} else if (!StringUtils.isEmpty(certType) && !certType.contains("parent")) {
 			// 실제 가입자 인증
 			// 1. ci중복자 확인(책이음 가입자 확인)
-			List<Map<String, Object>> memberInfoKl = MemberAPI.checkDupUser("3", member);
-			if (memberInfoKl != null && memberInfoKl.size() > 0) {
-				model.addAttribute("dupCheckKl", true);
-				model.addAttribute("dupUser", memberInfoKl.get(0));
-			}
+//			List<Map<String, Object>> memberInfoKl = MemberAPI.checkDupUser("3", member);
+//			if (memberInfoKl != null && memberInfoKl.size() > 0) {
+//				model.addAttribute("dupCheckKl", true);
+//				model.addAttribute("dupUser", memberInfoKl.get(0));
+//			}
 
 			// 2. ci중복자 확인
 			List<Map<String, Object>> memberInfo = MemberAPI.checkDupUser("1", member);
@@ -457,11 +457,11 @@ public class JoinController extends BaseController {
 			// 2020.01.07 'daegu' 컨텍스트에서는 신규가입 시 책이음회원여부를 체크하지 않는다.
 			if (!StringUtils.equals(currentContext, "daegu")) {
 				// 2020.02.05 책이음 속도 문제로인해 책이음가입여부 제외
-//				List<Map<String, Object>> klmemberInfo = MemberAPI.checkDupUser("3", member);
-//				if (klmemberInfo != null && klmemberInfo.size() > 0) {
-//					model.addAttribute("dupCheckKl", true);
-//					model.addAttribute("dupUserKl", klmemberInfo.get(0));
-//				}
+				List<Map<String, Object>> klmemberInfo = MemberAPI.checkDupUser("3", member);
+				if (klmemberInfo != null && klmemberInfo.size() > 0) {
+					model.addAttribute("dupCheckKl", true);
+					model.addAttribute("dupUser", klmemberInfo.get(0));
+				}
 			}
 
 			model.addAttribute("parent", false);
