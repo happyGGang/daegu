@@ -46,35 +46,35 @@ function treeOnLoad() {
 	                source[0] = items[id];
 	            }
 	        }
-			
+
 			var $tree = $('#tree1').unbind().tree({
-				data : source , 
+				data : source ,
 				autoOpen: true,
 				dragAndDrop: true,
 				onCreateLi: function(node, $li) {
 					// Append a link to the jqtree-element div.
 					// The link has an url '#node-[id]' and a data property 'node-id'.
 					if(node.id != 0) {
-						var menuTreeHTML = ''; 
+						var menuTreeHTML = '';
 						/* menuTreeHTML += '<a href="#node-'+node.id+'" class="menu_edit" data-node-id="'+node.id +'" style="position: absolute; top:4px; *top:1px;  padding-left:5px; "><img width="42" height="13" src="/resources/cms/jqTree/img/btn_menuEdit.png" alt="메뉴수정하기" /></a>';
 						menuTreeHTML += '<a href="#node-'+node.id+'" class="content_edit" data-node-id="'+node.id +'" style="position: absolute; top:4px; *top:1px;  margin-left:50px; "><img width="50" height="13" src="/resources/cms/jqTree/img/btn_contentEdit.png" alt="콘텐츠수정하기" /></a>'; */
 						$li.find('.jqtree-element').append(menuTreeHTML);
 					}
 				}
 			});
-			
+
 			<%-- 왼쪽메뉴 트리 클릭했을 경우 --%>
 			$tree.on('tree.click', function(e) {
 				// Disable single selection
 	            var selected_node = e.node;
-	            
+
     			if(beforeSelected_node!='') {
-    				$tree.tree('removeFromSelection', beforeSelected_node);	
+    				$tree.tree('removeFromSelection', beforeSelected_node);
     			}
     			$tree.tree('addToSelection', selected_node);
-    			
+
     			beforeSelected_node = selected_node;
-    			
+
     			if(selected_node.id == 0) {
     				<%-- 처음 disable 화면 처리 --%>
     				//$('#itemLayer').load('auth.do?editMode=FIRST');
@@ -90,31 +90,31 @@ function treeOnLoad() {
 							$('#editForm #storage_idx').val(data.storage_idx);
 							$('#editForm #storage_name').val(data.storage_name);
 						}
-					});	
-    				
+					});
+
     				$('#itemLayer').load('getItemList.do?homepage_id=${myStorage.homepage_id}&storage_idx=' + selected_node.id);
     			}
-						
+
     			e.preventDefault();
 			});
-			
+
 			$tree.on('tree.move', function(event) {
 				if(confirm(event.move_info.moved_node.name + ' 을(를)\n\n' + event.move_info.target_node.name + '의 하위조직으로 이동 하시겠습니까?')) {
 					if(confirm(event.move_info.moved_node.name + ' 의 모든 하위조직들도 함께 이동됩니다.\n\n이동 하시겠습니까?')) {
 						$('#parent_storage_idx ').val(event.move_info.target_node.id);
 						$('#storage_idx').val(event.move_info.moved_node.id);
 						$('#editMode').val('PARENTMOVE');
-						
+
 						jQuery.ajaxSettings.traditional = true;
-						
+
 						if ( doAjaxPost($('#parentMoveForm')) ) {
 							location.reload();
-						} 
+						}
 					}
 				}
 				return false;
 			});
-			
+
 			$('.tree-menu li:last-child').addClass('last');
 			$('#itemLayer').load('getItemList.do?editMode=FIRST');
 		}
@@ -122,31 +122,31 @@ function treeOnLoad() {
 }
 
 $(document).ready(function() {
-	
+
 	$('a#storage_add').on('click', function(e) {
 		//열려있는 다이얼로그를 삭제한다.(중복방지)
 		//$('.dialog-common').remove();
 		e.preventDefault();
-		
+
 		if ( beforeSelected_node.id == null ) {
 			alert('등록할 보관함의 상위 보관함을 선택해주세요.');
 			return false;
 		}
 		$('#editForm #editMode').val('ADD');
 		$('#editForm #parent_storage_idx').val(beforeSelected_node.id);
-		
+
 		if ( doAjaxPost($('#editForm')) ) {
 			treeOnLoad();
 		}
-		
+
 	});
-	
+
 	$('a#storage_modify').on('click', function(e) {
 		if(beforeSelected_node.id == null) {
-			alert('수정할 보관함을 선택하세요.');			
+			alert('수정할 보관함을 선택하세요.');
 		} else{
 			if(beforeSelected_node.id == 0) {
-				alert('최상위 "보관함"은 수정할 수 없습니다.')				
+				alert('최상위 "보관함"은 수정할 수 없습니다.')
 			} else {
 				$('#editForm #editMode').val('MODIFY');
 				if ( doAjaxPost($('#editForm')) ) {
@@ -154,16 +154,16 @@ $(document).ready(function() {
 				}
 			}
 		}
-		
-		e.preventDefault(); 
+
+		e.preventDefault();
 	});
-	
+
 	$('a#storage_delete').on('click', function(e) {
 		if(beforeSelected_node.id == null) {
-			alert('삭제할 보관함을 선택하세요.');			
+			alert('삭제할 보관함을 선택하세요.');
 		} else{
 			if(beforeSelected_node.id == 0) {
-				alert('최상위 "보관함"은 삭제할 수 없습니다.');				
+				alert('최상위 "보관함"은 삭제할 수 없습니다.');
 			} else {
 				if(confirm('정말 삭제 하시겠습니까? 해당 보관함에 있는 자료도 같이 삭제되며 복구가 불가능합니다.')) {
 					$.ajax({
@@ -177,21 +177,21 @@ $(document).ready(function() {
 							}
 						}
 					});
-				}	
+				}
 			}
-		}	
-		
-		e.preventDefault(); 
+		}
+
+		e.preventDefault();
 	});
-	
+
 	treeOnLoad();
-	
+
 	<%-- 처음 disable 화면 처리 --%>
 	//$('#itemLayer').load('auth.do?editMode=FIRST');
 	//$('#itemLayer').load('memberOrga.do?editMode=FIRST');
 });
 </script>
- 
+
 <%
 int leftSize = 275; //왼쪽 컨텐츠 사이즈
 int leftSizeInput = leftSize-125; //왼쪽 컨텐츠 검색 input 사이즈
@@ -204,7 +204,7 @@ int leftSizeInput = leftSize-125; //왼쪽 컨텐츠 검색 input 사이즈
 	<form:hidden path="storage_idx"/>
 </form:form>
 
-<div class="group-menu code-config">
+<div class="group-menu code-config" style="overflow: auto;">
 	<div style="display: inline-flex;">
 		<div class="tree-area" style="width:<%=leftSize%>px; border: 1px solid #ccc;">
 			<div class="tree-box" style="height:300px;">
@@ -241,7 +241,7 @@ int leftSizeInput = leftSize-125; //왼쪽 컨텐츠 검색 input 사이즈
 		</div>
 		<div class="set-area" style="height:373px;">
 			<div style="height:100%;" id="itemLayer">
-			
+
 			</div>
 		</div>
 	</div>
