@@ -122,16 +122,7 @@ ${quiz.top_html}
 					<div class="quiz_list">
 						<div class="pic">
 							<p>
-							<c:set value="${quiz.book_image}" var="book_image"></c:set>
-							<c:choose>
-							    <c:when test = "${fn:contains(book_image, 'http')}">
-							         <img src="${quiz.book_image}" height="154" width="140" alt="${quiz.book_name}" />
-							    </c:when>
-								<c:otherwise>
-									<img src="/data/quiz/${quiz.homepage_id}/${quiz.book_image}" height="154" width="140" alt="${quiz.book_name}" />
-							   	</c:otherwise>
-							</c:choose>
-
+								<img src="${quiz.book_image}" height="154" width="140" alt="${quiz.book_name}" />
 							</p>
 						</div>
 						<div class="data_info">
