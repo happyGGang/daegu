@@ -79,7 +79,7 @@
 #planList{overflow:hidden;padding-top:13px}
 #planList h3{font-size:15px;padding:0 10px 0 0;float:left;display:block;letter-spacing:-1px}
 #planList span{float:left;margin:5px 3px 0;width:25px;height:25px;font-weight:bold;line-height:25px;display:block;background-color:#ee882c;color:#fff;border-radius:100%;font-size:12px}
-.cal-func2 {text-align:center;padding:0 0 10px 0;}
+.cal-func2 {text-align:center;padding:0 0 0 0;}
 .cal-func2 a.btn {padding:5px;color:#888;font-size:15px;border:1px solid #000;}
 .cal-func2 a.btn:focus,
 .cal-func2 a.btn:hover{color:#222}
@@ -91,7 +91,7 @@
 .cal-func2 em {vertical-align:middle}
 .cal-func2 b {font-size:25px;font-weight:normal;}
 .cal-func2 b em{color:#67940;font-weight:bold;font-style:normal;}
-#calendar2 .cal-tbl {margin-top:10px;text-align:center;}
+#calendar2 .cal-tbl {margin-top:8px;text-align:center;}
 #calendar2 .cal-tbl th{font-size:11px;}
 #calendar2 .cal-tbl th span {display:block;width:28px;height:28px;line-height:30px;color:#fff;font-size:13px;font-weight:bold;background:#2e3192;text-align:center;border-radius:50%;margin:0 auto;}
 #calendar2 .cal-tbl td{font-size:11px;padding:1% 0;;text-align:center;white-space:nowrap}

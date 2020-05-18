@@ -29,11 +29,11 @@
 
 .main1,.main5,.main6,.main7_banner{overflow:hidden}
 
-.main0 {position:relative;background: url('../img/main-visual.jpg') repeat-x center center;width:100%;height: 575px;z-index:30;}
+.main0 {position:relative;background: url('../img/main-visual.jpg') repeat-x center center;width:100%;height: 555px;z-index:30;}
 .main0 .popZone {position:relative;width:400px;padding-top:70px;}
 .main0 .popZone li{text-align:left;padding:0;margin:0;}
 .main0 .popZone li a {display:inline-block;}
-.main0 .popZone li a img {width:400px;height: 460px;border-radius:20px;}
+.main0 .popZone li a img {width: 380px;height: 440px;border-radius:20px;}
 .main0 .popZone .bx-controls {position:absolute;top:40px;left:50%;margin-left:-127px;z-index:150000000;}
 .main0 .popZone .bx-prev, 
 .main0 .popZone .bx-next, 
@@ -47,11 +47,11 @@
 
 
 .main1 {position:relative;z-index:30;}
-.main1 .quickmenu {padding: 20px 0 15px 0;}
+.main1 .quickmenu {padding: 10px 0 0 0;}
 .main1 .quickmenu .section {position:relative;width:1260px;margin:0 auto;text-align:center;overflow:hidden}
 .main1 .quickmenu li {display:inline-block;float:left;text-align:center;width:210px;height:145px;}
 .main1 .quickmenu li a {display:block;background-position:center center;background-repeat:no-repeat;width:100%;height:100px;margin:0 auto;font-size:15px;color:#222;font-weight:bold;letter-spacing:-1px;font-size:17px;transition:all 0.3s;}
-.main1 .quickmenu li a span {display:block;position:relative;top:110px;}
+.main1 .quickmenu li a span {display:block;position:relative;top: 100px;font-size: 15px;}
 
 
 .main2 {position:relative;background:url('../img/main2-bg.jpg') no-repeat center center;height: 470px;z-index:40;}
@@ -167,6 +167,9 @@
 
 .mobileBr {display:none;}
 
+#quick-slide {position:absolute;width:140px;height:auto;left:50%;top:150px;margin-left:650px;z-index:9899098;}
+#quick-slide li {display:block;}
+#quick-slide li img {box-shadow: 5px 5px 15px rgba(0,0,0,0.2)}
 
 @media all and (max-width:1920px){
 
@@ -209,6 +212,7 @@
 	#header .sub-menu li:first-child {padding-left:0;}
 	#header .sub-menu li:last-child {width:45%;}
 	
+	#quick-slide {display:none;}
 }
 
 @media all and (max-width:1130px){

@@ -69,7 +69,7 @@ i.fa-minus {display:none}
 nav,
 .Gnb .gnb-menu>li.mmode,
 .mmode{display:none}
-.mm-panels .mmode{width:100%;text-align:right;height:66px;left:0;top:-66px;background:none;overflow:hidden}
+.mm-panels .mmode{width:100%;text-align: center;height: 106px;/* left:0; */top:-66px;background:none;overflow:hidden;background: #333333;vertical-align: middle;}
 .mm-panels>.mm-panel.mmode:after,
 .mm-panels>.mm-panel.mmode:before{height:12px}
 .mm-panels .mmode a{display:inline-block;padding:5px 7px;border-radius:7px;text-align:center}
@@ -80,10 +80,10 @@ nav,
 .mm-panels .mmode a span,
 .mm-panels .mmode a i{vertical-align:middle;display:block}
 .mm-panels .mmode a.btn1,
-.mm-panels .mmode a.btn4{background:#2c75cb;border:1px solid #4087db}
+.mm-panels .mmode a.btn4{background:#2c75cb;border:1px solid #4087db;width: 35%;}
 .mm-panels .mmode a.btn2,
-.mm-panels .mmode a.btn3{background:#707070;border:1px solid #818181}
-.mm-panels .mmode a.mobilemeberinfo{ background: #f4683c; border: 1px solid #ff9c66; }
+.mm-panels .mmode a.btn3{background:#707070;border:1px solid #818181;width: 35%;margin-top: 3px;}
+.mm-panels .mmode a.mobilemeberinfo{ background: #f4683c; border: 1px solid #ff9c66;width:35% }
 @media (max-width:350px){
 	.mm-panels .mmode{text-align:center}
 	.mm-menu .mm-navbar a{font-size:0;line-height:0}

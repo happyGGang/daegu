@@ -330,6 +330,14 @@ do {
 				</div>
 			</div>
 		</div>
+
+		<div id="quick-slide">
+			<ul>
+				<li><a href="/${homepage.context_path}/intro/join/changeover.do?menu_idx=71"><img src="/resources/homepage/dgportal/img/qm01.png" alt="비대면자격확인"></a></li>
+				<li><a href="/${homepage.context_path}/intro/search/indexAll.do?menu_idx=7"><img src="/resources/homepage/dgportal/img/qm02.png" alt="워킹스루"></a></li>
+				<li><a href="/elib/index.do" target="_blank"><img src="/resources/homepage/dgportal/img/qm03.png" alt="전자도서관"></a></li>
+			</ul>
+		</div>
 	</div>
 
 	<tiles:insertAttribute name="footer" />

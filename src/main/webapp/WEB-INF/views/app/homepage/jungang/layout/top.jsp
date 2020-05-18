@@ -37,8 +37,16 @@
 						<a href="/${homepage.context_path}/intro/join/findPwForm.do?menu_idx=7">비밀번호찾기</a>
 						<span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=8">통합회원인증</a>
+						<a href="https://twitter.com/tglnetlib" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/twitter.png" alt="트위터"></a>
+						<span></span>
+						<a href="https://www.facebook.com/tglnet/?ref=aymt_homepage_panel&eid=ARBF0x7CH2csV2V7L0aXEdhh4dIYs4K1IKdQSBAXVHW3pZ0IPcMg2ZCwYG5kNNr48Acmj11-YLdHKykL" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/facebook.png" alt="페이스북"></a>
+						<span></span>
+						<a href="https://www.instagram.com/tglnetlib/" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/instagram.png" alt="인스타그램"></a>
 					</c:otherwise>
 				</c:choose>
+			</div>
+			<div>
+
 			</div>
 		</div>
 	</div>

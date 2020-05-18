@@ -126,9 +126,9 @@
 									</a>
 								</li>
 								<li class="bg-lgray">
-									<a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=76" style="z-index: 9;">
-									<span class="wt">영화상영</span>
-									<span class="wc">다양한 영화를<Br/>감상해 보세요</span>
+									<a href="/${homepage.context_path}/board/index.do?menu_idx=183&manage_idx=315" style="z-index: 9;">
+									<span class="wt">온라인<br>독서문화행사</span>
+									<span class="wc">집에서도 독서문화행사에<Br/>참여하세요 </span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick05-bg.png" class="mi">
 									</a>
 								</li>

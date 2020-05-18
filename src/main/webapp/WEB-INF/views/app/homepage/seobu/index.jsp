@@ -180,7 +180,7 @@ do {
 								</a>
 							</li>
 							</c:if>
-							
+
 							<c:forEach var="i" varStatus="status" items="${noticeListTopNotice}" >
 							<li class="on-notice">
 								<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
@@ -212,8 +212,28 @@ do {
 
 					<div class="cont con" data-tab="tab2" style="display:none;">
 						<ul class="list">
+							<%--행사안내 목록 공지--%>
+							<c:if test="${fn:length(boardList1TopNotice) < 1}">
+							<li class="on-notice">
+								<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
+								<a href="#">
+									<em>등록된 공지사항이 없습니다.</em>
+									<span></span>
+								</a>
+							</li>
+							</c:if>
+
+							<c:forEach var="i" varStatus="status" items="${boardList1TopNotice}" >
+							<li class="on-notice">
+								<a href="/${homepage.context_path}/board/view.do?menu_idx=151&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+									<em>${i.title}</em>
+									<span><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
+								</a>
+							</li>
+							</c:forEach>
+							<%--행사안내 목록 공지--%>
 							<%--행사안내 목록--%>
-							<c:forEach var="i" varStatus="status" items="${boardList1}" >
+							<c:forEach var="i" varStatus="status" items="${boardList1}" begin="0" end="3">
 							<li>
 								<a href="/${homepage.context_path}/board/view.do?menu_idx=151&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 									<em>${i.title}</em>
@@ -272,7 +292,7 @@ do {
 					</ul>
 
 					<div class="box con" data-tab="tab1">
-						<ul class="book_photo">	
+						<ul class="book_photo">
 							<c:forEach items="${curationList}" var="curation">
 							<li>
 								<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=138&manage_idx=${curation.manage_idx}&board_idx=${curation.board_idx}">
