@@ -278,7 +278,7 @@ $(function() {
 
 
 			<c:choose>
-				<c:when test="${detail.MANAGE_CODE eq 'AJ'}">
+				<c:when test="${detail.MANAGE_CODE eq ''}">
 
 				</c:when>
 				<c:otherwise>
@@ -286,7 +286,7 @@ $(function() {
 			<!--워킹스루 시작-->
 			<c:if test="${detail.WORKING_STATUS eq 'BOL112N' }">
 
-			<c:if test="${detail.SHELF_LOC_CODE eq 'AD20' || detail.SHELF_LOC_CODE eq 'AD18' || detail.SHELF_LOC_CODE eq 'AD19' || detail.SHELF_LOC_CODE eq 'AD04' || detail.SHELF_LOC_CODE eq 'AD02' || detail.SHELF_LOC_CODE eq 'AD03' || detail.SHELF_LOC_CODE eq 'AD06' || detail.SHELF_LOC_CODE eq 'AD07' || detail.SHELF_LOC_CODE eq 'AD14' || detail.SHELF_LOC_CODE eq 'AD08' || detail.SHELF_LOC_CODE eq 'AD12' || detail.SHELF_LOC_CODE eq 'AD01' || detail.SHELF_LOC_CODE eq 'AD11' || detail.SHELF_LOC_CODE eq 'AD27' || detail.SHELF_LOC_CODE eq 'AH01' || detail.SHELF_LOC_CODE eq 'AH02' || detail.SHELF_LOC_CODE eq 'AH06' || detail.SHELF_LOC_CODE eq 'AH07' || detail.SHELF_LOC_CODE eq 'AH08' || detail.SHELF_LOC_CODE eq 'AH14' || detail.SHELF_LOC_CODE eq 'AH18' || detail.SHELF_LOC_CODE eq 'AH21' || detail.SHELF_LOC_CODE eq 'AH23' || detail.SHELF_LOC_CODE eq 'AH24' || detail.SHELF_LOC_CODE eq 'AH27' || detail.SHELF_LOC_CODE eq 'AG01' || detail.SHELF_LOC_CODE eq 'AG02' || detail.SHELF_LOC_CODE eq 'AG06' || detail.SHELF_LOC_CODE eq 'AG05' || detail.SHELF_LOC_CODE eq 'AG10' || detail.SHELF_LOC_CODE eq 'AG11' || detail.SHELF_LOC_CODE eq 'AG12' || detail.SHELF_LOC_CODE eq 'AG15' || detail.SHELF_LOC_CODE eq 'AG17' || detail.SHELF_LOC_CODE eq 'AA03' || detail.SHELF_LOC_CODE eq 'AA04' || detail.SHELF_LOC_CODE eq 'AA09' || detail.SHELF_LOC_CODE eq 'AA10' || detail.SHELF_LOC_CODE eq 'AA11' || detail.SHELF_LOC_CODE eq 'AA14' || detail.SHELF_LOC_CODE eq 'AA15' || detail.SHELF_LOC_CODE eq 'AA16' || detail.SHELF_LOC_CODE eq 'AA17' || detail.SHELF_LOC_CODE eq 'AA18' || detail.SHELF_LOC_CODE eq 'AA20' || detail.SHELF_LOC_CODE eq 'AA21' || detail.SHELF_LOC_CODE eq 'AA22' || detail.SHELF_LOC_CODE eq 'AA23' || detail.SHELF_LOC_CODE eq 'AA37' || detail.SHELF_LOC_CODE eq 'AA31' || detail.SHELF_LOC_CODE eq 'AA39' || detail.SHELF_LOC_CODE eq 'AA01' || detail.SHELF_LOC_CODE eq 'AA12' || detail.SHELF_LOC_CODE eq 'AA13' || detail.SHELF_LOC_CODE eq 'AA24' || detail.SHELF_LOC_CODE eq 'AA25' || detail.SHELF_LOC_CODE eq 'AA26' || detail.SHELF_LOC_CODE eq 'AA27' || detail.SHELF_LOC_CODE eq 'AA28' || detail.SHELF_LOC_CODE eq 'AF01' || detail.SHELF_LOC_CODE eq 'AF03' || detail.SHELF_LOC_CODE eq 'AF04' || detail.SHELF_LOC_CODE eq 'AF08' || detail.SHELF_LOC_CODE eq 'AF11' || detail.SHELF_LOC_CODE eq 'AF12' || detail.SHELF_LOC_CODE eq 'AF13' || detail.SHELF_LOC_CODE eq 'AE28' || detail.SHELF_LOC_CODE eq 'AC01' || detail.SHELF_LOC_CODE eq 'AC02' || detail.SHELF_LOC_CODE eq 'AC03' || detail.SHELF_LOC_CODE eq 'AC04' || detail.SHELF_LOC_CODE eq 'AC05' || detail.SHELF_LOC_CODE eq 'AC06' || detail.SHELF_LOC_CODE eq 'AC07' || detail.SHELF_LOC_CODE eq 'AC12' || detail.SHELF_LOC_CODE eq 'AB01' || detail.SHELF_LOC_CODE eq 'AB02' || detail.SHELF_LOC_CODE eq 'AB03' || detail.SHELF_LOC_CODE eq 'AB05' || detail.SHELF_LOC_CODE eq 'AB06' || detail.SHELF_LOC_CODE eq 'AJ01' || detail.SHELF_LOC_CODE eq 'AJ02' || detail.SHELF_LOC_CODE eq 'AJ09' || detail.SHELF_LOC_CODE eq 'AJ06' || detail.SHELF_LOC_CODE eq 'AJ07' || detail.SHELF_LOC_CODE eq 'AJ04' || detail.SHELF_LOC_CODE eq 'AJ48'}">
+			<c:if test="${detail.SHELF_LOC_CODE eq 'AD20' || detail.SHELF_LOC_CODE eq 'AD18' || detail.SHELF_LOC_CODE eq 'AD19' || detail.SHELF_LOC_CODE eq 'AD04' || detail.SHELF_LOC_CODE eq 'AD02' || detail.SHELF_LOC_CODE eq 'AD03' || detail.SHELF_LOC_CODE eq 'AD06' || detail.SHELF_LOC_CODE eq 'AD07' || detail.SHELF_LOC_CODE eq 'AD14' || detail.SHELF_LOC_CODE eq 'AD08' || detail.SHELF_LOC_CODE eq 'AD12' || detail.SHELF_LOC_CODE eq 'AD01' || detail.SHELF_LOC_CODE eq 'AD11' || detail.SHELF_LOC_CODE eq 'AD27' || detail.SHELF_LOC_CODE eq 'AH01' || detail.SHELF_LOC_CODE eq 'AH02' || detail.SHELF_LOC_CODE eq 'AH06' || detail.SHELF_LOC_CODE eq 'AH07' || detail.SHELF_LOC_CODE eq 'AH08' || detail.SHELF_LOC_CODE eq 'AH14' || detail.SHELF_LOC_CODE eq 'AH18' || detail.SHELF_LOC_CODE eq 'AH21' || detail.SHELF_LOC_CODE eq 'AH23' || detail.SHELF_LOC_CODE eq 'AH24' || detail.SHELF_LOC_CODE eq 'AH27' || detail.SHELF_LOC_CODE eq 'AG01' || detail.SHELF_LOC_CODE eq 'AG02' || detail.SHELF_LOC_CODE eq 'AG06' || detail.SHELF_LOC_CODE eq 'AG05' || detail.SHELF_LOC_CODE eq 'AG10' || detail.SHELF_LOC_CODE eq 'AG11' || detail.SHELF_LOC_CODE eq 'AG12' || detail.SHELF_LOC_CODE eq 'AG15' || detail.SHELF_LOC_CODE eq 'AG17' || detail.SHELF_LOC_CODE eq 'AA03' || detail.SHELF_LOC_CODE eq 'AA04' || detail.SHELF_LOC_CODE eq 'AA09' || detail.SHELF_LOC_CODE eq 'AA10' || detail.SHELF_LOC_CODE eq 'AA11' || detail.SHELF_LOC_CODE eq 'AA14' || detail.SHELF_LOC_CODE eq 'AA15' || detail.SHELF_LOC_CODE eq 'AA16' || detail.SHELF_LOC_CODE eq 'AA17' || detail.SHELF_LOC_CODE eq 'AA18' || detail.SHELF_LOC_CODE eq 'AA20' || detail.SHELF_LOC_CODE eq 'AA21' || detail.SHELF_LOC_CODE eq 'AA22' || detail.SHELF_LOC_CODE eq 'AA23' || detail.SHELF_LOC_CODE eq 'AA37' || detail.SHELF_LOC_CODE eq 'AA31' || detail.SHELF_LOC_CODE eq 'AA39' || detail.SHELF_LOC_CODE eq 'AA01' || detail.SHELF_LOC_CODE eq 'AA12' || detail.SHELF_LOC_CODE eq 'AA13' || detail.SHELF_LOC_CODE eq 'AA24' || detail.SHELF_LOC_CODE eq 'AA25' || detail.SHELF_LOC_CODE eq 'AA26' || detail.SHELF_LOC_CODE eq 'AA27' || detail.SHELF_LOC_CODE eq 'AA28' || detail.SHELF_LOC_CODE eq 'AF01' || detail.SHELF_LOC_CODE eq 'AF03' || detail.SHELF_LOC_CODE eq 'AF04' || detail.SHELF_LOC_CODE eq 'AF08' || detail.SHELF_LOC_CODE eq 'AF11' || detail.SHELF_LOC_CODE eq 'AF12' || detail.SHELF_LOC_CODE eq 'AF13' || detail.SHELF_LOC_CODE eq 'AE28' || detail.SHELF_LOC_CODE eq 'AC01' || detail.SHELF_LOC_CODE eq 'AC02' || detail.SHELF_LOC_CODE eq 'AC03' || detail.SHELF_LOC_CODE eq 'AC04' || detail.SHELF_LOC_CODE eq 'AC05' || detail.SHELF_LOC_CODE eq 'AC06' || detail.SHELF_LOC_CODE eq 'AC07' || detail.SHELF_LOC_CODE eq 'AC12' || detail.SHELF_LOC_CODE eq 'AB01' || detail.SHELF_LOC_CODE eq 'AB02' || detail.SHELF_LOC_CODE eq 'AB03' || detail.SHELF_LOC_CODE eq 'AB05' || detail.SHELF_LOC_CODE eq 'AB06' || detail.SHELF_LOC_CODE eq 'AJ01' || detail.SHELF_LOC_CODE eq 'AJ02' || detail.SHELF_LOC_CODE eq 'AJ09' || detail.SHELF_LOC_CODE eq 'AJ06' || detail.SHELF_LOC_CODE eq 'AJ07' || detail.SHELF_LOC_CODE eq 'AJ04' || detail.SHELF_LOC_CODE eq 'AJ48' || detail.SHELF_LOC_CODE eq 'AE01' || detail.SHELF_LOC_CODE eq 'AE05' || detail.SHELF_LOC_CODE eq 'AE12' || detail.SHELF_LOC_CODE eq 'AE19' || detail.SHELF_LOC_CODE eq 'AE03' || detail.SHELF_LOC_CODE eq 'AE11' || detail.SHELF_LOC_CODE eq 'AE20' || detail.SHELF_LOC_CODE eq 'AE22' || detail.SHELF_LOC_CODE eq 'AE23'}">
 
 			<c:choose>
 				<c:when test="${detail.RESERVATION_CNT > '0'}">
@@ -386,7 +386,7 @@ $(function() {
 												<c:otherwise>
 
 													<c:choose>
-														<c:when test="${detail.MANAGE_CODE eq 'AA' || detail.MANAGE_CODE eq 'AF'}">
+														<c:when test="${detail.MANAGE_CODE eq 'AA' || detail.MANAGE_CODE eq 'AF' || detail.MANAGE_CODE eq 'AJ'}">
 															<a href="#" id="resve-req-not" class="btn btn5">예약불가</a>
 														</c:when>
 														<c:otherwise>
@@ -418,7 +418,7 @@ $(function() {
 										</c:when>
 										<c:otherwise>
 													<c:choose>
-														<c:when test="${detail.MANAGE_CODE eq 'AA' || detail.MANAGE_CODE eq 'AF'}">
+														<c:when test="${detail.MANAGE_CODE eq 'AA' || detail.MANAGE_CODE eq 'AF' || detail.MANAGE_CODE eq 'AJ'}">
 															<a href="#" id="resve-req-not" class="btn btn5">예약불가</a>
 														</c:when>
 														<c:otherwise>
@@ -442,7 +442,7 @@ $(function() {
 
 			<a href="index.do?menu_idx=${param.menu_idx}" id="goBack" class="btn"><i class="fa fa-book"></i><span>목록으로</span></a>
 
-			<c:if test="${not empty loginPortal and loginPortal.login and detail.MANAGE_CODE ne 'AJ'}">
+			<c:if test="${not empty loginPortal and loginPortal.login}">
 			<a href="#" id="interest" class="btn"><span>교수학습 택배용 관심도서</span></a>
 			</c:if>
 		</div>

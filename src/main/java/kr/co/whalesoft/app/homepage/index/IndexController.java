@@ -192,7 +192,7 @@ public class IndexController extends BaseController {
 		if("geic".equals(contextPath)) {
 			closedDay = calendarManageService.getClosedDate3(calendarManage);
 		} else {
-			if(homepage.getHomepage_id().equals("h6") || homepage.getHomepage_id().equals("h4")) {
+			if(homepage.getHomepage_id().equals("h4")) {
 				closedDay = calendarManageService.getClosedDate4(calendarManage);
 			} else {
 				closedDay = calendarManageService.getClosedDate2(calendarManage);
