@@ -59,6 +59,8 @@
 			delete_yn = 'N'
 		AND parent_id = #{teach_code}
 		AND	homepage_id = #{homepage_id}
+		ORDER BY
+			display_seq
 	</select>
 
 	<select id="subCategoryCheck" resultType="int">
