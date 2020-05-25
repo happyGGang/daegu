@@ -777,18 +777,22 @@ public class BoardController extends BaseController {
 			boardData.setPassword_yn("Y");
 		}
 
-		if(boardData != null && StringUtils.equals(boardData.getSecret_yn(), "Y")) {
+		if((boardData != null && StringUtils.equals(boardData.getSecret_yn(), "Y"))
+				|| (boardManage.getBoard_type().equals("CUSTOM") && boardData.getCategory3().equals("0002"))) {
 			boolean isBoardAdmin = false;
+			boolean isSupportAdmin = false;
 			try {
 				isBoardAdmin = (Boolean) model.asMap().get("authMBA");
+				isSupportAdmin = (Boolean) model.asMap().get("authMBS");
 			} catch ( Exception e ) {
 			}
 			if (getSessionIsAdmin(request)) {
 				isBoardAdmin = true;
+				isSupportAdmin = true;
 			}
 
 
-			if(!isBoardAdmin && !supportAdmin && !portal_auth.equals("2")) {
+			if(!isBoardAdmin && !isSupportAdmin && !supportAdmin && !portal_auth.equals("2")) {
 				//게시판관리자는 그냥 통과한다.
 
     			if (!isLogin(request)) {

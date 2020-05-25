@@ -26,7 +26,7 @@
 				<dd class="info">
 					<div class="panel-left">
 						<c:choose>
-						<c:when test="${boardManage.anonymize_yn eq 'Y' and not authMBA}">
+						<c:when test="${boardManage.anonymize_yn eq 'Y' and not authMBA and not authMBS}">
 						<c:set var="user_name" value="${fn:substring(board.user_name, -1, 1)}**"/>
 						</c:when>
 						<c:otherwise>
