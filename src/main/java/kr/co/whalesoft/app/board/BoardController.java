@@ -778,7 +778,7 @@ public class BoardController extends BaseController {
 		}
 
 		if((boardData != null && StringUtils.equals(boardData.getSecret_yn(), "Y"))
-				|| (boardManage.getBoard_type().equals("CUSTOM") && boardData.getCategory3().equals("0002"))) {
+				|| (boardManage.getBoard_type().equals("CUSTOM") && StringUtils.isNotEmpty(boardData.getCategory3()) && boardData.getCategory3().equals("0002"))) {
 			boolean isBoardAdmin = false;
 			boolean isSupportAdmin = false;
 			try {
@@ -1348,20 +1348,23 @@ public class BoardController extends BaseController {
 //			if (isBoardAdmin(board, request)) {
 //
 //			}
+			
 			try {
 				checkAuth("D", model, request);
 			} catch (AuthException e1) {
 			}
 			boolean isBoardAdmin = false;
+			boolean isSupportAdmin = false;
 			try {
 				isBoardAdmin = (Boolean) model.asMap().get("authMBA");
+				isSupportAdmin = (Boolean) model.asMap().get("authMBS");
 			} catch ( Exception e ) {
 			}
 			if (getSessionIsAdmin(request)) {
 				isBoardAdmin = true;
 			}
 
-			if (!isBoardAdmin) {
+			if (!isBoardAdmin && !isSupportAdmin) {
 
 				//원글이 비회원의 글인지 확인
 				if (boardOne.getAdd_id().equals("ANONYMOUS")) {
