@@ -231,7 +231,9 @@ input[type="checkbox"]:focus {outline: 1px solid red;}
 				<td>
 				<c:choose>
 					<c:when test="${loginSupport.auth_group eq '3'}">
-					<form:hidden path="request_status" value="0"/>신청중
+						<form:hidden path="request_status" value="0"/>
+						<c:if test="${bookPackage.lender_count == 0}">신청중</c:if>
+						<c:if test="${bookPackage.request_status > 0}">예약상담중</c:if>
 					</c:when>
 					<c:otherwise>
 					<form:select path="request_status" cssClass="selectmenu">
