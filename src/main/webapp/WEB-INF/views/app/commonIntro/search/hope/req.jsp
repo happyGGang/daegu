@@ -86,7 +86,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 		<c:if test="${homepage.context_path ne 'nambu' and homepage.context_path ne 'std'}">
 		<tr>
 			<th>우선대출예약여부</th>
-			<td><form:checkbox path="reservation_yn" class="text" value="Y"/> <label for="reservation_yn1">우선대출을 원하실 경우 체크를 해주세요</label></td>
+			<td><form:checkbox path="reservation_yn" class="text" value="Y" checked="checked"/> <label for="reservation_yn1">우선대출을 원하실 경우 체크를 해주세요</label></td>
 		</tr>
 		</c:if>
 	</tbody></table>
