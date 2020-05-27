@@ -16,7 +16,7 @@
 		${pagingTop}
 		SELECT
 			<include refid="field"/>,
-			(SELECT COUNT(*) FROM BOOK_PACKAGE_LOAN WHERE book_package_idx = a.book_package_idx AND request_status = 2) AS lender_count
+			(SELECT COUNT(*) FROM BOOK_PACKAGE_LOAN WHERE book_package_idx = a.book_package_idx AND request_status IN (0, 1, 2)) AS lender_count
 		FROM
 			BOOK_PACKAGE a
 		<trim prefix="WHERE" prefixOverrides="AND">
@@ -35,7 +35,7 @@
 				<when test="lender_count == 0"><![CDATA[=]]></when>
 				<when test="lender_count == 1"><![CDATA[<=]]></when>
 			</choose>
-			(SELECT COUNT(*) FROM BOOK_PACKAGE_LOAN WHERE book_package_idx = a.book_package_idx)
+			(SELECT COUNT(*) FROM BOOK_PACKAGE_LOAN WHERE book_package_idx = a.book_package_idx AND request_status IN (0, 1, 2))
 			</if>
 		</trim>
 		ORDER BY book_package_idx DESC
@@ -64,7 +64,7 @@
 				<when test="lender_count == 0"><![CDATA[=]]></when>
 				<when test="lender_count == 1"><![CDATA[<=]]></when>
 			</choose>
-			(SELECT COUNT(*) FROM BOOK_PACKAGE_LOAN WHERE book_package_idx = a.book_package_idx)
+			(SELECT COUNT(*) FROM BOOK_PACKAGE_LOAN WHERE book_package_idx = a.book_package_idx AND request_status IN (0, 1, 2))
 			</if>
 		</trim>
 	</select>
@@ -72,7 +72,7 @@
 	<select id="getBookPackageOne" resultType="kr.go.gbelib.app.cms.module.bookPackage.BookPackage">
 		SELECT
 			<include refid="field"/>,
-			(SELECT COUNT(*) FROM BOOK_PACKAGE_LOAN WHERE book_package_idx = a.book_package_idx AND request_status NOT IN (3, 5)) AS lender_count
+			(SELECT COUNT(*) FROM BOOK_PACKAGE_LOAN WHERE book_package_idx = a.book_package_idx AND request_status NOT IN (3, 4, 5)) AS lender_count
 		FROM
 			BOOK_PACKAGE a
 		WHERE
