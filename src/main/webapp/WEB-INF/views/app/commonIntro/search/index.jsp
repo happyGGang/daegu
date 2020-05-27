@@ -372,6 +372,7 @@ $(function() {
 								<form:option value="AUTHOR">저자</form:option>
 								<form:option value="PUBLISHER">발행처</form:option>
 								<form:option value="PUB_YEAR">발행년도</form:option>
+								<form:option value="SHELF_DATE">배가일</form:option>
 							</form:select>
 							<form:select path="sortType" cssClass="text-area01">
 								<form:option value="ASC">오름차순</form:option>
