@@ -3,40 +3,74 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
-<script type="text/javascript">
-$(function() {
+<c:choose>
+	<c:when test="${homepage.context_path eq 'dmsl'}">
+	<script type="text/javascript">
+	$(function() {
 
-	$('#save-btn').on('click', function(e) {
-		e.preventDefault();
-		if (!confirm('무인예약 신청을 하시겠습니까?')) {
-			return false;
-		}
+		$('#save-btn').on('click', function(e) {
+			e.preventDefault();
+			if (!confirm('별관 이동도서관 신청을 하시겠습니까?')) {
+				return false;
+			}
 
-		if ($('select#worker').val() == '') {
-			alert('수령장소를 선택하세요.');
-			$('select#worker').focus();
-			return false;
-		}
+			if (doAjaxPost($('form#librarySearch'))) {
+				history.back();
+			}
+		});
 
-		if (doAjaxPost($('form#librarySearch'))) {
-			history.back();
-		}
 	});
+	</script>
+	</c:when>
+	<c:otherwise>
+	<script type="text/javascript">
+	$(function() {
 
-});
-</script>
+		$('#save-btn').on('click', function(e) {
+			e.preventDefault();
+			if (!confirm('무인예약 신청을 하시겠습니까?')) {
+				return false;
+			}
+
+			if ($('select#worker').val() == '') {
+				alert('수령장소를 선택하세요.');
+				$('select#worker').focus();
+				return false;
+			}
+
+			if (doAjaxPost($('form#librarySearch'))) {
+				history.back();
+			}
+		});
+
+	});
+	</script>
+	</c:otherwise>
+</c:choose>
+
 
 
 <!-- contents-title-->
 <div id="contents-title">
+<c:choose>
+	<c:when test="${homepage.context_path eq 'dmsl'}">
+	<h2>별관 이동도서관 신청을 위한 신청사항<span style="font-weight:300">을 확인하세요.</span></h2>
+	</c:when>
+	<c:otherwise>
 	<h2>무인예약 신청을 위한 신청사항<span style="font-weight:300">을 확인하세요.</span></h2>
+	</c:otherwise>
+</c:choose>
+	
 </div>
 <!-- /contents-title-->
 
 <form:form modelAttribute="librarySearch" action="save.do" method="post" onsubmit="return false;">
 <form:hidden path="bookkey"/>
-<form:hidden path="booktype"/>
+<input type="hidden" name="booktype" id="booktype" value="${fn:substring(detail.WORKING_STATUS,0,2) }"/>
 <input type="hidden" name="title" value="${detail.TITLE_INFO}"/>
+<c:if test="${homepage.context_path eq 'dmsl'}">
+<input type="hidden" name="exprire_date_cnt" value="7"/>
+</c:if>
 <c:if test="${homepage.context_path eq 'jungang'}">
 <input type="hidden" name="exprire_date_cnt" value="7"/>
 </c:if>
@@ -61,7 +95,12 @@ $(function() {
 				<th>소장도서관</th>
 				<td class="left">${detail.LIB_NAME}</td>
 			 </tr>
-			 <tr>
+			<c:choose>
+			<c:when test="${homepage.context_path eq 'dmsl'}">
+			<input type="hidden" name="worker" id="worker" value="DMSL0011"/>
+			</c:when>
+			<c:otherwise>
+			<tr>
 				<th>수령장소</th>
 				<td class="left">
 					<form:select path="worker" style="border:1px solid #c9c9c9;border-radius:4px;height:30px">
@@ -73,7 +112,10 @@ $(function() {
 						</c:if>
 					</form:select>
 				</td>
-			 </tr>
+			</tr>
+			</c:otherwise>
+			</c:choose>
+
 			 <tr>
 				<th>도서명</th>
 				<td class="left">${detail.TITLE_INFO}</td>

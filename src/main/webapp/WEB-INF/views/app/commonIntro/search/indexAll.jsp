@@ -23,6 +23,14 @@ $(function() {
 	//검색하기
 	$('a#search-btn').on('click', function(e) {
 		e.preventDefault();
+
+		if ($('input#title').val() == '' && $('input#author').val() == '' && $('input#publer').val() == '' && $('input#keyword').val() == '') {
+			alert('검색어를 입력하세요!');
+			$('input#title').focus();
+
+			return false;
+		}
+
 		$('input#viewPage').val('1');
 		doGetLoad('indexAll.do', $form.serialize());
 	});
@@ -171,7 +179,7 @@ $(function() {
 	$('a#reset-btn').on('click', function(e) {
 		e.preventDefault();
 		location.href='/intro/${homepage.context_path}/search/indexAll.do';
-		$('#title').focus();
+		//$('#title').focus();
 	});
 
 	<%--패싯검색--%>
@@ -261,9 +269,25 @@ $(function() {
 		$('input#viewPage').val('1');
 		doGetLoad('indexAll.do', $('form#librarySearch').serialize());
 	});
+
+	$('#meta-search').on('click', function(e) {
+		e.preventDefault();
+		searchText = $('input#title').val();
+		$('#text1').val(searchText);
+		$('form#direct').submit();
+	});
 });
 
 </script>
+
+<form id="direct" name="direct" action="http://152.99.21.156/DG/" method="post" target="_blank">
+<input type="hidden" name="m" value="direct">
+<input type="hidden" name="skey" value="1077">
+<input type="hidden" name="charset" value="utf-8">
+<input type="hidden" name="userid" value="">
+<input type="hidden" name="dbGroup" value="0"/ checked>
+<input type="hidden" name="text1" id="text1">
+</form>
 
 <!-- contents-title-->
 <div id="contents-title"></div>
@@ -282,13 +306,14 @@ $(function() {
 				<div class="section">
 
 					<div class="title-box">
-						<form:input path="title" class="text-area" placeholder="도서 제목을 입력하세요"/><a id="vk-popup" class="btnNew2 foreign-inp">다국어입력기</a>
+						<form:input path="title" class="text-area" placeholder="도서 제목을 입력하세요"/> <a id="search-btn" class="btnNew foreign-inp">검색하기</a>
 					</div>
 
 					<div class="main-menu">
 						<div class="right">
 							<ul>
-								<li><a href="javascript:void(0);" class="onclick" id="search_type" class="btnNew2">상세검색</a></li>
+								<li><a id="vk-popup" class="btnNew2">다국어입력기</a></li>
+								<li><a href="javascript:void(0);" id="search_type" class="btnNew2">상세검색</a></li>
 							</ul>
 						</div>
 						<div class="clear"></div>
@@ -355,9 +380,10 @@ $(function() {
 				</div>
 
 				<div class="btn_w">
-					<a id="search-btn" class="btnNew">검색하기</a>
+					
 					<a id="reset-btn" class="btnNew1">검색초기화</a>
 					<a href="javascript:void(0);" id="btn_search_target" class="btnNew5">도서관선택</a>
+					<c:if test="${librarySearch.totalDataCount eq 0}"><a href="http://152.99.21.156/DG/index.php/default_search" target="_blank" class="btnNew6">구·군립 도서관 자료 검색하기</a></c:if>
 				</div>
 
 
@@ -521,15 +547,21 @@ $(function() {
 				※ 검색결과 총 <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/></b>건이 검색되었습니다.
 			</div>
 
-			<div class="research-box">
-				<select id="subSearchType" class="text-area01">
-					<option value="title">서명</option>
-					<option value="author">저자</option>
-					<option value="publer">발행처</option>
-					<option value="keyword">키워드</option>
-				</select>
-				<input id="subSearchText" placeholder="결과 내 재검색" class="text-area01" />
-				<a href="#" id="subSearch" class="btn">결과 내 재검색</a>
+			<div class="" style="position:relative;overflow:hidden;padding-top:5px;">
+				<div class="research-box">
+					<select id="subSearchType" class="text-area01">
+						<option value="title">서명</option>
+						<option value="author">저자</option>
+						<option value="publer">발행처</option>
+						<option value="keyword">키워드</option>
+					</select>
+					<input id="subSearchText" placeholder="결과 내 재검색" class="text-area01" />
+					<a href="#" id="subSearch" class="btn">결과 내 재검색</a>
+				</div>
+
+				<div class="gugun-search">
+					<a href="#gugunsearch" id="meta-search" class="btn btn8">더 많은 검색결과를 원하십니까?</a>
+				</div>
 			</div>
 
 			<div class="smain">

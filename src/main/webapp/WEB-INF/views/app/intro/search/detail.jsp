@@ -270,6 +270,50 @@ $(function() {
 			<c:if test="${detail.SANGHO_REQ_YN eq 'Y'}">
 			<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
 			</c:if>
+
+
+
+			<c:choose>
+				<c:when test="${detail.MANAGE_CODE eq 'FV'}">
+
+					<!--워킹스루 시작-->
+					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' }">
+
+					<c:choose>
+						<c:when test="${detail.RESERVATION_CNT > '0'}">
+
+						</c:when>
+						<c:otherwise>
+							<%
+							org.joda.time.DateTime now = new org.joda.time.DateTime();
+							int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
+							int hour = now.getHourOfDay();
+
+							if(9 <= hour && hour < 17)
+							{
+							%>
+								<a href="#night" id="night-req" class="btn">워킹스루예약신청</a>
+							<%
+							}
+							else
+							{
+							%>
+								<a href="#" class="btn btn1" onclick="alert('신청가능 시간이 아닙니다.');">워킹스루예약신청</a>
+							<%
+							}
+							%>
+						</c:otherwise>
+					</c:choose>
+
+					</c:if>
+
+				</c:when>
+				<c:otherwise>
+
+				</c:otherwise>
+			</c:choose>
+
+
 <!--
 AD02  고전(인문)
 AD03 북큐레이션(인문)
@@ -299,6 +343,15 @@ AD20 종합자료실
 					<c:if test="${detail.SHELF_LOC_CODE eq 'AA04'}">
 					<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
 					<!-- <a href="#night" id="night-req" class="btn">야간예약신청</a> -->
+					</c:if>
+					</c:if>
+					</c:if>
+				</c:when>
+				<c:when test="${homepage.context_path eq 'dmsl'}">
+					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
+					<c:if test="${detail.RESERVATION_CNT eq '0'}">
+					<c:if test="${sessionScope.member.user_class_code eq '701'}">
+					<a href="#muin" id="unmanned-req" class="btn">별관 이동도서관 신청</a>
 					</c:if>
 					</c:if>
 					</c:if>

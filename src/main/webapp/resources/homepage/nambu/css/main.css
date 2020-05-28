@@ -88,7 +88,7 @@
 .main2 .main2box1 .main2box1box2 div.holiday-box div.box span {display:block;font-size:17px;font-weight:bold;color:#edd355;}
 
 .main2 .main2box1 .main2box1box2 div.holiday-box .list-box {position:absolute;width:49.5%;height:104px;left:50%;top:0;box-sizing:border-box;padding:10px;}
-.main2 .main2box1 .main2box1box2 div.holiday-box .list-box li {display:inline-block;float:left;font-size:15px;width:25px!important;height:25px;line-height:26px;background:#fff;color:#000;border-radius:5px;text-align:center;font-weight:bold;margin-right:5px;margin-bottom:5px;}
+.main2 .main2box1 .main2box1box2 div.holiday-box .list-box li {display:inline-block;float:left;font-size: 13px;width: 20px!important;height: 20px;line-height: 20px;background:#fff;color:#000;border-radius: 5px;text-align:center;font-weight:bold;margin-right: 6px;margin-bottom: 2px;}
 .main2 .main2box1 .main2box1box2 div.holiday-box .bx-prev {position:absolute;width:24px;height:52px;font-size:0;top:0;right:-1px;background:url("../img/calender_slider_arr.png") no-repeat 0 0;z-index:111;}
 .main2 .main2box1 .main2box1box2 div.holiday-box .bx-next {position:absolute;width:24px;height:52px;font-size:0;bottom:0;right:-1px;background:url("../img/calender_slider_arr.png") no-repeat 0 100%;z-index:111;}
 

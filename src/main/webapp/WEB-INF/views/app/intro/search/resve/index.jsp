@@ -89,10 +89,28 @@ $(function() {
 									일반예약
 									</c:when>
 									<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
-									무인예약신청
+
+										<c:choose>
+											<c:when test="${homepage.context_path eq 'dmsl'}">
+											별관 이동도서관 신청
+											</c:when>
+											<c:otherwise>
+											무인예약신청
+											</c:otherwise>
+										</c:choose>
+
 									</c:when>
 									<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
-									무인예약대기
+
+										<c:choose>
+											<c:when test="${homepage.context_path eq 'dmsl'}">
+											별관 이동도서관 신청 예약대기
+											</c:when>
+											<c:otherwise>
+											무인예약대기
+											</c:otherwise>
+										</c:choose>
+									
 									</c:when>
 									<c:otherwise>
 									일반예약

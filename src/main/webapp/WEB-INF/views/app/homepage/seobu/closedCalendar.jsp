@@ -59,6 +59,8 @@ $(function() {
 		</div>
 	</div>
 	<dl class="info">
+	<!--<dd>별도 공지시까지 휴관</dd>	-->
+	
 		<c:if test="${empty closeDayList.dd}">
 			<dd>등록된 휴일이 없습니다.</dd>
 		</c:if>
@@ -70,5 +72,6 @@ $(function() {
 				</c:forEach>
 			</dd>
 		</c:if>
+
 	</dl>
 </div>
