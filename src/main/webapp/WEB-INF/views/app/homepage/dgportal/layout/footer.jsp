@@ -113,8 +113,9 @@
 				<address>
 					<p>
 						<em>(${homepage.zipcode}) <br class="mobileBr"/>${homepage.address1}</em><br class="mobileBr"/>
-						<em>전화 ${fn:split(homepage.homepage_tell,',')[0]}</em>
-						<em>팩스 ${homepage.homepage_fax }</em>
+						<!--em>전화 ${fn:split(homepage.homepage_tell,',')[0]}</em>
+						<em>팩스 ${homepage.homepage_fax }</em-->
+						<em><a href="/dgportal/html.do?menu_idx=79&temp_yn=Y"><span style="color:#fff;font-size: 15px;">[문의처 확인]</span></a></em>
 					</p>
 				</address>
 			</div>

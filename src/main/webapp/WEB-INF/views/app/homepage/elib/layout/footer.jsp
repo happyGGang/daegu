@@ -17,8 +17,10 @@
 			<div class="site_address">
 				<address>
 					<p>
-						<em>(${homepage.zipcode}) <br class="mobileBr"/>${homepage.address1}</em><br class="mobileBr"/>
-						<em>전화번호 : 053)231-2038  I  팩스 : 053)256-9973</em>
+						<em>(${homepage.zipcode}) <br class="mobileBr"/>${homepage.address1}</em><br/>
+						<em><b>PC 문의사항:</b> 070-8768-8902&nbsp;&nbsp;&nbsp;<br class="mobileBr"/><b>모바일(앱) 문의사항:</b> 02)2024-9791&nbsp;&nbsp;&nbsp;<br class="mobileBr"/><b>전자도서관 일반문의:</b> 053)231-2037, 2039&nbsp;&nbsp;&nbsp;</em><br/>
+						<em><b>근무시간:</b> 월 ~ 금 09:00 ~ 18:00 (토,일,공휴일 휴무)</em>
+						<!-- <em>전화번호 : 053)231-2037  I  팩스 : 053)256-9973</em> -->
 					</p> 
 					
 				</address>
@@ -27,7 +29,7 @@
 			<div class="site_link">
 				<select id="recommendSite1" class="recommendSite1">
 					<option value="" style="color:#000;">대구광역시 공공도서관</option>
-					<!--option value="http://library.daegu.go.kr/dgportal/index.do" style="color:#000;">대구광역시통합도서관</option-->
+					<option value="http://library.daegu.go.kr/dgportal/index.do" style="color:#000;">대구광역시통합도서관</option>
 					<option value="http://library.daegu.go.kr/228/index.do" style="color:#000;">대구2·28기념학생도서관</option>
 					<option value="http://library.daegu.go.kr/228lib/index.do" style="color:#000;">대구2·28민주운동기념회관</option>
 					<option value="http://library.daegu.go.kr/nambu/index.do" style="color:#000;">대구광역시립 남부도서관</option>
