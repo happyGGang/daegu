@@ -142,8 +142,12 @@ public class CommonLoginController extends BaseController {
 					if (member.getAuthGroupIdxList() == null || member.getAuthGroupIdxList().size() < 1) {
 						member.setAuthGroupIdxList(new ArrayList<Integer>());
 
+						//관리자 링크회원이면 기존 그룹에 추가
+						member.setAuthGroupIdxList(memberGroupSubordService.getAuthGroupIdxList(adminMember));
 						//통합회원그룹에 속하게 한다. 도서관은 하드코딩한다...
-						member.getAuthGroupIdxList().add(3);
+						if (!member.getAuthGroupIdxList().contains(3)) {
+							member.getAuthGroupIdxList().add(3);
+						}
 
 						MemberGroup memberGroup = new MemberGroup();
 						memberGroup.setSite_id(homepage.getHomepage_id());
