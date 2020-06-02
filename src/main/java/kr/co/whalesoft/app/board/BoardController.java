@@ -873,7 +873,21 @@ public class BoardController extends BaseController {
 		}
 
 		//조회수 증가
-		service.addViewCount(board);
+		if (boardManage.getBoard_type().equals("QNA")) {
+			int depth_idx = request.getParameter("depth_idx") !=null ? Integer.parseInt(request.getParameter("depth_idx")) : 0;
+			Board depthBaord = new Board();
+			depthBaord.setManage_idx(board.getManage_idx());
+			
+			if(depth_idx != 0) {
+				depthBaord.setBoard_idx(depth_idx);
+			} else {
+				depthBaord.setBoard_idx(board.getBoard_idx());
+			}
+			
+			service.addViewCount(depthBaord);
+		} else {
+			service.addViewCount(board);
+		}
 //
 		model.addAttribute("board", boardData);
 //
