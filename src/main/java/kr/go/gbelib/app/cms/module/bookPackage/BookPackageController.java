@@ -1,5 +1,6 @@
 package kr.go.gbelib.app.cms.module.bookPackage;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -12,15 +13,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
+import kr.co.whalesoft.framework.utils.AttachmentUtils;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
@@ -269,5 +277,44 @@ public class BookPackageController extends BaseController {
 
 		return new BookPackageView();
 	}
+	
+	@RequestMapping(value = "/download/{book_package_idx}.*", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<byte[]> getFile(@PathVariable("book_package_idx") int book_package_idx, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		BookPackage bookPackage = new BookPackage();
+		bookPackage.setBook_package_idx(book_package_idx);
+		bookPackage = service.getBookPackageOne(bookPackage);
+		
+		HttpHeaders responseHeaders = new HttpHeaders();
+		byte[] bytes = null;
 
+		if(bookPackage == null) {
+			responseHeaders.setContentType(MediaType.valueOf("text/html"));
+			service.alertMessage("파일이 존재하지 않습니다.", request, response);
+			return null;
+		}
+
+		String filePath = service.getRootPath() + "/" + bookPackage.getDoc_server_file_name();
+		File file = new File(filePath);
+
+		if(file.length() > 0) {
+			bytes = FileCopyUtils.copyToByteArray(file);
+		} else {
+			responseHeaders.setContentType(MediaType.valueOf("text/html"));
+			service.alertMessage("파일이 존재하지 않습니다.", request, response);
+			return null;
+		}
+
+		String fileName = String.format("%s.%s", bookPackage.getDoc_org_file_name(),bookPackage.getDoc_file_extension() );
+		String fileType = bookPackage.getDoc_file_extension().toUpperCase();
+
+		responseHeaders.set("Content-Disposition", AttachmentUtils.getContentDisposition(fileName, request.getHeader("user-agent")));
+		responseHeaders.setPragma("no-cache;");
+		responseHeaders.setExpires(-1);
+		responseHeaders.setContentType(MediaType.valueOf(AttachmentUtils.getContentType(fileType)));
+		responseHeaders.setContentLength(bytes.length);
+
+		return new ResponseEntity<byte[]>(bytes, responseHeaders, HttpStatus.OK);
+	}
+	
 }

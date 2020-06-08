@@ -32,10 +32,15 @@ public class BookPackage extends PagingUtils {
 	private String server_file_name; // 서버파일명
 	private String file_extension; // 파일확장자
 	private long file_size; // 파일크기
+	private String doc_org_file_name;
+	private String doc_server_file_name;
+	private String doc_file_extension;
+	private long doc_file_size;
 
 	private int lender_count = -1; // 대출자 수
 
 	private MultipartFile mfile;
+	private MultipartFile doc_file;
 
 	// 대출신청리스트
 	private int book_package_loan_idx; // 책꾸러미 대출IDX
@@ -241,6 +246,38 @@ public class BookPackage extends PagingUtils {
 	public long getFile_size() {
 		return file_size;
 	}
+	
+	public String getDoc_org_file_name() {
+		return doc_org_file_name;
+	}
+	
+	public void setDoc_org_file_name(String doc_org_file_name) {
+		this.doc_org_file_name = doc_org_file_name;
+	}
+	
+	public String getDoc_server_file_name() {
+		return doc_server_file_name;
+	}
+	
+	public void setDoc_server_file_name(String doc_server_file_name) {
+		this.doc_server_file_name = doc_server_file_name;
+	}
+	
+	public String getDoc_file_extension() {
+		return doc_file_extension;
+	}
+
+	public void setDoc_file_extension(String doc_file_extension) {
+		this.doc_file_extension = doc_file_extension;
+	}
+	
+	public long getDoc_file_size() {
+		return doc_file_size;
+	}
+	
+	public void setDoc_file_size(long doc_file_size) {
+		this.doc_file_size = doc_file_size;
+	}
 
 	public void setFile_size(long file_size) {
 		this.file_size = file_size;
@@ -260,6 +297,14 @@ public class BookPackage extends PagingUtils {
 
 	public void setMfile(MultipartFile mfile) {
 		this.mfile = mfile;
+	}
+	
+	public MultipartFile getDoc_file() {
+		return doc_file;
+	}
+	
+	public void setDoc_file(MultipartFile doc_file) {
+		this.doc_file = doc_file;
 	}
 
 	public int getBook_package_loan_idx() {

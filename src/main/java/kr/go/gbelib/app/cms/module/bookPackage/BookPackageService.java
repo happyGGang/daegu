@@ -25,6 +25,10 @@ public class BookPackageService extends BaseService {
 
 	@Autowired
 	private BookPackageDao dao;
+	
+	public String getRootPath() {
+		return bookPackageStorage.getRootPath();
+	}
 
 	public List<BookPackage> getBookPackageList(BookPackage bookPackage) {
 		return dao.getBookPackageList(bookPackage);
@@ -39,8 +43,23 @@ public class BookPackageService extends BaseService {
 	}
 
 	public int addBookPackage(BookPackage bookPackage) {
-		MultipartFile mFile = bookPackage.getMfile();
+		MultipartFile docFile = bookPackage.getDoc_file();
+		if(docFile != null) {
+			String fileName = docFile.getOriginalFilename().substring(0, docFile.getOriginalFilename().lastIndexOf("."));
+			String realFileName = Long.toString((System.currentTimeMillis()));
+			String fileExtension = FilenameUtils.getExtension(docFile.getOriginalFilename());
+//			String filePath = "/" + bookPackage.getHomepage_id();
+			String filePath = "/";
 
+			File f = bookPackageStorage.addFile(docFile, realFileName, filePath);
+			
+			bookPackage.setDoc_org_file_name(fileName);
+			bookPackage.setDoc_server_file_name(realFileName);
+			bookPackage.setDoc_file_extension(fileExtension);
+			bookPackage.setDoc_file_size(f.length());
+		}
+		
+		MultipartFile mFile = bookPackage.getMfile();
 		if ( mFile != null ) {
 			String fileName = mFile.getOriginalFilename().substring(0, mFile.getOriginalFilename().lastIndexOf("."));
 			String realFileName = Long.toString((System.currentTimeMillis()));
@@ -55,13 +74,28 @@ public class BookPackageService extends BaseService {
 			bookPackage.setFile_extension(fileExtension);
 			bookPackage.setFile_size(f.length());
 		}
-
+		
 		return dao.addBookPackage(bookPackage);
 	}
 
 	public int modifyBookPackage(BookPackage bookPackage) {
-		MultipartFile mFile = bookPackage.getMfile();
+		MultipartFile docFile = bookPackage.getDoc_file();
+		if(docFile != null) {
+			String fileName = docFile.getOriginalFilename().substring(0, docFile.getOriginalFilename().lastIndexOf("."));
+			String realFileName = Long.toString((System.currentTimeMillis()));
+			String fileExtension = FilenameUtils.getExtension(docFile.getOriginalFilename());
+//			String filePath = "/" + bookPackage.getHomepage_id();
+			String filePath = "/";
 
+			File f = bookPackageStorage.addFile(docFile, realFileName, filePath);
+			
+			bookPackage.setDoc_org_file_name(fileName);
+			bookPackage.setDoc_server_file_name(realFileName);
+			bookPackage.setDoc_file_extension(fileExtension);
+			bookPackage.setDoc_file_size(f.length());
+		}
+		
+		MultipartFile mFile = bookPackage.getMfile();
 		if ( mFile != null ) {
 			String fileName = mFile.getOriginalFilename().substring(0, mFile.getOriginalFilename().lastIndexOf("."));
 			String realFileName = Long.toString((System.currentTimeMillis()));

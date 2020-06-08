@@ -7,6 +7,7 @@
 		book_package_idx, book_package_name, book_package_subject, author, publisher,
 		publish_year, isbn, book_price, book_pages, purpose,
 		loan_count, quantity, grade, category, keyword,
+		doc_org_file_name, doc_server_file_name, doc_file_extension, doc_file_size,
 		org_file_name, server_file_name, file_extension, file_size,
 		desc_link, image_link, REGEXP_REPLACE(content, '<[^>]*>', '') AS content, add_id, add_date
 		]]>
@@ -90,6 +91,9 @@
 			publish_year, isbn, book_price, book_pages, purpose,
 			loan_count, quantity, grade, category, keyword,
 			desc_link, image_link, content,
+			<if test="doc_org_file_name != null and doc_org_file_name != ''">
+			doc_org_file_name, doc_server_file_name, doc_file_extension, doc_file_size,
+			</if>
 			<if test="org_file_name != null and org_file_name != ''">
 			org_file_name, server_file_name, file_extension, file_size,
 			</if>
@@ -101,6 +105,9 @@
 			#{publish_year}, #{isbn}, #{book_price}, #{book_pages}, #{purpose},
 			#{loan_count}, #{quantity}, #{grade}, #{category}, REPLACE(#{keyword}, ' ', ''),
 			#{desc_link}, #{image_link}, #{content},
+			<if test="doc_org_file_name != null and doc_org_file_name != ''">
+			#{doc_org_file_name}, #{doc_server_file_name}, #{doc_file_extension}, #{doc_file_size},
+			</if>
 			<if test="org_file_name != null and org_file_name != ''">
 			#{org_file_name}, #{server_file_name}, #{file_extension}, #{file_size},
 			</if>
@@ -129,6 +136,12 @@
 			desc_link = #{desc_link},
 			image_link = #{image_link},
 			content = #{content},
+			<if test="doc_org_file_name != null and doc_org_file_name != ''">
+			doc_org_file_name = #{doc_org_file_name},
+			doc_server_file_name = #{doc_server_file_name},
+			doc_file_extension = #{doc_file_extension},
+			doc_file_size = #{doc_file_size},
+			</if>
 			<if test="org_file_name != null and org_file_name != ''">
 			org_file_name = #{org_file_name},
 			server_file_name = #{server_file_name},

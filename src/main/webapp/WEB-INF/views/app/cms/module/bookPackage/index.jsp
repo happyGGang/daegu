@@ -125,6 +125,7 @@ ul.pub_info li {display: inline-block;font-size: 13px;padding-right: 15px;}
 .btn-box a {display: block;height: 31px;padding: 0 20px 0 35px;border-radius: 50px;line-height: 32px;}
 .btn-box a.loan {border: 2px solid #d2dfe8;color: #5c90b5;background: url(/resources/common/img/icon_bt_apply01.png) no-repeat 14px 50%;}
 .btn-box a.reserv {border: 2px solid #cbbcf2;color: #7d57de;background: url(/resources/common/img/icon_bt_apply01_3.png) no-repeat 14px 50%;}
+.btn-box a.docfile {border: 2px solid #d2dfe8;color: #5c90b5;position: absolute;top: 0px;right: 130px;padding: 0 20px 0 25px;}
 span.loan-cnt {display: inline-block;width: 60px;height: 60px;margin: 30px auto 0;border-radius: 100%;background: #1ba8ed;text-align: center;font-size: 13px;color: #8dd4f6;}
 span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat',sans-serif;font-size: 20px;letter-spacing: 0;color: #fff;}
 </style>
@@ -247,6 +248,9 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 					<a href="#" class="dialog-req loan" keyValue="${i.book_package_idx}">대출신청</a>
 				</c:otherwise>
 			</c:choose>
+			<c:if test="${not empty i.doc_server_file_name}">
+			<a href="download/${i.book_package_idx}.do" class="docfile">파일다운로드</a>
+			</c:if>
 <%-- 			<a href="#" class="dialog-delete" keyValue="${i.book_package_idx}">삭제</a> --%>
 			<span class="loan-cnt">
 				<strong>${i.loan_count}</strong>권

@@ -48,6 +48,11 @@ $(function() {
 // 					if(doAjaxPost($('#bookPackageEdit'))) {
 // 						location.reload();
 // 					}
+
+					if($('#doc_file').val() == '') {
+						$('#doc_file').remove();
+					}
+
 					var file = $('#mfile');
 					if ( $('#mfile').val() == '' ) {
 						$('#mfile').remove();
@@ -69,6 +74,7 @@ $(function() {
 									$('#'+response.result[i].field).focus();
 									break;
 								}
+								$('td#doc_file_td').html('<input type="file" id="doc_file" name="doc_file" class="text" title="파일선택">');
 							}
 				         },
 				         error: function(jqXHR, textStatus, errorThrown) {
@@ -268,6 +274,12 @@ function getNaverData(arg) {
 	        	<td class="fileTd">
         			<input type="file" id="mfile" name="mfile" class="text" title="파일선택" />
         		</td>
+	        </tr>
+	        <tr>
+	        	<th>문서파일</th>
+	        	<td class="fileTd" id="doc_file_td">
+	        		<input type="file" id="doc_file" name="doc_file" class="text" title="파일선택">
+	        	</td>
 	        </tr>
 		</tbody>
 	</table>
