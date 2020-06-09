@@ -292,13 +292,13 @@ $(function() {
 							if(9 <= hour && hour < 17)
 							{
 							%>
-								<a href="#night" id="night-req" class="btn">워킹스루예약신청</a>
+								<!-- <a href="#night" id="night-req" class="btn">워킹스루예약신청</a> -->
 							<%
 							}
 							else
 							{
 							%>
-								<a href="#" class="btn btn1" onclick="alert('신청가능 시간이 아닙니다.');">워킹스루예약신청</a>
+								<!-- <a href="#" class="btn btn1" onclick="alert('신청가능 시간이 아닙니다.');">워킹스루예약신청</a> -->
 							<%
 							}
 							%>

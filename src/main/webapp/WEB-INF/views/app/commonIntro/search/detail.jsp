@@ -278,7 +278,7 @@ $(function() {
 
 
 			<c:choose>
-				<c:when test="${detail.MANAGE_CODE eq ''}">
+				<c:when test="${detail.MANAGE_CODE eq 'AA' || detail.MANAGE_CODE eq 'AB' || detail.MANAGE_CODE eq 'AC' || detail.MANAGE_CODE eq 'AD' || detail.MANAGE_CODE eq 'AF' || detail.MANAGE_CODE eq 'AG' || detail.MANAGE_CODE eq 'AH' || detail.MANAGE_CODE eq 'AJ' || detail.MANAGE_CODE eq 'AE'}">
 
 				</c:when>
 				<c:otherwise>
@@ -301,13 +301,13 @@ $(function() {
 					if(9 <= hour && hour < 17)
 					{
 					%>
-						<a href="#night" id="night-req" class="btn">워킹스루예약신청</a>
+						<!-- <a href="#night" id="night-req" class="btn">워킹스루예약신청</a> -->
 					<%
 					}
 					else
 					{
 					%>
-						<a href="#" class="btn btn1" onclick="alert('신청가능 시간이 아닙니다.');">워킹스루예약신청</a>
+						<!-- <a href="#" class="btn btn1" onclick="alert('신청가능 시간이 아닙니다.');">워킹스루예약신청</a> -->
 					<%
 					}
 					%>
@@ -347,7 +347,7 @@ $(function() {
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
 					<c:if test="${detail.RESERVATION_CNT eq '0'}">
 					<c:if test="${detail.SHELF_LOC_CODE eq 'AA04'}">
-					<!-- 
+					
 						<c:choose>
 							<c:when test="${sessionScope.member.user_class_code eq '016' || sessionScope.member.user_class_code eq '017'}">
 								<a href="#muin" id="service-noreq" class="btn">무인예약신청</a>
@@ -356,7 +356,7 @@ $(function() {
 								<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
 							</c:otherwise>
 						</c:choose>
-					 -->
+					
 					</c:if>
 					</c:if>
 					</c:if>
@@ -365,7 +365,6 @@ $(function() {
 
 				</c:otherwise>
 			</c:choose>
-
 
 			<c:choose>
 				<c:when test="${detail.SHELF_LOC_CODE eq 'AD39' || detail.SHELF_LOC_CODE eq 'AD40'}">
@@ -386,8 +385,9 @@ $(function() {
 												<c:otherwise>
 
 													<c:choose>
-														<c:when test="${detail.MANAGE_CODE eq 'AA' || detail.MANAGE_CODE eq 'AF' || detail.MANAGE_CODE eq 'AJ'}">
-															<a href="#" id="resve-req-not" class="btn btn5">예약불가</a>
+														<c:when test="${detail.MANAGE_CODE eq 'AJ'}">
+															<!-- <a href="#" id="resve-req-not" class="btn btn5">예약불가</a> -->
+															<a href="#" id="resve-req" class="btn">예약신청</a>
 														</c:when>
 														<c:otherwise>
 															<a href="#" id="resve-req" class="btn">예약신청</a>
@@ -418,8 +418,9 @@ $(function() {
 										</c:when>
 										<c:otherwise>
 													<c:choose>
-														<c:when test="${detail.MANAGE_CODE eq 'AA' || detail.MANAGE_CODE eq 'AF' || detail.MANAGE_CODE eq 'AJ'}">
-															<a href="#" id="resve-req-not" class="btn btn5">예약불가</a>
+														<c:when test="${detail.MANAGE_CODE eq 'AJ'}">
+															<!-- <a href="#" id="resve-req-not" class="btn btn5">예약불가</a> -->
+															<a href="#" id="resve-req" class="btn">예약신청</a>
 														</c:when>
 														<c:otherwise>
 															<a href="#" id="resve-req" class="btn">예약신청</a>
