@@ -21,10 +21,16 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,6 +39,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
+import kr.co.whalesoft.framework.utils.AttachmentUtils;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.cms.module.bookPackage.BookPackage;
@@ -220,10 +227,10 @@ public class BookPackageController extends BaseController {
 
 		SupportMember loginSupport = sessionLoginSupport(request);
 		if (loginSupport == null && !getSessionIsAdmin(request)) {
-    		bookPackage.setBefore_url(String.format("/%s/module/bookPackage/index.do?menu_idx=%s", homepage.getContext_path(), bookPackage.getMenu_idx()));
-    		service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), bookPackage.getMenu_idx(), bookPackage.getBefore_url()), request, response);
-    		return null;
-        }
+			bookPackage.setBefore_url(String.format("/%s/module/bookPackage/index.do?menu_idx=%s", homepage.getContext_path(), bookPackage.getMenu_idx()));
+			service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), bookPackage.getMenu_idx(), bookPackage.getBefore_url()), request, response);
+			return null;
+		}
 
 		int menu_idx = bookPackage.getMenu_idx();
 
@@ -379,145 +386,51 @@ public class BookPackageController extends BaseController {
 
 		return new BookPackageView();
 	}
+	
+	@RequestMapping(value = "/download/{book_package_idx}.*", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<byte[]> getFile(@PathVariable("book_package_idx") int book_package_idx, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		if(sessionLoginSupport(request) == null && !getSessionIsAdmin(request)) {
+//			responseHeaders.setContentType(MediaType.valueOf("text/html"));
+			service.alertMessage("학교도서관 회원인증 후 이용가능합니다.", request, response);
+			return null;
+		}
+		
+		BookPackage bookPackage = new BookPackage();
+		bookPackage.setBook_package_idx(book_package_idx);
+		bookPackage = service.getBookPackageOne(bookPackage);
+		
+		HttpHeaders responseHeaders = new HttpHeaders();
+		byte[] bytes = null;
 
-	@RequestMapping(value= {"/mysqlToTibero.*"}, method = RequestMethod.GET)
-	public void mysqlToTibero(Model model, BookPackage bookPackage, HttpServletRequest request) {
-		List<Map<String, Object>> listMap = service.getMysqlToTibero();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-		for (Map<String, Object> map : listMap) {
-			BookPackage bp = new BookPackage();
-
-			bp.setBook_package_idx(Integer.parseInt(String.valueOf(map.get("b_num"))));
-			bp.setBook_package_name(String.valueOf(map.get("b_name")));
-			bp.setBook_package_subject(String.valueOf(map.get("b_subject")));
-			bp.setAuthor(String.valueOf(map.get("b_temp1")));
-			bp.setPublisher(String.valueOf(map.get("b_temp2")));
-
-			String b3 = String.valueOf(map.get("b_temp3"));
-			try {
-				bp.setPublish_year(Integer.parseInt(b3));
-			} catch(NumberFormatException e) {
-				bp.setPublish_year(1900);
-			}
-
-			bp.setIsbn(String.valueOf(map.get("b_temp4")));
-
-			String b5 = String.valueOf(map.get("b_temp5")).replace(",", "");
-			try {
-				bp.setBook_price(Integer.parseInt(b5));
-			} catch(NumberFormatException e) {
-				bp.setBook_price(0);
-			}
-			String b7 = String.valueOf(map.get("b_temp7")).replace(",", "").trim();
-			if(StringUtils.isNotEmpty(b7)) {
-				bp.setBook_pages(Integer.parseInt(b7));
-			} else {
-				bp.setBook_pages(0);
-			}
-
-			bp.setPurpose(String.valueOf(map.get("b_temp8")));
-			String b12 = String.valueOf(map.get("b_temp12"));
-			if(StringUtils.isNotEmpty(b12)) {
-				bp.setLoan_count(Integer.parseInt(b12));
-			}
-			String b15 = String.valueOf(map.get("b_temp15"));
-			if(StringUtils.isNotEmpty(b15)) {
-				bp.setQuantity(Integer.parseInt(b15));
-			}
-			bp.setGrade(String.valueOf(map.get("b_temp9")));
-
-			String keyword = String.valueOf(map.get("b_temp10"));
-			String [] keyarr = keyword.split(",");
-			keyword = "";
-			for (String key : keyarr) {
-
-				if(key.equals("6")) {
-					keyword += ",000";
-				} else if(key.equals("7")) {
-					keyword += ",100";
-				} else if(key.equals("8")) {
-					keyword += ",200";
-				} else if(key.equals("9")) {
-					keyword += ",300";
-				} else if(key.equals("10")) {
-					keyword += ",400";
-				} else if(key.equals("11")) {
-					keyword += ",500";
-				} else if(key.equals("12")) {
-					keyword += ",600";
-				} else if(key.equals("13")) {
-					keyword += ",700";
-				} else if(key.equals("14")) {
-					keyword += ",800";
-				} else if(key.equals("15")) {
-					keyword += ",900";
-				}
-			}
-
-			bp.setCategory(keyword.equals("") ? null : keyword.substring(1));
-			bp.setKeyword(String.valueOf(map.get("b_temp11")));
-			bp.setDesc_link(String.valueOf(map.get("b_temp13")));
-			bp.setImage_link(String.valueOf(map.get("b_temp14")));
-			bp.setContent(String.valueOf(map.get("b_content")));
-			bp.setOrg_file_name(String.valueOf(map.get("b_file1")));
-
-			String file_name = String.valueOf(map.get("b_file1"));
-			if(StringUtils.isNotEmpty(file_name)) {
-				try {
-
-					File f = new File("C:\\Users\\whalesoft\\Desktop\\대구시통합도서관\\image\\board_12\\" + file_name);
-					FileInputStream is = new FileInputStream(f);
-					MultipartFile mp = new MockMultipartFile("file", f.getName(), "text/plain", IOUtils.toByteArray(is));
-					bp.setMfile(mp);
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				} catch(IOException e2) {
-					e2.printStackTrace();
-				}
-			}
-
-			try {
-				bp.setAdd_date(sdf.parse(String.valueOf(map.get("b_regdate"))));
-				bp.setAdd_id(String.valueOf(map.get("b_id")));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-
-			System.out.println("@@@@@@@@@@@@@@ data : " + bp.toString());
-			service.addMysqlToTibero(bp);
-
+		if(bookPackage == null) {
+			responseHeaders.setContentType(MediaType.valueOf("text/html"));
+			service.alertMessage("파일이 존재하지 않습니다.", request, response);
+			return null;
 		}
 
+		String filePath = service.getRootPath() + "/" + bookPackage.getDoc_server_file_name();
+		File file = new File(filePath);
 
-		List<Map<String, Object>> listMap2 = service.getMysqlToTibero2();;
-
-		for (Map<String, Object> map2 : listMap2) {
-			BookPackage bp = new BookPackage();
-
-			bp.setBook_package_idx(Integer.parseInt(String.valueOf(map2.get("b_num"))));
-			bp.setBook_package_loan_idx(Integer.parseInt(String.valueOf(map2.get("bb_num"))));
-			bp.setRequest_name(String.valueOf(map2.get("bb_manager")));
-			bp.setSchool_name(String.valueOf(map2.get("bb_school")));
-			bp.setLoan_start_date(String.valueOf(map2.get("bb_sdate")));
-			bp.setLoan_end_date(String.valueOf(map2.get("bb_edate")) == "" ? String.valueOf(map2.get("bb_sdate")) : String.valueOf(map2.get("bb_edate")));
-			bp.setPhone(String.valueOf(map2.get("bb_phone")));
-			String school_tel = String.valueOf(map2.get("bb_school_tel"));
-			bp.setSchool_tel(StringUtils.isEmpty(school_tel) ? "053-0000-0000" : school_tel);
-			bp.setRequest_content(String.valueOf(map2.get("bb_content")));
-			bp.setRequest_status(String.valueOf(map2.get("bb_status")));
-			bp.setReturn_yn(String.valueOf(map2.get("bb_return")) == "" ? "N" : String.valueOf(map2.get("bb_return")));
-
-			try {
-				bp.setAdd_date(sdf.parse(String.valueOf(map2.get("bb_regdate"))));
-				bp.setAdd_id(String.valueOf(map2.get("m_id")));
-			} catch(ParseException e) {
-				e.printStackTrace();
-			}
-
-//			System.out.println("@@@@@@@@@@@@@@ data2 : " + bp.toString2());
-//			service.addMysqlToTibero2(bp);
+		if(file.length() > 0) {
+			bytes = FileCopyUtils.copyToByteArray(file);
+		} else {
+			responseHeaders.setContentType(MediaType.valueOf("text/html"));
+			service.alertMessage("파일이 존재하지 않습니다.", request, response);
+			return null;
 		}
+
+		String fileName = String.format("%s.%s", bookPackage.getDoc_org_file_name(),bookPackage.getDoc_file_extension() );
+		String fileType = bookPackage.getDoc_file_extension().toUpperCase();
+
+		responseHeaders.set("Content-Disposition", AttachmentUtils.getContentDisposition(fileName, request.getHeader("user-agent")));
+		responseHeaders.setPragma("no-cache;");
+		responseHeaders.setExpires(-1);
+		responseHeaders.setContentType(MediaType.valueOf(AttachmentUtils.getContentType(fileType)));
+		responseHeaders.setContentLength(bytes.length);
+
+		return new ResponseEntity<byte[]>(bytes, responseHeaders, HttpStatus.OK);
 	}
 
 }
