@@ -264,9 +264,9 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 					<a href="#" class="request-btn loan" keyValue="${i.book_package_idx}">대출신청</a>
 				</c:otherwise>
 			</c:choose>
-			<c:if test="${not empty i.doc_server_file_name}">
-			<a href="download/${i.book_package_idx}.do" class="docfile">파일다운로드</a>
-			</c:if>
+<%-- 			<c:if test="${not empty i.doc_server_file_name}"> --%>
+<%-- 			<a href="download/${i.book_package_idx}.do" class="docfile">파일다운로드</a> --%>
+<%-- 			</c:if> --%>
 <%-- 			<a href="#" class="delete-btn" keyValue="${i.book_package_idx}">삭제</a> --%>
 			<span class="loan-cnt">
 				<strong>${i.loan_count}</strong>권
