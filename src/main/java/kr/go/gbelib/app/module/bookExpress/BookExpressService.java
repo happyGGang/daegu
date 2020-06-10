@@ -74,4 +74,8 @@ public class BookExpressService extends BaseService {
 		return dao.addMyGration(bookExpress);
 	}
 
+	public int cancelBookExpress(BookExpress bookExpress) {
+		return dao.cancelBookExpress(bookExpress);
+	}
+
 }

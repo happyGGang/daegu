@@ -58,6 +58,7 @@ public class BookExpressController extends BaseController {
 
 		model.addAttribute("bookExpress", bookExpress);
 		model.addAttribute("interestBookList", service.getInterestBookList(bookExpress));
+		model.addAttribute("homepageList", homepageService.getNormalHomepage());
 
 		return String.format(basePath, homepage.getFolder()) + "index";
 	}
@@ -158,6 +159,10 @@ public class BookExpressController extends BaseController {
 				service.deleteCheckBookExpress(bookExpress);
 				res.setValid(true);
 				res.setMessage("선택 삭제 되었습니다.");
+			} else if(bookExpress.getEditMode().equals("CANCEL")) {
+				service.cancelBookExpress(bookExpress);
+				res.setValid(true);
+				res.setMessage("택배요청 취소되었습니다.");
 			}
 		} else {
 			res.setValid(false);

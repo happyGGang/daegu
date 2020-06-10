@@ -64,13 +64,15 @@ $(function() {
 		<colgroup>
 			<col width="80" />
 			<col width="100" />
-			<col width="*" />
 			<col width="200" />
+			<col width="*" />
+			<col width="150" />
 		</colgroup>
 		<thead>
 			<tr>
 				<th>선택</th>
 				<th>번호</th>
+				<th>도서관</th>
 				<th>도서정보</th>
 				<th>등록일</th>
 			</tr>
@@ -80,6 +82,13 @@ $(function() {
 			<tr>
 				<td><form:checkbox path="book_express_arr" cssClass="book_check" value="${i.book_express_idx}"/></td>
 				<td class="num">${paging.listRowNum - status.index}</td>
+				<td>
+					<c:forEach items="${homepageList}" var="homepageOne">
+					<c:if test="${i.library_code eq homepageOne.lib_code}">
+					${homepageOne.homepage_name}
+					</c:if>
+					</c:forEach>
+				</td>
 				<td>${i.book_name}</td>
 				<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>
 			</tr>

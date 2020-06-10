@@ -81,6 +81,15 @@ $(function() {
 		$('#excelDownForm').submit();
 	});
 	
+	$('a.cancel').on('click', function(e) {
+		e.preventDefault();
+		$('#book_express_idx').val($(this).attr('keyValue'));
+		$('#editMode').val('CANCEL');
+		if(doAjaxPost($('form#bookExpress'))) {
+			location.reload();
+		}
+	});
+	
 });
 </script>
 
@@ -198,6 +207,9 @@ $(function() {
 						<c:when test="${i.request_status eq '5'}"><span style="color: #4488BB;">발송완료</span></c:when>
 						<c:when test="${i.request_status eq '6'}"><span style="color: #008800;">반납</span></c:when>
 					</c:choose>
+					<c:if test="${i.request_status eq '1'}">
+					<a href="#" style="display: block;" class="cancel" keyValue="${i.book_express_idx}">신청취소</a>
+					</c:if>
 				</td>
 				<td><fmt:formatDate value="${i.request_date}" pattern="yyyy.MM.dd"/></td>
 				<td><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></td>

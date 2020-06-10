@@ -33,4 +33,6 @@ public interface BookExpressDao {
 
 	public int addMyGration(BookExpress bookExpress);
 
+	public int cancelBookExpress(BookExpress bookExpress);
+
 }

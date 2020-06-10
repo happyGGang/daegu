@@ -190,6 +190,17 @@
 			book_express_idx = #{book_express_idx}
 	</update>
 	
+	<update id="cancelBookExpress">
+		UPDATE
+			BOOK_EXPRESS
+		SET
+			request_status = 0,
+			request_name = NULL,
+			request_phone = NULL
+		WHERE
+			book_express_idx = #{book_express_idx}
+	</update>
+	
 	<select id="getBookExpressXls" resultType="kr.go.gbelib.app.module.bookExpress.BookExpress">
 		SELECT
 			book_express_idx, library_code, agency_name, agency_id, book_reg_no,
@@ -227,5 +238,5 @@
 			#{request_name}, #{request_phone}, #{reason}, #{add_date}, #{add_id}, #{modify_date}, #{modify_id}
 		)
 	</insert>
-
+	
 </mapper>
