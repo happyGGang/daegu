@@ -25,6 +25,11 @@ $(function() {
 		$('#book').submit();
 		//doGetLoad('search.do', serializeCustom($('#book')));
 	});
+	
+	//정렬, N개씩보기
+	$('a#sort-btn').on('click', function() {
+		$('button#do-search').click();
+	});
 
 	addOnClickListeners();
 
@@ -277,15 +282,16 @@ function addOnClickListeners() {
 					</div>
 --%>
 					<div class="control">
-<!-- 						<a href="#" id="addMyLib" class="btn"><span>내보관함</span><i class="fa fa-plus"></i></a> -->
-<!-- 						<select class="selectmenu" style="width:90px"> -->
-<!-- 							<option>항목선택</option> -->
-<!-- 							<option>항목선택</option> -->
-<!-- 						</select> -->
-<!-- 						<select class="selectmenu" style="width:90px"> -->
-<!-- 							<option>오름차순</option> -->
-<!-- 							<option>내림차순</option> -->
-<!-- 						</select> -->
+ 						<!-- <a href="#" id="addMyLib" class="btn"><span>내보관함</span><i class="fa fa-plus"></i></a> -->
+ 						<form:select path="sortField" cssClass="selectmenu">
+ 							<form:option value="sort_title">제목</form:option>
+ 							<form:option value="sort_author">저자</form:option>
+ 							<form:option value="sort_publisher">발행처</form:option>
+ 						</form:select>
+						<form:select path="sortType" cssClass="selectmenu">
+							<form:option value="asc">오름차순</form:option>
+							<form:option value="desc">내림차순</form:option>
+						</form:select>
 						<form:select path="rowCount" cssClass="selectmenu" cssStyle="width:70px;">
 							<form:option value="10" label="10건"></form:option>
 							<form:option value="20" label="20건"></form:option>
@@ -293,6 +299,7 @@ function addOnClickListeners() {
 							<form:option value="40" label="40건"></form:option>
 							<form:option value="50" label="50건"></form:option>
 						</form:select>
+						<a href="#submit" id="sort-btn" class="btn">확인</a>
 					</div>
 				</div>
 				<div id="search-results" class="search-results">

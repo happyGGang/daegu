@@ -358,8 +358,8 @@ public class DgElibAPIService extends BaseService {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("method", "simpleSearch"));
 		params.add(new BasicNameValuePair("keyword", book.getSearch_text()));
-		params.add(new BasicNameValuePair("sort_field", "sort_title"));
-		params.add(new BasicNameValuePair("sort_option", "asc"));
+		params.add(new BasicNameValuePair("sort_field", book.getSortField()));
+		params.add(new BasicNameValuePair("sort_option", book.getSortType()));
 		params.add(new BasicNameValuePair("current_page", str(book.getViewPage() - 1)));
 		params.add(new BasicNameValuePair("list_count", str(book.getRowCount())));
 		params.add(new BasicNameValuePair("facet_lib_code", "000000"));
