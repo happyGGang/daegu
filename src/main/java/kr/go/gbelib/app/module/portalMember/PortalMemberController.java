@@ -38,9 +38,8 @@ public class PortalMemberController extends BaseController {
 		
 		PortalMember loginPortal = sessionLoginPortal(request);
 		if (loginPortal != null) {
-			int menu_idx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 11));
-			return "redirect:" + String.format("/%s/intro/search/index.do?menu_idx=%s", homepagePath, menu_idx);
-        }
+			return "redirect:" + String.format("/%s/intro/search/indexAll.do?menu_idx=7", homepagePath);
+		}
 		
 		model.addAttribute("portalMember", portalMember);
 		
