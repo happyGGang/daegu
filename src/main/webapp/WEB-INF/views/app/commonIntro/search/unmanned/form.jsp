@@ -85,8 +85,15 @@ $(function() {
 			 </tr>
 		</tbody>
 	</table>
-	<div class="btnArea" style="text-align: center; padding-top: 15px;">
-		<p style="color: red;font-weight: bold;padding-bottom: 10px;">도서연체중에는 무인예약대출불가 (본인 대출상태 확인필요)</p>
+
+	<div id="" class="" style="text-align: center; padding-top: 15px;">
+		<p style="color: red;font-weight: bold;">* 도서연체중에는 무인예약대출불가 (본인 대출상태 확인필요)</p>
+		<c:if test="${homepage.context_path eq 'jungang'}">
+		<p style="color: red;font-weight: bold;">* 서고자료는 도서관 전화문의 후 예약필요</p>
+		</c:if>
+	</div>
+
+	<div class="btnArea" style="text-align: center; padding-top:5px;">
 		<a href="#" id="save-btn" class="btn btn03">확인</a>
 		<a href="javascript:history.back();" class="btn btn02">취소</a>
 	</div>
