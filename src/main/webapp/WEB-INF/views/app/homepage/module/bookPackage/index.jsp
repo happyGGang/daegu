@@ -5,18 +5,18 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script type="text/javascript">
 $(function() {
-	
+
 // 	$('#add-btn').on('click', function(e) {
 // 		e.preventDefault();
 // 		doGetLoad('edit.do', 'editMode=ADD&menu_idx='+$('#menu_idx').val());
 // 	});
-	
+
 	$('.view-btn').on('click', function(e) {
 		e.preventDefault();
 		var formData = 'menu_idx='+$('#menu_idx').val() + '&viewPage='+$('#viewPage').val() + '&book_package_idx='+$(this).attr('keyValue');
 		doGetLoad('view.do', formData);
 	});
-	
+
 	$('.delete-btn').on('click', function(e) {
 		e.preventDefault();
 		if(confirm('삭제하시겠습니까?')) {
@@ -26,36 +26,36 @@ $(function() {
 			};
 		}
 	});
-	
+
 	// 책 꾸러미 대출 신청
 	$('.request-btn').on('click', function(e) {
 		e.preventDefault();
 		var formData = 'editMode=ADD&menu_idx='+$('#menu_idx').val() + '&book_package_idx='+$(this).attr('keyValue');
 		doGetLoad('loanEdit.do', formData);
 	});
-	
+
 	$('input#chkAll').on('click', function() {
 		$('.categoryChk').prop('checked', false);
 		$('#viewPage').val(1);
 		doGetLoad('index.do', $('form#bookPackage').serialize());
 	});
-	
+
 	$('.categoryChk').on('click', function() {
 		$('input#chkAll').prop('checked', false);
 		$('#viewPage').val(1);
 		doGetLoad('index.do', $('form#bookPackage').serialize());
 	});
-	
+
 	$('select#grade, select#lender_count').on('change', function() {
 		$('#viewPage').val(1);
 		doGetLoad('index.do', $('form#bookPackage').serialize());
 	});
-	
+
 	$('button#search_btn').on('click', function(e) {
 		$('#viewPage').val(1);
 		doGetLoad('index.do', $('form#bookPackage').serialize());
 	});
-	
+
 	$('a#excelDownload').on('click', function(e) {
 		e.preventDefault();
 		if('${fn:length(bookPackageList)}' > 0) {
@@ -63,14 +63,14 @@ $(function() {
 			$('#bookPackage').attr('method', 'POST');
 			$('#bookPackage').attr('action', 'excelDownload.do').submit();
 			$('form#bookPackage').submit();
-			
+
 			$('#bookPackage').attr('method', 'GET');
 			$('#bookPackage').attr('action', 'index.do');
 		} else {
 			alert('해당 내역이 없습니다.');
 		}
 	});
-	
+
 	$('#all-check').on('click', function(e) {
 		e.preventDefault();
 		if($(this).attr('keyValue') == 'N') {
@@ -81,7 +81,7 @@ $(function() {
 			$('.book_check').prop('checked', false);
 		}
 	});
-	
+
 	$('#delete-check').on('click', function(e) {
 		e.preventDefault();
 		if($('.book_check:checked').length == 0) {
@@ -97,14 +97,14 @@ $(function() {
 			}
 		}
 	});
-	
+
 	$('a.tit-search-btn').on('click', function(e) {
 		e.preventDefault();
 		var title = $(this).parent('div.btn-box').siblings('div.content-box').find('div.subject a').text();
 		var data = 'menu_idx=140&manage_idx=212&search_type=title%2Bcontent&search_text='+title.replace(/ ([(][A-Z][)])| [A-Z]$/g, '');
 		doGetLoad('/${homepage.context_path}/board/index.do', data);
 	});
-	
+
 });
 </script>
 <style>
@@ -129,14 +129,20 @@ ul.pub_info li {display: inline-block;font-size: 13px;padding-right: 15px;}
 .book-desc {font-size: 13px;}
 .keyword-box {border-top: 1px dashed #e5e5e5;padding-top: 14px;margin-top: 18px;}
 .content-box span.keyword {display: inline-block;padding: 0 10px;background: #e8f2f7;border-radius: 20px;font-size: 12px;color: #7e8c93;}
-.btn-box {position: absolute;top: 35px;right: 0;text-align: center;}
-.btn-box a {display: block;height: 31px;padding: 0 20px 0 35px;border-radius: 50px;line-height: 32px;}
+.btn-box {position: absolute;top: 20px;right: 0;text-align: center;font-size:14px;}
+.btn-box a {display: block;height: 31px;padding: 0 20px 0 35px;border-radius: 50px;line-height: 32px;margin-bottom: 3px;}
 .btn-box a.loan {border: 2px solid #d2dfe8;color: #5c90b5;background: url(/resources/common/img/icon_bt_apply01.png) no-repeat 14px 50%;}
 .btn-box a.reserv {border: 2px solid #cbbcf2;color: #7d57de;background: url(/resources/common/img/icon_bt_apply01_3.png) no-repeat 14px 50%;}
 .btn-box a.docfile {border: 2px solid #d2dfe8;color: #5c90b5;position: absolute;top: 0px;right: 130px;padding: 0 20px 0 25px;}
-.btn-box a.tit-search-btn {border: 2px solid #d2dfe8;color: #5c90b5;position: absolute;top: 0px;right: 130px;padding: 0 20px 0 23px;}
+.btn-box a.tit-search-btn {border: 2px solid #d2dfe8;color: #5c90b5;background: url(/resources/common/img/icon_bt_apply02.png) no-repeat 14px 50%;}
+/*.btn-box a.tit-search-btn{border: 2px solid #d2dfe8;color: #5c90b5;position: absolute;top: 0px;right: 130px;padding: 0 20px 0 23px;}*/
 span.loan-cnt {display: inline-block;width: 60px;height: 60px;margin: 30px auto 0;border-radius: 100%;background: #1ba8ed;text-align: center;font-size: 13px;color: #8dd4f6;}
 span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat',sans-serif;font-size: 20px;letter-spacing: 0;color: #fff;}
+
+@media all and (max-width:400px){
+.content-box {display: inline-block;width: 95%;padding: 0 10px;}
+}
+
 </style>
 
 <form:form modelAttribute="bookPackage" id="bookPackageDel" action="save.do" method="POST">
@@ -272,7 +278,9 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 					<a href="#" class="request-btn loan" keyValue="${i.book_package_idx}">대출신청</a>
 				</c:otherwise>
 			</c:choose>
-				<a href="#" class="tit-search-btn">책꾸러미활동지</a>
+			<c:if test="${fn:indexOf(i.book_package_subject, '프로젝트길라잡이') < 1}">
+				<a href="#" class="tit-search-btn">독서활동지</a>
+			</c:if>
 <%-- 			<c:if test="${not empty i.doc_server_file_name}"> --%>
 <%-- 			<a href="download/${i.book_package_idx}.do" class="docfile">파일다운로드</a> --%>
 <%-- 			</c:if> --%>
