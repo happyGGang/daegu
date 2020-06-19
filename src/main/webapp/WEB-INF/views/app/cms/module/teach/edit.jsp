@@ -1028,7 +1028,7 @@ $(function() {
 	        	<th>신청첨부파일 여부</th>
 	        	<td>
 	        		<form:radiobutton path="apply_file_yn" value="Y" label="사용"/>
-	        		<form:radiobutton path="apply_file_yn" value="N" label="미사용" checked="checked"/>
+	        		<form:radiobutton path="apply_file_yn" value="N" label="미사용"/>
 	        	</td>
 	        </tr>
 	        <tr>

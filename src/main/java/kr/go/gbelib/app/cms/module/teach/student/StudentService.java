@@ -305,6 +305,26 @@ public class StudentService extends BaseService {
 				else { // 강의 모집 인원이 다 차서 후보 인원으로 등록 할것인이 판단한다.
 					if ( backupCount > curBackupJoinCount ) {
 						student.setApply_status("2"); // 후보로 세팅
+						
+						MultipartFile mFile = student.getApply_file();
+						String serverFileName = "";
+						String filePath = "";
+						if ( mFile != null ) {
+							serverFileName 	= Long.toString((System.currentTimeMillis()));
+							String orgFileName 		= mFile.getOriginalFilename().substring(0, mFile.getOriginalFilename().lastIndexOf("."));
+							String fileExtension 	= FilenameUtils.getExtension(mFile.getOriginalFilename());
+							filePath 		= "/" + student.getHomepage_id();
+
+							File f = studentStorage.addFile(mFile, serverFileName, filePath);
+
+							student.setServer_file_name(serverFileName);
+							student.setOrg_file_name(orgFileName);
+							student.setFile_extension(fileExtension);
+							student.setFile_size(f.length());
+
+							dao.addStudentFile(student);
+						}
+						
 						int result = dao.addStudent(student);
 						if ( result > 0 ) {
 							// 참여인원이 제한인원과 같으면 강의 상태를 접수 마감으로 변경 시킨다.

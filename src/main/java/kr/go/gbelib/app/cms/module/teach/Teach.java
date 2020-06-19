@@ -171,7 +171,7 @@ public class Teach extends PagingUtils {
 	private String apply_password;
 
 	private String terms; // 약관여부 선택
-	private String apply_file_yn; // 신청첨부파일 여부
+	private String apply_file_yn = "N"; // 신청첨부파일 여부
 
 	public Teach() {}
 
