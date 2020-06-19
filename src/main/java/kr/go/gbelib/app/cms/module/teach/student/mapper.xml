@@ -63,6 +63,7 @@
 				AND	a.group_idx = b.group_idx(+)
 				AND	a.category_idx = b.category_idx(+)
 				AND	a.teach_idx = b.teach_idx(+)
+				AND	a.student_idx = b.student_idx(+)
 				AND	a.DELETE_YN = 'N' AND a.HOMEPAGE_ID = #{homepage_id} AND a.GROUP_IDX = #{group_idx} AND a.CATEGORY_IDX = #{category_idx} AND a.TEACH_IDX = #{teach_idx}
 					<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
 						AND	${search_type} LIKE '%'||#{search_text}||'%'
