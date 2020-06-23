@@ -398,7 +398,7 @@ function go_to_login() {
 				<c:if test="${book.bestbook_idx > 0}">
 				<img src="/resources/homepage/elib/img/book_best.png" alt="베스트도서" style="position:relative; top: 43px; left: -17px; border: 0px;"/>
 				</c:if>
-				<img src="${book.book_image}" alt="${book.book_name}">
+				<img src="${book.book_image}" alt="${book.book_name}" onerror="this.src='/resources/homepage/dgportal/img/book_noimg.png'">
 				</c:if>
 				<c:if test="${empty book.book_image}">
 				<p class="noImg">
