@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -121,6 +123,23 @@ public class BookExpressController extends BaseController {
 				service.addInterestBook(bookExpress);
 				res.setValid(true);
 				res.setMessage("택배서비스 관심도서 추가되었습니다.");
+				
+			} else if(bookExpress.getEditMode().equals("INTERESTLIST")) {
+				for (BookExpress bx : bookExpress.getBookExpressList()) {
+					bx.setAgency_id(loginPortal.getAgency_id());
+					bx.setAgency_name(loginPortal.getAgency_name());
+					
+					if(service.interestBookCheck(bx) > 0) {
+//						res.setValid(false);
+//						res.setMessage("관심도서 추가된 도서입니다.");
+//						return res;
+						continue;
+					}
+					bx.setAdd_id(loginPortal.getAgency_id());
+					service.addInterestBook(bx);
+				}
+				res.setValid(true);
+				res.setMessage("택배서비스 관심도서 일괄 추가 되었습니다.");
 			} else if(bookExpress.getEditMode().equals("STATUS")) {
 				bookExpress.setModify_id(loginPortal.getAgency_id());
 				service.modifyBookExpress(bookExpress);

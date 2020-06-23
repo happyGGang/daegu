@@ -1,6 +1,7 @@
 package kr.go.gbelib.app.module.bookExpress;
 
 import java.util.Date;
+import java.util.List;
 
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
@@ -26,6 +27,8 @@ public class BookExpress extends PagingUtils {
 	private String modify_id; // 수정ID
 
 	private String auth_group; // 권한
+	
+	private List<BookExpress> bookExpressList;
 
 	public int getBook_express_idx() {
 		return book_express_idx;
@@ -177,6 +180,14 @@ public class BookExpress extends PagingUtils {
 
 	public void setAuth_group(String auth_group) {
 		this.auth_group = auth_group;
+	}
+	
+	public List<BookExpress> getBookExpressList() {
+		return bookExpressList;
+	}
+	
+	public void setBookExpressList(List<BookExpress> bookExpressList) {
+		this.bookExpressList = bookExpressList;
 	}
 
 	@Override

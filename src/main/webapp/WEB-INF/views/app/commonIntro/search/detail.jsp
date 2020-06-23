@@ -93,6 +93,13 @@ $(function() {
 			history.back();
 		});
 	}
+	
+	if (document.referrer.indexOf('/intro/search/indexAll.do') > -1) {
+		$('a#goBack').on('click', function(e) {
+			e.preventDefault();
+			history.back();
+		});
+	}
 // 	$('div#bookReviewDiv').load('/${homepage.context_path}/module/bookReview/index.do?menu_idx=${fn:escapeXml(param.menu_idx)}&manage_code=${fn:escapeXml(detail.MANAGE_CODE)}&reg_no=${fn:escapeXml(detail.REG_NO)}');
 });
 

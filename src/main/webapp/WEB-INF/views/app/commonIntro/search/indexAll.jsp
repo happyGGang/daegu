@@ -131,6 +131,7 @@ $(function() {
 		$('input#'+type).val(newText);
 		$('a#search-btn').click();
 	});
+	
 
 	//결과 내 재검색
 	$('input#subSearchText').on('keyup', function(e) {
@@ -276,9 +277,40 @@ $(function() {
 		$('#text1').val(searchText);
 		$('form#direct').submit();
 	});
+	
+	<c:if test="${not empty loginPortal and loginPortal.login}">
+	<%-- 대표도서관 택배대출 관심도서 --%>
+	$('a#interestList').on('click', function(e) {
+		e.preventDefault();
+		var frm = $('#bookExpressForm');
+
+		$('input.checkBook:checked').each(function(i) {
+			frm.append('<input type="hidden" name="bookExpressList['+i+'].book_name" value="'+$(this).siblings('input#bex1').val()+'">');
+			frm.append('<input type="hidden" name="bookExpressList['+i+'].book_reg_no" value="'+$(this).siblings('input#bex2').val()+'">');
+			frm.append('<input type="hidden" name="bookExpressList['+i+'].book_call_no" value="'+$(this).siblings('input#bex3').val()+'">');
+			frm.append('<input type="hidden" name="bookExpressList['+i+'].thumb_image" value="'+$(this).siblings('input#bex4').val()+'">');
+			frm.append('<input type="hidden" name="bookExpressList['+i+'].library_code" value="'+$(this).siblings('input#bex5').val()+'">');
+		});
+		
+		if(confirm('택배서비스 관심도서 추가하겠습니까?')) {
+			if(doAjaxPost($('#bookExpressForm'))) {
+				location.reload();
+			}
+			
+		}
+		
+	});
+	</c:if >
+	
 });
 
 </script>
+
+<c:if test="${not empty loginPortal and loginPortal.login}">
+<form id="bookExpressForm" action="/${homepage.context_path}/module/bookExpress/save.do" method="post">
+	<input type="hidden" name="editMode" value="INTERESTLIST">
+</form>
+</c:if>
 
 <form id="direct" name="direct" action="http://152.99.21.156/DG/" method="post" target="_blank">
 <input type="hidden" name="m" value="direct">
@@ -557,6 +589,9 @@ $(function() {
 					</select>
 					<input id="subSearchText" placeholder="결과 내 재검색" class="text-area01" />
 					<a href="#" id="subSearch" class="btn">결과 내 재검색</a>
+					<c:if test="${not empty loginPortal and loginPortal.login}">
+					<a href="#" id="interestList" class="btn">교수학습 관심도서</a>
+					</c:if>
 				</div>
 
 				<div class="gugun-search">
@@ -605,6 +640,13 @@ $(function() {
 							<div class="row">
 								<p class="admin">
 									<input name="print_param" type="checkbox" class="checkBook" value="${fn:escapeXml(i.ST_CODE)}_${fn:escapeXml(i.MANAGE_CODE)}"/>
+									<c:if test="${not empty loginPortal and loginPortal.login}">
+									<input type="hidden" id="bex1" value="${i.TITLE_INFO} / ${i.AUTHOR}">
+									<input type="hidden" id="bex2" value="${i.REG_NO}">
+									<input type="hidden" id="bex3" value="${i.CALL_NO}">
+									<input type="hidden" id="bex4" value="${i.aladin.cover}">
+									<input type="hidden" id="bex5" value="${i.MANAGE_CODE}">
+									</c:if>
 								</p>
 								<div class="thumb">
 									<c:choose>
