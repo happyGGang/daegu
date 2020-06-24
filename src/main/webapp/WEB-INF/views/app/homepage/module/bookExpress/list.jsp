@@ -161,7 +161,7 @@ $(function() {
 				<td class="num">${paging.listRowNum - status.index}</td>
 				<td class="left">
 					<c:forEach items="${homepageList}" var="j">
-					<c:if test="${j.lib_code eq i.library_code}">
+					<c:if test="${j.lib_code eq i.library_code and j.homepage_id != 'h32'}">
 					[${j.homepage_name}]
 					</c:if>
 					</c:forEach>
