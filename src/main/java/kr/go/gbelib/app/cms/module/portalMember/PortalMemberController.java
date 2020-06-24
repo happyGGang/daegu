@@ -69,7 +69,7 @@ public class PortalMemberController extends BaseController {
 		String editMode = portalMember.getEditMode();
 		if(editMode.equals("ADD") || editMode.equals("MODIFY")) {
 			ValidationUtils.rejectIfEmpty(result, "agency_name", "기관명을 입력해주세요.");
-			ValidationUtils.rejectOnlyKor(result, "agency_name", "학교명은 한글만 입력할 수 있습니다.");
+//			ValidationUtils.rejectOnlyKor(result, "agency_name", "학교명은 한글만 입력할 수 있습니다.");
 			ValidationUtils.rejectIfEmpty(result, "agency_id", "아이디를 입력해주세요.");
 			ValidationUtils.rejectOnlyEngNum(result, "agency_id", "아이디는 영문/숫자만 사용하실 수 있습니다.");
 			
@@ -97,7 +97,6 @@ public class PortalMemberController extends BaseController {
     		
 		}
 		/* <<<<< 유효성 검증 */
-
 		if (!result.hasErrors()) {
 			if (editMode.equals("ADD")) {
 				portalMember.setAdd_id(getSessionMemberId(request));
