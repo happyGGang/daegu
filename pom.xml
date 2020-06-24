@@ -18,7 +18,7 @@
 	<repositories>
 		<repository>
 			<id>public</id>
-			<url>http://www.whalesoft.co.kr:8681/content/groups/public</url>
+			<url>http://www.whalesoft.co.kr:3081/content/groups/public</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -42,7 +42,7 @@
 	<pluginRepositories>
 		<pluginRepository>
 			<id>public</id>
-			<url>http://www.whalesoft.co.kr:8681/content/groups/public</url>
+			<url>http://www.whalesoft.co.kr:3081/content/groups/public</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -54,11 +54,11 @@
 
 	<dependencies>
 		<!-- 실행환경 라이브러리 -->
-		<!-- mybatis를 사용하는 데 jdk1.5로 컴파일 할 경우 아래와 같이 변경해 주시기 바랍니다. (3.2.X 버전에서 
-			부터 jdk1.6으로 컴파일 되어 발생하는 현상) <dependency> <groupId>egovframework.rte</groupId> 
-			<artifactId>egovframework.rte.psl.dataaccess</artifactId> <version>${egovframework.rte.version}</version> 
-			<exclusions> <exclusion> <artifactId>mybatis</artifactId> <groupId>org.mybatis</groupId> 
-			</exclusion> </exclusions> </dependency> <dependency> <groupId>org.mybatis</groupId> 
+		<!-- mybatis를 사용하는 데 jdk1.5로 컴파일 할 경우 아래와 같이 변경해 주시기 바랍니다. (3.2.X 버전에서
+			부터 jdk1.6으로 컴파일 되어 발생하는 현상) <dependency> <groupId>egovframework.rte</groupId>
+			<artifactId>egovframework.rte.psl.dataaccess</artifactId> <version>${egovframework.rte.version}</version>
+			<exclusions> <exclusion> <artifactId>mybatis</artifactId> <groupId>org.mybatis</groupId>
+			</exclusion> </exclusions> </dependency> <dependency> <groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId> <version>3.1.1</version> </dependency> -->
 		<dependency>
 			<groupId>egovframework.rte</groupId>
@@ -96,8 +96,8 @@
 			</exclusions>
 		</dependency>
 
-		<!-- JBoss의 경우는 <body-context>부분을 empty로 수정하여 적용하시면 되며, pom.xml을 아래와 같이 
-			적용하시면 수정된 jar를 참조하실 수 있습니다. (기존 egovframework.rte.ptl.mvc dependency에 내부적으로 
+		<!-- JBoss의 경우는 <body-context>부분을 empty로 수정하여 적용하시면 되며, pom.xml을 아래와 같이
+			적용하시면 수정된 jar를 참조하실 수 있습니다. (기존 egovframework.rte.ptl.mvc dependency에 내부적으로
 			참조되고 있어, 해당 부분을 exclude 처리해야 함) 아래 주석을 해제하시면 됩니다. -->
 		<dependency>
 			<groupId>egovframework.rte</groupId>
@@ -129,10 +129,10 @@
 					<artifactId>spring-test</artifactId>
 				</exclusion>
 			</exclusions>
-			<!-- <exclusions> <exclusion> <groupId>org.springmodules</groupId> <artifactId>spring-modules-validation</artifactId> 
+			<!-- <exclusions> <exclusion> <groupId>org.springmodules</groupId> <artifactId>spring-modules-validation</artifactId>
 				</exclusion> <exclusions> -->
 		</dependency>
-		<!-- <dependency> <groupId>egovframework.rte</groupId> <artifactId>spring-modules-validation</artifactId> 
+		<!-- <dependency> <groupId>egovframework.rte</groupId> <artifactId>spring-modules-validation</artifactId>
 			<version>0.9</version> </dependency> -->
 		<dependency>
 			<groupId>egovframework.rte</groupId>
@@ -266,7 +266,7 @@
 			<artifactId>spring-test</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-		
+
 		<dependency>
         <groupId>org.springframework.security</groupId>
         <artifactId>spring-security-web</artifactId>
@@ -277,15 +277,15 @@
         <artifactId>spring-security-config</artifactId>
         <version>${org.springframework-version}</version>
     </dependency>
-    
-    
-    
 
-				
+
+
+
+
 
 
 		<!-- AspectJ -->
-		<!-- <dependency> <groupId>org.aspectj</groupId> <artifactId>aspectjrt</artifactId> 
+		<!-- <dependency> <groupId>org.aspectj</groupId> <artifactId>aspectjrt</artifactId>
 			<version>${org.aspectj-version}</version> </dependency> -->
 
 		<dependency>
@@ -472,7 +472,7 @@
 			<artifactId>snakeyaml</artifactId>
 			<version>1.10</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.navercorp.lucy</groupId>
 			<artifactId>lucy-xss-servlet</artifactId>
@@ -547,14 +547,14 @@
 			<artifactId>bcpkix-jdk15on</artifactId>
 			<version>1.57</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
 		<dependency>
 		    <groupId>joda-time</groupId>
 		    <artifactId>joda-time</artifactId>
 		    <version>2.9.9</version>
 		</dependency>
-		
+
 		<!-- 브라우저 user-agent 스트링 파서 -->
 		<dependency>
 		    <groupId>is.tagomor.woothee</groupId>
