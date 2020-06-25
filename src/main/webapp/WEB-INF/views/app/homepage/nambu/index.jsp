@@ -79,8 +79,8 @@ do {
 
 		$('div.holiday-box').load('calendar2.do');
 		$('div.event-box').load('calendar4.do');
-		$('ul.newBookUl').load('newBook.do');
-		$('ul.bestBookUl').load('bestBook.do');
+		//$('ul.newBookUl').load('newBook.do');
+		//$('ul.bestBookUl').load('bestBook.do');
 
 		$('#main-search-btn').on('click', function() {
 			if( $('input#search_text_1').val() == '' ) {
@@ -295,12 +295,24 @@ function searchCheck() {
 					<div class="movie">
 						<div class="title">
 							<ul>
-								<li><h2>영화상영</h2></li>
+								<li><h2>영화소개</h2></li><!-- <li><h2>영화상영</h2></li> -->
 								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=104"><img src="/resources/homepage/nambu/img/more_btbt.png" alt="더보기"/></a></li>
 							</ul>
 						</div>
 						<div class="movieContent">
 							<ul>
+								<li>
+									<a href="/${homepage.context_path}/board/index.do?menu_idx=152&manage_idx=372">
+										<span class="movieImg">
+											<img src="/resources/common/img/noImg2.png" alt="">
+										</span>
+
+										<span class="movieEx">
+											<strong class="title">영화로 느껴보는 애국자의 삶</strong>
+										</span>
+									</a>
+								</li>
+							<!--
 								<c:forEach var="i" varStatus="status" items="${movieList}" >
 								<li>
 									<a href="/${homepage.context_path}/board/view.do?menu_idx=60&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
@@ -368,6 +380,7 @@ function searchCheck() {
 									</a>
 								</li>
 								</c:if>
+							-->
 							</ul>
 						</div>
 					</div>
@@ -377,22 +390,55 @@ function searchCheck() {
 					<div class="book">
 						<div class="title">
 							<ul class="tabMenuS">
-								<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class='t-tabs'>신간도서</a></li>
-								<li><a href="#tab2" data-link="/${homepage.context_path}/intro/search/bestBook/index.do?menu_idx=15" class='t-tabs'>대출베스트</a></li>
-								<li><a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class="more-btn more-more"><img src="/resources/homepage/nambu/img/more_btbt.png" alt="더보기"/></a></li>
+								<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=155&manage_idx=384" class='t-tabs'>신착도서</a></li>
+								<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=145&manage_idx=345" class='t-tabs'>북큐레이션</a></li>
+								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=155&manage_idx=384" class="more-btn more-more"><img src="/resources/homepage/nambu/img/more_btbt.png" alt="더보기"/></a></li>
 							</ul>
 						</div>
+
 						<div class="box con" data-tab="tab1">
 							<ul class="book_photo newBookUl">
 
+							<c:forEach var="i" varStatus="status" items="${boardList1}">
+							<li>
+								<a class="goDetail" href="/${homepage.context_path}/board/index.do?menu_idx=155&manage_idx=${i.manage_idx}">
+									<c:choose>
+									<c:when test="${empty i.preview_img}">
+									<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." width="100px" height="150px"/>
+									</c:when>
+									<c:otherwise>
+									<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" width="100px" height="150px"/>
+									</c:otherwise>
+									</c:choose>
+									<span class="title">${i.title}</span>
+								</a>
+							</li>
+							</c:forEach>
 							</ul>
 						</div>
-
 						<div class="box con" data-tab="tab2" style="display:none;">
+							<!-- <ul class="book_photo bestBookUl"> -->
 							<ul class="book_photo bestBookUl">
 
+							<c:forEach items="${bookCuration1}" var="curation1">
+							<li>
+								<a class="goDetail" href="/${homepage.context_path}/board/index.do?menu_idx=145&manage_idx=${curation1.manage_idx}">
+									<c:choose>
+									<c:when test="${empty curation1.preview_img}">
+									<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." width="100px" height="150px"/>
+									</c:when>
+									<c:otherwise>
+									<img src="/data/board/${curation1.manage_idx}/${curation1.board_idx}/${curation1.preview_img}" alt="${curation1.title}" width="100px" height="150px"/>
+									</c:otherwise>
+									</c:choose>
+									<span class="title">${curation1.title}</span>
+								</a>
+							</li>
+							</c:forEach>
+
 							</ul>
 						</div>
+						
 					</div>
 				</div>
 
