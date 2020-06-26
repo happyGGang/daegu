@@ -27,6 +27,7 @@ public class BookExpress extends PagingUtils {
 	private String modify_id; // 수정ID
 
 	private String auth_group; // 권한
+	private String homepage_name; // 홈페이지명
 	
 	private List<BookExpress> bookExpressList;
 
@@ -182,6 +183,14 @@ public class BookExpress extends PagingUtils {
 		this.auth_group = auth_group;
 	}
 	
+	public String getHomepage_name() {
+		return homepage_name;
+	}
+	
+	public void setHomepage_name(String homepage_name) {
+		this.homepage_name = homepage_name;
+	}
+
 	public List<BookExpress> getBookExpressList() {
 		return bookExpressList;
 	}

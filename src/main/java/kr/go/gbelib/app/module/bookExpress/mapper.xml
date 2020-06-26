@@ -203,11 +203,11 @@
 	
 	<select id="getBookExpressXls" resultType="kr.go.gbelib.app.module.bookExpress.BookExpress">
 		SELECT
-			book_express_idx, library_code, agency_name, agency_id, book_reg_no,
+			book_express_idx, library_code, homepage_name, agency_name, agency_id, book_reg_no,
 			book_call_no, book_name, thumb_image, request_status, request_date,
 			request_name, request_phone, reason, add_date, add_id
 		FROM
-			BOOK_EXPRESS
+			BOOK_EXPRESS be, CMS_HOMEPAGE ch
 		WHERE
 			request_status != '0'
 		<if test="library_code != null and library_code != ''">
@@ -216,6 +216,8 @@
 		<if test="agency_id != null and agency_id != ''">
 		AND	agency_id = #{agency_id}
 		</if>
+		AND	be.library_code = ch.lib_code
+		AND	ch.homepage_id != 'h32'
 		ORDER BY add_date DESC
 	</select>
 	

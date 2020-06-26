@@ -17,7 +17,6 @@ import jxl.write.Label;
 import jxl.write.WritableCellFormat;
 import jxl.write.WritableWorkbook;
 import kr.co.whalesoft.framework.utils.AttachmentUtils;
-import kr.go.gbelib.app.cms.module.bookReview.BookReview;
 
 public class BookExpressView extends AbstractJExcelView {
 
@@ -55,28 +54,30 @@ public class BookExpressView extends AbstractJExcelView {
 		format3.setBorder(Border.ALL, BorderLineStyle.MEDIUM);
 
 		// 컬럼 폭 지정
-		workbook.getSheet(0).setColumnView(0,  10);
-		workbook.getSheet(0).setColumnView(1,  20);
-		workbook.getSheet(0).setColumnView(2,  20);
-		workbook.getSheet(0).setColumnView(3,  20);
-		workbook.getSheet(0).setColumnView(4,  20);
-		workbook.getSheet(0).setColumnView(5,  20);
-		workbook.getSheet(0).setColumnView(6,  20);
-		workbook.getSheet(0).setColumnView(7,  20);
-		workbook.getSheet(0).setColumnView(8,  15);
-		workbook.getSheet(0).setColumnView(9,  15);
+		workbook.getSheet(0).setColumnView(0, 10);
+		workbook.getSheet(0).setColumnView(1, 25);
+		workbook.getSheet(0).setColumnView(2, 20);
+		workbook.getSheet(0).setColumnView(3, 20);
+		workbook.getSheet(0).setColumnView(4, 20);
+		workbook.getSheet(0).setColumnView(5, 20);
+		workbook.getSheet(0).setColumnView(6, 20);
+		workbook.getSheet(0).setColumnView(7, 20);
+		workbook.getSheet(0).setColumnView(8, 20);
+		workbook.getSheet(0).setColumnView(9, 15);
+		workbook.getSheet(0).setColumnView(10, 15);
 
 		
 		workbook.getSheet(0).addCell(new Label(0, 0, "번호", format));
-		workbook.getSheet(0).addCell(new Label(1, 0, "도서명", format));
-		workbook.getSheet(0).addCell(new Label(2, 0, "청구기호", format));
-		workbook.getSheet(0).addCell(new Label(3, 0, "등록번호", format));
-		workbook.getSheet(0).addCell(new Label(4, 0, "요청학교/신청자", format));
-		workbook.getSheet(0).addCell(new Label(5, 0, "신청자", format));
-		workbook.getSheet(0).addCell(new Label(6, 0, "연락처", format));
-		workbook.getSheet(0).addCell(new Label(7, 0, "상태", format));
-		workbook.getSheet(0).addCell(new Label(8, 0, "요청일", format));
-		workbook.getSheet(0).addCell(new Label(9, 0, "처리일", format));
+		workbook.getSheet(0).addCell(new Label(1, 0, "도서관", format));
+		workbook.getSheet(0).addCell(new Label(2, 0, "도서명", format));
+		workbook.getSheet(0).addCell(new Label(3, 0, "청구기호", format));
+		workbook.getSheet(0).addCell(new Label(4, 0, "등록번호", format));
+		workbook.getSheet(0).addCell(new Label(5, 0, "요청학교", format));
+		workbook.getSheet(0).addCell(new Label(6, 0, "신청자", format));
+		workbook.getSheet(0).addCell(new Label(7, 0, "연락처", format));
+		workbook.getSheet(0).addCell(new Label(8, 0, "상태", format));
+		workbook.getSheet(0).addCell(new Label(9, 0, "요청일", format));
+		workbook.getSheet(0).addCell(new Label(10, 0, "처리일", format));
 		// 헤더 컬럼 지정
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -84,12 +85,13 @@ public class BookExpressView extends AbstractJExcelView {
 		int row = 1;
 		for(BookExpress one : bookExpressXls) {
 			workbook.getSheet(0).addCell(new Label(0, row, String.valueOf(row)));
-			workbook.getSheet(0).addCell(new Label(1, row, one.getBook_name()));
-			workbook.getSheet(0).addCell(new Label(2, row, one.getBook_call_no()));
-			workbook.getSheet(0).addCell(new Label(3, row, one.getBook_reg_no()));
-			workbook.getSheet(0).addCell(new Label(4, row, one.getAgency_name()));
-			workbook.getSheet(0).addCell(new Label(5, row, one.getRequest_name() == null ? "" : one.getRequest_name()));
-			workbook.getSheet(0).addCell(new Label(6, row, one.getRequest_phone() == null ? "" : one.getRequest_phone()));
+			workbook.getSheet(0).addCell(new Label(1, row, one.getHomepage_name()));
+			workbook.getSheet(0).addCell(new Label(2, row, one.getBook_name()));
+			workbook.getSheet(0).addCell(new Label(3, row, one.getBook_call_no()));
+			workbook.getSheet(0).addCell(new Label(4, row, one.getBook_reg_no()));
+			workbook.getSheet(0).addCell(new Label(5, row, one.getAgency_name()));
+			workbook.getSheet(0).addCell(new Label(6, row, getNullCheck(one.getRequest_name())));
+			workbook.getSheet(0).addCell(new Label(7, row, getNullCheck(one.getRequest_phone())));
 			
 			String status = "";
 			switch(Integer.parseInt(one.getRequest_status())) {
@@ -100,7 +102,7 @@ public class BookExpressView extends AbstractJExcelView {
 					status = "처리중";
 					break;
 				case 3 :
-					status = "처리불가/" + (one.getReason() == null ? "" : "사유 : " + one.getReason());
+					status = "처리불가/사유 : " + getNullCheck(one.getReason());
 					break;
 				case 4 :
 					status = "보류";
@@ -112,11 +114,25 @@ public class BookExpressView extends AbstractJExcelView {
 					status = "반납완료";
 					break;
 			}
-			workbook.getSheet(0).addCell(new Label(7, row, status));
-			workbook.getSheet(0).addCell(new Label(8, row, sdf.format(one.getRequest_date())));
-			workbook.getSheet(0).addCell(new Label(9, row, sdf.format(one.getAdd_date())));
+			workbook.getSheet(0).addCell(new Label(8, row, status));
+			workbook.getSheet(0).addCell(new Label(9, row, sdf.format(one.getRequest_date())));
+			workbook.getSheet(0).addCell(new Label(10, row, sdf.format(one.getAdd_date())));
 			row++;
 		}
 		
+	}
+	
+	
+	public String getNullCheck(String str) {
+		if(str == null || str.length() == 0) {
+			return "";
+		} else {
+			String lowerStr = str.toLowerCase();
+			if(lowerStr.equals("null")) {
+				return "";
+			} else {
+				return str;
+			}
+		}
 	}
 }
