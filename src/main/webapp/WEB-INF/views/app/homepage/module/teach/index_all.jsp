@@ -234,16 +234,16 @@ $(function(){
 							<c:if test="${not empty i.teacher_name}">
 							<li><div><label>강사명</label> : ${i.teacher_name}</div></li>
 							</c:if>
-							<c:if test="${not empty i.server_file_name}">
-							<li><div>
-				        		<label>강의계획서</label> :
-					         	<span class="important td1">
-					         		<c:if test="${i.server_file_name ne null and i.server_file_name ne '' }">
-					         			<a style="color:#00f" href="download/${i.homepage_id}/${i.group_idx}/${i.category_idx}/${i.teach_idx}.do"><i class="fa fa-floppy-o"></i> ${i.org_file_name}</a>
-					         		</c:if>
-				         		</span>
-					        </div></li>
-					        </c:if>
+<%-- 							<c:if test="${not empty i.server_file_name}"> --%>
+<!-- 							<li><div> -->
+<!-- 								<label>강의계획서</label> : -->
+<!-- 								<span class="important td1"> -->
+<%-- 									<c:if test="${i.server_file_name ne null and i.server_file_name ne '' }"> --%>
+<%-- 										<a style="color:#00f" href="download/${i.homepage_id}/${i.group_idx}/${i.category_idx}/${i.teach_idx}.do"><i class="fa fa-floppy-o"></i> ${i.org_file_name}</a> --%>
+<%-- 									</c:if> --%>
+<!-- 								</span> -->
+<!-- 							</div></li> -->
+<%-- 							</c:if> --%>
 
 							<%-- <li><div><label>강좌설명</label> : ${i.teach_desc}</div></li> --%>
 							<li><div class="status">
