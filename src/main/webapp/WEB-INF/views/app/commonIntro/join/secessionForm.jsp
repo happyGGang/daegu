@@ -29,12 +29,14 @@ $(function() {
 		<div id="txt_box_wrapper02">
 			<div id="txt_box_wrap02">
 				<ul>
-					<li><i class="fa fa-warning"></i> 회원 탈퇴를 하시면 아이디를 포함한 모든 개인정보가 영구적으로 삭제되어 복구되지 않으며, 동일 ID로 재가입할 수 없습니다.</li>
-					<li><i class="fa fa-warning"></i> 회원 탈퇴를 하시면 해당 아이디로 등록된 게시물이나 신청현황은 삭제되지 않고 그대로 남아 있습니다.</li>
-					<li><i class="fa fa-warning"></i> 탈퇴 후에는 작성한 글에 대한 모든 권한(수정, 삭제 등)을 잃게 되므로, 게시물 삭제를 원하시면 반드시 탈퇴 전 삭제하시기 바랍니다.</li>
-					<li><i class="fa fa-warning"></i> 탈퇴 후에는 자료대출, 홈페이지 이용, 전자도서관 이용 등 모든 도서관 서비스를 이용하실 수 없습니다.</li>
-					<li><i class="fa fa-warning"></i> 탈퇴 시 미처리 업무(미반납 도서 등)가 있을 경우 탈퇴가 불가능합니다.</li>
-					<li><i class="fa fa-warning"></i> 회원님의 정보를 안전하게 보호하기 위해 한번 더 비밀번호를 입력해 주시기 바랍니다.</li>
+					<li><i class="fa fa-warning"></i> 도서관 서비스의 부정이용을 방지하고자 탈퇴한 회원은 재가입 하실 수 없습니다.</li>
+					<li><i class="fa fa-warning"></i> 재가입을 원하시는 경우 도서관으로 문의 부탁드립니다.</li>
+					<li><i class="fa fa-warning"></i> 회원 탈퇴를 하여도 해당 아이디로 등록된 게시물, 신청현황 등은 삭제되지 않고 남아있습니다.</li>
+					<li><i class="fa fa-warning"></i> 탈퇴 후 작성 글에 대한 모든 권한을 잃게 되므로 게시물 삭제를 원하시면 반드시 탈퇴 전에 삭제하시기 바랍니다.</li>
+					<li><i class="fa fa-warning"></i> 탈퇴 후 자료대출, 홈페이지 이용(강좌 신청 등), 전자도서관 대출 등 모든 도서관 서비스를 이용하실 수 없습니다.</li>
+					<li><i class="fa fa-warning"></i> 탈퇴 시 미반납 도서가 있을 경우 탈퇴가 불가능 합니다.</li>
+					<li><i class="fa fa-warning"></i> 책이음 회원의 경우 책이음을 먼저 탈퇴하셔야 회원 탈퇴가 가능하오니 도서관에 문의 바랍니다.</li>
+					<li><i class="fa fa-warning"></i> 회원님의 정보를 안전하게 보호하기 위해 한 번 더 비밀번호를 입력해 주시기 바랍니다.</li>
 				</ul>
 			</div>
 		</div>
