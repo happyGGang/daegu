@@ -22,12 +22,12 @@
 							</c:when>
 							<c:otherwise>
 								<script type="text/javascript" src="http://www.dbpia.co.kr/js/dbpia_outConn.js"></script>
-								<a href="javascript:dbpia_open('1856');" class="btn_link02"  title="DBpia 전자저널 바로가기(새창열림)" target="_blank"><span>DBpia 전자저널 바로가기</span><span class="ico ico_link"></span></a>
+								<a href="javascript:dbpia_open('1856');" class="btn_link02"  title="DBpia 전자저널 바로가기(새창열림)"><span>DBpia 전자저널 바로가기</span><span class="ico ico_link"></span></a>
 							</c:otherwise>
 						</c:choose>
 					</c:when>
 					<c:otherwise>
-						<a href="javascript:alert('로그인후 이용가능합니다.');" class="btn_link02"  title="DBpia 전자저널 바로가기(새창열림)"  target="_blank"><span>DBpia 전자저널 바로가기</span><span class="ico ico_link"></span></a>
+						<a href="#" onclick="alert('로그인후 이용가능합니다.'); location.href='http://library.daegu.go.kr/duryu/intro/login/index.do?menu_idx=4&before_url=/duryu/html/dbpia.do?menu_idx=144';" class="btn_link02"  title="DBpia 전자저널 바로가기(새창열림)"><span>DBpia 전자저널 바로가기</span><span class="ico ico_link"></span></a>
 					</c:otherwise>
 				</c:choose>
 			</li>
