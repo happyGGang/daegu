@@ -645,7 +645,7 @@ $(function() {
 									<input type="hidden" id="bex2" value="${i.REG_NO}">
 									<input type="hidden" id="bex3" value="${i.CALL_NO}">
 									<input type="hidden" id="bex4" value="${i.aladin.cover}">
-									<input type="hidden" id="bex5" value="${i.MANAGE_CODE}">
+									<input type="hidden" id="bex5" value="${i.LIB_CODE}">
 									</c:if>
 								</p>
 								<div class="thumb">
