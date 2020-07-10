@@ -188,16 +188,8 @@ public class IndexController extends BaseController {
 		board.setHomepage_id(homepage.getHomepage_id());
 		board.setImsi_v_1(calendarManage.getPlan_date());
 
-		CalendarManage closedDay = null;
-		if("geic".equals(contextPath)) {
-			closedDay = calendarManageService.getClosedDate3(calendarManage);
-		} else {
-			if(homepage.getHomepage_id().equals("h4")) {
-				closedDay = calendarManageService.getClosedDate4(calendarManage);
-			} else {
-				closedDay = calendarManageService.getClosedDate2(calendarManage);
-			}
-		}
+		CalendarManage closedDay = calendarManageService.getClosedDate2(calendarManage);
+
 		calendarManage.setDate_type("2");
 		List<CalendarManage> eventDay = calendarManageService.getCalendarManageDetail(calendarManage);
 		calendarManage.setDate_type(null);
