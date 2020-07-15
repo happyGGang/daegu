@@ -260,11 +260,14 @@ public class BookPackageController extends BaseController {
 
 
 			if(bookPackage.getLender_count() > 1) {
-				service.alertMessage("해당 도서에 이미 예약자가 있습니다.", request, response);
+				service.alertMessage("해당 도서에 이미 예약자가 있습니다.\\n예약기간 : " + bookPackage.getLoan_start_date() + "~" + bookPackage.getLoan_end_date(), request, response);
+				return null;
 			} else if(bookPackage.getLender_count() > 0) {
 				bookPackage.setRequest_status("1");
 			}
 
+			bookPackage.setLoan_start_date(null);
+			bookPackage.setLoan_end_date(null);
 			bookPackage.setSchool_name(loginSupport != null ? loginSupport.getSchool_name() : "관리자");
 
 			BookPackage bp = new BookPackage();

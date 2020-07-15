@@ -4,41 +4,51 @@
 
 	<sql id="field">
 		<![CDATA[
-		book_package_idx, book_package_name, book_package_subject, author, publisher,
+		a.book_package_idx, book_package_name, book_package_subject, author, publisher,
 		publish_year, isbn, book_price, book_pages, purpose,
 		loan_count, quantity, grade, category, keyword,
 		doc_org_file_name, doc_server_file_name, doc_file_extension, doc_file_size,
 		org_file_name, server_file_name, file_extension, file_size,
-		desc_link, image_link, REGEXP_REPLACE(content, '<[^>]*>', '') AS content, add_id, add_date
+		desc_link, image_link, REGEXP_REPLACE(content, '<[^>]*>', '') AS content, a.add_id, a.add_date,
+		TO_CHAR(b.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(b.loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
+		NVL(lender_count, 0) AS lender_count
 		]]>
 	</sql>
 
 	<select id="getBookPackageList" resultType="kr.go.gbelib.app.cms.module.bookPackage.BookPackage">
 		${pagingTop}
 		SELECT
-			<include refid="field"/>,
-			(SELECT COUNT(*) FROM BOOK_PACKAGE_LOAN WHERE book_package_idx = a.book_package_idx AND request_status IN (0, 1, 2)) AS lender_count
+			<include refid="field"/>
 		FROM
-			BOOK_PACKAGE a
-		<trim prefix="WHERE" prefixOverrides="AND">
-			<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
-			AND	${search_type} LIKE '%'||#{search_text}||'%'
-			</if>
-			<if test="category != null and category != '' and category != 'all'">
-			AND	REGEXP_LIKE(category, REPLACE(#{category}, ',', '|'))
-			</if>
-			<if test="grade != null and grade != ''">
-			AND	grade = #{grade}
-			</if>
-			<if test="lender_count != -1">
-			AND	#{lender_count}
-			<choose>
-				<when test="lender_count == 0"><![CDATA[=]]></when>
-				<when test="lender_count == 1"><![CDATA[<=]]></when>
-			</choose>
-			(SELECT COUNT(*) FROM BOOK_PACKAGE_LOAN WHERE book_package_idx = a.book_package_idx AND request_status IN (0, 1, 2))
-			</if>
-		</trim>
+			BOOK_PACKAGE a,
+			(
+			SELECT
+				book_package_idx, COUNT(request_status) AS lender_count, MAX(loan_start_date) AS loan_start_date, MAX(loan_end_date) AS loan_end_date
+			FROM
+				BOOK_PACKAGE_LOAN
+			WHERE
+				request_status IN (0, 1, 2)
+			GROUP BY book_package_idx
+			) b
+		WHERE
+			a.book_package_idx = b.book_package_idx(+)
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="category != null and category != '' and category != 'all'">
+		AND	REGEXP_LIKE(category, REPLACE(#{category}, ',', '|'))
+		</if>
+		<if test="grade != null and grade != ''">
+		AND	grade = #{grade}
+		</if>
+		<if test="lender_count != -1">
+		AND	#{lender_count}
+		<choose>
+			<when test="lender_count == 0"><![CDATA[=]]></when>
+			<when test="lender_count == 1"><![CDATA[<=]]></when>
+		</choose>
+		(SELECT COUNT(*) FROM BOOK_PACKAGE_LOAN WHERE book_package_idx = a.book_package_idx AND request_status IN (0, 1, 2))
+		</if>
 		ORDER BY book_package_idx DESC
 		${pagingBottom}
 
@@ -72,12 +82,21 @@
 
 	<select id="getBookPackageOne" resultType="kr.go.gbelib.app.cms.module.bookPackage.BookPackage">
 		SELECT
-			<include refid="field"/>,
-			(SELECT COUNT(*) FROM BOOK_PACKAGE_LOAN WHERE book_package_idx = a.book_package_idx AND request_status NOT IN (3, 4, 5)) AS lender_count
+			<include refid="field"/>
 		FROM
-			BOOK_PACKAGE a
+			BOOK_PACKAGE a,
+			(
+			SELECT
+				book_package_idx, COUNT(request_status) AS lender_count, MAX(loan_start_date) AS loan_start_date, MAX(loan_end_date) AS loan_end_date
+			FROM
+				BOOK_PACKAGE_LOAN
+			WHERE
+				request_status NOT IN (3, 4, 5)
+			GROUP BY book_package_idx
+			) b
 		WHERE
-			book_package_idx = #{book_package_idx}
+			a.book_package_idx = b.book_package_idx(+)
+		AND	a.book_package_idx = #{book_package_idx}
 	</select>
 
 	<insert id="addBookPackage">
