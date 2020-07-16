@@ -169,7 +169,7 @@ function getCookie(name){
 					</a>
 					</li>
 					<li class="quick-2">
-					<a href="http://kiss.kstudy.com/?c_code=5228431201215032441&code=0008" title="학술DB 홈페이지 바로가기(새창열림)" target="_blank" class="quick02">
+					<a href="/${homepage.context_path}/html.do?menu_idx=24" title="학술DB 홈페이지 바로가기" class="quick02">
 						<div>
 							<h4>학술DB</h4>
 							<p>국내학술지 원문 데이터</p>
