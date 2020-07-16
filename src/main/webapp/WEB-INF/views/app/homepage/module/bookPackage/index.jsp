@@ -221,7 +221,7 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 		</div>
 		<div class="content-box">
 			<div class="subject">
-				<c:if test="${i.lender_count > 0}"><span class="ing">대출중</span></c:if>
+				<c:if test="${i.lender_count > 0}"><span class="ing">대출중</span>(${i.loan_start_date}~${i.loan_end_date})</c:if>
 				<a href="#" class="view-btn" keyValue="${i.book_package_idx}">${i.book_package_subject}</a>
 			</div>
 			<div>
