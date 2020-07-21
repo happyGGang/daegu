@@ -215,6 +215,9 @@ public class StudentController extends BaseController {
 				res.setMessage((String) addResult[1]);
 			}else if(student.getEditMode().equals("MODIFY")) {
 				student.setModify_id(getSessionMemberId(request));
+				if (StringUtils.isNotEmpty(student.getStudent_password())) {
+					student.setStudent_password(CalculateHashUtils.calculateHash(student.getStudent_password()));
+				}
 				studentService.modifyStudent(student);
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");
