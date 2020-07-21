@@ -103,7 +103,7 @@ $(function() {
 			<tr>
 				<th>대출기간(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
-					<form:input path="loan_start_date" cssClass="text ui-calendar"/>
+					<form:input path="loan_start_date" cssClass="text ui-calendar" readonly="true"/>
 					<span>~</span>
 					<form:input path="loan_end_date" cssClass="text ui-calendar" readonly="true"/>
 					<div class="ui-state-highlight">

@@ -190,7 +190,7 @@ public class LibraryCheckController extends BaseController {
 			
 			Calendar cal = Calendar.getInstance();
 			int fri_num = 6 - cal.get(Calendar.DAY_OF_WEEK);
-			cal.add(Calendar.DATE, fri_num);
+			cal.add(Calendar.DATE, fri_num == 0 ? 7 : fri_num);
 			week_fri1 = sdf.format(cal.getTime());
 			
 			cal.add(Calendar.DATE, 7);
