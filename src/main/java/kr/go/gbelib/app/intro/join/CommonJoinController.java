@@ -952,6 +952,9 @@ public class CommonJoinController extends BaseController {
 
 		model.addAttribute("certFailed", true);
 		model.addAttribute("certResult", false);
+
+		Member sessionMemberInfo = getSessionMemberInfo(request);//로그인한 사용자정보
+
 		if (StringUtils.equals(ck_flag, "true")) {
 			model.addAttribute("certFailed", false);
 
@@ -959,7 +962,6 @@ public class CommonJoinController extends BaseController {
 			Member dlsMember = (Member) session.getAttribute("dlsMember");//dls 인증 데이터(아이디, 이름, 패스워드)
 
 			//dls id 세팅
-			Member sessionMemberInfo = getSessionMemberInfo(request);//로그인한 사용자정보
 			sessionMemberInfo.setIntegrationId(dlsMember.getMember_id());//인증받은 dls id 세팅
 
 			//ci 세팅
@@ -977,7 +979,11 @@ public class CommonJoinController extends BaseController {
 			String regular = String.valueOf(regularUserInfoInsert.get("RESULT_INFO"));
 			if (StringUtils.equals(regular, "SUCCESS")) {
 				model.addAttribute("certResult", true);
+			} else {
+				System.out.println("@@@@@@@@@@@@@@@@ dlsCheckA regular false : " + regularUserInfoInsert);
 			}
+		} else {
+			System.out.println("@@@@@@@@@@@@@@@@ dlsCheckA ck_flag false : " + sessionMemberInfo.getMember_id());
 		}
 
 
