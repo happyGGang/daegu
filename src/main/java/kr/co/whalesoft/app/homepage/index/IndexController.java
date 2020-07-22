@@ -117,7 +117,7 @@ public class IndexController extends BaseController {
 	@RequestMapping(value = { "index.*" })
 	public String index(Model model, HttpServletRequest request) {
 		// return doIndexProc(model, request); //대표 홈페이지 이동
-		return "redirect:/gbelib/index.do";
+		return "redirect:/dgportal/index.do";
 	}
 
 	@RequestMapping(value = { "/{contextPath}/index.*" })
