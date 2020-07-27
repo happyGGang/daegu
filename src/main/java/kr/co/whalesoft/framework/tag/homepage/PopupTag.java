@@ -63,6 +63,7 @@ public class PopupTag extends BodyTagSupport {
 				checkbox_tag.setAttribute("id", checkboxId);
 				checkbox_tag.setAttribute("name", popup_id);
 				checkbox_tag.setAttribute("value", popup_id);
+				checkbox_tag.setAttribute("data-day", "1");
 				HtmlTag label_tag = new HtmlTag("label");
 				label_tag.setAttribute("style", "line-height: 34px;");
 				label_tag.setAttribute("for", checkboxId);
@@ -70,6 +71,21 @@ public class PopupTag extends BodyTagSupport {
 				label_tag.setContent("오늘하루 열지않음");
 				div_tag_4.addSubTag(checkbox_tag);
 				div_tag_4.addSubTag(label_tag);
+				
+				checkbox_tag = new HtmlTag("input");
+				checkbox_tag.setAttribute("type", "checkbox");
+				checkbox_tag.setAttribute("id", checkboxId + "_7");
+				checkbox_tag.setAttribute("name", popup_id + "_7");
+				checkbox_tag.setAttribute("value", popup_id);
+				checkbox_tag.setAttribute("data-day", "7");
+				label_tag = new HtmlTag("label");
+				label_tag.setAttribute("style", "line-height: 34px;");
+				label_tag.setAttribute("for", checkboxId + "_7");
+				label_tag.setAttribute("title", "7일간 보지 않기");
+				label_tag.setContent("7일간 보지 않기");
+				div_tag_4.addSubTag(checkbox_tag);
+				div_tag_4.addSubTag(label_tag);
+				
 				div_tag_3.addSubTag(div_tag_4);
 
 				HtmlTag a_tag_2 = new HtmlTag("a");
