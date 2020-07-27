@@ -91,6 +91,7 @@ public class PopupTag extends BodyTagSupport {
 				HtmlTag a_tag_2 = new HtmlTag("a");
 				a_tag_2.setAttribute("class", "btn close-btn");
 				a_tag_2.setAttribute("tabindex", "1"); //텝을 눌렀을때 팝업닫기로 바로 가도록
+				a_tag_2.setAttribute("data-day", "1");
 				HtmlTag i_tag = new HtmlTag("i");
 				i_tag.setAttribute("class", "fa fa-close");
 				HtmlTag span_tag = new HtmlTag("span");
