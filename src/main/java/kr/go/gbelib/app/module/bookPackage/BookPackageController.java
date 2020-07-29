@@ -266,8 +266,6 @@ public class BookPackageController extends BaseController {
 				bookPackage.setRequest_status("1");
 			}
 
-			bookPackage.setLoan_start_date(null);
-			bookPackage.setLoan_end_date(null);
 			bookPackage.setSchool_name(loginSupport != null ? loginSupport.getSchool_name() : "관리자");
 
 			BookPackage bp = new BookPackage();
@@ -285,6 +283,7 @@ public class BookPackageController extends BaseController {
 				cal.setTime(sdf.parse(bookPackageLoanDateList.get(bookPackageLoanDateList.size()-1)));
 				cal.add(Calendar.DATE, 3);
 				bookPackage.setLoan_start_date(sdf.format(cal.getTime()));
+				bookPackage.setLoan_end_date(null);
 			}
 			model.addAttribute("loanDateList", StringUtils.join(loanDateList, ","));
 		}

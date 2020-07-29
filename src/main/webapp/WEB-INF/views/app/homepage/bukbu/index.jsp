@@ -28,12 +28,15 @@ do {
 		// 팝업 관련 코드 START
 		$('.close-btn').on('click', function() {
 			var $this = $(this);
-			var checkInput = $this.parent().find('input');
+			var checkInput = $this.parent().find('input[data-day="'+$this.data('day')+'"]');
 			var popupId = checkInput.val();
 			if (checkInput.prop('checked')) {
 				var todayDate = new Date();
 				todayDate = new Date(
 						parseInt(todayDate.getTime() / 86400000) * 86400000 + 54000000);
+				if($this.data('day') == 7) {
+					todayDate.setDate(todayDate.getDate() + 7);
+				}
 				document.cookie = popupId + "=no"
 						+ "; path=/; expires="
 						+ todayDate.toGMTString() + ";";
@@ -45,6 +48,7 @@ do {
 		$('input[id*=pop]').on('click', function(e) {
 			e.preventDefault();
 			$(this).prop('checked', true);
+			$(this).parent('div').next('a').data('day', $(this).data('day'));
 			$(this).parent('div').next('a').click();
 		});
 

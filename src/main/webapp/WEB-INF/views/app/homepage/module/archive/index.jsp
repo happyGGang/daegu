@@ -49,6 +49,19 @@ $(document).ready(function() {
 <form:hidden path="menu_idx"/>
 <form:hidden path="category"/>
 
+	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
+		<fieldset>
+			<form:select path="search_type" cssClass="selectmenu">
+				<form:option value="subject">제목</form:option>
+				<form:option value="regnumber">등록번호</form:option>
+				<form:option value="callnumber">청구기호</form:option>
+				<form:option value="year">발행년도</form:option>
+			</form:select>
+			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
+			<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
+		</fieldset>
+	</div>
+
 	<div class="infodesk">
 		검색 결과 : 총 <fmt:formatNumber value="${count}" pattern="#,###" />건
 		<form:select path="rowCount" class="selectmenu" style="width:120px;">
@@ -104,16 +117,4 @@ $(document).ready(function() {
 		<jsp:param name="formId" value="#archiveBookListForm"/>
 	</jsp:include>
 
-	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
-		<fieldset>
-			<form:select path="search_type" cssClass="selectmenu">
-				<form:option value="regnumber">등록번호</form:option>
-				<form:option value="callnumber">청구기호</form:option>
-				<form:option value="subject">제목</form:option>
-				<form:option value="year">발행년도</form:option>
-			</form:select>
-			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
-			<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
-		</fieldset>
-	</div>
 </form:form>
