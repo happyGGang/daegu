@@ -33,12 +33,15 @@ do {
 		// 팝업 관련 코드 START
 		$('.close-btn').on('click', function() {
 			var $this = $(this);
-			var checkInput = $this.parent().find('input');
+			var checkInput = $this.parent().find('input[data-day="'+$this.data('day')+'"]');
 			var popupId = checkInput.val();
 			if (checkInput.prop('checked')) {
 				var todayDate = new Date();
 				todayDate = new Date(
 						parseInt(todayDate.getTime() / 86400000) * 86400000 + 54000000);
+				if($this.data('day') == 7) {
+					todayDate.setDate(todayDate.getDate() + 7);
+				}
 				document.cookie = popupId + "=no"
 						+ "; path=/; expires="
 						+ todayDate.toGMTString() + ";";
@@ -50,6 +53,7 @@ do {
 		$('input[id*=pop]').on('click', function(e) {
 			e.preventDefault();
 			$(this).prop('checked', true);
+			$(this).parent('div').next('a').data('day', $(this).data('day'));
 			$(this).parent('div').next('a').click();
 		});
 
@@ -327,13 +331,29 @@ do {
 			<div class="right-section">
 				<div class="right-quick-section">
 					<ul>
+						<li><a href="http://library.daegu.go.kr/suseong/html.do?menu_idx=104" class="quick-05"><span class="txt"><p>이용안내</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="이용안내" class='go-bg'></a></li>
+						<li><a href="/${homepage.context_path}/module/teach/index.do?menu_idx=30" class="quick-01"><span class="txt"><p>수강신청</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="수강신청" class='go-bg'></a></li>
+						<li><a href="/${homepage.context_path}/html.do?menu_idx=56" class="quick-03"><span class="txt"><p>독서문화행사</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="독서문화행사" class='go-bg'></a></li>
+						<li><a href="/${homepage.context_path}/html.do?menu_idx=123" class="quick-04"><span class="txt"><p>시각장애인실</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="시각장애인실" class='go-bg'></a></li>
+						<li><a href="https://seat.daegu.go.kr/wb_booking/?LIB_CODE=10" class="quick-02"><span class="txt"><p>디지털정보존 좌석예약</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="디지털정보존좌석예약" class='go-bg'></a></li>
+						<!--<li><a href="http://library.daegu.go.kr/suseong/elib.do?menu_idx=46" class="quick-06"><span class="txt"><p>대구전자도서관</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="대구전자도서관" class='go-bg'></a></li>-->
+					</ul>
+				</div>
+
+
+
+				<!--<div class="right-quick-section">
+					<ul>
 						<li><a href="/${homepage.context_path}/module/teach/index.do?menu_idx=30" class="quick-01"><span class="txt"><p>수강신청</p><p>온라인 수강신청</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="수강신청" class='go-bg'></a></li>
 						<li><a href="/${homepage.context_path}/html.do?menu_idx=53" class="quick-02"><span class="txt"><p>평생교육강좌</p><p>다양한 교육문화/평생체험</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="평생교육강좌" class='go-bg'></a></li>
 						<li><a href="/${homepage.context_path}/html.do?menu_idx=56" class="quick-03"><span class="txt"><p>독서문화행사</p><p>소통하는 프로그램</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="독서문화행사" class='go-bg'></a></li>
 						<li><a href="/${homepage.context_path}/html.do?menu_idx=123" class="quick-04"><span class="txt"><p>시각장애인실</p><p>우리도서관 특색사업</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="시각장애인실" class='go-bg'></a></li>
-						<!--<li><a href="/${homepage.context_path}/html.do?menu_idx=114" class="quick-05"><span class="txt"><p>소리인문학</p><p>책 읽는 즐거움 소리도서</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="소리인문학" class='go-bg'></a></li>-->
+						<!--<li><a href="/${homepage.context_path}/html.do?menu_idx=114" class="quick-05"><span class="txt"><p>소리인문학</p><p>책 읽는 즐거움 소리도서</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="소리인문학" class='go-bg'></a></li>
 					</ul>
-				</div>
+				</div>-->
+
+
+
 
 				<div class="calendar-box">
 					<div class="title">

@@ -220,57 +220,82 @@
 
 				<div class="main2box2">
 					<div class="notice">
-						<div class="title">
-							<ul>
-								<li><h2>공지사항</h2></li>
-								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=88"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
+						<div class="tabS">
+							<ul class="tabMenuS">
+								<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=88" class='t-tabs'>공지사항</a></li>
+								<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=198&manage_idx=394" class='t-tabs'>행사안내</a></li>
+								<a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=88" class="more-btn more-more">더보기</a>
 							</ul>
-						</div>
-						<div class="cont">
-							<ul class="list">
-								<%--공지사항 상단--%>
-								<c:if test="${fn:length(noticeListTopNotice) < 1}">
-								<li class="on-cont">
-									<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
-									<a href="#">
-										<span class="title">등록된 공지사항이 없습니다.</span>
-										<p class="date"></p>
-										<span class="content">
-										</span>
-									</a>
-								</li>
-								</c:if>
-								<c:if test="${fn:length(noticeListTopNotice) > 0}">
-								<li class="on-cont">
-									<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
-									<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${noticeListTopNotice[0].manage_idx}&board_idx=${noticeListTopNotice[0].board_idx}">
-										<span class="title">${noticeListTopNotice[0].title}</span>
-										<p class="date"><fmt:formatDate value="${noticeListTopNotice[0].add_date}" pattern="yyyy-MM-dd"/></p>
-										<span class="content">
-											${fn:substring(fn:trim(noticeListTopNotice[0].content_summary), 0, 30)}...
-										</span>
-									</a>
-								</li>
-								</c:if>
- 								<%--공지사항 상단--%>
 
- 								<%--공지사항 목록--%>
- 								<c:forEach var="i" varStatus="status" items="${noticeList}" >
-								<li>
-									<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-										<em>${i.title}</em>
-										<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
-									</a>
-								</li>
-								</c:forEach>
+							<div class="cont con" data-tab="tab1">
+								<div class="box">
+								<ul class="list">
+									<%--공지사항 상단--%>
+									<c:if test="${fn:length(noticeListTopNotice) < 1}">
+									<li class="on-cont">
+										<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
+										<a href="#">
+											<span class="title">등록된 공지사항이 없습니다.</span>
+											<p class="date"></p>
+											<span class="content">
+											</span>
+										</a>
+									</li>
+									</c:if>
+									<c:if test="${fn:length(noticeListTopNotice) > 0}">
+									<li class="on-cont">
+										<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${noticeListTopNotice[0].manage_idx}&board_idx=${noticeListTopNotice[0].board_idx}">
+											<span class="title">${noticeListTopNotice[0].title}</span>
+											<p class="date"><fmt:formatDate value="${noticeListTopNotice[0].add_date}" pattern="yyyy-MM-dd"/></p>
+											<span class="content">
+												${fn:substring(fn:trim(noticeListTopNotice[0].content_summary), 0, 30)}...
+											</span>
+										</a>
+									</li>
+									</c:if>
+									<%--공지사항 상단--%>
 
-								<c:if test="${fn:length(noticeList) < 1}">
-								<li>
-									<em>등록된 공지사항이 없습니다.</em>
-								</li>
-								</c:if>
-								<%--공지사항 목록--%>
-							</ul>
+									<%--공지사항 목록--%>
+									<c:forEach var="i" varStatus="status" items="${noticeList}" >
+									<li>
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+											<em>${i.title}</em>
+											<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
+										</a>
+									</li>
+									</c:forEach>
+
+									<c:if test="${fn:length(noticeList) < 1}">
+									<li>
+										<em>등록된 공지사항이 없습니다.</em>
+									</li>
+									</c:if>
+									<%--공지사항 목록--%>
+								</ul>
+								</div>
+							</div>
+
+							<div class="news cont con" data-tab="tab2" style="display:none;">
+								<div class="box">
+									<ul>
+										<c:forEach var="i" varStatus="status" items="${bidList}" >
+										<li>
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=198&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+												<em>${i.title}</em>
+												<span><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
+											</a>
+										</li>
+										</c:forEach>
+
+										<c:if test="${fn:length(bidList) < 1}">
+										<li>
+											<em>등록된 글이 없습니다.</em>
+										</li>
+										</c:if>
+									</ul>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

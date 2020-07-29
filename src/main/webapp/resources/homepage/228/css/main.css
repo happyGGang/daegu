@@ -96,6 +96,15 @@
 .main2 .main2box2 p.date {font-size: 13px;margin-top: 7px; margin-bottom: 5px;color:#444}
 .main2 .main2box2 span.content {margin-left: 0!important;color: #555;width: 100%; font-size: 14px; font-weight: 500; text-overflow: ellipsis; overflow: hidden; display: inline-block; white-space: nowrap;}
 
+.main2box2 .tabMenuS {position:relative;text-align:left;margin:0;padding:0;overflow:hidden;padding-left:23px;box-sizing:border-box;}
+.main2box2 .tabMenuS li {position:relative;display:inline-block;float:left;box-sizing:border-box;text-align:left;}
+.main2box2 .tabMenuS li.on a {color:#ed4024;font-weight:bold;padding:20px;}
+.main2box2 .tabMenuS li a {position:relative;display:block;box-sizing:border-box;font-size:18px;color:#000;font-weight:normal;padding:20px;text-align:left;}
+.main2box2 .tabMenuS li a:first-child {padding-left:0;}
+.main2box2 .tabMenuS li a span {font-size:15px;padding: 0 0 0 5px;font-weight:normal;}
+.main2box2 .tabMenuS .more-btn {right:20px;top:15px;font-size:0;line-height:0;position:absolute;background:url('/resources/homepage/jungang/img/more_bt.png') no-repeat 0 0;width:27px;height:24px}
+
+
 .main2 .main2box3 {float:right;width:306px;height:328px;box-sizing:border-box;border:1px solid #dadada;}
 .main2 .main2box3 .calendar-box .cal-box {position:relative;}
 .main2 .main2box3 .calendar-box {position:relative;}
@@ -149,7 +158,23 @@
 #calendar2 .planView .inbox dd{padding:3px 0}
 #calendar2 .planView .inbox a.close{position:absolute;right:5px;top:0;font-size:120%}
 
-
+/* √÷Ω≈±€ */
+.main .news li {position:relative;overflow:hidden;background:url('/resources/common/img/arr-news.gif') no-repeat 2% center;padding:2px 75px 2px 30px;}
+.main .news li.on-notice {background:url('/resources/homepage/jungang/img/on-notice-dot.png') no-repeat 0 center;}
+.main .news li i,
+.main .news li em,
+.main .news li span {font-style:normal;vertical-align:middle}
+.main .news li span {font-size:14px;}
+.main .news li i{background:url('../img/icon_new.gif') no-repeat 0 0;width:10px;height:10px;font-size:0;line-height:0}
+.main .news li em{display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.main .news li span {position:absolute;right:5px;top:3px;padding-right:1px}
+.main .news li.new a{display:flex}
+.main .news li.new a img{vertical-align:middle}
+.main .news li.new em{padding-right:15px;background:url('../img/icon_new.gif') no-repeat right center}
+.main .news li.notice a{color:#f43b40;font-weight:bold}
+.main .news {width:100%}
+.main .news li {padding:4px 75px 4px 23px}
+.main .news li a {font-size:15px;color:#000;}
 
 .qmobileBr {display:none;}
 
@@ -229,6 +254,8 @@
 	.main1 .main1box2 .main1box2box1 .main1box2box1box2 .big-btn-box h2 span {display:block;font-size:15px;color:#fff;padding-top:0;}
 	.main1 .main1box2 .main1box2box1 .main1box2box1box2 .big-btn-box h2 span.second-line {font-size:25px;padding-top:7px;}
 	.main1 .main1box2 .main1box2box1 .main1box2box1box2 .big-btn-box h2 span.third-line  {font-size:25px;padding-top:12px;}
+
+	.main .news li a {font-size:14px;}
 }
 
 @media all and (max-width:767px){

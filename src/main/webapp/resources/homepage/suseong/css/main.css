@@ -20,7 +20,7 @@
 .main.container .left-section .popZone .bx-prev, 
 .main.container .left-section .popZone .bx-next, 
 .main.container .left-section .popZone .bx-start,
-.main.container .left-section .popZone .bx-stop {position:absolute;width:50px;height:50px;font-size:0;background-image:url("/resources/homepage/dalsung/img/popupzone-arrow-v2.png");background-repeat: no-repeat; background-position:0 0;background-size:initial;}
+.main.container .left-section .popZone .bx-stop {position:absolute;width:50px;height:50px;font-size:0;background-image:url("/resources/homepage/suseong/img/popupzone-arrow-v2.png");background-repeat: no-repeat; background-position:0 0;background-size:initial;}
 .main.container .left-section .popZone .bx-pager {position:absolute;text-align:center;right:100px;width:70px;height:50px;line-height:50px;background:#2f2f2f;color:#fff;}
 .main.container .left-section .popZone .bx-prev { left:0; }
 .main.container .left-section .popZone .bx-next { right:0; background-position:-50px 0; }
@@ -91,12 +91,13 @@
 .main.container .right-section .right-quick-section {}
 .main.container .right-section .right-quick-section  li {display:block;}
 .main.container .right-section .right-quick-section  li:last-child {border-bottom:0;}
-.main.container .right-section .right-quick-section  li a {position:relative;display:block;height:102px;line-height:82px;padding:30px 10px 23px 28px;box-sizing:border-box;}
-.main.container .right-section .right-quick-section  li a.quick-01 {background:#416190 url("/resources/homepage/suseong/img/quick001-bg.png") no-repeat 10% center;}
-.main.container .right-section .right-quick-section  li a.quick-02 {background:#8790eb url("/resources/homepage/suseong/img/quick002-bg.png") no-repeat 10% center;}
+.main.container .right-section .right-quick-section  li a {position:relative;display:block;height:81.9px;line-height:82px;padding:30px 10px 25px 22px;box-sizing:border-box;}
+.main.container .right-section .right-quick-section  li a.quick-01 {background:#8790eb url("/resources/homepage/suseong/img/quick001-bg.png") no-repeat 10% center;}
+.main.container .right-section .right-quick-section  li a.quick-02 {background:#84b8e8 url("/resources/homepage/suseong/img/quick002-bg.png") no-repeat 10% center;}
 .main.container .right-section .right-quick-section  li a.quick-03 {background:#50ccca url("/resources/homepage/suseong/img/quick003-bg.png") no-repeat 10% center;}
 .main.container .right-section .right-quick-section  li a.quick-04 {background:#fc9284 url("/resources/homepage/suseong/img/quick004-bg.png") no-repeat 10% center;}
-.main.container .right-section .right-quick-section  li a.quick-05 {background:#174090 url("/resources/homepage/suseong/img/quick005-bg.png") no-repeat 10% center;}
+.main.container .right-section .right-quick-section  li a.quick-05 {background:#416190 url("/resources/homepage/suseong/img/quick005-bg.png") no-repeat 10% center;}
+.main.container .right-section .right-quick-section  li a.quick-06 {background:#174090 url("/resources/homepage/suseong/img/quick006-bg.png") no-repeat 10% center;}
 .main.container .right-section .right-quick-section  li a span.txt {display:block;padding-left:69px;letter-spacing:-2.5px;color:#fff;}
 
 .main.container .right-section .right-quick-section  li a span.txt p:first-child {font-size:20px;font-weight:bold;padding-top:0px;}
@@ -172,7 +173,7 @@
 .mobileBr {display:none;}
 
 #quick-slide {position:fixed;width:103px;height:auto;left:50%;top: 274px;margin-left:650px;z-index: 8;background: #fff;}
-#quick-slide ul {border:1px solid #dadada;border-top:0;box-sizing:border-box;text-align:center;padding:10px;margin-top:-20px;}
+#quick-slide ul {border:2px solid #174090;border-top:0;box-sizing:border-box;text-align:center;padding:10px;margin-top:-20px;}
 #quick-slide ul li {padding:18px 0;border-bottom:1px solid #dadada;}
 #quick-slide ul li a span {display:block;}
 #quick-slide ul li a span.txt {font-size:13px;line-height:120%;}
