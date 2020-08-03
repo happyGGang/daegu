@@ -389,6 +389,7 @@ public class DgElibAPIService extends BaseService {
 
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("method", "getLeftCategory"));
+		params.add(new BasicNameValuePair("facet_lib_code", "000000"));
 
 		Map<String, Object> result = parse(send("http://e-lib.tglnet.or.kr/daegu/MainPage.do", params, "UTF-8"), "UTF-8");
 		if(result == null || "SUCCESS".equals(str(result.get("STATUS"))) == false) {
@@ -462,6 +463,7 @@ public class DgElibAPIService extends BaseService {
 		params.add(new BasicNameValuePair("sort_option", "asc"));
 		params.add(new BasicNameValuePair("current_page", str(book.getViewPage() - 1)));
 		params.add(new BasicNameValuePair("list_count", str(book.getRowCount())));
+		params.add(new BasicNameValuePair("facet_lib_code", "000000"));
 
 		Map<String, Object> result = parse(send("http://e-lib.tglnet.or.kr/daegu/Search.do", params, "UTF-8"), "UTF-8");
 		if(result == null || "SUCCESS".equals(str(result.get("STATUS"))) == false) {
