@@ -113,6 +113,10 @@ public class StudentWorkbook {
 		}
 		if ( StringUtils.equals(teach.getSchool_info_yn(), "Y")) {
 			workbook.getSheet(0).setColumnView(column, 20);
+			workbook.getSheet(0).addCell(new Label(column++, 1, "학교", format));
+		}
+		if ( StringUtils.equals(teach.getSchool_grade_yn(), "Y")) {
+			workbook.getSheet(0).setColumnView(column, 20);
 			workbook.getSheet(0).addCell(new Label(column++, 1, "학년", format));
 		}
 		workbook.getSheet(0).setColumnView(column, 20);
@@ -239,6 +243,9 @@ public class StudentWorkbook {
 				workbook.getSheet(0).addCell(new Label(column++, row, org.getStudent_family_count(), format1));
 			}
 			if ( StringUtils.equals(teach.getSchool_info_yn(), "Y")) {
+				workbook.getSheet(0).addCell(new Label(column++, row, org.getStudent_school(), format1));
+			}
+			if ( StringUtils.equals(teach.getSchool_grade_yn(), "Y")) {
 				workbook.getSheet(0).addCell(new Label(column++, row, org.getStudent_hack_str(), format1));
 			}
 			workbook.getSheet(0).addCell(new Label(column++, row, org.getCancel_id(), format1));
