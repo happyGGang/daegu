@@ -211,7 +211,7 @@ $(function() {
 				         	<td>${i.add_id}</td>
 				         	<td>${i.name}</td>
 				         	<td class="left">
-								<c:forTokens items="${i.quiz_answer}" delims="<whale>" var="oneAnswer" varStatus="status">
+								<c:forTokens items="${i.quiz_answer}" delims="|" var="oneAnswer" varStatus="status">
 				         			<span <c:if test="${fn:replace(fn:trim(quizQuestionList[status.index].quiz_question_answer), ' ', '') eq fn:replace(fn:trim(oneAnswer), ' ', '')}">style="background:#0f0"</c:if>>${status.count}번 답: ${oneAnswer}</span><br/>
 				         		</c:forTokens>
 			         		</td>

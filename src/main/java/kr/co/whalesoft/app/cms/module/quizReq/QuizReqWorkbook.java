@@ -85,7 +85,7 @@ public class QuizReqWorkbook {
 			workbook.getSheet(0).addCell( new Label( i++,  row, org.getPhone(),format1 ) );
 			workbook.getSheet(0).addCell( new Label( i++, row, org.getAdd_date(),format1 ) );
 			if ( StringUtils.isNotEmpty(org.getQuiz_answer()) ) {
-				String[] answerList = org.getQuiz_answer().split("<whale>");
+				String[] answerList = org.getQuiz_answer().split("|");
 				
 				workbook.getSheet(0).addCell( new Label( i++, row, org.getWinner_yn(), format1 ) );
 				workbook.getSheet(0).addCell( new Label( i++, row, org.getChosen_yn(), format1 ) );

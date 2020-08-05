@@ -105,7 +105,7 @@ $(function() {
 							var items = [];
 							//보기 한줄로 합치기
 							form.find('input[name="tmp_question_item"]').each(function(i, v) { items.push($(this).val());});
-							form.find('input[name="quiz_question_item"]').val(items.join('<whale>'));
+							form.find('input[name="quiz_question_item"]').val(items.join('|'));
 							
 							if ( doAjaxPost(form) ) {
 								sendCount += 1;
@@ -267,11 +267,14 @@ $(function() {
 						        <tr>
 						         	<th>문항 보기 <a class="btn btn1 add-item" keyValue="question_${status.index}">추가</a></th>
 						         	<td class="question_items">
-						         		<c:forEach items="${fn:split(i.quiz_question_item,'<whale>')}" var="j" >
+						         		<c:forEach items="${fn:split(i.quiz_question_item,'|')}" var="j" >
 						         			<div style="margin-top:5px;">
 						         				<input name="tmp_question_item" type="text" class="text" value="${j}" style="width:70%"/> <a href="" class="btn item-delete">보기삭제</a>
 						         			</div>
 						         		</c:forEach>
+						         		<div class="ui-state-highlight">
+											<em>* '|' (pipeline)은 사용하지 마십시오.</em>
+										</div>
 						         	</td>
 						        </tr>
 						        <tr>

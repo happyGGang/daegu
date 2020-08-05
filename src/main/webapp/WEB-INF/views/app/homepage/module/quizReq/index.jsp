@@ -80,7 +80,7 @@ $(function() {
 				answerList.push(checkAnswer.join(','));
 			}
 		});
-		$('#quizReq #quiz_answer').val(answerList.join('<whale>'));
+		$('#quizReq #quiz_answer').val(answerList.join('|'));
 
 		var $form = $('#quizReq').clone();
 		if ( $form.find('#hak').val() == '' ) {
@@ -160,7 +160,7 @@ ${quiz.top_html}
 				<c:when test="${oneQuestion.quiz_question_type eq 'RADIO'}">
 					<div class="txt-box t2" keyValue="RADIO">
 						<ul>
-							<c:forTokens items="${oneQuestion.quiz_question_item}" delims="<whale>" var="oneRadioItem" varStatus="radioItemStatus">
+							<c:forTokens items="${oneQuestion.quiz_question_item}" delims="|" var="oneRadioItem" varStatus="radioItemStatus">
 								<li><input type="radio" name="radio_answer_${questionStatus.count}" id="radioItem_${questionStatus.count}_${radioItemStatus.index}" value="${oneRadioItem}"/> <label for="radioItem_${questionStatus.count}_${radioItemStatus.index}">${oneRadioItem}</label></li>
 							</c:forTokens>
 						</ul>
@@ -169,7 +169,7 @@ ${quiz.top_html}
 				<c:when test="${oneQuestion.quiz_question_type eq 'CHECK'}">
 					<div class="txt-box t2" keyValue="CHECK">
 						<ul>
-							<c:forTokens items="${oneQuestion.quiz_question_item}" delims="<whale>" var="oneCheckItem" varStatus="checkItemStatus">
+							<c:forTokens items="${oneQuestion.quiz_question_item}" delims="|" var="oneCheckItem" varStatus="checkItemStatus">
 								<li><input type="checkbox" name="check_answer_${questionStatus.count}" id="checkItem_${questionStatus.count}_${checkItemStatus.index}" value="${oneCheckItem}"/> <label for="checkItem_${questionStatus.count}_${checkItemStatus.index}">${oneCheckItem}</label></li>
 							</c:forTokens>
 						</ul>
