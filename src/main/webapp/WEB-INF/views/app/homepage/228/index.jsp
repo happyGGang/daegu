@@ -280,14 +280,41 @@
 								</div>
 							</div>
 
-							<div class="news cont con" data-tab="tab2" style="display:none;">
+							<div class="cont con" data-tab="tab2" style="display:none;">
 								<div class="box">
-									<ul>
+									<ul class="list">
+										<%-- 행사안내 상단 --%>
+										<c:if test="${fn:length(bidListTopNotice) < 1}">
+										<li class="on-cont">
+											<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
+											<a href="#">
+												<span class="title">등록된 글이 없습니다.</span>
+												<p class="date"></p>
+												<span class="content">
+												</span>
+											</a>
+										</li>
+										</c:if>
+										<c:if test="${fn:length(bidListTopNotice) > 0}">
+										<li class="on-cont">
+											<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=198&manage_idx=${bidListTopNotice[0].manage_idx}&board_idx=${bidListTopNotice[0].board_idx}">
+												<span class="title">${bidListTopNotice[0].title}</span>
+												<p class="date"><fmt:formatDate value="${bidListTopNotice[0].add_date}" pattern="yyyy-MM-dd"/></p>
+												<span class="content">
+													${fn:substring(fn:trim(bidListTopNotice[0].content_summary), 0, 30)}...
+												</span>
+											</a>
+										</li>
+										</c:if>
+										<%-- 행사안내 상단 --%>
+										
+										<%-- 행사안내 목록 --%>
 										<c:forEach var="i" varStatus="status" items="${bidList}" >
 										<li>
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=198&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 												<em>${i.title}</em>
-												<span><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
+												<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
 											</a>
 										</li>
 										</c:forEach>
@@ -297,6 +324,7 @@
 											<em>등록된 글이 없습니다.</em>
 										</li>
 										</c:if>
+										<%-- 행사안내 목록 --%>
 									</ul>
 								</div>
 							</div>
