@@ -175,7 +175,13 @@ $(function() {
 			<c:forEach var="i" varStatus="status" items="${quizList}">
 				<tr>
 					<td>${paging.listRowNum - status.index}</td>
-					<td>${quizTypeList[i.quiz_type - 1].code_name}</td>
+					<td>
+						<c:forEach items="${quizTypeList}" var="qt">
+							<c:if test="${qt.code_id eq i.quiz_type}">
+							${qt.code_name}
+							</c:if>
+						</c:forEach>
+					</td>
 					<td>${i.quiz_year}년 ${i.quiz_month}월</td>
 					<td>${i.quiz_name}</td>
 					<td>${i.book_name}</td>
