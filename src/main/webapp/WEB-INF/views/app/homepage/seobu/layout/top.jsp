@@ -36,7 +36,7 @@
 						<span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=5">회원가입</a>
 						<span class="txt-bar"></span>
-						<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=8"> 통합회원인증</a>
+						<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=8" style="color:#ff0000;">통합회원인증</a>
 					</c:otherwise>
 				</c:choose>
 				<span class="txt-bar"></span>

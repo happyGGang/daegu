@@ -233,7 +233,14 @@ $(function() {
 											귀중자료(관내열람만가능)
 										</c:when>
 										<c:otherwise>
-											대출가능
+											<c:choose>
+												<c:when test="${detail.SHELF_LOC_CODE eq 'AK03'}">
+													<span style="color:#ff0000">대출불가</span>
+												</c:when>
+												<c:otherwise>
+													대출가능
+												</c:otherwise>
+											</c:choose>
 										</c:otherwise>
 									</c:choose>
 								</c:otherwise>
