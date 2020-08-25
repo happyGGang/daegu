@@ -220,16 +220,16 @@ do {
 									</span>
 								</div>
 								<div class="topBox2">
-									<span><h4>어린이자료실</h4></span>
+									<span><h4>자유학습실</h4></span>
 									<span>
-									<strong>평일 09:00~18:00<br/>
+									<strong>평일 09:00~19:00<br/>
 									주말 09:00~17:00</strong>
 									</span>
 								</div>
 							</div>
 							<div class="bottom">
-								<span><h4>자유학습실</h4></span>
-								<span><strong>07:00~22:00</strong></span>
+								<span><h4>어린이자료실</h4></span>
+								<span><strong>평일 09:00~18:00 / 주말 09:00~17:00</strong></span>
 							</div>
 						</div>
 					</div>
