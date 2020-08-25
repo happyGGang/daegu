@@ -176,6 +176,8 @@ $(function() {
 			<col width="100" />
 			<col width="50" />
 			<col width="50" />
+			<col width="50" />
+			<col width="50" />
 			<col width="100" />
 			<col width="200" />
 			<col width="130" />
@@ -194,6 +196,8 @@ $(function() {
        			<th>학교</th>
        			<th>학년</th>
        			<th>반</th>
+       			<th>성별</th>
+       			<th>연령대</th>
        			<th>전화번호</th>
        			<th>응모일시</th>
        			<th>정답자여부</th>
@@ -218,6 +222,18 @@ $(function() {
 			         		<td>${i.school}</td>
 				         	<td>${i.hak}</td>
 				         	<td>${i.ban}</td>
+				         	<td>
+			         		<c:choose>
+				         		<c:when test="${i.gender eq '0'}">남</c:when>
+				         		<c:when test="${i.gender eq '1'}">여</c:when>
+			         		</c:choose>
+				         	</td>
+				         	<td>
+			         		<c:choose>
+				         		<c:when test="${i.age eq '20'}">성인</c:when>
+				         		<c:when test="${i.age eq '14'}">청소년</c:when>
+			         		</c:choose>
+				         	</td>
 				         	<td>${i.phone}</td>
 				         	<td>${i.add_date}</td>
 				         	<td>

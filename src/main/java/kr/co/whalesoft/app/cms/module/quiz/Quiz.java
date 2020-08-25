@@ -1,6 +1,5 @@
 package kr.co.whalesoft.app.cms.module.quiz;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import kr.co.whalesoft.framework.utils.PagingUtils;
@@ -31,6 +30,8 @@ public class Quiz extends PagingUtils {
 	private String school_yn = "Y"; // 학교입력여부
 	private String ban_yn = "Y"; // 반입력여부
 	private String hak_yn = "Y"; // 학년입력여부
+	private String gender_yn = "Y"; // 성별 선택여부
+	private String age_yn = "Y"; // 연령대 선택여부
 	private int select_cnt;
 
 	public Quiz() {
@@ -239,6 +240,22 @@ public class Quiz extends PagingUtils {
 
 	public void setHak_yn(String hak_yn) {
 		this.hak_yn = hak_yn;
+	}
+
+	public String getGender_yn() {
+		return gender_yn;
+	}
+
+	public void setGender_yn(String gender_yn) {
+		this.gender_yn = gender_yn;
+	}
+
+	public String getAge_yn() {
+		return age_yn;
+	}
+
+	public void setAge_yn(String age_yn) {
+		this.age_yn = age_yn;
 	}
 
 	public int getSelect_cnt() {

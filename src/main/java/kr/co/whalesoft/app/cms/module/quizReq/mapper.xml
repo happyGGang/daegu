@@ -6,7 +6,7 @@
 		${pagingTop}
 		SELECT
 			homepage_id, quiz_idx, quiz_req_idx, quiz_answer, name,
-			school, hak, ban, phone, zip_code,
+			school, hak, ban, gender, age, phone, zip_code,
 			address, winner_yn, add_ip, add_id, to_char(add_date, 'yyyy-mm-dd hh24:mi:ss') as add_date,
 			chosen_yn
 		FROM
@@ -24,7 +24,7 @@
 	<select id="getQuizReqListAll" resultType="kr.co.whalesoft.app.cms.module.quizReq.QuizReq">
 		SELECT
 			homepage_id, quiz_idx, quiz_req_idx, quiz_answer, name,
-			school, hak, ban, phone, zip_code,
+			school, hak, ban, gender, age, phone, zip_code,
 			address, winner_yn, add_ip, add_id, to_char(add_date, 'yyyy-mm-dd hh24:mi:ss') as add_date,
 			chosen_yn
 		FROM
@@ -81,12 +81,15 @@
 		<selectKey keyProperty="quiz_req_idx" resultType="int" order="BEFORE">
 			SELECT NVL(MAX(QUIZ_REQ_IDX),0)+1 FROM QUIZ_REQ WHERE HOMEPAGE_ID = #{homepage_id} AND QUIZ_IDX = #{quiz_idx}
 		</selectKey>
-	
 		INSERT INTO QUIZ_REQ
 		(
-			HOMEPAGE_ID, QUIZ_IDX, QUIZ_REQ_IDX, QUIZ_ANSWER, NAME, SCHOOL, HAK, BAN, PHONE, ZIP_CODE, ADDRESS, ADD_IP, ADD_ID, ADD_DATE, CHOSEN_YN
+			homepage_id, quiz_idx, quiz_req_idx, quiz_answer, name,
+			school, hak, ban, gender, age, phone, zip_code,
+			address, add_ip, add_id, add_date, chosen_yn
 		) VALUES (
-			#{homepage_id}, #{quiz_idx}, #{quiz_req_idx}, #{quiz_answer}, #{name}, #{school}, #{hak}, #{ban}, #{phone}, #{zip_code}, #{address}, #{add_ip}, #{add_id}, SYSDATE, 'N'
+			#{homepage_id}, #{quiz_idx}, #{quiz_req_idx}, #{quiz_answer}, #{name},
+			#{school}, #{hak}, #{ban}, #{gender}, #{age}, #{phone}, #{zip_code},
+			#{address}, #{add_ip}, #{add_id}, SYSDATE, 'N'
 		)
 	</insert>
 	

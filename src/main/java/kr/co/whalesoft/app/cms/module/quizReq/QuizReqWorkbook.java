@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.LabelView;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -51,6 +52,8 @@ public class QuizReqWorkbook {
 		workbook.getSheet(0).setColumnView( i++, 20 );
 		workbook.getSheet(0).setColumnView( i++, 10 );
 		workbook.getSheet(0).setColumnView( i++, 10 );
+		workbook.getSheet(0).setColumnView( i++, 10 );
+		workbook.getSheet(0).setColumnView( i++, 10 );
 		workbook.getSheet(0).setColumnView( i++, 50 );
 		workbook.getSheet(0).setColumnView( i++, 30 );
 		workbook.getSheet(0).setColumnView( i++, 20 );
@@ -65,6 +68,8 @@ public class QuizReqWorkbook {
 		workbook.getSheet(0).addCell( new Label( i++, 0, "학교", format ) );
 		workbook.getSheet(0).addCell( new Label( i++, 0, "학년", format ) );
 		workbook.getSheet(0).addCell( new Label( i++, 0, "반", format ) );
+		workbook.getSheet(0).addCell( new Label( i++, 0, "성별", format ) );
+		workbook.getSheet(0).addCell( new Label( i++, 0, "연령대", format ) );
 		workbook.getSheet(0).addCell( new Label( i++, 0, "전화번호", format ) );
 		workbook.getSheet(0).addCell( new Label( i++, 0, "등록일시", format ) );
 		workbook.getSheet(0).addCell( new Label( i++, 0, "정답자 여부", format ) );
@@ -82,6 +87,18 @@ public class QuizReqWorkbook {
 			workbook.getSheet(0).addCell( new Label( i++,  row, org.getSchool(),format1 ) );
 			workbook.getSheet(0).addCell( new Label( i++,  row, String.valueOf(org.getHak()),format1 ) );
 			workbook.getSheet(0).addCell( new Label( i++,  row, String.valueOf(org.getBan()),format1 ) );
+			if (StringUtils.equals(org.getGender(), "0")) {
+				org.setGender("남");
+			} else if (StringUtils.equals(org.getGender(), "1")) {
+				org.setGender("여");
+			}
+			workbook.getSheet(0).addCell( new Label( i++,  row, org.getGender(), format1));
+			if (StringUtils.equals(org.getAge(), "20")) {
+				org.setAge("성인");
+			} else if (StringUtils.equals(org.getAge(), "14")) {
+				org.setAge("청소년");
+			}
+			workbook.getSheet(0).addCell( new Label( i++,  row, org.getAge(), format1));
 			workbook.getSheet(0).addCell( new Label( i++,  row, org.getPhone(),format1 ) );
 			workbook.getSheet(0).addCell( new Label( i++, row, org.getAdd_date(),format1 ) );
 			if ( StringUtils.isNotEmpty(org.getQuiz_answer()) ) {

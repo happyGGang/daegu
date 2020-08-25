@@ -217,6 +217,24 @@ ${quiz.top_html}
 							<input type="text" id="ban" name="ban" class="text" title="반 입력" cssStyle="width:30px" maxlength="2"/></td>
 					</tr>
 				</c:if>
+				<c:if test="${quiz.gender_yn eq 'Y'}">
+					<tr>
+						<th>성별</th>
+						<td>
+							<form:radiobutton path="gender" label="남" value="0" checked="true"/>
+							<form:radiobutton path="gender" label="여" value="1"/>
+						</td>
+					</tr>
+				</c:if>
+				<c:if test="${quiz.age_yn eq 'Y'}">
+					<tr>
+						<th>연령대</th>
+						<td>
+							<form:radiobutton path="age" label="성인" value="20" checked="true"/>
+							<form:radiobutton path="age" label="청소년" value="14"/>
+						</td>
+					</tr>
+				</c:if>
 				<tr>
 					<th>이름</th>
 					<td>

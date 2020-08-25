@@ -16,6 +16,8 @@ public class QuizReq extends PagingUtils {
 	private String school; //학교
 	private int hak;  //학년
 	private int ban;  //반
+	private String gender;  // 성별
+	private String age;  // 연령대
 	private String phone;  //전화번호
 	private String zip_code;
 	private String address;  //주소
@@ -63,6 +65,19 @@ public class QuizReq extends PagingUtils {
 	public void setBan(int ban) {
 		this.ban = ban;
 	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public String getAge() {
+		return age;
+	}
+	public void setAge(String age) {
+		this.age = age;
+	}
+
 	public String getPhone() {
 		return phone;
 	}

@@ -130,6 +130,20 @@ function getLasData(arg) {
 	        	</td>
 	        </tr>
 	        <tr>
+	        	<th>성별 선택여부</th>
+	        	<td>
+	        		<form:radiobutton path="gender_yn" value="N" label="아니오"/>
+	        		<form:radiobutton path="gender_yn" value="Y" label="예"/>
+	        	</td>
+	        </tr>
+	        <tr>
+	        	<th>연령대 선택여부</th>
+	        	<td>
+	        		<form:radiobutton path="age_yn"  value="N" label="아니오"/>
+	        		<form:radiobutton path="age_yn"  value="Y" label="예"/>
+	        	</td>
+	        </tr>
+	        <tr>
 				<th>도서검색</th>
 				<td>
 					<a href="#" class="btn btn2" id="getLas"><i class="fa fa-plus"></i><span>도서검색</span></a>&nbsp;&nbsp;<span id="img_file"></span>
