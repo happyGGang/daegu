@@ -21,11 +21,11 @@
 .main1 .main1box2 {float:right;width:840px;}
 .main1 .main1box2 .main1box2box1 {overflow:hidden;}
 .main1 .main1box2 .main1box2box1 .main1box2box1box1 {float:left;width:525px;overflow:hidden;}
-.main1 .main1box2 .main1box2box1 .main1box2box1box1 span.wt {display:block;font-size:20px;letter-spacing:-1px;font-weight:bold;}
+.main1 .main1box2 .main1box2box1 .main1box2box1box1 span.wt {display:block;font-size:20px;letter-spacing:-2px;font-weight:bold;}
 .main1 .main1box2 .main1box2box1 .main1box2box1box1 span.wc {display:block;font-size:13px;position:relative;padding-top:10px;display:inline-block;letter-spacing:-1px;line-height:120%;}
 .main1 .main1box2 .main1box2box1 .main1box2box1box1 ul {width:100%;display:inline-block;float:right;;}
 .main1 .main1box2 .main1box2box1 .main1box2box1box1 ul li {position:relative;float:left;width:33.33333333%;display:inline-block;height:165px!important;}
-.main1 .main1box2 .main1box2box1 .main1box2box1box1 ul li a {position:relative;display:block;height:100%;padding-top:30px;padding-left:25px;color:#fff;box-sizing:border-box;letter-spacing:-1px;}
+.main1 .main1box2 .main1box2box1 .main1box2box1box1 ul li a {position:relative;display:block;height:100%;padding-top:25px;padding-left:20px;padding-right:20px;color:#fff;box-sizing:border-box;letter-spacing:-2px;}
 .main1 .main1box2 .main1box2box1 .main1box2box1box1 ul li.li-bg a{width: 83%;height:87%;padding-top:12%;padding-left:10%;padding-right: 7%;}
 .main1 .main1box2 .main1box2box1 .main1box2box1box1 ul li.bg-lgray a {color:#272727;}
 .main1 .main1box2 .main1box2box1 .main1box2box1box1 ul li.bg-white a{color:#272727;}
