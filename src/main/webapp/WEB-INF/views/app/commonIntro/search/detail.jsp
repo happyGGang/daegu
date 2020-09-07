@@ -285,7 +285,7 @@ $(function() {
 
 
 			<c:choose>
-				<c:when test="${detail.MANAGE_CODE eq 'AA' || detail.MANAGE_CODE eq 'AB' || detail.MANAGE_CODE eq 'AC' || detail.MANAGE_CODE eq 'AD' || detail.MANAGE_CODE eq 'AF' || detail.MANAGE_CODE eq 'AG' || detail.MANAGE_CODE eq 'AH' || detail.MANAGE_CODE eq 'AJ' || detail.MANAGE_CODE eq 'AE'}">
+				<c:when test="${detail.MANAGE_CODE eq 'AL'}">
 
 				</c:when>
 				<c:otherwise>
@@ -308,13 +308,13 @@ $(function() {
 					if(9 <= hour && hour < 17)
 					{
 					%>
-						<!-- <a href="#night" id="night-req" class="btn">워킹스루예약신청</a> -->
+						<!--<a href="#night" id="night-req" class="btn">워킹스루예약신청</a>-->
 					<%
 					}
 					else
 					{
 					%>
-						<!-- <a href="#" class="btn btn1" onclick="alert('신청가능 시간이 아닙니다.');">워킹스루예약신청</a> -->
+						<!--<a href="#" class="btn btn1" onclick="alert('신청가능 시간이 아닙니다.');">워킹스루예약신청</a>-->
 					<%
 					}
 					%>
@@ -334,7 +334,7 @@ $(function() {
 				<c:when test="${homepage.context_path eq 'jungang'}">
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
 					<c:if test="${detail.RESERVATION_CNT eq '0'}">
-					<c:if test="${detail.SHELF_LOC_CODE eq 'AD02' || detail.SHELF_LOC_CODE eq 'AD03' || detail.SHELF_LOC_CODE eq 'AD04' || detail.SHELF_LOC_CODE eq 'AD06' || detail.SHELF_LOC_CODE eq 'AD07' || detail.SHELF_LOC_CODE eq 'AD08' || detail.SHELF_LOC_CODE eq 'AD14' || detail.SHELF_LOC_CODE eq 'AD18' || detail.SHELF_LOC_CODE eq 'AD19' || detail.SHELF_LOC_CODE eq 'AD20' || detail.SHELF_LOC_CODE eq 'AD01' || detail.SHELF_LOC_CODE eq 'AD11' || detail.SHELF_LOC_CODE eq 'AD27'}">
+					<c:if test="${detail.SHELF_LOC_CODE eq 'AD02' || detail.SHELF_LOC_CODE eq 'AD03' || detail.SHELF_LOC_CODE eq 'AD04' || detail.SHELF_LOC_CODE eq 'AD06' || detail.SHELF_LOC_CODE eq 'AD07' || detail.SHELF_LOC_CODE eq 'AD08' || detail.SHELF_LOC_CODE eq 'AD12' || detail.SHELF_LOC_CODE eq 'AD14' || detail.SHELF_LOC_CODE eq 'AD18' || detail.SHELF_LOC_CODE eq 'AD19' || detail.SHELF_LOC_CODE eq 'AD20' || detail.SHELF_LOC_CODE eq 'AD01' || detail.SHELF_LOC_CODE eq 'AD11' || detail.SHELF_LOC_CODE eq 'AD27'}">
 
 						<c:choose>
 							<c:when test="${sessionScope.member.user_class_code eq '016' || sessionScope.member.user_class_code eq '017'}">
