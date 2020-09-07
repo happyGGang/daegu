@@ -194,4 +194,12 @@
 			</foreach>
 	</delete>
 	
+	<delete id="facilityBookCloseCancel">
+		DELETE FROM
+			FACILITY_BOOK_CLOSE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	close_idx = #{close_idx}
+	</delete>
+	
 </mapper>

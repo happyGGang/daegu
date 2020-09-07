@@ -112,4 +112,8 @@ public class FacilityBookService extends BaseService {
 		return dao.deleteFacilityBook(facilityBook);
 	}
 
+	public int facilityBookCloseCancel(FacilityBook facilityBook) {
+		return dao.facilityBookCloseCancel(facilityBook);
+	}
+
 }

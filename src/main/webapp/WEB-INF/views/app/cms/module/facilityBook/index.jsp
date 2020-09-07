@@ -131,7 +131,13 @@ $(function() {
 	
 	$('a.btn-modify-close').on('click', function(e) {
 		e.preventDefault();
-		return false;
+		
+		if(confirm('해당 휴관일을 취소하시겠습니까?')) {
+			$('input#close_idx_cls').val($(this).attr('keyValue'));
+			if(doAjaxPost($('form#closeCancel'))) {
+				location.reload();
+			}
+		}
 	});
 	
 	
@@ -156,6 +162,11 @@ $(function() {
 	$('td.top').height(150);
 });
 </script>
+<form:form modelAttribute="facilityBook" id="closeCancel" action="save.do" method="POST">
+<form:hidden path="editMode" id="editMode_cls" value="CLOSE_CANCEL"/>
+<form:hidden path="homepage_id" id="homepage_id_cls"/>
+<form:hidden path="close_idx" id="close_idx_cls"/>
+</form:form>
 <form:form id="facilityBookListForm"  modelAttribute="facilityBook" action="index.do" >
 	<form:hidden path="plan_date"/>
 	<form:hidden path="homepage_id"/>
@@ -206,7 +217,7 @@ $(function() {
 											<c:choose>
 												<c:when test="${not empty closeList[planDate].AM}">
 												<span>
-													<a href="#" class="btn-modify-close" keyValue="${applyList[planDate].AM.close_idx}">
+													<a href="#" class="btn-modify-close" keyValue="${closeList[planDate].AM.close_idx}">
 														<img alt="휴관" src="/resources/module/4f_hu.gif">
 													</a>
 												</span>
@@ -237,7 +248,7 @@ $(function() {
 											<c:choose>
 												<c:when test="${not empty closeList[planDate].PM}">
 												<span>
-													<a href="#" class="btn-modify-close" keyValue="${applyList[planDate].PM.close_idx}">
+													<a href="#" class="btn-modify-close" keyValue="${closeList[planDate].PM.close_idx}">
 														<img alt="휴관" src="/resources/module/4f_hu.gif">
 													</a>
 												</span>
@@ -281,7 +292,7 @@ $(function() {
 											<c:choose>
 												<c:when test="${not empty closeList[planDate].AM}">
 												<span>
-													<a href="#" class="btn-modify-close" keyValue="${applyList[planDate].AM.close_idx}">
+													<a href="#" class="btn-modify-close" keyValue="${closeList[planDate].AM.close_idx}">
 														<img alt="휴관" src="/resources/module/4f_hu.gif">
 													</a>
 												</span>
@@ -312,7 +323,7 @@ $(function() {
 											<c:choose>
 												<c:when test="${not empty closeList[planDate].PM}">
 												<span>
-													<a href="#" class="btn-modify-close" keyValue="${applyList[planDate].PM.close_idx}">
+													<a href="#" class="btn-modify-close" keyValue="${closeList[planDate].PM.close_idx}">
 														<img alt="휴관" src="/resources/module/4f_hu.gif">
 													</a>
 												</span>
@@ -356,7 +367,7 @@ $(function() {
 											<c:choose>
 												<c:when test="${not empty closeList[planDate].AM}">
 												<span>
-													<a href="#" class="btn-modify-close" keyValue="${applyList[planDate].AM.close_idx}">
+													<a href="#" class="btn-modify-close" keyValue="${closeList[planDate].AM.close_idx}">
 														<img alt="휴관" src="/resources/module/4f_hu.gif">
 													</a>
 												</span>
@@ -387,7 +398,7 @@ $(function() {
 											<c:choose>
 												<c:when test="${not empty closeList[planDate].PM}">
 												<span>
-													<a href="#" class="btn-modify-close" keyValue="${applyList[planDate].PM.close_idx}">
+													<a href="#" class="btn-modify-close" keyValue="${closeList[planDate].PM.close_idx}">
 														<img alt="휴관" src="/resources/module/4f_hu.gif">
 													</a>
 												</span>
@@ -431,7 +442,7 @@ $(function() {
 											<c:choose>
 												<c:when test="${not empty closeList[planDate].AM}">
 												<span>
-													<a href="#" class="btn-modify-close" keyValue="${applyList[planDate].AM.close_idx}">
+													<a href="#" class="btn-modify-close" keyValue="${closeList[planDate].AM.close_idx}">
 														<img alt="휴관" src="/resources/module/4f_hu.gif">
 													</a>
 												</span>
@@ -462,7 +473,7 @@ $(function() {
 											<c:choose>
 												<c:when test="${not empty closeList[planDate].PM}">
 												<span>
-													<a href="#" class="btn-modify-close" keyValue="${applyList[planDate].PM.close_idx}">
+													<a href="#" class="btn-modify-close" keyValue="${closeList[planDate].PM.close_idx}">
 														<img alt="휴관" src="/resources/module/4f_hu.gif">
 													</a>
 												</span>
@@ -506,7 +517,7 @@ $(function() {
 											<c:choose>
 												<c:when test="${not empty closeList[planDate].AM}">
 												<span>
-													<a href="#" class="btn-modify-close" keyValue="${applyList[planDate].AM.close_idx}">
+													<a href="#" class="btn-modify-close" keyValue="${closeList[planDate].AM.close_idx}">
 														<img alt="휴관" src="/resources/module/4f_hu.gif">
 													</a>
 												</span>
@@ -537,7 +548,7 @@ $(function() {
 											<c:choose>
 												<c:when test="${not empty closeList[planDate].PM}">
 												<span>
-													<a href="#" class="btn-modify-close" keyValue="${applyList[planDate].PM.close_idx}">
+													<a href="#" class="btn-modify-close" keyValue="${closeList[planDate].PM.close_idx}">
 														<img alt="휴관" src="/resources/module/4f_hu.gif">
 													</a>
 												</span>
@@ -581,7 +592,7 @@ $(function() {
 											<c:choose>
 												<c:when test="${not empty closeList[planDate].AM}">
 												<span>
-													<a href="#" class="btn-modify-close" keyValue="${applyList[planDate].AM.close_idx}">
+													<a href="#" class="btn-modify-close" keyValue="${closeList[planDate].AM.close_idx}">
 														<img alt="휴관" src="/resources/module/4f_hu.gif">
 													</a>
 												</span>
@@ -612,7 +623,7 @@ $(function() {
 											<c:choose>
 												<c:when test="${not empty closeList[planDate].PM}">
 												<span>
-													<a href="#" class="btn-modify-close" keyValue="${applyList[planDate].PM.close_idx}">
+													<a href="#" class="btn-modify-close" keyValue="${closeList[planDate].PM.close_idx}">
 														<img alt="휴관" src="/resources/module/4f_hu.gif">
 													</a>
 												</span>
@@ -656,7 +667,7 @@ $(function() {
 											<c:choose>
 												<c:when test="${not empty closeList[planDate].AM}">
 												<span>
-													<a href="#" class="btn-modify-close" keyValue="${applyList[planDate].AM.close_idx}">
+													<a href="#" class="btn-modify-close" keyValue="${closeList[planDate].AM.close_idx}">
 														<img alt="휴관" src="/resources/module/4f_hu.gif">
 													</a>
 												</span>
@@ -687,7 +698,7 @@ $(function() {
 											<c:choose>
 												<c:when test="${not empty closeList[planDate].PM}">
 												<span>
-													<a href="#" class="btn-modify-close" keyValue="${applyList[planDate].PM.close_idx}">
+													<a href="#" class="btn-modify-close" keyValue="${closeList[planDate].PM.close_idx}">
 														<img alt="휴관" src="/resources/module/4f_hu.gif">
 													</a>
 												</span>

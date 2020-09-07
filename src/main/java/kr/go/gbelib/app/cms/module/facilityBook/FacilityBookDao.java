@@ -30,4 +30,6 @@ public interface FacilityBookDao {
 
 	public int deleteFacilityBook(FacilityBook facilityBook);
 
+	public int facilityBookCloseCancel(FacilityBook facilityBook);
+
 }

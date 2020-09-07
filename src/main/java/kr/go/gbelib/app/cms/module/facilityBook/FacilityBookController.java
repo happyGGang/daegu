@@ -181,6 +181,10 @@ public class FacilityBookController extends BaseController {
 				res.setMessage("선택 삭제되었습니다.");
 //				res.setUrl("index.do");
 //				res.setData("viewPage=1");
+			} else if(facilityBook.getEditMode().equals("CLOSE_CANCEL")) {
+				service.facilityBookCloseCancel(facilityBook);
+				res.setValid(true);
+				res.setMessage("휴관 취소되었습니다.");
 			}
 		} else {
 			res.setValid(false);
