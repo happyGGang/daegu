@@ -294,8 +294,15 @@ public class LibrarySearchController extends BaseController {
 
 		//접속 도서관 확인
 		Homepage homepage = getSessionHomepage(request);
+//		if (StringUtils.isEmpty(librarySearch.getManageCode())) {
+//			librarySearch.setManageCode(homepage.getManage_code());
+//		}
 		if (StringUtils.isEmpty(librarySearch.getManageCode())) {
-			librarySearch.setManageCode(homepage.getManage_code());
+			if (homepage == null) {
+				return basePath + "newBook/index";
+			} else {
+				librarySearch.setManageCode(homepage.getManage_code());
+			}
 		}
 
 		//기본값 '1달 전'
@@ -372,7 +379,11 @@ public class LibrarySearchController extends BaseController {
 	public String bestBookList(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request) {
 		Homepage homepage = getSessionHomepage(request);
 		if (StringUtils.isEmpty(librarySearch.getManageCode())) {
-			librarySearch.setManageCode(homepage.getManage_code());
+			if (homepage == null) {
+				return basePath + "bestBook/index";
+			} else {
+				librarySearch.setManageCode(homepage.getManage_code());
+			}
 		}
 
 		//서지형태 분류코드 설정.
@@ -991,7 +1002,7 @@ public class LibrarySearchController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
 			return null;
 		}
 
@@ -1098,7 +1109,7 @@ public class LibrarySearchController extends BaseController {
 						map2.put("isbn"+isbn.length(), isbn);
 
 						LibrarySearch bookSerach = new LibrarySearch();
-						bookSerach.setManageCode(homepage.getManage_code());
+						bookSerach.setManageCode(librarySearch.getManageCode());
 						bookSerach.setIsbn(isbn);
 						Map<String, Object> sameBook = (Map<String, Object>) LibSearchAPI.getBookDetail(bookSerach);
 

@@ -45,7 +45,7 @@ $(function() {
 
 		if ( doAjaxPost($('#basketReqForm')) ) {
 			if (confirm('보관함에 추가되었습니다. 보관함으로 이동하시겠습니까?')) {
-				location.href = '/${homepage.context_path}/intro/search/deliveryBasket/index.do?menu_idx=${deliveryMenuMenuIdx}';
+				location.href = '/${context_path}/intro/search/deliveryBasket/index.do?menu_idx=${deliveryMenuMenuIdx}';
 			}
 		}
 	});
@@ -56,7 +56,7 @@ $(function() {
 
 		} */
 
-		window.open("/${homepage.context_path}/module/myStorage/viewStorage.do?"+serializeCustom($('#storageReqForm')), "", "width=450, height=400");
+		window.open("/${context_path}/module/myStorage/viewStorage.do?"+serializeCustom($('#storageReqForm')), "", "width=450, height=400");
 	});
 
 	$('a.addDelivery').on('click', function(e) {
@@ -89,7 +89,7 @@ $(function() {
 
 </script>
 
-<form id="storageReqForm" action="/${homepage.context_path}/module/myStorage/saveItem.do" method="post">
+<form id="storageReqForm" action="/${context_path}/module/myStorage/saveItem.do" method="post">
 	<input type="hidden" name="_csrf" value="${_csrf.token}">
 	<input type="hidden" id="editMode" name="editMode" value="ADD">
 	<input type="hidden" id="item_name" name="item_name" value="${detail.TITLE_INFO}">
@@ -123,7 +123,7 @@ $(function() {
 	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
 </form>
 
-<form id="basketReqForm" action="/${homepage.context_path}/intro/search/saveDeliveryBasket.do">
+<form id="basketReqForm" action="/${context_path}/intro/search/saveDeliveryBasket.do">
 	<input type="hidden" name="_csrf" value="${_csrf.token}">
 	<input type="hidden" id="book_key" name="book_key">
 	<input type="hidden" name="editMode" value="ADD">
@@ -334,7 +334,7 @@ AD19 북큐레이션(종합)
 AD20 종합자료실
 -->
 			<c:choose>
-				<c:when test="${homepage.context_path eq 'jungang'}">
+				<c:when test="${context_path eq 'jungang'}">
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
 					<c:if test="${detail.RESERVATION_CNT eq '0'}">
 					<c:if test="${detail.SHELF_LOC_CODE eq 'AD02' || detail.SHELF_LOC_CODE eq 'AD03' || detail.SHELF_LOC_CODE eq 'AD04' || detail.SHELF_LOC_CODE eq 'AD06' || detail.SHELF_LOC_CODE eq 'AD07' || detail.SHELF_LOC_CODE eq 'AD08' || detail.SHELF_LOC_CODE eq 'AD14' || detail.SHELF_LOC_CODE eq 'AD18' || detail.SHELF_LOC_CODE eq 'AD19' || detail.SHELF_LOC_CODE eq 'AD20'}">
@@ -344,7 +344,7 @@ AD20 종합자료실
 					</c:if>
 					</c:if>
 				</c:when>
-				<c:when test="${homepage.context_path eq '228'}">
+				<c:when test="${context_path eq '228'}">
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
 					<c:if test="${detail.RESERVATION_CNT eq '0'}">
 					<c:if test="${detail.SHELF_LOC_CODE eq 'AA04'}">
@@ -354,7 +354,7 @@ AD20 종합자료실
 					</c:if>
 					</c:if>
 				</c:when>
-				<c:when test="${homepage.context_path eq 'dmsl'}">
+				<c:when test="${context_path eq 'dmsl'}">
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
 					<c:if test="${detail.RESERVATION_CNT eq '0'}">
 					<c:if test="${sessionScope.member.user_class_code eq '701'}">

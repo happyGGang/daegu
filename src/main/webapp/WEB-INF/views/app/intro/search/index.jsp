@@ -63,8 +63,8 @@ $(function() {
 	});
 
 	//전체 선택
-	$('#checkAllBook').change(function(e) {
-		$('input.checkBook').prop('checked', $(this).prop('checked'));
+	$('#checkAll').change(function(e) {
+		$('div#libraryList input:checkbox, div#mapWrap input:checkbox').prop('checked', $(this).prop('checked'));
 	});
 
 	$('a#addMyLib').on('click', function(e) {
@@ -155,7 +155,7 @@ $(function() {
 	//검색초기화
 	$('a#reset-btn').on('click', function(e) {
 		e.preventDefault();
-		location.href='/intro/${homepage.context_path}/search/index.do';
+		location.href='/intro/${context_path}/search/index.do';
 		$('#title').focus();
 	});
 
@@ -165,6 +165,9 @@ $(function() {
 	location.href = '#search-btn';
 	</c:if>
 
+	<c:if test="${empty librarySearch.title}">
+	$('#checkAll').click();
+	</c:if>
 });
 </script>
 <form:form modelAttribute="librarySearch" id="detailForm" action="detail.do" method="post" >
@@ -193,10 +196,66 @@ $(function() {
 					<div class="title-box">
 						<form:input path="title" class="text-area" placeholder="도서 제목을 입력하세요"/>
 					</div>
-
+					<div class="end" style="padding:10px 0;"></div>
+<!--
 					<div class="vk-btn">
 						<a id="vk-popup" class="btnNew2">다국어입력기</a>
 					</div>
+-->
+
+<!-- 도서관 선택 분기처리 시작 -->
+					<c:choose>
+					<c:when test="${context_path eq 'bukgs' || context_path eq 'bukdh' || context_path eq 'buktj' || context_path eq 'buks'}">
+					<div id="libraryList" class="libraryList">
+						<div>
+							<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
+						</div>
+						<div>
+							<ul>
+								<li>
+									<form:checkbox path="libraryCodes" value="BA" class="libCheck lib_BA" label="구수산도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BB" class="libCheck lib_BB" label="대현도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BC" class="libCheck lib_BC" label="태전도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="GJ" class="libCheck lib_GJ" label="태전1동 작은도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="GL" class="libCheck lib_GL" label="산격1동 작은도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="GM" class="libCheck lib_GM" label="북구영어작은도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="GN" class="libCheck lib_GN" label="침산1동 작은도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="GP" class="libCheck lib_GP" label="노원동 작은도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="HB" class="libCheck lib_HB" label="서변동작은도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="HD" class="libCheck lib_HD" label="노원행복도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="HE" class="libCheck lib_HE" label="한강공원부키도서관"/>
+								</li>
+							</ul>
+						</div>
+						<div class="end"></div>
+					</div>
+					<div class="end" style="padding:10px 0;"></div>
+					</c:when>
+					<c:otherwise>
+					<form:hidden path="libraryCodes" value="" />
+					</c:otherwise>
+					</c:choose>
+<!-- 도서관 선택 분기처리 끝 -->
 
 					<dl>
 						<dt><label for="author" class="title">저자</label></dt>
@@ -269,8 +328,10 @@ $(function() {
 				<p class="btn_w">
 					<a id="search-btn" class="btnNew">검색하기</a>
 					<a id="reset-btn" class="btnNew1">검색초기화</a>
+					<a id="vk-popup" class="btnNew1">다국어입력기</a>
 					<!-- <input name="search_bt2" class="btnNew btn-warning btn-xs mT1" id="search-btn" type="submit" value="검색하기" /> -->
 				</p>
+
 			</div>
 			<!--// 검색하기_일반 -->
 

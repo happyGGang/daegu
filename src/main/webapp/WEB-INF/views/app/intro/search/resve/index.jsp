@@ -38,7 +38,7 @@ $(function() {
 </form>
 
 <div class="DepthBtn">
-<c:set var="prefix" value="/intro/${homepage.context_path}/search/"></c:set>
+<c:set var="prefix" value="/intro/${context_path}/search/"></c:set>
 <a href="${prefix}loan/index.do" class="bBtn">대출중인도서</a>
 <a href="${prefix}loan/history.do" class="bBtn">대출내역조회</a>
 <%-- <a href="${prefix}sangho/index.do" class="bBtn">상호대차신청내역조회</a> --%>
@@ -91,7 +91,7 @@ $(function() {
 									<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
 
 										<c:choose>
-											<c:when test="${homepage.context_path eq 'dmsl'}">
+											<c:when test="${context_path eq 'dmsl'}">
 											별관 이동도서관 신청
 											</c:when>
 											<c:otherwise>
@@ -103,7 +103,7 @@ $(function() {
 									<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
 
 										<c:choose>
-											<c:when test="${homepage.context_path eq 'dmsl'}">
+											<c:when test="${context_path eq 'dmsl'}">
 											별관 이동도서관 신청 예약대기
 											</c:when>
 											<c:otherwise>

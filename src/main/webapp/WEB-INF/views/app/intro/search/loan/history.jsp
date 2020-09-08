@@ -42,7 +42,7 @@ $(function() {
 <!-- /contents-title-->
 
 <div class="DepthBtn">
-<c:set var="prefix" value="/intro/${homepage.context_path}/search/"></c:set>
+<c:set var="prefix" value="/intro/${context_path}/search/"></c:set>
 <a href="${prefix}loan/index.do" class="bBtn">대출중인도서</a>
 <a href="${prefix}loan/history.do" class="bBtn">대출내역조회</a>
 <%-- <a href="${prefix}sangho/index.do" class="bBtn">상호대차신청내역조회</a> --%>

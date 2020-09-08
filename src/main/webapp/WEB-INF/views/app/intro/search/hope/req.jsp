@@ -28,7 +28,7 @@ $(function() {
 		e.preventDefault();
 	});
 
-	doAjaxLoad('div#searchBox', 'search.do');
+	doAjaxLoad('div#searchBox', 'search.do?manageCode=${context_path}');
 });
 $(document).on("keyup", "input:text[numberOnly]", function() {
 	$(this).val($(this).val().replace(/[^0-9]/gi, ""));
@@ -42,8 +42,8 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 <!-- /contents-title-->
 
 <div class="DepthBtn">
-	<a href="/intro/${homepage.context_path}/search/hope/req.do" class="bBtn">희망도서신청</a>
-	<a href="/intro/${homepage.context_path}/search/hope/index.do" class="bBtn">신청내역보기</a>
+	<a href="/intro/${context_path}/search/hope/req.do" class="bBtn">희망도서신청</a>
+	<a href="/intro/${context_path}/search/hope/index.do" class="bBtn">신청내역보기</a>
 </div>
 
 <div id="searchBox">
@@ -59,9 +59,80 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 		<tr>
 			<th>신청도서관 <em><font color="red">(*)</font></em></th>
 			<td>
+				<c:choose>
+				<c:when test="${context_path eq 'bukgs' || context_path eq 'bukdh' || context_path eq 'buktj' || context_path eq 'buks'}">
 				<form:select path="manageCode">
-					<form:option value="${homepage.manage_code}">${homepage.homepage_name}</form:option>
+					<form:option value="BA">구수산도서관</form:option>
+					<form:option value="BB">대현도서관</form:option>
+					<form:option value="BC">태전도서관</form:option>
+				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
+				</c:when>
+				<c:when test="${context_path eq 'jungang'}">
+				<form:select path="manageCode">
+					<form:option value="AD">중앙도서관</form:option>
 				</form:select>
+				</c:when>
+				<c:when test="${context_path eq 'dongdu'}">
+				<form:select path="manageCode">
+					<form:option value="AH">동부도서관</form:option>
+				</form:select>
+				</c:when>
+				<c:when test="${context_path eq 'seobu'}">
+				<form:select path="manageCode">
+					<form:option value="AF">서부도서관</form:option>
+				</form:select>
+				</c:when>
+				<c:when test="${context_path eq 'nambu'}">
+				<form:select path="manageCode">
+					<form:option value="AG">남부도서관</form:option>
+				</form:select>
+				</c:when>
+				<c:when test="${context_path eq 'bukbu'}">
+				<form:select path="manageCode">
+					<form:option value="AC">북부도서관</form:option>
+				</form:select>
+				</c:when>
+				<c:when test="${context_path eq 'duryu'}">
+				<form:select path="manageCode">
+					<form:option value="AB">두류도서관</form:option>
+				</form:select>
+				</c:when>
+				<c:when test="${context_path eq '228'}">
+				<form:select path="manageCode">
+					<form:option value="AA">228기념학생도서관</form:option>
+				</form:select>
+				</c:when>
+				<c:when test="${context_path eq '228lib'}">
+				<form:select path="manageCode">
+					<form:option value="AL">228민주운동</form:option>
+				</form:select>
+				</c:when>
+				<c:when test="${context_path eq 'suseong'}">
+				<form:select path="manageCode">
+					<form:option value="AE">수성도서관</form:option>
+				</form:select>
+				</c:when>
+				<c:when test="${context_path eq 'dalseong'}">
+				<form:select path="manageCode">
+					<form:option value="AJ">달성도서관</form:option>
+				</form:select>
+				</c:when>
+				<c:when test="${context_path eq 'std'}">
+				<form:select path="manageCode">
+					<form:option value="AK">대구학생문화센터</form:option>
+				</form:select>
+				</c:when>
+				<c:when test="${context_path eq 'dmsl'}">
+				<form:select path="manageCode">
+					<form:option value="FV">대구시청작은도서관</form:option>
+				</form:select>
+				</c:when>
+				<c:otherwise>
+				<form:select path="manageCode">
+					<form:option value="AD">중앙도서관</form:option>
+				</form:select>
+				</c:otherwise>
+				</c:choose>
 			</td>
 		</tr>
 		<!-- 신청도서관 부분 추가 -->
@@ -93,7 +164,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 			<th>가격 <em><font color="red">(*)</font></em></th>
 			<td><form:input path="price" style="width:40%" class="text" type="text" maxlength="10" numberOnly="true" /></td>
 		</tr>
-		<c:if test="${homepage.context_path ne 'nambu' and homepage.context_path ne 'std'}">
+		<c:if test="${context_path ne 'nambu' and context_path ne 'std'}">
 		<tr>
 			<th>우선대출예약여부</th>
 			<td><form:checkbox path="reservation_yn" class="text" value="Y" checked="checked"/> <label for="reservation_yn1">우선대출을 원하실 경우 체크를 해주세요</label></td>
