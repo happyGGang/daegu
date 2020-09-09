@@ -74,17 +74,19 @@ public class LibrarySearchController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 		List<Homepage> normalHomepage = homepageService.getNormalHomepage();
 		// 소장처 코드
-		if ( StringUtils.isEmpty(librarySearch.getManageCode()) ) {
-			librarySearch.setManageCode(homepage.getManage_code());
-		}
+//		if ( StringUtils.isEmpty(librarySearch.getManageCode()) ) {
+//			librarySearch.setManageCode(homepage.getManage_code());
+//		}
 
 		if ( librarySearch.getLibraryCodes() == null ) {
 			List<String> libraryCodes = new ArrayList<String>();
-			if ( !StringUtils.isEmpty(homepage.getManage_code()) ) {
+			if ( homepage != null && !StringUtils.isEmpty(homepage.getManage_code()) ) {
 				libraryCodes.add(homepage.getManage_code());
 			} else {
 				for (Homepage home : normalHomepage) {
-					libraryCodes.add(home.getManage_code());
+					if (StringUtils.isNotEmpty(home.getManage_code())) {
+						libraryCodes.add(home.getManage_code());
+					}
 				}
 			}
 			librarySearch.setLibraryCodes(libraryCodes);

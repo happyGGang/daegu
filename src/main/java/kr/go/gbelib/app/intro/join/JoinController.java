@@ -633,7 +633,7 @@ public class JoinController extends BaseController {
 
 		if (!result.hasErrors()) {
 			if (member.getEditMode().equals("ADD")) {
-				member.setManage_code(homepage.getManage_code());
+//				member.setManage_code(homepage.getManage_code());
 				String addResult = joinService.addMember(request, member);
 				if (addResult.equals("0")) {
 					res.setValid(true);

@@ -211,16 +211,16 @@ $(function() {
 					</th>
 					<td>
 						<c:choose>
-						<c:when test="${homepage.context_path eq 'bukgs'}">
+						<c:when test="${context_path eq 'bukgs'}">
 						구수산도서관<input type="hidden" id="" name="manage_code" value="BA" />
 						</c:when>
-						<c:when test="${homepage.context_path eq 'bukdh'}">
+						<c:when test="${context_path eq 'bukdh'}">
 						대현도서관<input type="hidden" id="" name="manage_code" value="BB" />
 						</c:when>
-						<c:when test="${homepage.context_path eq 'buktj'}">
+						<c:when test="${context_path eq 'buktj'}">
 						태전도서관<input type="hidden" id="" name="manage_code" value="BC" />
 						</c:when>
-						<c:when test="${homepage.context_path eq 'buks'}">
+						<c:when test="${context_path eq 'buks'}">
 							<select name="manage_code">
 								<option value="GP">노원동 작은도서관</option>
 								<option value="HD">노원행복도서관</option>
@@ -232,43 +232,43 @@ $(function() {
 								<option value="HE">한강공원부키도서관</option>
 							</select>
 						</c:when>
-						<c:when test="${homepage.context_path eq 'jungang'}">
+						<c:when test="${context_path eq 'jungang'}">
 						중앙도서관<input type="hidden" id="" name="manage_code" value="AD" />
 						</c:when>
-						<c:when test="${homepage.context_path eq 'dongdu'}">
+						<c:when test="${context_path eq 'dongdu'}">
 						동부도서관<input type="hidden" id="" name="manage_code" value="AH" />
 						</c:when>
-						<c:when test="${homepage.context_path eq 'seobu'}">
+						<c:when test="${context_path eq 'seobu'}">
 						서부도서관<input type="hidden" id="" name="manage_code" value="AF" />
 						</c:when>
-						<c:when test="${homepage.context_path eq 'nambu'}">
+						<c:when test="${context_path eq 'nambu'}">
 						남부도서관<input type="hidden" id="" name="manage_code" value="AG" />
 						</c:when>
-						<c:when test="${homepage.context_path eq 'bukbu'}">
+						<c:when test="${context_path eq 'bukbu'}">
 						북부도서관<input type="hidden" id="" name="manage_code" value="AC" />
 						</c:when>
-						<c:when test="${homepage.context_path eq 'duryu'}">
+						<c:when test="${context_path eq 'duryu'}">
 						두류도서관<input type="hidden" id="" name="manage_code" value="AB" />
 						</c:when>
-						<c:when test="${homepage.context_path eq '228'}">
+						<c:when test="${context_path eq '228'}">
 						228기념학생도서관<input type="hidden" id="" name="manage_code" value="AA" />
 						</c:when>
-						<c:when test="${homepage.context_path eq '228lib'}">
+						<c:when test="${context_path eq '228lib'}">
 						228민주운동<input type="hidden" id="" name="manage_code" value="AL" />
 						</c:when>
-						<c:when test="${homepage.context_path eq 'suseong'}">
+						<c:when test="${context_path eq 'suseong'}">
 						수성도서관<input type="hidden" id="" name="manage_code" value="AE" />
 						</c:when>
-						<c:when test="${homepage.context_path eq 'dalseong'}">
+						<c:when test="${context_path eq 'dalseong'}">
 						달성도서관<input type="hidden" id="" name="manage_code" value="AJ" />
 						</c:when>
-						<c:when test="${homepage.context_path eq 'std'}">
+						<c:when test="${context_path eq 'std'}">
 						대구학생문화센터<input type="hidden" id="" name="manage_code" value="AK" />
 						</c:when>
-						<c:when test="${homepage.context_path eq 'dmsl'}">
+						<c:when test="${context_path eq 'dmsl'}">
 						시청작은도서관<input type="hidden" id="" name="manage_code" value="FV" />
 						</c:when>
-						<c:when test="${homepage.context_path eq 'daegu'}">
+						<c:when test="${context_path eq 'daegu'}">
 						대구시청<input type="hidden" id="" name="manage_code" value="ZA" />
 						</c:when>
 						<c:otherwise>
@@ -433,7 +433,7 @@ $(function() {
 		</table>
 
 		<div class="btn-wrap">
-			<a href="/intro/${homepage.context_path}/index.do" id="cancel-btn" class="btn btn02">취소</a>
+			<a href="/intro/${context_path}/index.do" id="cancel-btn" class="btn btn02">취소</a>
 			<a href="#" id="save-btn" class="btn btn03">회원가입</a>
 		</div>
 
