@@ -484,7 +484,7 @@ public class JoinController extends BaseController {
 	 * @throws Exception
 	 */
 	@RequestMapping (value = {"/passCheck.*"}, method = RequestMethod.GET)
-	public String passCheck(Member member, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String passCheck(@PathVariable String context_path, Member member, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
@@ -583,7 +583,7 @@ public class JoinController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping (value = {"/check.*"}, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse check(Member member, BindingResult result, HttpServletRequest request) {
+	public @ResponseBody JsonResponse check(@PathVariable String context_path, Member member, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
 
 		ValidationUtils.rejectIfEmpty(result, "member_id", "사용자ID를 입력해주세요.");
@@ -791,7 +791,7 @@ public class JoinController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping (value = {"/changeMemberPw.*"}, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse changeMemberPw(Member member, BindingResult result, HttpServletRequest request) {
+	public @ResponseBody JsonResponse changeMemberPw(@PathVariable String context_path, Member member, BindingResult result, HttpServletRequest request) {
 		Homepage homepage = getSessionHomepage(request);
 
 		JsonResponse res = new JsonResponse(request);
@@ -825,7 +825,7 @@ public class JoinController extends BaseController {
 	}
 
 	@RequestMapping (value = {"/integration.*"})
-	public String integration(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String integration(@PathVariable String context_path, Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.getSession().invalidate();
 		model.addAttribute("newMember", member);
 
@@ -833,7 +833,7 @@ public class JoinController extends BaseController {
 	}
 
 	@RequestMapping (value = {"/integration1.*"}, method = RequestMethod.POST)
-	public String integration1(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String integration1(@PathVariable String context_path, Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		// 동일인 목록 가져오기
 		List<Map<String, Object>> checkDupUser = MemberAPI.checkDupUser("2", member);
@@ -875,7 +875,7 @@ public class JoinController extends BaseController {
 	}
 
 	@RequestMapping (value = {"/integration2.*"}, method = RequestMethod.POST)
-	public String integration2(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String integration2(@PathVariable String context_path, Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		model.addAttribute("newMember", member);
 		@SuppressWarnings ("unchecked")
@@ -908,7 +908,7 @@ public class JoinController extends BaseController {
 	}
 
 	@RequestMapping (value = {"/integration3.*"}, method = RequestMethod.POST)
-	public String integration3(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String integration3(@PathVariable String context_path, Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		// TODO 본인인증
 		// -> 1순위로 선택한 책이음 회원 정보일 경우에는 중복체크 하지 않고 통과
@@ -920,7 +920,7 @@ public class JoinController extends BaseController {
 	}
 
 	@RequestMapping (value = {"/integration4.*"}, method = RequestMethod.POST)
-	public String integration4(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String integration4(@PathVariable String context_path, Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 
 		@SuppressWarnings ("unchecked")
