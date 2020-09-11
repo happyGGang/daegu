@@ -266,15 +266,15 @@ public class LibrarySearchController extends BaseController {
 			librarySearch.setLibCode(String.valueOf(map.get("LIB_CODE")));
 			librarySearch.setSpeciesKey(String.valueOf(map.get("SPECIES_KEY")));
 
-//			Map<String, Object> sanghoReqYn = LibSearchAPI.sanghoReqYn(librarySearch);
-//			@SuppressWarnings ("unchecked")
-//			Map<String, Object> sanghoReqYnResult = (Map<String, Object>) sanghoReqYn.get("ITEM");
+			Map<String, Object> sanghoReqYn = LibSearchAPI.sanghoReqYn(librarySearch);
+			@SuppressWarnings ("unchecked")
+			Map<String, Object> sanghoReqYnResult = (Map<String, Object>) sanghoReqYn.get("ITEM");
 
 			map.put("SANGHO_REQ_YN", "N");
-//			if (sanghoReqYnResult.containsKey("RESULT") && String.valueOf(sanghoReqYnResult.get("RESULT")).equals("OK")) {
-//				// 정상 신청가능
-//				map.put("SANGHO_REQ_YN", "Y");
-//			}
+			if (sanghoReqYnResult.containsKey("RESULT") && String.valueOf(sanghoReqYnResult.get("RESULT")).equals("OK")) {
+				// 정상 신청가능
+				map.put("SANGHO_REQ_YN", "Y");
+			}
 
 			model.addAttribute("detail", map);
 		}
