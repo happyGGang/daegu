@@ -679,7 +679,7 @@ public class LibrarySearchController extends BaseController {
 	 * @throws Throwable
 	 */
 	@RequestMapping (value = { "/sangho/index.*" }, method = RequestMethod.GET)
-	public String sanghoHistory(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+	public String sanghoHistory(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
@@ -699,14 +699,14 @@ public class LibrarySearchController extends BaseController {
 		Map<String, Object> sanghoHistory = LibSearchAPI.getSanghoHistory(librarySearch);
 		List<Map<String, Object>> returnList = LibSearchAPI.getSanghoListData(sanghoHistory);
 
-		if (returnList != null && !returnList.isEmpty() && !returnList.get(0).containsKey("ERROR")) {
+//		if (returnList != null && !returnList.isEmpty() && !returnList.get(0).containsKey("ERROR")) {
 			int count = LibSearchAPI.getSanghoSearchCount(sanghoHistory);
 			librarySearch.setTotalDataCount(count);
 			service.setPaging(model, count, librarySearch);
 
 			model.addAttribute("librarySearch", librarySearch);
 			model.addAttribute("sanghoHistory", returnList);
-		}
+//		}
 
 		return basePath + "sangho/index";
 	}
@@ -722,7 +722,7 @@ public class LibrarySearchController extends BaseController {
 	 * @throws Throwable
 	 */
 	@RequestMapping (value = { "/sangho/history.*" }, method = RequestMethod.GET)
-	public String sanghoUsedHistory(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+	public String sanghoUsedHistory(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
 
 		Homepage homepage = getSessionHomepage(request);
 
@@ -743,14 +743,14 @@ public class LibrarySearchController extends BaseController {
 		Map<String, Object> sanghoHistory = LibSearchAPI.getSanghoUsedHistory(librarySearch);
 		List<Map<String, Object>> returnList = LibSearchAPI.getSanghoListData(sanghoHistory);
 
-		if (returnList != null && !returnList.isEmpty() && !returnList.get(0).containsKey("ERROR")) {
+//		if (returnList != null && !returnList.isEmpty() && !returnList.get(0).containsKey("ERROR")) {
 			int count = LibSearchAPI.getSanghoSearchCount(sanghoHistory);
 			librarySearch.setTotalDataCount(count);
 			service.setPaging(model, count, librarySearch);
 
 			model.addAttribute("librarySearch", librarySearch);
 			model.addAttribute("sanghoHistory", returnList);
-		}
+//		}
 
 
 		return basePath + "sangho/history";
@@ -767,7 +767,7 @@ public class LibrarySearchController extends BaseController {
 	 * @throws Throwable
 	 */
 	@RequestMapping (value = { "/sangho/form.*" }, method = RequestMethod.POST)
-	public String sanghoForm(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+	public String sanghoForm(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		Homepage homepage = getSessionHomepage(request);
 
 		model.addAttribute("librarySearch", librarySearch);
@@ -1241,7 +1241,7 @@ public class LibrarySearchController extends BaseController {
 	 * @throws Throwable
 	 */
 	@RequestMapping (value = { "/unmanned/form.*" }, method = RequestMethod.POST)
-	public String unmannedForm(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+	public String unmannedForm(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
@@ -1359,7 +1359,7 @@ public class LibrarySearchController extends BaseController {
 	 * @throws Throwable
 	 */
 	@RequestMapping (value = {"/night/form.*"}, method = RequestMethod.POST)
-	public String nightForm(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+	public String nightForm(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
@@ -1453,7 +1453,7 @@ public class LibrarySearchController extends BaseController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = {"/print.*"})
-	public String print(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String print(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		Map<String, Object> result = new HashMap<String, Object>();
 
