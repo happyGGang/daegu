@@ -837,8 +837,8 @@ public class LibrarySearchController extends BaseController {
 		Map<String, Object> sanghoHistory = LibSearchAPI.getSanghoHistory(librarySearch);
 		List<Map<String, Object>> returnList = LibSearchAPI.getSanghoListData(sanghoHistory);
 
-		if (CollectionUtils.isNotEmpty(returnList) && returnList.size() >= 3) {
-			service.alertMessage("상호대차 신청권수는 3권까지입니다.", request, response);
+		if (CollectionUtils.isNotEmpty(returnList) && returnList.size() >= 5) { 
+			service.alertMessage("상호대차 신청권수는 5권까지입니다.", request, response);
 			return null;
 		}
 

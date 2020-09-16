@@ -234,6 +234,14 @@ $(function() {
 				</tr>
 				<tr>
 					<th>
+						카드비밀번호(<span style="color: red;">*</span>)
+					</th>
+					<td>
+						<input id="card_password" type="password" class="text">
+					</td>
+				</tr>
+				<tr>
+					<th>
 						성명(<span style="color: red;">*</span>)
 					</th>
 					<td>
