@@ -31,4 +31,34 @@ public interface HomepageDao  {
 
 	public List<Homepage> getMySiteList(Member member);
 
+	/**
+	 * @author whalesoft
+	 * @date 2020.07.22
+	 *
+	 * @param homepage
+	 * @return
+	 *
+	 */
+	public int getSubHomepageListCount(Homepage homepage);
+
+	/**
+	 * @author whalesoft
+	 * @date 2020.07.22
+	 *
+	 * @param homepage
+	 * @return
+	 *
+	 */
+	public List<Homepage> getSubHomepageList(Homepage homepage);
+
+	/**
+	 * @author whalesoft
+	 * @date 2020.07.22
+	 *
+	 * @param homepage
+	 * @return
+	 *
+	 */
+	public int getSubNextPrintSeq(Homepage homepage);
+
 }

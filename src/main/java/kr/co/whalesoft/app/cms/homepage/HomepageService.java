@@ -140,4 +140,40 @@ public class HomepageService extends BaseService {
 		}
 	}
 
+	/**
+	 * @author whalesoft
+	 * @param homepage
+	 * @date 2020.07.22
+	 *
+	 * @return 서브 홈페이지 수
+	 *
+	 */
+	public int getSubHomepageListCount(Homepage homepage) {
+		return dao.getSubHomepageListCount(homepage);
+	}
+
+	/**
+	 * @author whalesoft
+	 * @date 2020.07.22
+	 *
+	 * @param homepage
+	 * @return
+	 *
+	 */
+	public List<Homepage> getSubHomepageList(Homepage homepage) {
+		return dao.getSubHomepageList(homepage);
+	}
+
+	/**
+	 * @author whalesoft
+	 * @date 2020.07.22
+	 *
+	 * @param homepage
+	 * @return
+	 *
+	 */
+	public int getSubNextPrintSeq(Homepage homepage) {
+		return dao.getSubNextPrintSeq(homepage);
+	}
+
 }
