@@ -89,11 +89,12 @@ window.location.href="/228lib/index.do";
 <div class="txt-box-adv2">
 	<ul class="con">
 		<li>신규 회원가입하여 로그인 후 인증 가능합니다. (기존 회원은 통합회원 인증 후 사용 가능)</li>
-		<li><b>비대면 인증 회원은 원칙적으로 전자도서관만 이용할 수 있으며</b>, 임시휴관 기간 동안 한시적으로 워킹스루 예약대출 서비스를 이용할 수 있습니다. (무인예약 및 스마트도서관 제외) </li> 
+		<li><b>비대면 인증 회원은 원칙적으로 전자도서관만 이용할 수 있으며</b>, 차후 통합회원 전환하고자 할 경우 본인확인을 위한 구비서류(신분증 등)를 직접 지참하여 도서관 방문바랍니다. </li> 
 	</ul>
 </div>
 <div class="btn-wrap" style="text-align:center;padding:20px 0">
 	<a href="untactForm.do?menu_idx=${untactMenuIdx}" class="btn btn02" style="background: #f56627;border: 1px solid #f56627;color:#fff;">대구시민인증</a>
+	<!--<a href="#" onclick="alert('현재 대구시민인증 라이센스 만료로 인해 일시적으로 서비스가 중단되었습니다. 이용에 불편함을 드려 죄송합니다. 곧 재게될 예정이오니 양해부탁드립니다.');" class="btn btn02" style="background: #f56627;border: 1px solid #f56627;color:#fff;">대구시민인증</a>-->
 	<a href="dls.do?menu_idx=${dlsMenuIdx}" class="btn btn01" style="background: #3c6ad9;border: 1px solid #3c6ad9;color:#fff;">대구학생인증</a>
 	<a href="/dgportal/index.do" class="btn btn03">메인으로</a>
 </div>

@@ -320,10 +320,11 @@ function goto_store() {
 }
 </script>
 <span style="color: white;">${lending.libcode }</span>
-<form id="frm_fx" name="frm_fx" method="post" action="http://ebook.daegu.go.kr:8080/FxLibrary/dependency/sso/sso.jsp" target="_blank" accept-charset="utf-8">
-    <input type="hidden" name="param_1" id="param_1" value="${lending.member_id}">
-    <input type="hidden" name="param_2" id="param_2" value="${lending.member_id}">
-    <input type="hidden" name="param_3" id="param_3" value="${lending.member_id}">
+<c:set var='user_id' value = "${fn:toUpperCase(lending.member_id)}" />
+<form id="frm_fx" name="frm_fx" method="post" action="http://e-lib.tglnet.or.kr:9080/FxLibrary/dependency/sso/sso.jsp" target="_blank" accept-charset="utf-8">
+    <input type="hidden" name="param_1" id="param_1" value="${sessionScope.member.lib_code}_${user_id}">
+    <input type="hidden" name="param_2" id="param_2" value="${sessionScope.member.lib_code}_${user_id}">
+    <input type="hidden" name="param_3" id="param_3" value="${sessionScope.member.lib_code}_${user_id}">
     <input type="hidden" name="pathtype" value="PC">
     <input type="hidden" name="next" value="bookplayer">
  	<input type="hidden" name="book_num" id="book_num">
@@ -487,10 +488,10 @@ function goto_store() {
 					</c:otherwise>
 					</c:choose>
 
-					<span><a href="#" class="btn btn1 book_view" data-book_code="${i.book_code}" onclick="${read}" data-type="${i.type}">책읽기</a></span>
-					<span><a href="#" class="btn btn4 book_return" data-book_idx="${i.book_idx}" data-lend_idx="${i.lend_idx}" data-type="${i.type}">반납하기</a></span>
+	            	<span><a href="#" class="btn btn1 book_view" data-book_code="${i.book_code}" onclick="${read}" data-type="${i.type}">책읽기</a></span>
+	            	<span><a href="#" class="btn btn4 book_return" data-book_idx="${i.book_idx}" data-lend_idx="${i.lend_idx}" data-type="${i.type}">반납하기</a></span>
 <%--
-					<span><a href="#" class="btn btn5 book_extend" data-book_idx="${i.book_idx}" data-lend_idx="${i.lend_idx}" data-type="${i.type}">연장하기</a></span>
+	            	<span><a href="#" class="btn btn5 book_extend" data-book_idx="${i.book_idx}" data-lend_idx="${i.lend_idx}" data-type="${i.type}">연장하기</a></span>
 --%>
 	            	</c:if>
 	            	<c:if test="${lending.menu == 'RESERVE'}">

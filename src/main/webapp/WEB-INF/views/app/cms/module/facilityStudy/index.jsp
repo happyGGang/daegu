@@ -56,13 +56,12 @@ $(function(){
 	});
 
 	$('select.changeStatus').on('change', function() {
-		var $select = $(this);
 		var idx = $(this).data('idx');
 		var status = $(this).val();
 		var editMode = '';
 		if (status == '1') {
 			editMode = 'APPROVE';
-		} else if (status == '2' || status == '3') {
+		} else if (status == '2') {
 			editMode = 'CANCEL';
 		} else if (status == '0') {
 			editMode = 'READY';
@@ -74,11 +73,6 @@ $(function(){
 			success: function(response) {
 				if (response.valid) {
 					alert('수정되었습니다.');
-					if(status == '3') {
-						$select.siblings('div').show();
-					} else {
-						$select.siblings('div').hide();
-					}
 				}
 			},
 			error : function() {
@@ -86,64 +80,9 @@ $(function(){
 			}
 		});
 	});
-	
-	$('.cancel_txt_save').on('click', function(e) {
-		e.preventDefault();
-		var idx = $(this).attr('keyValue');
-		var editMode = 'CANCLE_TXT';
-		var cancel_txt = $(this).siblings('.cancel_txt').val();
-		$.ajax({
-			type: "POST",
-			url: 'save.do',
-			data: {'study_idx':idx, 'editMode':editMode, 'cancel_txt':cancel_txt},
-			success: function(response) {
-				if (response.valid) {
-					alert(response.message);
-				}
-			},
-			error : function() {
-				alert('취소사유 입력에 실패했습니다.')
-			}
-		});
-	});
-	
-	$('a#excel-btn').on('click', function(e) {
-		e.preventDefault();
-		$('form#facilityStudyExcel').submit();
-	});
-	
-	$('input#all_check').on('click', function() {
-		if($(this).prop('checked')) {
-			$('input.check_arr').prop('checked', true);
-		} else {
-			$('input.check_arr').prop('checked', false);
-		}
-	});
-	
-	$('a#all-delete-btn').on('click', function(e) {
-		e.preventDefault();
-		if(confirm('선택하신 항목 일괄 삭제하시겠습니까?')) {
-			$('#editMode_1').val('DELETE_ALL');
-			$.ajax({
-				url : 'save.do',
-				async : false,
-				data : $('#facilityStudy_1').serialize(),
-				method : 'POST',
-				success : function(data) {
-					if(data.valid) {
-						alert(data.message);
-						location.reload();
-					}
-				}
-			});
-		}
-	});
-	
 });
 </script>
-<form id="facilityStudyExcel" method="POST" action="excelDownload.do">
-<input type="hidden" name="editMode" value="EXCEL">
-</form>
+
 <form:form id="facilityStudy_1" modelAttribute="facilityStudy" method="POST" action="save.do" onsubmit="return false;">
 <form:hidden id="editMode_1" path="editMode"/>
 <form:hidden id="study_idx_1" path="study_idx"/>
@@ -159,24 +98,22 @@ $(function(){
 			<form:option value="200">200개씩 보기</form:option>
 		</form:select>
 		<div class="button btn-group inline">
-			<a href="" class="btn btn3 left" id="excel-btn"><i class="fa fa-plus"></i><span>EXCEL</span></a>&nbsp;
 			<c:if test="${authC}">
-			<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
+				<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
 			</c:if>
 		</div>
 	</div>
 	<table class="type1 center">
 		<thead>
 			<tr>
-				<th width="30"><input type="checkbox" id="all_check"></th>
 				<th width="50">순번</th>
-				<th width="150">사용일자</th>
-				<th width="100">사용시설</th>
+				<th width="200">사용일자</th>
+				<th width="200">사용시설</th>
 				<th width="50">사용시간</th>
 				<th width="100">모임명</th>
 				<th width="100">신청자명</th>
 				<th width="150">신청일</th>
-				<th width="200">상태</th>
+				<th width="100">상태</th>
 				<th width="100">기능</th>
 			</tr>
 		</thead>
@@ -188,12 +125,9 @@ $(function(){
 		</c:if>
 		<c:forEach var="i" varStatus="status" items="${facilityStudyList}">
 			<tr>
-				<td>
-					<form:checkbox path="study_idx_arr" class="check_arr" value="${i.study_idx}"/>
-				</td>
 				<td width="50">${paging.listRowNum - status.index}</td>
-				<td width="150">${i.study_date}</td>
-				<td width="100">
+				<td width="200">${i.study_date}</td>
+				<td width="200">
 					<c:if test="${i.study_num eq 1}">스터디룸 1팀</c:if>
 					<c:if test="${i.study_num eq 2}">스터디룸 2팀</c:if>
 					<c:if test="${i.study_num eq 3}">스터디룸 3팀</c:if>
@@ -210,17 +144,12 @@ $(function(){
 					${i.apply_name}
 				</td>
 				<td width="150"><fmt:formatDate value="${i.apply_date}" pattern="yyyy-MM-dd"/></td>
-				<td width="200">
+				<td width="150">
 					<select class="changeStatus" data-idx="${i.study_idx}">
 						<option value="0" <c:if test="${i.apply_status eq '0'}">selected</c:if>>대기</option>
 						<option value="1" <c:if test="${i.apply_status eq '1'}">selected</c:if>>승인</option>
-						<option value="3" <c:if test="${i.apply_status eq '3'}">selected</c:if>>관리자취소</option>
-						<option value="2" <c:if test="${i.apply_status eq '2'}">selected</c:if>>이용자취소</option>
+						<option value="2" <c:if test="${i.apply_status eq '2'}">selected</c:if>>취소</option>
 					</select>
-					<div style="display:${i.apply_status eq '3' ? 'block' : 'none'};">
-						<input id="cancel_txt_${status.count}" class="cancel_txt" placeholder="취소사유를 입력하세요." value="${i.cancel_txt}">
-						<a href="#" class="cancel_txt_save btn" keyValue="${i.study_idx}">저장</a>
-					</div>
 				</td>
 				<td width="120">
 					<a href="" class="btn dialog-modify" keyValue="${i.study_idx}">수정</a>
@@ -232,7 +161,6 @@ $(function(){
 		</c:forEach>
 		</tbody>
 	</table>
-	<a href="" class="btn left" id="all-delete-btn"><i class="fa fa-plus"></i><span>일괄삭제</span></a>
 
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#facilityStudy_1"/>

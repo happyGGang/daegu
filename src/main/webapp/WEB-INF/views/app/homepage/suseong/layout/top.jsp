@@ -33,6 +33,14 @@
 					</c:otherwise>
 				</c:choose>
 						<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=92">사이트맵</a>
+
+				<c:choose>
+					<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
+					</c:when>
+					<c:otherwise>
+						<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=8" style="color:#ff0000;">통합회원인증</a>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 	</div>

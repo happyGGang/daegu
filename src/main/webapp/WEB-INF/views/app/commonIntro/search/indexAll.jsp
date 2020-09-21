@@ -426,7 +426,7 @@ $(function() {
 					<div>
 						<ul>
 							<c:forEach items="${homepageList}" var="i" varStatus="status">
-							<c:if test="${i.homepage_id ne 'h30' and i.homepage_id ne 'h31' and i.homepage_id ne 'h32' and i.homepage_id ne 'h33' and i.homepage_id ne 'h34'}">
+							<c:if test="${i.homepage_id ne 'h30' and i.homepage_id ne 'h31' and i.homepage_id ne 'h32' and i.homepage_id ne 'h33' and i.homepage_id ne 'h34' and i.homepage_id ne 'h35' and i.homepage_id ne 'h36' and i.homepage_id ne 'h37' and i.homepage_id ne 'h38'}">
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_${i.manage_code}" value="${i.manage_code}" label="${i.homepage_name}" />
 							</li>

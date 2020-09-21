@@ -39,7 +39,7 @@ $(function() {
 </div>
 <!-- /contents-title-->
 
-<form:form modelAttribute="librarySearch" action="save.do" method="post" onsubmit="return false;">
+<form:form modelAttribute="librarySearch" action="../sanghoSave.do" method="post" onsubmit="return false;">
 <form:hidden path="editMode"/>
 <form:hidden path="isbn" />
 <form:hidden path="regNo" />
@@ -70,15 +70,27 @@ $(function() {
 			 <tr>
 			 	<th>이용도서관(<span style="color: red;">*</span>)</th>
 			 	<td>
+<!-- 도서관 선택 분기처리 시작 -->
+					<c:choose>
+					<c:when test="${context_path eq 'bukgs' || context_path eq 'bukdh' || context_path eq 'buktj' || context_path eq 'buks'}">
 			 		<form:select path="uselibcode">
 			 			<form:option value="" label="-- 선택 --" />
-			 			<form:option value="126143">연제도서관</form:option>
-						<form:option value="126049">거제2동작은도서관</form:option>
-						<form:option value="126048">밤골작은도서관</form:option>
-						<form:option value="126047">배산작은도서관</form:option>
-						<form:option value="126068">해뜰새마을문고</form:option>
-						<form:option value="726245">해맞이작은도서관</form:option>
-			 		</form:select>
+						<form:option value="127009">구수산도서관</form:option>
+						<form:option value="127084">대현도서관</form:option>
+						<form:option value="127088">태전도서관</form:option>
+						<form:option value="727033">태전1동 작은도서관</form:option>
+						<form:option value="727038">산격1동 작은도서관</form:option>
+						<form:option value="727040">북구영어작은도서관</form:option>
+						<form:option value="727054">침산1동 작은도서관</form:option>
+						<form:option value="727055">노원동 작은도서관</form:option>
+						<form:option value="727088">서변동작은도서관</form:option>
+						<form:option value="727098">노원행복도서관</form:option>
+						<form:option value="727102">한강공원부키도서관</form:option>
+					</form:select>
+					</c:when>
+					<c:otherwise>
+					</c:otherwise>
+					</c:choose>
 			 	</td>
 			 </tr>
 			 <tr>
@@ -105,7 +117,7 @@ $(function() {
 	</table>
 
 	<div class="btnArea" style="text-align: center; padding-top: 25px;">
-		<a href="/intro/${homepage.context_path}/index.do" id="cancel-btn" class="btn btn02">취소</a>
+		<a href="/intro/${context_path}/index.do" id="cancel-btn" class="btn btn02">취소</a>
 		<a href="#" id="save-btn" class="btn btn1">신청</a>
 	</div>
 </div>

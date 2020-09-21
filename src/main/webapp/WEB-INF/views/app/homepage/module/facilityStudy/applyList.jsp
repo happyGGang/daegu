@@ -45,11 +45,9 @@ $(document).ready(function() {
 		<table class="bbs center" summary=">그룹스터디 신청기록">
 			<caption>그룹스터디 신청기록</caption>
 			<colgroup>
-				<col width="5%">
 				<col width="10%">
-				<col width="12%">
 				<col width="20%">
-				<col width="10%">
+				<col width="12%">
 				<col width="20%">
 			</colgroup>
 			<thead>
@@ -59,7 +57,6 @@ $(document).ready(function() {
 					<th class="mmm2">이용자리</th>
 					<th class="mmm1">이용시간</th>
 					<th class="mmm2">접수상태</th>
-					<th class="mmm2">취소사유</th>
 					<th class="mmm2">확인/취소</th>
 				</tr>
 			</thead>
@@ -80,11 +77,6 @@ $(document).ready(function() {
 						<c:when test="${i.apply_status eq '1'}">승인</c:when>
 						<c:otherwise>${i.cancel_reason}</c:otherwise>
 						</c:choose>
-					</td>
-					<td>
-						<c:if test="${i.apply_status eq '3'}">
-						${i.cancel_txt}
-						</c:if>
 					</td>
 					<td class="important num">
 						<a href="#" class="btn view" data-idx="${i.study_idx}">확인하기</a>

@@ -38,6 +38,8 @@
 					</c:otherwise>
 				</c:choose>
 				<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=92" class="more-btbtbt"><img src="/resources/homepage/${homepage.context_path}/img/more_btbtbt.png" alt="사이트맵"/></a>
+				<a href="https://twitter.com/nbl5539" target="_blank" class="newWin" title="새창으로 열립니다."><img src="/resources/homepage/nambu/img/twitter-icon-btn.png" alt="트위터" class="sitemap-img2"><i class="fa fa-external-link"></i></a>
+				<a href="https://www.facebook.com/nbl5539/" target="_blank" class="newWin" title="새창으로 열립니다."><img src="/resources/homepage/nambu/img/facebook-icon-btn.png" alt="페이스북" class="sitemap-img2"><i class="fa fa-external-link"></i></a>
 			</div>
 		</div>
 	</div>

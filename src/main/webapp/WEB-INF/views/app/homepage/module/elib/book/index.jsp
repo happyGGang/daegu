@@ -68,6 +68,13 @@ $(document).ready(function() {
 		$('form#bookListForm').submit();
 		$('form#bookListForm').prop('action', 'index.do');
 	});
+
+	$('a.elib-top-menu').on('click', function(e) {
+		e.preventDefault();
+		var url = '/${homepage.context_path}/module/elib/book/index.do';
+		var formData = 'menu_idx=' + $(this).data('menu_idx') + '&menu=' + $(this).data('menu') + '&type=${fn:escapeXml(param.type)}&' + $(this).data('key') + '&cate_id=total#cateId';
+		doGetLoad(url, formData);
+	});
 });
 </script>
 <c:choose>
@@ -84,6 +91,16 @@ $(document).ready(function() {
 	<div style="margin-bottom: 10px;"></div>
 	<h2><small>하위 카테고리</small></h2>
 	</c:if>
+
+	<!-- top category -->
+	<div class="box mobile-view">
+		<c:forEach items="${categoryMenuList}" var="i" varStatus="status">
+		<a href="#" class="elib-top-menu" data-key="parent_id=${i.cate_id}" data-menu_idx="17" data-menu="CATEGORY">
+			<span${fn:length(i.cate_name) >= 10 ? ' style="font-size: 12px;"' : ''}>${i.cate_name}</span>
+		</a>
+		</c:forEach>
+	</div>
+	<br/>
 	<div class="box">
 		<c:choose>
 		<c:when test="${param.parent_id == '000'}">

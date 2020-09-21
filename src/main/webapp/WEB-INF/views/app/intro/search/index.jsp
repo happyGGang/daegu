@@ -166,7 +166,22 @@ $(function() {
 	</c:if>
 
 	<c:if test="${empty librarySearch.title}">
-	$('#checkAll').click();
+	//$('#checkAll').click();
+	</c:if>
+
+	<c:if test="${empty librarySearch.title}">
+	//$('#checkAll').click();
+		<c:if test="${context_path eq 'buks'}">
+			$('div#libraryList input:checkbox').prop('checked',false);
+			$('div#libraryList input:checkbox.lib_GJ').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_GL').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_GM').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_GN').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_GP').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_HB').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_HD').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_HE').prop('checked',true);
+		</c:if>
 	</c:if>
 });
 </script>
@@ -196,7 +211,7 @@ $(function() {
 					<div class="title-box">
 						<form:input path="title" class="text-area" placeholder="도서 제목을 입력하세요"/>
 					</div>
-					<div class="end" style="padding:10px 0;"></div>
+					<div class="end" style="padding:7px 0;"></div>
 <!--
 					<div class="vk-btn">
 						<a id="vk-popup" class="btnNew2">다국어입력기</a>
@@ -249,7 +264,7 @@ $(function() {
 						</div>
 						<div class="end"></div>
 					</div>
-					<div class="end" style="padding:10px 0;"></div>
+					<div class="end" style="padding:7px 0;"></div>
 					</c:when>
 					<c:otherwise>
 					<form:hidden path="libraryCodes" value="" />
@@ -490,6 +505,9 @@ $(function() {
 															<c:when test="${i.WORKING_STATUS == 'BOL212O'}">
 																<span style="color:#ff0000">대출불가(관내대출중) <span style="font-weight:bold">(예약 : ${i.RESERVATION_CNT}명)</span></span>
 															</c:when>
+															<c:when test="${i.WORKING_STATUS == 'BOL411O'}">
+																<span style="color:#ff0000">대출불가(책두레중) <span style="font-weight:bold">(예약 : ${i.RESERVATION_CNT}명)</span></span>
+															</c:when>
 															<c:when test="${i.WORKING_STATUS == 'BOL511O'}">
 																<span style="color:#ff0000">대출불가(타관반납중) <span style="font-weight:bold">(예약 : ${i.RESERVATION_CNT}명)</span></span>
 															</c:when>
@@ -600,6 +618,9 @@ $(function() {
 															<c:when test="${i.WORKING_STATUS == 'BOL212O'}">
 																<span style="color:#ff0000">대출불가(관내대출중)</span><br/><span style="font-weight:bold">(예약 : ${i.RESERVATION_CNT}명)</span>
 															</c:when>
+															<c:when test="${i.WORKING_STATUS == 'BOL411O'}">
+																<span style="color:#ff0000">대출불가(책두레중)</span><br/><span style="font-weight:bold">(예약 : ${i.RESERVATION_CNT}명)</span>
+															</c:when>
 															<c:when test="${i.WORKING_STATUS == 'BOL511O'}">
 																<span style="color:#ff0000">대출불가(타관반납중)</span><br/><span style="font-weight:bold">(예약 : ${i.RESERVATION_CNT}명)</span>
 															</c:when>
@@ -691,6 +712,9 @@ $(function() {
 															</c:when>
 															<c:when test="${i.WORKING_STATUS == 'BOL212O'}">
 																<span style="color:#ff0000">대출불가(관내대출중) <span style="font-weight:bold">(예약 : ${i.RESERVATION_CNT}명)</span></span>
+															</c:when>
+															<c:when test="${i.WORKING_STATUS == 'BOL411O'}">
+																<span style="color:#ff0000">대출불가(책두레중) <span style="font-weight:bold">(예약 : ${i.RESERVATION_CNT}명)</span></span>
 															</c:when>
 															<c:when test="${i.WORKING_STATUS == 'BOL511O'}">
 																<span style="color:#ff0000">대출불가(타관반납중) <span style="font-weight:bold">(예약 : ${i.RESERVATION_CNT}명)</span></span>
@@ -797,6 +821,9 @@ $(function() {
 															</c:when>
 															<c:when test="${i.WORKING_STATUS == 'BOL212O'}">
 																<span style="color:#ff0000">대출불가(관내대출중)</span><br/><span style="font-weight:bold">(예약 : ${i.RESERVATION_CNT}명)</span>
+															</c:when>
+															<c:when test="${i.WORKING_STATUS == 'BOL411O'}">
+																<span style="color:#ff0000">대출불가(책두레중)</span><br/><span style="font-weight:bold">(예약 : ${i.RESERVATION_CNT}명)</span>
 															</c:when>
 															<c:when test="${i.WORKING_STATUS == 'BOL511O'}">
 																<span style="color:#ff0000">대출불가(타관반납중)</span><br/><span style="font-weight:bold">(예약 : ${i.RESERVATION_CNT}명)</span>

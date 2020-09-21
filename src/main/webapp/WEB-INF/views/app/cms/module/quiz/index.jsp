@@ -178,7 +178,7 @@ $(function() {
 					<td>
 						<c:forEach items="${quizTypeList}" var="qt">
 							<c:if test="${qt.code_id eq i.quiz_type}">
-							${qt.code_name}
+								${qt.code_name}
 							</c:if>
 						</c:forEach>
 					</td>

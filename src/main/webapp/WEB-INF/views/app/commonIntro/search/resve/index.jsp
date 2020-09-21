@@ -50,7 +50,7 @@ $(function() {
 					<div class="bif">
 						<div class="top">
 							<div class="b-title">
-								<div class="box"><a href="" class="name">${i.TITLE_INFO}</a></div>
+								<div class="box"><b>${i.TITLE_INFO}</b></div>
 							</div>
 							<div class="control">
 								<c:if test="${i.UNMANNED_RESERVATION_LOAN eq 'N'}">

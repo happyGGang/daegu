@@ -79,7 +79,7 @@ $(function() {
 				<li></li>
 				<li>
 				<div class="search-box">
-					<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
+					<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/indexAll.do">
 						<input type="hidden" name="menu_idx" value="7">
 						<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
 						<fieldset>

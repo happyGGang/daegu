@@ -6,7 +6,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script type="text/javascript">
 $(function() {
-	$('input#user_no').focus();
+	//$('input#user_no').focus();
 });
 </script>
 

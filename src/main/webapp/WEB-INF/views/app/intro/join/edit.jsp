@@ -268,6 +268,9 @@ $(function() {
 						<c:when test="${context_path eq 'dmsl'}">
 						시청작은도서관<input type="hidden" id="" name="manage_code" value="FV" />
 						</c:when>
+						<c:when test="${context_path eq 'dgoti'}">
+						공무원연수원<input type="hidden" id="" name="manage_code" value="HH" />
+						</c:when>
 						<c:when test="${context_path eq 'daegu'}">
 						대구시청<input type="hidden" id="" name="manage_code" value="ZA" />
 						</c:when>

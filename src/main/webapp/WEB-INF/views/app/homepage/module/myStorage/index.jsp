@@ -204,7 +204,7 @@ int leftSizeInput = leftSize-125; //왼쪽 컨텐츠 검색 input 사이즈
 	<form:hidden path="storage_idx"/>
 </form:form>
 
-<div class="group-menu code-config" style="overflow: auto;">
+<div class="group-menu code-config rsv-info" style="overflow: auto;">
 	<div style="display: inline-flex;">
 		<div class="tree-area" style="width:<%=leftSize%>px; border: 1px solid #ccc;">
 			<div class="tree-box" style="height:300px;">
