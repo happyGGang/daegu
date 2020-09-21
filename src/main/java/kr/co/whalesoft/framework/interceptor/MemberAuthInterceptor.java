@@ -17,16 +17,11 @@ import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.member.MemberService;
 import kr.co.whalesoft.app.cms.memberGroupAuth.MemberGroupAuthService;
 import kr.co.whalesoft.framework.utils.JavaScriptUtils;
-import kr.co.whalesoft.framework.utils.MessageResolver;
 
 
 public class MemberAuthInterceptor extends HandlerInterceptorAdapter {
 
 	protected final Logger log = LoggerFactory.getLogger(getClass());
-
-	//Message 처리를 위한 기본 Class
-	@Autowired
-	protected MessageResolver msg;
 
 	//관리자페이지 체크 접속 제한 예외 페이지
 	private String freePathUris[] = { "/cms/login/", "/pms/login/", "/dms/login/"  };
