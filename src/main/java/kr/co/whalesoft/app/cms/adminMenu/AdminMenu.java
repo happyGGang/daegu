@@ -54,6 +54,11 @@ public class AdminMenu extends PagingUtils implements Serializable {
 
 	private boolean includeElib = false;
 
+	private String access_homepage_ids;
+	private String access_homepage_types;
+	private String[] access_homepage_id_arr;
+	private String[] access_homepage_type_arr;
+
 	public AdminMenu() {
 	}
 
@@ -378,5 +383,58 @@ public class AdminMenu extends PagingUtils implements Serializable {
 
 	public void setIncludeElib(boolean includeElib) {
 		this.includeElib = includeElib;
+	}
+
+	public String getAccess_homepage_ids() {
+		return access_homepage_ids;
+	}
+
+	public String getAccess_homepage_types() {
+		return access_homepage_types;
+	}
+
+	public String[] getAccess_homepage_id_arr() {
+		String[] ref = null;
+		if (this.access_homepage_id_arr != null) {
+			ref = new String[this.access_homepage_id_arr.length];
+			for (int i = 0; i < this.access_homepage_id_arr.length; i++) {
+				ref[i] = this.access_homepage_id_arr[i];
+			}
+		}
+		return ref;
+	}
+
+	public String[] getAccess_homepage_type_arr() {
+		String[] ref = null;
+		if (this.access_homepage_type_arr != null) {
+			ref = new String[this.access_homepage_type_arr.length];
+			for (int i = 0; i < this.access_homepage_type_arr.length; i++) {
+				ref[i] = this.access_homepage_type_arr[i];
+			}
+		}
+		return ref;
+	}
+
+	public void setAccess_homepage_ids(String access_homepage_ids) {
+		this.access_homepage_ids = access_homepage_ids;
+	}
+
+	public void setAccess_homepage_types(String access_homepage_types) {
+		this.access_homepage_types = access_homepage_types;
+	}
+
+	public void setAccess_homepage_id_arr(String[] access_homepage_id_arr) {
+		this.access_homepage_id_arr = new String[access_homepage_id_arr.length];
+		for (int i = 0; i < access_homepage_id_arr.length; i++) {
+			this.access_homepage_id_arr[i] = access_homepage_id_arr[i];
+		}
+	}
+
+	public void setAccess_homepage_type_arr(String[] access_homepage_type_arr) {
+		this.access_homepage_type_arr = new String[access_homepage_type_arr.length];
+		for (int i = 0; i < access_homepage_type_arr.length; i++) {
+			this.access_homepage_type_arr[i] = access_homepage_type_arr[i];
+		}
+
 	}
 }

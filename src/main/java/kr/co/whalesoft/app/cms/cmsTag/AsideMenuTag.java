@@ -2,12 +2,16 @@ package kr.co.whalesoft.app.cms.cmsTag;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import kr.co.whalesoft.app.cms.adminMenu.AdminMenu;
 import kr.co.whalesoft.framework.tag.HtmlTag;
@@ -32,8 +36,19 @@ public class AsideMenuTag extends BodyTagSupport {
 		HtmlTag liTag_lvl3 = null;
 		boolean check_lvl3 = false;
 
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+
+		String asideHomepageId = String.valueOf(request.getSession().getAttribute("asideHomepageId"));
 		if(adminMenuList != null && adminMenuList.size() > 0) {
 			for(AdminMenu adminMenu : adminMenuList) {
+				if (adminMenu.getAccess_homepage_id_arr() != null && adminMenu.getAccess_homepage_id_arr().length > 0) {
+					String[] access_homepage_id_arr = adminMenu.getAccess_homepage_id_arr();
+					Arrays.sort(access_homepage_id_arr);
+					int indexHomepageId = Arrays.binarySearch(access_homepage_id_arr, asideHomepageId);
+					if (indexHomepageId < 0) {
+						continue;
+					}
+				}
 				if(adminMenu.getMenu_level() == 1) {
 					check_lvl2 = false;
 					check_lvl3 = false;
