@@ -28,6 +28,7 @@
 		</if>
 
 		AND	delete_yn = 'N'
+		ORDER BY start_time, end_date
 	</select>
 
 	<select id="getCalendarManageOne" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">

@@ -8,3 +8,6 @@
 #*#
 *~
 *.bak
+/.idea/
+/app.iml
+/src/main/webapp/META-INF/context.xml
