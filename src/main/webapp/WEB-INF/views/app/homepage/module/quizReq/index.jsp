@@ -232,6 +232,7 @@ ${quiz.top_html}
 						<td>
 							<form:radiobutton path="age" label="성인" value="20" checked="true"/>
 							<form:radiobutton path="age" label="청소년" value="14"/>
+							<form:radiobutton path="age" label="어린이" value="13"/>
 						</td>
 					</tr>
 				</c:if>

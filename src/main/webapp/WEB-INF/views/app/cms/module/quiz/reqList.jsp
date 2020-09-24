@@ -232,6 +232,7 @@ $(function() {
 			         		<c:choose>
 				         		<c:when test="${i.age eq '20'}">성인</c:when>
 				         		<c:when test="${i.age eq '14'}">청소년</c:when>
+				         		<c:when test="${i.age eq '13'}">어린이</c:when>
 			         		</c:choose>
 				         	</td>
 				         	<td>${i.phone}</td>
