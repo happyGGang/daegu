@@ -10,7 +10,7 @@ a:focus{color:#2b74c0}
 .tnb a:hover,
 .tnb a:focus{}
 .tnb a.more-btbtbt img {vertical-align:middle;padding-left:15px;}
-
+.tnb a img.sitemap-img2 {padding-left:5px;vertical-align:middle;}
 #header .head{position:relative;z-index:2;clear:both}
 #header h1{position:absolute;z-index:10000;top:15px;}
 .popupWrap{z-index:6}

@@ -21,18 +21,12 @@ import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.login.LoginService;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.framework.exception.AuthException;
-import kr.co.whalesoft.framework.utils.MessageResolver;
 import kr.go.gbelib.app.cms.module.portalMember.PortalMember;
 import kr.go.gbelib.app.cms.module.supportMember.SupportMember;
 
 public abstract class BaseController {
 
 	protected final Logger log = LoggerFactory.getLogger(getClass());
-
-	//Message 처리를 위한 기본 Class
-	@Autowired
-	protected MessageResolver msg;
-
 
 	/**
 	 * context path를 정보를 반환

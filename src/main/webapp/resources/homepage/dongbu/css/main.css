@@ -83,7 +83,7 @@
 .main1 #holiday-box .inBox1 .bt-controls {float:left;width:175px;text-align:center;position:relative;}
 .main1 #holiday-box .inBox1 .bt-controls b {font-size:20px;font-family:'Verdana';font-weight:bold;line-height:150%;padding:0;}
 .main1 #holiday-box .inBox1 .info dd {float:left;position:relative;font-size:19px;font-weight:bold;text-align:center;padding-left:18px;}
-.main1 #holiday-box .inBox1 .info dd span{display:inline-block;background:#f43c40;font-weight:bold;color:#fff;font-size:15px;text-align:center;width:30px;height:30px;line-height:30px;margin-right:3px;}
+.main1 #holiday-box .inBox1 .info dd span{display:inline-block;background:#f43c40;font-weight:bold;color:#fff;font-size:15px;text-align:center;padding: 0 5px;height:30px;line-height:30px;margin-right:3px;}
 
 .main1 #holiday-box .inBox1 .bt-controls .bt-next{top:1px;right:0;font-size:0;line-height:0;width:32px;height:32px;z-index:500;position:absolute}
 .main1 #holiday-box .inBox1 .bt-controls .bt-prev{top:1px;left:0;font-size:0;line-height:0;width:32px;height:32px;z-index:500;position:absolute}

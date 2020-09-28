@@ -23,7 +23,7 @@ $(function() {
 <!-- /contents-title-->
 
 <div class="DepthBtn">
-<c:set var="prefix" value="/intro/${homepage.context_path}/search/"></c:set>
+<c:set var="prefix" value="/intro/${context_path}/search/"></c:set>
 <a href="${prefix}loan/index.do" class="bBtn">대출중인도서</a>
 <a href="${prefix}loan/history.do" class="bBtn">대출내역조회</a>
 <a href="${prefix}sangho/index.do" class="bBtn">상호대차신청내역조회</a>
@@ -38,6 +38,7 @@ $(function() {
 	<c:if test="${fn:length(sanghoHistory) < 1 }"> <h3>상호대차신청 내역이 없습니다.</h3></c:if>
 
 	<c:forEach items="${sanghoHistory}" var="i" varStatus="status">
+
 	<div class="row">
 		<div class="box">
 			<div class="item">
@@ -61,7 +62,37 @@ $(function() {
 							</tr>
 							<tr>
 								<th>상태</th>
-								<td>${i.SEND_REJECT_REASON}</td>
+								<td>
+									<c:choose>
+										<c:when test="${i.TRANSACTION_CODE eq '0'}">
+										신청
+										</c:when>
+										<c:when test="${i.TRANSACTION_CODE eq '1'}">
+										발송중
+										</c:when>
+										<c:when test="${i.TRANSACTION_CODE eq '2'}">
+										발송거절
+										</c:when>
+										<c:when test="${i.TRANSACTION_CODE eq '3'}">
+										입수
+										</c:when>
+										<c:when test="${i.TRANSACTION_CODE eq '4'}">
+										대출중
+										</c:when>
+										<c:when test="${i.TRANSACTION_CODE eq '5'}">
+										완료
+										</c:when>
+										<c:when test="${i.TRANSACTION_CODE eq '6'}">
+										신청취소
+										</c:when>
+										<c:when test="${i.TRANSACTION_CODE eq '7'}">
+										대출만기자료
+										</c:when>
+										<c:otherwise>
+										오류! 도서관에 문의 요망!
+										</c:otherwise>
+									</c:choose>
+								</td>
 							</tr>
 						</tbody>
 					</table>

@@ -14,7 +14,7 @@ $(document).ready(function() {
 		$('input#survey_open_yn').val($(this).attr('keyValue4'));
 
 		if($('input#popup_yn').val() == 'Y') {
-			window.open('/${homepage.context_path}/module/survey/edit.do?open_yn='+$(this).attr('keyValue3')+'&survey_idx='+$(this).attr('keyValue')+'&survey_open_yn='+$(this).attr('keyValue4')+'&homepage_id='+$('#homepage_id').val()+'&popup_yn='+$('input#popup_yn').val(), "설문지보기", "width=820, height=800, toolbar=no, menubar=no, scrollbars=yes");
+			window.open('/${homepage.context_path}/module/survey/edit.do?open_yn='+$(this).attr('keyValue3')+'&survey_idx='+$(this).attr('keyValue')+'&survey_open_yn='+$(this).attr('keyValue4')+'&homepage_id='+$('#homepage_id').val()+'&popup_yn='+$('input#popup_yn').val(), "설문지보기", "width=1024, height=800, toolbar=no, menubar=no, scrollbars=yes, resizable=yes");
 		} else {
 			doGetLoad('edit.do', $form.serialize());
 		}

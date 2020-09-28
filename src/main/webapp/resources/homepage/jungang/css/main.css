@@ -271,7 +271,7 @@
 	.tnb .util,
 	.Gnb,
 	.main7_banner{display:none}
-	.mmode{display:block}
+	.mmode{display:block;}
 	
 	.main .qmenu li{width:25%}
 	.main .qmenu .bx-wrapper{margin:0 40px!important}

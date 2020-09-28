@@ -453,7 +453,7 @@ $(function() {
 	</form:form>
 
 	<div class="btn-wrap">
-		<a href="javascript:history.back();" class="btn btn02">취소</a>
+		<a href="/intro/${context_path}/index.do" class="btn btn02">취소</a>
 		<a href="#" id="join-btn" class="btn btn03">다음</a>
 	</div>
 </div>

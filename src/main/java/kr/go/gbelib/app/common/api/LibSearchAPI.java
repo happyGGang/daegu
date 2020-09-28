@@ -1483,9 +1483,7 @@ public class LibSearchAPI {
 		try {
 			if (map.get("ITEM") instanceof HashMap) {
 				Map<String, Object> item = (Map<String, Object>) map.get("ITEM");
-				if (item.containsKey("ERROR") && "조회내역이 없습니다.".equals(String.valueOf(item.containsKey("ERROR")))) {
-
-				} else {
+				if (!item.containsKey("ERROR")) {
 					list.add(item);
 				}
 			} else {

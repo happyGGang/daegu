@@ -4,7 +4,6 @@
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:jee="http://www.springframework.org/schema/jee"
-	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
@@ -12,7 +11,7 @@
 		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd 
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 	
-	<context:component-scan base-package="kr.co.whalesoft.framework.aop"></context:component-scan>
+	<context:component-scan base-package="kr.co.whalesoft.framework.aop" />
 	
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 	
@@ -22,10 +21,10 @@
 	<context:property-placeholder location="classpath:jdbc.properties" />
 	
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="kr.co.whalesoft.app"></property>
+		<property name="basePackage" value="kr.co.whalesoft.app" />
 	</bean>
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="kr.go.gbelib.app"></property>
+		<property name="basePackage" value="kr.go.gbelib.app" />
 	</bean>
 	
 	<!-- <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
@@ -42,7 +41,7 @@
 	
 	
 	<bean id="sqlSessionFactoryBean" class="kr.co.whalesoft.framework.mybatis.RefreshableSqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"></property>
+		<property name="dataSource" ref="dataSource"/>
 		<property name="configLocation" value="classpath:mybatisConfig.xml"/>
  		<property name="mapperLocations">
  			<list>
@@ -71,7 +70,7 @@
             <bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
                 <property name="loggingType" value="MULTI_LINE" />
 <!--                 <property name="margin" value="19" /> -->
-                <property name="sqlPrefix" value="SQL   :::::  "/>
+                <property name="sqlPrefix" value=": "/>
             </bean>
         </property>
     </bean>
@@ -82,35 +81,37 @@
 	<!-- db dataSource  -->
 	<beans profile="localServer">
 		<bean id="dataSource_master" parent="parentDataSource">
-			<property name="driverClassName" value="${localServer.driverClassName}"></property>
-			<property name="url" value="${localServer.url}"></property>
-			<property name="username" value="${localServer.username}"></property>
-			<property name="password" value="${localServer.password}"></property>
+			<property name="driverClassName" value="${localServer.driverClassName}"/>
+			<property name="url" value="${localServer.url}"/>
+			<property name="username" value="${localServer.username}"/>
+			<property name="password" value="${localServer.password}"/>
 		</bean>
 		<bean id="dataSource_slave" parent="parentDataSource">
-			<property name="driverClassName" value="${localServer2.driverClassName}"></property>
-			<property name="url" value="${localServer2.url}"></property>
-			<property name="username" value="${localServer2.username}"></property>
-			<property name="password" value="${localServer2.password}"></property>
+			<property name="driverClassName" value="${localServer2.driverClassName}"/>
+			<property name="url" value="${localServer2.url}"/>
+			<property name="username" value="${localServer2.username}"/>
+			<property name="password" value="${localServer2.password}"/>
 		</bean>
 		<bean id="dataSource_slave2" parent="parentDataSource">
-			<property name="driverClassName" value="${localServer3.driverClassName}"></property>
-			<property name="url" value="${localServer3.url}"></property>
-			<property name="username" value="${localServer3.username}"></property>
-			<property name="password" value="${localServer3.password}"></property>
+			<property name="driverClassName" value="${localServer3.driverClassName}"/>
+			<property name="url" value="${localServer3.url}"/>
+			<property name="username" value="${localServer3.username}"/>
+			<property name="password" value="${localServer3.password}"/>
 		</bean>
 	</beans> 
 	
 	<beans profile="devServer">
 		<bean id="dataSource_master" class="org.apache.commons.dbcp.BasicDataSource">
-			<property name="driverClassName" value="${devServer.driverClassName}"></property>
-			<property name="url" value="${devServer.url}"></property>
-			<property name="username" value="${devServer.username}"></property>
-			<property name="password" value="${devServer.password}"></property>
+			<property name="driverClassName" value="${devServer.driverClassName}"/>
+			<property name="url" value="${devServer.url}"/>
+			<property name="username" value="${devServer.username}"/>
+			<property name="password" value="${devServer.password}"/>
 		</bean>
 	</beans>
 	
 	<beans profile="realServer">
 		<jee:jndi-lookup id="dataSource_master" jndi-name="gbe_jndi" />
+		<jee:jndi-lookup id="dataSource_slave" jndi-name="gbe_jndi" />
+		<jee:jndi-lookup id="dataSource_slave2" jndi-name="gbe_jndi" />
 	</beans>
 </beans>

@@ -29,13 +29,81 @@ $(function() {
 			<table class="table_gray" summary="구분,자료형태,자료실,발행년도,본문언어,요약문언어 선택 항목에 관한 테이블입니다.">
 			<caption>검색항목</caption>
 			<colgroup>
-			<col style="width:15%">
-			<col style="width:35%">
-			<col style="width:15%">
-			<col style="width:35%">
+			<col style="width:9%">
+			<col style="width:24%">
+			<col style="width:9%">
+			<col style="width:24%">
+			<col style="width:9%">
+			<col style="width:24%">
 			</colgroup>
 			<tbody>
 			<tr>
+
+
+			<th><label for="option01">도서관명</label></th>
+			<td class="search_left">
+				<c:choose>
+				<c:when test="${context_path eq 'bukgs'}">
+				구수산 도서관
+				<form:hidden path="manageCode" value="BA" />
+				</c:when>
+				<c:when test="${context_path eq 'bukdh'}">
+				대현도서관<form:hidden path="manageCode" value="BB" />
+				</c:when>
+				<c:when test="${context_path eq 'buktj'}">
+				태전도서관<form:hidden path="manageCode" value="BC" />
+				</c:when>
+				<c:when test="${context_path eq 'buks'}">
+					<form:radiobutton path="manageCode" value='GP' label="노원동 작은도서관" />
+					<form:radiobutton path="manageCode" value='HD' label="노원행복도서관" />
+					<form:radiobutton path="manageCode" value='GM' label="북구영어작은도서관" />
+					<form:radiobutton path="manageCode" value='GL' label="산격1동 작은도서관" />
+					<form:radiobutton path="manageCode" value='HB' label="서변동작은도서관" />
+					<form:radiobutton path="manageCode" value='GN' label="침산1동 작은도서관" />
+					<form:radiobutton path="manageCode" value='GJ' label="태전1동 작은도서관" />
+					<form:radiobutton path="manageCode" value='HE' label="한강공원부키도서관" />
+				</c:when>
+				<c:when test="${context_path eq 'jungang'}">
+				중앙도서관<form:hidden path="manageCode" value="AD" />
+				</c:when>
+				<c:when test="${context_path eq 'dongdu'}">
+				동부도서관<form:hidden path="manageCode" value="AH" />
+				</c:when>
+				<c:when test="${context_path eq 'seobu'}">
+				서부도서관<form:hidden path="manageCode" value="AF" />
+				</c:when>
+				<c:when test="${context_path eq 'nambu'}">
+				남부도서관<form:hidden path="manageCode" value="AG" />
+				</c:when>
+				<c:when test="${context_path eq 'bukbu'}">
+				북부도서관<form:hidden path="manageCode" value="AC" />
+				</c:when>
+				<c:when test="${context_path eq 'duryu'}">
+				두류도서관<form:hidden path="manageCode" value="AB" />
+				</c:when>
+				<c:when test="${context_path eq '228'}">
+				228기념학생도서관<form:hidden path="manageCode" value="AA" />
+				</c:when>
+				<c:when test="${context_path eq '228lib'}">
+				228민주운동<form:hidden path="manageCode" value="AL" />
+				</c:when>
+				<c:when test="${context_path eq 'suseong'}">
+				수성도서관<form:hidden path="manageCode" value="AE" />
+				</c:when>
+				<c:when test="${context_path eq 'dalseong'}">
+				달성도서관<form:hidden path="manageCode" value="AJ" />
+				</c:when>
+				<c:when test="${context_path eq 'std'}">
+				대구학생문화센터<form:hidden path="manageCode" value="AK" />
+				</c:when>
+				<c:when test="${context_path eq 'dmsl'}">
+				시청작은도서관<form:hidden path="manageCode" value="FV" />
+				</c:when>
+				<c:otherwise>
+				<form:hidden path="manageCode" value="" />
+				</c:otherwise>
+				</c:choose>
+			</td>
 
 			<th><label for="option01">서지형태</label></th>
 			<td class="search_left">
@@ -64,7 +132,7 @@ $(function() {
 						<c:choose>
 							<c:when test="${fn:length(bestBookList) > 0}">
 								<c:forEach items="${bestBookList}" var="i">
-								<c:set var="detailURL" value="/intro/${homepage.context_path}/search/detail.do?isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype eq '0' ? 'BO' : 'SE')}"></c:set>
+								<c:set var="detailURL" value="/intro/${context_path}/search/detail.do?isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype eq '0' ? 'BO' : 'SE')}"></c:set>
 								<div class="row">
 									<div class="thumb">
 										<c:choose>
@@ -101,7 +169,14 @@ $(function() {
 							</c:when>
 							<c:otherwise>
 								<br/>
+								<c:choose>
+								<c:when test="${empty librarySearch.booktype}">
+								<h3> 도서관 선택 후 검색하세요. </h3>
+								</c:when>
+								<c:otherwise>
 								<h3> 조회된 도서가 없습니다. </h3>
+								</c:otherwise>
+								</c:choose>
 								<br/>
 							</c:otherwise>
 						</c:choose>

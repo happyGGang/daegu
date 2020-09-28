@@ -45,7 +45,7 @@ $(function() {
 
 		if ( doAjaxPost($('#basketReqForm')) ) {
 			if (confirm('보관함에 추가되었습니다. 보관함으로 이동하시겠습니까?')) {
-				location.href = '/${homepage.context_path}/intro/search/deliveryBasket/index.do?menu_idx=${deliveryMenuMenuIdx}';
+				location.href = '/${context_path}/intro/search/deliveryBasket/index.do?menu_idx=${deliveryMenuMenuIdx}';
 			}
 		}
 	});
@@ -56,7 +56,7 @@ $(function() {
 
 		} */
 
-		window.open("/${homepage.context_path}/module/myStorage/viewStorage.do?"+serializeCustom($('#storageReqForm')), "", "width=450, height=400");
+		window.open("/${context_path}/module/myStorage/viewStorage.do?"+serializeCustom($('#storageReqForm')), "", "width=450, height=400");
 	});
 
 	$('a.addDelivery').on('click', function(e) {
@@ -89,7 +89,7 @@ $(function() {
 
 </script>
 
-<form id="storageReqForm" action="/${homepage.context_path}/module/myStorage/saveItem.do" method="post">
+<form id="storageReqForm" action="/${context_path}/module/myStorage/saveItem.do" method="post">
 	<input type="hidden" name="_csrf" value="${_csrf.token}">
 	<input type="hidden" id="editMode" name="editMode" value="ADD">
 	<input type="hidden" id="item_name" name="item_name" value="${detail.TITLE_INFO}">
@@ -123,7 +123,7 @@ $(function() {
 	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
 </form>
 
-<form id="basketReqForm" action="/${homepage.context_path}/intro/search/saveDeliveryBasket.do">
+<form id="basketReqForm" action="/${context_path}/intro/search/saveDeliveryBasket.do">
 	<input type="hidden" name="_csrf" value="${_csrf.token}">
 	<input type="hidden" id="book_key" name="book_key">
 	<input type="hidden" name="editMode" value="ADD">
@@ -254,6 +254,9 @@ $(function() {
 								<c:when test="${detail.WORKING_STATUS == 'BOL212O'}">
 									<span style="color:#ff0000">대출불가(관내대출중)</span>
 								</c:when>
+								<c:when test="${detail.WORKING_STATUS == 'BOL411O'}">
+									<span style="color:#ff0000">대출불가(책두레중)</span>
+								</c:when>
 								<c:when test="${detail.WORKING_STATUS == 'BOL511O'}">
 									<span style="color:#ff0000">대출불가(타관반납중)</span>
 								</c:when>
@@ -273,11 +276,40 @@ $(function() {
 			</tbody>
 			</table>
 		</div>
+		<div>
+			<c:set var="getIp" value="<%=request.getRemoteAddr()%>" />
+			<c:if test="${getIp eq '218.48.151.16'}">
+			*인포셋만 보임(상호대차 신청가능조건 확인용)<br/>
+			SHELF_LOC_CODE : ${detail.SHELF_LOC_CODE} | 
+			REG_CODE : ${detail.REG_CODE} | 
+			SEPARATE_SHELF_CODE : ${detail.SEPARATE_SHELF_CODE}
+			</c:if>
+		</div>
 		<div class="sbtn" style="text-align:center;">
 			<c:if test="${detail.SANGHO_REQ_YN eq 'Y'}">
-			<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
+			<!-- <a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a> -->
 			</c:if>
 
+
+			<!-- 북구통합도서관 상호대차 설정시작-->
+			<c:choose>
+				<c:when test="${context_path eq 'bukgs' || context_path eq 'bukdh' || context_path eq 'buktj' || context_path eq 'buks'}">
+
+					<c:choose>
+						<c:when test="${detail.SHELF_LOC_CODE eq 'BA01' || detail.SHELF_LOC_CODE eq 'BA02' || detail.SHELF_LOC_CODE eq 'BA03' || detail.SHELF_LOC_CODE eq 'BA04' || detail.SHELF_LOC_CODE eq 'BA06' || detail.SHELF_LOC_CODE eq 'BB01' || detail.SHELF_LOC_CODE eq 'BB02' || detail.SHELF_LOC_CODE eq 'BB03' || detail.SHELF_LOC_CODE eq 'BB04' || detail.SHELF_LOC_CODE eq 'BC01' || detail.SHELF_LOC_CODE eq 'BC02' || detail.SHELF_LOC_CODE eq 'BC03' || detail.SHELF_LOC_CODE eq 'GJ01' || detail.SHELF_LOC_CODE eq 'GL01' || detail.SHELF_LOC_CODE eq 'GL02' || detail.SHELF_LOC_CODE eq 'GM01' || detail.SHELF_LOC_CODE eq 'GN01' || detail.SHELF_LOC_CODE eq 'GP01' || detail.SHELF_LOC_CODE eq 'HB01' || detail.SHELF_LOC_CODE eq 'HD01' || detail.SHELF_LOC_CODE eq 'HE01'}">
+							<c:if test="${detail.SEPARATE_SHELF_CODE eq 'BMG' || detail.SEPARATE_SHELF_CODE eq 'BMH' || detail.SEPARATE_SHELF_CODE eq 'BML' || detail.SEPARATE_SHELF_CODE eq 'BMM' || detail.SEPARATE_SHELF_CODE eq 'BMN' || detail.SEPARATE_SHELF_CODE eq 'BMP' || detail.SEPARATE_SHELF_CODE eq 'BMQ' || detail.SEPARATE_SHELF_CODE eq 'BMS' || detail.SEPARATE_SHELF_CODE eq 'BMT' || detail.SEPARATE_SHELF_CODE eq 'BMU' || detail.SEPARATE_SHELF_CODE eq 'BMW' || detail.SEPARATE_SHELF_CODE eq 'BMX' || detail.SEPARATE_SHELF_CODE eq 'BMY' || detail.SEPARATE_SHELF_CODE eq 'BMZ' || detail.SEPARATE_SHELF_CODE eq 'BNA' || detail.SEPARATE_SHELF_CODE eq 'BNB' || detail.SEPARATE_SHELF_CODE eq 'BNC' || detail.SEPARATE_SHELF_CODE eq 'BND' || detail.SEPARATE_SHELF_CODE eq 'BNE' || detail.SEPARATE_SHELF_CODE eq 'BNF' || detail.SEPARATE_SHELF_CODE eq null || detail.SEPARATE_SHELF_CODE eq 'null' || detail.SEPARATE_SHELF_CODE eq ''}">
+								<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
+							</c:if>
+						</c:when>
+						<c:otherwise>
+						</c:otherwise>
+					</c:choose>
+
+				</c:when>
+				<c:otherwise>
+
+				</c:otherwise>
+			</c:choose>
 
 
 			<c:choose>
@@ -334,7 +366,7 @@ AD19 북큐레이션(종합)
 AD20 종합자료실
 -->
 			<c:choose>
-				<c:when test="${homepage.context_path eq 'jungang'}">
+				<c:when test="${context_path eq 'jungang'}">
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
 					<c:if test="${detail.RESERVATION_CNT eq '0'}">
 					<c:if test="${detail.SHELF_LOC_CODE eq 'AD02' || detail.SHELF_LOC_CODE eq 'AD03' || detail.SHELF_LOC_CODE eq 'AD04' || detail.SHELF_LOC_CODE eq 'AD06' || detail.SHELF_LOC_CODE eq 'AD07' || detail.SHELF_LOC_CODE eq 'AD08' || detail.SHELF_LOC_CODE eq 'AD14' || detail.SHELF_LOC_CODE eq 'AD18' || detail.SHELF_LOC_CODE eq 'AD19' || detail.SHELF_LOC_CODE eq 'AD20'}">
@@ -344,7 +376,7 @@ AD20 종합자료실
 					</c:if>
 					</c:if>
 				</c:when>
-				<c:when test="${homepage.context_path eq '228'}">
+				<c:when test="${context_path eq '228'}">
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
 					<c:if test="${detail.RESERVATION_CNT eq '0'}">
 					<c:if test="${detail.SHELF_LOC_CODE eq 'AA04'}">
@@ -354,7 +386,7 @@ AD20 종합자료실
 					</c:if>
 					</c:if>
 				</c:when>
-				<c:when test="${homepage.context_path eq 'dmsl'}">
+				<c:when test="${context_path eq 'dmsl'}">
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
 					<c:if test="${detail.RESERVATION_CNT eq '0'}">
 					<c:if test="${sessionScope.member.user_class_code eq '701'}">
@@ -369,7 +401,7 @@ AD20 종합자료실
 			</c:choose>
 
 			<c:choose>
-				<c:when test="${detail.SHELF_LOC_CODE eq 'AD39' || detail.SHELF_LOC_CODE eq 'AD40'}">
+				<c:when test="${detail.SHELF_LOC_CODE eq 'AD39' || detail.SHELF_LOC_CODE eq 'AD40' || detail.SHELF_LOC_CODE eq 'BA08' || detail.SHELF_LOC_CODE eq 'BA01'}">
 
 				</c:when>
 				<c:otherwise>
@@ -394,7 +426,13 @@ AD20 종합자료실
 						<c:otherwise>
 							<c:choose>
 								<c:when test="${detail.RESERVATION_CNT < detail.RESERVATION_NUMBER}">
-									<a href="#" id="resve-req" class="btn">예약신청</a>
+									<c:choose>
+										<c:when test="${detail.WORKING_STATUS == 'BOL411O'}">
+										</c:when>
+										<c:otherwise>
+											<a href="#" id="resve-req" class="btn">예약신청</a>
+										</c:otherwise>
+									</c:choose>
 								</c:when>
 								<c:otherwise>
 									<a href="#" id="resve-req-not" class="btn btn5">예약불가</a>

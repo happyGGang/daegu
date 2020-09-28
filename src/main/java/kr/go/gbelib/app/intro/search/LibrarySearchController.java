@@ -74,17 +74,19 @@ public class LibrarySearchController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 		List<Homepage> normalHomepage = homepageService.getNormalHomepage();
 		// 소장처 코드
-		if ( StringUtils.isEmpty(librarySearch.getManageCode()) ) {
-			librarySearch.setManageCode(homepage.getManage_code());
-		}
+//		if ( StringUtils.isEmpty(librarySearch.getManageCode()) ) {
+//			librarySearch.setManageCode(homepage.getManage_code());
+//		}
 
 		if ( librarySearch.getLibraryCodes() == null ) {
 			List<String> libraryCodes = new ArrayList<String>();
-			if ( !StringUtils.isEmpty(homepage.getManage_code()) ) {
+			if ( homepage != null && !StringUtils.isEmpty(homepage.getManage_code()) ) {
 				libraryCodes.add(homepage.getManage_code());
 			} else {
 				for (Homepage home : normalHomepage) {
-					libraryCodes.add(home.getManage_code());
+					if (StringUtils.isNotEmpty(home.getManage_code())) {
+						libraryCodes.add(home.getManage_code());
+					}
 				}
 			}
 			librarySearch.setLibraryCodes(libraryCodes);
@@ -264,15 +266,15 @@ public class LibrarySearchController extends BaseController {
 			librarySearch.setLibCode(String.valueOf(map.get("LIB_CODE")));
 			librarySearch.setSpeciesKey(String.valueOf(map.get("SPECIES_KEY")));
 
-//			Map<String, Object> sanghoReqYn = LibSearchAPI.sanghoReqYn(librarySearch);
-//			@SuppressWarnings ("unchecked")
-//			Map<String, Object> sanghoReqYnResult = (Map<String, Object>) sanghoReqYn.get("ITEM");
+			Map<String, Object> sanghoReqYn = LibSearchAPI.sanghoReqYn(librarySearch);
+			@SuppressWarnings ("unchecked")
+			Map<String, Object> sanghoReqYnResult = (Map<String, Object>) sanghoReqYn.get("ITEM");
 
 			map.put("SANGHO_REQ_YN", "N");
-//			if (sanghoReqYnResult.containsKey("RESULT") && String.valueOf(sanghoReqYnResult.get("RESULT")).equals("OK")) {
-//				// 정상 신청가능
-//				map.put("SANGHO_REQ_YN", "Y");
-//			}
+			if (sanghoReqYnResult.containsKey("RESULT") && String.valueOf(sanghoReqYnResult.get("RESULT")).equals("OK")) {
+				// 정상 신청가능
+				map.put("SANGHO_REQ_YN", "Y");
+			}
 
 			model.addAttribute("detail", map);
 		}
@@ -294,8 +296,15 @@ public class LibrarySearchController extends BaseController {
 
 		//접속 도서관 확인
 		Homepage homepage = getSessionHomepage(request);
+//		if (StringUtils.isEmpty(librarySearch.getManageCode())) {
+//			librarySearch.setManageCode(homepage.getManage_code());
+//		}
 		if (StringUtils.isEmpty(librarySearch.getManageCode())) {
-			librarySearch.setManageCode(homepage.getManage_code());
+			if (homepage == null) {
+				return basePath + "newBook/index";
+			} else {
+				librarySearch.setManageCode(homepage.getManage_code());
+			}
 		}
 
 		//기본값 '1달 전'
@@ -372,7 +381,11 @@ public class LibrarySearchController extends BaseController {
 	public String bestBookList(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request) {
 		Homepage homepage = getSessionHomepage(request);
 		if (StringUtils.isEmpty(librarySearch.getManageCode())) {
-			librarySearch.setManageCode(homepage.getManage_code());
+			if (homepage == null) {
+				return basePath + "bestBook/index";
+			} else {
+				librarySearch.setManageCode(homepage.getManage_code());
+			}
 		}
 
 		//서지형태 분류코드 설정.
@@ -666,7 +679,7 @@ public class LibrarySearchController extends BaseController {
 	 * @throws Throwable
 	 */
 	@RequestMapping (value = { "/sangho/index.*" }, method = RequestMethod.GET)
-	public String sanghoHistory(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+	public String sanghoHistory(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
@@ -686,14 +699,14 @@ public class LibrarySearchController extends BaseController {
 		Map<String, Object> sanghoHistory = LibSearchAPI.getSanghoHistory(librarySearch);
 		List<Map<String, Object>> returnList = LibSearchAPI.getSanghoListData(sanghoHistory);
 
-		if (returnList != null && !returnList.isEmpty() && !returnList.get(0).containsKey("ERROR")) {
+//		if (returnList != null && !returnList.isEmpty() && !returnList.get(0).containsKey("ERROR")) {
 			int count = LibSearchAPI.getSanghoSearchCount(sanghoHistory);
 			librarySearch.setTotalDataCount(count);
 			service.setPaging(model, count, librarySearch);
 
 			model.addAttribute("librarySearch", librarySearch);
 			model.addAttribute("sanghoHistory", returnList);
-		}
+//		}
 
 		return basePath + "sangho/index";
 	}
@@ -709,7 +722,7 @@ public class LibrarySearchController extends BaseController {
 	 * @throws Throwable
 	 */
 	@RequestMapping (value = { "/sangho/history.*" }, method = RequestMethod.GET)
-	public String sanghoUsedHistory(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+	public String sanghoUsedHistory(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
 
 		Homepage homepage = getSessionHomepage(request);
 
@@ -730,14 +743,14 @@ public class LibrarySearchController extends BaseController {
 		Map<String, Object> sanghoHistory = LibSearchAPI.getSanghoUsedHistory(librarySearch);
 		List<Map<String, Object>> returnList = LibSearchAPI.getSanghoListData(sanghoHistory);
 
-		if (returnList != null && !returnList.isEmpty() && !returnList.get(0).containsKey("ERROR")) {
+//		if (returnList != null && !returnList.isEmpty() && !returnList.get(0).containsKey("ERROR")) {
 			int count = LibSearchAPI.getSanghoSearchCount(sanghoHistory);
 			librarySearch.setTotalDataCount(count);
 			service.setPaging(model, count, librarySearch);
 
 			model.addAttribute("librarySearch", librarySearch);
 			model.addAttribute("sanghoHistory", returnList);
-		}
+//		}
 
 
 		return basePath + "sangho/history";
@@ -754,7 +767,7 @@ public class LibrarySearchController extends BaseController {
 	 * @throws Throwable
 	 */
 	@RequestMapping (value = { "/sangho/form.*" }, method = RequestMethod.POST)
-	public String sanghoForm(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+	public String sanghoForm(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		Homepage homepage = getSessionHomepage(request);
 
 		model.addAttribute("librarySearch", librarySearch);
@@ -824,8 +837,8 @@ public class LibrarySearchController extends BaseController {
 		Map<String, Object> sanghoHistory = LibSearchAPI.getSanghoHistory(librarySearch);
 		List<Map<String, Object>> returnList = LibSearchAPI.getSanghoListData(sanghoHistory);
 
-		if (CollectionUtils.isNotEmpty(returnList) && returnList.size() >= 3) {
-			service.alertMessage("상호대차 신청권수는 3권까지입니다.", request, response);
+		if (CollectionUtils.isNotEmpty(returnList) && returnList.size() >= 5) { 
+			service.alertMessage("상호대차 신청권수는 5권까지입니다.", request, response);
 			return null;
 		}
 
@@ -991,7 +1004,7 @@ public class LibrarySearchController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
 			return null;
 		}
 
@@ -1098,7 +1111,7 @@ public class LibrarySearchController extends BaseController {
 						map2.put("isbn"+isbn.length(), isbn);
 
 						LibrarySearch bookSerach = new LibrarySearch();
-						bookSerach.setManageCode(homepage.getManage_code());
+						bookSerach.setManageCode(librarySearch.getManageCode());
 						bookSerach.setIsbn(isbn);
 						Map<String, Object> sameBook = (Map<String, Object>) LibSearchAPI.getBookDetail(bookSerach);
 
@@ -1228,7 +1241,7 @@ public class LibrarySearchController extends BaseController {
 	 * @throws Throwable
 	 */
 	@RequestMapping (value = { "/unmanned/form.*" }, method = RequestMethod.POST)
-	public String unmannedForm(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+	public String unmannedForm(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
@@ -1346,7 +1359,7 @@ public class LibrarySearchController extends BaseController {
 	 * @throws Throwable
 	 */
 	@RequestMapping (value = {"/night/form.*"}, method = RequestMethod.POST)
-	public String nightForm(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+	public String nightForm(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
@@ -1440,7 +1453,7 @@ public class LibrarySearchController extends BaseController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = {"/print.*"})
-	public String print(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String print(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		Map<String, Object> result = new HashMap<String, Object>();
 

@@ -8,7 +8,7 @@ $(function() {
 
 	$('#save-btn').on('click', function(e) {
 		e.preventDefault();
-		if (!confirm('야간예약 신청을 하시겠습니까?')) {
+		if (!confirm('워킹스루 신청을 하시겠습니까?')) {
 			return false;
 		}
 
@@ -28,13 +28,49 @@ $(function() {
 
 <!-- contents-title-->
 <div id="contents-title">
-	<h2>야간예약 신청을 위한 신청사항<span style="font-weight:300">을 확인하세요.</span></h2>
+	<h2>워킹스루 신청을 위한 신청사항<span style="font-weight:300">을 확인하세요.</span></h2>
 </div>
 <!-- /contents-title-->
 
 <form:form modelAttribute="librarySearch" action="save.do" method="post" onsubmit="return false;">
 <form:hidden path="bookkey"/>
-<form:hidden path="booktype"/>
+<input type="hidden" name="booktype" id="booktype" value="${fn:substring(detail.WORKING_STATUS,0,2) }"/>
+<input type="hidden" name="exprire_date_cnt" id="exprire_date_cnt" value="7"/>
+<c:choose>
+<c:when test="${detail.MANAGE_CODE eq 'AA'}">
+<input type="hidden" name="worker" id="worker" value="DGL0001"/>
+</c:when>
+<c:when test="${detail.MANAGE_CODE eq 'AL'}">
+<input type="hidden" name="worker" id="worker" value="DGL0002"/>
+</c:when>
+<c:when test="${detail.MANAGE_CODE eq 'AG'}">
+<input type="hidden" name="worker" id="worker" value="DGL0003"/>
+</c:when>
+<c:when test="${detail.MANAGE_CODE eq 'AJ'}">
+<input type="hidden" name="worker" id="worker" value="DGL0004"/>
+</c:when>
+<c:when test="${detail.MANAGE_CODE eq 'AH'}">
+<input type="hidden" name="worker" id="worker" value="DGL0005"/>
+</c:when>
+<c:when test="${detail.MANAGE_CODE eq 'AB'}">
+<input type="hidden" name="worker" id="worker" value="DGL0006"/>
+</c:when>
+<c:when test="${detail.MANAGE_CODE eq 'AC'}">
+<input type="hidden" name="worker" id="worker" value="DGL0007"/>
+</c:when>
+<c:when test="${detail.MANAGE_CODE eq 'AF'}">
+<input type="hidden" name="worker" id="worker" value="DGL0008"/>
+</c:when>
+<c:when test="${detail.MANAGE_CODE eq 'AE'}">
+<input type="hidden" name="worker" id="worker" value="DGL0009"/>
+</c:when>
+<c:when test="${detail.MANAGE_CODE eq 'AD'}">
+<input type="hidden" name="worker" id="worker" value="DGL0010"/>
+</c:when>
+<c:otherwise>
+<input type="hidden" name="worker" id="worker" value="DGL0010"/>
+</c:otherwise>
+</c:choose>
 
 <div class="delibery_info">
 
@@ -53,7 +89,7 @@ $(function() {
 				<th>소장도서관</th>
 				<td class="left">${detail.LIB_NAME}</td>
 			 </tr>
-			 <tr>
+			 <!-- <tr>
 				<th>수령장소</th>
 				<td class="left">
 					<form:select path="worker" style="border:1px solid #c9c9c9;border-radius:4px;height:30px">
@@ -62,7 +98,7 @@ $(function() {
 						<option value="SYSUB01">남천동메가마트</option>
 					</form:select>
 				</td>
-			 </tr>
+			 </tr> -->
 			 <tr>
 				<th>도서명</th>
 				<td class="left">${detail.TITLE_INFO}</td>

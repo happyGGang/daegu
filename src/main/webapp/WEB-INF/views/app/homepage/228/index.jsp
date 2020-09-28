@@ -131,7 +131,7 @@
 								</li>
 								<li class="bg-lgray">
 									<a href="http://library.daegu.go.kr/228/board/index.do?menu_idx=199&manage_idx=417">
-									<span class="wt" style="letter-spacing:-2px;font-size:120%;">온라인독서문화행사</span>
+									<span class="wt" style="letter-spacing:-2px;font-size:120%;">9월 온택트 독서문화행사</span>
 									<span class="wc">다양한 독서문화행사를<br/> 만나보세요</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick05-bg.png" class="mi">
 									</a>
@@ -348,6 +348,11 @@
 						<div class="cal-box">
 
 						</div>
+						<%-- 임시문구 --%>
+						<div class="center">
+						<!-- <p style="font-size:13px; color:#ff0000;margin-top:5px;"><strong>임시휴관</strong> 8.23.(일) ~ 별도 안내 시까지</p> -->
+						</div>
+						<%-- 임시문구 끝 --%>
 					</div>
 				</div>
 			</div>

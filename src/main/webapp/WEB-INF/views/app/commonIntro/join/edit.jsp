@@ -416,6 +416,8 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 		</table>
 		</div>
 
+		<p class="txt-box-adv">경산시, 칠곡군 소재지인 주민들은 비대면 인증이 되지 않습니다. 도서관에 직접 방문하여 주시기 바랍니다.</p>
+
 		<div class="btn-wrap">
 			<c:if test="${newMember.editMode eq 'ADD' }">
 			<a href="#" id="save-btn" class="btn btn1" title="회원가입">회원가입</a>

@@ -30,11 +30,17 @@ public class AdminMenuService extends BaseService {
 	}
 
 	public List<AdminMenu> getAdminMenuListNew(AdminMenu adminMenu) {
-		return dao.getAdminMenuListNew(adminMenu);
+		List<AdminMenu> adminMenuListNew = dao.getAdminMenuListNew(adminMenu);
+		for (AdminMenu adminMenu2 : adminMenuListNew) {
+			convertAccessHomepage(adminMenu2);
+		}
+		return adminMenuListNew;
 	}
 
 	public AdminMenu getAdminMenuOneByIdx(AdminMenu adminMenu) {
-		return dao.getAdminMenuOneByIdx(adminMenu);
+		AdminMenu adminMenuOneByIdx = dao.getAdminMenuOneByIdx(adminMenu);
+		convertAccessHomepage(adminMenuOneByIdx);
+		return adminMenuOneByIdx;
 	}
 
 	public int getPrint_seq(AdminMenu adminMenu) {
@@ -56,7 +62,9 @@ public class AdminMenuService extends BaseService {
 	}
 
 	public AdminMenu getParentAdminMenuOne(AdminMenu adminMenu) {
-		return dao.getParentAdminMenuOne(adminMenu);
+		AdminMenu parentAdminMenuOne = dao.getParentAdminMenuOne(adminMenu);
+		convertAccessHomepage(parentAdminMenuOne);
+		return parentAdminMenuOne;
 	}
 
 	@Transactional
@@ -70,6 +78,8 @@ public class AdminMenuService extends BaseService {
 				adminMenu.setLink_url(moduleMngt.getLink_url() + "?" + moduleMngt.getLink_param());
 			}
 		}
+		adminMenu.setAccess_homepage_ids(StringUtils.join(adminMenu.getAccess_homepage_id_arr(), ","));
+		adminMenu.setAccess_homepage_types(StringUtils.join(adminMenu.getAccess_homepage_type_arr(), ","));
 		return dao.addAdminMenu(adminMenu);
 	}
 
@@ -82,6 +92,8 @@ public class AdminMenuService extends BaseService {
 //				dao.addAdminMenuAuth(adminMenu);
 //			}
 //		}
+		adminMenu.setAccess_homepage_ids(StringUtils.join(adminMenu.getAccess_homepage_id_arr(), ","));
+		adminMenu.setAccess_homepage_types(StringUtils.join(adminMenu.getAccess_homepage_type_arr(), ","));
 
 		return dao.modifyAdminMenu(adminMenu);
 	}
@@ -136,4 +148,15 @@ public class AdminMenuService extends BaseService {
 		return list;
 	}
 
+
+	private void convertAccessHomepage(AdminMenu adminMenu) {
+		if (adminMenu != null) {
+			if (StringUtils.isNotBlank(adminMenu.getAccess_homepage_ids())) {
+				adminMenu.setAccess_homepage_id_arr(adminMenu.getAccess_homepage_ids().split(","));
+			}
+			if (StringUtils.isNotBlank(adminMenu.getAccess_homepage_types())) {
+				adminMenu.setAccess_homepage_type_arr(adminMenu.getAccess_homepage_types().split(","));
+			}
+		}
+	}
 }

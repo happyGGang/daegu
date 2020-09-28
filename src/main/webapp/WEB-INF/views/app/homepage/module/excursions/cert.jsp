@@ -34,11 +34,12 @@ $(function() {
 </script>
 
 <div class="join-wrap" style="padding: 0">
-
+<!--
 	<div class="info">
 	* 행정자치부 공공I-PIN센터에서 발급받은 식별ID 및 비밀번호를 이용하여 본인확인을 하는 주민번호 대체수단 서비스 입니다.<br/>
-   	 &nbsp; <b>공공I-PIN 신규발급 [<a href="http://www.gpin.go.kr" target="_blank">http://www.gpin.go.kr</a>]</b>
+	&nbsp; <b>공공I-PIN 신규발급 [<a href="http://www.gpin.go.kr" target="_blank">http://www.gpin.go.kr</a>]</b>
 	</div>
+-->
 	<form:form id="board" modelAttribute="excursions" action="edit.do" method="get" onsubmit="return false;">
 	<form:hidden path="editMode"/>
 	<form:hidden path="menu_idx"/>

@@ -215,7 +215,7 @@ do {
 								<div class="topBox1">
 									<span><h4>종합자료실</h4></span>
 									<span>
-									<strong>평일 09:00~19:00<br/>
+									<strong>평일 09:00~18:00<br/>
 									주말 09:00~17:00</strong>
 									</span>
 								</div>

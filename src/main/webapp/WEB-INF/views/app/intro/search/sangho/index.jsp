@@ -30,7 +30,7 @@ $(function() {
 });
 </script>
 
-<form id="cancelForm" action="save.do" method="post" onsubmit="return false;">
+<form id="cancelForm" action="../sanghoSave.do" method="post" onsubmit="return false;">
 	<input type="hidden" name="editMode" value="CANCEL"/>
 	<input type="hidden" id="loan_key" name="loan_key"/>
 	<input type="hidden" id="hold_lib_code" name="hold_lib_code"/>
@@ -45,7 +45,7 @@ $(function() {
 <!-- /contents-title-->
 
 <div class="DepthBtn">
-<c:set var="prefix" value="/intro/${homepage.context_path}/search/"></c:set>
+<c:set var="prefix" value="/intro/${context_path}/search/"></c:set>
 <a href="${prefix}loan/index.do" class="bBtn">대출중인도서</a>
 <a href="${prefix}loan/history.do" class="bBtn">대출내역조회</a>
 <a href="${prefix}sangho/index.do" class="bBtn">상호대차신청내역조회</a>

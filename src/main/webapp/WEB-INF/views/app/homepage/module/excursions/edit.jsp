@@ -161,6 +161,55 @@ $(function() {
 	(<span style="color: red; font-weight: bold;">*</span>) 필수 항목 입니다.
 </div>
 
+<c:choose>
+<c:when test="${homepage.context_path eq 'seobu'}">
+<table class="type1">
+	<colgroup>
+		<col width="140"/>
+		<col width="*"/>
+	</colgroup>
+	<tbody>
+		<tr>
+			<th>신청자 성명</th>
+			<td>
+				<form:hidden path="applicant_name" value="${member.member_name}"/>
+				${member.member_name}
+
+			</td>
+		</tr>
+		<tr>
+			<th>신청자 전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
+			<td>
+				<form:hidden path="applicant_tel"/>
+				<form:input path="applicant_tel_1" cssStyle="width:40px;" cssClass="text" maxlength="3" numberonly="true" value="${fn:substring(member.mobile_no, 0, 3)}"/> -
+				<form:input path="applicant_tel_2" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true" value="${fn:substring(member.mobile_no, 3, 7)}"/> -
+				<form:input path="applicant_tel_3" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true" value="${fn:substring(member.mobile_no, 7, 11)}"/>
+			</td>
+		</tr>
+		<tr>
+			<th>기관명(<span style="color: red; font-weight: bold;">*</span>)</th>
+			<td>
+				<input id="agency_name" name="agency_name" style="width:250px" class="text" value="서부도서관" type="text" maxlength="20" readonly/>
+			</td>
+		</tr>
+		<tr>
+			<th>기관 전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
+			<td>
+				<input id="agency_tel" name="agency_tel" type="hidden" value=""/>
+				<input id="agency_tel_1" name="agency_tel_1" class="text" style="width:40px;" numberonly="true" type="text" value="053" maxlength="4" readonly/> -
+				<input id="agency_tel_2" name="agency_tel_2" class="text" style="width:40px;" numberonly="true" type="text" value="231" maxlength="4" readonly/> -
+				<input id="agency_tel_3" name="agency_tel_3" class="text" style="width:40px;" numberonly="true" type="text" value="2400" maxlength="4" readonly/>
+			</td>
+		</tr>
+		<form:hidden path="age" class="text" cssStyle="width:50px" value="0"/>
+		<tr>
+			<th>방문인원(<span style="color: red; font-weight: bold;">*</span>)</th>
+			<td><form:input path="personnel" class="text" cssStyle="width:50px" maxlength="3" numberOnly="true" value='1'/> *숫자만 입력가능하며 신청자  본인만  방문가능합니다.</td>
+		</tr>
+	</tbody>
+</table>
+</c:when>
+<c:otherwise>
 <table class="type1">
 	<colgroup>
 		<col width="140"/>
@@ -227,6 +276,9 @@ $(function() {
 		</tr>
 	</tbody>
 </table>
+</c:otherwise>
+</c:choose>
+
 </form:form>
 <br/>
 <div class="txt-right">

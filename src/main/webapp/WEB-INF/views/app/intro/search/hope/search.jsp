@@ -16,6 +16,7 @@ $(document).ready(function() {
 	$('button#do-search').on('click', function(e) {
 		e.preventDefault();
 		$('input#viewPage').val('1');
+		$('input#searchManageCode').val($('select#manageCode option:selected').val());
 		doAjaxLoad('div#searchBox', 'search.do', $('form#searchForm').serialize());
 	});
 
@@ -28,6 +29,7 @@ $(document).ready(function() {
 </script>
 <form:form modelAttribute="librarySearch" id="searchForm" action="search.do" onsubmit="return false;">
 <form:hidden path="isbn"/>
+<form:hidden id="searchManageCode" path="manageCode"/>
 <form:hidden path="viewPage"/>
 	<div class="search-form" style="padding-bottom: 20px;">
 		<div class="box">

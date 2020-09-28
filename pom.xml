@@ -562,6 +562,66 @@
 		    <version>1.8.0</version>
 		</dependency>
 
+		<dependency>
+			<groupId>jiransoft</groupId>
+			<artifactId>wfconnect</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.4.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+			<version>4.5.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.comms.httpclient</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>IPIN2Client</groupId>
+			<artifactId>IPIN2Client</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>NiceID</groupId>
+			<artifactId>NiceID</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>qrcode</groupId>
+			<artifactId>qrcode</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>libgpkiapi</groupId>
+			<artifactId>libgpkiapi_jni</artifactId>
+			<version>1.5</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
@@ -600,5 +660,13 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+		</resources>
 	</build>
 </project>

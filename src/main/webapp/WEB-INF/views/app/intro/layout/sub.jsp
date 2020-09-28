@@ -9,13 +9,13 @@
 		<!-- 탑링크 -->
 		<div id="top">
 			<c:choose>
-			<c:when test="${homepage.context_path eq 'daegu'}">
+			<c:when test="${context_path eq 'daegu'}">
 			<div id="header">
 				<div class="gnb">
 					<h1>
 						<div class="box">
-							<a href="/intro/${homepage.context_path}/index.do">
-								<img id="symbol" src="/resources/book/intro/img/logo/${homepage.context_path}_logo.png" alt="${homepage.homepage_name} 심볼 마크"/>
+							<a href="/intro/${context_path}/index.do">
+								<img id="symbol" src="/resources/book/intro/img/logo/${context_path}_logo.png" alt="${homepage.homepage_name} 심볼 마크"/>
 							</a>
 						</div>
 					</h1>
@@ -26,16 +26,16 @@
 			<div id="lnb_hm" style="right:0px;">
 				<div class="layout">
 					<ul class="siteLink">
-						<li class="card" style="${isMobile ? '':'display:none'}"><a href="/intro/${homepage.context_path}/login/mobileCard.do">모바일회원증</a></li>
+						<li class="card" style="${isMobile ? '':'display:none'}"><a href="/intro/${context_path}/login/mobileCard.do">모바일회원증</a></li>
 						<c:choose>
 						<c:when test="${not empty sessionScope.member and sessionScope.member.login}">
-						<li class="login"><a href="/intro/${homepage.context_path}/login/logout.do">로그아웃</a></li>
-						<li class="join"><a href="/intro/${homepage.context_path}/join/passCheck.do">정보수정</a></li>
+						<li class="login"><a href="/intro/${context_path}/login/logout.do">로그아웃</a></li>
+						<li class="join"><a href="/intro/${context_path}/join/passCheck.do">정보수정</a></li>
 						</c:when>
 						<c:otherwise>
-						<li class="login"><a href="/intro/${homepage.context_path}/login/index.do">로그인</a></li>
-						<li class="join"><a href="/intro/${homepage.context_path}/join/index.do">신규회원가입</a></li>
-						<li class="integration"><a href="/intro/${homepage.context_path}/join/integration.do">통합인증센터</a></li>
+						<li class="login"><a href="/intro/${context_path}/login/index.do">로그인</a></li>
+						<li class="join"><a href="/intro/${context_path}/join/index.do">신규회원가입</a></li>
+						<li class="integration"><a href="/intro/${context_path}/join/integration.do">통합인증센터</a></li>
 						</c:otherwise>
 						</c:choose>
 					</ul>
@@ -46,8 +46,8 @@
 				<div class="gnb">
 					<h1>
 						<div class="box">
-							<a href="/intro/${homepage.context_path}/index.do">
-								<img id="symbol" src="/resources/book/intro/img/logo/${homepage.context_path}_logo.png" alt="${homepage.homepage_name} 심볼 마크"/>
+							<a href="/intro/${context_path}/index.do">
+								<img id="symbol" src="/resources/book/intro/img/logo/${context_path}_logo.png" alt="${homepage.homepage_name} 심볼 마크"/>
 							</a>
 						</div>
 					</h1>
@@ -58,35 +58,35 @@
 				<div class="web-view-menu">
 				<ul>
 					<li>
-						<a href="/intro/${homepage.context_path}/search/index.do">
+						<a href="/intro/${context_path}/search/index.do">
 							<em><img src="/resources/common/img/nav1.png" alt="소장자료검색"/></em>
 							<span>소장자료검색</span>
 							<div>Book Search</div>
 						</a>
 					</li>
 					<li>
-						<a href="/intro/${homepage.context_path}/search/newBook/index.do">
+						<a href="/intro/${context_path}/search/newBook/index.do">
 							<em><img src="/resources/common/img/nav2.png" alt=""/></em>
 							<span>신착도서</span>
 							<div>New Book</div>
 						</a>
 					</li>
 					<li>
-						<a href="/intro/${homepage.context_path}/search/bestBook/index.do">
+						<a href="/intro/${context_path}/search/bestBook/index.do">
 							<em><img src="/resources/common/img/nav3.png" alt=""/></em>
 							<span>도서대출베스트</span>
 							<div>Book Best</div>
 						</a>
 					</li>
 					<li>
-						<a href="/intro/${homepage.context_path}/search/hope/req.do">
+						<a href="/intro/${context_path}/search/hope/req.do">
 							<em><img src="/resources/common/img/nav4.png" alt="희망도서신청내역"/></em>
 							<span>희망도서신청</span>
 							<div>Book Application</div>
 						</a>
 					</li>
 					<li>
-						<a href="/intro/${homepage.context_path}/search/loan/index.do">
+						<a href="/intro/${context_path}/search/loan/index.do">
 							<em><img src="/resources/common/img/nav5.png" alt="나의도서관"/></em>
 							<span>나의도서관</span>
 							<div>My Library</div>
@@ -102,35 +102,35 @@
 
 					<ul>
 						<li>
-							<a href="/intro/${homepage.context_path}/search/index.do">
+							<a href="/intro/${context_path}/search/index.do">
 								<em><img src="/resources/common/img/nav1.png" alt="소장자료검색"/></em>
 								<span>소장자료검색</span>
 								<div>Book Search</div>
 							</a>
 						</li>
 						<li>
-							<a href="/intro/${homepage.context_path}/search/newBook/index.do">
+							<a href="/intro/${context_path}/search/newBook/index.do">
 								<em><img src="/resources/common/img/nav2.png" alt=""/></em>
 								<span>신착도서</span>
 								<div>New Book</div>
 							</a>
 						</li>
 						<li>
-							<a href="/intro/${homepage.context_path}/search/bestBook/index.do">
+							<a href="/intro/${context_path}/search/bestBook/index.do">
 								<em><img src="/resources/common/img/nav3.png" alt=""/></em>
 								<span>도서대출베스트</span>
 								<div>Book Best</div>
 							</a>
 						</li>
 						<li>
-							<a href="/intro/${homepage.context_path}/search/hope/req.do">
+							<a href="/intro/${context_path}/search/hope/req.do">
 								<em><img src="/resources/common/img/nav4.png" alt="희망도서신청내역"/></em>
 								<span>희망도서신청</span>
 								<div>Book Application</div>
 							</a>
 						</li>
 						<li>
-							<a href="/intro/${homepage.context_path}/search/loan/index.do">
+							<a href="/intro/${context_path}/search/loan/index.do">
 								<em><img src="/resources/common/img/nav5.png" alt="나의도서관"/></em>
 								<span>나의도서관</span>
 								<div>My Library</div>

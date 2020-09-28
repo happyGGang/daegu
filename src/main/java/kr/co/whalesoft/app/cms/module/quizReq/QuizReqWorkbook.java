@@ -97,6 +97,8 @@ public class QuizReqWorkbook {
 				org.setAge("성인");
 			} else if (StringUtils.equals(org.getAge(), "14")) {
 				org.setAge("청소년");
+			} else if (StringUtils.equals(org.getAge(), "13")) {
+				org.setAge("어린이");
 			}
 			workbook.getSheet(0).addCell( new Label( i++,  row, org.getAge(), format1));
 			workbook.getSheet(0).addCell( new Label( i++,  row, org.getPhone(),format1 ) );

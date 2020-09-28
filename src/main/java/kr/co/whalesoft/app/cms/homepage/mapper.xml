@@ -11,6 +11,8 @@
 			TO_CHAR(TO_DATE(temp_end_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_end_date, print_seq
 		FROM
 			CMS_HOMEPAGE
+		WHERE
+			homepage_type != '0'
 		ORDER BY
 			print_seq, homepage_type, homepage_name
 	</select>
@@ -24,7 +26,8 @@
 			TO_CHAR(TO_DATE(temp_end_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_end_date, print_seq
 		FROM
 			CMS_HOMEPAGE
-		WHERE homepage_type != '0'
+		WHERE
+			homepage_type != '0'
 		ORDER BY
 			print_seq, homepage_type, homepage_name
 	</select>
@@ -40,6 +43,8 @@
 			TO_CHAR(TO_DATE(temp_end_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_end_date, print_seq
 		FROM
 			CMS_HOMEPAGE
+		WHERE
+			homepage_type != '0'
 		ORDER BY
 			print_seq, homepage_type, homepage_name
 		${pagingBottom}
@@ -50,6 +55,8 @@
 			COUNT(*)
 		FROM
 			CMS_HOMEPAGE
+		WHERE
+			homepage_type != '0'
 	</select>
 
 	<select id="getHomepageID" resultType="string">
@@ -170,7 +177,46 @@
 			a.homepage_id = B.site_id
 		AND	B.member_group_idx = C.member_group_idx
 		AND	C.member_id = #{member_id}
+		AND a.homepage_type != '0'
 		ORDER BY
 			homepage_name
+	</select>
+
+	<select id="getSubHomepageListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_HOMEPAGE
+		WHERE
+			homepage_type = '0'
+		AND	homepage_group = #{homepage_group}
+	</select>
+
+	<select id="getSubHomepageList" resultType="kr.co.whalesoft.app.cms.homepage.Homepage">
+		${pagingTop}
+		SELECT
+			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias, homepage_tell,
+			homepage_fax, homepage_send_tell, zipcode, address1, address2, eng_address, homepage_type, manage_code, lib_code,
+			domain, context_path, folder, remark, temp_use_yn,
+			TO_CHAR(TO_DATE(temp_start_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_start_date,
+			TO_CHAR(TO_DATE(temp_end_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_end_date, print_seq
+		FROM
+			CMS_HOMEPAGE
+		WHERE
+			homepage_type = '0'
+		AND	homepage_group = #{homepage_group}
+		ORDER BY
+			print_seq, homepage_name
+		${pagingBottom}
+	</select>
+
+	<select id="getSubNextPrintSeq" resultType="int">
+		SELECT
+			CEIL((NVL(MAX(print_seq), 0) + 10) / 10) * 10
+		FROM
+			CMS_HOMEPAGE
+		WHERE
+			homepage_type = '0'
+		AND	homepage_group = #{homepage_group}
 	</select>
 </mapper>

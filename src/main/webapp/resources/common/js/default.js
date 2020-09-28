@@ -650,6 +650,12 @@ $(function(){
 		}
 	});
 
+	$('select#recommendSite1').on('change', function() {
+		if ($(this).val() != '') {
+			window.open($(this).val());
+		}
+	});
+
 	/*
 	var elibSiteLink = $('div.elib_top a.elibSite.type1');
 	if (elibSiteLink.length > 0) {

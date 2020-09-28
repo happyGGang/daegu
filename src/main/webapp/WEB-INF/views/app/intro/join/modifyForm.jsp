@@ -149,15 +149,15 @@ $(function() {
 	<table class="editTbl">
 		<tbody>
 			<tr>
-				<th>
+				<!-- <th>
 					가입도서관
 				</th>
-				<td>
-					<c:if test="${memberInfo.user_manage_code eq 'AC'}">
-						북부도서관
-					</c:if>
-				</td>
-			</tr>
+				<td> -->
+					<%--c:if test="${memberInfo.user_manage_code eq 'AC'}"--%>
+						<!-- 북부도서관 -->
+					<%--/c:if--%>
+				<!-- </td>
+			</tr> -->
 			<tr>
 				<th>
 					성명

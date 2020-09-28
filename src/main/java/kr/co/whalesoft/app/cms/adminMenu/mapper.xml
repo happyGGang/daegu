@@ -112,6 +112,8 @@
 				group_idx,
 				module_idx,
 				view_yn,
+				access_homepage_ids,
+				access_homepage_types,
 			CASE
 	    	WHEN
 	    		menu_type = 'FOLDER' THEN 1 ELSE 0
@@ -185,7 +187,7 @@
 		SELECT
 			menu_idx, group_idx, parent_menu_idx, menu_url, menu_name, menu_desc,
 			menu_full_path_name, menu_type, print_seq, use_yn, view_yn, admin_access_yn,
-			add_date, modify_date, module_idx
+			add_date, modify_date, module_idx, access_homepage_ids, access_homepage_types
 		FROM
 			CMS_ADMIN_MENU
 		WHERE
@@ -196,7 +198,7 @@
 		SELECT
 			menu_idx, group_idx, parent_menu_idx, menu_url, menu_name, menu_desc,
 			menu_full_path_name, menu_type, print_seq, use_yn, view_yn, admin_access_yn,
-			add_date, modify_date, module_idx
+			add_date, modify_date, module_idx, access_homepage_ids, access_homepage_types
 		FROM
 			CMS_ADMIN_MENU
 		WHERE
@@ -217,7 +219,7 @@
 		SELECT
 			menu_idx, group_idx, parent_menu_idx, menu_url, menu_name, menu_desc,
 			menu_full_path_name, menu_type, print_seq, use_yn, view_yn, admin_access_yn,
-			add_date, modify_date, module_idx
+			add_date, modify_date, module_idx, access_homepage_ids, access_homepage_types
 		FROM
 			CMS_ADMIN_MENU
 		WHERE
@@ -233,12 +235,14 @@
 		(
 			menu_idx, parent_menu_idx, menu_url, menu_name, menu_desc, menu_type,
 			use_yn, view_yn, print_seq, add_id, add_date, module_idx,
+			access_homepage_ids, access_homepage_types,
 			group_idx, menu_full_path_name
 		)
 			VALUES
 		(
 			#{menu_idx} , #{parent_menu_idx}, #{menu_url}, #{menu_name}, #{menu_desc}, #{menu_type},
 			#{use_yn}, #{view_yn}, #{print_seq}, #{add_id}, SYSDATE, #{module_idx},
+			#{access_homepage_ids}, #{access_homepage_types},
 		<choose>
 		<when test="group_idx == 0">
 			#{menu_idx}, #{menu_name}
@@ -273,6 +277,8 @@
 			view_yn = #{view_yn},
 			admin_access_yn = #{admin_access_yn},
 			print_seq = #{print_seq},
+			access_homepage_ids = #{access_homepage_ids},
+			access_homepage_types = #{access_homepage_types},
 			modify_id = #{modify_id},
 			modify_date = SYSDATE,
 			menu_full_path_name =
