@@ -660,6 +660,8 @@
 					</if>
 					AND	use_yn = 'Y'
 					AND	delete_yn = 'N'
+					AND	homepage_id != 'h32'
+					OR	large_category_idx != 16
 					) a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d
 				WHERE a.homepage_id = b.homepage_id(+)
 					AND	a.teacher_idx = b.teacher_idx(+)

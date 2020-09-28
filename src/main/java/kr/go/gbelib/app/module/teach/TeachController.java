@@ -181,9 +181,9 @@ public class TeachController extends BaseController{
 	public String detail(Model model, Teach teach, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 
-		if ( !"h32".equals(homepage.getHomepage_id()) ) {
+//		if ( !"h32".equals(homepage.getHomepage_id()) ) {
 			teach.setHomepage_id(homepage.getHomepage_id());
-		}
+//		}
 
 		int menu_idx = teach.getMenu_idx();
 
