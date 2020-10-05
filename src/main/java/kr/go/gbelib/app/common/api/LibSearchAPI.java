@@ -422,6 +422,14 @@ public class LibSearchAPI {
 	 * @param userkey
 	 * @return
 	 */
+	public static Map<String, Object> getBookLoanList(String userkey) {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		param.put("userkey", userkey);
+
+		return CommonAPI.sendKCMS("bookloanlist", param);
+	}
+	
 	public static Map<String, Object> getBookLoanList(String userkey, String manage_code) {
 		Map<String, Object> param = new HashMap<String, Object>();
 
