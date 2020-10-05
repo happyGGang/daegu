@@ -15,6 +15,11 @@ $(function() {
 			location.reload();
 		}
 	});
+	
+	$('#select_manage').on('change', function() {
+		var menu_idx = '${librarySearch.menu_idx}';
+		doGetLoad('index.do', 'menu_idx='+menu_idx+'&manageCode='+$(this).val());
+	});
 
 });
 </script>
@@ -30,12 +35,24 @@ $(function() {
 </div>
 <!-- /contents-title-->
 
+<fieldset>
+	<select name="manageCode" class="selectmenu" id="select_manage">
+		<option value="">전체</option>
+		<c:forEach items="${homepageList}" var="mc">
+		<c:if test="${not empty mc.manage_code}">
+		<option value="${mc.manage_code}" ${librarySearch.manageCode eq mc.manage_code ? 'selected' : ''}>${mc.homepage_name}</option>
+		</c:if>
+		</c:forEach>
+	</select>
+</fieldset>
+
 <div>
 대출연체 권수 : ${member.overdue_cnt}<br/>
 대출정지만기일 : ${member.loan_stop_date eq 'null' ? '해당없음' : member.loan_stop_date}
 </div>
 
 <div class="book-list">
+
 <c:if test="${fn:length(loanList) < 1 }"> <h3>현재 대출 중인 도서가 없습니다.</h3></c:if>
 <c:forEach items="${loanList}" var="i">
 	<div class="row">

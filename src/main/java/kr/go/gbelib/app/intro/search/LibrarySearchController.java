@@ -504,7 +504,7 @@ public class LibrarySearchController extends BaseController {
 			return basePath + "loan/history";
 		} else {
 
-			Map<String, Object> result = LibSearchAPI.getBookLoanList(member.getRec_key());
+			Map<String, Object> result = LibSearchAPI.getBookLoanList(member.getRec_key(), librarySearch.getManageCode());
 			List<Map<String, Object>> list = null;
 
 			int count = LibSearchAPI.getSearchCount(result);

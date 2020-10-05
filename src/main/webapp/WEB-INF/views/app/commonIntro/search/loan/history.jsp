@@ -32,6 +32,13 @@ $(function() {
 		var param = serializeCustom($('form#librarySearch'));
 		doGetLoad('history.do', param);
 	});
+	
+	$('#select_manage').on('change', function() {
+		$('#manageCode').val($(this).val());
+		$('#viewPage').val(1);
+		var param = serializeCustom($('form#librarySearch'));
+		doGetLoad('history.do', param);
+	});
 });
 </script>
 
@@ -41,9 +48,21 @@ $(function() {
 </div>
 <!-- /contents-title-->
 
+<fieldset>
+	<select name="manageCode" class="selectmenu" id="select_manage">
+		<option value="" >전체</option>
+		<c:forEach items="${homepageList}" var="mc">
+		<c:if test="${not empty mc.manage_code}">
+		<option value="${mc.manage_code}" ${librarySearch.manageCode eq mc.manage_code ? 'selected' : ''}>${mc.homepage_name}</option>
+		</c:if>
+		</c:forEach>
+	</select>
+</fieldset>
+
 <form:form modelAttribute="librarySearch" method="get">
 	<form:hidden path="viewPage"/>
 	<form:hidden path="menu_idx"/>
+	<form:hidden path="manageCode"/>
 
 	<div class="" style="padding:20px;text-align:center;border:1px solid #eaeaea;border-top:2px solid #000;margin-bottom:10px;">
 		<label for="search_start_date" style="display:none1;">시작일</label>

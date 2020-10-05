@@ -422,10 +422,13 @@ public class LibSearchAPI {
 	 * @param userkey
 	 * @return
 	 */
-	public static Map<String, Object> getBookLoanList(String userkey) {
+	public static Map<String, Object> getBookLoanList(String userkey, String manage_code) {
 		Map<String, Object> param = new HashMap<String, Object>();
 
 		param.put("userkey", userkey);
+		if (StringUtils.isNotEmpty(manage_code)) {
+			param.put("manage_code", manage_code);
+		}
 
 		return CommonAPI.sendKCMS("bookloanlist", param);
 	}
@@ -472,6 +475,9 @@ public class LibSearchAPI {
 		param.put("enddate", librarySearch.getSearch_end_date().replaceAll("-", ""));
 		param.put("pageno", librarySearch.getViewPage());
 		param.put("display", librarySearch.getRowCount());
+		if (StringUtils.isNotEmpty(librarySearch.getManageCode())) {
+			param.put("manage_code", librarySearch.getManageCode());
+		}
 
 		return CommonAPI.sendKCMS("bookreturnlist", param);
 	}

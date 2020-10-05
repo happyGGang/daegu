@@ -1123,7 +1123,7 @@ public class CommonSearchController extends BaseController {
 
 		} else {
 
-			Map<String, Object> result = LibSearchAPI.getBookLoanList(member.getRec_key());
+			Map<String, Object> result = LibSearchAPI.getBookLoanList(member.getRec_key(), librarySearch.getManageCode());
 			List<Map<String, Object>> list = null;
 
 			int count = LibSearchAPI.getSearchCount(result);
