@@ -61,12 +61,12 @@
 		(
 			board_idx, comment_idx, group_comment_idx, parent_comment_idx, group_comment_depth,
 			comment_content, user_id, user_name, user_ip, delete_yn,
-			add_date, modify_date, las_user_id, las_user_seq
+			add_id, add_date, modify_date, las_user_id, las_user_seq
 		) VALUES
 		(
 			#{board_idx}, #{comment_idx}, #{group_comment_idx}, #{parent_comment_idx}, #{group_comment_depth} + 1,
 			#{comment_content}, #{user_id}, #{user_name}, #{user_ip}, 'N',
-			SYSDATE, SYSDATE, #{las_user_id}, #{las_user_seq}
+			#{user_id}, SYSDATE, SYSDATE, #{las_user_id}, #{las_user_seq}
 		)
 	</insert>
 
