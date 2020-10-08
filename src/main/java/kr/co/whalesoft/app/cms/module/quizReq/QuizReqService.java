@@ -49,7 +49,7 @@ public class QuizReqService extends BaseService {
 			if ( StringUtils.isEmpty(org.getQuiz_answer()) ) {
 				winnerYn = "N";
 			} else {
-				String[] answerList = org.getQuiz_answer().split("|");
+				String[] answerList = org.getQuiz_answer().split("\\|");
 				int answerListSize = answerList.length;
 				
 				for(int j=0; j < quizQuestionListSize; j++) {
