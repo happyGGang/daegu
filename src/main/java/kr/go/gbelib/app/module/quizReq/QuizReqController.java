@@ -115,8 +115,8 @@ public class QuizReqController extends BaseController {
 			ValidationUtils.rejectPhone(result, "phone", "휴대전화번호 형식(01x-xxxx-xxxx)이 올바르지 않습니다.");
 		}
 
-		int matchLength = StringUtils.countMatches(quizReq.getQuiz_answer(), "|") + 1;
-		int answer_length = quizReq.getQuiz_answer().split("|").length;
+		int matchLength = StringUtils.countMatches(quizReq.getQuiz_answer(), "\\|") + 1;
+		int answer_length = quizReq.getQuiz_answer().split("\\|").length;
 		if(matchLength - answer_length > 0) {
 			int answer_num = answer_length + 1;
 			result.reject(answer_num + "번 문항에 답하지 않으셨습니다.");
