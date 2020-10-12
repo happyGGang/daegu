@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.humanBook.HumanBookDao">
+
+	<sql id="field">
+		homepage_id, human_book_idx, teacher_name, teacher_birth, teacher_gender,
+		teacher_email, teacher_phone, teacher_agency, teacher_zipcode, teacher_address,
+		activity_category, activity_day, activity_time, activity_time_txt, human_book_title,
+		teacher_content, human_book_content, origin_file_name, server_file_name, file_extension,
+		file_size, apply_status, unapproved_reasons, add_date, add_id
+	</sql>
+	
+	<select id="getHumanBookAll" resultType="kr.go.gbelib.app.cms.module.humanBook.HumanBook">
+		${pagingTop}
+		SELECT
+			<include refid="field" />
+		FROM
+			HUMAN_BOOK
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test="search_type != null and search_type != '' and search_text != '' and search_text != '' ">
+		AND	${search_type} LIKE '%' || #{search_text} || '%'
+		</if>
+		<if test="add_id != null and add_id != ''">
+		AND	add_id = #{add_id}
+		</if>
+		ORDER BY add_date DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getHumanBookCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			HUMAN_BOOK
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test="search_type != null and search_type != '' and search_text != '' and search_text != '' ">
+		AND	${search_type} LIKE '%' || #{search_text} || '%'
+		</if>
+		<if test="add_id != null and add_id != ''">
+		AND	add_id = #{add_id}
+		</if>
+	</select>
+	
+	<select id="getHumanBookOne" resultType="kr.go.gbelib.app.cms.module.humanBook.HumanBook">
+		SELECT
+			<include refid="field" />
+		FROM
+			HUMAN_BOOK
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	human_book_idx = #{human_book_idx}
+	</select>
+	
+	<insert id="addHumanBook">
+		<selectKey keyProperty="human_book_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(human_book_idx), 0) + 1 FROM HUMAN_BOOK WHERE homepage_id = #{homepage_id}
+		</selectKey>
+		INSERT INTO HUMAN_BOOK
+		(
+			homepage_id, human_book_idx, teacher_name, teacher_birth, teacher_gender,
+			teacher_email, teacher_phone, teacher_agency, teacher_zipcode, teacher_address,
+			activity_category, activity_day, activity_time, activity_time_txt, human_book_title,
+			teacher_content, human_book_content, origin_file_name, server_file_name, file_extension,
+			file_size, apply_status, add_date, add_id
+		)
+		VALUES
+		(
+			#{homepage_id}, #{human_book_idx}, #{teacher_name}, #{teacher_birth}, #{teacher_gender},
+			#{teacher_email}, #{teacher_phone}, #{teacher_agency}, #{teacher_zipcode}, #{teacher_address},
+			#{activity_category}, #{activity_day}, #{activity_time}, #{activity_time_txt}, #{human_book_title},
+			#{teacher_content}, #{human_book_content}, #{origin_file_name}, #{server_file_name}, #{file_extension},
+			#{file_size}, 0, SYSDATE, #{add_id}
+		)
+	</insert>
+	
+	<update id="modifyHumanBook">
+		UPDATE
+			HUMAN_BOOK
+		SET
+			teacher_name = #{teacher_name},
+			teacher_birth = #{teacher_birth},
+			teacher_gender = #{teacher_gender},
+			teacher_email = #{teacher_email},
+			teacher_phone = #{teacher_phone},
+			teacher_agency = #{teacher_agency},
+			teacher_zipcode = #{teacher_zipcode},
+			teacher_address = #{teacher_address},
+			activity_category = #{activity_category},
+			activity_day = #{activity_day},
+			activity_time = #{activity_time},
+			activity_time_txt = #{activity_time_txt},
+			human_book_title = #{human_book_title},
+			teacher_content = #{teacher_content},
+			human_book_content = #{human_book_content},
+			apply_status = #{apply_status},
+			unapproved_reasons = #{unapproved_reasons},
+			<if test="server_file_name != null and server_file_name != ''">
+			origin_file_name = #{origin_file_name},
+			server_file_name = #{server_file_name},
+			file_extension = #{file_extension},
+			file_size = #{file_size},
+			</if>
+			modify_date = SYSDATE,
+			modify_id = #{modify_id}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	human_book_idx = #{human_book_idx}
+	</update>
+	
+	<update id="applyStatus">
+		UPDATE
+			HUMAN_BOOK
+		SET
+			apply_status=#{apply_status}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	human_book_idx = #{human_book_idx}
+	</update>
+	
+	<select id="getHumanBookList" resultType="kr.go.gbelib.app.cms.module.humanBook.HumanBook">
+		${pagingTop}
+		SELECT
+			<include refid="field" />
+		FROM
+			HUMAN_BOOK
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	apply_status = 2
+		<if test="search_type != null and search_type != '' and search_text != '' and search_text != '' ">
+		AND	${search_type} LIKE '%' || #{search_text} || '%'
+		</if>
+		<if test="activity_category != null and activity_category != ''">
+		AND	activity_category = #{activity_category}
+		</if>
+		ORDER BY add_date DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getHumanBookListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			HUMAN_BOOK
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test="search_type != null and search_type != '' and search_text != '' and search_text != '' ">
+		AND	${search_type} LIKE '%' || #{search_text} || '%'
+		</if>
+		AND apply_status = 2
+	</select>
+	
+	<delete id="deleteHumanBook">
+		DELETE FROM
+			HUMAN_BOOK
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	human_book_idx = #{human_book_idx}
+	</delete>
+	
+</mapper>

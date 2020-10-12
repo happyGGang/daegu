@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.humanBook.apply.HumanApplyDao">
+
+	<select id="getHumanBookApplyList" resultType="kr.go.gbelib.app.cms.module.humanBook.apply.HumanApply">
+		${pagingTop}
+		SELECT
+			a.homepage_id, a.human_book_idx, b.human_apply_idx, a.human_book_title, a.activity_category,
+			b.human_apply_place, b.human_return_date, b.human_apply_status, b.unapproved_reasons
+		FROM
+			human_book a, human_book_apply b
+		WHERE
+			a.homepage_id = b.homepage_id
+		AND	a.human_book_idx = b.human_book_idx
+		AND	b.homepage_id = #{homepage_id}
+		<if test="add_id != null and add_id != ''">
+		AND	b.add_id = #{add_id}
+		</if>
+		<if test="search_type != null and search_type != '' and search_text != '' and search_text != '' ">
+		AND	${search_type} LIKE '%' || #{search_text} || '%'
+		</if>
+		ORDER BY b.add_date DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getHumanBookApplyCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			human_book a, human_book_apply b
+		WHERE
+			a.homepage_id = b.homepage_id
+		AND	a.human_book_idx = b.human_book_idx
+		AND	b.homepage_id = #{homepage_id}
+		<if test="add_id != null and add_id != ''">
+		AND	b.add_id = #{add_id}
+		</if>
+		<if test="search_type != null and search_type != '' and search_text != '' and search_text != '' ">
+		AND	${search_type} LIKE '%' || #{search_text} || '%'
+		</if>
+	</select>
+	
+	<select id="getHumanApplyOne" resultType="kr.go.gbelib.app.cms.module.humanBook.apply.HumanApply">
+		SELECT
+			a.homepage_id, a.human_book_idx, b.human_apply_idx, a.human_book_title, a.activity_category,
+			b.human_apply_place, b.human_return_date, b.human_apply_status, b.unapproved_reasons
+		FROM
+			human_book a, human_book_apply b
+		WHERE
+			a.homepage_id = b.homepage_id
+		AND	a.human_book_idx = b.human_book_idx
+		AND	b.homepage_id = #{homepage_id}
+		AND	a.human_book_idx = #{human_book_idx}
+		AND	b.human_apply_idx = #{human_apply_idx}
+	</select>
+
+	<insert id="addHumanApply">
+		<selectKey keyProperty="human_apply_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(human_apply_idx), 0) + 1 FROM HUMAN_BOOK_APPLY WHERE homepage_id = #{homepage_id} AND human_book_idx = #{human_book_idx}
+		</selectKey>
+		INSERT INTO
+			HUMAN_BOOK_APPLY
+		(
+			homepage_id, human_book_idx, human_apply_idx, human_apply_name, human_apply_age,
+			human_apply_gender, human_apply_phone, human_apply_hope_date, human_apply_place, human_apply_people,
+			human_apply_content, add_id, add_date
+		)
+		VALUES
+		(
+			#{homepage_id}, #{human_book_idx}, #{human_apply_idx}, #{human_apply_name}, #{human_apply_age},
+			#{human_apply_gender}, #{human_apply_phone}, #{human_apply_hope_date}, #{human_apply_place}, #{human_apply_people}, 
+			#{human_apply_content}, #{add_id}, SYSDATE
+		)
+	</insert>
+	
+	<update id="humanApplyCancel">
+		UPDATE
+			HUMAN_BOOK_APPLY
+		SET
+			human_apply_status = '2',
+			human_return_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	human_book_idx = #{human_book_idx}
+		AND	human_apply_idx = #{human_apply_idx}
+		AND	add_id = #{add_id}
+	</update>
+	
+	<select id="getHumanBookScheduleList" resultType="kr.go.gbelib.app.cms.module.humanBook.apply.HumanApply">
+		${pagingTop}
+		SELECT
+			a.homepage_id, a.human_book_idx, b.human_apply_idx, a.human_book_title, a.activity_category,
+			b.human_apply_name, b.human_apply_place, b.human_apply_people, b.human_return_date, b.human_apply_status,
+			b.human_apply_hope_date, b.human_apply_content
+		FROM
+			human_book a, human_book_apply b
+		WHERE
+			a.homepage_id = b.homepage_id
+		AND	a.human_book_idx = b.human_book_idx
+		AND	b.homepage_id = #{homepage_id}
+		<if test="add_id != null and add_id != ''">
+		AND	a.add_id = #{add_id}
+		</if>
+		<if test="search_type != null and search_type != '' and search_text != '' and search_text != '' ">
+		AND	${search_type} LIKE '%' || #{search_text} || '%'
+		</if>
+		ORDER BY b.add_date DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getHumanBookScheduleCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			human_book a, human_book_apply b
+		WHERE
+			a.homepage_id = b.homepage_id
+		AND	a.human_book_idx = b.human_book_idx
+		AND	b.homepage_id = #{homepage_id}
+		AND	a.add_id = #{add_id}
+		<if test="search_type != null and search_type != '' and search_text != '' and search_text != '' ">
+		AND	${search_type} LIKE '%' || #{search_text} || '%'
+		</if>
+	</select>
+	
+	<update id="modifyApplyStatus">
+		UPDATE
+			human_book_apply
+		SET
+			human_apply_status = #{human_apply_status},
+			unapproved_reasons = #{unapproved_reasons},
+			modify_date = SYSDATE,
+			modify_id = #{modify_id}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	human_book_idx = #{human_book_idx}
+		AND	human_apply_idx = #{human_apply_idx}
+	</update>
+	
+</mapper>
