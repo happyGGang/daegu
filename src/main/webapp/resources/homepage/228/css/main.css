@@ -101,6 +101,7 @@
 .main2 .main2box2 .notice ul.list li a span.date {font-size:14px;color:#464646;position:absolute;right:0;top:3px;}
 .main2 .main2box2 p.date {font-size: 13px;/* margin-top: 5px; *//* margin-bottom: 5px; */color:#444;}
 .main2 .main2box2 span.content {margin-left: 0!important;color: #555;width: 100%; font-size: 14px; font-weight: 500; text-overflow: ellipsis; overflow: hidden; display: inline-block; white-space: nowrap;}
+.main2 .main2box2 .box {padding: 10px 20px;}
 
 .main2box2 .tabMenuS {position:relative;text-align:left;margin:0;padding:0;overflow:hidden;padding-left:23px;box-sizing:border-box;}
 .main2box2 .tabMenuS li {position:relative;display:inline-block;float:left;box-sizing:border-box;text-align:left;}
