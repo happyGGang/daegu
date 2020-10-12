@@ -89,6 +89,9 @@
 .main2 .main2box2 .notice ul.list li a {font-size:14px;font-weight:normal;color:#000;box-sizing:border-box;}
 .main2 .main2box2 .notice ul.list li a em {display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;font-style:normal;vertical-align:middle;}
 
+.main2 .main2box2 .notice ul.list li img {display: inline-block;float: left;max-width: 13%;}
+.main2 .main2box2 .notice ul.list li a {width: 80%;display: block;box-sizing: border-box;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;padding-left: 15px;}
+
 /*
 .main2 .main2box2 .notice ul.list li.on-cont {display:inline-block;box-sizing:border-box;padding:20px 15px 10px 15px;width:100%;background:none;border-bottom:1px solid #dddddd}
 .main2 .main2box2 .notice ul.list li.on-cont a {padding-left:15px;width:80%;display:block;box-sizing:border-box;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;}

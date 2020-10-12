@@ -247,7 +247,6 @@
 									</li>
 									</c:if>
 									<c:if test="${fn:length(noticeListTopNotice) > 0}">
-									<!--
 									<li class="on-cont">
 										<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
 										<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${noticeListTopNotice[0].manage_idx}&board_idx=${noticeListTopNotice[0].board_idx}">
@@ -258,7 +257,6 @@
 											</span>
 										</a>
 									</li>
-									-->
 									</c:if>
 									<%--공지사항 상단--%>
 
@@ -298,7 +296,6 @@
 										</li>
 										</c:if>
 										<c:if test="${fn:length(bidListTopNotice) > 0}">
-										<!--
 										<li class="on-cont">
 											<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=198&manage_idx=${bidListTopNotice[0].manage_idx}&board_idx=${bidListTopNotice[0].board_idx}">
@@ -309,7 +306,6 @@
 												</span>
 											</a>
 										</li>
-										-->
 										</c:if>
 										<%-- 행사안내 상단 --%>
 										
