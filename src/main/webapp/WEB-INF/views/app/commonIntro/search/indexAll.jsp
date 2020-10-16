@@ -426,7 +426,7 @@ $(function() {
 					<div>
 						<ul>
 							<c:forEach items="${homepageList}" var="i" varStatus="status">
-							<c:if test="${i.homepage_id ne 'h30' and i.homepage_id ne 'h31' and i.homepage_id ne 'h32' and i.homepage_id ne 'h33' and i.homepage_id ne 'h34' and i.homepage_id ne 'h35' and i.homepage_id ne 'h36' and i.homepage_id ne 'h37' and i.homepage_id ne 'h38'}">
+							<c:if test="${i.homepage_id ne 'h30' and i.homepage_id ne 'h31' and i.homepage_id ne 'h32' and i.homepage_id ne 'h33' and i.homepage_id ne 'h34' and i.homepage_id ne 'h35' and i.homepage_id ne 'h36' and i.homepage_id ne 'h37' and i.homepage_id ne 'h39' and i.homepage_id ne 'h38' and i.homepage_id ne 'h40' and i.homepage_id ne 'h41' and i.homepage_id ne 'h42' and i.homepage_id ne 'h43' and i.homepage_id ne 'h44' and i.homepage_id ne 'h45' and i.homepage_id ne 'h46' and i.homepage_id ne 'h47' and i.homepage_id ne 'h48' and i.homepage_id ne 'h49' and i.homepage_id ne 'h50' and i.homepage_id ne 'h51' and i.homepage_id ne 'h52' and i.homepage_id ne 'h53' and i.homepage_id ne 'h54' and i.homepage_id ne 'h55' and i.homepage_id ne 'h56' and i.homepage_id ne 'h57' and i.homepage_id ne 'h58' and i.homepage_id ne 'h59' and i.homepage_id ne 'h60' and i.homepage_id ne 'h61' and i.homepage_id ne 'h62' and i.homepage_id ne 'h63' and i.homepage_id ne 'h64' and i.homepage_id ne 'h65' and i.homepage_id ne 'h66' and i.homepage_id ne 'h67' and i.homepage_id ne 'h68' and i.homepage_id ne 'h69' and i.homepage_id ne 'h70' and i.homepage_id ne 'h71'}">
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_${i.manage_code}" value="${i.manage_code}" label="${i.homepage_name}" />
 							</li>
