@@ -54,6 +54,7 @@ $(function(){
 	}); */
 });
 </script>
+<c:set var="getIp" value="<%=request.getRemoteAddr()%>" />
 <form:form id="homepage_index" modelAttribute="homepage" action="save.do" method="post" onsubmit="return false;">
 	<form:hidden id="editMode_index" path="editMode"/>
 	<form:hidden id="homepage_id_index" path="homepage_id"/>
@@ -75,14 +76,14 @@ $(function(){
 	<div class="table-wrap">
 		<table class="type1 center">
 			<colgroup>
-				<%-- <col/> --%>
+				<!-- <col/> -->
 				<col width="250"/>
 <%-- 				<col/> --%>
 				<col/>
 				<col/>
 				<col/>
 				<col/>
-<%-- 				<col/> --%>
+				<col/>
 				<c:if test="${sessionScope.member.admin}">
 				<col/>
 				</c:if>
@@ -90,12 +91,14 @@ $(function(){
 			</colgroup>
 			<thead>
 				<tr>
+
 					<!-- <th>홈페이지ID</th> -->
 					<th>홈페이지명</th>
 <!-- 					<th>홈페이지유형</th> -->
 					<th>도메인(domain)</th>
 					<th>컨텍스트</br>(contextPath)</th>
 					<th>폴더</th>
+					<th>검색대<br/>바로가기</th>
 					<th>홈페이지</br>바로가기</th>
 <!-- 					<th>디지털좌석</br>예약관리시스템</br>바로가기</th> -->
 					<!-- <th>임시페이지사용</th> -->
@@ -113,7 +116,8 @@ $(function(){
 			</c:if>
 			<c:forEach var="i" varStatus="status" items="${homepageList}">
 				<tr>
-					<%-- <td class="num">${i.homepage_id}</td> --%>
+
+<!--				<td class="num">${i.homepage_id}</td> --->
 					<td>${i.homepage_name}</td>
 <!-- 					<td> -->
 <%-- 						<c:forEach items="${homepageTypeList}" var="j"> --%>
@@ -125,6 +129,9 @@ $(function(){
 					<td>${i.domain}</td>
 					<td>${i.context_path}</td>
 					<td>${i.folder}</td>
+					<td>
+						<a href="${i.domain}/intro/${i.context_path}/index.do" class="btn" id="site-go" target="_blank">바로가기</a>
+					</td>
 					<td>
 						<c:if test="${i.context_path eq null}">
 							<a href="${i.domain}/index.do" class="btn" id="site-go" target="_blank">바로가기</a>
