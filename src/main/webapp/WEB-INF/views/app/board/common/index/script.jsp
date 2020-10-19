@@ -109,7 +109,7 @@ $(document).ready(function() {
 		$('#plan_date').val(planDate);
 		doGetLoad('index.do', serializeCustom($('#board')));
 	});
-
+	
 
 	$('a#board_deleteRecovery_btn').on('click', function(e) {
 		e.preventDefault();
@@ -130,6 +130,20 @@ $(document).ready(function() {
 		}
 		if(confirm('선택된 게시물을 완전 삭제 하시겠습니까?\n\n완전삭제된 게시물은 복구가 불가능하며 첨부파일도 함께 삭제 됩니다.')) {
     		$('#board').attr('action', 'drop.do');
+    		doAjaxPost($('#board'));
+    	}
+	});
+	
+	// 일괄삭제
+	$('a#board_delete_all_btn').on('click', function(e) {
+		e.preventDefault();
+		var checkList = $('input[name=boardIdxArray]:checked').length;
+		if (checkList < 1) {
+			alert('선택된 게시물이 없습니다.');
+			return false;
+		}
+		if(confirm('선택된 게시물을 일괄 삭제 하시겠습니까?')) {
+    		$('#board').attr('action', 'deleteAll.do');
     		doAjaxPost($('#board'));
     	}
 	});

@@ -31,7 +31,8 @@ table.bbs tr.notice{background:#f5f6f7}
 		<table class="bbs center" summary="일반 게시판">
 			<caption>일반게시판</caption>
 			<colgroup>
-				<c:if test="${board.delete_yn eq 'Y' or categoryMovae}">
+<%-- 				<c:if test="${board.delete_yn eq 'Y' or categoryMovae}"> --%>
+				<c:if test="${member.admin or authMBA or authMBS or portalAuth eq '2'}">
 				<col width="5%">
 				</c:if>
 				<col width="10%">
@@ -43,7 +44,8 @@ table.bbs tr.notice{background:#f5f6f7}
 			</colgroup>
 			<thead>
 				<tr>
-					<c:if test="${board.delete_yn eq 'Y' or categoryMovae}">
+<%-- 					<c:if test="${board.delete_yn eq 'Y' or categoryMovae}"> --%>
+					<c:if test="${member.admin or authMBA or authMBS or portalAuth eq '2'}">
 					<th><input type="checkbox" id="checkAll"> </th>
 					</c:if>
 					<th>번호</th>
@@ -58,7 +60,8 @@ table.bbs tr.notice{background:#f5f6f7}
 			<tbody id="board_tbody">
 			<c:forEach var="i" varStatus="status" items="${boardNoticeList}">
 				<tr class="notice">
-					<c:if test="${board.delete_yn eq 'Y' or categoryMovae}">
+<%-- 					<c:if test="${board.delete_yn eq 'Y' or categoryMovae}"> --%>
+					<c:if test="${member.admin or authMBA or authMBS or portalAuth eq '2'}">
 					<td></td>
 					</c:if>
 					<td class="num notice"><span>공지</span></td>
@@ -84,7 +87,8 @@ table.bbs tr.notice{background:#f5f6f7}
 			</c:forEach>
 			<c:forEach var="i" varStatus="status" items="${boardList}">
 				<tr${i.group_depth > 0?' class="reply"':''}>
-					<c:if test="${board.delete_yn eq 'Y' or categoryMovae}">
+<%-- 					<c:if test="${board.delete_yn eq 'Y' or categoryMovae}"> --%>
+					<c:if test="${member.admin or authMBA or authMBS or portalAuth eq '2'}">
 					<td><form:checkbox path="boardIdxArray" value="${i.board_idx}"/></td>
 					</c:if>
 					<td class="num">${paging.listRowNum - status.index}</td>

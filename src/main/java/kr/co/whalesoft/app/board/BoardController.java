@@ -1439,6 +1439,31 @@ public class BoardController extends BaseController {
 
 		return res;
 	}
+	
+	@RequestMapping(value = {"/deleteAll.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse deleteAll(Board board, BindingResult result, Model model, HttpServletRequest request) {
+		BoardManage boardManage = (BoardManage)request.getAttribute("boardManage");
+		JsonResponse res = new JsonResponse(request);
+		
+		String[] idx_arr = board.getBoardIdxArray();
+		for (String arr : idx_arr) {
+			Board delBoard = new Board();
+			delBoard.setBoard_idx(Integer.parseInt(arr));
+			delBoard.setManage_idx(board.getManage_idx());
+			res = delete(delBoard, result, model, request);
+			
+			if(!res.isValid()) {
+				return res;
+			}
+		}
+		
+		res.setValid(true);
+		res.setUrl(getBoardContext(request) + "/board/index.do");
+		res.setData(board.getUrlParam(boardManage, "index"));
+		res.setMessage("삭제 되었습니다.");
+		
+		return res;
+	}
 
 	@RequestMapping(value={"/moveBoard.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse copyOrMoveBoard(Board board, BindingResult result, HttpServletRequest request) {

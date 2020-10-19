@@ -15,7 +15,8 @@ ${boardManage.top_html}
 		<table class="bbs center" summary="질문답변 게시판입니다.">
 			<caption>QNA 게시판</caption>
 			<colgroup>
-				<c:if test="${board.delete_yn eq 'Y'}">
+<%-- 				<c:if test="${board.delete_yn eq 'Y'}"> --%>
+				<c:if test="${member.admin or authMBA or authMBS or portalAuth eq '2'}">
 				<col width="5%">
 				</c:if>
 				<col/>
@@ -28,7 +29,8 @@ ${boardManage.top_html}
 			</colgroup>
 			<thead>
 				<tr>
-					<c:if test="${board.delete_yn eq 'Y'}">
+<%-- 					<c:if test="${board.delete_yn eq 'Y'}"> --%>
+					<c:if test="${member.admin or authMBA or authMBS or portalAuth eq '2'}">
 					<th><input type="checkbox" id="checkAll"> </th>
 					</c:if>
 					<th style="width:6%">번호</th>
@@ -43,7 +45,8 @@ ${boardManage.top_html}
 			<tbody id="board_tbody">
 			<c:forEach var="i" varStatus="status" items="${boardNoticeList}">
 				<tr class="notice">
-					<c:if test="${board.delete_yn eq 'Y'}">
+<%-- 					<c:if test="${board.delete_yn eq 'Y'}"> --%>
+					<c:if test="${member.admin or authMBA or authMBS or portalAuth eq '2'}">
 					<td></td>
 					</c:if>
 					<td class="num notice"><span>공지</span></td>
@@ -73,7 +76,8 @@ ${boardManage.top_html}
 			</c:forEach>
 			<c:forEach var="i" varStatus="status" items="${boardList}">
 				<tr${i.group_depth > 0?' class="reply"':''}>
-					<c:if test="${board.delete_yn eq 'Y'}">
+<%-- 					<c:if test="${board.delete_yn eq 'Y'}"> --%>
+					<c:if test="${member.admin or authMBA or authMBS or portalAuth eq '2'}">
 					<td><form:checkbox path="boardIdxArray" value="${i.board_idx}"/></td>
 					</c:if>
 					<td class="num">${paging.listRowNum - status.index}</td>

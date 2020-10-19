@@ -52,7 +52,8 @@ table.bbs tr.notice{background:#f5f6f7}
 		<table class="bbs center">
 			<caption>게시물 목록(${fn:escapeXml(boardManage.board_name)})</caption>
 			<colgroup>
-				<c:if test="${board.delete_yn eq 'Y'}">
+<%-- 				<c:if test="${board.delete_yn eq 'Y'}"> --%>
+				<c:if test="${member.admin or authMBA or authMBS or portalAuth eq '2'}">
 				<col width="5%">
 				</c:if>
 				<col width="8%">
@@ -67,7 +68,8 @@ table.bbs tr.notice{background:#f5f6f7}
 			</colgroup>
 			<thead>
 				<tr>
-					<c:if test="${board.delete_yn eq 'Y'}">
+<%-- 					<c:if test="${board.delete_yn eq 'Y'}"> --%>
+					<c:if test="${member.admin or authMBA or authMBS or portalAuth eq '2'}">
 					<th><input type="checkbox" id="checkAll"> </th>
 					</c:if>
 					<th>번호</th>
@@ -85,7 +87,8 @@ table.bbs tr.notice{background:#f5f6f7}
 			<tbody id="board_tbody">
 			<c:forEach var="i" varStatus="status" items="${boardNoticeList2}">
 				<tr class="notice">
-					<c:if test="${board.delete_yn eq 'Y'}">
+<%-- 					<c:if test="${board.delete_yn eq 'Y'}"> --%>
+					<c:if test="${member.admin or authMBA or authMBS or portalAuth eq '2'}">
 					<td></td>
 					</c:if>
 					<td class="num notice"><span>통합</span></td>
@@ -115,7 +118,8 @@ table.bbs tr.notice{background:#f5f6f7}
 			</c:forEach>
 			<c:forEach var="i" varStatus="status" items="${boardNoticeList}">
 				<tr class="notice">
-					<c:if test="${board.delete_yn eq 'Y'}">
+<%-- 					<c:if test="${board.delete_yn eq 'Y'}"> --%>
+					<c:if test="${member.admin or authMBA or authMBS or portalAuth eq '2'}">
 					<td></td>
 					</c:if>
 					<td class="num notice"><span>공지</span></td>
@@ -151,7 +155,8 @@ table.bbs tr.notice{background:#f5f6f7}
 			</c:forEach>
 			<c:forEach var="i" varStatus="status" items="${boardList}">
 				<tr${i.group_depth > 0?' class="reply"':''}>
-					<c:if test="${board.delete_yn eq 'Y'}">
+<%-- 					<c:if test="${board.delete_yn eq 'Y'}"> --%>
+					<c:if test="${member.admin or authMBA or authMBS or portalAuth eq '2'}">
 					<td><form:checkbox path="boardIdxArray" value="${i.board_idx}"/></td>
 					</c:if>
 					<td class="num">${paging.listRowNum - status.index}</td>

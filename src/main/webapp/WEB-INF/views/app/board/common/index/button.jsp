@@ -61,6 +61,7 @@
 					<a href="" class="btn btn5" id="board_move_btn" data-idx="${boardManage.manage_idx}"></i><span>분류 변경</span></a>
 					<form:hidden path="moveCategory1Target"/>
 				</c:if>
+				<a href="" class="btn delete" id="board_delete_all_btn"><i class="fa fa-trash-o"></i><span>일괄 삭제</span></a>
 				<a href="" class="btn btn4" id="board_deleteRecovery_btn"><span>삭제 게시물 보기</span></a>
 				<c:if test="${authC or portalAuth ne 0}">
 				<a href="" class="btn btn1 write" id="board_edit_btn"><i class="fa fa-pencil"></i><span>글쓰기</span></a>

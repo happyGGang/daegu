@@ -111,7 +111,8 @@ ${boardManage.top_html}
 				<c:forEach var="i" varStatus="status" items="${boardList}">
 				<div class="row">
 					<div class="thumb">
-					<c:if test="${board.delete_yn eq 'Y' or categoryMovae}">
+<%-- 					<c:if test="${board.delete_yn eq 'Y' or categoryMovae}"> --%>
+					<c:if test="${member.admin or authMBA or authMBS or portalAuth eq '2'}">
 					<td><form:checkbox path="boardIdxArray" value="${i.board_idx}"/></td>
 					</c:if>
 						<c:choose>
