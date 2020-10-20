@@ -232,6 +232,32 @@ $(function() {
 								<option value="HE">한강공원부키도서관</option>
 							</select>
 						</c:when>
+
+						<c:when test="${context_path eq 'beomeo'}">
+						범어도서관<input type="hidden" id="" name="manage_code" value="BD" />
+						</c:when>
+						<c:when test="${context_path eq 'yonghak'}">
+						용학도서관<input type="hidden" id="" name="manage_code" value="BE" />
+						</c:when>
+						<c:when test="${context_path eq 'gosan'}">
+						고산도서관<input type="hidden" id="" name="manage_code" value="BF" />
+						</c:when>
+						<c:when test="${context_path eq 'bookforest'}">
+						책숲길도서관<input type="hidden" id="" name="manage_code" value="BG" />
+						</c:when>
+						<c:when test="${context_path eq 'mulmangi'}">
+						물망이도서관<input type="hidden" id="" name="manage_code" value="BH" />
+						</c:when>
+						<c:when test="${context_path eq 'padong'}">
+						파동도서관<input type="hidden" id="" name="manage_code" value="BJ" />
+						</c:when>
+						<c:when test="${context_path eq 'muhaksup'}">
+						무학숲도서관<input type="hidden" id="" name="manage_code" value="BK" />
+						</c:when>
+						<c:when test="${context_path eq 'sawol'}">
+						사월작은도서관<input type="hidden" id="" name="manage_code" value="FG" />
+						</c:when>
+
 						<c:when test="${context_path eq 'jungang'}">
 						중앙도서관<input type="hidden" id="" name="manage_code" value="AD" />
 						</c:when>
@@ -301,6 +327,8 @@ $(function() {
 								<option value="GN">침산1동 작은도서관</option>
 								<option value="GJ">태전1동 작은도서관</option>	
 								<option value="HE">한강공원부키도서관</option>
+
+								<option value="BD">범어도서관</option>
 							</select>
 						</c:otherwise>
 						</c:choose>

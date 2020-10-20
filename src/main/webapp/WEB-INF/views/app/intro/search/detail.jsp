@@ -306,6 +306,20 @@ $(function() {
 					</c:choose>
 
 				</c:when>
+
+				<c:when test="${context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol'}">
+
+					<c:choose>
+						<c:when test="${detail.SHELF_LOC_CODE eq 'BD01' || detail.SHELF_LOC_CODE eq 'BD02' || detail.SHELF_LOC_CODE eq 'BD03' || detail.SHELF_LOC_CODE eq 'BE01' || detail.SHELF_LOC_CODE eq 'BE02' || detail.SHELF_LOC_CODE eq 'BE03' || detail.SHELF_LOC_CODE eq 'BE04' || detail.SHELF_LOC_CODE eq 'BE09' || detail.SHELF_LOC_CODE eq 'BF01' || detail.SHELF_LOC_CODE eq 'BF02' || detail.SHELF_LOC_CODE eq 'BF03' || detail.SHELF_LOC_CODE eq 'BG01' || detail.SHELF_LOC_CODE eq 'BG02' || detail.SHELF_LOC_CODE eq 'BG03' || detail.SHELF_LOC_CODE eq 'BH01' || detail.SHELF_LOC_CODE eq 'BH02' || detail.SHELF_LOC_CODE eq 'BH03' || detail.SHELF_LOC_CODE eq 'BH04' || detail.SHELF_LOC_CODE eq 'BJ01' || detail.SHELF_LOC_CODE eq 'BJ02' || detail.SHELF_LOC_CODE eq 'BJ03' || detail.SHELF_LOC_CODE eq 'BJ04' || detail.SHELF_LOC_CODE eq 'BK01' || detail.SHELF_LOC_CODE eq 'BK02' || detail.SHELF_LOC_CODE eq 'BK03' || detail.SHELF_LOC_CODE eq 'BK04' || detail.SHELF_LOC_CODE eq 'FG01'}">
+							<c:if test="${detail.SEPARATE_SHELF_CODE eq 'BRX' || detail.SEPARATE_SHELF_CODE eq 'BSJ' || detail.SEPARATE_SHELF_CODE eq null || detail.SEPARATE_SHELF_CODE eq 'null' || detail.SEPARATE_SHELF_CODE eq ''}">
+								<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
+							</c:if>
+						</c:when>
+						<c:otherwise>
+						</c:otherwise>
+					</c:choose>
+
+				</c:when>
 				<c:otherwise>
 
 				</c:otherwise>

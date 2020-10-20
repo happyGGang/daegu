@@ -171,7 +171,8 @@ $(function() {
 
 	<c:if test="${empty librarySearch.title}">
 	//$('#checkAll').click();
-		<c:if test="${context_path eq 'buks'}">
+		<c:choose>
+			<c:when test="${context_path eq 'buks'}">
 			$('div#libraryList input:checkbox').prop('checked',false);
 			$('div#libraryList input:checkbox.lib_GJ').prop('checked',true);
 			$('div#libraryList input:checkbox.lib_GL').prop('checked',true);
@@ -181,7 +182,8 @@ $(function() {
 			$('div#libraryList input:checkbox.lib_HB').prop('checked',true);
 			$('div#libraryList input:checkbox.lib_HD').prop('checked',true);
 			$('div#libraryList input:checkbox.lib_HE').prop('checked',true);
-		</c:if>
+			</c:when>
+		</c:choose>
 	</c:if>
 });
 </script>
@@ -259,6 +261,43 @@ $(function() {
 								</li>
 								<li>
 									<form:checkbox path="libraryCodes" value="HE" class="libCheck lib_HE" label="한강공원부키도서관"/>
+								</li>
+							</ul>
+						</div>
+						<div class="end"></div>
+					</div>
+					<div class="end" style="padding:7px 0;"></div>
+					</c:when>
+					<c:when test="${context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol'}">
+					<div id="libraryList" class="libraryList">
+						<div>
+							<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
+						</div>
+						<div>
+							<ul>
+								<li>
+									<form:checkbox path="libraryCodes" value="BD" class="libCheck lib_BD" label="범어도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BE" class="libCheck lib_BE" label="용학도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BF" class="libCheck lib_BF" label="고산도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BG" class="libCheck lib_BG" label="파동도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BH" class="libCheck lib_BH" label="무학숲도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BJ" class="libCheck lib_BJ" label="책숲길도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BK" class="libCheck lib_BK" label="물망이도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="FG" class="libCheck lib_FG" label="사월역도서관"/>
 								</li>
 							</ul>
 						</div>

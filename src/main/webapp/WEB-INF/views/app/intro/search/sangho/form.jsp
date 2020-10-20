@@ -88,6 +88,19 @@ $(function() {
 						<form:option value="727102">한강공원부키도서관</form:option>
 					</form:select>
 					</c:when>
+					<c:when test="${context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol'}">
+			 		<form:select path="uselibcode">
+			 			<form:option value="" label="-- 선택 --" />
+						<form:option value="127072">범어도서관</form:option>
+						<form:option value="127013">용학도서관</form:option>
+						<form:option value="127085">고산도서관</form:option>
+						<form:option value="127019">파동도서관</form:option>
+						<form:option value="127096">무학숲도서관</form:option>
+						<form:option value="127017">책숲길도서관</form:option>
+						<form:option value="127018">물망이도서관</form:option>
+						<form:option value="127021">사월역도서관</form:option>
+					</form:select>
+					</c:when>
 					<c:otherwise>
 					</c:otherwise>
 					</c:choose>

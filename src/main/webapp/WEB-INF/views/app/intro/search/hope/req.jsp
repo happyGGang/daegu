@@ -99,6 +99,50 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 			<th>신청도서관 <em><font color="red">(*)</font></em></th>
 			<td>
 				<c:choose>
+				<c:when test="${context_path eq 'beomeo'}">
+				<form:select path="manageCode">
+					<form:option value="BD">범어도서관</form:option>
+				</form:select> 
+				</c:when>
+				<c:when test="${context_path eq 'yonghak'}">
+				<form:select path="manageCode">
+					<form:option value="BE">용학도서관</form:option>
+				</form:select> 
+				</c:when>
+				<c:when test="${context_path eq 'gosan'}">
+				<form:select path="manageCode">
+					<form:option value="BF">고산도서관</form:option>
+				</form:select>
+				</c:when>
+				<c:when test="${context_path eq 'bookforest'}">
+				<form:select path="manageCode">
+					<form:option value="BJ">책숲길도서관</form:option>
+				</form:select>
+				</c:when>
+				<c:when test="${context_path eq 'mulmangi'}">
+				<form:select path="manageCode">
+					<form:option value="BK">물망이도서관</form:option>
+				</form:select> 
+				</c:when>
+				<c:when test="${context_path eq 'padong'}">
+				<form:select path="manageCode">
+					<form:option value="BG">파동도서관</form:option>
+				</form:select> 
+				</c:when>
+				<c:when test="${context_path eq 'muhaksup'}">
+				<form:select path="manageCode">
+					<form:option value="BH">무학숲도서관</form:option>
+				</form:select> 
+				</c:when>
+				<c:when test="${context_path eq 'sawol'}">
+				<form:select path="manageCode">
+					<form:option value="FG">사월역작은도서관</form:option>
+				</form:select>
+				</c:when>
+
+
+
+
 				<c:when test="${context_path eq 'bukgs'}">
 				<form:select path="manageCode">
 					<form:option value="BA">구수산도서관</form:option>
