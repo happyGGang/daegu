@@ -142,6 +142,10 @@ public class Board extends BoardExt {
 	private String logicFunction3;// searchKeyowrd3 뒤의 조건절 (AND, OR, NOT 중 택 1)
 	private String logicFunction4;// searchKeyowrd4 뒤의 조건절 (AND, OR, NOT 중 택 1)
 	private boolean paggingUsed;
+	
+	private String initSearch;//초성검색용 변수. 초성+ㅏ
+	private String initSearch2;//초성검색용 변수. 초성
+	private String initSearchNext;//초성검색용변수. 다음 글자
 
 	public Board(int manage_idx, int row_count) {
 		this.manage_idx = manage_idx;
@@ -1061,6 +1065,30 @@ public class Board extends BoardExt {
 
 	public void setMoveCategory5Target(String moveCategory5Target) {
 		this.moveCategory5Target = moveCategory5Target;
+	}
+
+	public String getInitSearch() {
+		return initSearch;
+	}
+	
+	public void setInitSearch(String initSearch) {
+		this.initSearch = initSearch;
+	}
+
+	public String getInitSearch2() {
+		return initSearch2;
+	}
+
+	public void setInitSearch2(String initSearch2) {
+		this.initSearch2 = initSearch2;
+	}
+
+	public String getInitSearchNext() {
+		return initSearchNext;
+	}
+
+	public void setInitSearchNext(String initSearchNext) {
+		this.initSearchNext = initSearchNext;
 	}
 
 }

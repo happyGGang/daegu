@@ -69,6 +69,10 @@
 		<if test="request_state != null and request_state != ''">
 			AND	request_state = #{request_state}
 		</if>
+		<if test="initSearch != null and initSearch != ''">
+			AND	(title LIKE #{initSearch} || '%' OR title >= #{initSearch2})
+			AND	title <![CDATA[<]]> #{initSearchNext}
+		</if>
     </sql>
 
 	<select id="getBoard" resultType="kr.co.whalesoft.app.board.Board">

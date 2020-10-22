@@ -2,6 +2,7 @@ package kr.co.whalesoft.app.board;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -352,6 +353,14 @@ public class BoardController extends BaseController {
 			tmpCategory = board.getCategory2();
 			board.setCategory2("");
 		}
+		
+		// 간행물
+		if (boardManage.getBoard_type().equals("INITIAL")) {
+			initSearchSetting(board);
+//			if (StringUtils.isNotEmpty(board.getInitSearch())) {
+//				model.addAttribute("moduleSubTitle", " > " + board.getInitSearch());
+//			}
+		}
 
 		//겔러리게시판
 		if (boardManage.getBoard_type().equals("GALLERY")) {
@@ -393,6 +402,30 @@ public class BoardController extends BaseController {
 
 //			}
 //		}
+	}
+	
+	/**
+	 * 초성검색을 위한 검색용 변수 세팅
+	 * @author YONGJU 2018. 1. 8.
+	 * @param board
+	 */
+	private void initSearchSetting(Board board) {
+		String[] initSearch = {"ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"};
+		String[] initSearch2 = {"가","나","다","라","마","바","사","아","자","차","카","타","파","하"};
+
+		if (StringUtils.isNotEmpty(board.getInitSearch())) {
+			if (board.getInitSearch().equals("A")) {
+				board.setInitSearch2("A");
+				board.setInitSearchNext("z");
+			} else if (board.getInitSearch().equals("ㅎ")) {
+				board.setInitSearch2("하");
+				board.setInitSearchNext("힇");
+			} else {
+				int idx =  Arrays.asList(initSearch).indexOf(board.getInitSearch());
+				board.setInitSearch2(initSearch2[idx]);
+				board.setInitSearchNext(initSearch2[idx+1]);
+			}
+		}
 	}
 
 	@RequestMapping(value = {"/edit.*"}, method = RequestMethod.GET)
