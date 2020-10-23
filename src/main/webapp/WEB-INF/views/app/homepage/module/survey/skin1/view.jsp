@@ -148,7 +148,13 @@ table td { border: none !important;}
 							<form:radiobutton id="questIdx_${questIdx}_${status2.count}" path="answer_list[${questIdx}].quest_idx_list" value="${status2.count}" branchIdx="${j.branch_idx}" disabled="${i.branch > 0 ? true : false}" />
 							<label for="questIdx_${questIdx}_${status2.count}">${j.quest_detail_title}</label>
 							<c:if test="${j.branch_idx > 0}">
-							(${j.branch_idx}번으로 이동)
+								<c:set var="branch_idx" value="${j.branch_idx}"></c:set>
+								<c:forEach var="k" varStatus="kStatus" items="${questList}">
+									<c:if test="${j.branch_idx eq k.quest_idx}">
+										<c:set var="branch_idx" value="${kStatus.count}"></c:set>
+									</c:if>
+								</c:forEach>
+							(${branch_idx}번으로 이동)
 							</c:if>
 						</li>
 					</c:forEach>
