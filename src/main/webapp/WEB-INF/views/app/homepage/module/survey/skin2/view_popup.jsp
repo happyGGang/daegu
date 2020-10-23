@@ -103,7 +103,7 @@ $(document).ready(function() {
 												<c:set var="branch_idx" value="${kStatus.count}"></c:set>
 											</c:if>
 										</c:forEach>
-									(${j.branch_idx}번으로 이동)d
+									(${j.branch_idx}번으로 이동)
 									</c:if>
 								</li>
 							</c:forEach>
