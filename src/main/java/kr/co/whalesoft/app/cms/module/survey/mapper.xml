@@ -217,7 +217,7 @@
 		SET
 			survey_start_date = #{survey_start_date},
 			survey_end_date = #{survey_end_date},
-			modify_id = #{modify_id}
+			modify_id = #{modify_id},
 			modify_date = SYSDATE
 		WHERE
 			homepage_id = #{homepage_id}
