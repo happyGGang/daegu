@@ -101,6 +101,18 @@ $(function() {
 						<form:option value="127021">사월역도서관</form:option>
 					</form:select>
 					</c:when>
+					<c:when test="${context_path eq 'junggu'}">
+			 		<form:select path="uselibcode">
+			 			<form:option value="" label="-- 선택 --" />
+						<form:option value="127016">남산4동작은도서관</form:option>
+						<form:option value="127056">동인 느티나무 도서관</form:option>
+						<form:option value="127070">동인 느티나무 도서관</form:option>
+						<form:option value="327009">중구청교양정보실</form:option>
+						<form:option value="727025">대신동작은도서관</form:option>
+						<form:option value="727083">삼덕마루 작은도서관</form:option>
+						<form:option value="727107">대봉2동작은도서관</form:option>
+					</form:select>
+					</c:when>
 					<c:otherwise>
 					</c:otherwise>
 					</c:choose>
@@ -119,12 +131,20 @@ $(function() {
 			 	</td>
 			 </tr>
 			 <c:if test="${not empty detail.APPENDIX_INFO}">
+
+			<c:choose>
+			<c:when test="${context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol'}">
+			</c:when>
+			<c:otherwise>
 			 <tr>
 			 	<th>부록대출</th>
 			 	<td>
 			 		<form:checkbox path="appendixrctyn" value="y" label="(해당 도서에 부록이 있을 시 부록도 같이 대출하겠습니다.)"/>
 			 	</td>
 			 </tr>
+			</c:otherwise>
+			</c:choose>
+
 			 </c:if>
        	</tbody>
 	</table>

@@ -258,6 +258,44 @@ $(function() {
 						사월작은도서관<input type="hidden" id="" name="manage_code" value="FG" />
 						</c:when>
 
+						<c:when test="${context_path eq 'junggu'}">
+							<select name="manage_code">
+								<option value="FF">남산4동작은도서관</option>
+								<option value="FQ">동인 느티나무 도서관</option>
+								<option value="FS">대구중구영어도서관</option>
+								<option value="FY">중구청교양정보실</option>
+								<option value="GG">대신동작은도서관</option>
+								<option value="HA">삼덕마루 작은도서관</option>
+								<option value="HF">대봉2동작은도서관</option>
+							</select>
+						</c:when>
+
+						<c:when test="${context_path eq 'seogulib'}">
+						서구어린이도서관<input type="hidden" id="" name="manage_code" value="BL" />
+						</c:when>
+						<c:when test="${context_path eq 'bisan'}">
+						비산도서관<input type="hidden" id="" name="manage_code" value="BQ" />
+						</c:when>
+						<c:when test="${context_path eq 'seoguenglish'}">
+						서구영어도서관<input type="hidden" id="" name="manage_code" value="BP" />
+						</c:when>
+						<c:when test="${context_path eq 'biwon'}">
+						비원도서관<input type="hidden" id="" name="manage_code" value="BM" />
+						</c:when>
+						<c:when test="${context_path eq 'wongogae'}">
+						원고개도서관<input type="hidden" id="" name="manage_code" value="BN" />
+						</c:when>
+						<c:when test="${context_path eq 'seogumini'}">
+							<select name="manage_code">
+								<option value="FH">새마을문고대구서구지부작은도서관</option>
+								<option value="FT">서구청 작은도서관</option>
+								<option value="FU">내당4동어린이도서관</option>
+								<option value="FZ">비산7동 작은도서관</option>
+								<option value="GQ">내당2,3동 드림도서관</option>
+								<option value="HC">달성토성마을 다락방 작은도서관</option>
+							</select>
+						</c:when>
+
 						<c:when test="${context_path eq 'jungang'}">
 						중앙도서관<input type="hidden" id="" name="manage_code" value="AD" />
 						</c:when>
@@ -421,7 +459,7 @@ $(function() {
 					<td>
 						<div class="line2">
 							<p>
-								<form:input path="zipcode" class="text" readonly="true" cssStyle="width: 80px;"/> <a href="#" id="findPostCode" class="btn">우편번호 찾기</a>
+								<!-- <form:input path="zipcode" class="text" readonly="true" cssStyle="width: 80px;"/> --> <form:input path="zipcode" class="text" cssStyle="width: 80px;"/><a href="#" id="findPostCode" class="btn">우편번호 찾기</a>
 							</p>
 							<p>
 								<form:input path="address1" class="text" style="width:80%;" />

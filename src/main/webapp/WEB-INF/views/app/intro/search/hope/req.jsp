@@ -99,6 +99,44 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 			<th>신청도서관 <em><font color="red">(*)</font></em></th>
 			<td>
 				<c:choose>
+				<c:when test="${context_path eq 'bukgs'}">
+				<form:select path="manageCode">
+					<form:option value="BA">구수산도서관</form:option>
+					<form:option value="GP">노원동 작은도서관</form:option>
+					<form:option value="HD">노원행복도서관</form:option>
+					<form:option value="GM">북구영어작은도서관</form:option>
+					<form:option value="GL">산격1동 작은도서관</form:option>
+					<form:option value="HB">서변동작은도서관</form:option>
+					<form:option value="GN">침산1동 작은도서관</form:option>
+					<form:option value="GJ">태전1동 작은도서관</form:option>	
+					<form:option value="HE">한강공원부키도서관</form:option>
+				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
+				</c:when>
+				<c:when test="${context_path eq 'bukdh'}">
+				<form:select path="manageCode">
+					<form:option value="BB">대현도서관</form:option>
+				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
+				</c:when>
+
+				<c:when test="${context_path eq 'buktj'}">
+				<form:select path="manageCode">
+					<form:option value="BC">태전도서관</form:option>
+				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
+				</c:when>
+
+				<c:when test="${context_path eq 'buks'}">
+				<form:select path="manageCode">
+					<form:option value="GP">노원동 작은도서관</form:option>
+					<form:option value="HD">노원행복도서관</form:option>
+					<form:option value="GM">북구영어작은도서관</form:option>
+					<form:option value="GL">산격1동 작은도서관</form:option>
+					<form:option value="HB">서변동작은도서관</form:option>
+					<form:option value="GN">침산1동 작은도서관</form:option>
+					<form:option value="GJ">태전1동 작은도서관</form:option>	
+					<form:option value="HE">한강공원부키도서관</form:option>
+				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
+				</c:when>
+
 				<c:when test="${context_path eq 'beomeo'}">
 				<form:select path="manageCode">
 					<form:option value="BD">범어도서관</form:option>
@@ -140,46 +178,54 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				</form:select>
 				</c:when>
 
-
-
-
-				<c:when test="${context_path eq 'bukgs'}">
+				<c:when test="${context_path eq 'junggu'}">
 				<form:select path="manageCode">
-					<form:option value="BA">구수산도서관</form:option>
-					<form:option value="GP">노원동 작은도서관</form:option>
-					<form:option value="HD">노원행복도서관</form:option>
-					<form:option value="GM">북구영어작은도서관</form:option>
-					<form:option value="GL">산격1동 작은도서관</form:option>
-					<form:option value="HB">서변동작은도서관</form:option>
-					<form:option value="GN">침산1동 작은도서관</form:option>
-					<form:option value="GJ">태전1동 작은도서관</form:option>	
-					<form:option value="HE">한강공원부키도서관</form:option>
-				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
-				</c:when>
-				<c:when test="${context_path eq 'bukdh'}">
-				<form:select path="manageCode">
-					<form:option value="BB">대현도서관</form:option>
+					<form:option value="FF">남산4동작은도서관</form:option>
+					<form:option value="FQ">동인 느티나무 도서관</form:option>
+					<form:option value="FS">대구중구영어도서관</form:option>
+					<form:option value="FY">중구청교양정보실</form:option>
+					<form:option value="GG">대신동작은도서관</form:option>
+					<form:option value="HA">삼덕마루 작은도서관</form:option>
+					<form:option value="HF">대봉2동작은도서관</form:option>
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
 
-				<c:when test="${context_path eq 'buktj'}">
+				<c:when test="${context_path eq 'seogulib'}">
 				<form:select path="manageCode">
-					<form:option value="BC">태전도서관</form:option>
+					<form:option value="BL">서구어린이도서관</form:option>
+				</form:select>
+				</c:when>
+				<c:when test="${context_path eq 'bisan'}">
+				<form:select path="manageCode">
+					<form:option value="BQ">비산도서관</form:option>
+				</form:select> 
+				</c:when>
+				<c:when test="${context_path eq 'seoguenglish'}">
+				<form:select path="manageCode">
+					<form:option value="BP">서구영어도서관</form:option>
+				</form:select> 
+				</c:when>
+				<c:when test="${context_path eq 'biwon'}">
+				<form:select path="manageCode">
+					<form:option value="BM">비원도서관</form:option>
+				</form:select> 
+				</c:when>
+				<c:when test="${context_path eq 'wongogae'}">
+				<form:select path="manageCode">
+					<form:option value="BN">원고개도서관</form:option>
+				</form:select>
+				</c:when>
+				<c:when test="${context_path eq 'seogumini'}">
+				<form:select path="manageCode">
+					<form:option value="FH">새마을문고대구서구지부작은도서관</form:option>
+					<form:option value="FT">서구청 작은도서관</form:option>
+					<form:option value="FU">내당4동어린이도서관</form:option>
+					<form:option value="FZ">비산7동 작은도서관</form:option>
+					<form:option value="GQ">내당2,3동 드림도서관</form:option>
+					<form:option value="HC">달성토성마을 다락방 작은도서관</form:option>
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
 
-				<c:when test="${context_path eq 'buks'}">
-				<form:select path="manageCode">
-					<form:option value="GP">노원동 작은도서관</form:option>
-					<form:option value="HD">노원행복도서관</form:option>
-					<form:option value="GM">북구영어작은도서관</form:option>
-					<form:option value="GL">산격1동 작은도서관</form:option>
-					<form:option value="HB">서변동작은도서관</form:option>
-					<form:option value="GN">침산1동 작은도서관</form:option>
-					<form:option value="GJ">태전1동 작은도서관</form:option>	
-					<form:option value="HE">한강공원부키도서관</form:option>
-				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
-				</c:when>
 				<c:when test="${context_path eq 'jungang'}">
 				<form:select path="manageCode">
 					<form:option value="AD">중앙도서관</form:option>

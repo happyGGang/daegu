@@ -183,6 +183,30 @@ $(function() {
 			$('div#libraryList input:checkbox.lib_HD').prop('checked',true);
 			$('div#libraryList input:checkbox.lib_HE').prop('checked',true);
 			</c:when>
+			<c:when test="${context_path eq 'junggu'}">
+			$('div#libraryList input:checkbox').prop('checked',false);
+			$('div#libraryList input:checkbox.lib_FS').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_FF').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_FQ').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_FY').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_GG').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_HA').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_HF').prop('checked',true);
+			</c:when>
+			<c:when test="${context_path eq 'seogulib'}">
+			$('div#libraryList input:checkbox').prop('checked',false);
+			$('div#libraryList input:checkbox.lib_BL').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_BQ').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_BP').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_BM').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_BN').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_GQ').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_FU').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_FZ').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_FH').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_FT').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_HC').prop('checked',true);
+			</c:when>
 		</c:choose>
 	</c:if>
 });
@@ -298,6 +322,117 @@ $(function() {
 								</li>
 								<li>
 									<form:checkbox path="libraryCodes" value="FG" class="libCheck lib_FG" label="사월역도서관"/>
+								</li>
+							</ul>
+						</div>
+						<div class="end"></div>
+					</div>
+					<div class="end" style="padding:7px 0;"></div>
+					</c:when>
+					<c:when test="${context_path eq 'junggu'}">
+					<div id="libraryList" class="libraryList">
+						<div>
+							<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
+						</div>
+						<div>
+							<ul>
+								<li>
+									<form:checkbox path="libraryCodes" value="FS" class="libCheck lib_FS" label="대구중구영어도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="FF" class="libCheck lib_FF" label="남산4동작은도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="FQ" class="libCheck lib_FQ" label="동인 느티나무 도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="FY" class="libCheck lib_FY" label="중구청교양정보실"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="GG" class="libCheck lib_GG" label="대신동작은도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="HA" class="libCheck lib_HA" label="삼덕마루 작은도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="HF" class="libCheck lib_HF" label="대봉2동작은도서관"/>
+								</li>
+							</ul>
+						</div>
+						<div class="end"></div>
+					</div>
+					<div class="end" style="padding:7px 0;"></div>
+					</c:when>
+					<c:when test="${context_path eq 'seogulib'}">
+					<div id="libraryList" class="libraryList">
+						<div>
+							<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
+						</div>
+						<div>
+							<ul>
+								<li>
+									<form:checkbox path="libraryCodes" value="BL" class="libCheck lib_BL" label="서구어린이도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BQ" class="libCheck lib_BQ" label="비산도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BP" class="libCheck lib_BP" label="서구영어도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BM" class="libCheck lib_BM" label="비원도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BN" class="libCheck lib_BN" label="원고개도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BD" class="libCheck lib_GQ" label="내당2,3동 드림도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BE" class="libCheck lib_FU" label="내당4동어린이도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BF" class="libCheck lib_FZ" label="비산7동 작은도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BG" class="libCheck lib_FH" label="새마을문고대구서구지부작은도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BH" class="libCheck lib_FT" label="서구청작은도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BJ" class="libCheck lib_HC" label="달성토성마을 다락방 작은도서관"/>
+								</li>
+							</ul>
+						</div>
+						<div class="end"></div>
+					</div>
+					<div class="end" style="padding:7px 0;"></div>
+					</c:when>
+					<c:when test="${context_path eq 'seogumini'}">
+					<div id="libraryList" class="libraryList">
+						<div>
+							<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
+						</div>
+						<div>
+							<ul>
+								<li>
+									<form:checkbox path="libraryCodes" value="BD" class="libCheck lib_GQ" label="내당2,3동 드림도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BE" class="libCheck lib_FU" label="내당4동어린이도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BF" class="libCheck lib_FZ" label="비산7동 작은도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BG" class="libCheck lib_FH" label="새마을문고대구서구지부작은도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BH" class="libCheck lib_FT" label="서구청작은도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BJ" class="libCheck lib_HC" label="달성토성마을 다락방 작은도서관"/>
 								</li>
 							</ul>
 						</div>
@@ -527,6 +662,9 @@ $(function() {
 																			<c:when test="${i.SHELF_LOC_CODE eq 'AK03'}">
 																				<span style="color:#ff0000">대출불가</span>
 																			</c:when>
+																			<c:when test="${i.SHELF_LOC_CODE eq 'BD10'}">
+																				<span style="color:#ff0000">대출불가(스마트도서관자료)</span>
+																			</c:when>
 																			<c:otherwise>
 																				대출가능
 																			</c:otherwise>
@@ -643,7 +781,17 @@ $(function() {
 																		귀중자료(관내열람만가능)
 																	</c:when>
 																	<c:otherwise>
-																		대출가능
+																		<c:choose>
+																			<c:when test="${i.SHELF_LOC_CODE eq 'AK03'}">
+																				<span style="color:#ff0000">대출불가</span>
+																			</c:when>
+																			<c:when test="${i.SHELF_LOC_CODE eq 'BD10'}">
+																				<span style="color:#ff0000">대출불가(스마트도서관자료)</span>
+																			</c:when>
+																			<c:otherwise>
+																				대출가능
+																			</c:otherwise>
+																		</c:choose>
 																	</c:otherwise>
 																</c:choose>
 															</c:otherwise>
@@ -685,7 +833,7 @@ $(function() {
 
 															</c:when>
 															<c:otherwise>
-																<a href="#" class="btn_print" data-param="${detailURL}" class="btn btn2">자료위치<br/>인쇄</a>
+																<a href="#" class="btn_print" data-param="${detailURL}" class="btn btn2" style="border:1px solid #ddd;border-radius:3px;box-sizing:border-box;padding:5px;color:#fff;background:#1367c6;">자료위치인쇄</a>
 															</c:otherwise>
 														</c:choose>
 													</c:when>
@@ -882,7 +1030,7 @@ $(function() {
 													${i.RETURN_PLAN_DATE}
 												</td>
 												<td>
-													<a href="#" class="btn_print" data-param="${detailURL}" class="btn btn2">자료위치<br/>인쇄</a>
+													<a href="#" class="btn_print" data-param="${detailURL}" class="btn btn2" style="border:1px solid #ddd;border-radius:3px;box-sizing:border-box;padding:5px;color:#fff;background:#1367c6;">자료위치인쇄</a>
 												</td>
 											</tr>
 										</tbody>
