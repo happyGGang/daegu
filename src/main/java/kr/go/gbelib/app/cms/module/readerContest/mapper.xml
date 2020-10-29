@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.readerContest.ReaderContestDao">
+	
+	<select id="readerContestList" resultType="kr.go.gbelib.app.cms.module.readerContest.ReaderContest">
+		${pagingTop}
+		SELECT
+			homepage_id, reader_idx, participation_field, user_name, user_date,
+			user_phone, protector_phone, user_email, postcode, address_base, 
+			address_detailed, approval_status, delete_yn, add_id, add_date
+		FROM
+			READER_CONTEST
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		ORDER BY reader_idx DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="readerContestCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			READER_CONTEST
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+	</select>
+	
+	<select id="getReaderContest" resultType="kr.go.gbelib.app.cms.module.readerContest.ReaderContest">
+		SELECT
+			homepage_id, reader_idx, participation_field, user_name, user_date,
+			user_phone, protector_phone, user_email, postcode, address_base, 
+			address_detailed, approval_status, delete_yn, add_id, add_date
+		FROM
+			READER_CONTEST
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	reader_idx = #{reader_idx}
+	</select>
+	
+	<insert id="addReaderContest">
+		INSERT INTO
+			READER_CONTEST
+		(
+			homepage_id, reader_idx, participation_field, user_name, user_date,
+			user_phone, protector_phone, user_email, postcode, address_base, 
+			address_detailed, approval_status, delete_yn, add_id, add_date
+		)
+		VALUES
+		(
+			#{homepage_id}, (SELECT NVL(MAX(reader_idx), 0)+1 FROM READER_CONTEST), #{participation_field}, #{user_name}, #{user_date},
+			#{user_phone}, #{protector_phone}, #{user_email}, #{postcode}, #{address_base}, 
+			#{address_detailed}, #{approval_status}, #{delete_yn}, #{add_id}, SYSDATE
+		)
+	</insert>
+	
+	<update id="deleteReaderContest">
+		UPDATE
+			READER_CONTEST
+		SET
+			delete_yn = 'Y',
+			delete_id = #{delete_id}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND reader_idx = #{reader_idx}
+	</update>
+	
+	<update id="statusChangeReaderContest">
+		UPDATE
+			READER_CONTEST
+		SET
+			approval_status = #{approval_status}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND reader_idx = #{reader_idx}
+	</update>
+	
+</mapper>
