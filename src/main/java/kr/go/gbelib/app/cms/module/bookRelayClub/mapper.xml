@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.bookRelayClub.BookRelayClubDao">
+	
+	<select id="bookRelayClubList" resultType="kr.go.gbelib.app.cms.module.bookRelayClub.BookRelayClub">
+		${pagingTop}
+		SELECT
+			homepage_id, club_idx, club_name, club_date, club_members, 
+			leader_name, user_phone, user_email, postcode, address_base, 
+			address_detailed, book_area, book_quantity, relay_plan, approval_status, 
+			delete_yn, add_id, add_date
+		FROM
+			BOOK_RELAY_CLUB
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		ORDER BY club_idx DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="bookRelayClubCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			BOOK_RELAY_CLUB
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+	</select>
+	
+	<select id="getBookRelayClub" resultType="kr.go.gbelib.app.cms.module.bookRelayClub.BookRelayClub">
+		SELECT
+			homepage_id, club_idx, club_name, club_date, club_members, 
+			leader_name, user_phone, user_email, postcode, address_base, 
+			address_detailed, book_area, book_quantity, relay_plan, approval_status, 
+			delete_yn, add_id, add_date
+		FROM
+			BOOK_RELAY_CLUB
+		WHERE
+			homepage_id = #{homepage_id}
+		AND club_idx = #{club_idx}	
+	</select>
+	
+	<select id="bookRelayClubIdx" resultType="int">
+		SELECT
+			NVL(MAX(club_idx), 0)+1 AS club_idx
+		FROM 
+			BOOK_RELAY_CLUB
+	</select>
+	
+	<insert id="addBookRelayClub">
+		INSERT INTO
+			BOOK_RELAY_CLUB
+		(
+			homepage_id, club_idx, club_name, club_date, club_members, 
+			leader_name, user_phone, user_email, postcode, address_base, 
+			address_detailed, book_area, book_quantity, relay_plan, approval_status, 
+			delete_yn, add_id, add_date
+		)
+		VALUES
+		(
+			#{homepage_id}, #{club_idx}, #{club_name}, #{club_date}, #{club_members}, 
+			#{leader_name}, #{user_phone}, #{user_email}, #{postcode}, #{address_base}, 
+			#{address_detailed}, #{book_area}, #{book_quantity}, #{relay_plan}, #{approval_status}, 
+			#{delete_yn}, #{add_id}, SYSDATE
+		)
+	</insert>
+	
+	<update id="modifyBookRelayClub">
+		UPDATE 
+			BOOK_RELAY_CLUB
+		SET
+			club_name = #{club_name}, 
+			club_date = #{club_date}, 
+			club_members = #{club_members}, 
+			leader_name = #{leader_name}, 
+			user_phone = #{user_phone}, 
+			user_email = #{user_email}, 
+			postcode = #{postcode}, 
+			address_base = #{address_base}, 
+			address_detailed = #{address_detailed}, 
+			book_area = #{book_area}, 
+			book_quantity = #{book_quantity}, 
+			relay_plan = #{relay_plan}, 
+			approval_status = #{approval_status}, 
+			modify_id = #{modify_id}, 
+			modify_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND club_idx = #{club_idx}
+			
+	</update>
+	
+	<update id="deleteBookRelayClub">
+		UPDATE 
+			BOOK_RELAY_CLUB
+		SET
+			delete_yn = 'Y',
+			delete_id = #{delete_id}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND club_idx = #{club_idx}
+	</update>
+	
+	
+	<update id="statusChangeBookRelayClub">
+		UPDATE 
+			BOOK_RELAY_CLUB
+		SET
+			approval_status = #{approval_status}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND club_idx = #{club_idx}
+	</update>
+	
+	
+</mapper>

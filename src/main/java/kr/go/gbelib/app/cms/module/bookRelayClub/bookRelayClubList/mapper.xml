@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.bookRelayClub.bookRelayClubList.BookRelayClubListDao">
+	
+	<select id="bookRelayList" resultType="kr.go.gbelib.app.cms.module.bookRelayClub.bookRelayClubList.BookRelayClubList">
+		SELECT 
+			A.club_idx, B.relaylist_idx, B.relay_name, B.relay_phone, B.relay_etc  
+		FROM 
+			BOOK_RELAY_CLUB A, BOOK_RELAY_CLUB_RELAYLIST B
+		WHERE 
+			A.club_idx = B.club_idx
+		AND	B.club_idx = #{club_idx}
+	</select>
+	
+	<select id="bookRelayClubListIdx" resultType="int">
+		SELECT
+			NVL(MAX(relaylist_idx), 0)+1 AS relaylist_idx
+		FROM 
+			BOOK_RELAY_CLUB_RELAYLIST
+		WHERE
+			club_idx = #{club_idx}
+	</select>
+	
+	<insert id="addBookRelayClubList">
+		INSERT INTO
+			BOOK_RELAY_CLUB_RELAYLIST
+		(
+			club_idx, relaylist_idx, relay_name, relay_phone, relay_etc
+		)
+		VALUES
+		(
+			#{club_idx}, #{relaylist_idx}, #{relay_name}, #{relay_phone}, #{relay_etc}
+		)
+	</insert>
+	
+	<update id="modifyBookRelayClubList">
+		UPDATE 
+			BOOK_RELAY_CLUB_RELAYLIST
+		SET
+			relay_name = #{relay_name},
+			relay_phone = #{relay_phone},
+			relay_etc = #{relay_etc}
+		WHERE
+			club_idx = #{club_idx}
+		AND	relaylist_idx = #{relaylist_idx}
+	</update>
+	
+	<delete id="deleteBookRelayClubList">
+		DELETE FROM 
+			BOOK_RELAY_CLUB_RELAYLIST 
+		WHERE 
+			club_idx = #{club_idx} 
+	</delete>
+	
+</mapper>
