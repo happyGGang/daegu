@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.relayLecture.RelayLectureDao">
+	
+	<select id="relayLectureList" resultType="kr.go.gbelib.app.cms.module.relayLecture.RelayLecture">
+		${pagingTop}
+		SELECT
+			homepage_id, lecture_idx, event_name, event_start_date, event_end_date,
+			event_place, event_start_time, event_end_time, apply_start_date, apply_start_time,
+			apply_end_date, apply_end_time, recruitment_number, conrtents, org_file_name,
+			server_file_name, file_extension, file_size, exposure_status, delete_yn,
+			add_id, add_date, view_count,
+			(select count(*) from RELAY_LECTURE_APPLY B where B.lecture_idx = A.lecture_idx and B.reception_status != 'N') as apply_count
+		FROM
+			RELAY_LECTURE A
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		ORDER BY lecture_idx DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="relayLectureUserList" resultType="kr.go.gbelib.app.cms.module.relayLecture.RelayLecture">
+		${pagingTop}
+		SELECT
+			homepage_id, lecture_idx, event_name, event_start_date, event_end_date,
+			event_place, event_start_time, event_end_time, apply_start_date, apply_start_time,
+			apply_end_date, apply_end_time, recruitment_number, conrtents, org_file_name,
+			server_file_name, file_extension, file_size, exposure_status, delete_yn,
+			add_id, add_date, apply_status,
+			(select count(*) from RELAY_LECTURE_APPLY B where B.lecture_idx = A.lecture_idx and B.reception_status != 'N') as apply_count
+		FROM
+			RELAY_LECTURE A
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		AND	exposure_status = 'Y'
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		ORDER BY lecture_idx DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="relayLectureCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			RELAY_LECTURE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+	</select>
+	
+	<select id="relayLectureUserCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			RELAY_LECTURE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		AND	exposure_status = 'Y'
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+	</select>
+	
+	<select id="getRelayLecture" resultType="kr.go.gbelib.app.cms.module.relayLecture.RelayLecture">
+		SELECT
+			homepage_id, lecture_idx, event_name, event_start_date, event_end_date,
+			event_place, event_start_time, event_end_time, apply_start_date, apply_start_time,
+			apply_end_date, apply_end_time, recruitment_number, conrtents, org_file_name,
+			server_file_name, file_extension, file_size, exposure_status, delete_yn,
+			add_id, add_date, apply_status,
+			(select count(*) from RELAY_LECTURE_APPLY B where B.lecture_idx = A.lecture_idx and B.reception_status != 'N') as apply_count
+		FROM
+			RELAY_LECTURE A
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	lecture_idx = #{lecture_idx}
+	</select>
+	
+	<select id="relayLectureIdx" resultType="int">
+		SELECT
+			NVL(MAX(lecture_idx), 0)+1 AS lecture_idx
+		FROM 
+			RELAY_LECTURE
+	</select>
+	
+	<insert id="addRelayLecture">
+		INSERT INTO
+			RELAY_LECTURE
+		(
+			homepage_id, lecture_idx, event_name, event_start_date, event_end_date,
+			event_place, event_start_time, event_end_time, apply_start_date, apply_start_time,
+			apply_end_date, apply_end_time, recruitment_number, conrtents, 
+			<if test="server_file_name != null and server_file_name != ''">
+			org_file_name, server_file_name, file_extension, file_size, 
+			</if>
+			exposure_status, delete_yn, add_id, add_date
+		)
+		VALUES
+		(
+			#{homepage_id}, #{lecture_idx}, #{event_name}, #{event_start_date}, #{event_end_date},
+			#{event_place}, #{event_start_time}, #{event_end_time}, #{apply_start_date}, #{apply_start_time},
+			#{apply_end_date}, #{apply_end_time}, #{recruitment_number}, #{conrtents}, 
+			<if test="server_file_name != null and server_file_name != ''">
+			#{org_file_name}, #{server_file_name}, #{file_extension}, #{file_size},
+			</if> 
+			#{exposure_status}, #{delete_yn}, #{add_id}, SYSDATE
+		)
+	</insert>
+	
+	<update id="modifyRelayLecture">
+		UPDATE 
+			RELAY_LECTURE
+		SET
+			event_name = #{event_name},
+			event_start_date = #{event_start_date},
+			event_end_date = #{event_end_date},
+			event_place = #{event_place},
+			event_start_time = #{event_start_time},
+			event_end_time = #{event_end_time},
+			apply_start_date = #{apply_start_date},
+			apply_start_time = #{apply_start_time},
+			apply_end_date = #{apply_end_date},
+			apply_end_time = #{apply_end_time},
+			recruitment_number = #{recruitment_number},
+			conrtents = #{conrtents},
+			<if test="server_file_name != null and server_file_name != ''">
+			org_file_name = #{org_file_name},
+			server_file_name = #{server_file_name},
+			file_extension = #{file_extension},
+			file_size = #{file_size},
+			</if>
+			exposure_status = #{exposure_status},
+			modify_id = #{modify_id}, 
+			modify_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND lecture_idx = #{lecture_idx}
+			
+	</update>
+	
+	<update id="deleteRelayLecture">
+		UPDATE
+			RELAY_LECTURE
+		SET
+			delete_yn = 'Y',
+			delete_id = #{delete_id}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND lecture_idx = #{lecture_idx}
+	</update>
+	
+	<update id="statusChangeRelayLecture">
+		UPDATE
+			RELAY_LECTURE
+		SET
+			exposure_status = #{exposure_status}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND lecture_idx = #{lecture_idx}
+	</update>
+	
+	<update id="addViewCount">
+		UPDATE 
+			RELAY_LECTURE
+		SET
+			view_count = NVL(view_count, 0) + 1
+		WHERE
+			homepage_id = #{homepage_id} 
+		AND	lecture_idx = #{lecture_idx}
+	</update>
+	
+</mapper>

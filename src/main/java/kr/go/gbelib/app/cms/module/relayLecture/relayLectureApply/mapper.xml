@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.relayLecture.relayLectureApply.RelayLectureApplyDao">
+	
+	<select id="relayLectureApplyList" resultType="kr.go.gbelib.app.cms.module.relayLecture.relayLectureApply.RelayLectureApply">
+		${pagingTop}
+		SELECT
+			A.lecture_idx, B.lecture_apply_idx, B.applicant_name, B.applicant_sex, B.applicant_age,
+			B.applicant_phone, B.applicant_belong, B.reception_status, B.add_id, B.add_date
+		FROM
+			RELAY_LECTURE A, RELAY_LECTURE_APPLY B
+		WHERE
+			A.lecture_idx = B.lecture_idx
+		AND	B.lecture_idx = #{lecture_idx}
+		
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="reception_status != null and reception_status != ''">
+		AND	reception_status = #{reception_status}
+		</if>
+		ORDER BY B.lecture_apply_idx DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="relayLectureApplyListAll" resultType="kr.go.gbelib.app.cms.module.relayLecture.relayLectureApply.RelayLectureApply">
+		SELECT
+			A.lecture_idx, B.lecture_apply_idx, B.applicant_name, B.applicant_sex, B.applicant_age,
+			B.applicant_phone, B.applicant_belong, B.reception_status, B.add_id, B.add_date
+		FROM
+			RELAY_LECTURE A, RELAY_LECTURE_APPLY B
+		WHERE
+			A.lecture_idx = B.lecture_idx
+		AND	B.lecture_idx = #{lecture_idx}
+	</select>
+	
+	<select id="relayLectureApplyCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			RELAY_LECTURE A, RELAY_LECTURE_APPLY B
+		WHERE
+			A.lecture_idx = B.lecture_idx
+		AND	B.lecture_idx = #{lecture_idx}
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="reception_status != null and reception_status != ''">
+		AND	reception_status = #{reception_status}
+		</if>
+	</select>
+	
+	<select id="getRelayLectureApply" resultType="kr.go.gbelib.app.cms.module.relayLecture.relayLectureApply.RelayLectureApply">
+		SELECT
+			A.lecture_idx, B.lecture_apply_idx, B.applicant_name, B.applicant_sex, B.applicant_age,
+			B.applicant_phone, B.applicant_belong, B.reception_status, B.add_id, B.add_date
+		FROM
+			RELAY_LECTURE A, RELAY_LECTURE_APPLY B
+		WHERE
+			A.lecture_idx = B.lecture_idx
+		AND	B.lecture_idx = #{lecture_idx}
+		AND	B.lecture_apply_idx = #{lecture_apply_idx}
+	</select>
+	
+	<select id="totalRelayLectureApply" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			RELAY_LECTURE A, RELAY_LECTURE_APPLY B
+		WHERE
+			A.lecture_idx = B.lecture_idx
+		AND	B.lecture_idx = #{lecture_idx}
+		AND	reception_status != 'N';
+	</select>
+	
+	<select id="relayLectureApplyIdx" resultType="int">
+		SELECT
+			NVL(MAX(lecture_apply_idx), 0)+1 AS lecture_apply_idx
+		FROM 
+			RELAY_LECTURE_APPLY
+		WHERE
+			lecture_idx = #{lecture_idx}
+	</select>
+	
+	<insert id="addRelayLectureApply">
+		<selectKey keyProperty="lecture_apply_idx" order="BEFORE" resultType="int">
+			SELECT NVL(MAX(lecture_apply_idx),0)+1 FROM RELAY_LECTURE_APPLY
+		</selectKey>
+		INSERT INTO
+			RELAY_LECTURE_APPLY
+		(
+			lecture_idx, lecture_apply_idx, applicant_name, applicant_sex, applicant_age,
+			applicant_phone, applicant_belong, reception_status, add_id, add_date
+		)
+		VALUES
+		(
+			#{lecture_idx}, #{lecture_apply_idx}, #{applicant_name}, #{applicant_sex}, #{applicant_age},
+			#{applicant_phone}, #{applicant_belong}, #{reception_status}, #{add_id}, SYSDATE
+		)
+	</insert>
+	
+	<update id="modifyRelayLectureApply">
+		UPDATE 
+			RELAY_LECTURE_APPLY
+		SET
+			applicant_name = #{applicant_name},
+			applicant_sex = #{applicant_sex},
+			applicant_age = #{applicant_age},
+			applicant_phone = #{applicant_phone},
+			applicant_belong = #{applicant_belong},
+			reception_status = #{reception_status},
+			modify_id = #{modify_id}, 
+			modify_date = SYSDATE
+		WHERE
+			lecture_idx = #{lecture_idx}
+		AND lecture_apply_idx = #{lecture_apply_idx}
+			
+	</update>
+	
+	<update id="deleteRelayLectureApply">
+		UPDATE
+			RELAY_LECTURE_APPLY
+		SET
+			delete_yn = 'Y',
+			delete_id = #{delete_id}
+		WHERE
+			lecture_idx = #{lecture_idx}
+	</update>
+	
+	<update id="statusChangeRelayLectureApply">
+		UPDATE
+			RELAY_LECTURE_APPLY
+		SET
+			reception_status = #{reception_status}
+		WHERE
+			lecture_idx = #{lecture_idx}
+		AND	lecture_apply_idx = #{lecture_apply_idx}
+	</update>
+	
+</mapper>
