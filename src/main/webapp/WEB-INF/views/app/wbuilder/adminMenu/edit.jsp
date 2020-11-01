@@ -166,8 +166,24 @@ $(function() {
 				</td>
 			</tr>
 			<tr class="group first">
-				<th>메뉴명</th>
+				<th>메뉴명1</th>
 				<td><form:input path="menu_name" cssClass="text menuName" cssStyle="font-size:14px;font-weight:800;" maxlength="20"/></td>
+			</tr>
+			<tr>
+				<th>사용 홈페이지</th>
+				<td>
+					<c:forEach items="${homepageList}" var="i" varStatus="status">
+						<c:if test="${not empty i.homepage_alias}">
+							<form:checkbox path="access_homepage_id_arr" label="${i.homepage_alias}" value="${i.homepage_id}" cssStyle="margin-left: 10px;"/>
+						</c:if>
+						<c:if test="${empty i.homepage_alias}">
+							<form:checkbox path="access_homepage_id_arr" label="${i.homepage_name}" value="${i.homepage_id}"/>
+						</c:if>
+						<c:if test="${status.count % 8 eq 0}">
+							<br />
+						</c:if>
+					</c:forEach>
+				</td>
 			</tr>
 			<tr>
 				<th>메뉴명 표시</th>

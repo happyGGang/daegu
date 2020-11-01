@@ -1,9 +1,7 @@
 package kr.co.whalesoft.app.cms.cmsTag;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
@@ -36,6 +34,8 @@ public class AsideMenuTag extends BodyTagSupport {
 		HtmlTag liTag_lvl3 = null;
 		boolean check_lvl3 = false;
 
+		Set<Integer> access_set = new HashSet<Integer>();
+
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
 
 		String asideHomepageId = String.valueOf(request.getSession().getAttribute("asideHomepageId"));
@@ -46,9 +46,18 @@ public class AsideMenuTag extends BodyTagSupport {
 					Arrays.sort(access_homepage_id_arr);
 					int indexHomepageId = Arrays.binarySearch(access_homepage_id_arr, asideHomepageId);
 					if (indexHomepageId < 0) {
+						access_set.add(adminMenu.getMenu_idx());
 						continue;
 					}
 				}
+
+				if (access_set.contains(adminMenu.getParent_menu_idx())) {
+					access_set.add(adminMenu.getMenu_idx());
+					continue;
+				}
+
+
+
 				if(adminMenu.getMenu_level() == 1) {
 					check_lvl2 = false;
 					check_lvl3 = false;
