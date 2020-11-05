@@ -230,7 +230,6 @@ public class LibrarySearchController extends BaseController {
 	 * @param model
 	 * @param librarySearch
 	 * @param request
-	 * @param index
 	 * @return
 	 */
 	@RequestMapping(value = {"/detail.*"})
@@ -266,14 +265,18 @@ public class LibrarySearchController extends BaseController {
 			librarySearch.setLibCode(String.valueOf(map.get("LIB_CODE")));
 			librarySearch.setSpeciesKey(String.valueOf(map.get("SPECIES_KEY")));
 
-			Map<String, Object> sanghoReqYn = LibSearchAPI.sanghoReqYn(librarySearch);
-			@SuppressWarnings ("unchecked")
-			Map<String, Object> sanghoReqYnResult = (Map<String, Object>) sanghoReqYn.get("ITEM");
-
 			map.put("SANGHO_REQ_YN", "N");
-			if (sanghoReqYnResult.containsKey("RESULT") && String.valueOf(sanghoReqYnResult.get("RESULT")).equals("OK")) {
-				// 정상 신청가능
-				map.put("SANGHO_REQ_YN", "Y");
+			try {
+				Map<String, Object> sanghoReqYn = LibSearchAPI.sanghoReqYn(librarySearch);
+				@SuppressWarnings ("unchecked")
+				Map<String, Object> sanghoReqYnResult = (Map<String, Object>) sanghoReqYn.get("ITEM");
+
+				if (sanghoReqYnResult.containsKey("RESULT") && String.valueOf(sanghoReqYnResult.get("RESULT")).equals("OK")) {
+					// 정상 신청가능
+					map.put("SANGHO_REQ_YN", "Y");
+				}
+			} catch (Exception e) {
+				System.out.println("@@@@@@@@@@@@ sangho error");
 			}
 
 			model.addAttribute("detail", map);
