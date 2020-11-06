@@ -285,7 +285,7 @@ $(function() {
 			*인포셋만 보임(상호대차 신청가능조건 확인용)<br/>
 			SHELF_LOC_CODE : ${detail.SHELF_LOC_CODE} | 
 			REG_CODE : ${detail.REG_CODE} | 
-			SEPARATE_SHELF_CODE : ${detail.SEPARATE_SHELF_CODE}
+			SEPARATE_SHELF_CODE : ${detail.SEPARATE_SHELF_CODE} | 상호대차 신청가능여부 확인 : ${detail.LILL_YN}
 			</c:if>
 		</div>
 		<div class="sbtn" style="text-align:center;">

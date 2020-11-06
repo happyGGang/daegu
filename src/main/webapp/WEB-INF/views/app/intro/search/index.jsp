@@ -207,6 +207,20 @@ $(function() {
 			$('div#libraryList input:checkbox.lib_FT').prop('checked',true);
 			$('div#libraryList input:checkbox.lib_HC').prop('checked',true);
 			</c:when>
+			<c:when test="${context_path eq 'dalseongsmall'}">
+			$('div#libraryList input:checkbox').prop('checked',false);
+			$('div#libraryList input:checkbox.lib_FR').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_GA').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_GB').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_GC').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_GD').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_GE').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_GF').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_GH').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_FJ').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_FN').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_HG').prop('checked',true);
+			</c:when>
 		</c:choose>
 	</c:if>
 });
@@ -386,22 +400,22 @@ $(function() {
 									<form:checkbox path="libraryCodes" value="BN" class="libCheck lib_BN" label="원고개도서관"/>
 								</li>
 								<li>
-									<form:checkbox path="libraryCodes" value="BD" class="libCheck lib_GQ" label="내당2,3동 드림도서관"/>
+									<form:checkbox path="libraryCodes" value="GQ" class="libCheck lib_GQ" label="내당2,3동 드림도서관"/>
 								</li>
 								<li>
-									<form:checkbox path="libraryCodes" value="BE" class="libCheck lib_FU" label="내당4동어린이도서관"/>
+									<form:checkbox path="libraryCodes" value="FU" class="libCheck lib_FU" label="내당4동어린이도서관"/>
 								</li>
 								<li>
-									<form:checkbox path="libraryCodes" value="BF" class="libCheck lib_FZ" label="비산7동 작은도서관"/>
+									<form:checkbox path="libraryCodes" value="FZ" class="libCheck lib_FZ" label="비산7동 작은도서관"/>
 								</li>
 								<li>
-									<form:checkbox path="libraryCodes" value="BG" class="libCheck lib_FH" label="새마을문고대구서구지부작은도서관"/>
+									<form:checkbox path="libraryCodes" value="FH" class="libCheck lib_FH" label="새마을문고대구서구지부작은도서관"/>
 								</li>
 								<li>
-									<form:checkbox path="libraryCodes" value="BH" class="libCheck lib_FT" label="서구청작은도서관"/>
+									<form:checkbox path="libraryCodes" value="FT" class="libCheck lib_FT" label="서구청작은도서관"/>
 								</li>
 								<li>
-									<form:checkbox path="libraryCodes" value="BJ" class="libCheck lib_HC" label="달성토성마을 다락방 작은도서관"/>
+									<form:checkbox path="libraryCodes" value="HC" class="libCheck lib_HC" label="달성토성마을 다락방 작은도서관"/>
 								</li>
 							</ul>
 						</div>
@@ -433,6 +447,74 @@ $(function() {
 								</li>
 								<li>
 									<form:checkbox path="libraryCodes" value="BJ" class="libCheck lib_HC" label="달성토성마을 다락방 작은도서관"/>
+								</li>
+							</ul>
+						</div>
+						<div class="end"></div>
+					</div>
+					<div class="end" style="padding:7px 0;"></div>
+					</c:when>
+					<c:when test="${context_path eq 'dalseongsmall'}">
+					<div id="libraryList" class="libraryList">
+						<div>
+							<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
+						</div>
+						<div>
+							<ul>
+								<li>
+									<form:checkbox path="libraryCodes" value="FR" class="libCheck lib_FR" label="가창면 참꽃작은도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="GA" class="libCheck lib_GA" label="화원읍 작은도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="GB" class="libCheck lib_GB" label="논공읍작은도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="GC" class="libCheck lib_GC" label="구지면작은도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="GD" class="libCheck lib_GD" label="다사읍서재작은도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="GE" class="libCheck lib_GE" label="하빈면작은도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="GF" class="libCheck lib_GF" label="유가읍작은도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="GH" class="libCheck lib_GH" label="옥포읍작은도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="FJ" class="libCheck lib_FJ" label="달성군청도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="FN" class="libCheck lib_FN" label="달성군청소년센터"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="HG" class="libCheck lib_HG" label="다사읍작은도서관"/>
+								</li>
+							</ul>
+						</div>
+						<div class="end"></div>
+					</div>
+					<div class="end" style="padding:7px 0;"></div>
+					</c:when>
+					<c:when test="${context_path eq 'namdm' || context_path eq 'namic'}">
+					<div id="libraryList" class="libraryList">
+						<div>
+							<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
+						</div>
+						<div>
+							<ul>
+								<li>
+									<form:checkbox path="libraryCodes" value="BT" class="libCheck lib_BT" label="이천어울림도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BS" class="libCheck lib_BS" label="대명어울림도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="FE" class="libCheck lib_FE" label="꿈틀작은도서관"/>
 								</li>
 							</ul>
 						</div>

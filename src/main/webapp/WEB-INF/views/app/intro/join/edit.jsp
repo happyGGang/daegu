@@ -295,6 +295,32 @@ $(function() {
 								<option value="HC">달성토성마을 다락방 작은도서관</option>
 							</select>
 						</c:when>
+						<c:when test="${context_path eq 'dalseonglib'}">
+							<select name="manage_code">
+								<option value="BR">달성군립도서관</option>
+							</select>
+						</c:when>
+						<c:when test="${context_path eq 'dalseongsmall'}">
+							<select name="manage_code">
+								<option value="FR">가창면 참꽃작은도서관</option>
+								<option value="GA">화원읍작은도서관</option>
+								<option value="GB">논공읍작은도서관</option>
+								<option value="GC">구지면작은도서관</option>
+								<option value="GD">다사읍서재작은도서관</option>
+								<option value="GE">하빈면작은도서관</option>
+								<option value="GF">유가읍작은도서관</option>
+								<option value="GH">옥포읍작은도서관</option>
+								<option value="FJ">달성군청도서관"</option>
+								<option value="FN">달성군청소년센터</option>
+								<option value="HG">다사읍작은도서관"</option>
+							</select>
+						</c:when>
+						<c:when test="${context_path eq 'namdm'}">
+						대명어울림도서관<input type="hidden" id="" name="manage_code" value="BS" />
+						</c:when>
+						<c:when test="${context_path eq 'namic'}">
+						이천어울림도서관<input type="hidden" id="" name="manage_code" value="BT" />
+						</c:when>
 
 						<c:when test="${context_path eq 'jungang'}">
 						중앙도서관<input type="hidden" id="" name="manage_code" value="AD" />

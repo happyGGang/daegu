@@ -186,7 +186,27 @@ $(function() {
 					<form:radiobutton path="manageCode" value='GQ' label="내당2,3동 드림도서관" />
 					<form:radiobutton path="manageCode" value='HC' label="달성토성마을 다락방 작은도서관" />
 				</c:when>
-
+				<c:when test="${context_path eq 'dalseonglib'}">
+				달성군립도서관<form:hidden path="manageCode" value="BR" />
+				</c:when>
+				<c:when test="${context_path eq 'dalseongsmall'}">
+					<form:radiobutton path="manageCode" value='FR' label="가창면 참꽃작은도서관" /><br/>
+					<form:radiobutton path="manageCode" value='GA' label="화원읍작은도서관" /><br/>
+					<form:radiobutton path="manageCode" value='GB' label="논공읍작은도서관" /><br/>
+					<form:radiobutton path="manageCode" value='GC' label="구지면작은도서관" /><br/>
+					<form:radiobutton path="manageCode" value='GD' label="다사읍서재작은도서관" /><br/>
+					<form:radiobutton path="manageCode" value='GE' label="하빈면작은도서관" /><br/>
+					<form:radiobutton path="manageCode" value='GF' label="유가읍작은도서관" /><br/>
+					<form:radiobutton path="manageCode" value='GH' label="옥포읍작은도서관" /><br/>
+					<form:radiobutton path="manageCode" value='FJ' label="달성군청도서관" /><br/>
+					<form:radiobutton path="manageCode" value='FN' label="달성군청소년센터" /><br/>
+					<form:radiobutton path="manageCode" value='HG' label="다사읍작은도서관 " />
+				</c:when>
+				<c:when test="${context_path eq 'namdm' || context_path eq 'namic'}">
+					<form:radiobutton path="manageCode" value='BT' label="이천어울림도서관" /><br/>
+					<form:radiobutton path="manageCode" value='BS' label="대명어울림도서관" /><br/>
+					<form:radiobutton path="manageCode" value='FE' label="꿈틀작은도서관" />
+				</c:when>
 				<c:otherwise>
 				<form:hidden path="manageCode" value="" />
 				</c:otherwise>
