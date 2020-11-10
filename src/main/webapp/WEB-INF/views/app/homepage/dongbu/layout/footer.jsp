@@ -13,6 +13,8 @@
 					<span class="bar">|</span>
 					<a href="/${homepage.context_path}/html.do?menu_idx=90">도서관서비스헌장</a>
 					<span class="bar">|</span>
+					<a href="/${homepage.context_path}/html.do?menu_idx=145">도서관이용규정</a>
+					<span class="bar">|</span>
 					<a href="/${homepage.context_path}/html.do?menu_idx=109">찾아오시는길</a>
 				</div>
 			</div>

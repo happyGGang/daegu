@@ -118,7 +118,7 @@ $(function(){
       <div class="img ticon_02"></div>
       <div class="desc">
         <h3>토론실</h3>
-        <p>시민들에게 소모임 문화 활동 및 그룹 학습토론을 할 수 있는 토론실(4층)을 마련하여 개방 운영합니다.</p>
+        <p><!--시민들에게 소모임 문화 활동 및 그룹 학습토론을 할 수 있는 토론실(4층)을 마련하여 개방 운영합니다.<br>--><font style="color:red; font-weight: bold";>※ 현재 토론실은 코로나19로 인해 이용이 제한되어 있습니다.</font></p>
       </div>
     </div>
   </div>
