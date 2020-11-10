@@ -321,6 +321,35 @@ $(function() {
 						<c:when test="${context_path eq 'namic'}">
 						이천어울림도서관<input type="hidden" id="" name="manage_code" value="BT" />
 						</c:when>
+						<c:when test="${context_path eq 'dalseolib'}">
+						도원도서관<input type="hidden" id="" name="manage_code" value="BW" />
+						</c:when>
+						<c:when test="${context_path eq 'kids'}">
+						달서어린이<input type="hidden" id="" name="manage_code" value="BV" />
+						</c:when>
+						<c:when test="${context_path eq 'seongseo'}">
+						성서도서관<input type="hidden" id="" name="manage_code" value="BU" />
+						</c:when>
+						<c:when test="${context_path eq 'bolli'}">
+						본리도서관<input type="hidden" id="" name="manage_code" value="BX" />
+						</c:when>
+						<c:when test="${context_path eq 'family'}">
+						달서가족문화도서관<input type="hidden" id="" name="manage_code" value="BY" />
+						</c:when>
+						<c:when test="${context_path eq 'english'}">
+						달서영어도서관<input type="hidden" id="" name="manage_code" value="BZ" />
+						</c:when>
+						<c:when test="${context_path eq 'dssmalllib'}">
+						<select name="manage_code">
+							<option value="FA">이곡2동공립작은도서관</option>
+							<option value="FB">용산1동작은도서관</option>
+							<option value="FC">장기동작은도서관</option>
+							<option value="FD">죽전동공립작은도서관</option>
+							<option value="FW">웃는얼굴아트센터 도서실</option>
+							<option value="FX">행정정보문고센터</option>
+							<option value="GK">학산작은도서관</option>
+						</select>
+						</c:when>
 
 						<c:when test="${context_path eq 'jungang'}">
 						중앙도서관<input type="hidden" id="" name="manage_code" value="AD" />

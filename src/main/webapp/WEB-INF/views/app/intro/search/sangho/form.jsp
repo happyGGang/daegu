@@ -106,11 +106,29 @@ $(function() {
 			 			<form:option value="" label="-- 선택 --" />
 						<form:option value="127016">남산4동작은도서관</form:option>
 						<form:option value="127056">동인 느티나무 도서관</form:option>
-						<form:option value="127070">동인 느티나무 도서관</form:option>
+						<form:option value="127070">중구영어도서관</form:option>
 						<form:option value="327009">중구청교양정보실</form:option>
 						<form:option value="727025">대신동작은도서관</form:option>
 						<form:option value="727083">삼덕마루 작은도서관</form:option>
 						<form:option value="727107">대봉2동작은도서관</form:option>
+					</form:select>
+					</c:when>
+					<c:when test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib'}">
+			 		<form:select path="uselibcode">
+			 			<form:option value="" label="-- 선택 --" />
+						<form:option value="127005">성서도서관</form:option>
+						<form:option value="127002">달서어린이도서관</form:option>
+						<form:option value="127001">도원도서관</form:option>
+						<form:option value="127012">본리도서관</form:option>
+						<form:option value="127093">달서가족문화도서관</form:option>
+						<form:option value="127099">달서영어도서관</form:option>
+						<form:option value="127066">이곡2동공립작은도서관</form:option>
+						<form:option value="127006">용산1동작은도서관</form:option>
+						<form:option value="127007">장기동작은도서관</form:option>
+						<form:option value="127008">죽전동공립작은도서관</form:option>
+						<form:option value="327002">웃는얼굴아트센터 도서실</form:option>
+						<form:option value="327003">행정정보문고센터</form:option>
+						<form:option value="727036">학산작은도서관</form:option>
 					</form:select>
 					</c:when>
 					<c:otherwise>

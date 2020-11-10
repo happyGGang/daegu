@@ -35,7 +35,7 @@ $(function() {
 <c:set var="prefix" value="/intro/${context_path}/search/"></c:set>
 <a href="${prefix}loan/index.do" class="bBtn">대출중인도서</a>
 <a href="${prefix}loan/history.do" class="bBtn">대출내역조회</a>
-<c:if test="${context_path eq 'bukgs' || context_path eq 'bukdh' || context_path eq 'buktj' || context_path eq 'buks' || context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol' || context_path eq 'junggu'}">
+<c:if test="${context_path eq 'bukgs' || context_path eq 'bukdh' || context_path eq 'buktj' || context_path eq 'buks' || context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol' || context_path eq 'junggu' || context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib'}">
 <a href="${prefix}sangho/index.do" class="bBtn">상호대차신청내역조회</a>
 <a href="${prefix}sangho/history.do" class="bBtn">상호대차이용내역조회</a>
 </c:if>

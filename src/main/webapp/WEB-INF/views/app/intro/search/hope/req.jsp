@@ -255,6 +255,49 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 					<form:option value="BS">대명어울림도서관</form:option>
 				</form:select>
 				</c:when>
+				<c:when test="${context_path eq 'dalseolib'}">
+				<form:select path="manageCode">
+					<form:option value="BW">도원도서관</form:option>
+				</form:select>
+				</c:when>
+				<c:when test="${context_path eq 'kids'}">
+				<form:select path="manageCode">
+					<form:option value="BV">달서어린이</form:option>
+				</form:select>
+				</c:when>
+				<c:when test="${context_path eq 'seongseo'}">
+				<form:select path="manageCode">
+					<form:option value="BU">성서도서관</form:option>
+				</form:select>
+				</c:when>
+				<c:when test="${context_path eq 'bolli'}">
+				<form:select path="manageCode">
+					<form:option value="BX">본리도서관</form:option>
+				</form:select>
+				</c:when>
+				<c:when test="${context_path eq 'family'}">
+				<form:select path="manageCode">
+					<form:option value="BY">달서가족문화도서관</form:option>
+				</form:select>
+				</c:when>
+				<c:when test="${context_path eq 'english'}">
+				<form:select path="manageCode">
+					<form:option value="BZ">달서영어도서관</form:option>
+				</form:select>
+				</c:when>
+				<c:when test="${context_path eq 'dssmalllib'}">
+				<form:select path="manageCode">
+					<form:option value="FA">이곡2동공립작은도서관</form:option>
+					<form:option value="FB">용산1동작은도서관</form:option>
+					<form:option value="FC">장기동작은도서관</form:option>
+					<form:option value="FD">죽전동공립작은도서관</form:option>
+					<form:option value="FW">웃는얼굴아트센터 도서실</form:option>
+					<form:option value="FX">행정정보문고센터</form:option>
+					<form:option value="GK">학산작은도서관</form:option>
+				</form:select>
+				</c:when>
+
+
 				<c:when test="${context_path eq 'jungang'}">
 				<form:select path="manageCode">
 					<form:option value="AD">중앙도서관</form:option>

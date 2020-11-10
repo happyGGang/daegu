@@ -583,6 +583,24 @@ $(function() {
 							<li>
 								<form:checkbox path="libraryCodes" value="BS" class="libCheck lib_BS" label="대명어울림도서관"/>
 							</li>
+							<li>
+								<form:checkbox path="libraryCodes" value="BU" class="libCheck lib_BU" label="성서도서관"/>
+							</li>
+							<li>
+								<form:checkbox path="libraryCodes" value="BV" class="libCheck lib_BV" label="달서어린이도서관"/>
+							</li>
+							<li>
+								<form:checkbox path="libraryCodes" value="BW" class="libCheck lib_BW" label="도원도서관"/>
+							</li>
+							<li>
+								<form:checkbox path="libraryCodes" value="BX" class="libCheck lib_BX" label="본리도서관"/>
+							</li>
+							<li>
+								<form:checkbox path="libraryCodes" value="BY" class="libCheck lib_BY" label="달서가족문화도서관"/>
+							</li>
+							<li>
+								<form:checkbox path="libraryCodes" value="BZ" class="libCheck lib_BZ" label="달서영어도서관"/>
+							</li>
 						</ul>
 					</div>
 					<div class="end"></div>
