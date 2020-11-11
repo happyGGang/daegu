@@ -110,8 +110,6 @@ public class BookRelayClubController extends BaseController {
     		ValidationUtils.rejectIfStringLength(result, "address_base", 800, "주소");
     		ValidationUtils.rejectIfStringLength(result, "address_detailed", 800, "상세주소");
     		ValidationUtils.rejectIfStringLength(result, "relay_plan", 500, "릴레이 계획");
-    		ValidationUtils.rejectIfStringLength(result, "relay_name", 20, "명단 이름");
-    		ValidationUtils.rejectIfStringLength(result, "relay_etc", 500, "명단 비고");
 		}
 		
 		if (!result.hasErrors()) {
