@@ -76,9 +76,6 @@ $(function() {
 					${getRelayLecture.conrtents}
 				</td>
 			</tr>
-			<tr>
-				
-			</tr>
 		</tbody>
 	</table>
 	
