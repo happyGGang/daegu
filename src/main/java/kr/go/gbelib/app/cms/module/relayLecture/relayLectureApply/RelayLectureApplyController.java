@@ -101,7 +101,7 @@ public class RelayLectureApplyController extends BaseController {
 			int total = service.totalRelayLectureApply(relayLectureApply); 
 			
 			if (relayLectureApply.getEditMode().equals("ADD")) {
-				 if (relayLecture.getRecruitment_number() > 0) {
+				 if (relayLecture.getRecruitment_number() >= 0) {
 	               if (relayLecture.getRecruitment_number() < total + 1) {
 	                  res.setValid(false);
                       res.setMessage("신청인원이 가득찼습니다.");

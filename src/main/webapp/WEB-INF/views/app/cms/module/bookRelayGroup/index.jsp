@@ -137,7 +137,7 @@ $(function() {
 				</c:forEach>
 				<c:if test="${fn:length(bookRelayGroupList) < 1}">
 					<tr>
-						<td colspan="7">등록된 회원정보가 없습니다.</td>
+						<td colspan="10">등록된 회원정보가 없습니다.</td>
 					</tr>
 				</c:if>
 			</tbody>

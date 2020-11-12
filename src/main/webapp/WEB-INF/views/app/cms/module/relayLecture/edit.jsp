@@ -99,9 +99,11 @@ $(function() {
 	    },
 		buttons: [
 		    {
+				
 		    	text: "저장",
 				"class": 'btn btn1',
 				click: function() {
+					oEditors.getById["conrtents"].exec("UPDATE_CONTENTS_FIELD", []);
 					jQuery.ajaxSettings.traditional = true;
 					var option = {
 						url : 'save.do',

@@ -1,0 +1,148 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
+
+	<div id="footer">
+
+		<div class="bottom">
+			<div class="section" style="position:relative;">
+				<div class="site_link">
+					<div>
+						<!-- <homepageTag:siteLink homepageList="${homepageList}" defaultStr="대구광역시 공공도서관" notIncludeHomepageId="${homepage.homepage_id},h30,h31,h33"/> -->
+						<div>
+							<a class="fsite type1">
+							<span class="f1">대구광역시 공공도서관 </span>
+							<span class="f2"><i></i></span></a>
+							<ul style="display:none">
+							<li class="disabled"><a href="#">대구광역시 공공도서관</a></li>
+							<li class="disabled"><a title="대구광역시통합도서관" href="http://library.daegu.go.kr/dgportal/index.do">대구광역시통합도서관</a></li>
+							<li class="disabled"><a title="대구2ㆍ28기념학생도서관" href="http://library.daegu.go.kr/228/index.do">대구2ㆍ28기념학생도서관</a></li>
+							<li class="disabled"><a title="대구2ㆍ28민주운동기념회관" href="http://library.daegu.go.kr/228lib/index.do">대구2ㆍ28민주운동기념회관</a></li>
+							<li class="disabled"><a title="대구광역시립 남부도서관" href="http://library.daegu.go.kr/nambu/index.do">대구광역시립 남부도서관</a></li>
+							<li class="disabled"><a title="대구광역시립 달성도서관" href="http://library.daegu.go.kr/dalseong/index.do">대구광역시립 달성도서관</a></li>
+							<li class="disabled"><a title="대구광역시립 동부도서관" href="http://library.daegu.go.kr/dongbu/index.do">대구광역시립 동부도서관</a></li>
+							<li class="disabled"><a title="대구광역시립 두류도서관" href="http://library.daegu.go.kr/duryu/index.do">대구광역시립 두류도서관</a></li>
+							<li class="disabled"><a title="대구광역시립 북부도서관" href="http://library.daegu.go.kr/bukbu/index.do">대구광역시립 북부도서관</a></li>
+							<li class="disabled"><a title="대구광역시립 서부도서관" href="http://library.daegu.go.kr/seobu/index.do">대구광역시립 서부도서관</a></li>
+							<li class="disabled"><a title="대구광역시립 수성도서관" href="http://library.daegu.go.kr/suseong/index.do">대구광역시립 수성도서관</a></li>
+
+							<li class="disabled"><a title="동구 통합도서관" href="http://www.donggu-lib.kr/">동구 통합도서관</a></li>
+							<li class="disabled"><a title="서구 통합도서관" href="http://lib.dgs.go.kr/main.do">서구 통합도서관</a></li>
+							<li class="disabled"><a title="남구 통합도서관" href="http://lib.nam.daegu.kr/main.do">남구 통합도서관</a></li>
+							<li class="disabled"><a title="북구 통합도서관" href="http://lib.hbcf.or.kr/intro/">북구 통합도서관</a></li>
+							<li class="disabled"><a title="수성구 통합도서관" href="http://library.suseong.kr/">수성구 통합도서관</a></li>
+							<li class="disabled"><a title="달서구 통합도서관" href="http://www.dalseolib.kr/main/">달서구 통합도서관</a></li>
+							<li class="disabled"><a title="달성군 통합도서관" href="http://www.dalseonglib.kr/index.php">달성군 통합도서관</a></li>
+							</ul>
+						</div><a href="#" class="btn fsitebtn">이동</a>
+					</div>
+					<!-- <div>
+						<homepageTag:siteLink recommendSiteList="${recommendSiteList}" defaultStr="교육 및 지역관련기관"/>
+					</div> -->
+				</div>
+
+				<div class="top-info">
+					<div class="foot-info">
+						<div class="info">
+							<a href="/${homepage.context_path}/html.do?menu_idx=86">도서관서비스헌장</a>
+							<span class="bar">|</span>
+							<a href="/${homepage.context_path}/html.do?menu_idx=86"><b>개인정보처리방침</b></a>
+							<span class="bar">|</span>
+							<a href="/${homepage.context_path}/board/index.do?menu_idx=87&manage_idx=184">영상정보처리방침</a>
+							<span class="bar">|</span>
+							<a href="/${homepage.context_path}/html.do?menu_idx=89">저작권보호정책</a>
+							<span class="bar">|</span>
+							<a href="/${homepage.context_path}/html.do?menu_idx=88">뷰어다운로드</a>
+						</div>
+					</div>
+				</div>
+				<address>
+					<p>
+						<!--<em>(${homepage.zipcode}) <br class="mobileBr"/>${homepage.address1}</em><br class="mobileBr"/>
+						<em>전화
+							<b>${fn:split(homepage.homepage_tell,',')[0]}</b></em>
+						<em>/</em>
+						<em>팩스 <b>${homepage.homepage_fax }</b></em> -->
+<!-- 하단정보 -->
+						<div class="finfo">
+							<ul>
+								<li>
+									<dl>
+										<dt>중구영어도서관</dt>
+										<dd>(41951)대구광역시 중구 달구벌대로 440길 27</dd>
+										<dd class="tel">053-661-3960</dd>
+									</dl>
+								</li>
+								<li>
+									<dl>
+										<dt>동인 느티나무 도서관</dt>
+										<dd>(41905)대구광역시 중구 동덕로 38길 47</dd>
+										<dd class="tel">053-661-3325</dd>
+									</dl>
+								</li>
+								<li>
+									<dl>
+										<dt>중구청 교양정보실</dt>
+										<dd>(41908)대구광역시 중구 국채보상로 139길 1</dd>
+										<dd class="tel">053-661-3241</dd>
+									</dl>
+								</li>
+								<li>
+									<dl>
+										<dt>삼덕마루</dt>
+										<dd>(41946)대구광역시 중구 동덕로 26길 103</dd>
+										<dd class="tel">053-661-3603</dd>
+									</dl>
+								</li>
+								<li>
+									<dl>
+										<dt>대신동 작은도서관</dt>
+										<dd>(41928)대구광역시 중구 큰장로 26안길 65</dd>
+										<dd class="tel">053-661-3685</dd>
+									</dl>
+								</li>
+								<li>
+									<dl>
+										<dt>남산4동 작은도서관</dt>
+										<dd>(41977)대구광역시 중구 남산로 1길 42</dd>
+										<dd class="tel">053-661-3765</dd>
+									</dl>
+								</li>						
+								<li>
+									<dl>
+										<dt>청소년문화의집 작은도서관</dt>
+										<dd>(41959)대구광역시 중구 봉산문화길 40</dd>
+										<dd class="tel">053-661-3278</dd>
+									</dl>
+								</li>
+								<li>
+									<dl>
+										<dt>중구노인복지관 작은도서관</dt>
+										<dd>(41901)대구광역시 중구 태평로 45</dd>
+										<dd class="tel">053-257-2577</dd>
+									</dl>
+								</li>
+								<li>
+									<dl>
+										<dt>대봉2동 작은도서관</dt>
+										<dd>(41955)대구광역시 중구 대봉로 47길 31</dd>
+										<dd class="tel">053-661-3800</dd>
+									</dl>
+								</li>
+							</ul>
+						</div>
+						<!-- //하단정보 -->
+					</p>
+					<span>Copyright © 2020 DAEGU METROPOLITAN JUNGANG LIBRARY, <br class="mobileBr"/>All rights reserved.</span>
+				</address>
+
+			</div>
+		</div>
+
+		<div class="home-up">
+			<img src="/resources/homepage/${homepage.context_path}/img/m-top-btn.png" alt="위로" id="homeup">
+		</div>
+	</div>
+
+

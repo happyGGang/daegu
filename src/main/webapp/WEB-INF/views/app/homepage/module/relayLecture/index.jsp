@@ -49,7 +49,7 @@ $(function() {
 			<table class="bbs center" summary="릴레이강연">
 				<caption>릴레이강연</caption>
 				<colgroup>
-					<col width="5%">
+					<col width="7%">
 					<col width="">
 					<col width="20%">
 					<col width="18%">
