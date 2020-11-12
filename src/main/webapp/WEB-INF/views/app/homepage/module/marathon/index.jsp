@@ -88,11 +88,11 @@ $(function(){
 	</div>
 	<div class="mara">
 		<h3 class="tit">접수기간</h3>
-		<p class="maratxt">${marathonUseOne.application_start_day} ~ ${marathonUseOne.application_end_day}</p>
+		<p class="maratxt">2020년 3월 3일~4월 29일</p>
 	</div>
 	<div class="mara">
 		<h3 class="tit">대회기간</h3>
-		<p class="maratxt">${marathonUseOne.contest_start_day} ~ ${marathonUseOne.contest_end_day}</p>
+		<p class="maratxt">2020년 5월 1일~9월 30일</p>
 	</div>
 	<div class="mara">
 		<h3 class="tit">참가자격</h3>
@@ -100,7 +100,7 @@ $(function(){
 	</div>
 	<h3 class="tit">
 		대회종목
-		<span class="stxt">${fn:length(marathonTypeList)}개종목</span>
+		<span class="stxt">4개종목</span>
 	</h3>
 	<div class="mscroll_guide">
 		<span>모바일로 확인하실 경우</span>
@@ -127,24 +127,9 @@ $(function(){
 			</thead>
 			<tbody>
 				<tr>
-					<th scope="row" class="eng">${marathonTypeList[0].contest_type}</th>
-					<td class="eng"><fmt:formatNumber value="${marathonTypeList[0].page_count}" pattern="#,###"/>쪽</td>
-					<td>
-						<c:choose>
-							<c:when test="${marathonTypeList[0].application_subject == 'ele_low'}">
-								초등1~3학년
-							</c:when>
-							<c:when test="${marathonTypeList[0].application_subject == 'ele_high'}">
-								초등4~6학년
-							</c:when>
-							<c:when test="${marathonTypeList[0].application_subject == 'middle,high,adult'}">
-								중학생 이상,<br>일반인
-							</c:when>
-							<c:when test="${marathonTypeList[0].application_subject == 'all'}">
-								초등생~성인
-							</c:when>
-						</c:choose>
-					</td>
+					<th scope="row" class="eng">3km</th>
+					<td class="eng">3,000쪽</td>
+					<td>초등1~3학년</td>
 					<td class="eng">23쪽</td>
 					<td rowspan="4" class="left">
 						<dl>
@@ -164,66 +149,21 @@ $(function(){
 					</td>
 				</tr>
 				<tr>
-					<th scope="row" class="eng">${marathonTypeList[1].contest_type}</th>
-					<td class="eng"><fmt:formatNumber value="${marathonTypeList[1].page_count}" pattern="#,###"/>쪽</td>
-					<td>
-						<c:choose>
-							<c:when test="${marathonTypeList[1].application_subject == 'ele_low'}">
-								초등1~3학년
-							</c:when>
-							<c:when test="${marathonTypeList[1].application_subject == 'ele_high'}">
-								초등4~6학년
-							</c:when>
-							<c:when test="${marathonTypeList[1].application_subject == 'middle,high,adult'}">
-								중학생 이상,<br>일반인
-							</c:when>
-							<c:when test="${marathonTypeList[1].application_subject == 'all'}">
-								초등생~성인
-							</c:when>
-						</c:choose>
-					</td>
+					<th scope="row" class="eng">5km</th>
+					<td class="eng">5,000쪽</td>
+					<td>초등4~6학년</td>
 					<td class="eng">38쪽</td>
 				</tr>
 				<tr>
-					<th scope="row" class="eng">${marathonTypeList[2].contest_type}</th>
-					<td class="eng"><fmt:formatNumber value="${marathonTypeList[2].page_count}" pattern="#,###"/>쪽</td>
-					<td>
-						<c:choose>
-							<c:when test="${marathonTypeList[2].application_subject == 'ele_low'}">
-								초등1~3학년
-							</c:when>
-							<c:when test="${marathonTypeList[2].application_subject == 'ele_high'}">
-								초등4~6학년
-							</c:when>
-							<c:when test="${marathonTypeList[2].application_subject == 'middle,high,adult'}">
-								중학생 이상,<br>일반인
-							</c:when>
-							<c:when test="${marathonTypeList[2].application_subject == 'all'}">
-								초등생~성인
-							</c:when>
-						</c:choose>
-					</td>
+					<th scope="row" class="eng">7km</th>
+					<td class="eng">7,000쪽</td>
+					<td>중학생 이상,<br>일반인</td>
 					<td class="eng">53쪽</td>
 				</tr>
 				<tr>
-					<th scope="row">${marathonTypeList[3].contest_type}</th>
-					<td class="eng"><fmt:formatNumber value="${marathonTypeList[3].page_count}" pattern="#,###"/>쪽</td>
-					<td>
-						<c:choose>
-							<c:when test="${marathonTypeList[3].application_subject == 'ele_low'}">
-								초등1~3학년
-							</c:when>
-							<c:when test="${marathonTypeList[3].application_subject == 'ele_high'}">
-								초등4~6학년
-							</c:when>
-							<c:when test="${marathonTypeList[3].application_subject == 'middle,high,adult'}">
-								중학생 이상,<br>일반인
-							</c:when>
-							<c:when test="${marathonTypeList[3].application_subject == 'all'}">
-								초등생~성인
-							</c:when>
-						</c:choose>
-					</td>
+					<th scope="row">하프코스</th>
+					<td class="eng">21,097쪽</td>
+					<td>초등생~성인</td>
 					<td class="eng">158쪽</td>
 				</tr>
 			</tbody>
@@ -318,9 +258,7 @@ $(function(){
 				<tr>
 					<td>신청</td>
 					<td>
-						${marathonUseOne.application_start_day}
-						<br>
-						${marathonUseOne.application_end_day}
+						2020.3.3.(화)<br>~4.29.(목)
 					</td>
 					<td class="left">
 						<strong>달서구립도서관홈페이지</strong>
@@ -334,11 +272,7 @@ $(function(){
 				<tr>
 					<td>대회기간</td>
 					<td>
-						<c:set var="contest_start_day" value="${fn:split(marathonUseOne.contest_start_day}"/>
-						<c:forEach items="${contest_start_day}"
-						${marathonUseOne.contest_start_day}
-						<br>
-						${marathonUseOne.contest_end_day}
+						2020.5.1.(금)<br>~9.30.(수)
 					</td>
 					<td class="left">
 						개인 독서 이력을 「달서 독서 마라톤」홈페이지에 접속하여
