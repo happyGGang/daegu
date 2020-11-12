@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.marathon.MarathonDao">
+
+	<sql id="where">
+		<if test="search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%${search_text}%'
+		</if>
+	</sql>
+
+	<select id="getMarathonContestCount" resultType="integer">
+		SELECT
+			COUNT(*)
+		FROM
+			MARATHON_CONTEST
+		WHERE
+			homepage_id = #{homepage_id}
+		<include refid="where"></include>
+	</select>
+
+	<select id="getMarathonContestList" resultType="kr.go.gbelib.app.cms.module.marathon.Marathon">
+		${pagingTop}
+		SELECT
+			homepage_id, contest_idx, contest_name, application_start_day, application_end_day,
+			contest_start_day, contest_end_day, use_yn, add_date, add_id,
+			modify_date, modify_id
+		FROM
+			MARATHON_CONTEST
+		WHERE
+			homepage_id = #{homepage_id}
+		<include refid="where"></include>
+		ORDER BY contest_idx DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getMarathonContestOne" resultType="kr.go.gbelib.app.cms.module.marathon.Marathon">
+		SELECT
+			homepage_id, contest_idx, contest_name, application_start_day, application_end_day,
+			contest_start_day, contest_end_day, use_yn, add_date, add_id,
+			modify_date, modify_id
+		FROM
+			MARATHON_CONTEST
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	contest_idx = #{contest_idx}
+	</select>
+	
+	<select id="checkUsableContestCount" resultType="integer">
+		SELECT
+			COUNT(*)
+		FROM
+			MARATHON_CONTEST
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	use_yn = 'Y'
+		AND	contest_idx != #{contest_idx}
+	</select>
+	
+	<select id="getMarathonUseOne" resultType="kr.go.gbelib.app.cms.module.marathon.Marathon">
+		SELECT
+			contest_idx, contest_name, application_start_day, application_end_day, contest_start_day,
+			contest_end_day
+		FROM
+			MARATHON_CONTEST
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	use_yn = 'Y'
+	</select>
+	
+	<insert id="addMarathonContest">
+		<selectKey keyProperty="contest_idx" order="BEFORE" resultType="int">
+			SELECT NVL(MAX(contest_idx), 0) + 1 FROM MARATHON_CONTEST WHERE homepage_id = #{homepage_id}
+		</selectKey>
+		INSERT INTO
+			MARATHON_CONTEST
+		(
+			homepage_id, contest_idx, contest_name, application_start_day, application_end_day,
+			contest_start_day, contest_end_day, use_yn, add_date, add_id,
+			modify_date, modify_id
+		)
+			VALUES
+		(
+			#{homepage_id}, #{contest_idx}, #{contest_name}, #{application_start_day}, #{application_end_day},
+			#{contest_start_day}, #{contest_end_day}, #{use_yn}, SYSDATE, #{add_id},
+			#{modify_date}, #{modify_id}
+		)
+	</insert>
+	
+	<update id="modifyMarathonContest">
+		UPDATE
+			MARATHON_CONTEST
+		SET
+			contest_name = #{contest_name},
+			application_start_day = #{application_start_day},
+			application_end_day = #{application_end_day},
+			contest_start_day = #{contest_start_day},
+			contest_end_day = #{contest_end_day},
+			use_yn = #{use_yn}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	contest_idx = #{contest_idx}
+	</update>
+	
+	<update id="deleteMarathonContest">
+		DELETE FROM
+			MARATHON_CONTEST
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	contest_idx = #{contest_idx}
+	</update>
+</mapper>

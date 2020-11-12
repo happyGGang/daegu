@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.marathonRecord.MarathonRecordDao">
+
+	<select id="getMarathonRecordCount" resultType="integer">
+		SELECT
+			COUNT(*)
+		FROM
+			MARATHON_RECORD
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	contest_idx = #{contest_idx}
+		AND	contest_type_idx = #{contest_type_idx}
+		AND	applicant_idx = #{applicant_idx}
+		<if test="search_type != null and search_type == 'book_name' and search_text != null and search_text != ''">
+		AND	book_name LIKE '%${search_text}%'
+		</if>
+		<if test="search_type != null and search_type == 'book_journals' and search_text != null and search_text != ''">
+		AND	book_journals LIKE '%${search_text}%'
+		</if>
+	</select>
+	
+	<select id="getMarathonRecordList" resultType="kr.go.gbelib.app.cms.module.marathonRecord.MarathonRecord">
+		SELECT
+			homepage_id, contest_idx, contest_type_idx, applicant_idx, record_idx,
+			member_id, member_name, book_name, read_page_count, book_resources,
+			book_get_date, book_type, book_author, publisher, book_journals,
+			record_date, modify_date, modify_id
+		FROM
+			MARATHON_RECORD
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	contest_idx = #{contest_idx}
+		AND	contest_type_idx = #{contest_type_idx}
+		AND	applicant_idx = #{applicant_idx}
+		<if test="search_type != null and search_type == 'book_name' and search_text != null and search_text != ''">
+		AND	book_name LIKE '%${search_text}%'
+		</if>
+		<if test="search_type != null and search_type == 'book_journals' and search_text != null and search_text != ''">
+		AND	book_journals LIKE '%${search_text}%'
+		</if>
+		ORDER BY record_idx
+	</select>
+	
+	<select id="getMarathonRecordOne" resultType="kr.go.gbelib.app.cms.module.marathonRecord.MarathonRecord">
+		SELECT
+			homepage_id, contest_idx, contest_type_idx, applicant_idx, record_idx,
+			member_id, member_name, book_name, read_page_count, book_resources,
+			book_get_date, book_type, book_author, publisher, book_journals,
+			record_date, modify_date, modify_id
+		FROM
+			MARATHON_RECORD
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	contest_idx = #{contest_idx}
+		AND	contest_type_idx = #{contest_type_idx}
+		AND	applicant_idx = #{applicant_idx}
+		AND	record_idx = #{record_idx}
+	</select>
+	
+	<select id="getTotalPageCount" resultType="integer">
+		SELECT
+			SUM(read_page_count)
+		FROM
+			MARATHON_RECORD
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	contest_idx = #{contest_idx}
+		AND	member_id = #{member_id}
+	</select>
+	
+	<select id="getMarathonApplicantRecordExcelList" resultType="kr.go.gbelib.app.cms.module.marathonRecord.marathonApplicantRecord.MarathonApplicantRecord">
+		SELECT
+			B.applicant_idx, B.member_id, B.member_name, A.school_name, A.school_class,
+			A.contest_type, C.page_count, B.read_page_count, A.read_page_count_total, A.finish_date,
+			B.book_name, B.book_author, B.book_type, B.publisher, B.record_date,
+			B.book_resources, B.book_journals
+		FROM
+			MARATHON_APPLICANT A, MARATHON_RECORD B, MARATHON_CONTEST_TYPE C
+		WHERE
+			A.homepage_id = C.homepage_id
+		AND	A.homepage_id = B.homepage_id
+		AND	A.contest_idx = C.contest_idx
+		AND	A.contest_idx = B.contest_idx
+		AND	A.contest_type_idx = C.contest_type_idx
+		AND	B.contest_type_idx = C.contest_type_idx
+		AND	A.applicant_idx = B.applicant_idx
+		AND B.homepage_id = #{homepage_id}
+		<if test="contest_idx != null and contest_idx != 0">
+			AND	B.contest_idx = #{contest_idx}
+		</if>
+		<if test="contest_type_idx != null and contest_type_idx != 0">
+			AND	B.contest_type_idx = #{contest_type_idx}
+		</if>
+		<if test="applicant_idx != null and applicant_idx != 0">
+			AND	B.applicant_idx = #{applicant_idx}
+		</if>
+	</select>
+	
+	<select id="getMarathonRecordSuccessExcelList" resultType="kr.go.gbelib.app.cms.module.marathonRecord.marathonApplicantRecord.MarathonApplicantRecord">
+		SELECT
+			B.applicant_idx, B.member_id, B.member_name, A.school_name, A.school_class,
+			A.contest_type, C.page_count, B.read_page_count, A.read_page_count_total, A.finish_date,
+			B.book_name, B.book_author, B.book_type, B.publisher, B.record_date,
+			B.book_resources, B.book_journals
+		FROM
+			MARATHON_APPLICANT A, MARATHON_RECORD B, MARATHON_CONTEST_TYPE C
+		WHERE
+			A.homepage_id = B.homepage_id
+		AND	B.homepage_id = C.homepage_id
+		AND	A.contest_idx = B.contest_idx
+		AND	B.contest_idx = C.contest_idx
+		AND	A.contest_type_idx = B.contest_type_idx
+		AND	B.contest_type_idx = C.contest_type_idx
+		AND	A.applicant_idx = B.applicant_idx
+		AND	B.homepage_id = #{homepage_id}
+		<if test="contest_idx != null and contest_idx != 0">
+			AND	B.contest_idx = #{contest_idx}
+		</if>
+		<if test="contest_type_idx != null and contest_type_idx != 0">
+			AND	B.contest_type_idx = #{contest_type_idx}
+		</if>
+		AND	A.process_status = 1 
+	</select>
+
+	<insert id="addMarathonRecord">
+		<selectKey keyProperty="record_idx" order="BEFORE" resultType="int">
+			SELECT NVL(MAX(record_idx), 0) + 1 FROM MARATHON_RECORD WHERE homepage_id = #{homepage_id} AND contest_idx = #{contest_idx} AND contest_type_idx = #{contest_type_idx} AND applicant_idx = #{applicant_idx}
+		</selectKey>
+		INSERT INTO
+			MARATHON_RECORD
+		(
+			homepage_id, contest_idx, contest_type_idx, applicant_idx, record_idx,
+			member_id, member_name, book_name, read_page_count, book_resources,
+			book_get_date, book_type, book_author, publisher, book_journals,
+			record_date
+		)
+			VALUES
+		(
+			#{homepage_id}, #{contest_idx}, #{contest_type_idx}, #{applicant_idx}, #{record_idx},
+			#{member_id}, #{member_name}, #{book_name}, #{read_page_count}, #{book_resources},
+			#{book_get_date}, #{book_type}, #{book_author}, #{publisher}, #{book_journals},
+			SYSDATE
+		)
+	</insert>
+	
+	<update id="modifyMarathonRecord">
+		UPDATE
+			MARATHON_RECORD
+		SET
+			book_name = #{book_name},
+			read_page_count = #{read_page_count},
+			book_resources = #{book_resources},
+			book_get_date = #{book_get_date},
+			book_type = #{book_type},
+			book_author = #{book_author},
+			publisher = #{publisher},
+			book_journals = #{book_journals},
+			modify_date = SYSDATE,
+			modify_id = #{modify_id}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	contest_idx = #{contest_idx}
+		AND	contest_type_idx = #{contest_type_idx}
+		AND	applicant_idx = #{applicant_idx}
+		AND	record_idx = #{record_idx}
+	</update>
+	
+	<update id="modifyMarathonRecordByApplicant">
+		UPDATE
+			MARATHON_RECORD
+		SET
+			contest_type_idx = #{contest_type_idx_modify},
+			applicant_idx = #{applicant_idx_modify}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	contest_idx = #{contest_idx}
+		AND	contest_type_idx = #{contest_type_idx}
+		AND	applicant_idx = #{applicant_idx}
+	</update>
+	
+	<update id="deleteMarathonRecord">
+		DELETE FROM
+			MARATHON_RECORD
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	contest_idx = #{contest_idx}
+		AND	applicant_idx = #{applicant_idx}
+		AND	record_idx IN
+		<foreach collection="record_idx_arr" item="record_idx_list" open="(" close=")" separator=",">
+		#{record_idx_list}
+		</foreach>
+		
+	</update>
+</mapper>
