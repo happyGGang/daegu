@@ -109,7 +109,7 @@ a.skip-to:hover,
 a.skip-to:focus,
 a.skip-to:active{display:block;top:0;z-index:9797979797}
 
-body{overflow-x:hidden;	-webkit-font-smoothing: subpixel-antialiased;-webkit-touch-callout: none;-webkit-user-select: none;-khtml-user-select: none;-ms-user-select: none;-moz-user-select: none;user-select: none;}
+body{overflow-x:hidden}
 
 .rgba{filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#60000000,endColorstr=#60000000);background:rgba(0,0,0,0.5);zoom:1}
 .select2-container{z-index:9999}
