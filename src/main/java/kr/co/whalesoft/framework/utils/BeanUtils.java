@@ -15,7 +15,9 @@ public class BeanUtils extends Object implements Cloneable{
 	
 	private String key;
 	private Object value;
-	
+
+	private String work_reason;
+
 	public String getEditMode() {
 		return editMode;
 	}
@@ -92,5 +94,11 @@ public class BeanUtils extends Object implements Cloneable{
 		this.value = value;
 	}
 
-	
+	public String getWork_reason() {
+		return work_reason;
+	}
+
+	public void setWork_reason(String work_reason) {
+		this.work_reason = work_reason;
+	}
 }

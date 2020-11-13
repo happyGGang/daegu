@@ -11,6 +11,15 @@
 		AND	auth_code_id IN ('C','R','U','D')
 	</delete>
 
+	<delete id="deleteMemberGroupAuthMenu">
+		DELETE
+			WB_MEMBER_GROUP_AUTH
+		WHERE
+			menu_idx = #{menu_idx}
+		AND	module_type = #{moduleType}
+		AND	auth_code_id IN ('C','R','U','D')
+	</delete>
+
 	<insert id="addMemberGroupAuth">
 		INSERT INTO
 			WB_MEMBER_GROUP_AUTH
@@ -18,11 +27,31 @@
 			member_group_idx, site_id, menu_idx, module_idx, auth_code_id, module_type,
 			add_date, add_id
 		)
-			VALUES
+		<foreach collection="list" item="i" separator="UNION ALL">
+
+		SELECT
+			#{i.member_group_idx}, #{i.site_id}, #{i.menu_idx}, #{i.module_idx}, #{i.auth_code_id}, #{i.moduleType},
+			SYSDATE, #{i.cud_id}
+		FROM DUAL
+
+		</foreach>
+	</insert>
+
+	<insert id="addMemberGroupAuthMenu">
+		INSERT INTO
+			WB_MEMBER_GROUP_AUTH
 		(
-			#{member_group_idx}, #{site_id}, #{menu_idx}, #{module_idx}, #{auth_code_id}, #{moduleType},
-			SYSDATE, #{cud_id}
+			member_group_idx, site_id, menu_idx, module_idx, auth_code_id, module_type,
+			add_date, add_id
 		)
+		<foreach collection="list" item="i" separator="UNION ALL">
+
+		SELECT
+			#{i.member_group_idx}, #{i.site_id}, #{i.menu_idx}, #{i.module_idx}, #{i.auth_code_id}, #{i.moduleType},
+			SYSDATE, #{i.cud_id}
+		FROM DUAL
+
+		</foreach>
 	</insert>
 
 	<select id="getAuthCodeList" resultType="string">
@@ -33,6 +62,17 @@
 		WHERE
 			member_group_idx = #{member_group_idx}
 		AND	module_type = #{moduleType}
+	</select>
+
+	<select id="getAuthCodeListMenu" resultType="string">
+		SELECT
+			member_group_idx || '_' || menu_idx || '_' || module_idx || '_' || auth_code_id
+		FROM
+			WB_MEMBER_GROUP_AUTH
+		WHERE
+			member_group_idx = #{member_group_idx}
+		AND	module_type = #{moduleType}
+		AND	menu_idx = #{menu_idx}
 	</select>
 
 	<select id="getMemberGroupAuthSite" resultType="string">

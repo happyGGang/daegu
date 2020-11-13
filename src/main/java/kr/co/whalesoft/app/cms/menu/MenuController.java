@@ -2,12 +2,17 @@ package kr.co.whalesoft.app.cms.menu;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import kr.co.whalesoft.app.cms.memberGroup.MemberGroup;
+import kr.co.whalesoft.app.cms.memberGroup.MemberGroupService;
+import kr.co.whalesoft.app.cms.memberGroupAuth.MemberGroupAuth;
+import kr.co.whalesoft.app.cms.memberGroupAuth.MemberGroupAuthService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -76,6 +81,12 @@ public class MenuController extends BaseController {
 	
 	@Autowired
 	private OrganizationService organizationService;
+
+	@Autowired
+	private MemberGroupService memberGroupService;
+
+	@Autowired
+	private MemberGroupAuthService memberGroupAuthService;
 
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, Menu menu, HttpServletRequest request) throws AuthException {
@@ -462,5 +473,35 @@ public class MenuController extends BaseController {
 		model.addAttribute("manageList", organizationService.getOrganizationWorkList(new Organization(menu.getHomepage_id())));
 		
 		return basePath + "managerView_ajax";
+	}
+
+
+	@RequestMapping(value = {"/authGroupView.*"}, method = RequestMethod.GET)
+	public String authGroupView(Model model, Menu menu, MemberGroup memberGroup, MemberGroupAuth memberGroupAuth, HttpServletRequest request) {
+
+		if (!StringUtils.equals(getAsideHomepageId(request), "CMS") && !StringUtils.equals(getAsideHomepageId(request), "null")) {
+			memberGroup.setSite_id(getAsideHomepageId(request));
+			memberGroupAuth.setSite_id(getAsideHomepageId(request));
+		}
+		memberGroupAuth.setModuleType("SITE");
+
+		List<MemberGroup> memberGroupListTmp = memberGroupService.getMemberGroupList(memberGroup);
+		List<MemberGroup> memberGroupList = new ArrayList<MemberGroup>();
+		List<String> authCodeList = new ArrayList<String>();
+
+		for (MemberGroup i : memberGroupListTmp) {
+			if (i.getMember_group_depth() > 1 && i.getAdmin_group_yn().equals("N")) {
+				memberGroupList.add(i);
+				memberGroupAuth.setMember_group_idx(i.getMember_group_idx());
+				MemberGroupAuth memberGroupAuth2 = memberGroupAuthService.getMemberGroupAuthMenu(memberGroupAuth);
+				authCodeList.addAll(memberGroupAuth2.getAuthCodeList());
+			}
+		}
+		memberGroupAuth.setAuthCodeList(authCodeList);
+
+		model.addAttribute("memberGroupList", memberGroupList);
+		model.addAttribute("memberGroupAuth", memberGroupAuth);
+
+		return basePath + "authGroupView_ajax";
 	}
 }
