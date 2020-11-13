@@ -171,10 +171,10 @@ do {
 												<strong>
 													${i.title}<br/>
 													<span class="datetime">
-														<fmt:formatDate value="${i.add_date}" pattern="yyyy. mm. dd." />
+														<fmt:formatDate value="${i.add_date}" pattern="yyyy. MM. dd." />
 													</span>
 												</strong>
-												<p class="txt">${i.contetn_summary}</p>
+												<p class="txt">${i.content_summary}</p>
 											</a>
 										</li>
 									</c:when>
@@ -182,7 +182,7 @@ do {
 										<li>
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=614&board_idx=${i.board_idx}">
 												<strong>${i.title}</strong>
-												<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-mm-dd" /></span>
+												<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd" /></span>
 											</a>
 										</li>
 									</c:otherwise>
