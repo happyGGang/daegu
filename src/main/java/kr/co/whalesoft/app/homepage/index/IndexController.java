@@ -396,10 +396,13 @@ public class IndexController extends BaseController {
 		model.addAttribute("quickMenuList", quickMenuService.getQuickMenuListAll(new QuickMenu(homepage.getHomepage_id())));
 
 		//강좌목록
-		if (homepage.getHomepage_id().equals("h7")) {
-			Teach t = new Teach();
-			t.setHomepage_id(homepage.getHomepage_id());
-			model.addAttribute("teachList", teachService.getTeachListForUser(t));
+		String[] teachHomepage = {"h7", "h45"};
+		for (String th: teachHomepage ) {
+			if (homepage.getHomepage_id().equals(th)) {
+				Teach t = new Teach();
+				t.setHomepage_id(homepage.getHomepage_id());
+				model.addAttribute("teachList", teachService.getTeachListForUser(t));
+			}
 		}
 
 		//대표도서관
