@@ -500,60 +500,7 @@ do {
 						</div>
 					</div>
 					<div class="banner-box1">
-						<ul class="banner-roll">
-						<li>
-						<span>
-						<a href="https://www.juso.go.kr/openIndexPage.do" target="_blank">
-						<img src="/data/banner/h53/1602753558277" alt="새주소안내"/></a></span></li>
-						<li>
-						<span>
-						<a href="https://www.keris.or.kr/main/main.do" target="_blank">
-						<img src="/data/banner/h53/1602753585628" alt="한국교육학술정보원"/></a></span></li>
-						<li>
-						<span>
-						<a href="https://www.nl.go.kr/NL/contents/N50203010000.do" target="_blank">
-						<img src="/data/banner/h53/1602753658566" alt="사서에게물어보세요"/></a></span></li>
-						<li>
-						<span>
-						<a href="https://www.nl.go.kr/kolisnet/index.do" target="_blank">
-						<img src="/data/banner/h53/1602753682524" alt="국가자료종합목록"/></a></span></li>
-						<li>
-						<span>
-						<a href="http://book.nl.go.kr/iplls/Index.do" target="_blank">
-						<img src="/data/banner/h53/1602753732469" alt="책이음"/></a></span></li>
-						<li>
-						<span>
-						<a href="https://www.nanet.go.kr/main.do" target="_blank">
-						<img src="/data/banner/h53/1602753746743" alt="국회도서관"/></a></span></li>
-						<li>
-						<span>
-						<a href="http://info.edunet.net/" target="_blank">
-						<img src="/data/banner/h53/1602753761378" alt="온라인학습"/></a></span></li>
-						<li>
-						<span>
-						<a href="https://www.moe.go.kr/main.do" target="_blank">
-						<img src="/data/banner/h53/1602753777663" alt="교육부"/></a></span></li>
-						<li>
-						<span>
-						<a href="https://www.mcst.go.kr/kor/main.jsp" target="_blank">
-						<img src="/data/banner/h53/1602753832020" alt="문화체육관광부"/></a></span></li>
-						<li>
-						<span>
-						<a href="https://www.nl.go.kr/" target="_blank">
-						<img src="/data/banner/h53/1602753845553" alt="국립중앙도서관"/></a></span></li>
-						<li>
-						<span>
-						<a href="https://www.nlcy.go.kr/index.do" target="_blank">
-						<img src="/data/banner/h53/1602753859371" alt="국립어린이도서관"/></a></span></li>
-						<li>
-						<span>
-						<a href="https://www.data.go.kr/" target="_blank">
-						<img src="/data/banner/h53/1602753873328" alt="공공데이터포탈"/></a></span></li>
-						<li>
-						<span>
-						<a href="http://library.daegu.go.kr/dgportal/index.do" target="_blank">
-						<img src="/data/banner/h53/1602753891087" alt="통합검색"/></a></span></li></ul>
-						<!-- <homepageTag:banner bannerList="${bannerList}"/> -->
+						<homepageTag:banner bannerList="${bannerList}"/>
 					</div>
 				</div>
 

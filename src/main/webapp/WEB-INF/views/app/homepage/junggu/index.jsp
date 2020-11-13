@@ -126,7 +126,7 @@ do {
 								<div class="title-box">통합자료검색</div>
 								<div class="box1">
 									<label for="search_text_1" class="blind">통합자료검색</label>
-									<input name="title" id="search_text_1" type="text" class="text" placeholder="검색어를 입력하세요" style="ime-mode:active;"/>
+									<input name="title" id="search_text_1" type="text" class="text" placeholder="검색어를 입력하세요." style="ime-mode:active;"/>
 								</div>
 								<button id="main-search-btn">검색</button>
 							</div>
@@ -164,7 +164,7 @@ do {
 
 						<div class="notice-box">
 							<h2>공지사항</h2>
-							<a href="#" class="btn-more">더보기</a>
+							<a href="#" class="btn-more btn-more02">더보기</a>
 							<div class="cont">
 								<ul>
 
@@ -222,7 +222,6 @@ do {
 									
 									</span>
 									<span class="con-title">1진정성 마케팅 ...</span>
-									<span class="con-author">김상훈,박선미 공저...</span>
 								</a>
 							</li>
 							
@@ -238,7 +237,6 @@ do {
 									
 									</span>
 									<span class="con-title">주식회사 히어로즈 : ...</span>
-									<span class="con-author">기타가와 에미 지음 ;...</span>
 								</a>
 							</li>
 							
@@ -254,7 +252,6 @@ do {
 									
 									</span>
 									<span class="con-title">All the piec...</span>
-									<span class="con-author">Jonathan Abr...</span>
 								</a>
 							</li>
 							
@@ -270,7 +267,6 @@ do {
 									
 									</span>
 									<span class="con-title">초록 자전거...</span>
-									<span class="con-author">이상교 글 ; 오정택 ...</span>
 								</a>
 							</li>
 							
@@ -291,7 +287,6 @@ do {
 									
 									</span>
 									<span class="con-title">2진정성 마케팅 : 끌리...</span>
-									<span class="con-author">김상훈,박선미 공저...</span>
 								</a>
 							</li>
 							
@@ -307,7 +302,6 @@ do {
 									
 									</span>
 									<span class="con-title">주식회사 히어로즈 : ...</span>
-									<span class="con-author">기타가와 에미 지음 ;...</span>
 								</a>
 							</li>
 							
@@ -323,7 +317,6 @@ do {
 									
 									</span>
 									<span class="con-title">All the piec...</span>
-									<span class="con-author">Jonathan Abr...</span>
 								</a>
 							</li>
 							
@@ -339,7 +332,6 @@ do {
 									
 									</span>
 									<span class="con-title">초록 자전거...</span>
-									<span class="con-author">이상교 글 ; 오정택 ...</span>
 								</a>
 							</li>
 							

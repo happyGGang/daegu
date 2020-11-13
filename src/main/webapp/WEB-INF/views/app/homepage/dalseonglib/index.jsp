@@ -144,7 +144,7 @@ do {
 							<li class="on"><a href="#tab1" class='t-tabs'>추천도서</a></li>
 							<li><a href="#tab2" class='t-tabs'>신착도서</a></li>
 						</ul>
-						<a href="#" class="btn-more btn-w top35">더보기</a>
+						<a href="#" class="btn-more btn-w btn-more_right20 top35">더보기</a>
 
 						<div class="box con" data-tab="tab1">
 							<ul class="book_photo">
@@ -157,7 +157,22 @@ do {
 										<span class="con-title">1진정성 마케팅 ...</span>
 									</a>
 								</li>
-
+								<li>
+									<a href="">
+										<span class="con-image">
+											<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. 상세보기"/>
+										</span>
+										<span class="con-title">주식회사 히어로즈 : ...</span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<span class="con-image">
+											<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. 상세보기"/>
+										</span>
+										<span class="con-title">1진정성 마케팅 ...</span>
+									</a>
+								</li>
 								<li>
 									<a href="">
 										<span class="con-image">
@@ -180,8 +195,23 @@ do {
 										</span>
 										<span class="con-title">2진정성 마케팅 : 끌리...</span>
 									</a>
+								</li>								
+								<li>
+									<a href="">
+										<span class="con-image">
+											<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. 상세보기"/>
+										</span>
+										<span class="con-title">주식회사 히어로즈 : ...</span>
+									</a>
 								</li>
-								
+								<li>
+									<a href="">
+										<span class="con-image">
+											<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. 상세보기"/>
+										</span>
+										<span class="con-title">2진정성 마케팅 : 끌리...</span>
+									</a>
+								</li>								
 								<li>
 									<a href="">
 										<span class="con-image">
@@ -222,7 +252,7 @@ do {
 
 					<div class="notice-box">
 						<h2>공지사항</h2>
-						<a href="#" class="btn-more btn-b top30">더보기</a>
+						<a href="#" class="btn-more btn-b btn-more_right20 top30">더보기</a>
 						<div class="cont">
 							<ul>
 
@@ -381,28 +411,7 @@ do {
 						</div>
 					</div>
 					<div class="banner-box6">
-						<ul class="banner-roll">
-<li>
-<span>
-<a href="https://www.nl.go.kr/NL/contents/N30502000000.do" target="_blank">
-<img src="/data/banner/h44/1603356355606" alt="사서에게물어보세요"/></a></span></li>
-<li>
-<span>
-<a href="https://www.nl.go.kr/nill/user/index.jsp" target="_blank">
-<img src="/data/banner/h44/1603356386948" alt="책바다"/></a></span></li>
-<li>
-<span>
-<a href="http://www.dalseonglib.kr/img/main/book.pdf" target="_blank">
-<img src="/data/banner/h44/1603356403093" alt="책나래"/></a></span></li>
-<li>
-<span>
-<a href="http://www.dsart.or.kr/index.php" target="_blank">
-<img src="/data/banner/h44/1603356421375" alt="달성문화재단"/></a></span></li>
-<li>
-<span>
-<a href="https://www.dalseong.daegu.kr/" target="_blank">
-<img src="/data/banner/h44/1603356434808" alt="달성군"/></a></span></li></ul>
-
+						<homepageTag:banner bannerList="${bannerList}"/>
 					</div>
 				</div>
 
