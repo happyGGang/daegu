@@ -209,20 +209,25 @@ $(function() {
 			</c:when>
 			<c:when test="${context_path eq 'dalseongsmall'}">
 			$('div#libraryList input:checkbox').prop('checked',false);
-			$('div#libraryList input:checkbox.lib_FR').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_GA').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_GB').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_GC').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_GD').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_GE').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_GF').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_GH').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_FJ').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_FN').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_HG').prop('checked',true);
 			</c:when>
 			<c:when test="${context_path eq 'dssmalllib'}">
 			$('div#libraryList input:checkbox').prop('checked',false);
+			$('div#libraryList input:checkbox.lib_FA').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_FB').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_FC').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_FD').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_FW').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_FX').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_GK').prop('checked',true);
+			</c:when>
+			<c:when test="${context_path eq 'dalseolib'}">
+			$('div#libraryList input:checkbox').prop('checked',false);
+			$('div#libraryList input:checkbox.lib_BU').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_BV').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_BW').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_BX').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_BY').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_BZ').prop('checked',true);
 			$('div#libraryList input:checkbox.lib_FA').prop('checked',true);
 			$('div#libraryList input:checkbox.lib_FB').prop('checked',true);
 			$('div#libraryList input:checkbox.lib_FC').prop('checked',true);
@@ -464,13 +469,16 @@ $(function() {
 					</div>
 					<div class="end" style="padding:7px 0;"></div>
 					</c:when>
-					<c:when test="${context_path eq 'dalseongsmall'}">
+					<c:when test="${context_path eq 'dalseonglib' || context_path eq 'dalseongsmall'}">
 					<div id="libraryList" class="libraryList">
 						<div>
 							<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
 						</div>
 						<div>
 							<ul>
+								<li>
+									<form:checkbox path="libraryCodes" value="BR" class="libCheck lib_BR" label="달성군립도서관"/>
+								</li>
 								<li>
 									<form:checkbox path="libraryCodes" value="FR" class="libCheck lib_FR" label="가창면 참꽃작은도서관"/>
 								</li>
@@ -977,7 +985,16 @@ $(function() {
 
 															</c:when>
 															<c:otherwise>
-																<a href="#" class="btn_print" data-param="${detailURL}" class="btn btn2" style="border:1px solid #ddd;border-radius:3px;box-sizing:border-box;padding:5px;color:#fff;background:#1367c6;">자료위치인쇄</a>
+
+																<c:choose>
+																	<c:when test="${context_path eq 'suseong'}">
+
+																	</c:when>
+																	<c:otherwise>
+																		<a href="#" class="btn_print" data-param="${detailURL}" class="btn btn2" style="border:1px solid #ddd;border-radius:3px;box-sizing:border-box;padding:5px;color:#fff;background:#1367c6;">자료위치인쇄</a>
+																	</c:otherwise>
+																</c:choose>
+																
 															</c:otherwise>
 														</c:choose>
 													</c:when>
@@ -1174,7 +1191,29 @@ $(function() {
 													${i.RETURN_PLAN_DATE}
 												</td>
 												<td>
-													<a href="#" class="btn_print" data-param="${detailURL}" class="btn btn2" style="border:1px solid #ddd;border-radius:3px;box-sizing:border-box;padding:5px;color:#fff;background:#1367c6;">자료위치인쇄</a>
+												<c:choose>
+													<c:when test="${i.WORKING_STATUS eq 'BOL112N'}">
+														<c:choose>
+															<c:when test="${i.RESERVATION_CNT > 0}">
+
+															</c:when>
+															<c:otherwise>
+
+																<c:choose>
+																	<c:when test="${context_path eq 'suseong'}">
+
+																	</c:when>
+																	<c:otherwise>
+																		<a href="#" class="btn_print" data-param="${detailURL}" class="btn btn2" style="border:1px solid #ddd;border-radius:3px;box-sizing:border-box;padding:5px;color:#fff;background:#1367c6;">자료위치인쇄</a>
+																	</c:otherwise>
+																</c:choose>
+																
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+													</c:otherwise>
+												</c:choose>
 												</td>
 											</tr>
 										</tbody>

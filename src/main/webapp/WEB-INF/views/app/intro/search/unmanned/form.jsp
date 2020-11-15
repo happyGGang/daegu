@@ -68,16 +68,18 @@
 <form:hidden path="bookkey"/>
 <input type="hidden" name="booktype" id="booktype" value="${fn:substring(detail.WORKING_STATUS,0,2) }"/>
 <input type="hidden" name="title" value="${detail.TITLE_INFO}"/>
-<c:if test="${homepage.context_path eq 'dmsl'}">
+<c:if test="${context_path eq 'dmsl'}">
 <input type="hidden" name="exprire_date_cnt" value="7"/>
 </c:if>
-<c:if test="${homepage.context_path eq 'jungang'}">
+<c:if test="${context_path eq 'jungang'}">
 <input type="hidden" name="exprire_date_cnt" value="7"/>
 </c:if>
-<c:if test="${homepage.context_path eq '228'}">
+<c:if test="${context_path eq '228'}">
 <input type="hidden" name="exprire_date_cnt" value="3"/>
 </c:if>
-
+<c:if test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english'}">
+<input type="hidden" name="exprire_date_cnt" value="7"/>
+</c:if>
 <div class="delibery_info">
 
 	<div class="" style="padding:10px 0;font-size:120%">(<span style="color:red;font-weight:bold;">*</span>) 항목은 필수 입력값입니다.</div>
@@ -96,7 +98,7 @@
 				<td class="left">${detail.LIB_NAME}</td>
 			 </tr>
 			<c:choose>
-			<c:when test="${homepage.context_path eq 'dmsl'}">
+			<c:when test="${context_path eq 'dmsl'}">
 			<input type="hidden" name="worker" id="worker" value="DMSL0011"/>
 			</c:when>
 			<c:otherwise>
@@ -104,11 +106,15 @@
 				<th>수령장소</th>
 				<td class="left">
 					<form:select path="worker" style="border:1px solid #c9c9c9;border-radius:4px;height:30px">
-						<c:if test="${homepage.context_path eq 'jungang'}">
+						<c:if test="${context_path eq 'jungang'}">
 						<form:option value="SUB01">반월당역 예약대출기</form:option>
 						</c:if>
-						<c:if test="${homepage.context_path eq '228'}">
+						<c:if test="${context_path eq '228'}">
 						<form:option value="DBECOBOXLIB01">예약대출기</form:option>
+						</c:if>
+						<c:if test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english'}">
+						<form:option value="DSSUB02">용산역</form:option>
+						<form:option value="DSSUB01">상인역</form:option>
 						</c:if>
 					</form:select>
 				</td>

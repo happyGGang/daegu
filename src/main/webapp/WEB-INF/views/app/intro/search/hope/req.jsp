@@ -5,6 +5,28 @@
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
 <script type="text/javascript">
 $(function() {
+	<c:if test="${context_path eq 'beomeo'}">
+		$("#manageCode").val("BD").prop("selected", true);
+	</c:if>
+	<c:if test="${context_path eq 'yonghak'}">
+		$("#manageCode").val("BE").prop("selected", true);
+	</c:if>
+	<c:if test="${context_path eq 'gosan'}">
+		$("#manageCode").val("BF").prop("selected", true);
+	</c:if>
+	<c:if test="${context_path eq 'bookforest'}">
+		$("#manageCode").val("BJ").prop("selected", true);
+	</c:if>
+	<c:if test="${context_path eq 'mulmangi'}">
+		$("#manageCode").val("BK").prop("selected", true);
+	</c:if>
+	<c:if test="${context_path eq 'padong'}">
+		$("#manageCode").val("BG").prop("selected", true);
+	</c:if>
+	<c:if test="${context_path eq 'muhaksup'}">
+		$("#manageCode").val("BH").prop("selected", true);
+	</c:if>
+
 	$('#save-btn').on('click', function(e) {
 
 		if ($('input#price').val() != '') {
@@ -137,45 +159,16 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
 
-				<c:when test="${context_path eq 'beomeo'}">
+				<c:when test="${context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol'}">
 				<form:select path="manageCode">
 					<form:option value="BD">범어도서관</form:option>
-				</form:select> 
-				</c:when>
-				<c:when test="${context_path eq 'yonghak'}">
-				<form:select path="manageCode">
 					<form:option value="BE">용학도서관</form:option>
-				</form:select> 
-				</c:when>
-				<c:when test="${context_path eq 'gosan'}">
-				<form:select path="manageCode">
 					<form:option value="BF">고산도서관</form:option>
-				</form:select>
-				</c:when>
-				<c:when test="${context_path eq 'bookforest'}">
-				<form:select path="manageCode">
 					<form:option value="BJ">책숲길도서관</form:option>
-				</form:select>
-				</c:when>
-				<c:when test="${context_path eq 'mulmangi'}">
-				<form:select path="manageCode">
 					<form:option value="BK">물망이도서관</form:option>
-				</form:select> 
-				</c:when>
-				<c:when test="${context_path eq 'padong'}">
-				<form:select path="manageCode">
 					<form:option value="BG">파동도서관</form:option>
-				</form:select> 
-				</c:when>
-				<c:when test="${context_path eq 'muhaksup'}">
-				<form:select path="manageCode">
 					<form:option value="BH">무학숲도서관</form:option>
-				</form:select> 
-				</c:when>
-				<c:when test="${context_path eq 'sawol'}">
-				<form:select path="manageCode">
-					<form:option value="FG">사월역작은도서관</form:option>
-				</form:select>
+				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
 
 				<c:when test="${context_path eq 'junggu'}">
@@ -189,7 +182,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 					<form:option value="HF">대봉2동작은도서관</form:option>
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
-
+				
 				<c:when test="${context_path eq 'seogulib'}">
 				<form:select path="manageCode">
 					<form:option value="BL">서구어린이도서관</form:option>
