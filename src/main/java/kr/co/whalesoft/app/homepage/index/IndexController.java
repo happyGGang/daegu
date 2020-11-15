@@ -396,7 +396,7 @@ public class IndexController extends BaseController {
 		model.addAttribute("quickMenuList", quickMenuService.getQuickMenuListAll(new QuickMenu(homepage.getHomepage_id())));
 
 		//강좌목록
-		String[] teachHomepage = {"h7", "h45"};
+		String[] teachHomepage = {"h7", "h45", "h35", "h36"};
 		for (String th: teachHomepage ) {
 			if (homepage.getHomepage_id().equals(th)) {
 				Teach t = new Teach();

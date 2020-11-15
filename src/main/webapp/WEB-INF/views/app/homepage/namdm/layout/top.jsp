@@ -19,7 +19,7 @@
 
 			<div class="search-box">
 				<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
-					<input type="hidden" name="menu_idx" value="13">
+					<input type="hidden" name="menu_idx" value="9">
 					<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
 					<fieldset>
 

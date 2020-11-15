@@ -268,60 +268,27 @@ Date.prototype.format = function(f) {
 
 		<div class="planView">
 			<div class="inbox">
-			<!--
-				<c:forEach var="i" items="${calendarResult}" varStatus="status">
-					<div id="${i.key}" class="calAll" style="display: none;">
-						<dl>
-							<dt>${calendar.plan_date}-${fn:length(i.key) == 1 ? '0' : ''}${i.key}</dt>
-						</dl>
-						<c:forEach var="count" begin="0" end="${fn:length(i.value)}">
-							<c:choose>
-								<c:when test="${fn:length(i.value[count]) > 19}">
-									<c:out value="${fn:substring(i.value[count], 0, 19)}"/>...
-								</c:when>
-								<c:otherwise>
-									<c:out value="${i.value[count]}"/>
-								</c:otherwise>
-							</c:choose>
-							<c:if test="${count < fn:length(i.value)}">
-								</br>
-							</c:if>
-						</c:forEach>
-					</div>
-				</c:forEach>
-			-->
 				<ul>
-
-					<li>
-						<dl>
-							<dt>강좌</dt>
-							<dd>행복한 시낭송</dd>
-						</dl>
-					</li>
-
-					<li>
-						<dl>
-							<dt>강좌</dt>
-							<dd>멋진 글씨 쓰기 캘리그라피</dd>
-						</dl>
-					</li>
-
-					<li>
-						<dl>
-							<dt>강좌</dt>
-							<dd>행복한 시낭송</dd>
-						</dl>
-					</li>
-
-					<li>
-						<dl>
-							<dt>강좌</dt>
-							<dd>멋진 글씨 쓰기 캘리그라피</dd>
-						</dl>
-					</li>
-
+					<c:set var="today" value="${fn:split(currDate, '.')[2]}"></c:set>
+					<c:forEach var="i" items="${calendarResult[today]}" varStatus="status">
+						<li>
+							<dl>
+								<c:set var="ty" value="${fn:split(i, ']')}"></c:set>
+								<dt>${ty[0]}]</dt>
+								<dd>${ty[1]}</dd>
+							</dl>
+						</li>
+					</c:forEach>
+					<c:if test="${fn:length(calendarResult[today]) < 1}">
+						<li>
+							<dl>
+								<dt></dt>
+								<dd>일정이 없습니다.</dd>
+							</dl>
+						</li>
+					</c:if>
 				</ul>
-			<br/>
+			</div>
 
 			</div>
 		</div>

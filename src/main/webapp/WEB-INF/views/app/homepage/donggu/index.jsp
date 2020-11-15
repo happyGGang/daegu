@@ -200,7 +200,7 @@ do {
 					</div>
 					<div class="con">
 						<ul>
-							<c:forEach items="${teachList}" var="i" varStatus="status">
+							<c:forEach items="${teachList}" var="i" varStatus="status" begin="0" end="3">
 								<c:choose>
 									<c:when test="${status.index == 0}">
 										<li class="on-cont">
@@ -306,12 +306,15 @@ do {
 						<ul class="book_photo">
 							<c:forEach items="${bookList1}" var="i" varStatus="status">
 								<li>
-									<a href="">
+									<a href="/${homepage.context_path}/board/view.do?menu_idx=90&manage_idx=611&board_idx=${i.board_idx}">
 									<span class="con-image">
 										<c:choose>
 											<c:when test="${i.preview_img ne null}">
 												<c:choose>
 													<c:when test="${fn:contains(i.preview_img, 'http')}">
+														<img src="${i.preview_img}" alt="${i.title}" />
+													</c:when>
+													<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
 														<img src="${i.preview_img}" alt="${i.title}" />
 													</c:when>
 													<c:otherwise>
@@ -335,12 +338,15 @@ do {
 						<ul class="book_photo">
 							<c:forEach items="${bookList2}" var="i" varStatus="status">
 								<li>
-									<a href="">
+									<a href="/${homepage.context_path}/board/view.do?menu_idx=91&manage_idx=612&board_idx=${i.board_idx}">
 									<span class="con-image">
 										<c:choose>
 											<c:when test="${i.preview_img ne null}">
 												<c:choose>
 													<c:when test="${fn:contains(i.preview_img, 'http')}">
+														<img src="${i.preview_img}" alt="${i.title}" />
+													</c:when>
+													<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
 														<img src="${i.preview_img}" alt="${i.title}" />
 													</c:when>
 													<c:otherwise>
