@@ -87,7 +87,7 @@ do {
 
 
 		$('div#holiday-box').load('calendar3.do');
-		$('ul.newBookUl').load('newBook.do');
+		$('ul.book_photo').eq(1).load('newBook.do');
 		$('ul.bestBookUl').load('bestBook.do');
 
 		$('#main-search-btn').on('click', function() {
@@ -141,86 +141,45 @@ do {
 
 					<div class="book-box tabS">
 						<ul class="tabMenuS">
-							<li class="on"><a href="#tab1" class='t-tabs'>추천도서</a></li>
-							<li><a href="#tab2" class='t-tabs'>신착도서</a></li>
+							<li class="on"><a href="#tab1" class='t-tabs' data-link="/${homepage.context_path}/board/index.do?menu_idx=13&manage_idx=683">추천도서</a></li>
+							<li><a href="#tab2" class='t-tabs' data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=10">신착도서</a></li>
 						</ul>
-						<a href="#" class="btn-more btn-w btn-more_right20 top35">더보기</a>
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=13&manage_idx=683" class="btn-more btn-w btn-more_right20 top35">더보기</a>
 
 						<div class="box con" data-tab="tab1">
 							<ul class="book_photo">
-								
-								<li>
-									<a href="">
-										<span class="con-image">
-											<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. 상세보기"/>
-										</span>
-										<span class="con-title">1진정성 마케팅 ...</span>
-									</a>
-								</li>
-								<li>
-									<a href="">
-										<span class="con-image">
-											<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. 상세보기"/>
-										</span>
-										<span class="con-title">주식회사 히어로즈 : ...</span>
-									</a>
-								</li>
-								<li>
-									<a href="">
-										<span class="con-image">
-											<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. 상세보기"/>
-										</span>
-										<span class="con-title">1진정성 마케팅 ...</span>
-									</a>
-								</li>
-								<li>
-									<a href="">
-										<span class="con-image">
-											<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. 상세보기"/>
-										</span>
-										<span class="con-title">주식회사 히어로즈 : ...</span>
-									</a>
-								</li>
-
+								<c:forEach items="${bookList1}" var="i" varStatus="status">
+									<li>
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=13&manage_idx=683&board_idx=${i.board_idx}">
+									<span class="con-image">
+										<c:choose>
+											<c:when test="${i.preview_img ne null}">
+												<c:choose>
+													<c:when test="${fn:contains(i.preview_img, 'http')}">
+														<img src="${i.preview_img}" alt="${i.title}" />
+													</c:when>
+													<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+														<img src="${i.preview_img}" alt="${i.title}" />
+													</c:when>
+													<c:otherwise>
+														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+													</c:otherwise>
+												</c:choose>
+											</c:when>
+											<c:otherwise>
+												<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
+											</c:otherwise>
+										</c:choose>
+									</span>
+											<span class="con-title">${i.title}</span>
+										</a>
+									</li>
+								</c:forEach>
 							</ul>
 						</div>
 
 						<div class="box con" data-tab="tab2" style="display:none;">
 							<ul class="book_photo">
-								
-								<li>
-									<a href="">
-										<span class="con-image">
-											<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. 상세보기"/>
-										</span>
-										<span class="con-title">2진정성 마케팅 : 끌리...</span>
-									</a>
-								</li>								
-								<li>
-									<a href="">
-										<span class="con-image">
-											<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. 상세보기"/>
-										</span>
-										<span class="con-title">주식회사 히어로즈 : ...</span>
-									</a>
-								</li>
-								<li>
-									<a href="">
-										<span class="con-image">
-											<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. 상세보기"/>
-										</span>
-										<span class="con-title">2진정성 마케팅 : 끌리...</span>
-									</a>
-								</li>								
-								<li>
-									<a href="">
-										<span class="con-image">
-											<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. 상세보기"/>
-										</span>
-										<span class="con-title">주식회사 히어로즈 : ...</span>
-									</a>
-								</li>
-
 							</ul>
 						</div>
 
@@ -230,7 +189,7 @@ do {
 				<div class="center-box">
 					<div class="search-box">
 						<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
-							<input type="hidden" name="menu_idx" value="13">
+							<input type="hidden" name="menu_idx" value="9">
 							<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
 							<fieldset>
 								<legend>자료검색</legend>
@@ -246,36 +205,27 @@ do {
 						</form>
 
 						<div class="bestKeyword">
-							<b>자주찾는 검색어</b> <span class="key-word"><a href="">아몬드</a>   <a href="">수학도둑</a>   <a href="">내일은 실험왕</a></span>      
+							<b>자주찾는 검색어</b> <span class="key-word">
+							<c:forEach items="${hotTrendList}" varStatus="status" var="i">
+								<a href="/${homepage.context_path}/intro/search/index.do?menu_idx=9&booktype=BOOKANDNONBOOKtitle=${fn:escapeXml(i.SEARCH_WORD)}">${fn:trim(i.SEARCH_WORD)}</a>
+							</c:forEach>
+							</span>
 						</div>
 					</div>
 
 					<div class="notice-box">
 						<h2>공지사항</h2>
-						<a href="#" class="btn-more btn-b btn-more_right20 top30">더보기</a>
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=689" class="btn-more btn-b btn-more_right20 top30">더보기</a>
 						<div class="cont">
 							<ul>
-
-								<li>
-								<a href="#"><em class="noti">공지</em>문화가 있는 날, 두배로 대출데이! (추석연휴로 인해 날짜 변경)<span>2020-09-01</span></a>
-								</li>
-								
-								<li>
-								<a href="#"><em class="noti">공지</em>2020년 "9월 독서의 달" 행사 축소 운영<span>2020-08-26</span></a>
-								</li>
-								
-								<li>
-								<a href="#"><em class="">공지</em>‘사회적거리두기 2단계’격상에 따른 안동시립도서관 부분개관 변경 운영<span>2020-08-22</span></a>
-								</li>
-								
-								<li>
-								<a href="#"><em class="">공지</em>안동시립중앙도서관 기간제근로자(도서관 운영보조) 채용 공고<span>2020-08-19</span></a>
-								</li>
-								
-								<li>
-								<a href="#"><em class="">공지</em>‘사회적거리두기 2단계’격상에 따른 안동시립도서관 부분개관 변경 운영<span>2020-08-22</span></a>
-								</li>
-
+								<c:forEach items="${noticeList}" var="i" varStatus="status">
+									<li>
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=689&board_idx=${i.board_idx}">
+											<em class="${i.notice_yn eq 'Y' ? 'noti' : ''}">공지</em>${i.title}
+											<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd" /></span>
+										</a>
+									</li>
+								</c:forEach>
 							</ul>
 						</div>
 					</div>
@@ -307,21 +257,35 @@ do {
 
 						<div class="movieContent">
 							<ul>
-								<li>
-									<a href="#">
-										<!-- 상영일 처리 -->
-										<span class="view-date">
-											08/31
-										</span>
+								<c:forEach var="i" varStatus="status" items="${movieList}" >
+									<li>
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=34&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+											<span class="view-date">
+												${fn:split(i.imsi_v_1, '-')[1]}/${i.imsi_v_2}
+											</span>
 
-										<span class="movieImg">
-											<img src="https://image.aladin.co.kr/product/1561/64/cover/8983946946_1.jpg" alt="광고의 비밀 : 왜 자꾸 사고 싶을까?" class="book_img"/>
-										</span>
-
-										<span class="movieEx1">광고의 비밀 : 왜 자...</span>
-										<span class="movieEx2">전체관람가</span>
-									</a>
-								</li>
+											<span class="movieImg">
+												<c:choose>
+													<c:when test="${i.preview_img ne null}">
+														<c:choose>
+															<c:when test="${fn:contains(i.preview_img, 'http')}">
+																<img src="${i.preview_img}" alt="${i.title}" class="book_img"/>
+															</c:when>
+															<c:otherwise>
+																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" class="book_img"/>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<img src="/resources/common/img/noImg2.png" alt="${i.title}" class="book_img">
+													</c:otherwise>
+												</c:choose>
+											</span>
+											<span class="movieEx1">${i.title}</span>
+											<span class="movieEx2">${i.imsi_v_12}</span>
+										</a>
+									</li>
+								</c:forEach>
 							</ul>
 						</div>
 
@@ -359,38 +323,78 @@ do {
 						<div class="box cont" data-tab="tab1">
 
 							<ul>
-
-								<li>
-									<a href="#"><em>접수중</em>[동화구연] 도서관에서 만나는 그림책 이야기이야기이야기이야기이야기이야기이야기이야기<br class="qmobileBr"/><span><b>접수</b> 2020-08-20 ~ 2020-09-15</span></a>
-								</li>
-
-								<li>
-									<a href="#"><em>대기</em>[동화구연] 도서관에서 만나는 그림책 이야기<br class="qmobileBr"/><span><b>접수</b> 2020-08-20 ~ 2020-09-15</span></a>
-								</li>
-
-								<li>
-									<a href="#"><em>마감</em>[동화구연] 도서관에서 만나는 그림책 이야기<br class="qmobileBr"/><span><b>접수</b> 2020-08-20 ~ 2020-09-15</span></a>
-								</li>
-
+								<c:forEach items="${teachList1}" var="i" varStatus="status" begin="0" end="2">
+									<li>
+										<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=32&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}">
+											<c:if test="${i.teach_status eq '0'}">
+												<em>접수중</em>
+											</c:if>
+											<c:if test="${i.teach_status eq '1'}">
+												<em>대기</em>
+											</c:if>
+											<c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}">
+												<em>접수중</em>
+											</c:if>
+											<c:if test="${i.teach_status eq '3'}">
+												<em>접수중</em>
+											</c:if>
+											<c:if test="${i.teach_status eq '9'}">
+												<em>마감</em>
+											</c:if>
+											<c:if test="${i.teach_status eq '4'}">
+												<em>마감</em>
+											</c:if>
+											<c:if test="${i.teach_status eq '5'}">
+												<em>마감</em>
+											</c:if>
+											<c:if test="${i.teach_status eq '6'}">
+												<em>마감</em>
+											</c:if>
+											${i.teach_name}
+											<br class="qmobileBr"/>
+											<span><b>접수</b> ${i.start_join_date} ~ ${i.end_join_date}</span>
+										</a>
+									</li>
+								</c:forEach>
 							</ul>
 
 						</div>
 
 						<div class="box cont" data-tab="tab2" style="display:none;">
 							<ul>
-
-								<li>
-									<a href="#"><em>마감</em>[동화구연] 도서관에서 만나는 그림책 이야기<br class="qmobileBr"/><span><b>접수</b> 2020-08-20 ~ 2020-09-15</span></a>
-								</li>
-
-								<li>
-									<a href="#"><em>접수중</em>[동화구연] 도서관에서 만나는 그림책 이야기이야기이야기이야기이야기이야기이야기이야기<br class="qmobileBr"/><span><b>접수</b> 2020-08-20 ~ 2020-09-15</span></a>
-								</li>
-
-								<li>
-									<a href="#"><em>대기</em>[동화구연] 도서관에서 만나는 그림책 이야기<br class="qmobileBr"/><span><b>접수</b> 2020-08-20 ~ 2020-09-15</span></a>
-								</li>
-
+								<c:forEach items="${teachList2}" var="i" varStatus="status" begin="0" end="2">
+									<li>
+										<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=32&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}">
+											<c:if test="${i.teach_status eq '0'}">
+												<em>접수중</em>
+											</c:if>
+											<c:if test="${i.teach_status eq '1'}">
+												<em>대기</em>
+											</c:if>
+											<c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}">
+												<em>접수중</em>
+											</c:if>
+											<c:if test="${i.teach_status eq '3'}">
+												<em>접수중</em>
+											</c:if>
+											<c:if test="${i.teach_status eq '9'}">
+												<em>마감</em>
+											</c:if>
+											<c:if test="${i.teach_status eq '4'}">
+												<em>마감</em>
+											</c:if>
+											<c:if test="${i.teach_status eq '5'}">
+												<em>마감</em>
+											</c:if>
+											<c:if test="${i.teach_status eq '6'}">
+												<em>마감</em>
+											</c:if>
+												${i.teach_name}
+											<br class="qmobileBr"/>
+											<span><b>접수</b> ${i.start_join_date} ~ ${i.end_join_date}</span>
+										</a>
+									</li>
+								</c:forEach>
 							</ul>
 						</div>
 

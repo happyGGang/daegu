@@ -395,6 +395,19 @@ public class IndexController extends BaseController {
 		model.addAttribute("popupZoneList", popupZoneService.getPopupZoneAll(new PopupZone(homepage.getHomepage_id())));
 		model.addAttribute("quickMenuList", quickMenuService.getQuickMenuListAll(new QuickMenu(homepage.getHomepage_id())));
 
+		//인기검색어
+		String[] trendHomepage = {"h44"};
+		for (String th: trendHomepage ) {
+			Map<String, Object> hotTrendWordList = LibSearchAPI.getHotTrendWordList(homepage.getManage_code());
+
+			int count = LibSearchAPI.getSearchCount(hotTrendWordList);
+
+			if ( count > 0 ) {
+				model.addAttribute("hotTrendList", LibSearchAPI.getListData(hotTrendWordList));
+			}
+		}
+
+
 		//강좌목록
 		String[] teachHomepage = {"h7", "h45", "h35", "h36"};
 		for (String th: teachHomepage ) {
@@ -402,6 +415,19 @@ public class IndexController extends BaseController {
 				Teach t = new Teach();
 				t.setHomepage_id(homepage.getHomepage_id());
 				model.addAttribute("teachList", teachService.getTeachListForUser(t));
+			}
+		}
+
+		//강좌목록2
+		String[] teachHomepage2 = {"h44"};
+		for (String th: teachHomepage2 ) {
+			if (homepage.getHomepage_id().equals(th)) {
+				Teach t = new Teach();
+				t.setHomepage_id(homepage.getHomepage_id());
+				t.setSearchCate1("16");
+				model.addAttribute("teachList1", teachService.getTeachListForUser(t));
+				t.setSearchCate1("17");
+				model.addAttribute("teachList2", teachService.getTeachListForUser(t));
 			}
 		}
 
