@@ -20,12 +20,16 @@ a:focus{color:#2b74c0}
 
 h1.web-logo a {display:block;background:url('/resources/homepage/bukgs/img/bukgs_logo_b.png') no-repeat center center;width:230px;height:45px;font-size:0;}
 h1.mobile-logo {display:none;width:230px;height:45px;}
+.Gnb .g-menu a.last-box_w{display:none;}
+.Gnb .g-menu a.last-box_b{display:block;}
 
 #header.background-white .libSite ul li a {color:#fff;}
 #header.background-white .libSite ul li.on a {background:#fff;color:#000;font-weight:bold;}
 #header.background-white .tnb .util a {color:#fff;}
 #header.background-white .tnb .util b {color:#fff;}
 #header.background-white h1.web-logo a {display:block;background:url('/resources/homepage/bukgs/img/bukgs_logo.png') no-repeat center center;}
+#header.background-white .Gnb .g-menu a.last-box_w{display:block;}
+#header.background-white .Gnb .g-menu a.last-box_b{display:none;}
 #header.background-white .Gnb .gnb-menu > li > a{color:#fff;}
 
 #header .head {position:relative;z-index:20;clear:both}
@@ -38,9 +42,10 @@ h1.mobile-logo {display:none;width:230px;height:45px;}
 /* Gnb */
 .Gnb {clear:both;text-align:center;width:100%;height:63px;padding-top:20px;padding-bottom:20px;overflow:inherit;position:relative;border-top:1px solid #ccc;}
 .Gnb .g-menu {position:relative;}
+.Gnb .g-menu a.last-box_b, .Gnb .g-menu a.last-box_w{position:absolute;right:0;top:21px;}
 .Gnb .gnb-menu {position:relative;text-align:right;}
-.Gnb .gnb-menu > li{padding:0 1.8%;;text-align:right;position:static}
-.Gnb .gnb-menu>li:last-child{padding-right:0}
+.Gnb .gnb-menu > li{padding:0 1.8%;text-align:right;position:static}
+.Gnb .gnb-menu>li:last-child{padding-right:50px;}
 .Gnb .gnb-menu>li>a{padding:10px 0;line-height:43px;height:43px;font-size:18px;color:#000;font-weight:bold;}
 .Gnb .gnb-menu>li>ul{display:none;background:#666;border:0;left:0;white-space:nowrap;text-align:right}
 .Gnb .gnb-menu>li.active>ul{display:block}
@@ -54,6 +59,7 @@ h1.mobile-logo {display:none;width:230px;height:45px;}
 .Gnb .gnb-menu>li.menu1>ul,
 .Gnb .gnb-menu>li.menu2>ul,
 .Gnb .gnb-menu>li.menu3>ul{text-align:center}
+.Gnb .gnb-menu>li.menu3>ul{margin-left:150px;}
 .Gnb .mask,
 .Gnb .gnb-menu>li>ul{background: #333;}
 .Gnb .gnb-menu>li.on>a,
@@ -152,8 +158,8 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 @media all and (max-width:1024px){
 	.tnb {height:65px;padding:10px 0;}
 
-	h1.mobile-logo {display:block;margin:0;padding:0 0 0 10px;}
-	h1.mobile-logo a {display:block;background:url('/resources/homepage/bukgs/img/bukgs_logo.png') no-repeat center center;width:230px;height:45px;font-size:0;}
+	h1.mobile-logo {display:block;width:200px;height:40px;margin-top:2px;padding:0 0 0 10px;}
+	h1.mobile-logo a {display:block;background:url('/resources/homepage/bukgs/img/bukgs_logo.png') no-repeat center center;background-size:100% !important;width:200px;height:40px;font-size:0;}
 }
 
 @media all and (max-width:767px){

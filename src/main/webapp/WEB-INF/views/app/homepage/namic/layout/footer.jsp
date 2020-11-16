@@ -8,17 +8,17 @@
 			<div class="section">
 				<div class="foot-info">
 					<div class="info">
-						<a href="/${homepage.context_path}/html.do?menu_idx=90">도서관서비스헌장</a>
+						<a href="/${homepage.context_path}/html.do?menu_idx=78">도서관서비스헌장</a>
 						<span class="bar">|</span>
-						<a href="/${homepage.context_path}/html.do?menu_idx=86"><b>개인정보처리방침</b></a>
+						<a href="/${homepage.context_path}/html.do?menu_idx=75"><b>개인정보처리방침</b></a>
 						<span class="bar">|</span>
-						<a href="/${homepage.context_path}/html.do?menu_idx=89">어린이헌장</a>
+						<a href="/${homepage.context_path}/html.do?menu_idx=92">어린이헌장</a>
 						<span class="bar">|</span>
-						<a href="/${homepage.context_path}/html.do?menu_idx=91">저작권신고</a>
+						<a href="/${homepage.context_path}/html.do?menu_idx=79">저작권신고</a>
 						<span class="bar">|</span>
-						<a href="/${homepage.context_path}/html.do?menu_idx=88">영상정보처리방침</a>
+						<a href="/${homepage.context_path}/html.do?menu_idx=76">영상정보처리방침</a>
 						<span class="bar">|</span>
-						<a href="/${homepage.context_path}/html.do?menu_idx=94">뷰어다운로드</a>
+						<a href="/${homepage.context_path}/html.do?menu_idx=80">뷰어다운로드</a>
 					</div>
 				</div>
 			</div>
@@ -29,11 +29,11 @@
 				<address>
 					<p>
 						<em><b>이천어울림도서관</b> (${homepage.zipcode}) <br class="mobileBr"/>${homepage.address1}</em><br class="mobileBr"/>
-						<em>전화 ${fn:split(homepage.homepage_tell,',')[0]}</em>
-						<!--<em>/</em>
-						<em>팩스 <b>${homepage.homepage_fax }</b></em> -->
+						<em>전화 <b>${fn:split(homepage.homepage_tell,',')[0]}</b></em>
+						<em>/</em>
+						<em>팩스 <b>${homepage.homepage_fax }</b></em>
 					</p>
-					<span>COPYRIGHT (C) 이천어울림도서관, <br class="mobileBr"/>ALL RIGHTS RESERVED.</span>
+					<span>Copyright ⓒ 이천어울림도서관. All rights reserved.</span>
 				</address>
 				<div class="site_link">
 					<div>

@@ -53,9 +53,9 @@
 						<a href="/${homepage.context_path}/intro/login/logout.do">로그아웃</a>
 					</c:when>
 					<c:otherwise>
-						<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=4">통합허브시스템 로그인</a>
+						<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=69">통합허브시스템 로그인</a>
 						<span class="txt-bar"></span>
-						<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=5">회원가입</a>
+						<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=70">회원가입</a>
 					</c:otherwise>
 				</c:choose>
 			</div>

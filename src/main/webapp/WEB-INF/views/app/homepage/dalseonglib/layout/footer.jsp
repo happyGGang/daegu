@@ -66,7 +66,7 @@
 						<!--<em>/</em>
 						<em>팩스 <b>${homepage.homepage_fax }</b></em> -->
 					</p>
-					<span>Copyright © 2020 DAEGU METROPOLITAN JUNGANG LIBRARY, <br class="mobileBr"/>All rights reserved.</span>
+					<span>Copyright ⓒ 달성군립도서관. All rights reserved.</span>
 				</address>
 
 			</div>
