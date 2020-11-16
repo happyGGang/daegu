@@ -170,6 +170,15 @@ $(function() {
 				<form:input path="lib_code" cssClass="text"/>
 			</td>
 		</tr>
+		<tr>
+			<th>타입</th>
+			<td>
+				<form:select path="temp_use_yn">
+					<form:option value="Y" label="검색대+홈페이지"></form:option>
+					<form:option value="N" label="검색대"></form:option>
+				</form:select>
+			</td>
+		</tr>
 		<c:if test="${sessionScope.member.admin}">
 		<tr>
 			<th>출력순서</th>

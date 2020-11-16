@@ -792,4 +792,7 @@ public class BoardService extends BaseService {
 		}
 	}
 
+	public List<Board> getSubBoardByMain(Board board) {
+		return dao.getSubBoardByMain(board);
+	}
 }

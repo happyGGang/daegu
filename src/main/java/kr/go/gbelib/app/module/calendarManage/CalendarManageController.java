@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -54,6 +55,8 @@ public class CalendarManageController extends BaseController {
 	@Autowired
 	private RecommendSiteService recommendSiteService;
 
+	@Autowired
+	private HomepageService homepageService;
 
 	@ModelAttribute("recommendSiteList")
 	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
@@ -62,10 +65,24 @@ public class CalendarManageController extends BaseController {
 	}
 
 	@RequestMapping(value = {"/index.*"})
-	public String index(Model model, CalendarManage calendarManage, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String index(Model model, CalendarManage calendarManage, HttpServletRequest request) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
-		calendarManage.setHomepage_id(homepage.getHomepage_id());
+		if ((homepage.getHomepage_id().equals("h37") || homepage.getHomepage_id().equals("h49") || homepage.getHomepage_id().equals("h45") || homepage.getHomepage_id().equals("h53"))) {
+			Homepage h = new Homepage();
+			h.setHomepage_id(homepage.getHomepage_id());
+			h.setHomepage_group(homepage.getHomepage_id());
+			h.setTemp_use_yn("Y");
+			List<Homepage> subHomepageList = homepageService.getSubHomepageList(h);
+			if (StringUtils.isEmpty(calendarManage.getHomepage_id())) {
+				if (subHomepageList != null && subHomepageList.size() > 0) {
+					calendarManage.setHomepage_id(subHomepageList.get(0).getHomepage_id());
+				}
+			}
+			model.addAttribute("subHomepageList", subHomepageList);
+		} else {
+			calendarManage.setHomepage_id(homepage.getHomepage_id());
+		}
 
 		if(calendarManage.getPlan_date() == null || calendarManage.getPlan_date().equals("")) {
 			calendarManage.setPlan_date(new SimpleDateFormat("yyyy-MM").format(new Date()));
@@ -74,6 +91,9 @@ public class CalendarManageController extends BaseController {
 		Board board = new Board();
 		board.setHomepage_id(homepage.getHomepage_id());
 		board.setImsi_v_1(calendarManage.getPlan_date());
+		if (!StringUtils.equals(homepage.getHomepage_id(), calendarManage.getHomepage_id())) {
+			board.setCategory5(calendarManage.getHomepage_id());
+		}
 
 		model.addAttribute("moveList", boardService.getBoardMovie(board));
 		model.addAttribute("calendarList", service.getCalendar(calendarManage));
@@ -91,7 +111,21 @@ public class CalendarManageController extends BaseController {
 	public String indexList(Model model, CalendarManage calendarManage, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
-		calendarManage.setHomepage_id(homepage.getHomepage_id());
+		if ((homepage.getHomepage_id().equals("h37") || homepage.getHomepage_id().equals("h49") || homepage.getHomepage_id().equals("h45") || homepage.getHomepage_id().equals("h53"))) {
+			Homepage h = new Homepage();
+			h.setHomepage_id(homepage.getHomepage_id());
+			h.setHomepage_group(homepage.getHomepage_id());
+			h.setTemp_use_yn("Y");
+			List<Homepage> subHomepageList = homepageService.getSubHomepageList(h);
+			if (StringUtils.isEmpty(calendarManage.getHomepage_id())) {
+				if (subHomepageList != null && subHomepageList.size() > 0) {
+					calendarManage.setHomepage_id(subHomepageList.get(0).getHomepage_id());
+				}
+			}
+			model.addAttribute("subHomepageList", subHomepageList);
+		} else {
+			calendarManage.setHomepage_id(homepage.getHomepage_id());
+		}
 
 		if(calendarManage.getPlan_date() == null || calendarManage.getPlan_date().equals("")) {
 			calendarManage.setPlan_date(new SimpleDateFormat("yyyy-MM").format(new Date()));
@@ -100,6 +134,9 @@ public class CalendarManageController extends BaseController {
 		Board board = new Board();
 		board.setHomepage_id(homepage.getHomepage_id());
 		board.setImsi_v_1(calendarManage.getPlan_date());
+		if (!StringUtils.equals(homepage.getHomepage_id(), calendarManage.getHomepage_id())) {
+			board.setCategory5(calendarManage.getHomepage_id());
+		}
 
 		model.addAttribute("moveList", boardService.getBoardMovie(board));
 		model.addAttribute("calendarList", service.getCalendar(calendarManage));

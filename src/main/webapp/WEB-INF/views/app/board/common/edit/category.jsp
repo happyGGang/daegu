@@ -33,3 +33,13 @@
 	</td>
 </tr>
 </c:if>
+<c:if test="${fn:length(subHomepageList) > 0}">
+	<tr>
+		<th>도서관</th>
+		<td colspan="3">
+			<form:select path="category5" cssStyle="width:160px;" cssClass="selectmenu">
+				<form:options itemLabel="homepage_name" itemValue="homepage_id" items="${subHomepageList}"/>
+			</form:select>
+		</td>
+	</tr>
+</c:if>

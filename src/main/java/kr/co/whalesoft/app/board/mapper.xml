@@ -1493,6 +1493,9 @@
 								AND homepage_id = #{homepage_id}
 								AND DELETE_YN = 'N'
 								)
+			<if test="category5 != null and category5 != ''">
+			AND category5 = #{category5}
+			</if>
 			) a
 	</select>
 
@@ -2036,4 +2039,28 @@
 		and imsi_v_17 is not null
 		and board_idx = #{board_idx}
 	</update>
+
+	<select id="getSubBoardByMain" resultType="kr.co.whalesoft.app.board.Board">
+		${pagingTop}
+		SELECT
+		TRUNC(TO_CHAR(SYSDATE,'yyyyMMdd')) - TRUNC(TO_CHAR(add_date,'yyyyMMdd')) AS date_gap,
+		(select new_date_count from CMS_BOARD_MANAGE where manage_idx = #{manage_idx}) AS new_date_count,
+		manage_idx, board_idx, group_idx, view_count, notice_yn,
+		title, add_id, add_date, preview_img, REGEXP_REPLACE(content_summary,'&lt;[^>]*>','') as content_summary,
+		imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5,
+		imsi_v_6, imsi_v_7, imsi_v_8, imsi_v_9, imsi_v_10,
+		NVL((SELECT homepage_alias FROM CMS_HOMEPAGE b where A.category5 = b.homepage_id), '전체') AS category5_name,
+		category5
+		FROM
+			CMS_BOARD A
+		WHERE
+		manage_idx = #{manage_idx}
+		AND	delete_yn = 'N'
+		<if test="category5 != null and category5 != ''">
+			AND category5 = #{category5}
+		</if>
+		ORDER BY board_idx DESC
+		${pagingBottom}
+
+	</select>
 </mapper>

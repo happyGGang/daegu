@@ -9,6 +9,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -75,12 +77,27 @@ public class StudentController extends BaseController {
 	@Autowired
 	private TermsService termsService;
 
+	@Autowired
+	private HomepageService homepageService;
+
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, Student student, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 //		if ( !getSessionIsAdmin(request) ) {
-			student.setHomepage_id(getAsideHomepageId(request));
+//			student.setHomepage_id(getAsideHomepageId(request));
 //		}
+		if ((getAsideHomepageId(request).equals("h37") || getAsideHomepageId(request).equals("h49") || getAsideHomepageId(request).equals("h45") || getAsideHomepageId(request).equals("h53"))) {
+			Homepage sessionHomepageInfo = getSessionHomepageInfo(request);
+			sessionHomepageInfo.setHomepage_group(getAsideHomepageId(request));
+			sessionHomepageInfo.setTemp_use_yn("Y");
+			List<Homepage> subHomepageList = homepageService.getSubHomepageList(sessionHomepageInfo);
+			if (StringUtils.isEmpty(student.getHomepage_id())) {
+				student.setHomepage_id(subHomepageList.get(0).getHomepage_id());
+			}
+			model.addAttribute("subHomepageList", subHomepageList);
+		} else {
+			student.setHomepage_id(getAsideHomepageId(request));
+		}
 		model.addAttribute("categoryGroupList", categoryGroupService.getCategoryGroupListAll(new CategoryGroup(student.getHomepage_id(), student.getLarge_category_idx())));
 		model.addAttribute("categoryList", categoryService.getCategoryListAll(new Category(student.getHomepage_id(), student.getGroup_idx(), student.getLarge_category_idx())));
 		Teach teach = new Teach(student.getHomepage_id(), student.getGroup_idx(),student.getCategory_idx());
@@ -90,7 +107,7 @@ public class StudentController extends BaseController {
 
 		TeachCode2 teachCode2 = new TeachCode2(1);
 		teachCode2.setTeach_code(15);
-		teachCode2.setHomepage_id(getAsideHomepageId(request));
+		teachCode2.setHomepage_id(student.getHomepage_id());
 		model.addAttribute("teachLargeCategoryList", teachCode2Service.getSubcategories(teachCode2));
 
 		return basePath + "index";

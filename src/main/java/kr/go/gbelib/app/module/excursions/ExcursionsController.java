@@ -2,10 +2,12 @@ package kr.go.gbelib.app.module.excursions;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,12 +54,32 @@ public class ExcursionsController extends BaseController {
 	@Autowired
 	private CalendarManageService calendarManageService;
 
+	@Autowired
+	private HomepageService homepageService;
+
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, Excursions excursions, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
-		excursions.setHomepage_id(homepage.getHomepage_id());
+//		excursions.setHomepage_id(homepage.getHomepage_id());
+
+		if ((homepage.getHomepage_id().equals("h37") || homepage.getHomepage_id().equals("h49") || homepage.getHomepage_id().equals("h45") || homepage.getHomepage_id().equals("h53"))) {
+			Homepage h = new Homepage();
+			h.setHomepage_id(homepage.getHomepage_id());
+			h.setHomepage_group(homepage.getHomepage_id());
+			h.setTemp_use_yn("Y");
+			List<Homepage> subHomepageList = homepageService.getSubHomepageList(h);
+			if (StringUtils.isEmpty(excursions.getHomepage_id())) {
+				if (subHomepageList != null && subHomepageList.size() > 0) {
+					excursions.setHomepage_id(subHomepageList.get(0).getHomepage_id());
+				}
+			}
+			model.addAttribute("subHomepageList", subHomepageList);
+		} else {
+			excursions.setHomepage_id(homepage.getHomepage_id());
+		}
+
 		if(excursions.getPlan_date() == null || excursions.getPlan_date().equals("")) {
 			excursions.setPlan_date(new SimpleDateFormat("yyyy-MM").format(new Date()));
 		}

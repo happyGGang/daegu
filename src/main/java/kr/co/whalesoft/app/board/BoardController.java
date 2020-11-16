@@ -304,6 +304,15 @@ public class BoardController extends BaseController {
 			}
 		}
 
+		if (boardManage.getBoard_type().equals("NOTICE")) {
+			Homepage h = new Homepage();
+			h.setHomepage_id(homepage.getHomepage_id());
+			h.setHomepage_group(homepage.getHomepage_group());
+			h.setTemp_use_yn("Y");
+			model.addAttribute("subHomepageList",homepageService.getSubHomepageList(h));
+		}
+
+
 		//영화게시판
 		if (boardManage.getBoard_type().equals("MOVIE")){
 			Device device = DeviceUtils.getCurrentDevice(request);
@@ -527,6 +536,12 @@ public class BoardController extends BaseController {
 			if(requestCount > 0) {
 				service.alertMessage("분실신고가 이미 등록되어 있습니다.", request, response);
 			}
+		} else if (boardManage.getBoard_type().equals("NOTICE")) {
+			Homepage h = new Homepage();
+			h.setHomepage_id(homepage.getHomepage_id());
+			h.setHomepage_group(homepage.getHomepage_group());
+			h.setTemp_use_yn("Y");
+			model.addAttribute("subHomepageList",homepageService.getSubHomepageList(h));
 		}
 		//수정일 경우
 		if(board.getEditMode().equals("MODIFY")) {

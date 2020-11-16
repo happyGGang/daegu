@@ -275,5 +275,23 @@
 		GROUP BY ROLLUP (start_date)
 		ORDER BY start_date DESC
 	</select>
+
+	<select id="getCodeName" resultType="string">
+		SELECT
+			code_name
+		FROM
+			CMS_CODE
+		WHERE
+			group_id = 'H0001'
+		AND code_id = #{date_type}
+		AND	homepage_id = (
+				SELECT
+					homepage_group
+				FROM
+					CMS_HOMEPAGE
+				WHERE
+					homepage_id = #{homepage_id}
+			)
+	</select>
 		
 </mapper>

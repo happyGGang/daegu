@@ -165,4 +165,6 @@ public interface BoardDao {
 	 * @param board
 	 */
 	public int updatePassword(Board board);
+
+	List<Board> getSubBoardByMain(Board board);
 }

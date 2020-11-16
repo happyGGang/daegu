@@ -7,6 +7,7 @@ import kr.co.whalesoft.app.cms.module.calendarStatus.CalendarStatus;
 import kr.co.whalesoft.app.cms.module.excursions.apply.Apply;
 import kr.co.whalesoft.framework.base.BaseService;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,13 @@ public class ExcursionsService extends BaseService {
 	}
 	
 	public List<Excursions> getExcursions(Excursions excursions) {
-		return Dao.getExcursions(excursions);
+		List<Excursions> list = Dao.getExcursions(excursions);
+		for (Excursions excursion : list) {
+			if (StringUtils.isEmpty(excursion.getCode_name())) {
+				excursion.setCode_name(Dao.getCodeName(excursion));
+			}
+		}
+		return list;
 	}
 	
 	public List<CalendarStatus> getExcursionsStatus(CalendarStatus calendarStatus) {

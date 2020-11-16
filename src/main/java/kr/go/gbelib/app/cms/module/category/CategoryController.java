@@ -4,6 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+
+import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.homepage.HomepageService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,7 +38,7 @@ public class CategoryController extends BaseController {
 	private CategoryGroupService categoryGroupService;
 
 	@Autowired
-	private TeachSettingService teachSettingService;
+	private HomepageService homepageService;
 
 	@Autowired
 	private TeachCode2Service teachCode2Service;
@@ -55,8 +59,22 @@ public class CategoryController extends BaseController {
 	public String index(Model model, CategoryGroup categoryGroup, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 //		if ( !getSessionIsAdmin(request) ) {
-			categoryGroup.setHomepage_id(getAsideHomepageId(request));
+//			categoryGroup.setHomepage_id(getAsideHomepageId(request));
 //		}
+
+		if ((getAsideHomepageId(request).equals("h37") || getAsideHomepageId(request).equals("h49") || getAsideHomepageId(request).equals("h45") || getAsideHomepageId(request).equals("h45"))) {
+			Homepage sessionHomepageInfo = getSessionHomepageInfo(request);
+			sessionHomepageInfo.setHomepage_group(getAsideHomepageId(request));
+			sessionHomepageInfo.setTemp_use_yn("Y");
+			List<Homepage> subHomepageList = homepageService.getSubHomepageList(sessionHomepageInfo);
+			if (StringUtils.isEmpty(categoryGroup.getHomepage_id())) {
+				categoryGroup.setHomepage_id(subHomepageList.get(0).getHomepage_id());
+			}
+			model.addAttribute("subHomepageList", subHomepageList);
+		} else {
+			categoryGroup.setHomepage_id(getAsideHomepageId(request));
+		}
+
 		int count = categoryGroupService.getCategoryGroupListCount(categoryGroup);
 		categoryGroup.setTotalDataCount(count);
 		model.addAttribute("categoryGroup", categoryGroup);

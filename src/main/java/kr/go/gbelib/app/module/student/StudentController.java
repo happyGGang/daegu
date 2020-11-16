@@ -95,7 +95,8 @@ public class StudentController extends BaseController {
 			student.setMember_key(getSessionMemberId(request));
 		}
 
-		if ( !homepage.getHomepage_id().equals("h32") ) {
+		//대표, 달서구, 동구, 서구, 중구는 제외
+		if ( !homepage.getHomepage_id().equals("h32") && !homepage.getHomepage_id().equals("h37") && !homepage.getHomepage_id().equals("h49") && !homepage.getHomepage_id().equals("h45") && !homepage.getHomepage_id().equals("h53") ) {
 			student.setHomepage_id(homepage.getHomepage_id());
 		}
 

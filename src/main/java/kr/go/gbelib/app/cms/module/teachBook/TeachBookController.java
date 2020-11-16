@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.homepage.HomepageService;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -68,12 +72,28 @@ public class TeachBookController extends BaseController {
 	@Autowired
 	private TeachCode2Service teachCode2Service;
 
+	@Autowired
+	private HomepageService homepageService;
+
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, TeachBook teachBook, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 //		if ( !getSessionIsAdmin(request) ) {
-			teachBook.setHomepage_id(getAsideHomepageId(request));
+//			teachBook.setHomepage_id(getAsideHomepageId(request));
 //		}
+
+		if ((getAsideHomepageId(request).equals("h37") || getAsideHomepageId(request).equals("h49") || getAsideHomepageId(request).equals("h45") || getAsideHomepageId(request).equals("h53"))) {
+			Homepage sessionHomepageInfo = getSessionHomepageInfo(request);
+			sessionHomepageInfo.setHomepage_group(getAsideHomepageId(request));
+			sessionHomepageInfo.setTemp_use_yn("Y");
+			List<Homepage> subHomepageList = homepageService.getSubHomepageList(sessionHomepageInfo);
+			if (StringUtils.isEmpty(teachBook.getHomepage_id())) {
+				teachBook.setHomepage_id(subHomepageList.get(0).getHomepage_id());
+			}
+			model.addAttribute("subHomepageList", subHomepageList);
+		} else {
+			teachBook.setHomepage_id(getAsideHomepageId(request));
+		}
 
 		model.addAttribute("teachBook", teachBook);
 		Teach teach = new Teach(teachBook.getHomepage_id(), teachBook.getGroup_idx(), teachBook.getCategory_idx());
@@ -85,7 +105,7 @@ public class TeachBookController extends BaseController {
 		//강좌대분류
 		TeachCode2 teachCode2 = new TeachCode2(1);
 		teachCode2.setTeach_code(15);
-		teachCode2.setHomepage_id(getAsideHomepageId(request));
+		teachCode2.setHomepage_id(teachBook.getHomepage_id());
 		model.addAttribute("teachLargeCategoryList", teachCode2Service.getSubcategories(teachCode2));
 
 		return basePath + "index";

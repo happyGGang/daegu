@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script type="text/javascript">
 $(function() {
@@ -84,7 +85,15 @@ $(function() {
 	<form:hidden path="teacher_idx"/>
 </form:form>
 <form:form id="teacherListForm"  modelAttribute="teacher" action="index.do" >
-	<form:hidden id="homepage_id_1" path="homepage_id"/>
+<%--	<form:hidden id="homepage_id_1" path="homepage_id"/>--%>
+	<c:choose>
+		<c:when test="${fn:length(subHomepageList) > 0}">
+			도서관 : <form:select id="homepage_id_1" path="homepage_id" items="${subHomepageList}" itemLabel="homepage_name" itemValue="homepage_id"></form:select>
+		</c:when>
+		<c:otherwise>
+			<form:hidden id="homepage_id_1" path="homepage_id"/>
+		</c:otherwise>
+	</c:choose>
 
 	<div class="infodesk">
 		검색 결과 : 총 ${teacherListCount}건
@@ -163,7 +172,6 @@ $(function() {
 		<fieldset>
 			<form:select path="search_type" cssClass="selectmenu">
 				<form:option value="TEACHER_NAME">강사명</form:option>
-				<form:option value="TEACHER_SEX">성별</form:option>
 				<form:option value="TEACHER_CELL_PHONE">휴대전화번호</form:option>
 			</form:select>
 			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>

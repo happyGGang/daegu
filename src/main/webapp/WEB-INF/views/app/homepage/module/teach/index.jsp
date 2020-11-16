@@ -62,6 +62,17 @@ $(function(){
 		e.preventDefault();
 	});
 
+	<c:if test="${fn:length(subHomepageList) > 0}">
+	var a = '${fn:escapeXml(teach.homepage_id)}';
+	$('div.tab_menu a[data-hid="'+a+'"]').parent().addClass('active');
+
+	$('div.tab_menu a').on('click', function(e) {
+		e.preventDefault();
+		var hid = $(this).data('hid');
+		$('input#homepage_id_1').val(hid);
+		doGetLoad('index.do', serializeCustom($('#teach')));
+	});
+	</c:if>
 });
 </script>
 <form:form modelAttribute="teach" action="/${homepage.context_path}/module/teach/student/save.do" method="POST">
@@ -71,6 +82,17 @@ $(function(){
 	<form:hidden path="category_idx"/>
 	<form:hidden path="large_category_idx"/>
 	<form:hidden path="searchCate1"/>
+	<form:hidden id="homepage_id_1" path="homepage_id"/>
+
+	<c:if test="${fn:length(subHomepageList) > 0}">
+		<div class="tab_menu on">
+			<ul class="no6">
+				<c:forEach items="${subHomepageList}" var="i" varStatus="status">
+					<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">${i.homepage_alias}</a></li>
+				</c:forEach>
+			</ul>
+		</div>
+	</c:if>
 
 	<div class="tabmenu tab1">
 		<ul>
@@ -82,7 +104,7 @@ $(function(){
 	</div>
 
 	<div style="text-align: right; margin-bottom: 20px; ">
-		<a href="anonyApplyCheck.do?menu_idx=${fn:escapeXml(param.menu_idx)}" class="btn btn1">비회원 신청확인</a>
+		<a href="anonyApplyCheck.do?homepage_id=${fn:escapeXml(teach.homepage_id)}&menu_idx=${fn:escapeXml(param.menu_idx)}" class="btn btn1">비회원 신청확인</a>
 	</div>
 
 </form:form>
