@@ -312,7 +312,7 @@ do {
 												</span>
 
 												<span class="desc">
-												${fn:substring(i.content_summary, 0, 15)}<c:if test="${fn:length(i.content_summary) > 15}">...</c:if>
+												${fn:substring(i.content_summary, 0, 80)}<c:if test="${fn:length(i.content_summary) > 80}">...</c:if>
 												</span>
 
 											</span>
