@@ -594,19 +594,23 @@ public class CommonSearchController extends BaseController {
 
 
 		Map<String, Object> subLocaInfo = LibSearchAPI.getSubLocaInfo("19", homepage.getManage_code());
-		List<Map<String, Object>> shelfList = LibSearchAPI.getListData(subLocaInfo, "LIST_DATA");
-		List<String> code_arr = newBookConfigService.getShelfCodeList(new NewBookConfig(homepage.getHomepage_id()));
-		for (Map<String, Object> map : shelfList) {
-			if(code_arr == null) {
-				break;
+		if (!"ERROR".equals(subLocaInfo.get("RESULT_INFO"))) {
+			List<Map<String, Object>> shelfList = LibSearchAPI.getListData(subLocaInfo, "LIST_DATA");
+
+			List<String> code_arr = newBookConfigService.getShelfCodeList(new NewBookConfig(homepage.getHomepage_id()));
+			for (Map<String, Object> map : shelfList) {
+				if(code_arr == null) {
+					break;
+				}
+
+				if(code_arr.contains(map.get("CODE"))) {
+					map.put("CHECKED", true);
+				}
 			}
 
-			if(code_arr.contains(map.get("CODE"))) {
-				map.put("CHECKED", true);
-			}
+			model.addAttribute("shelfList", shelfList);
 		}
 
-		model.addAttribute("shelfList", shelfList);
 
 		if (StringUtils.isEmpty(librarySearch.getShelfCode())) {
 			librarySearch.setShelfCode("ALL");
