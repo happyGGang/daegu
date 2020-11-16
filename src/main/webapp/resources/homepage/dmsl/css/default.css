@@ -22,11 +22,11 @@ a:focus{color:#2b74c0}
 .Gnb .gnb-menu{position:relative;text-align:right;padding-right:20px;}
 .Gnb .gnb-menu>li{padding:0 3%;text-align:center;position:static}
 .Gnb .gnb-menu>li>a{line-height:90px;height:90px;font-size:21px;color:#222;font-weight:bold;}
-.Gnb .gnb-menu>li>ul{display:none;background:#666;border:0;left:0;white-space:nowrap;text-align:right}
+.Gnb .gnb-menu>li>ul{display:none;background:#666;border:0;left:0;white-space:nowrap;text-align:left}
 .Gnb .gnb-menu>li.active>ul{display:block}
 .Gnb .gnb-menu>li>.SubMenu>li{width:auto;}
 .Gnb .gnb-menu>li>.SubMenu>li{display:inline-block}
-.Gnb .gnb-menu>li>.SubMenu>li>a{font-size:13px;padding:0 4px;color:#eee}
+.Gnb .gnb-menu>li>.SubMenu>li>a{font-size:14px;padding:0 5px;color:#eee}
 .Gnb .gnb-menu>li>.SubMenu>li>a:hover,
 .Gnb .gnb-menu>li>.SubMenu>li>a:focus{background:none;color: #f8bf2b;}
 .Gnb .gnb-menu>li.on>a,
@@ -37,6 +37,12 @@ a:focus{color:#2b74c0}
 .Gnb .gnb-menu>li.menu1>ul,
 .Gnb .gnb-menu>li.menu2>ul,
 .Gnb .gnb-menu>li.menu3>ul{text-align:center;}
+.Gnb .gnb-menu>li.menu1>ul{margin-left:-300px;}
+.Gnb .gnb-menu>li.menu2>ul{margin-left:-100px;}
+.Gnb .gnb-menu>li.menu3>ul{margin-left:-140px;}
+.Gnb .gnb-menu>li.menu4>ul{margin-left:450px;}
+.Gnb .gnb-menu>li.menu5>ul{margin-left:700px;}
+.Gnb .gnb-menu>li.menu6>ul{margin-left:420px;}
 .Gnb .g-menu {position:relative;}
 .Gnb .g-menu a.last-box {position:absolute;right:0;top:35px;}
 

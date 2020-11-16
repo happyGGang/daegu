@@ -292,82 +292,85 @@ do {
 					<div class="end"></div>
 				</div>
 			</div>
-
-			<div class="top-box">
-				<div class="main-section">
-					<h2 class="title"><img src="/resources/homepage/${homepage.context_path}/img/sns-title.png" alt="sns-title"></h2>
-					<div class="sns-link">
-						<ul>
-							<li><a href=""><img src="/resources/homepage/${homepage.context_path}/img/youtube-icon.png" alt="YOUTUBE"> <br class="br650"/>YOUTUBE</a></li>
-							<li><a href=""><img src="/resources/homepage/${homepage.context_path}/img/facebook-icon.png" alt="FACEBOOK"> <br class="br650"/>FACEBOOK</a></li>
-							<li><a href=""><img src="/resources/homepage/${homepage.context_path}/img/instargram-icon.png" alt="INSTAGRAM"> <br class="br650"/>INSTAGRAM</a></li>
-							<li><a href=""><img src="/resources/homepage/${homepage.context_path}/img/kakaostory-icon.png" alt="KAKAOSTORY"> <br class="br650"/>KAKAOSTORY</a></li>
-						</ul>
+			
+			<div class="main1-bottom">
+				<div class="top-box">
+					<div class="main-section">
+						<h2 class="title"><img src="/resources/homepage/${homepage.context_path}/img/sns-title.png" alt="sns-title"></h2>
+						<div class="sns-link">
+							<ul>
+								<li><a href=""><img src="/resources/homepage/${homepage.context_path}/img/youtube-icon.png" alt="YOUTUBE"> <br class="br650"/>YOUTUBE</a></li>
+								<li><a href=""><img src="/resources/homepage/${homepage.context_path}/img/facebook-icon.png" alt="FACEBOOK"> <br class="br650"/>FACEBOOK</a></li>
+								<li><a href=""><img src="/resources/homepage/${homepage.context_path}/img/instargram-icon.png" alt="INSTAGRAM"> <br class="br650"/>INSTAGRAM</a></li>
+								<li><a href=""><img src="/resources/homepage/${homepage.context_path}/img/kakaostory-icon.png" alt="KAKAOSTORY"> <br class="br650"/>KAKAOSTORY</a></li>
+							</ul>
+						</div>
 					</div>
 				</div>
-			</div>
 
-			<div class="middle-box">
-				<div class="main-section">
-					<div class="book-box">
-						<div class="book-tit-box">
-							<h2>북큐레이션</h2>
-							<p>수성구립 범어도서관에서<Br class='webBr'/>추천드리는 도서를<Br class='webBr'/>소개합니다.</p>
-						</div>
+				<div class="middle-box">
+					<div class="main-section">
+						<div class="book-box">
+							<div class="book-tit-box">
+								<h2>추천도서</h2>
+								<p>수성구립 용학도서관에서 <Br class='webBr'/>추천드리는 도서를 <Br class='webBr'/>소개합니다.</p>
+							</div>
 
-						<div class="book-con-box">
-							<div class="bookList">
-								<ul>
+							<div class="book-con-box">
+								<div class="bookList">
+									<ul>
 
-									<li class="item">
-										<a href="#" class="title" title="하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!">
-										<img src="https://www.nl.go.kr/inc/NL/images/main_wide_main_book_1.jpg" alt="하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!" >
-										<div class="figure-bg-section">
-											<div class="figure-btn-section">
-												하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!
+										<li class="item">
+											<a href="#" class="title" title="하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!">
+											<img src="https://www.nl.go.kr/inc/NL/images/main_wide_main_book_1.jpg" alt="하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!" >
+											<div class="figure-bg-section">
+												<div class="figure-btn-section">
+													하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!
+												</div>
 											</div>
-										</div>
-										</a>
-									</li> 
-									<li class="item">
-										<a href="#" class="title" title="하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!">
-										<img src="https://www.nl.go.kr/inc/NL/images/main_wide_main_book_1.jpg" alt="하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!" >
-										<div class="figure-bg-section">
-											<div class="figure-btn-section">
-												하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!
+											</a>
+										</li> 
+										<li class="item">
+											<a href="#" class="title" title="하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!">
+											<img src="https://www.nl.go.kr/inc/NL/images/main_wide_main_book_1.jpg" alt="하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!" >
+											<div class="figure-bg-section">
+												<div class="figure-btn-section">
+													하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!
+												</div>
 											</div>
-										</div>
-										</a>
-									</li> 
-									<li class="item">
-										<a href="#" class="title" title="하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!">
-										<img src="https://www.nl.go.kr/inc/NL/images/main_wide_main_book_1.jpg" alt="하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!" >
-										<div class="figure-bg-section">
-											<div class="figure-btn-section">
-												하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!
+											</a>
+										</li> 
+										<li class="item">
+											<a href="#" class="title" title="하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!">
+											<img src="https://www.nl.go.kr/inc/NL/images/main_wide_main_book_1.jpg" alt="하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!" >
+											<div class="figure-bg-section">
+												<div class="figure-btn-section">
+													하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!
+												</div>
 											</div>
-										</div>
-										</a>
-									</li> 
+											</a>
+										</li> 
 
-								</ul>
+									</ul>
+								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="quickLink-box">
-						<ul>
-							<li><a href="">수성인문학 @Susung</a></li>
-							<li><a href="">수성인문학제</a></li>
-							<li><a href="">글로벌프로그램</a></li>
-							<li><a href="">책읽어주는 범어사서</a></li>
-							<li><a href="">원문제공서비스</a></li>
-							<li><a href="">대구전자도서관</a></li>
-							<li><a href="">책나래,책바다 서비스</a></li>
-						</ul>
-					</div>
+						<div class="quickLink-box">
+							<ul>
+								<li><a href="">이주의 책</a></li>
+								<li><a href="">이주의 시</a></li>
+								<li><a href="">사람도서관</a></li>
+								<li><a href="">대구전자도서관</a></li>
+								<li><a href="">원문제공서비스</a></li>
+								<li><a href="">책나래서비스</a></li>
+								<li><a href="">책바다서비스</a></li>
+								<li><a href="">사서에게물어보세요</a></li>
+							</ul>
+						</div>
 
-					<div class="end"></div>
+						<div class="end"></div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -375,14 +378,10 @@ do {
 
 		<!-- main2 -->
 		<div class="section" id="main2">
-
 			<div class="main1-bottom">
-
 				<div class='main-section'>
-
 					<div class="calendar-box" id="calendar-box">
 					</div>
-
 					<div class="popupzone-box">
 						<div class="popZone">
 							<c:choose>
@@ -398,13 +397,10 @@ do {
 						</div>
 					</div>
 				</div>
-
 			</div>
 
 			<div class="bottom-box">
 				<div class="main-section">
-
-
 					<div class="banner-wrap type4">
 						<div class="banner-t4">
 							<div class="control">
@@ -413,81 +409,19 @@ do {
 							</div>
 						</div>
 						<div class="banner-box4">
-							<!-- <homepageTag:banner bannerList="${bannerList}"/> -->
-							<ul class="banner-roll">
-							<li>
-							<span>
-							<a href="http://www.daegu.go.kr/intro.jsp" target="_blank">
-							<img src="/data/banner/h34/1602738500008" alt="대구시청"/></a></span></li>
-							<li>
-							<span>
-							<a href="http://info.daegu.go.kr/newshome/mtnmain.php" target="_blank">
-							<img src="/data/banner/h34/1602738973368" alt="시정홍보관"/></a></span></li>
-							<li>
-							<span>
-							<a href="https://www.nl.go.kr/" target="_blank">
-							<img src="/data/banner/h34/1602739008876" alt="국립중앙도서관"/></a></span></li>
-							<li>
-							<span>
-							<a href="https://www.nanet.go.kr/main.do" target="_blank">
-							<img src="/data/banner/h34/1602739030976" alt="국회도서관"/></a></span></li>
-							<li>
-							<span>
-							<a href="https://www.data4library.kr/" target="_blank">
-							<img src="/data/banner/h34/1602739095888" alt="도서관정보나루"/></a></span></li>
-							<li>
-							<span>
-							<a href="http://book.nl.go.kr/iplls/Index.do" target="_blank">
-							<img src="/data/banner/h34/1602739109968" alt="책이음"/></a></span></li>
-							<li>
-							<span>
-							<a href="https://www.nl.go.kr/nill/user/index.jsp" target="_blank">
-							<img src="/data/banner/h34/1602739248238" alt="책바다"/></a></span></li>
-							<li>
-							<span>
-							<a href="http://cn.nl.go.kr/chaeknarae/index.do" target="_blank">
-							<img src="/data/banner/h34/1602739264423" alt="책나래"/></a></span></li>
-							<li>
-							<span>
-							<a href="http://library.daegu.go.kr/elib/index.do" target="_blank">
-							<img src="/data/banner/h34/1602739307507" alt="전자도서관"/></a></span></li>
-							<li>
-							<span>
-							<a href="https://blog.naver.com/daegu_news" target="_blank">
-							<img src="/data/banner/h34/1602739348336" alt="다채움"/></a></span></li>
-							<li>
-							<span>
-							<a href="https://www.juso.go.kr/openIndexPage.do" target="_blank">
-							<img src="/data/banner/h34/1602739374868" alt="도로명주소안내"/></a></span></li>
-							<li>
-							<span>
-							<a href="https://www.nlcy.go.kr/index.do" target="_blank">
-							<img src="/data/banner/h34/1602739402856" alt="국립어린이도서관"/></a></span></li>
-							<li>
-							<span>
-							<a href="http://www.kla.kr/jsp/main.do" target="_blank">
-							<img src="/data/banner/h34/1602739422716" alt="한국도서관협회"/></a></span></li>
-							<li>
-							<span>
-							<a href="http://www.kpipa.or.kr/main/main.do" target="_blank">
-							<img src="/data/banner/h34/1602739450899" alt="한국출판문화산업진흥원"/></a></span></li></ul>
+							<homepageTag:banner bannerList="${bannerList}"/> 
 						</div>
 					</div>
-
-
 				</div>
 
-			</div>
+				<!-- footer_section -->
+				<div class="section fp-auto-height footer_area" id="foot_section">
+					<tiles:insertAttribute name="footer" />
+				</div>
+				<!-- //footer_section -->
+			</div>	
 		</div>
 		<!-- //main2 -->
-
-		<!-- footer_section -->
-		<div class="section fp-auto-height footer_area" id="foot_section">
-			<tiles:insertAttribute name="footer" />
-		</div>
-		<!-- //footer_section -->
-
-
 	</div>
 
 </div>

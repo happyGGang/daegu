@@ -46,13 +46,15 @@
 		<div class="middle">
 			<div class="sections">
 				<div class="info">
-					<a href="/${homepage.context_path}/html.do?menu_idx=86"><b>개인정보처리방침</b></a>
+					<a href=""><b>개인정보처리방침</b></a>
 					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=88">영상정보처리방침</a>
+					<a href="">영상정보처리방침</a>
 					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=90">도서관서비스헌장</a>
+					<a href="">도서관서비스헌장</a>
 					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=165">찾아오시는길</a>
+					<a href="">뷰어다운로드</a>
+					<span class="bar">|</span>
+					<a href="">배너모음</a>
 				</div>
 			</div>
 		</div>
@@ -64,8 +66,8 @@
 					<em>전화 <b>${fn:split(homepage.homepage_tell,',')[0]}</b></em>
 					<em>팩스 <b>${homepage.homepage_fax }</b></em>
 				</p>
-				<p class="copyright">Copyright © 2020 DAEGU METROPOLITAN JUNGANG LIBRARY, <br class="mobileBr"/>All rights reserved.</p>
-			<p class="f_logo"><img src="/resources/homepage/${homepage.context_path}/img/footer_logo.png" alt="구수산도서관"></p>
+				<p class="copyright">Copyright ⓒ 행복북구문화재단 태전도서관. All rights reserved.</p>
+			<p class="f_logo"><img src="/resources/homepage/${homepage.context_path}/img/footer_logo.png" alt="대현도서관"></p>
 			</div>
 		</div>
 

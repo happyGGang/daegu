@@ -70,14 +70,14 @@ Date.prototype.format = function(f) {
 			var plan_date = new Date($(this).attr('keyValue'));
 			plan_date.setMonth(plan_date.getMonth() - 1);
 			//plan_date.format('yyyy-MM')
-			$('div.cal-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM'));
+			$('div#calendar-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM'));
 			e.preventDefault();
 		});
 
 		$('a#next-btn').on('click',function(e) {
 			var plan_date = new Date($(this).attr('keyValue'));
 			plan_date.setMonth(plan_date.getMonth() + 1);
-			$('div.cal-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM'));
+			$('div#calendar-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM'));
 			e.preventDefault();
 		});
 

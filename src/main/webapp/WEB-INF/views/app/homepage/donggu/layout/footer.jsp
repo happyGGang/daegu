@@ -8,15 +8,17 @@
 			<div class="section">
 				<div class="foot-info">
 					<div class="info">
-						<a href="/${homepage.context_path}/board/index.do?menu_idx=87&manage_idx=184">도서관서비스헌장</a>
+						<a href=""><b>개인정보처리방침</b></a>
 						<span class="bar">|</span>
-						<a href="/${homepage.context_path}/html.do?menu_idx=86"><b>개인정보처리방침</b></a>
+						<a href="">영상정보처리방침</a>
 						<span class="bar">|</span>
-						<a href="/${homepage.context_path}/html.do?menu_idx=88">영상정보처리방침</a>
+						<a href="">도서관서비스헌장</a>
 						<span class="bar">|</span>
-						<a href="/${homepage.context_path}/html.do?menu_idx=91">저작권보호정책</a>
+						<a href="">저작권보호정책</a>
 						<span class="bar">|</span>
-						<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=92">뷰어다운로드</a>
+						<a href="">뷰어다운로드</a>
+						<span class="bar">|</span>
+						<a href="">배너모음</a>
 					</div>
 				</div>
 			</div>
@@ -29,7 +31,7 @@
 						<em><b>안심도서관</b> : (41103) <br class="mobileBr"/>대구광역시 동구 금호강변로 360</em><br class="mobileBr"/><em>전화 : 053-980-2600</em><em>FAX : 053-961-2345</em><br/>
 						<em><b>신천도서관</b> : (41269) <br class="mobileBr"/>대구광역시 동구 동부로6길 65</em><br class="mobileBr"/><em>전화 : 053-980-2600</em><em>FAX : 053-662-4015</em>
 					</p>
-					<span>Copyright ⓒ Daegu Ansim public Library. <br class="mobileBr"/>All rights reserved.</span>
+					<span>Copyright ⓒ 동구통합도서관. All rights reserved.</span>
 				</address>
 				<div class="site_link">
 					<div>

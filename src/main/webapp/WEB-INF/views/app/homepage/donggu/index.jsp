@@ -169,7 +169,7 @@ do {
 										<li class="on-cont">
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=614&board_idx=${i.board_idx}">
 												<strong>
-													${i.title}<br/>
+													<span class="ca bg-${i.category1}">${i.category1_name}</span> ${i.title}<br/>
 													<span class="datetime">
 														<fmt:formatDate value="${i.add_date}" pattern="yyyy. MM. dd." />
 													</span>
@@ -181,7 +181,7 @@ do {
 									<c:otherwise>
 										<li>
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=614&board_idx=${i.board_idx}">
-												<strong>${i.title}</strong>
+												<strong><span class="ca bg-${i.category1}">${i.category1_name}</span> ${i.title}</strong>
 												<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd" /></span>
 											</a>
 										</li>
@@ -299,12 +299,12 @@ do {
 							<li><a href="#tab2" class='t-tabs' data-link="/${homepage.context_path}/board/index.do?menu_idx=91&manage_idx=612">어린이</a></li>
 						</ul>
 
-						<a href="/${homepage.context_path}/board/index.do?menu_idx=90&manage_idx=611" class="btn-more">더보기</a>
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=91&manage_idx=612" class="btn-more">더보기</a>
 					</div>
 
 					<div class="box con" data-tab="tab1">
 						<ul class="book_photo">
-							<c:forEach items="${bookList1}" var="i" varStatus="status">
+							<c:forEach items="${bookList2}" var="i" varStatus="status">
 								<li>
 									<a href="/${homepage.context_path}/board/view.do?menu_idx=90&manage_idx=611&board_idx=${i.board_idx}">
 									<span class="con-image">
@@ -327,7 +327,7 @@ do {
 											</c:otherwise>
 										</c:choose>
 									</span>
-									<span class="con-title">${i.title}</span>
+									<span class="con-title">${fn:length(i.title) > 11 ? fn:substring(i.title, 0, 12) : i.title}<c:if test="${fn:length(i.title) > 11 }">...</c:if></span>
 									</a>
 								</li>
 							</c:forEach>
@@ -336,7 +336,7 @@ do {
 
 					<div class="box con" data-tab="tab2" style="display:none;">
 						<ul class="book_photo">
-							<c:forEach items="${bookList2}" var="i" varStatus="status">
+							<c:forEach items="${bookList1}" var="i" varStatus="status">
 								<li>
 									<a href="/${homepage.context_path}/board/view.do?menu_idx=91&manage_idx=612&board_idx=${i.board_idx}">
 									<span class="con-image">
@@ -359,7 +359,7 @@ do {
 											</c:otherwise>
 										</c:choose>
 									</span>
-										<span class="con-title">${i.title}</span>
+										<span class="con-title">${fn:length(i.title) > 11 ? fn:substring(i.title, 0, 12) : i.title}<c:if test="${fn:length(i.title) > 11 }">...</c:if></span>
 									</a>
 								</li>
 							</c:forEach>

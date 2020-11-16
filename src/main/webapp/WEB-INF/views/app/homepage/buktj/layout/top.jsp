@@ -18,7 +18,7 @@
 				</ul>
 			</div>
 
-			<h1 class="mobile-logo"><a href="/${homepage.context_path}/index.do">구수산 도서관</a></h1>
+			<h1 class="mobile-logo"><a href="/${homepage.context_path}/index.do">태전 도서관</a></h1>
 
 			<div class="mmode m-menu">
 				<a href="#menu"><i class="fa fa-navicon"></i><span class="blind">메뉴</span></a>

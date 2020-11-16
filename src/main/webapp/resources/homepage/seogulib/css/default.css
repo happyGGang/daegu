@@ -16,7 +16,7 @@ a:focus{color:#2b74c0}
 .popupWrap{z-index:6}
 
 /* footer */
-#footer{position:relative;width:100%;background:#484848;padding-bottom:100px;}
+#footer{position:relative;width:100%;background:#484848;padding-bottom:50px;}
 
 #footer .top{background:#fff;padding:17px 0;border-top:1px solid #e5e5e5;}
 #footer .info b{color:#fd5227;}
@@ -74,7 +74,7 @@ a:focus{color:#2b74c0}
 .Gnb .gnb-menu>li{padding:0 65px;text-align:center;position:static;background:url('../img/menu_dot.png')no-repeat 0 28px;}
 .Gnb .gnb-menu>li:last-child{padding-right:0}
 .Gnb .gnb-menu>li>a{padding:10px 0;line-height:43px;height:43px;font-size:18px;color: #222;font-weight:bold;}
-.Gnb .gnb-menu>li>ul{display:none;background:#666;border:0;left:0;white-space:nowrap;text-align:right}
+.Gnb .gnb-menu>li>ul{display:none;background:#666;border:0;left:0;white-space:nowrap;text-align:left}
 .Gnb .gnb-menu>li.active>ul{display:block}
 .Gnb .gnb-menu>li>.SubMenu>li{width:auto;padding:0 5px}
 .Gnb .gnb-menu>li>.SubMenu>li{display:inline-block}
@@ -86,6 +86,12 @@ a:focus{color:#2b74c0}
 .Gnb .gnb-menu>li.menu1>ul,
 .Gnb .gnb-menu>li.menu2>ul,
 .Gnb .gnb-menu>li.menu3>ul{text-align:center}
+.Gnb .gnb-menu>li.menu1>ul{margin-left:-450px;}
+.Gnb .gnb-menu>li.menu2>ul{margin-left:-200px;}
+.Gnb .gnb-menu>li.menu3>ul{margin-left:-250px;}
+.Gnb .gnb-menu>li.menu4>ul{margin-left:220px;}
+.Gnb .gnb-menu>li.menu5>ul{margin-left:350px;}
+.Gnb .gnb-menu>li.menu6>ul{margin-left:400px;}
 .Gnb .mask,
 .Gnb .gnb-menu>li>ul{background: #5a462a;}
 .Gnb .gnb-menu>li.on>a,
@@ -109,6 +115,12 @@ a:focus{color:#2b74c0}
 
 .main .popupzone li a{border:1px solid #ccc;font-size:0;line-height:0;margin:36px 0 0 16px}
 */
+
+.finfo {overflow:hidden;width:70%}
+.finfo li:first-child{margin-top:30px;}
+.finfo li {box-sizing:border-box;margin-bottom:5px;}
+.finfo li dt, .finfo li dd {display:inline-block;font-size:14px;color:#fff;}
+.finfo li dt {color:#fff;letter-spacing:-1.5px;font-weight:bold;}
 
 /* 도서관 둘러보기 */
 .libView{padding:0 0 10px}
@@ -213,12 +225,18 @@ a.btnStyle{float: right;margin-top: 6px;}
 	.Gnb .section {width:100%;}
 }
 
-@media all and (max-width:1150px){
-
+@media all and (max-width:1024px){
+	.finfo {width:96%;margin:0 auto;}
+	.finfo li dt, .finfo li dd {width:100%;text-align:left;}
+	.finfo li dd.tel {width:100%;}
 }
 
 @media all and (min-width: 768px) and (max-width: 1023px){
 	.tnb{height:55px;padding:10px 0}
+
+	.finfo li dt {width:100%;font-size:13px;}
+	.finfo li dd {width:45%;font-size:13px;padding-left:18px;box-sizing:border-box;}
+	.finfo li dd.tel, .finfo li dd.fax {width:20%;padding-left:0;}
 }
 
 @media all and (max-width:850px){

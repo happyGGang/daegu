@@ -124,9 +124,9 @@ do {
 
 				<div class="swiper-container mySwiper">
 					<div class="swiper-wrapper">
-						<div class="swiper-slide mvimg01"><div class="mvText">행복북구문화재단 태전 도서관 <strong>내일을 향한 꿈</strong></div></div>
-						<div class="swiper-slide mvimg02"><div class="mvText">행복북구문화재단 태전 도서관 <strong>내일을 향한 꿈</strong></div></div>
-						<div class="swiper-slide mvimg03"><div class="mvText">행복북구문화재단 태전 도서관 <strong>내일을 향한 꿈</strong></div></div>
+						<div class="swiper-slide mvimg01"><div class="mvText"><span class="main_text01">행복북구문화재단 태전 도서관</span> <span class="main_text02">내일을 향한 <strong>꿈</strong></span></div></div>
+						<div class="swiper-slide mvimg02"><div class="mvText"><span class="main_text01">행복북구문화재단 태전 도서관</span> <span class="main_text02">내일을 향한 <strong>꿈</strong></span></div></div>
+						<div class="swiper-slide mvimg03"><div class="mvText"><span class="main_text01">행복북구문화재단 태전 도서관</span> <span class="main_text02">내일을 향한 <strong>꿈</strong></span></div></div>
 					</div>
 
 					<div class="mvBtn_wp">
@@ -134,11 +134,10 @@ do {
 							<div class="swiper-button-next"><img src="/resources/homepage/${homepage.context_path}/img/mv_btn_next.png" alt="다음"></div>
 							<div class="swiper-button-prev"><img src="/resources/homepage/${homepage.context_path}/img/mv_btn_prev.png" alt="이전"></div>
 						</div>
-						<div class="swiper-pagination"></div>
 
 						<div class="ctrBtn">
-							<a href="#" class="stop">stop</a>
 							<a href="#" class="start">play</a>
+							<a href="#" class="stop">stop</a>
 						</div>
 					</div>
 				</div>
@@ -152,7 +151,7 @@ do {
 						<legend class="blind">통합검색</legend>
 						<div class="main-box">
 							<select id="search_type" name="search_type" class="search_type">
-								<option value="L_TITLE">서명</option>
+								<option value="L_TITLE">전체</option>
 								<option value="L_AUTHOR">저자</option>
 								<option value="L_PUBLISHER">발행자</option>
 								<option value="L_KEYWORD">키워드</option>
@@ -160,7 +159,7 @@ do {
 							<div class="box1">
 								<div class="box2">
 									<label for="search_text_1" class="blind">통합자료검색</label>
-									<input name="title" id="search_text_1" type="text" class="text" placeholder="검색어를 입력하세요" style="ime-mode:active;"/>
+									<input name="title" id="search_text_1" type="text" class="text" placeholder="검색어를 입력하세요." style="ime-mode:active;"/>
 								</div>
 							</div>
 							<button id="main-search-btn">검색하기</button>
@@ -202,11 +201,11 @@ do {
 					<div class="news con" data-tab="tab1">
 						<div class="box">
 							<ul>
-								<li><a href="#"><span class="time"><b>2020</b><br/>10.14</span><em>생활SOC 공립 작은도서관 개관 운영 안내작은도서관 개관 운영 안내작은도서관 개관 운영 안내작은도서관 개관 운영 안내</em></a> </li>
-								<li><a href="#"><span class="time"><b>2020</b><br/>10.14</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em></a> </li>
-								<li><a href="#"><span class="time"><b>2020</b><br/>10.14</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em></a> </li>
-								<li><a href="#"><span class="time"><b>2020</b><br/>10.14</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em></a> </li>
-								<li><a href="#"><span class="time"><b>2020</b><br/>10.14</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em></a> </li>
+								<li><a href="#"><span class="time"><b>14</b><br/>2020.10</span><em>생활SOC 공립 작은도서관 개관 운영 안내작은도서관 개관 운영 안내작은도서관 개관 운영 안내작은도서관 개관 운영 안내</em></a> </li>
+								<li><a href="#"><span class="time"><b>14</b><br/>2020.10</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em></a> </li>
+								<li><a href="#"><span class="time"><b>14</b><br/>2020.10</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em></a> </li>
+								<li><a href="#"><span class="time"><b>14</b><br/>2020.10</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em></a> </li>
+								<li><a href="#"><span class="time"><b>14</b><br/>2020.10</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em></a> </li>
 							</ul>
 						<!--
 							<ul>
@@ -226,11 +225,11 @@ do {
 					<div class="news con" data-tab="tab2" style="display:none;">
 						<div class="box">
 							<ul>
-								<li><a href="#"><span class="time"><b>2020</b><br/>10.14</span><em>생활SOC 공립 작은도서관 개관 운영 안내작은도서관 개관 운영 안내작은도서관 개관 운영 안내작은도서관 개관 운영 안내</em></a> </li>
-								<li><a href="#"><span class="time"><b>2020</b><br/>10.14</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em></a> </li>
-								<li><a href="#"><span class="time"><b>2020</b><br/>10.14</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em></a> </li>
-								<li><a href="#"><span class="time"><b>2020</b><br/>10.14</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em></a> </li>
-								<li><a href="#"><span class="time"><b>2020</b><br/>10.14</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em></a> </li>
+								<li><a href="#"><span class="time"><b>15</b><br/>2020.10</span><em>생활SOC 공립 작은도서관 개관 운영 안내작은도서관 개관 운영 안내작은도서관 개관 운영 안내작은도서관 개관 운영 안내</em></a> </li>
+								<li><a href="#"><span class="time"><b>15</b><br/>2020.10</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em></a> </li>
+								<li><a href="#"><span class="time"><b>15</b><br/>2020.10</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em></a> </li>
+								<li><a href="#"><span class="time"><b>15</b><br/>2020.10</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em></a> </li>
+								<li><a href="#"><span class="time"><b>15</b><br/>2020.10</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em></a> </li>
 							</ul>
 							<!--
 							<ul>
@@ -271,40 +270,42 @@ do {
 
 		<!-- main2 -->
 		<div class="section" id="main2">
-
-			<p class="tit_text">MAIN SERVICE INFORMATION</p>
-			<h2 class="title"><b>주요서비스</b> 안내</h2>
+			
+			<div class="main2_tit">
+				<p class="tit_text">MAIN SERVICE INFORMATION</p>
+				<h2 class="title"><b>주요서비스</b> 안내</h2>
+			</div>
 			
 			<div class="mIcon">
 				<ul>
 					<li>
 						<a href="#" class="q01">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q1.png" alt="대출정보조회"><br class="webBr"/>대출정보조회</span>
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q1.png" alt="희망도서신청"><br class="webBr"/>희망도서신청</span>
 						</a>
 					</li>
 					<li>
 						<a href="#" class="q02">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q2.png" alt="희망도서신청"><br class="webBr"/>희망도서신청</span>
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q2.png" alt="상호대차서비스"><br class="webBr"/>상호대차서비스</span>
 						</a>
 					</li>
 					<li>
 						<a href="#" class="q03">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q3.png" alt="디지털실예약"><br class="webBr"/>디지털실예약</span>
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q3.png" alt="독서문화행사"><br class="webBr"/>독서문화행사</span>
 						</a>
 					</li>
 					<li>
 						<a href="#" class="q04">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q4.png" alt="영화안내"><br class="webBr"/>영화안내</span>
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q4.png" alt="대출정보조회"><br class="webBr"/>대출정보조회</span>
 						</a>
 					</li>
 					<li>
 						<a href="#" class="q05">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q5.png" alt="자료공동이용"><br class="webBr"/>자료공동이용</span>
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q5.png" alt="스마트도서관"><br class="webBr"/>스마트도서관</span>
 						</a>
 					</li>
 					<li>
 						<a href="#" class="q06">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q6.png" alt="책바다(상호대차)서비스"><br class="webBr"/>책바다(상호대차)서비스</span>
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q6.png" alt="블로그"><br class="webBr"/>블로그</span>
 						</a>
 					</li>
 				</ul>
@@ -318,7 +319,7 @@ do {
 		<!-- main3 -->
 		<div class="section" id="main3">
 
-			<div class="main-section">
+			<div class="main-section wid1450">
 
 				<div class="book-box tabS">
 					<ul class="tabMenuS">
@@ -341,7 +342,6 @@ do {
 									
 									</span>
 									<span class="con-title">1진정성 마케팅 ...</span>
-									<span class="con-author">김상훈,박선미 공저...</span>
 								</a>
 							</li>
 							
@@ -357,7 +357,6 @@ do {
 									
 									</span>
 									<span class="con-title">주식회사 히어로즈 : ...</span>
-									<span class="con-author">기타가와 에미 지음 ;...</span>
 								</a>
 							</li>
 							
@@ -373,7 +372,6 @@ do {
 									
 									</span>
 									<span class="con-title">All the piec...</span>
-									<span class="con-author">Jonathan Abr...</span>
 								</a>
 							</li>
 							
@@ -389,7 +387,6 @@ do {
 									
 									</span>
 									<span class="con-title">초록 자전거...</span>
-									<span class="con-author">이상교 글 ; 오정택 ...</span>
 								</a>
 							</li>
 							
@@ -410,7 +407,6 @@ do {
 									
 									</span>
 									<span class="con-title">2진정성 마케팅 : 끌리...</span>
-									<span class="con-author">김상훈,박선미 공저...</span>
 								</a>
 							</li>
 							
@@ -426,7 +422,6 @@ do {
 									
 									</span>
 									<span class="con-title">주식회사 히어로즈 : ...</span>
-									<span class="con-author">기타가와 에미 지음 ;...</span>
 								</a>
 							</li>
 							
@@ -442,7 +437,6 @@ do {
 									
 									</span>
 									<span class="con-title">All the piec...</span>
-									<span class="con-author">Jonathan Abr...</span>
 								</a>
 							</li>
 							
@@ -458,7 +452,6 @@ do {
 									
 									</span>
 									<span class="con-title">초록 자전거...</span>
-									<span class="con-author">이상교 글 ; 오정택 ...</span>
 								</a>
 							</li>
 							
@@ -486,64 +479,7 @@ do {
 								</div>
 							</div>
 							<div class="banner-box4">
-								<!-- <homepageTag:banner bannerList="${bannerList}"/> -->
-								<ul class="banner-roll">
-								<li>
-								<span>
-								<a href="http://www.daegu.go.kr/intro.jsp" target="_blank">
-								<img src="/data/banner/h34/1602738500008" alt="대구시청"/></a></span></li>
-								<li>
-								<span>
-								<a href="http://info.daegu.go.kr/newshome/mtnmain.php" target="_blank">
-								<img src="/data/banner/h34/1602738973368" alt="시정홍보관"/></a></span></li>
-								<li>
-								<span>
-								<a href="https://www.nl.go.kr/" target="_blank">
-								<img src="/data/banner/h34/1602739008876" alt="국립중앙도서관"/></a></span></li>
-								<li>
-								<span>
-								<a href="https://www.nanet.go.kr/main.do" target="_blank">
-								<img src="/data/banner/h34/1602739030976" alt="국회도서관"/></a></span></li>
-								<li>
-								<span>
-								<a href="https://www.data4library.kr/" target="_blank">
-								<img src="/data/banner/h34/1602739095888" alt="도서관정보나루"/></a></span></li>
-								<li>
-								<span>
-								<a href="http://book.nl.go.kr/iplls/Index.do" target="_blank">
-								<img src="/data/banner/h34/1602739109968" alt="책이음"/></a></span></li>
-								<li>
-								<span>
-								<a href="https://www.nl.go.kr/nill/user/index.jsp" target="_blank">
-								<img src="/data/banner/h34/1602739248238" alt="책바다"/></a></span></li>
-								<li>
-								<span>
-								<a href="http://cn.nl.go.kr/chaeknarae/index.do" target="_blank">
-								<img src="/data/banner/h34/1602739264423" alt="책나래"/></a></span></li>
-								<li>
-								<span>
-								<a href="http://library.daegu.go.kr/elib/index.do" target="_blank">
-								<img src="/data/banner/h34/1602739307507" alt="전자도서관"/></a></span></li>
-								<li>
-								<span>
-								<a href="https://blog.naver.com/daegu_news" target="_blank">
-								<img src="/data/banner/h34/1602739348336" alt="다채움"/></a></span></li>
-								<li>
-								<span>
-								<a href="https://www.juso.go.kr/openIndexPage.do" target="_blank">
-								<img src="/data/banner/h34/1602739374868" alt="도로명주소안내"/></a></span></li>
-								<li>
-								<span>
-								<a href="https://www.nlcy.go.kr/index.do" target="_blank">
-								<img src="/data/banner/h34/1602739402856" alt="국립어린이도서관"/></a></span></li>
-								<li>
-								<span>
-								<a href="http://www.kla.kr/jsp/main.do" target="_blank">
-								<img src="/data/banner/h34/1602739422716" alt="한국도서관협회"/></a></span></li>
-								<li>
-								<span>
-								<a href="http://www.kpipa.or.kr/main/main.do" target="_blank">
-								<img src="/data/banner/h34/1602739450899" alt="한국출판문화산업진흥원"/></a></span></li></ul>
+								<homepageTag:banner bannerList="${bannerList}"/>
 							</div>
 						</div>
 					</div>
@@ -555,7 +491,7 @@ do {
 		<!-- //main3 -->
 
 		<!-- footer_section -->
-		<div class="section fp-auto-height footer_area" id="foot_section">
+		<div class="section fp-auto-height footer_area" id="foot_section" style="margin-top:-48px;">
 			<tiles:insertAttribute name="footer" />
 		</div>
 		<!-- //footer_section -->

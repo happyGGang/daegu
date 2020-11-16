@@ -91,6 +91,7 @@ do {
 
 
 		$('div#calendar-box').load('calendar3.do');
+		$('div#holiday-box').load('calendar4.do');
 		$('ul.newBookUl').load('newBook.do');
 		$('ul.bestBookUl').load('bestBook.do');
 
@@ -145,7 +146,7 @@ do {
 				<!-- main_search -->
 				<div class="search-area" id="main_search">
 					<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
-					<input type="hidden" name="menu_idx" value="13">
+					<input type="hidden" name="menu_idx" value="9">
 					<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
 					<fieldset>
 						<legend class="blind">통합검색</legend>
@@ -173,7 +174,7 @@ do {
 					<div class='main-box'>
 						<div class='title'>
 							<h2>휴관일</h2>
-							<a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=179" class="btn-more1 more-more">더보기</a>
+							<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=36" class="btn-more1 more-more">더보기</a>
 						</div>
 						<div id="holiday-box" class="holiday-section">
 							<span>1</span>&nbsp;&nbsp;&nbsp;<span>2</span>&nbsp;&nbsp;&nbsp;
