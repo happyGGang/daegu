@@ -204,7 +204,7 @@ do {
 								<c:choose>
 									<c:when test="${status.index == 0}">
 										<li class="on-cont">
-											<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=28&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}">
+											<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=28&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&homepage_id=${i.homepage_id}">
 												<div class="cont">
 													<strong>${i.teach_name}</strong>
 													<span class="txt"><b>접수</b>  ${i.start_join_date} ~ ${i.end_join_date}</span>
@@ -239,7 +239,7 @@ do {
 									</c:when>
 									<c:otherwise>
 										<li>
-											<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=28&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}">
+											<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=28&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&homepage_id=${i.homepage_id}">
 												<strong>${i.teach_name}</strong>
 												<c:if test="${i.teach_status eq '0'}">
 													<p class="one-status-box status002">접수중</p>

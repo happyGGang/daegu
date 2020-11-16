@@ -467,6 +467,7 @@ public class IndexController extends BaseController {
 		model.addAttribute("quickMenuList", quickMenuService.getQuickMenuListAll(new QuickMenu(homepage.getHomepage_id())));
 
 		//인기검색어
+		//h44 달성군립도서관
 		String[] trendHomepage = {"h44"};
 		for (String th: trendHomepage ) {
 			if (homepage.getHomepage_id().equals(th)) {
@@ -483,16 +484,37 @@ public class IndexController extends BaseController {
 
 
 		//강좌목록
+		//h7 북부도서관
+		//h35 남구 대명
+		//h36 남구 이천
+		//h45 동구
 		String[] teachHomepage = {"h7", "h45", "h35", "h36"};
 		for (String th: teachHomepage ) {
 			if (homepage.getHomepage_id().equals(th)) {
 				Teach t = new Teach();
-				t.setHomepage_id(homepage.getHomepage_id());
+
+				Homepage h = new Homepage();
+				h.setHomepage_id(homepage.getHomepage_id());
+				h.setHomepage_group(homepage.getHomepage_id());
+				h.setTemp_use_yn("Y");
+				List<Homepage> subHomepageList = homepageService.getSubHomepageList(h);
+				if (subHomepageList != null && subHomepageList.size() > 0) {
+					List<String> homepage_ids = new ArrayList<String>();
+					for (Homepage subHome : subHomepageList) {
+						homepage_ids.add(subHome.getHomepage_id());
+					}
+					t.setHomepage_ids(homepage_ids);
+				} else {
+					t.setHomepage_id(homepage.getHomepage_id());
+				}
+
+
 				model.addAttribute("teachList", teachService.getTeachListForUser(t));
 			}
 		}
 
 		//강좌목록2
+		//h44 달성군립도서관
 		String[] teachHomepage2 = {"h44"};
 		for (String th: teachHomepage2 ) {
 			if (homepage.getHomepage_id().equals(th)) {
