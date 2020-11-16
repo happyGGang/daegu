@@ -1,0 +1,26 @@
+<%@ page language="java" pageEncoding="utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%--h72 도원--%>
+<%--h67 성서--%>
+<%--h68 본리--%>
+<%--h69 달서가족문화--%>
+<%--h66 달서어린이--%>
+<%--h70 달서영어--%>
+<c:set var="libcode" value="lib00"></c:set>
+<c:forEach items="${subNoticeList}" var="i" varStatus="status">
+    <c:if test="${i.category5 eq 'h72'}"><c:set var="libcode" value="lib01"></c:set></c:if>
+    <c:if test="${i.category5 eq 'h67'}"><c:set var="libcode" value="lib02"></c:set></c:if>
+    <c:if test="${i.category5 eq 'h68'}"><c:set var="libcode" value="lib03"></c:set></c:if>
+    <c:if test="${i.category5 eq 'h69'}"><c:set var="libcode" value="lib04"></c:set></c:if>
+    <c:if test="${i.category5 eq 'h66'}"><c:set var="libcode" value="lib05"></c:set></c:if>
+    <c:if test="${i.category5 eq 'h70'}"><c:set var="libcode" value="lib06"></c:set></c:if>
+    <li class="${libcode}">
+        <a href="/${homepage.context_path}/board/view.do?manage_idx=740&menu_idx=35&board_idx=${i.board_idx}">
+            <span class="lib_name">${i.category5_name}</span>
+            <span class="lib_txt">${i.title}</span>
+            <span class="lib_date"><fmt:formatDate value="${i.add_date}" pattern="MM-dd"/></span>
+        </a>
+    </li>
+</c:forEach>

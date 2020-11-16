@@ -86,9 +86,11 @@ do {
 		// 팝업 관련 코드 END
 
 
-		$('div#holiday-box').load('calendar2.do');
-		$('ul.newBookUl').load('newBook.do');
-		$('ul.bestBookUl').load('bestBook.do');
+		$('div.free_day p.date').load('calendar5.do?homepage_id=h72');
+		$('div.box_all02').eq(1).load('newBook.do');
+		// $('ul.bestBookUl').load('bestBook.do');
+		$('ul#ul_noticeList').load('subNotice.do');
+		$('ul#ul_eventList').load('subCalendar.do')
 
 		$('#main-search-btn').on('click', function() {
 			if( $('input#search_text_1').val() == '' ) {
@@ -99,6 +101,17 @@ do {
 				$('#mainSearchForm').submit();
 		});
 
+		$('select#sel_lib').on('change', function() {
+			$(this).next('.date').load('calendar5.do?homepage_id='+$(this).val());
+		});
+
+		$('select#notice_cate').on('change', function() {
+			$('ul#ul_noticeList').load('subNotice.do?homepage_id='+$(this).val());
+		});
+
+		$('select#event_lib_anum').on('change', function() {
+			$('ul#ul_eventList').load('subCalendar.do?homepage_id='+$(this).val());
+		});
 });
 </script>
 <div id="wrap">
@@ -246,16 +259,16 @@ do {
 					<div class="free_day">
 						<p class="tit">휴관일</p>
 						<select id="sel_lib" name="personal_day">
-							<option value="1">도원</option>
-							<option value="2">성서</option>
-							<option value="3">본리</option>
-							<option value="4">달서가족문화</option>
-							<option value="5">달서어린이</option>
-							<option value="6">달서영어</option>
+							<option value="h72">도원</option>
+							<option value="h67">성서</option>
+							<option value="h68">본리</option>
+							<option value="h69">달서가족문화</option>
+							<option value="h66">달서어린이</option>
+							<option value="h70">달서영어</option>
 						</select>
 						<p class="date">01, 02, 03, 05, 09</p>
 						<p class="add_img_wrap">
-							<a href="#"><img src="/resources/homepage/${homepage.context_path}/img/notice_addr.png" alt="휴관일 자세히보기" /></a>
+							<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=36"><img src="/resources/homepage/${homepage.context_path}/img/notice_addr.png" alt="휴관일 자세히보기" /></a>
 						</p>
 					</div>
 					<div class="maraton_book">
@@ -273,30 +286,19 @@ do {
 					<div class="main_notice mnotice_li">
 						<div class="notice_title_wrap mnotice_wrap">
 							<h2>새소식 안내</h2>
-							<select id="notice_cate" name="notice_cate" title="new_notice">
+							<select id="notice_cate" title="new_notice">
 								<option value="" selected>전체</option>
-								<option value="">도원</option>
-								<option value="">성서</option>
-								<option value="">본리</option>
-								<option value="">달서가족문화</option>
-								<option value="">달서어린이</option>
-								<option value="">달서영어</option>
+								<option value="h72">도원</option>
+								<option value="h67">성서</option>
+								<option value="h68">본리</option>
+								<option value="h69">달서가족문화</option>
+								<option value="h66">달서어린이</option>
+								<option value="h70">달서영어</option>
 							</select>
 						</div>
-						<p class="notice_more"><a href="#"><img src="/resources/homepage/${homepage.context_path}/img/notice_more.png" alt="새소식 안내 자세히보기"></a></p>
+						<p class="notice_more"><a href="/${homepage.context_path}/board/index.do?manage_idx=740&menu_idx=35"><img src="/resources/homepage/${homepage.context_path}/img/notice_more.png" alt="새소식 안내 자세히보기"></a></p>
 
 						<ul id="ul_noticeList" class="notice_text">
-
-							<li class="lib00"><a href="#"><span class="lib_name">성서도서관</span><span class="lib_txt">다문화 특강-정해영 작가와의 ...</span><span class="lib_date">10-24</span></a></li>
-
-							<li class="lib00"><a href="#"><span class="lib_name">전체</span><span class="lib_txt">상호대차, 무인예약, 대출예약...</span><span class="lib_date">10-23</span></a></li>
-
-							<li class="lib00"><a href="#"><span class="lib_name">전체</span><span class="lib_txt">대구 공공도서관 통합허브시스템...</span><span class="lib_date">10-23</span></a></li>
-
-							<li class="lib00"><a href="#"><span class="lib_name">전체</span><span class="lib_txt">임재양 작가초청 강연회 개최 ...</span><span class="lib_date">10-22</span></a></li>
-
-							<li class="lib05"><a href="#"><span class="lib_name">달서어린이</span><span class="lib_txt">찾아가는 어린이집 책 낭독 1...</span><span class="lib_date">10-21</span></a></li>
-
 						</ul>
 
 					</div>
@@ -306,29 +308,21 @@ do {
 						<div class="festival_title_wrap mnotice_wrap">
 							<h2>이달의 행사</h2>
 							<select id="event_lib_anum" name="festival" title="month_festival">
-								<option value="" selected>전체</option>
-								<option value="">도원</option>
-								<option value="">성서</option>
-								<option value="">본리</option>
-								<option value="">달서가족문화</option>
-								<option value="">달서어린이</option>
-								<option value="">달서영어</option>
+								<option value="h72">도원</option>
+								<option value="h67">성서</option>
+								<option value="h68">본리</option>
+								<option value="h69">달서가족문화</option>
+								<option value="h66">달서어린이</option>
+								<option value="h70">달서영어</option>
 							</select>
 						</div>
 						<ul id="ul_eventList" class="notice_text fes">
-
-							<li class="fes_lib01"><a href="#"><span class="lib_name">도원</span><span class="lib_txt1">[강좌]2020년 길 위의...</span><span class="lib_date1">08-14 ~ 11-13</span></a></li>
-
-							<li class="fes_lib04"><a href="#"><span class="lib_name">달서가족</span><span class="lib_txt1">[강좌]재미있는 동양 고전...</span><span class="lib_date1">09-04 ~ 11-20</span></a></li>
-
-							<li class="fes_lib04"><a href="#"><span class="lib_name">달서가족</span><span class="lib_txt1">[강좌]펀펀 이야기 놀이(...</span><span class="lib_date1">09-04 ~ 11-20</span></a></li>
-
-							<li class="fes_lib01"><a href="#"><span class="lib_name">도원</span><span class="lib_txt1">[강좌]2020년 길 위의...</span><span class="lib_date1">08-14 ~ 11-13</span></a></li>
-
-							<li class="fes_lib04"><a href="#"><span class="lib_name">달서가족</span><span class="lib_txt1">[강좌]재미있는 동양 고전...</span><span class="lib_date1">09-04 ~ 11-20</span></a></li>
-
 						</ul>
-						<p class="notice_more"><a href="#"><img src="/resources/homepage/${homepage.context_path}/img/notice_more.png" alt="이달의 행사 자세히보기"></a></p>
+						<p class="notice_more">
+							<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=36">
+								<img src="/resources/homepage/${homepage.context_path}/img/notice_more.png" alt="이달의 행사 자세히보기">
+							</a>
+						</p>
 					</div>
 					<!-- //이달의 행사 -->
 				</div>
@@ -362,18 +356,37 @@ do {
 				<div class="dataBox movie">
 					<div class="title">
 						<h2>영화상영</h2>
-						<a href="#" class="more-btn">더보기</a>
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=34&manage_idx=737" class="more-btn">더보기</a>
 					</div>
 
-					<div class="box">
-						<div class="data_img">
-							<a href="#"><img src="https://ssl.pstatic.net/imgmovie/mdi/mit110/0702/70254_P35_153229.jpg" style="width:110px;height:170px;" alt="아이언맨 3 표지이미지" /></a>
+					<c:forEach items="${movieList}" var="i" varStatus="status">
+						<div class="box">
+							<div class="data_img">
+								<a href="/${homepage.context_path}/board/view.do?menu_idx=34&manage_idx=737&board_idx=${i.board_idx}">
+									<c:choose>
+										<c:when test="${i.preview_img ne null}">
+											<c:choose>
+												<c:when test="${fn:contains(i.preview_img, 'http')}">
+													<img src="${i.preview_img}" alt="${i.title}" class="book_img" style="width:110px;height:170px;"/>
+												</c:when>
+												<c:otherwise>
+													<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" class="book_img" style="width:110px;height:170px;"/>
+												</c:otherwise>
+											</c:choose>
+										</c:when>
+										<c:otherwise>
+											<img src="/resources/common/img/noImg2.png" alt="${i.title}" class="book_img" style="width:110px;height:170px;">
+										</c:otherwise>
+									</c:choose>
+								</a>
+							</div>
+							<dl>
+								<dt><a href="/${homepage.context_path}/board/view.do?menu_idx=34&manage_idx=737&board_idx=${i.board_idx}">${i.title}</a></dt>
+								<dd>${fn:split(i.imsi_v_1, '-')[1]}.${i.imsi_v_2}<span>${i.imsi_v_12}</span></dd>
+							</dl>
 						</div>
-						<dl>
-							<dt><a href="#">아이언맨 3</a></dt>
-							<dd>10.27(화)<span>[도원]홈페이지 점검중</span></dd>
-						</dl>
-					</div>
+					</c:forEach>
+
 				</div>
 				<!-- -->
 				
@@ -384,100 +397,48 @@ do {
 					<div class="book-box tabS">
 						<div class="title">
 							<ul class="tabMenuS">
-								<li class="on"><a href="#tab1" class='t-tabs'>추천도서</a></li>
-								<li><a href="#tab2" class='t-tabs'>신착도서</a></li>
+								<li class="on"><a href="#tab1" class='t-tabs' data-link="/${homepage.context_path}/board/index.do?menu_idx=86&manage_idx=736">추천도서</a></li>
+								<li><a href="#tab2" class='t-tabs' data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=10">신착도서</a></li>
 							</ul>
-							<a href="#" class="btn-more">더보기</a>
+							<a href="/${homepage.context_path}/board/index.do?menu_idx=86&manage_idx=736" class="btn-more">더보기</a>
 						</div>
 						<div class="box con box_all02" data-tab="tab1">
 							<div class="bx_all">
-
-								<div class="bookbx bx01">
-									<div class="data_img">
-										<a href="#"><img src="/resources/homepage/${homepage.context_path}/img/get_img.jpg" style="width:110px;height:170px;" alt="그거 봤어?  : 밀레니얼을 열광시킨 콘텐츠의 힘 표지이미지" /></a>
+								<c:forEach items="${bookList1}" var="i" varStatus="status">
+									<div class="bookbx bx0${status.count}">
+										<div class="data_img">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=86&manage_idx=736&board_idx=${i.board_idx}">
+												<c:choose>
+													<c:when test="${i.preview_img ne null}">
+														<c:choose>
+															<c:when test="${fn:contains(i.preview_img, 'http')}">
+																<img src="${i.preview_img}" alt="${i.title}" style="width:110px;height:170px;" />
+															</c:when>
+															<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+																<img src="${i.preview_img}" alt="${i.title}" style="width:110px;height:170px;" />
+															</c:when>
+															<c:otherwise>
+																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" style="width:110px;height:170px;" />
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기" style="width:110px;height:170px;" />
+													</c:otherwise>
+												</c:choose>
+											</a>
+										</div>
+										<dl>
+											<dt><a href="/${homepage.context_path}/board/view.do?menu_idx=86&manage_idx=736&board_idx=${i.board_idx}">${i.title}</a></dt>
+											<dd>${i.imsi_v_3}<span>${i.imsi_v_4}</span></dd>
+										</dl>
 									</div>
-									<dl>
-										<dt><a href="#">그거 봤어?  : 밀레니얼을1 ...</a></dt>
-										<dd>김학준 지음<span>이상미디랩</span></dd>
-									</dl>
-								</div>
-
-								<div class="bookbx bx02">
-									<div class="data_img">
-										<a href="#"><img src="/resources/homepage/${homepage.context_path}/img/get_img (1).jpg" style="width:110px;height:170px;" alt="난 모기에 물리지 않아! 표지이미지" /></a>
-									</div>
-									<dl>
-										<dt><a href="#">난 모기에 물리지 않아!</a></dt>
-										<dd>펜드레드 노이스 지음  ; 조윤진 옮김<span>뜨인돌</span></dd>
-									</dl>
-								</div>
-
-								<div class="bookbx bx03">
-									<div class="data_img">
-										<a href="#"><img src="/resources/homepage/${homepage.context_path}/img/get_img (2).jpg" style="width:110px;height:170px;" alt="화장실 귀 표지이미지" /></a>
-									</div>
-									<dl>
-										<dt><a href="#">화장실 귀</a></dt>
-										<dd>선자은 글 ; 윤태규 그림<span>미래엔</span></dd>
-									</dl>
-								</div>
-
-								<div class="bookbx bx04">
-									<div class="data_img">
-										<a href="#"><img src="/resources/homepage/${homepage.context_path}/img/get_img (3).jpg" style="width:110px;height:170px;" alt="당신의 4분 33초  : 이서수 장편소설 표지이미지" /></a>
-									</div>
-									<dl>
-										<dt><a href="#">당신의 4분 33초  : 이서...</a></dt>
-										<dd>이서수 지음<span>은행나무</span></dd>
-									</dl>
-								</div>
-				
+								</c:forEach>
 							</div>
 						</div>
 
 						<div class="box con box_all02" data-tab="tab2" style="display:none;">
 							<div class="bx_all">
-
-								<div class="bookbx bx01">
-									<div class="data_img">
-										<a href="#"><img src="/resources/homepage/${homepage.context_path}/img/get_img.jpg" style="width:110px;height:170px;" alt="그거 봤어?  : 밀레니얼을 열광시킨 콘텐츠의 힘 표지이미지" /></a>
-									</div>
-									<dl>
-										<dt><a href="#">그거 봤어?  : 밀레니얼을2 ...</a></dt>
-										<dd>김학준 지음<span>이상미디랩</span></dd>
-									</dl>
-								</div>
-
-								<div class="bookbx bx02">
-									<div class="data_img">
-										<a href="#"><img src="/resources/homepage/${homepage.context_path}/img/get_img (1).jpg" style="width:110px;height:170px;" alt="난 모기에 물리지 않아! 표지이미지" /></a>
-									</div>
-									<dl>
-										<dt><a href="#">난 모기에 물리지 않아!</a></dt>
-										<dd>펜드레드 노이스 지음  ; 조윤진 옮김<span>뜨인돌</span></dd>
-									</dl>
-								</div>
-
-								<div class="bookbx bx03">
-									<div class="data_img">
-										<a href="#"><img src="/resources/homepage/${homepage.context_path}/img/get_img (2).jpg" style="width:110px;height:170px;" alt="화장실 귀 표지이미지" /></a>
-									</div>
-									<dl>
-										<dt><a href="#">화장실 귀</a></dt>
-										<dd>선자은 글 ; 윤태규 그림<span>미래엔</span></dd>
-									</dl>
-								</div>
-
-								<div class="bookbx bx04">
-									<div class="data_img">
-										<a href="#"><img src="/resources/homepage/${homepage.context_path}/img/get_img (3).jpg" style="width:110px;height:170px;" alt="당신의 4분 33초  : 이서수 장편소설 표지이미지" /></a>
-									</div>
-									<dl>
-										<dt><a href="#">당신의 4분 33초  : 이서...</a></dt>
-										<dd>이서수 지음<span>은행나무</span></dd>
-									</dl>
-								</div>
-				
 							</div>
 						</div>
 
