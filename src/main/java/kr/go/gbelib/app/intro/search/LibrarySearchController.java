@@ -839,9 +839,21 @@ public class LibrarySearchController extends BaseController {
 		librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
 		Map<String, Object> sanghoHistory = LibSearchAPI.getSanghoHistory(librarySearch);
 		List<Map<String, Object>> returnList = LibSearchAPI.getSanghoListData(sanghoHistory);
+		
+		int sanghoPossiCnt = 5;
+		
+		// 달서구립도서관 하드코딩
+		// 달서구립도서관 상호대차 3권
+		String[] sangho3cnt = {"dalseolib", "kids", "seongseo", "bolli", "family", "english", "dssmalllib"};
+		for (String libOne : sangho3cnt) {
+			if(context_path.equals(libOne)) {
+				sanghoPossiCnt = 3;
+				break;
+			}
+		}
 
-		if (CollectionUtils.isNotEmpty(returnList) && returnList.size() >= 5) { 
-			service.alertMessage("상호대차 신청권수는 5권까지입니다.", request, response);
+		if (CollectionUtils.isNotEmpty(returnList) && returnList.size() >= sanghoPossiCnt) { 
+			service.alertMessage("상호대차 신청권수는 "+sanghoPossiCnt+"권까지입니다.", request, response);
 			return null;
 		}
 
