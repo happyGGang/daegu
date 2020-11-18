@@ -377,10 +377,21 @@ public class IndexController extends BaseController {
 
 	@RequestMapping(value = { "/{contextPath}/subNotice.*" }) // homepage_id로 휴관일만 가져오기
 	public String subNotice(Model model, Board board, HttpServletRequest request, @PathVariable String contextPath) {
-		Homepage h = (Homepage) request.getAttribute("homepage");
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
-		String filePath = h.getFolder() + "/subNotice";
+		String filePath = homepage.getFolder() + "/subNotice";
 
+//		if (StringUtils.isEmpty(board.getHomepage_id())) {
+//			Homepage h = new Homepage();
+//			h.setHomepage_id(h.getHomepage_id());
+//			h.setHomepage_group(homepage.getHomepage_id());
+//			h.setTemp_use_yn("Y");
+//			List<Homepage> subHomepageList = homepageService.getSubHomepageList(h);
+//			if (subHomepageList != null && subHomepageList.size() > 0) {
+//				board.setCategory5(subHomepageList.get(0).getHomepage_id());
+//			}
+//		}
+		board.setCategory5(board.getHomepage_id());
 
 		model.addAttribute("subNoticeList", boardService.getSubBoardByMain(board));
 
@@ -488,7 +499,10 @@ public class IndexController extends BaseController {
 		//h35 남구 대명
 		//h36 남구 이천
 		//h45 동구
-		String[] teachHomepage = {"h7", "h45", "h35", "h36"};
+		//h46 북구 구수산
+		//h47 북구 대현
+		//h48 북구 태전
+		String[] teachHomepage = {"h7", "h45", "h35", "h36", "h46", "h47", "h48"};
 		for (String th: teachHomepage ) {
 			if (homepage.getHomepage_id().equals(th)) {
 				Teach t = new Teach();

@@ -307,7 +307,7 @@ public class BoardController extends BaseController {
 		if (boardManage.getBoard_type().equals("NOTICE")) {
 			Homepage h = new Homepage();
 			h.setHomepage_id(homepage.getHomepage_id());
-			h.setHomepage_group(homepage.getHomepage_group());
+			h.setHomepage_group(homepage.getHomepage_id());
 			h.setTemp_use_yn("Y");
 			model.addAttribute("subHomepageList",homepageService.getSubHomepageList(h));
 		}
@@ -539,7 +539,7 @@ public class BoardController extends BaseController {
 		} else if (boardManage.getBoard_type().equals("NOTICE")) {
 			Homepage h = new Homepage();
 			h.setHomepage_id(homepage.getHomepage_id());
-			h.setHomepage_group(homepage.getHomepage_group());
+			h.setHomepage_group(homepage.getHomepage_id());
 			h.setTemp_use_yn("Y");
 			model.addAttribute("subHomepageList",homepageService.getSubHomepageList(h));
 		}

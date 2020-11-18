@@ -89,7 +89,7 @@ do {
 		$('div.free_day p.date').load('calendar5.do?homepage_id=h72');
 		$('div.box_all02').eq(1).load('newBook.do');
 		// $('ul.bestBookUl').load('bestBook.do');
-		$('ul#ul_noticeList').load('subNotice.do');
+		$('ul#ul_noticeList').load('subNotice.do?manage_idx=740');
 		$('ul#ul_eventList').load('subCalendar.do')
 
 		$('#main-search-btn').on('click', function() {
@@ -106,7 +106,7 @@ do {
 		});
 
 		$('select#notice_cate').on('change', function() {
-			$('ul#ul_noticeList').load('subNotice.do?homepage_id='+$(this).val());
+			$('ul#ul_noticeList').load('subNotice.do?manage_idx=740&homepage_id='+$(this).val());
 		});
 
 		$('select#event_lib_anum').on('change', function() {
