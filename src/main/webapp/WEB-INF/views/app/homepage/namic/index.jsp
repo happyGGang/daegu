@@ -260,7 +260,7 @@ do {
 											</c:otherwise>
 										</c:choose>
 									</span>
-										<span class="con-title">${i.title}</span>
+										<span class="con-title">${fn:substring(i.title, 0, 10)}<c:if test="${fn:length(i.title) > 10}">...</c:if></span>
 									</a>
 								</li>
 							</c:forEach>
