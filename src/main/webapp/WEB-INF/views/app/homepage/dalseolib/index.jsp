@@ -191,14 +191,14 @@ do {
 				</form>
 				<div class="mvisual_btn">
 					<ul>
-						<li class="mbtn1"><a href="#">도서관이용</a></li>
-						<li class="mbtn2"><a href="#">대출자료조회</a></li>
-						<li class="mbtn3"><a href="#">수강신청</a></li>
-						<li class="mbtn4"><a href="#">희망도서신청</a></li>
+						<li class="mbtn1"><a href="html.do?menu_idx=19">도서관이용</a></li>
+						<li class="mbtn2"><a href="https://library.daegu.go.kr/intro/dalseolib/login/index.do" target="_blank">대출자료조회</a></li>
+						<li class="mbtn3"><a href="module/teach/index.do?menu_idx=32">수강신청</a></li>
+						<li class="mbtn4"><a href="html.do?menu_idx=15">희망도서신청</a></li>
 						<li class="mbtn5"><a href="#">책드림<span class="eng">(Dream)</span>서비스</a></li>
-						<li class="mbtn6"><a href="#">디지털자료실예약</a></li>
-						<li class="mbtn7"><a href="#">견학신청</a></li>
-						<li class="mbtn8"><a href="#">자원봉사신청</a></li>
+						<li class="mbtn6"><a href="html.do?menu_idx=112">디지털자료실예약</a></li>
+						<li class="mbtn7"><a href="module/excursions/index.do?menu_idx=40">견학신청</a></li>
+						<li class="mbtn8"><a href="html.do?menu_idx=41">자원봉사신청</a></li>
 					</ul>
 				</div>
 			</div>
@@ -275,7 +275,7 @@ do {
 						<p class="tit"><span>2020</span> 독서마라톤</p>
 						<p class="txt">달서구를 구민 또는 달서구 소재 재학생</p>
 						<p class="add_img_wrap">
-							<a href="#" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/notice_addr.png" alt="독서마라톤 자세히보기" /></a>
+							<a href="html.do?menu_idx=102" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/notice_addr.png" alt="독서마라톤 자세히보기" /></a>
 						</p>
 					</div>
 
@@ -400,7 +400,7 @@ do {
 								<li class="on"><a href="#tab1" class='t-tabs' data-link="/${homepage.context_path}/board/index.do?menu_idx=86&manage_idx=736">추천도서</a></li>
 								<li><a href="#tab2" class='t-tabs' data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=10">신착도서</a></li>
 							</ul>
-							<a href="/${homepage.context_path}/board/index.do?menu_idx=86&manage_idx=736" class="btn-more">더보기</a>
+							<a href="/${homepage.context_path}/board/index.do?menu_idx=86&manage_idx=736" class="btn-more more-more">더보기</a>
 						</div>
 						<div class="box con box_all02" data-tab="tab1">
 							<div class="bx_all">

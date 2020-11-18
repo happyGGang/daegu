@@ -9,7 +9,7 @@ a:focus{color:#2b74c0}
 /* header */
 .tnb {position:relative;text-align:right;height:96px;background:#fff;}
 .tnb .util{position:absolute;right:0;top:0;line-height:93px;}
-.tnb a{vertical-align:middle;font-size:15px;color:#484848;font-weight:bold;display:inline-block}
+.tnb a, .tnb b{vertical-align:middle;font-size:15px;color:#484848;font-weight:bold;display:inline-block}
 .tnb a img{margin-left:5px;vertical-align:middle;}
 .tnb a:hover,
 .tnb a:focus{}
@@ -65,7 +65,7 @@ a:focus{color:#2b74c0}
 #footer .info b{color:#d8b74f;font-weight:normal;}
 #footer .info a,
 #footer .info span{vertical-align:middle;font-size:15px;color:#9f9f9f;line-height:50px;}
-#footer .info .bar{display:inline-block;margin:0 58px;padding:0 !important;color:#838383;}
+#footer .info .bar{display:inline-block;margin:0 55px;padding:0 !important;color:#838383;}
 #footer address em,
 #footer address span{font-size:14px;color:#9f9f9f;}
 #footer address{padding:15px 0 0}

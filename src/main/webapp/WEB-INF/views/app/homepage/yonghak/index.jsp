@@ -197,11 +197,11 @@ do {
 
 					<div class="notice-box tabS">
 						<ul class="tabMenuS">
-							<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=179" class='t-tabs'>공지사항</a></li>
-							<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=160&manage_idx=180" class='t-tabs'>문화행사</a></li>
-							<li><a href="#tab3" data-link="/${homepage.context_path}/board/index.do?menu_idx=160&manage_idx=180" class='t-tabs'>언론보도</a></li>
-							<a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=179" class="btn-more2 more-more">더보기</a>
+							<li class="on"><a href="#tab1" data-link="board/index.do?menu_idx=35&manage_idx=677" class='t-tabs'>공지사항</a></li>
+							<li><a href="#tab2" data-link="module/teach/index.do?menu_idx=32&searchCate1=18" class='t-tabs'>문화행사</a></li>
+							<li><a href="#tab3" data-link="board/index.do?menu_idx=51&manage_idx=682" class='t-tabs'>언론보도</a></li>
 						</ul>
+						<a href="board/index.do?menu_idx=35&manage_idx=677" class="btn-more2 more-more">더보기</a>
 
 						<div class="news con" data-tab="tab1">
 							<div class="box">
@@ -299,10 +299,26 @@ do {
 						<h2 class="title"><img src="/resources/homepage/${homepage.context_path}/img/sns-title.png" alt="sns-title"></h2>
 						<div class="sns-link">
 							<ul>
-								<li><a href=""><img src="/resources/homepage/${homepage.context_path}/img/youtube-icon.png" alt="YOUTUBE"> <br class="br650"/>YOUTUBE</a></li>
-								<li><a href=""><img src="/resources/homepage/${homepage.context_path}/img/facebook-icon.png" alt="FACEBOOK"> <br class="br650"/>FACEBOOK</a></li>
-								<li><a href=""><img src="/resources/homepage/${homepage.context_path}/img/instargram-icon.png" alt="INSTAGRAM"> <br class="br650"/>INSTAGRAM</a></li>
-								<li><a href=""><img src="/resources/homepage/${homepage.context_path}/img/kakaostory-icon.png" alt="KAKAOSTORY"> <br class="br650"/>KAKAOSTORY</a></li>
+								<li>
+									<a href="https://www.youtube.com/channel/UCSgiTt1jno9W6xoD84zXnVg" target="_blank">
+										<img src="/resources/homepage/${homepage.context_path}/img/youtube-icon.png" alt="YOUTUBE"> <br class="br650"/>YOUTUBE
+									</a>
+								</li>
+								<li>
+									<a href="https://www.facebook.com/lib.yonghak/" target="_blank">
+										<img src="/resources/homepage/${homepage.context_path}/img/facebook-icon.png" alt="FACEBOOK"> <br class="br650"/>FACEBOOK
+									</a>
+								</li>
+								<li>
+									<a href="https://www.instagram.com/yonghaklibrary/" target="_blank">
+										<img src="/resources/homepage/${homepage.context_path}/img/instargram-icon.png" alt="INSTAGRAM"> <br class="br650"/>INSTAGRAM
+									</a>
+								</li>
+								<li>
+									<a href="" target="_blank">
+										<img src="/resources/homepage/${homepage.context_path}/img/kakaostory-icon.png" alt="KAKAOSTORY"> <br class="br650"/>KAKAOSTORY
+									</a>
+								</li>
 							</ul>
 						</div>
 					</div>
@@ -358,14 +374,14 @@ do {
 
 						<div class="quickLink-box">
 							<ul>
-								<li><a href="">이주의 책</a></li>
-								<li><a href="">이주의 시</a></li>
-								<li><a href="">사람도서관</a></li>
-								<li><a href="">대구전자도서관</a></li>
-								<li><a href="">원문제공서비스</a></li>
-								<li><a href="">책나래서비스</a></li>
-								<li><a href="">책바다서비스</a></li>
-								<li><a href="">사서에게물어보세요</a></li>
+								<li><a href="board/index.do?menu_idx=137&manage_idx=772">이주의 책</a></li>
+								<li><a href="board/index.do?menu_idx=136&manage_idx=771">이주의 시</a></li>
+								<li><a href="html.do?menu_idx=138">사람도서관</a></li>
+								<li><a href="html.do?menu_idx=25">대구전자도서관</a></li>
+								<li><a href="html.do?menu_idx=94">원문제공서비스</a></li>
+								<li><a href="html.do?menu_idx=22">책나래서비스</a></li>
+								<li><a href="html.do?menu_idx=23">책바다서비스</a></li>
+								<li><a href="html.do?menu_idx=24">사서에게물어보세요</a></li>
 							</ul>
 						</div>
 

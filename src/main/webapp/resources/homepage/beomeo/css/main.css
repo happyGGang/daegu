@@ -209,7 +209,7 @@ justify-content: center;-webkit-box-align: center;-ms-flex-align: center;-webkit
 #foot_section .mFooter .top .info a {vertical-align:middle;display:inline-block;zoom:1;*display:inline;padding:0 10px;}
 #foot_section .mFooter .top .info a:first-child{padding-left:0;}
 #foot_section .mFooter .top .info span.bar{color:#ccc;}
-#foot_section .mFooter .top .site_link {position:absolute;right:0;top:80px;}
+#foot_section .mFooter .top .site_link {position:absolute;right:0;top:80px;z-index:9;}
 #foot_section .mFooter .top .site_link > div {display:inline-block;}
 #foot_section .mFooter .top .site_link div > div{width:200px;}
 #foot_section .mFooter .top .site_link div > div,

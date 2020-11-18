@@ -70,14 +70,14 @@ Date.prototype.format = function(f) {
 			var plan_date = new Date($(this).attr('keyValue'));
 			plan_date.setMonth(plan_date.getMonth() - 1);
 			//plan_date.format('yyyy-MM')
-			$('div.cal-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM'));
+			$('div#calendar-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM'));
 			e.preventDefault();
 		});
 
 		$('a#next-btn').on('click',function(e) {
 			var plan_date = new Date($(this).attr('keyValue'));
 			plan_date.setMonth(plan_date.getMonth() + 1);
-			$('div.cal-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM'));
+			$('div#calendar-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM'));
 			e.preventDefault();
 		});
 
@@ -103,7 +103,7 @@ Date.prototype.format = function(f) {
 <div id="calendar2">
 	<div class="title">
 		<h2>도서관일정</h2>
-		<a href="#" class="btn-more2">더보기</a>
+		<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=36" class="btn-more3">더보기</a>
 	</div>
 
 	<div class="calendar-info">
@@ -113,9 +113,9 @@ Date.prototype.format = function(f) {
 
 	<div class='cal-bord'>
 		<div class="cal-func2">
-			<a id="before-btn" href="#prev" class="btn prev" keyValue="${calendar.plan_date}"><img src="/resources/homepage/bukbu/img/prev-btn.png" alt=""><span class="blind">이전달</span></a>
+			<a id="before-btn" href="#prev" class="btn prev" keyValue="${calendar.plan_date}"><img src="/resources/homepage/bukgs/img/cal_prev_btn.png" alt="이전달 보기"><span class="blind">이전달</span></a>
 			<b class="date"><span>${fn:split(calendar.plan_date, '-')[0]}.</span><em>${fn:split(calendar.plan_date, '-')[1]}</em></b>
-			<a id="next-btn" href="#next" class="btn next" keyValue="${calendar.plan_date}"><img src="/resources/homepage/bukbu/img/next-btn.png" alt=""><span class="blind">다음달</span></a>
+			<a id="next-btn" href="#next" class="btn next" keyValue="${calendar.plan_date}"><img src="/resources/homepage/bukgs/img/cal_next_btn.png" alt="다음달 보기"><span class="blind">다음달</span></a>
 		</div>
 
 		<table class="cal-tbl">

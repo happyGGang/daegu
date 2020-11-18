@@ -41,14 +41,14 @@
 			<div class="util">
 				<c:choose>
 					<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
-						<b style="font-weight:200;font-size:15px;">${sessionScope.member.member_name}님</b>
+						<b>${sessionScope.member.member_name}님</b>
 						<span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/intro/login/logout.do">로그아웃</a>
 						<span class="txt-bar"></span>
-						<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=95">정보수정</a>
+						<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=66">정보수정</a>
 					</c:when>
 					<c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
-						<font color="gray">관리자 로그인 중</font>
+						<b>관리자 로그인 중</b>
 						<span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/intro/login/logout.do">로그아웃</a>
 					</c:when>

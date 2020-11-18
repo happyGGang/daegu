@@ -35,8 +35,6 @@ h1.mobile-logo {display:none;width:230px;height:45px;}
 #header .head {position:relative;z-index:20;clear:both}
 #header h1.web-logo {position:absolute;z-index:10000;top:10px;}
 
-.txt-bar{background:transparent !important;}
-
 .popupWrap{z-index:6}
 
 /* Gnb */

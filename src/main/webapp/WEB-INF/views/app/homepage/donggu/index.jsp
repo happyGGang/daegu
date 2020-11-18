@@ -169,7 +169,7 @@ do {
 										<li class="on-cont">
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=614&board_idx=${i.board_idx}">
 												<strong>
-													<span class="ca bg-${i.category1}">${i.category1_name}</span> ${i.title}<br/>
+													<span class="ca bg-${i.category1}">${i.category1_name}</span> <span class="tit">${i.title}</span><br/>
 													<span class="datetime">
 														<fmt:formatDate value="${i.add_date}" pattern="yyyy. MM. dd." />
 													</span>
@@ -295,11 +295,11 @@ do {
 						<h2>추천도서</h2>
 
 						<ul class="tabMenuS">
-							<li class="on"><a href="#tab1" class='t-tabs' data-link="/${homepage.context_path}/board/index.do?menu_idx=90&manage_idx=611">성인</a></li>
-							<li><a href="#tab2" class='t-tabs' data-link="/${homepage.context_path}/board/index.do?menu_idx=91&manage_idx=612">어린이</a></li>
+							<li class="on"><a href="#tab1" class='t-tabs' data-link="/${homepage.context_path}/board/index.do?menu_idx=91&manage_idx=612">성인</a></li>
+							<li><a href="#tab2" class='t-tabs' data-link="/${homepage.context_path}/board/index.do?menu_idx=90&manage_idx=611">어린이</a></li>
 						</ul>
 
-						<a href="/${homepage.context_path}/board/index.do?menu_idx=91&manage_idx=612" class="btn-more">더보기</a>
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=91&manage_idx=612" class="btn-more more-more">더보기</a>
 					</div>
 
 					<div class="box con" data-tab="tab1">

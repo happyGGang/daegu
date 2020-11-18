@@ -130,7 +130,7 @@ table.bbs tr.notice{background:#f5f6f7}
 					<td class="num notice"><span>공지</span></td>
 					<c:if test="${boardManage.manage_idx eq '282' || boardManage.manage_idx eq '614'}">
 					<td class="category important td2">
-						<span class="ca bg-${i.imsi_v_19}">대표</span>
+						<span class="ca bg-${i.imsi_v_19}">통합</span>
 					</td>
 					</c:if>
 					<td class="important left title">

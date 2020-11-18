@@ -91,8 +91,8 @@ do {
 
 
 		$('div#calendar-box').load('calendar3.do');
-		$('div#holiday-box').load('calendar4.do');
-		$('ul.newBookUl').load('newBook.do');
+		$('div#holiday-box').load('calendar5.do?homepage_id=${fn:escapeXml(homepage.homepage_id)}');
+		$('ul.book_photo').eq(1).load('newBook.do');
 		$('ul.bestBookUl').load('bestBook.do');
 
 		$('#main-search-btn').on('click', function() {
@@ -194,56 +194,39 @@ do {
 
 				<div class="notice-box tabS">
 					<ul class="tabMenuS">
-						<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=179" class='t-tabs'>공지사항</a></li>
-						<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=160&manage_idx=180" class='t-tabs'>프로그램접수</a></li>
-						<a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=179" class="btn-more2 more-more">더보기</a>
+						<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=699" class='t-tabs'>공지사항</a></li>
+						<li><a href="#tab2" data-link="/${homepage.context_path}/module/teach/index.do?menu_idx=32" class='t-tabs'>프로그램접수</a></li>
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=699" class="btn-more2 more-more">더보기</a>
 					</ul>
 
 					<div class="news con" data-tab="tab1">
 						<div class="box">
 							<ul>
-								<li><a href="#"><span class="time"><b>2020</b><br/>10.14</span><em>생활SOC 공립 작은도서관 개관 운영 안내작은도서관 개관 운영 안내작은도서관 개관 운영 안내작은도서관 개관 운영 안내</em></a> </li>
-								<li><a href="#"><span class="time"><b>2020</b><br/>10.14</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em></a> </li>
-								<li><a href="#"><span class="time"><b>2020</b><br/>10.14</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em></a> </li>
-								<li><a href="#"><span class="time"><b>2020</b><br/>10.14</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em></a> </li>
-								<li><a href="#"><span class="time"><b>2020</b><br/>10.14</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em></a> </li>
-							</ul>
-						<!--
-							<ul>
-								<c:forEach var="i" varStatus="status" items="${noticeList}" >
-								<li>
-									<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-										<span class="time"><b><fmt:formatDate value="${i.add_date}" pattern="yyyy"/></b><br/><fmt:formatDate value="${i.add_date}" pattern="MM.dd"/></span>
-										<em>${i.title}</em>
-									</a>
-								</li>
+								<c:forEach items="${noticeList}" var="i" varStatus="status">
+									<li>
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=699&board_idx=${i.board_idx}">
+											<span class="time"><b><fmt:formatDate value="${i.add_date}" pattern="dd" /></b><br/><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM" /></span>
+											<em>${i.title}</em>
+										</a>
+									</li>
 								</c:forEach>
 							</ul>
-						-->
 						</div>
 					</div>
 
 					<div class="news con" data-tab="tab2" style="display:none;">
 						<div class="box">
 							<ul>
-								<li><a href="#"><span class="time"><b>2020</b><br/>10.14</span><em>생활SOC 공립 작은도서관 개관 운영 안내작은도서관 개관 운영 안내작은도서관 개관 운영 안내작은도서관 개관 운영 안내</em></a> </li>
-								<li><a href="#"><span class="time"><b>2020</b><br/>10.14</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em></a> </li>
-								<li><a href="#"><span class="time"><b>2020</b><br/>10.14</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em></a> </li>
-								<li><a href="#"><span class="time"><b>2020</b><br/>10.14</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em></a> </li>
-								<li><a href="#"><span class="time"><b>2020</b><br/>10.14</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em></a> </li>
-							</ul>
-							<!--
-							<ul>
-								<c:forEach var="i" varStatus="status" items="${bidList}" >
-								<li>
-									<a href="/${homepage.context_path}/board/view.do?menu_idx=160&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-										<em>${i.title}</em>
-										<span><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
-									</a>
-								</li>
+								<c:forEach items="${teachList}" var="i" varStatus="status">
+									<li>
+										<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=32&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&homepage_id=${i.homepage_id}">
+											<c:set var="teachDate" value="${fn:split(i.start_date, '-')}"></c:set>
+											<span class="time"><b>${teachDate[2]}</b><br/>${teachDate[0]}.${teachDate[1]}</span>
+											<em>${i.teach_name}</em>
+										</a>
+									</li>
 								</c:forEach>
 							</ul>
-							-->
 						</div>
 					</div>
 				</div>
@@ -271,40 +254,42 @@ do {
 
 		<!-- main2 -->
 		<div class="section" id="main2">
-
-			<p class="tit_text">MAIN SERVICE INFORMATION</p>
-			<h2 class="title"><b>주요서비스</b> 안내</h2>
+			
+			<div class="main2_tit">
+				<p class="tit_text">MAIN SERVICE INFORMATION</p>
+				<h2 class="title"><b>주요서비스</b> 안내</h2>
+			</div>
 			
 			<div class="mIcon">
 				<ul>
 					<li>
-						<a href="#" class="q01">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q1.png" alt="대출정보조회"><br class="webBr"/>대출정보조회</span>
+						<a href="/bukgs/html.do?menu_idx=15" class="q01">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q1.png" alt="희망도서신청"><br class="webBr"/>희망도서신청</span>
 						</a>
 					</li>
 					<li>
-						<a href="#" class="q02">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q2.png" alt="희망도서신청"><br class="webBr"/>희망도서신청</span>
+						<a href="/bukgs/html.do?menu_idx=92" class="q02">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q2.png" alt="상호대차서비스"><br class="webBr"/>상호대차서비스</span>
 						</a>
 					</li>
 					<li>
-						<a href="#" class="q03">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q3.png" alt="디지털실예약"><br class="webBr"/>디지털실예약</span>
+						<a href="/bukgs/module/teach/index.do?menu_idx=32" class="q03">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q3.png" alt="독서문화행사"><br class="webBr"/>독서문화행사</span>
 						</a>
 					</li>
 					<li>
-						<a href="#" class="q04">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q4.png" alt="영화안내"><br class="webBr"/>영화안내</span>
+						<a href="/bukgs/intro/login/index.do?menu_idx=69" class="q04">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q4.png" alt="대출정보조회"><br class="webBr"/>대출정보조회</span>
 						</a>
 					</li>
 					<li>
-						<a href="#" class="q05">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q5.png" alt="자료공동이용"><br class="webBr"/>자료공동이용</span>
+						<a href="/bukgs/html.do?menu_idx=91" class="q05">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q5.png" alt="스마트도서관"><br class="webBr"/>스마트도서관</span>
 						</a>
 					</li>
 					<li>
-						<a href="#" class="q06">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q6.png" alt="책바다(상호대차)서비스"><br class="webBr"/>책바다(상호대차)서비스</span>
+						<a href="https://blog.naver.com/bukguarts" class="q06" target="_blank">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q6.png" alt="블로그"><br class="webBr"/>블로그</span>
 						</a>
 					</li>
 				</ul>
@@ -318,150 +303,49 @@ do {
 		<!-- main3 -->
 		<div class="section" id="main3">
 
-			<div class="main-section">
+			<div class="main-section wid1450">
 
 				<div class="book-box tabS">
 					<ul class="tabMenuS">
-						<li class="on"><a href="#tab1" class='t-tabs'>추천도서</a></li>
-						<li><a href="#tab2" class='t-tabs'>신착도서</a></li>
+						<li class="on"><a href="#tab1" class='t-tabs' data-link="/${homepage.context_path}/board/index.do?menu_idx=85&manage_idx=697">추천도서</a></li>
+						<li><a href="#tab2" class='t-tabs' data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=10">신착도서</a></li>
 					</ul>
-					<a href="#" class="btn-more2">더보기</a>
+					<a href="/${homepage.context_path}/board/index.do?menu_idx=85&manage_idx=697" class="btn-more2 more-more">더보기</a>
 
 					<div class="box con" data-tab="tab1">
 						<ul class="book_photo">
-							
-							<li>
-								<a href="">
+							<c:forEach items="${bookList1}" var="i" varStatus="status">
+								<li>
+									<a href="/${homepage.context_path}/board/view.do?menu_idx=85&manage_idx=697&board_idx=${i.board_idx}">
 									<span class="con-image">
-									
-									
-										<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
-									
-									
-									
+										<c:choose>
+											<c:when test="${i.preview_img ne null}">
+												<c:choose>
+													<c:when test="${fn:contains(i.preview_img, 'http')}">
+														<img src="${i.preview_img}" alt="${i.title}" />
+													</c:when>
+													<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+														<img src="${i.preview_img}" alt="${i.title}" />
+													</c:when>
+													<c:otherwise>
+														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+													</c:otherwise>
+												</c:choose>
+											</c:when>
+											<c:otherwise>
+												<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
+											</c:otherwise>
+										</c:choose>
 									</span>
-									<span class="con-title">1진정성 마케팅 ...</span>
-									<span class="con-author">김상훈,박선미 공저...</span>
-								</a>
-							</li>
-							
-							
-							<li>
-								<a href="">
-									<span class="con-image">
-									
-									
-										<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
-									
-									
-									
-									</span>
-									<span class="con-title">주식회사 히어로즈 : ...</span>
-									<span class="con-author">기타가와 에미 지음 ;...</span>
-								</a>
-							</li>
-							
-							
-							<li>
-								<a href="">
-									<span class="con-image">
-									
-									
-										<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
-									
-									
-									
-									</span>
-									<span class="con-title">All the piec...</span>
-									<span class="con-author">Jonathan Abr...</span>
-								</a>
-							</li>
-							
-							
-							<li>
-								<a href="">
-									<span class="con-image">
-									
-									
-										<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
-									
-									
-									
-									</span>
-									<span class="con-title">초록 자전거...</span>
-									<span class="con-author">이상교 글 ; 오정택 ...</span>
-								</a>
-							</li>
-							
+										<span class="con-title">${fn:length(i.title) > 11 ? fn:substring(i.title, 0, 12) : i.title}<c:if test="${fn:length(i.title) > 11 }">...</c:if></span>
+									</a>
+								</li>
+							</c:forEach>
 						</ul>
 					</div>
 
 					<div class="box con" data-tab="tab2" style="display:none;">
 						<ul class="book_photo">
-							
-							<li>
-								<a href="">
-									<span class="con-image">
-									
-									
-										<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
-									
-									
-									
-									</span>
-									<span class="con-title">2진정성 마케팅 : 끌리...</span>
-									<span class="con-author">김상훈,박선미 공저...</span>
-								</a>
-							</li>
-							
-							
-							<li>
-								<a href="">
-									<span class="con-image">
-									
-									
-										<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
-									
-									
-									
-									</span>
-									<span class="con-title">주식회사 히어로즈 : ...</span>
-									<span class="con-author">기타가와 에미 지음 ;...</span>
-								</a>
-							</li>
-							
-							
-							<li>
-								<a href="">
-									<span class="con-image">
-									
-									
-										<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
-									
-									
-									
-									</span>
-									<span class="con-title">All the piec...</span>
-									<span class="con-author">Jonathan Abr...</span>
-								</a>
-							</li>
-							
-							
-							<li>
-								<a href="">
-									<span class="con-image">
-									
-									
-										<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
-									
-									
-									
-									</span>
-									<span class="con-title">초록 자전거...</span>
-									<span class="con-author">이상교 글 ; 오정택 ...</span>
-								</a>
-							</li>
-							
 						</ul>
 					</div>
 

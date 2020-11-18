@@ -6,10 +6,12 @@ a:focus{color:#2b74c0}
 /* header */
 .tnb{position:relative;text-align:right;background:#ece6d8;}
 .tnb .util{line-height:85px;height:85px}
-.tnb a, .tnb span{vertical-align:middle;font-size:15px;color:#222;font-weight:bold;display:inline-block;letter-spacing:0; padding:0 11px;}
+.tnb a, .tnb span, .tnb b{vertical-align:middle;font-size:15px;color:#222;font-weight:bold;display:inline-block;letter-spacing:0; padding:0;}
 .tnb a img{vertical-align:middle;}
 .tnb a:hover,
 .tnb a:focus{}
+
+.txt-bar{background:#666 !important;}
 
 #header .head{position:relative;z-index:2;clear:both}
 #header h1{position:absolute;z-index:10000;top:25px;}

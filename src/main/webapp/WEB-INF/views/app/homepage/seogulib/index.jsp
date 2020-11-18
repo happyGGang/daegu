@@ -157,15 +157,15 @@ do {
 						<!--quick menu-->
 						<div class="quickmenu"> 			
 							<ul>
-								<li class="quick01" onclick="">
+								<li class="quick01" onclick="location.href='html.do?menu_idx=17'">
 									<h5>이용안내</h5>
 									<p>도서관서비스<br />이렇게 이용해보세요!</p>
 								</li>
-								<li class="quick02" onclick="">
+								<li class="quick02" onclick="location.href='intro/search/loan/history.do?menu_idx=53'">
 									<h5>대출현황조회</h5>
 									<p>나의 도서대출 이력을<br />조회해보세요!</p>
 								</li>
-								<li class="quick03" onclick="">
+								<li class="quick03" onclick="location.href='html.do?menu_idx=31'">
 									<h5>문화강좌</h5>
 									<p>다양한 행사와<br />온라인 수강신청</p>
 								</li>
@@ -203,19 +203,19 @@ do {
 						<!--quick menu-->
 						<div class="quickmenu"> 			
 							<ul>
-								<li class="quick04" onclick="">
+								<li class="quick04" onclick="location.href='html.do?menu_idx=91'">
 									<h5>도서관견학신청</h5>
 									<p>올바른 도서관 이용법과<br />책을 접할 수 있어요!</p>
 								</li>
-								<li class="quick05" onclick="">
+								<li class="quick05" onclick="location.href=''">
 									<h5>DVD자료검색</h5>
 									<p>DVD 비도서 자료검색</p>
 								</li>
-								<li class="quick06" onclick="">
+								<li class="quick06" onclick="location.href='html.do?menu_idx=15'">
 									<h5>희망도서신청</h5>
 									<p>원하는 도서가 없을 경우<br />신청하세요!</p>
 								</li>
-								<li class="quick07" onclick="">
+								<li class="quick07" onclick="location.href='html.do?menu_idx=25'">
 									<h5>대구전자도서관</h5>
 									<p>대구 시민의<br />스마트한 독서생활!</p>
 								</li>
@@ -230,31 +230,31 @@ do {
 							<h5><span>네이버</span> 밴드 ON</h5>
 							<ul>
 								<li>
-									<a href="">
+									<a href="https://band.us/@seoguchildlib" target="_blank">
 										<img src="/resources/homepage/seogulib/img/naver_band_child.png"><br/>
 										<span>서구어린이</span>
 									</a>
 								</li>
 								<li>
-									<a href="">
+									<a href="https://band.us/@bisanlib" target="_blank">
 										<img src="/resources/homepage/seogulib/img/naver_band_bisan.png"><br/>
 										<span>비산</span>
 									</a>
 								</li>
 								<li>
-									<a href="">
+									<a href="https://band.us/@selibrary" target="_blank">
 										<img src="/resources/homepage/seogulib/img/naver_band_english.png"><br/>
 										<span>영어</span>
 									</a>
 								</li>
 								<li>
-									<a href="">
+									<a href="https://band.us/@biwonlib" target="_blank">
 										<img src="/resources/homepage/seogulib/img/naver_band_biwon.png"><br/>
 										<span>비원</span>
 									</a>
 								</li>
 								<li>
-									<a href="">
+									<a href="https://band.us/@wongogaelibrary" target="_blank">
 										<img src="/resources/homepage/seogulib/img/naver_band_wongogae.png"><br/>
 										<span>원고개</span>
 									</a>
@@ -272,7 +272,7 @@ do {
 						<!--quick menu-->
 						<div class="quickmenu"> 			
 							<ul>
-								<li class="quick04" onclick="">
+								<li class="quick04" onclick="location.href='html.do?menu_idx=91'">
 									<h5>도서관견학신청</h5>
 									<p>올바른 도서관 이용법과<br />책을 접할 수 있어요!</p>
 								</li>
@@ -280,7 +280,7 @@ do {
 									<h5>DVD자료검색</h5>
 									<p>DVD 비도서 자료검색</p>
 								</li>
-								<li class="quick06" onclick="">
+								<li class="quick06" onclick="location.href='html.do?menu_idx=15'">
 									<h5>희망도서신청</h5>
 									<p>원하는 도서가 없을 경우<br />신청하세요!</p>
 								</li>
@@ -292,7 +292,7 @@ do {
 					<div class="sec01-2-2">
 						<div class="quickmenu"> 			
 							<ul>
-								<li class="quick07" onclick="">
+								<li class="quick07" onclick="location.href='html.do?menu_idx=25'">
 									<h5>대구전자도서관</h5>
 									<p>올바른 도서관 이용법과<br />책을 접할 수 있어요!</p>
 								</li>
@@ -303,32 +303,32 @@ do {
 							<h5><span>네이버</span> 밴드 ON</h5>
 							<ul>
 								<li>
-									<a href="">
+									<a href="https://band.us/@seoguchildlib">
 										<img src="/resources/homepage/seogulib/img/naver_band_child.png"><br/>
 										<span class="m_none">서구어린이</span>
 										<span class="pc_none">어린이</span>
 									</a>
 								</li>
 								<li>
-									<a href="">
+									<a href="https://band.us/@bisanlib">
 										<img src="/resources/homepage/seogulib/img/naver_band_bisan.png"><br/>
 										<span>비산</span>
 									</a>
 								</li>
 								<li>
-									<a href="">
+									<a href="https://band.us/@selibrary">
 										<img src="/resources/homepage/seogulib/img/naver_band_english.png"><br/>
 										<span>영어</span>
 									</a>
 								</li>
 								<li>
-									<a href="">
+									<a href="https://band.us/@biwonlib">
 										<img src="/resources/homepage/seogulib/img/naver_band_biwon.png"><br/>
 										<span>비원</span>
 									</a>
 								</li>
 								<li>
-									<a href="">
+									<a href="https://band.us/@wongogaelibrary">
 										<img src="/resources/homepage/seogulib/img/naver_band_wongogae.png"><br/>
 										<span>원고개</span>
 									</a>
@@ -346,7 +346,7 @@ do {
 						<span>
 							<strong>오늘의 도서관 일정</strong>을 확인하세요!
 						</span>
-						<a href="">전체일정</a>
+						<a href="module/calendarManage/index.do?menu_idx=36">전체일정</a>
 					</div>
 
 					<div class="date">
@@ -594,11 +594,11 @@ $(function() {
 					<div class="con sec02-1">
 						<div class="sec02_tab01 tab2">
 							<ul>
-								<li class="on"><div class="line2"><a href="#notice" class="tab-link2">공지<br />사항</a></div></li>
-								<li><div><a href="#gallery" class="tab-link2">갤러리</a></div></li>
+								<li class="on"><div class="line2"><a href="#notice" class="tab-link2" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628">공지<br />사항</a></div></li>
+								<li><div><a href="#gallery" class="tab-link2" data-link="">갤러리</a></div></li>
 							</ul>
 							<div class="more_btn">
-								<a href=""><img src="/resources/homepage/seogulib/img/con02_more_btn.png"></a>
+								<a href="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628"><img src="/resources/homepage/seogulib/img/con02_more_btn.png"></a>
 							</div>
 						</div>
 

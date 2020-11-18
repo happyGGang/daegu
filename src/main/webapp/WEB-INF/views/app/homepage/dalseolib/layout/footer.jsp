@@ -9,13 +9,12 @@
 			<div class="wsize">
 				<div class="addr">
 					<ul>
-						<li class="personinfo"><a href="">개인정보처리방침</a></li>
-						<li><a href="">영상정보처리방침</a></li>
-						<li><a href="">이용약관</a></li>
-						<li><a href="">도서관서비스헌장</a></li>
-						<li><a href="">저작권보호정책</a></li>
-						<li><a href="">뷰어다운로드</a></li>
-						<li><a href="">배너모음</a></li>
+						<li class="personinfo"><a href="html.do?menu_idx=75">개인정보처리방침</a></li>
+						<li><a href="html.do?menu_idx=76">영상정보처리방침</a></li>
+						<li><a href="html.do?menu_idx=77">이용약관</a></li>
+						<li><a href="html.do?menu_idx=78">도서관서비스헌장</a></li>
+						<li><a href="html.do?menu_idx=79">저작권보호정책</a></li>
+						<li><a href="html.do?menu_idx=80">뷰어다운로드</a></li>
 					</ul>
 				</div>
 				<div class="addr_bottom">

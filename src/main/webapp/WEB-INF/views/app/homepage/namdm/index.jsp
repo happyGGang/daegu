@@ -211,7 +211,7 @@ do {
 							</a>
 						</li>
 						<li class="qm5">
-							<a href="/${homepage.context_path}/html.do?menu_idx=27">
+							<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=32">
 								<span>문화프로그램</span>
 							</a>
 						</li>

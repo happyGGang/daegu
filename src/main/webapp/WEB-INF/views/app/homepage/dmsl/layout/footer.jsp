@@ -40,13 +40,11 @@
 				</div>
 				<div class="foot-info">
 					<div class="info">
-						<a href=""><b>개인정보처리방침</b></a>
+						<a href="html.do?menu_idx=75"><b>개인정보처리방침</b></a>
 						<span class="bar">|</span>
-						<a href="">이메일무단수집거부</a>
+						<a href="html.do?menu_idx=95">이메일무단수집거부</a>
 						<span class="bar">|</span>
-						<a href="">이용약관</a>
-						<span class="bar">|</span>
-						<a href="">배너모음</a>
+						<a href="html.do?menu_idx=77">이용약관</a>
 					</div>
 				</div>
 				<address>

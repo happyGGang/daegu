@@ -9,7 +9,7 @@ a:focus{color:#2b74c0}
 .tnb{position:relative;text-align:right;background:#686868;}
 .tnb .util {height:40px}
 .tnb .util b {color:#fff;}
-.tnb a {font-size:15px;color:#fff;display:inline-block;padding:0 20px;margin:0;box-sizing:border-box;line-height:40px;}
+.tnb a {font-size:15px;color:#fff;display:inline-block;margin:0;box-sizing:border-box;line-height:40px;}
 .tnb a:hover,
 .tnb a:focus{}
 .tnb a.sitemap-img2 {padding:0;vertical-align:middle;}
@@ -43,7 +43,7 @@ a:focus{color:#2b74c0}
 .Gnb .gnb-menu>li.menu2>ul{margin-left:-300px;}
 .Gnb .gnb-menu>li.menu3>ul{margin-left:-100px;}
 .Gnb .gnb-menu>li.menu4>ul{margin-left:0;}
-.Gnb .gnb-menu>li.menu5>ul{margin-left:200px;}
+.Gnb .gnb-menu>li.menu5>ul{margin-left:150px;}
 .Gnb .gnb-menu>li.menu6>ul{margin-left:190px;}
 .Gnb .gnb-menu>li.menu7>ul{margin-left:80px;}
 .Gnb .g-menu {position:relative;}
@@ -63,10 +63,10 @@ a:focus{color:#2b74c0}
 #footer .bottom .section .site_link a.btn{padding:9px 10px;border-radius:0;background:#7b8294;border:0;color:#fff}
 #footer .bottom .section .site_link a.btn:hover,
 #footer .bottom .section .site_link a.btn:focus{background:#7b8294}
-#footer .info b{color:#0055d5}
+#footer .info b{color:#f38e00}
 #footer .info a,
-#footer .info span{vertical-align:middle;font-size:15px;color:#3b3b3b;line-height:50px;}
-#footer .info .bar{display:inline-block;margin:0 13px;color:#3b3b3b;}
+#footer .info span{vertical-align:middle;font-size:15px;color:#666;line-height:50px;}
+#footer .info .bar{display:inline-block;margin:0 13px;color:#bbb;}
 #footer address em,
 #footer address span{color:#9f9f9f;font-size:15px}
 #footer address{padding:15px 0 0}

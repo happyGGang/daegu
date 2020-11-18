@@ -7,7 +7,7 @@ a:focus{color:#2b74c0}
 /* header */
 .tnb{position:relative;text-align:right;background:#fff;}
 .tnb .util{line-height:84px;height:84px}
-.tnb a {vertical-align:middle;font-size:14px;color:#484848;font-weight:bold;display:inline-block}
+.tnb a, .tnb b {vertical-align:middle;font-size:14px;color:#484848;font-weight:bold;display:inline-block}
 .tnb a img{margin-left:5px;vertical-align:middle;}
 .tnb a:hover,
 .tnb a:focus{}

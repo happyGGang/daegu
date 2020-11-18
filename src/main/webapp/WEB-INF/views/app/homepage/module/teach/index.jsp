@@ -86,7 +86,7 @@ $(function(){
 
 	<c:if test="${fn:length(subHomepageList) > 0}">
 		<div class="tab_menu on">
-			<ul class="no6">
+			<ul class="no3">
 				<c:forEach items="${subHomepageList}" var="i" varStatus="status">
 					<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">${i.homepage_alias}</a></li>
 				</c:forEach>
@@ -94,17 +94,17 @@ $(function(){
 		</div>
 	</c:if>
 
-	<div class="tabmenu tab1">
+	<div class="tabmenu tab1" style="margin-top:20px;">
 		<ul>
-			<li class="${empty teach.searchCate1 ? 'active':''}"><a href="" keyValue=""style="font-size: 13px;">전체</a></li>
+			<li class="${empty teach.searchCate1 ? 'active':''}"><a href="" keyValue=""style="font-size: 14px;">전체</a></li>
 			<c:forEach items="${teachLargeCategoryList}" var="i" varStatus="status">
-			<li class="${teach.searchCate1 eq i.teach_code ? 'active':''}"><a href="" keyValue="${i.teach_code}" style="font-size: 13px;">${i.code_name}</a></li>
+			<li class="${teach.searchCate1 eq i.teach_code ? 'active':''}"><a href="" keyValue="${i.teach_code}" style="font-size: 14px;">${i.code_name}</a></li>
 			</c:forEach>
 		</ul>
 	</div>
 
-	<div style="text-align: right; margin-bottom: 20px; ">
-		<a href="anonyApplyCheck.do?homepage_id=${fn:escapeXml(teach.homepage_id)}&menu_idx=${fn:escapeXml(param.menu_idx)}" class="btn btn1">비회원 신청확인</a>
+	<div style="text-align: right; margin-bottom: 10px; ">
+		<a href="anonyApplyCheck.do?homepage_id=${fn:escapeXml(teach.homepage_id)}&menu_idx=${fn:escapeXml(param.menu_idx)}" class="btn btn1" style="font-size:14px;">비회원 신청확인</a>
 	</div>
 
 </form:form>
@@ -119,34 +119,39 @@ $(function(){
 		<c:forEach items="${teachList}" var="i">
 			<div class="item">
 				<div class="op_title category">
-					<span class="ca ty2">${i.group_name} ${i.category_name}</span>
+					<span class="ca ty2" style="font-size:14px;">${i.group_name} ${i.category_name}</span>
 					<c:if test="${fn:length(i.teach_name) > 20}">
 										</c:if>
 					<a href="" class="name toggle-btn" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}">
 						${i.teach_name}
 					</a>
-
-					<a href="" class="name toggle-btn btn btn6" style="float:right; text-align:center; width:85px; font-size: 13px;" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}">
+					<a href="" class="name toggle-btn btn btn6 more_btn" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}">
 						<i class="fa fa-search"></i>상세보기
 					</a>
-					<span style="float: right;font-size:14px;padding-top:8px;margin-right:5px;letter-spacing:-1px;">
-					<c:if test="${fn:length(i.teach_target) > 0}">
-						<b>대상 : </b> ${i.teach_target} <span>｜</span>
-					</c:if>
-					<b>접수현황 : </b><span ${i.teach_join_count > 0 and (i.teach_join_count eq i.teach_limit_count)? 'style="color:red;padding:0; vertical-align:baseline;"' : 'style="color:orange; padding:0; vertical-align:baseline;"'}>${i.teach_join_count}</span> / ${i.teach_limit_count}
-					<c:if test="${i.teach_backup_count > 0}">
-						<span>｜</span> <b>대기현황 : </b>
-						<span ${i.teach_backup_join_count > 0 and (i.teach_backup_join_count eq i.teach_backup_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_backup_join_count}</span> / ${i.teach_backup_count}
-					</c:if>
+					<span class="info">
+						<c:if test="${fn:length(i.teach_target) > 0}">
+							<b>대상 : </b> ${i.teach_target} <span>｜</span>
+						</c:if>
+						<b>접수현황 : </b>
+						<span ${i.teach_join_count > 0 and (i.teach_join_count eq i.teach_limit_count)? 'style="color:red;padding:0; vertical-align:baseline;"' : 'style="color:orange; padding:0; vertical-align:baseline; font-size:14px; font-weight:bold;"'}>${i.teach_join_count}</span> / ${i.teach_limit_count}
+						<c:if test="${i.teach_backup_count > 0}">
+							<span>｜</span> <b>대기현황 : </b>
+							<span ${i.teach_backup_join_count > 0 and (i.teach_backup_join_count eq i.teach_backup_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_backup_join_count}</span> / ${i.teach_backup_count}
+						</c:if>
 					</span>
 				</div>
 				<div class="sk-box" id="${i.teach_idx}" style="display: none;">
 				<div class="box">
 					<div class="box2">
 						<ul class="con2">
-							<li class="first"><div><label>접수기간 </label> : ${i.start_join_date}&nbsp;&nbsp;${i.start_join_time}&nbsp;&nbsp;&nbsp;~ &nbsp;&nbsp;&nbsp;${i.end_join_date}&nbsp;&nbsp;${i.end_join_time}</div></li>
-							<li><div><label>장소</label> : ${i.teach_stage}</div></li>
-							<li><div><label>강좌일</label> : ${i.start_date} <c:if test="${i.start_date ne i.end_date}">~ ${i.end_date}</c:if> (
+							<li class="first">
+								<div><label>접수기간 </label> : ${i.start_join_date}&nbsp;&nbsp;${i.start_join_time}&nbsp;&nbsp;&nbsp;~ &nbsp;&nbsp;&nbsp;${i.end_join_date}&nbsp;&nbsp;${i.end_join_time}</div>
+							</li>
+							<li>
+								<div><label>장소</label> : ${i.teach_stage}</div>
+							</li>
+							<li>
+								<div><label>강좌일</label> : ${i.start_date} <c:if test="${i.start_date ne i.end_date}">~ ${i.end_date}</c:if> (
 															<c:forEach var="j" varStatus="status_j" items="${i.teach_day_arr}">
 																<c:choose>
 																	<c:when test="${j eq '1'}">일</c:when>
@@ -162,9 +167,12 @@ $(function(){
 																</c:if>
 															</c:forEach>
 														) ${i.start_time} ~ ${i.end_time}
-							</div></li>
+								</div>
+							</li>
 							<c:if test="${not empty i.teacher_name}">
-							<li><div><label>강사명</label> : ${i.teacher_name}</div></li>
+							<li>
+								<div><label>강사명</label> : ${i.teacher_name}</div>
+							</li>
 							</c:if>
 							<c:if test="${not empty i.server_file_name}">
 							<li><div>

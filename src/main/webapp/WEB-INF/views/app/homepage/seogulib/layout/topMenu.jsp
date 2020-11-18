@@ -9,7 +9,7 @@
 				<div class="g-menu">
 					<homepageTag:topMenu menuList="${menuTreeList}" />
 
-					<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=92" class="menu_btn">
+					<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=82" class="menu_btn">
 						<img src="/resources/common/img/sitemap_icon_black.png" alt="사이트맵" />
 					</a>
 

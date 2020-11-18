@@ -1,0 +1,120 @@
+select {height:36px;padding-right:26px;padding-left:5px;border:1px solid #ddd;border-radius:0;box-sizing:border-box;-webkit-appearance:none;-moz-appearance:none;appearance:none;background:#fff url(/include/image/common/arr_select.png) right 10px center no-repeat;color:#333}
+select::-ms-expand {display:none}
+
+.pageSearch > .btn,.pageSearch .inputDate + .btn {vertical-align:top}
+.inputDate {display:inline-block;overflow:hidden;position:relative;padding:0 30px 0 5px;line-height:0;vertical-align:top;border:1px solid #ccc;box-sizing:border-box;background-color:#fff}
+.inputDate input[type="date"],.inputDate input[type="text"] {width:90px;height:34px;margin:0;padding:0;font-size:0.938em;line-height:34px;border:0;text-align:center}
+.inputDate .btnCal,.inputDate .ui-datepicker-trigger {position:absolute;top:50%;right:5px;margin-top:-10px;line-height:0}
+
+/* form element */
+.form-ele {display:inline-block;width:100%;vertical-align:middle;box-sizing:border-box}
+.form-ele.auto {width:auto;max-width:220px}
+.form-ele.short {width:77px}
+.form-ele.fix {width:200px}
+.form-ele.min {min-width:102px} /*auto와 다중 클래스로 사용*/
+.form-ele.wide {max-width:calc(50% - 5px)}
+.form-ele.wide + .form-ele.wide {margin-left:4px}
+.form-ele.full {width:100%;max-width:100%}
+.form-ele.half {float:left;width:47%;max-width:104px}
+.form-ele.half ~ .hyphen {float:left;width:6%;text-align:center}
+.form-ele[readonly],.form-ele[disabled],.radiobtn input[disabled] + label {color:#999;cursor:default;background-color:#f8f8f8}
+.form-block {display:block}
+.form-inline {display:inline-block}
+.numericForm {width:100%}
+.numericForm select,.numericForm input[type="text"],.numericForm input[type="tel"] {float:left;width:31%;max-width:77px}
+.numericForm .hyphen {float:left;width:3.5%;min-width:15px;line-height:34px;text-align:center}
+.radiobtn {display:inline-block;overflow:hidden;position:relative;vertical-align:middle}
+.radiobtn label {content:"";display:inline-block;position:relative;z-index:2;min-width:50px;padding:0 10px;line-height:34px;text-align:center;border:1px solid #e1e1e1;background-color:#fff;cursor:pointer}
+.radiobtn input[type="radio"],.radiobtn input[type="checkbox"] {position:absolute;top:-1px;left:-1px;z-index:-1;text-indent:-9999em;opacity:0}
+.radiobtn input[type="radio"]:checked + label,.radiobtn input[type="checkbox"]:checked + label,.radiobtn.checked label {z-index:3;color:#3f5f9c;border-color:#b8c2d6;background-color:#cfd7e6}
+
+
+/* book filter */
+.bookFilterForm {overflow:hidden;margin-bottom:30px;border:1px solid #d9d9d9;border-radius:5px}
+.bookFilterForm .field {position:relative;padding-left:70px}
+.bookFilterForm .field + .field {margin-top:6px}
+.bookFilterForm .field .tit {position:absolute;top:3px;left:0;font-weight:normal;line-height:36px;color:#333}
+.bookFilterForm .field .radiobtn {float:left;margin:3px 8px 3px 0}
+.bookFilterForm .field .radiobtn:last-child {margin-right:0}
+.bookFilterForm .field .radiobtn label {padding:0 10px}
+.bookFilterForm .field .radiobtnGroup {float:left;padding:4px 0 3px}
+.bookFilterForm .field .radiobtnGroup .radiobtn {margin:-1px 0 0 -1px}
+.bookFilterForm .field .radiobtnGroup .radiobtn label {min-width:40px;padding:0 15px;border-radius:0}
+.bookFilterForm .field > .form-ele {margin:3px 0}
+.bookFilterForm .inputDateGroup {float:left;margin:3px 8px 3px 0}
+.bookFilterForm .inputDate input {height:34px;line-height:34px}
+.bookFilterForm .btnSearch {margin-top:15px;text-align:center}
+.bookFilterForm .btn {padding:10px 40px;font-size:1.154em;line-height:25px;color:#fff;background-color:#666}
+.filterFormArea {position:relative;padding:20px}
+.filterDescArea {padding:10px 15px;background-color:#f4f4f4}
+.bookCategory {margin:30px auto}
+.bookCategory .htitle {margin-bottom:5px}
+.bookCategoryList {padding:0 10px 10px;border:1px solid #d9d9d9;border-top:2px solid #555}
+.bookCategoryList li {float:left;width:20%;margin-top:10px;font-size:0.923em}
+.bookCategoryList li a.on {text-decoration:underline}
+
+/* book list */
+.cover .rank {position:absolute;top:1px;left:2px;width:36px;height:44px;font-size:1.154em;line-height:32px;color:#fff;text-align:center;border-radius:0 0 20px 0;background:url(/include/image/board/bg_rank.png) 0 0 no-repeat;background-size:cover}
+.cover .rank.top {background-image:url(/include/image/board/bg_rank_top.png)}
+.book-list > li {overflow:hidden;position:relative;padding:17px 20px;border:1px solid #e2e2e2}
+.book-list > li + li {margin-top:20px}
+.book-list .thumb {position:absolute;top:20px;left:20px}
+.book-list .thumb .cover {display:inline-block;position:relative;max-width:150px;height:210px;line-height:0;vertical-align:top;border:1px solid #e2e2e2;background:#f8f8f8 url(/include/image/common/noimg_book.png) 50% 50% no-repeat}
+.book-list .thumb img {display:block;max-width:100%;height:100%;vertical-align:top;box-sizing:border-box}
+.book-list .thumb img[src$="img_none.png"],.book-view .thumb img[src$="img_none.png"],.thumb-list .thumb img[src$="img_none.png"] {width:100%;opacity:0}
+.book-list .thumb .lib {display:table;position:absolute;top:0;left:0;z-index:10;width:55px;color:#fff;text-align:center;background-color:#999}
+.book-list .thumb .lib span {display:table-cell;width:100%;height:55px;font-style:normal;font-size:1.063em;line-height:1.1;vertical-align:middle}
+.book-list .bookInfoList {min-height:216px;margin-left:170px}
+.book-list .bookInfoList .info > span {float:left;position:relative;margin-right:8px;padding-right:9px}
+.book-list .bookInfoList .info > span::after {content:"";position:absolute;top:50%;right:0;width:1px;height:14px;margin-top:-7px;background-color:#ccc}
+.book-list .bookInfoList .info > span:last-child {margin-right:0;padding-right:0}
+.book-list .bookInfoList .info > span:last-child::after {display:none}
+.bookInfoList .book {margin-bottom:7px;font-size:1.25em;color:#333;font-weight:bold;}
+.bookInfoList .bookTitle a:hover,.bookInfoList .bookTitle:focus {text-decoration:underline}
+.bookInfoList .tit {font-weight:normal;font-size:1em}
+.bookInfoList .tit::after {content:" :"}
+.bookInfoList .info::after {content:"";display:block;clear:both}
+.bookInfoList .list a {text-decoration:underline}
+.bookInfoList .list a.btn {text-decoration:none}
+.bookInfoList .desc {clear:left;margin-top:12px;padding-top:10px;padding-left:0;font-size:1em;border-top:1px solid #e2e2e2;background:none}
+.bookInfoList .btnArea {clear:left;margin-top:10px}
+.viewBookArea {overflow:hidden;position:relative}
+.viewBookArea .thumb {overflow:hidden;position:absolute;top:0;left:0}
+.viewBookArea .thumb .cover {display:inline-block;max-width:150px;height:210px;vertical-align:top;border:1px solid #e2e2e2;background:#f8f8f8 url(/include/image/common/noimg_book.png) 50% 50% no-repeat}
+.viewBookArea .thumb .cover img {display:block;max-width:100%;height:100%;vertical-align:top;box-sizing:border-box}
+.viewBookArea .thumb .btn {display:block;margin-top:10px;font-size:1.125em}
+.viewBookArea .bookInfoList {min-height:240px;margin-left:170px}
+.viewBookArea .bookInfoList .bookTitle {font-weight:bold;font-size:1.25em;}
+.viewBookArea .bookInfoList .cont {margin-top:30px;padding:20px 15px;font-size:1.143em;border-top:1px solid #d9d9d9}
+.book-view {padding:20px;border:1px solid #e2e2e2}
+.book-view .bookContent {margin-top:20px;padding-top:15px;border-top:1px solid #e2e2e2}
+.book-view .bookContent .author {margin-bottom:15px;padding-bottom:10px;font-weight:600;font-size:1.143em;border-bottom:1px dotted #e4e4e4}
+
+
+@media screen and (max-width:640px){
+	.bookFilterForm .field {float:none}
+	.bookFilterForm .field .radiobtn label {padding:0 10px}
+	.bookFilterForm .field .radiobtnGroup {margin-top:10px}
+	.filterFormArea .btn {padding:5px 40px}
+	.board-list col.lib {width:75px}
+	.book-list > li {padding:10px 12px}
+	.book-list .thumb {top:12px;left:12px}
+	.book-list .thumb .cover {max-width:92px;height:120px}
+	.book-list .bookInfoList {min-height:125px;margin-left:110px}
+	.book-list .desc {height:60px}
+	.viewBookArea .thumb .cover {max-width:130px;height:170px}
+	.viewBookArea .bookInfoList {min-height:220px;margin-left:150px}
+}
+@media screen and (max-width:480px){
+	.bookFilterForm .field {padding-left:60px}
+	.bookFilterForm .inputDate input[type="text"] {width:77px}
+	.filterFormArea {padding:15px}
+	.book-list .thumb .cover {max-width:80px;height:107px}
+	.book-list .bookInfoList {min-height:107px;margin-left:95px}
+	.book-view {padding:15px}
+	.viewBookArea .thumb {position:relative;top:auto;left:auto;margin-bottom:10px;text-align:center}
+	.viewBookArea .thumb .btn {max-width:130px;margin:10px auto}
+	.viewBookArea .bookInfoList {min-height:auto;margin:0}
+	.viewBookArea .bookInfoList .bookTitle {clear:both;margin-bottom:5px}
+	.book-view .bookContent {padding:15px 0}
+}

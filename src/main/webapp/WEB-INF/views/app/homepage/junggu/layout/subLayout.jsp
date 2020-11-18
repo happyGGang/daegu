@@ -121,7 +121,6 @@ $(function() {
 			</c:if>
 			<div class="content">
 				<div class="doc">
-					</div>
 					<div class="doc-body con${menuOne.menu_idx}" id="contentArea">
 						<div class="body">
 							<tiles:insertAttribute name="body" />

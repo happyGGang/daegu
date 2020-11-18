@@ -13,7 +13,7 @@
 
 					<a href="#" class="menu-search-box"></a>
 
-					<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=92" class="last-box"></a>
+					<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=82" class="last-box"></a>
 
 					<div class="mmode">
 							<a href="/${homepage.context_path}/intro/login/mobileCard.do?menu_idx=170" class="btn4">
