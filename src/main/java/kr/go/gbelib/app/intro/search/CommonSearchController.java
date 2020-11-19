@@ -1985,7 +1985,7 @@ public class CommonSearchController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 		//TODO marc보기
 //
-		LibSearchAPI.getMarc(librarySearch);
+		LibSearchAPI.getMarc(librarySearch.getRegNo());
 //		Map<String, Object> marcView = LibSearchAPI.getMarcView("WEB", "MARC XML", librarySearch);
 //		@SuppressWarnings ("unchecked")
 //		List<Map<String, String>> marcList = (List<Map<String, String>>) marcView.get("dsMarcView");
