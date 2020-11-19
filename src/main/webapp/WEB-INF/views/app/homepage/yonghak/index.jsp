@@ -151,7 +151,7 @@ do {
 				<!-- main_search -->
 				<div class="search-area" id="main_search">
 					<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
-					<input type="hidden" name="menu_idx" value="13">
+					<input type="hidden" name="menu_idx" value="9">
 					<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
 					<fieldset>
 						<legend class="blind">통합검색</legend>
@@ -206,76 +206,48 @@ do {
 						<div class="news con" data-tab="tab1">
 							<div class="box">
 								<ul>
-									<li><a href="#"><span class="sulib001">수성</span><em>생활SOC 공립 작은도서관 개관 운영 안내작은도서관 개관 운영 안내작은도서관 개관 운영 안내작은도서관 개관 운영 안내</em><span class="date">2020-09-04</span></a> </li>
-									<li><a href="#"><span class="sulib001">수성</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em><span class="date">2020-09-04</span></a> </li>
-									<li><a href="#"><span class="sulib001">수성</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em><span class="date">2020-09-04</span></a> </li>
-									<li><a href="#"><span class="sulib001">수성</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em><span class="date">2020-09-04</span></a> </li>
-									<li><a href="#"><span class="sulib001">수성</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em><span class="date">2020-09-04</span></a> </li>
-								</ul>
-							<!--
-								<ul>
-									<c:forEach var="i" varStatus="status" items="${noticeList}" >
-									<li>
-										<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-											<span class="time"><b><fmt:formatDate value="${i.add_date}" pattern="yyyy"/></b><br/><fmt:formatDate value="${i.add_date}" pattern="MM.dd"/></span>
-											<em>${i.title}</em>
-										</a>
-									</li>
+									<c:forEach items="${noticeList}" var="i" varStatus="status">
+										<li>
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=677&board_idx=${i.board_idx}">
+												<span class="sulib${i.category1}">${i.category1_name}</span>
+												<em>${i.title}</em>
+												<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd" /></span>
+											</a>
+										</li>
 									</c:forEach>
 								</ul>
-							-->
 							</div>
 						</div>
 
 						<div class="news con" data-tab="tab2" style="display:none;">
 							<div class="box">
 								<ul>
-								<ul>
-									<li><a href="#"><span class="sulib001">수성</span><em>생활SOC 공립 작은도서관 개관 운영 안내작은도서관 개관 운영 안내작은도서관 개관 운영 안내작은도서관 개관 운영 안내</em><span class="date">2020-09-04</span></a> </li>
-									<li><a href="#"><span class="sulib001">수성</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em><span class="date">2020-09-04</span></a> </li>
-									<li><a href="#"><span class="sulib001">수성</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em><span class="date">2020-09-04</span></a> </li>
-									<li><a href="#"><span class="sulib001">수성</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em><span class="date">2020-09-04</span></a> </li>
-									<li><a href="#"><span class="sulib001">수성</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em><span class="date">2020-09-04</span></a> </li>
-								</ul>
-								</ul>
-								<!--
-								<ul>
-									<c:forEach var="i" varStatus="status" items="${bidList}" >
-									<li>
-										<a href="/${homepage.context_path}/board/view.do?menu_idx=160&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-											<em>${i.title}</em>
-											<span><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
-										</a>
-									</li>
+									<c:forEach items="${teachList}" var="i" varStatus="status">
+										<li>
+											<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=32&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&homepage_id=${i.homepage_id}">
+												<span class="sulib001">수성</span>
+												<em>${i.teach_name}</em>
+												<span class="date">${i.start_date}</span>
+											</a>
+										</li>
 									</c:forEach>
 								</ul>
-								-->
 							</div>
 						</div>
 
 						<div class="news con" data-tab="tab3" style="display:none;">
 							<div class="box">
 								<ul>
-								<ul>
-									<li><a href="#"><span class="sulib001">수성</span><em>생활SOC 공립 작은도서관 개관 운영 안내작은도서관 개관 운영 안내작은도서관 개관 운영 안내작은도서관 개관 운영 안내</em><span class="date">2020-09-04</span></a> </li>
-									<li><a href="#"><span class="sulib001">수성</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em><span class="date">2020-09-04</span></a> </li>
-									<li><a href="#"><span class="sulib001">수성</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em><span class="date">2020-09-04</span></a> </li>
-									<li><a href="#"><span class="sulib001">수성</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em><span class="date">2020-09-04</span></a> </li>
-									<li><a href="#"><span class="sulib001">수성</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em><span class="date">2020-09-04</span></a> </li>
-								</ul>
-								</ul>
-								<!--
-								<ul>
-									<c:forEach var="i" varStatus="status" items="${bidList}" >
-									<li>
-										<a href="/${homepage.context_path}/board/view.do?menu_idx=160&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-											<em>${i.title}</em>
-											<span><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
-										</a>
-									</li>
+									<c:forEach items="${boardList1}" var="i" varStatus="status">
+										<li>
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=51&manage_idx=682&board_idx=${i.board_idx}">
+												<span class="sulib${i.category1}">${i.category1_name}</span>
+												<em>${i.title}</em>
+												<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd" /></span>
+											</a>
+										</li>
 									</c:forEach>
 								</ul>
-								-->
 							</div>
 						</div>
 					</div>
@@ -335,38 +307,35 @@ do {
 							<div class="book-con-box">
 								<div class="bookList">
 									<ul>
-
-										<li class="item">
-											<a href="#" class="title" title="하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!">
-											<img src="https://www.nl.go.kr/inc/NL/images/main_wide_main_book_1.jpg" alt="하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!" >
-											<div class="figure-bg-section">
-												<div class="figure-btn-section">
-													하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!
-												</div>
-											</div>
-											</a>
-										</li> 
-										<li class="item">
-											<a href="#" class="title" title="하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!">
-											<img src="https://www.nl.go.kr/inc/NL/images/main_wide_main_book_1.jpg" alt="하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!" >
-											<div class="figure-bg-section">
-												<div class="figure-btn-section">
-													하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!
-												</div>
-											</div>
-											</a>
-										</li> 
-										<li class="item">
-											<a href="#" class="title" title="하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!">
-											<img src="https://www.nl.go.kr/inc/NL/images/main_wide_main_book_1.jpg" alt="하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!" >
-											<div class="figure-bg-section">
-												<div class="figure-btn-section">
-													하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!
-												</div>
-											</div>
-											</a>
-										</li> 
-
+										<c:forEach items="${bookList1}" var="i" varStatus="status">
+											<li class="item">
+												<a href="/${homepage.context_path}/board/view.do?menu_idx=86&manage_idx=669&board_idx=${i.board_idx}">
+													<c:choose>
+														<c:when test="${i.preview_img ne null}">
+															<c:choose>
+																<c:when test="${fn:contains(i.preview_img, 'http')}">
+																	<img src="${i.preview_img}" alt="${i.title}" />
+																</c:when>
+																<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+																	<img src="${i.preview_img}" alt="${i.title}" />
+																</c:when>
+																<c:otherwise>
+																	<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+																</c:otherwise>
+															</c:choose>
+														</c:when>
+														<c:otherwise>
+															<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
+														</c:otherwise>
+													</c:choose>
+													<div class="figure-bg-section">
+														<div class="figure-btn-section">
+																${i.title}
+														</div>
+													</div>
+												</a>
+											</li>
+										</c:forEach>
 									</ul>
 								</div>
 							</div>

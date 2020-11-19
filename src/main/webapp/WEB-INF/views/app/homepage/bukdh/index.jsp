@@ -216,16 +216,14 @@ do {
 					<div class="news con" data-tab="tab1">
 						<div class="box">
 							<ul>
-								<ul>
-									<c:forEach items="${noticeList}" var="i" varStatus="status">
-										<li>
-											<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=699&board_idx=${i.board_idx}">
-												<span class="time"><b><fmt:formatDate value="${i.add_date}" pattern="dd" /></b><br/><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM" /></span>
-												<em>${i.title}</em>
-											</a>
-										</li>
-									</c:forEach>
-								</ul>
+								<c:forEach items="${noticeList}" var="i" varStatus="status">
+									<li>
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=709&board_idx=${i.board_idx}">
+											<span class="time"><b><fmt:formatDate value="${i.add_date}" pattern="dd" /></b><br/><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM" /></span>
+											<em>${i.title}</em>
+										</a>
+									</li>
+								</c:forEach>
 							</ul>
 						</div>
 					</div>

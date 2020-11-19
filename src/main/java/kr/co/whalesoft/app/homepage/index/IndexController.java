@@ -271,6 +271,30 @@ public class IndexController extends BaseController {
 		return basePath + filePath + "_ajax";
 	}
 
+	@RequestMapping(value = { "/{contextPath}/calendar10.*" }) // 서구
+	public String calendar10(Model model, CalendarManage calendarManage, HttpServletRequest request, @PathVariable String contextPath) {
+		Homepage h = (Homepage) request.getAttribute("homepage");
+		Homepage homepage = homepageService.getHomepageOne(new Homepage(calendarManage.getHomepage_id()));
+
+		String filePath = h.getFolder() + "/calendar10";
+
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		Date currentDay = new Date ();
+		String currDate = sf.format ( currentDay );
+
+
+		if (StringUtils.isEmpty(calendarManage.getPlan_date())) {
+			calendarManage = new CalendarManage(sf.format(Calendar.getInstance().getTime()));
+		}
+
+		model.addAttribute("eventList", calendarManageService.getEventSeogu(calendarManage));
+		model.addAttribute("movieList", calendarManageService.getMovieSeogu(calendarManage));
+		model.addAttribute("closeList", calendarManageService.getCloseSeogu(calendarManage));
+		model.addAttribute("calendarManage", calendarManage);
+
+		return basePath + filePath + "_ajax";
+	}
+
 	@RequestMapping(value = { "/{contextPath}/newBook.*" })
 	public String newBook(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
 		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
@@ -502,7 +526,10 @@ public class IndexController extends BaseController {
 		//h46 북구 구수산
 		//h47 북구 대현
 		//h48 북구 태전
-		String[] teachHomepage = {"h7", "h45", "h35", "h36", "h46", "h47", "h48"};
+		//h50 수성 범어
+		//h51 수성 용학
+		//h52 수성 고산
+		String[] teachHomepage = {"h7", "h45", "h35", "h36", "h46", "h47", "h48", "h50", "h51", "h52"};
 		for (String th: teachHomepage ) {
 			if (homepage.getHomepage_id().equals(th)) {
 				Teach t = new Teach();

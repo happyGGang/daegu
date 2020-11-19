@@ -86,7 +86,7 @@ do {
 		// 팝업 관련 코드 END
 
 
-		$('div#holiday-box').load('calendar2.do');
+		$('div.sec01-3').load('calendar10.do');
 		$('ul.newBookUl').load('newBook.do');
 		$('ul.bestBookUl').load('bestBook.do');
 
@@ -146,7 +146,11 @@ do {
 						<div class="search_box">
 							<div class="search_box_on">
 								<span>통합자료검색</span>
+								<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
+								<input type="hidden" name="menu_idx" value="9">
+								<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
 								<input name="title" id="search_text_1" type="text" class="text" placeholder="검색어를 입력하세요." style="ime-mode:active;"/>
+								</form>>
 								<a href=""><img src="/resources/homepage/seogulib/img/search_btn.jpg"></a>
 							</div>
 							<div class="search_box_off">
