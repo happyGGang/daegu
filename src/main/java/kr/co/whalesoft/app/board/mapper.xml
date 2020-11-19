@@ -2062,7 +2062,8 @@
 		imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5,
 		imsi_v_6, imsi_v_7, imsi_v_8, imsi_v_9, imsi_v_10,
 		NVL((SELECT homepage_alias FROM CMS_HOMEPAGE b where A.category5 = b.homepage_id), '전체') AS category5_name,
-		category5
+		category5,
+		TRUNC(TO_CHAR(SYSDATE,'yyyyMMdd')) - TRUNC(TO_CHAR(add_date,'yyyyMMdd')) AS date_gap
 		FROM
 			CMS_BOARD A
 		WHERE

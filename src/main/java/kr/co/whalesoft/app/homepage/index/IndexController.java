@@ -339,6 +339,60 @@ public class IndexController extends BaseController {
 		return basePath + homepage.getFolder() + "/newBook_ajax";
 	}
 
+	@RequestMapping(value = { "/{contextPath}/newBookSeogu.*" })
+	public String newBookSeogu(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
+		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
+		LibrarySearch ls = new LibrarySearch();
+		ls.setManageCode(homepage.getManage_code());
+
+		//기본값 '1달 전'
+		//검색기간 설정
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		int beforeDays = -30;
+		ls.setSearch_start_date(sf.format(DateUtils.addDays(new Date(), beforeDays)));
+		ls.setSearch_end_date(sf.format(new Date()));
+
+		//서지형태 분류코드 설정.
+		//기본값 도서 "0"
+		//0 : 단행, 1: 연속간행물, 2:비도서
+		ls.setBooktype("0");
+
+		Homepage h = new Homepage();
+		h.setHomepage_id(homepage.getHomepage_id());
+		h.setHomepage_group(homepage.getHomepage_id());
+		h.setTemp_use_yn("Y");
+		List<Homepage> subHomepageList = homepageService.getSubHomepageList(h);
+		for (Homepage subHome : subHomepageList) {
+			ls.setManageCode(subHome.getManage_code());
+
+			Map<String, Object> result = LibSearchAPI.getNewBookList(ls);
+			List<Map<String, Object>> list = null;
+
+			int count = LibSearchAPI.getSearchCount(result);
+			ls.setTotalDataCount(count);
+
+			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+
+				list = LibSearchAPI.getListData(result);
+				for (Map<String, Object> map : list) {
+					if (map.containsKey("ISBN")) {
+						//알라딘 API 결과 가져오기
+						if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+							Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+							if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+								map.put("aladin", aladinData.get("item"));
+							}
+						}
+					}
+				}
+			}
+
+			model.addAttribute("newBookList" + subHome.getHomepage_id(), list);
+		}
+
+		return basePath + homepage.getFolder() + "/newBook_ajax";
+	}
+
 	@RequestMapping(value = { "/{contextPath}/bestBook.*" })
 	public String bestBook(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
 		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
@@ -600,6 +654,42 @@ public class IndexController extends BaseController {
 		}
 
 		setBoardListToModel(homepage.getHomepage_id(), model);
+
+		//서구도서관
+		if (homepage.getHomepage_id().equals("h49")) {
+			Board b = new Board();
+			b.setManage_idx(628);
+			model.addAttribute("noticeList", boardService.getSubBoardByMain(b));//공지사항전체
+			b.setManage_idx(32);
+			model.addAttribute("galleryList", boardService.getSubBoardByMain(b));//갤러리전체
+			b.setManage_idx(625);
+			model.addAttribute("bookList", boardService.getSubBoardByMain(b));//추천도서전체
+
+			Teach t = new Teach();
+			Homepage h = new Homepage();
+			h.setHomepage_id(homepage.getHomepage_id());
+			h.setHomepage_group(homepage.getHomepage_id());
+			h.setTemp_use_yn("Y");
+			List<Homepage> subHomepageList = homepageService.getSubHomepageList(h);
+			List<String> homepage_ids = new ArrayList<String>();
+
+			for (Homepage h2:subHomepageList) {
+				b.setCategory5(h2.getHomepage_id());
+				b.setManage_idx(628);
+				model.addAttribute("noticeList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//공지사항
+				b.setManage_idx(32);
+				model.addAttribute("galleryList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//갤러리
+				b.setManage_idx(625);
+				model.addAttribute("bookList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//추천도서
+				homepage_ids.add(h2.getHomepage_id());
+				t.setHomepage_id(h2.getHomepage_id());
+				model.addAttribute("teachList"+h2.getHomepage_id(), teachService.getTeachListForUser(t));
+			}
+
+			t.setHomepage_id(null);
+			t.setHomepage_ids(homepage_ids);
+			model.addAttribute("teachList", teachService.getTeachListForUser(t));
+		}
 
 		if (homepage.getHomepage_id().equals("h30") && isLogin(request) && "HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			Member sessionMemberInfo = getSessionMemberInfo(request);

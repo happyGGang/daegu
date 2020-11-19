@@ -87,7 +87,10 @@ do {
 
 
 		$('div.sec01-3').load('calendar10.do');
-		$('ul.newBookUl').load('newBook.do');
+		// $('div#top2box_newbook').load('newBook.do');
+		$.get('newBookSeogu.do', function(e) {
+			$('div#top2box_newbook').append(e)
+		});
 		$('ul.bestBookUl').load('bestBook.do');
 
 		$('#main-search-btn').on('click', function() {
@@ -625,57 +628,53 @@ $(function() {
 
 							<div class="top3wrap" id="notibox1_all" style="display:block;">
 								<div class="board_box">
-									<div class="board_notice01">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
+									<c:forEach items="${noticeList}" var="i" varStatus="status" begin="0" end="0">
+										<div class="board_notice01">
+											<div class="img_box">
+												<c:choose>
+													<c:when test="${i.preview_img ne null}">
+														<c:choose>
+															<c:when test="${fn:contains(i.preview_img, 'http')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:otherwise>
+																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/>
+													</c:otherwise>
+												</c:choose>
+											</div>
+											<div class="con_box">
+												<div class="cate">${i.category5_name}</div>
+												<div class="tit">${i.title}<img src="/resources/homepage/seogulib/img/new_icon.png"></div>
+												<div class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></div>
+												<div class="txt">${i.content_summary}</div>
+											</div>
 										</div>
-										<div class="con_box">
-											<div class="cate">서구어린이1</div>
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시<img src="/resources/homepage/seogulib/img/new_icon.png"></div>
-											<div class="date">2020-07-07</div>
-											<div class="txt">2020년 대구 올해의 책 선정을 위한 시민 투표에 참여해주신 분들에게는 추첨을 통합 소정의 선물이 기다리고 있어요. 많은 관심과 참여 부탁드립니다.</div>
-										</div>
-									</div>
+									</c:forEach>
 
 									<div class="board_notice02">
 										<div>
-										<ul>
-											<li class="child">
-												<div class="cate">서구어린이</div>
-												<div class="tit">2020년 6~7월 온라인 문화강좌 접수안내</div>
-												<div class="date">2020-07-07</div>
-											</li>
-											<li class="bisan">
-												<div class="cate">비산</div>
-												<div class="tit">장하윤작가와 함께하는 7월 문화가 있는 날</div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="biwon">
-												<div class="cate">비원</div>
-												<div class="tit">책바다서비스 이용안내</div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="common">
-												<div class="cate">공통</div>
-												<div class="tit">원문정보서비스 집콕하면서 이용하기 </div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="english">
-												<div class="cate">영어</div>
-												<div class="tit">도서 예약대출서비스 수령일 변경 안내</div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="wongogae">
-												<div class="cate">원고개</div>
-												<div class="tit">2020년 개인정보보호인식주간 캠페인</div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="child">
-												<div class="cate">서구어린이</div>
-												<div class="tit">‘북 워크 스루’ 서비스 종료안내  </div>
-												<span class="date">2020-07-07</span>
-											</li>
-										</ul>
+											<ul>
+												<c:forEach items="${noticeList}" var="i" varStatus="status" begin="1" end="7">
+													<c:if test="${i.category5 eq 'h77'}"><c:set var="libcode" value="child"></c:set></c:if>
+													<c:if test="${i.category5 eq 'h61'}"><c:set var="libcode" value="bisan"></c:set></c:if>
+													<c:if test="${i.category5 eq 'h62'}"><c:set var="libcode" value="english"></c:set></c:if>
+													<c:if test="${i.category5 eq 'h63'}"><c:set var="libcode" value="biwon"></c:set></c:if>
+													<c:if test="${i.category5 eq 'h64'}"><c:set var="libcode" value="wongogae"></c:set></c:if>
+													<li class="${libcode}">
+														<div class="cate">${i.category5_name}</div>
+														<div class="tit">${i.title}</div>
+														<div class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></div>
+													</li>
+												</c:forEach>
+											</ul>
 										</div>
 									</div>
 								</div>
@@ -683,57 +682,53 @@ $(function() {
 
 							<div class="top3wrap" id="notibox1_seoguchild">
 								<div class="board_box">
-									<div class="board_notice01">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
+									<c:forEach items="${noticeListh77}" var="i" varStatus="status" begin="0" end="0">
+										<div class="board_notice01">
+											<div class="img_box">
+												<c:choose>
+													<c:when test="${i.preview_img ne null}">
+														<c:choose>
+															<c:when test="${fn:contains(i.preview_img, 'http')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:otherwise>
+																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/>
+													</c:otherwise>
+												</c:choose>
+											</div>
+											<div class="con_box">
+												<div class="cate">${i.category5_name}</div>
+												<div class="tit">${i.title}<img src="/resources/homepage/seogulib/img/new_icon.png"></div>
+												<div class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></div>
+												<div class="txt">${i.content_summary}</div>
+											</div>
 										</div>
-										<div class="con_box">
-											<div class="cate">서구어린이2</div>
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시<img src="/resources/homepage/seogulib/img/new_icon.png"></div>
-											<div class="date">2020-07-07</div>
-											<div class="txt">2020년 대구 올해의 책 선정을 위한 시민 투표에 참여해주신 분들에게는 추첨을 통합 소정의 선물이 기다리고 있어요. 많은 관심과 참여 부탁드립니다.</div>
-										</div>
-									</div>
+									</c:forEach>
 
 									<div class="board_notice02">
 										<div>
-										<ul>
-											<li class="child">
-												<div class="cate">서구어린이</div>
-												<div class="tit">2020년 6~7월 온라인 문화강좌 접수안내</div>
-												<div class="date">2020-07-07</div>
-											</li>
-											<li class="bisan">
-												<div class="cate">비산</div>
-												<div class="tit">장하윤작가와 함께하는 7월 문화가 있는 날</div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="biwon">
-												<div class="cate">비원</div>
-												<div class="tit">책바다서비스 이용안내</div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="common">
-												<div class="cate">공통</div>
-												<div class="tit">원문정보서비스 집콕하면서 이용하기 </div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="english">
-												<div class="cate">영어</div>
-												<div class="tit">도서 예약대출서비스 수령일 변경 안내</div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="wongogae">
-												<div class="cate">원고개</div>
-												<div class="tit">2020년 개인정보보호인식주간 캠페인</div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="child">
-												<div class="cate">서구어린이</div>
-												<div class="tit">‘북 워크 스루’ 서비스 종료안내  </div>
-												<span class="date">2020-07-07</span>
-											</li>
-										</ul>
+											<ul>
+												<c:forEach items="${noticeListh77}" var="i" varStatus="status" begin="1" end="7">
+													<c:if test="${i.category5 eq 'h77'}"><c:set var="libcode" value="child"></c:set></c:if>
+													<c:if test="${i.category5 eq 'h61'}"><c:set var="libcode" value="bisan"></c:set></c:if>
+													<c:if test="${i.category5 eq 'h62'}"><c:set var="libcode" value="english"></c:set></c:if>
+													<c:if test="${i.category5 eq 'h63'}"><c:set var="libcode" value="biwon"></c:set></c:if>
+													<c:if test="${i.category5 eq 'h64'}"><c:set var="libcode" value="wongogae"></c:set></c:if>
+													<li class="${libcode}">
+														<div class="cate">${i.category5_name}</div>
+														<div class="tit">${i.title}</div>
+														<div class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></div>
+													</li>
+												</c:forEach>
+											</ul>
 										</div>
 									</div>
 								</div>
@@ -741,57 +736,53 @@ $(function() {
 
 							<div class="top3wrap" id="notibox1_bisan">
 								<div class="board_box">
-									<div class="board_notice01">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
+									<c:forEach items="${noticeListh61}" var="i" varStatus="status" begin="0" end="0">
+										<div class="board_notice01">
+											<div class="img_box">
+												<c:choose>
+													<c:when test="${i.preview_img ne null}">
+														<c:choose>
+															<c:when test="${fn:contains(i.preview_img, 'http')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:otherwise>
+																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/>
+													</c:otherwise>
+												</c:choose>
+											</div>
+											<div class="con_box">
+												<div class="cate">${i.category5_name}</div>
+												<div class="tit">${i.title}<img src="/resources/homepage/seogulib/img/new_icon.png"></div>
+												<div class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></div>
+												<div class="txt">${i.content_summary}</div>
+											</div>
 										</div>
-										<div class="con_box">
-											<div class="cate">서구어린이3</div>
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시<img src="/resources/homepage/seogulib/img/new_icon.png"></div>
-											<div class="date">2020-07-07</div>
-											<div class="txt">2020년 대구 올해의 책 선정을 위한 시민 투표에 참여해주신 분들에게는 추첨을 통합 소정의 선물이 기다리고 있어요. 많은 관심과 참여 부탁드립니다.</div>
-										</div>
-									</div>
+									</c:forEach>
 
 									<div class="board_notice02">
 										<div>
-										<ul>
-											<li class="child">
-												<div class="cate">서구어린이</div>
-												<div class="tit">2020년 6~7월 온라인 문화강좌 접수안내</div>
-												<div class="date">2020-07-07</div>
-											</li>
-											<li class="bisan">
-												<div class="cate">비산</div>
-												<div class="tit">장하윤작가와 함께하는 7월 문화가 있는 날</div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="biwon">
-												<div class="cate">비원</div>
-												<div class="tit">책바다서비스 이용안내</div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="common">
-												<div class="cate">공통</div>
-												<div class="tit">원문정보서비스 집콕하면서 이용하기 </div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="english">
-												<div class="cate">영어</div>
-												<div class="tit">도서 예약대출서비스 수령일 변경 안내</div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="wongogae">
-												<div class="cate">원고개</div>
-												<div class="tit">2020년 개인정보보호인식주간 캠페인</div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="child">
-												<div class="cate">서구어린이</div>
-												<div class="tit">‘북 워크 스루’ 서비스 종료안내  </div>
-												<span class="date">2020-07-07</span>
-											</li>
-										</ul>
+											<ul>
+												<c:forEach items="${noticeListh61}" var="i" varStatus="status" begin="1" end="7">
+													<c:if test="${i.category5 eq 'h77'}"><c:set var="libcode" value="child"></c:set></c:if>
+													<c:if test="${i.category5 eq 'h61'}"><c:set var="libcode" value="bisan"></c:set></c:if>
+													<c:if test="${i.category5 eq 'h62'}"><c:set var="libcode" value="english"></c:set></c:if>
+													<c:if test="${i.category5 eq 'h63'}"><c:set var="libcode" value="biwon"></c:set></c:if>
+													<c:if test="${i.category5 eq 'h64'}"><c:set var="libcode" value="wongogae"></c:set></c:if>
+													<li class="${libcode}">
+														<div class="cate">${i.category5_name}</div>
+														<div class="tit">${i.title}</div>
+														<div class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></div>
+													</li>
+												</c:forEach>
+											</ul>
 										</div>
 									</div>
 								</div>
@@ -799,57 +790,53 @@ $(function() {
 
 							<div class="top3wrap" id="notibox1_english">
 								<div class="board_box">
-									<div class="board_notice01">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
+									<c:forEach items="${noticeListh62}" var="i" varStatus="status" begin="0" end="0">
+										<div class="board_notice01">
+											<div class="img_box">
+												<c:choose>
+													<c:when test="${i.preview_img ne null}">
+														<c:choose>
+															<c:when test="${fn:contains(i.preview_img, 'http')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:otherwise>
+																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/>
+													</c:otherwise>
+												</c:choose>
+											</div>
+											<div class="con_box">
+												<div class="cate">${i.category5_name}</div>
+												<div class="tit">${i.title}<img src="/resources/homepage/seogulib/img/new_icon.png"></div>
+												<div class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></div>
+												<div class="txt">${i.content_summary}</div>
+											</div>
 										</div>
-										<div class="con_box">
-											<div class="cate">서구어린이4</div>
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시<img src="/resources/homepage/seogulib/img/new_icon.png"></div>
-											<div class="date">2020-07-07</div>
-											<div class="txt">2020년 대구 올해의 책 선정을 위한 시민 투표에 참여해주신 분들에게는 추첨을 통합 소정의 선물이 기다리고 있어요. 많은 관심과 참여 부탁드립니다.</div>
-										</div>
-									</div>
+									</c:forEach>
 
 									<div class="board_notice02">
 										<div>
-										<ul>
-											<li class="child">
-												<div class="cate">서구어린이</div>
-												<div class="tit">2020년 6~7월 온라인 문화강좌 접수안내</div>
-												<div class="date">2020-07-07</div>
-											</li>
-											<li class="bisan">
-												<div class="cate">비산</div>
-												<div class="tit">장하윤작가와 함께하는 7월 문화가 있는 날</div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="biwon">
-												<div class="cate">비원</div>
-												<div class="tit">책바다서비스 이용안내</div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="common">
-												<div class="cate">공통</div>
-												<div class="tit">원문정보서비스 집콕하면서 이용하기 </div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="english">
-												<div class="cate">영어</div>
-												<div class="tit">도서 예약대출서비스 수령일 변경 안내</div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="wongogae">
-												<div class="cate">원고개</div>
-												<div class="tit">2020년 개인정보보호인식주간 캠페인</div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="child">
-												<div class="cate">서구어린이</div>
-												<div class="tit">‘북 워크 스루’ 서비스 종료안내  </div>
-												<span class="date">2020-07-07</span>
-											</li>
-										</ul>
+											<ul>
+												<c:forEach items="${noticeListh62}" var="i" varStatus="status" begin="1" end="7">
+													<c:if test="${i.category5 eq 'h77'}"><c:set var="libcode" value="child"></c:set></c:if>
+													<c:if test="${i.category5 eq 'h61'}"><c:set var="libcode" value="bisan"></c:set></c:if>
+													<c:if test="${i.category5 eq 'h62'}"><c:set var="libcode" value="english"></c:set></c:if>
+													<c:if test="${i.category5 eq 'h63'}"><c:set var="libcode" value="biwon"></c:set></c:if>
+													<c:if test="${i.category5 eq 'h64'}"><c:set var="libcode" value="wongogae"></c:set></c:if>
+													<li class="${libcode}">
+														<div class="cate">${i.category5_name}</div>
+														<div class="tit">${i.title}</div>
+														<div class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></div>
+													</li>
+												</c:forEach>
+											</ul>
 										</div>
 									</div>
 								</div>
@@ -857,57 +844,53 @@ $(function() {
 
 							<div class="top3wrap" id="notibox1_biwon">
 								<div class="board_box">
-									<div class="board_notice01">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
+									<c:forEach items="${noticeListh63}" var="i" varStatus="status" begin="0" end="0">
+										<div class="board_notice01">
+											<div class="img_box">
+												<c:choose>
+													<c:when test="${i.preview_img ne null}">
+														<c:choose>
+															<c:when test="${fn:contains(i.preview_img, 'http')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:otherwise>
+																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/>
+													</c:otherwise>
+												</c:choose>
+											</div>
+											<div class="con_box">
+												<div class="cate">${i.category5_name}</div>
+												<div class="tit">${i.title}<img src="/resources/homepage/seogulib/img/new_icon.png"></div>
+												<div class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></div>
+												<div class="txt">${i.content_summary}</div>
+											</div>
 										</div>
-										<div class="con_box">
-											<div class="cate">서구어린이5</div>
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시<img src="/resources/homepage/seogulib/img/new_icon.png"></div>
-											<div class="date">2020-07-07</div>
-											<div class="txt">2020년 대구 올해의 책 선정을 위한 시민 투표에 참여해주신 분들에게는 추첨을 통합 소정의 선물이 기다리고 있어요. 많은 관심과 참여 부탁드립니다.</div>
-										</div>
-									</div>
+									</c:forEach>
 
 									<div class="board_notice02">
 										<div>
-										<ul>
-											<li class="child">
-												<div class="cate">서구어린이</div>
-												<div class="tit">2020년 6~7월 온라인 문화강좌 접수안내</div>
-												<div class="date">2020-07-07</div>
-											</li>
-											<li class="bisan">
-												<div class="cate">비산</div>
-												<div class="tit">장하윤작가와 함께하는 7월 문화가 있는 날</div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="biwon">
-												<div class="cate">비원</div>
-												<div class="tit">책바다서비스 이용안내</div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="common">
-												<div class="cate">공통</div>
-												<div class="tit">원문정보서비스 집콕하면서 이용하기 </div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="english">
-												<div class="cate">영어</div>
-												<div class="tit">도서 예약대출서비스 수령일 변경 안내</div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="wongogae">
-												<div class="cate">원고개</div>
-												<div class="tit">2020년 개인정보보호인식주간 캠페인</div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="child">
-												<div class="cate">서구어린이</div>
-												<div class="tit">‘북 워크 스루’ 서비스 종료안내  </div>
-												<span class="date">2020-07-07</span>
-											</li>
-										</ul>
+											<ul>
+												<c:forEach items="${noticeListh63}" var="i" varStatus="status" begin="1" end="7">
+													<c:if test="${i.category5 eq 'h77'}"><c:set var="libcode" value="child"></c:set></c:if>
+													<c:if test="${i.category5 eq 'h61'}"><c:set var="libcode" value="bisan"></c:set></c:if>
+													<c:if test="${i.category5 eq 'h62'}"><c:set var="libcode" value="english"></c:set></c:if>
+													<c:if test="${i.category5 eq 'h63'}"><c:set var="libcode" value="biwon"></c:set></c:if>
+													<c:if test="${i.category5 eq 'h64'}"><c:set var="libcode" value="wongogae"></c:set></c:if>
+													<li class="${libcode}">
+														<div class="cate">${i.category5_name}</div>
+														<div class="tit">${i.title}</div>
+														<div class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></div>
+													</li>
+												</c:forEach>
+											</ul>
 										</div>
 									</div>
 								</div>
@@ -915,57 +898,53 @@ $(function() {
 
 							<div class="top3wrap" id="notibox1_wongogye">
 								<div class="board_box">
-									<div class="board_notice01">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
+									<c:forEach items="${noticeListh64}" var="i" varStatus="status" begin="0" end="0">
+										<div class="board_notice01">
+											<div class="img_box">
+												<c:choose>
+													<c:when test="${i.preview_img ne null}">
+														<c:choose>
+															<c:when test="${fn:contains(i.preview_img, 'http')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:otherwise>
+																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/>
+													</c:otherwise>
+												</c:choose>
+											</div>
+											<div class="con_box">
+												<div class="cate">${i.category5_name}</div>
+												<div class="tit">${i.title}<img src="/resources/homepage/seogulib/img/new_icon.png"></div>
+												<div class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></div>
+												<div class="txt">${i.content_summary}</div>
+											</div>
 										</div>
-										<div class="con_box">
-											<div class="cate">서구어린이6</div>
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시<img src="/resources/homepage/seogulib/img/new_icon.png"></div>
-											<div class="date">2020-07-07</div>
-											<div class="txt">2020년 대구 올해의 책 선정을 위한 시민 투표에 참여해주신 분들에게는 추첨을 통합 소정의 선물이 기다리고 있어요. 많은 관심과 참여 부탁드립니다.</div>
-										</div>
-									</div>
+									</c:forEach>
 
 									<div class="board_notice02">
 										<div>
-										<ul>
-											<li class="child">
-												<div class="cate">서구어린이</div>
-												<div class="tit">2020년 6~7월 온라인 문화강좌 접수안내</div>
-												<div class="date">2020-07-07</div>
-											</li>
-											<li class="bisan">
-												<div class="cate">비산</div>
-												<div class="tit">장하윤작가와 함께하는 7월 문화가 있는 날</div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="biwon">
-												<div class="cate">비원</div>
-												<div class="tit">책바다서비스 이용안내</div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="common">
-												<div class="cate">공통</div>
-												<div class="tit">원문정보서비스 집콕하면서 이용하기 </div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="english">
-												<div class="cate">영어</div>
-												<div class="tit">도서 예약대출서비스 수령일 변경 안내</div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="wongogae">
-												<div class="cate">원고개</div>
-												<div class="tit">2020년 개인정보보호인식주간 캠페인</div>
-												<span class="date">2020-07-07</span>
-											</li>
-											<li class="child">
-												<div class="cate">서구어린이</div>
-												<div class="tit">‘북 워크 스루’ 서비스 종료안내  </div>
-												<span class="date">2020-07-07</span>
-											</li>
-										</ul>
+											<ul>
+												<c:forEach items="${noticeListh64}" var="i" varStatus="status" begin="1" end="7">
+													<c:if test="${i.category5 eq 'h77'}"><c:set var="libcode" value="child"></c:set></c:if>
+													<c:if test="${i.category5 eq 'h61'}"><c:set var="libcode" value="bisan"></c:set></c:if>
+													<c:if test="${i.category5 eq 'h62'}"><c:set var="libcode" value="english"></c:set></c:if>
+													<c:if test="${i.category5 eq 'h63'}"><c:set var="libcode" value="biwon"></c:set></c:if>
+													<c:if test="${i.category5 eq 'h64'}"><c:set var="libcode" value="wongogae"></c:set></c:if>
+													<li class="${libcode}">
+														<div class="cate">${i.category5_name}</div>
+														<div class="tit">${i.title}</div>
+														<div class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></div>
+													</li>
+												</c:forEach>
+											</ul>
 										</div>
 									</div>
 								</div>
@@ -990,242 +969,195 @@ $(function() {
 							</div>
 
 							<div class="top3wrap" id="galbox1_all" style="display:block;">
+
 								<div class="gallery_box">
-									<div class="gallery" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/gallery_img.jpg">
+									<c:forEach items="${galleryList}" var="i" varStatus="status" begin="1" end="7">
+										<div class="gallery" onclick="">
+											<div class="img_box">
+												<c:choose>
+													<c:when test="${i.preview_img ne null}">
+														<c:choose>
+															<c:when test="${fn:contains(i.preview_img, 'http')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:otherwise>
+																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/>
+													</c:otherwise>
+												</c:choose>
+											</div>
+											<div class="con_box">
+												<div class="tit">${i.title}</div>
+											</div>
 										</div>
-										<div class="con_box">
-											<div class="tit">12020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="gallery" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/gallery_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="gallery" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/gallery_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="gallery" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/gallery_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
+									</c:forEach>
 								</div>
 							</div>
 
 							<div class="top3wrap" id="galbox1_seoguchild">
 								<div class="gallery_box">
-									<div class="gallery" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/gallery_img.jpg">
+									<c:forEach items="${galleryListh77}" var="i" varStatus="status" begin="1" end="7">
+										<div class="gallery" onclick="">
+											<div class="img_box">
+												<c:choose>
+													<c:when test="${i.preview_img ne null}">
+														<c:choose>
+															<c:when test="${fn:contains(i.preview_img, 'http')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:otherwise>
+																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/>
+													</c:otherwise>
+												</c:choose>
+											</div>
+											<div class="con_box">
+												<div class="tit">${i.title}</div>
+											</div>
 										</div>
-										<div class="con_box">
-											<div class="tit">22020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="gallery" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/gallery_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="gallery" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/gallery_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="gallery" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/gallery_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
+									</c:forEach>
 								</div>
 							</div>
 
 							<div class="top3wrap" id="galbox1_bisan">
 								<div class="gallery_box">
-									<div class="gallery" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/gallery_img.jpg">
+									<c:forEach items="${galleryListh61}" var="i" varStatus="status" begin="1" end="7">
+										<div class="gallery" onclick="">
+											<div class="img_box">
+												<c:choose>
+													<c:when test="${i.preview_img ne null}">
+														<c:choose>
+															<c:when test="${fn:contains(i.preview_img, 'http')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:otherwise>
+																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/>
+													</c:otherwise>
+												</c:choose>
+											</div>
+											<div class="con_box">
+												<div class="tit">${i.title}</div>
+											</div>
 										</div>
-										<div class="con_box">
-											<div class="tit">32020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="gallery" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/gallery_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="gallery" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/gallery_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="gallery" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/gallery_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
+									</c:forEach>
 								</div>
 							</div>
 
 							<div class="top3wrap" id="galbox1_english">
 								<div class="gallery_box">
-									<div class="gallery" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/gallery_img.jpg">
+									<c:forEach items="${galleryListh62}" var="i" varStatus="status" begin="1" end="7">
+										<div class="gallery" onclick="">
+											<div class="img_box">
+												<c:choose>
+													<c:when test="${i.preview_img ne null}">
+														<c:choose>
+															<c:when test="${fn:contains(i.preview_img, 'http')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:otherwise>
+																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/>
+													</c:otherwise>
+												</c:choose>
+											</div>
+											<div class="con_box">
+												<div class="tit">${i.title}</div>
+											</div>
 										</div>
-										<div class="con_box">
-											<div class="tit">42020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="gallery" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/gallery_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="gallery" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/gallery_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="gallery" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/gallery_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
+									</c:forEach>
 								</div>
 							</div>
 
 							<div class="top3wrap" id="galbox1_biwon">
 								<div class="gallery_box">
-									<div class="gallery" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/gallery_img.jpg">
+									<c:forEach items="${galleryListg63}" var="i" varStatus="status" begin="1" end="7">
+										<div class="gallery" onclick="">
+											<div class="img_box">
+												<c:choose>
+													<c:when test="${i.preview_img ne null}">
+														<c:choose>
+															<c:when test="${fn:contains(i.preview_img, 'http')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:otherwise>
+																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/>
+													</c:otherwise>
+												</c:choose>
+											</div>
+											<div class="con_box">
+												<div class="tit">${i.title}</div>
+											</div>
 										</div>
-										<div class="con_box">
-											<div class="tit">52020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="gallery" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/gallery_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="gallery" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/gallery_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="gallery" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/gallery_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
+									</c:forEach>
 								</div>
 							</div>
 
 							<div class="top3wrap" id="galbox1_wongogye">
 								<div class="gallery_box">
-									<div class="gallery" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/gallery_img.jpg">
+									<c:forEach items="${galleryListh64}" var="i" varStatus="status" begin="1" end="7">
+										<div class="gallery" onclick="">
+											<div class="img_box">
+												<c:choose>
+													<c:when test="${i.preview_img ne null}">
+														<c:choose>
+															<c:when test="${fn:contains(i.preview_img, 'http')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:otherwise>
+																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/>
+													</c:otherwise>
+												</c:choose>
+											</div>
+											<div class="con_box">
+												<div class="tit">${i.title}</div>
+											</div>
 										</div>
-										<div class="con_box">
-											<div class="tit">62020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="gallery" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/gallery_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="gallery" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/gallery_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="gallery" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/gallery_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
+									</c:forEach>
 								</div>
 							</div>
 						</div>
@@ -1269,83 +1201,93 @@ $(function() {
 								
 								<div class="board_notice03 pt50">
 									<div>
-									<ul>
-										<li class="child">
-											<div class="cate">서구어린이1</div>
-											<div class="tit">2020년 6~7월 온라인 문화강좌 접수안내</div>
-											<span class="flow_01">접수중</span>
-										</li>
-										<li class="bisan">
-											<div class="cate">비산</div>
-											<div class="tit">장하윤작가와 함께하는 7월 문화가 있는 날</div>
-											<span class="flow_02">접수대기</span>
-										</li>
-										<li class="biwon">
-											<div class="cate">비원</div>
-											<div class="tit">책바다서비스 이용안내</div>
-											<span class="flow_03">접수마감</span>
-										</li>
-										<li class="common">
-											<div class="cate">공통</div>
-											<div class="tit">원문정보서비스 집콕하면서 이용하기 </div>
-											<span class="flow_01">접수중</span>
-										</li>
-										<li class="english">
-											<div class="cate">영어</div>
-											<div class="tit">도서 예약대출서비스 수령일 변경 안내</div>
-											<span class="flow_02">접수대기</span>
-										</li>
-										<li class="wongogae">
-											<div class="cate">원고개</div>
-											<div class="tit">2020년 개인정보보호인식주간 캠페인</div>
-											<span class="flow_03">접수마감</span>
-										</li>
-										<li class="child">
-											<div class="cate">서구어린이</div>
-											<div class="tit">‘북 워크 스루’ 서비스 종료안내  </div>
-											<span class="flow_02">접수대기</span>
-										</li>
-									</ul>
+										<ul>
+											<c:forEach items="${teachList}" var="i" varStatus="status" begin="0" end="7">
+												<c:if test="${i.homepage_id eq 'h77'}"><c:set var="libcode" value="child"></c:set></c:if>
+												<c:if test="${i.homepage_id eq 'h61'}"><c:set var="libcode" value="bisan"></c:set></c:if>
+												<c:if test="${i.homepage_id eq 'h62'}"><c:set var="libcode" value="english"></c:set></c:if>
+												<c:if test="${i.homepage_id eq 'h63'}"><c:set var="libcode" value="biwon"></c:set></c:if>
+												<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libcode" value="wongogae"></c:set></c:if>
+												<c:if test="${i.homepage_id eq 'h77'}"><c:set var="libname" value="서구어린이"></c:set></c:if>
+												<c:if test="${i.homepage_id eq 'h61'}"><c:set var="libname" value="비산"></c:set></c:if>
+												<c:if test="${i.homepage_id eq 'h62'}"><c:set var="libname" value="영어"></c:set></c:if>
+												<c:if test="${i.homepage_id eq 'h63'}"><c:set var="libname" value="비원"></c:set></c:if>
+												<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libname" value="원고개"></c:set></c:if>
+												<li class="${libcode}">
+													<div class="cate">${libname}</div>
+													<div class="tit">${i.teach_name}</div>
+													<c:if test="${i.teach_status eq '0'}">
+														<span class="flow_01">접수중</span>
+													</c:if>
+													<c:if test="${i.teach_status eq '1'}">
+														<span class="flow_02">접수대기</span>
+													</c:if>
+													<c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}">
+														<span class="flow_01">접수중</span>
+													</c:if>
+													<c:if test="${i.teach_status eq '3'}">
+														<span class="flow_01">접수중</span>
+													</c:if>
+													<c:if test="${i.teach_status eq '9'}">
+														<span class="flow_01">접수중</span>
+													</c:if>
+													<c:if test="${i.teach_status eq '4'}">
+														<span class="flow_03">접수마감</span>
+													</c:if>
+													<c:if test="${i.teach_status eq '5'}">
+														<span class="flow_03">접수마감</span>
+													</c:if>
+													<c:if test="${i.teach_status eq '6'}">
+														<span class="flow_03">접수마감</span>
+													</c:if>
+												</li>
+											</c:forEach>
+										</ul>
 									</div>
 								</div>
 
 								<div class="board_notice03 m_none pt50" >
 									<ul>
-										<li class="child">
-											<div class="cate">서구어린이</div>
-											<div class="tit">2020년 6~7월 온라인 문화강좌 접수안내</div>
-											<span class="flow_01">접수중</span>
-										</li>
-										<li class="bisan">
-											<div class="cate">비산</div>
-											<div class="tit">장하윤작가와 함께하는 7월 문화가 있는 날</div>
-											<span class="flow_02">접수대기</span>
-										</li>
-										<li class="biwon">
-											<div class="cate">비원</div>
-											<div class="tit">책바다서비스 이용안내</div>
-											<span class="flow_03">접수마감</span>
-										</li>
-										<li class="common">
-											<div class="cate">공통</div>
-											<div class="tit">원문정보서비스 집콕하면서 이용하기 </div>
-											<span class="flow_01">접수중</span>
-										</li>
-										<li class="english">
-											<div class="cate">영어</div>
-											<div class="tit">도서 예약대출서비스 수령일 변경 안내</div>
-											<span class="flow_02">접수대기</span>
-										</li>
-										<li class="wongogae">
-											<div class="cate">원고개</div>
-											<div class="tit">2020년 개인정보보호인식주간 캠페인</div>
-											<span class="flow_03">접수마감</span>
-										</li>
-										<li class="child">
-											<div class="cate">서구어린이</div>
-											<div class="tit">‘북 워크 스루’ 서비스 종료안내  </div>
-											<span class="flow_02">접수대기</span>
-										</li>
+										<c:forEach items="${teachList}" var="i" varStatus="status" begin="8" end="13">
+											<c:if test="${i.homepage_id eq 'h77'}"><c:set var="libcode" value="child"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h61'}"><c:set var="libcode" value="bisan"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h62'}"><c:set var="libcode" value="english"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h63'}"><c:set var="libcode" value="biwon"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libcode" value="wongogae"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h77'}"><c:set var="libname" value="서구어린이"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h61'}"><c:set var="libname" value="비산"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h62'}"><c:set var="libname" value="영어"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h63'}"><c:set var="libname" value="비원"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libname" value="원고개"></c:set></c:if>
+											<li class="${libcode}">
+												<div class="cate">${libname}</div>
+												<div class="tit">${i.teach_name}</div>
+												<c:if test="${i.teach_status eq '0'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '1'}">
+													<span class="flow_02">접수대기</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '3'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '9'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '4'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '5'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '6'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+											</li>
+										</c:forEach>
 									</ul>
 								</div>
 							</div>
@@ -1357,82 +1299,92 @@ $(function() {
 								<div class="board_notice03 pt50">
 									<div>
 									<ul>
-										<li class="child">
-											<div class="cate">서구어린이2</div>
-											<div class="tit">2020년 6~7월 온라인 문화강좌 접수안내</div>
-											<span class="flow_01">접수중</span>
-										</li>
-										<li class="bisan">
-											<div class="cate">비산</div>
-											<div class="tit">장하윤작가와 함께하는 7월 문화가 있는 날</div>
-											<span class="flow_02">접수대기</span>
-										</li>
-										<li class="biwon">
-											<div class="cate">비원</div>
-											<div class="tit">책바다서비스 이용안내</div>
-											<span class="flow_03">접수마감</span>
-										</li>
-										<li class="common">
-											<div class="cate">공통</div>
-											<div class="tit">원문정보서비스 집콕하면서 이용하기 </div>
-											<span class="flow_01">접수중</span>
-										</li>
-										<li class="english">
-											<div class="cate">영어</div>
-											<div class="tit">도서 예약대출서비스 수령일 변경 안내</div>
-											<span class="flow_02">접수대기</span>
-										</li>
-										<li class="wongogae">
-											<div class="cate">원고개</div>
-											<div class="tit">2020년 개인정보보호인식주간 캠페인</div>
-											<span class="flow_03">접수마감</span>
-										</li>
-										<li class="child">
-											<div class="cate">서구어린이</div>
-											<div class="tit">‘북 워크 스루’ 서비스 종료안내  </div>
-											<span class="flow_02">접수대기</span>
-										</li>
+										<c:forEach items="${teachListh77}" var="i" varStatus="status" begin="0" end="7">
+											<c:if test="${i.homepage_id eq 'h77'}"><c:set var="libcode" value="child"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h61'}"><c:set var="libcode" value="bisan"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h62'}"><c:set var="libcode" value="english"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h63'}"><c:set var="libcode" value="biwon"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libcode" value="wongogae"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h77'}"><c:set var="libname" value="서구어린이"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h61'}"><c:set var="libname" value="비산"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h62'}"><c:set var="libname" value="영어"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h63'}"><c:set var="libname" value="비원"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libname" value="원고개"></c:set></c:if>
+											<li class="${libcode}">
+												<div class="cate">${libname}</div>
+												<div class="tit">${i.teach_name}</div>
+												<c:if test="${i.teach_status eq '0'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '1'}">
+													<span class="flow_02">접수대기</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '3'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '9'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '4'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '5'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '6'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+											</li>
+										</c:forEach>
 									</ul>
 									</div>
 								</div>
 
 								<div class="board_notice03 m_none pt50" >
 									<ul>
-										<li class="child">
-											<div class="cate">서구어린이</div>
-											<div class="tit">2020년 6~7월 온라인 문화강좌 접수안내</div>
-											<span class="flow_01">접수중</span>
-										</li>
-										<li class="bisan">
-											<div class="cate">비산</div>
-											<div class="tit">장하윤작가와 함께하는 7월 문화가 있는 날</div>
-											<span class="flow_02">접수대기</span>
-										</li>
-										<li class="biwon">
-											<div class="cate">비원</div>
-											<div class="tit">책바다서비스 이용안내</div>
-											<span class="flow_03">접수마감</span>
-										</li>
-										<li class="common">
-											<div class="cate">공통</div>
-											<div class="tit">원문정보서비스 집콕하면서 이용하기 </div>
-											<span class="flow_01">접수중</span>
-										</li>
-										<li class="english">
-											<div class="cate">영어</div>
-											<div class="tit">도서 예약대출서비스 수령일 변경 안내</div>
-											<span class="flow_02">접수대기</span>
-										</li>
-										<li class="wongogae">
-											<div class="cate">원고개</div>
-											<div class="tit">2020년 개인정보보호인식주간 캠페인</div>
-											<span class="flow_03">접수마감</span>
-										</li>
-										<li class="child">
-											<div class="cate">서구어린이</div>
-											<div class="tit">‘북 워크 스루’ 서비스 종료안내  </div>
-											<span class="flow_02">접수대기</span>
-										</li>
+										<c:forEach items="${teachListh77}" var="i" varStatus="status" begin="8" end="13">
+											<c:if test="${i.homepage_id eq 'h77'}"><c:set var="libcode" value="child"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h61'}"><c:set var="libcode" value="bisan"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h62'}"><c:set var="libcode" value="english"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h63'}"><c:set var="libcode" value="biwon"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libcode" value="wongogae"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h77'}"><c:set var="libname" value="서구어린이"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h61'}"><c:set var="libname" value="비산"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h62'}"><c:set var="libname" value="영어"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h63'}"><c:set var="libname" value="비원"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libname" value="원고개"></c:set></c:if>
+											<li class="${libcode}">
+												<div class="cate">${libname}</div>
+												<div class="tit">${i.teach_name}</div>
+												<c:if test="${i.teach_status eq '0'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '1'}">
+													<span class="flow_02">접수대기</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '3'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '9'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '4'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '5'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '6'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+											</li>
+										</c:forEach>
 									</ul>
 								</div>
 							</div>
@@ -1444,82 +1396,92 @@ $(function() {
 								<div class="board_notice03 pt50">
 									<div>
 									<ul>
-										<li class="child">
-											<div class="cate">서구어린이3</div>
-											<div class="tit">2020년 6~7월 온라인 문화강좌 접수안내</div>
-											<span class="flow_01">접수중</span>
-										</li>
-										<li class="bisan">
-											<div class="cate">비산</div>
-											<div class="tit">장하윤작가와 함께하는 7월 문화가 있는 날</div>
-											<span class="flow_02">접수대기</span>
-										</li>
-										<li class="biwon">
-											<div class="cate">비원</div>
-											<div class="tit">책바다서비스 이용안내</div>
-											<span class="flow_03">접수마감</span>
-										</li>
-										<li class="common">
-											<div class="cate">공통</div>
-											<div class="tit">원문정보서비스 집콕하면서 이용하기 </div>
-											<span class="flow_01">접수중</span>
-										</li>
-										<li class="english">
-											<div class="cate">영어</div>
-											<div class="tit">도서 예약대출서비스 수령일 변경 안내</div>
-											<span class="flow_02">접수대기</span>
-										</li>
-										<li class="wongogae">
-											<div class="cate">원고개</div>
-											<div class="tit">2020년 개인정보보호인식주간 캠페인</div>
-											<span class="flow_03">접수마감</span>
-										</li>
-										<li class="child">
-											<div class="cate">서구어린이</div>
-											<div class="tit">‘북 워크 스루’ 서비스 종료안내  </div>
-											<span class="flow_02">접수대기</span>
-										</li>
+										<c:forEach items="${teachListh61}" var="i" varStatus="status" begin="0" end="7">
+											<c:if test="${i.homepage_id eq 'h77'}"><c:set var="libcode" value="child"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h61'}"><c:set var="libcode" value="bisan"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h62'}"><c:set var="libcode" value="english"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h63'}"><c:set var="libcode" value="biwon"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libcode" value="wongogae"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h77'}"><c:set var="libname" value="서구어린이"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h61'}"><c:set var="libname" value="비산"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h62'}"><c:set var="libname" value="영어"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h63'}"><c:set var="libname" value="비원"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libname" value="원고개"></c:set></c:if>
+											<li class="${libcode}">
+												<div class="cate">${libname}</div>
+												<div class="tit">${i.teach_name}</div>
+												<c:if test="${i.teach_status eq '0'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '1'}">
+													<span class="flow_02">접수대기</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '3'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '9'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '4'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '5'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '6'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+											</li>
+										</c:forEach>
 									</ul>
 									</div>
 								</div>
 
 								<div class="board_notice03 m_none pt50" >
 									<ul>
-										<li class="child">
-											<div class="cate">서구어린이</div>
-											<div class="tit">2020년 6~7월 온라인 문화강좌 접수안내</div>
-											<span class="flow_01">접수중</span>
-										</li>
-										<li class="bisan">
-											<div class="cate">비산</div>
-											<div class="tit">장하윤작가와 함께하는 7월 문화가 있는 날</div>
-											<span class="flow_02">접수대기</span>
-										</li>
-										<li class="biwon">
-											<div class="cate">비원</div>
-											<div class="tit">책바다서비스 이용안내</div>
-											<span class="flow_03">접수마감</span>
-										</li>
-										<li class="common">
-											<div class="cate">공통</div>
-											<div class="tit">원문정보서비스 집콕하면서 이용하기 </div>
-											<span class="flow_01">접수중</span>
-										</li>
-										<li class="english">
-											<div class="cate">영어</div>
-											<div class="tit">도서 예약대출서비스 수령일 변경 안내</div>
-											<span class="flow_02">접수대기</span>
-										</li>
-										<li class="wongogae">
-											<div class="cate">원고개</div>
-											<div class="tit">2020년 개인정보보호인식주간 캠페인</div>
-											<span class="flow_03">접수마감</span>
-										</li>
-										<li class="child">
-											<div class="cate">서구어린이</div>
-											<div class="tit">‘북 워크 스루’ 서비스 종료안내  </div>
-											<span class="flow_02">접수대기</span>
-										</li>
+										<c:forEach items="${teachListh61}" var="i" varStatus="status" begin="8" end="13">
+											<c:if test="${i.homepage_id eq 'h77'}"><c:set var="libcode" value="child"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h61'}"><c:set var="libcode" value="bisan"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h62'}"><c:set var="libcode" value="english"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h63'}"><c:set var="libcode" value="biwon"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libcode" value="wongogae"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h77'}"><c:set var="libname" value="서구어린이"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h61'}"><c:set var="libname" value="비산"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h62'}"><c:set var="libname" value="영어"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h63'}"><c:set var="libname" value="비원"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libname" value="원고개"></c:set></c:if>
+											<li class="${libcode}">
+												<div class="cate">${libname}</div>
+												<div class="tit">${i.teach_name}</div>
+												<c:if test="${i.teach_status eq '0'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '1'}">
+													<span class="flow_02">접수대기</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '3'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '9'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '4'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '5'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '6'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+											</li>
+										</c:forEach>
 									</ul>
 								</div>
 							</div>
@@ -1531,82 +1493,92 @@ $(function() {
 								<div class="board_notice03 pt50">
 									<div>
 									<ul>
-										<li class="child">
-											<div class="cate">서구어린이4</div>
-											<div class="tit">2020년 6~7월 온라인 문화강좌 접수안내</div>
-											<span class="flow_01">접수중</span>
-										</li>
-										<li class="bisan">
-											<div class="cate">비산</div>
-											<div class="tit">장하윤작가와 함께하는 7월 문화가 있는 날</div>
-											<span class="flow_02">접수대기</span>
-										</li>
-										<li class="biwon">
-											<div class="cate">비원</div>
-											<div class="tit">책바다서비스 이용안내</div>
-											<span class="flow_03">접수마감</span>
-										</li>
-										<li class="common">
-											<div class="cate">공통</div>
-											<div class="tit">원문정보서비스 집콕하면서 이용하기 </div>
-											<span class="flow_01">접수중</span>
-										</li>
-										<li class="english">
-											<div class="cate">영어</div>
-											<div class="tit">도서 예약대출서비스 수령일 변경 안내</div>
-											<span class="flow_02">접수대기</span>
-										</li>
-										<li class="wongogae">
-											<div class="cate">원고개</div>
-											<div class="tit">2020년 개인정보보호인식주간 캠페인</div>
-											<span class="flow_03">접수마감</span>
-										</li>
-										<li class="child">
-											<div class="cate">서구어린이</div>
-											<div class="tit">‘북 워크 스루’ 서비스 종료안내  </div>
-											<span class="flow_02">접수대기</span>
-										</li>
+										<c:forEach items="${teachListh62}" var="i" varStatus="status" begin="0" end="7">
+											<c:if test="${i.homepage_id eq 'h77'}"><c:set var="libcode" value="child"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h61'}"><c:set var="libcode" value="bisan"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h62'}"><c:set var="libcode" value="english"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h63'}"><c:set var="libcode" value="biwon"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libcode" value="wongogae"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h77'}"><c:set var="libname" value="서구어린이"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h61'}"><c:set var="libname" value="비산"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h62'}"><c:set var="libname" value="영어"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h63'}"><c:set var="libname" value="비원"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libname" value="원고개"></c:set></c:if>
+											<li class="${libcode}">
+												<div class="cate">${libname}</div>
+												<div class="tit">${i.teach_name}</div>
+												<c:if test="${i.teach_status eq '0'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '1'}">
+													<span class="flow_02">접수대기</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '3'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '9'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '4'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '5'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '6'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+											</li>
+										</c:forEach>
 									</ul>
 									</div>
 								</div>
 
 								<div class="board_notice03 m_none pt50" >
 									<ul>
-										<li class="child">
-											<div class="cate">서구어린이</div>
-											<div class="tit">2020년 6~7월 온라인 문화강좌 접수안내</div>
-											<span class="flow_01">접수중</span>
-										</li>
-										<li class="bisan">
-											<div class="cate">비산</div>
-											<div class="tit">장하윤작가와 함께하는 7월 문화가 있는 날</div>
-											<span class="flow_02">접수대기</span>
-										</li>
-										<li class="biwon">
-											<div class="cate">비원</div>
-											<div class="tit">책바다서비스 이용안내</div>
-											<span class="flow_03">접수마감</span>
-										</li>
-										<li class="common">
-											<div class="cate">공통</div>
-											<div class="tit">원문정보서비스 집콕하면서 이용하기 </div>
-											<span class="flow_01">접수중</span>
-										</li>
-										<li class="english">
-											<div class="cate">영어</div>
-											<div class="tit">도서 예약대출서비스 수령일 변경 안내</div>
-											<span class="flow_02">접수대기</span>
-										</li>
-										<li class="wongogae">
-											<div class="cate">원고개</div>
-											<div class="tit">2020년 개인정보보호인식주간 캠페인</div>
-											<span class="flow_03">접수마감</span>
-										</li>
-										<li class="child">
-											<div class="cate">서구어린이</div>
-											<div class="tit">‘북 워크 스루’ 서비스 종료안내  </div>
-											<span class="flow_02">접수대기</span>
-										</li>
+										<c:forEach items="${teachListh62}" var="i" varStatus="status" begin="8" end="13">
+											<c:if test="${i.homepage_id eq 'h77'}"><c:set var="libcode" value="child"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h61'}"><c:set var="libcode" value="bisan"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h62'}"><c:set var="libcode" value="english"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h63'}"><c:set var="libcode" value="biwon"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libcode" value="wongogae"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h77'}"><c:set var="libname" value="서구어린이"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h61'}"><c:set var="libname" value="비산"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h62'}"><c:set var="libname" value="영어"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h63'}"><c:set var="libname" value="비원"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libname" value="원고개"></c:set></c:if>
+											<li class="${libcode}">
+												<div class="cate">${libname}</div>
+												<div class="tit">${i.teach_name}</div>
+												<c:if test="${i.teach_status eq '0'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '1'}">
+													<span class="flow_02">접수대기</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '3'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '9'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '4'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '5'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '6'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+											</li>
+										</c:forEach>
 									</ul>
 								</div>
 							</div>
@@ -1618,82 +1590,92 @@ $(function() {
 								<div class="board_notice03 pt50">
 									<div>
 									<ul>
-										<li class="child">
-											<div class="cate">서구어린이5</div>
-											<div class="tit">2020년 6~7월 온라인 문화강좌 접수안내</div>
-											<span class="flow_01">접수중</span>
-										</li>
-										<li class="bisan">
-											<div class="cate">비산</div>
-											<div class="tit">장하윤작가와 함께하는 7월 문화가 있는 날</div>
-											<span class="flow_02">접수대기</span>
-										</li>
-										<li class="biwon">
-											<div class="cate">비원</div>
-											<div class="tit">책바다서비스 이용안내</div>
-											<span class="flow_03">접수마감</span>
-										</li>
-										<li class="common">
-											<div class="cate">공통</div>
-											<div class="tit">원문정보서비스 집콕하면서 이용하기 </div>
-											<span class="flow_01">접수중</span>
-										</li>
-										<li class="english">
-											<div class="cate">영어</div>
-											<div class="tit">도서 예약대출서비스 수령일 변경 안내</div>
-											<span class="flow_02">접수대기</span>
-										</li>
-										<li class="wongogae">
-											<div class="cate">원고개</div>
-											<div class="tit">2020년 개인정보보호인식주간 캠페인</div>
-											<span class="flow_03">접수마감</span>
-										</li>
-										<li class="child">
-											<div class="cate">서구어린이</div>
-											<div class="tit">‘북 워크 스루’ 서비스 종료안내  </div>
-											<span class="flow_02">접수대기</span>
-										</li>
+										<c:forEach items="${teachListh63}" var="i" varStatus="status" begin="0" end="7">
+											<c:if test="${i.homepage_id eq 'h77'}"><c:set var="libcode" value="child"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h61'}"><c:set var="libcode" value="bisan"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h62'}"><c:set var="libcode" value="english"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h63'}"><c:set var="libcode" value="biwon"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libcode" value="wongogae"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h77'}"><c:set var="libname" value="서구어린이"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h61'}"><c:set var="libname" value="비산"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h62'}"><c:set var="libname" value="영어"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h63'}"><c:set var="libname" value="비원"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libname" value="원고개"></c:set></c:if>
+											<li class="${libcode}">
+												<div class="cate">${libname}</div>
+												<div class="tit">${i.teach_name}</div>
+												<c:if test="${i.teach_status eq '0'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '1'}">
+													<span class="flow_02">접수대기</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '3'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '9'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '4'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '5'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '6'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+											</li>
+										</c:forEach>
 									</ul>
 									</div>
 								</div>
 
 								<div class="board_notice03 m_none pt50" >
 									<ul>
-										<li class="child">
-											<div class="cate">서구어린이</div>
-											<div class="tit">2020년 6~7월 온라인 문화강좌 접수안내</div>
-											<span class="flow_01">접수중</span>
-										</li>
-										<li class="bisan">
-											<div class="cate">비산</div>
-											<div class="tit">장하윤작가와 함께하는 7월 문화가 있는 날</div>
-											<span class="flow_02">접수대기</span>
-										</li>
-										<li class="biwon">
-											<div class="cate">비원</div>
-											<div class="tit">책바다서비스 이용안내</div>
-											<span class="flow_03">접수마감</span>
-										</li>
-										<li class="common">
-											<div class="cate">공통</div>
-											<div class="tit">원문정보서비스 집콕하면서 이용하기 </div>
-											<span class="flow_01">접수중</span>
-										</li>
-										<li class="english">
-											<div class="cate">영어</div>
-											<div class="tit">도서 예약대출서비스 수령일 변경 안내</div>
-											<span class="flow_02">접수대기</span>
-										</li>
-										<li class="wongogae">
-											<div class="cate">원고개</div>
-											<div class="tit">2020년 개인정보보호인식주간 캠페인</div>
-											<span class="flow_03">접수마감</span>
-										</li>
-										<li class="child">
-											<div class="cate">서구어린이</div>
-											<div class="tit">‘북 워크 스루’ 서비스 종료안내  </div>
-											<span class="flow_02">접수대기</span>
-										</li>
+										<c:forEach items="${teachListh63}" var="i" varStatus="status" begin="8" end="13">
+											<c:if test="${i.homepage_id eq 'h77'}"><c:set var="libcode" value="child"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h61'}"><c:set var="libcode" value="bisan"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h62'}"><c:set var="libcode" value="english"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h63'}"><c:set var="libcode" value="biwon"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libcode" value="wongogae"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h77'}"><c:set var="libname" value="서구어린이"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h61'}"><c:set var="libname" value="비산"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h62'}"><c:set var="libname" value="영어"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h63'}"><c:set var="libname" value="비원"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libname" value="원고개"></c:set></c:if>
+											<li class="${libcode}">
+												<div class="cate">${libname}</div>
+												<div class="tit">${i.teach_name}</div>
+												<c:if test="${i.teach_status eq '0'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '1'}">
+													<span class="flow_02">접수대기</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '3'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '9'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '4'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '5'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '6'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+											</li>
+										</c:forEach>
 									</ul>
 								</div>
 							</div>
@@ -1705,82 +1687,92 @@ $(function() {
 								<div class="board_notice03 pt50">
 									<div>
 									<ul>
-										<li class="child">
-											<div class="cate">서구어린이6</div>
-											<div class="tit">2020년 6~7월 온라인 문화강좌 접수안내</div>
-											<span class="flow_01">접수중</span>
-										</li>
-										<li class="bisan">
-											<div class="cate">비산</div>
-											<div class="tit">장하윤작가와 함께하는 7월 문화가 있는 날</div>
-											<span class="flow_02">접수대기</span>
-										</li>
-										<li class="biwon">
-											<div class="cate">비원</div>
-											<div class="tit">책바다서비스 이용안내</div>
-											<span class="flow_03">접수마감</span>
-										</li>
-										<li class="common">
-											<div class="cate">공통</div>
-											<div class="tit">원문정보서비스 집콕하면서 이용하기 </div>
-											<span class="flow_01">접수중</span>
-										</li>
-										<li class="english">
-											<div class="cate">영어</div>
-											<div class="tit">도서 예약대출서비스 수령일 변경 안내</div>
-											<span class="flow_02">접수대기</span>
-										</li>
-										<li class="wongogae">
-											<div class="cate">원고개</div>
-											<div class="tit">2020년 개인정보보호인식주간 캠페인</div>
-											<span class="flow_03">접수마감</span>
-										</li>
-										<li class="child">
-											<div class="cate">서구어린이</div>
-											<div class="tit">‘북 워크 스루’ 서비스 종료안내  </div>
-											<span class="flow_02">접수대기</span>
-										</li>
+										<c:forEach items="${teachListh64}" var="i" varStatus="status" begin="0" end="7">
+											<c:if test="${i.homepage_id eq 'h77'}"><c:set var="libcode" value="child"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h61'}"><c:set var="libcode" value="bisan"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h62'}"><c:set var="libcode" value="english"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h63'}"><c:set var="libcode" value="biwon"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libcode" value="wongogae"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h77'}"><c:set var="libname" value="서구어린이"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h61'}"><c:set var="libname" value="비산"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h62'}"><c:set var="libname" value="영어"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h63'}"><c:set var="libname" value="비원"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libname" value="원고개"></c:set></c:if>
+											<li class="${libcode}">
+												<div class="cate">${libname}</div>
+												<div class="tit">${i.teach_name}</div>
+												<c:if test="${i.teach_status eq '0'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '1'}">
+													<span class="flow_02">접수대기</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '3'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '9'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '4'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '5'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '6'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+											</li>
+										</c:forEach>
 									</ul>
 									</div>
 								</div>
 
 								<div class="board_notice03 m_none pt50" >
 									<ul>
-										<li class="child">
-											<div class="cate">서구어린이</div>
-											<div class="tit">2020년 6~7월 온라인 문화강좌 접수안내</div>
-											<span class="flow_01">접수중</span>
-										</li>
-										<li class="bisan">
-											<div class="cate">비산</div>
-											<div class="tit">장하윤작가와 함께하는 7월 문화가 있는 날</div>
-											<span class="flow_02">접수대기</span>
-										</li>
-										<li class="biwon">
-											<div class="cate">비원</div>
-											<div class="tit">책바다서비스 이용안내</div>
-											<span class="flow_03">접수마감</span>
-										</li>
-										<li class="common">
-											<div class="cate">공통</div>
-											<div class="tit">원문정보서비스 집콕하면서 이용하기 </div>
-											<span class="flow_01">접수중</span>
-										</li>
-										<li class="english">
-											<div class="cate">영어</div>
-											<div class="tit">도서 예약대출서비스 수령일 변경 안내</div>
-											<span class="flow_02">접수대기</span>
-										</li>
-										<li class="wongogae">
-											<div class="cate">원고개</div>
-											<div class="tit">2020년 개인정보보호인식주간 캠페인</div>
-											<span class="flow_03">접수마감</span>
-										</li>
-										<li class="child">
-											<div class="cate">서구어린이</div>
-											<div class="tit">‘북 워크 스루’ 서비스 종료안내  </div>
-											<span class="flow_02">접수대기</span>
-										</li>
+										<c:forEach items="${teachListh64}" var="i" varStatus="status" begin="8" end="13">
+											<c:if test="${i.homepage_id eq 'h77'}"><c:set var="libcode" value="child"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h61'}"><c:set var="libcode" value="bisan"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h62'}"><c:set var="libcode" value="english"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h63'}"><c:set var="libcode" value="biwon"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libcode" value="wongogae"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h77'}"><c:set var="libname" value="서구어린이"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h61'}"><c:set var="libname" value="비산"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h62'}"><c:set var="libname" value="영어"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h63'}"><c:set var="libname" value="비원"></c:set></c:if>
+											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libname" value="원고개"></c:set></c:if>
+											<li class="${libcode}">
+												<div class="cate">${libname}</div>
+												<div class="tit">${i.teach_name}</div>
+												<c:if test="${i.teach_status eq '0'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '1'}">
+													<span class="flow_02">접수대기</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '3'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '9'}">
+													<span class="flow_01">접수중</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '4'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '5'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+												<c:if test="${i.teach_status eq '6'}">
+													<span class="flow_03">접수마감</span>
+												</c:if>
+											</li>
+										</c:forEach>
 									</ul>
 								</div>
 							</div>
@@ -1827,295 +1819,193 @@ $(function() {
 
 							<div class="top3wrap" id="recombox3_all" style="display:block;">
 								<div class="book_box">
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
+									<c:forEach items="${bookList}" var="i" varStatus="status" begin="0" end="4">
+										<div class="book" onclick="">
+											<div class="img_box">
+												<c:choose>
+													<c:when test="${i.preview_img ne null}">
+														<c:choose>
+															<c:when test="${fn:contains(i.preview_img, 'http')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:otherwise>
+																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/>
+													</c:otherwise>
+												</c:choose>
+											</div>
+											<div class="con_box">
+												<div class="tit">${i.title}</div>
+											</div>
 										</div>
-										<div class="con_box">
-											<div class="tit">12020 1대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
+									</c:forEach>
 								</div>
 							</div>
 
 							<div class="top3wrap" id="recombox3_seoguchild">
 								<div class="book_box">
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
+									<c:forEach items="${bookListh77}" var="i" varStatus="status" begin="0" end="4">
+										<div class="book" onclick="">
+											<div class="img_box">
+												<c:choose>
+													<c:when test="${i.preview_img ne null}">
+														<c:choose>
+															<c:when test="${fn:contains(i.preview_img, 'http')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:otherwise>
+																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/>
+													</c:otherwise>
+												</c:choose>
+											</div>
+											<div class="con_box">
+												<div class="tit">${i.title}</div>
+											</div>
 										</div>
-										<div class="con_box">
-											<div class="tit">12020 2대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
+									</c:forEach>
 								</div>
 							</div>
 
 							<div class="top3wrap" id="recombox3_bisan">
 								<div class="book_box">
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
+									<c:forEach items="${bookListh61}" var="i" varStatus="status" begin="0" end="4">
+										<div class="book" onclick="">
+											<div class="img_box">
+												<c:choose>
+													<c:when test="${i.preview_img ne null}">
+														<c:choose>
+															<c:when test="${fn:contains(i.preview_img, 'http')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:otherwise>
+																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/>
+													</c:otherwise>
+												</c:choose>
+											</div>
+											<div class="con_box">
+												<div class="tit">${i.title}</div>
+											</div>
 										</div>
-										<div class="con_box">
-											<div class="tit">12020 3대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
+									</c:forEach>
 								</div>
 							</div>
 
 							<div class="top3wrap" id="recombox3_english">
 								<div class="book_box">
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
+									<c:forEach items="${bookListh62}" var="i" varStatus="status" begin="0" end="4">
+										<div class="book" onclick="">
+											<div class="img_box">
+												<c:choose>
+													<c:when test="${i.preview_img ne null}">
+														<c:choose>
+															<c:when test="${fn:contains(i.preview_img, 'http')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:otherwise>
+																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/>
+													</c:otherwise>
+												</c:choose>
+											</div>
+											<div class="con_box">
+												<div class="tit">${i.title}</div>
+											</div>
 										</div>
-										<div class="con_box">
-											<div class="tit">12020 4대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
+									</c:forEach>
 								</div>
 							</div>
 
 							<div class="top3wrap" id="recombox3_biwon">
 								<div class="book_box">
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
+									<c:forEach items="${bookListh63}" var="i" varStatus="status" begin="0" end="4">
+										<div class="book" onclick="">
+											<div class="img_box">
+												<c:choose>
+													<c:when test="${i.preview_img ne null}">
+														<c:choose>
+															<c:when test="${fn:contains(i.preview_img, 'http')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:otherwise>
+																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/>
+													</c:otherwise>
+												</c:choose>
+											</div>
+											<div class="con_box">
+												<div class="tit">${i.title}</div>
+											</div>
 										</div>
-										<div class="con_box">
-											<div class="tit">12020 5대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
+									</c:forEach>
 								</div>
 							</div>
 
 							<div class="top3wrap" id="recombox3_wongogye">
 								<div class="book_box">
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
+									<c:forEach items="${bookListh64}" var="i" varStatus="status" begin="0" end="4">
+										<div class="book" onclick="">
+											<div class="img_box">
+												<c:choose>
+													<c:when test="${i.preview_img ne null}">
+														<c:choose>
+															<c:when test="${fn:contains(i.preview_img, 'http')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:otherwise>
+																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/>
+													</c:otherwise>
+												</c:choose>
+											</div>
+											<div class="con_box">
+												<div class="tit">${i.title}</div>
+											</div>
 										</div>
-										<div class="con_box">
-											<div class="tit">12020 6대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
+									</c:forEach>
 								</div>
 							</div>
 						</div>
@@ -2123,9 +2013,7 @@ $(function() {
 						<div class="top2wrap" id="top2box_newbook">
 							<div class="sec02_tab02 tab3">
 								<ul>
-									<li class="on"><a href="#all" class="tab-link3">전체</a></li>
-									<li class="bar">/</li>
-									<li><a href="#seoguchild" class="tab-link3">서구어린이</a></li>
+									<li class="on"><a href="#seoguchild" class="tab-link3">서구어린이</a></li>
 									<li class="bar">/</li>
 									<li><a href="#bisan" class="tab-link3">비산</a></li>
 									<li class="bar">/</li>
@@ -2137,299 +2025,7 @@ $(function() {
 								</ul>
 							</div>
 
-							<div class="top3wrap" id="newbookbox3_all" style="display:block;">
-								<div class="book_box">
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">22020 1대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="top3wrap" id="newbookbox3_seoguchild">
-								<div class="book_box">
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">22020 2대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="top3wrap" id="newbookbox3_bisan">
-								<div class="book_box">
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">22020 3대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="top3wrap" id="newbookbox3_english">
-								<div class="book_box">
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">22020 4대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="top3wrap" id="newbookbox3_biwon">
-								<div class="book_box">
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">22020 5대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="top3wrap" id="newbookbox3_wongogye">
-								<div class="book_box">
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">22020 6대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-
-									<div class="book" onclick="">
-										<div class="img_box">
-											<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-										</div>
-										<div class="con_box">
-											<div class="tit">2020 대구 올해의 책 선정을 위한 시</div>
-										</div>
-									</div>
-								</div>
-							</div>
+							<!-- newbook-->
 						</div>
 					</div>
 				</div>
@@ -2468,331 +2064,241 @@ $(function() {
 
 						<div class="top3wrap" id="moviebox4_all" style="display:block;">
 							<div class="movie_box">
-								<div class="movie" onclick="">
-									<div class="img_box">
-										<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-									</div>
-									<div class="con_box">
-										<div class="info">비산1</div>
-										<div class="tit">위대한 쇼맨</div>
-										<div class="info">만 15세 이상 관람가</div>
-										<div class="info" style="margin-top:20px;line-height:170%;">
-											<b>일시</b>2020-06-02<br />
-											<b>감독</b>시청각실<br />
-											<b>장르</b>액션, 스릴러<br />
-											<b>시간</b>160분
+								<c:forEach items="${movieList}" var="i" varStatus="status" begin="0" end="2">
+									<div class="movie" onclick="">
+										<div class="img_box">
+											<c:choose>
+												<c:when test="${i.preview_img ne null}">
+													<c:choose>
+														<c:when test="${fn:contains(i.preview_img, 'http')}">
+															<img src="${i.preview_img}" alt="${i.title}" />
+														</c:when>
+														<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+															<img src="${i.preview_img}" alt="${i.title}" />
+														</c:when>
+														<c:otherwise>
+															<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+														</c:otherwise>
+													</c:choose>
+												</c:when>
+												<c:otherwise>
+													<img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/>
+												</c:otherwise>
+											</c:choose>
+										</div>
+										<div class="con_box">
+											<div class="info">${i.category1_name}</div>
+											<div class="tit">${i.title}</div>
+											<div class="info">${i.imsi_v_12}</div>
+											<div class="info" style="margin-top:20px;line-height:170%;">
+												<b>일시</b>${i.imsi_v_1}-${i.imsi_v_2}<br />
+												<b>감독</b>${i.imsi_v_7}<br />
+												<b>장르</b>${i.imsi_v_9}<br />
+												<b>시간</b>${i.imsi_v_13}분
+											</div>
 										</div>
 									</div>
-								</div>
-
-								<div class="movie" onclick="">
-									<div class="img_box">
-										<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-									</div>
-									<div class="con_box">
-										<div class="info">비산1</div>
-										<div class="tit">위대한 쇼맨</div>
-										<div class="info">만 15세 이상 관람가</div>
-										<div class="info" style="margin-top:20px;line-height:170%;">
-											<b>일시</b>2020-06-02<br />
-											<b>감독</b>시청각실<br />
-											<b>장르</b>액션, 스릴러<br />
-											<b>시간</b>160분
-										</div>
-									</div>
-								</div>
-
-								<div class="movie" onclick="">
-									<div class="img_box">
-										<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-									</div>
-									<div class="con_box">
-										<div class="info">비산1</div>
-										<div class="tit">위대한 쇼맨</div>
-										<div class="info">만 15세 이상 관람가</div>
-										<div class="info" style="margin-top:20px;line-height:170%;">
-											<b>일시</b>2020-06-02<br />
-											<b>감독</b>시청각실<br />
-											<b>장르</b>액션, 스릴러<br />
-											<b>시간</b>160분
-										</div>
-									</div>
-								</div>
+								</c:forEach>
 							</div>
 						</div>
 
 						<div class="top3wrap" id="moviebox4_seoguchild">
 							<div class="movie_box">
-								<div class="movie" onclick="">
-									<div class="img_box">
-										<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-									</div>
-									<div class="con_box">
-										<div class="info">비산2</div>
-										<div class="tit">위대한 쇼맨</div>
-										<div class="info">만 15세 이상 관람가</div>
-										<div class="info" style="margin-top:20px;line-height:170%;">
-											<b>일시</b>2020-06-02<br />
-											<b>감독</b>시청각실<br />
-											<b>장르</b>액션, 스릴러<br />
-											<b>시간</b>160분
+								<c:forEach items="${movieListh77}" var="i" varStatus="status" begin="0" end="2">
+									<div class="movie" onclick="">
+										<div class="img_box">
+											<c:choose>
+												<c:when test="${i.preview_img ne null}">
+													<c:choose>
+														<c:when test="${fn:contains(i.preview_img, 'http')}">
+															<img src="${i.preview_img}" alt="${i.title}" />
+														</c:when>
+														<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+															<img src="${i.preview_img}" alt="${i.title}" />
+														</c:when>
+														<c:otherwise>
+															<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+														</c:otherwise>
+													</c:choose>
+												</c:when>
+												<c:otherwise>
+													<img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/>
+												</c:otherwise>
+											</c:choose>
+										</div>
+										<div class="con_box">
+											<div class="info">${i.category1_name}</div>
+											<div class="tit">${i.title}</div>
+											<div class="info">${i.imsi_v_12}</div>
+											<div class="info" style="margin-top:20px;line-height:170%;">
+												<b>일시</b>${i.imsi_v_1}-${i.imsi_v_2}<br />
+												<b>감독</b>${i.imsi_v_7}<br />
+												<b>장르</b>${i.imsi_v_9}<br />
+												<b>시간</b>${i.imsi_v_13}분
+											</div>
 										</div>
 									</div>
-								</div>
-
-								<div class="movie" onclick="">
-									<div class="img_box">
-										<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-									</div>
-									<div class="con_box">
-										<div class="info">비산2</div>
-										<div class="tit">위대한 쇼맨</div>
-										<div class="info">만 15세 이상 관람가</div>
-										<div class="info" style="margin-top:20px;line-height:170%;">
-											<b>일시</b>2020-06-02<br />
-											<b>감독</b>시청각실<br />
-											<b>장르</b>액션, 스릴러<br />
-											<b>시간</b>160분
-										</div>
-									</div>
-								</div>
-
-								<div class="movie" onclick="">
-									<div class="img_box">
-										<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-									</div>
-									<div class="con_box">
-										<div class="info">비산2</div>
-										<div class="tit">위대한 쇼맨</div>
-										<div class="info">만 15세 이상 관람가</div>
-										<div class="info" style="margin-top:20px;line-height:170%;">
-											<b>일시</b>2020-06-02<br />
-											<b>감독</b>시청각실<br />
-											<b>장르</b>액션, 스릴러<br />
-											<b>시간</b>160분
-										</div>
-									</div>
-								</div>
+								</c:forEach>
 							</div>
 						</div>
 
 						<div class="top3wrap" id="moviebox4_bisan">
 							<div class="movie_box">
-								<div class="movie" onclick="">
-									<div class="img_box">
-										<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-									</div>
-									<div class="con_box">
-										<div class="info">비산3</div>
-										<div class="tit">위대한 쇼맨</div>
-										<div class="info">만 15세 이상 관람가</div>
-										<div class="info" style="margin-top:20px;line-height:170%;">
-											<b>일시</b>2020-06-02<br />
-											<b>감독</b>시청각실<br />
-											<b>장르</b>액션, 스릴러<br />
-											<b>시간</b>160분
+								<c:forEach items="${movieListh61}" var="i" varStatus="status" begin="0" end="2">
+									<div class="movie" onclick="">
+										<div class="img_box">
+											<c:choose>
+												<c:when test="${i.preview_img ne null}">
+													<c:choose>
+														<c:when test="${fn:contains(i.preview_img, 'http')}">
+															<img src="${i.preview_img}" alt="${i.title}" />
+														</c:when>
+														<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+															<img src="${i.preview_img}" alt="${i.title}" />
+														</c:when>
+														<c:otherwise>
+															<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+														</c:otherwise>
+													</c:choose>
+												</c:when>
+												<c:otherwise>
+													<img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/>
+												</c:otherwise>
+											</c:choose>
+										</div>
+										<div class="con_box">
+											<div class="info">${i.category1_name}</div>
+											<div class="tit">${i.title}</div>
+											<div class="info">${i.imsi_v_12}</div>
+											<div class="info" style="margin-top:20px;line-height:170%;">
+												<b>일시</b>${i.imsi_v_1}-${i.imsi_v_2}<br />
+												<b>감독</b>${i.imsi_v_7}<br />
+												<b>장르</b>${i.imsi_v_9}<br />
+												<b>시간</b>${i.imsi_v_13}분
+											</div>
 										</div>
 									</div>
-								</div>
-
-								<div class="movie" onclick="">
-									<div class="img_box">
-										<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-									</div>
-									<div class="con_box">
-										<div class="info">비산3</div>
-										<div class="tit">위대한 쇼맨</div>
-										<div class="info">만 15세 이상 관람가</div>
-										<div class="info" style="margin-top:20px;line-height:170%;">
-											<b>일시</b>2020-06-02<br />
-											<b>감독</b>시청각실<br />
-											<b>장르</b>액션, 스릴러<br />
-											<b>시간</b>160분
-										</div>
-									</div>
-								</div>
-
-								<div class="movie" onclick="">
-									<div class="img_box">
-										<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-									</div>
-									<div class="con_box">
-										<div class="info">비산3</div>
-										<div class="tit">위대한 쇼맨</div>
-										<div class="info">만 15세 이상 관람가</div>
-										<div class="info" style="margin-top:20px;line-height:170%;">
-											<b>일시</b>2020-06-02<br />
-											<b>감독</b>시청각실<br />
-											<b>장르</b>액션, 스릴러<br />
-											<b>시간</b>160분
-										</div>
-									</div>
-								</div>
+								</c:forEach>
 							</div>
 						</div>
 
 						<div class="top3wrap" id="moviebox4_english">
 							<div class="movie_box">
-								<div class="movie" onclick="">
-									<div class="img_box">
-										<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-									</div>
-									<div class="con_box">
-										<div class="info">비산4</div>
-										<div class="tit">위대한 쇼맨</div>
-										<div class="info">만 15세 이상 관람가</div>
-										<div class="info" style="margin-top:20px;line-height:170%;">
-											<b>일시</b>2020-06-02<br />
-											<b>감독</b>시청각실<br />
-											<b>장르</b>액션, 스릴러<br />
-											<b>시간</b>160분
+								<c:forEach items="${movieListh62}" var="i" varStatus="status" begin="0" end="2">
+									<div class="movie" onclick="">
+										<div class="img_box">
+											<c:choose>
+												<c:when test="${i.preview_img ne null}">
+													<c:choose>
+														<c:when test="${fn:contains(i.preview_img, 'http')}">
+															<img src="${i.preview_img}" alt="${i.title}" />
+														</c:when>
+														<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+															<img src="${i.preview_img}" alt="${i.title}" />
+														</c:when>
+														<c:otherwise>
+															<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+														</c:otherwise>
+													</c:choose>
+												</c:when>
+												<c:otherwise>
+													<img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/>
+												</c:otherwise>
+											</c:choose>
+										</div>
+										<div class="con_box">
+											<div class="info">${i.category1_name}</div>
+											<div class="tit">${i.title}</div>
+											<div class="info">${i.imsi_v_12}</div>
+											<div class="info" style="margin-top:20px;line-height:170%;">
+												<b>일시</b>${i.imsi_v_1}-${i.imsi_v_2}<br />
+												<b>감독</b>${i.imsi_v_7}<br />
+												<b>장르</b>${i.imsi_v_9}<br />
+												<b>시간</b>${i.imsi_v_13}분
+											</div>
 										</div>
 									</div>
-								</div>
-
-								<div class="movie" onclick="">
-									<div class="img_box">
-										<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-									</div>
-									<div class="con_box">
-										<div class="info">비산4</div>
-										<div class="tit">위대한 쇼맨</div>
-										<div class="info">만 15세 이상 관람가</div>
-										<div class="info" style="margin-top:20px;line-height:170%;">
-											<b>일시</b>2020-06-02<br />
-											<b>감독</b>시청각실<br />
-											<b>장르</b>액션, 스릴러<br />
-											<b>시간</b>160분
-										</div>
-									</div>
-								</div>
-
-								<div class="movie" onclick="">
-									<div class="img_box">
-										<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-									</div>
-									<div class="con_box">
-										<div class="info">비산4</div>
-										<div class="tit">위대한 쇼맨</div>
-										<div class="info">만 15세 이상 관람가</div>
-										<div class="info" style="margin-top:20px;line-height:170%;">
-											<b>일시</b>2020-06-02<br />
-											<b>감독</b>시청각실<br />
-											<b>장르</b>액션, 스릴러<br />
-											<b>시간</b>160분
-										</div>
-									</div>
-								</div>
+								</c:forEach>
 							</div>
 						</div>
 
 						<div class="top3wrap" id="moviebox4_biwon">
 							<div class="movie_box">
-								<div class="movie" onclick="">
-									<div class="img_box">
-										<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-									</div>
-									<div class="con_box">
-										<div class="info">비산5</div>
-										<div class="tit">위대한 쇼맨</div>
-										<div class="info">만 15세 이상 관람가</div>
-										<div class="info" style="margin-top:20px;line-height:170%;">
-											<b>일시</b>2020-06-02<br />
-											<b>감독</b>시청각실<br />
-											<b>장르</b>액션, 스릴러<br />
-											<b>시간</b>160분
+								<c:forEach items="${movieListh63}" var="i" varStatus="status" begin="0" end="2">
+									<div class="movie" onclick="">
+										<div class="img_box">
+											<c:choose>
+												<c:when test="${i.preview_img ne null}">
+													<c:choose>
+														<c:when test="${fn:contains(i.preview_img, 'http')}">
+															<img src="${i.preview_img}" alt="${i.title}" />
+														</c:when>
+														<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+															<img src="${i.preview_img}" alt="${i.title}" />
+														</c:when>
+														<c:otherwise>
+															<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+														</c:otherwise>
+													</c:choose>
+												</c:when>
+												<c:otherwise>
+													<img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/>
+												</c:otherwise>
+											</c:choose>
+										</div>
+										<div class="con_box">
+											<div class="info">${i.category1_name}</div>
+											<div class="tit">${i.title}</div>
+											<div class="info">${i.imsi_v_12}</div>
+											<div class="info" style="margin-top:20px;line-height:170%;">
+												<b>일시</b>${i.imsi_v_1}-${i.imsi_v_2}<br />
+												<b>감독</b>${i.imsi_v_7}<br />
+												<b>장르</b>${i.imsi_v_9}<br />
+												<b>시간</b>${i.imsi_v_13}분
+											</div>
 										</div>
 									</div>
-								</div>
-
-								<div class="movie" onclick="">
-									<div class="img_box">
-										<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-									</div>
-									<div class="con_box">
-										<div class="info">비산5</div>
-										<div class="tit">위대한 쇼맨</div>
-										<div class="info">만 15세 이상 관람가</div>
-										<div class="info" style="margin-top:20px;line-height:170%;">
-											<b>일시</b>2020-06-02<br />
-											<b>감독</b>시청각실<br />
-											<b>장르</b>액션, 스릴러<br />
-											<b>시간</b>160분
-										</div>
-									</div>
-								</div>
-
-								<div class="movie" onclick="">
-									<div class="img_box">
-										<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-									</div>
-									<div class="con_box">
-										<div class="info">비산5</div>
-										<div class="tit">위대한 쇼맨</div>
-										<div class="info">만 15세 이상 관람가</div>
-										<div class="info" style="margin-top:20px;line-height:170%;">
-											<b>일시</b>2020-06-02<br />
-											<b>감독</b>시청각실<br />
-											<b>장르</b>액션, 스릴러<br />
-											<b>시간</b>160분
-										</div>
-									</div>
-								</div>
+								</c:forEach>
 							</div>
 						</div>
 
 						<div class="top3wrap" id="moviebox4_wongogye">
 							<div class="movie_box">
-								<div class="movie" onclick="">
-									<div class="img_box">
-										<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-									</div>
-									<div class="con_box">
-										<div class="info">비산6</div>
-										<div class="tit">위대한 쇼맨</div>
-										<div class="info">만 15세 이상 관람가</div>
-										<div class="info" style="margin-top:20px;line-height:170%;">
-											<b>일시</b>2020-06-02<br />
-											<b>감독</b>시청각실<br />
-											<b>장르</b>액션, 스릴러<br />
-											<b>시간</b>160분
+								<c:forEach items="${movieListh64}" var="i" varStatus="status" begin="0" end="2">
+									<div class="movie" onclick="">
+										<div class="img_box">
+											<c:choose>
+												<c:when test="${i.preview_img ne null}">
+													<c:choose>
+														<c:when test="${fn:contains(i.preview_img, 'http')}">
+															<img src="${i.preview_img}" alt="${i.title}" />
+														</c:when>
+														<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+															<img src="${i.preview_img}" alt="${i.title}" />
+														</c:when>
+														<c:otherwise>
+															<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+														</c:otherwise>
+													</c:choose>
+												</c:when>
+												<c:otherwise>
+													<img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/>
+												</c:otherwise>
+											</c:choose>
+										</div>
+										<div class="con_box">
+											<div class="info">${i.category1_name}</div>
+											<div class="tit">${i.title}</div>
+											<div class="info">${i.imsi_v_12}</div>
+											<div class="info" style="margin-top:20px;line-height:170%;">
+												<b>일시</b>${i.imsi_v_1}-${i.imsi_v_2}<br />
+												<b>감독</b>${i.imsi_v_7}<br />
+												<b>장르</b>${i.imsi_v_9}<br />
+												<b>시간</b>${i.imsi_v_13}분
+											</div>
 										</div>
 									</div>
-								</div>
-
-								<div class="movie" onclick="">
-									<div class="img_box">
-										<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-									</div>
-									<div class="con_box">
-										<div class="info">비산6</div>
-										<div class="tit">위대한 쇼맨</div>
-										<div class="info">만 15세 이상 관람가</div>
-										<div class="info" style="margin-top:20px;line-height:170%;">
-											<b>일시</b>2020-06-02<br />
-											<b>감독</b>시청각실<br />
-											<b>장르</b>액션, 스릴러<br />
-											<b>시간</b>160분
-										</div>
-									</div>
-								</div>
-
-								<div class="movie" onclick="">
-									<div class="img_box">
-										<img src="/resources/homepage/seogulib/img/notice_img.jpg">
-									</div>
-									<div class="con_box">
-										<div class="info">비산6</div>
-										<div class="tit">위대한 쇼맨</div>
-										<div class="info">만 15세 이상 관람가</div>
-										<div class="info" style="margin-top:20px;line-height:170%;">
-											<b>일시</b>2020-06-02<br />
-											<b>감독</b>시청각실<br />
-											<b>장르</b>액션, 스릴러<br />
-											<b>시간</b>160분
-										</div>
-									</div>
-								</div>
+								</c:forEach>
 							</div>
 						</div>
 
