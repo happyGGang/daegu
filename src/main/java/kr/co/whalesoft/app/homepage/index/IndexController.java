@@ -681,12 +681,17 @@ public class IndexController extends BaseController {
 				model.addAttribute("noticeList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//공지사항
 
 				b.setCategory5(null);
-				switch (h2.getHomepage_id()) {
-					case "h77" : b.setCategory1("0001"); break;
-					case "h61" : b.setCategory1("0002"); break;
-					case "h62" : b.setCategory1("0003"); break;
-					case "h63" : b.setCategory1("0004"); break;
-					case "h64" : b.setCategory1("0005"); break;
+
+				if (h2.getHomepage_id().equals("h77")) {
+					b.setCategory1("0001");
+				} else if (h2.getHomepage_id().equals("h61")) {
+					b.setCategory1("0002");
+				} else if (h2.getHomepage_id().equals("h62")) {
+					b.setCategory1("0003");
+				} else if (h2.getHomepage_id().equals("h63")) {
+					b.setCategory1("0004");
+				} else if (h2.getHomepage_id().equals("h64")) {
+					b.setCategory1("0005");
 				}
 
 				b.setManage_idx(632);
