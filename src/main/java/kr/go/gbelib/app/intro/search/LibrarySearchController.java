@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -1502,27 +1503,34 @@ public class LibrarySearchController extends BaseController {
 		String content = "";
 		//TODO marc보기
 		Map<String, Object> marcView = LibSearchAPI.getMarc(regno);
-		
-		if(marcView.get("collection") != null) {
-			Map<String, Object> collection = (Map<String, Object>)marcView.get("collection");
-			if(collection.get("record") != null) {
-				Map<String, Object> record = (Map<String, Object>)collection.get("record");
-				if(record.get("datafield") != null) {
-					list = new ArrayList<Map<String, Object>>();
-					list.addAll((List<Map<String, Object>>) record.get("datafield"));
+
+		if (MapUtils.isNotEmpty(marcView) && marcView.containsKey("collection")) {
+			if(marcView.get("collection") != null) {
+				Map<String, Object> collection = (Map<String, Object>)marcView.get("collection");
+				if(collection.get("record") != null) {
+					Map<String, Object> record = (Map<String, Object>)collection.get("record");
+					if(record.get("datafield") != null) {
+						list = new ArrayList<Map<String, Object>>();
+						list.addAll((List<Map<String, Object>>) record.get("datafield"));
+					}
 				}
 			}
-		}
-		
-		// tag 521 추출
-		for (Map<String, Object> map : list) {
-			String tag = String.valueOf(map.get("tag"));
-			if(tag.equals("521")) {
-				Map<String, Object> subfield = (Map<String, Object>)map.get("subfield");
-				content = String.valueOf(subfield.get("content"));
-				break;
+
+			if (CollectionUtils.isNotEmpty(list) && list.size() > 0) {
+				// tag 521 추출
+				for (Map<String, Object> map : list) {
+					String tag = String.valueOf(map.get("tag"));
+					if(tag.equals("521")) {
+						Map<String, Object> subfield = (Map<String, Object>)map.get("subfield");
+						content = String.valueOf(subfield.get("content"));
+						break;
+					}
+				}
 			}
+
 		}
+
+
 		
 		return content;
 	}
