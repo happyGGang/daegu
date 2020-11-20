@@ -602,7 +602,7 @@ $(function() {
 						<div class="sec02_tab01 tab2">
 							<ul>
 								<li class="on"><div class="line2"><a href="#notice" class="tab-link2" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628">공지<br />사항</a></div></li>
-								<li><div><a href="#gallery" class="tab-link2" data-link="">갤러리</a></div></li>
+								<li><div><a href="#gallery" class="tab-link2" data-link="/${homepage.context_path}/board/index.do?menu_idx=50&manage_idx=632">갤러리</a></div></li>
 							</ul>
 							<div class="more_btn">
 								<a href="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628"><img src="/resources/homepage/seogulib/img/con02_more_btn.png"></a>
@@ -630,6 +630,7 @@ $(function() {
 								<div class="board_box">
 									<c:forEach items="${noticeList}" var="i" varStatus="status" begin="0" end="0">
 										<div class="board_notice01">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 											<div class="img_box">
 												<c:choose>
 													<c:when test="${i.preview_img ne null}">
@@ -656,6 +657,7 @@ $(function() {
 												<div class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></div>
 												<div class="txt">${i.content_summary}</div>
 											</div>
+											</a>
 										</div>
 									</c:forEach>
 
@@ -670,7 +672,7 @@ $(function() {
 													<c:if test="${i.category5 eq 'h64'}"><c:set var="libcode" value="wongogae"></c:set></c:if>
 													<li class="${libcode}">
 														<div class="cate">${i.category5_name}</div>
-														<div class="tit">${i.title}</div>
+														<div class="tit"><a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->${i.title}</a></div>
 														<div class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></div>
 													</li>
 												</c:forEach>
@@ -684,6 +686,7 @@ $(function() {
 								<div class="board_box">
 									<c:forEach items="${noticeListh77}" var="i" varStatus="status" begin="0" end="0">
 										<div class="board_notice01">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 											<div class="img_box">
 												<c:choose>
 													<c:when test="${i.preview_img ne null}">
@@ -710,6 +713,7 @@ $(function() {
 												<div class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></div>
 												<div class="txt">${i.content_summary}</div>
 											</div>
+											</a>
 										</div>
 									</c:forEach>
 
@@ -724,7 +728,7 @@ $(function() {
 													<c:if test="${i.category5 eq 'h64'}"><c:set var="libcode" value="wongogae"></c:set></c:if>
 													<li class="${libcode}">
 														<div class="cate">${i.category5_name}</div>
-														<div class="tit">${i.title}</div>
+														<div class="tit"><a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->${i.title}</a></div>
 														<div class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></div>
 													</li>
 												</c:forEach>
@@ -738,6 +742,7 @@ $(function() {
 								<div class="board_box">
 									<c:forEach items="${noticeListh61}" var="i" varStatus="status" begin="0" end="0">
 										<div class="board_notice01">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 											<div class="img_box">
 												<c:choose>
 													<c:when test="${i.preview_img ne null}">
@@ -764,6 +769,7 @@ $(function() {
 												<div class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></div>
 												<div class="txt">${i.content_summary}</div>
 											</div>
+											</a>
 										</div>
 									</c:forEach>
 
@@ -778,7 +784,7 @@ $(function() {
 													<c:if test="${i.category5 eq 'h64'}"><c:set var="libcode" value="wongogae"></c:set></c:if>
 													<li class="${libcode}">
 														<div class="cate">${i.category5_name}</div>
-														<div class="tit">${i.title}</div>
+														<div class="tit"><a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->${i.title}</a></div>
 														<div class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></div>
 													</li>
 												</c:forEach>
@@ -792,6 +798,7 @@ $(function() {
 								<div class="board_box">
 									<c:forEach items="${noticeListh62}" var="i" varStatus="status" begin="0" end="0">
 										<div class="board_notice01">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 											<div class="img_box">
 												<c:choose>
 													<c:when test="${i.preview_img ne null}">
@@ -818,6 +825,7 @@ $(function() {
 												<div class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></div>
 												<div class="txt">${i.content_summary}</div>
 											</div>
+											</a>
 										</div>
 									</c:forEach>
 
@@ -832,7 +840,7 @@ $(function() {
 													<c:if test="${i.category5 eq 'h64'}"><c:set var="libcode" value="wongogae"></c:set></c:if>
 													<li class="${libcode}">
 														<div class="cate">${i.category5_name}</div>
-														<div class="tit">${i.title}</div>
+														<div class="tit"><a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->${i.title}</a></div>
 														<div class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></div>
 													</li>
 												</c:forEach>
@@ -846,6 +854,7 @@ $(function() {
 								<div class="board_box">
 									<c:forEach items="${noticeListh63}" var="i" varStatus="status" begin="0" end="0">
 										<div class="board_notice01">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 											<div class="img_box">
 												<c:choose>
 													<c:when test="${i.preview_img ne null}">
@@ -872,6 +881,7 @@ $(function() {
 												<div class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></div>
 												<div class="txt">${i.content_summary}</div>
 											</div>
+											</a>
 										</div>
 									</c:forEach>
 
@@ -886,7 +896,7 @@ $(function() {
 													<c:if test="${i.category5 eq 'h64'}"><c:set var="libcode" value="wongogae"></c:set></c:if>
 													<li class="${libcode}">
 														<div class="cate">${i.category5_name}</div>
-														<div class="tit">${i.title}</div>
+														<div class="tit"><a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->${i.title}</a></div>
 														<div class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></div>
 													</li>
 												</c:forEach>
@@ -900,6 +910,7 @@ $(function() {
 								<div class="board_box">
 									<c:forEach items="${noticeListh64}" var="i" varStatus="status" begin="0" end="0">
 										<div class="board_notice01">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 											<div class="img_box">
 												<c:choose>
 													<c:when test="${i.preview_img ne null}">
@@ -926,6 +937,7 @@ $(function() {
 												<div class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></div>
 												<div class="txt">${i.content_summary}</div>
 											</div>
+											</a>
 										</div>
 									</c:forEach>
 
@@ -940,7 +952,7 @@ $(function() {
 													<c:if test="${i.category5 eq 'h64'}"><c:set var="libcode" value="wongogae"></c:set></c:if>
 													<li class="${libcode}">
 														<div class="cate">${i.category5_name}</div>
-														<div class="tit">${i.title}</div>
+														<div class="tit"><a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->${i.title}</a></div>
 														<div class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></div>
 													</li>
 												</c:forEach>
@@ -972,7 +984,8 @@ $(function() {
 
 								<div class="gallery_box">
 									<c:forEach items="${galleryList}" var="i" varStatus="status" begin="0" end="3">
-										<div class="gallery" onclick="">
+										<div class="gallery">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=50&manage_idx=632&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 											<div class="img_box">
 												<c:choose>
 													<c:when test="${i.preview_img ne null}">
@@ -996,6 +1009,7 @@ $(function() {
 											<div class="con_box">
 												<div class="tit">${i.title}</div>
 											</div>
+											</a>
 										</div>
 									</c:forEach>
 								</div>
@@ -1004,7 +1018,8 @@ $(function() {
 							<div class="top3wrap" id="galbox1_seoguchild">
 								<div class="gallery_box">
 									<c:forEach items="${galleryListh77}" var="i" varStatus="status" begin="0" end="3">
-										<div class="gallery" onclick="">
+										<div class="gallery">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=50&manage_idx=632&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 											<div class="img_box">
 												<c:choose>
 													<c:when test="${i.preview_img ne null}">
@@ -1028,6 +1043,7 @@ $(function() {
 											<div class="con_box">
 												<div class="tit">${i.title}</div>
 											</div>
+											</a>
 										</div>
 									</c:forEach>
 								</div>
@@ -1036,7 +1052,8 @@ $(function() {
 							<div class="top3wrap" id="galbox1_bisan">
 								<div class="gallery_box">
 									<c:forEach items="${galleryListh61}" var="i" varStatus="status" begin="0" end="3">
-										<div class="gallery" onclick="">
+										<div class="gallery">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=50&manage_idx=632&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 											<div class="img_box">
 												<c:choose>
 													<c:when test="${i.preview_img ne null}">
@@ -1060,6 +1077,7 @@ $(function() {
 											<div class="con_box">
 												<div class="tit">${i.title}</div>
 											</div>
+											</a>
 										</div>
 									</c:forEach>
 								</div>
@@ -1068,7 +1086,8 @@ $(function() {
 							<div class="top3wrap" id="galbox1_english">
 								<div class="gallery_box">
 									<c:forEach items="${galleryListh62}" var="i" varStatus="status" begin="0" end="3">
-										<div class="gallery" onclick="">
+										<div class="gallery">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=50&manage_idx=632&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 											<div class="img_box">
 												<c:choose>
 													<c:when test="${i.preview_img ne null}">
@@ -1092,6 +1111,7 @@ $(function() {
 											<div class="con_box">
 												<div class="tit">${i.title}</div>
 											</div>
+											</a>
 										</div>
 									</c:forEach>
 								</div>
@@ -1100,7 +1120,8 @@ $(function() {
 							<div class="top3wrap" id="galbox1_biwon">
 								<div class="gallery_box">
 									<c:forEach items="${galleryListg63}" var="i" varStatus="status" begin="0" end="3">
-										<div class="gallery" onclick="">
+										<div class="gallery">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=50&manage_idx=632&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 											<div class="img_box">
 												<c:choose>
 													<c:when test="${i.preview_img ne null}">
@@ -1124,6 +1145,7 @@ $(function() {
 											<div class="con_box">
 												<div class="tit">${i.title}</div>
 											</div>
+											</a>
 										</div>
 									</c:forEach>
 								</div>
@@ -1132,7 +1154,8 @@ $(function() {
 							<div class="top3wrap" id="galbox1_wongogye">
 								<div class="gallery_box">
 									<c:forEach items="${galleryListh64}" var="i" varStatus="status" begin="0" end="3">
-										<div class="gallery" onclick="">
+										<div class="gallery">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=50&manage_idx=632&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 											<div class="img_box">
 												<c:choose>
 													<c:when test="${i.preview_img ne null}">
@@ -1156,6 +1179,7 @@ $(function() {
 											<div class="con_box">
 												<div class="tit">${i.title}</div>
 											</div>
+											</a>
 										</div>
 									</c:forEach>
 								</div>
@@ -1176,7 +1200,7 @@ $(function() {
 					<div class="con sec02-1">
 						<div class="sec02_tab01" style="margin-top:-30px;">
 							<div class="more_btn top-10">
-								<a href=""><img src="/resources/homepage/seogulib/img/con02_more_btn.png"></a>
+								<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=32"><img src="/resources/homepage/seogulib/img/con02_more_btn.png"></a>
 							</div>
 						</div>
 
@@ -1215,7 +1239,11 @@ $(function() {
 												<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libname" value="원고개"></c:set></c:if>
 												<li class="${libcode}">
 													<div class="cate">${libname}</div>
-													<div class="tit">${i.teach_name}</div>
+													<div class="tit">
+														<a href="/${homepage.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=32&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}&homepage_id=${i.homepage_id}"><!-- 하이퍼링크 -->
+															${i.teach_name}
+														</a>
+													</div>
 													<c:if test="${i.teach_status eq '0'}">
 														<span class="flow_01">접수중</span>
 													</c:if>
@@ -1261,7 +1289,7 @@ $(function() {
 											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libname" value="원고개"></c:set></c:if>
 											<li class="${libcode}">
 												<div class="cate">${libname}</div>
-												<div class="tit">${i.teach_name}</div>
+												<div class="tit"><a href="/${homepage.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=32&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}&homepage_id=${i.homepage_id}"><!-- 하이퍼링크 -->${i.teach_name}</a></div>
 												<c:if test="${i.teach_status eq '0'}">
 													<span class="flow_01">접수중</span>
 												</c:if>
@@ -1312,7 +1340,7 @@ $(function() {
 											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libname" value="원고개"></c:set></c:if>
 											<li class="${libcode}">
 												<div class="cate">${libname}</div>
-												<div class="tit">${i.teach_name}</div>
+												<div class="tit"><a href="/${homepage.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=32&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}&homepage_id=${i.homepage_id}"><!-- 하이퍼링크 -->${i.teach_name}</a></div>
 												<c:if test="${i.teach_status eq '0'}">
 													<span class="flow_01">접수중</span>
 												</c:if>
@@ -1358,7 +1386,7 @@ $(function() {
 											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libname" value="원고개"></c:set></c:if>
 											<li class="${libcode}">
 												<div class="cate">${libname}</div>
-												<div class="tit">${i.teach_name}</div>
+												<div class="tit"><a href="/${homepage.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=32&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}&homepage_id=${i.homepage_id}"><!-- 하이퍼링크 -->${i.teach_name}</a></div>
 												<c:if test="${i.teach_status eq '0'}">
 													<span class="flow_01">접수중</span>
 												</c:if>
@@ -1409,7 +1437,7 @@ $(function() {
 											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libname" value="원고개"></c:set></c:if>
 											<li class="${libcode}">
 												<div class="cate">${libname}</div>
-												<div class="tit">${i.teach_name}</div>
+												<div class="tit"><a href="/${homepage.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=32&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}&homepage_id=${i.homepage_id}"><!-- 하이퍼링크 -->${i.teach_name}</a></div>
 												<c:if test="${i.teach_status eq '0'}">
 													<span class="flow_01">접수중</span>
 												</c:if>
@@ -1455,7 +1483,7 @@ $(function() {
 											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libname" value="원고개"></c:set></c:if>
 											<li class="${libcode}">
 												<div class="cate">${libname}</div>
-												<div class="tit">${i.teach_name}</div>
+												<div class="tit"><a href="/${homepage.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=32&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}&homepage_id=${i.homepage_id}"><!-- 하이퍼링크 -->${i.teach_name}</a></div>
 												<c:if test="${i.teach_status eq '0'}">
 													<span class="flow_01">접수중</span>
 												</c:if>
@@ -1506,7 +1534,7 @@ $(function() {
 											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libname" value="원고개"></c:set></c:if>
 											<li class="${libcode}">
 												<div class="cate">${libname}</div>
-												<div class="tit">${i.teach_name}</div>
+												<div class="tit"><a href="/${homepage.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=32&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}&homepage_id=${i.homepage_id}"><!-- 하이퍼링크 -->${i.teach_name}</a></div>
 												<c:if test="${i.teach_status eq '0'}">
 													<span class="flow_01">접수중</span>
 												</c:if>
@@ -1552,7 +1580,7 @@ $(function() {
 											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libname" value="원고개"></c:set></c:if>
 											<li class="${libcode}">
 												<div class="cate">${libname}</div>
-												<div class="tit">${i.teach_name}</div>
+												<div class="tit"><a href="/${homepage.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=32&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}&homepage_id=${i.homepage_id}"><!-- 하이퍼링크 -->${i.teach_name}</a></div>
 												<c:if test="${i.teach_status eq '0'}">
 													<span class="flow_01">접수중</span>
 												</c:if>
@@ -1603,7 +1631,7 @@ $(function() {
 											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libname" value="원고개"></c:set></c:if>
 											<li class="${libcode}">
 												<div class="cate">${libname}</div>
-												<div class="tit">${i.teach_name}</div>
+												<div class="tit"><a href="/${homepage.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=32&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}&homepage_id=${i.homepage_id}"><!-- 하이퍼링크 -->${i.teach_name}</a></div>
 												<c:if test="${i.teach_status eq '0'}">
 													<span class="flow_01">접수중</span>
 												</c:if>
@@ -1649,7 +1677,7 @@ $(function() {
 											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libname" value="원고개"></c:set></c:if>
 											<li class="${libcode}">
 												<div class="cate">${libname}</div>
-												<div class="tit">${i.teach_name}</div>
+												<div class="tit"><a href="/${homepage.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=32&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}&homepage_id=${i.homepage_id}"><!-- 하이퍼링크 -->${i.teach_name}</a></div>
 												<c:if test="${i.teach_status eq '0'}">
 													<span class="flow_01">접수중</span>
 												</c:if>
@@ -1700,7 +1728,7 @@ $(function() {
 											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libname" value="원고개"></c:set></c:if>
 											<li class="${libcode}">
 												<div class="cate">${libname}</div>
-												<div class="tit">${i.teach_name}</div>
+												<div class="tit"><a href="/${homepage.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=32&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}&homepage_id=${i.homepage_id}"><!-- 하이퍼링크 -->${i.teach_name}</a></div>
 												<c:if test="${i.teach_status eq '0'}">
 													<span class="flow_01">접수중</span>
 												</c:if>
@@ -1746,7 +1774,7 @@ $(function() {
 											<c:if test="${i.homepage_id eq 'h64'}"><c:set var="libname" value="원고개"></c:set></c:if>
 											<li class="${libcode}">
 												<div class="cate">${libname}</div>
-												<div class="tit">${i.teach_name}</div>
+												<div class="tit"><a href="/${homepage.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=32&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}&homepage_id=${i.homepage_id}"><!-- 하이퍼링크 -->${i.teach_name}</a></div>
 												<c:if test="${i.teach_status eq '0'}">
 													<span class="flow_01">접수중</span>
 												</c:if>
@@ -1786,17 +1814,17 @@ $(function() {
 				<!--도서관BOOK-->
 				<div class="section02">
 					<div class="title">
-						<span>책 읽는 書구, 서구통합도서관</span>
+						<span>책 읽는 書구, 서구통합도서관 추천'BOOK</span>
 					</div>
 
 					<div class="con sec02-1">
-						<div class="sec02_tab01 tab2">
-							<ul>
-								<li class="on"><div class="line2"><a href="#recomandbook" class="tab-link2">추천<br />도서</a></div></li>
-								<li><div class="line2"><a href="#newbook" class="tab-link2">신착<br />도서</a></div></li>
-							</ul>
-							<div class="more_btn">
-								<a href=""><img src="/resources/homepage/seogulib/img/con02_more_btn.png"></a>
+						<div class="sec02_tab01" style="margin-top:-30px;">
+							<!-- <ul>
+								<li class="on"><div class="line2"><a href="#recomandbook" class="tab-link2" data-link="/${homepage.context_path}/board/index.do?menu_idx=83&manage_idx=623">추천<br />도서</a></div></li>
+								<li><div class="line2"><a href="#newbook" class="tab-link2" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628">신착<br />도서</a></div></li>
+							</ul> -->
+							<div class="more_btn top-10">
+								<a href="/${homepage.context_path}/board/index.do?menu_idx=83&manage_idx=623"><img src="/resources/homepage/seogulib/img/con02_more_btn.png"></a>
 							</div>
 						</div>
 
@@ -1820,7 +1848,8 @@ $(function() {
 							<div class="top3wrap" id="recombox3_all" style="display:block;">
 								<div class="book_box">
 									<c:forEach items="${bookList}" var="i" varStatus="status" begin="0" end="4">
-										<div class="book" onclick="">
+										<div class="book">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 											<div class="img_box">
 												<c:choose>
 													<c:when test="${i.preview_img ne null}">
@@ -1837,13 +1866,14 @@ $(function() {
 														</c:choose>
 													</c:when>
 													<c:otherwise>
-														<img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/>
+														<img src="/resources/common/img/noImg2.png" alt="${i.title} 상세보기"/>
 													</c:otherwise>
 												</c:choose>
 											</div>
 											<div class="con_box">
 												<div class="tit">${i.title}</div>
 											</div>
+											</a>
 										</div>
 									</c:forEach>
 								</div>
@@ -1852,7 +1882,8 @@ $(function() {
 							<div class="top3wrap" id="recombox3_seoguchild">
 								<div class="book_box">
 									<c:forEach items="${bookListh77}" var="i" varStatus="status" begin="0" end="4">
-										<div class="book" onclick="">
+										<div class="book">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 											<div class="img_box">
 												<c:choose>
 													<c:when test="${i.preview_img ne null}">
@@ -1876,6 +1907,7 @@ $(function() {
 											<div class="con_box">
 												<div class="tit">${i.title}</div>
 											</div>
+											</a>
 										</div>
 									</c:forEach>
 								</div>
@@ -1884,7 +1916,8 @@ $(function() {
 							<div class="top3wrap" id="recombox3_bisan">
 								<div class="book_box">
 									<c:forEach items="${bookListh61}" var="i" varStatus="status" begin="0" end="4">
-										<div class="book" onclick="">
+										<div class="book">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 											<div class="img_box">
 												<c:choose>
 													<c:when test="${i.preview_img ne null}">
@@ -1908,6 +1941,7 @@ $(function() {
 											<div class="con_box">
 												<div class="tit">${i.title}</div>
 											</div>
+											</a>
 										</div>
 									</c:forEach>
 								</div>
@@ -1916,7 +1950,8 @@ $(function() {
 							<div class="top3wrap" id="recombox3_english">
 								<div class="book_box">
 									<c:forEach items="${bookListh62}" var="i" varStatus="status" begin="0" end="4">
-										<div class="book" onclick="">
+										<div class="book">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 											<div class="img_box">
 												<c:choose>
 													<c:when test="${i.preview_img ne null}">
@@ -1940,6 +1975,7 @@ $(function() {
 											<div class="con_box">
 												<div class="tit">${i.title}</div>
 											</div>
+											</a>
 										</div>
 									</c:forEach>
 								</div>
@@ -1948,7 +1984,8 @@ $(function() {
 							<div class="top3wrap" id="recombox3_biwon">
 								<div class="book_box">
 									<c:forEach items="${bookListh63}" var="i" varStatus="status" begin="0" end="4">
-										<div class="book" onclick="">
+										<div class="book">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 											<div class="img_box">
 												<c:choose>
 													<c:when test="${i.preview_img ne null}">
@@ -1972,6 +2009,7 @@ $(function() {
 											<div class="con_box">
 												<div class="tit">${i.title}</div>
 											</div>
+											</a>
 										</div>
 									</c:forEach>
 								</div>
@@ -1980,7 +2018,8 @@ $(function() {
 							<div class="top3wrap" id="recombox3_wongogye">
 								<div class="book_box">
 									<c:forEach items="${bookListh64}" var="i" varStatus="status" begin="0" end="4">
-										<div class="book" onclick="">
+										<div class="book">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 											<div class="img_box">
 												<c:choose>
 													<c:when test="${i.preview_img ne null}">
@@ -2004,6 +2043,7 @@ $(function() {
 											<div class="con_box">
 												<div class="tit">${i.title}</div>
 											</div>
+											</a>
 										</div>
 									</c:forEach>
 								</div>
@@ -2025,9 +2065,9 @@ $(function() {
 								</ul>
 							</div>
 							<script>
-								$.get('newBookSeogu.do', function(e) {
-									$('div#top2box_newbook').append(e)
-								});
+								// $.get('newBookSeogu.do', function(e) {
+								// 	$('div#top2box_newbook').append(e)
+								// });
 							</script>
 							<!-- newbook-->
 						</div>
@@ -2046,7 +2086,7 @@ $(function() {
 					<div class="con sec02-1">
 						<div class="sec02_tab01" style="margin-top:-30px;">
 							<div class="more_btn top-10">
-								<a href=""><img src="/resources/homepage/seogulib/img/con02_more_btn.png"></a>
+								<a href="/${homepage.context_path}/board/index.do?menu_idx=34&manage_idx=627"><img src="/resources/homepage/seogulib/img/con02_more_btn.png"></a>
 							</div>
 						</div>
 
@@ -2069,7 +2109,8 @@ $(function() {
 						<div class="top3wrap" id="moviebox4_all" style="display:block;">
 							<div class="movie_box">
 								<c:forEach items="${movieList}" var="i" varStatus="status" begin="0" end="2">
-									<div class="movie" onclick="">
+									<div class="movie">
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=34&manage_idx=627&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 										<div class="img_box">
 											<c:choose>
 												<c:when test="${i.preview_img ne null}">
@@ -2101,6 +2142,7 @@ $(function() {
 												<b>시간</b>${i.imsi_v_13}분
 											</div>
 										</div>
+										</a>
 									</div>
 								</c:forEach>
 							</div>
@@ -2109,7 +2151,8 @@ $(function() {
 						<div class="top3wrap" id="moviebox4_seoguchild">
 							<div class="movie_box">
 								<c:forEach items="${movieListh77}" var="i" varStatus="status" begin="0" end="2">
-									<div class="movie" onclick="">
+									<div class="movie">
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=34&manage_idx=627&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 										<div class="img_box">
 											<c:choose>
 												<c:when test="${i.preview_img ne null}">
@@ -2141,6 +2184,7 @@ $(function() {
 												<b>시간</b>${i.imsi_v_13}분
 											</div>
 										</div>
+										</a>
 									</div>
 								</c:forEach>
 							</div>
@@ -2149,7 +2193,8 @@ $(function() {
 						<div class="top3wrap" id="moviebox4_bisan">
 							<div class="movie_box">
 								<c:forEach items="${movieListh61}" var="i" varStatus="status" begin="0" end="2">
-									<div class="movie" onclick="">
+									<div class="movie">
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=34&manage_idx=627&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 										<div class="img_box">
 											<c:choose>
 												<c:when test="${i.preview_img ne null}">
@@ -2181,6 +2226,7 @@ $(function() {
 												<b>시간</b>${i.imsi_v_13}분
 											</div>
 										</div>
+										</a>
 									</div>
 								</c:forEach>
 							</div>
@@ -2189,7 +2235,8 @@ $(function() {
 						<div class="top3wrap" id="moviebox4_english">
 							<div class="movie_box">
 								<c:forEach items="${movieListh62}" var="i" varStatus="status" begin="0" end="2">
-									<div class="movie" onclick="">
+									<div class="movie">
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=34&manage_idx=627&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 										<div class="img_box">
 											<c:choose>
 												<c:when test="${i.preview_img ne null}">
@@ -2221,6 +2268,7 @@ $(function() {
 												<b>시간</b>${i.imsi_v_13}분
 											</div>
 										</div>
+										</a>
 									</div>
 								</c:forEach>
 							</div>
@@ -2229,7 +2277,8 @@ $(function() {
 						<div class="top3wrap" id="moviebox4_biwon">
 							<div class="movie_box">
 								<c:forEach items="${movieListh63}" var="i" varStatus="status" begin="0" end="2">
-									<div class="movie" onclick="">
+									<div class="movie">
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=34&manage_idx=627&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 										<div class="img_box">
 											<c:choose>
 												<c:when test="${i.preview_img ne null}">
@@ -2261,6 +2310,7 @@ $(function() {
 												<b>시간</b>${i.imsi_v_13}분
 											</div>
 										</div>
+										</a>
 									</div>
 								</c:forEach>
 							</div>
@@ -2269,7 +2319,8 @@ $(function() {
 						<div class="top3wrap" id="moviebox4_wongogye">
 							<div class="movie_box">
 								<c:forEach items="${movieListh64}" var="i" varStatus="status" begin="0" end="2">
-									<div class="movie" onclick="">
+									<div class="movie">
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=34&manage_idx=627&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 										<div class="img_box">
 											<c:choose>
 												<c:when test="${i.preview_img ne null}">
@@ -2301,6 +2352,7 @@ $(function() {
 												<b>시간</b>${i.imsi_v_13}분
 											</div>
 										</div>
+										</a>
 									</div>
 								</c:forEach>
 							</div>
