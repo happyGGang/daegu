@@ -696,9 +696,16 @@ $(function(){
 		var listDepth2 = $(this).parent().find('li.2Depth');
 		var listDepth3 = listDepth2.eq(0).find('li.3Depth');
 		if ( listDepth3.length > 0 ) {
-			e.stopPropagation();
-			e.preventDefault();
-			listDepth3.eq(0).find('span').click();
+			var listDepth4 = listDepth3.eq(0).find('li.4Depth');
+			if ( listDepth4.length > 0 ) {
+				e.stopPropagation();
+				e.preventDefault();
+				listDepth4.eq(0).find('span').click();
+			} else {
+				e.stopPropagation();
+				e.preventDefault();
+				listDepth3.eq(0).find('span').click();
+			}
 		}
 		else {
 			if ( listDepth2.length > 0 ) {

@@ -2062,15 +2062,36 @@
 		imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5,
 		imsi_v_6, imsi_v_7, imsi_v_8, imsi_v_9, imsi_v_10,
 		NVL((SELECT homepage_alias FROM CMS_HOMEPAGE b where A.category5 = b.homepage_id), '전체') AS category5_name,
+		getCodeIdToCodeName('h49','B0001',category1) as category1_name,
 		category5,
-		TRUNC(TO_CHAR(SYSDATE,'yyyyMMdd')) - TRUNC(TO_CHAR(add_date,'yyyyMMdd')) AS date_gap
+		TRUNC(TO_CHAR(SYSDATE,'yyyyMMdd')) - TRUNC(TO_CHAR(add_date,'yyyyMMdd')) AS date_gap,
+		(
+			SELECT
+			MAX(H.menu_idx)
+			FROM
+			CMS_MENU H, CMS_BOARD_MANAGE M
+			WHERE
+			H.homepage_id = M.homepage_id
+			AND	M.manage_idx = A.manage_idx
+			AND	H.manage_idx = M.manage_idx
+			AND H.menu_type = 'BOARD'
+		) AS imsi_n_2
 		FROM
 			CMS_BOARD A
 		WHERE
-		manage_idx = #{manage_idx}
+		<if test="manage_idx == 625">
+			manage_idx in (623, 624, 625, 626)
+		</if>
+		<if test="manage_idx != 625">
+			manage_idx = #{manage_idx}
+		</if>
+
 		AND	delete_yn = 'N'
 		<if test="category5 != null and category5 != ''">
 			AND category5 = #{category5}
+		</if>
+		<if test="category1 != null and category1 != ''">
+			AND category1 = #{category1}
 		</if>
 		ORDER BY board_idx DESC
 		${pagingBottom}

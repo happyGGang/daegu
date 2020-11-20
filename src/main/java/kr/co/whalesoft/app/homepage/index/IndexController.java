@@ -660,10 +660,12 @@ public class IndexController extends BaseController {
 			Board b = new Board();
 			b.setManage_idx(628);
 			model.addAttribute("noticeList", boardService.getSubBoardByMain(b));//공지사항전체
-			b.setManage_idx(32);
+			b.setManage_idx(632);
 			model.addAttribute("galleryList", boardService.getSubBoardByMain(b));//갤러리전체
 			b.setManage_idx(625);
 			model.addAttribute("bookList", boardService.getSubBoardByMain(b));//추천도서전체
+			b.setManage_idx(627);
+			model.addAttribute("movieList", boardService.getSubBoardByMain(b));//영화도서전체
 
 			Teach t = new Teach();
 			Homepage h = new Homepage();
@@ -677,10 +679,22 @@ public class IndexController extends BaseController {
 				b.setCategory5(h2.getHomepage_id());
 				b.setManage_idx(628);
 				model.addAttribute("noticeList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//공지사항
-				b.setManage_idx(32);
+
+				b.setCategory5(null);
+				switch (h2.getHomepage_id()) {
+					case "h77" : b.setCategory1("0001"); break;
+					case "h61" : b.setCategory1("0002"); break;
+					case "h62" : b.setCategory1("0003"); break;
+					case "h63" : b.setCategory1("0004"); break;
+					case "h64" : b.setCategory1("0005"); break;
+				}
+
+				b.setManage_idx(632);
 				model.addAttribute("galleryList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//갤러리
 				b.setManage_idx(625);
 				model.addAttribute("bookList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//추천도서
+				b.setManage_idx(627);
+				model.addAttribute("movieList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//영화
 				homepage_ids.add(h2.getHomepage_id());
 				t.setHomepage_id(h2.getHomepage_id());
 				model.addAttribute("teachList"+h2.getHomepage_id(), teachService.getTeachListForUser(t));

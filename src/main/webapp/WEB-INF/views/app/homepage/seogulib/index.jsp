@@ -88,9 +88,9 @@ do {
 
 		$('div.sec01-3').load('calendar10.do');
 		// $('div#top2box_newbook').load('newBook.do');
-		$.get('newBookSeogu.do', function(e) {
-			$('div#top2box_newbook').append(e)
-		});
+		// $.get('newBookSeogu.do', function(e) {
+		// 	$('div#top2box_newbook').append(e)
+		// });
 		$('ul.bestBookUl').load('bestBook.do');
 
 		$('#main-search-btn').on('click', function() {
@@ -153,7 +153,7 @@ do {
 								<input type="hidden" name="menu_idx" value="9">
 								<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
 								<input name="title" id="search_text_1" type="text" class="text" placeholder="검색어를 입력하세요." style="ime-mode:active;"/>
-								</form>>
+								</form>
 								<a href=""><img src="/resources/homepage/seogulib/img/search_btn.jpg"></a>
 							</div>
 							<div class="search_box_off">
@@ -214,7 +214,7 @@ do {
 									<h5>도서관견학신청</h5>
 									<p>올바른 도서관 이용법과<br />책을 접할 수 있어요!</p>
 								</li>
-								<li class="quick05" onclick="location.href=''">
+								<li class="quick05" onclick="http://211.224.118.223:8010/seogulib/html.do?menu_idx=131#search_result'">
 									<h5>DVD자료검색</h5>
 									<p>DVD 비도서 자료검색</p>
 								</li>
@@ -489,7 +489,7 @@ $(function() {
 		}
 		else if(target == 'newbook')
 		{
-		$('#newbookbox3_all').show();
+		$('#newbookbox3_seoguchild').show();
 		$('.tab3 li').removeClass('on');
 		$('.tab3 li:first-child').addClass('on');
 		}
@@ -971,7 +971,7 @@ $(function() {
 							<div class="top3wrap" id="galbox1_all" style="display:block;">
 
 								<div class="gallery_box">
-									<c:forEach items="${galleryList}" var="i" varStatus="status" begin="1" end="7">
+									<c:forEach items="${galleryList}" var="i" varStatus="status" begin="0" end="3">
 										<div class="gallery" onclick="">
 											<div class="img_box">
 												<c:choose>
@@ -1003,7 +1003,7 @@ $(function() {
 
 							<div class="top3wrap" id="galbox1_seoguchild">
 								<div class="gallery_box">
-									<c:forEach items="${galleryListh77}" var="i" varStatus="status" begin="1" end="7">
+									<c:forEach items="${galleryListh77}" var="i" varStatus="status" begin="0" end="3">
 										<div class="gallery" onclick="">
 											<div class="img_box">
 												<c:choose>
@@ -1035,7 +1035,7 @@ $(function() {
 
 							<div class="top3wrap" id="galbox1_bisan">
 								<div class="gallery_box">
-									<c:forEach items="${galleryListh61}" var="i" varStatus="status" begin="1" end="7">
+									<c:forEach items="${galleryListh61}" var="i" varStatus="status" begin="0" end="3">
 										<div class="gallery" onclick="">
 											<div class="img_box">
 												<c:choose>
@@ -1067,7 +1067,7 @@ $(function() {
 
 							<div class="top3wrap" id="galbox1_english">
 								<div class="gallery_box">
-									<c:forEach items="${galleryListh62}" var="i" varStatus="status" begin="1" end="7">
+									<c:forEach items="${galleryListh62}" var="i" varStatus="status" begin="0" end="3">
 										<div class="gallery" onclick="">
 											<div class="img_box">
 												<c:choose>
@@ -1099,7 +1099,7 @@ $(function() {
 
 							<div class="top3wrap" id="galbox1_biwon">
 								<div class="gallery_box">
-									<c:forEach items="${galleryListg63}" var="i" varStatus="status" begin="1" end="7">
+									<c:forEach items="${galleryListg63}" var="i" varStatus="status" begin="0" end="3">
 										<div class="gallery" onclick="">
 											<div class="img_box">
 												<c:choose>
@@ -1131,7 +1131,7 @@ $(function() {
 
 							<div class="top3wrap" id="galbox1_wongogye">
 								<div class="gallery_box">
-									<c:forEach items="${galleryListh64}" var="i" varStatus="status" begin="1" end="7">
+									<c:forEach items="${galleryListh64}" var="i" varStatus="status" begin="0" end="3">
 										<div class="gallery" onclick="">
 											<div class="img_box">
 												<c:choose>
@@ -2024,7 +2024,11 @@ $(function() {
 									<li><a href="#wongogye" class="tab-link3">원고개</a></li>
 								</ul>
 							</div>
-
+							<script>
+								$.get('newBookSeogu.do', function(e) {
+									$('div#top2box_newbook').append(e)
+								});
+							</script>
 							<!-- newbook-->
 						</div>
 					</div>
