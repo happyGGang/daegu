@@ -886,6 +886,7 @@ $(function() {
 														</c:choose>
 											</p>
 											<p><font style="color:#5e5e5e">매체구분</font> : <span style="">${i.MEDIA_NAME}</span></p>
+											<p><font style="color:#5e5e5e">521CODE</font> : <span style="">${i.marc}</span></p>
 											<!-- <p><font style="color:#5e5e5e">소장위치</font> : <span style="font-weight:800;">${i.SHELF_LOC_NAME}</span></p> -->
 											<div class="stat">
 												<a href="#showSlide" class="showSlide"><span>소장정보</span></a>

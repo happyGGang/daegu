@@ -629,6 +629,41 @@ public class CommonAPI {
 
 		return xmlToJson(dcriptMsg).toMap();
 	}
+	
+	public static Map<String, Object> sendMARC(String requestName, Map<String, Object> param) {
+		HttpURLConnection connection = null;
+		Map<String, Object> resultMap = null;
+		try {
+			String apiUrl = KCMS_API_URL + requestName;
+			connection = initConn(apiUrl);
+
+			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, "UTF-8"));
+			
+			if ( param != null ) {
+				Set<String> keys = param.keySet();
+				List<String> paramList = new ArrayList<String>();
+				for ( String oneKey : keys ) {
+					paramList.add(String.format("%s=%s", oneKey, param.get(oneKey)));
+				}
+				log.error("@@@@@@@@@@@@@@@@@@ KCMS_API_URL : " + apiUrl + "?" + StringUtils.join(paramList, "&"));
+
+				writer.write(StringUtils.join(paramList, "&"));
+			}
+
+			writer.close();
+			wr.close();
+			wr.flush();
+
+			String result = IOUtils.toString(connection.getInputStream(), "UTF-8").trim();
+			
+			resultMap = xmlToJson(result).toMap();
+		}
+		catch ( Exception e ) {
+			e.printStackTrace();
+		}
+		return resultMap;
+	}
 
 	public static String getElementValueByName(Document doc, String elementName) {
 		String result = "";

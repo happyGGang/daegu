@@ -499,7 +499,17 @@
 				AND	a.category_idx = c.category_idx(+)
 				AND	a.homepage_id = d.homepage_id(+)
 				AND	a.group_idx = d.group_idx(+)
+				<if test="homepage_id != null">
 				AND	a.homepage_id = #{homepage_id}
+				</if>
+				<if test="homepage_id == null">
+				AND	a.homepage_id IN
+					<foreach collection="homepage_ids" item="i" open="(" close=")" separator=",">
+						#{i}
+					</foreach>
+				</if>
+
+
 				<if test="searchCate1 != null and searchCate1 != ''">
 				AND	a.large_category_idx IN (${searchCate1})
 				</if>

@@ -15,7 +15,7 @@
 					</c:otherwise>
 				</c:choose>
 			</span>
-			<span class="con-title">${i.TITLE_INFO}</span>
+			<span class="con-title">${fn:length(i.TITLE_INFO) > 11 ? fn:substring(i.TITLE_INFO, 0, 12) : i.TITLE_INFO}<c:if test="${fn:length(i.TITLE_INFO) > 11 }">...</c:if></span>
 		</a>
 	</li>
 </c:forEach>

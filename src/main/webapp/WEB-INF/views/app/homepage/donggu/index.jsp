@@ -169,7 +169,7 @@ do {
 										<li class="on-cont">
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=614&board_idx=${i.board_idx}">
 												<strong>
-													${i.title}<br/>
+													<span class="ca bg-${i.category1}">${i.category1_name}</span> <span class="tit">${i.title}</span><br/>
 													<span class="datetime">
 														<fmt:formatDate value="${i.add_date}" pattern="yyyy. MM. dd." />
 													</span>
@@ -181,7 +181,7 @@ do {
 									<c:otherwise>
 										<li>
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=614&board_idx=${i.board_idx}">
-												<strong>${i.title}</strong>
+												<strong><span class="ca bg-${i.category1}">${i.category1_name}</span> ${i.title}</strong>
 												<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd" /></span>
 											</a>
 										</li>
@@ -204,7 +204,7 @@ do {
 								<c:choose>
 									<c:when test="${status.index == 0}">
 										<li class="on-cont">
-											<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=28&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}">
+											<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=28&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&homepage_id=${i.homepage_id}">
 												<div class="cont">
 													<strong>${i.teach_name}</strong>
 													<span class="txt"><b>접수</b>  ${i.start_join_date} ~ ${i.end_join_date}</span>
@@ -239,7 +239,7 @@ do {
 									</c:when>
 									<c:otherwise>
 										<li>
-											<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=28&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}">
+											<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=28&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&homepage_id=${i.homepage_id}">
 												<strong>${i.teach_name}</strong>
 												<c:if test="${i.teach_status eq '0'}">
 													<p class="one-status-box status002">접수중</p>
@@ -295,16 +295,16 @@ do {
 						<h2>추천도서</h2>
 
 						<ul class="tabMenuS">
-							<li class="on"><a href="#tab1" class='t-tabs' data-link="/${homepage.context_path}/board/index.do?menu_idx=90&manage_idx=611">성인</a></li>
-							<li><a href="#tab2" class='t-tabs' data-link="/${homepage.context_path}/board/index.do?menu_idx=91&manage_idx=612">어린이</a></li>
+							<li class="on"><a href="#tab1" class='t-tabs' data-link="/${homepage.context_path}/board/index.do?menu_idx=91&manage_idx=612">성인</a></li>
+							<li><a href="#tab2" class='t-tabs' data-link="/${homepage.context_path}/board/index.do?menu_idx=90&manage_idx=611">어린이</a></li>
 						</ul>
 
-						<a href="/${homepage.context_path}/board/index.do?menu_idx=90&manage_idx=611" class="btn-more">더보기</a>
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=91&manage_idx=612" class="btn-more more-more">더보기</a>
 					</div>
 
 					<div class="box con" data-tab="tab1">
 						<ul class="book_photo">
-							<c:forEach items="${bookList1}" var="i" varStatus="status">
+							<c:forEach items="${bookList2}" var="i" varStatus="status">
 								<li>
 									<a href="/${homepage.context_path}/board/view.do?menu_idx=90&manage_idx=611&board_idx=${i.board_idx}">
 									<span class="con-image">
@@ -327,7 +327,7 @@ do {
 											</c:otherwise>
 										</c:choose>
 									</span>
-									<span class="con-title">${i.title}</span>
+									<span class="con-title">${fn:length(i.title) > 11 ? fn:substring(i.title, 0, 12) : i.title}<c:if test="${fn:length(i.title) > 11 }">...</c:if></span>
 									</a>
 								</li>
 							</c:forEach>
@@ -336,7 +336,7 @@ do {
 
 					<div class="box con" data-tab="tab2" style="display:none;">
 						<ul class="book_photo">
-							<c:forEach items="${bookList2}" var="i" varStatus="status">
+							<c:forEach items="${bookList1}" var="i" varStatus="status">
 								<li>
 									<a href="/${homepage.context_path}/board/view.do?menu_idx=91&manage_idx=612&board_idx=${i.board_idx}">
 									<span class="con-image">
@@ -359,7 +359,7 @@ do {
 											</c:otherwise>
 										</c:choose>
 									</span>
-										<span class="con-title">${i.title}</span>
+										<span class="con-title">${fn:length(i.title) > 11 ? fn:substring(i.title, 0, 12) : i.title}<c:if test="${fn:length(i.title) > 11 }">...</c:if></span>
 									</a>
 								</li>
 							</c:forEach>

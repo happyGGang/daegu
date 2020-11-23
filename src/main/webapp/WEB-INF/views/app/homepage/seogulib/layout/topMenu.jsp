@@ -9,8 +9,8 @@
 				<div class="g-menu">
 					<homepageTag:topMenu menuList="${menuTreeList}" />
 
-					<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=92" class="menu_btn">
-						<img src="/resources/homepage/${homepage.context_path}/img/menu.png" alt="사이트맵" />
+					<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=82" class="menu_btn">
+						<img src="/resources/common/img/sitemap_icon_black.png" alt="사이트맵" />
 					</a>
 
 					<div class="mmode">

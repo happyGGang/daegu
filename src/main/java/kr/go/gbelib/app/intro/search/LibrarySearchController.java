@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,42 +94,43 @@ public class LibrarySearchController extends BaseController {
 		}
 
 		if (StringUtils.isNotEmpty(librarySearch.getBooktype())) {
-    		Map<String, Object> result = new HashMap<String, Object>();
+			Map<String, Object> result = new HashMap<String, Object>();
 
-    		if ( librarySearch.getBooktype().equals("BOOK") ) {
-    			result = LibSearchAPI.getBookDetail(librarySearch);
-    		} else if (librarySearch.getBooktype().equals("NONBOOK")) {
-    			result = LibSearchAPI.getNonBookDetail(librarySearch);
-    		} else if (librarySearch.getBooktype().equals("SERIAL")) {
-    			result = LibSearchAPI.getSerialDetail(librarySearch);
-    		} else if (librarySearch.getBooktype().equals("BOOKANDNONBOOK")) {
-    			result = LibSearchAPI.getBookAndNonbookDetail(librarySearch);
-    		}
+			if ( librarySearch.getBooktype().equals("BOOK") ) {
+				result = LibSearchAPI.getBookDetail(librarySearch);
+			} else if (librarySearch.getBooktype().equals("NONBOOK")) {
+				result = LibSearchAPI.getNonBookDetail(librarySearch);
+			} else if (librarySearch.getBooktype().equals("SERIAL")) {
+				result = LibSearchAPI.getSerialDetail(librarySearch);
+			} else if (librarySearch.getBooktype().equals("BOOKANDNONBOOK")) {
+				result = LibSearchAPI.getBookAndNonbookDetail(librarySearch);
+			}
 
-    		List<Map<String, Object>> list = null;
+			List<Map<String, Object>> list = null;
 
-    		int count = LibSearchAPI.getSearchCount(result);
+			int count = LibSearchAPI.getSearchCount(result);
 
-    		librarySearch.setTotalDataCount(count);
-    		service.setPaging(model, count, librarySearch);
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
 
-    		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
-    			list = LibSearchAPI.getListData(result);
+			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+				list = LibSearchAPI.getListData(result);
 
-    			//알라딘 API 결과 가져오기
-    			for (Map<String, Object> map : list) {
-    				if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
-    					Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
-    					if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
-    						map.put("aladin", aladinData.get("item"));
-    					}
-    				}
-
+				//알라딘 API 결과 가져오기
+				for (Map<String, Object> map : list) {
+					if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+						Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+						if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+							map.put("aladin", aladinData.get("item"));
+						}
+					}
+					
+					map.put("marc", marc_view(model, String.valueOf(map.get("REG_NO")), request));
 				}
-    		}
-
-    		model.addAttribute("bookSearch", list);
-    		model.addAttribute("facetGroup", LibSearchAPI.getFacetGroup(result));
+			}
+			
+			model.addAttribute("bookSearch", list);
+			model.addAttribute("facetGroup", LibSearchAPI.getFacetGroup(result));
 		}
 
 		model.addAttribute("homepageList", normalHomepage);
@@ -259,6 +261,8 @@ public class LibrarySearchController extends BaseController {
 					map.put("aladin", aladinData.get("item"));
 				}
 			}
+			
+			map.put("marc", marc_view(model, String.valueOf(map.get("REG_NO")), request));
 
 			librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
 			librarySearch.setRegNo(String.valueOf(map.get("REG_NO")));
@@ -839,9 +843,21 @@ public class LibrarySearchController extends BaseController {
 		librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
 		Map<String, Object> sanghoHistory = LibSearchAPI.getSanghoHistory(librarySearch);
 		List<Map<String, Object>> returnList = LibSearchAPI.getSanghoListData(sanghoHistory);
+		
+		int sanghoPossiCnt = 5;
+		
+		// 달서구립도서관 하드코딩
+		// 달서구립도서관 상호대차 3권
+		String[] sangho3cnt = {"dalseolib", "kids", "seongseo", "bolli", "family", "english", "dssmalllib"};
+		for (String libOne : sangho3cnt) {
+			if(context_path.equals(libOne)) {
+				sanghoPossiCnt = 3;
+				break;
+			}
+		}
 
-		if (CollectionUtils.isNotEmpty(returnList) && returnList.size() >= 5) { 
-			service.alertMessage("상호대차 신청권수는 5권까지입니다.", request, response);
+		if (CollectionUtils.isNotEmpty(returnList) && returnList.size() >= sanghoPossiCnt) { 
+			service.alertMessage("상호대차 신청권수는 "+sanghoPossiCnt+"권까지입니다.", request, response);
 			return null;
 		}
 
@@ -1477,6 +1493,46 @@ public class LibrarySearchController extends BaseController {
 		}
 
 		return basePath + "print_ajax";
+	}
+
+	@SuppressWarnings ("unchecked")
+	@RequestMapping(value = {"/marcView.*"})
+	public String marc_view(Model model, String regno, HttpServletRequest request) {
+		Homepage homepage = getSessionHomepage(request);
+		List<Map<String, Object>> list = null;
+		String content = "";
+		//TODO marc보기
+		Map<String, Object> marcView = LibSearchAPI.getMarc(regno);
+
+		if (MapUtils.isNotEmpty(marcView) && marcView.containsKey("collection")) {
+			if(marcView.get("collection") != null) {
+				Map<String, Object> collection = (Map<String, Object>)marcView.get("collection");
+				if(collection.get("record") != null) {
+					Map<String, Object> record = (Map<String, Object>)collection.get("record");
+					if(record.get("datafield") != null) {
+						list = new ArrayList<Map<String, Object>>();
+						list.addAll((List<Map<String, Object>>) record.get("datafield"));
+					}
+				}
+			}
+
+			if (CollectionUtils.isNotEmpty(list) && list.size() > 0) {
+				// tag 521 추출
+				for (Map<String, Object> map : list) {
+					String tag = String.valueOf(map.get("tag"));
+					if(tag.equals("521")) {
+						Map<String, Object> subfield = (Map<String, Object>)map.get("subfield");
+						content = String.valueOf(subfield.get("content"));
+						break;
+					}
+				}
+			}
+
+		}
+
+
+		
+		return content;
 	}
 
 

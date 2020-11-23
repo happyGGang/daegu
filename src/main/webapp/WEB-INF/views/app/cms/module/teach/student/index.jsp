@@ -13,8 +13,8 @@ $(function(){
 
 	$('select#homepage_id_1').on('change', function(e) {
 		if($(this).val() != '') {
-			$('input#homepage_id_1').val($(this).val());
-			$('#adminStudentForm').submit();
+			// $('input#homepage_id_1').val($(this).val());
+			doGetLoad('index.do', $('#adminStudentForm').serialize());
 		}
 
 		e.preventDefault();
@@ -43,6 +43,19 @@ $(function(){
 	<div class="wrapper wrapper-white">
 		<div class="column ban">
 			<div class="areaL auto-scroll" style="width:30%;height:500px">
+			<span>
+				<c:choose>
+					<c:when test="${fn:length(subHomepageList) > 0}">
+						도서관 : <form:select id="homepage_id_1" path="homepage_id" items="${subHomepageList}" itemLabel="homepage_name" itemValue="homepage_id"></form:select>
+					</c:when>
+					<c:otherwise>
+						<form:hidden id="homepage_id_1" path="homepage_id"/>
+					</c:otherwise>
+				</c:choose>
+
+			</span>
+			<br/>
+
 			<span>검색 결과 : ${fn:length(teachList)}건</span>
 				<div class="infodesk">
 					<span style="float:left;">대분류 :

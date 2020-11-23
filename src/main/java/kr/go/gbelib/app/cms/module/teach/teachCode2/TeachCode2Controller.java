@@ -5,6 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+
+import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.homepage.HomepageService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,10 +32,14 @@ public class TeachCode2Controller extends BaseController {
 	@Autowired
 	private TeachCode2Service service;
 
+	@Autowired
+	private HomepageService homepageService;
+
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, TeachCode2 category, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
-		category.setHomepage_id(getAsideHomepageId(request));
+
+		setHomepageId(model, category, request);
 
 		int count = service.getCategoryListCnt(category);
 		model.addAttribute("category", category);
@@ -41,9 +49,25 @@ public class TeachCode2Controller extends BaseController {
 		return basePath + "index";
 	}
 
+	private void setHomepageId(Model model, TeachCode2 category, HttpServletRequest request) {
+		if ((getAsideHomepageId(request).equals("h37") || getAsideHomepageId(request).equals("h49") || getAsideHomepageId(request).equals("h45") || getAsideHomepageId(request).equals("h53"))) {
+			Homepage sessionHomepageInfo = getSessionHomepageInfo(request);
+			sessionHomepageInfo.setHomepage_group(getAsideHomepageId(request));
+			sessionHomepageInfo.setTemp_use_yn("Y");
+			List<Homepage> subHomepageList = homepageService.getSubHomepageList(sessionHomepageInfo);
+			if (StringUtils.isEmpty(category.getHomepage_id())) {
+				category.setHomepage_id(subHomepageList.get(0).getHomepage_id());
+			}
+			model.addAttribute("subHomepageList", subHomepageList);
+		} else {
+			category.setHomepage_id(getAsideHomepageId(request));
+		}
+	}
+
 	@RequestMapping(value = {"/getSubcategories.*"}, method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> getSubcategories(Model model, TeachCode2 category, BindingResult result, HttpServletRequest request) {
-		category.setHomepage_id(getAsideHomepageId(request));
+//		category.setHomepage_id(getAsideHomepageId(request));
+		setHomepageId(model, category, request);
 
 		List<TeachCode2> subcategories = service.getSubcategories(category);
 
@@ -66,7 +90,8 @@ public class TeachCode2Controller extends BaseController {
 	public @ResponseBody JsonResponse save(Model model, TeachCode2 category, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
 		String editMode = category.getEditMode();
-		category.setHomepage_id(getAsideHomepageId(request));
+//		category.setHomepage_id(getAsideHomepageId(request));
+		setHomepageId(model, category, request);
 		if(!editMode.equals("DELETE")) {
 			ValidationUtils.rejectIfEmpty(result, "code_name", "분류명을 입력하세요.");
 		}

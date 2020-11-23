@@ -1158,17 +1158,15 @@ public class LibSearchAPI {
 	 * @param librarySearch.regNo
 	 * @return
 	 */
-	public static Map<String, Object> getMarc(LibrarySearch librarySearch) {
+	public static Map<String, Object> getMarc(String regno) {
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("manage_code", librarySearch.getManageCode());
-		if (StringUtils.isNotBlank(librarySearch.getBookkey())) {
-			param.put("reckey", librarySearch.getBookkey());
+		
+		param.put("option", 1);
+		if (StringUtils.isNotBlank(regno)) {
+			param.put("regno", regno);
 		}
-		if (StringUtils.isNotBlank(librarySearch.getRegNo())) {
-			param.put("regno", librarySearch.getRegNo());
-		}
-
-		return CommonAPI.sendKCMS("getmarc", param);
+		
+		return CommonAPI.sendMARC("getmarc", param);
 	}
 
 	/**

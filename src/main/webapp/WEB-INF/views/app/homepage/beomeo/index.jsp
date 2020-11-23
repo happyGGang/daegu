@@ -151,7 +151,7 @@ do {
 				<!-- main_search -->
 				<div class="search-area" id="main_search">
 					<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
-					<input type="hidden" name="menu_idx" value="13">
+					<input type="hidden" name="menu_idx" value="9">
 					<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
 					<fieldset>
 						<legend class="blind">통합검색</legend>
@@ -196,56 +196,40 @@ do {
 
 					<div class="notice-box tabS">
 						<ul class="tabMenuS">
-							<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=179" class='t-tabs'>공지사항</a></li>
-							<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=160&manage_idx=180" class='t-tabs'>문화행사</a></li>
-							<a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=179" class="btn-more2 more-more">더보기</a>
+							<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=662" class='t-tabs'>공지사항</a></li>
+							<li><a href="#tab2" data-link="/${homepage.context_path}/module/teach/index.do?menu_idx=120" class='t-tabs'>문화행사</a></li>
 						</ul>
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=662" class="btn-more2 more-more">더보기</a>
 
 						<div class="news con" data-tab="tab1">
 							<div class="box">
 								<ul>
-									<li><a href="#"><span class="sulib001">수성</span><em>생활SOC 공립 작은도서관 개관 운영 안내작은도서관 개관 운영 안내작은도서관 개관 운영 안내작은도서관 개관 운영 안내</em><span class="date">2020-09-04</span></a> </li>
-									<li><a href="#"><span class="sulib001">수성</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em><span class="date">2020-09-04</span></a> </li>
-									<li><a href="#"><span class="sulib001">수성</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em><span class="date">2020-09-04</span></a> </li>
-									<li><a href="#"><span class="sulib001">수성</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em><span class="date">2020-09-04</span></a> </li>
-									<li><a href="#"><span class="sulib001">수성</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em><span class="date">2020-09-04</span></a> </li>
-								</ul>
-							<!--
-								<ul>
-									<c:forEach var="i" varStatus="status" items="${noticeList}" >
-									<li>
-										<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-											<span class="time"><b><fmt:formatDate value="${i.add_date}" pattern="yyyy"/></b><br/><fmt:formatDate value="${i.add_date}" pattern="MM.dd"/></span>
-											<em>${i.title}</em>
-										</a>
-									</li>
+									<c:forEach items="${noticeList}" var="i" varStatus="status">
+										<li>
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=662&board_idx=${i.board_idx}">
+												<span class="sulib${i.category1}">${i.category1_name}</span>
+												<em>${i.title}</em>
+												<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd" /></span>
+											</a>
+										</li>
 									</c:forEach>
 								</ul>
-							-->
 							</div>
 						</div>
 
 						<div class="news con" data-tab="tab2" style="display:none;">
 							<div class="box">
 								<ul>
-									<li><a href="#"><span class="sulib001">수성</span><em>생활SOC 공립 작은도서관 개관 운영 안내작은도서관 개관 운영 안내작은도서관 개관 운영 안내작은도서관 개관 운영 안내</em><span class="date">2020-09-04</span></a> </li>
-									<li><a href="#"><span class="sulib001">수성</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em><span class="date">2020-09-04</span></a> </li>
-									<li><a href="#"><span class="sulib001">수성</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em><span class="date">2020-09-04</span></a> </li>
-									<li><a href="#"><span class="sulib001">수성</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em><span class="date">2020-09-04</span></a> </li>
-									<li><a href="#"><span class="sulib001">수성</span><em>생활SOC 공립 작은도서관 개관 운영 안내</em><span class="date">2020-09-04</span></a> </li>
-								</ul>
-								<!--
-								<ul>
-									<c:forEach var="i" varStatus="status" items="${bidList}" >
-									<li>
-										<a href="/${homepage.context_path}/board/view.do?menu_idx=160&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-											<em>${i.title}</em>
-											<span><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
-										</a>
-									</li>
+									<c:forEach items="${teachList}" var="i" varStatus="status">
+										<li>
+											<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=32&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&homepage_id=${i.homepage_id}">
+												<span class="sulib001">수성</span>
+												<em>${i.teach_name}</em>
+												<span class="date">${i.start_date}</span>
+											</a>
+										</li>
 									</c:forEach>
 								</ul>
-								-->
 							</div>
 						</div>
 					</div>
@@ -299,10 +283,26 @@ do {
 					<h2 class="title"><img src="/resources/homepage/${homepage.context_path}/img/sns-title.png" alt="sns-title"></h2>
 					<div class="sns-link">
 						<ul>
-							<li><a href=""><img src="/resources/homepage/${homepage.context_path}/img/youtube-icon.png" alt="YOUTUBE"> <br class="br650"/>YOUTUBE</a></li>
-							<li><a href=""><img src="/resources/homepage/${homepage.context_path}/img/facebook-icon.png" alt="FACEBOOK"> <br class="br650"/>FACEBOOK</a></li>
-							<li><a href=""><img src="/resources/homepage/${homepage.context_path}/img/instargram-icon.png" alt="INSTAGRAM"> <br class="br650"/>INSTAGRAM</a></li>
-							<li><a href=""><img src="/resources/homepage/${homepage.context_path}/img/kakaostory-icon.png" alt="KAKAOSTORY"> <br class="br650"/>KAKAOSTORY</a></li>
+							<li>
+								<a href="https://www.youtube.com/channel/UCNat_WS1NPVRURBqJlsQPCg?view_as=subscriber" target="_blank">
+									<img src="/resources/homepage/${homepage.context_path}/img/youtube-icon.png" alt="YOUTUBE"> <br class="br650"/>YOUTUBE
+								</a>
+							</li>
+							<li>
+								<a href="https://www.facebook.com/beomeolibrary/" target="_blank">
+									<img src="/resources/homepage/${homepage.context_path}/img/facebook-icon.png" alt="FACEBOOK"> <br class="br650"/>FACEBOOK
+								</a>
+							</li>
+							<li>
+								<a href="https://www.instagram.com/beomeo1600/" target="_blank">
+									<img src="/resources/homepage/${homepage.context_path}/img/instargram-icon.png" alt="INSTAGRAM"> <br class="br650"/>INSTAGRAM
+								</a>
+							</li>
+							<li>
+								<a href="https://pf.kakao.com/_yExatxd" target="_blank">
+									<img src="/resources/homepage/${homepage.context_path}/img/kakaostory-icon.png" alt="KAKAOSTORY"> <br class="br650"/>KAKAOSTORY
+								</a>
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -313,44 +313,41 @@ do {
 					<div class="book-box">
 						<div class="book-tit-box">
 							<h2>북큐레이션</h2>
-							<p>수성구립 범어도서관에서<Br class='webBr'/>추천드리는 도서를<Br class='webBr'/>소개합니다.</p>
+							<p>수성구립 범어도서관에서 <Br class='webBr'/>추천드리는 도서를 <Br class='webBr'/>소개합니다.</p>
 						</div>
 
 						<div class="book-con-box">
 							<div class="bookList">
 								<ul>
-
-									<li class="item">
-										<a href="#" class="title" title="하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!">
-										<img src="https://www.nl.go.kr/inc/NL/images/main_wide_main_book_1.jpg" alt="하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!" >
-										<div class="figure-bg-section">
-											<div class="figure-btn-section">
-												하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!
-											</div>
-										</div>
-										</a>
-									</li> 
-									<li class="item">
-										<a href="#" class="title" title="하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!">
-										<img src="https://www.nl.go.kr/inc/NL/images/main_wide_main_book_1.jpg" alt="하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!" >
-										<div class="figure-bg-section">
-											<div class="figure-btn-section">
-												하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!
-											</div>
-										</div>
-										</a>
-									</li> 
-									<li class="item">
-										<a href="#" class="title" title="하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!">
-										<img src="https://www.nl.go.kr/inc/NL/images/main_wide_main_book_1.jpg" alt="하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!" >
-										<div class="figure-bg-section">
-											<div class="figure-btn-section">
-												하루 10분의 기적 초등 패턴 글쓰기 : 아이의 글머리가 5일 안에 완성된다!
-											</div>
-										</div>
-										</a>
-									</li> 
-
+									<c:forEach items="${bookList1}" var="i" varStatus="status">
+										<li class="item">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=88&manage_idx=659&board_idx=${i.board_idx}">
+												<c:choose>
+													<c:when test="${i.preview_img ne null}">
+														<c:choose>
+															<c:when test="${fn:contains(i.preview_img, 'http')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+																<img src="${i.preview_img}" alt="${i.title}" />
+															</c:when>
+															<c:otherwise>
+																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
+													</c:otherwise>
+												</c:choose>
+												<div class="figure-bg-section">
+													<div class="figure-btn-section">
+														${i.title}
+													</div>
+												</div>
+											</a>
+										</li>
+									</c:forEach>
 								</ul>
 							</div>
 						</div>
@@ -358,13 +355,13 @@ do {
 
 					<div class="quickLink-box">
 						<ul>
-							<li><a href="">수성인문학 @Susung</a></li>
-							<li><a href="">수성인문학제</a></li>
-							<li><a href="">글로벌프로그램</a></li>
+							<li><a href="html.do?menu_idx=120">수성인문학 @Suseong</a></li>
+							<li><a href="html.do?menu_idx=93">수성인문학제</a></li>
+							<li><a href="html.do?menu_idx=100">글로벌프로그램</a></li>
 							<li><a href="">책읽어주는 범어사서</a></li>
-							<li><a href="">원문제공서비스</a></li>
-							<li><a href="">대구전자도서관</a></li>
-							<li><a href="">책나래,책바다 서비스</a></li>
+							<li><a href="html.do?menu_idx=90">원문제공서비스</a></li>
+							<li><a href="html.do?menu_idx=25">대구전자도서관</a></li>
+							<li><a href="html.do?menu_idx=22">책나래,책바다 서비스</a></li>
 						</ul>
 					</div>
 
@@ -374,8 +371,6 @@ do {
 
 			<div class="bottom-box">
 				<div class="main-section">
-
-
 					<div class="banner-wrap type4">
 						<div class="banner-t4">
 							<div class="control">
@@ -384,86 +379,23 @@ do {
 							</div>
 						</div>
 						<div class="banner-box4">
-							<!-- <homepageTag:banner bannerList="${bannerList}"/> -->
-							<ul class="banner-roll">
-							<li>
-							<span>
-							<a href="http://www.daegu.go.kr/intro.jsp" target="_blank">
-							<img src="/data/banner/h34/1602738500008" alt="대구시청"/></a></span></li>
-							<li>
-							<span>
-							<a href="http://info.daegu.go.kr/newshome/mtnmain.php" target="_blank">
-							<img src="/data/banner/h34/1602738973368" alt="시정홍보관"/></a></span></li>
-							<li>
-							<span>
-							<a href="https://www.nl.go.kr/" target="_blank">
-							<img src="/data/banner/h34/1602739008876" alt="국립중앙도서관"/></a></span></li>
-							<li>
-							<span>
-							<a href="https://www.nanet.go.kr/main.do" target="_blank">
-							<img src="/data/banner/h34/1602739030976" alt="국회도서관"/></a></span></li>
-							<li>
-							<span>
-							<a href="https://www.data4library.kr/" target="_blank">
-							<img src="/data/banner/h34/1602739095888" alt="도서관정보나루"/></a></span></li>
-							<li>
-							<span>
-							<a href="http://book.nl.go.kr/iplls/Index.do" target="_blank">
-							<img src="/data/banner/h34/1602739109968" alt="책이음"/></a></span></li>
-							<li>
-							<span>
-							<a href="https://www.nl.go.kr/nill/user/index.jsp" target="_blank">
-							<img src="/data/banner/h34/1602739248238" alt="책바다"/></a></span></li>
-							<li>
-							<span>
-							<a href="http://cn.nl.go.kr/chaeknarae/index.do" target="_blank">
-							<img src="/data/banner/h34/1602739264423" alt="책나래"/></a></span></li>
-							<li>
-							<span>
-							<a href="http://library.daegu.go.kr/elib/index.do" target="_blank">
-							<img src="/data/banner/h34/1602739307507" alt="전자도서관"/></a></span></li>
-							<li>
-							<span>
-							<a href="https://blog.naver.com/daegu_news" target="_blank">
-							<img src="/data/banner/h34/1602739348336" alt="다채움"/></a></span></li>
-							<li>
-							<span>
-							<a href="https://www.juso.go.kr/openIndexPage.do" target="_blank">
-							<img src="/data/banner/h34/1602739374868" alt="도로명주소안내"/></a></span></li>
-							<li>
-							<span>
-							<a href="https://www.nlcy.go.kr/index.do" target="_blank">
-							<img src="/data/banner/h34/1602739402856" alt="국립어린이도서관"/></a></span></li>
-							<li>
-							<span>
-							<a href="http://www.kla.kr/jsp/main.do" target="_blank">
-							<img src="/data/banner/h34/1602739422716" alt="한국도서관협회"/></a></span></li>
-							<li>
-							<span>
-							<a href="http://www.kpipa.or.kr/main/main.do" target="_blank">
-							<img src="/data/banner/h34/1602739450899" alt="한국출판문화산업진흥원"/></a></span></li></ul>
+							<homepageTag:banner bannerList="${bannerList}"/> 
 						</div>
 					</div>
-
-
 				</div>
 
-			</div>
+				<!-- footer_section -->
+				<div class="section fp-auto-height footer_area" id="foot_section">
+					<tiles:insertAttribute name="footer" />
+				</div>
+				<!-- //footer_section -->
+			</div>			
 		</div>
 		<!-- //main2 -->
-
-		<!-- footer_section -->
-		<div class="section fp-auto-height footer_area" id="foot_section">
-			<tiles:insertAttribute name="footer" />
-		</div>
-		<!-- //footer_section -->
-
 
 	</div>
 
 </div>
-
-
 </body>
 </html>
 

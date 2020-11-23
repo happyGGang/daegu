@@ -41,7 +41,7 @@ $(function() {
 		}
 	});
 
-	$('h1.mobile-logo a').css('background',"url('/resources/homepage/bukgs/img/bukgs_logo_b.png')"); 
+	$('h1.mobile-logo a').css('background',"url('/resources/homepage/bukdh/img/bukdh_logo_b.png')"); 
 	$('.m-menu a').css('color','#000');
 
 });
@@ -104,15 +104,6 @@ $(function() {
 			</c:if>
 			<div class="content">
 				<div class="doc">
-					<div class="doc-head">
-						<div class="doc-title">
-							<c:if test="${menuOne.include_menu_name_yn eq 'Y'}">
-							<h3>${menuOne.menu_name}</h3>
-							</c:if>
-
-							<!-- <div class="v-img" <c:if test="${not empty menuOne.menu_img}">style="background: url('/data/menu/${menuOne.homepage_id}/${menuOne.menu_img}') no-repeat 100% 0"</c:if>></div> -->
-						</div>
-					</div>
 					<div class="doc-body con${menuOne.menu_idx}" id="contentArea">
 						<div class="body">
 							<tiles:insertAttribute name="body" />

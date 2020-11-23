@@ -213,7 +213,7 @@ $(function(){
 				$('div.Gnb ul.gnb-menu li.List').removeClass('active');
 				$('div.Gnb').removeClass('on');
 				$('div.mask').hide();
-			}, 200);
+			}, 100);
 		});
 		$('div.Gnb div.mask').hide();
 	}
@@ -647,12 +647,6 @@ $(function(){
 	$('div.roomGuide01 div.popupzone01 ul').each(function(){
 		if($(this).children().length < 2){
 			$(this).parent().parent().find('div.bx-pager-item').hide();
-		}
-	});
-
-	$('select#recommendSite1').on('change', function() {
-		if ($(this).val() != '') {
-			window.open($(this).val());
 		}
 	});
 

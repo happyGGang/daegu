@@ -9,10 +9,12 @@
 			<div class="wsize">
 				<div class="addr">
 					<ul>
-						<li class="personinfo"><a href="/main/contents.do?idx=748">개인정보처리방침</a></li>
-						<li><a href="/main/contents.do?idx=750">저작권신고</a></li>
-						<li><a href="/main/contents.do?idx=751">이메일무단수집거부</a></li>
-						<li><a href="/main/contents.do?idx=752">뷰어다운로드</a></li>
+						<li class="personinfo"><a href="html.do?menu_idx=75">개인정보처리방침</a></li>
+						<li><a href="html.do?menu_idx=76">영상정보처리방침</a></li>
+						<li><a href="html.do?menu_idx=77">이용약관</a></li>
+						<li><a href="html.do?menu_idx=78">도서관서비스헌장</a></li>
+						<li><a href="html.do?menu_idx=79">저작권보호정책</a></li>
+						<li><a href="html.do?menu_idx=80">뷰어다운로드</a></li>
 					</ul>
 				</div>
 				<div class="addr_bottom">
@@ -84,7 +86,7 @@
 
 			</div>
 
-			<p class="copy eng">Copyright (c) Daegu Dalseo Library. All Rights Reserved.</p>
+			<p class="copy eng">Copyright ⓒ 달서구립도서관. All rights reserved.</p>
 		</div>
 	</div>
 

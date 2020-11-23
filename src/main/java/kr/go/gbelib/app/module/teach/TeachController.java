@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -77,6 +78,9 @@ public class TeachController extends BaseController{
 	@Autowired
 	private RecommendSiteService recommendSiteService;
 
+	@Autowired
+	private HomepageService homepageService;
+
 	@ModelAttribute("recommendSiteList")
 	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
@@ -123,7 +127,22 @@ public class TeachController extends BaseController{
 			return String.format(basePath, homepage.getFolder()) + "index_all";
 		}
 		else {
-			teach.setHomepage_id(homepage.getHomepage_id());
+//			teach.setHomepage_id(homepage.getHomepage_id());
+			if ((homepage.getHomepage_id().equals("h37") || homepage.getHomepage_id().equals("h49") || homepage.getHomepage_id().equals("h45") || homepage.getHomepage_id().equals("h53"))) {
+				Homepage h = new Homepage();
+				h.setHomepage_id(homepage.getHomepage_id());
+				h.setHomepage_group(homepage.getHomepage_id());
+				h.setTemp_use_yn("Y");
+				List<Homepage> subHomepageList = homepageService.getSubHomepageList(h);
+				if (StringUtils.isEmpty(teach.getHomepage_id())) {
+					if (subHomepageList != null && subHomepageList.size() > 0) {
+						teach.setHomepage_id(subHomepageList.get(0).getHomepage_id());
+					}
+				}
+				model.addAttribute("subHomepageList", subHomepageList);
+			} else {
+				teach.setHomepage_id(homepage.getHomepage_id());
+			}
 			model.addAttribute("teach", teach);
 			model.addAttribute("teachList", teachService.getTeachListForUser(teach));
 			model.addAttribute("myTeachListMenuIdx", menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 93)));//수강신청내역 menu_idx
@@ -181,9 +200,9 @@ public class TeachController extends BaseController{
 	public String detail(Model model, Teach teach, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 
-//		if ( !"h32".equals(homepage.getHomepage_id()) ) {
+		if (StringUtils.isEmpty(teach.getHomepage_id())) {
 			teach.setHomepage_id(homepage.getHomepage_id());
-//		}
+		}
 
 		int menu_idx = teach.getMenu_idx();
 
@@ -260,7 +279,7 @@ public class TeachController extends BaseController{
 		teach.setApply_name(tmp.getApply_name());
 		teach.setApply_password(tmp.getApply_password());
 
-		teach.setHomepage_id(homepage.getHomepage_id());
+//		teach.setHomepage_id(homepage.getHomepage_id());
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		if (StringUtils.isEmpty(teach.getSearchDateFrom())) {

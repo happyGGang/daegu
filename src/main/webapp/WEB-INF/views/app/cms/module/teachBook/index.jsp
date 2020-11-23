@@ -152,10 +152,21 @@ $(function(){
 	<form:hidden path="sel_date"/>
 </form:form>
 <form:form id="adminTeachBookForm" modelAttribute="teachBook" action="index.do">
-	<form:hidden id="homepage_id_1" path="homepage_id"/>
+<%--	<form:hidden id="homepage_id_1" path="homepage_id"/>--%>
 	
 	<div class="wrapper wrapper-white">
 		<div class="infodesk" style="width:98%;">
+			<c:choose>
+				<c:when test="${fn:length(subHomepageList) > 0}">
+					<span>
+					도서관 : <form:select id="homepage_id_1" path="homepage_id" items="${subHomepageList}" itemLabel="homepage_name" itemValue="homepage_id"></form:select>
+					</span>
+					<br/>
+				</c:when>
+				<c:otherwise>
+					<form:hidden id="homepage_id_1" path="homepage_id"/>
+				</c:otherwise>
+			</c:choose>
 			<span>대분류 : 
 				<form:select path="large_category_idx" style="width:200px;margin-right:10px;">
 					<form:option class="all" value="0" label="선택" />

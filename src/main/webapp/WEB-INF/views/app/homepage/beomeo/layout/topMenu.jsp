@@ -11,9 +11,9 @@
 				<div class="g-menu">
 					<homepageTag:topMenu menuList="${menuTreeList}" />
 
-					<a href="#" class="menu-search-box"><img src="/resources/homepage/${homepage.context_path}/img/menu-search-icon.png" alt="메뉴에서 검색하기" /></a>
+					<a href="#" class="menu-search-box"></a>
 
-					<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=92" class="last-box"><img src="/resources/homepage/${homepage.context_path}/img/sitemap-icon.png" alt="사이트맵" /></a>
+					<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=82" class="last-box"></a>
 
 					<div class="mmode">
 							<a href="/${homepage.context_path}/intro/login/mobileCard.do?menu_idx=170" class="btn4">

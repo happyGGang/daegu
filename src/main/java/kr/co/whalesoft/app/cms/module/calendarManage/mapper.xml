@@ -459,4 +459,62 @@
 		AND	TO_CHAR(SYSDATE, 'yyyy-MM-dd') BETWEEN start_date AND end_date
 	</select>
 
+	<select id="getEventSeogu" resultType="string">
+		SELECT
+			homepage_id
+		FROM
+			CMS_CALENDAR_MANAGE
+		WHERE
+			homepage_id in ('h61','h62','h63','h64','h77')
+		AND	date_type = '2'
+		AND	delete_yn = 'N'
+		AND	#{plan_date} BETWEEN start_date AND end_date
+		GROUP BY
+			homepage_id
+
+		UNION ALL
+
+		SELECT
+			homepage_id
+		FROM
+			TEACH
+		WHERE
+			homepage_id in ('h61','h62','h63','h64','h77')
+		AND	#{plan_date} BETWEEN start_date AND end_date
+		AND	delete_yn = 'N'
+		AND	calendar_view_yn = 'Y'
+		GROUP BY
+			homepage_id
+	</select>
+
+	<select id="getMovieSeogu" resultType="string">
+		SELECT
+			code_name
+		FROM
+			CMS_CODE A, CMS_BOARD B
+		WHERE
+			b.manage_idx = 627
+		AND	a.code_id = b.category1
+		AND A.homepage_id = 'h49'
+		AND A.group_id = 'B0001'
+		AND b.imsi_v_1 = substr(#{plan_date}, 0, 7)
+		AND b.imsi_v_2 = substr(#{plan_date}, 9, 2)
+		GROUP BY
+			code_name
+	</select>
+
+	<select id="getCloseSeogu" resultType="string">
+		SELECT
+			homepage_id
+		FROM
+			CMS_CALENDAR_MANAGE
+		WHERE
+			homepage_id in ('h61','h62','h63','h64','h77')
+		AND	date_type = '1'
+		AND	delete_yn = 'N'
+		AND	#{plan_date} BETWEEN start_date AND end_date
+		GROUP BY
+			homepage_id
+	</select>
+
 </mapper>

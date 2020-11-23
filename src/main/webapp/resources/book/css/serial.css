@@ -72,7 +72,7 @@ width:118px;border:1px solid #ddd;margin-right:15px;}
 .serial-wrap .search-results .row .thumb img{width:100%; height:170px!important; }
 .serial-wrap .search-results .row .box{float:left;width:100%;margin-right:-140px}
 .serial-wrap .search-results .row .item{margin-right:140px}
-.serial-wrap .search-results .row .item a.name{font-weight: 800;font-size:115%;display: -webkit-box;zoom: 1;height: 1.7em;text-overflow: ellipsis;overflow: hidden;word-wrap: break-word;-webkit-line-clamp: 2;-webkit-box-orient: vertical;white-space: normal}
+.serial-wrap .search-results .row .item a.name{font-weight: 800;font-size:115%;display: -webkit-box;zoom: 1;height: 2.5em;text-overflow: ellipsis;overflow: hidden;word-wrap: break-word;-webkit-line-clamp: 2;-webkit-box-orient: vertical;white-space: normal}
 .serial-wrap .search-results .row .item a.name em{font-style:normal}
 .serial-wrap .search-results .row .item .con2 li {font-size:15px;}
 .serial-wrap .dataTables_paginate{clear:both}

@@ -17,16 +17,19 @@
 				<c:choose>
 					<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
 						<b>${sessionScope.member.member_name}님</b>
+						<span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/intro/login/logout.do">로그아웃</a>
-						<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=95">정보수정</a>
+						<span class="txt-bar"></span>
+						<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=53">정보수정</a>
 					</c:when>
 					<c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
 						<b>관리자 로그인 중</b>
+						<span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/intro/login/logout.do">로그아웃</a>
 					</c:when>
 					<c:otherwise>
 						<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=4">통합허브시스템 로그인</a>
-						<!-- <span class="txt-bar"></span> -->
+						<span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=5" style="padding-right:0;">회원가입</a>
 						<!--
 						<span class="txt-bar"></span>

@@ -344,4 +344,15 @@ public class CalendarManageService extends BaseService {
 		return dao.isTodayClosed(homepage_id) > 0 ? true : false;
 	}
 
+	public List<String> getEventSeogu(CalendarManage calendarManage) {
+		return dao.getEventSeogu(calendarManage);
+	}
+
+	public List<String> getMovieSeogu(CalendarManage calendarManage) {
+		return dao.getMovieSeogu(calendarManage);
+	}
+
+	public List<String> getCloseSeogu(CalendarManage calendarManage) {
+		return dao.getCloseSeogu(calendarManage);
+	}
 }

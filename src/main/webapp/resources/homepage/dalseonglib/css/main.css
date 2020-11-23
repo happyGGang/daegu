@@ -243,7 +243,7 @@ ul.book_photo li a span.con-author {color:#000;font-size:15px;font-weight:normal
 }
 
 @media all and (max-width:425px){
-	.popZone .cont .bx-controls{top:-5px;}
+	.popZone .cont .bx-controls{top:-3px;}
 
 	.notice-box > .cont li a {font-size:14px;}
 

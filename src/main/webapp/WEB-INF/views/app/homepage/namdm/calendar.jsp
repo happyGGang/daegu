@@ -157,7 +157,7 @@ Date.prototype.format = function(f) {
 									<c:choose>
 										<c:when test="${calendarResult[i.mon] eq null}">${i.mon}</c:when>
 										<c:otherwise>
-											<c:set var="one" value="${fn:length(i.tue) < 2 ? '0' : '' }${i.mon}"></c:set>
+											<c:set var="one" value="${fn:length(i.mon) < 2 ? '0' : '' }${i.mon}"></c:set>
 											<c:choose>
 												<c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
 													<a class="type-e showCal" keyValue="${i.mon}">${i.mon}</a>
@@ -268,26 +268,24 @@ Date.prototype.format = function(f) {
 
 		<div class="planView">
 			<div class="inbox">
-				<ul>
-					<c:set var="today" value="${fn:split(currDate, '.')[2]}"></c:set>
-					<c:forEach var="i" items="${calendarResult[today]}" varStatus="status">
-						<li>
-							<dl>
-								<c:set var="ty" value="${fn:split(i, ']')}"></c:set>
-								<dt>${ty[0]}]</dt>
-								<dd>${ty[1]}</dd>
-							</dl>
-						</li>
-					</c:forEach>
-					<c:if test="${fn:length(calendarResult[today]) < 1}">
-						<li>
-							<dl>
-								<dt></dt>
-								<dd>일정이 없습니다.</dd>
-							</dl>
-						</li>
-					</c:if>
-				</ul>
+				<c:set var="today" value="${fn:split(currDate, '.')[2]}"></c:set>
+				<c:forEach var="i" items="${calendarResult}" varStatus="status">
+					<c:set var="key" value="${i.key < 10 ? '0':''}${i.key}"></c:set>
+					<div id="${i.key}" class="calAll" style="display: ${today eq key ? 'block' : 'none'};">
+						<ul>
+						<c:forEach var="j" items="${i.value}">
+							<li>
+								<dl>
+									<c:set var="ty" value="${fn:split(j, ']')}"></c:set>
+									<dt>${ty[0]}${fn:length(ty) > 1 ? ']' : ''}</dt>
+									<dd>${fn:length(ty) > 1 ? ty[1] : ''}</dd>
+								</dl>
+							</li>
+						</c:forEach>
+						</ul>
+					</div>
+				</c:forEach>
+
 			</div>
 		</div>
 		<div class="end"></div>

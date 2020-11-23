@@ -107,7 +107,7 @@ Date.prototype.format = function(f) {
 	</div>
 -->
 	<h3>휴관일 및 행사</h3>
-	<a href="#" class="btn-more">더보기</a>
+	<a href="module/calendarManage/index.do?menu_idx=142" class="btn-more">더보기</a>
 	<div>
 		<div class="cal-today">
 			<a id="before-btn" href="#prev" class="btn cal-today-btn prev" keyValue="${calendar.plan_date}"><img src="/resources/homepage/${homepage.context_path}/img/prev-month.png" alt="이전달"><span class="blind">이전달</span></a>

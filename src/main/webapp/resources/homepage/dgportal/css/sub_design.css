@@ -944,6 +944,8 @@ div[class^="dpt-list-type"] li[class^="ico"]:after {content:"";display:block;bac
 .img-box2 ul.m-ul {background: #f8f8f8;text-align: left;padding: 20px 20px 20px 20px;}
 .img-box2 ul.m-ul li {padding-left: 0px;}
 .img-box3 {border: 1px solid #e1e1e1;background: #fff;text-align: center;padding: 35px 30px 30px 30px;}
+
+
 .processList03 {position: relative;}
 .processList03 .step1-1{width:70px; height:53px; background: url('/resources/common/img/step1-1.png') no-repeat; margin:0 auto;}
 .processList03 .step1-2{width:70px; height:53px; background: url('/resources/common/img/step1-2.png') no-repeat; margin:0 auto;}
@@ -983,7 +985,6 @@ div[class^="dpt-list-type"] li[class^="ico"]:after {content:"";display:block;bac
 .processList03 > li img {vertical-align: bottom;margin-top: 5px;}
 .processList03 > li span.smtx {position: absolute;color: #555;font-size: 13px;right: 25px;top: 50%;margin-top: -18px;}
 .book-y li:last-child {padding-top: 5px}
-.img-box3 {border: 1px solid #e1e1e1;background: #fff;text-align: center;padding: 25px 20px 20px 20px;}
 }
 
 
@@ -1359,6 +1360,7 @@ background:url(/nanum/site/builder/skin/library_skin01/img/common/icon_tit_bg.gi
 
 .book-y li:last-child {padding-top: 5px}
 }
+
 
 /*이용방법*/
 .guid .gd-sct {margin-bottom: 60px; color:#7c7c7c;}

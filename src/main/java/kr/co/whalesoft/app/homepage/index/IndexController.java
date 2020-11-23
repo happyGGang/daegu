@@ -227,7 +227,6 @@ public class IndexController extends BaseController {
 		Date currentDay = new Date ();
 		String currDate = sf2.format ( currentDay );
 
-		calendarManage.setHomepage_id(homepage.getHomepage_id());
 		board.setHomepage_id(homepage.getHomepage_id());
 		board.setImsi_v_1(calendarManage.getPlan_day().substring(0,7));
 		board.setImsi_v_2(calendarManage.getPlan_day().substring(8));
@@ -272,6 +271,30 @@ public class IndexController extends BaseController {
 		return basePath + filePath + "_ajax";
 	}
 
+	@RequestMapping(value = { "/{contextPath}/calendar10.*" }) // 서구
+	public String calendar10(Model model, CalendarManage calendarManage, HttpServletRequest request, @PathVariable String contextPath) {
+		Homepage h = (Homepage) request.getAttribute("homepage");
+		Homepage homepage = homepageService.getHomepageOne(new Homepage(calendarManage.getHomepage_id()));
+
+		String filePath = h.getFolder() + "/calendar10";
+
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		Date currentDay = new Date ();
+		String currDate = sf.format ( currentDay );
+
+
+		if (StringUtils.isEmpty(calendarManage.getPlan_date())) {
+			calendarManage = new CalendarManage(sf.format(Calendar.getInstance().getTime()));
+		}
+
+		model.addAttribute("eventList", calendarManageService.getEventSeogu(calendarManage));
+		model.addAttribute("movieList", calendarManageService.getMovieSeogu(calendarManage));
+		model.addAttribute("closeList", calendarManageService.getCloseSeogu(calendarManage));
+		model.addAttribute("calendarManage", calendarManage);
+
+		return basePath + filePath + "_ajax";
+	}
+
 	@RequestMapping(value = { "/{contextPath}/newBook.*" })
 	public String newBook(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
 		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
@@ -313,6 +336,60 @@ public class IndexController extends BaseController {
 		}
 
 		model.addAttribute("newBookList", list);
+		return basePath + homepage.getFolder() + "/newBook_ajax";
+	}
+
+	@RequestMapping(value = { "/{contextPath}/newBookSeogu.*" })
+	public String newBookSeogu(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
+		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
+		LibrarySearch ls = new LibrarySearch();
+		ls.setManageCode(homepage.getManage_code());
+
+		//기본값 '1달 전'
+		//검색기간 설정
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		int beforeDays = -30;
+		ls.setSearch_start_date(sf.format(DateUtils.addDays(new Date(), beforeDays)));
+		ls.setSearch_end_date(sf.format(new Date()));
+
+		//서지형태 분류코드 설정.
+		//기본값 도서 "0"
+		//0 : 단행, 1: 연속간행물, 2:비도서
+		ls.setBooktype("0");
+
+		Homepage h = new Homepage();
+		h.setHomepage_id(homepage.getHomepage_id());
+		h.setHomepage_group(homepage.getHomepage_id());
+		h.setTemp_use_yn("Y");
+		List<Homepage> subHomepageList = homepageService.getSubHomepageList(h);
+		for (Homepage subHome : subHomepageList) {
+			ls.setManageCode(subHome.getManage_code());
+
+			Map<String, Object> result = LibSearchAPI.getNewBookList(ls);
+			List<Map<String, Object>> list = null;
+
+			int count = LibSearchAPI.getSearchCount(result);
+			ls.setTotalDataCount(count);
+
+			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+
+				list = LibSearchAPI.getListData(result);
+				for (Map<String, Object> map : list) {
+					if (map.containsKey("ISBN")) {
+						//알라딘 API 결과 가져오기
+						if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+							Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+							if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+								map.put("aladin", aladinData.get("item"));
+							}
+						}
+					}
+				}
+			}
+
+			model.addAttribute("newBookList" + subHome.getHomepage_id(), list);
+		}
+
 		return basePath + homepage.getFolder() + "/newBook_ajax";
 	}
 
@@ -376,6 +453,89 @@ public class IndexController extends BaseController {
 		return basePath + homepage.getFolder() + "/recommendBook_ajax";
 	}
 
+	@RequestMapping(value = { "/{contextPath}/subNotice.*" }) // homepage_id로 휴관일만 가져오기
+	public String subNotice(Model model, Board board, HttpServletRequest request, @PathVariable String contextPath) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		String filePath = homepage.getFolder() + "/subNotice";
+
+//		if (StringUtils.isEmpty(board.getHomepage_id())) {
+//			Homepage h = new Homepage();
+//			h.setHomepage_id(h.getHomepage_id());
+//			h.setHomepage_group(homepage.getHomepage_id());
+//			h.setTemp_use_yn("Y");
+//			List<Homepage> subHomepageList = homepageService.getSubHomepageList(h);
+//			if (subHomepageList != null && subHomepageList.size() > 0) {
+//				board.setCategory5(subHomepageList.get(0).getHomepage_id());
+//			}
+//		}
+		board.setCategory5(board.getHomepage_id());
+
+		model.addAttribute("subNoticeList", boardService.getSubBoardByMain(board));
+
+
+		return basePath + filePath + "_ajax";
+	}
+
+	@RequestMapping(value = { "/{contextPath}/subCalendar.*" }) // homepage_id로 휴관일만 가져오기
+	public String subCalendar(Model model, CalendarManage calendarManage, Board board, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		String filePath = homepage.getFolder() + "/subCalendar";
+
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM");
+		if (StringUtils.isEmpty(calendarManage.getPlan_date())) {
+			calendarManage.setPlan_date(sf.format(Calendar.getInstance().getTime()));
+//			calendarManage = new CalendarManage(sf.format(Calendar.getInstance().getTime()));
+		}
+
+		if (homepage.getHomepage_id().equals("h37")) {
+			if (StringUtils.isEmpty(calendarManage.getHomepage_id())) {
+				Homepage h = new Homepage();
+				h.setHomepage_id(homepage.getHomepage_id());
+				h.setHomepage_group(homepage.getHomepage_id());
+				h.setTemp_use_yn("Y");
+				List<Homepage> subHomepageList = homepageService.getSubHomepageList(h);
+				if (subHomepageList != null && subHomepageList.size() > 0) {
+					calendarManage.setHomepage_id(subHomepageList.get(0).getHomepage_id());
+				}
+			}
+		} else {
+			calendarManage.setHomepage_id(homepage.getHomepage_id());
+		}
+
+
+		SimpleDateFormat sf2 = new SimpleDateFormat ("yyyy.MM.dd");
+		Date currentDay = new Date ();
+		String currDate = sf2.format ( currentDay );
+
+//		calendarManage.setHomepage_id(homepage.getHomepage_id());
+		board.setHomepage_id(homepage.getHomepage_id());
+		board.setImsi_v_1(calendarManage.getPlan_date());
+		if (!StringUtils.equals(homepage.getHomepage_id(), calendarManage.getHomepage_id())) {
+			board.setCategory5(calendarManage.getHomepage_id());
+		}
+		CalendarManage closedDay = calendarManageService.getClosedDate2(calendarManage);
+
+		calendarManage.setDate_type("2");
+		List<CalendarManage> eventDay = calendarManageService.getCalendarManageDetail(calendarManage);
+		calendarManage.setDate_type(null);
+		List<Board> movieDay = boardService.getBoardMovie(board);
+		List<Apply> applyDay = applyService.getOkApply(calendarManage);
+		List<Teach> teachDay = teachService.getTeachListForCalendar(calendarManage);
+		List<FacilityReq> facilityDay = facilityReqService.getFacilityReqCalendar(calendarManage);
+		List<CalendarManage> calendarList = calendarManageService.getCalendar(calendarManage);
+		model.addAttribute("currDate", currDate);
+		model.addAttribute("calendar", calendarManage);
+		model.addAttribute("calendarList", calendarList);
+//		model.addAttribute("calendarResult", getCalendarMarkGumi(calendarManage.getPlan_date(), closedDay, eventDay, movieDay, applyDay, teachDay, facilityDay));
+		model.addAttribute("calendarResult", getCalendarMarkGumiDate(calendarManage.getPlan_date(), closedDay, eventDay, movieDay, applyDay, teachDay, facilityDay));
+		model.addAttribute("closeDayList", closedDay);
+
+
+		return basePath + filePath + "_ajax";
+	}
+
 	private String doIndexProc(Model model, HttpServletRequest request, Board board) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
@@ -396,29 +556,60 @@ public class IndexController extends BaseController {
 		model.addAttribute("quickMenuList", quickMenuService.getQuickMenuListAll(new QuickMenu(homepage.getHomepage_id())));
 
 		//인기검색어
+		//h44 달성군립도서관
 		String[] trendHomepage = {"h44"};
 		for (String th: trendHomepage ) {
-			Map<String, Object> hotTrendWordList = LibSearchAPI.getHotTrendWordList(homepage.getManage_code());
+			if (homepage.getHomepage_id().equals(th)) {
+				Map<String, Object> hotTrendWordList = LibSearchAPI.getHotTrendWordList(homepage.getManage_code());
 
-			int count = LibSearchAPI.getSearchCount(hotTrendWordList);
+				int count = LibSearchAPI.getSearchCount(hotTrendWordList);
 
-			if ( count > 0 ) {
-				model.addAttribute("hotTrendList", LibSearchAPI.getListData(hotTrendWordList));
+				if ( count > 0 ) {
+					model.addAttribute("hotTrendList", LibSearchAPI.getListData(hotTrendWordList));
+				}
+
 			}
 		}
 
 
 		//강좌목록
-		String[] teachHomepage = {"h7", "h45", "h35", "h36"};
+		//h7 북부도서관
+		//h35 남구 대명
+		//h36 남구 이천
+		//h45 동구
+		//h46 북구 구수산
+		//h47 북구 대현
+		//h48 북구 태전
+		//h50 수성 범어
+		//h51 수성 용학
+		//h52 수성 고산
+		String[] teachHomepage = {"h7", "h45", "h35", "h36", "h46", "h47", "h48", "h50", "h51", "h52"};
 		for (String th: teachHomepage ) {
 			if (homepage.getHomepage_id().equals(th)) {
 				Teach t = new Teach();
-				t.setHomepage_id(homepage.getHomepage_id());
+
+				Homepage h = new Homepage();
+				h.setHomepage_id(homepage.getHomepage_id());
+				h.setHomepage_group(homepage.getHomepage_id());
+				h.setTemp_use_yn("Y");
+				List<Homepage> subHomepageList = homepageService.getSubHomepageList(h);
+				if (subHomepageList != null && subHomepageList.size() > 0) {
+					List<String> homepage_ids = new ArrayList<String>();
+					for (Homepage subHome : subHomepageList) {
+						homepage_ids.add(subHome.getHomepage_id());
+					}
+					t.setHomepage_ids(homepage_ids);
+				} else {
+					t.setHomepage_id(homepage.getHomepage_id());
+				}
+
+
 				model.addAttribute("teachList", teachService.getTeachListForUser(t));
 			}
 		}
 
 		//강좌목록2
+		//h44 달성군립도서관
 		String[] teachHomepage2 = {"h44"};
 		for (String th: teachHomepage2 ) {
 			if (homepage.getHomepage_id().equals(th)) {
@@ -463,6 +654,61 @@ public class IndexController extends BaseController {
 		}
 
 		setBoardListToModel(homepage.getHomepage_id(), model);
+
+		//서구도서관
+		if (homepage.getHomepage_id().equals("h49")) {
+			Board b = new Board();
+			b.setManage_idx(628);
+			model.addAttribute("noticeList", boardService.getSubBoardByMain(b));//공지사항전체
+			b.setManage_idx(632);
+			model.addAttribute("galleryList", boardService.getSubBoardByMain(b));//갤러리전체
+			b.setManage_idx(625);
+			model.addAttribute("bookList", boardService.getSubBoardByMain(b));//추천도서전체
+			b.setManage_idx(627);
+			model.addAttribute("movieList", boardService.getSubBoardByMain(b));//영화도서전체
+
+			Teach t = new Teach();
+			Homepage h = new Homepage();
+			h.setHomepage_id(homepage.getHomepage_id());
+			h.setHomepage_group(homepage.getHomepage_id());
+			h.setTemp_use_yn("Y");
+			List<Homepage> subHomepageList = homepageService.getSubHomepageList(h);
+			List<String> homepage_ids = new ArrayList<String>();
+
+			for (Homepage h2:subHomepageList) {
+				b.setCategory5(h2.getHomepage_id());
+				b.setManage_idx(628);
+				model.addAttribute("noticeList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//공지사항
+
+				b.setCategory5(null);
+
+				if (h2.getHomepage_id().equals("h77")) {
+					b.setCategory1("0001");
+				} else if (h2.getHomepage_id().equals("h61")) {
+					b.setCategory1("0002");
+				} else if (h2.getHomepage_id().equals("h62")) {
+					b.setCategory1("0003");
+				} else if (h2.getHomepage_id().equals("h63")) {
+					b.setCategory1("0004");
+				} else if (h2.getHomepage_id().equals("h64")) {
+					b.setCategory1("0005");
+				}
+
+				b.setManage_idx(632);
+				model.addAttribute("galleryList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//갤러리
+				b.setManage_idx(625);
+				model.addAttribute("bookList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//추천도서
+				b.setManage_idx(627);
+				model.addAttribute("movieList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//영화
+				homepage_ids.add(h2.getHomepage_id());
+				t.setHomepage_id(h2.getHomepage_id());
+				model.addAttribute("teachList"+h2.getHomepage_id(), teachService.getTeachListForUser(t));
+			}
+
+			t.setHomepage_id(null);
+			t.setHomepage_ids(homepage_ids);
+			model.addAttribute("teachList", teachService.getTeachListForUser(t));
+		}
 
 		if (homepage.getHomepage_id().equals("h30") && isLogin(request) && "HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			Member sessionMemberInfo = getSessionMemberInfo(request);
@@ -812,6 +1058,259 @@ public class IndexController extends BaseController {
 			    				  }
 			    			  }
 			    			teachList.add(teachStatus + teach.getTeach_name());
+					    	planRepo.put(endKey, teachList);
+					    }
+			    	}
+			    }
+		    }
+
+		}
+
+		for (FacilityReq facility : facilityDayList) {
+			List<String> facilityList = null;
+			String key 	= facility.getUse_date().substring(8, 10);
+
+		    if ( key.startsWith("0") ) {
+		    	key = key.replace("0", "");
+	  		}
+		    if ( planRepo.containsKey(key) ) {
+		    	facilityList = planRepo.get(key);
+		    }
+		    else {
+		    	facilityList = new ArrayList<String>();
+		    }
+
+		    if (!facilityList.contains("[휴관일]")) {
+		    	facilityList.add(String.format("[시설물] %s (%s)", facility.getFacility_name(), facility.getMasking_name()));
+		    	planRepo.put(key, facilityList);
+		    }
+
+		}
+		return planRepo;
+	}
+
+	private Map<String, List<String>> getCalendarMarkGumiDate(String planDate, CalendarManage closedDay, List<CalendarManage> eventDay, List<Board> movieDay, List<Apply> applyDay, List<Teach> teachDay, List<FacilityReq> facilityDayList) throws ParseException {
+		Map<String, List<String>> planRepo = new HashMap<String, List<String>>();
+		String[] pattern = {"yyyy-MM-dd"};
+
+//		if( closedDay != null) {
+//			String[] closedDayList = closedDay.getDd().split(",");
+//			for ( String oneClose : closedDayList ) {
+//				String key = oneClose.trim();
+//				if ( key.startsWith("0") ) {
+//					key = key.replace("0", "");
+//				}
+//				List<String> closedList = null;
+//				if ( planRepo.containsKey(key) ) {
+//					closedList = planRepo.get(key);
+//				}
+//				else {
+//					closedList = new ArrayList<String>();
+//				}
+//
+//				closedList.add("[휴관일]");
+//				planRepo.put(key, closedList);
+//			}
+//		}
+
+		for (CalendarManage event : eventDay) {
+			List<String> eventList = null;
+
+			String startDateStr 	= event.getStart_date();
+			String endDateStr 		= event.getEnd_date();
+			String startKey 		= event.getStart_date().substring(8,10);
+			String endKey 			= event.getEnd_date().substring(8,10);
+			SimpleDateFormat sf 	= new SimpleDateFormat("yyyy-MM-dd");
+
+			Date startDate 	= DateUtils.parseDate(startDateStr, pattern);
+			Date endDate 	= DateUtils.parseDate(endDateStr, pattern);
+
+			while( !DateUtils.isSameDay(startDate, endDate) ) {
+				if ( startDate.after(endDate) ) {
+					break;
+				}
+			    if ( sf.format(startDate).startsWith(planDate) ) {
+			      startKey = sf.format(startDate).substring(8, 10);
+				    if ( startKey.startsWith("0") ) {
+				  	  startKey = startKey.replace("0", "");
+				    }
+				    if ( planRepo.containsKey(startKey) ) {
+				  	  eventList = planRepo.get(startKey);
+				    }
+				    else {
+				  	  eventList = new ArrayList<String>();
+				    }
+				    if (!eventList.contains("[휴관일]")) {
+				    	eventList.add(event.getTitle() + "^^^" + startDateStr.substring(5) + " ~ " + endDateStr.substring(5));
+				    	planRepo.put(startKey, eventList);
+				    }
+			    }
+
+			    startDate = DateUtils.addDays(startDate, 1);
+			}
+			if ( endKey.startsWith("0") ) {
+				endKey = endKey.replace("0", "");
+		    }
+			if ( planRepo.containsKey(endKey) ) {
+				eventList = planRepo.get(endKey);
+			}
+			else {
+				eventList = new ArrayList<String>();
+			}
+			if (!eventList.contains("[휴관일]")) {
+				eventList.add(event.getTitle() + "^^^" + startDateStr.substring(5) + " ~ " + endDateStr.substring(5));
+		    	planRepo.put(endKey, eventList);
+		    }
+			planRepo.put(endKey, eventList);
+		}
+
+		for (Board movie : movieDay) {
+			String key = movie.getImsi_v_2().trim();
+			if ( key.startsWith("0") ) {
+				key = key.replace("0", "");
+			}
+			List<String> planList = null;
+			if ( planRepo.containsKey(key) ) {
+				planList = planRepo.get(key);
+			}
+			else {
+				planList = new ArrayList<String>();
+			}
+
+			if (!planList.contains("[휴관일]")) {
+				planList.add("[영화]" + movie.getTitle()  + "^^^" + movie.getImsi_v_1()+ "-" + movie.getImsi_v_2());
+		    	planRepo.put(key, planList);
+		    }
+		}
+
+
+
+		for (Apply excursions : applyDay) {
+			List<String> excursionsList = null;
+
+			String startDateStr 	= excursions.getStart_date();
+			String endDateStr 		= excursions.getEnd_date();
+			String startKey 		= excursions.getStart_date().substring(8,10);
+			String endKey 			= excursions.getEnd_date().substring(8,10);
+			SimpleDateFormat sf 	= new SimpleDateFormat("yyyy-MM-dd");
+
+			Date startDate 	= DateUtils.parseDate(startDateStr, pattern);
+			Date endDate 	= DateUtils.parseDate(endDateStr, pattern);
+
+			while( !DateUtils.isSameDay(startDate, endDate) ) {
+				if ( startDate.after(endDate) ) {
+					break;
+				}
+
+				if ( sf.format(startDate).startsWith(planDate) ) {
+			      startKey = sf.format(startDate).substring(8, 10);
+				    if ( startKey.startsWith("0") ) {
+				  	  startKey = startKey.replace("0", "");
+				    }
+				    if ( planRepo.containsKey(startKey) ) {
+				  	  excursionsList = planRepo.get(startKey);
+				    }
+				    else {
+				  	  excursionsList = new ArrayList<String>();
+				    }
+				    if (!excursionsList.contains("[휴관일]")) {
+				    	excursionsList.add("[견학]" + excursions.getAgency_name() + "^^^" + startDateStr.substring(5) + " ~ " + endDateStr.substring(5));
+				    	planRepo.put(startKey, excursionsList);
+				    }
+			    }
+			    startDate = DateUtils.addDays(startDate, 1);
+			}
+			if ( endKey.startsWith("0") ) {
+				endKey = endKey.replace("0", "");
+		    }
+			if ( planRepo.containsKey(endKey) ) {
+				excursionsList = planRepo.get(endKey);
+			}
+			else {
+				excursionsList = new ArrayList<String>();
+			}
+			if (!excursionsList.contains("[휴관일]")) {
+				excursionsList.add("[견학]" + excursions.getAgency_name() + "^^^" + startDateStr.substring(5) + " ~ " + endDateStr.substring(5));
+		    	planRepo.put(endKey, excursionsList);
+		    }
+		}
+
+		for (Teach teach : teachDay) {
+			List<String> teachList = null;
+			String[] teachDays 	= teach.getTeach_day().split(",");
+			String startDateStr = teach.getStart_date();
+			String endDateStr 	= teach.getEnd_date();
+			String startKey 	= teach.getStart_date().substring(8,10);
+			String endKey 		= teach.getEnd_date().substring(8,10);
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+
+			Date startDate 	= DateUtils.parseDate(startDateStr, pattern);
+			Date endDate 	= DateUtils.parseDate(endDateStr, pattern);
+
+			while( !DateUtils.isSameDay(startDate, endDate) ) {
+				if ( startDate.after(endDate) ) {
+					break;
+				}
+
+				if ( sf.format(startDate).startsWith(planDate) ) {
+			    	 Calendar cal = Calendar.getInstance() ;
+				     cal.setTime(startDate);
+				     int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
+				     for ( String one : teachDays ) {
+				    	  if ( dayNum == Integer.parseInt(one) ) {
+				    		  startKey = sf.format(startDate).substring(8, 10);
+				    		  if ( startKey.startsWith("0") ) {
+				    			  startKey = startKey.replace("0", "");
+					  		  }
+				    		  if ( planRepo.containsKey(startKey) ) {
+				    			  teachList = planRepo.get(startKey);
+				    		  }
+				    		  else {
+				    			  teachList = new ArrayList<String>();
+				    		  }
+				    		  if (!teachList.contains("[휴관일]")) {
+				    			  String teachStatus = "[강좌]";
+				    			  if (teach.getHolidays() != null && teach.getHolidays().size() > 0) {
+				    				  for ( String string : teach.getHolidays() ) {
+				    					  if (StringUtils.equals(string, planDate +"-"+ startKey)) {
+				    						  teachStatus = "[휴강]";
+				    					  }
+				    				  }
+				    			  }
+				    			  teachList.add(teachStatus + teach.getTeach_name() + "^^^" + startDateStr.substring(5) + " ~ " + endDateStr.substring(5));
+						    	  planRepo.put(startKey, teachList);
+						      }
+				    	  }
+				     }
+			     }
+
+			     startDate = DateUtils.addDays(startDate, 1);
+			}
+			if ( sf.format(startDate).startsWith(planDate) ) {
+				Calendar cal = Calendar.getInstance() ;
+			    cal.setTime(endDate);
+			    int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
+			    for ( String one : teachDays ) {
+			    	if ( dayNum == Integer.parseInt(one) ) {
+			    		if ( endKey.startsWith("0") ) {
+			    			endKey = endKey.replace("0", "");
+				  		}
+			    		if ( planRepo.containsKey(endKey) ) {
+							teachList = planRepo.get(endKey);
+						}
+						else {
+							teachList = new ArrayList<String>();
+						}
+			    		if (!teachList.contains("[휴관일]")) {
+			    			String teachStatus = "[강좌]";
+			    			  if (teach.getHolidays() != null && teach.getHolidays().size() > 0) {
+			    				  for ( String string : teach.getHolidays() ) {
+			    					  if (StringUtils.equals(string, planDate +"-"+ endKey)) {
+			    						  teachStatus = "[휴강]";
+			    					  }
+			    				  }
+			    			  }
+			    			teachList.add(teachStatus + teach.getTeach_name() + "^^^" + startDateStr.substring(5) + " ~ " + endDateStr.substring(5));
 					    	planRepo.put(endKey, teachList);
 					    }
 			    	}

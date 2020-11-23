@@ -70,14 +70,14 @@ Date.prototype.format = function(f) {
 			var plan_date = new Date($(this).attr('keyValue'));
 			plan_date.setMonth(plan_date.getMonth() - 1);
 			//plan_date.format('yyyy-MM')
-			$('div.cal-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM'));
+			$('div#calendar-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM'));
 			e.preventDefault();
 		});
 
 		$('a#next-btn').on('click',function(e) {
 			var plan_date = new Date($(this).attr('keyValue'));
 			plan_date.setMonth(plan_date.getMonth() + 1);
-			$('div.cal-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM'));
+			$('div#calendar-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM'));
 			e.preventDefault();
 		});
 
@@ -259,72 +259,17 @@ Date.prototype.format = function(f) {
 
 		<div class="planView">
 			<div class="inbox">
-			<!--
-				<c:forEach var="i" items="${calendarResult}" varStatus="status">
-					<div id="${i.key}" class="calAll">
-						<dl>
-							<dt>${calendar.plan_date}-${fn:length(i.key) == 1 ? '0' : ''}${i.key}</dt>
-						</dl>
-						<c:forEach var="count" begin="0" end="${fn:length(i.value)}">
-							<c:choose>
-								<c:when test="${fn:length(i.value[count]) > 19}">
-									<c:out value="${fn:substring(i.value[count], 0, 19)}"/>...
-								</c:when>
-								<c:otherwise>
-									<c:out value="${i.value[count]}"/>
-								</c:otherwise>
-							</c:choose>
-							<c:if test="${count < fn:length(i.value)}">
-								</br>
-							</c:if>
-						</c:forEach>
-					</div>
+				<c:forEach var="i" begin="1" end="31" varStatus="status">
+					<c:set var="key" value="${i < 10 ? '0':''}${i}"></c:set>
+					<c:forEach var="j" items="${calendarResult[key]}">
+						<c:set var="ty" value="${fn:split(j, ']')}"></c:set>
+						<div class="planList">
+							<p class="datetime">${calendar.plan_date}-${key}</p>
+
+							<p class="title"><em>${ty[0]}${fn:length(ty) > 1 ? ']' : (fn:startsWith(ty[0], '[') ? ']' : '')}</em> ${fn:length(ty) > 1 ? ty[1] : ''}</p>
+						</div>
+					</c:forEach>
 				</c:forEach>
-			-->
-				<div class="planList">
-					<p class="datetime">2020-09-09</p>
-					<p class="title"><em>[도서관행사]</em> 수성인문학@Suseong 6회차수성인문학@Suseong 6회차수성인문학@Suseong 6회차</p>
-					<ul>
-						<li>일시 : 9월 9일(수) 오후 2시  방법 : 유튜브(도서관 채널)를 통한 강연강연강연강연강연강연</li>
-						<li>강사 : 방인(경북대교수)  주제 : 동양 고전을 통해 본 과학과 우리의 우리의우리의우리의우리의</li>
-					</ul>
-				</div>
-
-				<div class="planList">
-					<p class="datetime">2020-09-09</p>
-					<p class="title"><em>[도서관행사]</em> 수성인문학@Suseong 6회차</p>
-					<ul>
-						<li>일시 : 9월 9일(수) 오후 2시  방법 : 유튜브(도서관 채널)를 통한 강연강연강연강연강연강연</li>
-						<li>강사 : 방인(경북대교수)  주제 : 동양 고전을 통해 본 과학과 우리의 우리의우리의우리의우리의</li>
-					</ul>
-				</div>
-
-				<div class="planList">
-					<p class="datetime">2020-09-09</p>
-					<p class="title"><em>[도서관행사]</em> 수성인문학@Suseong 6회차</p>
-					<ul>
-						<li>일시 : 9월 9일(수) 오후 2시  방법 : 유튜브(도서관 채널)를 통한 강연강연강연강연강연강연</li>
-						<li>강사 : 방인(경북대교수)  주제 : 동양 고전을 통해 본 과학과 우리의 우리의우리의우리의우리의</li>
-					</ul>
-				</div>
-
-				<div class="planList">
-					<p class="datetime">2020-09-09</p>
-					<p class="title"><em>[도서관행사]</em> 수성인문학@Suseong 6회차</p>
-					<ul>
-						<li>일시 : 9월 9일(수) 오후 2시  방법 : 유튜브(도서관 채널)를 통한 강연강연강연강연강연강연</li>
-						<li>강사 : 방인(경북대교수)  주제 : 동양 고전을 통해 본 과학과 우리의 우리의우리의우리의우리의</li>
-					</ul>
-				</div>
-
-				<div class="planList">
-					<p class="datetime">2020-09-09</p>
-					<p class="title"><em>[도서관행사]</em> 수성인문학@Suseong 6회차</p>
-					<ul>
-						<li>일시 : 9월 9일(수) 오후 2시  방법 : 유튜브(도서관 채널)를 통한 강연강연강연강연강연강연</li>
-						<li>강사 : 방인(경북대교수)  주제 : 동양 고전을 통해 본 과학과 우리의 우리의우리의우리의우리의</li>
-					</ul>
-				</div>
 			</div>
 		</div>
 	</div>

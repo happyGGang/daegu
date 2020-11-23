@@ -4,7 +4,7 @@ package kr.co.whalesoft.framework.utils;
 public class BeanUtils extends Object implements Cloneable{
 	
 	private String homepage_id;
-	
+	private String subHomepageId;
 	private String editMode = "ADD";
 	private String menu_url;
 	private String auth_id;
@@ -100,5 +100,13 @@ public class BeanUtils extends Object implements Cloneable{
 
 	public void setWork_reason(String work_reason) {
 		this.work_reason = work_reason;
+	}
+
+	public String getSubHomepageId() {
+		return subHomepageId;
+	}
+
+	public void setSubHomepageId(String subHomepageId) {
+		this.subHomepageId = subHomepageId;
 	}
 }

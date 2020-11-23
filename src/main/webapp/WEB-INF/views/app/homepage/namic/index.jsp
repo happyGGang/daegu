@@ -190,32 +190,32 @@ do {
 					<ul>
 
 						<li class="qm1">
-							<a href="#">
+							<a href="/${homepage.context_path}/html.do?menu_idx=17">
 								<span>이용안내</span>
 							</a>
 						</li>
 						<li class="qm2">
-							<a href="#">
+							<a href="/${homepage.context_path}/intro/search/loan/history.do?menu_idx=53">
 								<span>대출현황</span>
 							</a>
 						</li>
 						<li class="qm3">
-							<a href="#">
+							<a href="/${homepage.context_path}/html.do?menu_idx=15">
 								<span>희망도서</span>
 							</a>
 						</li>
 						<li class="qm4">
-							<a href="#">
+							<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=36">
 								<span>이달의행사</span>
 							</a>
 						</li>
 						<li class="qm5">
-							<a href="#">
+							<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=32">
 								<span>문화프로그램</span>
 							</a>
 						</li>
 						<li class="qm6">
-							<a href="#">
+							<a href="/${homepage.context_path}/html.do?menu_idx=25">
 								<span>대구전자도서관</span>
 							</a>
 						</li>
@@ -233,7 +233,7 @@ do {
 						<li class="on"><a href="#tab1" class='t-tabs' data-link="/${homepage.context_path}/board/index.do?menu_idx=85&manage_idx=606">사서추천도서</a></li>
 						<li><a href="#tab2" class='t-tabs' data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=10">신착도서</a></li>
 					</ul>
-					<a href="/${homepage.context_path}/board/index.do?menu_idx=85&manage_idx=606" class="btn-more book-more">더보기</a>
+					<a href="/${homepage.context_path}/board/index.do?menu_idx=85&manage_idx=606" class="btn-more book-more more-more">더보기</a>
 
 					<div class="box con" data-tab="tab1">
 						<ul class="book_photo">
@@ -260,7 +260,7 @@ do {
 											</c:otherwise>
 										</c:choose>
 									</span>
-										<span class="con-title">${i.title}</span>
+										<span class="con-title">${fn:substring(i.title, 0, 10)}<c:if test="${fn:length(i.title) > 10}">...</c:if></span>
 									</a>
 								</li>
 							</c:forEach>
@@ -312,7 +312,7 @@ do {
 												</span>
 
 												<span class="desc">
-												${fn:substring(i.content_summary, 0, 15)}<c:if test="${fn:length(i.content_summary) > 15}">...</c:if>
+												${fn:substring(i.content_summary, 0, 80)}<c:if test="${fn:length(i.content_summary) > 80}">...</c:if>
 												</span>
 
 											</span>
