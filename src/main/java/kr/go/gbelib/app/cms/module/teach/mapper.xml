@@ -29,7 +29,7 @@
 			a.homepage_id, a.group_idx, a.category_idx, a.teach_idx, a.teach_name, a.teach_desc, a.TEACH_ETC, a.teach_stage, a.teach_target, a.LIMIT_HAK, a.LIMIT_HAK2,
 			a.TEACH_STATUS, a.TEACH_LIMIT_COUNT, a.TEACH_JOIN_UNIT, a.TEACH_BACKUP_COUNT, a.TEACH_OFFLINE_COUNT, a.start_join_date,
 			a.start_join_time, a.end_join_date, a.end_join_time, a.teach_day, a.start_date, a.START_TIME, a.TEACH_COUNT,
-			a.end_date, a.END_TIME, a.org_file_name, a.MEMBER_YN, a.use_yn, a.CERTIFICATE_YN, a.SURVEY_IDX, a.TEACH_JOIN_LIMIT_UNIT, a.TEACH_JOIN_LIMIT_VALUE,TO_CHAR(a.ADD_DATE, 'YYYY-MM-DD') AS ADD_DATE,
+			a.end_date, a.END_TIME, a.org_file_name, a.MEMBER_YN, a.teach_age_type, a.sms_service_yn, a.picture_use_yn, a.use_yn, a.CERTIFICATE_YN, a.SURVEY_IDX, a.TEACH_JOIN_LIMIT_UNIT, a.TEACH_JOIN_LIMIT_VALUE,TO_CHAR(a.ADD_DATE, 'YYYY-MM-DD') AS ADD_DATE,
 			b.TEACHER_NAME, b.TEACHER_BIRTH, A.family_count_yn, A.agent_yn, A.school_info_yn, A.school_grade_yn, A.remark_yn,
 			c.CATEGORY_NAME, d.GROUP_NAME,
 			NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='1' AND	APPLY_TYPE != 'CMS' GROUP BY teach_idx), 0) AS TEACH_JOIN_COUNT,
@@ -77,7 +77,7 @@
 				a.homepage_id, a.group_idx, a.category_idx, a.teach_idx, a.teach_name, a.teach_desc, a.TEACH_ETC, a.teach_stage, a.teach_target, a.LIMIT_HAK,a.LIMIT_HAK2,
 				a.TEACH_STATUS, a.TEACH_LIMIT_COUNT, a.TEACH_JOIN_UNIT, a.TEACH_BACKUP_COUNT, a.TEACH_OFFLINE_COUNT, a.start_join_date,
 				a.start_join_time, a.end_join_date, a.end_join_time, a.teach_day, a.start_date, a.START_TIME, a.TEACH_COUNT,
-				a.end_date, a.END_TIME, a.org_file_name, a.server_file_name, a.file_extension, a.file_size, a.MEMBER_YN, a.use_yn, a.CERTIFICATE_YN, a.SURVEY_IDX, a.TEACH_JOIN_LIMIT_UNIT, a.TEACH_JOIN_LIMIT_VALUE,
+				a.end_date, a.END_TIME, a.org_file_name, a.server_file_name, a.file_extension, a.file_size, a.MEMBER_YN, a.teach_age_type, a.sms_service_yn, a.picture_use_yn, a.use_yn, a.CERTIFICATE_YN, a.SURVEY_IDX, a.TEACH_JOIN_LIMIT_UNIT, a.TEACH_JOIN_LIMIT_VALUE,
 				b.TEACHER_NAME, b.TEACHER_BIRTH, A.family_count_yn, A.agent_yn, A.school_info_yn, A.school_grade_yn, A.remark_yn,
 				c.CATEGORY_NAME, d.GROUP_NAME,
 				NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='1' AND	APPLY_TYPE != 'CMS' GROUP BY teach_idx), 0) AS TEACH_JOIN_COUNT,
@@ -155,7 +155,7 @@
 				a.homepage_id, a.group_idx, a.category_idx, a.teach_idx, a.teach_name, a.teach_desc, a.TEACH_ETC, a.teach_stage, a.teach_target, a.LIMIT_HAK, a.calendar_view_yn,a.LIMIT_HAK2,
 				a.TEACH_LIMIT_COUNT, a.TEACH_JOIN_UNIT, a.TEACH_BACKUP_COUNT, a.TEACH_OFFLINE_COUNT, a.start_join_date,
 				a.start_join_time, a.end_join_date, a.end_join_time, a.teach_day, a.start_date, a.START_TIME, a.print_seq, a.TEACH_COUNT,
-				a.end_date, a.END_TIME, a.org_file_name, a.server_file_name, a.file_extension, a.file_size, a.MEMBER_YN, a.use_yn,
+				a.end_date, a.END_TIME, a.org_file_name, a.server_file_name, a.file_extension, a.file_size, a.MEMBER_YN, a.teach_age_type, a.sms_service_yn, a.picture_use_yn, a.use_yn,
 				a.CERTIFICATE_YN, a.SURVEY_IDX, a.teacher_idx, a.TEACH_SAME_LIMIT_COUNT, a.TEACH_JOIN_LIMIT_UNIT, a.TEACH_JOIN_LIMIT_VALUE, a.FAMILY_YN,
 				b.TEACHER_NAME, b.TEACHER_BIRTH, a.address_yn, a.remark_comment,
 				c.CATEGORY_NAME, d.GROUP_NAME,
@@ -224,7 +224,7 @@
 			IMAGE_file_extension,
 			IMAGE_file_size,
 			</if>
-			FAMILY_YN, MEMBER_YN, use_yn, CERTIFICATE_YN, SURVEY_IDX, ADD_DATE, ADD_ID, TEACH_JOIN_LIMIT_UNIT, TEACH_JOIN_LIMIT_VALUE,
+			FAMILY_YN, MEMBER_YN, teach_age_type, sms_service_yn, picture_use_yn, use_yn, CERTIFICATE_YN, SURVEY_IDX, ADD_DATE, ADD_ID, TEACH_JOIN_LIMIT_UNIT, TEACH_JOIN_LIMIT_VALUE,
 			family_count_yn, agent_yn, school_info_yn, school_grade_yn, remark_yn, address_yn, remark_comment,
 			neis_location_yn, neis_cd_yn, neis_training_num_yn, large_category_idx, rank_yn, organization_yn, course_taken_yn, birth_yn, sex_yn,
 			program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
@@ -247,7 +247,7 @@
 			#{image_file_extension},
 			#{image_file_size},
 			</if>
-			#{family_yn}, #{member_yn}, #{use_yn}, #{certificate_yn}, #{survey_idx}, SYSDATE, #{add_id}, #{teach_join_limit_unit}, #{teach_join_limit_value},
+			#{family_yn}, #{member_yn}, #{teach_age_type}, #{sms_service_yn}, #{picture_use_yn}, #{use_yn}, #{certificate_yn}, #{survey_idx}, SYSDATE, #{add_id}, #{teach_join_limit_unit}, #{teach_join_limit_value},
 			#{family_count_yn}, #{agent_yn}, #{school_info_yn}, #{school_grade_yn}, #{remark_yn}, #{address_yn}, #{remark_comment},
 			#{neis_location_yn}, #{neis_cd_yn}, #{neis_training_num_yn}, #{large_category_idx}, #{rank_yn}, #{organization_yn}, #{course_taken_yn}, #{birth_yn}, #{sex_yn},
 			#{program_classification1}, #{program_classification2}, #{program_classification3}, #{program_subject}, #{program_age_div},
@@ -351,6 +351,9 @@
 			course_taken_yn = #{course_taken_yn},
 			calendar_view_yn	= #{calendar_view_yn},
 			member_yn			= #{member_yn},
+			teach_age_type      = #{teach_age_type},
+			sms_service_yn      = #{sms_service_yn},
+			picture_use_yn      = #{picture_use_yn},
 			family_yn			= #{family_yn},
 			address_yn			= #{address_yn},
 			remark_comment			= #{remark_comment},
@@ -454,7 +457,7 @@
 				A.TEACH_LIMIT_COUNT, A.TEACH_JOIN_UNIT, A.TEACH_BACKUP_COUNT, A.TEACH_OFFLINE_COUNT, A.start_join_date,
 				A.start_join_time, A.end_join_date, A.end_join_time, A.teach_day, A.start_date, A.START_TIME,
 				A.end_date, A.END_TIME, A.CANCLE_use_yn, A.START_CANCLE_DATE, A.START_CANCLE_TIME, A.END_CANCLE_DATE, A.END_CANCLE_TIME, A.CANCLE_GUID,
-				A.org_file_name, A.server_file_name, A.file_extension, A.file_size, A.MEMBER_YN, A.CERTIFICATE_YN, A.TEACHER_NAME,A.MEMBER_KEY,
+				A.org_file_name, A.server_file_name, A.file_extension, A.file_size, A.MEMBER_YN, A.teach_age_type, A.sms_service_yn, A.picture_use_yn, A.CERTIFICATE_YN, A.TEACHER_NAME,A.MEMBER_KEY,
 				A.CATEGORY_NAME, A.TEACH_JOIN_COUNT, A.TEACH_BACKUP_JOIN_COUNT, A.TEACH_OFF_JOIN_COUNT, A.GROUP_NAME,
 				A.IMAGE_org_file_name, A.image_server_file_name, A.IMAGE_file_extension, A.IMAGE_file_size, a.LIMIT_HAK_YN,
 				a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
@@ -476,7 +479,7 @@
 				a.TEACH_LIMIT_COUNT, a.TEACH_JOIN_UNIT, a.TEACH_BACKUP_COUNT, a.TEACH_OFFLINE_COUNT, a.start_join_date,
 				a.start_join_time, a.end_join_date, a.end_join_time, a.teach_day, a.start_date, a.START_TIME,
 				a.end_date, a.END_TIME, a.cancle_use_yn, a.start_cancle_date, a.start_cancle_time, a.end_cancle_date, a.end_cancle_time, a.cancle_guid,
-				a.org_file_name, a.server_file_name, a.file_extension, a.file_size, a.MEMBER_YN, a.CERTIFICATE_YN, a.TEACH_JOIN_LIMIT_UNIT, a.TEACH_JOIN_LIMIT_VALUE,
+				a.org_file_name, a.server_file_name, a.file_extension, a.file_size, a.MEMBER_YN, a.teach_age_type, a.sms_service_yn, a.picture_use_yn, a.CERTIFICATE_YN, a.TEACH_JOIN_LIMIT_UNIT, a.TEACH_JOIN_LIMIT_VALUE,
 				b.TEACHER_NAME,b.MEMBER_KEY,
 				c.CATEGORY_NAME,d.GROUP_NAME, a.start_join_date||' '||a.start_join_time REQ_start_date, a.end_join_date||' '||a.end_join_time REQ_end_date,
 				NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='1' AND	APPLY_TYPE != 'CMS' GROUP BY teach_idx), 0) AS TEACH_JOIN_COUNT,
@@ -579,7 +582,7 @@
 				as TEACH_STATUS, A.homepage_id, A.group_idx, A.category_idx, A.teach_idx, A.teach_name, A.teach_desc, A.TEACH_ETC, A.teach_stage, A.teach_target, A.LIMIT_HAK, a.LIMIT_HAK2,
 					A.TEACH_LIMIT_COUNT, A.TEACH_JOIN_UNIT, A.TEACH_BACKUP_COUNT, A.TEACH_OFFLINE_COUNT, A.start_join_date,
 					A.start_join_time, A.end_join_date, A.end_join_time, A.teach_day, A.start_date, A.START_TIME,
-					A.end_date, A.END_TIME, A.org_file_name, A.server_file_name, A.file_extension, A.file_size, A.MEMBER_YN, A.CERTIFICATE_YN, A.TEACHER_NAME,A.MEMBER_KEY,
+					A.end_date, A.END_TIME, A.org_file_name, A.server_file_name, A.file_extension, A.file_size, A.MEMBER_YN, A.teach_age_type, A.sms_service_yn, A.picture_use_yn, A.CERTIFICATE_YN, A.TEACHER_NAME,A.MEMBER_KEY,
 					A.CATEGORY_NAME, A.TEACH_JOIN_COUNT, A.TEACH_BACKUP_JOIN_COUNT, A.TEACH_OFF_JOIN_COUNT, A.GROUP_NAME,
 					A.IMAGE_org_file_name, A.image_server_file_name, A.IMAGE_file_extension, A.IMAGE_file_size,
 					(SELECT homepage_alias FROM CMS_HOMEPAGE WHERE homepage_id = A.homepage_id) AS homepage_alias,
@@ -603,7 +606,7 @@
 					a.homepage_id, a.group_idx, a.category_idx, a.teach_idx, a.teach_name, a.teach_desc, a.TEACH_ETC, a.teach_stage, a.teach_target, a.LIMIT_HAK, a.LIMIT_HAK2,
 					a.TEACH_LIMIT_COUNT, a.TEACH_JOIN_UNIT, a.TEACH_BACKUP_COUNT, a.TEACH_OFFLINE_COUNT, a.start_join_date,
 					a.start_join_time, a.end_join_date, a.end_join_time, a.teach_day, a.start_date, a.START_TIME,
-					a.end_date, a.END_TIME, a.org_file_name, a.server_file_name, a.file_extension, a.file_size, a.MEMBER_YN, a.CERTIFICATE_YN, a.TEACH_JOIN_LIMIT_UNIT, a.TEACH_JOIN_LIMIT_VALUE,
+					a.end_date, a.END_TIME, a.org_file_name, a.server_file_name, a.file_extension, a.file_size, a.MEMBER_YN, a.teach_age_type, a.sms_service_yn, a.picture_use_yn, a.CERTIFICATE_YN, a.TEACH_JOIN_LIMIT_UNIT, a.TEACH_JOIN_LIMIT_VALUE,
 					b.TEACHER_NAME,b.MEMBER_KEY,
 					c.CATEGORY_NAME,d.GROUP_NAME, a.start_join_date||' '||a.start_join_time REQ_start_date, a.end_join_date||' '||a.end_join_time REQ_end_date,
 					NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='1' AND	APPLY_TYPE != 'CMS' GROUP BY teach_idx), 0) AS TEACH_JOIN_COUNT,
@@ -661,7 +664,7 @@
 					AND	use_yn = 'Y'
 					AND	delete_yn = 'N'
 					AND	homepage_id != 'h32'
-<!-- 					OR	large_category_idx != 16 -->
+<!-- 					OR	large_category_idx != 16  -->
 					) a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d
 				WHERE a.homepage_id = b.homepage_id(+)
 					AND	a.teacher_idx = b.teacher_idx(+)
@@ -741,7 +744,7 @@
 				as TEACH_STATUS, A.homepage_id, A.group_idx, A.category_idx, A.teach_idx, A.teach_name, A.teach_desc, A.TEACH_ETC, A.teach_stage, A.teach_target, A.LIMIT_HAK, a.LIMIT_HAK2,
 					A.TEACH_LIMIT_COUNT, A.TEACH_JOIN_UNIT, A.TEACH_BACKUP_COUNT, A.TEACH_OFFLINE_COUNT, A.start_join_date,
 					A.start_join_time, A.end_join_date, A.end_join_time, A.teach_day, A.start_date, A.START_TIME,
-					A.end_date, A.END_TIME, A.org_file_name, A.server_file_name, A.file_extension, A.file_size, A.MEMBER_YN, A.CERTIFICATE_YN, A.TEACHER_NAME,A.MEMBER_KEY,
+					A.end_date, A.END_TIME, A.org_file_name, A.server_file_name, A.file_extension, A.file_size, A.MEMBER_YN, A.teach_age_type, A.sms_service_yn, A.picture_use_yn, A.CERTIFICATE_YN, A.TEACHER_NAME,A.MEMBER_KEY,
 					A.CATEGORY_NAME, A.TEACH_JOIN_COUNT, A.TEACH_BACKUP_JOIN_COUNT, A.TEACH_OFF_JOIN_COUNT, A.GROUP_NAME,
 					A.IMAGE_org_file_name, A.image_server_file_name, A.IMAGE_file_extension, A.IMAGE_file_size,
 					(SELECT homepage_alias FROM CMS_HOMEPAGE WHERE homepage_id = A.homepage_id) AS homepage_alias,
@@ -758,7 +761,7 @@
 					a.homepage_id, a.group_idx, a.category_idx, a.teach_idx, a.teach_name, a.teach_desc, a.TEACH_ETC, a.teach_stage, a.teach_target, a.LIMIT_HAK, a.LIMIT_HAK2,
 					a.TEACH_LIMIT_COUNT, a.TEACH_JOIN_UNIT, a.TEACH_BACKUP_COUNT, a.TEACH_OFFLINE_COUNT, a.start_join_date,
 					a.start_join_time, a.end_join_date, a.end_join_time, a.teach_day, a.start_date, a.START_TIME,
-					a.end_date, a.END_TIME, a.org_file_name, a.server_file_name, a.file_extension, a.file_size, a.MEMBER_YN, a.CERTIFICATE_YN, a.TEACH_JOIN_LIMIT_UNIT, a.TEACH_JOIN_LIMIT_VALUE,
+					a.end_date, a.END_TIME, a.org_file_name, a.server_file_name, a.file_extension, a.file_size, a.MEMBER_YN, a.teach_age_type, a.sms_service_yn, a.picture_use_yn, a.CERTIFICATE_YN, a.TEACH_JOIN_LIMIT_UNIT, a.TEACH_JOIN_LIMIT_VALUE,
 					b.TEACHER_NAME,b.MEMBER_KEY,
 					c.CATEGORY_NAME,d.GROUP_NAME, a.start_join_date||' '||a.start_join_time REQ_start_date, a.end_join_date||' '||a.end_join_time REQ_end_date,
 					NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='1' AND	APPLY_TYPE != 'CMS' GROUP BY teach_idx), 0) AS TEACH_JOIN_COUNT,
@@ -883,7 +886,7 @@
 			as teach_status, A.homepage_id, A.group_idx, A.category_idx, A.teach_idx, A.teach_name, A.teach_desc, A.TEACH_ETC, A.teach_stage, A.teach_target, A.LIMIT_HAK, a.LIMIT_HAK2,
 				A.TEACH_LIMIT_COUNT, A.TEACH_JOIN_UNIT, A.TEACH_BACKUP_COUNT, A.TEACH_OFFLINE_COUNT, A.start_join_date,
 				A.start_join_time, A.end_join_date, A.end_join_time, A.teach_day, A.start_date, A.START_TIME,
-				A.end_date, A.END_TIME, A.org_file_name, A.server_file_name, A.file_extension, A.file_size, A.MEMBER_YN, A.CERTIFICATE_YN, A.TEACHER_NAME,
+				A.end_date, A.END_TIME, A.org_file_name, A.server_file_name, A.file_extension, A.file_size, A.MEMBER_YN, A.teach_age_type, A.sms_service_yn, A.picture_use_yn, A.CERTIFICATE_YN, A.TEACHER_NAME,
 				A.CATEGORY_NAME, A.TEACH_JOIN_COUNT, A.TEACH_BACKUP_JOIN_COUNT, A.TEACH_OFF_JOIN_COUNT, A.GROUP_NAME,
 				A.IMAGE_org_file_name, A.image_server_file_name, A.IMAGE_file_extension, A.IMAGE_file_size, a.LIMIT_HAK_YN,
 				a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
@@ -898,7 +901,7 @@
 				a.homepage_id, a.group_idx, a.category_idx, a.teach_idx, a.teach_name, a.teach_desc, a.TEACH_ETC, a.teach_stage, a.teach_target, a.LIMIT_HAK, a.LIMIT_HAK2,
 				a.TEACH_LIMIT_COUNT, a.TEACH_JOIN_UNIT, a.TEACH_BACKUP_COUNT, a.TEACH_OFFLINE_COUNT, a.start_join_date,
 				a.start_join_time, a.end_join_date, a.end_join_time, a.teach_day, a.start_date, a.START_TIME,
-				a.end_date, a.END_TIME, a.org_file_name, a.server_file_name, a.file_extension, a.file_size, a.MEMBER_YN, a.CERTIFICATE_YN, a.TEACH_JOIN_LIMIT_UNIT, a.TEACH_JOIN_LIMIT_VALUE,
+				a.end_date, a.END_TIME, a.org_file_name, a.server_file_name, a.file_extension, a.file_size, a.MEMBER_YN, a.teach_age_type, a.sms_service_yn, a.picture_use_yn, a.CERTIFICATE_YN, a.TEACH_JOIN_LIMIT_UNIT, a.TEACH_JOIN_LIMIT_VALUE,
 				b.TEACHER_NAME,
 				c.CATEGORY_NAME,d.GROUP_NAME, a.start_join_date||' '||a.start_join_time REQ_start_date, a.end_join_date||' '||a.end_join_time REQ_end_date,
 				NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='1' AND	APPLY_TYPE != 'CMS' GROUP BY teach_idx), 0) AS TEACH_JOIN_COUNT,
@@ -989,7 +992,7 @@
 				A.TEACH_LIMIT_COUNT, A.TEACH_JOIN_UNIT, A.TEACH_BACKUP_COUNT, A.TEACH_OFFLINE_COUNT, A.start_join_date,
 				A.start_join_time, A.end_join_date, A.end_join_time, A.teach_day, A.start_date, A.START_TIME,
 				A.end_date, A.END_TIME, A.CANCLE_use_yn, A.START_CANCLE_DATE, A.START_CANCLE_TIME, A.END_CANCLE_DATE, A.END_CANCLE_TIME, A.CANCLE_GUID,
-				A.org_file_name, A.server_file_name, A.file_extension, A.file_size, A.MEMBER_YN, A.CERTIFICATE_YN, A.TEACHER_NAME,
+				A.org_file_name, A.server_file_name, A.file_extension, A.file_size, A.MEMBER_YN, A.teach_age_type, A.sms_service_yn, A.picture_use_yn, A.CERTIFICATE_YN, A.TEACHER_NAME,
 				A.CATEGORY_NAME, A.TEACH_JOIN_COUNT, A.TEACH_BACKUP_JOIN_COUNT, A.TEACH_OFF_JOIN_COUNT, A.GROUP_NAME, A.STUDENT_IDX,A.STUDENT_NAME, A.STUDENT_BIRTH, A.STUDENT_SEX,
 			CASE
 				WHEN A.CNT = 0
@@ -1020,7 +1023,7 @@
 				a.TEACH_LIMIT_COUNT, a.TEACH_JOIN_UNIT, a.TEACH_BACKUP_COUNT, a.TEACH_OFFLINE_COUNT, a.start_join_date,
 				a.start_join_time, a.end_join_date, a.end_join_time, a.teach_day, a.start_date, a.START_TIME,
 				a.end_date, a.END_TIME, a.cancle_use_yn, a.start_cancle_date, a.start_cancle_time, a.end_cancle_date, a.end_cancle_time, a.cancle_guid,
-				a.org_file_name, a.server_file_name, a.file_extension, a.file_size, a.MEMBER_YN, a.CERTIFICATE_YN, a.TEACH_JOIN_LIMIT_UNIT, a.TEACH_JOIN_LIMIT_VALUE,
+				a.org_file_name, a.server_file_name, a.file_extension, a.file_size, a.MEMBER_YN, a.teach_age_type, a.sms_service_yn, a.picture_use_yn, a.CERTIFICATE_YN, a.TEACH_JOIN_LIMIT_UNIT, a.TEACH_JOIN_LIMIT_VALUE,
 				b.TEACHER_NAME, e.CANCEL_ID, e.student_name, e.student_birth, e.student_sex,
 				c.CATEGORY_NAME,d.GROUP_NAME, a.start_join_date||' '||a.start_join_time REQ_start_date, a.end_join_date||' '||a.end_join_time REQ_end_date,
 				NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='1' AND	APPLY_TYPE != 'CMS' GROUP BY teach_idx), 0) AS TEACH_JOIN_COUNT,
@@ -1144,9 +1147,19 @@
 				teach_target, teach_desc, image_server_file_name, teach_stage
 			FROM
 				TEACH
-			WHERE 1 = 1
-				AND	homepage_id = #{homepage_id}
-				AND	delete_yn = 'N' AND	use_yn = 'Y'
+			WHERE
+				<if test="homepage_id != null">
+					homepage_id = #{homepage_id}
+				</if>
+				<if test="homepage_id == null">
+					homepage_id IN
+					<foreach collection="list" item="homepage_ids" index="i" open="(" close=")" separator=",">
+						#{i}
+					</foreach>
+				</if>
+
+				homepage_id = #{homepage_id}
+			AND	delete_yn = 'N' AND	use_yn = 'Y'
 			ORDER BY
 				ABS(SYSDATE - (TO_DATE(start_join_date ||' '|| start_join_time, 'YYYY-MM-DD HH24:MI'))) ASC,
 				ABS(SYSDATE - (TO_DATE(end_join_date ||' '|| end_join_time, 'YYYY-MM-DD HH24:MI'))) ASC,

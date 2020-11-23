@@ -95,7 +95,8 @@ public class StudentController extends BaseController {
 			student.setMember_key(getSessionMemberId(request));
 		}
 
-		if ( !homepage.getHomepage_id().equals("h32") ) {
+		//대표, 달서구, 동구, 서구, 중구는 제외
+		if ( !homepage.getHomepage_id().equals("h32") && !homepage.getHomepage_id().equals("h37") && !homepage.getHomepage_id().equals("h49") && !homepage.getHomepage_id().equals("h45") && !homepage.getHomepage_id().equals("h53") ) {
 			student.setHomepage_id(homepage.getHomepage_id());
 		}
 
@@ -173,7 +174,11 @@ public class StudentController extends BaseController {
 				ValidationUtils.rejectIfEmpty(result, "applicant_sex", "신청자 성별을 선택하세요.");
 			}
 			ValidationUtils.rejectIfEmpty(result, "applicant_cell_phone", "신청자 휴대전화번호를 입력하세요.");
-			ValidationUtils.rejectPhone(result, "applicant_cell_phone", "휴대전화번호 형식이 잘못되었습니다.");
+			ValidationUtils.rejectPhone(result, "applicant_cell_phone", "신청자 휴대전화번호 형식이 잘못되었습니다.");
+			
+			if (StringUtils.equals(teachOne.getTeach_age_type(), "child") && StringUtils.equals(teachOne.getFamily_yn(), "Y")) {
+				ValidationUtils.rejectPhone(result, "family_cell_phone", "보호자 휴대전화번호 형식이 잘못되었습니다.");
+			}
 
 			teachOne = teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));
 

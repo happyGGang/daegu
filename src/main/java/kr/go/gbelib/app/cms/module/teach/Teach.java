@@ -79,6 +79,7 @@ public class Teach extends PagingUtils {
 	private String image_file_extension;  //파일확장자
 	private long image_file_size;  //파일 사이즈
 	private String member_yn = "N";  //정회원전용여부
+	private String teach_age_type = "adult";  //강의유형(성인강의, 어린이강의)
 	private String use_yn = "Y";  //사용여부
 	private int print_seq;
 	private String certificate_yn = "N";  //수료증발급여부
@@ -91,6 +92,8 @@ public class Teach extends PagingUtils {
 	private String family_yn = "N"; //가족 프로그램 여부(부모동의)
 	private String family_count_yn = "N"; //가족 프로그램 여부
 	private String agent_yn = "N";//대리신청여부
+	private String sms_service_yn = "Y";  //sms 수신 동의 여부
+	private String picture_use_yn = "Y";  //사진 촬영 동의 여부
 	private String school_info_yn = "N";//학교 입력여부
 	private String school_grade_yn = "N";//학년 입력여부
 	private String limit_hak_yn = "N"; //학년제한사용여부
@@ -173,6 +176,7 @@ public class Teach extends PagingUtils {
 	private String terms; // 약관여부 선택
 	private String apply_file_yn = "N"; // 신청첨부파일 여부
 
+	private List<String> homepage_ids;
 	public Teach() {}
 
 	public Teach(String homepage_id, int mainViewCount) {
@@ -364,6 +368,12 @@ public class Teach extends PagingUtils {
 	}
 	public void setMember_yn(String member_yn) {
 		this.member_yn = member_yn;
+	}
+	public String getTeach_age_type() {
+		return teach_age_type;
+	}
+	public void setTeach_age_type(String teach_age_type) {
+		this.teach_age_type = teach_age_type;
 	}
 	public String getUse_yn() {
 		return use_yn;
@@ -844,6 +854,25 @@ public class Teach extends PagingUtils {
 		this.agent_yn = agent_yn;
 	}
 
+	
+	public String getSms_service_yn() {
+		return sms_service_yn;
+	}
+
+	
+	public void setSms_service_yn(String sms_service_yn) {
+		this.sms_service_yn = sms_service_yn;
+	}
+
+	
+	public String getPicture_use_yn() {
+		return picture_use_yn;
+	}
+
+	
+	public void setPicture_use_yn(String picture_use_yn) {
+		this.picture_use_yn = picture_use_yn;
+	}
 
 	public String getSchool_info_yn() {
 		return school_info_yn;
@@ -1381,6 +1410,23 @@ public class Teach extends PagingUtils {
 
 	public void setApply_file_yn(String apply_file_yn) {
 		this.apply_file_yn = apply_file_yn;
+	}
+
+	public List<String> getHomepage_ids() {
+		if (homepage_ids != null) {
+			List<String> arrayList = new ArrayList<String>();
+			arrayList.addAll(this.homepage_ids);
+			return arrayList;
+		} else {
+			return null;
+		}
+	}
+
+	public void setHomepage_ids(List<String> homepage_ids) {
+		if (homepage_ids != null) {
+			this.homepage_ids = new ArrayList<String>();
+			this.homepage_ids.addAll(homepage_ids);
+		}
 	}
 
 }

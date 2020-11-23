@@ -98,8 +98,21 @@ public class TeachController extends BaseController {
 	public String index(Model model, Teach teach, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 //		if ( !getSessionIsAdmin(request) ) {
-			teach.setHomepage_id(getAsideHomepageId(request));
+//			teach.setHomepage_id(getAsideHomepageId(request));
 //		}
+
+		if ((getAsideHomepageId(request).equals("h37") || getAsideHomepageId(request).equals("h49") || getAsideHomepageId(request).equals("h45") || getAsideHomepageId(request).equals("h53"))) {
+			Homepage sessionHomepageInfo = getSessionHomepageInfo(request);
+			sessionHomepageInfo.setHomepage_group(getAsideHomepageId(request));
+			sessionHomepageInfo.setTemp_use_yn("Y");
+			List<Homepage> subHomepageList = homepageService.getSubHomepageList(sessionHomepageInfo);
+			if (StringUtils.isEmpty(teach.getHomepage_id())) {
+				teach.setHomepage_id(subHomepageList.get(0).getHomepage_id());
+			}
+			model.addAttribute("subHomepageList", subHomepageList);
+		} else {
+			teach.setHomepage_id(getAsideHomepageId(request));
+		}
 
 		int count = teachService.getTeachListCount(teach);
 		teachService.setPaging(model, count, teach);
@@ -254,11 +267,11 @@ public class TeachController extends BaseController {
 				ValidationUtils.rejectIfEmpty(result, "end_join_date","강의모집 종료 기간을 선택하세요.");
 				ValidationUtils.rejectIfEmpty(result, "start_join_time","강의모집 시작 시간을 입력하세요.");
 				ValidationUtils.rejectIfEmpty(result, "end_join_time","강의모집 종료 시간을 입력하세요.");
+				ValidationUtils.rejectIfEmpty(result, "teach_day","강의요일을 선택하세요.");
 				ValidationUtils.rejectIfEmpty(result, "start_date","강의시작 기간을 선택하세요.");
-				ValidationUtils.rejectIfEmpty(result, "start_time","강의시작 시간을 입력하세요.");
 				ValidationUtils.rejectIfEmpty(result, "end_date", "강의종료 기간을 선택하세요.");
+				ValidationUtils.rejectIfEmpty(result, "start_time","강의시작 시간을 입력하세요.");
 				ValidationUtils.rejectIfEmpty(result, "end_time", "강의종료 시간을 입력하세요.");
-				ValidationUtils.rejectIfEmpty(result, "teach_day","강의요일을 선택해 주세요.");
 
 				if ( !result.hasErrors() ) {
 
