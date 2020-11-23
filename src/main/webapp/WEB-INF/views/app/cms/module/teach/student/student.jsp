@@ -252,14 +252,18 @@ $(function(){
 		        		htmlArr.push('<td>'+v.applicant_zipcode 	+'<input type="hidden" name="studentList['+i+'].applicant_zipcode" value="'+v.applicant_zipcode+'"></td>');
 		        		htmlArr.push('<td>'+v.applicant_address 	+'<input type="hidden" name="studentList['+i+'].applicant_address" value="'+v.applicant_address+'"></td>');
 		        		htmlArr.push('<td>'+v.applicant_cell_phone	+'<input type="hidden" name="studentList['+i+'].applicant_cell_phone" value="'+v.applicant_cell_phone+'"></td>');
+		        		htmlArr.push('<td>'+v.self_yn               +'<input type="hidden" name="studentList['+i+'].self_yn" value="'+v.self_yn+'"></td>');
 		        		htmlArr.push('<td>'+v.student_name 			+'<input type="hidden" name="studentList['+i+'].student_name" value="'+v.student_name+'"></td>');
 		        		htmlArr.push('<td>'+v.student_birth 		+'<input type="hidden" name="studentList['+i+'].student_birth" value="'+v.student_birth+'"></td>');
 		        		htmlArr.push('<td>'+v.student_sex 			+'<input type="hidden" name="studentList['+i+'].student_sex" value="'+v.student_sex+'"></td>');
 		        		htmlArr.push('<td>'+v.student_zipcode 		+'<input type="hidden" name="studentList['+i+'].student_zipcode" value="'+v.student_zipcode+'"></td>');
 		        		htmlArr.push('<td>'+v.student_address 		+'<input type="hidden" name="studentList['+i+'].student_address" value="'+v.student_address+'"></td>');
+		        		htmlArr.push('<td>'+v.picture_use_yn        +'<input type="hidden" name="studentList['+i+'].picture_use_yn" value="'+v.picture_use_yn+'"></td>');
+		        		htmlArr.push('<td>'+v.self_parent_yn        +'<input type="hidden" name="studentList['+i+'].self_parent_yn" value="'+v.self_parent_yn+'"></td>');
 		        		htmlArr.push('<td>'+v.family_relation 		+'<input type="hidden" name="studentList['+i+'].family_relation" value="'+v.family_relation+'"></td>');
 		        		htmlArr.push('<td>'+v.family_name 			+'<input type="hidden" name="studentList['+i+'].family_name" value="'+v.family_name+'"></td>');
 		        		htmlArr.push('<td>'+v.family_cell_phone		+'<input type="hidden" name="studentList['+i+'].family_cell_phone" value="'+v.family_cell_phone+'"></td>');
+		        		htmlArr.push('<td>'+v.sms_service_yn        +'<input type="hidden" name="studentList['+i+'].sms_service_yn" value="'+v.sms_service_yn+'"></td>');
 		        		htmlArr.push('<td>'+v.family_confirm_yn		+'<input type="hidden" name="studentList['+i+'].family_confirm_yn" value="'+v.family_confirm_yn+'"></td>');
 		        		htmlArr.push('<td>'+v.family_desc			+'<input type="hidden" name="studentList['+i+'].family_desc" value="'+v.family_desc+'"></td>');
 		        		htmlArr.push('<td>'+v.student_family_count	+'<input type="hidden" name="studentList['+i+'].student_family_count" value="'+v.student_family_count+'"></td>');
@@ -325,6 +329,10 @@ $(function(){
 	});
 
 	$('a#excelDownloadSample').on('click', function(e) {
+		if($('#teach_idx').val() == 0){
+			alert('강좌를 선택해 주세요.');
+			return false;
+		}
 		$('#studentListForm #homepage_id').clone().appendTo('#excelDownloadSampleForm');
 		$('#studentListForm #group_idx').clone().appendTo('#excelDownloadSampleForm');
 		$('#studentListForm #category_idx').clone().appendTo('#excelDownloadSampleForm');
@@ -539,15 +547,19 @@ $(function(){
 				<th>신청자 성별(남,여)</th>
 				<th>신청자 우편번호</th>
 				<th>신청자 주소</th>
-				<th>신청자 휴대전화번호번호</th>
-				<th>수강생 명동일여부</th>
+				<th>신청자 휴대전화번호</th>
+				<th>수강생-신청자 동일여부</th>
+				<th>수강생 명</th>
 				<th>수강생 생년월일</th>
 				<th>수강생 성별(남,여)</th>
 				<th>수강생 우편번호</th>
 				<th>수강생 주소</th>
+				<th>사진 촬영 동의 여부</th>
+				<th>보호자-신청자 동일여부</th>
 				<th>보호자 관계</th>
 				<th>보호자 성명</th>
 				<th>보호자 연락처</th>
+				<th>SMS 수신 동의 여부</th>
 				<th>보호자 동의 여부(Y,N)</th>
 				<th>보호자 비고여부</th>
 				<th>가족 인원 수</th>

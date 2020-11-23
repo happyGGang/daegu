@@ -23,26 +23,30 @@ public class XlsUpload implements Serializable {
 	private int applicant_zipcode 	= 4;  //신청자우편번호
 	private int applicant_address 	= 5;  //신청자주소
 	private int applicant_cell_phone = 6;  //신청자폰번호
-	private int student_name 		= 7;  //수강생명
-	private int student_birth 		= 8;  //수강생생년월일
-	private int student_sex 		= 9;  //수강생성별
-	private int student_zipcode 	= 10;  //수강생우편번호
-	private int student_address 	= 11;  //수강생주소
-	private int family_relation		= 12;  //보호자 관계
-	private int family_name 		= 13;  //보호자 이름
-	private int family_cell_phone	= 14;  //보호자 연락처
-	private int family_confirm_yn	= 15;  //보호자 동의 여부
-	private int family_desc	= 16;  //보호자 비고
-	private int student_family_count	= 17;  //가족인원수
-	private int student_school 		= 18;  //수강생학교
-	private int student_hack 		= 19;  //수강생학년
-	private int student_remark	= 20;  //일반 비고
-	private int student_location_code	= 21;  //나이스 지역코드
-	private int student_neis_cd	= 22;  //나이스 개인번호
-	private int student_training_num	= 23;  //나이스 연수지명번호
-	private int student_organization	= 24;  //기관
-	private int student_rank			= 25;  //직급
-	private int student_course_taken_yn	= 26;  //연수수강여부
+	private int self_yn             = 7;  //수강생-신청자 동일여부
+	private int student_name 		= 8;  //수강생명
+	private int student_birth 		= 9;  //수강생생년월일
+	private int student_sex 		= 10;  //수강생성별
+	private int student_zipcode 	= 11;  //수강생우편번호
+	private int student_address 	= 12;  //수강생주소
+	private int picture_use_yn      = 13;  //사진 촬영 동의 여부
+	private int self_parent_yn      = 14;  //보호자-신청자 동일여부
+	private int family_relation		= 15;  //보호자 관계
+	private int family_name 		= 16;  //보호자 이름
+	private int family_cell_phone	= 17;  //보호자 연락처
+	private int sms_service_yn      = 18;  //SMS 수신 동의 여부
+	private int family_confirm_yn	= 19;  //보호자 동의 여부
+	private int family_desc	= 20;  //보호자 비고
+	private int student_family_count	= 21;  //가족인원수
+	private int student_school 		= 22;  //수강생학교
+	private int student_hack 		= 23;  //수강생학년
+	private int student_remark	= 24;  //일반 비고
+	private int student_location_code	= 25;  //나이스 지역코드
+	private int student_neis_cd	= 26;  //나이스 개인번호
+	private int student_training_num	= 27;  //나이스 연수지명번호
+	private int student_organization	= 28;  //기관
+	private int student_rank			= 29;  //직급
+	private int student_course_taken_yn	= 30;  //연수수강여부
 
 //	private int self_info_yn 		= 16;  //개인정보동의여부
 //	private int self_yn 			= 7;  //본인수강여부
@@ -106,13 +110,13 @@ public class XlsUpload implements Serializable {
 		this.applicant_cell_phone = applicant_cell_phone;
 	}
 
-//	public int getSelf_yn() {
-//		return self_yn;
-//	}
-//
-//	public void setSelf_yn(int self_yn) {
-//		this.self_yn = self_yn;
-//	}
+	public int getSelf_yn() {
+		return self_yn;
+	}
+
+	public void setSelf_yn(int self_yn) {
+		this.self_yn = self_yn;
+	}
 
 	public int getStudent_name() {
 		return student_name;
@@ -161,6 +165,14 @@ public class XlsUpload implements Serializable {
 	public void setStudent_address(int student_address) {
 		this.student_address = student_address;
 	}
+	
+	public int getPicture_use_yn() {
+		return picture_use_yn;
+	}
+
+	public void setPicture_use_yn(int picture_use_yn) {
+		this.picture_use_yn = picture_use_yn;
+	}
 
 	public int getStudent_school() {
 		return student_school;
@@ -199,7 +211,15 @@ public class XlsUpload implements Serializable {
 	public void setMember_id(int member_id) {
 		this.member_id = member_id;
 	}
-
+	
+	public int getSelf_parent_yn() {
+		return self_parent_yn;
+	}
+	
+	public void setSelf_parent_yn(int self_parent_yn) {
+		this.self_parent_yn = self_parent_yn;
+	}
+	
 	public int getFamily_relation() {
 		return family_relation;
 	}
@@ -280,6 +300,14 @@ public class XlsUpload implements Serializable {
 
 	public void setFamily_cell_phone(int family_cell_phone) {
 		this.family_cell_phone = family_cell_phone;
+	}
+	
+	public int getSms_service_yn() {
+		return sms_service_yn;
+	}
+	
+	public void setSms_service_yn(int sms_service_yn) {
+		this.sms_service_yn = sms_service_yn;
 	}
 
 	public int getStudent_organization() {

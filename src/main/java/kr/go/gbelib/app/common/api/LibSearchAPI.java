@@ -797,6 +797,82 @@ public class LibSearchAPI {
 
 		return result;
 	}
+	
+	public static Map<String, Object> getPopularBookList(LibrarySearch librarySearch) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		Map<String, Object> result = null;
+		
+		param.put("startDt", librarySearch.getStartDt());
+		param.put("endDt", librarySearch.getEndDt());
+		param.put("pageNo", librarySearch.getViewPage());
+		param.put("pageSize", librarySearch.getRowCount());
+		
+		if(librarySearch.getGender() != null && !librarySearch.getGender().isEmpty()) {
+			param.put("gender", librarySearch.getGender());
+		}
+		if(librarySearch.getAge() != null && librarySearch.getAge().length != 0) {
+			String age[] = null;
+			String finalAge = "";
+			if(librarySearch.getAge().length > 1) {
+				age = librarySearch.getAge();
+				for(int i = 0; i < age.length; i++) {
+					if(i == 0) {
+						finalAge = age[i];
+					}else {
+						finalAge = finalAge + ";" + age[i];
+					}
+				}
+			}
+			param.put("age", finalAge);
+		}
+		if(librarySearch.getKdc() != null && librarySearch.getKdc().length != 0) {
+			String kdc[] = null;
+			String finalKdc = "";
+			if(librarySearch.getKdc().length > 1) {
+				kdc = librarySearch.getKdc();
+				for(int i = 0; i < kdc.length; i++) {
+					if(i == 0) {
+						finalKdc = kdc[i];
+					}else {
+						finalKdc = finalKdc + ";" + kdc[i];
+					}
+				}
+			}
+			param.put("kdc", finalKdc);
+		}
+		if(librarySearch.getRegion() != null && librarySearch.getRegion().length != 0) {
+			String region[] = null;
+			String finalRegion = "";
+			if(librarySearch.getRegion().length > 1) {
+				region = librarySearch.getRegion();
+				for(int i = 0; i < region.length; i++) {
+					if(i == 0) {
+						finalRegion = region[i];
+					}else {
+						finalRegion = finalRegion + ";" + region[i];
+					}
+				}
+			}
+			param.put("region", finalRegion);
+		}
+		if(librarySearch.getLibCode() != null && !librarySearch.getLibCode().isEmpty()) {
+			param.put("libCode", librarySearch.getLibCode());
+		}
+		
+		result = CommonAPI.sendData4Library(param, "loanItemSrch");
+		
+		return result;
+	}
+	
+	public static Map<String, Object> getPopularBook(LibrarySearch librarySearch) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		Map<String, Object> result = null;
+		
+		param.put("isbn13", librarySearch.getIsbn13());
+		param.put("loaninfoYN", "Y");
+		result = CommonAPI.sendData4Library(param, "srchDtlList");
+		return result;
+	}
 
 	/**
 	 * K.API - 35

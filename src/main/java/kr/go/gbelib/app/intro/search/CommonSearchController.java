@@ -728,6 +728,91 @@ public class CommonSearchController extends BaseController {
 		model.addAttribute("librarySearch", librarySearch);
 		return String.format(basePath, homepage.getFolder()) + "bestBook/index";
 	}
+	
+	@RequestMapping(value = {"/publicPopularBook/index.*"})
+	public String publicPopularBook(Model model, LibrarySearch librarySearch, HttpServletRequest request) {
+Homepage homepage = (Homepage) request.getAttribute("homepage");
+		
+		if(librarySearch.getStartDt() == null || librarySearch.getEndDt() == null) {
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+			int beforeDays = -7;
+			librarySearch.setStartDt(sf.format(DateUtils.addDays(new Date(), beforeDays)));
+			librarySearch.setEndDt(sf.format(new Date()));
+		}
+		if(librarySearch.getGender() == null) {
+			librarySearch.setGender("");
+		}
+		if(librarySearch.getAge() == null) {
+			String[] age= {""};
+			librarySearch.setAge(age);
+		}
+		if(librarySearch.getKdc() == null) {
+			String[] kdc = {""};
+			librarySearch.setKdc(kdc);
+		}
+		if(librarySearch.getRegion() == null) {
+			String[] region = {""};
+			librarySearch.setRegion(region);
+		}
+		if(librarySearch.getLibCode() == null) {
+			librarySearch.setLibCode("");
+		}
+		
+		Map<String, Object> result = LibSearchAPI.getPopularBookList(librarySearch);
+		Map<String, Object> resultMap = null;
+		List<Map<String, Object>> list = null;
+		
+		if(result != null) {
+			resultMap = (Map<String, Object>)result.get("response");
+		}
+		if(resultMap != null) {
+			resultMap = (Map<String, Object>)resultMap.get("docs");
+		}
+		if(result != null && !result.isEmpty() && resultMap != null) {
+			list = (ArrayList<Map<String, Object>>)resultMap.get("doc");
+		}
+		
+		List<Integer> countList = new ArrayList<Integer>();
+		if (list != null) {
+			for(int i = 0; i < list.size(); i++) {
+				countList.add(i + 1);
+			}
+
+		}
+		model.addAttribute("popularBookList", list);
+		model.addAttribute("countList", countList);
+		model.addAttribute("librarySearch", librarySearch);
+		return String.format(basePath, homepage.getFolder()) + "publicPopularBook/index";
+	}
+	
+	@RequestMapping(value = {"/publicPopularBook/detail.*"})
+	public String detail(Model model, LibrarySearch librarySearch, HttpServletRequest request) {
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+
+		Map<String, Object> result = LibSearchAPI.getPopularBook(librarySearch);
+		Map<String, Object> resultMap = null;
+		Map<String, Object> detailMap = null;
+		Map<String, Object> loanInfoMap = null;
+		if(result != null) {
+			resultMap = (Map<String, Object>)result.get("response");
+		}
+		if(resultMap != null) {
+			loanInfoMap = (Map<String, Object>)resultMap.get("loanInfo");
+			if(loanInfoMap != null) {
+				loanInfoMap = (Map<String, Object>)loanInfoMap.get("Total");
+			}
+			detailMap = (Map<String, Object>)resultMap.get("detail");
+			if(detailMap != null) {
+				detailMap = (Map<String, Object>)detailMap.get("book");
+			}
+		}
+		
+		model.addAttribute("loanInfo", loanInfoMap);
+		model.addAttribute("detailBook", detailMap);
+		model.addAttribute("librarySearch", librarySearch);
+
+		return String.format(basePath, homepage.getFolder()) + "publicPopularBook/detail";
+	}
 
 
 	/**

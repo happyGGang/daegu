@@ -91,6 +91,11 @@ div#printPage th {
 	         	</td>
         	</tr>
         	<tr>
+        		<th>수강생-사진촬영동의여부</th>
+        		<td style="border: 1px solid #666 !important;">
+        		</td>
+        	</tr>
+        	<tr>
 	         	<th>수강생-학교</th>			
 	         	<td style="border: 1px solid #666 !important;"></td>
         	</tr>
@@ -104,6 +109,13 @@ div#printPage th {
 	         		<input type="checkbox" id="" /> 동의
 	        		<input type="checkbox" id="" /> 미동의
          		</td>
+	        </tr>
+	        <tr>
+	        	<th>보호자 동일여부</th>
+	        	<td>
+	        		<input type="checkbox" id="" /> 같음
+	        		<input type="checkbox" id="" /> 다름
+	        	</td>
 	        </tr>
 	        <tr>
 				<th>보호자 관계</th>
@@ -123,6 +135,13 @@ div#printPage th {
 					<input type="checkbox" id="" /> 동의
 	        		<input type="checkbox" id="" /> 미동의
        			</td>
+			</tr>
+			<tr>
+				<th>보호자SMS수신동의여부</th>
+				<td>
+					<input type="checkbox" id="" /> 동의
+					<input type="checkbox" id="" /> 미동의
+				</td>
 			</tr>
 	        <tr>
 				<th>기관</th>

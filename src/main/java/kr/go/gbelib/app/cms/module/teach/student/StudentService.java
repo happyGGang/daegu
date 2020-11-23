@@ -115,6 +115,11 @@ public class StudentService extends BaseService {
 			student.setStudent_zipcode(student.getApplicant_zipcode());
 			student.setStudent_address(student.getApplicant_address());
 			student.setSelf_info_yn("Y");
+			student.setSelf_yn("Y");
+		}
+
+		if (student.getSelf_yn() == null) {
+			student.setSelf_yn("N");
 		}
 
 		if ( "Y".equals(teach.getFamily_yn()) ) {
@@ -132,7 +137,7 @@ public class StudentService extends BaseService {
 
 			if ( !"Y".equals(student.getFamily_confirm_yn()) ){
 				addResult[0] = false;
-				addResult[1] = "해당 강좌는 보호자 승인을 받아야합니다.";
+				addResult[1] = "해당 강좌는 보호자 승인을 받아야 합니다.";
 				return addResult;
 			}
 		}
@@ -365,6 +370,10 @@ public class StudentService extends BaseService {
 	public int modifyStudent(Student student) {
 		int result = 0;
 		String applyStatus = student.getApply_status();
+		
+		if(student.getSelf_yn() == null) {
+			student.setSelf_yn("N");
+		}
 		result = dao.modifyStudent(student);
 
 		if ( result > 0 ) {
@@ -570,8 +579,8 @@ public class StudentService extends BaseService {
 		sheet.setColumnView( 2,  20 );
 		sheet.setColumnView( 3,  20 );
 		sheet.setColumnView( 4,  20 );
-		sheet.setColumnView( 5,  20 );
-		sheet.setColumnView( 6,  30 );
+		sheet.setColumnView( 5,  30 );
+		sheet.setColumnView( 6,  20 );
 		sheet.setColumnView( 7,  20 );
 		sheet.setColumnView( 8,  20 );
 		sheet.setColumnView( 9,  20 );
@@ -594,6 +603,8 @@ public class StudentService extends BaseService {
 		sheet.setColumnView( 26, 20 );
 		sheet.setColumnView( 27, 20 );
 		sheet.setColumnView( 28, 20 );
+		sheet.setColumnView( 29, 20 );
+		sheet.setColumnView( 30, 20 );
 
 		// 헤더 컬럼 지정
 		String ln = System.getProperty("line.separator");
@@ -610,16 +621,46 @@ public class StudentService extends BaseService {
 		sheet.addCell( new Label( row++, 0, "신청자 우편번호" + (teachOne.getAddress_yn().equals("Y") ? "(*)" : ""), teachOne.getAddress_yn().equals("Y") ? requied : format ) );
 		sheet.addCell( new Label( row++, 0, "신청자 주소" + (teachOne.getAddress_yn().equals("Y") ? "(*)" : ""), teachOne.getAddress_yn().equals("Y") ? requied : format ) );
 		sheet.addCell( new Label( row++, 0, "신청자 휴대전화번호(*)", requied ) );
-		sheet.addCell( new Label( row++, 0, "수강생 명" + (teachOne.getAgent_yn().equals("Y") ? "(*)" : ""), teachOne.getAgent_yn().equals("Y") ? requied : format ) );
-		sheet.addCell( new Label( row++, 0, "수강생 생년월일" + ((teachOne.getAgent_yn().equals("Y") && teachOne.getBirth_yn().equals("Y")) ? "(*)" : ""), (teachOne.getAgent_yn().equals("Y") && teachOne.getBirth_yn().equals("Y")) ? requied : format ) );
-		sheet.addCell( new Label( row++, 0, "수강생 성별(남,여)" + ((teachOne.getAgent_yn().equals("Y") && teachOne.getSex_yn().equals("Y")) ? "(*)" : ""), (teachOne.getAgent_yn().equals("Y") && teachOne.getSex_yn().equals("Y")) ? requied : format ) );
-		sheet.addCell( new Label( row++, 0, "수강생 우편번호" + ((teachOne.getAgent_yn().equals("Y") && teachOne.getAddress_yn().equals("Y")) ? "(*)" : ""), (teachOne.getAgent_yn().equals("Y") && teachOne.getAddress_yn().equals("Y")) ? requied : format ) );
-		sheet.addCell( new Label( row++, 0, "수강생 주소" + ((teachOne.getAgent_yn().equals("Y") && teachOne.getAddress_yn().equals("Y")) ? "(*)" : ""), (teachOne.getAgent_yn().equals("Y") && teachOne.getAddress_yn().equals("Y")) ? requied : format ) );
-		sheet.addCell( new Label( row++, 0, "보호자 관계" + (teachOne.getFamily_yn().equals("Y") ? "(*)" : ""), teachOne.getFamily_yn().equals("Y") ? requied : format ) );
-		sheet.addCell( new Label( row++, 0, "보호자 성명" + (teachOne.getFamily_yn().equals("Y") ? "(*)" : ""), teachOne.getFamily_yn().equals("Y") ? requied : format ) );
-		sheet.addCell( new Label( row++, 0, "보호자 연락처" + (teachOne.getFamily_yn().equals("Y") ? "(*)" : ""), teachOne.getFamily_yn().equals("Y") ? requied : format ) );
-		sheet.addCell( new Label( row++, 0, "보호자 동의 여부(Y,N)" + (teachOne.getFamily_yn().equals("Y") ? "(*)" : ""), teachOne.getFamily_yn().equals("Y") ? requied : format ) );
-		sheet.addCell( new Label( row++, 0, "보호자 비고" + (teachOne.getFamily_yn().equals("Y") ? "(*)" : ""), teachOne.getFamily_yn().equals("Y") ? requied : format ) );
+		if(teachOne.getTeach_age_type().equals("adult") && teachOne.getAgent_yn().equals("N")) {
+			sheet.setColumnView( row, 24 );
+			sheet.addCell( new Label( row++, 0, "SMS 수신동의여부(Y,N)" + (teachOne.getSms_service_yn().equals("Y") ? "(*)" : ""), teachOne.getSms_service_yn().equals("Y") ? requied : format) );
+			sheet.setColumnView( row, 24 );
+			sheet.addCell( new Label( row++, 0, "사진 촬영 동의 여부(Y,N)" + (teachOne.getPicture_use_yn().equals("Y") ? "(*)" : ""), teachOne.getPicture_use_yn().equals("Y") ? requied : format) );
+		}
+		sheet.setColumnView( row, 28 );
+		if(teachOne.getAgent_yn().equals("Y")) {
+    		sheet.addCell( new Label( row++, 0, "수강생-신청자 동일여부(Y,N)" + (teachOne.getAgent_yn().equals("Y") ? "(*)" : ""), teachOne.getAgent_yn().equals("Y") ? requied : format) );
+    		sheet.addCell( new Label( row++, 0, "수강생 명" + (teachOne.getAgent_yn().equals("Y") ? "(*)" : ""), teachOne.getAgent_yn().equals("Y") ? requied : format ) );
+    		sheet.addCell( new Label( row++, 0, "수강생 생년월일" + ((teachOne.getAgent_yn().equals("Y") && teachOne.getBirth_yn().equals("Y")) ? "(*)" : ""), (teachOne.getAgent_yn().equals("Y") && teachOne.getBirth_yn().equals("Y")) ? requied : format ) );
+    		sheet.addCell( new Label( row++, 0, "수강생 성별(남,여)" + ((teachOne.getAgent_yn().equals("Y") && teachOne.getSex_yn().equals("Y")) ? "(*)" : ""), (teachOne.getAgent_yn().equals("Y") && teachOne.getSex_yn().equals("Y")) ? requied : format ) );
+    		sheet.addCell( new Label( row++, 0, "수강생 우편번호" + ((teachOne.getAgent_yn().equals("Y") && teachOne.getAddress_yn().equals("Y")) ? "(*)" : ""), (teachOne.getAgent_yn().equals("Y") && teachOne.getAddress_yn().equals("Y")) ? requied : format ) );
+    		sheet.setColumnView( row, 30 );
+    		sheet.addCell( new Label( row++, 0, "수강생 주소" + ((teachOne.getAgent_yn().equals("Y") && teachOne.getAddress_yn().equals("Y")) ? "(*)" : ""), (teachOne.getAgent_yn().equals("Y") && teachOne.getAddress_yn().equals("Y")) ? requied : format ) );
+    		if(teachOne.getTeach_age_type().equals("adult") && teachOne.getAgent_yn().equals("Y")) {
+    			sheet.setColumnView( row, 24 );
+    			sheet.addCell( new Label( row++, 0, "SMS 수신동의여부(Y,N)" + (teachOne.getSms_service_yn().equals("Y") ? "(*)" : ""), teachOne.getSms_service_yn().equals("Y") ? requied : format ) );
+    			sheet.setColumnView( row, 24 );
+    			sheet.addCell( new Label( row++, 0, "사진 촬영 동의 여부(Y,N)" + (teachOne.getPicture_use_yn().equals("Y") ? "(*)" : ""), teachOne.getPicture_use_yn().equals("Y") ? requied : format ) );
+    		}
+    		if(teachOne.getTeach_age_type().equals("child") && teachOne.getAgent_yn().equals("Y")) {
+    			sheet.setColumnView( row, 24 );
+    			sheet.addCell( new Label( row++, 0, "사진 촬영 동의 여부(Y,N)" + (teachOne.getPicture_use_yn().equals("Y") ? "(*)" : ""), teachOne.getPicture_use_yn().equals("Y") ? requied : format));
+    		}
+		}
+		if(teachOne.getFamily_yn().equals("Y")) {
+    		sheet.setColumnView( row, 28 );
+    		sheet.addCell( new Label( row++, 0, "보호자-신청자 동일여부(Y,N)" + (teachOne.getFamily_yn().equals("Y") ? "(*)" : ""), teachOne.getFamily_yn().equals("Y") ? requied : format) );
+    		sheet.addCell( new Label( row++, 0, "보호자 관계" + (teachOne.getFamily_yn().equals("Y") ? "(*)" : ""), teachOne.getFamily_yn().equals("Y") ? requied : format ) );
+    		sheet.addCell( new Label( row++, 0, "보호자 성명" + (teachOne.getFamily_yn().equals("Y") ? "(*)" : ""), teachOne.getFamily_yn().equals("Y") ? requied : format ) );
+    		sheet.addCell( new Label( row++, 0, "보호자 연락처" + (teachOne.getFamily_yn().equals("Y") ? "(*)" : ""), teachOne.getFamily_yn().equals("Y") ? requied : format ) );
+    		if(teachOne.getTeach_age_type().equals("child") && teachOne.getAgent_yn().equals("Y")) {
+    			sheet.setColumnView( row, 24 );
+    			sheet.addCell( new Label( row++, 0, "SMS 수신동의여부(Y,N)" + (teachOne.getSms_service_yn().equals("Y") ? "(*)" : ""), teachOne.getSms_service_yn().equals("Y") ? requied : format));
+    		}
+    		sheet.setColumnView( row, 21 );
+    		sheet.addCell( new Label( row++, 0, "보호자 동의 여부(Y,N)" + (teachOne.getFamily_yn().equals("Y") ? "(*)" : ""), teachOne.getFamily_yn().equals("Y") ? requied : format ) );
+    		sheet.addCell( new Label( row++, 0, "보호자 비고" + (teachOne.getFamily_yn().equals("Y") ? "(*)" : ""), teachOne.getFamily_yn().equals("Y") ? requied : format ) );
+		}
 		sheet.addCell( new Label( row++, 0, "가족 인원 수" + (teachOne.getFamily_count_yn().equals("Y") ? "(*)" : ""), teachOne.getFamily_count_yn().equals("Y") ? requied : format ) );
 		sheet.addCell( new Label( row++, 0, "학교" + (teachOne.getSchool_info_yn().equals("Y") ? "(*)" : ""), teachOne.getSchool_info_yn().equals("Y") ? requied : format ) );
 
@@ -667,16 +708,36 @@ public class StudentService extends BaseService {
 		sheet.addCell( new Label( row++, 1, "12345") );//신청자 우편번호
 		sheet.addCell( new Label( row++, 1, "대구광역시") );//신청자 주소
 		sheet.addCell( new Label( row++, 1, "010-1234-5678") );//신청자 휴대전화번호
-		sheet.addCell( new Label( row++, 1, "수강생") );//수강생 명
-		sheet.addCell( new Label( row++, 1, "20000101") );//수강생 생년월일
-		sheet.addCell( new Label( row++, 1, "여") );//수강생 성별(남,여)
-		sheet.addCell( new Label( row++, 1, "12345") );//수강생 우편번호
-		sheet.addCell( new Label( row++, 1, "대구광역시") );//수강생 주소
-		sheet.addCell( new Label( row++, 1, "부 또는 모") );//보호자 관계
-		sheet.addCell( new Label( row++, 1, "보호자 성명") );//보호자 성명
-		sheet.addCell( new Label( row++, 1, "010-1234-5678") );//보호자 연락처
-		sheet.addCell( new Label( row++, 1, "Y") );//보호자 동의 여부(Y,N)
-		sheet.addCell( new Label( row++, 1, "보호자비고") );//보호자 비고
+		if(teachOne.getTeach_age_type().equals("adult") && teachOne.getAgent_yn().equals("N")) {
+			sheet.addCell( new Label( row++, 1, "Y"));//SMS 수신 동의 여부
+			sheet.addCell( new Label( row++, 1, "Y"));//사진 촬영 동의 여부
+		}
+		if(teachOne.getAgent_yn().equals("Y")) {
+    		sheet.addCell( new Label( row++, 1, "Y") );//수강생-신청자 동일여부
+    		sheet.addCell( new Label( row++, 1, "수강생") );//수강생 명
+    		sheet.addCell( new Label( row++, 1, "19990101") );//수강생 생년월일
+    		sheet.addCell( new Label( row++, 1, "남") );//수강생 성별(남,여)
+    		sheet.addCell( new Label( row++, 1, "12345") );//수강생 우편번호
+    		sheet.addCell( new Label( row++, 1, "대구광역시") );//수강생 주소
+    		if(teachOne.getTeach_age_type().equals("adult")) {
+    			sheet.addCell( new Label( row++, 1, "Y"));//SMS 수신 동의 여부
+    			sheet.addCell( new Label( row++, 1, "Y"));//사진 촬영 동의 여부
+    		}
+    		if(teachOne.getTeach_age_type().equals("child")) {
+    			sheet.addCell( new Label( row++, 1, "Y"));//사진 촬영 동의 여부
+    		}
+		}
+		if(teachOne.getFamily_yn().equals("Y")) {
+    		sheet.addCell( new Label( row++, 1, "Y") );//보호자-신청자 동일여부
+    		sheet.addCell( new Label( row++, 1, "부 또는 모") );//보호자 관계
+    		sheet.addCell( new Label( row++, 1, "보호자 성명") );//보호자 성명
+    		sheet.addCell( new Label( row++, 1, "010-1234-5678") );//보호자 연락처
+    		if(teachOne.getTeach_age_type().equals("child") && teachOne.getAgent_yn().equals("Y")) {
+    			sheet.addCell( new Label( row++, 1, "Y"));//SMS 수신 동의 여부
+    		}
+    		sheet.addCell( new Label( row++, 1, "Y") );//보호자 동의 여부(Y,N)
+    		sheet.addCell( new Label( row++, 1, "보호자비고") );//보호자 비고
+		}
 		sheet.addCell( new Label( row++, 1, "성인2 어린이2") );//가족 인원 수
 		sheet.addCell( new Label( row++, 1, "대구고등학교") );//학교
 		sheet.addCell( new Label( row++, 1, "코드 입력") );//학년
@@ -697,7 +758,7 @@ public class StudentService extends BaseService {
 		workbook.close();
 	}
 
-	public List<Student> excelUpload(Student teachStaff, List<Terms> termsList, XlsUpload excel) throws Exception {
+	public List<Student> excelUpload(Student teachStaff, List<Terms> termsList, XlsUpload excel, Teach teach) throws Exception {
 		Workbook workbook = Workbook.getWorkbook( excel.getFile().getInputStream() );
 		Sheet sheet = workbook.getSheet( 0 );
 
@@ -705,7 +766,7 @@ public class StudentService extends BaseService {
 		List<Student> students = new ArrayList<Student>();
 
 		for ( int i = excel.getStartRow(); i < rowCount; i++ ) {
-			Student auth = getAuthenticationFromExcel( sheet, excel, i ,teachStaff, termsList);
+			Student auth = getAuthenticationFromExcel( sheet, excel, i ,teachStaff, termsList, teach);
 			if(auth == null) return null;
 			students.add( auth );
 		}
@@ -715,37 +776,91 @@ public class StudentService extends BaseService {
 		return students;
 	}
 
-	private Student getAuthenticationFromExcel( Sheet sheet, XlsUpload excel, int row ,Student student, List<Terms> termsList) {
+	private Student getAuthenticationFromExcel( Sheet sheet, XlsUpload excel, int row ,Student student, List<Terms> termsList, Teach teachOne) {
 
 		Student oneStudent = new Student();
-
-		Cell member_id				= sheet.getCell( excel.getMember_id(), row );//ID
-		Cell applicant_name			= sheet.getCell( excel.getApplicant_name(), row );//신청자명
-		Cell applicant_birth		= sheet.getCell( excel.getApplicant_birth(), row );//신청자 생년월일
-		Cell applicant_sex			= sheet.getCell( excel.getApplicant_sex(), row );//신청자 성별(남,여)
-		Cell applicant_zipcode		= sheet.getCell( excel.getApplicant_zipcode(), row );//신청자 우편번호
-		Cell applicant_address		= sheet.getCell( excel.getApplicant_address(), row );//신청자 주소
-		Cell applicant_cell_phone	= sheet.getCell( excel.getApplicant_cell_phone(), row );//신청자 휴대전화번호
-		Cell student_name			= sheet.getCell( excel.getStudent_name(), row );//수강생 명
-		Cell student_birth			= sheet.getCell( excel.getStudent_birth(), row );//수강생 생년월일
-		Cell student_sex			= sheet.getCell( excel.getStudent_sex(), row );//수강생 성별(남,여)
-		Cell student_zipcode		= sheet.getCell( excel.getStudent_zipcode(), row );//수강생 우편번호
-		Cell student_address		= sheet.getCell( excel.getStudent_address(), row );//수강생 주소
-		Cell family_relation		= sheet.getCell( excel.getFamily_relation(), row );//보호자 관계
-		Cell family_name			= sheet.getCell( excel.getFamily_name(), row );//보호자 성명
-		Cell family_cell_phone		= sheet.getCell( excel.getFamily_cell_phone(), row );//보호자 연락처
-		Cell family_confirm_yn		= sheet.getCell( excel.getFamily_confirm_yn(), row );//보호자 동의 여부(Y,N)
-		Cell family_desc		= sheet.getCell( excel.getFamily_desc(), row );//보호자 비고
-		Cell student_family_count	= sheet.getCell( excel.getStudent_family_count(), row );//가족 인원 수
-		Cell student_school			= sheet.getCell( excel.getStudent_school(), row );//학교
-		Cell student_hack			= sheet.getCell( excel.getStudent_hack(), row );//학년
-		Cell student_remark		= sheet.getCell( excel.getStudent_remark(), row );//일반 비고
-		Cell student_location_code		= sheet.getCell( excel.getStudent_location_code(), row );//나이스 지역
-		Cell student_neis_cd		= sheet.getCell( excel.getStudent_neis_cd(), row );//나이스 개인번호
-		Cell student_training_num		= sheet.getCell( excel.getStudent_training_num(), row );//나이스 연수지명번호
-		Cell student_organization		= sheet.getCell( excel.getStudent_organization(), row );//기관
-		Cell student_rank				= sheet.getCell( excel.getStudent_rank(), row );//직급
-		Cell student_course_taken_yn	= sheet.getCell( excel.getStudent_course_taken_yn(), row );//연수수강여부 (Y,N)
+		
+		int column = 0;
+		Cell member_id = null; //신청자 아이디
+		Cell applicant_name = null; //신청자 명
+		Cell applicant_birth = null; //신청자 생년월일
+		Cell applicant_sex = null; //신청자 성별
+		Cell applicant_zipcode = null; //신청자 우편주소
+		Cell applicant_address = null; //신청자 주소
+		Cell applicant_cell_phone = null; //신청자 휴대전화번호
+		Cell self_yn = null; //수강생-신청자 동일 여부
+		Cell student_name = null; //수강생 명
+		Cell student_birth = null; //수강생 생년월일
+		Cell student_sex = null; //수강생 성별
+		Cell student_zipcode = null; //수강생 우편번호
+		Cell student_address= null; //수강생 주소
+		Cell picture_use_yn = null; //사진 촬영 동의 여부
+		Cell self_parent_yn = null; //보호자-신청자 동일여부
+		Cell family_relation = null; //보호자 관계
+		Cell family_name = null; //보호자 성명
+		Cell family_cell_phone = null; //보호자 연락처
+		Cell sms_service_yn = null; //SMS 수신 동의 여부
+		Cell family_confirm_yn = null; //보호자 동의 여부
+		Cell family_desc = null; //보호자 비고
+		Cell student_family_count = null; //가족인원수
+		Cell student_school = null; //수강생(아니면 신청자) 학교
+		Cell student_hack = null; //수강생(아니면 신청자) 학년
+		Cell student_remark = null; //일반 비고
+		Cell student_location_code = null; //나이스 지역코드
+		Cell student_neis_cd = null; //나이스 개인번호
+		Cell student_training_num = null; //나이스 연수지명번호
+		Cell student_organization = null; //기관
+		Cell student_rank = null; //직급
+		Cell student_course_taken_yn = null; //연수 수강 여부
+		Cell student_old = null;
+		
+		member_id				= sheet.getCell( column++, row );//ID
+		applicant_name			= sheet.getCell( column++, row );//신청자명
+		applicant_birth		= sheet.getCell( column++, row );//신청자 생년월일
+		applicant_sex			= sheet.getCell( column++, row );//신청자 성별(남,여)
+		applicant_zipcode		= sheet.getCell( column++, row );//신청자 우편번호
+		applicant_address		= sheet.getCell( column++, row );//신청자 주소
+		applicant_cell_phone	= sheet.getCell( column++, row );//신청자 휴대전화번호
+		if(teachOne.getTeach_age_type().equals("adult") && teachOne.getAgent_yn().equals("N")) {
+			sms_service_yn     = sheet.getCell( column++, row );//SMS 수신 동의 여부
+			picture_use_yn     = sheet.getCell( column++, row );//사진 촬영 동의 여부
+		}
+		if(teachOne.getAgent_yn().equals("Y")) {
+			self_yn             = sheet.getCell( column++, row);//수강생-신청자 동일여부
+			student_name		= sheet.getCell( column++, row );//수강생 명
+			student_birth		= sheet.getCell( column++, row );//수강생 생년월일
+			student_sex			= sheet.getCell( column++, row );//수강생 성별(남,여)
+			student_zipcode		= sheet.getCell( column++, row );//수강생 우편번호
+			student_address		= sheet.getCell( column++, row );//수강생 주소
+			if(teachOne.getTeach_age_type().equals("adult")) {
+				sms_service_yn = sheet.getCell( column++, row );
+				picture_use_yn = sheet.getCell( column++, row );
+			}
+			if(teachOne.getTeach_age_type().equals("child")) {
+				picture_use_yn = sheet.getCell( column++, row );
+			}
+		}
+		if(teachOne.getFamily_yn().equals("Y")) {
+    		self_parent_yn      = sheet.getCell( column++, row);//보호자-신청자 동일여부
+    		family_relation		= sheet.getCell( column++, row );//보호자 관계
+    		family_name			= sheet.getCell( column++, row );//보호자 성명
+    		family_cell_phone	= sheet.getCell( column++, row );//보호자 연락처
+    		if(teachOne.getTeach_age_type().equals("child") && teachOne.getAgent_yn().equals("Y")) {
+    			sms_service_yn  = sheet.getCell( column++, row);//SMS 수신 동의 여부
+    		}
+    		family_confirm_yn	= sheet.getCell( column++, row );//보호자 동의 여부(Y,N)
+    		family_desc	= sheet.getCell( column++, row );//보호자 비고
+		}
+		student_family_count	= sheet.getCell( column++, row );//가족 인원 수
+		student_school			= sheet.getCell( column++, row );//학교
+		student_hack			= sheet.getCell( column++, row );//학년
+		student_remark		= sheet.getCell( column++, row );//일반 비고
+		student_location_code		= sheet.getCell( column++, row );//나이스 지역
+		student_neis_cd		= sheet.getCell( column++, row );//나이스 개인번호
+		student_training_num		= sheet.getCell( column++, row );//나이스 연수지명번호
+		student_organization		= sheet.getCell( column++, row );//기관
+		student_rank				= sheet.getCell( column++, row );//직급
+		student_course_taken_yn	= sheet.getCell( column++, row );//연수수강여부 (Y,N)
 //		Cell self_yn				= sheet.getCell( excel.getSelf_yn(), row );
 //		Cell student_old			= sheet.getCell( excel.getStudent_old(), row );
 //		Cell self_info_yn			= sheet.getCell( excel.getSelf_info_yn(), row );
@@ -763,6 +878,8 @@ public class StudentService extends BaseService {
 				String a = applicant_birth.getContents().trim();
 				a = a.substring(0, 4) + "-" + a.substring(4, 6) + "-" + a.substring(6);
 				oneStudent.setApplicant_birth(a);
+			}else {
+				oneStudent.setApplicant_birth("");
 			}
 			if(applicant_sex != null) {
 				String sex = applicant_sex.getContents().trim();
@@ -772,76 +889,64 @@ public class StudentService extends BaseService {
 				else {
 					oneStudent.setApplicant_sex("F");
 				}
+			}else {
+				oneStudent.setApplicant_sex("");
 			}
 			if(applicant_zipcode != null) oneStudent.setApplicant_zipcode(applicant_zipcode.getContents().trim());
+			else oneStudent.setApplicant_zipcode("");
 			if(applicant_address != null) oneStudent.setApplicant_address(applicant_address.getContents().trim());
+			else oneStudent.setApplicant_address("");
 			if(applicant_cell_phone != null) oneStudent.setApplicant_cell_phone(applicant_cell_phone.getContents().trim());
-			if(student_name != null) oneStudent.setStudent_name(student_name.getContents().trim());
-			if(student_birth != null) {
-				String a = student_birth.getContents();
-				if (StringUtils.isNotBlank(a)) {
-					a = a.trim();
-					a = a.substring(0, 4) + "-" + a.substring(4, 6) + "-" + a.substring(6);
-					oneStudent.setStudent_birth(a);
-					Calendar cal = Calendar.getInstance();
-					oneStudent.setStudent_old(cal.get(Calendar.YEAR) - Integer.parseInt(a.substring(0, 4) + 1));
-				} else {
-					oneStudent.setStudent_birth("");
-					oneStudent.setStudent_old(20);
+			
+			
+			if(self_yn != null) {
+				oneStudent.setSelf_yn(self_yn.getContents().trim());
+				if ( self_yn.getContents().trim().equals("Y") ) {
+					if(student_name != null) oneStudent.setStudent_name(oneStudent.getApplicant_name());
+					else oneStudent.setStudent_name("");
+					if(student_birth != null) oneStudent.setStudent_birth(oneStudent.getApplicant_birth());
+					else oneStudent.setStudent_birth("");
+					if(student_sex != null) oneStudent.setStudent_sex(oneStudent.getApplicant_sex());
+					if(student_zipcode != null) oneStudent.setStudent_zipcode(oneStudent.getApplicant_zipcode());
+					if(student_address != null) oneStudent.setStudent_address(oneStudent.getApplicant_address());
+					if(student_family_count != null) oneStudent.setStudent_family_count(student_family_count.getContents().trim());
 				}
-			} else {
-				oneStudent.setStudent_old(20);
-			}
-			if(student_sex != null) {
-				String sex = student_sex.getContents();
-				if (StringUtils.isNotBlank(sex)) {
-					if ( sex.equals("남자") || sex.equals("남") || sex.equals("M") || sex.equals("m")) {
-						oneStudent.setStudent_sex("M");
+				else {
+					if(student_name != null) oneStudent.setStudent_name(student_name.getContents().trim());
+					else oneStudent.setStudent_name("");
+					if(student_birth != null) {
+						String a = applicant_birth.getContents().trim();
+						a = a.substring(0, 4) + "-" + a.substring(4, 6) + "-" + a.substring(6);
+						oneStudent.setStudent_birth(a);
+					}else {
+						oneStudent.setStudent_birth("");
 					}
-					else {
-						oneStudent.setStudent_sex("F");
+					if(student_sex != null) {
+						if(applicant_sex != null) {
+							String sex = student_sex.getContents().trim();
+							if ( sex.equals("남자") || sex.equals("남") || sex.equals("M") || sex.equals("m")) {
+								oneStudent.setStudent_sex("M");
+							}
+							else {
+								oneStudent.setStudent_sex("F");
+							}
+						}
+					}else {
+						oneStudent.setStudent_sex("");
 					}
-				} else {
-					oneStudent.setStudent_sex("");
+					
+					if(student_zipcode != null) oneStudent.setStudent_zipcode(student_zipcode.getContents().trim());
+					else oneStudent.setStudent_zipcode("");
+					if(student_address != null) oneStudent.setStudent_address(student_address.getContents().trim());
+					else oneStudent.setStudent_address("");
+					if(student_family_count != null) oneStudent.setStudent_family_count(student_family_count.getContents().trim());
+					else oneStudent.setStudent_family_count("");
 				}
 			}
-			if(student_zipcode != null) oneStudent.setStudent_zipcode(student_zipcode.getContents().trim());
-			if(student_address != null) oneStudent.setStudent_address(student_address.getContents().trim());
-			if(student_family_count != null) oneStudent.setStudent_family_count(student_family_count.getContents().trim());
-//			if(self_yn != null) {
-//				oneStudent.setSelf_yn(self_yn.getContents().trim());
-//				if ( self_yn.getContents().trim().equals("Y") ) {
-//					if(student_name != null) oneStudent.setStudent_name(oneStudent.getApplicant_name());
-//					if(student_birth != null) oneStudent.setStudent_birth(oneStudent.getApplicant_birth());
-//					if(student_sex != null) oneStudent.setStudent_sex(oneStudent.getApplicant_sex());
-//					if(student_zipcode != null) oneStudent.setStudent_zipcode(oneStudent.getApplicant_zipcode());
-//					if(student_address != null) oneStudent.setStudent_address(oneStudent.getApplicant_address());
-//				}
-//				else {
-//					if(student_name != null) oneStudent.setStudent_name(student_name.getContents().trim());
-//					if(student_birth != null) {
-//						String a = applicant_birth.getContents().trim();
-//						a = a.substring(0, 4) + "-" + a.substring(4, 6) + "-" + a.substring(6);
-//						oneStudent.setStudent_birth(a);
-//					}
-//					if(student_sex != null) {
-//						if(applicant_sex != null) {
-//							String sex = student_sex.getContents().trim();
-//							if ( sex.equals("남자") || sex.equals("남") || sex.equals("M") || sex.equals("m")) {
-//								oneStudent.setStudent_sex("M");
-//							}
-//							else {
-//								oneStudent.setStudent_sex("F");
-//							}
-//						}
-//					}
-//					if(student_zipcode != null) oneStudent.setStudent_zipcode(student_zipcode.getContents().trim());
-//					if(student_address != null) oneStudent.setStudent_address(student_address.getContents().trim());
-//				}
-//			}
 
-//			if(student_old != null) oneStudent.setStudent_old(Integer.parseInt(student_old.getContents()));
+			if(student_old == null) oneStudent.setStudent_old(-1);
 			if(student_school != null) oneStudent.setStudent_school(student_school.getContents());
+			else oneStudent.setStudent_school("");
 			if(student_hack != null) {
 				try {
 					oneStudent.setStudent_hack(Integer.parseInt(student_hack.getContents()));
@@ -851,25 +956,57 @@ public class StudentService extends BaseService {
 			}
 //			if(self_info_yn != null) oneStudent.setSelf_info_yn(self_info_yn.getContents());
 			if(family_relation != null) oneStudent.setFamily_relation(family_relation.getContents());
+			else oneStudent.setFamily_relation("");
 			if(family_name != null) oneStudent.setFamily_name(family_name.getContents());
+			else oneStudent.setFamily_name("");
 			if(family_cell_phone != null) oneStudent.setFamily_cell_phone(family_cell_phone.getContents().trim());
+			else oneStudent.setFamily_cell_phone("");
+			if(sms_service_yn !=null) oneStudent.setSms_service_yn(sms_service_yn.getContents().trim());
+			else oneStudent.setSms_service_yn("");
+			if(picture_use_yn != null) oneStudent.setPicture_use_yn(picture_use_yn.getContents().trim());
+			else oneStudent.setPicture_use_yn("");
 			if(family_confirm_yn != null) {
 				oneStudent.setFamily_confirm_yn(family_confirm_yn.getContents());
+			}else {
+				oneStudent.setFamily_confirm_yn("");
 			}
 			if(family_desc != null) oneStudent.setFamily_desc(family_desc.getContents());
+			else oneStudent.setFamily_desc("");
+			if(self_parent_yn !=null) {
+				oneStudent.setSelf_parent_yn(self_parent_yn.getContents().trim());
+				if(self_parent_yn.getContents().trim().equals("Y") ) {
+					if(family_name != null) oneStudent.setFamily_name(oneStudent.getApplicant_name());
+					if(family_cell_phone != null) oneStudent.setFamily_cell_phone(oneStudent.getApplicant_cell_phone());
+				}else {
+					if(family_name != null) oneStudent.setFamily_name(family_name.getContents().trim());
+					if(family_cell_phone != null) oneStudent.setFamily_cell_phone(family_cell_phone.getContents().trim());
+				}
+			}else {
+				oneStudent.setSelf_parent_yn("");
+				oneStudent.setFamily_name("");
+				oneStudent.setFamily_cell_phone("");
+			}
+			
 			if(student_remark != null) oneStudent.setStudent_remark(student_remark.getContents());
+			else oneStudent.setStudent_remark("");
 			if(student_location_code != null) oneStudent.setStudent_location_code(student_location_code.getContents());
+			else oneStudent.setStudent_location_code("");
 			if(student_neis_cd != null) oneStudent.setStudent_neis_cd(student_neis_cd.getContents());
+			else oneStudent.setStudent_neis_cd("");
 			if(student_training_num != null) oneStudent.setStudent_training_num(student_training_num.getContents());
+			else oneStudent.setStudent_training_num("");
 			if(student_organization != null) oneStudent.setStudent_organization(student_organization.getContents());
+			else oneStudent.setStudent_organization("");
 			if(student_rank != null) oneStudent.setStudent_rank(student_rank.getContents());
+			else oneStudent.setStudent_rank("");
 			if(student_course_taken_yn != null) oneStudent.setStudent_course_taken_yn(student_course_taken_yn.getContents());
+			else oneStudent.setStudent_course_taken_yn("");
 
 			//약관
 			List<String> termsArr = new ArrayList<String>();
 			for(int i = 0; i < termsList.size(); i++) {
-				// 약관 29번째 column 부터 시작
-				Cell student_terms_yn = sheet.getCell(27 + i, row);
+				// 약관 31번째 column 부터 시작
+				Cell student_terms_yn = sheet.getCell(column + i, row);
 				if(student_terms_yn != null) {
 					if(student_terms_yn.getContents().trim().equals("Y")) {
 						termsArr.add(String.valueOf(termsList.get(i).getTerms_idx()));
@@ -878,7 +1015,6 @@ public class StudentService extends BaseService {
 			}
 			oneStudent.setAgree_codes(StringUtils.join(termsArr, ","));
 			oneStudent.setSelf_info_yn("Y");
-			oneStudent.setSelf_yn("N");
 		}
 		catch ( Exception e ) {
 			e.printStackTrace();

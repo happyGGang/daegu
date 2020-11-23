@@ -31,6 +31,7 @@ public class Student extends PagingUtils {
 	private String web_id;
 
 	private String self_yn;  //본인수강여부
+	private String self_parent_yn;  //보호자 동일 여부
 
 	private String student_name;  //수강생명
 	private String student_birth;  //수강생생년월일
@@ -53,6 +54,8 @@ public class Student extends PagingUtils {
 	private String student_rank;//직급 (한글20자리)
 	private String student_course_taken_yn;//연수수강여부
 	private String student_password;//비회원 패스워드
+	private String sms_service_yn;  //sms 수신 동의 여부
+	private String picture_use_yn;  //사진 촬영 동의 여부
 
 	private String self_info_yn;  //개인정보동의여부
 	private String apply_type;
@@ -215,6 +218,12 @@ public class Student extends PagingUtils {
 	}
 	public void setSelf_yn(String self_yn) {
 		this.self_yn = self_yn;
+	}
+	public String getSelf_parent_yn() {
+		return self_parent_yn;
+	}
+	public void setSelf_parent_yn(String self_parent_yn) {
+		this.self_parent_yn = self_parent_yn;
 	}
 	public String getStudent_name() {
 		return student_name;
@@ -789,7 +798,7 @@ public class Student extends PagingUtils {
 		this.modify_id = modify_id;
 	}
 
-
+	
 	public String getStudent_password() {
 		return student_password;
 	}
@@ -800,6 +809,25 @@ public class Student extends PagingUtils {
 	}
 
 	
+	public String getSms_service_yn() {
+		return sms_service_yn;
+	}
+
+	
+	public void setSms_service_yn(String sms_service_yn) {
+		this.sms_service_yn = sms_service_yn;
+	}
+
+	
+	public String getPicture_use_yn() {
+		return picture_use_yn;
+	}
+
+	
+	public void setPicture_use_yn(String picture_use_yn) {
+		this.picture_use_yn = picture_use_yn;
+	}
+
 	public String getAgree_codes() {
 		return agree_codes;
 	}

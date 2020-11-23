@@ -129,6 +129,17 @@ public class LibrarySearch extends PagingUtils {
 	private String facet_pub_year; //패싯 발행년도
 	private String facet_subject_code; //패싯 분류기호의 첫번째 숫자(0~9)
 	private String facet_media_code; //패싯 매체구분
+	
+	//공공도서관 정보나루 API용
+	private String startDt;
+	private String endDt;
+	private String gender;
+	private String[] age;
+	private String[] region;
+	private String[] kdc;
+	private String isbn13;
+	private String pageNo;
+	private String pageSize;
 
 	public String getSearchType() {
 		return searchType;
@@ -906,40 +917,79 @@ public class LibrarySearch extends PagingUtils {
 	public String getNotShelfCode() {
 		return notShelfCode;
 	}
-
-
 	public void setNotShelfCode(String notShelfCode) {
 		this.notShelfCode = notShelfCode;
 	}
-
-
 	public String getReservation_yn() {
 		return reservation_yn;
 	}
-
-
 	public void setReservation_yn(String reservation_yn) {
 		this.reservation_yn = reservation_yn;
 	}
-
-
 	public String getExprire_date_cnt() {
 		return exprire_date_cnt;
 	}
-
-
 	public void setExprire_date_cnt(String exprire_date_cnt) {
 		this.exprire_date_cnt = exprire_date_cnt;
 	}
-
-
 	public List<String> getShelfCodeList() {
 		return shelfCodeList;
 	}
-
-
 	public void setShelfCodeList(List<String> shelfCodeList) {
 		this.shelfCodeList = shelfCodeList;
 	}
-
+	public String getStartDt() {
+		return startDt;
+	}
+	public void setStartDt(String startDt) {
+		this.startDt = startDt;
+	}
+	public String getEndDt() {
+		return endDt;
+	}
+	public void setEndDt(String endDt) {
+		this.endDt = endDt;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public String[] getAge() {
+		return age;
+	}
+	public void setAge(String[] age) {
+		this.age = age;
+	}
+	public String[] getRegion() {
+		return region;
+	}
+	public void setRegion(String[] region) {
+		this.region = region;
+	}
+	public String[] getKdc() {
+		return kdc;
+	}
+	public void setKdc(String[] kdc) {
+		this.kdc = kdc;
+	}
+	public String getIsbn13() {
+		return isbn13;
+	}
+	public void setIsbn13(String isbn13) {
+		this.isbn13 = isbn13;
+	}
+	public String getPageNo() {
+		return pageNo;
+	}
+	public void setPageNo(String pageNo) {
+		this.pageNo = pageNo;
+	}
+	public String getPageSize() {
+		return pageSize;
+	}
+	public void setPageSize(String pageSize) {
+		this.pageSize = pageSize;
+	}
 }

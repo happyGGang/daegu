@@ -32,8 +32,6 @@ $(function() {
 					
 					var $form = {};
 					$form = $.extend(true, $form, $('#studentForm'));
-					$form.find('input[name="student_sex"]').prop('disabled', false);
-					$form.find("#student_birth").prop('disabled', false);
 
 					var studendHack = $form.find('#student_hack').val() > 0 ? $form.find('#student_hack').val() : 0;
 					$form.find('#student_hack').val(studendHack);
@@ -44,29 +42,139 @@ $(function() {
 
 					var cellPhone1 = $form.find('#applicant_cell_phone_1').val();
 					if ( cellPhone1 == '' ) {
-						alert('휴대전화번호를 입력해주세요.');
+						$form.find('#applicant_cell_phone_1').focus();
+						alert('신청자 휴대전화번호를 입력해 주세요.');
 						return false;
 					}
 					var cellPhone2 = $form.find('#applicant_cell_phone_2').val();
 					if ( cellPhone2 == '' ) {
-						alert('휴대전화번호를 입력해주세요.');
+						$form.find('#applicant_cell_phone_2').focus();
+						alert('신청자 휴대전화번호를 입력해 주세요.');
 						return false;
 					}
 					var cellPhone3 = $form.find('#applicant_cell_phone_3').val();
 					if ( cellPhone3 == '' ) {
-						alert('휴대전화번호를 입력해주세요.');
+						$form.find('#applicant_cell_phone_3').focus();
+						alert('신청자 휴대전화번호를 입력해 주세요.');
 						return false;
 					}
 
 					$form.find('#applicant_cell_phone').val(cellPhone1+'-'+cellPhone2+'-'+cellPhone3);
+					if ($form.find('#student_name').val() == ''){
+						$form.find('#student_name').focus();
+						alert('수강생명을 입력해 주세요.');
+						return false;
+					}
+					if ($form.find('#student_birth').val() == ''){
+						$form.find('#student_birth').focus();
+						alert('수강생 생년월일을 입력해 주세요.');
+						return false;
+					}
+					if ($form.find('input:radio[name = student_sex]:checked').length < 1){
+						$form.find('input:radio[name = student_sex]').focus();
+						alert('수강생 성별을 입력해 주세요.');
+						return false;
+					}
+					
+					<c:if test="${teach.address_yn eq 'Y'}">
+						if($form.find('#student_address').val() == ''){
+							$form.find('#student_address').focus();
+							alert('수강생 주소를 입력해 주세요.');
+							return false;
+						}
+					</c:if>
+					
+					if($('#self_yn1').is(':checked')){
+						if($('#applicant_name').val() != $('#student_name').val()){
+							alert('신청자 성명과 수강생 성명이 동일하지 않습니다.');
+							return false;
+						}else if($('#applicant_birth').val() != $('#student_birth').val()){
+							alert('신청자 생년월일과 수강생 생년월일이 동일하지 않습니다.');
+							return false;
+						}else if($('input:radio[name = applicant_sex]:checked').val() != $('input:radio[name = student_sex]:checked').val()){
+							alert('신청자 성별과 수강생 성별이 동일하지 않습니다.');
+							return false;
+						}
+					}
+					$('#applicant_zipcode').val($('#student_zipcode').val());
+					$('#applicant_address').val($('#student_address').val());
 
 					<c:if test="${teach.family_yn eq 'Y'}">
+					if ( $form.find('#family_relation').val() == '') {
+						$form.find('#family_relation').focus();
+						alert('보호자 관계를 입력해 주세요.');
+						return false;
+					}
+					if ( $form.find('#family_name').val() == ''){
+						$form.find('#family_name').focus();
+						alert('보호자 이름을 입력해 주세요.');
+						return false;
+					}
 					cellPhone1 = $form.find('#family_cell_phone_1').val();
+					if ( cellPhone1 == '' ) {
+						$form.find('#family_cell_phone_1').focus();
+						alert('보호자 휴대전화번호를 입력해 주세요.');
+						return false;
+					}
 					cellPhone2 = $form.find('#family_cell_phone_2').val();
+					if ( cellPhone2 == '' ) {
+						$form.find('#family_cell_phone_2').focus();
+						alert('보호자 휴대전화번호를 입력해 주세요.');
+						return false;
+					}
 					cellPhone3 = $form.find('#family_cell_phone_3').val();
+					if ( cellPhone3 == '' ) {
+						$form.find('#family_cell_phone_3').focus();
+						alert('보호자 휴대전화번호를 입력해 주세요.');
+						return false;
+					}
+					if ( $form.find('#family_name').val() == ''){
+						$form.find('#family_name').focus();
+						alert('보호자 이름을 입력해 주세요.');
+						return false;
+					}
+					if ( $form.find('input:radio[name = family_confirm_yn]:checked').length < 1){
+						$form.find('input:radio[name = family_confirm_yn]').focus();
+						alert('보호자 동의여부를 입력해 주세요.');
+						return false;
+					}
+					if ( $form.find('input:radio[name = family_confirm_yn]:checked').val() == 'N'){
+						$form.find('input:radio[name = family_confirm_yn]').focus();
+						alert('해당 강좌는 보호자 동의를 받아야 합니다.');
+						return false;
+					}
+
 					$form.find('#family_cell_phone').val(cellPhone1+'-'+cellPhone2+'-'+cellPhone3);
+					if($('#self_parent_yn1').is(':checked')){
+						if($('#applicant_name').val() != $('#family_name').val()){
+							alert('신청자 성명과 보호자 이름이 동일하지 않습니다.');
+							return false;
+						}else if($('#applicant_cell_phone').val() != $('#family_cell_phone').val()){
+							alert('신청자 휴대전화번호와 보호자 휴대전화번호가 동일하지 않습니다.');
+							return false;
+						}
+					}
 					</c:if>
 
+					<c:if test="${teach.sms_service_yn eq 'Y'}">
+					if ( $form.find("input:radio[name = sms_service_yn]:checked").length < 1 ) {
+						$form.find('input:radio[name = sms_service_yn]').focus();
+						alert('sms 수신동의여부가 입력되지 않았습니다.');
+						return false;
+					}
+					</c:if>
+
+					<c:if test="${teach.picture_use_yn eq 'Y'}">
+					if ( $form.find("input:radio[name = picture_use_yn]:checked").length < 1 ) {
+						$form.find('input:radio[name = picture_use_yn]').focus();
+						alert('사진촬영동의여부가 입력되지 않았습니다.');
+						return false;
+					}
+					</c:if>
+					$form.find('#student_name').prop('disabled', false);
+					$form.find('input[name="student_sex"]').prop('disabled', false);
+					$form.find("#student_birth").prop('disabled', false);
+					$form.find('#family_name').prop('disabled', false);
 					if(doAjaxPost($form)) {
 						$(this).dialog('destroy');
 						$('button.teach_btn_${student.group_idx}${student.category_idx}${student.teach_idx}').click();
@@ -87,37 +195,60 @@ $(function() {
 		height: 600
 	});
 
-	$('[name="self_yn"]').change(function() {
+	$('input#self_yn1').on('click', function() {
 		if ( $(this).is(':checked') ) {
 			$('#student_name').val($('#applicant_name').val());
-			$('#student_name').prop('readonly', true);
+			$('#student_name').prop('disabled', true);
 			$('#student_birth').val($('#applicant_birth').val());
 			$("#student_birth").datepicker('disable');
-			$('[name="student_sex"].'+$('[name="applicant_sex"]:checked').val()).prop('checked', true);
-			$('[name="student_sex"]').prop('disabled', true);
-			$('#student_zipcode').val($('#applicant_zipcode').val());
-			$('#student_zipcode').prop('readonly', true);
-			$('#student_address').val($('#applicant_address').val());
-			$('#student_address').prop('readonly', true);
-			$('#student_address_detail').val($('#applicant_address_detail').val());
-			$('#student_address_detail').prop('readonly', true);
-			$('button.student_zipcode').hide();
+			$('input[name="student_sex"].'+$('[name="applicant_sex"]:checked').val()).prop('checked', true);
+			$('input[name="student_sex"]').prop('disabled', true);
 		}
 		else {
-			$('#student_name').prop('readonly', false);
+			$('#student_name').prop('disabled', false);
 			$('#student_name').val('');
 			$("#student_birth").datepicker('enable');
 			$('#student_birth').val('');
-			$('[name="student_sex"]').prop('disabled', false);
-			$('#student_zipcode').prop('readonly', false);
-			$('#student_zipcode').val('');
-			$('#student_address').prop('readonly', false);
-			$('#student_address').val('');
-			$('#student_address_detail').prop('readonly', false);
-			$('#student_address_detail').val('');
-			$('button.student_zipcode').show();
+			$('input[name="student_sex"]').prop('disabled', false);
+			$('input[name="student_sex"]').prop('checked', false);
 		}
 	});
+	
+	$('input#self_parent_yn1').on('click', function() {
+		if ( $(this).is(':checked') ) {
+			$('#family_name').val($('#applicant_name').val());
+			$('#family_name').prop('disabled', true);
+			$('#family_cell_phone_1').val($('#applicant_cell_phone_1').val());
+			$('#family_cell_phone_2').val($('#applicant_cell_phone_2').val());
+			$('#family_cell_phone_3').val($('#applicant_cell_phone_3').val());
+			$('#family_cell_phone_1').prop('disabled', true);
+			$('#family_cell_phone_2').prop('disabled', true);
+			$('#family_cell_phone_3').prop('disabled', true);
+		}
+		else {
+			$('#family_name').prop('disabled', false);
+			$('#family_cell_phone_1').prop('disabled', false);
+			$('#family_cell_phone_2').prop('disabled', false);
+			$('#family_cell_phone_3').prop('disabled', false);
+			$('#family_name').val('');
+			$('#family_cell_phone_1').val('');
+			$('#family_cell_phone_2').val('');
+			$('#family_cell_phone_3').val('');
+		}
+	});
+
+	if($('#self_yn1').is(':checked')){
+		$('#student_name').prop('disabled', true);
+		$("#student_birth").prop('disabled', true);
+		$('input[name="student_sex"]').prop('disabled', true);
+	}
+
+	if($('#self_parent_yn1').is(':checked')){
+		$('#family_name').prop('disabled', true);
+		$('#family_cell_phone_1').prop('disabled', true);
+		$('#family_cell_phone_2').prop('disabled', true);
+		$('#family_cell_phone_3').prop('disabled', true);
+	}
 
 	$('.findPostCode').on('click', function(e){
 		e.preventDefault();
@@ -162,11 +293,16 @@ $(function() {
                 $(focusInput).focus();
             }
         }).open();
+		
 	});
 
 	$('a.idCheck').on('click', function(e) {
 		$('#studentForm #member_key').val('');
 		$('#studentForm #applicant_name').val('');
+		if($('#studentForm #member_id').val() == ''){
+			alert('아이디를 입력해 주세요.');
+			return false;
+		}
 		$.get('checkId.do?homepage_id=' + $('#studentForm #homepage_id').val() + '&member_id='+ $('#studentForm #member_id').val(), function(response) {
 			if( response.data.length > 0){
 
@@ -251,6 +387,7 @@ $(function() {
 	<form:hidden path="editMode"/>
 	<form:hidden path="member_key"/>
 	<form:hidden path="api_user_id"/>
+	<input type="hidden" name="self_info_yn" value="Y"/>
 
 	<div style="text-align: right; margin-bottom: 5px;">
 		<code style="float:left">신청자 정보</code>(<span style="color: red; font-weight: bold;">*</span>) 항목은 필수 입력값입니다.
@@ -262,7 +399,7 @@ $(function() {
        	</colgroup>
        	<tbody>
        		<tr>
-	         	<th>신청자 - ID</th>
+	         	<th>ID</th>
 	         	<td>
 	         		<c:choose>
 	         			<c:when test="${student.editMode eq 'ADD' }">
@@ -275,32 +412,22 @@ $(function() {
          		</td>
         	</tr>
 			<tr>
-	         	<th>신청자 - 성명(<span style="color: red; font-weight: bold;">*</span>)</th>
+	         	<th>성명(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="applicant_name" class="text" /></td>
         	</tr>
         	<tr>
-	         	<th>신청자 - 생년월일(<span style="color: red; font-weight: bold;">*</span>)</th>
+	         	<th>생년월일(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="applicant_birth" class="text ui-calendar"/></td>
         	</tr>
         	<tr>
-	         	<th>신청자 - 성별(<span style="color: red; font-weight: bold;">*</span>)</th>
+	         	<th>성별(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
 	         		<form:radiobutton id="as1" path="applicant_sex" cssClass="M" value="M" label="남" cssStyle="vertical-align: middle;"/>
 	         		<form:radiobutton id="as2" path="applicant_sex" cssClass="F" value="F" label="여" cssStyle="vertical-align: middle;"/>
          		</td>
 	        </tr>
-	        <tr>
-	         	<th>신청자 - 우편번호</th>
-	         	<td><form:input path="applicant_zipcode" class="text" readonly="true" cssStyle="width: 15%;"/><button class="btn btn2 findPostCode" keyValue1="#applicant_zipcode" keyValue2="#applicant_address" keyValue3="#applicant_address">우편번호 찾기</button></td>
-        	</tr>
-	        <tr>
-	         	<th>신청자 - 주소</th>
-	         	<td>
-	         		<form:input path="applicant_address" class="text" style="width:100%;" maxlength="60"/><br/>
-         		</td>
-        	</tr>
 			<tr>
-				<th>신청자 - 휴대전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
+				<th>휴대전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
 				<td>
 					<form:hidden path="applicant_cell_phone" cssClass="text"/>
 					<input id="applicant_cell_phone_1" style="width:40px;" class="text" maxlength="3" numberonly="true" /> -
@@ -311,6 +438,17 @@ $(function() {
 					</div>
 				</td>
 			</tr>
+			<c:if test="${teach.member_yn eq 'Y' and not empty student.student_password}">
+				<tr>
+					<th>비밀번호(<span style="color: red; font-weight: bold;">*</span>)</th>
+					<td>
+						<form:password path="student_password" cssClass="text" style="width:20%" maxlength="20" title="비밀번호"/>
+						<div class="ui-state-highlight">
+							<em>* 입력하는 경우에만 변경됩니다.</em>
+						</div>
+					</td>
+				</tr>
+			</c:if>
 			<tr>
 				<th>약관</th>
 				<td>
@@ -335,57 +473,58 @@ $(function() {
 		       <col width="*"/>
 	       	</colgroup>
 			<tr>
-				<th>수강생 동일여부</th>
+				<th>동일여부</th>
 	        	<td>
 	        		<form:checkbox path="self_yn" value="Y" label="신청자 정보와 동일" cssStyle="vertical-align: middle;"/>
 	      		</td>
 			</tr>
 			<tr>
-	         	<th>수강생 - 성명(<span style="color: red; font-weight: bold;">*</span>)</th>
+	         	<th>성명(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="student_name" class="text" /></td>
         	</tr>
         	<tr>
-	         	<th>수강생 - 생년월일(<span style="color: red; font-weight: bold;">*</span>)</th>
+	         	<th>생년월일(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="student_birth" class="text ui-calendar" /></td>
         	</tr>
         	<tr>
-	         	<th>수강생 - 성별(<span style="color: red; font-weight: bold;">*</span>)</th>
+	         	<th>성별(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
 	         		<form:radiobutton id="ss1" path="student_sex" cssClass="M" value="M" label="남" cssStyle="vertical-align: middle;"/>
 	         		<form:radiobutton id="ss2" path="student_sex" cssClass="F" value="F" label="여" cssStyle="vertical-align: middle;"/>
          		</td>
 	        </tr>
         	<tr style="display: none">
-	         	<th >수강생 - 나이(<span style="color: red; font-weight: bold;">*</span>)</th>
+	         	<th >나이(<span style="font-weight: bold;">*</span>)</th>
 	         	<td><input id="student_old" name="student_old" class="text" style="width:30px" maxlength="3" /></td>
         	</tr>
+        	<c:if test="${teach.address_yn eq 'Y' }">
 	        <tr>
-	         	<th>수강생 - 우편번호</th>
+	         	<th>우편번호</th>
 	         	<td><form:input path="student_zipcode" class="text" readonly="true" cssStyle="width: 15%;"/><button class="btn btn2 findPostCode student_zipcode" keyValue1="#student_zipcode" keyValue2="#student_address" keyValue3="#student_address">우편번호 찾기</button></td>
         	</tr>
 	        <tr>
-	         	<th>수강생 - 주소</th>
+	         	<th>주소(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
 	         		<form:input path="student_address" class="text" style="width:100%;" maxlength="60"/><br/>
 	         	</td>
         	</tr>
-			<tr>
-	         	<th>개인정보 동의 여부(<span style="color: red; font-weight: bold;">*</span>)</th>
-	         	<td>
-	         		<c:choose>
-	         			<c:when test="${student.editMode eq 'ADD' }">
-			         		<form:select path="self_info_yn" class="selectmenu">
-								<form:option value="Y" label="동의"/>
-								<form:option value="N" label="미동의"/>
-							</form:select>
-	         			</c:when>
-	         			<c:otherwise>
-	         				${student.self_info_yn eq 'Y' ? '동의' : '미동의'}
-	         			</c:otherwise>
-	         		</c:choose>
-
-         		</td>
-	        </tr>
+        	</c:if>
+        	<c:if test="${teach.family_yn eq 'N'}">
+        	<tr>
+        		<th>SMS 수신동의여부(<span style="color: red; font-weight: bold;">*</span>)</th>
+        		<td>
+        			<form:radiobutton path="sms_service_yn" value="Y" label="동의" cssStyle="vertical-align: middle;"/>
+					<form:radiobutton path="sms_service_yn" value="N" label="미동의" cssStyle="vertical-align: middle;"/> 
+        		</td>
+        	</tr>
+        	</c:if>
+        	<tr>
+        		<th>사진촬영동의여부(<span style="color: red; font-weight: bold;">*</span>)</th>
+        		<td>
+        			<form:radiobutton path="picture_use_yn" value="Y" label="동의" cssStyle="vertical-align: middle;"/>
+					<form:radiobutton path="picture_use_yn" value="N" label="미동의" cssStyle="vertical-align: middle;"/>
+        		</td>
+        	</tr>
 			<tr>
 				<th>상태</th>
 				<td>
@@ -396,13 +535,13 @@ $(function() {
 			</tr>
         	<c:if test="${teach.school_info_yn eq 'Y'}">
         	<tr>
-	         	<th>수강생 - 학교</th>
+	         	<th>학교</th>
 	         	<td><form:input path="student_school" class="text" cssStyle="width:250px;" /></td>
         	</tr>
         	</c:if>
         	<c:if test="${teach.school_grade_yn eq 'Y'}">
         	<tr>
-	         	<th>수강생 - 학년</th>
+	         	<th>학년</th>
 	         	<td>
 	         		<form:select path="student_hack" cssClass="selectmenu" cssStyle="width:120px;" items="${hakList}" itemValue="code_id" itemLabel="code_name">
 	         		</form:select>
@@ -411,7 +550,7 @@ $(function() {
         	</c:if>
         	<c:if test="${teach.remark_yn eq 'Y'}">
 				<tr>
-					<th>수강생 - 비고</th>
+					<th>비고</th>
 					<td><form:input path="student_remark" cssClass="text" style="width:100%"/></td>
 				</tr>
 			</c:if>
@@ -458,28 +597,37 @@ $(function() {
 					</td>
 				</tr>
 			</c:if>
-			<c:if test="${teach.member_yn eq 'Y' and not empty student.student_password}">
+			<c:if test="${teach.family_count_yn eq 'Y'}">
 				<tr>
-					<th>비밀번호(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td>
-						<form:password path="student_password" cssClass="text" style="width:20%" maxlength="20" title="비밀번호"/>
-						<div class="ui-state-highlight">
-							<em>* 입력하는 경우에만 변경됩니다.</em>
-						</div>
-					</td>
+					<th>가족 인원 수</th>
+					<td><form:input path="student_family_count" cssClass="text" numberOnly="true"/></td>
 				</tr>
 			</c:if>
-			<c:if test="${teach.family_yn eq 'Y'}">
+		</table>
+		<c:if test="${teach.family_yn eq 'Y'}">
+		</br>
+		<div style="text-align: right; margin-bottom: 5px;">
+				<code style="float:left">보호자 정보</code>(<span style="color: red; font-weight: bold;">*</span>) 항목은 필수 입력값입니다.
+		</div>
+		<table class="type2">
+			<colgroup>
+				<col width="160" />
+				<col width="*"/>
+			</colgroup>
 				<tr>
-					<th>보호자 관계</th>
+					<th>동일여부</th>
+					<td><form:checkbox path="self_parent_yn" value="Y" label="신청자 정보와 동일" cssStyle="vertical-align: middle;"/></td>
+				</tr>
+				<tr>
+					<th>관계(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td><form:input path="family_relation" cssClass="text"/></td>
 				</tr>
 				<tr>
-					<th>보호자 이름</th>
+					<th>이름(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td><form:input path="family_name" cssClass="text"/></td>
 				</tr>
 				<tr>
-					<th>보호자연락처</th>
+					<th>휴대전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td>
 						<form:hidden path="family_cell_phone" cssClass="text"/>
 						<input id="family_cell_phone_1" style="width:40px;" class="text" maxlength="3" numberonly="true" /> -
@@ -490,12 +638,21 @@ $(function() {
 						</div>
 					</td>
 				</tr>
+				<c:if test="${teach.sms_service_yn eq 'Y'}">
 				<tr>
-					<th>보호자 동의여부</th>
+					<th>SMS 수신동의여부(<span style="color: red; font-weight: bold;">*</span>)</th>
+					<td>
+						<form:radiobutton path="sms_service_yn" value="Y" label="동의" cssStyle="vertical-align: middle;"/>
+						<form:radiobutton path="sms_service_yn" value="N" label="미동의" cssStyle="vertical-align: middle;"/> 
+					</td>
+				</tr>
+				</c:if>
+				<tr>
+					<th>14세 미만 어린이/아동보호자(법정대리인)동의여부(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td>
 						<form:radiobutton path="family_confirm_yn" value="Y" label="동의" cssStyle="vertical-align: middle;"/>
 	         			<form:radiobutton path="family_confirm_yn" value="N" label="미동의" cssStyle="vertical-align: middle;"/>
-         			</td>
+	        		</td>
 				</tr>
 				<tr>
 					<th>비고</th>
@@ -503,13 +660,8 @@ $(function() {
 						<form:input path="family_desc" cssClass="text"/>
 					</td>
 				</tr>
-			</c:if>
-			<c:if test="${teach.family_count_yn eq 'Y'}">
-				<tr>
-					<th>가족 인원 수</th>
-					<td><form:input path="student_family_count" cssClass="text" numberOnly="true"/></td>
-				</tr>
-			</c:if>
-		</tbody>
-	</table>
+       		</tbody>
+		</table>
+	</c:if>
+	
 </form:form>

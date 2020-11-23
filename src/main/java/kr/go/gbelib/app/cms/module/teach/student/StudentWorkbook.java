@@ -65,6 +65,9 @@ public class StudentWorkbook {
 		workbook.getSheet(0).setColumnView(13, 20);
 		workbook.getSheet(0).setColumnView(14, 20);
 		workbook.getSheet(0).setColumnView(15, 20);
+		workbook.getSheet(0).setColumnView(16, 20);
+		workbook.getSheet(0).setColumnView(17, 20);
+		workbook.getSheet(0).setColumnView(18, 20);
 
 		workbook.getSheet(0).addCell(new Label(0, 0, String.format("강좌명 : %s", teach.getTeach_name()), format1));
 		workbook.getSheet(0).mergeCells(0, 0, 5, 0);
@@ -80,26 +83,48 @@ public class StudentWorkbook {
 		workbook.getSheet(0).addCell(new Label(5, 0, "신청자-우편번호", format));
 		workbook.getSheet(0).addCell(new Label(6, 0, "신청자-주소", format));*/
 		workbook.getSheet(0).addCell(new Label(column++, 1, "신청자-휴대전화번호", format));
-		workbook.getSheet(0).addCell(new Label(column++, 1, "수강생-동일여부", format));
+		if("N".equals(teach.getAgent_yn())) {
+			if("Y".equals(teach.getSms_service_yn())) {
+				workbook.getSheet(0).addCell(new Label(column++, 1, "신청자-SMS 수신 동의 여부", format));
+			}
+			if("Y".equals(teach.getPicture_use_yn())) {
+				workbook.getSheet(0).addCell(new Label(column++, 1, "신청자-사진 촬영 동의 여부", format));
+			}
+		}
+		workbook.getSheet(0).addCell(new Label(column++, 1, "신청자-수강생 동일여부", format));
 		workbook.getSheet(0).addCell(new Label(column++, 1, "수강생-명", format));
 		workbook.getSheet(0).addCell(new Label(column++, 1, "수강생-생년월일", format));
 		workbook.getSheet(0).addCell(new Label(column++, 1, "수강생-성별", format));
 		workbook.getSheet(0).addCell(new Label(column++, 1, "수강생-우편번호", format));
 		workbook.getSheet(0).addCell(new Label(column++, 1, "수강생-주소", format));
 		workbook.getSheet(0).addCell(new Label(column++, 1, "수강생-학교", format));
+		if("Y".equals(teach.getAgent_yn()) && "N".equals(teach.getFamily_yn()) && "Y".equals(teach.getSms_service_yn())) {
+			workbook.getSheet(0).addCell(new Label(column++, 1, "수강생-SMS 수신 동의 여부", format));
+		}
+		if("Y".equals(teach.getAgent_yn()) && "Y".equals(teach.getPicture_use_yn())) {
+			workbook.getSheet(0).addCell(new Label(column++, 1, "수강생-사진 촬영 동의 여부", format));
+		}
 //		workbook.getSheet(0).addCell(new Label(column++, 1, "수강생-학년", format));
 		/*workbook.getSheet(0).addCell(new Label(16, 0, "개인정보동의여부", format));*/
 		workbook.getSheet(0).addCell(new Label(column++, 1, "상태", format));
 
 		if ( "Y".equals(teach.getFamily_yn()) ) {
 			workbook.getSheet(0).setColumnView(column, 20);
+			workbook.getSheet(0).addCell(new Label(column++, 1, "신청자-보호자 동일여부"));
+			
+			workbook.getSheet(0).setColumnView(column, 20);
 			workbook.getSheet(0).addCell(new Label(column++, 1, "보호자 관계", format));
-
+			
 			workbook.getSheet(0).setColumnView(column, 20);
 			workbook.getSheet(0).addCell(new Label(column++, 1, "보호자 이름", format));
 
 			workbook.getSheet(0).setColumnView(column, 20);
 			workbook.getSheet(0).addCell(new Label(column++, 1, "보호자 연락처", format));
+			
+			if("Y".equals(teach.getSms_service_yn())) {
+				workbook.getSheet(0).setColumnView(column, 20);
+				workbook.getSheet(0).addCell(new Label(column++, 1, "보호자-SMS 수신동의 여부", format));
+			}
 
 			workbook.getSheet(0).setColumnView(column, 20);
 			workbook.getSheet(0).addCell(new Label(column++, 1, "보호자 승인 여부", format));
@@ -222,6 +247,14 @@ public class StudentWorkbook {
 			workbook.getSheet(0).addCell(new Label(5, row, org.getApplicant_zipcode(), format1));
 			workbook.getSheet(0).addCell(new Label(6, row, org.getApplicant_address(), format1));*/
 			workbook.getSheet(0).addCell(new Label(column++, row, org.getApplicant_cell_phone(), format1));
+			if("N".equals(teach.getAgent_yn())) {
+				if("Y".equals(teach.getSms_service_yn())) {
+					workbook.getSheet(0).addCell(new Label(column++, row, org.getSms_service_yn(), format1));
+				}
+				if("Y".equals(teach.getPicture_use_yn())) {
+					workbook.getSheet(0).addCell(new Label(column++, row, org.getPicture_use_yn(), format1));
+				}
+			}
 			workbook.getSheet(0).addCell(new Label(column++, row, org.getSelf_yn(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, org.getStudent_name(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, org.getStudent_birth(), format1));
@@ -229,13 +262,23 @@ public class StudentWorkbook {
 			workbook.getSheet(0).addCell(new Label(column++, row, org.getStudent_zipcode(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, org.getStudent_address(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, org.getStudent_school(), format1));
+			if("Y".equals(teach.getAgent_yn()) && "N".equals(teach.getFamily_yn()) && "Y".equals(teach.getSms_service_yn())) {
+				workbook.getSheet(0).addCell(new Label(column++, row, org.getSms_service_yn(), format1));
+			}
+			if("Y".equals(teach.getAgent_yn()) && "Y".equals(teach.getPicture_use_yn())) {
+				workbook.getSheet(0).addCell(new Label(column++, row, org.getPicture_use_yn(), format1));
+			}
 //			workbook.getSheet(0).addCell(new Label(column++, row, String.valueOf(hack), format1));
 			/*workbook.getSheet(0).addCell(new Label(16, row, org.getSelf_info_yn(), format1));*/
 			workbook.getSheet(0).addCell(new Label(column++, row, student_status, format1));
 			if ( "Y".equals(teach.getFamily_yn()) ) {
+				workbook.getSheet(0).addCell(new Label(column++, row, org.getSelf_parent_yn()));
 				workbook.getSheet(0).addCell(new Label(column++, row, org.getFamily_relation(), format1));
 				workbook.getSheet(0).addCell(new Label(column++, row, org.getFamily_name(), format1));
 				workbook.getSheet(0).addCell(new Label(column++, row, org.getFamily_cell_phone(), format1));
+				if("Y".equals(teach.getSms_service_yn())) {
+					workbook.getSheet(0).addCell(new Label(column++, row, org.getSms_service_yn(), format1));
+				}
 				workbook.getSheet(0).addCell(new Label(column++, row, org.getFamily_confirm_yn(), format1));
 				workbook.getSheet(0).addCell(new Label(column++, row, org.getFamily_desc(), format1));
 			}

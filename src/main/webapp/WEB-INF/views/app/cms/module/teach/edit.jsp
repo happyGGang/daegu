@@ -47,6 +47,139 @@ $(function() {
 							return false;
 						}
 					}
+					
+					var sjt1 = $('input#start_join_time1').val();
+					if($('input#start_join_time1').val().length < 2){
+						$('input#start_join_time1').focus();
+						alert('접수기간 시작 시간 시를 0이 필요하다면 포함하여 2자리로 입력해 주세요.');
+						return false;
+					}
+					if($('input#start_join_time1').val() < '00' || $('input#start_join_time1').val() > '23'){
+						$('input#start_join_time1').focus();
+						alert('접수기간 시작 시간 시의 범위는 00부터 23까지입니다.');
+						return false;
+					}
+					
+					var sjt2 = $('input#start_join_time2').val();
+					if($('input#start_join_time2').val().length < 2){
+						$('input#start_join_time2').focus();
+						alert('접수기간 시작 시간 분을 0이 필요하다면 포함하여 2자리로 입력해 주세요.');
+						return false;
+					}
+					if($('input#start_join_time2').val() < '00' || $('input#start_join_time2').val() > '59'){
+						$('input#start_join_time2').focus();
+						alert('접수기간 시작 시간 분의 범위는 00부터 59까지입니다.');
+						return false;
+					}
+					
+					$('input#start_join_time').val(sjt1+':'+sjt2);
+					
+					var ejt1 = $('input#end_join_time1').val();
+					if($('input#end_join_time1').val().length < 2){
+						$('input#end_join_time1').focus();
+						alert('접수시간 종료 시간 시를 0이 필요하다면 포함하여 2자리로 입력해 주세요.');
+						return false;
+					}
+					if($('input#end_join_time1').val() < '00' || $('input#end_join_time1').val() > '23'){
+						$('input#end_join_time1').focus();
+						alert('접수시간 종료 시간 시의 범위는 00부터 23까지입니다.');
+						return false;
+					}
+
+					var ejt2 = $('input#end_join_time2').val();
+					if($('input#end_join_time2').val().length < 2){
+						$('input#end_join_time2').focus();
+						alert('접수시간 종료 시간 분을 0이 필요하다면 포함하여 2자리로 입력해 주세요.');
+						return false;
+					}
+					if($('input#end_join_time2').val() < '00' || $('input#end_join_time2').val() > '59'){
+						$('input#end_join_time2').focus();
+						alert('접수기간 종료 시간 분의 범위는 00부터 59까지입니다.');
+						return false;
+					}
+
+					$('input#end_join_time').val(ejt1+':'+ejt2);
+
+					var start_join_time_final = $('input#start_join_date').val() + ' ' + $('input#start_join_time').val();
+					var end_join_time_final = $('input#end_join_date').val() + ' ' + $('input#end_join_time').val();
+					if(start_join_time_final > end_join_time_final){
+						$('input#start_join_time1').focus();
+						alert('접수기간 시작 시간은 접수기간 종료 시간보다 이후일 수 없습니다.');
+						return false;
+					}
+					
+					if($("input:checkbox[name = 'teach_day']").is(':checked') == false){
+						alert('강의요일을 선택해 주세요.');
+						return false;
+					}
+					
+					if($('input#start_date').val() == ''){
+						$('input#start_date').focus();
+						alert('강의시작 기간을 선택하세요.');
+						return false;
+					}
+					
+					if($('input#end_date').val() == ''){
+						$('input#end_date').focus();
+						alert('강의종료 기간을 선택하세요.');
+						return false;
+					}
+
+					var st1 = $('input#start_time1').val();
+					if($('input#start_time1').val().length < 2){
+						$('input#start_time1').focus();
+						alert('강의시간 시작 시간 시를 0이 필요하다면 포함하여 2자리로 입력해 주세요.');
+						return false;
+					}
+					if($('input#start_time1').val() < '00' || $('input#start_time1').val() > '23'){
+						$('input#start_time1').focus();
+						alert('강의시간 시작 시간 시의 범위는 00부터 23까지입니다.');
+						return false;
+					}
+					
+					var st2 = $('input#start_time2').val();
+					if($('input#start_time2').val().length < 2){
+						$('input#start_time2').focus();
+						alert('강의시간 시작 시간 분을 0이 필요하다면 포함하여 2자리로 입력해 주세요.');
+						return false;
+					}
+					if($('input#start_time2').val() < '00' || $('input#start_time2').val() > '59'){
+						alert('강의시간 시작 시간 분의 범위는 00부터 59까지입니다.');
+						return false;
+					}
+					
+					$('input#start_time').val(st1+':'+st2);
+					
+					var et1 = $('input#end_time1').val();
+					if($('input#end_time1').val().length < 2){
+						$('input#end_time1').focus();
+						alert('강의시간 종료 시간 시를 0이 필요하다면 포함하여 2자리로 입력해 주세요.');
+						return false;
+					}
+					if($('input#end_time1').val() < '00' || $('input#end_time1').val() > '23'){
+						$('input#end_time1').focus();
+						alert('강의시간 종료 시간 시의 범위는 00부터 23까지입니다.');
+						return false;
+					}
+
+					var et2 = $('input#end_time2').val();
+					if($('input#end_time2').val().length < 2){
+						$('input#end_time2').focus();
+						alert('강의시간 종료 시간 분을 0이 필요하다면 포함하여 2자리로 입력해주세요.');
+						return false;
+					}
+					if($('input#end_time2').val() < '00' || $('input#end_time2').val() > '59'){
+						$('input#end_time2').focus();
+						alert('강의시간 종료 시간 분의 범위는 00부터 59까지입니다.');
+						return false;
+					}
+					$('input#end_time').val(et1+':'+et2);
+
+					if($('input#start_time').val() > $('input#end_time').val()){
+						$('input#start_time1').focus();
+						alert('강의 시작 시간은 강의 종료 시간보다 이후일 수 없습니다.');
+						return false;
+					}
 
 					var planFile = $('#plan_file');
 					if ( $('#plan_file').val() == '' ) {
@@ -59,20 +192,6 @@ $(function() {
 					}
 
 					$('select#holidays option').prop('selected', true);
-
-					var sjt1 = $('input#start_join_time1').val();
-					var sjt2 = $('input#start_join_time2').val();
-					$('input#start_join_time').val(sjt1+':'+sjt2);
-					var ejt1 = $('input#end_join_time1').val();
-					var ejt2 = $('input#end_join_time2').val();
-					$('input#end_join_time').val(ejt1+':'+ejt2);
-					var st1 = $('input#start_time1').val();
-					var st2 = $('input#start_time2').val();
-					$('input#start_time').val(st1+':'+st2);
-					var et1 = $('input#end_time1').val();
-					var et2 = $('input#end_time2').val();
-					$('input#end_time').val(et1+':'+et2);
-
 
 					var option = {
 						url : 'save.do',
@@ -407,6 +526,33 @@ $(function() {
 	});
 
 	$('select#program_age_div_arr option:eq(0)').prop('selected', true);
+
+	if ($("input:radio[name = teach_age_type]:checked").val() == 'adult') {
+		$("input:radio[name = 'family_yn'][value = 'N']").prop('checked', 'true');
+		$('input#family_yn1').attr('disabled', 'true');
+	}
+
+	if ($("input:radio[name = teach_age_type]:checked").val() == 'child') {
+		$("input:radio[name = 'family_yn'][value = 'Y']").prop('checked', 'true');
+		$("input:radio[name = 'agent_yn'][value = 'Y']").prop('checked','true');
+		$('input#family_yn2').attr('disabled', 'true');
+		$('input#agent_yn2').attr('disabled', 'true');
+	}
+
+	$('input#teach_age_type1').on('click', function() {
+		$('input#family_yn2').removeAttr('disabled');
+		$('input#agent_yn2').removeAttr('disabled');
+		$("input:radio[name = 'family_yn'][value = 'N']").prop('checked', 'true');
+		$('input#family_yn1').attr('disabled', 'true');
+	});
+
+	$('input#teach_age_type2').on('click', function() {
+		$('input#family_yn1').removeAttr('disabled');
+		$("input:radio[name = 'family_yn'][value = 'Y']").prop('checked', 'true');
+		$("input:radio[name = 'agent_yn'][value = 'Y']").prop('checked', 'true');
+		$('input#family_yn2').attr('disabled', 'true');
+		$('input#agent_yn2').attr('disabled', 'true');
+	});
 });
 
 </script>
@@ -710,6 +856,13 @@ $(function() {
 				</td>
 			</tr>
 			<tr>
+				<th>강의유형 (<span style="color: red; font-weight: bold;">*</span>)</th>
+				<td>
+					<form:radiobutton path="teach_age_type" value="adult"/> <label for="teach_age_type1" style="cursor:pointer;">성인 강의</label>&nbsp;
+					<form:radiobutton path="teach_age_type" value="child"/> <label for="teach_age_type2" style="cursor:pointer;">어린이 강의</label>&nbsp;
+				</td>
+			</tr>
+			<tr>
 				<th>강의요일 (<span style="color: red; font-weight: bold;">*</span>)</th>
 				<td>
 					<%-- <c:choose>
@@ -871,7 +1024,9 @@ $(function() {
 	         		<form:radiobutton path="family_yn" class="Y" value="Y"/> <label for="family_yn1" style="cursor:pointer;">사용</label>&nbsp;
 					<form:radiobutton path="family_yn" class="N" value="N"/> <label for="family_yn2" style="cursor:pointer;">미사용</label>
 					<div class="ui-state-highlight">
-						<em>* 해당 항목 사용시 수강생 입력 또는 신청 화면에서 보호자 정보 및 승인을 입력받는 항목이 노출됩니다.</em>
+						<em>* 해당 항목 사용시 수강생 입력 또는 신청 화면에서 보호자 정보 및 승인을 입력받는 항목이 노출됩니다.<br/>
+						* 성인 강의일 경우 보호자가 필요하지 않아 미사용으로 고정되고 어린이 강의일 경우 보호자가 필요하여 사용에 고정됩니다.
+						</em>
 					</div>
 				</td>
 	        </tr>
@@ -918,12 +1073,38 @@ $(function() {
 	        <tr>
 	         	<th>대리신청여부</th>
 	         	<td>
-	         		<form:radiobutton path="agent_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
-					<form:radiobutton path="agent_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/>
+	         		<form:radiobutton path="agent_yn" class="Y" value="Y"/> <label for="agent_yn1" style="cursor:pointer;">사용</label>&nbsp;
+					<form:radiobutton path="agent_yn" class="N" value="N"/> <label for="agent_yn2" style="cursor:pointer;">미사용</label>
 					<div class="ui-state-highlight">
-						<em>* 사용 시 '수강생' 입력항목이 노출됩니다. 아닌경우 신청자 정보만으로 신청합니다.</em>
+						<em>* 사용 시 '수강생' 입력항목이 노출됩니다. 아닌경우 신청자 정보만으로 신청합니다.<br/>
+						* 어린이 강의일 경우 대리신청이 사용으로 고정됩니다.
+						</em>
 					</div>
 				</td>
+	        </tr>
+	        <tr>
+	        	<th>sms 수신동의여부</th>
+	        	<td>
+	        		<form:radiobutton path="sms_service_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
+	        		<form:radiobutton path="sms_service_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/>&nbsp;
+	        		<div class="ui-state-highlight">
+	        			<em>* 사용 시 'sms 수신동의여부' 입력항목이 노출됩니다.<br/>
+	        			* 어린이 강의일 경우 보호자 정보에 입력항목이 노출됩니다. 성인 강의이고 대리신청일 경우 수강생 정보에 입력항목이 노출됩니다.
+	        			</em>
+	        		</div>
+	        	</td>
+	        </tr>
+	        <tr>
+	        	<th>사진 촬영 동의 여부</th>
+	        	<td>
+	        		<form:radiobutton path="picture_use_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
+	        		<form:radiobutton path="picture_use_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/>&nbsp;
+	        		<div class="ui-state-highlight">
+	        			<em>* 사용 시 '사진 촬영 동의 여부' 입력항목이 노출됩니다.<br/>
+	        			* 어린이 강의일 경우 수강생 정보에 입력항목이 노출됩니다. 성인 강의이고 대리신청일 경우 수강생 정보에 입력항목이 노출됩니다.
+	        			</em>
+	        		</div>
+	        	</td>
 	        </tr>
 	        <tr>
 	         	<th>학교 입력여부</th>

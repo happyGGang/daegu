@@ -143,7 +143,7 @@
 			CMS_CODE
 		WHERE
 			(
-				(HOMEPAGE_ID = #{homepage_id} AND GROUP_ID = #{group_id}) 
+				(HOMEPAGE_ID = #{homepage_id} AND GROUP_ID = #{group_id})
 				OR 
 				(HOMEPAGE_ID = 'CMS' AND GROUP_ID = #{group_id})
 			) AND
