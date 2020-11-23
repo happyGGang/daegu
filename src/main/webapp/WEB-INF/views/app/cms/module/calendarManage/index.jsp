@@ -117,7 +117,6 @@ $(function(){
 		var planDate = $('#plan_year').val() + '-' + $('#plan_month').val();
 		$('#plan_date').val(planDate);
 		if($(this).val() != '') {
-			$('input#homepage_id_1').val($(this).val());
 			doGetLoad('index.do', serializeCustom($('#calendarManage')));
 		}
 
@@ -175,11 +174,19 @@ $(function(){
 <c:set var="plan_date" value="${fn:split(calendarManage.plan_date, '-')}" />
 <form:form modelAttribute="calendarManage">
 	<form:hidden path="plan_date"/>
-	<form:hidden id="homepage_id_1" path="homepage_id"/>
 
 	<div class="infodesk">
+		<c:choose>
+			<c:when test="${fn:length(subHomepageList) > 0}">
+				도서관 : <form:select id="homepage_id_1" path="homepage_id" items="${subHomepageList}" itemLabel="homepage_name" itemValue="homepage_id"></form:select>
+			</c:when>
+			<c:otherwise>
+				<form:hidden id="homepage_id_1" path="homepage_id"/>
+			</c:otherwise>
+		</c:choose>
+
 		<div class="monthYear">
-			<a id="before-btn" href="#prev" class="btn prev"><i class="fa fa-angle-left"></i><span class="blind">이전달</span></a>
+			<a id="before-btn" href="#prev" class="btn prev"><i class="fa fa-angle-left"></i><span class="blind">이전달1</span></a>
 			<form:select path="plan_year" class="selectmenu" style="width:100px;"></form:select>
 	        <form:select path="plan_month" class="selectmenu" style="width:100px;"></form:select>
 	        <a id="next-btn" href="#next" class="btn next"><i class="fa fa-angle-right"></i><span class="blind">다음달</span></a>

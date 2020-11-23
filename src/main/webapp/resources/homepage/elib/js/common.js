@@ -8,6 +8,7 @@ var pageMain = (function(){
 
 	init = function() {
 		bindEvent();
+		ebookSlider();
 	};
 
 	bindEvent = function(){
@@ -26,29 +27,19 @@ var pageMain = (function(){
 			$box.find('.more-more').attr('href', moreUrl);
 
 		});
-/*
-		$(document).on('click', '.tabMenuV a.tab-link', function(){
-			var target = this.getAttribute('href').replace('#','');
-			var $box = $(this).closest('.tabV');
-			$(this).closest('.tabMenuV').find('li').removeClass('on');
-			$(this).parent('li').addClass('on');
-
-			$box.find('.con').hide();
-			$box.find('[data-tab="'+target+'"]').show();
-		});
-
-		$(document).on('click', '.tabMenu a', function(){
-			var target = this.getAttribute('href').replace('#','');
-			var $box = $(this).closest('.tab');
-			$(this).closest('.tabMenu').find('li').removeClass('on');
-			$(this).parent('li').addClass('on');
-
-			$box.find('.con').hide();
-			$box.find('[data-tab="'+target+'"]').show();
-		});
-*/
 	};
 
+	ebookSlider = function(){
+		if($('.ebookContent ul li').length >0) {
+			$('.ebookContent ul').bxSlider({
+				auto: true,
+				pager:false,
+				autoControls:true,
+				autoControlsCombine:true
+			});
+		}
+	};
+	
 	return {
 		init: init
 	}

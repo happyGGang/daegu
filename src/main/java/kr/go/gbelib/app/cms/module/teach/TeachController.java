@@ -98,8 +98,21 @@ public class TeachController extends BaseController {
 	public String index(Model model, Teach teach, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 //		if ( !getSessionIsAdmin(request) ) {
-			teach.setHomepage_id(getAsideHomepageId(request));
+//			teach.setHomepage_id(getAsideHomepageId(request));
 //		}
+
+		if ((getAsideHomepageId(request).equals("h37") || getAsideHomepageId(request).equals("h49") || getAsideHomepageId(request).equals("h45") || getAsideHomepageId(request).equals("h53"))) {
+			Homepage sessionHomepageInfo = getSessionHomepageInfo(request);
+			sessionHomepageInfo.setHomepage_group(getAsideHomepageId(request));
+			sessionHomepageInfo.setTemp_use_yn("Y");
+			List<Homepage> subHomepageList = homepageService.getSubHomepageList(sessionHomepageInfo);
+			if (StringUtils.isEmpty(teach.getHomepage_id())) {
+				teach.setHomepage_id(subHomepageList.get(0).getHomepage_id());
+			}
+			model.addAttribute("subHomepageList", subHomepageList);
+		} else {
+			teach.setHomepage_id(getAsideHomepageId(request));
+		}
 
 		int count = teachService.getTeachListCount(teach);
 		teachService.setPaging(model, count, teach);

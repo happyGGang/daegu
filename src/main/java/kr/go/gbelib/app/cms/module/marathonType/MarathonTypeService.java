@@ -1,0 +1,53 @@
+package kr.go.gbelib.app.cms.module.marathonType;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import kr.co.whalesoft.framework.base.BaseService;
+import kr.go.gbelib.app.cms.module.marathon.Marathon;
+
+@Service
+public class MarathonTypeService extends BaseService{
+
+	@Autowired
+	private MarathonTypeDao dao;
+
+
+	public int getMarathonTypeCount(MarathonType marathonType) {
+		return dao.getMarathonTypeCount(marathonType);
+	}
+
+	public List<MarathonType> getMarathonTypeList(MarathonType marathonType) {
+		return dao.getMarathonTypeList(marathonType);
+	}
+
+	public MarathonType getMarathonTypeOne(MarathonType marathonType) {
+		return dao.getMarathonTypeOne(marathonType);
+	}
+
+	@Transactional
+	public int addMarathonType(MarathonType marathonType) {
+		List<MarathonType> list = marathonType.getTypeList();
+		
+		for(int i = 0; i < list.size(); i++) {
+			dao.addMarathonType(list.get(i));
+		}
+		return 1;
+	}
+
+	public int modifyMarathonType(MarathonType marathonType) {
+		return dao.modifyMarathonType(marathonType);
+	}
+
+	public int deleteMarathonType(MarathonType marathonType) {
+		return dao.deleteMarathonType(marathonType);
+	}
+
+	public List<Marathon> getMarathonList(MarathonType marathonType) {
+		return dao.getMarathonList(marathonType);
+	}
+
+}

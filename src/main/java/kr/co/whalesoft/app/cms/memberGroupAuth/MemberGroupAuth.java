@@ -1,8 +1,10 @@
 package kr.co.whalesoft.app.cms.memberGroupAuth;
 
+import kr.co.whalesoft.framework.utils.PagingUtils;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import kr.co.whalesoft.framework.utils.PagingUtils;
 
 /**
  * 그룹권한 관리 테이블 : WB_MEMBER_GROUP_AUTH
@@ -109,18 +111,21 @@ public class MemberGroupAuth extends PagingUtils {
 	}
 
 	public List<String> getAuthCodeList() {
-		return authCodeList;
+		List<String> arrayList = new ArrayList<String>();
+		arrayList.addAll(this.authCodeList);
+		return arrayList;
 	}
 
 	public void setAuthCodeList(List<String> authCodeList) {
-		this.authCodeList = authCodeList;
+		if (authCodeList != null) {
+			this.authCodeList = new ArrayList<String>();
+			this.authCodeList.addAll(authCodeList);
+		}
 	}
-
 
 	public String getAuth_group_id() {
 		return auth_group_id;
 	}
-
 
 	public void setAuth_group_id(String auth_group_id) {
 		this.auth_group_id = auth_group_id;

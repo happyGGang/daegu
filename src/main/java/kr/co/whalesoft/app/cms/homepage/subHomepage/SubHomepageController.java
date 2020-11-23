@@ -31,6 +31,7 @@ public class SubHomepageController extends BaseController {
 	public String index(Model model, Homepage homepage, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 		homepage.setHomepage_group(getAsideHomepageId(request));
+		homepage.setTemp_use_yn(null);
 		int count = service.getSubHomepageListCount(homepage);
 		service.setPaging(model, count, homepage);
 		model.addAttribute("homepageList", service.getSubHomepageList(homepage));

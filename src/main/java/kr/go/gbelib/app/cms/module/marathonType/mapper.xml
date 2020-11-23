@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.marathonType.MarathonTypeDao">
+	
+	<sql id="where">
+		<if test="search_text != null and search_text != ''">
+		AND	${search_type} = #{search_text}
+		</if>
+	</sql>
+	
+	<select id="getMarathonTypeCount" resultType="integer">
+		SELECT
+			COUNT(*)
+		FROM
+			MARATHON_CONTEST A, MARATHON_CONTEST_TYPE B
+		WHERE
+			A.contest_idx = B.contest_idx
+		AND	A.homepage_id = #{homepage_id}
+		AND	B.homepage_id = #{homepage_id}
+		<if test="contest_idx != 0">
+		AND	B.contest_idx = #{contest_idx}
+		</if>
+		<if test="search_text != null and search_text != ''">
+		AND	A.${search_type} LIKE '%${search_text}%'
+		</if>
+	</select>	
+	
+	<select id="getMarathonTypeList" resultType="kr.go.gbelib.app.cms.module.marathonType.MarathonType">
+		${pagingTop}
+		SELECT
+			B.homepage_id, B.contest_idx, A.contest_name, B.contest_type_idx, B.contest_type,
+			B.page_count, B.application_subject, B.add_date, B.add_id, B.modify_date,
+			B.modify_id
+		FROM
+			MARATHON_CONTEST A, MARATHON_CONTEST_TYPE B
+		WHERE
+			A.contest_idx = B.contest_idx
+		AND	A.homepage_id = #{homepage_id}
+		AND	B.homepage_id = #{homepage_id}
+		<if test="contest_idx != 0">
+		AND	B.contest_idx = #{contest_idx}
+		</if>
+		<if test="search_text != null and search_text != ''">
+		AND	A.${search_type} LIKE '%${search_text}%'
+		</if>
+		ORDER BY contest_idx DESC, contest_type_idx
+		${pagingBottom}
+	</select>
+	
+	<select id="getMarathonTypeOne" resultType="kr.go.gbelib.app.cms.module.marathonType.MarathonType">
+		SELECT
+			B.homepage_id, B.contest_idx, A.contest_name, B.contest_type_idx, B.contest_type,
+			B.page_count, B.application_subject, B.add_date, B.add_id, B.modify_date,
+			B.modify_id
+		FROM
+			MARATHON_CONTEST A, MARATHON_CONTEST_TYPE B
+		WHERE
+			A.contest_idx = B.contest_idx
+		AND	A.homepage_id = #{homepage_id}
+		AND	B.homepage_id = #{homepage_id}
+		AND	B.contest_idx = #{contest_idx}
+		AND	B.contest_type_idx = #{contest_type_idx}
+	</select>
+	
+	<select id="getMarathonList" resultType="kr.go.gbelib.app.cms.module.marathon.Marathon">
+		SELECT
+			contest_idx, contest_name
+		FROM
+			MARATHON_CONTEST
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+	
+	<insert id="addMarathonType">
+		<selectKey keyProperty="contest_type_idx" order="BEFORE" resultType="int">
+			SELECT NVL(MAX(contest_type_idx), 0) + 1 FROM MARATHON_CONTEST_TYPE WHERE homepage_id = #{homepage_id} AND contest_idx = #{contest_idx}
+		</selectKey>
+		INSERT INTO
+			MARATHON_CONTEST_TYPE
+		(
+			homepage_id, contest_idx, contest_type_idx, contest_type, page_count,
+			application_subject, add_date, add_id, modify_date, modify_id
+		)
+			VALUES
+		(
+			#{homepage_id}, #{contest_idx}, #{contest_type_idx}, #{contest_type}, #{page_count},
+			#{application_subject}, SYSDATE, #{add_id}, #{modify_date}, #{modify_id}
+		)
+	</insert>
+	
+	<update id="modifyMarathonType">
+		UPDATE
+			MARATHON_CONTEST_TYPE
+		SET
+			contest_idx = #{contest_idx},
+			contest_type = #{contest_type},
+			page_count = #{page_count},
+			application_subject = #{application_subject},
+			modify_date = SYSDATE,
+			modify_id = #{modify_id}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	contest_idx = #{contest_idx}
+		AND	contest_type_idx = #{contest_type_idx}
+	</update>
+	
+	<update id="deleteMarathonType">
+		DELETE FROM
+			MARATHON_CONTEST_TYPE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	contest_idx = #{contest_idx}
+		AND	contest_type_idx = #{contest_type_idx}
+	</update>
+</mapper>

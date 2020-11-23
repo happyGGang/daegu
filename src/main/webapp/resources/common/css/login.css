@@ -85,7 +85,7 @@ div.loginBox1 .loginImg { float: left;}
 }
 @media all and (max-width:550px){
 	div.loginBox1 .loginImg { float: none;}
-	.loginBox1 .login div.loginImgBox {display:none;}
+	.loginBox1 .login div.loginImgBox {text-align: center;}
 	.login-body .login button{clear:both;width: 100%;height: 40px;}
 	.login-body .login .form-box{width: 100%;}
 	.login-body .login .form-box input.txt{width: 90%;}

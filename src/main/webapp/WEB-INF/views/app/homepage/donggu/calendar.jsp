@@ -70,14 +70,14 @@ Date.prototype.format = function(f) {
 			var plan_date = new Date($(this).attr('keyValue'));
 			plan_date.setMonth(plan_date.getMonth() - 1);
 			//plan_date.format('yyyy-MM')
-			$('div.cal-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM'));
+			$('div#holiday-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM'));
 			e.preventDefault();
 		});
 
 		$('a#next-btn').on('click',function(e) {
 			var plan_date = new Date($(this).attr('keyValue'));
 			plan_date.setMonth(plan_date.getMonth() + 1);
-			$('div.cal-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM'));
+			$('div#holiday-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM'));
 			e.preventDefault();
 		});
 
@@ -107,7 +107,7 @@ Date.prototype.format = function(f) {
 	</div>
 -->
 	<h3>휴관일 및 행사</h3>
-	<a href="#" class="btn-more">더보기</a>
+	<a href="module/calendarManage/index.do?menu_idx=142" class="btn-more">더보기</a>
 	<div>
 		<div class="cal-today">
 			<a id="before-btn" href="#prev" class="btn cal-today-btn prev" keyValue="${calendar.plan_date}"><img src="/resources/homepage/${homepage.context_path}/img/prev-month.png" alt="이전달"><span class="blind">이전달</span></a>

@@ -87,7 +87,7 @@ do {
 
 
 		$('div#holiday-box').load('calendar3.do');
-		$('ul.newBookUl').load('newBook.do');
+		$('ul.book_photo').eq(1).load('newBook.do');
 		$('ul.bestBookUl').load('bestBook.do');
 
 		$('#main-search-btn').on('click', function() {
@@ -118,7 +118,7 @@ do {
 
 				<div class="search-box">
 					<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
-						<input type="hidden" name="menu_idx" value="13">
+						<input type="hidden" name="menu_idx" value="9">
 						<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
 						<fieldset>
 							<legend class="blind">통합검색</legend>
@@ -126,7 +126,7 @@ do {
 								<div class="title-box">통합자료검색</div>
 								<div class="box1">
 									<label for="search_text_1" class="blind">통합자료검색</label>
-									<input name="title" id="search_text_1" type="text" class="text" placeholder="검색어를 입력하세요" style="ime-mode:active;"/>
+									<input name="title" id="search_text_1" type="text" class="text" placeholder="검색어를 입력하세요." style="ime-mode:active;"/>
 								</div>
 								<button id="main-search-btn">검색</button>
 							</div>
@@ -164,30 +164,18 @@ do {
 
 						<div class="notice-box">
 							<h2>공지사항</h2>
-							<a href="#" class="btn-more">더보기</a>
+							<a href="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=652" class="btn-more btn-more02">더보기</a>
 							<div class="cont">
 								<ul>
-
-									<li>
-									<a href="#"><em class="junggu0001">영어</em>문화가 있는 날, 두배로 대출데이! (추석연휴로 인해 날짜 변경)<span>2020-09-01</span></a>
-									</li>
-									
-									<li>
-									<a href="#"><em class="junggu0001">영어</em>2020년 “9월 독서의 달 ” 행사 축소 운영<span>2020-08-26</span></a>
-									</li>
-									
-									<li>
-									<a href="#"><em class="junggu0000">공통</em>‘사회적거리두기 2단계’격상에 따른 안동시립도서관 부분개관 변경 운영<span>2020-08-22</span></a>
-									</li>
-									
-									<li>
-									<a href="#"><em class="junggu0002">동인</em>안동시립중앙도서관 기간제근로자(도서관 운영보조) 채용 공고<span>2020-08-19</span></a>
-									</li>
-									
-									<li>
-									<a href="#"><em class="junggu0004">삼덕</em>‘사회적거리두기 2단계’격상에 따른 안동시립도서관 부분개관 변경 운영<span>2020-08-22</span></a>
-									</li>
-
+									<c:forEach var="i" varStatus="status" items="${noticeList}" >
+										<li>
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+												<em class="junggu${i.category1}">${i.category1_name}</em>
+												${i.title}
+												<span><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></span>
+											</a>
+										</li>
+									</c:forEach>
 								</ul>
 							</div>
 						</div>
@@ -203,146 +191,45 @@ do {
 			<div class="section">
 				<div class="book-box tabS">
 					<ul class="tabMenuS">
-						<li class="on"><a href="#tab1" class='t-tabs'>추천도서</a></li>
-						<li><a href="#tab2" class='t-tabs'>신착도서</a></li>
+						<li class="on"><a href="#tab1" class='t-tabs' data-link="/${homepage.context_path}/board/index.do?menu_idx=85&manage_idx=649">추천도서</a></li>
+						<li><a href="#tab2" class='t-tabs' data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=10">신착도서</a></li>
 					</ul>
-					<a href="#" class="btn-more2">더보기</a>
+					<a href="/${homepage.context_path}/board/index.do?menu_idx=85&manage_idx=649" class="btn-more2 more-more">더보기</a>
 
 					<div class="box con" data-tab="tab1">
 						<ul class="book_photo">
-							
-							<li>
-								<a href="">
+							<c:forEach items="${bookList1}" var="i" varStatus="status">
+								<li>
+									<a href="/${homepage.context_path}/board/view.do?menu_idx=85&manage_idx=649&board_idx=${i.board_idx}">
 									<span class="con-image">
-									
-									
-										<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
-									
-									
-									
+										<c:choose>
+											<c:when test="${i.preview_img ne null}">
+												<c:choose>
+													<c:when test="${fn:contains(i.preview_img, 'http')}">
+														<img src="${i.preview_img}" alt="${i.title}" />
+													</c:when>
+													<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+														<img src="${i.preview_img}" alt="${i.title}" />
+													</c:when>
+													<c:otherwise>
+														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+													</c:otherwise>
+												</c:choose>
+											</c:when>
+											<c:otherwise>
+												<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
+											</c:otherwise>
+										</c:choose>
 									</span>
-									<span class="con-title">1진정성 마케팅 ...</span>
-									<span class="con-author">김상훈,박선미 공저...</span>
-								</a>
-							</li>
-							
-							
-							<li>
-								<a href="">
-									<span class="con-image">
-									
-									
-										<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
-									
-									
-									
-									</span>
-									<span class="con-title">주식회사 히어로즈 : ...</span>
-									<span class="con-author">기타가와 에미 지음 ;...</span>
-								</a>
-							</li>
-							
-							
-							<li>
-								<a href="">
-									<span class="con-image">
-									
-									
-										<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
-									
-									
-									
-									</span>
-									<span class="con-title">All the piec...</span>
-									<span class="con-author">Jonathan Abr...</span>
-								</a>
-							</li>
-							
-							
-							<li>
-								<a href="">
-									<span class="con-image">
-									
-									
-										<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
-									
-									
-									
-									</span>
-									<span class="con-title">초록 자전거...</span>
-									<span class="con-author">이상교 글 ; 오정택 ...</span>
-								</a>
-							</li>
-							
+										<span class="con-title">${i.title}</span>
+									</a>
+								</li>
+							</c:forEach>
 						</ul>
 					</div>
 
 					<div class="box con" data-tab="tab2" style="display:none;">
 						<ul class="book_photo">
-							
-							<li>
-								<a href="">
-									<span class="con-image">
-									
-									
-										<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
-									
-									
-									
-									</span>
-									<span class="con-title">2진정성 마케팅 : 끌리...</span>
-									<span class="con-author">김상훈,박선미 공저...</span>
-								</a>
-							</li>
-							
-							
-							<li>
-								<a href="">
-									<span class="con-image">
-									
-									
-										<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
-									
-									
-									
-									</span>
-									<span class="con-title">주식회사 히어로즈 : ...</span>
-									<span class="con-author">기타가와 에미 지음 ;...</span>
-								</a>
-							</li>
-							
-							
-							<li>
-								<a href="">
-									<span class="con-image">
-									
-									
-										<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
-									
-									
-									
-									</span>
-									<span class="con-title">All the piec...</span>
-									<span class="con-author">Jonathan Abr...</span>
-								</a>
-							</li>
-							
-							
-							<li>
-								<a href="">
-									<span class="con-image">
-									
-									
-										<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
-									
-									
-									
-									</span>
-									<span class="con-title">초록 자전거...</span>
-									<span class="con-author">이상교 글 ; 오정택 ...</span>
-								</a>
-							</li>
-							
 						</ul>
 					</div>
 

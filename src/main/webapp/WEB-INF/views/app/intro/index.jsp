@@ -66,6 +66,19 @@ $(function() {
 				<!-- <li class="integration"><a href="/intro/${context_path}/join/integration.do">통합인증센터</a></li> -->
 				</c:otherwise>
 				</c:choose>
+				<c:choose>
+				<c:when test="${context_path eq 'beomeo'}">
+				<li class="gohomepage"><a href="http://library.suseong.kr/beomeo/" target="_blank">홈페이지로이동</a></li>
+				</c:when>
+				<c:when test="${context_path eq 'yonghak'}">
+				<li class="gohomepage"><a href="http://library.suseong.kr/yonghak/" target="_blank">홈페이지로이동</a></li>
+				</c:when>
+				<c:when test="${context_path eq 'gosan'}">
+				<li class="gohomepage"><a href="http://library.suseong.kr/gosan/main/index.htm" target="_blank">홈페이지로이동</a></li>
+				</c:when>
+				<c:otherwise>
+				</c:otherwise>
+				</c:choose>
 			</ul>
 		</div>
 	</div>
@@ -85,7 +98,15 @@ $(function() {
 			<li class="bg bg01"><a href="/intro/${context_path}/search/index.do" id="search-btn"><img src="/resources/common/img/bt001.png" alt="통합검색센터"  class="wbt"/><img src="/resources/common/img/mbt001.png" alt="통합검색센터" class="mbt"/></a></li>
 			<c:choose>
 			<c:when test="${sessionScope.member.login}">
+
+			<c:choose>
+				<c:when test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib'}">
+			<li class="bg bg02"><a href="#" onclick="alert('예산소진으로 희망도서신청을 중단합니다.')"><img src="/resources/common/img/bt004.png" alt="희망도서신청" class="wbt"/><img src="/resources/common/img/mbt004.png" alt="희망도서신청" class="mbt"/></a></li>
+				</c:when>
+				<c:otherwise>
 			<li class="bg bg02"><a href="/intro/${context_path}/search/hope/req.do"><img src="/resources/common/img/bt004.png" alt="희망도서신청" class="wbt"/><img src="/resources/common/img/mbt004.png" alt="희망도서신청" class="mbt"/></a></li>
+				</c:otherwise>
+			</c:choose>
 			<li class="bg bg03"><a href="/intro/${context_path}/search/loan/index.do" class="join-btn"><img src="/resources/common/img/bt005.png" alt="마이페이지" class="wbt"/><img src="/resources/common/img/mbt005.png" alt="마이페이지" class="mbt"/></a></li>
 			</c:when>
 			<c:otherwise>

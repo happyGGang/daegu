@@ -104,13 +104,13 @@
 			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias,
 			homepage_tell, homepage_fax, homepage_send_tell, homepage_type, manage_code, lib_code,
 			zipcode, address1, address2, eng_address, domain,
-			context_path, folder, remark, print_seq
+			context_path, folder, remark, print_seq, temp_use_yn
 		) VALUES
 		(
 			#{homepage_id}, #{homepage_group}, #{homepage_name}, #{homepage_eng_name}, #{homepage_alias},
 			#{homepage_tell}, #{homepage_fax}, #{homepage_send_tell}, #{homepage_type}, #{manage_code}, #{lib_code},
 			#{zipcode}, #{address1}, #{address2}, #{eng_address}, #{domain},
-			#{context_path}, #{folder}, #{remark}, #{print_seq}
+			#{context_path}, #{folder}, #{remark}, #{print_seq}, #{temp_use_yn}
 		)
 	</insert>
 
@@ -136,7 +136,8 @@
 			context_path = #{context_path},
 			folder = #{folder},
 			remark = #{remark},
-			print_seq = #{print_seq}
+			print_seq = #{print_seq},
+			temp_use_yn = #{temp_use_yn}
 		WHERE
 			homepage_id = #{homepage_id}
 	</update>
@@ -190,6 +191,9 @@
 		WHERE
 			homepage_type = '0'
 		AND	homepage_group = #{homepage_group}
+		<if test="temp_use_yn != null">
+		AND	temp_use_yn = #{temp_use_yn}
+		</if>
 	</select>
 
 	<select id="getSubHomepageList" resultType="kr.co.whalesoft.app.cms.homepage.Homepage">
@@ -205,6 +209,9 @@
 		WHERE
 			homepage_type = '0'
 		AND	homepage_group = #{homepage_group}
+		<if test="temp_use_yn != null">
+		AND	temp_use_yn = #{temp_use_yn}
+		</if>
 		ORDER BY
 			print_seq, homepage_name
 		${pagingBottom}

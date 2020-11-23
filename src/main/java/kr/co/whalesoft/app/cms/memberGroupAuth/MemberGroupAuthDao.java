@@ -1,9 +1,10 @@
 package kr.co.whalesoft.app.cms.memberGroupAuth;
 
-import java.util.List;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.memberGroupSubord.MemberGroupSubord;
+
+import java.util.List;
 
 public interface MemberGroupAuthDao {
 
@@ -11,9 +12,15 @@ public interface MemberGroupAuthDao {
 
 	int deleteMemberGroupAuth(MemberGroupAuth memberGroupAuth);
 
-	int addMemberGroupAuth(MemberGroupAuth memberGroupAuth);
+	int deleteMemberGroupAuthMenu(MemberGroupAuth memberGroupAuth);
+
+	int addMemberGroupAuth(List<MemberGroupAuth> addList);
+
+	int addMemberGroupAuthMenu(List<MemberGroupAuth> addList);
 
 	List<String> getAuthCodeList(MemberGroupAuth memberGroupAuth);
+
+	List<String> getAuthCodeListMenu(MemberGroupAuth memberGroupAuth);
 
 	List<String> getMemberGroupAuthSite(MemberGroupAuth memberGroupAuth);
 

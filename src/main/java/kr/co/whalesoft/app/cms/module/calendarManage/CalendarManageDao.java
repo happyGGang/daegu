@@ -47,4 +47,9 @@ public interface CalendarManageDao {
 	
 	public int isTodayClosed(String homepage_id);
 
+	List<String> getEventSeogu(CalendarManage calendarManage);
+
+	List<String> getMovieSeogu(CalendarManage calendarManage);
+
+	List<String> getCloseSeogu(CalendarManage calendarManage);
 }

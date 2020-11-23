@@ -30,4 +30,6 @@ public interface ExcursionsDao {
 	public List<CalendarStatus> getExcursionsMonthStatus(CalendarStatus calendarStatus);
 	
 	public List<CalendarStatus> getExcursionsYearStatus(CalendarStatus calendarStatus);
+
+	String getCodeName(Excursions excursion);
 }

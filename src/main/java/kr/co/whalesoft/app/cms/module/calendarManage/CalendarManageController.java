@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -63,8 +64,20 @@ public class CalendarManageController extends BaseController {
 	public String index(Model model, CalendarManage calendarManage,HttpServletRequest request, @PathVariable("url") String url ) throws AuthException {
 		checkAuth("R", model, request);
 //		if ( !getSessionIsAdmin(request) ) {
-			calendarManage.setHomepage_id(getAsideHomepageId(request));
 //		}
+
+		if ((getAsideHomepageId(request).equals("h37") || getAsideHomepageId(request).equals("h49") || getAsideHomepageId(request).equals("h45") || getAsideHomepageId(request).equals("h45"))) {
+			Homepage sessionHomepageInfo = getSessionHomepageInfo(request);
+			sessionHomepageInfo.setHomepage_group(getAsideHomepageId(request));
+			sessionHomepageInfo.setTemp_use_yn("Y");
+			List<Homepage> subHomepageList = homepageService.getSubHomepageList(sessionHomepageInfo);
+			if (StringUtils.isEmpty(calendarManage.getHomepage_id())) {
+				calendarManage.setHomepage_id(subHomepageList.get(0).getHomepage_id());
+			}
+			model.addAttribute("subHomepageList", subHomepageList);
+		} else {
+			calendarManage.setHomepage_id(getAsideHomepageId(request));
+		}
 
 		if (calendarManage.getPlan_date() == null || calendarManage.getPlan_date().equals("")) {
 			calendarManage.setPlan_date(new SimpleDateFormat("yyyy-MM").format(new Date()));
@@ -75,10 +88,14 @@ public class CalendarManageController extends BaseController {
 		}
 
 		Board board = new Board();
-		board.setHomepage_id(calendarManage.getHomepage_id());
+		board.setHomepage_id(getAsideHomepageId(request));
 		board.setImsi_v_1(calendarManage.getPlan_date());
-
+		if (!StringUtils.equals(getAsideHomepageId(request), calendarManage.getHomepage_id())) {
+			board.setCategory5(calendarManage.getHomepage_id());
+		}
 		model.addAttribute("moveList", boardService.getBoardMovie(board));
+
+		
 		model.addAttribute("calendarList", service.getCalendar(calendarManage));
 		model.addAttribute("calendarListType", service.getCalendarListType(calendarManage));
 		model.addAttribute("calendarManage", calendarManage);
@@ -86,6 +103,8 @@ public class CalendarManageController extends BaseController {
 		model.addAttribute("okApplyList",applyService.getOkApply(calendarManage));
 		model.addAttribute("teachList",teachService.getTeachListForCalendar(calendarManage));
 		model.addAttribute("facilityReqList",facilityReqService.getFacilityReqCalendar(calendarManage));
+
+
 
 		model.addAttribute("url", url);
 		return basePath + "index" + url;
@@ -108,6 +127,11 @@ public class CalendarManageController extends BaseController {
 		model.addAttribute("weekdayList", service.getDefaultWeekDay());
 
 		model.addAttribute("dateTypeList",codeService.getCode(calendarManage.getHomepage_id(), "C0006"));
+		Homepage h = new Homepage();
+		h.setHomepage_id(getSessionHomepageInfo(request).getHomepage_id());
+		h.setHomepage_group(getSessionHomepageInfo(request).getHomepage_group());
+		h.setTemp_use_yn("Y");
+		model.addAttribute("subHomepageList", homepageService.getSubHomepageList(h));
 		return basePath + "edit_ajax";
 	}
 
@@ -124,6 +148,10 @@ public class CalendarManageController extends BaseController {
 
 		if (!result.hasErrors()) {
 			if (calendarManage.getEditMode().equals("ADD")) {
+
+				if (StringUtils.isNotEmpty(calendarManage.getSubHomepageId())) {
+					calendarManage.setHomepage_id(calendarManage.getSubHomepageId());
+				}
 
 				String startDate = calendarManage.getStart_date();
 				String endDate = calendarManage.getEnd_date();

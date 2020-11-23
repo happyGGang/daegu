@@ -1,14 +1,5 @@
 package kr.co.whalesoft.app.cms.memberGroupAuth;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import kr.co.whalesoft.app.cms.adminMenu.AdminMenu;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.member.Member;
@@ -16,6 +7,15 @@ import kr.co.whalesoft.app.cms.memberGroup.MemberGroup;
 import kr.co.whalesoft.app.cms.memberGroup.MemberGroupService;
 import kr.co.whalesoft.app.cms.memberGroupSubord.MemberGroupSubord;
 import kr.co.whalesoft.framework.base.BaseService;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class MemberGroupAuthService extends BaseService {
@@ -37,19 +37,98 @@ public class MemberGroupAuthService extends BaseService {
 	public int addMemberGroupAuth(MemberGroupAuth memberGroupAuth, HttpServletRequest request) {
 		int result = 0;
 		if (StringUtils.equals(memberGroupAuth.getModule_type(), "MODULE")) {
-			result = dao.deleteMemberGroupAuthModule(memberGroupAuth); 
+			result = deleteMemberGroupAuthModule(memberGroupAuth);
 		} else {
 			memberGroupAuth.setSite_id(memberGroupAuth.getHomepage_id());
-			result = dao.deleteMemberGroupAuth(memberGroupAuth);
+			result = deleteMemberGroupAuth(memberGroupAuth);
 		}
 		if (memberGroupAuth.getAuthCodeList() != null && memberGroupAuth.getAuthCodeList().size() > 0) {
+			List<MemberGroupAuth> addList = new ArrayList<MemberGroupAuth>();
 			for ( String str : memberGroupAuth.getAuthCodeList() ) {
 				String[] split = str.split("_");
-				memberGroupAuth.setMenu_idx(Integer.parseInt(split[0]));
-				memberGroupAuth.setModule_idx(Integer.parseInt(split[1]));
-				memberGroupAuth.setAuth_code_id(split[2]);
-				result += dao.addMemberGroupAuth(memberGroupAuth);
+
+				MemberGroupAuth mga = new MemberGroupAuth();
+				mga.setMember_group_idx(memberGroupAuth.getMember_group_idx());
+				mga.setCud_id(memberGroupAuth.getCud_id());
+				mga.setSite_id(memberGroupAuth.getSite_id());
+				mga.setModuleType(memberGroupAuth.getModuleType());
+				mga.setMenu_idx(Integer.parseInt(split[0]));
+				mga.setModule_idx(Integer.parseInt(split[1]));
+				mga.setAuth_code_id(split[2]);
+
+				addList.add(mga);
 			}
+
+			result = addMemberGroupAuth(result, addList);
+
+		}
+
+
+
+		return result;
+	}
+
+	@WorkingLogger(comment="그룹별 권한 추가")
+	private int addMemberGroupAuth(int result, List<MemberGroupAuth> addList) {
+		result += dao.addMemberGroupAuth(addList);
+		return result;
+	}
+
+	@WorkingLogger(comment="그룹별 권한 삭제(권한 추가를 위한 삭제)")
+	private int deleteMemberGroupAuth(MemberGroupAuth memberGroupAuth) {
+		memberGroupAuth.setWork_reason("그룹별 권한 삭제(권한 추가를 위한 삭제)");
+		return dao.deleteMemberGroupAuth(memberGroupAuth);
+	}
+
+	@WorkingLogger(comment="그룹별모듈 권한 삭제(권한 추가를 위한 삭제)")
+	private int deleteMemberGroupAuthModule(MemberGroupAuth memberGroupAuth) {
+		memberGroupAuth.setWork_reason("그룹별모듈 권한 삭제(권한 추가를 위한 삭제)");
+		return dao.deleteMemberGroupAuthModule(memberGroupAuth);
+	}
+
+	@WorkingLogger(comment="메뉴별 권한 삭제(권한 추가를 위한 삭제)")
+	private int deleteMemberGroupAuthMenu(MemberGroupAuth memberGroupAuth, int result) {
+		result += dao.deleteMemberGroupAuthMenu(memberGroupAuth);
+		return result;
+	}
+
+	@WorkingLogger(comment="메뉴별 권한 추가")
+	private int addMemberGroupAuthMenu(List<MemberGroupAuth> addList, int result) {
+		result += dao.addMemberGroupAuthMenu(addList);
+		return result;
+	}
+
+	/**
+	 * 그룹별 권한등록(메뉴단위)
+	 * 기존 권한을 지우고 등록한다.
+	 * @param memberGroupAuth
+	 * @param request
+	 * @return
+	 */
+	@Transactional
+	public int addMemberGroupAuthMenu(MemberGroupAuth memberGroupAuth, HttpServletRequest request) {
+		int result = 0;
+		if (memberGroupAuth.getAuthCodeList() != null && memberGroupAuth.getAuthCodeList().size() > 0) {
+			int tmpGroupIdx = 0;
+			List<MemberGroupAuth> addList = new ArrayList<MemberGroupAuth>();
+			for ( String str : memberGroupAuth.getAuthCodeList() ) {
+				String[] split = str.split("_");
+				MemberGroupAuth mga = new MemberGroupAuth();
+				mga.setCud_id(memberGroupAuth.getCud_id());
+				mga.setSite_id(memberGroupAuth.getSite_id());
+				mga.setModuleType(memberGroupAuth.getModuleType());
+				mga.setMember_group_idx(Integer.parseInt(split[0]));
+				mga.setMenu_idx(Integer.parseInt(split[1]));
+				mga.setModule_idx(Integer.parseInt(split[2]));
+				mga.setAuth_code_id(split[3]);
+				if (tmpGroupIdx != Integer.parseInt(split[0])) {
+					tmpGroupIdx = Integer.parseInt(split[0]);
+				}
+				addList.add(mga);
+			}
+
+			result = deleteMemberGroupAuthMenu(memberGroupAuth, result);
+			result = addMemberGroupAuthMenu(addList, result);
 		}
 		return result;
 	}
@@ -117,6 +196,14 @@ public class MemberGroupAuthService extends BaseService {
 
 	public MemberGroupAuth getMemberGroupAuth(MemberGroupAuth memberGroupAuth) {
 		memberGroupAuth.setAuthCodeList(dao.getAuthCodeList(memberGroupAuth));
+		if (StringUtils.equals(memberGroupAuth.getModuleType(), "CMS")) {
+			memberGroupAuth.setHomepage_id(memberGroupService.getMemberGroupOne(new MemberGroup(memberGroupAuth.getMember_group_idx())).getSite_id());
+		}
+		return memberGroupAuth;
+	}
+
+	public MemberGroupAuth getMemberGroupAuthMenu(MemberGroupAuth memberGroupAuth) {
+		memberGroupAuth.setAuthCodeList(dao.getAuthCodeListMenu(memberGroupAuth));
 		if (StringUtils.equals(memberGroupAuth.getModuleType(), "CMS")) {
 			memberGroupAuth.setHomepage_id(memberGroupService.getMemberGroupOne(new MemberGroup(memberGroupAuth.getMember_group_idx())).getSite_id());
 		}

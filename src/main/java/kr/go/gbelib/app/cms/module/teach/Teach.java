@@ -173,6 +173,7 @@ public class Teach extends PagingUtils {
 	private String terms; // 약관여부 선택
 	private String apply_file_yn = "N"; // 신청첨부파일 여부
 
+	private List<String> homepage_ids;
 	public Teach() {}
 
 	public Teach(String homepage_id, int mainViewCount) {
@@ -1381,6 +1382,23 @@ public class Teach extends PagingUtils {
 
 	public void setApply_file_yn(String apply_file_yn) {
 		this.apply_file_yn = apply_file_yn;
+	}
+
+	public List<String> getHomepage_ids() {
+		if (homepage_ids != null) {
+			List<String> arrayList = new ArrayList<String>();
+			arrayList.addAll(this.homepage_ids);
+			return arrayList;
+		} else {
+			return null;
+		}
+	}
+
+	public void setHomepage_ids(List<String> homepage_ids) {
+		if (homepage_ids != null) {
+			this.homepage_ids = new ArrayList<String>();
+			this.homepage_ids.addAll(homepage_ids);
+		}
 	}
 
 }

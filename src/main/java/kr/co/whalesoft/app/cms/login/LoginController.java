@@ -150,7 +150,7 @@ public class LoginController extends BaseController {
 //		String redirectURL = request.getServerName() + ":" + request.getServerPort();
 		String redirectURL = request.getServerName();
 		service.logout(request);
-		return "redirect:http://" + redirectURL + getPath(request.getRequestURI()) + "/login/index.do";
+		return "redirect:/cms/login/index.do";
 
 	}
 

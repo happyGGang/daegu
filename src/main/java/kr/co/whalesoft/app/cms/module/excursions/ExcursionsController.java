@@ -3,7 +3,11 @@ package kr.co.whalesoft.app.cms.module.excursions;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+
+import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +34,28 @@ public class ExcursionsController extends BaseController {
 	
 	@Autowired
 	private CodeService codeService;
-		
+
+	@Autowired
+	private HomepageService homepageService;
+
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, Excursions excursions, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
-		excursions.setHomepage_id(getAsideHomepageId(request));	
-		
+//		excursions.setHomepage_id(getAsideHomepageId(request));
+
+		if ((getAsideHomepageId(request).equals("h37") || getAsideHomepageId(request).equals("h49") || getAsideHomepageId(request).equals("h45") || getAsideHomepageId(request).equals("h53"))) {
+			Homepage sessionHomepageInfo = getSessionHomepageInfo(request);
+			sessionHomepageInfo.setHomepage_group(getAsideHomepageId(request));
+			sessionHomepageInfo.setTemp_use_yn("Y");
+			List<Homepage> subHomepageList = homepageService.getSubHomepageList(sessionHomepageInfo);
+			if (StringUtils.isEmpty(excursions.getHomepage_id())) {
+				excursions.setHomepage_id(subHomepageList.get(0).getHomepage_id());
+			}
+			model.addAttribute("subHomepageList", subHomepageList);
+		} else {
+			excursions.setHomepage_id(getAsideHomepageId(request));
+		}
+
 		if(excursions.getPlan_date() == null || excursions.getPlan_date().equals("")) {
 			excursions.setPlan_date(new SimpleDateFormat("yyyy-MM").format(new Date()));
 		}
@@ -57,7 +77,7 @@ public class ExcursionsController extends BaseController {
 			model.addAttribute("excursions", excursions);
 		}
 		
-		model.addAttribute("dateTypeList", codeService.getCode(excursions.getHomepage_id(), "H0001"));
+		model.addAttribute("dateTypeList", codeService.getCode(getAsideHomepageId(request), "H0001"));
 		
 		return basePath + "edit_ajax";
 	}

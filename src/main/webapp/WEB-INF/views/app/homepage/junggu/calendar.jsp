@@ -70,14 +70,14 @@ Date.prototype.format = function(f) {
 			var plan_date = new Date($(this).attr('keyValue'));
 			plan_date.setMonth(plan_date.getMonth() - 1);
 			//plan_date.format('yyyy-MM')
-			$('div.cal-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM'));
+			$('div#holiday-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM'));
 			e.preventDefault();
 		});
 
 		$('a#next-btn').on('click',function(e) {
 			var plan_date = new Date($(this).attr('keyValue'));
 			plan_date.setMonth(plan_date.getMonth() + 1);
-			$('div.cal-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM'));
+			$('div#holiday-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM'));
 			e.preventDefault();
 		});
 
@@ -103,7 +103,7 @@ Date.prototype.format = function(f) {
 <div id="calendar2">
 	<div class="title">
 		<h2>도서관일정</h2>
-		<a href="#" class="btn-more3">더보기</a>
+		<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=36" class="btn-more3">더보기</a>
 	</div>
 
 	<div class="cal-func2">

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <style>
 	div.leftBox {float: left;}
@@ -161,6 +162,9 @@ $(document).ready(function() {
 		openModifyDialog(modifyOption('select#cate2'), deleteOption('select#cate2'));
 	});
 
+	$('select#selectLib').on('change', function() {
+		location.href = 'index.do?homepage_id='+$(this).val();
+	});
 });
 
 function moveOption(i, n, options) {
@@ -353,10 +357,21 @@ function doAjaxPostResponse(form, ajaxBody) {
 }
 </script>
 
-<div style="margin-left: 100px; height: 600px; text-align: center;">
+<div style="margin-left: 100px; height: 650px; text-align: center;">
 <form name="fm" method="post" action="#">
 <input type="hidden" name="_csrf" value="${_csrf.token}">
 <input type="hidden" name="data_list">
+	<div style="text-align: left;">
+		<c:if test="${fn:length(subHomepageList) > 0}">
+			도서관 :
+			<select id="selectLib">
+				<c:forEach items="${subHomepageList}" var="i" varStatus="status">
+					<option value="${i.homepage_id}" ${category.homepage_id eq i.homepage_id ? 'selected' : ''}>${i.homepage_name}</option>
+				</c:forEach>
+			</select>
+		</c:if>
+	</div>
+
 
 	<div class="leftBox" style="width: 350px;">
 		<div class="contentsBox">
@@ -398,13 +413,15 @@ function doAjaxPostResponse(form, ajaxBody) {
 </form>
 </div>
 
-<div id="edit_cate" style="display: none;">
+<div id="edit_cate" style="display: block;">
 <form:form modelAttribute="category" action="save.do" method="post" onsubmit="return false;">
 <form:hidden path="editMode"/>
 <form:hidden path="parent_id"/>
 <form:hidden path="teach_code"/>
 <form:hidden path="code_type"/>
 <form:hidden path="depth"/>
+<form:hidden path="homepage_id"/>
+
 
 <table class="tableTy02">
 	<colgroup>

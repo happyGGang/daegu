@@ -119,6 +119,16 @@ $(function() {
 			$('tr#menuTypeModule').hide();			
 		}
 	});
+
+	$('input[name=access_homepage_id_arr]').on('click', function() {
+		$('input#access_homepage_all').prop('checked', ($('input[name=access_homepage_id_arr]:checked').length == 0));
+	});
+
+	$('input#access_homepage_all').on('click', function() {
+		$('input[name=access_homepage_id_arr]').each(function() {
+			$(this).prop('checked', false);
+		})
+	});
 });
 </script>
 <div id="editDisable" class="disableBox">
@@ -166,12 +176,14 @@ $(function() {
 				</td>
 			</tr>
 			<tr class="group first">
-				<th>메뉴명1</th>
+				<th>메뉴명</th>
 				<td><form:input path="menu_name" cssClass="text menuName" cssStyle="font-size:14px;font-weight:800;" maxlength="20"/></td>
 			</tr>
 			<tr>
 				<th>사용 홈페이지</th>
 				<td>
+					<input type="checkbox" id="access_homepage_all" ${(adminMenu.editMode eq 'ADD' or fn:length(adminMenu.access_homepage_id_arr) < 1) ? 'checked' : ''} style="margin-left: 10px;"><label for="access_homepage_all">전체</label>
+					<br />
 					<c:forEach items="${homepageList}" var="i" varStatus="status">
 						<c:if test="${not empty i.homepage_alias}">
 							<form:checkbox path="access_homepage_id_arr" label="${i.homepage_alias}" value="${i.homepage_id}" cssStyle="margin-left: 10px;"/>

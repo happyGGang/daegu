@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <script type="text/javascript">
@@ -81,7 +82,7 @@ $(function() {
 
 	$('select#homepage_id_1').on('change', function(e) {
 		if($(this).val() != '') {
-			$('input#homepage_id_1').val($(this).val());
+			// $('input#homepage_id_1').val($(this).val());
 			$('#teachListForm').submit();
 		}
 
@@ -132,9 +133,16 @@ $(function() {
 </form:form>
 
 <form:form id="teachListForm"  modelAttribute="teach" action="index.do" >
-	<form:hidden id="homepage_id_1" path="homepage_id"/>
 
 	<div class="infodesk">
+		<c:choose>
+			<c:when test="${fn:length(subHomepageList) > 0}">
+				도서관 : <form:select id="homepage_id_1" path="homepage_id" items="${subHomepageList}" itemLabel="homepage_name" itemValue="homepage_id"></form:select>
+			</c:when>
+			<c:otherwise>
+				<form:hidden id="homepage_id_1" path="homepage_id"/>
+			</c:otherwise>
+		</c:choose>
 		검색 결과 : 총 ${teachListCount}건
 		<div class="button">
 			<span>대분류 :

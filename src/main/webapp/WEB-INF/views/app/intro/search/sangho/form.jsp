@@ -9,6 +9,11 @@ $(function() {
 
 	$('#save-btn').on('click', function(e) {
 		e.preventDefault();
+
+		<c:if test="${context_path eq 'junggu'}">
+			alert('도서에 포함된 부록자료(CD 등)는 분실 및 파손 위험으로 제외됩니다.');
+		</c:if>
+
 		if (!confirm('상호대차신청을 하시겠습니까?')) {
 			return false;
 		}
@@ -151,7 +156,7 @@ $(function() {
 			 <c:if test="${not empty detail.APPENDIX_INFO}">
 
 			<c:choose>
-			<c:when test="${context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol'}">
+			<c:when test="${context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol' || context_path eq 'junggu'}">
 			</c:when>
 			<c:otherwise>
 			 <tr>

@@ -496,7 +496,17 @@
 				AND	a.category_idx = c.category_idx(+)
 				AND	a.homepage_id = d.homepage_id(+)
 				AND	a.group_idx = d.group_idx(+)
+				<if test="homepage_id != null">
 				AND	a.homepage_id = #{homepage_id}
+				</if>
+				<if test="homepage_id == null">
+				AND	a.homepage_id IN
+					<foreach collection="homepage_ids" item="i" open="(" close=")" separator=",">
+						#{i}
+					</foreach>
+				</if>
+
+
 				<if test="searchCate1 != null and searchCate1 != ''">
 				AND	a.large_category_idx IN (${searchCate1})
 				</if>
@@ -1144,9 +1154,19 @@
 				teach_target, teach_desc, image_server_file_name, teach_stage
 			FROM
 				TEACH
-			WHERE 1 = 1
-				AND	homepage_id = #{homepage_id}
-				AND	delete_yn = 'N' AND	use_yn = 'Y'
+			WHERE
+				<if test="homepage_id != null">
+					homepage_id = #{homepage_id}
+				</if>
+				<if test="homepage_id == null">
+					homepage_id IN
+					<foreach collection="list" item="homepage_ids" index="i" open="(" close=")" separator=",">
+						#{i}
+					</foreach>
+				</if>
+
+				homepage_id = #{homepage_id}
+			AND	delete_yn = 'N' AND	use_yn = 'Y'
 			ORDER BY
 				ABS(SYSDATE - (TO_DATE(start_join_date ||' '|| start_join_time, 'YYYY-MM-DD HH24:MI'))) ASC,
 				ABS(SYSDATE - (TO_DATE(end_join_date ||' '|| end_join_time, 'YYYY-MM-DD HH24:MI'))) ASC,

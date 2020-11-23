@@ -55,9 +55,11 @@ $(function() {
 	$('#categoryLayer').load('category.do?editMode=FIRST&homepage_id='+$('#homepage_id_1').val());
 
 	<%--대분류변경--%>
-	$('select#large_category_idx').on('change', function() {
+	$('select#large_category_idx, select#homepage_id').on('change', function() {
 		doGetLoad('index.do', $('form#hiddenGroupForm').serialize());
 	});
+
+
 });
 </script>
 <form:form id="categoryGroupListForm"  modelAttribute="categoryGroup" action="index.do" >
@@ -67,7 +69,7 @@ $(function() {
 
 <form:form id="hiddenGroupForm" modelAttribute="categoryGroup" action="saveGroup.do">
 	<form:hidden path="editMode" value="DELETE"/>
-	<form:hidden path="homepage_id"/>
+<%--	<form:hidden path="homepage_id"/>--%>
 	<form:hidden path="group_idx"/>
 
 
@@ -75,6 +77,15 @@ $(function() {
 <div class="search">
 	<fieldset>
 		<label class="blind">검색</label>
+		<c:choose>
+			<c:when test="${fn:length(subHomepageList) > 0}">
+				도서관 : <form:select id="homepage_id" path="homepage_id" items="${subHomepageList}" itemLabel="homepage_name" itemValue="homepage_id"></form:select>
+			</c:when>
+			<c:otherwise>
+				<form:hidden path="homepage_id"/>
+			</c:otherwise>
+		</c:choose>
+
 		대분류 선택 :
 		<form:select path="large_category_idx" items="${teachLargeCategoryList}" itemLabel="code_name" itemValue="teach_code">
 		</form:select>

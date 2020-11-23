@@ -1,19 +1,5 @@
 package kr.co.whalesoft.app.cms.memberGroupAuth;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import kr.co.whalesoft.app.cms.adminMenu.AdminMenuService;
 import kr.co.whalesoft.app.cms.authCode.AuthCodeService;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
@@ -24,6 +10,18 @@ import kr.co.whalesoft.app.cms.moduleMngt.ModuleMngt;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * 그룹 권한 관리
@@ -164,6 +162,36 @@ public class MemberGroupAuthController extends BaseController {
 		if(!result.hasErrors()) {
 			memberGroupAuth.setCud_id(getSessionMemberId(request));
 			if (service.addMemberGroupAuth(memberGroupAuth, request) < 1) {
+				res.setValid(false);
+				res.setMessage("변경된 결과가 없습니다.");
+			} else {
+				res.setValid(true);
+				res.setMessage("저장 되었습니다.");
+			}
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+
+		return res;
+	}
+
+	/**
+	 * 그룹의 권한 부여(메뉴단위)
+	 * @param model
+	 * @param memberGroupAuth
+	 * @param result
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = {"/menuSave.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse menuSave(Model model, MemberGroupAuth memberGroupAuth, BindingResult result, HttpServletRequest request) {
+
+		JsonResponse res = new JsonResponse(request);
+
+		if(!result.hasErrors()) {
+			memberGroupAuth.setCud_id(getSessionMemberId(request));
+			if (service.addMemberGroupAuthMenu(memberGroupAuth, request) < 1) {
 				res.setValid(false);
 				res.setMessage("변경된 결과가 없습니다.");
 			} else {

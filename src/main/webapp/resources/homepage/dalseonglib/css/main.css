@@ -1,0 +1,290 @@
+@charset "utf-8"; 	
+
+.main1,.main2,.main3,.main4,.main5,.main7_banner{overflow:hidden}
+
+.main1 {position:relative;background:url('../img/main-visual.jpg') repeat-x center center;padding:0;}
+
+.popZone {position:relative;}
+.popZone > .cont li a img, .popZone > .cont li img  {width:100%;height:100%;}
+.popZone .cont .bx-controls {position:absolute;width:100%;height:100%;top:0;z-index:150000000;box-sizing:border-box;}
+.popZone .cont .bx-pager {position:absolute;text-align:center;right:102px;bottom:0;width:90px;height:50px;line-height:50px;background:rgba(0,0,0,0.3);color:#fff;font-size:17px;}
+.popZone .cont .bx-prev, 
+.popZone .cont .bx-next,
+.popZone .cont .bx-start,
+.popZone .cont .bx-stop {position:absolute;width:50px;height:50px;font-size:0;background-image:url("/resources/homepage/duryu/img/popupzone-arrow-v2.png");background-repeat: no-repeat; background-position:0 0;background-size:initial;}
+.popZone .cont .bx-prev  { bottom:0;left:0;background-position:0 0;}
+.popZone .cont .bx-next  { bottom:0;right:0;background-position:-50px 0; }
+.popZone .cont .bx-start { bottom:0;right:51px;background-position:-100px 0; }
+.popZone .cont .bx-stop  { bottom:0;right:51px;background-position:-100px 0;}
+
+.book-box {position:relative;background:#4a62ba;height:310px;box-sizing:border-box;padding:20px 0;}
+.tabMenuS {position:relative;text-align:center;width:75%;margin:0 auto;overflow:hidden;}
+.tabMenuS li {position:relative;display:inline-block;box-sizing:border-box;text-align:center;}
+.tabMenuS li a {position:relative;display:block;box-sizing:border-box;font-size:22px;color:#fff;font-weight:normal;padding:15px 0;letter-spacing:-1.5px;padding:0 20px;}
+.tabMenuS li.on a {padding:15px 20px;color:#ffdb00;font-weight:bold;background:url('/resources/homepage/dalseonglib/img/tabmenu-bg.png') no-repeat 5% 5%;}
+.tabMenuS li.on a span {border-bottom:0;}
+.btn-more {position:absolute;right:0;font-size:0;width:22px;height:22px;}
+.btn-more_right20{right:20px;}
+.btn-more.btn-b {background:url('../img/more-btn-b.png') no-repeat 0 0;}
+.btn-more.btn-w {background:url('../img/more-btn-w.png') no-repeat 0 0;}
+
+ul.book_photo {text-align:center;box-sizing:border-box;}
+ul.book_photo li {position:relative;display:inline-block;width:130px;padding:0 20px;vertical-align:top;overflow:hidden;text-align:center;}
+ul.book_photo li:nth-child(3), ul.book_photo li:nth-child(4){display:none;}
+ul.book_photo li a span {display:block;}
+ul.book_photo li a span.con-image {height:185px;margin:0;box-shadow:4px 4px 11px 0 rgba(0,0,0,0.3);}
+ul.book_photo li a span.con-image img {width:100%;height:100%;}
+ul.book_photo li a span.con-title {color:#000;font-size:15px;font-weight:600;padding-top:10px;letter-spacing:-1.5px;color:#fff;word-break:break-all;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
+ul.book_photo li a span.con-author {color:#000;font-size:15px;font-weight:normal;}
+
+.search-box {position:relative;width:100%;box-sizing:border-box;padding:35px 25px 0 25px;height:230px;border-top:1px solid #eaeaea;}
+.search-box .dalseong-slogan {position:absolute;right:0;top:0;}
+.search-box fieldset{position:relative;overflow:hidden;}
+.search-box legend {font-size:22px;font-weight:bold;color:#000;}
+.search-box .box1 {position:relative;width:100%;margin:0 auto;box-sizing:border-box;display:inline-block;border-style:solid;border-image:linear-gradient(to bottom, #b359c1 0%, #7544bb 100%);border-image-slice:1;background:#fff;border-image-width:20px;padding:7px;}
+.search-box input {border:0;background:#fff;width:100%;font-size:15px;color:#000;box-sizing:border-box;padding-left:15px;height:50px;line-height:50px;border-radius:0;}
+.search-box input:focus{outline:none}
+.search-box button {height:67px;line-height:67px;}
+.search-box button {position:absolute;width:77px;right:0;top:0;text-align:center;background:url('/resources/homepage/dalseonglib/img/search-btnbtnbtn.png') no-repeat center center;font-size:0;border-top-right-radius:35px;border-bottom-right-radius:35px;}
+.search-box .main-box {position:relative;width:100%;margin:25px auto 0;border:0;overflow:hidden;box-shadow:4px 4px 11px 0 rgba(0,0,0,0.2);}
+.search-box .bestKeyword {position:relative;padding:10px 0 0 15px;font-size:14px;}
+.search-box .bestKeyword b {position:relative;color:#7644bb;letter-spacing:-1.5px;}
+.search-box .bestKeyword b:after {position:absolute;content:"";top:5px;width:1px;right:-20px;height:10px;background:#7644bb;}
+.search-box .bestKeyword .key-word {display:inline-block;padding-left:30px;}
+.notice-box {position:relative;background:#fff;box-sizing:border-box;padding:15px 25px;height:310px;border-top:1px solid #eaeaea;}
+.calendar-box {}
+
+.libraryinfo-box {position:relative;box-sizing:border-box;background:#ffc742;padding:18px;height:230px;}
+.libraryinfo-box h3 {display:block;font-size:16px;font-weight:bold;color:#000;padding-left:25px;}
+.libraryinfo-box h3.time-icon {background:url('/resources/homepage/dalseonglib/img/time-icon.png') no-repeat left center;}
+.libraryinfo-box h3.calendar-icon {background:url('/resources/homepage/dalseonglib/img/calendar-icon.png') no-repeat left center;}
+.libraryinfo-box ul {display:block;padding:0 0 5px 25px;}
+.libraryinfo-box ul li {font-size:15px;}
+
+.movie-box {background:url('/resources/homepage/dalseonglib/img/movie-bg.png') repeat-x center center;box-sizing:border-box;padding:0;height:310px;}
+.movie-box h2 {position:relative;display:block;box-sizing:border-box;font-size:22px;color:#000;font-weight:bold;padding:0;letter-spacing:-1.5px;text-align:center;padding:20px 0 0;}
+
+.movie-box .movieContent {position:relative;width:190px;margin:0 auto;padding:0;}
+.movie-box .movieContent .bx-prev {position:absolute;left:-20px;top:59%;width:40px;height:20px;font-size:0;background:url('../img/movie-prev.png') no-repeat 0 0;}
+.movie-box .movieContent .bx-next {position:absolute;right:-20px;top:59%;width:40px;height:20px;font-size:0;background:url('../img/movie-next.png') no-repeat 0 0;}
+.movie-box .movieContent .bx-start,
+.movie-box .movieContent .bx-stop {position:absolute;width:0;height:0;font-size:0;}
+
+.movie-box .movieContent ul {text-align:center;}
+.movie-box .movieContent ul li span {display:block;padding:0 0 2px 0 }
+.movie-box .movieContent .view-date {position:absolute;background:#ff4990;border-radius:50px;width:50px;height:50px;z-index:15000;color:#fff;font-weight:bold;line-height:50px;left:0;}
+.movie-box .movieContent .movieImg {display:block;position:relative;width:100%;padding:10px 0 0;}
+.movie-box .movieContent .movieImg img {width:140px;height:185px;margin:0 auto;}
+.movie-box .movieContent .movieEx1 {display:block;width:100%;font-size:15px;color:#fff;letter-spacing:-1.5px;}
+.movie-box .movieContent .movieEx2 {display:block;width:100%;font-size:13px;color:#fff;line-height:100%;}
+
+.notice-box h2 {text-align:left;display:block;font-size:25px;font-weight:bold;padding:0;;color:#000;letter-spacing:-2px;padding:10px 0;border-bottom:1px solid #b4b4b4;}
+.notice-box > .cont {padding-top:12px;}
+.notice-box > .cont li {padding:5px 0;}
+.notice-box > .cont li a { position:relative;display:block;line-height:130%;box-sizing:border-box;font-weight:400;padding:5px 100px 5px 25px;position: relative;word-break:break-all;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;font-size:16px; }
+.notice-box > .cont li a:hover { text-decoration: underline; }
+.notice-box > .cont li a em {position:absolute;top:50%;left:0;width:48px;margin-top:-15px;height:33px;line-height:28px;text-align:center;color:#fff;font-weight:bold;text-decoration:none;font-style:normal;font-size:0;background:url('/resources/homepage/dalseonglib/img/m-notice-dot-icon.gif') no-repeat 5px center;}
+.notice-box > .cont li a em.noti {background:url('/resources/homepage/dalseonglib/img/m-notice-new-icon.png') no-repeat 5px center;}
+.notice-box > .cont li a span { position:absolute;right:0;font-family:'Nanum Barun Gothic';font-weight:400;font-size:15px; }
+
+.main2 {background:#c8d8ef;box-sizing:border-box;padding:30px 0;}
+
+.qmenu {box-sizing:border-box;overflow:hidden;text-align:center;}
+.qmenu li {display:inline-block;text-align:center;float:left;width:16.6666666666666%;height:210px;margin:0;box-sizing:border-box;}
+.qmenu li a {width:90%;height:90%;background:no-repeat center 30%;display:block;margin:0;font-size:19px;color:#000;font-weight:400;letter-spacing:-2px;text-align:center;background-color:#fff;margin:5%;}
+.qmenu li a:hover{width:100%;height:100%;margin:0;background-color:#7544bb;color:#fff;}
+.qmenu li a span{padding-top:130px;font-size:18px;display:block;position:relative;font-weight:bold;}
+
+.schedule-box {box-sizing:border-box;background:#fff;margin-top:30px;overflow:hidden;padding:36px;}
+.calendar-box {}
+#calendar2 h3 {display:block;font-size:22px;font-weight:bold;letter-spacing:-1.5px;color:#000;padding:0 0 30px 0;}
+
+#calendar2 .cal-today {float:left;width:20%;text-align:left;}
+#calendar2 .cal-cal {float:right;width:75%;}
+#calendar2 .cal-today p.cal-n1 {font-size:18px;margin:0;padding:0 5px 5px 5px;}
+#calendar2 .cal-today span.cal-date {font-size:42px;margin:0;padding:0;font-weight:800;}
+#calendar2 .calendar-info {text-align:left;padding-top:90px;}
+#calendar2 .calendar-info span {display:block;padding-left:15px;font-weight:bold;color:#000;}
+#calendar2 .calendar-info span.hu {background:url('/resources/homepage/duryu/img/red-dot.png') no-repeat 5px center;}
+#calendar2 .calendar-info span.ev {background:url('/resources/homepage/duryu/img/blue-dot.png') no-repeat 5px center;}
+
+
+#calendar2 {width:86%;height:100%;margin:0 auto;position:relative;}
+#calendar2:after {position:absolute;content:"";width:1px;height:100%;top:0;right:-40px;background:#ddd;}
+#calendar2 .title {position:relative;}
+#calendar2 .title h2 {font-size:30px;color:#000000;font-weight:bold;}
+.calendar2 {position:absolute;top:0px;z-index:800;width:1000px}
+.calendar2 .section{position:relative;overflow:hidden;text-align:center;margin:20px 20px;width:315px;float:right}
+.calendar2 .box{width:310px;margin-right:20px}
+.calendar2 h3{font-size:16px;color:#323232;font-weight:bold;line-height:36px;height:36px;text-align:left;float:left;padding-top:13px;}
+#calendar2 table,
+#calendar2 table th,
+#calendar2 table td {border:0;padding:0}
+#calendar2 .btn{border:0;background:none}
+#planList{overflow:hidden;padding-top:13px}
+#planList h3{font-size:15px;padding:0 10px 0 0;float:left;display:block;letter-spacing:-1px}
+#planList span{float:left;margin:5px 3px 0;width:25px;height:25px;font-weight:bold;line-height:25px;display:block;background-color:#ee882c;color:#fff;border-radius:100%;font-size:12px}
+.cal-func2 {text-align:center;padding:0 0 10px 0;}
+.cal-func2 a.btn {padding:10px 10px 5px 10px;color:#888;font-size:15px;border:1px solid #000;}
+.cal-func2 a.btn:focus,
+.cal-func2 a.btn:hover{color:#222}
+.cal-func2 a {}
+.cal-func2 b {height:18px;line-height:18px}
+.cal-func2 a,
+.cal-func2 b,
+.cal-func2 span,
+.cal-func2 em {vertical-align:middle}
+.cal-func2 b {font-size:25px;font-weight:normal;}
+.cal-func2 b span {font-size:19px;}
+.cal-func2 b em{color:#67940;font-weight:bold;font-style:normal;}
+#calendar2 .cal-tbl {margin-top:10px;text-align:center;}
+#calendar2 .cal-tbl th{font-size:11px;}
+#calendar2 .cal-tbl th span {display:block;width:30px;height:30px;line-height:30px;color:#fff;font-size:13px;font-weight:bold;background:#585274;text-align:center;border-radius:50%;margin:0 auto;}
+#calendar2 .cal-tbl td {font-size:11px;padding:1% 0;;text-align:center;white-space:nowrap}
+#calendar2 .cal-tbl td div{margin:0 10%;width:20px;height:30px;line-height:30px;font-size:14px;margin:0 auto;}
+#calendar2 .cal-tbl td a {display:block;border-radius:100%}
+#calendar2 .cal-tbl td a.type-r{background:url('/resources/homepage/duryu/img/blue-dot2.png') no-repeat center bottom;#0080f2;color:#0080f2}
+#calendar2 .cal-tbl td a.type-e{background:url('/resources/homepage/duryu/img/red-dot2.png') no-repeat center bottom;color:#ee2342}
+#calendar2 .planView{position:absolute;width:80%;left:50%;top:30%;background:#fff;margin-left:-40%;box-shadow:0px 1px 7px 0px rgba(0,0,0,0.5)}
+#calendar2 .planView .inbox{position:relative;border:1px solid #ccc;padding:10px}
+#calendar2 .planView .inbox dt{font-weight:bold;font-size:11px;font-family:verdana}
+#calendar2 .planView .inbox dd{padding:3px 0}
+#calendar2 .planView .inbox a.close{position:absolute;right:5px;top:0;font-size:120%}
+
+#calendar2 .inBox0 .week-box {position:relative;width:100%;padding:10px 0;text-align:center;background:#635950;border-radius:25px;}
+#calendar2 .inBox0 .week-box li {display:inline-block;width:10%;}
+#calendar2 .inBox0 .week-box li a {display:block;color:#fff;font-size:15px;height:25px;line-height:25px;border-radius:15px;}
+#calendar2 .inBox0 .week-box li a.today {background:#fff;;color:#fb8535;}
+
+#calendar2 .inBox0 .event-box {position:relative;width:90%;margin:0 auto;padding: 10px 0 25px 0;border-bottom:1px solid #fff;}
+#calendar2 .inBox0 .event-box span {display:inline-block;}
+#calendar2 .inBox0 .event-box span:first-child {position:absolute;width:45px;}
+#calendar2 .inBox0 .event-box span:last-child  {padding-left:55px;}
+#calendar2 .inBox0 .event-box span h3 {color:#000;/* font-size:14px; */font-weight:bold;}
+#calendar2 .inBox0 .event-box li {display:block;width: 100%;color:#000;font-size:14px;background:url('/resources/common/img/arr-news.gif') no-repeat left center;padding-left:7px;box-sizing:border-box;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
+
+#calendar2 .inBox1 {position:relative;width:100%;padding: 10px 0 5px 0;text-align:left;color:#000;}
+#calendar2 .inBox1 .title {float:left;position:relative;font-size:20px;padding: 0px 18px 7px 5px;}
+#calendar2 .inBox1 .bt-controls {float:left;width:175px;text-align:center;position:relative;}
+#calendar2 .inBox1 .bt-controls b {font-size:20px;font-family:'Verdana';font-weight:bold;line-height:150%;padding:0;}
+#calendar2 .inBox1 .info dd {float:left;position:relative;font-weight:bold;text-align:center;}
+#calendar2 .inBox1 .info dd span{display:inline-block;background:#fb8535;font-weight:bold;color:#fff;font-size:15px;text-align:center;width:30px;height:30px;line-height:30px;margin-right:3px;border-radius:25px;}
+
+#calendar2 .inBox1 .bt-controls .bt-next{top:1px;right:0;font-size:0;line-height:0;width:32px;height:32px;z-index:500;position:absolute}
+#calendar2 .inBox1 .bt-controls .bt-prev{top:1px;left:0;font-size:0;line-height:0;width:32px;height:32px;z-index:500;position:absolute}
+#calendar2 .inBox1 .bt-controls .bt-next{background:url('/resources/homepage/duryu/img/libCloseBtr.png') no-repeat center center}
+#calendar2 .inBox1 .bt-controls .bt-prev{background:url('/resources/homepage/duryu/img/libCloseBtl.png') no-repeat center center}
+#calendar2 .box{margin-left:0}
+#calendar2 dl{padding:3px 0}
+.calendarLibraryInfo {text-align:center;background:#f6f6f6;padding:11px 0;border-radius:4px;margin-top:10px;}
+
+.tabMenuSS {position:relative;text-align:center;width:100%;margin:0 auto;overflow:hidden;}
+.tabMenuSS li {position:relative;display:inline-block;box-sizing:border-box;text-align:center;width:49%;}
+.tabMenuSS li a {position:relative;display:block;box-sizing:border-box;font-size:18px;color:#fff;font-weight:normal;padding:15px 0;letter-spacing:-1.5px;padding:15px 20px;background:#c6c6c6;border-radius:5px;}
+.tabMenuSS li.on a {font-weight:bold;background:url('/resources/homepage/dalseonglib/img/tabmenu-bg.png') no-repeat 5% 5%;background:#1b7be9;}
+.tabMenuSS li.on a span {border-bottom:0;}
+
+.culture-box > .cont {padding-top:12px;}
+.culture-box > .cont li {padding:18px 10px;border-bottom:1px dashed #c8c8c8;}
+.culture-box > .cont li a { position:relative;display:block;box-sizing:border-box;font-weight:400;padding:7px 250px 8px 100px;position:relative;word-break:break-all;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;font-size:15px;font-weight:bold; }
+.culture-box > .cont li a em {position:absolute;width:80px;top:0;left:0;padding:7px 0;text-align:center;background:#575173;color:#ffea23;font-weight:bold;text-decoration:none;font-style:normal;border-radius:25px;font-size:14px;}
+.culture-box > .cont li a em.noti { background:#2452a7;color:#fff; }
+.culture-box > .cont li a span { position:absolute;right:0;font-weight:400;font-size:15px; }
+.culture-box > .cont li a span b {color:#6c748b;font-weight:600;}
+
+.main3 {overflow:hidden;background:#585662;}
+.main3 {padding:15px 0;box-sizing:border-box;}
+.main3 h3{padding:10px 0;color:#232323}
+.main3 a {color:#8b8b8b;}
+
+
+.qmobileBr {display:none;}
+.mobileBr {display:none;}
+
+@media all and (max-width:1024px){
+	.main0,.main1,.main2,.main3,.main4,.main5 {height:auto}
+	.qmobileBr {display:block;}
+
+	.popZone .cont .bx-controls {position:absolute;width:100%;height:99%;top:0;z-index:150000000;box-sizing:border-box;}
+	.book-box {margin:0;margin-top:-5px;padding:20px 0;}
+	.schedule-box {padding:10px;margin-top:0;}
+	#calendar2:after {display:none;}
+	.calendar-box {background:#f3f4f6;}
+	.calendar-box {padding:30px 0;}
+
+	.main2 {padding:0;}
+
+	.qmenu {padding:5px 0.5% 3px;}
+	.qmenu li a span {font-size:16px;}
+	
+	.culture-box {margin:10px 0 0 0;}
+
+	.culture-box > .cont li a { position:relative;display:block;box-sizing:border-box;font-weight:400;padding:0px 20px 8px 100px;font-size:14px }
+	.culture-box > .cont li a em {top:5px;}
+	.culture-box > .cont li a span { position:static;left:0;font-weight:400;font-size:15px; }
+
+	.books-tits {float:none;width:100%;}
+	.books-conts {float:none;width:100%;}
+
+	ul.book_photo li:nth-child(3), ul.book_photo li:nth-child(4){display:inline-block;}
+
+	.movie-box{float:left;width:65%;}
+
+	.libraryinfo-box{float:right;width:35%;height:310px;}
+	.libraryinfo-box h3:first-child{margin-top:40px;}
+
+	.schedule-box{padding:0 0 20px;}
+}
+
+@media all and (max-width:767px){
+	.qmenu li {width:33.3333333%;height:200px;margin:0;}
+	.qmenu li a {width:94%;height:94%;background-color:#fff;margin:3%;}
+	.qmenu li a:hover {width:94%;height:94%;background-color:#fff;margin:3%;}
+}
+
+@media all and (max-width:425px){
+	.popZone .cont .bx-controls{top:-3px;}
+
+	.notice-box > .cont li a {font-size:14px;}
+
+	.notice-box h2, .search-box legend, .movie-box h2, #calendar2 h3{font-size:20px;letter-spacing:0;}
+
+	.search-box {position:relative;width:100%;box-sizing:border-box;padding:20px 25px 0 25px;height:170px;border-top:1px solid #eaeaea;}
+	.search-box .bestKeyword {display:none;}
+
+	.search-box .dalseong-slogan{display:none;}
+	.search-box .main-box{margin-top:15px;}
+
+	.qmenu li {height:150px;margin:0;}
+	.qmenu li a {background:no-repeat center 25%;background-color:#fff;}
+	.qmenu li a span{padding-top:105px;font-size:14px;letter-spacing:-0.5px;}
+
+	.tabMenuS li a {font-size:17px;}
+	.tabMenuSS li a {font-size:15px;letter-spacing:-1.5px;}
+
+	.book-box{margin-top:-10px;}
+	
+	ul.book_photo li {padding:0 7px;}
+	ul.book_photo li a span.con-title {font-size:14px;}
+	ul.book_photo li:nth-child(3), ul.book_photo li:nth-child(4){display:none;}
+
+	.movie-box{float:none;width:100%;}
+
+	.libraryinfo-box{float:none;width:100%;height:auto}
+	.libraryinfo-box h3:first-child{margin-top:0;}
+}
+
+@media screen and (min-width:1025px){
+	#wrap {min-width:1260px;}
+
+	.left-box {float:left;width:400px;height:540px;}
+	.center-box {float:left;width:600px;height:540px;}
+	.right-box {float:left;width:260px;height:540px;}
+	.popZone {width:400px;height:230px;}
+	.popZone img {width:400px;height:230px;}
+
+	.main2 {}
+	.calendar-box {float:left;width:350px;}
+	.culture-box {float:right;width:750px;}
+	#calendar2 {width:355px;}
+}

@@ -107,7 +107,7 @@ Date.prototype.format = function(f) {
 	</div>
 -->
 	<h3>도서관 일정</h3>
-	<a href="#" class="btn-more">더보기</a>
+	<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=36" class="btn-more">더보기</a>
 	<div style="position:relative;overflow:hidden;">
 		<div class="cal-today">
 			<p class="cal-n1">${fn:split(calendar.plan_date, '-')[0]}</p>
@@ -157,7 +157,7 @@ Date.prototype.format = function(f) {
 									<c:choose>
 										<c:when test="${calendarResult[i.mon] eq null}">${i.mon}</c:when>
 										<c:otherwise>
-											<c:set var="one" value="${fn:length(i.tue) < 2 ? '0' : '' }${i.mon}"></c:set>
+											<c:set var="one" value="${fn:length(i.mon) < 2 ? '0' : '' }${i.mon}"></c:set>
 											<c:choose>
 												<c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
 													<a class="type-e showCal" keyValue="${i.mon}">${i.mon}</a>
@@ -268,62 +268,26 @@ Date.prototype.format = function(f) {
 
 		<div class="planView">
 			<div class="inbox">
-			<!--
+				<c:set var="today" value="${fn:split(currDate, '.')[2]}"></c:set>
 				<c:forEach var="i" items="${calendarResult}" varStatus="status">
-					<div id="${i.key}" class="calAll" style="display: none;">
-						<dl>
-							<dt>${calendar.plan_date}-${fn:length(i.key) == 1 ? '0' : ''}${i.key}</dt>
-						</dl>
-						<c:forEach var="count" begin="0" end="${fn:length(i.value)}">
-							<c:choose>
-								<c:when test="${fn:length(i.value[count]) > 19}">
-									<c:out value="${fn:substring(i.value[count], 0, 19)}"/>...
-								</c:when>
-								<c:otherwise>
-									<c:out value="${i.value[count]}"/>
-								</c:otherwise>
-							</c:choose>
-							<c:if test="${count < fn:length(i.value)}">
-								</br>
-							</c:if>
-						</c:forEach>
+					<c:set var="key" value="${i.key < 10 ? '0':''}${i.key}"></c:set>
+					<div id="${i.key}" class="calAll" style="display: ${today eq key ? 'block' : 'none'};">
+						<ul>
+							<c:forEach var="j" items="${i.value}">
+								<li>
+									<dl>
+										<c:set var="ty" value="${fn:split(j, ']')}"></c:set>
+										<dt>${ty[0]}${fn:length(ty) > 1 ? ']' : ''}</dt>
+										<dd>${fn:length(ty) > 1 ? ty[1] : ''}</dd>
+									</dl>
+								</li>
+							</c:forEach>
+						</ul>
 					</div>
 				</c:forEach>
-			-->
-				<ul>
-
-					<li>
-						<dl>
-							<dt>강좌</dt>
-							<dd>행복한 시낭송</dd>
-						</dl>
-					</li>
-
-					<li>
-						<dl>
-							<dt>강좌</dt>
-							<dd>멋진 글씨 쓰기 캘리그라피</dd>
-						</dl>
-					</li>
-
-					<li>
-						<dl>
-							<dt>강좌</dt>
-							<dd>행복한 시낭송</dd>
-						</dl>
-					</li>
-
-					<li>
-						<dl>
-							<dt>강좌</dt>
-							<dd>멋진 글씨 쓰기 캘리그라피</dd>
-						</dl>
-					</li>
-
-				</ul>
-			<br/>
 
 			</div>
+
 		</div>
 		<div class="end"></div>
 	</div>

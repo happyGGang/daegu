@@ -160,7 +160,18 @@ $(function(){
 		cwFunc();
 	});
 	/* 달력 제어 종료 */
-	
+
+	<c:if test="${fn:length(subHomepageList) > 0}">
+	var a = '${fn:escapeXml(calendarManage.homepage_id)}';
+	$('div.tab_menu a[data-hid="'+a+'"]').parent().addClass('active');
+
+	$('div.tab_menu a').on('click', function(e) {
+		e.preventDefault();
+		var hid = $(this).data('hid');
+		$('input#homepage_id_1').val(hid);
+		doGetLoad('index.do', serializeCustom($('#calendarManage')));
+	});
+	</c:if>
 });
 </script>
 	<c:set var="plan_date" value="${fn:split(calendarManage.plan_date, '-')}" />
@@ -169,6 +180,15 @@ $(function(){
 		<form:hidden id="homepage_id_1" path="homepage_id"/>
 		<form:hidden id="menu_idx" path="menu_idx"/>
 
+		<c:if test="${fn:length(subHomepageList) > 0}">
+		<div class="tab_menu on">
+			<ul class="no6">
+				<c:forEach items="${subHomepageList}" var="i" varStatus="status">
+					<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">${i.homepage_alias}</a></li>
+				</c:forEach>
+			</ul>
+		</div>
+		</c:if>
 		<div class="ym_btns">
 			<a id="before-btn" href="#prev" class="btn prev"><i class="fa fa-angle-left"></i><span class="blind">이전달</span></a>
 <!-- 			<label for="plan_year"/> -->

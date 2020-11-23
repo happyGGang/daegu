@@ -146,10 +146,11 @@ $(function() {
 		$('input#manager_phone').val('');
 	})
 
+	<%-- 권한설정 --%>
 	$('a#authGroup').on('click', function(e) {
 		e.preventDefault();
-		$('div#dialog_manager').load('managerView.do?homepage_id=' + $('input#homepage_id_1').val(), function( response, status, xhr ) {
-			$('div#dialog_manager').dialog('open');
+		$('div#dialog_auth').load('authGroupView.do?menu_idx=${menu.menu_idx}&module_idx=' + $('input#manage_idx').val()+'&homepage_id=' + $('input#homepage_id_1').val(), function( response, status, xhr ) {
+			$('div#dialog_auth').dialog('open');
 		});
 	});
 
@@ -416,23 +417,13 @@ $(function() {
 					</div>
 				</td>
 			</tr>
-			<tr style="display: none;">
+			<tr>
 				<th>메뉴 권한</th>
 				<td>
-					<div class="permissionBox">
-						<a href="" class="btn btn1" id="authGroup">권한그룹 설정</a>
-					</div>
+					<a href="" class="btn btn1" id="authGroup">권한그룹 설정</a>
+					<div id="dialog_auth" class="dialog-common" title="권한설정"></div>
 				</td>
 			</tr>
-<!-- 			<tr class="group first"> -->
-<!-- 				<th>담당자 표시</th> -->
-<!-- 				<td colspan="3"> -->
-<%-- 					<form:select path="manage_view_yn" cssClass="selectmenu"> --%>
-<%-- 						<form:option value="Y" label="YES" /> --%>
-<%-- 						<form:option value="N" label="NO" /> --%>
-<%-- 					</form:select> --%>
-<!-- 				</td> -->
-<!-- 			</tr> -->
 			<tr class="group last">
 				<th>담당자 정보</th>
 				<td colspan="3">

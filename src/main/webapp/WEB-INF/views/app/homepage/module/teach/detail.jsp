@@ -59,7 +59,7 @@
 				<c:if test="${not empty teach.image_server_file_name}">
 				<tr>
 					<th class="center" colspan="4">
-						<img src="/data/teach/${homepage.homepage_id}/img/${teach.image_server_file_name}" style="width: 100%;" >
+						<img src="/data/teach/${teach.homepage_id}/img/${teach.image_server_file_name}" style="width: 100%;" >
 					</th>
 				</tr>
 				</c:if>

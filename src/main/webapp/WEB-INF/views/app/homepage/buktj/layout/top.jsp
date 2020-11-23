@@ -18,7 +18,7 @@
 				</ul>
 			</div>
 
-			<h1 class="mobile-logo"><a href="/${homepage.context_path}/index.do">구수산 도서관</a></h1>
+			<h1 class="mobile-logo"><a href="/${homepage.context_path}/index.do">태전 도서관</a></h1>
 
 			<div class="mmode m-menu">
 				<a href="#menu"><i class="fa fa-navicon"></i><span class="blind">메뉴</span></a>
@@ -31,7 +31,7 @@
 						<span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/intro/login/logout.do">로그아웃</a>
 						<span class="txt-bar"></span>
-						<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=95">정보수정</a>
+						<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=66">정보수정</a>
 					</c:when>
 					<c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
 						<b>관리자 로그인 중</b>

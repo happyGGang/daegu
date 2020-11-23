@@ -107,7 +107,7 @@ Date.prototype.format = function(f) {
 	</div>
 -->
 	<h3>도서관 일정</h3>
-	<a href="#" class="btn-more btn-b top5">더보기</a>
+	<a href="/dalseonglib/module/calendarManage/index.do?menu_idx=36" class="btn-more btn-b top5">더보기</a>
 	<div>
 		<div class="cal-today">
 			<p class="cal-n1">${fn:split(calendar.plan_date, '-')[0]}</p>

@@ -411,6 +411,7 @@ public class JoinController extends BaseController {
 						model.addAttribute("integrationFailed", true);
 						request.getSession().setAttribute("integrationFailed", "o");
 					}
+					request.getSession().setAttribute("certMemberintegration", member);
 				}
 			}
 
@@ -926,6 +927,7 @@ public class JoinController extends BaseController {
 		@SuppressWarnings ("unchecked")
 		Map<String, Object> integrationMember = (Map<String, Object>) request.getSession().getAttribute("integrationMember");
 		Member certMember = (Member) request.getSession().getAttribute("certMemberintegration");
+
 
 		if (certMember.getSex().equals("1")) {
 			certMember.setSex("0");// 남

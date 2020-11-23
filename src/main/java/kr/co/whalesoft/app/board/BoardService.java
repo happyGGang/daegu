@@ -12,6 +12,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import kr.co.whalesoft.app.cms.boardManage.BoardManageDao;
+import kr.co.whalesoft.app.cms.boardManage.BoardManageService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -64,6 +66,9 @@ public class BoardService extends BaseService {
 
 	@Autowired
 	private BoardFileDao boardFileDao;
+
+	@Autowired
+	private BoardManageService boardManageService;
 
 	public Board copyObjectPaging(BoardManage boardManage, Board originalBoard, Board copyTargetBoard) {
 		copyTargetBoard.setPagingUtils(originalBoard);
@@ -154,8 +159,19 @@ public class BoardService extends BaseService {
 	@Cacheable(cacheName="getBoardByMain")
 	public List<Board> getBoardByMain(int manage_idx, int count, String boardType) {
 
-//		BoardManage boardManage = new BoardManage(manage_idx);
-		List<Board> list = dao.getBoardByMain(new Board(manage_idx, count, boardType));
+		BoardManage boardManage = new BoardManage();
+		boardManage.setManage_idx(manage_idx);
+
+		boardManage = boardManageService.getBoardManageOne(boardManage);
+
+		Board board1 = new Board(manage_idx, count, boardType);
+		if (boardManage != null) {
+			board1.setHomepage_id(boardManage.getHomepage_id());
+			board1.setCategory1Manage(boardManage.getCategory1());
+			board1.setCategory2Manage(boardManage.getCategory2());
+			board1.setCategory3Manage(boardManage.getCategory3());
+		}
+		List<Board> list = dao.getBoardByMain(board1);
 
 		for (Board board : list) {
 			if (!StringUtils.isEmpty(board.getContent_summary())) {
@@ -750,7 +766,6 @@ public class BoardService extends BaseService {
 
 	/**
 	 * PMS 게시판 카테고리별 상태 카운트
-	 * @param boardManage
 	 * @return
 	 */
 	public List<Map<String, String>> getRequestBoardStateCount(Board board) {
@@ -792,4 +807,7 @@ public class BoardService extends BaseService {
 		}
 	}
 
+	public List<Board> getSubBoardByMain(Board board) {
+		return dao.getSubBoardByMain(board);
+	}
 }

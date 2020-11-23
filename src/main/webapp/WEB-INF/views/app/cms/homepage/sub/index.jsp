@@ -75,8 +75,9 @@ $(function(){
 	<div class="table-wrap">
 		<table class="type1 center">
 			<colgroup>
-				<col/>
 				<col width="200"/>
+				<col width="200"/>
+				<col width="100"/>
 				<col width="200"/>
 				<col width="100"/>
 				<col width="200"/>
@@ -86,6 +87,7 @@ $(function(){
 					<th>도서관명</th>
 					<th>관리코드</th>
 					<th>도서관 부호</th>
+					<th>타입</th>
 					<th>출력순서</th>
 					<th>기능</th>
 				</tr>
@@ -105,6 +107,9 @@ $(function(){
 					</td>
 					<td>
 						${i.lib_code}
+					</td>
+					<td>
+						${i.temp_use_yn eq 'Y' ? '검색대+홈페이지' : '검색대'}
 					</td>
 					<td>
 						${i.print_seq}
