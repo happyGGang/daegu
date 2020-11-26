@@ -37,7 +37,7 @@ h1.mobile-logo {display:none;width:230px;height:45px;}
 .Gnb {clear:both;text-align:center;width:100%;height:63px;padding-top:20px;padding-bottom:20px;overflow:inherit;position:relative;border-top:1px solid #d0d0d0;}
 .Gnb .g-menu {position:relative;}
 .Gnb .g-menu a.last-box_b, .Gnb .g-menu a.last-box_w{position:absolute;right:0;top:21px;}
-.Gnb .gnb-menu {position:relative;text-align:right;}
+.Gnb .gnb-menu {position:relative;text-align:right;margin-right: 30px;}
 .Gnb .gnb-menu > li{padding:0 1.8%;;text-align:right;position:static}
 .Gnb .gnb-menu>li:last-child{padding-right:50px;}
 .Gnb .gnb-menu>li>a{padding:10px 0;line-height:43px;height:43px;font-size:18px;color:#000;font-weight:bold;}

@@ -1,4 +1,4 @@
-﻿/* Mirtech Co. */ 
+/* Mirtech Co. */ 
 /* mir_home_sub_community css - 커뮤니티 - copyright all mirtech */
 
 /* 인코딩 설정 */
@@ -37,16 +37,11 @@
 
 /* 테이블 기본 설정 */
 .table_list_default table thead tr th,
-.table_list_default table tbody tr th{
-	text-align:center;
-	}
-.table_list_default table tbody tr td{
-	}
+.table_list_default table tbody tr th{text-align:center;}
+.table_list_default table tbody tr td{}
 .table_list_default table thead tr th.text-left, 
 .table_list_default table tbody tr th.text-left, 
-.table_list_default table tbody tr td.text-left{
-	text-align:left;
-	}
+.table_list_default table tbody tr td.text-left{text-align:left;}
 	
 /* 게시판 대출 현황 설정  ************************************************************************************** */	
 .table_list_borrow table thead tr th,
