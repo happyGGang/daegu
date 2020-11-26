@@ -316,7 +316,7 @@ do {
 						<ul class="book_photo">
 							<c:forEach items="${bookList1}" var="i" varStatus="status">
 								<li>
-									<a href="/${homepage.context_path}/board/view.do?menu_idx=85&manage_idx=697&board_idx=${i.board_idx}">
+									<a href="/${homepage.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 									<span class="con-image">
 										<c:choose>
 											<c:when test="${i.preview_img ne null}">

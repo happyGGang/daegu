@@ -279,6 +279,6 @@ Date.prototype.format = function(f) {
 		<span class="ev">행사</span>
 	</div>
 
-	<a href="module/calendarManage/index.do?menu_idx=36" class="cal-btn-more">일정더보기 +</a>
+	<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=36" class="cal-btn-more">일정더보기 +</a>
 </div>
 

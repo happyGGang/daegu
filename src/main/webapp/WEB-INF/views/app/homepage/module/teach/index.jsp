@@ -86,7 +86,7 @@ $(function(){
 
 	<c:if test="${fn:length(subHomepageList) > 0}">
 		<div class="tab_menu on">
-			<ul class="no3">
+			<ul class="no5">
 				<c:forEach items="${subHomepageList}" var="i" varStatus="status">
 					<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">${i.homepage_alias}</a></li>
 				</c:forEach>
@@ -94,7 +94,7 @@ $(function(){
 		</div>
 	</c:if>
 
-	<div class="tabmenu tab1" style="margin-top:20px;">
+	<div class="tabmenu tab1" style="margin-top:30px;">
 		<ul>
 			<li class="${empty teach.searchCate1 ? 'active':''}"><a href="" keyValue=""style="font-size: 14px;">전체</a></li>
 			<c:forEach items="${teachLargeCategoryList}" var="i" varStatus="status">

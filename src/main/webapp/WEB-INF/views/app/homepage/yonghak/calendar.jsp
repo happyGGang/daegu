@@ -148,7 +148,7 @@ Date.prototype.format = function(f) {
 									<c:choose>
 										<c:when test="${calendarResult[i.mon] eq null}">${i.mon}</c:when>
 										<c:otherwise>
-											<c:set var="one" value="${fn:length(i.tue) < 2 ? '0' : '' }${i.mon}"></c:set>
+											<c:set var="one" value="${fn:length(i.mon) < 2 ? '0' : '' }${i.mon}"></c:set>
 											<c:choose>
 												<c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
 													<a class="type-e showCal" keyValue="${i.mon}">${i.mon}</a>
@@ -279,6 +279,6 @@ Date.prototype.format = function(f) {
 		<span class="ev">행사</span>
 	</div>
 
-	<a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=179" class="cal-btn-more">일정더보기 +</a>
+	<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=36" class="cal-btn-more">일정더보기 +</a>
 </div>
 

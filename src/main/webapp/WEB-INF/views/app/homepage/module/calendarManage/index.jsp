@@ -182,12 +182,13 @@ $(function(){
 
 		<c:if test="${fn:length(subHomepageList) > 0}">
 		<div class="tab_menu on">
-			<ul class="no6">
+			<ul class="no5">
 				<c:forEach items="${subHomepageList}" var="i" varStatus="status">
 					<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">${i.homepage_alias}</a></li>
 				</c:forEach>
 			</ul>
 		</div>
+		<div class="mg30t"></div>
 		</c:if>
 		<div class="ym_btns">
 			<a id="before-btn" href="#prev" class="btn prev"><i class="fa fa-angle-left"></i><span class="blind">이전달</span></a>

@@ -214,7 +214,7 @@ do {
 									<h5>도서관견학신청</h5>
 									<p>올바른 도서관 이용법과<br />책을 접할 수 있어요!</p>
 								</li>
-								<li class="quick05" onclick="http://211.224.118.223:8010/seogulib/html.do?menu_idx=131#search_result'">
+								<li class="quick05" onclick="location.href='intro/search/index.do?menu_idx=131#search_result'">
 									<h5>DVD자료검색</h5>
 									<p>DVD 비도서 자료검색</p>
 								</li>
@@ -454,6 +454,9 @@ $(function() {
 
 		var target = this.getAttribute('href').replace('#','');
 
+		var moreUrl = $(this).data('link');
+		$('.more-notice').attr('href', moreUrl);
+
 		if(target == 'notice')
 		{
 		$('#notibox1_all').show();
@@ -509,7 +512,9 @@ $(function() {
 
 		var target = this.getAttribute('href').replace('#','');
 		var $box = $(this).closest('.tab3');
+		var moreUrl = $(this).data('link');
 
+		$('.more-notice').attr('href', moreUrl);
 		$box.find('.on').removeClass('on');
 		$(this).parent().addClass('on');
 
@@ -522,7 +527,9 @@ $(function() {
 
 		var target = this.getAttribute('href').replace('#','');
 		var $box = $(this).closest('.tab3');
+		var moreUrl = $(this).data('link');
 
+		$('.more-notice').attr('href', moreUrl);
 		$box.find('.on').removeClass('on');
 		$(this).parent().addClass('on');
 
@@ -534,7 +541,9 @@ $(function() {
 		e.preventDefault();
 		var target = this.getAttribute('href').replace('#','');
 		var $box = $(this).closest('.tab3');
+		var moreUrl = $(this).data('link');
 
+		$('.more-culture').attr('href', moreUrl);
 		$box.find('.on').removeClass('on');
 		$(this).parent().addClass('on');
 
@@ -546,7 +555,9 @@ $(function() {
 		e.preventDefault();
 		var target = this.getAttribute('href').replace('#','');
 		var $box = $(this).closest('.tab3');
+		var moreUrl = $(this).data('link');
 
+		$('.more-movie').attr('href', moreUrl);
 		$box.find('.on').removeClass('on');
 		$(this).parent().addClass('on');
 
@@ -558,7 +569,9 @@ $(function() {
 		e.preventDefault();
 		var target = this.getAttribute('href').replace('#','');
 		var $box = $(this).closest('.tab3');
+		var moreUrl = $(this).data('link');
 
+		$('.more-book').attr('href', moreUrl);
 		$box.find('.on').removeClass('on');
 		$(this).parent().addClass('on');
 
@@ -605,24 +618,24 @@ $(function() {
 								<li><div><a href="#gallery" class="tab-link2" data-link="/${homepage.context_path}/board/index.do?menu_idx=50&manage_idx=632">갤러리</a></div></li>
 							</ul>
 							<div class="more_btn">
-								<a href="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628"><img src="/resources/homepage/seogulib/img/con02_more_btn.png"></a>
+								<a href="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628" class="more-notice"><img src="/resources/homepage/seogulib/img/con02_more_btn.png"></a>
 							</div>
 						</div>
 
 						<div class="top2wrap" id="top2box_notice" style="display:block;">
 							<div class="sec02_tab02 tab3">
 								<ul>
-									<li class="on"><a href="#all" class="tab-link3">전체</a></li>
+									<li class="on"><a href="#all" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628">전체</a></li>
 									<li class="bar">/</li>
-									<li><a href="#seoguchild" class="tab-link3">서구어린이</a></li>
+									<li><a href="#seoguchild" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628&category5=h77">서구어린이</a></li>
 									<li class="bar">/</li>
-									<li><a href="#bisan" class="tab-link3">비산</a></li>
+									<li><a href="#bisan" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628&category5=h61">비산</a></li>
 									<li class="bar">/</li>
-									<li><a href="#english" class="tab-link3">영어</a></li>
+									<li><a href="#english" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628&category5=h62">영어</a></li>
 									<li class="bar">/</li>
-									<li><a href="#biwon" class="tab-link3">비원</a></li>
+									<li><a href="#biwon" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628&category5=h63">비원</a></li>
 									<li class="bar">/</li>
-									<li><a href="#wongogye" class="tab-link3">원고개</a></li>
+									<li><a href="#wongogye" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628&category5=h64">원고개</a></li>
 								</ul>
 							</div>
 
@@ -962,28 +975,29 @@ $(function() {
 								</div>
 							</div>
 						</div>
+						<div class="end"></div>
 
 						<div class="top2wrap" id="top2box_gallery">
 							<div class="sec02_tab02 tab3">
 								<ul>
-									<li class="on"><a href="#all" class="tab-link3">전체</a></li>
+									<li class="on"><a href="#all" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=50&manage_idx=632">전체</a></li>
 									<li class="bar">/</li>
-									<li><a href="#seoguchild" class="tab-link3">서구어린이</a></li>
+									<li><a href="#seoguchild" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=50&manage_idx=632&category1=0001">서구어린이</a></li>
 									<li class="bar">/</li>
-									<li><a href="#bisan" class="tab-link3">비산</a></li>
+									<li><a href="#bisan" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=50&manage_idx=632&category1=0002">비산</a></li>
 									<li class="bar">/</li>
-									<li><a href="#english" class="tab-link3">영어</a></li>
+									<li><a href="#english" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=50&manage_idx=632&category1=0003">영어</a></li>
 									<li class="bar">/</li>
-									<li><a href="#biwon" class="tab-link3">비원</a></li>
+									<li><a href="#biwon" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=50&manage_idx=632&category1=0004">비원</a></li>
 									<li class="bar">/</li>
-									<li><a href="#wongogye" class="tab-link3">원고개</a></li>
+									<li><a href="#wongogye" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=50&manage_idx=632&category1=0005">원고개</a></li>
 								</ul>
 							</div>
 
 							<div class="top3wrap" id="galbox1_all" style="display:block;">
 
 								<div class="gallery_box">
-									<c:forEach items="${galleryList}" var="i" varStatus="status" begin="0" end="3">
+									<c:forEach items="${galleryList}" var="i" varStatus="status" begin="0" end="2">
 										<div class="gallery">
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=50&manage_idx=632&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 											<div class="img_box">
@@ -1017,7 +1031,7 @@ $(function() {
 
 							<div class="top3wrap" id="galbox1_seoguchild">
 								<div class="gallery_box">
-									<c:forEach items="${galleryListh77}" var="i" varStatus="status" begin="0" end="3">
+									<c:forEach items="${galleryListh77}" var="i" varStatus="status" begin="0" end="2">
 										<div class="gallery">
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=50&manage_idx=632&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 											<div class="img_box">
@@ -1051,7 +1065,7 @@ $(function() {
 
 							<div class="top3wrap" id="galbox1_bisan">
 								<div class="gallery_box">
-									<c:forEach items="${galleryListh61}" var="i" varStatus="status" begin="0" end="3">
+									<c:forEach items="${galleryListh61}" var="i" varStatus="status" begin="0" end="2">
 										<div class="gallery">
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=50&manage_idx=632&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 											<div class="img_box">
@@ -1085,7 +1099,7 @@ $(function() {
 
 							<div class="top3wrap" id="galbox1_english">
 								<div class="gallery_box">
-									<c:forEach items="${galleryListh62}" var="i" varStatus="status" begin="0" end="3">
+									<c:forEach items="${galleryListh62}" var="i" varStatus="status" begin="0" end="2">
 										<div class="gallery">
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=50&manage_idx=632&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 											<div class="img_box">
@@ -1119,7 +1133,7 @@ $(function() {
 
 							<div class="top3wrap" id="galbox1_biwon">
 								<div class="gallery_box">
-									<c:forEach items="${galleryListg63}" var="i" varStatus="status" begin="0" end="3">
+									<c:forEach items="${galleryListg63}" var="i" varStatus="status" begin="0" end="2">
 										<div class="gallery">
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=50&manage_idx=632&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 											<div class="img_box">
@@ -1153,7 +1167,7 @@ $(function() {
 
 							<div class="top3wrap" id="galbox1_wongogye">
 								<div class="gallery_box">
-									<c:forEach items="${galleryListh64}" var="i" varStatus="status" begin="0" end="3">
+									<c:forEach items="${galleryListh64}" var="i" varStatus="status" begin="0" end="2">
 										<div class="gallery">
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=50&manage_idx=632&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
 											<div class="img_box">
@@ -1200,23 +1214,23 @@ $(function() {
 					<div class="con sec02-1">
 						<div class="sec02_tab01" style="margin-top:-30px;">
 							<div class="more_btn top-10">
-								<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=32"><img src="/resources/homepage/seogulib/img/con02_more_btn.png"></a>
+								<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=32" class="more-culture"><img src="/resources/homepage/seogulib/img/con02_more_btn.png"></a>
 							</div>
 						</div>
 
 						<div class="sec02_tab02 tab3">
 							<ul>
-								<li class="on"><a href="#all" class="tab-link3">전체</a></li>
+								<li class="on"><a href="#all" class="tab-link3" data-link="/${homepage.context_path}/module/teach/index.do?menu_idx=32">전체</a></li>
 								<li class="bar">/</li>
-								<li><a href="#seoguchild" class="tab-link3">서구어린이</a></li>
+								<li><a href="#seoguchild" class="tab-link3" data-link="/${homepage.context_path}/module/teach/index.do?menu_idx=32&homepage_id=h77">서구어린이</a></li>
 								<li class="bar">/</li>
-								<li><a href="#bisan" class="tab-link3">비산</a></li>
+								<li><a href="#bisan" class="tab-link3" data-link="/${homepage.context_path}/module/teach/index.do?menu_idx=32&homepage_id=h61">비산</a></li>
 								<li class="bar">/</li>
-								<li><a href="#english" class="tab-link3">영어</a></li>
+								<li><a href="#english" class="tab-link3" data-link="/${homepage.context_path}/module/teach/index.do?menu_idx=32&homepage_id=h62">영어</a></li>
 								<li class="bar">/</li>
-								<li><a href="#biwon" class="tab-link3">비원</a></li>
+								<li><a href="#biwon" class="tab-link3" data-link="/${homepage.context_path}/module/teach/index.do?menu_idx=32&homepage_id=h63">비원</a></li>
 								<li class="bar">/</li>
-								<li><a href="#wongogye" class="tab-link3">원고개</a></li>
+								<li><a href="#wongogye" class="tab-link3" data-link="/${homepage.context_path}/module/teach/index.do?menu_idx=32&homepage_id=h64">원고개</a></li>
 							</ul>
 						</div>
 
@@ -1266,7 +1280,7 @@ $(function() {
 														<span class="flow_03">접수마감</span>
 													</c:if>
 													<c:if test="${i.teach_status eq '6'}">
-														<span class="flow_03">접수마감</span>
+														<span class="flow_03">신청대기</span>
 													</c:if>
 												</li>
 											</c:forEach>
@@ -1312,7 +1326,7 @@ $(function() {
 													<span class="flow_03">접수마감</span>
 												</c:if>
 												<c:if test="${i.teach_status eq '6'}">
-													<span class="flow_03">접수마감</span>
+													<span class="flow_03">신청대기</span>
 												</c:if>
 											</li>
 										</c:forEach>
@@ -1363,7 +1377,7 @@ $(function() {
 													<span class="flow_03">접수마감</span>
 												</c:if>
 												<c:if test="${i.teach_status eq '6'}">
-													<span class="flow_03">접수마감</span>
+													<span class="flow_03">신청대기</span>
 												</c:if>
 											</li>
 										</c:forEach>
@@ -1409,7 +1423,7 @@ $(function() {
 													<span class="flow_03">접수마감</span>
 												</c:if>
 												<c:if test="${i.teach_status eq '6'}">
-													<span class="flow_03">접수마감</span>
+													<span class="flow_03">신청대기</span>
 												</c:if>
 											</li>
 										</c:forEach>
@@ -1460,7 +1474,7 @@ $(function() {
 													<span class="flow_03">접수마감</span>
 												</c:if>
 												<c:if test="${i.teach_status eq '6'}">
-													<span class="flow_03">접수마감</span>
+													<span class="flow_03">신청대기</span>
 												</c:if>
 											</li>
 										</c:forEach>
@@ -1506,7 +1520,7 @@ $(function() {
 													<span class="flow_03">접수마감</span>
 												</c:if>
 												<c:if test="${i.teach_status eq '6'}">
-													<span class="flow_03">접수마감</span>
+													<span class="flow_03">신청대기</span>
 												</c:if>
 											</li>
 										</c:forEach>
@@ -1557,7 +1571,7 @@ $(function() {
 													<span class="flow_03">접수마감</span>
 												</c:if>
 												<c:if test="${i.teach_status eq '6'}">
-													<span class="flow_03">접수마감</span>
+													<span class="flow_03">신청대기</span>
 												</c:if>
 											</li>
 										</c:forEach>
@@ -1603,7 +1617,7 @@ $(function() {
 													<span class="flow_03">접수마감</span>
 												</c:if>
 												<c:if test="${i.teach_status eq '6'}">
-													<span class="flow_03">접수마감</span>
+													<span class="flow_03">신청대기</span>
 												</c:if>
 											</li>
 										</c:forEach>
@@ -1654,7 +1668,7 @@ $(function() {
 													<span class="flow_03">접수마감</span>
 												</c:if>
 												<c:if test="${i.teach_status eq '6'}">
-													<span class="flow_03">접수마감</span>
+													<span class="flow_03">신청대기</span>
 												</c:if>
 											</li>
 										</c:forEach>
@@ -1700,7 +1714,7 @@ $(function() {
 													<span class="flow_03">접수마감</span>
 												</c:if>
 												<c:if test="${i.teach_status eq '6'}">
-													<span class="flow_03">접수마감</span>
+													<span class="flow_03">신청대기</span>
 												</c:if>
 											</li>
 										</c:forEach>
@@ -1751,7 +1765,7 @@ $(function() {
 													<span class="flow_03">접수마감</span>
 												</c:if>
 												<c:if test="${i.teach_status eq '6'}">
-													<span class="flow_03">접수마감</span>
+													<span class="flow_03">신청대기</span>
 												</c:if>
 											</li>
 										</c:forEach>
@@ -1797,7 +1811,7 @@ $(function() {
 													<span class="flow_03">접수마감</span>
 												</c:if>
 												<c:if test="${i.teach_status eq '6'}">
-													<span class="flow_03">접수마감</span>
+													<span class="flow_03">신청대기</span>
 												</c:if>
 											</li>
 										</c:forEach>
@@ -1824,24 +1838,24 @@ $(function() {
 								<li><div class="line2"><a href="#newbook" class="tab-link2" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628">신착<br />도서</a></div></li>
 							</ul> -->
 							<div class="more_btn top-10">
-								<a href="/${homepage.context_path}/board/index.do?menu_idx=83&manage_idx=623"><img src="/resources/homepage/seogulib/img/con02_more_btn.png"></a>
+								<a href="/${homepage.context_path}/board/index.do?menu_idx=83&manage_idx=623" class="more-book"><img src="/resources/homepage/seogulib/img/con02_more_btn.png"></a>
 							</div>
 						</div>
 
 						<div class="top2wrap" id="top2box_recomandbook" style="display:block;">
 							<div class="sec02_tab02 tab3">
 								<ul>
-									<li class="on"><a href="#all" class="tab-link3">전체</a></li>
+									<li class="on"><a href="#all" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=83&manage_idx=623">전체</a></li>
 									<li class="bar">/</li>
-									<li><a href="#seoguchild" class="tab-link3">서구어린이</a></li>
+									<li><a href="#seoguchild" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=83&manage_idx=623&category1=0001">서구어린이</a></li>
 									<li class="bar">/</li>
-									<li><a href="#bisan" class="tab-link3">비산</a></li>
+									<li><a href="#bisan" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=83&manage_idx=623&category1=0002">비산</a></li>
 									<li class="bar">/</li>
-									<li><a href="#english" class="tab-link3">영어</a></li>
+									<li><a href="#english" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=83&manage_idx=623&category1=0003">영어</a></li>
 									<li class="bar">/</li>
-									<li><a href="#biwon" class="tab-link3">비원</a></li>
+									<li><a href="#biwon" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=83&manage_idx=623&category1=0004">비원</a></li>
 									<li class="bar">/</li>
-									<li><a href="#wongogye" class="tab-link3">원고개</a></li>
+									<li><a href="#wongogye" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=83&manage_idx=623&category1=0005">원고개</a></li>
 								</ul>
 							</div>
 
@@ -2086,23 +2100,23 @@ $(function() {
 					<div class="con sec02-1">
 						<div class="sec02_tab01" style="margin-top:-30px;">
 							<div class="more_btn top-10">
-								<a href="/${homepage.context_path}/board/index.do?menu_idx=34&manage_idx=627"><img src="/resources/homepage/seogulib/img/con02_more_btn.png"></a>
+								<a href="/${homepage.context_path}/board/index.do?menu_idx=34&manage_idx=627" class='more-movie'><img src="/resources/homepage/seogulib/img/con02_more_btn.png"></a>
 							</div>
 						</div>
 
 						<div class="sec02_tab02 tab3">
 							<ul>
-								<li class="on"><a href="#all" class="tab-link3">전체</a></li>
+								<li class="on"><a href="#all" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=34&manage_idx=627">전체</a></li>
 								<li class="bar">/</li>
-								<li><a href="#seoguchild" class="tab-link3">서구어린이</a></li>
+								<li><a href="#seoguchild" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=34&manage_idx=627&category1=0001">서구어린이</a></li>
 								<li class="bar">/</li>
-								<li><a href="#bisan" class="tab-link3">비산</a></li>
+								<li><a href="#bisan" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=34&manage_idx=627&category1=0002">비산</a></li>
 								<li class="bar">/</li>
-								<li><a href="#english" class="tab-link3">영어</a></li>
+								<li><a href="#english" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=34&manage_idx=627&category1=0003">영어</a></li>
 								<li class="bar">/</li>
-								<li><a href="#biwon" class="tab-link3">비원</a></li>
+								<li><a href="#biwon" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=34&manage_idx=627&category1=0004">비원</a></li>
 								<li class="bar">/</li>
-								<li><a href="#wongogye" class="tab-link3">원고개</a></li>
+								<li><a href="#wongogye" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=34&manage_idx=627&category1=0005">원고개</a></li>
 							</ul>
 						</div>
 

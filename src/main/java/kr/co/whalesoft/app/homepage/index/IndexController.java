@@ -678,6 +678,7 @@ public class IndexController extends BaseController {
 			for (Homepage h2:subHomepageList) {
 				b.setCategory5(h2.getHomepage_id());
 				b.setManage_idx(628);
+				b.setCategory1(null);
 				model.addAttribute("noticeList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//공지사항
 
 				b.setCategory5(null);

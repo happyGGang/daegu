@@ -232,7 +232,7 @@ do {
 													<p class="one-status-box status003">마감</p>
 												</c:if>
 												<c:if test="${i.teach_status eq '6'}">
-													<p class="one-status-box status003">마감</p>
+													<p class="one-status-box status003">대기</p>
 												</c:if>
 											</a>
 										</li>
@@ -263,7 +263,7 @@ do {
 													<p class="one-status-box status003">마감</p>
 												</c:if>
 												<c:if test="${i.teach_status eq '6'}">
-													<p class="one-status-box status003">마감</p>
+													<p class="one-status-box status003">대기</p>
 												</c:if>
 											</a>
 										</li>

@@ -348,7 +348,7 @@ do {
 												<em>마감</em>
 											</c:if>
 											<c:if test="${i.teach_status eq '6'}">
-												<em>마감</em>
+												<em>대기</em>
 											</c:if>
 											${i.teach_name}
 											<br class="qmobileBr"/>
@@ -387,7 +387,7 @@ do {
 												<em>마감</em>
 											</c:if>
 											<c:if test="${i.teach_status eq '6'}">
-												<em>마감</em>
+												<em>대기</em>
 											</c:if>
 												${i.teach_name}
 											<br class="qmobileBr"/>
