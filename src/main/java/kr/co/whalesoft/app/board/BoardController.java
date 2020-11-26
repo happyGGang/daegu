@@ -1244,7 +1244,7 @@ public class BoardController extends BaseController {
 				res.setData(board.getUrlParam(boardManage, "view"));
 				res.setMessage("수정 되었습니다.");
 			} else if(board.getEditMode().equals("ADD")) {
-
+				checkAuth("C", model, request);
 				String addResult = (String) service.addBoard(boardManage, board, request);
 
 				if (addResult != null) {
