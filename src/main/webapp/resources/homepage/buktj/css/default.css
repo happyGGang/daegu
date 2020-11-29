@@ -18,15 +18,15 @@ a:focus{color:#2b74c0}
 .tnb .util b {color:#000;}
 .tnb .l-util ul li.mobile-version {display:none;}
 
-h1.web-logo a {display:block;background:url('/resources/homepage/buktj/img/buktj_logo_b.png') no-repeat center center;width:230px;height:45px;font-size:0;}
+h1.web-logo a {display:block;background:url('/resources/homepage/buktj/img/buktj_logo.png') no-repeat center center;width:230px;height:45px;font-size:0;}
 h1.mobile-logo {display:none;width:230px;height:45px;}
 
-#header.background-white .libSite ul li a {color:#000;}
-#header.background-white .libSite ul li.on a {background:#666;color:#fff;font-weight:bold;}
-#header.background-white .tnb .util a {color:#000;}
-#header.background-white .tnb .util b {color:#000;}
-#header.background-white h1.web-logo a {display:block;background:url('/resources/homepage/buktj/img/buktj_logo_b.png') no-repeat center center;}
-#header.background-white .Gnb .gnb-menu > li > a{color:#000;}
+#header.background-white .libSite ul li a {color:#fff;}
+#header.background-white .libSite ul li.on a {background:#fff;color:#000;font-weight:bold;}
+#header.background-white .tnb .util a {color:#fff;}
+#header.background-white .tnb .util b {color:#fff;}
+#header.background-white h1.web-logo a {display:block;background:url('/resources/homepage/buktj/img/buktj_logo.png') no-repeat center center;}
+#header.background-white .Gnb .gnb-menu > li > a{color:#fff;}
 
 #header .head {position:relative;z-index:20;clear:both}
 #header h1.web-logo {position:absolute;z-index:10000;top:10px;}

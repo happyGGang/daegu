@@ -131,8 +131,8 @@ do {
 
 					<div class="mvBtn_wp">
 						<div class="mvBtn">
-							<div class="swiper-button-next"><img src="/resources/homepage/${homepage.context_path}/img/mv_btn_next.png" alt="다음"></div>
-							<div class="swiper-button-prev"><img src="/resources/homepage/${homepage.context_path}/img/mv_btn_prev.png" alt="이전"></div>
+							<div class="swiper-button-next"><img src="/resources/homepage/${homepage.context_path}/img/mv_btn_next-w.png" alt="다음"></div>
+							<div class="swiper-button-prev"><img src="/resources/homepage/${homepage.context_path}/img/mv_btn_prev-w.png" alt="이전"></div>
 						</div>
 
 						<div class="ctrBtn">
@@ -204,7 +204,7 @@ do {
 								<c:forEach items="${noticeList}" var="i" varStatus="status">
 									<li>
 										<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=718&board_idx=${i.board_idx}">
-											<span class="time"><b><fmt:formatDate value="${i.add_date}" pattern="yyyy" /></b><br/><fmt:formatDate value="${i.add_date}" pattern="MM.dd" /></span>
+											<span class="time"><b><fmt:formatDate value="${i.add_date}" pattern="dd" /></b><br/><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM" /></span>
 											<em>${i.title}</em>
 										</a>
 									</li>
@@ -220,7 +220,7 @@ do {
 									<li>
 										<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=32&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&homepage_id=${i.homepage_id}">
 											<c:set var="teachDate" value="${fn:split(i.start_date, '-')}"></c:set>
-											<span class="time"><b>${teachDate[0]}</b><br/>${teachDate[1]}.${teachDate[2]}</span>
+											<span class="time"><b>${teachDate[2]}</b><br/>${teachDate[0]}.${teachDate[1]}</span>
 											<em>${i.teach_name}</em>
 										</a>
 									</li>

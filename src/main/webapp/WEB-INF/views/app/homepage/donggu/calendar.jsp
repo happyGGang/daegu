@@ -107,6 +107,11 @@ Date.prototype.format = function(f) {
 	</div>
 -->
 	<h3>휴관일 및 행사</h3>
+	<select name="" id="" class="calendar_select_box">
+		<option value="1">안심도서관</option>
+		<option value="2">신천도서관</option>
+		<option value="3">작은도서관</option>
+	</select>
 	<a href="module/calendarManage/index.do?menu_idx=142" class="btn-more">더보기</a>
 	<div>
 		<div class="cal-today">
