@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.bestPracticesContest.BestPracticesContestDao">
+	
+	<select id="bestPracticesContestList" resultType="kr.go.gbelib.app.cms.module.bestPracticesContest.BestPracticesContest">
+		${pagingTop}
+		SELECT
+			homepage_id, best_practices_idx, title, user_name, user_phone, 
+			user_email, user_address, contest_field, contents, password, 
+			org_file_name, server_file_name, file_extension, file_size, 
+			org_file_name2, server_file_name2, file_extension2, file_size2, 
+			org_file_name3, server_file_name3, file_extension3, file_size3, 
+			delete_yn, add_id, add_date, view_count
+		FROM
+			BEST_PRACTICES_CONTEST
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		ORDER BY best_practices_idx DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getExcelList" resultType="kr.go.gbelib.app.cms.module.bestPracticesContest.BestPracticesContest">
+		SELECT
+			homepage_id, best_practices_idx, title, user_name, user_phone, 
+			user_email, user_address, contest_field, contents, password, 
+			org_file_name, server_file_name, file_extension, file_size, 
+			org_file_name2, server_file_name2, file_extension2, file_size2, 
+			org_file_name3, server_file_name3, file_extension3, file_size3, 
+			delete_yn, add_id, add_date, view_count
+		FROM
+			BEST_PRACTICES_CONTEST
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+	</select>
+	
+	<select id="bestPracticesContestCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			BEST_PRACTICES_CONTEST
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+	</select>
+	
+	<select id="getBestPracticesContest" resultType="kr.go.gbelib.app.cms.module.bestPracticesContest.BestPracticesContest">
+		SELECT
+			homepage_id, best_practices_idx, title, user_name, user_phone, 
+			user_email, user_address, contest_field, contents, password, 
+			org_file_name, server_file_name, file_extension, file_size, 
+			org_file_name2, server_file_name2, file_extension2, file_size2, 
+			org_file_name3, server_file_name3, file_extension3, file_size3, 
+			delete_yn, add_id, add_date, view_count
+		FROM
+			BEST_PRACTICES_CONTEST
+		WHERE
+			homepage_id = #{homepage_id}
+		AND best_practices_idx = #{best_practices_idx}	
+	</select>
+	
+	<insert id="addBestPracticesContest">
+		INSERT INTO
+			BEST_PRACTICES_CONTEST
+		(
+			homepage_id, best_practices_idx, title, user_name, user_phone, 
+			user_email, user_address, contest_field, contents, password, 
+			<if test="server_file_name != null and server_file_name != ''">
+			org_file_name, server_file_name, file_extension, file_size, 
+			</if>
+			<if test="server_file_name2 != null and server_file_name2 != ''">
+			org_file_name2, server_file_name2, file_extension2, file_size2,
+			</if>
+			<if test="server_file_name3 != null and server_file_name3 != ''"> 
+			org_file_name3, server_file_name3, file_extension3, file_size3,
+			</if> 
+			delete_yn, add_id, add_date
+		)
+		VALUES
+		(
+			#{homepage_id}, (SELECT NVL(MAX(best_practices_idx), 0)+1 FROM BEST_PRACTICES_CONTEST), #{title}, #{user_name}, #{user_phone},
+			#{user_email}, #{user_address}, #{contest_field}, #{contents}, #{password},
+			<if test="server_file_name != null and server_file_name != ''">
+			#{org_file_name}, #{server_file_name}, #{file_extension}, #{file_size},
+			</if> 
+			<if test="server_file_name2 != null and server_file_name2 != ''">
+			#{org_file_name2}, #{server_file_name2}, #{file_extension2}, #{file_size2},
+			</if> 
+			<if test="server_file_name3 != null and server_file_name3 != ''">
+			#{org_file_name3}, #{server_file_name3}, #{file_extension3}, #{file_size3},
+			</if>
+			#{delete_yn}, #{add_id}, SYSDATE
+		)
+	</insert>
+	
+	<update id="modifyBestPracticesContest">
+		UPDATE 
+			BEST_PRACTICES_CONTEST
+		SET
+			title = #{title}, 
+			user_name = #{user_name}, 
+			user_phone = #{user_phone}, 
+			user_email = #{user_email}, 
+			user_address = #{user_address}, 
+			contest_field = #{contest_field}, 
+			contents = #{contents}, 
+			password = #{password},
+			<if test="server_file_name != null and server_file_name != ''">
+			org_file_name = #{org_file_name},
+			server_file_name = #{server_file_name},
+			file_extension = #{file_extension},
+			file_size = #{file_size},
+			</if>
+			<if test="server_file_name2 != null and server_file_name2 != ''">
+			org_file_name2 = #{org_file_name2},
+			server_file_name2 = #{server_file_name2},
+			file_extension2 = #{file_extension2},
+			file_size2 = #{file_size2},
+			</if>
+			<if test="server_file_name3 != null and server_file_name3 != ''">
+			org_file_name3 = #{org_file_name3},
+			server_file_name3 = #{server_file_name3},
+			file_extension3 = #{file_extension3},
+			file_size3 = #{file_size3},
+			</if>
+			modify_id = #{modify_id}, 
+			modify_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND best_practices_idx = #{best_practices_idx}
+			
+	</update>
+	
+	<update id="deleteBestPracticesContest">
+		UPDATE 
+			BEST_PRACTICES_CONTEST
+		SET
+			delete_yn = 'Y',
+			delete_id = #{delete_id}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND best_practices_idx = #{best_practices_idx}
+	</update>
+	
+	<update id="addViewCount">
+		UPDATE 
+			BEST_PRACTICES_CONTEST
+		SET
+			view_count = NVL(view_count, 0) + 1
+		WHERE
+			homepage_id = #{homepage_id} 
+		AND	best_practices_idx = #{best_practices_idx}
+	</update>
+	
+	<update id="deleteFile">
+		UPDATE
+			BEST_PRACTICES_CONTEST
+		SET
+			org_file_name = '',
+			server_file_name = '',
+			file_extension = '',
+			file_size = ''
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	best_practices_idx = #{best_practices_idx}
+	</update>
+	
+	<update id="deleteFile2">
+		UPDATE
+			BEST_PRACTICES_CONTEST
+		SET
+			org_file_name2 = '',
+			server_file_name2 = '',
+			file_extension2 = '',
+			file_size2 = ''
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	best_practices_idx = #{best_practices_idx}
+	</update>
+	
+	<update id="deleteFile3">
+		UPDATE
+			BEST_PRACTICES_CONTEST
+		SET
+			org_file_name3 = '',
+			server_file_name3 = '',
+			file_extension3 = '',
+			file_size3 = ''
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	best_practices_idx = #{best_practices_idx}
+	</update>
+	
+</mapper>
