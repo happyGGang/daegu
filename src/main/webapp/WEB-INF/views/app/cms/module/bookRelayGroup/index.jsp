@@ -49,11 +49,22 @@ $(function() {
 		$('#viewPage').val(1);
 		doGetLoad('index.do', serializeCustom($('form#bookRelayGroup')));
 	});
+
+	$('a#excelDownload').on('click', function(e) {
+		$('#bookRelayGroup').attr('action', 'excelDownload.do').submit();
+		$('#bookRelayGroup').attr('action', 'save.do');
+		e.preventDefault();
+	});
+
+	$('a#csvDownload').on('click', function(e) {
+		e.preventDefault();
+		$('#bookRelayGroup').attr('action', 'csvDownload.do').submit();
+	});
 	
 });
 </script>
 
-<form:form modelAttribute="bookRelayGroup" id="bookRelayGroup">
+<form:form modelAttribute="bookRelayGroup">
 <form:hidden path="homepage_id"/>
 <form:hidden path="group_idx"/>
 <form:hidden path="editMode"/>
@@ -155,6 +166,8 @@ $(function() {
 				</form:select>
 				<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
 				<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
+				<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>
+				<a href="#" id="csvDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>CSV저장</span></a>
 			</fieldset>
 		</div>
 		

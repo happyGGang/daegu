@@ -17,6 +17,10 @@ public class BookRelayGroupService extends BaseService {
 		return dao.bookRelayGroupList(bookRelayGroup);
 	}
 	
+	public List<BookRelayGroup> getExcelList(BookRelayGroup bookRelayGroup) {
+		return dao.getExcelList(bookRelayGroup);
+	}
+	
 	public BookRelayGroup getBookRelayGroup(BookRelayGroup bookRelayGroup) {
 		return dao.getBookRelayGroup(bookRelayGroup);
 		
