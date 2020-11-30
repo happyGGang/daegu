@@ -20,6 +20,18 @@
 		${pagingBottom}
 	</select>
 	
+	<select id="getExcelList" resultType="kr.go.gbelib.app.cms.module.readerContest.ReaderContest">
+		SELECT
+			homepage_id, reader_idx, participation_field, user_name, user_date,
+			user_phone, protector_phone, user_email, postcode, address_base, 
+			address_detailed, approval_status, delete_yn, add_id, add_date
+		FROM
+			READER_CONTEST
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+	</select>
+	
 	<select id="readerContestCount" resultType="int">
 		SELECT
 			COUNT(*)

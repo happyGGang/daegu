@@ -6,6 +6,8 @@ public interface ReaderContestDao {
 	
 	public List<ReaderContest> readerContestList(ReaderContest readerContest);
 	
+	public List<ReaderContest> getExcelList(ReaderContest readerContest);
+	
 	public ReaderContest getReaderContest(ReaderContest readerContest);
 	
 	public int readerContestCount(ReaderContest readerContest);

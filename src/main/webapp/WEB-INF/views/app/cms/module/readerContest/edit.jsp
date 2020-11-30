@@ -109,7 +109,7 @@ $(function() {
 		</colgroup>
 		<tbody id="board_tbody">
 			<tr>
-				<th>참가여부(<span style="color: red;font-weight: bold;">*</span>)</th>
+				<th>참가분야(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
 					<form:radiobutton path="participation_field" value="0" label="소년부(초등~중등)" />
 					<form:radiobutton path="participation_field" value="1" label="장년부(고등~일반)" />

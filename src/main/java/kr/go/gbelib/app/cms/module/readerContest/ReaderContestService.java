@@ -17,6 +17,10 @@ public class ReaderContestService extends BaseService {
 		return dao.readerContestList(readerContest);
 	}
 	
+	public List<ReaderContest> getExcelList(ReaderContest readerContest) {
+		return dao.getExcelList(readerContest);
+	}
+	
 	public ReaderContest getReaderContest(ReaderContest readerContest) {
 		return dao.getReaderContest(readerContest);
 	}
