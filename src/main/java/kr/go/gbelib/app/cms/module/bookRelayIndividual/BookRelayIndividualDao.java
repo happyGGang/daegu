@@ -6,6 +6,8 @@ public interface BookRelayIndividualDao {
 
 	public List<BookRelayIndividual> bookRelayIndividualList(BookRelayIndividual bookRelayIndividual);
 	
+	public List<BookRelayIndividual> getExcelList(BookRelayIndividual bookRelayIndividual);
+	
 	public BookRelayIndividual getBookRelayIndividual(BookRelayIndividual bookRelayIndividual);
 	
 	public int bookRelayIndividualCount(BookRelayIndividual bookRelayIndividual);

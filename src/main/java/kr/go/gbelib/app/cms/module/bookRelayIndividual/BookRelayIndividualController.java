@@ -1,6 +1,9 @@
 package kr.go.gbelib.app.cms.module.bookRelayIndividual;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -153,5 +156,19 @@ public class BookRelayIndividualController extends BaseController {
 		return res;
 	}	
 	
+	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
+	public BookRelayIndividualSearchView excel(Model model, BookRelayIndividual bookRelayIndividual, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		model.addAttribute("bookRelayIndividual", bookRelayIndividual);
+		model.addAttribute("bookRelayIndividualResult", service.getExcelList(bookRelayIndividual));
+		
+		return new BookRelayIndividualSearchView();
+	}
+
+	@RequestMapping(value = {"/csvDownload.*"}, method = RequestMethod.POST)
+	public void csv(Model model, BookRelayIndividual bookRelayIndividual, HttpServletRequest request, HttpServletResponse response) {
+		List<BookRelayIndividual> bookRelayIndividualList = service.getExcelList(bookRelayIndividual);
+		
+		new BookRelayIndividualXlsToCsv(bookRelayIndividualList, "독서릴레이-개인 리스트.csv", request, response);
+	}
 	
 }
