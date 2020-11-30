@@ -16,6 +16,10 @@ public class BookRelayClubListService extends BaseService {
 	public List<BookRelayClubList> bookRelayList(BookRelayClubList bookRelayClubList) {
 		return dao.bookRelayList(bookRelayClubList);
 	}
+	
+	public List<BookRelayClubList> getExcelList(BookRelayClubList bookRelayClubList) {
+		return dao.getExcelList(bookRelayClubList);
+	}
  	
 	public int bookRelayClubListIdx(BookRelayClubList bookRelayClubList) {
 		return dao.bookRelayClubListIdx(bookRelayClubList);

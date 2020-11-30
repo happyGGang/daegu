@@ -9,7 +9,13 @@ public class BookRelayClubList extends PagingUtils{
 	private String relay_name;	//이름 
 	private String relay_phone;	//연락처 
 	private String relay_etc;	//비고 
-
+	
+	public BookRelayClubList() {}
+	
+	public BookRelayClubList(String homepage_id, int club_idx) {
+		setHomepage_id(homepage_id);
+		this.club_idx = club_idx;
+	}
 
 	public int getClub_idx() {
 		return club_idx;

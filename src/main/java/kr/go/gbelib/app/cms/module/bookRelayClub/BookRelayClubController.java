@@ -1,6 +1,9 @@
 package kr.go.gbelib.app.cms.module.bookRelayClub;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -174,6 +177,22 @@ public class BookRelayClubController extends BaseController {
 		
 		return res;
 	}	
-	
+
+	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
+	public BookRelayClubSearchView excel(Model model, BookRelayClub bookRelayClub, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		model.addAttribute("relayList", listservice.getExcelList(new BookRelayClubList(getAsideHomepageId(request), bookRelayClub.getClub_idx())));
+		model.addAttribute("bookRelayClub", bookRelayClub);
+		model.addAttribute("bookRelayClubResult", service.getExcelList(bookRelayClub));
+		
+		return new BookRelayClubSearchView();
+	}
+
+	@RequestMapping(value = {"/csvDownload.*"}, method = RequestMethod.POST)
+	public void csv(Model model, BookRelayClub bookRelayClub, HttpServletRequest request, HttpServletResponse response) {
+		List<BookRelayClub> bookRelayClubList = service.getExcelList(bookRelayClub);
+		List<BookRelayClubList> relayList = listservice.getExcelList(new BookRelayClubList(getAsideHomepageId(request), bookRelayClub.getClub_idx()));
+		
+		new BookRelayClubXlsToCsv(bookRelayClubList, "독서릴레이-동아리 리스트.csv", relayList, request, response);
+	}
 	
 }
