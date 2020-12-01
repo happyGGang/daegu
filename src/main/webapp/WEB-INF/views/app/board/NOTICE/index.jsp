@@ -136,7 +136,7 @@ table.bbs tr.notice{background:#f5f6f7}
 					<td class="important left title">
 						<c:set var="boardIdx" value="${i.parent_idx > 0 ? i.parent_idx : i.board_idx}"></c:set>
 						<c:set var="portal" value=""></c:set>
-						<c:if test="${boardManage.manage_idx eq '282' || boardManage.manage_idx eq '614'}">
+						<c:if test="${boardManage.manage_idx eq '282'}">
 						<c:set var="portal" value="/${i.imsi_v_19}/board/"></c:set>
 						</c:if>
 						<c:set var="viewUrl" value="${portal}view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}"></c:set>

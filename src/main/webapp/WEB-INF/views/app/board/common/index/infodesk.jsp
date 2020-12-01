@@ -21,14 +21,7 @@
 		<form:options itemLabel="code_name" itemValue="code_id" items="${category2List}"/>
 	</form:select>
 	</c:if>
-	<c:if test="${fn:length(subHomepageList) > 0}">
-		도서관 :
-	<label for="category2"></label>
-	<form:select path="category5" cssStyle="width:160px;" cssClass="selectmenu" title="카테코리 선택" >
-		<form:option value="">== 전체 ==</form:option>
-		<form:options itemLabel="homepage_name" itemValue="homepage_id" items="${subHomepageList}"/>
-	</form:select>
-	</c:if>
+
 	<c:if test="${boardManage.manage_idx eq '282' or boardManage.manage_idx eq '195'}">
 	도서관 :
 	<form:select path="homepage_id" cssClass="selectmenu" cssStyle="width:250px;" title="도서관 선택">
