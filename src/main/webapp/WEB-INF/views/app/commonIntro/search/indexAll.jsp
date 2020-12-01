@@ -464,7 +464,7 @@ $(function() {
 					
 					<a href="/${homepage.context_path}/intro/search/indexAll.do?menu_idx=7" class="btnNew1">검색초기화</a>
 					<a href="javascript:void(0);" id="btn_search_target" class="btnNew5">도서관선택</a>
-					<c:if test="${librarySearch.totalDataCount eq 0}"><a href="http://152.99.21.156/DG/index.php/default_search" target="_blank" class="btnNew6">구·군립 도서관 자료 검색하기</a></c:if>
+					<c:if test="${librarySearch.totalDataCount eq 0}"><!-- <a href="http://152.99.21.156/DG/index.php/default_search" target="_blank" class="btnNew6">구·군립 도서관 자료 검색하기</a> --></c:if>
 				</div>
 
 
@@ -526,6 +526,88 @@ $(function() {
 					</div>
 					<div class='gulipAll'>
 						<ul>
+							<li>
+								<input id="libraryCodes11" name="libraryCodes" class="libCheck lib_BA" type="checkbox" value="BA" checked="checked"/><label for="libraryCodes11">구수산도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+							<li>
+								<input id="libraryCodes12" name="libraryCodes" class="libCheck lib_BB" type="checkbox" value="BB" checked="checked"/><label for="libraryCodes12">대현도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+							<li>
+								<input id="libraryCodes13" name="libraryCodes" class="libCheck lib_BC" type="checkbox" value="BC" checked="checked"/><label for="libraryCodes13">태전도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+							<li>
+								<input id="libraryCodes14" name="libraryCodes" class="libCheck lib_BD" type="checkbox" value="BD" checked="checked"/><label for="libraryCodes14">범어도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+							<li>
+								<input id="libraryCodes15" name="libraryCodes" class="libCheck lib_BE" type="checkbox" value="BE" checked="checked"/><label for="libraryCodes15">용학도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+							<li>
+								<input id="libraryCodes16" name="libraryCodes" class="libCheck lib_BF" type="checkbox" value="BF" checked="checked"/><label for="libraryCodes16">고산도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+							<li>
+								<input id="libraryCodes17" name="libraryCodes" class="libCheck lib_BG" type="checkbox" value="BG" checked="checked"/><label for="libraryCodes17">파동도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+							<li>
+								<input id="libraryCodes18" name="libraryCodes" class="libCheck lib_BH" type="checkbox" value="BH" checked="checked"/><label for="libraryCodes18">무학숲도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+							<li>
+								<input id="libraryCodes19" name="libraryCodes" class="libCheck lib_BJ" type="checkbox" value="BJ" checked="checked"/><label for="libraryCodes19">책숲길도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+							<li>
+								<input id="libraryCodes20" name="libraryCodes" class="libCheck lib_BK" type="checkbox" value="BK" checked="checked"/><label for="libraryCodes20">물망이도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+							<li>
+								<input id="libraryCodes21" name="libraryCodes" class="libCheck lib_FS" type="checkbox" value="FS" checked="checked"/><label for="libraryCodes21">대구중구영어도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+							<li>
+								<input id="libraryCodes22" name="libraryCodes" class="libCheck lib_BL" type="checkbox" value="BL" checked="checked"/><label for="libraryCodes22">서구어린이도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+							<li>
+								<input id="libraryCodes23" name="libraryCodes" class="libCheck lib_BQ" type="checkbox" value="BQ" checked="checked"/><label for="libraryCodes23">비산도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+							<li>
+								<input id="libraryCodes24" name="libraryCodes" class="libCheck lib_BP" type="checkbox" value="BP" checked="checked"/><label for="libraryCodes24">서구영어도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+							<li>
+								<input id="libraryCodes25" name="libraryCodes" class="libCheck lib_BM" type="checkbox" value="BM" checked="checked"/><label for="libraryCodes25">비원도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+							<li>
+								<input id="libraryCodes26" name="libraryCodes" class="libCheck lib_BN" type="checkbox" value="BN" checked="checked"/><label for="libraryCodes26">원고개도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+							<li>
+								<input id="libraryCodes27" name="libraryCodes" class="libCheck lib_BR" type="checkbox" value="BR" checked="checked"/><label for="libraryCodes27">달성군립도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+							<li>
+								<input id="libraryCodes28" name="libraryCodes" class="libCheck lib_BT" type="checkbox" value="BT" checked="checked"/><label for="libraryCodes28">이천어울림도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+							<li>
+								<input id="libraryCodes29" name="libraryCodes" class="libCheck lib_BS" type="checkbox" value="BS" checked="checked"/><label for="libraryCodes29">대명어울림도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+							<li>
+								<input id="libraryCodes30" name="libraryCodes" class="libCheck lib_BU" type="checkbox" value="BU" checked="checked"/><label for="libraryCodes30">성서도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+							<li>
+								<input id="libraryCodes31" name="libraryCodes" class="libCheck lib_BV" type="checkbox" value="BV" checked="checked"/><label for="libraryCodes31">달서어린이도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+							<li>
+								<input id="libraryCodes32" name="libraryCodes" class="libCheck lib_BW" type="checkbox" value="BW" checked="checked"/><label for="libraryCodes32">도원도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+							<li>
+								<input id="libraryCodes33" name="libraryCodes" class="libCheck lib_BX" type="checkbox" value="BX" checked="checked"/><label for="libraryCodes33">본리도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+							<li>
+								<input id="libraryCodes34" name="libraryCodes" class="libCheck lib_BY" type="checkbox" value="BY" checked="checked"/><label for="libraryCodes34">달서가족문화도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+							<li>
+								<input id="libraryCodes35" name="libraryCodes" class="libCheck lib_BZ" type="checkbox" value="BZ" checked="checked"/><label for="libraryCodes35">달서영어도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+							<li>
+								<input id="libraryCodes36" name="libraryCodes" class="libCheck lib_CA" type="checkbox" value="CA" checked="checked"/><label for="libraryCodes36">안심도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+							<li>
+								<input id="libraryCodes37" name="libraryCodes" class="libCheck lib_CB" type="checkbox" value="CB" checked="checked"/><label for="libraryCodes37">신천도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+							</li>
+<!--
 							<li>
 								<form:checkbox path="libraryCodes" value="BA" class="libCheck lib_BA" label="구수산도서관"/>
 							</li>
@@ -601,6 +683,10 @@ $(function() {
 							<li>
 								<form:checkbox path="libraryCodes" value="BZ" class="libCheck lib_BZ" label="달서영어도서관"/>
 							</li>
+							<li>
+								<form:checkbox path="libraryCodes" value="CA" class="libCheck lib_CA" label="안심도서관"/>
+							</li>
+-->
 						</ul>
 					</div>
 					<div class="end"></div>
@@ -898,7 +984,7 @@ $(function() {
 				</div>
 
 				<div class="gugun-search">
-					<a href="#gugunsearch" id="meta-search" class="btn btn8">더 많은 검색결과를 원하십니까?</a>
+					<!-- <a href="#gugunsearch" id="meta-search" class="btn btn8">더 많은 검색결과를 원하십니까?</a> -->
 				</div>
 			</div>
 
