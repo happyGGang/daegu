@@ -86,7 +86,7 @@ do {
 		// 팝업 관련 코드 END
 
 
-		$('div#holiday-box').load('calendar3.do');
+		$('div#holiday-box').load('calendar3.do?homepage_id=h73');
 		$('ul.newBookUl').load('newBook.do');
 		$('ul.bestBookUl').load('bestBook.do');
 
@@ -169,7 +169,7 @@ do {
 										<li class="on-cont">
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=614&board_idx=${i.board_idx}">
 												<strong>
-													<span class="ca bg-${i.category1}">${i.category1_name}</span> <span class="tit">${i.title}</span><br/>
+													<span class="ca bg-${i.category5}">${i.category5_name}</span> <span class="tit">${i.title}</span><br/>
 													<span class="datetime">
 														<fmt:formatDate value="${i.add_date}" pattern="yyyy. MM. dd." />
 													</span>
@@ -181,7 +181,7 @@ do {
 									<c:otherwise>
 										<li>
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=614&board_idx=${i.board_idx}">
-												<strong><span class="ca bg-${i.category1}">${i.category1_name}</span> ${i.title}</strong>
+												<strong><span class="ca bg-${i.category5}">${i.category5_name}</span> ${i.title}</strong>
 												<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd" /></span>
 											</a>
 										</li>
