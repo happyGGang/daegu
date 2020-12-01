@@ -905,6 +905,13 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 //			return null;
 //		}
 
+		Homepage h = new Homepage();
+		h.setHomepage_id(homepage.getHomepage_id());
+		h.setHomepage_group(homepage.getHomepage_id());
+		h.setTemp_use_yn(null);
+		List<Homepage> subHomepageList = homepageService.getSubHomepageList(h);
+
+		model.addAttribute("subHomepageList", subHomepageList);
 		model.addAttribute("member", member);
 		model.addAttribute("librarySearch", librarySearch);
 
@@ -954,7 +961,7 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 						map2.put("isbn"+isbn.length(), isbn);
 
 						LibrarySearch bookSerach = new LibrarySearch();
-						bookSerach.setManageCode(homepage.getManage_code());
+						bookSerach.setManageCode(librarySearch.getManageCode());
 						bookSerach.setIsbn(isbn);
 						Map<String, Object> sameBook = (Map<String, Object>) LibSearchAPI.getBookDetail(bookSerach);
 
