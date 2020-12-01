@@ -228,7 +228,23 @@ public class TeachController extends BaseController{
 			return null;
 		}
 
-		teach.setHomepage_id(homepage.getHomepage_id());
+		String homepageId = homepage.getHomepage_id();
+
+		if ((homepageId.equals("h37") || homepageId.equals("h49") || homepageId.equals("h45") || homepageId.equals("h53"))) {
+			Homepage h = new Homepage();
+			h.setHomepage_id(homepageId);
+			h.setHomepage_group(homepageId);
+			h.setTemp_use_yn("Y");
+			List<Homepage> subHomepageList = homepageService.getSubHomepageList(h);
+			if (StringUtils.isEmpty(teach.getHomepage_id())) {
+				teach.setHomepage_id(subHomepageList.get(0).getHomepage_id());
+			}
+			model.addAttribute("subHomepageList", subHomepageList);
+		} else {
+			teach.setHomepage_id(homepage.getHomepage_id());
+		}
+
+//		teach.setHomepage_id(homepage.getHomepage_id());
 		if (isLogin(request)) {
 			teach.setMember_key(getSessionMemberId(request));
 		}
