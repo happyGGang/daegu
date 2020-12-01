@@ -877,7 +877,6 @@ $(function() {
 							</div>
 							<div>
 								<ul>
-								<%--
 									<li>
 										<form:checkbox path="libraryCodes" value="BU" class="libCheck lib_BU" label="성서도서관"/>
 									</li>
@@ -917,7 +916,6 @@ $(function() {
 									<li>
 										<form:checkbox path="libraryCodes" value="GK" class="libCheck lib_GK" label="학산작은도서관"/>
 									</li>
-								--%>
 								</ul>
 							</div>
 							<div class="end"></div>

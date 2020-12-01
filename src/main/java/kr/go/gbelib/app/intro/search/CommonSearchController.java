@@ -101,10 +101,25 @@ public class CommonSearchController extends BaseController {
 					libraryCodes.add(home.getManage_code());
 				}
 			}
+
+			Homepage h1 = new Homepage();
+			h1.setHomepage_id(homepage.getHomepage_id());
+			h1.setHomepage_group(homepage.getHomepage_id());
+			h1.setTemp_use_yn(null);
+			List<Homepage> subHomepageList = homepageService.getSubHomepageList(h1);
+			if (CollectionUtils.isNotEmpty(subHomepageList)) {
+				for (Homepage homepage1 : subHomepageList) {
+					if (StringUtils.isNotEmpty(homepage1.getManage_code())) {
+						libraryCodes.add(homepage1.getManage_code());
+
+					}
+				}
+			}
+
 			librarySearch.setLibraryCodes(libraryCodes);
 		}
 
-		if (StringUtils.isNotEmpty(librarySearch.getBooktype())) {
+ 		if (StringUtils.isNotEmpty(librarySearch.getBooktype())) {
     		Map<String, Object> result = new HashMap<String, Object>();
     		
     		// 자료실 제외 코드 : [두류]보존서고(1,2,3)
@@ -1661,7 +1676,6 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 	/**
 	 * 무인대출예약
 	 * @author whalesoft YONGJU 2019. 11. 15.
-	 * @param context_path
 	 * @param model
 	 * @param librarySearch
 	 * @param result
@@ -1778,7 +1792,6 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 	/**
 	 * 야간대출예약
 	 * @author whalesoft YONGJU 2019. 11. 16.
-	 * @param context_path
 	 * @param model
 	 * @param librarySearch
 	 * @param result
