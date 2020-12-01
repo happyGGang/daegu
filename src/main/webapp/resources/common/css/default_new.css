@@ -268,8 +268,6 @@ h1{z-index:6}
 .Gnb .mask,
 .Gnb .gnb-menu>li>.SubMenu{height:44px;line-height:44px}
 
-.Gnb .mask, .Gnb .gnb-menu>li>ul{margin-top:-10px;}
-
 
 nav .gnb-menu>li>a>span{font-size:14px}
 nav#menu a:not(.mm-title):hover,
@@ -532,11 +530,11 @@ transform:translatez(0);
 /* 본문 */
 .doc-head{overflow:hidden;border-bottom: 1px dashed #ccc;margin-bottom:30px;}
 .doc-title {position:relative;padding: 10px 0 15px 0;/* line-height: 150%; */}
-.doc-title h3{display:inline-block;zoom:1;*display:inline;word-break:break-all;font-size: 28px;color: #222;letter-spacing:-1px;font-weight:bold;}
-.doc-title ol{margin-top:-6px;}
+.doc-title h3{display:inline-block;zoom:1;*display:inline;word-break:break-all;font-size: 27px;color: #222;letter-spacing:-1px;font-weight:bold;}
+.doc-title ol{margin-top:-9px;}
 
 .doc-info {width:1260px;margin:0 auto;position:relative;padding:0 0 0 270px;box-sizing:border-box;z-index:2;text-align:center;}
-.doc-info .doc-title {padding-top:35px;}
+.doc-info .doc-title {padding-top:38px;}
 .doc-info .doc-title h2 {display:block;font-size:32px;color:#000;}
 .doc-info ol li.first {padding:0;}
 .doc-info ol li.first img { margin-top: 2px; }

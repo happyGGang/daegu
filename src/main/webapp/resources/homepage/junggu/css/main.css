@@ -50,17 +50,17 @@ input.text{border-radius:0 !important;}
 .notice-box > .cont li:first-child { border-top: 0; }
 .notice-box > .cont li a { position:relative;display:block;line-height:130%;box-sizing:border-box;font-weight:400;padding:5px 100px 5px 60px;position: relative;word-break:break-all;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;font-size:16px; }
 .notice-box > .cont li a:hover { text-decoration: underline; }
-.notice-box > .cont li a em {position:absolute;top:50%;left:0;width:48px;margin-top:-15px;height:33px;line-height:28px;text-align:center;background:#caced3;color:#fff;font-weight:bold;text-decoration:none;font-style:normal;font-size:13px;}
-.notice-box > .cont li a em.junggu0000 { background:#222; }
+.notice-box > .cont li a em {position:absolute;top:50%;left:0;width:48px;margin-top:-15px;height:33px;line-height:28px;text-align:center;background:#00c4c6;color:#fff;font-weight:bold;text-decoration:none;font-style:normal;font-size:13px;}
+.notice-box > .cont li a em.junggu0000 { background:#00c4c6; }
 .notice-box > .cont li a em.junggu0001 { background:#0072bc; }
-.notice-box > .cont li a em.junggu0002 { background:#00a0c6; }
-.notice-box > .cont li a em.junggu0003 { background:#; }
-.notice-box > .cont li a em.junggu0004 { background:#f99d1c; }
-.notice-box > .cont li a em.junggu0005 { background:#; }
-.notice-box > .cont li a em.junggu0006 { background:#; }
-.notice-box > .cont li a em.junggu0007 { background:#; }
-.notice-box > .cont li a em.junggu0008 { background:#; }
-.notice-box > .cont li a em.junggu0009 { background:#; }
+.notice-box > .cont li a em.junggu0002 { background:#2753b8; }
+.notice-box > .cont li a em.junggu0003 { background:#00a0c6; }
+.notice-box > .cont li a em.junggu0004 { background:#b8ae0e; }
+.notice-box > .cont li a em.junggu0005 { background:#16b179; }
+.notice-box > .cont li a em.junggu0006 { background:#8cc600; }
+.notice-box > .cont li a em.junggu0007 { background:#3ecdf1; }
+.notice-box > .cont li a em.junggu0008 { background:#f29e29; }
+.notice-box > .cont li a em.junggu0009 { background:#20b6da; }
 .notice-box > .cont li a span { position:absolute;right:0;font-family:'Nanum Barun Gothic';font-weight:400;font-size:15px; }
 .btn-more-more {position:absolute;right:20px;top:35px;font-size:0;width:14px;height:14px;background:url('../img/more-bbbbbbbtn.png') no-repeat 0 0;}
 
@@ -87,10 +87,19 @@ ul.book_photo li a span.con-image img {width:100%;height:100%;}
 ul.book_photo li a span.con-title {color:#000;font-size:16px;font-weight:600;padding-top:18px;}
 
 .calendar-box {box-sizing:border-box;}
-#calendar2 .calendar-info {text-align:right;}
+#calendar2 .calendar-info {margin-top:-10px;text-align:right;}
 #calendar2 .calendar-info span {display:inline-block;padding-left:7px;}
 #calendar2 .calendar-info span.hu {background:url('/resources/homepage/duryu/img/red-dot.png') no-repeat left center;}
 #calendar2 .calendar-info span.ev {background:url('/resources/homepage/duryu/img/blue-dot.png') no-repeat left center;}
+
+#calendar2 .calendar_select_box{position:relative;margin-top:10px;border:none;border-bottom:1px solid #000;width:100%;padding:4px 10px 10px;}
+#calendar2 select{ 
+    -webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+    -moz-appearance: none; 
+    appearance: none;
+     background: url('../img/cal-area_arr.png') no-repeat 96% 50%; /* 화살표 모양의 이미지 */ 
+}
+#calendar2 select::-ms-expand{display: none;} /* IE 10, 11의 네이티브 화살표 숨기기 */ 
 
 #calendar2 {width:86%;margin:0 auto;position:relative;float:right;}
 #calendar2 .title {position:relative;}
@@ -106,7 +115,7 @@ ul.book_photo li a span.con-title {color:#000;font-size:16px;font-weight:600;pad
 #planList{overflow:hidden;padding-top:13px}
 #planList h3{font-size:15px;padding:0 10px 0 0;float:left;display:block;letter-spacing:-1px}
 #planList span{float:left;margin:5px 3px 0;width:25px;height:25px;font-weight:bold;line-height:25px;display:block;background-color:#ee882c;color:#fff;border-radius:100%;font-size:12px}
-.cal-func2 {text-align:center;padding:20px 0;}
+.cal-func2 {text-align:center;padding:10px 0;}
 .cal-func2 a.btn {padding:10px 10px 5px 10px;color:#888;font-size:15px;border:1px solid #000;}
 .cal-func2 a.btn:focus,
 .cal-func2 a.btn:hover{color:#222}
@@ -116,17 +125,17 @@ ul.book_photo li a span.con-title {color:#000;font-size:16px;font-weight:600;pad
 .cal-func2 b,
 .cal-func2 span,
 .cal-func2 em {vertical-align:middle}
-.cal-func2 b {font-size:27px;font-weight:normal;}
+.cal-func2 b {font-size:24px;font-weight:normal;}
 .cal-func2 b span {}
 .cal-func2 b em{color:#000;font-weight:bold;font-style:normal;}
 #calendar2 .cal-tbl {text-align:center;}
-#calendar2 .cal-tbl th{font-size:11px;padding-bottom:10px;}
-#calendar2 .cal-tbl th span {display:block;width:28px;height:28px;line-height:30px;color:#fff;font-size:13px;font-weight:bold;background:#016bb7;text-align:center;border-radius:50%;margin:0 auto;}
+#calendar2 .cal-tbl th{font-size:11px;padding-bottom:5px;}
+#calendar2 .cal-tbl th span {display:block;width:28px;height:28px;line-height:30px;color:#fff;font-size:12px;font-weight:bold;background:#016bb7;text-align:center;border-radius:50%;margin:0 auto;}
 #calendar2 .cal-tbl td {font-size:11px;padding:1% 0;;text-align:center;white-space:nowrap}
-#calendar2 .cal-tbl td div{margin:0 10%;width:20px;height:30px;line-height:20px;font-size:12px;margin:0 auto;}
+#calendar2 .cal-tbl td div{margin:0 10%;width:20px;height:28px;line-height:18px;font-size:12px;margin:0 auto;}
 #calendar2 .cal-tbl td a {display:block;border-radius:100%}
-#calendar2 .cal-tbl td a.type-r{background:url('/resources/homepage/duryu/img/blue-dot2.png') no-repeat center bottom;#0080f2;color:#0080f2}
-#calendar2 .cal-tbl td a.type-e{background:url('/resources/homepage/duryu/img/red-dot2.png') no-repeat center bottom;color:#ee2342}
+#calendar2 .cal-tbl td a.type-r{background:url('/resources/homepage/duryu/img/blue-dot2.png') no-repeat center 0;#0080f2;color:#0080f2}
+#calendar2 .cal-tbl td a.type-e{background:url('/resources/homepage/duryu/img/red-dot2.png') no-repeat center 0;color:#ee2342}
 #calendar2 .planView{position:absolute;width:80%;left:50%;top:30%;background:#fff;margin-left:-40%;box-shadow:0px 1px 7px 0px rgba(0,0,0,0.5)}
 #calendar2 .planView .inbox{position:relative;border:1px solid #ccc;padding:10px}
 #calendar2 .planView .inbox dt{font-weight:bold;font-size:11px;font-family:verdana}
@@ -204,6 +213,7 @@ ul.book_photo li a span.con-title {color:#000;font-size:16px;font-weight:600;pad
 	ul.book_photo li a span.con-author {font-size:14px;padding-bottom:30px;}
 	
 	#calendar2{float:none;width:calc(100% - 20px);}
+	#calendar2 select{background-position:98% !important;}
 	.cal-func2{padding:0 0 30px;}
 
 	.calendar-box {background:#f3f4f6;}

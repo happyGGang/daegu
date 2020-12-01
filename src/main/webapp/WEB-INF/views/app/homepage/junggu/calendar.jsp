@@ -103,6 +103,11 @@ Date.prototype.format = function(f) {
 <div id="calendar2">
 	<div class="title">
 		<h2>도서관일정</h2>
+		<select name="" id="" class="calendar_select_box">
+			<option value="1">중구영어</option>
+			<option value="2">동인느티나무</option>
+			<option value="3">삼덕마루</option>
+		</select>
 		<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=36" class="btn-more3">더보기</a>
 	</div>
 

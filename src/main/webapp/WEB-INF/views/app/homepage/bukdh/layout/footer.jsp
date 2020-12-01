@@ -27,7 +27,6 @@
 							<li class="disabled"><a title="수성구고산도서관" href="/gosan/index.do">수성구고산도서관</a></li>
 							<li class="disabled"><a title="달서구립도서관" href="/dalseolib/index.do">달서구립도서관</a></li>
 							<li class="disabled"><a title="달성군립도서관" href="/dalseonglib/index.do">달성군립도서관</a></li>
-							<li class="disabled"><a title="시청작은도서관" href="/dmsl/index.do">시청작은도서관</a></li>
 							</ul>
 						</div>
 						<a href="#" class="btn">이동</a>
@@ -60,7 +59,7 @@
 					<em>전화 <b>${fn:split(homepage.homepage_tell,',')[0]}</b></em>
 					<em>팩스 <b>${homepage.homepage_fax }</b></em>
 				</p>
-				<p class="copyright">Copyright ⓒ 행복북구문화재단 태전도서관. All rights reserved.</p>
+				<p class="copyright">Copyright ⓒ 행복북구문화재단 대현도서관. All rights reserved.</p>
 			<p class="f_logo"><img src="/resources/homepage/${homepage.context_path}/img/footer_logo.png" alt="대현도서관"></p>
 			</div>
 		</div>

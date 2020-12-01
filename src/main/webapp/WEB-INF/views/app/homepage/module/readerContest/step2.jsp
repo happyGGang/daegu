@@ -26,7 +26,7 @@ $(function() {
 <style>
 	
 </style>
-<div class="join-wrap" style="padding: 0px !important;">
+<div class="join-wrap" style="padding: 0px !important;width:970px;">
 	<form:form modelAttribute="readerContest" id="readerContestStep" action="edit.do">
 	<form:hidden path="menu_idx"/>
 	<div>

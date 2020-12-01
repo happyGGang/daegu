@@ -195,7 +195,7 @@ do {
 					</div>
 				</div>
 
-				<div class="main_scroll"><div class="main_scroll_wp">scroll down</div></div>
+				<div class="main_scroll"><div class="main_scroll_wp_white">scroll down</div></div>
 			</div>
 
 		</div>
@@ -282,7 +282,7 @@ do {
 						</a>
 					</li>
 					<li>
-						<a href="#" class="q02">
+						<a href="html.do?menu_idx=97" class="q02">
 							<span><img src="/resources/homepage/${homepage.context_path}/img/q2.png" alt="상호대차서비스"><br class="webBr"/>상호대차서비스</span>
 						</a>
 					</li>
@@ -296,11 +296,11 @@ do {
 							<span><img src="/resources/homepage/${homepage.context_path}/img/q4.png" alt="대출정보조회"><br class="webBr"/>대출정보조회</span>
 						</a>
 					</li>
-					<li>
+					<!-- <li>
 						<a href="#" class="q05">
 							<span><img src="/resources/homepage/${homepage.context_path}/img/q5.png" alt="스마트도서관"><br class="webBr"/>스마트도서관</span>
 						</a>
-					</li>
+					</li> -->
 					<li>
 						<a href="https://blog.naver.com/bukguarts" class="q06" target="_blank">
 							<span><img src="/resources/homepage/${homepage.context_path}/img/q6.png" alt="블로그"><br class="webBr"/>블로그</span>
@@ -309,7 +309,7 @@ do {
 				</ul>
 			</div>
 
-			<div class="main_scroll"><div class="main_scroll_wp">scroll down</div></div>
+			<div class="main_scroll"><div class="main_scroll_wp_white">scroll down</div></div>
 		</div>
 		<!-- //main2 -->
 

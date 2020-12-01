@@ -268,6 +268,7 @@ ul.book_photo li a span.con-title {color:#222;font-size:16px;font-weight:bold;pa
 .qmobileBr {display:none;}
 .mobileBr {display:none;}
 
+
 @media all and (max-width:1340px){
 	.popZone .cont .bx-prev  { left:0;}
 	.popZone .cont .bx-next  { right:0;}
@@ -342,6 +343,8 @@ ul.book_photo li a span.con-title {color:#222;font-size:16px;font-weight:bold;pa
 	.webBr {display:none;}
 
 	.main6{padding:30px;}
+
+	.m_none{display:none;}
 }
 
 @media all and (max-width:768px){

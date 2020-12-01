@@ -182,7 +182,7 @@ do {
 					</div>
 				</div>
 
-				<div class="main_scroll"><div class="main_scroll_wp">scroll down</div></div>
+				<div class="main_scroll"><div class="main_scroll_wp_white">scroll down</div></div>
 			</div>
 
 		</div>
@@ -295,7 +295,7 @@ do {
 				</ul>
 			</div>
 
-			<div class="main_scroll"><div class="main_scroll_wp">scroll down</div></div>
+			<div class="main_scroll"><div class="main_scroll_wp_white">scroll down</div></div>
 		</div>
 		<!-- //main2 -->
 

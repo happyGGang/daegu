@@ -17,6 +17,14 @@ $(function() {
 		doGetLoad('index.do', $form.serialize());
 	});
 
+	$('a.subject-submit').on('click', function(e) {
+		e.preventDefault();
+		var scode = $(this).attr('href');
+		$('input#subjectCode').val(scode.replace('#',''));
+		$('input#viewPage').val('1');
+		doGetLoad('index.do', $form.serialize());
+	});
+
 	//정렬, N개씩보기 : 접근성에 안맞아서 주석처리
 	/*
 	$('select#rowCount, select#sortType, select#sortField').on('change', function() {
@@ -79,6 +87,11 @@ $(function() {
 	//전체 선택
 	$('#checkAllBook').change(function(e) {
 		$('input.checkBook').prop('checked', $(this).prop('checked'));
+	});
+
+	//전체 선택
+	$('#checkAll').change(function(e) {
+		$('div#libraryList input:checkbox').prop('checked', $(this).prop('checked'));
 	});
 
 	$('a#addMyLib').on('click', function(e) {
@@ -228,89 +241,905 @@ $(function() {
 
 	<div class="search-wrap">
 
-		<div class="search-form">
+		<c:choose>
+			<c:when test="${homepage.context_path eq 'donggu'}">
+				<c:choose>
+					<c:when test="${param.menu_idx eq '11'}">
+					<style>
 
-			<!-- 검색하기_일반 -->
-			<div class="searchbox detail_search" id="div_detail">
-				<div class="section">
+					</style>
+						<input id="subjectCode" name="subjectCode" type="hidden" value=""/>
+						<input id="booktype" name="booktype" type="hidden" value="BOOKANDNONBOOK"/>
 
-					<div class="title-box">
-						<form:input path="title" class="text-area" placeholder="도서 제목을 입력하세요"/>
-					</div>
+						<div class="divSubjectMenu">
+							<table cellpadding="0" cellspacing="0" border="1" class="subjectTable">
+								<caption class="dpn">주제분류 리스트</caption>
+								 <colgroup>
+									<col width="20%">
+									<col width="20%">
+									<col width="20%">
+									<col width="20%">
+									<col width="20%">
+								</colgroup>
+								<tbody>
+								<tr>
 
-					<div class="vk-btn">
-						<a id="vk-popup" class="btnNew2">다국어입력기</a>
-					</div>
+									<td><a href="#0" class="subject-submit"><span class="subject0">총류</span></a></td>	
+								
+									<td><a href="#1" class="subject-submit"><span class="subject1">철학</span></a></td>	
+								
+									<td><a href="#2" class="subject-submit"><span class="subject2">종교</span></a></td>	
+								
+									<td><a href="#3" class="subject-submit"><span class="subject3">사회과학</span></a></td>	
+								
+									<td><a href="#4" class="subject-submit"><span class="subject4">자연과학</span></a></td>	
 
-					<dl>
-						<dt><label for="author" class="title">저자</label></dt>
-						<dd><form:input path="author" class="text-area"/></dd>
-					</dl>
+								</tr>
+								<tr>
 
-					<dl>
-						<dt><label for="publer" class="title">발행처</label></dt>
-						<dd><form:input path="publer" class="text-area"/></dd>
-					</dl>
-					<dl>
-						<dt><label for="keyword" class="title">키워드</label></dt>
-						<dd><form:input path="keyword" class="text-area"/></dd>
-					</dl>
+									<td><a href="#5" class="subject-submit"><span class="subject5">기술과학</span></a></td>	
+								
+									<td><a href="#6" class="subject-submit"><span class="subject6">예술</span></a></td>	
+								
+									<td><a href="#7" class="subject-submit"><span class="subject7">언어</span></a></td>	
+								
+									<td><a href="#8" class="subject-submit"><span class="subject8">문학</span></a></td>	
+								
+									<td><a href="#9" class="subject-submit"><span class="subject9">역사</span></a></td>	
 
-					<dl>
-						<dt><label for="search_start_date" class="title">발행년도</label></dt>
-						<dd>
-							<div class="box">
-								<form:input path="search_start_date" class="text-area2" title="시작년도" numberOnly="true" maxlength="4" />
-								<span style="width:8%;text-align:center;">~</span>
-								<form:input path="search_end_date" class="text-area2" title="마지막년도" numberOnly="true" maxlength="4" />
+								</tr>
+
+								</tbody>
+							</table>
+						</div>
+
+<!--
+						<div class="divSubjectContent">
+							<table class="SubjectContenttable" border="1" cellspacing="0">
+							<caption class="dpn">주제별 검색리스트</caption>
+								<tbody>
+
+								<tr>
+									<th scope="row">
+										<a href="#010" class="subject-submit">도서학, 서지학</a>
+									</th>
+									<td>
+										<table class="subTable" border="1">
+											<tbody>
+
+											<tr>
+											<td style="width:100px;"><a href="#011" class="subject-submit">저작</a>
+											<td style="width:100px;"><a href="#012" class="subject-submit">사본, 판본, 제본</a>
+											<td style="width:100px;"><a href="#013" class="subject-submit">출판 및 판매</a>
+											<td style="width:100px;"><a href="#014" class="subject-submit">개인서지 및 목록</a>
+											<td style="width:100px;"><a href="#015" class="subject-submit">국가별서지 및 목록</a>
+											</tr>
+											<tr>
+											<td style="width:100px;"><a href="#016" class="subject-submit">주제별서지 및 목록</a>
+											<td style="width:100px;"><a href="#017" class="subject-submit">특수서지 및 목록</a>
+											<td style="width:100px;"><a href="#018" class="subject-submit">일반서지 및 목록</a>
+											<td style="width:100px;"><a href="#019" class="subject-submit">장서목록</a>
+											<td style="width:100px;">&nbsp;</td>
+											</tr>
+
+											</tbody>
+										</table>
+									</td>
+								</tr>	
+
+								<tr>
+									<th scope="row">
+										<a href="#020" class="subject-submit">문헌정보학</a>
+									</th>
+									<td>
+										<table class="subTable" border="1">
+											<tbody>
+											<tr>
+											<td style="width:100px;"><a href="#021" class="subject-submit">도서관행정 및 재정</a>
+											<td style="width:100px;"><a href="#022" class="subject-submit">도서관건물 및 설비</a>
+											<td style="width:100px;"><a href="#023" class="subject-submit">도서관 경영, 관리</a>
+											<td style="width:100px;"><a href="#024" class="subject-submit">수서, 정리 및 보관</a>
+											<td style="width:100px;"><a href="#025" class="subject-submit">도서관봉사 및 활동</a>
+											</tr>
+											<tr>
+											<td style="width:100px;"><a href="#026" class="subject-submit">일반 도서관</a>
+											<td style="width:100px;"><a href="#027" class="subject-submit">학교 및 대학도서관</a>
+											<td style="width:100px;"><a href="#029" class="subject-submit">독서 및 정보매체의 이용</a>
+											<td style="width:100px;">&nbsp;</td>
+											<td style="width:100px;">&nbsp;</td>
+											</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>	
+
+								<tr>
+									<th scope="row">
+										<a href="#030" class="subject-submit">백과사전</a>
+									</th>
+									<td>
+										<table class="subTable" border="1">
+											<tbody>
+											<tr>
+											<td style="width:100px;"><a href="#031" class="subject-submit">한국어</a>
+											<td style="width:100px;"><a href="#032" class="subject-submit">중국어</a>
+											<td style="width:100px;"><a href="#033" class="subject-submit">일본어</a>
+											<td style="width:100px;"><a href="#034" class="subject-submit">영어</a>
+											<td style="width:100px;"><a href="#035" class="subject-submit">독일어</a>
+											</tr>
+											<tr>
+											<td style="width:100px;"><a href="#036" class="subject-submit">프랑스어</a>
+											<td style="width:100px;"><a href="#037" class="subject-submit">스페인어</a>
+											<td style="width:100px;"><a href="#038" class="subject-submit">이탈리아어</a>
+											<td style="width:100px;"><a href="#039" class="subject-submit">기타 제언어</a>
+											<td style="width:100px;">&nbsp;</td>
+											</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>	
+
+								<tr>
+									<th scope="row">
+										<a href="#040" class="subject-submit">강연집, 수필집, 연설문집</a>
+									</th>
+									<td>
+										<table class="subTable" border="1">
+											<tbody>
+											<tr>
+											<td style="width:100px;"><a href="#041" class="subject-submit">한국어</a>
+											<td style="width:100px;"><a href="#042" class="subject-submit">중국어</a>
+											<td style="width:100px;"><a href="#043" class="subject-submit">일본어</a>
+											
+											<td style="width:100px;"><a href="#044" class="subject-submit">영어</a>
+											
+											<td style="width:100px;"><a href="#045" class="subject-submit">독일어</a>
+											</tr>
+											<tr>
+
+											<td style="width:100px;"><a href="#046" class="subject-submit">프랑스어</a>
+											
+											<td style="width:100px;"><a href="#047" class="subject-submit">스페인어</a>
+											
+											<td style="width:100px;"><a href="#048" class="subject-submit">이탈이아어</a>
+											
+											<td style="width:100px;"><a href="#049" class="subject-submit">기타 제언어</a>
+											
+											<td style="width:100px;">&nbsp;</td>
+											
+											</tr>
+
+											</tbody>
+										</table>
+									</td>
+								</tr>	
+
+								<tr>
+									<th scope="row">
+										<a href="#05" class="subject-submit">일반 연속간행물</a>
+									</th>
+									<td>
+										<table class="subTable" border="1">
+											<tbody>
+											<tr>
+
+											<td style="width:100px;"><a href="#051" class="subject-submit">한국어</a>
+											
+											<td style="width:100px;"><a href="#052" class="subject-submit">중국어</a>
+											
+											<td style="width:100px;"><a href="#053" class="subject-submit">일본어</a>
+											
+											<td style="width:100px;"><a href="#054" class="subject-submit">영어</a>
+											
+											<td style="width:100px;"><a href="#055" class="subject-submit">독일어</a>
+											</tr>
+											<tr>
+
+											<td style="width:100px;"><a href="#056" class="subject-submit">프랑스어</a>
+											
+											<td style="width:100px;"><a href="#057" class="subject-submit">스페인어</a>
+											
+											<td style="width:100px;"><a href="#058" class="subject-submit">기타 제언어</a>
+											
+											<td style="width:100px;"><a href="#059" class="subject-submit">연감</a>
+											
+													<td style="width:100px;">&nbsp;</td>
+													</tr>
+
+											</tbody>
+										</table>
+									</td>
+								</tr>	
+
+								<tr>
+									<th scope="row">
+										<a href="#06" class="subject-submit">일반 학회, 단체, 협회, 기관</a>
+									</th>
+									<td>
+										<table class="subTable" border="1">
+											<tbody>
+											<tr>
+
+											<td style="width:100px;"><a href="#061" class="subject-submit">아시아 일반 학회, 단체 등</a>
+											
+											<td style="width:100px;"><a href="#062" class="subject-submit">유럽 일반 학회, 단체 등</a>
+											
+											<td style="width:100px;"><a href="#063" class="subject-submit">아프리카 일반 학회, 단체 등</a>
+											
+											<td style="width:100px;"><a href="#064" class="subject-submit">북아메리카 일반 학회, 단체 등</a>
+											
+											<td style="width:100px;"><a href="#065" class="subject-submit">남아메리카 일반 학회, 단체 등</a>
+											</tr>
+											<tr>
+
+											<td style="width:100px;"><a href="#066" class="subject-submit">오세아니아 일반 학회, 단체 등</a>
+											
+											<td style="width:100px;"><a href="#067" class="subject-submit">양극지방 일반 학회, 단체 등</a>
+											
+											<td style="width:100px;"><a href="#069" class="subject-submit">박물관학</a>
+											
+													<td style="width:100px;">&nbsp;</td>
+													
+													<td style="width:100px;">&nbsp;</td>
+													</tr>
+
+											</tbody>
+										</table>
+									</td>
+								</tr>	
+
+								<tr>
+									<th scope="row">
+										<a href="#07" class="subject-submit">신문, 저널리즘</a>
+									</th>
+									<td>
+										<table class="subTable" border="1">
+											<tbody>
+											<tr>
+
+											<td style="width:100px;"><a href="#071" class="subject-submit">아시아 신문, 저널리즘</a>
+											
+											<td style="width:100px;"><a href="#072" class="subject-submit">유럽 신문, 저널리즘</a>
+											
+											<td style="width:100px;"><a href="#073" class="subject-submit">아프리카 신문, 저널리즘</a>
+											
+											<td style="width:100px;"><a href="#074" class="subject-submit">북아메리카 신문, 저널리즘</a>
+											
+											<td style="width:100px;"><a href="#075" class="subject-submit">남아메리카 신문, 저널리즘</a>
+											</tr>
+											<tr>
+
+											<td style="width:100px;"><a href="#076" class="subject-submit">오세아니아 신문, 저널리즘</a>
+											
+													<td style="width:100px;">&nbsp;</td>
+													
+													<td style="width:100px;">&nbsp;</td>
+													
+													<td style="width:100px;">&nbsp;</td>
+													
+													<td style="width:100px;">&nbsp;</td>
+													</tr>
+
+											</tbody>
+										</table>
+									</td>
+								</tr>	
+
+								<tr>
+									<th scope="row">
+										<a href="#077" class="subject-submit">양극지방 신문, 저널리즘</a>
+									</th>
+									<td>
+										<table class="subTable" border="1">
+											<tbody>
+											<tr>
+
+											<td style="width:100px;"><a href="#078" class="subject-submit">특정주제의 신문</a>
+											
+													<td style="width:100px;">&nbsp;</td>
+													
+													<td style="width:100px;">&nbsp;</td>
+													
+													<td style="width:100px;">&nbsp;</td>
+													
+													<td style="width:100px;">&nbsp;</td>
+													</tr>
+
+											</tbody>
+										</table>
+									</td>
+								</tr>	
+
+								<tr>
+									<th scope="row">
+										<a href="#08" class="subject-submit">일반 전집, 총서</a>
+									</th>
+									<td>
+										<table class="subTable" border="1">
+											<tbody>
+											<tr>
+
+											<td style="width:100px;"><a href="#081" class="subject-submit">개인의 일반 전집</a>
+											
+											<td style="width:100px;"><a href="#082" class="subject-submit">2인 이상의 일반 전집, 총서</a>
+											
+													<td style="width:100px;">&nbsp;</td>
+													
+													<td style="width:100px;">&nbsp;</td>
+													
+													<td style="width:100px;">&nbsp;</td>
+													</tr>
+
+											</tbody>
+										</table>
+									</td>
+								</tr>	
+
+								<tr>
+									<th scope="row">
+										<a href="#09" class="subject-submit">향토자료</a>
+									</th>
+									<td>
+										<table class="subTable" border="1">
+											<tbody>
+											
+											</tbody>
+										</table>
+									</td>
+								</tr>	
+								
+								</tbody>
+							</table>
+						</div>
+-->
+					</c:when>
+					<c:otherwise>
+						<div class="search-form">
+
+							<!-- 검색하기_일반 -->
+							<div class="searchbox detail_search" id="div_detail">
+								<div class="section">
+
+									<div class="title-box">
+										<form:input path="title" class="text-area" placeholder="도서 제목을 입력하세요"/>
+									</div>
+									<div class="vk-btn">
+										
+									</div>
+									<div id="libraryList" class="libraryList">
+										<div>
+											<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
+										</div>
+										<div>
+											<ul>
+												<li>
+													<form:checkbox path="libraryCodes" value="CA" class="libCheck lib_CA" label="안심도서관"/>
+												</li>
+												<li>
+													<form:checkbox path="libraryCodes" value="CB" class="libCheck lib_CB" label="신천도서관"/>
+												</li>
+												<li>
+													<form:checkbox path="libraryCodes" value="GR" class="libCheck lib_GA" label="신암2동작은도서관"/>
+												</li>
+												<li>
+													<form:checkbox path="libraryCodes" value="GS" class="libCheck lib_GB" label="신암3동작은도서관"/>
+												</li>
+												<li>
+													<form:checkbox path="libraryCodes" value="HJ" class="libCheck lib_GC" label="신암5동작은도서관"/>
+												</li>
+												<li>
+													<form:checkbox path="libraryCodes" value="FK" class="libCheck lib_GD" label="신천3동작은도서관"/>
+												</li>
+												<li>
+													<form:checkbox path="libraryCodes" value="GT" class="libCheck lib_GE" label="효목1동작은도서관"/>
+												</li>
+												<li>
+													<form:checkbox path="libraryCodes" value="FP" class="libCheck lib_GF" label="효목2동작은도서관"/>
+												</li>
+												<li>
+													<form:checkbox path="libraryCodes" value="FL" class="libCheck lib_GH" label="도평동 작은도서관"/>
+												</li>
+												<li>
+													<form:checkbox path="libraryCodes" value="GU" class="libCheck lib_FJ" label="불로어울림작은도서관"/>
+												</li>
+												<li>
+													<form:checkbox path="libraryCodes" value="GV" class="libCheck lib_FN" label="지저동작은도서관"/>
+												</li>
+												<li>
+													<form:checkbox path="libraryCodes" value="GW" class="libCheck lib_HG" label="동천역사작은도서관"/>
+												</li>
+												<li>
+													<form:checkbox path="libraryCodes" value="GX" class="libCheck lib_GX" label="방촌동작은도서관"/>
+												</li>
+												<li>
+													<form:checkbox path="libraryCodes" value="GY" class="libCheck lib_GY" label="해안동작은도서관"/>
+												</li>
+												<li>
+													<form:checkbox path="libraryCodes" value="FM" class="libCheck lib_FM" label="반야월역사작은도서관"/>
+												</li>
+												<li>
+													<form:checkbox path="libraryCodes" value="GZ" class="libCheck lib_GZ" label="동구청작은도서관"/>
+												</li>
+												<li>
+													<form:checkbox path="libraryCodes" value="HK" class="libCheck lib_HK" label="늘푸른작은도서관"/>
+												</li>
+												<li>
+													<form:checkbox path="libraryCodes" value="HL" class="libCheck lib_HL" label="초록우산작은도서관"/>
+												</li>
+												<li>
+													<form:checkbox path="libraryCodes" value="HM" class="libCheck lib_HM" label="꿈날자문고작은도서관"/>
+												</li>
+												<li>
+													<form:checkbox path="libraryCodes" value="HN" class="libCheck lib_HN" label="행복작은도서관"/>
+												</li>
+												<li>
+													<form:checkbox path="libraryCodes" value="HP" class="libCheck lib_HP" label="율하5주민작은도서관"/>
+												</li>
+												<li>
+													<form:checkbox path="libraryCodes" value="HQ" class="libCheck lib_HQ" label="방촌어린이작은도서관"/>
+												</li>
+											</ul>
+										</div>
+										<div class="end"></div>
+									</div>
+									<div class="vk-btn">
+										
+									</div>
+									<dl>
+										<dt><label for="author" class="title">저자</label></dt>
+										<dd><form:input path="author" class="text-area"/></dd>
+									</dl>
+
+									<dl>
+										<dt><label for="publer" class="title">발행처</label></dt>
+										<dd><form:input path="publer" class="text-area"/></dd>
+									</dl>
+									<dl>
+										<dt><label for="keyword" class="title">키워드</label></dt>
+										<dd><form:input path="keyword" class="text-area"/></dd>
+									</dl>
+
+									<dl>
+										<dt><label for="search_start_date" class="title">발행년도</label></dt>
+										<dd>
+											<div class="box">
+												<form:input path="search_start_date" class="text-area2" title="시작년도" numberOnly="true" maxlength="4" />
+												<span style="width:8%;text-align:center;">~</span>
+												<form:input path="search_end_date" class="text-area2" title="마지막년도" numberOnly="true" maxlength="4" />
+											</div>
+										</dd>
+									</dl>
+
+									<dl>
+										<dt><label for="subjectCode" class="title">주제</label></dt>
+										<dd>
+											<form:select path="subjectCode">
+												<form:option value="">전체</form:option>
+												<form:option value="0">총류</form:option>
+												<form:option value="1">철학</form:option>
+												<form:option value="2">종교</form:option>
+												<form:option value="3">사회과학</form:option>
+												<form:option value="4">순수과학</form:option>
+												<form:option value="5">기술과학</form:option>
+												<form:option value="6">예술</form:option>
+												<form:option value="7">언어</form:option>
+												<form:option value="8">문학</form:option>
+												<form:option value="9">역사</form:option>
+											</form:select>
+										</dd>
+									</dl>
+
+									<dl>
+										<dt>자료형태</dt>
+										<dd>
+											<div class="" style="padding:3px 0 0 10px">
+											<form:radiobutton path="booktype" value="BOOKANDNONBOOK" class="radiocheck" checked="checked"/><label for="booktype1" class="booktype">통합</label>
+											<form:radiobutton path="booktype" value="BOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype2" class="booktype">도서</label>
+											<form:radiobutton path="booktype" value="NONBOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype3" class="booktype">비도서</label>
+											<%--<form:radiobutton path="booktype" value="SERIAL" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype4" class="booktype">간행물</label> --%>
+											</div>
+										</dd>
+									</dl>
+
+									<div class="end"></div>
+								</div>
+								<p class="btn_w">
+									<a id="search-btn" class="btnNew4">검색하기</a>
+									<a id="vk-popup" class="btnNew2">다국어입력기</a>
+									<a id="reset-btn" class="btnNew2">검색초기화</a>
+								</p>
 							</div>
-						</dd>
-					</dl>
+							<!--// 검색하기_일반 -->
 
-					<dl>
-						<dt><label for="subjectCode" class="title">주제</label></dt>
-						<dd>
-							<form:select path="subjectCode">
-								<form:option value="">전체</form:option>
-								<form:option value="0">총류</form:option>
-								<form:option value="1">철학</form:option>
-								<form:option value="2">종교</form:option>
-								<form:option value="3">사회과학</form:option>
-								<form:option value="4">순수과학</form:option>
-								<form:option value="5">기술과학</form:option>
-								<form:option value="6">예술</form:option>
-								<form:option value="7">언어</form:option>
-								<form:option value="8">문학</form:option>
-								<form:option value="9">역사</form:option>
-							</form:select>
-						</dd>
-					</dl>
-
-					<dl>
-						<dt>자료형태</dt>
-						<dd>
-							<div class="" style="padding:3px 0 0 10px">
-							<form:radiobutton path="booktype" value="BOOKANDNONBOOK" class="radiocheck" checked="checked"/><label for="booktype1" class="booktype">통합</label>
-							<form:radiobutton path="booktype" value="BOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype2" class="booktype">도서</label>
-							<form:radiobutton path="booktype" value="NONBOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype3" class="booktype">비도서</label>
-<%-- 							<form:radiobutton path="booktype" value="SERIAL" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype4" class="booktype">간행물</label> --%>
+							<br/>
+							<div id="autoFill">
 							</div>
-						</dd>
-					</dl>
+						</div>
+					</c:otherwise>
+				</c:choose>
 
-					<div class="end"></div>
+			</c:when>
+			<c:otherwise>
+				<div class="search-form">
+
+					<!-- 검색하기_일반 -->
+					<div class="searchbox detail_search" id="div_detail">
+						<div class="section">
+
+							<div class="title-box">
+								<form:input path="title" class="text-area" placeholder="도서 제목을 입력하세요"/>
+							</div>
+
+							<div class="vk-btn">
+								
+							</div>
+
+						<c:choose>
+						<c:when test="${homepage.context_path eq 'dalseonglib'}">
+						<div id="libraryList" class="libraryList">
+							<div>
+								<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
+							</div>
+							<div>
+								<ul>
+									<li>
+										<form:checkbox path="libraryCodes" value="BR" class="libCheck lib_BR" label="달성군립도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="FR" class="libCheck lib_FR" label="가창면 참꽃작은도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="GA" class="libCheck lib_GA" label="화원읍 작은도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="GB" class="libCheck lib_GB" label="논공읍작은도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="GC" class="libCheck lib_GC" label="구지면작은도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="GD" class="libCheck lib_GD" label="다사읍서재작은도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="GE" class="libCheck lib_GE" label="하빈면작은도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="GF" class="libCheck lib_GF" label="유가읍작은도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="GH" class="libCheck lib_GH" label="옥포읍작은도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="FJ" class="libCheck lib_FJ" label="달성군청도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="FN" class="libCheck lib_FN" label="달성군청소년센터"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="HG" class="libCheck lib_HG" label="다사읍작은도서관"/>
+									</li>
+								</ul>
+							</div>
+							<div class="end"></div>
+						</div>
+						<div class="end" style="padding:7px 0;"></div>
+						</c:when>
+						<c:when test="${homepage.context_path eq 'seogulib'}">
+						<div id="libraryList" class="libraryList">
+							<div>
+								<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
+							</div>
+							<div>
+								<ul>
+									<li>
+										<form:checkbox path="libraryCodes" value="BL" class="libCheck lib_BL" label="서구어린이도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="BQ" class="libCheck lib_BQ" label="비산도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="BP" class="libCheck lib_BP" label="서구영어도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="BM" class="libCheck lib_BM" label="비원도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="BN" class="libCheck lib_BN" label="원고개도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="GQ" class="libCheck lib_GQ" label="내당2,3동 드림도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="FU" class="libCheck lib_FU" label="내당4동어린이도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="FZ" class="libCheck lib_FZ" label="비산7동 작은도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="FH" class="libCheck lib_FH" label="새마을문고대구서구지부작은도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="FT" class="libCheck lib_FT" label="서구청작은도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="HC" class="libCheck lib_HC" label="달성토성마을 다락방 작은도서관"/>
+									</li>
+								</ul>
+							</div>
+							<div class="end"></div>
+						</div>
+						<div class="end" style="padding:7px 0;"></div>
+						</c:when>
+						<c:when test="${homepage.context_path eq 'dalseolib'}">
+						<div id="libraryList" class="libraryList">
+							<div>
+								<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
+							</div>
+							<div>
+								<ul>
+								<%--
+									<li>
+										<form:checkbox path="libraryCodes" value="BU" class="libCheck lib_BU" label="성서도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="BV" class="libCheck lib_BV" label="달서어린이도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="BW" class="libCheck lib_BW" label="도원도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="BX" class="libCheck lib_BX" label="본리도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="BY" class="libCheck lib_BY" label="달서가족문화도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="BZ" class="libCheck lib_BZ" label="달서영어도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="FA" class="libCheck lib_FA" label="이곡2동공립작은도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="FB" class="libCheck lib_FB" label="용산1동작은도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="FC" class="libCheck lib_FC" label="장기동작은도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="FD" class="libCheck lib_FD" label="죽전동공립작은도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="FW" class="libCheck lib_FW" label="웃는얼굴아트센터 도서실"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="FX" class="libCheck lib_FX" label="행정정보문고센터"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="GK" class="libCheck lib_GK" label="학산작은도서관"/>
+									</li>
+								--%>
+								</ul>
+							</div>
+							<div class="end"></div>
+						</div>
+						<div class="end" style="padding:7px 0;"></div>
+						</c:when>
+						<c:when test="${homepage.context_path eq 'namdm' || homepage.context_path eq 'namic'}">
+						<div id="libraryList" class="libraryList">
+							<div>
+								<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
+							</div>
+							<div>
+								<ul>
+									<li>
+										<form:checkbox path="libraryCodes" value="BT" class="libCheck lib_BT" label="이천어울림도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="BS" class="libCheck lib_BS" label="대명어울림도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="FE" class="libCheck lib_FE" label="꿈틀작은도서관"/>
+									</li>
+								</ul>
+							</div>
+							<div class="end"></div>
+						</div>
+						<div class="end" style="padding:7px 0;"></div>
+						</c:when>
+						<c:when test="${homepage.context_path eq 'junggu'}">
+						<div id="libraryList" class="libraryList">
+							<div>
+								<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
+							</div>
+							<div>
+								<ul>
+									<li>
+										<form:checkbox path="libraryCodes" value="FS" class="libCheck lib_FS" label="대구중구영어도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="FF" class="libCheck lib_FF" label="남산4동작은도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="FQ" class="libCheck lib_FQ" label="동인 느티나무 도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="FY" class="libCheck lib_FY" label="중구청교양정보실"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="GG" class="libCheck lib_GG" label="대신동작은도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="HA" class="libCheck lib_HA" label="삼덕마루 작은도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="HF" class="libCheck lib_HF" label="대봉2동작은도서관"/>
+									</li>
+								</ul>
+							</div>
+							<div class="end"></div>
+						</div>
+						<div class="end" style="padding:7px 0;"></div>
+						</c:when>
+						<c:when test="${homepage.context_path eq 'beomeo' || homepage.context_path eq 'yonghak' || homepage.context_path eq 'gosan'}">
+						<div id="libraryList" class="libraryList">
+							<div>
+								<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
+							</div>
+							<div>
+								<ul>
+									<li>
+										<form:checkbox path="libraryCodes" value="BD" class="libCheck lib_BD" label="범어도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="BE" class="libCheck lib_BE" label="용학도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="BF" class="libCheck lib_BF" label="고산도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="BG" class="libCheck lib_BG" label="파동도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="BH" class="libCheck lib_BH" label="무학숲도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="BJ" class="libCheck lib_BJ" label="책숲길도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="BK" class="libCheck lib_BK" label="물망이도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="FG" class="libCheck lib_FG" label="사월역도서관"/>
+									</li>
+								</ul>
+							</div>
+							<div class="end"></div>
+						</div>
+						<div class="end" style="padding:7px 0;"></div>
+						</c:when>
+						<c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj'}">
+						<div id="libraryList" class="libraryList">
+							<div>
+								<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
+							</div>
+							<div>
+								<ul>
+									<li>
+										<form:checkbox path="libraryCodes" value="BA" class="libCheck lib_BA" label="구수산도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="BB" class="libCheck lib_BB" label="대현도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="BC" class="libCheck lib_BC" label="태전도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="GJ" class="libCheck lib_GJ" label="태전1동 작은도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="GL" class="libCheck lib_GL" label="산격1동 작은도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="GM" class="libCheck lib_GM" label="북구영어작은도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="GN" class="libCheck lib_GN" label="침산1동 작은도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="GP" class="libCheck lib_GP" label="노원동 작은도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="HB" class="libCheck lib_HB" label="서변동작은도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="HD" class="libCheck lib_HD" label="노원행복도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="HE" class="libCheck lib_HE" label="한강공원부키도서관"/>
+									</li>
+								</ul>
+							</div>
+							<div class="end"></div>
+						</div>
+						<div class="end" style="padding:7px 0;"></div>
+						</c:when>
+						<c:otherwise>
+						
+						</c:otherwise>
+						</c:choose>
+
+							<dl>
+								<dt><label for="author" class="title">저자</label></dt>
+								<dd><form:input path="author" class="text-area"/></dd>
+							</dl>
+
+							<dl>
+								<dt><label for="publer" class="title">발행처</label></dt>
+								<dd><form:input path="publer" class="text-area"/></dd>
+							</dl>
+							<dl>
+								<dt><label for="keyword" class="title">키워드</label></dt>
+								<dd><form:input path="keyword" class="text-area"/></dd>
+							</dl>
+
+							<dl>
+								<dt><label for="search_start_date" class="title">발행년도</label></dt>
+								<dd>
+									<div class="box">
+										<form:input path="search_start_date" class="text-area2" title="시작년도" numberOnly="true" maxlength="4" />
+										<span style="width:8%;text-align:center;">~</span>
+										<form:input path="search_end_date" class="text-area2" title="마지막년도" numberOnly="true" maxlength="4" />
+									</div>
+								</dd>
+							</dl>
+
+							<dl>
+								<dt><label for="subjectCode" class="title">주제</label></dt>
+								<dd>
+									<form:select path="subjectCode">
+										<form:option value="">전체</form:option>
+										<form:option value="0">총류</form:option>
+										<form:option value="1">철학</form:option>
+										<form:option value="2">종교</form:option>
+										<form:option value="3">사회과학</form:option>
+										<form:option value="4">순수과학</form:option>
+										<form:option value="5">기술과학</form:option>
+										<form:option value="6">예술</form:option>
+										<form:option value="7">언어</form:option>
+										<form:option value="8">문학</form:option>
+										<form:option value="9">역사</form:option>
+									</form:select>
+								</dd>
+							</dl>
+
+							<dl>
+								<dt>자료형태</dt>
+								<dd>
+									<div class="" style="padding:3px 0 0 10px">
+									<form:radiobutton path="booktype" value="BOOKANDNONBOOK" class="radiocheck" checked="checked"/><label for="booktype1" class="booktype">통합</label>
+									<form:radiobutton path="booktype" value="BOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype2" class="booktype">도서</label>
+									<form:radiobutton path="booktype" value="NONBOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype3" class="booktype">비도서</label>
+									<%--<form:radiobutton path="booktype" value="SERIAL" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype4" class="booktype">간행물</label> --%>
+									</div>
+								</dd>
+							</dl>
+
+							<div class="end"></div>
+						</div>
+						<p class="btn_w">
+							<a id="search-btn" class="btnNew4">검색하기</a>
+							<a id="vk-popup" class="btnNew2">다국어입력기</a>
+							<a id="reset-btn" class="btnNew2">검색초기화</a>
+						</p>
+					</div>
+					<!--// 검색하기_일반 -->
+
+					<br/>
+					<div id="autoFill">
+					</div>
 				</div>
-				<p class="btn_w">
-					<a id="search-btn" class="btnNew4">검색하기</a>
-					<a id="reset-btn" class="btnNew2">검색초기화</a>
-				</p>
-			</div>
-			<!--// 검색하기_일반 -->
-
-			<br/>
-			<div id="autoFill">
-			</div>
-		</div>
+			</c:otherwise>
+		</c:choose>
 
 		<br/>
 

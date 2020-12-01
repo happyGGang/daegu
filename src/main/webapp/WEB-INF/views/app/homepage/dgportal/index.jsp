@@ -9,13 +9,22 @@
 Random rnd = new Random();
 int listNum1 = rnd.nextInt(10);
 int listNum2 = 0;
+int listNum3 = 0;
 do {
 	listNum2 = rnd.nextInt(10);
 } while (listNum1 == listNum2);
+do {
+	listNum3 = rnd.nextInt(10);
+} while (listNum1 == listNum3 || listNum2 == listNum3);
 %>
 <c:set var="listNum1" value="<%=listNum1%>"></c:set>
 <c:set var="listNum2" value="<%=listNum2%>"></c:set>
+<c:set var="listNum3" value="<%=listNum3%>"></c:set>
 <tiles:insertAttribute name="header" />
+<link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.fullpage.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.swiper.css"/>
+<script type="text/javascript" src="/resources/common/js/jquery.fullpage.js"></script>
+<script type="text/javascript" src="/resources/common/js/jquery.swiper.min.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$('#homeup').click(function () {
@@ -80,269 +89,436 @@ do {
 		});
 		// 팝업 관련 코드 END
 
-		$('div.calendar-box').load('calendar5.do?homepage_id=h1');
-		
-		$('ul.newBookUl').load('recommendBook.do?category2=${category2List[0].code_id}');
-		$('select#recommendBook1').on('change', function() {
-			$('ul.newBookUl').load('recommendBook.do?category2='+$(this).val());
-		});
-		
-		$('select#holidaySite1').on('change', function() {
-			$('div.calendar-box').load('calendar5.do?homepage_id='+$(this).val());
-			var val = $(this).val();
 
-			if (val == 'h1') {
-				$('div.info-more-boxes a').attr('href', '/228/module/calendarManage/index.do?menu_idx=63');
+		$('div#calendar-box').load('calendar3.do');
+		$('div#holiday-box').load('calendar5.do?homepage_id=${fn:escapeXml(homepage.homepage_id)}');
+		$('ul.book_photo').eq(1).load('newBook.do');
+		$('ul.bestBookUl').load('bestBook.do');
 
-			} else if (val == 'h2') {
-				$('div.info-more-boxes a').attr('href', '/228lib/module/calendarManage/index.do?menu_idx=63');
-
-			} else if (val == 'h3') {
-				$('div.info-more-boxes a').attr('href', '/nambu/module/calendarManage/index.do?menu_idx=63');
-
-			} else if (val == 'h4') {
-				$('div.info-more-boxes a').attr('href', '/dalseong/module/calendarManage/index.do?menu_idx=63');
-
-			} else if (val == 'h5') {
-				$('div.info-more-boxes a').attr('href', '/dongbu/module/calendarManage/index.do?menu_idx=63');
-
-			} else if (val == 'h6') {
-				$('div.info-more-boxes a').attr('href', '/duryu/module/calendarManage/index.do?menu_idx=63');
-
-			} else if (val == 'h7') {
-				$('div.info-more-boxes a').attr('href', '/bukbu/module/calendarManage/index.do?menu_idx=63');
-
-			} else if (val == 'h8') {
-				$('div.info-more-boxes a').attr('href', '/seobu/module/calendarManage/index.do?menu_idx=63');
-
-			} else if (val == 'h9') {
-				$('div.info-more-boxes a').attr('href', '/suseong/module/calendarManage/index.do?menu_idx=63');
-
-			} else if (val == 'h10') {
-				$('div.info-more-boxes a').attr('href', '/jungang/module/calendarManage/index.do?menu_idx=63');
-
+		$('#main-search-btn').on('click', function() {
+			if( $('input#search_text_1').val() == '' ) {
+				alert('검색어를 입력하세요.');
+				$('input#search_text_1').focus();
+				return false;
 			}
+				$('#mainSearchForm').submit();
 		});
 
-		$('select#recommendSite1').on('change', function() {
-			if ($(this).val() != '') {
-				window.open($(this).val());
-			}
-		});
-
-		$('select#recommendSite2').on('change', function() {
-			if ($(this).val() != '') {
-				window.open($(this).val());
-			}
-		});
-
-		$('.Gnb .gnb-menu > li.menu7').remove();
 });
 </script>
 <div id="wrap">
 	<tiles:insertAttribute name="top" />
 	<tiles:insertAttribute name="topMenu" />
 
-	<div class="popupWrap section">
+	<div class="popupWrap main-section">
 		<div id="popupLayer">
 			<homepageTag:popup popupList="${popupList}" />
 		</div>
 	</div>
 
-	<div id="container" class="main container">
+	<div id="fullpage">
 
-		<div class="main0">
-			<div class="section">
-				<div class="popZone">
-					<c:choose>
-						<c:when test="${fn:length(popupZoneList) > 0}">
-							<homepageTag:popupZone popupZoneList="${popupZoneList}" />
-						</c:when>
-						<c:otherwise>
+		<!-- main0 -->
+		<div class="section" id="main0">
+
+			<div class="main-visual">
+
+
+
+				<a href="#secondPage"><div class="main_scroll"><div class="main_scroll_wp_white">scroll down</div></div></a>
+			</div>
+
+		</div>
+		<!-- //main0 -->
+
+		<!-- section1 -->
+		<div class="section" id="main1">
+			<div class='wide-1686-sections'>
+
+				<div class="popupzone-box">
+					<h2 class="title">팝업존</h2>
+					<div class="popZone">
+						<c:choose>
+							<c:when test="${fn:length(popupZoneList) > 0}">
+								<homepageTag:popupZone popupZoneList="${popupZoneList}" />
+							</c:when>
+							<c:otherwise>
+								<ul>
+									<li><a href="#"><img src="/resources/homepage/${homepage.context_path}/img/popupzone-img01.png" alt="등록된 팝업존이 없습니다." /></a></li>
+								</ul>
+							</c:otherwise>
+						</c:choose>
+					</div>
+				</div>
+
+				<div class="notice-box">
+					<h2 class="title">공지사항</h2>
+					<div class="news con" >
+						<div class="box">
 							<ul>
-								<li><a href="#"><img src="/resources/homepage/${homepage.context_path}/img/popupzone-img01.png" alt="등록된 팝업존이 없습니다." /></a></li>
-							</ul>
-						</c:otherwise>
-					</c:choose>
-				</div>
-			</div>
-		</div>
-
-		<div class="main1">
-			<div class="quickmenu">
-				<div class="section">
-					<ul>
-						<homepageTag:quickMenu quickMenuList="${quickMenuList}" />
-					</ul>
-				</div>
-				<div class="end"></div>
-			</div>
-		</div>
-
-		<div class="main2">
-			<div class="section">
-				<div class="main2box1">
-					<div class="title">
-						<h2><b>주요서비스</b></h2>
-						<p>대구광역시통합도서관 주요서비스 입니다</p>
-					</div>
-					<div class="cont">
-						<ul>
-							<li><a href="/${homepage.context_path}/intro/search/indexAll.do?menu_idx=7"><strong class="quick-01"></strong><span class="">통합자료검색</span></a></li>
-							<li class="txt-line"></li>
-							<li><a href="/${homepage.context_path}/html.do?menu_idx=8"><strong class="quick-02"></strong><span class="">대구BOOK</span></a></li>
-							<li class="txt-line"></li>
-							<li><a href="/${homepage.context_path}/elib.do?menu_idx=13"><strong class="quick-03"></strong><span class="">대구전자도서관</span></a></li>
-						</ul>
-					</div>
-				</div>
-
-				<div class="main2box2">
-					<div class="title">
-						<h2><b>추천도서</b></h2>
-						<p>
-							<select id="recommendBook1" class="recommendSite1">
-								<c:forEach items="${category2List}" var="cate2">
-								<option value="${cate2.code_id}" style="color:#000;">${cate2.code_name}</option>
+								<c:forEach items="${noticeBoardList}" var="i" varStatus="status">
+								<li>
+									<a href="/${i.imsi_v_19}/board/view.do?manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&menu_idx=${i.imsi_n_2}" class="wrap">
+										<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy"/><br/><b><fmt:formatDate value="${i.add_date}" pattern="MM.dd"/></b></span>
+										<span class="link library${i.imsi_v_19}">${i.imsi_v_20}</span>
+										<span class="tit title${i.imsi_v_19}">${i.title}</span>
+									</a>
+								</li>
 								</c:forEach>
-							</select>
-						</p>
-					</div>
-					<div class="book">
-						<div class="box con">
-							<ul class="book_photo newBookUl">
 							</ul>
 						</div>
 					</div>
-
-				</div>
-
-				<div class="end"></div>
-			</div>
-		</div>
-
-
-		<div class="main3">
-			<div class="sectionx">
-
-				<div class="title">
-					대구통합도서관의<br/>
-					<b>평생교육강좌</b>
-					<em>우리 도서관에는<br/>
-					어떤 강좌가 있을까?</em><br/><br/>
-					<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=11&editMode=ALL"><img src="/resources/homepage/${homepage.context_path}/img/culture-icon.png" alt="독서문화행사 안내"></a>
-				</div>
-
-				<div class="cont cultureList">
-					<ul>
-						<c:forEach items="${teachList}" var="i" varStatus="status">
-						<c:set var="imgnum" value="${(status.count % 8)+1}"></c:set>
-						<li>
-						<a href="/${i.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=${i.menu_idx}&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}" class="border bgimg00${imgnum}">
-							<span class="txt">
-								<p class="lib-name">${i.homepage_name}</p>
-								<p class="tit">${fn:substring(i.teach_name, 0, 15)}<c:if test="${fn:length(i.teach_name) > 15}">...</c:if></p>
-								<p class="len"><b>접수</b><br/>${i.start_join_date} ~ ${i.end_join_date}</p>
-							</span>
-							<span class="btnn"><img src="/resources/homepage/${homepage.context_path}/img/more-culture-btn.png" alt="신청하기"></span>
-						</a>
-						</li>
-						</c:forEach>
-					</ul>
-				</div>
-
-				<div class="end"></div>
-			</div>
-		</div>
-
-		<div class="main4">
-			<div class="section">
-				<div class="section_story">
-					<div class="title_bx">
-						공지사항
+					<div class="more-btn">
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=22&manage_idx=282"><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt="더보기" /></a>
 					</div>
+				</div>
 
-					<div class="story_list">
-						<a href="/${homepage.context_path}/board/index.do?menu_idx=22&manage_idx=282" class="more-notice"><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt="더보기"></a>
-						<ul class="clearfix list">
-							<c:forEach items="${noticeBoardList}" var="i" varStatus="status">
-							<li>
-								<a href="/${i.imsi_v_19}/board/view.do?manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&menu_idx=${i.imsi_n_2}" class="wrap">
-									<p class="tit title${i.imsi_v_19}">${i.title}</p>
-									<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
-								</a>
-								<a href="/${i.imsi_v_19}/board/view.do?manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&menu_idx=${i.imsi_n_2}" class="link library${i.imsi_v_19}">${i.imsi_v_20}</a>
-							</li>
+
+			</div>
+
+		</div>
+		<!-- //main1 -->
+
+		<!-- main2 통합자료검색-->
+		<div class="section" id="main2">
+			<div class="main2_tit">
+				<h2 class="title"><b>통합자료검색</b></h2>
+				<p class="tit_text">대구지역 도서관의 자료를 쉽고 빠르게 검색해보세요.</p>
+			</div>
+
+			<!-- main_search -->
+			<div class="search-area" id="main_search">
+				<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
+				<input type="hidden" name="menu_idx" value="9">
+				<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
+				<fieldset>
+					<legend class="blind">통합검색</legend>
+					<div class="main-box">
+						<div class="box1">
+							<div class="box2">
+								<label for="search_text_1" class="blind">통합자료검색</label>
+								<input name="title" id="search_text_1" type="text" class="text" placeholder="검색어를 입력하세요." style="ime-mode:active;"/>
+							</div>
+						</div>
+						<button id="main-search-btn">검색하기</button>
+					</div>
+				</fieldset>
+				</form>
+			</div>
+			<!-- //Main_search -->
+		</div>
+		<!-- //main2 -->
+
+
+		<!-- main3 평생교육강좌-->
+		<div class="section" id="main3">
+			<div class="main2_tit">
+				<h2 class="title"><b>평생교육강좌</b></h2>
+				<p class="tit_text">대구통합도서관의 다양한 강좌 프로그램을 체험해보세요.</p>
+			</div>
+
+			<div class="cont cultureList">
+				<ul>
+					<c:forEach items="${teachList}" var="i" varStatus="status">
+					<c:set var="imgnum" value="${(status.count % 8)+1}"></c:set>
+					<li>
+					<a href="/${i.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=${i.menu_idx}&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}" class="border bgimg00${imgnum}">
+						<span class="txt">
+							<p class="lib-name">${i.homepage_name}</p>
+							<p class="tit">${fn:substring(i.teach_name, 0, 15)}<c:if test="${fn:length(i.teach_name) > 15}">...</c:if></p>
+							<p class="len"><b>접수</b><br/>${i.start_join_date} ~ ${i.end_join_date}</p>
+						</span>
+						<span class="btnn"><img src="/resources/homepage/${homepage.context_path}/img/more-culture-btn.png" alt="신청하기"></span>
+					</a>
+					</li>
+					</c:forEach>
+				</ul>
+			</div>
+
+			<div class="end"></div>
+
+			<div class="main-section wid1450">
+
+				<div class="book-box tabS">
+					<ul class="tabMenuS">
+						<li class="on"><a href="#tab1" class='t-tabs' data-link="/${homepage.context_path}/board/index.do?menu_idx=85&manage_idx=697">추천도서</a></li>
+						<li><a href="#tab2" class='t-tabs' data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=10">신착도서</a></li>
+					</ul>
+					<a href="/${homepage.context_path}/board/index.do?menu_idx=85&manage_idx=697" class="btn-more2 more-more">더보기</a>
+
+					<div class="box con" data-tab="tab1">
+						<ul class="book_photo">
+							<c:forEach items="${bookList1}" var="i" varStatus="status">
+								<li>
+									<a href="/${homepage.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+									<span class="con-image">
+										<c:choose>
+											<c:when test="${i.preview_img ne null}">
+												<c:choose>
+													<c:when test="${fn:contains(i.preview_img, 'http')}">
+														<img src="${i.preview_img}" alt="${i.title}" />
+													</c:when>
+													<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+														<img src="${i.preview_img}" alt="${i.title}" />
+													</c:when>
+													<c:otherwise>
+														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+													</c:otherwise>
+												</c:choose>
+											</c:when>
+											<c:otherwise>
+												<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
+											</c:otherwise>
+										</c:choose>
+									</span>
+										<span class="con-title">${fn:length(i.title) > 11 ? fn:substring(i.title, 0, 12) : i.title}<c:if test="${fn:length(i.title) > 11 }">...</c:if></span>
+									</a>
+								</li>
 							</c:forEach>
 						</ul>
 					</div>
 
-					<div class="site-recomender">
-						<div class="site-recomender-inbox">
-							<div class="title">
-								<h2><b>이달의</b> 휴관일</h2>
-								<p>
-									<select id="holidaySite1" class="holidaySite1" style="color:#fff;">
-										<option value="h1" style="color:#000;">대구2·28기념학생도서관</option>
-										<option value="h2" style="color:#000;">대구2·28민주운동기념회관</option>
-										<option value="h3" style="color:#000;">대구광역시립 남부도서관</option>
-										<option value="h4" style="color:#000;">대구광역시립 달성도서관</option>
-										<option value="h5" style="color:#000;">대구광역시립 동부도서관</option>
-										<option value="h6" style="color:#000;">대구광역시립 두류도서관</option>
-										<option value="h7" style="color:#000;">대구광역시립 북부도서관</option>
-										<option value="h8" style="color:#000;">대구광역시립 서부도서관</option>
-										<option value="h9" style="color:#000;">대구광역시립 수성도서관</option>
-										<option value="h10" style="color:#000;">대구광역시립 중앙도서관</option>
-									</select>
-								</p>
-							</div>
-							<div class="calendar-box">
-							</div>
-
-							<div class="info-more-boxes">
-								<a href="/228/module/calendarManage/index.do?menu_idx=63"  target="_blank">휴관일 더보기</a>
-							</div>
-
-						</div>
+					<div class="box con" data-tab="tab2" style="display:none;">
+						<ul class="book_photo">
+						</ul>
 					</div>
 
+				</div>
+
+
+			</div>
+			<div class="end"></div>
+
+		</div>
+		<!-- //main3 -->
+
+		<!-- main4 사서추천, 대구의bOOK-->
+		<div class="section" id="main4">
+			<div class="main4_wrap">
+				<div class="left">
+					<div class="recommand-box">
+						<div class="box con">
+							<ul class="book_photo">
+								<c:forEach items="${bookList1}" var="i" varStatus="status">
+									<li>
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+										<span class="con-image">
+											<c:choose>
+												<c:when test="${i.preview_img ne null}">
+													<c:choose>
+														<c:when test="${fn:contains(i.preview_img, 'http')}">
+															<img src="${i.preview_img}" alt="${i.title}" />
+														</c:when>
+														<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+															<img src="${i.preview_img}" alt="${i.title}" />
+														</c:when>
+														<c:otherwise>
+															<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+														</c:otherwise>
+													</c:choose>
+												</c:when>
+												<c:otherwise>
+													<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
+												</c:otherwise>
+											</c:choose>
+										</span>
+											<span class="con-title">${fn:length(i.title) > 11 ? fn:substring(i.title, 0, 12) : i.title}<c:if test="${fn:length(i.title) > 11 }">...</c:if></span>
+										</a>
+									</li>
+								</c:forEach>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="right">
+					<div class="daegubook-box">
+						
+					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="main5">
-			<div class="section">
-				<div class="main7_banner">
-					<div class="banner-wrap type3">
-						<div class="banner-t6-left">
-							<div class="control">
-								<a class="prev" href="#prev"><i class="fa fa-chevron-left"></i><span class="blind">이전</span></a>
-								<a class="next" href="#next"><i class="fa fa-chevron-right"></i><span class="blind">다음</span></a>
-							</div>
-						</div>
-						<div class="banner-box6">
-							<homepageTag:banner bannerList="${bannerList}"/>
-						</div>
-						<div class="banner-t6-right">
-							<div class="control">
-								<a class="stop active" href="#stop"><i class="fa fa-pause"></i><span class="blind">정지</span></a>
-								<a class="play" href="#play"><i class="fa fa-play"></i><span class="blind">시작</span></a>
-								<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=61"><i class="fa fa-navicon"></i><span class="blind">더보기</span></a>
-							</div>
-						</div>
-					</div>
-				</div>
+		<!-- main5 큐레이션-->
+		<div class="section" id="main5">
+			<div class="main2_tit">
+				<h2 class="title"><b>큐레이션</b></h2>
+				<p class="tit_text">다양한 컨텐츠를 제공해 드리는 맞춤형 서비스</p>
+			</div>
+
+
+		</div>
+
+		<!-- main6 주요서비스-->
+		<div class="section" id="main6">
+
+			<div class="main2_tit">
+				<h2 class="title"><b>주요서비스</b></h2>
+				<p class="tit_text">대구통합도서관은 다양한 서비스를 제공합니다.</p>
+			</div>
+			
+			<div class="mIcon">
+				<ul>
+					<li>
+						<a href="/bukgs/html.do?menu_idx=15" class="q01">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q1.png" alt="희망도서신청"><br class="webBr"/>희망도서신청</span>
+						</a>
+					</li>
+					<li>
+						<a href="/bukgs/html.do?menu_idx=92" class="q02">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q2.png" alt="상호대차서비스"><br class="webBr"/>상호대차서비스</span>
+						</a>
+					</li>
+					<li>
+						<a href="/bukgs/module/teach/index.do?menu_idx=32" class="q03">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q3.png" alt="독서문화행사"><br class="webBr"/>독서문화행사</span>
+						</a>
+					</li>
+					<li>
+						<a href="/bukgs/intro/login/index.do?menu_idx=69" class="q04">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q4.png" alt="대출정보조회"><br class="webBr"/>대출정보조회</span>
+						</a>
+					</li>
+					<li>
+						<a href="/bukgs/html.do?menu_idx=91" class="q05">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q5.png" alt="스마트도서관"><br class="webBr"/>스마트도서관</span>
+						</a>
+					</li>
+					<li>
+						<a href="https://blog.naver.com/bukguarts" class="q06" target="_blank">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q6.png" alt="블로그"><br class="webBr"/>블로그</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="mBtn">
+				<ul>
+					<li>
+						<a href="/bukgs/html.do?menu_idx=15" class="b01">
+							책이음
+						</a>
+					</li>
+					<li>
+						<a href="/bukgs/html.do?menu_idx=92" class="b02">
+							책바다
+						</a>
+					</li>
+					<li>
+						<a href="/bukgs/module/teach/index.do?menu_idx=32" class="b03">
+							책나래
+						</a>
+					</li>
+				</ul>
 			</div>
 		</div>
 
-		<div id="quick-slide">
-			<ul>
-				<li><a href="/${homepage.context_path}/intro/join/changeover.do?menu_idx=71"><img src="/resources/homepage/dgportal/img/qm01.png" alt="비대면자격확인"></a></li>
-				<!--li><a href="/${homepage.context_path}/intro/search/indexAll.do?menu_idx=7"><img src="/resources/homepage/dgportal/img/qm02.png" alt="워킹스루"></a></li-->
-				<li><a href="/elib/index.do" target="_blank"><img src="/resources/homepage/dgportal/img/qm03.png" alt="전자도서관"></a></li>
-			</ul>
+		<!-- footer_section -->
+		<div class="section fp-auto-height footer_area" id="foot_section">
+			<tiles:insertAttribute name="footer" />
 		</div>
+		<!-- //footer_section -->
+
+
 	</div>
 
-	<tiles:insertAttribute name="footer" />
 </div>
+
+
+</body>
+</html>
+
+
+<script type="text/javascript">
+function fullPage() {
+	var myFullpage = new fullpage('#fullpage', {
+		anchors: ['firstPage', 'secondPage', '3rdPage'],
+		navigation:true,
+		showActiveTooltip: true,
+		menu: '#menu',
+		responsiveWidth: 1025,
+		afterLoad: function(origin, destination, direction){
+			var cur_page = destination.index+1;
+			if (destination.index == 0 ) {
+				$('#header').addClass("background-white");
+				//$('.Gnb').css('border-bottom','1');
+				$('.Gnb').css('background','none');
+				$('.tnb').css('background','none');
+			}  else if( destination.index == 1 ) {
+				$('#header').removeClass("background-white");
+				//$('.Gnb').css('border-bottom','1px solid #e6e6e6');
+				$('.Gnb').css('background','#fff');
+				$('.tnb').css('background','#fff');
+			}	else if( destination.index == 2 ) {				
+				$('#header').removeClass("background-white");
+				//$('.Gnb').css('border-bottom','1px solid #e6e6e6');
+				$('.Gnb').css('background','#fff');
+				$('.tnb').css('background','#fff');
+			}  else if( destination.index == 3 ) {
+				$('#header').removeClass("background-white");
+				//$('.Gnb').css('border-bottom','1px solid #e6e6e6');
+				$('.Gnb').css('background','#fff');
+				$('.tnb').css('background','#fff');
+			} else {
+				$('#header').removeClass("background-white");
+				//$('.Gnb').css('border-bottom','1px solid #e6e6e6');
+				$('.Gnb').css('background','#fff');
+				$('.tnb').css('background','#fff');
+			}
+		},
+		afterResponsive: function(isResponsive){}
+	});
+};
+
+fullPage();
+
+// 모바일일 경우 fullpage 미사용
+if ( $(window).width() < 1025 ) {
+	if ($('#fullpage').hasClass('fp-destroyed')){
+	} else {
+		fullpage_api.destroy('all');
+	}
+} else {
+	fullPage();
+};
+
+// 리사이즈 될때 모바일 화면에서 fullpage 미사용
+$( window ).resize( function(e) {
+	if ( $(window).width() < 1025 ) {
+		if ($('#fullpage').hasClass('fp-destroyed')){
+		} else {
+			fullpage_api.destroy('all');
+		}
+	} else {
+		fullPage();
+	};
+});
+</script>
+<script>
+    var mySwiper = new Swiper('.mySwiper', {
+      spaceBetween: 30,
+      centeredSlides: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+	  effect: 'fade',
+	  loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        type: 'fraction',
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+	$('.start').on('click', function(){
+		mySwiper.autoplay.start();
+		return false;
+	})
+	$('.stop').on('click', function(){
+		mySwiper.autoplay.stop();
+		return false;
+	});
+
+</script>

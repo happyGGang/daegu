@@ -3,29 +3,51 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
-<script type="text/javascript">
-$(function() {
 
-	$('#save-btn').on('click', function(e) {
-		e.preventDefault();
-		if (!confirm('무인예약 신청을 하시겠습니까?\n도서연체시 대출불가')) {
-			return false;
-		}
+<c:choose>
+	<c:when test="${homepage.context_path eq 'dmsl'}">
+	<script type="text/javascript">
+	$(function() {
 
-		if ($('select#worker').val() == '') {
-			alert('수령장소를 선택하세요.');
-			$('select#worker').focus();
-			return false;
-		}
+		$('#save-btn').on('click', function(e) {
+			e.preventDefault();
+			if (!confirm('별관 이동도서관 신청을 하시겠습니까?')) {
+				return false;
+			}
 
-		if (doAjaxPost($('form#librarySearch'))) {
-			history.back();
-		}
+			if (doAjaxPost($('form#librarySearch'))) {
+				history.back();
+			}
+		});
+
 	});
+	</script>
+	</c:when>
+	<c:otherwise>
+	<script type="text/javascript">
+	$(function() {
 
-});
-</script>
+		$('#save-btn').on('click', function(e) {
+			e.preventDefault();
+			if (!confirm('무인예약 신청을 하시겠습니까?\n도서연체시 대출불가')) {
+				return false;
+			}
 
+			if ($('select#worker').val() == '') {
+				alert('수령장소를 선택하세요.');
+				$('select#worker').focus();
+				return false;
+			}
+
+			if (doAjaxPost($('form#librarySearch'))) {
+				history.back();
+			}
+		});
+
+	});
+	</script>
+	</c:otherwise>
+</c:choose>
 
 <!-- contents-title-->
 <div id="contents-title">
@@ -54,15 +76,20 @@ $(function() {
 			<col width="*"/>
 		</colgroup>
 		<tbody>
-			 <tr>
+			<tr>
 				<th>신청인</th>
 				<td class="left">${sessionScope.member.member_name}</td>
-			 </tr>
-			 <tr>
+			</tr>
+			<tr>
 				<th>소장도서관</th>
 				<td class="left">${detail.LIB_NAME}</td>
-			 </tr>
-			 <tr>
+			</tr>
+			<c:choose>
+			<c:when test="${homepage.context_path eq 'dmsl'}">
+			<input type="hidden" name="worker" id="worker" value="DMSL0011"/>
+			</c:when>
+			<c:otherwise>
+			<tr>
 				<th>수령장소</th>
 				<td class="left">
 					<form:select path="worker" style="border:1px solid #c9c9c9;border-radius:4px;height:30px">
@@ -72,9 +99,15 @@ $(function() {
 						<c:if test="${homepage.context_path eq '228'}">
 						<form:option value="DBECOBOXLIB01">예약대출기</form:option>
 						</c:if>
+						<c:if test="${homepage.context_path eq 'dalseolib' || homepage.context_path eq 'kids' || homepage.context_path eq 'seongseo' || homepage.context_path eq 'bolli' || homepage.context_path eq 'family' || homepage.context_path eq 'english'}">
+						<form:option value="DSSUB02">용산역</form:option>
+						<form:option value="DSSUB01">상인역</form:option>
+						</c:if>
 					</form:select>
 				</td>
-			 </tr>
+			</tr>
+			</c:otherwise>
+			</c:choose>
 			 <tr>
 				<th>도서명</th>
 				<td class="left">${detail.TITLE_INFO}</td>
@@ -86,12 +119,19 @@ $(function() {
 		</tbody>
 	</table>
 
+	<c:choose>
+	<c:when test="${homepage.context_path eq 'dmsl'}">
+	</c:when>
+	<c:otherwise>
 	<div id="" class="" style="text-align: center; padding-top: 15px;">
 		<p style="color: red;font-weight: bold;">* 도서연체중에는 무인예약대출불가 (본인 대출상태 확인필요)</p>
 		<c:if test="${homepage.context_path eq 'jungang'}">
 		<p style="color: red;font-weight: bold;">* 서고자료는 도서관 전화문의 후 예약필요</p>
 		</c:if>
 	</div>
+	</c:otherwise>
+	</c:choose>
+
 
 	<div class="btnArea" style="text-align: center; padding-top:5px;">
 		<a href="#" id="save-btn" class="btn btn03">확인</a>

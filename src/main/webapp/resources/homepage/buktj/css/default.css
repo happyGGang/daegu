@@ -18,7 +18,7 @@ a:focus{color:#2b74c0}
 .tnb .util b {color:#000;}
 .tnb .l-util ul li.mobile-version {display:none;}
 
-h1.web-logo a {display:block;background:url('/resources/homepage/buktj/img/buktj_logo.png') no-repeat center center;width:230px;height:45px;font-size:0;}
+h1.web-logo a {display:block;background:url('/resources/homepage/buktj/img/buktj_logo_b.png') no-repeat center center;width:230px;height:45px;font-size:0;}
 h1.mobile-logo {display:none;width:230px;height:45px;}
 
 #header.background-white .libSite ul li a {color:#fff;}
@@ -26,6 +26,8 @@ h1.mobile-logo {display:none;width:230px;height:45px;}
 #header.background-white .tnb .util a {color:#fff;}
 #header.background-white .tnb .util b {color:#fff;}
 #header.background-white h1.web-logo a {display:block;background:url('/resources/homepage/buktj/img/buktj_logo.png') no-repeat center center;}
+#header.background-white .Gnb .g-menu a.last-box_w{display:block;}
+#header.background-white .Gnb .g-menu a.last-box_b{display:none;}
 #header.background-white .Gnb .gnb-menu > li > a{color:#fff;}
 
 #header .head {position:relative;z-index:20;clear:both}
@@ -153,7 +155,7 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 	.tnb {height:65px;padding:10px 0;}
 
 	h1.mobile-logo {display:block;width:200px;height:40px;margin-top:2px;padding:0 0 0 10px;}
-	h1.mobile-logo a {display:block;background:url('/resources/homepage/buktj/img/buktj_logo_b.png') no-repeat center center;background-size:100% !important;width:200px;height:40px;font-size:0;}
+	h1.mobile-logo a {display:block;background:url('/resources/homepage/buktj/img/buktj_logo.png') no-repeat center center;background-size:100% !important;width:200px;height:40px;font-size:0;}
 }
 
 @media all and (max-width:767px){

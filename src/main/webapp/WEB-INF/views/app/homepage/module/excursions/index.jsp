@@ -214,7 +214,7 @@ $(function(){
 
 	<c:if test="${fn:length(subHomepageList) > 0}">
 		<div class="tab_menu on">
-			<ul class="no5">
+			<ul class="no6">
 				<c:forEach items="${subHomepageList}" var="i" varStatus="status">
 					<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">${i.homepage_alias}</a></li>
 				</c:forEach>
