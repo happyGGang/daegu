@@ -57,7 +57,7 @@ $(function() {
             <c:choose>
               <c:when test="${getRelayLecture.apply_status eq '0'}"> <span class="btn btn4" style="padding: 10px; font-size: 20px;">신청 대기 기간입니다.</span> </c:when>
               <c:when test="${getRelayLecture.apply_status eq '1'}">
-                <div class="link_btn02"> <a href="#" data-key="${i.lecture_idx}" >강연 신청하기</a> </div>
+                <div class="link_btn02"> <a href="#" class="apply_btn" data-key="${i.lecture_idx}" >강연 신청하기</a> </div>
               </c:when>
               <c:when test="${getRelayLecture.apply_status eq '2'}"> <span class="btn btn5" style="padding: 10px; font-size: 20px;">접수가 마감 되었습니다.</span> </c:when>
               <c:when test="${getRelayLecture.apply_status eq '3'}"> <span class="btn btn6" style="padding: 10px; font-size: 20px;">신청가 마감 되었습니다.</span> </c:when>
