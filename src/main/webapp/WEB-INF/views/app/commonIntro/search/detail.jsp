@@ -11,13 +11,21 @@ $(function() {
 
 	$('a#resve-req').on('click', function(e) {
 		e.preventDefault();
+		<c:choose>
+		<c:when test="${sessionScope.member.login and sessionScope.member.loginType eq 'HOMEPAGE'}">
 		if (!confirm('예약 신청 하시겠습니까?')) {
 			return false;
 		}
-
 		if ( doAjaxPost($('#resveReqForm')) ) {
 			location.reload();
 		}
+		</c:when>
+		<c:otherwise>
+		alert('로그인 후 이용 가능합니다.');
+		location.href='/${homepage.context_path}/intro/login/index.do?menu_idx=${fn:escapeXml(param.menu_idx)}&before_url='+encodeURIComponent(location.href);
+		</c:otherwise>
+		</c:choose>
+
 	});
 
 	<%-- 무인대출예약 신청 --%>
