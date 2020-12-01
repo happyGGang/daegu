@@ -173,7 +173,7 @@ $(function() {
 	//검색초기화
 	$('a#reset-btn').on('click', function(e) {
 		e.preventDefault();
-		location.href='/${homepage.context_path}/intro/search/index.do?menu_idx=13';
+		location.href='/${homepage.context_path}/intro/search/index.do?menu_idx=${fn:escapeXml(param.menu_idx)}';
 		$('#title').focus();
 	});
 
