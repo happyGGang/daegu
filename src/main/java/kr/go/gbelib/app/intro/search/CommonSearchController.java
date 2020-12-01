@@ -1017,7 +1017,11 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 			if ( librarySearch.getEditMode().equals("ADD") ) {
 
 				Homepage homepage = getSessionHomepage(request);
-				HopebookConfig hopebookConfig = hopebookConfigService.getHopebookConfigInfo(homepage.getHomepage_id());
+				String homepageId = homepage.getHomepage_id();
+				if (StringUtils.isNotEmpty(librarySearch.getHomepage_id())) {
+					homepageId = librarySearch.getHomepage_id();
+				}
+				HopebookConfig hopebookConfig = hopebookConfigService.getHopebookConfigInfo(homepageId);
 				if(hopebookConfig != null) {
 					res.setValid(false);
 					res.setMessage(hopebookConfig.getRes_msg());

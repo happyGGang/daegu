@@ -24,7 +24,7 @@ $(function() {
 		}
 
 		if ($('select#manageCode option:selected').val() != '') {
-			$('input[name="homepage_id"]').val($('select#manageCode option:selected').val());
+			$('input[name="homepage_id"]').val($('select#manageCode option:selected').data('hid'));
 		}
 
 
