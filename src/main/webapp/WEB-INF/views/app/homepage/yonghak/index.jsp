@@ -198,7 +198,7 @@ do {
 					<div class="notice-box tabS">
 						<ul class="tabMenuS">
 							<li class="on"><a href="#tab1" data-link="board/index.do?menu_idx=35&manage_idx=677" class='t-tabs'>공지사항</a></li>
-							<li><a href="#tab2" data-link="module/teach/index.do?menu_idx=32&searchCate1=18" class='t-tabs'>문화행사</a></li>
+							<li><a href="#tab2" data-link="module/teach/index.do?menu_idx=32&searchCate1=17" class='t-tabs'>문화행사</a></li>
 							<li><a href="#tab3" data-link="board/index.do?menu_idx=51&manage_idx=682" class='t-tabs'>언론보도</a></li>
 						</ul>
 						<a href="board/index.do?menu_idx=35&manage_idx=677" class="btn-more2 more-more">더보기</a>
