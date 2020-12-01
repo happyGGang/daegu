@@ -70,15 +70,19 @@ Date.prototype.format = function(f) {
 			var plan_date = new Date($(this).attr('keyValue'));
 			plan_date.setMonth(plan_date.getMonth() - 1);
 			//plan_date.format('yyyy-MM')
-			$('div#holiday-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM'));
+			$('div#holiday-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM') + '&homepage_id=' + $('select#dongguCalendar option:selected').val());
 			e.preventDefault();
 		});
 
 		$('a#next-btn').on('click',function(e) {
 			var plan_date = new Date($(this).attr('keyValue'));
 			plan_date.setMonth(plan_date.getMonth() + 1);
-			$('div#holiday-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM'));
+			$('div#holiday-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM') + '&homepage_id=' + $('select#dongguCalendar option:selected').val());
 			e.preventDefault();
+		});
+
+		$('select#dongguCalendar').on('change', function() {
+			$('div#holiday-box').load('calendar3.do','plan_date=${calendar.plan_date}&homepage_id=' + $(this).val());
 		});
 
 		$('a.showCal').on('click', function(e) {
@@ -103,10 +107,10 @@ Date.prototype.format = function(f) {
 <div id="calendar2">
 	<div class="title">
 		<h2>도서관일정</h2>
-		<select name="" id="" class="calendar_select_box">
-			<option value="1">중구영어</option>
-			<option value="2">동인느티나무</option>
-			<option value="3">삼덕마루</option>
+		<select name="" id="dongguCalendar" class="calendar_select_box">
+			<option value="h74" ${calendar.homepage_id eq 'h74' ? 'selected' : ''}>중구영어</option>
+			<option value="h75" ${calendar.homepage_id eq 'h75' ? 'selected' : ''}>동인느티나무</option>
+			<option value="h76" ${calendar.homepage_id eq 'h76' ? 'selected' : ''}>삼덕마루</option>
 		</select>
 		<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=36" class="btn-more3">더보기</a>
 	</div>

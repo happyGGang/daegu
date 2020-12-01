@@ -47,7 +47,7 @@ public class TeacherController extends BaseController {
 	public String index(Model model, Teacher teacher, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 //		teacher.setHomepage_id(getAsideHomepageId(request));
-		if ((getAsideHomepageId(request).equals("h37") || getAsideHomepageId(request).equals("h49") || getAsideHomepageId(request).equals("h45") || getAsideHomepageId(request).equals("h45"))) {
+		if ((getAsideHomepageId(request).equals("h37") || getAsideHomepageId(request).equals("h49") || getAsideHomepageId(request).equals("h45") || getAsideHomepageId(request).equals("h53"))) {
 			Homepage sessionHomepageInfo = getSessionHomepageInfo(request);
 			sessionHomepageInfo.setHomepage_group(getAsideHomepageId(request));
 			sessionHomepageInfo.setTemp_use_yn("Y");

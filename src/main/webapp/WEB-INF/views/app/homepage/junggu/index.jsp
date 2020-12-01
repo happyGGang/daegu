@@ -86,7 +86,7 @@ do {
 		// 팝업 관련 코드 END
 
 
-		$('div#holiday-box').load('calendar3.do');
+		$('div#holiday-box').load('calendar3.do?homepage_id=h74');
 		$('ul.book_photo').eq(1).load('newBook.do');
 		$('ul.bestBookUl').load('bestBook.do');
 
