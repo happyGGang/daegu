@@ -169,7 +169,7 @@ do {
 										<li class="on-cont">
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=614&board_idx=${i.board_idx}">
 												<strong>
-													<span class="ca bg-${i.category1}">${i.category1_name}</span> <span class="tit">${i.title}</span><br/>
+													<span class="ca bg-${i.category1}">${not empty i.category1_name ? i.category1_name : '통합'}</span> <span class="tit">${i.title}</span><br/>
 													<span class="datetime">
 														<fmt:formatDate value="${i.add_date}" pattern="yyyy. MM. dd." />
 													</span>
@@ -181,7 +181,7 @@ do {
 									<c:otherwise>
 										<li>
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=614&board_idx=${i.board_idx}">
-												<strong><span class="ca bg-${i.category1}">${i.category1_name}</span> ${i.title}</strong>
+												<strong><span class="ca bg-${i.category1}">${not empty i.category1_name ? i.category1_name : '통합'}</span> ${i.title}</strong>
 												<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd" /></span>
 											</a>
 										</li>
