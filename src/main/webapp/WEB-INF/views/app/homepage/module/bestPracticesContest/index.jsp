@@ -81,7 +81,15 @@ $(function() {
 									${i.title}
 								</a>
 							</td>
-							<td>${i.user_name}</td>
+							<c:choose>
+								<c:when test="${authMBA or member.admin}">
+									<c:set var="user_name" value="${i.user_name}"/>
+								</c:when>
+								<c:otherwise>
+									<c:set var="user_name" value="${fn:substring(i.user_name, -1, 1)}**"/>
+								</c:otherwise>
+							</c:choose>
+							<td>${user_name}</td>
 							<td>
 								<fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd" />
 							</td>
