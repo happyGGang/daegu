@@ -146,6 +146,10 @@ public class Board extends BoardExt {
 	private String initSearch;//초성검색용 변수. 초성+ㅏ
 	private String initSearch2;//초성검색용 변수. 초성
 	private String initSearchNext;//초성검색용변수. 다음 글자
+	
+	private String theme_imsi_key; // 테마북 key
+	private String theme_imsi_val; // 테마북 val
+	private String[] theme_imsi_key_arr; // 테마북 key_arr
 
 	public Board(int manage_idx, int row_count) {
 		this.manage_idx = manage_idx;
@@ -1089,6 +1093,30 @@ public class Board extends BoardExt {
 
 	public void setInitSearchNext(String initSearchNext) {
 		this.initSearchNext = initSearchNext;
+	}
+	
+	public String getTheme_imsi_key() {
+		return theme_imsi_key;
+	}
+
+	public void setTheme_imsi_key(String theme_imsi_key) {
+		this.theme_imsi_key = theme_imsi_key;
+	}
+
+	public String getTheme_imsi_val() {
+		return theme_imsi_val;
+	}
+
+	public void setTheme_imsi_val(String theme_imsi_val) {
+		this.theme_imsi_val = theme_imsi_val;
+	}
+
+	public String[] getTheme_imsi_key_arr() {
+		return theme_imsi_key_arr;
+	}
+
+	public void setTheme_imsi_key_arr(String[] theme_imsi_key_arr) {
+		this.theme_imsi_key_arr = theme_imsi_key_arr;
 	}
 
 }

@@ -167,4 +167,10 @@ public interface BoardDao {
 	public int updatePassword(Board board);
 
 	List<Board> getSubBoardByMain(Board board);
+
+	public int modifyThemeBook(Board board);
+
+	public Map<String, Object> getThemeCollection(Board board);
+
+	public int delThemeBook(Board board);
 }

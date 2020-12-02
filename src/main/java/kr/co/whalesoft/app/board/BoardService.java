@@ -810,4 +810,16 @@ public class BoardService extends BaseService {
 	public List<Board> getSubBoardByMain(Board board) {
 		return dao.getSubBoardByMain(board);
 	}
+
+	public int modifyThemeBook(Board board) {
+		return dao.modifyThemeBook(board);
+	}
+
+	public Map<String, Object> getThemeCollection(Board board) {
+		return dao.getThemeCollection(board);
+	}
+
+	public int delThemeBook(Board board) {
+		return dao.delThemeBook(board);
+	}
 }

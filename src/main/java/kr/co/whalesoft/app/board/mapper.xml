@@ -2097,4 +2097,39 @@
 		${pagingBottom}
 
 	</select>
+	
+	<update id="modifyThemeBook">
+		UPDATE
+			CMS_BOARD
+		SET
+			${theme_imsi_key} = #{theme_imsi_val}
+		WHERE
+			manage_idx = #{manage_idx}
+		AND	board_idx = #{board_idx}
+	</update>
+	
+	<select id="getThemeCollection" resultType="map">
+		SELECT
+			board_idx, imsi_v_3, imsi_v_4, imsi_v_5, imsi_v_6,
+			imsi_v_7, imsi_v_8, imsi_v_9, imsi_v_10, imsi_v_11,
+			imsi_v_12, imsi_v_13, imsi_v_14
+		FROM
+			CMS_BOARD
+		WHERE
+			manage_idx = #{manage_idx}
+		AND	board_idx = #{board_idx}
+	</select>
+	
+	<update id="delThemeBook">
+		UPDATE
+			CMS_BOARD
+		SET
+			<foreach collection="theme_imsi_key_arr" item="i" separator=",">
+			${i} = null
+			</foreach>
+		WHERE
+			manage_idx = #{manage_idx}
+		AND	board_idx = #{board_idx}
+	</update>
+	
 </mapper>

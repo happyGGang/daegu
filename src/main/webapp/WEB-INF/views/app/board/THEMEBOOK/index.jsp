@@ -3,19 +3,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="boardTag" uri="/WEB-INF/config/tld/boardTag.tld"%>
-<link rel="stylesheet" type="text/css" href="/resources/book/css/serial.css">
 <script type="text/javascript">
 $(document).ready(function() {
 	var $form = $('#board');
-	
-	<%-- 등록 --%>
-	$('a#board_edit_btn').on('click', function(e) {
-		e.preventDefault();
-		var url = 'edit.do';
-		var formData = serializeCustom($form);
-		doGetLoad(url, formData);
-	});
 	
 	<%-- 상세보기 --%>
 	$('div.row a').on('click', function(e) {
@@ -26,183 +16,26 @@ $(document).ready(function() {
 		doGetLoad(url, formData);
 	});
 	
-	$('div.tabmenu a').on('click', function(e) {
-		e.preventDefault();
-		var url = 'index.do';
-		$('#viewPage').attr('value', '1');
-		$('input#category1').attr('value', $(this).attr('keyValue'));
-		var formData = serializeCustom($form);
-		doGetLoad(url, formData);
-	});
-	
 	$('select#rowCount').on('change', function() {
 		var url = 'index.do';
 		var formData = serializeCustom($form);
 		doGetLoad(url, formData);
 	});
 	
-	<c:if test="${authMBA}">
-	$('a#board_deleteRecovery_btn').on('click', function(e) {
-		e.preventDefault();
-		var url = '../boardDelete/index.do';
-		var formData = serializeCustom($form);
-		doGetLoad(url, formData);
-	});
-
-	$('a#board_manage_btn').on('click', function(e) {
-		e.preventDefault();
-		var url = '../board/index.do';
-		$('input#board_mode').val('admin');
-		var formData = serializeCustom($form);
-		doGetLoad(url, formData);
-	});
-	
-	
-	$('a#board_normal_btn').on('click', function(e) {
-		e.preventDefault();
-		var url = '../board/index.do';
-		var formData = serializeCustom($form);
-		doGetLoad(url, formData);
-	});
-	</c:if>
 });
 </script>
-<script type="text/javascript">
-$(function() { 
-	$(window).resize(function() { 
-		$('.search-results img').height($('img#refImg').width() * 0.6);
-	}).trigger('resize');
-	
-	$(function(){
-
-		var sysDate = new Date();
-		var year = sysDate.getFullYear();
-		var month = sysDate.getMonth()+1;
-		//년도 초기화 (내년 일정 까지 볼수 있게 하려고 + 1함)
-		var planDate = '${board.plan_date}'.split('-');
-		for ( var i = 0; i < 15; i ++ ) {
-			var optionYear = (year + 1 - i);
-			var selectedAttr = '';
-			
-			if ( optionYear == planDate[0] ) {
-				selectedAttr = 'selected="selected"';
-			}
-			
-			$('#plan_year').append('<option ' + selectedAttr + ' value="' + optionYear + '">' + optionYear + '년</option>');
-		}
-		// 월 초기화 
-		for ( var j = 1; j < 13; j ++ ) {
-			var valueMonth = '0'+j;
-			var selectedAttr = '';
-			valueMonth = valueMonth.substr(valueMonth.length - 2, valueMonth.length);
-			
-			if ( j == planDate[1] ) {
-				selectedAttr = 'selected="selected"';
-			}
-			
-			$('#plan_month').append('<option ' + selectedAttr + ' value="' + valueMonth + '">' + j + '월</option>');
-		}
-		
-		$('#plan_year,#plan_month').on('change', function(e) {
-			var planDate = $('#plan_year').val() + '-' + $('#plan_month').val();
-			$('#plan_date').val(planDate);
-			doGetLoad('index.do', serializeCustom($('#board')));
-		});
-		
-		$('a#before-btn').on('click', function(event) {			
-			event.preventDefault();
-			
-			var year = $('#plan_year').val();
-			var month = $('#plan_month').val();
-			
-			if(month == 1) {
-				year = parseInt(year)-1;
-				month = 12;
-			} else {
-				month =  parseInt(month)-1;
-			}
-			month = month < 10 ? "0"+month : month; 
-			var planDate = year + '-' + month;
-			$('#plan_date').val(planDate);
-			doGetLoad('index.do', serializeCustom($('#board')));
-			
-		});	
-		
-		$('a#next-btn').on('click', function(event) {			
-			event.preventDefault();
-			
-			var year = $('#plan_year').val();
-			var month = $('#plan_month').val();
-			
-			if(month == 12) {
-				year = parseInt(year)+1;
-				month = 1;
-			} else {
-				month =  parseInt(month)+1;
-			}
-			
-			month = month < 10 ? "0"+month : month; 
-			
-			var planDate = year + '-' + month;
-			$('#plan_date').val(planDate);
-			doGetLoad('index.do', serializeCustom($('#board')));
-			
-		});
-	});
-});
-</script>
-<style>
-#subject {border:1px solid #e1e1e1;background-color:#f0f8fd;padding:1%;border-radius:5px;overflow:hidden}
-</style>
 <c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.top_html) > 0}">
 ${boardManage.top_html}
 </c:if>
 <jsp:include page="/WEB-INF/views/app/board/common/index/script.jsp" flush="false" />
 <form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
-<form:hidden path="category1"/>
-<form:hidden path="plan_date"/>
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
-<c:if test="${fn:length(category1List) > 0}">
-<div class="tabmenu tab1">
-	<ul>
-		<li class="${board.category1 eq null ? 'active':''}"><a href="" keyValue="">전체</a></li>
-		<c:forEach items="${category1List}" var="i" varStatus="status">
-		<li class="${board.category1 eq i.code_id ? 'active':''}"><a href="" keyValue="${i.code_id}">${i.code_name}</a></li>
-		</c:forEach>
-	</ul>
+<div class="infodesk">
+	<div class="button btn-group inline">
+		<span class="bbs-result">총 게시물 : <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/> </b>건</span>
+		<span>(페이지 ${paging.viewPage}/${paging.totalPageCount})</span>
+	</div>
 </div>
-</c:if>
-<c:if test="${not empty fn:replace(board.themeBookSubject, ' ', '')}">
-	<table class="t_table">
-		<tr>
-			<td>
-				<div class="t_img">
-					<img src="/resources/common/img/line_01.png"  alt=""/>
-					<div class="t_text">이달의 주제</div>
-				</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<img src="/resources/common/img/book_01.png"  alt="" class="t_img2"/><span class="t_text2">${board.themeBookSubject}</span>
-			</td>
-		</tr>		
-	</table>
-
-		
-</c:if>
-<div class="txt-right ym_btns" style="float: right;">
-	추천년월 : 		
-	<a id="before-btn" href="#prev" class="btn prev"><i class="fa fa-angle-left"></i><span class="blind">이전달</span></a>
-	<label for="plan_year"></label>
-	<form:select path="plan_year" class="" style="width:80px;height:28px;"></form:select>
-	<label for="plan_month"></label>
-	<form:select path="plan_month" class="" style="width:65px;height:28px;"></form:select>
-	<a id="next-btn" href="#next" class="btn next"><i class="fa fa-angle-right"></i><span class="blind">다음달</span></a>
-</div>		
-
-
 <div class="serial-wrap" style="clear: both;">
 	<div class="smain">
 		<div class="box">
@@ -210,25 +43,14 @@ ${boardManage.top_html}
 				<c:forEach var="i" varStatus="status" items="${boardList}">
 				<div class="row">
 					<div class="thumb">
-						<c:choose>
-							<c:when test="${i.preview_img ne null}">
-								<c:choose>
-									<c:when test="${fn:contains(i.preview_img, 'http')}">
-								<a href="" keyValue="${i.board_idx}">
-									<img src="${i.preview_img}" alt="${i.title}"/>
-								</a>
-									</c:when>
-									<c:otherwise>
-								<a href="" keyValue="${i.board_idx}">
-									<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}"/>
-								</a>
-									</c:otherwise>
-								</c:choose>
-							</c:when>
-							<c:otherwise>
-								<a href="" keyValue="${i.board_idx}"><img src="/resources/common/img/noimg-gall.png" alt="${i.title}"></a>
-							</c:otherwise>
-						</c:choose>
+					<c:choose>
+						<c:when test="${i.preview_img ne null}">
+						<a href="" keyValue="${i.board_idx}"><img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}"/></a>
+						</c:when>
+						<c:otherwise>
+						<a href="" keyValue="${i.board_idx}"><img src="/resources/common/img/noimg-gall.png" alt="${i.title}"></a>
+						</c:otherwise>
+					</c:choose>
 					</div>
 					<div class="box">
 						<div class="item">
@@ -237,21 +59,9 @@ ${boardManage.top_html}
 								${fn:substring(i.title, 0, 30)}<c:if test="${fn:length(i.title) > 30}">...</c:if>
 								</a>
 								<ul class="con2">
-									<c:if test="${i.imsi_v_3 ne '' and i.imsi_v_3 ne '0'}">
-									<li>저자 : ${fn:substring(i.imsi_v_3, 0, 20)}<c:if test="${fn:length(i.imsi_v_3) > 20}">...</c:if></li>
-									</c:if>
-									<c:if test="${i.imsi_v_4 ne '' and i.imsi_v_4 ne '0'}">
-									<li>출판사 : ${fn:substring(i.imsi_v_4, 0, 20)}<c:if test="${fn:length(i.imsi_v_4) > 20}">...</c:if></li>
-									</c:if>
-									<c:if test="${i.imsi_v_2 ne null and i.imsi_v_2 ne '0'}">
-									<li>출판년도 : ${i.imsi_v_2}</li>
-									</c:if>
-									<c:if test="${i.imsi_v_6 ne null and i.imsi_v_6 ne '0'}">
-									<li>소장자료실 : ${i.imsi_v_6}</li>
-									</c:if>
-									<c:if test="${i.imsi_v_7 ne null and i.imsi_v_7 ne '0'}">
-									<li>청구기호 : ${i.imsi_v_7}</li>
-									</c:if>
+									<li>${i.imsi_v_1} ~ ${i.imsi_v_2}</li>
+									<li>${i.title}</li>
+									<li>${i.content}</li>
 								</ul>
 							</div>
 						</div>
@@ -264,7 +74,6 @@ ${boardManage.top_html}
 					<p>등록된 데이터가 없습니다.</p>
 				</div>
 				</c:if>
-
 			</div>
 			<jsp:include page="/WEB-INF/views/app/board/common/index/button.jsp" flush="false" />
 	

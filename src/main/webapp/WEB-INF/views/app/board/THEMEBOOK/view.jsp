@@ -5,501 +5,164 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="boardTag" uri="/WEB-INF/config/tld/boardTag.tld"%>
 <% pageContext.setAttribute("crlf", "\r\n"); %>
-<link rel="stylesheet" type="text/css" href="/resources/book/css/serial.css">
-<link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css">
-<style type="text/css">
-.graphArea{clear:both;padding:15px 0 20px}
-.graphArea ul.num{width:52px;overflow:hidden}
-.graphArea ul.num li{text-align:right;padding-right:8px;height:30px;line-height:30px}
-.graphArea ul.num,
-.graphArea .graphWrap .graph,
-.graphArea .graphWrap .graph li,
-.graphArea li .barWrap{height:210px;position:relative}
-.graphArea ul.num,
-.graphArea .graphWrap .graph{border-color:#ccc}
-.graphArea .graphWrap{width:100%;float:left;margin-right:-52px}
-.graphArea .graphWrap .graph{border:1px solid #ccc;border-right-width:0;border-top-width:0;margin-right:52px;background:url('../img/graphLine.gif') repeat-x}
-.graphArea .graphWrap .graph li{float:left;text-align:center}
-.graphArea ul.num{float:left;width:52px}
-.graphArea ul.num li,
-.graphArea *{
--webkit-transition:all 100ms ease;
--moz-transition:all 100ms ease;
--ms-transition:all 100ms ease;
--o-transition:all 100ms ease;
-transition:all 100ms ease}
-.graphArea li{z-index:9}
-.graphArea li.on{z-index:10}
-.graphArea li .txt{position:absolute;left:0;width:100%;color:#999;text-align:center;text-decoration:none;padding:5px 0 0;line-height:120%}
-.graphArea li .txt:hover,.graphArea li .txt:active,.graphArea li .txt:visited{text-decoration:none}
-.graphArea li.most .txt,
-.graphArea li.on .txt{color:#000}
-.graphArea li .barWrap{padding:0 1px}
-.graphArea li .gauge{position:absolute;z-index:11;bottom:0;left:50%;width:70%;margin-left:-35%;background-color:#ccc;cursor:pointer}
-.graphArea li .gauge1,
-.graphArea li .gauge2{width:25%}
-.graphArea li .gauge1{left:35%;margin-left:-15%}
-.graphArea li .gauge2{left:25%;margin-left:30%}
-.graphArea li .gauge_ly{display:none;position:absolute;z-index:12;top:-28px;height:28px;left:4px;background:url('../img/gauge_ly_line.gif') no-repeat 0 bottom;font-size:85%}
-.graphArea li .gauge_ly p{padding:3px 6px 3px 7px;margin-left:5px;color:#fff;white-space:nowrap;display:block;background-color:#666867}
-.graphArea li .gauge_ly p em{position:relative;top:1px;margin-right:-3px;font-weight:bold;font-family:arial;font-size:110%}
-.graphArea li.on .gauge,
-.graphArea li.on .gauge:hover{background-color:#78ac39}
-.graphArea li.on .gauge1 .gauge_ly,
-.graphArea li.on .gauge2 .gauge_ly{display:none}
-.graphArea li.on .gauge_ly,
-.graphArea li.on .gauge1:hover .gauge_ly,
-.graphArea li.on .gauge2:hover .gauge_ly,
-.graphArea li .gauge.most .gauge_ly{display:block}
-.graphArea li.on .gauge1,
-.graphArea li .gauge1{background-color:#343434}
-.graphArea li.on .gauge2,
-.graphArea li .gauge2{background-color:#78ac39}
-.graphArea li .gauge1:hover{background-color:#5d5d5d!important}
-.graphArea li .gauge2:hover{background-color:#93bd61!important}
-
-.graphArea .graphLegend{clear:both;overflow:hidden;padding:35px 0 0;text-align:center}
-.graphArea .graphLegend li,
-.graphArea .graphLegend i,
-.graphArea .graphLegend span{display:inline-block;zoom:1;*display:inline;vertical-align:middle}
-.graphArea .graphLegend li{zoom:1;*display:inline;font-size:85%;margin:0 5px}
-.graphArea .graphLegend i{font-style:normal;width:12px;height:12px;font-size:0;line-height:0;background-color:#ccc;border-radius:50%}
-.graphArea .graphLegend span{margin-left:5px}
-
-.resve-req{padding: 5px 13px;border: 1px solid #d5d5d5;border-radius: 3px;color: #4c4c4c;}
-.resve-req:hover {color: #000;}
-</style>
-<script type="text/javascript">
-$(window).trigger('resize');
-$(document).ready(function() {
-	$('.graph').each(function(){
-		var gN = $(this).children('li').length;
-		var gW = 100/gN;
-		$(this).children('li').each(function(e){
-			$(this).css('width',gW+'%');
-			$(this).on('mouseover',function(){
-				$(this).addClass('on');
-			});
-			$(this).on('mouseleave',function(){
-				$(this).removeClass('on');
-			});
-		});
-
-		//가장 큰 수 addClass most
-		$(this).find('.gauge').addClass('most');
-// 		var gaugeH = $(this).find('.gauge').map(function(){
-// 			return $(this).height();
-// 		}).get(),
-// 		maxH = Math.max.apply(null, gaugeH);
-// 		$(this).addClass('a'+maxH);
-// 		$(this).find('.gauge').each(function(){
-// 			var thisH = $(this).height();
-// 			if(thisH == maxH){
-// 				$(this).addClass('most');
-// 			}
-// 		});
-	});
-
-	$('a.showSlide').on('click', function(e) {
-		e.preventDefault();
-		var bci = $(this).parents('div.bif').next('div.bci');
-		var toggleState = $(bci).is(':hidden');
-		if (toggleState) {
-			$(bci).load('/${homepage.context_path}/intro/search/index_detail.do?vLoca='+$(this).attr('vLoca')+'&vCtrl='+$(this).attr('vCtrl'), function() {
-				$(bci).slideToggle();
-			});
-		} else {
-			$(bci).slideToggle();
-		}
-	});
-
-	$('a.resve-req').on('click', function(e) {
-		e.preventDefault();
-		if (!confirm('예약 신청 하시겠습니까?')) {
-			return false;
-		}
-		$('#resveReqForm #editMode').val('ADD');
-		$('#resveReqForm #vLoca').val($(this).attr('vLoca'));
-		$('#resveReqForm #vAccNo').val($(this).attr('vAccNo'));
-		$('#resveReqForm #vSubLoca').val($(this).attr('vSubLoca'));
-		$('#resveReqForm #vCtrl').val($(this).attr('vCtrl'));
-
-		if ( doAjaxPost($('#resveReqForm')) ) {
-
-		}
-	});
-});
-</script>
 <c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.top_html) > 0}">
 ${boardManage.top_html}
 </c:if>
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	$('a#add_book_btn').on('click', function(e) {
+		e.preventDefault();
+		
+		if($('div#theme-list>ul>li').length >= 12) {
+			return false;
+		}
+		
+		if ('${homepage.context_path}' == '') {
+			alert('홈페이지에서만 가능합니다');
+		} else {
+			var ilusList = window.open('/${homepage.context_path}/intro/search/indexForBoard.do', 'ilusLnkBook', 'width=800 height=600,scrollbars=yes');
+		}
+	});
+	
+	// 컬렉션 상세보기
+	// manage_code, ctrlno 필수 값
+	// menu_idx, board_idx, maange_idx 게시판 필수 값
+	// 위 파라미터로 API 조회
+	// 
+	$('a.detail-btn').on('click', function(e) {
+		e.preventDefault();
+// 		doGetLoad("${homepage.context_path}/intro/search/themeDetail.do", serializeCustom($('form#board')));
+		$('input#regNo').val($(this).data('regno'));
+		doGetLoad("themeDetail.do", serializeCustom($('form#themeDetail')));
+	});
+	
+	$('a#imsi_v_del').on('click', function(e) {
+		e.preventDefault();
+		$('input.imsi_v:checked').each(function(i, v) {
+			if(i == 0) {
+				$('input#theme_imsi_key').val($(this).attr('id'));
+			} else {
+				$('input#theme_imsi_key').val($('input#theme_imsi_key').val() + ',' + $(this).attr('id'));
+			}
+		});
+		
+		$('input#editMode_theme').val('THEME_DEL');
+		doAjaxPost($('form#boardTheme'));
+	});
+	
+	$('a#imsi_v_all').on('click', function(e) {
+		e.preventDefault();
+		var checked = $(this).data('checked');
+		if(checked) {
+			$('input.imsi_v').prop('checked', false);
+			$(this).data('checked', false);
+		} else {
+			$('input.imsi_v').prop('checked', true);
+			$(this).data('checked', true);
+		}
+	});
+	
+});
+
+function getLasData(arg) {
+	arg = arg.split('///');
+	//${i.TITLE}//${i.PUBLER_YEAR}//${i.AUTHOR}//${i.PUBLER}//${i.ISBN}//${i.CALL_NO}//${i.i.COVER_SMALLURL}//${i.PLACE_NAME}//${i.CTRLNO}
+	// imsi_v_3 부터 theme list 컬럼을사용
+	var imsi_n = $('div#theme-list>ul>li').length + 3;
+	$('#theme_imsi_key').val('imsi_v_' + imsi_n);
+	$('#theme_imsi_val').val(arg[8]);
+	$('#editMode_theme').val('THEMEBOOK');
+	
+	doAjaxPost($('form#boardTheme'));
+}
+</script>
 <jsp:include page="/WEB-INF/views/app/board/common/view/script.jsp" flush="false" />
+
+<form:form modelAttribute="board" id="boardTheme" method="POST" action="save.do">
+<form:hidden path="menu_idx" id="menu_idx_theme"/>
+<form:hidden path="manage_idx" id="manage_idx_theme"/>
+<form:hidden path="board_idx" id="board_idx_theme"/>
+<form:hidden path="editMode" id="editMode_theme"/>
+<form:hidden path="theme_imsi_key"/>
+<form:hidden path="theme_imsi_val"/>
+</form:form>
+
+<form name="librarySearch" id="themeDetail" action="themeDetail" method="get">
+<input type="hidden" name="menu_idx" value="${board.menu_idx}">
+<input type="hidden" name="manage_idx" value="${board.manage_idx}">
+<input type="hidden" name="board_idx" value="${board.board_idx}">
+<!-- <input type="hidden" name="manageCode" id="manageCode"> -->
+<input type="hidden" name="regNo" id="regNo">
+</form>
+
 <form:form modelAttribute="board" method="get">
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
 <jsp:include page="/WEB-INF/views/app/board/common/form_paging_param.jsp" flush="false" />
 <form:hidden path="editMode"/>
-<form:hidden path="target_manage_idx"/>
-<form:hidden path="category1"/>
+<c:if test="${board.delete_yn eq 'Y'}">
+<form:hidden path="boardIdxArray"/>
+</c:if>
 </form:form>
+<div class="wrapper-bbs">
+	<div class="bbs-view">
+		<div>${board.title}</div>
+		<div class="bbs-view-body">
+			${fn:replace(board.content, crlf, '<br/>')}
+		</div>
+		<div class="bbs-view-header">
+			<dl>
+				<jsp:include page="/WEB-INF/views/app/board/common/view/file.jsp" flush="false" />
+			</dl>
+		</div>
+		
+		
+		
+		<div class="bbs-comment" id="bbs-comment">
 
-<form:form id="resveReqForm" modelAttribute="librarySearch" action="/${homepage.context_path}/intro/search/resve/save.do">
-	<form:hidden path="editMode" htmlEscape="true"/>
-	<form:hidden path="vLoca" htmlEscape="true"/>
-	<form:hidden path="vAccNo" htmlEscape="true"/>
-	<form:hidden path="vSubLoca" htmlEscape="true"/>
-	<form:hidden path="vCtrl" htmlEscape="true"/>
-	<form:hidden path="menu_idx" htmlEscape="true"/>
-</form:form>
-
-<div class="serial-wrap">
-	<div class="sview">
-		<jsp:include page="/WEB-INF/views/app/board/common/view/moveOrCopy.jsp" flush="false" />
-		<div class="sinfo">
-			<div class="thumb">
+		</div>
+	</div>
+	<jsp:include page="/WEB-INF/views/app/board/common/view/button.jsp" flush="false" />
+</div>
+<div>
+	<div>도서목록</div>
+	<div id="theme-list">
+		<ul>
+			<c:if test="${fn:length(collectionList) < 0}">
+			<li>등록된 컬렉션이 없습니다.</li>
+			</c:if>
+			<c:forEach items="${collectionList}" var="i" varStatus="status">
+			<li>
+				<input type="checkbox" id="${i.theme_key}" class="imsi_v">
+				<a href="#" class="detail-btn" data-regno="${i.REG_NO}">
 				<c:choose>
-					<c:when test="${fn:contains(board.preview_img, 'http')}">
-				<img src="${board.preview_img}" alt="${board.title}">
+					<c:when test="${empty i.aladin or empty i.aladin.cover}">
+					<p class="noImg">
+						<img src="/resources/common/img/noImg2.png" alt="noImage"/>
+						<span>등록된 이미지가<br/>없습니다.</span>
+					</p>
 					</c:when>
 					<c:otherwise>
-				<img src="/data/board/${param.manage_idx}/${boardFile[0].board_idx}/${boardFile[0].real_file_name}" alt="${board.title}">
+					<p>
+						<img src="${i.aladin.cover}" alt="${i.TITLE_INFO}">
+					</p>
 					</c:otherwise>
 				</c:choose>
-<!-- 				<p class="noImg"> -->
-<!-- 					<img src="/resources/common/img/noImg.gif" alt="noImage"/> -->
-<!-- 				</p> -->
-			</div>
-			<div class="info">
-				<ul>
-					<li>
-						<b>${board.title}</b>
-					</li>
-					<c:if test="${board.imsi_v_3 ne '' and board.imsi_v_3 ne '0'}">
-					<li>저자 : ${board.imsi_v_3}</li>
-					</c:if>
-					<c:if test="${board.imsi_v_4 ne '' and board.imsi_v_4 ne '0'}">
-					<li>출판사 : ${board.imsi_v_4}</li>
-					</c:if>
-					<c:if test="${board.imsi_v_2 ne null and board.imsi_v_2 ne '0'}">
-					<li>출판년도 : ${board.imsi_v_2}</li>
-					</c:if>
-					<c:if test="${board.imsi_v_7 ne null and board.imsi_v_7 ne '0'}">
-					<li>청구기호 : ${board.imsi_v_7}</li>
-					</c:if>
-				</ul>
-			</div>
-		</div>
-		<div>
-			<c:set value="${fn:replace(board.content, crlf, '<br/>')}" var="content"></c:set>
-			${content}
-		</div>
-		<h4>소장위치</h4>
-		<table summary="도서 상태 및 등록 정보">
-			<thead>
-				<tr>
-					<th>등록번호</th>
-					<th>소장위치</th>
-					<th>청구기호</th>
-					<th>상태</th>
-					<th>반납예정일</th>
-					<th>예약</th>
-<!-- 					<th>기능</th> -->
-				</tr>
-			</thead>
-			<tbody>
-				<c:set var="is_any_reservable" value="false"/>
-				<c:forEach items="${detail.dsItemDetail}" var="i" varStatus="status">
-				<tr>
-					<td>${i.PRINT_ACSSON_NO}</td>
-					<td class="txt-left">${i.SUB_LOCA_NAME}</td>
-					<td class="txt-left">${LABEL_PLACE_NO_NAME} ${i.CALL_NO}</td>
-					<td class="og">${i.DISPLAY_ITEM_STATUS}</td>
-					<td>${i.RETURN_PLAN_DATE}</td>
-					<td>
-						<c:if test="${librarySearch.vLoca ne '00000001'}">
-						<c:choose>
-						<c:when test="${i.RESVE_CHECK eq 'Y'}">
-						<c:set var="is_any_reservable" value="true"/>
-						<a class="resve-req" vLoca="${fn:escapeXml(i.LOCA)}" vAccNo="${fn:escapeXml(i.ACSSON_NO)}" vCtrl="${i.CTRLNO}"><i class="fa fa-calendar-check-o"></i>예약하기</a>
-						</c:when>
-						<c:when test="${is_any_reservable}">
-
-						</c:when>
-						<c:otherwise>
-						예약불가
-						</c:otherwise>
-						</c:choose>
-
-						<c:if test="${not isTodayClosed and homepage.homepage_code eq member.loca and member.login and i.LOAN_FLAG eq '0001' and (i.LOCA eq '00147046' or i.LOCA eq '00147018')}">
-						<jsp:useBean id="toDay" class="java.util.Date"></jsp:useBean>
-						<c:set var="startTime" value="09:00:00"></c:set>
-						<c:set var="endTime" value="16:00:00"></c:set>
-						<fmt:parseDate var="dateStr1" value="${startTime}" pattern="HH:mm:ss"/>
-						<fmt:parseDate var="dateStr2" value="${endTime}" pattern="HH:mm:ss"/>
-						<fmt:formatDate var="dateStr3" value="${toDay}" pattern="HH:mm:ss"/>
-						<fmt:formatDate var="startTime" value="${dateStr1}" pattern="HH:mm:ss"/>
-						<fmt:formatDate var="endTime" value="${dateStr2}" pattern="HH:mm:ss"/>
-						<c:if test="${i.RESVE_CHECK eq 'Y'}">
-						<br/>
-						</c:if>
-							<c:if test="${i.LOCA eq '00147046'}">
-								<c:if test="${startTime <= dateStr3 and dateStr3 <= endTime}">
-						<a style="display:none" class="pouch-req" vLoca="${i.LOCA}" vAccNo="${i.ACSSON_NO}">[야간대출신청하기]</a>
-								</c:if>
-							</c:if>
-							<c:if test="${i.LOCA eq '00147018'}">
-								<c:if test="${startTime <= dateStr3 and dateStr3 <= endTime}">
-						<a class="pouch-req" vLoca="${i.LOCA}" vAccNo="${i.ACSSON_NO}">[야간대출신청하기]</a>
-								</c:if>
-							</c:if>
-						</c:if>
-						</c:if>
-					</td>
-				</tr>
-				</c:forEach>
-				<c:if test="${fn:length(detail.dsItemDetail) < 1 }">
-				<tr>
-					<td colspan="7">조회된 자료가 없습니다.</td>
-				</tr>
-				</c:if>
-			</tbody>
-		</table>
-
-
-		<c:forEach items="${ageChart.data}" var="i" varStatus="status">
-			<fmt:parseNumber var="currCount" value="${i.COUNT}" />
-			<c:if test="${status.first}">
-				<fmt:parseNumber var="maxCount" value="${i.COUNT}" />
-			</c:if>
-			<c:if test="${!status.first}">
-				<c:if test="${maxCount < currCount}">
-					<fmt:parseNumber var="maxCount" value="${i.COUNT}" />
-				</c:if>
-			</c:if>
-		</c:forEach>
-		<h4>연령별 선호도</h4>
-		<div id="graph1" class="graphArea">
-			<ul class="num" style="display: none;">
-				<li><fmt:formatNumber value="${maxCount}" type="number"/></li>
-				<li><fmt:formatNumber value="${(maxCount / 6) * 5}" pattern="0"/></li>
-				<li><fmt:formatNumber value="${(maxCount / 6) * 4}" pattern="0"/></li>
-				<li><fmt:formatNumber value="${(maxCount / 6) * 3}" pattern="0"/></li>
-				<li><fmt:formatNumber value="${(maxCount / 6) * 2}" pattern="0"/></li>
-				<li><fmt:formatNumber value="${(maxCount / 6) * 1}" pattern="0"/></li>
-				<li>0</li>
-			</ul>
-			<div class="graphWrap">
-				<ul class="graph">
-					<c:forEach var="i" varStatus="status" items="${ageChart.data}">
-						<li>
-							<div class="chart-info">
-								<div class="barWrap">
-									<div class="gauge" style="height:${i.COUNT / maxCount * 100}%;">
-										<div class="gauge_ly"><p><em>${i.COUNT}</em> 명</p></div>
-									</div>
-								</div>
-								<p class="txt">
-									${i.GRADE_CODE_NAME}
-								</p>
-							</div>
-						</li>
-					</c:forEach>
-				</ul>
-			</div>
-		</div>
-
-		<div style="clear:both">&nbsp;</div>
-
-		<c:if test="${fn:length(withBook.data) > 0}">
-		<h4>함께 빌려본 다른 도서 추천</h4>
-		<div class="smain">
-			<div class="box">
-				<div id="search-results" class="search-results wide">
-				<c:forEach items="${withBook.data}" var="i">
-					<div class="row">
-						<p class="admin">
-						</p>
-						<div class="thumb">
-							<c:if test="${i.img eq ''}">
-							<a vLoca="${i.libCode}" vCtrl="${i.rec_key}" vImg="${i.img}" isbn="${i.isbn}" tid="${i.tid}" class="goDetail">
-								<img src="/resources/homepage/geic/img/noimg2.png" alt="noImage"/>
-								<span>등록된 이미지가<br/>없습니다.</span>
-							</a>
-							</c:if>
-							<c:if test="${i.img ne ''}">
-							<a vLoca="${i.libCode}" vCtrl="${i.rec_key}" vImg="${i.img}" isbn="${i.isbn}" tid="${i.tid}" class="goDetail"><img src="${i.img}" alt="cover"/></a>
-							</c:if>
-						</div>
-						<div class="box">
-							<div class="item">
-								<div class="bif">
-									<a vLoca="${i.libCode}" vCtrl="${i.rec_key}" vImg="${i.img}" isbn="${i.isbn}" tid="${i.tid}" class="name goDetail">${i.title}</a>
-									<p>${i.author}</p>
-									<p>${i.publisher} ${i.YEAR}</p>
-									<p>${i.libName}</p>
-									<div class="stat">
-										<a href="#" class="showSlide" vLoca="${i.libCode}" vCtrl="${i.rec_key}"><span>이용가능여부</span><i class="fa fa-sort-down"></i></a>
-										<span><b>${i.placeName}</b> [${i.callno}]</span>
-									</div>
-								</div>
-								<div class="bci" style="display: none;">
-									<!-- ajax_area -->
-								</div>
-							</div>
-						</div>
-					</div>
-				</c:forEach>
-				</div>
-			</div>
-		</div>
-		</c:if>
-
-		<c:if test="${fn:length(callNoBrowsing.dsCallNoNext) > 0}">
-		<h4>동일 저자 다른 책 정보</h4>
-		<table summary="동일 저자 다른 책 정보">
-			<colgroup>
-				<col/>
-				<col width="20%"/>
-				<col width="15%"/>
-				<col width="15%"/>
-			</colgroup>
-			<thead>
-				<tr>
-					<th>서명</th>
-					<th>저자</th>
-					<th>등록번호</th>
-					<th>청구기호</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${callNoBrowsing.dsCallNoNext}" var="i" varStatus="statusi">
-				<tr>
-					<td class="txt-left">${i.TITLE}</td>
-					<td class="txt-left">${i.AUTHOR}</td>
-					<td class="txt-left">${i.ACSSON_NO}</td>
-					<td class="txt-left">${i.CALL_NO}</td>
-				</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		</c:if>
-
-		<c:if test="${fn:length(callNoBrowsing.dsCallNoPrev) > 0}">
-		<h4>동일 주제 다른 책 정보</h4>
-		<table summary="동일 주제 다른 책 정보">
-			<colgroup>
-				<col/>
-				<col width="20%"/>
-				<col width="15%"/>
-				<col width="15%"/>
-			</colgroup>
-			<thead>
-				<tr>
-					<th>서명</th>
-					<th>저자</th>
-					<th>등록번호</th>
-					<th>청구기호</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${callNoBrowsing.dsCallNoPrev}" var="i" varStatus="status">
-				<tr>
-					<td class="txt-left">${i.TITLE}</td>
-					<td class="txt-left">${i.AUTHOR}</td>
-					<td class="txt-left">${i.ACSSON_NO}</td>
-					<td class="txt-left">${i.CALL_NO}</td>
-				</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		</c:if>
-
-		<c:if test="${fn:length(sameBook) > 0}">
-		<h4>같은 책 소장정보</h4>
-		<table summary="같은 책 소장정보">
-			<thead>
-				<tr>
-					<th>도서관명</th>
-					<th>등록번호</th>
-					<th>소장위치</th>
-					<th>청구기호</th>
-					<th>상태</th>
-					<th>반납예정일</th>
-					<th style="display: none;">예약</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${sameBook}" var="j" varStatus="statusj">
-					<c:forEach items="${j.dsItemDetail}" var="i" varStatus="status">
-				<tr>
-					<td>${i.LOCA_NAME}</td>
-					<td>${i.PRINT_ACSSON_NO}</td>
-					<td class="txt-left">${i.SUB_LOCA_NAME}</td>
-					<td class="txt-left">${i.LABEL_PLACE_NO_NAME} ${i.CALL_NO}</td>
-					<td class="og">${i.DISPLAY_ITEM_STATUS}</td>
-					<td>${i.RETURN_PLAN_DATE}</td>
-				</tr>
-					</c:forEach>
-				</c:forEach>
-			</tbody>
-		</table>
-		</c:if>
-
-		<c:if test="${fn:length(naverDetail) > 0}">
-		<h4 style="clear: both;">포털 사이트 연동 상세정보</h4>
-		<table summary="포털 사이트 연동 상세정보">
-			<colgroup>
-				<col width="10%"/>
-				<col/>
-			</colgroup>
-			<tbody>
-				<c:forEach items="${naverDetail}" var="i" varStatus="status">
-				<c:if test="${status.count > 1}">
-				<tr>
-					<td colspan="2" style="text-align: left;"></td>
-				</tr>
-				</c:if>
-				<tr>
-					<th>저자</th>
-					<td style="text-align: left;">${i.author} </td>
-				</tr>
-				<tr>
-					<th>출판사</th>
-					<td style="text-align: left;">${i.publisher} </td>
-				</tr>
-				<tr>
-					<th>출간일</th>
-					<td style="text-align: left;">${i.pubdate}</td>
-				</tr>
-				<tr>
-					<th>ISBN</th>
-					<td style="text-align: left;">${i.isbn} </td>
-				</tr>
-				<tr>
-					<th>정가</th>
-					<td style="text-align: left;">
-						<c:if test="${i.price ne ''}">
-						${i.price}
-						</c:if>
-						<c:if test="${i.price eq ''}">
-						절판
-						</c:if>
-					</td>
-				</tr>
-				<tr>
-					<th>요약</th>
-					<td style="text-align: left;">${i.description} </td>
-				</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		</c:if>
-<!-- 		<div class="sbtn"> -->
-<!-- 			<a href="" class="btn"><span>목록으로</span></a> -->
-<!-- 		</div> -->
-		<jsp:include page="/WEB-INF/views/app/board/common/view/button.jsp" flush="false" />
+				</a>
+				<a href="#" class="detail-btn" data-regno="${i.REG_NO}">
+					<p>${i.TITLE_INFO}</p>
+				</a>
+			</li>
+			</c:forEach>
+		</ul>
+	</div>
+	
+	<div class="button bbs-btn right" style="clear: both;">
+		<a href="" class="btn" id="imsi_v_all" data-checked="false"><span>전체 선택/해제</span></a>
+		<a href="" class="btn" id="imsi_v_del"><span>선택 도서삭제</span></a>
+		<a href="" class="btn btn1" id="add_book_btn"><span>도서등록</span></a>
 	</div>
 </div>
-
 <c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.bottom_html) > 0}">
 ${boardManage.bottom_html}
 </c:if>

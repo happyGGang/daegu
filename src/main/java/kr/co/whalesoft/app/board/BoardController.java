@@ -332,19 +332,6 @@ public class BoardController extends BaseController {
 			}
 		}
 
-		//테마게시판
-		if (boardManage.getBoard_type().equals("THEMEBOOK")){
-			if(board.getPlan_date() == null || board.getPlan_date().equals("")) {
-				board.setPlan_date(new SimpleDateFormat("yyyy-MM").format(new Date()));
-			}
-			ThemeBook themeBook = themeBookService.getThemeBookOne(new ThemeBook(board));
-			if (themeBook != null) {
-				board.setThemeBookSubject(themeBook.getSubject());
-			}
-		}
-
-
-
 		//FAQ게시판
 		if (boardManage.getBoard_type().equals("FAQ")){
 			if(StrUtil.isInStr(board.getBoard_mode(), "admin")){
@@ -542,6 +529,12 @@ public class BoardController extends BaseController {
 			h.setHomepage_group(homepage.getHomepage_id());
 			h.setTemp_use_yn("Y");
 			model.addAttribute("subHomepageList",homepageService.getSubHomepageList(h));
+		}
+		//테마게시판
+		if (boardManage.getBoard_type().equals("THEMEBOOK")){
+			if(board.getPlan_date() == null || board.getPlan_date().equals("")) {
+				board.setPlan_date(new SimpleDateFormat("yyyy-MM").format(new Date()));
+			}
 		}
 		//수정일 경우
 		if(board.getEditMode().equals("MODIFY")) {
@@ -940,7 +933,7 @@ public class BoardController extends BaseController {
 //			}
 		}
 
-		if(boardManage.getBoard_type().equals("BOOK") || boardManage.getBoard_type().equals("THEMEBOOK")) {
+		if(boardManage.getBoard_type().equals("BOOK")) {
 			LibrarySearch librarySearch = new LibrarySearch();
 
 			if(homepage == null) {
@@ -995,6 +988,40 @@ public class BoardController extends BaseController {
 //				}
 			}
 		}
+		
+		if(boardManage.getBoard_type().equals("THEMEBOOK")) {
+			// imsi_v_3 ~ 14까지 api 도서목록 가져와서 list에 추가
+			List<Map<String, Object>> collectionList = new ArrayList<Map<String,Object>>();
+			LibrarySearch librarySearch = null;
+			
+			Map<String, Object> collMap = service.getThemeCollection(board);
+			for(int i = 3; i <= 14; i++) {
+				String var = "IMSI_V_" + i;
+				if(collMap.get(var) != null) {
+					librarySearch = new LibrarySearch();
+					librarySearch.setManageCode(homepage.getManage_code());
+					librarySearch.setRegNo(String.valueOf(collMap.get(var)));
+					
+					Map<String, Object> apiResult = LibSearchAPI.getBookInfo(librarySearch);
+					List<Map<String, Object>> listData = LibSearchAPI.getListData(apiResult);
+					if(listData != null && listData.size() > 0) {
+						Map<String, Object> map = listData.get(0);
+						
+						//알라딘 API 결과 가져오기
+						if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+							Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+							if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+								map.put("aladin", aladinData.get("item"));
+							}
+						}
+						
+						map.put("theme_key", StringUtils.lowerCase(var));
+						collectionList.add(map);
+					}
+				};
+			}
+			model.addAttribute("collectionList", collectionList);
+		}
 
 		model.addAttribute("prevBoard", service.getPrevBoardOne(board));
 		model.addAttribute("nextBoard", service.getNextBoardOne(board));
@@ -1040,6 +1067,42 @@ public class BoardController extends BaseController {
 //			return basePath + "view";
 //		}
 			return basePath + "view";
+	}
+	
+	@RequestMapping(value = {"/themeDetail.*"}, method = RequestMethod.GET)
+	public String themeDetail(Model model, Board board, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		checkAuth("R", model, request);
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+		
+//		LibrarySearch librarySearch = null;
+//		librarySearch = new LibrarySearch();
+		librarySearch.setManageCode(homepage.getManage_code());
+//		librarySearch.setRegNo("");
+		
+		Map<String, Object> apiResult = LibSearchAPI.getBookInfo(librarySearch);
+		Map<String, Object> map = LibSearchAPI.getListData(apiResult).get(0);
+		
+		//알라딘 API 결과 가져오기
+		if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+			Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+			if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+				map.put("aladin", aladinData.get("item"));
+			}
+		}
+		
+		model.addAttribute("board", board);
+		model.addAttribute("detail", map);
+		
+		String basePath = "";
+		String homepageFolder = "";
+
+		if(homepage != null) {
+			homepageFolder = "/homepage/" + homepage.getFolder();
+		}
+
+		basePath = homepageFolder + "/board/THEMEBOOK/";
+		
+		return basePath + "detail";
 	}
 
 	@RequestMapping(value = {"/reply.*"}, method = RequestMethod.GET)
@@ -1135,7 +1198,7 @@ public class BoardController extends BaseController {
 				}
 			}
 		//OTHERBOARDEDIT일 경우 Validation 처리 하지 않음 나중에 제거
-		} else if(!board.getEditMode().equals("OTHERBOARDEDIT") && !board.getEditMode().equals("REPLY")){
+		} else if(!board.getEditMode().equals("OTHERBOARDEDIT") && !board.getEditMode().equals("REPLY") && !board.getEditMode().equals("THEMEBOOK") && !board.getEditMode().equals("THEME_DEL")){
 			ValidationUtils.rejectIfEmpty(result, "title", "제목을 입력하세요.");
 			if(boardManage.getCategory1() != null && !boardManage.getCategory1().equals("")) {
 				ValidationUtils.rejectIfEmpty(result, "category1", "게시판 분류1을 입력하세요.");
@@ -1350,6 +1413,20 @@ public class BoardController extends BaseController {
 				res.setUrl(getBoardContext(request) + "/board/otherBoardEdit.do");
 				res.setData(board.getUrlParam(boardManage, "index"));
 				res.setMessage("PMS 게시판에 등록 되었습니다.");
+			} else if(board.getEditMode().equals("THEMEBOOK")){
+				// 테마북 게시판 컬렉션 등록 CTRLNO
+				service.modifyThemeBook(board);
+				res.setValid(true);
+				res.setUrl(getBoardContext(request) + "/board/view.do");
+				res.setData(board.getUrlParam(boardManage, "view"));
+				res.setMessage("테마북 컬렉션 등록 되었습니다.");
+			} else if(board.getEditMode().equals("THEME_DEL")){
+				board.setTheme_imsi_key_arr(board.getTheme_imsi_key().split(","));
+				service.delThemeBook(board);
+				res.setValid(true);
+				res.setUrl(getBoardContext(request) + "/board/view.do");
+				res.setData(board.getUrlParam(boardManage, "view"));
+				res.setMessage("선택된 테마북 컬렉션 삭제 되었습니다.");
 			}
 		} else {
 			res.setValid(false);
