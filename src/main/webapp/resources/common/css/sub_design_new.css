@@ -1646,7 +1646,7 @@ a.link_btn img{margin-left:5px;}
 }
 
 /*도서관소식지(시청작은도서관)*/
-.book-wr {background:url('/resources/homepage/dgportal/img/book_pttr.gif') repeat;padding:3px;}
+.book-wr {background:url('/resources/common/img/book_pttr.gif') repeat;padding:3px;}
 .book-wr .book-box {position:relative;background:#fdfdfd;padding: 30px 30px 35px 30px;min-height: 230px;}
 .book-wr .book-box .book-thum {position:absolute;top:30px;left:30px;width:340px;height:auto;}
 .book-wr .book-box .book-thum .img {display:block;position:relative;width: 180px;height: 228px;padding-bottom: 0;overflow:hidden;box-shadow:10px 10px 0px #eee;}

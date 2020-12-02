@@ -39,7 +39,7 @@
 .notice-box .con ul li { padding:3px 0; height:27px;line-height:27px;}
 .notice-box .con ul li a { position:relative;display:block;white-space:normal;box-sizing:border-box;word-break:break-all;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;padding:0 120px 0 0; }
 .notice-box .con ul li a strong {display:block;width:100%;font-weight:normal;padding:0;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;}
-.notice-box .con ul li a strong span.ca {display:inline-block;padding:0 27px;font-size:13px;border-radius:25px;margin-right:7px;height:27px;line-height:27px;}
+.notice-box .con ul li a strong span.ca {display:inline-block;padding:0 27px;background: #ddd;font-size:13px;border-radius:25px;margin-right:7px;height:27px;line-height:27px;}
 .notice-box .con ul li a strong span.ca.bg-0001 {background-color:#dda616;color:#fff;}
 .notice-box .con ul li a strong span.ca.bg-0002 {background-color:#8194b4;color:#fff;}
 .notice-box .con ul li a strong span.ca.bg-0003 {background-color:#f67205;color:#fff;}

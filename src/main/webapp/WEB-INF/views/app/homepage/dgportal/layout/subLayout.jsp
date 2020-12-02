@@ -1,17 +1,12 @@
-<%@ page language="java" pageEncoding="utf-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
 <tiles:insertAttribute name="header" />
+<link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub.css"/>
 <script type="text/javascript">
 $(function() {
-	$('#homeup').click(function () {
-		$('body,html').animate({
-			scrollTop: 0
-		}, 800);
-		return false;
-	});
-
 	$('li#menu_${menuOne.parent_menu_idx }').addClass('active');
 	$('li#menu_${menuOne.menu_idx}').addClass('active');
 	var halbaeNode = $('li#menu_${menuOne.parent_menu_idx }').parent().parent()[0];
@@ -23,100 +18,57 @@ $(function() {
 // 		$('div#menuRatingDiv').load('/${homepage.context_path}/module/menuRating/index.do?menu_idx=${param.menu_idx}');
 	}
 
-	$('select#recommendSite1').on('change', function() {
-		if ($(this).val() != '') {
-			window.open($(this).val());
+	$('a.shareBtn').on('click', function(e) {
+
+		if($('div#share_layer').css('display') == 'none') {
+			$('div#share_layer').show();
+			e.preventDefault();
+		} else {
+			$('div#share_layer').hide();
+			e.preventDefault();
+		}
+
+	});
+
+	$('a#closeshareBox').on('click', function(e) {
+		e.preventDefault();
+		$('div#share_layer').hide();
+	});
+
+	$(window).scroll(function(){
+		if($(this).scrollTop() > 0 ) {
+			$('div#share_layer').hide();
 		}
 	});
 
-	$('select#recommendSite2').on('change', function() {
-		if ($(this).val() != '') {
-			window.open($(this).val());
-		}
-	});
+	$('h1.mobile-logo a').css('background',"url('/resources/homepage/bukgs/img/bukgs_logo_b.png')"); 
+	$('.m-menu a').css('color','#000');
 
-	<c:choose>
-		<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
-			$('li#menu_41').remove();
-			$('li#menu_42').remove();
-			$('li#menu_43').remove();
-			$('li#menu_44').remove();
-			$('li#menu_45').remove();
-		</c:when>
-		<c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
-			$('li#menu_41').remove();
-			$('li#menu_42').remove();
-			$('li#menu_43').remove();
-			$('li#menu_44').remove();
-			$('li#menu_45').remove();
-		</c:when>
-		<c:otherwise>
-			$('li#menu_62').remove();
-			$('li#menu_63').remove();
-		</c:otherwise>
-	</c:choose>
-
-	$('.Gnb .gnb-menu > li.menu7').remove();
 });
 </script>
-<div id="wrap">
 
+<div id="wrap">
 	<tiles:insertAttribute name="top" />
 	<tiles:insertAttribute name="topMenu" />
 
 	<div id="container" class="subpage">
+
 		<div class="sub-visual">
-			<div class="doc-info-bg">
 
-			</div>
-		</div>
-
-		<div class="section">
-			<c:if test="${menuOne ne null}">
-			<div class="lnb">
-				<h2><b>${menuLeftList[0].menu_name}</b></h2>
-				<homepageTag:leftMenu menuList="${menuLeftList}"/>
-			</div>
-			</c:if>
-			<div class="content">
-				<div class="doc-info">
+			<div class="doc-info">
+				<div class="doc-title">
+					<c:if test="${menuOne.include_menu_name_yn eq 'Y'}">
+					<h3>${menuOne.menu_name}</h3>
+					</c:if>
 					<ol>
-						<li class="first"><a href="/${homepage.context_path}/index.do"><img src="/resources/homepage/${homepage.context_path}/img/home-loc.png" alt="HOME"></a></li>
+						<li class="first"><a href="/${homepage.context_path}/index.do"><img src="/resources/common/img/navi_home_icon.gif"></a></li>
 						<homepageTag:docInfo oneMenu="${menuOne}" menuList="${menuLeftList}"/>
 					</ol>
 
-
-					<script>
-					$(document).ready(function() {
-						$('a.shareBtn').on('click', function(e) {
-
-							if($('div#share_layer').css('display') == 'none') {
-								$('div#share_layer').show();
-								e.preventDefault();
-							} else {
-								$('div#share_layer').hide();
-								e.preventDefault();
-							}
-
-						});
-
-						$('a#closeshareBox').on('click', function(e) {
-							e.preventDefault();
-							$('div#share_layer').hide();
-						});
-
-						$(window).scroll(function(){
-							if($(this).scrollTop() > 0 ) {
-								$('div#share_layer').hide();
-							}
-						});
-					});
-					</script>
-
 					<div class="shareArea">
 						<ul>
-							<li class="print"><a href="#" onclick="contentPrint();"><img src="/resources/common/img/pr-icon-b.png" alt="현재페이지 인쇄"></a></li>
-							<li class="sns"><a href="#" class="shareBtn snsBtn"><img src="/resources/common/img/sns-icon-b.png" alt="sns 바로가기"></a>
+							<li><a href="#" onclick="contentPrint();"><img src="/resources/common/img/sub-icon02.png" alt="현재페이지 인쇄"></a></li>
+							<li><a href="#" class="shareBtn snsBtn"><img src="/resources/common/img/sub-icon01.png" alt="sns 바로가기"></a>
 
 									<div id="share_layer">
 										<div class="shareAllBtns" >
@@ -133,18 +85,25 @@ $(function() {
 									</div>
 
 							</li>
-							<li class="last cord"><a href="" class="sub-qrcode" keyValue="true"><img src="/resources/common/img/qr-icon-b.png" alt="qr코드 보기"></a></li>
+							<li class="last"><a href="" class="sub-qrcode" keyValue="true"><img src="/resources/common/img/sub-icon03.png" alt="qr코드 보기"></a></li>
 						</ul>
 					</div>
-					<div class="end"></div>
+
 				</div>
+				<div class="end"></div>
+			</div>
+
+		</div>
+
+		<div class="sections">
+			<c:if test="${menuOne ne null}">
+			<div class="lnb">
+				<h2><b>${menuLeftList[0].menu_name}</b></h2>
+				<homepageTag:leftMenu menuList="${menuLeftList}"/>
+			</div>
+			</c:if>
+			<div class="content">
 				<div class="doc">
-					<div class="doc-head">
-						<div class="doc-title">
-							<h3>${menuOne.menu_name}</h3>
-							<!-- <div class="v-img" <c:if test="${not empty menuOne.menu_img}">style="background: url('/data/menu/${menuOne.homepage_id}/${menuOne.menu_img}') no-repeat 100% 0"</c:if>></div> -->
-						</div>
-					</div>
 					<div class="doc-body con${menuOne.menu_idx}" id="contentArea">
 						<div class="body">
 							<tiles:insertAttribute name="body" />
@@ -160,21 +119,16 @@ $(function() {
 					</c:if>
 				</div>
 			</div>
-
-			<div id="quick-slide" style="padding-top:60px;">
-				<ul>
-					<li><a href="/${homepage.context_path}/intro/join/changeover.do?menu_idx=71"><img src="/resources/homepage/dgportal/img/qm01.png" alt="비대면자격확인"></a></li>
-					<!--li><a href="/${homepage.context_path}/intro/search/indexAll.do?menu_idx=7"><img src="/resources/homepage/dgportal/img/qm02.png" alt="워킹스루"></a></li-->
-					<li><a href="/elib/index.do" target="_blank"><img src="/resources/homepage/dgportal/img/qm03.png" alt="전자도서관"></a></li>
-				</ul>
-			</div>
-
 		</div>
 
 		<div class="end"></div>
 	</div>
 
-	<tiles:insertAttribute name="footer" />
+	<div id="foot_section">
+		<tiles:insertAttribute name="footer" />
+	</div>
 
 </div>
+
+
 

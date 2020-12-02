@@ -19,16 +19,12 @@ do {
 <c:if test="${fn:length(recommendBookList) == 0}">
 <li>
 	<a class="goDetail" href="javascript:alert('등록된 추천도서가 없습니다.')">
-		<img src="/resources/homepage/dgportal/img/book-line.png" alt="" class="book-line">
-			<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="추천도서 없음" title="추천도서 없음"/>
-			<img src="/resources/homepage/dgportal/img/book-shadow.png" alt="book-shadow" class="book-shadow" />
+		<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="추천도서 없음" title="추천도서 없음"/>
 	</a>
 </li>
 <li>
 	<a class="goDetail" href="javascript:alert('등록된 추천도서가 없습니다.')">
-		<img src="/resources/homepage/dgportal/img/book-line.png" alt="" class="book-line">
-			<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="추천도서 없음" title="추천도서 없음"/>
-			<img src="/resources/homepage/dgportal/img/book-shadow.png" alt="book-shadow" class="book-shadow" />
+		<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="추천도서 없음" title="추천도서 없음"/>
 	</a>
 </li>
 </c:if>
@@ -36,7 +32,6 @@ do {
 <c:if test="${fn:length(recommendBookList) == 1}">
 <li>
 	<a class="goDetail" href="/${recommendBookContextPath}/board/view.do?menu_idx=${recommendBookMenuIdx}&manage_idx=${book1.manage_idx}&board_idx=${book1.board_idx}">
-		<img src="/resources/homepage/dgportal/img/book-line.png" alt="" class="book-line">
 		<c:choose>
 			<c:when test="${empty book1.preview_img}">
 			<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="${book1.title}" title="${book1.title}"/>
@@ -48,14 +43,11 @@ do {
 			<img src="/data/board/${book1.manage_idx}/${book1.board_idx}/${book1.preview_img}" alt="${book1.title}" title="${book1.title}" />
 			</c:otherwise>
 		</c:choose>
-			<img src="/resources/homepage/dgportal/img/book-shadow.png" alt="book-shadow" class="book-shadow" />
 	</a>
 </li>
 <li>
 	<a class="goDetail" href="javascript:alert('등록된 추천도서가 없습니다.')">
-		<img src="/resources/homepage/dgportal/img/book-line.png" alt="" class="book-line">
-			<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="추천도서 없음" title="추천도서 없음"/>
-			<img src="/resources/homepage/dgportal/img/book-shadow.png" alt="book-shadow" class="book-shadow" />
+		<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="추천도서 없음" title="추천도서 없음"/>
 	</a>
 </li>
 </c:if>
@@ -64,7 +56,6 @@ do {
 <c:if test="${fn:length(recommendBookList) == 2}">
 <li>
 	<a class="goDetail" href="/${recommendBookContextPath}/board/view.do?menu_idx=${recommendBookMenuIdx}&manage_idx=${book1.manage_idx}&board_idx=${book1.board_idx}">
-		<img src="/resources/homepage/dgportal/img/book-line.png" alt="" class="book-line">
 		<c:choose>
 			<c:when test="${empty book1.preview_img}">
 			<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="${book1.title}" title="${book1.title}"/>
@@ -76,12 +67,10 @@ do {
 			<img src="/data/board/${book1.manage_idx}/${book1.board_idx}/${book1.preview_img}" alt="${book1.title}" title="${book1.title}" />
 			</c:otherwise>
 		</c:choose>
-			<img src="/resources/homepage/dgportal/img/book-shadow.png" alt="book-shadow" class="book-shadow" />
 	</a>
 </li>
 <li>
 	<a class="goDetail" href="/${recommendBookContextPath}/board/view.do?menu_idx=${recommendBookMenuIdx}&manage_idx=${book2.manage_idx}&board_idx=${book2.board_idx}" >
-		<img src="/resources/homepage/dgportal/img/book-line.png" alt="" class="book-line">
 		<c:choose>
 			<c:when test="${empty book2.preview_img}">
 			<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="${book2.title}" title="${book2.title}"/>
@@ -93,7 +82,6 @@ do {
 			<img src="/data/board/${book2.manage_idx}/${book2.board_idx}/${book2.preview_img}" alt="${book2.title}" title="${book2.title}"/>
 			</c:otherwise>
 		</c:choose>
-		<img src="/resources/homepage/dgportal/img/book-shadow.png" alt="book-shadow" class="book-shadow" />
 	</a>
 </li>
 </c:if>

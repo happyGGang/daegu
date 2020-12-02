@@ -90,10 +90,10 @@ do {
 		// 팝업 관련 코드 END
 
 
-		$('div#calendar-box').load('calendar3.do');
-		$('div#holiday-box').load('calendar5.do?homepage_id=${fn:escapeXml(homepage.homepage_id)}');
-		$('ul.book_photo').eq(1).load('newBook.do');
-		$('ul.bestBookUl').load('bestBook.do');
+		$('ul.newBookUl').load('recommendBook.do?category2=${category2List[0].code_id}');
+		$('select#recommendBook1').on('change', function() {
+			$('ul.newBookUl').load('recommendBook.do?category2='+$(this).val());
+		});
 
 		$('#main-search-btn').on('click', function() {
 			if( $('input#search_text_1').val() == '' ) {
@@ -103,7 +103,6 @@ do {
 			}
 				$('#mainSearchForm').submit();
 		});
-
 });
 </script>
 <div id="wrap">
@@ -217,75 +216,28 @@ do {
 				<p class="tit_text">대구통합도서관의 다양한 강좌 프로그램을 체험해보세요.</p>
 			</div>
 
-			<div class="cont cultureList">
-				<ul>
-					<c:forEach items="${teachList}" var="i" varStatus="status">
-					<c:set var="imgnum" value="${(status.count % 8)+1}"></c:set>
-					<li>
-					<a href="/${i.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=${i.menu_idx}&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}" class="border bgimg00${imgnum}">
-						<span class="txt">
-							<p class="lib-name">${i.homepage_name}</p>
-							<p class="tit">${fn:substring(i.teach_name, 0, 15)}<c:if test="${fn:length(i.teach_name) > 15}">...</c:if></p>
-							<p class="len"><b>접수</b><br/>${i.start_join_date} ~ ${i.end_join_date}</p>
-						</span>
-						<span class="btnn"><img src="/resources/homepage/${homepage.context_path}/img/more-culture-btn.png" alt="신청하기"></span>
-					</a>
-					</li>
-					</c:forEach>
-				</ul>
+			<div class='wide-1686-sections'>
+				<div class="cont cultureList">
+					<ul>
+						<c:forEach items="${teachList}" var="i" varStatus="status">
+						<c:set var="imgnum" value="${(status.count % 3)+1}"></c:set>
+						<li>
+							<a href="/${i.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=${i.menu_idx}&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}" class="border bgimg00${imgnum}">
+								<span class="status">진행중</span>
+								<span class="txt">
+									<p class="lib-name">${i.homepage_name}</p>
+									<p class="tit">${fn:substring(i.teach_name, 0, 15)}<c:if test="${fn:length(i.teach_name) > 15}">...</c:if></p>
+									<p class="len"><b>접수</b> ${i.start_join_date} ~ ${i.end_join_date}</p>
+								</span>
+							</a>
+						</li>
+						</c:forEach>
+					</ul>
+				</div>
 			</div>
 
-			<div class="end"></div>
-
-			<div class="main-section wid1450">
-
-				<div class="book-box tabS">
-					<ul class="tabMenuS">
-						<li class="on"><a href="#tab1" class='t-tabs' data-link="/${homepage.context_path}/board/index.do?menu_idx=85&manage_idx=697">추천도서</a></li>
-						<li><a href="#tab2" class='t-tabs' data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=10">신착도서</a></li>
-					</ul>
-					<a href="/${homepage.context_path}/board/index.do?menu_idx=85&manage_idx=697" class="btn-more2 more-more">더보기</a>
-
-					<div class="box con" data-tab="tab1">
-						<ul class="book_photo">
-							<c:forEach items="${bookList1}" var="i" varStatus="status">
-								<li>
-									<a href="/${homepage.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-									<span class="con-image">
-										<c:choose>
-											<c:when test="${i.preview_img ne null}">
-												<c:choose>
-													<c:when test="${fn:contains(i.preview_img, 'http')}">
-														<img src="${i.preview_img}" alt="${i.title}" />
-													</c:when>
-													<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
-														<img src="${i.preview_img}" alt="${i.title}" />
-													</c:when>
-													<c:otherwise>
-														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
-													</c:otherwise>
-												</c:choose>
-											</c:when>
-											<c:otherwise>
-												<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
-											</c:otherwise>
-										</c:choose>
-									</span>
-										<span class="con-title">${fn:length(i.title) > 11 ? fn:substring(i.title, 0, 12) : i.title}<c:if test="${fn:length(i.title) > 11 }">...</c:if></span>
-									</a>
-								</li>
-							</c:forEach>
-						</ul>
-					</div>
-
-					<div class="box con" data-tab="tab2" style="display:none;">
-						<ul class="book_photo">
-						</ul>
-					</div>
-
-				</div>
-
-
+			<div class="more-btn">
+				<a href=""><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt="더보기" /></a>
 			</div>
 			<div class="end"></div>
 
@@ -295,46 +247,66 @@ do {
 		<!-- main4 사서추천, 대구의bOOK-->
 		<div class="section" id="main4">
 			<div class="main4_wrap">
-				<div class="left">
+
+				<div class='wide-1686-sections'>
+
 					<div class="recommand-box">
-						<div class="box con">
-							<ul class="book_photo">
-								<c:forEach items="${bookList1}" var="i" varStatus="status">
-									<li>
-										<a href="/${homepage.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-										<span class="con-image">
-											<c:choose>
-												<c:when test="${i.preview_img ne null}">
-													<c:choose>
-														<c:when test="${fn:contains(i.preview_img, 'http')}">
-															<img src="${i.preview_img}" alt="${i.title}" />
-														</c:when>
-														<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
-															<img src="${i.preview_img}" alt="${i.title}" />
-														</c:when>
-														<c:otherwise>
-															<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
-														</c:otherwise>
-													</c:choose>
-												</c:when>
-												<c:otherwise>
-													<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
-												</c:otherwise>
-											</c:choose>
-										</span>
-											<span class="con-title">${fn:length(i.title) > 11 ? fn:substring(i.title, 0, 12) : i.title}<c:if test="${fn:length(i.title) > 11 }">...</c:if></span>
-										</a>
-									</li>
-								</c:forEach>
-							</ul>
+						<div class="main2_tit">
+							<h2 class="title"><b>사서 추천 BOOK’</b></h2>
+							<p class="tit_text">이 책 어떠세요?</p>
+						</div>
+						<div class="title">
+							<p>
+								<select id="recommendBook1" class="recommendSite1">
+									<c:forEach items="${category2List}" var="cate2">
+									<option value="${cate2.code_id}" style="color:#000;">${cate2.code_name}</option>
+									</c:forEach>
+								</select>
+							</p>
+						</div>
+						<div class="book">
+							<div class="box con">
+								<ul class="book_photo newBookUl">
+								</ul>
+							</div>
+						</div>
+						<div class="more-btn">
+							<a href=""><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt="더보기" /></a>
 						</div>
 					</div>
-				</div>
-				<div class="right">
+
 					<div class="daegubook-box">
-						
+						<div class="main2_tit">
+							<h2 class="title"><b>대구의 BOOK’</b></h2>
+							<p class="tit_text">북모닝 대구! 올해의 한책</p>
+						</div>
+						<div class="daegubook">
+							<div class="box con">
+								<dl>
+									<dt>
+										<p>
+											<b>당신이 옳다<br/>(정혜신의 적정심리학)</b><br/>
+											정혜신 / 해냄출판사 / 2018<br/><br/>
+											사회적 재난 현장부터 일상의 순간까지 고통
+											받는 이들과 함께해온 정신과 의사 정혜신은 
+											우리에게 '심리적 CPR(심폐소생술)'이 절실
+											하다고 진단한다. 최근 15년 간 진료실을 벗
+											어나 보통 사람들은 물론 트라우마 피해자부
+											터 CEO까지 다양한 이들의 속마음을...
+										</p>
+									</dt>
+									<dd><img src="/resources/homepage/${homepage.context_path}/img/daegu-book.png" alt="당신이 옳다" /></dd>
+								</dl>
+							</div>
+						</div>
+
+						<div class="more-btn">
+							<a href=""><img src="/resources/homepage/${homepage.context_path}/img/more-btn_b.png" alt="더보기" /></a>
+						</div>
 					</div>
+
 				</div>
+
 			</div>
 		</div>
 
@@ -345,7 +317,49 @@ do {
 				<p class="tit_text">다양한 컨텐츠를 제공해 드리는 맞춤형 서비스</p>
 			</div>
 
+			<div class='wide-1686-sections'>
+				<div class="cont curationList">
+					<ul>
 
+						<li>
+							<a href="http://icuration.co.kr/curation/w/58" target="_blank">
+								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu01.png" alt="부산 여행코스"></div>
+								<h3 class="book-title">Maker를 위한 북큐레이션</h3>
+								<p class="book-desc">상상을 현실로 만드는 메이커스페이스</p>
+								<p class="reg-date">2020-12-02</p>
+							</a>
+						</li>
+
+						<li>
+							<a href="http://icuration.co.kr/curation/w/51" target="_blank">
+								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu02.png" alt="부산 서점"></div>
+								<h3 class="book-title">10월 그림책 토크 콘서트</h3>
+								<p class="book-desc">코로나 19 슬기로운 온라인 도서관 이용법</p>
+								<p class="reg-date">2020-12-02</p
+							</a>
+						</li>
+
+						<li>
+							<a href="http://www.icuration.co.kr/curation/w/53" target="_blank">
+								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu03.png" alt="부산 북카페"></div>
+								<h3 class="book-title">2020 언택트 독도의 날</h3>
+								<p class="book-desc">2020 독도의 날(10.25) 행사 언택트로 진행합니다.</p>
+								<p class="reg-date">2020-12-02</p
+							</a>
+						</li>
+
+						<li>
+							<a href="http://www.icuration.co.kr/curation/w/52" target="_blank">
+								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu04.png" alt="부산 여행지</"></div>
+								<h3 class="book-title">유투버를 위한 북큐레이션</h3>
+								<p class="book-desc">유투버를 위한 큐레이션을 소개합니다</p>
+								<p class="reg-date">2020-12-02</p
+							</a>
+						</li>
+
+					</ul>
+				</div>
+			</div>
 		</div>
 
 		<!-- main6 주요서비스-->
@@ -359,37 +373,38 @@ do {
 			<div class="mIcon">
 				<ul>
 					<li>
-						<a href="/bukgs/html.do?menu_idx=15" class="q01">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q1.png" alt="희망도서신청"><br class="webBr"/>희망도서신청</span>
+						<a href="/bukgs/html.do?menu_idx=15">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q1.png" alt="희망도서신청"><br/>희망도서신청</span>
 						</a>
 					</li>
 					<li>
-						<a href="/bukgs/html.do?menu_idx=92" class="q02">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q2.png" alt="상호대차서비스"><br class="webBr"/>상호대차서비스</span>
+						<a href="/bukgs/html.do?menu_idx=92">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q2.png" alt="상호대차서비스"><br/>상호대차서비스</span>
 						</a>
 					</li>
 					<li>
-						<a href="/bukgs/module/teach/index.do?menu_idx=32" class="q03">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q3.png" alt="독서문화행사"><br class="webBr"/>독서문화행사</span>
+						<a href="/bukgs/module/teach/index.do?menu_idx=32">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q3.png" alt="독서문화행사"><br/>독서문화행사</span>
 						</a>
 					</li>
 					<li>
-						<a href="/bukgs/intro/login/index.do?menu_idx=69" class="q04">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q4.png" alt="대출정보조회"><br class="webBr"/>대출정보조회</span>
+						<a href="/bukgs/intro/login/index.do?menu_idx=69">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q4.png" alt="대출정보조회"><br/>대출정보조회</span>
 						</a>
 					</li>
 					<li>
-						<a href="/bukgs/html.do?menu_idx=91" class="q05">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q5.png" alt="스마트도서관"><br class="webBr"/>스마트도서관</span>
+						<a href="/bukgs/html.do?menu_idx=91">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q5.png" alt="스마트도서관"><br/>스마트도서관</span>
 						</a>
 					</li>
 					<li>
-						<a href="https://blog.naver.com/bukguarts" class="q06" target="_blank">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q6.png" alt="블로그"><br class="webBr"/>블로그</span>
+						<a href="https://blog.naver.com/bukguarts" target="_blank">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q6.png" alt="블로그"><br/>블로그</span>
 						</a>
 					</li>
 				</ul>
 			</div>
+			<div class="end"></div>
 
 			<div class="mBtn">
 				<ul>
@@ -443,26 +458,73 @@ function fullPage() {
 				//$('.Gnb').css('border-bottom','1');
 				$('.Gnb').css('background','none');
 				$('.tnb').css('background','none');
+				$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon.png');
+				$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon.png');
+				$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon.png');
+				$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon.png');
 			}  else if( destination.index == 1 ) {
 				$('#header').removeClass("background-white");
-				//$('.Gnb').css('border-bottom','1px solid #e6e6e6');
-				$('.Gnb').css('background','#fff');
-				$('.tnb').css('background','#fff');
-			}	else if( destination.index == 2 ) {				
+				$('.Gnb').css('border-bottom','1px solid #e6e6e6');
+				$('.Gnb').css('background','none');
+				$('.tnb').css('background','none');
+				$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon_b.png');
+				$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon_b.png');
+				$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon_b.png');
+				$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon_b.png');
+			}	else if( destination.index == 2 ) {
 				$('#header').removeClass("background-white");
-				//$('.Gnb').css('border-bottom','1px solid #e6e6e6');
-				$('.Gnb').css('background','#fff');
-				$('.tnb').css('background','#fff');
+				$('.Gnb').css('border-bottom','1px solid #e6e6e6');
+				$('.Gnb').css('background','none');
+				$('.tnb').css('background','none');
+				$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon_b.png');
+				$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon_b.png');
+				$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon_b.png');
+				$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon_b.png');
 			}  else if( destination.index == 3 ) {
 				$('#header').removeClass("background-white");
-				//$('.Gnb').css('border-bottom','1px solid #e6e6e6');
+				$('.Gnb').css('border-bottom','1px solid #e6e6e6');
+				$('.Gnb').css('background','none');
+				$('.tnb').css('background','none');
+				$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon_b.png');
+				$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon_b.png');
+				$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon_b.png');
+				$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon_b.png');
+			}  else if( destination.index == 4 ) {
+				$('#header').removeClass("background-white");
+				$('.Gnb').css('border-bottom','1px solid #e6e6e6');
 				$('.Gnb').css('background','#fff');
 				$('.tnb').css('background','#fff');
+				$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon_b.png');
+				$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon_b.png');
+				$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon_b.png');
+				$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon_b.png');
+			}  else if( destination.index == 5 ) {
+				$('#header').addClass("background-white");
+				$('.Gnb').css('border-bottom','1px solid #e6e6e6');
+				$('.Gnb').css('background','none');
+				$('.tnb').css('background','none');
+				$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon.png');
+				$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon.png');
+				$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon.png');
+				$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon.png');
+			}  else if( destination.index == 6 ) {
+				$('#header').addClass("background-white");
+				$('.Gnb').css('border-bottom','1px solid #e6e6e6');
+				$('.Gnb').css('background','none');
+				$('.tnb').css('background','none');
+				$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon.png');
+				$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon.png');
+				$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon.png');
+				$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon.png');
 			} else {
 				$('#header').removeClass("background-white");
-				//$('.Gnb').css('border-bottom','1px solid #e6e6e6');
+				$('.Gnb').css('border-bottom','1px solid #e6e6e6');
 				$('.Gnb').css('background','#fff');
 				$('.tnb').css('background','#fff');
+				$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon_b.png');
+				$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon_b.png');
+				$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon_b.png');
+				$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon_b.png');
 			}
 		},
 		afterResponsive: function(isResponsive){}
@@ -493,32 +555,4 @@ $( window ).resize( function(e) {
 	};
 });
 </script>
-<script>
-    var mySwiper = new Swiper('.mySwiper', {
-      spaceBetween: 30,
-      centeredSlides: true,
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-      },
-	  effect: 'fade',
-	  loop: true,
-      pagination: {
-        el: '.swiper-pagination',
-        type: 'fraction',
-      },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-    });
-	$('.start').on('click', function(){
-		mySwiper.autoplay.start();
-		return false;
-	})
-	$('.stop').on('click', function(){
-		mySwiper.autoplay.stop();
-		return false;
-	});
 
-</script>

@@ -4,7 +4,7 @@
 
 	<div class="mFooter">
 		<div class="middle">
-			<div class="wide-sections">
+			<div class="wide-1686-sections">
 				<div class="info">
 					<a href="html.do?menu_idx=75"><b>개인정보처리방침</b></a>
 					<span class="bar">|</span>
@@ -18,7 +18,7 @@
 		</div>
 
 		<div class="bottom">
-			<div class="wide-sections">
+			<div class="wide-1686-sections">
 				<p>
 					<em>(${homepage.zipcode}) ${homepage.address1}</em><br class="mobileBr"/>
 					<em>전화 <b>${fn:split(homepage.homepage_tell,',')[0]}</b></em>
