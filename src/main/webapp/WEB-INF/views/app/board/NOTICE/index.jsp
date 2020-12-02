@@ -172,7 +172,7 @@ table.bbs tr.notice{background:#f5f6f7}
 					</c:if>
 					<c:if test="${ boardManage.manage_idx eq '614'}">
 					<td class="category important td2">
-						<span class="ca bg-${i.category1}">${i.category1_name}</span>
+						<span class="ca bg-${i.category1}">${not empty i.category1_name ? i.category1_name : '통합'}</span>don
 					</td>
 					</c:if>
 					<td class="important left title" style="padding-left:${(i.group_depth > 0 ? (i.group_depth-1)*15 : 0)+10}px;">
