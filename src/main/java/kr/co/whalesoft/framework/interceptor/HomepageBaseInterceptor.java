@@ -156,25 +156,25 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 				// SSL 적용을 위한 로직
 				if (!uri.contains("join") && !uri.contains("login")) {
 
-					if (request.isSecure()) {
-
-						String redirectUrl = String.format("http://%s:80%s?%s", request.getServerName(), uri, request.getQueryString());
-						response.sendRedirect(redirectUrl);
-						return false;
-					}
+//					if (request.isSecure()) {
+//
+//						String redirectUrl = String.format("http://%s:80%s?%s", request.getServerName(), uri, request.getQueryString());
+//						response.sendRedirect(redirectUrl);
+//						return false;
+//					}
 				} else {
 
 					String referer = request.getHeader("referer");
-					if (StringUtils.isNotBlank(referer)) {
-						String refArr[] = referer.split("\\/");
-						if (refArr.length >= 4 && "intro".equals(refArr[3])) {//http://localhost/intro/
-							if(StringUtils.containsIgnoreCase(request.getServerName(), "library.daegu.go.kr") && !request.isSecure()) {
-								String redirectUrl = String.format("https://%s:443%s?%s", request.getServerName(), uri, request.getQueryString());
-								response.sendRedirect(redirectUrl);
-								return false;
-							}
-						}
-					}
+//					if (StringUtils.isNotBlank(referer)) {
+//						String refArr[] = referer.split("\\/");
+//						if (refArr.length >= 4 && "intro".equals(refArr[3])) {//http://localhost/intro/
+//							if(StringUtils.containsIgnoreCase(request.getServerName(), "library.daegu.go.kr") && !request.isSecure()) {
+//								String redirectUrl = String.format("https://%s:443%s?%s", request.getServerName(), uri, request.getQueryString());
+//								response.sendRedirect(redirectUrl);
+//								return false;
+//							}
+//						}
+//					}
 				}
 
 				//Intro 에서 사용하는 Homepage 정보 가져오기
