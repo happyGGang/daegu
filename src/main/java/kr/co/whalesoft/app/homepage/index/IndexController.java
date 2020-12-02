@@ -177,15 +177,19 @@ public class IndexController extends BaseController {
 
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM");
 		if (StringUtils.isEmpty(calendarManage.getPlan_date())) {
-			calendarManage = new CalendarManage(sf.format(Calendar.getInstance().getTime()));
+			calendarManage.setPlan_date(sf.format(Calendar.getInstance().getTime()));
 		}
 
 		SimpleDateFormat sf2 = new SimpleDateFormat ("yyyy.MM.dd");
 		Date currentDay = new Date ();
 		String currDate = sf2.format ( currentDay );
 
-		calendarManage.setHomepage_id(homepage.getHomepage_id());
-		board.setHomepage_id(homepage.getHomepage_id());
+		if (StringUtils.isEmpty(calendarManage.getHomepage_id())) {
+			calendarManage.setHomepage_id(homepage.getHomepage_id());
+			board.setHomepage_id(homepage.getHomepage_id());
+		} else {
+			board.setHomepage_id(calendarManage.getHomepage_id());
+		}
 		board.setImsi_v_1(calendarManage.getPlan_date());
 
 		CalendarManage closedDay = calendarManageService.getClosedDate2(calendarManage);
@@ -678,6 +682,7 @@ public class IndexController extends BaseController {
 			for (Homepage h2:subHomepageList) {
 				b.setCategory5(h2.getHomepage_id());
 				b.setManage_idx(628);
+				b.setCategory1(null);
 				model.addAttribute("noticeList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//공지사항
 
 				b.setCategory5(null);

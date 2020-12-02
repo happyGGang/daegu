@@ -21,6 +21,19 @@
 		${pagingBottom}
 	</select>
 	
+	<select id="getExcelList" resultType="kr.go.gbelib.app.cms.module.bookRelayGroup.BookRelayGroup">
+		SELECT
+			homepage_id, group_idx, group_name, main_number, manager_name,
+			work_number, user_phone, postcode, address_base, address_detailed,
+			book_area, book_quantity, relay_plan, relay_personnel, approval_status, 
+			delete_yn, add_id, add_date
+		FROM
+			BOOK_RELAY_GROUP
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+	</select>
+	
 	<select id="bookRelayGroupCount" resultType="int">
 		SELECT
 			COUNT(*)

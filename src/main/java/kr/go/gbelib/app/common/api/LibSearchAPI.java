@@ -857,9 +857,12 @@ public class LibSearchAPI {
 		}
 		if(librarySearch.getLibCode() != null && !librarySearch.getLibCode().isEmpty()) {
 			param.put("libCode", librarySearch.getLibCode());
+			result = CommonAPI.sendData4Library(param, "loanItemSrchByLib");
+		} else {
+			result = CommonAPI.sendData4Library(param, "loanItemSrch");
 		}
 		
-		result = CommonAPI.sendData4Library(param, "loanItemSrch");
+
 		
 		return result;
 	}

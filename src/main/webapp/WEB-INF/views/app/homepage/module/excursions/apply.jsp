@@ -22,6 +22,18 @@ $(function() {
 		}
 	});
 
+	<c:if test="${fn:length(subHomepageList) > 0}">
+	var a = '${fn:escapeXml(apply.homepage_id)}';
+	$('div.tab_menu a[data-hid="'+a+'"]').parent().addClass('active');
+
+	$('div.tab_menu a').on('click', function(e) {
+		e.preventDefault();
+		var hid = $(this).data('hid');
+		$('input#homepage_id').val(hid);
+		doGetLoad('apply.do', serializeCustom($('#applyEdit')));
+	});
+	</c:if>
+
 
 });
 </script>
@@ -31,6 +43,17 @@ $(function() {
 <form:hidden path="plan_date"/>
 <form:hidden path="apply_idx"/>
 <form:hidden path="pageType"/>
+<form:hidden path="menu_idx"/>
+<c:if test="${fn:length(subHomepageList) > 0}">
+	<div class="tab_menu on">
+		<ul class="no6">
+			<c:forEach items="${subHomepageList}" var="i" varStatus="status">
+				<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">${i.homepage_alias}</a></li>
+			</c:forEach>
+		</ul>
+	</div>
+	<div class="mg30t"></div>
+</c:if>
 <div class="table-wrap">
 	<table class="type1 center">
 		<colgroup>

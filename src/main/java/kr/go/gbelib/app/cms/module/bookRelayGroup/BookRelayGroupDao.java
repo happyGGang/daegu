@@ -17,5 +17,7 @@ public interface BookRelayGroupDao {
 	public int deleteBookRelayGroup(BookRelayGroup bookRelayGroup);
 
 	public int statusChangeBookRelayGroup(BookRelayGroup bookRelayGroup);
+
+	public List<BookRelayGroup> getExcelList(BookRelayGroup bookRelayGroup);
 	
 }

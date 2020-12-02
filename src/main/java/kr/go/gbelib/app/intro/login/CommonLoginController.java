@@ -239,7 +239,9 @@ public class CommonLoginController extends BaseController {
 	public String logout(HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		Homepage homepage = getSessionHomepage(request);
 		String redirectURL = request.isSecure() ? "https://" : "http://";
-		redirectURL +=  request.getServerName() + "/" + homepage.getContext_path();
+		redirectURL +=  request.getServerName() ;
+		redirectURL +=  request.getServerPort() == 80 ? "" : ":" + request.getServerPort();
+		redirectURL +=   "/" + homepage.getContext_path();
 
 		String relogin = request.getParameter("relogin");
 		if (StringUtils.equals(relogin, "true")) {

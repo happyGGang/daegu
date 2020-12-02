@@ -56,6 +56,7 @@ $(function(){
 	
 	$('a.excel-btn').on('click', function(e) {
 		e.preventDefault();
+		$('input#excel_hid').val($('#homepage_id').val());
 		$('#excelDownForm #excel_type').val('HOPE');
 		$('#excelDownForm').submit();
 	});
@@ -83,7 +84,7 @@ $(function(){
 <c:if test="${fn:length(teachList) > 0}">
 	<div style="text-align: right">
 		<form:form id="excelDownForm" modelAttribute="teach" action="/${homepage.context_path}/module/teach/excelDownload.do" method="get">
-			<form:hidden path="homepage_id"/>
+			<form:hidden path="homepage_id" id="excel_hid"/>
 			<form:hidden path="group_idx"/>
 			<form:hidden path="category_idx"/>
 			<form:hidden path="teach_idx"/>
@@ -94,7 +95,6 @@ $(function(){
 </c:if>
 
 <form:form modelAttribute="teach" action="/${homepage.context_path}/module/teach/student/save.do" method="POST">
-	<form:hidden path="homepage_id" />
 	<form:hidden path="group_idx"/>
 	<form:hidden path="category_idx"/>
 	<form:hidden path="teach_idx"/>
@@ -102,6 +102,14 @@ $(function(){
 	<form:hidden path="menu_idx"/>
 
 <div id="libraryList" class="bbs-notice" style="margin-top:10px;margin-bottom:20px;" >
+	<c:choose>
+		<c:when test="${fn:length(subHomepageList) > 0}">
+			도서관 : <form:select path="homepage_id" items="${subHomepageList}" itemLabel="homepage_name" itemValue="homepage_id"></form:select>
+		</c:when>
+		<c:otherwise>
+			<form:hidden path="homepage_id"/>
+		</c:otherwise>
+	</c:choose>
 조회 기간:<form:input path="searchDateFrom" cssClass="text ui-calendar"/><label for="searchDateFrom" class="blind">시작일</label> ~ 
 		<form:input path="searchDateTo" cssClass="text ui-calendar"/><label for="searchDateTo"  class="blind">종료일</label>
 		<a href="#" id="search-btn" class="btn btn1">조회</a>

@@ -188,6 +188,7 @@ $(function(){
 				</c:forEach>
 			</ul>
 		</div>
+		<div class="mg30t"></div>
 		</c:if>
 		<div class="ym_btns">
 			<a id="before-btn" href="#prev" class="btn prev"><i class="fa fa-angle-left"></i><span class="blind">이전달</span></a>

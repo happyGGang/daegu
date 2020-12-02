@@ -91,6 +91,7 @@ $(function(){
 	<form:hidden path="applicant_idx"/>
 	<form:hidden path="record_idx"/>
 	<form:hidden path="editMode"/>
+	<form:hidden path="menu_idx"/>
 	<form:hidden path="read_page_count_arr"/>
 
 	<div class="wrapper-bbs">

@@ -27,7 +27,7 @@ $(function() {
 });
 </script>
 
-<form:form modelAttribute="relayLecture" id="relayLecture"  >
+<form:form modelAttribute="relayLecture" id="relayLecture" action="index.do" >
 <form:hidden path="homepage_id"/>
 <form:hidden path="menu_idx"/>
 <form:hidden path="lecture_idx"/>

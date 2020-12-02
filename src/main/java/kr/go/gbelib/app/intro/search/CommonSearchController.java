@@ -101,10 +101,25 @@ public class CommonSearchController extends BaseController {
 					libraryCodes.add(home.getManage_code());
 				}
 			}
+
+			Homepage h1 = new Homepage();
+			h1.setHomepage_id(homepage.getHomepage_id());
+			h1.setHomepage_group(homepage.getHomepage_id());
+			h1.setTemp_use_yn(null);
+			List<Homepage> subHomepageList = homepageService.getSubHomepageList(h1);
+			if (CollectionUtils.isNotEmpty(subHomepageList)) {
+				for (Homepage homepage1 : subHomepageList) {
+					if (StringUtils.isNotEmpty(homepage1.getManage_code())) {
+						libraryCodes.add(homepage1.getManage_code());
+
+					}
+				}
+			}
+
 			librarySearch.setLibraryCodes(libraryCodes);
 		}
 
-		if (StringUtils.isNotEmpty(librarySearch.getBooktype())) {
+ 		if (StringUtils.isNotEmpty(librarySearch.getBooktype())) {
     		Map<String, Object> result = new HashMap<String, Object>();
     		
     		// 자료실 제외 코드 : [두류]보존서고(1,2,3)
@@ -890,6 +905,13 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 //			return null;
 //		}
 
+		Homepage h = new Homepage();
+		h.setHomepage_id(homepage.getHomepage_id());
+		h.setHomepage_group(homepage.getHomepage_id());
+		h.setTemp_use_yn(null);
+		List<Homepage> subHomepageList = homepageService.getSubHomepageList(h);
+
+		model.addAttribute("subHomepageList", subHomepageList);
 		model.addAttribute("member", member);
 		model.addAttribute("librarySearch", librarySearch);
 
@@ -939,7 +961,7 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 						map2.put("isbn"+isbn.length(), isbn);
 
 						LibrarySearch bookSerach = new LibrarySearch();
-						bookSerach.setManageCode(homepage.getManage_code());
+						bookSerach.setManageCode(librarySearch.getManageCode());
 						bookSerach.setIsbn(isbn);
 						Map<String, Object> sameBook = (Map<String, Object>) LibSearchAPI.getBookDetail(bookSerach);
 
@@ -995,7 +1017,11 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 			if ( librarySearch.getEditMode().equals("ADD") ) {
 
 				Homepage homepage = getSessionHomepage(request);
-				HopebookConfig hopebookConfig = hopebookConfigService.getHopebookConfigInfo(homepage.getHomepage_id());
+				String homepageId = homepage.getHomepage_id();
+				if (StringUtils.isNotEmpty(librarySearch.getHomepage_id())) {
+					homepageId = librarySearch.getHomepage_id();
+				}
+				HopebookConfig hopebookConfig = hopebookConfigService.getHopebookConfigInfo(homepageId);
 				if(hopebookConfig != null) {
 					res.setValid(false);
 					res.setMessage(hopebookConfig.getRes_msg());
@@ -1661,7 +1687,6 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 	/**
 	 * 무인대출예약
 	 * @author whalesoft YONGJU 2019. 11. 15.
-	 * @param context_path
 	 * @param model
 	 * @param librarySearch
 	 * @param result
@@ -1778,7 +1803,6 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 	/**
 	 * 야간대출예약
 	 * @author whalesoft YONGJU 2019. 11. 16.
-	 * @param context_path
 	 * @param model
 	 * @param librarySearch
 	 * @param result

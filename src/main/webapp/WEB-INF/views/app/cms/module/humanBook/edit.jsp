@@ -159,6 +159,16 @@ $(function() {
 		</colgroup>
 		<tbody>
 			<tr>
+				<th>신청상태</th>
+				<td>
+					<form:select path="apply_status" cssClass="selectmenu">
+						<form:option value="0">신청</form:option>
+						<form:option value="1">미승인</form:option>
+						<form:option value="2">승인</form:option>
+					</form:select>
+				</td>
+			</tr>
+			<tr>
 				<th>성명(<span style="color: red; font-weight: bold;">*</span>)</th>
 				<td><form:input path="teacher_name" class="text" cssStyle="width: 30%" /></td>
 			</tr>
@@ -255,16 +265,7 @@ $(function() {
 					<input type="file" id="mFile" name="mFile" />
 				</td>
 			</tr>
-			<tr>
-				<th>신청상태</th>
-				<td>
-					<form:select path="apply_status" cssClass="selectmenu">
-						<form:option value="0">신청</form:option>
-						<form:option value="1">미승인</form:option>
-						<form:option value="2">승인</form:option>
-					</form:select>
-				</td>
-			</tr>
+
 			<tr>
 				<th>미승인사유</th>
 				<td><form:input path="unapproved_reasons" class="text" cssStyle="width: 100%;"/></td>

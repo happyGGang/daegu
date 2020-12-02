@@ -1,6 +1,9 @@
 package kr.go.gbelib.app.cms.module.readerContest;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -138,5 +141,20 @@ public class ReaderContestController extends BaseController {
 		
 		return res;
 	}	
+	
+	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
+	public ReaderContestSearchView excel(Model model, ReaderContest readerContest, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		model.addAttribute("readerContest", readerContest);
+		model.addAttribute("readerContestResult", service.getExcelList(readerContest));
+		
+		return new ReaderContestSearchView();
+	}
+
+	@RequestMapping(value = {"/csvDownload.*"}, method = RequestMethod.POST)
+	public void csv(Model model, ReaderContest readerContest, HttpServletRequest request, HttpServletResponse response) {
+		List<ReaderContest> readerContestList = service.getExcelList(readerContest);
+		
+		new ReaderContestXlsToCsv(readerContestList, "다독자 공모 참가 신청 리스트.csv", request, response);
+	}
 	
 }

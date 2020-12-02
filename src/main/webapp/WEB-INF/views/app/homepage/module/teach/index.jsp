@@ -86,7 +86,7 @@ $(function(){
 
 	<c:if test="${fn:length(subHomepageList) > 0}">
 		<div class="tab_menu on">
-			<ul class="no3">
+			<ul class="no5">
 				<c:forEach items="${subHomepageList}" var="i" varStatus="status">
 					<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">${i.homepage_alias}</a></li>
 				</c:forEach>
@@ -94,7 +94,12 @@ $(function(){
 		</div>
 	</c:if>
 
-	<div class="tabmenu tab1" style="margin-top:20px;">
+	<c:choose>
+	<c:when test="${homepage.context_path eq 'donggu' || homepage.context_path eq 'seogulib' || homepage.context_path eq 'namdm' ||  homepage.context_path eq 'namic' ||  homepage.context_path eq 'namic' || homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj' || homepage.context_path eq 'beomeo' || homepage.context_path eq 'yonghak' || homepage.context_path eq 'gosan' || homepage.context_path eq 'dalseolib' || homepage.context_path eq 'dalseonglib' || homepage.context_path eq 'junggu' || homepage.context_path eq 'dmsl'}">
+
+	</c:when>
+	<c:otherwise>
+	<div class="tabmenu tab1" style="margin-top:30px;">
 		<ul>
 			<li class="${empty teach.searchCate1 ? 'active':''}"><a href="" keyValue=""style="font-size: 14px;">전체</a></li>
 			<c:forEach items="${teachLargeCategoryList}" var="i" varStatus="status">
@@ -102,6 +107,8 @@ $(function(){
 			</c:forEach>
 		</ul>
 	</div>
+	</c:otherwise>
+	</c:choose>
 
 	<div style="text-align: right; margin-bottom: 10px; ">
 		<a href="anonyApplyCheck.do?homepage_id=${fn:escapeXml(teach.homepage_id)}&menu_idx=${fn:escapeXml(param.menu_idx)}" class="btn btn1" style="font-size:14px;">비회원 신청확인</a>

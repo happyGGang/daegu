@@ -16,16 +16,22 @@ $(function() {
 
 <form:form modelAttribute="bookRelayIndividual" id="bookRelayIndividual" action="step2.do" >
 <form:hidden path="menu_idx"/>
-	<h4>「2020 수성북」을 읽고 싶은 개인의 참여 신청을 받습니다.</h4>
-	<ul>
-		<li>대상 : 개인</li>
-		<li>운영기간 : 2020. 6. 2.(화) ~ 10.31.(토)</li>
-		<li>운영방법 : 도서관 홈페이지 신청 → 방문 수령(수성북, 독서노트) → 릴레이 진행 → 반납</li>
-	</ul>
-	<p>※ 독서노트 : 책자형(수성구립도서관 배부), SNS(인스타그램) 활용</p>
-	<div class="txt-box">문의 : 668-1600</div>
-	<div class="button bbs-btn center">
-		<a href="#" id="apply_btn" class="btn btn1">참여신청</a>
+	<div class="roomicon">
+			<div class="inner icowrap"><span class="ico ico5"></span> <strong>개인 독서릴레이</strong>
+				<p>「2020 수성북」을 읽고 싶은 개인의 참여 신청을 받습니다.</p>
+			</div>
+		</div>
+
+		<ul class="con">
+			<li>대상 : 개인</li>
+			<li>운영기간 : 2020. 6. 2.(화) ~ 10.31.(토)</li>
+			<li>운영방법 : 도서관 홈페이지 신청 → 방문 수령(수성북, 독서노트) → 릴레이 진행 → 반납</li>
+			<li>독서노트 : 책자형(수성구립도서관 배부), SNS(인스타그램) 활용</li>
+			<li>문의 : 668-1600</li>
+		</ul>
+
+	<div class="link_btn02">
+		<a href="#" id="apply_btn">참여신청</a>
 	</div>
 </form:form>
 

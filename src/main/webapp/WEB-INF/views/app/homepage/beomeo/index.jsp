@@ -204,7 +204,7 @@ do {
 						<div class="news con" data-tab="tab1">
 							<div class="box">
 								<ul>
-									<c:forEach items="${noticeList}" var="i" varStatus="status">
+									<c:forEach items="${noticeList}" var="i" varStatus="status" begin="0" end="4">
 										<li>
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=662&board_idx=${i.board_idx}">
 												<span class="sulib${i.category1}">${i.category1_name}</span>
@@ -220,7 +220,7 @@ do {
 						<div class="news con" data-tab="tab2" style="display:none;">
 							<div class="box">
 								<ul>
-									<c:forEach items="${teachList}" var="i" varStatus="status">
+									<c:forEach items="${teachList}" var="i" varStatus="status" begin="0" end="4">
 										<li>
 											<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=32&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&homepage_id=${i.homepage_id}">
 												<span class="sulib001">수성</span>
@@ -321,7 +321,7 @@ do {
 								<ul>
 									<c:forEach items="${bookList1}" var="i" varStatus="status">
 										<li class="item">
-											<a href="/${homepage.context_path}/board/view.do?menu_idx=88&manage_idx=659&board_idx=${i.board_idx}">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 												<c:choose>
 													<c:when test="${i.preview_img ne null}">
 														<c:choose>
@@ -355,7 +355,7 @@ do {
 
 					<div class="quickLink-box">
 						<ul>
-							<li><a href="html.do?menu_idx=120">수성인문학 @Suseong</a></li>
+							<li><a href="html.do?menu_idx=119">수성인문학 @Suseong</a></li>
 							<li><a href="html.do?menu_idx=93">수성인문학제</a></li>
 							<li><a href="html.do?menu_idx=100">글로벌프로그램</a></li>
 							<li><a href="">책읽어주는 범어사서</a></li>

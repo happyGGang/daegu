@@ -1,6 +1,9 @@
 package kr.go.gbelib.app.cms.module.bookRelayGroup;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -151,6 +154,20 @@ public class BookRelayGroupController extends BaseController {
 		
 		return res;
 	}	
-	
+
+	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
+	public BookRelayGroupSearchView excel(Model model, BookRelayGroup bookRelayGroup, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		model.addAttribute("bookRelayGroup", bookRelayGroup);
+		model.addAttribute("bookRelayGroupResult", service.getExcelList(bookRelayGroup));
+		
+		return new BookRelayGroupSearchView();
+	}
+
+	@RequestMapping(value = {"/csvDownload.*"}, method = RequestMethod.POST)
+	public void csv(Model model, BookRelayGroup bookRelayGroup, HttpServletRequest request, HttpServletResponse response) {
+		List<BookRelayGroup> bookRelayGroupList = service.getExcelList(bookRelayGroup);
+		
+		new BookRelayGroupXlsToCsv(bookRelayGroupList, "독서릴레이-기관 리스트.csv", request, response);
+	}
 	
 }

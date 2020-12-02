@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfig;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
@@ -1187,13 +1188,13 @@ public class LibrarySearchController extends BaseController {
 
 			if ( librarySearch.getEditMode().equals("ADD") ) {
 
-//				Homepage homepage = getSessionHomepage(request);
-//				HopebookConfig hopebookConfig = hopebookConfigService.getHopebookConfigInfo(homepage.getHomepage_id());
-//				if(hopebookConfig != null) {
-//					res.setValid(false);
-//					res.setMessage(hopebookConfig.getRes_msg());
-//					return res;
-//				}
+				Homepage homepage = getSessionHomepage(request);
+				HopebookConfig hopebookConfig = hopebookConfigService.getHopebookConfigInfo(homepage.getHomepage_id());
+				if(hopebookConfig != null) {
+					res.setValid(false);
+					res.setMessage(hopebookConfig.getRes_msg());
+					return res;
+				}
 
 				//웹필터 체크
 //				StringBuilder sb = new StringBuilder();

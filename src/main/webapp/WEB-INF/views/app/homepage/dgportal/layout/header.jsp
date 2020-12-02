@@ -1,10 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-//response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
-//response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
-//response.setDateHeader("Expires", 0); // Proxies.
-%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -25,34 +20,32 @@
 <link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome.min.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/select2.min.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.mmenu.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/common/css/dgportal_default.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/default_new_dgportal_fullpage.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/login.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/board/css/default.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/book/css/common.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub_design.css"/>
+
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/default.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/main.css"/>
-
+<!--link rel="stylesheet" type="text/css" href="/resources/common/css/sub_contents.css"-->
+<link rel="stylesheet" type="text/css" href="/resources/common/css/sub_design_new.css"/>
 <!--[if lte IE 7]>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome-ie7.min.css"/>
 <![endif]-->
 <!--[if lte IE 8]>
-<link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/ie.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/homepage/jungang/css/ie.css"/>
 <![endif]-->
 <script type="text/javascript" src="/resources/common/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="/resources/common/js/jquery-ui-1.12.0.min.js"></script>
 <script type="text/javascript" src="/resources/common/js/jquery-ui-1.12.0-datepicker.min.js"></script>
 <script type="text/javascript" src="/resources/common/js/jquery.bxslider.min.js"></script>
 <script type="text/javascript" src="/resources/common/js/jquery.mmenu.min.js"></script>
-<script type="text/javascript" src="/resources/common/js/default.js"></script>
+<script type="text/javascript" src="/resources/common/js/default-new-fullpage.js"></script>
 <script type="text/javascript" src="/resources/common/js/common.js"></script>
 <script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/common.js"></script>
 <script type="text/javascript" src="/resources/common/js/kakao.min.js"></script>
-
 </head>
 <body>
 
 <a href="#container" class="skip-to">본문 바로가기</a>
 <a href="#navi" class="skip-to">메뉴 바로가기</a>
-
-

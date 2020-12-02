@@ -28,12 +28,16 @@ $(function(){
 	});
 	
 	$('input:radio[name = age_type]').on('click', function(e) {
+		$('select#contest_type_idx option').eq(0).prop('selected', true);
 		if($(this).val() == 'ele_low'){
-			$('select#contest_type option:eq(0)').prop('disabled', false);
-			$('select#contest_type option:eq(1)').prop('disabled', false);
-			$('select#contest_type option:eq(4)').prop('disabled', false);
-			$('select#contest_type option:eq(2)').prop('disabled', true);
-			$('select#contest_type option:eq(3)').prop('disabled', true);
+			$('select#contest_type_idx option').each(function(i) {
+				var optionValue = $('select#contest_type_idx option').eq(i).data('subject');
+				if (optionValue.indexOf('ele_low') > -1 || optionValue == 'all') {
+					$('select#contest_type_idx option').eq(i).prop('disabled', false);
+				} else {
+					$('select#contest_type_idx option').eq(i).prop('disabled', true);
+				}
+			});
 			$('input#school_class_one').prop('disabled', false);
 			$('input#school_class_two').prop('disabled', false);
 			$('input#school_name').prop('disabled', false);	
@@ -41,11 +45,14 @@ $(function(){
 			$('input#school_class_two').css('background', "#fafafa");
 			$('input#school_name').css('background', "#fafafa");
 		}else if($(this).val() == 'ele_high'){
-			$('select#contest_type option:eq(0)').prop('disabled', false);
-			$('select#contest_type option:eq(2)').prop('disabled', false);
-			$('select#contest_type option:eq(4)').prop('disabled', false);
-			$('select#contest_type option:eq(1)').prop('disabled', true);
-			$('select#contest_type option:eq(3)').prop('disabled', true);
+			$('select#contest_type_idx option').each(function(i) {
+				var optionValue = $('select#contest_type_idx option').eq(i).data('subject');
+				if (optionValue.indexOf('ele_high') > -1 || optionValue == 'all') {
+					$('select#contest_type_idx option').eq(i).prop('disabled', false);
+				} else {
+					$('select#contest_type_idx option').eq(i).prop('disabled', true);
+				}
+			});
 			$('input#school_class_one').prop('disabled', false);
 			$('input#school_class_two').prop('disabled', false);
 			$('input#school_class_one').css('background', "#fafafa");
@@ -53,11 +60,26 @@ $(function(){
 			$('input#school_name').css('background', "#fafafa");
 			$('input#school_name').prop('disabled', false);	
 		}else if($(this).val() == 'middle' || $(this).val() == 'high' || $(this).val() == 'adult'){
-			$('select#contest_type option:eq(0)').prop('disabled', false);
-			$('select#contest_type option:eq(3)').prop('disabled', false);
-			$('select#contest_type option:eq(4)').prop('disabled', false);
-			$('select#contest_type option:eq(1)').prop('disabled', true);
-			$('select#contest_type option:eq(2)').prop('disabled', true);
+			var selectedValue = $(this).val();
+			$('select#contest_type_idx option').each(function(i) {
+				var optionValue = $('select#contest_type_idx option').eq(i).data('subject');
+				var optionArray = optionValue.split(",");
+
+				Array.prototype.contains = function(element) {
+					for (var i = 0; i < this.length; i++) {
+						if (this[i] == element) {
+							return true;
+						}
+					}
+					return false;
+				}
+
+				if (optionArray.contains(selectedValue) || optionValue == 'all') {
+					$('select#contest_type_idx option').eq(i).prop('disabled', false);
+				} else {
+					$('select#contest_type_idx option').eq(i).prop('disabled', true);
+				}
+			})
 			$('input#school_class_one').css('background', "#fafafa");
 			$('input#school_class_two').css('background', "#fafafa");
 			$('input#school_name').css('background', "#fafafa");
@@ -280,14 +302,14 @@ $(function(){
 			$('select#birthday_date').focus();
 			return false;
 		}
-		if($('select#contest_type').val() == ''){
+		if($('select#contest_type_idx').val() == '0'){
 			alert('참가종목을 선택해 주세요.');
-			$('select#contest_type').focus();
+			$('select#contest_type_idx').focus();
 			return false;
 		}
-		if($('select#contest_type option:selected').prop('disabled')){
+		if($('select#contest_type_idx option:selected').prop('disabled')){
 			alert('선택한 분류는 해당 참가종목에 참여할 수 없습니다.');
-			$('select#contest_type').focus();
+			$('select#contest_type_idx').focus();
 			return false;
 		}
 		if($('input:radio[name = finish_memorial]:checked').length < 1){
@@ -377,7 +399,6 @@ $(function(){
 		<form:form modelAttribute="marathonApplicant" action="save.do" method="POST">
 			<form:hidden path="homepage_id"/>
 			<form:hidden path="contest_idx"/>
-			<form:hidden path="contest_type_idx"/>
 			<form:hidden path="editMode"/>
 			<table class="type2">
 				<colgroup>
@@ -503,9 +524,11 @@ $(function(){
 					<tr>
 						<th>참가종목*</th>
 						<td>
-							<form:select path="contest_type" cssClass="selectmenu">
-								<form:option value="">참가종목</form:option>
-								<form:options itemValue="contest_type" itemLabel="contest_type" items="${marathonTypeList}"/>
+							<form:select path="contest_type_idx" cssClass="selectmenu">
+								<form:option value="0" data-subject="DONOTSELECT">참가종목</form:option>
+								<c:forEach items="${marathonTypeList}" var="i" >
+									<form:option value="${i.contest_type_idx}" data-subject="${i.application_subject}">${i.contest_type}</form:option>
+								</c:forEach>
 							</form:select>
 						</td>
 					</tr>

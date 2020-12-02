@@ -26,11 +26,11 @@ $(function() {
 <style>
 	
 </style>
-<div class="join-wrap" style="padding: 0px !important;">
+<div class="join-wrap" style="padding: 0px !important;width:970px;">
 	<form:form modelAttribute="bookRelayClub" id="bookRelayClubStep" action="edit.do">
 	<form:hidden path="menu_idx"/>
 	<div>
-		<h4>개인정보 수집 이용 동의서</h4>
+		<h2>개인정보 수집 이용 동의서</h2>
 		<div class="Box" style="height:400px;">	
 			<h5>2020 수성人문학제 독서릴레이 신청을 위한 개인정보 수집 및 이용 동의서</h5>
 			<p>2020 수성人문학제 독서릴레이 신청을 위하여 아래와 같이 개인정보를 수집·이용하고자 합니다. 내용을 자세히 읽으신 후 동의 여부를 결정하여 주십시오.</p>

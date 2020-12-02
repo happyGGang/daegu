@@ -123,6 +123,53 @@ $(function() {
 	});
 	$('.Gnb .gnb-menu > li.menu7').remove();
 
+	$('#more-view-btn').on('click', function(e) {
+		e.preventDefault();
+		$('.quickMenu').addClass('on');
+		$('.notice-box').addClass('on');
+		$('#more-view-btn').hide();
+	});
+
+	$('#more-close-btn').on('click', function(e) {
+		e.preventDefault();
+		$('.quickMenu').removeClass('on');
+		$('.notice-box').removeClass('on');
+		$('#more-view-btn').show();
+	});
+});
+
+// 모바일일 경우 fullpage 미사용
+if ( $(window).width() < 1025 ) {
+	$('.quickMenu').removeClass('on');
+	$('.notice-box').removeClass('on');
+	$('#more-view-btn').hide();
+} else {
+	if($('.notice-box').hasClass('on') === true)
+	{
+		$('#more-view-btn').hide();
+	}
+	else
+	{
+		$('#more-view-btn').show();
+	}
+};
+
+// 리사이즈 될때 모바일 화면에서 fullpage 미사용
+$( window ).resize( function(e) {
+	if ( $(window).width() < 1025 ) {
+		$('.quickMenu').removeClass('on');
+		$('.notice-box').removeClass('on');
+		$('#more-view-btn').hide();
+	} else {
+		if($('.notice-box').hasClass('on') === true)
+		{
+			$('#more-view-btn').hide();
+		}
+		else
+		{
+			$('#more-view-btn').show();
+		}
+	};
 });
 
 function getCookie(name){
@@ -139,8 +186,23 @@ function getCookie(name){
 	 }
 	 return "";
 }
-</script>
 
+$.ajax({
+	url: 'https://api.openweathermap.org/data/2.5/weather?lat=35.1711032&lon=128.9849058&appid=3bcf7eca7fc5d5df252135e43043a0a7',
+	dataType: "json",
+	type: "GET",
+	async: "false",
+	success: function(data) {
+		$('.weather span.temp').html((data.main.temp- 273.15)+'˚');
+		//$('.weather span.icon').addClass('w'+data.weather[0].icon);
+		//$('.weather span.icon').addClass('w'+data.weather[0].icon);
+	}
+});
+
+</script>
+<style>
+body, html {background:url('/resources/homepage/${homepage.context_path}/img/main-visual.png') no-repeat center top;background-size:cover;}
+</style>
 <div id="wrap">
 
 	<div id="header">
@@ -155,131 +217,207 @@ function getCookie(name){
 	</div>
 
 	<div id="container" class="main container">
-
-		<div class="sectionx">
-			<div class="mainTitle">
-				<div class="title">
-					<span>손 끝에서 시작되는</span>
-					<strong>가장 스마트한 생활</strong>
-					<p>The Smartest Life Starting<Br/>at the End of the Hand</p>
-				</div>
+		<div class="sectionxs">
+			<div class="search-box">
+				<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
+					<input type="hidden" name="menu_idx" value="13">
+					<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
+					<fieldset>
+						<legend class="blind">통합검색</legend>
+						<div class="main-box">
+							<div class="box1">
+								<label for="search_text_1" class="blind">통합자료검색</label>
+								<input name="title" id="search_text_1" type="text" class="text" placeholder="검색" style="ime-mode:active;"/>
+							</div>
+							<button id="main-search-btn">검색</button>
+						</div>
+					</fieldset>
+				</form>
 			</div>
+		</div>
 
+		<div class="sectionxs">
 			<div class="quickMenu">
 				<ul>
 					<li class="quick-1">
-					<a href="/${homepage.context_path}/module/elib/asp/contents/elearning.do?menu_idx=27" title="인기강좌 바로가기" class="quick01">
+						<a href="/${homepage.context_path}/module/elib/book/index.do?menu_idx=14&menu=NEW&type=EBK" title="E-BOOK 바로가기" class="quick01">
 						<div>
-							<h4>인기강좌</h4>
-							<p>맞춤형 e-러닝 학습</p>
+							<p>전자자료</p>
+							<h4>E-BOOK</h4>
 						</div>
 					</a>
 					</li>
 					<li class="quick-2">
-					<a href="/${homepage.context_path}/html.do?menu_idx=24" title="학술DB 홈페이지 바로가기" class="quick02">
+					<a href="/${homepage.context_path}/html/html2.do?menu_idx=90" title="오디오북 바로가기" class="quick02">
 						<div>
-							<h4>학술DB</h4>
-							<p>국내학술지 원문 데이터</p>
+							<p>귀로 듣는 소리책</p>
+							<h4>오디오북</h4>
 						</div>
 					</a>
 					</li>
 					<li class="quick-3">
-					<a href="/${homepage.context_path}/html.do?menu_idx=25" title="클래식감상 홈페이지 바로가기(새창열림)" class="quick03">
+					<a href="/${homepage.context_path}/module/elib/asp/contents/elearning.do?menu_idx=27" title="E러닝 학습 바로가기" class="quick03">
 						<div>
-							<h4>클래식감상</h4>
-							<p>아름다운 음악 이야기</p>
+							<p>맞춤형 온라인 학습</p>
+							<h4>E-러닝</h4>
 						</div>
 					</a>
 					</li>
 					<li class="quick-4">
-					<a href="/${homepage.context_path}/module/elib/search/index.do?menu_idx=80" title="전자자료검색 바로가기" class="quick04">
+					<a href="/${homepage.context_path}/html.do?menu_idx=24" title="웹DB 홈페이지 바로가기" class="quick04">
 						<div>
-							<h4>전자자료검색</h4>
-							<p>전자자료 통합검색</p>
+							<p>학술 원문데이터</p>
+							<h4>웹DB</h4>
 						</div>
 					</a>
 					</li>
 					<li class="quick-5">
-					<a href="/${homepage.context_path}/module/elib/book/index.do?menu_idx=14&menu=NEW&type=EBK" title="신간 E-BOOK 바로가기" class="quick05">
+					<a href="/${homepage.context_path}/board/index.do?menu_idx=72&manage_idx=284" title="공지사항 바로가기" class="quick05">
 						<div>
-							<h4>신간 E-BOOK</h4>
-							<p>신간전자자료</p>
+							<p>알려드립니다</p>
+							<h4>공지사항</h4>
 						</div>
 					</a>
 					</li>
 					<li class="quick-6">
-					<a href="/${homepage.context_path}/module/elib/book/index.do?menu_idx=15&menu=BEST&type=EBK" title="지금 E-BOOK 바로가기" class="quick06">
+					<a href="/${homepage.context_path}/intro/login/mobileCard.do?menu_idx=81" title="모바일회원증 바로가기" class="quick06">
 						<div>
-							<h4>지금 E-BOOK</h4>
-							<p>베스트전자자료</p>
+							<p>도서대출카드</p>
+							<h4>모바일회원증</h4>
 						</div>
 					</a>
 					</li>
 					<li class="quick-7">
 					<a href="/${homepage.context_path}/html.do?menu_idx=31" title="전자도서관 이용안내 바로가기" class="quick07">
 						<div>
-							<h4 style="color:#000;">전자도서관</h4>
-							<p style="color:#000;">이렇게 이용하세요</p>
+							<p>이렇게 이용하세요</p>
+							<h4>이용안내</h4>
 						</div>
 					</a>
 					</li>
 					<li class="quick-8">
-					<a href="/${homepage.context_path}/html.do?menu_idx=85" title="스마트도서관 바로가기"class="quick08">
-						<div class="fq">
-							<h4>스마트<Br/>도서관</h4>
+					<a href="/${homepage.context_path}/module/elib/lending/index.do?menu_idx=39&menu=LENDING" title="나의도서관 바로가기"class="quick08">
+						<div>
+							<p>대출현황조회</p>
+							<h4>나의도서관</h4>
 						</div>
 					</a>
 					</li>
 				</ul>
 			</div>
-		</div>
 
-		<div class="section">
+			<div id="notice-box" class="notice-box">
+				<a href="#close" class="more-close-btn" id="more-close-btn"><img src="/resources/homepage/${homepage.context_path}/img/btn-close.png" alt="닫기"></a>
+				<c:set var="now" value="<%=new java.util.Date()%>" />
+				<fmt:formatDate value="${now}" pattern="HH:mm" var="time" />
+				<fmt:formatDate value="${now}" pattern="MM" var="month" />
+				<fmt:formatDate value="${now}" pattern="dd" var="day" />
+				<fmt:formatDate value="${now}" pattern="E" var="week"/>
+				<!-- notice -->
+				<div class="alarm-box">
+					<div class="date-weather-section">
+						<div class="date-time">
+							<b>${time}</b> ${month}월 ${day}일 ${week}요일 
+						</div>
+						<div class="weather">
+							<span class='icon'><img src="/resources/homepage/${homepage.context_path}/img/dc.png" alt=""></span><span class="temp">15˚˚  </span>
+						</div>
+					</div>
 
-			<!-- notice -->
-			<div class="notice">
-				<div class="tit"><strong>NOTICE</strong></div>
-				<div class="con">
-					<ul>
-						<c:forEach var="i" varStatus="status" items="${noticeList}" >
-						<fmt:formatDate value="${i.add_date}" pattern="yyyy.MM" var="noticeDate"/>
-						<fmt:formatDate value="${i.add_date}" pattern="dd" var="noticeDay"/>
-						<li>
-							<a href="/${homepage.context_path}/board/view.do?menu_idx=72&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-								<span class="day"><b>${noticeDay}</b><br/>${noticeDate}</span>
-								<span class="cont">
-									<div class="notice-title">
-										<span class="notice-alarm">공지</span> <span>${i.title}</span>
-									</div>
-									<div class="notice-contents">
-										${fn:substring(fn:trim(i.content_summary), 0, 50)}...
-									</div>
-								</span>
-								<span class="ico"></span>
-							</a>
-						</li>
-						</c:forEach>
-					</ul>
-				</div>
-				<div class="more-btn center pd30t pd30b">
-					<a href="/${homepage.context_path}/board/index.do?menu_idx=72&manage_idx=284"><img src="/resources/homepage/${homepage.context_path}/img/notice-more.png" alt="공지사항 더보기"></a>
+					<div class="notice-section">
+						<div class="relative">
+							<h4 class="title">공지사항</h4>
+							<a href="/${homepage.context_path}/board/index.do?menu_idx=72&manage_idx=284" class="more-btn">더보기</a>
+						</div>
+						<div class="con">
+							<ul>
+								<c:forEach var="i" varStatus="status" items="${noticeList}" >
+								<fmt:formatDate value="${i.add_date}" pattern="yyyy" var="noticeYear"/>
+								<fmt:formatDate value="${i.add_date}" pattern="MM.dd" var="noticeMonth"/>
+								<li>
+									<a href="/${homepage.context_path}/board/view.do?menu_idx=72&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+										<span class="day">${noticeYear}<br/><b>${noticeMonth}</b></span>${i.title}
+									</a>
+								</li>
+								</c:forEach>
+							</ul>
+						</div>
+					</div>
+
+					<div class="contents-section">
+						<div class="ebook-box">
+							<div class="relative">
+								<h4 class="title">지금 E-BOOK</h4>
+								<a href="/${homepage.context_path}/module/elib/book/index.do?menu_idx=15&menu=BEST&type=EBK" class="more-btn">더보기</a>
+							</div>
+							<div>
+							<ul>
+								<li>
+									<a href="">
+										<span class="img"><img src="/resources/homepage/${homepage.context_path}/img/ebookimg1.jpg" alt=""></span>
+										<span class="txt">
+											<p class="title_info">청소년을 위한 시간시간시간..</p>
+											<p class="author">스티븐 호킹</p>
+										</span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<span class="img"><img src="/resources/homepage/${homepage.context_path}/img/ebookimg2.jpg" alt=""></span>
+										<span class="txt">
+											<p class="title_info">어른들의 거짓된 삶삶삶삶삶삶삶삶</p>
+											<p class="author">엘레나 페란테</p>
+										</span>
+									</a>
+								</li>
+							</ul>
+							</div>
+						</div>
+						<div class="ebook-box2">
+							<h4 class="title">신간 E-BOOK</h4>
+							<div class="ebookContent">
+								<ul>
+									<li>
+										<a href="#">
+											<span class="movieImg">
+												<img src="/resources/homepage/${homepage.context_path}/img/ebookimg3.jpg" alt="">
+											</span>
+
+											<span class="movieEx">
+												<strong class="title">하마터면 열심히..</strong>
+											</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div class="elearning-section">
+
+							<span>
+								<h4 class='title'>오디오북</h4>
+								<p><img src="/resources/homepage/${homepage.context_path}/img/play-icon.png" alt="지금 E-BOOK"></p>
+							</span>
+							<ul>
+								<li><a href="">정말 재밌는 SPA 영어 Season2</a></li>
+								<li><a href="">뉴파워 새로운 권력의 탄생</a></li>
+							</ul>
+
+					</div>
 				</div>
 			</div>
-
 		</div>
 
+		<div id="footer">
+			<tiles:insertAttribute name="footer" />
+		</div>
 	</div>
 
-	<div class="visual-two">
-		대구 시민의 스마트한 독서생활이 시작되는 곳
-	</div>
+	<div id="more-view-btn" class="more-view-btn"><a href="#"><img src="/resources/homepage/${homepage.context_path}/img/click-btn.png" alt="컨텐츠 더보기"></a></div>
 
 
-	<div id="footer">
-		<tiles:insertAttribute name="footer" />
-	</div>
 </div>
-
 
 </body>
 </html>

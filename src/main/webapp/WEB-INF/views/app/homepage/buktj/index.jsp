@@ -131,8 +131,8 @@ do {
 
 					<div class="mvBtn_wp">
 						<div class="mvBtn">
-							<div class="swiper-button-next"><img src="/resources/homepage/${homepage.context_path}/img/mv_btn_next.png" alt="다음"></div>
-							<div class="swiper-button-prev"><img src="/resources/homepage/${homepage.context_path}/img/mv_btn_prev.png" alt="이전"></div>
+							<div class="swiper-button-next"><img src="/resources/homepage/${homepage.context_path}/img/mv_btn_next-w.png" alt="다음"></div>
+							<div class="swiper-button-prev"><img src="/resources/homepage/${homepage.context_path}/img/mv_btn_prev-w.png" alt="이전"></div>
 						</div>
 
 						<div class="ctrBtn">
@@ -181,7 +181,7 @@ do {
 					</div>
 				</div>
 
-				<div class="main_scroll"><div class="main_scroll_wp">scroll down</div></div>
+				<div class="main_scroll"><div class="main_scroll_wp_white">scroll down</div></div>
 			</div>
 
 		</div>
@@ -204,7 +204,7 @@ do {
 								<c:forEach items="${noticeList}" var="i" varStatus="status">
 									<li>
 										<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=718&board_idx=${i.board_idx}">
-											<span class="time"><b><fmt:formatDate value="${i.add_date}" pattern="yyyy" /></b><br/><fmt:formatDate value="${i.add_date}" pattern="MM.dd" /></span>
+											<span class="time"><b><fmt:formatDate value="${i.add_date}" pattern="dd" /></b><br/><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM" /></span>
 											<em>${i.title}</em>
 										</a>
 									</li>
@@ -220,7 +220,7 @@ do {
 									<li>
 										<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=32&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&homepage_id=${i.homepage_id}">
 											<c:set var="teachDate" value="${fn:split(i.start_date, '-')}"></c:set>
-											<span class="time"><b>${teachDate[0]}</b><br/>${teachDate[1]}.${teachDate[2]}</span>
+											<span class="time"><b>${teachDate[2]}</b><br/>${teachDate[0]}.${teachDate[1]}</span>
 											<em>${i.teach_name}</em>
 										</a>
 									</li>
@@ -267,7 +267,7 @@ do {
 						</a>
 					</li>
 					<li>
-						<a href="#" class="q02">
+						<a href="html.do?menu_idx=90" class="q02">
 							<span><img src="/resources/homepage/${homepage.context_path}/img/q2.png" alt="상호대차서비스"><br class="webBr"/>상호대차서비스</span>
 						</a>
 					</li>
@@ -281,11 +281,11 @@ do {
 							<span><img src="/resources/homepage/${homepage.context_path}/img/q4.png" alt="대출정보조회"><br class="webBr"/>대출정보조회</span>
 						</a>
 					</li>
-					<li>
+					<!-- <li>
 						<a href="#" class="q05">
 							<span><img src="/resources/homepage/${homepage.context_path}/img/q5.png" alt="스마트도서관"><br class="webBr"/>스마트도서관</span>
 						</a>
-					</li>
+					</li> -->
 					<li>
 						<a href="https://blog.naver.com/bukguarts" class="q06" target="_blank">
 							<span><img src="/resources/homepage/${homepage.context_path}/img/q6.png" alt="블로그"><br class="webBr"/>블로그</span>
@@ -294,7 +294,7 @@ do {
 				</ul>
 			</div>
 
-			<div class="main_scroll"><div class="main_scroll_wp">scroll down</div></div>
+			<div class="main_scroll"><div class="main_scroll_wp_white">scroll down</div></div>
 		</div>
 		<!-- //main2 -->
 
@@ -315,7 +315,7 @@ do {
 						<ul class="book_photo">
 							<c:forEach items="${bookList1}" var="i" varStatus="status">
 								<li>
-									<a href="/${homepage.context_path}/board/view.do?menu_idx=13&manage_idx=716&board_idx=${i.board_idx}">
+									<a href="/${homepage.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 									<span class="con-image">
 										<c:choose>
 											<c:when test="${i.preview_img ne null}">

@@ -75,7 +75,7 @@ $(function() {
 <form:form modelAttribute="bookRelayIndividual" id="bookRelayIndividualEdit" action="save.do" >
 <form:hidden path="menu_idx"/>
 <form:hidden path="individual_idx"/>
-	<div class="wrapper-bbs">
+	<div class="wrapper-bbs" style="padding-top:0;">
 		<p><b style="color: red;">(*)</b>표시항목은 필수입력항목입니다.</p>
 		<table class="bbs-edit" summary="독서릴레리-개인 신청">
 			<caption>독서릴레리-개인 신청</caption>

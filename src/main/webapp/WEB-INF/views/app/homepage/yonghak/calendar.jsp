@@ -148,7 +148,7 @@ Date.prototype.format = function(f) {
 									<c:choose>
 										<c:when test="${calendarResult[i.mon] eq null}">${i.mon}</c:when>
 										<c:otherwise>
-											<c:set var="one" value="${fn:length(i.tue) < 2 ? '0' : '' }${i.mon}"></c:set>
+											<c:set var="one" value="${fn:length(i.mon) < 2 ? '0' : '' }${i.mon}"></c:set>
 											<c:choose>
 												<c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
 													<a class="type-e showCal" keyValue="${i.mon}">${i.mon}</a>
@@ -261,7 +261,8 @@ Date.prototype.format = function(f) {
 			<div class="inbox">
 				<c:forEach var="i" begin="1" end="31" varStatus="status">
 					<c:set var="key" value="${i < 10 ? '0':''}${i}"></c:set>
-					<c:forEach var="j" items="${calendarResult[key]}">
+					<c:set var="idx" value="${i < 10 ? '':''}${i}"></c:set>
+					<c:forEach var="j" items="${calendarResult[idx]}">
 						<c:set var="ty" value="${fn:split(j, ']')}"></c:set>
 						<div class="planList">
 							<p class="datetime">${calendar.plan_date}-${key}</p>
@@ -279,6 +280,6 @@ Date.prototype.format = function(f) {
 		<span class="ev">행사</span>
 	</div>
 
-	<a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=179" class="cal-btn-more">일정더보기 +</a>
+	<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=36" class="cal-btn-more">일정더보기 +</a>
 </div>
 

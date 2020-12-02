@@ -66,7 +66,7 @@ public class CalendarManageController extends BaseController {
 //		if ( !getSessionIsAdmin(request) ) {
 //		}
 
-		if ((getAsideHomepageId(request).equals("h37") || getAsideHomepageId(request).equals("h49") || getAsideHomepageId(request).equals("h45") || getAsideHomepageId(request).equals("h45"))) {
+		if ((getAsideHomepageId(request).equals("h37") || getAsideHomepageId(request).equals("h49") || getAsideHomepageId(request).equals("h45") || getAsideHomepageId(request).equals("h53") )) {
 			Homepage sessionHomepageInfo = getSessionHomepageInfo(request);
 			sessionHomepageInfo.setHomepage_group(getAsideHomepageId(request));
 			sessionHomepageInfo.setTemp_use_yn("Y");

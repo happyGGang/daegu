@@ -23,6 +23,11 @@ $(function() {
 			}
 		}
 
+		if ($('select#manageCode option:selected').val() != '') {
+			$('input[name="homepage_id"]').val($('select#manageCode option:selected').data('hid'));
+		}
+
+
 		doAjaxPost($('#reqHopeForm'));
 	});
 
@@ -46,13 +51,31 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 
 <form:form id="reqHopeForm" modelAttribute="librarySearch" action="save.do" method="post">
 	<form:hidden path="editMode" value="ADD"/>
-	<input type="hidden" name="manageCode" value="${homepage.manage_code}"/>
+	<input type="hidden" name="homepage_id" value="${homepage.homepage_id}"/>
 	<table class="edit">
 		<tbody>
 		<!-- 신청도서관 부분 추가 : 한개의 검색대에서 두개 이상의 도서관이 존재하여 신청 도서관을 선택해야하는 경우를 생각하여 CMS관리자에서 신청도서관 설정할수 있도록 하는게 맞을것 같음.  -->
 		<tr>
 			<th>신청도서관 <em><font color="red">(*)</font></em></th>
-			<td>${homepage.homepage_name}</td>
+			<td>
+				<c:choose>
+					<c:when test="${empty subHomepageList}">
+						<input type="hidden" id="manageCode" name="manageCode" value="${homepage.manage_code}"/>
+
+						${homepage.homepage_name}
+					</c:when>
+					<c:otherwise>
+						<form:select path="manageCode">
+						<c:forEach items="${subHomepageList}" var="i">
+							<c:if test="${not empty i.manage_code}">
+								<form:option value="${i.manage_code}" data-hid="${i.homepage_id}">${i.homepage_name}</form:option>
+							</c:if>
+						</c:forEach>
+						</form:select>
+					</c:otherwise>
+				</c:choose>
+
+			</td>
 		</tr>
 		<!-- 신청도서관 부분 추가 -->
 		<tr>

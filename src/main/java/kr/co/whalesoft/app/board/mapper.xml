@@ -704,11 +704,45 @@
 			getCodeIdToCodeName(#{homepage_id},#{category2Manage},category2) as category2_name,
 			getCodeIdToCodeName(#{homepage_id},#{category3Manage},category3) as category3_name,
 			getCodeIdToCodeName(#{homepage_id},#{category4Manage},category4) as category4_name,
-			getCodeIdToCodeName(#{homepage_id},#{category5Manage},category5) as category5_name
+			getCodeIdToCodeName(#{homepage_id},#{category5Manage},category5) as category5_name,
+			(
+			SELECT
+				MAX(H.menu_idx)
+			FROM
+				CMS_MENU H, CMS_BOARD_MANAGE M
+			WHERE
+				H.homepage_id = M.homepage_id
+				AND	M.manage_idx = A.manage_idx
+				AND	H.manage_idx = M.manage_idx
+				AND H.menu_type = 'BOARD'
+			) AS imsi_n_2
 		FROM
-			CMS_BOARD
+			CMS_BOARD A
 		WHERE
-			manage_idx = #{manage_idx}
+			<choose>
+				<when test="manage_idx == 697">
+					manage_idx in (696, 697)
+				</when>
+				<when test="manage_idx == 707">
+					manage_idx in (706, 707)
+				</when>
+				<when test="manage_idx == 659">
+					manage_idx in (610, 658, 659)
+				</when>
+				<when test="manage_idx == 669">
+					manage_idx in (667, 668, 669, 670, 671, 672)
+				</when>
+				<when test="manage_idx == 726">
+					manage_idx in (724, 725, 726, 727)
+				</when>
+				<otherwise>
+					manage_idx = #{manage_idx}
+				</otherwise>
+
+			</choose>
+
+
+
 		AND	delete_yn = 'N'
 		<if test='dept_cd != null and dept_cd == "MOVIE"'>
 		AND	imsi_v_1 >= TO_CHAR(SYSDATE, 'YYYY-MM')

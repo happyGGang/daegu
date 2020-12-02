@@ -1,9 +1,12 @@
 package kr.go.gbelib.app.cms.module.hopebookConfig;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import kr.co.whalesoft.app.cms.homepage.HomepageService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,17 +28,35 @@ public class HopebookConfigController extends BaseController {
 	
 	@Autowired
 	private HopebookConfigService service;
+
+	@Autowired
+	private HomepageService homepageService;
 	
 	@RequestMapping(value = {"/index.*"}, method = RequestMethod.GET)
 	public String index(Model model, HopebookConfig hopebookConfig, HttpServletRequest request) {
 //		hopebookConfig.setHomepage_id(getAsideHomepageId(request));
 //		Homepage homepage = getHomepageOne(hopebookConfig.getHomepage_id());
-		Homepage homepage = getSessionHomepageInfo(request);
-		hopebookConfig.setHomepage_id(homepage.getHomepage_id());
+//		Homepage homepage = getSessionHomepageInfo(request);
+//		hopebookConfig.setHomepage_id(homepage.getHomepage_id());
+
+		if ((getAsideHomepageId(request).equals("h37") || getAsideHomepageId(request).equals("h49") || getAsideHomepageId(request).equals("h45") || getAsideHomepageId(request).equals("h53"))) {
+			Homepage sessionHomepageInfo = getSessionHomepageInfo(request);
+			sessionHomepageInfo.setHomepage_group(getAsideHomepageId(request));
+			sessionHomepageInfo.setTemp_use_yn("Y");
+			List<Homepage> subHomepageList = homepageService.getSubHomepageList(sessionHomepageInfo);
+			if (StringUtils.isEmpty(hopebookConfig.getHomepage_id())) {
+				hopebookConfig.setHomepage_id(subHomepageList.get(0).getHomepage_id());
+				model.addAttribute("homepage", subHomepageList.get(0));
+			}
+			model.addAttribute("subHomepageList", subHomepageList);
+		} else {
+			hopebookConfig.setHomepage_id(getAsideHomepageId(request));
+		}
+
 		
 		model.addAttribute("hopebookConfig", hopebookConfig);
 		model.addAttribute("hopebookConfigList", service.getHopebookList(hopebookConfig));
-		model.addAttribute("homepage", homepage);
+		model.addAttribute("homepage", getSessionHomepageInfo(request));
 
 		return basePath + "index";
 	}

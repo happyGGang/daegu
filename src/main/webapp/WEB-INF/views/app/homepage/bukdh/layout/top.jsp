@@ -12,13 +12,13 @@
 					<li><a href="/bukgs/index.do">구수산</a></li>
 					<li class="on"><a href="/bukdh/index.do">대현</a></li>
 					<li><a href="/buktj/index.do">태전</a></li>
-					<li><a href="#">작은</a></li>
-					<li><a href="/elib/index.do">전자도서관</a></li>
+					<li><a href="html.do?menu_idx=95">작은</a></li>
+					<li><a href="/bukdh/html.do?menu_idx=25">전자도서관</a></li>
 					<li><a href="https://www.hbcf.or.kr:8443/front/" target="_blank">행복북구문화재단</a></li>
 				</ul>
 			</div>
 
-			<h1 class="mobile-logo"><a href="/${homepage.context_path}/index.do">구수산 도서관</a></h1>
+			<h1 class="mobile-logo"><a href="/${homepage.context_path}/index.do">대현 도서관</a></h1>
 
 			<div class="mmode m-menu">
 				<a href="#menu"><i class="fa fa-navicon"></i><span class="blind">메뉴</span></a>

@@ -48,9 +48,9 @@ $(function(){
 
 	$('a.modify').on('click', function(event) {
 		if($(this).attr('type') == 'calendar') {
-			doGetLoad('/${homepage.context_path}/module/calendarManage/edit.do', 'editMode=MODIFY&category_idx='+$(this).attr('keyValue2')+'&teach_idx='+$(this).attr('keyValue3'));
+			doGetLoad('/${homepage.context_path}/module/calendarManage/edit.do', 'editMode=MODIFY&category_idx='+$(this).attr('keyValue2')+'&teach_idx='+$(this).attr('keyValue3')+'&homepage_id=' + $('input#homepage_id_1').val());
 		} else if ($(this).attr('type') == 'teach') {
-			doGetLoad('/${homepage.context_path}/module/teach/edit.do', 'editMode=MODIFY&category_idx=' + $(this).attr('keyValue') + '&teach_idx=' + $(this).attr('keyValue2')+ '&menu_idx=' + $('#menu_idx').val());
+			doGetLoad('/${homepage.context_path}/module/teach/edit.do', 'editMode=MODIFY&category_idx=' + $(this).attr('keyValue') + '&teach_idx=' + $(this).attr('keyValue2')+ '&menu_idx=' + $('#menu_idx').val()+'&homepage_id=' + $('input#homepage_id_1').val());
 		}
 		event.preventDefault();
 	});
@@ -64,9 +64,9 @@ $(function(){
 	<%--견학신청--%>
 	$('a#apply').on('click', function(event) {
 		if($('#pageType').val() == 'ajax') {
-			$('#tabCon2').load('/${homepage.context_path}/module/excursions/edit.do', 'editMode=ADD&excursions_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('keyValue2') + '&menu_idx=' + $('#menu_idx').val() + '&pageType=' + $('#pageType').val());
+			$('#tabCon2').load('/${homepage.context_path}/module/excursions/edit.do', 'editMode=ADD&excursions_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('keyValue2') + '&menu_idx=' + $('#menu_idx').val() + '&pageType=' + $('#pageType').val()+'&homepage_id=' + $('input#homepage_id_1').val());
 		} else {
-			doGetLoad('/${homepage.context_path}/module/excursions/edit.do', 'editMode=ADD&excursions_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('keyValue2') + '&menu_idx=' + $('#menu_idx').val() + '&pageType=' + $('#pageType').val() + '&date_type=' + $('#date_type').val());
+			doGetLoad('/${homepage.context_path}/module/excursions/edit.do', 'editMode=ADD&excursions_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('keyValue2') + '&menu_idx=' + $('#menu_idx').val() + '&pageType=' + $('#pageType').val() + '&date_type=' + $('#date_type').val()+'&homepage_id=' + $('input#homepage_id_1').val());
 		}
 
 		event.preventDefault();
@@ -220,6 +220,7 @@ $(function(){
 				</c:forEach>
 			</ul>
 		</div>
+		<div class="mg30t"></div>
 	</c:if>
 
 	<div class="ym_btns">

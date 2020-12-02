@@ -8,7 +8,7 @@ public class ReaderContest extends PagingUtils {
 	
 	private String homepage_id;	//홈페이지ID
 	private int reader_idx;	//다독자IDX
-	private String participation_field;	//참가여부
+	private String participation_field;	//참가분야
 	private String user_name;	//신청자 이름
 	private String user_date;	//신청자 생년월일
 	private String user_phone;	//신청자 휴대폰

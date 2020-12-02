@@ -17,6 +17,10 @@ public class BookRelayIndividualService extends BaseService {
 		return dao.bookRelayIndividualList(bookRelayIndividual);
 	}
 	
+	public List<BookRelayIndividual> getExcelList(BookRelayIndividual bookRelayIndividual) {
+		return dao.getExcelList(bookRelayIndividual);
+	}
+	
 	public BookRelayIndividual getBookRelayIndividual(BookRelayIndividual bookRelayIndividual) {
 		return dao.getBookRelayIndividual(bookRelayIndividual);
 		

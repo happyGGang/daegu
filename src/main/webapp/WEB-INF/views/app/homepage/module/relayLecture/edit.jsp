@@ -75,7 +75,7 @@ $(function() {
 					<th>성별<b style="color: red;">(*)</b></th>
 					<td>
 						<form:select path="applicant_sex">
-							<form:option value=""></form:option>
+							<form:option value="">선택</form:option>
 							<form:option value="M">남</form:option>
 							<form:option value="W">여</form:option>
 						</form:select>

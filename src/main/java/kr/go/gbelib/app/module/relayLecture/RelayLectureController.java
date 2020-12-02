@@ -111,7 +111,7 @@ public class RelayLectureController extends BaseController {
 	@RequestMapping (value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(RelayLectureApply relayLectureApply, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
 		JsonResponse res = new JsonResponse(request);
-		
+		Homepage homepage = getSessionHomepage(request);
 		if(relayLectureApply.getEditMode().equals("ADD")) {
 			ValidationUtils.rejectIfEmpty(result, "applicant_name", "이름을 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "applicant_sex", "성별을 선택하세요.");
@@ -122,7 +122,7 @@ public class RelayLectureController extends BaseController {
     		
     		ValidationUtils.rejectIfStringLength(result, "applicant_name", 20, "이름");
     		    		
-    		RelayLecture relayLecture = service.getRelayLecture(new RelayLecture(getAsideHomepageId(request), relayLectureApply.getLecture_idx()));
+    		RelayLecture relayLecture = service.getRelayLecture(new RelayLecture(homepage.getHomepage_id(), relayLectureApply.getLecture_idx()));
 			try {
 				if(relayLecture.getApply_status() == 0) {
 				service.alertMessage("신청 기간이 아닙니다.", request, response);

@@ -6,6 +6,8 @@ public interface BookRelayClubDao {
 
 	public List<BookRelayClub> bookRelayClubList(BookRelayClub bookRelayClub);
 	
+	public List<BookRelayClub> getExcelList(BookRelayClub bookRelayClub);
+	
 	public BookRelayClub getBookRelayClub(BookRelayClub bookRelayClub);
 	
 	public int bookRelayClubCount(BookRelayClub bookRelayClub);

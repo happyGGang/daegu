@@ -33,9 +33,15 @@ $(document).ready(function() {
 		}
 		
 		if(confirm(message)) {
+
+			$('input#homeapge_id_del').val($('#homepage_id').val());
 			doAjaxPost($('form#hopebookConfigDel'));
 		}
 		
+	});
+
+	$('select#homepage_id').on('change', function() {
+		doGetLoad('index.do', $('form#hopebookConfig').serialize());
 	});
 	
 });
@@ -50,8 +56,17 @@ $(document).ready(function() {
 	<form:hidden path="homepage_id" id="homeapge_id_del"/>
 </form:form>
 <form:form  modelAttribute="hopebookConfig" action="index.do">
-	<form:hidden path="homepage_id"/>
 	<div class="infodesk">
+		<div>
+			<c:choose>
+				<c:when test="${fn:length(subHomepageList) > 0}">
+					도서관 : <form:select path="homepage_id" items="${subHomepageList}" itemLabel="homepage_name" itemValue="homepage_id"></form:select>
+				</c:when>
+				<c:otherwise>
+					<form:hidden path="homepage_id"/>
+				</c:otherwise>
+			</c:choose>
+		</div>
 		<div class="button">
 			<c:if test="${fn:length(hopebookConfigList) < 1}">
 			<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>

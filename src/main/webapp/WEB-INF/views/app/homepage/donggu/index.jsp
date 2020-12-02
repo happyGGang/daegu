@@ -86,7 +86,7 @@ do {
 		// 팝업 관련 코드 END
 
 
-		$('div#holiday-box').load('calendar3.do');
+		$('div#holiday-box').load('calendar3.do?homepage_id=h73');
 		$('ul.newBookUl').load('newBook.do');
 		$('ul.bestBookUl').load('bestBook.do');
 
@@ -169,7 +169,7 @@ do {
 										<li class="on-cont">
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=614&board_idx=${i.board_idx}">
 												<strong>
-													<span class="ca bg-${i.category1}">${i.category1_name}</span> <span class="tit">${i.title}</span><br/>
+													<span class="ca bg-${i.category1}">${not empty i.category1_name ? i.category1_name : '통합'}</span> <span class="tit">${i.title}</span><br/>
 													<span class="datetime">
 														<fmt:formatDate value="${i.add_date}" pattern="yyyy. MM. dd." />
 													</span>
@@ -181,7 +181,7 @@ do {
 									<c:otherwise>
 										<li>
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=614&board_idx=${i.board_idx}">
-												<strong><span class="ca bg-${i.category1}">${i.category1_name}</span> ${i.title}</strong>
+												<strong><span class="ca bg-${i.category1}">${not empty i.category1_name ? i.category1_name : '통합'}</span> ${i.title}</strong>
 												<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd" /></span>
 											</a>
 										</li>
@@ -232,7 +232,7 @@ do {
 													<p class="one-status-box status003">마감</p>
 												</c:if>
 												<c:if test="${i.teach_status eq '6'}">
-													<p class="one-status-box status003">마감</p>
+													<p class="one-status-box status003">대기</p>
 												</c:if>
 											</a>
 										</li>
@@ -263,7 +263,7 @@ do {
 													<p class="one-status-box status003">마감</p>
 												</c:if>
 												<c:if test="${i.teach_status eq '6'}">
-													<p class="one-status-box status003">마감</p>
+													<p class="one-status-box status003">대기</p>
 												</c:if>
 											</a>
 										</li>
@@ -377,7 +377,7 @@ do {
 			<div class="section">
 				<div class="tit">
 					<h3>도서관안내</h3>
-					<p>지도의 아이콘을 클릭하시면 해당 도서관의 간략 정보를 확인하실 수 있습니다.</p>
+					<p class="m_none">지도의 아이콘을 클릭하시면 해당 도서관의 간략 정보를 확인하실 수 있습니다.</p>
 				</div>
 <script>
 $(function() {
@@ -413,26 +413,26 @@ $(function() {
 						<map name="Map" id="Map">
 						<area shape="circle" coords="242,311,8" href="#lib-selector" alt="(공공)안심도서관" class="maps" data-value="1"/>
 						<area shape="circle" coords="36,299,8" href="#lib-selector" alt="(공공)신천도서관" class="maps" data-value="2"/>
-						<area shape="circle" coords="24,307,9" href="#lib-selector" alt="(공립)신암2동 작은도서관" class="maps" data-value="3"/>
+						<area shape="circle" coords="24,307,8" href="#lib-selector" alt="(공립)신암2동 작은도서관" class="maps" data-value="3"/>
 						<area shape="circle" coords="57,282,8" href="#lib-selector" alt="(공립)신암3동 작은도서관" class="maps" data-value="4"/>
 						<area shape="circle" coords="63,315,8" href="#lib-selector" alt="(공립)신천3동 작은도서관" class="maps" data-value="5"/>
 						<area shape="circle" coords="101,288,8" href="#lib-selector" alt="(공립)효목1동 작은도서관" class="maps" data-value="7"/>
-						<area shape="circle" coords="87,302,9" href="#lib-selector" alt="(공립)효목2동 작은도서관" class="maps" data-value="8"/>
+						<area shape="circle" coords="87,302,8" href="#lib-selector" alt="(공립)효목2동 작은도서관" class="maps" data-value="8"/>
 						<area shape="circle" coords="219,149,8" href="#lib-selector" alt="(공립)도평동 작은도서관" class="maps" data-value="9"/>
-						<area shape="circle" coords="147,177,8" href="#lib-selector" alt="(공립)불로어울림 작은도서관" class="maps" data-value="10"/>
-						<area shape="circle" coords="112,232,8" href="#lib-selector" alt="(공립)지저동 작은도서관" class="maps" data-value="11"/>
+						<area shape="circle" coords="148,177,8" href="#lib-selector" alt="(공립)불로어울림 작은도서관" class="maps" data-value="10"/>
+						<area shape="circle" coords="113,232,8" href="#lib-selector" alt="(공립)지저동 작은도서관" class="maps" data-value="11"/>
 						<area shape="circle" coords="142,237,8" href="#lib-selector" alt="(공립)동촌역사 작은도서관" class="maps" data-value="12"/>
-						<area shape="circle" coords="152,280,8" href="#lib-selector" alt="(공립)방촌동 작은도서관" class="maps" data-value="13"/>
-						<area shape="circle" coords="202,215,8" href="#lib-selector" alt="(공립)해안동 작은도서관" class="maps" data-value="14"/>
-						<area shape="circle" coords="295,323,7" href="#lib-selector" alt="(공립)반야월역사 작은도서관" class="maps" data-value="15"/>
-						<area shape="circle" coords="85,274,8" href="#lib-selector" alt="(공립)동구청 작은도서관" class="maps" data-value="16"/>
-						<area shape="circle" coords="72,285,6" href="#lib-selector" alt="(사립)신암5동 작은도서관" class="maps" data-value="17"/>
+						<area shape="circle" coords="152,281,8" href="#lib-selector" alt="(공립)방촌동 작은도서관" class="maps" data-value="13"/>
+						<area shape="circle" coords="202,214,8" href="#lib-selector" alt="(공립)해안동 작은도서관" class="maps" data-value="14"/>
+						<area shape="circle" coords="295,323,8" href="#lib-selector" alt="(공립)반야월역사 작은도서관" class="maps" data-value="15"/>
+						<area shape="circle" coords="86,274,8" href="#lib-selector" alt="(공립)동구청 작은도서관" class="maps" data-value="16"/>
+						<area shape="circle" coords="73,287,8" href="#lib-selector" alt="(사립)신암5동 작은도서관" class="maps" data-value="17"/>
 						<area shape="circle" coords="211,264,8" href="#lib-selector" alt="(사립)방촌어린이도서관" class="maps" data-value="18"/>
-						<area shape="circle" coords="213,355,9" href="#lib-selector" alt="(사립)율하5주민도서관" class="maps" data-value="19"/>
-						<area shape="circle" coords="325,267,8" href="#lib-selector" alt="(사립)꿈날자문고" class="maps" data-value="20"/>
-						<area shape="circle" coords="57,304,6" href="#lib-selector" alt="(사립)행복도서관" class="maps" data-value="21"/>
+						<area shape="circle" coords="213,355,8" href="#lib-selector" alt="(사립)율하5주민도서관" class="maps" data-value="19"/>
+						<area shape="circle" coords="338,263,8" href="#lib-selector" alt="(사립)꿈날자문고" class="maps" data-value="20"/>
+						<area shape="circle" coords="57,304,8" href="#lib-selector" alt="(사립)행복도서관" class="maps" data-value="21"/>
 						<area shape="circle" coords="157,235,8" href="#lib-selector" alt="(사립)늘푸른 도서관" class="maps" data-value="22"/>
-						<area shape="circle" coords="334,321,7" href="#lib-selector" alt="(사립)초록우산도서관" class="maps" data-value="23"/>
+						<area shape="circle" coords="333,322,8" href="#lib-selector" alt="(사립)초록우산도서관" class="maps" data-value="23"/>
 						</map>
 					</div>
 					<div class="map-info">

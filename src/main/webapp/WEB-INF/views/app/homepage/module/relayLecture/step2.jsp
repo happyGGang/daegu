@@ -32,7 +32,7 @@ $(function() {
 	<form:hidden path="lecture_idx"/>
 	
 	<div>
-		<h4>개인정보 수집 활용 동의서</h4>
+		<h2>개인정보 수집 활용 동의서</h2>
 		<p>(신청서 작성자용)</p>
 		
 		<div class="Box" style="height:400px;">	

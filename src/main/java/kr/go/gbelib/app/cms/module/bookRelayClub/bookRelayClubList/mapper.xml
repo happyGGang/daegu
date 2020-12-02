@@ -12,6 +12,16 @@
 		AND	B.club_idx = #{club_idx}
 	</select>
 	
+	<select id="getExcelList" resultType="kr.go.gbelib.app.cms.module.bookRelayClub.bookRelayClubList.BookRelayClubList">
+		SELECT 
+			A.club_idx, B.relaylist_idx, B.relay_name, B.relay_phone, B.relay_etc  
+		FROM 
+			BOOK_RELAY_CLUB A, BOOK_RELAY_CLUB_RELAYLIST B
+		WHERE 
+			A.homepage_id = #{homepage_id}
+		AND	A.club_idx = B.club_idx
+	</select>
+	
 	<select id="bookRelayClubListIdx" resultType="int">
 		SELECT
 			NVL(MAX(relaylist_idx), 0)+1 AS relaylist_idx

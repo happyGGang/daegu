@@ -261,7 +261,8 @@ Date.prototype.format = function(f) {
 			<div class="inbox">
 				<c:forEach var="i" begin="1" end="31" varStatus="status">
 					<c:set var="key" value="${i < 10 ? '0':''}${i}"></c:set>
-					<c:forEach var="j" items="${calendarResult[key]}">
+					<c:set var="idx" value="${i < 10 ? '':''}${i}"></c:set>
+					<c:forEach var="j" items="${calendarResult[idx]}">
 						<c:set var="ty" value="${fn:split(j, ']')}"></c:set>
 						<div class="planList">
 							<p class="datetime">${calendar.plan_date}-${key}</p>
@@ -279,6 +280,6 @@ Date.prototype.format = function(f) {
 		<span class="ev">행사</span>
 	</div>
 
-	<a href="module/calendarManage/index.do?menu_idx=36" class="cal-btn-more">일정더보기 +</a>
+	<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=36" class="cal-btn-more">일정더보기 +</a>
 </div>
 

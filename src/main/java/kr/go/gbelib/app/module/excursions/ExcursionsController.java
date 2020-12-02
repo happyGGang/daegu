@@ -145,7 +145,10 @@ public class ExcursionsController extends BaseController {
 		Member memberInfo = certMember == null ? getSessionMemberInfo(request) : certMember;
 		model.addAttribute("member", memberInfo);
 
-		apply.setHomepage_id(homepage.getHomepage_id());
+		if (StringUtils.isEmpty(apply.getHomepage_id())) {
+			apply.setHomepage_id(homepage.getHomepage_id());
+
+		}
 		if(apply.getEditMode().equals("MODIFY")) {
 			//model.addAttribute("facility", service.copyObjectPaging(facility, service.getFacilityOne(facilityReq)));
 		} else {
@@ -153,12 +156,12 @@ public class ExcursionsController extends BaseController {
 		}
 
 		Excursions excursions = new Excursions();
-		excursions.setHomepage_id(homepage.getHomepage_id());
+		excursions.setHomepage_id(apply.getHomepage_id());
 		excursions.setExcursions_idx(apply.getExcursions_idx());
 
 		//약관 연동부
 		Menu menuOne = (Menu) request.getAttribute("menuOne");
-		model.addAttribute("termsList", termsService.getTermsListInModule(new Terms(homepage.getHomepage_id(), menuOne.getManage_idx(), "module")));
+		model.addAttribute("termsList", termsService.getTermsListInModule(new Terms(apply.getHomepage_id(), menuOne.getManage_idx(), "module")));
 		model.addAttribute("excursions", service.getExcursionsOne(excursions));
 //		model.addAttribute("prtcNotice",MemberAPI.getPrtcNoticeList("WEB"));
 		if ( "ajax".equals(apply.getPageType()) ) {
@@ -185,7 +188,23 @@ public class ExcursionsController extends BaseController {
 			return null;
 	    }
 
-		apply.setHomepage_id(homepage.getHomepage_id());
+		if ((homepage.getHomepage_id().equals("h37") || homepage.getHomepage_id().equals("h49") || homepage.getHomepage_id().equals("h45") || homepage.getHomepage_id().equals("h53"))) {
+			Homepage h = new Homepage();
+			h.setHomepage_id(homepage.getHomepage_id());
+			h.setHomepage_group(homepage.getHomepage_id());
+			h.setTemp_use_yn("Y");
+			List<Homepage> subHomepageList = homepageService.getSubHomepageList(h);
+			if (StringUtils.isEmpty(apply.getHomepage_id())) {
+				if (subHomepageList != null && subHomepageList.size() > 0) {
+					apply.setHomepage_id(subHomepageList.get(0).getHomepage_id());
+				}
+			}
+			model.addAttribute("subHomepageList", subHomepageList);
+		} else {
+			apply.setHomepage_id(homepage.getHomepage_id());
+		}
+
+//		apply.setHomepage_id(homepage.getHomepage_id());
 		apply.setMember_key(getSessionMemberId(request));
 
 		model.addAttribute("applyList", applyService.getUserApply(apply));
