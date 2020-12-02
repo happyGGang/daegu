@@ -114,7 +114,7 @@
 	
 	<select id="getMarathonTypeList" resultType="kr.go.gbelib.app.cms.module.marathonType.MarathonType">
 		SELECT
-			contest_type_idx, contest_type
+			contest_type_idx, contest_type, application_subject
 		FROM
 			MARATHON_CONTEST_TYPE
 		WHERE

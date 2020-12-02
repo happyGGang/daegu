@@ -9,11 +9,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.whalesoft.framework.utils.ValidationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ValidationUtils;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -177,13 +178,16 @@ public class MarathonApplicantController extends BaseController {
 		ValidationUtils.rejectIfEmpty(result, "birthday_year", "생년월일 연도를 선택해 주세요.");
 		ValidationUtils.rejectIfEmpty(result, "birthday_month", "생년월일 월을 선택해 주세요.");
 		ValidationUtils.rejectIfEmpty(result, "birthday_date", "생년월일 일을 선택해 주세요.");
-		ValidationUtils.rejectIfEmpty(result, "contest_type", "참가종목을 선택해 주세요.");
+		ValidationUtils.rejectIfZero(result, "contest_type_idx", "참가종목을 선택해 주세요.");
 		ValidationUtils.rejectIfEmpty(result, "finish_memorial", "완주기념풍을 선택해 주세요.");
 		ValidationUtils.rejectIfEmpty(result, "agree", "달서독서마라톤 대회 참가자 완주기준을 동의하셔야 서비스 이용이 가능합니다.");
 		ValidationUtils.rejectIfEmpty(result, "agree1", "개인정보 수집 및 이용에 동의하셔야 서비스 이용이 가능합니다.");
 		ValidationUtils.rejectIfEmpty(result, "agree2", "만 14세 미만 아동의 참가 신청에 동의하셔야 서비스 이용이 가능합니다.");
 		
-		marathonApplicant.setContest_type_idx(service.getContestTypeIdx(marathonApplicant)); //종목으로 종목 번호를 가져온다.
+//		marathonApplicant.setContest_type_idx(service.getContestTypeIdx(marathonApplicant)); //종목으로 종목 번호를 가져온다.
+
+		marathonApplicant.setContest_type(service.getContestType(marathonApplicant));
+
 		marathonApplicant.setMember_id(getSessionMemberId(request)); //아이디를 가져온다.
 		
 		int checkApplicantCount = service.checkApplicantId(marathonApplicant); //신청 대상을 가져온다.
