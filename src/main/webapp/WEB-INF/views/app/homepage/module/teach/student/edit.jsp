@@ -16,13 +16,15 @@ $(function() {
 			$('#student_birth').val($('#applicant_birth').val());
 			$('#student_birth').prop('disabled', true);
 			$("#student_birth").datepicker('disable');
-			if($('#applicant_sex1').length == 0) {
+			if($('#applicant_sex1').length == 0) { //로그인 했을 때
 				if ($('#applicant_sex').val() == 'M') {
 					$('input[name=student_sex].M').prop('checked', true);
+					$('input[name=student_sex]').prop('disabled', true);
 				} else {
 					$('input[name=student_sex].F').prop('checked', true);
+					$('input[name=student_sex]').prop('disabled', true);
 				}
-			} else {
+			} else { //로그인 하지 않았을 때
 				if ($('#applicant_sex1').is(':checked')) {
 					$('input[name=student_sex].M').prop('checked', true);
 					$('input[name=student_sex]').prop('disabled', true);
@@ -31,10 +33,12 @@ $(function() {
 					$('input[name=student_sex]').prop('disabled', true);
 				}
 			}
+			<c:if test="${!sessionScope.member.login}">
 			if(!($('#applicant_sex1').is(':checked') || $('#applicant_sex2').is(':checked'))) {
 				$('input[name = student_sex].M').prop('checked', false);
 				$('input[name = student_sex].F').prop('checked', false);
 			}
+			</c:if>
 			/* $('#student_sex').val($('#applicant_sex').val()); */
 			//$('#student_zipcode').val($('#applicant_zipcode').val());
  			//$('#student_zipcode').prop('readonly', true);
@@ -144,28 +148,7 @@ $(function() {
 			return false;
 		}
 		</c:if>
-
-		<c:if test="${teach.sms_service_yn eq 'Y'}">
-		if ( $("input:radio[name=sms_service_yn]:checked").length < 1 ) {
-			$form.find ("input:radio[name = sms_service_yn]").focus();
-			alert('sms 수신동의여부를 입력해 주세요.');
-			return false;
-		}
-		</c:if>
-
-		<c:if test="${teach.picture_use_yn eq 'Y'}">
-		if ( $("input:radio[name = picture_use_yn]:checked").length < 1 ) {
-			$form.find ('input:radio[name = picture_use_yn]').focus();
-			alert('사진 촬영 동의 여부를 입력해 주세요.');
-			return false;
-		}
-		</c:if>
-
-// 		if ( $form.find('#self_info_yn').val() != 'Y' ) {
-// 			alert('이용약관 및 개인정보의 수집·이용 동의 하여야 신청이 가능합니다.');
-// 			return false;
-// 		}
-
+		
 		var cellPhone1 = $form.find('#applicant_cell_phone_1').val();
 		if ( cellPhone1 == '' ) {
 			$form.find('#applicant_cell_phone_1').focus();
@@ -184,6 +167,29 @@ $(function() {
 			alert('신청자 휴대전화번호를 입력해 주세요.');
 			return false;
 		}
+
+		<c:if test="${teach.sms_service_yn eq 'Y'}">
+		if ( $("input:radio[name = sms_service_yn]").length > 0 && $("input:radio[name=sms_service_yn]:checked").length < 1 ) {
+			$form.find ("input:radio[name = sms_service_yn]").focus();
+			alert('sms 수신동의여부를 선택해 주세요.');
+			return false;
+		}
+		</c:if>
+
+		<c:if test="${teach.picture_use_yn eq 'Y'}">
+		if ( $("input:radio[name = picture_use_yn]").length > 0 && $("input:radio[name = picture_use_yn]:checked").length < 1 ) {
+			$form.find ('input:radio[name = picture_use_yn]').focus();
+			alert('사진 촬영 동의 여부를 선택해 주세요.');
+			return false;
+		}
+		</c:if>
+
+// 		if ( $form.find('#self_info_yn').val() != 'Y' ) {
+// 			alert('이용약관 및 개인정보의 수집·이용 동의 하여야 신청이 가능합니다.');
+// 			return false;
+// 		}
+
+		
 
 		var applyFile = $('#apply_file');
 		if ($('#apply_file').val() == '') {
@@ -226,9 +232,19 @@ $(function() {
 			if($('#applicant_name').val() != $('#student_name').val()){
 				alert('신청자 성명과 수강생 성명이 동일하지 않습니다.');
 				return false;
-			}else if($('input:radio[name = applicant_sex]:checked').val() != $('input:radio[name = student_sex]:checked').val()){
-				alert('신청자 성별과 수강생 성별이 동일하지 않습니다.');
-				return false;
+			}
+			<c:choose>
+				<c:when test="${!sessionScope.member.login}">
+				else if($('input:radio[name = applicant_sex]:checked').val() != $('input:radio[name = student_sex]:checked').val()){
+					alert('신청자 성별과 수강생 성별이 동일하지 않습니다.');
+					return false;
+				</c:when>
+				<c:otherwise>
+				else if($('input#applicant_sex').val() != $('input:radio[name = student_sex]:checked').val()){
+					alert('신청자 성별과 수강생 성별이 동일하지 않습니다.');
+					return false;
+				</c:otherwise>
+			</c:choose>
 			}else if($('#applicant_birth').val() != $('#student_birth').val()){
 				alert('신청자 생년월일과 수강생 생년월일이 동일하지 않습니다.');
 				return false;
@@ -316,7 +332,7 @@ $(function() {
 		$form.find('input[name = student_sex]').prop('disabled', false);
 		$form.find("#student_birth").prop('disabled', false);
 		$form.find('#family_name').prop('disabled', false);
-		
+
 		var option = {
 			url : 'save.do',
 			type : 'POST',
@@ -458,7 +474,7 @@ $(function() {
 	});
 
 	<c:if test="${sessionScope.member.login}">
-	$("#applicant_birth").datepicker('disable');
+	
 	</c:if>
 });
 $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(this).val().replace(/[^0-9]/gi,"") );});
