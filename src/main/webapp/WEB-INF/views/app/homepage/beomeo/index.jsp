@@ -222,7 +222,7 @@ do {
 								<ul>
 									<c:forEach items="${teachList}" var="i" varStatus="status" begin="0" end="4">
 										<li>
-											<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=32&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&homepage_id=${i.homepage_id}">
+											<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=120&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&homepage_id=${i.homepage_id}">
 												<span class="sulib001">수성</span>
 												<em>${i.teach_name}</em>
 												<span class="date">${i.start_date}</span>
