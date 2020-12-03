@@ -411,7 +411,7 @@ public class BoardController extends BaseController {
 
 		if (StringUtils.isNotEmpty(board.getInitSearch())) {
 			if (board.getInitSearch().equals("A")) {
-				board.setInitSearch2("A");
+				board.setInitSearch2("0");
 				board.setInitSearchNext("z");
 			} else if (board.getInitSearch().equals("ㅎ")) {
 				board.setInitSearch2("하");
