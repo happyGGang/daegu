@@ -130,7 +130,7 @@ $(function() {
 		}
 
 		<c:if test="${teach.sex_yn eq 'Y'}">
-		if ( $("input:radio[name = applicant_sex]:checked").length < 1 ) {
+		if ( $("input:radio[name = applicant_sex]").length > 0 && $("input:radio[name = applicant_sex]:checked").length < 1 ) {
 			$form.find('input:radio[name = applicant_sex]').focus();
 			alert('신청자 성별을 입력해 주세요.');
 			return false;
