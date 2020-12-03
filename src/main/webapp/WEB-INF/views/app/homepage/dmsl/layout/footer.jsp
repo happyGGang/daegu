@@ -29,7 +29,6 @@
 							<li class="disabled"><a title="수성구고산도서관" href="/gosan/index.do">수성구고산도서관</a></li>
 							<li class="disabled"><a title="달서구립도서관" href="/dalseolib/index.do">달서구립도서관</a></li>
 							<li class="disabled"><a title="달성군립도서관" href="/dalseonglib/index.do">달성군립도서관</a></li>
-							<li class="disabled"><a title="시청작은도서관" href="/dmsl/index.do">시청작은도서관</a></li>
 							</ul>
 						</div>
 						<a href="#" class="btn">이동</a>
@@ -40,11 +39,11 @@
 				</div>
 				<div class="foot-info">
 					<div class="info">
-						<a href="html.do?menu_idx=75"><b>개인정보처리방침</b></a>
+						<a href="/${homepage.context_path}/html.do?menu_idx=75"><b>개인정보처리방침</b></a>
 						<span class="bar">|</span>
-						<a href="html.do?menu_idx=95">이메일무단수집거부</a>
-						<span class="bar">|</span>
-						<a href="html.do?menu_idx=77">이용약관</a>
+						<!-- <a href="/${homepage.context_path}/html.do?menu_idx=95">이메일무단수집거부</a>
+						<span class="bar">|</span> -->
+						<a href="/${homepage.context_path}/html.do?menu_idx=77">이용약관</a>
 					</div>
 				</div>
 				<address>

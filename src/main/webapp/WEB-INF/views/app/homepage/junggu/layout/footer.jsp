@@ -29,7 +29,6 @@
 							<li class="disabled"><a title="수성구고산도서관" href="/gosan/index.do">수성구고산도서관</a></li>
 							<li class="disabled"><a title="달서구립도서관" href="/dalseolib/index.do">달서구립도서관</a></li>
 							<li class="disabled"><a title="달성군립도서관" href="/dalseonglib/index.do">달성군립도서관</a></li>
-							<li class="disabled"><a title="시청작은도서관" href="/dmsl/index.do">시청작은도서관</a></li>
 							</ul>
 						</div><a href="#" class="btn fsitebtn">이동</a>
 					</div>
@@ -41,15 +40,15 @@
 				<div class="top-info">
 					<div class="foot-info">
 						<div class="info">
-							<a href="html.do?menu_idx=75"><b>개인정보처리방침</b></a>
+							<a href="/${homepage.context_path}/html.do?menu_idx=75"><b>개인정보처리방침</b></a>
 							<span class="bar">|</span>
-							<a href="html.do?menu_idx=76">영상정보처리방침</a>
+							<a href="/${homepage.context_path}/html.do?menu_idx=76">영상정보처리방침</a>
 							<span class="bar">|</span>
-							<a href="html.do?menu_idx=78">도서관서비스헌장</a>
+							<a href="/${homepage.context_path}/html.do?menu_idx=78">도서관서비스헌장</a>
 							<span class="bar">|</span>
-							<a href="html.do?menu_idx=79">저작권보호정책</a>
+							<a href="/${homepage.context_path}/html.do?menu_idx=79">저작권보호정책</a>
 							<span class="bar">|</span>
-							<a href="html.do?menu_idx=80">뷰어다운로드</a>
+							<a href="/${homepage.context_path}/html.do?menu_idx=80">뷰어다운로드</a>
 						</div>
 					</div>
 				</div>

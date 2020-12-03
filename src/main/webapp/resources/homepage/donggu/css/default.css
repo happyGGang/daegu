@@ -22,7 +22,7 @@ a:focus{color:#2b74c0}
 .Gnb{clear:both;text-align:center;width:100%;height:90px;overflow:inherit;position:relative;}
 .Gnb .gnb-menu{position:relative;text-align:right;padding-right:0;}
 .Gnb .gnb-menu>li{padding:0 1.5%;text-align:center;position:static}
-.Gnb .gnb-menu>li:last-child{margin-right:50px;}
+.Gnb .gnb-menu>li:nth-child(7){margin-right:30px;}
 .Gnb .gnb-menu>li>a{line-height:90px;height:90px;font-size:21px;color:#222;font-weight:bold;}
 .Gnb .gnb-menu>li>ul{display:none;background:#666;border:0;left:0;white-space:nowrap;text-align:center;}
 .Gnb .gnb-menu>li.active>ul{display:block}
@@ -50,6 +50,9 @@ a:focus{color:#2b74c0}
 .Gnb .g-menu a.last-box {position:absolute;right:0;top:35px;}
 
 .Gnb .gnb-menu>li:last-child{padding-right:0;}
+
+.onbook_box{background:#ffc010;margin-left:20px;position:absolute;top:0;right:0;}
+.onbook_btn{font-size:12px !important;color:#000 !important;font-weight:bold;padding:0 10px;}
 
 /*공통 푸터*/
 #footer {padding:0 0 50px;z-index:3;background:#343434;}
@@ -83,7 +86,7 @@ a:focus{color:#2b74c0}
 .footer .site_link > div > div > a.fsite,
 #footer .site_link > div > div > a.fsite{display:block;padding:3px 8px;border-right-width:0;text-align:left;border:1px solid #727272;background:transparent;color:#fff;}
 .footer .site_link > div > div > ul,
-#footer .site_link > div > div > ul{position:absolute;bottom:30px;left:0;width:100%;text-align:left;border-top:1px solid #ccc;background:#fff}
+#footer .site_link > div > div > ul{position:absolute;bottom:36px;left:0;width:100%;text-align:left;border-top:1px solid #ccc;background:#fff}
 .footer .site_link > div > div > ul,
 #footer .site_link > div > div > ul{overflow-y:auto;border-right:1px solid #ccc}
 .footer .site_link > div > div > ul > li,
