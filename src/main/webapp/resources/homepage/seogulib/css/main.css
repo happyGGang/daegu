@@ -203,7 +203,7 @@
 .section02 .con .movie {position:relative;float:left;padding-top:40px;cursor:pointer;width:33%;}
 .section02 .con .movie .img_box {position:relative;width:40%;height:245px;float:left;}
 .section02 .con .movie .img_box img {width:180px;height:245px;border:1px solid #222;}
-.section02 .con .movie .con_box {float:left;margin-left:20px;margin-top:10px;width:calc(60%-20px);white-space:normal;box-sizing:border-box;word-break:break-all;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
+.section02 .con .movie .con_box {float:left;margin-left:20px;margin-top:10px;width:calc(60% - 20px);white-space:normal;box-sizing:border-box;word-break:break-all;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
 .section02 .con .movie .con_box .info{font-size:16px;color:#000;letter-spacing:-0.75px;white-space:normal;box-sizing:border-box;word-break:break-all;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
 .section02 .con .movie .con_box .tit{font-size:19px;color:#000;letter-spacing:-1px;font-weight:bold;padding:10px 0 5px;white-space:normal;box-sizing:border-box;word-break:break-all;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
 .section02 .con .movie .con_box .info b{margin-right:5px;}
