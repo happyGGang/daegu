@@ -114,14 +114,14 @@ $(function() {
 					<tr>
 						<td>${paging.listRowNum - status.index}</td>
 						<td>
-							<a href="#" class="view_btn" data-key="${i.reader_idx}">
-								<c:choose>
-									<c:when test="${i.participation_field eq '0'}">소년부(초등~중등)</c:when>
-									<c:when test="${i.participation_field eq '1'}">장년부(고등~일반)</c:when>
-								</c:choose>
-							</a>
+							<c:choose>
+								<c:when test="${i.participation_field eq '0'}">소년부(초등~중등)</c:when>
+								<c:when test="${i.participation_field eq '1'}">장년부(고등~일반)</c:when>
+							</c:choose>
 						</td>
-						<td>${i.user_name}</td>
+						<td>
+							<a href="#" class="view_btn" data-key="${i.reader_idx}">${i.user_name}</a>
+						</td>
 						<td>${i.user_phone}</td>
 						<td>${i.user_email}</td>
 						<td>
