@@ -337,10 +337,17 @@ do {
 					<div class="con">
 						<ul>
 							<c:forEach items="${teachList}" var="i" varStatus="status" begin="0" end="3">
+								<c:set var="teachMenuIdx" value="94"></c:set>
+								<c:if test="${i.large_category_idx eq 16}">
+									<c:set var="teachMenuIdx" value="94"></c:set>
+								</c:if>
+								<c:if test="${i.large_category_idx eq 17}">
+									<c:set var="teachMenuIdx" value="32"></c:set>
+								</c:if>
 								<c:choose>
 									<c:when test="${status.index == 0}">
 										<li class="on-cont">
-											<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=32&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}">
+											<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=${teachMenuIdx}&searchCate1=${i.large_category_idx}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}">
 												<div class="cont">
 													<strong>${i.teach_name}</strong>
 													<span class="txt"><b>접수</b>  ${i.start_join_date} ~ ${i.end_join_date}</span>
@@ -375,7 +382,7 @@ do {
 									</c:when>
 									<c:otherwise>
 										<li>
-											<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=32&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}">
+											<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=${teachMenuIdx}&searchCate1=${i.large_category_idx}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}">
 												<strong>${i.teach_name}</strong>
 												<c:if test="${i.teach_status eq '0'}">
 													<p class="one-status-box status002">접수중</p>
