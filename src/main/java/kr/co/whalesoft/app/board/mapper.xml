@@ -1552,6 +1552,9 @@
 			<if test="category5 != null and category5 != ''">
 			AND category5 = #{category5}
 			</if>
+			<if test="category1 != null and category1 != ''">
+				AND category1 = #{category1}
+			</if>
 			) a
 	</select>
 
