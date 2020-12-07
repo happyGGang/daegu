@@ -3,11 +3,17 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%
+	long st = System.currentTimeMillis();
+%>
+<c:set var="st" value="<%=st%>"></c:set>
 <script type="text/javascript">
-
-	alert('신청 마감되었습니다.');
-	history.back();
-
+	var a = parseFloat('${st}');
+	var l = parseFloat('1607994000418');
+	if (a < l) {
+		alert('신청 마감되었습니다.');
+		history.back();
+	}
 $(function() {
 	
 	$('#save-btn').on('click', function(e) {
