@@ -64,6 +64,11 @@ public class ExpReservationService extends BaseService{
 				}
 				c.add(Calendar.DATE, 1);
 			}
+			
+			if(days == 0) {
+				expReservation.setReservation_date(sdf.format(c.getTime()).replace("-", ""));
+				result += dao.addExpReservation(expReservation);
+			}
 		}catch(ParseException e) {
 			e.printStackTrace();
 		}

@@ -25,11 +25,6 @@ $(function(){
 					var from = $('input#from_date').val();
 					var to = $('input#to_date').val();
 					
-					if (to < from) {
-						alert('예약 기간이 올바르지 않습니다.');
-						return false;
-					}
-					
 					if(doAjaxPost($('#expReservation_edit'))) {
 						$(this).dialog('destroy');
 						location.reload();
@@ -157,9 +152,9 @@ $(function(){
 			<th>예약일(<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>
 				<c:if test="${expReservation.editMode eq 'ADD'}">
-					<form:input type="text" path="from_date" class="text ui-calendar"/>
+					<form:input path="from_date" class="text ui-calendar"/>
 					<span id="tilde" style="font-size:12px">~</span>
-					<form:input type="text" path="to_date" class="text ui-calendar"/>
+					<form:input path="to_date" class="text ui-calendar"/>
 					<div style="margin-top: 5px;">
 						<form:checkbox path="weeks" id="checkAll" value="0" label="전체"/>&nbsp;
 						<form:checkbox path="weeks" value="1" label="일"/>&nbsp;

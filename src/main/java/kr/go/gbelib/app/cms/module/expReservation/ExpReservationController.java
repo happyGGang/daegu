@@ -69,8 +69,8 @@ public class ExpReservationController extends BaseController{
 		if(expReservation.getEditMode().equals("ADD") || expReservation.getEditMode().equals("MODIFY")) {
 			ValidationUtils.rejectIfEmpty(result, "program_name", "프로그램명을 입력하세요.");
 			if(expReservation.getEditMode().equals("ADD")) {
-				ValidationUtils.rejectIfEmpty(result, "reservation_type", "신청구분을 선택하세요.");
 				ValidationUtils.rejectIfEmpty(result, "member_yn", "비회원 신청여부를 선택하세요.");
+				ValidationUtils.rejectIfEmpty(result, "reservation_type", "신청구분을 선택하세요.");
 				ValidationUtils.rejectIfEmpty(result, "from_date", "예약일을 선택하세요.");
 				ValidationUtils.rejectIfEmpty(result, "to_date", "예약일을 선택하세요.");
 				ValidationUtils.rejectIfEmpty(result, "weeks", "요일을 선택하세요.");
@@ -80,7 +80,6 @@ public class ExpReservationController extends BaseController{
 				ExpReservationApply expApply = new ExpReservationApply(expReservation.getProgram_list_idx(), expReservation.getHomepage_id());
 				List<ExpReservationApply> expApplyList = expReservationApplyService.getExpApplyList(expApply);
 				if((!expApplyList.isEmpty() && expApplyList != null) && !expReservation.getReservation_type().equals(expReservation.getReservation_type_original()) ) {
-					System.out.println(" this");
 					result.reject("신청이 되어 있어 신청구분을 변경할 수 없습니다.");
 				}
 			}
