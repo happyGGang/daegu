@@ -5,4 +5,7 @@
 		<setting name="jdbcTypeForNull" value="VARCHAR" />
 	</settings>
 
+	<plugins>
+		<plugin interceptor="kr.co.whalesoft.framework.mybatis.interceptor.QueryInterceptor"></plugin>
+	</plugins>
 </configuration>
