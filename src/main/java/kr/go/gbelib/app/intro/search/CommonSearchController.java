@@ -900,6 +900,16 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 			return null;
 		}
 
+		String homepageId = homepage.getHomepage_id();
+		if (StringUtils.isNotEmpty(librarySearch.getHomepage_id())) {
+			homepageId = librarySearch.getHomepage_id();
+		}
+		HopebookConfig hopebookConfig = hopebookConfigService.getHopebookConfigInfo(homepageId);
+		if(hopebookConfig != null) {
+			service.alertMessage(hopebookConfig.getRes_msg(), request, response);
+			return null;
+		}
+
 //		if ( !homepage.getHomepage_code().contains(member.getLoca())) {
 //			service.alertMessage("희망도서 신청은 소속도서관에서만 가능합니다.", request, response);
 //			return null;
