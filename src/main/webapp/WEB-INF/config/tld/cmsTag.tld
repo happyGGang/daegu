@@ -316,5 +316,54 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
+	
+	<tag>
+		<description>체험예약</description>
+		<name>expReservation</name>
+		<tag-class>kr.co.whalesoft.framework.tag.CalendarExpReservation</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>expReservationList</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>plan_date</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<description>체험예약(사용자)</description>
+		<name>expReservationUser</name>
+		<tag-class>kr.co.whalesoft.framework.tag.CalendarExpReservationUser</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>expReservationList</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>calendarManageList</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>expApplyList</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>plan_date</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>mode</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
 
 </taglib>

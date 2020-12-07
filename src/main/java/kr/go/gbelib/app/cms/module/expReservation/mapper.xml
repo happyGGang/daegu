@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.expReservation.ExpReservationDao">
+	
+	<select id="getCalendar" resultType="kr.go.gbelib.app.cms.module.expReservation.ExpReservation">
+		SELECT 
+			MIN( DECODE( TO_CHAR(days, 'D'), 1, TO_CHAR(days, 'FMDD'))) AS sun,
+			MIN( DECODE( TO_CHAR(days, 'D'), 2, TO_CHAR(days, 'FMDD'))) AS mon,
+			MIN( DECODE( TO_CHAR(days, 'D'), 3, TO_CHAR(days, 'FMDD'))) AS tue,
+			MIN( DECODE( TO_CHAR(days, 'D'), 4, TO_CHAR(days, 'FMDD'))) AS wed,
+			MIN( DECODE( TO_CHAR(days, 'D'), 5, TO_CHAR(days, 'FMDD'))) AS thu,
+			MIN( DECODE( TO_CHAR(days, 'D'), 6, TO_CHAR(days, 'FMDD'))) AS fri,
+			MIN( DECODE( TO_CHAR(days, 'D'), 7, TO_CHAR(days, 'FMDD'))) AS sat
+   		FROM
+			(
+			SELECT
+				(A.base_mon + ROWNUM -1) AS days,
+				A.base_mon,
+				((TRUNC(base_mon + ROWNUM - 1, 'D') - TRUNC(TRUNC(base_mon + ROWNUM - 1, 'Y'), 'D')) / 7 + 1) AS WEEK_NUM
+			FROM
+				(
+				SELECT
+					TO_DATE (#{plan_date}, 'yyyy-MM') base_mon
+				FROM
+					DUAL
+				) A, DICTIONARY B
+			) C
+		WHERE
+			C.days <![CDATA[<=]]> LAST_DAY(base_mon)
+  		GROUP BY week_num
+  		ORDER BY week_num
+	</select>
+	
+	<select id="getExpReservationList" resultType="kr.go.gbelib.app.cms.module.expReservation.ExpReservation">
+		SELECT
+			program_list_idx, member_yn, reservation_date, reservation_type, member_yn,
+			program_name, use_time, notice, usage_agreement, total_people,
+			enable_number_of_team, maximum_people_of_team, add_date, add_id, homepage_id,
+			(select count(*) from EXP_RESERVATION B where B.program_list_idx = A.program_list_idx) as apply_count
+		FROM
+			EXP_PROGRAM_LIST A
+		WHERE
+			TO_CHAR(TO_DATE(reservation_date, 'YYYYMMDD'), 'YYYYMM') = TO_CHAR(TO_DATE(reservation_date, 'YYYYMMDD'), 'YYYYMM')
+		AND	homepage_id = #{homepage_id}
+		ORDER BY
+			reservation_date, use_time
+	</select>
+	
+	<select id="getExpReservationOne" resultType="kr.go.gbelib.app.cms.module.expReservation.ExpReservation">
+		SELECT
+			program_list_idx, reservation_date, reservation_type, member_yn, program_name,
+			use_time, notice, usage_agreement, total_people, enable_number_of_team,
+			maximum_people_of_team, add_date, add_id, homepage_id
+		FROM
+			EXP_PROGRAM_LIST
+		WHERE
+			program_list_idx = #{program_list_idx}
+	</select>
+	
+	<insert id="addExpReservation">
+		INSERT INTO
+			EXP_PROGRAM_LIST
+		(
+			program_list_idx, reservation_date, reservation_type, member_yn, program_name,
+			use_time, notice, usage_agreement, total_people, enable_number_of_team,
+			maximum_people_of_team, add_date, add_id, homepage_id
+		) VALUES
+		( 
+			(SELECT NVL(MAX(program_list_idx),0)+1 FROM EXP_PROGRAM_LIST), #{reservation_date}, #{reservation_type}, #{member_yn}, #{program_name},
+			#{use_time}, #{notice}, #{usage_agreement}, #{total_people}, #{enable_number_of_team},
+			#{maximum_people_of_team}, SYSDATE, #{add_id}, #{homepage_id}
+		)
+	</insert>
+	
+	<update id="modifyExpReservation">
+		UPDATE
+			EXP_PROGRAM_LIST
+		SET
+			reservation_date = REPLACE(#{reservation_date}, '-', ''),
+			reservation_type = #{reservation_type},
+			member_yn = #{member_yn},
+			program_name = #{program_name},
+			use_time = #{use_time},
+			notice = #{notice},
+			usage_agreement = #{usage_agreement},
+			total_people = #{total_people},
+			enable_number_of_team = #{enable_number_of_team},
+			maximum_people_of_team = #{maximum_people_of_team},
+			modify_date = SYSDATE,
+			modify_id = #{modify_id}
+		WHERE
+			program_list_idx = #{program_list_idx}
+	</update>
+	
+	<delete id="deleteExpReservation">
+		DELETE FROM
+			EXP_PROGRAM_LIST
+		WHERE
+			program_list_idx = #{program_list_idx}
+	</delete>
+</mapper>

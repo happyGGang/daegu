@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.expReservation.expReservationApply.ExpReservationApplyDao">
+
+	<select id="getExpApplyList" resultType="kr.go.gbelib.app.cms.module.expReservation.expReservationApply.ExpReservationApply">
+		SELECT
+		 	a.program_list_idx, b.reservation_idx, a.program_name, a.reservation_date, a.reservation_type,
+		 	a.member_yn, a.use_time, a.homepage_id, b.member_id, b.member_name,
+		 	b.member_phone, b.application_people, b.approve_yn, b.cancel_yn, b.add_date
+		FROM
+			EXP_PROGRAM_LIST a, EXP_RESERVATION b
+		WHERE
+			a.program_list_idx = b.program_list_idx
+		AND	b.program_list_idx = #{program_list_idx}
+		AND	a.homepage_id = b.homepage_id
+		AND	b.homepage_id = #{homepage_id}
+		ORDER BY
+			a.reservation_date, a.use_time, b.add_date	
+	</select>
+	
+	<select id="getExpApplyUserList" resultType="kr.go.gbelib.app.cms.module.expReservation.expReservationApply.ExpReservationApply">
+		${pagingTop}
+		SELECT
+			a.program_list_idx, b.reservation_idx, a.program_name, a.reservation_date, a.reservation_type,
+			a.member_yn, a.use_time, a.homepage_id, b.member_id, b.member_name,
+			b.member_phone, b.application_people, b.approve_yn, b.cancel_yn, b.reference,
+			b.add_date
+		FROM
+			EXP_PROGRAM_LIST a, EXP_RESERVATION b
+		WHERE
+			a.program_list_idx = b.program_list_idx
+		AND	a.homepage_id = b.homepage_id
+		AND	b.homepage_id = #{homepage_id}
+		AND	b.member_id = #{member_id}
+		<if test="search_date != null and search_date != ''">
+       	AND reservation_date = REPLACE(#{search_date}, '-', '')
+      	</if>
+		ORDER BY
+			a.reservation_date, a.use_time, b.add_date
+		${pagingBottom}
+	</select>
+
+	<select id="getExpReservationOne" resultType="kr.go.gbelib.app.cms.module.expReservation.expReservationApply.ExpReservationApply">
+		SELECT
+			program_list_idx, reservation_date, reservation_type, member_yn, program_name,
+			use_time, notice, usage_agreement, homepage_id, total_people,
+			enable_number_of_team, maximum_people_of_team
+		FROM
+			EXP_PROGRAM_LIST
+		WHERE
+			program_list_idx = #{program_list_idx}
+	</select>
+
+	<select id="getExpReservationApplyOne" resultType="kr.go.gbelib.app.cms.module.expReservation.expReservationApply.ExpReservationApply">
+		SELECT
+			a.program_list_idx, a.reservation_date, a.reservation_type, a.member_yn, a.program_name,
+			a.use_time, a.notice, a.usage_agreement, a.homepage_id, a.total_people,
+			a.enable_number_of_team, a.maximum_people_of_team, b.reservation_idx, b.member_id, b.member_name,
+			b.member_phone, b.member_email, b.application_people, b.reference, b.usage_agreement_yn,
+			b.approve_yn, b.cancel_yn
+		FROM
+			EXP_PROGRAM_LIST a, EXP_RESERVATION b
+		WHERE
+			a.program_list_idx = b.program_list_idx
+		AND	a.homepage_id = b.homepage_id
+		AND	b.reservation_idx = #{reservation_idx}
+	</select>
+	
+	<select id="getExpApplyDownloadList" resultType="kr.go.gbelib.app.cms.module.expReservation.expReservationApply.ExpReservationApply">
+		SELECT
+			a.program_list_idx, b.reservation_idx, a.program_name, a.reservation_date, a.reservation_type,
+			a.member_yn, a.use_time, a.homepage_id, b.member_id, b.member_name,
+			b.member_phone, b.application_people, b.approve_yn, b.cancel_yn, b.reference,
+			b.add_date
+		FROM
+			EXP_PROGRAM_LIST a, EXP_RESERVATION b
+		WHERE
+			a.program_list_idx = b.program_list_idx
+		AND	a.homepage_id = b.homepage_id
+		AND	b.homepage_id = #{homepage_id}
+		ORDER BY
+			a.reservation_date, a.use_time, b.add_date
+	</select>
+	
+	<select id="getExpApplyMonth" resultType="kr.go.gbelib.app.cms.module.expReservation.expReservationApply.ExpReservationApply">
+		SELECT
+			a.program_list_idx, b.reservation_idx, a.program_name, a.reservation_date, a.reservation_type,
+			a.member_yn, a.use_time, a.homepage_id, b.member_id, b.member_name,
+			b.member_phone, b.application_people, b.approve_yn, b.cancel_yn, b.reference,
+			b.add_date
+		FROM
+			EXP_PROGRAM_LIST a, EXP_RESERVATION b
+		WHERE
+			a.program_list_idx = b.program_list_idx
+		AND	a.homepage_id = b.homepage_id
+		AND	b.homepage_id = #{homepage_id}
+		AND TO_CHAR(TO_DATE(a.reservation_date,'YYYYMMDD'), 'YYYYMM') = TO_CHAR(TO_DATE(#{plan_date},'YYYY-MM'), 'YYYYMM')
+		ORDER BY
+			a.reservation_date, a.use_time, b.add_date
+	</select>
+	
+	<select id="getExpApplyDate" resultType="kr.go.gbelib.app.cms.module.expReservation.expReservationApply.ExpReservationApply">
+		SELECT
+			a.program_list_idx, b.reservation_idx, a.program_name, a.reservation_date, a.reservation_type,
+			a.member_yn, a.use_time, a.homepage_id, b.member_id, b.member_name,
+			b.member_phone, b.application_people, b.approve_yn, b.cancel_yn, b.reference,
+			b.add_date
+		FROM
+			EXP_PROGRAM_LIST a, EXP_RESERVATION b
+		WHERE
+			a.program_list_idx = b.program_list_idx
+		AND	b.program_list_idx = #{program_list_idx}
+		AND	a.homepage_id = b.homepage_id
+		AND	b.homepage_id = #{homepage_id}
+		ORDER BY
+			a.reservation_date, a.use_time, b.add_date
+	</select>
+	
+	<select id="getExpApplyOne" resultType="kr.go.gbelib.app.cms.module.expReservation.expReservationApply.ExpReservationApply">
+		SELECT
+			program_list_idx, reservation_date, reservation_type, member_yn, program_name,
+			use_time, notice, usage_agreement, homepage_id, enable_number_of_team,
+			total_people, maximum_people_of_team
+		FROM
+			EXP_PROGRAM_LIST
+		WHERE
+			program_list_idx = #{program_list_idx}
+	</select>
+	
+	<select id="totalExpApplyPeople" resultType="int">
+		SELECT
+			SUM(application_people) AS totalPeople
+		FROM
+			EXP_RESERVATION
+		WHERE
+			program_list_idx = #{program_list_idx}
+		AND	homepage_id = #{homepage_id}
+		AND	cancel_yn = 'N'
+		<if test="reservation_idx > 0">
+		AND	reservation_idx != #{reservation_idx}
+		</if>
+	</select>
+	
+	<select id="totalExpApply" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			EXP_RESERVATION
+		WHERE
+			program_list_idx = #{program_list_idx}
+		AND	homepage_id = #{homepage_id}
+		AND	cancel_yn = 'N'
+		<if test="reservation_idx > 0">
+		AND	reservation_idx != #{reservation_idx}
+		</if>
+	</select>
+	
+	<select id="checkExpApply" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			EXP_RESERVATION
+		WHERE
+			program_list_idx = #{program_list_idx}
+		AND	homepage_id = #{homepage_id}
+		AND	member_id = #{member_id}
+	</select>
+	
+	<select id="expApplyListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			EXP_PROGRAM_LIST a, EXP_RESERVATION b
+		WHERE
+			a.program_list_idx = b.program_list_idx
+		AND	a.homepage_id = b.homepage_id
+		AND	b.homepage_id = #{homepage_id}
+		AND	b.member_id = #{member_id}
+		<if test="search_date != null and search_date != ''">
+       	AND reservation_date = REPLACE(#{search_date}, '-', '')
+      	</if>
+	</select>
+	
+	<insert id="addExpApply">
+		INSERT INTO
+			EXP_RESERVATION
+		(
+			reservation_idx, program_list_idx, member_id, member_name, member_phone, 
+			member_email, application_people, reference, add_date, usage_agreement_yn,
+			approve_yn, cancel_yn, homepage_id
+		)
+		VALUES
+		(
+			(SELECT NVL(MAX(reservation_idx),0)+1 FROM EXP_RESERVATION), #{program_list_idx}, #{member_id}, #{member_name}, #{member_phone},
+			#{member_email}, #{application_people}, #{reference}, SYSDATE, #{usage_agreement_yn}, 
+			#{approve_yn}, #{cancel_yn}, #{homepage_id}
+		)
+	</insert>
+	
+	<update id="modifyExpApply">
+		UPDATE
+			EXP_RESERVATION
+		SET
+			member_id = #{member_id},
+			member_name = #{member_name},
+			member_phone = #{member_phone},
+			member_email = #{member_email},
+			application_people = #{application_people},
+			reference = #{reference},
+			modify_date = SYSDATE,
+			modify_id = #{modify_id}
+		WHERE
+			reservation_idx = #{reservation_idx}
+	</update>
+	
+	<update id="modifyExpApplyState">
+		UPDATE
+			EXP_RESERVATION
+		SET
+			approve_yn = #{approve_yn},
+			cancel_yn = #{cancel_yn},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
+		WHERE
+			reservation_idx = #{reservation_idx}
+	</update>
+
+	<delete id="deleteExpProgram">
+		DELETE FROM
+			EXP_RESERVATION
+		WHERE
+			program_list_idx = #{program_list_idx}
+	</delete>
+
+	<delete id="deleteExpApply">
+		DELETE FROM
+			EXP_RESERVATION
+		WHERE
+			reservation_idx = #{reservation_idx}
+	</delete>
+</mapper>
