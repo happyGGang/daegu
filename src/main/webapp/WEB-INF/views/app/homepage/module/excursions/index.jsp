@@ -216,7 +216,20 @@ $(function(){
 		<div class="tab_menu on">
 			<ul class="no${fn:length(subHomepageList)}">
 				<c:forEach items="${subHomepageList}" var="i" varStatus="status">
-					<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">${i.homepage_alias}</a></li>
+					<c:choose>
+						<c:when test="${i.homepage_id eq 'h73'}">
+							<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">안심도서관</a></li>
+						</c:when>
+						<c:when test="${i.homepage_id eq 'h59'}">
+							<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">신천도서관</a></li>
+						</c:when>
+						<c:when test="${i.homepage_id eq 'h60'}">
+							<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">반야월역사</a></li>
+						</c:when>
+						<c:otherwise>
+							<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">${i.homepage_alias}</a></li>
+						</c:otherwise>
+					</c:choose>
 				</c:forEach>
 			</ul>
 		</div>
