@@ -126,7 +126,11 @@ public class JoinController extends BaseController {
 			model.addAttribute("result", joinService.getIpinEncData(request, returnUrl));
 		}
 		Homepage homepage = getSessionHomepage(request);
-		request.getSession().setAttribute("currentContext", homepage.getContext_path());
+		if (homepage != null) {
+			request.getSession().setAttribute("currentContext", homepage.getContext_path());
+		} else {
+			request.getSession().setAttribute("currentContext", "null");
+		}
 
 		request.getSession().setAttribute("certType", certType);
 		String mode = String.valueOf(request.getParameter("mode"));

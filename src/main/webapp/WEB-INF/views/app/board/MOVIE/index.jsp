@@ -303,7 +303,7 @@ ${boardManage.top_html}
 									</c:if>
 									<c:if test="${i.imsi_v_1 ne '' and i.imsi_v_2 ne ''}">
 									<li style="font-size: 15px;">상영일시 : <strong>${i.imsi_v_1}-${i.imsi_v_2}</strong>
-										<c:if test="${i.imsi_v_3 ne null and i.imsi_v_4 ne null}">${i.imsi_v_3}:${i.imsi_v_4}</c:if>
+										<c:if test="${i.imsi_v_3 ne null and i.imsi_v_4 ne null}"><strong>${i.imsi_v_3}:${i.imsi_v_4}</strong></c:if>
 									</li>
 									</c:if>
 									<c:if test="${i.imsi_v_6 ne null and i.imsi_v_6 ne '0'}">

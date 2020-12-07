@@ -217,8 +217,15 @@ do {
 						<div class="box">
 							<ul>
 								<c:forEach items="${teachList}" var="i" varStatus="status">
+									<c:set var="teachMenuIdx" value="91"></c:set>
+									<c:if test="${i.large_category_idx eq 16}">
+										<c:set var="teachMenuIdx" value="91"></c:set>
+									</c:if>
+									<c:if test="${i.large_category_idx eq 17}">
+										<c:set var="teachMenuIdx" value="32"></c:set>
+									</c:if>
 									<li>
-										<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=32&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&homepage_id=${i.homepage_id}">
+										<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=${teachMenuIdx}&searchCate1=${i.large_category_idx}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&homepage_id=${i.homepage_id}">
 											<c:set var="teachDate" value="${fn:split(i.start_date, '-')}"></c:set>
 											<span class="time"><b>${teachDate[2]}</b><br/>${teachDate[0]}.${teachDate[1]}</span>
 											<em>${i.teach_name}</em>

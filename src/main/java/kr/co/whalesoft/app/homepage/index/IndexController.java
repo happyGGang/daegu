@@ -188,7 +188,18 @@ public class IndexController extends BaseController {
 			calendarManage.setHomepage_id(homepage.getHomepage_id());
 			board.setHomepage_id(homepage.getHomepage_id());
 		} else {
-			board.setHomepage_id(calendarManage.getHomepage_id());
+			if (calendarManage.getHomepage_id().equals("h73")) {
+				board.setHomepage_id("h45");
+				board.setCategory1("0001");
+			} else if (calendarManage.getHomepage_id().equals("h59")) {
+				board.setHomepage_id("h45");
+				board.setCategory1("0002");
+			} else if (calendarManage.getHomepage_id().equals("h60")) {
+				board.setHomepage_id("h45");
+				board.setCategory1("0003");
+			} else {
+				board.setHomepage_id(calendarManage.getHomepage_id());
+			}
 		}
 		board.setImsi_v_1(calendarManage.getPlan_date());
 
@@ -680,12 +691,8 @@ public class IndexController extends BaseController {
 			List<String> homepage_ids = new ArrayList<String>();
 
 			for (Homepage h2:subHomepageList) {
-				b.setCategory5(h2.getHomepage_id());
-				b.setManage_idx(628);
-				b.setCategory1(null);
-				model.addAttribute("noticeList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//공지사항
 
-				b.setCategory5(null);
+
 
 				if (h2.getHomepage_id().equals("h77")) {
 					b.setCategory1("0001");
@@ -698,7 +705,8 @@ public class IndexController extends BaseController {
 				} else if (h2.getHomepage_id().equals("h64")) {
 					b.setCategory1("0005");
 				}
-
+				b.setManage_idx(628);
+				model.addAttribute("noticeList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//공지사항
 				b.setManage_idx(632);
 				model.addAttribute("galleryList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//갤러리
 				b.setManage_idx(625);

@@ -8,17 +8,17 @@
 			<div class="section">
 				<div class="foot-info">
 					<div class="info">
-						<a href="html.do?menu_idx=75"><b>개인정보처리방침</b></a>
+						<a href="/${homepage.context_path}/html.do?menu_idx=75"><b>개인정보처리방침</b></a>
 						<span class="bar">|</span>
-						<a href="board/index.do?menu_idx=76&manage_idx=789">영상정보처리방침</a>
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=76&manage_idx=789">영상정보처리방침</a>
 						<span class="bar">|</span>
-						<a href="html.do?menu_idx=77">이용약관</a>
+						<a href="/${homepage.context_path}/html.do?menu_idx=77">이용약관</a>
 						<span class="bar">|</span>
-						<a href="html.do?menu_idx=78">도서관서비스헌장</a>
+						<a href="/${homepage.context_path}/html.do?menu_idx=78">도서관서비스헌장</a>
 						<span class="bar">|</span>
-						<a href="html.do?menu_idx=79">저작권보호정책</a>
+						<a href="/${homepage.context_path}/html.do?menu_idx=79">저작권보호정책</a>
 						<span class="bar">|</span>
-						<a href="html.do?menu_idx=80">뷰어다운로드</a>
+						<a href="/${homepage.context_path}/html.do?menu_idx=80">뷰어다운로드</a>
 					</div>
 				</div>
 			</div>

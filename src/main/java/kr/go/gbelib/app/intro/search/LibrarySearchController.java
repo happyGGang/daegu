@@ -1078,6 +1078,16 @@ public class LibrarySearchController extends BaseController {
 			return null;
 		}
 
+		String homepageId = homepage.getHomepage_id();
+		if (StringUtils.isNotEmpty(librarySearch.getHomepage_id())) {
+			homepageId = librarySearch.getHomepage_id();
+		}
+		HopebookConfig hopebookConfig = hopebookConfigService.getHopebookConfigInfo(homepageId);
+		if(hopebookConfig != null) {
+			service.alertMessage(hopebookConfig.getRes_msg(), request, response);
+			return null;
+		}
+
 //		if ( !homepage.getHomepage_code().contains(member.getLoca())) {
 //			service.alertMessage("희망도서 신청은 소속도서관에서만 가능합니다.", request, response);
 //			return null;
@@ -1521,9 +1531,22 @@ public class LibrarySearchController extends BaseController {
 				// tag 521 추출
 				for (Map<String, Object> map : list) {
 					String tag = String.valueOf(map.get("tag"));
+
 					if(tag.equals("521")) {
-						Map<String, Object> subfield = (Map<String, Object>)map.get("subfield");
-						content = String.valueOf(subfield.get("content"));
+						ArrayList<String> subfieldList = new ArrayList<String>();
+						Object test = map.get("subfield");
+						if (test instanceof ArrayList) {
+							List<Map<String, Object>> subfield = (List<Map<String, Object>>)map.get("subfield");
+							for (Map<String, Object> stringObjectMap : subfield) {
+								subfieldList.add(String.valueOf(stringObjectMap.get("content")));
+							}
+							content = StringUtils.join(subfieldList, ",");
+							break;
+						} else {
+							Map<String, Object> subfield = (Map<String, Object>)map.get("subfield");
+							content = String.valueOf(subfield.get("content"));
+						}
+
 						break;
 					}
 				}

@@ -64,7 +64,7 @@
 .serial-wrap .ws-toolbar .control{float:right}
 .serial-wrap .item ul.con2>li{padding-bottom:0}
 
-.serial-wrap .search-results .row{position:relative;float:left;width:50%;padding:15px 0;overflow:hidden; height: 190px;}
+.serial-wrap .search-results .row{position:relative;float:left;width:50%;padding:15px 0;overflow:hidden; height: 210px;}
 .serial-wrap .search-results .row .admin{position:absolute;left:0;top:15px;z-index:1}
 .serial-wrap .search-results .row .admin input{width:17px;height:17px}
 .serial-wrap .search-results .row .thumb{float:left;font-size:0;line-height:0;

@@ -41,8 +41,8 @@
 			AND imsi_v_3 = #{imsi_v_3}
 		</if>
 		<if test='reply_list_yn == "N"'>
-			AND parent_idx = 0
 		</if>
+			AND parent_idx = 0
         <if test="(search_type!=null and search_type!='') and (search_text!=null and search_text!='')">
         	AND
 	        <choose>
@@ -184,14 +184,16 @@
 				AND	delete_yn = #{delete_yn}
 				<include refid="where"/>
 			 ) A
-			START WITH A.parent_idx = 0
-	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
+-- 			START WITH A.parent_idx = 0
+-- 	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
 	    	<if test='(manage_idx == 282 or manage_idx == 523) and delete_yn == "N"'>
-			ORDER SIBLINGS BY A.add_date DESC
+-- 			ORDER SIBLINGS BY A.add_date DESC
+			ORDER BY A.add_date DESC
 	    	</if>
 	    	<if test='manage_idx != 282 and manage_idx != 523'>
-	    		<trim prefix="ORDER SIBLINGS BY">
-	    			A.add_date DESC, A.board_idx DESC
+				<!--<trim prefix="ORDER SIBLINGS BY">-->
+                <trim prefix="ORDER BY">
+                    A.add_date DESC, A.board_idx DESC
 <!-- 	    			<if test="sortField != null and sortField != ''">  A.${sortField} ${sortType} </if> -->
 <!-- 	    			<if test="sortField == null and sortField == ''">  A.group_idx DESC, A.board_idx DESC </if> -->
 	    		</trim>
@@ -279,9 +281,10 @@
 					delete_yn = #{delete_yn}
 				<include refid="where"/>
 			 ) A
-			START WITH A.parent_idx = 0
-	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
-			ORDER SIBLINGS BY A.group_idx DESC, A.board_idx DESC
+-- 			START WITH A.parent_idx = 0
+-- 	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
+-- 			ORDER SIBLINGS BY A.group_idx DESC, A.board_idx DESC
+			ORDER BY A.group_idx DESC, A.board_idx DESC
 			${pagingBottom}
 		) CMS_BOARD_T
 	</select>
@@ -322,9 +325,10 @@
 					delete_yn = #{delete_yn}
 				<include refid="where"/>
 			 ) A
-			START WITH A.parent_idx = 0
-	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
-			ORDER SIBLINGS BY A.group_idx DESC, A.board_idx DESC
+-- 			START WITH A.parent_idx = 0
+-- 	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
+-- 			ORDER SIBLINGS BY A.group_idx DESC, A.board_idx DESC
+			ORDER BY A.group_idx DESC, A.board_idx DESC
 			${pagingBottom}
 		) CMS_BOARD_T
 	</select>
@@ -439,9 +443,10 @@
 					</if>
 					<include refid="where"/>
 			 ) A
-			START WITH A.parent_idx = 0
-	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
-			ORDER SIBLINGS BY A.group_idx DESC, A.board_idx DESC
+-- 			START WITH A.parent_idx = 0
+-- 	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
+-- 			ORDER SIBLINGS BY A.group_idx DESC, A.board_idx DESC
+			ORDER BY A.group_idx DESC, A.board_idx DESC
 			${pagingBottom}
 		) CMS_BOARD_T
 	</select>
@@ -551,9 +556,10 @@
 					imsi_v_1 = #{plan_date}
 					<include refid="where"/>
 			 ) A
-			START WITH A.parent_idx = 0
-	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
-			ORDER SIBLINGS BY
+-- 			START WITH A.parent_idx = 0
+-- 	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
+-- 			ORDER SIBLINGS BY
+			ORDER BY
 				to_date(imsi_v_1, 'YYYY-MM'), to_number(imsi_v_2),
 				A.group_idx DESC, A.board_idx DESC
 			${pagingBottom}
@@ -642,9 +648,10 @@
 				delete_yn = #{delete_yn}
 				<include refid="where"/>
 			) A
-			START WITH A.parent_idx = 0
-	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
-			ORDER SIBLINGS BY A.group_idx DESC, A.board_idx DESC
+-- 			START WITH A.parent_idx = 0
+-- 	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
+-- 			ORDER SIBLINGS BY A.group_idx DESC, A.board_idx DESC
+			ORDER BY A.group_idx DESC, A.board_idx DESC
 			${pagingBottom}
 		) CMS_BOARD_T
 	</select>
@@ -683,9 +690,10 @@
 				group_depth = 0
 				<include refid="where"/>
 			) A
-			START WITH A.parent_idx = 0
-	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
-			ORDER SIBLINGS BY A.group_idx DESC, A.board_idx DESC
+-- 			START WITH A.parent_idx = 0
+-- 	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
+-- 			ORDER SIBLINGS BY A.group_idx DESC, A.board_idx DESC
+			ORDER BY A.group_idx DESC, A.board_idx DESC
 			${pagingBottom}
 		) CMS_BOARD_T
 	</select>
@@ -699,6 +707,8 @@
 			title, add_id, add_date, preview_img, REGEXP_REPLACE(content_summary,'&lt;[^>]*>','') as content_summary,
 			imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5,
 			imsi_v_6, imsi_v_7, imsi_v_8, imsi_v_9, imsi_v_10,
+			imsi_v_11, imsi_v_12, imsi_v_13, imsi_v_14, imsi_v_15,
+			imsi_v_16, imsi_v_17, imsi_v_18, imsi_v_19, imsi_v_20,
 			category1, category2, category3, category4, category5, request_state,
 			getCodeIdToCodeName(#{homepage_id},#{category1Manage},category1) as category1_name,
 			getCodeIdToCodeName(#{homepage_id},#{category2Manage},category2) as category2_name,
@@ -979,8 +989,8 @@
 				</if>
 				<include refid="where"/>
 			 ) A
-			START WITH A.parent_idx = 0
-	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
+-- 			START WITH A.parent_idx = 0
+-- 	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
 		) CMS_BOARD_T
 	</select>
 
@@ -1542,6 +1552,9 @@
 			<if test="category5 != null and category5 != ''">
 			AND category5 = #{category5}
 			</if>
+			<if test="category1 != null and category1 != ''">
+				AND category1 = #{category1}
+			</if>
 			) a
 	</select>
 
@@ -1756,9 +1769,10 @@
 
 
 			 ) A
-			START WITH A.parent_idx = 0
-	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
-			ORDER SIBLINGS BY A.group_idx DESC, A.board_idx DESC
+-- 			START WITH A.parent_idx = 0
+-- 	    	CONNECT BY PRIOR A.board_idx = A.parent_idx
+-- 			ORDER SIBLINGS BY A.group_idx DESC, A.board_idx DESC
+			ORDER BY A.group_idx DESC, A.board_idx DESC
 			${pagingBottom}
 		) CMS_BOARD_T
 	</select>
@@ -2095,6 +2109,8 @@
 		title, add_id, add_date, preview_img, REGEXP_REPLACE(content_summary,'&lt;[^>]*>','') as content_summary,
 		imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5,
 		imsi_v_6, imsi_v_7, imsi_v_8, imsi_v_9, imsi_v_10,
+		imsi_v_11, imsi_v_12, imsi_v_13, imsi_v_14, imsi_v_15,
+		imsi_v_16, imsi_v_17, imsi_v_18, imsi_v_19, imsi_v_20,
 		NVL((SELECT homepage_alias FROM CMS_HOMEPAGE b where A.category5 = b.homepage_id), '전체') AS category5_name,
 		getCodeIdToCodeName('h49','B0001',category1) as category1_name,
 		category5,

@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script type="text/javascript">
+	alert('신청 마감되었습니다.');
+	history.back();
 $(function() {
 	var $form = $('form#pictureBook');
 

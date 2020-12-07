@@ -228,7 +228,7 @@ $(function() {
 	<form:hidden path="facet_pub_year"/>
 	<form:hidden path="facet_subject_code"/>
 	<form:hidden path="facet_media_code"/>
-	
+
 	<c:if test="${librarySearch.booktype eq 'BOOKANDNONBOOK'}">
 	<form:hidden path="shelfCode"/>
 	</c:if>
@@ -264,28 +264,28 @@ $(function() {
 								<tbody>
 								<tr>
 
-									<td><a href="#0" class="subject-submit"><span class="subject0">총류</span></a></td>	
-								
-									<td><a href="#1" class="subject-submit"><span class="subject1">철학</span></a></td>	
-								
-									<td><a href="#2" class="subject-submit"><span class="subject2">종교</span></a></td>	
-								
-									<td><a href="#3" class="subject-submit"><span class="subject3">사회과학</span></a></td>	
-								
-									<td><a href="#4" class="subject-submit"><span class="subject4">자연과학</span></a></td>	
+									<td><a href="#0" class="subject-submit"><span class="subject0">총류</span></a></td>
+
+									<td><a href="#1" class="subject-submit"><span class="subject1">철학</span></a></td>
+
+									<td><a href="#2" class="subject-submit"><span class="subject2">종교</span></a></td>
+
+									<td><a href="#3" class="subject-submit"><span class="subject3">사회과학</span></a></td>
+
+									<td><a href="#4" class="subject-submit"><span class="subject4">자연과학</span></a></td>
 
 								</tr>
 								<tr>
 
-									<td><a href="#5" class="subject-submit"><span class="subject5">기술과학</span></a></td>	
-								
-									<td><a href="#6" class="subject-submit"><span class="subject6">예술</span></a></td>	
-								
-									<td><a href="#7" class="subject-submit"><span class="subject7">언어</span></a></td>	
-								
-									<td><a href="#8" class="subject-submit"><span class="subject8">문학</span></a></td>	
-								
-									<td><a href="#9" class="subject-submit"><span class="subject9">역사</span></a></td>	
+									<td><a href="#5" class="subject-submit"><span class="subject5">기술과학</span></a></td>
+
+									<td><a href="#6" class="subject-submit"><span class="subject6">예술</span></a></td>
+
+									<td><a href="#7" class="subject-submit"><span class="subject7">언어</span></a></td>
+
+									<td><a href="#8" class="subject-submit"><span class="subject8">문학</span></a></td>
+
+									<td><a href="#9" class="subject-submit"><span class="subject9">역사</span></a></td>
 
 								</tr>
 
@@ -325,7 +325,7 @@ $(function() {
 											</tbody>
 										</table>
 									</td>
-								</tr>	
+								</tr>
 
 								<tr>
 									<th scope="row">
@@ -351,7 +351,7 @@ $(function() {
 											</tbody>
 										</table>
 									</td>
-								</tr>	
+								</tr>
 
 								<tr>
 									<th scope="row">
@@ -377,7 +377,7 @@ $(function() {
 											</tbody>
 										</table>
 									</td>
-								</tr>	
+								</tr>
 
 								<tr>
 									<th scope="row">
@@ -390,29 +390,29 @@ $(function() {
 											<td style="width:100px;"><a href="#041" class="subject-submit">한국어</a>
 											<td style="width:100px;"><a href="#042" class="subject-submit">중국어</a>
 											<td style="width:100px;"><a href="#043" class="subject-submit">일본어</a>
-											
+
 											<td style="width:100px;"><a href="#044" class="subject-submit">영어</a>
-											
+
 											<td style="width:100px;"><a href="#045" class="subject-submit">독일어</a>
 											</tr>
 											<tr>
 
 											<td style="width:100px;"><a href="#046" class="subject-submit">프랑스어</a>
-											
+
 											<td style="width:100px;"><a href="#047" class="subject-submit">스페인어</a>
-											
+
 											<td style="width:100px;"><a href="#048" class="subject-submit">이탈이아어</a>
-											
+
 											<td style="width:100px;"><a href="#049" class="subject-submit">기타 제언어</a>
-											
+
 											<td style="width:100px;">&nbsp;</td>
-											
+
 											</tr>
 
 											</tbody>
 										</table>
 									</td>
-								</tr>	
+								</tr>
 
 								<tr>
 									<th scope="row">
@@ -424,32 +424,32 @@ $(function() {
 											<tr>
 
 											<td style="width:100px;"><a href="#051" class="subject-submit">한국어</a>
-											
+
 											<td style="width:100px;"><a href="#052" class="subject-submit">중국어</a>
-											
+
 											<td style="width:100px;"><a href="#053" class="subject-submit">일본어</a>
-											
+
 											<td style="width:100px;"><a href="#054" class="subject-submit">영어</a>
-											
+
 											<td style="width:100px;"><a href="#055" class="subject-submit">독일어</a>
 											</tr>
 											<tr>
 
 											<td style="width:100px;"><a href="#056" class="subject-submit">프랑스어</a>
-											
+
 											<td style="width:100px;"><a href="#057" class="subject-submit">스페인어</a>
-											
+
 											<td style="width:100px;"><a href="#058" class="subject-submit">기타 제언어</a>
-											
+
 											<td style="width:100px;"><a href="#059" class="subject-submit">연감</a>
-											
+
 													<td style="width:100px;">&nbsp;</td>
 													</tr>
 
 											</tbody>
 										</table>
 									</td>
-								</tr>	
+								</tr>
 
 								<tr>
 									<th scope="row">
@@ -461,32 +461,32 @@ $(function() {
 											<tr>
 
 											<td style="width:100px;"><a href="#061" class="subject-submit">아시아 일반 학회, 단체 등</a>
-											
+
 											<td style="width:100px;"><a href="#062" class="subject-submit">유럽 일반 학회, 단체 등</a>
-											
+
 											<td style="width:100px;"><a href="#063" class="subject-submit">아프리카 일반 학회, 단체 등</a>
-											
+
 											<td style="width:100px;"><a href="#064" class="subject-submit">북아메리카 일반 학회, 단체 등</a>
-											
+
 											<td style="width:100px;"><a href="#065" class="subject-submit">남아메리카 일반 학회, 단체 등</a>
 											</tr>
 											<tr>
 
 											<td style="width:100px;"><a href="#066" class="subject-submit">오세아니아 일반 학회, 단체 등</a>
-											
+
 											<td style="width:100px;"><a href="#067" class="subject-submit">양극지방 일반 학회, 단체 등</a>
-											
+
 											<td style="width:100px;"><a href="#069" class="subject-submit">박물관학</a>
-											
+
 													<td style="width:100px;">&nbsp;</td>
-													
+
 													<td style="width:100px;">&nbsp;</td>
 													</tr>
 
 											</tbody>
 										</table>
 									</td>
-								</tr>	
+								</tr>
 
 								<tr>
 									<th scope="row">
@@ -498,32 +498,32 @@ $(function() {
 											<tr>
 
 											<td style="width:100px;"><a href="#071" class="subject-submit">아시아 신문, 저널리즘</a>
-											
+
 											<td style="width:100px;"><a href="#072" class="subject-submit">유럽 신문, 저널리즘</a>
-											
+
 											<td style="width:100px;"><a href="#073" class="subject-submit">아프리카 신문, 저널리즘</a>
-											
+
 											<td style="width:100px;"><a href="#074" class="subject-submit">북아메리카 신문, 저널리즘</a>
-											
+
 											<td style="width:100px;"><a href="#075" class="subject-submit">남아메리카 신문, 저널리즘</a>
 											</tr>
 											<tr>
 
 											<td style="width:100px;"><a href="#076" class="subject-submit">오세아니아 신문, 저널리즘</a>
-											
+
 													<td style="width:100px;">&nbsp;</td>
-													
+
 													<td style="width:100px;">&nbsp;</td>
-													
+
 													<td style="width:100px;">&nbsp;</td>
-													
+
 													<td style="width:100px;">&nbsp;</td>
 													</tr>
 
 											</tbody>
 										</table>
 									</td>
-								</tr>	
+								</tr>
 
 								<tr>
 									<th scope="row">
@@ -535,20 +535,20 @@ $(function() {
 											<tr>
 
 											<td style="width:100px;"><a href="#078" class="subject-submit">특정주제의 신문</a>
-											
+
 													<td style="width:100px;">&nbsp;</td>
-													
+
 													<td style="width:100px;">&nbsp;</td>
-													
+
 													<td style="width:100px;">&nbsp;</td>
-													
+
 													<td style="width:100px;">&nbsp;</td>
 													</tr>
 
 											</tbody>
 										</table>
 									</td>
-								</tr>	
+								</tr>
 
 								<tr>
 									<th scope="row">
@@ -560,20 +560,20 @@ $(function() {
 											<tr>
 
 											<td style="width:100px;"><a href="#081" class="subject-submit">개인의 일반 전집</a>
-											
+
 											<td style="width:100px;"><a href="#082" class="subject-submit">2인 이상의 일반 전집, 총서</a>
-											
+
 													<td style="width:100px;">&nbsp;</td>
-													
+
 													<td style="width:100px;">&nbsp;</td>
-													
+
 													<td style="width:100px;">&nbsp;</td>
 													</tr>
 
 											</tbody>
 										</table>
 									</td>
-								</tr>	
+								</tr>
 
 								<tr>
 									<th scope="row">
@@ -582,12 +582,12 @@ $(function() {
 									<td>
 										<table class="subTable" border="1">
 											<tbody>
-											
+
 											</tbody>
 										</table>
 									</td>
-								</tr>	
-								
+								</tr>
+
 								</tbody>
 							</table>
 						</div>
@@ -604,7 +604,7 @@ $(function() {
 										<form:input path="title" class="text-area" placeholder="도서 제목을 입력하세요"/>
 									</div>
 									<div class="vk-btn">
-										
+
 									</div>
 									<div id="libraryList" class="libraryList">
 										<div>
@@ -683,7 +683,7 @@ $(function() {
 										<div class="end"></div>
 									</div>
 									<div class="vk-btn">
-										
+
 									</div>
 									<dl>
 										<dt><label for="author" class="title">저자</label></dt>
@@ -771,7 +771,7 @@ $(function() {
 							</div>
 
 							<div class="vk-btn">
-								
+
 							</div>
 
 						<c:choose>
@@ -1062,7 +1062,7 @@ $(function() {
 						<div class="end" style="padding:7px 0;"></div>
 						</c:when>
 						<c:otherwise>
-						
+
 						</c:otherwise>
 						</c:choose>
 
@@ -1360,7 +1360,7 @@ $(function() {
 												<th>등록<br class="mBr"/>번호</th>
 												<th>대출가능<br class="mBr"/>여부</th>
 												<th>반납<br class="mBr"/>예정일</th>
-												<th>자료위치<br class="mBr"/>인쇄</th>
+<%--												<th>자료위치<br class="mBr"/>인쇄</th>--%>
 											</tr>
 										</thead>
 										<tbody>
@@ -1415,9 +1415,9 @@ $(function() {
 												<td>
 													${i.RETURN_PLAN_DATE}
 												</td>
-												<td>
-													<a href="#" class="btn_print" data-param="${detailURL}" class="btn btn2">자료위치<br/>인쇄</a>
-												</td>
+<%--												<td>--%>
+<%--													<a href="#" class="btn_print" data-param="${detailURL}" class="btn btn2">자료위치<br/>인쇄</a>--%>
+<%--												</td>--%>
 											</tr>
 										</tbody>
 									</table>
@@ -1535,7 +1535,7 @@ $(function() {
 												<th>등록<br class="mBr"/>번호</th>
 												<th>대출가능<br class="mBr"/>여부</th>
 												<th>반납<br class="mBr"/>예정일</th>
-												<th>자료위치<br class="mBr"/>인쇄</th>
+<%--												<th>자료위치<br class="mBr"/>인쇄</th>--%>
 											</tr>
 										</thead>
 										<tbody>
@@ -1590,9 +1590,9 @@ $(function() {
 												<td>
 													${i.RETURN_PLAN_DATE}
 												</td>
-												<td>
-													<a href="#" class="btn_print" data-param="${detailURL}" class="btn btn2">자료위치<br/>인쇄</a>
-												</td>
+<%--												<td>--%>
+<%--													<a href="#" class="btn_print" data-param="${detailURL}" class="btn btn2">자료위치<br/>인쇄</a>--%>
+<%--												</td>--%>
 											</tr>
 										</tbody>
 									</table>
