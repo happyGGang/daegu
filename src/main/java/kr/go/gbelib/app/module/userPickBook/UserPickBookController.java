@@ -45,7 +45,7 @@ public class UserPickBookController extends BaseController {
 		}
 
 		if (!StringUtils.equals(member.getMember_class(), "0")) {
-			service.alertMessage("희망도서 신청 가능한 회원이 아닙니다.", request, response);
+			service.alertMessage("대출회원만 가능합니다.", request, response);
 			return null;
 		}
 
