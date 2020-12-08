@@ -215,6 +215,15 @@ $(function() {
 
 		window.open("/${homepage.context_path}/module/myStorage/viewStorage.do?"+strList, "", "width=450, height=400");
 	});
+
+	$('input[name=booktype]').on('click', function() {
+		if ($(this).val() == 'NONBOOK') {
+			$('dl#nonBookMedia').show();
+		} else {
+			$('dl#nonBookMedia').hide();
+			$('select#media_code').val('');
+		}
+	});
 });
 </script>
 
@@ -1119,6 +1128,18 @@ $(function() {
 									<form:radiobutton path="booktype" value="NONBOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype3" class="booktype">비도서</label>
 									<%--<form:radiobutton path="booktype" value="SERIAL" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype4" class="booktype">간행물</label> --%>
 									</div>
+								</dd>
+							</dl>
+
+							<dl id="nonBookMedia" ${fn:escapeXml(param.booktype eq 'NONBOOK' ? '' : 'style="display: none;"')}>
+								<dt><label for="keyword" class="title">매체구분</label></dt>
+								<dd>
+									<form:select path="media_code">
+										<form:option value="">전체</form:option>
+										<c:forEach items="${mediaCodeList}" var="i" varStatus="status">
+											<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
+										</c:forEach>
+									</form:select>
 								</dd>
 							</dl>
 

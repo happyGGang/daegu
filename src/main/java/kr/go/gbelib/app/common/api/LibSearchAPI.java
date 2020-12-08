@@ -399,6 +399,12 @@ public class LibSearchAPI {
 			// 신착도서 등 자료검색 제외
 			param.put("manage_code", librarySearch.getManageCode());
 		}
+
+		//매체구분
+		if (StringUtils.isNotEmpty(librarySearch.getMedia_code())){
+			param.put("media_code", librarySearch.getMedia_code());
+		}
+
 		param.put("pageno", librarySearch.getViewPage());
 		param.put("display", librarySearch.getRowCount());
 		param.put("search_type", "detail");

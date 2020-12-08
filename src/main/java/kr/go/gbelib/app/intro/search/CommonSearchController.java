@@ -160,6 +160,11 @@ public class CommonSearchController extends BaseController {
     		model.addAttribute("facetGroup", LibSearchAPI.getFacetGroup(result));
 		}
 
+		Map<String, Object> subLocaInfo = LibSearchAPI.getSubLocaInfo("5", homepage.getManage_code());
+		List<Map<String, Object>> mediaCodeList = LibSearchAPI.getListData(subLocaInfo);
+
+		model.addAttribute("mediaCodeList", mediaCodeList);
+
 		model.addAttribute("homepageList", normalHomepage);
 		model.addAttribute("librarySearch", librarySearch);
 
