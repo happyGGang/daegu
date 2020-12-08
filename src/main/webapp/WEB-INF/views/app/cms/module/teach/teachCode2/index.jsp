@@ -123,6 +123,11 @@ $(document).ready(function() {
 	$('a#save_list2').on('click', function(e) {
 		e.preventDefault();
 
+		if(fm.cate1.options.selectedIndex < 0) {
+			alert("1차 분류를 선택하세요.");
+			return;
+		}
+
 		if(confirm("2차 분류의 표시순서를 저장하시겠습니까?")) {
 			saveList(fm.cate2.options);
 		}
@@ -404,9 +409,9 @@ function doAjaxPostResponse(form, ajaxBody) {
 		<c:if test="${authC or authU}">
 			<a class="btn i01" id="up_cate2"><span>위로</span></a>
 			<a class="btn i02" id="down_cate2"><span>아래</span></a>
-<!-- 			<a class="btn" id="save_list2"><span>저장</span></a> -->
 			<a class="btn" id="add_cate2"><span>추가</span></a>
 			<a class="btn" id="modify_cate2"><span>수정</span></a>
+ 			<a class="btn" id="save_list2"><span>저장</span></a>
 		</c:if>
 		</div>
 	</div>
