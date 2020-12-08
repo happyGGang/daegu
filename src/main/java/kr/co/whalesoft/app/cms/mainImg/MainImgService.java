@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.file.FileStorage;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 
 @Service
 public class MainImgService extends BaseService {
@@ -35,7 +36,8 @@ public class MainImgService extends BaseService {
 	public MainImg getMainImgOne(MainImg mainImg) {
 		return mainImgDao.getMainImgOne(mainImg);
 	}
-	
+
+	@WorkingLogger(comment="메인 이미지 관리 1건 추가")
 	public int addMainImg(MainImg mainImg) {
 		MultipartFile mFile = mainImg.getImg_file();
 		
@@ -55,7 +57,8 @@ public class MainImgService extends BaseService {
 		
 		return mainImgDao.addMainImg(mainImg);
 	}
-	
+
+	@WorkingLogger(comment="메인 이미지 관리 1건 수정")
 	public int modifyMainImg(MainImg mainImg) {
 		MultipartFile mFile = mainImg.getImg_file();
 		
@@ -75,7 +78,8 @@ public class MainImgService extends BaseService {
 		
 		return mainImgDao.modifyMainImg(mainImg);
 	}
-	
+
+	@WorkingLogger(comment="메인 이미지 관리 1건 삭제")
 	public int deleteMainImg(MainImg mainImg) {
 		return mainImgDao.deleteMainImg(mainImg);
 	}

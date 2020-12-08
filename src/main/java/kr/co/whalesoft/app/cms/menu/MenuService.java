@@ -11,6 +11,7 @@ import com.googlecode.ehcache.annotations.Cacheable;
 import kr.co.whalesoft.app.cms.memberGroupAuth.MemberGroupAuth;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.file.FileStorage;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 
 @Service
 public class MenuService extends BaseService {
@@ -79,6 +80,7 @@ public class MenuService extends BaseService {
 	}
 
 	@Transactional
+	@WorkingLogger(comment="홈페이지 메뉴관리 1건 추가")
 	public int addMenu(MultipartFile mFile, MultipartFile mFileTopIcon, MultipartFile mFileLeftIcon, Menu menu) {
 		int returnCount = 0;
 
@@ -122,6 +124,7 @@ public class MenuService extends BaseService {
 	}
 
 	@Transactional
+	@WorkingLogger(comment="홈페이지 메뉴관리 1건 수정")
 	public int modifyMenu(MultipartFile mFile, MultipartFile mFileTopIcon, MultipartFile mFileLeftIcon, Menu menu) {
 		int returnCount = 0;
 
@@ -169,7 +172,8 @@ public class MenuService extends BaseService {
 	public int modifyParentMenu(Menu menu) {
 		return dao.modifyParentMenu(menu);
 	}
-
+	
+	@WorkingLogger(comment="홈페이지 메뉴관리 1건 삭제")
 	public int deleteMenu(Menu menu) {
 		return dao.deleteMenu(menu);
 	}

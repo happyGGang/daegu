@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.file.FileStorage;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 
 @Service
 public class PopupZoneService extends BaseService {
@@ -41,6 +42,7 @@ public class PopupZoneService extends BaseService {
 	}
 
 	@Transactional
+	@WorkingLogger(comment="팝업존 관리 1건 추가")
 	public int addPopupZone(PopupZone popupZone, MultipartHttpServletRequest mpRequest) {
 		MultipartFile mFile = mpRequest.getFileMap().get("org_file_name_temp");
 
@@ -62,7 +64,8 @@ public class PopupZoneService extends BaseService {
 
 		return dao.addPopupZone(popupZone);
 	}
-
+	
+	@WorkingLogger(comment="팝업존 관리 1건 수정")
 	public int modifyPopupZone(PopupZone popupZone, MultipartHttpServletRequest mpRequest) {
 		MultipartFile mFile = mpRequest.getFileMap().get("org_file_name_temp");
 
@@ -84,7 +87,8 @@ public class PopupZoneService extends BaseService {
 
 		return dao.modifyPopupZone(popupZone);
 	}
-
+	
+	@WorkingLogger(comment="팝업존 관리 1건 삭제")
 	public int deletePopupZone(PopupZone popupZone) {
 		PopupZone popupZoneOne = dao.getPopupZoneOne(popupZone);
 		popupZoneStorage.deleteFile(popupZoneOne.getServer_file_name(), "/" + popupZone.getHomepage_id());

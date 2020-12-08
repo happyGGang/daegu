@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.file.FileStorage;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 
 @Service
 public class BannerService extends BaseService {
@@ -41,6 +42,7 @@ public class BannerService extends BaseService {
 	}
 	
 	@Transactional
+	@WorkingLogger(comment="배너 관리 1건 추가")
 	public int addBanner(Banner banner, MultipartHttpServletRequest mpRequest) {
 		MultipartFile mFile = mpRequest.getFileMap().get("org_file_name_temp");
 		
@@ -63,6 +65,7 @@ public class BannerService extends BaseService {
 		return dao.addBanner(banner);
 	}
 	
+	@WorkingLogger(comment="배너 관리 1건 수정")
 	public int modifyBanner(Banner banner, MultipartHttpServletRequest mpRequest) {
 		MultipartFile mFile = mpRequest.getFileMap().get("org_file_name_temp");
 		
@@ -85,6 +88,7 @@ public class BannerService extends BaseService {
 		return dao.modifyBanner(banner);
 	}
 	
+	@WorkingLogger(comment="배너 관리 1건 삭제")
 	public int deleteBanner(Banner banner) {
 		return dao.deleteBanner(banner);
 	}

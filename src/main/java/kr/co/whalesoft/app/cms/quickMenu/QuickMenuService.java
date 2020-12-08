@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.file.FileStorage;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 
 @Service
 public class QuickMenuService extends BaseService {
@@ -37,7 +38,8 @@ public class QuickMenuService extends BaseService {
 	public QuickMenu getQuickMenuOne(QuickMenu quickMenu) {
 		return quickMenuDao.getQuickMenuOne(quickMenu);
 	}
-	
+
+	@WorkingLogger(comment="퀵메뉴 관리 1건 추가")
 	public int addQuickMenu(QuickMenu quickMenu) {
 		MultipartFile mFile = quickMenu.getIcon_file();
 		
@@ -56,7 +58,8 @@ public class QuickMenuService extends BaseService {
 		
 		return quickMenuDao.addQuickMenu(quickMenu);
 	}
-	
+
+	@WorkingLogger(comment="퀵메뉴 관리 1건 수정")
 	public int modifyQuickMenu(QuickMenu quickMenu) {
 		MultipartFile mFile = quickMenu.getIcon_file();
 		
@@ -75,7 +78,8 @@ public class QuickMenuService extends BaseService {
 		
 		return quickMenuDao.modifyQuickMenu(quickMenu);
 	}
-	
+
+	@WorkingLogger(comment="퀵메뉴 관리 1건 삭제")
 	public int deleteQuickMenu(QuickMenu quickMenu) {
 		return quickMenuDao.deleteQuickMenu(quickMenu);
 	}

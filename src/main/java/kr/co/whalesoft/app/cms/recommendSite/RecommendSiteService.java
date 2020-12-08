@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.googlecode.ehcache.annotations.Cacheable;
 
 import kr.co.whalesoft.framework.base.BaseService;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 
 /**
  * @author whaleesoft YONGJU 2019. 11. 28.
@@ -43,6 +44,7 @@ public class RecommendSiteService extends BaseService {
 		return dao.getRecommendSiteOne(recommendSite);
 	}
 
+	@WorkingLogger(comment="추천 사이트 관리 1건 추가")
 	public int addRecommendSite(RecommendSite recommendSite) {
 		/*MultipartFile mFile = site.getFile();
 
@@ -54,6 +56,7 @@ public class RecommendSiteService extends BaseService {
 		return dao.addRecommendSite(recommendSite);
 	}
 
+	@WorkingLogger(comment="추천 사이트 관리 1건 수정")
 	public int modifyRecommendSite(RecommendSite recommendSite) {
 		/*MultipartFile mFile = site.getFile();
 
@@ -67,6 +70,7 @@ public class RecommendSiteService extends BaseService {
 		return dao.modifyRecommendSite(recommendSite);
 	}
 
+	@WorkingLogger(comment="추천 사이트 관리 1건 삭제")
 	public int deleteRecommendSite(RecommendSite recommendSite) {
 		/*Site delSite = getRecommendSiteOne(recommendSite);
 		String fileName = delSite.getFile_name();

@@ -5,6 +5,7 @@ import java.util.List;
 
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.file.FileStorage;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
@@ -40,6 +41,7 @@ public class NewsService extends BaseService {
 		return newsDao.getNewsOne(news);
 	}
 	
+	@WorkingLogger(comment="뉴스 관리 1건 추가")
 	public int addNews(News news, MultipartHttpServletRequest mpRequest) {
 		MultipartFile mFile = mpRequest.getFileMap().get("imgFile");
 		if(mFile != null) {
@@ -58,7 +60,8 @@ public class NewsService extends BaseService {
 		
 		return newsDao.addNews(news);
 	}
-	
+
+	@WorkingLogger(comment="뉴스 관리 1건 수정")
 	public int modifyNews(News news, MultipartHttpServletRequest mpRequest) {
 		MultipartFile mFile = mpRequest.getFileMap().get("imgFile");
 		if(mFile != null) {
@@ -77,7 +80,8 @@ public class NewsService extends BaseService {
 		
 		return newsDao.modifyNews(news);
 	}
-	
+
+	@WorkingLogger(comment="뉴스 관리 1건 삭제")
 	public int deleteNews(News news) {
 		News delNews = getNewsOne(news);
 //		String fileName = delNews.getFile_name();

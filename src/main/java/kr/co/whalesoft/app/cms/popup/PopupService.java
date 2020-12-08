@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import kr.co.whalesoft.app.cms.popupZone.PopupZone;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.file.FileStorage;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 
 @Service
 public class PopupService extends BaseService {
@@ -41,6 +42,7 @@ public class PopupService extends BaseService {
 	}
 
 	@Transactional
+	@WorkingLogger(comment="팝업 관리 1건 추가")
 	public int addPopup(Popup popup, MultipartHttpServletRequest mpRequest) {
 		MultipartFile mFile = mpRequest.getFileMap().get("imgFile");
 		if(mFile != null && popup.getHtml_use_yn().equals("N")) {
@@ -63,7 +65,8 @@ public class PopupService extends BaseService {
 
 		return dao.addPopup(popup);
 	}
-
+	
+	@WorkingLogger(comment="팝업 관리 1건 수정")
 	public int modifyPopup(Popup popup, MultipartHttpServletRequest mpRequest) {
 		MultipartFile mFile = mpRequest.getFileMap().get("imgFile");
 		if(mFile != null && popup.getHtml_use_yn().equals("N")) {
@@ -86,7 +89,8 @@ public class PopupService extends BaseService {
 
 		return dao.modifyPopup(popup);
 	}
-
+	
+	@WorkingLogger(comment="팝업 관리 1건 삭제")
 	public int deletePopup(Popup popup) {
 		Popup popupOne = dao.getPopupOne(popup);
 		popupStorage.deleteFile(popupOne.getServer_file_name(), "/" + popupOne.getHomepage_id());
