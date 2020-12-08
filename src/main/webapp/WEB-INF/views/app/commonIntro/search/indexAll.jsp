@@ -309,7 +309,7 @@
 		</c:if>
 
 		<c:if test="${librarySearch.totalDataCount > 0}">
-		$("#libraryList").hide();
+		// $("#libraryList").hide();
 		</c:if>
 
 		$('a.facetSearch').on('click', function(e) {
