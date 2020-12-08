@@ -259,4 +259,63 @@ public interface DataMigrationDao {
 	 */
 	List<DataMigration> getListNNHubLib(String string);
 
+	List<DataMigration> getListDongguMovie();
+
+	List<DataMigration> getListDonggu(int manager_seq);
+
+	List<String> getDongguContents(DataMigration one);
+
+	List<Map<String, Object>> getFileDataDonggu(DataMigration one);
+
+	List<DataMigration> getListNNRecommendBookSeogu(String tableName);
+
+	List<DataMigration> getListNNMovieSeogu(String a_tablename);
+
+	List<DataMigration> getListNNRecommendBookNamgu(String tablename);
+
+	List<DataMigration> getListNNMovieNamgu(String a_tablename);
+
+	List<DataMigration> orgListDKBookBukgu(DataMigration dm);
+
+	List<DataMigration> orgListDKMovieBukgu(DataMigration dm);
+
+	List<DataMigration> getListDKBukgu(Map<String, Object> manager_seq);
+
+	List<Map<String, Object>> getFileDataDKBukgu(int board_seq);
+
+	List<DataMigration> getListBeomeo(int manager_seq);
+
+	List<DataMigration> getListBeomeoBook(int manager_seq);
+
+	List<DataMigration> getListBeomeoMovie(int manager_seq);
+
+	List<DataMigration> getListBeomeoComment(DataMigration one);
+
+	List<DataMigration> getListYonghak(int manager_seq);
+
+	List<DataMigration> getListYonghakBook(int manager_seq);
+
+	List<DataMigration> getListYonghakMovie(int manager_seq);
+
+	List<DataMigration> getListYonghakComment(DataMigration one);
+
+	List<DataMigration> getListGosan(int manager_seq);
+
+	List<DataMigration> getListGosanBook(int manager_seq);
+
+	List<DataMigration> getListGosanMovie(int manager_seq);
+
+	List<DataMigration> getListGosanComment(DataMigration one);
+
+	List<DataMigration> getListNNRecommendBookDalseogu(String tablename);
+
+	List<DataMigration> getListNNMovieDalseogu(String tablename);
+
+	List<DataMigration> getListNNDalseogu(String tablename);
+
+	List<DataMigration> getListNNRecommendBookDalseonggun(String tablename);
+
+	List<DataMigration> getListNNMovieDalseonggun(String tablename);
+
+	List<DataMigration> getListNNDalseonggun(String tablename);
 }

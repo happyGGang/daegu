@@ -1495,7 +1495,7 @@ order by a.table_name, a.column_id
 			b_temp5 AS imsi_v_5,
 			b_temp6 AS imsi_v_6,
 			b_temp7 AS imsi_v_7,
-			b_temp8 AS imsi_v_8
+			b_re_content AS imsi_v_8
 		FROM
 			${value}
 		ORDER BY
@@ -1566,6 +1566,8 @@ order by a.table_name, a.column_id
 			b_temp8 AS imsi_v_8
 		FROM
 			${value}
+<!-- 		where -->
+<!-- 			b_num > 831 -->
 		ORDER BY
 			b_num
 	</select>
@@ -1599,6 +1601,8 @@ order by a.table_name, a.column_id
 			b_temp8 AS imsi_v_8
 		FROM
 			${value}
+<!-- 		WHERE -->
+<!-- 			b_num > 7151 -->
 		ORDER BY
 			b_num
 	</select>
@@ -1935,6 +1939,7 @@ order by a.table_name, a.column_id
 			wdb_board
 		WHERE
 			BB_Board = #{manager_seq}
+		AND	bb_code > 8431
 		ORDER BY
 			BB_Head, BB_Parent, bb_depth
 	</select>
@@ -2046,5 +2051,985 @@ order by a.table_name, a.column_id
 		ORDER BY
 			b_num
 	</select>
+
+
+	<select id="getListDongguMovie" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			seq_no as board_seq,
+            substr(show_date, 0, 4) || '-' || substr(show_date, 5, 2) as imsi_v_1,
+            substr(show_date, 5, 2) as imsi_v_2,
+            substr(SHOW_START_TIME, 0, 2) as imsi_v_3,
+			'00' as imsi_v_4,
+			UPLOAD_IMAGE_NAME_REAL as ORG_FILE_NAME,
+			replace(UPLOAD_IMAGE_NAME_SAVE, 'http://www.donggu-lib.kr/', '/Users/yongju/Documents/dglib2/donggu/') as SERVER_FILE_NAME,
+			decode(GENRE_CODE, '0001', '액션', '0002', '어드벤쳐','0003', '애니메이션','0004', '코메디','0005', '공포','0006', '미스테리','0007', '로맨스','0008', '공상과학','0009', '환타지','0010', '스릴러','0012', '드라마','0011', '기타 장르', '0001') as imsi_v_9,
+			decode(LEVEL_CODE, '0001', '전체관람가','0002', '12세이상 관람가','0003', '15세이상 관람가','0004', '18세이상 관람가', '0001') as imsi_v_12,
+			decode(LOCA, 'S0000026', '0002', '0001') as category1,
+			content as content,
+			to_char(to_date(insert_date, 'YYYYMMDD'), 'YYYY-MM-DD HH24:MI:SS') as add_date,
+			'N' as delete_yn,
+			'admin' as user_id,
+            title
+		FROM
+			TN_SVP_MOVIE_SCHDUL
+		ORDER BY
+			show_date
+	</select>
+
+	<select id="getListDonggu" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		select
+			cntent_id AS board_seq,
+       		decode(dph, 1, 0, nvl((select cntent_id from TN_SVP_BBS_CNTENT where bbs_id = z.bbs_id and bbs_group_no = z.bbs_group_no and dph = 1),0)) as parent_seq,
+			'admin' as user_id,
+			wrter_name AS user_name,
+			password AS user_password,
+			bbs_title AS title,
+			wrter_email AS user_email,
+
+
+			SBJECT_CODE as category1,
+			ESSNTL_YN as notice_yn,
+
+			wrter_ip AS user_ip,
+			view_co AS view_count,
+			delete_yn,
+			nvl(BLIND_YN, 'N') as secret_yn,
+            to_char(to_date(INSRT_DATE || INSRT_TIME ,  'YYYYMMDDHH24MISS'), 'YYYY-MM-DD HH24:MI:SS') as add_date
+
+			from TN_SVP_BBS_CNTENT z
+			where CNTENT_ID not in (5159, 5871, 5872)
+			and bbs_id = #{value}
+			order by bbs_group_no, CNTENT_ID
+	</select>
+
+
+	<select id="getFileDataDonggu" resultType="hashMap">
+		select file_name_real as ORG_FILE_NAME,
+		replace(file_name_save, 'http://www.donggu-lib.kr/', '/Users/yongju/Documents/dglib2/donggu/') as SERVER_FILE_NAME from TN_SVP_BBS_ATCH_FILE
+		where bbs_id = #{manager_seq}
+		and cntent_id = #{board_seq}
+		order by file_id
+	</select>
+
+	<select id="getDongguContents" resultType="string">
+		select cntent
+		from TN_SVP_BBS_CNTENT_DETAIL
+		where bbs_id = #{manager_seq}
+		and cntent_id = #{board_seq}
+		order by SERLNO
+	</select>
+
+	<select id="getListNNRecommendBookSeogu" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_num AS board_seq,
+			ifnull(b_id, 'admin') as user_id,
+			'관리자' AS  user_name,
+			b_name AS imsi_v_3,
+			b_pwd AS user_password,
+			b_subject AS title,
+			b_temp1 AS imsi_v_1,
+			b_cate as category1,
+			'N' as notice_yn,
+			b_content AS content,
+			b_ip AS user_ip,
+			b_count AS view_count,
+			if(b_look = 'N', 'Y', 'N') as delete_yn,
+			if(b_open = 'N', 'Y', 'N') as secret_yn,
+			b_regdate AS add_date,
+			b_temp4 AS imsi_v_2,
+			b_temp2 AS imsi_v_3,
+			b_temp3 AS imsi_v_4,
+			b_temp6 AS imsi_v_6,
+			b_keyword AS preview_img
+		FROM
+			${value}
+		ORDER BY
+			b_regdate
+	</select>
+
+	<select id="getListNNMovieSeogu" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_num AS board_seq,
+			ifnull(b_id, 'admin') as user_id,
+			b_name AS  user_name,
+			b_pwd AS user_password,
+			b_subject AS title,
+			b_content AS content,
+			b_ip AS user_ip,
+			b_count AS view_count,
+			'N' as notice_yn,
+			if(b_look = 'N', 'Y', 'N') as delete_yn,
+			if(b_open = 'N', 'Y', 'N') as secret_yn,
+			b_regdate AS add_date,
+			SUBSTR(b_sdate,1,7) as imsi_v_1,
+			SUBSTR(b_sdate,9) as imsi_v_2,
+			SUBSTR(b_temp1,1,2) as imsi_v_3,
+			SUBSTR(b_temp1,4) as imsi_v_4,
+			replace(b_temp7,'분','') AS imsi_v_13,
+			b_temp2 AS imsi_v_6,
+			b_temp3 AS imsi_v_7,
+			b_temp4 AS imsi_v_8,
+			b_temp5 AS imsi_v_9,
+			b_temp6 AS imsi_v_12,
+			b_keyword AS preview_img
+		FROM
+			${value}
+		ORDER BY
+			b_regdate
+	</select>
+
+	<select id="getListNNRecommendBookNamgu" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_num AS board_seq,
+			ifnull(b_id, 'admin') as user_id,
+			'관리자' AS  user_name,
+			b_name AS imsi_v_3,
+			b_pwd AS user_password,
+			b_subject AS title,
+			'2020-12' AS imsi_v_1,
+			'N' as notice_yn,
+			b_content AS content,
+			b_ip AS user_ip,
+			b_count AS view_count,
+			if(b_look = 'N', 'Y', 'N') as delete_yn,
+			if(b_open = 'N', 'Y', 'N') as secret_yn,
+			b_regdate AS add_date,
+			b_temp4 AS imsi_v_2,
+			b_temp2 AS imsi_v_3,
+			b_temp3 AS imsi_v_4,
+			b_temp6 AS imsi_v_6,
+			b_keyword AS preview_img
+		FROM
+			${value}
+		ORDER BY
+			b_regdate
+	</select>
+
+	<select id="getListNNMovieNamgu" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_num AS board_seq,
+			ifnull(b_id, 'admin') as user_id,
+			b_name AS  user_name,
+			b_pwd AS user_password,
+			b_subject AS title,
+			b_content AS content,
+			b_ip AS user_ip,
+			b_count AS view_count,
+			'N' as notice_yn,
+			if(b_look = 'N', 'Y', 'N') as delete_yn,
+			if(b_open = 'N', 'Y', 'N') as secret_yn,
+			b_regdate AS add_date,
+
+			SUBSTR(b_sdate,1,7) as imsi_v_1,
+			SUBSTR(b_sdate,9) as imsi_v_2,
+			SUBSTR(b_temp1,1,2) as imsi_v_3,
+			SUBSTR(b_temp1,4) as imsi_v_4,
+
+			b_temp2 AS imsi_v_6,
+			b_temp3 AS imsi_v_7,
+			b_temp4 AS imsi_v_8,
+			b_temp5 AS imsi_v_9,
+
+			b_temp6 AS imsi_v_12,
+			replace(b_temp7,'분','') AS imsi_v_13,
+
+			b_keyword AS preview_img
+		FROM
+			${value}
+		ORDER BY
+			b_regdate
+	</select>
+
+	<select id="orgListDKBookBukgu" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			BK_Code as board_seq,
+
+			<if test="category5 != null and category5 != ''">
+				case
+				${category5}
+				else '0001' end category1,
+			</if>
+			BK_OFile as ORG_FILE_NAME,
+			BK_CFile as SERVER_FILE_NAME,
+			concat_ws('-', bk_year,(if (length(bk_month) = 1, concat('0',bk_month), bk_month))) as imsi_v_1,
+			BK_BName as title,
+			BK_Content as content,
+			BK_Open_Y as imsi_v_2,
+			BK_Writer as imsi_v_3,
+			BK_Company as imsi_v_4,
+			bk_position as imsi_v_6,
+			bk_symbol as imsi_v_7,
+			bk_day as imsi_v_8,
+			bk_isbn as imsi_v_5,
+			BK_Hit as view_count,
+			from_unixtime(BK_WDate, '%Y-%m-%d %H:%i:%s') as add_date,
+			'N' as delete_yn
+		FROM
+			wd_book
+		WHERE
+			bk_bg_code = #{dbUser}
+		ORDER BY
+			Bk_Code
+	</select>
+
+	<select id="orgListDKMovieBukgu" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			MV_Code as board_seq,
+			concat_ws('-', MV_Year,(if (length(MV_Month) = 1, concat('0',MV_Month), MV_Month))) as imsi_v_1,
+			LPAD(MV_Day, 2, '0') as imsi_v_2,
+			MV_Hour as imsi_v_3,
+			MV_Minute as imsi_v_4,
+			from_unixtime(MV_Time, '%Y-%m-%d %H:%i:%s') as imsi_v_5,
+			MV_OFile as ORG_FILE_NAME,
+			MV_CFile as SERVER_FILE_NAME,
+			MV_Area as imsi_v_6,
+			MV_Subject as title,
+			MV_Producer as imsi_v_7,
+			MV_Actor as imsi_v_8,
+			MV_Genre as imsi_v_9,
+			MV_Contury as imsi_v_10,
+			MV_OpenDate as imsi_v_11,
+			MV_Grade as imsi_v_12,
+			replace(MV_ShowTime, '분', '') as imsi_v_13,
+			MV_MakeDate as imsi_v_14,
+			MV_Content as content,
+			MV_Hit as view_count,
+			from_unixtime(MV_WDate, '%Y-%m-%d %H:%i:%s') as add_date,
+			'N' as delete_yn,
+			'admin' as user_id
+		FROM
+			wd_movie
+		WHERE mv_year > 0
+		and MV_Lib = #{dbUser}
+		ORDER BY
+			MV_Code
+	</select>
+
+	<select id="getListDKBukgu" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			BB_Code as board_seq,
+			BB_Board as manager_seq,
+			BB_Head as group_seq,
+			BB_Parent as parent_seq,
+			BB_Depth as group_step,
+			if(trim(bb_id) = '', 'admin', bb_id) as user_id,
+			if(BB_Category = '0', '', BB_category) as category1,
+			BB_Name as user_name,
+			BB_Pass as user_password,
+			BB_Email as user_email,
+			BB_Homepage as user_homepage,
+			ifnull(BB_Subject, '제목없음') as title,
+			BB_Content as content,
+			if(BB_Notice = '1', 'Y', 'N') as NOTICE_YN,
+			if(BB_Secret = '1', 'Y', 'N') as secret_yn,
+			if(BB_OPEN = '1', 'Y', 'N') as delete_yn,
+			BB_Hit as VIEW_COUNT,
+			BB_WIP as user_ip,
+			ifnull(from_unixtime(BB_MDate, '%Y-%m-%d %H:%i:%s'), '1970-01-01 00:00:00') as modify_date,
+			ifnull(from_unixtime(BB_WDate, '%Y-%m-%d %H:%i:%s'), '1970-01-01 00:00:00') as add_date,
+			if(BB_etc1 = '0', '', BB_etc1) as imsi_v_1,
+			if(BB_etc2 = '0', '', BB_etc2) as imsi_v_2,
+			if(BB_etc3 = '0', '', BB_etc3) as imsi_v_3,
+			from_unixtime(BB_NSDate, '%Y-%m-%d') AS notice_start_date_str,
+			from_unixtime(BB_NEDate, '%Y-%m-%d') AS notice_end_date_str
+		FROM
+			wd_board
+		WHERE
+			BB_Board = #{manager_seq}
+		AND BB_Lib = #{dbUser}
+		ORDER BY
+			BB_Head, BB_Parent, bb_depth DESC
+	</select>
+
+	<select id="getFileDataDKBukgu" resultType="HashMap" >
+		SELECT
+			BF_FileCName as SERVER_FILE_NAME,
+			BF_FileOName as ORG_FILE_NAME
+		FROM
+			wd_board_files
+		WHERE
+			BF_p_Code = #{bb_code}
+		ORDER BY BF_Code
+	</select>
+
+	<select id="getListBeomeo" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			idx as board_seq,
+			num as group_seq,
+			0 as parent_seq,
+			0 as group_step,
+			if(trim(userid) = '', 'admin', userid) as user_id,
+			(case code when 'notice' then '0001' when 'forestnotice' then '0002' when 'mulnotice' then '0003' else '' end) as category1,
+			name as user_name,
+			passwd as user_password,
+			email as user_email,
+			ifnull(subject, '제목없음') as title,
+			content,
+			if(notice = '1', 'Y', 'N') as NOTICE_YN,
+			if(secret = '1', 'Y', 'N') as secret_yn,
+			<if test="value == 1">
+				if(allow = '1', 'N', 'Y') as delete_yn,
+			</if>
+			<if test="value != 1">
+				'N' as delete_yn,
+			</if>
+			read_cnt as VIEW_COUNT,
+			reg_ip as user_ip,
+			DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS add_date,
+			DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS modify_date,
+			hid_file,
+			bbs_file0,
+			bbs_file1,
+			bbs_file2,
+			bbs_file3,
+			bbs_file4,
+			bbs_file5,
+			bbs_file6,
+			bbs_file7,
+			bbs_file8,
+			bbs_file9,
+			bbs_file10
+		FROM
+			cs_bbs_data
+		WHERE
+			<if test="value == 1">
+				CODE IN (SELECT CODE FROM cs_bbs WHERE idx IN (1,62,64))
+			</if>
+			<if test="value != 1">
+				CODE IN (SELECT CODE FROM cs_bbs WHERE idx = #{value})
+			</if>
+		ORDER BY
+			num
+	</select>
+	<select id="getListBeomeoBook" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			num as board_seq,
+			num as group_seq,
+			0 as parent_seq,
+			0 as group_step,
+			if(trim(userid) = '', 'admin', userid) as user_id,
+			(case code when 'notice' then '0001' when 'forestnotice' then '0002' when 'mulnotice' then '0003' else '' end) as category1,
+			name as user_name,
+			passwd as user_password,
+			email as user_email,
+			ifnull(subject, '제목없음') as title,
+			content,
+			if(notice = '1', 'Y', 'N') as NOTICE_YN,
+			if(secret = '1', 'Y', 'N') as secret_yn,
+			'N' as delete_yn,
+			read_cnt as VIEW_COUNT,
+			reg_ip as user_ip,
+			DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS add_date,
+			DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS modify_date,
+			hid_file,
+			bbs_file0,
+			bbs_file1,
+			bbs_file2,
+			bbs_file3,
+			bbs_file4,
+			bbs_file5,
+			bbs_file6,
+			bbs_file7,
+			bbs_file8,
+			bbs_file9,
+			bbs_file10,
+			memo1 AS imsi_v_3,
+			memo2 AS imsi_v_4,
+			memo3 AS imsi_v_7,
+			memo4 AS imsi_v_6,
+			concat(memo5, '-', memo6) AS imsi_v_1
+		FROM
+			cs_bbs_data
+		WHERE
+			<if test="value == 1">
+				CODE IN (SELECT CODE FROM cs_bbs WHERE idx IN (1,62,64))
+			</if>
+			<if test="value != 1">
+				CODE IN (SELECT CODE FROM cs_bbs WHERE idx = #{value})
+			</if>
+		ORDER BY
+			num
+	</select>
+	<select id="getListBeomeoMovie" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			num as board_seq,
+			num as group_seq,
+			0 as parent_seq,
+			0 as group_step,
+			if(trim(userid) = '', 'admin', userid) as user_id,
+			(case code when 'notice' then '0001' when 'forestnotice' then '0002' when 'mulnotice' then '0003' else '' end) as category1,
+			name as user_name,
+			passwd as user_password,
+			email as user_email,
+			ifnull(subject, '제목없음') as title,
+			content,
+			if(notice = '1', 'Y', 'N') as NOTICE_YN,
+			if(secret = '1', 'Y', 'N') as secret_yn,
+			'N' as delete_yn,
+			read_cnt as VIEW_COUNT,
+			reg_ip as user_ip,
+			DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS add_date,
+			DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS modify_date,
+			hid_file,
+			bbs_file0,
+			bbs_file1,
+			bbs_file2,
+			bbs_file3,
+			bbs_file4,
+			bbs_file5,
+			bbs_file6,
+			bbs_file7,
+			bbs_file8,
+			bbs_file9,
+			bbs_file10,
+			DATE_FORMAT(c_sdate, '%Y-%m') AS imsi_v_1,
+			DATE_FORMAT(c_sdate, '%d') AS imsi_v_2,
+			'14' AS imsi_v_3,
+			'00' AS imsi_v_4,
+			memo2 AS imsi_v_6,
+			memo3 AS imsi_v_12,
+			replace(memo4, '분', '') as imsi_v_13
+		FROM
+			cs_bbs_data
+		WHERE
+			<if test="value == 1">
+				CODE IN (SELECT CODE FROM cs_bbs WHERE idx IN (1,62,64))
+			</if>
+			<if test="value != 1">
+				CODE IN (SELECT CODE FROM cs_bbs WHERE idx = #{value})
+			</if>
+		ORDER BY
+			num
+	</select>
+	<select id="getListBeomeoComment" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			subject AS title,
+			COMMENT AS content,
+			name as user_name,
+			if(trim(userid) = '', 'admin', userid) as user_id,
+			DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS add_date
+			FROM cs_bbs_comment
+			WHERE link = ${board_seq}
+			order by idx desc
+	</select>
+
+
+	<select id="getListYonghak" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			idx as board_seq,
+			num as group_seq,
+			0 as parent_seq,
+			0 as group_step,
+			if(trim(userid) = '', 'admin', userid) as user_id,
+			(case code when 'notice' then '001' when 'padongnotice' then '002' when 'muhagnotice' then '003' else '' end) as category1,
+			name as user_name,
+			passwd as user_password,
+			email as user_email,
+			ifnull(subject, '제목없음') as title,
+			content,
+			if(notice = '1', 'Y', 'N') as NOTICE_YN,
+			if(secret = '1', 'Y', 'N') as secret_yn,
+			<if test="value == 1">
+				if(allow = '1', 'N', 'Y') as delete_yn,
+			</if>
+			<if test="value != 1">
+				'N' as delete_yn,
+			</if>
+			read_cnt as VIEW_COUNT,
+			reg_ip as user_ip,
+			DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS add_date,
+			DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS modify_date,
+			hid_file,
+			bbs_file0,
+			bbs_file1,
+			bbs_file2,
+			bbs_file3,
+			bbs_file4
+		FROM
+			cs_bbs_data
+		WHERE
+			<if test="value == 1">
+				CODE IN (SELECT CODE FROM cs_bbs WHERE idx IN (1,19,79))
+			</if>
+			<if test="value != 1">
+				CODE IN (SELECT CODE FROM cs_bbs WHERE idx = #{value})
+			</if>
+		ORDER BY
+			num
+	</select>
+	<select id="getListYonghakBook" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			num as board_seq,
+			num as group_seq,
+			0 as parent_seq,
+			0 as group_step,
+			if(trim(userid) = '', 'admin', userid) as user_id,
+			name as user_name,
+			passwd as user_password,
+			email as user_email,
+			ifnull(subject, '제목없음') as title,
+			content,
+			if(notice = '1', 'Y', 'N') as NOTICE_YN,
+			if(secret = '1', 'Y', 'N') as secret_yn,
+			'N' as delete_yn,
+			read_cnt as VIEW_COUNT,
+			reg_ip as user_ip,
+			DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS add_date,
+			DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS modify_date,
+			hid_file,
+			bbs_file0,
+			bbs_file1,
+			bbs_file2,
+			bbs_file3,
+			bbs_file4,
+			DATE_FORMAT(reg_date, '%Y-%m') AS imsi_v_1,
+			memo1 AS imsi_v_3,
+			memo2 AS imsi_v_4,
+			memo3 AS imsi_v_7,
+			memo4 AS imsi_v_6
+		FROM
+			cs_bbs_data
+		WHERE
+			<if test="value == 1">
+				CODE IN (SELECT CODE FROM cs_bbs WHERE idx IN (1,62,64))
+			</if>
+			<if test="value != 1">
+				CODE IN (SELECT CODE FROM cs_bbs WHERE idx = #{value})
+			</if>
+		ORDER BY
+			num
+	</select>
+	<select id="getListYonghakMovie" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			num as board_seq,
+			num as group_seq,
+			0 as parent_seq,
+			0 as group_step,
+			if(trim(userid) = '', 'admin', userid) as user_id,
+			(case code when 'notice' then '0001' when 'forestnotice' then '0002' when 'mulnotice' then '0003' else '' end) as category1,
+			name as user_name,
+			passwd as user_password,
+			email as user_email,
+			ifnull(subject, '제목없음') as title,
+			content,
+			if(notice = '1', 'Y', 'N') as NOTICE_YN,
+			if(secret = '1', 'Y', 'N') as secret_yn,
+			'N' as delete_yn,
+			read_cnt as VIEW_COUNT,
+			reg_ip as user_ip,
+			DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS add_date,
+			DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS modify_date,
+			hid_file,
+			bbs_file0,
+			bbs_file1,
+			bbs_file2,
+			bbs_file3,
+			bbs_file4,
+			DATE_FORMAT(c_sdate, '%Y-%m') AS imsi_v_1,
+			DATE_FORMAT(c_sdate, '%d') AS imsi_v_2,
+			'14' AS imsi_v_3,
+			'00' AS imsi_v_4,
+			memo2 AS imsi_v_6,
+			memo3 AS imsi_v_12,
+			replace(memo4, '분', '') as imsi_v_13
+		FROM
+			cs_bbs_data
+		WHERE
+			<if test="value == 1">
+				CODE IN (SELECT CODE FROM cs_bbs WHERE idx IN (1,62,64))
+			</if>
+			<if test="value != 1">
+				CODE IN (SELECT CODE FROM cs_bbs WHERE idx = #{value})
+			</if>
+		ORDER BY
+			num
+	</select>
+	<select id="getListYonghakComment" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			subject AS title,
+			COMMENT AS content,
+			name as user_name,
+			if(trim(userid) = '', 'admin', userid) as user_id,
+			DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS add_date
+			FROM cs_bbs_comment
+			WHERE link = ${board_seq}
+			order by idx desc
+	</select>
+
+
+	<select id="getListGosan" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			idx as board_seq,
+			num as group_seq,
+			0 as parent_seq,
+			0 as group_step,
+			if(trim(userid) = '', 'admin', userid) as user_id,
+			(case code when 'notice' then '001' when 'sawolnotice' then '002' else '' end) as category1,
+			name as user_name,
+			passwd as user_password,
+			email as user_email,
+			ifnull(subject, '제목없음') as title,
+			content,
+			if(notice = '1', 'Y', 'N') as NOTICE_YN,
+			if(secret = '1', 'Y', 'N') as secret_yn,
+			<if test="value == 1">
+				if(allow = '1', 'N', 'Y') as delete_yn,
+			</if>
+			<if test="value != 1">
+				'N' as delete_yn,
+			</if>
+			read_cnt as VIEW_COUNT,
+			reg_ip as user_ip,
+			DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS add_date,
+			DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS modify_date,
+			hid_file,
+			bbs_file0,
+			bbs_file1,
+			bbs_file2,
+			bbs_file3,
+			bbs_file4
+		FROM
+			cs_bbs_data
+		WHERE
+			<if test="value == 1">
+				CODE IN (SELECT CODE FROM cs_bbs WHERE idx IN (1,53))
+			</if>
+			<if test="value != 1">
+				CODE IN (SELECT CODE FROM cs_bbs WHERE idx = #{value})
+			</if>
+		ORDER BY
+			num
+	</select>
+	<select id="getListGosanBook" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			num as board_seq,
+			num as group_seq,
+			0 as parent_seq,
+			0 as group_step,
+			if(trim(userid) = '', 'admin', userid) as user_id,
+			name as user_name,
+			passwd as user_password,
+			email as user_email,
+			ifnull(subject, '제목없음') as title,
+			content,
+			if(notice = '1', 'Y', 'N') as NOTICE_YN,
+			if(secret = '1', 'Y', 'N') as secret_yn,
+			'N' as delete_yn,
+			read_cnt as VIEW_COUNT,
+			reg_ip as user_ip,
+			DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS add_date,
+			DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS modify_date,
+			hid_file,
+			bbs_file0,
+			bbs_file1,
+			bbs_file2,
+			bbs_file3,
+			bbs_file4,
+			DATE_FORMAT(reg_date, '%Y-%m') AS imsi_v_1,
+			memo1 AS imsi_v_3,
+			memo2 AS imsi_v_4,
+			memo3 AS imsi_v_7,
+			memo4 AS imsi_v_6
+		FROM
+			cs_bbs_data
+		WHERE
+			<if test="value == 1">
+				CODE IN (SELECT CODE FROM cs_bbs WHERE idx IN (1,62,64))
+			</if>
+			<if test="value != 1">
+				CODE IN (SELECT CODE FROM cs_bbs WHERE idx = #{value})
+			</if>
+		ORDER BY
+			num
+	</select>
+	<select id="getListGosanMovie" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			num as board_seq,
+			num as group_seq,
+			0 as parent_seq,
+			0 as group_step,
+			if(trim(userid) = '', 'admin', userid) as user_id,
+			(case code when 'notice' then '0001' when 'forestnotice' then '0002' when 'mulnotice' then '0003' else '' end) as category1,
+			name as user_name,
+			passwd as user_password,
+			email as user_email,
+			ifnull(subject, '제목없음') as title,
+			content,
+			if(notice = '1', 'Y', 'N') as NOTICE_YN,
+			if(secret = '1', 'Y', 'N') as secret_yn,
+			'N' as delete_yn,
+			read_cnt as VIEW_COUNT,
+			reg_ip as user_ip,
+			DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS add_date,
+			DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS modify_date,
+			hid_file,
+			bbs_file0,
+			bbs_file1,
+			bbs_file2,
+			bbs_file3,
+			bbs_file4,
+			DATE_FORMAT(c_sdate, '%Y-%m') AS imsi_v_1,
+			DATE_FORMAT(c_sdate, '%d') AS imsi_v_2,
+			'14' AS imsi_v_3,
+			'00' AS imsi_v_4,
+			memo2 AS imsi_v_6,
+			memo3 AS imsi_v_12,
+			replace(memo4, '분', '') as imsi_v_13
+		FROM
+			cs_bbs_data
+		WHERE
+			<if test="value == 1">
+				CODE IN (SELECT CODE FROM cs_bbs WHERE idx IN (1,62,64))
+			</if>
+			<if test="value != 1">
+				CODE IN (SELECT CODE FROM cs_bbs WHERE idx = #{value})
+			</if>
+		ORDER BY
+			num
+	</select>
+	<select id="getListGosanComment" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration" >
+		SELECT
+			subject AS title,
+			COMMENT AS content,
+			name as user_name,
+			if(trim(userid) = '', 'admin', userid) as user_id,
+			DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS add_date
+			FROM cs_bbs_comment
+			WHERE link = ${board_seq}
+			order by idx desc
+
+	</select>
+
+
+	<select id="getListNNDalseogu" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_num AS board_seq,
+			b_ref as parent_seq,
+			'admin' as user_id,
+			b_name AS user_name,
+			b_pwd AS user_password,
+			b_subject AS title,
+			b_email AS user_email,
+			(case b_cate
+				when 133 then '001' when 143 then '001' when 149 then '001' when 138 then '001'
+				when 134 then '002' when 144 then '002' when 150 then '002' when 139 then '002'
+				when 135 then '003' when 145 then '003' when 151 then '003' when 140 then '003'
+				when 136 then '004' when 146 then '004' when 152 then '004' when 141 then '004'
+				when 137 then '005' when 147 then '005' when 153 then '005' when 142 then '005'
+				when 148 then '006' when 206 then '006' when 154 then '006'
+				ELSE '000' end) as category1,
+			if(b_noticechk = ' ', 'N', b_noticechk) as notice_yn,
+			b_content AS content,
+			b_ip AS user_ip,
+			b_count AS view_count,
+			if(b_look = 'N', 'Y', 'N') as delete_yn,
+			if(b_open = 'N', 'Y', 'N') as secret_yn,
+			if(b_regdate = '', '2020-01-01 00:00:00', b_regdate) AS add_date,
+			b_temp1 AS imsi_v_1,
+			b_temp2 AS imsi_v_2,
+			b_temp3 AS imsi_v_3,
+			b_temp4 AS imsi_v_4,
+			b_temp5 AS imsi_v_5,
+			b_temp6 AS imsi_v_6,
+			b_temp7 AS imsi_v_7,
+			b_file1 as bbs_file1,
+			b_file2 as bbs_file2,
+			b_file3 as bbs_file3,
+			b_file4 as bbs_file4,
+			b_file5 as bbs_file5,
+			b_file6 as bbs_file6,
+			b_file7 as bbs_file7,
+			b_file8 as bbs_file8,
+			b_file9 as bbs_file9,
+			b_file10 as bbs_file10,
+			b_re_content AS imsi_v_20,
+			SUBSTR(b_notice_sdate,1,10) AS notice_start_date_str,
+			SUBSTR(b_notice_edate,1,10) AS notice_end_date_str
+		FROM
+			board
+		WHERE
+			a_num = ${value}
+		ORDER BY
+			b_num
+	</select>
+
+
+	<select id="getListNNRecommendBookDalseogu" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_num AS board_seq,
+			ifnull(b_id, 'admin') as user_id,
+			'관리자' AS  user_name,
+			b_name AS imsi_v_3,
+			b_pwd AS user_password,
+			b_subject AS title,
+			b_temp1 AS imsi_v_1,
+			b_cate as category1,
+			'N' as notice_yn,
+			b_content AS content,
+			b_ip AS user_ip,
+			b_count AS view_count,
+			if(b_look = 'N', 'Y', 'N') as delete_yn,
+			if(b_open = 'N', 'Y', 'N') as secret_yn,
+			b_regdate AS add_date,
+			b_temp4 AS imsi_v_2,
+			b_temp2 AS imsi_v_3,
+			b_temp3 AS imsi_v_4,
+			b_temp6 AS imsi_v_6,
+			b_keyword AS preview_img,
+			b_file1 as bbs_file1,
+			b_file2 as bbs_file2,
+			b_file3 as bbs_file3,
+			b_file4 as bbs_file4,
+			b_file5 as bbs_file5,
+			b_file6 as bbs_file6,
+			b_file7 as bbs_file7,
+			b_file8 as bbs_file8,
+			b_file9 as bbs_file9,
+			b_file10 as bbs_file10
+		FROM
+			board
+		WHERE
+			a_num = ${value}
+		ORDER BY
+			b_regdate
+	</select>
+
+
+	<select id="getListNNMovieDalseogu" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_num AS board_seq,
+			ifnull(b_id, 'admin') as user_id,
+			b_name AS  user_name,
+			b_pwd AS user_password,
+			b_subject AS title,
+			b_content AS content,
+			b_ip AS user_ip,
+			b_count AS view_count,
+			'N' as notice_yn,
+			if(b_look = 'N', 'Y', 'N') as delete_yn,
+			if(b_open = 'N', 'Y', 'N') as secret_yn,
+			b_regdate AS add_date,
+			SUBSTR(b_sdate,1,7) as imsi_v_1,
+			SUBSTR(b_sdate,9) as imsi_v_2,
+			SUBSTR(b_temp1,1,2) AS imsi_v_3,
+			SUBSTR(b_temp1,4,2) AS imsi_v_4,
+			b_temp2 AS imsi_v_6,
+			b_temp3 AS imsi_v_7,
+			b_temp4 AS imsi_v_8,
+			b_temp5 AS imsi_v_9,
+			b_temp6 AS imsi_v_12,
+			REPLACE(b_temp7, '분', '') AS imsi_v_13,
+			b_file1 AS bbs_file1,
+			b_file2 as bbs_file2,
+			b_file3 as bbs_file3,
+			b_file4 as bbs_file4,
+			b_file5 as bbs_file5,
+			b_file6 as bbs_file6,
+			b_file7 as bbs_file7,
+			b_file8 as bbs_file8,
+			b_file9 as bbs_file9,
+			b_file10 as bbs_file10,
+			b_keyword AS preview_img
+		FROM
+			board
+		WHERE
+			a_num = ${value}
+		AND	b_regdate != '0-00-00'
+		AND b_sdate != '1970-01-01'
+		ORDER BY
+			b_regdate
+	</select>
+
+
+	<select id="getListNNDalseonggun" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_num AS board_seq,
+			b_ref as parent_seq,
+			'admin' as user_id,
+			b_name AS user_name,
+			b_pwd AS user_password,
+			b_subject AS title,
+			b_email AS user_email,
+			b_cate  as category1,
+			if(b_noticechk = ' ', 'N', b_noticechk) as notice_yn,
+			b_content AS content,
+			b_ip AS user_ip,
+			b_count AS view_count,
+			if(b_look = 'N', 'Y', 'N') as delete_yn,
+			if(b_open = 'N', 'Y', 'N') as secret_yn,
+			if(b_regdate = '', '2020-01-01 00:00:00', b_regdate) AS add_date,
+			b_temp1 AS imsi_v_1,
+			b_temp2 AS imsi_v_2,
+			b_temp3 AS imsi_v_3,
+			b_temp4 AS imsi_v_4,
+			b_temp5 AS imsi_v_5,
+			b_temp6 AS imsi_v_6,
+			b_temp7 AS imsi_v_7,
+			b_re_content AS imsi_v_20
+		FROM
+			${value}
+		ORDER BY
+			b_num
+	</select>
+
+
+	<select id="getListNNRecommendBookDalseonggun" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_num AS board_seq,
+			ifnull(b_id, 'admin') as user_id,
+			'관리자' AS  user_name,
+			b_subject AS title,
+			b_content AS content,
+			b_cate as category1,
+			'N' as notice_yn,
+			b_ip AS user_ip,
+			b_count AS view_count,
+			if(b_look = 'N', 'Y', 'N') as delete_yn,
+			if(b_open = 'N', 'Y', 'N') as secret_yn,
+			b_regdate AS add_date,
+
+
+			SUBSTR(b_sdate,1,7) AS imsi_v_1,
+			b_temp4 AS imsi_v_2,
+			b_temp2 AS imsi_v_4,
+			b_temp3 AS imsi_v_7
+		FROM
+			${value}
+		ORDER BY
+			b_regdate
+	</select>
+
+
+	<select id="getListNNMovieDalseonggun" resultType="kr.co.whalesoft.app.cms.dataMigration.DataMigration">
+		SELECT
+			b_num AS board_seq,
+			ifnull(b_id, 'admin') as user_id,
+			b_name AS  user_name,
+			b_subject AS title,
+			b_content AS content,
+			b_ip AS user_ip,
+			b_count AS view_count,
+			'N' as notice_yn,
+			if(b_look = 'N', 'Y', 'N') as delete_yn,
+			if(b_open = 'N', 'Y', 'N') as secret_yn,
+			b_regdate AS add_date,
+			SUBSTR(b_sdate,1,7) as imsi_v_1,
+			SUBSTR(b_sdate,9) as imsi_v_2,
+			'14' AS imsi_v_3,
+			'00' AS imsi_v_4,
+			b_temp2 AS imsi_v_6,
+			b_temp4 AS imsi_v_7,
+			b_temp3 AS imsi_v_8,
+			b_temp5 AS imsi_v_9,
+			b_temp6 AS imsi_v_12,
+			REPLACE(b_temp7, '분', '') AS imsi_v_13
+		FROM
+			${value}
+		WHERE
+			b_regdate != '0-00-00'
+		ORDER BY
+			b_regdate
+	</select>
+
 
 </mapper>

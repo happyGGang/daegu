@@ -203,6 +203,70 @@ public class DataMigrationService extends BaseService{
 		String fileName = String.valueOf(orgMap.get("S_FILE_NAME"));
 		String server = String.valueOf(orgMap.get("SERVER_FILE_NAME"));
 
+
+		File sourceFile = new File(path + fileName);
+
+		File targetLocation = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/");// 대상폴더
+
+
+		if (!targetLocation.exists()) {
+			targetLocation.mkdir();
+		}
+
+//		try {
+			FileUtils.copyFileToDirectory(sourceFile, targetLocation);
+
+			String[] split = fileName.split("/");
+			if (split.length > 1) {
+				fileName = split[split.length-1];
+			}
+
+			File targetFile =  new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/" + fileName);// 대상폴더
+			File targetLocationRename = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/" + server);// 대상폴더
+			targetFile.renameTo(targetLocationRename);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+
+		String ext = ".jpg|.bmp|.gif|.png|.jpeg";
+		String extname = String.valueOf(orgMap.get("FILE_EXT"));
+		if (ext.indexOf(extname) > -1) {
+//			thumbFile = new File("D:\\develop_tool\\board\\" + org);
+
+//			try {
+				FileUtil.thumbImgMake(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/", server, extname, 236, 163);
+//			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+//			}
+
+//			targetLocation = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/thumb/");// 게시판번호
+//
+//			if (!targetLocation.exists()) {
+//				targetLocation.mkdir();
+//			}
+//
+//			try {
+//				FileUtils.copyFileToDirectory(thumbFile, targetLocation);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//
+//			File newThumbFile = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/thumb/" + org);// 이동된 섬네일
+//			File renameThumbFile = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/thumb/" + server);// 이동된 섬네일
+//
+//			newThumbFile.renameTo(renameThumbFile);
+		}
+//		}
+
+
+
+	}
+	public void fileMoveSuseong(Map<String, Object> orgMap, int manage_idx, String path) throws Exception{
+
+		String fileName = String.valueOf(orgMap.get("S_FILE_NAME"));
+		String server = String.valueOf(orgMap.get("SERVER_FILE_NAME"));
+
+
 		File sourceFile = new File(path + fileName);
 
 		File targetLocation = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/");// 대상폴더
@@ -843,7 +907,6 @@ public class DataMigrationService extends BaseService{
 
 	/**
 	 * @author whalesoft YONGJU 2019. 10. 26.
-	 * @param object
 	 * @return
 	 */
 	public List<Map<String, Object>> getColumns(Map<String, Object> a) {
@@ -952,7 +1015,6 @@ public class DataMigrationService extends BaseService{
 
 	/**
 	 * @author whalesoft YONGJU 2020. 1. 2.
-	 * @param string
 	 * @param one
 	 */
 	@DataSource(DataSourceType.SLAVE1)
@@ -1059,4 +1121,211 @@ public class DataMigrationService extends BaseService{
 		return dao.getListNNHubLib(string);
 	}
 
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListDongguMovie() {
+		return dao.getListDongguMovie();
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListDonggu(int manager_seq) {
+		return dao.getListDonggu(manager_seq);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<String> getDongguContents(DataMigration one) {
+		return dao.getDongguContents(one);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<Map<String, Object>> getFileDataDonggu(DataMigration one) {
+		return dao.getFileDataDonggu(one);
+	}
+
+
+	public void fileMoveDonggu(Map<String, Object> orgMap, int manage_idx) throws IOException {
+
+		String org = String.valueOf(orgMap.get("ORG_FILE"));
+		String server = String.valueOf(orgMap.get("SERVER_FILE_NAME"));
+
+		File sourceFile = new File(org);
+
+		File targetLocation = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/");// 대상폴더
+
+
+		if (!targetLocation.exists()) {
+			targetLocation.mkdir();
+		}
+
+		//		try {
+		FileUtils.copyFileToDirectory(sourceFile, targetLocation);
+
+		File targetFile =  new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/" + sourceFile.getName());// 대상폴더
+		File targetLocationRename = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/" + server);// 대상폴더
+		targetFile.renameTo(targetLocationRename);
+		//		} catch (IOException e) {
+		//			e.printStackTrace();
+		//		}
+
+			String ext = ".jpg|.bmp|.gif|.png|.jpeg";
+			String extname = String.valueOf(orgMap.get("FILE_EXT"));
+			if (ext.indexOf(extname) > -1) {
+				//				thumbFile = new File("D:\\develop_tool\\board\\" + org);
+
+				//				try {
+				FileUtil.thumbImgMake(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/", server, extname, 236, 163);
+				//				} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				//				}
+
+				//				targetLocation = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/thumb/");// 게시판번호
+				//
+				//				if (!targetLocation.exists()) {
+				//					targetLocation.mkdir();
+				//				}
+				//
+				//				try {
+				//					FileUtils.copyFileToDirectory(thumbFile, targetLocation);
+				//				} catch (IOException e) {
+				//					e.printStackTrace();
+				//				}
+				//
+				//				File newThumbFile = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/thumb/" + org);// 이동된 섬네일
+				//				File renameThumbFile = new File(boardStorage.getRootPath() + "/" + manage_idx + "/" + orgMap.get("board_idx") + "/thumb/" + server);// 이동된 섬네일
+				//
+				//				newThumbFile.renameTo(renameThumbFile);
+			}
+
+
+
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNRecommendBookSeogu(String tablename) {
+		return dao.getListNNRecommendBookSeogu(tablename);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNMovieSeogu(String a_tablename) {
+		return dao.getListNNMovieSeogu(a_tablename);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNRecommendBookNamgu(String tablename) {
+		return dao.getListNNRecommendBookNamgu(tablename);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNMovieNamgu(String a_tablename) {
+		return dao.getListNNMovieNamgu(a_tablename);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> orgListDKBookBukgu(DataMigration dm) {
+		return dao.orgListDKBookBukgu(dm);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> orgListDKMovieBukgu(DataMigration dm) {
+		return dao.orgListDKMovieBukgu(dm);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListDKBukgu(Map<String, Object> manager_seq) {
+		return dao.getListDKBukgu(manager_seq);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<Map<String, Object>> getFileDataDKBukgu(int board_seq) {
+		return dao.getFileDataDKBukgu(board_seq);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListBeomeo(int manager_seq) {
+		return dao.getListBeomeo(manager_seq);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListBeomeoBook(int manager_seq) {
+		return dao.getListBeomeoBook(manager_seq);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListBeomeoMovie(int manager_seq) {
+		return dao.getListBeomeoMovie(manager_seq);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListBeomeoComment(DataMigration one) {
+		return dao.getListBeomeoComment(one);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListYonghak(int manager_seq) {
+		return dao.getListYonghak(manager_seq);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListYonghakBook(int manager_seq) {
+		return dao.getListYonghakBook(manager_seq);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListYonghakMovie(int manager_seq) {
+		return dao.getListYonghakMovie(manager_seq);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListYonghakComment(DataMigration one) {
+		return dao.getListYonghakComment(one);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListGosan(int manager_seq) {
+		return dao.getListGosan(manager_seq);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListGosanBook(int manager_seq) {
+		return dao.getListGosanBook(manager_seq);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListGosanMovie(int manager_seq) {
+		return dao.getListGosanMovie(manager_seq);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListGosanComment(DataMigration one) {
+		return dao.getListGosanComment(one);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNRecommendBookDalseogu(String tablename) {
+		return dao.getListNNRecommendBookDalseogu(tablename);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNMovieDalseogu(String tablename) {
+		return dao.getListNNMovieDalseogu(tablename);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNDalseogu(String tablename) {
+		return dao.getListNNDalseogu(tablename);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNRecommendBookDalseonggun(String tablename) {
+		return dao.getListNNRecommendBookDalseonggun(tablename);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNMovieDalseonggun(String tablename) {
+		return dao.getListNNMovieDalseonggun(tablename);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNDalseonggun(String tablename) {
+		return dao.getListNNDalseonggun(tablename);
+	}
 }

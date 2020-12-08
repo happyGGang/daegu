@@ -73,6 +73,20 @@ public class DataMigration {
 	private String tableName;
 	private String dbUser;
 
+	private String hid_file;
+	private String bbs_file;
+	private String bbs_file0;
+	private String bbs_file1;
+	private String bbs_file2;
+	private String bbs_file3;
+	private String bbs_file4;
+	private String bbs_file5;
+	private String bbs_file6;
+	private String bbs_file7;
+	private String bbs_file8;
+	private String bbs_file9;
+	private String bbs_file10;
+
 	public DataMigration() {
 		// TODO Auto-generated constructor stub
 	}
@@ -710,4 +724,107 @@ public class DataMigration {
 		this.server_file_name = server_file_name;
 	}
 
+	public String getHid_file() {
+		return hid_file;
+	}
+
+	public void setHid_file(String hid_file) {
+		this.hid_file = hid_file;
+	}
+
+	public String getBbs_file() {
+		return bbs_file;
+	}
+
+	public void setBbs_file(String bbs_file) {
+		this.bbs_file = bbs_file;
+	}
+
+	public String getBbs_file0() {
+		return bbs_file0;
+	}
+
+	public void setBbs_file0(String bbs_file0) {
+		this.bbs_file0 = bbs_file0;
+	}
+
+	public String getBbs_file1() {
+		return bbs_file1;
+	}
+
+	public void setBbs_file1(String bbs_file1) {
+		this.bbs_file1 = bbs_file1;
+	}
+
+	public String getBbs_file2() {
+		return bbs_file2;
+	}
+
+	public void setBbs_file2(String bbs_file2) {
+		this.bbs_file2 = bbs_file2;
+	}
+
+	public String getBbs_file3() {
+		return bbs_file3;
+	}
+
+	public void setBbs_file3(String bbs_file3) {
+		this.bbs_file3 = bbs_file3;
+	}
+
+	public String getBbs_file4() {
+		return bbs_file4;
+	}
+
+	public void setBbs_file4(String bbs_file4) {
+		this.bbs_file4 = bbs_file4;
+	}
+
+	public String getBbs_file5() {
+		return bbs_file5;
+	}
+
+	public void setBbs_file5(String bbs_file5) {
+		this.bbs_file5 = bbs_file5;
+	}
+
+	public String getBbs_file6() {
+		return bbs_file6;
+	}
+
+	public void setBbs_file6(String bbs_file6) {
+		this.bbs_file6 = bbs_file6;
+	}
+
+	public String getBbs_file7() {
+		return bbs_file7;
+	}
+
+	public void setBbs_file7(String bbs_file7) {
+		this.bbs_file7 = bbs_file7;
+	}
+
+	public String getBbs_file8() {
+		return bbs_file8;
+	}
+
+	public void setBbs_file8(String bbs_file8) {
+		this.bbs_file8 = bbs_file8;
+	}
+
+	public String getBbs_file9() {
+		return bbs_file9;
+	}
+
+	public void setBbs_file9(String bbs_file9) {
+		this.bbs_file9 = bbs_file9;
+	}
+
+	public String getBbs_file10() {
+		return bbs_file10;
+	}
+
+	public void setBbs_file10(String bbs_file10) {
+		this.bbs_file10 = bbs_file10;
+	}
 }
