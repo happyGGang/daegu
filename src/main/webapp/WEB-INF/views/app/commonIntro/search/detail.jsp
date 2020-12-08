@@ -223,7 +223,9 @@ $(function() {
 				</ul>
 			</div>
 		</div>
-
+		<c:if test="${detail.SHELF_LOC_CODE eq 'AD36'}">
+			* 소장위치가 대구전자도서관인 경우, 실시간 대출가능 확인이 어렵습니다. 정확한 대출가능여부 확인은 대구전자도서관에 접속 대출가능 확인이 가능합니다.
+		</c:if>
 		<div class="bookDetailInfo">
 			<table class="bookDetailInfoTbl">
 			<caption>도서 상태 및 등록 정보</caption>
