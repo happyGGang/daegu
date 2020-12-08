@@ -16,6 +16,7 @@ import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.dataSource.DataSource;
 import kr.co.whalesoft.framework.dataSource.DataSourceType;
 import kr.co.whalesoft.framework.file.FileStorage;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 
 @Service
 public class PictureBookService extends BaseService {
@@ -128,7 +129,8 @@ public class PictureBookService extends BaseService {
 		
 		return map;
 	}
-	
+
+	@WorkingLogger(comment="그림책 원화 대출신청 리스트 관리 조회", type="P")
 	public List<PictureBook> getPictureBookLoanList(PictureBook pictureBook) {
 		return dao.getPictureBookLoanList(pictureBook);
 	}
@@ -137,6 +139,7 @@ public class PictureBookService extends BaseService {
 		return dao.getPictureBookLoanCount(pictureBook);
 	}
 	
+	@WorkingLogger(comment="그림책 원화 대출신청 리스트 관리 1건 조회", type="P")
 	public PictureBook getPictureBookLoanOne(PictureBook pictureBook) {
 		pictureBook = dao.getPictureBookLoanOne(pictureBook);
 		
@@ -166,11 +169,13 @@ public class PictureBookService extends BaseService {
 	public int addPictureBookLoan(PictureBook pictureBook) {
 		return dao.addPictureBookLoan(pictureBook);
 	}
-	
+
+	@WorkingLogger(comment="그림책 원화 대출신청 리스트 관리 1건 수정", type="P")
 	public int modifyPictureBookLoan(PictureBook pictureBook) {
 		return dao.modifyPictureBookLoan(pictureBook);
 	}
-	
+
+	@WorkingLogger(comment="그림책 원화 대출신청 리스트 관리 1건 삭제", type="P")
 	public int deletePictureBookLoan(PictureBook pictureBook) {
 		return dao.deletePictureBookLoan(pictureBook);
 	}
@@ -179,6 +184,7 @@ public class PictureBookService extends BaseService {
 		return dao.statusChangeAll(pictureBook);
 	}
 
+	@WorkingLogger(comment="그림책 원화 대출신청 리스트 관리 엑셀 저장", type="P")
 	public List<PictureBook> getPictureBookLoanExcelList(PictureBook pictureBook) {
 		return dao.getPictureBookLoanExcelList(pictureBook);
 	}

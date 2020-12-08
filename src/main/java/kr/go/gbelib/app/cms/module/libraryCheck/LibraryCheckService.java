@@ -17,6 +17,7 @@ import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.dataSource.DataSource;
 import kr.co.whalesoft.framework.dataSource.DataSourceType;
 import kr.co.whalesoft.framework.file.FileStorage;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 
 @Service
 public class LibraryCheckService extends BaseService {
@@ -137,6 +138,7 @@ public class LibraryCheckService extends BaseService {
 		return dao.deleteLibraryCheckAll(libraryCheck);
 	}
 	
+	@WorkingLogger(comment="장서점검기 신청 리스트 관리 조회", type="P")
 	public List<LibraryCheck> getLibraryCheckLoanList(LibraryCheck libraryCheck) {
 		return dao.getLibraryCheckLoanList(libraryCheck);
 	}
@@ -144,7 +146,8 @@ public class LibraryCheckService extends BaseService {
 	public int getLibraryCheckLoanCount(LibraryCheck libraryCheck) {
 		return dao.getLibraryCheckLoanCount(libraryCheck);
 	}
-	
+
+	@WorkingLogger(comment="장서점검기 신청 리스트 관리 1건 조회", type="P")
 	public LibraryCheck getLibraryCheckLoanOne(LibraryCheck libraryCheck) {
 		libraryCheck = dao.getLibraryCheckLoanOne(libraryCheck);
 		
@@ -164,11 +167,13 @@ public class LibraryCheckService extends BaseService {
 	public int addLibraryCheckLoan(LibraryCheck libraryCheck) {
 		return dao.addLibraryCheckLoan(libraryCheck);
 	}
-	
+
+	@WorkingLogger(comment="장서점검기 신청 리스트 관리 1건 수정", type="P")
 	public int modifyLibraryCheckLoan(LibraryCheck libraryCheck) {
 		return dao.modifyLibraryCheckLoan(libraryCheck);
 	}
-	
+
+	@WorkingLogger(comment="장서점검기 신청 리스트 관리 1건 취소", type="P")
 	public int deleteLibraryCheckLoan(LibraryCheck libraryCheck) {
 		return dao.deleteLibraryCheckLoan(libraryCheck);
 	}
@@ -177,6 +182,7 @@ public class LibraryCheckService extends BaseService {
 		return dao.modifyLibraryCheckStatus(libraryCheck);
 	}
 
+	@WorkingLogger(comment="장서점검기 신청 리스트 관리 엑셀 저장", type="P")
 	public List<LibraryCheck> getLibraryCheckLoanExcelList(LibraryCheck libraryCheck) {
 		return dao.getLibraryCheckLoanExcelList(libraryCheck);
 	}
