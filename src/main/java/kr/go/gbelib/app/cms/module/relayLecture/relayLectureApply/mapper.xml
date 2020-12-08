@@ -117,16 +117,6 @@
 			
 	</update>
 	
-	<update id="deleteRelayLectureApply">
-		UPDATE
-			RELAY_LECTURE_APPLY
-		SET
-			delete_yn = 'Y',
-			delete_id = #{delete_id}
-		WHERE
-			lecture_idx = #{lecture_idx}
-	</update>
-	
 	<update id="statusChangeRelayLectureApply">
 		UPDATE
 			RELAY_LECTURE_APPLY

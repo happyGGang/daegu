@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.file.FileStorage;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
 @Service
@@ -30,7 +31,8 @@ public class HumanBookService extends BaseService {
 	public int getHumanBookCount(HumanBook humanBook) {
 		return dao.getHumanBookCount(humanBook);
 	}
-	
+
+	@WorkingLogger(comment="휴먼북 신청 관리 1건 조회", type="P")
 	public HumanBook getHumanBookOne(HumanBook humanBook) {
 		return dao.getHumanBookOne(humanBook);
 	}
@@ -53,7 +55,8 @@ public class HumanBookService extends BaseService {
 		
 		return dao.addHumanBook(humanBook);
 	}
-	
+
+	@WorkingLogger(comment="휴먼북 신청 관리 1건 수정", type="P")
 	public int modifyHumanBook(HumanBook humanBook) {
 		MultipartFile mFile = humanBook.getmFile();
 		
@@ -77,6 +80,7 @@ public class HumanBookService extends BaseService {
 		return dao.applyStatus(humanBook);
 	}
 
+	@WorkingLogger(comment="휴먼북 신청 관리 조회", type="P")
 	public List<HumanBook> getHumanBookList(HumanBook humanBook) {
 		return dao.getHumanBookList(humanBook);
 	}
@@ -85,6 +89,7 @@ public class HumanBookService extends BaseService {
 		return dao.getHumanBookListCount(humanBook);
 	}
 
+	@WorkingLogger(comment="휴먼북 신청 관리 1건 삭제", type="P")
 	public int deleteHumanBook(HumanBook humanBook) {
 		return dao.deleteHumanBook(humanBook);
 	}

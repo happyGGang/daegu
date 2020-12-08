@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.dataSource.DataSourceType;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 import kr.co.whalesoft.framework.dataSource.DataSource;
 import kr.co.whalesoft.framework.utils.CalculateHashUtils;
 
@@ -18,6 +19,7 @@ public class PortalMemberService extends BaseService {
 	@Autowired
 	private PortalMemberDao dao;
 
+	@WorkingLogger(comment="대표도서관 회원관리 조회", type="P")
 	public List<PortalMember> getPortalMemberList(PortalMember portalMember) {
 		return dao.getPortalMemberList(portalMember);
 	}
@@ -26,6 +28,7 @@ public class PortalMemberService extends BaseService {
 		return dao.getPortalMemberCount(portalMember);
 	}
 
+	@WorkingLogger(comment="대표도서관 회원관리 1건 조회", type="P")
 	public PortalMember getPortalMemberOne(PortalMember portalMember) {
 		return dao.getPortalMemberOne(portalMember);
 	}
@@ -35,6 +38,7 @@ public class PortalMemberService extends BaseService {
 		return dao.addPortalMember(portalMember);
 	}
 
+	@WorkingLogger(comment="대표도서관 회원관리 1건 수정", type="P")
 	public int modifyPortalMember(PortalMember portalMember) {
 		if(StringUtils.isNotEmpty(portalMember.getAgency_password())) {
 			portalMember.setAgency_password(CalculateHashUtils.calculateHash(portalMember.getAgency_password()));
@@ -42,10 +46,12 @@ public class PortalMemberService extends BaseService {
 		return dao.modifyPortalMember(portalMember);
 	}
 
+	@WorkingLogger(comment="대표도서관 회원관리 1건 삭제", type="P")
 	public int deletePortalMember(PortalMember portalMember) {
 		return dao.deletePortalMember(portalMember);
 	}
 
+	@WorkingLogger(comment="대표도서관 회원관리 선택 회원 삭제", type="P")
 	public int deletePortalMemberArr(PortalMember portalMember) {
 		return dao.deletePortalMemberArr(portalMember);
 	}

@@ -28,6 +28,7 @@ import kr.co.whalesoft.app.cms.boardManage.BoardManage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.memberGroupAuth.MemberGroupAuthService;
 import kr.co.whalesoft.framework.base.BaseService;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 import kr.co.whalesoft.framework.utils.CalculateHashUtils;
 import kr.co.whalesoft.framework.utils.StrUtil;
 
@@ -165,6 +166,7 @@ public class MemberService extends BaseService {
 		return dao.getMember(member);
 	}
 
+	@WorkingLogger(comment="사용자 관리 1건 조회", type="P")
 	public Member getMemberOne(Member member) {
 		member = dao.getMemberOne(member);
 //		member.setAuthGroupList(authConfigService.getAuthGroupList(member));
@@ -220,6 +222,7 @@ public class MemberService extends BaseService {
 	 * @param member
 	 * @return
 	 */
+	@WorkingLogger(comment="사용자 관리 1건 수정", type="P")
 	public int modifyMember(Member member) {
 		if ( !StringUtils.isEmpty(member.getMember_pw()) ) {
 			member.setMember_pw(CalculateHashUtils.calculateHash(member.getMember_pw()));
@@ -235,6 +238,7 @@ public class MemberService extends BaseService {
 	 * @param member
 	 * @return
 	 */
+	@WorkingLogger(comment="사용자 관리 1건 삭제", type="P")
 	public int deleteMember(Member member) {
 		member.setHomepage_id(null);
 		memberGroupAuthService.deleteMemberGroupAuth2(member);
@@ -383,6 +387,7 @@ public class MemberService extends BaseService {
 		return map;
 	}
 
+	@WorkingLogger(comment="사용자 관리 조회", type="P")
 	public List<Member> getMemberManageList(Member member) {
 		return dao.getMemberManageList(member);
 	}

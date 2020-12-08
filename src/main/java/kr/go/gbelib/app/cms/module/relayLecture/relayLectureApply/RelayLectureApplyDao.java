@@ -19,8 +19,6 @@ public interface RelayLectureApplyDao {
 	public int addRelayLectureApply(RelayLectureApply relayLectureApply);
 	
 	public int modifyRelayLectureApply(RelayLectureApply relayLectureApply);
-
-	public int deleteRelayLectureApply(RelayLectureApply relayLectureApply);
 	
 	public int statusChangeRelayLectureApply(RelayLectureApply relayLectureApply);
 

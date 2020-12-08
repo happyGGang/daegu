@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.file.FileStorage;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 
 @Service
 public class BestPracticesContestService extends BaseService {
@@ -26,15 +27,18 @@ public class BestPracticesContestService extends BaseService {
 	@Qualifier("bestPracticesContestStorage")
 	private FileStorage bestPracticesContestStorage;
 
+	@WorkingLogger(comment="독서릴레이 우수사례공모 목록 조회", type="P")
 	public List<BestPracticesContest> bestPracticesContestList(BestPracticesContest bestPracticesContest) {
 		bestPracticesContest.setPassword(decBase64(bestPracticesContest.getPassword()));
 		return dao.bestPracticesContestList(bestPracticesContest);
 	}
 	
+	@WorkingLogger(comment="독서릴레이 우수사례공모 엑셀 저장", type="P")
 	public List<BestPracticesContest> getExcelList(BestPracticesContest bestPracticesContest) {
 		return dao.getExcelList(bestPracticesContest);
 	}
 	
+	@WorkingLogger(comment="독서릴레이 우수사례공모 1건 조회", type="P")
 	public BestPracticesContest getBestPracticesContest(BestPracticesContest bestPracticesContest) {
 		bestPracticesContest.setPassword(decBase64(bestPracticesContest.getPassword()));
 		return dao.getBestPracticesContest(bestPracticesContest);
@@ -54,12 +58,14 @@ public class BestPracticesContestService extends BaseService {
 	}
 
 	@Transactional
+	@WorkingLogger(comment="독서릴레이 우수사례공모 1건 수정", type="P")
 	public int modifyBestPracticesContest(BestPracticesContest bestPracticesContest, MultipartHttpServletRequest mpRequest) {
 		bestPracticesContest.setPassword(encBase64(bestPracticesContest.getPassword()));
 		multipartFile(bestPracticesContest, mpRequest);
 		return dao.modifyBestPracticesContest(bestPracticesContest);
 	}
-
+	
+	@WorkingLogger(comment="독서릴레이 우수사례공모 1건 삭제", type="P")
 	public int deleteBestPracticesContest(BestPracticesContest bestPracticesContest) {
 		return dao.deleteBestPracticesContest(bestPracticesContest);
 	}

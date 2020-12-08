@@ -17,6 +17,7 @@ import kr.co.whalesoft.app.cms.memberGroupAuth.MemberGroupAuthService;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.dataSource.DataSource;
 import kr.co.whalesoft.framework.dataSource.DataSourceType;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 import kr.co.whalesoft.framework.utils.CalculateHashUtils;
 
 @Service
@@ -33,7 +34,8 @@ public class SupportMemberService extends BaseService {
 	
 	@Autowired
 	private MemberService memberService;
-	
+
+	@WorkingLogger(comment="228회원 관리 조회", type="P")
 	public List<SupportMember> getSupportMemberList(SupportMember supportMember) {
 		return dao.getSupportMemberList(supportMember);
 	}
@@ -41,7 +43,8 @@ public class SupportMemberService extends BaseService {
 	public int getSupportMemberCount(SupportMember supportMember) {
 		return dao.getSupportMemberCount(supportMember);
 	}
-	
+
+	@WorkingLogger(comment="228회원 관리 1건 조회", type="P")
 	public SupportMember getSupportMemberOne(SupportMember supportMember) {
 		return dao.getSupportMemberOne(supportMember);
 	}
@@ -54,7 +57,8 @@ public class SupportMemberService extends BaseService {
 		supportMember.setMember_password(CalculateHashUtils.calculateHash(supportMember.getMember_password()));
 		return dao.addSupportMember(supportMember);
 	}
-	
+
+	@WorkingLogger(comment="228회원 관리 1건 수정", type="P")
 	public int modifySupportMember(SupportMember supportMember) {
 		if(StringUtils.isNotEmpty(supportMember.getMember_password())) {
 			supportMember.setMember_password(CalculateHashUtils.calculateHash(supportMember.getMember_password()));
@@ -66,10 +70,12 @@ public class SupportMemberService extends BaseService {
 		return dao.modifySupportMemberGroup(supportMember);
 	}
 
+	@WorkingLogger(comment="228회원 관리 1건 삭제", type="P")
 	public int deleteSupportMember(SupportMember supportMember) {
 		return dao.deleteSupportMember(supportMember);
 	}
 
+	@WorkingLogger(comment="228회원 관리 선택 회원 삭제", type="P")
 	public int deleteCheckSupportMember(SupportMember supportMember) {
 		return dao.deleteCheckSupportMember(supportMember);
 	}

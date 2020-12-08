@@ -10,6 +10,7 @@ import kr.co.whalesoft.app.cms.login.LoginService;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage;
 import kr.co.whalesoft.framework.base.BaseService;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 import kr.go.gbelib.app.common.api.PushAPI;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,12 @@ public class ApplyService extends BaseService {
 	@Autowired
 	private LoginService loginService;
 	
+	@WorkingLogger(comment="견학/체험 신청자 관리 조회", type="P")
 	public List<Apply> getApply(Apply apply) {
 		return Dao.getApply(apply);
 	}
-	
+
+	@WorkingLogger(comment="견학/체험 신청자 관리 1달 조회", type="P")
 	public List<Apply> getApplyMonth(Apply apply) {
 		return Dao.getApplyMonth(apply);
 	}	
@@ -38,7 +41,8 @@ public class ApplyService extends BaseService {
 	public List<Apply> getUserApply(Apply apply) {
 		return Dao.getUserApply(apply);
 	}
-	
+
+	@WorkingLogger(comment="견학/체험 신청자 관리 1건 조회", type="P")
 	public Apply getApplyOne(Apply apply) {
 		Apply applyVO = Dao.getApplyOne(apply);
 		
@@ -83,7 +87,8 @@ public class ApplyService extends BaseService {
 		Dao.addApply(apply);
 		return filterCheck;
 	}
-	
+
+	@WorkingLogger(comment="견학/체험 신청자 관리 1건 수정", type="P")
 	public int modifyApply(Apply apply) {
 		if ( apply.getAgency_tel_1() != "" && apply.getAgency_tel_2() != "" && apply.getAgency_tel_3() != "" ) {
 			apply.setAgency_tel(String.format("%s-%s-%s", apply.getAgency_tel_1(), apply.getAgency_tel_2(), apply.getAgency_tel_3()));
@@ -117,7 +122,8 @@ public class ApplyService extends BaseService {
 		
 		return result; 
 	}
-	
+
+	@WorkingLogger(comment="견학/체험 신청자 관리 1건 삭제", type="P")
 	public int deleteApply(Apply apply) {
 		return Dao.deleteApply(apply);
 	}

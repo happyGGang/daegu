@@ -40,6 +40,7 @@ import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.terms.Terms;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.file.FileStorage;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 import kr.go.gbelib.app.cms.module.teach.Teach;
 import kr.go.gbelib.app.cms.module.teach.TeachDao;
 import kr.go.gbelib.app.cms.module.teachSetting.TeachSetting;
@@ -71,14 +72,16 @@ public class StudentService extends BaseService {
 		return dao.getStudentListAll(student);
 	}
 
+	@WorkingLogger(comment="강좌 수강생 관리 조회", type="P")
 	public List<Student> getStudentList(Student student) {
 		return dao.getStudentList(student);
 	}
-
+	
 	public int getStudentListCount(Student student) {
 		return dao.getStudentListCount(student);
 	}
 
+	@WorkingLogger(comment="강좌 수강생 관리 1건 조회", type="P")
 	public Student getStudentOne(Student student) {
 		return dao.getStudentOne(student);
 	}
@@ -367,6 +370,7 @@ public class StudentService extends BaseService {
 	}
 
 	@Transactional
+	@WorkingLogger(comment="강좌 수강생 관리 1건 수정", type="P")
 	public int modifyStudent(Student student) {
 		int result = 0;
 		String applyStatus = student.getApply_status();
@@ -432,6 +436,7 @@ public class StudentService extends BaseService {
 	}
 
 	@Transactional
+	@WorkingLogger(comment="강좌 수강생 관리 1건 삭제", type="P")
 	public int deleteStudent(Student student) {
 		if (student.getStudent_idx() < 1) {
 			Student st = dao.getStudentOne(student);
@@ -504,7 +509,8 @@ public class StudentService extends BaseService {
 	public Student getCertificateInfo(Student student) {
 		return dao.getCertificateInfo(student);
 	}
-
+	
+	@WorkingLogger(comment="강좌 관리 수료자 조회", type="P")
 	public List<Student> getTeachCertificateList(Student student) {
 		return dao.getTeachCertificateList(student);
 	}

@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.file.FileStorage;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 import net.sf.jxls.transformer.XLSTransformer;
 
 @Service
@@ -36,7 +37,8 @@ public class TeacherService extends BaseService {
 		teacher.setHomepage_id(homepage_id);
 		return dao.getTeacherListAll(teacher);
 	}
-
+	
+	@WorkingLogger(comment="강사관리 조회", type="P")
 	public List<Teacher> getTeacherList(Teacher teacher) {
 		return dao.getTeacherList(teacher);
 	}
@@ -44,7 +46,8 @@ public class TeacherService extends BaseService {
 	public int getTeacherListCount(Teacher teacher) {
 		return dao.getTeacherListCount(teacher);
 	}
-
+	
+	@WorkingLogger(comment="강사관리 1건 조회", type="P")
 	public Teacher getTeacherOne(Teacher teacher) {
 		return dao.getTeacherOne(teacher);
 	}
@@ -78,6 +81,7 @@ public class TeacherService extends BaseService {
 		return dao.addTeacher(teacher);
 	}
 
+	@WorkingLogger(comment="강사관리 1건 수정", type="P")
 	public int modifyTeacher(Teacher teacher) {
 		MultipartFile mFile = teacher.getFile();
 		if ( mFile != null ) {
@@ -99,6 +103,7 @@ public class TeacherService extends BaseService {
 		return dao.modifyTeacher(teacher);
 	}
 
+	@WorkingLogger(comment="강사관리 1건 삭제", type="P")
 	public int deleteTeacher(Teacher teacher) {
 		return dao.deleteTeacher(teacher);
 	}

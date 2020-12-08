@@ -12,6 +12,7 @@ import kr.co.whalesoft.app.cms.module.quiz.QuizService;
 import kr.co.whalesoft.app.cms.module.quizQuestion.QuizQuestion;
 import kr.co.whalesoft.app.cms.module.quizQuestion.QuizQuestionService;
 import kr.co.whalesoft.framework.base.BaseService;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 
 @Service
 public class QuizReqService extends BaseService {
@@ -24,11 +25,13 @@ public class QuizReqService extends BaseService {
 	
 	@Autowired
 	private QuizService quizService;
-	
+
+	@WorkingLogger(comment="독서퀴즈 응모자  관리 조회", type="P")
 	public List<QuizReq> getQuizReqList(QuizReq quizReq) {
 		return quizReqDao.getQuizReqList(quizReq);
 	}
-	
+
+	@WorkingLogger(comment="독서퀴즈 응모자  관리 엑셀 저장", type="P")
 	public List<QuizReq> getQuizReqListAll(QuizReq quizReq) {
 		return quizReqDao.getQuizReqListAll(quizReq);
 	}
@@ -122,7 +125,7 @@ public class QuizReqService extends BaseService {
 	public int modifyChosenYn(QuizReq quizReq) {
 		return quizReqDao.modifyChosenYn(quizReq);
 	}
-	
+
 	public QuizReq getQuizReqOne(QuizReq quizReq) {
 		return quizReqDao.getQuizReqOne(quizReq);
 	}
@@ -138,7 +141,8 @@ public class QuizReqService extends BaseService {
 	public int checkReqByMemberId(QuizReq quizReq) {
 		return quizReqDao.checkReqByMemberId(quizReq);
 	}
-	
+
+	@WorkingLogger(comment="독서퀴즈 응모자  관리 개인정보 삭제", type="P")
 	public int deletePersonalData(QuizReq quizReq) {
 		return quizReqDao.deletePersonalData(quizReq);
 	}

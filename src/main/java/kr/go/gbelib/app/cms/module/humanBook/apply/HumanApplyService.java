@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.whalesoft.framework.base.BaseService;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 import kr.go.gbelib.app.cms.module.humanBook.apply.HumanApply;
 
@@ -35,6 +36,7 @@ public class HumanApplyService extends BaseService {
 		return dao.humanApplyCancel(humanApply);
 	}
 
+	@WorkingLogger(comment="휴먼북 신청 관리 엑셀 저장", type="P")
 	public List<HumanApply> getHumanBookScheduleList(HumanApply humanApply) {
 		return dao.getHumanBookScheduleList(humanApply);
 	}

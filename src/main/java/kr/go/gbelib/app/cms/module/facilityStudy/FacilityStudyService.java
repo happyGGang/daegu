@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.whalesoft.framework.base.BaseService;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 import kr.co.whalesoft.framework.utils.CalculateHashUtils;
 
 /**
@@ -40,7 +41,8 @@ public class FacilityStudyService extends BaseService{
 	 * @author whalesoft YONGJU 2020. 2. 17.
 	 * @param facilityStudy
 	 * @return
-	 */
+	 */	
+	@WorkingLogger(comment="그룹스터디 신청 관리 조회", type="P")
 	public List<FacilityStudy> getFacilityStudyList(FacilityStudy facilityStudy) {
 		if (StringUtils.isNotEmpty(facilityStudy.getApply_password()) && facilityStudy.getApply_password().length() != 88) {
 			facilityStudy.setApply_password(CalculateHashUtils.calculateHash(facilityStudy.getApply_password()));
@@ -53,6 +55,7 @@ public class FacilityStudyService extends BaseService{
 	 * @param facilityStudy
 	 * @return
 	 */
+	@WorkingLogger(comment="그룹스터디 신청 관리 1건 조회", type="P")
 	public FacilityStudy getFacilityStudyOne(FacilityStudy facilityStudy) {
 		if (StringUtils.isNotEmpty(facilityStudy.getApply_password()) && facilityStudy.getApply_password().length() != 88) {
 			facilityStudy.setApply_password(CalculateHashUtils.calculateHash(facilityStudy.getApply_password()));
@@ -64,6 +67,7 @@ public class FacilityStudyService extends BaseService{
 	 * @author whalesoft YONGJU 2020. 2. 17.
 	 * @param facilityStudy
 	 */
+	@WorkingLogger(comment="그룹스터디 신청 관리 1건 삭제", type="P")
 	public int deleteFacilityStudy(FacilityStudy facilityStudy) {
 		return dao.deleteFacilityStudy(facilityStudy);
 	}
@@ -144,6 +148,7 @@ public class FacilityStudyService extends BaseService{
 	 * @author whalesoft YONGJU 2020. 2. 18.
 	 * @param facilityStudy
 	 */
+	@WorkingLogger(comment="그룹스터디 신청 관리 1건 수정", type="P")
 	public int modifyFacilityStudy(FacilityStudy facilityStudy) {
 		return dao.modifyFacilityStudy(facilityStudy);
 	}

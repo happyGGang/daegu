@@ -14,6 +14,7 @@ import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.dataSource.DataSource;
 import kr.co.whalesoft.framework.dataSource.DataSourceType;
 import kr.co.whalesoft.framework.file.FileStorage;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
 @Service
@@ -37,7 +38,7 @@ public class BookPackageService extends BaseService {
 	public int getBookPackageCount(BookPackage bookPackage) {
 		return dao.getBookPackageCount(bookPackage);
 	}
-
+	
 	public BookPackage getBookPackageOne(BookPackage bookPackage) {
 		return dao.getBookPackageOne(bookPackage);
 	}
@@ -121,7 +122,8 @@ public class BookPackageService extends BaseService {
 	public int deleteCheckBookPackage(BookPackage bookPackage) {
 		return dao.deleteCheckBookPackage(bookPackage);
 	}
-
+	
+	@WorkingLogger(comment="책 꾸러미 대출신청 리스트 관리 조회", type="P")
 	public List<BookPackage> getBookPackageLoanList(BookPackage bookPackage) {
 		return dao.getBookPackageLoanList(bookPackage);
 	}
@@ -130,6 +132,7 @@ public class BookPackageService extends BaseService {
 		return dao.getBookPackageLoanCount(bookPackage);
 	}
 
+	@WorkingLogger(comment="책 꾸러미 대출신청 리스트 관리 1건 조회", type="P")
 	public BookPackage getBookPackageLoanOne(BookPackage bookPackage) {
 		return dao.getBookPackageLoanOne(bookPackage);
 	}
@@ -138,6 +141,7 @@ public class BookPackageService extends BaseService {
 		return dao.addBookPackageLoan(bookPackage);
 	}
 
+	@WorkingLogger(comment="책 꾸러미 대출신청 리스트 관리 1건 수정", type="P")
 	public int modifyBookPackageLoan(BookPackage bookPackage) {
 		return dao.modifyBookPackageLoan(bookPackage);
 	}
@@ -146,6 +150,7 @@ public class BookPackageService extends BaseService {
 		return dao.modifyReturnReq(bookPackage);
 	}
 
+	@WorkingLogger(comment="책 꾸러미 대출신청 리스트 관리 1건 취소", type="P")
 	public int deleteBookPackageLoan(BookPackage bookPackage) {
 		return dao.deleteBookPackageLoan(bookPackage);
 	}
@@ -158,6 +163,7 @@ public class BookPackageService extends BaseService {
 		return dao.getBookPackageExcelList(bookPackage);
 	}
 
+	@WorkingLogger(comment="책 꾸러미 대출신청 리스트 관리 엑셀 저장", type="P")
 	public List<BookPackage> getBookPackageLoanExcelList(BookPackage bookPackage) {
 		return dao.getBookPackageLoanExcelList(bookPackage);
 	}

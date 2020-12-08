@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.whalesoft.app.cms.module.quizReq.QuizReq;
 import kr.co.whalesoft.framework.base.BaseService;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 
 @Service
 public class QuizService extends BaseService {
@@ -17,7 +18,7 @@ public class QuizService extends BaseService {
 	public List<Quiz> getQuizListAll(Quiz quiz) {
 		return dao.getQuizListAll(quiz);
 	}
-	 
+
 	public List<Quiz> getQuizList(Quiz quiz) {
 		return dao.getQuizList(quiz);
 	}
@@ -26,6 +27,7 @@ public class QuizService extends BaseService {
 		return dao.getQuizListCount(quiz);
 	}
 	
+	@WorkingLogger(comment="독서퀴즈 응모자 관리 1건 조회", type="P")
 	public Quiz getQuizOne(Quiz quiz) {
 		return dao.getQuizOne(quiz);
 	}
