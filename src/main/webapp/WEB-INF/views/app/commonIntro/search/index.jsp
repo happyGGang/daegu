@@ -238,10 +238,6 @@ $(function() {
 	<form:hidden path="facet_subject_code"/>
 	<form:hidden path="facet_media_code"/>
 
-	<c:if test="${librarySearch.booktype eq 'BOOKANDNONBOOK'}">
-	<form:hidden path="shelfCode"/>
-	</c:if>
-
 	<!-- contents-title-->
 	<div id="contents-title">
 		<!-- <h2>어떤 도서<span style="font-weight:300">를 찾고 싶으세요?</span></h2> -->
@@ -1131,7 +1127,22 @@ $(function() {
 								</dd>
 							</dl>
 
-							<dl id="nonBookMedia" ${fn:escapeXml(param.booktype eq 'NONBOOK' ? '' : 'style="display: none;"')}>
+							<c:if test="${fn:length(shelfCodeList) > 0}">
+								<dl>
+									<dt><label for="keyword" class="title">자료실구분</label></dt>
+									<dd>
+										<form:select path="shelfCode">
+											<form:option value="">전체</form:option>
+											<c:forEach items="${shelfCodeList}" var="i" varStatus="status">
+												<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
+											</c:forEach>
+										</form:select>
+									</dd>
+								</dl>
+							</c:if>
+
+							<c:if test="${fn:length(mediaCodeList) > 0}">
+							<dl id="nonBookMedia" ${fn:escapeXml(param.booktype) eq 'NONBOOK' ? '' : 'style="display: none;"'}>
 								<dt><label for="keyword" class="title">매체구분</label></dt>
 								<dd>
 									<form:select path="media_code">
@@ -1142,6 +1153,8 @@ $(function() {
 									</form:select>
 								</dd>
 							</dl>
+							</c:if>
+
 
 							<div class="end"></div>
 						</div>

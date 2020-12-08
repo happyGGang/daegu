@@ -163,7 +163,11 @@ public class CommonSearchController extends BaseController {
 		Map<String, Object> subLocaInfo = LibSearchAPI.getSubLocaInfo("5", homepage.getManage_code());
 		List<Map<String, Object>> mediaCodeList = LibSearchAPI.getListData(subLocaInfo);
 
+		Map<String, Object> shelfInfo = LibSearchAPI.getSubLocaInfo("19", homepage.getManage_code());
+		List<Map<String, Object>> shelfInfoList = LibSearchAPI.getListData(shelfInfo);
+
 		model.addAttribute("mediaCodeList", mediaCodeList);
+		model.addAttribute("shelfCodeList", shelfInfoList);
 
 		model.addAttribute("homepageList", normalHomepage);
 		model.addAttribute("librarySearch", librarySearch);
