@@ -350,7 +350,12 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 					 	- <form:input path="cell_phone3" class="text" cssStyle="width:60px;" title="휴대폰 번호  끝 자리 입력"  maxlength="4" numberOnly="true"/>
 						</c:if>
 					 	<form:hidden path="cell_phone"/>
-					 	<form:checkbox path="sms_service_yn" value="Y" label=" SMS 수신 여부" cssStyle="vertical-align: middle;"/>
+							<c:if test="${newMember.editMode eq 'ADD' }">
+								<form:checkbox path="sms_service_yn" value="Y" label=" SMS 수신 여부" checked="true" cssStyle="vertical-align: middle; width: 20px; height: 20px;"/>
+							</c:if>
+							<c:if test="${newMember.editMode ne 'ADD' }">
+								<form:checkbox path="sms_service_yn" value="Y" label=" SMS 수신 여부" cssStyle="vertical-align: middle; width: 20px; height: 20px;"/>
+							</c:if>
 						</div>
 						<div class="ui-state-highlight" style="margin-top:7px">
 							* 도서관련 알림 및 행사 안내를 받으실 수 있습니다
