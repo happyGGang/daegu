@@ -88,7 +88,9 @@ $(function() {
 						<a href="/intro/${homepage.context_path}/join/findPwForm.do" class="btn btn02">비밀번호찾기</a>
 					</div>
 					<!-- 아이디/비밀번호찾기 [ END ] -->
-
+					<div class="" style="color:#3f70bc;font-weight:bold;font-size: 14px;padding: 15px 0 15px 18px;text-align:center;">
+						※ 기존 회원은 통합회원 인증 후 로그인할 수 있습니다.
+					</div>
 				</div>
 			</dl>
 		</div>

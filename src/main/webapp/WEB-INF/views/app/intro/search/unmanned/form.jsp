@@ -67,7 +67,7 @@
 <form:form modelAttribute="librarySearch" action="save.do" method="post" onsubmit="return false;">
 <form:hidden path="bookkey"/>
 <input type="hidden" name="booktype" id="booktype" value="${fn:substring(detail.WORKING_STATUS,0,2) }"/>
-<input type="hidden" name="title" value="${detail.TITLE_INFO}"/>
+<!-- <input type="hidden" name="title" value="${detail.TITLE_INFO}"/> -->
 <c:if test="${context_path eq 'dmsl'}">
 <input type="hidden" name="exprire_date_cnt" value="7"/>
 </c:if>

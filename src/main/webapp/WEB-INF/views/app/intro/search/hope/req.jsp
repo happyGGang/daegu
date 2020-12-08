@@ -289,14 +289,50 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 					<form:option value="GK">학산작은도서관</form:option>
 				</form:select>
 				</c:when>
-
-
+				<c:when test="${context_path eq 'donggu' || context_path eq 'donggusm'}">
+				<select id="manageCode" name="manageCode">
+					<option value="CA">안심도서관</option>
+					<option value="CB">신천도서관</option>
+					<option value="GR">신암2동 작은도서관</option>
+					<option value="GS">신암3동 작은도서관</option>
+					<option value="GZ">동구청 작은도서관</option>
+					<option value="GU">불로어울림 작은도서관</option>
+					<option value="GV">지저동 작은도서관</option>
+					<option value="FM">반야월역사 작은도서관</option>
+					<option value="FL">도평동 작은도서관</option>
+					<option value="GY">해안동 작은도서관</option>
+					<option value="GX">방촌동 작은도서관</option>
+					<option value="GW">동촌역사 작은도서관</option>
+					<option value="GT">효목1동 작은도서관</option>
+					<option value="FP">효목2동 작은도서관</option>
+					<option value="FK">신천3동 작은도서관</option>
+				</select>
+				</c:when>
+				<c:when test="${context_path eq 'sincheon'}">
+				<select id="manageCode" name="manageCode">
+					<option value="CB">신천도서관</option>
+					<option value="CA">안심도서관</option>
+					<option value="GR">신암2동 작은도서관</option>
+					<option value="GS">신암3동 작은도서관</option>
+					<option value="GZ">동구청 작은도서관</option>
+					<option value="GU">불로어울림 작은도서관</option>
+					<option value="GV">지저동 작은도서관</option>
+					<option value="FM">반야월역사 작은도서관</option>
+					<option value="FL">도평동 작은도서관</option>
+					<option value="GY">해안동 작은도서관</option>
+					<option value="GX">방촌동 작은도서관</option>
+					<option value="GW">동촌역사 작은도서관</option>
+					<option value="GT">효목1동 작은도서관</option>
+					<option value="FP">효목2동 작은도서관</option>
+					<option value="FK">신천3동 작은도서관</option>
+				</select>
+				</c:when>
 				<c:when test="${context_path eq 'jungang'}">
 				<form:select path="manageCode">
 					<form:option value="AD">중앙도서관</form:option>
 				</form:select>
 				</c:when>
-				<c:when test="${context_path eq 'dongdu'}">
+				<c:when test="${context_path eq 'dongbu'}">
 				<form:select path="manageCode">
 					<form:option value="AH">동부도서관</form:option>
 				</form:select>

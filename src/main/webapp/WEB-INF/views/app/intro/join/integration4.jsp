@@ -295,7 +295,7 @@ $(function() {
 					<td>
 						<div class="line2">
 							<p>
-								<form:input path="zipcode" class="text" readonly="true" cssStyle="width: 80px;"/> <a href="#" id="findPostCode" class="btn">우편번호 찾기</a>
+								<!-- <form:input path="zipcode" class="text" readonly="true" cssStyle="width: 80px;"/> --><form:input path="zipcode" class="text"  cssStyle="width: 80px;"/> <a href="#" id="findPostCode" class="btn">우편번호 찾기</a>
 							</p>
 							<p>
 								<form:input path="address1" class="text" style="width:80%;" />

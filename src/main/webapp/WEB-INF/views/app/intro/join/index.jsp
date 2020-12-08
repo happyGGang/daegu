@@ -65,7 +65,7 @@ $(function() {
 
 <div class="join-wrap" style="padding:0">
 
-	<div class="info" style="float:left;">
+	<div class="info">
 		<ul class="con2">
 		<li>다음의 가입 방법 중 하나를 선택하세요.</li>
 		<li>회원유형에 따라 절차가 다르며 실제정보와 차이가 있을 경우 인증이 되지 않을 수 있습니다.</li>

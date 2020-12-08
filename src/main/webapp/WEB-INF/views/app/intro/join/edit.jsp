@@ -350,6 +350,37 @@ $(function() {
 							<option value="GK">학산작은도서관</option>
 						</select>
 						</c:when>
+						<c:when test="${context_path eq 'donggu'}">
+						안심도서관<input type="hidden" id="" name="manage_code" value="CA" />
+						</c:when>
+						<c:when test="${context_path eq 'sincheon'}">
+						신천도서관<input type="hidden" id="" name="manage_code" value="CB" />
+						</c:when>
+						<c:when test="${context_path eq 'donggusm'}">
+						<select name="manage_code">
+							<option value="GR">신암2동 작은도서관</option>
+							<option value="GS">신암3동 작은도서관</option>
+							<option value="HJ">신암5동 작은도서관</option>
+							<option value="FK">신천3동 작은도서관</option>
+							<option value="GT">효목1동 작은도서관</option>
+							<option value="FP">효목2동 작은도서관</option>
+							<option value="FL">도평동 작은도서관</option>
+							<option value="GU">불로어울림 작은도서관</option>
+							<option value="GV">지저동 작은도서관</option>
+							<option value="GW">동촌역사 작은도서관</option>
+							<option value="GY">해안동 작은도서관</option>
+							<option value="FM">반야월역사 작은도서관</option>
+							<option value="GZ">동구청 작은도서관</option>
+							<option value="HK">늘푸른 도서관</option>
+							<option value="HL">초록우산도서관</option>
+							<option value="HM">꿈날자 문고</option>
+							<option value="HN">행복도서관</option>
+							<option value="GX">방촌동 작은도서관</option>
+							<option value="HP">율하5주민도서관</option>
+							<option value="HQ">방촌어린이 작은도서관</option>
+						</select>
+						</c:when>
+
 
 						<c:when test="${context_path eq 'jungang'}">
 						중앙도서관<input type="hidden" id="" name="manage_code" value="AD" />

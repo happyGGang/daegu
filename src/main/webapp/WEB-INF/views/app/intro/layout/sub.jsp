@@ -93,7 +93,7 @@
 					</li>
 
 					<c:choose>
-						<c:when test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib'}">
+						<c:when test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib' || context_path eq 'dalseonglib' || context_path eq 'dalseongsmall'}">
 					<li>
 						<a href="#" onclick="alert('예산소진으로 희망도서신청을 중단합니다.')">
 							<em><img src="/resources/common/img/nav4.png" alt="희망도서신청내역"/></em>
@@ -152,7 +152,7 @@
 						</li>
 
 						<c:choose>
-							<c:when test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib'}">
+							<c:when test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib' || context_path eq 'dalseonglib' || context_path eq 'dalseongsmall'}">
 						<li>
 							<a href="#" onclick="alert('예산소진으로 희망도서신청을 중단합니다.')">
 								<em><img src="/resources/common/img/nav4.png" alt="희망도서신청내역"/></em>
