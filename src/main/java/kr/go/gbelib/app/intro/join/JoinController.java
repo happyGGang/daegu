@@ -493,7 +493,7 @@ public class JoinController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
 			return null;
 		}
 
@@ -522,7 +522,7 @@ public class JoinController extends BaseController {
 		}
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
 			return null;
 		}
 
@@ -613,7 +613,7 @@ public class JoinController extends BaseController {
 	}
 
 	@RequestMapping (value = {"/save.*"}, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse save(Member member, BindingResult result, HttpServletRequest request) {
+	public @ResponseBody JsonResponse save(Member member, @PathVariable String context_path, BindingResult result, HttpServletRequest request) {
 		Homepage homepage = getSessionHomepage(request);
 		JsonResponse res = new JsonResponse(request);
 
@@ -643,7 +643,7 @@ public class JoinController extends BaseController {
 				if (addResult.equals("0")) {
 					res.setValid(true);
 					res.setMessage("신규회원 가입이 완료되었습니다. 신분증 지참 후 데스크에서 회원증을 발급받으시기 바랍니다.");
-					res.setUrl(String.format("/intro/%s/login/index.do", homepage.getContext_path())); // 회원가입 후 홈페이지 메인으로 Redirect.
+					res.setUrl(String.format("/intro/%s/login/index.do", context_path)); // 회원가입 후 홈페이지 메인으로 Redirect.
 					request.getSession().invalidate();
 				} else {
 					res.setValid(true);
@@ -670,7 +670,7 @@ public class JoinController extends BaseController {
 					res.setValid(true);
 					res.setMessage("수정되었습니다.");
 					loginService.setSessionMember(sessionMember, request);
-					res.setUrl(String.format("/intro/%s/index.do", homepage.getContext_path()));
+					res.setUrl(String.format("/intro/%s/index.do", context_path));
 				} else {
 					res.setValid(false);
 					res.setMessage("수정 실패하였습니다. 잠시후 다시 시도해주세요.");
@@ -697,7 +697,7 @@ public class JoinController extends BaseController {
 				} else {
 					res.setValid(true);
 					res.setMessage("세션이 만료되었습니다.");
-					res.setUrl(String.format("/intro/%s/login/index.do", homepage.getContext_path())); // 검색대 메인으로 Redirect.
+					res.setUrl(String.format("/intro/%s/login/index.do", context_path)); // 검색대 메인으로 Redirect.
 				}
 
 				ApiResponse modifyMember = MemberAPI.modifyMember(member);
@@ -717,7 +717,7 @@ public class JoinController extends BaseController {
 
 					res.setValid(true);
 					res.setMessage("통합인증이 완료되었습니다.");
-					res.setUrl(String.format("/intro/%s/index.do", homepage.getContext_path())); // 검색대 메인으로 Redirect.
+					res.setUrl(String.format("/intro/%s/index.do", context_path)); // 검색대 메인으로 Redirect.
 					request.getSession().invalidate();
 				} else {
 					res.setValid(true);
@@ -817,7 +817,7 @@ public class JoinController extends BaseController {
 			res.setValid(apiResult.getStatus());
 			if (apiResult.getStatus()) {
 				res.setMessage("비밀번호가 변경되었습니다.");
-				res.setUrl(String.format("/intro/%s/login/index.do", homepage.getContext_path()));
+				res.setUrl(String.format("/intro/%s/login/index.do", context_path));
 			} else {
 				res.setMessage(apiResult.getMessage());
 			}
@@ -940,7 +940,7 @@ public class JoinController extends BaseController {
 		}
 
 		certMember.setRec_key(String.valueOf(integrationMember.get("REC_KEY")));
-		certMember.setManage_code(homepage.getManage_code());
+		certMember.setManage_code(String.valueOf(integrationMember.get("MANAGE_CODE")));
 		certMember.setEditMode("INTEGRATION");
 		request.getSession().setAttribute("certMember", certMember);
 		model.addAttribute("newMember", certMember);
