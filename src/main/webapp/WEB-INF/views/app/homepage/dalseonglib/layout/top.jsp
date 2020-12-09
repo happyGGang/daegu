@@ -14,6 +14,8 @@
 			</div>
 
 			<div class="util">
+				<a href="https://www.facebook.com/dalseonglib" class="sns_icon" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/facebook_icon.png" title="페이스북 아이콘" alt="페이스북 아이콘"></a>
+				<a href="http://pf.kakao.com/_YxnJxjj" class="sns_icon" target="_blank" style="margin-right:5px;"><img src="/resources/homepage/${homepage.context_path}/img/kakao_ch_icon.png" title="카카오톡 채널 아이콘" alt="카카오톡 채널 아이콘"></a>
 				<c:choose>
 					<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
 						<b style="font-weight:200;font-size:15px;color:#fff;">${sessionScope.member.member_name}님</b>

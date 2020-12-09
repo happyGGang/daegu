@@ -61,7 +61,7 @@ h1.mobile-logo {display:none;width:140px;height:50px;}
 .Gnb .g-menu a.menu-search-box {position:absolute;width:23px;height:21px;right:40px;top:35px;background:url('../img/menu-search-icon_b.png') no-repeat center center;}
 .Gnb .g-menu a.last-box {position:absolute;width:23px;height:21px;right:0;top:35px;background:url('../img/sitemap_icon_black.png') no-repeat center center;}
 
-.Gnb .mask, .Gnb .gnb-menu>li>.SubMenu{margin-top:0;}
+.Gnb .mask, .Gnb .gnb-menu>li>.SubMenu{margin-top:-10px;}
 
 /*공통 푸터*/
 #footer {padding:0 0 50px;z-index:3;}
@@ -166,12 +166,10 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 }
 
 @media all and (max-width:425px){
-	#main0 .main-visual .mvBtn_wp{top:28% !important;}
-
 	.swiper-button-next, .swiper-container-rtl .swiper-button-prev{right:30% !important;}
 	.swiper-button-prev, .swiper-container-rtl .swiper-button-next{left:30% !important;}
 
-	.home-up{bottom:10px;}
+	.home-up{bottom:30px;}
 }
 
 @media all and (max-width:375px){

@@ -82,7 +82,7 @@ a:focus{color:#2b74c0}
 .footer .site_link > div > div > a.fsite,
 #footer .site_link > div > div > a.fsite{display:block;padding:3px 8px;border-right-width:0;text-align:left;background:transparent;border:1px solid #fff;border-right:0;color:#fff;font-size:14px;}
 .footer .site_link > div > div > ul,
-#footer .site_link > div > div > ul{position:absolute;bottom:30px;left:0;width:100%;text-align:left;border-top:1px solid #ccc;background:#fff}
+#footer .site_link > div > div > ul{position:absolute;bottom:36px;left:0;width:100%;text-align:left;border-top:1px solid #ccc;background:#fff}
 .footer .site_link > div > div > ul,
 #footer .site_link > div > div > ul{overflow-y:auto;border-right:1px solid #ccc}
 .footer .site_link > div > div > ul > li,
@@ -159,13 +159,13 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 }
 
 @media all and (max-width:768px){	
-	#footer .info {width:100%;padding:0;}
+	#footer .info {width:800px;padding:0;}
 	#footer .info .bar{margin:0 10px;}
 }
 
 
 @media all and (max-width:850px){
-	.home-up {display:block;}
+	.home-up {display:block;bottom:215px;}
 }
 
 @media all and (max-width:650px){

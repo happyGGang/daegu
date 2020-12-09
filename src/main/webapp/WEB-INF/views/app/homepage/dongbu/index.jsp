@@ -152,10 +152,13 @@
 			<div class="section" style="overflow:hidden;">
 
 				<div class="main3">
-					<div class="title">
-						<ul>
-							<li><h2>공지사항</h2></li>
-							<li><a href="/dongbu/board/index.do?menu_idx=36&manage_idx=123"><img src="/resources/homepage/seobu/img/more_bt.png" alt="더보기"/></a></li>
+					<div class="tabS">
+						<ul class="tabMenuS">
+							<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=123" class='t-tabs'>공지사항</a></li>
+							<li><span style="font-size:13px;color:#aaa;padding:0 5px;">│</span></li>
+							<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=123" class='t-tabs'>강좌·행사안내</a></li>
+							
+							<a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=123" class="more-btn more-more">더보기</a>
 						</ul>
 					</div>
 

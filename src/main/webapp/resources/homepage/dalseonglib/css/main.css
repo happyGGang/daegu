@@ -178,8 +178,8 @@ ul.book_photo li a span.con-author {color:#000;font-size:15px;font-weight:normal
 #calendar2 dl{padding:3px 0}
 .calendarLibraryInfo {text-align:center;background:#f6f6f6;padding:11px 0;border-radius:4px;margin-top:10px;}
 
-.tabMenuSS {position:relative;text-align:center;width:100%;margin:0 auto;overflow:hidden;}
-.tabMenuSS li {position:relative;display:inline-block;box-sizing:border-box;text-align:center;width:49%;}
+.tabMenuSS {position:relative;width:100%;margin:0 auto;overflow:hidden;}
+.tabMenuSS li {position:relative;display:inline-block;box-sizing:border-box;text-align:center;width:47%;}
 .tabMenuSS li a {position:relative;display:block;box-sizing:border-box;font-size:18px;color:#fff;font-weight:normal;padding:15px 0;letter-spacing:-1.5px;padding:15px 20px;background:#c6c6c6;border-radius:5px;}
 .tabMenuSS li.on a {font-weight:bold;background:url('/resources/homepage/dalseonglib/img/tabmenu-bg.png') no-repeat 5% 5%;background:#1b7be9;}
 .tabMenuSS li.on a span {border-bottom:0;}
@@ -197,6 +197,7 @@ ul.book_photo li a span.con-author {color:#000;font-size:15px;font-weight:normal
 .main3 h3{padding:10px 0;color:#232323}
 .main3 a {color:#8b8b8b;}
 
+.sns_icon{padding:0 3px;top:6px;}
 
 .qmobileBr {display:none;}
 .mobileBr {display:none;}

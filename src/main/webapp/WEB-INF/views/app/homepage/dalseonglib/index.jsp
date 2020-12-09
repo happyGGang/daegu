@@ -316,8 +316,11 @@ do {
 					<div class="culture-box tabSS">
 
 						<ul class="tabMenuSS">
-							<li class="on"><a href="#tab1" class='t-tabs'>문화행사</a></li>
-							<li><a href="#tab2" class='t-tabs'>평생학습프로그램</a></li>
+							<li class="on"><a href="#tab1" class='t-tabs' data-link="/${homepage.context_path}/module/teach/index.do?menu_idx=26&searchCate1=16">문화행사</a></li>
+							<li><a href="#tab2" class='t-tabs' data-link="/${homepage.context_path}/module/teach/index.do?menu_idx=32&searchCate1=17">평생학습프로그램</a></li>
+							<li style="position:absolute;width:auto;right:0;top:10px;">
+								<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=26&searchCate1=16" class="btn-more btn-b top5 more-more" style="padding:0;color:transparent;">더보기</a>
+							</li>
 						</ul>
 
 						<div class="box cont" data-tab="tab1">

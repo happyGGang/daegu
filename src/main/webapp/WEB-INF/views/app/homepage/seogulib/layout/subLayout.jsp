@@ -64,6 +64,11 @@ $(function() {
 });
 </script>
 
+<style>
+	.tnb{background:#fff;}
+	.Gnb{background:#fff;border-top:1px solid #ddd;border-bottom:1px solid #ddd;}
+</style>
+
 <div id="wrap">
 	<tiles:insertAttribute name="top" />
 	<tiles:insertAttribute name="topMenu" />

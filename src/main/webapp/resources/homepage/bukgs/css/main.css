@@ -184,6 +184,8 @@ justify-content: center;-webkit-box-align: center;-ms-flex-align: center;-webkit
 
 #main3 .banner-box {position:absolute;bottom:0;width:100%;border-top:1px solid #eaeaea;background:#fff;}
 
+.Gnb .gnb-menu>li:nth-child(2)>.SubMenu{width:1300px !important;}
+
 /*푸터*/
 #foot_section .mFooter {text-align:center;background:#f8f8f8;}
 #foot_section .mFooter .top {height:55px;line-height:55px;border-top:1px solid #ebebeb;border-bottom:1px solid #ebebeb;}

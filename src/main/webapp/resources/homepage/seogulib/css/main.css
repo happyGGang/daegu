@@ -523,7 +523,7 @@
 	.section02 .con .movie{width:96%;margin:0 2%;padding-top:20px;}
 	.section02 .con .movie .img_box{display:block;width:140px;height:190px;}
 	.section02 .con .movie .img_box img{width:140px;height:190px;}
-	.section02 .con .movie .con_box{margin-top:10px;}
+	.section02 .con .movie .con_box{width:auto;margin-top:10px;}
 	.section02 .con .movie .con_box .info{font-size:13px;}
 	.section02 .con .movie .con_box .tit{font-size:15px;padding:5px 0 2px;}
 

@@ -70,14 +70,13 @@ a:focus{color:#2b74c0}
 
 #footer{clear:both}
 #footer .info a {vertical-align:middle;display:inline-block;zoom:1;*display:inline;}
-#footer .info a b{font-size:105%}
 #footer .info a.admin{font-weight:bold;color:#2b74c0}
 .footer .site_link > div > div,
 #footer .site_link > div > div {position:relative;display:inline-block;zoom:1;*display:inline;margin:0;vertical-align:middle;margin-right:-5px;}
 .footer .site_link > div > div > a.fsite,
 #footer .site_link > div > div > a.fsite{display:block;padding:10px;border-right-width:0;text-align:left;background:transparent;border-left:1px solid #bcbbc0;border-top:1px solid #bcbbc0;border-bottom:1px solid #bcbbc0;color:#fff;font-size:14px;}
 .footer .site_link > div > div > ul,
-#footer .site_link > div > div > ul{position:absolute;bottom:30px;left:0;width:100%;text-align:left;border-top:1px solid #ccc;background:#fff}
+#footer .site_link > div > div > ul{position:absolute;bottom:50px;left:0;width:100%;text-align:left;border-top:1px solid #ccc;background:#fff}
 .footer .site_link > div > div > ul,
 #footer .site_link > div > div > ul{overflow-y:auto;border-right:1px solid #ccc}
 .footer .site_link > div > div > ul > li,
@@ -147,7 +146,7 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 	.m-menu a {display:inline-block;text-align:center;vertical-align:middle;padding-top:7px;}
 	.m-menu a i{font-size:30px;width:45px;height:45px;line-height:45px;color:#000;}
 
-	.tnb {background:#fff;height:55px;padding:10px 0 0;}
+	.tnb {background:#fff;height:55px;padding:10px;}
 
 	#footer .bottom .section .site_link {position:static;text-align:center;padding-top:20px;}
 	#footer .info {float:none;width:100%;margin:0 auto;text-align:center;}
@@ -162,7 +161,8 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 	#footer address span{font-size:13px}
 	#footer address {padding:15px 0 0;color:#bcbbc0;}
 	#footer address em{font-style:normal;margin-right:10px;color:#bcbbc0;}
-	#footer address span{font-size:11px}
+	#footer address p{margin-bottom:10px;}
+	#footer address span{font-size:12px;}
 }
 
 @media all and (max-width:650px){
@@ -175,10 +175,10 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 
 @media all and (max-width:425px){
 	#footer .info a, #footer .info span{font-size:13px;line-height:0;}
-	#footer .info{width:100%;}
+	#footer .info{width:calc(100% - 40px);}
 	#footer address{padding:15px 20px 0;line-height:100%;}
-	.foot-counter{margin-top:20px;}
-	.home-up{bottom:90px;}
+	.foot-counter{margin-top:10px;}
+	.home-up{bottom:120px;}
 }
 
 @media all and (max-width:375px){

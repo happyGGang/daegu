@@ -34,7 +34,7 @@
 					</c:otherwise>
 				</c:choose>
 					<span class="txt-bar"></span>
-					<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=5">사이트맵</a>
+					<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=82">사이트맵</a>
 
 					<a href="http://www.dalseo.daegu.kr/" target="_blank" class="office_site">달서구청</a>
 			</div>
