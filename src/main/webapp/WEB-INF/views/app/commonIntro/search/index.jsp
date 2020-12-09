@@ -219,9 +219,11 @@ $(function() {
 	$('input[name=booktype]').on('click', function() {
 		if ($(this).val() == 'NONBOOK') {
 			$('dl#nonBookMedia').show();
+			$('input#title').attr('placeholder', '비도서 제목을 입력하세요');
 		} else {
 			$('dl#nonBookMedia').hide();
 			$('select#media_code').val('');
+			$('input#title').attr('placeholder', '도서 제목을 입력하세요');
 		}
 	});
 });
