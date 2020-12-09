@@ -41,7 +41,7 @@ table.bbs tr.notice{background:#f5f6f7}
 }
 </style>
 </c:if>
-<c:if test="${boardManage.manage_idx eq '614'}">
+<c:if test="${boardManage.manage_idx eq '614' or boardManage.manage_idx eq '628'}">
 <style>
 .category span.ca.bg-0001 {background-color:#dda616;color:#fff;}
 .category span.ca.bg-0002 {background-color:#8194b4;color:#fff;}
@@ -62,7 +62,7 @@ table.bbs tr.notice{background:#f5f6f7}
 				<col width="5%">
 				</c:if>
 				<col width="8%">
-				<c:if test="${boardManage.manage_idx eq '282' || boardManage.manage_idx eq '614'}">
+				<c:if test="${boardManage.manage_idx eq '282' || boardManage.manage_idx eq '614' or boardManage.manage_idx eq '628'}">
 				<col width="12%">
 				</c:if>
 				<col>
@@ -78,7 +78,7 @@ table.bbs tr.notice{background:#f5f6f7}
 					<th><input type="checkbox" id="checkAll"> </th>
 					</c:if>
 					<th>번호</th>
-					<c:if test="${boardManage.manage_idx eq '282' || boardManage.manage_idx eq '614'}">
+					<c:if test="${boardManage.manage_idx eq '282' || boardManage.manage_idx eq '614' or boardManage.manage_idx eq '628'}">
 					<th class="category">도서관</th>
 					</c:if>
 					<th class="">제목</th>
@@ -97,7 +97,7 @@ table.bbs tr.notice{background:#f5f6f7}
 					<td></td>
 					</c:if>
 					<td class="num notice"><span>통합</span></td>
-					<c:if test="${boardManage.manage_idx eq '282' || boardManage.manage_idx eq '614'}">
+					<c:if test="${boardManage.manage_idx eq '282' || boardManage.manage_idx eq '614' or boardManage.manage_idx eq '628'}">
 					<td class="category important td2 cate">
 						<span class="ca bg-${i.imsi_v_19}">${i.imsi_v_20}</span>
 					</td>
@@ -133,6 +133,12 @@ table.bbs tr.notice{background:#f5f6f7}
 						<span class="ca bg-${i.imsi_v_19}">통합</span>
 					</td>
 					</c:if>
+					<c:if test="${boardManage.manage_idx eq '628'}">
+						<td class="category important td2">
+							<span class="ca bg-${i.category1}">${not empty i.category1_name ? i.category1_name : '공통'}</span>
+						</td>
+					</c:if>
+
 					<td class="important left title">
 						<c:set var="boardIdx" value="${i.parent_idx > 0 ? i.parent_idx : i.board_idx}"></c:set>
 						<c:set var="portal" value=""></c:set>
@@ -172,7 +178,12 @@ table.bbs tr.notice{background:#f5f6f7}
 					</c:if>
 					<c:if test="${ boardManage.manage_idx eq '614'}">
 					<td class="category important td2">
-						<span class="ca bg-${i.category1}">${not empty i.category1_name ? i.category1_name : '통합'}</span>don
+						<span class="ca bg-${i.category1}">${not empty i.category1_name ? i.category1_name : '통합'}</span>
+					</td>
+					</c:if>
+					<c:if test="${boardManage.manage_idx eq '628'}">
+					<td class="category important td2">
+						<span class="ca bg-${i.category1}">${not empty i.category1_name ? i.category1_name : '공통'}</span>
 					</td>
 					</c:if>
 					<td class="important left title" style="padding-left:${(i.group_depth > 0 ? (i.group_depth-1)*15 : 0)+10}px;">
@@ -181,7 +192,7 @@ table.bbs tr.notice{background:#f5f6f7}
 						<c:if test="${boardManage.manage_idx eq '282'}">
 						<c:set var="portal" value="/${i.imsi_v_19}/board/"></c:set>
 						</c:if>
-						<c:if test="${boardManage.manage_idx eq '614'}">
+						<c:if test="${boardManage.manage_idx eq '614' or boardManage.manage_idx eq '628'}">
 						<c:set var="portal" value="/${homepage.context_path}/board/"></c:set>
 						</c:if>
 						<c:set var="viewUrl" value="${portal}view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}"></c:set>
