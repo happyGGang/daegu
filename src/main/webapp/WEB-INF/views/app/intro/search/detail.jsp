@@ -485,7 +485,7 @@ AD20 종합자료실
 							<c:if test="${detail.SEPARATE_SHELF_CODE eq 'CCH' ||detail.SEPARATE_SHELF_CODE eq 'CCR' ||detail.SEPARATE_SHELF_CODE eq 'CCS' ||detail.SEPARATE_SHELF_CODE eq 'CCU' ||detail.SEPARATE_SHELF_CODE eq 'CCW' ||detail.SEPARATE_SHELF_CODE eq 'CCZ' ||detail.SEPARATE_SHELF_CODE eq 'CDA' ||detail.SEPARATE_SHELF_CODE eq 'CDC' ||detail.SEPARATE_SHELF_CODE eq 'CDD' ||detail.SEPARATE_SHELF_CODE eq 'CDH' ||detail.SEPARATE_SHELF_CODE eq 'CDJ' ||detail.SEPARATE_SHELF_CODE eq 'CDQ' ||detail.SEPARATE_SHELF_CODE eq 'CDU' || detail.SEPARATE_SHELF_CODE eq null || detail.SEPARATE_SHELF_CODE eq 'null' || detail.SEPARATE_SHELF_CODE eq ''}">
 								<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
 								<c:if test="${detail.RESERVATION_CNT eq '0'}">
-								<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
+								<!-- <a href="#muin" id="unmanned-req" class="btn">무인예약신청</a> -->
 								</c:if>
 								</c:if>
 							</c:if>

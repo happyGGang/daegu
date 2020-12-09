@@ -94,9 +94,25 @@ $(function() {
 	//검색하기
 	$('a#search-btn').on('click', function(e) {
 		e.preventDefault();
-		$('input#viewPage').val('1');
-		doGetLoad('index.do', $form.serialize());
+
+		<c:choose>
+		<c:when test="${context_path eq 'seogumini' || context_path eq 'buks' || context_path eq 'junggu' || context_path eq 'seogulib' || context_path eq 'dalseongsmall' || context_path eq 'dssmalllib' || context_path eq 'sincheon' || context_path eq 'donggu' || context_path eq 'donggusm' || context_path eq 'seogumini' || context_path eq 'namdm' || context_path eq 'namic' || context_path eq 'bukgs' || context_path eq 'buktj' || context_path eq 'bukdh' || context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol' || context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib' || context_path eq 'dalseonglib' || context_path eq 'dalseongsmall'}">
+			if( $("input:checkbox[name=libraryCodes]:checked").length == '0' )
+			{
+				alert('검색을 원하는 도서관을 선택하세요.');
+				return false;
+			}
+			$('input#viewPage').val('1');
+			doGetLoad('index.do', $form.serialize());
+		</c:when>
+		<c:otherwise>
+			$('input#viewPage').val('1');
+			doGetLoad('index.do', $form.serialize());
+		</c:otherwise>
+		</c:choose>
+
 	});
+
 
 	$('input#title').on('keyup', function(e) {
 		if (e.keyCode == 13 && $(this).val() != '') {
@@ -226,6 +242,8 @@ $(function() {
 			</c:when>
 		</c:choose>
 	</c:if>
+
+
 });
 </script>
 <form:form modelAttribute="librarySearch" id="detailForm" action="detail.do" method="post" >
