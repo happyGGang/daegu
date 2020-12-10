@@ -1342,6 +1342,31 @@ public class LibrarySearchController extends BaseController {
 				return res;
 			}
 
+
+			if (StringUtils.equals(librarySearch.getWorker(), "DSSUB01") || StringUtils.equals(librarySearch.getWorker(), "DSSUB02")) {
+				Map<String, Object> unmannedLoanReserveCnt = LibSearchAPI.getUnmannedLoanReserveCnt(librarySearch, "DATA");
+				String nightLoanResult = String.valueOf(unmannedLoanReserveCnt.get("RESULT_INFO"));
+				if (StringUtils.equals(nightLoanResult, "SUCCESS")) {
+					String limit_cnt = String.valueOf(unmannedLoanReserveCnt.get("COUNT"));
+					try {
+						int limit_count = Integer.parseInt(limit_cnt);
+						if (limit_count >= 50) {
+							res.setValid(false);
+							res.setMessage("해당 기기의 무인 예약이 마감되었습니다. 내일 다시 신청해주세요");
+							return res;
+						}
+					} catch (Exception e) {
+						res.setValid(false);
+						res.setMessage("해당 기기의 무인 예약이 마감되었습니다. 에러코드 060");
+						return res;
+					}
+				} else {
+					res.setValid(false);
+					res.setMessage(String.valueOf(unmannedLoanReserveCnt.get("RESULT_MESSAGE")));
+					return res;
+				}
+			}
+
 			librarySearch.setUserkey(member.getRec_key());
 			ApiResponse apiResult = LibSearchAPI.unmannedloanreserve(librarySearch);
 			if (apiResult.getStatus()) {
