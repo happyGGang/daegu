@@ -31,16 +31,16 @@ table.bbs tr.notice{background:#f5f6f7}
 		<table class="bbs center" summary="일반 게시판">
 			<caption>일반게시판</caption>
 			<colgroup>
-<%-- 				<c:if test="${board.delete_yn eq 'Y' or categoryMovae}"> --%>
+			<%--<c:if test="${board.delete_yn eq 'Y' or categoryMovae}"> --%>
 				<c:if test="${member.admin or authMBA or authMBS or portalAuth eq '2'}">
 				<col width="5%">
 				</c:if>
-				<col width="10%">
-				<col>
-				<col width="12%">
-				<col width="10%">
-				<col width="10%">
-				<col width="10%">
+				<col width="6%">
+				<col width="*">
+				<col width="14%">
+				<col width="8%">
+				<col width="7%">
+				<col width="6%">
 			</colgroup>
 			<thead>
 				<tr>

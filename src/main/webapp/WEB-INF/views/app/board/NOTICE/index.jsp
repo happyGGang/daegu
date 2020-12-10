@@ -16,10 +16,10 @@ table.bbs tr.notice{background:#f5f6f7}
 	table.bbs col.col3 {
 	    width : 1%
 	}
-	td.title{width: 100%;float:left;border-bottom: none;}
-	td.username{float:left;display: table-cell !important;border-top: none;font-size: 12px !important;}
-	td.adddate{float:left;display: table-cell !important;border-top: none;font-size: 12px !important;}
-	td.viewCount{float:left;display: table-cell !important;border-top: none;font-size: 12px !important;}
+	td.title{width: 100%;border-bottom: none;}
+	td.username{display: table-cell !important;border-top: none;font-size: 12px !important;}
+	td.adddate{display: table-cell !important;border-top: none;font-size: 12px !important;}
+	td.viewCount{display: table-cell !important;border-top: none;font-size: 12px !important;}
 	table.bbs tbody tr:hover {background:#f8f8f8}
 	td.txtBar{display: inline-block;width: 1px;height: 10px;font-size: 0px;line-height: 0;text-indent: -9999px;vertical-align: top;margin: 3px 5px;background: rgb(217, 217, 217);}
 }
@@ -32,9 +32,9 @@ table.bbs tr.notice{background:#f5f6f7}
 	table.bbs col.col2 {
 	    width : 1%
 	}
-	td.title{width: 100%;float:left;border-bottom: none;margin-bottom: -5px;}
+	td.title{width: 100%;border-bottom: none;margin-bottom: -5px;}
 	td.username{float:left;display: table-cell !important;border-top: none;font-size: 12px !important;}
-	td.adddate{float:left;display: table-cell !important;border-top: none;font-size: 12px !important;}
+	td.adddate{display: table-cell !important;border-top: none;font-size: 12px !important;}
 	td.viewCount{float:left;display: table-cell !important;border-top: none;font-size: 12px !important;}
 	table.bbs tbody tr:hover {background:#f8f8f8}
 	td.txtBar{display: inline-block;width: 1px;height: 10px;font-size: 0px;line-height: 0;text-indent: -9999px;vertical-align: top;margin: 3px 5px;background: rgb(217, 217, 217);}
@@ -57,19 +57,19 @@ table.bbs tr.notice{background:#f5f6f7}
 		<table class="bbs center">
 			<caption>게시물 목록(${fn:escapeXml(boardManage.board_name)})</caption>
 			<colgroup>
-<%-- 				<c:if test="${board.delete_yn eq 'Y'}"> --%>
+			<%--	<c:if test="${board.delete_yn eq 'Y'}"> --%>
 				<c:if test="${member.admin or authMBA or authMBS or portalAuth eq '2'}">
 				<col width="5%">
 				</c:if>
-				<col width="8%">
-				<c:if test="${boardManage.manage_idx eq '282' || boardManage.manage_idx eq '614' or boardManage.manage_idx eq '628'}">
-				<col width="12%">
+				<col width="7%">
+				<c:if test="${boardManage.manage_idx eq '282' || boardManage.manage_idx eq '614' || boardManage.manage_idx eq '628'}">
+				<col width="*">
 				</c:if>
 				<col>
-				<col width="12%">
+				<col width="16%">
+				<col width="8%">
 				<col width="10%">
-				<col width="10%">
-				<col width="10%">
+				<col width="7%">
 			</colgroup>
 			<thead>
 				<tr>
