@@ -226,6 +226,10 @@ $(function() {
 			$('input#title').attr('placeholder', '도서 제목을 입력하세요');
 		}
 	});
+
+	if ('${fn:escapeXml(param.booktype)}' == 'NONBOOK') {
+		$('input#title').attr('placeholder', '비도서 제목을 입력하세요');
+	}
 });
 </script>
 
