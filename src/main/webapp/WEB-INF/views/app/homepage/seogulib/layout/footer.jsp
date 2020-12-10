@@ -44,20 +44,32 @@
 							<span class="f1">대구광역시 공공도서관</span>
 							<span class="f2"><i></i></span></a>
 							<ul style="display:none">
-							<li class="disabled"><a href="#">대구광역시 공공도서관</a></li>
-							<li class="disabled"><a title="동구통합도서관" href="/donggu/index.do">동구통합도서관</a></li>
-							<li class="disabled"><a title="서구통합도서관" href="/seogulib/index.do">서구통합도서관</a></li>
-							<li class="disabled"><a title="남구이천어울림도서관" href="/namic/index.do">남구이천어울림도서관</a></li>
-							<li class="disabled"><a title="남구대명어울림도서관" href="/namdm/index.do">남구대명어울림도서관</a></li>
-							<li class="disabled"><a title="북구구수산도서관" href="/bukgs/index.do">북구구수산도서관</a></li>
-							<li class="disabled"><a title="북구대현도서관" href="/bukdh/index.do">북구대현도서관</a></li>
-							<li class="disabled"><a title="북구태전도서관" href="/buktj/index.do">북구태전도서관</a></li>
-							<li class="disabled"><a title="중구통합도서관" href="/junggu/index.do">중구통합도서관</a></li>
-							<li class="disabled"><a title="수성구범어도서관" href="/beomeo/index.do">수성구범어도서관</a></li>
-							<li class="disabled"><a title="수성구용학도서관" href="/yonghak/index.do">수성구용학도서관</a></li>
-							<li class="disabled"><a title="수성구고산도서관" href="/gosan/index.do">수성구고산도서관</a></li>
-							<li class="disabled"><a title="달서구립도서관" href="/dalseolib/index.do">달서구립도서관</a></li>
-							<li class="disabled"><a title="달성군립도서관" href="/dalseonglib/index.do">달성군립도서관</a></li>
+							<li class="disabled"><a title="대구광역시통합도서관" href="http://library.daegu.go.kr/dgportal/index.do">대구광역시통합도서관</a></li>
+							<li class="disabled"><a title="대구2ㆍ28기념학생도서관" href="http://library.daegu.go.kr/228/index.do">대구2ㆍ28기념학생도서관</a></li>
+							<li class="disabled"><a title="대구2ㆍ28민주운동기념회관" href="http://library.daegu.go.kr/228lib/index.do">대구2ㆍ28민주운동기념회관</a></li>
+							<li class="disabled"><a title="대구광역시립 남부도서관" href="http://library.daegu.go.kr/nambu/index.do">대구광역시립 남부도서관</a></li>
+							<li class="disabled"><a title="대구광역시립 달성도서관" href="http://library.daegu.go.kr/dalseong/index.do">대구광역시립 달성도서관</a></li>
+							<li class="disabled"><a title="대구광역시립 동부도서관" href="http://library.daegu.go.kr/dongbu/index.do">대구광역시립 동부도서관</a></li>
+							<li class="disabled"><a title="대구광역시립 두류도서관" href="http://library.daegu.go.kr/duryu/index.do">대구광역시립 두류도서관</a></li>
+							<li class="disabled"><a title="대구광역시립 북부도서관" href="http://library.daegu.go.kr/bukbu/index.do">대구광역시립 북부도서관</a></li>
+							<li class="disabled"><a title="대구광역시립 북부도서관" href="http://library.daegu.go.kr/seobu/index.do">대구광역시립 서부도서관</a></li>
+							<li class="disabled"><a title="대구광역시립 수성도서관" href="http://library.daegu.go.kr/suseong/index.do">대구광역시립 수성도서관</a></li>
+							<li class="disabled"><a title="대구광역시립 중앙도서관" href="http://library.daegu.go.kr/jungang/index.do">대구광역시립 중앙도서관</a></li>
+
+							<!-- <li class="disabled"><a href="#">대구광역시 공공도서관</a></li> -->
+							<li class="disabled"><a title="남구대명어울림도서관" href="http://library.daegu.go.kr/namdm/index.do">남구대명어울림도서관</a></li>
+							<li class="disabled"><a title="남구이천어울림도서관" href="http://library.daegu.go.kr/namic/index.do">남구이천어울림도서관</a></li>
+							<li class="disabled"><a title="달서구립도서관" href="http://library.daegu.go.kr/dalseolib/index.do">달서구통합도서관</a></li>
+							<li class="disabled"><a title="달성군립도서관" href="http://library.daegu.go.kr/dalseonglib/index.do">달성군립도서관</a></li>
+							<li class="disabled"><a title="동구통합도서관" href="http://library.daegu.go.kr/donggu/index.do">동구통합도서관</a></li>
+							<li class="disabled"><a title="북구구수산도서관" href="http://library.daegu.go.kr/bukgs/index.do">북구구수산도서관</a></li>
+							<li class="disabled"><a title="북구대현도서관" href="http://library.daegu.go.kr/bukdh/index.do">북구대현도서관</a></li>
+							<li class="disabled"><a title="북구태전도서관" href="http://library.daegu.go.kr/buktj/index.do">북구태전도서관</a></li>
+							<li class="disabled"><a title="서구통합도서관" href="http://library.daegu.go.kr/seogulib/index.do">서구통합도서관</a></li>
+							<li class="disabled"><a title="수성구범어도서관" href="http://library.daegu.go.kr/beomeo/index.do">수성구범어도서관</a></li>
+							<li class="disabled"><a title="수성구용학도서관" href="http://library.daegu.go.kr/yonghak/index.do">수성구용학도서관</a></li>
+							<li class="disabled"><a title="수성구고산도서관" href="http://library.daegu.go.kr/gosan/index.do">수성구고산도서관</a></li>
+							<li class="disabled"><a title="중구통합도서관" href="http://library.daegu.go.kr/junggu/index.do">중구통합도서관</a></li>
 							</ul>
 						</div>
 						<a href="#" class="btn">이동</a>
