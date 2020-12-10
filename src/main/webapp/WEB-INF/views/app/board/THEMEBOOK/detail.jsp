@@ -14,6 +14,20 @@ $(document).ready(function() {
 	
 });
 </script>
+
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
+
+<style>
+	.thumb{position:relative;float:left;width:160px;margin-right:20px;}
+	.thumb img{width:160px;}
+	.info{position:relative;float:left;width:790px;}
+	.info ul li strong{margin-right:13px;}
+</style>
+
 <jsp:include page="/WEB-INF/views/app/board/common/view/script.jsp" flush="false" />
 
 <form:form modelAttribute="board" method="get">
@@ -43,18 +57,22 @@ $(document).ready(function() {
 					</c:otherwise>
 				</c:choose>
 			</div>
-			<div class="info">
-				<ul>
-					<li style="line-height: 150%;"><b>${detail.TITLE_INFO}</b></li>
-					<li><strong>저자사항</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${detail.AUTHOR}</li>
-					<li><strong>발행사항</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${detail.PUBLISHER}, ${detail.PUB_YEAR},  ${detail.MEDIA_NAME}, \ ${detail.PRICE}</li>
-					<li><strong>형태사항</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${detail.PAGE} : ${detail.BOOK_SIZE}</li>
+			<div class="info">				
+				<h3>${detail.TITLE_INFO}</h3>
+				<ul class="con">
+					<li><strong>저자사항</strong>${detail.AUTHOR}</li>
+					<li><strong>발행사항</strong>${detail.PUBLISHER}, ${detail.PUB_YEAR},  ${detail.MEDIA_NAME}, \ ${detail.PRICE}</li>
+					<li><strong>형태사항</strong>${detail.PAGE} : ${detail.BOOK_SIZE}</li>
 					<c:if test="${detail.MEDIA_CODE eq 'PR' || detail.MEDIA_CODE eq 'EB'}">
-					<li><strong>표준부호</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ISBN : ${detail.ISBN}</li>
+					<li><strong>표준부호</strong>ISBN : ${detail.ISBN}</li>
 					</c:if>
-					<li><strong>분류기호</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;한국십진분류법 : ${detail.CLASS_NO}</li>
+					<li><strong>분류기호</strong>한국십진분류법 : ${detail.CLASS_NO}</li>
 				</ul>
 			</div>
+		</div>
+		<div style="clear:both;float:none;"></div>
+		<div style="position:relative;width:100%;text-align:center;margin-top:40px;">			
+			<a href="#" onclick="goBack()" class="btn btn1"><span>뒤로가기</span></a>
 		</div>
 	</div>
 </div>
