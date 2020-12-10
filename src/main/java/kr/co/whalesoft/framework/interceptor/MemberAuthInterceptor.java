@@ -201,7 +201,7 @@ public class MemberAuthInterceptor extends HandlerInterceptorAdapter {
 		PrintWriter writer = response.getWriter();
 		writer.println("<script>");
 		writer.println("alert('" + message + "');");
-		writer.println("history.back();");
+		writer.println("window.parent.location.reload();");
 		writer.println("</script>");
 		writer.flush();
 
