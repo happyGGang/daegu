@@ -41,8 +41,15 @@ $(function() {
 <!-- /contents-title-->
 
 <div class="DepthBtn">
-	<a href="/intro/${homepage.context_path}/search/hope/req.do" class="bBtn">희망도서신청</a>
-	<a href="/intro/${homepage.context_path}/search/hope/index.do" class="bBtn">신청내역보기</a>
+<c:set var="prefix" value="/intro/${context_path}/search/"></c:set>
+<a href="${prefix}loan/index.do" class="bBtn">대출중인도서</a>
+<a href="${prefix}loan/history.do" class="bBtn">대출내역조회</a>
+<c:if test="${context_path eq 'bukgs' || context_path eq 'bukdh' || context_path eq 'buktj' || context_path eq 'buks' || context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol' || context_path eq 'junggu' || context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib' || context_path eq 'donggu' || context_path eq 'sincheon' || context_path eq 'donggusm'}">
+<a href="${prefix}sangho/index.do" class="bBtn">상호대차신청내역조회</a>
+<a href="${prefix}sangho/history.do" class="bBtn">상호대차이용내역조회</a>
+</c:if>
+<a href="${prefix}resve/index.do" class="bBtn">대출예약조회</a>
+<a href="${prefix}hope/index.do" class="bBtn">희망도서신청조회</a>
 </div>
 
 <form:form modelAttribute="librarySearch" action="index.do" method="get" onsubmit="return false;">
