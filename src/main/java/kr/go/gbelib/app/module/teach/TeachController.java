@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
+import kr.co.whalesoft.app.cms.menu.menuHtml.MenuHtml;
+import kr.co.whalesoft.app.cms.menu.menuHtml.MenuHtmlService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -81,6 +83,9 @@ public class TeachController extends BaseController{
 	@Autowired
 	private HomepageService homepageService;
 
+	@Autowired
+	private MenuHtmlService menuHtmlService;
+
 	@ModelAttribute("recommendSiteList")
 	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
@@ -94,6 +99,11 @@ public class TeachController extends BaseController{
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 		if ( isLogin(request) && getSessionMemberLoginType(request).equals("HOMEPAGE") ) {
 			teach.setMember_key(getSessionMemberId(request));
+		}
+
+		Menu menuOne = (Menu) request.getAttribute("menuOne");
+		if ( menuOne != null ) {
+			model.addAttribute("html", menuHtmlService.getLastMenuHtmlOne(new MenuHtml(homepage.getHomepage_id(), menuOne.getMenu_idx())));
 		}
 
 		if ( homepage.getHomepage_id().equals("h32") && teach.getEditMode().equals("ALL")) {
