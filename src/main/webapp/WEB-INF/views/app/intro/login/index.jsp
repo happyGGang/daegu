@@ -57,7 +57,7 @@ $(function() {
 						<fieldset>
 							<legend class="blind">로그인</legend>
 
-							<form:form modelAttribute="member" action="/intro/${homepage.context_path}/login/loginProc.do" onsubmit="return false;">
+							<form:form modelAttribute="member" action="/intro/${context_path}/login/loginProc.do" onsubmit="return false;">
 							<form:hidden path="before_url" htmlEscape="true"/>
 							<form:hidden path="member_id"/>
 							<form:password path="member_pw" cssStyle="display:none;"/>
@@ -84,13 +84,11 @@ $(function() {
 
 					<!-- 아이디/비밀번호찾기 [START] -->
 					<div class="idpwSection" style="text-align:center;">
-						<a href="/intro/${homepage.context_path}/join/findIdForm.do" class="btn btn01">아이디찾기</a>
-						<a href="/intro/${homepage.context_path}/join/findPwForm.do" class="btn btn02">비밀번호찾기</a>
+						<a href="/intro/${context_path}/join/findIdForm.do" class="btn btn01">아이디찾기</a>
+						<a href="/intro/${context_path}/join/findPwForm.do" class="btn btn02">비밀번호찾기</a>
 					</div>
 					<!-- 아이디/비밀번호찾기 [ END ] -->
-					<div class="" style="color:#3f70bc;font-weight:bold;font-size: 14px;padding: 15px 0 15px 18px;text-align:center;">
-						※ 기존 회원은 통합회원 인증 후 로그인할 수 있습니다.
-					</div>
+
 				</div>
 			</dl>
 		</div>
