@@ -41,7 +41,7 @@ $(function() {
 		}
 	});
 
-	$('h1.mobile-logo a').css('background',"url('/resources/homepage/beomeo/img/beomeo_logo_b.png')"); 
+	$('h1.mobile-logo a').css('background',"url('/resources/homepage/gosan/img/gosan_logo_b.png')"); 
 	$('.m-menu a').css('color','#000');
 
 });

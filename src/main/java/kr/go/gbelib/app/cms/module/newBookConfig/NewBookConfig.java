@@ -11,6 +11,7 @@ public class NewBookConfig extends PagingUtils {
 	private String add_id; // 등록자
 	private String mod_date; // 수정날자
 	private String mod_id; // 수정자
+	private String manage_code;
 	
 	public NewBookConfig() {
 		
@@ -76,4 +77,11 @@ public class NewBookConfig extends PagingUtils {
 		this.mod_id = mod_id;
 	}
 
+	public String getManage_code() {
+		return manage_code;
+	}
+
+	public void setManage_code(String manage_code) {
+		this.manage_code = manage_code;
+	}
 }

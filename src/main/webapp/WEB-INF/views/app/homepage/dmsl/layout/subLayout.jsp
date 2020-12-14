@@ -78,7 +78,7 @@ $(function() {
 					<h3>${menuOne.menu_name}</h3>
 					</c:if>
 					<ol>
-						<li class="first"><a href="/${homepage.context_path}/index.do"><i class="fa fa-home"></i></a></li>
+						<li class="first"><img src="/resources/common/img/navi_home_icon.gif"></a></li>
 						<homepageTag:docInfo oneMenu="${menuOne}" menuList="${menuLeftList}"/>
 					</ol>
 
@@ -121,15 +121,15 @@ $(function() {
 			</c:if>
 			<div class="content">
 				<div class="doc">
-					<div class="doc-head">
+					<!-- <div class="doc-head">
 						<div class="doc-title">
 							<c:if test="${menuOne.include_menu_name_yn eq 'Y'}">
 							<h3>${menuOne.menu_name}</h3>
 							</c:if>
 
-							<!-- <div class="v-img" <c:if test="${not empty menuOne.menu_img}">style="background: url('/data/menu/${menuOne.homepage_id}/${menuOne.menu_img}') no-repeat 100% 0"</c:if>></div> -->
+							<!-- <div class="v-img" <c:if test="${not empty menuOne.menu_img}">style="background: url('/data/menu/${menuOne.homepage_id}/${menuOne.menu_img}') no-repeat 100% 0"</c:if>></div>
 						</div>
-					</div>
+					</div> -->
 					<div class="doc-body con${menuOne.menu_idx}" id="contentArea">
 						<div class="body">
 							<tiles:insertAttribute name="body" />
