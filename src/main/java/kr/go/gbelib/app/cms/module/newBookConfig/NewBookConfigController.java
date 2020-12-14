@@ -5,7 +5,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import kr.co.whalesoft.app.cms.homepage.HomepageService;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.ListUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,29 +30,60 @@ public class NewBookConfigController extends BaseController {
 	
 	@Autowired
 	private NewBookConfigService service;
-	
+
+	@Autowired
+	private HomepageService homepageService;
+
 	@RequestMapping (value = {"/index.*"}, method = RequestMethod.GET)
 	public String index(Model model, NewBookConfig newBookConfig, HttpServletRequest request) {
-		String homepage_id = getAsideHomepageId(request);
-		Homepage homepage = getHomepageOne(homepage_id);
-		newBookConfig.setHomepage_id(homepage_id);
+//		String homepage_id = getAsideHomepageId(request);
+//		Homepage homepage = getHomepageOne(homepage_id);
+//		newBookConfig.setHomepage_id(homepage_id);
 
-		Map<String, Object> subLocaInfo = LibSearchAPI.getSubLocaInfo("19", homepage.getManage_code());
+		if ((getAsideHomepageId(request).equals("h37") || getAsideHomepageId(request).equals("h49") || getAsideHomepageId(request).equals("h45") || getAsideHomepageId(request).equals("h53"))) {
+			Homepage sessionHomepageInfo = getSessionHomepageInfo(request);
+			sessionHomepageInfo.setHomepage_group(getAsideHomepageId(request));
+			sessionHomepageInfo.setTemp_use_yn("Y");
+			List<Homepage> subHomepageList = homepageService.getSubHomepageList(sessionHomepageInfo);
+			if (StringUtils.isEmpty(newBookConfig.getManage_code())) {
+				newBookConfig.setHomepage_id(subHomepageList.get(0).getHomepage_id());
+				newBookConfig.setManage_code(subHomepageList.get(0).getManage_code());
+			} else {
+				for (Homepage homepage : subHomepageList) {
+					if (newBookConfig.getManage_code().equals(homepage.getManage_code())) {
+						newBookConfig.setHomepage_id(homepage.getHomepage_id());
+						break;
+					}
+				}
+			}
+			model.addAttribute("subHomepageList", subHomepageList);
+		} else {
+			newBookConfig.setHomepage_id(getAsideHomepageId(request));
+			String homepage_id = getAsideHomepageId(request);
+			Homepage homepage = getHomepageOne(homepage_id);
+			newBookConfig.setHomepage_id(homepage_id);
+			newBookConfig.setManage_code(homepage.getManage_code());
+		}
+
+
+		Map<String, Object> subLocaInfo = LibSearchAPI.getSubLocaInfo("19", newBookConfig.getManage_code());
 		List<Map<String, Object>> result = LibSearchAPI.getListData(subLocaInfo, "LIST_DATA");
 		List<String> code_arr = service.getShelfCodeList(newBookConfig);
-		for (Map<String, Object> map : result) {
-			if(code_arr == null) {
-				break;
-			}
-			
-			if(code_arr.contains(map.get("CODE"))) {
-				map.put("CHECKED", "checked");
+		if (CollectionUtils.isNotEmpty(code_arr)) {
+			for (Map<String, Object> map : result) {
+				if(code_arr == null) {
+					break;
+				}
+
+				if(code_arr.contains(map.get("CODE"))) {
+					map.put("CHECKED", "checked");
+				}
 			}
 		}
-		
+
 		model.addAttribute("shelfList", result);
 		model.addAttribute("newBookConfig", newBookConfig);
-		model.addAttribute("homepage", homepage);
+//		model.addAttribute("homepage", homepage);
 
 		return basePath + "index";
 	}

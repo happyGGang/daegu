@@ -10,21 +10,41 @@ $(document).ready(function() {
 	$('a#dialog-save').on('click', function(e) {
 		e.preventDefault();
 		
-// 		if($('input[name="shelfCode"]:checked').length < 1) {
-// 			alert('선택된 자료실이 없습니다.');
-// 			return false;
-// 		}
-		
+		// if($('input[name="shelfCode"]:checked').length < 1) {
+		// 	alert('선택된 자료실이 없습니다.');
+		// 	return false;
+		// }
+		if($('input[name="shelf_code_arr"]').length < 1) {
+			alert('설정 가능한 자료실이 없습니다.');
+			return false;
+		}
+
 		if(confirm('신착자료 자료실을 설정하시겠습니까?')) {
 			doAjaxPost($('form#newBookConfig'));
 		}
+	});
+
+	$('select#manage_code').change(function() {
+		location.href = 'index.do?manage_code='+$(this).val();
 	});
 	
 });
 </script>
 <form:form  modelAttribute="newBookConfig" action="save.do" method="POST">
-	<form:hidden path="homepage_id"/>
 	<form:hidden path="editMode"/>
+	<form:hidden path="homepage_id"/>
+	<c:choose>
+		<c:when test="${fn:length(subHomepageList) > 0}">
+			<div style="margin-bottom:5px">
+				도서관 : <form:select id="manage_code" path="manage_code" items="${subHomepageList}" itemLabel="homepage_name" itemValue="manage_code"></form:select>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<form:hidden path="manage_code"/>
+		</c:otherwise>
+	</c:choose>
+
+
 	<div class="infodesk">
 		<div class="button">
 			<a href="" class="btn btn5 left" id="dialog-save"><i class="fa fa-plus"></i><span>저장</span></a>
