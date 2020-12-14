@@ -166,7 +166,11 @@ ul.book_photo li a span.con-author {display:none;}
 	.books-tits li {display:block;line-height:120%;color:#20252f;letter-spacing:-1px;}
 	.books-tits li:nth-child(1) {font-size:18px;padding-top:15px;}
 	.books-tits li:nth-child(2) {font-size:20px;padding-top:5px;}
-	a.btn-link-more {position:absolute;display:block;font-size:0;right:10px;top:15px;margin-top:0;}
+
+	.book-box{position:relative;}
+
+	.btn-link-box{position:absolute;top:-70px;right:20px;width:50px;height:50px;}
+	a.btn-link-more {display:block;font-size:0;margin-top:0;bottom:0;}
 
 	.tabMenuS {width:54.5%;margin:13px auto 20px;}
 	.tabMenuS li {width:32.7%;text-align:center;}
@@ -213,6 +217,8 @@ ul.book_photo li a span.con-author {display:none;}
 }
 
 @media all and (max-width:425px){
+	.m_none{display:none;}
+
 	.search-box select.search_type{display:none;}
 	.search-box input{padding-left:30px;}
 

@@ -7,7 +7,7 @@
 
 	<div class="tnb">
 		<div class="main-section">
-			<h1 class="mobile-logo"><a href="/${homepage.context_path}/index.do">범어 도서관</a></h1>
+			<h1 class="mobile-logo"><a href="/${homepage.context_path}/index.do">고산 도서관</a></h1>
 
 			<div class="mmode m-menu">
 				<a href="#menu"><i class="fa fa-navicon"></i><span class="blind">메뉴</span></a>

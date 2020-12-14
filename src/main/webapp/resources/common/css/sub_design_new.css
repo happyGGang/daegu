@@ -955,8 +955,8 @@ dt,dd{;word-break:keep-all}
 .move_box_img05{background:url('/resources/common/img/book_img05.jpg')no-repeat;}
 .move_box h5{font-family:'S-CoreDream-7ExtraBold';font-size:33px;color:#fff;letter-spacing:-0.75px;padding:60px 0 10px;}
 .move_box p{font-family:'S-CoreDream-3Light';font-size:18px;color:#fff;letter-spacing:-0.75px;padding-bottom:30px;}
-.move_box .move_btn{position:relative;width:120px;margin:0 auto;background:#0738a8 url('/resources/common/img/move_btn.png')no-repeat 50px 20px;padding:15px 20px 15px 50px;font-size:15px;color:#fff;letter-spacing:-0.75px;cursor:pointer;transition:0.5s;}
-.move_box .move_btn:hover{color:#0738a8;transition:0.5s;background:#fff url('/resources/common/img/move_btn_hover.png')no-repeat 35px 20px;}
+.move_box .move_btn{position:relative;width:120px;margin:0 auto;background:#0738a8 url('/resources/common/img/move_btn.png')no-repeat 50px 20px;padding:15px 20px 15px 50px;font-size:15px;color:#fff !important;letter-spacing:-0.75px;cursor:pointer;transition:0.5s;}
+.move_box .move_btn:hover{color:#0738a8 !important;transition:0.5s;background:#fff url('/resources/common/img/move_btn_hover.png')no-repeat 35px 20px;}
 
 .move_txt{text-align:center;padding:30px 0 40px;border-bottom:1px solid #ddd;margin-bottom:50px;text-align:center;}
 .move_txt p{font-size:16px;color:#222;line-height:160%;}

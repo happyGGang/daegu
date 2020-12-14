@@ -203,8 +203,8 @@ do {
 				<div class="books-tits">
 					<ul>
 						<li>작은도서관 사서가 권하는</li>
-						<li><b>다양한 북큐레이션</b> <Br class='webBr'/>이럴땐 이런책</li>
-						<li>이 달의 테마 주제는 무엇일까요?<br/>도서 클릭 시 테마소개 페이지로<br/>이동합니다.</li>
+						<li><b>다양한 북큐레이션</b> <Br class='webBr'/><span class="m_none">이럴땐 이런책</span></li>
+						<li class="m_none">이 달의 테마 주제는 무엇일까요?<br/>도서 클릭 시 테마소개 페이지로<br/>이동합니다.</li>
 					</ul>
 				</div>
 
@@ -215,7 +215,9 @@ do {
 							<li><a href="#tab2" class='t-tabs' data-link="/${homepage.context_path}/board/index.do?menu_idx=84&manage_idx=745">테마북</a></li>
 							<li><a href="#tab3" class='t-tabs' data-link="/${homepage.context_path}/board/index.do?menu_idx=85&manage_idx=746">그림책</a></li>
 						</ul>
-						<a href="/${homepage.context_path}/board/index.do?menu_idx=83&manage_idx=744" class="btn-link-more more-more">더보기</a>
+						<div class="btn-link-box">
+							<a href="/${homepage.context_path}/board/index.do?menu_idx=83&manage_idx=744" class="btn-link-more more-more">더보기</a>
+						</div>
 
 						<div class="box con" data-tab="tab1">
 							<ul class="book_photo">

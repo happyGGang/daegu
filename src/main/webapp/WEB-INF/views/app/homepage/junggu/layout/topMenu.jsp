@@ -11,13 +11,13 @@
 
 					<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=82" class="last-box"><img src="/resources/common/img/sitemap_icon_black.png" alt="사이트맵" /></a>
 					<div class="mmode">
-							<a href="/${homepage.context_path}/intro/login/mobileCard.do?menu_idx=170" class="btn4">
+							<a href="/${homepage.context_path}/intro/login/mobileCard.do?menu_idx=68" class="btn4">
 								<i class="fa fa-bookmark"></i>
 								<span>모바일회원증</span>
 							</a>
 					<c:choose>
 						<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
-							<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=95" class="mobilemeberinfo">
+							<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=66" class="mobilemeberinfo">
 								<i class="fa fa-user"></i>
 									<span>${sessionScope.member.member_name}님</span>
 							</a>

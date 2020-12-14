@@ -100,7 +100,7 @@ width:118px;border:1px solid #ddd;margin-right:15px;}
 	.serial-wrap .search-info{margin-top:5px}
 	.serial-wrap .search-results .row .thumb{width:88px;margin-right:15px}
 	.serial-wrap .search-results .row .item .bif{margin-left:105px;min-height:140px}
-	.serial-wrap .search-results .row .item a.name{font-size: 100%;}
+	.serial-wrap .search-results .row .item a.name{font-size: 100%;height:3.0em;}
 }
 
 .sview{border-top:2px solid #5e6062}
