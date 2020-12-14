@@ -58,7 +58,9 @@ $(function() {
 	
 	$('#delete-btn').on('click', function(e) {
 		e.preventDefault();
-		$('form#marathonType table tbody tr:last').remove();
+		if($('form#marathonType table tbody tr').length > 2){
+			$('form#marathonType table tbody tr:last').remove();
+		}
 	});
 });
 </script>
