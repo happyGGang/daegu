@@ -50,6 +50,7 @@ $(function() {
 <a href="${prefix}sangho/history.do" class="bBtn">상호대차이용내역조회</a>
 </c:if>
 <a href="${prefix}resve/index.do" class="bBtn">대출예약조회</a>
+<a href="${prefix}hope/index.do" class="bBtn">희망도서신청조회</a>
 </div>
 
 <form:form modelAttribute="librarySearch" method="get">

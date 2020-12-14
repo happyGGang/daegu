@@ -4,6 +4,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.homepage.HomepageService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,13 +35,28 @@ public class TeachStatisticsController extends BaseController {
 	@Autowired
 	private TeachCode2Service teachCode2Service;
 
+	@Autowired
+	private HomepageService homepageService;
+
 	@RequestMapping(value = { "/index.*" })
 	public String index(Model model, TeachStatistics teachStatistics, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
-		if ( !getSessionIsAdmin(request) ) {
+//		if ( !getSessionIsAdmin(request) ) {
+//			teachStatistics.setHomepage_id(getAsideHomepageId(request));
+//		}
+
+		if ((getAsideHomepageId(request).equals("h37") || getAsideHomepageId(request).equals("h49") || getAsideHomepageId(request).equals("h45") || getAsideHomepageId(request).equals("h53"))) {
+			Homepage sessionHomepageInfo = getSessionHomepageInfo(request);
+			sessionHomepageInfo.setHomepage_group(getAsideHomepageId(request));
+			sessionHomepageInfo.setTemp_use_yn("Y");
+			List<Homepage> subHomepageList = homepageService.getSubHomepageList(sessionHomepageInfo);
+			if (StringUtils.isEmpty(teachStatistics.getHomepage_id())) {
+				teachStatistics.setHomepage_id(subHomepageList.get(0).getHomepage_id());
+			}
+			model.addAttribute("subHomepageList", subHomepageList);
+		} else {
 			teachStatistics.setHomepage_id(getAsideHomepageId(request));
 		}
-
 
 
 		TeachCode2 teachCode2 = new TeachCode2(1);

@@ -63,10 +63,12 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 </div>
 <!-- /contents-title-->
 
+<!-- 
 <div class="DepthBtn">
 	<a href="/intro/${context_path}/search/hope/req.do" class="bBtn">희망도서신청</a>
 	<a href="/intro/${context_path}/search/hope/index.do" class="bBtn">신청내역보기</a>
 </div>
+-->
 
 <!-- 도서관 선택 분기처리 시작 -->
 <c:choose>

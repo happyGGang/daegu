@@ -1175,6 +1175,32 @@ public class LibSearchAPI {
 		}
 	}
 
+
+	/**
+	 * K.API - 64
+	 *
+	 * 무인대출예약 건수 조회
+	 *
+	 * @author whalesoft YONGJU 2020. 4. 9.
+	 * @param librarySearch
+	 * @param type
+	 * @return
+	 */
+	public static Map<String, Object> getUnmannedLoanReserveCnt(LibrarySearch librarySearch, String type) {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		param.put("worker", librarySearch.getWorker());// 장비ID
+		param.put("type", type);//카운트대상		- DATA : 무인대출예약건수		- USER : 무인대출예약자수		(미입력시 기본값 : DATA)
+		if (StringUtils.isNotEmpty(librarySearch.getSearch_start_date())) {
+			param.put("startdate", librarySearch.getSearch_start_date());//예약일 검색시작일 YYYYMMDDHH24MISS 형식 (14자리)	(미입력시 기본값 : 검색당일)
+		}
+		if (StringUtils.isNotEmpty(librarySearch.getSearch_end_date())) {
+			param.put("enddate", librarySearch.getSearch_end_date());//예약일 검색종료일 YYYYMMDDHH24MISS 형식 (14자리)	(미입력시 기본값 : 검색당일)
+		}
+
+		return CommonAPI.sendKCMS("getunmannedloanreservecnt", param);
+	}
+
 	/**
 	 * K.API - 66
 	 *

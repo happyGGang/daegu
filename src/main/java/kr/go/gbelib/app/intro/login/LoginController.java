@@ -54,7 +54,7 @@ public class LoginController extends BaseController {
 	}
 
 	@RequestMapping (value = {"/loginProc.*"})
-	public String loginProc(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String loginProc(@PathVariable String context_path, Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 
 		// 아이디, 비번, 이름 복호화
@@ -65,7 +65,7 @@ public class LoginController extends BaseController {
 
 		String returnUrl = member.getBefore_url();
 		if (StringUtils.isEmpty(returnUrl)) {
-			returnUrl = "/intro/" + homepage.getContext_path() + "/index.do";
+			returnUrl = "/intro/" + context_path + "/index.do";
 		}
 
 		// 비번 틀려서 계정이 잠김
@@ -74,7 +74,13 @@ public class LoginController extends BaseController {
 			return null;
 		}
 
-		member.setManage_code(homepage.getManage_code());
+		if (homepage != null && StringUtils.isNotEmpty(homepage.getManage_code())) {
+			member.setManage_code(homepage.getManage_code());
+		}
+		if (homepage == null) {
+			homepage = new Homepage();
+			homepage.setHomepage_id("h00");
+		}
 		member.setLoginType("HOMEPAGE");
 		Object result = LoginAPI.login(member);
 		if (result instanceof Member) {
@@ -87,7 +93,11 @@ public class LoginController extends BaseController {
 			service.redirectUrl(returnUrl, request, response);
 			return null;
 		} else {
-			member.setHomepage_id(homepage.getHomepage_id());
+			if (homepage != null && StringUtils.isNotEmpty(homepage.getHomepage_id())) {
+				member.setHomepage_id(homepage.getHomepage_id());
+			} else {
+				member.setHomepage_id("h00");
+			}
 			member.setLoginType("HOMEPAGE");
 			accountLockService.loginFailed(new AccountLock(member, request.getRemoteAddr()));
 			ApiResponse errorResult = (ApiResponse) result;
@@ -116,7 +126,7 @@ public class LoginController extends BaseController {
 	public String logout(@PathVariable String context_path, HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		Homepage homepage = getSessionHomepage(request);
 		service.logout(request);
-		return String.format("redirect:/intro/%s/index.do", homepage.getContext_path());
+		return String.format("redirect:/intro/%s/index.do", context_path);
 	}
 
 	/**
@@ -124,7 +134,6 @@ public class LoginController extends BaseController {
 	 * @author whalesoft YONGJU 2019. 11. 16.
 	 * @param context_path
 	 * @param model
-	 * @param member
 	 * @param request
 	 * @return
 	 * @throws Exception
@@ -134,7 +143,7 @@ public class LoginController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
 			return null;
 		}
 

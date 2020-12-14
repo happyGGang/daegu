@@ -2,7 +2,9 @@ package kr.co.whalesoft.framework.tag.homepage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -42,8 +44,23 @@ public class TopMenuTag extends BodyTagSupport {
 		boolean check_lvl4 = false;
 
 		int ulMenuCount = 1;
+
+		Set<Integer> etcMenuList = new HashSet<Integer>();
+
 		if(menuList != null) {
 			for(Menu menu : menuList) {
+
+				if ( "기타".equals(menu.getMenu_name()) && menu.getMenu_level() == 1) {
+					etcMenuList.add(menu.getMenu_idx());
+					continue;
+				}
+
+				if (etcMenuList.contains(menu.getParent_menu_idx())) {
+					etcMenuList.add(menu.getMenu_idx());
+					continue;
+				}
+
+
 				String link_url = "";
 
 				if ( menu.getMenu_type().equals("HTML") ) {

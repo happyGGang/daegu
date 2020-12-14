@@ -383,7 +383,7 @@ function pasteHTML(contentId) {
 			file.ext.toLowerCase() == ".bmp" ||
 			file.ext.toLowerCase() == ".gif" ||
 			file.ext.toLowerCase() == ".png" ) {
-			sHTML = '<img src="'+previewPath+'" width="540px" />';
+			sHTML = '<img src="'+previewPath+'" width="800px" />';
 		} else	if( file.type.toLowerCase() == ".mp3" || // 음악 파일 처리
 			file.ext.toLowerCase() == ".wma" ) {
 			alert('이미지 형태의 파일만 에디터에 넣을 수 있습니다.');

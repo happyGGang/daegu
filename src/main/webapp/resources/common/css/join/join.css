@@ -167,11 +167,6 @@ ul.con2.pl5 > li { background: none !important; padding-left: 0 }
 /* 회원가입 */
 .join-wrap{padding:0 0 15px 0;}
 
-@media all and (max-width:767px){
-	.join-wrap{padding:15px 0}
-	 ul.con2 > li {font-size:15px}
-}
-
 .join-step{position:absolute;top:0;left:0;width:100%;text-align:center;padding:10px 0;background:#0f509f}
 .join-step li{display:inline-block;zoom:1;*display:inline;color:#bad6f9;margin:0 4%;padding:0;letter-spacing:-1px}
 .join-step li.active{color:#fff100}
@@ -181,7 +176,7 @@ ul.con2.pl5 > li { background: none !important; padding-left: 0 }
 .join-step li.step1 span{background:url('../img/step1-icon.gif') no-repeat center center}
 .join-step li.step2 span{background:url('../img/step2-icon.gif') no-repeat center center}
 .join-step li.step3 span{background:url('../img/step3-icon.gif') no-repeat center center}
-.join-wrap{padding-top:50px; width:900px;}
+.join-wrap {padding-top:50px; width:1260px;margin:0 auto;}
 .join-wrap>.box.step1>span{font-size:90%}
 .join-wrap>.box.ss{background:#f5f5f5}
 
@@ -210,7 +205,13 @@ ul.con2.pl5 > li { background: none !important; padding-left: 0 }
 .join-wrap .identi_select span{vertical-align:middle}
 .join-wrap .identi_select .success a{font-weight:800;background:#82b440;color:#fff;cursor:default;border-color:#82b440}
 
+@media all and (max-width:1260px){
+	.join-wrap {width:100%;}
+}
+
 @media all and (max-width:767px){
+	.join-wrap{padding:15px 0}
+	 ul.con2 > li {font-size:15px}
 	.join-wrap .identi_select p,
 	.join-wrap .year_select a{width:100%}
 	.join-wrap .identi_select .identy_b,

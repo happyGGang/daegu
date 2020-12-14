@@ -156,42 +156,68 @@
 						<ul class="tabMenuS">
 							<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=123" class='t-tabs'>공지사항</a></li>
 							<li><span style="font-size:13px;color:#aaa;padding:0 5px;">│</span></li>
-							<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=123" class='t-tabs'>강좌·행사안내</a></li>
+							<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=170&manage_idx=474" class='t-tabs'>강좌·행사안내</a></li>
 							
 							<a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=123" class="more-btn more-more">더보기</a>
 						</ul>
-					</div>
 
-					<div class="news">
-						<div class="box">
-							<ul>
-							<c:forEach var="i" varStatus="status" items="${noticeList}" >
-								<li>
-									<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-										<c:choose>
-										<c:when test="${i.date_gap <= 2}">
-										<span class="new-tit">NEW</span>
-										</c:when>
-										<c:otherwise>
-										<span class="tit">공지</span>
-										</c:otherwise>
-										</c:choose>
-										<em>${i.title}</em>
-										<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
-									</a>
-								</li>
-								</c:forEach>
+						<div class="con" data-tab="tab1">
+							<div class="news">
+								<div class="box">
 
-								<c:if test="${fn:length(noticeList) < 1}">
-								<li>
-									<em>등록된 공지사항이 없습니다.</em>
-								</li>
-							</c:if>
-							</ul>
+									<ul>
+									<c:forEach var="i" varStatus="status" items="${noticeList}" >
+										<li>
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+												<c:choose>
+												<c:when test="${i.date_gap <= 2}">
+												<span class="new-tit">NEW</span>
+												</c:when>
+												<c:otherwise>
+												<span class="tit">공지</span>
+												</c:otherwise>
+												</c:choose>
+												<em>${i.title}</em>
+												<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
+											</a>
+										</li>
+										</c:forEach>
 
+										<c:if test="${fn:length(noticeList) < 1}">
+										<li>
+											<em>등록된 공지사항이 없습니다.</em>
+										</li>
+									</c:if>
+									</ul>
+
+								</div>
+							</div>
+						</div>
+						<div class="con" data-tab="tab2" style="display:none;">
+							<div class="news">
+								<div class="box">
+
+								<ul>
+									<c:forEach var="i" varStatus="status" items="${boardList1}" >
+									<li>
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=170&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+											<span class="tit"></span>
+											<em>${i.title}</em>
+											<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
+										</a>
+									</li>
+									</c:forEach>
+									<c:if test="${fn:length(boardList1) < 1}">
+										<li>
+											<em>등록된 행사안내가 없습니다.</em>
+										</li>
+									</c:if>
+								</ul>
+
+								</div>
+							</div>
 						</div>
 					</div>
-
 				</div>
 
 				<!-- 팝업존 -->

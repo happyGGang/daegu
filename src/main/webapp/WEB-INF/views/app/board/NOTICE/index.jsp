@@ -16,10 +16,10 @@ table.bbs tr.notice{background:#f5f6f7}
 	table.bbs col.col3 {
 	    width : 1%
 	}
-	td.title{width: 100%;float:left;border-bottom: none;}
-	td.username{float:left;display: table-cell !important;border-top: none;font-size: 12px !important;}
-	td.adddate{float:left;display: table-cell !important;border-top: none;font-size: 12px !important;}
-	td.viewCount{float:left;display: table-cell !important;border-top: none;font-size: 12px !important;}
+	td.title{width: 100%;border-bottom: none;}
+	td.username{display: table-cell !important;border-top: none;font-size: 12px !important;}
+	td.adddate{display: table-cell !important;border-top: none;font-size: 12px !important;}
+	td.viewCount{display: table-cell !important;border-top: none;font-size: 12px !important;}
 	table.bbs tbody tr:hover {background:#f8f8f8}
 	td.txtBar{display: inline-block;width: 1px;height: 10px;font-size: 0px;line-height: 0;text-indent: -9999px;vertical-align: top;margin: 3px 5px;background: rgb(217, 217, 217);}
 }
@@ -32,16 +32,16 @@ table.bbs tr.notice{background:#f5f6f7}
 	table.bbs col.col2 {
 	    width : 1%
 	}
-	td.title{width: 100%;float:left;border-bottom: none;margin-bottom: -5px;}
+	td.title{width: 100%;border-bottom: none;margin-bottom: -5px;}
 	td.username{float:left;display: table-cell !important;border-top: none;font-size: 12px !important;}
-	td.adddate{float:left;display: table-cell !important;border-top: none;font-size: 12px !important;}
+	td.adddate{display: table-cell !important;border-top: none;font-size: 12px !important;}
 	td.viewCount{float:left;display: table-cell !important;border-top: none;font-size: 12px !important;}
 	table.bbs tbody tr:hover {background:#f8f8f8}
 	td.txtBar{display: inline-block;width: 1px;height: 10px;font-size: 0px;line-height: 0;text-indent: -9999px;vertical-align: top;margin: 3px 5px;background: rgb(217, 217, 217);}
 }
 </style>
 </c:if>
-<c:if test="${boardManage.manage_idx eq '614'}">
+<c:if test="${boardManage.manage_idx eq '614' or boardManage.manage_idx eq '628'}">
 <style>
 .category span.ca.bg-0001 {background-color:#dda616;color:#fff;}
 .category span.ca.bg-0002 {background-color:#8194b4;color:#fff;}
@@ -57,19 +57,19 @@ table.bbs tr.notice{background:#f5f6f7}
 		<table class="bbs center">
 			<caption>게시물 목록(${fn:escapeXml(boardManage.board_name)})</caption>
 			<colgroup>
-<%-- 				<c:if test="${board.delete_yn eq 'Y'}"> --%>
+			<%--	<c:if test="${board.delete_yn eq 'Y'}"> --%>
 				<c:if test="${member.admin or authMBA or authMBS or portalAuth eq '2'}">
 				<col width="5%">
 				</c:if>
-				<col width="8%">
-				<c:if test="${boardManage.manage_idx eq '282' || boardManage.manage_idx eq '614'}">
-				<col width="12%">
+				<col width="7%">
+				<c:if test="${boardManage.manage_idx eq '282' || boardManage.manage_idx eq '614' || boardManage.manage_idx eq '628'}">
+				<col width="*">
 				</c:if>
 				<col>
-				<col width="12%">
+				<col width="16%">
+				<col width="8%">
 				<col width="10%">
-				<col width="10%">
-				<col width="10%">
+				<col width="7%">
 			</colgroup>
 			<thead>
 				<tr>
@@ -78,7 +78,7 @@ table.bbs tr.notice{background:#f5f6f7}
 					<th><input type="checkbox" id="checkAll"> </th>
 					</c:if>
 					<th>번호</th>
-					<c:if test="${boardManage.manage_idx eq '282' || boardManage.manage_idx eq '614'}">
+					<c:if test="${boardManage.manage_idx eq '282' || boardManage.manage_idx eq '614' or boardManage.manage_idx eq '628'}">
 					<th class="category">도서관</th>
 					</c:if>
 					<th class="">제목</th>
@@ -97,7 +97,7 @@ table.bbs tr.notice{background:#f5f6f7}
 					<td></td>
 					</c:if>
 					<td class="num notice"><span>통합</span></td>
-					<c:if test="${boardManage.manage_idx eq '282' || boardManage.manage_idx eq '614'}">
+					<c:if test="${boardManage.manage_idx eq '282' || boardManage.manage_idx eq '614' or boardManage.manage_idx eq '628'}">
 					<td class="category important td2 cate">
 						<span class="ca bg-${i.imsi_v_19}">${i.imsi_v_20}</span>
 					</td>
@@ -133,6 +133,12 @@ table.bbs tr.notice{background:#f5f6f7}
 						<span class="ca bg-${i.imsi_v_19}">통합</span>
 					</td>
 					</c:if>
+					<c:if test="${boardManage.manage_idx eq '628'}">
+						<td class="category important td2">
+							<span class="ca bg-${i.category1}">${not empty i.category1_name ? i.category1_name : '공통'}</span>
+						</td>
+					</c:if>
+
 					<td class="important left title">
 						<c:set var="boardIdx" value="${i.parent_idx > 0 ? i.parent_idx : i.board_idx}"></c:set>
 						<c:set var="portal" value=""></c:set>
@@ -172,7 +178,12 @@ table.bbs tr.notice{background:#f5f6f7}
 					</c:if>
 					<c:if test="${ boardManage.manage_idx eq '614'}">
 					<td class="category important td2">
-						<span class="ca bg-${i.category1}">${not empty i.category1_name ? i.category1_name : '통합'}</span>don
+						<span class="ca bg-${i.category1}">${not empty i.category1_name ? i.category1_name : '통합'}</span>
+					</td>
+					</c:if>
+					<c:if test="${boardManage.manage_idx eq '628'}">
+					<td class="category important td2">
+						<span class="ca bg-${i.category1}">${not empty i.category1_name ? i.category1_name : '공통'}</span>
 					</td>
 					</c:if>
 					<td class="important left title" style="padding-left:${(i.group_depth > 0 ? (i.group_depth-1)*15 : 0)+10}px;">
@@ -181,7 +192,7 @@ table.bbs tr.notice{background:#f5f6f7}
 						<c:if test="${boardManage.manage_idx eq '282'}">
 						<c:set var="portal" value="/${i.imsi_v_19}/board/"></c:set>
 						</c:if>
-						<c:if test="${boardManage.manage_idx eq '614'}">
+						<c:if test="${boardManage.manage_idx eq '614' or boardManage.manage_idx eq '628'}">
 						<c:set var="portal" value="/${homepage.context_path}/board/"></c:set>
 						</c:if>
 						<c:set var="viewUrl" value="${portal}view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}"></c:set>

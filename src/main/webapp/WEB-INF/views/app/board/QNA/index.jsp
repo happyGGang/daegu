@@ -9,6 +9,13 @@ ${boardManage.top_html}
 <jsp:include page="/WEB-INF/views/app/board/common/index/script.jsp" flush="false" />
 <form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
+<style>
+	.state_wid{width:9%;}
+
+	@media all and (max-width:425px){
+		.state_wid{width:25%;}
+	}
+</style>
 <div class="wrapper-bbs">
 	<jsp:include page="/WEB-INF/views/app/board/common/index/infodesk.jsp" flush="false" />
 	<div class="table-wrap">
@@ -29,17 +36,17 @@ ${boardManage.top_html}
 			</colgroup>
 			<thead>
 				<tr>
-<%-- 					<c:if test="${board.delete_yn eq 'Y'}"> --%>
+			<%--<c:if test="${board.delete_yn eq 'Y'}"> --%>
 					<c:if test="${member.admin or authMBA or authMBS or portalAuth eq '2'}">
 					<th><input type="checkbox" id="checkAll"> </th>
 					</c:if>
-					<th style="width:6%">번호</th>
+					<th style="width:7%">번호</th>
 					<th class="important" >제목</th>
-					<th class="important" style="width:35px">처리상태</th>
-					<th class="important mmm2" style="width:8%">작성자</th>
-					<th class="mmm1">작성일</th>
-					<th class="mmm1" style="width:8%">조회수</th>
-					<th class="mmm1" style="width:6%">파일</th>
+					<th class="important state_wid">처리상태</th>
+					<th class="important mmm2" style="width:11%">작성자</th>
+					<th class="mmm1" style="width:8%">작성일</th>
+					<th class="mmm1" style="width:10%">조회수</th>
+					<th class="mmm1" style="width:7%">파일</th>
 				</tr>
 			</thead>
 			<tbody id="board_tbody">

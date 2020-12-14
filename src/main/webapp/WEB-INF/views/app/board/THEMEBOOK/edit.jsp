@@ -171,7 +171,7 @@ function isEditorOn() {
 	<table class="bbs-edit">
 		<tbody>
 			<tr>
-				<th>게시년월</th>
+				<th>전시기간</th>
 				<td>
 					<select id="imsi_v_1_1" class="selectmenu"></select>
 					<select id="imsi_v_1_2" class="selectmenu"></select>
@@ -191,6 +191,12 @@ function isEditorOn() {
 				<th>제목</th>
 				<td colspan="3">
 					<form:input path="title" cssClass="text" cssStyle="width:90%" maxlength="100" />
+				</td>
+			</tr>
+			<tr>
+				<th>전시장소</th>
+				<td colspan="3">
+					<form:input path="imsi_v_20" cssClass="text" cssStyle="width:90%" maxlength="100" />
 				</td>
 			</tr>
 			<tr>

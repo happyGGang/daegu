@@ -29,7 +29,7 @@ function timerIncrement() {
     if (idleTime >= 15) {
 		if (document.location.href.indexOf('join/edit') < 0 && document.location.href.indexOf('join/integration3') < 0) {
 			//location.href = "/intro/${homepage.context_path}/login/logout.do";
-			location.href = "/intro/${homepage.context_path}/index.do";
+			location.href = "/intro/${context_path}/index.do";
 		}
     }
 }
@@ -46,7 +46,7 @@ $(document).ready(function() {
 	$('a.not-hope').on('click', function(e) {
 		e.preventDefault();
 		alert('해당년도 희망도서신청 예산 소진으로 내년 1월 1일부터 희망도서 신청을 받으며 현재는 기존 신청 내역 확인만 가능합니다. \n\r이용에 불편함을 드려 죄송합니다.');
-		location.href='/intro/${homepage.context_path}/search/hope/index.do';
+		location.href='/intro/${context_path}/search/hope/index.do';
 	});
 });
 

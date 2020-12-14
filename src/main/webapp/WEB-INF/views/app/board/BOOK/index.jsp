@@ -235,6 +235,9 @@ ${boardManage.top_html}
 					<div class="box">
 						<div class="item">
 							<div class="bif">
+								<c:if test="${not empty i.category1_name}">
+								[${i.category1_name}]
+								</c:if>
 								<a href="" class="name" keyValue="${i.board_idx}" title="${i.title}">
 									${fn:substring(i.title, 0, 30)}<c:if test="${fn:length(i.title) > 30}">...</c:if>
 								</a>

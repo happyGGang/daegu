@@ -110,11 +110,16 @@ $(function(){
 	</c:otherwise>
 	</c:choose>
 
-	<div style="text-align: right; margin-bottom: 10px; ">
-		<a href="anonyApplyCheck.do?homepage_id=${fn:escapeXml(teach.homepage_id)}&menu_idx=${fn:escapeXml(param.menu_idx)}" class="btn btn1" style="font-size:14px;">비회원 신청확인</a>
-	</div>
+
 
 </form:form>
+
+${html.html}
+
+<div style="text-align: right; margin-bottom: 10px; ">
+	<a href="anonyApplyCheck.do?homepage_id=${fn:escapeXml(teach.homepage_id)}&menu_idx=${fn:escapeXml(param.menu_idx)}" class="btn btn1" style="font-size:14px;">비회원 신청확인</a>
+</div>
+
 <c:if test="${fn:length(teachList) <1 }">
 	<div class="nodata">
 			<i class="fa fa-frown-o"></i>

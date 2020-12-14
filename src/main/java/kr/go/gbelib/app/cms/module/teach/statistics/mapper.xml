@@ -3,10 +3,10 @@
 <mapper namespace="kr.go.gbelib.app.cms.module.teach.statistics.TeachStatisticsDao">
 	
 	<select id="getTeachStatistics" resultType="kr.go.gbelib.app.cms.module.teach.statistics.TeachStatistics">
-		SELECT  d.GROUP_NAME, c.CATEGORY_NAME, b.TEACHER_NAME, teach.TEACH_NAME, teach.START_DATE, teach.END_DATE, teach.TEACH_LIMIT_COUNT, teach.TEACH_BACKUP_COUNT, teach.TEACH_OFFLINE_COUNT
+		SELECT  d.GROUP_NAME, c.CATEGORY_NAME, teach.TEACHER_NAME, teach.TEACH_NAME, teach.START_DATE, teach.END_DATE, teach.TEACH_LIMIT_COUNT, teach.TEACH_BACKUP_COUNT, teach.TEACH_OFFLINE_COUNT
 			, (SELECT COUNT(*) FROM STUDENT WHERE HOMEPAGE_ID = a.HOMEPAGE_ID AND GROUP_IDX = a.GROUP_IDX AND CATEGORY_IDX = a.CATEGORY_IDX AND TEACH_IDX = a.TEACH_IDX AND DELETE_YN = 'N' AND APPLY_STATUS = '1') AS JOIN_COUNT
 			, CERT_OK_COUNT,
-			(SELECT code_name FROM TEACH_CODE2 where teach_code = a.large_category_idx) as large_category_name
+			(SELECT code_name FROM TEACH_CODE2 where teach_code = a.large_category_idx AND HOMEPAGE_ID = #{homepage_id}) as large_category_name
 		FROM (
 			SELECT teachList.HOMEPAGE_ID, teachList.GROUP_IDX, teachList.CATEGORY_IDX, teachList.TEACH_IDX, MIN(teachList.TEACHER_IDX) AS TEACHER_IDX, COUNT(CASE WHEN ((studentList.ATTEND_CNT / teachList.TEACH_COUNT) * 100) > 70 THEN 1 END) CERT_OK_COUNT,
 					MIN(teachList.TEACH_COUNT) as TEACH_COUNT, MIN(teachList.TEACH_NAME) as TEACH_NAME, MIN(teachList.START_DATE) as START_DATE, MIN(teachList.END_DATE) as END_DATE, MIN(teachList.TEACH_LIMIT_COUNT) as TEACH_LIMIT_COUNT, MIN(teachList.TEACH_BACKUP_COUNT) as TEACH_BACKUP_COUNT, MIN(teachList.TEACH_OFFLINE_COUNT) as TEACH_OFFLINE_COUNT

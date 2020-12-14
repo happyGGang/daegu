@@ -60,29 +60,8 @@ ${boardManage.top_html}
 								${fn:substring(i.title, 0, 30)}<c:if test="${fn:length(i.title) > 30}">...</c:if>
 								</a>
 								<ul class="con2">
-									<c:if test="${boardManage.manage_idx eq '195'}">
-									<li>
-										${i.imsi_v_18}
-										<c:if test="${not empty i.imsi_v_17}"> [${i.imsi_v_17}]</c:if>
-									</li>
-									</c:if>
-									<c:if test="${i.imsi_v_3 ne null and i.imsi_v_3 ne '' and i.imsi_v_3 ne '0'}">
-									<li>저자 : ${fn:substring(i.imsi_v_3, 0, 20)}<c:if test="${fn:length(i.imsi_v_3) > 20}">...</c:if></li>
-									</c:if>
-									<c:if test="${i.imsi_v_4 ne null and i.imsi_v_4 ne '' and i.imsi_v_4 ne '0'}">
-									<li>출판사 : ${fn:substring(i.imsi_v_4, 0, 20)}<c:if test="${fn:length(i.imsi_v_4) > 20}">...</c:if></li>
-									</c:if>
-									<c:if test="${i.imsi_v_2 ne null and i.imsi_v_2 ne '0'}">
-									<li>출판년도 : ${i.imsi_v_2}</li>
-									</c:if>
-									<c:if test="${boardManage.manage_idx ne '195'}">
-									<c:if test="${i.imsi_v_6 ne null and i.imsi_v_6 ne '0'}">
-									<li>소장자료실 : ${i.imsi_v_6}</li>
-									</c:if>
-									<c:if test="${i.imsi_v_7 ne null and i.imsi_v_7 ne '0'}">
-									<li>청구기호 : ${i.imsi_v_7}</li>
-									</c:if>
-									</c:if>
+									<li>전시기간 : ${i.imsi_v_1} ~ ${i.imsi_v_2}</li>
+									<li>전시장소 : ${fn:substring(i.imsi_v_20, 0, 20)}<c:if test="${fn:length(i.imsi_v_20) > 20}">...</c:if></li>
 								</ul>
 							</div>
 						</div>

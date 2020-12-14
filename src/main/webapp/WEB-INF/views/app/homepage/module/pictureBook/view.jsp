@@ -10,7 +10,7 @@
 
 <script type="text/javascript">
 	var a = parseFloat('${st}');
-	var l = parseFloat('1607994000418');
+	var l = parseFloat('1608080400103');
 	if (a < l) {
 		alert('신청 마감되었습니다.');
 		history.back();

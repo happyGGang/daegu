@@ -38,6 +38,14 @@ $(function() {
 	}
 */
 
+	$('#manageCode').val( $('input.tmp_user_no:first').data('mg') );
+
+	 $("input.tmp_user_no").click(function(){
+		var mgc = $(this).data('mg');
+		//alert(mgc);
+		$('#manageCode').val(mgc);
+	 });
+
 	<%-- 첫번째 강제 선택 --%>
 	$('input.tmp_user_no:first').prop('checked', true);
 
@@ -54,7 +62,7 @@ $(function() {
 
 	<form id="procForm" name="procForm" method="post" action="integration2.do" onsubmit="return false;">
 	<input type="hidden" id="user_no" name="user_no" value=""/>
-
+	<input type="hidden" id="manageCode" name="manageCode" value=""/>
 
 	<div class="search-wrap">
 
@@ -73,7 +81,7 @@ $(function() {
 				<c:forEach items="${integrationMemberList}" var="i" varStatus="status">
 				<tr>
 					<td>
-						<input type="radio" class="tmp_user_no" value="${i.USER_NO}" data-kl="${i.KL_MEMBER_YN}" data-ci="${i.ORDER2}"/>
+						<input type="radio" class="tmp_user_no" value="${i.USER_NO}" data-kl="${i.KL_MEMBER_YN}" data-ci="${i.ORDER2}" data-mg="${i.MANAGE_CODE}"/>
 					</td>
 					<td>${i.USER_NO}</td>
 					<td>${i.NAME}</td>

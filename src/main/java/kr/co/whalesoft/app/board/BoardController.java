@@ -285,6 +285,13 @@ public class BoardController extends BaseController {
 		if (board.getManage_idx() != 282 && board.getManage_idx() != 195) {
 			board.setHomepage_id(boardManage.getHomepage_id());
 		}
+
+		board.setCategory1Manage(boardManage.getCategory1());
+		board.setCategory2Manage(boardManage.getCategory2());
+		board.setCategory3Manage(boardManage.getCategory3());
+		board.setCategory4Manage(boardManage.getCategory4());
+		board.setCategory5Manage(boardManage.getCategory5());
+
 		model.addAttribute("boardNoticeList", service.getBoardNotice(board));
 		if (boardManage.getBoard_type().equals("NOTICE") && board.getManage_idx() != 282) {
 			model.addAttribute("boardNoticeList2", service.getBoardNotice2(board));

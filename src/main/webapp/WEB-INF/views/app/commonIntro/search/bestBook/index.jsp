@@ -38,6 +38,273 @@ $(function() {
 			<tbody>
 			<tr>
 
+
+				<th><label for="option01">도서관명</label></th>
+				<td class="search_left">
+					<c:choose>
+						<c:when test="${homepagePath eq 'bukgs'}">
+							구수산 도서관
+							<form:hidden path="manageCode" value="BA" />
+						</c:when>
+						<c:when test="${homepagePath eq 'bukdh'}">
+							대현도서관<form:hidden path="manageCode" value="BB" />
+						</c:when>
+						<c:when test="${homepagePath eq 'buktj'}">
+							태전도서관<form:hidden path="manageCode" value="BC" />
+						</c:when>
+						<c:when test="${homepagePath eq 'buks'}">
+							<form:radiobutton path="manageCode" value='GP' label="노원동 작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='HD' label="노원행복도서관" /><br/>
+							<form:radiobutton path="manageCode" value='GM' label="북구영어작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='GL' label="산격1동 작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='HB' label="서변동작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='GN' label="침산1동 작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='GJ' label="태전1동 작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='HE' label="한강공원부키도서관" />
+						</c:when>
+						<c:when test="${homepagePath eq 'jungang'}">
+							중앙도서관<form:hidden path="manageCode" value="AD" />
+						</c:when>
+						<c:when test="${homepagePath eq 'dongdu'}">
+							동부도서관<form:hidden path="manageCode" value="AH" />
+						</c:when>
+						<c:when test="${homepagePath eq 'seobu'}">
+							서부도서관<form:hidden path="manageCode" value="AF" />
+						</c:when>
+						<c:when test="${homepagePath eq 'nambu'}">
+							남부도서관<form:hidden path="manageCode" value="AG" />
+						</c:when>
+						<c:when test="${homepagePath eq 'bukbu'}">
+							북부도서관<form:hidden path="manageCode" value="AC" />
+						</c:when>
+						<c:when test="${homepagePath eq 'duryu'}">
+							두류도서관<form:hidden path="manageCode" value="AB" />
+						</c:when>
+						<c:when test="${homepagePath eq '228'}">
+							228기념학생도서관<form:hidden path="manageCode" value="AA" />
+						</c:when>
+						<c:when test="${homepagePath eq '228lib'}">
+							228민주운동<form:hidden path="manageCode" value="AL" />
+						</c:when>
+						<c:when test="${homepagePath eq 'suseong'}">
+							수성도서관<form:hidden path="manageCode" value="AE" />
+						</c:when>
+						<c:when test="${homepagePath eq 'dalseong'}">
+							달성도서관<form:hidden path="manageCode" value="AJ" />
+						</c:when>
+						<c:when test="${homepagePath eq 'std'}">
+							대구학생문화센터<form:hidden path="manageCode" value="AK" />
+						</c:when>
+						<c:when test="${homepagePath eq 'dmsl'}">
+							시청작은도서관<form:hidden path="manageCode" value="FV" />
+						</c:when>
+
+						<c:when test="${homepagePath eq 'beomeo'}">
+							범어도서관<form:hidden path="manageCode" value="BD" />
+						</c:when>
+						<c:when test="${homepagePath eq 'yonghak'}">
+							용학도서관<form:hidden path="manageCode" value="BE" />
+						</c:when>
+						<c:when test="${homepagePath eq 'gosan'}">
+							고산도서관<form:hidden path="manageCode" value="BF" />
+						</c:when>
+						<c:when test="${homepagePath eq 'bookforest'}">
+							책숲길도서관<form:hidden path="manageCode" value="BJ" />
+						</c:when>
+						<c:when test="${homepagePath eq 'mulmangi'}">
+							물망이도서관<form:hidden path="manageCode" value="BK" />
+						</c:when>
+						<c:when test="${homepagePath eq 'padong'}">
+							파동도서관<form:hidden path="manageCode" value="BG" />
+						</c:when>
+						<c:when test="${homepagePath eq 'muhaksup'}">
+							무학숲도서관<form:hidden path="manageCode" value="BH" />
+						</c:when>
+						<c:when test="${homepagePath eq 'sawol'}">
+							사월역작은도서관<form:hidden path="manageCode" value="FG" />
+						</c:when>
+						<c:when test="${homepagePath eq 'junggu'}">
+							<form:radiobutton path="manageCode" value='FS' label="대구중구영어도서관" />
+							<form:radiobutton path="manageCode" value='FF' label="남산4동작은도서관" />
+							<form:radiobutton path="manageCode" value='FQ' label="동인 느티나무 도서관" />
+							<form:radiobutton path="manageCode" value='FY' label="중구청교양정보실" />
+							<form:radiobutton path="manageCode" value='GG' label="대신동작은도서관" />
+							<form:radiobutton path="manageCode" value='HA' label="삼덕마루 작은도서관" />
+							<form:radiobutton path="manageCode" value='HF' label="대봉2동작은도서관" />
+						</c:when>
+
+						<c:when test="${homepagePath eq 'seogulib'}">
+							<form:radiobutton path="manageCode" value='BL' label="서구어린이도서관" /><br/>
+							<form:radiobutton path="manageCode" value='BQ' label="비산도서관" /><br/>
+							<form:radiobutton path="manageCode" value='BP' label="서구영어도서관" /><br/>
+							<form:radiobutton path="manageCode" value='BM' label="비원도서관" /><br/>
+							<form:radiobutton path="manageCode" value='BN' label="원고개도서관" /><br/>
+
+							<form:radiobutton path="manageCode" value='FH' label="새마을문고대구서구지부작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='FT' label="서구청 작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='FU' label="내당4동어린이도서관" /><br/>
+							<form:radiobutton path="manageCode" value='FZ' label="비산7동 작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='GQ' label="내당2,3동 드림도서관" /><br/>
+							<form:radiobutton path="manageCode" value='HC' label="달성토성마을 다락방 작은도서관" />
+						</c:when>
+						<c:when test="${homepagePath eq 'bisan'}">
+							비산도서관<form:hidden path="manageCode" value="BQ" />
+						</c:when>
+						<c:when test="${homepagePath eq 'seoguenglish'}">
+							서구영어도서관<form:hidden path="manageCode" value="BP" />
+						</c:when>
+						<c:when test="${homepagePath eq 'biwon'}">
+							서구영어도서관<form:hidden path="manageCode" value="BM" />
+						</c:when>
+						<c:when test="${homepagePath eq 'wongogae'}">
+							원고개도서관<form:hidden path="manageCode" value="BN" />
+						</c:when>
+						<c:when test="${homepagePath eq 'seogumini'}">
+							<form:radiobutton path="manageCode" value='FH' label="새마을문고대구서구지부작은도서관" />
+							<form:radiobutton path="manageCode" value='FT' label="서구청 작은도서관" />
+							<form:radiobutton path="manageCode" value='FU' label="내당4동어린이도서관" />
+							<form:radiobutton path="manageCode" value='FZ' label="비산7동 작은도서관" />
+							<form:radiobutton path="manageCode" value='GQ' label="내당2,3동 드림도서관" />
+							<form:radiobutton path="manageCode" value='HC' label="달성토성마을 다락방 작은도서관" />
+						</c:when>
+						<c:when test="${homepagePath eq 'dalseonglib'}">
+							달성군립도서관<form:hidden path="manageCode" value="BR" />
+						</c:when>
+						<c:when test="${homepagePath eq 'dalseongsmall'}">
+							<form:radiobutton path="manageCode" value='FR' label="가창면 참꽃작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='GA' label="화원읍작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='GB' label="논공읍작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='GC' label="구지면작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='GD' label="다사읍서재작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='GE' label="하빈면작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='GF' label="유가읍작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='GH' label="옥포읍작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='FJ' label="달성군청도서관" /><br/>
+							<form:radiobutton path="manageCode" value='FN' label="달성군청소년센터" /><br/>
+							<form:radiobutton path="manageCode" value='HG' label="다사읍작은도서관 " />
+						</c:when>
+						<c:when test="${homepagePath eq 'namdm' || context_path eq 'namic'}">
+							<form:radiobutton path="manageCode" value='BT' label="이천어울림도서관" /><br/>
+							<form:radiobutton path="manageCode" value='BS' label="대명어울림도서관" /><br/>
+							<form:radiobutton path="manageCode" value='FE' label="꿈틀작은도서관" />
+						</c:when>
+						<c:when test="${homepagePath eq 'dalseolib'}">
+							<form:radiobutton path="manageCode" value='BW' label="도원도서관" /><br/>
+							<form:radiobutton path="manageCode" value='BV' label="달서어린이" /><br/>
+							<form:radiobutton path="manageCode" value='BU' label="성서도서관" /><br/>
+							<form:radiobutton path="manageCode" value='BX' label="본리도서관" /><br/>
+							<form:radiobutton path="manageCode" value='BY' label="달서가족문화도서관" /><br/>
+							<form:radiobutton path="manageCode" value='BZ' label="달서영어도서관" /><br/>
+
+							<form:radiobutton path="manageCode" value='FA' label="이곡2동공립작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='FB' label="용산1동작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='FC' label="장기동작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='FD' label="죽전동공립작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='FW' label="웃는얼굴아트센터 도서실" /><br/>
+							<form:radiobutton path="manageCode" value='FX' label="행정정보문고센터" /><br/>
+							<form:radiobutton path="manageCode" value='GK' label="학산작은도서관" />
+						</c:when>
+						<c:when test="${homepagePath eq 'kids'}">
+							달서어린이<form:hidden path="manageCode" value="BV" />
+						</c:when>
+						<c:when test="${homepagePath eq 'seongseo'}">
+							성서도서관<form:hidden path="manageCode" value="BU" />
+						</c:when>
+						<c:when test="${homepagePath eq 'bolli'}">
+							본리도서관<form:hidden path="manageCode" value="BX" />
+						</c:when>
+						<c:when test="${homepagePath eq 'family'}">
+							달서가족문화도서관<form:hidden path="manageCode" value="BY" />
+						</c:when>
+						<c:when test="${homepagePath eq 'english'}">
+							달서영어도서관<form:hidden path="manageCode" value="BZ" />
+						</c:when>
+						<c:when test="${homepagePath eq 'dssmalllib'}">
+							<form:radiobutton path="manageCode" value='FA' label="이곡2동공립작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='FB' label="용산1동작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='FC' label="장기동작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='FD' label="죽전동공립작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='FW' label="웃는얼굴아트센터 도서실" /><br/>
+							<form:radiobutton path="manageCode" value='FX' label="행정정보문고센터" /><br/>
+							<form:radiobutton path="manageCode" value='GK' label="학산작은도서관" />
+						</c:when>
+						<c:when test="${homepagePath eq 'donggu'}">
+							<form:radiobutton path="manageCode" value="CA" label="안심도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="CB" label="신천도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GR" label="신암2동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GS" label="신암3동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="HJ" label="신암5동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="FK" label="신천3동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GT" label="효목1동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="FP" label="효목2동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="FL" label="도평동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GU" label="불로어울림 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GV" label="지저동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GW" label="동촌역사 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GY" label="해안동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="FM" label="반야월역사 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GZ" label="동구청 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="HK" label="늘푸른 도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="HL" label="초록우산도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="HM" label="꿈날자 문고 "/><br/>
+							<form:radiobutton path="manageCode" value="HN" label="행복도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GX" label="방촌동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="HP" label="율하5주민도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="HQ" label="방촌어린이 작은도서관 "/>
+						</c:when>
+						<c:when test="${homepagePath eq 'sincheon'}">
+							<form:radiobutton path="manageCode" value="CA" label="안심도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="CB" label="신천도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GR" label="신암2동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GS" label="신암3동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="HJ" label="신암5동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="FK" label="신천3동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GT" label="효목1동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="FP" label="효목2동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="FL" label="도평동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GU" label="불로어울림 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GV" label="지저동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GW" label="동촌역사 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GY" label="해안동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="FM" label="반야월역사 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GZ" label="동구청 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="HK" label="늘푸른 도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="HL" label="초록우산도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="HM" label="꿈날자 문고 "/><br/>
+							<form:radiobutton path="manageCode" value="HN" label="행복도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GX" label="방촌동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="HP" label="율하5주민도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="HQ" label="방촌어린이 작은도서관 "/>
+						</c:when>
+						<c:when test="${homepagePath eq 'donggusm'}">
+							<form:radiobutton path="manageCode" value="CA" label="안심도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="CB" label="신천도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GR" label="신암2동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GS" label="신암3동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="HJ" label="신암5동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="FK" label="신천3동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GT" label="효목1동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="FP" label="효목2동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="FL" label="도평동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GU" label="불로어울림 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GV" label="지저동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GW" label="동촌역사 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GY" label="해안동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="FM" label="반야월역사 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GZ" label="동구청 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="HK" label="늘푸른 도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="HL" label="초록우산도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="HM" label="꿈날자 문고 "/><br/>
+							<form:radiobutton path="manageCode" value="HN" label="행복도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="GX" label="방촌동 작은도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="HP" label="율하5주민도서관 "/><br/>
+							<form:radiobutton path="manageCode" value="HQ" label="방촌어린이 작은도서관 "/>
+						</c:when>
+						<c:otherwise>
+							<form:hidden path="manageCode" value="" />
+						</c:otherwise>
+					</c:choose>
+				</td>
 			<th><label for="option01">자료형태</label></th>
 			<td class="search_left">
 				<form:radiobutton path="booktype" value="0" title="도서" label="도서"/>

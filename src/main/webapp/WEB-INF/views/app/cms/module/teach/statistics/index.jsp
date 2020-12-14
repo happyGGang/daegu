@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- 통계 -->
@@ -91,19 +92,16 @@ $(function(){
 <div class="search">
 	<form:form id="searchForm" modelAttribute="teachStatistics" action="index.do" style="display:inline-flex">
 		<c:choose>
-			<c:when test="${member.admin}">
-			<div style="margin-bottom:5px">
-				홈페이지 : 
-				<form:select path="homepage_id" >
-					<form:options items="${homepageList}" itemValue="homepage_id" itemLabel="homepage_name"/>
-				</form:select>
-			</div>
+			<c:when test="${fn:length(subHomepageList) > 0}">
+				<div style="margin-bottom:5px">
+			도서관 : <form:select id="homepage_id" path="homepage_id" items="${subHomepageList}" itemLabel="homepage_name" itemValue="homepage_id"></form:select>
+				</div>
 			</c:when>
 			<c:otherwise>
 				<form:hidden path="homepage_id"/>
 			</c:otherwise>
 		</c:choose>
-				
+
 		기간 : <form:input path="start_date" class="text ui-calendar"/> ~ <form:input path="end_date" class="text ui-calendar"/>
 		대분류 : <form:select path="large_category_idx" style="width:200px">
 				<form:option class="all" value="0" label="전체" />

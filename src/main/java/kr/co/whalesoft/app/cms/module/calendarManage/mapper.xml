@@ -469,6 +469,7 @@
 		AND	date_type = '2'
 		AND	delete_yn = 'N'
 		AND	#{plan_date} BETWEEN start_date AND end_date
+		AND	weekday in ( select to_char(to_date(#{plan_date}, 'YYYY-MM-DD'), 'd') from dual)
 		GROUP BY
 			homepage_id
 
@@ -481,6 +482,7 @@
 		WHERE
 			homepage_id in ('h61','h62','h63','h64','h77')
 		AND	#{plan_date} BETWEEN start_date AND end_date
+		AND	teach_day in ( select to_char(to_date(#{plan_date}, 'YYYY-MM-DD'), 'd') from dual)
 		AND	delete_yn = 'N'
 		AND	calendar_view_yn = 'Y'
 		GROUP BY
