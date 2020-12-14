@@ -84,6 +84,12 @@ function getLasData(arg) {
 	#theme-list li img{width:186px !important;}
 	#theme-list li p{text-align:center;width:186px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 	#theme-list li input{position:absolute;top:10px;left:10px;z-index:99;}
+	
+	@media all and (max-width:425px){
+		#theme-list li{display:block;width:100%;}
+		#theme-list li p{width:100%;}
+		#theme-list li img{display:block;width:100% !important;height:auto;}
+	}
 </style>
 
 <jsp:include page="/WEB-INF/views/app/board/common/view/script.jsp" flush="false" />
@@ -117,8 +123,8 @@ function getLasData(arg) {
 	<div class="bbs-view">
 		<h3 style="margin-top:15px;">${board.title}</h3>
 		<ul class="con2">
-			<li>전시기간 : ${i.imsi_v_1} ~ ${i.imsi_v_2}</li>
-			<li>전시장소 : ${fn:substring(i.imsi_v_20, 0, 20)}<c:if test="${fn:length(i.imsi_v_20) > 20}">...</c:if></li>
+			<li>전시기간 : ${board.imsi_v_1} ~ ${board.imsi_v_2}</li>
+			<li>전시장소 : ${fn:substring(board.imsi_v_20, 0, 20)}<c:if test="${fn:length(board.imsi_v_20) > 20}">...</c:if></li>
 		</ul>
 		<div class="bbs-view-body" style="margin-top:10px;padding:30px 0;border-top:1px solid #aaa;">
 			${fn:replace(board.content, crlf, '<br/>')}
@@ -137,7 +143,7 @@ function getLasData(arg) {
 	</div>
 	<jsp:include page="/WEB-INF/views/app/board/common/view/button.jsp" flush="false" />
 </div>
-<div style="border-top:1px solid #ddd;margin-top:100px;padding-top:10px;">
+<div style="border-top:1px solid #ddd;margin-top:50px;padding-top:10px;">
 	<h4>도서목록</h4>
 	<div id="theme-list">
 		<ul>
