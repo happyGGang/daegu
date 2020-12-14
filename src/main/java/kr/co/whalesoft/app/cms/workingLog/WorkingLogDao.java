@@ -38,6 +38,16 @@ public interface WorkingLogDao {
 	 *
 	 */
 	List<WorkingLog> getWorkingLogList(WorkingLog workingLog);
+	
+	/**
+	 * @author whalesoft
+	 * @date 2020.12.14
+	 *
+	 * @param workingLog
+	 * @return
+	 *
+	 */
+	List<WorkingLog> getWorkingLogExcelList(WorkingLog workingLog);
 
 	/**
 	 * @author whalesoft

@@ -51,6 +51,18 @@ public class WorkingLogService extends BaseService {
 	public List<WorkingLog> getWorkingLogList(WorkingLog workingLog) {
 		return dao.getWorkingLogList(workingLog);
 	}
+	
+	/**
+	 * @author whalesoft
+	 * @date 2020.12.14
+	 *
+	 * @param workingLog
+	 * @return
+	 *
+	 */
+	public List<WorkingLog> getWorkingLogExcelList(WorkingLog workingLog) {
+		return dao.getWorkingLogList(workingLog);
+	}
 
 	/**
 	 * @author whalesoft

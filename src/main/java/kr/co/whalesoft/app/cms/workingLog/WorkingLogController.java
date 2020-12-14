@@ -1,6 +1,7 @@
 package kr.co.whalesoft.app.cms.workingLog;
 
 import kr.co.whalesoft.framework.base.BaseController;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,7 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 작업이력
@@ -52,4 +56,20 @@ public class WorkingLogController extends BaseController {
 			return basePath + url;
 		}
 	}
+	
+	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
+	public WorkingLogSearchView excel(Model model, WorkingLog workingLog, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		model.addAttribute("workingLog", workingLog);
+		model.addAttribute("workingLogResult", service.getWorkingLogExcelList(workingLog));
+		
+		return new WorkingLogSearchView();
+	}
+
+	@RequestMapping(value = {"/csvDownload.*"}, method = RequestMethod.POST)
+	public void csv(Model model, WorkingLog workingLog, HttpServletRequest request, HttpServletResponse response) {
+		List<WorkingLog> workingLogList = service.getWorkingLogExcelList(workingLog);
+		
+		new WorkingLogXlsToCsv(workingLogList, "작업 이력 리스트.csv", request, response);
+	}
+	
 }

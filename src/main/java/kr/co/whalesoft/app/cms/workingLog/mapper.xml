@@ -62,6 +62,23 @@
 			${pagingBottom}
 			) A
 	</select>
+	
+	<select id="getWorkingLogExcelList" resultType="kr.co.whalesoft.app.cms.workingLog.WorkingLog">
+		SELECT
+			A.*,
+			(SELECT NVL(homepage_alias, homepage_name) FROM CMS_HOMEPAGE B where b.homepage_id = a.site_id) AS siteName
+		FROM
+			(
+			SELECT
+				work_idx, site_id, work_type, work_comment, work_command,
+				work_result_count, work_date, work_ip, member_id, work_reason
+			FROM
+				WB_WORKING_LOG
+			<include refid="where" />
+			ORDER BY
+				work_idx DESC
+			) A
+	</select>
 
 	<select id="getWorkingLogOne" resultType="kr.co.whalesoft.app.cms.workingLog.WorkingLog">
 		SELECT
