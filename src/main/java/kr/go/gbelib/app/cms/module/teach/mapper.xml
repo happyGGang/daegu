@@ -1290,22 +1290,30 @@
 	<select id="getWaitingNumber" resultType="int">
 		SELECT wait_num FROM
 			(
-			SELECT ROWNUM AS wait_num, teach_idx, member_key FROM
+			SELECT ROWNUM AS wait_num, teach_idx, member_key, applicant_name, student_password FROM
 				(
 				SELECT
-					member_key, teach_idx
+					member_key, teach_idx, applicant_name, student_password
 				FROM
 					STUDENT
 				WHERE
 					homepage_id = #{homepage_id}
 				AND	teach_idx = #{teach_idx}
-				AND	apply_status = 2
+				AND	apply_status = #{status}
 				AND	delete_yn = 'N'
 				ORDER BY apply_status ASC, student_idx ASC
 				)
 			)
 		WHERE
+		<choose>
+			<when test="member_key != null and member_key != ''">
 			member_key = #{member_key}
+			</when>
+			<otherwise>
+			applicant_name = #{apply_name}
+		AND	student_password = #{apply_password}
+			</otherwise>
+		</choose>
 	</select>
 
 	<select id="getTeacherName" resultType="string">

@@ -361,9 +361,24 @@ public class TeachService extends BaseService {
 				if (StringUtils.isNotEmpty(result.getProgram_age_div())) {
 					result.setProgram_age_div_arr(Arrays.asList(result.getProgram_age_div().split(",")));
 				}
-				if(result.getTeach_status().equals("3")) {
+				
+				if(StringUtils.isEmpty(teach.getMember_key())) {
+					result.setApply_name(teach.getApply_name());
+					result.setApply_password(teach.getApply_password());
+				}
+				
+				if(result.getTeach_status().equals("2")) {
 					try {
 						result.setMember_key(teach.getMember_key());
+						result.setStatus("1");
+						result.setWait_num(dao.getWaitingNumber(result));
+					} catch(BindingException be) {
+						result.setWait_num(0);
+					}
+				} else if(result.getTeach_status().equals("3")) {
+					try {
+						result.setMember_key(teach.getMember_key());
+						result.setStatus("2");
 						result.setWait_num(dao.getWaitingNumber(result));
 					} catch(BindingException be) {
 						result.setWait_num(0);
