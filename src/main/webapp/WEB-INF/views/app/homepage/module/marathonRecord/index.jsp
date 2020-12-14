@@ -62,7 +62,7 @@ $(function(){
 			checkboxarr.each(function(i) {
 				var tr = checkboxarr.parent().parent().eq(i);
 				var td = tr.children();
-				var read_page_count_replace = td.eq(6).text().replace(",", "");
+				var read_page_count_replace = td.eq(6).text().replace(/,/gi, "");
 				read_page_count_arr.push(read_page_count_replace);
 			});
 			$('input#read_page_count_arr').val(read_page_count_arr);

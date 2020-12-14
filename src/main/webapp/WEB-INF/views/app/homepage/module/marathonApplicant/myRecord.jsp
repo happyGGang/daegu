@@ -18,7 +18,7 @@ $(function() {
 	});
 
 	$('#dialog-1').dialog({
-		width: 900,
+		width: 1200,
 		height: 700
 	});
 	
@@ -156,7 +156,7 @@ $(function() {
 				</td>
 			</tr>
 			<tr>
-				<td colspan="10" style="text-align:left;padding:5px 5px 5px 5px;background-color:#EEEEEE;white-space:pre;">${i.book_journals}</td>
+				<td colspan="10" style="text-align:left;padding:5px 5px 5px 5px;background-color:#EEEEEE;white-space:pre-wrap;">${i.book_journals}</td>
 			</tr>
 		</c:forEach>
 		<c:if test="${fn:length(marathonRecordList) < 1}">
@@ -164,10 +164,11 @@ $(function() {
 				<td colspan="10">등록된 내용이 없습니다.</td> 
 			</tr>
 		</c:if>
+		<c:remove var="read_page_count_total_thisPage"/>
 	</tbody>
 </table>
 
-<div id="printPage" class="center" style="display:none; width:600; float:center">
+<div id="printPage" class="center" style="display:none; width:600;">
 <%@ include file="print.jsp"%>
 </div>
 	

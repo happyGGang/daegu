@@ -79,6 +79,7 @@ $(function(){
 	<form:hidden path="applicant_idx"/>
 	<form:hidden path="selectedType"/>
 	<form:hidden path="editMode"/>
+	<form:hidden path="menu_idx"/>
 	<div id="cont_head">
 		<h3>참가신청 현황</h3>
 	</div>

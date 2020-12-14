@@ -108,7 +108,7 @@
 			<th>분류번호</th>
 			<th>읽은쪽수</th>
 			<th>누적쪽수</th>
-			<th style="width:1%;">도서관구분</th>
+			<th>도서관구분</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -157,7 +157,8 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="10" style="text-align:left;padding:5px 5px 5px 5px;white-space:pre;">${i.book_journals}</td>
+				<td colspan="10" style="width:600;text-align:left;padding:5px 5px 5px 5px;">
+				<pre style="word-wrap: break-word;white-space: pre-wrap;white-space: -moz-pre-wrap;white-space: -pre-wrap;white-space: -o-pre-wrap;word-break:break-all;">${i.book_journals}</pre></td>
 			</tr>
 		</c:forEach>
 		<c:if test="${fn:length(marathonRecordList) < 1}">

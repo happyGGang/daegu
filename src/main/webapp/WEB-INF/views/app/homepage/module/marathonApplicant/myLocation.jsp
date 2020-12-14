@@ -71,9 +71,18 @@ $(function() {
 			</table>
 			<br><br>
 			<div class="mara_check">
-				<div class="user" style="left: 0.0%;">
-					<img src="/resources/board/img/bookman02.png" alt="독서마라토너">
-				</div>
+				<c:choose>
+					<c:when test="${(marathonApplicant.read_page_count_total / marathonApplicant.page_count) < 1}">
+						<div class="user" style="left: <fmt:formatNumber value="${(marathonApplicant.read_page_count_total / marathonApplicant.page_count) * 100}" pattern="##.##"/>%;">
+							<img src="/resources/board/img/bookman02.png" alt="독서마라토너">
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div class="user" style="left: 100%;">
+							<img src="/resources/board/img/bookman02.png" alt="독서마라토너">
+						</div>
+					</c:otherwise>
+				</c:choose>
 				<div class="finish">
 					<img src="/resources/board/img/finish.gif" alt="finish">
 				</div>
@@ -82,10 +91,9 @@ $(function() {
 						<c:choose>
 							<c:when test="${(marathonApplicant.read_page_count_total / marathonApplicant.page_count) < 1}">
 								<span class="pink_bar" style="width:<fmt:formatNumber value="${(marathonApplicant.read_page_count_total / marathonApplicant.page_count) * 100}" pattern="##.##"/>%;"></span>
-								<c:remove var="percent"/>
 							</c:when>
 							<c:otherwise>
-								<span clas="pink_bar" style="width:100%;"></span>
+								<span class="pink_bar" style="width:100%;"></span>
 							</c:otherwise>
 						</c:choose>
 					</div>

@@ -121,13 +121,13 @@ public class MarathonApplicantController extends BaseController {
 						return String.format(basePath, homepage.getFolder()) + "myInfo";
 					}else {
 						marathonApplicant.setEditMode("");
-						service.alertMessageAndUrl("독서마라톤대회에 참가 신청하지 않았습니다. 참가 신청 페이지로 이동합니다.", String.format("/%s/module/marathonApplicant/edit.do?menu_idx=%s", homepage.getContext_path(), marathonApplicant.getMenu_idx()), request, response);
+						service.alertMessageAndUrl("독서마라톤대회에 참가 신청하지 않았습니다. 참가 신청 페이지로 이동합니다.", String.format("/%s/module/marathonApplicant/edit.do?menu_idx=105"), request, response);
 						return null;
 					}
 				}
 				
 				if(application_start_date.compareTo(date) > 0 || date.compareTo(cal.getTime()) > 0) {
-					service.alertMessageAndUrl("독서마라톤 대회 접수기간이 아닙니다. 참가 신청 현황 페이지로 이동합니다.", String.format("/%s/module/marathonApplicant/index.do?menu_idx=%s", homepage.getContext_path(), marathonApplicant.getMenu_idx()), request, response);
+					service.alertMessageAndUrl("독서마라톤 대회 접수기간이 아닙니다. 참가 신청 현황 페이지로 이동합니다.", String.format("/%s/module/marathonApplicant/index.do?menu_idx=106", homepage.getContext_path()), request, response);
 					return null;
 				}else {
 					marathonApplicant.setHomepage_id(homepage.getHomepage_id());
@@ -141,7 +141,7 @@ public class MarathonApplicantController extends BaseController {
 						model.addAttribute("dongList", codeService.getCode(homepage.getHomepage_id(), "H0020"));
 						return String.format(basePath, homepage.getFolder()) + "edit";
 					}else {
-						service.alertMessageAndUrl("이미 참가 신청을 완료하셨습니다. 참가 신청 현황 페이지로 이동합니다.", String.format("/%s/module/marathonApplicant/index.do?menu_idx=%s", homepage.getContext_path(), marathonApplicant.getMenu_idx()), request, response);
+						service.alertMessageAndUrl("이미 참가 신청을 완료하셨습니다. 참가 신청 현황 페이지로 이동합니다.", String.format("/%s/module/marathonApplicant/index.do?menu_idx=106", homepage.getContext_path()), request, response);
 					}
 				}
 			}else {

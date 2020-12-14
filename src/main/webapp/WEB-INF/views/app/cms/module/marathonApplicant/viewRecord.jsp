@@ -27,7 +27,7 @@ $(function() {
 	});
 
 	$('#dialog-2').dialog({
-		width: 1000,
+		width: 1100,
 		height: 900
 	});
 	
@@ -165,7 +165,7 @@ $(function() {
 				</td>
 			</tr>
 			<tr>
-				<td colspan="10" style="text-align:left;padding:5px 5px 5px 5px;background-color:#EEEEEE;white-space:pre;">${i.book_journals}</td>
+				<td colspan="10" style="text-align:left;padding:5px 5px 5px 5px;background-color:#EEEEEE;white-space:pre-wrap;">${i.book_journals}</td>
 			</tr>
 		</c:forEach>
 		<c:if test="${fn:length(marathonRecordList) < 1}">

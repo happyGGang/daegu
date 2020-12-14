@@ -190,7 +190,7 @@ public class MarathonRecordController extends BaseController{
 				if(addResult > 0) {
 					res.setValid(true);
 					res.setMessage("등록되었습니다.");
-					res.setUrl("index.do");
+					res.setUrl("index.do?menu_idx=108");
 				}else {
 					result.reject("등록에 실패하였습니다.");
 					res.setValid(false);
@@ -203,7 +203,7 @@ public class MarathonRecordController extends BaseController{
 				if(modifyRecordResult > 0) {
 					res.setValid(true);
 					res.setMessage("수정되었습니다.");
-					res.setUrl("index.do");
+					res.setUrl("index.do?menu_idx=108");
 				}else {
 					result.reject("수정에 실패하였습니다.");
 					res.setValid(false);
@@ -218,7 +218,7 @@ public class MarathonRecordController extends BaseController{
 				if(deleteResult > 0) {
 					res.setValid(true);
 					res.setMessage("삭제하였습니다.");
-					res.setUrl("index.do");
+					res.setUrl("index.do?menu_idx=108");
 				}else {
 					result.reject("삭제에 실패하였습니다.");
 					res.setValid(false);

@@ -179,6 +179,7 @@ $(function() {
 	<form:hidden path="applicant_idx"/>
 	<form:hidden path="record_idx"/>
 	<form:hidden path="editMode"/>
+	<form:hidden path="menu_idx"/>
 	<table class="type2 nohead">
 		<colgroup>
 			<col width="200" class="col1">

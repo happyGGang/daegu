@@ -159,6 +159,7 @@ $(function() {
 	<form:hidden path="page_count_arr"/>
 	<form:hidden path="read_page_count_total_arr"/>
 	<form:hidden path="applicant_idx"/>
+	<form:hidden path="menu_idx"/>
 
 	<div class="infodesk">
 		검색 결과 : 총  ${paging.totalDataCount}건

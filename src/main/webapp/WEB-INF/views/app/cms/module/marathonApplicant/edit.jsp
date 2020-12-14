@@ -383,6 +383,7 @@ $(function() {
 	<form:hidden path="contest_type_idx"/>
 	<form:hidden path="applicant_idx"/>
 	<form:hidden path="editMode"/>
+	<form:hidden path="menu_idx"/>
 	<table class="type2">
 		<colgroup>
 			<col width="160"/>

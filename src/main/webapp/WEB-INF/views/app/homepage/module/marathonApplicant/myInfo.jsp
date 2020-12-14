@@ -11,6 +11,8 @@
 		});
 	});
 </script>
+<form:form modelAttribute="marathonApplicant">
+<form:hidden path="menu_idx"/>
 <table class="type2">
 	<colgroup>
 		<col width="160"/>
@@ -99,3 +101,4 @@
 <div class="button bbs-btn right">
 	<button id="back-btn" class="btn"><i class="fa fa-reorder" title="뒤로가기"></i><span>뒤로가기</span></button>
 </div>
+</form:form>
