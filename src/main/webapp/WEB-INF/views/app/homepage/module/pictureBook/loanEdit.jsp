@@ -175,9 +175,17 @@ input[type="checkbox"]:focus {outline: 1px solid red;}
 	<div>
 		<div>
 			<span style="display: block;font-size: 13px;color: #3366bb;">
+			<c:choose>
+				<c:when test="${pictureBook.pay_yn eq 'Y'}">
+				유료 원화는 대출 중인 학교에서 택배업체에 직접 배송 요청하여 다음 학교로 발송하여야 합니다.<br>
+				택배 요금은 대출 중인 학교에서 선지급해야 합니다.
+				</c:when>
+				<c:otherwise>
 				그림책 원화는 매달 26일 자동 반납 요청되어 27일 배송했던 장소로 택배 기사님이 방문합니다.<br>
 				기사님이 바로 수거하실 수 있도록 준비해 주시길 바랍니다.<br/>
 				※ 26일이 공휴일일 경우 그 전날, 주말일 경우 앞의 금요일에 자동 반납 요청됨
+				</c:otherwise>
+			</c:choose>
 			</span>
 			<input type="checkbox" id="agreeChk">
 			<label for="agreeChk" style="font-size: 13px;">위 내용을 확인하고 신청합니다.</label>
