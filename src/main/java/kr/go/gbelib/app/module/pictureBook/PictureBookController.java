@@ -182,6 +182,14 @@ public class PictureBookController extends BaseController {
 				+ "&search_type="+pictureBook.getSearch_type() + "&search_text="+pictureBook.getSearch_text();
 			String session_id = getSessionIsAdmin(request) ? getSessionMemberId(request) : sessionLoginSupport(request).getMember_id();
 			if (pictureBook.getEditMode().equals("ADD")) {
+				
+				int duplCnt = service.duplLoanChk(pictureBook);
+				if(duplCnt > 0) {
+					res.setValid(false);
+					res.setMessage("해당 기간은 이미 신청되어 있습니다.");
+					return res;
+				}
+				
 				pictureBook.setAdd_id(session_id);
 				service.addPictureBookLoan(pictureBook);
 				res.setValid(true);

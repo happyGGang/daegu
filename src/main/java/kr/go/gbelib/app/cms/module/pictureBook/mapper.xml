@@ -286,6 +286,17 @@
 		ORDER BY loan_month
 	</select>
 	
+	<select id="duplLoanChk" resultType="int">
+		SELECT
+			COUNT(picture_book_loan_idx)
+		FROM
+			PICTURE_BOOK_LOAN 
+		WHERE
+			picture_book_idx = #{picture_book_idx}
+		AND TO_CHAR(loan_start_date, 'yyyy') = #{loan_year}
+		AND	TO_CHAR(loan_start_date, 'MM') = #{loan_month}
+	</select>
+	
 	<select id="getPictureBookLoanExcelList" resultType="kr.go.gbelib.app.cms.module.pictureBook.PictureBook">
 		SELECT
 			a.picture_book_idx, b.picture_book_loan_idx, a.picture_book_subject, request_name, school_name,

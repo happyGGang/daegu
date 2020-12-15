@@ -183,6 +183,13 @@ public class PictureBookService extends BaseService {
 	public int statusChangeAll(PictureBook pictureBook) {
 		return dao.statusChangeAll(pictureBook);
 	}
+	
+	public int duplLoanChk(PictureBook pictureBook) {
+		if(pictureBook.getLoan_month().length() == 1) {
+			pictureBook.setLoan_month("0" + pictureBook.getLoan_month());
+		}
+		return dao.duplLoanChk(pictureBook);
+	}
 
 	@WorkingLogger(comment="그림책 원화 대출신청 리스트 관리 엑셀 저장", type="P")
 	public List<PictureBook> getPictureBookLoanExcelList(PictureBook pictureBook) {
