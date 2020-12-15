@@ -1744,7 +1744,36 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 				return res;
 			}
 
+			librarySearch.setUserkey(member.getRec_key());
+
+
+
 			if (StringUtils.equals(librarySearch.getWorker(), "DSSUB01") || StringUtils.equals(librarySearch.getWorker(), "DSSUB02")) {
+				LibrarySearch l = new LibrarySearch();
+				l.setWorker("DSSUB01");
+				l.setUserkey(librarySearch.getUserkey());
+				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+				String sdate = sf.format(DateUtils.addDays(new Date(), -10));
+				l.setSearch_start_date(sdate + "000000");
+
+				Map<String, Object> unmannedLoanReserveList = LibSearchAPI.getUnmannedLoanReserveList(l, null);
+				int searchCount = LibSearchAPI.getSearchCount(unmannedLoanReserveList);
+				if (searchCount >= 2) {
+					res.setValid(false);
+					res.setMessage("해당 기기의 무인 예약이 마감되었습니다. 에러코드 063");
+					return res;
+				}
+
+				l.setWorker("DSSUB02");
+				unmannedLoanReserveList = LibSearchAPI.getUnmannedLoanReserveList(l, null);
+				searchCount += LibSearchAPI.getSearchCount(unmannedLoanReserveList);
+
+				if (searchCount >= 2) {
+					res.setValid(false);
+					res.setMessage("해당 기기의 무인 예약이 마감되었습니다. 에러코드 0632");
+					return res;
+				}
+
 				Map<String, Object> unmannedLoanReserveCnt = LibSearchAPI.getUnmannedLoanReserveCnt(librarySearch, "DATA");
 				String nightLoanResult = String.valueOf(unmannedLoanReserveCnt.get("RESULT_INFO"));
 				if (StringUtils.equals(nightLoanResult, "SUCCESS")) {
@@ -1768,7 +1797,7 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 				}
 			}
 
-			librarySearch.setUserkey(member.getRec_key());
+
 			ApiResponse apiResult = LibSearchAPI.unmannedloanreserve(librarySearch);
 			if (apiResult.getStatus()) {
 				res.setValid(true);

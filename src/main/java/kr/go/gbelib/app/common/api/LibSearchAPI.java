@@ -527,7 +527,6 @@ public class LibSearchAPI {
 	 * @param userkey
 	 * @param isbn
 	 * @param manage_code
-	 * @param user_no
 	 * @return
 	 */
 	public static ApiResponse hopeUserCheck(String userkey, String isbn, String manage_code) {
@@ -1202,6 +1201,44 @@ public class LibSearchAPI {
 	}
 
 	/**
+	 * K.API - 63
+	 *
+	 * 무인대출예약 목록 조회
+	 *
+	 * @author whalesoft YONGJU 2020. 4. 9.
+	 * @param librarySearch
+	 * @param workno
+	 * @return
+	 */
+	public static Map<String, Object> getUnmannedLoanReserveList(LibrarySearch librarySearch, String workno) {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		param.put("worker", librarySearch.getWorker());// 장비ID
+		if (StringUtils.isNotEmpty(librarySearch.getSearch_start_date())) {
+			param.put("startdate", librarySearch.getSearch_start_date());//예약일 검색시작일 YYYYMMDDHH24MISS 형식 (14자리)	(미입력시 기본값 : 검색당일)
+		}
+		if (StringUtils.isNotEmpty(librarySearch.getSearch_end_date())) {
+			param.put("enddate", librarySearch.getSearch_end_date());//예약일 검색종료일 YYYYMMDDHH24MISS 형식 (14자리)	(미입력시 기본값 : 검색당일)
+		}
+		param.put("pageno", librarySearch.getViewPage());
+		param.put("display", librarySearch.getRowCount());
+		if (StringUtils.isNotEmpty(librarySearch.getBookkey())) {
+			param.put("bookkey", librarySearch.getBookkey());
+		}
+		if (StringUtils.isNotEmpty(librarySearch.getRegNo())) {
+			param.put("reg_no", librarySearch.getRegNo());
+		}
+		if (StringUtils.isNotEmpty(librarySearch.getUserkey())) {
+			param.put("userkey", librarySearch.getUserkey());
+		}
+		if (StringUtils.isNotEmpty(workno)) {
+			param.put("workno", workno);
+		}
+
+		return CommonAPI.sendKCMS("getunmannedloanreservelist", param);
+	}
+
+	/**
 	 * K.API - 66
 	 *
 	 * 휴관일 여부 조회
@@ -1228,12 +1265,10 @@ public class LibSearchAPI {
 	 * SMS 발송
 	 *
 	 * @author whalesoft YONGJU 2020. 2. 6.
-	 * @param LibrarySearch librarySearch
-	 * @param String msg
-	 * @param String ip
+	 * @param librarySearch
+	 * @param msg
+	 * @param ip
 	 *
-	 * @param librarySearch.manageCode
-	 * @param librarySearch.userKey
 	 * @return
 	 */
 	public static ApiResponse sendSms(LibrarySearch librarySearch, String msg, String ip) {
@@ -1266,7 +1301,7 @@ public class LibSearchAPI {
 	 * MARC 조회
 	 *
 	 * @author whalesoft YONGJU 2019. 12. 3.
-	 * @param librarySearch.regNo
+	 * @param regno
 	 * @return
 	 */
 	public static Map<String, Object> getMarc(String regno) {
@@ -1448,7 +1483,7 @@ public class LibSearchAPI {
 	 * 알라딘 API 책 1권의 정보를 가져온다.
 	 * cover : item.corver
 	 * @author YONGJU 2017. 11. 23.
-	 * @param map.ISBN
+	 * @param map ISBN
 	 */
 	public static Map<String, Object> getAladinDetail(Map<String, Object> map) {
 		Map<String, Object> param = new HashMap<String, Object>();
@@ -1659,7 +1694,7 @@ public class LibSearchAPI {
 	/**
 	 * 네이버 책검색 - list
 	 *
-	 * @param search_text
+	 * @param pagingUtils search_text
 	 * @return
 	 */
 	@SuppressWarnings ("unchecked")
