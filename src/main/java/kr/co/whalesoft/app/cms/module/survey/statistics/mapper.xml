@@ -165,16 +165,18 @@
 	
 	<select id="getAnswersPerUser" resultType="kr.co.whalesoft.app.cms.module.survey.statistics.Statistics">
 		SELECT
-			quest_idx,
+			a.quest_idx,
 			LISTAGG(choice_answer, ',') WITHIN GROUP (ORDER BY answer_idx) AS choice_answer,
 			MIN(short_answer) AS short_answer
 		FROM
-			CMS_SURVEY_ANSWER_DETAIL
+			CMS_SURVEY_ANSWER_DETAIL a, CMS_SURVEY_QUEST b
 		WHERE
-			survey_idx = #{survey_idx}
-		AND	add_id = #{add_id}
-		GROUP BY quest_idx
-		ORDER BY quest_idx
+			a.survey_idx = b.survey_idx
+		AND	a.quest_idx = b.quest_idx
+		AND	a.survey_idx = #{survey_idx}
+		AND	a.add_id = #{add_id}
+		GROUP BY a.quest_idx
+		ORDER BY MIN(b.quest_order) ASC
 	</select>
 	
 	<select id="getSelectedUsersCnt" resultType="int">
