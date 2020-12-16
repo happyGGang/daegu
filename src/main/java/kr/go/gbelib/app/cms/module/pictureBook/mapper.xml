@@ -276,7 +276,7 @@
 			(
 			SELECT
 				ROWNUM AS loan_month,
-				(CASE WHEN TO_CHAR(SYSDATE, 'MM') > ROWNUM THEN 'Y' ELSE 'N' END) AS last_month
+				(CASE WHEN TO_CHAR(SYSDATE, 'MM') > ROWNUM AND TO_CHAR(SYSDATE, 'YYYY') = #{loan_year} THEN 'Y' ELSE 'N' END) AS last_month
 			FROM
 				DUAL
 			CONNECT BY ROWNUM <![CDATA[<=]]> 12
