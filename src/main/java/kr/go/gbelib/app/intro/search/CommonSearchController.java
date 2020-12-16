@@ -1752,7 +1752,7 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 				LibrarySearch l = new LibrarySearch();
 				l.setWorker("DSSUB01");
 				l.setUserkey(librarySearch.getUserkey());
-				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+				SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
 				String sdate = sf.format(DateUtils.addDays(new Date(), -10));
 				l.setSearch_start_date(sdate + "000000");
 
@@ -1760,7 +1760,8 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 				int searchCount = LibSearchAPI.getSearchCount(unmannedLoanReserveList);
 				if (searchCount >= 2) {
 					res.setValid(false);
-					res.setMessage("해당 기기의 무인 예약이 마감되었습니다. 에러코드 063");
+					res.setMessage("해당 기기의 무인 예약이 마감되었습니다");
+					System.out.println("해당 기기의 무인 예약이 마감되었습니다. 063");
 					return res;
 				}
 
@@ -1770,7 +1771,8 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 				if (searchCount >= 2) {
 					res.setValid(false);
-					res.setMessage("해당 기기의 무인 예약이 마감되었습니다. 에러코드 0632");
+					res.setMessage("해당 기기의 무인 예약이 마감되었습니다.");
+					System.out.println("해당 기기의 무인 예약이 마감되었습니다. 0632");
 					return res;
 				}
 
@@ -1783,11 +1785,13 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 						if (limit_count >= 50) {
 							res.setValid(false);
 							res.setMessage("해당 기기의 무인 예약이 마감되었습니다. 내일 다시 신청해주세요");
+
 							return res;
 						}
 					} catch (Exception e) {
 						res.setValid(false);
-						res.setMessage("해당 기기의 무인 예약이 마감되었습니다. 에러코드 060");
+						res.setMessage("해당 기기의 무인 예약이 마감되었습니다");
+						System.out.println("해당 기기의 무인 예약이 마감되었습니다. 060");
 						return res;
 					}
 				} else {
