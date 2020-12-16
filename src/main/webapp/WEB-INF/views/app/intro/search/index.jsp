@@ -678,6 +678,18 @@ $(function() {
 					</div>
 					<div class="end" style="padding:7px 0;"></div>
 					</c:when>
+					<c:when test="${context_path eq 'bisan'}">
+					<input type="hidden" name='libraryCodes' id='libraryCodes' value="BQ"/>
+					</c:when>
+					<c:when test="${context_path eq 'biwon'}">
+					<input type="hidden" name='libraryCodes' id='libraryCodes' value="BM"/>
+					</c:when>
+					<c:when test="${context_path eq 'wongogae'}">
+					<input type="hidden" name='libraryCodes' id='libraryCodes' value="BN"/>
+					</c:when>
+					<c:when test="${context_path eq 'seoguenglish'}">
+					<input type="hidden" name='libraryCodes' id='libraryCodes' value="BP"/>
+					</c:when>
 					<c:otherwise>
 					<form:hidden path="libraryCodes" value="" />
 					</c:otherwise>
@@ -904,7 +916,14 @@ $(function() {
 																				<span style="color:#ff0000">대출불가(스마트도서관자료)</span>
 																			</c:when>
 																			<c:otherwise>
-																				대출가능
+																				<c:choose>
+																					<c:when test="${i.SEPARATE_SHELF_CODE eq 'BQS' || i.SEPARATE_SHELF_CODE eq 'BQT'}">
+																						<span style="color:#ff0000">대출불가</span>
+																					</c:when>
+																					<c:otherwise>
+																						대출가능
+																					</c:otherwise>
+																				</c:choose>
 																			</c:otherwise>
 																		</c:choose>
 																	</c:otherwise>
@@ -1028,7 +1047,14 @@ $(function() {
 																				<span style="color:#ff0000">대출불가(스마트도서관자료)</span>
 																			</c:when>
 																			<c:otherwise>
-																				대출가능
+																				<c:choose>
+																					<c:when test="${i.SEPARATE_SHELF_CODE eq 'BQS' || i.SEPARATE_SHELF_CODE eq 'BQT'}">
+																						<span style="color:#ff0000">대출불가</span>
+																					</c:when>
+																					<c:otherwise>
+																						대출가능
+																					</c:otherwise>
+																				</c:choose>
 																			</c:otherwise>
 																		</c:choose>
 																	</c:otherwise>
@@ -1127,7 +1153,14 @@ $(function() {
 																		귀중자료(관내열람만가능)
 																	</c:when>
 																	<c:otherwise>
-																		대출가능
+																			<c:choose>
+																				<c:when test="${i.SEPARATE_SHELF_CODE eq 'BQS' || i.SEPARATE_SHELF_CODE eq 'BQT'}">
+																					<span style="color:#ff0000">대출불가</span>
+																				</c:when>
+																				<c:otherwise>
+																					대출가능
+																				</c:otherwise>
+																			</c:choose>
 																	</c:otherwise>
 																</c:choose>
 															</c:otherwise>
@@ -1236,7 +1269,14 @@ $(function() {
 																		귀중자료(관내열람만가능)
 																	</c:when>
 																	<c:otherwise>
-																		대출가능
+																		<c:choose>
+																			<c:when test="${i.SEPARATE_SHELF_CODE eq 'BQS' || i.SEPARATE_SHELF_CODE eq 'BQT'}">
+																				<span style="color:#ff0000">대출불가</span>
+																			</c:when>
+																			<c:otherwise>
+																				대출가능
+																			</c:otherwise>
+																		</c:choose>
 																	</c:otherwise>
 																</c:choose>
 															</c:otherwise>
