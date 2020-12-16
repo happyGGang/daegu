@@ -179,6 +179,17 @@ $(function() {
 				<form:input path="member_name" class="text" value="${sessionScope.member.member_name}"/>
 			</td>
 		</tr>
+		<c:if test="${expApply.member_yn eq 'Y' && !sessionScope.member.login}">
+		<tr>
+			<th>비밀번호(<span style="color:red; font-weight: bold;">*</span>)</th>
+			<td>
+				<form:password path="member_pw" class="text"/><br/>
+				<div class="ui-state-highlight">
+					* 비회원으로 체험예약신청 시 [체험예약신청]화면-'비회원 신청 확인'에서 체험예약신청 내역 확인가능
+				</div>
+			</td>
+		</tr>
+		</c:if>
 		<tr>
 			<th>연락처(<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>
