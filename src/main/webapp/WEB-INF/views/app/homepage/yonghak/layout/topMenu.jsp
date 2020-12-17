@@ -46,7 +46,7 @@
 								<i class="fa fa-lock"></i>
 								<span style='letter-spacing:-1.5px;'>로그인</span>
 							</a>
-							<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=5" class="btn2">
+							<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=70" class="btn2">
 								<i class="fa fa-user-plus"></i>
 								<span style='letter-spacing:-1.5px;'>회원가입</span>
 							</a>

@@ -41,7 +41,7 @@
 					<c:otherwise>
 						<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=4">통합허브시스템 로그인</a>
 						<span class="txt-bar"></span>
-						<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=5">회원가입</a>
+						<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=70">회원가입</a>
 						<!-- <span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/intro/join/findIdForm.do?menu_idx=6">아이디찾기</a>
 						<span class="txt-bar"></span>

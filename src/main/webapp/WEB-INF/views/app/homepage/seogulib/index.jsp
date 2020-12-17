@@ -161,10 +161,10 @@ do {
             <!--quick menu-->
             <div class="quickmenu">
               <ul>
-                <li class="quick01" onclick="location.href='html.do?menu_idx=17'">
-                  <h5>이용안내</h5>
-                  <p>도서관서비스<br />
-                    이렇게 이용해보세요!</p>
+                <li class="quick01" onclick="location.href='board/index.do?menu_idx=35&manage_idx=628'">
+                  <h5>공지사항</h5>
+                  <p>서구통합도서관의<br />
+                    공지를 확인해보세요!</p>
                 </li>
                 <li class="quick02" onclick="location.href='intro/search/loan/history.do?menu_idx=53'">
                   <h5>대출현황조회</h5>
@@ -212,9 +212,11 @@ do {
                   <p>올바른 도서관 이용법과<br />
                     책을 접할 수 있어요!</p>
                 </li>
-                <li class="quick05" onclick="location.href='intro/search/index.do?menu_idx=131#search_result'">
-                  <h5>DVD자료검색</h5>
-                  <p>DVD 비도서 자료검색</p>
+                <li class="quick05" onclick="location.href='html.do?menu_idx=17'">
+                  <h5>이용안내</h5>
+                  <p>도서관서비스<br />
+				  	이렇게 이용해보세요!
+				  </p>
                 </li>
                 <li class="quick06" onclick="location.href='html.do?menu_idx=15'">
                   <h5>희망도서신청</h5>
@@ -263,9 +265,11 @@ do {
                   <p>올바른 도서관 이용법과<br />
                     책을 접할 수 있어요!</p>
                 </li>
-                <li class="quick05" onclick="">
-                  <h5>DVD자료검색</h5>
-                  <p>DVD 비도서 자료검색</p>
+                <li class="quick05" onclick="location.href='html.do?menu_idx=17'">
+                  <h5>이용안내</h5>
+                  <p>도서관서비스<br />
+				  	이렇게 이용해보세요!
+				  </p>
                 </li>
                 <li class="quick06" onclick="location.href='html.do?menu_idx=15'">
                   <h5>희망도서신청</h5>

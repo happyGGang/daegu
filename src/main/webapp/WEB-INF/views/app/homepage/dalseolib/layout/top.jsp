@@ -30,7 +30,7 @@
 					<c:otherwise>
 					<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=4">로그인</a>
 					<span class="txt-bar"></span>
-					<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=5">회원가입</a>
+					<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=70">회원가입</a>
 					</c:otherwise>
 				</c:choose>
 					<span class="txt-bar"></span>

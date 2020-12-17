@@ -4,7 +4,7 @@ a:hover,
 a:focus{color:#2b74c0}
 
 /* header */
-.tnb{position:relative;text-align:right;background:#ece6d8;}
+.tnb{position:relative;text-align:right;background:#fbfbfa;}
 .tnb .util{line-height:85px;height:85px}
 .tnb a, .tnb span, .tnb b{vertical-align:middle;font-size:15px;color:#222;font-weight:bold;display:inline-block;letter-spacing:0; padding:0;}
 .tnb a img{vertical-align:middle;}
@@ -82,7 +82,7 @@ a:focus{color:#2b74c0}
 .banner-wrap>.banner-box4 > div{width:1040px !important;}
 
 /* Gnb */
-.Gnb{clear:both;text-align:center;width:100%;height:64px;overflow:inherit;position:relative;background:#ece6d8;border-top:1px solid #d2cac3;border-bottom:1px solid #d2cac3;}
+.Gnb{clear:both;text-align:center;width:100%;height:64px;overflow:inherit;position:relative;background:#fbfbfa;border-top:1px solid #ddd;border-bottom:1px solid #ddd;}
 .Gnb .gnb-menu{position:relative;text-align:center}
 .Gnb .gnb-menu>li:first-child{padding-left:0;}
 .Gnb .gnb-menu>li{padding:0 65px;text-align:center;position:static;background:url('../img/menu_dot.png')no-repeat 0 28px;}

@@ -4,13 +4,15 @@
 	<div class="head">
 		<div class="Gnb">
 			<h2 class="blind">주메뉴</h2>
-			<div class="section">
+			<div class="main-section">
+				<h1 class="web-logo"><a href="/${homepage.context_path}/index.do">구수산 도서관</a></h1>
+
 				<!-- menu S -->
 				<div class="g-menu">
 					<homepageTag:topMenu menuList="${menuTreeList}" />
-
-					<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=82" class="last-box"><img src="/resources/homepage/${homepage.context_path}/img/sitemap-icon.png" alt="사이트맵" /></a>
-
+					
+					<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=82" class="last-box_w"><img src="/resources/common/img/sitemap_icon_white.png" alt="사이트맵" /></a>
+					<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=82" class="last-box_b"><img src="/resources/common/img/sitemap_icon_black.png" alt="사이트맵" /></a>
 					<div class="mmode">
 							<a href="/${homepage.context_path}/intro/login/mobileCard.do?menu_idx=68" class="btn4">
 								<i class="fa fa-bookmark"></i>
@@ -42,7 +44,7 @@
 								<i class="fa fa-lock"></i>
 								<span style='letter-spacing:-1.5px;'>로그인</span>
 							</a>
-							<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=5" class="btn2">
+							<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=70" class="btn2">
 								<i class="fa fa-user-plus"></i>
 								<span style='letter-spacing:-1.5px;'>회원가입</span>
 							</a>
