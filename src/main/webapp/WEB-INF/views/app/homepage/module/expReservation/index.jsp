@@ -71,6 +71,11 @@ $(function(){
 		e.preventDefault();
 	});
 	
+	$('a#apply_edit').on('click', function(e) {
+		e.preventDefault();
+		doGetLoad('/${homepage.context_path}/module/expReservation/applyList.do', 'menu_idx=201');
+	});
+	
 	$('.monthYear').prepend(year + "년");
 	});
 
@@ -206,6 +211,9 @@ $(function(){
 		<form:select path="plan_year" class="" style="width:80px;height:28px;"></form:select>
 		<form:select path="plan_month" class="" style="width:65px;height:28px;"></form:select>
 		<a id="next-btn" href="#next" class="btn next"><i class="fa fa-angle-right"></i><span class="blind">다음달</span></a>
+		<div style="text-align: right; margin-bottom: 10px; ">
+			<a href="anonyApplyCheck.do?homepage_id=${expReservation.homepage_id}&menu_idx=${expReservation.menu_idx}" class="btn btn1" style="font-size:14px;">비회원 신청확인</a>
+		</div>
 	</div>
 
 	<div id="calendar">
