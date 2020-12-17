@@ -237,7 +237,7 @@ do {
 
 					<div class="box con" data-tab="tab1">
 						<ul class="book_photo">
-							<c:forEach items="${bookList1}" var="i" varStatus="status">
+							<c:forEach items="${bookList1}" var="i" varStatus="status" begin="0" end="3">
 								<li>
 									<a href="/${homepage.context_path}/board/view.do?menu_idx=85&manage_idx=606&board_idx=${i.board_idx}">
 									<span class="con-image">
