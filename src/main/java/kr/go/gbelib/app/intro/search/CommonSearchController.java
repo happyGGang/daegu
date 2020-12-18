@@ -915,7 +915,9 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 		}
 		HopebookConfig hopebookConfig = hopebookConfigService.getHopebookConfigInfo(homepageId);
 		if(hopebookConfig != null) {
-			service.alertMessage(hopebookConfig.getRes_msg(), request, response);
+			String hope_msg = hopebookConfig.getRes_msg();
+			hope_msg = hope_msg.replaceAll("\r\n", "\\\\n");
+			service.alertMessage(hope_msg, request, response);
 			return null;
 		}
 
