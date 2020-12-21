@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.whalesoft.framework.base.BaseService;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 import kr.co.whalesoft.framework.utils.CalculateHashUtils;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
@@ -19,6 +20,7 @@ public class ExpReservationApplyService extends BaseService{
 		return dao.deleteExpApply(expApply);
 	}
 
+	@WorkingLogger(comment="체험예약관리 신청자 조회", type="P")
 	public ExpReservationApply getExpReservationApplyOne(ExpReservationApply expApply) {
 		return dao.getExpReservationApplyOne(expApply);
 	}
@@ -27,18 +29,22 @@ public class ExpReservationApplyService extends BaseService{
 		return dao.getExpReservationOne(expApply);
 	}
 
+	@WorkingLogger(comment="체험예약관리 신청자 목록 조회", type="P")
 	public List<ExpReservationApply> getExpApplyList(ExpReservationApply expApply) {
 		return dao.getExpApplyList(expApply);
 	}
 
+	@WorkingLogger(comment="체험예약관리 신청자 목록 조회(전체 엑셀 저장)", type="P")
 	public List<ExpReservationApply> getExpApplyDownloadList(ExpReservationApply expApply) {
 		return dao.getExpApplyDownloadList(expApply);
 	}
 
+	@WorkingLogger(comment="체험예약관리 신청자 목록 조회(한달 엑셀 저장)", type="P")
 	public List<ExpReservationApply> getExpApplyMonth(ExpReservationApply expApply) {
 		return dao.getExpApplyMonth(expApply);
 	}
 
+	@WorkingLogger(comment="체험예약관리 신청자 목록 조회(하루 엑셀 저장)", type="P")
 	public List<ExpReservationApply> getExpApplyDate(ExpReservationApply expApply) {
 		return dao.getExpApplyDate(expApply);
 	}
@@ -55,6 +61,7 @@ public class ExpReservationApplyService extends BaseService{
 		return dao.checkExpApply(expApply);
 	}
 
+	@WorkingLogger(comment="체험예약관리 신청자 등록", type="P")
 	public int addExpApply(ExpReservationApply expApply) {
 		if(expApply.getMember_id() == null) {
 			expApply.setMember_id("ANONYMOUS");
@@ -65,6 +72,7 @@ public class ExpReservationApplyService extends BaseService{
 		return dao.addExpApply(expApply);
 	}
 
+	@WorkingLogger(comment="체험예약관리 신청자 수정", type="P")
 	public int modifyExpApply(ExpReservationApply expApply) {
 		return dao.modifyExpApply(expApply);
 	}
