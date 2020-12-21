@@ -147,7 +147,12 @@ table.bbs tr.notice{background:#f5f6f7}
 						</c:if>
 						<c:set var="viewUrl" value="${portal}view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}"></c:set>
 						<a href="${viewUrl}" keyValue="${i.board_idx}">
-							<span>${i.title}</span>
+							<span>
+								<c:if test="${boardManage.manage_idx eq '652' and not empty i.category1_name}">
+									[${i.category1_name}]
+								</c:if>
+								${i.title}
+							</span>
 							<c:if test="${i.date_gap <= boardManage.new_date_count}"><em class="new">새글</em></c:if>
 							<c:if test="${i.comment_count > 0}">
 							<span class="comment"><em>댓글</em> <i>${i.comment_count}</i></span>
@@ -200,7 +205,12 @@ table.bbs tr.notice{background:#f5f6f7}
 						<c:if test="${i.group_depth > 0}">
 							<i class="fa fa-reply"></i>
 						</c:if>
-							<span>${i.title}</span>${i.secret_yn eq 'Y'?'<i class="fa fa-lock"></i>':''}
+							<span>
+								<c:if test="${boardManage.manage_idx eq '652' and not empty i.category1_name}">
+									[${i.category1_name}]
+								</c:if>
+									${i.title}
+							</span>${i.secret_yn eq 'Y'?'<i class="fa fa-lock"></i>':''}
 							<c:if test="${i.date_gap <= boardManage.new_date_count}"><em class="new">새글</em></c:if>
 							<c:if test="${i.comment_count > 0}">
 							<span class="comment"><em>댓글</em> <i>${i.comment_count}</i></span>
