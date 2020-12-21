@@ -257,7 +257,7 @@ do {
 
 						<div class="movieContent">
 							<ul>
-								<c:forEach var="i" varStatus="status" items="${movieList}" >
+								<c:forEach var="i" varStatus="status" items="${movieList}" begin="0" end="0">
 									<li>
 										<a href="/${homepage.context_path}/board/view.do?menu_idx=34&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 											<span class="view-date">
