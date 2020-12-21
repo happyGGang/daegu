@@ -2,6 +2,7 @@ package kr.go.gbelib.app.module.readerContest;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -70,10 +71,10 @@ public class ReaderContestController extends BaseController {
     		ValidationUtils.rejectIfEmpty(result, "address_detailed", "상세주소를 입력하세요.");
 
     		ValidationUtils.rejectPhone(result, "user_phone", "휴대폰(본인) 번호가 올바르지 않습니다.");
-    		if (readerContest.getProtector_phone() != null && readerContest.getProtector_phone() != "") {
+    		if (StringUtils.isNotEmpty(readerContest.getProtector_phone())) {
     			ValidationUtils.rejectPhone(result, "protector_phone", "휴대폰(보호자) 번호가 올바르지 않습니다.");
     		}
-    		if (readerContest.getUser_email() != null && readerContest.getUser_email() != "") {
+    		if (StringUtils.isNotEmpty(readerContest.getUser_email())) {
     			ValidationUtils.rejectNotFullEmailType(result, "user_email", "이메일이 올바르지 않습니다.");
 			}
     		

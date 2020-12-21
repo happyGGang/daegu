@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -82,7 +83,7 @@ public class BookRelayIndividualController extends BaseController {
     		ValidationUtils.rejectIfEmpty(result, "reader_contest", "다독자 공모를 선택하세요.");
     		
     		ValidationUtils.rejectPhone(result, "user_phone", "휴대폰 번호가 올바르지 않습니다.");
-    		if (bookRelayIndividual.getUser_email() != null && bookRelayIndividual.getUser_email() != "") {
+    		if (StringUtils.isNotEmpty(bookRelayIndividual.getUser_email())) {
     			ValidationUtils.rejectNotFullEmailType(result, "user_email", "이메일이 올바르지 않습니다.");
 			}
     		

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -88,7 +89,7 @@ public class BestPracticesContestController extends BaseController {
     		ValidationUtils.rejectIfEmpty(result, "contents", "내용을 입력하세요.");
 
     		ValidationUtils.rejectPhone(result, "user_phone", "휴대폰 번호가 올바르지 않습니다.");
-    		if (bestPracticesContest.getUser_email() != null && bestPracticesContest.getUser_email() != "") {
+    		if (StringUtils.isNotEmpty(bestPracticesContest.getUser_email())) {
     			ValidationUtils.rejectNotFullEmailType(result, "user_email", "이메일이 올바르지 않습니다.");
 			}
     		
