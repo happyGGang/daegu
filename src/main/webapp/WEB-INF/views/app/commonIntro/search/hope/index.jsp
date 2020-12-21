@@ -35,10 +35,21 @@ $(function() {
 
 
 <!-- contents-title-->
+<c:choose>
+<c:when test="${homepage.context_path eq 'dgportal'}">
+<p class="txt-box-adv">희망도서는 개별 도서관 홈페이지에서 신청가능합니다.</p>
+</c:when>
+<c:otherwise>
 <div id="contents-title">
-	<h2>희망도서신청<span style="font-weight:300">을 하고 싶으세요?</span></h2>
+	<h2>희망도서신청<span style="font-weight:300">을 확인 하고 싶으세요?</span></h2>
 </div>
+</c:otherwise>
+</c:choose>
+
+
 <!-- /contents-title-->
+
+
 
 <form:form modelAttribute="librarySearch" action="index.do" method="get" onsubmit="return false;">
 <form:hidden path="viewPage"/>

@@ -88,9 +88,6 @@ $(function() {
 								<th>예약형태</th>
 								<td>
 								<c:choose>
-									<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'N'}">
-									일반예약
-									</c:when>
 									<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
 
 										<c:choose>
@@ -115,6 +112,16 @@ $(function() {
 										</c:choose>
 									
 									</c:when>
+									<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'Y'}">
+
+										워킹스루예약신청
+									
+									</c:when>
+									<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'O'}">
+
+										워킹스루예약대기
+									
+									</c:when>
 									<c:otherwise>
 									일반예약
 									</c:otherwise>
@@ -122,22 +129,30 @@ $(function() {
 								</td>
 							</tr>
 
-							<c:if test="${i.UNMANNED_RESERVATION_LOAN eq 'N'}">
-								<c:if test="${i.STATUS eq '3'}">
-								<tr>
-									<th>예약취소</th>
-									<td><a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a></td>
-								</tr>
-								</c:if>
-							</c:if>
-							<c:if test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
-								<tr>
-									<th>예약취소</th>
-									<td><a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a></td>
-								</tr>
-							</c:if>
-							<c:if test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
-							</c:if>
+								<c:choose>
+									<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
+
+										<tr>
+											<th>예약취소</th>
+											<td><a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a></td>
+										</tr>
+
+									</c:when>
+									<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
+									</c:when>
+									<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'Y'}">
+									</c:when>
+									<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'O'}">
+									</c:when>
+									<c:otherwise>
+										<c:if test="${i.STATUS eq '3'}">
+										<tr>
+											<th>예약취소</th>
+											<td><a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a></td>
+										</tr>
+										</c:if>
+									</c:otherwise>
+								</c:choose>
 
 							</tbody>
 						</table>
