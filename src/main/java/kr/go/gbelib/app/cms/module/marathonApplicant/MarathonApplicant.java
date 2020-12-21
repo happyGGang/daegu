@@ -8,6 +8,7 @@ public class MarathonApplicant extends PagingUtils{
 	private String homepage_id; //홈페이지ID
 	private int contest_idx; //대회번호
 	private int contest_type_idx; //대회종목번호
+	private int contest_type_idx_edit; //대회종목번호(모달창)
 	private int applicant_idx; //참가번호
 	private int[] applicant_idx_arr; //참가번호
 	private String member_id; //회원 아이디
@@ -49,7 +50,8 @@ public class MarathonApplicant extends PagingUtils{
 	private int page_count; //쪽수
 	private String contest_name; //대회명
 	private int[] contest_type_idx_arr; //대회 종목 번호 배열 (삭제용, 상태 변경용)
-	private int contest_type_idx_modify; //대회 종목 번호 (수정용)
+	private int[] contest_idx_arr;
+	private int contest_type_idx_before; //대회 종목 번호 (수정용)
 	private int[] page_count_arr; //목표 페이지 배열 (상태 변경용)
 	private int[] read_page_count_total_arr; //읽은 쪽수 배열 (상태 변경용)
 	private String selectedType; //이용자 신청 현황 페이지에서 선택된 대회종목
@@ -74,6 +76,12 @@ public class MarathonApplicant extends PagingUtils{
 	}
 	public void setContest_type_idx(int contest_type_idx) {
 		this.contest_type_idx = contest_type_idx;
+	}
+	public int getContest_type_idx_edit() {
+		return contest_type_idx_edit;
+	}
+	public void setContest_type_idx_edit(int contest_type_idx_edit) {
+		this.contest_type_idx_edit = contest_type_idx_edit;
 	}
 	public String getMember_id() {
 		return member_id;
@@ -297,11 +305,17 @@ public class MarathonApplicant extends PagingUtils{
 	public void setContest_type_idx_arr(int[] contest_type_idx_arr) {
 		this.contest_type_idx_arr = contest_type_idx_arr;
 	}
-	public int getContest_type_idx_modify() {
-		return contest_type_idx_modify;
+	public int[] getContest_idx_arr() {
+		return contest_idx_arr;
 	}
-	public void setContest_type_idx_modify(int contest_type_idx_modify) {
-		this.contest_type_idx_modify = contest_type_idx_modify;
+	public void setContest_idx_arr(int[] contest_idx_arr) {
+		this.contest_idx_arr = contest_idx_arr;
+	}
+	public int getContest_type_idx_before() {
+		return contest_type_idx_before;
+	}
+	public void setContest_type_idx_before(int contest_type_idx_before) {
+		this.contest_type_idx_before = contest_type_idx_before;
 	}
 	public int getRead_page_count_total() {
 		return read_page_count_total;

@@ -83,6 +83,13 @@ $(function(){
 			$('input#school_class_one').css('background', "#fafafa");
 			$('input#school_class_two').css('background', "#fafafa");
 			$('input#school_name').css('background', "#fafafa");
+			
+			if($(this).val() == 'middle' || $(this).val() == 'high') {
+				$('input#school_class_one').prop('disabled', false);
+				$('input#school_class_two').prop('disabled', false);
+				$('input#school_name').prop('disabled', false);			
+			}
+
 			if($(this).val() == 'adult'){
 				$('input#school_class_one').val('');
 				$('input#school_class_two').val('');
@@ -400,6 +407,7 @@ $(function(){
 			<form:hidden path="homepage_id"/>
 			<form:hidden path="contest_idx"/>
 			<form:hidden path="editMode"/>
+			<form:hidden path="menu_idx"/>
 			<table class="type2">
 				<colgroup>
 					<col width="160"/>

@@ -87,10 +87,13 @@ $(function() {
 		if(confirm('선택한 게시물을 삭제하시겠습니까?')){
 			var checkboxarr = $('input:checkbox[name = applicant_idx_arr]:checked');
 			var contest_type_idx_arr = new Array();
+			var contest_idx_arr = new Array();
 			checkboxarr.each(function(i) {
-				contest_type_idx_arr.push($(this).siblings('input[type = hidden]').val());
+				contest_type_idx_arr.push($(this).siblings('input[name = contest_type_idx_1]').val());
+				contest_idx_arr.push($(this).siblings('input[name = contest_idx_1]').val());
 			});
 			$('input#contest_type_idx_arr').val(contest_type_idx_arr);
+			$('input#contest_idx_arr').val(contest_idx_arr);
 
 			$('form#marathonApplicantForm').attr('action', 'save.do');
 			if(doAjaxPost($('form#marathonApplicantForm'))){
@@ -158,6 +161,7 @@ $(function() {
 	<form:hidden path="contest_type_idx_arr"/>
 	<form:hidden path="page_count_arr"/>
 	<form:hidden path="read_page_count_total_arr"/>
+	<form:hidden path="contest_idx_arr"/>
 	<form:hidden path="applicant_idx"/>
 	<form:hidden path="menu_idx"/>
 
@@ -218,6 +222,7 @@ $(function() {
 						<input type="hidden" name="contest_type_idx_1" value="${i.contest_type_idx}"/>
 						<input type="hidden" name="page_count_1" value="${i.page_count}"/>
 						<input type="hidden" name="read_page_count_total_1" value="${i.read_page_count_total}"/>
+						<input type="hidden" name="contest_idx_1" value="${i.contest_idx}"/>
 						<form:checkbox path="applicant_idx_arr" cssClass="text" value="${i.applicant_idx}"/>
 					</td>
 					<td><a href="" class="applicant" keyValue="${i.contest_idx}" keyValue2="${i.contest_type_idx}" keyValue3="${i.applicant_idx}">${paging.listRowNum - status.index }</a></td>

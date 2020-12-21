@@ -96,7 +96,7 @@ public class MarathonRecordController extends BaseController{
 
 					return String.format(basePath, homepage.getFolder()) + "index";
 				}else {
-					service.alertMessageAndUrl("독서마라톤대회에 신청이 되어 있지 않습니다.", String.format("/%s/module/marathonApplicant/edit.do?menu_idx=%s", homepage.getContext_path(), marathonRecord.getMenu_idx()), request, response);
+					service.alertMessageAndUrl("독서마라톤대회에 참가 신청하지 않았습니다. 참가 신청 페이지로 이동합니다.", String.format("/%s/module/marathonApplicant/edit.do?menu_idx=%s", homepage.getContext_path(), marathonRecord.getMenu_idx()), request, response);
 					return null;
 				}
 			}else {

@@ -121,7 +121,7 @@ public class MarathonApplicantController extends BaseController {
 						return String.format(basePath, homepage.getFolder()) + "myInfo";
 					}else {
 						marathonApplicant.setEditMode("");
-						service.alertMessageAndUrl("독서마라톤대회에 참가 신청하지 않았습니다. 참가 신청 페이지로 이동합니다.", String.format("/%s/module/marathonApplicant/edit.do?menu_idx=105"), request, response);
+						service.alertMessageAndUrl("독서마라톤대회에 참가 신청하지 않았습니다. 참가 신청 페이지로 이동합니다.", String.format("/%s/module/marathonApplicant/edit.do?menu_idx=105", homepage.getContext_path()), request, response);
 						return null;
 					}
 				}

@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.whalesoft.framework.base.BaseService;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 import kr.go.gbelib.app.cms.module.marathon.Marathon;
 import kr.go.gbelib.app.cms.module.marathonRecord.MarathonRecord;
+import kr.go.gbelib.app.cms.module.marathonRecord.MarathonRecordService;
 import kr.go.gbelib.app.cms.module.marathonType.MarathonType;
 
 @Service
@@ -17,6 +19,9 @@ public class MarathonApplicantService extends BaseService{
 
 	@Autowired
 	MarathonApplicantDao dao;
+	
+	@Autowired
+	MarathonRecordService recordService;
 
 	public int getMarathonApplicantCount(MarathonApplicant marathonApplicant) {
 		return dao.getMarathonApplicantCount(marathonApplicant);
@@ -26,10 +31,12 @@ public class MarathonApplicantService extends BaseService{
 		return dao.getMarathonList(marathonApplicant);
 	}
 
+	@WorkingLogger(comment="독서마라톤 신청자 목록 조회", type="P")
 	public List<MarathonApplicant> getMarathonApplicantList(MarathonApplicant marathonApplicant) {
 		return dao.getMarathonApplicantList(marathonApplicant);
 	}
 
+	@WorkingLogger(comment="독서마라톤 신청자 조회", type="P")
 	public MarathonApplicant getMarathonApplicantOne(MarathonApplicant marathonApplicant) {
 		return dao.getMarathonApplicantOne(marathonApplicant);
 	}
@@ -38,6 +45,7 @@ public class MarathonApplicantService extends BaseService{
 		return dao.getMarathonTypeList(marathonApplicant);
 	}
 
+	@WorkingLogger(comment="독서마라톤 신청자 수정", type="P")
 	public int modifyMarathonApplicant(MarathonApplicant marathonApplicant) {
 		marathonApplicant.setTelephone(marathonApplicant.getTelephone_one() + "-" + marathonApplicant.getTelephone_two() + "-" + marathonApplicant.getTelephone_three());
 		marathonApplicant.setCellphone(marathonApplicant.getCellphone_one() + "-" + marathonApplicant.getCellphone_two() + "-" + marathonApplicant.getCellphone_three());
@@ -51,18 +59,53 @@ public class MarathonApplicantService extends BaseService{
 		marathonApplicant.setSchool_class(marathonApplicant.getSchool_class_one() + "," + marathonApplicant.getSchool_class_two());
 		return dao.modifyMarathonApplicant(marathonApplicant);
 	}
+	
+	@Transactional
+	public int modifyMarathonApplicantWithRecord(MarathonApplicant marathonApplicant) {
+		marathonApplicant.setTelephone(marathonApplicant.getTelephone_one() + "-" + marathonApplicant.getTelephone_two() + "-" + marathonApplicant.getTelephone_three());
+		marathonApplicant.setCellphone(marathonApplicant.getCellphone_one() + "-" + marathonApplicant.getCellphone_two() + "-" + marathonApplicant.getCellphone_three());
+		marathonApplicant.setBirthday(marathonApplicant.getBirthday_year() + "-" + marathonApplicant.getBirthday_month() + "-" + marathonApplicant.getBirthday_date());
+		if(marathonApplicant.getSchool_class_one() == null) {
+			marathonApplicant.setSchool_class_one("");
+		}
+		if(marathonApplicant.getSchool_class_two() == null) {
+			marathonApplicant.setSchool_class_two("");
+		}
+		marathonApplicant.setSchool_class(marathonApplicant.getSchool_class_one() + "," + marathonApplicant.getSchool_class_two());
+		dao.modifyMarathonApplicant(marathonApplicant);
+		
+		MarathonRecord marathonRecord = new MarathonRecord(marathonApplicant.getHomepage_id(), marathonApplicant.getContest_idx(), marathonApplicant.getContest_type_idx(), marathonApplicant.getApplicant_idx());
+		marathonRecord.setContest_type_idx_modify(marathonApplicant.getContest_type_idx());
+		marathonRecord.setApplicant_idx_modify(marathonApplicant.getApplicant_idx_modify());
+		recordService.modifyMarathonRecordByApplicant(marathonRecord); //일지의 종목번호, 신청자 번호를 변경
+		return 1;
+	}
+
+	@WorkingLogger(comment="독서마라톤 신청자 삭제", type="P")
 	@Transactional
 	public int deleteMarathonApplicant(MarathonApplicant marathonApplicant) {
 		int applicant_idx_arr[] = marathonApplicant.getApplicant_idx_arr();
 		int contest_type_idx_arr[] = marathonApplicant.getContest_type_idx_arr();
+		int contest_idx_arr[] = marathonApplicant.getContest_idx_arr();
 		for(int i = 0; i < applicant_idx_arr.length; i++) {
 			marathonApplicant.setApplicant_idx(applicant_idx_arr[i]);
 			marathonApplicant.setContest_type_idx(contest_type_idx_arr[i]);
-			dao.deleteMarathonApplicant(marathonApplicant);
+			extracted(marathonApplicant);
+			
+			MarathonRecord marathonRecord = new MarathonRecord();
+			marathonRecord.setHomepage_id(marathonApplicant.getHomepage_id());
+			marathonRecord.setContest_idx(contest_idx_arr[i]);
+			marathonRecord.setApplicant_idx(applicant_idx_arr[i]);
+			recordService.deleteMarathonRecordAll(marathonRecord);
 		}
 		return 1;
 	}
 
+	private void extracted(MarathonApplicant marathonApplicant) {
+		dao.deleteMarathonApplicant(marathonApplicant);
+	}
+
+	@WorkingLogger(comment="독서마라톤 신청자 등록", type="P")
 	public int addMarathonApplicant(MarathonApplicant marathonApplicant) {
 		marathonApplicant.setTelephone(marathonApplicant.getTelephone_one() + "-" + marathonApplicant.getTelephone_two() + "-" + marathonApplicant.getTelephone_three());
 		marathonApplicant.setCellphone(marathonApplicant.getCellphone_one() + "-" + marathonApplicant.getCellphone_two() + "-" + marathonApplicant.getCellphone_three());
@@ -106,14 +149,17 @@ public class MarathonApplicantService extends BaseService{
 		return dao.getMarathonApplicantIdx(marathonApplicant);
 	}
 
+	@WorkingLogger(comment="독서마라톤 신청자 조회(아이디사용)", type="P")
 	public MarathonApplicant getMarathonApplicantOneById(MarathonApplicant marathonApplicant) {
 		return dao.getMarathonApplicantOneById(marathonApplicant);
 	}
 
+	@WorkingLogger(comment="독서마라톤 신청자 이름 조회", type="P")
 	public String getMarathonApplicantName(MarathonApplicant marathonApplicant) {
 		return dao.getMarathonApplicantName(marathonApplicant);
 	}
 
+	@WorkingLogger(comment="독서마라톤 신청자 아이디 조회", type="P")
 	public String getMarathonApplicantId(MarathonApplicant marathonApplicant) {
 		return dao.getMarathonApplicantId(marathonApplicant);
 	}
@@ -134,6 +180,7 @@ public class MarathonApplicantService extends BaseService{
 		return dao.getContestType(marathonApplicant);
 	}
 
+	@WorkingLogger(comment="독서마라톤 신청자 목록 조회(엑셀용)", type="P")
 	public List<MarathonApplicant> getMarathonApplicantExcelList(MarathonApplicant marathonApplicant) {
 		return dao.getMarathonApplicantExcelList(marathonApplicant);
 	}

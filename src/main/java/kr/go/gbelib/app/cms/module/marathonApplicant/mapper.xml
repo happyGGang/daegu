@@ -126,11 +126,11 @@
 		SELECT
 			contest_type_idx
 		FROM
-			MARATHON_CONTEST_TYPE
+			MARATHON_APPLICANT
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	contest_idx = #{contest_idx}
-		AND	contest_type = #{contest_type}
+		AND	member_id = #{member_id}
 	</select>
 	
 	<select id="getContestType" resultType="string">
@@ -163,7 +163,7 @@
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	contest_idx = #{contest_idx}
-		AND	contest_type_idx = #{contest_type_idx_modify}
+		AND	contest_type_idx = #{contest_type_idx}
 	</select>
 	
 	<select id="checkApplicantId" resultType="integer">
@@ -233,7 +233,7 @@
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	contest_idx = #{contest_idx}
-		AND	contest_type_idx = #{contest_type_idx_modify}
+		AND	contest_type_idx = #{contest_type_idx}
 	</select>
 	
 	<select id="getMarathonApplicantExcelList" resultType="kr.go.gbelib.app.cms.module.marathonApplicant.MarathonApplicant">
@@ -289,8 +289,8 @@
 		UPDATE
 			MARATHON_APPLICANT
 		SET
-			contest_type_idx = #{contest_type_idx_modify},
-			<if test="contest_type_idx != contest_type_idx_modify">
+			contest_type_idx = #{contest_type_idx},
+			<if test="contest_type_idx != contest_type_idx_before">
 			applicant_idx = #{applicant_idx_modify},
 			</if>
 			member_name = #{member_name},
@@ -314,7 +314,7 @@
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	contest_idx = #{contest_idx}
-		AND	contest_type_idx = #{contest_type_idx}
+		AND	contest_type_idx = #{contest_type_idx_before}
 		AND	applicant_idx = #{applicant_idx}
 	</update>
 
@@ -343,7 +343,7 @@
 		AND	applicant_idx = #{applicant_idx}
 	</update>
 	
-	<update id="deleteMarathonApplicant">
+	<delete id="deleteMarathonApplicant">
 		DELETE FROM
 			MARATHON_APPLICANT
 		WHERE
@@ -351,6 +351,6 @@
 		AND	contest_idx = #{contest_idx}
 		AND	contest_type_idx = #{contest_type_idx}
 		AND	applicant_idx = #{applicant_idx}
-	</update>
+	</delete>
 	
 </mapper>

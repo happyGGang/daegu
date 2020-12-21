@@ -25,4 +25,6 @@ public interface MarathonRecordDao {
 	List<MarathonApplicantRecord> getMarathonRecordSuccessExcelList(MarathonRecord marathonRecord);
 	
 	int modifyMarathonRecordByApplicant(MarathonRecord marathonRecord);
+
+	int deleteMarathonRecordAll(MarathonRecord marathonRecord);
 }

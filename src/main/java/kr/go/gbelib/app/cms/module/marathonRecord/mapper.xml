@@ -179,7 +179,7 @@
 		AND	applicant_idx = #{applicant_idx}
 	</update>
 	
-	<update id="deleteMarathonRecord">
+	<delete id="deleteMarathonRecord">
 		DELETE FROM
 			MARATHON_RECORD
 		WHERE
@@ -190,6 +190,14 @@
 		<foreach collection="record_idx_arr" item="record_idx_list" open="(" close=")" separator=",">
 		#{record_idx_list}
 		</foreach>
-		
-	</update>
+	</delete>
+	
+	<delete id="deleteMarathonRecordAll">
+		DELETE FROM
+			MARATHON_RECORD
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	contest_idx = #{contest_idx}
+		AND	applicant_idx = #{applicant_idx}
+	</delete>
 </mapper>

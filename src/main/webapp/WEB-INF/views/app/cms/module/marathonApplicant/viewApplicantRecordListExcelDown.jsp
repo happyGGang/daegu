@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.Date, org.apache.commons.lang3.time.DateFormatUtils, kr.co.whalesoft.framework.utils.AttachmentUtils" %>
 <%
-	response.setContentType("application/vnd.ms-excel; charset=UTF-8;");
+	response.setContentType("application/vnd.ms-excel; charset=EUC-KR;");
 
 	String today = DateFormatUtils.format(new Date(), "yyyy-MM-dd");
 	String filename = "일지 목록_" + today + ".xls";

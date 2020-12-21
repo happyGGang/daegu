@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -150,28 +151,32 @@ public class MarathonApplicantController extends BaseController{
 			ValidationUtils.rejectIfEmpty(result, "cellphone_two", "휴대전화번호 중간자리를 입력해 주세요.");
 			ValidationUtils.rejectIfEmpty(result, "cellphone_three", "휴대전화번호 끝자리를 입력해 주세요.");
 			ValidationUtils.rejectIfEmpty(result, "gender", "성별을 입력해 주세요.");
-			ValidationUtils.rejectIfEmpty(result, "birthday_year", "생년월일 년도를 입력해 주세요.");
-			ValidationUtils.rejectIfEmpty(result, "birthday_month", "생년월일 월을 입력해 주세요.");
-			ValidationUtils.rejectIfEmpty(result, "birthday_date", "생년월일 일을 입력해 주세요.");
-			ValidationUtils.rejectIfEmpty(result, "contest_type", "참가종목을 입력해 주세요.");
-			ValidationUtils.rejectIfEmpty(result, "finish_memorial", "완주기념품을 입력해 주세요.");
+			ValidationUtils.rejectIfEmpty(result, "birthday_year", "생년월일 년도를 선택해 주세요.");
+			ValidationUtils.rejectIfEmpty(result, "birthday_month", "생년월일 월을 선택해 주세요.");
+			ValidationUtils.rejectIfEmpty(result, "birthday_date", "생년월일 일을 선택해 주세요.");
+			ValidationUtils.rejectIfEmpty(result, "contest_type_idx_edit", "참가종목을 선택해 주세요.");
+			ValidationUtils.rejectIfEmpty(result, "finish_memorial", "완주기념품을 선택해 주세요.");
 			
+			marathonApplicant.setContest_type_idx(marathonApplicant.getContest_type_idx_edit());
+			marathonApplicant.setContest_type(service.getContestType(marathonApplicant));
 			
 			if(marathonApplicant.getEditMode().equals("ADD")) {
-				int contestTypeIdx = service.getContestTypeIdx(marathonApplicant);
-    			marathonApplicant.setContest_type_idx(contestTypeIdx);
-    			
     			int checkApplicantCount = service.checkApplicantId(marathonApplicant);
     			if(checkApplicantCount > 0) {
     				result.reject("해당 아이디는 이미 등록되었습니다.");
     			}
 
     			String application_subject = service.getContestApplicationSubject(marathonApplicant); //신청 대상을 가져온다.
-    			if(!application_subject.equals("all")) {
-    				if(!application_subject.contains(marathonApplicant.getAge_type())) {
-    					result.reject("선택한 분류는 해당 참가종목에 참여할 수 없습니다.");
-    				}
+    			if(application_subject != null) {
+    				if(!application_subject.equals("all")) {
+        				if(!application_subject.contains(marathonApplicant.getAge_type())) {
+        					result.reject("선택한 분류는 해당 참가종목에 참여할 수 없습니다.");
+        				}
+        			}
+    			}else {
+    				result.reject("선택한 분류는 해당 참가종목에 참여할 수 없습니다.");
     			}
+    			
     			Marathon marathon = new Marathon(getAsideHomepageId(request), marathonApplicant.getContest_idx());
     			marathon = marathonService.getMarathonContestOne(marathon);
     			String application_start_day = marathon.getApplication_start_day();
@@ -192,9 +197,6 @@ public class MarathonApplicantController extends BaseController{
     				result.reject("해당 대회 접수 기간이 아닙니다.");
     			}
 			}else if(marathonApplicant.getEditMode().equals("MODIFY")) {
-				int contestTypeIdx = service.getContestTypeIdx(marathonApplicant);
-				marathonApplicant.setContest_type_idx_modify(contestTypeIdx);
-
 				String application_subject = service.getContestApplicationSubjectModify(marathonApplicant);
     			if(!application_subject.equals("all")) {
     				if(!application_subject.contains(marathonApplicant.getAge_type())) {
@@ -215,21 +217,15 @@ public class MarathonApplicantController extends BaseController{
 
 		if(!result.hasErrors()) {
     		if(marathonApplicant.getEditMode().equals("ADD")) {
-    			int contestTypeIdx = service.getContestTypeIdx(marathonApplicant);
-    			marathonApplicant.setContest_type_idx(contestTypeIdx);
     			service.addMarathonApplicant(marathonApplicant);
     			res.setValid(true);
     			res.setMessage("등록되었습니다.");
     		}else if(marathonApplicant.getEditMode().equals("MODIFY")) {
 				marathonApplicant.setModify_id(member.getMember_id()); //신청자를 변경하는 관리자 아이디
-				marathonApplicant.setContest_type_idx_modify(service.getContestTypeIdx(marathonApplicant)); //종목으로 종목번호를 가져온다. ( 변경하는 종목 번호 ) 
-				if(marathonApplicant.getContest_type_idx() != marathonApplicant.getContest_type_idx_modify()) { //종목을 변경을 한다.
+				marathonApplicant.setContest_type_idx_before(service.getContestTypeIdx(marathonApplicant)); //변경 전 종목번호를 가져온다.
+				if(marathonApplicant.getContest_type_idx() != marathonApplicant.getContest_type_idx_before()) { //종목을 변경을 한다.
 					marathonApplicant.setApplicant_idx_modify(service.getMarathonApplicantMaxIdx(marathonApplicant)); //종목을 변경할 경우에 해당 종목번호에 가장 큰 신청자 번호에서 1을 더한 값을 가져온다.
-					service.modifyMarathonApplicant(marathonApplicant);
-					MarathonRecord marathonRecord = new MarathonRecord(marathonApplicant.getHomepage_id(), marathonApplicant.getContest_idx(), marathonApplicant.getContest_type_idx(), marathonApplicant.getApplicant_idx());
-					marathonRecord.setContest_type_idx_modify(marathonApplicant.getContest_type_idx_modify());
-					marathonRecord.setApplicant_idx_modify(marathonApplicant.getApplicant_idx_modify());
-					recordService.modifyMarathonRecordByApplicant(marathonRecord); //일지의 종목번호, 신청자 번호를 변경
+					service.modifyMarathonApplicantWithRecord(marathonApplicant);
 					res.setValid(true);
 					res.setMessage("수정되었습니다.");
 				}else { //종목을 변경하지 않는다.
@@ -282,8 +278,13 @@ public class MarathonApplicantController extends BaseController{
 		if(marathonApplicantList != null) {
 			for(int i = 0; i < marathonApplicantList.size(); i++) {
 				String school_class[] = marathonApplicantList.get(i).getSchool_class().split(",");
-				marathonApplicantList.get(i).setSchool_class_one(school_class[0]);
-				marathonApplicantList.get(i).setSchool_class_two(school_class[1]);
+				if(school_class.length == 0 || school_class == null) {
+					marathonApplicantList.get(i).setSchool_class_one("");
+					marathonApplicantList.get(i).setSchool_class_two("");
+				}else {
+					marathonApplicantList.get(i).setSchool_class_one(school_class[0]);
+					marathonApplicantList.get(i).setSchool_class_two(school_class[1]);
+				}
 			}
 		}
 		model.addAttribute("marathonApplicantList", marathonApplicantList);
@@ -302,8 +303,13 @@ public class MarathonApplicantController extends BaseController{
 		if(marathonApplicantRecordList != null) {
 			for(int i = 0; i < marathonApplicantRecordList.size(); i++) {
 				String school_class[] = marathonApplicantRecordList.get(i).getSchool_class().split(",");
-				marathonApplicantRecordList.get(i).setSchool_class_one(school_class[0]);
-				marathonApplicantRecordList.get(i).setSchool_class_two(school_class[1]);
+				if(school_class.length == 0) {
+					marathonApplicantRecordList.get(i).setSchool_class_one("");
+					marathonApplicantRecordList.get(i).setSchool_class_two("");
+				}else {
+					marathonApplicantRecordList.get(i).setSchool_class_one(school_class[0]);
+					marathonApplicantRecordList.get(i).setSchool_class_two(school_class[1]);
+				}
 			}
 		}
 
@@ -390,6 +396,7 @@ public class MarathonApplicantController extends BaseController{
 		marathonApplicant.setBirthday_year(birthday[0]);
 		marathonApplicant.setBirthday_month(birthday[1]);
 		marathonApplicant.setBirthday_date(birthday[2]);
+		marathonApplicant.setContest_type_idx_edit(marathonApplicant.getContest_type_idx());
 		return marathonApplicant;
 	}
 
@@ -407,8 +414,13 @@ public class MarathonApplicantController extends BaseController{
 		if(marathonRecordSuccessList != null) {
 			for(int i = 0; i < marathonRecordSuccessList.size(); i++) {
 				String school_class[] = marathonRecordSuccessList.get(i).getSchool_class().split(",");
-				marathonRecordSuccessList.get(i).setSchool_class_one(school_class[0]);
-				marathonRecordSuccessList.get(i).setSchool_class_two(school_class[1]);
+				if(school_class.length == 0) {
+					marathonRecordSuccessList.get(i).setSchool_class_one("");
+					marathonRecordSuccessList.get(i).setSchool_class_two("");
+				}else {
+					marathonRecordSuccessList.get(i).setSchool_class_one(school_class[0]);
+					marathonRecordSuccessList.get(i).setSchool_class_two(school_class[1]);
+				}
 			}
 		}
 		return marathonRecordSuccessList;

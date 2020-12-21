@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.whalesoft.framework.base.BaseService;
+import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 import kr.go.gbelib.app.cms.module.marathonApplicant.MarathonApplicant;
 import kr.go.gbelib.app.cms.module.marathonApplicant.MarathonApplicantService;
 import kr.go.gbelib.app.cms.module.marathonRecord.marathonApplicantRecord.MarathonApplicantRecord;
@@ -68,5 +69,9 @@ public class MarathonRecordService extends BaseService{
 	
 	public int modifyMarathonRecordByApplicant(MarathonRecord marathonRecord) {
 		return dao.modifyMarathonRecordByApplicant(marathonRecord);
+	}
+
+	public int deleteMarathonRecordAll(MarathonRecord marathonRecord) {
+		return dao.deleteMarathonRecordAll(marathonRecord);
 	}
 }
