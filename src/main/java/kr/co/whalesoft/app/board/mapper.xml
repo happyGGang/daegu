@@ -768,7 +768,14 @@
 		AND	imsi_v_1 = TO_CHAR(SYSDATE, 'YYYY-MM')
 		AND	category2 = #{category2}
 		</if>
-		ORDER BY board_idx DESC
+		<choose>
+			<when test='dept_cd != null and dept_cd == "MOVIE"'>
+				ORDER BY imsi_v_1, imsi_v_2
+			</when>
+			<otherwise>
+				ORDER BY board_idx DESC
+			</otherwise>
+		</choose>
 		${pagingBottom}
 	</select>
 
@@ -912,7 +919,7 @@
 			FROM
 			(
 				SELECT
-					manage_idx, board_idx, title, add_date
+					manage_idx, board_idx, title, add_date, content_summary
 				FROM
 					CMS_BOARD
 				WHERE
