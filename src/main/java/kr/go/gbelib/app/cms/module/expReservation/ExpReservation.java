@@ -36,6 +36,7 @@ public class ExpReservation extends PagingUtils{
 	private String plan_month;
 	
 	private int apply_count; //신청 수
+	private int apply_people_count; //신청자 수
 	
 	private String pageType;
 
@@ -234,5 +235,11 @@ public class ExpReservation extends PagingUtils{
 	}
 	public void setWeeks(int[] weeks) {
 		this.weeks = weeks;
+	}
+	public int getApply_people_count() {
+		return apply_people_count;
+	}
+	public void setApply_people_count(int apply_people_count) {
+		this.apply_people_count = apply_people_count;
 	}
 }

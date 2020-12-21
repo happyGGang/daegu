@@ -107,9 +107,8 @@ public class ExpReservationApplyController extends BaseController {
 				res.setMessage("개인정보 동의 후 신청이 가능합니다.");
 				return res;
 			}
-			if(!"Y".equals(expApply.getMember_yn())) {
-				ValidationUtils.rejectIfEmpty(result, "member_id", "아이디를 입력하세요.");
-			}
+			
+			ValidationUtils.rejectIfEmpty(result, "member_id", "아이디를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "member_name", "성명을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "member_phone", "연락처를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "member_email", "이메일을 입력하세요.");
@@ -140,7 +139,7 @@ public class ExpReservationApplyController extends BaseController {
 	            if (expReservation.getTotal_people() > 0) {
 	               if (expReservation.getTotal_people() < total + expApply.getApplication_people()) {
 	                  res.setValid(false);
-                      res.setMessage("신청인원이 가득찼습니다.");
+                      res.setMessage("최대 가능 인원을 초과하였습니다.");
                       return res;
 	               }
 	            }
@@ -169,14 +168,14 @@ public class ExpReservationApplyController extends BaseController {
 				if(!expApply.getMember_id().equals("") || expApply.getMember_id() == null) {
 					if(service.checkExpApply(expApply) > 0) {
 						res.setValid(false);
-						res.setMessage("이미 신청 되었습니다.");
+						res.setMessage("이미 신청 하였습니다.");
 						return res;
 					}
 				}
 				if (expReservation.getTotal_people() > 0 ) {
 	               if (expReservation.getTotal_people() < total + expApply.getApplication_people()) {
 	                  res.setValid(false);
-                      res.setMessage("신청인원이 가득찼습니다.");
+                      res.setMessage("최대 가능 인원을 초과하였습니다.");
                       return res;
 	               } 
 	            }

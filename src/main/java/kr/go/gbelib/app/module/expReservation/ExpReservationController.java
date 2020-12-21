@@ -1,10 +1,12 @@
 package kr.go.gbelib.app.module.expReservation;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +22,14 @@ import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManageService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
+import kr.co.whalesoft.framework.utils.CalculateHashUtils;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.cms.module.expReservation.ExpReservation;
 import kr.go.gbelib.app.cms.module.expReservation.ExpReservationService;
 import kr.go.gbelib.app.cms.module.expReservation.expReservationApply.ExpReservationApply;
 import kr.go.gbelib.app.cms.module.expReservation.expReservationApply.ExpReservationApplyService;
+import kr.go.gbelib.app.cms.module.teach.Teach;
 
 @Controller(value="userExpReservation")
 @RequestMapping(value = {"/{homepagePath}/module/expReservation"})
@@ -55,7 +59,8 @@ public class ExpReservationController extends BaseController {
 
 		ExpReservationApply expApply = new ExpReservationApply();
 		expApply.setHomepage_id(homepage.getHomepage_id());
-		expApply.setExpApply_id(getSessionMemberId(request));
+		expApply.setMember_id(getSessionMemberId(request));
+		expApply.setReservation_date(expReservation.getPlan_date().replaceAll("-", ""));
 
 		CalendarManage calendarManage = new CalendarManage();
 		calendarManage.setHomepage_id(homepage.getHomepage_id());
@@ -65,6 +70,7 @@ public class ExpReservationController extends BaseController {
 		model.addAttribute("calendarManageList", calendarManageService.getClosedDate(calendarManage));
 		model.addAttribute("expReservation", expReservation);
 		model.addAttribute("expReservationList", service.getExpReservationList(expReservation));
+		model.addAttribute("expApplyList", expApplyService.getExpApplyUserCheckList(expApply));
 		if ( "ajax".equals(expReservation.getPageType()) ) {
 			return String.format(basePath, homepage.getFolder()) + "index_ajax";
 		}
@@ -95,17 +101,18 @@ public class ExpReservationController extends BaseController {
 	    }
 		
 		//expApply.setHomepage_id(homepage.getHomepage_id());
-		if (expApply.getEditMode().equals("MODIFY")) {
-			model.addAttribute("expApply", expApplyService.copyObjectPaging(expApply, expApplyService.getExpReservationOne(expApply)));
+		if (expApply.getEditMode().equals("MODIFY")) { //현재는 ADD만
+			//model.addAttribute("expApply", expApplyService.copyObjectPaging(expApply, expApplyService.getExpApplyOne(expApply)));
 			
 		} else {
+			if ( now.after(sf.parse(expReservation.getReservation_date())) ) {
+				service.alertMessage("신청기간이 마감되었습니다.", request, response);
+				return null;
+			}
 			model.addAttribute("expApply", expApplyService.copyObjectPaging(expApply, expApplyService.getExpApplyOne(expApply)));
 			model.addAttribute("totalPeople", expApplyService.totalExpApplyPeople(expApply));
 			model.addAttribute("totalTeam", expApplyService.totalExpApply(expApply));
-			if ( now.after(sf.parse(expReservation.getReservation_date())) ) {
-				service.alertMessage("신청불가합니다.", request, response);
-				return null;
-			}
+			
 		}
 
 		if ( "ajax".equals(expApply.getPageType()) ) {
@@ -116,24 +123,158 @@ public class ExpReservationController extends BaseController {
 		}
 	}
 	
-	@RequestMapping(value = {"/apply.*"})
+	@RequestMapping(value = {"/applyList.*"})
 	public String apply(Model model, ExpReservationApply expApply, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		
 		if ( !isLogin(request)) {
+			expApply.setBefore_url(String.format("/%s/module/expReservation/index.do?menu_idx=%s", homepage.getContext_path(), expApply.getMenu_idx()));
 			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), expApply.getMenu_idx(), expApply.getBefore_url()), request, response);
 			return null;
 	    }
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		if(StringUtils.isEmpty(expApply.getSearchDateFrom())) {
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.MONTH, -1);
+			expApply.setSearchDateFrom(sdf.format(cal.getTime()));
+		}
+		if(StringUtils.isEmpty(expApply.getSearchDateTo())) {
+			expApply.setSearchDateTo(sdf.format(new Date()));
+		}
 		
 		expApply.setMember_id(getSessionMemberId(request));
 		expApply.setHomepage_id(homepage.getHomepage_id());
 		
 		int cnt = expApplyService.expApplyListCount(expApply);
 		expApplyService.setPaging(model, cnt, expApply);
-		model.addAttribute("expUserApplyList", expApplyService.getExpApplyUserList(expApply));
+		model.addAttribute("expApplyUserList", expApplyService.getExpApplyUserList(expApply));
 		model.addAttribute("expApply", expApply);
 
-		return String.format(basePath, homepage.getFolder()) + "apply";
+		return String.format(basePath, homepage.getFolder()) + "applyList";
+	}
+	
+	@RequestMapping(value = {"/anonyApplyCheck.*"}, method = RequestMethod.GET)
+	public String annoyApplyCheck(Model model, ExpReservationApply expApply, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		int menu_idx = expApply.getMenu_idx();
+		
+		ExpReservationApply expApplyReset = new ExpReservationApply(); //초기화
+		expApplyReset.setHomepage_id(homepage.getHomepage_id());
+		expApplyReset.setMenu_idx(menu_idx);
+		model.addAttribute("expApply", expApplyReset);
+		return String.format(basePath, homepage.getFolder()) + "anonyApplyCheck";
+	}
+	
+	@RequestMapping(value = {"/anonyApplyList.*"}, method = RequestMethod.POST)
+	public String anonyApplyList(Model model, ExpReservationApply expApply, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+		
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("expApplyCert") != null) { //세션이 있으면
+			if ( ( StringUtils.isEmpty(  expApply.getMember_name()) || StringUtils.isEmpty(expApply.getMember_pw()) ) && request.getParameter("searchCheck") == null) { //새로 입력된 이름과 비밀번호 빈값체크 혹은 기간에 따른 검색일 땐 통과
+				session.removeAttribute("expApplyCert");
+				service.alertMessage("신청인 성명과 비밀번호를 입력해 주세요.", request, response);
+				return null;
+			}else {
+				String member_pw = "";
+				String searchDateFrom = "";
+				String searchDateTo = "";
+				if(expApply.getSearchDateFrom() != null) {
+					searchDateFrom = expApply.getSearchDateFrom();
+				}
+				if(expApply.getSearchDateTo() != null) {
+					searchDateTo = expApply.getSearchDateTo();
+				}
+				if(expApply.getMember_pw() != null) {
+					member_pw = CalculateHashUtils.calculateHash(expApply.getMember_pw());
+				}
+				String member_name = expApply.getMember_name();
+				
+				expApply = (ExpReservationApply)session.getAttribute("expApplyCert");
+				String member_pw_cert = expApply.getMember_pw();
+				String member_name_cert = expApply.getMember_name();
+				if( (member_pw.equals(member_pw_cert) && member_name.equals(member_name_cert)) || request.getParameter("searchCheck") != null) { //세션값과 새로 입력된 값 비교 (같으면)
+					setExpApply(expApply, homepage, searchDateFrom, searchDateTo);
+					
+					expApplyService.setPaging(model, expApplyService.expAnonyApplyListCount(expApply), expApply);
+					model.addAttribute("expAnonyApplyUserList", expApplyService.getExpAnonyApplyUserList(expApply));
+					model.addAttribute("expApply", expApply);
+					session.setAttribute("expApplyCert", expApply); //기존 신청자 세션 저장
+				}else { //세션값과 새로 입력된 값 다르면
+					expApply.setMember_pw(member_pw);
+					expApply.setMember_name(member_name);
+					
+					setExpApply(expApply, homepage, searchDateFrom, searchDateTo);
+					
+					int cnt = expApplyService.expAnonyApplyListCount(expApply);
+					if(cnt > 0) {
+						expApplyService.setPaging(model, cnt, expApply);
+						model.addAttribute("expAnonyApplyUserList", expApplyService.getExpAnonyApplyUserList(expApply));
+						model.addAttribute("expApply", expApply);
+						session.setAttribute("expApplyCert", expApply); //새로운 신청자 세션 저장
+					}else {
+						session.removeAttribute("expApplyCert");
+						service.alertMessage("신청건이 없습니다.", request, response);
+						return null;
+					}
+										
+				}
+			}
+    		
+		}else { //세션 저장된 값 없으면
+			if (StringUtils.isNotEmpty(expApply.getMember_name()) && StringUtils.isNotEmpty(expApply.getMember_pw())) {
+				String searchDateFrom = "";
+				String searchDateTo = "";
+				setExpApply(expApply, homepage, searchDateFrom, searchDateTo);
+				expApply.setMember_pw(CalculateHashUtils.calculateHash(expApply.getMember_pw()));
+	    		
+	    		int cnt = expApplyService.expAnonyApplyListCount(expApply);
+	    		if(cnt > 0) {
+	    			expApplyService.setPaging(model, cnt, expApply);
+	    			model.addAttribute("expAnonyApplyUserList", expApplyService.getExpAnonyApplyUserList(expApply));
+	    			model.addAttribute("expApply", expApply);
+	    			session.setAttribute("expApplyCert", expApply);
+	    		}else {
+	    			service.alertMessage("신청건이 없습니다.", request, response);
+	    			return null;
+	    		}
+	    	} else {
+	    		service.alertMessage("신청인 성명과 비밀번호를 입력해 주세요.", request, response);
+	    		return null;
+	    	}
+		}
+
+		return String.format(basePath, homepage.getFolder()) + "anonyApplyList";
+	}
+
+	private void setExpApply(ExpReservationApply expApply, Homepage homepage, String searchDateFrom, String searchDateTo) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		if(StringUtils.isEmpty(expApply.getSearchDateFrom()) ) {
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.MONTH, -1);
+			expApply.setSearchDateFrom(sdf.format(cal.getTime()));
+		}else if(!expApply.getSearchDateFrom().equals(searchDateFrom)) {
+			if(searchDateFrom.equals("")) {
+				Calendar cal = Calendar.getInstance();
+				cal.add(Calendar.MONTH, -1);
+				expApply.setSearchDateFrom(sdf.format(cal.getTime()));
+			}else {
+				expApply.setSearchDateFrom(searchDateFrom);
+			}
+		}
+
+		if(StringUtils.isEmpty(expApply.getSearchDateTo())) {
+			expApply.setSearchDateTo(sdf.format(new Date()));
+		}else if(!expApply.getSearchDateTo().equals(searchDateTo)) {
+			if(searchDateTo.equals("")) {
+				expApply.setSearchDateTo(sdf.format(new Date()));
+			}else {
+				expApply.setSearchDateTo(searchDateTo);
+			}
+		}
+		expApply.setHomepage_id(homepage.getHomepage_id());
 	}
 	
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
@@ -154,6 +295,9 @@ public class ExpReservationController extends BaseController {
 				return null;
 		    }
 			ValidationUtils.rejectIfEmpty(result, "member_name", "성명을 입력하세요.");
+			if("Y".equals(expApply.getMember_yn()) && !isLogin(request)) {
+				ValidationUtils.rejectIfEmpty(result, "member_pw", "비밀번호를 입력하세요.");
+			}
 			ValidationUtils.rejectIfEmpty(result, "member_phone", "연락처를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "member_email", "이메일을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "application_people", "신청인원을 입력하세요.");
@@ -177,7 +321,7 @@ public class ExpReservationController extends BaseController {
 					if(expApply.getMember_id() != null) {
 						if(expApplyService.checkExpApply(expApply) > 0) {
 							res.setValid(false);
-							res.setMessage("이미 신청 되었습니다.");
+							res.setMessage("이미 신청 하였습니다.");
 							return res;
 						}
 					}
@@ -186,7 +330,7 @@ public class ExpReservationController extends BaseController {
 	            if (expReservation.getTotal_people() > 0) {
 	               if (expReservation.getTotal_people() < total + expApply.getApplication_people()) {
 	                  res.setValid(false);
-                      res.setMessage("신청인원이 가득찼습니다.");
+                      res.setMessage("최대 가능 인원을 초과하였습니다.");
                       return res;
 	               }
 	            }
@@ -215,7 +359,7 @@ public class ExpReservationController extends BaseController {
 				if (expReservation.getTotal_people() > 0) {
 	               if (expReservation.getTotal_people() < total + expApply.getApplication_people()) {
 	                  res.setValid(false);
-                      res.setMessage("신청인원이 가득찼습니다.");
+                      res.setMessage("최대 가능 인원을 초과하였습니다.");
                       return res;
 	               }
 	            }
@@ -230,7 +374,7 @@ public class ExpReservationController extends BaseController {
 				res.setMessage("삭제 되었습니다.");
 			}
 			else if (expApply.getEditMode().equals("CANCEL")) {
-				expApplyService.modifyExpApplyState(expApply);
+				expApplyService.modifyExpApplyUserState(expApply);
 				res.setValid(true);
 				res.setMessage("취소 되었습니다.");
 			}

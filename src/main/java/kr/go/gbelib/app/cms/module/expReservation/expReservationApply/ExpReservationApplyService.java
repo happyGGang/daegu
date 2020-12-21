@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.whalesoft.framework.base.BaseService;
+import kr.co.whalesoft.framework.utils.CalculateHashUtils;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
 @Service
@@ -56,21 +57,15 @@ public class ExpReservationApplyService extends BaseService{
 
 	public int addExpApply(ExpReservationApply expApply) {
 		if(expApply.getMember_id() == null) {
-			expApply.setMember_id("");
-		}
-		if(expApply.getMember_id().equals("")) {
 			expApply.setMember_id("ANONYMOUS");
+		}
+		if(expApply.getMember_pw() != null) {
+			expApply.setMember_pw(CalculateHashUtils.calculateHash(expApply.getMember_pw()));
 		}
 		return dao.addExpApply(expApply);
 	}
 
 	public int modifyExpApply(ExpReservationApply expApply) {
-		if(expApply.getMember_id() == null) {
-			expApply.setMember_id("");
-		}
-		if(expApply.getMember_id().equals("")) {
-			expApply.setMember_id("ANONYMOUS");
-		}
 		return dao.modifyExpApply(expApply);
 	}
 
@@ -89,9 +84,25 @@ public class ExpReservationApplyService extends BaseService{
 	public List<ExpReservationApply> getExpApplyUserList(ExpReservationApply expApply) {
 		return dao.getExpApplyUserList(expApply);
 	}
+	
+	public int expAnonyApplyListCount(ExpReservationApply expApply) {
+		return dao.expAnonyApplyListCount(expApply);
+	}
+
+	public List<ExpReservationApply> getExpAnonyApplyUserList(ExpReservationApply expApply) {
+		return dao.getExpAnonyApplyUserList(expApply);
+	}
 
 	public int deleteExpProgram(ExpReservationApply apply) {
 		return dao.deleteExpProgram(apply);
+	}
+
+	public List<ExpReservationApply> getExpApplyUserCheckList(ExpReservationApply expApply) {
+		return dao.getExpApplyUserCheckList(expApply);
+	}
+
+	public int modifyExpApplyUserState(ExpReservationApply expApply) {
+		return dao.modifyExpApplyUserState(expApply);
 	}
 
 }

@@ -8,7 +8,7 @@
 $(function() {
 	$('#dialog-2').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
-		resizable: false,
+		resizable: true,
 		modal: true,
 	    open: function(){
 	        $('.ui-widget-overlay').addClass('custom-overlay');
@@ -158,9 +158,6 @@ $(function() {
 			<th>아이디(<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>
 				<form:input path="member_id" class="text" />
-				<div class="ui-state-highlight">
-					<em>* 해당 프로그램이 비회원 신청 가능할 때 아이디가 없다면 입력하지 않으셔도 됩니다.</em>
-				</div>
 			</td>
 		</tr>
 		<tr>

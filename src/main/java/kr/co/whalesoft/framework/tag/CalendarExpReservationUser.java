@@ -42,6 +42,7 @@ public class CalendarExpReservationUser extends BodyTagSupport {
 					e1.printStackTrace();
 				}
 				Date now = new Date();
+				int aTagAddResult = 0;
 				
 				if ( today.equals(exp.getReservation_date())) {
 					sb.append("<li title=\"" + exp.getProgram_name() + "\">");
@@ -50,14 +51,62 @@ public class CalendarExpReservationUser extends BodyTagSupport {
 					if(exp.getMember_yn().equals("Y")) {
 						sb.append("비회원 신청가능" + "<br/>");
 					}
-					if(now.compareTo(planDate) < 0) {
-						sb.append("<a href=\"#\" class=\"btn btn4\" id=\"apply\" keyValue=\"" + exp.getProgram_list_idx() + "\" keyValue2=\"" + exp.getReservation_date() + "\"><span>신청</span></a>");
+					if(now.compareTo(planDate) < 0) { //현재 날짜가 프로그램 날짜보다 이후면
+						if(expApplyList != null && expApplyList.size() > 0) { //사용자 신청 리스트가 있으면
+							for(int j = 0; j < expApplyList.size(); j++) {
+								ExpReservationApply expApply = expApplyList.get(j);
+								if(expApply.getReservation_date().equals(exp.getReservation_date())) {
+									sb.append("<a href=\"#\" class=\"btn btn3\" id=\"apply_edit\" keyValue=\"" + exp.getProgram_list_idx() + "\" keyValue2=\"" + exp.getReservation_date() + "\"><span>신청완료</span></a>");
+									aTagAddResult += 1; //해당 프로그램에 로그인한 사용자가 등록되어있음
+								}
+							}
+						}
+						if(exp.getReservation_type().equals("team")) {
+							if(exp.getEnable_number_of_team() <= exp.getApply_count()) {
+								if(aTagAddResult == 0) { //로그인한 사용자가 등록되어있지 않음
+									sb.append("<span class=\"btn btn5\">정원마감</span>");
+								}
+							}else {
+								if(exp.getTotal_people() <= exp.getApply_people_count()) {
+									if(aTagAddResult == 0) {
+										sb.append("<span class=\"btn btn5\">정원마감</span>");
+									}
+								}else {
+									if(aTagAddResult == 0) {
+										sb.append("<a href=\"#\" class=\"btn btn4\" id=\"apply\" keyValue=\"" + exp.getProgram_list_idx() + "\" keyValue2=\"" + exp.getReservation_date() + "\"><span>신청</span></a>");
+									}
+								}
+							}
+						}else if(exp.getReservation_type().equals("individual")) {
+							if(expApplyList != null && expApplyList.size() > 0) {
+								for(int j = 0; j < expApplyList.size(); j++) {
+									ExpReservationApply expApply = expApplyList.get(j);
+									if(expApply.getReservation_date().equals(exp.getReservation_date())) {
+										sb.append("<a href=\"#\" class=\"btn btn3\" id=\"apply_edit\" keyValue=\"" + exp.getProgram_list_idx() + "\" keyValue2=\"" + exp.getReservation_date() + "\"><span>신청완료</span></a>");
+										aTagAddResult += 1;
+									}
+								}
+							}
+							if(exp.getTotal_people() <= exp.getApply_count()) {
+								if(aTagAddResult == 0) {
+									sb.append("<span class=\"btn btn5\">정원마감</span>");
+								}
+							}else {
+								if(expApplyList != null && expApplyList.size() > 0) {
+									if(aTagAddResult == 0) {
+										sb.append("<a href=\"#\" class=\"btn btn4\" id=\"apply\" keyValue=\"" + exp.getProgram_list_idx() + "\" keyValue2=\"" + exp.getReservation_date() + "\"><span>신청</span></a>");
+									}
+								}
+							}
+						}
+						
 					} else {
 						sb.append("<span class=\"btn btn5\">신청마감</span>");
 					}
 					
 					sb.append("</li><br/>");
 				}
+				
 				
 			}
 		}
@@ -94,7 +143,6 @@ public class CalendarExpReservationUser extends BodyTagSupport {
 	public void setPlan_date(String plan_date) {
 		this.plan_date = plan_date;
 	}
-
 	public String getMode() {
 		return mode;
 	}
@@ -103,7 +151,7 @@ public class CalendarExpReservationUser extends BodyTagSupport {
 		this.mode = mode;
 	}
 
-	public List<ExpReservationApply> getAstApplyList() {
+	public List<ExpReservationApply> getExpApplyList() {
 		if (expApplyList != null) {
 			List<ExpReservationApply> arrayList = new ArrayList<ExpReservationApply>();
 			arrayList.addAll(this.expApplyList);
@@ -136,5 +184,4 @@ public class CalendarExpReservationUser extends BodyTagSupport {
 			this.calendarManageList.addAll(calendarManageList);
 		}
 	}
-	
 }

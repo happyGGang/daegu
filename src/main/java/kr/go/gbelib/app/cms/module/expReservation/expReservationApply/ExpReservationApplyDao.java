@@ -34,8 +34,16 @@ public interface ExpReservationApplyDao {
 
 	public List<ExpReservationApply> getExpApplyUserList(ExpReservationApply expApply);
 
+	public List<ExpReservationApply> getExpApplyUserCheckList(ExpReservationApply expApply);
+
 	public Integer totalExpApply(ExpReservationApply expApply);
 
 	public int deleteExpProgram(ExpReservationApply apply);
+
+	public int modifyExpApplyUserState(ExpReservationApply expApply);
+
+	public int expAnonyApplyListCount(ExpReservationApply expApply);
+
+	public List<ExpReservationApply> getExpAnonyApplyUserList(ExpReservationApply expApply);
 
 }

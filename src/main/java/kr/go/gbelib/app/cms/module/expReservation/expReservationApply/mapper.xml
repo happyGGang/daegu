@@ -22,6 +22,60 @@
 		${pagingTop}
 		SELECT
 			a.program_list_idx, b.reservation_idx, a.program_name, a.reservation_date, a.reservation_type,
+			a.member_yn, a.use_time, a.notice, a.homepage_id, a.usage_agreement,
+			a.total_people, a.enable_number_of_team, a.maximum_people_of_team, a.add_date,
+			(select count(*) FROM EXP_RESERVATION C where C.program_list_idx = A.program_list_idx AND C.cancel_yn = 'N' AND C.cancel_user_yn = 'N') as apply_count,
+			(select sum(C.application_people) FROM EXP_RESERVATION C where C.program_list_idx = A.program_list_idx AND cancel_yn = 'N' AND C.cancel_user_yn = 'N') as apply_people_count,
+			b.member_id, b.member_name, b.member_phone, b.application_people, b.approve_yn,
+			b.cancel_yn, b.cancel_user_yn, b.reference, b.add_date
+		FROM
+			EXP_PROGRAM_LIST a, EXP_RESERVATION b
+		WHERE
+			a.program_list_idx = b.program_list_idx
+		AND	a.homepage_id = b.homepage_id
+		AND	b.member_id = #{member_id}
+		<if test="searchDateFrom != null and searchDateFrom != ''">
+       		AND b.add_date >= TO_DATE(#{searchDateFrom}, 'YYYY-MM-DD')
+      	</if>
+      	<if test="searchDateTo != null and searchDateTo != ''">
+      		AND	b.add_date <![CDATA[<=]]> TO_DATE(#{searchDateTo}, 'YYYY-MM-DD')+1
+      	</if>
+		ORDER BY
+			a.reservation_date, a.use_time, b.add_date
+		${pagingBottom}
+	</select>
+	
+	<select id="getExpAnonyApplyUserList" resultType="kr.go.gbelib.app.cms.module.expReservation.expReservationApply.ExpReservationApply">
+		${pagingTop}
+		SELECT
+			a.program_list_idx, b.reservation_idx, a.program_name, a.reservation_date, a.reservation_type,
+			a.member_yn, a.use_time, a.notice, a.homepage_id, a.usage_agreement,
+			a.total_people, a.enable_number_of_team, a.maximum_people_of_team, a.add_date,
+			(select count(*) FROM EXP_RESERVATION C where C.program_list_idx = A.program_list_idx AND C.cancel_yn = 'N' AND C.cancel_user_yn = 'N') as apply_count,
+			(select sum(C.application_people) FROM EXP_RESERVATION C where C.program_list_idx = A.program_list_idx AND cancel_yn = 'N' AND C.cancel_user_yn = 'N') as apply_people_count,
+			b.member_name, b.member_phone, b.application_people, b.approve_yn, b.cancel_yn,
+			b.cancel_user_yn, b.reference, b.add_date
+		FROM
+			EXP_PROGRAM_LIST a, EXP_RESERVATION b
+		WHERE
+			a.program_list_idx = b.program_list_idx
+		AND	a.homepage_id = b.homepage_id
+		AND	b.member_name = #{member_name}
+		AND	b.member_pw = #{member_pw}
+		<if test="searchDateFrom != null and searchDateFrom != ''">
+       		AND b.add_date >= TO_DATE(#{searchDateFrom}, 'YYYY-MM-DD')
+      	</if>
+      	<if test="searchDateTo != null and searchDateTo != ''">
+      		AND	b.add_date <![CDATA[<=]]> TO_DATE(#{searchDateTo}, 'YYYY-MM-DD')+1
+      	</if>
+		ORDER BY
+			a.reservation_date, a.use_time, b.add_date
+		${pagingBottom}
+	</select>
+	
+	<select id="getExpApplyUserCheckList" resultType="kr.go.gbelib.app.cms.module.expReservation.expReservationApply.ExpReservationApply">
+		SELECT
+			a.program_list_idx, b.reservation_idx, a.program_name, a.reservation_date, a.reservation_type,
 			a.member_yn, a.use_time, a.homepage_id, b.member_id, b.member_name,
 			b.member_phone, b.application_people, b.approve_yn, b.cancel_yn, b.reference,
 			b.add_date
@@ -32,12 +86,11 @@
 		AND	a.homepage_id = b.homepage_id
 		AND	b.homepage_id = #{homepage_id}
 		AND	b.member_id = #{member_id}
-		<if test="search_date != null and search_date != ''">
-       	AND reservation_date = REPLACE(#{search_date}, '-', '')
-      	</if>
+		AND	b.cancel_yn = 'N'
+		AND	b.cancel_user_yn = 'N'
+      	AND	SUBSTR(a.reservation_date, 0, 6) = #{reservation_date}
 		ORDER BY
 			a.reservation_date, a.use_time, b.add_date
-		${pagingBottom}
 	</select>
 
 	<select id="getExpReservationOne" resultType="kr.go.gbelib.app.cms.module.expReservation.expReservationApply.ExpReservationApply">
@@ -122,7 +175,7 @@
 			use_time, notice, usage_agreement, homepage_id, enable_number_of_team,
 			total_people, maximum_people_of_team
 		FROM
-			EXP_PROGRAM_LIST
+			EXP_PROGRAM_LIST A
 		WHERE
 			program_list_idx = #{program_list_idx}
 	</select>
@@ -136,6 +189,7 @@
 			program_list_idx = #{program_list_idx}
 		AND	homepage_id = #{homepage_id}
 		AND	cancel_yn = 'N'
+		AND	cancel_user_yn = 'N'
 		<if test="reservation_idx > 0">
 		AND	reservation_idx != #{reservation_idx}
 		</if>
@@ -150,6 +204,7 @@
 			program_list_idx = #{program_list_idx}
 		AND	homepage_id = #{homepage_id}
 		AND	cancel_yn = 'N'
+		AND	cancel_user_yn = 'N'
 		<if test="reservation_idx > 0">
 		AND	reservation_idx != #{reservation_idx}
 		</if>
@@ -176,8 +231,30 @@
 		AND	a.homepage_id = b.homepage_id
 		AND	b.homepage_id = #{homepage_id}
 		AND	b.member_id = #{member_id}
-		<if test="search_date != null and search_date != ''">
-       	AND reservation_date = REPLACE(#{search_date}, '-', '')
+		<if test="searchDateFrom != null and searchDateFrom != ''">
+       		AND b.add_date >= TO_DATE(#{searchDateFrom}, 'YYYY-MM-DD')
+      	</if>
+      	<if test="searchDateTo != null and searchDateTo != ''">
+      		AND	b.add_date <![CDATA[<=]]> TO_DATE(#{searchDateTo}, 'YYYY-MM-DD')+1
+      	</if>
+	</select>
+	
+	<select id="expAnonyApplyListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			EXP_PROGRAM_LIST a, EXP_RESERVATION b
+		WHERE
+			a.program_list_idx = b.program_list_idx
+		AND	a.homepage_id = b.homepage_id
+		AND	b.homepage_id = #{homepage_id}
+		AND	b.member_name = #{member_name}
+		AND	b.member_pw = #{member_pw}
+		<if test="searchDateFrom != null and searchDateFrom != ''">
+       		AND b.add_date >= TO_DATE(#{searchDateFrom}, 'YYYY-MM-DD')
+      	</if>
+      	<if test="searchDateTo != null and searchDateTo != ''">
+      		AND	b.add_date <![CDATA[<=]]> TO_DATE(#{searchDateTo}, 'YYYY-MM-DD')+1
       	</if>
 	</select>
 	
@@ -185,15 +262,15 @@
 		INSERT INTO
 			EXP_RESERVATION
 		(
-			reservation_idx, program_list_idx, member_id, member_name, member_phone, 
-			member_email, application_people, reference, add_date, usage_agreement_yn,
-			approve_yn, cancel_yn, homepage_id
+			reservation_idx, program_list_idx, member_id, member_name, member_pw,
+			member_phone, member_email, application_people, reference, add_date,
+			usage_agreement_yn, approve_yn, cancel_yn, homepage_id
 		)
 		VALUES
 		(
-			(SELECT NVL(MAX(reservation_idx),0)+1 FROM EXP_RESERVATION), #{program_list_idx}, #{member_id}, #{member_name}, #{member_phone},
-			#{member_email}, #{application_people}, #{reference}, SYSDATE, #{usage_agreement_yn}, 
-			#{approve_yn}, #{cancel_yn}, #{homepage_id}
+			(SELECT NVL(MAX(reservation_idx),0)+1 FROM EXP_RESERVATION), #{program_list_idx}, #{member_id}, #{member_name}, #{member_pw},
+			#{member_phone}, #{member_email}, #{application_people}, #{reference}, SYSDATE,
+			#{usage_agreement_yn}, #{approve_yn}, #{cancel_yn}, #{homepage_id}
 		)
 	</insert>
 	
@@ -221,6 +298,17 @@
 			cancel_yn = #{cancel_yn},
 			modify_id = #{modify_id},
 			modify_date = SYSDATE
+		WHERE
+			reservation_idx = #{reservation_idx}
+		AND	homepage_id = #{homepage_id}
+	</update>
+	
+	<update id="modifyExpApplyUserState">
+		UPDATE
+			EXP_RESERVATION
+		SET
+			cancel_yn = 'Y',
+			cancel_user_yn = 'Y'
 		WHERE
 			reservation_idx = #{reservation_idx}
 	</update>

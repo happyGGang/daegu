@@ -8,7 +8,8 @@ public class ExpReservationApply extends PagingUtils{
 
 	private int reservation_idx;	//예약IDX
 	private int program_list_idx;	//프로그램목록IDX
-	private String member_id;	//사용자ID 
+	private String member_id;	//사용자ID
+	private String member_pw; //사용자 비밀번호
 	private String member_name;	//사용자 이름
 	private String member_phone;	//사용자 연락처
 	private String member_email;	//사용자 이메일
@@ -17,7 +18,8 @@ public class ExpReservationApply extends PagingUtils{
 	private Date add_date;	//예약신청일  
 	private String usage_agreement_yn = "N";	//이용동의 여부
 	private String approve_yn = "N";	//승인 여부
-	private String cancel_yn = "N";	//취소 여부
+	private String cancel_yn = "N";	//관리자 취소 여부
+	private String cancel_user_yn = "N"; //취소 여부
 	private Date modify_date;	//수정일시
 	private String modify_id;	//수정ID
 	private String expApply_id;
@@ -42,6 +44,12 @@ public class ExpReservationApply extends PagingUtils{
 	private int totalPeople; //현재까지 총 참여자수
 	private int enable_number_of_team;
 	private int maximum_people_of_team;
+	
+	private int apply_count;
+	private int apply_people_count;
+	
+	private String searchDateFrom;
+	private String searchDateTo;
 	
 	public ExpReservationApply() {};
 
@@ -120,6 +128,12 @@ public class ExpReservationApply extends PagingUtils{
 	}
 	public void setCancel_yn(String cancel_yn) {
 		this.cancel_yn = cancel_yn;
+	}
+	public String getCancel_user_yn() {
+		return cancel_user_yn;
+	}
+	public void setCancel_user_yn(String cancel_user_yn) {
+		this.cancel_user_yn = cancel_user_yn;
 	}
 	public Date getModify_date() {
 		return modify_date;
@@ -246,5 +260,35 @@ public class ExpReservationApply extends PagingUtils{
 	}
 	public void setMaximum_people_of_team(int maximum_people_of_team) {
 		this.maximum_people_of_team = maximum_people_of_team;
+	}
+	public String getMember_pw() {
+		return member_pw;
+	}
+	public void setMember_pw(String member_pw) {
+		this.member_pw = member_pw;
+	}
+	public int getApply_count() {
+		return apply_count;
+	}
+	public void setApply_count(int apply_count) {
+		this.apply_count = apply_count;
+	}
+	public int getApply_people_count() {
+		return apply_people_count;
+	}
+	public void setApply_people_count(int apply_people_count) {
+		this.apply_people_count = apply_people_count;
+	}
+	public String getSearchDateFrom() {
+		return searchDateFrom;
+	}
+	public void setSearchDateFrom(String searchDateFrom) {
+		this.searchDateFrom = searchDateFrom;
+	}
+	public String getSearchDateTo() {
+		return searchDateTo;
+	}
+	public void setSearchDateTo(String searchDateTo) {
+		this.searchDateTo = searchDateTo;
 	}
 }

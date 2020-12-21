@@ -36,7 +36,8 @@
 			program_list_idx, member_yn, reservation_date, reservation_type, member_yn,
 			program_name, use_time, notice, usage_agreement, total_people,
 			enable_number_of_team, maximum_people_of_team, add_date, add_id, homepage_id,
-			(select count(*) from EXP_RESERVATION B where B.program_list_idx = A.program_list_idx) as apply_count
+			(select count(*) FROM EXP_RESERVATION B where B.program_list_idx = A.program_list_idx AND B.cancel_yn = 'N' AND B.cancel_user_yn = 'N') as apply_count,
+			(select sum(C.application_people) FROM EXP_RESERVATION C where C.program_list_idx = A.program_list_idx AND cancel_yn = 'N' AND C.cancel_user_yn = 'N') as apply_people_count
 		FROM
 			EXP_PROGRAM_LIST A
 		WHERE
