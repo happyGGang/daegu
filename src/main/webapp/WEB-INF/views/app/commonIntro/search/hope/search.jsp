@@ -61,17 +61,17 @@ $(document).ready(function() {
 						<div class="thumb">
 							<c:choose>
 							<c:when test="${empty i.image }">
-								<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" alt="${i.title}">
+								<img src="/resources/common/img/noimg-gall.png" alt="${fn:replace(fn:replace(i.title, '</b>', ''), '<b>', '')}" alt="${fn:replace(fn:replace(i.title, '</b>', ''), '<b>', '')}">
 							</c:when>
 							<c:otherwise>
-								<img src="${i.image}" alt="${i.title}" title="${i.title}">
+								<img src="${i.image}" alt="${fn:replace(fn:replace(i.title, '</b>', ''), '<b>', '')}" title="${fn:replace(fn:replace(i.title, '</b>', ''), '<b>', '')}">
 							</c:otherwise>
 							</c:choose>
 						</div>
 						<div class="box">
 							<div class="item">
 								<div class="bif">
-									<a href="#" class="name" target="_blank" style="cursor: default;" onclick="return false;" alt="${i.title}" title="${i.title}">${fn:substring(i.title, 0, 30)}<c:if test="${fn:length(i.title) > 30}">...</c:if></a>
+									<a href="#" class="name" target="_blank" style="cursor: default;" onclick="return false;" alt="${fn:escapeXml(fn:replace(fn:replace(i.title, '</b>', ''), '<b>', ''))}" title="${fn:escapeXml(fn:replace(fn:replace(i.title, '</b>', ''), '<b>', ''))}">${fn:substring(fn:escapeXml(fn:replace(fn:replace(i.title, '</b>', ''), '<b>', '')), 0, 30)}<c:if test="${fn:length(fn:escapeXml(fn:replace(fn:replace(i.title, '</b>', ''), '<b>', ''))) > 30}">...</c:if></a>
 									<ul class="con2">
 										<li>저자 : ${fn:substring(i.author, 0, 20)}<c:if test="${fn:length(i.author) > 20}">...</c:if></li>
 										<li>발행처 : ${fn:substring(i.publisher, 0, 20)}<c:if test="${fn:length(i.publisher) > 20}">...</c:if></li>
@@ -87,7 +87,7 @@ $(document).ready(function() {
 											<c:otherwise>
 										<li class="button" style="background: none;">
 											<a class="btn btn1 request" index="${status.index}" href="#">선택하기</a>
-											<span data="${i.title}//${i.author}//${i.publisher}//${fn:substring(i.pubdate,0,4)}//${i.isbn13}//${i.price}"></span>
+											<span data="${fn:replace(fn:replace(i.title, '</b>', ''), '<b>', '')}//${i.author}//${i.publisher}//${fn:substring(i.pubdate,0,4)}//${i.isbn13}//${i.price}"></span>
 										</li>
 											</c:otherwise>
 										</c:choose>
