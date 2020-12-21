@@ -94,6 +94,10 @@ $(function() {
 		$('div#libraryList input:checkbox').prop('checked', $(this).prop('checked'));
 	});
 
+	if ('${fn:escapeXml(homepage.context_path)}' == 'junggu') {
+		$('#checkAll').click();
+	}
+
 	$('a#addMyLib').on('click', function(e) {
 		e.preventDefault();
 		var len = $('input.checkBook:checked').length;
