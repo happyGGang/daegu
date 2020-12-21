@@ -74,7 +74,7 @@ $(document).ready(function() {
 									<a href="#" class="name" target="_blank" style="cursor: default;" onclick="return false;" alt="${i.title}" title="${i.title}">${fn:substring(i.title, 0, 30)}<c:if test="${fn:length(i.title) > 30}">...</c:if></a>
 									<ul class="con2">
 										<li>저자 : ${fn:substring(i.author, 0, 20)}<c:if test="${fn:length(i.author) > 20}">...</c:if></li>
-										<li>출판사 : ${fn:substring(i.publisher, 0, 20)}<c:if test="${fn:length(i.publisher) > 20}">...</c:if></li>
+										<li>발행처 : ${fn:substring(i.publisher, 0, 20)}<c:if test="${fn:length(i.publisher) > 20}">...</c:if></li>
 										<li>출판일 : ${i.pubdate}</li>
 										<li>ISBN : ${i.isbn13}</li>
 										<li>가격 : ${i.price}</li>

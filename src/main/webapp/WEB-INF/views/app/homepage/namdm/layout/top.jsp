@@ -55,6 +55,8 @@
 					<c:otherwise>
 						<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=69">통합허브시스템 로그인</a>
 						<span class="txt-bar"></span>
+						<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=73">통합회원인증</a>
+						<span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=70">회원가입</a>
 					</c:otherwise>
 				</c:choose>

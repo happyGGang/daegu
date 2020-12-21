@@ -44,7 +44,7 @@
 .popZone .cont .bx-start { bottom:5px;right:51px;background-position:-100px 0; }
 .popZone .cont .bx-stop  { bottom:5px;right:51px;background-position:-100px 0;}
 
-.calendar-box {box-sizing:border-box;padding-top:30px;}
+.calendar-box {box-sizing:border-box;padding-top:15px;}
 #calendar2 .calendar-info {text-align:right;}
 #calendar2 .calendar-info span {display:inline-block;padding-left:7px;font-size:13px;}
 #calendar2 .calendar-info span.hu {background:url('/resources/homepage/duryu/img/red-dot.png') no-repeat left center;}
@@ -114,7 +114,7 @@
 #calendar2 .inBox1 .bt-controls .bt-prev{background:url('/resources/homepage/duryu/img/libCloseBtl.png') no-repeat center center}
 #calendar2 .box{margin-left:0}
 #calendar2 dl{padding:3px 0}
-.calendarLibraryInfo {text-align:center;background:#f6f6f6;padding:12px 0;border-radius:4px;margin-top:5px;font-weight:bold;}
+.calendarLibraryInfo {position:absolute;bottom:-70px;font-size:14px;text-align:left;background:#f6f6f6;padding:12px 25px;border-radius:4px;margin-top:5px;font-weight:bold;}
 
 
 .main2 .qmenu {box-sizing:border-box;overflow:hidden;height:150px;text-align:center;}
@@ -201,6 +201,8 @@ ul.book_photo li a span.con-author {display:none;}
 	.webBr {display:none;}
 
 	.main4{width:calc(100% - 40px);margin:0 auto;}
+
+	.calendarLibraryInfo{position:relative;bottom:auto;}
 }
 
 @media all and (max-width:768px){

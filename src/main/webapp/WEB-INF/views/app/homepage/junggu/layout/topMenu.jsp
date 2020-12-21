@@ -37,7 +37,7 @@
 							</a>
 						</c:when>
 						<c:otherwise>
-							<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=4" class="btn1">
+							<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=69" class="btn1">
 								<i class="fa fa-lock"></i>
 								<span style='letter-spacing:-1.5px;'>로그인</span>
 							</a>
@@ -45,7 +45,7 @@
 								<i class="fa fa-user-plus"></i>
 								<span style='letter-spacing:-1.5px;'>회원가입</span>
 							</a>
-							<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=8" class="btn2">
+							<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=73" class="btn2">
 								<i class="fa fa-user-plus"></i>
 								<span style='letter-spacing:-1.5px;'>통합인증</span>
 							</a>

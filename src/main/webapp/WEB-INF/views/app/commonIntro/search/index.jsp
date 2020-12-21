@@ -771,6 +771,16 @@ $(function() {
 
 			</c:when>
 			<c:otherwise>
+
+			<c:if test="${homepage.context_path eq '228' && param.menu_idx eq '203'}">
+			<div  class="tabmenu">
+				<ul>
+					<li class="active"><a href="/228/intro/search/index.do?menu_idx=203&&shelfCode=AA55&booktype=BOOKANDNONBOOK#search_result">인물도서목록</a> </li>
+					<li><a href="/228/board/index.do?menu_idx=204&manage_idx=425">인물소개</a> </li>
+				</ul>
+			</div>
+			</c:if>
+
 				<div class="search-form">
 
 					<!-- 검색하기_일반 -->
@@ -797,22 +807,16 @@ $(function() {
 										<form:checkbox path="libraryCodes" value="BR" class="libCheck lib_BR" label="달성군립도서관"/>
 									</li>
 									<li>
-										<form:checkbox path="libraryCodes" value="FR" class="libCheck lib_FR" label="가창면 참꽃작은도서관"/>
-									</li>
-									<li>
-										<form:checkbox path="libraryCodes" value="GA" class="libCheck lib_GA" label="화원읍 작은도서관"/>
+										<form:checkbox path="libraryCodes" value="GA" class="libCheck lib_GA" label="화원읍작은도서관"/>
 									</li>
 									<li>
 										<form:checkbox path="libraryCodes" value="GB" class="libCheck lib_GB" label="논공읍작은도서관"/>
 									</li>
 									<li>
-										<form:checkbox path="libraryCodes" value="GC" class="libCheck lib_GC" label="구지면작은도서관"/>
+										<form:checkbox path="libraryCodes" value="HG" class="libCheck lib_HG" label="다사읍작은도서관"/>
 									</li>
 									<li>
 										<form:checkbox path="libraryCodes" value="GD" class="libCheck lib_GD" label="다사읍서재작은도서관"/>
-									</li>
-									<li>
-										<form:checkbox path="libraryCodes" value="GE" class="libCheck lib_GE" label="하빈면작은도서관"/>
 									</li>
 									<li>
 										<form:checkbox path="libraryCodes" value="GF" class="libCheck lib_GF" label="유가읍작은도서관"/>
@@ -821,13 +825,19 @@ $(function() {
 										<form:checkbox path="libraryCodes" value="GH" class="libCheck lib_GH" label="옥포읍작은도서관"/>
 									</li>
 									<li>
-										<form:checkbox path="libraryCodes" value="FJ" class="libCheck lib_FJ" label="달성군청도서관"/>
+										<form:checkbox path="libraryCodes" value="FR" class="libCheck lib_FR" label="가창면참꽃작은도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="GE" class="libCheck lib_GE" label="하빈면작은도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="GC" class="libCheck lib_GC" label="구지면작은도서관"/>
 									</li>
 									<li>
 										<form:checkbox path="libraryCodes" value="FN" class="libCheck lib_FN" label="달성군청소년센터"/>
 									</li>
 									<li>
-										<form:checkbox path="libraryCodes" value="HG" class="libCheck lib_HG" label="다사읍작은도서관"/>
+										<form:checkbox path="libraryCodes" value="FJ" class="libCheck lib_FJ" label="달성군청도서관"/>
 									</li>
 								</ul>
 							</div>
@@ -1294,7 +1304,7 @@ $(function() {
 
 											<p><font style="color:#5e5e5e;">저자</font> : ${i.AUTHOR}</p>
 											<p><font style="color:#5e5e5e">발행처</font> : ${i.PUBLISHER}, ${i.PUB_YEAR}</p>
-											<p><font style="color:#5e5e5e">소장도서관</font> : <span style="color:#ff0000;font-weight:bold">${i.LIB_NAME}</span> / <font style="color:#5e5e5e">소장위치</font> : <span style="font-weight:800;">${i.SHELF_LOC_NAME}</span></p>
+											<p><font style="color:#5e5e5e">소장처</font> : <span style="color:#ff0000;font-weight:bold">${i.LIB_NAME}</span> / <font style="color:#5e5e5e">자료실</font> : <span style="font-weight:800;">${i.SHELF_LOC_NAME}</span></p>
 											<p><font style="color:#5e5e5e">청구기호</font> : ${i.CALL_NO}</p>
 											<p><font style="color:#5e5e5e">대출가능여부</font> :
 												<!-- 대출가능 여부 [START] -->
@@ -1498,11 +1508,11 @@ $(function() {
 												<font style="color:#5e5e5e">매체구분</font> : ${i.MEDIA_NAME}
 
 												<br/>
-												<font style="color:#5e5e5e">소장도서관 </font> : <span style="color:#ff0000;font-weight:bold">${i.LIB_NAME}</span>
+												<font style="color:#5e5e5e">소장처 </font> : <span style="color:#ff0000;font-weight:bold">${i.LIB_NAME}</span>
 
 												<br class="mobileBr"/>
 												<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
-												<font style="color:#5e5e5e">소장위치</font> : <span style="font-weight:800;">${i.SHELF_LOC_NAME}</span>
+												<font style="color:#5e5e5e">자료실</font> : <span style="font-weight:800;">${i.SHELF_LOC_NAME}</span>
 
 												<br class="mobileBr"/>
 												<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>

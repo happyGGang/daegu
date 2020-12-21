@@ -284,7 +284,8 @@ Date.prototype.format = function(f) {
 	</div>
 
 	<div class="calendarLibraryInfo">
-		운영시간  07:00 ~ 22:00
+		운영시간 - 09:00 ~ 18:00<br />
+		휴관일 - 토,일요일 및 법정공휴일
 	</div>
 </div>
 

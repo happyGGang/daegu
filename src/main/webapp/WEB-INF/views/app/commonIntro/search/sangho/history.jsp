@@ -4,17 +4,17 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
 <script type="text/javascript">
-$(function() {
+	$(function() {
 
-	//페이징
-	$('div#board_paging a').on('click', function(e) {
-		$('#viewPage').attr('value', $(this).attr('keyValue'));
-		var param = serializeCustom($('form#librarySearch'));
-		doGetLoad('history.do', param);
-		e.preventDefault();
+		//페이징
+		$('div#board_paging a').on('click', function(e) {
+			$('#viewPage').attr('value', $(this).attr('keyValue'));
+			var param = serializeCustom($('form#librarySearch'));
+			doGetLoad('history.do', param);
+			e.preventDefault();
+		});
+
 	});
-
-});
 </script>
 <!-- contents-title-->
 <div id="contents-title">
@@ -23,62 +23,70 @@ $(function() {
 <!-- /contents-title-->
 
 <form:form modelAttribute="librarySearch" action="index.do" method="get">
-<form:hidden path="viewPage"/>
-<div class="book-list">
+	<form:hidden path="viewPage"/>
+	<div class="book-list">
 
-	<c:if test="${fn:length(sanghoHistory) < 1 }"> <h3>상호대차신청 내역이 없습니다.</h3></c:if>
+		<c:if test="${fn:length(sanghoHistory) < 1 }"> <h3>상호대차신청 내역이 없습니다.</h3></c:if>
 
-	<c:forEach items="${sanghoHistory}" var="i" varStatus="status">
-	<div class="row">
-		<div class="box">
-			<div class="item">
-				<div class="bif">
-					<div class="top">
-						<div class="b-title">
-							<div class="box"><a href="" class="name">${i.TITLE_INFO}</a></div><!-- 도서명 -->
+		<c:forEach items="${sanghoHistory}" var="i" varStatus="status">
+			<div class="row">
+				<div class="box">
+					<div class="item">
+						<div class="bif">
+							<div class="top">
+								<div class="b-title">
+									<div class="box"><a href="" class="name">${i.TITLE_INFO}</a></div><!-- 도서명 -->
+								</div>
+								<div class="control">
+
+								</div>
+							</div>
+							<p class="info"><em>저자 : ${i.AUTHOR_INFO}</em> <span>/</span> <em>출판사 : ${i.PUB_INFO}</em> </p><!-- 저자 -->
 						</div>
-						<div class="control">
-
+						<div class="bci">
+							<table summary="신청정보">
+								<tbody>
+								<tr>
+									<th>제공도서관</th>
+									<td>${i.HOLD_LIB_NAME}</td>
+								</tr>
+								<tr>
+									<th>대출도서관</th>
+									<td>${i.LOAN_LIB_NAME}</td>
+								</tr>
+								<tr>
+									<th>상태</th>
+									<td>${i.TRANSACTION_CODE_NAME}</td>
+								</tr>
+								<tr>
+									<th>대출만료일</th>
+									<td>${i.RETURN_EXPIRE_DATE}</td>
+								</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
-					<p class="info"><em>저자 : ${i.AUTHOR_INFO}</em> <span>/</span> <em>출판사 : ${i.PUB_INFO}</em> </p><!-- 저자 -->
-				</div>
-				<div class="bci">
-					<table summary="신청정보">
-						<tbody>
-							<tr>
-								<th>대출일</th>
-								<td>${i.LOAN_DATE}</td>
-							</tr>
-							<tr>
-								<th>상태</th>
-								<td>${i.SEND_REJECT_REASON}</td>
-							</tr>
-						</tbody>
-					</table>
 				</div>
 			</div>
-		</div>
-	</div>
-	</c:forEach>
+		</c:forEach>
 
-	<div id="board_paging" class="dataTables_paginate">
-		<c:if test="${paging.firstPageNum > 0}">
-			<a href="" class="paginate_button previous" keyValue="${paging.firstPageNum}">처음</a>
-		</c:if>
-		<c:if test="${paging.prevPageNum > 0}">
-			<a href="" class="paginate_button previous" keyValue="${paging.prevPageNum}">이전</a>
-		</c:if>
-		<span>
+		<div id="board_paging" class="dataTables_paginate">
+			<c:if test="${paging.firstPageNum > 0}">
+				<a href="" class="paginate_button previous" keyValue="${paging.firstPageNum}">처음</a>
+			</c:if>
+			<c:if test="${paging.prevPageNum > 0}">
+				<a href="" class="paginate_button previous" keyValue="${paging.prevPageNum}">이전</a>
+			</c:if>
+			<span>
 			<c:forEach var="i" varStatus="status" begin="${paging.startPageNum}" end="${paging.endPageNum}">
-			<c:choose>
-			<c:when test="${i eq paging.viewPage}">
-				<a href="" class="paginate_button current" keyValue="${i}">${i}</a>
-			</c:when>
-			<c:otherwise>
-				<a href="" class="paginate_button" keyValue="${i}">${i}</a>
-			</c:otherwise>
-			</c:choose>
+				<c:choose>
+					<c:when test="${i eq paging.viewPage}">
+						<a href="" class="paginate_button current" keyValue="${i}">${i}</a>
+					</c:when>
+					<c:otherwise>
+						<a href="" class="paginate_button" keyValue="${i}">${i}</a>
+					</c:otherwise>
+				</c:choose>
 			</c:forEach>
 			<c:if test="${paging.nextPageNum > 0}">
 				<a href="" class="paginate_button next" keyValue="${paging.nextPageNum}">다음</a>
@@ -87,7 +95,7 @@ $(function() {
 				<a href="" class="paginate_button next" keyValue="${paging.totalPageCount}">맨끝</a>
 			</c:if>
 		</span>
-	</div>
+		</div>
 
-</div>
+	</div>
 </form:form>

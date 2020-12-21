@@ -100,7 +100,7 @@ input[type="checkbox"]:focus {outline: 1px solid red;}
 					<form:select path="loan_month" id="loan_month_edit" cssClass="selectmenu"></form:select>
 					<div class="ui-state-highlight">
 						<i class="fa fa-question-circle"></i>
-						<em>원화꾸러미는 매달 26일(주말 공휴일인경우, 그 전날) 자동 반송 요청됩니다. 미리 반납 준비를 해주시기 바랍니다.</em>
+						<em>원화꾸러미는 매달 26일(주말, 공휴일인 경우, 그 전날) 다음 기관으로 발송해주시기 바랍니다. </em>
 					</div>
 				</td>
 			</tr>

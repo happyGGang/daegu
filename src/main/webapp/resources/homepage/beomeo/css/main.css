@@ -20,12 +20,12 @@ justify-content: center;-webkit-box-align: center;-ms-flex-align: center;-webkit
 
 #main0 .main-visual .search-area {position:absolute;top:52%;left:0;width:100%;text-align:center;z-index:99999;background:transparent;}
 #main0 .main-visual .search-area .main-box {position:relative;width:1260px;margin:0 auto;text-align:left;}
-#main0 .main-visual .search-area .main-box .search-box {position:relative;width:60%;border:3px solid #fff;}
+#main0 .main-visual .search-area .main-box .search-box {position:relative;width:60%;border:3px solid #fff;background:rgba(255,255,255, 0.5);}
 #main0 .main-visual .search-area .main-box fieldset{position:relative;overflow:hidden;}
 #main0 .main-visual .search-area .main-box legend {background:#21409a;color:#fff;}
 #main0 .main-visual .search-area .main-box select.search_type {position:absolute;left:0;top:0;height:60px;line-height:60px;font-size:17px;color:#f89911;font-weight:bold;text-align:left;padding:0 30px;border:0;border-radius:0;background:url('../img/search-arrow.png') no-repeat 95% 50%;-webkit-appearance: none; -moz-appearance: none;appearance: none;}
 #main0 .main-visual .search-area .main-box select.search_type::-ms-expand { display:none; }
-#main0 .main-visual .search-area .main-box input {border:0;background:rgba(255,255,255, 0.5);width:100%;padding-left:30px;font-size:18px;color:#000;box-sizing:border-box;}
+#main0 .main-visual .search-area .main-box input {border:0;background:none;width:90%;padding-left:30px;font-size:18px;color:#000;box-sizing:border-box;}
 #main0 .main-visual .search-area .main-box input {height:60px;line-height:60px;}
 #main0 .main-visual .search-area .main-box input::placeholder{color:#000;}
 #main0 .main-visual .search-area .main-box button {height:60px;line-height:60px;}
@@ -56,7 +56,7 @@ justify-content: center;-webkit-box-align: center;-ms-flex-align: center;-webkit
 #main1 .notice-box > .con li {padding:1px 0;}
 #main1 .notice-box > .con li a {position:relative;display:block;box-sizing:border-box;padding:6px 100px 6px 65px;position: relative;word-break:break-all;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;font-size:16px;letter-spacing:-0.5px;}
 #main1 .notice-box > .con li a em {text-align:left;color:#fff;text-decoration:none;font-style:normal;color:#333333;}
-#main1 .notice-box > .con li a span.sulib0001 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:5px 13px;text-align:center;background:#00d3ec;color:#fff;border-radius:5px;}
+#main1 .notice-box > .con li a span.sulib001 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:5px 13px;text-align:center;background:#00d3ec;color:#fff;border-radius:5px;}
 #main1 .notice-box > .con li a span.date {position:absolute;right:10px;letter-spacing:0;color:#999999;font-size:14px;}
 .btn-more-more {position:absolute;right:20px;top:15px;font-size:0;width:14px;height:14px;background:url('../img/more-bbbbbbbtn.png') no-repeat 0 0;}
 
@@ -104,7 +104,7 @@ justify-content: center;-webkit-box-align: center;-ms-flex-align: center;-webkit
 .cal-func2 b.date {color:#fff;font-size:24px;font-weight:bold;}
 #calendar2 .cal-tbl {margin-top:10px;text-align:center;}
 #calendar2 .cal-tbl thead th {width:14%;height:40px;line-height:40px;color:#fff;font-size:14px;font-weight:normal;text-align:center;}
-#calendar2 .cal-tbl td {font-size:12px;padding:1% 0;;text-align:center;white-space:nowrap}
+#calendar2 .cal-tbl td {font-size:12px;padding:0;text-align:center;white-space:nowrap}
 #calendar2 .cal-tbl td div{margin:0 10%;width:20px;height:40px;line-height:40px;font-size:15px;margin:0 auto;color:#fff;font-family:'Verdana';}
 #calendar2 .cal-tbl td a {display:block;border-radius:100%}
 #calendar2 .cal-tbl td a.type-r{background:url('/resources/homepage/duryu/img/blue-dot2.png') no-repeat center bottom;#0080f2;color:#0080f2}
@@ -415,13 +415,13 @@ justify-content: center;-webkit-box-align: center;-ms-flex-align: center;-webkit
 	.mobileBr {display:block;}
 	.br650 {display:block;}
 	#main0 .main-visual .mvBtn_wp{top:35%;}
-	#main0 .main-visual .mvBtn_wp .mvBtn {width:100%;}
+	#main0 .main-visual .mvBtn_wp .mvBtn {width:100%;margin-top:50px;}
 	#main1 .calendar-box {height:auto;}
 	#calendar2 .cal-bord {float:none;width:100%;margin:0;height:370px;padding:15px;}
 	#calendar2 .planView {float:none;width:100%;margin:0;height:370px;overflow-y:scroll;background:#fff;}
 	#main1 .popupzone-box {margin:20px 0 0 0;}
 	#foot_section .mFooter .top .overflow-x {overflow-x:scroll;}
-	#foot_section .mFooter .top .info {text-align:center;padding:15px 0;width:700px;}
+	#foot_section .mFooter .top .info {text-align:center;padding:15px 0;width:800px;}
 	#foot_section .mFooter .top .site_link {position:static;text-align:Center;}
 }
 

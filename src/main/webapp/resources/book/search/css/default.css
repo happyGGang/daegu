@@ -382,6 +382,7 @@ transition : all .3s ease}
 .search-wrap .search-results .textType .row .item .stat span{display:inline-block;zoom:1;*display:inline}
 .search-wrap .search-results .textType .row .bci{clear:both;padding:15px 0 0}
 .search-wrap .search-results .row .item p .mobileBr {display:none}
+.search-wrap .search-results .row .item p .pcBr {display:block}
 
 #search_detail {margin-top:0;position:relative;width:100%;}
 #search_detail .table_gray {border-collapse:collapse;border:0;font-size:1em;margin:5px 0 20px;width:100%;}
@@ -485,6 +486,7 @@ a.bBtn:hover {background:#0961ce}
 	.sview .sinfo{padding-left:3%;padding-right:3%}
 	a.bBtn {width:49%;float:none;}
 	.search-wrap .search-results .row .item p .mobileBr {display:block}
+	.search-wrap .search-results .row .item p .pcBr {display:none}
 	.webGuideLine {display:none;}
 	.search_result .result-count-library li a {font-size:13px;font-weight:normal}
 }
@@ -610,6 +612,20 @@ textarea.textArea {width: 100%;height: 200px;border-top: 1px solid;}
 .kdcBookList .bookListz .tit, .kdcBookList .bookListz .author {font-size:13px;}
 
 
+.kdcBookList2 {padding:0 0 30px 0;}
+.kdcBookList2 > li {overflow:hidden; position:relative; padding:15px 0 10px 0; border-bottom:1px solid #dfdfdf;}
+.kdcBookList2 .btnMore {position:absolute; top:15px; right:0; width:10px; height:10px; padding:5px; border:1px solid #d9d9d9; background:#fff;}
+.kdcBookList2 .kdcTitle {display:block; margin-bottom:8px; font-size:1.154em;}
+.kdcBookList2 .bookListz {display:block;overflow:hidden;padding:18px 0;}
+.kdcBookList2 .bookListz > li {float:left; width:25%; text-align:center; margin-bottom:18px;}
+.kdcBookList2 .bookListz .thumb {position:relative; max-width:160px; margin:0 auto 5px;}
+.kdcBookList2 .bookListz .thumb .img {display:block; width:160px; height:217px; border:1px solid #969696;}
+.kdcBookList2 .bookListz .thumb .img img {width:100%;height:100%;}
+.kdcBookList2 .bookListz .tit, 
+.kdcBookList2 .bookListz .author {display:block; overflow:hidden; margin:0; text-overflow:ellipsis; white-space:nowrap; word-break:normal;text-align:center;}
+.kdcBookList2 .bookListz .tit {font-size:14px;font-weight:bold;} 
+.kdcBookList2 .bookListz .author {font-size:13px;}
+
 @media all and (max-width:1000px){
 	.search-wrap .smain .ws-filter{display:none}
 	.ws-filter-top{display:inline}
@@ -633,6 +649,12 @@ textarea.textArea {width: 100%;height: 200px;border-top: 1px solid;}
 
 	.search-form .detail_search .section dl dd input.text-area{width:95.5%;}
 	.search-wrap .search-results .row .bci {font-size:15px;}
+
+	.kdcBookList2 .bookListz > li {float:left; width:25%; text-align:center; margin-bottom:18px;}
+	.kdcBookList2 .bookListz .thumb {position:relative; max-width:100px; margin:0 auto 5px;}
+	.kdcBookList2 .bookListz .thumb .img {display:block; width:100px; height:147px; border:1px solid #969696;}
+	.kdcBookList2 .bookListz .tit {font-size:13px;letter-spacing:-1.5px;} 
+	.kdcBookList2 .bookListz .author {font-size:12px;}
 }
 
 @media all and (max-width:690px){
@@ -658,4 +680,5 @@ textarea.textArea {width: 100%;height: 200px;border-top: 1px solid;}
 	#search_detail .table_gray th, #search_detail .table_gray td {font-size:12px}
 	.bbs-result {font-size:13px;}
 	.kdcBookList .bookListz > li {width:50%;}
+	.kdcBookList2 .bookListz > li {width:50%;}
 }

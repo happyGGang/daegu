@@ -417,11 +417,10 @@ $(function() {
 													<p>
 													<font style="color:#5e5e5e">저자</font> : ${i.AUTHOR}<br class="mobileBr"/>
 													<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
-													<font style="color:#5e5e5e">출판정보</font> : ${i.PUBLISHER}, ${i.PUB_YEAR}<br class="mobileBr"/>
-													<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+													<font style="color:#5e5e5e">출판정보</font> : ${i.PUBLISHER}, ${i.PUB_YEAR}<br class="mobileBr pcBr"/>
 													<font style="color:#5e5e5e">청구기호</font> : ${i.CALL_NO}<br class="mobileBr"/>
 													<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
-													<font style="color:#5e5e5e">등록번호</font> : ${i.REG_NO}<br/><font style="color:#5e5e5e">소장도서관</font> : <span style="color:#ff0000;font-weight:bold">${i.LIB_NAME}</span><br class="mobileBr"/>
+													<font style="color:#5e5e5e">등록번호</font> : ${i.REG_NO}<br/><font style="color:#5e5e5e">소장처</font> : <span style="color:#ff0000;font-weight:bold">${i.LIB_NAME}</span><br class="mobileBr"/>
 													<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
 													<font style="color:#5e5e5e">자료실</font> : ${i.SHELF_LOC_NAME}<br class="mobileBr"/>
 													<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
@@ -506,7 +505,7 @@ $(function() {
 													<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
 													<font style="color:#5e5e5e">청구기호</font> : ${i.CALL_NO}<br class="mobileBr"/>
 													<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
-													<font style="color:#5e5e5e">등록번호</font> : ${i.REG_NO}<br/><font style="color:#5e5e5e">소장도서관</font> : <span style="color:#ff0000;font-weight:bold">${i.LIB_NAME}</span><br class="mobileBr"/>
+													<font style="color:#5e5e5e">등록번호</font> : ${i.REG_NO}<br/><font style="color:#5e5e5e">소장처</font> : <span style="color:#ff0000;font-weight:bold">${i.LIB_NAME}</span><br class="mobileBr"/>
 													<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
 													<font style="color:#5e5e5e">자료실</font> : ${i.SHELF_LOC_NAME}<br class="mobileBr"/>
 													<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
