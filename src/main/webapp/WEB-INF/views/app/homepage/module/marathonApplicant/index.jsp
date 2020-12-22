@@ -17,14 +17,14 @@
 <script>
 $(function(){
 	<c:if test="${ing eq true}">
-		<c:forEach begin="0" end="${fn:length(marathonTypeList) - 1}" var="i">
-			$('ul#typeList').append("<li><a href='#' id=type${i + 1}>${marathonTypeList[i].contest_type}</a></li>");
+		<c:forEach begin="1" end="${fn:length(marathonTypeList)}" var="i">
+			$('ul#typeList').append("<li><a href='#' id=type${i}>${marathonTypeList[i - 1].contest_type}</a></li>");
 			
-			$('a#type${i + 1}').on('click', function(e) {
+			$('a#type${i}').on('click', function(e) {
 				e.preventDefault();
 				$('#viewPage').val(1);
-				$('input#contest_type').val($('a#type${i + 1}').text());
-				$('input#selectedType').val('type${i + 1}');
+				$('input#contest_type_idx').val(${marathonTypeList[i - 1].contest_type_idx});
+				$('input#selectedType').val('type${i}');
 				doGetLoad('index.do', serializeCustom($('form#marathonApplicant')));
 			});
 		</c:forEach>
@@ -33,7 +33,7 @@ $(function(){
 	$('a#type0').on('click', function(e) {
 		e.preventDefault();
 		$('#viewPage').val(1);
-		$('input#contest_type').val('');
+		$('input#contest_type_idx').val(0);
 		$('input#selectedType').val('');
 		doGetLoad('index.do', serializeCustom($('form#marathonApplicant')));
 	});
@@ -59,6 +59,11 @@ $(function(){
 				"class" : "on"
 			});
 		</c:when>
+		<c:when test="${marathonApplicant.selectedType == 'type5'}">
+			$('a#type5').attr({
+				"class" : "on"
+			});
+		</c:when>
 		<c:when test="${marathonApplicant.selectedType == '' || marathonApplicant.selectedType == null}">
 			$('a#type0').attr({
 				"class" : "on"
@@ -75,7 +80,7 @@ $(function(){
 </script>
 <form:form modelAttribute="marathonApplicant" action="index.do" method="GET" >
 	<form:hidden path="homepage_id"/>
-	<form:hidden path="contest_type"/>
+	<form:hidden path="contest_type_idx"/>
 	<form:hidden path="applicant_idx"/>
 	<form:hidden path="selectedType"/>
 	<form:hidden path="editMode"/>
