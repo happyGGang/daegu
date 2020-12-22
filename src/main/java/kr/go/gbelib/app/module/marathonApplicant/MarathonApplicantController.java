@@ -74,11 +74,7 @@ public class MarathonApplicantController extends BaseController {
 			if(marathonUseOne != null) {
 				marathonApplicant.setHomepage_id(homepage.getHomepage_id());
 				marathonApplicant.setContest_idx(marathonUseOne.getContest_idx());
-				if(marathonApplicant.getContest_type() != null) {
-					if(!marathonApplicant.getContest_type().equals("전체") && !marathonApplicant.getContest_type().equals("")) {
-						marathonApplicant.setContest_type_idx(service.getContestTypeIdx(marathonApplicant)); //전체가 아닐 경우 종목번호를 저장 ( 해당 종목만 보여준다 )
-					}
-				}
+
 				service.setPaging(model, service.getMarathonApplicantCount(marathonApplicant), marathonApplicant);
 				model.addAttribute("marathonApplicant", marathonApplicant);
 				model.addAttribute("marathonTypeList", service.getMarathonTypeList(marathonApplicant));
