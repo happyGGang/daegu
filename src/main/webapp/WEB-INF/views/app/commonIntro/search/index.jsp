@@ -747,7 +747,7 @@ $(function() {
 									<dl>
 										<dt>자료형태</dt>
 										<dd>
-											<div class="" style="padding:3px 0 0 10px">
+											<div class="" style="padding:10px 0 0 0;">
 											<form:radiobutton path="booktype" value="BOOKANDNONBOOK" class="radiocheck" checked="checked"/><label for="booktype1" class="booktype">통합</label>
 											<form:radiobutton path="booktype" value="BOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype2" class="booktype">도서</label>
 											<form:radiobutton path="booktype" value="NONBOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype3" class="booktype">비도서</label>
@@ -1138,7 +1138,7 @@ $(function() {
 							<dl>
 								<dt>자료형태</dt>
 								<dd>
-									<div class="" style="padding:3px 0 0 10px">
+									<div class="" style="padding:10px 0 0 0;">
 									<form:radiobutton path="booktype" value="BOOKANDNONBOOK" class="radiocheck" checked="checked"/><label for="booktype1" class="booktype">통합</label>
 									<form:radiobutton path="booktype" value="BOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype2" class="booktype">도서</label>
 									<form:radiobutton path="booktype" value="NONBOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype3" class="booktype">비도서</label>

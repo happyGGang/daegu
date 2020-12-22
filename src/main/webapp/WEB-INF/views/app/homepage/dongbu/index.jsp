@@ -267,7 +267,7 @@
 							</c:forEach>
 							<c:forEach items="${bookCuration2}" var="curation2">
 							<li>
-								<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=131&manage_idx=${curation2.manage_idx}&board_idx=${curation2.board_idx}&group_idx=0&viewPage=1&search_type=title%2Bcontent">
+								<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=132&manage_idx=${curation2.manage_idx}&board_idx=${curation2.board_idx}&group_idx=0&viewPage=1&search_type=title%2Bcontent">
 									<c:choose>
 									<c:when test="${empty curation2.preview_img}">
 									<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." width="100px" height="150px"/>
