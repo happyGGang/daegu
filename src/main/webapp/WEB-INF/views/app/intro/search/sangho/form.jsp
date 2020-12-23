@@ -50,6 +50,7 @@ $(function() {
 <form:hidden path="regNo" />
 <form:hidden path="booktype" />
 <form:hidden path="manageCode" />
+	<input type="hidden" name="libCode" value="${detail.LIB_CODE}">
 
 <div class="delibery_info">
 	<h3>상호대차 정보 입력</h3>
@@ -185,12 +186,25 @@ $(function() {
 			<c:when test="${context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol' || context_path eq 'junggu'}">
 			</c:when>
 			<c:otherwise>
-			 <tr>
-			 	<th>부록대출</th>
-			 	<td>
-			 		<form:checkbox path="appendixrctyn" value="y" label="(해당 도서에 부록이 있을 시 부록도 같이 대출하겠습니다.)"/>
-			 	</td>
-			 </tr>
+				<tr>
+					<th>부록대출</th>
+					<td>
+						<c:forEach items="${detail.APPENDIX_LIST}" var="i" varStatus="status">
+							<c:if test="${i.KBILL_APPENDIX_LILL_YN eq 'O'}">
+								<c:set var="media_desc" value=""></c:set>
+								<c:forEach items="${detail.APPENDIX_INFO}" var="j">
+									<c:if test="${empty j.value}">
+										<c:set var="media_desc" value="${j.DESCRIPTION}"></c:set>
+									</c:if>
+									<c:if test="${not empty j.value and j.value eq i.MEDIA_CODE and j.key eq 'DESCRIPTION'}">
+										<c:set var="media_desc" value="${j.value}"></c:set>
+									</c:if>
+								</c:forEach>
+								<form:checkbox path="appendixregnolist" label="${media_desc }" value="${i.REG_NO}"/>
+							</c:if>
+						</c:forEach>
+					</td>
+				</tr>
 			</c:otherwise>
 			</c:choose>
 

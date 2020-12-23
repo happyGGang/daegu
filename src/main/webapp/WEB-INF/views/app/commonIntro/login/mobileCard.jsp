@@ -21,7 +21,7 @@ $(function(){
 
 });
 </script>
-<div style="text-align:center;padding:30px 0 10px 0;font-size:27px;font-weight:bold">${sessionScope.member.member_name}</div>
+<div style="text-align:center;padding:0 0 10px 0;font-size:27px;font-weight:bold">${sessionScope.member.member_name}</div>
 
 <div id="barcodeTarget" class="barcodeTarget" style="padding:0px;overflow:auto;"></div>
 <div style="text-align:center">${sessionScope.member.user_no}</div>

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -1311,10 +1312,121 @@ public class LibSearchAPI {
 		if (StringUtils.isNotBlank(regno)) {
 			param.put("regno", regno);
 		}
-		
+
 		return CommonAPI.sendMARC("getmarc", param);
 	}
 
+	/**
+	 * K.API - 83
+	 *
+	 * KBILL전용 지역상호대차 신청가능여부 조회
+	 *
+	 * @author whalesoft YONGJU 2019. 11. 16.
+	 * @param librarySearch
+	 * @return
+	 */
+	public static ApiResponse lillRequestCheck(LibrarySearch librarySearch) {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		param.put("userno", librarySearch.getUserkey());// 통합대출자번호
+		param.put("regno", librarySearch.getRegNo());// 제공(소장)자료의 등록번호
+		param.put("libcode", librarySearch.getLibCode());// 제공(소장)자료의 도서관부호
+		param.put("uselibcode", librarySearch.getUselibcode());// 대출도서관 부호
+		if (librarySearch.getAppendixregnolist() != null && !CollectionUtils.sizeIsEmpty(librarySearch.getAppendixregnolist())) {
+			param.put("appendixregnolist", StringUtils.join(librarySearch.getAppendixregnolist(), ","));
+		}
+
+		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("lillRequestCheck", param);
+
+		String code = String.valueOf(sendKCMS.get("RESULT_INFO"));
+
+		if ("SUCCESS".equals(code)) {
+			return new ApiResponse(true);
+		} else {
+			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
+		}
+	}
+
+	/**
+	 * K.API - 84
+	 *
+	 * KBILL전용 지역상호대차 신청
+	 *
+	 * @author whalesoft YONGJU 2019. 11. 16.
+	 * @param librarySearch
+	 * @return
+	 */
+	public static ApiResponse lillRequest(LibrarySearch librarySearch) {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		param.put("userno", librarySearch.getUserkey());// 통합대출자번호
+		param.put("regno", librarySearch.getRegNo());// 제공(소장)자료의 등록번호
+		param.put("libcode", librarySearch.getLibCode());// 제공(소장)자료의 도서관부호
+		param.put("uselibcode", librarySearch.getUselibcode());// 대출도서관 부호
+		if (librarySearch.getAppendixregnolist() != null && !CollectionUtils.sizeIsEmpty(librarySearch.getAppendixregnolist())) {
+			param.put("appendixregnolist", StringUtils.join(librarySearch.getAppendixregnolist(), ","));
+		}
+
+		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("lillRequest", param);
+
+		String code = String.valueOf(sendKCMS.get("RESULT_INFO"));
+
+		if ("SUCCESS".equals(code)) {
+			return new ApiResponse(true);
+		} else {
+			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
+		}
+	}
+
+	/**
+	 * K.API - 85
+	 *
+	 * KBILL전용 지역상호대차 신청 취소
+	 *
+	 * @author whalesoft YONGJU 2019. 11. 16.
+	 * @param librarySearch
+	 * @return
+	 */
+	public static ApiResponse lillRequestCancel(LibrarySearch librarySearch) {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		param.put("loankey", librarySearch.getLoan_key());// 신청정보의 KEY
+
+		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("lillRequestCancel", param);
+
+		String code = String.valueOf(sendKCMS.get("RESULT_INFO"));
+
+		if ("SUCCESS".equals(code)) {
+			return new ApiResponse(true);
+		} else {
+			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
+		}
+	}
+
+	/**
+	 * K.API - 86
+	 *
+	 * KBILL전용 지역상호대차 신청 내역
+	 *
+	 * @author whalesoft YONGJU 2019. 11. 16.
+	 * @param librarySearch
+	 * @param option 0 : 신청내역, 1 : 이용내역, 2 : 신청/이용내역
+	 * @return
+	 */
+	public static Map<String, Object> lillRequestList(LibrarySearch librarySearch, String option) {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		param.put("userno", librarySearch.getUserkey());// 통합대출자번호
+		//		param.put("lib_code", librarySearch.getLibCode());// 제공도서관부호 (숫자 6자리)
+		param.put("option", StringUtils.isEmpty(option) ? "0" : option);
+		param.put("pageno", librarySearch.getViewPage());
+		param.put("display", librarySearch.getRowCount());
+		param.put("startdate", librarySearch.getSearch_start_date().replaceAll("-", ""));
+		param.put("enddate", librarySearch.getSearch_end_date().replaceAll("-", ""));
+
+		return CommonAPI.sendKCMS("lillRequestList", param);
+
+	}
 	/**
 	 * === K.API 공통 ===
 	 *
@@ -1340,6 +1452,28 @@ public class LibSearchAPI {
 				Map<String, Object> countMap = list.get(0);
 				if (countMap != null && !countMap.isEmpty() && countMap.containsKey("SEARCH_COUNT")) {
 					cnt = Integer.parseInt(String.valueOf(countMap.get("SEARCH_COUNT")));
+				}
+			}
+		}
+
+		return cnt;
+	}
+
+	public static int getSearchCount(Map<String, Object> map, String list_name, String count_name) {
+		int cnt = 0;
+		List<Map<String, Object>> list = null;
+
+		if (map != null && !map.isEmpty() && map.get("RESULT_MESSAGE") != null) {
+			return 0;
+		}
+
+		if (map != null && !map.isEmpty() && map.get(list_name) != null) {
+			list = new ArrayList<Map<String, Object>>();
+			list.addAll((List<Map<String, Object>>) map.get(list_name));
+			if (list != null && list.size() > 0) {
+				Map<String, Object> countMap = list.get(0);
+				if (countMap != null && !countMap.isEmpty() && countMap.containsKey(count_name)) {
+					cnt = Integer.parseInt(String.valueOf(countMap.get(count_name)));
 				}
 			}
 		}

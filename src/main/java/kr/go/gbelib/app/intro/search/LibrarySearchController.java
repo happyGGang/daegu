@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfig;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
@@ -700,21 +701,36 @@ public class LibrarySearchController extends BaseController {
 			return null;
 		}
 
+
 		model.addAttribute("librarySearch", librarySearch);
 
 		librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
 
-		Map<String, Object> sanghoHistory = LibSearchAPI.getSanghoHistory(librarySearch);
-		List<Map<String, Object>> returnList = LibSearchAPI.getSanghoListData(sanghoHistory);
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.YEAR, -1);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-//		if (returnList != null && !returnList.isEmpty() && !returnList.get(0).containsKey("ERROR")) {
-			int count = LibSearchAPI.getSanghoSearchCount(sanghoHistory);
-			librarySearch.setTotalDataCount(count);
-			service.setPaging(model, count, librarySearch);
+		if (StringUtils.isEmpty(librarySearch.getSearch_start_date())) {
+			librarySearch.setSearch_start_date(sdf.format(cal.getTime()));
+		}
+		if (StringUtils.isEmpty(librarySearch.getSearch_end_date())) {
+			librarySearch.setSearch_end_date(sdf.format(new Date()));
+		}
 
-			model.addAttribute("librarySearch", librarySearch);
-			model.addAttribute("sanghoHistory", returnList);
-//		}
+		Map<String, Object> result = LibSearchAPI.lillRequestList(librarySearch, "0");
+
+		List<Map<String, Object>> list = null;
+
+		int count = LibSearchAPI.getSearchCount(result, "LIST_DATA", "TOTAL");
+		librarySearch.setTotalDataCount(count);
+		service.setPaging(model, count, librarySearch);
+
+		if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+			list = LibSearchAPI.getListData(result);
+		}
+
+		model.addAttribute("sanghoHistory", list);
+		model.addAttribute("librarySearch", librarySearch);
 
 		return basePath + "sangho/index";
 	}
@@ -747,18 +763,32 @@ public class LibrarySearchController extends BaseController {
 		model.addAttribute("librarySearch", librarySearch);
 
 		librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.YEAR, -1);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-		Map<String, Object> sanghoHistory = LibSearchAPI.getSanghoUsedHistory(librarySearch);
-		List<Map<String, Object>> returnList = LibSearchAPI.getSanghoListData(sanghoHistory);
+		if (StringUtils.isEmpty(librarySearch.getSearch_start_date())) {
+			librarySearch.setSearch_start_date(sdf.format(cal.getTime()));
+		}
+		if (StringUtils.isEmpty(librarySearch.getSearch_end_date())) {
+			librarySearch.setSearch_end_date(sdf.format(new Date()));
+		}
 
-//		if (returnList != null && !returnList.isEmpty() && !returnList.get(0).containsKey("ERROR")) {
-			int count = LibSearchAPI.getSanghoSearchCount(sanghoHistory);
-			librarySearch.setTotalDataCount(count);
-			service.setPaging(model, count, librarySearch);
 
-			model.addAttribute("librarySearch", librarySearch);
-			model.addAttribute("sanghoHistory", returnList);
-//		}
+		Map<String, Object> result = LibSearchAPI.lillRequestList(librarySearch, "1");
+
+		List<Map<String, Object>> list = null;
+
+		int count = LibSearchAPI.getSearchCount(result, "LIST_DATA", "TOTAL");
+		librarySearch.setTotalDataCount(count);
+		service.setPaging(model, count, librarySearch);
+
+		if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+			list = LibSearchAPI.getListData(result);
+		}
+
+		model.addAttribute("sanghoHistory", list);
+		model.addAttribute("librarySearch", librarySearch);
 
 
 		return basePath + "sangho/history";
@@ -792,40 +822,6 @@ public class LibrarySearchController extends BaseController {
 		}
 
 		/**/
-		{
-			if (librarySearch.getBooktype() == null) {
-				librarySearch.setBooktype("BOOK");
-			}
-
-			Map<String, Object> bookResult = LibSearchAPI.getBookInfo(librarySearch);
-			List<Map<String, Object>> list = null;
-			int count = LibSearchAPI.getSearchCount(bookResult);
-
-			if (count > 0) {
-				list = LibSearchAPI.getListData(bookResult);
-				Map<String, Object> map = list.get(0);
-
-				librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
-				librarySearch.setRegNo(String.valueOf(map.get("REG_NO")));
-				librarySearch.setLibCode(String.valueOf(map.get("LIB_CODE")));
-				librarySearch.setSpeciesKey(String.valueOf(map.get("SPECIES_KEY")));
-
-				Map<String, Object> sanghoReqYn = LibSearchAPI.sanghoReqYn(librarySearch);
-				@SuppressWarnings ("unchecked")
-				Map<String, Object> sanghoReqYnResult = (Map<String, Object>) sanghoReqYn.get("ITEM");
-
-				if (sanghoReqYnResult.containsKey("RESULT") && String.valueOf(sanghoReqYnResult.get("RESULT")).equals("OK")) {
-					// 정상 신청가능
-				} else {
-					if (sanghoReqYnResult.containsKey("ERROR")) {
-						service.alertMessage("해당 자료는 상호대차 신청이 불가능합니다", request, response);
-						return null;
-					}
-				}
-			}
-		}
-		/**/
-
 		String overdueCnt = member.getOverdue_cnt();
 		try {
 			if (Integer.parseInt(overdueCnt) > 0) {
@@ -833,6 +829,7 @@ public class LibrarySearchController extends BaseController {
 				return null;
 			}
 		} catch (NumberFormatException e) {
+			log.error("연체도서 없음");
 		}
 
 		String loanStopDate = member.getLoan_stop_date();
@@ -842,23 +839,21 @@ public class LibrarySearchController extends BaseController {
 		}
 
 		librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
-		Map<String, Object> sanghoHistory = LibSearchAPI.getSanghoHistory(librarySearch);
-		List<Map<String, Object>> returnList = LibSearchAPI.getSanghoListData(sanghoHistory);
-		
-		int sanghoPossiCnt = 5;
-		
-		// 달서구립도서관 하드코딩
-		// 달서구립도서관 상호대차 3권
-		String[] sangho3cnt = {"dalseolib", "kids", "seongseo", "bolli", "family", "english", "dssmalllib"};
-		for (String libOne : sangho3cnt) {
-			if(context_path.equals(libOne)) {
-				sanghoPossiCnt = 3;
-				break;
-			}
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.YEAR, -1);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		if (StringUtils.isEmpty(librarySearch.getSearch_start_date())) {
+			librarySearch.setSearch_start_date(sdf.format(cal.getTime()));
+		}
+		if (StringUtils.isEmpty(librarySearch.getSearch_end_date())) {
+			librarySearch.setSearch_end_date(sdf.format(new Date()));
 		}
 
-		if (CollectionUtils.isNotEmpty(returnList) && returnList.size() >= sanghoPossiCnt) { 
-			service.alertMessage("상호대차 신청권수는 "+sanghoPossiCnt+"권까지입니다.", request, response);
+		Map<String, Object> lillRequestList = LibSearchAPI.lillRequestList(librarySearch, "0");
+		int lillRequestListCount = LibSearchAPI.getSearchCount(lillRequestList, "LIST_DATA", "TOTAL");
+		if (lillRequestListCount >= 3) {
+			service.alertMessage("상호대차 신청권수는 3권까지입니다.", request, response);
 			return null;
 		}
 
@@ -868,11 +863,11 @@ public class LibrarySearchController extends BaseController {
 			librarySearch.setBooktype("BOOK");
 		}
 
-//		if ( librarySearch.getBooktype().equals("BOOK") ) {
-//			result = LibSearchAPI.getBookDetail(librarySearch);
-//		} else {
-//			result = LibSearchAPI.getNonBookDetail(librarySearch);
-//		}
+		//		if ( librarySearch.getBooktype().equals("BOOK") ) {
+		//			result = LibSearchAPI.getBookDetail(librarySearch);
+		//		} else {
+		//			result = LibSearchAPI.getNonBookDetail(librarySearch);
+		//		}
 
 		result = LibSearchAPI.getBookInfo(librarySearch);
 
@@ -889,10 +884,10 @@ public class LibrarySearchController extends BaseController {
 			list = LibSearchAPI.getListData(result);
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("ISBN", librarySearch.getIsbn());
-//			Map<String, Object> aladinDetail =  aladinApiService.getAladinApiOne(String.valueOf(map.get("ISBN")), homepage.getContext_path());
-//			if (aladinDetail != null && !aladinDetail.isEmpty() && aladinDetail.containsKey("item")) {
-//				list.get(0).put("aladinDetail", aladinDetail.get("item"));
-//			}
+			//			Map<String, Object> aladinDetail =  aladinApiService.getAladinApiOne(String.valueOf(map.get("ISBN")), homepage.getContext_path());
+			//			if (aladinDetail != null && !aladinDetail.isEmpty() && aladinDetail.containsKey("item")) {
+			//				list.get(0).put("aladinDetail", aladinDetail.get("item"));
+			//			}
 			model.addAttribute("detail", list.get(0));
 		}
 
@@ -920,82 +915,51 @@ public class LibrarySearchController extends BaseController {
 			}
 		}
 
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request)) ) {
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			result.reject("로그인 후 이용가능합니다.");
 		}
 
-		if ( !StringUtils.equals(getSessionMemberInfo(request).getKl_member_yn(), "Y") ) {
+		if (!StringUtils.equals(getSessionMemberInfo(request).getKl_member_yn(), "Y")) {
 			result.reject("책이음회원이 아니므로 상호대차 신청이 불가능합니다");
 		}
 
-		if ( !result.hasErrors() ) {
+		if (!result.hasErrors()) {
+
+			Homepage homepage = getSessionHomepage(request);
+			SmsReception smsReception = new SmsReception();
+			smsReception.setHomepage_id(homepage.getHomepage_id());
+			smsReception.setWork_code("0001");	// 상호대차:0001, 무인대출:0002, 야간대출:0003
+			List<SmsReception> receptionsList =  smsReceptionService.getSmsReceptionMembers(smsReception);
 
 			if (StringUtils.equals(librarySearch.getEditMode(), "CANCEL")) {
-				Map<String, Object> sanghoReqCancel = LibSearchAPI.sanghoReqCancel(librarySearch);
-				@SuppressWarnings ("unchecked")
-				Map<String, Object> sanghoResult = (Map<String, Object>) sanghoReqCancel.get("ITEM");
 
-				if (sanghoResult.containsKey("RESULT")) {
-					if (String.valueOf(sanghoResult.get("RESULT")).equals("OK")) {
-						res.setValid(true);
-						res.setMessage("취소되었습니다.");
-					}
-				} else {
-					if (sanghoResult.containsKey("ERROR")) {
-						res.setValid(true);
-						res.setMessage(String.valueOf(sanghoResult.get("ERROR")));
-					}
-				}
-			} else {
-				Map<String, Object> bookResult = new HashMap<String, Object>();
-
-				if ( librarySearch.getBooktype() == null ) {
-					librarySearch.setBooktype("BOOK");
-				}
-
-//				if ( librarySearch.getBooktype().equals("BOOK") ) {
-//					bookResult = LibSearchAPI.getBookDetail(librarySearch);
-//				} else {
-//					bookResult = LibSearchAPI.getNonBookDetail(librarySearch);
-//				}
-
-				bookResult = LibSearchAPI.getBookInfo(librarySearch);
-
-
-				List<Map<String, Object>> list = null;
-
-				int count = LibSearchAPI.getSearchCount(bookResult);
-
-				if ( count > 0 ) {
-
-					list = LibSearchAPI.getListData(bookResult);
-					Map<String, Object> map = list.get(0);
-
-					librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
-					librarySearch.setRegNo(String.valueOf(map.get("REG_NO")));
-					librarySearch.setLibCode(String.valueOf(map.get("LIB_CODE")));
-					librarySearch.setSpeciesKey(String.valueOf(map.get("SPECIES_KEY")));
-//				librarySearch.setUselibcode(String.valueOf(map.get("")));
-					librarySearch.setBookkey(String.valueOf(map.get("BOOK_KEY")));
-
-					Map<String, Object> sanghoReq = LibSearchAPI.sanghoReq(librarySearch);
-					@SuppressWarnings ("unchecked")
-					Map<String, Object> sanghoResult = (Map<String, Object>) sanghoReq.get("ITEM");
-
-					if (sanghoResult.containsKey("RESULT")) {
-						if (String.valueOf(sanghoResult.get("RESULT")).equals("OK")) {
-							res.setValid(true);
-							res.setMessage("신청되었습니다.");
-						}
-					} else {
-						if (sanghoResult.containsKey("ERROR")) {
-							res.setValid(true);
-							res.setMessage(String.valueOf(sanghoResult.get("ERROR")));
-						}
-					}
-				} else {
+				ApiResponse apiResult = LibSearchAPI.lillRequestCancel(librarySearch);
+				if (apiResult.getStatus()) {
 					res.setValid(true);
-					res.setMessage("잘못된 접근입니다. 다시 신청하여 주시기 바랍니다.");
+					res.setMessage("취소되었습니다.");
+				} else {
+					res.setValid(false);
+					res.setMessage(apiResult.getMessage());
+				}
+
+			} else {
+
+				Member sessionMemberInfo = getSessionMemberInfo(request);
+				librarySearch.setUserkey(sessionMemberInfo.getUser_no());
+				ApiResponse lillRequestCheck = LibSearchAPI.lillRequestCheck(librarySearch);
+
+				if (lillRequestCheck.getStatus()) {
+					ApiResponse apiResult = LibSearchAPI.lillRequest(librarySearch);
+					if (apiResult.getStatus()) {
+						res.setValid(true);
+						res.setMessage("신청되었습니다.");
+					} else {
+						res.setValid(false);
+						res.setMessage(apiResult.getMessage());
+					}
+				} else {
+					res.setValid(false);
+					res.setMessage(lillRequestCheck.getMessage());
 				}
 
 			}

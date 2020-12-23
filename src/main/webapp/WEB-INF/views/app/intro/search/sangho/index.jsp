@@ -60,7 +60,7 @@ $(function() {
 
 	<c:if test="${fn:length(sanghoHistory) < 1 }"> <h3>상호대차신청 내역이 없습니다.</h3></c:if>
 
-	<c:forEach items="${sanghoHistory}" var="i" varStatus="status">
+	<c:forEach items="${sanghoHistory}" var="i" varStatus="status" begin="1">
 	<div class="row">
 		<div class="box">
 			<div class="item">

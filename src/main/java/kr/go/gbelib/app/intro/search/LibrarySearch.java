@@ -141,6 +141,8 @@ public class LibrarySearch extends PagingUtils {
 	private String pageNo;
 	private String pageSize;
 
+	private List<String> appendixregnolist;//지역상호대차 부록신청 등록번호 리스트
+
 	public String getSearchType() {
 		return searchType;
 	}
@@ -991,5 +993,13 @@ public class LibrarySearch extends PagingUtils {
 	}
 	public void setPageSize(String pageSize) {
 		this.pageSize = pageSize;
+	}
+
+	public List<String> getAppendixregnolist() {
+		return appendixregnolist;
+	}
+
+	public void setAppendixregnolist(List<String> appendixregnolist) {
+		this.appendixregnolist = appendixregnolist;
 	}
 }
