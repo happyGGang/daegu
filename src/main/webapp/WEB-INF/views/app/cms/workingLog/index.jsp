@@ -18,7 +18,12 @@ $(function() {
 	$('select#work_type, select#rowCount').on('change', function() {
 		$('input#viewPage').val('1');
 		doGetLoad('index.do', $('form#workingLog').serialize());
-	})
+	});
+
+	$('#search_btn').on('click', function() {
+		$('input#viewPage').val('1');
+		doGetLoad('index.do', $('form#workingLog').serialize());
+	});
 
 	$('a#excelDownload').on('click', function(e) {
 		$('#workingLog').attr('action', 'excelDownload.do').submit();
