@@ -25,20 +25,29 @@ $(function() {
 		doGetLoad('index.do', $('form#workingLog').serialize());
 	});
 
+	$('#search_text').on('keyup', function(e) {
+		$('#workingLog').attr('method', 'get');
+		$('#workingLog').attr('action', 'index.do');
+		if (e.keyCode == 13) {
+			$('#search_btn').click();
+		}
+	});
+
 	$('a#excelDownload').on('click', function(e) {
-		$('#workingLog').attr('action', 'excelDownload.do').submit();
-		//$('#workingLog').attr('action', 'save.do');
 		e.preventDefault();
+		$('#workingLog').attr('method', 'post');
+		$('#workingLog').attr('action', 'excelDownload.do').submit();
 	});
 
 	$('a#csvDownload').on('click', function(e) {
 		e.preventDefault();
+		$('#workingLog').attr('method', 'post');
 		$('#workingLog').attr('action', 'csvDownload.do').submit();
 	});
 
 });
 </script>
-<form:form modelAttribute="workingLog">
+<form:form modelAttribute="workingLog" method="get" action="index.do">
 <c:if test="${asideHomepageId ne 'CMS'}">
 <form:hidden path="site_id"/>
 </c:if>
@@ -113,7 +122,7 @@ $(function() {
 		<tbody>
 			<c:forEach var="i" varStatus="status" items="${workingLogList}">
 				<tr>
-					<td><fmt:formatNumber value="${i.work_idx}" pattern="#,###" /></td>
+					<td><fmt:formatNumber value="${paging.listRowNum - status.index}" pattern="#,###" /></td>
 					<td>${empty i.siteName ? 'CMS' : i.siteName}</td>
 					<td>${i.work_type eq 'W' ? '일반작업':'개인정보'}</td>
 					<td style="text-align: left;"><a href="#" class="dialog-view" data-idx="${i.work_idx}">${i.work_comment}</a></td>

@@ -295,10 +295,7 @@ $(function() {
 		<div>
 			<c:set var="getIp" value="<%=request.getRemoteAddr()%>" />
 			<c:if test="${getIp eq '218.48.151.16'}">
-			*인포셋만 보임(상호대차 신청가능조건 확인용)<br/>
-			SHELF_LOC_CODE : ${detail.SHELF_LOC_CODE} | 
-			REG_CODE : ${detail.REG_CODE} | 
-			SEPARATE_SHELF_CODE : ${detail.SEPARATE_SHELF_CODE}
+
 			</c:if>
 		</div>
 
@@ -363,8 +360,8 @@ $(function() {
 							<c:choose>
 								<c:when test="${detail.SHELF_LOC_CODE eq 'BZ01' || detail.SHELF_LOC_CODE eq 'BZ02' || detail.SHELF_LOC_CODE eq 'BZ03' || detail.SHELF_LOC_CODE eq 'BZ04' || detail.SHELF_LOC_CODE eq 'BZ05' || detail.SHELF_LOC_CODE eq 'BZ06' || detail.SHELF_LOC_CODE eq 'BZ07' || detail.SHELF_LOC_CODE eq 'BZ08'}">
 									<c:if test="${detail.SEPARATE_SHELF_CODE eq 'CCK' || detail.SEPARATE_SHELF_CODE eq 'CCM' || detail.SEPARATE_SHELF_CODE eq 'CCN' || detail.SEPARATE_SHELF_CODE eq 'CCR' || detail.SEPARATE_SHELF_CODE eq 'CCS' || detail.SEPARATE_SHELF_CODE eq 'CCU' || detail.SEPARATE_SHELF_CODE eq 'CCW' || detail.SEPARATE_SHELF_CODE eq 'CCZ' || detail.SEPARATE_SHELF_CODE eq 'CDA' || detail.SEPARATE_SHELF_CODE eq 'CDC' || detail.SEPARATE_SHELF_CODE eq 'CDD' || detail.SEPARATE_SHELF_CODE eq 'CDH' || detail.SEPARATE_SHELF_CODE eq 'CDJ' || detail.SEPARATE_SHELF_CODE eq 'CDL' || detail.SEPARATE_SHELF_CODE eq 'CDM' || detail.SEPARATE_SHELF_CODE eq 'CDN' || detail.SEPARATE_SHELF_CODE eq 'CDQ' || detail.SEPARATE_SHELF_CODE eq 'CDU' || detail.SEPARATE_SHELF_CODE eq null || detail.SEPARATE_SHELF_CODE eq 'null' || detail.SEPARATE_SHELF_CODE eq ''}">
-										<c:if test="${detail.REG_CODE eq 'DRR' || detail.REG_CODE eq 'DRS' || detail.REG_CODE eq 'DRT' || detail.REG_CODE eq 'DRU' || detail.REG_CODE eq 'DRV' || detail.REG_CODE eq 'DRW' || detail.REG_CODE eq 'DRX' || detail.REG_CODE eq 'DRY' || detail.REG_CODE eq 'DRZ' || detail.REG_CODE eq 'DSA' || detail.REG_CODE eq 'DSB' || detail.REG_CODE eq 'DSC' || detail.REG_CODE eq 'DSD' || detail.REG_CODE eq 'DSE' || detail.REG_CODE eq 'DSF' || detail.REG_CODE eq 'DSG' || detail.REG_CODE eq 'DSH' || detail.REG_CODE eq 'DSJ' || detail.REG_CODE eq 'DSK' || detail.REG_CODE eq 'DSL' || detail.REG_CODE eq 'DSM' || detail.REG_CODE eq 'DSN' || detail.REG_CODE eq 'DSP'}">
-											<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
+										<c:if test="${detail.REG_CODE eq 'DRR' || detail.REG_CODE eq 'DRS' || detail.REG_CODE eq 'DRT' || detail.REG_CODE eq 'DRU' || detail.REG_CODE eq 'DRV' || detail.REG_CODE eq 'DRW' || detail.REG_CODE eq 'DRX' || detail.REG_CODE eq 'DRY' || detail.REG_CODE eq 'DRZ' || detail.REG_CODE eq 'DSA' || detail.REG_CODE eq 'DSB' || detail.REG_CODE eq 'DSC' || detail.REG_CODE eq 'DSD' || detail.REG_CODE eq 'DSE' || detail.REG_CODE eq 'DSF' || detail.REG_CODE eq 'DSG' || detail.REG_CODE eq 'DSH' || detail.REG_CODE eq 'DSJ' || detail.REG_CODE eq 'DSK' || detail.REG_CODE eq 'DSL' || detail.REG_CODE eq 'DSM' || detail.REG_CODE eq 'DSN' || detail.REG_CODE eq 'DSP' || detail.REG_CODE eq 'DPA DPK'}">
+											<!-- <a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a> -->
 										</c:if>
 									</c:if>
 								</c:when>
@@ -378,7 +375,7 @@ $(function() {
 							<c:choose>
 								<c:when test="${detail.SHELF_LOC_CODE eq 'BU01' || detail.SHELF_LOC_CODE eq 'BU02' || detail.SHELF_LOC_CODE eq 'BU03' || detail.SHELF_LOC_CODE eq 'BU04' || detail.SHELF_LOC_CODE eq 'BU06' || detail.SHELF_LOC_CODE eq 'BU07' || detail.SHELF_LOC_CODE eq 'BU08' || detail.SHELF_LOC_CODE eq 'BV01' || detail.SHELF_LOC_CODE eq 'BV02' || detail.SHELF_LOC_CODE eq 'BV03' || detail.SHELF_LOC_CODE eq 'BV04' || detail.SHELF_LOC_CODE eq 'BV09' || detail.SHELF_LOC_CODE eq 'BW01' || detail.SHELF_LOC_CODE eq 'BW02' || detail.SHELF_LOC_CODE eq 'BW03' || detail.SHELF_LOC_CODE eq 'BW04' || detail.SHELF_LOC_CODE eq 'BW05' || detail.SHELF_LOC_CODE eq 'BW09' || detail.SHELF_LOC_CODE eq 'BW13' || detail.SHELF_LOC_CODE eq 'BW14' || detail.SHELF_LOC_CODE eq 'BX01' || detail.SHELF_LOC_CODE eq 'BX02' || detail.SHELF_LOC_CODE eq 'BX03' || detail.SHELF_LOC_CODE eq 'BX04' || detail.SHELF_LOC_CODE eq 'BX05' || detail.SHELF_LOC_CODE eq 'BX13' || detail.SHELF_LOC_CODE eq 'BX14' || detail.SHELF_LOC_CODE eq 'BX19' || detail.SHELF_LOC_CODE eq 'BX20' || detail.SHELF_LOC_CODE eq 'BX21' || detail.SHELF_LOC_CODE eq 'BY01' || detail.SHELF_LOC_CODE eq 'BY02' || detail.SHELF_LOC_CODE eq 'BY03' || detail.SHELF_LOC_CODE eq 'BY06' || detail.SHELF_LOC_CODE eq 'BY08' || detail.SHELF_LOC_CODE eq 'BY10' || detail.SHELF_LOC_CODE eq 'BY11' || detail.SHELF_LOC_CODE eq 'BY13' || detail.SHELF_LOC_CODE eq 'BY15' || detail.SHELF_LOC_CODE eq 'BY16' || detail.SHELF_LOC_CODE eq 'BZ01' || detail.SHELF_LOC_CODE eq 'BZ02' || detail.SHELF_LOC_CODE eq 'BZ03' || detail.SHELF_LOC_CODE eq 'BZ04' || detail.SHELF_LOC_CODE eq 'BZ05' || detail.SHELF_LOC_CODE eq 'BZ06' || detail.SHELF_LOC_CODE eq 'BZ07' || detail.SHELF_LOC_CODE eq 'BZ08' || detail.SHELF_LOC_CODE eq 'FA01' || detail.SHELF_LOC_CODE eq 'FB01' || detail.SHELF_LOC_CODE eq 'FC01' || detail.SHELF_LOC_CODE eq 'FD01' || detail.SHELF_LOC_CODE eq 'FW01' || detail.SHELF_LOC_CODE eq 'FX01' || detail.SHELF_LOC_CODE eq 'GK01'}">
 									<c:if test="${detail.SEPARATE_SHELF_CODE eq 'CCH' ||detail.SEPARATE_SHELF_CODE eq 'CCR' ||detail.SEPARATE_SHELF_CODE eq 'CCS' ||detail.SEPARATE_SHELF_CODE eq 'CCU' ||detail.SEPARATE_SHELF_CODE eq 'CCW' ||detail.SEPARATE_SHELF_CODE eq 'CCZ' ||detail.SEPARATE_SHELF_CODE eq 'CDA' ||detail.SEPARATE_SHELF_CODE eq 'CDC' ||detail.SEPARATE_SHELF_CODE eq 'CDD' ||detail.SEPARATE_SHELF_CODE eq 'CDH' ||detail.SEPARATE_SHELF_CODE eq 'CDJ' ||detail.SEPARATE_SHELF_CODE eq 'CDQ' ||detail.SEPARATE_SHELF_CODE eq 'CDU' || detail.SEPARATE_SHELF_CODE eq null || detail.SEPARATE_SHELF_CODE eq 'null' || detail.SEPARATE_SHELF_CODE eq ''}">
-										<c:if test="${detail.REG_CODE eq 'DJR' || detail.REG_CODE eq 'DKC' || detail.REG_CODE eq 'DKM' || detail.REG_CODE eq 'DLB' || detail.REG_CODE eq 'DLN' || detail.REG_CODE eq 'DLP' || detail.REG_CODE eq 'DLY' || detail.REG_CODE eq 'DMN' || detail.REG_CODE eq 'DMZ' || detail.REG_CODE eq 'DNA' || detail.REG_CODE eq 'DNK' || detail.REG_CODE eq 'DNZ' || detail.REG_CODE eq 'DPK' || detail.REG_CODE eq 'DPV' || detail.REG_CODE eq 'DQK' || detail.REG_CODE eq 'DQV' || detail.REG_CODE eq 'DRE' || detail.REG_CODE eq 'DTA' || detail.REG_CODE eq 'DTG' || detail.REG_CODE eq 'DTM' || detail.REG_CODE eq 'DTT' || detail.REG_CODE eq 'DTU' || detail.REG_CODE eq 'DTV' || detail.REG_CODE eq 'DUB' || detail.REG_CODE eq 'DUC' || detail.REG_CODE eq 'DUJ' || detail.REG_CODE eq 'DUK' || detail.REG_CODE eq 'DUR' || detail.REG_CODE eq 'DUV' || detail.REG_CODE eq 'DUX' || detail.REG_CODE eq 'DVD' || detail.REG_CODE eq 'DRR' || detail.REG_CODE eq 'DRS' || detail.REG_CODE eq 'DRT' || detail.REG_CODE eq 'DRU' || detail.REG_CODE eq 'DRV' || detail.REG_CODE eq 'DRW' || detail.REG_CODE eq 'DRX' || detail.REG_CODE eq 'DRY' || detail.REG_CODE eq 'DRZ' || detail.REG_CODE eq 'DSA' || detail.REG_CODE eq 'DSB' || detail.REG_CODE eq 'DSC' || detail.REG_CODE eq 'DSD' || detail.REG_CODE eq 'DSE' || detail.REG_CODE eq 'DSF' || detail.REG_CODE eq 'DSG' || detail.REG_CODE eq 'DSH' || detail.REG_CODE eq 'DSJ' || detail.REG_CODE eq 'DSK' || detail.REG_CODE eq 'DSL' || detail.REG_CODE eq 'DSM' || detail.REG_CODE eq 'DSN' || detail.REG_CODE eq 'DSP'}">
+										<c:if test="${detail.REG_CODE eq 'DJR' || detail.REG_CODE eq 'DKC' || detail.REG_CODE eq 'DKM' || detail.REG_CODE eq 'DLB' || detail.REG_CODE eq 'DLN' || detail.REG_CODE eq 'DLP' || detail.REG_CODE eq 'DLY' || detail.REG_CODE eq 'DMN' || detail.REG_CODE eq 'DMZ' || detail.REG_CODE eq 'DNA' || detail.REG_CODE eq 'DNK' || detail.REG_CODE eq 'DNZ' || detail.REG_CODE eq 'DPK' || detail.REG_CODE eq 'DPV' || detail.REG_CODE eq 'DQK' || detail.REG_CODE eq 'DQV' || detail.REG_CODE eq 'DRE' || detail.REG_CODE eq 'DTA' || detail.REG_CODE eq 'DTG' || detail.REG_CODE eq 'DTM' || detail.REG_CODE eq 'DTT' || detail.REG_CODE eq 'DTU' || detail.REG_CODE eq 'DTV' || detail.REG_CODE eq 'DUB' || detail.REG_CODE eq 'DUC' || detail.REG_CODE eq 'DUJ' || detail.REG_CODE eq 'DUK' || detail.REG_CODE eq 'DUR' || detail.REG_CODE eq 'DUV' || detail.REG_CODE eq 'DUX' || detail.REG_CODE eq 'DVD' || detail.REG_CODE eq 'DRR' || detail.REG_CODE eq 'DRS' || detail.REG_CODE eq 'DRT' || detail.REG_CODE eq 'DRU' || detail.REG_CODE eq 'DRV' || detail.REG_CODE eq 'DRW' || detail.REG_CODE eq 'DRX' || detail.REG_CODE eq 'DRY' || detail.REG_CODE eq 'DRZ' || detail.REG_CODE eq 'DSA' || detail.REG_CODE eq 'DSB' || detail.REG_CODE eq 'DSC' || detail.REG_CODE eq 'DSD' || detail.REG_CODE eq 'DSE' || detail.REG_CODE eq 'DSF' || detail.REG_CODE eq 'DSG' || detail.REG_CODE eq 'DSH' || detail.REG_CODE eq 'DSJ' || detail.REG_CODE eq 'DSK' || detail.REG_CODE eq 'DSL' || detail.REG_CODE eq 'DSM' || detail.REG_CODE eq 'DSN' || detail.REG_CODE eq 'DSP' || detail.REG_CODE eq 'DPA DPK'}">
 										<!-- <a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a> -->
 										</c:if>
 									</c:if>
@@ -436,6 +433,7 @@ $(function() {
 
 						</c:when>
 						<c:otherwise>
+							<c:if test="${detail.SHELF_LOC_CODE eq 'BR01' || detail.SHELF_LOC_CODE eq 'BR02' || detail.SHELF_LOC_CODE eq 'BR03' || detail.SHELF_LOC_CODE eq 'BR05' || detail.SHELF_LOC_CODE eq 'BR06'}">
 							<%
 							org.joda.time.DateTime now = new org.joda.time.DateTime();
 							int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
@@ -444,16 +442,18 @@ $(function() {
 							if(9 <= hour && hour < 17)
 							{
 							%>
-								<a href="#night" id="night-req" class="btn">워킹스루예약신청</a>
+								<!-- <a href="#night" id="night-req" class="btn">워킹스루예약신청</a> -->
 							<%
 							}
 							else
 							{
 							%>
-								<a href="#" class="btn btn1" onclick="alert('신청가능 시간이 아닙니다.');">워킹스루예약신청</a>
+								<!-- <a href="#" class="btn btn1" onclick="alert('신청가능 시간이 아닙니다.');">워킹스루예약신청</a> -->
 							<%
 							}
 							%>
+							<a href="#night" id="night-req" class="btn">워킹스루예약신청</a>
+							</c:if>
 						</c:otherwise>
 					</c:choose>
 
