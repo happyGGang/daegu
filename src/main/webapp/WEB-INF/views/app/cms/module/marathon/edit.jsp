@@ -91,7 +91,7 @@ $(function() {
 	});
 	
 	$('input#application_start_day').datepicker({
-		maxDate : $('input#application_end_date').val(),
+		maxDate : $('input#application_end_day').val(),
 		onClose : function(selectedDate){
 			$('input#application_end_day').datepicker('option', 'minDate', selectedDate);
 		}
