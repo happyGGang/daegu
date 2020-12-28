@@ -1644,9 +1644,9 @@ public class LibSearchAPI {
 		} else {
 			return null;
 		}
-
-		return CommonAPI.sendALADIN(param, "detail");
-//		return null;
+		//20201228 알라딘 호출 임시 주석
+//		return CommonAPI.sendALADIN(param, "detail");
+		return null;
 	}
 
 
