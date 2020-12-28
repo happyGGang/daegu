@@ -130,9 +130,9 @@
 									</a>
 								</li>
 								<li class="bg-lgray">
-									<a href="http://library.daegu.go.kr/228/board/index.do?menu_idx=199&manage_idx=417">
-									<span class="wt" style="letter-spacing:-2px;font-size:120%;">9월 온택트 독서문화행사</span>
-									<span class="wc">다양한 독서문화행사를<br/> 만나보세요</span>
+									<a href="http://library.daegu.go.kr/228/intro/search/index.do?menu_idx=203&&shelfCode=AA55&booktype=BOOKANDNONBOOK#search_result">
+									<span class="wt" style="letter-spacing:-2px;font-size:120%;">나라를 지킨 인물</span>
+									<span class="wc">나라를 지킨 인물을<br/> 만나보세요</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick05-bg.png" class="mi">
 									</a>
 								</li>
@@ -188,7 +188,7 @@
 						<div class="top-btn-box">
 							<ul>
 								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=124&manage_idx=71">주제가 있는 책장(일반)</a></li>
-								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=125&manage_idx=72">마음에 꽂힌 책(청소년)</a></li>
+								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=125&manage_idx=72">청소년, 내일을 위한 책</a></li>
 								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=126&manage_idx=73">책이 나에게 말걸다(어린이)</a></li>
 								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=127&manage_idx=74">초등교과연계도서</a></li>
 							</ul>
@@ -259,7 +259,7 @@
 									<ul>
 										<c:forEach var="i" varStatus="status" items="${bidListTopNotice}" >
 										<li class="on-notice">
-											<a href="/${homepage.context_path}/board/view.do?menu_idx=160&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=198&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 												<em>${i.title}</em>
 												<span><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
 											</a>
@@ -267,7 +267,7 @@
 										</c:forEach>
 										<c:forEach var="i" varStatus="status" items="${bidList}" >
 										<li>
-											<a href="/${homepage.context_path}/board/view.do?menu_idx=160&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=198&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 												<em>${i.title}</em>
 												<span><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
 											</a>
@@ -330,6 +330,7 @@
 				<li><a href="/${homepage.context_path}/html.do?menu_idx=50"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick003-bg.png" alt="사서에게 물어보세요"></span><span class="txt">사서에게<br/>물어보세요</span></a></li>
 				<li><a href="https://www.youth.go.kr/youth/" target="_blank"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick004-bg.png" alt="청소년자원봉사"></span><span class="txt">청소년<br/>자원봉사</span></a></li>
 				<li><a href="http://seat.daegu.go.kr/wb_booking/?LIB_CODE=4" target="_blank"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick005-bg.png" alt="청소년자원봉사"></span><span class="txt">좌석예약<br/>시스템</span></a></li>
+				<li style="padding-bottom:10px;"><a href="http://dgelib.dkyobobook.co.kr" target="_blank"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick006-bg.png" alt="청소년자원봉사"></span><span class="txt">대구학생<br/>전자도서관</span></a></li>
 			</ul>
 		</div>
 
