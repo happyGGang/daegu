@@ -112,7 +112,9 @@ public class MemberGroupAuth extends PagingUtils {
 
 	public List<String> getAuthCodeList() {
 		List<String> arrayList = new ArrayList<String>();
-		arrayList.addAll(this.authCodeList);
+		if (this.authCodeList != null) {
+			arrayList.addAll(this.authCodeList);
+		}
 		return arrayList;
 	}
 
