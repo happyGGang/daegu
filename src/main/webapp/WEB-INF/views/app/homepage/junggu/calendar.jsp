@@ -111,8 +111,9 @@ Date.prototype.format = function(f) {
 			<option value="h74" ${calendar.homepage_id eq 'h74' ? 'selected' : ''}>중구영어</option>
 			<option value="h75" ${calendar.homepage_id eq 'h75' ? 'selected' : ''}>동인느티나무</option>
 			<option value="h76" ${calendar.homepage_id eq 'h76' ? 'selected' : ''}>삼덕마루</option>
+			<option value="h78" ${calendar.homepage_id eq 'h78' ? 'selected' : ''}>작은도서관</option>
 		</select>
-		<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=36" class="btn-more3">더보기</a>
+		<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=36&homepage_id=${fn:escapeXml(calendar.homepage_id)}" class="btn-more3">더보기</a>
 	</div>
 
 	<div class="cal-func2">

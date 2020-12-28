@@ -178,7 +178,16 @@ $(function(){
 	<div class="infodesk">
 		<c:choose>
 			<c:when test="${fn:length(subHomepageList) > 0}">
-				도서관 : <form:select id="homepage_id_1" path="homepage_id" items="${subHomepageList}" itemLabel="homepage_name" itemValue="homepage_id"></form:select>
+				도서관 :
+				<form:select id="homepage_id_1" path="homepage_id">
+					<c:forEach items="${subHomepageList}" var="i">
+						<form:option value="${i.homepage_id}">${i.homepage_name}</form:option>
+					</c:forEach>
+					<c:if test="${asideHomepageId eq 'h53'}">
+						<form:option value="h78">작은도서관</form:option>
+					</c:if>
+
+				</form:select>
 			</c:when>
 			<c:otherwise>
 				<form:hidden id="homepage_id_1" path="homepage_id"/>
@@ -198,12 +207,14 @@ $(function(){
 		<div class="button btn-group inline">
 			<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>일정등록</span></a>
 		</div>
+			<c:if test="${calendarManage.homepage_id ne 'h78'}">
 		<div class="button btn-group inline">
 			<a href="" class="btn btn4 left" id="dialog-add-las"><i class="fa fa-plus"></i><span>자료관리 휴관일 가져오기(월단위)</span></a>
 		</div>
 		<div class="button btn-group inline">
 			<a href="" class="btn btn4 left" id="dialog-add-las-year"><i class="fa fa-plus"></i><span>자료관리 휴관일 가져오기(년단위)</span></a>
 		</div>
+			</c:if>
 		</c:if>
 	</div>
 </form:form>

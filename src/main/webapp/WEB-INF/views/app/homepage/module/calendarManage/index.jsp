@@ -180,12 +180,20 @@ $(function(){
 		<form:hidden id="homepage_id_1" path="homepage_id"/>
 		<form:hidden id="menu_idx" path="menu_idx"/>
 
+		<c:set var="subHomepageLength" value="${fn:length(subHomepageList)}"></c:set>
+		<c:if test="${homepage.context_path eq 'junggu'}">
+			<c:set var="subHomepageLength" value="${fn:length(subHomepageList) + 1}"></c:set>
+		</c:if>
+
 		<c:if test="${fn:length(subHomepageList) > 0}">
 		<div class="tab_menu on">
-			<ul class="no${fn:length(subHomepageList)}">
+			<ul class="no${subHomepageLength}">
 				<c:forEach items="${subHomepageList}" var="i" varStatus="status">
 					<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">${i.homepage_alias}</a></li>
 				</c:forEach>
+				<c:if test="${homepage.context_path eq 'junggu'}">
+					<li><a href="#tabCon${fn:length(subHomepageList)}" data-hid="h78">작은도서관</a></li>
+				</c:if>
 			</ul>
 		</div>
 		<div class="mg30t"></div>
