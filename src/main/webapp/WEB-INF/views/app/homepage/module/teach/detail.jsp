@@ -4,6 +4,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<% pageContext.setAttribute("crlf", "\r\n"); %>
+<% pageContext.setAttribute("lf", "\n"); %>
 <script src="/resources/cms/js/malsup.jquery.form.min.js"
 	type="text/javascript"></script>
 <script type="text/javascript">
@@ -69,7 +71,9 @@
 				</tr>
 				<tr>
 					<th class="center">강의 설명</th>
-					<td colspan="3">${teach.teach_desc}</td>
+					<c:set var="desc" value="${fn:replace(teach.teach_desc, crlf, '<br/>')}"></c:set>
+					<c:set var="desc" value="${fn:replace(desc, lf, '<br/>')}"></c:set>
+					<td colspan="3">${desc}</td>
 				</tr>
 
 
