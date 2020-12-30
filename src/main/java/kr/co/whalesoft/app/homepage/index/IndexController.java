@@ -45,12 +45,13 @@ import kr.co.whalesoft.app.cms.popup.Popup;
 import kr.co.whalesoft.app.cms.popup.PopupService;
 import kr.co.whalesoft.app.cms.popupZone.PopupZone;
 import kr.co.whalesoft.app.cms.popupZone.PopupZoneService;
+import kr.co.whalesoft.app.cms.popupZoneTop.PopupZoneTop;
+import kr.co.whalesoft.app.cms.popupZoneTop.PopupZoneTopService;
 import kr.co.whalesoft.app.cms.quickMenu.QuickMenu;
 import kr.co.whalesoft.app.cms.quickMenu.QuickMenuService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.go.gbelib.app.cms.module.elib.api.DgElibAPIService;
 import kr.go.gbelib.app.cms.module.elib.best.BestService;
-import kr.go.gbelib.app.cms.module.elib.book.Book;
 import kr.go.gbelib.app.cms.module.facilityReq.FacilityReq;
 import kr.go.gbelib.app.cms.module.facilityReq.FacilityReqService;
 import kr.go.gbelib.app.cms.module.teach.Teach;
@@ -71,6 +72,9 @@ public class IndexController extends BaseController {
 
 	@Autowired
 	private PopupZoneService popupZoneService;
+	
+	@Autowired
+	private PopupZoneTopService popupZoneTopService;
 
 	@Autowired
 	private PopupService popupService;
@@ -569,6 +573,7 @@ public class IndexController extends BaseController {
 		model.addAttribute("popupList", popupService.getPopupAll(new Popup(homepage.getHomepage_id())));
 		model.addAttribute("popupZoneList", popupZoneService.getPopupZoneAll(new PopupZone(homepage.getHomepage_id())));
 		model.addAttribute("quickMenuList", quickMenuService.getQuickMenuListAll(new QuickMenu(homepage.getHomepage_id())));
+		model.addAttribute("popupZoneTopList", popupZoneTopService.getPopupZoneTopAll(new PopupZoneTop(homepage.getHomepage_id())));
 
 		//인기검색어
 		//h44 달성군립도서관
