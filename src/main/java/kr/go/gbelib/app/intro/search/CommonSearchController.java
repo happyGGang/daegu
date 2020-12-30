@@ -1496,10 +1496,29 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 		Map<String, Object> lillRequestList = LibSearchAPI.lillRequestList(librarySearch, "0");
 		int lillRequestListCount = LibSearchAPI.getSearchCount(lillRequestList, "LIST_DATA", "TOTAL");
-		if (lillRequestListCount >= 3) {
-			service.alertMessage("상호대차 신청권수는 3권까지입니다.", request, response);
+//		if (lillRequestListCount >= 3) {
+//			service.alertMessage("상호대차 신청권수는 3권까지입니다.", request, response);
+//			return null;
+//		}
+
+		////
+		int sanghoPossiCnt = 5;
+
+		// 달서구립도서관, 중구 상호대차 3권
+		String[] sangho3cnt = {"dalseolib", "kids", "seongseo", "bolli", "family", "english", "dssmalllib", "junggu"};
+		for (String libOne : sangho3cnt) {
+			if(homepage.getContext_path().equals(libOne)) {
+				sanghoPossiCnt = 3;
+				break;
+			}
+		}
+
+		if (lillRequestListCount >= sanghoPossiCnt) {
+			service.alertMessage("상호대차 신청권수는 "+sanghoPossiCnt+"권까지입니다.", request, response);
 			return null;
 		}
+		////
+
 
 		Map<String, Object> result = new HashMap<String, Object>();
 
