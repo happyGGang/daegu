@@ -7,6 +7,13 @@
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub.css"/>
 <script type="text/javascript">
 $(function() {
+	$('#homeup').click(function () {
+		$('body,html').animate({
+			scrollTop: 0
+		}, 800);
+		return false;
+	});
+
 	$('li#menu_${menuOne.parent_menu_idx }').addClass('active');
 	$('li#menu_${menuOne.menu_idx}').addClass('active');
 	var halbaeNode = $('li#menu_${menuOne.parent_menu_idx }').parent().parent()[0];
@@ -15,7 +22,7 @@ $(function() {
 	}
 
 	if (location.href.indexOf('html.do?') > -1) {
-// 		$('div#menuRatingDiv').load('/${homepage.context_path}/module/menuRating/index.do?menu_idx=${param.menu_idx}');
+		//$('div#menuRatingDiv').load('/${homepage.context_path}/module/menuRating/index.do?menu_idx=${param.menu_idx}');
 	}
 
 	$('a.shareBtn').on('click', function(e) {
@@ -41,9 +48,50 @@ $(function() {
 		}
 	});
 
-	$('h1.mobile-logo a').css('background',"url('/resources/homepage/bukgs/img/bukgs_logo_b.png')"); 
-	$('.m-menu a').css('color','#000');
 
+	$('#header').addClass("background-white");
+	$('.Gnb').css("border-bottom","1px solid rgba(255,255,255,0.2)");
+	$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon.png');
+	$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon.png');
+	$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon.png');
+	$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon.png');
+
+
+	$('.Gnb, .tnb').on('mouseenter', function(){
+		$('#header').removeClass("background-white");
+		$('.Gnb').css('border-bottom','1px solid #e6e6e6');
+		$('.Gnb').css('background','#fff');
+		$('.tnb').css('background','#fff');
+		$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon_b.png');
+		$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon_b.png');
+		$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon_b.png');
+		$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon_b.png');
+	});
+
+	$('.Gnb, .tnb').on('mouseleave', function(){
+		$('#header').addClass("background-white");
+		$('.Gnb').css("border-bottom","1px solid rgba(255,255,255,0.2)");
+		$('.Gnb').css('background','none');
+		$('.tnb').css('background','none');
+		$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon.png');
+		$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon.png');
+		$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon.png');
+		$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon.png');
+	});
+
+	$(window).on('resize', function(e){
+		e.preventDefault();
+		var ___width = $(window).width();
+
+		if( ___width > 1024 )
+		{
+
+		}
+		else if( ___width <= 1024 )
+		{
+
+		}
+	});
 });
 </script>
 
@@ -54,21 +102,21 @@ $(function() {
 	<div id="container" class="subpage">
 
 		<div class="sub-visual">
+			<div class="doc-name">
+				<div class="" style="height:2px;width:3%;margin:0 auto;background:#fff;"></div>
+				<h3>${menuOne.menu_name}</h3>
+			</div>
 
-			<div class="doc-info">
-				<div class="doc-title">
-					<c:if test="${menuOne.include_menu_name_yn eq 'Y'}">
-					<h3>${menuOne.menu_name}</h3>
-					</c:if>
+			<div class="doc-info-bg">
+				<div class="doc-info">
 					<ol>
-						<li class="first"><a href="/${homepage.context_path}/index.do"><img src="/resources/common/img/navi_home_icon.gif"></a></li>
+						<li class="first"><a href="/${homepage.context_path}/index.do"><i class="fa fa-home"></i></a></li>
 						<homepageTag:docInfo oneMenu="${menuOne}" menuList="${menuLeftList}"/>
 					</ol>
-
 					<div class="shareArea">
 						<ul>
-							<li><a href="#" onclick="contentPrint();"><img src="/resources/common/img/sub-icon02.png" alt="현재페이지 인쇄"></a></li>
-							<li><a href="#" class="shareBtn snsBtn"><img src="/resources/common/img/sub-icon01.png" alt="sns 바로가기"></a>
+							<li><a href="#" onclick="contentPrint();"><img src="/resources/homepage/${homepage.context_path}/img/sub-icon02.png" alt="현재페이지 인쇄"></a></li>
+							<li><a href="#" class="shareBtn snsBtn"><img src="/resources/homepage/${homepage.context_path}/img/sub-icon01.png" alt="sns 바로가기"></a>
 
 									<div id="share_layer">
 										<div class="shareAllBtns" >
@@ -85,20 +133,18 @@ $(function() {
 									</div>
 
 							</li>
-							<li class="last"><a href="" class="sub-qrcode" keyValue="true"><img src="/resources/common/img/sub-icon03.png" alt="qr코드 보기"></a></li>
+							<li class="last"><a href="" class="sub-qrcode" keyValue="true"><img src="/resources/homepage/${homepage.context_path}/img/sub-icon03.png" alt="qr코드 보기"></a></li>
 						</ul>
 					</div>
-
+					<div class="end"></div>
 				</div>
-				<div class="end"></div>
 			</div>
-
 		</div>
 
 		<div class="sections">
 			<c:if test="${menuOne ne null}">
 			<div class="lnb">
-				<h2><b>${menuLeftList[0].menu_name}</b></h2>
+				<!-- <h2><b>${menuLeftList[0].menu_name}</b></h2> -->
 				<homepageTag:leftMenu menuList="${menuLeftList}"/>
 			</div>
 			</c:if>

@@ -223,39 +223,56 @@ $(function(){
 	var _str3 = 'i';
 	var _str4 = '<i class="fa fa-minus"></i>';
 
-	if(window.location.pathname.match("^/dgportal/") || window.location.pathname.match("^/elib/")) {
+	if(window.location.pathname.match("^/elib/")) 
+	{
 		var _str1 = '<i class="fa fa-ellipsis-v fa-2x"></i>';
 		var _str2 = '<i class="fa fa-ellipsis-v fa-2x"></i>';
 		var _str3 = '';
 		var _str4 = '<i class="fa fa-ellipsis-v fa-2x"></i>';
 	}
+	else if(window.location.pathname.match("^/dgportal/"))
+	{
+		var _str1 = "<img src='/resources/homepage/dgportal/img/lnb_icon.png' alt='menu' class='lnb-icon'>";
+		var _str2 = "<img src='/resources/homepage/dgportal/img/lnb_icon.png' alt='menu' class='lnb-icon'>";
+		var _str3 = "<img src='/resources/homepage/dgportal/img/lnb_icon.png' alt='menu' class='lnb-icon'>";
+		var _str4 = "<img src='/resources/homepage/dgportal/img/lnb_icon.png' alt='menu' class='lnb-icon'>";
+	}
 
-	$('div.lnb > ul > li, div.lnb > ul > li > ul > li').each(function(){
-		if($(this).find('ul').length > 0){
-			$(this).addClass('s');
-			if($(this).hasClass('active')){
-				$(this).children('a').append(_str1);
-			}else{
-				$(this).children('a').append(_str2);
-			}
-			$(this).children('a').on('click',function(){
-				if ($(this).next('ul').find('a:first').next('ul').length > 0) {
-					location.href = $(this).next('ul').find('a:first').next('ul').find('a:first').attr('href');
-					return false;
-				} else {
-					location.href = $(this).next('ul').find('a:first').attr('href');
-					return false;
-
+	if(window.location.pathname.match("^/dgportal/"))
+	{
+		$('div.lnb > ul > li').each(function(){
+			$(this).children('a').append(_str1);
+		});
+	}
+	else
+	{
+		$('div.lnb > ul > li, div.lnb > ul > li > ul > li').each(function(){
+			if($(this).find('ul').length > 0){
+				$(this).addClass('s');
+				if($(this).hasClass('active')){
+					$(this).children('a').append(_str1);
+				}else{
+					$(this).children('a').append(_str2);
 				}
-			});
+				$(this).children('a').on('click',function(){
+					if ($(this).next('ul').find('a:first').next('ul').length > 0) {
+						location.href = $(this).next('ul').find('a:first').next('ul').find('a:first').attr('href');
+						return false;
+					} else {
+						location.href = $(this).next('ul').find('a:first').attr('href');
+						return false;
 
-			if($(this).find('li').hasClass('active')){
-					$(this).children('a').children(_str3).remove();
-					$(this).children('a').append(_str4);
-					$(this).addClass('active');
+					}
+				});
+
+				if($(this).find('li').hasClass('active')){
+						$(this).children('a').children(_str3).remove();
+						$(this).children('a').append(_str4);
+						$(this).addClass('active');
 				}
 			}
-	});
+		});
+	}
 	/*
 	 * $('div.lnb > ul > li > ul > li').each(function(){
 	 * if($(this).find('ul').length > 0){ $(this).addClass('s');

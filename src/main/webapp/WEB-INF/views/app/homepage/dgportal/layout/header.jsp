@@ -27,8 +27,11 @@
 
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/default.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/main.css"/>
-<!--link rel="stylesheet" type="text/css" href="/resources/common/css/sub_contents.css"-->
-<link rel="stylesheet" type="text/css" href="/resources/common/css/sub_design_new.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/homepage/dgportal/css/sub_design.css"/>
+
+<!--link rel="stylesheet" type="text/css" href="/resources/common/css/sub_contents.css"/-->
+<!--link rel="stylesheet" type="text/css" href="/resources/common/css/dgportal_default.css"--/>
+<!--link rel="stylesheet" type="text/css" href="/resources/common/css/sub_design_new.css"--/>
 <!--[if lte IE 7]>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome-ie7.min.css"/>
 <![endif]-->

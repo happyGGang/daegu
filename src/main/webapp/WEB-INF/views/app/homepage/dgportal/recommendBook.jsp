@@ -43,6 +43,9 @@ do {
 			<img src="/data/board/${book1.manage_idx}/${book1.board_idx}/${book1.preview_img}" alt="${book1.title}" title="${book1.title}" />
 			</c:otherwise>
 		</c:choose>
+		<div class="recommendBookTitle">
+			${book1.title}
+		</div>
 	</a>
 </li>
 <li>
@@ -67,6 +70,9 @@ do {
 			<img src="/data/board/${book1.manage_idx}/${book1.board_idx}/${book1.preview_img}" alt="${book1.title}" title="${book1.title}" />
 			</c:otherwise>
 		</c:choose>
+		<div class="recommendBookTitle">
+			${book1.title}
+		</div>
 	</a>
 </li>
 <li>
@@ -82,6 +88,9 @@ do {
 			<img src="/data/board/${book2.manage_idx}/${book2.board_idx}/${book2.preview_img}" alt="${book2.title}" title="${book2.title}"/>
 			</c:otherwise>
 		</c:choose>
+		<div class="recommendBookTitle">
+			${book2.title}
+		</div>
 	</a>
 </li>
 </c:if>

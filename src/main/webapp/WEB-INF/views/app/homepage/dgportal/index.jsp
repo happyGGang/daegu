@@ -21,10 +21,11 @@ do {
 <c:set var="listNum2" value="<%=listNum2%>"></c:set>
 <c:set var="listNum3" value="<%=listNum3%>"></c:set>
 <tiles:insertAttribute name="header" />
-<link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.fullpage.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.swiper.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.fullpage.dgportal.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.mCustomScrollbar.css"/>
 <script type="text/javascript" src="/resources/common/js/jquery.fullpage.js"></script>
-<script type="text/javascript" src="/resources/common/js/jquery.swiper.min.js"></script>
+<script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/main-visual.js"></script>
+<script type="text/javascript" src="/resources/common/js/jquery.mCustomScrollbar.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$('#homeup').click(function () {
@@ -101,8 +102,105 @@ do {
 				$('input#search_text_1').focus();
 				return false;
 			}
-				$('#mainSearchForm').submit();
+
+			if( $("input:checkbox[name=libraryCodes]:checked").length == 0 )
+			{
+				alert('도서관을 선택 하세요.');
+				//$('input#search_text_1').focus();
+				return false;
+			}
+
+			$('#mainSearchForm').submit();
 		});
+
+		$('#main-search-btn2').on('click', function() {
+			if( $('input#search_text_2').val() == '' ) {
+				alert('검색어를 입력하세요.');
+				$('input#search_text_2').focus();
+				return false;
+			}
+
+			$('#mainSearchForm2').submit();
+		})
+
+		/*메인지도*/
+		$(".map-area li a").click(function(){
+			var id = $(this).data("num");
+			$(".libraryInfo").hide();
+			$(".libraryInfo input").attr('disabled',true);
+
+			$("#lib" + id).show();
+			$(".map-area li").removeClass('on');
+			$(this).parents('li').addClass('on');
+			$(".dglib0" + id).addClass('on');
+			$("#lib" + id +" input").attr('disabled',false);
+			return false;
+		});
+
+
+		$("select#searchArea").change(function(){
+			var id = $(this).val();
+			$(".libraryInfo").hide();
+			$(".libraryInfo input").attr('disabled',true);
+
+			$("#lib" + id).show();
+			$(".map-area li").removeClass('on');
+			$(this).parents('li').addClass('on');
+			$(".dglib0" + id).addClass('on');
+			$("#lib" + id +" input").attr('disabled',false);
+			return false;
+		});
+
+		$("input:checkbox[name='libraryCodes']").prop('checked', true);
+
+		$(".libraryCodesAll").click(function(){
+			var chk = $(this).is(":checked");//.attr('checked');
+			if(chk) 
+			{
+				$("input:checkbox[name='libraryCodes']").prop('checked', true);
+			}
+			else
+			{
+				$("input:checkbox[name='libraryCodes']").prop('checked', false);
+			}
+		});
+
+		$(".libraryCodesSi").click(function(){
+			var chk = $(this).is(":checked");//.attr('checked');
+			if(chk) 
+			{
+				$(".libraryCodesSiCheck").prop('checked', true);
+			}
+			else
+			{
+				$(".libraryCodesSiCheck").prop('checked', false);
+			}
+		});
+
+		$(".libraryCodesGu").click(function(){
+			var chk = $(this).is(":checked");//.attr('checked');
+			if(chk) 
+			{
+				$(".libraryCodesGuCheck").prop('checked', true);
+			}
+			else
+			{
+				$(".libraryCodesGuCheck").prop('checked', false);
+			}
+		});
+
+		$(".libraryCodesSm").click(function(){
+			var chk = $(this).is(":checked");//.attr('checked');
+			if(chk) 
+			{
+				$(".libraryCodesSmCheck").prop('checked', true);
+			}
+			else
+			{
+				$(".libraryCodesSmCheck").prop('checked', false);
+			}
+		});
+
 });
 </script>
 <div id="wrap">
@@ -121,18 +219,324 @@ do {
 		<div class="section" id="main0">
 
 			<div class="main-visual">
+				<div class='wide-visual-sections'>
+					<div id="top-book-loc-01" class="top-book">
+						<a href="#" id="top-book-01" class="top-book-act on">
+							<div class="top-book-content-01">
 
+								<div class="content-01-box">
+									<h3>01</h3>
 
+									<div class="box">
+										<div class="title">
+											<span class="">도서관알리미</span>
+										</div>
+										<div class="cont">
+											<ul>
+												<c:forEach items="${noticeBoardList}" var="i" varStatus="status" begin="0" end="1">
+												<li>
+													<a href="/${i.imsi_v_19}/board/view.do?manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&menu_idx=${i.imsi_n_2}">
+														<div class="contTop">
+															<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy"/><b><fmt:formatDate value="${i.add_date}" pattern="MM.dd"/></b></span>
+															<span class="link library${i.imsi_v_19}">${i.imsi_v_20}</span>
+														</div>
+														<div class="contMiddle">
+															<span class="tit">${i.title}</span>
+														</div>
+														<div class="contBottom">
+															<span class="con">${i.content_summary}</span>
+														</div>
+													</a>
+												</li>
+												</c:forEach>
+											</ul>
+										</div>
+	
+									</div>
+								</div>
 
-				<a href="#secondPage"><div class="main_scroll"><div class="main_scroll_wp_white">scroll down</div></div></a>
+								<div class="center top-cont-more">
+									<a href="#secondPage"><img src="/resources/homepage/${homepage.context_path}/img/top_down.png" alt=""></a>
+								</div>
+
+							</div>
+						</a>
+					</div>
+					<div id="top-book-loc-02" class="top-book">
+						<a href="#" id="top-book-02" class="top-book-act">
+							<div class="top-book-content-02">
+
+								<div class="content-02-box">
+									<h3>02</h3>
+
+									<div class="box">
+										
+										<div class="title">
+											<span class="">통합자료검색</span>
+										</div>
+										<div class="top-ment">
+											어떤 도서를 찾고 싶으세요?
+										</div>
+										<div class="bottom-ment">
+											쉽고 빠르게 검색해보세요
+										</div>
+										
+										<div class="search-box">
+											<div class="main-box">
+												<form id="mainSearchForm2" action="/dgportal/intro/search/indexAll.do">
+												<input type="hidden" name="menu_idx" value="7">
+												<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
+												<div class="box1">
+													<div class="box2">
+														<label for="search_text_2" class="blind">통합자료검색</label>
+														<input name="title" id="search_text_2" type="text" class="text" placeholder="검색어를 입력하세요." style="ime-mode:active;"/>
+													</div>
+												</div>
+												<button id="main-search-btn2">검색하기</button>
+												</form>
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+								<div class="center top-cont-more">
+									<a href="#thirdPage"><img src="/resources/homepage/${homepage.context_path}/img/top_down.png" alt=""></a>
+								</div>
+
+							</div>
+						</a>
+					</div>
+					<div id="top-book-loc-03" class="top-book">
+						<a href="#" id="top-book-03" class="top-book-act">
+							<div class="top-book-content-03">
+
+								<div class="content-03-box">
+									<h3>03</h3>
+
+									<div class="box">
+										<div class="title">
+											<span class="">평생교육강좌</span>
+										</div>
+
+										<div class="con">
+											<ul>
+												<c:forEach items="${teachList}" var="i" varStatus="status" begin='0' end='2'>
+												<li>
+													<a href="/${i.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=${i.menu_idx}&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}">
+														<span class="txt">
+															<span class="lib-name link teach_${i.homepage_id}">${i.homepage_name}</span>
+															<span class="tit">${fn:substring(i.teach_name, 0, 21)}<c:if test="${fn:length(i.teach_name) > 21}">...</c:if></span>
+															<span class="len"><b>접수</b> ${i.start_join_date} ~ ${i.end_join_date}</span>
+														</span>
+														<div class="end"></div>
+													</a>
+												</li>
+												</c:forEach>
+											</ul>
+										</div>
+
+									</div>
+								</div>
+
+								<div class="center top-cont-more">
+									<a href="#fourthPage"><img src="/resources/homepage/${homepage.context_path}/img/top_down.png" alt=""></a>
+								</div>
+
+							</div>
+						</a>
+					</div>
+					<div id="top-book-loc-04" class="top-book">
+						<a href="#" id="top-book-04" class="top-book-act">
+							<div class="top-book-content-04">
+
+								<div class="content-04-box">
+									<h3>04</h3>
+
+									<div class="box">
+										<div class="title">
+											<span>도서서비스</span>
+										</div>
+										<div class="daegubook">
+											<div class="con">
+												<a href="/${homepage.context_path}/html.do?menu_idx=8">
+													<dl>
+														<dt><img src="/resources/homepage/${homepage.context_path}/img/daegu-book.png" alt="당신이 옳다" /></dt>
+														<dd>
+															<p class="daegubook-cont-01">중앙도서관<br/> 사서가 추천하는 BOOK'</p>
+															<p class="daegubook-cont-02">
+																<b>당신이 옳다<br/>(정혜신의 적정심리학)</b><br/>
+																정혜신 / 해냄출판사 / 2018<br/><br/>
+															</p>
+															<p class="daegubook-cont-03">
+																사회적 재난 현장부터 일상의 순간까지 고통
+																받는 이들과 함께해온 정신과 의사 정혜신은 
+																우리에게 '심리적 CPR(심폐소생술)'이 절실
+																하다고 진단한다. 최근 15년 간 진료실을 벗
+																어나 보통 사람들은 물론 트라우마...
+															</p>
+														</dd>
+													</dl>
+												</a>
+											</div>
+										</div>
+										<div class="end"></div>
+
+									</div>
+								</div>
+
+								<div class="center top-cont-more">
+									<a href="#fifthPage"><img src="/resources/homepage/${homepage.context_path}/img/top_down.png" alt=""></a>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div id="top-book-loc-05" class="top-book">
+						<a href="#" id="top-book-05" class="top-book-act">
+							<div class="top-book-content-05">
+
+								<div class="content-05-box">
+									<h3>05</h3>
+
+									<div class="box">
+										<div class="title">
+											<span class="">큐레이션</span>
+										</div>
+										<div class="cont">
+											<ul>
+
+												<li>
+													<a href="http://www.icuration.co.kr/curation/w/63" target="_blank">
+														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu01.png" alt="대구동네책방"></div>
+														<p class="book-title">대구 동네책방</p>
+														<p class="book-desc">책과 공간을 나누는 대구 동네책방 발견의 기쁨</p>
+														<p class="reg-date">2020-12-10</p>
+													</a>
+												</li>
+
+												<li>
+													<a href="http://www.icuration.co.kr/curation/w/67" target="_blank">
+														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu02.png" alt="국채보상운동"></div>
+														<p class="book-title">국채보상운동</p>
+														<p class="book-desc">역사가 살아있는 대구, 국채보상운동 발자취를 따라서~</p>
+														<p class="reg-date">2020-12-09</p>
+													</a>
+												</li>
+
+											</ul>
+										</div>
+										<div class="end"></div>
+
+									</div>
+								</div>
+
+								<div class="center top-cont-more">
+									<a href="#sixthPage"><img src="/resources/homepage/${homepage.context_path}/img/top_down.png" alt=""></a>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div id="top-book-loc-06" class="top-book">
+						<a href="#" id="top-book-06" class="top-book-act">
+							<div class="top-book-content-06">
+
+								<div class="content-06-box">
+									<h3>06</h3>
+
+									<div class="box">
+										<div class="title">
+											<span class="">주요서비스</span>
+										</div>
+										<div class="mTopIcon">
+											<ul>
+												<li>
+													<a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=33">
+														<span><img src="/resources/homepage/${homepage.context_path}/img/q1.png" alt="도서대출현황"></span>도서대출현황
+													</a>
+												</li>
+												<li>
+													<a href="/${homepage.context_path}/intro/search/hope/index.do?menu_idx=36">
+														<span><img src="/resources/homepage/${homepage.context_path}/img/q2.png" alt="희망도서신청현황"></span>희망도서신청현황
+													</a>
+												</li>
+												<li>
+													<a href="/${homepage.context_path}/intro/search/resve/index.do?menu_idx=35">
+														<span><img src="/resources/homepage/${homepage.context_path}/img/q3.png" alt="예약현황"></span>예약현황
+													</a>
+												</li>
+													<li>
+													<a href="/${homepage.context_path}/intro/join/changeover.do?menu_idx=71">
+														<span><img src="/resources/homepage/${homepage.context_path}/img/q5.png" alt="비대면인증"></span>비대면인증
+													</a>
+												</li>												
+												<li>
+													<a href="/${homepage.context_path}/module/userPickBook/index.do?menu_idx=95">
+														<span><img src="/resources/homepage/${homepage.context_path}/img/q7.png" alt="이용자추천도서"></span>이용자추천도서
+													</a>
+												</li>												
+												<li>
+													<a href="/${homepage.context_path}/html.do?menu_idx=68">
+														<span><img src="/resources/homepage/${homepage.context_path}/img/q4.png" alt="스마트도서관"></span>스마트도서관
+													</a>
+												</li>
+												<li>
+													<a href="/${homepage.context_path}/board/index.do?menu_idx=23&manage_idx=283">
+														<span><img src="/resources/homepage/${homepage.context_path}/img/q8.png" alt="작은도서관"></span>작은도서관
+													</a>
+												</li>
+												<li>
+													<a href="/elib/index.do" target="_blank">
+														<span><img src="/resources/homepage/${homepage.context_path}/img/q6.png" alt="대구전자도서관"></span>대구전자도서관
+													</a>
+												</li>
+											</ul>
+										</div>
+										<div class="end"></div>
+
+									</div>
+								</div>
+
+								<div class="center top-cont-more">
+									<a href="#seventhPage"><img src="/resources/homepage/${homepage.context_path}/img/top_down.png" alt=""></a>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
 			</div>
-
+			<a href="#secondPage"><div class="main_scroll"><div class="main_scroll_wp_white">scroll down</div></div></a>
 		</div>
 		<!-- //main0 -->
 
 		<!-- section1 -->
 		<div class="section" id="main1">
 			<div class='wide-1686-sections'>
+
+				<div class="notice-box">
+					<h2 class="title">공지사항</h2>
+					<div class="news con" >
+						<div class="box">
+							<ul>
+
+							
+								<c:forEach items="${noticeBoardList}" var="i" varStatus="status">
+								<li>
+									<a href="/${i.imsi_v_19}/board/view.do?manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&menu_idx=${i.imsi_n_2}" class="wrap">
+										<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy."/><br class="webList"/><b><fmt:formatDate value="${i.add_date}" pattern="MM.dd"/></b></span>
+										<span class="link library${i.imsi_v_19}">${i.imsi_v_20}</span>
+										<span class="tit title${i.imsi_v_19}">${i.title}</span>
+									</a>
+								</li>
+								</c:forEach>
+							
+
+							</ul>
+						</div>
+					</div>
+					<div class="more-btn">
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=22&manage_idx=282"><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt="더보기" /></a>
+					</div>
+				</div>
 
 				<div class="popupzone-box">
 					<h2 class="title">팝업존</h2>
@@ -150,29 +554,6 @@ do {
 					</div>
 				</div>
 
-				<div class="notice-box">
-					<h2 class="title">공지사항</h2>
-					<div class="news con" >
-						<div class="box">
-							<ul>
-								<c:forEach items="${noticeBoardList}" var="i" varStatus="status">
-								<li>
-									<a href="/${i.imsi_v_19}/board/view.do?manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&menu_idx=${i.imsi_n_2}" class="wrap">
-										<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy"/><br/><b><fmt:formatDate value="${i.add_date}" pattern="MM.dd"/></b></span>
-										<span class="link library${i.imsi_v_19}">${i.imsi_v_20}</span>
-										<span class="tit title${i.imsi_v_19}">${i.title}</span>
-									</a>
-								</li>
-								</c:forEach>
-							</ul>
-						</div>
-					</div>
-					<div class="more-btn">
-						<a href="/${homepage.context_path}/board/index.do?menu_idx=22&manage_idx=282"><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt="더보기" /></a>
-					</div>
-				</div>
-
-
 			</div>
 
 		</div>
@@ -187,8 +568,8 @@ do {
 
 			<!-- main_search -->
 			<div class="search-area" id="main_search">
-				<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
-				<input type="hidden" name="menu_idx" value="9">
+				<form id="mainSearchForm" action="/dgportal/intro/search/indexAll.do">
+				<input type="hidden" name="menu_idx" value="7">
 				<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
 				<fieldset>
 					<legend class="blind">통합검색</legend>
@@ -202,12 +583,828 @@ do {
 						<button id="main-search-btn">검색하기</button>
 					</div>
 				</fieldset>
+				
+				<div class="wide-1260-sections">
+					<div class="map-wrap">
+						<div class="main2-box left-box">
+
+							<div class="libraryMap">
+								<div class="map-area">
+									<img src="/resources/homepage/${homepage.context_path}/img/map.png" alt="대구지도">
+									<ul>
+										<li class="dglib01 on"><a href="#link" data-num="1"><p>동구</p></a></li>
+										<li class="dglib02"><a href="#link" data-num="2"><p>서구</p></a></li>
+										<li class="dglib03"><a href="#link" data-num="3"><p>남구</p></a></li>
+										<li class="dglib04"><a href="#link" data-num="4"><p>북구</p></a></li>
+										<li class="dglib05"><a href="#link" data-num="5"><p>수성구</p></a></li>
+										<li class="dglib06"><a href="#link" data-num="6"><p>중구</p></a></li>
+										<li class="dglib07"><a href="#link" data-num="7"><p>달서구</p></a></li>
+										<li class="dglib08"><a href="#link" data-num="8"><p>달성군</p></a></li>
+
+									</ul>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="main2-box right-box">
+
+							<div class="librarySearch">
+
+								<div class="searchArea-box">
+									<select id="searchArea" class="searchArea">
+										<option value="1" style="color:#000;">동구</option>
+										<option value="2" style="color:#000;">서구</option>
+										<option value="3" style="color:#000;">남구</option>
+										<option value="4" style="color:#000;">북구</option>
+										<option value="5" style="color:#000;">수성구</option>
+										<option value="6" style="color:#000;">중구</option>
+										<option value="7" style="color:#000;">달서구</option>
+										<option value="8" style="color:#000;">달성군</option>
+									</select>
+								</div>
+
+								<div id="lib1" class="libraryInfo">
+									<h3 class="name">동구</h3>
+									<div class="selection01">
+										<input id="libraryCodesAll1" class="libraryCodesAll" name="libraryCodes" type="checkbox" /> <label for="libraryCodesAll1">전체</label> 
+										<input id="libraryCodesSi1" class="libraryCodesSi" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSi1">시립</label> 
+										<input id="libraryCodesGu1" class="libraryCodesGu" name="libraryCodes" type="checkbox" /> <label for="libraryCodesGu1">구군립</label> 
+										<input id="libraryCodesSm1" class="libraryCodesSm" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSm1">작은</label>
+									</div>
+									<div class="comment">
+										<img src="/resources/homepage/${homepage.context_path}/img/use-check-ment.png" alt="검색대, 홈페이지 설명">
+									</div>
+									<div class="selection02 mCustomScrollbar light" data-mcs-theme="minimal-dark">
+									<ul>
+										<li>
+											<input id="libraryCodes11" name="libraryCodes" class="libraryCodesSiCheck" type="checkbox" value="AH"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib01">시립</span>
+											<label for="libraryCodes11">동부도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/dongbu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="https://library.daegu.go.kr/dongbu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+											
+										</li>
+										<li>
+											<input id="libraryCodes12" name="libraryCodes" class="libraryCodesSiCheck" type="checkbox" value="AA"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib01">시립</span>
+											<label for="libraryCodes12">2ㆍ28기념학생도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/228/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="https://library.daegu.go.kr/228/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes13" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="CA"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes13">안심도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes14" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="CB"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes14">신천도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/sincheon/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+
+										<li>
+											<input id="libraryCodes15" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GR"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes15">신암2동작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/donggusm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes16" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GS"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes16">신암3동작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/donggusm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes17" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="HJ"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes17">신암5동작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/donggusm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes18" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FK"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes18">신천3동작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/donggusm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes19" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GT"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes19">효목1동작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/donggusm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes110" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FP"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes110">효목2동작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/donggusm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes111" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FL"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes111">도평동작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/donggusm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes112" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GU"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes112">불로어울림작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/donggusm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes113" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GV"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes113">지저동작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/donggusm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes114" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GW"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes114">동천역사작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/donggusm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes115" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GX"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes115">방촌동작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/donggusm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes116" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GY"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes116">해안동작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/donggusm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes117" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FM"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes117">반야월역사작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/donggusm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes118" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GZ"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes118">동구청작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/donggusm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes119" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="HK"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes119">늘푸른작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/donggusm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes120" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="HL"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes120">초록우산작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/donggusm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes121" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="HM"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes121">꿈날자문고작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/donggusm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes122" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="HN"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes122">행복작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/donggusm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes123" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="HP"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes123">율하5주민작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/donggusm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes124" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="HQ"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes124">방촌어린이작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/donggusm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+									</ul>
+									</div>
+								</div>
+
+								<div id="lib2" class="libraryInfo" style="display:none;">
+									<h3 class="name">서구</h3>
+									<div class="selection01">
+										<input id="libraryCodesAll2" class="libraryCodesAll" name="libraryCodes" type="checkbox" /> <label for="libraryCodesAll2">전체</label> 
+										<input id="libraryCodesSi2" class="libraryCodesSi" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSi2">시립</label> 
+										<input id="libraryCodesGu2" class="libraryCodesGu" name="libraryCodes" type="checkbox" /> <label for="libraryCodesGu2">구군립</label> 
+									</div>
+									<div class="comment">
+										<img src="/resources/homepage/${homepage.context_path}/img/use-check-ment.png" alt="검색대, 홈페이지 설명">
+									</div>
+									<div class="selection02 mCustomScrollbar light" data-mcs-theme="minimal-dark">
+									<ul>
+										<li>
+											<input id="libraryCodes21" name="libraryCodes" class="libraryCodesSiCheck" type="checkbox" value="AF"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib01">시립</span>
+											<label for="libraryCodes21">서부도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/seobu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="https://library.daegu.go.kr/seobu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+											
+										</li>
+										<li>
+											<input id="libraryCodes22" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BL"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes22">서구어린이도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/seogulib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/seogulib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes23" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BQ"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes24">비산도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/bisan/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="r/seogulib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes24" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BP"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes24">서구영어도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/seoguenglish/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/seogulib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes25" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BM"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes24">비원도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/biwon/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/seogulib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes26" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BN"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes24">원고개도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/wongogae/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/seogulib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+
+										<li>
+											<input id="libraryCodes27" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GQ"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes27">내당2,3동 드림도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/seogulib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/seogulib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes28" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FU"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes28">내당4동어린이도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/seogulib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/seogulib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes29" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FZ"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes29">비산7동작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/seogulib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/seogulib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes210" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FH"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes210">새마을문고대구서구지부작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/seogulib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/seogulib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes211" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FT"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes211">서구청작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/seogulib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/seogulib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes212" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="HC"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes212">달성토성마을다락방작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/seogulib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/seogulib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+									</ul>
+									</div>
+								</div>
+
+								<div id="lib3" class="libraryInfo" style="display:none;">
+									<h3 class="name">남구</h3>
+									<div class="selection01">
+										<input id="libraryCodesAll3" class="libraryCodesAll" name="libraryCodes" type="checkbox" /> <label for="libraryCodesAll3">전체</label> 
+										<input id="libraryCodesSi3" class="libraryCodesSi" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSi3">시립</label> 
+										<input id="libraryCodesGu3" class="libraryCodesGu" name="libraryCodes" type="checkbox" /> <label for="libraryCodesGu3">구군립</label> 
+									</div>
+									<div class="comment">
+										<img src="/resources/homepage/${homepage.context_path}/img/use-check-ment.png" alt="검색대, 홈페이지 설명">
+									</div>
+									<div class="selection02 mCustomScrollbar light" data-mcs-theme="minimal-dark">
+									<ul>
+										<li>
+											<input id="libraryCodes31" name="libraryCodes" class="libraryCodesSiCheck" type="checkbox" value="AG"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib01">시립</span>
+											<label for="libraryCodes1">남부도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="https://library.daegu.go.kr/nambu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+											
+										</li>
+										<li>
+											<input id="libraryCodes32" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BT"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes2">이천어울림도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/namic/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/namic/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes33" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BS"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes3">대명어울림도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/namdm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/namdm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+									</ul>
+									</div>
+								</div>
+
+								<div id="lib4" class="libraryInfo" style="display:none;">
+									<h3 class="name">북구</h3>
+									<div class="selection01">
+										<input id="libraryCodesAll4" class="libraryCodesAll" name="libraryCodes" type="checkbox" /> <label for="libraryCodesAll4">전체</label> 
+										<input id="libraryCodesSi4" class="libraryCodesSi" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSi4">시립</label> 
+										<input id="libraryCodesGu4" class="libraryCodesGu" name="libraryCodes" type="checkbox" /> <label for="libraryCodesGu4">구군립</label> 
+									</div>
+									<div class="comment">
+										<img src="/resources/homepage/${homepage.context_path}/img/use-check-ment.png" alt="검색대, 홈페이지 설명">
+									</div>
+									<div class="selection02 mCustomScrollbar light" data-mcs-theme="minimal-dark">
+									<ul>
+										<li>
+											<input id="libraryCodes41" name="libraryCodes" class="libraryCodesSiCheck" type="checkbox" value="AC"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib01">시립</span>
+											<label for="libraryCodes21">북부도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/bukbu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="https://library.daegu.go.kr/bukbu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+											
+										</li>
+										<li>
+											<input id="libraryCodes42" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BA"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes2">구수산도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/bukgs/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/bukgs/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes43" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BC"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes3">태전도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/buktj/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/buktj/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes44" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BB"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes4">대현도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/bukdh/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/bukdh/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+									</ul>
+									</div>
+								</div>
+
+								<div id="lib5" class="libraryInfo" style="display:none;">
+									<h3 class="name">수성구</h3>
+									<div class="selection01">
+										<input id="libraryCodesAll5" class="libraryCodesAll" name="libraryCodes" type="checkbox" /> <label for="libraryCodesAll5">전체</label> 
+										<input id="libraryCodesSi5" class="libraryCodesSi" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSi5">시립</label> 
+										<input id="libraryCodesGu5" class="libraryCodesGu" name="libraryCodes" type="checkbox" /> <label for="libraryCodesGu5">구군립</label>  
+									</div>
+									<div class="comment">
+										<img src="/resources/homepage/${homepage.context_path}/img/use-check-ment.png" alt="검색대, 홈페이지 설명">
+									</div>
+									<div class="selection02 mCustomScrollbar light" data-mcs-theme="minimal-dark">
+									<ul>
+										<li>
+											<input id="libraryCodes51" name="libraryCodes" class="libraryCodesSiCheck" type="checkbox" value="AP"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib01">시립</span>
+											<label for="libraryCodes1">수성도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/suseong/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="https://library.daegu.go.kr/suseong/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+											
+										</li>
+										<li>
+											<input id="libraryCodes52" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BD"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes2">범어도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/beomeo/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/beomeo/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes53" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BE"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes3">용학도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/yonghak/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/yonghak/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes54" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BF"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes4">고산도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/gosan/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/gosan/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes55" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BG"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes5">파동도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/padong/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/beomeo/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes56" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BH"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes6">무학숲도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/muhaksup/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/beomeo/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes57" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BJ"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes7">책숲길도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/bookforest/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/beomeo/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes58" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BK"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes8">물망이도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/mulmangi/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/beomeo/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+									</ul>
+									</div>
+								</div>
+
+								<div id="lib6" class="libraryInfo" style="display:none;">
+									<h3 class="name">중구</h3>
+									<div class="selection01">
+										<input id="libraryCodesAll6" class="libraryCodesAll" name="libraryCodes" type="checkbox" /> <label for="libraryCodesAll6">전체</label> 
+										<input id="libraryCodesSi6" class="libraryCodesSi" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSi6">시립</label> 
+										<input id="libraryCodesGu6"class="libraryCodesGu" name="libraryCodes" type="checkbox" /> <label for="libraryCodesGu6">구군립</label> 
+									</div>
+									<div class="comment">
+										<img src="/resources/homepage/${homepage.context_path}/img/use-check-ment.png" alt="검색대, 홈페이지 설명">
+									</div>
+									<div class="selection02 mCustomScrollbar light" data-mcs-theme="minimal-dark">
+									<ul>
+										<li>
+											<input id="libraryCodes61" name="libraryCodes" class="libraryCodesSiCheck" type="checkbox" value="AD"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib01">시립</span>
+											<label for="libraryCodes1">중앙도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/jungang/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="https://library.daegu.go.kr/jungang/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+											
+										</li>
+										<li>
+											<input id="libraryCodes62" name="libraryCodes" class="libraryCodesSiCheck" type="checkbox" value="AL"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib01">시립</span>
+											<label for="libraryCodes2">2ㆍ28민주운동기념회관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/228lib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="https://library.daegu.go.kr/228lib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes63" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="FS"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes3">중구영어도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/junggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/junggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+
+									</ul>
+									</div>
+								</div>
+
+								<div id="lib7" class="libraryInfo" style="display:none;">
+									<h3 class="name">달서구</h3>
+									<div class="selection01">
+										<input id="libraryCodesAll7" class="libraryCodesAll" name="libraryCodes" type="checkbox" /> <label for="libraryCodesAll7">전체</label> 
+										<input id="libraryCodesSi7" class="libraryCodesSi" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSi7">시립</label> 
+										<input id="libraryCodesGu7" class="libraryCodesGu" name="libraryCodes" type="checkbox" /> <label for="libraryCodesGu7">구군립</label> 
+									</div>
+									<div class="comment">
+										<img src="/resources/homepage/${homepage.context_path}/img/use-check-ment.png" alt="검색대, 홈페이지 설명">
+									</div>
+									<div class="selection02 mCustomScrollbar light" data-mcs-theme="minimal-dark">
+									<ul>
+										<li>
+											<input id="libraryCodes71" name="libraryCodes" class="libraryCodesSiCheck" type="checkbox" value="AB"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib01">시립</span>
+											<label for="libraryCodes1">두류도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/duryu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="https://library.daegu.go.kr/duryu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+											
+										</li>
+										<li>
+											<input id="libraryCodes72" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BU"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes2">성서도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/seongseo/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes73" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BV"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes3">달서어린이도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/kids/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes74" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BW"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes4">도원도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes75" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BX"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes5">본리도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/bolli/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes76" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BY"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes6">달서가족문화도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/family/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes77" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BZ"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes7">달서영어도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/english/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+									</ul>
+									</div>
+								</div>
+
+								<div id="lib8" class="libraryInfo" style="display:none;">
+									<h3 class="name">달성군</h3>
+									<div class="selection01">
+										<input id="libraryCodesAll8" class="libraryCodesAll" name="libraryCodes" type="checkbox" /> <label for="libraryCodesAll8">전체</label> 
+										<input id="libraryCodesSi8" class="libraryCodesSi" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSi8">시립</label> 
+										<input id="libraryCodesGu8" class="libraryCodesGu" name="libraryCodes" type="checkbox" /> <label for="libraryCodesGu8">구군립</label> 
+									</div>
+									<div class="comment">
+										<img src="/resources/homepage/${homepage.context_path}/img/use-check-ment.png" alt="검색대, 홈페이지 설명">
+									</div>
+									<div class="selection02 mCustomScrollbar light" data-mcs-theme="minimal-dark">
+									<ul>
+										<li>
+											<input id="libraryCodes81" name="libraryCodes" class="libraryCodesSiCheck" type="checkbox" value="AJ"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib01">시립</span>
+											<label for="libraryCodes1">달성도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/dalseong/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="https://library.daegu.go.kr/dalseong/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+											
+										</li>
+										<li>
+											<input id="libraryCodes82" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BR"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes2">달성군립도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/dalseonglib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dalseonglib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+									</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
 				</form>
 			</div>
 			<!-- //Main_search -->
 		</div>
 		<!-- //main2 -->
-
+		<!-- custom scrollbar plugin -->
+		<script src="/resources/common/js/jquery.mCustomScrollbar.concat.min.js"></script>
 
 		<!-- main3 평생교육강좌-->
 		<div class="section" id="main3">
@@ -220,13 +1417,13 @@ do {
 				<div class="cont cultureList">
 					<ul>
 						<c:forEach items="${teachList}" var="i" varStatus="status">
-						<c:set var="imgnum" value="${(status.count % 3)+1}"></c:set>
+						<c:set var="imgnum" value="${(status.count % 4)+1}"></c:set>
 						<li>
 							<a href="/${i.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=${i.menu_idx}&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}" class="border bgimg00${imgnum}">
-								<span class="status">진행중</span>
+								<span class="status">접수중</span>
 								<span class="txt">
 									<p class="lib-name">${i.homepage_name}</p>
-									<p class="tit">${fn:substring(i.teach_name, 0, 15)}<c:if test="${fn:length(i.teach_name) > 15}">...</c:if></p>
+									<p class="tit">${fn:substring(i.teach_name, 0, 15)}<c:if test="${fn:length(i.teach_name) > 17}">...</c:if></p>
 									<p class="len"><b>접수</b> ${i.start_join_date} ~ ${i.end_join_date}</p>
 								</span>
 							</a>
@@ -271,7 +1468,7 @@ do {
 							</div>
 						</div>
 						<div class="more-btn">
-							<a href=""><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt="더보기" /></a>
+							<a href="board/index.do?menu_idx=67&manage_idx=299"><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt="더보기" /></a>
 						</div>
 					</div>
 
@@ -287,6 +1484,8 @@ do {
 										<p>
 											<b>당신이 옳다<br/>(정혜신의 적정심리학)</b><br/>
 											정혜신 / 해냄출판사 / 2018<br/><br/>
+										</p>
+										<p class="ment">
 											사회적 재난 현장부터 일상의 순간까지 고통
 											받는 이들과 함께해온 정신과 의사 정혜신은 
 											우리에게 '심리적 CPR(심폐소생술)'이 절실
@@ -295,13 +1494,13 @@ do {
 											터 CEO까지 다양한 이들의 속마음을...
 										</p>
 									</dt>
-									<dd><img src="/resources/homepage/${homepage.context_path}/img/daegu-book.png" alt="당신이 옳다" /></dd>
+									<dd><a href="html.do?menu_idx=8"><img src="/resources/homepage/${homepage.context_path}/img/daegu-book.png" alt="당신이 옳다" /></a></dd>
 								</dl>
 							</div>
 						</div>
 
 						<div class="more-btn">
-							<a href=""><img src="/resources/homepage/${homepage.context_path}/img/more-btn_b.png" alt="더보기" /></a>
+							<a href="html.do?menu_idx=8"><img src="/resources/homepage/${homepage.context_path}/img/more-btn_b.png" alt="더보기" /></a>
 						</div>
 					</div>
 
@@ -322,44 +1521,57 @@ do {
 					<ul>
 
 						<li>
-							<a href="http://icuration.co.kr/curation/w/58" target="_blank">
-								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu01.png" alt="부산 여행코스"></div>
-								<h3 class="book-title">Maker를 위한 북큐레이션</h3>
-								<p class="book-desc">상상을 현실로 만드는 메이커스페이스</p>
+							<a href="http://www.icuration.co.kr/curation/w/63" target="_blank">
+								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu01.png" alt="대구 동네책방"></div>
+								<h3 class="book-title">대구 동네책방</h3>
+								<p class="book-desc">책과 공간을 나누는 대구 동네책방, 발견의 기쁨!</p>
+								<p class="reg-date">2020-12-10</p>
+							</a>
+						</li>
+
+						<li>
+							<a href="http://www.icuration.co.kr/curation/w/67" target="_blank">
+								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu02.png" alt="국채보상운동"></div>
+								<h3 class="book-title">국채보상운동</h3>
+								<p class="book-desc">대구 국채보상운동! 어디까지 알고 있으세요?</p>
+								<p class="reg-date">2020-12-09</p>
+							</a>
+						</li>
+
+						<li>
+							<a href="http://www.icuration.co.kr/curation/w/66" target="_blank">
+								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu03.png" alt="대구 북카페"></div>
+								<h3 class="book-title">대구 북카페</h3>
+								<p class="book-desc">이제, 독서도 우아하게</p>
+								<p class="reg-date">2020-12-08</p>
+							</a>
+						</li>
+
+						<li>
+							<a href="http://www.icuration.co.kr/curation/w/65" target="_blank">
+								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu04.png" alt="대구 명소"></div>
+								<h3 class="book-title">대구 명소</h3>
+								<p class="book-desc">즐기는 대구! 대구 속 명소 찾기</p>
+								<p class="reg-date">2020-12-03</p>
+							</a>
+						</li>
+
+
+						<li>
+							<a href="http://www.icuration.co.kr/curation/w/61" target="_blank">
+								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu05.png" alt="대구지역출판사"></div>
+								<h3 class="book-title">대구 지역출판사</h3>
+								<p class="book-desc">대구 지역의 출판사를 소개합니다!</p>
 								<p class="reg-date">2020-12-02</p>
-							</a>
-						</li>
-
-						<li>
-							<a href="http://icuration.co.kr/curation/w/51" target="_blank">
-								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu02.png" alt="부산 서점"></div>
-								<h3 class="book-title">10월 그림책 토크 콘서트</h3>
-								<p class="book-desc">코로나 19 슬기로운 온라인 도서관 이용법</p>
-								<p class="reg-date">2020-12-02</p
-							</a>
-						</li>
-
-						<li>
-							<a href="http://www.icuration.co.kr/curation/w/53" target="_blank">
-								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu03.png" alt="부산 북카페"></div>
-								<h3 class="book-title">2020 언택트 독도의 날</h3>
-								<p class="book-desc">2020 독도의 날(10.25) 행사 언택트로 진행합니다.</p>
-								<p class="reg-date">2020-12-02</p
-							</a>
-						</li>
-
-						<li>
-							<a href="http://www.icuration.co.kr/curation/w/52" target="_blank">
-								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu04.png" alt="부산 여행지</"></div>
-								<h3 class="book-title">유투버를 위한 북큐레이션</h3>
-								<p class="book-desc">유투버를 위한 큐레이션을 소개합니다</p>
-								<p class="reg-date">2020-12-02</p
 							</a>
 						</li>
 
 					</ul>
 				</div>
 			</div>
+			<!--div class="more-btn">
+				<a href=""><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt="더보기" /></a>
+			</div-->
 		</div>
 
 		<!-- main6 주요서비스-->
@@ -373,33 +1585,43 @@ do {
 			<div class="mIcon">
 				<ul>
 					<li>
-						<a href="/bukgs/html.do?menu_idx=15">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q1.png" alt="희망도서신청"><br/>희망도서신청</span>
+						<a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=33">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q1.png" alt="도서대출현황"><br/>도서대출현황</span>
 						</a>
 					</li>
 					<li>
-						<a href="/bukgs/html.do?menu_idx=92">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q2.png" alt="상호대차서비스"><br/>상호대차서비스</span>
+						<a href="/${homepage.context_path}/intro/search/hope/index.do?menu_idx=36">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q2.png" alt="희망도서신청현황"><br/>희망도서신청현황</span>
 						</a>
 					</li>
 					<li>
-						<a href="/bukgs/module/teach/index.do?menu_idx=32">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q3.png" alt="독서문화행사"><br/>독서문화행사</span>
+						<a href="/${homepage.context_path}/intro/search/resve/index.do?menu_idx=35">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q3.png" alt="예약현황"><br/>예약현황</span>
 						</a>
 					</li>
 					<li>
-						<a href="/bukgs/intro/login/index.do?menu_idx=69">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q4.png" alt="대출정보조회"><br/>대출정보조회</span>
+						<a href="/${homepage.context_path}/intro/join/changeover.do?menu_idx=71">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q5.png" alt="비대면인증"><br/>비대면인증</span>
+						</a>
+					</li>				
+					<li>
+						<a href="/${homepage.context_path}/module/userPickBook/index.do?menu_idx=95">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q7.png" alt="이용자추천도서"><br/>이용자추천도서</span>
+						</a>
+					</li>									
+					<li>
+						<a href="/${homepage.context_path}/html.do?menu_idx=68">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q4.png" alt="스마트도서관"><br/>스마트도서관</span>
 						</a>
 					</li>
 					<li>
-						<a href="/bukgs/html.do?menu_idx=91">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q5.png" alt="스마트도서관"><br/>스마트도서관</span>
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=23&manage_idx=283">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q8.png" alt="작은도서관"><br/>작은도서관</span>
 						</a>
 					</li>
 					<li>
-						<a href="https://blog.naver.com/bukguarts" target="_blank">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q6.png" alt="블로그"><br/>블로그</span>
+						<a href="/elib/index.do" target="_blank">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q6.png" alt="대구전자도서관"><br/>대구전자도서관</span>
 						</a>
 					</li>
 				</ul>
@@ -409,17 +1631,17 @@ do {
 			<div class="mBtn">
 				<ul>
 					<li>
-						<a href="/bukgs/html.do?menu_idx=15" class="b01">
+						<a href="html.do?menu_idx=14" class="b01">
 							책이음
 						</a>
 					</li>
 					<li>
-						<a href="/bukgs/html.do?menu_idx=92" class="b02">
+						<a href="html.do?menu_idx=15" class="b02">
 							책바다
 						</a>
 					</li>
 					<li>
-						<a href="/bukgs/module/teach/index.do?menu_idx=32" class="b03">
+						<a href="html.do?menu_idx=16" class="b03">
 							책나래
 						</a>
 					</li>
@@ -433,8 +1655,8 @@ do {
 		</div>
 		<!-- //footer_section -->
 
-
 	</div>
+
 
 </div>
 
@@ -446,7 +1668,7 @@ do {
 <script type="text/javascript">
 function fullPage() {
 	var myFullpage = new fullpage('#fullpage', {
-		anchors: ['firstPage', 'secondPage', '3rdPage'],
+		anchors: ['firstPage', 'secondPage', 'thirdPage','fourthPage','fifthPage','sixthPage','seventhPage'],
 		navigation:true,
 		showActiveTooltip: true,
 		menu: '#menu',
@@ -455,40 +1677,128 @@ function fullPage() {
 			var cur_page = destination.index+1;
 			if (destination.index == 0 ) {
 				$('#header').addClass("background-white");
-				//$('.Gnb').css('border-bottom','1');
+				$('.Gnb').css("border-bottom","1px solid rgba(213, 213, 213, 0.3)");
 				$('.Gnb').css('background','none');
 				$('.tnb').css('background','none');
 				$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon.png');
 				$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon.png');
 				$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon.png');
 				$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon.png');
+
+				$('.Gnb, .tnb').on('mouseenter', function(){
+					$('#header').removeClass("background-white");
+					$('.Gnb').css('border-bottom','1px solid rgba(213, 213, 213, 0.3)');
+					$('.Gnb').css('background','#fff');
+					$('.tnb').css('background','#fff');
+					$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon_b.png');
+					$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon_b.png');
+					$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon_b.png');
+					$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon_b.png');
+				});
+
+				$('.Gnb, .tnb').on('mouseleave', function(){
+					$('#header').addClass("background-white");
+					$('.Gnb').css("border-bottom","1px solid rgba(213, 213, 213, 0.3)");
+					$('.Gnb').css('background','none');
+					$('.tnb').css('background','none');
+					$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon.png');
+					$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon.png');
+					$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon.png');
+					$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon.png');
+				});
 			}  else if( destination.index == 1 ) {
 				$('#header').removeClass("background-white");
 				$('.Gnb').css('border-bottom','1px solid #e6e6e6');
-				$('.Gnb').css('background','none');
-				$('.tnb').css('background','none');
+				$('.Gnb').css('background','#fff');
+				$('.tnb').css('background','#fff');
 				$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon_b.png');
 				$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon_b.png');
 				$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon_b.png');
 				$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon_b.png');
+
+				$('.Gnb, .tnb').on('mouseenter', function(){
+					$('#header').removeClass("background-white");
+					$('.Gnb').css('border-bottom','1px solid #e6e6e6');
+					$('.Gnb').css('background','#fff');
+					$('.tnb').css('background','#fff');
+					$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon_b.png');
+					$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon_b.png');
+					$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon_b.png');
+					$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon_b.png');
+				});
+
+				$('.Gnb, .tnb').on('mouseleave', function(){
+					$('#header').removeClass("background-white");
+					$('.Gnb').css('border-bottom','1px solid #e6e6e6');
+					$('.Gnb').css('background','#fff');
+					$('.tnb').css('background','#fff');
+					$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon_b.png');
+					$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon_b.png');
+					$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon_b.png');
+					$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon_b.png');
+				});
 			}	else if( destination.index == 2 ) {
-				$('#header').removeClass("background-white");
-				$('.Gnb').css('border-bottom','1px solid #e6e6e6');
+				$('#header').addClass("background-white");
+				$('.Gnb').css("border-bottom","1px solid rgba(255,255,255,0.2)");
 				$('.Gnb').css('background','none');
 				$('.tnb').css('background','none');
-				$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon_b.png');
-				$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon_b.png');
-				$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon_b.png');
-				$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon_b.png');
+				$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon.png');
+				$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon.png');
+				$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon.png');
+				$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon.png');
+
+				$('.Gnb, .tnb').on('mouseenter', function(){
+					$('#header').removeClass("background-white");
+					$('.Gnb').css('border-bottom','1px solid #e6e6e6');
+					$('.Gnb').css('background','#fff');
+					$('.tnb').css('background','#fff');
+					$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon_b.png');
+					$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon_b.png');
+					$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon_b.png');
+					$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon_b.png');
+				});
+
+				$('.Gnb, .tnb').on('mouseleave', function(){
+					$('#header').addClass("background-white");
+					$('.Gnb').css("border-bottom","1px solid rgba(255,255,255,0.2)");
+					$('.Gnb').css('background','none');
+					$('.tnb').css('background','none');
+					$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon.png');
+					$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon.png');
+					$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon.png');
+					$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon.png');
+				});
 			}  else if( destination.index == 3 ) {
-				$('#header').removeClass("background-white");
-				$('.Gnb').css('border-bottom','1px solid #e6e6e6');
+				$('#header').addClass("background-white");
+				$('.Gnb').css("border-bottom","1px solid rgba(255,255,255,0.2)");
 				$('.Gnb').css('background','none');
 				$('.tnb').css('background','none');
-				$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon_b.png');
-				$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon_b.png');
-				$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon_b.png');
-				$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon_b.png');
+					$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon.png');
+					$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon.png');
+					$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon.png');
+					$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon.png');
+
+				$('.Gnb, .tnb').on('mouseenter', function(){
+					$('#header').removeClass("background-white");
+					$('.Gnb').css('border-bottom','1px solid #e6e6e6');
+					$('.Gnb').css('background','#fff');
+					$('.tnb').css('background','#fff');
+					$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon_b.png');
+					$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon_b.png');
+					$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon_b.png');
+					$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon_b.png');
+				});
+
+				$('.Gnb, .tnb').on('mouseleave', function(){
+					$('#header').addClass("background-white");
+					$('.Gnb').css("border-bottom","1px solid rgba(255,255,255,0.2)");
+					$('.Gnb').css('background','none');
+					$('.tnb').css('background','none');
+					$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon.png');
+					$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon.png');
+					$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon.png');
+					$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon.png');
+				});
 			}  else if( destination.index == 4 ) {
 				$('#header').removeClass("background-white");
 				$('.Gnb').css('border-bottom','1px solid #e6e6e6');
@@ -498,24 +1808,90 @@ function fullPage() {
 				$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon_b.png');
 				$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon_b.png');
 				$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon_b.png');
+
+				$('.Gnb, .tnb').on('mouseenter', function(){
+					$('#header').removeClass("background-white");
+					$('.Gnb').css('border-bottom','1px solid #e6e6e6');
+					$('.Gnb').css('background','#fff');
+					$('.tnb').css('background','#fff');
+					$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon_b.png');
+					$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon_b.png');
+					$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon_b.png');
+					$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon_b.png');
+				});
+
+				$('.Gnb, .tnb').on('mouseleave', function(){
+					$('#header').removeClass("background-white");
+					$('.Gnb').css('border-bottom','1px solid #e6e6e6');
+					$('.Gnb').css('background','#fff');
+					$('.tnb').css('background','#fff');
+					$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon_b.png');
+					$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon_b.png');
+					$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon_b.png');
+					$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon_b.png');
+				});
 			}  else if( destination.index == 5 ) {
-				$('#header').addClass("background-white");
+				$('#header').removeClass("background-white");
 				$('.Gnb').css('border-bottom','1px solid #e6e6e6');
-				$('.Gnb').css('background','none');
-				$('.tnb').css('background','none');
-				$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon.png');
-				$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon.png');
-				$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon.png');
-				$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon.png');
+				$('.Gnb').css('background','#fff');
+				$('.tnb').css('background','#fff');
+				$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon_b.png');
+				$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon_b.png');
+				$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon_b.png');
+				$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon_b.png');
+
+				$('.Gnb, .tnb').on('mouseenter', function(){
+					$('#header').removeClass("background-white");
+					$('.Gnb').css('border-bottom','1px solid #e6e6e6');
+					$('.Gnb').css('background','#fff');
+					$('.tnb').css('background','#fff');
+					$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon_b.png');
+					$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon_b.png');
+					$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon_b.png');
+					$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon_b.png');
+				});
+
+				$('.Gnb, .tnb').on('mouseleave', function(){
+					$('#header').removeClass("background-white");
+					$('.Gnb').css('border-bottom','1px solid #e6e6e6');
+					$('.Gnb').css('background','#fff');
+					$('.tnb').css('background','#fff');
+					$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon_b.png');
+					$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon_b.png');
+					$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon_b.png');
+					$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon_b.png');
+				});
 			}  else if( destination.index == 6 ) {
 				$('#header').addClass("background-white");
-				$('.Gnb').css('border-bottom','1px solid #e6e6e6');
+				$('.Gnb').css("border-bottom","1px solid rgba(255,255,255,0.2)");
 				$('.Gnb').css('background','none');
 				$('.tnb').css('background','none');
 				$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon.png');
 				$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon.png');
 				$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon.png');
 				$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon.png');
+
+				$('.Gnb, .tnb').on('mouseenter', function(){
+					$('#header').removeClass("background-white");
+					$('.Gnb').css('border-bottom','1px solid #e6e6e6');
+					$('.Gnb').css('background','#fff');
+					$('.tnb').css('background','#fff');
+					$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon_b.png');
+					$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon_b.png');
+					$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon_b.png');
+					$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon_b.png');
+				});
+
+				$('.Gnb, .tnb').on('mouseleave', function(){
+					$('#header').addClass("background-white");
+					$('.Gnb').css("border-bottom","1px solid rgba(255,255,255,0.2)");
+					$('.Gnb').css('background','none');
+					$('.tnb').css('background','none');
+					$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon.png');
+					$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon.png');
+					$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon.png');
+					$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon.png');
+				});
 			} else {
 				$('#header').removeClass("background-white");
 				$('.Gnb').css('border-bottom','1px solid #e6e6e6');
@@ -525,6 +1901,28 @@ function fullPage() {
 				$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon_b.png');
 				$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon_b.png');
 				$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon_b.png');
+
+				$('.Gnb, .tnb').on('mouseenter', function(){
+					$('#header').removeClass("background-white");
+					$('.Gnb').css('border-bottom','1px solid #e6e6e6');
+					$('.Gnb').css('background','#fff');
+					$('.tnb').css('background','#fff');
+					$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon_b.png');
+					$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon_b.png');
+					$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon_b.png');
+					$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon_b.png');
+				});
+
+				$('.Gnb, .tnb').on('mouseleave', function(){
+					$('#header').removeClass("background-white");
+					$('.Gnb').css('border-bottom','1px solid #e6e6e6');
+					$('.Gnb').css('background','#fff');
+					$('.tnb').css('background','#fff');
+					$('.tnb-login').attr('src','/resources/homepage/${homepage.context_path}/img/login_icon_b.png');
+					$('.tnb-logout').attr('src','/resources/homepage/${homepage.context_path}/img/logout_icon_b.png');
+					$('.tnb-join').attr('src','/resources/homepage/${homepage.context_path}/img/join_icon_b.png');
+					$('.tnb-sitemap').attr('src','/resources/homepage/${homepage.context_path}/img/sitemap_icon_b.png');
+				});
 			}
 		},
 		afterResponsive: function(isResponsive){}

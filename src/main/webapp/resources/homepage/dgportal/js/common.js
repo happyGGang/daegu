@@ -36,7 +36,7 @@ var pageMain = (function(){
 $(function(){
 	
 	var _width = $(window).width();
-
+	var __width = $(window).width();
 	var _popupzones;
 	var PopupZone = function(){
 		try {
@@ -154,7 +154,7 @@ $(function(){
 
 		if( _width <= 425 ){
 			_cultures = $('.cultureList ul').bxSlider({
-				auto: false,
+				auto: true,
 				pager: false,
 				moveSlides:1,
 				maxSlides: 1,
@@ -163,7 +163,7 @@ $(function(){
 		}
 		else if( _width <= 768 && _width > 425 ){
 			_cultures = $('.cultureList ul').bxSlider({
-				auto: false,
+				auto: true,
 				pager: false,
 				moveSlides:1,
 				maxSlides: 2,
@@ -172,7 +172,7 @@ $(function(){
 		}
 		else if( _width <= 1024 && _width > 768 ){
 			_cultures = $('.cultureList ul').bxSlider({
-				auto: false,
+				auto: true,
 				pager: false,
 				moveSlides:1,
 				maxSlides: 2,
@@ -181,7 +181,7 @@ $(function(){
 		}
 		else if( _width <= 1260 && _width > 1024 ){
 			_cultures = $('.cultureList ul').bxSlider({
-				auto: false,
+				auto: true,
 				pager: false,
 				moveSlides:1,
 				maxSlides: 3,
@@ -190,7 +190,7 @@ $(function(){
 		}
 		else if( _width <= 1530 && _width > 1260 ){
 			_cultures = $('.cultureList ul').bxSlider({
-				auto: false,
+				auto: true,
 				pager: false,
 				moveSlides:1,
 				maxSlides: 4,
@@ -199,7 +199,7 @@ $(function(){
 		}
 		else {
 			_cultures = $('.cultureList ul').bxSlider({
-				auto: false,
+				auto: true,
 				pager: false,
 				moveSlides:1,
 				maxSlides: 4,
@@ -217,7 +217,7 @@ $(function(){
 			// TODO: handle exception
 		}
 
-		if( _width <= 425 ){
+		if( __width <= 425 ){
 			_curation = $('.curationList ul').bxSlider({
 				auto: true,
 				pager:false,
@@ -226,10 +226,11 @@ $(function(){
 				autoControlsCombine:true,
 				moveSlides:1,
 				maxSlides: 1,
-				slideWidth: 305
+				slideWidth: 305,
+				slideMargin: 20
 			});
 		}
-		else if( _width <= 768 && _width > 425 ){
+		else if( __width <= 768 && __width > 425 ){
 			_curation = $('.curationList ul').bxSlider({
 				auto: true,
 				pager:false,
@@ -238,10 +239,11 @@ $(function(){
 				autoControlsCombine:true,
 				moveSlides:1,
 				maxSlides: 1,
-				slideWidth: 305
+				slideWidth: 305,
+				slideMargin: 20
 			});
 		}
-		else if( _width <= 1024 && _width > 768 ){
+		else if( __width <= 1024 && __width > 768 ){
 			_curation = $('.curationList ul').bxSlider({
 				auto: true,
 				pager:false,
@@ -254,7 +256,7 @@ $(function(){
 				slideMargin: 35
 			});
 		}
-		else if( _width <= 1260 && _width > 1024 ){
+		else if( __width <= 1260 && __width > 1024 ){
 			_curation = $('.curationList ul').bxSlider({
 				auto: true,
 				pager:false,
@@ -267,7 +269,7 @@ $(function(){
 				slideMargin: 35
 			});
 		}
-		else if( _width <= 1530 && _width > 1260 ){
+		else if( __width <= 1530 && __width > 1260 ){
 			_curation = $('.curationList ul').bxSlider({
 				auto: true,
 				pager:false,

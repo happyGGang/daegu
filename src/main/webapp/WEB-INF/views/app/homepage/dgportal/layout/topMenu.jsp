@@ -4,7 +4,13 @@
 	<div class="head">
 		<div class="Gnb">
 			<h2 class="blind">주메뉴</h2>
-			<div class="main-section">
+			<div class="">
+				<h1 class="mobile-logo"><a href="/${homepage.context_path}/index.do"><img src="/resources/homepage/${homepage.context_path}/img/${homepage.context_path}_logo_b.png" alt="대구광역시 통합도서관"/></a></h1>
+
+				<div class="mmode m-menu">
+					<a href="#menu"><img src="/resources/homepage/${homepage.context_path}/img/mmenu-icon1_b.png" alt="메뉴"></a>
+				</div>
+
 				<!-- menu S -->
 				<div class="g-menu">
 					<homepageTag:topMenu menuList="${menuTreeList}" />
@@ -14,7 +20,7 @@
 								<i class="fa fa-bookmark"></i>
 								<span>모바일회원증</span>
 							</a>
-					<c:choose>
+						<c:choose>
 						<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
 							<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=95" class="mobilemeberinfo">
 								<i class="fa fa-user"></i>
@@ -49,7 +55,7 @@
 								<span style='letter-spacing:-1.5px;'>통합인증</span>
 							</a>
 						</c:otherwise>
-					</c:choose>
+						</c:choose>
 					</div>
 				</div>
 				<!-- menu E -->
