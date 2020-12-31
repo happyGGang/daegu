@@ -249,6 +249,15 @@ do {
 													</a>
 												</li>
 												</c:forEach>
+												<c:if test="${fn:length(noticeBoardList) < 1}">
+												<li>
+													<a href="javascript:void(0)">
+														<div class="contMiddle">
+															<span class="tit">등록된 내용이 없습니다.</span>
+														</div>
+													</a>
+												</li>
+												</c:if>
 											</ul>
 										</div>
 	
@@ -359,22 +368,47 @@ do {
 										</div>
 										<div class="daegubook">
 											<div class="con">
+<%-- 												<a href="/${homepage.context_path}/html.do?menu_idx=8"> --%>
+<!-- 													<dl> -->
+<%-- 														<dt><img src="/resources/homepage/${homepage.context_path}/img/daegu-book.png" alt="당신이 옳다" /></dt> --%>
+<!-- 														<dd> -->
+<!-- 															<p class="daegubook-cont-01">중앙도서관<br/> 사서가 추천하는 BOOK'</p> -->
+<!-- 															<p class="daegubook-cont-02"> -->
+<!-- 																<b>당신이 옳다<br/>(정혜신의 적정심리학)</b><br/> -->
+<!-- 																정혜신 / 해냄출판사 / 2018<br/><br/> -->
+<!-- 															</p> -->
+<!-- 															<p class="daegubook-cont-03"> -->
+<!-- 																사회적 재난 현장부터 일상의 순간까지 고통 -->
+<!-- 																받는 이들과 함께해온 정신과 의사 정혜신은  -->
+<!-- 																우리에게 '심리적 CPR(심폐소생술)'이 절실 -->
+<!-- 																하다고 진단한다. 최근 15년 간 진료실을 벗 -->
+<!-- 																어나 보통 사람들은 물론 트라우마... -->
+<!-- 															</p> -->
+<!-- 														</dd> -->
+<!-- 													</dl> -->
+<!-- 												</a> -->
 												<a href="/${homepage.context_path}/html.do?menu_idx=8">
 													<dl>
-														<dt><img src="/resources/homepage/${homepage.context_path}/img/daegu-book.png" alt="당신이 옳다" /></dt>
+														<dt>
+														<c:choose>
+															<c:when test="${empty recommendOne.preview_img}">
+															<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="${recommendOne.title}" title="${recommendOne.title}"/>
+															</c:when>
+															<c:when test="${fn:contains(recommendOne.preview_img, 'http')}">
+															<img src="${recommendOne.preview_img}" alt="${recommendOne.title}" title="${recommendOne.title}"/>
+															</c:when>
+															<c:otherwise>
+															<img src="/data/board/${recommendOne.manage_idx}/${recommendOne.board_idx}/${recommendOne.preview_img}" alt="${recommendOne.title}" title="${recommendOne.title}" />
+															</c:otherwise>
+														</c:choose>
+														</dt>
 														<dd>
-															<p class="daegubook-cont-01">중앙도서관<br/> 사서가 추천하는 BOOK'</p>
+															<p class="daegubook-cont-01">${homepage.homepage_name}<br/> 사서가 추천하는 BOOK'</p>
 															<p class="daegubook-cont-02">
-																<b>당신이 옳다<br/>(정혜신의 적정심리학)</b><br/>
-																정혜신 / 해냄출판사 / 2018<br/><br/>
+																<b>${recommendOne.title}</b><br/>
+																${recommendOne.imsi_v_3} / ${recommendOne.imsi_v_4} / ${recommendOne.imsi_v_2}<br/><br/>
 															</p>
-															<p class="daegubook-cont-03">
-																사회적 재난 현장부터 일상의 순간까지 고통
-																받는 이들과 함께해온 정신과 의사 정혜신은 
-																우리에게 '심리적 CPR(심폐소생술)'이 절실
-																하다고 진단한다. 최근 15년 간 진료실을 벗
-																어나 보통 사람들은 물론 트라우마...
-															</p>
+															<p class="daegubook-cont-03">${recommendOne.content_summary}</p>
 														</dd>
 													</dl>
 												</a>
@@ -1417,7 +1451,8 @@ do {
 				<div class="cont cultureList">
 					<ul>
 						<c:forEach items="${teachList}" var="i" varStatus="status">
-						<c:set var="imgnum" value="${(status.count % 4)+1}"></c:set>
+<%-- 						<c:set var="imgnum" value="${(status.count % 4)+1}"></c:set> --%>
+						<c:set var="imgnum" value="${i.teach_status eq '0' ? '1' : i.teach_status eq '6' ? '2' : '0'}"></c:set>
 						<li>
 							<a href="/${i.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=${i.menu_idx}&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}" class="border bgimg00${imgnum}">
 								<span class="status">접수중</span>
@@ -1659,10 +1694,6 @@ do {
 
 
 </div>
-
-
-</body>
-</html>
 
 
 <script type="text/javascript">

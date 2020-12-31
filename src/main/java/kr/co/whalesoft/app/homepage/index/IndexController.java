@@ -27,6 +27,7 @@ import kr.co.whalesoft.app.cms.banner.Banner;
 import kr.co.whalesoft.app.cms.banner.BannerService;
 import kr.co.whalesoft.app.cms.boardManage.BoardManage;
 import kr.co.whalesoft.app.cms.boardManage.BoardManageService;
+import kr.co.whalesoft.app.cms.code.Code;
 import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
@@ -670,7 +671,19 @@ public class IndexController extends BaseController {
 			model.addAttribute("noticeBoardList", boardService.getAllHomepageBoardListByMain(b));
 
 			String boardCategory2 = boardManageService.getBoardManageOne(new BoardManage(homepage.getHomepage_id(), 299)).getCategory2();
-			model.addAttribute("category2List", codeService.getCode(homepage.getHomepage_id(), boardCategory2));
+			List<Code> category2List = codeService.getCode(homepage.getHomepage_id(), boardCategory2);
+			model.addAttribute("category2List", category2List);
+			
+			// 도서서비스 사서추천
+			Board bookBoard = new Board();
+			bookBoard.setManage_idx(299);
+			bookBoard.setDept_cd("PORTAL");
+			bookBoard.setCategory2(category2List.get(0).getCode_id());
+			List<Board> mainBookList = boardService.getBoardByMain(bookBoard);
+			
+			int ran = (int)(Math.random() * mainBookList.size());
+			model.addAttribute("recommendOne", mainBookList.get(ran));
+			
 		}
 
 		setBoardListToModel(homepage.getHomepage_id(), model);
