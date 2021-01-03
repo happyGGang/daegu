@@ -304,13 +304,14 @@ public class MarathonApplicantController extends BaseController {
 
 			marathonApplicant.setHomepage_id(homepage.getHomepage_id());
 			marathonApplicant.setContest_idx(marathonType.getContest_idx());
+
 			int applicant_total_count = service.getMarathonApplicantCount(marathonApplicant);
 			List<Integer> applicant_count = new ArrayList<Integer>();
 			for(int i = 0; i < marathonTypeList.size(); i++) {
 				String contest_type = marathonTypeList.get(i).getContest_type();
 				marathonApplicant.setContest_type(contest_type);
-				int contest_type_idx = service.getContestTypeIdx(marathonApplicant);
-				marathonApplicant.setContest_type_idx(contest_type_idx);
+//				int contest_type_idx = service.getContestTypeIdx(marathonApplicant);
+				marathonApplicant.setContest_type_idx(marathonTypeList.get(i).getContest_type_idx());
 				applicant_count.add(service.getMarathonApplicantCount(marathonApplicant));
 			}
 			model.addAttribute("marathonTypeList", marathonTypeList);
