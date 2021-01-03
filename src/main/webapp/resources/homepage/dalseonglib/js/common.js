@@ -71,4 +71,18 @@ $(function(){
 		});
 	}
 
+
+	// 상단팝업존
+	if ($('.topPopZone ul').length > 0) {
+		$('.topPopZone ul').bxSlider({
+			mode:'fade',
+			pause: 7000,
+			speed: 1000,
+			pager: true,
+			auto: true,
+			autoHover : true,
+			autoControls: true,
+			autoControlsCombine: true
+		});
+	}
 });

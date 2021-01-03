@@ -194,6 +194,18 @@
 	</tag>
 
 	<tag>
+		<description>홈페이지 상단팝업존</description>
+		<name>popupZoneTop</name>
+		<tag-class>kr.co.whalesoft.framework.tag.homepage.PopupZoneTopTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>popupZoneList</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
 		<description>홈페이지 메인 이미지</description>
 		<name>mainImg</name>
 		<tag-class>kr.co.whalesoft.framework.tag.homepage.MainImgTag</tag-class>
