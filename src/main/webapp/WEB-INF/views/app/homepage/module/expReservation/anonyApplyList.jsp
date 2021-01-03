@@ -72,9 +72,10 @@ $(function() {
 <form:form modelAttribute="expApply" action="/${homepage.context_path}/module/expReservation/save.do" method="POST">
 <form:hidden path="menu_idx"/>
 <form:hidden path="editMode"/>
+<form:hidden path="homepage_id"/>
+<form:hidden path="reservation_idx"/>
 <input type="hidden" name="searchCheck" value="yes"/>
 	<div id="libraryList" class="bbs-notice" style="margin-top:10px;margin-bottom:20px;" >
-		<form:hidden path="homepage_id"/>
 		조회기간: <form:input path="searchDateFrom" cssClass="text ui-calendar"/><label for="searchDateFrom" class="blind">시작일</label>~
 				<form:input path="searchDateTo" cssClass="text ui-calendar"/><label for="searchDateTo" class="blind">종료일</label>
 				<a href="#" id="search-btn" class="btn btn1">조회</a>

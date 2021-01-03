@@ -78,25 +78,25 @@ public class CalendarExpReservationUser extends BodyTagSupport {
 								}
 							}
 						}else if(exp.getReservation_type().equals("individual")) {
-							if(expApplyList != null && expApplyList.size() > 0) {
-								for(int j = 0; j < expApplyList.size(); j++) {
-									ExpReservationApply expApply = expApplyList.get(j);
-									if(expApply.getReservation_date().equals(exp.getReservation_date())) {
-										sb.append("<a href=\"#\" class=\"btn btn3\" id=\"apply_edit\" keyValue=\"" + exp.getProgram_list_idx() + "\" keyValue2=\"" + exp.getReservation_date() + "\"><span>신청완료</span></a>");
-										aTagAddResult += 1;
-									}
-								}
-							}
+//							if(expApplyList != null && expApplyList.size() > 0) {
+//								for(int j = 0; j < expApplyList.size(); j++) {
+//									ExpReservationApply expApply = expApplyList.get(j);
+//									if(expApply.getReservation_date().equals(exp.getReservation_date())) {
+//										sb.append("<a href=\"#\" class=\"btn btn3\" id=\"apply_edit\" keyValue=\"" + exp.getProgram_list_idx() + "\" keyValue2=\"" + exp.getReservation_date() + "\"><span>신청완료</span></a>");
+//										aTagAddResult += 1;
+//									}
+//								}
+//							}
 							if(exp.getTotal_people() <= exp.getApply_count()) {
 								if(aTagAddResult == 0) {
 									sb.append("<span class=\"btn btn5\">정원마감</span>");
 								}
 							}else {
-								if(expApplyList != null && expApplyList.size() > 0) {
+//								if(expApplyList != null && expApplyList.size() > 0) {
 									if(aTagAddResult == 0) {
 										sb.append("<a href=\"#\" class=\"btn btn4\" id=\"apply\" keyValue=\"" + exp.getProgram_list_idx() + "\" keyValue2=\"" + exp.getReservation_date() + "\"><span>신청</span></a>");
 									}
-								}
+//								}
 							}
 						}
 						
