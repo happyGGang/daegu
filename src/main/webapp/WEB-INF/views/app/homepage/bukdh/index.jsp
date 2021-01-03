@@ -231,7 +231,7 @@ do {
 					<div class="news con" data-tab="tab2" style="display:none;">
 						<div class="box">
 							<ul>
-								<c:forEach items="${teachList}" var="i" varStatus="status">
+								<c:forEach items="${teachList}" var="i" varStatus="status" begin="0" end="4">
 									<c:set var="teachMenuIdx" value="96"></c:set>
 									<c:if test="${i.large_category_idx eq 16}">
 										<c:set var="teachMenuIdx" value="96"></c:set>
