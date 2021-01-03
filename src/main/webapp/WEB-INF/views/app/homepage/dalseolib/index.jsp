@@ -183,8 +183,8 @@ do {
 				<form id="frm_main_search" method="get" action="">
 				<div class="search_bar">
 					<div class="search_bar_text">
-						<label for="search_txt" class="search_m">검색어(도서명 등)를 입력해주세요.</label>
-						<input type="text" name="search_txt" class="search_text" id="search_txt" value=""/>
+						<!-- <label for="search_txt" class="search_m">검색어(도서명 등)를 입력해주세요.</label> -->
+						<input type="text" name="search_txt" class="search_text" id="search_txt" value="" placeholder="검색어를 입력해주세요."/>
 						<input type="submit" name="" id="" class="search_btn" value="검색" />
 					</div>
 				</div>
@@ -192,7 +192,7 @@ do {
 				<div class="mvisual_btn">
 					<ul>
 						<li class="mbtn1"><a href="html.do?menu_idx=19">도서관이용</a></li>
-						<li class="mbtn2"><a href="https://library.daegu.go.kr/intro/dalseolib/login/index.do" target="_blank">대출자료조회</a></li>
+						<li class="mbtn2"><a href="intro/search/loan/history.do?menu_idx=53">대출자료조회</a></li>
 						<li class="mbtn3"><a href="module/teach/index.do?menu_idx=32">수강신청</a></li>
 						<li class="mbtn4"><a href="html.do?menu_idx=15">희망도서신청</a></li>
 						<li class="mbtn5"><a href="#">책드림<span class="eng">(Dream)</span>서비스</a></li>

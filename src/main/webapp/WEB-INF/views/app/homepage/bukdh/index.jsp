@@ -167,7 +167,7 @@ do {
 							<select id="search_type" name="search_type" class="search_type">
 								<option value="L_TITLE">전체</option>
 								<option value="L_AUTHOR">저자</option>
-								<option value="L_PUBLISHER">발행자</option>
+								<option value="L_PUBLISHER">발행처</option>
 								<option value="L_KEYWORD">키워드</option>
 							</select>
 							<div class="box1">

@@ -57,7 +57,7 @@
 							<span class="bar">|</span>
 							<a href="/${homepage.context_path}/html.do?menu_idx=76">영상정보처리방침</a>
 							<span class="bar">|</span>
-							<a href="/${homepage.context_path}/html.do?menu_idx=77">이용약관</a>
+							<a href="/${homepage.context_path}/html.do?menu_idx=77">운영조례</a>
 							<span class="bar">|</span>
 							<a href="/${homepage.context_path}/html.do?menu_idx=79">저작권보호정책</a>
 							<span class="bar">|</span>

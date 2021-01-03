@@ -11,7 +11,7 @@
 				<div class="g-menu">
 					<homepageTag:topMenu menuList="${menuTreeList}" />
 
-					<a href="#" class="menu-search-box"></a>
+					<!-- <a href="#" class="menu-search-box"></a> -->
 
 					<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=82" class="last-box"></a>
 

@@ -785,7 +785,7 @@ dt,dd{;word-break:keep-all}
 .time_box{position:relative;width:100%;margin-bottom:30px;}
 .time_box ul li{position:relative;width:48.5%;display:inline-block;background:#f9f9f9;}
 .time_box ul li span, .time_box .weekend span{font-size:19px;font-weight:bold;color:#000;letter-spacing:0;line-height:40px;}
-.time_box ul li p{font-size:15px;color:#000;letter-spacing:-0.75px;line-height:25px;}
+.time_box ul li p{font-size:15px;color:#000;letter-spacing:-0.75px;line-height:25px;clear:both;}
 
 .time_box ul li div{padding:30px 0 30px 125px;border:1px solid #e5e5e5;}
 .time_box ul li.book01 div{background:url('/resources/common/img/book_icon01.png')no-repeat 40px 35px;}
@@ -810,13 +810,14 @@ dt,dd{;word-break:keep-all}
 	.time_box ul li:first-child{margin-bottom:20px;}
 	.time_box ul li > div{background-position:30px 20px !important;padding:15px 20px 15px 120px;}
 	.time_box ul li span, .time_box .weekend span{line-height:25px;}
+	.time_box ul li p{position:absolute;}
 }
 
 @media all and (max-width: 767px) {
 	.mb10{margin-bottom:10px;}
 	.sm_text{display:inline-block;padding-left:0;padding-top:10px;line-height:20px;}	
 	
-	.time_box ul li span, .time_box .weekend span{font-size:18px;}
+	.time_box ul li span, .time_box .weekend span{}
 	.time_box ul li{position:relative;width:100%;background:#f9f9f9;}
 
 	.time_box ul li > div{background:none !important;padding:10px 0 15px;text-align:center;}
@@ -1721,3 +1722,16 @@ a.link_btn img{margin-left:5px;}
 	.book-wr .book-box {padding-bottom: 20px;}
 }
 h3.byear { background: none;}
+
+/* 수성구립-휴관일 */
+span.month_info {float:left;margin-right:10px;}
+ul.close_day li {width:auto;float:left;color:#ff0000;font-weight:bold;font-size:19px;padding-right:5px;margin-right:8px;line-height:200%;background: url('/resources/common/img/close_day_comma.png') no-repeat right 25px;}
+ul.close_day li:last-child{margin-right:0;padding-right:0;background:none;}
+
+@media all and (min-width: 768px) and (max-width: 1023px) {
+	ul.close_day li{line-height:110%;background-position:right 15px !important;}
+}
+
+@media all and (max-width: 767px) {
+	
+}

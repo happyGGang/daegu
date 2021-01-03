@@ -203,8 +203,8 @@ p.notice_more a img {display:block;float:right;}
 .main_bottom_wrap{height:135px;width:1260px;margin:0 auto;/*overflow:hidden;*/position:relative;}
 
 .banner-wrap {overflow:hidden;float:left;width:960px;margin-top:43px;}
-.main_site_wrap{float:right;height:135px;margin-left:35px; padding-left:35px;background:url('../img/banner_line.png') no-repeat 0 50%;}
-.main_site_wrap .site {width:208px; height:48px;outline:0;margin-top:43px;margin-right:15px;border:1px solid #cfcfcf;z-index:9999; cursor:pointer;}
+.main_site_wrap{float:right;height:135px;margin-left:35px; padding-left:45px;background:url('../img/banner_line.png') no-repeat 0 50%;}
+.main_site_wrap .site {width:208px; height:48px;outline:0;margin-top:43px;border:1px solid #cfcfcf;z-index:9999; cursor:pointer;}
 .main_site_wrap .site a{display:block;font-size:14px;color:#555;letter-spacing:-1px;}
 .main_site_wrap .site .btns {line-height:48px;background:url('../img/select_btn3.png') no-repeat right 50% #fff;;}
 .main_site_wrap .site .btns a{text-align:left;padding-left:22px;}

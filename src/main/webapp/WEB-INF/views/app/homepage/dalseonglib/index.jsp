@@ -87,8 +87,8 @@ do {
 
 
 		$('div#holiday-box').load('calendar3.do');
-		$('ul.book_photo').eq(1).load('newBook.do');
-		$('ul.bestBookUl').load('bestBook.do');
+
+		//$('ul.bestBookUl').load('bestBook.do');
 
 		$('#main-search-btn').on('click', function() {
 			if( $('input#search_text_1').val() == '' ) {
@@ -103,6 +103,36 @@ do {
 				pager:false,
 				slideMargin:0,
 			});
+		});
+
+
+		$('#newbook').load('newBook.do');
+
+		/*신착, 추천*/
+		$('#bo1 ul').bxSlider({
+			auto: true,
+			pager:false,
+			controls:true,
+			autoControls:true,
+			autoControlsCombine:true,
+			moveSlides: 1,
+			maxSlides: 2,
+			slideWidth: 130,
+			slideMargin: 10
+		});
+
+		$(".tab-box ul li:first-child").addClass("on");
+		$(".tab-box .clt:not("+$(".tab-box ul li.on").data("value")+")").css("z-index","1");
+
+		$(".tab-box ul li a").click(function(){
+			$(".tab-box ul li").removeClass("on");
+			$(this).parents('li').addClass("on");
+			var moreUrl = $(this).data('link');
+
+			$(".clt").css({"z-index":"1"});
+			$($(this).attr('href')).css({"z-index":"2"});
+			$('.more-more-2').attr('href', moreUrl);
+			return false;
 		});
 });
 </script>
@@ -139,51 +169,58 @@ do {
 						</div>
 					</div>
 
-					<div class="book-box tabS">
-						<ul class="tabMenuS">
-							<li class="on"><a href="#tab1" class='t-tabs' data-link="/${homepage.context_path}/board/index.do?menu_idx=13&manage_idx=683">추천도서</a></li>
-							<li><a href="#tab2" class='t-tabs' data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=10">신착도서</a></li>
-						</ul>
-						<a href="/${homepage.context_path}/board/index.do?menu_idx=13&manage_idx=683" class="btn-more btn-w btn-more_right20 top35 more-more">더보기</a>
-
-						<div class="box con" data-tab="tab1">
-							<ul class="book_photo">
-								<c:forEach items="${bookList1}" var="i" varStatus="status">
-									<li>
-										<a href="/${homepage.context_path}/board/view.do?menu_idx=13&manage_idx=683&board_idx=${i.board_idx}">
-									<span class="con-image">
-										<c:choose>
-											<c:when test="${i.preview_img ne null}">
-												<c:choose>
-													<c:when test="${fn:contains(i.preview_img, 'http')}">
-														<img src="${i.preview_img}" alt="${i.title}" />
-													</c:when>
-													<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
-														<img src="${i.preview_img}" alt="${i.title}" />
-													</c:when>
-													<c:otherwise>
-														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
-													</c:otherwise>
-												</c:choose>
-											</c:when>
-											<c:otherwise>
-												<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
-											</c:otherwise>
-										</c:choose>
-									</span>
-											<span class="con-title">${i.title}</span>
-										</a>
-									</li>
-								</c:forEach>
+					<div class="book-box">
+						<div class="tab-box tabS">
+							<ul class="tabMenuS">
+								<li class="on" data-value="#recommandbook1"><a href="#recommandbook1" class='t-tabs' data-link="/${homepage.context_path}/board/index.do?menu_idx=13&manage_idx=683">추천도서</a></li>
+								<li data-value="#newbook"><a href="#newbook" class='t-tabs' data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=10">신착도서</a></li>
 							</ul>
-						</div>
+							<a href="/${homepage.context_path}/board/index.do?menu_idx=13&manage_idx=683" class="btn-more btn-w btn-more_right20 top35 more-more-2">더보기</a>
 
-						<div class="box con" data-tab="tab2" style="display:none;">
-							<ul class="book_photo">
-							</ul>
-						</div>
+							<div class='book-wrap'>
+								<div id="recommandbook1" class="con clt">
+									<div class="book">
+										<div id="bo1" class="cont">
+											<ul class="book_photo">
+												<c:forEach items="${bookList1}" var="i" varStatus="status">
+													<li>
+														<a href="/${homepage.context_path}/board/view.do?menu_idx=13&manage_idx=683&board_idx=${i.board_idx}">
+													<span class="con-image">
+														<c:choose>
+															<c:when test="${i.preview_img ne null}">
+																<c:choose>
+																	<c:when test="${fn:contains(i.preview_img, 'http')}">
+																		<img src="${i.preview_img}" alt="${i.title}" />
+																	</c:when>
+																	<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+																		<img src="${i.preview_img}" alt="${i.title}" />
+																	</c:when>
+																	<c:otherwise>
+																		<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+																	</c:otherwise>
+																</c:choose>
+															</c:when>
+															<c:otherwise>
+																<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
+															</c:otherwise>
+														</c:choose>
+													</span>
+															<span class="con-title">${i.title}</span>
+														</a>
+													</li>
+												</c:forEach>
+											</ul>
+										</div>
+									</div>
+								</div>
 
+								<div id="newbook" class="con clt">
+
+								</div>
+							</div>
+						</div>
 					</div>
+
 				</div>
 
 				<div class="center-box">

@@ -32,7 +32,7 @@ h1.mobile-logo {display:none;width:140px;height:50px;}
 /* Gnb */
 .Gnb {clear:both;text-align:center;width:100%;height:90px;overflow:inherit;position:relative;border-top:1px solid #e6e6e6;border-bottom:1px solid #e6e6e6;}
 .Gnb .g-menu {position:relative;}
-.Gnb .gnb-menu {position:relative;text-align:right;padding-right:90px;}
+.Gnb .gnb-menu {position:relative;text-align:right;padding-right:50px;}
 .Gnb .gnb-menu > li{padding:0 2.2%;;text-align:right;position:static}
 .Gnb .gnb-menu>li:last-child{padding-right:0}
 .Gnb .gnb-menu>li>a{padding:0;line-height:90px;height:90px;font-size:18px;color:#000;font-weight:bold;letter-spacing:-0.5px;}
@@ -58,11 +58,11 @@ h1.mobile-logo {display:none;width:140px;height:50px;}
 .Gnb .g-menu a.menu-search-box {position:absolute;right:30px;top:25px;}
 .Gnb .g-menu a.last-box {position:absolute;right:0;top:26px;}
 #header.background-white .Gnb .g-menu a.menu-search-box {background:url('../img/menu-search-icon.png') no-repeat center center;}
-#header.background-white .Gnb .g-menu a.last-box {background:url('../img/sitemap-icon.png') no-repeat center center;}
+#header.background-white .Gnb .g-menu a.last-box {background:url('../img/sitemap_icon_white.png') no-repeat center center;}
 .Gnb .g-menu a.menu-search-box {position:absolute;width:23px;height:21px;right:40px;top:35px;background:url('../img/menu-search-icon_b.png') no-repeat center center;}
 .Gnb .g-menu a.last-box {position:absolute;width:23px;height:21px;right:0;top:35px;background:url('../img/sitemap_icon_black.png') no-repeat center center;}
 
-.Gnb .mask, .Gnb .gnb-menu>li>.SubMenu{margin-top:-10px;}
+.Gnb .mask, .Gnb .gnb-menu>li>.SubMenu{margin-top:0;}
 
 /*공통 푸터*/
 #footer {padding:0 0 50px;z-index:3;}
@@ -167,6 +167,8 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 }
 
 @media all and (max-width:425px){	
+	#main0 .main-visual .mvBtn_wp{top:28% !important;}
+
 	.swiper-button-next, .swiper-container-rtl .swiper-button-prev{right:30% !important;}
 	.swiper-button-prev, .swiper-container-rtl .swiper-button-next{left:30% !important;}
 

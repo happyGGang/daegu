@@ -3,11 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="Gnb">
 	<h2 class="blind">주메뉴</h2>
-	<div class="section">
-		<h1><a href="/${homepage.context_path}/index.do"><img src="/resources/homepage/${homepage.context_path}/img/${homepage.context_path}_logo.png" alt="대구광역시 전자도서관"/></a></h1>
-
-		<div class="mmode m-menu">
-			<a href="#menu"><img src="/resources/homepage/${homepage.context_path}/img/mmenu-icon1.gif"></a>
+	<div class="">
+		<h1 class="mobile-logo"><a href="/${homepage.context_path}/index.do"><img src="/resources/homepage/${homepage.context_path}/img/${homepage.context_path}_logo.png" alt="대구광역시 전자도서관"/></a></h1>
+		 <div class="m-search" >
+		    <a href="/${homepage.context_path}/module/elib/search/index.do?menu_idx=80"><img src="/resources/homepage/elib/img/mobile_search.png" alt="통합전자자료검색"></a> 
+		</div>
+		<div class="mmode m-menu">		   
+			<a href="#menu"><img src="/resources/homepage/${homepage.context_path}/img/mmenu-icon1.gif" alt="메뉴"></a>
 		</div>
 
 		<div class="g-menu">

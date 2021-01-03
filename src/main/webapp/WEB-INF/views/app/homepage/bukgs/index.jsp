@@ -154,7 +154,7 @@ do {
 							<select id="search_type" name="search_type" class="search_type">
 								<option value="L_TITLE">전체</option>
 								<option value="L_AUTHOR">저자</option>
-								<option value="L_PUBLISHER">발행자</option>
+								<option value="L_PUBLISHER">발행처</option>
 								<option value="L_KEYWORD">키워드</option>
 							</select>
 							<div class="box1">
@@ -285,7 +285,7 @@ do {
 						</a>
 					</li>
 					<li>
-						<a href="/bukgs/intro/login/index.do?menu_idx=69" class="q04">
+						<a href="/bukgs/intro/search/loan/history.do?menu_idx=53" class="q04">
 							<span><img src="/resources/homepage/${homepage.context_path}/img/q4.png" alt="대출정보조회"><br class="webBr"/>대출정보조회</span>
 						</a>
 					</li>

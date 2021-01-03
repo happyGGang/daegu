@@ -424,11 +424,11 @@ h4.tit.h4_t{margin-top:35px;}
   }
 
 /*조언*/
-.doc-body .txt-box-adv {border: 1px solid #e8e5e2;padding: 2% 2% 2% 6%;margin: 0 0 1% 0;border-radius: 5px;color: #c10064;overflow: hidden;background: #f9f7f5 url('/resources/homepage/dgportal/img/icon_adv.png') no-repeat 2% 50%;background-size: 3%;font-size: 14px;}
+.doc-body .txt-box-adv {border: 1px solid #e8e5e2;padding: 2% 2% 2% 6%;margin: 0 0 1% 0;border-radius: 5px;color: #c10064;overflow: hidden;background: #f2f3f7 url('/resources/homepage/dgportal/img/icon_adv.png') no-repeat 2% 50%;background-size: 3%;font-size: 14px;}
 .doc-body .txt-box-adv:after {background: url('/resources/homepage/dgportal/img/icon_adv.png') no-repeat 0 0;}
 
 @media all and (max-width:768px) {
-.doc-body .txt-box-adv {padding: 7% 2% 3% 3%;/* background-image: none; */background: #f9f7f5 url(/resources/homepage/dgportal/img/icon_adv.png) no-repeat 3% 5%;background-size: 5%;}
+.doc-body .txt-box-adv {padding: 7% 2% 2% 2%;/* background-image: none; */background: #f9f7f5 url(/resources/homepage/dgportal/img/icon_adv.png) no-repeat 2% 10%;background-size: 5%;}
 }
 .doc-body ul.tb_list > li {background: url('/resources/homepage/dgportal/img/blue_list.png') no-repeat 0 11px;padding: 2px 0 2px 13px;}
 
@@ -765,6 +765,31 @@ div[class^="dpt-list-type"] li[class^="ico"]:after {content:"";display:block;bac
 .tit_wrap dt strong{display:block;font-size: 36px;font-weight:normal;line-height:40px;}
 .tit_wrap dd{margin-top:25px;font-size:15px;line-height:25px;}
 
+/*기타 박스*/
+.tbox-wr .em {position:relative;background: #355cb9;margin:0 auto;text-align:center;margin-bottom:30px;}
+.tbox-wr .em h4.tit {position:relative;padding: 55px 0 20px;margin:0 auto;text-align:center;font-weight:bold;color:#fff;font-size:20px;}
+.tbox-wr .em p  {padding: 0 40px 40px 40px;color:#fff;font-size:15px;}
+.tbox-wr .em h4:before {content:"";display:block;position:absolute;width:64px;height:64px;background:url('/resources/homepage/elib/img/em_icon01.png') no-repeat 0 0;margin-left:-32px;left:50%;top:-30px;}
+.tbox-wr .em h4 span:after {content: '';display: block;width: 25px;height: 1px;background-color: #323232;margin: 20px auto;}
+
+.tbox-wr .vw {position:relative;background: #355cb9;margin:0 auto;text-align:center;margin-bottom: 20px;}
+.tbox-wr .vw h4.tit {position:relative;padding: 55px 0 20px;margin:0 auto;text-align:center;font-weight:bold;color:#fff;font-size:20px;}
+.tbox-wr .vw p  {padding: 0 40px 40px 40px;color:#fff;font-size:15px;}
+.tbox-wr .vw h4:before {content:"";display:block;position:absolute;width:64px;height:64px;background:url('/resources/homepage/elib/img/vw_icon01.png') no-repeat 0 0;margin-left:-32px;left:50%;top:-30px;}
+
+.kog-wr { background: url('/resources/homepage/elib/img/book_pttr.gif') repeat;padding: 3px;}
+.kog-wr .kog {position:relative;background: #fff;margin:0 auto;text-align:center;}
+.kog-wr .kog h4.tit {position:relative;padding: 55px 0 20px;margin:0 auto;text-align:center;font-weight:bold;color: #222;font-size:20px;}
+.kog-wr .kog p  {padding:0 40px 40px 40px;color: #222;}
+.kog-wr .kog h4:before {content:"";display:block;position:absolute;width:64px;height:64px;background:url('/resources/homepage/elib/img/kog_icon01.png') no-repeat 0 0;margin-left:-32px;left:50%;top:-30px;}
+
+
+@media (max-width: 768px){
+.tbox-wr .em p, .kog-wr .kog p {padding:0 20px 40px 20px;}
+.kog-wr {margin-top:40px;}
+
+}
+
 /* 스마트도서관*/
 .biz_work2 .work{display:inline-block;width:100%;color:#000;border-bottom:1px solid #e5e5e5;}
 .biz_work2 .work_tit{float:left;width: 35%;height: 300px;font-size: 22px;line-height: 1.5;letter-spacing:-0.05em;color: #444;}
@@ -863,10 +888,11 @@ background:url(/nanum/site/builder/skin/library_skin01/img/common/icon_tit_bg.gi
 .audian_bgbox {position: relative;height: 317px;background: url("/resources/homepage/elib/img/audian_bg.jpg") no-repeat;background-size: 100%;}
 .kiss_bgbox {position: relative;height: 317px;background: url("/resources/homepage/elib/img/kiss_bg.jpg") no-repeat;background-size: 100%;}
 .naxos_bgbox {position: relative;height: 317px;background: url("/resources/homepage/elib/img/naxos_bg.jpg") no-repeat;background-size: 100%;}
+.audiorac_bgbox {position: relative;height: 317px;background: url("/resources/homepage/elib/img/audiorac_bg.jpg") no-repeat;background-size: 100%;}
 
 .lf-txt {position: absolute;top: 61px;left: 50px;width: 460px;color: #fff;}
 .lf-txt2 {position: absolute;top: 61px;left: 30px;width: 460px;color: #fff;}
-.tt {font-size: 20px;color:#000; line-height: 50px;}
+.tt {font-size: 20px;/*color:#000;*/ line-height: 50px;}
 .btit {font-size: 40px;font-weight: 600;}
 
 @media (max-width:900px) {
@@ -897,6 +923,12 @@ background:url(/nanum/site/builder/skin/library_skin01/img/common/icon_tit_bg.gi
 .btn_link07:hover, .btn_link07:focus {border:1px solid #0b253e;background-color:#fff;color:#0b253e;}
 .btn_link07 span {display:block;padding:0 72px 0px 23px;height:53px;line-height:53px; color:#0b253e;}
 .btn_link07 .ico {position:absolute;right:0px;top:0;padding:0;width:50px;height:53px;background-color:#0b253e;-webkit-transition:right .25s ease;transition:right .25s ease-out;}
+.btn_link07:hover .ico {right:-10px;height:53px;}
+
+.btn_link08 {position:relative;display:inline-block;transition:all .25s ease;background-color:#fff;color:#fff;border:1px solid #3a59bb;box-sizing:border-box;}
+.btn_link08:hover, .btn_link08:focus {border:1px solid #3a59bb;background-color:#fff;color:#3a59bb;}
+.btn_link08 span {display:block;padding:0 72px 0px 23px;height:53px;line-height:53px; color:#3a59bb;}
+.btn_link08 .ico {position:absolute;right:0px;top:0;padding:0;width:50px;height:53px;background-color:#3a59bb;-webkit-transition:right .25s ease;transition:right .25s ease-out;}
 .btn_link07:hover .ico {right:-10px;height:53px;}
 
 @media(max-width:1260px){

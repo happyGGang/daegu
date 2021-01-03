@@ -194,14 +194,14 @@ $.ajax({
 	async: "false",
 	success: function(data) {
 		$('.weather span.temp').html((data.main.temp- 273.15)+'˚');
-		//$('.weather span.icon').addClass('w'+data.weather[0].icon);
+		$('.weather span.icon img').attr('src',"/resources/homepage/${homepage.context_path}/img/"+data.weather[0].icon+".png");
 		//$('.weather span.icon').addClass('w'+data.weather[0].icon);
 	}
 });
 
 </script>
 <style>
-body, html {background:url('/resources/homepage/${homepage.context_path}/img/main-visual.png') no-repeat center top;background-size:cover;}
+body, html {background:#30706e url('/resources/homepage/${homepage.context_path}/img/main-visual.png') no-repeat center top;background-size:cover;}
 </style>
 <div id="wrap">
 
@@ -219,15 +219,16 @@ body, html {background:url('/resources/homepage/${homepage.context_path}/img/mai
 	<div id="container" class="main container">
 		<div class="sectionxs">
 			<div class="search-box">
-				<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
-					<input type="hidden" name="menu_idx" value="13">
-					<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
+				<form id="mainSearchForm" action="/${homepage.context_path}/module/elib/search/index.do">
+					<input type="hidden" name="menu_idx" value="80">
+					<input type="hidden" name="viewPage" value="1">
+					<!-- <input type="hidden" name="type" value="EBK"> -->
 					<fieldset>
 						<legend class="blind">통합검색</legend>
 						<div class="main-box">
 							<div class="box1">
 								<label for="search_text_1" class="blind">통합자료검색</label>
-								<input name="title" id="search_text_1" type="text" class="text" placeholder="검색" style="ime-mode:active;"/>
+								<input name="search_text" id="search_text_1" type="text" class="text" placeholder="검색" style="ime-mode:active;"/>
 							</div>
 							<button id="main-search-btn">검색</button>
 						</div>
@@ -242,7 +243,7 @@ body, html {background:url('/resources/homepage/${homepage.context_path}/img/mai
 					<li class="quick-1">
 						<a href="/${homepage.context_path}/module/elib/book/index.do?menu_idx=14&menu=NEW&type=EBK" title="E-BOOK 바로가기" class="quick01">
 						<div>
-							<p>전자자료</p>
+							<p>전자책</p>
 							<h4>E-BOOK</h4>
 						</div>
 					</a>
@@ -266,7 +267,7 @@ body, html {background:url('/resources/homepage/${homepage.context_path}/img/mai
 					<li class="quick-4">
 					<a href="/${homepage.context_path}/html.do?menu_idx=24" title="웹DB 홈페이지 바로가기" class="quick04">
 						<div>
-							<p>학술 원문데이터</p>
+							<p>학술논문ㆍ클래식</p>
 							<h4>웹DB</h4>
 						</div>
 					</a>
@@ -320,7 +321,7 @@ body, html {background:url('/resources/homepage/${homepage.context_path}/img/mai
 							<b>${time}</b> ${month}월 ${day}일 ${week}요일 
 						</div>
 						<div class="weather">
-							<span class='icon'><img src="/resources/homepage/${homepage.context_path}/img/dc.png" alt=""></span><span class="temp">15˚˚  </span>
+							<span class='icon'><img src="" alt=""></span><span class="temp">15˚˚  </span>
 						</div>
 					</div>
 

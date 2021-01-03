@@ -82,28 +82,34 @@ $(function() {
 		<tiles:insertAttribute name="top" />
 		<tiles:insertAttribute name="topMenu" />
 
-		<div class="sub-comment">
-			손 끝에서 시작되는 <b>가장 스마트한 생활</b>
+		<div class="sub-search">
+
+			<div class="sectionxs">
+				<h1>
+					<span class="line"></span>
+					${fn:escapeXml(menuLeftList[1].menu_name)}
+				</h1>
+			</div>
+
 		</div>
 
-		<div class="section search">
-			<div class="sub_search-box">
-				<form id="mainSearchForm" method="POST" action="/elib/module/elib/search/index.do">
-					<input type="hidden" name="menu_idx" value="80">
-					<fieldset>
-						<legend class="blind">통합검색</legend>
-						<div class="box">
-							<div class="b1">
-								<input type="text" class="text" name="search_text" id="search_text" placeholder="책을 찾는 설레임!"/>
-							</div>
-							<div class="b2">
-								<button id="main-search-btn">SEARCH</button>
-							</div>
-						</div>
-					</fieldset>
-				</form>
+		<div class="qmenu sublink">
+			<div style="overflow:hidden;">
+				<ul data-call="bxslider" data-breaks="[{screen:0, slides:4},{screen:340, slides:4},{screen:450, slides:5},{screen:600, slides:5},{screen:767, slides:5},{screen:1000, slides:8}]">
+					<li><a href="/${homepage.context_path}/module/elib/book/index.do?menu_idx=14&menu=NEW&type=EBK"><img src="/resources/homepage/${homepage.context_path}/img/icon001.png" alt=""><br/>E-BOOK</a></li>
+					<li><a href="/${homepage.context_path}/html/html2.do?menu_idx=90"><img src="/resources/homepage/${homepage.context_path}/img/icon002.png" alt=""><br/>오디오북</a></li>
+					<li><a href="/${homepage.context_path}/board/index.do?menu_idx=72&manage_idx=284"><img src="/resources/homepage/${homepage.context_path}/img/icon005.png" alt=""><br/>공지사항</a></li>
+					<li><a href="/${homepage.context_path}/intro/login/mobileCard.do?menu_idx=81"><img src="/resources/homepage/${homepage.context_path}/img/icon006.png" alt=""><br/>모바일회원증</a></li>
+
+					<li><a href="/${homepage.context_path}/module/elib/asp/contents/elearning.do?menu_idx=27"><img src="/resources/homepage/${homepage.context_path}/img/icon003.png" alt=""><br/>E-러닝</a></li>
+					<li><a href="/${homepage.context_path}/html.do?menu_idx=24"><img src="/resources/homepage/${homepage.context_path}/img/icon004.png" alt=""><br/>웹DB</a></li>
+
+					<li><a href="/${homepage.context_path}/html.do?menu_idx=31"><img src="/resources/homepage/${homepage.context_path}/img/icon007.png" alt=""><br/>이용안내</a></li>
+					<li><a href="/${homepage.context_path}/module/elib/lending/index.do?menu_idx=39&menu=LENDING"><img src="/resources/homepage/${homepage.context_path}/img/icon008.png" alt=""><br/>나의도서관</a></li>
+				</ul>
 			</div>
 		</div>
+
 	</div>
 
 	<div id="sub-container" class="sub container">
@@ -215,9 +221,9 @@ $(function() {
 
 				<div class="doc">
 					<div class="doc-head">
-						<div class="doc-title">
+						<!--div class="doc-title">
 							<h3>${menuOne.menu_name}</h3>
-						</div>
+						</div-->
 					</div>
 					<div class="doc-body con${menuOne.menu_idx}" id="contentArea">
 						<div class="body">
@@ -241,7 +247,7 @@ $(function() {
 	</div>
 
 
-	<div id="footer" style="border-top:1px solid #bdbdbd;">
+	<div id="footer" style="border-top:1px solid #ebebeb;">
 		<tiles:insertAttribute name="footer" />
 	</div>
 
