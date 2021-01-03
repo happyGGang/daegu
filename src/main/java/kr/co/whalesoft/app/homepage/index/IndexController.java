@@ -685,12 +685,18 @@ public class IndexController extends BaseController {
 				Homepage h = new Homepage(teach.getHomepage_id());
 				h = homepageService.getHomepageOne(h);
 				teach.setHomepage_name(h.getHomepage_name());
+				teach.setHomepage_id(h.getHomepage_id());
+
+				if (!h.getHomepage_group().equals("ALL")) {
+					h = homepageService.getHomepageOne(new Homepage(h.getHomepage_group()));
+				}
+
 				teach.setContext_path(h.getContext_path());
 				if (teach.getHomepage_id().equals("h7")) {
 					teach.setMenu_idx(30);
 				} else {
 					Menu m = new Menu();
-					m.setHomepage_id(teach.getHomepage_id());
+					m.setHomepage_id(h.getHomepage_id());
 					m.setMenu_idx(97);
 					teach.setMenu_idx(menuService.getMenuIdxByProgramIdx(m));
 				}

@@ -368,25 +368,6 @@ do {
 										</div>
 										<div class="daegubook">
 											<div class="con">
-<%-- 												<a href="/${homepage.context_path}/html.do?menu_idx=8"> --%>
-<!-- 													<dl> -->
-<%-- 														<dt><img src="/resources/homepage/${homepage.context_path}/img/daegu-book.png" alt="당신이 옳다" /></dt> --%>
-<!-- 														<dd> -->
-<!-- 															<p class="daegubook-cont-01">중앙도서관<br/> 사서가 추천하는 BOOK'</p> -->
-<!-- 															<p class="daegubook-cont-02"> -->
-<!-- 																<b>당신이 옳다<br/>(정혜신의 적정심리학)</b><br/> -->
-<!-- 																정혜신 / 해냄출판사 / 2018<br/><br/> -->
-<!-- 															</p> -->
-<!-- 															<p class="daegubook-cont-03"> -->
-<!-- 																사회적 재난 현장부터 일상의 순간까지 고통 -->
-<!-- 																받는 이들과 함께해온 정신과 의사 정혜신은  -->
-<!-- 																우리에게 '심리적 CPR(심폐소생술)'이 절실 -->
-<!-- 																하다고 진단한다. 최근 15년 간 진료실을 벗 -->
-<!-- 																어나 보통 사람들은 물론 트라우마... -->
-<!-- 															</p> -->
-<!-- 														</dd> -->
-<!-- 													</dl> -->
-<!-- 												</a> -->
 												<a href="/${homepage.context_path}/html.do?menu_idx=8">
 													<dl>
 														<dt>
@@ -1451,11 +1432,11 @@ do {
 				<div class="cont cultureList">
 					<ul>
 						<c:forEach items="${teachList}" var="i" varStatus="status">
-<%-- 						<c:set var="imgnum" value="${(status.count % 4)+1}"></c:set> --%>
-						<c:set var="imgnum" value="${i.teach_status eq '0' ? '1' : i.teach_status eq '6' ? '2' : '0'}"></c:set>
+						<c:if test="${i.teach_status eq '0' or i.teach_status eq '1' or i.teach_status eq '6'}">
+						<c:set var="imgnum" value="${i.teach_status eq '0' ? '1' : i.teach_status eq '1' ? '1' : '4'}"></c:set>
 						<li>
-							<a href="/${i.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=${i.menu_idx}&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}" class="border bgimg00${imgnum}">
-								<span class="status">접수중</span>
+							<a href="/${i.context_path}/module/teach/detail.do?homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=${i.menu_idx}&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}" class="border bgimg00${imgnum}">
+								<span class="status">${i.teach_status eq '6' ? '접수대기' : '접수중'}</span>
 								<span class="txt">
 									<p class="lib-name">${i.homepage_name}</p>
 									<p class="tit">${fn:substring(i.teach_name, 0, 15)}<c:if test="${fn:length(i.teach_name) > 17}">...</c:if></p>
@@ -1463,6 +1444,7 @@ do {
 								</span>
 							</a>
 						</li>
+						</c:if>
 						</c:forEach>
 					</ul>
 				</div>
