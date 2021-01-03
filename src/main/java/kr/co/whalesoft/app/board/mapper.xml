@@ -2199,5 +2199,41 @@
 			manage_idx = #{manage_idx}
 		AND	board_idx = #{board_idx}
 	</update>
-	
+
+
+	<select id="getBoardBookJungu" resultType="kr.co.whalesoft.app.board.Board">
+		${pagingTop}
+		SELECT
+		TRUNC(TO_CHAR(SYSDATE,'yyyyMMdd')) - TRUNC(TO_CHAR(add_date,'yyyyMMdd')) AS date_gap,
+		(select new_date_count from CMS_BOARD_MANAGE where manage_idx = #{manage_idx}) AS new_date_count,
+		manage_idx, board_idx, group_idx, view_count, notice_yn,
+		title, add_id, add_date, preview_img, REGEXP_REPLACE(content_summary,'&lt;[^>]*>','') as content_summary,
+		imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5,
+		imsi_v_6, imsi_v_7, imsi_v_8, imsi_v_9, imsi_v_10,
+		imsi_v_11, imsi_v_12, imsi_v_13, imsi_v_14, imsi_v_15,
+		imsi_v_16, imsi_v_17, imsi_v_18, imsi_v_19, imsi_v_20,
+		getCodeIdToCodeName('h53','B0001',category1) as category1_name,
+		category1,
+		TRUNC(TO_CHAR(SYSDATE,'yyyyMMdd')) - TRUNC(TO_CHAR(add_date,'yyyyMMdd')) AS date_gap,
+		(
+			SELECT
+			MAX(H.menu_idx)
+			FROM
+			CMS_MENU H, CMS_BOARD_MANAGE M
+			WHERE
+			H.homepage_id = M.homepage_id
+			AND	M.manage_idx = A.manage_idx
+			AND	H.manage_idx = M.manage_idx
+			AND H.menu_type = 'BOARD'
+		) AS imsi_n_2
+		FROM
+		CMS_BOARD A
+		WHERE
+			manage_idx in (647, 648, 649, 650)
+		AND	delete_yn = 'N'
+		ORDER BY board_idx DESC
+		${pagingBottom}
+
+	</select>
+
 </mapper>

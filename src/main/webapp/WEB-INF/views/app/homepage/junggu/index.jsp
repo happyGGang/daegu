@@ -205,9 +205,9 @@ do {
 
 					<div class="box con" data-tab="tab1">
 						<ul class="book_photo">
-							<c:forEach items="${bookList1}" var="i" varStatus="status">
+							<c:forEach items="${bookList1}" var="i" varStatus="status" begin="0" end="3">
 								<li>
-									<a href="/${homepage.context_path}/board/view.do?menu_idx=85&manage_idx=649&board_idx=${i.board_idx}">
+									<a href="/${homepage.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 									<span class="con-image">
 										<c:choose>
 											<c:when test="${i.preview_img ne null}">

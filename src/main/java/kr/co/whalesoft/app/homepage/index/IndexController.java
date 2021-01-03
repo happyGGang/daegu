@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,6 +60,8 @@ import kr.go.gbelib.app.cms.module.teach.Teach;
 import kr.go.gbelib.app.cms.module.teach.TeachService;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.intro.search.LibrarySearch;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller(value = "userIndexController")
 public class IndexController extends BaseController {
@@ -313,6 +316,34 @@ public class IndexController extends BaseController {
 		model.addAttribute("calendarManage", calendarManage);
 
 		return basePath + filePath + "_ajax";
+	}
+
+	@RequestMapping(value = { "/{contextPath}/calendar9.*" }) // 분관 휴관일
+	@ResponseBody
+	public List<String> calendar9(Model model, LibrarySearch librarySearch, HttpServletRequest request, @PathVariable String contextPath) {
+
+		List<String> holidayList = new ArrayList<String>();
+
+		Calendar cal = Calendar.getInstance();
+		int endDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+
+		for(int i = 1; i <= endDay; i++) {
+			String search_day = "0";
+			if(i < 10) {
+				search_day += i;
+			} else {
+				search_day = String.valueOf(i);
+			}
+			librarySearch.setSearch_start_date(sdf.format(cal.getTime()) + search_day);
+			Map<String, Object> holiDays = LibSearchAPI.getCheckHoliday(librarySearch);
+
+			if(holiDays.get("RESULT_CODE").equals("1")) {
+				holidayList.add(search_day);
+			}
+		}
+
+		return holidayList;
 	}
 
 	@RequestMapping(value = { "/{contextPath}/newBook.*" })
@@ -687,6 +718,11 @@ public class IndexController extends BaseController {
 		}
 
 		setBoardListToModel(homepage.getHomepage_id(), model);
+
+		//junggu
+		if (homepage.getHomepage_id().equals("h53")) {
+			model.addAttribute("bookList1", boardService.getBoardBookJungu());
+		}
 
 		//서구도서관
 		if (homepage.getHomepage_id().equals("h49")) {

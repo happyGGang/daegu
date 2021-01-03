@@ -822,4 +822,8 @@ public class BoardService extends BaseService {
 	public int delThemeBook(Board board) {
 		return dao.delThemeBook(board);
 	}
+
+	public List<Board> getBoardBookJungu() {
+		return dao.getBoardBookJungu(new Board());
+	}
 }

@@ -173,4 +173,6 @@ public interface BoardDao {
 	public Map<String, Object> getThemeCollection(Board board);
 
 	public int delThemeBook(Board board);
+
+	public List<Board> getBoardBookJungu(Board board);
 }
