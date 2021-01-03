@@ -600,7 +600,7 @@ do {
                         </c:choose>
                       </div>
                       <div class="con_box">
-                        <div class="cate">${i.category5_name}</div>
+                        <div class="cate">${i.category1_name}</div>
                         <div class="tit">${i.title}<img src="/resources/homepage/seogulib/img/new_icon.png"></div>
                         <div class="date">
                           <fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/>
@@ -613,28 +613,28 @@ do {
                     <div>
                       <ul>
                         <c:forEach items="${noticeList}" var="i" varStatus="status" begin="1" end="7">
-                          <c:if test="${i.category5 eq 'h77'}">
+                          <c:if test="${i.category1 eq '0001'}">
                             <c:set var="libcode" value="child">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category5 eq 'h61'}">
+                          <c:if test="${i.category1 eq '0002'}">
                             <c:set var="libcode" value="bisan">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category5 eq 'h62'}">
+                          <c:if test="${i.category1 eq '0003'}">
                             <c:set var="libcode" value="english">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category5 eq 'h63'}">
+                          <c:if test="${i.category1 eq '0004'}">
                             <c:set var="libcode" value="biwon">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category5 eq 'h64'}">
+                          <c:if test="${i.category1 eq '0005'}">
                             <c:set var="libcode" value="wongogae">
                             </c:set>
                           </c:if>
                           <li class="${libcode}">
-                            <div class="cate">${i.category5_name}</div>
+                            <div class="cate">${i.category1_name}</div>
                             <div class="tit"><a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->${i.title}</a></div>
                             <div class="date">
                               <fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/>
@@ -663,7 +663,7 @@ do {
                         </c:choose>
                       </div>
                       <div class="con_box">
-                        <div class="cate">${i.category5_name}</div>
+                        <div class="cate">${i.category1_name}</div>
                         <div class="tit">${i.title}<img src="/resources/homepage/seogulib/img/new_icon.png"></div>
                         <div class="date">
                           <fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/>
@@ -676,28 +676,28 @@ do {
                     <div>
                       <ul>
                         <c:forEach items="${noticeListh77}" var="i" varStatus="status" begin="1" end="7">
-                          <c:if test="${i.category5 eq 'h77'}">
+                          <c:if test="${i.category1 eq '0001'}">
                             <c:set var="libcode" value="child">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category5 eq 'h61'}">
+                          <c:if test="${i.category1 eq '0002'}">
                             <c:set var="libcode" value="bisan">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category5 eq 'h62'}">
+                          <c:if test="${i.category1 eq '0003'}">
                             <c:set var="libcode" value="english">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category5 eq 'h63'}">
+                          <c:if test="${i.category1 eq '0004'}">
                             <c:set var="libcode" value="biwon">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category5 eq 'h64'}">
+                          <c:if test="${i.category1 eq '0005'}">
                             <c:set var="libcode" value="wongogae">
                             </c:set>
                           </c:if>
                           <li class="${libcode}">
-                            <div class="cate">${i.category5_name}</div>
+                            <div class="cate">${i.category1_name}</div>
                             <div class="tit"><a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->${i.title}</a></div>
                             <div class="date">
                               <fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/>
@@ -726,7 +726,7 @@ do {
                         </c:choose>
                       </div>
                       <div class="con_box">
-                        <div class="cate">${i.category5_name}</div>
+                        <div class="cate">${i.category1_name}</div>
                         <div class="tit">${i.title}<img src="/resources/homepage/seogulib/img/new_icon.png"></div>
                         <div class="date">
                           <fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/>
@@ -739,28 +739,28 @@ do {
                     <div>
                       <ul>
                         <c:forEach items="${noticeListh61}" var="i" varStatus="status" begin="1" end="7">
-                          <c:if test="${i.category5 eq 'h77'}">
+                          <c:if test="${i.category1 eq '0001'}">
                             <c:set var="libcode" value="child">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category5 eq 'h61'}">
+                          <c:if test="${i.category1 eq '0002'}">
                             <c:set var="libcode" value="bisan">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category5 eq 'h62'}">
+                          <c:if test="${i.category1 eq '0003'}">
                             <c:set var="libcode" value="english">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category5 eq 'h63'}">
+                          <c:if test="${i.category1 eq '0004'}">
                             <c:set var="libcode" value="biwon">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category5 eq 'h64'}">
+                          <c:if test="${i.category1 eq '0005'}">
                             <c:set var="libcode" value="wongogae">
                             </c:set>
                           </c:if>
                           <li class="${libcode}">
-                            <div class="cate">${i.category5_name}</div>
+                            <div class="cate">${i.category1_name}</div>
                             <div class="tit"><a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->${i.title}</a></div>
                             <div class="date">
                               <fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/>
@@ -789,7 +789,7 @@ do {
                         </c:choose>
                       </div>
                       <div class="con_box">
-                        <div class="cate">${i.category5_name}</div>
+                        <div class="cate">${i.category1_name}</div>
                         <div class="tit">${i.title}<img src="/resources/homepage/seogulib/img/new_icon.png"></div>
                         <div class="date">
                           <fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/>
@@ -802,28 +802,28 @@ do {
                     <div>
                       <ul>
                         <c:forEach items="${noticeListh62}" var="i" varStatus="status" begin="1" end="7">
-                          <c:if test="${i.category5 eq 'h77'}">
+                          <c:if test="${i.category1 eq '0001'}">
                             <c:set var="libcode" value="child">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category5 eq 'h61'}">
+                          <c:if test="${i.category1 eq '0002'}">
                             <c:set var="libcode" value="bisan">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category5 eq 'h62'}">
+                          <c:if test="${i.category1 eq '0003'}">
                             <c:set var="libcode" value="english">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category5 eq 'h63'}">
+                          <c:if test="${i.category1 eq '0004'}">
                             <c:set var="libcode" value="biwon">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category5 eq 'h64'}">
+                          <c:if test="${i.category1 eq '0005'}">
                             <c:set var="libcode" value="wongogae">
                             </c:set>
                           </c:if>
                           <li class="${libcode}">
-                            <div class="cate">${i.category5_name}</div>
+                            <div class="cate">${i.category1_name}</div>
                             <div class="tit"><a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->${i.title}</a></div>
                             <div class="date">
                               <fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/>
@@ -852,7 +852,7 @@ do {
                         </c:choose>
                       </div>
                       <div class="con_box">
-                        <div class="cate">${i.category5_name}</div>
+                        <div class="cate">${i.category1_name}</div>
                         <div class="tit">${i.title}<img src="/resources/homepage/seogulib/img/new_icon.png"></div>
                         <div class="date">
                           <fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/>
@@ -865,28 +865,28 @@ do {
                     <div>
                       <ul>
                         <c:forEach items="${noticeListh63}" var="i" varStatus="status" begin="1" end="7">
-                          <c:if test="${i.category5 eq 'h77'}">
+                          <c:if test="${i.category1 eq '0001'}">
                             <c:set var="libcode" value="child">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category5 eq 'h61'}">
+                          <c:if test="${i.category1 eq '0002'}">
                             <c:set var="libcode" value="bisan">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category5 eq 'h62'}">
+                          <c:if test="${i.category1 eq '0003'}">
                             <c:set var="libcode" value="english">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category5 eq 'h63'}">
+                          <c:if test="${i.category1 eq '0004'}">
                             <c:set var="libcode" value="biwon">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category5 eq 'h64'}">
+                          <c:if test="${i.category1 eq '0005'}">
                             <c:set var="libcode" value="wongogae">
                             </c:set>
                           </c:if>
                           <li class="${libcode}">
-                            <div class="cate">${i.category5_name}</div>
+                            <div class="cate">${i.category1_name}</div>
                             <div class="tit"><a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->${i.title}</a></div>
                             <div class="date">
                               <fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/>
@@ -915,7 +915,7 @@ do {
                         </c:choose>
                       </div>
                       <div class="con_box">
-                        <div class="cate">${i.category5_name}</div>
+                        <div class="cate">${i.category1_name}</div>
                         <div class="tit">${i.title}<img src="/resources/homepage/seogulib/img/new_icon.png"></div>
                         <div class="date">
                           <fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/>
@@ -928,28 +928,28 @@ do {
                     <div>
                       <ul>
                         <c:forEach items="${noticeListh64}" var="i" varStatus="status" begin="1" end="7">
-                          <c:if test="${i.category5 eq 'h77'}">
+                          <c:if test="${i.category1 eq '0001'}">
                             <c:set var="libcode" value="child">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category5 eq 'h61'}">
+                          <c:if test="${i.category1 eq '0002'}">
                             <c:set var="libcode" value="bisan">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category5 eq 'h62'}">
+                          <c:if test="${i.category1 eq '0003'}">
                             <c:set var="libcode" value="english">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category5 eq 'h63'}">
+                          <c:if test="${i.category1 eq '0004'}">
                             <c:set var="libcode" value="biwon">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category5 eq 'h64'}">
+                          <c:if test="${i.category1 eq '0005'}">
                             <c:set var="libcode" value="wongogae">
                             </c:set>
                           </c:if>
                           <li class="${libcode}">
-                            <div class="cate">${i.category5_name}</div>
+                            <div class="cate">${i.category1_name}</div>
                             <div class="tit"><a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->${i.title}</a></div>
                             <div class="date">
                               <fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/>
