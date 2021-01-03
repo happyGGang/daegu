@@ -2131,7 +2131,7 @@
 		imsi_v_16, imsi_v_17, imsi_v_18, imsi_v_19, imsi_v_20,
 		NVL((SELECT homepage_alias FROM CMS_HOMEPAGE b where A.category5 = b.homepage_id), '전체') AS category5_name,
 		getCodeIdToCodeName('h49','B0001',category1) as category1_name,
-		category5,
+		category5, category1,
 		TRUNC(TO_CHAR(SYSDATE,'yyyyMMdd')) - TRUNC(TO_CHAR(add_date,'yyyyMMdd')) AS date_gap,
 		(
 			SELECT
