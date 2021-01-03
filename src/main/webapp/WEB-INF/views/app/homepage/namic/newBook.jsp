@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <c:forEach items="${newBookList}" var="i" varStatus="status" begin="0" end="3">
 	<li>
-		<a href="/${homepage.context_path}/intro/search/detail.do?menu_idx=9&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=BO" >
+		<a href="/${homepage.context_path}/intro/search/detail.do?menu_idx=10&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=BO" >
 			<span class="con-image">
 				<c:choose>
 					<c:when test="${empty i.aladin or empty i.aladin.cover}">
