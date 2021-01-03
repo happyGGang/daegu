@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.ibatis.annotations.Param;
@@ -697,8 +698,8 @@ public class IndexController extends BaseController {
 			model.addAttribute("teachList", teachListForAllHomepage);
 
 			Board b = new Board();
-			b.setRowCount(4);
-			b.setTotalDataCount(4);
+			b.setRowCount(5);
+			b.setTotalDataCount(5);
 			model.addAttribute("noticeBoardList", boardService.getAllHomepageBoardListByMain(b));
 
 			String boardCategory2 = boardManageService.getBoardManageOne(new BoardManage(homepage.getHomepage_id(), 299)).getCategory2();
@@ -713,8 +714,11 @@ public class IndexController extends BaseController {
 			List<Board> mainBookList = boardService.getBoardByMain(bookBoard);
 			
 			int ran = (int)(Math.random() * mainBookList.size());
-			model.addAttribute("recommendOne", mainBookList.get(ran));
-			
+			if (CollectionUtils.isNotEmpty(mainBookList)) {
+				model.addAttribute("recommendOne", mainBookList.get(ran));
+
+			}
+
 		}
 
 		setBoardListToModel(homepage.getHomepage_id(), model);
