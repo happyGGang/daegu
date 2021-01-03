@@ -93,9 +93,9 @@ do {
 		$('ul#ul_eventList').load('subCalendar.do')
 
 		$('#main-search-btn').on('click', function() {
-			if( $('input#search_text_1').val() == '' ) {
+			if( $('input#search_text').val() == '' ) {
 				alert('검색어를 입력하세요.');
-				$('input#search_text_1').focus();
+				$('input#search_text').focus();
 				return false;
 			}
 				$('#mainSearchForm').submit();
@@ -180,12 +180,27 @@ do {
 				</div>
 			</div>
 			<div class="search_btn_wrap">
-				<form id="frm_main_search" method="get" action="">
+				<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
+					<input type="hidden" name="menu_idx" value="9">
+					<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
+					<input type="hidden" name="libraryCodes" value="BU">
+					<input type="hidden" name="libraryCodes" value="BV">
+					<input type="hidden" name="libraryCodes" value="BW">
+					<input type="hidden" name="libraryCodes" value="BX">
+					<input type="hidden" name="libraryCodes" value="BY">
+					<input type="hidden" name="libraryCodes" value="BZ">
+					<input type="hidden" name="libraryCodes" value="FA">
+					<input type="hidden" name="libraryCodes" value="FB">
+					<input type="hidden" name="libraryCodes" value="FC">
+					<input type="hidden" name="libraryCodes" value="FD">
+					<input type="hidden" name="libraryCodes" value="FW">
+					<input type="hidden" name="libraryCodes" value="FX">
+					<input type="hidden" name="libraryCodes" value="GK">
 				<div class="search_bar">
 					<div class="search_bar_text">
 						<!-- <label for="search_txt" class="search_m">검색어(도서명 등)를 입력해주세요.</label> -->
-						<input type="text" name="search_txt" class="search_text" id="search_txt" value="" placeholder="검색어를 입력해주세요."/>
-						<input type="submit" name="" id="" class="search_btn" value="검색" />
+						<input type="text" name="title" class="search_text" id="search_text" value="" placeholder="검색어를 입력해주세요."/>
+						<input type="submit" name="" id="main-search-btn" class="search_btn" value="검색" />
 					</div>
 				</div>
 				</form>
