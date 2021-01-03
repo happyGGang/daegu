@@ -504,7 +504,7 @@ public class IndexController extends BaseController {
 		return basePath + homepage.getFolder() + "/recommendBook_ajax";
 	}
 
-	@RequestMapping(value = { "/{contextPath}/subNotice.*" }) // homepage_id로 휴관일만 가져오기
+	@RequestMapping(value = { "/{contextPath}/subNotice.*" }) // homepage_id로 만 가져오기
 	public String subNotice(Model model, Board board, HttpServletRequest request, @PathVariable String contextPath) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
@@ -522,7 +522,7 @@ public class IndexController extends BaseController {
 //		}
 		board.setCategory5(board.getHomepage_id());
 
-		model.addAttribute("subNoticeList", boardService.getSubBoardByMain(board));
+		model.addAttribute("subNoticeList", boardService.getSubBoardByMainDalseo(board));
 
 
 		return basePath + filePath + "_ajax";

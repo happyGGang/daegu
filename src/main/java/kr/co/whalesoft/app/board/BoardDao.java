@@ -168,6 +168,8 @@ public interface BoardDao {
 
 	List<Board> getSubBoardByMain(Board board);
 
+	List<Board> getSubBoardByMainDalseo(Board board);
+
 	public int modifyThemeBook(Board board);
 
 	public Map<String, Object> getThemeCollection(Board board);

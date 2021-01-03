@@ -811,6 +811,10 @@ public class BoardService extends BaseService {
 		return dao.getSubBoardByMain(board);
 	}
 
+	public List<Board> getSubBoardByMainDalseo(Board board) {
+		return dao.getSubBoardByMainDalseo(board);
+	}
+
 	public int modifyThemeBook(Board board) {
 		return dao.modifyThemeBook(board);
 	}
