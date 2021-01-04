@@ -58,7 +58,8 @@ ${boardManage.top_html}
 					<form:select path="imsi_v_4" cssClass="selectmenu">
 						<form:option value="1">보관중</form:option>
 						<form:option value="2">재기증</form:option>
-						<form:option value="3">폐기</form:option>
+						<form:option value="3">찾아감</form:option>
+						<form:option value="4">폐기</form:option>
 					</form:select>
 					</c:when>
 					<c:otherwise>
