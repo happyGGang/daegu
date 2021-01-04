@@ -2,6 +2,7 @@ package kr.go.gbelib.app.module.teach;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -115,6 +116,83 @@ public class TeachController extends BaseController{
 			}
 			teachService.setPaging(model, teachService.getTeachListForAllHomepageCount(teach), teach);
 			model.addAttribute("teachList", teachService.getTeachListForAllHomepage(teach));
+			model.addAttribute("teach", teach);
+			model.addAttribute("myTeachListMenuIdx", menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 93)));//수강신청내역 menu_idx
+			if (!teach.getHomepage_id().equals("h32")) {
+				model.addAttribute("groupList", categoryGroupService.getCategoryGroupListAll(new CategoryGroup(teach.getHomepage_id())));
+				model.addAttribute("categoryList", categoryService.getCategoryListAll(new Category(teach.getHomepage_id(), teach.getGroup_idx())));
+			}
+
+			//프로그램 주제구분
+			TeachCode2 teachCode2 = new TeachCode2(1);
+			teachCode2.setHomepage_id(teach.getHomepage_id());
+			model.addAttribute("teachSubjectCodeList", teachCode2Service.getSubcategories(teachCode2));
+
+			//프로그램 연령구분
+			teachCode2.setTeach_code(8);
+			model.addAttribute("teachAgeDivCodeList", teachCode2Service.getSubcategories(teachCode2));
+
+			//강좌대분류
+			teachCode2.setTeach_code(15);
+			model.addAttribute("teachLargeCategoryList", teachCode2Service.getSubcategories(teachCode2));
+			return String.format(basePath, homepage.getFolder()) + "index_all";
+		} else if ( homepage.getHomepage_id().equals("h32") && teach.getEditMode().equals("GUGUN")) {
+			if (StringUtils.isEmpty(teach.getHomepage_id())) {
+				teach.setHomepage_id(homepage.getHomepage_id());
+			}
+			if (teach.getProgram_age_div_arr() != null && teach.getProgram_age_div_arr().size() > 0) {
+				teach.setProgram_age_div(StringUtils.join(teach.getProgram_age_div_arr(), "|"));
+			}
+			List<String> homepage_ids = new ArrayList<String>();
+			homepage_ids.add("h34");
+			homepage_ids.add("h35");
+			homepage_ids.add("h36");
+			homepage_ids.add("h37");
+			homepage_ids.add("h38");
+			homepage_ids.add("h39");
+			homepage_ids.add("h40");
+			homepage_ids.add("h41");
+			homepage_ids.add("h42");
+			homepage_ids.add("h43");
+			homepage_ids.add("h44");
+			homepage_ids.add("h45");
+			homepage_ids.add("h46");
+			homepage_ids.add("h47");
+			homepage_ids.add("h48");
+			homepage_ids.add("h49");
+			homepage_ids.add("h50");
+			homepage_ids.add("h51");
+			homepage_ids.add("h52");
+			homepage_ids.add("h53");
+			homepage_ids.add("h54");
+			homepage_ids.add("h55");
+			homepage_ids.add("h56");
+			homepage_ids.add("h57");
+			homepage_ids.add("h58");
+			homepage_ids.add("h59");
+			homepage_ids.add("h60");
+			homepage_ids.add("h61");
+			homepage_ids.add("h62");
+			homepage_ids.add("h63");
+			homepage_ids.add("h64");
+			homepage_ids.add("h65");
+			homepage_ids.add("h66");
+			homepage_ids.add("h67");
+			homepage_ids.add("h68");
+			homepage_ids.add("h69");
+			homepage_ids.add("h70");
+			homepage_ids.add("h71");
+			homepage_ids.add("h72");
+			homepage_ids.add("h73");
+			homepage_ids.add("h74");
+			homepage_ids.add("h75");
+			homepage_ids.add("h76");
+			homepage_ids.add("h77");
+			homepage_ids.add("h78");
+			teach.setHomepage_ids(homepage_ids);
+			teach.setLarge_category_idx(16);
+			teachService.setPaging(model, teachService.getTeachListForAllHomepageGugunCount(teach), teach);
+			model.addAttribute("teachList", teachService.getTeachListForAllHomepageGugun(teach));
 			model.addAttribute("teach", teach);
 			model.addAttribute("myTeachListMenuIdx", menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 93)));//수강신청내역 menu_idx
 			if (!teach.getHomepage_id().equals("h32")) {

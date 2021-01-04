@@ -72,4 +72,7 @@ public interface TeachDao  {
 	 */
 	public String getTeacherName(Teach result);
 
+	public int getTeachListForAllHomepageGugunCount(Teach teach);
+
+	public List<Teach> getTeachListForAllHomepageGugun(Teach teach);
 }

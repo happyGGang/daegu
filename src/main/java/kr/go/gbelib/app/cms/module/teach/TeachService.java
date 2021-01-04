@@ -316,6 +316,33 @@ public class TeachService extends BaseService {
 		return list;
 	}
 
+	public List<Teach> getTeachListForAllHomepageGugun(Teach teach) {
+		List<Teach> list = dao.getTeachListForAllHomepageGugun(teach);
+		if (list != null && list.size() > 0) {
+			for (Teach result : list) {
+				Homepage homepage = homepageService.getHomepageOne(new Homepage(result.getHomepage_id()));
+				result.setHomepage_name(homepage.getHomepage_name());
+				if (!homepage.getHomepage_group().equals("ALL")) {
+					homepage = homepageService.getHomepageOne(new Homepage(homepage.getHomepage_group()));
+				}
+				result.setContext_path(homepage.getContext_path());
+				result.setTeach_day_arr(result.getTeach_day().split(","));
+				result.setHolidays(dao.getHolidays(result));
+				Menu m = new Menu();
+				m.setHomepage_id(homepage.getHomepage_id());
+				m.setMenu_idx(97);
+				result.setMenu_idx(menuService.getMenuIdxByProgramIdx(m));
+				if (StringUtils.isNotEmpty(result.getProgram_age_div())) {
+					result.setProgram_age_div_arr(Arrays.asList(result.getProgram_age_div().split(",")));
+				}
+				if (StringUtils.isEmpty(result.getTeacher_name())) {
+					result.setTeacher_name(dao.getTeacherName(result));
+				}
+			}
+		}
+		return list;
+	}
+
 	private String sanitizeLogicFunction(String logicFunction) {
 		if(StringUtils.equals(logicFunction, "AND")) {
 			return logicFunction;
@@ -334,6 +361,14 @@ public class TeachService extends BaseService {
 		teach.setLogicFunction3(sanitizeLogicFunction(teach.getLogicFunction3()));
 		teach.setLogicFunction4(sanitizeLogicFunction(teach.getLogicFunction4()));
 		return dao.getTeachListForAllHomepageCount(teach);
+	}
+
+	public int getTeachListForAllHomepageGugunCount(Teach teach) {
+		teach.setLogicFunction1(sanitizeLogicFunction(teach.getLogicFunction1()));
+		teach.setLogicFunction2(sanitizeLogicFunction(teach.getLogicFunction2()));
+		teach.setLogicFunction3(sanitizeLogicFunction(teach.getLogicFunction3()));
+		teach.setLogicFunction4(sanitizeLogicFunction(teach.getLogicFunction4()));
+		return dao.getTeachListForAllHomepageGugunCount(teach);
 	}
 
 	public Teach getTeachDetailForUser(Teach teach) {

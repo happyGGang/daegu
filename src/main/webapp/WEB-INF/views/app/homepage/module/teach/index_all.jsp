@@ -152,6 +152,7 @@ $(function(){
 	<div id="libraryList" class="bbs-notice" style="margin-top:10px;margin-bottom:20px;">
 		<ul>
 			<li style="padding-bottom: 5px;">
+				<c:if test="${teach.editMode eq 'ALL'}">
 				도&nbsp;&nbsp;서&nbsp;&nbsp;관 :
 				<form:select path="homepage_id"  cssClass="selectmenu" cssStyle="width: 250px;" title="도서관 선택">
 					<form:option value="" label="전체" />
@@ -161,6 +162,7 @@ $(function(){
 					</c:if>
 					</c:forEach>
 				</form:select>
+				</c:if>
 			</li>
 			<li style="padding-bottom: 5px;">
 				접수기간 : <form:input path="start_join_date" title="접수시작일, 입력예시 2020-01-01" cssClass="text ui-calendar"/><label for="start_join_date" class="blind">접수시작일</label> ~
