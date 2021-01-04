@@ -136,13 +136,49 @@ $(function() {
 
 	<div class="infodesk">
 		<c:choose>
-			<c:when test="${fn:length(subHomepageList) > 0}">
+			<c:when test="${fn:length(subHomepageList) > 0 and asideHomepageId ne 'h50' and asideHomepageId ne 'h51' and asideHomepageId ne 'h37'}">
 				도서관 : <form:select id="homepage_id_1" path="homepage_id" items="${subHomepageList}" itemLabel="homepage_name" itemValue="homepage_id"></form:select>
 			</c:when>
+
+			<c:when test="${asideHomepageId eq 'h50'}">
+				도서관 :
+				<form:select id="homepage_id_1" path="homepage_id">
+					<form:option value="h50">범어</form:option>
+					<form:option value="h54">책숲길</form:option>
+					<form:option value="h55">물망이</form:option>
+				</form:select>
+			</c:when>
+
+
+			<c:when test="${asideHomepageId eq 'h51'}">
+				도서관 :
+				<form:select id="homepage_id_1" path="homepage_id">
+					<form:option value="h51">용학</form:option>
+					<form:option value="h56">파동</form:option>
+					<form:option value="h57">무학숲</form:option>
+				</form:select>
+			</c:when>
+
+
+
+			<c:when test="${asideHomepageId eq 'h37'}">
+				도서관 :
+				<form:select id="homepage_id_1" path="homepage_id">
+					<form:option value="h72">도원</form:option>
+					<form:option value="h67">성서</form:option>
+					<form:option value="h68">본리</form:option>
+					<form:option value="h69">달서가족문화</form:option>
+					<form:option value="h66">달서어린이</form:option>
+					<form:option value="h70">달서영어</form:option>
+					<form:option value="h41">독서문화진흥</form:option>
+				</form:select>
+			</c:when>
+
 			<c:otherwise>
 				<form:hidden id="homepage_id_1" path="homepage_id"/>
 			</c:otherwise>
 		</c:choose>
+
 		검색 결과 : 총 ${teachListCount}건
 		<div class="button">
 			<span>대분류 :

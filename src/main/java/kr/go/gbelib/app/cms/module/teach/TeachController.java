@@ -111,7 +111,11 @@ public class TeachController extends BaseController {
 			}
 			model.addAttribute("subHomepageList", subHomepageList);
 		} else {
-			teach.setHomepage_id(getAsideHomepageId(request));
+			if (StringUtils.isEmpty(teach.getHomepage_id())) {
+				teach.setHomepage_id(getAsideHomepageId(request));
+			}
+
+
 		}
 
 		int count = teachService.getTeachListCount(teach);

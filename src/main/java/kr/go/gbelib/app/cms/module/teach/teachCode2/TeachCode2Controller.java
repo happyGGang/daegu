@@ -60,7 +60,9 @@ public class TeachCode2Controller extends BaseController {
 			}
 			model.addAttribute("subHomepageList", subHomepageList);
 		} else {
-			category.setHomepage_id(getAsideHomepageId(request));
+			if (StringUtils.isEmpty(category.getHomepage_id())) {
+				category.setHomepage_id(getAsideHomepageId(request));
+			}
 		}
 	}
 

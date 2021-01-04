@@ -96,7 +96,9 @@ public class StudentController extends BaseController {
 			}
 			model.addAttribute("subHomepageList", subHomepageList);
 		} else {
-			student.setHomepage_id(getAsideHomepageId(request));
+			if (StringUtils.isEmpty(student.getHomepage_id())) {
+				student.setHomepage_id(getAsideHomepageId(request));
+			}
 		}
 		model.addAttribute("categoryGroupList", categoryGroupService.getCategoryGroupListAll(new CategoryGroup(student.getHomepage_id(), student.getLarge_category_idx())));
 		model.addAttribute("categoryList", categoryService.getCategoryListAll(new Category(student.getHomepage_id(), student.getGroup_idx(), student.getLarge_category_idx())));

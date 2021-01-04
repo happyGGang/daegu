@@ -75,6 +75,7 @@ $(function(){
 	<div class="table-wrap">
 		<table class="type1 center">
 			<colgroup>
+				<col width="100"/>
 				<col width="200"/>
 				<col width="200"/>
 				<col width="100"/>
@@ -84,6 +85,7 @@ $(function(){
 			</colgroup>
 			<thead>
 				<tr>
+					<th>홈페이지ID</th>
 					<th>도서관명</th>
 					<th>관리코드</th>
 					<th>도서관 부호</th>
@@ -95,12 +97,13 @@ $(function(){
 			<tbody>
 			<c:if test="${fn:length(homepageList) < 1}">
 				<tr>
-					<td colspan="8">데이터가 존재하지 않습니다.</td>
+					<td colspan="7">데이터가 존재하지 않습니다.</td>
 				</tr>
 			</c:if>
 			<c:forEach var="i" varStatus="status" items="${homepageList}">
 				<tr>
 					<%-- <td class="num">${i.homepage_id}</td> --%>
+					<td>${i.homepage_id}</td>
 					<td>${i.homepage_name}</td>
 					<td>
 						${i.manage_code}

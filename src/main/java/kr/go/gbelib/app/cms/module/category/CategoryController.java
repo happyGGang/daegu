@@ -72,7 +72,9 @@ public class CategoryController extends BaseController {
 			}
 			model.addAttribute("subHomepageList", subHomepageList);
 		} else {
-			categoryGroup.setHomepage_id(getAsideHomepageId(request));
+			if (StringUtils.isEmpty(categoryGroup.getHomepage_id())) {
+				categoryGroup.setHomepage_id(getAsideHomepageId(request));
+			}
 		}
 
 		int count = categoryGroupService.getCategoryGroupListCount(categoryGroup);

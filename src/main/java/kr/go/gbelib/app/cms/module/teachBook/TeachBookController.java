@@ -92,7 +92,9 @@ public class TeachBookController extends BaseController {
 			}
 			model.addAttribute("subHomepageList", subHomepageList);
 		} else {
-			teachBook.setHomepage_id(getAsideHomepageId(request));
+			if (StringUtils.isEmpty(teachBook.getHomepage_id())) {
+				teachBook.setHomepage_id(getAsideHomepageId(request));
+			}
 		}
 
 		model.addAttribute("teachBook", teachBook);

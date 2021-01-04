@@ -25,7 +25,7 @@ $(document).ready(function() {
 
 	$('select#cate1').on('change', function(e) {
 		var teach_code = $('select#cate1').val();
-		$.get('getSubcategories.do?teach_code=' + teach_code, function(data) {
+		$.get('getSubcategories.do?homepage_id=${category.homepage_id}&teach_code=' + teach_code, function(data) {
 			var cate2 = $('select#cate2').empty();
 			$(data.data).sort(function(a, b) {
 				return parseInt(a.display_seq) > parseInt(b.display_seq);
@@ -367,14 +367,49 @@ function doAjaxPostResponse(form, ajaxBody) {
 <input type="hidden" name="_csrf" value="${_csrf.token}">
 <input type="hidden" name="data_list">
 	<div style="text-align: left;">
-		<c:if test="${fn:length(subHomepageList) > 0}">
-			도서관 :
+		<c:choose>
+			<c:when test="${fn:length(subHomepageList) > 0 and asideHomepageId ne 'h50' and asideHomepageId ne 'h51' and asideHomepageId ne 'h37'}">
+				도서관 :
+				<select id="selectLib">
+					<c:forEach items="${subHomepageList}" var="i" varStatus="status">
+						<option value="${i.homepage_id}" ${category.homepage_id eq i.homepage_id ? 'selected' : ''}>${i.homepage_name}</option>
+					</c:forEach>
+				</select>
+			</c:when>
+
+			<c:when test="${asideHomepageId eq 'h50'}">
+				도서관 :
+				<select id="selectLib">
+					<option value="h50" ${category.homepage_id eq 'h50' ? 'selected' : ''}>범어</option>
+					<option value="h54" ${category.homepage_id eq 'h54' ? 'selected' : ''}>책숲길</option>
+					<option value="h55" ${category.homepage_id eq 'h55' ? 'selected' : ''}>물망이</option>
+				</select>
+			</c:when>
+
+
+			<c:when test="${asideHomepageId eq 'h51'}">
+				도서관 :
 			<select id="selectLib">
-				<c:forEach items="${subHomepageList}" var="i" varStatus="status">
-					<option value="${i.homepage_id}" ${category.homepage_id eq i.homepage_id ? 'selected' : ''}>${i.homepage_name}</option>
-				</c:forEach>
+					<option value="h51" ${category.homepage_id eq 'h51' ? 'selected' : ''}>용학</option>
+					<option value="h56" ${category.homepage_id eq 'h56' ? 'selected' : ''}>파동</option>
+					<option value="h57" ${category.homepage_id eq 'h57' ? 'selected' : ''}>무학숲</option>
 			</select>
-		</c:if>
+			</c:when>
+
+			<c:when test="${asideHomepageId eq 'h37'}">
+				도서관 :
+			<select id="selectLib">
+					<option value="h72" ${category.homepage_id eq 'h72' ? 'selected' : ''}>도원</option>
+					<option value="h67" ${category.homepage_id eq 'h67' ? 'selected' : ''}>성서</option>
+					<option value="h68" ${category.homepage_id eq 'h68' ? 'selected' : ''}>본리</option>
+					<option value="h69" ${category.homepage_id eq 'h69' ? 'selected' : ''}>달서가족문화</option>
+					<option value="h66" ${category.homepage_id eq 'h66' ? 'selected' : ''}>달서어린이</option>
+					<option value="h70" ${category.homepage_id eq 'h70' ? 'selected' : ''}>달서영어</option>
+					<option value="h41" ${category.homepage_id eq 'h41' ? 'selected' : ''}>독서문화진흥</option>
+			</select>
+			</c:when>
+
+		</c:choose>
 	</div>
 
 

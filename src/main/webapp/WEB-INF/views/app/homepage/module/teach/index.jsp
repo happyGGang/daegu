@@ -62,7 +62,11 @@ $(function(){
 		e.preventDefault();
 	});
 
-	<c:if test="${fn:length(subHomepageList) > 0}">
+	<c:if test="${fn:length(subHomepageList) > 0 or
+		(homepage.context_path eq 'beomeo' and teach.searchCate1 eq '17') or
+		(homepage.context_path eq 'yonghak' and teach.searchCate1 eq '17') or
+		(homepage.context_path eq 'dalseolib' and teach.searchCate1 eq '16') or
+		(homepage.context_path eq 'dalseolib' and teach.searchCate1 eq '17')}">
 	var a = '${fn:escapeXml(teach.homepage_id)}';
 	$('div.tab_menu a[data-hid="'+a+'"]').parent().addClass('active');
 
@@ -84,7 +88,7 @@ $(function(){
 	<form:hidden path="searchCate1"/>
 	<form:hidden id="homepage_id_1" path="homepage_id"/>
 
-	<c:if test="${fn:length(subHomepageList) > 0}">
+	<c:if test="${fn:length(subHomepageList) > 0 and homepage.context_path ne 'beomeo' and homepage.context_path ne 'yonghak' and homepage.context_path ne 'dalseolib'}">
 		<div class="tab_menu on">
 			<ul class="no${fn:length(subHomepageList)}">
 				<c:forEach items="${subHomepageList}" var="i" varStatus="status">
@@ -93,6 +97,59 @@ $(function(){
 			</ul>
 		</div>
 	</c:if>
+
+	<c:choose>
+
+		<c:when test="${homepage.context_path eq 'beomeo' and teach.searchCate1 eq '17'}">
+			<div class="tab_menu on">
+				<ul class="no3">
+					<li><a href="#tabCon0" data-hid="h50">범어</a></li>
+					<li><a href="#tabCon1" data-hid="h54">책숲길</a></li>
+					<li><a href="#tabCon2" data-hid="h55">물망이</a></li>
+				</ul>
+			</div>
+		</c:when>
+
+		<c:when test="${homepage.context_path eq 'yonghak' and teach.searchCate1 eq '17'}">
+			<div class="tab_menu on">
+				<ul class="no3">
+					<li><a href="#tabCon0" data-hid="h51">용학</a></li>
+					<li><a href="#tabCon1" data-hid="h56">파동</a></li>
+					<li><a href="#tabCon2" data-hid="h57">무학숲</a></li>
+				</ul>
+			</div>
+		</c:when>
+
+		<c:when test="${homepage.context_path eq 'dalseolib' and teach.searchCate1 eq '16'}">
+			<div class="tab_menu on">
+				<ul class="no7">
+					<li><a href="#tabCon0" data-hid="h72">도원</a></li>
+					<li><a href="#tabCon1" data-hid="h67">성서</a></li>
+					<li><a href="#tabCon2" data-hid="h68">본리</a></li>
+					<li><a href="#tabCon3" data-hid="h69">달서가족문화</a></li>
+					<li><a href="#tabCon4" data-hid="h66">달서어린이</a></li>
+					<li><a href="#tabCon5" data-hid="h70">달서영어</a></li>
+					<li><a href="#tabCon6" data-hid="h41">독서문화진흥</a></li>
+				</ul>
+			</div>
+		</c:when>
+
+		<c:when test="${homepage.context_path eq 'dalseolib' and teach.searchCate1 eq '17'}">
+			<div class="tab_menu on">
+				<ul class="no6">
+					<li><a href="#tabCon0" data-hid="h72">도원</a></li>
+					<li><a href="#tabCon1" data-hid="h67">성서</a></li>
+					<li><a href="#tabCon2" data-hid="h68">본리</a></li>
+					<li><a href="#tabCon3" data-hid="h69">달서가족문화</a></li>
+					<li><a href="#tabCon4" data-hid="h66">달서어린이</a></li>
+					<li><a href="#tabCon5" data-hid="h70">달서영어</a></li>
+				</ul>
+			</div>
+		</c:when>
+
+
+
+	</c:choose>
 
 	<c:choose>
 	<c:when test="${homepage.context_path eq 'donggu' || homepage.context_path eq 'seogulib' || homepage.context_path eq 'namdm' ||  homepage.context_path eq 'namic' ||  homepage.context_path eq 'namic' || homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj' || homepage.context_path eq 'beomeo' || homepage.context_path eq 'yonghak' || homepage.context_path eq 'gosan' || homepage.context_path eq 'dalseolib' || homepage.context_path eq 'dalseonglib' || homepage.context_path eq 'junggu' || homepage.context_path eq 'dmsl'}">
