@@ -105,21 +105,6 @@ do {
 			});
 		});
 
-		$('.popup .close > a').click(function(){
-			$('.popup_top').slideToggle(500);
-			$('span.popup a').toggleClass('on');
-			if($('span.popup a').attr("class") == "on"){
-				$('span.popup a').text("POPUP OPEN");
-			}else{
-				if ($(this).prev().is(':checked')) {
-					var todayDate = new Date();
-					todayDate = new Date(parseInt(todayDate.getTime() / 86400000) * 86400000 + 54000000);
-					document.cookie = "popupzone=no; path=/; expires="+ todayDate.toGMTString() + ";";
-				}
-				$('span.popup a').text("POPUP CLOSE");
-			}
-		});
-
 		$('#newbook').load('newBook.do');
 
 		/*신착, 추천*/
@@ -157,7 +142,7 @@ do {
 	<div class="popup_top">
 		<div class="popup">
 			<div class="pop_contents">
-				<div class="popZone">
+				<div class="topPopZone">
 					<homepageTag:popupZoneTop popupZoneList="${popupZoneTopList}"/>
 				</div>
 			</div>

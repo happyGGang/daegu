@@ -99,9 +99,30 @@ do {
 				$('#mainSearchForm').submit();
 		});
 
+	$('li#menu_147').css('display','none');
+	$('li.menu_147').css('display','none');
+	$('li#menu_148').css('display','none');
+	$('li.menu_148').css('display','none');
+	$('li#menu_149').css('display','none');
+	$('li.menu_149').css('display','none');
+	$('li#menu_150').css('display','none');
+	$('li.menu_150').css('display','none');
 });
 </script>
 <div id="wrap">
+	<c:if test="${fn:length(popupZoneTopList) > 0}">
+	<div class="popup_top">
+		<div class="popup">
+			<div class="pop_contents">
+				<div class="topPopZone">
+					<homepageTag:popupZoneTop popupZoneList="${popupZoneTopList}"/>
+				</div>
+			</div>
+			<p class="close"><input type="checkbox" name=""/> 오늘 하루 열지 않기 <a href="#" onclick="return false;"><img src="/resources/common/img/close_popup_btn.png" alt="닫기"/></a></p>
+		</div>
+	</div>
+	</c:if>
+
 	<tiles:insertAttribute name="top" />
 	<tiles:insertAttribute name="topMenu" />
 

@@ -25,6 +25,8 @@
 <link rel="stylesheet" type="text/css" href="/resources/board/css/default.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/book/css/common.css"/>
 <!--link rel="stylesheet"type="text/css"href="/resources/common/css/sub_contents.css"/-->
+<link rel="stylesheet" type="text/css" href="/resources/common/css/common_toppopzone.css"/>
+
 <link rel="stylesheet" type="text/css" href="/resources/common/css/sub_design.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/default.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/main.css"/>
@@ -42,6 +44,8 @@
 <script type="text/javascript" src="/resources/common/js/jquery.mmenu.min.js"></script>
 <script type="text/javascript" src="/resources/common/js/default.js"></script>
 <script type="text/javascript" src="/resources/common/js/common.js"></script>
+<script type="text/javascript" src="/resources/common/js/common_toppopzone.js"></script>
+
 <script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/common.js"></script>
 <script type="text/javascript" src="/resources/common/js/kakao.min.js"></script>
 

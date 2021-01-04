@@ -24,6 +24,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/common/css/login.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/board/css/default.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/book/css/common.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/common_toppopzone.css"/>
 
 <link rel="stylesheet" type="text/css" href="/resources/homepage/seogulib/css/default.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/seogulib/css/main.css"/>
@@ -42,6 +43,8 @@
 <script type="text/javascript" src="/resources/common/js/jquery.mmenu.min.js"></script>
 <script type="text/javascript" src="/resources/common/js/default.js"></script>
 <script type="text/javascript" src="/resources/common/js/common.js"></script>
+<script type="text/javascript" src="/resources/common/js/common_toppopzone.js"></script>
+
 <script type="text/javascript" src="/resources/homepage/seogulib/js/common.js"></script>
 <script type="text/javascript" src="/resources/common/js/kakao.min.js"></script>
 </head>

@@ -96,6 +96,18 @@ do {
 });
 </script>
 <div id="wrap">
+	<c:if test="${fn:length(popupZoneTopList) > 0}">
+	<div class="popup_top">
+		<div class="popup">
+			<div class="pop_contents">
+				<div class="topPopZone">
+					<homepageTag:popupZoneTop popupZoneList="${popupZoneTopList}"/>
+				</div>
+			</div>
+			<p class="close"><input type="checkbox" name=""/> 오늘 하루 열지 않기 <a href="#" onclick="return false;"><img src="/resources/common/img/close_popup_btn.png" alt="닫기"/></a></p>
+		</div>
+	</div>
+	</c:if>
 	<tiles:insertAttribute name="top" />
 	<tiles:insertAttribute name="topMenu" />
 
@@ -441,12 +453,12 @@ do {
 			<li><a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=157"><span class="txt">영화상영일정</span></a></li>
 			<li><a href="/${homepage.context_path}/module/teach/index.do?menu_idx=30"><span class="txt">수강신청</span></a></li>
 			<li><a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=16"><span class="txt">대출현황</span></a></li>
-			<li><a href="/${homepage.context_path}/html.do?menu_idx=104"><span class="txt">이용안내</span></a></li>
+			<li><a href="/${homepage.context_path}/html.do?menu_idx=104" ><span class="txt">이용안내</span></a></li>
 			<!--<li><a href="/${homepage.context_path}/html.do?menu_idx=48"><span class="txt">책바다신청</span></a></li>-->
 			<!--<li><a href="/${homepage.context_path}/board/index.do?menu_idx=65&manage_idx=148"><span class="txt">묻고답하기</span></a></li>-->
 			<li><a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=1"><span class="txt">공지사항</span></a></li>
-			<!--<li><a href="/${homepage.context_path}"><span class="txt">업무추진비<Br/>집행내역</span></a></li>
-			<li><a href="/${homepage.context_path}/bukbu/html.do?menu_idx=78"><span class="txt">행정정보공개</span></a></li>-->
+			<li><a href="http://dgelib.dkyobobook.co.kr" target="_blank"><span class="txt">대구학생<br/>전자도서관</span></a></li>
+			<!--<li><a href="/${homepage.context_path}/bukbu/html.do?menu_idx=78"><span class="txt">행정정보공개</span></a></li>-->
 		</ul>
 	</div>
 

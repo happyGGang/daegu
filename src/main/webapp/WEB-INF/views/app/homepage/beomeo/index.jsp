@@ -111,6 +111,18 @@ do {
 });
 </script>
 <div id="wrap">
+	<c:if test="${fn:length(popupZoneTopList) > 0}">
+	<div class="popup_top">
+		<div class="popup">
+			<div class="pop_contents">
+				<div class="topPopZone">
+					<homepageTag:popupZoneTop popupZoneList="${popupZoneTopList}"/>
+				</div>
+			</div>
+			<p class="close"><input type="checkbox" name=""/> 오늘 하루 열지 않기 <a href="#" onclick="return false;"><img src="/resources/common/img/close_popup_btn.png" alt="닫기"/></a></p>
+		</div>
+	</div>
+	</c:if>
 	<tiles:insertAttribute name="top" />
 	<tiles:insertAttribute name="topMenu" />
 
@@ -247,7 +259,7 @@ do {
 					<div class="information-box">
 						<ul>
 							<li><span>어린이자료실</span>평일 09:00 - 18:00 / 주말 09:00 - 17:00</li>
-							<li><span>종합자료실1,2</span>평일 09:00 - 20:00 / 주말 09:00 - 17:00</li>
+							<li><span>종합자료실1,2,3</span>평일 09:00 - 20:00 / 주말 09:00 - 17:00</li>
 							<li><span>국제자료실</span>평일 09:00 - 20:00 / 주말 09:00 - 17:00</li>
 						</ul>
 						<p>휴관일은 <span style="color:#ff0000;">매주 월요일 및 국경일, 정부지정 공휴일</span>입니다.<Br/>(공휴일과 일요일이 겹칠 경우 휴관합니다.) </p>
