@@ -30,7 +30,7 @@ ${boardManage.top_html}
 			<c:forEach var="i" varStatus="status" items="${boardList}">
 			<c:set var="boardIdx" value="${i.parent_idx > 0 ? i.parent_idx : i.board_idx}"></c:set>
 			<li>
-				<c:if test="${board.delete_yn eq 'Y'}">
+				<c:if test="${member.admin or authMBA}">
 				<td><form:checkbox path="boardIdxArray" value="${i.board_idx}"/></td>
 				</c:if>
 				<div class="thumb">
