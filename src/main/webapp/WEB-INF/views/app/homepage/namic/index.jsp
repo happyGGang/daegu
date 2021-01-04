@@ -332,6 +332,19 @@ do {
 										</a>
 									</li>
 								</c:forEach>
+								<c:if test="${fn:length(movieList) < 1}">
+								<li>
+									<a href="javascript:alert('상영예정 영화가 없습니다.'); return false;">
+										<span class="movieImg">
+											<img src="/resources/common/img/noImg2.png" alt="${i.title}">
+										</span>
+
+										<span class="movieEx">
+											<strong class="title">상영예정 영화가 없습니다.</strong>
+										</span>
+									</a>
+								</li>
+								</c:if>
 							</ul>
 						</div>
 					</div>

@@ -2140,6 +2140,18 @@ do {
                     </div>
                     </a> </div>
                 </c:forEach>
+                <c:if test="${fn:length(movieList) < 1}">
+				<div class="movie">
+				<a href="javascript:alert('상영예정 영화가 없습니다.');">
+					<div class="img_box">
+						<img src="/resources/common/img/noImg2.png" alt="noImg">
+					</div>
+					<div class="con_box">
+						<div class="info">상영예정 영화가 없습니다.</div>
+					</div>
+				</a>
+				</div>
+				</c:if>
               </div>
             </div>
             <div class="top3wrap" id="moviebox4_seoguchild">
@@ -2169,6 +2181,18 @@ do {
                     </div>
                     </a> </div>
                 </c:forEach>
+                <c:if test="${fn:length(movieListh77) < 1}">
+				<div class="movie">
+				<a href="javascript:alert('상영예정 영화가 없습니다.');">
+					<div class="img_box">
+						<img src="/resources/common/img/noImg2.png" alt="noImg">
+					</div>
+					<div class="con_box">
+						<div class="info">상영예정 영화가 없습니다.</div>
+					</div>
+				</a>
+				</div>
+				</c:if>
               </div>
             </div>
             <div class="top3wrap" id="moviebox4_bisan">
@@ -2198,6 +2222,18 @@ do {
                     </div>
                     </a> </div>
                 </c:forEach>
+                <c:if test="${fn:length(movieListh61) < 1}">
+				<div class="movie">
+				<a href="javascript:alert('상영예정 영화가 없습니다.');">
+					<div class="img_box">
+						<img src="/resources/common/img/noImg2.png" alt="noImg">
+					</div>
+					<div class="con_box">
+						<div class="info">상영예정 영화가 없습니다.</div>
+					</div>
+				</a>
+				</div>
+				</c:if>
               </div>
             </div>
             <div class="top3wrap" id="moviebox4_english">
@@ -2227,6 +2263,18 @@ do {
                     </div>
                     </a> </div>
                 </c:forEach>
+                <c:if test="${fn:length(movieListh62) < 1}">
+				<div class="movie">
+				<a href="javascript:alert('상영예정 영화가 없습니다.');">
+					<div class="img_box">
+						<img src="/resources/common/img/noImg2.png" alt="noImg">
+					</div>
+					<div class="con_box">
+						<div class="info">상영예정 영화가 없습니다.</div>
+					</div>
+				</a>
+				</div>
+				</c:if>
               </div>
             </div>
             <!--
@@ -2300,6 +2348,18 @@ do {
                     </div>
                     </a> </div>
                 </c:forEach>
+                <c:if test="${fn:length(movieListh64) < 1}">
+				<div class="movie">
+				<a href="javascript:alert('상영예정 영화가 없습니다.');">
+					<div class="img_box">
+						<img src="/resources/common/img/noImg2.png" alt="noImg">
+					</div>
+					<div class="con_box">
+						<div class="info">상영예정 영화가 없습니다.</div>
+					</div>
+				</a>
+				</div>
+				</c:if>
               </div>
             </div>
           </div>
