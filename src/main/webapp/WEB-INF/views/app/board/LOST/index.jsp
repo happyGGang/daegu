@@ -80,7 +80,8 @@ ${boardManage.top_html}
 					<c:choose>
 						<c:when test="${i.imsi_v_4 eq '1'}">보관중</c:when>
 						<c:when test="${i.imsi_v_4 eq '2'}">재기증</c:when>
-						<c:when test="${i.imsi_v_4 eq '3'}">폐기</c:when>
+						<c:when test="${i.imsi_v_4 eq '3'}">찾아감</c:when>
+						<c:when test="${i.imsi_v_4 eq '4'}">폐기</c:when>
 					</c:choose>
 					</td>
 				</tr>
