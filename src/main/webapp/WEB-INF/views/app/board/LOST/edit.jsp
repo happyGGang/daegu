@@ -53,19 +53,12 @@ ${boardManage.top_html}
 				<td><form:input path="imsi_v_3" cssClass="text"/></td>
 				<th>상태</th>
 				<td>
-				<c:choose>
-					<c:when test="${authMBA or authC}">
 					<form:select path="imsi_v_4" cssClass="selectmenu">
 						<form:option value="1">보관중</form:option>
 						<form:option value="2">재기증</form:option>
 						<form:option value="3">찾아감</form:option>
 						<form:option value="4">폐기</form:option>
 					</form:select>
-					</c:when>
-					<c:otherwise>
-					${imsi_v_4}
-					</c:otherwise>
-				</c:choose>
 				</td>
 			</tr>
 			<tr>
