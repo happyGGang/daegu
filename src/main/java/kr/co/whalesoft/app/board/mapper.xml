@@ -2163,6 +2163,10 @@
 		<if test="category1 != null and category1 != ''">
 			AND category1 = #{category1}
 		</if>
+		<if test="manage_idx == 627">
+			AND imsi_v_1 >= TO_CHAR(SYSDATE, 'YYYY-MM')
+			AND imsi_v_2 >= TO_CHAR(SYSDATE, 'DD')
+		</if>
 		ORDER BY board_idx DESC
 		${pagingBottom}
 
