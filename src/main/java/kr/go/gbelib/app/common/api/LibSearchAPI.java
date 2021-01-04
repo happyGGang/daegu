@@ -70,6 +70,21 @@ public class LibSearchAPI {
 			// 키워드
 			if (StringUtils.isNotEmpty(librarySearch.getKeyword()))
 				param.put("search_keyword", URLEncoder.encode(librarySearch.getKeyword(), "UTF-8"));
+			
+			// 결과 내 재검색
+			if (StringUtils.isNotEmpty(librarySearch.getReSearchTitle())) {
+				param.put("search_title", URLEncoder.encode(librarySearch.getReSearchTitle(), "UTF-8"));
+			}
+			if (StringUtils.isNotEmpty(librarySearch.getReSearchAuthor())) {
+				param.put("search_author", URLEncoder.encode(librarySearch.getReSearchAuthor(), "UTF-8"));
+			}
+			if (StringUtils.isNotEmpty(librarySearch.getReSearchPubler())) {
+				param.put("search_publisher", URLEncoder.encode(librarySearch.getReSearchPubler(), "UTF-8"));
+			}
+			if (StringUtils.isNotEmpty(librarySearch.getReSearchKeyword())) {
+				param.put("search_keyword", URLEncoder.encode(librarySearch.getReSearchKeyword(), "UTF-8"));
+			}
+			
 		} catch (UnsupportedEncodingException e) {}
 
 		// ISBN
@@ -981,6 +996,20 @@ public class LibSearchAPI {
 			// 키워드
 			if (StringUtils.isNotEmpty(librarySearch.getKeyword()))
 				param.put("search_keyword", URLEncoder.encode(librarySearch.getKeyword(), "UTF-8"));
+			
+			// 결과 내 재검색
+			if (StringUtils.isNotEmpty(librarySearch.getReSearchTitle())) {
+				param.put("search_title", URLEncoder.encode(librarySearch.getReSearchTitle(), "UTF-8"));
+			}
+			if (StringUtils.isNotEmpty(librarySearch.getReSearchAuthor())) {
+				param.put("search_author", URLEncoder.encode(librarySearch.getReSearchAuthor(), "UTF-8"));
+			}
+			if (StringUtils.isNotEmpty(librarySearch.getReSearchPubler())) {
+				param.put("search_publisher", URLEncoder.encode(librarySearch.getReSearchPubler(), "UTF-8"));
+			}
+			if (StringUtils.isNotEmpty(librarySearch.getReSearchKeyword())) {
+				param.put("search_keyword", URLEncoder.encode(librarySearch.getReSearchKeyword(), "UTF-8"));
+			}
 		} catch (UnsupportedEncodingException e) {}
 
 		// ISBN

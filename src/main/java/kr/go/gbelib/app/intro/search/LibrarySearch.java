@@ -130,6 +130,11 @@ public class LibrarySearch extends PagingUtils {
 	private String facet_subject_code; //패싯 분류기호의 첫번째 숫자(0~9)
 	private String facet_media_code; //패싯 매체구분
 	
+	private String reSearchTitle; // 제목 결과 내 재검색
+	private String reSearchAuthor; // 저자 결과 내 재검색
+	private String reSearchPubler; // 발행처 결과 내 재검색
+	private String reSearchKeyword; // 키워드 결과 내 재검색
+	
 	//공공도서관 정보나루 API용
 	private String startDt;
 	private String endDt;
@@ -915,7 +920,39 @@ public class LibrarySearch extends PagingUtils {
 		this.facet_media_code = facet_media_code;
 	}
 
-
+	
+	public String getReSearchTitle() {
+		return reSearchTitle;
+	}
+	
+	public void setReSearchTitle(String reSearchTitle) {
+		this.reSearchTitle = reSearchTitle;
+	}
+	
+	public String getReSearchAuthor() {
+		return reSearchAuthor;
+	}
+	
+	public void setReSearchAuthor(String reSearchAuthor) {
+		this.reSearchAuthor = reSearchAuthor;
+	}
+	
+	public String getReSearchPubler() {
+		return reSearchPubler;
+	}
+	
+	public void setReSearchPubler(String reSearchPubler) {
+		this.reSearchPubler = reSearchPubler;
+	}
+	
+	public String getReSearchKeyword() {
+		return reSearchKeyword;
+	}
+	
+	public void setReSearchKeyword(String reSearchKeyword) {
+		this.reSearchKeyword = reSearchKeyword;
+	}
+	
 	public String getNotShelfCode() {
 		return notShelfCode;
 	}

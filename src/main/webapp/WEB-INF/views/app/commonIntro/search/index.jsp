@@ -14,6 +14,10 @@ $(function() {
 	$('a#search-btn').on('click', function(e) {
 		e.preventDefault();
 		$('input#viewPage').val('1');
+		$('input#reSearchTitle').val('');
+		$('input#reSearchAuthor').val('');
+		$('input#reSearchPubler').val('');
+		$('input#reSearchKeyword').val('');
 		doGetLoad('index.do', $form.serialize());
 	});
 
@@ -126,9 +130,21 @@ $(function() {
 		e.preventDefault();
 		var type = $('select#subSearchType').val();
 		var beforeText = $('input#'+type).val();
-		var newText = (beforeText == '') ? newText = $('input#subSearchText').val() : $('input#'+type).val()+ ' ' +$('input#subSearchText').val();
-		$('input#'+type).val(newText);
-		$('a#search-btn').click();
+		var newText = (beforeText == '') ? $('input#subSearchText').val() : $('input#'+type).val()+ ' ' +$('input#subSearchText').val();
+// 		$('input#'+type).val(newText);
+		
+		if(type == 'title') {
+			$('input#reSearchTitle').val(newText);
+		} else if(type == 'author') {
+			$('input#reSearchAuthor').val(newText);
+		} else if(type == 'publer') {
+			$('input#reSearchPubler').val(newText);
+		} else if(type == 'keyword') {
+			$('input#reSearchKeyword').val(newText);
+		}
+		
+// 		$('a#search-btn').click();
+		doGetLoad('index.do', $form.serialize());
 	});
 
 	//결과 내 재검색
@@ -247,6 +263,10 @@ $(function() {
 	<form:hidden path="facet_pub_year"/>
 	<form:hidden path="facet_subject_code"/>
 	<form:hidden path="facet_media_code"/>
+	<form:hidden path="reSearchTitle"/>
+	<form:hidden path="reSearchAuthor"/>
+	<form:hidden path="reSearchPubler"/>
+	<form:hidden path="reSearchKeyword"/>
 
 	<!-- contents-title-->
 	<div id="contents-title">
