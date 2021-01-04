@@ -27,6 +27,7 @@ ${boardManage.top_html}
 <div class="wrapper-bbs">
 	<table class="bbs-edit">
 		<tbody>
+			<jsp:include page="/WEB-INF/views/app/board/common/edit/category.jsp" flush="false" />
 			<tr>
 				<th>제목</th>
 				<td colspan="3">
