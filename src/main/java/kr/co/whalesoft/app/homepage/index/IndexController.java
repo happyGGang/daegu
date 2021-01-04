@@ -716,9 +716,11 @@ public class IndexController extends BaseController {
 			Board bookBoard = new Board();
 			bookBoard.setManage_idx(299);
 			bookBoard.setDept_cd("PORTAL");
-			bookBoard.setCategory2(category2List.get(0).getCode_id());
+			bookBoard.setCategory2Manage("B0010");
+			bookBoard.setHomepage_id("h32");
 			List<Board> mainBookList = boardService.getBoardByMain(bookBoard);
-			
+
+
 			int ran = (int)(Math.random() * mainBookList.size());
 			if (CollectionUtils.isNotEmpty(mainBookList)) {
 				model.addAttribute("recommendOne", mainBookList.get(ran));

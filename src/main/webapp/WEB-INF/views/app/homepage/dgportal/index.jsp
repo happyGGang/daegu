@@ -244,6 +244,9 @@ do {
 															<span class="tit">${i.title}</span>
 														</div>
 														<div class="contBottom">
+															<c:if test="${i.content_summary eq '' || i.content_summary eq null || i.content_summary eq 'null'}">
+																등록된 내용이 없습니다
+															</c:if>
 															<span class="con">${i.content_summary}</span>
 														</div>
 													</a>
@@ -368,31 +371,53 @@ do {
 										</div>
 										<div class="daegubook">
 											<div class="con">
-												<a href="/${homepage.context_path}/html.do?menu_idx=8">
-													<dl>
-														<dt>
-														<c:choose>
-															<c:when test="${empty recommendOne.preview_img}">
-															<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="${recommendOne.title}" title="${recommendOne.title}"/>
-															</c:when>
-															<c:when test="${fn:contains(recommendOne.preview_img, 'http')}">
-															<img src="${recommendOne.preview_img}" alt="${recommendOne.title}" title="${recommendOne.title}"/>
-															</c:when>
-															<c:otherwise>
-															<img src="/data/board/${recommendOne.manage_idx}/${recommendOne.board_idx}/${recommendOne.preview_img}" alt="${recommendOne.title}" title="${recommendOne.title}" />
-															</c:otherwise>
-														</c:choose>
-														</dt>
-														<dd>
-															<p class="daegubook-cont-01">${homepage.homepage_name}<br/> 사서가 추천하는 BOOK'</p>
-															<p class="daegubook-cont-02">
-																<b>${recommendOne.title}</b><br/>
-																${recommendOne.imsi_v_3} / ${recommendOne.imsi_v_4} / ${recommendOne.imsi_v_2}<br/><br/>
-															</p>
-															<p class="daegubook-cont-03">${recommendOne.content_summary}</p>
-														</dd>
-													</dl>
-												</a>
+												<c:choose>
+													<c:when test="${empty recommendOne}">
+														<dl>
+															<dt>
+																<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="추천도서가 없습니다." title="추천도서가 없습니다."/>
+															</dt>
+															<dd>
+																<p class="daegubook-cont-01">대구광역시통합도서관 <br/> 사서가 추천하는 BOOK'</p>
+																<p class="daegubook-cont-02">
+																	<b>등록된 데이터가 없습니다.</b>
+																</p>
+																<p class="daegubook-cont-03"></p>
+															</dd>
+														</dl>
+													</c:when>
+													<c:otherwise>
+														<a href="/${homepage.context_path}/board/view.do?menu_idx=67&manage_idx=299&board_idx=${recommendOne.board_idx}">
+															<dl>
+																<dt>
+																	<c:choose>
+																		<c:when test="${empty recommendOne.preview_img}">
+																			<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="${recommendOne.title}" title="${recommendOne.title}"/>
+																		</c:when>
+																		<c:when test="${fn:contains(recommendOne.preview_img, 'http')}">
+																			<img src="${recommendOne.preview_img}" alt="${recommendOne.title}" title="${recommendOne.title}"/>
+																		</c:when>
+																		<c:when test="${fn:contains(recommendOne.preview_img, 'noImg')}">
+																			<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="${recommendOne.title}" title="${recommendOne.title}"/>
+																		</c:when>
+																		<c:otherwise>
+																			<img src="/data/board/${recommendOne.manage_idx}/${recommendOne.board_idx}/${recommendOne.preview_img}" alt="${recommendOne.title}" title="${recommendOne.title}" />
+																		</c:otherwise>
+																	</c:choose>
+																</dt>
+																<dd>
+																	<p class="daegubook-cont-01">대구광역시통합도서관 ${recommendOne.category2_name}<br/> 사서가 추천하는 BOOK'</p>
+																	<p class="daegubook-cont-02">
+																		<b>${recommendOne.title}</b><br/>
+																			${recommendOne.imsi_v_3} / ${recommendOne.imsi_v_4} / ${recommendOne.imsi_v_2}<br/><br/>
+																	</p>
+																	<p class="daegubook-cont-03">${recommendOne.content_summary}</p>
+																</dd>
+															</dl>
+														</a>
+													</c:otherwise>
+												</c:choose>
+
 											</div>
 										</div>
 										<div class="end"></div>

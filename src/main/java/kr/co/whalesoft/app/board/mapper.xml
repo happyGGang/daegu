@@ -766,7 +766,9 @@
 		</if>
 		<if test='dept_cd != null and dept_cd == "PORTAL"'>
 		AND	imsi_v_1 = TO_CHAR(SYSDATE, 'YYYY-MM')
+		<if test="category2 != null and category2 != ''">
 		AND	category2 = #{category2}
+		</if>
 		</if>
 		<choose>
 			<when test='dept_cd != null and dept_cd == "MOVIE"'>

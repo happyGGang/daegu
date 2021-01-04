@@ -159,7 +159,7 @@
 .content-04-box .box .daegubook dl dd {width:42%;margin-left:12%;text-align:left;vertical-align:top;}
 .content-04-box .box .daegubook dl dt {float:left;}
 .content-04-box .box .daegubook dl dd {float:right;}
-.content-04-box .box .daegubook dl dt img {box-shadow:5px 5px 15px rgba(0,0,0,0.3);}
+.content-04-box .box .daegubook dl dt img {width: 256px;height: 370px;box-shadow:5px 5px 15px rgba(0,0,0,0.3);}
 .content-04-box .box .daegubook .more-btn {position:relative;font-size:0;text-align:center;padding-top:50px;}
 
 
