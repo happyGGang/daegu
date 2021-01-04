@@ -33,13 +33,13 @@ border:1px solid #eee;background:#fff url('../img/patt1.gif')}
 .fileUploader .file_attach_info p strong{color:#999;font-weight:normal}
 
 /* 분류 */
-.category span.ca{display:inline-block;padding:1px 0;border-radius:20px;background:#ddd;width:60px;text-align:center;font-weight:bold;color:#222}
+.category span.ca{display:inline-block;padding:1px 0;border-radius:20px;background:#000;width:60px;text-align:center;font-weight:bold;color:#fff}
 /* .category span.ca.ty1{background-color:#8bb221;color:#fff}
 .category span.ca.ty2{background-color:#7b5b9e;color:#fff}
 .category span.ca.ty3{background-color:#f62d2d;color:#fff}
 .category span.ca.ty4{background-color:#f6872d;color:#fff} */
 .category span.ca.ty1{background-color:#00c4ac;color:#fff}
-.category span.ca.ty2{background-color:#5f7f3f;color:#fff}
+.category span.ca.ty2{background-color:#3f4f82;color:#fff}
 .category span.ca.ty3{background-color:#425b71;color:#fff}
 .category span.ca.ty4{background-color:#7b5b9e;color:#fff}
 .category span.ca.ty5{background-color:#36b5d6;color:#fff}
@@ -47,18 +47,27 @@ border:1px solid #eee;background:#fff url('../img/patt1.gif')}
 .category span.ca.ty7{background-color:#f6872d;color:#fff}
 .category span.ca.ty8{background-color:#f0bf58;color:#fff}
 
-.category span.ca.bg-nambu { background:#00c9d3;color:#fff; }		/*남부*/
-.category span.ca.bg-duryu { background:#f7aa00;color:#fff; }		/*두류*/
-.category span.ca.bg-dongbu { background:#5da114;color:#fff; }		/*동부*/
-.category span.ca.bg-bukbu { background:#1e39b4;color:#fff; }		/*북부*/
-.category span.ca.bg-jungang { background:#4373b9;color:#fff; }	/*중앙*/
-.category span.ca.bg-seobu { background:#ec008c;color:#fff; }		/*서부*/
-.category span.ca.bg-suseong { background:#ed145b;color:#fff; }	/*수성*/
-.category span.ca.bg-dalseong { background:#8c60a5;color:#fff; }	/*달성*/
-.category span.ca.bg-228 { background:#e83e30;color:#fff; }		/*228기념*/
-.category span.ca.bg-228lib{ background:#006958;color:#fff; }		/*228민주*/
+/*.category span.ca.bg-nambu { background:#00c9d3;color:#fff; }*/		/*남부*/
+/*.category span.ca.bg-duryu { background:#f7aa00;color:#fff; }*/		/*두류*/
+/*.category span.ca.bg-dongbu { background:#5da114;color:#fff; }*/		/*동부*/
+/*.category span.ca.bg-bukbu { background:#1e39b4;color:#fff; }*/		/*북부*/
+/*.category span.ca.bg-jungang { background:#4373b9;color:#fff; }*/	/*중앙*/
+/*.category span.ca.bg-seobu { background:#ec008c;color:#fff; }*/		/*서부*/
+/*.category span.ca.bg-suseong { background:#ed145b;color:#fff; }*/	/*수성*/
+/*.category span.ca.bg-dalseong { background:#8c60a5;color:#fff; }*/	/*달성*/
+/*.category span.ca.bg-228 { background:#e83e30;color:#fff; }*/		/*228기념*/
+/*.category span.ca.bg-228lib{ background:#006958;color:#fff; }*/		/*228민주*/
 
+.category span.ca.bg-dongbu, .category span.ca.bg-228, .category span.ca.bg-donggu { background:#348100;color:#fff; }
+.category span.ca.bg-seobu, .category span.ca.bg-seogulib { background:#ca0288;color:#fff; }
+.category span.ca.bg-nambu, .category span.ca.bg-namdm, .category span.ca.bg-namic { background:#71c8d2;color:#fff; }
+.category span.ca.bg-bukbu, .category span.ca.bg-bukgs, .category span.ca.bg-buktj, .category span.ca.bg-bukdh { background:#2c3caf;color:#fff; }
+.category span.ca.bg-jungang, .category span.ca.bg-228lib, .category span.ca.bg-junggu { background:#005fca;color:#fff; }
+.category span.ca.bg-suseong, .category span.ca.bg-beomeo, .category span.ca.bg-gosan, .category span.ca.bg-yonghak { background:#cb1a59;color:#fff; }
+.category span.ca.bg-duryu, .category span.ca.bg-dalseolib { background:#e3a827;color:#fff; }
+.category span.ca.bg-dalseong, .category span.ca.bg-dalseonglib { background:#7c07bf;color:#fff; }
 
+.category span.ca.ty2{font-size: 12px;padding: 2px 10px;}
 
 /* 정렬 */
 .txt-left{text-align:left!important}
@@ -147,6 +156,7 @@ transform:rotate(180deg)
 	table.bbs td.dataEmpty,
 	table.bbs th.important,
 	table.bbs td.important{display:table-cell}
+	table.bbs td.username{display:none !important;}
 }
 table.bbs tbody tr:hover td{background:#f8f8f8}
 
@@ -164,7 +174,6 @@ table.bbs tbody tr:hover td{background:#f8f8f8}
 .share dd i{font-size:13px}
 
 /* 전자도서관 */
-.display-block {display:block;}
 .elib_top{padding:0 0 10px;}
 .elib_top .sort{float:right}
 .elib_top .sort a.btn{color:#888;padding:3px 13px;font-size:12px}
@@ -172,25 +181,19 @@ table.bbs tbody tr:hover td{background:#f8f8f8}
 .elib_top .sort{margin-top:-5px}
 .elib_top .sub001{padding-top:5px}
 .elib_top .sub001 span{color:#e84c00;font-weight:bold}
-.bbs_webzine.elib{position:relative;border-top-width:1px}
+.bbs_webzine.elib{border-top-width:1px}
 .bbs_webzine.elib .flexbox b{font-weight:bold}
-.bbs_webzine.elib .thumb {width:90px;height:135px;}
-.bbs_webzine.elib .thumb a.book_link img {width:88px;height:135px}
-.bbs_webzine.elib .list-body {position:relative;margin-right:-90px;height:140px;box-sizing:border-box;}
+.bbs_webzine.elib .thumb{width:90px}
+.bbs_webzine.elib .list-body{margin-right:-90px}
 .bbs_webzine.elib .list-body .meta,
-.bbs_webzine.elib .list-body .flexbox {margin-right:90px;padding-left:3%}
-.bbs_webzine.elib .list-body .flexbox a.book_link {font-size:17px;padding:2px 0 5px 0;}
-.bbs_webzine.elib .list-body .flexbox .info {font-size:13px;line-height:130%;}
-.bbs_webzine.elib .list-body .flexbox .info span.display-block {display:block;}
-.bbs_webzine.elib .list-body .flexbox .info span {padding:3px 0;}
+.bbs_webzine.elib .list-body .flexbox{margin-right:90px;padding-left:3%}
 .bbs_webzine.elib .thumb a{height:auto}
 .bbs_webzine.elib span,
 .bbs_webzine.elib .list-body .flexbox span{display:inline-block;vertical-align:middle}
 .bbs_webzine.elib .list-body .flexbox span.snipet{display:block;padding:0;color:#666}
 .bbs_webzine.elib label{vertical-align:middle}
 .bbs_webzine.elib span.txt-bar{padding:1px 0;background:#ccc;vertical-align:middle}
-.bbs_webzine.elib .meta {position:absolute;bottom:0;}
-.bbs_webzine.elib .meta span{font-size:13px;color:#606060;}
+.bbs_webzine.elib .meta span{color:#888}
 
 /* 웹접근성 셀렉트 */
 /* 전자도서관 */
@@ -232,9 +235,6 @@ input.combobox::placeholder { /* 파이어폭스 51+, 크롬 57+ */color:#fff;}
 
 @media (max-width:1000px){
 	.elib_top .sort{margin-top:5px;float:none;text-align:center}
-}
-@media (max-width:768px){
-	.bbs_webzine.elib .list-body .flexbox a.book_link {font-size:13px;}
 }
 @media (max-width:380px){
 	.bbs_webzine.elib .list-body,
@@ -449,7 +449,7 @@ table.bbs-edit .checkbox-original{padding:0 0 5px}
 	.bbs_webzine.movie .thumb{margin:0 auto}
 }
 
-.txt-bar{width:1px;height:9px;margin:0 15px;background:#e5e5e5}
+.txt-bar{width:1px;height:9px;margin:0 5px;background:#e5e5e5}
 
 /* 목록 갤러리형 */
 .bbs_gallery{border-bottom:1px solid #dedede;overflow:hidden;padding:15px 0 0}
