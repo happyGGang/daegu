@@ -42,6 +42,486 @@ public class DataMigrationController extends BaseController {
 	private DataMigrationService service;
 
 	/**
+	 * 시청작은도서관 - NN
+	 * @author whalesoft YONGJU 2019. 12. 10.
+	 * @param model
+	 * @param dm
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = {"/dmsl.*"})
+	public String dmsl(Model model, DataMigration dm, HttpServletRequest request, HttpServletResponse response) {
+		return basePath + "dmsl";
+	}
+
+	/**
+	 * 시청작은도서관 - NN
+	 * @author whalesoft YONGJU 2019. 12. 10.
+	 * @param dm
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping (value = {"/savedmsl.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse savedmsl(DataMigration dm, HttpServletRequest request) {
+
+		List<String> manager_seq_arr = dm.getManager_seq_arr();
+		List<String> manage_idx_arr = dm.getManage_idx_arr();
+		for (int i = 0; i < manager_seq_arr.size(); i++) {
+			if (StringUtils.isEmpty(manager_seq_arr.get(i))) {
+				continue;
+			} else {
+
+				int manager_seq = Integer.parseInt(manager_seq_arr.get(i));//MYSQL게시판번호
+				int manage_idx = Integer.parseInt(manage_idx_arr.get(i));//CMS게시판번호
+				Map<Integer, Integer> idxMap = new HashMap<Integer, Integer>();
+
+				//테이블명 가져오기
+				Map<String, String> tableConfig = service.getTableNameNN(manager_seq);
+
+				//파일목록 가져오기
+				dm.setDbUser("dglib2_dmsl");
+				dm.setTableName(tableConfig.get("A_TABLENAME"));
+				List<String> fileList = service.getFileListNN(dm);
+				String fileColumns = StringUtils.join(fileList, ", ");
+
+				List<DataMigration> dataMap = null;
+				if (StringUtils.containsIgnoreCase(tableConfig.get("A_LEVEL"), "bookrecommend")) {
+					dataMap = service.getListNNRecommendBookDmsl(tableConfig.get("A_TABLENAME"));
+				} else if (StringUtils.containsIgnoreCase(tableConfig.get("A_LEVEL"), "movie")) {
+					dataMap = service.getListNNMovieDmsl(tableConfig.get("A_TABLENAME"));
+
+				} else {
+					dataMap = service.getListNNDmsl(tableConfig.get("A_TABLENAME"));
+
+				}
+				int result = 0;
+				for (int j = 0; j < dataMap.size(); j++) {
+					DataMigration one = dataMap.get(j);
+
+
+
+					int boardIdx = service.getNextBoardIdx();
+					one.setBoard_idx(boardIdx);
+					one.setGroup_seq(boardIdx);
+					one.setManage_idx(manage_idx);
+
+
+
+					idxMap.put(one.getBoard_seq(), boardIdx);
+					if (one.getParent_seq() != 0) {
+						if (one.getBoard_seq() != one.getParent_seq()) {
+							if (idxMap.get(one.getParent_seq()) != null) {
+								one.setGroup_seq(idxMap.get(one.getParent_seq()));
+								one.setParent_seq(idxMap.get(one.getParent_seq()));
+								one.setGroup_step(1);
+							}
+						} else {
+							one.setGroup_seq(boardIdx);
+							one.setParent_seq(0);
+						}
+					} else {
+						one.setGroup_seq(boardIdx);
+						one.setParent_seq(0);
+					}
+
+					if (StringUtils.containsIgnoreCase(tableConfig.get("A_LEVEL"), "qna")) {
+						one.setUser_id("unknown");
+						one.setRequest_state("4");
+					}
+					if (StringUtils.containsIgnoreCase(tableConfig.get("A_LEVEL"), "movie")) {
+						one.setUser_name("관리자");
+					}
+					one.setUser_id(StringUtils.defaultIfEmpty(one.getUser_id(), "unknown"));
+
+					try {
+						one.setContent_summary(StrUtil.previewContent(StrUtil.delHtmlTagPatterns(one.getContent()),1000));
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+
+					Map<String, Object> map1 = null;
+
+					List<Map<String, Object>> orgFileMap = new ArrayList<Map<String, Object>>();
+					String filePath = "/Users/yongju/Documents/dglib2/dmsl/dmsl/data/board/";
+
+					one.setFileColumns(fileColumns);
+					one.setTableName(tableConfig.get("A_TABLENAME"));
+					Map<String, String> fileDataNN = service.getFileDataNN(one);
+
+					if (!fileDataNN.isEmpty()) {
+						for (int k = 1; k <= fileList.size(); k++) {
+							String columnName = "b_file"+k;
+							if (fileDataNN.containsKey(columnName) && StringUtils.isNotBlank(fileDataNN.get(columnName))) {
+								map1 = new HashMap<String, Object>();
+								String fileName = fileDataNN.get(columnName);
+								map1.put("ORG_FILE_NAME", fileName);
+								map1.put("FILE_EXT", fileName.substring(fileName.lastIndexOf(".")+1));
+								File f = new File(filePath + tableConfig.get("A_TABLENAME") + "\\" + fileName);
+								map1.put("FILE_SIZE", f.length());
+								String filename = "";
+								String datetime = new SimpleDateFormat("yyyyMMddHHmm").format(new Date());
+								String rndchars = RandomStringUtils.randomAlphanumeric(7);
+								filename = datetime + "_" + rndchars + "." + map1.get("FILE_EXT");
+								map1.put("SERVER_FILE_NAME", filename);
+								orgFileMap.add(map1);
+							}
+						}
+
+					}
+
+
+					if (orgFileMap != null && orgFileMap.size() > 0) {
+						String content = "";
+						for (Map<String, Object> map2 : orgFileMap) {
+							String ext = "jpg|bmp|gif|png|jpeg";
+							if (ext.indexOf(String.valueOf(map2.get("FILE_EXT")).toLowerCase()) > -1) {
+								if (!StringUtils.containsIgnoreCase(tableConfig.get("A_LEVEL"), "movie")) {
+									content += "<p><img src=\"/data/board/"+manage_idx+"/"+boardIdx+"/"+String.valueOf(map2.get("SERVER_FILE_NAME"))+"\" ></p>";
+								}
+								if (StringUtils.isEmpty(one.getPreview_img())) {
+									one.setPreview_img(String.valueOf(map2.get("SERVER_FILE_NAME")));
+								}
+							}
+						}
+						one.setContent(content + one.getContent());
+					}
+
+					one.setBoard_file_count(orgFileMap.size());
+
+					if (StringUtils.isNotEmpty(one.getContent())) {
+						one.setContent(one.getContent().replaceAll("/userfiles/", "/data/userfiles/h34/userfiles/"));
+					}
+
+					//					String i5 = one.getImsi_v_5();
+					//					String i6 = one.getImsi_v_6();
+					//					String i8 = one.getImsi_v_8();
+					String reContent = "";
+					if (StringUtils.containsIgnoreCase(tableConfig.get("A_LEVEL"), "qna")) {
+						//						one.setImsi_v_5(null);
+						//						one.setImsi_v_6(null);
+						//						one.setImsi_v_7(null);
+						//						one.setImsi_v_8(null);
+						reContent = one.getImsi_v_20() + "";
+						one.setImsi_v_20(null);
+					}
+
+					if (StringUtils.equals(one.getAdd_date(), "-00-00")) {
+
+					}
+
+
+					result += service.insertBoard(one);
+
+					if (orgFileMap != null && orgFileMap.size() > 0) {
+						for (Map<String, Object> map2 : orgFileMap) {
+							map2.put("board_idx", boardIdx);
+							String fileExt = String.valueOf(map2.get("FILE_EXT"));
+							if (StringUtils.isNotEmpty(fileExt) && !fileExt.startsWith(".")) {
+								map2.put("FILE_EXT", "."+fileExt.toLowerCase());
+							}
+							map2.put("add_id", one.getUser_id());
+							String path = "/Users/yongju/Documents/dglib2/dmsl/dmsl/data/board/"+tableConfig.get("A_TABLENAME")+"/";
+							try {
+								service.fileMoveNN(map2, manage_idx, path);
+								service.insertBoardFile(map2);
+							} catch (Exception e) {
+								// TODO: handle exception
+							}
+						}
+					}
+
+
+
+					if (StringUtils.containsIgnoreCase(tableConfig.get("A_LEVEL"), "qna")) {
+						int replyBoardIdx = service.getNextBoardIdx();
+						DataMigration two = new DataMigration();
+						two.setBoard_idx(replyBoardIdx);
+						two.setGroup_seq(boardIdx);
+						two.setManage_idx(manage_idx);
+						two.setGroup_step(1);
+						two.setParent_seq(boardIdx);
+						two.setContent(reContent);
+						two.setUser_name("관리자");
+						two.setUser_id("admin");
+						two.setTitle("답변 : " + one.getTitle());
+						two.setAdd_date(one.getAdd_date());
+						two.setSecret_yn(one.getSecret_yn());
+
+
+						try {
+							two.setContent_summary(StrUtil.previewContent(StrUtil.delHtmlTagPatterns(two.getContent()),1000));
+						} catch (Exception e) {
+							// TODO: handle exception
+						}
+						service.insertBoard(two);
+					}
+
+					System.out.println("@@@@@@@@@@@@@@@@ manage_idx : " + manage_idx);
+					System.out.println("@@@@@@@@@@@@@@@@ progress : " + (j+1) + " / " + dataMap.size());
+					System.out.println("@@@@@@@@@@@@@@@@ result : " + result + " / " + dataMap.size());
+
+				}
+
+			}
+
+
+		}
+
+
+		JsonResponse res = new JsonResponse(request);
+		res.setValid(true);
+
+		return res;
+	}
+
+
+	/**
+	 * 중구영어도서관 - NN
+	 * @author whalesoft YONGJU 2019. 12. 10.
+	 * @param model
+	 * @param dm
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = {"/junggu.*"})
+	public String junggu(Model model, DataMigration dm, HttpServletRequest request, HttpServletResponse response) {
+		return basePath + "junggu";
+	}
+
+	/**
+	 * 중구영어도서관 - NN
+	 * @author whalesoft YONGJU 2019. 12. 10.
+	 * @param dm
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping (value = {"/savejunggu.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse savejunggu(DataMigration dm, HttpServletRequest request) {
+
+		List<String> manager_seq_arr = dm.getManager_seq_arr();
+		List<String> manage_idx_arr = dm.getManage_idx_arr();
+		for (int i = 0; i < manager_seq_arr.size(); i++) {
+			if (StringUtils.isEmpty(manager_seq_arr.get(i))) {
+				continue;
+			} else {
+
+				int manager_seq = Integer.parseInt(manager_seq_arr.get(i));//MYSQL게시판번호
+				int manage_idx = Integer.parseInt(manage_idx_arr.get(i));//CMS게시판번호
+				Map<Integer, Integer> idxMap = new HashMap<Integer, Integer>();
+
+				//테이블명 가져오기
+				Map<String, String> tableConfig = service.getTableNameNN(manager_seq);
+
+				//파일목록 가져오기
+				dm.setDbUser("dglib2_junggu");
+				dm.setTableName(tableConfig.get("A_TABLENAME"));
+				List<String> fileList = service.getFileListNN(dm);
+				String fileColumns = StringUtils.join(fileList, ", ");
+
+				List<DataMigration> dataMap = null;
+				if (StringUtils.containsIgnoreCase(tableConfig.get("A_LEVEL"), "recommend_book")) {
+					dataMap = service.getListNNRecommendBookJunggu(tableConfig.get("A_TABLENAME"));
+				} else if (StringUtils.containsIgnoreCase(tableConfig.get("A_LEVEL"), "movie")) {
+					dataMap = service.getListNNMovieJunggu(tableConfig.get("A_TABLENAME"));
+
+				} else {
+					dataMap = service.getListNNJunggu(tableConfig.get("A_TABLENAME"));
+
+				}
+				int result = 0;
+				for (int j = 0; j < dataMap.size(); j++) {
+					DataMigration one = dataMap.get(j);
+
+					if (StringUtils.containsIgnoreCase(tableConfig.get("A_LEVEL"), "recommend_book")) {
+						if ("114".equals(one.getCategory1()) || "115".equals(one.getCategory1())) {
+							manage_idx = 647;
+						} else if ("116".equals(one.getCategory1())) {
+							manage_idx = 648;
+						} else {
+							manage_idx = 649;
+						}
+						one.setCategory1(null);
+					}
+
+					int boardIdx = service.getNextBoardIdx();
+					one.setBoard_idx(boardIdx);
+					one.setGroup_seq(boardIdx);
+					one.setManage_idx(manage_idx);
+
+
+
+					idxMap.put(one.getBoard_seq(), boardIdx);
+					if (one.getParent_seq() != 0) {
+						if (one.getBoard_seq() != one.getParent_seq()) {
+							if (idxMap.get(one.getParent_seq()) != null) {
+								one.setGroup_seq(idxMap.get(one.getParent_seq()));
+								one.setParent_seq(idxMap.get(one.getParent_seq()));
+								one.setGroup_step(1);
+							}
+						} else {
+							one.setGroup_seq(boardIdx);
+							one.setParent_seq(0);
+						}
+					} else {
+						one.setGroup_seq(boardIdx);
+						one.setParent_seq(0);
+					}
+
+					if (StringUtils.containsIgnoreCase(tableConfig.get("A_LEVEL"), "qna")) {
+						one.setUser_id("unknown");
+						one.setRequest_state("4");
+					}
+					if (StringUtils.containsIgnoreCase(tableConfig.get("A_LEVEL"), "movie")) {
+						one.setUser_name("관리자");
+					}
+					one.setUser_id(StringUtils.defaultIfEmpty(one.getUser_id(), "unknown"));
+
+					try {
+						one.setContent_summary(StrUtil.previewContent(StrUtil.delHtmlTagPatterns(one.getContent()),1000));
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+
+					Map<String, Object> map1 = null;
+
+					List<Map<String, Object>> orgFileMap = new ArrayList<Map<String, Object>>();
+					String filePath = "/Users/yongju/Documents/dglib2/junggu/ROOT/data/board/";
+
+					one.setFileColumns(fileColumns);
+					one.setTableName(tableConfig.get("A_TABLENAME"));
+					Map<String, String> fileDataNN = service.getFileDataNN(one);
+
+					if (!fileDataNN.isEmpty()) {
+						for (int k = 1; k <= fileList.size(); k++) {
+							String columnName = "b_file"+k;
+							if (fileDataNN.containsKey(columnName) && StringUtils.isNotBlank(fileDataNN.get(columnName))) {
+								map1 = new HashMap<String, Object>();
+								String fileName = fileDataNN.get(columnName);
+								map1.put("ORG_FILE_NAME", fileName);
+								map1.put("FILE_EXT", fileName.substring(fileName.lastIndexOf(".")+1));
+								File f = new File(filePath + tableConfig.get("A_TABLENAME") + "\\" + fileName);
+								map1.put("FILE_SIZE", f.length());
+								String filename = "";
+								String datetime = new SimpleDateFormat("yyyyMMddHHmm").format(new Date());
+								String rndchars = RandomStringUtils.randomAlphanumeric(7);
+								filename = datetime + "_" + rndchars + "." + map1.get("FILE_EXT");
+								map1.put("SERVER_FILE_NAME", filename);
+								orgFileMap.add(map1);
+							}
+						}
+
+					}
+
+
+					if (orgFileMap != null && orgFileMap.size() > 0) {
+						String content = "";
+						for (Map<String, Object> map2 : orgFileMap) {
+							String ext = "jpg|bmp|gif|png|jpeg";
+							if (ext.indexOf(String.valueOf(map2.get("FILE_EXT")).toLowerCase()) > -1) {
+								if (!StringUtils.containsIgnoreCase(tableConfig.get("A_LEVEL"), "movie")) {
+									content += "<p><img src=\"/data/board/"+manage_idx+"/"+boardIdx+"/"+String.valueOf(map2.get("SERVER_FILE_NAME"))+"\" ></p>";
+								}
+								if (StringUtils.isEmpty(one.getPreview_img())) {
+									one.setPreview_img(String.valueOf(map2.get("SERVER_FILE_NAME")));
+								}
+							}
+						}
+						one.setContent(content + one.getContent());
+					}
+
+					one.setBoard_file_count(orgFileMap.size());
+
+					if (StringUtils.isNotEmpty(one.getContent())) {
+						one.setContent(one.getContent().replaceAll("/userfiles/", "/data/userfiles/h53/userfiles/"));
+					}
+
+					//					String i5 = one.getImsi_v_5();
+					//					String i6 = one.getImsi_v_6();
+					//					String i8 = one.getImsi_v_8();
+					String reContent = "";
+					if (StringUtils.containsIgnoreCase(tableConfig.get("A_LEVEL"), "qna")) {
+						//						one.setImsi_v_5(null);
+						//						one.setImsi_v_6(null);
+						//						one.setImsi_v_7(null);
+						//						one.setImsi_v_8(null);
+						reContent = one.getImsi_v_20() + "";
+						one.setImsi_v_20(null);
+					}
+
+					if (StringUtils.equals(one.getAdd_date(), "-00-00")) {
+
+					}
+
+
+					result += service.insertBoard(one);
+
+					if (orgFileMap != null && orgFileMap.size() > 0) {
+						for (Map<String, Object> map2 : orgFileMap) {
+							map2.put("board_idx", boardIdx);
+							String fileExt = String.valueOf(map2.get("FILE_EXT"));
+							if (StringUtils.isNotEmpty(fileExt) && !fileExt.startsWith(".")) {
+								map2.put("FILE_EXT", "."+fileExt.toLowerCase());
+							}
+							map2.put("add_id", one.getUser_id());
+							String path = "/Users/yongju/Documents/dglib2/junggu/ROOT/data/board/"+tableConfig.get("A_TABLENAME")+"/";
+							try {
+								service.fileMoveNN(map2, manage_idx, path);
+								service.insertBoardFile(map2);
+							} catch (Exception e) {
+								// TODO: handle exception
+							}
+						}
+					}
+
+
+
+					if (StringUtils.containsIgnoreCase(tableConfig.get("A_LEVEL"), "qna")) {
+						int replyBoardIdx = service.getNextBoardIdx();
+						DataMigration two = new DataMigration();
+						two.setBoard_idx(replyBoardIdx);
+						two.setGroup_seq(boardIdx);
+						two.setManage_idx(manage_idx);
+						two.setGroup_step(1);
+						two.setParent_seq(boardIdx);
+						two.setContent(reContent);
+						two.setUser_name("관리자");
+						two.setUser_id("admin");
+						two.setTitle("답변 : " + one.getTitle());
+						two.setAdd_date(one.getAdd_date());
+						two.setSecret_yn(one.getSecret_yn());
+
+
+						try {
+							two.setContent_summary(StrUtil.previewContent(StrUtil.delHtmlTagPatterns(two.getContent()),1000));
+						} catch (Exception e) {
+							// TODO: handle exception
+						}
+						service.insertBoard(two);
+					}
+
+					System.out.println("@@@@@@@@@@@@@@@@ manage_idx : " + manage_idx);
+					System.out.println("@@@@@@@@@@@@@@@@ progress : " + (j+1) + " / " + dataMap.size());
+					System.out.println("@@@@@@@@@@@@@@@@ result : " + result + " / " + dataMap.size());
+
+				}
+
+			}
+
+
+		}
+
+
+		JsonResponse res = new JsonResponse(request);
+		res.setValid(true);
+
+		return res;
+	}
+
+
+
+	/**
 	 * 달성군립도서관 - NN
 	 * @author whalesoft YONGJU 2019. 12. 10.
 	 * @param model
@@ -184,6 +664,11 @@ public class DataMigrationController extends BaseController {
 					}
 
 					one.setBoard_file_count(orgFileMap.size());
+
+					if (StringUtils.isNotEmpty(one.getContent())) {
+						one.setContent(one.getContent().replaceAll("http://www.dalseonglib.kr/userfiles/", "/data/userfiles/h44/userfiles/"));
+						one.setContent(one.getContent().replaceAll("/userfiles/", "/data/userfiles/h44/userfiles/"));
+					}
 
 //					String i5 = one.getImsi_v_5();
 //					String i6 = one.getImsi_v_6();
@@ -443,6 +928,10 @@ public class DataMigrationController extends BaseController {
 						one.setContent(content + one.getContent());
 					}
 
+					if (StringUtils.isNotEmpty(one.getContent())) {
+						one.setContent(one.getContent().replaceAll("http://www.dalseolib.kr/wdCheditor", "/data/userfiles/h37/wdCheditor"));
+					}
+
 					one.setBoard_file_count(orgFileMap.size());
 
 //					String i5 = one.getImsi_v_5();
@@ -582,7 +1071,7 @@ public class DataMigrationController extends BaseController {
 
 
 				List<DataMigration> dataMap = new ArrayList<>();
-				if (manager_seq == 44) {//book
+				if (manager_seq == 48) {//book
 					dataMap = service.getListGosanBook(manager_seq);
 				} else if (manager_seq == 18) {//movie
 					dataMap = service.getListGosanMovie(manager_seq);
@@ -600,6 +1089,16 @@ public class DataMigrationController extends BaseController {
 					one.setGroup_seq(boardIdx);
 					one.setManage_idx(manage_idx);
 
+					if (manager_seq == 48) {
+						if (StringUtils.isNotEmpty(one.getImsi_v_6())) {
+							if (StringUtils.contains(one.getImsi_v_6(), "어린이") || StringUtils.contains(one.getImsi_v_6(), "유아") || StringUtils.contains(one.getImsi_v_6(), "아동")) {
+								manage_idx = 724;
+							} else {
+								manage_idx = 726;
+							}
+						}
+
+					}
 
 					if (one.getGroup_step() == 0) {
 						idxMap.put(one.getGroup_seq(), boardIdx);
@@ -659,7 +1158,10 @@ public class DataMigrationController extends BaseController {
 
 					}
 
-					one.setContent(one.getContent().replaceAll("http://library.suseong.kr/gosan/", "/data/gosan/"));
+					if (StringUtils.isNotEmpty(one.getContent())) {
+						one.setContent(one.getContent().replaceAll("http://library.suseong.kr/gosan/", "/data/userfiles/gosan/"));
+
+					}
 
 					if (orgFileMap != null && orgFileMap.size() > 0) {
 						String content = "";
@@ -804,6 +1306,16 @@ public class DataMigrationController extends BaseController {
 				for (int j = 0; j < dataMap.size(); j++) {
 					DataMigration one = dataMap.get(j);
 
+					if (manager_seq == 44) {
+						if (StringUtils.isNotEmpty(one.getImsi_v_6())) {
+							if (StringUtils.contains(one.getImsi_v_6(), "어린이") || StringUtils.contains(one.getImsi_v_6(), "유아") || StringUtils.contains(one.getImsi_v_6(), "아동")) {
+								manage_idx = 667;
+							} else {
+								manage_idx = 669;
+							}
+						}
+
+					}
 
 					int boardIdx = service.getNextBoardIdx();
 					one.setBoard_idx(boardIdx);
@@ -869,7 +1381,9 @@ public class DataMigrationController extends BaseController {
 
 					}
 
-					one.setContent(one.getContent().replaceAll("http://library.suseong.kr/yonghak/", "/data/yonghak/"));
+					if (StringUtils.isNotEmpty(one.getContent())) {
+						one.setContent(one.getContent().replaceAll("http://library.suseong.kr/yonghak/", "/data/userfiles/yonghak/"));
+					}
 
 					if (orgFileMap != null && orgFileMap.size() > 0) {
 						String content = "";
@@ -1012,6 +1526,13 @@ public class DataMigrationController extends BaseController {
 				for (int j = 0; j < dataMap.size(); j++) {
 					DataMigration one = dataMap.get(j);
 
+					if (manager_seq == 48) {
+						if ("어린이자료실".equals(one.getCategory1())) {
+							manage_idx = 610;
+						} else {
+							manage_idx = 659;
+						}
+					}
 
 					int boardIdx = service.getNextBoardIdx();
 					one.setBoard_idx(boardIdx);
@@ -1083,7 +1604,11 @@ public class DataMigrationController extends BaseController {
 
 					}
 
-					one.setContent(one.getContent().replaceAll("http://library.suseong.kr/beomeo/", "/data/beomeo/"));
+					if (StringUtils.isNotEmpty(one.getContent())) {
+						one.setContent(one.getContent().replaceAll("http://library.suseong.kr/beomeo/", "/data/userfiles/beomeo/"));
+
+					}
+
 
 					if (orgFileMap != null && orgFileMap.size() > 0) {
 						String content = "";
@@ -1225,7 +1750,7 @@ public class DataMigrationController extends BaseController {
 			if (StringUtils.isEmpty(manager_seq_arr.get(i))) {
 				continue;
 			} else {
-
+				dm.setDbUser("MC");
 				int manager_seq = Integer.parseInt(manager_seq_arr.get(i));//MYSQL게시판번호
 				int manage_idx = Integer.parseInt(manage_idx_arr.get(i));//CMS게시판번호
 				Map<Integer, Integer> idxMap = new HashMap<Integer, Integer>();
@@ -1330,8 +1855,10 @@ public class DataMigrationController extends BaseController {
 
 					}
 
-					one.setContent(one.getContent().replaceAll("http://www.dsl.daegu.kr/wdCheditor/attach/", "/data/userfiles/h4/"));
-					one.setContent(one.getContent().replaceAll("/wdCheditor/attach/", "/data/userfiles/h4/"));
+					one.setContent(one.getContent().replaceAll("http://lib.buk.daegu.kr/wdCheditor/", "/data/userfiles/bukgu/wdCheditor/"));
+					one.setContent(one.getContent().replaceAll("../wdCheditor/../wdFiles/upload/", "/data/userfiles/bukgu/wdFiles/upload/"));
+					one.setContent(one.getContent().replaceAll("../wdCheditor/attach/", "/data/userfiles/bukgu/wdCheditor/attach/"));
+					one.setContent(one.getContent().replaceAll("upload/editor//", "upload/editor/"));
 
 					if (orgFileMap != null && orgFileMap.size() > 0) {
 						String content = "";
@@ -1432,7 +1959,7 @@ public class DataMigrationController extends BaseController {
 			if (StringUtils.isEmpty(manager_seq_arr.get(i))) {
 				continue;
 			} else {
-
+				dm.setDbUser("MB");
 				int manager_seq = Integer.parseInt(manager_seq_arr.get(i));//MYSQL게시판번호
 				int manage_idx = Integer.parseInt(manage_idx_arr.get(i));//CMS게시판번호
 				Map<Integer, Integer> idxMap = new HashMap<Integer, Integer>();
@@ -1545,8 +2072,10 @@ public class DataMigrationController extends BaseController {
 
 					}
 
-					one.setContent(one.getContent().replaceAll("http://www.dsl.daegu.kr/wdCheditor/attach/", "/data/userfiles/h4/"));
-					one.setContent(one.getContent().replaceAll("/wdCheditor/attach/", "/data/userfiles/h4/"));
+					one.setContent(one.getContent().replaceAll("http://lib.buk.daegu.kr/wdCheditor/", "/data/userfiles/bukgu/wdCheditor/"));
+					one.setContent(one.getContent().replaceAll("../wdCheditor/../wdFiles/upload/", "/data/userfiles/bukgu/wdFiles/upload/"));
+					one.setContent(one.getContent().replaceAll("../wdCheditor/attach/", "/data/userfiles/bukgu/wdCheditor/attach/"));
+					one.setContent(one.getContent().replaceAll("upload/editor//", "upload/editor/"));
 
 					if (orgFileMap != null && orgFileMap.size() > 0) {
 						String content = "";
@@ -1647,7 +2176,7 @@ public class DataMigrationController extends BaseController {
 			if (StringUtils.isEmpty(manager_seq_arr.get(i))) {
 				continue;
 			} else {
-
+				dm.setDbUser("MA");
 				int manager_seq = Integer.parseInt(manager_seq_arr.get(i));//MYSQL게시판번호
 				int manage_idx = Integer.parseInt(manage_idx_arr.get(i));//CMS게시판번호
 				Map<Integer, Integer> idxMap = new HashMap<Integer, Integer>();
@@ -1663,6 +2192,8 @@ public class DataMigrationController extends BaseController {
 					dm.setDbUser("11");
 					dataMap = service.orgListDKBookBukgu(dm);
 				} else if (manager_seq == -2) {//movie
+					dataMap = service.orgListDKMovieBukgu(dm);
+				} else if (manager_seq == -3) {//
 					dataMap = service.orgListDKMovieBukgu(dm);
 
 				} else {//board
@@ -1760,8 +2291,11 @@ public class DataMigrationController extends BaseController {
 
 					}
 
-					one.setContent(one.getContent().replaceAll("http://www.dsl.daegu.kr/wdCheditor/attach/", "/data/userfiles/h4/"));
-					one.setContent(one.getContent().replaceAll("/wdCheditor/attach/", "/data/userfiles/h4/"));
+
+					one.setContent(one.getContent().replaceAll("http://lib.buk.daegu.kr/wdCheditor/", "/data/userfiles/bukgu/wdCheditor/"));
+					one.setContent(one.getContent().replaceAll("../wdCheditor/../wdFiles/upload/", "/data/userfiles/bukgu/wdFiles/upload/"));
+					one.setContent(one.getContent().replaceAll("../wdCheditor/attach/", "/data/userfiles/bukgu/wdCheditor/attach/"));
+					one.setContent(one.getContent().replaceAll("upload/editor//", "upload/editor/"));
 
 					if (orgFileMap != null && orgFileMap.size() > 0) {
 						String content = "";
@@ -2139,17 +2673,19 @@ public class DataMigrationController extends BaseController {
 
 					if (manager_seq == 97945357) {//notice
 						if (StringUtils.equals(one.getCategory1(), "97")) {
-							one.setCategory1("h77");
+							one.setCategory1("0001");
 						} else if (StringUtils.equals(one.getCategory1(), "98")) {
-							one.setCategory1("h61");
+							one.setCategory1("0002");
 						} else if (StringUtils.equals(one.getCategory1(), "100")) {
-							one.setCategory1("h62");
+							one.setCategory1("0003");
 						} else if (StringUtils.equals(one.getCategory1(), "99")) {
-							one.setCategory1("h63");
+							one.setCategory1("0004");
 						} else if (StringUtils.equals(one.getCategory1(), "101")) {
-							one.setCategory1("h64");
+							one.setCategory1("0005");
 						} else if (StringUtils.equals(one.getCategory1(), "126")) {
-							one.setCategory1("h65");
+							one.setCategory1("0006");
+						} else if (StringUtils.equals(one.getCategory1(), "96")) {
+							one.setCategory1("0000");
 						}
 					}
 
@@ -2188,10 +2724,13 @@ public class DataMigrationController extends BaseController {
 						switch (c1) {
 							case "104": case "106": case "115": case "119": case "123": case "103": case "105": case "114": case "118": case "122":
 								manage_idx = 623; one.setManage_idx(623);break;
+
 							case "107": case "116": case "120": case "124" :
 								manage_idx = 624; one.setManage_idx(624);break;
+
 							case "108": case "117": case "121": case "125": case "127": case "102":
 								manage_idx = 625; one.setManage_idx(625);break;
+
 							default : manage_idx = 625; break;
 						}
 						switch (manager_seq) {
@@ -2434,11 +2973,11 @@ public class DataMigrationController extends BaseController {
 //						INSERT INTO DGLIB.TN_SVP_BBS_SJ (SBJECT_CODE, BBS_TY_ID, BBS_ID, SBJECT_NAME) VALUES (81, null, 1, '안심');
 //						INSERT INTO DGLIB.TN_SVP_BBS_SJ (SBJECT_CODE, BBS_TY_ID, BBS_ID, SBJECT_NAME) VALUES (82, null, 1, '작은');
 						if (StringUtils.equals(one.getCategory1(), "81")) {
-							one.setCategory5("h73");
+							one.setCategory5("0001");
 						} else if (StringUtils.equals(one.getCategory1(), "137")) {
-							one.setCategory5("h59");
+							one.setCategory5("0002");
 						} else if (StringUtils.equals(one.getCategory1(), "82")) {
-							one.setCategory5("h60");
+							one.setCategory5("0003");
 						}
 					}
 
@@ -2510,7 +3049,7 @@ public class DataMigrationController extends BaseController {
 
 
 					if (StringUtils.isNotEmpty(one.getContent())) {
-						one.setContent(one.getContent().replaceAll("http://www.donggu-lib.kr", "/data/userfiles/h45/"));
+						one.setContent(one.getContent().replaceAll("http://www.donggu-lib.kr", "/data/userfiles/h45"));
 					}
 
 

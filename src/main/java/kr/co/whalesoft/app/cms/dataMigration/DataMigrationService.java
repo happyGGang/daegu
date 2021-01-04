@@ -1328,4 +1328,34 @@ public class DataMigrationService extends BaseService{
 	public List<DataMigration> getListNNDalseonggun(String tablename) {
 		return dao.getListNNDalseonggun(tablename);
 	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNRecommendBookJunggu(String tablename) {
+		return dao.getListNNRecommendBookJunggu(tablename);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNMovieJunggu(String tablename) {
+		return dao.getListNNMovieJunggu(tablename);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNJunggu(String tablename) {
+		return dao.getListNNJunggu(tablename);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNRecommendBookDmsl(String tablename) {
+		return dao.getListNNRecommendBookDmsl(tablename);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNMovieDmsl(String tablename) {
+		return dao.getListNNMovieDmsl(tablename);
+	}
+
+	@DataSource(DataSourceType.SLAVE1)
+	public List<DataMigration> getListNNDmsl(String tablename) {
+		return dao.getListNNDmsl(tablename);
+	}
 }

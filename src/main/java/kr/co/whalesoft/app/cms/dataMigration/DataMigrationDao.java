@@ -318,4 +318,16 @@ public interface DataMigrationDao {
 	List<DataMigration> getListNNMovieDalseonggun(String tablename);
 
 	List<DataMigration> getListNNDalseonggun(String tablename);
+
+	List<DataMigration> getListNNRecommendBookJunggu(String tablename);
+
+	List<DataMigration> getListNNMovieJunggu(String tablename);
+
+	List<DataMigration> getListNNJunggu(String tablename);
+
+	List<DataMigration> getListNNRecommendBookDmsl(String tablename);
+
+	List<DataMigration> getListNNMovieDmsl(String tablename);
+
+	List<DataMigration> getListNNDmsl(String tablename);
 }
