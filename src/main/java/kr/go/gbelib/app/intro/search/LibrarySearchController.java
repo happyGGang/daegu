@@ -216,12 +216,14 @@ public class LibrarySearchController extends BaseController {
 	@RequestMapping(value = {"/hotTrend.*"})
 	public String hotTrend(Model model, LibrarySearch librarySearch, HttpServletRequest request, @PathVariable String context_path) {
 		Homepage homepage = getSessionHomepage(request);
-		Map<String, Object> hotTrendWordList = LibSearchAPI.getHotTrendWordList(homepage.getManage_code());
+		if (homepage != null && StringUtils.isNotEmpty(homepage.getManage_code())) {
+			Map<String, Object> hotTrendWordList = LibSearchAPI.getHotTrendWordList(homepage.getManage_code());
 
-		int count = LibSearchAPI.getSearchCount(hotTrendWordList);
+			int count = LibSearchAPI.getSearchCount(hotTrendWordList);
 
-		if ( count > 0 ) {
-			model.addAttribute("hotTrendList", LibSearchAPI.getListData(hotTrendWordList));
+			if ( count > 0 ) {
+				model.addAttribute("hotTrendList", LibSearchAPI.getListData(hotTrendWordList));
+			}
 		}
 
 		return basePath + "hotTrend_ajax";

@@ -288,6 +288,33 @@ public class DgElibAPIService extends BaseService {
 	}
 
 	/**
+	 * 신간e-book조회 메인화면용
+	 * @param
+	 * @return
+	 */
+	public List<Book> getNewEbook(String count) {
+		List<Book> bookList = new ArrayList<Book>();
+
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("method", "getNewEbook"));
+		params.add(new BasicNameValuePair("view_count", count));
+		params.add(new BasicNameValuePair("current_page", "0"));
+
+		Map<String, Object> result = parse(send("http://e-lib.tglnet.or.kr/daegu/MainPage.do", params, "UTF-8"), "UTF-8");
+		if(result == null || "SUCCESS".equals(str(result.get("STATUS"))) == false) {
+			return bookList;
+		} else {
+
+			List<Map<String, Object>> list = (List<Map<String, Object>>) result.get("search_data");
+			for(Map<String, Object> m: list) {
+				bookList.add(detailInfo(toBook(m)));
+			}
+
+			return bookList;
+		}
+	}
+
+	/**
 	 * 대출베스트 조회 전체보기
 	 * @param
 	 * @return
@@ -307,6 +334,31 @@ public class DgElibAPIService extends BaseService {
 			return bookList;
 		} else {
 			book.setTotalDataCount(toZero(num(result.get("total_count"))));
+
+			List<Map<String, Object>> list = (List<Map<String, Object>>) result.get("searchlist");
+			for(Map<String, Object> m: list) {
+				bookList.add(toBook(m));
+			}
+
+			return bookList;
+		}
+	}
+
+//	메인화면용
+	public List<Book> loanBestSearch(String count) {
+		List<Book> bookList = new ArrayList<Book>();
+
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("method", "loanBestSearch"));
+		params.add(new BasicNameValuePair("sort_field", "author"));
+		params.add(new BasicNameValuePair("sort_option", "asc"));
+		params.add(new BasicNameValuePair("current_page", "0"));
+		params.add(new BasicNameValuePair("list_count", count));
+
+		Map<String, Object> result = parse(send("http://e-lib.tglnet.or.kr/daegu/Search.do", params, "UTF-8"), "UTF-8");
+		if(result == null || "SUCCESS".equals(str(result.get("STATUS"))) == false) {
+			return bookList;
+		} else {
 
 			List<Map<String, Object>> list = (List<Map<String, Object>>) result.get("searchlist");
 			for(Map<String, Object> m: list) {
