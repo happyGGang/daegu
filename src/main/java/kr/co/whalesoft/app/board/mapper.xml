@@ -2278,6 +2278,7 @@
 		WHERE
 			manage_idx in (647, 648, 649, 650)
 		AND	delete_yn = 'N'
+		AND	imsi_v_1 = TO_CHAR(SYSDATE, 'YYYY-MM')
 		ORDER BY board_idx DESC
 		${pagingBottom}
 
