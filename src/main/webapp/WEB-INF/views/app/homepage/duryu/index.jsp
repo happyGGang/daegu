@@ -248,6 +248,16 @@ do {
 
 						<div class="box con" data-tab="tab2" style="display:none;">
 							<ul class="book_photo">
+							<c:choose>
+								<c:when test="${fn:length(recommendBookList) < 1}">
+								<li>
+									<a href="javascript:alert('등록된 추천도서가 없습니다.');">
+										<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.">
+										<span class="title">등록된 추천도서가 없습니다.</span>
+									</a>
+								</li>
+								</c:when>
+								<c:otherwise>
 								<li>
 									<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${recommendBookList[listNum1].manage_idx}&board_idx=${recommendBookList[listNum1].board_idx}">
 										<c:choose>
@@ -278,6 +288,8 @@ do {
 										</span>
 									</a>
 								</li>
+								</c:otherwise>
+							</c:choose>
 							</ul>
 						</div>
 					</div>

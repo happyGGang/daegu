@@ -197,6 +197,14 @@ do {
 
 								<div class="box con" data-tab="tab2" style="display:none;">
 									<ul class="book_photo">
+									<c:choose>
+										<c:when test="${fn:length(recommendBookList) < 1}">
+										
+										</c:when>
+										<c:otherwise>
+										
+										</c:otherwise>
+									</c:choose>
 										<li>
 											<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${recommendBookList[listNum1].manage_idx}&board_idx=${recommendBookList[listNum1].board_idx}">
 												<c:choose>
@@ -211,7 +219,7 @@ do {
 													</c:choose>
 												</c:when>
 												<c:otherwise>
-													<img src="/resources/common/img/noimg-gall.png" alt="${recommendBookList[listNum1].title}" title="${recommendBookList[listNum1].title}">
+													<img src="/resources/common/img/noImg2.png" alt="${recommendBookList[listNum1].title}" title="${recommendBookList[listNum1].title}">
 												</c:otherwise>
 												</c:choose>
 
