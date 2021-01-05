@@ -123,6 +123,9 @@ do {
 			$('#mainSearchForm2').submit();
 		})
 
+		$(".libraryInfo input").attr('disabled',true);
+		$("#lib1 input").attr('disabled',false);
+
 		/*메인지도*/
 		$(".map-area li a").click(function(){
 			var id = $(this).data("num");
@@ -235,7 +238,7 @@ do {
 											<ul>
 												<c:forEach items="${noticeBoardList}" var="i" varStatus="status" begin="0" end="1">
 												<li>
-													<a href="/${i.imsi_v_19}/board/view.do?manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&menu_idx=${i.imsi_n_2}">
+													<a href="/${i.imsi_v_19}/board/view.do?manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&menu_idx=${i.imsi_n_2}" target="_blank">
 														<div class="contTop">
 															<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy"/><b><fmt:formatDate value="${i.add_date}" pattern="MM.dd"/></b></span>
 															<span class="link library${i.imsi_v_19}">${i.imsi_v_20}</span>
@@ -245,9 +248,9 @@ do {
 														</div>
 														<div class="contBottom">
 															<c:if test="${i.content_summary eq '' || i.content_summary eq null || i.content_summary eq 'null'}">
-																등록된 내용이 없습니다
+																<span class="con">등록된 내용이 없습니다.</span>
 															</c:if>
-															<span class="con">${i.content_summary}</span>
+															<span class="con">${fn:substring(i.content_summary, 0, 222)}<c:if test="${fn:length(i.content_summary) > 222}">...</c:if></span>
 														</div>
 													</a>
 												</li>
@@ -335,7 +338,7 @@ do {
 											<ul>
 												<c:forEach items="${teachList}" var="i" varStatus="status" begin='0' end='2'>
 												<li>
-													<a href="/${i.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=${i.menu_idx}&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}">
+													<a href="/${i.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=${i.menu_idx}&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}" target="_blank">
 														<span class="txt">
 															<span class="lib-name link teach_${i.homepage_id}">${i.homepage_name}</span>
 															<span class="tit">${fn:substring(i.teach_name, 0, 21)}<c:if test="${fn:length(i.teach_name) > 21}">...</c:if></span>
@@ -380,7 +383,7 @@ do {
 															<dd>
 																<p class="daegubook-cont-01">대구광역시통합도서관 <br/> 사서가 추천하는 BOOK'</p>
 																<p class="daegubook-cont-02">
-																	<b>등록된 데이터가 없습니다.</b>
+																	<b>등록된 추천도서가 없습니다.</b>
 																</p>
 																<p class="daegubook-cont-03"></p>
 															</dd>
@@ -406,12 +409,12 @@ do {
 																	</c:choose>
 																</dt>
 																<dd>
-																	<p class="daegubook-cont-01">대구광역시통합도서관 ${recommendOne.category2_name}<br/> 사서가 추천하는 BOOK'</p>
+																	<p class="daegubook-cont-01">  ${recommendOne.category2_name}<br/> 사서가 추천하는 BOOK'</p>
 																	<p class="daegubook-cont-02">
 																		<b>${recommendOne.title}</b><br/>
 																			${recommendOne.imsi_v_3} / ${recommendOne.imsi_v_4} / ${recommendOne.imsi_v_2}<br/><br/>
 																	</p>
-																	<p class="daegubook-cont-03">${recommendOne.content_summary}</p>
+																	<p class="daegubook-cont-03">${fn:substring(recommendOne.content_summary, 0, 90)}<c:if test="${fn:length(recommendOne.content_summary) > 90}">...</c:if></p>
 																</dd>
 															</dl>
 														</a>
@@ -490,6 +493,27 @@ do {
 										<div class="mTopIcon">
 											<ul>
 												<li>
+													<a href="/${homepage.context_path}/board/index.do?menu_idx=18&manage_idx=287">
+														<span><img src="/resources/homepage/${homepage.context_path}/img/q7.png" alt="도서관찾기"></span>도서관찾기
+													</a>
+												</li>												
+												<li>
+													<a href="/${homepage.context_path}/html.do?menu_idx=68">
+														<span><img src="/resources/homepage/${homepage.context_path}/img/q4.png" alt="스마트도서관"></span>스마트도서관
+													</a>
+												</li>
+												<li>
+													<a href="/${homepage.context_path}/board/index.do?menu_idx=23&manage_idx=283">
+														<span><img src="/resources/homepage/${homepage.context_path}/img/q8.png" alt="작은도서관"></span>작은도서관
+													</a>
+												</li>
+												<li>
+													<a href="/elib/index.do" target="_blank">
+														<span><img src="/resources/homepage/${homepage.context_path}/img/q6.png" alt="대구전자도서관"></span>대구전자도서관
+													</a>
+												</li>
+
+												<li>
 													<a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=33">
 														<span><img src="/resources/homepage/${homepage.context_path}/img/q1.png" alt="도서대출현황"></span>도서대출현황
 													</a>
@@ -509,26 +533,7 @@ do {
 														<span><img src="/resources/homepage/${homepage.context_path}/img/q5.png" alt="비대면인증"></span>비대면인증
 													</a>
 												</li>												
-												<li>
-													<a href="/${homepage.context_path}/module/userPickBook/index.do?menu_idx=95">
-														<span><img src="/resources/homepage/${homepage.context_path}/img/q7.png" alt="이용자추천도서"></span>이용자추천도서
-													</a>
-												</li>												
-												<li>
-													<a href="/${homepage.context_path}/html.do?menu_idx=68">
-														<span><img src="/resources/homepage/${homepage.context_path}/img/q4.png" alt="스마트도서관"></span>스마트도서관
-													</a>
-												</li>
-												<li>
-													<a href="/${homepage.context_path}/board/index.do?menu_idx=23&manage_idx=283">
-														<span><img src="/resources/homepage/${homepage.context_path}/img/q8.png" alt="작은도서관"></span>작은도서관
-													</a>
-												</li>
-												<li>
-													<a href="/elib/index.do" target="_blank">
-														<span><img src="/resources/homepage/${homepage.context_path}/img/q6.png" alt="대구전자도서관"></span>대구전자도서관
-													</a>
-												</li>
+
 											</ul>
 										</div>
 										<div class="end"></div>
@@ -561,7 +566,7 @@ do {
 							
 								<c:forEach items="${noticeBoardList}" var="i" varStatus="status">
 								<li>
-									<a href="/${i.imsi_v_19}/board/view.do?manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&menu_idx=${i.imsi_n_2}" class="wrap">
+									<a href="/${i.imsi_v_19}/board/view.do?manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&menu_idx=${i.imsi_n_2}" class="wrap" target="_blank">
 										<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy."/><br class="webList"/><b><fmt:formatDate value="${i.add_date}" pattern="MM.dd"/></b></span>
 										<span class="link library${i.imsi_v_19}">${i.imsi_v_20}</span>
 										<span class="tit title${i.imsi_v_19}">${i.title}</span>
@@ -929,6 +934,7 @@ do {
 										<input id="libraryCodesAll2" class="libraryCodesAll" name="libraryCodes" type="checkbox" /> <label for="libraryCodesAll2">전체</label> 
 										<input id="libraryCodesSi2" class="libraryCodesSi" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSi2">시립</label> 
 										<input id="libraryCodesGu2" class="libraryCodesGu" name="libraryCodes" type="checkbox" /> <label for="libraryCodesGu2">구군립</label> 
+										<input id="libraryCodesSm2" class="libraryCodesSm" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSm2">작은</label>
 									</div>
 									<div class="comment">
 										<img src="/resources/homepage/${homepage.context_path}/img/use-check-ment.png" alt="검색대, 홈페이지 설명">
@@ -960,7 +966,7 @@ do {
 											<input id="libraryCodes23" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BQ"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">구군립</span>
-											<label for="libraryCodes24">비산도서관</label>
+											<label for="libraryCodes23">비산도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/bisan/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="r/seogulib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
@@ -980,7 +986,7 @@ do {
 											<input id="libraryCodes25" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BM"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">구군립</span>
-											<label for="libraryCodes24">비원도서관</label>
+											<label for="libraryCodes25">비원도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/biwon/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/seogulib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
@@ -990,7 +996,7 @@ do {
 											<input id="libraryCodes26" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BN"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">구군립</span>
-											<label for="libraryCodes24">원고개도서관</label>
+											<label for="libraryCodes26">원고개도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/wongogae/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/seogulib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
@@ -1067,6 +1073,7 @@ do {
 										<input id="libraryCodesAll3" class="libraryCodesAll" name="libraryCodes" type="checkbox" /> <label for="libraryCodesAll3">전체</label> 
 										<input id="libraryCodesSi3" class="libraryCodesSi" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSi3">시립</label> 
 										<input id="libraryCodesGu3" class="libraryCodesGu" name="libraryCodes" type="checkbox" /> <label for="libraryCodesGu3">구군립</label> 
+										<input id="libraryCodesSm13" class="libraryCodesSm" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSm3">작은</label>
 									</div>
 									<div class="comment">
 										<img src="/resources/homepage/${homepage.context_path}/img/use-check-ment.png" alt="검색대, 홈페이지 설명">
@@ -1077,7 +1084,7 @@ do {
 											<input id="libraryCodes31" name="libraryCodes" class="libraryCodesSiCheck" type="checkbox" value="AG"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib01">시립</span>
-											<label for="libraryCodes1">남부도서관</label>
+											<label for="libraryCodes31">남부도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="https://library.daegu.go.kr/nambu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
@@ -1088,7 +1095,7 @@ do {
 											<input id="libraryCodes32" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BT"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">구군립</span>
-											<label for="libraryCodes2">이천어울림도서관</label>
+											<label for="libraryCodes32">이천어울림도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/namic/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/namic/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
@@ -1098,10 +1105,20 @@ do {
 											<input id="libraryCodes33" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BS"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">구군립</span>
-											<label for="libraryCodes3">대명어울림도서관</label>
+											<label for="libraryCodes33">대명어울림도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/namdm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/namdm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes34" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FE"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes34">꿈틀작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/namic/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/namic/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
 											</span>
 										</li>
 									</ul>
@@ -1113,7 +1130,8 @@ do {
 									<div class="selection01">
 										<input id="libraryCodesAll4" class="libraryCodesAll" name="libraryCodes" type="checkbox" /> <label for="libraryCodesAll4">전체</label> 
 										<input id="libraryCodesSi4" class="libraryCodesSi" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSi4">시립</label> 
-										<input id="libraryCodesGu4" class="libraryCodesGu" name="libraryCodes" type="checkbox" /> <label for="libraryCodesGu4">구군립</label> 
+										<input id="libraryCodesGu4" class="libraryCodesGu" name="libraryCodes" type="checkbox" /> <label for="libraryCodesGu4">구군립</label>
+										<input id="libraryCodesSm4" class="libraryCodesSm" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSm4">작은</label>	
 									</div>
 									<div class="comment">
 										<img src="/resources/homepage/${homepage.context_path}/img/use-check-ment.png" alt="검색대, 홈페이지 설명">
@@ -1124,7 +1142,7 @@ do {
 											<input id="libraryCodes41" name="libraryCodes" class="libraryCodesSiCheck" type="checkbox" value="AC"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib01">시립</span>
-											<label for="libraryCodes21">북부도서관</label>
+											<label for="libraryCodes41">북부도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/bukbu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="https://library.daegu.go.kr/bukbu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
@@ -1135,7 +1153,7 @@ do {
 											<input id="libraryCodes42" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BA"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">구군립</span>
-											<label for="libraryCodes2">구수산도서관</label>
+											<label for="libraryCodes42">구수산도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/bukgs/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/bukgs/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
@@ -1145,7 +1163,7 @@ do {
 											<input id="libraryCodes43" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BC"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">구군립</span>
-											<label for="libraryCodes3">태전도서관</label>
+											<label for="libraryCodes43">태전도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/buktj/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/buktj/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
@@ -1155,10 +1173,91 @@ do {
 											<input id="libraryCodes44" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BB"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">구군립</span>
-											<label for="libraryCodes4">대현도서관</label>
+											<label for="libraryCodes44">대현도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/bukdh/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/bukdh/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+
+										<li>
+											<input id="libraryCodes45" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GJ"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes45">태전1동 작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/buksm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/bukgs/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes46" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GL"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes46">산격1동 작은도서</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/buksm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/bukgs/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes47" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GM"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes47">북구영어작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/buksm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/bukgs/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes48" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GN"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes48">침산1동 작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/buksm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/bukgs/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes49" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GP"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes49">노원동 작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/buksm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/bukgs/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes410" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="HB"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes410">서변동작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/buksm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/bukgs/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes411" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="HD"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes411">노원행복도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/buksm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/bukgs/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes412" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="HE"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes412">한강공원부키도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/buksm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/bukgs/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
 											</span>
 										</li>
 									</ul>
@@ -1170,7 +1269,8 @@ do {
 									<div class="selection01">
 										<input id="libraryCodesAll5" class="libraryCodesAll" name="libraryCodes" type="checkbox" /> <label for="libraryCodesAll5">전체</label> 
 										<input id="libraryCodesSi5" class="libraryCodesSi" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSi5">시립</label> 
-										<input id="libraryCodesGu5" class="libraryCodesGu" name="libraryCodes" type="checkbox" /> <label for="libraryCodesGu5">구군립</label>  
+										<input id="libraryCodesGu5" class="libraryCodesGu" name="libraryCodes" type="checkbox" /> <label for="libraryCodesGu5">구군립</label>
+										<input id="libraryCodesSm5" class="libraryCodesSm" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSm5">작은</label>	
 									</div>
 									<div class="comment">
 										<img src="/resources/homepage/${homepage.context_path}/img/use-check-ment.png" alt="검색대, 홈페이지 설명">
@@ -1181,7 +1281,7 @@ do {
 											<input id="libraryCodes51" name="libraryCodes" class="libraryCodesSiCheck" type="checkbox" value="AP"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib01">시립</span>
-											<label for="libraryCodes1">수성도서관</label>
+											<label for="libraryCodes51">수성도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/suseong/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="https://library.daegu.go.kr/suseong/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
@@ -1192,7 +1292,7 @@ do {
 											<input id="libraryCodes52" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BD"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">구군립</span>
-											<label for="libraryCodes2">범어도서관</label>
+											<label for="libraryCodes52">범어도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/beomeo/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/beomeo/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
@@ -1202,7 +1302,7 @@ do {
 											<input id="libraryCodes53" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BE"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">구군립</span>
-											<label for="libraryCodes3">용학도서관</label>
+											<label for="libraryCodes53">용학도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/yonghak/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/yonghak/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
@@ -1212,7 +1312,7 @@ do {
 											<input id="libraryCodes54" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BF"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">구군립</span>
-											<label for="libraryCodes4">고산도서관</label>
+											<label for="libraryCodes54">고산도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/gosan/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/gosan/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
@@ -1222,7 +1322,7 @@ do {
 											<input id="libraryCodes55" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BG"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">구군립</span>
-											<label for="libraryCodes5">파동도서관</label>
+											<label for="libraryCodes55">파동도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/padong/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/beomeo/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
@@ -1232,7 +1332,7 @@ do {
 											<input id="libraryCodes56" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BH"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">구군립</span>
-											<label for="libraryCodes6">무학숲도서관</label>
+											<label for="libraryCodes56">무학숲도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/muhaksup/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/beomeo/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
@@ -1242,7 +1342,7 @@ do {
 											<input id="libraryCodes57" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BJ"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">구군립</span>
-											<label for="libraryCodes7">책숲길도서관</label>
+											<label for="libraryCodes57">책숲길도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/bookforest/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/beomeo/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
@@ -1252,9 +1352,19 @@ do {
 											<input id="libraryCodes58" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BK"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">구군립</span>
-											<label for="libraryCodes8">물망이도서관</label>
+											<label for="libraryCodes58">물망이도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/mulmangi/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/beomeo/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes59" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FG"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes59">사월역도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/beomeo/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/beomeo/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
 											</span>
 										</li>
@@ -1268,6 +1378,7 @@ do {
 										<input id="libraryCodesAll6" class="libraryCodesAll" name="libraryCodes" type="checkbox" /> <label for="libraryCodesAll6">전체</label> 
 										<input id="libraryCodesSi6" class="libraryCodesSi" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSi6">시립</label> 
 										<input id="libraryCodesGu6"class="libraryCodesGu" name="libraryCodes" type="checkbox" /> <label for="libraryCodesGu6">구군립</label> 
+										<input id="libraryCodesSm6" class="libraryCodesSm" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSm6">작은</label>	
 									</div>
 									<div class="comment">
 										<img src="/resources/homepage/${homepage.context_path}/img/use-check-ment.png" alt="검색대, 홈페이지 설명">
@@ -1278,7 +1389,7 @@ do {
 											<input id="libraryCodes61" name="libraryCodes" class="libraryCodesSiCheck" type="checkbox" value="AD"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib01">시립</span>
-											<label for="libraryCodes1">중앙도서관</label>
+											<label for="libraryCodes61">중앙도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/jungang/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="https://library.daegu.go.kr/jungang/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
@@ -1289,7 +1400,7 @@ do {
 											<input id="libraryCodes62" name="libraryCodes" class="libraryCodesSiCheck" type="checkbox" value="AL"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib01">시립</span>
-											<label for="libraryCodes2">2ㆍ28민주운동기념회관</label>
+											<label for="libraryCodes62">2ㆍ28민주운동기념회관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/228lib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="https://library.daegu.go.kr/228lib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
@@ -1299,13 +1410,73 @@ do {
 											<input id="libraryCodes63" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="FS"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">구군립</span>
-											<label for="libraryCodes3">중구영어도서관</label>
+											<label for="libraryCodes63">중구영어도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/junggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/junggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
 											</span>
 										</li>
 
+										<li>
+											<input id="libraryCodes64" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FF"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes64">남산4동작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/junggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/junggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes65" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FQ"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes65">동인 느티나무 도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/junggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/junggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes66" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FY"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes66">중구청교양정보실</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/junggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/junggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes67" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GG"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes67">대신동작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/junggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/junggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes68" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="HA"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes68">삼덕마루 작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/junggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/junggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes69" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="HF"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes69">대봉2동작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/junggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/junggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
 									</ul>
 									</div>
 								</div>
@@ -1316,6 +1487,7 @@ do {
 										<input id="libraryCodesAll7" class="libraryCodesAll" name="libraryCodes" type="checkbox" /> <label for="libraryCodesAll7">전체</label> 
 										<input id="libraryCodesSi7" class="libraryCodesSi" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSi7">시립</label> 
 										<input id="libraryCodesGu7" class="libraryCodesGu" name="libraryCodes" type="checkbox" /> <label for="libraryCodesGu7">구군립</label> 
+										<input id="libraryCodesSm7" class="libraryCodesSm" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSm7">작은</label>	
 									</div>
 									<div class="comment">
 										<img src="/resources/homepage/${homepage.context_path}/img/use-check-ment.png" alt="검색대, 홈페이지 설명">
@@ -1326,7 +1498,7 @@ do {
 											<input id="libraryCodes71" name="libraryCodes" class="libraryCodesSiCheck" type="checkbox" value="AB"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib01">시립</span>
-											<label for="libraryCodes1">두류도서관</label>
+											<label for="libraryCodes71">두류도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/duryu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="https://library.daegu.go.kr/duryu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
@@ -1337,7 +1509,7 @@ do {
 											<input id="libraryCodes72" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BU"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">구군립</span>
-											<label for="libraryCodes2">성서도서관</label>
+											<label for="libraryCodes72">성서도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/seongseo/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
@@ -1347,7 +1519,7 @@ do {
 											<input id="libraryCodes73" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BV"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">구군립</span>
-											<label for="libraryCodes3">달서어린이도서관</label>
+											<label for="libraryCodes73">달서어린이도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/kids/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
@@ -1357,7 +1529,7 @@ do {
 											<input id="libraryCodes74" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BW"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">구군립</span>
-											<label for="libraryCodes4">도원도서관</label>
+											<label for="libraryCodes74">도원도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
@@ -1367,7 +1539,7 @@ do {
 											<input id="libraryCodes75" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BX"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">구군립</span>
-											<label for="libraryCodes5">본리도서관</label>
+											<label for="libraryCodes75">본리도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/bolli/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
@@ -1377,7 +1549,7 @@ do {
 											<input id="libraryCodes76" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BY"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">구군립</span>
-											<label for="libraryCodes6">달서가족문화도서관</label>
+											<label for="libraryCodes76">달서가족문화도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/family/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
@@ -1387,9 +1559,82 @@ do {
 											<input id="libraryCodes77" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BZ"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">구군립</span>
-											<label for="libraryCodes7">달서영어도서관</label>
+											<label for="libraryCodes77">달서영어도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/english/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+
+
+
+										<li>
+											<input id="libraryCodes78" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FA"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes78">이곡2동공립작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes79" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FB"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes79">용산1동작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes710" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FC"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes710">장기동작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes711" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FD"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes711">죽전동공립작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes712" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FW"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes712">웃는얼굴아트센터 도서실</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes713" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FX"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes713">행정정보문고센터</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes714" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GK"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes714">학산작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
 											</span>
 										</li>
@@ -1403,6 +1648,7 @@ do {
 										<input id="libraryCodesAll8" class="libraryCodesAll" name="libraryCodes" type="checkbox" /> <label for="libraryCodesAll8">전체</label> 
 										<input id="libraryCodesSi8" class="libraryCodesSi" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSi8">시립</label> 
 										<input id="libraryCodesGu8" class="libraryCodesGu" name="libraryCodes" type="checkbox" /> <label for="libraryCodesGu8">구군립</label> 
+										<input id="libraryCodesSm8" class="libraryCodesSm" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSm8">작은</label>	
 									</div>
 									<div class="comment">
 										<img src="/resources/homepage/${homepage.context_path}/img/use-check-ment.png" alt="검색대, 홈페이지 설명">
@@ -1413,7 +1659,7 @@ do {
 											<input id="libraryCodes81" name="libraryCodes" class="libraryCodesSiCheck" type="checkbox" value="AJ"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib01">시립</span>
-											<label for="libraryCodes1">달성도서관</label>
+											<label for="libraryCodes81">달성도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/dalseong/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="https://library.daegu.go.kr/dalseong/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
@@ -1424,7 +1670,121 @@ do {
 											<input id="libraryCodes82" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="BR"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">구군립</span>
-											<label for="libraryCodes2">달성군립도서관</label>
+											<label for="libraryCodes82">달성군립도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/dalseonglib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dalseonglib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+
+
+
+
+										<li>
+											<input id="libraryCodes83" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GA"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes83">화원읍작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/dalseonglib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dalseonglib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes84" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GB"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes84">논공읍작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/dalseonglib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dalseonglib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes85" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="HG"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes85">다사읍작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/dalseonglib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dalseonglib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes86" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GD"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes86">다사읍서재작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/dalseonglib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dalseonglib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes87" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GF"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes87">유가읍작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/dalseonglib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dalseonglib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes88" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GH"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes88">옥포읍작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/dalseonglib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dalseonglib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes89" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FR"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes89">가창면참꽃작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/dalseonglib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dalseonglib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes810" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GE"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes810">하빈면작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/dalseonglib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dalseonglib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes811" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GC"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes811">구지면작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/dalseonglib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dalseonglib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes812" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FN"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes812">달성군청소년센터</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/dalseonglib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dalseonglib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes813" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FJ"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes813">달성군청도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/dalseonglib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/dalseonglib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
@@ -1456,11 +1816,19 @@ do {
 			<div class='wide-1686-sections'>
 				<div class="cont cultureList">
 					<ul>
-						<c:forEach items="${teachList}" var="i" varStatus="status">
+						<c:forEach items="${teachList}" var="i" varStatus="status" begin='0' end='7'>
 						<c:if test="${i.teach_status eq '0' or i.teach_status eq '1' or i.teach_status eq '6'}">
-						<c:set var="imgnum" value="${i.teach_status eq '0' ? '1' : i.teach_status eq '1' ? '1' : '4'}"></c:set>
+						<%--c:set var="imgnum" value="${i.teach_status eq '0' ? '1' : i.teach_status eq '1' ? '1' : '4'}"></c:set--%>
+						<c:choose>
+							<c:when test="${(status.count % 4) eq '0'}">
+								<c:set var="imgnum" value="${(status.count % 4) + 4}"></c:set>
+							</c:when>
+							<c:otherwise>
+								<c:set var="imgnum" value="${(status.count % 4)}"></c:set>
+							</c:otherwise>
+						</c:choose>
 						<li>
-							<a href="/${i.context_path}/module/teach/detail.do?homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=${i.menu_idx}&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}" class="border bgimg00${imgnum}">
+							<a href="/${i.context_path}/module/teach/detail.do?homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=${i.menu_idx}&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}" class="border bgimg00${imgnum}" target="_blank">
 								<span class="status">${i.teach_status eq '6' ? '접수대기' : '접수중'}</span>
 								<span class="txt">
 									<p class="lib-name">${i.homepage_name}</p>
@@ -1476,7 +1844,7 @@ do {
 			</div>
 
 			<div class="more-btn">
-				<a href=""><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt="더보기" /></a>
+				<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=11&editMode=ALL"><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt="더보기" /></a>
 			</div>
 			<div class="end"></div>
 
@@ -1627,6 +1995,27 @@ do {
 			<div class="mIcon">
 				<ul>
 					<li>
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=18&manage_idx=287">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q7.png" alt="도서관찾기"><br/>도서관찾기</span>
+						</a>
+					</li>									
+					<li>
+						<a href="/${homepage.context_path}/html.do?menu_idx=68">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q4.png" alt="스마트도서관"><br/>스마트도서관</span>
+						</a>
+					</li>
+					<li>
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=23&manage_idx=283">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q8.png" alt="작은도서관"><br/>작은도서관</span>
+						</a>
+					</li>
+					<li>
+						<a href="/elib/index.do" target="_blank">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q6.png" alt="대구전자도서관"><br/>대구전자도서관</span>
+						</a>
+					</li>
+
+					<li>
 						<a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=33">
 							<span><img src="/resources/homepage/${homepage.context_path}/img/q1.png" alt="도서대출현황"><br/>도서대출현황</span>
 						</a>
@@ -1646,26 +2035,7 @@ do {
 							<span><img src="/resources/homepage/${homepage.context_path}/img/q5.png" alt="비대면인증"><br/>비대면인증</span>
 						</a>
 					</li>				
-					<li>
-						<a href="/${homepage.context_path}/module/userPickBook/index.do?menu_idx=95">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q7.png" alt="이용자추천도서"><br/>이용자추천도서</span>
-						</a>
-					</li>									
-					<li>
-						<a href="/${homepage.context_path}/html.do?menu_idx=68">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q4.png" alt="스마트도서관"><br/>스마트도서관</span>
-						</a>
-					</li>
-					<li>
-						<a href="/${homepage.context_path}/board/index.do?menu_idx=23&manage_idx=283">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q8.png" alt="작은도서관"><br/>작은도서관</span>
-						</a>
-					</li>
-					<li>
-						<a href="/elib/index.do" target="_blank">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q6.png" alt="대구전자도서관"><br/>대구전자도서관</span>
-						</a>
-					</li>
+
 				</ul>
 			</div>
 			<div class="end"></div>
@@ -1694,6 +2064,14 @@ do {
 		<!-- footer_section -->
 		<div class="section fp-auto-height footer_area" id="foot_section">
 			<tiles:insertAttribute name="footer" />
+
+			<div class="home-up web-view">
+				<a href="#firstPage"><img src="/resources/homepage/dgportal/img/m-top.png" alt="위로" class="homeup"></a>
+			</div>
+
+			<div class="home-up mobile-view">
+				<img src="/resources/homepage/dgportal/img/m-top.png" alt="위로" id="homeup">
+			</div>
 		</div>
 		<!-- //footer_section -->
 

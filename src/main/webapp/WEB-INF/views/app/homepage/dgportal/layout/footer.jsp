@@ -75,11 +75,3 @@
 		</div>
 		<div class="end"></div>
 	</div>
-
-	<div class="home-up web-view">
-		<a href="#firstPage"><img src="/resources/homepage/dgportal/img/m-top.png" alt="위로" class="homeup"></a>
-	</div>
-
-	<div class="home-up mobile-view">
-		<img src="/resources/homepage/dgportal/img/m-top.png" alt="위로" id="homeup">
-	</div>

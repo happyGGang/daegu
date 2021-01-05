@@ -401,8 +401,8 @@ body, html {background:#30706e url('/resources/homepage/${homepage.context_path}
 								<p><img src="/resources/homepage/${homepage.context_path}/img/play-icon.png" alt="지금 E-BOOK"></p>
 							</span>
 							<ul>
-								<li><a href="">정말 재밌는 SPA 영어 Season2</a></li>
-								<li><a href="">뉴파워 새로운 권력의 탄생</a></li>
+								<li><a href="/${homepage.context_path}/html/html2.do?menu_idx=90">스마트한 독서 오디오락</a></li>
+								<li><a href="/${homepage.context_path}/module/elib/asp/contents/audio.do?menu_idx=86">새로운 독서의 즐거움 오디언소리</a></li>
 							</ul>
 
 					</div>

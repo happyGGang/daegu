@@ -1,5 +1,17 @@
 @charset "utf-8";
 
+#container.subpage {position:relative;}
+
+.category span.ca.cu_dongbu, .category span.ca.cu_228, .category span.ca.cu_donggu { background:#348100;color:#fff; }
+.category span.ca.cu_seobu, .category span.ca.cu_seogulib { background:#ca0288;color:#fff; }
+.category span.ca.cu_nambu, .category span.ca.cu_namdm, .category span.ca.cu_namic { background:#71c8d2;color:#fff; }
+.category span.ca.cu_bukbu, .category span.ca.cu_bukgs, .category span.ca.cu_buktj, .category span.ca.cu_bukdh { background:#2c3caf;color:#fff; }
+.category span.ca.cu_jungang, .category span.ca.cu_228lib, .category span.ca.cu_junggu { background:#005fca;color:#fff; }
+.category span.ca.cu_suseong, .category span.ca.cu_beomeo, .category span.ca.cu_gosan, .category span.ca.cu_yonghak { background:#cb1a59;color:#fff; }
+.category span.ca.cu_duryu, .category span.ca.cu_dalseolib { background:#e3a827;color:#fff; }
+.category span.ca.cu_dalseong, .category span.ca.cu_dalseonglib { background:#7c07bf;color:#fff; }
+
+
 @media all and (max-width:1260px){
 	html,body{width:1260px;margin:0 auto;}
 	.tnb, .Gnb {width:1260px;margin:0 auto;}

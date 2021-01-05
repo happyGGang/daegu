@@ -48,10 +48,11 @@ h1.mobile-logo {display:none;}
 .Gnb .g-menu {position:relative;}
 .Gnb .gnb-menu {position:relative;text-align:center;}
 .Gnb .gnb-menu > li{padding:0 2%;text-align:center;position:static;}
+
 .Gnb .gnb-menu > li > a {padding:0;line-height:80px;height:78px;font-size:20px;color:#000;font-weight:bold;border-bottom:3px solid transparent}
 .Gnb .gnb-menu > li > a:hover,
 .Gnb .gnb-menu > li > a:focus{background:none;color:#21409a;border-bottom:3px solid #21409a;}
-.Gnb .gnb-menu > li > ul {display:none;/* background:#21409a; */border:0;left:0;white-space:nowrap;text-align:center;}
+.Gnb .gnb-menu > li > ul {display:none;border:0;left:0;white-space:nowrap;text-align:center;}
 .Gnb .gnb-menu > li.active > ul{display:block}
 .Gnb .gnb-menu>li>.SubMenu>li{width:auto;padding:0 1px;}
 .Gnb .gnb-menu>li>.SubMenu>li{display:inline-block}
@@ -59,18 +60,20 @@ h1.mobile-logo {display:none;}
 .Gnb .gnb-menu>li>.SubMenu>li>a:hover,
 .Gnb .gnb-menu>li>.SubMenu>li>a:focus{background:none;color:#fad107;}
 .Gnb .mask,
-.Gnb .gnb-menu > li > ul{width:100%;}
+.Gnb .gnb-menu > li > ul{box-sizing:border-box;}
 .Gnb .gnb-menu > li.menu1 > ul {margin-left:-360px}
 .Gnb .gnb-menu > li.menu2 > ul {margin-left:-300px}
 .Gnb .gnb-menu > li.menu3 > ul {}
 .Gnb .gnb-menu > li.menu4 > ul {}
-.Gnb .gnb-menu > li.menu5 > ul {}
+.Gnb .gnb-menu > li.menu5 > ul {padding-left:350px;}
 .Gnb .gnb-menu > li.menu6 > ul {}
 .Gnb .mask,
 .Gnb .gnb-menu>li>ul{background:#21409a;}
 .Gnb .gnb-menu>li.on>a,
 .Gnb .gnb-menu>li>a:hover,
 .Gnb .gnb-menu>li>a:focus{color:#21409a;}
+
+
 
 
 

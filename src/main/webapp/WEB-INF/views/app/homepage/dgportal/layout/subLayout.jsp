@@ -14,6 +14,13 @@ $(function() {
 		return false;
 	});
 
+	$('#homeup-mobile').click(function () {
+		$('body,html').animate({
+			scrollTop: 0
+		}, 800);
+		return false;
+	});
+
 	$('li#menu_${menuOne.parent_menu_idx }').addClass('active');
 	$('li#menu_${menuOne.menu_idx}').addClass('active');
 	var halbaeNode = $('li#menu_${menuOne.parent_menu_idx }').parent().parent()[0];
@@ -172,6 +179,14 @@ $(function() {
 
 	<div id="foot_section">
 		<tiles:insertAttribute name="footer" />
+
+		<div class="home-up web-view">
+			<img src="/resources/homepage/dgportal/img/m-top.png" alt="위로" id="homeup">
+		</div>
+
+		<div class="home-up mobile-view">
+			<img src="/resources/homepage/dgportal/img/m-top.png" alt="위로" id="homeup-mobile">
+		</div>
 	</div>
 
 </div>
