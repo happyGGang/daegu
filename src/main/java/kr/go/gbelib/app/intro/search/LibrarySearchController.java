@@ -942,10 +942,13 @@ public class LibrarySearchController extends BaseController {
 		if (!result.hasErrors()) {
 
 			Homepage homepage = getSessionHomepage(request);
-			SmsReception smsReception = new SmsReception();
-			smsReception.setHomepage_id(homepage.getHomepage_id());
-			smsReception.setWork_code("0001");	// 상호대차:0001, 무인대출:0002, 야간대출:0003
-			List<SmsReception> receptionsList =  smsReceptionService.getSmsReceptionMembers(smsReception);
+			if (homepage != null) {
+				SmsReception smsReception = new SmsReception();
+				smsReception.setHomepage_id(homepage.getHomepage_id());
+				smsReception.setWork_code("0001");	// 상호대차:0001, 무인대출:0002, 야간대출:0003
+				List<SmsReception> receptionsList =  smsReceptionService.getSmsReceptionMembers(smsReception);
+
+			}
 
 			if (StringUtils.equals(librarySearch.getEditMode(), "CANCEL")) {
 
