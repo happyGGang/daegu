@@ -136,6 +136,43 @@ $(function() {
 		$('.notice-box').removeClass('on');
 		$('#more-view-btn').show();
 	});
+
+	$.ajax({
+		url:'module/elib/book/api/best.do',
+		success:function(data) {
+			var html = '<li>조회된 데이터가 없습니다</li>';
+			if (data) {
+				html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += '<li><a href="/elib/module/elib/book/view.do?menu_idx=15&menu=BEST&type=EBK&sortField=BOOK_LEND&sortType=DESC&book_idx='+data[i].book_idx+'">';
+					html += '<span class="img"><img src="'+data[i].book_image+'" alt="'+data[i].book_name+'"></span>';
+					html += '<span class="txt">';
+					html += '<p class="title_info">'+data[i].book_name+'</p>';
+					html += '<p class="author">'+data[i].author_name+'</p>';
+					html += '</span></a></li>';
+				}
+			}
+			$('ul#bestBookList').html(html);
+		}
+	});
+
+	$.ajax({
+		url:'module/elib/book/api/new.do',
+		success:function(data) {
+			var html = '<li>조회된 데이터가 없습니다</li>';
+			if (data) {
+				html = '';
+				for (var i = 0; i < data.length; i++) {
+					html += '<li><a href="/elib/module/elib/book/view.do?menu_idx=14&menu=NEW&type=EBK&sortField=BOOK_PUBDT&sortType=DESC&book_idx='+data[i].book_idx+'">';
+					html += '<span class="movieImg"><img src="'+data[i].book_image+'" alt="'+data[i].book_name+'"></span>';
+					html += '<span class="movieEx">';
+					html += '<strong class="title">'+data[i].book_name+'</strong>';
+					html += '</span></a></li>';
+				}
+			}
+			$('ul#newBookList').html(html);
+		}
+	});
 });
 
 // 모바일일 경우 fullpage 미사용
@@ -352,24 +389,9 @@ body, html {background:#30706e url('/resources/homepage/${homepage.context_path}
 								<a href="/${homepage.context_path}/module/elib/book/index.do?menu_idx=15&menu=BEST&type=EBK" class="more-btn">더보기</a>
 							</div>
 							<div>
-							<ul>
+							<ul id="bestBookList">
 								<li>
-									<a href="">
-										<span class="img"><img src="/resources/homepage/${homepage.context_path}/img/ebookimg1.jpg" alt=""></span>
-										<span class="txt">
-											<p class="title_info">청소년을 위한 시간시간시간..</p>
-											<p class="author">스티븐 호킹</p>
-										</span>
-									</a>
-								</li>
-								<li>
-									<a href="">
-										<span class="img"><img src="/resources/homepage/${homepage.context_path}/img/ebookimg2.jpg" alt=""></span>
-										<span class="txt">
-											<p class="title_info">어른들의 거짓된 삶삶삶삶삶삶삶삶</p>
-											<p class="author">엘레나 페란테</p>
-										</span>
-									</a>
+									불러오는 중...
 								</li>
 							</ul>
 							</div>
@@ -377,17 +399,9 @@ body, html {background:#30706e url('/resources/homepage/${homepage.context_path}
 						<div class="ebook-box2">
 							<h4 class="title">신간 E-BOOK</h4>
 							<div class="ebookContent">
-								<ul>
+								<ul id="newBookList">
 									<li>
-										<a href="#">
-											<span class="movieImg">
-												<img src="/resources/homepage/${homepage.context_path}/img/ebookimg3.jpg" alt="">
-											</span>
-
-											<span class="movieEx">
-												<strong class="title">하마터면 열심히..</strong>
-											</span>
-										</a>
+										불러오는 중...
 									</li>
 								</ul>
 							</div>

@@ -1082,4 +1082,21 @@ public class ElibController extends BaseController {
 		return String.format(basePath, homepage.getFolder()) + d +"/" + f;
 	}
 
+	@RequestMapping(value = {"/book/api/best.*"})
+	@ResponseBody
+	public Object apiBestbook(Model model, HttpServletRequest request) {
+
+		List<Book> bookList = dgElibAPIService.loanBestSearch("10");
+		return bookList;
+	}
+
+	@RequestMapping(value = {"/book/api/new.*"})
+	@ResponseBody
+	public List<Book> apiNewbook(Model model, HttpServletRequest request) {
+
+		List<Book> bookList = dgElibAPIService.getNewEbook("10");
+		return bookList;
+	}
+
+
 }
