@@ -1555,6 +1555,16 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 			//			}
 			model.addAttribute("detail", list.get(0));
 		}
+
+		Menu m = new Menu();
+		m.setHomepage_id(homepage.getHomepage_id());
+		m.setMenu_idx(18);
+		int sanghoMenuIdx = menuService.getMenuIdxByProgramIdx(m);
+		if (sanghoMenuIdx == 0) {
+			sanghoMenuIdx = librarySearch.getMenu_idx();
+		}
+		model.addAttribute("sanghoMenuIdx", sanghoMenuIdx);
+
 		return String.format(basePath, homepage.getFolder()) + "sangho/form";
 	}
 

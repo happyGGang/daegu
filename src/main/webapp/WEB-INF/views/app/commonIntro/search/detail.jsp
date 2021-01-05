@@ -61,7 +61,7 @@ $(function() {
 
 	});
 
-	<c:if test="${detail.SANGHO_REQ_YN eq 'Y'}">
+
 	<%--상호대차 신청--%>
 	$('a.sangho').on('click', function(e) {
 		e.preventDefault();
@@ -72,9 +72,7 @@ $(function() {
 		<c:if test="${detail.BOOK_STATUS ne '0'}">
 		$('form#sanghoReqForm').submit();
 		</c:if>
-
 	});
-	</c:if>
 
 	try {
 		var words = JSON.parse('${data4ItemList}');
@@ -165,7 +163,7 @@ $(function() {
 	<input type="hidden" name="editMode" value="ADD">
 </form>
 
-<c:if test="${detail.SANGHO_REQ_YN eq 'Y'}">
+
 <form id="sanghoReqForm" action="sangho/form.do" method="post">
 	<input type="hidden" name="isbn" value="${fn:escapeXml(param.isbn)}">
 	<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
@@ -173,7 +171,7 @@ $(function() {
 	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
 	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
 </form>
-</c:if>
+
 
 <c:if test="${not empty loginPortal and loginPortal.login}">
 <form id="bookExpressForm" action="/${homepage.context_path}/module/bookExpress/save.do" method="post">
@@ -302,9 +300,20 @@ $(function() {
 			</tbody>
 			</table>
 		</div>
+		<div>
+			<c:set var="getIp" value="<%=request.getRemoteAddr()%>" />
+			<c:if test="${getIp eq '218.48.151.16'}">
+KBILL_LILL_YN : ${detail.KBILL_LILL_YN} <br/>
+SHELF_LOC_CODE : ${detail.SHELF_LOC_CODE} <br/>
+SEPARATE_SHELF_CODE : ${detail.SEPARATE_SHELF_CODE} <br/>
+REG_CODE : ${detail.REG_CODE}<br/>
+LOAN_CODE : ${detail.LOAN_CODE}
+			</c:if>
+		</div>
+
 		<div class="sbtn" style="text-align:center;">
 			<c:if test="${detail.SANGHO_REQ_YN eq 'Y'}">
-			<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
+			<!-- <a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a> -->
 			</c:if>
 
 			<c:if test="${detail.WORKING_STATUS eq 'BOL112N'}">
@@ -318,10 +327,8 @@ $(function() {
 						<c:otherwise>
 
 							<c:choose>
-								<c:when test="${detail.SHELF_LOC_CODE eq 'BA01' || detail.SHELF_LOC_CODE eq 'BA02' || detail.SHELF_LOC_CODE eq 'BA03' || detail.SHELF_LOC_CODE eq 'BA04' || detail.SHELF_LOC_CODE eq 'BA06' || detail.SHELF_LOC_CODE eq 'BB01' || detail.SHELF_LOC_CODE eq 'BB02' || detail.SHELF_LOC_CODE eq 'BB03' || detail.SHELF_LOC_CODE eq 'BB04' || detail.SHELF_LOC_CODE eq 'BC01' || detail.SHELF_LOC_CODE eq 'BC02' || detail.SHELF_LOC_CODE eq 'BC03' || detail.SHELF_LOC_CODE eq 'GJ01' || detail.SHELF_LOC_CODE eq 'GL01' || detail.SHELF_LOC_CODE eq 'GL02' || detail.SHELF_LOC_CODE eq 'GM01' || detail.SHELF_LOC_CODE eq 'GN01' || detail.SHELF_LOC_CODE eq 'GP01' || detail.SHELF_LOC_CODE eq 'HB01' || detail.SHELF_LOC_CODE eq 'HD01' || detail.SHELF_LOC_CODE eq 'HE01'}">
-									<c:if test="${detail.SEPARATE_SHELF_CODE eq 'BMG' || detail.SEPARATE_SHELF_CODE eq 'BMH' || detail.SEPARATE_SHELF_CODE eq 'BML' || detail.SEPARATE_SHELF_CODE eq 'BMM' || detail.SEPARATE_SHELF_CODE eq 'BMN' || detail.SEPARATE_SHELF_CODE eq 'BMP' || detail.SEPARATE_SHELF_CODE eq 'BMQ' || detail.SEPARATE_SHELF_CODE eq 'BMS' || detail.SEPARATE_SHELF_CODE eq 'BMT' || detail.SEPARATE_SHELF_CODE eq 'BMU' || detail.SEPARATE_SHELF_CODE eq 'BMW' || detail.SEPARATE_SHELF_CODE eq 'BMX' || detail.SEPARATE_SHELF_CODE eq 'BMY' || detail.SEPARATE_SHELF_CODE eq 'BMZ' || detail.SEPARATE_SHELF_CODE eq 'BNA' || detail.SEPARATE_SHELF_CODE eq 'BNB' || detail.SEPARATE_SHELF_CODE eq 'BNC' || detail.SEPARATE_SHELF_CODE eq 'BND' || detail.SEPARATE_SHELF_CODE eq 'BNE' || detail.SEPARATE_SHELF_CODE eq 'BNF' || detail.SEPARATE_SHELF_CODE eq null || detail.SEPARATE_SHELF_CODE eq 'null' || detail.SEPARATE_SHELF_CODE eq ''}">
-										<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
-									</c:if>
+								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
+									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
 								</c:when>
 								<c:otherwise>
 								</c:otherwise>
@@ -334,10 +341,8 @@ $(function() {
 				<c:when test="${homepage.context_path eq 'beomeo' || homepage.context_path eq 'yonghak' || homepage.context_path eq 'gosan' || homepage.context_path eq 'bookforest' || homepage.context_path eq 'mulmangi' || homepage.context_path eq 'padong' || homepage.context_path eq 'muhaksup' || context_path eq 'sawol'}">
 
 					<c:choose>
-						<c:when test="${detail.SHELF_LOC_CODE eq 'BD01' || detail.SHELF_LOC_CODE eq 'BD02' || detail.SHELF_LOC_CODE eq 'BD03' || detail.SHELF_LOC_CODE eq 'BD04' || detail.SHELF_LOC_CODE eq 'BE01' || detail.SHELF_LOC_CODE eq 'BE02' || detail.SHELF_LOC_CODE eq 'BE03' || detail.SHELF_LOC_CODE eq 'BE04' || detail.SHELF_LOC_CODE eq 'BE09' || detail.SHELF_LOC_CODE eq 'BF01' || detail.SHELF_LOC_CODE eq 'BF02' || detail.SHELF_LOC_CODE eq 'BF03' || detail.SHELF_LOC_CODE eq 'BG01' || detail.SHELF_LOC_CODE eq 'BG02' || detail.SHELF_LOC_CODE eq 'BG03' || detail.SHELF_LOC_CODE eq 'BH01' || detail.SHELF_LOC_CODE eq 'BH02' || detail.SHELF_LOC_CODE eq 'BH03' || detail.SHELF_LOC_CODE eq 'BH04' || detail.SHELF_LOC_CODE eq 'BJ01' || detail.SHELF_LOC_CODE eq 'BJ02' || detail.SHELF_LOC_CODE eq 'BJ03' || detail.SHELF_LOC_CODE eq 'BJ04' || detail.SHELF_LOC_CODE eq 'BK01' || detail.SHELF_LOC_CODE eq 'BK02' || detail.SHELF_LOC_CODE eq 'BK03' || detail.SHELF_LOC_CODE eq 'BK04' || detail.SHELF_LOC_CODE eq 'FG01'}">
-							<c:if test="${detail.SEPARATE_SHELF_CODE eq 'BPL' || detail.SEPARATE_SHELF_CODE eq 'BPM' || detail.SEPARATE_SHELF_CODE eq 'BPN' || detail.SEPARATE_SHELF_CODE eq 'BPR' || detail.SEPARATE_SHELF_CODE eq 'BPS' || detail.SEPARATE_SHELF_CODE eq 'BPT' || detail.SEPARATE_SHELF_CODE eq 'BPU' || detail.SEPARATE_SHELF_CODE eq 'BPX' || detail.SEPARATE_SHELF_CODE eq 'BPY' || detail.SEPARATE_SHELF_CODE eq 'BPZ' || detail.SEPARATE_SHELF_CODE eq 'BQA' || detail.SEPARATE_SHELF_CODE eq 'BQB' || detail.SEPARATE_SHELF_CODE eq 'BQC' || detail.SEPARATE_SHELF_CODE eq 'BQD' || detail.SEPARATE_SHELF_CODE eq 'BQE' || detail.SEPARATE_SHELF_CODE eq 'BQG' || detail.SEPARATE_SHELF_CODE eq 'BQH' || detail.SEPARATE_SHELF_CODE eq 'BQJ' || detail.SEPARATE_SHELF_CODE eq 'BQK' || detail.SEPARATE_SHELF_CODE eq 'BQM' || detail.SEPARATE_SHELF_CODE eq 'BQN' || detail.SEPARATE_SHELF_CODE eq 'BQP' || detail.SEPARATE_SHELF_CODE eq 'BQQ' || detail.SEPARATE_SHELF_CODE eq 'BQR' || detail.SEPARATE_SHELF_CODE eq 'BQS' || detail.SEPARATE_SHELF_CODE eq 'BQU' || detail.SEPARATE_SHELF_CODE eq 'BQV' || detail.SEPARATE_SHELF_CODE eq 'BQW' || detail.SEPARATE_SHELF_CODE eq 'BQX' || detail.SEPARATE_SHELF_CODE eq 'BQY' || detail.SEPARATE_SHELF_CODE eq 'BQZ' || detail.SEPARATE_SHELF_CODE eq 'BRA' || detail.SEPARATE_SHELF_CODE eq 'BRB' || detail.SEPARATE_SHELF_CODE eq 'BRC' || detail.SEPARATE_SHELF_CODE eq 'BRD' || detail.SEPARATE_SHELF_CODE eq 'BRE' || detail.SEPARATE_SHELF_CODE eq 'BRF' || detail.SEPARATE_SHELF_CODE eq 'BRJ' || detail.SEPARATE_SHELF_CODE eq 'BRK' || detail.SEPARATE_SHELF_CODE eq 'BRQ' || detail.SEPARATE_SHELF_CODE eq 'BRT' || detail.SEPARATE_SHELF_CODE eq 'BRV' || detail.SEPARATE_SHELF_CODE eq 'BRW' || detail.SEPARATE_SHELF_CODE eq 'BRX' || detail.SEPARATE_SHELF_CODE eq 'BSJ' || detail.SEPARATE_SHELF_CODE eq null || detail.SEPARATE_SHELF_CODE eq 'null' || detail.SEPARATE_SHELF_CODE eq ''}">
-								<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
-							</c:if>
+						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
+							<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
 						</c:when>
 						<c:otherwise>
 						</c:otherwise>
@@ -346,18 +351,14 @@ $(function() {
 				</c:when>
 
 				<c:when test="${homepage.context_path eq 'junggu'}">
-					<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
+					<!-- <a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a> -->
 				</c:when>
 
 				<c:when test="${homepage.context_path eq 'dalseolib' || homepage.context_path eq 'kids' || homepage.context_path eq 'seongseo' || homepage.context_path eq 'bolli' || homepage.context_path eq 'family' || homepage.context_path eq 'english' || homepage.context_path eq 'dssmalllib'}">
 
 					<c:choose>
-						<c:when test="${detail.SHELF_LOC_CODE eq 'BU01' || detail.SHELF_LOC_CODE eq 'BU02' || detail.SHELF_LOC_CODE eq 'BU03' || detail.SHELF_LOC_CODE eq 'BU04' || detail.SHELF_LOC_CODE eq 'BU06' || detail.SHELF_LOC_CODE eq 'BU07' || detail.SHELF_LOC_CODE eq 'BU08' || detail.SHELF_LOC_CODE eq 'BV01' || detail.SHELF_LOC_CODE eq 'BV02' || detail.SHELF_LOC_CODE eq 'BV03' || detail.SHELF_LOC_CODE eq 'BV04' || detail.SHELF_LOC_CODE eq 'BV09' || detail.SHELF_LOC_CODE eq 'BW01' || detail.SHELF_LOC_CODE eq 'BW02' || detail.SHELF_LOC_CODE eq 'BW03' || detail.SHELF_LOC_CODE eq 'BW04' || detail.SHELF_LOC_CODE eq 'BW05' || detail.SHELF_LOC_CODE eq 'BW09' || detail.SHELF_LOC_CODE eq 'BW13' || detail.SHELF_LOC_CODE eq 'BW14' || detail.SHELF_LOC_CODE eq 'BX01' || detail.SHELF_LOC_CODE eq 'BX02' || detail.SHELF_LOC_CODE eq 'BX03' || detail.SHELF_LOC_CODE eq 'BX04' || detail.SHELF_LOC_CODE eq 'BX05' || detail.SHELF_LOC_CODE eq 'BX13' || detail.SHELF_LOC_CODE eq 'BX14' || detail.SHELF_LOC_CODE eq 'BX19' || detail.SHELF_LOC_CODE eq 'BX20' || detail.SHELF_LOC_CODE eq 'BX21' || detail.SHELF_LOC_CODE eq 'BY01' || detail.SHELF_LOC_CODE eq 'BY02' || detail.SHELF_LOC_CODE eq 'BY03' || detail.SHELF_LOC_CODE eq 'BY06' || detail.SHELF_LOC_CODE eq 'BY08' || detail.SHELF_LOC_CODE eq 'BY10' || detail.SHELF_LOC_CODE eq 'BY11' || detail.SHELF_LOC_CODE eq 'BY13' || detail.SHELF_LOC_CODE eq 'BY15' || detail.SHELF_LOC_CODE eq 'BY16' || detail.SHELF_LOC_CODE eq 'BZ01' || detail.SHELF_LOC_CODE eq 'BZ02' || detail.SHELF_LOC_CODE eq 'BZ03' || detail.SHELF_LOC_CODE eq 'BZ04' || detail.SHELF_LOC_CODE eq 'BZ05' || detail.SHELF_LOC_CODE eq 'BZ06' || detail.SHELF_LOC_CODE eq 'BZ07' || detail.SHELF_LOC_CODE eq 'BZ08' || detail.SHELF_LOC_CODE eq 'FA01' || detail.SHELF_LOC_CODE eq 'FB01' || detail.SHELF_LOC_CODE eq 'FC01' || detail.SHELF_LOC_CODE eq 'FD01' || detail.SHELF_LOC_CODE eq 'FW01' || detail.SHELF_LOC_CODE eq 'FX01' || detail.SHELF_LOC_CODE eq 'GK01'}">
-							<c:if test="${detail.SEPARATE_SHELF_CODE eq 'CCH' ||detail.SEPARATE_SHELF_CODE eq 'CCR' ||detail.SEPARATE_SHELF_CODE eq 'CCS' ||detail.SEPARATE_SHELF_CODE eq 'CCU' ||detail.SEPARATE_SHELF_CODE eq 'CCW' ||detail.SEPARATE_SHELF_CODE eq 'CCZ' ||detail.SEPARATE_SHELF_CODE eq 'CDA' ||detail.SEPARATE_SHELF_CODE eq 'CDC' ||detail.SEPARATE_SHELF_CODE eq 'CDD' ||detail.SEPARATE_SHELF_CODE eq 'CDH' ||detail.SEPARATE_SHELF_CODE eq 'CDJ' ||detail.SEPARATE_SHELF_CODE eq 'CDQ' ||detail.SEPARATE_SHELF_CODE eq 'CDU' || detail.SEPARATE_SHELF_CODE eq null || detail.SEPARATE_SHELF_CODE eq 'null' || detail.SEPARATE_SHELF_CODE eq ''}">
-								<c:if test="${detail.REG_CODE eq 'DJR' || detail.REG_CODE eq 'DKC' || detail.REG_CODE eq 'DKM' || detail.REG_CODE eq 'DLB' || detail.REG_CODE eq 'DLN' || detail.REG_CODE eq 'DLP' || detail.REG_CODE eq 'DLY' || detail.REG_CODE eq 'DMN' || detail.REG_CODE eq 'DMZ' || detail.REG_CODE eq 'DNA' || detail.REG_CODE eq 'DNK' || detail.REG_CODE eq 'DNZ' || detail.REG_CODE eq 'DPK' || detail.REG_CODE eq 'DPV' || detail.REG_CODE eq 'DQK' || detail.REG_CODE eq 'DQV' || detail.REG_CODE eq 'DRE' || detail.REG_CODE eq 'DTA' || detail.REG_CODE eq 'DTG' || detail.REG_CODE eq 'DTM' || detail.REG_CODE eq 'DTT' || detail.REG_CODE eq 'DTU' || detail.REG_CODE eq 'DTV' || detail.REG_CODE eq 'DUB' || detail.REG_CODE eq 'DUC' || detail.REG_CODE eq 'DUJ' || detail.REG_CODE eq 'DUK' || detail.REG_CODE eq 'DUR' || detail.REG_CODE eq 'DUV' || detail.REG_CODE eq 'DUX' || detail.REG_CODE eq 'DVD'}">
-								<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
-								</c:if>
-							</c:if>
+						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
+							<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
 						</c:when>
 						<c:otherwise>
 						</c:otherwise>
@@ -368,12 +369,8 @@ $(function() {
 				<c:when test="${homepage.context_path eq 'donggu' || homepage.context_path eq 'sincheon' || homepage.context_path eq 'donggusm'}">
 
 					<c:choose>
-						<c:when test="${detail.SHELF_LOC_CODE eq 'CA01' || detail.SHELF_LOC_CODE eq 'CA02' || detail.SHELF_LOC_CODE eq 'CB01' || detail.SHELF_LOC_CODE eq 'CB02' || detail.SHELF_LOC_CODE eq 'GR01' || detail.SHELF_LOC_CODE eq 'GS01' || detail.SHELF_LOC_CODE eq 'HJ02' || detail.SHELF_LOC_CODE eq 'FK01' || detail.SHELF_LOC_CODE eq 'GT01' || detail.SHELF_LOC_CODE eq 'FP01' || detail.SHELF_LOC_CODE eq 'FL01' || detail.SHELF_LOC_CODE eq 'GU01' || detail.SHELF_LOC_CODE eq 'GV01' || detail.SHELF_LOC_CODE eq 'GW01' || detail.SHELF_LOC_CODE eq 'GY01' || detail.SHELF_LOC_CODE eq 'FM01' || detail.SHELF_LOC_CODE eq 'GZ01' || detail.SHELF_LOC_CODE eq 'HK01' || detail.SHELF_LOC_CODE eq 'HL01' || detail.SHELF_LOC_CODE eq 'HM01' || detail.SHELF_LOC_CODE eq 'HN01' || detail.SHELF_LOC_CODE eq 'GX01' || detail.SHELF_LOC_CODE eq 'HP01' || detail.SHELF_LOC_CODE eq 'HQ02'}">
-							<c:if test="${detail.SEPARATE_SHELF_CODE eq 'CEU' || detail.SEPARATE_SHELF_CODE eq 'CFB' || detail.SEPARATE_SHELF_CODE eq 'CFC' || detail.SEPARATE_SHELF_CODE eq 'CFD' || detail.SEPARATE_SHELF_CODE eq 'CFE' || detail.SEPARATE_SHELF_CODE eq 'CFH' || detail.SEPARATE_SHELF_CODE eq 'CFJ' || detail.SEPARATE_SHELF_CODE eq 'CFK' || detail.SEPARATE_SHELF_CODE eq 'CFM' || detail.SEPARATE_SHELF_CODE eq 'CFN' || detail.SEPARATE_SHELF_CODE eq null || detail.SEPARATE_SHELF_CODE eq 'null' || detail.SEPARATE_SHELF_CODE eq ''}">
-								<c:if test="${detail.REG_CODE eq 'DVL' || detail.REG_CODE eq 'DVM' || detail.REG_CODE eq 'DVN' || detail.REG_CODE eq 'DVP' || detail.REG_CODE eq 'DVQ' || detail.REG_CODE eq 'DWC' || detail.REG_CODE eq 'DWD' || detail.REG_CODE eq 'DWE' || detail.REG_CODE eq 'DWR' || detail.REG_CODE eq 'DWX' || detail.REG_CODE eq 'DXD' || detail.REG_CODE eq 'DXK' || detail.REG_CODE eq 'DXL' || detail.REG_CODE eq 'DXS' || detail.REG_CODE eq 'DXY' || detail.REG_CODE eq 'DYE' || detail.REG_CODE eq 'DYL' || detail.REG_CODE eq 'DYS' || detail.REG_CODE eq 'DYY' || detail.REG_CODE eq 'DZE' || detail.REG_CODE eq 'DZL' || detail.REG_CODE eq 'DZS' || detail.REG_CODE eq 'DZY' || detail.REG_CODE eq 'DZZ' || detail.REG_CODE eq 'EAF' || detail.REG_CODE eq 'EAM' || detail.REG_CODE eq 'EAT' || detail.REG_CODE eq 'EAZ' || detail.REG_CODE eq 'EBF' || detail.REG_CODE eq 'EBM'}">
-								<!-- <a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a> -->
-								</c:if>
-							</c:if>
+						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
+							<!-- <a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a> -->
 						</c:when>
 						<c:otherwise>
 						</c:otherwise>
@@ -390,45 +387,44 @@ $(function() {
 
 
 			<c:choose>
-				<c:when test="${detail.MANAGE_CODE eq 'AL'}">
+				<c:when test="${detail.MANAGE_CODE eq 'BR'}">
+
+					<!--워킹스루 시작-->
+					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' }">
+
+					<c:choose>
+						<c:when test="${detail.RESERVATION_CNT > '0'}">
+
+						</c:when>
+						<c:otherwise>
+							<c:if test="${detail.SHELF_LOC_CODE eq 'BR01' || detail.SHELF_LOC_CODE eq 'BR02' || detail.SHELF_LOC_CODE eq 'BR03' || detail.SHELF_LOC_CODE eq 'BR05' || detail.SHELF_LOC_CODE eq 'BR06'}">
+							<%
+							org.joda.time.DateTime now = new org.joda.time.DateTime();
+							int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
+							int hour = now.getHourOfDay();
+
+							if(9 <= hour && hour < 17)
+							{
+							%>
+								<!-- <a href="#night" id="night-req" class="btn">워킹스루예약신청</a> -->
+							<%
+							}
+							else
+							{
+							%>
+								<!-- <a href="#" class="btn btn1" onclick="alert('신청가능 시간이 아닙니다.');">워킹스루예약신청</a> -->
+							<%
+							}
+							%>
+							<!-- <a href="#night" id="night-req" class="btn">워킹스루예약신청</a> -->
+							</c:if>
+						</c:otherwise>
+					</c:choose>
+
+					</c:if>
 
 				</c:when>
 				<c:otherwise>
-
-			<!--워킹스루 시작-->
-			<c:if test="${detail.WORKING_STATUS eq 'BOL112N' }">
-
-			<c:if test="${detail.SHELF_LOC_CODE eq 'AD20' || detail.SHELF_LOC_CODE eq 'AD18' || detail.SHELF_LOC_CODE eq 'AD19' || detail.SHELF_LOC_CODE eq 'AD04' || detail.SHELF_LOC_CODE eq 'AD02' || detail.SHELF_LOC_CODE eq 'AD03' || detail.SHELF_LOC_CODE eq 'AD06' || detail.SHELF_LOC_CODE eq 'AD07' || detail.SHELF_LOC_CODE eq 'AD14' || detail.SHELF_LOC_CODE eq 'AD08' || detail.SHELF_LOC_CODE eq 'AD12' || detail.SHELF_LOC_CODE eq 'AD01' || detail.SHELF_LOC_CODE eq 'AD11' || detail.SHELF_LOC_CODE eq 'AD27' || detail.SHELF_LOC_CODE eq 'AH01' || detail.SHELF_LOC_CODE eq 'AH02' || detail.SHELF_LOC_CODE eq 'AH06' || detail.SHELF_LOC_CODE eq 'AH07' || detail.SHELF_LOC_CODE eq 'AH08' || detail.SHELF_LOC_CODE eq 'AH14' || detail.SHELF_LOC_CODE eq 'AH18' || detail.SHELF_LOC_CODE eq 'AH21' || detail.SHELF_LOC_CODE eq 'AH23' || detail.SHELF_LOC_CODE eq 'AH24' || detail.SHELF_LOC_CODE eq 'AH27' || detail.SHELF_LOC_CODE eq 'AG01' || detail.SHELF_LOC_CODE eq 'AG02' || detail.SHELF_LOC_CODE eq 'AG06' || detail.SHELF_LOC_CODE eq 'AG05' || detail.SHELF_LOC_CODE eq 'AG10' || detail.SHELF_LOC_CODE eq 'AG11' || detail.SHELF_LOC_CODE eq 'AG12' || detail.SHELF_LOC_CODE eq 'AG15' || detail.SHELF_LOC_CODE eq 'AG17' || detail.SHELF_LOC_CODE eq 'AA03' || detail.SHELF_LOC_CODE eq 'AA04' || detail.SHELF_LOC_CODE eq 'AA09' || detail.SHELF_LOC_CODE eq 'AA10' || detail.SHELF_LOC_CODE eq 'AA11' || detail.SHELF_LOC_CODE eq 'AA14' || detail.SHELF_LOC_CODE eq 'AA15' || detail.SHELF_LOC_CODE eq 'AA16' || detail.SHELF_LOC_CODE eq 'AA17' || detail.SHELF_LOC_CODE eq 'AA18' || detail.SHELF_LOC_CODE eq 'AA20' || detail.SHELF_LOC_CODE eq 'AA21' || detail.SHELF_LOC_CODE eq 'AA22' || detail.SHELF_LOC_CODE eq 'AA23' || detail.SHELF_LOC_CODE eq 'AA37' || detail.SHELF_LOC_CODE eq 'AA31' || detail.SHELF_LOC_CODE eq 'AA39' || detail.SHELF_LOC_CODE eq 'AA01' || detail.SHELF_LOC_CODE eq 'AA12' || detail.SHELF_LOC_CODE eq 'AA13' || detail.SHELF_LOC_CODE eq 'AA24' || detail.SHELF_LOC_CODE eq 'AA25' || detail.SHELF_LOC_CODE eq 'AA26' || detail.SHELF_LOC_CODE eq 'AA27' || detail.SHELF_LOC_CODE eq 'AA28' || detail.SHELF_LOC_CODE eq 'AF01' || detail.SHELF_LOC_CODE eq 'AF03' || detail.SHELF_LOC_CODE eq 'AF04' || detail.SHELF_LOC_CODE eq 'AF08' || detail.SHELF_LOC_CODE eq 'AF11' || detail.SHELF_LOC_CODE eq 'AF12' || detail.SHELF_LOC_CODE eq 'AF13' || detail.SHELF_LOC_CODE eq 'AE28' || detail.SHELF_LOC_CODE eq 'AC01' || detail.SHELF_LOC_CODE eq 'AC02' || detail.SHELF_LOC_CODE eq 'AC03' || detail.SHELF_LOC_CODE eq 'AC04' || detail.SHELF_LOC_CODE eq 'AC05' || detail.SHELF_LOC_CODE eq 'AC06' || detail.SHELF_LOC_CODE eq 'AC07' || detail.SHELF_LOC_CODE eq 'AC12' || detail.SHELF_LOC_CODE eq 'AB01' || detail.SHELF_LOC_CODE eq 'AB02' || detail.SHELF_LOC_CODE eq 'AB03' || detail.SHELF_LOC_CODE eq 'AB05' || detail.SHELF_LOC_CODE eq 'AB06' || detail.SHELF_LOC_CODE eq 'AJ01' || detail.SHELF_LOC_CODE eq 'AJ02' || detail.SHELF_LOC_CODE eq 'AJ09' || detail.SHELF_LOC_CODE eq 'AJ06' || detail.SHELF_LOC_CODE eq 'AJ07' || detail.SHELF_LOC_CODE eq 'AJ04' || detail.SHELF_LOC_CODE eq 'AJ48' || detail.SHELF_LOC_CODE eq 'AE01' || detail.SHELF_LOC_CODE eq 'AE05' || detail.SHELF_LOC_CODE eq 'AE12' || detail.SHELF_LOC_CODE eq 'AE19' || detail.SHELF_LOC_CODE eq 'AE03' || detail.SHELF_LOC_CODE eq 'AE11' || detail.SHELF_LOC_CODE eq 'AE20' || detail.SHELF_LOC_CODE eq 'AE22' || detail.SHELF_LOC_CODE eq 'AE23'}">
-
-			<c:choose>
-				<c:when test="${detail.RESERVATION_CNT > '0'}">
-
-				</c:when>
-				<c:otherwise>
-					<%
-					org.joda.time.DateTime now = new org.joda.time.DateTime();
-					int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
-					int hour = now.getHourOfDay();
-
-					if(9 <= hour && hour < 17)
-					{
-					%>
-						<!--<a href="#night" id="night-req" class="btn">워킹스루예약신청</a>-->
-					<%
-					}
-					else
-					{
-					%>
-						<!--<a href="#" class="btn btn1" onclick="alert('신청가능 시간이 아닙니다.');">워킹스루예약신청</a>-->
-					<%
-					}
-					%>
-				</c:otherwise>
-			</c:choose>
-
-			</c:if>
-
-			</c:if>
 
 				</c:otherwise>
 			</c:choose>
@@ -482,26 +478,11 @@ $(function() {
 					</c:if>
 					</c:if>
 				</c:when>
-				<c:when test="${homepage.context_path eq 'dal'}">
-					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
-					<c:if test="${detail.RESERVATION_CNT eq '0'}">
-					<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
-					<!-- <a href="#night" id="night-req" class="btn">야간예약신청</a> -->
-					</c:if>
-					</c:if>
-				</c:when>
-
 				<c:when test="${homepage.context_path eq 'dalseolib' || homepage.context_path eq 'kids' || homepage.context_path eq 'seongseo' || homepage.context_path eq 'bolli' || homepage.context_path eq 'family' || homepage.context_path eq 'english'}">
 					<c:if test="${detail.MANAGE_CODE eq 'BU' || detail.MANAGE_CODE eq 'BV' || detail.MANAGE_CODE eq 'BW' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'BZ'}">
 					<c:choose>
-						<c:when test="${detail.SHELF_LOC_CODE eq 'BU01' || detail.SHELF_LOC_CODE eq 'BU02' || detail.SHELF_LOC_CODE eq 'BU03' || detail.SHELF_LOC_CODE eq 'BU04' || detail.SHELF_LOC_CODE eq 'BU06' || detail.SHELF_LOC_CODE eq 'BU07' || detail.SHELF_LOC_CODE eq 'BU08' || detail.SHELF_LOC_CODE eq 'BV01' || detail.SHELF_LOC_CODE eq 'BV02' || detail.SHELF_LOC_CODE eq 'BV03' || detail.SHELF_LOC_CODE eq 'BV04' || detail.SHELF_LOC_CODE eq 'BV09' || detail.SHELF_LOC_CODE eq 'BW01' || detail.SHELF_LOC_CODE eq 'BW02' || detail.SHELF_LOC_CODE eq 'BW03' || detail.SHELF_LOC_CODE eq 'BW04' || detail.SHELF_LOC_CODE eq 'BW05' || detail.SHELF_LOC_CODE eq 'BW09' || detail.SHELF_LOC_CODE eq 'BW13' || detail.SHELF_LOC_CODE eq 'BW14' || detail.SHELF_LOC_CODE eq 'BX01' || detail.SHELF_LOC_CODE eq 'BX02' || detail.SHELF_LOC_CODE eq 'BX03' || detail.SHELF_LOC_CODE eq 'BX04' || detail.SHELF_LOC_CODE eq 'BX05' || detail.SHELF_LOC_CODE eq 'BX13' || detail.SHELF_LOC_CODE eq 'BX14' || detail.SHELF_LOC_CODE eq 'BX19' || detail.SHELF_LOC_CODE eq 'BX20' || detail.SHELF_LOC_CODE eq 'BX21' || detail.SHELF_LOC_CODE eq 'BY01' || detail.SHELF_LOC_CODE eq 'BY02' || detail.SHELF_LOC_CODE eq 'BY03' || detail.SHELF_LOC_CODE eq 'BY06' || detail.SHELF_LOC_CODE eq 'BY08' || detail.SHELF_LOC_CODE eq 'BY10' || detail.SHELF_LOC_CODE eq 'BY11' || detail.SHELF_LOC_CODE eq 'BY13' || detail.SHELF_LOC_CODE eq 'BY15' || detail.SHELF_LOC_CODE eq 'BY16' || detail.SHELF_LOC_CODE eq 'BZ01' || detail.SHELF_LOC_CODE eq 'BZ02' || detail.SHELF_LOC_CODE eq 'BZ03' || detail.SHELF_LOC_CODE eq 'BZ04' || detail.SHELF_LOC_CODE eq 'BZ05' || detail.SHELF_LOC_CODE eq 'BZ06' || detail.SHELF_LOC_CODE eq 'BZ07' || detail.SHELF_LOC_CODE eq 'BZ08' || detail.SHELF_LOC_CODE eq 'FA01' || detail.SHELF_LOC_CODE eq 'FB01' || detail.SHELF_LOC_CODE eq 'FC01' || detail.SHELF_LOC_CODE eq 'FD01' || detail.SHELF_LOC_CODE eq 'FW01' || detail.SHELF_LOC_CODE eq 'FX01' || detail.SHELF_LOC_CODE eq 'GK01'}">
-							<c:if test="${detail.SEPARATE_SHELF_CODE eq 'CCH' ||detail.SEPARATE_SHELF_CODE eq 'CCR' ||detail.SEPARATE_SHELF_CODE eq 'CCS' ||detail.SEPARATE_SHELF_CODE eq 'CCU' ||detail.SEPARATE_SHELF_CODE eq 'CCW' ||detail.SEPARATE_SHELF_CODE eq 'CCZ' ||detail.SEPARATE_SHELF_CODE eq 'CDA' ||detail.SEPARATE_SHELF_CODE eq 'CDC' ||detail.SEPARATE_SHELF_CODE eq 'CDD' ||detail.SEPARATE_SHELF_CODE eq 'CDH' ||detail.SEPARATE_SHELF_CODE eq 'CDJ' ||detail.SEPARATE_SHELF_CODE eq 'CDQ' ||detail.SEPARATE_SHELF_CODE eq 'CDU' || detail.SEPARATE_SHELF_CODE eq null || detail.SEPARATE_SHELF_CODE eq 'null' || detail.SEPARATE_SHELF_CODE eq ''}">
-								<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
-								<c:if test="${detail.RESERVATION_CNT eq '0'}">
-								<!-- <a href="#muin" id="unmanned-req" class="btn">무인예약신청</a> -->
-								</c:if>
-								</c:if>
-							</c:if>
+						<c:when test="${detail.LOAN_CODE eq 'OK'}">
+							<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
 						</c:when>
 						<c:otherwise>
 						</c:otherwise>
@@ -513,8 +494,9 @@ $(function() {
 				</c:otherwise>
 			</c:choose>
 
+			<c:if test="${detail.MANAGE_CODE ne 'BR'}">
 			<c:choose>
-				<c:when test="${detail.SHELF_LOC_CODE eq 'AD39' || detail.SHELF_LOC_CODE eq 'AD40'}">
+				<c:when test="${detail.SHELF_LOC_CODE eq 'AD39' || detail.SHELF_LOC_CODE eq 'AD40' || detail.SHELF_LOC_CODE eq 'BA08' || detail.SHELF_LOC_CODE eq 'BA01' || detail.SHELF_LOC_CODE eq 'BD10'}">
 
 				</c:when>
 				<c:otherwise>
@@ -524,26 +506,7 @@ $(function() {
 								<c:when test="${detail.RESERVATION_CNT > 0}">
 									<c:choose>
 										<c:when test="${detail.RESERVATION_CNT < detail.RESERVATION_NUMBER}">
-
-											<c:choose>
-												<c:when test="${sessionScope.member.user_class_code eq '016' || sessionScope.member.user_class_code eq '017'}">
-													<a href="#" id="service-noreq" class="btn">예약신청</a>
-												</c:when>
-												<c:otherwise>
-
-													<c:choose>
-														<c:when test="${detail.MANAGE_CODE eq 'AJ'}">
-															<!-- <a href="#" id="resve-req-not" class="btn btn5">예약불가</a> -->
-															<a href="#" id="resve-req" class="btn">예약신청</a>
-														</c:when>
-														<c:otherwise>
-															<a href="#" id="resve-req" class="btn">예약신청</a>
-														</c:otherwise>
-													</c:choose>
-
-												</c:otherwise>
-											</c:choose>
-
+											<a href="#" id="resve-req" class="btn">예약신청</a>
 										</c:when>
 										<c:otherwise>
 											<a href="#" id="resve-req-not" class="btn btn5">예약불가</a>
@@ -558,24 +521,13 @@ $(function() {
 						<c:otherwise>
 							<c:choose>
 								<c:when test="${detail.RESERVATION_CNT < detail.RESERVATION_NUMBER}">
-
 									<c:choose>
-										<c:when test="${sessionScope.member.user_class_code eq '016' || sessionScope.member.user_class_code eq '017'}">
-											<a href="#" id="service-noreq" class="btn">예약신청</a>
+										<c:when test="${detail.WORKING_STATUS == 'BOL411O'}">
 										</c:when>
 										<c:otherwise>
-													<c:choose>
-														<c:when test="${detail.MANAGE_CODE eq 'AJ'}">
-															<!-- <a href="#" id="resve-req-not" class="btn btn5">예약불가</a> -->
-															<a href="#" id="resve-req" class="btn">예약신청</a>
-														</c:when>
-														<c:otherwise>
-															<a href="#" id="resve-req" class="btn">예약신청</a>
-														</c:otherwise>
-													</c:choose>
+											<a href="#" id="resve-req" class="btn">예약신청</a>
 										</c:otherwise>
 									</c:choose>
-
 								</c:when>
 								<c:otherwise>
 									<a href="#" id="resve-req-not" class="btn btn5">예약불가</a>
@@ -585,6 +537,7 @@ $(function() {
 					</c:choose>
 				</c:otherwise>
 			</c:choose>
+			</c:if>
 
 			<a href="#" id="addStorage" class="btn"><span>관심도서 추가</span></a>
 
