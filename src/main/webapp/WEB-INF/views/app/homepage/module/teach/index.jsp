@@ -67,7 +67,10 @@ $(function(){
 		(homepage.context_path eq 'yonghak' and teach.searchCate1 eq '17') or
 		(homepage.context_path eq 'dalseolib' and teach.searchCate1 eq '16') or
 		(homepage.context_path eq 'dalseolib' and teach.searchCate1 eq '17')}">
-	var a = '${fn:escapeXml(teach.homepage_id)}';
+	var a = '${fn:escapeXml(param.homepage_id)}';
+	if (a == '') {
+		a = '${fn:escapeXml(teach.homepage_id)}';
+	}
 	$('div.tab_menu a[data-hid="'+a+'"]').parent().addClass('active');
 
 	$('div.tab_menu a').on('click', function(e) {
