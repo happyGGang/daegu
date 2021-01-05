@@ -351,7 +351,11 @@
 		});
 		</c:if >
 
+		if ('${fn:length(param.libraryCodes)}' == '0' ) {
+			$('input#checkAll').click();
+		}
 	});
+
 
 </script>
 
@@ -366,7 +370,7 @@
 	<input type="hidden" name="skey" value="1077">
 	<input type="hidden" name="charset" value="utf-8">
 	<input type="hidden" name="userid" value="">
-	<input type="hidden" name="dbGroup" value="0"/ checked>
+	<input type="hidden" name="dbGroup" value="0">
 	<input type="hidden" name="text1" id="text1">
 </form>
 
@@ -646,62 +650,62 @@
 								<form:checkbox path="libraryCodes" class="libCheck lib_GR" value="GR" label="신암2동작은도서관" />
 							</li>
 							<li>
-								<input id="libraryCodes82" name="libraryCodes" type="checkbox" value="GS" class="libCheck lib_GS" checked/><label for="libraryCodes82">신암3동작은도서관</label>
+								<form:checkbox path="libraryCodes" class="libCheck lib_GS" value="GS" label="신암3동작은도서관" />
 							</li>
 							<li>
-								<input id="libraryCodes83" name="libraryCodes" type="checkbox" value="HJ" class="libCheck lib_HJ" checked/><label for="libraryCodes83">신암5동작은도서관</label>
+								<form:checkbox path="libraryCodes" class="libCheck lib_HJ" value="HJ" label="신암5동작은도서관" />
 							</li>
 							<li>
-								<input id="libraryCodes84" name="libraryCodes" type="checkbox" value="FK" class="libCheck lib_FK" checked/><label for="libraryCodes84">신천3동작은도서관</label>
+								<form:checkbox path="libraryCodes" class="libCheck lib_FK" value="FK" label="신천3동작은도서관" />
 							</li>
 							<li>
-								<input id="libraryCodes85" name="libraryCodes" type="checkbox" value="GT" class="libCheck lib_GT" checked/><label for="libraryCodes85">효목1동작은도서관</label>
+								<form:checkbox path="libraryCodes" class="libCheck lib_GT" value="GT" label="효목1동작은도서관" />
 							</li>
 							<li>
-								<input id="libraryCodes86" name="libraryCodes" type="checkbox" value="FP" class="libCheck lib_FP" checked/><label for="libraryCodes86">효목2동작은도서관</label>
+								<form:checkbox path="libraryCodes" class="libCheck lib_FP" value="FP" label="효목2동작은도서관" />
 							</li>
 							<li>
-								<input id="libraryCodes87" name="libraryCodes" type="checkbox" value="FL" class="libCheck lib_FL" checked/><label for="libraryCodes87">도평동 작은도서관</label>
+								<form:checkbox path="libraryCodes" class="libCheck lib_FL" value="FL" label="도평동 작은도서관" />
 							</li>
 							<li>
-								<input id="libraryCodes88" name="libraryCodes" type="checkbox" value="GU" class="libCheck lib_GU" checked/><label for="libraryCodes88">불로어울림작은도서관</label>
+								<form:checkbox path="libraryCodes" class="libCheck lib_GU" value="GU" label="불로어울림작은도서관" />
 							</li>
 							<li>
-								<input id="libraryCodes89" name="libraryCodes" type="checkbox" value="GV" class="libCheck lib_GV" checked/><label for="libraryCodes89">지저동작은도서관</label>
+								<form:checkbox path="libraryCodes" class="libCheck lib_GV" value="GV" label="지저동작은도서관" />
 							</li>
 							<li>
-								<input id="libraryCodes90" name="libraryCodes" type="checkbox" value="GW" class="libCheck lib_GW" checked/><label for="libraryCodes90">동천역사작은도서관</label>
+								<form:checkbox path="libraryCodes" class="libCheck lib_GW" value="GW" label="동천역사작은도서관" />
 							</li>
 							<li>
-								<input id="libraryCodes91" name="libraryCodes" type="checkbox" value="GX" class="libCheck lib_GX" checked/><label for="libraryCodes91">방촌동작은도서관</label>
+								<form:checkbox path="libraryCodes" class="libCheck lib_GX" value="GX" label="방촌동작은도서관" />
 							</li>
 							<li>
-								<input id="libraryCodes92" name="libraryCodes" type="checkbox" value="GY" class="libCheck lib_GY" checked/><label for="libraryCodes92">해안동작은도서관</label>
+								<form:checkbox path="libraryCodes" class="libCheck lib_GY" value="GY" label="해안동작은도서관" />
 							</li>
 							<li>
-								<input id="libraryCodes93" name="libraryCodes" type="checkbox" value="FM" class="libCheck lib_FM" checked/><label for="libraryCodes93">반야월역사작은도서관</label>
+								<form:checkbox path="libraryCodes" class="libCheck lib_FM" value="FM" label="반야월역사작은도서관" />
 							</li>
 
 							<li>
-								<input id="libraryCodes94" name="libraryCodes" type="checkbox" value="GZ" class="libCheck lib_GZ" checked/><label for="libraryCodes94">동구청작은도서관</label>
+								<form:checkbox path="libraryCodes" class="libCheck lib_GZ" value="GZ" label="동구청작은도서관" />
 							</li>
 							<li>
-								<input id="libraryCodes95" name="libraryCodes" type="checkbox" value="HK" class="libCheck lib_HK" checked/><label for="libraryCodes95">늘푸른작은도서관</label>
+								<form:checkbox path="libraryCodes" class="libCheck lib_HK" value="HK" label="늘푸른작은도서관" />
 							</li>
 							<li>
-								<input id="libraryCodes96" name="libraryCodes" type="checkbox" value="HL" class="libCheck lib_HL" checked/><label for="libraryCodes96">초록우산작은도서관</label>
+								<form:checkbox path="libraryCodes" class="libCheck lib_HL" value="HL" label="초록우산작은도서관" />
 							</li>
 							<li>
-								<input id="libraryCodes97" name="libraryCodes" type="checkbox" value="HM" class="libCheck lib_HM" checked/><label for="libraryCodes97">꿈날자문고작은도서관</label>
+								<form:checkbox path="libraryCodes" class="libCheck lib_HM" value="HM" label="꿈날자문고작은도서관" />
 							</li>
 							<li>
-								<input id="libraryCodes98" name="libraryCodes" type="checkbox" value="HN" class="libCheck lib_HN" checked/><label for="libraryCodes98">행복작은도서관</label>
+								<form:checkbox path="libraryCodes" class="libCheck lib_HN" value="HN" label="행복작은도서관" />
 							</li>
 							<li>
-								<input id="libraryCodes99" name="libraryCodes" type="checkbox" value="HP" class="libCheck lib_HP" checked/><label for="libraryCodes99">율하5주민작은도서관</label>
+								<form:checkbox path="libraryCodes" class="libCheck lib_HP" value="HP" label="율하5주민작은도서관" />
 							</li>
 							<li>
-								<input id="libraryCodes100" name="libraryCodes" type="checkbox" value="HQ" class="libCheck lib_HQ" checked/><label for="libraryCodes100">방촌어린이작은도서관</label>
+								<form:checkbox path="libraryCodes" class="libCheck lib_HQ" value="HQ" label="방촌어린이작은도서관" />
 							</li>
 
 

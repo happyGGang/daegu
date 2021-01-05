@@ -185,7 +185,9 @@ public class CommonSearchController extends BaseController {
 			List<String> libraryCodes = new ArrayList<String>();
 			libraryCodes.add("ALL");
 			for (Homepage home : normalHomepage) {
-				libraryCodes.add(home.getManage_code());
+				if (StringUtils.isNotEmpty(home.getManage_code())) {
+					libraryCodes.add(home.getManage_code());
+				}
 			}
 			librarySearch.setLibraryCodes(libraryCodes);
 		}
