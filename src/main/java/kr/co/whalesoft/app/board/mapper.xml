@@ -751,6 +751,9 @@
 				<when test="manage_idx == 726">
 					manage_idx in (724, 725, 726, 727)
 				</when>
+				<when test="manage_idx == 683">
+					category1 in ('179', '183', '180', '182')
+				</when>
 				<otherwise>
 					manage_idx = #{manage_idx}
 				</otherwise>
