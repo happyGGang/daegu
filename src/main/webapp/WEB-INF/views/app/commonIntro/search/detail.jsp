@@ -308,6 +308,7 @@ SHELF_LOC_CODE : ${detail.SHELF_LOC_CODE} <br/>
 SEPARATE_SHELF_CODE : ${detail.SEPARATE_SHELF_CODE} <br/>
 REG_CODE : ${detail.REG_CODE}<br/>
 LOAN_CODE : ${detail.LOAN_CODE}
+${homepage.context_path}
 			</c:if>
 		</div>
 
@@ -319,7 +320,7 @@ LOAN_CODE : ${detail.LOAN_CODE}
 			<c:if test="${detail.WORKING_STATUS eq 'BOL112N'}">
 			<!-- 북구통합도서관 상호대차 설정시작-->
 			<c:choose>
-				<c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj' || homepage.context_path eq 'buks'}">
+				<c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj'}">
 					<c:choose>
 						<c:when test="${detail.MANAGE_CODE eq 'GM'}">
 						<!-- 북구영어  제외 -->
@@ -338,7 +339,7 @@ LOAN_CODE : ${detail.LOAN_CODE}
 					</c:choose>
 				</c:when>
 
-				<c:when test="${homepage.context_path eq 'beomeo' || homepage.context_path eq 'yonghak' || homepage.context_path eq 'gosan' || homepage.context_path eq 'bookforest' || homepage.context_path eq 'mulmangi' || homepage.context_path eq 'padong' || homepage.context_path eq 'muhaksup' || context_path eq 'sawol'}">
+				<c:when test="${homepage.context_path eq 'beomeo' || homepage.context_path eq 'yonghak' || homepage.context_path eq 'gosan'}">
 
 					<c:choose>
 						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
@@ -354,7 +355,7 @@ LOAN_CODE : ${detail.LOAN_CODE}
 					<!-- <a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a> -->
 				</c:when>
 
-				<c:when test="${homepage.context_path eq 'dalseolib' || homepage.context_path eq 'kids' || homepage.context_path eq 'seongseo' || homepage.context_path eq 'bolli' || homepage.context_path eq 'family' || homepage.context_path eq 'english' || homepage.context_path eq 'dssmalllib'}">
+				<c:when test="${homepage.context_path eq 'dalseolib'}">
 
 					<c:choose>
 						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
@@ -366,7 +367,7 @@ LOAN_CODE : ${detail.LOAN_CODE}
 
 				</c:when>
 
-				<c:when test="${homepage.context_path eq 'donggu' || homepage.context_path eq 'sincheon' || homepage.context_path eq 'donggusm'}">
+				<c:when test="${homepage.context_path eq 'donggu'}">
 
 					<c:choose>
 						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
@@ -478,15 +479,17 @@ LOAN_CODE : ${detail.LOAN_CODE}
 					</c:if>
 					</c:if>
 				</c:when>
-				<c:when test="${homepage.context_path eq 'dalseolib' || homepage.context_path eq 'kids' || homepage.context_path eq 'seongseo' || homepage.context_path eq 'bolli' || homepage.context_path eq 'family' || homepage.context_path eq 'english'}">
+				<c:when test="${homepage.context_path eq 'dalseolib'}">
 					<c:if test="${detail.MANAGE_CODE eq 'BU' || detail.MANAGE_CODE eq 'BV' || detail.MANAGE_CODE eq 'BW' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'BZ'}">
-					<c:choose>
-						<c:when test="${detail.LOAN_CODE eq 'OK'}">
-							<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
-						</c:when>
-						<c:otherwise>
-						</c:otherwise>
-					</c:choose>
+						<c:if test="${detail.MEDIA_CODE eq 'PR'}">
+							<c:choose>
+								<c:when test="${detail.LOAN_CODE eq 'OK'}">
+									<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
+								</c:when>
+								<c:otherwise>
+								</c:otherwise>
+							</c:choose>
+						</c:if>
 					</c:if>
 				</c:when>
 				<c:otherwise>

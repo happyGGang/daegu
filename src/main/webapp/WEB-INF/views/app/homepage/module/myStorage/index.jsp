@@ -204,6 +204,10 @@ int leftSizeInput = leftSize-125; //왼쪽 컨텐츠 검색 input 사이즈
 	<form:hidden path="storage_idx"/>
 </form:form>
 
+<c:if test="${homepage.context_path eq 'beomeo' || homepage.context_path eq 'yonghak' || homepage.context_path eq 'gosan'}">
+<a href="http://suseong.infoset.co.kr/?page_id=mypage_wish_list" target="_blank" class="btn btn2">이전 보관함 바로가기</a>
+</c:if>
+
 <div class="group-menu code-config rsv-info" style="overflow: auto;">
 	<div style="display: inline-flex;">
 		<div class="tree-area" style="width:<%=leftSize%>px; border: 1px solid #ccc;">

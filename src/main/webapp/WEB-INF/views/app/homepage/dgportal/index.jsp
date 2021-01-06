@@ -244,13 +244,13 @@ do {
 															<span class="link library${i.imsi_v_19}">${i.imsi_v_20}</span>
 														</div>
 														<div class="contMiddle">
-															<span class="tit">${i.title}</span>
+															<span class="tit">${fn:substring(i.title, 0, 39)}<c:if test="${fn:length(i.title) > 39}">...</c:if></span>
 														</div>
 														<div class="contBottom">
 															<c:if test="${i.content_summary eq '' || i.content_summary eq null || i.content_summary eq 'null'}">
 																<span class="con">등록된 내용이 없습니다.</span>
 															</c:if>
-															<span class="con">${fn:substring(i.content_summary, 0, 222)}<c:if test="${fn:length(i.content_summary) > 222}">...</c:if></span>
+															<span class="con">${fn:substring(i.content_summary, 0, 141)}<c:if test="${fn:length(i.content_summary) > 141}">...</c:if></span>
 														</div>
 													</a>
 												</li>
@@ -969,7 +969,7 @@ do {
 											<label for="libraryCodes23">비산도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/bisan/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
-												<a href="r/seogulib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+												<a href="/seogulib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
 											</span>
 										</li>
 										<li>
@@ -1818,20 +1818,20 @@ do {
 					<ul>
 						<c:set var="imgnum" value="1"></c:set>
 						<c:forEach items="${teachList}" var="i" varStatus="status" begin='0' end='7'>
-						<c:if test="${i.teach_status eq '0' or i.teach_status eq '1' or i.teach_status eq '6'}">
+						<c:if test="${i.teach_status eq '1' or i.teach_status eq '6'}">
 						<%--c:set var="imgnum" value="${i.teach_status eq '0' ? '1' : i.teach_status eq '1' ? '1' : '4'}"></c:set--%>
 						<li>
 							<a href="/${i.context_path}/module/teach/detail.do?homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=${i.menu_idx}&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}" class="border bgimg00${imgnum}" target="_blank">
 								<span class="status">${i.teach_status eq '6' ? '접수대기' : '접수중'}</span>
 								<span class="txt">
-									<p class="lib-name">${i.homepage_name}</p>
+									<p class="lib-name">${i.homepage_name} ${imgnum}</p>
 									<p class="tit">${fn:substring(i.teach_name, 0, 15)}<c:if test="${fn:length(i.teach_name) > 17}">...</c:if></p>
 									<p class="len"><b>접수</b> ${i.start_join_date} ~ ${i.end_join_date}</p>
 								</span>
 							</a>
 						</li>
 							<c:if test="${imgnum eq '4'}">
-								<c:set var="imgnum" value="1"></c:set>
+								<c:set var="imgnum" value="0"></c:set>
 							</c:if>
 							<c:if test="${imgnum ne '4'}">
 								<c:set var="imgnum" value="${imgnum + 1}"></c:set>

@@ -233,7 +233,7 @@ input.text.ui-spinner-input{border:none;background:none;margin-top:0;margin-bott
 .ui-spinner a{cursor:pointer}
 input.ui-calendar{width:110px;background:#fff url('../img/calendar-icon.gif') no-repeat 89px center;vertical-align:middle;cursor:pointer}
 
-#header {position:absolute;width:100%;z-index:7;clear:both;text-align:center;}
+#header {position:absolute;width:100%;z-index:7;clear:both;text-align:center;box-sizing:border-box;}
 #container{position:relative;z-index:3;}
 h1{z-index:6}
 .tnb {position:relative;z-index:8}
@@ -524,7 +524,7 @@ transform:translatez(0);
 .lnb > ul > li {background:#fff;}
 .lnb > ul > li > a {font-size:16px;font-weight:400;display:block;background:#fff;color:#020202;border-bottom:1px solid #d3d7dd;padding:17px 40px 17px 20px;position:relative;}
 .lnb > ul > li > a img {position:absolute;line-height:11px;width:11px;height:11px;right:5%;top:50%;margin-top:-5px}
-.lnb > ul > li:last-child > a{border-bottom:none;}
+
 .lnb > ul > li > a i {font-weight:200;}
 .lnb>ul>li>a i.fa-angle-right{margin:0 5px 0 0;color:#aaa;font-size:14px;font-weight:800;position:absolute;line-height:14px;height:14px;right:5%;top:50%;margin-top:-7px}
 .lnb > ul > li > ul {padding:5px 0 10px}

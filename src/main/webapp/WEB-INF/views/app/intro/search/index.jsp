@@ -188,6 +188,14 @@ $(function() {
 	<c:if test="${empty librarySearch.title}">
 	//$('#checkAll').click();
 		<c:choose>
+			<c:when test="${context_path eq 'english'}">
+			$('div#libraryList input:checkbox').prop('checked',false);
+			$('div#libraryList input:checkbox.lib_BZ').prop('checked',true);
+			</c:when>
+			<c:when test="${context_path eq 'family'}">
+			$('div#libraryList input:checkbox').prop('checked',false);
+			$('div#libraryList input:checkbox.lib_BY').prop('checked',true);
+			</c:when>
 			<c:when test="${context_path eq 'buks'}">
 			$('div#libraryList input:checkbox').prop('checked',false);
 			$('div#libraryList input:checkbox.lib_GJ').prop('checked',true);

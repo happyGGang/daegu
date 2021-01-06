@@ -74,7 +74,6 @@ $(function() {
 		<c:if test="${detail.BOOK_STATUS ne '0'}">
 		$('form#sanghoReqForm').submit();
 		</c:if>
-
 	});
 
 	<%--청구기호 인쇄--%>
@@ -304,9 +303,7 @@ LOAN_CODE : ${detail.LOAN_CODE}
 		</div>
 
 <c:if test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english'}">
-<div class="" style="text-align:center;padding:20px 0 0 0;color:#f58500;">
-	부록이 있는 도서는 상호대차 신청불가, 조속한 시일 내에 제공하겠습니다. 이용자 여러분의 양해 부탁 드립니다.
-</div>
+
 </c:if>
 
 		<div class="sbtn" style="text-align:center;">
@@ -369,7 +366,7 @@ LOAN_CODE : ${detail.LOAN_CODE}
 						<c:otherwise>
 							<c:choose>
 								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
-									<!-- <a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a> -->
+									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
 								</c:when>
 								<c:otherwise>
 								</c:otherwise>
@@ -416,7 +413,7 @@ LOAN_CODE : ${detail.LOAN_CODE}
 							<%
 							}
 							%>
-							<a href="#night" id="night-req" class="btn">워킹스루예약신청</a>
+							<!-- <a href="#night" id="night-req" class="btn">워킹스루예약신청</a> -->
 							</c:if>
 						</c:otherwise>
 					</c:choose>
@@ -475,15 +472,15 @@ AD20 종합자료실
 
 				<c:when test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english'}">
 					<c:if test="${detail.MANAGE_CODE eq 'BU' || detail.MANAGE_CODE eq 'BV' || detail.MANAGE_CODE eq 'BW' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'BZ'}">
-
-					<c:choose>
-						<c:when test="${detail.LOAN_CODE eq 'OK'}">
-							<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
-						</c:when>
-						<c:otherwise>
-						</c:otherwise>
-					</c:choose>
-
+						<c:if test="${detail.MEDIA_CODE eq 'PR'}">
+							<c:choose>
+								<c:when test="${detail.LOAN_CODE eq 'OK'}">
+									<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
+								</c:when>
+								<c:otherwise>
+								</c:otherwise>
+							</c:choose>
+						</c:if>
 					</c:if>
 				</c:when>
 

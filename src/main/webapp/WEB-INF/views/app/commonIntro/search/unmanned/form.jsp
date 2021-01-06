@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
 
 <c:choose>
 	<c:when test="${homepage.context_path eq 'dmsl'}">
@@ -57,15 +56,20 @@
 
 <form:form modelAttribute="librarySearch" action="save.do" method="post" onsubmit="return false;">
 <form:hidden path="bookkey"/>
-<form:hidden path="booktype"/>
-<input type="hidden" name="title" value="${detail.TITLE_INFO}"/>
+<input type="hidden" name="booktype" id="booktype" value="${fn:substring(detail.WORKING_STATUS,0,2) }"/>
+<!-- <input type="hidden" name="title" value="${detail.TITLE_INFO}"/> -->
+<c:if test="${homepage.context_path eq 'dmsl'}">
+<input type="hidden" name="exprire_date_cnt" value="7"/>
+</c:if>
 <c:if test="${homepage.context_path eq 'jungang'}">
 <input type="hidden" name="exprire_date_cnt" value="7"/>
 </c:if>
 <c:if test="${homepage.context_path eq '228'}">
 <input type="hidden" name="exprire_date_cnt" value="3"/>
 </c:if>
-
+<c:if test="${homepage.context_path eq 'dalseolib' || homepage.context_path eq 'kids' || homepage.context_path eq 'seongseo' || homepage.context_path eq 'bolli' || homepage.context_path eq 'family' || homepage.context_path eq 'english'}">
+<input type="hidden" name="exprire_date_cnt" value="7"/>
+</c:if>
 
 <div class="delibery_info">
 

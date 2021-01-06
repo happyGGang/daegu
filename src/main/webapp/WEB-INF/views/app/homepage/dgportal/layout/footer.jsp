@@ -7,14 +7,14 @@
 			<div class="wide-1686-sections">
 				<div class="info">
 					<a href="http://www.daegu.go.kr/index.do?menu_id=00050250" target="_blank" title="개인정보처리방침 바로가기(새창열림)"><b>개인정보처리방침</b></a>
-					<span class="bar">|</span>
-					<a href="html.do?menu_idx=49">도서관서비스헌장</a>
-					<span class="bar">|</span>
-					<a href="html.do?menu_idx=52">저작권정책</a>
-					<span class="bar">|</span>
-					<a href="html.do?menu_idx=50">이메일무단수집거부</a>
-					<span class="bar">|</span>
-					<a href="html.do?menu_idx=51">뷰어다운로드</a>
+					<span class="barss">|</span>
+					<a href="/${homepage.context_path}/html.do?menu_idx=49">도서관서비스헌장</a>
+					<span class="barss">|</span>
+					<a href="/${homepage.context_path}/html.do?menu_idx=52">저작권정책</a>
+					<span class="barss">|</span>
+					<a href="/${homepage.context_path}/html.do?menu_idx=50">이메일무단수집거부</a>
+					<span class="barss">|</span>
+					<a href="/${homepage.context_path}/html.do?menu_idx=51">뷰어다운로드</a>
 				</div>
 			</div>
 		</div>
