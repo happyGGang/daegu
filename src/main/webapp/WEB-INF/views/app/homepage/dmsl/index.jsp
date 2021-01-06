@@ -99,6 +99,25 @@ do {
 				$('#mainSearchForm').submit();
 		});
 
+		$('.qm1 a').on('click', function(e) {
+			e.preventDefault();
+
+			<c:choose>
+				<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
+					<c:choose>
+						<c:when test="${sessionScope.member.user_class_code eq '701'}">
+							location.href='/dmsl/html/dmslSearch.do?menu_idx=94';
+						</c:when>
+						<c:otherwise>
+							alert('직원 전용 메뉴입니다.');
+						</c:otherwise>
+					</c:choose>
+				</c:when>
+				<c:otherwise>
+					alert('직원 전용 메뉴입니다.');
+				</c:otherwise>
+			</c:choose>
+		});
 });
 </script>
 <div id="wrap">
@@ -140,7 +159,7 @@ do {
 									<select id="search_type" name="search_type" class="search_type" style="border:0;">
 										<option value="L_TITLE">서명</option>
 										<option value="L_AUTHOR">저자</option>
-										<option value="L_PUBLISHER">발행자</option>
+										<!-- <option value="L_PUBLISHER">발행자</option> -->
 										<option value="L_KEYWORD">키워드</option>
 									</select>
 									<label for="search_text_1" class="blind">통합자료검색</label>
@@ -342,7 +361,7 @@ do {
 						<h3>배너모음</h3>
 						<div class="control">
 							<a class="prev" href="#prev"><img src="/resources/homepage/${homepage.context_path}/img/banner-prev.png" alt="이전" /><span class="blind">이전</span></a>
-							<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=93"><img src="/resources/homepage/${homepage.context_path}/img/banner-more.png" alt="더보기" /><span class="blind">더보기</span></a>
+							<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=81"><img src="/resources/homepage/${homepage.context_path}/img/banner-more.png" alt="더보기" /><span class="blind">더보기</span></a>
 							<a class="next" href="#next"><img src="/resources/homepage/${homepage.context_path}/img/banner-next.png" alt="다음" /><span class="blind">다음</span></a>
 						</div>
 					</div>

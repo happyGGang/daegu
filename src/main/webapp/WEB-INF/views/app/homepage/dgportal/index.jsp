@@ -1816,17 +1816,10 @@ do {
 			<div class='wide-1686-sections'>
 				<div class="cont cultureList">
 					<ul>
+						<c:set var="imgnum" value="1"></c:set>
 						<c:forEach items="${teachList}" var="i" varStatus="status" begin='0' end='7'>
 						<c:if test="${i.teach_status eq '0' or i.teach_status eq '1' or i.teach_status eq '6'}">
 						<%--c:set var="imgnum" value="${i.teach_status eq '0' ? '1' : i.teach_status eq '1' ? '1' : '4'}"></c:set--%>
-						<c:choose>
-							<c:when test="${(status.count % 4) eq '0'}">
-								<c:set var="imgnum" value="${(status.count % 4) + 4}"></c:set>
-							</c:when>
-							<c:otherwise>
-								<c:set var="imgnum" value="${(status.count % 4)}"></c:set>
-							</c:otherwise>
-						</c:choose>
 						<li>
 							<a href="/${i.context_path}/module/teach/detail.do?homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=${i.menu_idx}&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}" class="border bgimg00${imgnum}" target="_blank">
 								<span class="status">${i.teach_status eq '6' ? '접수대기' : '접수중'}</span>
@@ -1837,6 +1830,12 @@ do {
 								</span>
 							</a>
 						</li>
+							<c:if test="${imgnum eq '4'}">
+								<c:set var="imgnum" value="1"></c:set>
+							</c:if>
+							<c:if test="${imgnum ne '4'}">
+								<c:set var="imgnum" value="${imgnum + 1}"></c:set>
+							</c:if>
 						</c:if>
 						</c:forEach>
 					</ul>

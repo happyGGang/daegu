@@ -111,7 +111,7 @@ a:focus{color:#2b74c0}
 .finfo li {display:inline-block;float:left;width:48%;margin-right:2%;margin-bottom:3px;box-sizing:border-box;}
 .finfo li dt, .finfo li dd {display:inline-block;font-size:14px;}
 .finfo li dt {color:#454545;width:25%;letter-spacing:-1.5px;font-weight:bold;}
-.finfo li dd {width:50%;}
+.finfo li dd {width:50%;vertical-align:top;}
 .finfo li dd.tel {width:20%;}
 
 /* 도서관 둘러보기 */
@@ -190,3 +190,6 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 @media all and (max-width:330px){
 
 }
+
+/*도서관소개 하단 메뉴*/
+.Gnb .gnb-menu>li:nth-child(5)>.SubMenu{width:125%;left:-70px;}

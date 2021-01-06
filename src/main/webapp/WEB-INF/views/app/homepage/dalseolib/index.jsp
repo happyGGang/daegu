@@ -221,7 +221,7 @@ do {
 					<ul>
 						<li class="mbtn1"><a href="html.do?menu_idx=19">도서관이용</a></li>
 						<li class="mbtn2"><a href="intro/search/loan/history.do?menu_idx=53">대출자료조회</a></li>
-						<li class="mbtn3"><a href="module/teach/index.do?menu_idx=32">수강신청</a></li>
+						<li class="mbtn3"><a href="module/teach/index.do?menu_idx=32&searchCate1=17">수강신청</a></li>
 						<li class="mbtn4"><a href="html.do?menu_idx=15">희망도서신청</a></li>
 						<li class="mbtn5"><a href="#">책드림<span class="eng">(Dream)</span>서비스</a></li>
 						<li class="mbtn6"><a href="html.do?menu_idx=112">디지털자료실예약</a></li>

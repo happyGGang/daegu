@@ -378,9 +378,9 @@ do {
 					<div class="quickLink-box">
 						<ul>
 							<li><a href="html.do?menu_idx=119">수성인문학 @Suseong</a></li>
-							<li><a href="html.do?menu_idx=93">수성인문학제</a></li>
+							<li><a href="html.do?menu_idx=125">수성인문학제</a></li>
 							<li><a href="html.do?menu_idx=100">글로벌프로그램</a></li>
-							<li><a href="">책읽어주는 범어사서</a></li>
+							<li><a href="http://www.ssbookfest.kr/" target="_blank">2020 대구수성 한국지역도서전</a></li>
 							<li><a href="html.do?menu_idx=90">원문제공서비스</a></li>
 							<li><a href="html.do?menu_idx=25">대구전자도서관</a></li>
 							<li><a href="html.do?menu_idx=22">책나래,책바다 서비스</a></li>

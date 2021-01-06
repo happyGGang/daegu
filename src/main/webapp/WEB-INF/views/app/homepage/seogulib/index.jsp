@@ -2371,7 +2371,7 @@ do {
       <div class="banner-wrap type1">
         <div class="banner-t4">
           <h3>배너모음</h3>
-          <div class="control"> <a class="prev" href="#prev"><img src="/resources/homepage/seogulib/img/banner_prev_btn.png"><span class="blind">이전</span></a> <a class="stop active" href="#stop"><img src="/resources/homepage/seogulib/img/banner_pause_btn.png"><span class="blind">정지</span></a> <a class="play" href="#play"><img src="/resources/homepage/seogulib/img/banner_play_btn.png"><span class="blind">시작</span></a> <a class="next" href="#next"><img src="/resources/homepage/seogulib/img/banner_next_btn.png"><span class="blind">다음</span></a> <a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=93"><img src="/resources/homepage/seogulib/img/banner_menu_btn.png"><span class="blind">더보기</span></a> </div>
+          <div class="control"> <a class="prev" href="#prev"><img src="/resources/homepage/seogulib/img/banner_prev_btn.png"><span class="blind">이전</span></a> <a class="stop active" href="#stop"><img src="/resources/homepage/seogulib/img/banner_pause_btn.png"><span class="blind">정지</span></a> <a class="play" href="#play"><img src="/resources/homepage/seogulib/img/banner_play_btn.png"><span class="blind">시작</span></a> <a class="next" href="#next"><img src="/resources/homepage/seogulib/img/banner_next_btn.png"><span class="blind">다음</span></a> <a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=81"><img src="/resources/homepage/seogulib/img/banner_menu_btn.png"><span class="blind">더보기</span></a> </div>
         </div>
         <div class="banner-box4">
           <homepageTag:banner bannerList="${bannerList}"/>

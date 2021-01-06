@@ -2081,3 +2081,9 @@ table td.leftblank { padding-left: 18px; }
 	.doc-info ol{margin-top:5px;}
 	.doc-info ol li, .doc-info ol li a{font-size:12px !important;height:20px !important;line-height:20px !important;background-position:6px 7px !important;padding-left:10px;}
 }
+
+/*메인 팝업존 링크*/
+.bx-wrapper .bx-viewport ul li a{display:block;}
+
+/*하단 배너*/
+.bx-wrapper .bx-viewport ul li span a{height:50px;}
