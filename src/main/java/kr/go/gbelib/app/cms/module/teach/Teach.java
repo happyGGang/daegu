@@ -123,6 +123,7 @@ public class Teach extends PagingUtils {
 
 	private String member_id;
 	private String status;
+	private List<String> searchStatusArr;
 
 	private String member_key;
 
@@ -1426,6 +1427,23 @@ public class Teach extends PagingUtils {
 		if (homepage_ids != null) {
 			this.homepage_ids = new ArrayList<String>();
 			this.homepage_ids.addAll(homepage_ids);
+		}
+	}
+
+	public List<String> getSearchStatusArr() {
+		if (searchStatusArr != null) {
+			List<String> arrayList = new ArrayList<String>();
+			arrayList.addAll(this.searchStatusArr);
+			return arrayList;
+		} else {
+			return null;
+		}
+	}
+
+	public void setSearchStatusArr(List<String> searchStatusArr) {
+		if (searchStatusArr != null) {
+			this.searchStatusArr = new ArrayList<String>();
+			this.searchStatusArr.addAll(searchStatusArr);
 		}
 	}
 

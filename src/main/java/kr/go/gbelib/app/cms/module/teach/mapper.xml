@@ -700,6 +700,13 @@
 			TEACH_STATUS = #{status}
 			</if>
 		</if>
+		<if test="searchStatusArr != null and searchStatusArr != ''">
+		WHERE
+			TEACH_STATUS IN
+			<foreach collection="searchStatusArr" item="i" open="(" close=")" separator=",">
+				#{i}
+			</foreach>
+		</if>
 		${pagingBottom}
 	</select>
 
