@@ -124,26 +124,26 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				<c:when test="${homepagePath eq 'seogulib'}">
 				<form:select path="manageCode">
 					<form:option value="BL">서구어린이도서관</form:option>
-				</form:select>
+					<form:option value="BQ">비산도서관</form:option>
+					<form:option value="BP">서구영어도서관</form:option>
+					<form:option value="BM">비원도서관</form:option>
+					<form:option value="BN">원고개도서관</form:option>
+				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
 				<c:when test="${homepagePath eq 'bisan'}">
 				<form:select path="manageCode">
-					<form:option value="BQ">비산도서관</form:option>
-				</form:select> 
+				</form:select>
 				</c:when>
 				<c:when test="${homepagePath eq 'seoguenglish'}">
 				<form:select path="manageCode">
-					<form:option value="BP">서구영어도서관</form:option>
-				</form:select> 
+				</form:select>
 				</c:when>
 				<c:when test="${homepagePath eq 'biwon'}">
 				<form:select path="manageCode">
-					<form:option value="BM">비원도서관</form:option>
-				</form:select> 
+				</form:select>
 				</c:when>
 				<c:when test="${homepagePath eq 'wongogae'}">
 				<form:select path="manageCode">
-					<form:option value="BN">원고개도서관</form:option>
 				</form:select>
 				</c:when>
 				<c:when test="${homepagePath eq 'seogumini'}">
@@ -189,32 +189,12 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				<c:when test="${homepagePath eq 'dalseolib'}">
 				<form:select path="manageCode">
 					<form:option value="BW">도원도서관</form:option>
-				</form:select>
-				</c:when>
-				<c:when test="${homepagePath eq 'kids'}">
-				<form:select path="manageCode">
 					<form:option value="BV">달서어린이</form:option>
-				</form:select>
-				</c:when>
-				<c:when test="${homepagePath eq 'seongseo'}">
-				<form:select path="manageCode">
 					<form:option value="BU">성서도서관</form:option>
-				</form:select>
-				</c:when>
-				<c:when test="${homepagePath eq 'bolli'}">
-				<form:select path="manageCode">
 					<form:option value="BX">본리도서관</form:option>
-				</form:select>
-				</c:when>
-				<c:when test="${homepagePath eq 'family'}">
-				<form:select path="manageCode">
 					<form:option value="BY">달서가족문화도서관</form:option>
-				</form:select>
-				</c:when>
-				<c:when test="${homepagePath eq 'english'}">
-				<form:select path="manageCode">
 					<form:option value="BZ">달서영어도서관</form:option>
-				</form:select>
+				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
 				<c:when test="${homepagePath eq 'dssmalllib'}">
 				<form:select path="manageCode">
