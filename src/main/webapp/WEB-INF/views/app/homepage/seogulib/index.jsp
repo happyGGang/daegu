@@ -626,6 +626,10 @@ do {
                     <div>
                       <ul>
                         <c:forEach items="${noticeList}" var="i" varStatus="status" begin="1" end="7">
+                          <c:if test="${i.category1 eq '0000'}">
+                            <c:set var="libcode" value="common">
+                            </c:set>
+                          </c:if>
                           <c:if test="${i.category1 eq '0001'}">
                             <c:set var="libcode" value="child">
                             </c:set>
