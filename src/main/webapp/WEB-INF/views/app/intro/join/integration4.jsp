@@ -281,7 +281,7 @@ $(function() {
 					 	- <form:input path="cell_phone2" class="text" cssStyle="width:60px;" maxlength="4" numberOnly="true"/>
 					 	- <form:input path="cell_phone3" class="text" cssStyle="width:60px;" maxlength="4" numberOnly="true"/>
 						</c:if>
-					 	<form:checkbox path="sms_service_yn" value="Y" label="SMS 수신여부"/>
+					 	<form:checkbox path="sms_service_yn" value="Y" label="SMS 수신여부" checked="true"/>
 						</div>
 						<div class="ui-state-highlight">
 							* 도서관련 알림 및 행사 안내를 받으실 수 있습니다
