@@ -680,6 +680,11 @@ public class IndexController extends BaseController {
 			Teach t = new Teach();
 			t.setRowCount(16);
 			t.setTotalDataCount(16);
+			List<String> statusArr = new ArrayList<String>();
+			statusArr.add("0");//신청
+			statusArr.add("1");//대기자신청
+			statusArr.add("6");//신청대기
+			t.setSearchStatusArr(statusArr);
 			List<Teach> teachListForAllHomepage = teachService.getTeachListForAllHomepage(t);
 			for (Teach teach : teachListForAllHomepage) {
 				Homepage h = new Homepage(teach.getHomepage_id());
