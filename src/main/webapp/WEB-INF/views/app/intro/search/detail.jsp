@@ -489,50 +489,24 @@ AD20 종합자료실
 				</c:otherwise>
 			</c:choose>
 
-			<c:if test="${detail.MANAGE_CODE ne 'BR'}">
+
 			<c:choose>
 				<c:when test="${detail.SHELF_LOC_CODE eq 'AD39' || detail.SHELF_LOC_CODE eq 'AD40' || detail.SHELF_LOC_CODE eq 'BA08' || detail.SHELF_LOC_CODE eq 'BA01' || detail.SHELF_LOC_CODE eq 'BD10'}">
 
 				</c:when>
 				<c:otherwise>
-					<c:choose>
-						<c:when test="${detail.WORKING_STATUS eq 'BOL112N'}">
-							<c:choose>
-								<c:when test="${detail.RESERVATION_CNT > 0}">
-									<c:choose>
-										<c:when test="${detail.RESERVATION_CNT < detail.RESERVATION_NUMBER}">
-											<a href="#" id="resve-req" class="btn">예약신청</a>
-										</c:when>
-										<c:otherwise>
-											<a href="#" id="resve-req-not" class="btn btn5">예약불가</a>
-										</c:otherwise>
-									</c:choose>
-								</c:when>
-								<c:otherwise>
 
-								</c:otherwise>
-							</c:choose>
+					<c:choose>
+						<c:when test="${detail.RESERVE_CODE eq 'OK'}">
+							<a href="#" id="resve-req" class="btn">예약신청</a>
 						</c:when>
 						<c:otherwise>
-							<c:choose>
-								<c:when test="${detail.RESERVATION_CNT < detail.RESERVATION_NUMBER}">
-									<c:choose>
-										<c:when test="${detail.WORKING_STATUS == 'BOL411O'}">
-										</c:when>
-										<c:otherwise>
-											<a href="#" id="resve-req" class="btn">예약신청</a>
-										</c:otherwise>
-									</c:choose>
-								</c:when>
-								<c:otherwise>
-									<a href="#" id="resve-req-not" class="btn btn5">예약불가</a>
-								</c:otherwise>
-							</c:choose>
+							<a href="#" id="resve-req-not" class="btn btn5">예약불가</a>
 						</c:otherwise>
 					</c:choose>
+
 				</c:otherwise>
 			</c:choose>
-			</c:if>
 
 			<c:if test="${detail.WORKING_STATUS ne 'BOL112N' and param.booktype ne 'NONBOOK'}">
 			</c:if>

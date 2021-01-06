@@ -8,7 +8,6 @@ var pageMain = (function(){
 
 	init = function() {
 		bindEvent();
-		ebookSlider();
 	};
 
 	bindEvent = function(){
@@ -29,17 +28,6 @@ var pageMain = (function(){
 		});
 	};
 
-	ebookSlider = function(){
-		if($('.ebookContent ul li').length >0) {
-			$('.ebookContent ul').bxSlider({
-				auto: true,
-				pager:false,
-				autoControls:true,
-				autoControlsCombine:true
-			});
-		}
-	};
-	
 	return {
 		init: init
 	}

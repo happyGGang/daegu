@@ -220,16 +220,6 @@ $(function() {
 			<c:when test="${context_path eq 'seogulib'}">
 			$('div#libraryList input:checkbox').prop('checked',false);
 			$('div#libraryList input:checkbox.lib_BL').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_BQ').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_BP').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_BM').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_BN').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_GQ').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_FU').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_FZ').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_FH').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_FT').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_HC').prop('checked',true);
 			</c:when>
 			<c:when test="${context_path eq 'dalseongsmall'}">
 			$('div#libraryList input:checkbox').prop('checked',false);

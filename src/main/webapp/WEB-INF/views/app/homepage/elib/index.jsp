@@ -165,12 +165,23 @@ $(function() {
 				for (var i = 0; i < data.length; i++) {
 					html += '<li><a href="/elib/module/elib/book/view.do?menu_idx=14&menu=NEW&type=EBK&sortField=BOOK_PUBDT&sortType=DESC&book_idx='+data[i].book_idx+'">';
 					html += '<span class="movieImg"><img src="'+data[i].book_image+'" alt="'+data[i].book_name+'"></span>';
-					html += '<span class="movieEx">';
-					html += '<strong class="title">'+data[i].book_name+'</strong>';
-					html += '</span></a></li>';
+					html += '<span class="movieEx">'+data[i].book_name+'</span>';
+					html += '</a></li>';
 				}
 			}
+
 			$('ul#newBookList').html(html);
+
+			$('.ebookContent ul').bxSlider({
+				auto: true,
+				autoHover: true,
+				speed: 500,
+				pager: false,
+				pagerType: 'short',
+				autoControls: false,
+				moveSlides: 1,
+				maxSlides: 1
+			});
 		}
 	});
 });
@@ -390,9 +401,7 @@ body, html {background:#30706e url('/resources/homepage/${homepage.context_path}
 							</div>
 							<div>
 							<ul id="bestBookList">
-								<li>
-									불러오는 중...
-								</li>
+								<li style="color:#fff;">불러오는 중...</li>
 							</ul>
 							</div>
 						</div>
@@ -400,9 +409,7 @@ body, html {background:#30706e url('/resources/homepage/${homepage.context_path}
 							<h4 class="title">신간 E-BOOK</h4>
 							<div class="ebookContent">
 								<ul id="newBookList">
-									<li>
-										불러오는 중...
-									</li>
+									<li style="color:#fff;">불러오는 중...</li>
 								</ul>
 							</div>
 						</div>
