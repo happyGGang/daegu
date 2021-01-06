@@ -998,6 +998,9 @@ do {
               </div>
               <div class="top3wrap" id="galbox1_all" style="display:block;">
                 <div class="gallery_box">
+                  <c:if test="${fn:length(galleryList) < 1}">
+                    <div class="gallery">등록된 데이터가 없습니다.</div>
+                  </c:if>
                   <c:forEach items="${galleryList}" var="i" varStatus="status" begin="0" end="2">
                     <div class="gallery"> <a href="/${homepage.context_path}/board/view.do?menu_idx=50&manage_idx=632&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
                       <div class="img_box">
@@ -1021,6 +1024,9 @@ do {
               </div>
               <div class="top3wrap" id="galbox1_seoguchild">
                 <div class="gallery_box">
+                  <c:if test="${fn:length(galleryListh77) < 1}">
+                    <div class="gallery">등록된 데이터가 없습니다.</div>
+                  </c:if>
                   <c:forEach items="${galleryListh77}" var="i" varStatus="status" begin="0" end="2">
                     <div class="gallery"> <a href="/${homepage.context_path}/board/view.do?menu_idx=50&manage_idx=632&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
                       <div class="img_box">
@@ -1044,6 +1050,9 @@ do {
               </div>
               <div class="top3wrap" id="galbox1_bisan">
                 <div class="gallery_box">
+                  <c:if test="${fn:length(galleryListh61) < 1}">
+                    <div class="gallery">등록된 데이터가 없습니다.</div>
+                  </c:if>
                   <c:forEach items="${galleryListh61}" var="i" varStatus="status" begin="0" end="2">
                     <div class="gallery"> <a href="/${homepage.context_path}/board/view.do?menu_idx=50&manage_idx=632&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
                       <div class="img_box">
@@ -1067,6 +1076,9 @@ do {
               </div>
               <div class="top3wrap" id="galbox1_english">
                 <div class="gallery_box">
+                  <c:if test="${fn:length(galleryListh62) < 1}">
+                    <div class="gallery">등록된 데이터가 없습니다.</div>
+                  </c:if>
                   <c:forEach items="${galleryListh62}" var="i" varStatus="status" begin="0" end="2">
                     <div class="gallery"> <a href="/${homepage.context_path}/board/view.do?menu_idx=50&manage_idx=632&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
                       <div class="img_box">
@@ -1090,7 +1102,10 @@ do {
               </div>
               <div class="top3wrap" id="galbox1_biwon">
                 <div class="gallery_box">
-                  <c:forEach items="${galleryListg63}" var="i" varStatus="status" begin="0" end="2">
+                  <c:if test="${fn:length(galleryListh63) < 1}">
+                    <div class="gallery">등록된 데이터가 없습니다.</div>
+                  </c:if>
+                  <c:forEach items="${galleryListh63}" var="i" varStatus="status" begin="0" end="2">
                     <div class="gallery"> <a href="/${homepage.context_path}/board/view.do?menu_idx=50&manage_idx=632&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
                       <div class="img_box">
                         <c:choose>
@@ -1113,6 +1128,9 @@ do {
               </div>
               <div class="top3wrap" id="galbox1_wongogye">
                 <div class="gallery_box">
+                  <c:if test="${fn:length(galleryListh64) < 1}">
+                    <div class="gallery">등록된 데이터가 없습니다.</div>
+                  </c:if>
                   <c:forEach items="${galleryListh64}" var="i" varStatus="status" begin="0" end="2">
                     <div class="gallery"> <a href="/${homepage.context_path}/board/view.do?menu_idx=50&manage_idx=632&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
                       <div class="img_box">
@@ -1167,6 +1185,11 @@ do {
                 <div class="board_notice03 pt50">
                   <div>
                     <ul>
+                      <c:if test="${fn:length(teachList) < 1}">
+                        <li>
+                          등록된 행사가 없습니다.
+                        </li>
+                      </c:if>
                       <c:forEach items="${teachList}" var="i" varStatus="status" begin="0" end="7">
                         <c:if test="${i.homepage_id eq 'h77'}">
                           <c:set var="libcode" value="child">
@@ -1290,6 +1313,11 @@ do {
                 <div class="board_notice03 pt50">
                   <div>
                     <ul>
+                      <c:if test="${fn:length(teachListh77) < 1}">
+                        <li>
+                          등록된 행사가 없습니다.
+                        </li>
+                      </c:if>
                       <c:forEach items="${teachListh77}" var="i" varStatus="status" begin="0" end="7">
                         <c:if test="${i.homepage_id eq 'h77'}">
                           <c:set var="libcode" value="child">
@@ -1412,6 +1440,11 @@ do {
                 <div class="board_notice03 pt50">
                   <div>
                     <ul>
+                      <c:if test="${fn:length(teachListh61) < 1}">
+                        <li>
+                          등록된 행사가 없습니다.
+                        </li>
+                      </c:if>
                       <c:forEach items="${teachListh61}" var="i" varStatus="status" begin="0" end="7">
                         <c:if test="${i.homepage_id eq 'h77'}">
                           <c:set var="libcode" value="child">
@@ -1534,6 +1567,11 @@ do {
                 <div class="board_notice03 pt50">
                   <div>
                     <ul>
+                      <c:if test="${fn:length(teachListh62) < 1}">
+                        <li>
+                          등록된 행사가 없습니다.
+                        </li>
+                      </c:if>
                       <c:forEach items="${teachListh62}" var="i" varStatus="status" begin="0" end="7">
                         <c:if test="${i.homepage_id eq 'h77'}">
                           <c:set var="libcode" value="child">
@@ -1656,6 +1694,11 @@ do {
                 <div class="board_notice03 pt50">
                   <div>
                     <ul>
+                      <c:if test="${fn:length(teachListh63) < 1}">
+                        <li>
+                          등록된 행사가 없습니다.
+                        </li>
+                      </c:if>
                       <c:forEach items="${teachListh63}" var="i" varStatus="status" begin="0" end="7">
                         <c:if test="${i.homepage_id eq 'h77'}">
                           <c:set var="libcode" value="child">
@@ -1778,6 +1821,11 @@ do {
                 <div class="board_notice03 pt50">
                   <div>
                     <ul>
+                      <c:if test="${fn:length(teachListh64) < 1}">
+                        <li>
+                          등록된 행사가 없습니다.
+                        </li>
+                      </c:if>
                       <c:forEach items="${teachListh64}" var="i" varStatus="status" begin="0" end="7">
                         <c:if test="${i.homepage_id eq 'h77'}">
                           <c:set var="libcode" value="child">
@@ -1932,6 +1980,9 @@ do {
               </div>
               <div class="top3wrap" id="recombox3_all" style="display:block;">
                 <div class="book_box">
+                  <c:if test="${fn:length(bookList) < 1}">
+                    <div class="book">등록된 데이터가 없습니다.</div>
+                  </c:if>
                   <c:forEach items="${bookList}" var="i" varStatus="status" begin="0" end="4">
                     <div class="book"> <a href="/${homepage.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
                       <div class="img_box">
@@ -1951,10 +2002,14 @@ do {
                       </div>
                       </a> </div>
                   </c:forEach>
+
                 </div>
               </div>
               <div class="top3wrap" id="recombox3_seoguchild">
                 <div class="book_box">
+                  <c:if test="${fn:length(bookListh77) < 1}">
+                    <div class="book">등록된 데이터가 없습니다.</div>
+                  </c:if>
                   <c:forEach items="${bookListh77}" var="i" varStatus="status" begin="0" end="4">
                     <div class="book"> <a href="/${homepage.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
                       <div class="img_box">
@@ -1978,6 +2033,9 @@ do {
               </div>
               <div class="top3wrap" id="recombox3_bisan">
                 <div class="book_box">
+                  <c:if test="${fn:length(bookListh61) < 1}">
+                    <div class="book">등록된 데이터가 없습니다.</div>
+                  </c:if>
                   <c:forEach items="${bookListh61}" var="i" varStatus="status" begin="0" end="4">
                     <div class="book"> <a href="/${homepage.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
                       <div class="img_box">
@@ -2001,6 +2059,9 @@ do {
               </div>
               <div class="top3wrap" id="recombox3_english">
                 <div class="book_box">
+                  <c:if test="${fn:length(bookListh62) < 1}">
+                    <div class="book">등록된 데이터가 없습니다.</div>
+                  </c:if>
                   <c:forEach items="${bookListh62}" var="i" varStatus="status" begin="0" end="4">
                     <div class="book"> <a href="/${homepage.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
                       <div class="img_box">
@@ -2024,6 +2085,9 @@ do {
               </div>
               <div class="top3wrap" id="recombox3_biwon">
                 <div class="book_box">
+                  <c:if test="${fn:length(bookListh63) < 1}">
+                    <div class="book">등록된 데이터가 없습니다.</div>
+                  </c:if>
                   <c:forEach items="${bookListh63}" var="i" varStatus="status" begin="0" end="4">
                     <div class="book"> <a href="/${homepage.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
                       <div class="img_box">
@@ -2047,6 +2111,9 @@ do {
               </div>
               <div class="top3wrap" id="recombox3_wongogye">
                 <div class="book_box">
+                  <c:if test="${fn:length(bookListh64) < 1}">
+                    <div class="book">등록된 데이터가 없습니다.</div>
+                  </c:if>
                   <c:forEach items="${bookListh64}" var="i" varStatus="status" begin="0" end="4">
                     <div class="book"> <a href="/${homepage.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
                       <div class="img_box">

@@ -1838,6 +1838,11 @@ do {
 							</c:if>
 						</c:if>
 						</c:forEach>
+						<c:if test="${fn:length(teachList) < 1}">
+							<li>
+								등록된 행사가 없습니다.
+							</li>
+						</c:if>
 					</ul>
 				</div>
 			</div>

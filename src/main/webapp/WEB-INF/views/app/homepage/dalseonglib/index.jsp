@@ -196,6 +196,9 @@ do {
 									<div class="book">
 										<div id="bo1" class="cont">
 											<ul class="book_photo">
+												<c:if test="${fn:length(bookList1) < 1}">
+													<li>등록된 데이터가 없습니다.</li>
+												</c:if>
 												<c:forEach items="${bookList1}" var="i" varStatus="status">
 													<li>
 														<a href="/${homepage.context_path}/board/view.do?menu_idx=13&manage_idx=683&board_idx=${i.board_idx}">
@@ -390,6 +393,11 @@ do {
 						<div class="box cont" data-tab="tab1">
 
 							<ul>
+								<c:if test="${fn:length(teachList1) < 1}">
+									<li>
+										등록된 행사가 없습니다.
+									</li>
+								</c:if>
 								<c:forEach items="${teachList1}" var="i" varStatus="status" begin="0" end="2">
 									<li>
 										<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=32&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}">
@@ -429,6 +437,11 @@ do {
 
 						<div class="box cont" data-tab="tab2" style="display:none;">
 							<ul>
+								<c:if test="${fn:length(teachList2) < 1}">
+									<li>
+										등록된 행사가 없습니다.
+									</li>
+								</c:if>
 								<c:forEach items="${teachList2}" var="i" varStatus="status" begin="0" end="2">
 									<li>
 										<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=32&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}">

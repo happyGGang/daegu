@@ -245,6 +245,11 @@ do {
 									</a>
 								</li>
 							</c:forEach>
+							<c:if test="${fn:length(bookList1) < 1}">
+								<li>
+									등록된 데이터가 없습니다.
+								</li>
+							</c:if>
 						</ul>
 					</div>
 

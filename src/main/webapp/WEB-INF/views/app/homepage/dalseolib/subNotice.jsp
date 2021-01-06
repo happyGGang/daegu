@@ -25,3 +25,8 @@
         </a>
     </li>
 </c:forEach>
+<c:if test="${fn:length(subNoticeList) < 1}">
+    <li>
+        등록된 공지사항이 없습니다.
+    </li>
+</c:if>

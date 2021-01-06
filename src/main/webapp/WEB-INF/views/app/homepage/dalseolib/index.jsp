@@ -444,6 +444,9 @@ do {
 						</div>
 						<div class="box con box_all02" data-tab="tab1">
 							<div class="bx_all">
+								<c:if test="${fn:length(bookList1) < 1}">
+									<li>등록된 데이터가 없습니다.</li>
+								</c:if>
 								<c:forEach items="${bookList1}" var="i" varStatus="status">
 									<div class="bookbx bx0${status.count}">
 										<div class="data_img">

@@ -22,5 +22,8 @@
 		</dl>
 	</div>
 </c:forEach>
-
+<c:if test="${fn:length(newBookList) < 1}">
+	<div class="bookbx bx00">등록된 데이터가 없습니다.
+	</div>
+</c:if>
 

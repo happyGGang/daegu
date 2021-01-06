@@ -28,5 +28,10 @@
         </li>
     </c:forEach>
 </c:forEach>
+<c:if test="${fn:length(calendarResult) < 1}">
+    <li>
+        등록된 행사가 없습니다.
+    </li>
+</c:if>
 
 

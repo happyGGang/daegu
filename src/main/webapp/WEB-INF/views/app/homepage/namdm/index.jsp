@@ -251,6 +251,9 @@ do {
 
 					<div class="box con" data-tab="tab1">
 						<ul class="book_photo">
+							<c:if test="${fn:length(bookList1) < 1}">
+								<li>등록된 데이터가 없습니다.</li>
+							</c:if>
 							<c:forEach items="${bookList1}" var="i" varStatus="status" begin="0" end="3">
 								<li>
 									<a href="/${homepage.context_path}/board/view.do?menu_idx=85&manage_idx=602&board_idx=${i.board_idx}">
@@ -362,6 +365,11 @@ do {
 					</div>
 					<div class="con">
 						<ul>
+							<c:if test="${fn:length(teachList) < 1}">
+								<li>
+									등록된 행사가 없습니다.
+								</li>
+							</c:if>
 							<c:forEach items="${teachList}" var="i" varStatus="status" begin="0" end="3">
 								<c:set var="teachMenuIdx" value="94"></c:set>
 								<c:if test="${i.large_category_idx eq 16}">

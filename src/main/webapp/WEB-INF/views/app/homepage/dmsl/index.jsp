@@ -253,6 +253,9 @@ do {
 
 						<div class="box con" data-tab="tab1">
 							<ul class="book_photo">
+								<c:if test="${fn:length(bookList1) < 1}">
+									<li>등록된 데이터가 없습니다.</li>
+								</c:if>
 								<c:forEach items="${bookList1}" var="i" varStatus="status">
 									<li>
 										<a href="/${homepage.context_path}/board/view.do?menu_idx=83&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
@@ -286,6 +289,9 @@ do {
 
 						<div class="box con" data-tab="tab2" style="display:none;">
 							<ul class="book_photo">
+								<c:if test="${fn:length(bookList2) < 1}">
+									<li>등록된 데이터가 없습니다.</li>
+								</c:if>
 								<c:forEach items="${bookList2}" var="i" varStatus="status">
 									<li>
 										<a href="/${homepage.context_path}/board/view.do?menu_idx=84&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
@@ -319,6 +325,9 @@ do {
 
 						<div class="box con" data-tab="tab3" style="display:none;">
 							<ul class="book_photo">
+								<c:if test="${fn:length(bookList3) < 1}">
+									<li>등록된 데이터가 없습니다.</li>
+								</c:if>
 								<c:forEach items="${bookList3}" var="i" varStatus="status">
 									<li>
 										<a href="/${homepage.context_path}/board/view.do?menu_idx=85&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">

@@ -221,6 +221,11 @@ do {
 					</div>
 					<div class="con">
 						<ul>
+							<c:if test="${fn:length(teachList) < 1}">
+								<li>
+									등록된 행사가 없습니다.
+								</li>
+							</c:if>
 							<c:forEach items="${teachList}" var="i" varStatus="status" begin="0" end="3">
 								<c:choose>
 									<c:when test="${status.index == 0}">
@@ -325,6 +330,9 @@ do {
 
 					<div class="box con" data-tab="tab1">
 						<ul class="book_photo">
+							<c:if test="${fn:length(bookList2) < 1}">
+								<li>등록된 데이터가 없습니다.</li>
+							</c:if>
 							<c:forEach items="${bookList2}" var="i" varStatus="status">
 								<li>
 									<a href="/${homepage.context_path}/board/view.do?menu_idx=90&manage_idx=611&board_idx=${i.board_idx}">
@@ -357,6 +365,9 @@ do {
 
 					<div class="box con" data-tab="tab2" style="display:none;">
 						<ul class="book_photo">
+							<c:if test="${fn:length(bookList1) < 1}">
+								<li>등록된 데이터가 없습니다.</li>
+							</c:if>
 							<c:forEach items="${bookList1}" var="i" varStatus="status">
 								<li>
 									<a href="/${homepage.context_path}/board/view.do?menu_idx=91&manage_idx=612&board_idx=${i.board_idx}">
