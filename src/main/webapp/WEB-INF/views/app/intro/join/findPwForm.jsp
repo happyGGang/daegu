@@ -36,6 +36,12 @@ $(function() {
 		certWindow.focus();
 	});
 
+	$('input#member_id_tmp').on('keydown keyup', function(e) {
+		if (e.keyCode == 13) {
+			return false;
+		}
+	});
+
 });
 </script>
 
@@ -51,7 +57,7 @@ $(function() {
 		<input type="hidden" name="member_id">
 		<input type="hidden" name="_csrf" value="${_csrf.token}">
 	</form>
-	<form:form modelAttribute="memberInfo" action="changePwForm.do" method="post">
+	<form:form modelAttribute="memberInfo" action="changePwForm.do" method="post" >
 		<form:hidden path="certType"/>
 
 		<div class="findpw-login-body">
