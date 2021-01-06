@@ -316,12 +316,13 @@ do {
 							<h2>새소식 안내</h2>
 							<select id="notice_cate" title="new_notice">
 								<option value="" selected>전체</option>
-								<option value="001">도원</option>
-								<option value="002">성서</option>
-								<option value="003">본리</option>
-								<option value="004">달서가족문화</option>
-								<option value="005">달서어린이</option>
-								<option value="006">달서영어</option>
+								<option value="0000">통합</option>
+								<option value="0001">도원</option>
+								<option value="0002">성서</option>
+								<option value="0003">본리</option>
+								<option value="0004">달서가족문화</option>
+								<option value="0005">달서어린이</option>
+								<option value="0006">달서영어</option>
 							</select>
 						</div>
 						<p class="notice_more"><a href="/${homepage.context_path}/board/index.do?manage_idx=740&menu_idx=35"><img src="/resources/homepage/${homepage.context_path}/img/notice_more.png" alt="새소식 안내 자세히보기"></a></p>

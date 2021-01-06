@@ -41,11 +41,29 @@ table.bbs tr.notice{background:#f5f6f7}
 }
 </style>
 </c:if>
-<c:if test="${boardManage.manage_idx eq '614' or boardManage.manage_idx eq '628'}">
+<c:if test="${boardManage.manage_idx eq '614' or boardManage.manage_idx eq '628' || boardManage.manage_idx eq '652'}">
 <style>
+.category span.ca.bg-0000 {background-color:#000000;color:#fff;}
 .category span.ca.bg-0001 {background-color:#dda616;color:#fff;}
 .category span.ca.bg-0002 {background-color:#8194b4;color:#fff;}
 .category span.ca.bg-0003 {background-color:#f67205;color:#fff;}
+.category span.ca.bg-0004 {background-color:#dda616;color:#fff;}
+.category span.ca.bg-0005 {background-color:#8194b4;color:#fff;}
+.category span.ca.bg-0006 {background-color:#f67205;color:#fff;}
+.category span.ca.bg-0007 {background-color:#dda616;color:#fff;}
+.category span.ca.bg-0008 {background-color:#8194b4;color:#fff;}
+.category span.ca.bg-0009 {background-color:#f67205;color:#fff;}
+</style>
+</c:if>
+<c:if test="${boardManage.manage_idx eq '740'}">
+<style>
+.category span.ca.bg-0000 {background-color:#777;color:#fff;}
+.category span.ca.bg-0001 {background-color:#2f55d4;color:#fff;}
+.category span.ca.bg-0002 {background-color:#089916;color:#fff;}
+.category span.ca.bg-0003 {background-color:#a536d9;color:#fff;}
+.category span.ca.bg-0004 {background-color:#ff2222;color:#fff;}
+.category span.ca.bg-0005 {background-color:#edce00;color:#fff;}
+.category span.ca.bg-0006 {background-color:#ff70ba;color:#fff;}
 </style>
 </c:if>
 <jsp:include page="/WEB-INF/views/app/board/common/index/script.jsp" flush="false" />
@@ -62,7 +80,7 @@ table.bbs tr.notice{background:#f5f6f7}
 				<col width="5%">
 				</c:if>
 				<col width="7%">
-				<c:if test="${boardManage.manage_idx eq '282' || boardManage.manage_idx eq '614' || boardManage.manage_idx eq '628'}">
+				<c:if test="${boardManage.manage_idx eq '282' || boardManage.manage_idx eq '614' || boardManage.manage_idx eq '628' || boardManage.manage_idx eq '652' || boardManage.manage_idx eq '740'}">
 				<col width="*">
 				</c:if>
 				<col>
@@ -128,14 +146,29 @@ table.bbs tr.notice{background:#f5f6f7}
 					<td></td>
 					</c:if>
 					<td class="num notice"><span>공지</span></td>
-					<c:if test="${boardManage.manage_idx eq '282' || boardManage.manage_idx eq '614'}">
+					<c:if test="${boardManage.manage_idx eq '282'}">
 					<td class="category important td2">
 						<span class="ca bg-${i.imsi_v_19}">통합</span>
 					</td>
 					</c:if>
+					<c:if test="${boardManage.manage_idx eq '614'}">
+						<td class="category important td2">
+							<span class="ca bg-${i.category1}">${not empty i.category1_name ? i.category1_name : '통합'}</span>
+						</td>
+					</c:if>
 					<c:if test="${boardManage.manage_idx eq '628'}">
 						<td class="category important td2">
 							<span class="ca bg-${i.category1}">${not empty i.category1_name ? i.category1_name : '공통'}</span>
+						</td>
+					</c:if>
+					<c:if test="${boardManage.manage_idx eq '652'}">
+						<td class="category important td2">
+							<span class="ca bg-${i.category1}">${not empty i.category1_name ? i.category1_name : '통합'}</span>
+						</td>
+					</c:if>
+					<c:if test="${boardManage.manage_idx eq '740'}">
+						<td class="category important td2">
+							<span class="ca bg-${i.category1}">${not empty i.category1_name ? i.category1_name : '통합'}</span>
 						</td>
 					</c:if>
 
@@ -189,6 +222,16 @@ table.bbs tr.notice{background:#f5f6f7}
 					<c:if test="${boardManage.manage_idx eq '628'}">
 					<td class="category important td2">
 						<span class="ca bg-${i.category1}">${not empty i.category1_name ? i.category1_name : '공통'}</span>
+					</td>
+					</c:if>
+					<c:if test="${boardManage.manage_idx eq '652'}">
+					<td class="category important td2">
+						<span class="ca bg-${i.category1}">${not empty i.category1_name ? i.category1_name : '통합'}</span>
+					</td>
+					</c:if>
+					<c:if test="${boardManage.manage_idx eq '740'}">
+					<td class="category important td2">
+						<span class="ca bg-${i.category1}">${not empty i.category1_name ? i.category1_name : '통합'}</span>
 					</td>
 					</c:if>
 					<td class="important left title" style="padding-left:${(i.group_depth > 0 ? (i.group_depth-1)*15 : 0)+10}px;">

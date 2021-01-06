@@ -10,12 +10,13 @@
 <%--h70 달서영어--%>
 <c:set var="libcode" value="lib00"></c:set>
 <c:forEach items="${subNoticeList}" var="i" varStatus="status" begin="0" end="5">
-    <c:if test="${i.category1 eq '001'}"><c:set var="libcode" value="lib01"></c:set></c:if>
-    <c:if test="${i.category1 eq '002'}"><c:set var="libcode" value="lib02"></c:set></c:if>
-    <c:if test="${i.category1 eq '003'}"><c:set var="libcode" value="lib03"></c:set></c:if>
-    <c:if test="${i.category1 eq '004'}"><c:set var="libcode" value="lib04"></c:set></c:if>
-    <c:if test="${i.category1 eq '005'}"><c:set var="libcode" value="lib05"></c:set></c:if>
-    <c:if test="${i.category1 eq '006'}"><c:set var="libcode" value="lib06"></c:set></c:if>
+    <c:if test="${i.category1 eq '0000'}"><c:set var="libcode" value="lib00"></c:set></c:if>
+    <c:if test="${i.category1 eq '0001'}"><c:set var="libcode" value="lib01"></c:set></c:if>
+    <c:if test="${i.category1 eq '0002'}"><c:set var="libcode" value="lib02"></c:set></c:if>
+    <c:if test="${i.category1 eq '0003'}"><c:set var="libcode" value="lib03"></c:set></c:if>
+    <c:if test="${i.category1 eq '0004'}"><c:set var="libcode" value="lib04"></c:set></c:if>
+    <c:if test="${i.category1 eq '0005'}"><c:set var="libcode" value="lib05"></c:set></c:if>
+    <c:if test="${i.category1 eq '0006'}"><c:set var="libcode" value="lib06"></c:set></c:if>
     <li class="${libcode}">
         <a href="/${homepage.context_path}/board/view.do?manage_idx=740&menu_idx=35&board_idx=${i.board_idx}&category1=${i.category1}">
             <span class="lib_name">${i.category1_name}</span>
