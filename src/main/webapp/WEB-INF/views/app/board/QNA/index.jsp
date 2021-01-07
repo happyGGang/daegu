@@ -18,7 +18,7 @@ ${boardManage.top_html}
 </style>
 <c:if test="${boardManage.manage_idx eq '742'}">
 	<style>
-		.category span.ca.bg-0000 {background-color:#777;color:#fff;}
+		.category span.ca.bg-0000 {background-color:#7a6e61;color:#fff;}
 		.category span.ca.bg-0001 {background-color:#2f55d4;color:#fff;}
 		.category span.ca.bg-0002 {background-color:#089916;color:#fff;}
 		.category span.ca.bg-0003 {background-color:#a536d9;color:#fff;}
