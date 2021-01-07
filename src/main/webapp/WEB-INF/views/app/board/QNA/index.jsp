@@ -16,6 +16,17 @@ ${boardManage.top_html}
 		.state_wid{width:25%;}
 	}
 </style>
+<c:if test="${boardManage.manage_idx eq '742'}">
+	<style>
+		.category span.ca.bg-0000 {background-color:#777;color:#fff;}
+		.category span.ca.bg-0001 {background-color:#2f55d4;color:#fff;}
+		.category span.ca.bg-0002 {background-color:#089916;color:#fff;}
+		.category span.ca.bg-0003 {background-color:#a536d9;color:#fff;}
+		.category span.ca.bg-0004 {background-color:#ff2222;color:#fff;}
+		.category span.ca.bg-0005 {background-color:#edce00;color:#fff;}
+		.category span.ca.bg-0006 {background-color:#ff70ba;color:#fff;}
+	</style>
+</c:if>
 <div class="wrapper-bbs">
 	<jsp:include page="/WEB-INF/views/app/board/common/index/infodesk.jsp" flush="false" />
 	<div class="table-wrap">
@@ -27,6 +38,9 @@ ${boardManage.top_html}
 				<col width="5%">
 				</c:if>
 				<col/>
+				<c:if test="${boardManage.manage_idx eq '742'}">
+					<col class="important mmm2"/>
+				</c:if>
 				<col class="important"/>
 				<col class="important"/>
 				<col class="important mmm2"/>
@@ -41,6 +55,9 @@ ${boardManage.top_html}
 					<th><input type="checkbox" id="checkAll"> </th>
 					</c:if>
 					<th style="width:7%">번호</th>
+				<c:if test="${boardManage.manage_idx eq '742'}">
+					<th class="category">도서관</th>
+				</c:if>
 					<th class="important" >제목</th>
 					<th class="important state_wid">처리상태</th>
 					<th class="important mmm2" style="width:11%">작성자</th>
@@ -55,6 +72,9 @@ ${boardManage.top_html}
 <%-- 					<c:if test="${board.delete_yn eq 'Y'}"> --%>
 					<c:if test="${member.admin or authMBA or authMBS or portalAuth eq '2'}">
 					<td></td>
+					</c:if>
+					<c:if test="${boardManage.manage_idx eq '742'}">
+						<td></td>
 					</c:if>
 					<td class="num notice"><span>공지</span></td>
 					<td class="left important" style="padding-left:${(i.group_depth > 0 ? (i.group_depth-1)*15 : 0)+10}px;">
@@ -88,6 +108,11 @@ ${boardManage.top_html}
 					<td><form:checkbox path="boardIdxArray" value="${i.board_idx}"/></td>
 					</c:if>
 					<td class="num">${paging.listRowNum - status.index}</td>
+					<c:if test="${boardManage.manage_idx eq '742'}">
+						<td class="category important td2">
+							<span class="ca bg-${i.category1}">${not empty i.category1_name ? i.category1_name : '통합'}</span>
+						</td>
+					</c:if>
 					<td class="left important" style="padding-left:${(i.group_depth > 0 ? (i.group_depth-1)*15 : 0)+10}px;">
 						<c:set var="boardIdx" value="${i.parent_idx > 0 ? i.parent_idx : i.board_idx}"></c:set>
 						<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}" keyValue="${i.board_idx}">
