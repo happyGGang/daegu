@@ -96,7 +96,7 @@ table.bbs tr.notice{background:#f5f6f7}
 					<th><input type="checkbox" id="checkAll"> </th>
 					</c:if>
 					<th>번호</th>
-					<c:if test="${boardManage.manage_idx eq '282' || boardManage.manage_idx eq '614' or boardManage.manage_idx eq '628'}">
+					<c:if test="${boardManage.manage_idx eq '282' || boardManage.manage_idx eq '614' or boardManage.manage_idx eq '628' || boardManage.manage_idx eq '652' || boardManage.manage_idx eq '740'}">
 					<th class="category">도서관</th>
 					</c:if>
 					<th class="">제목</th>
