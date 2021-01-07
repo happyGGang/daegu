@@ -489,9 +489,11 @@
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_AA" value="AA" label="대구2ㆍ28기념학생도서관" />
 							</li>
+							<c:if test="${empty loginPortal or !loginPortal.login}">
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_AL" value="AL" label="대구2ㆍ28민주운동기념회관" />
 							</li>
+							</c:if>
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_AG" value="AG" label="대구광역시립 남부도서관" />
 							</li>
@@ -520,7 +522,7 @@
 					</div>
 					<div class="end"></div>
 
-					<c:if test="${empty loginPortal and !loginPortal.login}">
+					<c:if test="${empty loginPortal or !loginPortal.login}">
 					<div class="title">
 						<h4 class="contTit_line_s mg20t">대구광역시 구·군립도서관</h4>
 						<a href="#checkAllSilip" class="btn boxviewbtn" id="closeBtn2">닫기</a>
