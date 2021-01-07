@@ -245,6 +245,83 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				</div>
 				</c:if>
 
+				<c:if test="${homepage.context_path eq 'bukgs'}">
+					구수산도서관<input type="hidden" id="" name="manage_code" value="BA" />
+				</c:if>
+				<c:if test="${homepage.context_path eq 'bukdh'}">
+					대현도서관<input type="hidden" id="" name="manage_code" value="BB" />
+				</c:if>
+				<c:if test="${homepage.context_path eq 'buktj'}">
+					태전도서관<input type="hidden" id="" name="manage_code" value="BC" />
+				</c:if>
+
+				<c:if test="${homepage.context_path eq 'beomeo'}">
+					범어도서관<input type="hidden" id="" name="manage_code" value="BD" />
+				</c:if>
+				<c:if test="${homepage.context_path eq 'yonghak'}">
+					용학도서관<input type="hidden" id="" name="manage_code" value="BE" />
+				</c:if>
+				<c:if test="${homepage.context_path eq 'gosan'}">
+					고산도서관<input type="hidden" id="" name="manage_code" value="BF" />
+				</c:if>
+
+				<c:if test="${homepage.context_path eq 'junggu'}">
+					<select name="manage_code">
+						<option value="FF">남산4동작은도서관</option>
+						<option value="FQ">동인 느티나무 도서관</option>
+						<option value="FS">대구중구영어도서관</option>
+						<option value="FY">중구청교양정보실</option>
+						<option value="GG">대신동작은도서관</option>
+						<option value="HA">삼덕마루 작은도서관</option>
+						<option value="HF">대봉2동작은도서관</option>
+					</select>
+				</c:if>
+
+				<c:if test="${homepage.context_path eq 'seogulib'}">
+					<select name="manage_code">
+						<option value="BL">서구어린이도서관</option>
+						<option value="BQ">비산도서관</option>
+						<option value="BP">서구영어도서관</option>
+						<option value="BM">비원도서관</option>
+						<option value="BN">원고개도서관</option>
+					</select>
+				</c:if>
+
+				<c:if test="${homepage.context_path eq 'dalseonglib'}">
+					<select name="manage_code">
+						<option value="BR">달성군립도서관</option>
+					</select>
+				</c:if>
+
+				<c:if test="${homepage.context_path eq 'namdm'}">
+					대명어울림도서관<input type="hidden" id="" name="manage_code" value="BS" />
+				</c:if>
+				<c:if test="${homepage.context_path eq 'namic'}">
+					이천어울림도서관<input type="hidden" id="" name="manage_code" value="BT" />
+				</c:if>
+
+				<c:if test="${homepage.context_path eq 'dalseolib'}">
+					<select name="manage_code">
+						<option value="BW">도원도서관</option>
+						<option value="BV">달서어린이</option>
+						<option value="BU">성서도서관</option>
+						<option value="BX">본리도서관</option>
+						<option value="BY">달서가족문화도서관</option>
+						<option value="BZ">달서영어도서관</option>
+					</select>
+				</c:if>
+
+				<c:if test="${homepage.context_path eq 'donggu'}">
+					<select name="manage_code">
+						<option value="CA">안심도서관</option>
+						<option value="CB">신천도서관</option>
+					</select>
+				</c:if>
+
+				<c:if test="${homepage.context_path eq 'dmsl'}">
+					시청작은도서관<input type="hidden" id="" name="manage_code" value="FV" />
+				</c:if>
+
 				<c:if test="${homepage.context_path eq '228'}">
 				대구2ㆍ28기념학생도서관<input type="hidden" name="manage_code" value='AA' />
 				</c:if>
