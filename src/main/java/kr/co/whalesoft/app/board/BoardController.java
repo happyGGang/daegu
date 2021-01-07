@@ -1240,6 +1240,11 @@ public class BoardController extends BaseController {
 				if ( StringUtils.isEmpty(board.getNotice_yn()) ) {
 					board.setNotice_yn("N"); // 수정시 체크 해제 하고 저장하면 notice_yn = null 이된다.
 				}
+				if(boardManage.getBoard_type().equals("GALLERY")){
+					if (StringUtils.isEmpty(board.getImsi_v_1())) {
+						board.setImsi_v_1("N");
+					}
+				}
 				Homepage homepage = getSessionHomepage(request);
 				Board boardOne = (Board)service.copyObjectPaging(boardManage, board, service.getBoardOne(board));
 //				Object certObject = request.getSession().getAttribute("certMember");

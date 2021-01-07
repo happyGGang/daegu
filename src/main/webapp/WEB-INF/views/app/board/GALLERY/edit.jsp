@@ -9,6 +9,20 @@ $(document).ready(function() {
 	if ('${board.editMode}' == 'ADD') {
 		$('input[name=secret_yn][value=Y]').prop('checked', true);
 	}
+
+
+	$('input#imsi_v_2').datepicker({
+		maxDate: $('input#imsi_v_3').val(),
+		onClose: function(selectedDate) {
+			$('input#imsi_v_3').datepicker('option', 'minDate', selectedDate);
+		}
+	});
+	$('input#imsi_v_3').datepicker({
+		minDate: $('input#imsi_v_2').val(),
+		onClose: function(selectedDate) {
+			$('input#imsi_v_2').datepicker('option', 'maxDate', selectedDate);
+		}
+	});
 });
 </script>
 <c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.top_html) > 0}">
@@ -40,6 +54,18 @@ ${boardManage.top_html}
 				</td>
 				<th>작성일</th>
 				<td><fmt:formatDate value="${board.editMode eq 'ADD' ? getToday : board.add_date}" pattern="yyyy-MM-dd"/></td>
+			</tr>
+			<tr>
+				<th>행사일</th>
+				<td colspan="3">
+					<div class="checkbox-original">
+						<form:checkbox id="imsi_v_1" path="imsi_v_1" value="Y"/>
+						<label for="imsi_v_1">행사일 사용여부</label>
+						<em class="info">체크 시 게시글에 표시됩니다.</em>
+					</div>
+					<form:input type="text" path="imsi_v_2" cssClass="text ui-calendar"/> ~
+					<form:input type="text" path="imsi_v_3" cssClass="text ui-calendar"/>
+				</td>
 			</tr>
 			<tr>
 				<td colspan="4" class="editor">

@@ -47,6 +47,9 @@ ${boardManage.top_html}
 								</c:otherwise>
 							</c:choose>
 						</c:if>
+						<c:if test="${board.imsi_v_1 eq 'Y'}">
+							<i>행사일</i><span>${board.imsi_v_2} ~ ${board.imsi_v_3}</span>
+						</c:if>
 					</div>
 					<div class="panel-right">
 						<a href="#bbs-comment">
