@@ -17,6 +17,7 @@
 		WHERE
 			menu_idx = #{menu_idx}
 		AND	module_type = #{moduleType}
+		AND site_id = #{site_id}
 		AND	auth_code_id IN ('C','R','U','D')
 	</delete>
 
