@@ -255,6 +255,7 @@
 				WHERE a.board_idx = CMS_BOARD_T.board_idx AND
 				a.delete_yn = 'N'
 			) AS comment_count,
+		    category1, category2, category3, category4, category5,
 			getCodeIdToCodeName(#{homepage_id},#{category1Manage},category1) as category1_name,
 			getCodeIdToCodeName(#{homepage_id},#{category2Manage},category2) as category2_name,
 			getCodeIdToCodeName(#{homepage_id},#{category3Manage},category3) as category3_name,
@@ -753,6 +754,9 @@
 				</when>
 				<when test="manage_idx == 683">
 					category1 in ('179', '183', '180', '182')
+				</when>
+				<when test="manage_idx == 736">
+					manage_idx in (734, 735, 736)
 				</when>
 				<otherwise>
 					manage_idx = #{manage_idx}
