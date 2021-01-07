@@ -121,19 +121,19 @@ background: url('../img/select_btn2.png') no-repeat right 50%;color:#616161;}
 .notice_text li {display:inline-block;width:100%;line-height:24px;margin-top:5px;}
 .notice_text li:first-child {margin-top:0;}
 .notice_text li span {float:left;font-size:15px;margin-top:1px;font-family:'Noto Sans';}
-.notice_text li span.lib_name {float:left;text-align:center;margin-right:8px;padding:0 7px;font-size:13px;font-family:'Noto Sans'}
+.notice_text li span.lib_name {float:left;text-align:center;margin-right:8px;padding:0 7px;font-size:13px;font-family:'맑은 고딕';font-weight:bold;}
 .notice_text li span.lib_txt, .notice_text li span.lib_txt1{width:220px;overflow:hidden;font-size:15px;}
 .notice_text li span.lib_date, .notice_text li span.lib_date1 {float:right;font-size:14px;color:#999;font-weight:normal;font-family:'Roboto',sans-serif;margin-top:3px;}
 .notice_text li span.lib_txt1 {width:188px; overflow:hidden;}
 .notice_text li span.lib_txt1 {float:left;}
 .notice_text li span.lib_date1 {float:right;}
-.notice_text li.lib00 span.lib_name, .notice_text li.fes_lib00 span.lib_name{border:1px solid #777; color:#444;}
-.notice_text li.lib01 span.lib_name, .notice_text li.fes_lib01 span.lib_name{border:1px solid #2f55d4; color:#2645af;}
-.notice_text li.lib02 span.lib_name, .notice_text li.fes_lib02 span.lib_name{border:1px solid #089916; color:#12751c;}
-.notice_text li.lib03 span.lib_name, .notice_text li.fes_lib03 span.lib_name{border:1px solid #a536d9; color:#8223af;}
-.notice_text li.lib04 span.lib_name, .notice_text li.fes_lib04 span.lib_name{border:1px solid #ff2222; color:#cc1d1d;}
-.notice_text li.lib05 span.lib_name, .notice_text li.fes_lib05 span.lib_name{border:1px solid #edce00; color:#c1aa0f;}
-.notice_text li.lib06 span.lib_name, .notice_text li.fes_lib06 span.lib_name{border:1px solid #ff70ba; color:#d6197b;}
+.notice_text li.lib00 span.lib_name, .notice_text li.fes_lib00 span.lib_name{border:1px solid #7a6e61; color:#7a6e61;}
+.notice_text li.lib01 span.lib_name, .notice_text li.fes_lib01 span.lib_name{border:1px solid #f3bb00; color:#f0b900;}
+.notice_text li.lib02 span.lib_name, .notice_text li.fes_lib02 span.lib_name{border:1px solid #3db2b6; color:#3db2b6;}
+.notice_text li.lib03 span.lib_name, .notice_text li.fes_lib03 span.lib_name{border:1px solid #8194b4; color:#8194b4;}
+.notice_text li.lib04 span.lib_name, .notice_text li.fes_lib04 span.lib_name{border:1px solid #52a34f; color:#52a34f;}
+.notice_text li.lib05 span.lib_name, .notice_text li.fes_lib05 span.lib_name{border:1px solid #f56c15; color:#f56c15;}
+.notice_text li.lib06 span.lib_name, .notice_text li.fes_lib06 span.lib_name{border:1px solid #8b399c; color:#8b399c;}
 .notice_text li:nth-child(6), .notice_text li:nth-child(7), .notice_text li:nth-child(8){display:none;}
 
 p.notice_more{position:absolute;top:44px;right:35px;}

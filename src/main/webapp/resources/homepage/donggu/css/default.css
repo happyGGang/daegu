@@ -180,3 +180,10 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 @media all and (max-width:330px){
 
 }
+
+
+/*공지사항-카테고리색상*/
+.category span.ca.bg-0000 {background-color:#7a6e61 !important;color:#fff;}
+.category span.ca.bg-0001 {background-color:#f3bb00 !important;color:#fff;}
+.category span.ca.bg-0002 {background-color:#8194b4 !important;color:#fff;}
+.category span.ca.bg-0003 {background-color:#29419c !important;color:#fff;}

@@ -171,6 +171,7 @@ a.more-btn {position:absolute;right:0;top:-1px;font-size:0;width:26px;height:26p
 .alarm-box .contents-section .ebook-box h4.title {color:#fff;font-size:17px;}
 .alarm-box .contents-section .ebook-box li {display:block;padding:11px 0 10px;border-bottom:1px solid #d785cb;}
 .alarm-box .contents-section .ebook-box li:last-child {border:0;padding-bottom:0;}
+.alarm-box .contents-section .ebook-box li:nth-child(2n) {border-bottom:0;}
 .alarm-box .contents-section .ebook-box li a {display:block;position:relative;}
 .alarm-box .contents-section .ebook-box li a img {border-radius:30px;width:52px;height:52px;}
 .alarm-box .contents-section .ebook-box li a span {display:inline-block;box-sizing:border-box;position:relative;}

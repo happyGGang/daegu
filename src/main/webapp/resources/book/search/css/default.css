@@ -55,8 +55,14 @@ label.hidden {display:none;}
 
 
 /********************검색박스_상세검색********************/
-.search-form .detail_search {padding:20px;border:1px solid #ccc;border-top:3px solid #000;box-sizing:border-box;}
+#contents-title h2{font-size:25px;font-weight:bold;padding:10px 20px;}
+
+.search-form .detail_search {padding:20px;border-top:3px solid #000;box-sizing:border-box;}
 .search-form .detail_search .section {width:100%;display:inline-block;overflow:hidden;}
+.search-form .detail_search .section .library-choice{position:relative;float:left;background:#f8f8f8;padding:20px 25px;}
+.search-form .detail_search .section .library-choice p{text-align:left;color:#333;font-size:15px;margin-bottom:15px;padding-bottom:15px;border-bottom:1px solid #ddd;}
+.search-form .detail_search .section .library-choice .libList{}
+.search-form .detail_search .section .library-choice .libList label{font-size:13px;padding-left:5px;}
 .search-form .detail_search .section .title-box {position:relative;width:100%;margin:0 auto;box-sizing:border-box;display:inline-block;border-style:solid;border-image:linear-gradient(to right, #3cb13a 0%, #6466c3 100%);border-image-slice:1;background:#fff;border-image-width:20px;padding:15px;}
 .search-form .detail_search .section .title-box input {width:100%;height:70px;line-height:70px;padding:0;color:#333;font-size:24px;border:0;cursor:text;box-sizing:border-box;padding-left:10px;}
 .search-form .detail_search .section .title-box input::placeholder {font-size:18px;}
@@ -123,6 +129,9 @@ div.main-menu div.right {font-size:18px;font-weight:bold;color:#6C6C6C;vertical-
 
 /* 도서검색 선택 */
 #libraryList {border:1px solid #dadada;padding:30px 0 30px 49px;box-sizing:border-box;}
+#libraryList div.title {position:relative;margin-top:20px;box-sizing:border-box;}
+#libraryList h5 {background: url('/resources/common/img/blt_01.gif') no-repeat 0px 6px;display:block;padding:0 0 5px 25px;font-size:17px;font-weight:bold;}
+#libraryList .boxviewbtn {position:absolute;right:50px;top:0;padding-top:3px;padding-bottom:3px}
 #libraryList input{margin-right:3px}
 #libraryList input,
 #libraryList label {color:#222;font-size:14px;vertical-align:middle;cursor:pointer;letter-spacing:-1.5px;}
@@ -424,7 +433,7 @@ a.bBtn:hover {background:#0961ce}
 .rightCon li a {font-size:14px;letter-spacing:-1.5px;}
 
 .search_result .result-count-library {box-sizing:border-box;margin:0;padding:20px 0 20px 38px;border:1px solid #b4b4b4}
-.search_result .result-count-library li {width:24.5%;display:inline-block}
+.search_result .result-count-library li {width:32.5%;display:inline-block}
 .search_result .result-count-library li a {font-size:14px;font-weight:normal}
 
 /* .sview{border-top:2px solid #5e6062} */

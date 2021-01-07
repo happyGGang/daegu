@@ -51,16 +51,16 @@ input.text{border-radius:0 !important;}
 .notice-box > .cont li a { position:relative;display:block;line-height:130%;box-sizing:border-box;font-weight:400;padding:5px 100px 5px 60px;position: relative;word-break:break-all;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;font-size:16px; }
 .notice-box > .cont li a:hover { text-decoration: underline; }
 .notice-box > .cont li a em {position:absolute;top:50%;left:0;width:48px;margin-top:-15px;height:33px;line-height:28px;text-align:center;background:#00c4c6;color:#fff;font-weight:bold;text-decoration:none;font-style:normal;font-size:13px;}
-.notice-box > .cont li a em.junggu0000 { background:#00c4c6; }
-.notice-box > .cont li a em.junggu0001 { background:#0072bc; }
-.notice-box > .cont li a em.junggu0002 { background:#2753b8; }
-.notice-box > .cont li a em.junggu0003 { background:#00a0c6; }
-.notice-box > .cont li a em.junggu0004 { background:#b8ae0e; }
-.notice-box > .cont li a em.junggu0005 { background:#16b179; }
-.notice-box > .cont li a em.junggu0006 { background:#8cc600; }
-.notice-box > .cont li a em.junggu0007 { background:#3ecdf1; }
-.notice-box > .cont li a em.junggu0008 { background:#f29e29; }
-.notice-box > .cont li a em.junggu0009 { background:#20b6da; }
+.notice-box > .cont li a em.junggu0000 { background:#7a6e61; }
+.notice-box > .cont li a em.junggu0001 { background:#7a6e61; }
+.notice-box > .cont li a em.junggu0002 { background:#8b399c; }
+.notice-box > .cont li a em.junggu0003 { background:#29419c; }
+.notice-box > .cont li a em.junggu0004 { background:#f56c15; }
+.notice-box > .cont li a em.junggu0005 { background:#f3bb00; }
+.notice-box > .cont li a em.junggu0006 { background:#8194b4; }
+.notice-box > .cont li a em.junggu0007 { background:#3db2b6; }
+.notice-box > .cont li a em.junggu0008 { background:#52a34f; }
+.notice-box > .cont li a em.junggu0009 { background:#8b399c; }
 .notice-box > .cont li a span { position:absolute;right:0;font-family:'Nanum Barun Gothic';font-weight:400;font-size:15px; }
 .btn-more-more {position:absolute;right:20px;top:35px;font-size:0;width:14px;height:14px;background:url('../img/more-bbbbbbbtn.png') no-repeat 0 0;}
 

@@ -16,13 +16,35 @@ do {
 do {
 	listNum3 = rnd.nextInt(10);
 } while (listNum1 == listNum3 || listNum2 == listNum3);
+
+Random rndNum = new Random();
+int cuNum1 = rnd.nextInt(5);
+int cuNum2 = 0;
+int cuNum3 = 0;
+do {
+	cuNum2 = rnd.nextInt(5);
+} while (cuNum1 == cuNum2);
+do {
+	cuNum3 = rnd.nextInt(5);
+} while (cuNum1 == cuNum3 || cuNum2 == cuNum3);
 %>
 <c:set var="listNum1" value="<%=listNum1%>"></c:set>
 <c:set var="listNum2" value="<%=listNum2%>"></c:set>
 <c:set var="listNum3" value="<%=listNum3%>"></c:set>
+
+<c:set var="cuNum1" value="<%=cuNum1%>"></c:set>
+<c:set var="cuNum2" value="<%=cuNum2%>"></c:set>
+<c:set var="cuNum3" value="<%=cuNum3%>"></c:set>
+
 <tiles:insertAttribute name="header" />
 <link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.fullpage.dgportal.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.mCustomScrollbar.css"/>
+<style>
+.content-05-box .box .cont ul li:nth-of-type(${cuNum1 + 1}) {display:none;}
+.content-05-box .box .cont ul li:nth-of-type(${cuNum2 + 1}) {display:none;}
+.content-05-box .box .cont ul li:nth-of-type(${cuNum3 + 1}) {display:none;}
+</style>
+
 <script type="text/javascript" src="/resources/common/js/jquery.fullpage.js"></script>
 <script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/main-visual.js"></script>
 <script type="text/javascript" src="/resources/common/js/jquery.mCustomScrollbar.js"></script>
@@ -463,6 +485,34 @@ do {
 														<p class="book-title">국채보상운동</p>
 														<p class="book-desc">역사가 살아있는 대구, 국채보상운동 발자취를 따라서~</p>
 														<p class="reg-date">2020-12-09</p>
+													</a>
+												</li>
+
+												<li>
+													<a href="http://www.icuration.co.kr/curation/w/66" target="_blank">
+														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu03.png" alt="대구 북카페"></div>
+														<p class="book-title">대구 북카페</p>
+														<p class="book-desc">이제, 독서도 우아하게</p>
+														<p class="reg-date">2020-12-08</p>
+													</a>
+												</li>
+
+												<li>
+													<a href="http://www.icuration.co.kr/curation/w/65" target="_blank">
+														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu04.png" alt="대구 명소"></div>
+														<p class="book-title">대구 명소</p>
+														<p class="book-desc">즐기는 대구! 대구 속 명소 찾기</p>
+														<p class="reg-date">2020-12-03</p>
+													</a>
+												</li>
+
+
+												<li>
+													<a href="http://www.icuration.co.kr/curation/w/61" target="_blank">
+														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu05.png" alt="대구지역출판사"></div>
+														<p class="book-title">대구 지역출판사</p>
+														<p class="book-desc">대구 지역의 출판사를 소개합니다!</p>
+														<p class="reg-date">2020-12-02</p>
 													</a>
 												</li>
 
@@ -1822,7 +1872,7 @@ do {
 							<a href="/${i.context_path}/module/teach/detail.do?homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=${i.menu_idx}&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}" class="border bgimg00${imgnum}" target="_blank">
 								<span class="status">${i.teach_status eq '6' ? '접수대기' : '접수중'}</span>
 								<span class="txt">
-									<p class="lib-name">${i.homepage_name} ${imgnum}</p>
+									<p class="lib-name">${i.homepage_name}</p>
 									<p class="tit">${fn:substring(i.teach_name, 0, 15)}<c:if test="${fn:length(i.teach_name) > 17}">...</c:if></p>
 									<p class="len"><b>접수</b> ${i.start_join_date} ~ ${i.end_join_date}</p>
 								</span>

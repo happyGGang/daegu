@@ -193,3 +193,15 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 
 /*도서관소개 하단 메뉴*/
 .Gnb .gnb-menu>li:nth-child(5)>.SubMenu{width:125%;left:-70px;}
+
+
+/*공지사항-카테고리색상*/
+.category span.ca.bg-0001 {background-color:#7a6e61 !important;color:#fff;}
+.category span.ca.bg-0002 {background-color:#8b399c !important;color:#fff;}
+.category span.ca.bg-0003 {background-color:#29419c !important;color:#fff;}
+.category span.ca.bg-0004 {background-color:#f56c15 !important;color:#fff;}
+.category span.ca.bg-0005 {background-color:#f3bb00 !important;color:#fff;}
+.category span.ca.bg-0006 {background-color:#8194b4 !important;color:#fff;}
+.category span.ca.bg-0007 {background-color:#3db2b6 !important;color:#fff;}
+.category span.ca.bg-0008 {background-color:#52a34f !important;color:#fff;}
+.category span.ca.bg-0009 {background-color:#8b399c !important;color:#fff;}

@@ -40,9 +40,9 @@
 .notice-box .con ul li a { position:relative;display:block;white-space:normal;box-sizing:border-box;word-break:break-all;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;padding:0 120px 0 0; }
 .notice-box .con ul li a strong {display:block;width:100%;font-weight:normal;padding:0;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;}
 .notice-box .con ul li a strong span.ca {display:inline-block;padding:0 27px;background: #ddd;font-size:13px;border-radius:25px;margin-right:7px;height:27px;line-height:27px;}
-.notice-box .con ul li a strong span.ca.bg-0001 {background-color:#dda616;color:#fff;}
+.notice-box .con ul li a strong span.ca.bg-0001 {background-color:#f3bb00;color:#fff;}
 .notice-box .con ul li a strong span.ca.bg-0002 {background-color:#8194b4;color:#fff;}
-.notice-box .con ul li a strong span.ca.bg-0003 {background-color:#f67205;color:#fff;}
+.notice-box .con ul li a strong span.ca.bg-0003 {background-color:#29419c;color:#fff;}
 .notice-box .con ul li a:hover strong { color:#58648d; }
 .notice-box .con ul li a .date { position:absolute;right:10px;top:0;color:#444444;}
 
@@ -51,9 +51,9 @@
 .notice-box .con ul li:first-child a strong {float:none;width:100%;padding-left:0;font-size:18px;font-weight:bold;color:#444;background:none;white-space:normal;white-space:normal;box-sizing:border-box;word-break:break-all;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
 .notice-box .con ul li:first-child a strong span.tit{padding-left:85px;}
 .notice-box .con ul li:first-child a strong span.ca {position:absolute;display:inline-block;padding:0 27px;font-size:14px;border-radius:25px;}
-.notice-box .con ul li:first-child a strong span.ca.bg-0001 {background-color:#dda616;color:#fff;}
+.notice-box .con ul li:first-child a strong span.ca.bg-0001 {background-color:#f3bb00;color:#fff;}
 .notice-box .con ul li:first-child a strong span.ca.bg-0002 {background-color:#8194b4;color:#fff;}
-.notice-box .con ul li:first-child a strong span.ca.bg-0003 {background-color:#f67205;color:#fff;}
+.notice-box .con ul li:first-child a strong span.ca.bg-0003 {background-color:#29419c;color:#fff;}
 .notice-box .con ul li:first-child a strong span.datetime {text-align:left;font-size:15px;color:#6f6f6f;font-weight:normal;line-height:250%;}
 .notice-box .con ul li:first-child a .txt {display:block;font-size:14px;color:#989898;}
 
@@ -85,7 +85,7 @@
 
 .main3 {background:#686868;padding:30px 0;overflow:hidden;}
 .main3 .qmenu {box-sizing:border-box;overflow:hidden;height:90px;text-align:center;}
-.main3 .qmenu li {display:inline-block;text-align:center;float:left;width:12.5%;height:90px;margin:0;box-sizing:border-box;}
+.main3 .qmenu li {display:inline-block;text-align:center;float:left;width:16.6%;height:90px;margin:0;box-sizing:border-box;}
 .main3 .qmenu li a {height:100%;background:no-repeat center top;display:block;margin:0;font-size:20px;font-weight:400;box-sizing:border-box;letter-spacing:0;text-align:center;}
 .main3 .qmenu li a span{padding-top:65px;font-size:15px;display:block;position:relative;font-weight:bold;color:#fff;}
 .main3 .qmenu li a:hover span{padding-top:65px;font-size:15px;display:block;position:relative;font-weight:bold;color:#f99d1c;}

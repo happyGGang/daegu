@@ -146,8 +146,8 @@ $(function() {
 			<!-- 검색하기_일반 -->
 			<div class="searchbox detail_search" id="div_detail">
 				<div class="section">
-					<div style="margin-bottom: 30px;">
-						<div>도서관</div>
+					<div class="library-choice">
+						<p>도서관을 선택해주세요.</p>
 						<div class="libList">
 							<c:choose>
 								<c:when test="${homepagePath eq 'dalseolib' or homepagePath eq 'junggu' or homepagePath eq 'donggu' or homepagePath eq 'seogulib'}">
@@ -331,7 +331,6 @@ $(function() {
 											</li>
 										</ul>
 									</c:if>
-
 								</c:when>
 								<c:otherwise>
 									<form:select path="manageCode">
@@ -342,7 +341,7 @@ $(function() {
 							</c:choose>
 						</div>
 					</div>
-					<div>
+					<div style="margin-top:30px;">
 					<dl style="width: 99%; margin-top: 20px;">
 						<dt><label for="title" class="title">제목</label></dt>
 						<dd><form:input path="title" class="text-area"/></dd>
@@ -350,7 +349,7 @@ $(function() {
 
 					<dl>
 						<dt><label for="author" class="title">저자</label></dt>
-						<dd><form:input path="author" class="text-area"/></dd>
+						<dd><form:input path="author" class="text-area" style="width:100%;"/></dd>
 					</dl>
 					<dl>
 						<dt>주제</dt>
@@ -373,20 +372,20 @@ $(function() {
 
 					<dl>
 						<dt><label for="publer" class="title">발행처</label></dt>
-						<dd><form:input path="publer" class="text-area"/></dd>
+						<dd><form:input path="publer" class="text-area" style="width:100%;"/></dd>
 					</dl>
 					<dl>
 						<dt><label for="keyword" class="title">키워드</label></dt>
-						<dd><form:input path="keyword" class="text-area"/></dd>
+						<dd><form:input path="keyword" class="text-area" style="width:100%;"/></dd>
 					</dl>
 
 					<dl>
 						<dt>발행년도</dt>
 						<dd>
 							<div class="box">
-								<form:input path="search_start_date" title="시작년도" numberOnly="true" maxlength="4" />
+								<form:input path="search_start_date" title="시작년도" numberOnly="true" maxlength="4" style="height:38px;line-height:38px;" />
 								<span style="width:6%;text-align:center;">~</span>
-								<form:input path="search_end_date" title="마지막년도" numberOnly="true" maxlength="4" />
+								<form:input path="search_end_date" title="마지막년도" numberOnly="true" maxlength="4"  style="height:38px;line-height:38px;" />
 							</div>
 						</dd>
 					</dl>
@@ -394,10 +393,10 @@ $(function() {
 					<dl>
 						<dt>자료형태</dt>
 						<dd>
-							<div class="" style="padding:3px 0 0 10px">
-							<form:radiobutton path="booktype" value="BOOK" class="radiocheck" checked="checked"/><label for="booktype1" class="booktype">도서</label>
-							<form:radiobutton path="booktype" value="NONBOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype2" class="booktype">비도서</label>
-							<form:radiobutton path="booktype" value="SERIAL" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype3" class="booktype">간행물</label>
+							<div class="" style="padding:10px 0 0 0">
+							<form:radiobutton path="booktype" value="BOOK" class="radiocheck" checked="checked"/><label for="booktype1" class="booktype"> 도서</label>
+							<form:radiobutton path="booktype" value="NONBOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype2" class="booktype"> 비도서</label>
+							<form:radiobutton path="booktype" value="SERIAL" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype3" class="booktype"> 간행물</label>
 							</div>
 						</dd>
 					</dl>
@@ -405,7 +404,7 @@ $(function() {
 				</div>
 				<p class="btn_w">
 					<a id="search-btn" class="btnNew btn-warning btn-xs mT1">검색</a>
-					<a id="vk-popup" class="btnNew2">다국어입력기</a>
+					<a id="vk-popup" class="btnNew" style="background:#494949;">다국어입력기</a>
 				</p>
 			</div>
 			<!--// 검색하기_일반 -->

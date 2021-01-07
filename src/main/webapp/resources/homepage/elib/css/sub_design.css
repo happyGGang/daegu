@@ -269,7 +269,7 @@ table tbody td.point{background-color:#f7f7f7; font-weight:bold;}
 /*반응형 테이블 안내창*/
 @media all and (max-width:737px){
 	.rsv-info{position:relative;overflow:hidden;overflow-x:auto;padding-top:25px;text-align: center;}
-	.rsv-info:before {content:"← scroll →"; font-size:13px;display:block; position:absolute; top:0; right:0; color:#555;}
+	.rsv-info:before {content:"← 좌우로 스크롤하시면 내용이 보입니다 →"; font-size:13px;display:block; position:absolute; top:0; right:0; color:#555;}
 }
 
 
