@@ -175,6 +175,8 @@ public class CommonLoginController extends BaseController {
 				System.out.println("@@@@@@@@@@@@@@@@ loginProcFailed : " + e.getMessage());
 			}
 
+			request.getSession().removeAttribute("loginSupport");
+			request.getSession().removeAttribute("loginPortal");
 			service.setSessionMember(member, request);
 
 			Device device = DeviceUtils.getCurrentDevice(request);

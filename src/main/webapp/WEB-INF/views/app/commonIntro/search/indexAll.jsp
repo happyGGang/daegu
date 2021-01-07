@@ -333,15 +333,15 @@
 			e.preventDefault();
 			var frm = $('#bookExpressForm');
 
-			$('input.checkBook:checked').each(function(i) {
-				frm.append('<input type="hidden" name="bookExpressList['+i+'].book_name" value="'+$(this).siblings('input#bex1').val()+'">');
-				frm.append('<input type="hidden" name="bookExpressList['+i+'].book_reg_no" value="'+$(this).siblings('input#bex2').val()+'">');
-				frm.append('<input type="hidden" name="bookExpressList['+i+'].book_call_no" value="'+$(this).siblings('input#bex3').val()+'">');
-				frm.append('<input type="hidden" name="bookExpressList['+i+'].thumb_image" value="'+$(this).siblings('input#bex4').val()+'">');
-				frm.append('<input type="hidden" name="bookExpressList['+i+'].library_code" value="'+$(this).siblings('input#bex5').val()+'">');
-			});
-
 			if(confirm('택배서비스 관심도서 추가하겠습니까?')) {
+				$('input.checkBook:checked').each(function(i) {
+					frm.append('<input type="hidden" name="bookExpressList['+i+'].book_name" value="'+$(this).siblings('input#bex1').val()+'">');
+					frm.append('<input type="hidden" name="bookExpressList['+i+'].book_reg_no" value="'+$(this).siblings('input#bex2').val()+'">');
+					frm.append('<input type="hidden" name="bookExpressList['+i+'].book_call_no" value="'+$(this).siblings('input#bex3').val()+'">');
+					frm.append('<input type="hidden" name="bookExpressList['+i+'].thumb_image" value="'+$(this).siblings('input#bex4').val()+'">');
+					frm.append('<input type="hidden" name="bookExpressList['+i+'].library_code" value="'+$(this).siblings('input#bex5').val()+'">');
+				});
+				
 				if(doAjaxPost($('#bookExpressForm'))) {
 					location.reload();
 				}
@@ -520,7 +520,7 @@
 					</div>
 					<div class="end"></div>
 
-
+					<c:if test="${empty loginPortal and !loginPortal.login}">
 					<div class="title">
 						<h4 class="contTit_line_s mg20t">대구광역시 구·군립도서관</h4>
 						<a href="#checkAllSilip" class="btn boxviewbtn" id="closeBtn2">닫기</a>
@@ -858,6 +858,7 @@
 						</ul>
 					</div>
 					<div class="end"></div>
+					</c:if>
 				</div>
 
 			</div>
