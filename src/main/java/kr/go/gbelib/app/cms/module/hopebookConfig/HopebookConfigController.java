@@ -34,24 +34,24 @@ public class HopebookConfigController extends BaseController {
 	
 	@RequestMapping(value = {"/index.*"}, method = RequestMethod.GET)
 	public String index(Model model, HopebookConfig hopebookConfig, HttpServletRequest request) {
-//		hopebookConfig.setHomepage_id(getAsideHomepageId(request));
+		hopebookConfig.setHomepage_id(getAsideHomepageId(request));
 //		Homepage homepage = getHomepageOne(hopebookConfig.getHomepage_id());
-//		Homepage homepage = getSessionHomepageInfo(request);
+		Homepage homepage = getSessionHomepageInfo(request);
 //		hopebookConfig.setHomepage_id(homepage.getHomepage_id());
 
-		if ((getAsideHomepageId(request).equals("h37") || getAsideHomepageId(request).equals("h49") || getAsideHomepageId(request).equals("h45") || getAsideHomepageId(request).equals("h53"))) {
-			Homepage sessionHomepageInfo = getSessionHomepageInfo(request);
-			sessionHomepageInfo.setHomepage_group(getAsideHomepageId(request));
-			sessionHomepageInfo.setTemp_use_yn("Y");
-			List<Homepage> subHomepageList = homepageService.getSubHomepageList(sessionHomepageInfo);
-			if (StringUtils.isEmpty(hopebookConfig.getHomepage_id())) {
-				hopebookConfig.setHomepage_id(subHomepageList.get(0).getHomepage_id());
-				model.addAttribute("homepage", subHomepageList.get(0));
-			}
-			model.addAttribute("subHomepageList", subHomepageList);
-		} else {
-			hopebookConfig.setHomepage_id(getAsideHomepageId(request));
-		}
+//		if ((getAsideHomepageId(request).equals("h37") || getAsideHomepageId(request).equals("h49") || getAsideHomepageId(request).equals("h45") || getAsideHomepageId(request).equals("h53"))) {
+//			Homepage sessionHomepageInfo = getSessionHomepageInfo(request);
+//			sessionHomepageInfo.setHomepage_group(getAsideHomepageId(request));
+//			sessionHomepageInfo.setTemp_use_yn("Y");
+//			List<Homepage> subHomepageList = homepageService.getSubHomepageList(sessionHomepageInfo);
+//			if (StringUtils.isEmpty(hopebookConfig.getHomepage_id())) {
+//				hopebookConfig.setHomepage_id(subHomepageList.get(0).getHomepage_id());
+//				model.addAttribute("homepage", subHomepageList.get(0));
+//			}
+//			model.addAttribute("subHomepageList", subHomepageList);
+//		} else {
+//			hopebookConfig.setHomepage_id(getAsideHomepageId(request));
+//		}
 
 		
 		model.addAttribute("hopebookConfig", hopebookConfig);
