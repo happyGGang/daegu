@@ -175,6 +175,52 @@ function getFileData(fileData) {
 						<em>* 팝업존 최적 이미지 사이즈는 가로 395 X 세로 350 입니다(픽셀단위)</em>
 					</div>
 					</c:when>
+
+					<c:when test="${popupZone.homepage_id eq 'h35' || popupZone.homepage_id eq 'h36' }"><!-- 남구 -->
+					<div class="ui-state-highlight">
+						<em>* 팝업존 최적 이미지 사이즈는 가로 840 X 세로 415 입니다(픽셀단위)</em>
+					</div>
+					</c:when>
+					<c:when test="${popupZone.homepage_id eq 'h49' }"><!-- 서구 -->
+					<div class="ui-state-highlight">
+						<em>* 팝업존 최적 이미지 사이즈는 가로 504 X 세로 320 입니다(픽셀단위)</em>
+					</div>
+					</c:when>
+					<c:when test="${popupZone.homepage_id eq 'h45' }"><!-- 동구 -->
+					<div class="ui-state-highlight">
+						<em>* 팝업존 최적 이미지 사이즈는 가로 1260 X 세로 350 입니다(픽셀단위)</em>
+					</div>
+					</c:when>
+					<c:when test="${popupZone.homepage_id eq 'h37' }"><!-- 달서구 -->
+					<div class="ui-state-highlight">
+						<em>* 팝업존 최적 이미지 사이즈는 가로 328 X 세로 403 입니다(픽셀단위)</em>
+					</div>
+					</c:when>
+					<c:when test="${popupZone.homepage_id eq 'h44' }"><!-- 달성군립 -->
+					<div class="ui-state-highlight">
+						<em>* 팝업존 최적 이미지 사이즈는 가로 400 X 세로 230 입니다(픽셀단위)</em>
+					</div>
+					</c:when>
+					<c:when test="${popupZone.homepage_id eq 'h53' }"><!-- 중구 -->
+					<div class="ui-state-highlight">
+						<em>* 팝업존 최적 이미지 사이즈는 가로 630 X 세로 525 입니다(픽셀단위)</em>
+					</div>
+					</c:when>
+					<c:when test="${popupZone.homepage_id eq 'h34' }"><!-- 시청작은 -->
+					<div class="ui-state-highlight">
+						<em>* 팝업존 최적 이미지 사이즈는 가로 450 X 세로 385 입니다(픽셀단위)</em>
+					</div>
+					</c:when>
+					<c:when test="${popupZone.homepage_id eq 'h46' || popupZone.homepage_id eq 'h47' || popupZone.homepage_id eq 'h48' }"><!-- 북구 -->
+					<div class="ui-state-highlight">
+						<em>* 팝업존 최적 이미지 사이즈는 가로 400 X 세로 590 입니다(픽셀단위)</em>
+					</div>
+					</c:when>
+					<c:when test="${popupZone.homepage_id eq 'h50' || popupZone.homepage_id eq 'h51' || popupZone.homepage_id eq 'h52' }"><!-- 수성구 -->
+					<div class="ui-state-highlight">
+						<em>* 팝업존 최적 이미지 사이즈는 가로 360 X 세로 370 입니다(픽셀단위)</em>
+					</div>
+					</c:when>
 				</c:choose>
 
 			</td>
