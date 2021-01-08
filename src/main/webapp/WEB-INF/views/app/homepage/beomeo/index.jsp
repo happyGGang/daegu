@@ -219,7 +219,7 @@ do {
 									<c:forEach items="${noticeList}" var="i" varStatus="status" begin="0" end="4">
 										<li>
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=662&board_idx=${i.board_idx}">
-												<span class="sulib001">${i.category1_name}</span>
+												<span class="sulib${i.category1}">${i.category1_name}</span>
 												<em>${i.title}</em>
 												<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd" /></span>
 											</a>
