@@ -450,7 +450,7 @@ do {
 								<c:forEach items="${bookList1}" var="i" varStatus="status">
 									<div class="bookbx bx0${status.count}">
 										<div class="data_img">
-											<a href="/${homepage.context_path}/board/view.do?menu_idx=86&manage_idx=736&board_idx=${i.board_idx}">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 												<c:choose>
 													<c:when test="${i.preview_img ne null}">
 														<c:choose>
