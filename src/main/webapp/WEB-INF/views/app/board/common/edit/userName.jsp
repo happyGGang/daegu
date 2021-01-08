@@ -16,6 +16,9 @@
 <form:input path="user_name" cssClass="text"/>
 						</c:if>
 					</c:when>
+					<c:when test="${authMBA or sessionScope.member.admin}">
+						<form:input path="user_name" value="${member.member_name }" cssClass="text"/>
+					</c:when>
 					<c:otherwise>
 ${board.user_name}
 					</c:otherwise>
