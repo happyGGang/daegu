@@ -124,6 +124,10 @@ $(function() {
 		$('input:checkbox').prop('checked', $(this).prop('checked'));
 	});
 
+	<c:if test="${homepagePath eq 'dalseolib' or homepagePath eq 'junggu' or homepagePath eq 'donggu' or homepagePath eq 'seogulib'}">
+	$('#checkAll').click();
+	</c:if>
+
 });
 </script>
 <style>
