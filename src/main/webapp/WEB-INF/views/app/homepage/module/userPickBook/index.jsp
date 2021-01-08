@@ -6,41 +6,13 @@
 
 <!-- 도서정보목록 -->
 
-<style>
-.user_pick_info{position:relative;width:100%;margin-top:30px;padding:40px 0;background-color:#f3f4f6;text-align:center;}
-.user_pick_info img{position:absolute;top:-30px;left:46%;}
-.user_pick_info h2{font-size:20px;color:#222;font-weight:600;letter-spacing:0;font-family:'s-core_dream6_bold';}
-.user_pick_info p.txt_box01{font-size:15px;color:#222;line-height:23px;letter-spacing:0;border-bottom:1px solid #dedede;margin:0 9%;padding-bottom:20px;font-family:'s-core_dream5_medium';}
-.user_pick_info p.txt_box02{font-size:15px;color:#4265e5;letter-spacing:0;margin:20px 9% 0 9%;padding-left:20px;background:url('/resources/homepage/dgportal/img/user_mark.png')no-repeat 20px 3px;font-family:'s-core_dream5_medium';}
 
-.data_none{position:relative;height:160px;margin-top:40px;padding-top:110px;background:url('/resources/homepage/dgportal/img/user_pick_comming_soon.png')no-repeat center top;}
-.data_none p{text-align:center;color:#e232a8;font-size:15px;line-height:25px;letter-spacing:0;font-family:'s-core_dream5_medium';}
-
-@media all and (min-width: 768px) and (max-width: 1023px) {
-	.user_pick_info img{left:45%;}
-	.user_pick_info p.txt_box01{margin:0 6%;}
-	.user_pick_info p.txt_box02{margin:20px 5% 0 5%;}
-
-	.data_none{background-size:60%;}
-}
-
-@media all and (max-width: 767px) {
-	.user_pick_info{padding:10px 0 15px;}
-	.user_pick_info img{left:39%;}
-	.user_pick_info h2{font-size:17px;margin-top:30px;padding:5px 0;}
-	.user_pick_info p.txt_box01{font-size:14px;line-height:1.5;margin:0 8%;padding-bottom:10px;}
-	.user_pick_info p.txt_box02{font-size:14px;line-height:1.5;margin:10px 8% 0 8%;padding-left:0;background:none;}
-
-	.data_none{margin-top:20px;padding-top:65px;background-size:70%;}
-	.data_none p{font-size:0.8em;line-height:1.5;margin:0 ;}
-}
-</style>
 <!-- <h2>이용자 맞춤형 <span style="font-weight:300">추천도서</span></h2> -->
 <div class="user_pick_info">
 	<img src="/resources/homepage/dgportal/img/user_pick_icon.png">
 	<h2>이용자 맞춤형 도서추천이란?</h2>
 	<p class="txt_box01">DIP(대구디지털산업진흥원 빅데이터활용센터)에서 대구광역시 공공도서관의 도서정보, 대출이력, 회원정보 등을 수집해 빅데이터 분석 후 나와 선호도가 유사한 이용자들 중 내가 아직 읽지 않은 도서를 추천해주는 서비스입니다. </p>
-	<p class="txt_box02">추천도서는 <u>2019년 1월 ~ 2020년 7월까지</u> 대구광역시립 공공도서관 대출이력의 데이터를 기반으로 수집됩니다.</p>
+	<p class="txt_box02">도서추천은 <u>2019년 1월 ~ 2020년 7월까지 10권이상</u> 대구광역시립 공공도서관 대출이력의 데이터를 기반으로 수집됩니다.</p>
 </div>
 <div class="kdcBookList2">
 	<ul class="bookListz">

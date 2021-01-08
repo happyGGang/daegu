@@ -59,7 +59,10 @@ justify-content: center;-webkit-box-align: center;-ms-flex-align: center;-webkit
 #main1 .notice-box > .con li {padding:1px 0;}
 #main1 .notice-box > .con li a {position:relative;display:block;box-sizing:border-box;padding:6px 100px 6px 65px;position: relative;word-break:break-all;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;font-size:16px;letter-spacing:-0.5px;}
 #main1 .notice-box > .con li a em {text-align:left;color:#fff;text-decoration:none;font-style:normal;color:#333333;}
-#main1 .notice-box > .con li a span.sulib001 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:5px 13px;text-align:center;background:#00d3ec;color:#fff;border-radius:5px;}
+#main1 .notice-box > .con li a span.sulib001 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#7a6e61;color:#fff;border-radius:5px;}
+#main1 .notice-box > .con li a span.sulib002 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#29419c;color:#fff;border-radius:5px;}
+#main1 .notice-box > .con li a span.sulib003 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#f3bb00;color:#fff;border-radius:5px;}
+#main1 .notice-box > .con li a span.sulib004 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#3db2b6;color:#fff;border-radius:5px;}
 #main1 .notice-box > .con li a span.date {position:absolute;right:10px;letter-spacing:0;color:#999999;font-size:14px;}
 
 #main1 .information-box {position:relative;float:right;width:500px;background:#f8f7f4;border-radius:5px;box-sizing:border-box;padding:42px 40px;font-size:15px;}

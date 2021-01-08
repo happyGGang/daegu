@@ -56,7 +56,10 @@ justify-content: center;-webkit-box-align: center;-ms-flex-align: center;-webkit
 #main1 .notice-box > .con li {padding:1.5px 0;}
 #main1 .notice-box > .con li a {position:relative;display:block;box-sizing:border-box;padding:4px 100px 4px 55px;position: relative;word-break:break-all;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;font-size:16px;letter-spacing:-0.5px;}
 #main1 .notice-box > .con li a em {text-align:left;color:#fff;text-decoration:none;font-style:normal;color:#333333;}
-#main1 .notice-box > .con li a span.sulib001 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#00d3ec;color:#fff;border-radius:5px;}
+#main1 .notice-box > .con li a span.sulib001 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#7a6e61;color:#fff;border-radius:5px;}
+#main1 .notice-box > .con li a span.sulib002 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#f3bb00;color:#fff;border-radius:5px;}
+#main1 .notice-box > .con li a span.sulib003 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#3db2b6;color:#fff;border-radius:5px;}
+#main1 .notice-box > .con li a span.sulib004 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#8194b4;color:#fff;border-radius:5px;}
 #main1 .notice-box > .con li a span.date {position:absolute;right:10px;letter-spacing:0;color:#999999;font-size:14px;}
 .btn-more-more {position:absolute;right:20px;top:15px;font-size:0;width:14px;height:14px;background:url('../img/more-bbbbbbbtn.png') no-repeat 0 0;}
 
@@ -168,7 +171,7 @@ justify-content: center;-webkit-box-align: center;-ms-flex-align: center;-webkit
 
 #main2 .middle-box {position:relative;padding:50px 0;}
 #main2 .middle-box .quickLink-box {float:right;width:340px;box-sizing:border-box;position:relative;background:#a38b7d;border-radius:5px;padding:25px 30px;}
-#main2 .middle-box .quickLink-box li {display:block;padding:10px 0;}
+#main2 .middle-box .quickLink-box li {display:block;padding:13px 0;}
 #main2 .middle-box .quickLink-box li a {display:block;width:100%;color:#fff;letter-spacing:-0.5px;background:url('../img/quickLink-icon.png') no-repeat 96% center;}
 #main2 .middle-box .quickLink-box li a:hover {text-decoration:underline;background:url('../img/quickLink-icon-hover.png') no-repeat 96% center;}
 

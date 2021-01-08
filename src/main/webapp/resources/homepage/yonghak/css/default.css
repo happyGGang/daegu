@@ -25,7 +25,7 @@ h1.mobile-logo {display:none;width:140px;height:50px;}
 #header .head {position:relative;z-index:20;clear:both}
 #header h1.web-logo {position:absolute;z-index:10000;top:16px;}
 
-.popupWrap{z-index:6}
+.popupWrap{z-index:7}
 
 .txt-bar{height:11px;margin:0 10px;color:#fff;opacity:0.5;}
 
@@ -183,3 +183,9 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 
 }
 
+
+/*공지사항-카테고리색상*/
+.category span.ca.bg-000 {background-color:#7a6e61 !important;color:#fff;}
+.category span.ca.bg-001 {background-color:#8b399c !important;color:#fff;}
+.category span.ca.bg-002 {background-color:#f56c15 !important;color:#fff;}
+.category span.ca.bg-003 {background-color:#52a34f !important;color:#fff;}

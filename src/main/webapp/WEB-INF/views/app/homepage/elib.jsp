@@ -33,9 +33,9 @@
   </div>
   <h3 class="contTit_line">회원가입 및 절차</h3>
   <ul class="con">
-    <li>지역 공공도서관 도서회원으로 가입하기
+    <li>대구시 공립도서관 통합회원 가입(통합회원인증)
       <ul>
-        <li>대구전자도서관에서 별도 회원가입 불가</li>
+        <li>신규 : 통합회원가입, 기존 지역공공도서관 회원 : 통합회원인증</li>
       </ul>
     </li>
     <!--li>공공도서관 홈페이지에서 회원 인증 후 개인정보 수집 및 이용 동의하기
@@ -43,7 +43,7 @@
         <li>최초 방문 시 인증 한번으로 재 로그인부터는 자동 접속</li>
       </ul>
     </li-->
-    <li>대구전자도서관 홈페이지에서 전자책 및 오디오북 메뉴 클릭 후 이용하기
+    <li>대구전자도서관 홈페이지에서 전자책 및 오디오북 메뉴 클릭 후 이용하기 
       <ul>
         <li>지역 공공도서관에 있는 전자책 및 오디오북 이용 가능</li>
       </ul>
@@ -53,7 +53,7 @@
     <ul>
       <li>
         <div class="top_img"> <img alt="" src="/resources/homepage/dgportal/img/elib_list01.png"> </div>
-        <span class="bottom_txt">대구광역시공공도서관<br>
+        <span class="bottom_txt">대구광역시공립도서관<br>
         회원가입</span> </li>
       <li>
         <div class="top_img"> <img alt="" src="/resources/homepage/dgportal/img/elib_list02.png"> </div>

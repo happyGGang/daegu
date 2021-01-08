@@ -1,4 +1,6 @@
 @charset "utf-8";
+@import url("/resources/common/css/font-style.css")
+
 label.hidden {display:none;}
 .center {text-align:center;}
 .search-wrap{font-size:110%;}
@@ -59,7 +61,7 @@ label.hidden {display:none;}
 
 .search-form .detail_search {padding:20px;border-top:3px solid #000;box-sizing:border-box;}
 .search-form .detail_search .section {width:100%;display:inline-block;overflow:hidden;}
-.search-form .detail_search .section .library-choice{position:relative;float:left;background:#f8f8f8;padding:20px 25px;}
+.search-form .detail_search .section .library-choice{position:relative;float:left;background:#f8f8f8;padding:20px 25px;width:calc(100% - 50px);}
 .search-form .detail_search .section .library-choice p{text-align:left;color:#333;font-size:15px;margin-bottom:15px;padding-bottom:15px;border-bottom:1px solid #ddd;}
 .search-form .detail_search .section .library-choice .libList{}
 .search-form .detail_search .section .library-choice .libList label{font-size:13px;padding-left:5px;}
@@ -690,4 +692,33 @@ textarea.textArea {width: 100%;height: 200px;border-top: 1px solid;}
 	.bbs-result {font-size:13px;}
 	.kdcBookList .bookListz > li {width:50%;}
 	.kdcBookList2 .bookListz > li {width:50%;}
+}
+
+/*나의도서관-이용자도서추천*/
+.user_pick_info{position:relative;width:100%;margin-top:30px;padding:40px 0;background-color:#f3f4f6;text-align:center;}
+.user_pick_info img{position:absolute;top:-30px;left:46%;}
+.user_pick_info h2{font-size:20px;color:#222;font-weight:600;letter-spacing:0;font-family:'s-core_dream6_bold';}
+.user_pick_info p.txt_box01{font-size:15px;color:#222;line-height:23px;letter-spacing:0;border-bottom:1px solid #dedede;margin:0 9%;padding-bottom:20px;font-family:'s-core_dream5_medium';}
+.user_pick_info p.txt_box02{font-size:15px;color:#4265e5;letter-spacing:0;margin:20px 9% 0 9%;background:url('/resources/homepage/dgportal/img/user_mark.png')no-repeat 20px 3px;font-family:'s-core_dream5_medium';}
+
+.data_none{position:relative;height:160px;margin-top:40px;padding-top:110px;background:url('/resources/homepage/dgportal/img/user_pick_comming_soon.png')no-repeat center top;}
+.data_none p{text-align:center;color:#e232a8;font-size:15px;line-height:25px;letter-spacing:0;font-family:'s-core_dream4_regular';}
+
+@media all and (min-width: 768px) and (max-width: 1023px) {
+	.user_pick_info img{left:45%;}
+	.user_pick_info p.txt_box01{margin:0 6%;}
+	.user_pick_info p.txt_box02{margin:20px 5% 0 5%;}
+
+	.data_none{background-size:60%;}
+}
+
+@media all and (max-width: 767px) {
+	.user_pick_info{padding:10px 0 15px;}
+	.user_pick_info img{left:39%;}
+	.user_pick_info h2{font-size:17px;margin-top:30px;padding:5px 0;}
+	.user_pick_info p.txt_box01{font-size:14px;line-height:1.5;margin:0 8%;padding-bottom:10px;}
+	.user_pick_info p.txt_box02{font-size:14px;line-height:1.5;margin:10px 8% 0 8%;padding-left:0;background:none;}
+
+	.data_none{margin-top:20px;padding-top:65px;background-size:70%;}
+	.data_none p{font-size:0.8em;line-height:1.5;margin:0 ;}
 }

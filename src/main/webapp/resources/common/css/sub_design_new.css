@@ -963,7 +963,7 @@ dt,dd{;word-break:keep-all}
 .move_txt p{font-size:16px;color:#222;line-height:160%;}
 
 ul.con_ask{border:1px solid #e5e5e5;padding:20px 40px !important;}
-ul.con_ask li{width:15%;display:inline-block;margin-right:20px;}
+ul.con_ask li{width:14%;display:inline-block;margin-right:20px;}
 ul.con_ask li:last-child{margin-right:0;}
 
 @media all and (min-width: 768px) and (max-width: 1023px) {

@@ -278,7 +278,7 @@ do {
 					<div class="mobile_cd">
 						<p class="tit">모바일 회원증</p>
 						<p class="add_img_wrap">
-							<a href="#" ><img src="/resources/homepage/${homepage.context_path}/img/notice_addr.png" alt="모바일 회원증 바로가기" /></a>
+							<a href="/dalseolib/intro/login/mobileCard.do?menu_idx=68" ><img src="/resources/homepage/${homepage.context_path}/img/notice_addr.png" alt="모바일 회원증 바로가기" /></a>
 						</p>
 					</div>
 					<!-- //모바일회원증 -->

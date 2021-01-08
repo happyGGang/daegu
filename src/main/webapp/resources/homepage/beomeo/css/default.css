@@ -182,3 +182,10 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 
 }
 
+
+
+/*공지사항-카테고리색상*/
+.category span.ca.bg-000 {background-color:#7a6e61 !important;color:#fff;}
+.category span.ca.bg-001 {background-color:#f3bb00 !important;color:#fff;}
+.category span.ca.bg-002 {background-color:#3db2b6 !important;color:#fff;}
+.category span.ca.bg-003 {background-color:#8194b4 !important;color:#fff;}

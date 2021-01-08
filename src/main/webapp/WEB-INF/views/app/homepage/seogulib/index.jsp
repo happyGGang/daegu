@@ -1181,15 +1181,13 @@ do {
               </ul>
             </div>
             <div class="top3wrap" id="culturebox2_all" style="display:block;">
-              <div class="board_box">
+              <div class="board_box">                
                 <div class="board_notice03 pt50">
+                  <c:if test="${fn:length(teachList) < 1}">
+					<div class="empty_box"><p>등록된 행사가 없습니다.</p></div>
+                  </c:if>
                   <div>
                     <ul>
-                      <c:if test="${fn:length(teachList) < 1}">
-                        <li>
-                          등록된 행사가 없습니다.
-                        </li>
-                      </c:if>
                       <c:forEach items="${teachList}" var="i" varStatus="status" begin="0" end="7">
                         <c:if test="${i.homepage_id eq 'h77'}">
                           <c:set var="libcode" value="child">
@@ -1311,13 +1309,11 @@ do {
             <div class="top3wrap" id="culturebox2_seoguchild">
               <div class="board_box">
                 <div class="board_notice03 pt50">
+                  <c:if test="${fn:length(teachListh77) < 1}">
+                     <div class="empty_box"><p>등록된 행사가 없습니다.</p></div>
+                  </c:if>
                   <div>
                     <ul>
-                      <c:if test="${fn:length(teachListh77) < 1}">
-                        <li>
-                          등록된 행사가 없습니다.
-                        </li>
-                      </c:if>
                       <c:forEach items="${teachListh77}" var="i" varStatus="status" begin="0" end="7">
                         <c:if test="${i.homepage_id eq 'h77'}">
                           <c:set var="libcode" value="child">
@@ -1438,13 +1434,11 @@ do {
             <div class="top3wrap" id="culturebox2_bisan">
               <div class="board_box">
                 <div class="board_notice03 pt50">
+				  <c:if test="${fn:length(teachListh61) < 1}">
+					<div class="empty_box"><p>등록된 행사가 없습니다.</p></div>
+				  </c:if>
                   <div>
                     <ul>
-                      <c:if test="${fn:length(teachListh61) < 1}">
-                        <li>
-                          등록된 행사가 없습니다.
-                        </li>
-                      </c:if>
                       <c:forEach items="${teachListh61}" var="i" varStatus="status" begin="0" end="7">
                         <c:if test="${i.homepage_id eq 'h77'}">
                           <c:set var="libcode" value="child">
@@ -1565,13 +1559,11 @@ do {
             <div class="top3wrap" id="culturebox2_english">
               <div class="board_box">
                 <div class="board_notice03 pt50">
+				  <c:if test="${fn:length(teachListh62) < 1}">
+					<div class="empty_box"><p>등록된 행사가 없습니다.</p></div>
+				  </c:if>
                   <div>
                     <ul>
-                      <c:if test="${fn:length(teachListh62) < 1}">
-                        <li>
-                          등록된 행사가 없습니다.
-                        </li>
-                      </c:if>
                       <c:forEach items="${teachListh62}" var="i" varStatus="status" begin="0" end="7">
                         <c:if test="${i.homepage_id eq 'h77'}">
                           <c:set var="libcode" value="child">
@@ -1692,13 +1684,11 @@ do {
             <div class="top3wrap" id="culturebox2_biwon">
               <div class="board_box">
                 <div class="board_notice03 pt50">
+				  <c:if test="${fn:length(teachListh63) < 1}">
+					<div class="empty_box"><p>등록된 행사가 없습니다.</p></div>
+				  </c:if>
                   <div>
                     <ul>
-                      <c:if test="${fn:length(teachListh63) < 1}">
-                        <li>
-                          등록된 행사가 없습니다.
-                        </li>
-                      </c:if>
                       <c:forEach items="${teachListh63}" var="i" varStatus="status" begin="0" end="7">
                         <c:if test="${i.homepage_id eq 'h77'}">
                           <c:set var="libcode" value="child">
@@ -1819,13 +1809,11 @@ do {
             <div class="top3wrap" id="culturebox2_wongogye">
               <div class="board_box">
                 <div class="board_notice03 pt50">
+				  <c:if test="${fn:length(teachListh64) < 1}">
+					<div class="empty_box"><p>등록된 행사가 없습니다.</p></div>
+				  </c:if>
                   <div>
                     <ul>
-                      <c:if test="${fn:length(teachListh64) < 1}">
-                        <li>
-                          등록된 행사가 없습니다.
-                        </li>
-                      </c:if>
                       <c:forEach items="${teachListh64}" var="i" varStatus="status" begin="0" end="7">
                         <c:if test="${i.homepage_id eq 'h77'}">
                           <c:set var="libcode" value="child">
@@ -2212,16 +2200,9 @@ do {
                     </a> </div>
                 </c:forEach>
                 <c:if test="${fn:length(movieList) < 1}">
-				<div class="movie">
 				<a href="javascript:alert('상영예정 영화가 없습니다.');">
-					<div class="img_box">
-						<img src="/resources/common/img/noImg2.png" alt="noImg">
-					</div>
-					<div class="con_box">
-						<div class="info">상영예정 영화가 없습니다.</div>
-					</div>
+					<div class="empty_box empty_box02"><p>상영예정 영화가 없습니다.</p></div>
 				</a>
-				</div>
 				</c:if>
               </div>
             </div>
@@ -2255,12 +2236,7 @@ do {
                 <c:if test="${fn:length(movieListh77) < 1}">
 				<div class="movie">
 				<a href="javascript:alert('상영예정 영화가 없습니다.');">
-					<div class="img_box">
-						<img src="/resources/common/img/noImg2.png" alt="noImg">
-					</div>
-					<div class="con_box">
-						<div class="info">상영예정 영화가 없습니다.</div>
-					</div>
+					<div class="empty_box empty_box02"><p>상영예정 영화가 없습니다.</p></div>
 				</a>
 				</div>
 				</c:if>
@@ -2296,12 +2272,7 @@ do {
                 <c:if test="${fn:length(movieListh61) < 1}">
 				<div class="movie">
 				<a href="javascript:alert('상영예정 영화가 없습니다.');">
-					<div class="img_box">
-						<img src="/resources/common/img/noImg2.png" alt="noImg">
-					</div>
-					<div class="con_box">
-						<div class="info">상영예정 영화가 없습니다.</div>
-					</div>
+					<div class="empty_box empty_box02"><p>상영예정 영화가 없습니다.</p></div>
 				</a>
 				</div>
 				</c:if>
@@ -2337,12 +2308,7 @@ do {
                 <c:if test="${fn:length(movieListh62) < 1}">
 				<div class="movie">
 				<a href="javascript:alert('상영예정 영화가 없습니다.');">
-					<div class="img_box">
-						<img src="/resources/common/img/noImg2.png" alt="noImg">
-					</div>
-					<div class="con_box">
-						<div class="info">상영예정 영화가 없습니다.</div>
-					</div>
+					<div class="empty_box empty_box02"><p>상영예정 영화가 없습니다.</p></div>
 				</a>
 				</div>
 				</c:if>
@@ -2422,12 +2388,7 @@ do {
                 <c:if test="${fn:length(movieListh64) < 1}">
 				<div class="movie">
 				<a href="javascript:alert('상영예정 영화가 없습니다.');">
-					<div class="img_box">
-						<img src="/resources/common/img/noImg2.png" alt="noImg">
-					</div>
-					<div class="con_box">
-						<div class="info">상영예정 영화가 없습니다.</div>
-					</div>
+					<div class="empty_box empty_box02"><p>상영예정 영화가 없습니다.</p></div>
 				</a>
 				</div>
 				</c:if>
