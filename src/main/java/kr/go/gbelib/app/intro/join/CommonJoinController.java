@@ -185,7 +185,6 @@ public class CommonJoinController extends BaseController {
 	 *
 	 * @author whalesoft YONGJU 2019. 11. 15.
 	 * @param member
-	 * @param result
 	 * @param request
 	 * @return
 	 * @throws Exception
@@ -1152,6 +1151,81 @@ public class CommonJoinController extends BaseController {
 			}
 
 		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+
+		return res;
+	}
+
+
+	/**
+	 * 약관인증(개인정보 재동의) 폼
+	 * @param model
+	 * @param member
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = {"/reAgree.*"})
+	public String reAgree(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			int loginMenuIdx = menuService.getMenuIdxByLinkUrl(new Menu(homepage.getHomepage_id(), "/intro/join/reAgree.do"));
+			member.setBefore_url(String.format("/%s/intro/join/reAgree.do?menu_idx=%s", homepage.getContext_path(), member.getMenu_idx()));
+			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d&before_url=%s", homepage.getContext_path(), loginMenuIdx, member.getBefore_url()), request, response);
+			return null;
+		}
+
+		model.addAttribute("newMember", member);
+		//		model.addAttribute("prtcNotice",MemberAPI.getPrtcNoticeList("WEB"));
+		//		model.addAttribute("libraryList", LibSearchAPI.getLibraryList());
+		Menu menuOne = (Menu) request.getAttribute("menuOne");
+//		menuOne.setMenu_name("이용약관 및 개인정보 수집·이용 재동의");
+		request.setAttribute("menuOne", menuOne);
+		return String.format(basePath, homepage.getFolder()) + "reAgree";
+	}
+
+	/**
+	 * 약관인증(개인정보 재동의)
+	 * @param member
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping (value = { "/reAgreeA.*" }, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse reAgreeA(Member member, BindingResult result, HttpServletRequest request) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		JsonResponse res = new JsonResponse(request);
+
+		if ( !result.hasErrors() ) {
+			res.setValid(true);
+
+			Member sessionMember;
+			try {
+				sessionMember = (Member) request.getSession().getAttribute("tempMemberSession");
+			} catch ( Exception e ) {
+				sessionMember = getSessionMemberInfo(request);
+			}
+
+			if (sessionMember == null) {
+				sessionMember = getSessionMemberInfo(request);
+			}
+
+			//개인정보 수집이용에 대한 동의
+			ApiResponse agreeInfo = MemberAPI.agreeInfo(sessionMember.getManage_code(), sessionMember.getRec_key(), "Y");
+
+			if (agreeInfo.getStatus()) {
+				res.setValid(true);
+				res.setMessage("동의가 완료되었습니다.");
+				res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
+			} else {
+				res.setValid(false);
+				res.setMessage(agreeInfo.getMessage());
+			}
+
+		}
+		else {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
 		}

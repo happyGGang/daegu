@@ -209,6 +209,12 @@ public class CommonLoginController extends BaseController {
 			// e.printStackTrace();
 			// }
 
+			if(StringUtils.equals(member.getAgreement_yn(), "N") || StringUtils.equals(member.getAgree_yn(), "N")) {
+				int url_menu_idx = menuService.getMenuIdxByLinkUrl(new Menu(homepage.getHomepage_id(), "/intro/join/reAgree.do"));
+				service.alertMessageAndUrl("재동의 인증을 하셔야 합니다. 인증 페이지로 이동합니다.", "/" + homepage.getContext_path() + "/intro/join/reAgree.do?menu_idx="+url_menu_idx, request, response);
+				return null;
+			}
+
 			return "redirect:" + returnUrl;
 
 		} else {
