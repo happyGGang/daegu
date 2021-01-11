@@ -1113,9 +1113,11 @@ public class BoardController extends BaseController {
 	}
 
 	@RequestMapping(value = {"/reply.*"}, method = RequestMethod.GET)
-	public String reply(Model model, Board parentBoard, HttpServletRequest request, HttpServletResponse response) {
+	public String reply(Model model, Board parentBoard, HttpServletRequest request, HttpServletResponse response) throws AuthException {
 		String basePath = attributeInit(request, model, parentBoard, "REPLY");
 		BoardManage boardManage = (BoardManage)request.getAttribute("boardManage");
+
+		checkAuth("C", model, request);
 
 		//질의응답게시판
 		if (boardManage.getBoard_type().equals("QNA")){
