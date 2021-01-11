@@ -57,7 +57,14 @@ ${sessionScope.certMember.member_name}
 <form:hidden path="user_name" value="${sessionScope.certMember.member_name}" cssClass="text"/>
 		</c:if>
 		<c:if test="${!sessionScope.member.anonymous}">
-${sessionScope.member.member_name}
+			<c:choose>
+				<c:when test="${authMBA}">
+					<form:input path="user_name" value="${member.member_name }" cssClass="text"/>
+				</c:when>
+				<c:otherwise>
+					${sessionScope.certMember.member_name}
+				</c:otherwise>
+			</c:choose>
 		</c:if>
 	</c:otherwise>
 </c:choose>
