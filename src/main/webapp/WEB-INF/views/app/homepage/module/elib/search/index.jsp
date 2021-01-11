@@ -254,11 +254,11 @@ function addOnClickListeners() {
 			<br/>
 			<div id="autoFill">
 			</div>
-			<p style="height:auto">
+			<!-- <p style="height:auto">
 			  <a id="vk-popup" class="btn" style="line-height:140%">
 			    <i class="fa fa-keyboard-o" style="font-size:19px;color:#777"></i><span>외국어입력기</span>
 			  </a>
-			</p>
+			</p> -->
 		</div>
 		<br/>
 		<div class="search-info" >

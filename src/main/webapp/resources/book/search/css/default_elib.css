@@ -49,9 +49,9 @@
 .search-form .box1 .select2-container{border:1px solid #bbb;border-radius:5px;overflow:hidden}
 
 .search-wrap .smain .ws-filter{float:right;width:21%;padding-left:3%}
-.search-wrap .smain .box{float:left;width:100%;margin-right:-24%}
+.search-wrap .smain .box{float:left;width:100%;margin-right:0}
 .search-wrap .smain .box .ws-toolbar,
-.search-wrap .smain .box .search-results{margin-right:24%}
+.search-wrap .smain .box .search-results{margin-right:0}
 .search-wrap .smain .box .search-results.wide{margin-right:0}
 
 /* 도서검색 선택 */

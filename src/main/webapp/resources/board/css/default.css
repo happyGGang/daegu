@@ -181,19 +181,25 @@ table.bbs tbody tr:hover td{background:#f8f8f8}
 .elib_top .sort{margin-top:-5px}
 .elib_top .sub001{padding-top:5px}
 .elib_top .sub001 span{color:#e84c00;font-weight:bold}
-.bbs_webzine.elib{border-top-width:1px}
+.bbs_webzine.elib{position:relative;border-top-width:1px}
 .bbs_webzine.elib .flexbox b{font-weight:bold}
-.bbs_webzine.elib .thumb{width:90px}
-.bbs_webzine.elib .list-body{margin-right:-90px}
+.bbs_webzine.elib .thumb {width:90px;height:135px;}
+.bbs_webzine.elib .thumb a.book_link img {width:88px;height:135px}
+.bbs_webzine.elib .list-body {position:relative;margin-right:-90px;height:140px;box-sizing:border-box;}
 .bbs_webzine.elib .list-body .meta,
-.bbs_webzine.elib .list-body .flexbox{margin-right:90px;padding-left:3%}
+.bbs_webzine.elib .list-body .flexbox {margin-right:90px;padding-left:3%}
+.bbs_webzine.elib .list-body .flexbox a.book_link {font-size:17px;padding:2px 0 5px 0;}
+.bbs_webzine.elib .list-body .flexbox .info {font-size:13px;line-height:130%;}
+.bbs_webzine.elib .list-body .flexbox .info span.display-block {display:block;}
+.bbs_webzine.elib .list-body .flexbox .info span {padding:3px 0;}
 .bbs_webzine.elib .thumb a{height:auto}
 .bbs_webzine.elib span,
 .bbs_webzine.elib .list-body .flexbox span{display:inline-block;vertical-align:middle}
 .bbs_webzine.elib .list-body .flexbox span.snipet{display:block;padding:0;color:#666}
 .bbs_webzine.elib label{vertical-align:middle}
 .bbs_webzine.elib span.txt-bar{padding:1px 0;background:#ccc;vertical-align:middle}
-.bbs_webzine.elib .meta span{color:#888}
+.bbs_webzine.elib .meta {position:absolute;bottom:0;}
+.bbs_webzine.elib .meta span{font-size:13px;color:#606060;}
 
 /* 웹접근성 셀렉트 */
 /* 전자도서관 */
@@ -235,6 +241,9 @@ input.combobox::placeholder { /* 파이어폭스 51+, 크롬 57+ */color:#fff;}
 
 @media (max-width:1000px){
 	.elib_top .sort{margin-top:5px;float:none;text-align:center}
+}
+@media (max-width:768px){
+	.bbs_webzine.elib .list-body .flexbox a.book_link {font-size:13px;}
 }
 @media (max-width:380px){
 	.bbs_webzine.elib .list-body,

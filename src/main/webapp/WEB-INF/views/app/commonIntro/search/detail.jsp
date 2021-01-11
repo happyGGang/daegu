@@ -253,25 +253,8 @@ $(function() {
 
 					<!-- 대출가능 여부 [START] -->
 					<c:choose>
-						<c:when test="${detail.WORKING_STATUS == 'BOL112N'}">
-							<c:choose>
-								<c:when test="${detail.RESERVATION_CNT > '0'}">
-									<span style="color:#ff0000">대출불가(예약도서)</span>
-								</c:when>
-								<c:otherwise>
-									<c:choose>
-										<c:when test="${detail.USE_LIMIT_CODE eq 'CD'}">
-											대출불가(열람제한도서)
-										</c:when>
-										<c:when test="${detail.USE_LIMIT_CODE eq 'IZ'}">
-											귀중자료(관내열람만가능)
-										</c:when>
-										<c:otherwise>
-											대출가능
-										</c:otherwise>
-									</c:choose>
-								</c:otherwise>
-							</c:choose>
+						<c:when test="${detail.LOAN_CODE eq 'OK'}">
+							대출가능
 						</c:when>
 						<c:otherwise>
 							<c:choose>
@@ -353,7 +336,13 @@ CONTEXT_PATH : ${homepage.context_path}
 				</c:when>
 
 				<c:when test="${homepage.context_path eq 'junggu'}">
-					<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
+					<c:choose>
+						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
+							<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
+						</c:when>
+						<c:otherwise>
+						</c:otherwise>
+					</c:choose>
 				</c:when>
 
 				<c:when test="${homepage.context_path eq 'dalseolib'}">

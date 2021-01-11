@@ -1357,25 +1357,8 @@ $(function() {
 											<p><font style="color:#5e5e5e">대출가능여부</font> :
 												<!-- 대출가능 여부 [START] -->
 												<c:choose>
-													<c:when test="${i.WORKING_STATUS == 'BOL112N'}">
-														<c:choose>
-															<c:when test="${i.RESERVATION_CNT > '0'}">
-																<span style="color:#ff0000">대출불가(예약도서)</span>
-															</c:when>
-															<c:otherwise>
-																<c:choose>
-																	<c:when test="${i.USE_LIMIT_CODE eq 'CD'}">
-																		대출불가(열람제한도서)
-																	</c:when>
-																	<c:when test="${i.USE_LIMIT_CODE eq 'IZ'}">
-																		귀중자료(관내열람만가능)
-																	</c:when>
-																	<c:otherwise>
-																		대출가능
-																	</c:otherwise>
-																</c:choose>
-															</c:otherwise>
-														</c:choose>
+													<c:when test="${i.LOAN_CODE eq 'OK'}">
+														대출가능
 													</c:when>
 													<c:otherwise>
 														<c:choose>
@@ -1392,7 +1375,7 @@ $(function() {
 																<span style="color:#ff0000">대출불가(타관대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
 															</c:when>
 															<c:otherwise>
-																<span style="color:#ff0000">대출불가(예약 : ${i.RESERVATION_CNT}명)</span>
+																<span style="color:#ff0000">대출불가</span>
 															</c:otherwise>
 														</c:choose>
 													</c:otherwise>

@@ -5,6 +5,51 @@
 <%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<link rel="stylesheet" type="text/css" href="/resources/book/search/css/default_elib.css"/>
+
+<c:if test="${param.type == 'EBK'}">
+<script>
+$(function() {
+	$('#do-search').on('click', function(e) {
+
+		if ($('input#search_text2').val() == '') {
+			alert('검색어를 입력해주세요');
+			$('input#search_text2').focus();
+			return false;
+		}
+		$('#subBookSearchForm').submit();
+
+	});
+});
+</script>
+
+<form id="subBookSearchForm" action="/${homepage.context_path}/module/elib/search/index.do">
+	<input type="hidden" name="menu_idx" value="80">
+	<input type="hidden" name="viewPage" value="1">
+	<!-- <input type="hidden" name="type" value="EBK"> -->
+
+	<div class="search-form">
+		<div class="box">
+			<div class="b1">
+				<input id="search_text2" name="search_text" style="ime-mode:active;" placeholder="검색어를 입력하세요." type="text" class="text" onfocus="PopupVirtualKeyboard.attachInput(this)" value=""/>
+			</div>
+			<div class="b2">
+				<button id="do-search"><i class="fa fa-search"></i><span class="blind">검색</span></button>
+			</div>
+		</div>
+		<br/>
+		<div id="autoFill">
+		</div>
+		<!-- <p style="height:auto">
+		  <a id="vk-popup" class="btn" style="line-height:140%">
+			<i class="fa fa-keyboard-o" style="font-size:19px;color:#777"></i><span>외국어입력기</span>
+		  </a>
+		</p> -->
+	</div>
+</form>
+</c:if>
+
+
 <c:choose>
 <c:when test="${param.type == 'EBK'}">
 <c:set var="type_name" value="전자책이"/>
@@ -216,20 +261,19 @@ $(document).ready(function() {
 				<img src="/resources/common/img/noImg.gif" alt="noImage"/>
 				</c:if>
 			</a>
-        </div>
-        <div class="list-body">
-        	<div class="flexbox">
-            	<a href="#" class="book_link" data-book_idx="${i.book_idx}">
-               		<b>${fn:escapeXml(i.book_name)}</b>
-               	</a>
-               	<div class="info">
-               		<span>${fn:escapeXml(i.book_pubname)}</span>
-               		<span class="txt-bar">&nbsp;</span>
-               		<span>${fn:escapeXml(i.author_name)}</span>
-               		<span class="txt-bar">&nbsp;</span>
-               		<span>${fn:escapeXml(i.book_pubdt)}</span>
-               	</div>
-               	<c:set var="body" value="${i.book_info}"/>
+		</div>
+		<div class="list-body">
+			<div class="flexbox">
+				<a href="#" class="book_link" data-book_idx="${i.book_idx}">
+					<b>${fn:escapeXml(i.book_name)}</b>
+				</a>
+				<div class="info">
+					<span class="display-block">${fn:escapeXml(i.book_pubname)}</span>
+					<span><c:choose><c:when test="${fn:length(fn:escapeXml(i.author_name)) > 18}">${fn:substring(fn:escapeXml(i.author_name), 0, 18)}...</c:when><c:otherwise>${fn:escapeXml(i.author_name)}</c:otherwise></c:choose></span>
+					<span class="txt-bar">&nbsp;</span>
+					<span>${fn:escapeXml(i.book_pubdt)}</span>
+				</div>
+				<%--c:set var="body" value="${i.book_info}"/--%>
 				<%
 					try {
 						String body = (String)pageContext.getAttribute("body");
@@ -241,17 +285,17 @@ $(document).ready(function() {
 
 					}
 				%>
-               	<c:if test="${fn:length(body) > 200}">
-               	<c:set var="body" value="${fn:substring(body, 0, 200)}..."/>
-               	</c:if>
-            	<span class="snipet">${fn:escapeXml(body)}</span>
+				<c:if test="${fn:length(body) > 200}">
+				<c:set var="body" value="${fn:substring(body, 0, 200)}..."/>
+				</c:if>
+				<span class="snipet">${fn:escapeXml(body)}</span>
 			</div>
-            <div class="meta">
-            	<label>소속도서관:</label>
-				<span>${fn:escapeXml(i.library_name)}</span>
+			<div class="meta">
+				<!-- <label>소속도서관:</label> -->
+				<!-- <span>${fn:escapeXml(i.library_name)}</span> -->
 				<c:if test="${i.type == 'EBK'}">
-				<span class="txt-bar">&nbsp;</span>
-				<span>대출 가능 여부: ${fn:escapeXml(i.status)}</span>
+				<!-- <span class="txt-bar">&nbsp;</span> -->
+				<span><!-- 대출 가능 여부:  -->${fn:escapeXml(i.status)}</span>
 				<span class="txt-bar">&nbsp;</span>
 				<span>대출 : ${fn:escapeXml(i.book_lend)}<%-- / ${fn:escapeXml(i.max_lend)}--%></span>
 				<span class="txt-bar">&nbsp;</span>

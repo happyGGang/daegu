@@ -224,42 +224,8 @@ $(function() {
 
 					<!-- 대출가능 여부 [START] -->
 					<c:choose>
-						<c:when test="${detail.WORKING_STATUS == 'BOL112N'}">
-							<c:choose>
-								<c:when test="${detail.RESERVATION_CNT > '0'}">
-									<span style="color:#ff0000">대출불가(예약도서)</span>
-								</c:when>
-								<c:otherwise>
-									<c:choose>
-										<c:when test="${detail.USE_LIMIT_CODE eq 'CD'}">
-											대출불가(열람제한도서)
-										</c:when>
-										<c:when test="${detail.USE_LIMIT_CODE eq 'IZ'}">
-											귀중자료(관내열람만가능)
-										</c:when>
-										<c:otherwise>
-											<c:choose>
-												<c:when test="${detail.SHELF_LOC_CODE eq 'AK03'}">
-													<span style="color:#ff0000">대출불가</span>
-												</c:when>
-												<c:when test="${detail.SHELF_LOC_CODE eq 'BD10'}">
-													<span style="color:#ff0000">대출불가(스마트도서관자료)</span>
-												</c:when>
-												<c:otherwise>
-													<c:choose>
-														<c:when test="${detail.SEPARATE_SHELF_CODE eq 'BQS' || detail.SEPARATE_SHELF_CODE eq 'BQT'}">
-															<span style="color:#ff0000">대출불가</span>
-														</c:when>
-														<c:otherwise>
-															대출가능
-														</c:otherwise>
-													</c:choose>
-												</c:otherwise>
-											</c:choose>
-										</c:otherwise>
-									</c:choose>
-								</c:otherwise>
-							</c:choose>
+						<c:when test="${detail.LOAN_CODE eq 'OK'}">
+							대출가능
 						</c:when>
 						<c:otherwise>
 							<c:choose>
@@ -268,9 +234,6 @@ $(function() {
 								</c:when>
 								<c:when test="${detail.WORKING_STATUS == 'BOL212O'}">
 									<span style="color:#ff0000">대출불가(관내대출중)</span>
-								</c:when>
-								<c:when test="${detail.WORKING_STATUS == 'BOL411O'}">
-									<span style="color:#ff0000">대출불가(책두레중)</span>
 								</c:when>
 								<c:when test="${detail.WORKING_STATUS == 'BOL511O'}">
 									<span style="color:#ff0000">대출불가(타관반납중)</span>
@@ -345,7 +308,13 @@ CONTEXT_PATH : ${context_path}
 				</c:when>
 
 				<c:when test="${context_path eq 'junggu'}">
-					<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
+					<c:choose>
+						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
+							<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
+						</c:when>
+						<c:otherwise>
+						</c:otherwise>
+					</c:choose>
 				</c:when>
 
 				<c:when test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib'}">

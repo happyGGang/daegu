@@ -1,0 +1,248 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script>
+function copyToClipboard(s) {
+    var $temp = jQuery("<input>");
+    jQuery("body").append($temp);
+    $temp.val(s).select();
+    document.execCommand("copy");
+    $temp.remove();
+    alert('복사되었습니다.');
+}
+$(document).ready(function() {
+	$.get('../calendar9.do?manageCode=BJ', function(data) {
+		var li = '<li>등록된 휴관일이 없습니다.</li>';
+		if (data && data.length > 0) {
+			li = '';
+			$.each(data, function(i, v) {
+				li += ('<li>'+v+'</li>');
+			});
+		}
+		$('ul.close_day').html(li);
+	});
+})
+</script>
+<style>
+.mb10 {
+	margin-bottom: 20px;
+}
+.time_box ul li div {
+	background-position: 40px 20px !important;
+}
+
+@media all and (min-width: 768px) and (max-width: 1023px) {
+.time_box ul li:first-child div, .time_box ul li:nth-child(2) div {
+	padding: 30px 20px 30px 120px
+}
+.time_box ul li:last-child div {
+	padding: 20px 20px 40px 120px
+}
+.time_box ul li.book08 div {
+	background-position: 40px 15px !important;
+}
+}
+</style>
+
+<div class="doc-body">
+  <h3>이용시간</h3>
+  <div class="time_box">
+    <ul>
+      <li class="book13 mb10" style="margin-right:20px;">
+        <div> <span>평일 09:00 ~ 18:00</span> </div>
+      </li>
+      <li class="book11 mb10">
+        <div> <span>주말 09:00 ~ 17:00</span> </div>
+      </li>
+      <li class="book08" style="width:100%;">
+        <div> <span class="month_info">이번달 휴관일은</span>
+          <ul class="close_day">
+            <li>불러오는 중...</li>
+          </ul>
+          <span>일 입니다.</span>
+          <p>일요일과 공휴일은 휴관입니다.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2020.09.30] (단위 : 권)</span></h3>
+  <div class="rsv-info"></div>
+  <div class="auto-scroll">
+    <table class="tbl-type01" summary="책숲길도서관의 장서현황을 나타내는 표">
+      <caption class="disnone">
+      책숲길도서관의 장서현황
+      </caption>
+      <colgroup>
+      <col width="*" class="col1">
+      <col width="8.5%" class="col2">
+      <col width="8.5%" class="col3">
+      <col width="8.5%" class="col4">
+      <col width="8.5%" class="col5">
+      <col width="8.5%" class="col6">
+      <col width="8.5%" class="col7">
+      <col width="8.5%" class="col8">
+      <col width="8.5%" class="col9">
+      <col width="8.5%" class="col10">
+      <col width="8.5%" class="col11">
+      <col width="8.5%" class="col12">
+      </colgroup>
+      <thead>
+        <tr>
+          <th scope="col">구분</th>
+          <th scope="col">계</th>
+          <th scope="col">000</th>
+          <th scope="col">100</th>
+          <th scope="col">200</th>
+          <th scope="col">300</th>
+          <th scope="col">400</th>
+          <th scope="col">500</th>
+          <th scope="col">600</th>
+          <th scope="col">700</th>
+          <th scope="col">800</th>
+          <th scope="col">900</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">유아</th>
+          <td>4,527 </td>
+          <td>67 </td>
+          <td>50 </td>
+          <td>19 </td>
+          <td>850 </td>
+          <td>605 </td>
+          <td>96 </td>
+          <td>63 </td>
+          <td>31 </td>
+          <td>2,723 </td>
+          <td>23 </td>
+        </tr>
+        <tr>
+          <th scope="row">아동</th>
+          <td>8,518 </td>
+          <td>709 </td>
+          <td>256 </td>
+          <td>103 </td>
+          <td>766 </td>
+          <td>1,142 </td>
+          <td>225 </td>
+          <td>241 </td>
+          <td>249 </td>
+          <td>3,588 </td>
+          <td>1,239 </td>
+        </tr>
+        <tr>
+          <th scope="row">일반</th>
+          <td>10,369 </td>
+          <td>441 </td>
+          <td>651 </td>
+          <td>209 </td>
+          <td>1,430 </td>
+          <td>280 </td>
+          <td>1,431 </td>
+          <td>445 </td>
+          <td>224 </td>
+          <td>4,494 </td>
+          <td>764 </td>
+        <tr>
+          <th scope="row">영어자료</th>
+          <td>2,339 </td>
+          <td>1 </td>
+          <td>1 </td>
+          <td>3 </td>
+          <td>147 </td>
+          <td>160 </td>
+          <td>18 </td>
+          <td>39 </td>
+          <td>833 </td>
+          <td>1,111 </td>
+          <td>26 </td>
+        </tr>
+        <tr>
+          <th scope="row">보존서고</th>
+          <td>665 </td>
+          <td>19 </td>
+          <td>8 </td>
+          <td>30 </td>
+          <td>164 </td>
+          <td>49 </td>
+          <td>1 </td>
+          <td>1 </td>
+          <td>0 </td>
+          <td>366 </td>
+          <td>27 </td>
+        </tr>
+        <tr>
+          <th scope="row">계</th>
+          <td>26,418 </td>
+          <td>1,237 </td>
+          <td>966 </td>
+          <td>364 </td>
+          <td>3,357 </td>
+          <td>2,236 </td>
+          <td>1,771 </td>
+          <td>789 </td>
+          <td>1,337 </td>
+          <td>12,282 </td>
+          <td>2,079 </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <h3>시설안내</h3>
+  <div class="rsv-info"></div>
+  <div class="auto-scroll">
+    <table class="tbl-type01" summary="범어도서관의 시설안내를 나타내는 표">
+      <caption class="disnone">
+      범어도서관의 시설안내
+      </caption>
+      <colgroup>
+      <col width="20%">
+      <col width="*">
+      <col width="30%">
+      </colgroup>
+      <thead>
+        <tr>
+          <th scope="col">층별</th>
+          <th scope="col">공간구성</th>
+          <th scope="col">면적(㎡)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row" rowspan="5">4층</th>
+          <td>자료실</td>
+          <td>192</td>
+        </tr>
+        <tr>
+          <td>유아자료실</td>
+          <td>33</td>
+        </tr>
+        <tr>
+          <td>문화강좌실</td>
+          <td>27</td>
+        </tr>
+        <tr>
+          <td>사무실(데스크)</td>
+          <td>22</td>
+        </tr>
+        <tr>
+          <td>기타공간(화장실, 로비, 복도 등)</td>
+          <td>114.55</td>
+        </tr>
+        <tr>
+          <th scope="row" colspan="2">총면적</th>
+          <td>338.55</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <h3>위치안내</h3>
+  <div style="font:normal normal 400 12px/normal dotum, sans-serif; width:100%; height:auto; color:#333; position:relative">
+    <div style="height: auto;"> <a href="https://map.kakao.com/?urlX=864171.0&amp;urlY=655073.0&amp;itemId=12296217&amp;q=%EC%88%98%EC%84%B1%EA%B5%AC%EB%A6%BD%20%EC%B1%85%EC%88%B2%EA%B8%B8%EB%8F%84%EC%84%9C%EA%B4%80&amp;srcid=12296217&amp;map_type=TYPE_MAP&amp;from=roughmap" target="_blank"> <img class="map" src="//t1.daumcdn.net/roughmap/imgmap/227cf995a7796d24750d1e7d5e7ce6d91b4b6f2cf653aa617604435fb7d283d5" width="100%" height="auto"> </a> </div>
+  </div>
+  <div class="info_box">
+    <p class="info_add">대구시 수성구 수성로215(중동) 수옥빌딩 4층</p>
+    <p class="info_tel">053-668-1811</p>
+  </div>
+</div>
