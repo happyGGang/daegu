@@ -298,7 +298,9 @@ KBILL_LILL_YN : ${detail.KBILL_LILL_YN} <br/>
 SHELF_LOC_CODE : ${detail.SHELF_LOC_CODE} <br/>
 SEPARATE_SHELF_CODE : ${detail.SEPARATE_SHELF_CODE} <br/>
 REG_CODE : ${detail.REG_CODE}<br/>
-LOAN_CODE : ${detail.LOAN_CODE}
+LOAN_CODE : ${detail.LOAN_CODE}<br/>
+RESERVE_CODE : ${detail.RESERVE_CODE}<br/>
+CONTEXT_PATH : ${context_path}
 			</c:if>
 		</div>
 
@@ -343,7 +345,7 @@ LOAN_CODE : ${detail.LOAN_CODE}
 				</c:when>
 
 				<c:when test="${context_path eq 'junggu'}">
-					<!-- <a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a> -->
+					<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
 				</c:when>
 
 				<c:when test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib'}">
@@ -394,7 +396,7 @@ LOAN_CODE : ${detail.LOAN_CODE}
 
 						</c:when>
 						<c:otherwise>
-							<c:if test="${detail.SHELF_LOC_CODE eq 'BR01' || detail.SHELF_LOC_CODE eq 'BR02' || detail.SHELF_LOC_CODE eq 'BR03' || detail.SHELF_LOC_CODE eq 'BR05' || detail.SHELF_LOC_CODE eq 'BR06'}">
+							<c:if test="${detail.SHELF_LOC_CODE eq 'BR01' || detail.SHELF_LOC_CODE eq 'BR02' || detail.SHELF_LOC_CODE eq 'BR03' || detail.SHELF_LOC_CODE eq 'BR05' || detail.SHELF_LOC_CODE eq 'BR06' || detail.SHELF_LOC_CODE eq 'BR07'}">
 							<%
 							org.joda.time.DateTime now = new org.joda.time.DateTime();
 							int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */

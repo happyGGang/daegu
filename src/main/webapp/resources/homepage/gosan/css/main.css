@@ -59,10 +59,11 @@ justify-content: center;-webkit-box-align: center;-ms-flex-align: center;-webkit
 #main1 .notice-box > .con li {padding:1px 0;}
 #main1 .notice-box > .con li a {position:relative;display:block;box-sizing:border-box;padding:6px 100px 6px 65px;position: relative;word-break:break-all;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;font-size:16px;letter-spacing:-0.5px;}
 #main1 .notice-box > .con li a em {text-align:left;color:#fff;text-decoration:none;font-style:normal;color:#333333;}
-#main1 .notice-box > .con li a span.sulib001 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#7a6e61;color:#fff;border-radius:5px;}
-#main1 .notice-box > .con li a span.sulib002 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#29419c;color:#fff;border-radius:5px;}
-#main1 .notice-box > .con li a span.sulib003 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#f3bb00;color:#fff;border-radius:5px;}
-#main1 .notice-box > .con li a span.sulib004 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#3db2b6;color:#fff;border-radius:5px;}
+#main1 .notice-box > .con li a span.sulib000 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#7a6e61;color:#fff;border-radius:5px;}
+#main1 .notice-box > .con li a span.sulib001 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#29419c;color:#fff;border-radius:5px;}
+#main1 .notice-box > .con li a span.sulib002 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#f3bb00;color:#fff;border-radius:5px;}
+#main1 .notice-box > .con li a span.sulib003 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#3db2b6;color:#fff;border-radius:5px;}
+#main1 .notice-box > .con li a span.sulib004 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#01d3ec;color:#fff;border-radius:5px;}
 #main1 .notice-box > .con li a span.date {position:absolute;right:10px;letter-spacing:0;color:#999999;font-size:14px;}
 
 #main1 .information-box {position:relative;float:right;width:500px;background:#f8f7f4;border-radius:5px;box-sizing:border-box;padding:42px 40px;font-size:15px;}
@@ -114,7 +115,7 @@ justify-content: center;-webkit-box-align: center;-ms-flex-align: center;-webkit
 #main2 .popZone .bx-pager .bx-pager-item {display:inline-block;zoom:1;*display:inline;font-size:0;line-height:0;margin-left:3px;}
 #main2 .popZone .bx-pager a {display:inline-block;font-size:0;overflow:hidden;padding:7px 0 0 7px;background:#999999;border:2px solid transparent;border-radius:20px;}
 #main2 .popZone .bx-pager a.active{background:#FFF;border:2px solid #000;}
-#main2 .popZone img,  #main1 .popZone a img {border-radius:5px;}
+#main2 .popZone img,  #main1 .popZone a img {border-radius:5px;width:360px;height:370px;}
 
 #main2 .main1-bottom {width:100%;margin-top:-120px;}
 
@@ -300,7 +301,7 @@ justify-content: center;-webkit-box-align: center;-ms-flex-align: center;-webkit
 	#calendar2 .cal-bord {width:48%;height:370px;}
 	#calendar2 .planView {width:52%;height:370px;}
 	#main2 .popupzone-box {width:30%;}
-	#main2 .popupzone-box img, #main1 .popupzone-box a img {height:370px;}
+	#main1 .popZone img,  #main1 .popZone a img {width:360px;height:370px;}
 }
 
 @media all and (max-width:1024px){
@@ -358,7 +359,6 @@ justify-content: center;-webkit-box-align: center;-ms-flex-align: center;-webkit
 	
 	#main2 .calendar-box {float:none;width:calc(100% - 40px);margin:120px auto 0;}
 	#main2 .popupzone-box {float:none;width:100%;text-align:center;margin:60px 0 0 0;}
-	#main2 .popupzone-box img, #main1 .popupzone-box a img {height:auto;}
 
 	#calendar2 .cal-bord {width:60%;height:370px;}
 	#calendar2 .planView {width:39%;height:368px;}

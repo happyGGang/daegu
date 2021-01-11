@@ -111,6 +111,7 @@ do {
 
 		$('select#event_lib_anum').on('change', function() {
 			$('ul#ul_eventList').load('subCalendar.do?homepage_id='+$(this).val());
+			$('.cal-more').attr('href','/${homepage.context_path}/module/calendarManage/index.do?menu_idx=36&homepage_id='+$(this).val());
 		});
 });
 </script>
@@ -345,13 +346,15 @@ do {
 								<option value="h70">달서영어</option>
 							</select>
 						</div>
-						<ul id="ul_eventList" class="notice_text fes">
-						</ul>
+
 						<p class="notice_more">
-							<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=36">
+							<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=36&homepage_id=h72" class='cal-more'>
 								<img src="/resources/homepage/${homepage.context_path}/img/notice_more.png" alt="이달의 행사 자세히보기">
 							</a>
 						</p>
+
+						<ul id="ul_eventList" class="notice_text fes">
+						</ul>
 					</div>
 					<!-- //이달의 행사 -->
 				</div>

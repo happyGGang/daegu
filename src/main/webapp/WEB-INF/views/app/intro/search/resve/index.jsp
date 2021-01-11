@@ -128,31 +128,64 @@ $(function() {
 								</c:choose>
 								</td>
 							</tr>
+							<c:choose>
+								<c:when test="${i.MANAGE_CODE eq 'BR'}">
 
-								<c:choose>
-									<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
+									<c:choose>
+										<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
+										</c:when>
+										<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
+										</c:when>
+										<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'Y'}">
+										</c:when>
+										<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'O'}">
+										</c:when>
+										<c:otherwise>
+											<c:if test="${i.STATUS eq '3'}">
+											<tr>
+												<th>예약취소</th>
+												<td><a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a></td>
+											</tr>
+											</c:if>
+										</c:otherwise>
+									</c:choose>
 
-										<tr>
-											<th>예약취소</th>
-											<td><a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a></td>
-										</tr>
+								</c:when>
+								<c:otherwise>
 
-									</c:when>
-									<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
-									</c:when>
-									<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'Y'}">
-									</c:when>
-									<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'O'}">
-									</c:when>
-									<c:otherwise>
-										<c:if test="${i.STATUS eq '3'}">
-										<tr>
-											<th>예약취소</th>
-											<td><a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a></td>
-										</tr>
-										</c:if>
-									</c:otherwise>
-								</c:choose>
+									<c:choose>
+										<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
+
+											<tr>
+												<th>예약취소</th>
+												<td><a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a></td>
+											</tr>
+
+										</c:when>
+										<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
+										</c:when>
+										<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'Y'}">
+
+											<tr>
+												<th>예약취소</th>
+												<td><a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a></td>
+											</tr>
+
+										</c:when>
+										<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'O'}">
+										</c:when>
+										<c:otherwise>
+											<c:if test="${i.STATUS eq '3'}">
+											<tr>
+												<th>예약취소</th>
+												<td><a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a></td>
+											</tr>
+											</c:if>
+										</c:otherwise>
+									</c:choose>
+
+								</c:otherwise>
+							</c:choose>
 
 							</tbody>
 						</table>

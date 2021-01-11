@@ -186,8 +186,20 @@ $(function() {
 	</c:if>
 
 	<c:if test="${empty librarySearch.title}">
-	//$('#checkAll').click();
+	//$('#checkAll').click();context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' 
 		<c:choose>
+			<c:when test="${context_path eq 'bolli'}">
+			$('div#libraryList input:checkbox').prop('checked',false);
+			$('div#libraryList input:checkbox.lib_BX').prop('checked',true);
+			</c:when>
+			<c:when test="${context_path eq 'seongseo'}">
+			$('div#libraryList input:checkbox').prop('checked',false);
+			$('div#libraryList input:checkbox.lib_BU').prop('checked',true);
+			</c:when>
+			<c:when test="${context_path eq 'kids'}">
+			$('div#libraryList input:checkbox').prop('checked',false);
+			$('div#libraryList input:checkbox.lib_BV').prop('checked',true);
+			</c:when>
 			<c:when test="${context_path eq 'english'}">
 			$('div#libraryList input:checkbox').prop('checked',false);
 			$('div#libraryList input:checkbox.lib_BZ').prop('checked',true);
@@ -637,7 +649,7 @@ $(function() {
 									<form:checkbox path="libraryCodes" value="GV" class="libCheck lib_GV" label="지저동작은도서관"/>
 								</li>
 								<li>
-									<form:checkbox path="libraryCodes" value="GW" class="libCheck lib_GW" label="동천역사작은도서관"/>
+									<form:checkbox path="libraryCodes" value="GW" class="libCheck lib_GW" label="동촌역사작은도서관"/>
 								</li>
 								<li>
 									<form:checkbox path="libraryCodes" value="GX" class="libCheck lib_GX" label="방촌동작은도서관"/>

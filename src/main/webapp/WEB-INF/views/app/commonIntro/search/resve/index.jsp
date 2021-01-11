@@ -53,16 +53,52 @@ $(function() {
 								<div class="box"><b>${i.TITLE_INFO}</b></div>
 							</div>
 							<div class="control">
-								<c:if test="${i.UNMANNED_RESERVATION_LOAN eq 'N'}">
-									<c:if test="${i.STATUS eq '3'}">
-									<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
-									</c:if>
-								</c:if>
-								<c:if test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
-									<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
-								</c:if>
-								<c:if test="${i.UNMANNED_RESERVATION_LOAN eq 'O' || i.NIGHT_RESERVATION_LOAN eq 'O'}">
-								</c:if>
+							<c:choose>
+								<c:when test="${i.MANAGE_CODE eq 'BR'}">
+
+									<c:choose>
+										<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
+										</c:when>
+										<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
+										</c:when>
+										<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'Y'}">
+										</c:when>
+										<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'O'}">
+										</c:when>
+										<c:otherwise>
+											<c:if test="${i.STATUS eq '3'}">
+												<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
+											</c:if>
+										</c:otherwise>
+									</c:choose>
+
+								</c:when>
+								<c:otherwise>
+
+									<c:choose>
+										<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
+
+											<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
+
+										</c:when>
+										<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
+										</c:when>
+										<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'Y'}">
+
+											<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
+
+										</c:when>
+										<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'O'}">
+										</c:when>
+										<c:otherwise>
+											<c:if test="${i.STATUS eq '3'}">
+											<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
+											</c:if>
+										</c:otherwise>
+									</c:choose>
+
+								</c:otherwise>
+							</c:choose>
 							</div>
 						</div>
 						<p class="info"><em>저자 : ${i.AUTHOR}</em> <span>/</span> <em>출판사 : ${i.PUBLISHER}</em> </p>
@@ -90,20 +126,39 @@ $(function() {
 								<th>예약형태</th>
 								<td>
 								<c:choose>
-									<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'N' && i.NIGHT_RESERVATION_LOAN eq 'N'}">
-									일반예약
-									</c:when>
 									<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
-									무인예약신청
+
+										<c:choose>
+											<c:when test="${homepage.context_path eq 'dmsl'}">
+											별관 이동도서관 신청
+											</c:when>
+											<c:otherwise>
+											무인예약신청
+											</c:otherwise>
+										</c:choose>
+
 									</c:when>
 									<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
-									무인예약대기
+
+										<c:choose>
+											<c:when test="${homepage.context_path eq 'dmsl'}">
+											별관 이동도서관 신청 예약대기
+											</c:when>
+											<c:otherwise>
+											무인예약대기
+											</c:otherwise>
+										</c:choose>
+									
 									</c:when>
 									<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'Y'}">
-									워킹스루예약신청
+
+										워킹스루예약신청
+									
 									</c:when>
 									<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'O'}">
-									워킹스루예약대기
+
+										워킹스루예약대기
+									
 									</c:when>
 									<c:otherwise>
 									일반예약

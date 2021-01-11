@@ -33,7 +33,7 @@
 	</span>
 </div>
 
-<div class="search txt-center mmm2" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
+<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 	<fieldset>
 		<label class="blind" for="search_type">검색조건</label>
 		기간 : <form:input path="searchStartDate" id="noticeStartDate" class="text ui-calendar" title="시작기간,입력예시 2017-01-01" /> ~ <form:input id="noticeEndDate" path="searchEndDate" class="text ui-calendar" title="종료기간, 입력예시 2017-12-31"/>

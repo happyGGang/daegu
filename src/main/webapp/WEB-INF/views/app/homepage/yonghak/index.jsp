@@ -250,7 +250,7 @@ do {
 										</c:if>
 										<li>
 											<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=${teachMenuIdx}&searchCate1=${i.large_category_idx}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&homepage_id=${i.homepage_id}">
-												<span class="sulib001">수성</span>
+												<span class="sulib004">수성</span>
 												<em>${i.teach_name}</em>
 												<span class="date">${i.start_date}</span>
 											</a>
@@ -266,7 +266,7 @@ do {
 									<c:forEach items="${boardList1}" var="i" varStatus="status">
 										<li>
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=51&manage_idx=682&board_idx=${i.board_idx}">
-												<span class="sulib001">수성</span>
+												<span class="sulib005">수성</span>
 												<em>${i.title}</em>
 												<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd" /></span>
 											</a>

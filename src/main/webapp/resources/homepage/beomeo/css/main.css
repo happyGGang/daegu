@@ -56,10 +56,11 @@ justify-content: center;-webkit-box-align: center;-ms-flex-align: center;-webkit
 #main1 .notice-box > .con li {padding:1.5px 0;}
 #main1 .notice-box > .con li a {position:relative;display:block;box-sizing:border-box;padding:4px 100px 4px 55px;position: relative;word-break:break-all;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;font-size:16px;letter-spacing:-0.5px;}
 #main1 .notice-box > .con li a em {text-align:left;color:#fff;text-decoration:none;font-style:normal;color:#333333;}
-#main1 .notice-box > .con li a span.sulib001 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#7a6e61;color:#fff;border-radius:5px;}
-#main1 .notice-box > .con li a span.sulib002 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#f3bb00;color:#fff;border-radius:5px;}
-#main1 .notice-box > .con li a span.sulib003 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#3db2b6;color:#fff;border-radius:5px;}
-#main1 .notice-box > .con li a span.sulib004 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#8194b4;color:#fff;border-radius:5px;}
+#main1 .notice-box > .con li a span.sulib000 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#7a6e61;color:#fff;border-radius:5px;}
+#main1 .notice-box > .con li a span.sulib001 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#f3bb00;color:#fff;border-radius:5px;}
+#main1 .notice-box > .con li a span.sulib002 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#3db2b6;color:#fff;border-radius:5px;}
+#main1 .notice-box > .con li a span.sulib003 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#8194b4;color:#fff;border-radius:5px;}
+#main1 .notice-box > .con li a span.sulib004 {position:absolute;left:0;top:0;font-size:13px;letter-spacing:-0.5px;box-sizing:border-box;padding:4px 10px;text-align:center;background:#01d3ec;color:#fff;border-radius:5px;}
 #main1 .notice-box > .con li a span.date {position:absolute;right:10px;letter-spacing:0;color:#999999;font-size:14px;}
 .btn-more-more {position:absolute;right:20px;top:15px;font-size:0;width:14px;height:14px;background:url('../img/more-bbbbbbbtn.png') no-repeat 0 0;}
 
@@ -156,7 +157,7 @@ justify-content: center;-webkit-box-align: center;-ms-flex-align: center;-webkit
 #main1 .popZone .bx-pager .bx-pager-item {display:inline-block;zoom:1;*display:inline;font-size:0;line-height:0;margin-left:3px;}
 #main1 .popZone .bx-pager a {display:inline-block;font-size:0;overflow:hidden;padding:7px 0 0 7px;background:#999999;border:2px solid transparent;border-radius:20px;}
 #main1 .popZone .bx-pager a.active{background:#FFF;border:2px solid #000;}
-#main1 .popZone img,  #main1 .popZone a img {border-radius:5px;}
+#main1 .popZone img,  #main1 .popZone a img {border-radius:5px;width:360px;height:370px;}
 
 #main1 .main1-top {position:absolute;bottom:55%;width:100%;padding:7% 0 0;}
 #main1 .main1-bottom {position:absolute;bottom:0;width:100%;background:#f3f5f6;padding:1% 0;}
@@ -292,7 +293,7 @@ justify-content: center;-webkit-box-align: center;-ms-flex-align: center;-webkit
 	#calendar2 .cal-bord {width:48%;height:370px;}
 	#calendar2 .planView {width:52%;height:370px;}
 	#main1 .popupzone-box {width:30%;}
-	#main1 .popupzone-box img, #main1 .popupzone-box a img {height:370px;}
+	#main1 .popZone img,  #main1 .popZone a img {width:360px;height:370px;}
 
 	#main2 .middle-box .book-box  {width:68%;}
 	#main2 .middle-box .quickLink-box {width:30%;}
@@ -344,7 +345,6 @@ justify-content: center;-webkit-box-align: center;-ms-flex-align: center;-webkit
 
 	#main1 .calendar-box {float:none;width:96%;margin:0 auto;}
 	#main1 .popupzone-box {float:none;width:100%;text-align:center;margin:60px 0 0 0;}
-	#main1 .popupzone-box img, #main1 .popupzone-box a img {height:auto;}
 
 	#main2 .top-box{position:relative;top:0;}
 	#main2 .top-box {text-align:center;}
