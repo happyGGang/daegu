@@ -75,6 +75,14 @@ ${boardManage.top_html}
 <form:hidden path="plan_date"/>
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
 <c:if test="${fn:length(category1List) > 0}">
+<div class="tabmenu tab1">
+	<ul>
+		<li class="${board.category1 eq null ? 'active':''}"><a href="" keyValue=""style="font-size: 13px;">전체</a></li>
+		<c:forEach items="${category1List}" var="i" varStatus="status">
+		<li class="${board.category1 eq i.code_id ? 'active':''}"><a href="" keyValue="${i.code_id}" style="font-size: 13px;">${i.code_name}</a></li>
+		</c:forEach>
+	</ul>
+</div>
 </c:if>
 <c:if test="${boardManage.manage_idx eq '195'}">
 <div style="float: left;">
