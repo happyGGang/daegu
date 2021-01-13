@@ -149,6 +149,9 @@ $(function() {
 						<c:when test="${i.book_resources == '800'}">
 							구입도서
 						</c:when>
+						<c:when test="${i.book_resources == '900'}">
+							소장도서
+						</c:when>
 						<c:otherwise>
 							${i.book_resources}
 						</c:otherwise>

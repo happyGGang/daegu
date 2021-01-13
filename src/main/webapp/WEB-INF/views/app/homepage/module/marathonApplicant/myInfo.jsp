@@ -24,6 +24,10 @@
 			<td><fmt:formatDate value="${marathonApplicant.add_date}" pattern="yyyy-MM-dd"/></td>
 		</tr>
 		<tr>
+			<th>달성율</th>
+			<td style="text-align:left;"><fmt:formatNumber value="${(marathonApplicant.read_page_count_total / marathonApplicant.page_count) * 100}" pattern="##.##"/>%</td>
+		</tr>
+		<tr>
 			<th>아이디</th>
 			<td>${marathonApplicant.member_id}</td>
 		</tr>

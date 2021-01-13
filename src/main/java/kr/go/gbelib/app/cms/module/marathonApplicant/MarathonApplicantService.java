@@ -35,6 +35,11 @@ public class MarathonApplicantService extends BaseService{
 	public List<MarathonApplicant> getMarathonApplicantList(MarathonApplicant marathonApplicant) {
 		return dao.getMarathonApplicantList(marathonApplicant);
 	}
+	
+	@WorkingLogger(comment="독서마라톤 로그인한 사용자 대회 신청 목록 조회", type="P")
+	public List<MarathonApplicant> getMarathonApplicantUserList(MarathonApplicant marathonApplicant) {
+		return dao.getMarathonApplicantUserList(marathonApplicant);
+	}
 
 	@WorkingLogger(comment="독서마라톤 신청자 조회", type="P")
 	public MarathonApplicant getMarathonApplicantOne(MarathonApplicant marathonApplicant) {
@@ -124,6 +129,8 @@ public class MarathonApplicantService extends BaseService{
 	public int getContestTypeIdx(MarathonApplicant marathonApplicant) {
 		return dao.getContestTypeIdx(marathonApplicant);
 	}
+	
+	@WorkingLogger(comment="독서마라톤 신청자 상태 변경", type="W")
 	@Transactional
 	public int modifyMarathonApplicantStatus(MarathonApplicant marathonApplicant) {
 		int applicant_idx_arr[] = marathonApplicant.getApplicant_idx_arr();
@@ -131,7 +138,7 @@ public class MarathonApplicantService extends BaseService{
 		for(int i = 0; i < applicant_idx_arr.length; i++) {
 			marathonApplicant.setApplicant_idx(applicant_idx_arr[i]);
 			marathonApplicant.setContest_type_idx(contest_type_idx_arr[i]);
-			if(marathonApplicant.getRead_page_count_total_arr()[i] >= marathonApplicant.getPage_count_arr()[i] && marathonApplicant.getProcess_status() == 1) {
+			if(marathonApplicant.getProcess_status() == 1) {
 				marathonApplicant.setFinish_date(new Date());
 			}else {
 				marathonApplicant.setFinish_date(null);
@@ -139,6 +146,10 @@ public class MarathonApplicantService extends BaseService{
 			dao.modifyMarathonApplicantStatus(marathonApplicant);
 		}
 		return 1;
+	}
+	
+	public int modifyMarathonApplicantUserStatus(MarathonApplicant marathonApplicant) {
+		return dao.modifyMarathonApplicantStatus(marathonApplicant);
 	}
 
 	public int checkApplicantId(MarathonApplicant marathonApplicant) {
@@ -189,6 +200,10 @@ public class MarathonApplicantService extends BaseService{
 
 	public int getMarathonApplicantMaxIdx(MarathonApplicant marathonApplicant) {
 		return dao.getMarathonApplicantMaxIdx(marathonApplicant);
+	}
+
+	public int getMarathonApplicantUserCount(MarathonApplicant marathonApplicant) {
+		return dao.getMarathonApplicantUserCount(marathonApplicant);
 	}
 
 }

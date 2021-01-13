@@ -87,6 +87,11 @@ $(function() {
 						$('input#telephone_one').focus();
 						return false;
 					}
+					if($('input#telephone_one').val().length > 3) {
+						alert('전화번호 앞자리는 4자리 미만을 입력해 주세요.');
+						$('input#telephone_one').focus();
+						return false;
+					}
 					var regexp = /^[0-9]/g;
 					if(!regexp.test($('input#telephone_one').val())){
 						alert('전화번호에는 숫자만 입력해 주세요.');
@@ -117,6 +122,11 @@ $(function() {
 					}
 					if($('input#cellphone_one').val() == ''){
 						alert("휴대전화번호 앞자리를 입력해 주세요.");
+						$('input#cellphone_one').focus();
+						return false;
+					}
+					if($('input#cellphone_one').val().length > 3) {
+						alert('휴대전화번호 앞자리는 4자리 미만을 입력해 주세요.');
 						$('input#cellphone_one').focus();
 						return false;
 					}
@@ -448,6 +458,7 @@ $(function() {
 	<form:hidden path="applicant_idx"/>
 	<form:hidden path="editMode"/>
 	<form:hidden path="menu_idx"/>
+	<form:hidden path="member_id" value="${marathonApplicant.member_id}"/>
 	<table class="type2">
 		<colgroup>
 			<col width="160"/>
@@ -476,7 +487,7 @@ $(function() {
 			<tr>
 				<th>아이디*</th>
 				<td>
-					<form:input path="member_id" cssClass="text"/>
+					${marathonApplicant.member_id}
 				</td>
 			</tr>
 			<tr>

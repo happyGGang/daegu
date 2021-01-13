@@ -51,4 +51,8 @@ public interface MarathonApplicantDao {
 
 	int getMarathonApplicantMaxIdx(MarathonApplicant marathonApplicant);
 
+	List<MarathonApplicant> getMarathonApplicantUserList(MarathonApplicant marathonApplicant);
+
+	int getMarathonApplicantUserCount(MarathonApplicant marathonApplicant);
+
 }

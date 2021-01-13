@@ -16,71 +16,17 @@
 </style>
 <script>
 $(function(){
-	<c:if test="${ing eq true}">
-		<c:forEach begin="1" end="${fn:length(marathonTypeList)}" var="i">
-			$('ul#typeList').append("<li><a href='#' id=type${i}>${marathonTypeList[i - 1].contest_type}</a></li>");
-			
-			$('a#type${i}').on('click', function(e) {
-				e.preventDefault();
-				$('#viewPage').val(1);
-				$('input#contest_type_idx').val(${marathonTypeList[i - 1].contest_type_idx});
-				$('input#selectedType').val('type${i}');
-				doGetLoad('index.do', serializeCustom($('form#marathonApplicant')));
-			});
-		</c:forEach>
-	</c:if>
-	
-	$('a#type0').on('click', function(e) {
-		e.preventDefault();
-		$('#viewPage').val(1);
-		$('input#contest_type_idx').val(0);
-		$('input#selectedType').val('');
-		doGetLoad('index.do', serializeCustom($('form#marathonApplicant')));
-	});
-	
-	<c:choose>
-		<c:when test="${marathonApplicant.selectedType == 'type1'}">
-			$('a#type1').attr({
-				"class" : "on"
-			});
-		</c:when>
-		<c:when test="${marathonApplicant.selectedType == 'type2'}">
-			$('a#type2').attr({
-				"class" : "on"
-			});
-		</c:when>
-		<c:when test="${marathonApplicant.selectedType == 'type3'}">
-			$('a#type3').attr({
-				"class" : "on"
-			});
-		</c:when>
-		<c:when test="${marathonApplicant.selectedType == 'type4'}">
-			$('a#type4').attr({
-				"class" : "on"
-			});
-		</c:when>
-		<c:when test="${marathonApplicant.selectedType == 'type5'}">
-			$('a#type5').attr({
-				"class" : "on"
-			});
-		</c:when>
-		<c:when test="${marathonApplicant.selectedType == '' || marathonApplicant.selectedType == null}">
-			$('a#type0').attr({
-				"class" : "on"
-			});
-		</c:when>
-	</c:choose>
-	
-	$('button#my-btn').on('click', function(e) {
+	$('a#view').on('click', function(e) {
 		e.preventDefault();
 		$('input#editMode').val('view');
+		$('input#contest_idx').val($(this).attr('keyValue'));
 		doGetLoad('edit.do', serializeCustom($('form#marathonApplicant')));
-	});
+	})
 });
 </script>
 <form:form modelAttribute="marathonApplicant" action="index.do" method="GET" >
 	<form:hidden path="homepage_id"/>
-	<form:hidden path="contest_type_idx"/>
+	<form:hidden path="contest_idx"/>
 	<form:hidden path="applicant_idx"/>
 	<form:hidden path="selectedType"/>
 	<form:hidden path="editMode"/>
@@ -88,57 +34,44 @@ $(function(){
 	<div id="cont_head">
 		<h3>참가신청 현황</h3>
 	</div>
-	<c:choose>
-		<c:when test="${ing eq true}">
-			<div class="board_con_tab board_tab_b">
-				<ul class="no5" id="typeList">
-					<li><a href="#" id="type0">전체</a></li>
-				</ul>
-			</div>
 			
-			<div class="infodesk">
-				<table class="type1 center">
-					<thead>
-						<tr>
-							<th>이름</th>
-							<th>참가종목</th>
-							<th>달성률</th>
-							<th>등록일</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${marathonApplicantList}" varStatus="status" var="i">
-							<tr>
-								<td>
-									<c:set var="member_name" value="${fn:substring(i.member_name, 0, 1)}"/>
-									${member_name}**
-									<c:remove var="member_name"/>
-								</td>
-								<td>${i.contest_type}(<fmt:formatNumber value="${i.page_count}" pattern="#,###"/>쪽)</td>
-								<td>
-									<fmt:formatNumber value="${i.read_page_count_total}" pattern="#,###"/> / <fmt:formatNumber value="${i.page_count}" pattern="#,###"/>
-									(<fmt:formatNumber value="${(i.read_page_count_total / i.page_count)*100.0}" pattern="##.##"/>%)
-								</td>
-								<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>
-							</tr>
-						</c:forEach>
-						<c:if test="${fn:length(marathonApplicantList) < 1}">
-							<tr>
-								<td colspan="4">조회된 참가자가 없습니다.</td>
-							</tr>
-						</c:if>
-					</tbody>
-				</table>
-			</div>
-			<div class="button bbs-btn left">
-				<button id="my-btn" class="btn btn5" title="내 신청 정보">내 신청 정보</button>
-			</div>			
-			<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
-				<jsp:param name="formId" value="#marathonApplicant"/>
-			</jsp:include>
-		</c:when>
-		<c:otherwise>
-			<h3>독서마라톤대회가 없습니다.</h3>
-		</c:otherwise>
-	</c:choose>
+	<div class="infodesk">
+		<table class="type1 center">
+			<thead>
+				<tr>
+					<th>대회명</th>
+					<th>참가종목</th>
+					<th>달성률</th>
+					<th>신청일</th>
+					<th>상세 정보</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${marathonApplicantList}" varStatus="status" var="i">
+					<tr>
+						<td>
+							${i.contest_name}
+							<form:hidden path="contest_idx" value="${i.contest_idx}"/>
+						</td>
+						<td>${i.contest_type}(<fmt:formatNumber value="${i.page_count}" pattern="#,###"/>쪽)</td>
+						<td>
+							<fmt:formatNumber value="${i.read_page_count_total}" pattern="#,###"/> / <fmt:formatNumber value="${i.page_count}" pattern="#,###"/>
+							(<fmt:formatNumber value="${(i.read_page_count_total / i.page_count)*100.0}" pattern="##.##"/>%)
+						</td>
+						<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>
+						<td><a href="#" id="view" class="btn btn1" keyValue="${i.contest_idx}">보기</a></td>
+					</tr>
+				</c:forEach>
+				<c:if test="${fn:length(marathonApplicantList) < 1}">
+					<tr>
+						<td colspan="5">신청 내역이 없습니다.</td>
+					</tr>
+				</c:if>
+			</tbody>
+		</table>
+	</div>
+
+	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
+		<jsp:param name="formId" value="#marathonApplicant"/>
+	</jsp:include>
 </form:form>

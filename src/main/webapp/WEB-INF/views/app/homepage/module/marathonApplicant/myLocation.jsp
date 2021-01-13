@@ -22,7 +22,6 @@ $(function() {
 	.con_btn {display: inline-block;padding: 5px 15px;font-weight: bold;font-size: 14px;line-height: normal;text-align: center;cursor: pointer;}
 	.con_btn.pink {color: #fff;background: #ee005e;border: 1px solid #ee005e;}
 	a, a:link {text-decoration: none;}
-	a:hover {background: #fff;color: #ee005e;}
 	.mara_check {position: relative;margin: 0 40px;}
 	.mara_check .user {top: 0;margin-left: -24px;z-index: 9;}
 	.mara_check .finish {position: absolute;top: 20px;right: 0;margin-right: -30px;}

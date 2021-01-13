@@ -3,6 +3,13 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@page import="java.util.Calendar"%>
+
+<style>
+	span.text2{font-style: normal;color: #888;font-size: 90%;margin: 0 5px;}
+</style>
 <script type="text/javascript">
 $(function() {
 	$('input#book_get_date').datepicker({
@@ -14,7 +21,7 @@ $(function() {
 	</c:if>
 	<c:if test="${marathonRecord.book_resources != '100' && marathonRecord.book_resources != '200' && marathonRecord.book_resources != '300'
 		&& marathonRecord.book_resources != '400' && marathonRecord.book_resources != '500' && marathonRecord.book_resources != '600'
-		&& marathonRecord.book_resources != '700' && marathonRecord.book_resources != '800'
+		&& marathonRecord.book_resources != '700' && marathonRecord.book_resources != '800' && marathonRecord.book_resources != '900'
 		&& marathonRecord.book_resources != '' && marathonRecord.book_resources ne null}">
 		$('select#book_resources option[value="write"]').prop('selected', 'true');
 		$('input#book_resources_1').css('display', '');
@@ -159,19 +166,44 @@ $(function() {
 	
 	checkTextLength();
 	
+	<%
+		int maxInactiveInterval = request.getSession().getMaxInactiveInterval();
+	%>
+	var time = <%=maxInactiveInterval%>;
+	var min = "";
+	var sec = "";
+	
+	var x = setInterval(function() {
+		min = parseInt(time / 60);
+		sec = time % 60;
+		document.getElementById("demo").innerHTML = min + "분" + sec + "초";
+		time--;
+		
+		if(time < 0) {
+			clearInterval(x);
+			document.getElementById("demo").innerHTML = "시간 초과. 재로그인 후 이용하시길 바랍니다.";
+		}
+	}, 1000);
+	
+	
 	$('select#book_resources').on('change', function(e) {
 		e.preventDefault();
 		if($(this).val() != '100' && $(this).val() != '200' && $(this).val() != '300' && $(this).val() != '400'
 				&& $(this).val() != '500' && $(this).val() != '600' && $(this).val() != '700' && $(this).val() != '800'
-				&& $(this).val() != '' && $(this).val() != null) {
+				&& $(this).val() != '900' && $(this).val() != '' && $(this).val() != null) {
 			$('input#book_resources_1').css('display', '');
 		}else{
 			$('input#book_resources_1').css('display', 'none');
 			$('input#book_resources_1').val('');
 		}
 	});
+	
+	doAjaxLoad('div#searchBox', 'search.do');
 });
 </script>
+<div id="searchBox">
+
+</div>
 <form:form modelAttribute="marathonRecord" action="save.do" method="POST">
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="contest_idx"/>
@@ -203,7 +235,10 @@ $(function() {
 			</tr>
 			<tr>
 				<th>*도서명</th>
-				<td><form:input path="book_name" cssClass="text"/></td>
+				<td>
+					<form:input path="book_name" cssClass="text" cssStyle="width:90%"/><br/>
+					<span class="text2">*상단의 검색을 통해 도서명, 저자, 출판사를 자동으로 입력할 수 있습니다.</span>
+				</td>
 			</tr>
 			<tr>
 				<th>*읽은 쪽수</th>
@@ -223,6 +258,7 @@ $(function() {
 						<form:option value="600">공공도서관(본리도서관)</form:option>
 						<form:option value="700">공공도서관(성서도서관)</form:option>
 						<form:option value="800">구입도서</form:option>
+						<form:option value="900">소장도서</form:option>
 						<form:option value="write">기타 도서관</form:option>
 					</form:select>
 					<input type="text" class="text" id="book_resources_1" style="display:none;">
@@ -248,16 +284,16 @@ $(function() {
 			</tr>
 			<tr>
 				<th>*저자</th>
-				<td><form:input path="book_author" cssClass="text"/></td>
+				<td><form:input path="book_author" cssClass="text" cssStyle="width:90%;"/></td>
 			</tr>
 			<tr>
 				<th>*출판사</th>
-				<td><form:input path="publisher" cssClass="text"/></td>
+				<td><form:input path="publisher" cssClass="text" cssStyle="width:90%;"/></td>
 			</tr>
 			<tr>
 				<th>*독서감상문</th>
 				<td>
-					<div style="padding-left:1%"><span id="textLength">0</span>/50자</div>
+					<div style="padding-left:1%"><span id="textLength">0</span>/50자 &nbsp;&nbsp;&nbsp; 로그인 유지 시간 : <span id="demo"></span></div>
 					<form:textarea path="book_journals" rows="10" cols="100" cssStyle="padding:10px 10px;"></form:textarea><br/>
 					<div style="font-size:13px;">
 						* 독서감상문은 띄어쓰기 빈칸을 포함하여 50자 이상 기록하여야 합니다.<br/>

@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.Date, org.apache.commons.lang3.time.DateFormatUtils, kr.co.whalesoft.framework.utils.AttachmentUtils" %>
+<% pageContext.setAttribute("crlf", "\r\n"); %>
 <%
 	response.setContentType("application/vnd.ms-excel; charset=EUC-KR;");
 
@@ -20,9 +21,11 @@
 	</div>
 	<br/>
 	<table style="margin-top:3%;font-size:15px;padding:5px 5px">
+		<c:set var="count" value="1"/>
 		<c:forEach items="${marathonApplicantRecordList}" var="i" varStatus="status">
-			<c:set var="next" value="${marathonApplicantRecordList[status.count]}"/>
-			<c:set var="count" value="${count + 1}"/>
+			<c:if test="${status.count > 1}">
+				<c:set var="before" value="${marathonApplicantRecordList[status.count - 2]}"/>
+			</c:if>
 			<c:choose>
 				<c:when test="${status.first}">
 					<tr>
@@ -62,10 +65,9 @@
 						<th style="border:1px solid black;">대출도서관</th>
 					</tr>
 				</c:when>
-				<c:when test="${status.last}">
-				</c:when>
 				<c:otherwise>
-					<c:if test="${i.applicant_idx != next.applicant_idx}">
+					<c:if test="${i.applicant_idx != before.applicant_idx}">
+						<c:set var="count" value="${count + 1}"/>
 						<tr>
 							<td colspan="2" style="width:350px;text-align:left;">번호</th>
 							<th style="width:250px;text-align:left;">아이디</th>
@@ -120,14 +122,15 @@
 					</c:when>
 					<c:otherwise>
 						<c:choose>
-							<c:when test="${i.applicant_idx == next.applicant_idx}">
+							<c:when test="${i.applicant_idx == before.applicant_idx}">
 								<td style="border:1px solid black;"><fmt:formatNumber value="${read_page_count_total_thisPage_first + i.read_page_count}" pattern="#,###"/></td>
 								<c:set var="read_page_count_total_thisPage_first" value="${read_page_count_total_thisPage_first + i.read_page_count}"/>
 							</c:when>
 							<c:otherwise>
-								<td style="border:1px solid black;"><fmt:formatNumber value="${read_page_count_total_thisPage_first + i.read_page_count}" pattern="#,###"/></td>
 								<c:remove var="read_page_count_total_thisPage_first"/>
 								<c:set var="read_page_count_total_thisPage_first" value="0"/>
+								<td style="border:1px solid black;"><fmt:formatNumber value="${read_page_count_total_thisPage_first + i.read_page_count}" pattern="#,###"/></td>
+								<c:set var="read_page_count_total_thisPage_first" value="${read_page_count_total_thisPage_first + i.read_page_count}"/>
 							</c:otherwise>
 						</c:choose>
 					</c:otherwise>
@@ -159,6 +162,9 @@
 						<c:when test="${i.book_resources == '800'}">
 							구입도서
 						</c:when>
+						<c:when test="${i.book_resources == '900'}">
+							소장도서
+						</c:when>
 						<c:otherwise>
 							${i.book_resources}
 						</c:otherwise>
@@ -167,7 +173,9 @@
 			</tr>
 			<tr>
 				<td style="border:1px solid black;">독서감상문</td>
-				<td colspan="5" style="border:1px solid black;white-space:pre;">${i.book_journals}</td>
+				<td colspan="5" style="border:1px solid black;white-space:pre;">
+					${fn:replace(i.book_journals, crlf, '<br/>')}
+				</td>
 				<td style="border:1px solid black;"> </td>
 				<td colspan="3" style="border:1px solid black;"></td>
 			</tr>
@@ -184,7 +192,7 @@
 				<th style="width:200px;text-align:left;">달성일</th>
 			</tr>
 			<tr>
-				<td colspan="10" style="text-align:center;">등록된 참가자가 없습니다.</td>
+				<td colspan="10" style="text-align:center;">등록된 내용이 없습니다.</td>
 			</tr>
 		</c:if>
 	</table>

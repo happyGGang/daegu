@@ -32,7 +32,18 @@ $(function() {
 					<h3 class="tit">${marathonTypeList[i].contest_type}</h3>
 					<div class="event01 course0${i + 1}">
 						<div class="bar_bg">
-							<span class="pink_bar" style="width:<fmt:formatNumber value="${(applicant_count[i] / applicant_total_count) * 100}" pattern="##.##"/>%"><fmt:formatNumber value="${(applicant_count[i] / applicant_total_count) * 100}" pattern="##.##"/>%</span>
+							<c:choose>
+								<c:when test="${applicant_total_count > 0}">
+									<span class="pink_bar" style="width:<fmt:formatNumber value="${(applicant_count[i] / applicant_total_count) * 100}" pattern="##.##"/>%">
+										<fmt:formatNumber value="${(applicant_count[i] / applicant_total_count) * 100}" pattern="##.##"/>%
+									</span>
+								</c:when>
+								<c:otherwise>
+									<span class="pink_bar" style="width:0%">
+										0%
+									</span>
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<em>${applicant_count[i]}명</em>
 					</div>

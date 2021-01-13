@@ -31,13 +31,13 @@ public class MarathonApplicant extends PagingUtils{
 	private String cellphone_two; //휴대전화번호 중간자리
 	private String cellphone_three; //휴대전화번호 끝자리
 	private String email; //이메일
-	private String gender; //성별
+	private String gender = "M"; //성별
 	private String birthday; //생년월일
-	private String birthday_year; //생년월일 년도
-	private String birthday_month; //생년월일 월
-	private String birthday_date; //생년월일 일
+	private String birthday_year = "2000"; //생년월일 년도
+	private String birthday_month = "01"; //생년월일 월
+	private String birthday_date = "01"; //생년월일 일
 	private String contest_type; //대회종목
-	private String finish_memorial; //완주기념품
+	private String finish_memorial = "document"; //완주기념품
 	private String determination_talk; //각오한마디
 	private int process_status; //진행상태
 	private Date add_date; //신청일자

@@ -6,19 +6,23 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
@@ -30,6 +34,8 @@ import kr.go.gbelib.app.cms.module.marathonApplicant.MarathonApplicantService;
 import kr.go.gbelib.app.cms.module.marathonRecord.MarathonRecord;
 import kr.go.gbelib.app.cms.module.marathonRecord.MarathonRecordService;
 import kr.go.gbelib.app.cms.module.marathonType.MarathonTypeService;
+import kr.go.gbelib.app.common.api.LibSearchAPI;
+import kr.go.gbelib.app.intro.search.LibrarySearch;
 
 @Controller(value= "userMarathonRecord")
 @RequestMapping(value = {"/{homepagePath}/module/marathonRecord"})
@@ -96,7 +102,7 @@ public class MarathonRecordController extends BaseController{
 
 					return String.format(basePath, homepage.getFolder()) + "index";
 				}else {
-					service.alertMessageAndUrl("독서마라톤대회에 참가 신청하지 않았습니다. 참가 신청 페이지로 이동합니다.", String.format("/%s/module/marathonApplicant/edit.do?menu_idx=%s", homepage.getContext_path(), marathonRecord.getMenu_idx()), request, response);
+					service.alertMessageAndUrl("독서마라톤대회에 참가 신청하지 않았습니다. 참가 신청 페이지로 이동합니다.", String.format("/%s/module/marathonApplicant/edit.do?menu_idx=105", homepage.getContext_path()), request, response);
 					return null;
 				}
 			}else {
@@ -144,6 +150,39 @@ public class MarathonRecordController extends BaseController{
 		}
 		return null;
 	}
+	
+	@RequestMapping(value = {"/search.*"})
+	public String hopeSearch(@PathVariable("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = getSessionHomepage(request);
+
+//		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+//			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+//			return null;
+//		}
+//
+//		Member member = getSessionMemberInfo(request);
+//		if (!StringUtils.equals(member.getMember_class(), "0")) {
+//			service.alertMessage("검색 가능한 회원이 아닙니다.", request, response);
+//			return null;
+//		}
+//
+//		model.addAttribute("member", member);
+		model.addAttribute("librarySearch", librarySearch);
+
+		Map<String, Object> map = null;
+		if (StringUtils.isNotEmpty(librarySearch.getSearch_text())) {
+			map = LibSearchAPI.getNaverList(librarySearch);
+			int totalCount = (Integer) map.get("totalCount");
+			@SuppressWarnings ("unchecked")
+			List<Map<String, Object>> itemList = (List<Map<String, Object>>) map.get("list");
+			if (itemList != null && itemList.size() > 0) {
+				service.setPaging(model, totalCount, librarySearch);
+				model.addAttribute("naverResult", map);
+			}
+		}
+
+		return String.format(basePath, homepage.getFolder()) + "/search_ajax";
+	}
 
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(MarathonRecord marathonRecord, BindingResult result, HttpServletRequest request) throws Exception{
@@ -167,7 +206,25 @@ public class MarathonRecordController extends BaseController{
 				result.reject("대출/구입 날짜 형식이 맞지 않습니다.");
 			}
 			if(marathonRecord.getBook_journals().length() < 51) {
-				result.reject("독서감상문은 띄어스끼 빈칸을 포함하여 50자 이상 기록하여야 합니다.");
+				result.reject("독서감상문은 띄어쓰기 빈칸을 포함하여 50자 이상 기록하여야 합니다.");
+			}
+			
+			if(getSessionMemberId(request) != null) {
+				if(!getSessionMemberLoginType(request).equals("HOMEPAGE")) {
+					result.reject("올바른 홈페이지에 접속해 주세요.");
+				}
+			}else {
+				result.reject("로그인 유지 시간이 끝났습니다. 재로그인 후 저장해 주세요.");
+			}
+			
+			MarathonApplicant marathonApplicant = new MarathonApplicant();
+			marathonApplicant.setHomepage_id(homepage.getHomepage_id());
+			marathonApplicant.setContest_idx(marathonRecord.getContest_idx());
+			marathonApplicant.setMember_id(getSessionMemberId(request));
+
+			marathonApplicant = marathonApplicantService.getMarathonApplicantOneById(marathonApplicant);
+			if(marathonApplicant == null) {
+				result.reject("독서마라톤대회에 참가신청하지 않았습니다.");
 			}
 		}
 		/* <<<<<<<<<<<<<<<< 유효성 검증 */

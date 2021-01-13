@@ -101,7 +101,7 @@
 		<tr>
 			<th>번호</th>
 			<th>이름</th>
-			<th>도서명</th>
+			<th style="width:25%;">도서명</th>
 			<th>저자</th>
 			<th>출판사</th>
 			<th>날짜</th>
@@ -149,6 +149,9 @@
 						</c:when>
 						<c:when test="${i.book_resources == '800'}">
 							구입도서
+						</c:when>
+						<c:when test="${i.book_resources == '900'}">
+							소장도서
 						</c:when>
 						<c:otherwise>
 							${i.book_resources}

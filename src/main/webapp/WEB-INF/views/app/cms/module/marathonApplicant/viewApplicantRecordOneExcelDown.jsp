@@ -5,6 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.Date, org.apache.commons.lang3.time.DateFormatUtils, kr.co.whalesoft.framework.utils.AttachmentUtils" %>
 <%@ page import="kr.go.gbelib.app.cms.module.marathonApplicant.MarathonApplicant" %>
+<% pageContext.setAttribute("crlf", "\r\n"); %>
 <%
 	response.setContentType("application/vnd.ms-excel; charset=UTF-8;");
 
@@ -96,6 +97,9 @@
 					<c:when test="${i.book_resources == '800'}">
 						구입도서
 					</c:when>
+					<c:when test="${i.book_resources == '900'}">
+						소장도서
+					</c:when>
 					<c:otherwise>
 						${i.book_resources}
 					</c:otherwise>
@@ -104,7 +108,9 @@
 		</tr>
 		<tr>
 			<td style="border:1px solid black;">독서감상문</td>
-			<td colspan="5" style="border:1px solid black;white-space:pre;">${i.book_journals}</td>
+			<td colspan="5" style="border:1px solid black;">
+				${fn:replace(i.book_journals, crlf, '<br/>')}
+			</td>
 			<td style="border:1px solid black;"> </td>
 			<td colspan="3" style="border:1px solid black;"></td>
 		</tr>

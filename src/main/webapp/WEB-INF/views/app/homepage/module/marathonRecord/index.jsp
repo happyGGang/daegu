@@ -131,13 +131,13 @@ $(function(){
 							<td><form:checkbox path="record_idx_arr" value="${i.record_idx}"/></td>
 							<td>${paging.listRowNum - status.index}</td>
 							<td>${i.member_name}</td>
-							<td><a href="#" keyValue="${i.record_idx}" class="record">${i.book_name}</a></td>
+							<td style="width:30%;"><a href="#" keyValue="${i.record_idx}" class="record">${i.book_name}</a></td>
 							<td><fmt:formatDate value="${i.record_date}" pattern="yyyy.MM.dd"/></td>
 							<td>${i.book_type}</td>
 							<td><fmt:formatNumber value="${i.read_page_count}" pattern="#,###"/></td>
 							<c:set var="read_page_count_total" value="${read_page_count_total + i.read_page_count}"/>
 							<td><fmt:formatNumber value="${read_page_count_total}" pattern="#,###"/></td>
-							<td>
+							<td style="width:15%;">
 								<c:choose>
 									<c:when test="${i.book_resources == '100'}">
 										공공도서관(달서가족문화도서관)
@@ -162,6 +162,9 @@ $(function(){
 									</c:when>
 									<c:when test="${i.book_resources == '800'}">
 										구입도서
+									</c:when>
+									<c:when test="${i.book_resources == '900'}">
+										소장도서
 									</c:when>
 									<c:otherwise>
 										${i.book_resources}

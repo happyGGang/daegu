@@ -124,15 +124,15 @@ $(function() {
 			<tr>
 				<td>${i.record_idx}</td>
 				<td>${i.member_name}</td>
-				<td>${i.book_name}</td>
-				<td>${i.book_author}</td>
+				<td style="width:25%;">${i.book_name}</td>
+				<td style="width:20%;">${i.book_author}</td>
 				<td>${i.publisher}</td>
 				<td><fmt:formatDate value="${i.record_date}" pattern="yyyy.MM.dd"/></td>
 				<td>${i.book_type}</td>
 				<td><fmt:formatNumber value="${i.read_page_count}" pattern="#,###"/></td>
 				<c:set var="read_page_count_total_thisPage" value="${read_page_count_total_thisPage + i.read_page_count}"/>
 				<td><fmt:formatNumber value="${read_page_count_total_thisPage}" pattern="#,###"/></td>
-				<td>
+				<td style="width:15%">
 					<c:choose>
 						<c:when test="${i.book_resources == '100'}">
 							공공도서관(달서가족문화도서관)
@@ -157,6 +157,9 @@ $(function() {
 						</c:when>
 						<c:when test="${i.book_resources == '800'}">
 							구입도서
+						</c:when>
+						<c:when test="${i.book_resources == '900'}">
+							소장도서
 						</c:when>
 						<c:otherwise>
 							${i.book_resources}

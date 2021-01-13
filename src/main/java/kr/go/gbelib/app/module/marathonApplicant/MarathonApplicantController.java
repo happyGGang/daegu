@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.go.gbelib.app.cms.module.marathon.Marathon;
@@ -67,19 +68,13 @@ public class MarathonApplicantController extends BaseController {
 				return null;
 			}
 		}else {
-			Marathon marathonUseOne = new Marathon();
-			marathonUseOne.setHomepage_id(homepage.getHomepage_id());
-			marathonUseOne = marathonService.getMarathonUseOne(marathonUseOne);
-			model.addAttribute("ing", marathonUseOne != null);
-			if(marathonUseOne != null) {
-				marathonApplicant.setHomepage_id(homepage.getHomepage_id());
-				marathonApplicant.setContest_idx(marathonUseOne.getContest_idx());
-
-				service.setPaging(model, service.getMarathonApplicantCount(marathonApplicant), marathonApplicant);
-				model.addAttribute("marathonApplicant", marathonApplicant);
-				model.addAttribute("marathonTypeList", service.getMarathonTypeList(marathonApplicant));
-				model.addAttribute("marathonApplicantList", service.getMarathonApplicantList(marathonApplicant));
-			}
+			marathonApplicant.setHomepage_id(homepage.getHomepage_id());
+			marathonApplicant.setMember_id(getSessionMemberId(request));
+			
+			service.setPaging(model, service.getMarathonApplicantUserCount(marathonApplicant), marathonApplicant);
+			model.addAttribute("marathonApplicant", marathonApplicant);
+			model.addAttribute("marathonApplicantList", service.getMarathonApplicantUserList(marathonApplicant));
+			
 			return String.format(basePath, homepage.getFolder()) + "index";
 		}
 		
@@ -93,10 +88,21 @@ public class MarathonApplicantController extends BaseController {
 			marathonApplicant.setBefore_url(String.format("/%s/module/marathonApplicant/edit.do?menu_idx=%s", homepage.getContext_path(), marathonApplicant.getMenu_idx()));
 			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), marathonApplicant.getMenu_idx(), marathonApplicant.getBefore_url()), request, response);
 		}else {
+			if(marathonApplicant.getEditMode().equals("view")) {
+				marathonApplicant.setHomepage_id(homepage.getHomepage_id());
+				marathonApplicant.setContest_idx(marathonApplicant.getContest_idx());
+				marathonApplicant.setMember_id(getSessionMemberId(request));
+				marathonApplicant.setAdd_date(new Date());
+
+				model.addAttribute("marathonApplicant", service.getMarathonApplicantOneById(marathonApplicant));
+				return String.format(basePath, homepage.getFolder()) + "myInfo";
+			}
+
 			Marathon marathonUseOne = new Marathon();
 			marathonUseOne.setHomepage_id(homepage.getHomepage_id());
 			marathonUseOne = marathonService.getMarathonUseOne(marathonUseOne);
 			model.addAttribute("ing", marathonUseOne != null);
+			
 			if(marathonUseOne != null) {
 				String application_start_day = marathonUseOne.getApplication_start_day();
 				String application_end_day = marathonUseOne.getApplication_end_day();
@@ -107,28 +113,24 @@ public class MarathonApplicantController extends BaseController {
 				Date application_end_date = dateFormat.parse(application_end_day);
 				cal.setTime(application_end_date);
 				cal.add(Calendar.DATE, 1);
-				if(marathonApplicant.getEditMode().equals("view")) {
-					marathonApplicant.setHomepage_id(homepage.getHomepage_id());
-					marathonApplicant.setContest_idx(marathonUseOne.getContest_idx());
-					marathonApplicant.setMember_id(getSessionMemberId(request));
-					marathonApplicant.setAdd_date(new Date());
-					if(service.getMarathonApplicantOneById(marathonApplicant) != null) {
-						model.addAttribute("marathonApplicant", service.copyObjectPaging(marathonApplicant, service.getMarathonApplicantOneById(marathonApplicant)));
-						return String.format(basePath, homepage.getFolder()) + "myInfo";
-					}else {
-						marathonApplicant.setEditMode("");
-						service.alertMessageAndUrl("독서마라톤대회에 참가 신청하지 않았습니다. 참가 신청 페이지로 이동합니다.", String.format("/%s/module/marathonApplicant/edit.do?menu_idx=105", homepage.getContext_path()), request, response);
-						return null;
-					}
-				}
 				
 				if(application_start_date.compareTo(date) > 0 || date.compareTo(cal.getTime()) > 0) {
 					service.alertMessageAndUrl("독서마라톤 대회 접수기간이 아닙니다. 참가 신청 현황 페이지로 이동합니다.", String.format("/%s/module/marathonApplicant/index.do?menu_idx=106", homepage.getContext_path()), request, response);
 					return null;
 				}else {
+					Member member = getSessionMemberInfo(request);
 					marathonApplicant.setHomepage_id(homepage.getHomepage_id());
 					marathonApplicant.setContest_idx(marathonUseOne.getContest_idx());
 					marathonApplicant.setMember_id(getSessionMemberId(request));
+					marathonApplicant.setMember_name(member.getMember_name());
+					if(member.getSex().equals("0")) {
+						marathonApplicant.setGender("M");
+					}else {
+						marathonApplicant.setGender("F");
+					}
+					marathonApplicant.setBirthday_year(member.getBirth_day().substring(0, 4));
+					marathonApplicant.setBirthday_month(member.getBirth_day().substring(5, 7));
+					marathonApplicant.setBirthday_date(member.getBirth_day().substring(8));
 					marathonApplicant.setAdd_date(new Date());
 					if(service.checkApplicantId(marathonApplicant) < 1) {
 						List<MarathonType> marathonTypeList = service.getMarathonTypeList(marathonApplicant);
@@ -153,7 +155,7 @@ public class MarathonApplicantController extends BaseController {
 		JsonResponse res= new JsonResponse(request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		/* 유효성 검증 >>>>> */
-		ValidationUtils.rejectIfEmpty(result, "member_name", "이름을 입력해 주세요");
+		
 		ValidationUtils.rejectIfEmpty(result, "age_type", "분류를 선택해 주세요.");
 		if(!marathonApplicant.getAge_type().equals("adult")) {
 			ValidationUtils.rejectIfEmpty(result, "school_name", "학교를 입력해 주세요.");
@@ -170,10 +172,7 @@ public class MarathonApplicantController extends BaseController {
 		ValidationUtils.rejectIfEmpty(result, "cellphone_one", "휴대전화번호 앞자리를 입력해 주세요.");
 		ValidationUtils.rejectIfEmpty(result, "cellphone_two", "휴대전화번호 중간자리를 입력해 주세요.");
 		ValidationUtils.rejectIfEmpty(result, "cellphone_three", "휴대전화번호 끝자리르 입력해 주세요.");
-		ValidationUtils.rejectIfEmpty(result, "gender", "성별을 선택해 주세요.");
-		ValidationUtils.rejectIfEmpty(result, "birthday_year", "생년월일 연도를 선택해 주세요.");
-		ValidationUtils.rejectIfEmpty(result, "birthday_month", "생년월일 월을 선택해 주세요.");
-		ValidationUtils.rejectIfEmpty(result, "birthday_date", "생년월일 일을 선택해 주세요.");
+		
 		ValidationUtils.rejectIfZero(result, "contest_type_idx", "참가종목을 선택해 주세요.");
 		ValidationUtils.rejectIfEmpty(result, "finish_memorial", "완주기념풍을 선택해 주세요.");
 		ValidationUtils.rejectIfEmpty(result, "agree", "달서독서마라톤 대회 참가자 완주기준을 동의하셔야 서비스 이용이 가능합니다.");
@@ -184,7 +183,17 @@ public class MarathonApplicantController extends BaseController {
 
 		marathonApplicant.setContest_type(service.getContestType(marathonApplicant));
 
+		Member member = getSessionMemberInfo(request);
 		marathonApplicant.setMember_id(getSessionMemberId(request)); //아이디를 가져온다.
+		marathonApplicant.setMember_name(member.getMember_name());
+		if(member.getSex().equals("0")) {
+			marathonApplicant.setGender("M");
+		}else {
+			marathonApplicant.setGender("F");
+		}
+		marathonApplicant.setBirthday_year(member.getBirth_day().substring(0, 4));
+		marathonApplicant.setBirthday_month(member.getBirth_day().substring(5, 7));
+		marathonApplicant.setBirthday_date(member.getBirth_day().substring(8));
 		
 		int checkApplicantCount = service.checkApplicantId(marathonApplicant); //신청 대상을 가져온다.
 		if(checkApplicantCount > 0) {
@@ -213,14 +222,14 @@ public class MarathonApplicantController extends BaseController {
 		
 		if(application_start_date.compareTo(date) > 0) {
 			result.reject("해당 대회 접수 기간이 아닙니다.");
-		}else if(date.compareTo(application_end_date) > 0) {
+		}else if(date.compareTo(cal.getTime()) > 0) {
 			result.reject("해당 대회 접수 기간이 아닙니다.");
 		}
 		/* <<<<< 유효성 검증 */
 		
 		if(!result.hasErrors()) {
 			service.addMarathonApplicant(marathonApplicant);
-			res.setUrl(String.format("/%s/module/marathonApplicant/index.do?menu_idx=%s", homepage.getContext_path(), marathonApplicant.getMenu_idx()));
+			res.setUrl(String.format("/%s/module/marathonApplicant/index.do?menu_idx=106", homepage.getContext_path()));
 			res.setValid(true);
 			res.setMessage("등록되었습니다.");
 		}else {

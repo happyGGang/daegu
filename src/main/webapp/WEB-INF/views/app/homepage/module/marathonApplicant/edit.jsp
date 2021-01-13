@@ -173,6 +173,22 @@ $(function(){
 		e.preventDefault();
 		history.back();
 	});
+
+	function showFourteen() {
+		var today = new Date();
+		var birthday = new Date($('#birthday_year').val(), $('#birthday_month').val(), $('#birthday_date').val());
+
+		var age = today.getFullYear() - birthday.getFullYear();
+		var month = today.getMonth() - birthday.getMonth();
+		if (month < 0 || (month == 0 && today.getDate() < birthday.getDate())) {
+			age--;
+		}
+		if (age >= 14) {
+			$('tr.fourteen_year').hide();
+		}
+	}
+	
+	showFourteen();
 	
 	$('button#save-btn').on('click', function(e) {
 		e.preventDefault();
@@ -228,6 +244,11 @@ $(function(){
 			$('input#telephone_one').focus();
 			return false;
 		}
+		if($('input#telephone_one').val().length > 3) {
+			alert('전화번호 앞자리는 4자리 미만을 입력해 주세요.');
+			$('input#telephone_one').focus();
+			return false;
+		}
 		var regexp = /^[0-9]/g;
 		if(!regexp.test($('input#telephone_one').val())){
 			alert('전화번호에는 숫자만 입력해 주세요.');
@@ -261,6 +282,11 @@ $(function(){
 			$('input#cellphone_one').focus();
 			return false;
 		}
+		if($('input#cellphone_one').val().length > 3) {
+			alert('휴대전화번호 앞자리는 4자리 미만을 입력해 주세요.');
+			$('input#cellphone_one').focus();
+			return false;
+		}
 		var regexp = /^[0-9]/g;
 		if(!regexp.test($('input#cellphone_one').val())){
 			alert('휴대전화번호에는 숫자만 입력해 주세요.');
@@ -289,26 +315,6 @@ $(function(){
 			$('input#cellphone_three').focus();
 			return false;
 		}
-		if($('input:radio[name = gender]:checked').length < 1){
-			alert('성별을 선택해 주세요.');
-			$('input:radio[name = gender]').focus();
-			return false;
-		}
-		if($('select#birthday_year').val() == ''){
-			alert('생년월일 연도를 선택해 주세요.');
-			$('select#birthday_year').focus();
-			return false;
-		}
-		if($('select#birthday_month').val() == ''){
-			alert('생년월일 월을 선택해 주세요.');
-			$('select#birthday_month').focus();
-			return false;
-		}
-		if($('select#birthday_date').val() == ''){
-			alert('생년월일 일을 선택해 주세요.');
-			$('select#birthday_date').focus();
-			return false;
-		}
 		if($('select#contest_type_idx').val() == '0'){
 			alert('참가종목을 선택해 주세요.');
 			$('select#contest_type_idx').focus();
@@ -330,9 +336,20 @@ $(function(){
 			return false;
 		}
 		if($('input:checkbox[name = agree2]:checked').length < 1){
-			alert('만 14세 미만 아동의 참가 신청에 동의하셔야 서비스 이용이 가능합니다.');
-			$('input:checkbox[name = agree2]').focus();
-			return false;
+			var today = new Date();
+			var birthday = new Date($('#birthday_year').val(), $('#birthday_month').val(), $('#birthday_date').val());
+
+			var age = today.getFullYear() - birthday.getFullYear();
+			var month = today.getMonth() - birthday.getMonth();
+			if (month < 0 || (month == 0 && today.getDate() < birthday.getDate())) {
+				age--;
+			}
+
+			if(age < 14) {
+				alert('만 14세 미만 아동의 참가 신청에 동의하셔야 서비스 이용이 가능합니다.');
+				$('input:checkbox[name = agree2]').focus();
+				return false;				
+			}
 		}
 		doAjaxPost($('form#marathonApplicant'));
 	});
@@ -408,6 +425,11 @@ $(function(){
 			<form:hidden path="contest_idx"/>
 			<form:hidden path="editMode"/>
 			<form:hidden path="menu_idx"/>
+			<form:hidden path="member_name" value="${marathonApplicant.member_name}"/>
+			<form:hidden path="gender" value="${marathonApplicant.gender}"/>
+			<form:hidden path="birthday_year" value="${marathonApplicant.birthday_year}"/>
+			<form:hidden path="birthday_month" value="${marathonApplicant.birthday_month}"/>
+			<form:hidden path="birthday_date" value="${marathonApplicant.birthday_date}"/>
 			<table class="type2">
 				<colgroup>
 					<col width="160"/>
@@ -426,13 +448,15 @@ $(function(){
 					</tr>
 					<tr>
 						<th>아이디</th>
-						<td>${marathonApplicant.member_id}</td>
+						<td>
+							${marathonApplicant.member_id}
+							<span class="text2">*본인 아이디로만 신청 가능합니다.</span>
+						</td>
 					</tr>
 					<tr>
 						<th>이름*</th>
 						<td>
-							<form:input path="member_name" cssClass="text"/>
-							<span class="text2">*30자 이내로 입력해 주세요.</span>
+							${marathonApplicant.member_name}
 						</td>
 					</tr>
 					<tr>
@@ -475,7 +499,7 @@ $(function(){
 									<form:options items="${dongList}" itemLabel="code_name" itemValue="code_id"/>
 									<form:option value="write">기타 직접 입력</form:option>
 								</form:select>
-								<input type="text" id="address_writeDong" class="text" size="6" readonly="true"/><span class="text2"> *동명을 입력해 주세요.</span><br/>
+								<input type="text" id="address_writeDong" class="text" size="6" readonly="true"/><span class="text2"> *동명을 입력해 주세요.    ※참가자격: 달서구민 및 달서구 소재 학교 재학생</span><br/>
 							</div>
 							<a href="" id="findPostCode" class="btn" style="background:#fff;font-size:14px;padding:5px 3px;">우편번호찾기</a><form:input path="zipcode" cssClass="text" readonly="true" cssStyle="width:80px;" maxLength="5"/><span class="text2"> *우편번호(숫자5자리)</span><br/>
 							<form:input path="address_one" size="40" cssClass="text" style="margin-top:0.5px;" readonly="true"/><span class="text2"> *시도 + 시군구 + 도로명(50자리 이내로 입력해 주세요.)</span><br/>
@@ -506,27 +530,15 @@ $(function(){
 					<tr>
 						<th>성별*</th>
 						<td>
-							<form:radiobutton path="gender" id="gender_man" value="M"/>
-							<label for="gender_man">남</label>
-							<form:radiobutton path="gender" id="gender_woman" value="F"/>
-							<label for="gender_woman">여</label>
+							${marathonApplicant.gender eq 'M' ? '남자' : '여자'}
 						</td>
 					</tr>
 					<tr>
 						<th>생년월일*</th>
 						<td>
-							<form:select path="birthday_year" cssClass="selectmenu">
-								<form:option value="">년도</form:option>
-							</form:select>
-							년
-							<form:select path="birthday_month" cssClass="selectmenu">
-								<form:option value="">월</form:option>
-							</form:select>
-							월
-							<form:select path="birthday_date" cssClass="selectmenu">
-								<form:option value="">일</form:option>
-							</form:select>
-							일
+							${marathonApplicant.birthday_year}년
+							${marathonApplicant.birthday_month}월
+							${marathonApplicant.birthday_date}일
 						</td>
 					</tr>
 					<tr>
@@ -618,12 +630,12 @@ $(function(){
 							</div>
 						</td>
 					</tr>
-					<tr>
+					<tr class="fourteen_year">
 						<th colspan="2" style="padding:10px 0 5px 10px;border-bottom: 1px solid #dfdfdf;background: none;text-align: left;">
 							<p style="vertical-align:middle;font-size:19px;padding-top:5px;">만 14세 미만 아동의 참가 신청</p>
 						</th>
 					</tr>
-					<tr>
+					<tr class="fourteen_year">
 						<td colspan="2" style="padding: 0; padding-top: 5px;border-bottom:1px solid #dfdfdf;">
 							<div class="app_box">
 								<div readonly="readonly" title="이용약관">
@@ -635,7 +647,7 @@ $(function(){
 							</div>
 						</td>
 					</tr>
-					<tr>
+					<tr class="fourteen_year">
 						<td colspan="2" style="padding: 0px;border: 1px solid #dbdbdb;">
 							<div class="agree" style="background: #f4f4f4;padding: 15px;">
 								<input type="checkbox" id="agree2" name="agree2" value="Y">
