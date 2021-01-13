@@ -16,6 +16,15 @@ $(document).ready(function() {
 		var formData = serializeCustom($form);
 		doGetLoad(url, formData);
 	});
+	
+	$('div.tabmenu a').on('click', function(e) {
+		e.preventDefault();
+		var url = 'index.do';
+		$('#viewPage').attr('value', '1');
+		$('input#category1').attr('value', $(this).attr('keyValue'));
+		var formData = serializeCustom($form);
+		doGetLoad(url, formData);
+	});
 
 	<%-- 상세보기 --%>
 	$('div.row a').on('click', function(e) {
@@ -31,7 +40,7 @@ $(document).ready(function() {
 		var formData = serializeCustom($form);
 		doGetLoad(url, formData);
 	});
-
+	
 	<c:if test="${authMBA}">
 	$('a#board_deleteRecovery_btn').on('click', function(e) {
 		e.preventDefault();
