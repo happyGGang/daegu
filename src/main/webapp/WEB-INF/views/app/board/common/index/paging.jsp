@@ -33,7 +33,7 @@
 	</span>
 </div>
 
-<div class="search txt-center mmm2" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
+<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 	<fieldset>
 		<label class="blind" for="search_type">검색조건</label>
 		<form:select path="search_type" cssClass="selectmenu" cssStyle="width:100px;">
