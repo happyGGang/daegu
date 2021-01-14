@@ -169,8 +169,9 @@ public class CalendarManageController extends BaseController {
 	public String detail(Model model, CalendarManage calendarManage, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 
-		calendarManage.setHomepage_id(homepage.getHomepage_id());
-
+		if(StringUtils.isEmpty(calendarManage.getHomepage_id())) {
+			calendarManage.setHomepage_id(homepage.getHomepage_id());
+		}
 		int menu_idx = calendarManage.getMenu_idx();
 
 		calendarManage = service.getCalendarManageOne(calendarManage);
