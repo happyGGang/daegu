@@ -33,8 +33,6 @@ $(function() {
 			$('li#menu_8').remove();
 		</c:when>
 		<c:otherwise>
-			$('li#menu_95').remove();
-			$('li#menu_96').remove();
 		</c:otherwise>
 	</c:choose>
 
