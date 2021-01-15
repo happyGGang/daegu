@@ -5,7 +5,7 @@
 .main1 {position:relative;background:url('../img/main-visual.jpg') repeat-x center center;padding:0;}
 
 .popZone {position:relative;width:400px;}
-.popZone > .cont li a img, .popZone > .cont li img  {width:100%;height:100%;}
+.popZone > .cont li a img, .popZone > .cont li img  {width:400px;height:230px;}
 .popZone .cont .bx-controls {position:absolute;z-index:999;bottom:0;width:100%;box-sizing:border-box;}
 .popZone .cont .bx-pager {position:absolute;text-align:center;right:102px;bottom:0;width:90px;height:50px;line-height:50px;background:rgba(0,0,0,0.3);color:#fff;font-size:17px;}
 .popZone .cont .bx-prev, 
@@ -213,19 +213,21 @@
 	.main0, .main1, .main2, .main3, .main4, .main5 {position:relative;height:auto}
 	.qmobileBr {display:block;}
 
-	.main1 {height:1640px;}
+	.main1 {height:1230px;}
 	.center-box {position:absolute;width:100%;top:0;height:540px;z-index:99999;}
 	.left-box {position:absolute;width:100%;top:540px;height:100%;z-index:99999;}
-	.right-box {position:absolute;width:100%;top:1330px;height:540px;}
+	.right-box {position:absolute;width:100%;top:920px;height:540px;}
 
-	.popZone {width:100%;}
-	.popZone > .cont li a img, .popZone > .cont li img  {width:100%;height:480px;}
+	.popZone {float:left;width:50%;}
+	.popZone > .cont li a img, .popZone > .cont li img  {width:100%;height:380px;}
 	.popZone .cont .bx-controls {position:absolute;bottom:5px;right:0;z-index:999;box-sizing:border-box;}
-	.book-box {margin:0;margin-top:-5px;padding:20px 0 0 0;height:240px;}
+	.book-box {float:right;width:50%;margin:0;margin-top:-5px;padding:20px 0 0 0;}
 	.schedule-box {padding:10px;margin-top:0;}
 	#calendar2:after {display:none;}
 	.calendar-box {background:#f3f4f6;}
 	.calendar-box {padding:30px 0;}
+	.clt{top:120px;height:85.5%;}
+	.tabMenuS{padding-top:40px;}
 
 	.main2 {padding:0;}
 
@@ -249,31 +251,47 @@
 	.schedule-box{padding:0 0 20px;}
 }
 
+@media all and (max-width:768px){
+	.popZone {float:left;width:60%;}
+	.popZone > .cont li a img, .popZone > .cont li img{width:100%;height:380px;}
+
+	.book-box {float:right;width:40%;margin:0;margin-top:-5px;padding:20px 0 0 0;}
+	
+	.tabMenuS{width:90%;}
+	.tabMenuS li a{font-size:20px;}
+}
+
 @media all and (max-width:767px){
 	.qmenu li {width:33.3333333%;height:200px;margin:0;}
 	.qmenu li a {width:94%;height:94%;background-color:#fff;margin:3%;}
 	.qmenu li a:hover {width:94%;height:94%;background-color:#fff;margin:3%;}
+
+	.right-box {position:absolute;width:100%;height:540px;}
 }
 
 @media all and (max-width:640px){
 	.main1 {height:1580px;}
 	.center-box {position:absolute;width:100%;top:0;height:540px;z-index:99999;}
 	.left-box {position:absolute;width:100%;top:540px;height:100%;z-index:99999;}
-	.right-box {position:absolute;width:100%;top:1270px;height:540px;}
+	.right-box {position:absolute;width:100%;top:1280px;height:540px;}
 
 	.popZone {width:100%;}
-	.popZone > .cont li a img, .popZone > .cont li img  {width:100%;height:420px;}
+	.popZone > .cont li a img, .popZone > .cont li img  {width:100%;height:400px;}
 
 	.libraryinfo-box h3:first-child{margin-top:0;}
 	.libraryinfo-box h3 {font-size:14px;}
 	.libraryinfo-box ul li {font-size:13px;}
+
+	.book-box{float:left;width:100%;}
+	.clt{top:75px;}
+	.tabMenuS{padding-top:0;}
 }
 
 @media all and (max-width:550px){
-	.main1 {height:1680px;}
+	.main1 {height:1715px;}
 	.center-box {position:absolute;width:100%;top:0;height:540px;z-index:99999;}
 	.left-box {position:absolute;width:100%;top:540px;height:100%;z-index:99999;}
-	.right-box {position:absolute;width:100%;top:1170px;height:540px;}
+	.right-box {position:absolute;width:100%;top:1190px;height:540px;}
 
 	.popZone {width:100%;}
 	.popZone > .cont li a img, .popZone > .cont li img  {width:100%;height:320px;}
@@ -286,7 +304,7 @@
 
 @media all and (max-width:425px){
 	.popZone .cont .bx-controls{top:-3px;right:0;}
-	.popZone > .cont li a img, .popZone > .cont li img  {width:100%;height:280px;}
+	.popZone > .cont li a img, .popZone > .cont li img  {width:100%;height:260px;}
 
 	.notice-box > .cont li a {font-size:14px;}
 
@@ -311,10 +329,10 @@
 	ul.book_photo li a span.con-title {font-size:14px;}
 	ul.book_photo li:nth-child(3), ul.book_photo li:nth-child(4){display:none;}
 
-	.main1 {height:1580px;}
+	.main1 {height:1590px;}
 	.center-box {position:absolute;width:100%;top:0;height:540px;z-index:99999;}
 	.left-box {position:absolute;width:100%;top:480px;height:auto;z-index:99999;}
-	.right-box {position:absolute;width:100%;top:1060px;height:540px;}
+	.right-box {position:absolute;width:100%;top:1070px;height:540px;}
 }
 
 @media all and (max-width:320px){

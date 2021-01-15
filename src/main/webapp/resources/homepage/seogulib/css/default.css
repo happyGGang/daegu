@@ -249,6 +249,8 @@ a.btnStyle{float: right;margin-top: 6px;}
 	.foot-info {overflow-x:scroll;}
 	.foot-counter {float:none;padding:10px 0 0 0;text-align:center;}
 	#footer address {text-align:center;}
+
+	.tnb{background:#f4f0ed;height:60px;}
 }
 
 @media all and (min-width: 768px) and (max-width: 1023px){

@@ -378,8 +378,8 @@ ul.bus_list a span.num{display:block;background:#f1f1f1;height:30px;line-height:
 .roomicon .inner.icowrap02 .ico.ico16{background:url('/resources/common/img/iconbox_icon01.gif')no-repeat 50px 45px !important;}
 
 @media all and (max-width:768px){
-    .roomicon .inner.icowrap{padding:30px 20px;}
-    .roomicon .inner.icowrap .ico{display:none;}
+    .roomicon .inner.icowrap, .roomicon .inner.icowrap02{padding:30px 20px;}
+    .roomicon .inner.icowrap .ico, .roomicon .inner.icowrap02 .ico{display:none;}
 }
 
 
@@ -808,9 +808,8 @@ dt,dd{;word-break:keep-all}
 @media all and (min-width: 768px) and (max-width: 1023px) {
 	.time_box ul li{position:relative;width:100%;display:inline-block;background:#f9f9f9;}
 	.time_box ul li:first-child{margin-bottom:20px;}
-	.time_box ul li > div{background-position:30px 20px !important;padding:15px 20px 15px 120px;}
+	.time_box ul li > div{background-position:30px 20px !important;padding:25px 20px 25px 120px;}
 	.time_box ul li span, .time_box .weekend span{line-height:25px;}
-	.time_box ul li p{position:absolute;}
 }
 
 @media all and (max-width: 767px) {
@@ -1559,13 +1558,13 @@ a.link_btn img{margin-left:5px;}
 	padding-bottom: 10px;
 }
 .fac_box02-2 {
-	background: url('/data/menuResources/h51/20/1604307137113.jpg')no-repeat;
+	background: url('/data/menuResources/h51/20/1604307145249.jpg')no-repeat;
 	padding-left: 220px;
 	border-bottom: 1px solid #e5e5e5;
 	padding-bottom: 10px;
 }
 .fac_box02-3 {
-	background: url('/data/menuResources/h51/20/1604307145249.jpg')no-repeat;
+	background: url('/data/menuResources/h51/20/1604307137113.jpg')no-repeat;
 	padding-left: 220px;
 	border-bottom: 1px solid #e5e5e5;
 	padding-bottom: 10px;

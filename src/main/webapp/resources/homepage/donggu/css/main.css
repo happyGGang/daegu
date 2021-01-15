@@ -5,7 +5,7 @@
 .main1 {position:relative;background:#efece5;padding:0;height:440px;}
 
 .popZone {position:relative;}
-.popZone > .cont li a img {width:100%;height:100%;}
+.popZone > .cont li a img {width:1260px;height:350px;}
 .popZone .cont .bx-controls {position:absolute;z-index:999;width:100%;top:150px;}
 .popZone .cont .bx-pager {display:none;position:absolute;text-align:center;right:153px;bottom:5px;width:90px;height:50px;line-height:50px;background:rgba(0,0,0,0.3);color:#fff;font-size:17px;}
 .popZone .cont .bx-prev, 
@@ -347,9 +347,25 @@ ul.book_photo li a span.con-title {color:#222;font-size:16px;font-weight:bold;pa
 	.m_none{display:none;}
 }
 
+@media all and (max-width:950px){
+	.popZone > .cont li a img{width:100%;height:290px;}
+
+	.popZone .cont .bx-prev  { width:50px;height:50px;top:-40px;background-size:cover;}
+	.popZone .cont .bx-next  { width:50px;height:50px;top:-40px;background-size:cover;}
+}
+
+@media all and (max-width:830px){
+	.popZone > .cont li a img{width:100%;height:280px;}
+
+	.popZone .cont .bx-prev  { width:50px;height:50px;top:-40px;background-size:cover;}
+	.popZone .cont .bx-next  { width:50px;height:50px;top:-40px;background-size:cover;}
+}
+
 @media all and (max-width:768px){
-	.popZone .cont .bx-prev  { width:50px;height:50px;top:38%;background-size:cover;}
-	.popZone .cont .bx-next  { width:50px;height:50px;top:38%;background-size:cover;}
+	.popZone > .cont li a img{width:100%;height:260px;}
+
+	.popZone .cont .bx-prev  { width:50px;height:50px;top:-40px;background-size:cover;}
+	.popZone .cont .bx-next  { width:50px;height:50px;top:-40px;background-size:cover;}
 
 	.notice-box .tit > h2 {font-size:21px;}
 	.notice-box .con ul { padding-top:10px; }
@@ -385,16 +401,29 @@ ul.book_photo li a span.con-title {color:#222;font-size:16px;font-weight:bold;pa
 	.main5 .tit p font-size:13px;color:#686868;}
 }
 
+@media all and (max-width:700px){
+	.popZone > .cont li a img{width:100%;height:240px;}
+}
+
 @media all and (max-width:650px){
+	.popZone > .cont li a img{width:100%;height:230px;}
+
 	.divbInfomationContsDetail li dt {font-size:18px;}
 	.divbInfomationContsDetail li dd {font-size:14px;padding:2px 0 2px 13px;}
 }
 
 @media all and (max-width:600px){
+	.popZone > .cont li a img{width:100%;height:220px;}
+
 	.mobileBr {display:block;}
 }
 
 @media all and (max-width:550px){
+	.popZone > .cont li a img{width:100%;height:210px;}
+
+	.popZone .cont .bx-prev  { width:50px;height:50px;top:-65px;background-size:cover;}
+	.popZone .cont .bx-next  { width:50px;height:50px;top:-65px;background-size:cover;}
+
 	.divbInfomationContsDetail li {display:block;float:none;width:100%;height:200px;margin-bottom:10px;}
 	.divbInfomationContsDetail li:last-child {float:none;}
 
@@ -426,16 +455,20 @@ ul.book_photo li a span.con-title {color:#222;font-size:16px;font-weight:bold;pa
 }
 
 @media all and (max-width:450px){
+	.popZone > .cont li a img{width:100%;height:200px;}
+
 	.info-area li {display:block;float:none;width:100%;text-align:center;box-sizing:border-box;}
 	.info-area li:last-child {text-align:center;border-top:1px solid #ddd}
 	.main5 .info-area .box select.librarySelectBox {margin:10px auto;}
 	.main5 .info-area .box {height:auto;}
 
-	.popZone .cont .bx-prev  { width:38px;height:38px;top:32%;background-size:cover;}
-	.popZone .cont .bx-next  { width:38px;height:38px;top:32%;background-size:cover;}
+	.popZone .cont .bx-prev  { width:38px;height:38px;top:-70px;background-size:cover;}
+	.popZone .cont .bx-next  { width:38px;height:38px;top:-70px;background-size:cover;}
 }
 
 @media all and (max-width:425px){
+	.popZone > .cont li a img{width:100%;height:180px;}
+
 	ul.book_photo {height:255px;overflow:hidden;}
 	ul.book_photo li {width:140px;padding:0 10px;vertical-align:top;}
 	ul.book_photo li:last-child{display:none;}
@@ -457,8 +490,6 @@ ul.book_photo li a span.con-title {color:#222;font-size:16px;font-weight:bold;pa
 	#calendar2 .calendar_select_box{position:relative;top:0;right:0;width:100%;margin-bottom:10px;}
 
 	.main6{padding:20px;}
-
-	.banner-wrap .banner-box5 .banner-roll img{margin-top:5px !important;}
 }
 
 @media all and (max-width:375px){
