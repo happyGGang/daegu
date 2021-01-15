@@ -61,7 +61,7 @@ $(function(){
 	$('a.modify').on('click', function(event) {
 		if($(this).attr('type') == 'calendar') {
 			if ($(this).attr('linkurl') == null || $(this).attr('linkurl') == 'null') {
-				doGetLoad('/${homepage.context_path}/module/calendarManage/detail.do', '&menu_idx=' + $('#menu_idx').val()+'&cm_idx='+$(this).attr('keyValue2')+'&date_type='+$(this).attr('keyValue3'));
+				doGetLoad('/${homepage.context_path}/module/calendarManage/detail.do', '&menu_idx=' + $('#menu_idx').val()+'&cm_idx='+$(this).attr('keyValue2')+'&date_type='+$(this).attr('keyValue3')+'&homepage_id='+$('#homepage_id_1').val());
 			} else {
 				doGetLoad($(this).attr('linkurl'));
 			}
