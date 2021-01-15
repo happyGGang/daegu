@@ -3,6 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tag" uri="/WEB-INF/config/tld/cmsTag.tld" %>
+<link rel="stylesheet" type="text/css" 	href="/resources/common/css/culture-list.css" />
 <script type="text/javascript">
 $(function(){
 	$('a.detail-btn').on('click', function(e) {
@@ -180,50 +181,103 @@ ${html.html}
 	<a href="anonyApplyCheck.do?homepage_id=${fn:escapeXml(teach.homepage_id)}&menu_idx=${fn:escapeXml(param.menu_idx)}" class="btn btn1" style="font-size:14px;">비회원 신청확인</a>
 </div>
 
-<c:if test="${fn:length(teachList) <1 }">
-	<div class="nodata">
-			<i class="fa fa-frown-o"></i>
-		<p>등록된 프로그램이 없습니다.</p>
-	</div>
-</c:if>
 <div class="op_wrap">
 	<div class="smain">
-		<c:forEach items="${teachList}" var="i">
-			<div class="item">
-				<div class="op_title category">
-					<span class="ca ty2" style="font-size:14px;">${i.group_name} ${i.category_name}</span>
-					<c:if test="${fn:length(i.teach_name) > 20}">
-										</c:if>
-					<a href="" class="name toggle-btn" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}">
-						${i.teach_name}
-					</a>
-					<a href="" class="name toggle-btn btn btn6 more_btn" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}">
-						<i class="fa fa-search"></i>상세보기
-					</a>
-					<span class="info">
-						<c:if test="${fn:length(i.teach_target) > 0}">
-							<b>대상 : </b> ${i.teach_target} <span>｜</span>
-						</c:if>
-						<b>접수현황 : </b>
-						<span ${i.teach_join_count > 0 and (i.teach_join_count eq i.teach_limit_count)? 'style="color:red;padding:0; vertical-align:baseline;"' : 'style="color:orange; padding:0; vertical-align:baseline; font-size:14px; font-weight:bold;"'}>${i.teach_join_count}</span> / ${i.teach_limit_count}
-						<c:if test="${i.teach_backup_count > 0}">
-							<span>｜</span> <b>대기현황 : </b>
-							<span ${i.teach_backup_join_count > 0 and (i.teach_backup_join_count eq i.teach_backup_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_backup_join_count}</span> / ${i.teach_backup_count}
-						</c:if>
-					</span>
-				</div>
-				<div class="sk-box" id="${i.teach_idx}" style="display: none;">
-				<div class="box">
-					<div class="box2">
-						<ul class="con2">
-							<li class="first">
-								<div><label>접수기간 </label> : ${i.start_join_date}&nbsp;&nbsp;${i.start_join_time}&nbsp;&nbsp;&nbsp;~ &nbsp;&nbsp;&nbsp;${i.end_join_date}&nbsp;&nbsp;${i.end_join_time}</div>
-							</li>
-							<li>
-								<div><label>장소</label> : ${i.teach_stage}</div>
-							</li>
-							<li>
-								<div><label>강좌일</label> : ${i.start_date} <c:if test="${i.start_date ne i.end_date}">~ ${i.end_date}</c:if> (
+		<table class="list01 rwd-table" summary="문화행사신청 게시물. 본 데이터표는 8컬럼, 10로우로 구성되어 있습니다. 각 로우는 번호, 분류,  제목,   등록자, 등록일, 조회로 구성되어 있습니다." cellspacing="0" cellpadding="0" border="0">
+			<caption>문화행사신청 목록 페이지</caption>
+			<colgroup>
+			<col />
+			<col width="15%" />
+			<col width="25%"/>
+			<col width="20%" />
+			<col width="10%" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th scope="col" class="center"><c:choose><c:when test="${param.searchCate1 eq '16'}">행사명</c:when><c:when test="${param.searchCate1 eq '17'}">강좌명</c:when><c:when test="${param.searchCate1 eq '18'}">강좌명</c:when><c:otherwise>강좌명</c:otherwise></c:choose></th>
+					<th scope="col" class="center">접수인원</th>
+					<th scope="col" class="center"><c:choose><c:when test="${param.searchCate1 eq '16'}">행사기간</c:when><c:when test="${param.searchCate1 eq '17'}">강좌기간</c:when><c:when test="${param.searchCate1 eq '18'}">강좌기간</c:when><c:otherwise>강좌기간</c:otherwise></c:choose></th>
+					<th scope="col" class="center">접수기간</th>
+					<th scope="col" class="center">접수상태</th>
+				</tr>
+			</thead>
+
+			<c:choose>
+			<c:when test="${fn:length(teachList) < 1 }">
+			<tbody>
+					<tr>
+						<td colspan="5" style="text-align:center;">
+<p>등록된 프로그램이 없습니다.</p>
+						</td>
+					</tr>
+			</tbody>
+			</c:when>
+
+			<c:otherwise>
+			<tbody>
+					
+					<c:forEach items="${teachList}" var="i">
+					<tr>
+						<td data-th="제목" class="title left" style="padding-left:5px;">
+							<dl>
+								<dd><span class="ca ty2">${i.group_name}</span></dd>
+								<dt class="title">
+									<a href="#" title="강좌 상세정보 보기" class="detail-btn" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}">
+										${i.teach_name}
+									</a>
+								</dt>
+								<!-- <dd class="con">장소 : ${i.teach_stage}</dd> -->
+								<dd class="con">대상 : ${i.teach_target}</dd>
+								<dd class="con mobile-view">
+								<span>온라인
+									<span ${i.teach_join_count > 0 and (i.teach_join_count eq i.teach_limit_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_join_count}</span> / ${i.teach_limit_count}<br/>
+								</span>
+								<c:if test="${i.teach_offline_count > 0}">
+								<span>오프라인
+									<span ${i.teach_off_join_count > 0 and (i.teach_off_join_count eq i.teach_offline_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_off_join_count}</span> / ${i.teach_offline_count}<br/>
+								</span>
+								</c:if>
+								<c:if test="${i.teach_backup_count > 0}">
+								<span>(후보자 <span ${i.teach_backup_join_count > 0 and (i.teach_backup_join_count eq i.teach_backup_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_backup_join_count}</span> / ${i.teach_backup_count})
+								</span>
+								</c:if>
+								</dd>
+								<c:if test="${i.server_file_name ne null and i.server_file_name ne '' }">
+								<!-- <dd class="con">강의계획서 : <a style="color:#00f" href="download/${i.homepage_id}/${i.group_idx}/${i.category_idx}/${i.teach_idx}.do"><i class="fa fa-floppy-o"></i> <%--${i.plan_file_name}--%></a>
+								</dd> -->
+								</c:if>
+							</dl>
+						</td>
+						<td data-th="정원 및 신청현황" class="visit">
+								<!--
+								<span><strong>온라인</strong> ${i.teach_limit_count}명 </span>
+								<c:if test="${i.teach_offline_count > 0}"><span>, <strong>오프라인</strong> ${i.teach_offline_count}명</span></c:if>
+								<c:if test="${i.teach_backup_count > 0}"><span>, ( <strong>후보자</strong> ${i.teach_backup_count}명 )</span></c:if>
+								<br/>
+								-->
+								<span>온라인
+									<span ${i.teach_join_count > 0 and (i.teach_join_count eq i.teach_limit_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_join_count}</span> / ${i.teach_limit_count}<br/>
+								</span>
+								<c:if test="${i.teach_offline_count > 0}">
+								<span>오프라인
+									<span ${i.teach_off_join_count > 0 and (i.teach_off_join_count eq i.teach_offline_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_off_join_count}</span> / ${i.teach_offline_count}<br/>
+								</span>
+								</c:if>
+								<c:if test="${i.teach_backup_count > 0}">
+								<span>(후보자 <span ${i.teach_backup_join_count > 0 and (i.teach_backup_join_count eq i.teach_backup_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_backup_join_count}</span> / ${i.teach_backup_count})
+								</span>
+								</c:if>
+								<!--
+								<span style="color:red;padding:0;">12</span> / 12</span><br/>
+								<span>
+									(
+									대기자 :
+									<span style="color:orange">1</span> / 5
+									)
+								</span>
+								-->
+						</td>
+						<td data-th="<c:choose><c:when test="${param.searchCate1 eq '16'}">행사기간</c:when><c:when test="${param.searchCate1 eq '17'}">강좌기간</c:when><c:when test="${param.searchCate1 eq '18'}">강좌기간</c:when><c:otherwise>강좌기간</c:otherwise></c:choose>"><span>${i.start_date} <c:if test="${i.start_date ne i.end_date}">~ ${i.end_date}</c:if></span> <br class=''/><span>(
 															<c:forEach var="j" varStatus="status_j" items="${i.teach_day_arr}">
 																<c:choose>
 																	<c:when test="${j eq '1'}">일</c:when>
@@ -234,116 +288,67 @@ ${html.html}
 																	<c:when test="${j eq '6'}">금</c:when>
 																	<c:when test="${j eq '7'}">토</c:when>
 																</c:choose>
-																<c:if test="${!status_j.last}">
-																	,
-																</c:if>
+																<c:if test="${!status_j.last}">,</c:if>
 															</c:forEach>
-														) ${i.start_time} ~ ${i.end_time}
-								</div>
-							</li>
-							<c:if test="${not empty i.teacher_name}">
-							<li>
-								<div><label>강사명</label> : ${i.teacher_name}</div>
-							</li>
-							</c:if>
-							<c:if test="${not empty i.server_file_name}">
-							<li><div>
-				        		<label>강의계획서</label> :
-					         	<span class="important td1">
-					         		<c:if test="${i.server_file_name ne null and i.server_file_name ne '' }">
-					         			<a style="color:#00f" href="download/${i.homepage_id}/${i.group_idx}/${i.category_idx}/${i.teach_idx}.do"><i class="fa fa-floppy-o"></i> ${i.org_file_name}</a>
-					         		</c:if>
-				         		</span>
-					        </div></li>
-					        </c:if>
+														)</span><br/><span class="">${i.start_time} ~ ${i.end_time}</span>
+						</td>
+						<td data-th="접수기간">
+							<span class="">${i.start_join_date}&nbsp;${i.start_join_time}&nbsp;&nbsp;~ <br/>${i.end_join_date}&nbsp;${i.end_join_time}</span>
+						</td>
+						<td data-th="접수상태">
+							<c:choose>
+								<c:when test="${member.login and (member.loginType eq 'HOMEPAGE') and (not empty i.member_key and i.member_key eq member.seq_no)}">
+									<a class="btn btn3 teachBook-btn" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}"keyValue5="${i.large_category_idx}" >출석부</a>
+								</c:when>
+								<c:otherwise>
+									<c:choose>
+										<c:when test="${i.teach_status eq '0'}">
+											<a href="" class="btn btn1 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.large_category_idx}" apply_status="1">
+											<i class="fa fa-pencil-square-o"></i><span>수강신청 </span></a>
+										</c:when>
+										<c:when test="${i.teach_status eq '1'}">
+											<a href="" class="btn btn1 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.large_category_idx}" apply_status="2">
+											<i class="fa fa-pencil-square-o"></i><span>대기자신청</span></a>
+										</c:when>
+										<c:when test="${i.teach_status eq '2' or i.teach_status eq '10'}">
+											<a href="/${homepage.context_path}/module/teach/applyList.do?menu_idx=${myTeachListMenuIdx}" class="btn btn2">
+											<i class="fa fa-circle-o"></i><span>신청완료</span></a>
+										</c:when>
+										<c:when test="${i.teach_status eq '3'}">
+											<a href="/${homepage.context_path}/module/teach/applyList.do?menu_idx=${myTeachListMenuIdx}" class="btn btn2">
+											<i class="fa fa-circle-o"></i><span>대기자 신청완료</span></a>
+										</c:when>
+										<c:when test="${i.teach_status eq '9'}">
+											<a href="javascript:void(0);" class="btn" style="cursor: default;">
+											<i class="fa fa-pencil"></i><span>수강종료</span></a>
+										</c:when>
+										<c:when test="${i.teach_status eq '4'}">
+											<a href="javascript:void(0);" class="btn" style="cursor: default;">
+											<span>접수마감</span></a>
+										</c:when>
+										<c:when test="${i.teach_status eq '5'}">
+											<a href="javascript:void(0);" class="btn" style="cursor: default;">
+											<i class="fa fa-user"></i><span>정원마감</span></a>
+										</c:when>
+										<c:when test="${i.teach_status eq '6'}">
+											<a href="javascript:void(0);" class="btn btn4" style="cursor: default;">
+											<i class="fa fa-clock-o"></i><span>신청대기</span></a>
+										</c:when>
+										<%-- <c:when test="${i.teach_status eq '7' }">
+											<a href="javascript:void(0);" class="btn btn3" style="cursor: default;">
+											<i class="fa fa-times-circle"></i><span>신청불가(취소)</span></a>
+										</c:when> --%>
+									</c:choose>
+								</c:otherwise>
+							</c:choose>
+						</td>
+					</tr>
+					</c:forEach>
+			</tbody>
 
-							<%-- <li><div><label>강좌설명</label> : ${i.teach_desc}</div></li> --%>
-							<li><div class="status">
-								<label>모집인원</label> :
-								<span><strong>온라인</strong> ${i.teach_limit_count}명 </span>
-								<c:if test="${i.teach_offline_count > 0}"><span>, <strong>오프라인</strong> ${i.teach_offline_count}명</span></c:if>
-								<c:if test="${i.teach_backup_count > 0}"><span>, ( <strong>대기인원</strong> ${i.teach_backup_count}명 )</span></c:if>
-							</div></li>
-							<li><div class="status">
-								<label>접수현황</label> :
-								<span>
-									온라인 :
-									<span ${i.teach_join_count > 0 and (i.teach_join_count eq i.teach_limit_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_join_count}</span> / ${i.teach_limit_count}
-								</span>
-								<c:if test="${i.teach_offline_count > 0}">
-									<span>
-										오프라인 :
-										<span ${i.teach_off_join_count > 0 and (i.teach_off_join_count eq i.teach_offline_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_off_join_count}</span> / ${i.teach_offline_count}
-									</span>
-								</c:if>
-								<c:if test="${i.teach_backup_count > 0}">
-									<span>
-										(
-										대기현황 :
-										<span ${i.teach_backup_join_count > 0 and (i.teach_backup_join_count eq i.teach_backup_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_backup_join_count}</span> / ${i.teach_backup_count}
-										)
-									</span>
-								</c:if>
-							</div></li>
-							<li><div><label>모집대상</label> : ${i.teach_target}</div></li>
-							<c:if test="${i.cancle_use_yn eq 'Y'}">
-							<li><div><label>취소기간</label> : ${i.start_cancle_date} ${i.start_cancle_time} ~ ${i.end_cancle_date} ${i.end_cancle_time}</div></li>
-							</c:if>
-							<c:if test="${i.limit_hak_yn eq 'Y'}">
-							<li><div><label>학년제한</label> : ${i.limit_hak_str} ~ ${i.limit_hak2_str}</div></li>
-							</c:if>
-							<li>
-								<div>
-									<label>상세내용</label> :
-									<a href="#" title="강좌 상세정보 보기" class="detail-btn btn" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}">강좌 상세정보 보기</a>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="stat">
-					<c:choose>
-						<c:when test="${i.teach_status eq '0'}">
-							<a href="" class="btn btn1 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.large_category_idx}" apply_status="1">
-							<i class="fa fa-pencil-square-o"></i><span>수강신청 </span></a>
-						</c:when>
-						<c:when test="${i.teach_status eq '1'}">
-							<a href="" class="btn btn1 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.large_category_idx}" apply_status="2">
-							<i class="fa fa-pencil-square-o"></i><span>대기자신청</span></a>
-						</c:when>
-						<c:when test="${i.teach_status eq '2' or i.teach_status eq '10'}">
-							<a href="/${homepage.context_path}/module/teach/applyList.do?menu_idx=${myTeachListMenuIdx}" class="btn btn2">
-							<i class="fa fa-circle-o"></i><span>신청완료</span></a>
-						</c:when>
-						<c:when test="${i.teach_status eq '3'}">
-							<a href="/${homepage.context_path}/module/teach/applyList.do?menu_idx=${myTeachListMenuIdx}" class="btn btn2">
-							<i class="fa fa-circle-o"></i><span>대기자 신청완료</span></a>
-						</c:when>
-						<c:when test="${i.teach_status eq '9'}">
-							<a href="javascript:void(0);" class="btn" style="cursor: default;">
-							<i class="fa fa-pencil"></i><span>수강종료</span></a>
-						</c:when>
-						<c:when test="${i.teach_status eq '4'}">
-							<a href="javascript:void(0);" class="btn" style="cursor: default;">
-							<span>접수마감</span></a>
-						</c:when>
-						<c:when test="${i.teach_status eq '5'}">
-							<a href="javascript:void(0);" class="btn" style="cursor: default;">
-							<i class="fa fa-user"></i><span>정원마감</span></a>
-						</c:when>
-						<c:when test="${i.teach_status eq '6'}">
-							<a href="javascript:void(0);" class="btn btn4" style="cursor: default;">
-							<i class="fa fa-clock-o"></i><span>신청대기</span></a>
-						</c:when>
-						<%-- <c:when test="${i.teach_status eq '7' }">
-							<a href="javascript:void(0);" class="btn btn3" style="cursor: default;">
-							<i class="fa fa-times-circle"></i><span>신청불가(취소)</span></a>
-						</c:when> --%>
-					</c:choose>
-				</div>
-				</div>
-			</div>
-		</c:forEach>
+			</c:otherwise>
+			</c:choose>
+		</table>
 	</div>
 </div>
 
