@@ -212,9 +212,11 @@ $(function() {
 	<form:hidden path="record_idx"/>
 	<form:hidden path="editMode"/>
 	<form:hidden path="menu_idx"/>
+	<div class="rsv-info"></div>
+	<div class="auto-scroll">
 	<table class="type2 nohead">
 		<colgroup>
-			<col width="200" class="col1">
+			<col width="20%" class="col1">
 			<col width="*" class="col2">
 		</colgroup>
 		<tbody>
@@ -294,7 +296,7 @@ $(function() {
 				<th>*독서감상문</th>
 				<td>
 					<div style="padding-left:1%"><span id="textLength">0</span>/50자 &nbsp;&nbsp;&nbsp; 로그인 유지 시간 : <span id="demo"></span></div>
-					<form:textarea path="book_journals" rows="10" cols="100" cssStyle="padding:10px 10px;"></form:textarea><br/>
+					<form:textarea path="book_journals" rows="10" cols="100" cssStyle="padding:10px 10px;width:100%;"></form:textarea><br/>
 					<div style="font-size:13px;">
 						* 독서감상문은 띄어쓰기 빈칸을 포함하여 50자 이상 기록하여야 합니다.<br/>
 						* 20분간 사용이 없으면 자동으로 로그아웃되므로 작성이 길어질 경우 미리 작성하신 내용을 복사해서 등록하시기 바랍니다.
@@ -303,7 +305,7 @@ $(function() {
 			</tr>
 		</tbody>
 	</table>
-	
+	</div>
 	<div class="button bbs-btn center" style="margin-top:15px;">
 		<a href="#" class="btn btn2" id="record_save_btn"><i class="fa fa-pencil"></i><span>저장하기</span></a>
 		<a href="#" class="btn btn1" id="record_index_btn"><i class="fa fa-reorder"></i><span>목록으로</span></a>

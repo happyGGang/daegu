@@ -421,242 +421,245 @@ $(function(){
 	</c:when>
 	<c:otherwise>
 		<form:form modelAttribute="marathonApplicant" action="save.do" method="POST">
-			<form:hidden path="homepage_id"/>
-			<form:hidden path="contest_idx"/>
-			<form:hidden path="editMode"/>
-			<form:hidden path="menu_idx"/>
-			<form:hidden path="member_name" value="${marathonApplicant.member_name}"/>
-			<form:hidden path="gender" value="${marathonApplicant.gender}"/>
-			<form:hidden path="birthday_year" value="${marathonApplicant.birthday_year}"/>
-			<form:hidden path="birthday_month" value="${marathonApplicant.birthday_month}"/>
-			<form:hidden path="birthday_date" value="${marathonApplicant.birthday_date}"/>
-			<table class="type2">
-				<colgroup>
-					<col width="160"/>
-					<col width="*"/>
-				</colgroup>
-				<div style="text-align:right">
-					*표시가 된 곳은 필수 항목입니다.
-				</div>
-				<tbody>
-					<tr>
-						<th colspan="2" style="background:#fff;">신청정보 입력</th>
-					</tr>
-					<tr>
-						<th>신청일</th>
-						<td><fmt:formatDate value="${marathonApplicant.add_date}" pattern="yyyy-MM-dd"/></td>
-					</tr>
-					<tr>
-						<th>아이디</th>
-						<td>
-							${marathonApplicant.member_id}
-							<span class="text2">*본인 아이디로만 신청 가능합니다.</span>
-						</td>
-					</tr>
-					<tr>
-						<th>이름*</th>
-						<td>
-							${marathonApplicant.member_name}
-						</td>
-					</tr>
-					<tr>
-						<th>분류*</th>
-						<td>
-							<form:radiobutton path="age_type" id="age_type_ele_low" value="ele_low"/>
-							<label for="age_type_ele_low">초등(1~3)저학년</label>
-							<form:radiobutton path="age_type" id="age_type_ele_high" value="ele_high"/>
-							<label for="age_type_ele_high">초등(4~6)고학년</label>
-							<form:radiobutton path="age_type" id="age_type_middle" value="middle"/>
-							<label for="age_type_middle">중학생</label>
-							<form:radiobutton path="age_type" id="age_type_high" value="high"/>
-							<label for="age_type_high">고등학생</label>
-							<form:radiobutton path="age_type" id="age_type_adult" value="adult"/>
-							<label for="age_type_adult">일반인</label><br/>
-							<span style="color:red;">*신청 후 수정이 불가능하니 신중하게 선택하시기 바랍니다.</span>
-						</td>	
-					</tr>
-					<tr>
-						<th>학교*</th>
-						<td>
-							<form:input path="school_name" cssClass="text"/>
-							<span class="text2">*(예:00 초등학교)</span>
-						</td>
-					</tr>
-					<tr>
-						<th>학년*</th>
-						<td>
-							<form:input path="school_class_one" cssClass="text" size="4"/>학년
-							<form:input path="school_class_two" cssClass="text" size="4"/>반
-							<span class="text2">*일반인의 경우 학교 학년 기입하지 않으셔도 됩니다.</span>
-						</td>
-					</tr>
-					<tr>
-						<th>주소*</th>
-						<td>
-							<div style="margin-bottom:1%;">
-								<form:select path="address_dong" cssClass="selectmenu">
-									<form:option value="">동 선택</form:option>
-									<form:options items="${dongList}" itemLabel="code_name" itemValue="code_id"/>
-									<form:option value="write">기타 직접 입력</form:option>
-								</form:select>
-								<input type="text" id="address_writeDong" class="text" size="6" readonly="true"/><span class="text2"> *동명을 입력해 주세요.    ※참가자격: 달서구민 및 달서구 소재 학교 재학생</span><br/>
-							</div>
-							<a href="" id="findPostCode" class="btn" style="background:#fff;font-size:14px;padding:5px 3px;">우편번호찾기</a><form:input path="zipcode" cssClass="text" readonly="true" cssStyle="width:80px;" maxLength="5"/><span class="text2"> *우편번호(숫자5자리)</span><br/>
-							<form:input path="address_one" size="40" cssClass="text" style="margin-top:0.5px;" readonly="true"/><span class="text2"> *시도 + 시군구 + 도로명(50자리 이내로 입력해 주세요.)</span><br/>
-							<form:input path="address_two" size="40" cssClass="text" style="margin-top:0.5px"/><span class="text2"> *건물번호 + 동·층·호 + (법정동,공동주택명)(50자리 이내로 입력해 주세요.)</span>
-						</td>
-					</tr>
-					<tr>
-						<th>전화번호*</th>
-						<td>
-							<form:input path="telephone_one" cssClass="text" size="4" maxlength="4"/>-<form:input path="telephone_two" cssClass="text" size="4" maxlength="4"/>-<form:input path="telephone_three" cssClass="text" size="4" maxlength="4"/>
-							<span class="text2">*숫자만 입력해 주세요.</span>
-						</td>
-					</tr>
-					<tr>
-						<th>휴대전화번호*</th>
-						<td>
-							<form:input path="cellphone_one" cssClass="text" size="4" maxlength="4"/>-<form:input path="cellphone_two" cssClass="text" size="4" maxlength="4"/>-<form:input path="cellphone_three" cssClass="text" size="4" maxlength="4"/>
-							<span class="text2">*숫자만 입력해 주세요.</span>
-						</td>
-					</tr>
-					<tr>
-						<th>이메일</th>
-						<td>
-							<form:input path="email" cssClass="text" size="30"/>
-							<span class="text2">100자 이내로 @포함한 이메일주소를 입력해 주세요.</span>
-						</td>
-					</tr>
-					<tr>
-						<th>성별*</th>
-						<td>
-							${marathonApplicant.gender eq 'M' ? '남자' : '여자'}
-						</td>
-					</tr>
-					<tr>
-						<th>생년월일*</th>
-						<td>
-							${marathonApplicant.birthday_year}년
-							${marathonApplicant.birthday_month}월
-							${marathonApplicant.birthday_date}일
-						</td>
-					</tr>
-					<tr>
-						<th>참가종목*</th>
-						<td>
-							<form:select path="contest_type_idx" cssClass="selectmenu">
-								<form:option value="0" data-subject="DONOTSELECT">참가종목</form:option>
-								<c:forEach items="${marathonTypeList}" var="i" >
-									<form:option value="${i.contest_type_idx}" data-subject="${i.application_subject}">${i.contest_type}</form:option>
-								</c:forEach>
+		<form:hidden path="homepage_id"/>
+		<form:hidden path="contest_idx"/>
+		<form:hidden path="editMode"/>
+		<form:hidden path="menu_idx"/>
+		<form:hidden path="member_name" value="${marathonApplicant.member_name}"/>
+		<form:hidden path="gender" value="${marathonApplicant.gender}"/>
+		<form:hidden path="birthday_year" value="${marathonApplicant.birthday_year}"/>
+		<form:hidden path="birthday_month" value="${marathonApplicant.birthday_month}"/>
+		<form:hidden path="birthday_date" value="${marathonApplicant.birthday_date}"/>
+		<div class="rsv-info"></div>
+		<div class="auto-scroll">
+		<table class="type2">
+			<colgroup>
+				<col width="20%"/>
+				<col width="*"/>
+			</colgroup>
+			<div style="text-align:right">
+				*표시가 된 곳은 필수 항목입니다.
+			</div>
+			<tbody>
+				<tr>
+					<th colspan="2" style="background:#fff;">신청정보 입력</th>
+				</tr>
+				<tr>
+					<th>신청일</th>
+					<td><fmt:formatDate value="${marathonApplicant.add_date}" pattern="yyyy-MM-dd"/></td>
+				</tr>
+				<tr>
+					<th>아이디</th>
+					<td>
+						${marathonApplicant.member_id}
+						<span class="text2">*본인 아이디로만 신청 가능합니다.</span>
+					</td>
+				</tr>
+				<tr>
+					<th>이름*</th>
+					<td>
+						${marathonApplicant.member_name}
+					</td>
+				</tr>
+				<tr>
+					<th>분류*</th>
+					<td>
+						<form:radiobutton path="age_type" id="age_type_ele_low" value="ele_low"/>
+						<label for="age_type_ele_low">초등(1~3)저학년</label>
+						<form:radiobutton path="age_type" id="age_type_ele_high" value="ele_high"/>
+						<label for="age_type_ele_high">초등(4~6)고학년</label>
+						<form:radiobutton path="age_type" id="age_type_middle" value="middle"/>
+						<label for="age_type_middle">중학생</label>
+						<form:radiobutton path="age_type" id="age_type_high" value="high"/>
+						<label for="age_type_high">고등학생</label>
+						<form:radiobutton path="age_type" id="age_type_adult" value="adult"/>
+						<label for="age_type_adult">일반인</label><br/>
+						<span style="color:red;">*신청 후 수정이 불가능하니 신중하게 선택하시기 바랍니다.</span>
+					</td>	
+				</tr>
+				<tr>
+					<th>학교*</th>
+					<td>
+						<form:input path="school_name" cssClass="text"/>
+						<span class="text2">*(예:00 초등학교)</span>
+					</td>
+				</tr>
+				<tr>
+					<th>학년*</th>
+					<td>
+						<form:input path="school_class_one" cssClass="text" size="4"/>학년
+						<form:input path="school_class_two" cssClass="text" size="4"/>반
+						<span class="text2">*일반인의 경우 학교 학년 기입하지 않으셔도 됩니다.</span>
+					</td>
+				</tr>
+				<tr>
+					<th>주소*</th>
+					<td>
+						<div style="margin-bottom:1%;">
+							<form:select path="address_dong" cssClass="selectmenu">
+								<form:option value="">동 선택</form:option>
+								<form:options items="${dongList}" itemLabel="code_name" itemValue="code_id"/>
+								<form:option value="write">기타 직접 입력</form:option>
 							</form:select>
-						</td>
-					</tr>
-					<tr>
-						<th>완주기념품*</th>
-						<td>
-							<form:radiobutton path="finish_memorial" id="finish_memorial_document" value="document"/>
-							<label for="finish_memorial_document">완주증서</label>
-							<form:radiobutton path="finish_memorial" id="finish_memorial_medal" value="medal"/>
-							<label for="finish_memorial_medal">완주메달</label>
-						</td>
-					</tr>
-					<tr>
-						<th>각오한마디</th>
-						<td>
-							<form:textarea path="determination_talk" cssClass="text" cols="50" rows="4" style="padding:10px;"/>
-						</td>
-					</tr>
-					<tr>
-						<th colspan="2" style="padding:10px 0 5px 10px;border-bottom: 1px solid #dfdfdf;background: none;text-align: left;">
-							<p style="vertical-align:middle;font-size:19px;padding-top:10px;">개인정보 수집 및 이용에 대한 안내</p>
-						</th>
-					</tr>
-					<tr>
-						<td colspan="2" style="padding: 0; padding-top: 5px;border-bottom:1px solid #dfdfdf;">
-							<div class="app_box">
-								<div readonly="readonly" title="이용약관">
-									<ul>
-										<li>*독서마라톤 참가 신청을 위하여 아래와 같이 개인정보를 수집 및 이용하고자 합니다.</li><br/>
-										<li>
-											<ul>
-												<li>
-													[수집하는 개인정보의 항목]<br/>
-													ㆍ독서마라톤 신청을 위하여 아래와 같이 최소한의 개인정보를 필수항목으로 수집하고 있습니다.
-												</li>
-												<li>ㆍ필수항목 : 성명, 주소, 전화번호, 휴대전화, 성별, 이메일, 학교(해당시), 학년(해당시), 반(해당시)</li>
-											</ul>
-										</li>
-										<br/>
-										<li>
-											<ul>
-												<li>
-													[수집하는 개인정보의 항목]<br/>
-													ㆍ신청 시 수집되는 개인정보는 독서마라톤의 신청 및 운영, 통계 목적으로만 사용되고 다른 용도로 활용되지 않습니다.
-												</li>
-											</ul>
-										</li>
-										<br/>
-										<li>
-											<ul>
-												<li>
-													[개인정보의 보유 및 이용기간]<br/>
-												<strong class="st">ㆍ개인정보는 대회 접수 마감일로부터 1년간 보유하며 이후 지체 없이 파기됩니다.</strong>
-												</li>
-												<li>
-													ㆍ회원가입시 등록된 정보는 회원 탈퇴 시 지체 없이 파기됩니다.
-												</li>
-											</ul>
-										</li>
-										<br/>
-										<li>
-											<ul>
-												<li>
-													[동의거부권 및 동의 거부에 따른 불이익]<br/>
-													ㆍ신청자는 개인정보 수집·이용에 대하여 거부할 수 있는 권리가 있습니다. 단, 이에 대한 동의를 거부할 경우에는 독서마라톤 신청이 불가능합니다.
-												</li>
-											</ul>
-										</li>
-									</ul>
-								</div>
+							<input type="text" id="address_writeDong" class="text" size="6" readonly="true"/><span class="text2"> *동명을 입력해 주세요.    ※참가자격: 달서구민 및 달서구 소재 학교 재학생</span><br/>
+						</div>
+						<a href="" id="findPostCode" class="btn" style="background:#fff;font-size:14px;padding:5px 3px;">우편번호찾기</a><form:input path="zipcode" cssClass="text" readonly="true" cssStyle="width:80px;" maxLength="5"/><span class="text2"> *우편번호(숫자5자리)</span><br/>
+						<form:input path="address_one" size="40" cssClass="text" style="margin-top:0.5px;" readonly="true"/><span class="text2"> *시도 + 시군구 + 도로명(50자리 이내로 입력해 주세요.)</span><br/>
+						<form:input path="address_two" size="40" cssClass="text" style="margin-top:0.5px"/><span class="text2"> *건물번호 + 동·층·호 + (법정동,공동주택명)(50자리 이내로 입력해 주세요.)</span>
+					</td>
+				</tr>
+				<tr>
+					<th>전화번호*</th>
+					<td>
+						<form:input path="telephone_one" cssClass="text" size="4" maxlength="4"/>-<form:input path="telephone_two" cssClass="text" size="4" maxlength="4"/>-<form:input path="telephone_three" cssClass="text" size="4" maxlength="4"/>
+						<span class="text2">*숫자만 입력해 주세요.</span>
+					</td>
+				</tr>
+				<tr>
+					<th>휴대전화번호*</th>
+					<td>
+						<form:input path="cellphone_one" cssClass="text" size="4" maxlength="4"/>-<form:input path="cellphone_two" cssClass="text" size="4" maxlength="4"/>-<form:input path="cellphone_three" cssClass="text" size="4" maxlength="4"/>
+						<span class="text2">*숫자만 입력해 주세요.</span>
+					</td>
+				</tr>
+				<tr>
+					<th>이메일</th>
+					<td>
+						<form:input path="email" cssClass="text" size="30"/>
+						<span class="text2">100자 이내로 @포함한 이메일주소를 입력해 주세요.</span>
+					</td>
+				</tr>
+				<tr>
+					<th>성별*</th>
+					<td>
+						${marathonApplicant.gender eq 'M' ? '남자' : '여자'}
+					</td>
+				</tr>
+				<tr>
+					<th>생년월일*</th>
+					<td>
+						${marathonApplicant.birthday_year}년
+						${marathonApplicant.birthday_month}월
+						${marathonApplicant.birthday_date}일
+					</td>
+				</tr>
+				<tr>
+					<th>참가종목*</th>
+					<td>
+						<form:select path="contest_type_idx" cssClass="selectmenu">
+							<form:option value="0" data-subject="DONOTSELECT">참가종목</form:option>
+							<c:forEach items="${marathonTypeList}" var="i" >
+								<form:option value="${i.contest_type_idx}" data-subject="${i.application_subject}">${i.contest_type}</form:option>
+							</c:forEach>
+						</form:select>
+					</td>
+				</tr>
+				<tr>
+					<th>완주기념품*</th>
+					<td>
+						<form:radiobutton path="finish_memorial" id="finish_memorial_document" value="document"/>
+						<label for="finish_memorial_document">완주증서</label>
+						<form:radiobutton path="finish_memorial" id="finish_memorial_medal" value="medal"/>
+						<label for="finish_memorial_medal">완주메달</label>
+					</td>
+				</tr>
+				<tr>
+					<th>각오한마디</th>
+					<td>
+						<form:textarea path="determination_talk" cssClass="text" cols="50" rows="4" style="padding:10px;"/>
+					</td>
+				</tr>
+				<tr>
+					<th colspan="2" style="padding:10px 0 5px 10px;border-bottom: 1px solid #dfdfdf;background: none;text-align: left;">
+						<p style="vertical-align:middle;font-size:19px;padding-top:10px;">개인정보 수집 및 이용에 대한 안내</p>
+					</th>
+				</tr>
+				<tr>
+					<td colspan="2" style="padding: 0; padding-top: 5px;border-bottom:1px solid #dfdfdf;">
+						<div class="app_box">
+							<div readonly="readonly" title="이용약관">
+								<ul>
+									<li>*독서마라톤 참가 신청을 위하여 아래와 같이 개인정보를 수집 및 이용하고자 합니다.</li><br/>
+									<li>
+										<ul>
+											<li>
+												[수집하는 개인정보의 항목]<br/>
+												ㆍ독서마라톤 신청을 위하여 아래와 같이 최소한의 개인정보를 필수항목으로 수집하고 있습니다.
+											</li>
+											<li>ㆍ필수항목 : 성명, 주소, 전화번호, 휴대전화, 성별, 이메일, 학교(해당시), 학년(해당시), 반(해당시)</li>
+										</ul>
+									</li>
+									<br/>
+									<li>
+										<ul>
+											<li>
+												[수집하는 개인정보의 항목]<br/>
+												ㆍ신청 시 수집되는 개인정보는 독서마라톤의 신청 및 운영, 통계 목적으로만 사용되고 다른 용도로 활용되지 않습니다.
+											</li>
+										</ul>
+									</li>
+									<br/>
+									<li>
+										<ul>
+											<li>
+												[개인정보의 보유 및 이용기간]<br/>
+											<strong class="st">ㆍ개인정보는 대회 접수 마감일로부터 1년간 보유하며 이후 지체 없이 파기됩니다.</strong>
+											</li>
+											<li>
+												ㆍ회원가입시 등록된 정보는 회원 탈퇴 시 지체 없이 파기됩니다.
+											</li>
+										</ul>
+									</li>
+									<br/>
+									<li>
+										<ul>
+											<li>
+												[동의거부권 및 동의 거부에 따른 불이익]<br/>
+												ㆍ신청자는 개인정보 수집·이용에 대하여 거부할 수 있는 권리가 있습니다. 단, 이에 대한 동의를 거부할 경우에는 독서마라톤 신청이 불가능합니다.
+											</li>
+										</ul>
+									</li>
+								</ul>
 							</div>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2" style="padding: 0px;border: 1px solid #dbdbdb;">
-							<div class="agree" style="background: #f4f4f4;padding: 15px;">
-								<input type="checkbox" id="agree1" name="agree1" value="Y">
-								<label for="agree1" style="font-weight: bold;">개인정보 수집 및 이용에 대한 안내를 숙지하고 동의합니다.</label>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" style="padding: 0px;border: 1px solid #dbdbdb;">
+						<div class="agree" style="background: #f4f4f4;padding: 15px;">
+							<input type="checkbox" id="agree1" name="agree1" value="Y">
+							<label for="agree1" style="font-weight: bold;">개인정보 수집 및 이용에 대한 안내를 숙지하고 동의합니다.</label>
+						</div>
+					</td>
+				</tr>
+				<tr class="fourteen_year">
+					<th colspan="2" style="padding:10px 0 5px 10px;border-bottom: 1px solid #dfdfdf;background: none;text-align: left;">
+						<p style="vertical-align:middle;font-size:19px;padding-top:5px;">만 14세 미만 아동의 참가 신청</p>
+					</th>
+				</tr>
+				<tr class="fourteen_year">
+					<td colspan="2" style="padding: 0; padding-top: 5px;border-bottom:1px solid #dfdfdf;">
+						<div class="app_box">
+							<div readonly="readonly" title="이용약관">
+								<ul>
+									<li>만 14세 미만 아동의 개인정보를 처리하기 위하여 그 법정대리인의 동의를 받아야 합니다.</li>
+									<li>법정대리인의 최소한의 정보는 법정대리인의 동의 없이 해당 아동으로부터 직접 수집할 수 있습니다.</li>
+								</ul>
 							</div>
-						</td>
-					</tr>
-					<tr class="fourteen_year">
-						<th colspan="2" style="padding:10px 0 5px 10px;border-bottom: 1px solid #dfdfdf;background: none;text-align: left;">
-							<p style="vertical-align:middle;font-size:19px;padding-top:5px;">만 14세 미만 아동의 참가 신청</p>
-						</th>
-					</tr>
-					<tr class="fourteen_year">
-						<td colspan="2" style="padding: 0; padding-top: 5px;border-bottom:1px solid #dfdfdf;">
-							<div class="app_box">
-								<div readonly="readonly" title="이용약관">
-									<ul>
-										<li>만 14세 미만 아동의 개인정보를 처리하기 위하여 그 법정대리인의 동의를 받아야 합니다.</li>
-										<li>법정대리인의 최소한의 정보는 법정대리인의 동의 없이 해당 아동으로부터 직접 수집할 수 있습니다.</li>
-									</ul>
-								</div>
-							</div>
-						</td>
-					</tr>
-					<tr class="fourteen_year">
-						<td colspan="2" style="padding: 0px;border: 1px solid #dbdbdb;">
-							<div class="agree" style="background: #f4f4f4;padding: 15px;">
-								<input type="checkbox" id="agree2" name="agree2" value="Y">
-								<label for="agree2" style="font-weight: bold;">동의합니다.</label>
-							</div>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+						</div>
+					</td>
+				</tr>
+				<tr class="fourteen_year">
+					<td colspan="2" style="padding: 0px;border: 1px solid #dbdbdb;">
+						<div class="agree" style="background: #f4f4f4;padding: 15px;">
+							<input type="checkbox" id="agree2" name="agree2" value="Y">
+							<label for="agree2" style="font-weight: bold;">동의합니다.</label>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
 		</form:form>
 		<br/>
 		<div class="button bbs-btn center">
