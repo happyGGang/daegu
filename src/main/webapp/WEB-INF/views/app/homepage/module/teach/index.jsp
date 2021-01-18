@@ -78,7 +78,7 @@ $(function(){
 		e.preventDefault();
 		var hid = $(this).data('hid');
 		$('input#homepage_id_1').val(hid);
-		doGetLoad('index.do', serializeCustom($('#teach')));
+		doGetLoad('index.do', 'menu_idx='+$('#menu_idx').val()+'&searchCate1='+$('#searchCate1').val()+'&homepage_id='+$('#homepage_id_1').val());
 	});
 	</c:if>
 });
