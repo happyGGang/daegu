@@ -1766,7 +1766,7 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 					String limit_cnt = String.valueOf(unmannedLoanReserveCnt.get("COUNT"));
 					try {
 						int limit_count = Integer.parseInt(limit_cnt);
-						if (limit_count >= 50) {
+						if (limit_count >= 30) {
 							res.setValid(false);
 							res.setMessage("해당 기기의 무인 예약이 마감되었습니다. 내일 다시 신청해주세요");
 
