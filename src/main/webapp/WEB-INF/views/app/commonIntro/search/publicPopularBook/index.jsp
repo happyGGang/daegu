@@ -237,9 +237,10 @@
 					<span class="radiobtn"><input type="radio" id="toWeekBtn" name="searchDateType" value="toWeek" ><label for="toWeekBtn">금주</label></span>
 				</div>
 			</div>
-			<div class="field clearfix">
+			<!-- <div class="field clearfix">
 				<strong class="tit">도서관</strong>
 				<form:select path="libCode" id="searchLibrary" title="도서관선택" class="form-ele auto">
+				<%-- 
 					<form:option value="0">도서관선택</form:option>
 					<form:option value="111347" >도곡정보문화도서관</form:option>
 					<form:option value="111070" >논현도서관</form:option>
@@ -262,7 +263,7 @@
 					<form:option value="111069" >청담도서관</form:option>
 					<form:option value="111075" >행복한도서관</form:option>
 				
-					<%-- <form:option value="TD" >개포4동주민도서관</option>
+					<form:option value="TD" >개포4동주민도서관</option>
 					<form:option value="TC" >도곡2동주민도서관</option>
 					<form:option value="TG" >수서동주민도서관</option>
 					<form:option value="TA" >신사동주민도서관</option>
@@ -271,7 +272,7 @@
 					<form:option value="TE" >일원본동주민도서관</option> --%>
 					
 				</form:select>
-			</div>
+			</div> -->
 			<div class="btnSearch"><a href="#link" class="btn" id="searchBtn">검색</a></div>
 		</div>
 		<div class="filterDescArea">
