@@ -249,7 +249,7 @@ public class TeachController extends BaseController {
 	public @ResponseBody JsonResponse save(Model model, Teach teach, BindingResult result, HttpServletRequest request) throws ParseException {
 		JsonResponse res = new JsonResponse(request);
 		String editMode = teach.getEditMode();
-		if ( !teach.getEditMode().equals("DELETE") ) {
+		if ( !teach.getEditMode().equals("DELETE") && !teach.getEditMode().equals("DELETESELECT") ) {
 			ValidationUtils.rejectIfEmpty(result, "teach_name", "강의명을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "teach_stage", "강의장소를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "use_yn", "사용여부를 선택하세요.");
@@ -369,7 +369,7 @@ public class TeachController extends BaseController {
 				}
 			}
 		}
-		else {
+		else if ( teach.getEditMode().equals("DELETE") ) {
 			Teach targetTeach = teachService.getTeachOne(teach);
 			// 강좌 삭제시 참여인원, 대기인원, 오프참여 인원이 1명이라도 있으면 삭제 불가.
 			if ( targetTeach.getTeach_join_count() > 0 || targetTeach.getTeach_backup_join_count() > 0 || targetTeach.getTeach_off_join_count() > 0 ) {
@@ -396,6 +396,15 @@ public class TeachController extends BaseController {
 				teachService.deleteTeach(teach);
 				res.setValid(true);
 				res.setMessage("삭제 되었습니다.");
+			} else if ( editMode.equals("DELETESELECT") ) {
+				for ( int i = 0; i < teach.getTeach_idx_arr().length; i++) {
+					teach.setGroup_idx(teach.getGroup_idx_arr()[i]);
+					teach.setCategory_idx(teach.getCategory_idx_arr()[i]);
+					teach.setTeach_idx(teach.getTeach_idx_arr()[i]);
+					teachService.deleteTeach(teach);
+					res.setValid(true);
+					res.setMessage("삭제되었습니다.");
+				}
 			}
 		} else {
 			res.setValid(false);

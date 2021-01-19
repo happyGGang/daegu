@@ -10,11 +10,13 @@ import kr.co.whalesoft.framework.utils.PagingUtils;
 public class Teach extends PagingUtils {
 
 	private List<Integer> category_idx_list;
+	private int[] category_idx_arr;
 	private String searchCate1;
 	private String searchCate2;
 	private String searchCate3;
 	private String searchAge;
 	private String group_idx_list;
+	private int[] group_idx_arr;
 	private int large_category_idx;  //강좌대분류idx
 	private String large_category_name; //강좌대분류이름
 	private int group_idx; //강좌중분류IDX
@@ -22,6 +24,7 @@ public class Teach extends PagingUtils {
 	private int category_idx;  //강좌소분류IDX
 	private String category_name; //강좌소분류이름
 	private int teach_idx;  //강좌IDX
+	private int[] teach_idx_arr; //강좌IDX 배열
 	private String teach_name;  //강좌제목
 	private String teach_desc;  //강좌설명
 	private String teach_etc;  //준비물및재료비
@@ -210,6 +213,12 @@ public class Teach extends PagingUtils {
 	}
 	public void setTeach_idx(int teach_idx) {
 		this.teach_idx = teach_idx;
+	}
+	public int[] getTeach_idx_arr() {
+		return teach_idx_arr;
+	}
+	public void setTeach_idx_arr(int[] teach_idx_arr) {
+		this.teach_idx_arr = teach_idx_arr;
 	}
 	public String getTeach_name() {
 		return teach_name;
@@ -504,6 +513,12 @@ public class Teach extends PagingUtils {
 			this.category_idx_list.addAll(category_idx_list);
 		}
 	}
+	public int[] getCategory_idx_arr() {
+		return category_idx_arr;
+	}
+	public void setCategory_idx_arr(int[] category_idx_arr) {
+		this.category_idx_arr = category_idx_arr;
+	}
 	public String getStatus() {
 		return status;
 	}
@@ -658,6 +673,14 @@ public class Teach extends PagingUtils {
 
 	public void setGroup_idx_list(String group_idx_list) {
 		this.group_idx_list = group_idx_list;
+	}
+	
+	public int[] getGroup_idx_arr() {
+		return group_idx_arr;
+	}
+	
+	public void setGroup_idx_arr(int[] group_idx_arr) {
+		this.group_idx_arr = group_idx_arr;
 	}
 
 	public String getFamily_yn() {

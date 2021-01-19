@@ -121,6 +121,43 @@ $(function() {
 		e.preventDefault();
 		$('#hiddenForm').attr('action', 'csvDownload.do').submit();
 	});
+	
+	$('a#dialog-all').on('click', function(e) {
+		e.preventDefault();
+		if($('input:checkbox[name = teach_idx_arr]').eq(0).is(':checked')){
+			for(var i = 0; i < $('input:checkbox[name = teach_idx_arr]').length; i++){
+				$('input:checkbox[name = teach_idx_arr]').eq(i).prop('checked', false);
+			}
+		}else{
+			for(var i = 0; i < $('input:checkbox[name = teach_idx_arr]').length; i++){
+				$('input:checkbox[name = teach_idx_arr]').eq(i).prop('checked', true);
+			}
+		}
+	});
+	
+	$('a#dialog-delete').on('click', function(e) {
+		if (confirm("선택한 강의 삭제 시 강의를 신청한 사용자도 함께 삭제됩니다. 정말 삭제하시겠습니까?")) {
+			var checkboxarr = $('input:checkbox[name = teach_idx_arr]:checked');
+			var group_idx_arr = new Array();
+			var category_idx_arr = new Array();
+			var teach_idx_arr = new Array();
+			
+			checkboxarr.each(function(i) {
+				group_idx_arr.push($(this).siblings('input[name = group_idx_1]').val());
+				category_idx_arr.push($(this).siblings('input[name = category_idx_1]').val());
+				teach_idx_arr.push($(this).val());
+			});
+			
+			$('input#group_idx_arr').val(group_idx_arr);
+			$('input#category_idx_arr').val(category_idx_arr);
+			$('input#teach_idx_arr').val(teach_idx_arr);
+			
+			if(doAjaxPost($('#hiddenForm2'))) {
+				location.reload();
+			}
+		}
+		e.preventDefault();
+	});
 
 });
 </script>
@@ -130,6 +167,14 @@ $(function() {
 	<form:hidden path="group_idx"/>
 	<form:hidden path="category_idx"/>
 	<form:hidden path="teach_idx"/>
+</form:form>
+
+<form:form id="hiddenForm2" modelAttribute="teach" action="save.do">
+	<form:hidden path="editMode" value="DELETESELECT"/>
+	<form:hidden path="homepage_id" id="homepage_id_2"/>
+	<form:hidden path="group_idx_arr"/>
+	<form:hidden path="category_idx_arr"/>
+	<form:hidden path="teach_idx_arr"/>
 </form:form>
 
 <form:form id="teachListForm"  modelAttribute="teach" action="index.do" >
@@ -201,6 +246,10 @@ $(function() {
 		       			</c:forEach>
 				</form:select>
 			</span>
+			<a href="#" class="btn btn left" id="dialog-all"><span>전체 선택/해제</span></a>
+			<c:if test="${authD}">
+				<a href="#" class="btn btn left" id="dialog-delete"><i class="fa fa-minus"></i><span>선택 삭제</span></a>
+			</c:if>
 			<c:if test="${authC}">
 				<a href="#" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
 				<a href="#" class="btn btn1 left" id="dialog-search-cert"><i class="fa fa-plus"></i><span>기간별 수료자 조회</span></a>
@@ -211,6 +260,7 @@ $(function() {
 	<!-- 교육소식 관리 table -->
 	<table class="type1 center">
 		<colgroup>
+			<col width="50" />
 			<col width="50" />
 			<col width="120" />
 			<col width=""/>
@@ -226,6 +276,7 @@ $(function() {
 		</colgroup>
 		<thead>
 			<tr>
+				<th>선택</th>
 				<th>번호</th>
 				<th>강의분류</th>
 				<th>강의명</th>
@@ -243,6 +294,11 @@ $(function() {
 		<tbody>
 			<c:forEach var="i" varStatus="status" items="${teachList}">
 				<tr>
+					<td>
+						<input type="hidden" name="group_idx_1" value="${i.group_idx}"/>
+						<input type="hidden" name="category_idx_1" value="${i.category_idx}"/>
+						<form:checkbox path="teach_idx_arr" value="${i.teach_idx}"/>
+					</td>
 					<td>${teach.listRowNum - status.index}</td>
 					<td>${i.large_category_name}<br/>${i.group_name}<br/>${i.category_name}</td>
 					<td>
