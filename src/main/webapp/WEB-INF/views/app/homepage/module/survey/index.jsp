@@ -51,9 +51,7 @@ $(document).ready(function() {
 			<colgroup>
 				<col width="10%">
 				<col width="">
-				<c:if test="${homepage.homepage_id eq 'h5'}">
-					<col width="12%">
-				</c:if>
+				<col width="12%">
 				<col width="12%">
 				<col width="12%">
 				<col width="10%">
@@ -62,9 +60,7 @@ $(document).ready(function() {
 				<tr>
 					<th>번호</th>
 					<th class="important">설문명</th>
-					<c:if test="${homepage.homepage_id eq 'h5'}">
-						<th>응모자수</th>
-					</c:if>
+					<th>응모자수</th>
 					<th class="important mmm2">시작일</th>
 					<th class="important mmm2">종료일</th>
 					<th class="mmm1">상태</th>
@@ -79,9 +75,7 @@ $(document).ready(function() {
 							<span>${i.survey_title}</span>
 						</a>
 					</td>
-					<c:if test="${homepage.homepage_id eq 'h5'}">
-						<td>${i.answer_count}</td>
-					</c:if>
+					<td>${i.answer_count}</td>
 					<td class="important mmm2">${i.survey_start_date}</td>
 					<td class="important mmm2">${i.survey_end_date}</td>
 					<td class="num mmm1"${i.survey_open_yn eq 'Y' ? '' : 'style="color:red;"'}>${i.survey_open_yn eq 'Y' ? '진행중' : '마감'}</td>
