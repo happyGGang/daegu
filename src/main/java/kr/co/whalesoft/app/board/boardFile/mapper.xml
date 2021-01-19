@@ -5,7 +5,7 @@
 	<select id="getBoardFile" resultType="kr.co.whalesoft.app.board.boardFile.BoardFile">
 		SELECT
 			board_idx, file_idx, server_file_name, org_file_name, file_ext_name,
-			file_size
+			file_size, file_down_count
 		FROM
 			CMS_BOARD_FILE
 		WHERE

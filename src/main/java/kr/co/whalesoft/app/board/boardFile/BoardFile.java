@@ -22,6 +22,7 @@ public class BoardFile {
 
 	private String add_id;
 	private Date add_date;
+	private int file_down_count;
 
 	public String getFile_path() {
 		return file_path;
@@ -140,6 +141,14 @@ public class BoardFile {
 
 	public void setAdd_date(Date add_date) {
 		this.add_date = add_date;
+	}
+	
+	public int getFile_down_count() {
+		return file_down_count;
+	}
+	
+	public void setFile_down_count(int file_down_count) {
+		this.file_down_count = file_down_count;
 	}
 
 	public boolean isValid() {
