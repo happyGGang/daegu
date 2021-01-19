@@ -95,6 +95,7 @@ $(function() {
 									<th>대출된 소장처명</th>
 									<td>${i.LIB_NAME}</td>
 								</tr>
+								<!--
 								<tr>
 									<th>청구기호</th>
 									<td>${i.CALL_NO}</td>
@@ -103,6 +104,7 @@ $(function() {
 									<th>등록번호</th>
 									<td>${i.REG_NO}</td>
 								</tr>
+								-->
 								<tr>
 									<th>대출일</th>
 									<td>${i.LOAN_DATE}</td>
@@ -111,10 +113,12 @@ $(function() {
 									<th>반납일</th>
 									<td>${i.RETURN_DATE}</td>
 								</tr>
+								<!--
 								<tr>
 									<th>상태</th>
 									<td>${i.STATUS}</td>
 								</tr>
+								-->
 							</tbody>
 						</table>
 					</div>
