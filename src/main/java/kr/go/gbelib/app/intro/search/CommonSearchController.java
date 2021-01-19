@@ -791,7 +791,7 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 		if(result != null) {
 			resultMap = (Map<String, Object>)result.get("response");
 		}
-		if(resultMap != null) {
+		if(resultMap.get("docs") != null && !resultMap.get("docs").equals("")) {
 			resultMap = (Map<String, Object>)resultMap.get("docs");
 		}
 		if(result != null && !result.isEmpty() && resultMap != null) {

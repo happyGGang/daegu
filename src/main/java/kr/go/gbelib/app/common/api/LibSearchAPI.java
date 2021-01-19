@@ -849,7 +849,7 @@ public class LibSearchAPI {
 		if(librarySearch.getAge() != null && librarySearch.getAge().length != 0) {
 			String age[] = null;
 			String finalAge = "";
-			if(librarySearch.getAge().length > 1) {
+			if(librarySearch.getAge().length > 0) {
 				age = librarySearch.getAge();
 				for(int i = 0; i < age.length; i++) {
 					if(i == 0) {
@@ -864,7 +864,7 @@ public class LibSearchAPI {
 		if(librarySearch.getKdc() != null && librarySearch.getKdc().length != 0) {
 			String kdc[] = null;
 			String finalKdc = "";
-			if(librarySearch.getKdc().length > 1) {
+			if(librarySearch.getKdc().length > 0) {
 				kdc = librarySearch.getKdc();
 				for(int i = 0; i < kdc.length; i++) {
 					if(i == 0) {
@@ -879,7 +879,7 @@ public class LibSearchAPI {
 		if(librarySearch.getRegion() != null && librarySearch.getRegion().length != 0) {
 			String region[] = null;
 			String finalRegion = "";
-			if(librarySearch.getRegion().length > 1) {
+			if(librarySearch.getRegion().length > 0) {
 				region = librarySearch.getRegion();
 				for(int i = 0; i < region.length; i++) {
 					if(i == 0) {
@@ -891,12 +891,16 @@ public class LibSearchAPI {
 			}
 			param.put("region", finalRegion);
 		}
-		if(librarySearch.getLibCode() != null && !librarySearch.getLibCode().isEmpty()) {
-			param.put("libCode", librarySearch.getLibCode());
-			result = CommonAPI.sendData4Library(param, "loanItemSrchByLib");
-		} else {
+		
+		
+//		System.out.println(librarySearch.getLibCode() + " libCode 확인");
+//		
+//		if(librarySearch.getLibCode() != null && !librarySearch.getLibCode().isEmpty()) {
+//			param.put("libCode", librarySearch.getLibCode());
+//			result = CommonAPI.sendData4Library(param, "loanItemSrchByLib");
+//		} else {
 			result = CommonAPI.sendData4Library(param, "loanItemSrch");
-		}
+//		}
 		
 
 		
