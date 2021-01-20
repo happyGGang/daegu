@@ -59,6 +59,10 @@ $(function() {
 	</select>
 </fieldset>
 
+<div>
+대출 권수 : ${fn:length(loanList)}<br/>
+</div>
+
 <form:form modelAttribute="librarySearch" method="get">
 	<form:hidden path="viewPage"/>
 	<form:hidden path="menu_idx"/>
