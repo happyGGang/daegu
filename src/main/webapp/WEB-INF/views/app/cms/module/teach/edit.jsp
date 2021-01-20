@@ -551,7 +551,7 @@ $(function() {
 		$("input:radio[name = 'family_yn'][value = 'Y']").prop('checked', 'true');
 		$("input:radio[name = 'agent_yn'][value = 'Y']").prop('checked', 'true');
 		$('input#family_yn2').attr('disabled', 'true');
-		$('input#agent_yn2').attr('disabled', 'true');
+// 		$('input#agent_yn2').attr('disabled', 'true');
 	});
 });
 

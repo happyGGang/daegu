@@ -92,22 +92,34 @@ public class TeacherController extends BaseController {
 		if ( teacher.getEditMode().equals("ADD") || teacher.getEditMode().equals("MODIFY") ) {
 			if ( teacher.getEditMode().equals("ADD") ) {
 //				ValidationUtils.rejectIfEmpty(result, "teacher_id", "강사ID를 입력하세요.");
-				ValidationUtils.rejectIfEmpty(result, "teacher_name", "강사명을 입력하세요.");
-				ValidationUtils.rejectIfEmpty(result, "teacher_sex", "강사성별을 선택하세요.");
 				if (StringUtils.isEmpty(teacher.getTeacher_id())) {
 					teacher.setTeacher_id("ANONYMOUSE");
 					teacher.setMember_key("ANONYMOUSE");
+				} else {
+					if(StringUtils.isEmpty(teacher.getMember_key())) {
+						result.reject("ID 확인을 해주시기 바랍니다.");
+					}
 				}
+				ValidationUtils.rejectIfEmpty(result, "teacher_name", "강사명을 입력하세요.");
+//				ValidationUtils.rejectIfEmpty(result, "teacher_sex", "강사성별을 선택하세요.");
 			}
-			ValidationUtils.rejectPhone2(result, "teacher_phone", "전화번호 형식이 잘못되었습니다.");
-			ValidationUtils.rejectPhone(result, "teacher_cell_phone", "휴대전화번호 형식이 잘못되었습니다.");
-			ValidationUtils.rejectExceptNumber(result, "teacher_zipcode", "우편번호는 숫자만 입력 가능합니다.");
+			if(StringUtils.isNotEmpty(teacher.getTeacher_phone().replace("-", ""))) {
+				ValidationUtils.rejectPhone2(result, "teacher_phone", "전화번호 형식이 잘못되었습니다.");
+			}
+			if(StringUtils.isNotEmpty(teacher.getTeacher_cell_phone().replace("-", ""))) {
+				ValidationUtils.rejectPhone(result, "teacher_cell_phone", "휴대전화번호 형식이 잘못되었습니다.");
+			}
+			if(StringUtils.isNotEmpty(teacher.getTeacher_zipcode())) {
+				ValidationUtils.rejectExceptNumber(result, "teacher_zipcode", "우편번호는 숫자만 입력 가능합니다.");
+			}
 			ValidationUtils.rejectIfStringLength(result, "teacher_name", 50, "강사명");
 			ValidationUtils.rejectIfStringLength(result, "teacher_subject_name", 100, "과목명");
 			ValidationUtils.rejectIfStringLength(result, "stage", 100, "강의실");
 			ValidationUtils.rejectIfStringLength(result, "teacher_nationality", 30, "국적");
-			ValidationUtils.rejectIfStringLength(result, "teacher_zipcode", 20, "우편번호");
-			ValidationUtils.rejectIfStringLength(result, "teacher_address", 200, "주소");
+			if(StringUtils.isNotEmpty(teacher.getTeacher_zipcode())) {
+				ValidationUtils.rejectIfStringLength(result, "teacher_zipcode", 20, "우편번호");
+				ValidationUtils.rejectIfStringLength(result, "teacher_address", 200, "주소");
+			}
 		}
 
 		if(!result.hasErrors()) {
@@ -246,7 +258,7 @@ public class TeacherController extends BaseController {
 	}
 
 	private String checkSameTeacher(Teacher teacher) {
-		if ( service.checkTeacher(teacher) != null ) {
+		if (!teacher.getMember_key().equals("ANONYMOUSE") && service.checkTeacher(teacher) != null) {
 			return "이미 등록된 강사 입니다.";
 		}
 
