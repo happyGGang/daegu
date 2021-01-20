@@ -4,8 +4,15 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script language="JavaScript" type="text/javascript" src="/resources/common/js/encrypt.js?now=<%=System.currentTimeMillis()%>"></script>
+<script type="text/javascript" src="/resources/common/js/jquery.cookie.js"></script>
 <script type="text/javascript">
 $(function() {
+	
+	var id = $.cookie("saveId");
+	if(id != null) {
+		$("#member_id_tmp").val(id);
+		$("#idSaveCheck").prop("checked", true);
+	}
 
 	$('input#member_pw_tmp').val('');
 	$('button#save-btn').on('click', function(e) {
@@ -25,6 +32,11 @@ $(function() {
 		$('form#member').attr('onsubmit', '');
 		$('input#member_id').val(encrypt($('input#member_id_tmp').val().trim()));
 		$('input#member_pw').val(encrypt($('input#member_pw_tmp').val()));
+		if($('input#idSaveCheck').is(':checked')) {
+			$.cookie('saveId', $('#member_id_tmp').val(), {expires: 7});
+		} else {
+			$.removeCookie('saveId');
+		}
  		$('form#member').submit();
 	});
 
@@ -61,6 +73,12 @@ $(function() {
 								<span>로그인</span>
 							</button>
 						</form:form>
+						<c:if test="${homepage.context_path eq 'elib'}">
+						<div class="form-etc">
+							<input type="checkbox" id="idSaveCheck">
+							<label for="idSaveCheck">아이디 저장</label>
+						</div>
+						</c:if>
 						<div class="form-etc">
 							<div class="find">
 							<c:choose>
