@@ -47,6 +47,7 @@ $(function() {
 </fieldset>
 
 <div>
+대출중 권수 : ${fn:length(loanList)}<br/>
 대출연체 권수 : ${member.overdue_cnt}<br/>
 대출정지만기일 : ${member.loan_stop_date eq 'null' ? '해당없음' : member.loan_stop_date}
 </div>
