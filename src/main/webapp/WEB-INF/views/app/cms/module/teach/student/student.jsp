@@ -344,6 +344,12 @@ $(function(){
 	$('input#checkAll').on('click', function(e) {
 		$('input[type=checkbox].student_idx_arr').prop('checked', $(this).is(':checked'));
 	});
+	
+	$('select#rowCount').on('change', function(e) {
+		e.preventDefault();
+		$('#studentLayer').load('student.do?homepage_id=' + $('#homepage_id').val() + '&group_idx=' + $('#group_idx').val() + '&category_idx=' + $('#category_idx').val() + '&teach_idx=' + $('#teach_idx').val() +'&large_category_idx=' + $('#large_category_idx').val() + '&rowCount=' + $('#rowCount').val());
+	});
+
 
 });
 </script>
@@ -370,6 +376,12 @@ $(function(){
 	</c:if>
 	<div class="infodesk">
 		검색 결과 : ${studentListCount}건
+		<form:select path="rowCount" class="selectmenu" style="width:150px;">
+			<form:option value="10">10개씩 보기</form:option>
+			<form:option value="20">20개씩 보기</form:option>
+			<form:option value="30">30개씩 보기</form:option>
+			<form:option value="${studentListCount}">전체 보기</form:option>
+		</form:select>
 		<div class="button btn-group inline">
 			<c:if test="${authC}">
 				<a href="" class="btn btn5 left" id="dialog-add" style="margin-right: 5px;"><i class="fa fa-plus"></i><span>수강생등록</span></a>
@@ -385,20 +397,17 @@ $(function(){
 		<colgroup>
 			<col width="5%">
 			<col width="6%" />
-			<col width="12%" />
+			<col width="10%" />
+			<col width="11%" />
+			<col width="8%" />
 			<col width="13%" />
-			<col width="10%" />
-			<col width="15%" />
-			<c:choose>
-				<c:when test="${teachInfo.teach_status eq '1'}">
-					<col width="6%" />
-				</c:when>
-				<c:otherwise>
-					<col width="6%" />
-					<col width="11%" />
-				</c:otherwise>
-			</c:choose>
-			<col width="10%" />
+			<col width="7%" />
+			<col width="9%" />
+			<c:if test="${teachInfo.teach_status ne '1'}">
+				<col width="8%" />
+				<col width="9%" />
+			</c:if>
+			<col width="13%" />
 		</colgroup>
 		<thead>
 			<tr>
@@ -409,6 +418,7 @@ $(function(){
 				<th>성별<br/>(수강생)</th>
 				<th>휴대전화번호<br/>(신청자)</th>
 				<th>상태</th>
+				<th>신청일</th>
 				<c:if test="${teachInfo.teach_status ne '1'}">
 				<th>취소자ID</th>
 				<th>취소일</th>
@@ -418,9 +428,18 @@ $(function(){
 		</thead>
 		<tbody>
 		<c:if test="${fn:length(studentList) < 1}">
-			<tr style="height:100%">
-				<td colspan="11" style="background:#f8fafb;">데이터가 존재하지 않습니다.</td>
-			</tr>
+			<c:choose>
+				<c:when test="${teachInfo.teach_status ne '1'}">
+					<tr style="height:100%">
+						<td colspan="11" style="background:#f8fafb;">데이터가 존재하지 않습니다.</td>
+					</tr>
+				</c:when>
+				<c:otherwise>
+					<tr style="height:100%">
+						<td colspan="9" style="background:#f8fafb;">데이터가 존재하지 않습니다.</td>
+					</tr>
+				</c:otherwise>
+			</c:choose>
 		</c:if>
 		<c:forEach var="i" varStatus="status" items="${studentList}">
 			<tr>
@@ -463,6 +482,9 @@ $(function(){
 							${(i.apply_type eq 'CMS') and (i.apply_status eq 1) ? '오프 참여' : statusCode[i.apply_status].code_name}
 						</c:otherwise>
 					</c:choose>
+				</td>
+				<td>
+					${i.add_date}
 				</td>
 				<c:if test="${teachInfo.teach_status ne '1'}">
 					<td>${i.cancel_id}</td>

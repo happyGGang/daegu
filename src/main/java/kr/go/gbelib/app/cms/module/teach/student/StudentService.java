@@ -74,7 +74,11 @@ public class StudentService extends BaseService {
 
 	@WorkingLogger(comment="강좌 수강생 관리 조회", type="P")
 	public List<Student> getStudentList(Student student) {
-		return dao.getStudentList(student);
+		List<Student> studentList = dao.getStudentList(student);
+		for ( int i = 0; i < studentList.size(); i++ ) {
+			studentList.get(i).setAdd_date(studentList.get(i).getAdd_date().substring(0, 10));
+		}
+		return studentList;
 	}
 	
 	public int getStudentListCount(Student student) {
