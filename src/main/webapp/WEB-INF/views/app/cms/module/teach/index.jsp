@@ -122,20 +122,16 @@ $(function() {
 		$('#hiddenForm').attr('action', 'csvDownload.do').submit();
 	});
 	
-	$('a#dialog-all').on('click', function(e) {
-		e.preventDefault();
-		if($('input:checkbox[name = teach_idx_arr]').eq(0).is(':checked')){
-			for(var i = 0; i < $('input:checkbox[name = teach_idx_arr]').length; i++){
-				$('input:checkbox[name = teach_idx_arr]').eq(i).prop('checked', false);
-			}
-		}else{
-			for(var i = 0; i < $('input:checkbox[name = teach_idx_arr]').length; i++){
-				$('input:checkbox[name = teach_idx_arr]').eq(i).prop('checked', true);
-			}
-		}
+	$('input#checkAll').on('click', function(e) {
+		$('input[type = checkbox].teach_idx_arr').prop('checked', $(this).is(':checked'));
 	});
 	
 	$('a#dialog-delete').on('click', function(e) {
+		if($('input:checkbox[name = teach_idx_arr]:checked').length < 1) {
+			alert('삭제할 강좌를 선택해 주세요.');
+			return false;
+		}
+		
 		if (confirm("선택한 강의 삭제 시 강의를 신청한 사용자도 함께 삭제됩니다. 정말 삭제하시겠습니까?")) {
 			var checkboxarr = $('input:checkbox[name = teach_idx_arr]:checked');
 			var group_idx_arr = new Array();
@@ -246,9 +242,8 @@ $(function() {
 		       			</c:forEach>
 				</form:select>
 			</span>
-			<a href="#" class="btn btn left" id="dialog-all"><span>전체 선택/해제</span></a>
 			<c:if test="${authD}">
-				<a href="#" class="btn btn left" id="dialog-delete"><i class="fa fa-minus"></i><span>선택 삭제</span></a>
+				<a href="#" class="btn btn left" id="dialog-delete"><i class="fa fa-trash-o"></i><span>일괄 삭제</span></a>
 			</c:if>
 			<c:if test="${authC}">
 				<a href="#" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
@@ -276,7 +271,7 @@ $(function() {
 		</colgroup>
 		<thead>
 			<tr>
-				<th>선택</th>
+				<th><input type="checkbox" id="checkAll"></th>
 				<th>번호</th>
 				<th>강의분류</th>
 				<th>강의명</th>
@@ -297,7 +292,7 @@ $(function() {
 					<td>
 						<input type="hidden" name="group_idx_1" value="${i.group_idx}"/>
 						<input type="hidden" name="category_idx_1" value="${i.category_idx}"/>
-						<form:checkbox path="teach_idx_arr" value="${i.teach_idx}"/>
+						<form:checkbox path="teach_idx_arr" value="${i.teach_idx}" class="teach_idx_arr"/>
 					</td>
 					<td>${teach.listRowNum - status.index}</td>
 					<td>${i.large_category_name}<br/>${i.group_name}<br/>${i.category_name}</td>
