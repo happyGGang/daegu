@@ -24,4 +24,6 @@ public interface ApplyDao {
 	public int deleteApply(Apply apply);
 	
 	public int checkApply(Apply apply);
+
+	public int deleteApplyAll(Apply apply);
 }

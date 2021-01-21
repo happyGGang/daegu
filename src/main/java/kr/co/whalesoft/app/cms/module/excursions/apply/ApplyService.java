@@ -128,6 +128,10 @@ public class ApplyService extends BaseService {
 		return Dao.deleteApply(apply);
 	}
 	
+	public int deleteApplyAll(Apply apply) {
+		return Dao.deleteApplyAll(apply);
+	}
+	
 	public int checkApply(Apply apply) {
 		return Dao.checkApply(apply);
 	}

@@ -178,10 +178,34 @@ $(function(){
 	});
 
 	$('td.top').height(150);
+
+	var allChecked = false;	
+	$('a#allChecked').on('click', function(e) {
+		e.preventDefault();
+		allChecked = !allChecked;
+		$('input[name = excursions_idx_arr]').prop('checked', allChecked);
+	});
+	
+	$('a#checkedDelete').on('click', function(e) {
+		e.preventDefault();
+		if ($('input[name=excursions_idx_arr]').length < 1) {
+			alert('선택된 일자가 없습니다.');
+			return false;
+		}
+		if(confirm('선택된 견학/체험을 삭제 하시겠습니까?\n삭제시 신청자 정보등 모든 관련된 정보도 같이 삭제되며 복구 불가능합니다.')){
+			$('form#excursions').attr('action','save.do');
+			$('form#excursions').attr('method','post');
+			$('form#excursions input#editMode').val('BATCHDELETE');
+			if (doAjaxPost($('form#excursions'))) {
+				location.reload();
+			}
+		}
+	});
 });
 </script>
 <form:form modelAttribute="excursions" action="" id="excursions">
 <form:hidden path="plan_date"/>
+<form:hidden path="editMode"/>
 <%--<form:hidden id="homepage_id_1" path="homepage_id"/>--%>
 
 <div class="infodesk">
@@ -203,6 +227,8 @@ $(function(){
         <a id="next-btn" href="#next" class="btn next"><i class="fa fa-angle-right"></i><span class="blind">다음달</span></a>
     </div>
 	<div class="button">
+		<a href="#" id="allChecked" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>전체선택/취소</span></a>&nbsp;&nbsp;
+		<a href="#" id="checkedDelete" class="btn btn3"><i class="fa fa-file-excel-o"></i><span>선택삭제</span></a>&nbsp;&nbsp;
 		<a href="#" id="totalExcelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>전체 엑셀저장</span></a>&nbsp;&nbsp;
 		<a href="#" id="excelDownload" class="btn btn3"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>&nbsp;&nbsp;
 		<a href="#" id="totalCsvDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>전체 CSV저장</span></a>&nbsp;&nbsp;

@@ -162,6 +162,10 @@ public class ExcursionsController extends BaseController {
 				service.deleteExcursions(excursions);
 				res.setValid(true);
 				res.setMessage("삭제 되었습니다.");
+			} else if(excursions.getEditMode().equals("BATCHDELETE")) {
+				service.deleteExcursionsBatch(excursions);
+				res.setValid(true);
+				res.setMessage("삭제 되었습니다.");
 			}
 		} else {
 			res.setValid(false);

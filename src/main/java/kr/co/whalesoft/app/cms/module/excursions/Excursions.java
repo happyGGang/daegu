@@ -7,6 +7,7 @@ import kr.co.whalesoft.framework.utils.PagingUtils;
 public class Excursions extends PagingUtils {
 
 	private int excursions_idx;
+	private int[] excursions_idx_arr;
 	private String date_type;
 	private String apply_yn;
 	private String start_date;
@@ -57,6 +58,14 @@ public class Excursions extends PagingUtils {
 
 	public void setExcursions_idx(int excursions_idx) {
 		this.excursions_idx = excursions_idx;
+	}
+	
+	public int[] getExcursions_idx_arr() {
+		return excursions_idx_arr;
+	}
+	
+	public void setExcursions_idx_arr(int[] excursions_idx_arr) {
+		this.excursions_idx_arr = excursions_idx_arr;
 	}
 
 	public String getApply_yn() {

@@ -5,17 +5,22 @@ import java.util.List;
 
 import kr.co.whalesoft.app.cms.module.calendarStatus.CalendarStatus;
 import kr.co.whalesoft.app.cms.module.excursions.apply.Apply;
+import kr.co.whalesoft.app.cms.module.excursions.apply.ApplyService;
 import kr.co.whalesoft.framework.base.BaseService;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ExcursionsService extends BaseService {
 	
 	@Autowired
 	private ExcursionsDao Dao;
+	
+	@Autowired
+	private ApplyService applyService;
 	
 	public List<Calendar> getCalendar(Excursions excursions) {
 		return Dao.getCalendar(excursions);
@@ -69,5 +74,21 @@ public class ExcursionsService extends BaseService {
 	
 	public int countClosedExcursions(Excursions excursions) {
 		return Dao.countClosedExcursions(excursions);
+	}
+
+	@Transactional
+	public void deleteExcursionsBatch(Excursions excursions) {
+		for (int i : excursions.getExcursions_idx_arr()) {
+			Excursions oneExcursions = new Excursions();
+			oneExcursions.setHomepage_id(excursions.getHomepage_id());
+			oneExcursions.setExcursions_idx(i);
+			
+			Apply oneApply = new Apply();
+			oneApply.setHomepage_id(excursions.getHomepage_id());
+			oneApply.setExcursions_idx(i);
+			
+			Dao.deleteExcursions(oneExcursions);
+			applyService.deleteApplyAll(oneApply);
+		}
 	}
 }
