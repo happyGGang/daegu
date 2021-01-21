@@ -243,7 +243,7 @@ $(function() {
 				</form:select>
 			</span>
 			<c:if test="${authD}">
-				<a href="#" class="btn btn left" id="dialog-delete"><i class="fa fa-trash-o"></i><span>일괄 삭제</span></a>
+				<a href="#" class="btn btn3" id="dialog-delete"><i class="fa fa-file-excel-o"></i><span>선택 삭제</span></a>
 			</c:if>
 			<c:if test="${authC}">
 				<a href="#" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
