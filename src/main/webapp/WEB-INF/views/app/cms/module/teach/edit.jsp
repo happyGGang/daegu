@@ -884,7 +884,14 @@ $(function() {
 										<c:set var="checked" value="checked=\"checked\"" />
 									</c:if>
 								</c:forEach>
-								<input type="checkbox" name="teach_day" id="day${i}" value="${i}" ${checked} /><label for="day${i}">${label}</label>&nbsp;
+								<c:choose>
+									<c:when test="${teach.editMode eq 'ADD'}">
+										<input type="checkbox" name="teach_day" id="day${i}" value="${i}" checked="checked" /><label for="day${i}">${label}</label>&nbsp;							
+									</c:when>
+									<c:otherwise>
+										<input type="checkbox" name="teach_day" id="day${i}" value="${i}" ${checked} /><label for="day${i}">${label}</label>&nbsp;		
+									</c:otherwise>
+								</c:choose>
 							</c:forEach>
 						<%-- </c:when>
 						<c:otherwise>
