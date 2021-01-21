@@ -427,7 +427,7 @@ public class MemberAPI {
 	public static ApiResponse agreeInfo(String manage_code, String rec_key, String kl_member_yn) {
 		Map<String, Object> param = new HashMap<String, Object>();
 
-		param.put("manage_code", manage_code);
+//		param.put("manage_code", manage_code);
 		param.put("userkey", rec_key);
 //		if (StringUtils.equals(kl_member_yn, "Y")) {
 			param.put("kl_agree_yn", "Y");
