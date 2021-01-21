@@ -62,6 +62,15 @@ $(function(){
 
 		e.preventDefault();
 	});
+	
+	$('a#search_btn').on('click', function(e) {
+		$('#viewPage').val(1);
+		var hid = $(this).data('hid');
+		$('input#homepage_id_1').val(hid);
+		doGetLoad('index.do', 'menu_idx='+$('#menu_idx').val()+'&searchCate1='+$('#searchCate1').val()+'&homepage_id='+$('#homepage_id_1').val()+'&viewPage=1'+'&search_type='+$('#search_type').val()+'&search_text='+$('#search_text').val());
+
+		e.preventDefault();
+	});
 
 	<c:if test="${fn:length(subHomepageList) > 0 or
 		(homepage.context_path eq 'beomeo' and teach.searchCate1 eq '17') or
@@ -171,7 +180,16 @@ $(function(){
 	</c:otherwise>
 	</c:choose>
 
-
+	<div class="search">
+		<fieldset>
+			<form:select path="search_type" cssClass="selectmenu">
+				<form:option class="default" value="">선택</form:option>
+				<form:option value="teach_name"><c:choose><c:when test="${param.searchCate1 eq '16'}">행사명</c:when><c:when test="${param.searchCate1 eq '17'}">강좌명</c:when><c:when test="${param.searchCate1 eq '18'}">강좌명</c:when><c:otherwise>강좌명</c:otherwise></c:choose></form:option>
+			</form:select>
+			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
+			<a href="#" class="btn btn1" id="search_btn"><i class="fa fa-search"></i><span>검색</span></a>
+		</fieldset>
+	</div>
 
 </form:form>
 

@@ -509,7 +509,9 @@
 					</foreach>
 				</if>
 
-
+				<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
+				AND	${search_type} LIKE '%'||#{search_text}||'%'
+				</if>
 				<if test="searchCate1 != null and searchCate1 != ''">
 				AND	a.large_category_idx IN (${searchCate1})
 				</if>
