@@ -154,6 +154,13 @@ $(function() {
 		}
 		e.preventDefault();
 	});
+	
+	$('select#teach_status').on('change', function(e) {
+		$('#viewPage').val(1);
+		$('#teachListForm').submit();
+		
+		e.preventDefault();
+	});
 
 });
 </script>
@@ -241,7 +248,13 @@ $(function() {
 		       				<form:option class="group_${i.group_idx}" value="${i.category_idx}" hidden="hidden">${i.category_name}</form:option>
 		       			</c:forEach>
 				</form:select>
-			</span>
+			</span>접수상태 :
+			<form:select path="teach_status">
+				<form:option value="" label="전체"/>
+				<form:option value="0,1" label="접수중"/>
+				<form:option value="6" label="접수대기"/>
+				<form:option value="4,5,9" label="접수마감"/>
+			</form:select>
 			<c:if test="${authD}">
 				<a href="#" class="btn btn3" id="dialog-delete"><i class="fa fa-file-excel-o"></i><span>선택 삭제</span></a>
 			</c:if>
@@ -338,7 +351,7 @@ $(function() {
 			</c:forEach>
 			<c:if test="${teachListCount eq 0}">
 				<tr>
-					<td colspan="12">데이터가 존재하지 않습니다.</td>
+					<td colspan="13">데이터가 존재하지 않습니다.</td>
 				</tr>
 			</c:if>
 		</tbody>

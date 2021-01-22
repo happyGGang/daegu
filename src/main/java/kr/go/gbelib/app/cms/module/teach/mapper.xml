@@ -74,28 +74,218 @@
 	<select id="getTeachList" resultType="kr.go.gbelib.app.cms.module.teach.Teach">
 		${pagingTop}
 			SELECT
+				a.TEACH_STATUS,
 				a.homepage_id, a.group_idx, a.category_idx, a.teach_idx, a.teach_name, a.teach_desc, a.TEACH_ETC, a.teach_stage, a.teach_target, a.LIMIT_HAK,a.LIMIT_HAK2,
 				a.TEACH_STATUS, a.TEACH_LIMIT_COUNT, a.TEACH_JOIN_UNIT, a.TEACH_BACKUP_COUNT, a.TEACH_OFFLINE_COUNT, a.start_join_date,
 				a.start_join_time, a.end_join_date, a.end_join_time, a.teach_day, a.start_date, a.START_TIME, a.TEACH_COUNT,
 				a.end_date, a.END_TIME, a.org_file_name, a.server_file_name, a.file_extension, a.file_size, a.MEMBER_YN, a.teach_age_type, a.sms_service_yn, a.picture_use_yn, a.use_yn, a.CERTIFICATE_YN, a.SURVEY_IDX, a.TEACH_JOIN_LIMIT_UNIT, a.TEACH_JOIN_LIMIT_VALUE,
-				b.TEACHER_NAME, b.TEACHER_BIRTH, A.family_count_yn, A.agent_yn, A.school_info_yn, A.school_grade_yn, A.remark_yn,
-				c.CATEGORY_NAME, d.GROUP_NAME,
-				NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='1' AND	APPLY_TYPE != 'CMS' GROUP BY teach_idx), 0) AS TEACH_JOIN_COUNT,
-				NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='2' GROUP BY teach_idx), 0) AS TEACH_BACKUP_JOIN_COUNT,
-				NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='1' AND	APPLY_TYPE = 'CMS' GROUP BY teach_idx), 0) AS TEACH_OFF_JOIN_COUNT,
+				a.TEACHER_NAME, a.TEACHER_BIRTH, A.family_count_yn, A.agent_yn, A.school_info_yn, A.school_grade_yn, A.remark_yn,
+				a.CATEGORY_NAME, a.GROUP_NAME,
+				a.TEACH_JOIN_COUNT,
+				a.TEACH_BACKUP_JOIN_COUNT,
+				a.TEACH_OFF_JOIN_COUNT,
 				a.IMAGE_org_file_name, a.image_server_file_name, a.IMAGE_file_extension, a.IMAGE_file_size, a.LIMIT_HAK_YN,
-				getCodeIdToCodeName('CMS', 'C0020', a.limit_hak) AS LIMIT_HAK_STR,
-				getCodeIdToCodeName('CMS', 'C0020', a.limit_hak2) AS LIMIT_HAK2_STR,
+				a.LIMIT_HAK_STR,
+				a.LIMIT_HAK2_STR,
 				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn,
-				(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) as large_category_name,
-				program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
-			(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.program_subject and homepage_id = a.homepage_id) as program_subject_name,
-			(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = '--' AND	small_code = '--') as program_classification1_name,
-			(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = '--') as program_classification2_name,
-			(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = a.program_classification3) as program_classification3_name
+				a.large_category_name,
+				a.program_classification1, a.program_classification2, a.program_classification3, a.program_subject, a.program_age_div,
+				a.program_subject_name,
+				a.program_classification1_name,
+				a.program_classification2_name,
+				a.program_classification3_name
 			FROM
-				TEACH a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d
-			WHERE a.homepage_id = b.homepage_id(+)
+			(
+				SELECT
+					CASE
+					WHEN TO_DATE(A.end_date || ' ' || A.end_time, 'YYYY-MM-DD HH24:MI') &lt; SYSDATE
+					THEN '9'
+					WHEN
+						TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+					AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
+					AND	A.teach_limit_count > A.teach_join_count
+					THEN '0'
+					WHEN
+						TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+					AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
+					AND	A.teach_limit_count &lt;= A.teach_join_count
+					AND	A.teach_backup_count > A.teach_backup_join_count
+					THEN '1'
+					WHEN
+						TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+					AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
+					AND	A.teach_limit_count &lt;= A.teach_join_count
+					AND	A.teach_backup_count &lt;= A.teach_backup_join_count
+					THEN '5'
+					WHEN
+						TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_start_date
+					THEN '6'
+					WHEN
+						TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_end_date
+					THEN '4'
+					END
+					AS teach_status,
+					a.homepage_id, a.group_idx, a.category_idx, a.teach_idx, a.teach_name, a.teach_desc, a.TEACH_ETC, a.teach_stage, a.teach_target, a.LIMIT_HAK,a.LIMIT_HAK2,
+					a.TEACH_LIMIT_COUNT, a.TEACH_JOIN_UNIT, a.TEACH_BACKUP_COUNT, a.TEACH_OFFLINE_COUNT, a.start_join_date,
+					a.start_join_time, a.end_join_date, a.end_join_time, a.teach_day, a.start_date, a.START_TIME, a.TEACH_COUNT,
+					a.end_date, a.END_TIME, a.org_file_name, a.server_file_name, a.file_extension, a.file_size, a.MEMBER_YN, a.teach_age_type, a.sms_service_yn, a.picture_use_yn, a.use_yn, a.CERTIFICATE_YN, a.SURVEY_IDX, a.TEACH_JOIN_LIMIT_UNIT, a.TEACH_JOIN_LIMIT_VALUE,
+					a.TEACHER_NAME, a.TEACHER_BIRTH, A.family_count_yn, A.agent_yn, A.school_info_yn, A.school_grade_yn, A.remark_yn,
+					a.CATEGORY_NAME, a.GROUP_NAME, a.start_join_date||' '||a.start_join_time REQ_start_date, a.end_join_date||' '||a.end_join_time REQ_end_date,
+					a.TEACH_JOIN_COUNT,
+					a.TEACH_BACKUP_JOIN_COUNT,
+					a.TEACH_OFF_JOIN_COUNT,
+					a.IMAGE_org_file_name, a.image_server_file_name, a.IMAGE_file_extension, a.IMAGE_file_size, a.LIMIT_HAK_YN,
+					a.LIMIT_HAK_STR,
+					a.LIMIT_HAK2_STR,
+					a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn,
+					a.large_category_name,
+					a.program_classification1, a.program_classification2, a.program_classification3, a.program_subject, a.program_age_div,
+					a.program_subject_name,
+					a.program_classification1_name,
+					a.program_classification2_name,
+					a.program_classification3_name
+				FROM
+				(
+					SELECT
+						a.homepage_id, a.group_idx, a.category_idx, a.teach_idx, a.teach_name, a.teach_desc, a.TEACH_ETC, a.teach_stage, a.teach_target, a.LIMIT_HAK,a.LIMIT_HAK2,
+						a.TEACH_LIMIT_COUNT, a.TEACH_JOIN_UNIT, a.TEACH_BACKUP_COUNT, a.TEACH_OFFLINE_COUNT, a.start_join_date,
+						a.start_join_time, a.end_join_date, a.end_join_time, a.teach_day, a.start_date, a.START_TIME, a.TEACH_COUNT,
+						a.end_date, a.END_TIME, a.org_file_name, a.server_file_name, a.file_extension, a.file_size, a.MEMBER_YN, a.teach_age_type, a.sms_service_yn, a.picture_use_yn, a.use_yn, a.CERTIFICATE_YN, a.SURVEY_IDX, a.TEACH_JOIN_LIMIT_UNIT, a.TEACH_JOIN_LIMIT_VALUE,
+						b.TEACHER_NAME, b.TEACHER_BIRTH, A.family_count_yn, A.agent_yn, A.school_info_yn, A.school_grade_yn, A.remark_yn,
+						c.CATEGORY_NAME, d.GROUP_NAME, a.start_join_date||' '||a.start_join_time REQ_start_date, a.end_join_date||' '||a.end_join_time REQ_end_date,
+						NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='1' AND	APPLY_TYPE != 'CMS' GROUP BY teach_idx), 0) AS TEACH_JOIN_COUNT,
+						NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='2' GROUP BY teach_idx), 0) AS TEACH_BACKUP_JOIN_COUNT,
+						NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='1' AND	APPLY_TYPE = 'CMS' GROUP BY teach_idx), 0) AS TEACH_OFF_JOIN_COUNT,
+						a.IMAGE_org_file_name, a.image_server_file_name, a.IMAGE_file_extension, a.IMAGE_file_size, a.LIMIT_HAK_YN,
+						getCodeIdToCodeName('CMS', 'C0020', a.limit_hak) AS LIMIT_HAK_STR,
+						getCodeIdToCodeName('CMS', 'C0020', a.limit_hak2) AS LIMIT_HAK2_STR,
+						a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn,
+						(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) as large_category_name,
+						program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
+						(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.program_subject and homepage_id = a.homepage_id) as program_subject_name,
+						(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = '--' AND	small_code = '--') as program_classification1_name,
+						(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = '--') as program_classification2_name,
+						(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = a.program_classification3) as program_classification3_name
+					FROM
+						TEACH a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d
+					WHERE a.homepage_id = b.homepage_id(+)
+						AND	a.teacher_idx = b.teacher_idx(+)
+						AND	a.homepage_id = c.homepage_id(+)
+						AND	a.group_idx = c.group_idx(+)
+						AND	a.category_idx = c.category_idx(+)
+						AND	a.homepage_id = d.homepage_id(+)
+						AND	a.group_idx = d.group_idx(+)
+						AND	a.homepage_id = #{homepage_id}
+						<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
+						AND	${search_type} LIKE '%'||#{search_text}||'%'
+						</if>
+						<if test="large_category_idx > 0">
+						AND	a.large_category_idx = #{large_category_idx}
+						</if>
+						<if test="group_idx > 0">
+						AND	a.group_idx = #{group_idx}
+						</if>
+						<if test="category_idx > 0">
+						AND	a.category_idx = #{category_idx}
+						</if>
+						AND	a.delete_yn = 'N'
+					ORDER BY
+						a.ADD_DATE desc
+				)A
+			)A
+				where A.teach_status IN
+				(
+				<choose>
+				<when test="teach_status != null and teach_status != ''">
+				${teach_status}
+				</when>
+				<otherwise>
+				0, 1, 4, 5, 6, 9
+				</otherwise>
+				</choose>
+				)
+		${pagingBottom}
+	</select>
+
+	<select id="getTeachListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+		(
+			SELECT
+				CASE
+					WHEN TO_DATE(A.end_date || ' ' || A.end_time, 'YYYY-MM-DD HH24:MI') &lt; SYSDATE
+					THEN '9'
+					WHEN
+						TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+					AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
+					AND	A.teach_limit_count > A.teach_join_count
+					THEN '0'
+					WHEN
+						TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+					AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
+					AND	A.teach_limit_count &lt;= A.teach_join_count
+					AND	A.teach_backup_count > A.teach_backup_join_count
+					THEN '1'
+					WHEN
+						TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+					AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
+					AND	A.teach_limit_count &lt;= A.teach_join_count
+					AND	A.teach_backup_count &lt;= A.teach_backup_join_count
+					THEN '5'
+					WHEN
+						TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_start_date
+					THEN '6'
+					WHEN
+						TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_end_date
+					THEN '4'
+					END
+					AS teach_status,
+					a.homepage_id, a.group_idx, a.category_idx, a.teach_idx, a.teach_name, a.teach_desc, a.TEACH_ETC, a.teach_stage, a.teach_target, a.LIMIT_HAK,a.LIMIT_HAK2,
+					a.TEACH_LIMIT_COUNT, a.TEACH_JOIN_UNIT, a.TEACH_BACKUP_COUNT, a.TEACH_OFFLINE_COUNT, a.start_join_date,
+					a.start_join_time, a.end_join_date, a.end_join_time, a.teach_day, a.start_date, a.START_TIME, a.TEACH_COUNT,
+					a.end_date, a.END_TIME, a.org_file_name, a.server_file_name, a.file_extension, a.file_size, a.MEMBER_YN, a.teach_age_type, a.sms_service_yn, a.picture_use_yn, a.use_yn, a.CERTIFICATE_YN, a.SURVEY_IDX, a.TEACH_JOIN_LIMIT_UNIT, a.TEACH_JOIN_LIMIT_VALUE,
+					a.TEACHER_NAME, a.TEACHER_BIRTH, A.family_count_yn, A.agent_yn, A.school_info_yn, A.school_grade_yn, A.remark_yn,
+					a.CATEGORY_NAME, a.GROUP_NAME, a.start_join_date||' '||a.start_join_time REQ_start_date, a.end_join_date||' '||a.end_join_time REQ_end_date,
+					a.TEACH_JOIN_COUNT,
+					a.TEACH_BACKUP_JOIN_COUNT,
+					a.TEACH_OFF_JOIN_COUNT,
+					a.IMAGE_org_file_name, a.image_server_file_name, a.IMAGE_file_extension, a.IMAGE_file_size, a.LIMIT_HAK_YN,
+					a.LIMIT_HAK_STR,
+					a.LIMIT_HAK2_STR,
+					a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn,
+					a.large_category_name,
+					a.program_classification1, a.program_classification2, a.program_classification3, a.program_subject, a.program_age_div,
+					a.program_subject_name,
+					a.program_classification1_name,
+					a.program_classification2_name,
+					a.program_classification3_name
+			FROM
+			(
+				SELECT
+					a.homepage_id, a.group_idx, a.category_idx, a.teach_idx, a.teach_name, a.teach_desc, a.TEACH_ETC, a.teach_stage, a.teach_target, a.LIMIT_HAK,a.LIMIT_HAK2,
+					a.TEACH_LIMIT_COUNT, a.TEACH_JOIN_UNIT, a.TEACH_BACKUP_COUNT, a.TEACH_OFFLINE_COUNT, a.start_join_date,
+					a.start_join_time, a.end_join_date, a.end_join_time, a.teach_day, a.start_date, a.START_TIME, a.TEACH_COUNT,
+					a.end_date, a.END_TIME, a.org_file_name, a.server_file_name, a.file_extension, a.file_size, a.MEMBER_YN, a.teach_age_type, a.sms_service_yn, a.picture_use_yn, a.use_yn, a.CERTIFICATE_YN, a.SURVEY_IDX, a.TEACH_JOIN_LIMIT_UNIT, a.TEACH_JOIN_LIMIT_VALUE,
+					b.TEACHER_NAME, b.TEACHER_BIRTH, A.family_count_yn, A.agent_yn, A.school_info_yn, A.school_grade_yn, A.remark_yn,
+					c.CATEGORY_NAME, d.GROUP_NAME, a.start_join_date||' '||a.start_join_time REQ_start_date, a.end_join_date||' '||a.end_join_time REQ_end_date,
+					NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='1' AND	APPLY_TYPE != 'CMS' GROUP BY teach_idx), 0) AS TEACH_JOIN_COUNT,
+					NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='2' GROUP BY teach_idx), 0) AS TEACH_BACKUP_JOIN_COUNT,
+					NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='1' AND	APPLY_TYPE = 'CMS' GROUP BY teach_idx), 0) AS TEACH_OFF_JOIN_COUNT,
+					a.IMAGE_org_file_name, a.image_server_file_name, a.IMAGE_file_extension, a.IMAGE_file_size, a.LIMIT_HAK_YN,
+					getCodeIdToCodeName('CMS', 'C0020', a.limit_hak) AS LIMIT_HAK_STR,
+					getCodeIdToCodeName('CMS', 'C0020', a.limit_hak2) AS LIMIT_HAK2_STR,
+					a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn,
+					(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) as large_category_name,
+					program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
+					(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.program_subject and homepage_id = a.homepage_id) as program_subject_name,
+					(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = '--' AND	small_code = '--') as program_classification1_name,
+					(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = '--') as program_classification2_name,
+					(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = a.program_classification3) as program_classification3_name
+				FROM
+					TEACH a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d
+				WHERE
+					a.homepage_id = b.homepage_id(+)
 				AND	a.teacher_idx = b.teacher_idx(+)
 				AND	a.homepage_id = c.homepage_id(+)
 				AND	a.group_idx = c.group_idx(+)
@@ -116,38 +306,19 @@
 				AND	a.category_idx = #{category_idx}
 				</if>
 				AND	a.delete_yn = 'N'
-			ORDER BY
-				a.ADD_DATE desc
-		${pagingBottom}
-	</select>
-
-	<select id="getTeachListCount" resultType="int">
-		SELECT
-			COUNT(*)
-		FROM
-			TEACH a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d
-		WHERE
-			a.homepage_id = b.homepage_id(+)
-		AND	a.teacher_idx = b.teacher_idx(+)
-		AND	a.homepage_id = c.homepage_id(+)
-		AND	a.group_idx = c.group_idx(+)
-		AND	a.category_idx = c.category_idx(+)
-		AND	a.homepage_id = d.homepage_id(+)
-		AND	a.group_idx = d.group_idx(+)
-		AND	a.homepage_id = #{homepage_id}
-		<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
-		AND	${search_type} LIKE '%'||#{search_text}||'%'
-		</if>
-		<if test="large_category_idx > 0">
-		AND	a.large_category_idx = #{large_category_idx}
-		</if>
-		<if test="group_idx > 0">
-		AND	a.group_idx = #{group_idx}
-		</if>
-		<if test="category_idx > 0">
-		AND	a.category_idx = #{category_idx}
-		</if>
-		AND	a.delete_yn = 'N'
+			)A
+		)A
+			WHERE A.teach_status IN 
+			(
+			<choose>
+				<when test="teach_status != null and teach_status != ''">
+				${teach_status}
+				</when>
+				<otherwise>
+				0, 1, 4, 5, 6, 9
+				</otherwise>
+			</choose>
+			)
 	</select>
 
 	<select id="getTeachOne" resultType="kr.go.gbelib.app.cms.module.teach.Teach">
