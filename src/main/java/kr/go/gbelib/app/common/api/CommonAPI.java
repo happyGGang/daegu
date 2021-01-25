@@ -656,6 +656,7 @@ public class CommonAPI {
 			wr.flush();
 
 			String result = IOUtils.toString(connection.getInputStream(), "UTF-8").trim();
+			result = result.replace("&", "&amp;");
 			
 			resultMap = xmlToJson(result).toMap();
 		}
