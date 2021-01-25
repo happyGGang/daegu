@@ -25,7 +25,7 @@
 			homepage_id, contest_idx, contest_type_idx, applicant_idx, record_idx,
 			member_id, member_name, book_name, read_page_count, book_resources,
 			book_get_date, book_type, book_author, publisher, book_journals,
-			record_date, modify_date, modify_id
+			record_date, modify_date, modify_id, call_no, reg_no
 		FROM
 			MARATHON_RECORD
 		WHERE
@@ -47,7 +47,7 @@
 			homepage_id, contest_idx, contest_type_idx, applicant_idx, record_idx,
 			member_id, member_name, book_name, read_page_count, book_resources,
 			book_get_date, book_type, book_author, publisher, book_journals,
-			record_date, modify_date, modify_id
+			record_date, modify_date, modify_id, call_no, reg_no
 		FROM
 			MARATHON_RECORD
 		WHERE
@@ -133,14 +133,14 @@
 			homepage_id, contest_idx, contest_type_idx, applicant_idx, record_idx,
 			member_id, member_name, book_name, read_page_count, book_resources,
 			book_get_date, book_type, book_author, publisher, book_journals,
-			record_date
+			record_date, call_no, reg_no
 		)
 			VALUES
 		(
 			#{homepage_id}, #{contest_idx}, #{contest_type_idx}, #{applicant_idx}, #{record_idx},
 			#{member_id}, #{member_name}, #{book_name}, #{read_page_count}, #{book_resources},
 			#{book_get_date}, #{book_type}, #{book_author}, #{publisher}, #{book_journals},
-			SYSDATE
+			SYSDATE, #{call_no}, #{reg_no}
 		)
 	</insert>
 	
@@ -157,7 +157,9 @@
 			publisher = #{publisher},
 			book_journals = #{book_journals},
 			modify_date = SYSDATE,
-			modify_id = #{modify_id}
+			modify_id = #{modify_id},
+			call_no = #{call_no},
+			reg_no = #{reg_no}
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	contest_idx = #{contest_idx}
