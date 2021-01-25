@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.json.JSONObject;
@@ -153,6 +154,8 @@ public class CommonSearchController extends BaseController {
     						map.put("aladin", aladinData.get("item"));
     					}
     				}
+    				
+    				map.put("marc", marc_view(model, String.valueOf(map.get("REG_NO")), request));
 				}
     		}
 
@@ -275,6 +278,8 @@ public class CommonSearchController extends BaseController {
 					map.put("aladin", aladinData.get("item"));
 				}
 			}
+			
+			map.put("marc", marc_view(model, String.valueOf(map.get("REG_NO")), request));
 
 			librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
 			librarySearch.setRegNo(String.valueOf(map.get("REG_NO")));
@@ -2149,18 +2154,54 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 		new LibrarySearchXlsToCsv(librarySearch, result, request, response);
 	}
 
-	@RequestMapping(value = {"/marcView.*"})
-	public String marc_view(Model model, LibrarySearch librarySearch, HttpServletRequest request) {
-		Homepage homepage = getSessionHomepage(request);
+	
+	@SuppressWarnings ("unchecked")
+	public String marc_view(Model model, String regno, HttpServletRequest request) {
+		List<Map<String, Object>> list = null;
+		String content = "";
 		//TODO marc보기
-//
-		LibSearchAPI.getMarc(librarySearch.getRegNo());
-//		Map<String, Object> marcView = LibSearchAPI.getMarcView("WEB", "MARC XML", librarySearch);
-//		@SuppressWarnings ("unchecked")
-//		List<Map<String, String>> marcList = (List<Map<String, String>>) marcView.get("dsMarcView");
-//		model.addAttribute("marcList", marcList);
+		Map<String, Object> marcView = LibSearchAPI.getMarc(regno);
 
-		return String.format(basePath, homepage.getFolder()) + "marcView_ajax";
+		if (MapUtils.isNotEmpty(marcView) && marcView.containsKey("collection")) {
+			if(marcView.get("collection") != null) {
+				Map<String, Object> collection = (Map<String, Object>)marcView.get("collection");
+				if(collection.get("record") != null) {
+					Map<String, Object> record = (Map<String, Object>)collection.get("record");
+					if(record.get("datafield") != null) {
+						list = new ArrayList<Map<String, Object>>();
+						list.addAll((List<Map<String, Object>>) record.get("datafield"));
+					}
+				}
+			}
+
+			if (CollectionUtils.isNotEmpty(list) && list.size() > 0) {
+				// tag 521 추출
+				for (Map<String, Object> map : list) {
+					String tag = String.valueOf(map.get("tag"));
+
+					if(tag.equals("521")) {
+						ArrayList<String> subfieldList = new ArrayList<String>();
+						Object test = map.get("subfield");
+						if (test instanceof ArrayList) {
+							List<Map<String, Object>> subfield = (List<Map<String, Object>>)map.get("subfield");
+							for (Map<String, Object> stringObjectMap : subfield) {
+								subfieldList.add(String.valueOf(stringObjectMap.get("content")));
+							}
+							content = StringUtils.join(subfieldList, ",");
+							break;
+						} else {
+							Map<String, Object> subfield = (Map<String, Object>)map.get("subfield");
+							content = String.valueOf(subfield.get("content"));
+						}
+
+						break;
+					}
+				}
+			}
+
+		}
+		
+		return content;
 	}
 
 
