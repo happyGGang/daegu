@@ -453,12 +453,12 @@ $(function() {
 	<form:hidden path="homepage_id"/>
 	<c:if test="${marathonApplicant.editMode eq 'MODIFY'}">
 		<form:hidden path="contest_idx"/>
+		<form:hidden path="member_id" value="${marathonApplicant.member_id}"/>
 	</c:if>
 	<form:hidden path="contest_type_idx"/>
 	<form:hidden path="applicant_idx"/>
 	<form:hidden path="editMode"/>
 	<form:hidden path="menu_idx"/>
-	<form:hidden path="member_id" value="${marathonApplicant.member_id}"/>
 	<table class="type2">
 		<colgroup>
 			<col width="160"/>
@@ -487,7 +487,14 @@ $(function() {
 			<tr>
 				<th>아이디*</th>
 				<td>
-					${marathonApplicant.member_id}
+					<c:choose>
+						<c:when test="${marathonApplicant.editMode eq 'ADD'}">
+							<form:input path="member_id" cssClass="text"/>
+						</c:when>
+						<c:when test="${marathonApplicant.editMode eq 'MODIFY'}">
+							${marathonApplicant.member_id}
+						</c:when>
+					</c:choose>
 				</td>
 			</tr>
 			<tr>
