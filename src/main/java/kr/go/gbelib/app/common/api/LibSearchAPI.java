@@ -544,6 +544,9 @@ public class LibSearchAPI {
 		param.put("userkey", librarySearch.getUserkey());
 		param.put("pageno", librarySearch.getViewPage());
 		param.put("display", librarySearch.getRowCount());
+		if (librarySearch.getFurnish_status() != null && StringUtils.isNotEmpty( librarySearch.getFurnish_status())) {
+			param.put("furnish_status", librarySearch.getFurnish_status());
+		}
 		param.put("orderby_item", "APPLICANT_DATE");
 		param.put("orderby", "DESC");
 

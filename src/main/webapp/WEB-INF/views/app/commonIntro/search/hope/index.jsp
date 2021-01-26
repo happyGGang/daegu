@@ -24,6 +24,11 @@ $(function() {
 		var param = serializeCustom($('form#librarySearch'));
 		doGetLoad('index.do', param);
 	});
+	
+	$('select#furnish_status').on('change', function(e) {
+		doGetLoad('index.do', $('form#librarySearch').serialize());
+		e.preventDefault();
+	});
 
 });
 
@@ -52,6 +57,15 @@ $(function() {
 
 
 <form:form modelAttribute="librarySearch" action="index.do" method="get" onsubmit="return false;">
+<fieldset>
+	<form:select path="furnish_status" class="selectmenu">
+		<form:option value="" label="전체"/>
+		<form:option value="1" label="신청중"/>
+		<form:option value="2" label="처리중"/>
+		<form:option value="3" label="소장중"/>
+		<form:option value="4" label="취소"/>
+	</form:select>
+</fieldset>
 <form:hidden path="viewPage"/>
 <form:hidden path="menu_idx"/>
 <div class="book-list">
