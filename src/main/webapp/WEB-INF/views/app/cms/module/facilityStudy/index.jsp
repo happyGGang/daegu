@@ -62,7 +62,10 @@ $(function(){
 		if (status == '1') {
 			editMode = 'APPROVE';
 		} else if (status == '2') {
-			editMode = 'CANCEL';
+			$('#dialog-2').load('cancel.do?homepage_id=${facilityStudy.homepage_id}&study_idx=' + $(this).data('idx') + '&editMode=CANCEL_TXT', function( response, status, xhr ) {
+				$('#dialog-2').dialog('open');
+			});
+			return false;
 		} else if (status == '0') {
 			editMode = 'READY';
 		}
@@ -80,8 +83,40 @@ $(function(){
 			}
 		});
 	});
+	
+	$('input#checkAll').on('click', function(e) {
+		$('input[type = checkbox].study_idx_arr').prop('checked', $(this).is(':checked'));
+	});
+	
+	$('a#dialog-delete').on('click', function(e) {
+
+		if($('input:checkbox[name = study_idx_arr]:checked').length < 1) {
+			alert('삭제할 신청 건을 선택해 주세요.');
+			return false;
+		}
+		
+		if(confirm('선택한 신청을 정말 삭제하시겠습니까?')) {
+			$('#editMode_1').val('DELETE_ALL');
+			if(doAjaxPost($('#facilityStudy_1'))) {
+				location.reload();
+			}
+		}
+		
+		e.preventDefault();
+	});
+	
+	$('a#excelDownload').on('click', function(e) {
+		$('form#hiddenForm').attr('action', 'excelDownload.do').submit();
+		$('form#hiddenForm').attr('action', 'save.do');
+		e.preventDefault();
+	});
 });
 </script>
+
+<form:form id="hiddenForm" modelAttribute="facilityStudy" action="save.do">
+	<form:hidden path="homepage_id"/>
+	<form:hidden path="study_idx"/>
+</form:form>
 
 <form:form id="facilityStudy_1" modelAttribute="facilityStudy" method="POST" action="save.do" onsubmit="return false;">
 <form:hidden id="editMode_1" path="editMode"/>
@@ -97,7 +132,10 @@ $(function(){
 			<form:option value="100">100개씩 보기</form:option>
 			<form:option value="200">200개씩 보기</form:option>
 		</form:select>
-		<div class="button btn-group inline">
+		<div class="button">
+			<c:if test="${authD}">
+				<a href="" class="btn btn5 left" id="dialog-delete"><i class="fa fa-minus"></i><span>선택삭제</span></a>
+			</c:if>
 			<c:if test="${authC}">
 				<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
 			</c:if>
@@ -106,6 +144,7 @@ $(function(){
 	<table class="type1 center">
 		<thead>
 			<tr>
+				<th width="50"><input type="checkbox" id="checkAll"></th>
 				<th width="50">순번</th>
 				<th width="200">사용일자</th>
 				<th width="200">사용시설</th>
@@ -120,11 +159,12 @@ $(function(){
 		<tbody>
 		<c:if test="${fn:length(facilityStudyList) < 1}">
 			<tr style="height:100%">
-				<td colspan="9" style="background:#f8fafb;">데이터가 존재하지 않습니다.</td>
+				<td colspan="10" style="background:#f8fafb;">데이터가 존재하지 않습니다.</td>
 			</tr>
 		</c:if>
 		<c:forEach var="i" varStatus="status" items="${facilityStudyList}">
 			<tr>
+				<td width="50"><form:checkbox path="study_idx_arr" value="${i.study_idx}" class="study_idx_arr"/></td>
 				<td width="50">${paging.listRowNum - status.index}</td>
 				<td width="200">${i.study_date}</td>
 				<td width="200">
@@ -174,10 +214,14 @@ $(function(){
 			</form:select>
 			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
 			<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
+			<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>
 		</fieldset>
 	</div>
 </div>
 </form:form>
 
 <div id="dialog-1" class="dialog-common" title="그룹스터디 신청 정보">
+</div>
+
+<div id="dialog-2" class="dialog-common" title="그룹스터디 신청 취소">
 </div>

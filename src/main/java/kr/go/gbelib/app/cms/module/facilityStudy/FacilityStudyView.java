@@ -96,13 +96,11 @@ public class FacilityStudyView extends AbstractJExcelView {
 				apply_status = "대기";
 			} else if(one.getApply_status().equals("1")) {
 				apply_status = "승인";
-			} else if(one.getApply_status().equals("3")) {
-				apply_status = "관리자취소";
 			} else if(one.getApply_status().equals("2")) {
-				apply_status = "이용자취소";
+				apply_status = "취소";
 			}
 			workbook.getSheet(0).addCell(new Label(6, row, apply_status));
-			workbook.getSheet(0).addCell(new Label(7, row, one.getApply_status().equals("3") ? one.getCancel_txt() : ""));
+			workbook.getSheet(0).addCell(new Label(7, row, one.getApply_status().equals("2") ? one.getCancel_txt() : ""));
 			
 			row++;
 		}

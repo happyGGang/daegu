@@ -214,6 +214,7 @@ public class FacilityStudyController extends BaseController {
 
 				fs.setApply_name(cert.getApply_name());
 				fs.setApply_password(cert.getApply_password());
+				fs.setCancel_txt("이용자 취소");
 
 				service.cancelUserFacilityStudy(fs);
 				res.setValid(true);

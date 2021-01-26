@@ -142,6 +142,14 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 					<form:textarea path="apply_list" cssClass="text" style="width:98%;" rows="5"/>
 				</td>
 			</tr>
+			<c:if test="${facilityStudy.apply_status eq '2'}">
+			<tr>
+				<th>취소 사유</th>
+				<td>
+					<form:textarea path="cancel_txt" cssClass="text" style="width:98%;" rows="3"/>
+				</td>
+			</tr>
+			</c:if>
 		</tbody>
 	</table>
 </form:form>

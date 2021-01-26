@@ -52,8 +52,8 @@
 		SELECT
 			homepage_id, study_idx, study_num, study_date, study_time,
 			apply_name, apply_password, apply_phone1, apply_phone2, study_name,
-			study_purpose, man_count, woman_count, apply_list, apply_date, apply_status,
-			cancel_reason
+			study_purpose, man_count, woman_count, apply_list, apply_date,
+			apply_status, cancel_reason, cancel_txt
 		FROM
 			FACILITY_STUDY
 		WHERE
@@ -86,7 +86,9 @@
 		UPDATE
 			FACILITY_STUDY
 		SET
-			apply_status = '1'
+			apply_status = '1',
+			cancel_reason = '',
+			cancel_txt = ''
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	study_idx = #{study_idx}
@@ -107,6 +109,8 @@
 		UPDATE
 			FACILITY_STUDY
 		SET
+			apply_status = '2',
+			cancel_reason = '관리자 취소',
 			cancel_txt = #{cancel_txt}
 		WHERE
 			homepage_id = #{homepage_id}
@@ -118,7 +122,8 @@
 			FACILITY_STUDY
 		SET
 			apply_status = '2',
-			cancel_reason = '이용자 취소'
+			cancel_reason = '이용자 취소',
+			cancel_txt = #{cancel_txt}
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	study_idx = #{study_idx}
@@ -130,7 +135,9 @@
 		UPDATE
 			FACILITY_STUDY
 		SET
-			apply_status = '0'
+			apply_status = '0',
+			cancel_reason = '',
+			cancel_txt = ''
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	study_idx = #{study_idx}
@@ -185,6 +192,9 @@
 			man_count = #{man_count},
 			woman_count = #{woman_count},
 			apply_list = #{apply_list}
+			<if test="cancel_txt != null and cancel_txt != ''">
+			,cancel_txt = #{cancel_txt}
+			</if>
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	study_idx = #{study_idx}
