@@ -347,9 +347,8 @@ $(function(){
 	
 	$('select#rowCount').on('change', function(e) {
 		e.preventDefault();
-		$('#studentLayer').load('student.do?homepage_id=' + $('#homepage_id').val() + '&group_idx=' + $('#group_idx').val() + '&category_idx=' + $('#category_idx').val() + '&teach_idx=' + $('#teach_idx').val() +'&large_category_idx=' + $('#large_category_idx').val() + '&rowCount=' + $('#rowCount').val());
+		$('#studentLayer').load('student.do?homepage_id=' + $('#studentListForm #homepage_id').val() + '&group_idx=' + $('#studentListForm #group_idx').val() + '&category_idx=' + $('#studentListForm #category_idx').val() + '&teach_idx=' + $('#studentListForm #teach_idx').val() +'&large_category_idx=' + $('#studentListForm #large_category_idx').val() + '&rowCount=' + $('#studentListForm #rowCount').val());
 	});
-
 
 });
 </script>
