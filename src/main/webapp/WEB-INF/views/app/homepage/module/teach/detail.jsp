@@ -35,7 +35,7 @@
 		$('a#back-btn').on('click', function(e) {
 			e.preventDefault();
 			//location.href = 'index.do?menu_idx=${fn:escapeXml(param.menu_idx)}';
- 			location.href = 'index.do?menu_idx=${fn:escapeXml(param.menu_idx)}&searchCate1=${fn:escapeXml(param.searchCate1)}';
+ 			location.href = 'index.do?menu_idx=${fn:escapeXml(param.menu_idx)}&searchCate1=${fn:escapeXml(param.searchCate1)}&homepage_id=${fn:escapeXml(param.homepage_id)}';
 		});
 
 

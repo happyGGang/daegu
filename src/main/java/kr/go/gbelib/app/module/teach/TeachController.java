@@ -293,6 +293,8 @@ public class TeachController extends BaseController{
 		}
 
 		int menu_idx = teach.getMenu_idx();
+		String searchCate1 = teach.getSearchCate1();
+		String homepage_id = teach.getHomepage_id();
 
 		teach = teachService.getTeachDetailForUser(teach);
 		if ( teach == null ) {
@@ -300,6 +302,8 @@ public class TeachController extends BaseController{
 			return null;
 		}
 		teach.setMenu_idx(menu_idx);
+		teach.setSearchCate1(searchCate1);
+		teach.setHomepage_id(homepage_id);
 
 		model.addAttribute("teach", teach);
 
