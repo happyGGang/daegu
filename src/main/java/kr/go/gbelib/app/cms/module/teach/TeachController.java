@@ -312,6 +312,11 @@ public class TeachController extends BaseController {
 							}
 						}
 					}
+					
+					if(teach.getTeach_addr_limit() != null && teach.getTeach_addr_limit().equals("ADDR")) {
+						ValidationUtils.rejectIfEmpty(result, "teach_addr_limit_value", "제한 허용하는 주소를 입력하세요.");
+					}
+					
 				}
 			}
 

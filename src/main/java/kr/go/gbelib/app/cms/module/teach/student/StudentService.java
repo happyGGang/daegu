@@ -6,13 +6,11 @@ import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -22,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
-import jxl.biff.drawing.Comment;
 import jxl.format.Alignment;
 import jxl.format.Border;
 import jxl.format.BorderLineStyle;
@@ -188,6 +185,23 @@ public class StudentService extends BaseService {
 							return addResult;
 						}
 					}
+				}
+			}
+			
+			if(teach.getTeach_addr_limit() != null && teach.getTeach_addr_limit_value() != null) {
+				StringTokenizer st = new StringTokenizer(teach.getTeach_addr_limit_value(), ",");
+				boolean addr_flag = true;
+				while(st.hasMoreTokens()) {
+					if(student.getApplicant_address().contains(st.nextToken().trim())) {
+						addr_flag = false;
+						break;
+					}
+				}
+				
+				if(addr_flag) {
+					addResult[0] = false;
+					addResult[1] = "해당 주소지는 신청할 수 없습니다.";
+					return addResult;
 				}
 			}
 

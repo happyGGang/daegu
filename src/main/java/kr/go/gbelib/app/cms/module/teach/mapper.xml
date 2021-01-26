@@ -349,7 +349,7 @@
 				(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = '--') as program_classification2_name,
 				(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = a.program_classification3) as program_classification3_name,
 				a.CANCLE_use_yn, a.START_CANCLE_DATE, a.END_CANCLE_DATE, a.START_CANCLE_TIME, a.END_CANCLE_TIME, a.CANCLE_GUID,
-				a.terms, a.apply_file_yn
+				a.terms, a.apply_file_yn, a.teach_addr_limit, a.teach_addr_limit_value
 			FROM
 				TEACH a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d
 			WHERE a.homepage_id = b.homepage_id(+)
@@ -399,7 +399,7 @@
 			family_count_yn, agent_yn, school_info_yn, school_grade_yn, remark_yn, address_yn, remark_comment,
 			neis_location_yn, neis_cd_yn, neis_training_num_yn, large_category_idx, rank_yn, organization_yn, course_taken_yn, birth_yn, sex_yn,
 			program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
-			terms, apply_file_yn
+			terms, apply_file_yn, teach_addr_limit, teach_addr_limit_value
 		) VALUES (
 			#{homepage_id}, #{group_idx}, #{category_idx}, #{teach_idx}, #{teach_name}, #{teach_desc}, #{teach_etc}, #{teach_stage}, #{teach_target}, #{limit_hak}, #{limit_hak2}, #{calendar_view_yn},
 			#{teach_status}, #{teach_limit_count}, #{teach_join_unit}, #{teach_backup_count}, #{teach_offline_count}, #{teacher_idx}, #{start_join_date}, #{limit_hak_yn},
@@ -422,7 +422,7 @@
 			#{family_count_yn}, #{agent_yn}, #{school_info_yn}, #{school_grade_yn}, #{remark_yn}, #{address_yn}, #{remark_comment},
 			#{neis_location_yn}, #{neis_cd_yn}, #{neis_training_num_yn}, #{large_category_idx}, #{rank_yn}, #{organization_yn}, #{course_taken_yn}, #{birth_yn}, #{sex_yn},
 			#{program_classification1}, #{program_classification2}, #{program_classification3}, #{program_subject}, #{program_age_div},
-			#{terms}, #{apply_file_yn}
+			#{terms}, #{apply_file_yn}, #{teach_addr_limit}, #{teach_addr_limit_value}
 		)
 	</insert>
 
@@ -540,7 +540,9 @@
 			program_subject = #{program_subject},
 			program_age_div = #{program_age_div},
 			terms = #{terms},
-			apply_file_yn = #{apply_file_yn}
+			apply_file_yn = #{apply_file_yn},
+			teach_addr_limit = #{teach_addr_limit},
+			teach_addr_limit_value = #{teach_addr_limit_value}
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	large_category_idx = #{large_category_idx}
