@@ -173,7 +173,7 @@ $(function() {
 </form:form>
 
 <form:form id="hiddenForm2" modelAttribute="teach" action="save.do">
-	<form:hidden path="editMode" value="DELETESELECT"/>
+	<form:hidden path="editMode" id="editMode_2" value="DELETESELECT"/>
 	<form:hidden path="homepage_id" id="homepage_id_2"/>
 	<form:hidden path="group_idx_arr"/>
 	<form:hidden path="category_idx_arr"/>
