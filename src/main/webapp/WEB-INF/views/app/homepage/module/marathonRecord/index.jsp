@@ -82,7 +82,11 @@ $(function(){
 });
 </script>
 <style>
-	thead tr th{font-weight: bold;}
+	div.search {border: 0px;background: 0;}
+
+	@media (max-width: 430px) and (min-width: 0px) {
+		table.bbs th, table.bbs td{display:table-cell;}
+	}
 </style>
 <form:form modelAttribute="marathonRecord" action="index.do" method="GET" onsubmit="return false;">
 	<form:hidden path="homepage_id"/>
@@ -110,7 +114,8 @@ $(function(){
 				<a href="#" id="rowCountSelect" class="btn btn1">이동</a>
 			</div>
 		</div>
-		<div class="table-wrap">
+		<div class="rsv-info"></div>
+		<div class="auto-scroll table-wrap">
 			<table class="bbs center">
 				<thead>
 					<tr>
