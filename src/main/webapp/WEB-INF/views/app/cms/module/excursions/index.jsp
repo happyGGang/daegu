@@ -186,9 +186,9 @@ $(function(){
 		$('input[name = excursions_idx_arr]').prop('checked', allChecked);
 	});
 	
-	$('a#checkedDelete').on('click', function(e) {
+	$('a#checkedDelete').on('click', function(e) {	
 		e.preventDefault();
-		if ($('input[name=excursions_idx_arr]').length < 1) {
+		if ($('input[name=excursions_idx_arr]:checked').length < 1) {
 			alert('선택된 일자가 없습니다.');
 			return false;
 		}

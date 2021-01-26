@@ -107,6 +107,8 @@ public class ExcursionsController extends BaseController {
 			} catch (Exception e) {
 				result.reject("시간입력은 00:00 ~ 23:59 범위 입니다.");
 			}
+		} else if (excursions.getEditMode().equals("BATCHDELETE")) {
+			ValidationUtils.rejectIfEmpty(result, "excursions_idx_arr", "견학일자를 선택하세요.");
 		}
 		
 		if(!result.hasErrors()) {
