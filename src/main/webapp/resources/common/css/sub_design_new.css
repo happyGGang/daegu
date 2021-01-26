@@ -1045,26 +1045,33 @@ ul.con_ask li:last-child{margin-right:0;}
 .tab_menu3 ul li.active a, .tab_menu3 ul li a:hover{font-weight:bold;color:#2b74c0;}
 
 @media all and (min-width: 768px) and (max-width: 1023px) {
-	.tab_menu ul.no7 li a{font-size:11px;}
+	.tab_menu ul.no7 li a, .tab_menu ul.no8 li a{font-size:11px;}
 }
 
 @media all and (max-width: 767px) {
 	.tab_menu ul.no3 li, .tab_menu ul.no3 li:first-child,
 	.tab_menu ul.no4 li, 
 	.tab_menu ul.no5 li, 
-	.tab_menu ul.no7 li, .tab_menu ul.no7 li:first-child{width:100%;}
+	.tab_menu ul.no7 li, .tab_menu ul.no7 li:first-child,
+	.tab_menu ul.no8 li, .tab_menu ul.no8 li:first-child{width:100%;}
 
 	.tab_menu ul.no3 li a, 
 	.tab_menu ul.no4 li a, 
 	.tab_menu ul.no5 li a, 
-	.tab_menu ul.no7 li a{border-bottom:none;}
+	.tab_menu ul.no7 li a,
+	.tab_menu ul.no8 li a{border-bottom:none;}
 
-	.tab_menu ul.no3 li:last-child a, .tab_menu ul.no5 li:last-child a, .tab_menu ul.no4 li:last-child a, .tab_menu ul.no7 li:last-child a{border-bottom:1px solid #dfdfdf !important;}
+	.tab_menu ul.no3 li:last-child a,
+	.tab_menu ul.no5 li:last-child a,
+	.tab_menu ul.no4 li:last-child a,
+	.tab_menu ul.no7 li:last-child a,
+	.tab_menu ul.no8 li:last-child a{border-bottom:1px solid #dfdfdf !important;}
 
 	.tab_menu ul.no3 li.active a, .tab_menu ul.no3 li a:hover, 
 	.tab_menu ul.no4 li.active a, .tab_menu ul.no4 li a:hover, 
 	.tab_menu ul.no5 li.active a, .tab_menu ul.no5 li a:hover, 
-	.tab_menu ul.no7 li.active a, .tab_menu ul.no7 li a:hover{border-bottom:1px solid #22386b !important;}	
+	.tab_menu ul.no7 li.active a, .tab_menu ul.no7 li a:hover, 
+	.tab_menu ul.no8 li.active a, .tab_menu ul.no8 li a:hover{border-bottom:1px solid #22386b !important;}	
 }
 
 

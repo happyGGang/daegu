@@ -193,8 +193,8 @@
 
 .culture-box > .cont {padding-top:12px;}
 .culture-box > .cont li {padding:18px 10px;border-bottom:1px dashed #c8c8c8;}
-.culture-box > .cont li a { position:relative;display:block;box-sizing:border-box;font-weight:400;padding:7px 250px 8px 100px;position:relative;word-break:break-all;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;font-size:15px;font-weight:bold; }
-.culture-box > .cont li a em {position:absolute;width:80px;top:0;left:0;padding:7px 0;text-align:center;background:#575173;color:#ffea23;font-weight:bold;text-decoration:none;font-style:normal;border-radius:25px;font-size:14px;}
+.culture-box > .cont li a { position:relative;display:block;box-sizing:border-box;font-weight:400;padding:7px 250px 8px 0px;position:relative;word-break:break-all;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;font-size:15px;font-weight:bold; }
+.culture-box > .cont li a em {display:none;position:absolute;width:80px;top:0;left:0;padding:7px 0;text-align:center;background:#575173;color:#ffea23;font-weight:bold;text-decoration:none;font-style:normal;border-radius:25px;font-size:14px;}
 .culture-box > .cont li a em.noti { background:#2452a7;color:#fff; }
 .culture-box > .cont li a span { position:absolute;right:0;font-weight:400;font-size:15px; }
 .culture-box > .cont li a span b {color:#6c748b;font-weight:600;}
