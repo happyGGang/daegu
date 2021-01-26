@@ -166,7 +166,7 @@ public class MarathonRecordController extends BaseController{
 		Member member = getSessionMemberInfo(request);
 
 		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.YEAR, -5);
+		cal.add(Calendar.YEAR, -1);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 		if (StringUtils.isEmpty(librarySearch.getSearch_start_date())) {
