@@ -82,7 +82,7 @@ $(function(){
 });
 </script>
 <style>
-	div.search {border: 0px;background: 0;}
+	thead tr th{font-weight: bold;}
 </style>
 <form:form modelAttribute="marathonRecord" action="index.do" method="GET" onsubmit="return false;">
 	<form:hidden path="homepage_id"/>

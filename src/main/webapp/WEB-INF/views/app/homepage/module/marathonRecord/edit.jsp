@@ -198,12 +198,16 @@ $(function() {
 		}
 	});
 	
-	doAjaxLoad('div#searchBox', 'search.do');
+	/* doAjaxLoad('div#searchBox', 'search.do'); */
+	doAjaxLoad('div#historyBox', 'loan/history.do');
 });
 </script>
-<div id="searchBox">
+<div id="historyBox">
 
 </div>
+<!-- <div id="searchBox">
+
+</div> -->
 <form:form modelAttribute="marathonRecord" action="save.do" method="POST">
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="contest_idx"/>
@@ -238,9 +242,18 @@ $(function() {
 			<tr>
 				<th>*도서명</th>
 				<td>
-					<form:input path="book_name" cssClass="text" cssStyle="width:90%"/><br/>
-					<span class="text2">*상단의 검색을 통해 도서명, 저자, 출판사를 자동으로 입력할 수 있습니다.</span>
+					<form:input path="book_name" cssClass="text" cssStyle="width:90%"/>
+					<span id="write">☆</span><span id="selectButton" style="display:none;">★</span><br/>
+					<span class="text2">*상단의 선택을 통해 도서명, 저자, 출판사, 청구기호, 등록번호를 자동으로 입력할 수 있습니다.</span>
 				</td>
+			</tr>
+			<tr>
+				<th>*저자</th>
+				<td><form:input path="book_author" cssClass="text" cssStyle="width:90%;"/></td>
+			</tr>
+			<tr>
+				<th>*출판사</th>
+				<td><form:input path="publisher" cssClass="text" cssStyle="width:90%;"/></td>
 			</tr>
 			<tr>
 				<th>*읽은 쪽수</th>
@@ -252,13 +265,12 @@ $(function() {
 				<td>
 					<form:select path="book_resources" cssClass="selectmenu">
 						<form:option value="">--도서관 선택--</form:option>
-						<form:option value="100">공공도서관(달서가족문화도서관)</form:option>
-						<form:option value="200">공공도서관(달서구립도원도서관)</form:option>
-						<form:option value="300">공공도서관(달서어린이도서관)</form:option>
-						<form:option value="400">공공도서관(달서영어도서관)</form:option>
-						<form:option value="500">공공도서관(도원도서관)</form:option>
-						<form:option value="600">공공도서관(본리도서관)</form:option>
-						<form:option value="700">공공도서관(성서도서관)</form:option>
+						<form:option value="100" data-sub="BY">공공도서관(달서가족문화도서관)</form:option>
+						<form:option value="200" data-sub="BW">공공도서관(달서구립도원도서관)</form:option>
+						<form:option value="300" data-sub="BV">공공도서관(달서어린이도서관)</form:option>
+						<form:option value="400" data-sub="BZ">공공도서관(달서영어도서관)</form:option>
+						<form:option value="600" data-sub="BX">공공도서관(본리도서관)</form:option>
+						<form:option value="700" data-sub="BU">공공도서관(성서도서관)</form:option>
 						<form:option value="800">구입도서</form:option>
 						<form:option value="900">소장도서</form:option>
 						<form:option value="write">기타 도서관</form:option>
@@ -285,12 +297,12 @@ $(function() {
 				</td>
 			</tr>
 			<tr>
-				<th>*저자</th>
-				<td><form:input path="book_author" cssClass="text" cssStyle="width:90%;"/></td>
+				<th>청구기호</th>
+				<td><form:input path="call_no" cssClass="text" cssStyle="width:90%;"/></td>
 			</tr>
 			<tr>
-				<th>*출판사</th>
-				<td><form:input path="publisher" cssClass="text" cssStyle="width:90%;"/></td>
+				<th>등록번호</th>
+				<td><form:input path="reg_no" cssClass="text" cssStyle="width:90%;"/></td>
 			</tr>
 			<tr>
 				<th>*독서감상문</th>

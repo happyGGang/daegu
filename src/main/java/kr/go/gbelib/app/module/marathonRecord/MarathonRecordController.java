@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.member.Member;
+import kr.co.whalesoft.app.cms.menu.Menu;
+import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
@@ -48,12 +50,12 @@ public class MarathonRecordController extends BaseController{
 	
 	@Autowired
 	private MarathonService marathonService;
-	
-	@Autowired
-	private MarathonTypeService marathonTypeService;
 
 	@Autowired
 	private MarathonApplicantService marathonApplicantService;
+	
+	@Autowired
+	private MenuService menuService;
 
 	@RequestMapping(value = {"/index.*"}, method = RequestMethod.GET)
 	public String index(Model model, MarathonRecord marathonRecord, HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -81,7 +83,7 @@ public class MarathonRecordController extends BaseController{
 				cal.add(Calendar.DATE, 1);
 
 				model.addAttribute("checkNoStart", contest_start_date.compareTo(date) > 0);
-				model.addAttribute("checkEnd", date.compareTo(contest_end_date) > 0);
+				model.addAttribute("checkEnd", date.compareTo(cal.getTime()) > 0);
 				
 				MarathonApplicant marathonApplicant = new MarathonApplicant();
 				marathonApplicant.setHomepage_id(homepage.getHomepage_id());
@@ -151,38 +153,46 @@ public class MarathonRecordController extends BaseController{
 		return null;
 	}
 	
-	@RequestMapping(value = {"/search.*"})
-	public String hopeSearch(@PathVariable("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value = {"/loan/history.*"})
+	public String myLoan(@PathVariable("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 
-//		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-//			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
-//			return null;
-//		}
-//
-//		Member member = getSessionMemberInfo(request);
-//		if (!StringUtils.equals(member.getMember_class(), "0")) {
-//			service.alertMessage("검색 가능한 회원이 아닙니다.", request, response);
-//			return null;
-//		}
-//
-//		model.addAttribute("member", member);
-		model.addAttribute("librarySearch", librarySearch);
-
-		Map<String, Object> map = null;
-		if (StringUtils.isNotEmpty(librarySearch.getSearch_text())) {
-			map = LibSearchAPI.getNaverList(librarySearch);
-			int totalCount = (Integer) map.get("totalCount");
-			@SuppressWarnings ("unchecked")
-			List<Map<String, Object>> itemList = (List<Map<String, Object>>) map.get("list");
-			if (itemList != null && itemList.size() > 0) {
-				service.setPaging(model, totalCount, librarySearch);
-				model.addAttribute("naverResult", map);
-			}
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+			return null;
 		}
 
-		return String.format(basePath, homepage.getFolder()) + "/search_ajax";
+		Member member = getSessionMemberInfo(request);
+
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.YEAR, -5);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		if (StringUtils.isEmpty(librarySearch.getSearch_start_date())) {
+			librarySearch.setSearch_start_date(sdf.format(cal.getTime()));
+		}
+		if (StringUtils.isEmpty(librarySearch.getSearch_end_date())) {
+			librarySearch.setSearch_end_date(sdf.format(new Date()));
+		}
+
+		librarySearch.setUserkey(member.getRec_key());
+		Map<String, Object> result = LibSearchAPI.getBookLoanHistory(librarySearch);
+
+		List<Map<String, Object>> list = null;
+
+		int count = LibSearchAPI.getSearchCount(result);
+		librarySearch.setTotalDataCount(count);
+		service.setPaging(model, count, librarySearch);
+
+		if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+			list = LibSearchAPI.getListData(result);
+		}
+
+		model.addAttribute("loanList", list);
+		return String.format(basePath, homepage.getFolder()) + "loan/history_ajax";
 	}
+
 
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(MarathonRecord marathonRecord, BindingResult result, HttpServletRequest request) throws Exception{

@@ -20,6 +20,8 @@ public class MarathonRecord extends PagingUtils{
 	private String book_type; //분류번호
 	private String book_author; //저자
 	private String publisher; //출판사
+	private String call_no; //청구기호
+	private String reg_no; //등록번호
 	private String book_journals; //독서감상문
 	private Date record_date; //일지등록일자
 	private Date modify_date; //수정일자
@@ -122,6 +124,18 @@ public class MarathonRecord extends PagingUtils{
 	}
 	public void setPublisher(String publisher) {
 		this.publisher = publisher;
+	}
+	public String getCall_no() {
+		return call_no;
+	}
+	public void setCall_no(String call_no) {
+		this.call_no = call_no;
+	}
+	public String getReg_no() {
+		return reg_no;
+	}
+	public void setReg_no(String reg_no) {
+		this.reg_no = reg_no;
 	}
 	public String getBook_journals() {
 		return book_journals;
