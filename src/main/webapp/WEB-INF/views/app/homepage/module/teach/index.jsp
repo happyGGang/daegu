@@ -90,9 +90,15 @@ $(function(){
 		doGetLoad('index.do', 'menu_idx='+$('#menu_idx').val()+'&searchCate1='+$('#searchCate1').val()+'&homepage_id='+$('#homepage_id_1').val());
 	});
 	</c:if>
+	
+	$('input#search_text').keydown(function(key) {
+		if (key.keyCode == 13) {
+			$('a#search_btn').click();
+		}
+	});
 });
 </script>
-<form:form modelAttribute="teach" action="/${homepage.context_path}/module/teach/student/save.do" method="POST">
+<form:form modelAttribute="teach" action="/${homepage.context_path}/module/teach/student/save.do" method="POST" onsubmit="return false">
 	<form:hidden path="group_idx"/>
 	<form:hidden path="teach_idx"/>
 	<form:hidden path="menu_idx"/>
@@ -183,7 +189,6 @@ $(function(){
 	<div class="search">
 		<fieldset>
 			<form:select path="search_type" cssClass="selectmenu">
-				<form:option class="default" value="">선택</form:option>
 				<form:option value="teach_name"><c:choose><c:when test="${param.searchCate1 eq '16'}">행사명</c:when><c:when test="${param.searchCate1 eq '17'}">강좌명</c:when><c:when test="${param.searchCate1 eq '18'}">강좌명</c:when><c:otherwise>강좌명</c:otherwise></c:choose></form:option>
 			</form:select>
 			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
