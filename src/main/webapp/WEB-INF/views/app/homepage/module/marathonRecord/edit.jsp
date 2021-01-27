@@ -187,14 +187,19 @@ $(function() {
 	
 	
 	$('select#book_resources').on('change', function(e) {
-		e.preventDefault();
-		if($(this).val() != '100' && $(this).val() != '200' && $(this).val() != '300' && $(this).val() != '400'
+		var onfocus = $('select#book_resources').attr('onfocus');
+		
+		if (onfocus == 'this.initialSelect = this.selectedIndex') {
+			
+		} else {
+			if($(this).val() != '100' && $(this).val() != '200' && $(this).val() != '300' && $(this).val() != '400'
 				&& $(this).val() != '500' && $(this).val() != '600' && $(this).val() != '700' && $(this).val() != '800'
 				&& $(this).val() != '900' && $(this).val() != '' && $(this).val() != null) {
-			$('input#book_resources_1').css('display', '');
-		}else{
-			$('input#book_resources_1').css('display', 'none');
-			$('input#book_resources_1').val('');
+				$('input#book_resources_1').css('display', '');
+			}else{
+				$('input#book_resources_1').css('display', 'none');
+				$('input#book_resources_1').val('');
+			}
 		}
 	});
 	
@@ -243,8 +248,8 @@ $(function() {
 				<th>*도서명</th>
 				<td>
 					<form:input path="book_name" cssClass="text" cssStyle="width:90%"/>
-					<span id="write">☆</span><span id="selectButton" style="display:none;">★</span><br/>
-					<span class="text2">*상단의 선택을 통해 도서명, 저자, 출판사, 청구기호, 등록번호를 자동으로 입력할 수 있습니다.</span>
+					<span id="writing">☆</span><span id="selectButton" style="display:none;">★</span><br/>
+					<span class="text2">*상단의 대출내역선택을 통해 도서명, 저자, 출판사, 청구기호, 등록번호를 자동으로 입력할 수 있습니다.</span>
 				</td>
 			</tr>
 			<tr>
