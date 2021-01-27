@@ -101,11 +101,17 @@ $(function() {
 			$('input#publisher').val(data[2].replace(/(<([^>]+)>)/ig,""));
 			$('input#call_no').val(data[3].replace(/(<([^>]+)>)/ig,""));
 			$('input#reg_no').val(data[4].replace(/(<([^>]+)>)/ig,""));
+			
+			$('input#book_name').attr('readonly', true);
+			$('input#book_author').attr('readonly', true);
+			$('input#publisher').attr('readonly', true);
+			$('input#call_no').attr('readonly', true);
+			$('input#reg_no').attr('readonly', true);
 			$('input#book_name').focus();
 			
 			var manage_code = data[5].replace(/(<([^>]+)>)/ig,"");
 			
-			$('span#write').hide();
+			$('span#writing').hide();
 			$('span#selectButton').show();
 			if (manage_code == 'BY') {
 				$('select#book_resources').val('100').prop('selected', true);
@@ -124,6 +130,10 @@ $(function() {
 				$('input#book_resources_1').css('display', '');
 				$('input#book_resources_1').val(data[6].replace(/(<([^>]+)>)/ig,""));
 			}
+			
+			$('select#book_resources').attr('onfocus', 'this.initialSelect = this.selectedIndex');
+			$('select#book_resources').attr('onchange', 'this.selectedIndex = this.initialSelect');
+			$('input#book_resources_1').attr('readonly', true);
 		});
 	});
 </script>
