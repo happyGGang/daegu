@@ -471,7 +471,7 @@ do {
 											</c:if>
 												${i.teach_name}
 											<br class="qmobileBr"/>
-											<span><b>강의</b> ${i.start_date} ~ ${i.end_date}</span>
+											<span><b>행사</b> ${i.start_date} ~ ${i.end_date}</span>
 										</a>
 									</li>
 								</c:forEach>
