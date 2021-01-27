@@ -145,7 +145,7 @@ $(function() {
 				html = '';
 				for (var i = 0; i < data.length; i++) {
 					html += '<li><a href="/elib/module/elib/book/view.do?menu_idx=15&menu=BEST&type=EBK&sortField=BOOK_LEND&sortType=DESC&book_idx='+data[i].book_idx+'">';
-					html += '<span class="img"><img src="'+data[i].book_image+'" alt="'+data[i].book_name+'"></span>';
+					html += '<span class="img"><img src="'+data[i].book_image+'" alt="'+data[i].book_name+'" onerror="this.src=\'/resources/common/img/noImg2.png\'"></span>';
 					html += '<span class="txt">';
 					html += '<p class="title_info">'+data[i].book_name+'</p>';
 					html += '<p class="author">'+data[i].author_name+'</p>';
@@ -164,7 +164,7 @@ $(function() {
 				html = '';
 				for (var i = 0; i < data.length; i++) {
 					html += '<li><a href="/elib/module/elib/book/view.do?menu_idx=14&menu=NEW&type=EBK&sortField=BOOK_PUBDT&sortType=DESC&book_idx='+data[i].book_idx+'">';
-					html += '<span class="movieImg"><img src="'+data[i].book_image+'" alt="'+data[i].book_name+'"></span>';
+					html += '<span class="movieImg"><img src="'+data[i].book_image+'" alt="'+data[i].book_name+'" onerror="this.src=\'/resources/common/img/noImg2.png\'"></span>';
 					html += '<span class="movieEx">'+data[i].book_name+'</span>';
 					html += '</a></li>';
 				}
