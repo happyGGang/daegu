@@ -413,6 +413,16 @@ $(function() {
 			}
 		}
 	}).trigger('change');
+	
+	$('input#teach_addr_limit').on('click', function() {
+		$('input#teach_addr_limit_value').prop('disabled', $(this).is(':checked') ? false : true);
+		
+		if($(this).is(':checked')) {
+			$('input#address_yn1').prop('checked', true);
+		} else {
+			$('input#address_yn2').prop('checked', true);
+		}
+	});
 
 	$('button#cancelFile').on('click', function(e) {
 		e.preventDefault();
@@ -842,6 +852,13 @@ $(function() {
 					</div>
 					<div class="ui-state-highlight">
 						<em>* 강의 설명에 학년제한 항목이 노출됩니다. 학년 정보를 반드시 입력받아야 합니다.</em>
+					</div>
+					<div>
+						<form:checkbox path="teach_addr_limit" id="teach_addr_limit" value="ADDR" label="주소"/>
+						<form:input path="teach_addr_limit_value" disabled="${teach.teach_addr_limit eq 'ADDR' ? false : true}"/>
+					</div>
+					<div class="ui-state-highlight">
+						<em>* 구분자 ','로 나누어 허용할 주소를 입력해주세요.</em>
 					</div>
 				</td>
 			</tr>

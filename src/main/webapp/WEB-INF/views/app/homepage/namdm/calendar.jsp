@@ -145,7 +145,7 @@ Date.prototype.format = function(f) {
 													<a class="type-e showCal" keyValue="${i.sun}">${i.sun}</a>
 												</c:when>
 												<c:otherwise>
-													<a class="type-r showCal" keyValue="${i.sun}">${i.sun}</a>
+													<a class="${fn:substring(calendarResult[i.sun][0], 1, 3) eq '영화' ? 'type-m' : 'type-r'} showCal" keyValue="${i.sun}">${i.sun}</a>
 												</c:otherwise>
 											</c:choose>
 										</c:otherwise>
@@ -163,7 +163,7 @@ Date.prototype.format = function(f) {
 													<a class="type-e showCal" keyValue="${i.mon}">${i.mon}</a>
 												</c:when>
 												<c:otherwise>
-													<a class="type-r showCal" keyValue="${i.mon}">${i.mon}</a>
+													<a class="${fn:substring(calendarResult[i.mon][0], 1, 3) eq '영화' ? 'type-m' : 'type-r'} showCal" keyValue="${i.mon}">${i.mon}</a>
 												</c:otherwise>
 											</c:choose>
 										</c:otherwise>
@@ -181,7 +181,7 @@ Date.prototype.format = function(f) {
 													<a class="type-e showCal" keyValue="${i.tue}">${i.tue}</a>
 												</c:when>
 												<c:otherwise>
-													<a class="type-r showCal" keyValue="${i.tue}">${i.tue}</a>
+													<a class="${fn:substring(calendarResult[i.tue][0], 1, 3) eq '영화' ? 'type-m' : 'type-r'} showCal" keyValue="${i.tue}">${i.tue}</a>
 												</c:otherwise>
 											</c:choose>
 										</c:otherwise>
@@ -199,7 +199,7 @@ Date.prototype.format = function(f) {
 													<a class="type-e showCal" keyValue="${i.wed}">${i.wed}</a>
 												</c:when>
 												<c:otherwise>
-													<a class="type-r showCal" keyValue="${i.wed}">${i.wed}</a>
+													<a class="${fn:substring(calendarResult[i.wed][0], 1, 3) eq '영화' ? 'type-m' : 'type-r'} showCal" keyValue="${i.wed}">${i.wed}</a>
 												</c:otherwise>
 											</c:choose>
 										</c:otherwise>
@@ -217,7 +217,7 @@ Date.prototype.format = function(f) {
 													<a class="type-e showCal" keyValue="${i.thu}">${i.thu}</a>
 												</c:when>
 												<c:otherwise>
-													<a class="type-r showCal" keyValue="${i.thu}">${i.thu}</a>
+													<a class="${fn:substring(calendarResult[i.thu][0], 1, 3) eq '영화' ? 'type-m' : 'type-r'} showCal" keyValue="${i.thu}">${i.thu}</a>
 												</c:otherwise>
 											</c:choose>
 										</c:otherwise>
@@ -235,7 +235,7 @@ Date.prototype.format = function(f) {
 													<a class="type-e showCal" keyValue="${i.fri}">${i.fri}</a>
 												</c:when>
 												<c:otherwise>
-													<a class="type-r showCal" keyValue="${i.fri}">${i.fri}</a>
+													<a class="${fn:substring(calendarResult[i.fri][0], 1, 3) eq '영화' ? 'type-m' : 'type-r'} showCal" keyValue="${i.fri}">${i.fri}</a>
 												</c:otherwise>
 											</c:choose>
 										</c:otherwise>
@@ -253,7 +253,7 @@ Date.prototype.format = function(f) {
 													<a class="type-e showCal" keyValue="${i.sat}">${i.sat}</a>
 												</c:when>
 												<c:otherwise>
-													<a class="type-r showCal" keyValue="${i.sat}">${i.sat}</a>
+													<a class="${fn:substring(calendarResult[i.sat][0], 1, 3) eq '영화' ? 'type-m' : 'type-r'} showCal" keyValue="${i.sat}">${i.sat}</a>
 												</c:otherwise>
 											</c:choose>
 										</c:otherwise>
