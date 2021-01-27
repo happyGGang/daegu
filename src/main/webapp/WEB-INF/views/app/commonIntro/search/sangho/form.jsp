@@ -23,6 +23,11 @@ $(function() {
 			location.href='index.do?menu_idx=${sanghoMenuIdx}';
 		}
 	});
+	
+	$('#cancel-btn').on('click', function(e) {
+		e.preventDefault();
+		history.go(-1);
+	});
 
 	$('select#uselibcode option').each(function() {
 		if ($(this).val() != '' && $(this).val() == '${detail.LIB_CODE}') {
@@ -201,7 +206,7 @@ $(function() {
 	</table>
 
 	<div class="btnArea" style="text-align: center; padding-top: 25px;">
-		<a href="/intro/${homepage.context_path}/index.do" id="cancel-btn" class="btn btn02">취소</a>
+		<a href="#" id="cancel-btn" class="btn btn02">취소</a>
 		<a href="#" id="save-btn" class="btn btn1">신청</a>
 	</div>
 </div>
