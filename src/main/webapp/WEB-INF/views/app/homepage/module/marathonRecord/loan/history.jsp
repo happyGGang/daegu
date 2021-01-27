@@ -22,7 +22,7 @@ $(function() {
 
 <div class="wrapper-bbs">
 <div class="table-wrap">
-	<table class="bbs center">
+	<table class="marathon_bbs center">
 		<colgroup>
 			<col width="17%"/>
 			<col width="32%"/>
@@ -47,7 +47,7 @@ $(function() {
 				<td><span style="color: #034DA0;">${i.TITLE}</span><br/>${i.AUTHOR} / ${i.PUBLISHER}</td>
 				<td>${i.CALL_NO}</td>
 				<td>${i.REG_NO}</td>
-				<td><a href="#" id="selectOne" class="btn btn1" style="width:20%;height:10%;">선택</a>
+				<td><a href="#" id="selectOne" class="btn btn1" style="width:30%;height:10%;">선택</a>
 				<span data="${fn:replace(fn:replace(i.TITLE, '</b>', ''), '<b>', '')}//${i.AUTHOR}//${i.PUBLISHER}//${i.CALL_NO}//${i.REG_NO}//${i.MANAGE_CODE}//${i.LIB_NAME}"></span>
 				</td>
 			</tr>

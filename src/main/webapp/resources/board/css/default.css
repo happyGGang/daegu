@@ -160,6 +160,49 @@ transform:rotate(180deg)
 }
 table.bbs tbody tr:hover td{background:#f8f8f8}
 
+
+
+/*독서마라톤 마라톤일지(210127추가)*/
+table.marathon_bbs td .btn{padding: 8px 10px;}
+table.marathon_bbs th,
+table.marathon_bbs td{padding:15px 10px;border-left:0;border-right:0}
+table.marathon_bbs td.dataEmpty,
+table td.dataEmpty{padding:10% 0;background:#fbfbfb;color:#888}
+table.marathon_bbs .fa-paperclip{font-size:120%;color:#888}
+table.marathon_bbs i,
+table.marathon_bbs span,
+table.marathon_bbs em{vertical-align:middle}
+table.marathon_bbs em{font-style:normal;font-size:90%}
+table.marathon_bbs em.new{
+width:12px;height:12px;background:url('../img/icon-new.gif') no-repeat 0 0;overflow:hidden;font-size:0;display:inline-block}
+table.marathon_bbs .fa-floppy-o{font-size:135%;color:#1557af}
+table.marathon_bbs .fa-lock {padding-left: 5px;}
+table.marathon_bbs input{vertical-align:middle}
+table.marathon_bbs tr.notice td{background:#f5f6f7}
+table.marathon_bbs tr.notice td.notice{padding-left:5px;padding-right:5px;color:#e86666}
+table.marathon_bbs span.comment{color:#888;font-size:90%;margin-left:5px}
+table.marathon_bbs span.comment:hover{color:#e74e40;position:relative;z-index:99}
+table.marathon_bbs span.comment i{font-style:normal}
+table.marathon_bbs .reply i.fa-reply{color:#266ac4;margin-left:10px;
+-ms-transform:rotate(180deg) !important; /* IE 9 */
+-moz-transform:rotate(180deg) !important; /* Firefox */
+-webkit-transform:rotate(180deg) !important; /* Safari and Chrome */
+-o-transform:rotate(180deg) !important; /* Opera */
+transform:rotate(180deg)
+}
+@media (max-width:430px) and (min-width:0px){
+	/*table.marathon_bbs th,
+	table.marathon_bbs td{display:none}
+	table.marathon_bbs th.dataEmpty,
+	table.marathon_bbs td.dataEmpty,
+	table.marathon_bbs th.important,
+	table.marathon_bbs td.important{display:table-cell}
+	table.marathon_bbs td.username{display:none !important;}*/
+}
+table.marathon_bbs tbody tr:hover td{background:#f8f8f8}
+
+
+
 .share{font-size:0;padding:10px 0;position:absolute;top:0;right:0}
 .share i,
 .share a,

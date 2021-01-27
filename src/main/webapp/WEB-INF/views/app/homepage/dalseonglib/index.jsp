@@ -245,9 +245,10 @@ do {
 						<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
 							<input type="hidden" name="menu_idx" value="9">
 							<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
+							<div class="dalseong-slogan"><img src="/resources/homepage/${homepage.context_path}/img/dalseong-slogan.png" alt="대구의 미래 달성 꽃피다."></div>
 							<fieldset>
 								<legend>자료검색</legend>
-								<div class="dalseong-slogan"><img src="/resources/homepage/${homepage.context_path}/img/dalseong-slogan.png" alt="대구의 미래 달성 꽃피다."></div>
+								
 								<div class="main-box">
 									<div class="box1">
 										<label for="search_text_1" class="blind">통합자료검색</label>
@@ -258,13 +259,13 @@ do {
 							</fieldset>
 						</form>
 
-						<div class="bestKeyword">
+						<!--<div class="bestKeyword">
 							<b>자주찾는 검색어</b> <span class="key-word">
 							<c:forEach items="${hotTrendList}" varStatus="status" var="i">
 								<a href="/${homepage.context_path}/intro/search/index.do?menu_idx=9&booktype=BOOKANDNONBOOKtitle=${fn:escapeXml(i.SEARCH_WORD)}">${fn:trim(i.SEARCH_WORD)}</a>
 							</c:forEach>
 							</span>
-						</div>
+						</div>-->
 					</div>
 
 					<div class="notice-box">
