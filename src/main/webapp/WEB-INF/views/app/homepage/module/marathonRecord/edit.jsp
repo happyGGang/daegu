@@ -249,7 +249,7 @@ $(function() {
 				<td>
 					<form:input path="book_name" cssClass="text" cssStyle="width:90%"/>
 					<span id="writing">☆</span><span id="selectButton" style="display:none;">★</span><br/>
-					<span class="text2">*상단의 대출내역선택을 통해 도서명, 저자, 출판사, 청구기호, 등록번호를 자동으로 입력할 수 있습니다.</span>
+					<span class="text2">*상단의 대출내역선택을 통해 도서명, 저자, 출판사, 대출구입처, 청구기호, 등록번호를 자동으로 입력할 수 있습니다.</span>
 				</td>
 			</tr>
 			<tr>
