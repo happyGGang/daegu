@@ -400,7 +400,7 @@ do {
 								</c:if>
 								<c:forEach items="${teachList1}" var="i" varStatus="status" begin="0" end="2">
 									<li>
-										<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=32&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}">
+										<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=26&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=16">
 											<c:if test="${i.teach_status eq '0'}">
 												<em>접수중</em>
 											</c:if>
@@ -427,7 +427,7 @@ do {
 											</c:if>
 											${i.teach_name}
 											<br class="qmobileBr"/>
-											<span><b>접수</b> ${i.start_join_date} ~ ${i.end_join_date}</span>
+											<span><b>행사</b> ${i.start_date} ~ ${i.end_date}</span>
 										</a>
 									</li>
 								</c:forEach>
@@ -444,7 +444,7 @@ do {
 								</c:if>
 								<c:forEach items="${teachList2}" var="i" varStatus="status" begin="0" end="2">
 									<li>
-										<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=32&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}">
+										<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=32&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=17">
 											<c:if test="${i.teach_status eq '0'}">
 												<em>접수중</em>
 											</c:if>
@@ -471,7 +471,7 @@ do {
 											</c:if>
 												${i.teach_name}
 											<br class="qmobileBr"/>
-											<span><b>접수</b> ${i.start_join_date} ~ ${i.end_join_date}</span>
+											<span><b>강의</b> ${i.start_date} ~ ${i.end_date}</span>
 										</a>
 									</li>
 								</c:forEach>
