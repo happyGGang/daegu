@@ -647,9 +647,9 @@ public class CommonSearchController extends BaseController {
 			librarySearch.setShelfCode("ALL");
 		}
 
-		//기본값 '1달 전'
+		//기본값 '2달 전'
 		if (StringUtils.isEmpty(librarySearch.getSearch_type())) {
-			librarySearch.setSearch_type("3");
+			librarySearch.setSearch_type("4");
 		}
 
 		//검색기간 설정
