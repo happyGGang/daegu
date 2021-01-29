@@ -1150,6 +1150,16 @@ $(function() {
 					</div>
 				</td>
 	        </tr>
+			<tr>
+				<th>나이입력여부</th>
+				<td>
+					<form:radiobutton path="age_info_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
+					<form:radiobutton path="age_info_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/>
+					<div class="ui-state-highlight">
+						<em>* 사용 시 '나이' 입력항목이 노출됩니다.</em>
+					</div>
+				</td>
+			</tr>
 	        <tr>
 	         	<th>비고입력여부</th>
 	         	<td>

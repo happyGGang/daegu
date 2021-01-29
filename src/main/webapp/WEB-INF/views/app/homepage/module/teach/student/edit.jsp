@@ -476,6 +476,10 @@ $(function() {
 	<c:if test="${sessionScope.member.login}">
 	
 	</c:if>
+	
+	$(document).on("keyup", "input:text[numberOnly]", function() {
+		$(this).val($(this).val().replace(/[^0-9]/gi, ""));
+	});
 });
 $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(this).val().replace(/[^0-9]/gi,"") );});
 </script>
@@ -679,7 +683,13 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	         	</td>
         	</tr>
         	</c:if>
-        	<c:if test="${teach.remark_yn eq 'Y'}">
+			<c:if test="${teach.age_info_yn eq 'Y'}">
+			<tr>
+				<th>나이(<span style="color: red;font-wight: bold;">*</span>)</th>
+				<td><form:input path="student_age" cssClass="text" cssStyle="width: 80px;" title="나이 입력" numberOnly="true"/></td>
+			</tr>
+			</c:if>
+			<c:if test="${teach.remark_yn eq 'Y'}">
 				<tr>
 					<th>비고</th>
 					<td><form:input path="student_remark" cssClass="text" style="width:100%" title="비고 창"/>
@@ -850,7 +860,13 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	         	</td>
         	</tr>
         	</c:if>
-        	<c:if test="${teach.remark_yn eq 'Y'}">
+			<c:if test="${teach.age_info_yn eq 'Y'}">
+			<tr>
+				<th>나이(<span style="color: red;font-wight: bold;">*</span>)</th>
+				<td><form:input path="student_age" cssClass="text" cssStyle="width: 80px;" title="나이 입력" numberOnly="true"/></td>
+			</tr>
+			</c:if>
+			<c:if test="${teach.remark_yn eq 'Y'}">
 				<tr>
 					<th>비고</th>
 					<td><form:input path="student_remark" cssClass="text" style="width:100%" title="비고창"/>

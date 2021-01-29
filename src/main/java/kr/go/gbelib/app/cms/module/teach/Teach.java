@@ -118,6 +118,7 @@ public class Teach extends PagingUtils {
 	private String sex_yn = "Y";//성별입력여부
 	private String teach_addr_limit; // 주소 제한 사용여부
 	private String teach_addr_limit_value; // 주소 제한 허용 값
+	private String age_info_yn = "N"; // 나이입력여부
 
 	private String delete_yn;
 
@@ -1435,6 +1436,14 @@ public class Teach extends PagingUtils {
 
 	public void setTeach_addr_limit_value(String teach_addr_limit_value) {
 		this.teach_addr_limit_value = teach_addr_limit_value;
+	}
+	
+	public String getAge_info_yn() {
+		return age_info_yn;
+	}
+
+	public void setAge_info_yn(String age_info_yn) {
+		this.age_info_yn = age_info_yn;
 	}
 
 	public String getTerms() {

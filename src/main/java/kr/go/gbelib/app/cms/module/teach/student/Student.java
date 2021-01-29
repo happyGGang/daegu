@@ -44,6 +44,7 @@ public class Student extends PagingUtils {
 	private int student_hack;  //수강생학년
 	private String student_hack_str;  //수강생학년
 	private String student_ban;  //수강생반
+	private String student_age; // 신청자나이
 	private String student_remark;  //수강생비고
 	private String student_family_count;//가족인원수
 	private String student_location_code;//지역코드 - 나이스시스템 관리자 연수용
@@ -559,6 +560,14 @@ public class Student extends PagingUtils {
 
 	public void setStudent_family_count(String student_family_count) {
 		this.student_family_count = student_family_count;
+	}
+
+	public String getStudent_age() {
+		return student_age;
+	}
+	
+	public void setStudent_age(String student_age) {
+		this.student_age = student_age;
 	}
 
 	public String getStudent_remark() {
