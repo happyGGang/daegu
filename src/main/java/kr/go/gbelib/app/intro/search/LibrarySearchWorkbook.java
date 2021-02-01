@@ -1,6 +1,5 @@
 package kr.go.gbelib.app.intro.search;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -8,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateUtils;
 
 import jxl.format.Alignment;
 import jxl.format.Border;
@@ -17,12 +15,13 @@ import jxl.format.Colour;
 import jxl.write.Label;
 import jxl.write.WritableCellFormat;
 import jxl.write.WritableWorkbook;
+import kr.co.whalesoft.app.cms.homepage.Homepage;
 
 public class LibrarySearchWorkbook {
 
-	protected WritableWorkbook workbookForm(WritableWorkbook workbook, LibrarySearch librarySearch, Map<String, Object> result, String sheetName, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	protected WritableWorkbook workbookForm(WritableWorkbook workbook, LibrarySearch librarySearch, List<Map<String, Object>> resultList, String sheetName, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String excelType = librarySearch.getExcel_type();
-		String excelTypeDetail = librarySearch.getExcel_type_detail();
+		Homepage homepage = (Homepage)request.getSession().getAttribute("homepage");
 		
 		workbook.createSheet(sheetName, 0); // 시트설정
 
@@ -47,11 +46,7 @@ public class LibrarySearchWorkbook {
 
 		// 컬럼 폭 지정
 		workbook.getSheet(0).setColumnView(0,  20);
-		if ( "OUT".equals(excelType) ) {
-			workbook.getSheet(0).setColumnView(1,  70);
-		} else {
-			workbook.getSheet(0).setColumnView(1,  20);
-		}
+		workbook.getSheet(0).setColumnView(1,  20);
 		workbook.getSheet(0).setColumnView(2,  20);
 		workbook.getSheet(0).setColumnView(3,  20);
 		workbook.getSheet(0).setColumnView(4,  20);
@@ -66,217 +61,142 @@ public class LibrarySearchWorkbook {
 		workbook.getSheet(0).setColumnView(13, 20);
 		workbook.getSheet(0).setColumnView(14, 20);
 		workbook.getSheet(0).setColumnView(15, 20);
-
 		
-		if ( "HOPE".equals(excelType) ) {
+		if (excelType.equals("LOAN")) {
 			workbook.getSheet(0).addCell(new Label(0, 0, "번호", format));
 			workbook.getSheet(0).addCell(new Label(1, 0, "서명", format));
 			workbook.getSheet(0).addCell(new Label(2, 0, "저자", format));
 			workbook.getSheet(0).addCell(new Label(3, 0, "출판사", format));
-			workbook.getSheet(0).addCell(new Label(4, 0, "출판년도", format));
-			workbook.getSheet(0).addCell(new Label(5, 0, "소장처", format));
-			workbook.getSheet(0).addCell(new Label(6, 0, "신청일", format));
-			workbook.getSheet(0).addCell(new Label(7, 0, "처리일", format));
-			workbook.getSheet(0).addCell(new Label(8, 0, "처리결과", format));
-			workbook.getSheet(0).addCell(new Label(9, 0, "비고사항", format));
-		}
-		else if ( "LOAN".equals(excelType) ) {
-			workbook.getSheet(0).addCell(new Label(0, 0, "번호", format));
-			workbook.getSheet(0).addCell(new Label(1, 0, "서명", format));
-			workbook.getSheet(0).addCell(new Label(2, 0, "저자", format));
-			workbook.getSheet(0).addCell(new Label(3, 0, "출판사", format));
-			workbook.getSheet(0).addCell(new Label(4, 0, "소장처", format));
-			workbook.getSheet(0).addCell(new Label(5, 0, "상태", format));
+			workbook.getSheet(0).addCell(new Label(4, 0, "도서관", format));
+			workbook.getSheet(0).addCell(new Label(5, 0, "대출유형", format));
 			workbook.getSheet(0).addCell(new Label(6, 0, "대출일", format));
 			workbook.getSheet(0).addCell(new Label(7, 0, "반납예정일", format));
-			
-			if ( excelTypeDetail == null ) {
-				workbook.getSheet(0).addCell(new Label(8, 0, "반납일", format));
-			}
-		}
-		else if ( "RESVE".equals(excelType) ) {
-			workbook.getSheet(0).addCell(new Label(0, 0, "번호", format));
-			workbook.getSheet(0).addCell(new Label(1, 0, "서명", format));
-			workbook.getSheet(0).addCell(new Label(2, 0, "저자", format));
-			workbook.getSheet(0).addCell(new Label(3, 0, "출판사", format));
-			workbook.getSheet(0).addCell(new Label(4, 0, "비치처", format));
-			workbook.getSheet(0).addCell(new Label(5, 0, "예약일", format));
-			workbook.getSheet(0).addCell(new Label(6, 0, "예약유효일", format));
-			workbook.getSheet(0).addCell(new Label(7, 0, "도착통보일", format));
-			workbook.getSheet(0).addCell(new Label(8, 0, "예약순위", format));
-			workbook.getSheet(0).addCell(new Label(9, 0, "예약상태", format));
-		}
-		else if ( "POUCH".equals(excelType) ) {
-			workbook.getSheet(0).addCell(new Label(0, 0, "번호", format));
-			workbook.getSheet(0).addCell(new Label(1, 0, "서명", format));
-			workbook.getSheet(0).addCell(new Label(2, 0, "저자", format));
-			workbook.getSheet(0).addCell(new Label(3, 0, "출판사", format));
-			workbook.getSheet(0).addCell(new Label(4, 0, "비치처", format));
-			workbook.getSheet(0).addCell(new Label(5, 0, "신청일", format));
-			workbook.getSheet(0).addCell(new Label(6, 0, "상태", format));
-		}
-		else if ( "SEARCH".equals(excelType) ) {
-			workbook.getSheet(0).addCell(new Label(0, 0, "번호", format));
-			workbook.getSheet(0).addCell(new Label(1, 0, "서명", format));
-			workbook.getSheet(0).addCell(new Label(2, 0, "저자", format));
-			workbook.getSheet(0).addCell(new Label(3, 0, "출판사", format));
-			workbook.getSheet(0).addCell(new Label(4, 0, "출판년도", format));
-			workbook.getSheet(0).addCell(new Label(5, 0, "소장처", format));
-			workbook.getSheet(0).addCell(new Label(6, 0, "청구기호", format));
-		}
-		else if ( "NEWBOOK".equals(excelType) ) {
-			workbook.getSheet(0).addCell(new Label(0, 0, "번호", format));
-			workbook.getSheet(0).addCell(new Label(1, 0, "서명", format));
-			workbook.getSheet(0).addCell(new Label(2, 0, "저자", format));
-			workbook.getSheet(0).addCell(new Label(3, 0, "출판사", format));
-			workbook.getSheet(0).addCell(new Label(4, 0, "출판년도", format));
-			workbook.getSheet(0).addCell(new Label(5, 0, "소장도서관", format));
-			workbook.getSheet(0).addCell(new Label(6, 0, "소장위치", format));
-			workbook.getSheet(0).addCell(new Label(7, 0, "청구기호", format));
-			workbook.getSheet(0).addCell(new Label(8, 0, "등록정보", format));
-			workbook.getSheet(0).addCell(new Label(9, 0, "상태", format));
-		}
-		else if ( "OUT".equals(excelType) ) {
-			workbook.getSheet(0).addCell(new Label(0, 0, "번호", format));
-			workbook.getSheet(0).addCell(new Label(1, 0, "서명", format));
-			workbook.getSheet(0).addCell(new Label(2, 0, "제공도서관", format));
-			workbook.getSheet(0).addCell(new Label(3, 0, "수령도서관", format));
-			workbook.getSheet(0).addCell(new Label(4, 0, "신청일", format));
-			workbook.getSheet(0).addCell(new Label(5, 0, "신청시간", format));
-			workbook.getSheet(0).addCell(new Label(6, 0, "상태변경일", format));
-			workbook.getSheet(0).addCell(new Label(7, 0, "상태변경시간", format));
 			workbook.getSheet(0).addCell(new Label(8, 0, "상태", format));
+		} else if(excelType.equals("HISTORY")) {
+			workbook.getSheet(0).addCell(new Label(0, 0, "번호", format));
+			workbook.getSheet(0).addCell(new Label(1, 0, "서명", format));
+			workbook.getSheet(0).addCell(new Label(2, 0, "소장처", format));
+			workbook.getSheet(0).addCell(new Label(3, 0, "대출일", format));
+			workbook.getSheet(0).addCell(new Label(4, 0, "반납일", format));
+		} else if(excelType.equals("RESVE")) {
+			workbook.getSheet(0).addCell(new Label(0, 0, "번호", format));
+			workbook.getSheet(0).addCell(new Label(1, 0, "서명", format));
+			workbook.getSheet(0).addCell(new Label(2, 0, "저자", format));
+			workbook.getSheet(0).addCell(new Label(3, 0, "출판사", format));
+			workbook.getSheet(0).addCell(new Label(4, 0, "도서관", format));
+			workbook.getSheet(0).addCell(new Label(5, 0, "예약일", format));
+			workbook.getSheet(0).addCell(new Label(6, 0, "예약순위", format));
+			workbook.getSheet(0).addCell(new Label(7, 0, "예약만기일", format));
+			workbook.getSheet(0).addCell(new Label(8, 0, "예약상태", format));
+		} else if(excelType.equals("HOPE")) {
+			workbook.getSheet(0).addCell(new Label(0, 0, "번호", format));
+			workbook.getSheet(0).addCell(new Label(1, 0, "서명", format));
+			workbook.getSheet(0).addCell(new Label(2, 0, "저자", format));
+			workbook.getSheet(0).addCell(new Label(3, 0, "출판사", format));
+			workbook.getSheet(0).addCell(new Label(4, 0, "출판년도", format));
+			workbook.getSheet(0).addCell(new Label(5, 0, "도서관", format));
+			workbook.getSheet(0).addCell(new Label(6, 0, "신청일", format));
+			workbook.getSheet(0).addCell(new Label(7, 0, "처리일", format));
+			workbook.getSheet(0).addCell(new Label(8, 0, "비치상태", format));
 			workbook.getSheet(0).addCell(new Label(9, 0, "취소사유", format));
 		}
-		else if ( "CLOSE".equals(excelType) ) {
-			workbook.getSheet(0).addCell(new Label(0, 0, "번호", format));
-			workbook.getSheet(0).addCell(new Label(1, 0, "서명", format));
-			workbook.getSheet(0).addCell(new Label(2, 0, "소장처명", format));
-			workbook.getSheet(0).addCell(new Label(3, 0, "신청일", format));
-			workbook.getSheet(0).addCell(new Label(4, 0, "상태", format));
-		}
+		
 		// 헤더 컬럼 지정
 
 		int row = 1;
-
-		String[] patternDateTime = {"yyyyMMddHHmmss"};
-		String[] patternDate = {"yyyyMMdd"};
-		String[] patternTime = {"HHmmss"};
-		SimpleDateFormat sfDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		SimpleDateFormat sfDate = new SimpleDateFormat("yyyy-MM-dd");
-		SimpleDateFormat sfTime = new SimpleDateFormat("HH:mm:ss");
-		if ( result != null ) {
-			List<Object> list = null;
-			if ( "POUCH".equals(excelType) ) {
-				list = (List<Object>) result.get("dsPouchList");
-			} else if ( "SEARCH".equals(excelType) ) {
-				list = (List<Object>) result.get("data");
-			} else if ( "NEWBOOK".equals(excelType) ) {
-				list = (List<Object>) result.get("newBook");
-			} else {
-				list = (List<Object>) result.get("dsMyLibraryList");
-			}
-			for ( Object oneInfo : list ) {
-				Map<String, Object> oneInfoData = (Map<String, Object>) oneInfo;
-				if ( "HOPE".equals(excelType) ) {
-					workbook.getSheet(0).addCell(new Label(0, row, (String) oneInfoData.get("SELECT_NO")));
-					workbook.getSheet(0).addCell(new Label(1, row, (String) oneInfoData.get("TITLE")));
-					workbook.getSheet(0).addCell(new Label(2, row, (String) oneInfoData.get("AUTHOR")));
-					workbook.getSheet(0).addCell(new Label(3, row, (String) oneInfoData.get("PUBLER")));
-					workbook.getSheet(0).addCell(new Label(4, row, (String) oneInfoData.get("PUBLER_YEAR")));
-					workbook.getSheet(0).addCell(new Label(5, row, (String) oneInfoData.get("LOCA_NAME")));
-					workbook.getSheet(0).addCell(new Label(6, row, StringUtils.isEmpty((String) oneInfoData.get("INSERT_DATE")) ? "" : sfDate.format(DateUtils.parseDate((String) oneInfoData.get("INSERT_DATE"), patternDateTime))));
-					workbook.getSheet(0).addCell(new Label(7, row, StringUtils.isEmpty((String) oneInfoData.get("PROCESS_DATE")) ? "" : sfDate.format(DateUtils.parseDate((String) oneInfoData.get("PROCESS_DATE"), patternDateTime))));
-					workbook.getSheet(0).addCell(new Label(8, row, (String) oneInfoData.get("STATUS_FLAG_DISPLAY")));
-					workbook.getSheet(0).addCell(new Label(9, row, (String) oneInfoData.get("USER_REMARK")));
-				}
-				else if ( "LOAN".equals(excelType)) {
-					workbook.getSheet(0).addCell(new Label(0, row, (String) oneInfoData.get("LOAN_NO")));
-					workbook.getSheet(0).addCell(new Label(1, row, (String) oneInfoData.get("TITLE")));
-					workbook.getSheet(0).addCell(new Label(2, row, (String) oneInfoData.get("AUTHOR")));
-					workbook.getSheet(0).addCell(new Label(3, row, (String) oneInfoData.get("PUBLER")));
-					workbook.getSheet(0).addCell(new Label(4, row, (String) oneInfoData.get("LOAN_LOCA_NAME")));
-					workbook.getSheet(0).addCell(new Label(5, row, (String) oneInfoData.get("RETURN_TYPE_NAME")));
-					workbook.getSheet(0).addCell(new Label(6, row, StringUtils.isEmpty((String) oneInfoData.get("LOAN_DATE")) ? "" : sfDate.format(DateUtils.parseDate((String) oneInfoData.get("LOAN_DATE"), patternDate))));
-					workbook.getSheet(0).addCell(new Label(7, row, StringUtils.isEmpty((String) oneInfoData.get("RETURN_PLAN_DATE")) ? "" : sfDate.format(DateUtils.parseDate((String) oneInfoData.get("RETURN_PLAN_DATE"), patternDate))));
-					if ( excelTypeDetail == null ) {
-						workbook.getSheet(0).addCell(new Label(8, row, StringUtils.isEmpty((String) oneInfoData.get("RETURN_DATE")) ? "" : sfDate.format(DateUtils.parseDate((String) oneInfoData.get("RETURN_DATE"), patternDate))));
+		if ( resultList != null ) {
+			for ( Map<String, Object> oneInfoData : resultList ) {
+				if (excelType.equals("LOAN")) {
+					workbook.getSheet(0).addCell(new Label(0, row, String.valueOf(oneInfoData.get("RNUM"))));
+					workbook.getSheet(0).addCell(new Label(1, row, String.valueOf(oneInfoData.get("TITLE_INFO"))));
+					workbook.getSheet(0).addCell(new Label(2, row, String.valueOf(oneInfoData.get("AUTHOR"))));
+					workbook.getSheet(0).addCell(new Label(3, row, String.valueOf(oneInfoData.get("PUBLISHER"))));
+					workbook.getSheet(0).addCell(new Label(4, row, String.valueOf(oneInfoData.get("LIB_NAME"))));
+					
+					String loan_type = (String)oneInfoData.get("LOAN_TYPE_CODE");
+					if(loan_type.equals("0")) {
+						loan_type = "일반대출";
+					} else if(loan_type.equals("1")) {
+						loan_type = "특별대출";
+					} else if(loan_type.equals("2")) {
+						loan_type = "관내대출";
+					} else if(loan_type.equals("3")) {
+						loan_type = "무인대출";
+					} else if(loan_type.equals("4")) {
+						loan_type = "장기대출";
 					}
-				}
-				else if ( "RESVE".equals(excelType) ) {
-					workbook.getSheet(0).addCell(new Label(0, row, (String) oneInfoData.get("RESVE_NO")));
-					workbook.getSheet(0).addCell(new Label(1, row, (String) oneInfoData.get("TITLE")));
-					workbook.getSheet(0).addCell(new Label(2, row, (String) oneInfoData.get("AUTHOR")));
-					workbook.getSheet(0).addCell(new Label(3, row, (String) oneInfoData.get("PUBLER")));
-					workbook.getSheet(0).addCell(new Label(4, row, (String) oneInfoData.get("LOCA_NAME")));
-					workbook.getSheet(0).addCell(new Label(5, row, StringUtils.isEmpty((String) oneInfoData.get("RESVE_DATE")) ? "" : sfDate.format(DateUtils.parseDate((String) oneInfoData.get("RESVE_DATE"), patternDate))));
-					workbook.getSheet(0).addCell(new Label(6, row, StringUtils.isEmpty((String) oneInfoData.get("RESVE_VALID_DATE")) ? "" : sfDate.format(DateUtils.parseDate((String) oneInfoData.get("RESVE_VALID_DATE"), patternDate))));
-					workbook.getSheet(0).addCell(new Label(7, row, StringUtils.isEmpty((String) oneInfoData.get("RPT_DATE")) ? "" : sfDate.format(DateUtils.parseDate((String) oneInfoData.get("RPT_DATE"), patternDate))));
-					workbook.getSheet(0).addCell(new Label(8, row, (String) oneInfoData.get("RESVE_RANK")));
-					workbook.getSheet(0).addCell(new Label(9, row, (String) oneInfoData.get("STATUS_NAME")));
-				}
-				else if ( "POUCH".equals(excelType) ) {
-					workbook.getSheet(0).addCell(new Label(0, row, (String) oneInfoData.get("SEQ_NO")));
-					workbook.getSheet(0).addCell(new Label(1, row, (String) oneInfoData.get("TITLE")));
-					workbook.getSheet(0).addCell(new Label(2, row, (String) oneInfoData.get("AUTHOR")));
-					workbook.getSheet(0).addCell(new Label(3, row, (String) oneInfoData.get("PUBLISHER")));
-					workbook.getSheet(0).addCell(new Label(4, row, (String) oneInfoData.get("LOCA_NAME")));
-					workbook.getSheet(0).addCell(new Label(5, row, StringUtils.isEmpty((String) oneInfoData.get("REQST_DATE")) ? "" : sfDate.format(DateUtils.parseDate((String) oneInfoData.get("REQST_DATE"), patternDate))));
-					workbook.getSheet(0).addCell(new Label(6, row, (String) oneInfoData.get("STATUS_NAME")));
-				}
-				else if ( "SEARCH".equals(excelType) ) {
-					for (String a : librarySearch.getPrint_param()) {
-						String[] lib_recKey_tid = a.split("_");
-						String tid = (String) oneInfoData.get("tid");
-						if (tid.equals(lib_recKey_tid[2])) {
-							workbook.getSheet(0).addCell(new Label(0, row, (String.valueOf(row)) ));
-							workbook.getSheet(0).addCell(new Label(1, row, (String) oneInfoData.get("title")));
-							workbook.getSheet(0).addCell(new Label(2, row, (String) oneInfoData.get("author")));
-							workbook.getSheet(0).addCell(new Label(3, row, (String) oneInfoData.get("publisher")));
-							workbook.getSheet(0).addCell(new Label(4, row, (String) oneInfoData.get("year")));
-							workbook.getSheet(0).addCell(new Label(5, row, (String) oneInfoData.get("libName")));
-							workbook.getSheet(0).addCell(new Label(6, row, (String) oneInfoData.get("callno")));
+					workbook.getSheet(0).addCell(new Label(5, row, loan_type));
+					workbook.getSheet(0).addCell(new Label(6, row, String.valueOf(oneInfoData.get("LOAN_DATE"))));
+					workbook.getSheet(0).addCell(new Label(7, row, String.valueOf(oneInfoData.get("RETURN_PLAN_DATE"))));
+					
+					String status = (String)oneInfoData.get("STATUS");
+					if(status.equals("0")) {
+						status = "대출";
+					} else if(status.equals("1")) {
+						status = "반납";
+					} else if(status.equals("2")) {
+						status = "반납연기";
+					} else if(status.equals("3")) {
+						status = "예약";
+					} else if(status.equals("4")) {
+						status = "예약취소";
+					}
+					workbook.getSheet(0).addCell(new Label(8, row, status));
+				} else if(excelType.equals("HISTORY")) {
+					workbook.getSheet(0).addCell(new Label(0, row, String.valueOf(oneInfoData.get("RNUM"))));
+					workbook.getSheet(0).addCell(new Label(1, row, String.valueOf(oneInfoData.get("TITLE"))));
+					workbook.getSheet(0).addCell(new Label(2, row, String.valueOf(oneInfoData.get("LIB_NAME"))));
+					workbook.getSheet(0).addCell(new Label(3, row, String.valueOf(oneInfoData.get("LOAN_DATE"))));
+					workbook.getSheet(0).addCell(new Label(4, row, String.valueOf(oneInfoData.get("RETURN_DATE"))));
+				} else if(excelType.equals("RESVE")) {
+					workbook.getSheet(0).addCell(new Label(0, row, String.valueOf(oneInfoData.get("RNUM"))));
+					workbook.getSheet(0).addCell(new Label(1, row, String.valueOf(oneInfoData.get("TITLE_INFO"))));
+					workbook.getSheet(0).addCell(new Label(2, row, String.valueOf(oneInfoData.get("AUTHOR"))));
+					workbook.getSheet(0).addCell(new Label(3, row, String.valueOf(oneInfoData.get("PUBLISHER"))));
+					workbook.getSheet(0).addCell(new Label(4, row, String.valueOf(oneInfoData.get("LIB_NAME"))));
+					workbook.getSheet(0).addCell(new Label(5, row, String.valueOf(oneInfoData.get("RESERVATION_DATE"))));
+					workbook.getSheet(0).addCell(new Label(6, row, String.valueOf(oneInfoData.get("RESERVE_RANK"))));
+					
+					String expire = String.valueOf(oneInfoData.get("RESERVATION_EXPIRE_DATE"));
+					workbook.getSheet(0).addCell(new Label(7, row, expire != null && !expire.equals("null") ? expire : ""));
+					
+					String unmanned = String.valueOf(oneInfoData.get("UNMANNED_RESERVATION_LOAN"));
+					String night = String.valueOf(oneInfoData.get("NIGHT_RESERVATION_LOAN"));
+					String resve_state;
+					if(unmanned.equals("Y")) {
+						if(homepage.getContext_path().equals("dmsl")) {
+							resve_state = "별관 이동도서관 신청";
+						} else {
+							resve_state = "무인예약신청";
 						}
-					}
-				}
-				else if ( "NEWBOOK".equals(excelType) ) {
-					workbook.getSheet(0).addCell(new Label(0, row, (String.valueOf(row)) ));
-					workbook.getSheet(0).addCell(new Label(1, row, (String) oneInfoData.get("TITLE")));
-					workbook.getSheet(0).addCell(new Label(2, row, (String) oneInfoData.get("AUTHOR")));
-					workbook.getSheet(0).addCell(new Label(3, row, (String) oneInfoData.get("PUBLISHER")));
-					workbook.getSheet(0).addCell(new Label(4, row, (String) oneInfoData.get("PUBLISHER_YEAR")));
-					workbook.getSheet(0).addCell(new Label(5, row, (String) oneInfoData.get("LOCA_NAME")));
-					workbook.getSheet(0).addCell(new Label(6, row, (String) oneInfoData.get("SUB_LOCA_NAME")));
-					String tmp = (String) oneInfoData.get("LABEL_PLACE_NO_NAME");
-					if (StringUtils.isNotEmpty(tmp)) {
-						workbook.getSheet(0).addCell(new Label(7, row, tmp + " " + (String) oneInfoData.get("CALL_NO")));
+					} else if(unmanned.equals("O")) {
+						if(homepage.getContext_path().equals("dmsl")) {
+							resve_state = "별관 이동도서관 신청 예약대기";
+						} else {
+							resve_state = "무인예약대기";
+						}
+					} else if(night.equals("Y")) {
+						resve_state = "워킹스루예약신청";
+					} else if(night.equals("O")) {
+						resve_state = "워킹스루예약대기";
 					} else {
-						workbook.getSheet(0).addCell(new Label(7, row, (String) oneInfoData.get("CALL_NO")));
+						resve_state = "일반예약";
 					}
-					workbook.getSheet(0).addCell(new Label(8, row, (String) oneInfoData.get("PRINT_ACSSON_NO")));
-					workbook.getSheet(0).addCell(new Label(9, row, (String) oneInfoData.get("DISPLAY_ITEM_STATUS")));
+					workbook.getSheet(0).addCell(new Label(8, row, resve_state));
+				} else if(excelType.equals("HOPE")) {
+					workbook.getSheet(0).addCell(new Label(0, row, String.valueOf(oneInfoData.get("RNUM"))));
+					workbook.getSheet(0).addCell(new Label(1, row, String.valueOf(oneInfoData.get("TITLE"))));
+					workbook.getSheet(0).addCell(new Label(2, row, String.valueOf(oneInfoData.get("AUTHOR"))));
+					workbook.getSheet(0).addCell(new Label(3, row, String.valueOf(oneInfoData.get("PUBLISHER"))));
+					workbook.getSheet(0).addCell(new Label(4, row, String.valueOf(oneInfoData.get("PUBLISH_YEAR"))));
+					workbook.getSheet(0).addCell(new Label(5, row, String.valueOf(oneInfoData.get("LIB_NAME"))));
+					workbook.getSheet(0).addCell(new Label(6, row, String.valueOf(oneInfoData.get("APPLICANT_DATE"))));
+					String furnish = String.valueOf(oneInfoData.get("FURNISH_DATE"));
+					workbook.getSheet(0).addCell(new Label(7, row, furnish != null ? furnish : ""));
+					workbook.getSheet(0).addCell(new Label(8, row, String.valueOf(oneInfoData.get("FURNISH_STATUS"))));
+					workbook.getSheet(0).addCell(new Label(9, row, String.valueOf(oneInfoData.get("CANCEL_REASON"))));
 				}
-				else if ( "OUT".equals(excelType) ) {
-					workbook.getSheet(0).addCell(new Label(0, row, (String.valueOf(row)) ));
-					workbook.getSheet(0).addCell(new Label(1, row, (String) oneInfoData.get("TITLE")));
-					workbook.getSheet(0).addCell(new Label(2, row, (String) oneInfoData.get("BOOK_LOCA_NAME")));
-					workbook.getSheet(0).addCell(new Label(3, row, (String) oneInfoData.get("RECPT_LOCA_NAME")));
-					workbook.getSheet(0).addCell(new Label(4, row, 	 StringUtils.isEmpty((String) oneInfoData.get("REQST_DATE")) ? "" : sfDate.format(DateUtils.parseDate((String) oneInfoData.get("REQST_DATE"), patternDate))));
-					workbook.getSheet(0).addCell(new Label(5, row, 	 StringUtils.isEmpty((String) oneInfoData.get("REQST_TIME")) ? "" : sfTime.format(DateUtils.parseDate((String) oneInfoData.get("REQST_TIME"), patternTime))));
-					workbook.getSheet(0).addCell(new Label(6, row, StringUtils.isEmpty((String) oneInfoData.get("STATUS_CHANGE_DATE")) ? "" : sfDate.format(DateUtils.parseDate((String) oneInfoData.get("STATUS_CHANGE_DATE"), patternDate))));
-					workbook.getSheet(0).addCell(new Label(7, row, StringUtils.isEmpty((String) oneInfoData.get("STATUS_CHANGE_TIME")) ? "" : sfTime.format(DateUtils.parseDate((String) oneInfoData.get("STATUS_CHANGE_TIME"), patternTime))));
-					workbook.getSheet(0).addCell(new Label(8, row, (String) oneInfoData.get("STATUS_NAME")));
-					workbook.getSheet(0).addCell(new Label(9, row, (String) oneInfoData.get("CANCEL_REASON")));
-				}
-				else if ( "CLOSE".equals(excelType) ) {
-					workbook.getSheet(0).addCell(new Label(0, row, (String.valueOf(row)) ));
-					workbook.getSheet(0).addCell(new Label(1, row, (String) oneInfoData.get("TITLE")));
-					workbook.getSheet(0).addCell(new Label(2, row, (String) oneInfoData.get("BOOK_LOCA_NAME")));
-					String date = StringUtils.isEmpty((String) oneInfoData.get("REQST_DATE")) ? "" : sfDate.format(DateUtils.parseDate((String) oneInfoData.get("REQST_DATE"), patternDate));
-					String time = StringUtils.isEmpty((String) oneInfoData.get("REQST_TIME")) ? "" : sfTime.format(DateUtils.parseDate((String) oneInfoData.get("REQST_TIME"), patternTime));
-					workbook.getSheet(0).addCell(new Label(3, row, date + " " + time));
-					workbook.getSheet(0).addCell(new Label(4, row, (String) oneInfoData.get("STATUS_NAME")));
-				}
+				
 				row ++;
 			}
 		}

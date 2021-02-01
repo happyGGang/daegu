@@ -1,5 +1,6 @@
 package kr.go.gbelib.app.intro.search;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,31 +17,21 @@ public class LibrarySearchView extends AbstractJExcelView {
 	protected void buildExcelDocument(Map<String, Object> model, WritableWorkbook workbook, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		@SuppressWarnings("unchecked")
-		Map<String, Object> result = (Map<String, Object>) model.get("result");
+		List<Map<String, Object>> resultList = (List<Map<String, Object>>) model.get("resultList");
 		LibrarySearch librarySearch = (LibrarySearch) model.get("librarySearch");
 		
 		String excelType = librarySearch.getExcel_type();
-		String excelTypeDetail = librarySearch.getExcel_type_detail();
 		String name = "sample";
 		
-		if ( "HOPE".equals(excelType) ) {
-			name = "희망도서 신청리스트";
-		} else if ( "LOAN".equals(excelType) && excelTypeDetail != null ) {
+		
+		if(excelType.equals("LOAN")) {
 			name = "대출중도서 리스트";
-		} else if ( "LOAN".equals(excelType) && excelTypeDetail == null ) {
+		} else if(excelType.equals("HISTORY")) {
 			name = "대출이력 리스트";
-		} else if ( "RESVE".equals(excelType) ) {
-			name = "예약중도서 신청리스트";
-		} else if ( "POUCH".equals(excelType) ) {
-			name = "야간대출 신청리스트";
-		} else if ( "SEARCH".equals(excelType) ) {
-			name = "검색결과 리스트";
-		} else if ( "NEWBOOK".equals(excelType) ) {
-			name = "신착도서 리스트";
-		} else if ( "OUT".equals(excelType)) {
-			name = "상호대차 신청리스트";
-		} else if ( "CLOSE".equals(excelType)) {
-			name = "보존서고 신청내역리스트";
+		} else if(excelType.equals("RESVE")) {
+			name = "예약현황 리스트";
+		} else if(excelType.equals("HOPE")) {
+			name = "희망도서 신청현황 리스트";
 		}
 		
 		String sheetName = name;
@@ -51,6 +42,6 @@ public class LibrarySearchView extends AbstractJExcelView {
 		response.setHeader("Pragma", "no-cache");
 		response.setContentType("Application/Msexcel");
 
-		new LibrarySearchWorkbook().workbookForm(workbook, librarySearch, result, sheetName, request, response);
+		new LibrarySearchWorkbook().workbookForm(workbook, librarySearch, resultList, sheetName, request, response);
 	}
 }

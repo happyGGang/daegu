@@ -29,6 +29,12 @@ $(function() {
 		doGetLoad('index.do', $('form#librarySearch').serialize());
 		e.preventDefault();
 	});
+	
+	$('#excel-btn').on('click', function(e) {
+		e.preventDefault();
+		var param = 'excel_type=HOPE';
+		doGetLoad('/${homepage.context_path}/intro/search/excelDownload.do', param);
+	});
 
 });
 
@@ -54,7 +60,7 @@ $(function() {
 
 <!-- /contents-title-->
 
-
+<a href="#" id="excel-btn" class="btn btn2">EXCEL</a>
 
 <form:form modelAttribute="librarySearch" action="index.do" method="get" onsubmit="return false;">
 <fieldset>

@@ -39,6 +39,12 @@ $(function() {
 		var param = serializeCustom($('form#librarySearch'));
 		doGetLoad('history.do', param);
 	});
+	
+	$('#excel-btn').on('click', function(e) {
+		e.preventDefault();
+		var param = serializeCustom($('form#librarySearch'));
+		doGetLoad('/${homepage.context_path}/intro/search/excelDownload.do', param);
+	});
 });
 </script>
 
@@ -67,6 +73,7 @@ $(function() {
 	<form:hidden path="viewPage"/>
 	<form:hidden path="menu_idx"/>
 	<form:hidden path="manageCode"/>
+	<form:hidden path="excel_type" value="HISTORY"/>
 
 	<div class="" style="padding:20px;text-align:center;border:1px solid #eaeaea;border-top:2px solid #000;margin-bottom:10px;">
 		<label for="search_start_date" style="display:none1;">시작일</label>
@@ -77,6 +84,8 @@ $(function() {
 	</div>
 
 </form:form>
+
+<a href="#" id="excel-btn" class="btn btn2">EXCEL</a>
 
 <div class="book-list">
 <c:if test="${fn:length(loanList) < 1 }"> <h3>조회된 도서가 없습니다.</h3></c:if>

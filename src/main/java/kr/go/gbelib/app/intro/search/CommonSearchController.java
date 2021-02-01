@@ -2002,76 +2002,48 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 	@RequestMapping(value = { "/excelDownload.*" }, method = RequestMethod.GET)
 	public LibrarySearchView excel(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Member member = getSessionMemberInfo(request);
+		Map<String, Object> result = null;
+		List<Map<String, Object>> list = null;
+		
+		String excel_type = librarySearch.getExcel_type();
+		if(excel_type.equals("LOAN")) {
+			
+			result = LibSearchAPI.getBookLoanList(member.getRec_key(), librarySearch.getManageCode());
+			
+		} else if(excel_type.equals("HISTORY")) {
+			
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.YEAR, -1);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+			if (StringUtils.isEmpty(librarySearch.getSearch_start_date())) {
+				librarySearch.setSearch_start_date(sdf.format(cal.getTime()));
+			}
+			if (StringUtils.isEmpty(librarySearch.getSearch_end_date())) {
+				librarySearch.setSearch_end_date(sdf.format(new Date()));
+			}
 
-//		if (StringUtils.equals(librarySearch.getExcel_type(), "POUCH")) {
-//			model.addAttribute("result", LibSearchAPI.getPouchList("WEB", getSessionUserId(request), "req", librarySearch.getvLoca(), ""));
-//			model.addAttribute("librarySearch", librarySearch);
-//		} else if (StringUtils.equals(librarySearch.getExcel_type(), "HOPE")) {
-//
-//			Map<String, String> paramMap = new HashMap<String, String>();
-//			paramMap.put("vSrchDateS", librarySearch.getSearch_start_date().replaceAll("-", ""));
-//			paramMap.put("vSrchDateE", librarySearch.getSearch_end_date().replaceAll("-", ""));
-//			paramMap.put("vSrchDateKey", "INSERT_DATE");
-//			paramMap.put("vSortKey", "INSERT_DATE");
-//			paramMap.put("vSortDir", "DESC");
-//
-//
-//			model.addAttribute("result", LibSearchAPI.getMyLibrarySearchList("WEB", getSessionUserId(request), "HOPE", null, paramMap));
-//			model.addAttribute("librarySearch", librarySearch);
-//		} else if (StringUtils.equals(librarySearch.getExcel_type(), "NEWBOOK")) {
-//
-//			// 소장처 코드
-//			Homepage homepage = getSessionHomepage(request);
-//			if (StringUtils.isEmpty(librarySearch.getvLoca())) {
-//				librarySearch.setvLoca(homepage.getHomepage_code());
-//			}
-//
-//			Map<String, Object> newBookResult = LibSearchAPI.getNewBookList(librarySearch, null);
-//			@SuppressWarnings ("unchecked")
-//			List<Map<String, String>> newBookCnt = (List<Map<String, String>>) newBookResult.get("dsNewBookListCnt");
-//			int totalCnt = Integer.parseInt(String.valueOf(newBookCnt.get(0).get("CNT")));
-//			librarySearch.setEndRowNum(totalCnt);
-//			newBookResult = LibSearchAPI.getNewBookList(librarySearch, null);
-//			@SuppressWarnings ("unchecked")
-//			List<Map<String, String>> newBookListTmp = (List<Map<String, String>>) newBookResult.get("dsNewBookList");
-//			List<Map<String, Object>> newBookList = new ArrayList<Map<String, Object>>();
-//			for ( Map<String, String> map : newBookListTmp ) {
-//				LibrarySearch tmp = new LibrarySearch();
-//				tmp.setvLoca(map.get("LOCA"));
-//				tmp.setvCtrl(map.get("CTRLNO"));
-//				Map<String, Object> detailResult = LibSearchAPI.getBookDetail(tmp);
-//				@SuppressWarnings ("unchecked")
-//				List<Map<String, Object>> detailList = (List<Map<String, Object>>) detailResult.get("dsItemDetail");
-//				for ( Map<String, Object> map2 : detailList ) {
-//					newBookList.add(map2);
-//				}
-//			}
-//			Map<String, Object> newBook = new HashMap<String, Object>();
-//			newBook.put("newBook", newBookList);
-//
-//			model.addAttribute("result", newBook);
-//			model.addAttribute("librarySearch", librarySearch);
-//
-//		} else if (StringUtils.equals(librarySearch.getExcel_type(), "OUT")) {
-//			Map<String, String> paramMap = new HashMap<String, String>();
-//
-//			paramMap.put("vSrchDateS", librarySearch.getSearch_start_date().replaceAll("-", ""));
-//			paramMap.put("vSrchDateE", librarySearch.getSearch_end_date().replaceAll("-", ""));
-//		//	paramMap.put("vSrchDateKey", "STATUS_CHANGE_DATE");
-//			paramMap.put("vSortKey", "STATUS_CHANGE_DATE");
-//			paramMap.put("vSortDir", "DESC");
-//
-//			model.addAttribute("result", LibSearchAPI.getMyLibrarySearchList("WEB", getSessionUserId(request), "OUT", null, paramMap));
-//			model.addAttribute("librarySearch", librarySearch);
-//		} else if (StringUtils.equals(librarySearch.getExcel_type(), "CLOSE")) {
-//			model.addAttribute("result", LibSearchAPI.getMyLibraryList("WEB", getSessionUserId(request), "CLOSE", null));
-//			model.addAttribute("librarySearch", librarySearch);
-//		} else {
-//			model.addAttribute("result", LibSearchAPI.getMyLibraryList("WEB", getSessionUserId(request), librarySearch.getExcel_type(), librarySearch.getExcel_type_detail()));
-//			model.addAttribute("librarySearch", librarySearch);
-//
-//		}
+			librarySearch.setUserkey(member.getRec_key());
+			result = LibSearchAPI.getBookLoanHistory(librarySearch);
+			
+		} else if(excel_type.equals("RESVE")) {
+			
+			result = LibSearchAPI.getReserveList(member.getRec_key());
+			
+		} else if(excel_type.equals("HOPE")) {
+			
+			librarySearch.setUserkey(member.getRec_key());
+			result = LibSearchAPI.getBookFurnishList(librarySearch);
+			
+		}
+		
+		if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+			list = LibSearchAPI.getListData(result);
+		}
+		
+		model.addAttribute("resultList", list);
+		model.addAttribute("librarySearch", librarySearch);
 
 		return new LibrarySearchView();
 	}

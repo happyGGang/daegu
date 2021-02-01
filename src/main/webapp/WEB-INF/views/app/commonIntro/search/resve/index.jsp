@@ -22,6 +22,12 @@ $(function() {
 		var param = serializeCustom($('form#librarySearch'));
 		doGetLoad('index.do', param);
 	});
+	
+	$('#excel-btn').on('click', function(e) {
+		e.preventDefault();
+		var param = 'excel_type=RESVE';
+		doGetLoad('/${homepage.context_path}/intro/search/excelDownload.do', param);
+	});
 });
 
 </script>
@@ -40,6 +46,8 @@ $(function() {
 <form:form modelAttribute="librarySearch" method="get">
 	<form:hidden path="viewPage"/>
 </form:form>
+
+<a href="#" id="excel-btn" class="btn btn2">EXCEL</a>
 
 <div class="book-list">
 	<c:if test="${fn:length(resveList) < 1 }"> <h3>예약중인 도서 내역이 없습니다.</h3></c:if>

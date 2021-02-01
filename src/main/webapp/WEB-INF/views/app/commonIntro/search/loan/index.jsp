@@ -20,6 +20,12 @@ $(function() {
 		var menu_idx = '${librarySearch.menu_idx}';
 		doGetLoad('index.do', 'menu_idx='+menu_idx+'&manageCode='+$(this).val());
 	});
+	
+	$('#excel-btn').on('click', function(e) {
+		e.preventDefault();
+		var param = 'excel_type=LOAN';
+		doGetLoad('/${homepage.context_path}/intro/search/excelDownload.do', param);
+	});
 
 });
 </script>
@@ -28,6 +34,8 @@ $(function() {
 	<input type="hidden" name="loan_key" id="loan_key">
 	<input type="hidden" name="editMode" value="RENEW">
 </form>
+
+<a href="#" id="excel-btn" class="btn btn2">EXCEL</a>
 
 <!-- contents-title-->
 <div id="contents-title">
