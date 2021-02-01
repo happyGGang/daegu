@@ -854,7 +854,7 @@ $(function() {
 						<em>* 강의 설명에 학년제한 항목이 노출됩니다. 학년 정보를 반드시 입력받아야 합니다.</em>
 					</div>
 					<div>
-						<form:checkbox path="teach_addr_limit" id="teach_addr_limit" value="ADDR" label="주소"/>
+						<form:checkbox path="teach_addr_limit" id="teach_addr_limit" value="Y" label="주소"/>
 						<form:input path="teach_addr_limit_value" disabled="${teach.teach_addr_limit eq 'ADDR' ? false : true}"/>
 					</div>
 					<div class="ui-state-highlight">
