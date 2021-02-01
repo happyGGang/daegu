@@ -136,7 +136,7 @@ ul.book_photo li a span.con-author {color:#000;font-size:15px;font-weight:normal
 #calendar2 .calendar-info span {display:block;padding-left:21px;font-weight:bold;color:#000;}
 #calendar2 .calendar-info span.hu {background:url('../img/holiday-icon.png') no-repeat 5px center;}
 #calendar2 .calendar-info span.ev {background:url('../img/event-icon.png') no-repeat 5px center;}
-
+#calendar2 .calendar-info span.mo {background:url('../img/movie-icon.png') no-repeat 5px center;}
 
 #calendar2 {position:relative;width:100%;height:100%;margin:0;}
 #calendar2 .title {position:relative;}
@@ -171,9 +171,9 @@ ul.book_photo li a span.con-author {color:#000;font-size:15px;font-weight:normal
 #calendar2 .cal-tbl td {font-size:11px;padding:1% 0;;text-align:center;white-space:nowrap}
 #calendar2 .cal-tbl td div{margin:0 10%;width:20px;height:30px;line-height:30px;font-size:14px;margin:0 auto;}
 #calendar2 .cal-tbl td a {display:block;border-radius:100%}
-#calendar2 .cal-tbl td a.type-r{background:url('/resources/homepage/duryu/img/blue-dot2.png') no-repeat center bottom;#0080f2;color:#0080f2}
-#calendar2 .cal-tbl td a.type-e{background:url('/resources/homepage/duryu/img/red-dot2.png') no-repeat center bottom;color:#ee2342}
-
+#calendar2 .cal-tbl td a.type-r{background:url('/resources/homepage/namdm/img/blue-dot2.png') no-repeat center bottom;}
+#calendar2 .cal-tbl td a.type-e{background:url('/resources/homepage/namdm/img/red-dot2.png') no-repeat center bottom;}
+#calendar2 .cal-tbl td a.type-m{background:url('/resources/homepage/namdm/img/green-dot2.png') no-repeat center bottom;}
 
 #calendar2 .planView .inbox {position:relative;box-sizing:border-box;padding:10px 20px}
 #calendar2 .planView .inbox li {display:block;border-bottom:1px solid #ddd;padding:10px 0;}

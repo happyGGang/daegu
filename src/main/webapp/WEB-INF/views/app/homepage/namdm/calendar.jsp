@@ -115,6 +115,7 @@ Date.prototype.format = function(f) {
 			<div class="calendar-info">
 				<span class="hu">휴관</span>
 				<span class="ev">행사</span>
+				<span class="mo">영화</span>
 			</div>
 		</div>
 
@@ -145,7 +146,18 @@ Date.prototype.format = function(f) {
 													<a class="type-e showCal" keyValue="${i.sun}">${i.sun}</a>
 												</c:when>
 												<c:otherwise>
-													<a class="${fn:substring(calendarResult[i.sun][0], 1, 3) eq '영화' ? 'type-m' : 'type-r'} showCal" keyValue="${i.sun}">${i.sun}</a>
+													<c:set value="" var="classtype"/>
+													<c:forEach items="${calendarResult[i.sun]}" var="info">
+														<c:if test="${fn:substring(info, 1, 3) eq '영화'}">
+														<c:set value="type-m" var="classtype"/>
+														</c:if>
+														
+														<c:if test="${fn:substring(info, 1, 3) eq '강좌'}">
+														<c:set value="${fn:contains(classtype, 'type-m') ? 'type-rm' : 'type-r'}" var="classtype"/>
+														</c:if>
+													</c:forEach>
+													
+													<a class="${classtype} showCal" keyValue="${i.sun}">${i.sun}</a>
 												</c:otherwise>
 											</c:choose>
 										</c:otherwise>
@@ -163,7 +175,18 @@ Date.prototype.format = function(f) {
 													<a class="type-e showCal" keyValue="${i.mon}">${i.mon}</a>
 												</c:when>
 												<c:otherwise>
-													<a class="${fn:substring(calendarResult[i.mon][0], 1, 3) eq '영화' ? 'type-m' : 'type-r'} showCal" keyValue="${i.mon}">${i.mon}</a>
+													<c:set value="" var="classtype"/>
+													<c:forEach items="${calendarResult[i.mon]}" var="info">
+														<c:if test="${fn:substring(info, 1, 3) eq '영화'}">
+														<c:set value="type-m" var="classtype"/>
+														</c:if>
+														
+														<c:if test="${fn:substring(info, 1, 3) eq '강좌'}">
+														<c:set value="${fn:contains(classtype, 'type-m') ? 'type-rm' : 'type-r'}" var="classtype"/>
+														</c:if>
+													</c:forEach>
+													
+													<a class="${classtype} showCal" keyValue="${i.mon}">${i.mon}</a>
 												</c:otherwise>
 											</c:choose>
 										</c:otherwise>
@@ -181,7 +204,18 @@ Date.prototype.format = function(f) {
 													<a class="type-e showCal" keyValue="${i.tue}">${i.tue}</a>
 												</c:when>
 												<c:otherwise>
-													<a class="${fn:substring(calendarResult[i.tue][0], 1, 3) eq '영화' ? 'type-m' : 'type-r'} showCal" keyValue="${i.tue}">${i.tue}</a>
+													<c:set value="" var="classtype"/>
+													<c:forEach items="${calendarResult[i.tue]}" var="info">
+														<c:if test="${fn:substring(info, 1, 3) eq '영화'}">
+														<c:set value="type-m" var="classtype"/>
+														</c:if>
+														
+														<c:if test="${fn:substring(info, 1, 3) eq '강좌'}">
+														<c:set value="${fn:contains(classtype, 'type-m') ? 'type-rm' : 'type-r'}" var="classtype"/>
+														</c:if>
+													</c:forEach>
+													
+													<a class="${classtype} showCal" keyValue="${i.tue}">${i.tue}</a>
 												</c:otherwise>
 											</c:choose>
 										</c:otherwise>
@@ -199,7 +233,18 @@ Date.prototype.format = function(f) {
 													<a class="type-e showCal" keyValue="${i.wed}">${i.wed}</a>
 												</c:when>
 												<c:otherwise>
-													<a class="${fn:substring(calendarResult[i.wed][0], 1, 3) eq '영화' ? 'type-m' : 'type-r'} showCal" keyValue="${i.wed}">${i.wed}</a>
+													<c:set value="" var="classtype"/>
+													<c:forEach items="${calendarResult[i.wed]}" var="info">
+														<c:if test="${fn:substring(info, 1, 3) eq '영화'}">
+														<c:set value="type-m" var="classtype"/>
+														</c:if>
+														
+														<c:if test="${fn:substring(info, 1, 3) eq '강좌'}">
+														<c:set value="${fn:contains(classtype, 'type-m') ? 'type-rm' : 'type-r'}" var="classtype"/>
+														</c:if>
+													</c:forEach>
+													
+													<a class="${classtype} showCal" keyValue="${i.wed}">${i.wed}</a>
 												</c:otherwise>
 											</c:choose>
 										</c:otherwise>
@@ -217,7 +262,18 @@ Date.prototype.format = function(f) {
 													<a class="type-e showCal" keyValue="${i.thu}">${i.thu}</a>
 												</c:when>
 												<c:otherwise>
-													<a class="${fn:substring(calendarResult[i.thu][0], 1, 3) eq '영화' ? 'type-m' : 'type-r'} showCal" keyValue="${i.thu}">${i.thu}</a>
+													<c:set value="" var="classtype"/>
+													<c:forEach items="${calendarResult[i.thu]}" var="info">
+														<c:if test="${fn:substring(info, 1, 3) eq '영화'}">
+														<c:set value="type-m" var="classtype"/>
+														</c:if>
+														
+														<c:if test="${fn:substring(info, 1, 3) eq '강좌'}">
+														<c:set value="${fn:contains(classtype, 'type-m') ? 'type-rm' : 'type-r'}" var="classtype"/>
+														</c:if>
+													</c:forEach>
+													
+													<a class="${classtype} showCal" keyValue="${i.thu}">${i.thu}</a>
 												</c:otherwise>
 											</c:choose>
 										</c:otherwise>
@@ -235,7 +291,18 @@ Date.prototype.format = function(f) {
 													<a class="type-e showCal" keyValue="${i.fri}">${i.fri}</a>
 												</c:when>
 												<c:otherwise>
-													<a class="${fn:substring(calendarResult[i.fri][0], 1, 3) eq '영화' ? 'type-m' : 'type-r'} showCal" keyValue="${i.fri}">${i.fri}</a>
+													<c:set value="" var="classtype"/>
+													<c:forEach items="${calendarResult[i.fri]}" var="info">
+														<c:if test="${fn:substring(info, 1, 3) eq '영화'}">
+														<c:set value="type-m" var="classtype"/>
+														</c:if>
+														
+														<c:if test="${fn:substring(info, 1, 3) eq '강좌'}">
+														<c:set value="${fn:contains(classtype, 'type-m') ? 'type-rm' : 'type-r'}" var="classtype"/>
+														</c:if>
+													</c:forEach>
+													
+													<a class="${classtype} showCal" keyValue="${i.fri}">${i.fri}</a>
 												</c:otherwise>
 											</c:choose>
 										</c:otherwise>
@@ -253,7 +320,18 @@ Date.prototype.format = function(f) {
 													<a class="type-e showCal" keyValue="${i.sat}">${i.sat}</a>
 												</c:when>
 												<c:otherwise>
-													<a class="${fn:substring(calendarResult[i.sat][0], 1, 3) eq '영화' ? 'type-m' : 'type-r'} showCal" keyValue="${i.sat}">${i.sat}</a>
+													<c:set value="" var="classtype"/>
+													<c:forEach items="${calendarResult[i.sat]}" var="info">
+														<c:if test="${fn:substring(info, 1, 3) eq '영화'}">
+														<c:set value="type-m" var="classtype"/>
+														</c:if>
+														
+														<c:if test="${fn:substring(info, 1, 3) eq '강좌'}">
+														<c:set value="${fn:contains(classtype, 'type-m') ? 'type-rm' : 'type-r'}" var="classtype"/>
+														</c:if>
+													</c:forEach>
+													
+													<a class="${classtype} showCal" keyValue="${i.sat}">${i.sat}</a>
 												</c:otherwise>
 											</c:choose>
 										</c:otherwise>
