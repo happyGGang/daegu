@@ -41,7 +41,7 @@ $(function() {
 		}
 	});
 
-	$('h1.mobile-logo a').css('background',"url('/resources/homepage/bukgs/img/bukgs_logo_b.png')"); 
+	$('h1.mobile-logo a').css('background',"url('/resources/homepage/buktj/img/buktj_logo_b.png')"); 
 	$('.m-menu a').css('color','#000');
 
 });

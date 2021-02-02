@@ -67,7 +67,7 @@ $(document).ready(function() {
       </li>
     </ul>
   </div>
-  <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2020.12.31] (단위 : 권)</span></h3>
+  <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2021.1.31] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="파동도서관 장서현황을 안내해 드립니다.">
@@ -98,7 +98,7 @@ $(document).ready(function() {
           <td>12,341</td>
           <td>8,874</td>
           <td>4,030</td>
-          <td>14(종)</td>
+          <td>13(종)</td>
           <td>25,245</td>
         </tr>
       </tbody>
