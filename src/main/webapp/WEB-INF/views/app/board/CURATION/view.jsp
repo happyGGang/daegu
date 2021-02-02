@@ -72,6 +72,10 @@ transition:all 100ms ease}
 .bbs-view-header dd.file{padding:9px 15px;background:#f3f3f3}
 .bbs-view-header dd.file li{padding:1px 0}
 .bbs-view-header dd.file i{font-size:110%}
+
+.largeOne img{width:100%; height:143px!important;}
+.smallOne img{width:41px;height:40px!important;}
+li .smallOne {width:41px;}
 </style>
 <script type="text/javascript" src="http://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
@@ -133,6 +137,30 @@ $(document).ready(function() {
 
 		}
 	});
+	
+	$('img.smallImg').on('mouseover', function() {
+		var preview_img = $(this).data('idx');
+		$('.thumb .largeOne img').attr('src', '/data/board/${board.manage_idx}/${board.board_idx}/'+preview_img);
+	});
+	
+	$('.bx-slider-zone-example').bxSlider({
+		mode: 'horizontal',
+		auto:false,
+		pager: false,
+		maxSlides: 4,
+		moveSlides: 1,
+		slideMargin: 5,
+		slideWidth: 41,
+		slideHeight: 60
+	});
+	
+	$('.bx-prev, .bx-next').on('click', function() {
+		$('img.smallImg').unbind();
+		$('img.smallImg').mouseover(function () {
+			var preview_img = $(this).data('idx');
+			$('.thumb .largeOne img').attr('src', '/data/board/${board.manage_idx}/${board.board_idx}/'+preview_img);
+		});
+	});
 });
 </script>
 <c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.top_html) > 0}">
@@ -146,24 +174,32 @@ ${boardManage.top_html}
 <form:hidden path="target_manage_idx"/>
 <form:hidden path="category1"/>
 </form:form>
-
 <div class="search-wrap">
 	<div class="sview">
 		<jsp:include page="/WEB-INF/views/app/board/common/view/moveOrCopy.jsp" flush="false" />
 		<div class="sinfo">
 			<div class="thumb">
+				<div class="largeOne">
 				<c:choose>
 					<c:when test="${fn:contains(board.preview_img, 'http')}">
 				<img src="${board.preview_img}" alt="${board.title}">
 					</c:when>
 					<c:otherwise>
 <%-- 				<img src="/data/board/${board.manage_idx}/${boardFile[0].board_idx}/${boardFile[0].server_file_name}" alt="${board.title}"> --%>
-				<img src="/data/board/${board.manage_idx}/${board.board_idx}/${board.preview_img}" alt="${board.title}" title="${board.title}"/>
+				<img src="/data/board/${board.manage_idx}/${board.board_idx}/${board.preview_img}" alt="${board.title}" title="${board.title}" class="switch"/>
 					</c:otherwise>
 				</c:choose>
 <!-- 				<p class="noImg"> -->
 <!-- 					<img src="/resources/common/img/noImg.gif" alt="noImage"/> -->
 <!-- 				</p> -->
+				</div>
+				<div class="smallBox">
+					<ul class="bx-slider-zone-example">
+						<c:forEach var="i" varStatus="status" items="${imgServerFileNameList}">
+							<li class="smallOne"><img src="/data/board/${board.manage_idx}/${board.board_idx}/${i}" class="smallImg" style="cursor:pointer" data-idx="${i}"></li>
+						</c:forEach>
+					</ul>
+				</div>
 			</div>
 			<div class="info">
 				<ul>

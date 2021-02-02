@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.whalesoft.app.board.boardFile.BoardFile;
 import kr.co.whalesoft.app.board.boardFile.BoardFileService;
 import kr.co.whalesoft.app.cms.boardManage.BoardManage;
 import kr.co.whalesoft.app.cms.boardManage.BoardManageService;
@@ -1036,6 +1037,21 @@ public class BoardController extends BaseController {
 		if(boardData.getFile_count() > 0) {
 			model.addAttribute("boardFile", boardFileService.getBoardFile(board.getBoard_idx()));
 		}
+		
+		List<BoardFile> fileList = boardFileService.getBoardFile(board.getBoard_idx());
+		List<String> imgServerFileNameList = new ArrayList<String>();
+		
+		for(int i = 0; i < fileList.size(); i++) {
+			String fileExt = fileList.get(i).getFile_ext_name(); 
+			String fileExtArray[] = {".jpeg", ".jpg", ".gif", ".bmp", ".png"};
+			for(String fileExtTemp : fileExtArray) {
+				if(fileExt.toLowerCase().equals(fileExtTemp)) {
+					imgServerFileNameList.add(fileList.get(i).getServer_file_name());
+				}
+			}
+		}
+		
+		model.addAttribute("imgServerFileNameList", imgServerFileNameList);
 //
 //		/*
 //		 * 게시물 이동, 복사
