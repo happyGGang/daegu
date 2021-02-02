@@ -174,6 +174,7 @@ ${boardManage.top_html}
 <form:hidden path="target_manage_idx"/>
 <form:hidden path="category1"/>
 </form:form>
+
 <div class="search-wrap">
 	<div class="sview">
 		<jsp:include page="/WEB-INF/views/app/board/common/view/moveOrCopy.jsp" flush="false" />
