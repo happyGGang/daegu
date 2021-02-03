@@ -5,14 +5,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
 $(document).ready(function() {
-	$('input#secret_yn_yes').on('click', function() {
-		$('input#user_phone').prop('disabled', false);
-	});
+// 	$('input#secret_yn_yes').on('click', function() {
+// 		$('input#user_phone').prop('disabled', false);
+// 	});
 
-	$('input#secret_yn_no').on('click', function() {
-		$('input#user_phone').prop('disabled', true);
-		$('input#user_phone').val('');
-	});
+// 	$('input#secret_yn_no').on('click', function() {
+// 		$('input#user_phone').prop('disabled', true);
+// 		$('input#user_phone').val('');
+// 	});
 
 	if ('${board.editMode}' == 'ADD') {
 		$('input[name=secret_yn][value=Y]').prop('checked', true);
@@ -86,7 +86,7 @@ ${boardManage.top_html}
 				</td>
 				<th>연락처</th>
 				<td>
-					<form:input path="user_phone" cssClass="text" /><br><span>비밀글만 입력가능(관리자만 열람 가능)</span>
+					<form:input path="user_phone" cssClass="text" /><br><span>(관리자만 열람 가능)</span>
 				</td>
 			</tr>
 

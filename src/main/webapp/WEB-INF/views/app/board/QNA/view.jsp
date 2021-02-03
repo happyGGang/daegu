@@ -62,7 +62,7 @@ $(document).ready(function() {
 						</c:otherwise>
 						</c:choose>
 						<i>작성자</i><span>${user_name}<c:if test="${authMBA or authMBS}">(${board.add_id})</c:if></span>
-						<c:if test="${board.secret_yn eq 'Y' and not empty board.user_phone}">
+						<c:if test="${not empty board.user_phone and authMBA}">
 						<i>연락처</i><span>${board.user_phone}</span>
 						</c:if>
 						<i>작성일</i><span><fmt:formatDate value="${board.add_date}" pattern="yyyy.MM.dd HH:mm"/></span>
