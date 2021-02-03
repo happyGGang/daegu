@@ -133,6 +133,7 @@ $(function() {
 	<input type="hidden" id="publer" name="publer" value="${fn:escapeXml(param.booktype)}">
 	<input type="hidden" id="loca" name="loca" value="${detail.MANAGE_CODE}">
 	<input type="hidden" id="ctrl_no" name="ctrl_no" value="${fn:escapeXml(param.regNo)}">
+	<input type="hidden" id="call_no" name="call_no" value="${fn:escapeXml(detail.CALL_NO)}">
 	<input type="hidden" id="img_url" name="img_url" value="${fn:escapeXml(param.menu_idx)}">
 </form>
 

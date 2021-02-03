@@ -4,7 +4,9 @@
 
 	<select id="getMyItemList" resultType="kr.go.gbelib.app.module.myItem.MyItem">
 		SELECT
-			HOMEPAGE_ID, MEMBER_KEY, STORAGE_IDX, ITEM_IDX, ITEM_NAME, AUTHOR, PUBLER, LOCA, CTRL_NO, IMG_URL, ADD_DATE, ITEM_TYPE
+			HOMEPAGE_ID, MEMBER_KEY, STORAGE_IDX, ITEM_IDX, ITEM_NAME,
+			AUTHOR, PUBLER, LOCA, CTRL_NO, CALL_NO,
+			IMG_URL, ADD_DATE, ITEM_TYPE
 		FROM
 			MY_ITEM
 		WHERE
@@ -30,10 +32,14 @@
 		</selectKey>
 		INSERT INTO MY_ITEM
 		(
-			HOMEPAGE_ID, MEMBER_KEY, STORAGE_IDX, ITEM_IDX, ITEM_NAME, AUTHOR, PUBLER, LOCA, CTRL_NO, IMG_URL, ADD_DATE, ITEM_TYPE
+			HOMEPAGE_ID, MEMBER_KEY, STORAGE_IDX, ITEM_IDX, ITEM_NAME,
+			AUTHOR, PUBLER, LOCA, CTRL_NO, CALL_NO,
+			IMG_URL, ADD_DATE, ITEM_TYPE
 		) VALUES
 		(
-			#{homepage_id}, #{member_key}, #{storage_idx}, #{item_idx}, #{item_name}, #{author}, #{publer}, #{loca}, #{ctrl_no}, #{img_url}, SYSDATE, #{item_type}
+			#{homepage_id}, #{member_key}, #{storage_idx}, #{item_idx}, #{item_name},
+			#{author}, #{publer}, #{loca}, #{ctrl_no}, #{call_no},
+			#{img_url}, SYSDATE, #{item_type}
 		)
 	</insert>
 

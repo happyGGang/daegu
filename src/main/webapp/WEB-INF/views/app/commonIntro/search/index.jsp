@@ -1322,7 +1322,7 @@ $(function() {
 							<c:set var="detailURL" value="detail.do?menu_idx=${fn:escapeXml(param.menu_idx)}&isbn=${fn:escapeXml(i.ST_CODE)}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}"></c:set>
 							<div class="row">
 								<p class="admin">
-									<input name="print_param" type="checkbox" class="checkBook" value="${fn:replace(i.TITLE_INFO, ',', ';;;')}^^^${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}^^^${fn:escapeXml(i.MANAGE_CODE)}^^^${fn:escapeXml(i.REG_NO)}^^^${fn:escapeXml(param.menu_idx)}"/>
+									<input name="print_param" type="checkbox" class="checkBook" value="${fn:replace(i.TITLE_INFO, ',', ';;;')}^^^${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}^^^${fn:escapeXml(i.MANAGE_CODE)}^^^${fn:escapeXml(i.REG_NO)}^^^${fn:escapeXml(i.CALL_NO)}^^^${fn:escapeXml(param.menu_idx)}"/>
 								</p>
 								<div class="thumb">
 									<c:choose>

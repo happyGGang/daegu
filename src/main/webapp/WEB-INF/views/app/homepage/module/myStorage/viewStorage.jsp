@@ -146,6 +146,7 @@ $(document).ready(function() {
 	<form:hidden path="publer"/>
 	<form:hidden path="loca"/>
 	<form:hidden path="ctrl_no"/>
+	<form:hidden path="call_no"/>
 	<form:hidden path="img_url"/>
 	<form:hidden path="item_type"/>
 	<form:hidden path="strList"/>

@@ -176,7 +176,8 @@ public class MyStorageController extends BaseController {
 						item.setPubler(String.valueOf(lib_rec_tid[1]));
 						item.setLoca(String.valueOf(lib_rec_tid[2]));
 						item.setCtrl_no(lib_rec_tid[3]);
-						item.setImg_url(lib_rec_tid[4]);
+						item.setCall_no(lib_rec_tid[4]);
+						item.setImg_url(lib_rec_tid[5]);
 						myItemService.addMyItem(item);
 					}
 					res.setValid(true);

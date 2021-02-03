@@ -50,6 +50,7 @@ $(function(){
 						<th width="400">제목</th>
 						<!-- <th width="100">저자</th>
 						<th width="100">출판사</th> -->
+						<th>청구기호</th>
 						<th width="130">기능</th>
 					</tr>
 				</thead>
@@ -57,7 +58,7 @@ $(function(){
 					<form:form id="authIndex" modelAttribute="auth" method="POST">
 						<c:if test="${fn:length(myItemList) < 1}">
 							<tr >
-								<td colspan="2" style="background:#f8fafb;">데이터가 존재하지 않습니다.</td>
+								<td colspan="3" style="background:#f8fafb;">데이터가 존재하지 않습니다.</td>
 							</tr>
 						</c:if>
 						<c:forEach var="i" varStatus="status" items="${myItemList}">
@@ -65,6 +66,7 @@ $(function(){
 								<td >${i.item_name}</td>
 								<%-- <td >${i.author}</td>
 								<td >${i.publer}</td> --%>
+								<td>${i.call_no}</td>
 								<td width="">
 									<a class="btn btn detail-btn" itemType="${i.item_type}" keyValue1="${i.loca}" keyValue2="${i.ctrl_no}" keyValue3="${i.img_url}" keyValue4="${i.publer}">상세보기</a>
 									<a class="btn btn delete-btn" itemType="${i.item_type}" keyValue1="${i.storage_idx}" keyValue2="${i.item_idx}">삭제</a>

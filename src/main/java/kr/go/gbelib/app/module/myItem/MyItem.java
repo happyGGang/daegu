@@ -18,6 +18,7 @@ public class MyItem extends PagingUtils {
 	private String publer;
 	private String loca;
 	private String ctrl_no;
+	private String call_no;
 	private String img_url;
 	private String item_url;
 	private String add_date;
@@ -110,6 +111,14 @@ public class MyItem extends PagingUtils {
 
 	public void setCtrl_no(String ctrl_no) {
 		this.ctrl_no = ctrl_no;
+	}
+	
+	public String getCall_no() {
+		return call_no;
+	}
+	
+	public void setCall_no(String call_no) {
+		this.call_no = call_no;
 	}
 
 	public String getImg_url() {
