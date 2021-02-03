@@ -855,7 +855,7 @@ $(function() {
 					</div>
 					<div>
 						<form:checkbox path="teach_addr_limit" id="teach_addr_limit" value="Y" label="주소"/>
-						<form:input path="teach_addr_limit_value" disabled="${teach.teach_addr_limit eq 'ADDR' ? false : true}"/>
+						<form:input path="teach_addr_limit_value" disabled="${teach.teach_addr_limit eq 'Y' ? false : true}"/>
 					</div>
 					<div class="ui-state-highlight">
 						<em>* 구분자 ','로 나누어 허용할 주소를 입력해주세요.</em>
