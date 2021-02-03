@@ -89,83 +89,57 @@ $(function() {
 
 <div class="book-list">
 <c:if test="${fn:length(loanList) < 1 }"> <h3>조회된 도서가 없습니다.</h3></c:if>
-	<c:if test="${fn:length(loanList) > 0 }">
-		<c:forEach items="${loanList}" var="i" varStatus="status">
-		<div class="row">
-			<div class="box">
-				<div class="item">
-					<div class="bif">
-						<div class="top">
-							<div class="b-title">
-								<div class="box">${i.TITLE}</div>
-							</div>
-						</div>
-					</div>
-					<div class="bci">
-						<table summary="신청정보">
-							<tbody>
-								<tr>
-									<th>대출된 소장처명</th>
-									<td>${i.LIB_NAME}</td>
-								</tr>
-								<!--
-								<tr>
-									<th>청구기호</th>
-									<td>${i.CALL_NO}</td>
-								</tr>
-								<tr>
-									<th>등록번호</th>
-									<td>${i.REG_NO}</td>
-								</tr>
-								-->
-								<tr>
-									<th>대출일</th>
-									<td>${i.LOAN_DATE}</td>
-								</tr>
-								<tr>
-									<th>반납일</th>
-									<td>${i.RETURN_DATE}</td>
-								</tr>
-								<!--
-								<tr>
-									<th>상태</th>
-									<td>${i.STATUS}</td>
-								</tr>
-								-->
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-		</c:forEach>
-
-		<div id="board_paging" class="dataTables_paginate">
-			<c:if test="${paging.firstPageNum > 0}">
-				<a href="" class="paginate_button previous" keyValue="${paging.firstPageNum}">처음</a>
+<c:if test="${fn:length(loanList) > 0 }">
+<table summary="신청정보">
+	<thead>
+		<th>순번</th>
+		<th>제목</th>
+		<th>저자 / 발행자</th>
+		<th>도서관명</th>
+		<th>대출일</th>
+		<th>반납일</th>
+		<th>상태</th>
+	</thead>
+	<tbody>
+	<c:forEach items="${loanList}" var="i" varStatus="status">
+		<tr>
+			<td>${i.RNUM}</td>
+			<td>${i.TITLE}</td>
+			<td>${i.AUTHOR} / ${i.PUBLISHER}</td>
+			<td>${i.LIB_NAME}</td>
+			<td>${i.LOAN_DATE}</td>
+			<td>${i.RETURN_DATE}</td>
+			<td><c:choose><c:when test="${i.STATUS eq '0'}">대출</c:when><c:when test="${i.STATUS eq '1'}">반납</c:when><c:when test="${i.STATUS eq '2'}">반납연기</c:when><c:when test="${i.STATUS eq '3'}">예약</c:when><c:when test="${i.STATUS eq '4'}">예약취소</c:when><c:otherwise></c:otherwise></c:choose></td>
+		</tr>
+	</c:forEach>
+	</tbody>
+</table>
+	<div id="board_paging" class="dataTables_paginate">
+		<c:if test="${paging.firstPageNum > 0}">
+			<a href="" class="paginate_button previous" keyValue="${paging.firstPageNum}">처음</a>
+		</c:if>
+		<c:if test="${paging.prevPageNum > 0}">
+			<a href="" class="paginate_button previous" keyValue="${paging.prevPageNum}">이전</a>
+		</c:if>
+		<span>
+			<c:forEach var="i" varStatus="status" begin="${paging.startPageNum}" end="${paging.endPageNum}">
+			<c:choose>
+			<c:when test="${i eq paging.viewPage}">
+				<a href="" class="paginate_button current" keyValue="${i}">${i}</a>
+			</c:when>
+			<c:otherwise>
+				<a href="" class="paginate_button" keyValue="${i}">${i}</a>
+			</c:otherwise>
+			</c:choose>
+			</c:forEach>
+			<c:if test="${paging.nextPageNum > 0}">
+				<a href="" class="paginate_button next" keyValue="${paging.nextPageNum}">다음</a>
 			</c:if>
-			<c:if test="${paging.prevPageNum > 0}">
-				<a href="" class="paginate_button previous" keyValue="${paging.prevPageNum}">이전</a>
+			<c:if test="${paging.totalPageCount ne paging.lastPageNum}">
+				<a href="" class="paginate_button next" keyValue="${paging.totalPageCount}">맨끝</a>
 			</c:if>
-			<span>
-				<c:forEach var="i" varStatus="status" begin="${paging.startPageNum}" end="${paging.endPageNum}">
-				<c:choose>
-				<c:when test="${i eq paging.viewPage}">
-					<a href="" class="paginate_button current" keyValue="${i}">${i}</a>
-				</c:when>
-				<c:otherwise>
-					<a href="" class="paginate_button" keyValue="${i}">${i}</a>
-				</c:otherwise>
-				</c:choose>
-				</c:forEach>
-				<c:if test="${paging.nextPageNum > 0}">
-					<a href="" class="paginate_button next" keyValue="${paging.nextPageNum}">다음</a>
-				</c:if>
-				<c:if test="${paging.totalPageCount ne paging.lastPageNum}">
-					<a href="" class="paginate_button next" keyValue="${paging.totalPageCount}">맨끝</a>
-				</c:if>
-			</span>
-		</div>
+		</span>
+	</div>
 
-	</c:if>
+</c:if>
 </div>

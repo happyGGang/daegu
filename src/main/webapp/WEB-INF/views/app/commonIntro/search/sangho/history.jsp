@@ -28,49 +28,30 @@
 	<div class="book-list">
 
 		<c:if test="${fn:length(sanghoHistory) < 1 }"> <h3>상호대차신청 내역이 없습니다.</h3></c:if>
-
+<table summary="신청정보">
+	<thead>
+		<th style="width:5%">순번</th>
+		<th style="width:25%">제목</th>
+		<th style="width:20%">저자 / 발행자</th>
+		<th style="width:15%">제공도서관</th>
+		<th style="width:15%">대출도서관</th>
+		<th style="width:10%">상태</th>
+		<th style="width:10%">대출만료일</th>
+	</thead>
+	<tbody>
 		<c:forEach items="${sanghoHistory}" var="i" varStatus="status">
-			<div class="row">
-				<div class="box">
-					<div class="item">
-						<div class="bif">
-							<div class="top">
-								<div class="b-title">
-									<div class="box"><a href="" class="name">${i.TITLE_INFO}</a></div><!-- 도서명 -->
-								</div>
-								<div class="control">
-
-								</div>
-							</div>
-							<p class="info"><em>저자 : ${i.AUTHOR_INFO}</em> <span>/</span> <em>출판사 : ${i.PUB_INFO}</em> </p><!-- 저자 -->
-						</div>
-						<div class="bci">
-							<table summary="신청정보">
-								<tbody>
-								<tr>
-									<th>제공도서관</th>
-									<td>${i.HOLD_LIB_NAME}</td>
-								</tr>
-								<tr>
-									<th>대출도서관</th>
-									<td>${i.LOAN_LIB_NAME}</td>
-								</tr>
-								<tr>
-									<th>상태</th>
-									<td>${i.TRANSACTION_CODE_NAME}</td>
-								</tr>
-								<tr>
-									<th>대출만료일</th>
-									<td>${i.RETURN_EXPIRE_DATE}</td>
-								</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
+		<tr>
+			<td>${i.RNUM}</td>
+			<td>${i.TITLE_INFO}</td>
+			<td>${i.AUTHOR_INFO} / ${i.PUB_INFO}</td>
+			<td>${i.HOLD_LIB_NAME}</td>
+			<td>${i.LOAN_LIB_NAME}</td>
+			<td>${i.TRANSACTION_CODE_NAME}</td>
+			<td>${i.RETURN_EXPIRE_DATE}</td>
+		</tr>
 		</c:forEach>
-
+	</tbody>
+</table>
 		<div id="board_paging" class="dataTables_paginate">
 			<c:if test="${paging.firstPageNum > 0}">
 				<a href="" class="paginate_button previous" keyValue="${paging.firstPageNum}">처음</a>

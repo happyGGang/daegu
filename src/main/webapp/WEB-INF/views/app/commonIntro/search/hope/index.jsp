@@ -76,59 +76,46 @@ $(function() {
 <form:hidden path="menu_idx"/>
 <div class="book-list">
 	<c:if test="${fn:length(hopeList) < 1 }"> <h3>희망도서신청 내역이 없습니다.</h3></c:if>
-	<c:forEach items="${hopeList}" var="i">
 
-			<div class="row">
-				<div class="box">
-					<div class="item">
-						<div class="bif">
-							<div class="top" >
-								<div class="b-title">
-									<div class="box">${i.TITLE}</div>
-								</div>
-								<div class="control">
-									<c:if test="${i.FURNISH_STATUS eq '1'}">
-									<a href="#" class="btn cancel-btn" title="취소" keyValue1="${i.REC_KEY}" >취소</a>
-									</c:if>
-								</div>
-							</div>
-							<p class="info"><em>저자 : ${i.AUTHOR}</em> <span>/</span> <em>출판사 : ${i.PUBLISHER}</em> <span>/</span> <em>출판년도 : ${i.PUBLISH_YEAR}</em></p>
-						</div>
-						<div class="bci">
-							<table summary="신청정보">
-								<tbody>
-									<tr>
-										<th>비치도서관</th>
-										<td>${i.LIB_NAME}</td>
-									</tr>
-									<tr>
-										<th>신청일</th>
-										<td>${i.APPLICANT_DATE}</td>
-									</tr>
-									<tr>
-										<th>처리일</th>
-										<td>${i.FURNISH_DATE}</td>
-									</tr>
-									<tr>
-										<th>비치상태</th>
-										<td>
-										<c:if test="${i.FURNISH_STATUS eq '1'}">신청</c:if>
-										<c:if test="${i.FURNISH_STATUS eq '2'}">처리중</c:if>
-										<c:if test="${i.FURNISH_STATUS eq '3'}">비치완료</c:if>
-										<c:if test="${i.FURNISH_STATUS eq '4'}">취소</c:if>
-										</td>
-									</tr>
-									<tr>
-										<th>취소사유</th>
-										<td>${i.CANCEL_REASON}</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
+<table summary="신청정보">
+	<thead>
+		<th style="width:6%">순번</th>
+		<th style="width:18%">제목</th>
+		<th style="width:15%">저자 / 발행자 / 출판년도</th>
+		<th style="width:17%">도서관명</th>
+		<th style="width:10%">신청일</th>
+		<th style="width:10%">처리일</th>
+		<th style="width:8%">상태</th>
+		<th style="width:8%">취소사유</th>
+		<th style="width:8%">취소</th>
+	</thead>
+	<tbody>
+
+
+	<c:forEach items="${hopeList}" var="i">
+		<tr>
+			<td>${i.RNUM}</td>
+			<td>${i.TITLE}</td>
+			<td>${i.AUTHOR} / ${i.PUBLISHER} / ${i.PUBLISH_YEAR}</td>
+			<td>${i.LIB_NAME}</td>
+			<td>${i.APPLICANT_DATE}</td>
+			<td>${i.FURNISH_DATE}</td>
+			<td>
+				<c:if test="${i.FURNISH_STATUS eq '1'}">신청</c:if>
+				<c:if test="${i.FURNISH_STATUS eq '2'}">처리중</c:if>
+				<c:if test="${i.FURNISH_STATUS eq '3'}">비치완료</c:if>
+				<c:if test="${i.FURNISH_STATUS eq '4'}">취소</c:if>
+			</td>
+			<td>${i.CANCEL_REASON}</td>
+			<td>
+				<c:if test="${i.FURNISH_STATUS eq '1'}">
+				<a href="#" class="btn cancel-btn" title="취소" keyValue1="${i.REC_KEY}" >취소</a>
+				</c:if>
+			</td>
+		</tr>
 	</c:forEach>
+	</tbody>
+</table>
 
 	<div id="board_paging" class="dataTables_paginate">
 			<c:if test="${paging.firstPageNum > 0}">
