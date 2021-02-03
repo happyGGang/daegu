@@ -221,6 +221,11 @@ public class BoardController extends BaseController {
 		} catch (Exception e) {
 			isSiteAdmin = false;
 		}
+		
+		if(!isSiteAdmin && boardManage.getBoard_use_yn().equals("N")) {
+			service.alertMessage("유효하지 않은 게시판입니다.", request, response);
+			return null;
+		}
 
 		// 228도서관 지원센터 회원인증 확인
 		SupportMember loginSupport = sessionLoginSupport(request);
@@ -567,6 +572,11 @@ public class BoardController extends BaseController {
 				}
 				isBoardAdmin = true;
 			}
+			
+			if(!isBoardAdmin && boardManage.getBoard_use_yn().equals("N")) {
+				service.alertMessage("유효하지 않은 게시판입니다.", request, response);
+				return null;
+			}
 
 			if (!isBoardAdmin && !supportAdmin && !portal_auth.equals("2")) {
 				//회원의 글인 경우
@@ -842,6 +852,10 @@ public class BoardController extends BaseController {
 
 
 			if(!isBoardAdmin && !isSupportAdmin && !supportAdmin && !portal_auth.equals("2")) {
+				if(!isBoardAdmin && boardManage.getBoard_use_yn().equals("N")) {
+					service.alertMessage("유효하지 않은 게시판입니다.", request, response);
+					return null;
+				}
 				//게시판관리자는 그냥 통과한다.
 
     			if (!isLogin(request)) {
@@ -1252,6 +1266,17 @@ public class BoardController extends BaseController {
 		}
 
 		if(!result.hasErrors()) {
+			boolean isSiteAdmin = false;
+			try {
+				isSiteAdmin = (Boolean) model.asMap().get("authMBA");
+			} catch (Exception e) {
+				isSiteAdmin = false;
+			}
+			
+			if(!isSiteAdmin && boardManage.getBoard_use_yn().equals("N")) {
+				service.alertMessage("유효하지 않은 게시판입니다.", request, response);
+				return null;
+			}
 
 			if(board.getEditMode().equals("MODIFY")) {
 				checkAuth("U", model, request);
@@ -1283,6 +1308,7 @@ public class BoardController extends BaseController {
 				if (getSessionIsAdmin(request)) {
 					isBoardAdmin = true;
 				}
+				
 				if (!isBoardAdmin) {
 					//원글이 비회원의 글인지 확인
 					if (boardOne.getAdd_id().equals("ANONYMOUS")) {
