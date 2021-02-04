@@ -131,7 +131,8 @@ ${boardManage.top_html}
 				</dd>
 			</dl>
 		</div>
-		
+
+		<c:if test="${fn:length(imgServerFileNamList) > 0}">
 		<div class="bx-slider-zone-box">
 			<div class="largeBox">
 				<img src="/data/board/${board.manage_idx}/${board.board_idx}/${imgServerFileNameList[0]}" data-idx="${imgServerFileNameList[0]}">
@@ -147,6 +148,7 @@ ${boardManage.top_html}
 				</ul>
 			</div>
 		</div>
+		</c:if>
 		
 		<div class="bbs-view-body">
 			<c:set value="${fn:replace(board.content, crlf, '<br/>')}" var="content"></c:set>
