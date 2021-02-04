@@ -3,15 +3,14 @@
 <mapper namespace="kr.co.whalesoft.app.board.BoardDao">
 
 	<sql id="where">
-		AND (
-			(notice_start_date IS NULL AND notice_end_date IS NULL)
-			OR
-			notice_start_date <![CDATA[<=]]> TO_CHAR(SYSDATE, 'YYYY-MM-DD')
-			OR
-			notice_end_date >= TO_CHAR(SYSDATE, 'YYYY-MM-DD')
-			OR
-			(notice_start_date <![CDATA[<=]]> TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND notice_end_date >= TO_CHAR(SYSDATE, 'YYYY-MM-DD'))
-		)
+		AND	(
+			notice_yn != 'Y' OR notice_yn IS NULL
+			OR	(
+				notice_yn = 'Y'
+				AND	notice_end_date <![CDATA[<]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+				OR	notice_start_date <![CDATA[>]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+				)
+			)
 
 		<choose>
 			<when test="manage_idx == 563 and (category1 == null or category1 == '')">
@@ -182,7 +181,6 @@
 						</otherwise>
 					</choose>
 				AND	delete_yn = #{delete_yn}
-				AND	(notice_yn = 'N' OR notice_yn IS null)
 				<include refid="where"/>
 			 ) A
 -- 			START WITH A.parent_idx = 0
