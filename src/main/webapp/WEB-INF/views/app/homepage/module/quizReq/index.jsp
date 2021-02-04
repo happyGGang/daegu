@@ -104,7 +104,7 @@ $(function() {
 	</c:forEach>
 	</ul>
 </div>
-<c:if test="${fn:length(quiz.top_html) > 0}">
+<c:if test="${fn:length(quiz.top_html) > 0 && quiz.book_name ne '' and quiz.book_name ne null}">
 ${quiz.top_html}
 </c:if>
 <div class="tabCon active" id="tabCon1">
@@ -143,6 +143,11 @@ ${quiz.top_html}
 								</c:if>
 							</ul>
 						</div>
+					</div>
+					</c:if>
+					<c:if test="${quiz.book_name eq '' or quiz.book_name eq null}">
+					<div class="quiz_list">
+						${quiz.top_html}
 					</div>
 					</c:if>
 				</c:if>
