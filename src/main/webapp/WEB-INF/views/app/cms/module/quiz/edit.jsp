@@ -153,7 +153,11 @@ function getLasData(arg) {
 	        </tr>
 	        <tr>
 	         	<th>도서명</th>
-	         	<td><form:input path="book_name" class="text" cssStyle="width:100%"/></td>
+	         	<td>
+	         		<form:input path="book_name" class="text" cssStyle="width:100%"/>
+	         		<br/>
+	         		* 도서정보 노출을 원치 않으시면 '도서명' 항목을 입력하지 않고 등록하시기 바랍니다.
+	         	</td>
 	        </tr>
 	         <tr>
 	         	<th>도서 이미지</th>

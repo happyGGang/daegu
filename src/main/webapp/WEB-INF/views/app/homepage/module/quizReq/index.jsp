@@ -119,6 +119,7 @@ ${quiz.top_html}
 			</h2>
 			<c:forEach items="${quizTypeList}" var="j" >
 				<c:if test="${j.code_id eq quiz.quiz_type }">
+					<c:if test="${quiz.book_name ne '' and quiz.book_name ne null}">
 					<div class="quiz_list">
 						<div class="pic">
 							<p>
@@ -143,6 +144,7 @@ ${quiz.top_html}
 							</ul>
 						</div>
 					</div>
+					</c:if>
 				</c:if>
 			</c:forEach>
 		</div>

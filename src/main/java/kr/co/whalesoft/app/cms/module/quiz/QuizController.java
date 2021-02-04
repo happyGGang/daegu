@@ -106,7 +106,6 @@ public class QuizController extends BaseController {
 			ValidationUtils.rejectExceptNumber(result, "quiz_month", "퀴즈월은 숫자만 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "quiz_type", "퀴즈구분을 선택하세요.");
 			ValidationUtils.rejectIfEmpty(result, "quiz_name", "퀴즈제목을 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "book_name", "도서명을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "quiz_start_date", "퀴즈시작날짜를 지정하세요.");
 			ValidationUtils.rejectIfEmpty(result, "quiz_end_date", "퀴즈종료날짜를 지정하세요.");
 			
