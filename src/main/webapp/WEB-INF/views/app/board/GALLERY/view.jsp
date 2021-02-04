@@ -132,7 +132,7 @@ ${boardManage.top_html}
 			</dl>
 		</div>
 
-		<c:if test="${fn:length(imgServerFileNamList) > 0}">
+		<c:if test="${fn:length(imgServerFileNameList) > 0}">
 		<div class="bx-slider-zone-box">
 			<div class="largeBox">
 				<img src="/data/board/${board.manage_idx}/${board.board_idx}/${imgServerFileNameList[0]}" data-idx="${imgServerFileNameList[0]}">
