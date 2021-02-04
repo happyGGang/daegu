@@ -82,7 +82,7 @@ $(function() {
 			<td>${i.AUTHOR} / ${i.PUBLISHER}</td>
 			<td>${i.LIB_NAME}</td>
 			<td>${i.LOAN_DATE}</td>
-			<td>${i.RETURN_DATE}</td>
+			<td>${i.RETURN_PLAN_DATE}</td>
 			<td><c:choose><c:when test="${i.STATUS eq '0'}">대출</c:when><c:when test="${i.STATUS eq '1'}">반납</c:when><c:when test="${i.STATUS eq '2'}">반납연기</c:when><c:when test="${i.STATUS eq '3'}">예약</c:when><c:when test="${i.STATUS eq '4'}">예약취소</c:when><c:otherwise></c:otherwise></c:choose></td>
 		</tr>
 </c:forEach>
