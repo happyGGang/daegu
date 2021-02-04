@@ -988,20 +988,21 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 						String isbn = String.valueOf(map2.get("isbn")).split(" ")[i];
 						map2.put("isbn"+isbn.length(), isbn);
 
-						LibrarySearch bookSerach = new LibrarySearch();
-						bookSerach.setManageCode(librarySearch.getManageCode());
-						bookSerach.setIsbn(isbn);
-						Map<String, Object> sameBook = (Map<String, Object>) LibSearchAPI.getBookDetail(bookSerach);
-
-						int sameBookCount = LibSearchAPI.getSearchCount(sameBook);
-
-						if (sameBookCount > 0) {
+//						LibrarySearch bookSerach = new LibrarySearch();
+//						bookSerach.setManageCode(librarySearch.getManageCode());
+//						bookSerach.setIsbn(isbn);
+//						Map<String, Object> sameBook = (Map<String, Object>) LibSearchAPI.getBookDetail(bookSerach);
+//
+//						int sameBookCount = LibSearchAPI.getSearchCount(sameBook);
+						ApiResponse code = LibSearchAPI.hopeUserCheck(member.getRec_key(), isbn, librarySearch.getManageCode());
+						if (!code.getStatus()) {
 							map2.put("already"+isbn.length(), true);
+							map2.put("errorMessage", code.getMessage());
 						}
-
 					}
 
 				}
+				
 				service.setPaging(model, totalCount, librarySearch);
 				model.addAttribute("naverResult", map);
 			}

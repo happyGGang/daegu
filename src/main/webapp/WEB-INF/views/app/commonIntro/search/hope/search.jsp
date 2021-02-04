@@ -81,7 +81,7 @@ $(document).ready(function() {
 										<c:choose>
 											<c:when test="${not empty i.already13 and i.already13}">
 										<li class="button">
-											<span class="no" style="color: red;">소장도서(신청불가)</span>
+											<span class="no" style="color: red;" title="${i.errorMessage}">${i.errorMessage}</span>
 										</li>
 											</c:when>
 											<c:otherwise>
