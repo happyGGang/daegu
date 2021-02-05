@@ -189,7 +189,7 @@ do {
 								</a>
 							</li>
 							<li class="bg-lgray">
-								<a href="/duryu/module/archive/index.do?menu_idx=121">
+								<a href="https://library.daegu.go.kr/duryu/board/index.do?menu_idx=121&manage_idx=852">
 								<img src="/resources/homepage/${homepage.context_path}/img/quick04-bg.png" class="mi">
 								<span class="wt">족보자료</span>
 								<span class="wc">족보원문DB, 족보상식 등<Br/>다양한 족보이야기</span>

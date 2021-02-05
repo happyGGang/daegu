@@ -48,7 +48,7 @@
 		<h3>${teach.teach_name}</h3>
 	</div>
 
-	<div class="auto-scroll teach_detail">
+	<div class="teach_detail">
 		<table class="tstyle nohead2" id="teach_table" summary="강의 상세내용입니다.">
 			<caption>강의 상세내용입니다.</caption>
 			<colgroup>
