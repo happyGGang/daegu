@@ -156,11 +156,8 @@ $(function() {
 <form:option value="727070">동구청 작은도서관</form:option>
 <form:option value="727073">늘푸른 도서관</form:option>
 <form:option value="727072">초록우산도서관</form:option>
-<form:option value="727075">꿈날자 문고</form:option>
 <form:option value="727074">행복도서관</form:option>
 <form:option value="727068">방촌동 작은도서관</form:option>
-<form:option value="727076">율하5주민도서관</form:option>
-<form:option value="727121">방촌어린이 작은도서관</form:option>
 					</form:select>
 					</c:when>
 					<c:otherwise>

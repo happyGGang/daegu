@@ -362,10 +362,16 @@ CONTEXT_PATH : ${homepage.context_path}
 				<c:when test="${homepage.context_path eq 'donggu'}">
 
 					<c:choose>
-						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
-							<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
+						<c:when test="${detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HP' || detail.MANAGE_CODE eq 'HQ'}">
 						</c:when>
 						<c:otherwise>
+							<c:choose>
+								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
+									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
+								</c:when>
+								<c:otherwise>
+								</c:otherwise>
+							</c:choose>
 						</c:otherwise>
 					</c:choose>
 
