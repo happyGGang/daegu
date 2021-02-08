@@ -19,7 +19,7 @@
 			SELECT
 				(select homepage_name from cms_homepage a where a.homepage_id = blacklist.homepage_id) as homepage_name,
 				homepage_id, black_idx, member_id, black_type, reason, delete_yn,
-				add_date, add_id, mod_date, mod_id, member_name, member_key
+				add_date, add_id, modify_date, modify_id
 			FROM
 				BLACKLIST
 			WHERE
@@ -33,7 +33,7 @@
 	<select id="getBlackListOne" resultType="kr.go.gbelib.app.cms.module.blackList.BlackList">
 		SELECT
 			homepage_id, black_idx, member_id, black_type, reason, delete_yn,
-			add_date, add_id, mod_date, mod_id, member_name, member_key
+			add_date, add_id, modify_date, modify_id
 		FROM
 			BLACKLIST
 		WHERE
@@ -43,7 +43,7 @@
 					AND black_idx = #{black_idx}
 				</when>
 				<otherwise>
-					AND member_key = #{member_key}
+					AND member_id = #{member_id}
 				</otherwise>
 			</choose>
 	</select>
@@ -54,8 +54,8 @@
 		FROM
 			BLACKLIST
 		WHERE
-			homepage_id = #{homepage_id} AND
-			member_key = #{member_key}
+			homepage_id = #{homepage_id}
+		AND	member_id = #{member_id}
 	</select>
 
 	<select id="checkSaveBlackList" resultType="int">
@@ -64,8 +64,8 @@
 		FROM
 			BLACKLIST
 		WHERE
-			homepage_id = #{homepage_id} AND
-			member_key = #{member_key}
+			homepage_id = #{homepage_id}
+		AND member_id = #{member_id}
 	</select>
 
 	<insert id="addBlackList">
@@ -76,10 +76,10 @@
 		INSERT INTO
 			BLACKLIST
 		(
-			homepage_id, black_idx, member_id, reason, black_type, delete_yn, add_date, add_id, mod_date, mod_id, member_name, member_key
+			homepage_id, black_idx, member_id, reason, black_type, delete_yn, add_date, add_id, modify_date, modify_id
 		) VALUES
 		(
-			#{homepage_id}, #{black_idx}, #{member_id}, #{reason}, #{black_type}, 'N', SYSDATE, #{add_id}, SYSDATE, #{mod_id}, #{member_name}, #{member_key}
+			#{homepage_id}, #{black_idx}, #{member_id}, #{reason}, #{black_type}, 'N', SYSDATE, #{add_id}, SYSDATE, #{modify_id}
 		)
 	</insert>
 
@@ -89,10 +89,11 @@
 		SET
 			black_type = #{black_type},
 			reason = #{reason},
-			mod_date = SYSDATE,
-			mod_id = #{mod_id}
+			modify_date = SYSDATE,
+			modify_id = #{modify_id}
 		WHERE
-			homepage_id = #{homepage_id} AND black_idx = #{black_idx}
+			homepage_id = #{homepage_id}
+		AND	black_idx = #{black_idx}
 	</update>
 
 	<delete id="deleteBlackList">
@@ -105,7 +106,7 @@
 					AND black_idx = #{black_idx}
 				</when>
 				<otherwise>
-					AND member_key = #{member_key}
+					AND member_id = #{member_id}
 				</otherwise>
 			</choose>
 

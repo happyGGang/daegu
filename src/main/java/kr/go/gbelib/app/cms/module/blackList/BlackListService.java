@@ -23,10 +23,8 @@ public class BlackListService extends BaseService{
 
 	public boolean checkBlackList(BlackList blackList, String black_type) {
 		BlackList one = dao.checkBlackList(blackList);
-		System.out.println("test:" +one);
 		if ( one != null ) {
 			String[] list = one.getBlack_type().split(",");
-			System.out.println("list : " + list + "black_type:" +black_type);
 			for ( String oneType : list ) {
 				if ( black_type.equals(oneType) ) {
 					return true;

@@ -54,11 +54,11 @@ public class BlackListController extends BaseController{
 
 	@RequestMapping(value = { "/edit.*" }, method = RequestMethod.GET)
 	public String edit(Model model, BlackList blackList, HttpServletRequest request) throws AuthException {
-		if ( StringUtils.isNotEmpty(blackList.getMember_key()) ) {
-			if ( service.checkSaveBlackList(blackList) > 0 ) {
-				blackList.setEditMode("MODIFY");
-			}
-		}
+//		if ( StringUtils.isNotEmpty(blackList.getMember_key()) ) {
+//			if ( service.checkSaveBlackList(blackList) > 0 ) {
+//				blackList.setEditMode("MODIFY");
+//			}
+//		}
 
 		if (blackList.getEditMode().equals("ADD")) {
 			checkAuth("C", model, request);
@@ -66,11 +66,11 @@ public class BlackListController extends BaseController{
 		} else if (blackList.getEditMode().equals("MODIFY")) {
 			checkAuth("U", model, request);
 			BlackList result = service.getBlackListOne(blackList);
-			if ( StringUtils.isNotEmpty(blackList.getBlack_type()) ) {
-				String newBlackType = String.format("%s,%s", result.getBlack_type(), blackList.getBlack_type());
-				result.setBlack_type(newBlackType);
-			}
-			result.setAfter_click_btn(blackList.getAfter_click_btn());
+//			if ( StringUtils.isNotEmpty(blackList.getBlack_type()) ) {
+//				String newBlackType = String.format("%s,%s", result.getBlack_type(), blackList.getBlack_type());
+//				result.setBlack_type(newBlackType);
+//			}
+//			result.setAfter_click_btn(blackList.getAfter_click_btn());
 			model.addAttribute("blackListOne", service.copyObjectPaging(blackList, result));
 		}
 
@@ -102,7 +102,7 @@ public class BlackListController extends BaseController{
 		Member blackListMember = new Member();
 		blackListMember.setUser_id(blackList.getMember_id());
 
-		Map<String, String> memberInfo = null;
+//		Map<String, String> memberInfo = null;
 		if ( blackList.getSearch_api_type().equals("WEBID") ) {
 //			blackListMember.setCheck_certify_type("WEBID");
 //			blackListMember.setCheck_certify_data(blackList.getMember_id());
@@ -115,16 +115,16 @@ public class BlackListController extends BaseController{
 //			}
 		}
 		else {
-//			memberInfo = MemberAPI.getDupUser("WEB", blackListMember, "0002", blackList.getMember_id());
-//			if ( memberInfo == null ) {
-//				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
-//				return result;
-//			}
+			List<Map<String, Object>> listMap = MemberAPI.checkDupUser("0", blackListMember);
+			if(listMap == null) {
+				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
+			} else {
+				result.put("memberInfo", listMap.get(0));
+			}
 		}
-		result.put("memberInfo", memberInfo);
 		return result;
 	}
-
+	
 	@RequestMapping(value = { "/save.*" }, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(BlackList blackList, BindingResult result, HttpServletRequest request) {
 
@@ -143,7 +143,7 @@ public class BlackListController extends BaseController{
 
 		if (!result.hasErrors()) {
 			blackList.setAdd_id(getSessionMemberId(request));
-			blackList.setMod_id(getSessionMemberId(request));
+			blackList.setModify_id(getSessionMemberId(request));
 			if (blackList.getEditMode().equals("ADD")) {
 				service.addBlackList(blackList);
 				res.setValid(true);

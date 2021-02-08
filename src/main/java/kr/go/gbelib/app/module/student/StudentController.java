@@ -30,6 +30,8 @@ import kr.co.whalesoft.framework.utils.CalculateHashUtils;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.co.whalesoft.framework.utils.WebFilterCheckUtils;
+import kr.go.gbelib.app.cms.module.blackList.BlackList;
+import kr.go.gbelib.app.cms.module.blackList.BlackListService;
 import kr.go.gbelib.app.cms.module.teach.Teach;
 import kr.go.gbelib.app.cms.module.teach.TeachService;
 import kr.go.gbelib.app.cms.module.teach.student.Student;
@@ -55,6 +57,9 @@ public class StudentController extends BaseController {
 
 	@Autowired
 	private RecommendSiteService recommendSiteService;
+	
+	@Autowired
+	private BlackListService blackListService;
 
 	@ModelAttribute("recommendSiteList")
 	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
@@ -108,10 +113,10 @@ public class StudentController extends BaseController {
 		}
 
 		//블랙리스트 체크
-//		if ( blackListService.checkBlackList(new BlackList(student.getHomepage_id(), getSessionMemberId(request)), "10")) {
-//			service.alertMessage("신청이 불가능합니다.\\n도서관에 문의해주세요.", request, response);
-//			return null;
-//		}
+		if ( blackListService.checkBlackList(new BlackList(student.getHomepage_id(), getSessionMemberId(request)), "10")) {
+			service.alertMessage("신청이 불가능합니다.\\n도서관에 문의해주세요.", request, response);
+			return null;
+		}
 
 		//약관 연동부
 		Menu menuOne = (Menu) request.getAttribute("menuOne");
