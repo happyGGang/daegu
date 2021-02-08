@@ -156,6 +156,21 @@ public class TeachService extends BaseService {
 			teach.setImage_file_extension(fileExtension);
 			teach.setImage_file_size(f.length());
 		}
+		
+		mFile = teach.getAttach_file();
+		if(mFile != null) {
+			String realFileName = Long.toString(System.currentTimeMillis());
+			String fileName = mFile.getOriginalFilename().substring(0, mFile.getOriginalFilename().lastIndexOf("."));
+			String fileExtension = FilenameUtils.getExtension(mFile.getOriginalFilename());
+			String filePath = "/" + teach.getHomepage_id();
+			
+			File f = teachStorage.addFile(mFile, realFileName, filePath);
+			
+			teach.setAttach_server_file_name(realFileName);
+			teach.setAttach_org_file_name(fileName);
+			teach.setAttach_file_extension(fileExtension);
+			teach.setAttach_file_size(f.length());
+		}
 
 		teach.setTeach_idx(dao.getNextTeachIdx(teach));
 		if (teach.getHolidays() != null && teach.getHolidays().size() > 0) {
@@ -205,6 +220,21 @@ public class TeachService extends BaseService {
 			teach.setImage_file_size(f.length());
 		}
 
+		mFile = teach.getAttach_file();
+		if(mFile != null) {
+			String realFileName = Long.toString(System.currentTimeMillis());
+			String fileName = mFile.getOriginalFilename().substring(0, mFile.getOriginalFilename().lastIndexOf("."));
+			String fileExtension = FilenameUtils.getExtension(mFile.getOriginalFilename());
+			String filePath = "/" + teach.getHomepage_id();
+			
+			File f = teachStorage.addFile(mFile, realFileName, filePath);
+			
+			teach.setAttach_server_file_name(realFileName);
+			teach.setAttach_org_file_name(fileName);
+			teach.setAttach_file_extension(fileExtension);
+			teach.setAttach_file_size(f.length());
+		}
+		
 		Teach beforeTeach 		= dao.getTeachOne(teach);
 		int beforeLimitCount 	= beforeTeach.getTeach_limit_count();
 		int afterLimitCount 	= teach.getTeach_limit_count();
@@ -221,7 +251,7 @@ public class TeachService extends BaseService {
 			teach.setProgram_age_div(StringUtils.join(teach.getProgram_age_div_arr(), ","));
 		}
 
-		int result 				= dao.modifyTeach(teach);
+		int result = dao.modifyTeach(teach);
 
 
 		if ( result > 0 ) {
@@ -470,6 +500,14 @@ public class TeachService extends BaseService {
 		String filePath = teach.getHomepage_id();
 		teachStorage.deleteFile(fileName, filePath);
 		return dao.deleteImage(teach);
+	}
+	
+	public int deleteAttach(Teach teach) {
+		teach = dao.getTeachOne(teach);
+		String fileName = teach.getAttach_server_file_name();
+		String filePath = teach.getHomepage_id();
+		teachStorage.deleteFile(fileName, filePath);
+		return dao.deleteAttach(teach);
 	}
 
 	public void sendSmsTeachCancle() {

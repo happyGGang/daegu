@@ -349,7 +349,8 @@
 				(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = '--') as program_classification2_name,
 				(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = a.program_classification3) as program_classification3_name,
 				a.CANCLE_use_yn, a.START_CANCLE_DATE, a.END_CANCLE_DATE, a.START_CANCLE_TIME, a.END_CANCLE_TIME, a.CANCLE_GUID,
-				a.terms, a.apply_file_yn, a.teach_addr_limit, a.teach_addr_limit_value, a.age_info_yn
+				a.terms, a.apply_file_yn, a.teach_addr_limit, a.teach_addr_limit_value, a.age_info_yn,
+				a.attach_org_file_name, a.attach_server_file_name, a.attach_file_extension, a.attach_file_size
 			FROM
 				TEACH a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d
 			WHERE a.homepage_id = b.homepage_id(+)
@@ -394,6 +395,12 @@
 			image_server_file_name,
 			IMAGE_file_extension,
 			IMAGE_file_size,
+			</if>
+			<if test="attach_server_file_name != null and attach_server_file_name != ''">
+			attach_org_file_name = #{attach_org_file_name},
+			attach_server_file_name = #{attach_server_file_name},
+			attach_file_extension = #{attach_file_extension},
+			attach_file_size = #{attach_file_size},
 			</if>
 			FAMILY_YN, MEMBER_YN, teach_age_type, sms_service_yn, picture_use_yn, use_yn, CERTIFICATE_YN, SURVEY_IDX, ADD_DATE, ADD_ID, TEACH_JOIN_LIMIT_UNIT, TEACH_JOIN_LIMIT_VALUE,
 			family_count_yn, agent_yn, school_info_yn, school_grade_yn, remark_yn, address_yn, remark_comment,
@@ -506,6 +513,12 @@
 			image_server_file_name 		= #{image_server_file_name},
 			image_file_extension 		= #{image_file_extension},
 			image_file_size	 		= #{image_file_size},
+			</if>
+			<if test="attach_server_file_name != null and attach_server_file_name != ''">
+			attach_org_file_name = #{attach_org_file_name},
+			attach_server_file_name = #{attach_server_file_name},
+			attach_file_extension = #{attach_file_extension},
+			attach_file_size = #{attach_file_size},
 			</if>
 			family_count_yn = #{family_count_yn},
 			agent_yn = #{agent_yn},
@@ -1332,7 +1345,8 @@
 				a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
 				getCodeIdToCodeName('CMS', 'C0020', a.limit_hak) AS LIMIT_HAK_STR,
 				getCodeIdToCodeName('CMS', 'C0020', a.limit_hak2) AS LIMIT_HAK2_STR,
-				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn
+				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn,
+				A.attach_org_file_name, A.attach_server_file_name, A.attach_file_extension, A.attach_file_size
 		FROM
 		(
 			SELECT
@@ -1349,7 +1363,8 @@
 				NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='1' AND	APPLY_TYPE = 'CMS' GROUP BY teach_idx), 0) AS TEACH_OFF_JOIN_COUNT,
 				a.IMAGE_org_file_name, a.image_server_file_name, a.IMAGE_file_extension, a.IMAGE_file_size, a.LIMIT_HAK_YN,
 				a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
-				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn
+				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn,
+				a.attach_org_file_name, a.attach_server_file_name, a.attach_file_extension, a.attach_file_size
 			FROM
 				TEACH a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d
 			WHERE a.homepage_id = b.homepage_id(+)
@@ -1653,6 +1668,21 @@
 			image_org_file_name = '',
 			image_file_extension = '',
 			image_file_size = ''
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	group_idx = #{group_idx}
+		AND	category_idx = #{category_idx}
+		AND	teach_idx = #{teach_idx}
+	</update>
+	
+	<update id="deleteAttach">
+		UPDATE
+			TEACH
+		SET
+			attach_org_file_name = '',
+			attach_server_file_name = '',
+			attach_file_extension = '',
+			attach_file_size = ''
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	group_idx = #{group_idx}

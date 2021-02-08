@@ -130,6 +130,15 @@
 					</td>
 				</tr>
 				<tr>
+					<th class="center">첨부파일</th>
+					<td colspan="3">
+						<c:if test="${teach.attach_server_file_name ne null and teach.attach_server_file_name ne ''}">
+							<a style="color: #00f" href="download/${teach.homepage_id}/${teach.group_idx}/${teach.category_idx}/${teach.teach_idx}.do?file_type=attach">
+							<i class="fa fa-floppy-o"></i> ${teach.attach_org_file_name}</a>
+						</c:if>
+					</td>
+				</tr>
+				<tr>
 					<th class="center">접수기간</th>
 					<td colspan="3">${teach.start_join_date} ${teach.start_join_time} ~ ${teach.end_join_date} ${teach.end_join_time}</td>
 				</tr>

@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.whalesoft.app.cms.code.CodeService;
@@ -412,7 +413,8 @@ public class TeachController extends BaseController{
 
 	@RequestMapping(value = "/download/{homepage_id}/{group_idx}/{category_idx}/{teach_idx}.*", method = RequestMethod.GET)
 	@ResponseBody
-    public ResponseEntity<byte[]> getFile(@PathVariable("homepage_id") String homepage_id, @PathVariable("group_idx") int group_idx, @PathVariable("category_idx") int category_idx, @PathVariable("teach_idx") int teach_idx, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ResponseEntity<byte[]> getFile(@PathVariable("homepage_id") String homepage_id, @PathVariable("group_idx") int group_idx, @PathVariable("category_idx") int category_idx,
+			@PathVariable("teach_idx") int teach_idx, @RequestParam(required=false, value="file_type") String file_type, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Teach teach = teachService.getTeachOne(new Teach(homepage_id, group_idx, category_idx, teach_idx));
 		HttpHeaders responseHeaders = new HttpHeaders();
 		byte[] bytes = null;
@@ -422,8 +424,22 @@ public class TeachController extends BaseController{
 			teachService.alertMessage("파일이 존재하지 않습니다.", request, response);
 			return null;
 		}
+		
+		String serverName = "";
+		String orgName = "";
+		String extension = "";
+		if(file_type != null && file_type.equals("attach")) {
+			serverName = teach.getAttach_server_file_name();
+			orgName = teach.getAttach_org_file_name();
+			extension = teach.getAttach_file_extension();
+		} else {
+			serverName = teach.getServer_file_name();
+			orgName = teach.getOrg_file_name();
+			extension = teach.getFile_extension();
+		}
 
-		String filePath = teachService.getRootPath()+ "/" + homepage_id + "/" + teach.getServer_file_name();
+		String filePath = teachService.getRootPath()+ "/" + homepage_id + "/" + serverName;
+//		String filePath = teachService.getRootPath()+ "/" + homepage_id + "/" + teach.getServer_file_name();
 		File file = new File(filePath);
 
 //		if(file.length() > 0) {
@@ -443,9 +459,10 @@ public class TeachController extends BaseController{
 		}
 
 //		String fileName = "";
-		String fileName = String.format("%s.%s", teach.getOrg_file_name(),teach.getFile_extension() );
+//		String fileName = String.format("%s.%s", teach.getOrg_file_name(),teach.getFile_extension() );
 //		String fileName = boardFile.getFile_name().substring(0,boardFile.getFile_name().lastIndexOf("."));
-		String fileType = teach.getFile_extension().toUpperCase();
+		String fileName = String.format("%s.%s", orgName, extension);
+//		String fileType = teach.getFile_extension().toUpperCase();
 //		String fullFilename = fileName+"."+fileType;
 
 //		response.setHeader("Content-Length", Long.toString(file.length()));
@@ -457,7 +474,7 @@ public class TeachController extends BaseController{
 		responseHeaders.setPragma("no-cache;");
 		responseHeaders.setExpires(-1);
 //		responseHeaders.setContentLength(file.length());
-		responseHeaders.setContentType(MediaType.valueOf(AttachmentUtils.getContentType(fileType)));
+		responseHeaders.setContentType(MediaType.valueOf(AttachmentUtils.getContentType(extension.toUpperCase())));
 		responseHeaders.setContentLength(bytes.length);
 
 	    return new ResponseEntity<byte[]>(bytes, responseHeaders, HttpStatus.OK);

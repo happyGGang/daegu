@@ -379,7 +379,7 @@ $(function() {
 			$('td.planFile a').remove();
 			$('a.delete-file-btn').remove();
 		}
-	})
+	});
 	//강의이미지 삭제
 	$('a.delete-image-btn').on('click', function(e) {
 		e.preventDefault();
@@ -390,7 +390,17 @@ $(function() {
 			$('td.imagePlanFile img').remove();
 			$('a.delete-image-btn').remove();
 		}
-	})
+	});
+	$('a.delete-attach-btn').on('click', function(e) {
+		e.preventDefault();
+		var action = $('form#deleteFileForm').attr('action');
+		$('form#deleteFileForm').attr('action', 'deleteAttach.do');
+		if(doAjaxPost($('#deleteFileForm'))) {
+			$('form#deleteFileForm').attr('action', action);
+			$('td.attachPlanFile a').remove();
+			$('a.delete-attach-btn').remove();
+		}
+	});
 
 	$('[name="teach_join_limit_unit"]').change(function() {
 		var $this = $(this);
@@ -994,6 +1004,17 @@ $(function() {
 	         		<button id="cancelFile">등록취소</button>
          		</td>
 	        </tr>
+			<tr>
+				<th>첨부파일</th>
+				<td class="attachPlanFile">
+					<c:if test="${teach.attach_org_file_name ne null and teach.attach_org_file_name ne ''}">
+						<a href="/cms/module/teach/download/${teach.homepage_id}/${teach.group_idx}/${teach.category_idx}/${teach.teach_idx}.do?file_type=attach"><i class="fa fa-floppy-o"></i>${teach.attach_org_file_name}</a><a class="btn btn1 delete-attach-btn">삭제</a>
+						<br/>
+					</c:if>
+					<input type="file" id="attach_file" name="attach_file" class="text"><form:hidden path="attach_org_file_name"/>
+					<button id="attachCancelFile">등록취소</button>
+				</td>
+			</tr>
 	        <%-- <tr>
 	         	<th>모집분류</th>
 	         	<td>

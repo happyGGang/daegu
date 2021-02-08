@@ -58,6 +58,8 @@ public interface TeachDao  {
 	public List<String> getHolidays(Teach teach);
 
 	public int deleteImage(Teach teach);
+	
+	public int deleteAttach(Teach teach);
 
 	public List<Teach> getSchaduleTeach();
 

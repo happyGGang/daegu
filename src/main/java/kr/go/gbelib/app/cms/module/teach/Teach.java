@@ -81,6 +81,10 @@ public class Teach extends PagingUtils {
 	private String image_server_file_name; //실제파일명
 	private String image_file_extension;  //파일확장자
 	private long image_file_size;  //파일 사이즈
+	private String attach_org_file_name;  //첨부파일파일명
+	private String attach_server_file_name;  //첨부파일실제파일명
+	private String attach_file_extension;  //첨부파일확장자
+	private long attach_file_size;  //첨부파일사이즈
 	private String member_yn = "N";  //정회원전용여부
 	private String teach_age_type = "adult";  //강의유형(성인강의, 어린이강의)
 	private String use_yn = "Y";  //사용여부
@@ -124,6 +128,7 @@ public class Teach extends PagingUtils {
 
 	private MultipartFile plan_file;
 	private MultipartFile image_plan_file;
+	private MultipartFile attach_file;
 
 	private String[] teach_day_arr;
 
@@ -644,8 +649,7 @@ public class Teach extends PagingUtils {
 	public long getImage_file_size() {
 		return image_file_size;
 	}
-
-
+	
 	public void setImage_file_extension(String image_file_extension) {
 		this.image_file_extension = image_file_extension;
 	}
@@ -660,6 +664,46 @@ public class Teach extends PagingUtils {
 
 	public void setImage_plan_file(MultipartFile image_plan_file) {
 		this.image_plan_file = image_plan_file;
+	}
+	
+	public MultipartFile getAttach_file() {
+		return attach_file;
+	}
+	
+	public void setAttach_file(MultipartFile attach_file) {
+		this.attach_file = attach_file;
+	}
+
+	public String getAttach_org_file_name() {
+		return attach_org_file_name;
+	}
+	
+	public void setAttach_org_file_name(String attach_org_file_name) {
+		this.attach_org_file_name = attach_org_file_name;
+	}
+	
+	public String getAttach_server_file_name() {
+		return attach_server_file_name;
+	}
+
+	public void setAttach_server_file_name(String attach_server_file_name) {
+		this.attach_server_file_name = attach_server_file_name;
+	}
+
+	public String getAttach_file_extension() {
+		return attach_file_extension;
+	}
+
+	public void setAttach_file_extension(String attach_file_extension) {
+		this.attach_file_extension = attach_file_extension;
+	}
+
+	public long getAttach_file_size() {
+		return attach_file_size;
+	}
+
+	public void setAttach_file_size(long attach_file_size) {
+		this.attach_file_size = attach_file_size;
 	}
 
 	public int getMain_view_count() {
