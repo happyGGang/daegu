@@ -39,7 +39,8 @@
 				WHEN (A.ATTEND_CNT/A.CNT)*100 >= #{cert_percent}
 				THEN '1'
 				ELSE '2'
-			END AS STUDENT_STATUS
+			END AS STUDENT_STATUS,
+			(SELECT COUNT(*) FROM BLACKLIST WHERE homepage_id = A.homepage_id AND member_id = A.member_id) AS isBlackList
 		FROM
 			(
 				SELECT

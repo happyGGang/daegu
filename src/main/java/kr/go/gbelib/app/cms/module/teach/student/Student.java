@@ -93,6 +93,8 @@ public class Student extends PagingUtils {
 	private String teach_status;
 	private String student_status;
 	private int cert_percent = 70;
+	
+	private int isBlackList;
 
 	private String search_api_type = "WEBID";
 
@@ -476,6 +478,14 @@ public class Student extends PagingUtils {
 
 	public void setStudentList(List<Student> studentList) {
 		this.studentList = studentList;
+	}
+
+	public int getIsBlackList() {
+		return isBlackList;
+	}
+
+	public void setIsBlackList(int isBlackList) {
+		this.isBlackList = isBlackList;
 	}
 
 	public String getSearch_api_type() {

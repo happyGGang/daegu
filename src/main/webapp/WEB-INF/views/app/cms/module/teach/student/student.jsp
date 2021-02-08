@@ -107,10 +107,10 @@ $(function(){
 	});
 
 	$('a.add_blackList').on('click', function(e) {
-		$('#dialog-3').load('/cms/module/blackList/edit.do?editMode=ADD&black_type=10&after_click_btn=button.teach_btn_${student.group_idx}${student.category_idx}${student.teach_idx}&homepage_id=' + $(this).attr('homepage_id') + '&member_id=' + $(this).attr('keyValue')+ '&member_key=' + $(this).attr('keyValue1'), function( response, status, xhr ) {
+		$('#dialog-3').load('/cms/module/blackList/edit.do?editMode=ADD&black_type=10&after_click_btn=button.teach_btn_${student.group_idx}${student.category_idx}${student.teach_idx}&homepage_id=' + $(this).attr('homepage_id') + '&member_id=' + $(this).attr('keyValue'), function( response, status, xhr ) {
 			$('#dialog-3').dialog({
-				width: 600,
-				height: 300
+				width: 500,
+				height: 250
 			});
 			$('#dialog-3').dialog('open');
 		});
@@ -123,10 +123,10 @@ $(function(){
 
 		if (confirm('해당 수강생을 블랙리스트 목록에서 삭제하시겠습니까?')) {
 			var data = {
-					editMode : 'BLACKTYPEDELETE',
-					homepage_id : $(this).attr('homepage_id'),
-					member_key : $(this).attr('keyValue'),
-					black_type	: '10'
+				editMode : 'BLACKTYPEDELETE',
+				homepage_id : $(this).attr('homepage_id'),
+				member_id : $(this).attr('keyValue'),
+				black_type	: '10'
 			}
 
 			jQuery.ajaxSettings.traditional = true;
@@ -349,7 +349,7 @@ $(function(){
 		e.preventDefault();
 		$('#studentLayer').load('student.do?homepage_id=' + $('#studentListForm #homepage_id').val() + '&group_idx=' + $('#studentListForm #group_idx').val() + '&category_idx=' + $('#studentListForm #category_idx').val() + '&teach_idx=' + $('#studentListForm #teach_idx').val() +'&large_category_idx=' + $('#studentListForm #large_category_idx').val() + '&rowCount=' + $('#studentListForm #rowCount').val());
 	});
-
+	
 });
 </script>
 <form:form id="delForm" modelAttribute="student" action="save.do">
@@ -503,6 +503,14 @@ $(function(){
 					<c:if test="${authD}">
 					<a href="" class="btn delete-btn" keyValue1="${i.student_idx}">삭제</a><br/>
 					</c:if>
+					
+					<c:if test="${i.isBlackList > 0}">
+					<a href="" class="btn btn4 delete_blackList" homepage_id="${i.homepage_id}" keyValue="${i.member_id}">블랙리스트 삭제</a>
+					</c:if>
+					<c:if test="${i.isBlackList < 1}">
+					<a href="" class="btn btn1 add_blackList" homepage_id="${i.homepage_id}" keyValue="${i.member_id}">블랙리스트 추가</a>
+					</c:if>
+					
 					<c:if test="${not empty i.server_file_name}">
 					<a href="download/${i.homepage_id}/${i.group_idx}/${i.category_idx}/${i.teach_idx}/${i.student_idx}.do" class="btn file_btn">파일</a>
 					</c:if>
