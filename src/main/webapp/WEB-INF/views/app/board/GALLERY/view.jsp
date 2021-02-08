@@ -5,78 +5,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="boardTag" uri="/WEB-INF/config/tld/boardTag.tld"%>
 <% pageContext.setAttribute("crlf", "\r\n"); %>
-<style>
-	a.bx-prev {
-	    font-size: 20px;
-	    position: relative;
-	    width: 30px;
-	    height: 40px;
-	    display: block;
-	    left: 400px;
-	    top: -220px;
-    }
-    
-    a.bx-next {
-	    font-size: 20px;
-	    position: relative;
-	    width: 30px;
-	    height: 40px;
-	    display: block;
-	    right: -550px;
-	    top: -260px;
-    }
-    
-    .largeBox {margin-top:10%; margin-bottom: 5%; text-align: center;}
-    .largeBox img {width:900px; height:600px; text-align:center;}
-</style>
-<script>
-$(function () {
-	$('li.smallOne img.smallImg0').css('border', '1px solid black');
-	
-	$('.bx-slider-zone-example').bxSlider({
-		mode: 'horizontal',
-		auto:false,
-		pager: false,
-		maxSlides: 10,
-		moveSlides: 1,
-		slideMargin: 10,
-		slideWidth: 100,
-		slideHeight: 60
-	});
-	
-	$('li.smallOne').on('click', function(e) {
-		var preview_img = $(this).data('idx');
-		$('.largeBox img').attr('src', '/data/board/${board.manage_idx}/${board.board_idx}/'+preview_img);
-		
-		var pagingNum = $(this).attr('keyValue');
-		$('li.smallOne img').css('border', '0');
-		$('li.smallOne img.smallImg' + pagingNum).css('border', '1px solid black');
-		pagingNum = Number(pagingNum);
-		pagingNum += 1;
-		$('span#pagingNum').text(pagingNum);
-		
-		e.preventDefault();
-	});
-	
-	$('a.bx-prev, a.bx-next').on('click', function() {
-		$('li.smallOne').unbind();
-		
-		$('li.smallOne').on('click', function(e) {
-			var preview_img = $(this).data('idx');
-			$('.largeBox img').attr('src', '/data/board/${board.manage_idx}/${board.board_idx}/'+preview_img);
-			
-			var pagingNum = $(this).attr('keyValue');
-			$('li.smallOne img').css('border', '0');
-			$('li.smallOne img.smallImg' + pagingNum).css('border', '1px solid black');
-			pagingNum = Number(pagingNum);
-			pagingNum += 1;
-			$('span#pagingNum').text(pagingNum);
-			
-			e.preventDefault();
-		});
-	});
-});
-</script>
 <c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.top_html) > 0}">
 ${boardManage.top_html}
 </c:if>
@@ -132,24 +60,6 @@ ${boardManage.top_html}
 			</dl>
 		</div>
 
-		<c:if test="${fn:length(imgServerFileNameList) > 0}">
-		<div class="bx-slider-zone-box">
-			<div class="largeBox">
-				<img src="/data/board/${board.manage_idx}/${board.board_idx}/${imgServerFileNameList[0]}" data-idx="${imgServerFileNameList[0]}">
-			</div>
-			<div id="pagingBox" style="text-align:center;font-size:20px;margin-bottom:45px;">
-				<span id="pagingNum">1</span> / <span>${fn:length(imgServerFileNameList)}</span>
-			</div>
-			<div class="smallBox">
-				<ul class="bx-slider-zone-example">
-					<c:forEach var="i" varStatus="status" items="${imgServerFileNameList}">
-						<li class="smallOne" data-idx="${i}" keyValue="${status.index}"><img src="/data/board/${board.manage_idx}/${board.board_idx}/${i}" class="smallImg${status.index}" style="cursor:pointer"></li>
-					</c:forEach>
-				</ul>
-			</div>
-		</div>
-		</c:if>
-		
 		<div class="bbs-view-body">
 			<c:set value="${fn:replace(board.content, crlf, '<br/>')}" var="content"></c:set>
 			${content}
