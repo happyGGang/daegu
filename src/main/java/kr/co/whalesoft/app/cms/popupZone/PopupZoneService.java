@@ -88,6 +88,10 @@ public class PopupZoneService extends BaseService {
 		return dao.modifyPopupZone(popupZone);
 	}
 	
+	public int modifyPopupZonePrintSeq(PopupZone popupZone) {
+		return dao.modifyPopupZonePrintSeq(popupZone);
+	}
+	
 	@WorkingLogger(comment="팝업존 관리 1건 삭제")
 	public int deletePopupZone(PopupZone popupZone) {
 		PopupZone popupZoneOne = dao.getPopupZoneOne(popupZone);
@@ -111,4 +115,5 @@ public class PopupZoneService extends BaseService {
 	public int getNextPrintSeq(String homepage_id) {
 		return dao.getNextPrintSeq(homepage_id);
 	}
+
 }

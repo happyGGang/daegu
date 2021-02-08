@@ -92,6 +92,11 @@ public class PopupZoneController extends BaseController {
 				service.deletePopupZone(popupZone);
 				res.setValid(true);
 				res.setMessage("삭제 되었습니다.");
+			} else if(popupZone.getEditMode().equals("MODIFYPRINTSEQ")) {
+				popupZone.setModify_id(getSessionMemberId(request));
+				service.modifyPopupZonePrintSeq(popupZone);
+				res.setValid(true);
+				res.setMessage("수정 되었습니다.");
 			}
 		} else {
 			res.setValid(false);

@@ -3,7 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<script src="/resources/cms/js/malsup.jquery.form.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function(){
 	//모달창 링크 버튼
@@ -67,8 +67,105 @@ $(function(){
 		$('#viewPage').val(1);
 		doGetLoad('index.do', serializeCustom($('#popup_zone_1')));
 	});
+	
+	$('a#print_seq_up').on('click', function(e) {
+		e.preventDefault();
+		$('input#popup_zone_idx_print').val($(this).data('idx'));
+		$('input#popup_zone_name_print').val($(this).data('name'));
+		$('input#start_date_print').val($(this).data('startdate'));
+		$('input#end_date_print').val($(this).data('enddate'));
+		$('input#link_url_print').val($(this).data('url'));
+		var print_seq = $(this).data('printseq');
+		print_seq = Number(print_seq) + 10;
+		
+		$('input#print_seq_print').val(print_seq);
+
+		jQuery.ajaxSettings.traditional = true;
+
+		var option = {
+			url : 'save.do',
+			type : 'POST',
+			data : $('#popup_zone_print_seq').serialize(),
+			enctype : 'multipart/form-data',
+			success: function(response) {
+				 if(response.valid) {
+					alert(response.message);
+					location.reload();
+				} else {
+					if ( response.message != null ) {
+						alert(response.message);
+					}
+					else {
+						for(var i =0 ; i < response.result.length ; i++) {
+							alert(response.result[i].code);
+							$('#'+response.result[i].field).focus();
+							break;
+						}
+					}
+				}
+	         },
+	         error: function(jqXHR, textStatus, errorThrown) {
+	             alert('[' + textStatus + ']관리자에게 문의하세요. : ' + errorThrown);
+	         }
+		};
+		$('#popup_zone_print_seq').ajaxSubmit(option);
+	});
+	
+	$('a#print_seq_down').on('click', function(e) {
+		e.preventDefault();
+		$('input#popup_zone_idx_print').val($(this).data('idx'));
+		$('input#popup_zone_name_print').val($(this).data('name'));
+		$('input#start_date_print').val($(this).data('startdate'));
+		$('input#end_date_print').val($(this).data('enddate'));
+		$('input#link_url_print').val($(this).data('url'));
+		var print_seq = $(this).data('printseq');
+		print_seq = Number(print_seq) - 10;
+		
+		$('input#print_seq_print').val(print_seq);
+
+		jQuery.ajaxSettings.traditional = true;
+
+		var option = {
+			url : 'save.do',
+			type : 'POST',
+			data : $('#popup_zone_print_seq').serialize(),
+			enctype : 'multipart/form-data',
+			success: function(response) {
+				 if(response.valid) {
+					alert(response.message);
+					location.reload();
+				} else {
+					if ( response.message != null ) {
+						alert(response.message);
+					}
+					else {
+						for(var i =0 ; i < response.result.length ; i++) {
+							alert(response.result[i].code);
+							$('#'+response.result[i].field).focus();
+							break;
+						}
+					}
+				}
+	         },
+	         error: function(jqXHR, textStatus, errorThrown) {
+	             alert('[' + textStatus + ']관리자에게 문의하세요. : ' + errorThrown);
+	         }
+		};
+		$('#popup_zone_print_seq').ajaxSubmit(option);
+	});
 });
 </script>
+<form:form id="popup_zone_print_seq" modelAttribute="popupZone" method="POST" action="save.do" encType="multipart/form-data">
+<form:hidden path="homepage_id" id="homepage_id_print" value="${homepage.homepage_id}"/>
+<form:hidden path="editMode" id="editMode_print" value="MODIFYPRINTSEQ"/>
+<form:hidden path="popup_zone_idx" id="popup_zone_idx_print"/>
+<form:hidden path="popup_zone_name" id="popup_zone_name_print"/>
+<form:hidden path="start_date" id="start_date_print"/>
+<form:hidden path="end_date" id="end_date_print"/>
+<form:hidden path="link_url" id="link_url_print"/>
+<form:hidden path="print_seq" id="print_seq_print"/>
+</form:form>
+
 <form:form id="popup_zone_1" modelAttribute="popupZone" method="POST" action="save.do" onsubmit="return false;">
 <form:hidden id="editMode_1" path="editMode"/>
 <form:hidden id="popup_zone_idx_1" path="popup_zone_idx"/>
@@ -104,7 +201,7 @@ $(function(){
 				<th width="">팝업존명</th>
 				<th width="80">사용여부</th>
 				<th width="300">게시기간</th>
-				<th width="80">출력순서</th>
+				<th width="200">출력순서</th>
 				<th width="120">등록일</th>
 				<th width="100">기능</th>
 			</tr>
@@ -121,7 +218,11 @@ $(function(){
 				<td class="left">${i.popup_zone_name}</td>
 				<td>${i.use_yn eq 'Y' ? '사용함' : '사용안함'}</td>
 				<td class="center">${i.start_date} ~ ${i.end_date}</td>
-				<td>${i.print_seq}</td>
+				<td>
+					<a href="#" id="print_seq_up" data-idx="${i.popup_zone_idx}" data-name="${i.popup_zone_name}" data-startdate="${i.start_date}" data-enddate="${i.end_date}" data-url="${i.link_url}" data-printseq="${i.print_seq}">위</a>
+					<a href="#" id="print_seq_down" data-idx="${i.popup_zone_idx}" data-name="${i.popup_zone_name}" data-startdate="${i.start_date}" data-enddate="${i.end_date}" data-url="${i.link_url}" data-printseq="${i.print_seq}">아래</a>
+					${i.print_seq}
+				</td>
 				<td><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></td>
 				<td>
 					<c:if test="${authU}">

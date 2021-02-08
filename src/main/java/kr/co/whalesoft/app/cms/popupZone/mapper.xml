@@ -117,6 +117,16 @@
 			homepage_id = #{homepage_id}
 		AND	popup_zone_idx = #{popup_zone_idx}
 	</update>
+	
+	<update id="modifyPopupZonePrintSeq">
+		UPDATE
+			CMS_POPUP_ZONE
+		SET
+			print_seq = #{print_seq}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	popup_zone_idx = #{popup_zone_idx}
+	</update>
 
 	<delete id="deletePopupZone">
 		DELETE FROM
