@@ -1526,7 +1526,7 @@ public class LibrarySearchController extends BaseController {
 		Map<String, Object> result = new HashMap<String, Object>();
 
 		result = LibSearchAPI.getBookInfo(librarySearch);
-
+		
 		model.addAttribute("librarySearch", librarySearch);
 
 		List<Map<String, Object>> list = null;
@@ -1538,7 +1538,9 @@ public class LibrarySearchController extends BaseController {
 
 		if ( count > 0 ) {
 			list = LibSearchAPI.getListData(result);
-			model.addAttribute("detail", list.get(0));
+			Map<String, Object> map = list.get(0);
+			map.put("marc", marc_view(model, String.valueOf(map.get("REG_NO")), request));
+			model.addAttribute("detail", map);
 		}
 
 		return basePath + "print_ajax";

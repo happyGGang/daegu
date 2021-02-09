@@ -98,6 +98,10 @@ function doOutFocus() {
 				    <td style="font-size: 14px; font-weight: bold;font-family: 돋움 " class="last td2">${detail.SHELF_LOC_NAME}</td>
 				</tr>
 				<tr>
+					<td style="font-size: 14px; text-align: justify; font-weight: bold;font-family: 돋움" class="first td1">521CODE : </td>
+					<td style="font-size: 14px; font-weight: bold;font-family: 돋움 " class="last td2">${detail.marc}</td>
+				</tr>
+				<tr>
 				   <td colspan="2" class="first last td1">-------------------------------------------</td>
 				</tr>
 			</tbody>
