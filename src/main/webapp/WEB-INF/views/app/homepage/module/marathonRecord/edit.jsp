@@ -90,13 +90,27 @@ $(function() {
 				$('select#book_resources').append('<option value="write" selected="selected">기타 도서관</option>');
 				return false;
 			}
-			if($('textarea#book_journals').val().length < 51){
-				alert('독서감상문은 띄어쓰기 빈칸을 포함하여 50자 이상 기록하여야 합니다.');
-				$('textarea#book_journals').focus();
-				$('select#book_resources option[value=' + $('input#book_resources_1').val() +']').remove();
-				$('select#book_resources').append('<option value="write" selected="selected">기타 도서관</option>');
-				return false;
-			}
+			<c:choose>
+				<c:when test="${marathonApplicant.contest_type_idx eq 1}">
+					if($('textarea#book_journals').val().length < 30){
+						alert('독서감상문은 띄어쓰기 빈칸을 포함하여 30자 이상 기록하여야 합니다.');
+						$('textarea#book_journals').focus();
+						$('select#book_resources option[value=' + $('input#book_resources_1').val() +']').remove();
+						$('select#book_resources').append('<option value="write" selected="selected">기타 도서관</option>');
+						return false;
+					}
+				</c:when>
+				<c:otherwise>
+					if($('textarea#book_journals').val().length < 50){
+						alert('독서감상문은 띄어쓰기 빈칸을 포함하여 50자 이상 기록하여야 합니다.');
+						$('textarea#book_journals').focus();
+						$('select#book_resources option[value=' + $('input#book_resources_1').val() +']').remove();
+						$('select#book_resources').append('<option value="write" selected="selected">기타 도서관</option>');
+						return false;
+					}
+				</c:otherwise>
+			</c:choose>
+			
 		}
 		if($('select#book_resources').val() == ''){
 			alert('대출/구입처를 선택해 주세요.');
@@ -133,11 +147,22 @@ $(function() {
 			$('textarea#book_journals').focus();
 			return false;
 		}
-		if($('textarea#book_journals').val().length < 51){
-			alert('독서감상문은 띄어쓰기 빈칸을 포함하여 50자 이상 기록하여야 합니다.');
-			$('textarea#book_journals').focus();
-			return false;
-		}
+		<c:choose>
+			<c:when test="${marathonApplicant.contest_type_idx eq 1}">
+				if($('textarea#book_journals').val().length < 30){
+					alert('독서감상문은 띄어쓰기 빈칸을 포함하여 30자 이상 기록하여야 합니다.');
+					$('textarea#book_journals').focus();
+					return false;
+				}
+			</c:when>
+			<c:otherwise>
+				if($('textarea#book_journals').val().length < 50){
+					alert('독서감상문은 띄어쓰기 빈칸을 포함하여 50자 이상 기록하여야 합니다.');
+					$('textarea#book_journals').focus();
+					return false;
+				}
+			</c:otherwise>
+		</c:choose>
 		
 		doAjaxPost($('form#marathonRecord'));
 	});
@@ -205,6 +230,11 @@ $(function() {
 	
 	/* doAjaxLoad('div#searchBox', 'search.do'); */
 	doAjaxLoad('div#historyBox', 'loan/history.do');
+	
+	<c:if test="${marathonRecord.loan_choice eq 'Y'}">
+		$('span#writing').hide();
+		$('span#selectButton').show();
+	</c:if>
 });
 </script>
 <div id="historyBox">
@@ -221,6 +251,7 @@ $(function() {
 	<form:hidden path="record_idx"/>
 	<form:hidden path="editMode"/>
 	<form:hidden path="menu_idx"/>
+	<form:hidden path="loan_choice"/>
 	<div class="rsv-info"></div>
 	<div class="auto-scroll">
 	<table class="type2 nohead">
@@ -312,10 +343,10 @@ $(function() {
 			<tr>
 				<th>*독서감상문</th>
 				<td>
-					<div style="padding-left:1%"><span id="textLength">0</span>/50자 &nbsp;&nbsp;&nbsp; 로그인 유지 시간 : <span id="demo"></span></div>
+					<div style="padding-left:1%"><span id="textLength">0</span>/${marathonApplicant.contest_type_idx eq 1 ? '30' : '50'}자 &nbsp;&nbsp;&nbsp; 로그인 유지 시간 : <span id="demo"></span></div>
 					<form:textarea path="book_journals" rows="10" cols="100" cssStyle="padding:10px 10px;width:100%;"></form:textarea><br/>
 					<div style="font-size:13px;">
-						* 독서감상문은 띄어쓰기 빈칸을 포함하여 50자 이상 기록하여야 합니다.<br/>
+						* 독서감상문은 띄어쓰기 빈칸을 포함하여 ${marathonApplicant.contest_type_idx eq 1 ? '30' : '50'}자 이상 기록하여야 합니다.<br/>
 						* 20분간 사용이 없으면 자동으로 로그아웃되므로 작성이 길어질 경우 미리 작성하신 내용을 복사해서 등록하시기 바랍니다.
 					</div>
 				</td>

@@ -55,4 +55,6 @@ public interface MarathonApplicantDao {
 
 	int getMarathonApplicantUserCount(MarathonApplicant marathonApplicant);
 
+	int modifyMarathonApplicantContestType(MarathonApplicant marathonApplicant);
+
 }

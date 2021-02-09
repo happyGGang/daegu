@@ -25,6 +25,7 @@ public class MarathonApplicantRecord extends PagingUtils{
 	private Date record_date; //일지 작성일
 	private String book_resources; //대출/구입처
 	private String book_journals; //독서감상문
+	private String loan_choice; //대출내역 선택 여부
 	
 	public int getApplicant_idx() {
 		return applicant_idx;
@@ -139,5 +140,11 @@ public class MarathonApplicantRecord extends PagingUtils{
 	}
 	public void setBook_journals(String book_journals) {
 		this.book_journals = book_journals;
+	}
+	public String getLoan_choice() {
+		return loan_choice;
+	}
+	public void setLoan_choice(String loan_choice) {
+		this.loan_choice = loan_choice;
 	}
 }

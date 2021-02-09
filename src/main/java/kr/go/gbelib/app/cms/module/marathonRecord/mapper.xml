@@ -25,7 +25,7 @@
 			homepage_id, contest_idx, contest_type_idx, applicant_idx, record_idx,
 			member_id, member_name, book_name, read_page_count, book_resources,
 			book_get_date, book_type, book_author, publisher, book_journals,
-			record_date, modify_date, modify_id, call_no, reg_no
+			record_date, modify_date, modify_id, call_no, reg_no, loan_choice
 		FROM
 			MARATHON_RECORD
 		WHERE
@@ -47,7 +47,7 @@
 			homepage_id, contest_idx, contest_type_idx, applicant_idx, record_idx,
 			member_id, member_name, book_name, read_page_count, book_resources,
 			book_get_date, book_type, book_author, publisher, book_journals,
-			record_date, modify_date, modify_id, call_no, reg_no
+			record_date, modify_date, modify_id, call_no, reg_no, loan_choice
 		FROM
 			MARATHON_RECORD
 		WHERE
@@ -74,7 +74,7 @@
 			B.applicant_idx, B.member_id, B.member_name, A.school_name, A.school_class,
 			A.contest_type, C.page_count, B.read_page_count, A.read_page_count_total, A.finish_date,
 			B.book_name, B.book_author, B.book_type, B.publisher, B.record_date,
-			B.book_resources, B.book_journals
+			B.book_resources, B.book_journals, B.loan_choice
 		FROM
 			MARATHON_APPLICANT A, MARATHON_RECORD B, MARATHON_CONTEST_TYPE C
 		WHERE
@@ -102,7 +102,7 @@
 			B.applicant_idx, B.member_id, B.member_name, A.school_name, A.school_class,
 			A.contest_type, C.page_count, B.read_page_count, A.read_page_count_total, A.finish_date,
 			B.book_name, B.book_author, B.book_type, B.publisher, B.record_date,
-			B.book_resources, B.book_journals
+			B.book_resources, B.book_journals, B.loan_choice
 		FROM
 			MARATHON_APPLICANT A, MARATHON_RECORD B, MARATHON_CONTEST_TYPE C
 		WHERE
@@ -133,14 +133,14 @@
 			homepage_id, contest_idx, contest_type_idx, applicant_idx, record_idx,
 			member_id, member_name, book_name, read_page_count, book_resources,
 			book_get_date, book_type, book_author, publisher, book_journals,
-			record_date, call_no, reg_no
+			record_date, call_no, reg_no, loan_choice
 		)
 			VALUES
 		(
 			#{homepage_id}, #{contest_idx}, #{contest_type_idx}, #{applicant_idx}, #{record_idx},
 			#{member_id}, #{member_name}, #{book_name}, #{read_page_count}, #{book_resources},
 			#{book_get_date}, #{book_type}, #{book_author}, #{publisher}, #{book_journals},
-			SYSDATE, #{call_no}, #{reg_no}
+			SYSDATE, #{call_no}, #{reg_no}, #{loan_choice}
 		)
 	</insert>
 	
@@ -159,7 +159,8 @@
 			modify_date = SYSDATE,
 			modify_id = #{modify_id},
 			call_no = #{call_no},
-			reg_no = #{reg_no}
+			reg_no = #{reg_no},
+			loan_choice = #{loan_choice}
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	contest_idx = #{contest_idx}

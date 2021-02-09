@@ -109,7 +109,16 @@
 			</c:choose>
 			<tr>
 				<td style="border:thin solid black;">${i.member_name}</td>
-				<td style="border:thin solid black;">${i.book_name}</td>
+				<td style="border:thin solid black;">
+					<c:choose>
+						<c:when test="${i.loan_choice eq 'N'}">
+							${i.book_name}
+						</c:when>
+						<c:otherwise>
+							${i.book_name} *
+						</c:otherwise>
+					</c:choose>
+				</td>
 				<td style="border:thin solid black;">${i.book_author}</td>
 				<td style="border:thin solid black;">${i.publisher}</td>
 				<td style="border:thin solid black;"><fmt:formatDate value="${i.record_date}" pattern="yyyy-MM-dd"/></td>

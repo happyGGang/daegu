@@ -206,4 +206,8 @@ public class MarathonApplicantService extends BaseService{
 		return dao.getMarathonApplicantUserCount(marathonApplicant);
 	}
 
+	public int modifyMarathonApplicantContestType(MarathonApplicant marathonApplicant) {
+		return dao.modifyMarathonApplicantContestType(marathonApplicant);
+	}
+
 }

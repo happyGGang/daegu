@@ -24,11 +24,12 @@ $(function() {
 <div class="table-wrap">
 	<table class="marathon_bbs center">
 		<colgroup>
-			<col width="17%"/>
-			<col width="32%"/>
-			<col width="17%"/>
-			<col width="17%"/>
-			<col width="17%"/>
+			<col width="15%"/>
+			<col width="25%"/>
+			<col width="15%"/>
+			<col width="15%"/>
+			<col width="15%"/>
+			<col width="15%"/>
 		</colgroup>
 		<thead>
 			<tr>
@@ -36,6 +37,7 @@ $(function() {
 				<th>도서명</th>
 				<th>청구기호</th>
 				<th>등록번호</th>
+				<th>대출반납일</th>
 				<th>대출내역선택</th>
 			</tr>
 		</thead>
@@ -47,6 +49,7 @@ $(function() {
 				<td><span style="color: #034DA0;">${i.TITLE}</span><br/>${i.AUTHOR} / ${i.PUBLISHER}</td>
 				<td>${i.CALL_NO}</td>
 				<td>${i.REG_NO}</td>
+				<td>${i.RETURN_DATE}</td>
 				<td><a href="#" id="selectOne" class="btn btn1" style="width:30%;height:10%;">선택</a>
 				<span data="${fn:replace(fn:replace(i.TITLE, '</b>', ''), '<b>', '')}//${i.AUTHOR}//${i.PUBLISHER}//${i.CALL_NO}//${i.REG_NO}//${i.MANAGE_CODE}//${i.LIB_NAME}"></span>
 				</td>
@@ -134,6 +137,8 @@ $(function() {
 			$('select#book_resources').attr('onfocus', 'this.initialSelect = this.selectedIndex');
 			$('select#book_resources').attr('onchange', 'this.selectedIndex = this.initialSelect');
 			$('input#book_resources_1').attr('readonly', true);
+			
+			$('input#loan_choice').val('Y');
 		});
 	});
 </script>

@@ -28,6 +28,7 @@ public class MarathonRecord extends PagingUtils{
 	private String modify_id; //수정인
 	private int read_page_count_beforeChange; //읽은 쪽수(수정할 때 사용자 누적 쪽수 변경용)
 	private int[] read_page_count_arr; //읽은 쪽수 배열 (삭제할 때 사용자 누적 쪽수 변경용)
+	private String loan_choice = "N"; //대출 내역 선택 여부
 	
 	private int contest_type_idx_modify;
 	private int applicant_idx_modify;
@@ -178,6 +179,12 @@ public class MarathonRecord extends PagingUtils{
 	}
 	public void setRead_page_count_arr(int[] read_page_count_arr) {
 		this.read_page_count_arr = read_page_count_arr;
+	}
+	public String getLoan_choice() {
+		return loan_choice;
+	}
+	public void setLoan_choice(String loan_choice) {
+		this.loan_choice = loan_choice;
 	}
 	public int getContest_type_idx_modify() {
 		return contest_type_idx_modify;

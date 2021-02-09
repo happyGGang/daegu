@@ -391,4 +391,15 @@
 		AND	applicant_idx = #{applicant_idx}
 	</delete>
 	
+	<update id="modifyMarathonApplicantContestType">
+		UPDATE
+			MARATHON_APPLICANT
+		SET
+			contest_type = #{contest_type}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	contest_idx = #{contest_idx}
+		AND	contest_type_idx = #{contest_type_idx}
+	</update>
+	
 </mapper>

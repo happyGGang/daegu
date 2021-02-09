@@ -62,7 +62,16 @@
 		<c:set var="next" value="${marathonRecordList[status.count]}"/>
 		<tr>
 			<td style="border:1px solid black;">${i.member_name}</td>
-			<td style="border:1px solid black;">${i.book_name}</td>
+			<td style="border:1px solid black;">
+				<c:choose>
+					<c:when test="${i.loan_choice eq 'N'}">
+						${i.book_name}
+					</c:when>
+					<c:otherwise>
+						${i.book_name} *
+					</c:otherwise>
+				</c:choose>
+			</td>
 			<td style="border:1px solid black;">${i.book_author}</td>
 			<td style="border:1px solid black;">${i.publisher}</td>
 			<td style="border:1px solid black;"><fmt:formatDate value="${i.record_date}" pattern="yyyy.MM.dd"/></td>

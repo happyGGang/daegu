@@ -215,8 +215,14 @@ public class MarathonRecordController extends BaseController{
 			if(!validationDate(marathonRecord.getBook_get_date())) {
 				result.reject("대출/구입 날짜 형식이 맞지 않습니다.");
 			}
-			if(marathonRecord.getBook_journals().length() < 51) {
-				result.reject("독서감상문은 띄어쓰기 빈칸을 포함하여 50자 이상 기록하여야 합니다.");
+			if(marathonRecord.getContest_type_idx() == 1) {
+				if (marathonRecord.getBook_journals().length() < 30) {
+					result.reject("독서감상문은 띄어쓰기 빈칸을 포함하여 30자 이상 기록하여야 합니다.");
+				}
+			} else {
+				if (marathonRecord.getBook_journals().length() < 50) {
+					result.reject("독서감상문은 띄어쓰기 빈칸을 포함하여 50자 이상 기록하여야 합니다.");
+				}
 			}
 			
 			if(getSessionMemberId(request) != null) {

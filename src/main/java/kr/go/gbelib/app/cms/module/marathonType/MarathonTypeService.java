@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.go.gbelib.app.cms.module.marathon.Marathon;
+import kr.go.gbelib.app.cms.module.marathonApplicant.MarathonApplicant;
+import kr.go.gbelib.app.cms.module.marathonApplicant.MarathonApplicantService;
 
 @Service
 public class MarathonTypeService extends BaseService{
@@ -15,6 +17,8 @@ public class MarathonTypeService extends BaseService{
 	@Autowired
 	private MarathonTypeDao dao;
 
+	@Autowired
+	private MarathonApplicantService applicantService;
 
 	public int getMarathonTypeCount(MarathonType marathonType) {
 		return dao.getMarathonTypeCount(marathonType);
@@ -38,8 +42,17 @@ public class MarathonTypeService extends BaseService{
 		return 1;
 	}
 
+	@Transactional
 	public int modifyMarathonType(MarathonType marathonType) {
-		return dao.modifyMarathonType(marathonType);
+		MarathonApplicant marathonApplicant = new MarathonApplicant();
+		marathonApplicant.setHomepage_id(marathonType.getHomepage_id());
+		marathonApplicant.setContest_idx(marathonType.getContest_idx());
+		marathonApplicant.setContest_type_idx(marathonType.getContest_type_idx());
+		marathonApplicant.setContest_type(marathonType.getContest_type());
+		applicantService.modifyMarathonApplicantContestType(marathonApplicant);
+
+		dao.modifyMarathonType(marathonType);
+		return 1;
 	}
 
 	public int deleteMarathonType(MarathonType marathonType) {
