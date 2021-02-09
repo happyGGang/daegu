@@ -978,7 +978,6 @@
 				</otherwise>
 			</choose>
 		AND	delete_yn = #{delete_yn}
-		AND	(notice_yn = 'N' OR notice_yn IS null)
 		<include refid="where"/>
 	</select>
 
