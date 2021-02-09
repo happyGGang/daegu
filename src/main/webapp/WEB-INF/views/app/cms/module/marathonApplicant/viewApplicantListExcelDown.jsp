@@ -43,9 +43,9 @@
 			<th style="width:90px;">완주일</th>
 			<th style="width:80px;">완주여부</th>
 		</tr>
-		<c:forEach items="${marathonApplicantList}" var="i">
+		<c:forEach items="${marathonApplicantList}" var="i" varStatus="status">
 			<tr>
-				<td>${i.applicant_idx}</td>
+				<td>${status.index + 1}</td>
 				<td>${i.member_id}</td>
 				<td>${i.member_name}</td>
 				<td>${i.school_name}</td>
