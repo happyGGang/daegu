@@ -397,10 +397,7 @@
 			IMAGE_file_size,
 			</if>
 			<if test="attach_server_file_name != null and attach_server_file_name != ''">
-			attach_org_file_name = #{attach_org_file_name},
-			attach_server_file_name = #{attach_server_file_name},
-			attach_file_extension = #{attach_file_extension},
-			attach_file_size = #{attach_file_size},
+			attach_org_file_name, attach_server_file_name, attach_file_extension, attach_file_size,
 			</if>
 			FAMILY_YN, MEMBER_YN, teach_age_type, sms_service_yn, picture_use_yn, use_yn, CERTIFICATE_YN, SURVEY_IDX, ADD_DATE, ADD_ID, TEACH_JOIN_LIMIT_UNIT, TEACH_JOIN_LIMIT_VALUE,
 			family_count_yn, agent_yn, school_info_yn, school_grade_yn, remark_yn, address_yn, remark_comment,
@@ -424,6 +421,9 @@
 			#{image_server_file_name},
 			#{image_file_extension},
 			#{image_file_size},
+			</if>
+			<if test="attach_server_file_name != null and attach_server_file_name != ''">
+			#{attach_org_file_name}, #{attach_server_file_name}, #{attach_file_extension}, #{attach_file_size},
 			</if>
 			#{family_yn}, #{member_yn}, #{teach_age_type}, #{sms_service_yn}, #{picture_use_yn}, #{use_yn}, #{certificate_yn}, #{survey_idx}, SYSDATE, #{add_id}, #{teach_join_limit_unit}, #{teach_join_limit_value},
 			#{family_count_yn}, #{agent_yn}, #{school_info_yn}, #{school_grade_yn}, #{remark_yn}, #{address_yn}, #{remark_comment},

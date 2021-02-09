@@ -190,6 +190,11 @@ $(function() {
 					if ( $('#image_plan_file').val() == '' ) {
 						$('#image_plan_file').remove();
 					}
+					
+					var attachFile = $('#attach_file');
+					if($('#attach_file'). val() == '') {
+						$('#attach_file').remove();
+					}
 
 					$('select#holidays option').prop('selected', true);
 
@@ -205,6 +210,7 @@ $(function() {
 								$('tr.limit_value').html('').append(limitChlidren);
 								$('td.planFile').append(planFile);
 								$('td.imagePlanFile').append(imagePlanFile);
+								$('td.attachFile').append(attachFile);
 				                for(var i =0 ; i < response.result.length ; i++) {
 									alert(response.result[i].code);
 									$('#'+response.result[i].field).focus();
@@ -216,6 +222,7 @@ $(function() {
 				        	 $('tr.limit_value').html('').append(limitChlidren);
 				        	 $('td.planFile').append(planFile);
 				        	 $('td.imagePlanFile').append(imagePlanFile);
+				        	 $('td.attachFile').append(attachFile);
 				             alert('[' + textStatus + ']관리자에게 문의하세요. : ' + errorThrown);
 				         }
 					};
@@ -397,7 +404,7 @@ $(function() {
 		$('form#deleteFileForm').attr('action', 'deleteAttach.do');
 		if(doAjaxPost($('#deleteFileForm'))) {
 			$('form#deleteFileForm').attr('action', action);
-			$('td.attachPlanFile a').remove();
+			$('td.attachFile a').remove();
 			$('a.delete-attach-btn').remove();
 		}
 	});
@@ -1006,7 +1013,7 @@ $(function() {
 	        </tr>
 			<tr>
 				<th>첨부파일</th>
-				<td class="attachPlanFile">
+				<td class="attachFile">
 					<c:if test="${teach.attach_org_file_name ne null and teach.attach_org_file_name ne ''}">
 						<a href="/cms/module/teach/download/${teach.homepage_id}/${teach.group_idx}/${teach.category_idx}/${teach.teach_idx}.do?file_type=attach"><i class="fa fa-floppy-o"></i>${teach.attach_org_file_name}</a><a class="btn btn1 delete-attach-btn">삭제</a>
 						<br/>
