@@ -1025,6 +1025,10 @@ $(function() {
 						</c:when>
 						<c:when test="${homepage.context_path eq 'beomeo' || homepage.context_path eq 'yonghak' || homepage.context_path eq 'gosan'}">
 						<div id="libraryList" class="libraryList">
+							<c:if test="${homepage.context_path eq 'yonghak' and fn:length(mediaCodeList) < 1}">
+								<form:hidden path="media_code"/>
+							</c:if>
+
 							<div>
 								<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
 							</div>
