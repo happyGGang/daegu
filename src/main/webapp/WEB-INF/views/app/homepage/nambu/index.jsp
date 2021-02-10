@@ -318,18 +318,6 @@ function searchCheck() {
 						</div>
 						<div class="movieContent">
 							<ul>
-								<li>
-									<a href="/${homepage.context_path}/board/index.do?menu_idx=152&manage_idx=372">
-										<span class="movieImg">
-											<img src="/resources/common/img/noImg2.png" alt="">
-										</span>
-
-										<span class="movieEx">
-											<strong class="title">영화로 느껴보는 애국자의 삶</strong>
-										</span>
-									</a>
-								</li>
-							<!--
 								<c:forEach var="i" varStatus="status" items="${movieList}" >
 								<li>
 									<a href="/${homepage.context_path}/board/view.do?menu_idx=60&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
@@ -397,7 +385,6 @@ function searchCheck() {
 									</a>
 								</li>
 								</c:if>
-							-->
 							</ul>
 						</div>
 					</div>
