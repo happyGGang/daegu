@@ -83,8 +83,8 @@ div.pay-ul ul {list-style: disc;padding-left: 20px;margin-bottom: 30px;font-weig
 <c:if test="${pictureBook.pay_yn eq 'Y'}">
 <div class="pay-ul">
 	<ul>
-		<li>원화꾸러미(유료)는 자동발송되지 않습니다. 학교에서 직접 택배 신청을 하셔서 다음 기관으로 발송해주시기 바랍니다.</li>
-		<li>배송비는 대출중인 학교에서 선불로 지급하셔야 합니다.</li>
+		<!--<li>원화꾸러미(유료)는 자동발송되지 않습니다. 학교에서 직접 택배 신청을 하셔서 다음 기관으로 발송해주시기 바랍니다.</li>
+		<li>배송비는 대출중인 학교에서 선불로 지급하셔야 합니다.</li>-->
 		<li>글자 없이 그림 원화로만 제공되는 원화꾸러미입니다.</li>
 	</ul>
 </div>

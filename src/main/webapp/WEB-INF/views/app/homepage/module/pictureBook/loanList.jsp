@@ -127,8 +127,8 @@ a.sub-btn {display: inline-block;padding: 0 5px;border-radius: 3px;font-size: 12
 a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 </style>
 <div style="padding-bottom: 20px;">
-	<a href="#" class="listChange ${pictureBook.pay_yn eq 'N' ? 'on' : ''}" keyValue="N">무료</a>
-	<a href="#" class="listChange ${pictureBook.pay_yn eq 'Y' ? 'on' : ''}" keyValue="Y">유료</a>
+	<a href="#" class="listChange ${pictureBook.pay_yn eq 'N' ? 'on' : ''}" keyValue="N">소형액자</a>
+	<a href="#" class="listChange ${pictureBook.pay_yn eq 'Y' ? 'on' : ''}" keyValue="Y">대형액자</a>
 </div>
 <form:form modelAttribute="pictureBook" action="loanList.do" method="GET">
 <form:hidden path="editMode"/>
@@ -212,7 +212,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 					<td class="center">${fn:substring(i.loan_start_date, 0, 7)}</td>
 					<td>${i.school_name}<br/>/${i.request_name}</td>
 					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>
-					<td>${i.pay_yn eq 'Y' ? '유료' : '무료'}</td>
+					<td>${i.pay_yn eq 'Y' ? '무료' : '무료'}</td>
 					<td>
 						<c:choose>
 							<c:when test="${i.request_status eq '1'}"><span class="status status2">신청완료</span></c:when>
