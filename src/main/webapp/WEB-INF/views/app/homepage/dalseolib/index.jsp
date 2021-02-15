@@ -301,7 +301,7 @@ do {
 						</p>
 					</div>
 					<div class="maraton_book">
-						<p class="tit"><span>2020</span> 독서마라톤</p>
+						<p class="tit">달서독서마라톤</p>
 						<p class="txt">달서구를 구민 또는 달서구 소재 재학생</p>
 						<p class="add_img_wrap">
 							<a href="html.do?menu_idx=102" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/notice_addr.png" alt="독서마라톤 자세히보기" /></a>

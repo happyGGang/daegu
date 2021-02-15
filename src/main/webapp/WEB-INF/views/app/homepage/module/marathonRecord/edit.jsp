@@ -347,7 +347,7 @@ $(function() {
 					<form:textarea path="book_journals" rows="10" cols="100" cssStyle="padding:10px 10px;width:100%;"></form:textarea><br/>
 					<div style="font-size:13px;">
 						* 독서감상문은 띄어쓰기 빈칸을 포함하여 ${marathonApplicant.contest_type_idx eq 1 ? '30' : '50'}자 이상 기록하여야 합니다.<br/>
-						* 20분간 사용이 없으면 자동으로 로그아웃되므로 작성이 길어질 경우 미리 작성하신 내용을 복사해서 등록하시기 바랍니다.
+						* 30분간 사용이 없으면 자동으로 로그아웃되므로 작성이 길어질 경우 미리 작성하신 내용을 복사해서 등록하시기 바랍니다.
 					</div>
 				</td>
 			</tr>
