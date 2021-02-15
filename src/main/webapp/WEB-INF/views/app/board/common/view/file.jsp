@@ -10,7 +10,9 @@
 	<c:forEach var="i" varStatus="status" items="${boardFile}">
 		<li>
 			<a href="${getContextPath}/board/boardFile/download/${board.manage_idx}/${i.board_idx}/${i.file_idx}.do"><i class="fa <boardTag:file_ext file_ext="${i.file_ext_name}"/>"></i><span>${i.org_file_name}</span></a>
+			<c:if test="${not empty authMBA and authMBA}">
 			다운로드 수 : ${i.file_down_count}
+			</c:if>
 		</li>
 	</c:forEach>
 	</ul>
