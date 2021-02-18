@@ -446,8 +446,7 @@ AD20 종합자료실
 						<c:if test="${detail.MEDIA_CODE eq 'PR'}">
 							<c:choose>
 								<c:when test="${detail.LOAN_CODE eq 'OK'}">
-									<!-- <a href="#muin" id="unmanned-req" class="btn">무인예약신청</a> -->
-									<a href="#" class="btn btn1" onclick="alert('무인예약 이용자가 많아 신청이 불가합니다');">무인예약신청</a>
+									<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
 								</c:when>
 								<c:otherwise>
 								</c:otherwise>
