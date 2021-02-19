@@ -76,7 +76,7 @@ $(function(){
 		$('input#end_date_print').val($(this).data('enddate'));
 		$('input#link_url_print').val($(this).data('url'));
 		var print_seq = $(this).data('printseq');
-		print_seq = Number(print_seq) + 10;
+		print_seq = Number(print_seq) + 1;
 		
 		$('input#print_seq_print').val(print_seq);
 
@@ -119,7 +119,12 @@ $(function(){
 		$('input#end_date_print').val($(this).data('enddate'));
 		$('input#link_url_print').val($(this).data('url'));
 		var print_seq = $(this).data('printseq');
-		print_seq = Number(print_seq) - 10;
+		print_seq = Number(print_seq);
+		if (print_seq < 1) {
+			print_seq = 0;
+		} else {
+			print_seq = print_seq - 1;
+		}
 		
 		$('input#print_seq_print').val(print_seq);
 
@@ -219,8 +224,8 @@ $(function(){
 				<td>${i.use_yn eq 'Y' ? '사용함' : '사용안함'}</td>
 				<td class="center">${i.start_date} ~ ${i.end_date}</td>
 				<td>
-					<a href="#" id="print_seq_up" data-idx="${i.popup_zone_idx}" data-name="${i.popup_zone_name}" data-startdate="${i.start_date}" data-enddate="${i.end_date}" data-url="${i.link_url}" data-printseq="${i.print_seq}">위</a>
-					<a href="#" id="print_seq_down" data-idx="${i.popup_zone_idx}" data-name="${i.popup_zone_name}" data-startdate="${i.start_date}" data-enddate="${i.end_date}" data-url="${i.link_url}" data-printseq="${i.print_seq}">아래</a>
+					<a href="#" id="print_seq_up" data-idx="${i.popup_zone_idx}" data-name="${i.popup_zone_name}" data-startdate="${i.start_date}" data-enddate="${i.end_date}" data-url="${i.link_url}" data-printseq="${i.print_seq}">↑</a>
+					<a href="#" id="print_seq_down" data-idx="${i.popup_zone_idx}" data-name="${i.popup_zone_name}" data-startdate="${i.start_date}" data-enddate="${i.end_date}" data-url="${i.link_url}" data-printseq="${i.print_seq}">↓</a>
 					${i.print_seq}
 				</td>
 				<td><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></td>
