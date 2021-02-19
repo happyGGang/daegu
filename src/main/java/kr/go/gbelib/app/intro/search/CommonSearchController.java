@@ -945,6 +945,59 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 		return String.format(basePath, homepage.getFolder()) + "hope/req";
 	}
+	
+	@RequestMapping (value = { "/hope/allHistory.*" })
+	public String hopeHistoryLib(@PathVariable ("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		
+		if(librarySearch.getLibraryCodes() == null) {
+			List<String> libraryCodes = new ArrayList<String>();
+			Homepage h1 = new Homepage();
+			h1.setHomepage_id(homepage.getHomepage_id());
+			h1.setHomepage_group(homepage.getHomepage_id());
+			h1.setTemp_use_yn(null);
+			List<Homepage> subHomepageList = homepageService.getSubHomepageList(h1);
+			if (CollectionUtils.isNotEmpty(subHomepageList)) {
+				for (Homepage homepage1 : subHomepageList) {
+					if (StringUtils.isNotEmpty(homepage1.getManage_code())) {
+						libraryCodes.add(homepage1.getManage_code());
+					}
+				}
+			}
+			librarySearch.setLibraryCodes(libraryCodes);
+		}
+
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.YEAR, -1);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		if ( StringUtils.isEmpty(librarySearch.getSearch_start_date()) ) {
+			librarySearch.setSearch_start_date(sdf.format(cal.getTime()));
+		}
+		if ( StringUtils.isEmpty(librarySearch.getSearch_end_date()) ) {
+			librarySearch.setSearch_end_date(sdf.format(new Date()));
+		}
+		librarySearch.setManageCode(homepage.getManage_code());
+		Map<String, Object> result = LibSearchAPI.getAllBookFurnishList(librarySearch);
+
+		List<Map<String, Object>> list = null;
+
+		int count = LibSearchAPI.getSearchCount(result);
+
+		librarySearch.setTotalDataCount(count);
+
+		service.setPaging(model, count, librarySearch);
+
+		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+
+			list = LibSearchAPI.getListData(result);
+
+		}
+
+		model.addAttribute("hopeList", list);
+		model.addAttribute("librarySearch", librarySearch);
+		return String.format(basePath, homepage.getFolder()) + "hope/allHistory";
+	}
 
 	/**
 	 * 네이버 책 검색(희망도서신청용)

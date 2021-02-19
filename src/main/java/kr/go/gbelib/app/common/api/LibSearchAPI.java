@@ -553,6 +553,40 @@ public class LibSearchAPI {
 		return CommonAPI.sendKCMS("bookfurnishlist", param);
 
 	}
+	
+	/**
+	 * K.API - 45
+	 * 
+	 * 비치희망자료 신청내역 (전체)
+	 * 
+	 * @param librarySearch
+	 * @return
+	 */
+	public static Map<String, Object> getAllBookFurnishList(LibrarySearch librarySearch) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		
+		if(librarySearch.getLibraryCodes().isEmpty()) {
+			param.put("manage_code", librarySearch.getManageCode());
+		} else {
+			param.put("manage_code", StringUtils.join(librarySearch.getLibraryCodes(), ",").replaceAll("lib_", ""));
+		}
+		param.put("pageno", librarySearch.getViewPage());
+		param.put("display", librarySearch.getRowCount());
+		if (StringUtils.isNotEmpty(librarySearch.getFurnish_status())) {
+			param.put("furnish_status", librarySearch.getFurnish_status());
+		}
+		if (StringUtils.isNotEmpty(librarySearch.getSearch_start_date())) {
+			param.put("startdate", librarySearch.getSearch_start_date().replaceAll("-", ""));
+		}
+		if (StringUtils.isNotEmpty(librarySearch.getSearch_end_date())) {
+			param.put("enddate", librarySearch.getSearch_end_date().replaceAll("-", ""));
+		}
+		if (StringUtils.isNotEmpty(librarySearch.getSearch_text())) {
+			param.put(librarySearch.getSearch_type(), librarySearch.getSearch_text());
+		}
+		
+		return CommonAPI.sendKCMS("allbookfurnishlist", param);
+	}
 
 	/**
 	 * K.API - 12
@@ -2126,5 +2160,6 @@ public class LibSearchAPI {
 
 		return CommonAPI.sendData4Library(param, "recommandList");
 	}
+
 
 }
