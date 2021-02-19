@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,6 +68,15 @@ public class HomepageService extends BaseService {
 				homepage2.setTemp_end_date_1(homepage2.getTemp_end_date().substring(0, 4) + "-" + homepage2.getTemp_end_date().substring(4, 6) + "-" + homepage2.getTemp_end_date().substring(6, 8));
 				homepage2.setTemp_end_date_2(homepage2.getTemp_end_date().substring(8, 10));
 				homepage2.setTemp_end_date_3(homepage2.getTemp_end_date().substring(10, 12));
+			}
+			
+			// 서브 홈페이지 homepage_id, context path
+			if(StringUtils.isEmpty(homepage2.getContext_path()) && homepage2.getHomepage_group().charAt(0) == 'h') {
+				Homepage parentHome = new Homepage();
+				parentHome.setHomepage_id(homepage2.getHomepage_group());
+				parentHome = dao.getHomepageOne(parentHome);
+				homepage2.setHomepage_id(parentHome.getHomepage_id());
+				homepage2.setContext_path(parentHome.getContext_path());
 			}
 		}
 
