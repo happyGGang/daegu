@@ -1022,6 +1022,18 @@ $(function() {
 					<button id="attachCancelFile">등록취소</button>
 				</td>
 			</tr>
+			<tr>
+				<th>하이퍼링크</th>
+				<td>
+					<form:input path="link_url" cssClass="text" cssStyle="width:90%" />
+					<div class="ui-state-highlight">
+						<em>
+							* 클릭시 이동 할 URL 입니다.<br>
+							* http:// 부터 전체 URL을 입력하세요.
+						</em>
+					</div>
+				</td>
+			</tr>
 	        <%-- <tr>
 	         	<th>모집분류</th>
 	         	<td>

@@ -138,6 +138,12 @@
 						</c:if>
 					</td>
 				</tr>
+				<c:if test="${not empty teach.link_url}">
+				<tr>
+					<th class="center">하이퍼링크</th>
+					<td colspan="3"><a href="${teach.link_url}" target="_blank" title="link">${teach.link_url}</a></td>
+				</tr>
+				</c:if>
 				<tr>
 					<th class="center">접수기간</th>
 					<td colspan="3">${teach.start_join_date} ${teach.start_join_time} ~ ${teach.end_join_date} ${teach.end_join_time}</td>

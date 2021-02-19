@@ -85,6 +85,7 @@ public class Teach extends PagingUtils {
 	private String attach_server_file_name;  //첨부파일실제파일명
 	private String attach_file_extension;  //첨부파일확장자
 	private long attach_file_size;  //첨부파일사이즈
+	private String link_url; //하이퍼링크
 	private String member_yn = "N";  //정회원전용여부
 	private String teach_age_type = "adult";  //강의유형(성인강의, 어린이강의)
 	private String use_yn = "Y";  //사용여부
@@ -704,6 +705,14 @@ public class Teach extends PagingUtils {
 
 	public void setAttach_file_size(long attach_file_size) {
 		this.attach_file_size = attach_file_size;
+	}
+
+	public String getLink_url() {
+		return link_url;
+	}
+
+	public void setLink_url(String link_url) {
+		this.link_url = link_url;
 	}
 
 	public int getMain_view_count() {
