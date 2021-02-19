@@ -196,9 +196,9 @@ div.pay-ul ul {list-style: disc;padding-left: 20px;margin-bottom: 30px;font-weig
 	</c:if>
 </div>
 
-<%-- <jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false"> --%>
-<%-- 	<jsp:param name="formId" value="#pictureBook"/> --%>
-<%-- </jsp:include> --%>
+<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
+	<jsp:param name="formId" value="#pictureBook"/>
+</jsp:include>
 
 </form:form>
 

@@ -45,7 +45,7 @@ public class PictureBookController extends BaseController {
 		checkAuth("R", model, request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		
-//		service.setPaging(model, service.getPictureBookCount(pictureBook), pictureBook);
+		service.setPaging(model, service.getPictureBookCount(pictureBook), pictureBook);
 		
 		model.addAttribute("pictureBook", pictureBook);
 		model.addAttribute("pictureBookList", service.getPictureBookList(pictureBook));
