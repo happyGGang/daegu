@@ -83,6 +83,8 @@ do {
 				$(v).show();
 			}
 		});
+		
+		$('#popupLayer > div').draggable();
 		// 팝업 관련 코드 END
 
 
