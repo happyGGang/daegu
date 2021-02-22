@@ -97,7 +97,7 @@ function doOutFocus() {
 					<td style="font-size: 14px; text-align: justify; font-weight: bold;font-family: 돋움" class="first td1">자&nbsp;&nbsp;료&nbsp;&nbsp;실 : </td>
 				    <td style="font-size: 14px; font-weight: bold;font-family: 돋움 " class="last td2">${detail.SHELF_LOC_NAME}</td>
 				</tr>
-				<c:if test="${homepage.context_path eq 'dalseolib'}">
+				<c:if test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib'}">
 				<tr>
 					<td style="font-size: 14px; text-align: justify; font-weight: bold;font-family: 돋움" class="first td1">521CODE : </td>
 					<td style="font-size: 14px; font-weight: bold;font-family: 돋움 " class="last td2">${detail.marc}</td>
