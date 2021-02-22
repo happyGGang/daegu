@@ -1063,7 +1063,7 @@ public class LibrarySearchController extends BaseController {
 			return null;
 		}
 
-		if (StringUtils.isNotEmpty(homepage.getHomepage_id())) {
+		if (homepage != null && StringUtils.isNotEmpty(homepage.getHomepage_id())) {
 			HopebookConfig hopebookConfig = hopebookConfigService.getHopebookConfigInfo(homepage.getHomepage_id());
 			if(hopebookConfig != null) {
 				service.alertMessage(hopebookConfig.getRes_msg(), request, response);
@@ -1183,7 +1183,7 @@ public class LibrarySearchController extends BaseController {
 			if ( librarySearch.getEditMode().equals("ADD") ) {
 
 				Homepage homepage = getSessionHomepage(request);
-				if (StringUtils.isNotEmpty(homepage.getHomepage_id())) {
+				if (homepage != null && StringUtils.isNotEmpty(homepage.getHomepage_id())) {
 					HopebookConfig hopebookConfig = hopebookConfigService.getHopebookConfigInfo(homepage.getHomepage_id());
 					if(hopebookConfig != null) {
 						res.setValid(false);
