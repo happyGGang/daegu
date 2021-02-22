@@ -68,10 +68,9 @@ public class LibrarySearchWorkbook {
 			workbook.getSheet(0).addCell(new Label(2, 0, "저자", format));
 			workbook.getSheet(0).addCell(new Label(3, 0, "출판사", format));
 			workbook.getSheet(0).addCell(new Label(4, 0, "도서관", format));
-			workbook.getSheet(0).addCell(new Label(5, 0, "대출유형", format));
-			workbook.getSheet(0).addCell(new Label(6, 0, "대출일", format));
-			workbook.getSheet(0).addCell(new Label(7, 0, "반납예정일", format));
-			workbook.getSheet(0).addCell(new Label(8, 0, "상태", format));
+			workbook.getSheet(0).addCell(new Label(5, 0, "대출일", format));
+			workbook.getSheet(0).addCell(new Label(6, 0, "반납예정일", format));
+			workbook.getSheet(0).addCell(new Label(7, 0, "상태", format));
 		} else if(excelType.equals("HISTORY")) {
 			workbook.getSheet(0).addCell(new Label(0, 0, "번호", format));
 			workbook.getSheet(0).addCell(new Label(1, 0, "서명", format));
@@ -112,22 +111,8 @@ public class LibrarySearchWorkbook {
 					workbook.getSheet(0).addCell(new Label(2, row, String.valueOf(oneInfoData.get("AUTHOR"))));
 					workbook.getSheet(0).addCell(new Label(3, row, String.valueOf(oneInfoData.get("PUBLISHER"))));
 					workbook.getSheet(0).addCell(new Label(4, row, String.valueOf(oneInfoData.get("LIB_NAME"))));
-					
-					String loan_type = (String)oneInfoData.get("LOAN_TYPE_CODE");
-					if(loan_type.equals("0")) {
-						loan_type = "일반대출";
-					} else if(loan_type.equals("1")) {
-						loan_type = "특별대출";
-					} else if(loan_type.equals("2")) {
-						loan_type = "관내대출";
-					} else if(loan_type.equals("3")) {
-						loan_type = "무인대출";
-					} else if(loan_type.equals("4")) {
-						loan_type = "장기대출";
-					}
-					workbook.getSheet(0).addCell(new Label(5, row, loan_type));
-					workbook.getSheet(0).addCell(new Label(6, row, String.valueOf(oneInfoData.get("LOAN_DATE"))));
-					workbook.getSheet(0).addCell(new Label(7, row, String.valueOf(oneInfoData.get("RETURN_PLAN_DATE"))));
+					workbook.getSheet(0).addCell(new Label(5, row, String.valueOf(oneInfoData.get("LOAN_DATE"))));
+					workbook.getSheet(0).addCell(new Label(6, row, String.valueOf(oneInfoData.get("RETURN_PLAN_DATE"))));
 					
 					String status = (String)oneInfoData.get("STATUS");
 					if(status.equals("0")) {
@@ -141,7 +126,7 @@ public class LibrarySearchWorkbook {
 					} else if(status.equals("4")) {
 						status = "예약취소";
 					}
-					workbook.getSheet(0).addCell(new Label(8, row, status));
+					workbook.getSheet(0).addCell(new Label(7, row, status));
 				} else if(excelType.equals("HISTORY")) {
 					workbook.getSheet(0).addCell(new Label(0, row, String.valueOf(oneInfoData.get("RNUM"))));
 					workbook.getSheet(0).addCell(new Label(1, row, String.valueOf(oneInfoData.get("TITLE"))));

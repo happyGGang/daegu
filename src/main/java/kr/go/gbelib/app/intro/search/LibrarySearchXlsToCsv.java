@@ -2,6 +2,7 @@ package kr.go.gbelib.app.intro.search;
 
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +15,7 @@ import kr.co.whalesoft.framework.utils.HangulEnDecoder;
 
 public class LibrarySearchXlsToCsv {
 
-	public LibrarySearchXlsToCsv(LibrarySearch librarySearch, Map<String, Object> result, HttpServletRequest request, HttpServletResponse response) {
+	public LibrarySearchXlsToCsv(LibrarySearch librarySearch, List<Map<String, Object>> result, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			String excelType = librarySearch.getExcel_type();
 			String excelTypeDetail = librarySearch.getExcel_type_detail();

@@ -467,13 +467,15 @@ public class LibSearchAPI {
 		return CommonAPI.sendKCMS("bookloanlist", param);
 	}
 	
-	public static Map<String, Object> getBookLoanList(String userkey, String manage_code) {
+	public static Map<String, Object> getBookLoanList(String userkey, String manage_code, int viewPage, int rowCount) {
 		Map<String, Object> param = new HashMap<String, Object>();
 
 		param.put("userkey", userkey);
 		if (StringUtils.isNotEmpty(manage_code)) {
 			param.put("manage_code", manage_code);
 		}
+		param.put("pageno", viewPage);
+		param.put("display", rowCount);
 		param.put("orderby_item", "LOAN_DATE");
 		param.put("orderby", "DESC");
 
