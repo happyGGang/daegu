@@ -1320,7 +1320,7 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 		} else {
 
-			Map<String, Object> result = LibSearchAPI.getBookLoanList(member.getRec_key(), librarySearch.getManageCode());
+			Map<String, Object> result = LibSearchAPI.getBookLoanList(member.getRec_key(), librarySearch.getManageCode(), librarySearch.getViewPage(), librarySearch.getRowCount());
 			List<Map<String, Object>> list = null;
 
 			int count = LibSearchAPI.getSearchCount(result);
@@ -2063,7 +2063,7 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 		String excel_type = librarySearch.getExcel_type();
 		if(excel_type.equals("LOAN")) {
 			
-			result = LibSearchAPI.getBookLoanList(member.getRec_key(), librarySearch.getManageCode());
+			result = LibSearchAPI.getBookLoanList(member.getRec_key(), librarySearch.getManageCode(), librarySearch.getViewPage(), librarySearch.getRowCount());
 			
 		} else if(excel_type.equals("HISTORY")) {
 			
@@ -2104,7 +2104,7 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 	@RequestMapping(value = { "/csvDownload.*" }, method = RequestMethod.GET)
 	public void csv(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Map<String, Object> result = null;
+		List<Map<String, Object>> result = null;
 
 //		if (StringUtils.equals(librarySearch.getExcel_type(), "POUCH")) {
 //			result = LibSearchAPI.getPouchList("WEB", getSessionUserId(request), "req", librarySearch.getvLoca(), "");
@@ -2174,7 +2174,7 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 	@RequestMapping(value = { "/csvDownload.*" }, method = RequestMethod.POST)
 	public void csvDownload(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Map<String, Object> result = null;
+		List<Map<String, Object>> result = null;
 //		result = LibSearchAPI.getSearch(librarySearch, librarySearch.getViewPage()); // API로 Request 보냄
 
 		new LibrarySearchXlsToCsv(librarySearch, result, request, response);

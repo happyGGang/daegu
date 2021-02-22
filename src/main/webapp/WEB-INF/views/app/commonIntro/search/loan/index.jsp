@@ -21,6 +21,13 @@ $(function() {
 		doGetLoad('index.do', 'menu_idx='+menu_idx+'&manageCode='+$(this).val());
 	});
 	
+	$('div#board_paging a').on('click', function(e) {
+		e.preventDefault();
+		$('#viewPage').attr('value', $(this).attr('keyValue'));
+		var param = serializeCustom($('form#librarySearch'));
+		doGetLoad('index.do', param);
+	});
+	
 	$('#excel-btn').on('click', function(e) {
 		e.preventDefault();
 		var param = 'excel_type=LOAN';
@@ -34,6 +41,13 @@ $(function() {
 	<input type="hidden" name="loan_key" id="loan_key">
 	<input type="hidden" name="editMode" value="RENEW">
 </form>
+
+<form:form modelAttribute="librarySearch" method="get">
+	<form:hidden path="viewPage"/>
+	<form:hidden path="menu_idx"/>
+	<form:hidden path="manageCode"/>
+	<form:hidden path="excel_type" value="LOAN"/>
+</form:form>
 
 <a href="#" id="excel-btn" class="btn btn2">EXCEL</a>
 
@@ -75,7 +89,7 @@ $(function() {
 		<th>상태</th>
 	</thead>
 	<tbody>
-<c:forEach items="${loanList}" var="i">
+		<c:forEach items="${loanList}" var="i">
 		<tr>
 			<td>${i.RNUM}</td>
 			<td>${i.TITLE_INFO}</td>
@@ -83,9 +97,44 @@ $(function() {
 			<td>${i.LIB_NAME}</td>
 			<td>${i.LOAN_DATE}</td>
 			<td>${i.RETURN_PLAN_DATE}</td>
-			<td><c:choose><c:when test="${i.STATUS eq '0'}">대출</c:when><c:when test="${i.STATUS eq '1'}">반납</c:when><c:when test="${i.STATUS eq '2'}">반납연기</c:when><c:when test="${i.STATUS eq '3'}">예약</c:when><c:when test="${i.STATUS eq '4'}">예약취소</c:when><c:otherwise></c:otherwise></c:choose></td>
+			<td>
+			<c:choose>
+				<c:when test="${i.STATUS eq '0'}">대출</c:when>
+				<c:when test="${i.STATUS eq '1'}">반납</c:when>
+				<c:when test="${i.STATUS eq '2'}">반납연기</c:when>
+				<c:when test="${i.STATUS eq '3'}">예약</c:when>
+				<c:when test="${i.STATUS eq '4'}">예약취소</c:when>
+				<c:otherwise></c:otherwise>
+			</c:choose>
+			</td>
 		</tr>
-</c:forEach>
-		</tbody>
+		</c:forEach>
+	</tbody>
 </table>
+<div id="board_paging" class="dataTables_paginate">
+	<c:if test="${paging.firstPageNum > 0}">
+		<a href="" class="paginate_button previous" keyValue="${paging.firstPageNum}">처음</a>
+	</c:if>
+	<c:if test="${paging.prevPageNum > 0}">
+		<a href="" class="paginate_button previous" keyValue="${paging.prevPageNum}">이전</a>
+	</c:if>
+	<span>
+		<c:forEach var="i" varStatus="status" begin="${paging.startPageNum}" end="${paging.endPageNum}">
+		<c:choose>
+		<c:when test="${i eq paging.viewPage}">
+			<a href="" class="paginate_button current" keyValue="${i}">${i}</a>
+		</c:when>
+		<c:otherwise>
+			<a href="" class="paginate_button" keyValue="${i}">${i}</a>
+		</c:otherwise>
+		</c:choose>
+		</c:forEach>
+		<c:if test="${paging.nextPageNum > 0}">
+			<a href="" class="paginate_button next" keyValue="${paging.nextPageNum}">다음</a>
+		</c:if>
+		<c:if test="${paging.totalPageCount ne paging.lastPageNum}">
+			<a href="" class="paginate_button next" keyValue="${paging.totalPageCount}">맨끝</a>
+		</c:if>
+	</span>
+</div>
 </div>
