@@ -1573,7 +1573,6 @@
 								SELECT manage_idx FROM CMS_BOARD_MANAGE
 								WHERE board_type = 'MOVIE'
 								AND homepage_id = #{homepage_id}
-								AND DELETE_YN = 'N'
 								)
 			<if test="category5 != null and category5 != ''">
 			AND category5 = #{category5}
