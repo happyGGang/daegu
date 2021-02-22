@@ -39,7 +39,7 @@
 		<if test="search_type != null and search_type == 'book_journals' and search_text != null and search_text != ''">
 		AND	book_journals LIKE '%${search_text}%'
 		</if>
-		ORDER BY record_idx
+		ORDER BY record_idx DESC
 	</select>
 	
 	<select id="getMarathonRecordOne" resultType="kr.go.gbelib.app.cms.module.marathonRecord.MarathonRecord">
