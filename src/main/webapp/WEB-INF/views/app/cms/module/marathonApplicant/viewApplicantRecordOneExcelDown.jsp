@@ -47,22 +47,22 @@
 			<td>달성치 : <fmt:formatNumber value="${read_page_count_total}" pattern="#,###"/></td>
 		</tr>
 		<tr>
-			<th style="border:1px solid black;width:100px;">이름</th>
-			<th style="border:1px solid black;">도서제목</th>
-			<th style="border:1px solid black;">저자</th>
-			<th style="border:1px solid black;">출판사</th>
-			<th style="border:1px solid black;">날짜</th>
-			<th style="border:1px solid black;">분류번호</th>
-			<th style="border:1px solid black;">읽은쪽수</th>
-			<th style="border:1px solid black;">누적쪽수</th>
-			<th style="border:1px solid black;">아이디</th>
-			<th style="border:1px solid black;">대출도서관</th>
+			<th style="border:thin solid black;width:100px;">이름</th>
+			<th style="border:thin solid black;">도서제목</th>
+			<th style="border:thin solid black;">저자</th>
+			<th style="border:thin solid black;">출판사</th>
+			<th style="border:thin solid black;">날짜</th>
+			<th style="border:thin solid black;">분류번호</th>
+			<th style="border:thin solid black;">읽은쪽수</th>
+			<th style="border:thin solid black;">누적쪽수</th>
+			<th style="border:thin solid black;">아이디</th>
+			<th style="border:thin solid black;">대출도서관</th>
 		</tr>
 		<c:forEach items="${marathonRecordList}" var="i">
 		<c:set var="next" value="${marathonRecordList[status.count]}"/>
 		<tr>
-			<td style="border:1px solid black;">${i.member_name}</td>
-			<td style="border:1px solid black;">
+			<td style="border:thin solid black;">${i.member_name}</td>
+			<td style="border:thin solid black;">
 				<c:choose>
 					<c:when test="${i.loan_choice eq 'N'}">
 						${i.book_name}
@@ -72,15 +72,15 @@
 					</c:otherwise>
 				</c:choose>
 			</td>
-			<td style="border:1px solid black;">${i.book_author}</td>
-			<td style="border:1px solid black;">${i.publisher}</td>
-			<td style="border:1px solid black;"><fmt:formatDate value="${i.record_date}" pattern="yyyy.MM.dd"/></td>
-			<td style="border:1px solid black;">${i.book_type}</td>
-			<td style="border:1px solid black;"><fmt:formatNumber value="${i.read_page_count}" pattern="#,###"/></td>
+			<td style="border:thin solid black;">${i.book_author}</td>
+			<td style="border:thin solid black;">${i.publisher}</td>
+			<td style="border:thin solid black;"><fmt:formatDate value="${i.record_date}" pattern="yyyy.MM.dd"/></td>
+			<td style="border:thin solid black;">${i.book_type}</td>
+			<td style="border:thin solid black;"><fmt:formatNumber value="${i.read_page_count}" pattern="#,###"/></td>
 			<c:set var="read_page_count_total_thisPage" value="${read_page_count_total_thisPage + i.read_page_count}"/>
 			<td><fmt:formatNumber value="${read_page_count_total_thisPage}" pattern="#,###"/></td>
-			<td style="border:1px solid black;">${i.member_id}</td>
-			<td style="border:1px solid black;">
+			<td style="border:thin solid black;">${i.member_id}</td>
+			<td style="border:thin solid black;">
 				<c:choose>
 					<c:when test="${i.book_resources == '100'}">
 						달서가족문화도서관
@@ -116,12 +116,10 @@
 			</td>
 		</tr>
 		<tr>
-			<td style="border:1px solid black;">독서감상문</td>
-			<td colspan="5" style="border:1px solid black;">
+			<td style="border:thin solid black;">독서감상문</td>
+			<td colspan="9" style="border:thin solid black;">
 				${fn:replace(i.book_journals, crlf, '<br/>')}
 			</td>
-			<td style="border:1px solid black;"> </td>
-			<td colspan="3" style="border:1px solid black;"></td>
 		</tr>
 		</c:forEach>
 	</table>
