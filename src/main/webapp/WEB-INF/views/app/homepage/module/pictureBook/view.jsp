@@ -125,7 +125,7 @@ dl#author dd {float: left;width: 140px;margin-bottom: 15px;padding: 0 15px;}
 					<c:when test="${not empty loanableMonth[month].isMonth and loanableMonth[month].isMonth}">
 					<a href="javascript:void(0)" class="apply-ok"><span>대출완료</span></a>
 					</c:when>
-					<c:when test="${not empty pictureBook.monthList and pictureBook.monthList[month-1].LAST_MONTH eq 'Y' and not empty pictureBook.monthList[month-1].PICTURE_BOOK_LOAN_IDX}">
+					<c:when test="${not empty pictureBook.monthList and pictureBook.monthList[month-1].LAST_MONTH eq 'Y' or not empty pictureBook.monthList[month-1].PICTURE_BOOK_LOAN_IDX}">
 					<a href="javascript:void(0)" class="apply-last"><span>마감</span></a>
 					</c:when>
 					<c:otherwise>

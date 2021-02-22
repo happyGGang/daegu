@@ -3,7 +3,7 @@
 <mapper namespace="kr.go.gbelib.app.cms.module.pictureBook.PictureBookDao">
 
 	<select id="getPictureBookList" resultType="kr.go.gbelib.app.cms.module.pictureBook.PictureBook">
-<!-- 		${pagingTop} -->
+		${pagingTop}
 		SELECT
 			picture_book_idx, picture_book_name, picture_book_subject, author, publisher,
 			publish_year, isbn, picture_price, picture_count, keyword,
@@ -21,7 +21,7 @@
 		</if>
 <!-- 		ORDER BY picture_book_idx DESC -->
 		ORDER BY picture_book_subject ASC
-<!-- 		${pagingBottom} -->
+		${pagingBottom}
 	</select>
 	
 	<select id="getPictureBookCount" resultType="int">
