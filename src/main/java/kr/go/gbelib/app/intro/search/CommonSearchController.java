@@ -2077,6 +2077,8 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 			if (StringUtils.isEmpty(librarySearch.getSearch_end_date())) {
 				librarySearch.setSearch_end_date(sdf.format(new Date()));
 			}
+			librarySearch.setViewPage(1);
+			librarySearch.setRowCount(99999);
 
 			librarySearch.setUserkey(member.getRec_key());
 			result = LibSearchAPI.getBookLoanHistory(librarySearch);
