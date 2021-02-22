@@ -314,7 +314,9 @@ public class LibrarySearchController extends BaseController {
 			if (homepage == null) {
 				return basePath + "newBook/index";
 			} else {
-				librarySearch.setManageCode(homepage.getManage_code());
+				if (StringUtils.equals(context_path, context_path)) {
+					librarySearch.setManageCode(homepage.getManage_code());
+				}
 			}
 		}
 
@@ -395,7 +397,9 @@ public class LibrarySearchController extends BaseController {
 			if (homepage == null) {
 				return basePath + "bestBook/index";
 			} else {
-				librarySearch.setManageCode(homepage.getManage_code());
+				if (StringUtils.equals(context_path, context_path)) {
+					librarySearch.setManageCode(homepage.getManage_code());
+				}
 			}
 		}
 
@@ -451,10 +455,9 @@ public class LibrarySearchController extends BaseController {
 	 */
 	@RequestMapping (value = { "/loan/index.*", "/loan/detail.*", "/loan/history.*" })
 	public String myLoan(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
 			return null;
 		}
 
@@ -592,7 +595,7 @@ public class LibrarySearchController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
 			return null;
 		}
 
@@ -694,7 +697,7 @@ public class LibrarySearchController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
 			return null;
 		}
 
@@ -753,7 +756,7 @@ public class LibrarySearchController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
 			return null;
 		}
 
@@ -808,12 +811,11 @@ public class LibrarySearchController extends BaseController {
 	 */
 	@RequestMapping (value = { "/sangho/form.*" }, method = RequestMethod.POST)
 	public String sanghoForm(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		Homepage homepage = getSessionHomepage(request);
 
 		model.addAttribute("librarySearch", librarySearch);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
 			return null;
 		}
 
@@ -900,7 +902,7 @@ public class LibrarySearchController extends BaseController {
 			list = LibSearchAPI.getListData(result);
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("ISBN", librarySearch.getIsbn());
-			//			Map<String, Object> aladinDetail =  aladinApiService.getAladinApiOne(String.valueOf(map.get("ISBN")), homepage.getContext_path());
+			//			Map<String, Object> aladinDetail =  aladinApiService.getAladinApiOne(String.valueOf(map.get("ISBN")), context_path);
 			//			if (aladinDetail != null && !aladinDetail.isEmpty() && aladinDetail.containsKey("item")) {
 			//				list.get(0).put("aladinDetail", aladinDetail.get("item"));
 			//			}
@@ -1061,14 +1063,13 @@ public class LibrarySearchController extends BaseController {
 			return null;
 		}
 
-		String homepageId = homepage.getHomepage_id();
-		if (StringUtils.isNotEmpty(librarySearch.getHomepage_id())) {
-			homepageId = librarySearch.getHomepage_id();
-		}
-		HopebookConfig hopebookConfig = hopebookConfigService.getHopebookConfigInfo(homepageId);
-		if(hopebookConfig != null) {
-			service.alertMessage(hopebookConfig.getRes_msg(), request, response);
-			return null;
+		if (StringUtils.isNotEmpty(homepage.getHomepage_id())) {
+			HopebookConfig hopebookConfig = hopebookConfigService.getHopebookConfigInfo(homepage.getHomepage_id());
+			if(hopebookConfig != null) {
+				service.alertMessage(hopebookConfig.getRes_msg(), request, response);
+				return null;
+			}
+
 		}
 
 //		if ( !homepage.getHomepage_code().contains(member.getLoca())) {
@@ -1097,7 +1098,7 @@ public class LibrarySearchController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
 			return null;
 		}
 
@@ -1182,11 +1183,13 @@ public class LibrarySearchController extends BaseController {
 			if ( librarySearch.getEditMode().equals("ADD") ) {
 
 				Homepage homepage = getSessionHomepage(request);
-				HopebookConfig hopebookConfig = hopebookConfigService.getHopebookConfigInfo(homepage.getHomepage_id());
-				if(hopebookConfig != null) {
-					res.setValid(false);
-					res.setMessage(hopebookConfig.getRes_msg());
-					return res;
+				if (StringUtils.isNotEmpty(homepage.getHomepage_id())) {
+					HopebookConfig hopebookConfig = hopebookConfigService.getHopebookConfigInfo(homepage.getHomepage_id());
+					if(hopebookConfig != null) {
+						res.setValid(false);
+						res.setMessage(hopebookConfig.getRes_msg());
+						return res;
+					}
 				}
 
 				//웹필터 체크
@@ -1258,7 +1261,7 @@ public class LibrarySearchController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
 			return null;
 		}
 
@@ -1431,7 +1434,7 @@ public class LibrarySearchController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
 			return null;
 		}
 
