@@ -189,7 +189,27 @@ public class MarathonRecordController extends BaseController{
 			list = LibSearchAPI.getListData(result);
 		}
 
+		int minIndex;
+		for (int i = 0; i < list.size() - 1; i++) {
+			minIndex = i;
+			for (int j = i + 1; j < list.size(); j++) {
+				String a = (String) list.get(minIndex).get("LOAN_DATE");
+				a = a.replaceAll("/", "-");
+				Date firstDate = sdf.parse(a);
+				String b = (String) list.get(j).get("LOAN_DATE");
+				b = b.replaceAll("/", "-");
+				Date secondDate = sdf.parse(b);
+				int compare = firstDate.compareTo(secondDate);
+				if (compare < 0) {
+					minIndex = j;
+				}
+			}
+			Map<String, Object> temp = list.get(minIndex);
+			list.set(minIndex, list.get(i));
+			list.set(i, temp);
+		}
 		model.addAttribute("loanList", list);
+		
 		return String.format(basePath, homepage.getFolder()) + "loan/history_ajax";
 	}
 
