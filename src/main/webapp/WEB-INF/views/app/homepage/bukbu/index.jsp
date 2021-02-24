@@ -170,9 +170,9 @@ do {
 									</a>
 								</li>
 								<li class="bg-lgray">
-									<a href="/${homepage.context_path}/board/index.do?menu_idx=124&manage_idx=146">
-									<span class="wt">도서관행사</span>
-									<span class="wc">다양한 독서프로그램</span>
+									<a href="https://library.daegu.go.kr/bukbu/intro/search/loan/index.do?menu_idx=16">
+									<span class="wt">나의도서관</span>
+									<span class="wc">대출 및 도서신청 정보</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick02-bg.png" class="mi">
 									</a>
 								</li>

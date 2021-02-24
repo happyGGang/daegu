@@ -345,7 +345,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 		</tr>
 		<tr>
 			<th>가격 <em><font color="red">(*)</font></em></th>
-			<td><form:input path="price" style="width:20%" class="text" type="text" maxlength="10" numberOnly="true" /></td>
+			<td><form:input path="price" style="width:20%" class="text" type="text" maxlength="10" numberOnly="true" /><font color="red"> *정가로 기입해 주세요</font></td>
 		</tr>
 		<c:if test="${homepage.context_path ne 'nambu' and homepage.context_path ne 'std'}">
 		<tr>
