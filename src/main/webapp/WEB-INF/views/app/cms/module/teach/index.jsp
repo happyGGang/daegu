@@ -51,7 +51,8 @@ $(function() {
 	});
 
 	$('a.delete-btn').on('click', function(e) {
-		if (confirm("해당 강의를 삭제 하시겠습니까?")) {
+		var msg = $(this).data('attend_cnt') ? '해당 강의를 삭제 하시겠습니까?' : '수강생이 있는 강좌입니다. 그래도 삭제하시겠습니까?';
+		if (confirm(msg)) {
 			$('#hiddenForm #group_idx').val($(this).attr('keyValue1'));
 			$('#hiddenForm #category_idx').val($(this).attr('keyValue2'));
 			$('#hiddenForm #teach_idx').val($(this).attr('keyValue3'));
@@ -342,8 +343,12 @@ $(function() {
 						<c:if test="${authU}">
 							<a href="" class="btn dialog-modify" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}">수정</a>
 						</c:if>
-						<c:if test="${authD and i.teach_join_count eq 0 and i.teach_backup_join_count eq 0 and i.teach_off_join_count eq 0}">
-							<a href="" class="btn delete-btn" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}">삭제</a>
+						<c:set value="false" var="attend_cnt"/>
+						<c:if test="${authD}">
+							<c:if test="${i.teach_join_count eq 0 and i.teach_backup_join_count eq 0 and i.teach_off_join_count eq 0}">
+							<c:set value="true" var="attend_cnt"/>
+							</c:if>
+							<a href="" class="btn delete-btn" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}" data-attend_cnt="${attend_cnt}">삭제</a>
 						</c:if>
 						<a href="" class="btn btn1 certificate-btn" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}">수료자 조회</a>
 					</td>
