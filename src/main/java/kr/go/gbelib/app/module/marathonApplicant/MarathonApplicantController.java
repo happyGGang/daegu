@@ -375,4 +375,13 @@ public class MarathonApplicantController extends BaseController {
 		marathonApplicant.setBirthday_date(birthday[2]);
 		return marathonApplicant;
 	}
+	
+	@RequestMapping(value = {"/certificate.*"})
+	public String certificate(Model model, MarathonApplicant marathonApplicant, HttpServletRequest request) {
+		marathonApplicant = service.getMarathonApplicantOne(marathonApplicant);
+		
+//		model.addAttribute("certificateInfo", service.getCertificateInfo(student));
+		model.addAttribute("certificateInfo", marathonApplicant);
+		return basePath + "certificate_ajax";
+	}
 }
