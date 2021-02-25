@@ -9,6 +9,20 @@
 			e.preventDefault();
 			history.back();
 		});
+		
+		$('a#printCompleteDocument').on('click', function(e) {
+			var url = 'certificate.do?';
+			/* $('#studentListForm input#student_idx').val($(this).attr('keyValue'));
+			$('#dialog-2').load('certificate.do?'+$('#studentListForm').serialize(), function( response, status, xhr ) {
+				$('#dialog-2').dialog('open');
+			}); */
+			
+			$('#dialog-2').load('certificate.do?homepage_id=${marathonApplicant.homepage_id}&contest_idx=${marathonApplicant.contest_idx}&contest_type_idx=${marathonApplicant.contest_type_idx}&applicant_idx=${marathonApplicant.applicant_idx}', function( response, status, xhr ) {
+				$('#dialog-2').dialog('open');
+			})
+
+			e.preventDefault();
+		});
 	});
 </script>
 <form:form modelAttribute="marathonApplicant">
@@ -25,7 +39,12 @@
 		</tr>
 		<tr>
 			<th>달성율</th>
-			<td style="text-align:left;"><fmt:formatNumber value="${(marathonApplicant.read_page_count_total / marathonApplicant.page_count) * 100}" pattern="##.##"/>%</td>
+			<td style="text-align:left;">
+				<fmt:formatNumber value="${(marathonApplicant.read_page_count_total / marathonApplicant.page_count) * 100}" pattern="##.##"/>%
+				<c:if test="${marathonApplicant.process_status eq 1}">
+					<a href="#" class="btn btn1" id="printCompleteDocument">완주증서 출력</a>
+				</c:if>
+			</td>
 		</tr>
 		<tr>
 			<th>아이디</th>
@@ -106,3 +125,6 @@
 	<button id="back-btn" class="btn"><i class="fa fa-reorder" title="뒤로가기"></i><span>뒤로가기</span></button>
 </div>
 </form:form>
+
+<div id="dialog-2" class="dialog-common" title="완주증서">
+</div>
