@@ -314,5 +314,9 @@
 			</c:forEach>
 		</ul>
 	</div>
-	<!-- //도서 목록 -->	
+	<!-- //도서 목록 -->
+	
+	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
+		<jsp:param name="formId" value="#librarySearch"/>
+	</jsp:include>	
 </form:form>

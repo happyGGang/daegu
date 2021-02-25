@@ -762,7 +762,7 @@ public class CommonSearchController extends BaseController {
 	
 	@RequestMapping(value = {"/publicPopularBook/index.*"})
 	public String publicPopularBook(Model model, LibrarySearch librarySearch, HttpServletRequest request) {
-Homepage homepage = (Homepage) request.getAttribute("homepage");
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		
 		if(librarySearch.getStartDt() == null || librarySearch.getEndDt() == null) {
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
@@ -802,6 +802,9 @@ Homepage homepage = (Homepage) request.getAttribute("homepage");
 		if(result != null && !result.isEmpty() && resultMap != null) {
 			list = (ArrayList<Map<String, Object>>)resultMap.get("doc");
 		}
+		
+		
+		service.setPaging(model, 50, librarySearch);
 		
 		List<Integer> countList = new ArrayList<Integer>();
 		if (list != null) {
