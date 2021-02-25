@@ -316,7 +316,15 @@
 			AND GROUP_IDX 		= #{group_idx}
 			AND CATEGORY_IDX 	= #{category_idx}
 			AND TEACH_IDX 		= #{teach_idx}
+		<choose>
+			<when test="member_key != null and member_key != ''">
 			AND MEMBER_KEY 		= #{member_key}
+			</when>
+			<otherwise>
+			AND	applicant_name = #{applicant_name}
+			AND	applicant_cell_phone = #{applicant_cell_phone}
+			</otherwise>
+		</choose>
 	</select>
 
 	<select id="checkStudentSameTeach" resultType="int">

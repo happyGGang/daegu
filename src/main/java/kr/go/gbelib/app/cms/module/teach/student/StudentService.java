@@ -146,13 +146,13 @@ public class StudentService extends BaseService {
 			}
 		}
 
-		if (!student.getMember_id().equals("ANONYMOUS")) {
-			if ( dao.checkStudent(student) > 0 ) {
-				addResult[0] = false;
-				addResult[1] = "이미 신청하신 강좌입니다.";
-				return addResult;
-			}
+//		if (!student.getMember_id().equals("ANONYMOUS")) {
+		if ( dao.checkStudent(student) > 0 ) {
+			addResult[0] = false;
+			addResult[1] = "이미 신청하신 강좌입니다.";
+			return addResult;
 		}
+//		}
 
 		if ( teach != null ) {
 //			if ( "Y".equals(teach.getMember_yn()) ) {
