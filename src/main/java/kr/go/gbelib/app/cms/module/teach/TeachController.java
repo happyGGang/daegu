@@ -375,13 +375,13 @@ public class TeachController extends BaseController {
 				}
 			}
 		}
-		else if ( teach.getEditMode().equals("DELETE") ) {
-			Teach targetTeach = teachService.getTeachOne(teach);
-			// 강좌 삭제시 참여인원, 대기인원, 오프참여 인원이 1명이라도 있으면 삭제 불가.
-			if ( targetTeach.getTeach_join_count() > 0 || targetTeach.getTeach_backup_join_count() > 0 || targetTeach.getTeach_off_join_count() > 0 ) {
-				result.reject("해당 강좌는 참여/대기/오프 인원이 접수되어있으므로 삭제 불가능 합니다.");
-			}
-		}
+//		else if ( teach.getEditMode().equals("DELETE") ) {
+//			Teach targetTeach = teachService.getTeachOne(teach);
+//			// 강좌 삭제시 참여인원, 대기인원, 오프참여 인원이 1명이라도 있으면 삭제 불가.
+//			if ( targetTeach.getTeach_join_count() > 0 || targetTeach.getTeach_backup_join_count() > 0 || targetTeach.getTeach_off_join_count() > 0 ) {
+//				result.reject("해당 강좌는 참여/대기/오프 인원이 접수되어있으므로 삭제 불가능 합니다.");
+//			}
+//		}
 
 		if ( !result.hasErrors() ) {
 			if ( editMode.equals("ADD") ) {
