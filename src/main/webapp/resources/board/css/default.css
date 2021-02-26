@@ -300,6 +300,7 @@ input.combobox::placeholder { /* 파이어폭스 51+, 크롬 57+ */color:#fff;}
 .elib_cate .box a:hover{color:#645649}
 
 /* 게시물 보기 */
+.bbs-view .bbs-view-header {border-top:1px solid #ccc;}
 .bbs-view .bbs-view-header dt{font-size:140%;font-weight:800;padding:10px 15px}
 .bbs-view .bbs-view-header dd{border-bottom:1px solid #ddd}
 .bbs-view .bbs-view-header dd.info{padding:8px 15px;overflow:hidden;border-top:1px solid #ddd}
@@ -317,7 +318,7 @@ input.combobox::placeholder { /* 파이어폭스 51+, 크롬 57+ */color:#fff;}
 .bbs-view .bbs-view-header span{vertical-align:middle}
 .bbs-view .bbs-view-header .panel-right span{margin-right:0}
 .bbs-view .bbs-view-header .panel-right i{margin-left:10px}
-.bbs-view .bbs-view-body{position:relative;padding:40px 15px 15px;min-height:50px;border-bottom:1px solid #ccc;word-break: break-all;}
+.bbs-view .bbs-view-body{position:relative;padding:40px 15px 15px;min-height:50px;word-break: break-all;}
 .bbs-view .bbs-comment{padding:15px 0}
 .bbs-view .bbs-comment .checkbox{padding:5px 0 0}
 .bbs-view .bbs-comment-list{background:#f7f7f8}

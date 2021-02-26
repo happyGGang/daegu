@@ -5,78 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="boardTag" uri="/WEB-INF/config/tld/boardTag.tld"%>
 <% pageContext.setAttribute("crlf", "\r\n"); %>
-<style>
-	a.bx-prev {
-	    font-size: 20px;
-	    position: relative;
-	    width: 30px;
-	    height: 40px;
-	    display: block;
-	    left: 400px;
-	    top: -220px;
-    }
-    
-    a.bx-next {
-	    font-size: 20px;
-	    position: relative;
-	    width: 30px;
-	    height: 40px;
-	    display: block;
-	    right: -550px;
-	    top: -260px;
-    }
-    
-    .largeBox {margin-top:10%; margin-bottom: 5%; text-align: center;}
-    .largeBox img {width:900px; height:600px; text-align:center;}
-</style>
-<script>
-$(function () {
-	$('li.smallOne img.smallImg0').css('border', '1px solid black');
-	
-	$('.bx-slider-zone-example').bxSlider({
-		mode: 'horizontal',
-		auto:false,
-		pager: false,
-		maxSlides: 10,
-		moveSlides: 1,
-		slideMargin: 10,
-		slideWidth: 100,
-		slideHeight: 60
-	});
-	
-	$('li.smallOne').on('click', function(e) {
-		var preview_img = $(this).data('idx');
-		$('.largeBox img').attr('src', '/data/board/${board.manage_idx}/${board.board_idx}/'+preview_img);
-		
-		var pagingNum = $(this).attr('keyValue');
-		$('li.smallOne img').css('border', '0');
-		$('li.smallOne img.smallImg' + pagingNum).css('border', '1px solid black');
-		pagingNum = Number(pagingNum);
-		pagingNum += 1;
-		$('span#pagingNum').text(pagingNum);
-		
-		e.preventDefault();
-	});
-	
-	$('a.bx-prev, a.bx-next').on('click', function() {
-		$('li.smallOne').unbind();
-		
-		$('li.smallOne').on('click', function(e) {
-			var preview_img = $(this).data('idx');
-			$('.largeBox img').attr('src', '/data/board/${board.manage_idx}/${board.board_idx}/'+preview_img);
-			
-			var pagingNum = $(this).attr('keyValue');
-			$('li.smallOne img').css('border', '0');
-			$('li.smallOne img.smallImg' + pagingNum).css('border', '1px solid black');
-			pagingNum = Number(pagingNum);
-			pagingNum += 1;
-			$('span#pagingNum').text(pagingNum);
-			
-			e.preventDefault();
-		});
-	});
-});
-</script>
+
 <c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.top_html) > 0}">
 ${boardManage.top_html}
 </c:if>
@@ -131,23 +60,82 @@ ${boardManage.top_html}
 				</dd>
 			</dl>
 		</div>
-		
-		<div class="bx-slider-zone-box">
-			<div class="largeBox">
-				<img src="/data/board/${board.manage_idx}/${board.board_idx}/${imgServerFileNameList[0]}" data-idx="${imgServerFileNameList[0]}">
-			</div>
-			<div id="pagingBox" style="text-align:center;font-size:20px;margin-bottom:45px;">
-				<span id="pagingNum">1</span> / <span>${fn:length(imgServerFileNameList)}</span>
-			</div>
-			<div class="smallBox">
-				<ul class="bx-slider-zone-example">
+
+		<link rel="stylesheet" href="/resources/common/css/swiper.min.css">
+		<style>
+		.swiper-wrap {position:relative;height: 100%;}
+		.swiper-container {width: 100%;height: 300px;margin-left: auto;margin-right: auto;}
+		.swiper-slide {background-size:contain;background-position:center;background-repeat:no-repeat;}
+		.swiper-sthum {background-size:cover;background-position:center;background-repeat:no-repeat;}
+		.gallery-top {height:600px;width:100%;}
+		.gallery-thumbs {height: 20%;box-sizing: border-box;padding: 10px 0;}
+		.gallery-thumbs .swiper-slide {height: 100%;opacity: 0.4;}
+		.gallery-thumbs .swiper-slide-thumb-active {opacity: 1;}
+
+		@media all and (max-width:1024px){
+			.gallery-top {height:500px;width:100%;}
+		}
+
+		</style>
+
+		<div class='swiper-wrap'>
+			<!-- Swiper -->
+			<div class="swiper-container gallery-top">
+				<div class="swiper-wrapper">
 					<c:forEach var="i" varStatus="status" items="${imgServerFileNameList}">
-						<li class="smallOne" data-idx="${i}" keyValue="${status.index}"><img src="/data/board/${board.manage_idx}/${board.board_idx}/${i}" class="smallImg${status.index}" style="cursor:pointer"></li>
+						<div class="swiper-slide" style="background-image:url('/data/board/${board.manage_idx}/${board.board_idx}/${i}')"></div>
 					</c:forEach>
-				</ul>
+				</div>
+				<!-- Add Arrows -->
+				<div class="swiper-button-next swiper-button-gray"></div>
+				<div class="swiper-button-prev swiper-button-gray"></div>
 			</div>
+			<div class="swiper-container gallery-thumbs" style='height:160px;'>
+				<div class="swiper-wrapper">
+					<c:forEach var="i" varStatus="status" items="${imgServerFileNameList}">
+						<div class="swiper-slide swiper-sthum" style="background-image:url('/data/board/${board.manage_idx}/${board.board_idx}/${i}')"></div>
+					</c:forEach>
+				</div>
+			</div>
+			<!-- 페이징 -->
+			<div class="swiper-pagination" style=''></div>
 		</div>
-		
+
+		<!-- Swiper JS -->
+		<script src="/resources/common/js/swiper.min.js"></script>
+
+		<!-- Initialize Swiper -->
+		<script>
+		var galleryThumbs = new Swiper('.gallery-thumbs', {
+			spaceBetween: 10,
+			slidesPerView: 6,
+			loop: true,
+			freeMode: true,
+			loopedSlides: 5, //looped slides should be the same
+			watchSlidesVisibility: true,
+			watchSlidesProgress: true,
+		});
+		var galleryTop = new Swiper('.gallery-top', {
+			spaceBetween: 10,
+			loop: true,
+			loopedSlides: 5, //looped slides should be the same
+			navigation: {
+				nextEl: '.swiper-button-next',
+				prevEl: '.swiper-button-prev',
+			},
+			thumbs: {
+				swiper: galleryThumbs,
+			},
+			pagination : { // 페이징 설정
+				el : '.swiper-pagination',
+				type: 'fraction',
+				clickable : true, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
+			},
+		});
+		</script>
+
+
+
 		<div class="bbs-view-body">
 			<c:set value="${fn:replace(board.content, crlf, '<br/>')}" var="content"></c:set>
 			${content}
@@ -158,6 +146,10 @@ ${boardManage.top_html}
 <!-- 					<a href="" class="twitter"><i class="fa fa-twitter"></i> <span>트위터</span></a> -->
 <!-- 				</dd> -->
 <!-- 			</dl> -->
+		</div>
+
+		<div class="right mg5f">
+			이미지 갯수 : ${fn:length(boardFile)}
 		</div>
 		<div class="bbs-view-header">
 			<dl>

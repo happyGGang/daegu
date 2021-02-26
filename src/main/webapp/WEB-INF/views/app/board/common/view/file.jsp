@@ -6,7 +6,7 @@
 <%@ taglib prefix="boardTag" uri="/WEB-INF/config/tld/boardTag.tld"%>
 <c:if test="${fn:length(boardFile) > 0}">
 <dd class="file">
-	<ul>
+	<ul style='height:110px;overflow-y:scroll;'>
 	<c:forEach var="i" varStatus="status" items="${boardFile}">
 		<li>
 			<a href="${getContextPath}/board/boardFile/download/${board.manage_idx}/${i.board_idx}/${i.file_idx}.do"><i class="fa <boardTag:file_ext file_ext="${i.file_ext_name}"/>"></i><span>${i.org_file_name}</span></a>
