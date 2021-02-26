@@ -722,6 +722,9 @@
 				<if test="category_idx != null and category_idx > 0">
 				AND	a.category_idx = #{category_idx}
 				</if>
+				<if test="teach_day != null and teach_day != ''">
+				AND	REGEXP_LIKE(teach_day, replace(#{teach_day}, ',', '|'))
+				</if>
 				AND	a.use_yn = 'Y'
 				AND	a.delete_yn = 'N'
 			ORDER BY
