@@ -338,12 +338,12 @@
 		<div id="quick-slide">
 			<h4><img src="/resources/homepage/${homepage.context_path}/img/quick-title.png" alt="퀵메뉴"/></h4>
 			<ul>
+				<li style="padding-bottom:10px;"><a href="http://dgelib.dkyobobook.co.kr" target="_blank"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick006-bg.png" alt="청소년자원봉사"></span><span class="txt">대구학생<br/>전자도서관</span></a></li>
 				<li><a href="/${homepage.context_path}/html.do?menu_idx=48"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick001-bg.png" alt="책바다"></span><span class="txt">책바다</span></a></li>
 				<li><a href="/${homepage.context_path}/html.do?menu_idx=49"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick002-bg.png" alt="책나래"></span><span class="txt">책나래</span></a></li>
 				<li><a href="/${homepage.context_path}/html.do?menu_idx=50"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick003-bg.png" alt="사서에게 물어보세요"></span><span class="txt">사서에게<br/>물어보세요</span></a></li>
 				<li><a href="https://www.youth.go.kr/youth/" target="_blank"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick004-bg.png" alt="청소년자원봉사"></span><span class="txt">청소년<br/>자원봉사</span></a></li>
 				<li><a href="http://seat.daegu.go.kr/wb_booking/?LIB_CODE=4" target="_blank"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick005-bg.png" alt="청소년자원봉사"></span><span class="txt">좌석예약<br/>시스템</span></a></li>
-				<li style="padding-bottom:10px;"><a href="http://dgelib.dkyobobook.co.kr" target="_blank"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick006-bg.png" alt="청소년자원봉사"></span><span class="txt">대구학생<br/>전자도서관</span></a></li>
 			</ul>
 		</div>
 

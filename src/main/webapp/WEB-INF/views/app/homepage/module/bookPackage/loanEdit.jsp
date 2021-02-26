@@ -143,7 +143,7 @@ input[type="checkbox"]:focus {outline: 1px solid red;}
 	<ul>
 		<li>대출 기간은 배송 기간 포함입니다.</li>
 		<li>다음 학교가 희망하는 일자부터 사용할 수 있도록 대출 기간을 반드시 지켜주십시오.</li>
-		<li>원화는 액자에 부착되어 있습니다. 원화 전시 중 학생들의 안전에 더욱 신경 써주십시오.</li>
+		<!-- <li>원화는 액자에 부착되어 있습니다. 원화 전시 중 학생들의 안전에 더욱 신경 써주십시오.</li> -->
 	</ul>
 </div>
 <form:form id="bookPackageLoan" modelAttribute="bookPackage" action="loanSave.do" method="POST">
@@ -216,7 +216,7 @@ input[type="checkbox"]:focus {outline: 1px solid red;}
 					<form:input path="school_tel_3" cssClass="text" cssStyle="width:50px;"/>
 					<div class="ui-state-highlight">
 						<i class="fa fa-question-circle"></i>
-						<em>연락처는 원화택배 발송을 위한 필수 정보입니다. 꼭 기입하여 주세요.</em>
+						<em>연락처는 책꾸러미 택배 발송을 위한 필수 정보입니다. 꼭 기입하여 주세요.</em>
 					</div>
 				</td>
 			</tr>
