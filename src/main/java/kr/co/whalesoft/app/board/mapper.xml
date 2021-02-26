@@ -753,6 +753,7 @@
 				</when>
 				<when test="manage_idx == 683">
 					category1 in ('179', '183', '180', '182')
+				AND	imsi_v_1 = TO_CHAR(SYSDATE, 'yyyy-MM')
 				</when>
 				<when test="manage_idx == 736">
 					manage_idx in (734, 735, 736)
