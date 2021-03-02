@@ -237,7 +237,7 @@ public class TeachController extends BaseController{
 			model.addAttribute("myTeachListMenuIdx", menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 93)));//수강신청내역 menu_idx
 			
 			// 분류별 검색
-			if(teach.getSearchCate1() != null) teach.setLarge_category_idx(Integer.parseInt(teach.getSearchCate1()));
+			if(StringUtils.isNotEmpty(teach.getSearchCate1())) teach.setLarge_category_idx(Integer.parseInt(teach.getSearchCate1()));
 			model.addAttribute("categoryGroupList", categoryGroupService.getCategoryGroupListAll(new CategoryGroup(teach.getHomepage_id(), teach.getLarge_category_idx())));
 			model.addAttribute("categoryList", categoryService.getCategoryListAll(new Category(teach.getHomepage_id(), teach.getGroup_idx(), teach.getLarge_category_idx())));
 

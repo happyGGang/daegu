@@ -7,10 +7,9 @@
 <script type="text/javascript">
 $(function(){
 	$('a.detail-btn').on('click', function(e) {
-		$('#teach #group_idx').val($(this).attr('keyValue1'));
-		$('#teach #category_idx').val($(this).attr('keyValue2'));
-		$('#teach #teach_idx').val($(this).attr('keyValue3'));
-		doGetLoad('/${homepage.context_path}/module/teach/detail.do', serializeCustom($('form#teach')));
+		var formData = 'menu_idx='+$('#menu_idx').val()+'&homepage_id='+$('#homepage_id_1').val()+'&group_idx='+$(this).attr('keyValue1')+'&cagory_idx='+$(this).attr('keyValue2')+'&teach_idx='+$(this).attr('keyValue3')
+			+'&searchCate1='+$('#searchCate1').val();
+		doGetLoad('/${homepage.context_path}/module/teach/detail.do', formData);
 		e.preventDefault();
 	});
 
