@@ -334,6 +334,7 @@ public class TeachService extends BaseService {
 				Menu m = new Menu();
 				m.setHomepage_id(homepage.getHomepage_id());
 				m.setMenu_idx(97);
+				m.setMenu_url_param("searchCate1="+result.getLarge_category_idx());
 				result.setMenu_idx(menuService.getMenuIdxByProgramIdx(m));
 				if (StringUtils.isNotEmpty(result.getProgram_age_div())) {
 					result.setProgram_age_div_arr(Arrays.asList(result.getProgram_age_div().split(",")));
