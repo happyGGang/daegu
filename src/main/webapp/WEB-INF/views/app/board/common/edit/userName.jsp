@@ -62,7 +62,7 @@ ${sessionScope.certMember.member_name}
 					<form:input path="user_name" value="${member.member_name }" cssClass="text"/>
 				</c:when>
 				<c:otherwise>
-					${sessionScope.certMember.member_name}
+					<form:input path="user_name" cssClass="text"/>
 				</c:otherwise>
 			</c:choose>
 		</c:if>
