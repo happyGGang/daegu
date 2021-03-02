@@ -274,7 +274,7 @@ input.text.ui-spinner-input{border:none;background:none;margin-top:0;margin-bott
 .ui-spinner a{cursor:pointer}
 input.ui-calendar{width:110px;background:#fff url('../img/calendar-icon.gif') no-repeat 89px center;vertical-align:middle;cursor:pointer}
 
-#header{position:relative;z-index:7;clear:both}
+#header{position:relative;z-index:6;clear:both}
 #container{position:relative;z-index:3;}
 h1{z-index:6}
 .tnb{position:relative;z-index:4}
