@@ -66,7 +66,7 @@ $(function() {
 </fieldset>
 
 <div>
-대출 권수 : ${fn:length(loanList)}<br/>
+대출 권수 : ${librarySearch.totalDataCount}<br/>
 </div>
 
 <form:form modelAttribute="librarySearch" method="get">

@@ -436,6 +436,7 @@ do {
 																		<b>${recommendOne.title}</b><br/>
 																			${recommendOne.imsi_v_3} / ${recommendOne.imsi_v_4} / ${recommendOne.imsi_v_2}<br/><br/>
 																	</p>
+																	<p>${recommendOne.imsi_v_7}</p>
 																	<p class="daegubook-cont-03">${fn:substring(recommendOne.content_summary, 0, 90)}<c:if test="${fn:length(recommendOne.content_summary) > 90}">...</c:if></p>
 																</dd>
 															</dl>

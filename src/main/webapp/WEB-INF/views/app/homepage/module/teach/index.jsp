@@ -51,6 +51,8 @@ $(function(){
 		e.preventDefault();
 		var url = 'index.do';
 		$('input#searchCate1').attr('value', $(this).attr('keyValue'));
+		$('#teach select#group_idx option.all').prop('selected', true);
+		$('#teach select#category_idx option.all').prop('selected', true);
 		var $form = $('form#teach');
 		var formData = serializeCustom($form);
 		doGetLoad(url, formData);
@@ -67,7 +69,7 @@ $(function(){
 		$('#viewPage').val(1);
 		var hid = $(this).data('hid');
 		$('input#homepage_id_1').val(hid);
-		doGetLoad('index.do', 'menu_idx='+$('#menu_idx').val()+'&searchCate1='+$('#searchCate1').val()+'&homepage_id='+$('#homepage_id_1').val()+'&viewPage=1'+'&search_type='+$('#search_type').val()+'&search_text='+$('#search_text').val());
+		doGetLoad('index.do', serializeCustom($('form#teach')));
 
 		e.preventDefault();
 	});
@@ -96,13 +98,26 @@ $(function(){
 			$('a#search_btn').click();
 		}
 	});
+	
+	$('select#group_idx').on('change', function() {
+		$('#taech select#category_idx option.all').prop('selected', true);
+		$('#teach #search_text').val('');
+		$('#teach #viewPage').val(1);
+		doGetLoad('index.do', serializeCustom($('form#teach')));
+	});
+
+	$('select#category_idx').on('change', function() {
+		$('#teach #search_text').val('');
+		$('#teach #viewPage').val(1);
+		doGetLoad('index.do', serializeCustom($('form#teach')));
+	});
 });
 </script>
 <form:form modelAttribute="teach" action="/${homepage.context_path}/module/teach/student/save.do" method="POST" onsubmit="return false">
-	<form:hidden path="group_idx"/>
+<%-- 	<form:hidden path="group_idx"/> --%>
 	<form:hidden path="teach_idx"/>
 	<form:hidden path="menu_idx"/>
-	<form:hidden path="category_idx"/>
+<%-- 	<form:hidden path="category_idx"/> --%>
 	<form:hidden path="large_category_idx"/>
 	<form:hidden path="searchCate1"/>
 	<form:hidden id="homepage_id_1" path="homepage_id"/>
@@ -192,6 +207,35 @@ $(function(){
 				<form:option value="teach_name"><c:choose><c:when test="${param.searchCate1 eq '16'}">행사명</c:when><c:when test="${param.searchCate1 eq '17'}">강좌명</c:when><c:when test="${param.searchCate1 eq '18'}">강좌명</c:when><c:otherwise>강좌명</c:otherwise></c:choose></form:option>
 			</form:select>
 			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
+			
+			<span>중분류 :
+				<form:select path="group_idx">
+					<form:option class="all" value="0" label="전체" />
+					<form:options itemValue="group_idx" itemLabel="group_name" items="${categoryGroupList}"/>
+				</form:select>
+			</span>
+			<span>소분류 :
+				<form:select path="category_idx" >
+					<form:option class="all" value="0" label="전체" />
+					<c:forEach items="${categoryList}" var="i">
+						<form:option class="group_${i.group_idx}" value="${i.category_idx}">${i.category_name}</form:option>
+					</c:forEach>
+				</form:select>
+			</span>
+			<div>
+				<c:forEach var="i" begin="1" end="7">
+					<input type="checkbox" id="teach_day${i}" name="teach_day" value="${i}" ${fn:contains(teach.teach_day, i) ? 'checked="checked"' : ''} style="width: 13px;">
+					<label for="teach_day${i}">
+						<c:if test="${i eq 1}">일</c:if>
+						<c:if test="${i eq 2}">월</c:if>
+						<c:if test="${i eq 3}">화</c:if>
+						<c:if test="${i eq 4}">수</c:if>
+						<c:if test="${i eq 5}">목</c:if>
+						<c:if test="${i eq 6}">금</c:if>
+						<c:if test="${i eq 7}">토</c:if>
+					</label>
+				</c:forEach>
+			</div>
 			<a href="#" class="btn btn1" id="search_btn"><i class="fa fa-search"></i><span>검색</span></a>
 		</fieldset>
 	</div>

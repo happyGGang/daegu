@@ -722,6 +722,9 @@
 				<if test="category_idx != null and category_idx > 0">
 				AND	a.category_idx = #{category_idx}
 				</if>
+				<if test="teach_day != null and teach_day != ''">
+				AND	REGEXP_LIKE(teach_day, replace(#{teach_day}, ',', '|'))
+				</if>
 				AND	a.use_yn = 'Y'
 				AND	a.delete_yn = 'N'
 			ORDER BY
@@ -848,7 +851,15 @@
 					AND	start_join_date <![CDATA[<=]]> #{end_join_date}
 					</if>
 					<if test="homepage_id != 'h32' and homepage_id != null and homepage_id != ''">
-					AND	homepage_id = #{homepage_id}
+					AND	homepage_id IN (
+										SELECT
+											homepage_id
+										FROM
+											CMS_HOMEPAGE
+										WHERE
+											homepage_id = #{homepage_id}
+										OR	homepage_group = #{homepage_id}
+										)
 					</if>
 					<if test='large_category_idx != "0"'>
 					AND	large_category_idx = #{large_category_idx}
