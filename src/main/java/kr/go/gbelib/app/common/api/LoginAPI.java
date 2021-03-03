@@ -41,6 +41,9 @@ public class LoginAPI {
 			@SuppressWarnings ("unchecked")
 			Map<String, Object> userMap = (Map<String, Object>) loginMap.get("USER_DATA");
 			if (userMap != null && !userMap.isEmpty()) {
+				if ("1".equals(String.valueOf(userMap.get("MEMBER_CLASS")))) {
+					return new ApiResponse(false, "해당 회원은 제적회원 또는 탈퇴회원입니다.");
+				}
 				member.setUser_no(String.valueOf(userMap.get("USER_NO")));
 				member.setUser_class(String.valueOf(userMap.get("USER_CLASS")));
 				member.setKl_member_yn(String.valueOf(userMap.get("KL_MEMBER_YN")));
