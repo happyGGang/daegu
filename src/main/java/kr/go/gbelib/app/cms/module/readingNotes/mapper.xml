@@ -12,6 +12,15 @@
 		<if test="member_id != null and member_id != ''">
 		AND	member_id = #{member_id}
 		</if>
+		<if test="approve_status_search != null and approve_status_search != ''">
+		AND	approve_status = #{approve_status_search}
+		</if>
+		<if test="book_type != null and book_type != ''">
+		AND	book_type = #{book_type}
+		</if>
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%${search_text}%'
+		</if>
 	</select>
 	
 	<select id="getReadingNotesList" resultType="kr.go.gbelib.app.cms.module.readingNotes.ReadingNotes">
@@ -34,7 +43,7 @@
 		AND	book_type = #{book_type}
 		</if>
 		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
-		AND	${search_type} = #{search_text}
+		AND	${search_type} LIKE '%${search_text}%'
 		</if>
 		ORDER BY reading_notes_idx DESC
 	</select>
