@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import freemarker.template.utility.StringUtil;
 import kr.co.whalesoft.app.board.boardFile.BoardFile;
 import kr.co.whalesoft.app.board.boardFile.BoardFileService;
 import kr.co.whalesoft.app.cms.boardManage.BoardManage;
@@ -647,6 +648,17 @@ public class BoardController extends BaseController {
 
 		} else {
 			checkAuth("C", model, request);
+			
+			// 최고관리자가 아니고 비회원이 아닐경우 회원 성명, 연락처 등록시 입력
+			Member memberTemp = getSessionMemberInfo(request);
+			if(!(Boolean)model.asMap().get("authMBA") && !memberTemp.isAnonymous()) {
+				if(StringUtils.isEmpty(board.getUser_name())) {
+					board.setUser_name(memberTemp.getMember_name());
+				}
+				if(StringUtils.isEmpty(board.getUser_phone())) {
+					board.setUser_phone(memberTemp.getCell_phone());
+				}
+			}
 
 			if (!isLogin(request)) {
 				Object certObject = request.getSession().getAttribute("certMember");

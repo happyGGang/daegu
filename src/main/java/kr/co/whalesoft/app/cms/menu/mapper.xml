@@ -479,6 +479,12 @@
 		AND	MENU_TYPE = 'PROGRAM'
 		AND manage_idx = #{menu_idx}
 		AND	use_yn = 'Y'
+		<if test="menu_url_param != null and menu_url_param != ''">
+		AND	(
+				menu_url_param LIKE '%'||#{menu_url_param}||'%'
+			OR	menu_url_param is null
+			)
+		</if>
 	</select>
 
 	<select id="getMenuTreeListWithAuth" resultType="kr.co.whalesoft.app.cms.menu.Menu">
