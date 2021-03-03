@@ -45,6 +45,11 @@ $(function() {
 		var param = serializeCustom($('form#librarySearch'));
 		doGetLoad('/${homepage.context_path}/intro/search/excelDownload.do', param);
 	});
+	
+	$('a#readingNotes').on('click', function(e) {
+		e.preventDefault();
+		location.href='/${homepage.context_path}/module/readingNotes/edit.do?editMode=ADD&menu_idx=${fn:escapeXml(noteMenuIdx)}&book_name='+encodeURIComponent($(this).data('title'))+'&author='+encodeURIComponent($(this).data('author'))+'&publisher='+encodeURIComponent($(this).data('publisher'))+'&isbn='+$(this).data('isbn');
+	});
 });
 </script>
 
@@ -91,6 +96,16 @@ $(function() {
 <c:if test="${fn:length(loanList) < 1 }"> <h3>조회된 도서가 없습니다.</h3></c:if>
 <c:if test="${fn:length(loanList) > 0 }">
 <table summary="신청정보">
+	<colgroup>
+		<col width="5%"/>
+		<col width=""/>
+		<col width="15%"/>
+		<col width="15%"/>
+		<col width="10%"/>
+		<col width="10%"/>
+		<col width="7%"/>
+		<col width="15%"/>
+	</colgroup>
 	<thead>
 		<th>순번</th>
 		<th>제목</th>
@@ -99,6 +114,7 @@ $(function() {
 		<th>대출일</th>
 		<th>반납일</th>
 		<th>상태</th>
+		<th>독서노트</th>
 	</thead>
 	<tbody>
 	<c:forEach items="${loanList}" var="i" varStatus="status">
@@ -110,6 +126,7 @@ $(function() {
 			<td>${i.LOAN_DATE}</td>
 			<td>${i.RETURN_DATE}</td>
 			<td><c:choose><c:when test="${i.STATUS eq '0'}">대출</c:when><c:when test="${i.STATUS eq '1'}">반납</c:when><c:when test="${i.STATUS eq '2'}">반납연기</c:when><c:when test="${i.STATUS eq '3'}">예약</c:when><c:when test="${i.STATUS eq '4'}">예약취소</c:when><c:otherwise></c:otherwise></c:choose></td>
+			<td><a href="#" class="btn btn1" id="readingNotes" data-title="${i.TITLE}" data-author="${i.AUTHOR}" data-publisher="${i.PUBLISHER}" data-isbn="${i.ISBN}">독서노트작성</a></td>
 		</tr>
 	</c:forEach>
 	</tbody>

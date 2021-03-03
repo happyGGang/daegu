@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.readingNotes.ReadingNotesDao">
+
+	<select id="getReadingNotesCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			READING_NOTES
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test="member_id != null and member_id != ''">
+		AND	member_id = #{member_id}
+		</if>
+	</select>
+	
+	<select id="getReadingNotesList" resultType="kr.go.gbelib.app.cms.module.readingNotes.ReadingNotes">
+		SELECT
+			homepage_id, reading_notes_idx, member_id, member_name, user_no,
+			book_name, book_type, publisher, author, isbn,
+			contents, approve_status, cancel_reason, read_success_date, add_date,
+			modify_date
+		FROM
+			READING_NOTES
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test="member_id != null and member_id != ''">
+		AND	member_id = #{member_id}
+		</if>
+		<if test="approve_status_search != null and approve_status_search != ''">
+		AND	approve_status = #{approve_status_search}
+		</if>
+		<if test="book_type != null and book_type != ''">
+		AND	book_type = #{book_type}
+		</if>
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+		AND	${search_type} = #{search_text}
+		</if>
+		ORDER BY reading_notes_idx DESC
+	</select>
+	
+	<select id="getReadingNotesExcelList" resultType="kr.go.gbelib.app.cms.module.readingNotes.ReadingNotes">
+		SELECT
+			homepage_id, reading_notes_idx, member_id, member_name, user_no,
+			book_name, book_type, publisher, author, isbn,
+			contents, approve_status, cancel_reason, read_success_date, add_date,
+			modify_date
+		FROM
+			READING_NOTES
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test="approve_status_search != null and approve_status_search != ''">
+		AND	approve_status = #{approve_status_search}
+		</if>
+		<if test="book_type != null and book_type != ''">
+		AND	book_type = #{book_type}
+		</if>
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+		AND	${search_type} = #{search_text}
+		</if>
+		ORDER BY reading_notes_idx DESC
+	</select>
+	
+	<select id="getReadingNotesOne" resultType="kr.go.gbelib.app.cms.module.readingNotes.ReadingNotes">
+		SELECT
+			homepage_id, reading_notes_idx, member_id, book_name, book_type,
+			publisher, author, isbn, contents, approve_status,
+			cancel_reason, read_success_date, add_date, modify_date
+		FROM
+			READING_NOTES
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	member_id = #{member_id}
+		AND	reading_notes_idx = #{reading_notes_idx}
+	</select>
+	
+	<insert id="addReadingNotes">
+		<selectKey keyProperty="reading_notes_idx" order="BEFORE" resultType="int">
+			SELECT NVL(MAX(reading_notes_idx), 0) + 1 FROM READING_NOTES WHERE homepage_id = #{homepage_id} AND member_id = #{member_id}
+		</selectKey> 
+		INSERT INTO
+			READING_NOTES
+		(
+			homepage_id, reading_notes_idx, member_id, member_name, user_no,
+			book_name, book_type, publisher, author, isbn, contents,
+			read_success_date, approve_status, add_date
+		)
+		VALUES
+		(
+			#{homepage_id}, #{reading_notes_idx}, #{member_id}, #{member_name}, #{user_no}, 
+			#{book_name}, #{book_type}, #{publisher}, #{author}, #{isbn},
+			#{contents}, #{read_success_date}, #{approve_status}, SYSDATE
+		)
+			
+	</insert>
+	
+	<update id="modifyReadingNotes">
+		UPDATE
+			READING_NOTES
+		SET
+			book_name = #{book_name},
+			book_type = #{book_type},
+			publisher = #{publisher},
+			author = #{author},
+			isbn = #{isbn},
+			contents = #{contents},
+			read_success_date = #{read_success_date},
+			modify_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	member_id = #{member_id}
+		AND	reading_notes_idx= #{reading_notes_idx}
+	</update>
+	
+	<update id="modifyReadingNotesStatusOne">
+		UPDATE
+			READING_NOTES
+		SET
+			approve_status = #{approve_status_replace},
+			cancel_reason = #{cancel_reason_replace}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	member_id = #{member_id}
+		AND	reading_notes_idx = #{reading_notes_idx}
+	</update>
+	
+	<delete id="deleteReadingNotes">
+		DELETE FROM
+			READING_NOTES
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	member_id = #{member_id}
+		AND	reading_notes_idx IN
+		<foreach collection="reading_notes_idx_arr" item="reading_notes_idx_list" open="(" close=")" separator=",">
+		#{reading_notes_idx_list}
+		</foreach>
+	</delete>
+</mapper>

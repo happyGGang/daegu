@@ -1313,11 +1313,15 @@ public class CommonSearchController extends BaseController {
 			int count = LibSearchAPI.getSearchCount(result);
 			librarySearch.setTotalDataCount(count);
 			service.setPaging(model, count, librarySearch);
+			
 
 			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
 				list = LibSearchAPI.getListData(result);
 			}
-
+			
+			int noteMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 170));
+			
+			model.addAttribute("noteMenuIdx", noteMenuIdx);
 			model.addAttribute("loanList", list);
 			return String.format(basePath, homepage.getFolder()) + "loan/history";
 
