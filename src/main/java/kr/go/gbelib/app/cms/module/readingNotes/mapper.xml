@@ -144,4 +144,13 @@
 		#{reading_notes_idx_list}
 		</foreach>
 	</delete>
+	
+	<delete id="deleteReadingNotesList">
+		DELETE FROM
+			READING_NOTES
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	member_id = #{member_id}
+		AND	reading_notes_idx = #{reading_notes_idx}
+	</delete>
 </mapper>

@@ -90,6 +90,14 @@ public class ReadingNotesController extends BaseController {
 				}
 			}
 			
+		} else if (readingNotes.getEditMode().equals("DELETE")) {
+			if (readingNotes.getReading_notes_idx_arr().length == 0) {
+				result.reject("일지를 선택해 주세요.");
+			}
+			
+			if (readingNotes.getMember_id_arr().length == 0) {
+				result.reject("일지를 선택해 주세요.");
+			}
 		}
 		/************************************/
 		
@@ -102,6 +110,10 @@ public class ReadingNotesController extends BaseController {
 				service.modifyReadingNotesStatus(readingNotes);
 				res.setValid(true);
 				res.setMessage("수정되었습니다.");
+			} else if (readingNotes.getEditMode().equals("DELETE")) {
+				service.deleteReadingNotesList(readingNotes);
+				res.setValid(true);
+				res.setMessage("삭제되었습니다.");
 			}
 		} else {
 			res.setValid(false);

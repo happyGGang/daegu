@@ -78,4 +78,17 @@ public class ReadingNotesService extends BaseService {
 		return dao.getReadingNotesExcelList(readingNotes);
 	}
 
+	
+	public int deleteReadingNotesList(ReadingNotes readingNotes) {
+		int[] reading_notes_idx_arr = readingNotes.getReading_notes_idx_arr();
+		String[] member_id_arr = readingNotes.getMember_id_arr();
+		
+		for (int i = 0; i < readingNotes.getReading_notes_idx_arr().length; i++) {
+			readingNotes.setReading_notes_idx(reading_notes_idx_arr[i]);
+			readingNotes.setMember_id(member_id_arr[i]);
+			dao.deleteReadingNotesList(readingNotes);
+		}
+		return 1;
+	}
+
 }

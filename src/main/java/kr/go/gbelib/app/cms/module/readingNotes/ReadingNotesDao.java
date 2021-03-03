@@ -20,4 +20,6 @@ public interface ReadingNotesDao {
 
 	List<ReadingNotes> getReadingNotesExcelList(ReadingNotes readingNotes);
 
+	int deleteReadingNotesList(ReadingNotes readingNotes);
+
 }
