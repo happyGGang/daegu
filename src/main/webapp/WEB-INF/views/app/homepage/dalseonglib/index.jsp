@@ -193,6 +193,7 @@ do {
 							</ul>
 							<a href="/${homepage.context_path}/board/index.do?menu_idx=13&manage_idx=683" class="btn-more btn-w btn-more_right20 top35 more-more-2">더보기</a>
 
+
 							<div class='book-wrap'>
 								<div id="recommandbook1" class="con clt">
 									<div class="book">
@@ -310,8 +311,9 @@ do {
 					</div>
 
 					<div class="movie-box">
+				
 						<h2>영화상영</h2>
-
+                        <a href="https://library.daegu.go.kr/dalseonglib/board/index.do?menu_idx=34&manage_idx=685" class="btn-more btn-b btn-more_right20 top258"  >더보기</a>
 						<div class="movieContent">
 							<ul>
 								<c:forEach var="i" varStatus="status" items="${movieList}" begin="0" end="0">
@@ -358,7 +360,7 @@ do {
 								</c:if>
 							</ul>
 						</div>
-
+                 
 					</div>
 
 				</div>

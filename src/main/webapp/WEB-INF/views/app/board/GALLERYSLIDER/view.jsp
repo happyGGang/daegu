@@ -63,15 +63,17 @@ ${boardManage.top_html}
 
 		<link rel="stylesheet" href="/resources/common/css/swiper.min.css">
 		<style>
-		.swiper-wrap {position:relative;height: 100%;}
+		.swiper-wrap {position:relative;margin-top:30px;height: 100%;border:1px solid #ddd;padding:30px;}
 		.swiper-container {width: 100%;height: 300px;margin-left: auto;margin-right: auto;}
-		.swiper-slide {background-size:contain;background-position:center;background-repeat:no-repeat;}
+		.swiper-slide {background-size:cover;background-position:center;background-repeat:no-repeat;}
 		.swiper-sthum {background-size:cover;background-position:center;background-repeat:no-repeat;}
+		.swiper-pagination-current{font-weight:600;font-size: 20px;color:#ff9900;letter-spacing: 5px;}
+		.swiper-pagination-total{margin-left:5px;}
 		.gallery-top {height:600px;width:100%;}
-		.gallery-thumbs {height: 20%;box-sizing: border-box;padding: 10px 0;}
-		.gallery-thumbs .swiper-slide {height: 100%;opacity: 0.4;}
-		.gallery-thumbs .swiper-slide-thumb-active {opacity: 1;}
-
+		.gallery-thumbs {height: 20%;box-sizing: border-box;padding: 15px 1px 5px 1px;}
+		.gallery-thumbs .swiper-slide {height: 100%;opacity: 0.2;}
+		.gallery-thumbs .swiper-slide-thumb-active {opacity: 1; border: 2px solid #ff9900;}
+		
 		@media all and (max-width:1024px){
 			.gallery-top {height:500px;width:100%;}
 		}
@@ -87,18 +89,21 @@ ${boardManage.top_html}
 					</c:forEach>
 				</div>
 				<!-- Add Arrows -->
-				<div class="swiper-button-next swiper-button-gray"></div>
-				<div class="swiper-button-prev swiper-button-gray"></div>
+				<div class="swiper-button-next swiper-button-white"></div>
+				<div class="swiper-button-prev swiper-button-white"></div>
 			</div>
-			<div class="swiper-container gallery-thumbs" style='height:160px;'>
+			<div class="swiper-container gallery-thumbs" style='height:80px;'>
 				<div class="swiper-wrapper">
 					<c:forEach var="i" varStatus="status" items="${imgServerFileNameList}">
 						<div class="swiper-slide swiper-sthum" style="background-image:url('/data/board/${board.manage_idx}/${board.board_idx}/${i}')"></div>
 					</c:forEach>
 				</div>
+			
 			</div>
 			<!-- 페이징 -->
+			
 			<div class="swiper-pagination" style=''></div>
+			
 		</div>
 
 		<!-- Swiper JS -->
@@ -108,7 +113,7 @@ ${boardManage.top_html}
 		<script>
 		var galleryThumbs = new Swiper('.gallery-thumbs', {
 			spaceBetween: 10,
-			slidesPerView: 6,
+			slidesPerView: 10,
 			loop: true,
 			freeMode: true,
 			loopedSlides: 5, //looped slides should be the same

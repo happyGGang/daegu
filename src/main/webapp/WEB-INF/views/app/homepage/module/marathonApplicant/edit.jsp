@@ -380,8 +380,8 @@ $(function(){
 </style>
 <div id="cont_wrap">
 	<div class="bookrun">
-		<p class="s_txt">책으로 달리는 우리의 레이스!</p>
-		<h3 class="tit">제 12회 달서독서마라톤 대회 참가자 완주기준체크!</h3>
+		<p class="s_txt">코로나 블루에 대처하는 마음처방책(冊)</p>
+		<h3 class="tit">제 13회 달서독서마라톤 대회 참가자 완주기준체크!</h3>
 		<ul class="list">
 			<li>동일한 내용 반복 기재, 의미 없는 감탄사나 자 · 모음 나열로 작성된 일지는 기록 제외</li>
 			<li>도서(원서 포함)의 <strong>일지 작성언어가 한국어</strong>인지 여부</li>
