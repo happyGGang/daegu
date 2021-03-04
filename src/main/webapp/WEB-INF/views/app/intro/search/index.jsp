@@ -876,7 +876,7 @@ $(function() {
 									<c:choose>
 										<c:when test="${empty i.aladin or empty i.aladin.cover}">
 											<a href="${detailURL}">
-												<img src="/resources/common/img/noImg2.png" alt="${i.TITLE_INFO}"/>
+												<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="${i.TITLE_INFO}"/>
 											</a>
 										</c:when>
 										<c:otherwise>

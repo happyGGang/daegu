@@ -151,8 +151,7 @@ $(function() {
 				<c:choose>
 					<c:when test="${empty detail.aladin or empty detail.aladin.cover}">
 				<p class="noImg">
-					<img src="/resources/common/img/noImg2.png" alt="noImage"/>
-					<span>등록된 이미지가<br/>없습니다.</span>
+					<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="noImage"/>
 				</p>
 					</c:when>
 					<c:otherwise>
