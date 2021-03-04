@@ -316,7 +316,7 @@ do {
                         <a href="https://library.daegu.go.kr/dalseonglib/board/index.do?menu_idx=34&manage_idx=685" class="btn-more btn-b btn-more_right20 top258"  >더보기</a>
 						<div class="movieContent">
 							<ul>
-								<c:forEach var="i" varStatus="status" items="${movieList}" begin="0" end="0">
+								<c:forEach var="i" varStatus="status" items="${movieList}">
 									<li>
 										<a href="/${homepage.context_path}/board/view.do?menu_idx=34&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 											<span class="view-date">
