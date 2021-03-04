@@ -14,7 +14,7 @@
 			student_neis_cd,
 			student_training_num,
 			student_organization, student_rank, student_course_taken_yn, agree_codes,
-			sms_service_yn, picture_use_yn, student_old
+			sms_service_yn, picture_use_yn, student_age
 		FROM
 			STUDENT
 		WHERE DELETE_YN 		= 'N' AND
