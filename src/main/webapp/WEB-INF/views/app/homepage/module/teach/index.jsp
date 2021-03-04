@@ -7,7 +7,7 @@
 <script type="text/javascript">
 $(function(){
 	$('a.detail-btn').on('click', function(e) {
-		var formData = 'menu_idx='+$('#menu_idx').val()+'&homepage_id='+$('#homepage_id_1').val()+'&group_idx='+$(this).attr('keyValue1')+'&cagory_idx='+$(this).attr('keyValue2')+'&teach_idx='+$(this).attr('keyValue3')
+		var formData = 'menu_idx='+$('#menu_idx').val()+'&homepage_id='+$('#homepage_id_1').val()+'&group_idx='+$(this).attr('keyValue1')+'&category_idx='+$(this).attr('keyValue2')+'&teach_idx='+$(this).attr('keyValue3')
 			+'&searchCate1='+$('#searchCate1').val();
 		doGetLoad('/${homepage.context_path}/module/teach/detail.do', formData);
 		e.preventDefault();
