@@ -527,6 +527,8 @@ public class LibSearchAPI {
 		if (StringUtils.isNotEmpty(librarySearch.getManageCode())) {
 			param.put("manage_code", librarySearch.getManageCode());
 		}
+		param.put("orderby_item", "RETURN_DATE");
+		param.put("orderby", "DESC");
 
 		return CommonAPI.sendKCMS("bookreturnlist", param);
 	}
