@@ -474,8 +474,8 @@ public class LibSearchAPI {
 		if (StringUtils.isNotEmpty(manage_code)) {
 			param.put("manage_code", manage_code);
 		}
-		param.put("pageno", viewPage);
-		param.put("display", rowCount);
+//		param.put("pageno", viewPage);
+//		param.put("display", rowCount);
 		param.put("orderby_item", "LOAN_DATE");
 		param.put("orderby", "DESC");
 
