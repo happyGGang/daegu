@@ -123,6 +123,35 @@ public class MarathonRecordController extends BaseController{
 		marathonRecord.setBefore_url(String.format("/%s/module/marathonRecord/index.do?menu_idx=%s", homepage.getContext_path(), marathonRecord.getMenu_idx()));
 		service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), marathonRecord.getMenu_idx(), marathonRecord.getBefore_url()), request, response);
 		} else {
+			Marathon marathonUseOne = new Marathon();
+			marathonUseOne.setHomepage_id(homepage.getHomepage_id());
+			marathonUseOne = marathonService.getMarathonUseOne(marathonUseOne);
+			
+			if(marathonUseOne != null) {
+				String contest_start_day = marathonUseOne.getContest_start_day();
+				String contest_end_day = marathonUseOne.getContest_end_day();
+				Calendar cal = Calendar.getInstance();
+				Date date = new Date();
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				Date contest_start_date = dateFormat.parse(contest_start_day);
+				Date contest_end_date = dateFormat.parse(contest_end_day);
+				cal.setTime(contest_end_date);
+				cal.add(Calendar.DATE, 1);
+				
+				if(contest_start_date.compareTo(date) > 0 ) {
+					service.alertMessageAndUrl("독서마라톤 시작 전입니다.", String.format("/%s/module/marathonRecord/index.do?menu_idx=108", homepage.getContext_path()), request, response);
+					return null;
+				}
+				
+				if(date.compareTo(cal.getTime()) > 0) {
+					service.alertMessageAndUrl("독서마라톤대회가 종료되었습니다.", String.format("/%s/module/marathonRecord/index.do?menu_idx=108", homepage.getContext_path()), request, response);
+					return null;
+				}
+			} else {
+				service.alertMessage("독서마라톤대회가 없습니다.", request, response);
+				return null;
+			}
+			
 			MarathonApplicant marathonApplicant = new MarathonApplicant(); //신청자 정보
 			marathonApplicant.setHomepage_id(homepage.getHomepage_id());
 			marathonApplicant.setContest_idx(marathonRecord.getContest_idx());
@@ -220,6 +249,32 @@ public class MarathonRecordController extends BaseController{
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		marathonRecord.setHomepage_id(homepage.getHomepage_id());
 		/* 유효성 검증 >>>>>>>>>>>>>>> */
+		Marathon marathonUseOne = new Marathon();
+		marathonUseOne.setHomepage_id(homepage.getHomepage_id());
+		marathonUseOne = marathonService.getMarathonUseOne(marathonUseOne);
+		
+		if(marathonUseOne != null) {
+			String contest_start_day = marathonUseOne.getContest_start_day();
+			String contest_end_day = marathonUseOne.getContest_end_day();
+			Calendar cal = Calendar.getInstance();
+			Date date = new Date();
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date contest_start_date = dateFormat.parse(contest_start_day);
+			Date contest_end_date = dateFormat.parse(contest_end_day);
+			cal.setTime(contest_end_date);
+			cal.add(Calendar.DATE, 1);
+			
+			if(contest_start_date.compareTo(date) > 0 ) {
+				result.reject("독서마라톤 시작 전입니다.");
+			}
+			
+			if(date.compareTo(cal.getTime()) > 0) {
+				result.reject("독서마라톤대회가 종료되었습니다.");
+			}
+		} else {
+			result.reject("독서마라톤대회가 없습니다.");
+		}
+		
 		if(marathonRecord.getEditMode().equals("ADD") || marathonRecord.getEditMode().equals("MODIFY")) {
 			ValidationUtils.rejectIfEmpty(result, "contest_idx", "대회명을 입력해 주세요.");
 			ValidationUtils.rejectIfEmpty(result, "applicant_idx", "신청자 번호를 입력해 주세요.");

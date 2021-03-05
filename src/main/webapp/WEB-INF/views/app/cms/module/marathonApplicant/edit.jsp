@@ -52,9 +52,14 @@ $(function() {
 							return false;
 						}
 					}
-					if($('select#address_dong').val() == '' || $('input#address_writeDong').val() == ''){
-						alert('동명을 입력해 주세요.');
+					if($('select#address_dong').val() == '' && $('input#address_writeDong').val() == ''){
+						alert('동(행정동)을 입력해 주세요.');
 						$('select#address_dong').focus();
+						return false;
+					}
+					if($('select#address_dong').val() == 'write' && $('input#address_writeDong').val() == '') {
+						alert('동(행정동)을 입력해 주세요.');
+						$('input#address_writeDong').focus();
 						return false;
 					}
 					if($('input#zipcode').val() == ''){
@@ -103,6 +108,11 @@ $(function() {
 						$('input#telephone_two').focus();
 						return false;
 					}
+					if($('input#telephone_two').val().length < 3) {
+						alert('전화번호 중간자리는 3자리 이상을 입력해 주세요.');
+						$('input#telephone_two').focus();
+						return false;
+					}
 					var regexp = /^[0-9]/g;
 					if(!regexp.test($('input#telephone_two').val())){
 						alert('전화번호에는 숫자만 입력해 주세요.');
@@ -111,6 +121,11 @@ $(function() {
 					}
 					if($('input#telephone_three').val() == ''){
 						alert('전화번호 끝자리를 입력해 주세요.');
+						$('input#telephone_three').focus();
+						return false;
+					}
+					if($('input#telephone_three').val().length < 4) {
+						alert('전화번호 끝자리는 4자리를 입력해 주세요.');
 						$('input#telephone_three').focus();
 						return false;
 					}
@@ -141,6 +156,11 @@ $(function() {
 						$('input#cellphone_two').focus();
 						return false;
 					}
+					if($('input#cellphone_two').val().length < 3) {
+						alert('휴대전화번호 중간자리는 3자리 이상을 입력해 주세요.');
+						$('input#cellphone_two').focus();
+						return false;
+					} 
 					var regexp = /^[0-9]/g;
 					if(!regexp.test($('input#cellphone_two').val())){
 						alert('휴대전화번호에는 숫자만 입력해 주세요.');
@@ -149,6 +169,11 @@ $(function() {
 					}
 					if($('input#cellphone_three').val() == ''){
 						alert('휴대전화번호 끝자리를 입력해 주세요.');
+						$('input#cellphone_three').focus();
+						return false;
+					}
+					if($('input#cellphone_three').val().length < 4) {
+						alert('휴대전화번호 끝자리는 4자리를 입력해 주세요.');
 						$('input#cellphone_three').focus();
 						return false;
 					}
@@ -551,14 +576,14 @@ $(function() {
 			<tr>
 				<th>전화번호*</th>
 				<td>
-					<form:input path="telephone_one" cssClass="text" size="4" maxLength="4"/>-<form:input path="telephone_two" cssClass="text" size="4" maxLength="4"/>-<form:input path="telephone_three" cssClass="text" size="4" maxLength="4"/>
+					<form:input path="telephone_one" cssClass="text" size="4" maxLength="3"/>-<form:input path="telephone_two" cssClass="text" size="4" maxLength="4"/>-<form:input path="telephone_three" cssClass="text" size="4" maxLength="4"/>
 					<em>* 숫자만 입력해 주세요.</em>
 				</td>
 			</tr>
 			<tr>
 				<th>휴대전화번호*</th>
 				<td>
-					<form:input path="cellphone_one" cssClass="text" size="4" maxLength="4"/>-<form:input path="cellphone_two" cssClass="text" size="4" maxLength="4"/>-<form:input path="cellphone_three" cssClass="text" size="4" maxLength="4"/>
+					<form:input path="cellphone_one" cssClass="text" size="4" maxLength="3"/>-<form:input path="cellphone_two" cssClass="text" size="4" maxLength="4"/>-<form:input path="cellphone_three" cssClass="text" size="4" maxLength="4"/>
 					<em>* 숫자만 입력해 주세요.</em>
 				</td>
 			</tr>

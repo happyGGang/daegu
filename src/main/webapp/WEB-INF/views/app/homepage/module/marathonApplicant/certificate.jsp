@@ -92,16 +92,137 @@ $(function() {
           <td style="text-align:right;font-family:'궁서체';font-size:21px;">성&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;명</td>
           <td colspan="3" style="text-align:left;font-family:'궁서체';font-size:21px;">: ${certificateInfo.member_name}</td>
         </tr>
-        <tr>
-          <td height="5%"></td>
-          <td style="text-align:right;font-family:'궁서체';font-size:21px;">학 교(학 년)</td>
-          <td colspan="3" style="text-align:left;font-family:'궁서체';font-size:21px;">:
-	          <c:if test="${certificateInfo.school_name ne '' || certificateInfo.school_name ne null}">
-	          	${certificateInfo.school_name}(${fn:split(certificateInfo.school_class, ',')[0]}학년)
-	          </c:if>
-          </td>
-          
-        </tr>
+        <c:choose>
+	        <c:when test="${certificateInfo.age_type ne 'adult'}">
+		        <tr>
+		            <td height="5%"></td>
+		            <td style="text-align:right;font-family:'궁서체';font-size:21px;">학 교(학 년)</td>
+		            <td colspan="3" style="text-align:left;font-family:'궁서체';font-size:21px;">:
+			            <c:if test="${certificateInfo.school_name ne '' || certificateInfo.school_name ne null}">
+			          	  ${certificateInfo.school_name}(${fn:split(certificateInfo.school_class, ',')[0]}학년)
+			            </c:if>
+		            </td>
+		        </tr>
+	        </c:when>
+	        <c:otherwise>
+	        	<tr>
+	        		<td height="5%"></td>
+		            <td style="text-align:right;font-family:'궁서체';font-size:21px;">소&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;속</td>
+		            <td colspan="3" style="text-align:left;font-family:'궁서체';font-size:21px;">:
+			            <c:choose>
+			            	<c:when test="${certificateInfo.address_dong eq '10'}">
+			            		갈산동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '20'}">
+			            		감삼동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '30'}">
+			            		대곡동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '40'}">
+			            		대천동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '50'}">
+			            		도원동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '60'}">
+			            		두류1,2동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '70'}">
+			            		두류3동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '80'}">
+			            		본동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '90'}">
+			            		본리동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '100'}">
+			            		신당동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '110'}">
+			            		성당동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '120'}">
+			            		상인동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '130'}">
+			            		상인1동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '140'}">
+			            		상인2동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '150'}">
+			            		상인3동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '160'}">
+			            		송현동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '170'}">
+			            		송현1동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '180'}">
+			            		송현2동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '190'}">
+			            		이곡1동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '200'}">
+			            		이곡2동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '210'}">
+			            		용산1동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '220'}">
+			            		용산2동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '230'}">
+			            		유천동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '240'}">
+			            		월성동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '250'}">
+			            		월성1동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '260'}">
+			            		월성2동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '270'}">
+			            		월암동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '280'}">
+			            		진천동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '290'}">
+			            		장동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '300'}">
+			            		죽전동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '310'}">
+			            		장기동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '320'}">
+			            		파산동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '330'}">
+			            		파호동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '340'}">
+			            		호림동
+			            	</c:when>
+			            	<c:when test="${certificateInfo.address_dong eq '350'}">
+			            		호산동
+			            	</c:when>
+			            	<c:otherwise>
+			            		${certificateInfo.address_dong}
+			            	</c:otherwise>
+			            </c:choose>
+		            </td>	
+	        	</tr>
+	        </c:otherwise>
+        </c:choose>
         <tr>
           <td height="5%"></td>
           <td style="text-align:right;font-family:'궁서체';font-size:21px;">부&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;문</td>

@@ -93,8 +93,40 @@ public class MarathonApplicantController extends BaseController {
 				marathonApplicant.setContest_idx(marathonApplicant.getContest_idx());
 				marathonApplicant.setMember_id(getSessionMemberId(request));
 				marathonApplicant.setAdd_date(new Date());
+				
+				marathonApplicant = service.getMarathonApplicantOneById(marathonApplicant);
+				
+				if(marathonApplicant.getSchool_class().equals(",")) {
+					marathonApplicant.setSchool_class_one("");
+					marathonApplicant.setSchool_class_two("");
+				}else {
+					String[] school_class = marathonApplicant.getSchool_class().split(",");
+					marathonApplicant.setSchool_class_one(school_class[0]);
+					marathonApplicant.setSchool_class_two(school_class[1]);
+				}
+				//전화번호
+				if(marathonApplicant.getTelephone().length() == 12) {
+					marathonApplicant.setTelephone_one(marathonApplicant.getTelephone().substring(0,3));
+					marathonApplicant.setTelephone_two(marathonApplicant.getTelephone().substring(4,7));
+					marathonApplicant.setTelephone_three(marathonApplicant.getTelephone().substring(8));
+				}else if(marathonApplicant.getTelephone().length() == 13) {
+					marathonApplicant.setTelephone_one(marathonApplicant.getTelephone().substring(0,3));
+					marathonApplicant.setTelephone_two(marathonApplicant.getTelephone().substring(4,8));
+					marathonApplicant.setTelephone_three(marathonApplicant.getTelephone().substring(9));
+				}
+				//휴대전화번호
+				if(marathonApplicant.getCellphone().length() == 12) {
+					marathonApplicant.setCellphone_one(marathonApplicant.getCellphone().substring(0,3));
+					marathonApplicant.setCellphone_two(marathonApplicant.getCellphone().substring(4,7));
+					marathonApplicant.setCellphone_three(marathonApplicant.getCellphone().substring(8));
+				}else if(marathonApplicant.getCellphone().length() == 13) {
+					marathonApplicant.setCellphone_one(marathonApplicant.getCellphone().substring(0,3));
+					marathonApplicant.setCellphone_two(marathonApplicant.getCellphone().substring(4,8));
+					marathonApplicant.setCellphone_three(marathonApplicant.getCellphone().substring(9));
+				}
 
-				model.addAttribute("marathonApplicant", service.getMarathonApplicantOneById(marathonApplicant));
+				model.addAttribute("dongList", codeService.getCode(homepage.getHomepage_id(), "H0020"));
+				model.addAttribute("marathonApplicant", marathonApplicant);
 				return String.format(basePath, homepage.getFolder()) + "myInfo";
 			}
 
@@ -156,82 +188,109 @@ public class MarathonApplicantController extends BaseController {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		/* 유효성 검증 >>>>> */
 		
-		ValidationUtils.rejectIfEmpty(result, "age_type", "분류를 선택해 주세요.");
-		if(!marathonApplicant.getAge_type().equals("adult")) {
-			ValidationUtils.rejectIfEmpty(result, "school_name", "학교를 입력해 주세요.");
-			ValidationUtils.rejectIfEmpty(result, "school_class_one", "학년을 입력해 주세요.");
-			ValidationUtils.rejectIfEmpty(result, "school_class_two", "반을 입력해 주세요.");
-		}
-		ValidationUtils.rejectIfEmpty(result, "zipcode", "우편번호를 입력해 주세요.");
-		ValidationUtils.rejectIfEmpty(result, "address_dong", "동(행정동)을 입력해 주세요.");
-		ValidationUtils.rejectIfEmpty(result, "address_one", "주소를 입력해 주세요.");
-		ValidationUtils.rejectIfEmpty(result, "address_two", "주소를 입력해 주세요.");
-		ValidationUtils.rejectIfEmpty(result, "telephone_one", "전화번호 앞자리를 입력해 주세요.");
-		ValidationUtils.rejectIfEmpty(result, "telephone_two", "전화번호 중간자리를 입력해 주세요.");
-		ValidationUtils.rejectIfEmpty(result, "telephone_three", "전화번호 끝자리를 입력해 주세요.");
-		ValidationUtils.rejectIfEmpty(result, "cellphone_one", "휴대전화번호 앞자리를 입력해 주세요.");
-		ValidationUtils.rejectIfEmpty(result, "cellphone_two", "휴대전화번호 중간자리를 입력해 주세요.");
-		ValidationUtils.rejectIfEmpty(result, "cellphone_three", "휴대전화번호 끝자리르 입력해 주세요.");
+		if (marathonApplicant.getEditMode().equals("ADD")) {
+    		ValidationUtils.rejectIfEmpty(result, "age_type", "분류를 선택해 주세요.");
+    		if(!marathonApplicant.getAge_type().equals("adult")) {
+    			ValidationUtils.rejectIfEmpty(result, "school_name", "학교를 입력해 주세요.");
+    			ValidationUtils.rejectIfEmpty(result, "school_class_one", "학년을 입력해 주세요.");
+    			ValidationUtils.rejectIfEmpty(result, "school_class_two", "반을 입력해 주세요.");
+    		}
+    		ValidationUtils.rejectIfEmpty(result, "zipcode", "우편번호를 입력해 주세요.");
+    		ValidationUtils.rejectIfEmpty(result, "address_dong", "동(행정동)을 입력해 주세요.");
+    		ValidationUtils.rejectIfEmpty(result, "address_one", "주소를 입력해 주세요.");
+    		ValidationUtils.rejectIfEmpty(result, "address_two", "주소를 입력해 주세요.");
+    		ValidationUtils.rejectIfEmpty(result, "telephone_one", "전화번호 앞자리를 입력해 주세요.");
+    		ValidationUtils.rejectIfEmpty(result, "telephone_two", "전화번호 중간자리를 입력해 주세요.");
+    		ValidationUtils.rejectIfEmpty(result, "telephone_three", "전화번호 끝자리를 입력해 주세요.");
+    		ValidationUtils.rejectIfEmpty(result, "cellphone_one", "휴대전화번호 앞자리를 입력해 주세요.");
+    		ValidationUtils.rejectIfEmpty(result, "cellphone_two", "휴대전화번호 중간자리를 입력해 주세요.");
+    		ValidationUtils.rejectIfEmpty(result, "cellphone_three", "휴대전화번호 끝자리르 입력해 주세요.");
+    		
+    		ValidationUtils.rejectIfZero(result, "contest_type_idx", "참가종목을 선택해 주세요.");
+    		ValidationUtils.rejectIfEmpty(result, "finish_memorial", "완주기념풍을 선택해 주세요.");
+    		ValidationUtils.rejectIfEmpty(result, "agree", "달서독서마라톤 대회 참가자 완주기준을 동의하셔야 서비스 이용이 가능합니다.");
+    		ValidationUtils.rejectIfEmpty(result, "agree1", "개인정보 수집 및 이용에 동의하셔야 서비스 이용이 가능합니다.");
+    		ValidationUtils.rejectIfEmpty(result, "agree2", "만 14세 미만 아동의 참가 신청에 동의하셔야 서비스 이용이 가능합니다.");
+    		
+    //		marathonApplicant.setContest_type_idx(service.getContestTypeIdx(marathonApplicant)); //종목으로 종목 번호를 가져온다.
+    
+    		marathonApplicant.setContest_type(service.getContestType(marathonApplicant));
+    
+    		Member member = getSessionMemberInfo(request);
+    		marathonApplicant.setMember_id(getSessionMemberId(request)); //아이디를 가져온다.
+    		marathonApplicant.setMember_name(member.getMember_name());
+    		if(member.getSex().equals("0")) {
+    			marathonApplicant.setGender("M");
+    		}else {
+    			marathonApplicant.setGender("F");
+    		}
+    		marathonApplicant.setBirthday_year(member.getBirth_day().substring(0, 4));
+    		marathonApplicant.setBirthday_month(member.getBirth_day().substring(5, 7));
+    		marathonApplicant.setBirthday_date(member.getBirth_day().substring(8));
+    		
+    		int checkApplicantCount = service.checkApplicantId(marathonApplicant); //신청 대상을 가져온다.
+    		if(checkApplicantCount > 0) {
+    			result.reject("독서마라톤대회에 이미 신청하였습니다.");
+    		}
+    		
+    		String application_subject = service.getContestApplicationSubject(marathonApplicant); //신청 대상을 가져온다.
+    		if(!application_subject.equals("all")) {
+    			if(!application_subject.contains(marathonApplicant.getAge_type())) {
+    				result.reject("선택한 분류는 해당 참가종목에 참여할 수 없습니다.");
+    			}
+    		}
+    		Marathon marathon = new Marathon(homepage.getHomepage_id(), marathonApplicant.getContest_idx());
+    		marathon = marathonService.getMarathonContestOne(marathon);
+    		String application_start_day = marathon.getApplication_start_day();
+    		String application_end_day = marathon.getApplication_end_day();
+    		
+    		Calendar cal = Calendar.getInstance();
+    		
+    		Date date = new Date();
+    		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    		Date application_start_date = dateFormat.parse(application_start_day);
+    		Date application_end_date = dateFormat.parse(application_end_day);
+    		cal.setTime(application_end_date);
+    		cal.add(Calendar.DATE, 1);
+    		
+    		if(application_start_date.compareTo(date) > 0) {
+    			result.reject("해당 대회 접수 기간이 아닙니다.");
+    		}else if(date.compareTo(cal.getTime()) > 0) {
+    			result.reject("해당 대회 접수 기간이 아닙니다.");
+    		}
 		
-		ValidationUtils.rejectIfZero(result, "contest_type_idx", "참가종목을 선택해 주세요.");
-		ValidationUtils.rejectIfEmpty(result, "finish_memorial", "완주기념풍을 선택해 주세요.");
-		ValidationUtils.rejectIfEmpty(result, "agree", "달서독서마라톤 대회 참가자 완주기준을 동의하셔야 서비스 이용이 가능합니다.");
-		ValidationUtils.rejectIfEmpty(result, "agree1", "개인정보 수집 및 이용에 동의하셔야 서비스 이용이 가능합니다.");
-		ValidationUtils.rejectIfEmpty(result, "agree2", "만 14세 미만 아동의 참가 신청에 동의하셔야 서비스 이용이 가능합니다.");
-		
-//		marathonApplicant.setContest_type_idx(service.getContestTypeIdx(marathonApplicant)); //종목으로 종목 번호를 가져온다.
-
-		marathonApplicant.setContest_type(service.getContestType(marathonApplicant));
-
-		Member member = getSessionMemberInfo(request);
-		marathonApplicant.setMember_id(getSessionMemberId(request)); //아이디를 가져온다.
-		marathonApplicant.setMember_name(member.getMember_name());
-		if(member.getSex().equals("0")) {
-			marathonApplicant.setGender("M");
-		}else {
-			marathonApplicant.setGender("F");
-		}
-		marathonApplicant.setBirthday_year(member.getBirth_day().substring(0, 4));
-		marathonApplicant.setBirthday_month(member.getBirth_day().substring(5, 7));
-		marathonApplicant.setBirthday_date(member.getBirth_day().substring(8));
-		
-		int checkApplicantCount = service.checkApplicantId(marathonApplicant); //신청 대상을 가져온다.
-		if(checkApplicantCount > 0) {
-			result.reject("독서마라톤대회에 이미 신청하였습니다.");
-		}
-		
-		String application_subject = service.getContestApplicationSubject(marathonApplicant); //신청 대상을 가져온다.
-		if(!application_subject.equals("all")) {
-			if(!application_subject.contains(marathonApplicant.getAge_type())) {
-				result.reject("선택한 분류는 해당 참가종목에 참여할 수 없습니다.");
-			}
-		}
-		Marathon marathon = new Marathon(homepage.getHomepage_id(), marathonApplicant.getContest_idx());
-		marathon = marathonService.getMarathonContestOne(marathon);
-		String application_start_day = marathon.getApplication_start_day();
-		String application_end_day = marathon.getApplication_end_day();
-		
-		Calendar cal = Calendar.getInstance();
-		
-		Date date = new Date();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date application_start_date = dateFormat.parse(application_start_day);
-		Date application_end_date = dateFormat.parse(application_end_day);
-		cal.setTime(application_end_date);
-		cal.add(Calendar.DATE, 1);
-		
-		if(application_start_date.compareTo(date) > 0) {
-			result.reject("해당 대회 접수 기간이 아닙니다.");
-		}else if(date.compareTo(cal.getTime()) > 0) {
-			result.reject("해당 대회 접수 기간이 아닙니다.");
+		} else if (marathonApplicant.getEditMode().equals("MODIFY")) {
+			if(!marathonApplicant.getAge_type().equals("adult")) {
+    			ValidationUtils.rejectIfEmpty(result, "school_name", "학교를 입력해 주세요.");
+    			ValidationUtils.rejectIfEmpty(result, "school_class_one", "학년을 입력해 주세요.");
+    			ValidationUtils.rejectIfEmpty(result, "school_class_two", "반을 입력해 주세요.");
+    		}
+    		ValidationUtils.rejectIfEmpty(result, "zipcode", "우편번호를 입력해 주세요.");
+    		ValidationUtils.rejectIfEmpty(result, "address_dong", "동(행정동)을 입력해 주세요.");
+    		ValidationUtils.rejectIfEmpty(result, "address_one", "주소를 입력해 주세요.");
+    		ValidationUtils.rejectIfEmpty(result, "address_two", "주소를 입력해 주세요.");
+    		ValidationUtils.rejectIfEmpty(result, "telephone_one", "전화번호 앞자리를 입력해 주세요.");
+    		ValidationUtils.rejectIfEmpty(result, "telephone_two", "전화번호 중간자리를 입력해 주세요.");
+    		ValidationUtils.rejectIfEmpty(result, "telephone_three", "전화번호 끝자리를 입력해 주세요.");
+    		ValidationUtils.rejectIfEmpty(result, "cellphone_one", "휴대전화번호 앞자리를 입력해 주세요.");
+    		ValidationUtils.rejectIfEmpty(result, "cellphone_two", "휴대전화번호 중간자리를 입력해 주세요.");
+    		ValidationUtils.rejectIfEmpty(result, "cellphone_three", "휴대전화번호 끝자리르 입력해 주세요.");
 		}
 		/* <<<<< 유효성 검증 */
 		
 		if(!result.hasErrors()) {
-			service.addMarathonApplicant(marathonApplicant);
-			res.setUrl(String.format("/%s/module/marathonApplicant/index.do?menu_idx=106", homepage.getContext_path()));
-			res.setValid(true);
-			res.setMessage("등록되었습니다.");
+			if (marathonApplicant.getEditMode().equals("ADD")) {
+				service.addMarathonApplicant(marathonApplicant);
+				res.setUrl(String.format("/%s/module/marathonApplicant/index.do?menu_idx=106", homepage.getContext_path()));
+				res.setValid(true);
+				res.setMessage("등록되었습니다.");
+			} else if (marathonApplicant.getEditMode().equals("MODIFY")) {
+				service.modifyMarathonApplicantInMyInfo(marathonApplicant);
+				res.setUrl(String.format("/%s/module/marathonApplicant/index.do?menu_idx=106", homepage.getContext_path()));
+				res.setValid(true);
+				res.setMessage("수정되었습니다.");
+			}
+			
 		}else {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());

@@ -104,6 +104,31 @@ $(function(){
 		}
 	});
 	
+	<c:choose>
+		<c:when test="${marathonApplicant.address_dong != '10' && marathonApplicant.address_dong != '20' && marathonApplicant.address_dong != '30'
+			&& marathonApplicant.address_dong != '40' && marathonApplicant.address_dong != '50' && marathonApplicant.address_dong != '60'
+			&& marathonApplicant.address_dong != '70' && marathonApplicant.address_dong != '80' && marathonApplicant.address_dong != '90'
+			&& marathonApplicant.address_dong != '100' && marathonApplicant.address_dong != '110' && marathonApplicant.address_dong != '120'
+			&& marathonApplicant.address_dong != '130' && marathonApplicant.address_dong != '140' && marathonApplicant.address_dong != '150'
+			&& marathonApplicant.address_dong != '160' && marathonApplicant.address_dong != '170' && marathonApplicant.address_dong != '180'
+			&& marathonApplicant.address_dong != '190' && marathonApplicant.address_dong != '200' && marathonApplicant.address_dong != '210'
+			&& marathonApplicant.address_dong != '220' && marathonApplicant.address_dong != '230' && marathonApplicant.address_dong != '240'
+			&& marathonApplicant.address_dong != '250' && marathonApplicant.address_dong != '260' && marathonApplicant.address_dong != '270'
+			&& marathonApplicant.address_dong != '280' && marathonApplicant.address_dong != '290' && marathonApplicant.address_dong != '300'
+			&& marathonApplicant.address_dong != '310' && marathonApplicant.address_dong != '320' && marathonApplicant.address_dong != '330'
+			&& marathonApplicant.address_dong != '340' && marathonApplicant.address_dong != '350' && marathonApplicant.address_dong != '' && marathonApplicant.address_dong != null}">
+			$('select#address_dong option[value="write"]').prop('selected', 'true');
+			$('input#address_writeDong').prop('readonly', false);
+			$('input#address_writeDong').val('${marathonApplicant.address_dong}');
+		</c:when>
+		<c:when test="${marathonApplicant.address_dong == '' || marathonApplicant.address_dong == null}">
+			$('input#address_writeDong').val('');
+		</c:when>
+		<c:otherwise>
+			$('input#address_writeDong').val($('select#address_dong option[value = "${marathonApplicant.address_dong}"]').text());
+		</c:otherwise>
+	</c:choose>
+	
 	$('select#address_dong').on('change', function(e) {
 		if($(this).val() == 'write') {
 			$('input#address_writeDong').prop('readonly', false);
@@ -229,6 +254,15 @@ $(function(){
 			$('select#address_dong').focus();
 			return false;
 		}
+		if($('select#address_dong').val() == 'write' && $('input#address_writeDong').val() == '') {
+			alert('동(행정동)을 입력해 주세요.');
+			$('input#address_writeDong').focus();
+			return false;
+		}
+		if($('select#address_dong').val() == 'write' && $('input#address_writeDong').val() != ''){
+			$('select#address_dong').append('<option value=' + $('input#address_writeDong').val() + ' selected="selected"></option>');
+			$('select#address_dong option[value = "write"]').remove();
+		}
 		if($('input#zipcode').val() == ''){
 			alert('우편번호를 입력해 주세요.');
 			$('input#zipcode').focus();
@@ -260,6 +294,11 @@ $(function(){
 			$('input#telephone_two').focus();
 			return false;
 		}
+		if($('input#telephone_two').val().length < 3) {
+			alert('전화번호 중간자리는 3자리 이상을 입력해 주세요.');
+			$('input#telephone_two').focus();
+			return false;
+		}
 		var regexp = /^[0-9]/g;
 		if(!regexp.test($('input#telephone_two').val())){
 			alert('전화번호에는 숫자만 입력해 주세요.');
@@ -268,6 +307,11 @@ $(function(){
 		}
 		if($('input#telephone_three').val() == ''){
 			alert('전화번호 끝자리를 입력해 주세요.');
+			$('input#telephone_three').focus();
+			return false;
+		}
+		if($('input#telephone_three').val().length < 4) {
+			alert('전화번호 끝자리는 4자리를 입력해 주세요.');
 			$('input#telephone_three').focus();
 			return false;
 		}
@@ -298,6 +342,11 @@ $(function(){
 			$('input#cellphone_two').focus();
 			return false;
 		}
+		if($('input#cellphone_two').val().length < 3) {
+			alert('휴대전화번호 중간자리는 3자리 이상을 입력해 주세요.');
+			$('input#cellphone_two').focus();
+			return false;
+		} 
 		var regexp = /^[0-9]/g;
 		if(!regexp.test($('input#cellphone_two').val())){
 			alert('휴대전화번호에는 숫자만 입력해 주세요.');
@@ -306,6 +355,11 @@ $(function(){
 		}
 		if($('input#cellphone_three').val() == ''){
 			alert('휴대전화번호 끝자리를 입력해 주세요.');
+			$('input#cellphone_three').focus();
+			return false;
+		}
+		if($('input#cellphone_three').val().length < 4) {
+			alert('휴대전화번호 끝자리는 4자리를 입력해 주세요.');
 			$('input#cellphone_three').focus();
 			return false;
 		}
@@ -351,6 +405,8 @@ $(function(){
 				return false;				
 			}
 		}
+		
+		$('input#editMode').val('ADD');
 		doAjaxPost($('form#marathonApplicant'));
 	});
 });
@@ -511,14 +567,14 @@ $(function(){
 				<tr>
 					<th>전화번호*</th>
 					<td>
-						<form:input path="telephone_one" cssClass="text" size="4" maxlength="4"/>-<form:input path="telephone_two" cssClass="text" size="4" maxlength="4"/>-<form:input path="telephone_three" cssClass="text" size="4" maxlength="4"/>
+						<form:input path="telephone_one" cssClass="text" size="4" maxlength="3"/>-<form:input path="telephone_two" cssClass="text" size="4" maxlength="4"/>-<form:input path="telephone_three" cssClass="text" size="4" maxlength="4"/>
 						<span class="text2">*숫자만 입력해 주세요.</span>
 					</td>
 				</tr>
 				<tr>
 					<th>휴대전화번호*</th>
 					<td>
-						<form:input path="cellphone_one" cssClass="text" size="4" maxlength="4"/>-<form:input path="cellphone_two" cssClass="text" size="4" maxlength="4"/>-<form:input path="cellphone_three" cssClass="text" size="4" maxlength="4"/>
+						<form:input path="cellphone_one" cssClass="text" size="4" maxlength="3"/>-<form:input path="cellphone_two" cssClass="text" size="4" maxlength="4"/>-<form:input path="cellphone_three" cssClass="text" size="4" maxlength="4"/>
 						<span class="text2">*숫자만 입력해 주세요.</span>
 					</td>
 				</tr>

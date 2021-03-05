@@ -210,4 +210,19 @@ public class MarathonApplicantService extends BaseService{
 		return dao.modifyMarathonApplicantContestType(marathonApplicant);
 	}
 
+	@WorkingLogger(comment = "독서마라톤 신청자 수정", type = "P")
+	public int modifyMarathonApplicantInMyInfo(MarathonApplicant marathonApplicant) {
+		marathonApplicant.setTelephone(marathonApplicant.getTelephone_one() + "-" + marathonApplicant.getTelephone_two() + "-" + marathonApplicant.getTelephone_three());
+		marathonApplicant.setCellphone(marathonApplicant.getCellphone_one() + "-" + marathonApplicant.getCellphone_two() + "-" + marathonApplicant.getCellphone_three());
+		if(marathonApplicant.getSchool_class_one() == null) {
+			marathonApplicant.setSchool_class_one("");
+		}
+		if(marathonApplicant.getSchool_class_two() == null) {
+			marathonApplicant.setSchool_class_two("");
+		}
+		marathonApplicant.setSchool_class(marathonApplicant.getSchool_class_one() + "," + marathonApplicant.getSchool_class_two());
+		
+		return dao.modifyMarathonApplicantInMyInfo(marathonApplicant);
+	}
+
 }

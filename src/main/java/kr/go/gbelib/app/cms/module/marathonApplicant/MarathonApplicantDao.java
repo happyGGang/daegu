@@ -57,4 +57,6 @@ public interface MarathonApplicantDao {
 
 	int modifyMarathonApplicantContestType(MarathonApplicant marathonApplicant);
 
+	int modifyMarathonApplicantInMyInfo(MarathonApplicant marathonApplicant);
+
 }

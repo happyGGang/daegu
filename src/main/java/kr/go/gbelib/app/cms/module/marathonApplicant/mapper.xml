@@ -402,4 +402,22 @@
 		AND	contest_type_idx = #{contest_type_idx}
 	</update>
 	
+	<update id="modifyMarathonApplicantInMyInfo">
+		UPDATE
+			MARATHON_APPLICANT
+		SET
+			school_name = #{school_name},
+			school_class = #{school_class},
+			zipcode = #{zipcode},
+			address_dong = #{address_dong},
+			address_one = #{address_one},
+			address_two = #{address_two},
+			telephone = #{telephone},
+			cellphone = #{cellphone}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	contest_idx = #{contest_idx}
+		AND	contest_type_idx = #{contest_type_idx}
+		AND	applicant_idx = #{applicant_idx}
+	</update>
 </mapper>

@@ -68,7 +68,7 @@ $(function() {
 		doGetLoad('index.do', serializeCustom($('form#marathonApplicantForm')));
 	});
 	
-	$('button#checkAll').on('click', function(e) {
+	$('a#checkAll').on('click', function(e) {
 		e.preventDefault();
 		if($('input:checkbox[name = applicant_idx_arr]').eq(0).is(':checked')){
 			for(var i = 0; i < $('input:checkbox[name = applicant_idx_arr]').length; i++){
@@ -81,7 +81,7 @@ $(function() {
 		}
 	});
 	
-	$('button#deleteSelected').on('click', function(e) {
+	$('a#deleteSelected').on('click', function(e) {
 		e.preventDefault();
 		$('#editMode_1').val('DELETE');
 		if(confirm('선택한 게시물을 삭제하시겠습니까?')){
@@ -102,7 +102,7 @@ $(function() {
 		}
 	});
 
-	$('button#updateStatus').on('click', function(e) {
+	$('a#updateStatus').on('click', function(e) {
 		e.preventDefault();
 		$('#editMode_1').val('MODIFYSTATUS');
 		if(confirm('선택한 게시글의 정보를 변경하시겠습니까?')){
@@ -260,15 +260,15 @@ $(function() {
 			</c:if>
 		</tbody>
 	</table>
-		<button id="checkAll" class="btn btn3">전체 선택/해제</a>
-		<button id="deleteSelected" class="btn btn3">선택 게시글 삭제</button>
+		<a id="checkAll" class="btn btn3">전체 선택/해제</a>
+		<a id="deleteSelected" class="btn btn3">선택 게시글 삭제</a>
 		선택한 참가자를 
 		<form:select path="process_status" cssClass="selectmenu">
 			<form:option value="0">심사대기</form:option>
 			<form:option value="1">완주완료</form:option>
 			<form:option value="2">완주실패</form:option>
 		</form:select>
-		로 <button id="updateStatus" class="btn btn3">변경</button>
+		로 <a id="updateStatus" class="btn btn3">변경</a>
 	
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#marathonApplicantForm"/>
