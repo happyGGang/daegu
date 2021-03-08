@@ -211,16 +211,10 @@ Date.prototype.format = function(f) {
 				<dd>등록된 휴일이 없습니다.</dd>
 			</c:if>
 			<c:if test="${not empty closeDayList.dd}">
-				<c:set var="dd" value="${fn:split(closeDayList.dd, ',')}"></c:set>
 				<dd>
-					<c:forEach items="${dd}" var="i" begin="0" end="13" varStatus="status">
-					<c:if test="${!status.last or fn:length(dd) == 1}">
-					<span style="width: auto; height: auto;padding: 2px 6px;">${i}</span>
-					</c:if>
-					<c:if test="${status.last}">
-					<span>...</span>
-					</c:if>
-					</c:forEach>
+					<c:forTokens items="${closeDayList.dd}" delims="," var="dd">
+					<span>${dd}</span>
+					</c:forTokens>
 				</dd>
 			</c:if>
 		</dl>
