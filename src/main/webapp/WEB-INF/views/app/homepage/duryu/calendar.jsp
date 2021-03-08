@@ -213,7 +213,7 @@ Date.prototype.format = function(f) {
 			<c:if test="${not empty closeDayList.dd}">
 				<dd>
 					<c:forTokens items="${closeDayList.dd}" delims="," var="dd">
-					<span>${dd}</span>
+					<span style="width: auto; height: auto;padding: 2px 6px;">${dd}</span>
 					</c:forTokens>
 				</dd>
 			</c:if>
