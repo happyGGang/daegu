@@ -65,89 +65,107 @@ $(document).ready(function() {
       </li>
     </ul>
   </div>
-  <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2020.12.31] (단위 : 권)</span></h3>
+  <h3>자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2021.1.31. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
-    <table class="tbl-type01" summary="물망이도서관의 장서현황을 나타내는 표">
+    <table class="tbl-type01" summary="물망이도서관 장서현황을 나타내는 표">
       <caption class="disnone">
-      물망이도서관의 장서현황
+      물망이도서관 장서현황
       </caption>
       <colgroup>
       <col width="*">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
+      <col width="8%">
+      <col width="8%">
+      <col width="8%">
+      <col width="8%">
+      <col width="8%">
+      <col width="8%">
+      <col width="8%">
+      <col width="8%">
+      <col width="8%">
+      <col width="8%">
+      <col width="8%">
+      <col width="8%">
+      <col width="8%">
       </colgroup>
       <thead>
         <tr>
-          <th scope="col">구분</th>
-          <th scope="col">계</th>
-          <th scope="col">000</th>
-          <th scope="col">100</th>
-          <th scope="col">200</th>
-          <th scope="col">300</th>
-          <th scope="col">400</th>
-          <th scope="col">500</th>
-          <th scope="col">600</th>
-          <th scope="col">700</th>
-          <th scope="col">800</th>
-          <th scope="col">900</th>
+          <th>구 분</th>
+          <th>000<br>
+            총류</th>
+          <th>100<br>
+            철학</th>
+          <th>200<br>
+            종교</th>
+          <th>300<br>
+            사회<br>
+            과학</th>
+          <th>400<br>
+            자연<br>
+            과학</th>
+          <th>500<br>
+            기술<br>
+            과학</th>
+          <th>600<br>
+            예술</th>
+          <th>700<br>
+            언어</th>
+          <th>800<br>
+            문학</th>
+          <th>900<br>
+            역사</th>
+          <th>총계(권)</th>
+          <th>비율(%)</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <th scope="row">유아</th>
-          <td>3,457 </td>
-          <td>28 </td>
-          <td>22 </td>
-          <td>7 </td>
-          <td>520 </td>
-          <td>246 </td>
-          <td>41 </td>
-          <td>105 </td>
-          <td>45 </td>
-          <td>2,293 </td>
-          <td>150 </td>
-        </tr>
-        <tr>
-          <th scope="row">아동</th>
-          <td>11,215 </td>
-          <td>710 </td>
-          <td>335 </td>
-          <td>232 </td>
-          <td>1,017 </td>
-          <td>1,356 </td>
-          <td>305 </td>
-          <td>336 </td>
-          <td>328 </td>
-          <td>4,930 </td>
-          <td>1,666 </td>
-        </tr>
-        <tr>
-          <th scope="row">일반</th>
-          <td>6,683 </td>
+          <th>일반</th>
           <td>236 </td>
           <td>471 </td>
           <td>169 </td>
           <td>843 </td>
           <td>310 </td>
-          <td>743 </td>
+          <td>744 </td>
           <td>295 </td>
           <td>189 </td>
           <td>2,745 </td>
           <td>682 </td>
+          <td>6,684 </td>
+          <td>21.9 </td>
         </tr>
         <tr>
-          <th scope="row">영어</th>
-          <td>3,435 </td>
+          <th>아동</th>
+          <td>709 </td>
+          <td>335 </td>
+          <td>232 </td>
+          <td>1,019 </td>
+          <td>1,356 </td>
+          <td>305 </td>
+          <td>336 </td>
+          <td>327 </td>
+          <td>4,931 </td>
+          <td>1,666 </td>
+          <td>11,216 </td>
+          <td>36.8 </td>
+        </tr>
+        <tr>
+          <th>유아</th>
+          <td>28 </td>
+          <td>22 </td>
+          <td>7 </td>
+          <td>521 </td>
+          <td>246 </td>
+          <td>41 </td>
+          <td>105 </td>
+          <td>46 </td>
+          <td>2,295 </td>
+          <td>150 </td>
+          <td>3,461 </td>
+          <td>11.4 </td>
+        </tr>
+        <tr>
+          <th>영어</th>
           <td>113 </td>
           <td>1 </td>
           <td>6 </td>
@@ -158,10 +176,11 @@ $(document).ready(function() {
           <td>1,285 </td>
           <td>1,583 </td>
           <td>22 </td>
+          <td>3,435 </td>
+          <td>11.3 </td>
         </tr>
         <tr>
-          <th scope="row">보존서고</th>
-          <td>5,670 </td>
+          <th>보존서고 </th>
           <td>571 </td>
           <td>185 </td>
           <td>53 </td>
@@ -172,20 +191,82 @@ $(document).ready(function() {
           <td>146 </td>
           <td>2,343 </td>
           <td>595 </td>
+          <td>5,670 </td>
+          <td>18.6 </td>
         </tr>
         <tr>
-          <th scope="row">계</th>
-          <td>30,460 </td>
-          <td>1,658 </td>
+          <th>총계(권)</th>
+          <td>1,657 </td>
           <td>1,014 </td>
           <td>467 </td>
-          <td>3,450 </td>
+          <td>3,453 </td>
           <td>2,725 </td>
-          <td>1,246 </td>
+          <td>1,247 </td>
           <td>898 </td>
           <td>1,993 </td>
-          <td>13,894 </td>
+          <td>13,897 </td>
           <td>3,115 </td>
+          <td>30,466 </td>
+          <td>100 </td>
+        </tr>
+        <tr>
+          <th>비율(%)</th>
+          <td>5.4 </td>
+          <td>3.3 </td>
+          <td>1.5 </td>
+          <td>11.3 </td>
+          <td>8.9 </td>
+          <td>4.1 </td>
+          <td>2.9 </td>
+          <td>6.5 </td>
+          <td>45.6 </td>
+          <td>10.2 </td>
+          <td>100 </td>
+          <td>　</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2021.1.31. 기준] (단위 : 권)</span></h3>
+  <div class="rsv-info"></div>
+  <div class="auto-scroll">
+    <table class="tbl-type01" summary="물망이도서관 간행물 현황을 나타내는 표">
+      <caption class="disnone">
+      물망이도서관 간행물 현황
+      </caption>
+      <colgroup>
+      <col width="*">
+      <col width="13%">
+      <col width="13%">
+      <col width="13%">
+      <col width="13%">
+      <col width="13%">
+      <col width="13%">
+      <col width="13%">
+      <col width="13%">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>신문</th>
+          <th>주간</th>
+          <th>격주간</th>
+          <th>월간</th>
+          <th>격월간</th>
+          <th>계간</th>
+          <th>계</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>국내</th>
+          <td>3</td>
+          <td>0</td>
+          <td>1</td>
+          <td>11</td>
+          <td>0</td>
+          <td>0</td>
+          <td>15</td>
         </tr>
       </tbody>
     </table>

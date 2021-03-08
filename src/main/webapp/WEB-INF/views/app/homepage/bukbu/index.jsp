@@ -249,6 +249,34 @@ do {
 			</div>
 		</div>
 
+		<div class="sns-box">
+			<h2 class="title"><img src="/resources/homepage/${homepage.context_path}/img/sns-title.png" alt="sns-title"></h2>
+			<div class="sns-link">
+				<ul>
+					<li>
+						<a href="https://www.facebook.com/bukbulib" target="_blank">
+							<img src="/resources/homepage/${homepage.context_path}/img/facebook-icon.png" alt="FACEBOOK"> <br class="br650"/>FACEBOOK
+						</a>
+					</li>
+					<li>
+						<a href="https://www.instagram.com/bukbulib/" target="_blank">
+							<img src="/resources/homepage/${homepage.context_path}/img/instargram-icon.png" alt="INSTAGRAM"> <br class="br650"/>INSTAGRAM
+						</a>
+					</li>
+					<li>
+						<a href="https://twitter.com/bukbulib" target="_blank">
+							<img src="/resources/homepage/${homepage.context_path}/img/twitter-icon.png" alt="TWITTER"> <br class="br650"/>TWITTER
+						</a>
+					</li>
+					<li>
+						<a href="https://www.youtube.com/channel/UCQYHZF_a03fl3AIstSLd_Rw" target="_blank">
+							<img src="/resources/homepage/${homepage.context_path}/img/youtube-icon.png" alt="YOUTUBE"> <br class="br650"/>YOUTUBE
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
 		<div class="main2">
 			<div class="section">
 				<div class="main2box1">

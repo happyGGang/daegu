@@ -48,7 +48,7 @@ html{height:100%}
 
 .subpage #top {width:100%;background:#014e9e;}
 .subpage #header {position:relative;overflow:hidden;border-bottom: 1px solid #036bb3;line-height:0;padding:0;margin:0;}
-.subpage #header .gnb{width:1800px;margin:0 auto;padding:0;text-align:center;}
+.subpage #header .gnb{width:1800px;margin:0 auto;padding:10px 0 0 0;text-align:center;}
 
 .subpage #header h1 .box {/* position:absolute; *//* top:22px; */z-index:1000;}
 .subpage #header h1 .box img{transition:all .3s ease;}
@@ -69,7 +69,7 @@ html{height:100%}
 /*.nav li a:hover,.nav li a:active,.nav li a:focus{color:#fab000;border-top: 10px solid #fab000;}*/
 .nav li a:hover,.nav li a:active,.nav li a:focus{color:#fab000;}
 .nav li a {display:block; text-align:center; text-decoration:none;}
-.nav li a span {display:inline-block;vertical-align:top;/* height:65px; */padding:0px 0 0px 0;line-height:30px;color:#fafafa;font-weight:600;position:relative;}
+.nav li a span {display:inline-block;vertical-align:top;/* height:65px; */padding:0px 0 0px 0;/*line-height:30px;*/color:#fafafa;font-weight:600;position:relative;}
 .nav li a span:after {content:"";display:block;height:8px;width:0;position:absolute;bottom:128px;left:50%;}
 .nav li a.ov span, .nav li a:hover span{color:#fab000;transition: all .3s ease;}
 .nav li a.ov span:after, .nav li a:hover span:after, .nav li a:active span:after {width:50%;height:7px;background:#fab000;left:0;padding-left:50%;opacity:1;-webkit-opacity:1;filter:alpha(opacity=100);transition: all ease-out 0.2s}
@@ -160,7 +160,7 @@ html{height:100%}
 .siteLink li a {display:block;color:#fff;font-weight:bold;}
 
 /*타이틀*/
-#contents-title {position:relative;width:100%;text-align:center;margin:85px 0 40px 0}
+#contents-title {position:relative;width:100%;text-align:center;margin:30px 0 30px 0}
 #contents-title h2{font-family:"Malgun Gothic";font-size:50px;font-weight:bold;letter-spacing:-0.05em;padding:0}
 
 .mbt {display:none;}

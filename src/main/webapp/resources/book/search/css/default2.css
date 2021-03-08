@@ -24,8 +24,8 @@
 .search-form-detail2 {position:relative;border-left:1px solid #e1e1e1;border-right:1px solid #e1e1e1;border-bottom:1px solid #e1e1e1}
 
 /*타이틀*/
-#contents-title {position:relative;width:100%;text-align:center;margin:85px 0 40px 0}
-#contents-title h2{font-family:"Malgun Gothic";font-size:50px;font-weight:bold;letter-spacing:-0.05em;padding:0}
+#contents-title {position:relative;width:100%;text-align:center;margin:40px 0 40px 0}
+#contents-title h2{font-family:"Malgun Gothic";font-size:30px;font-weight:bold;letter-spacing:-0.05em;padding:0}
 
 @media screen and (max-width:1680px){
 	#contents-title h2 {/* font-size: 400%; */}
@@ -295,7 +295,7 @@ a.bBtn:hover {background:#0961ce}
 @media all and (max-width:767px){
 	.sview .sinfo{font-size:13px;padding-left:3%;padding-right:3%}
 }
-.sview .sinfo .thumb img{border:1px solid #d5d5d5;width:125px}
+.sview .sinfo .thumb img{border:1px solid #d5d5d5;width:125px;margin-top:25px;}
 .sview .sinfo .thumb{float:left;width:20%;font-size:0;line-height:0}
 
 .sview .sinfo .info {float:left;width:100%;margin-right:-20%}

@@ -62,7 +62,7 @@
 .main1 .main1box2 .calendar-box div.title a {font-size:0;line-height:0;background:url('/resources/homepage/bukbu/img/more_btbt.png') no-repeat 0 0;}
 
 .main1 .main1box2 .calendar-box .cal-box {position:relative;height:220px;}
-#calendar2 .calendar-info {text-align:right;}
+#calendar2 .calendar-info {text-align:right;font-size: 13px;}
 #calendar2 .calendar-info span {display:inline-block;padding-left:7px;}
 #calendar2 .calendar-info span.hu {background:url('/resources/homepage/bukbu/img/red-dot.png') no-repeat left center;}
 #calendar2 .calendar-info span.ev {background:url('/resources/homepage/bukbu/img/blue-dot.png') no-repeat left center;}
@@ -79,7 +79,7 @@
 #planList{overflow:hidden;padding-top:13px}
 #planList h3{font-size:15px;padding:0 10px 0 0;float:left;display:block;letter-spacing:-1px}
 #planList span{float:left;margin:5px 3px 0;width:25px;height:25px;font-weight:bold;line-height:25px;display:block;background-color:#ee882c;color:#fff;border-radius:100%;font-size:12px}
-.cal-func2 {text-align:center;padding:0 0 0px 0;}
+.cal-func2 {text-align:center;padding:0 0 0 0;}
 .cal-func2 a.btn {padding:5px;color:#888;font-size:15px;border:1px solid #000;}
 .cal-func2 a.btn:focus,
 .cal-func2 a.btn:hover{color:#222}
@@ -91,11 +91,11 @@
 .cal-func2 em {vertical-align:middle}
 .cal-func2 b {font-size:25px;font-weight:normal;}
 .cal-func2 b em{color:#67940;font-weight:bold;font-style:normal;}
-#calendar2 .cal-tbl {margin-top:8px;text-align:center;}
+#calendar2 .cal-tbl {margin-top: 3px;text-align:center;}
 #calendar2 .cal-tbl th{font-size:11px;}
 #calendar2 .cal-tbl th span {display:block;width:28px;height:28px;line-height:30px;color:#fff;font-size:13px;font-weight:bold;background:#2e3192;text-align:center;border-radius:50%;margin:0 auto;}
 #calendar2 .cal-tbl td{font-size:11px;padding:1% 0;;text-align:center;white-space:nowrap}
-#calendar2 .cal-tbl td div{margin:0 10%;width:20px;height:20px;line-height:20px;font-size:12px;margin:0 auto;}
+#calendar2 .cal-tbl td div{margin:0 10%;width:20px;height: 18px;line-height: 18px;font-size:12px;margin:0 auto;}
 #calendar2 .cal-tbl td a {display:block;border-radius:100%}
 #calendar2 .cal-tbl td a.type-r{background:url('/resources/homepage/bukbu/img/blue-dot2.png') no-repeat center bottom;#0080f2;color:#0080f2}
 #calendar2 .cal-tbl td a.type-e{background:url('/resources/homepage/bukbu/img/red-dot2.png') no-repeat center bottom;color:#ee2342}
@@ -105,15 +105,15 @@
 #calendar2 .planView .inbox dd{padding:3px 0}
 #calendar2 .planView .inbox a.close{position:absolute;right:5px;top:0;font-size:120%}
 
-.main1 .main1box2 .library-infomation {position:relative;width:86%;margin:0 auto;margin-top:20px;}
-.main1 .main1box2 .library-infomation span {font-size:13px;}
+.main1 .main1box2 .library-infomation {position:relative;width:86%;margin:0 auto;margin-top: 6px;}
+.main1 .main1box2 .library-infomation span {font-size: 12px;}
 .main1 .main1box2 .library-infomation h4 {color:#2e3192;font-size:13px;font-weight:bold;}
 .main1 .main1box2 .library-infomation .top {width:100%;overflow:hidden;}
-.main1 .main1box2 .library-infomation .top .topBox1, .main1 .main1box2 .library-infomation .top .topBox2 {width:49.5%;background:#ededed;border-radius:3px;text-align:center;box-sizing:border-box;padding:10px;}
+.main1 .main1box2 .library-infomation .top .topBox1, .main1 .main1box2 .library-infomation .top .topBox2 {width:49.5%;background:#ededed;border-radius:3px;text-align:center;box-sizing:border-box;padding: 5px;}
 .main1 .main1box2 .library-infomation .top .topBox1 {float:left;}
 .main1 .main1box2 .library-infomation .top .topBox2 {float:right;}
 .main1 .main1box2 .library-infomation .top .topBox1 span, .main1 .main1box2 .library-infomation .top .topBox2 span {display:block;}
-.main1 .main1box2 .library-infomation .bottom {margin-top:3px;background:#ededed;border-radius:3px;text-align:center;box-sizing:border-box;padding:5px;}
+.main1 .main1box2 .library-infomation .bottom {margin-top:3px;background:#ededed;border-radius:3px;text-align:center;box-sizing:border-box;padding: 5px;}
 .main1 .main1box2 .library-infomation .bottom span {display:inline-block;}
 .qmobileBr {display:none;}
 
@@ -201,6 +201,8 @@
 #quick-slide ul li a span.txt {font-size:13px;line-height:120%;color:#fff;}
 #quick-slide ul li:last-child {background:none;}
 
+/* SNS 추가 */
+.sns-box {display:none;}
 
 @media all and (max-width:1279px){
 
@@ -322,6 +324,14 @@
 @media all and (max-width:425px){
 	.main2 .main2box3 .notice ul.list li a  {font-size:13px;}
 	.main2 .main2box4 .culture ul.list li a {font-size:13px;}
+
+	/* SNS 추가 */
+	.sns-box {display:block;width:100%;margin:25px 0 20px;}
+	.sns-box h2.title {text-align:center;}
+	.sns-box .sns-link{text-align:center;margin-top:20px;}
+	.sns-box .sns-link li {display:inline-block;width:45%;margin-bottom:20px;text-align:center;}
+	.sns-box .sns-link li a{font-size:13px;letter-spacing:1px;color:#666;}
+	.sns-box .sns-link li a img {vertical-align:middle;}
 }
 
 @media all and (max-width:380px){

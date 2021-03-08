@@ -338,7 +338,7 @@ $(function() {
 										<c:choose>
 										<c:when test="${empty i.aladin or empty i.aladin.cover}">
 										<a href="${detailURL}">
-											<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. ${i.VOL_TITLE} 상세보기"/>
+											<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="등록된 이미지가 없습니다. ${i.VOL_TITLE} 상세보기"/>
 											<span>등록된 이미지가<br/>없습니다.</span>
 										</a>
 										</c:when>

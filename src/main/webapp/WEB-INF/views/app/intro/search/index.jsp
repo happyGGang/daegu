@@ -686,7 +686,7 @@ $(function() {
 						</div>
 						<div class="end"></div>
 					</div>
-					<div class="end" style="padding:7px 0;"></div>
+					<div class="end" style="padding:13px 0;"></div>
 					</c:when>
 					<c:when test="${context_path eq 'bisan'}">
 					<input type="hidden" name='libraryCodes' id='libraryCodes' value="BQ"/>
@@ -763,7 +763,7 @@ $(function() {
 					<dl>
 						<dt><label for="booktype" class="title">자료형태</label></dt>
 						<dd>
-							<div class="" style="padding:3px 0 0 10px">
+							<div class="" style="padding:6px 0 0 0px">
 							<form:radiobutton path="booktype" value="BOOKANDNONBOOK" class="radiocheck" checked="checked"/><label for="booktype1" class="booktype">통합</label>
 							<form:radiobutton path="booktype" value="BOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype2" class="booktype">도서</label>
 							<form:radiobutton path="booktype" value="NONBOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype3" class="booktype">비도서</label>
