@@ -296,11 +296,11 @@ do {
 										<img src="/resources/homepage/${homepage.context_path}/img/instargram-icon.png" alt="INSTAGRAM"> <br class="br650"/>INSTAGRAM
 									</a>
 								</li>
-								<li>
+								<!-- <li>
 									<a href="" target="_blank">
 										<img src="/resources/homepage/${homepage.context_path}/img/kakaostory-icon.png" alt="KAKAOSTORY"> <br class="br650"/>KAKAOSTORY
 									</a>
-								</li>
+								</li> -->
 							</ul>
 						</div>
 					</div>
@@ -360,7 +360,7 @@ do {
 								<li><a href="html.do?menu_idx=98">과학문화@suseong</a></li>
 								<li><a href="">동네책방in고산도서관</a></li>
 								<li><a href="html.do?menu_idx=87">북큐레이션</a></li>
-								<li><a href="">원문제공서비스</a></li>
+								<li><a href="https://www.dbpia.co.kr/" target="_blank">원문제공서비스</a></li>
 								<li><a href="html.do?menu_idx=25">대구전자도서관</a></li>
 								<li><a href="html.do?menu_idx=22">책나래서비스</a></li>
 								<li><a href="html.do?menu_idx=23">책바다서비스</a></li>
