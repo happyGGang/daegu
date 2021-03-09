@@ -73,7 +73,7 @@ public class StudentService extends BaseService {
 	public List<Student> getStudentList(Student student) {
 		List<Student> studentList = dao.getStudentList(student);
 		for ( int i = 0; i < studentList.size(); i++ ) {
-			studentList.get(i).setAdd_date(studentList.get(i).getAdd_date().substring(0, 10));
+			studentList.get(i).setAdd_date(studentList.get(i).getAdd_date().substring(0, 19));
 		}
 		return studentList;
 	}
