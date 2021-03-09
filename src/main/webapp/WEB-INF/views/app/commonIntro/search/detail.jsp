@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -429,7 +430,11 @@ CONTEXT_PATH : ${homepage.context_path}
 				</c:otherwise>
 			</c:choose>
 
-
+			<%
+				org.joda.time.DateTime now = new org.joda.time.DateTime();
+				int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
+				int hour = now.getHourOfDay();
+			%>
 
 			<c:choose>
 				<c:when test="${homepage.context_path eq 'jungang'}">
@@ -483,7 +488,21 @@ CONTEXT_PATH : ${homepage.context_path}
 						<c:if test="${detail.MEDIA_CODE eq 'PR'}">
 							<c:choose>
 								<c:when test="${detail.LOAN_CODE eq 'OK'}">
-									<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
+									<%
+									if(dayOfWeek == 1 || dayOfWeek == 7)
+									{
+									%>
+										<a href="#muin" onclick="alert('무인예약 신청가능 요일이 아닙니다.');" class="btn">무인예약신청</a>
+									<%
+									}
+									else
+									{
+									%>
+										<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
+									<%
+									}
+									%>
+									<!-- <a href="#muin" id="unmanned-req" class="btn">무인예약신청</a> -->
 									<!-- <a href="#" class="btn btn1" onclick="alert('무인예약 이용자가 많아 신청이 불가합니다');">무인예약신청</a> -->
 								</c:when>
 								<c:otherwise>

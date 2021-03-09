@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
+
 <c:choose>
 	<c:when test="${homepage.context_path eq 'dmsl'}">
 	<script type="text/javascript">

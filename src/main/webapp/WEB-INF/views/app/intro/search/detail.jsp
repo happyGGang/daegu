@@ -411,6 +411,11 @@ AD18 치매도서코너
 AD19 북큐레이션(종합)
 AD20 종합자료실
 -->
+			<%
+				org.joda.time.DateTime now = new org.joda.time.DateTime();
+				int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
+				int hour = now.getHourOfDay();
+			%>
 			<c:choose>
 				<c:when test="${context_path eq 'jungang'}">
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
@@ -447,7 +452,20 @@ AD20 종합자료실
 						<c:if test="${detail.MEDIA_CODE eq 'PR'}">
 							<c:choose>
 								<c:when test="${detail.LOAN_CODE eq 'OK'}">
-									<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
+									<%
+									if(dayOfWeek == 1 || dayOfWeek == 7)
+									{
+									%>
+										<a href="#muin" onclick="alert('무인예약 신청가능 요일이 아닙니다.');" class="btn">무인예약신청</a>
+									<%
+									}
+									else
+									{
+									%>
+										<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
+									<%
+									}
+									%>
 									<!-- <a href="#" class="btn btn1" onclick="alert('무인예약 이용자가 많아 신청이 불가합니다.');">무인예약신청</a> -->
 								</c:when>
 								<c:otherwise>
