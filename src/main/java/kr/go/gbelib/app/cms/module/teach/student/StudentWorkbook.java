@@ -54,20 +54,21 @@ public class StudentWorkbook {
 		workbook.getSheet(0).setColumnView(3,  20);
 		workbook.getSheet(0).setColumnView(4,  20);
 		workbook.getSheet(0).setColumnView(5,  20);
-		workbook.getSheet(0).setColumnView(6, 20);
+		workbook.getSheet(0).setColumnView(6,  20);
 		workbook.getSheet(0).setColumnView(7, 20);
 		workbook.getSheet(0).setColumnView(8, 20);
 		workbook.getSheet(0).setColumnView(9, 20);
 		workbook.getSheet(0).setColumnView(10, 20);
 		workbook.getSheet(0).setColumnView(11, 20);
-		/*workbook.getSheet(0).setColumnView(16, 20);*/
 		workbook.getSheet(0).setColumnView(12, 20);
+		/*workbook.getSheet(0).setColumnView(16, 20);*/
 		workbook.getSheet(0).setColumnView(13, 20);
 		workbook.getSheet(0).setColumnView(14, 20);
 		workbook.getSheet(0).setColumnView(15, 20);
 		workbook.getSheet(0).setColumnView(16, 20);
 		workbook.getSheet(0).setColumnView(17, 20);
 		workbook.getSheet(0).setColumnView(18, 20);
+		workbook.getSheet(0).setColumnView(19, 20);
 
 		workbook.getSheet(0).addCell(new Label(0, 0, String.format("강좌명 : %s", teach.getTeach_name()), format1));
 		workbook.getSheet(0).mergeCells(0, 0, 5, 0);
@@ -192,6 +193,7 @@ public class StudentWorkbook {
 				workbook.getSheet(0).addCell(new Label(column++, 1, terms_title, format));
 			}
 		}
+		workbook.getSheet(0).addCell(new Label(column++, 1, "신청일", format));
 //		for(int i = 0; i < termsList.size(); i++) {
 //			Terms terms = termsList.get(i);
 ////			if(StringUtils.contains(org.getAgree_codes(), String.valueOf(terms.getTerms_idx()))) {
@@ -334,6 +336,8 @@ public class StudentWorkbook {
 					workbook.getSheet(0).addCell(new Label(column++, row, terms_title, format1));
 				}
 			}
+			
+			workbook.getSheet(0).addCell(new Label(column++, row, org.getAdd_date(), format1));
 
 
 //			for(int i = 0; i < termsList.size(); i++) {
