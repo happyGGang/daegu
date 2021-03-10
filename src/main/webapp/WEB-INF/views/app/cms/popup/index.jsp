@@ -119,6 +119,7 @@ $(function(){
 		<thead>
 			<tr>
 				<th width="40">순번</th>
+				<th width="200">이미지</th>
 				<th width="">팝업명</th>
 				<th width="100">링크타겟</th>
 				<th width="80">사용여부</th>
@@ -131,12 +132,24 @@ $(function(){
 		<tbody>
 		<c:if test="${fn:length(popupList) < 1}">
 			<tr>
-				<td colspan="8" style="background:#f8fafb;">데이터가 존재하지 않습니다.</td>
+				<td colspan="9" style="background:#f8fafb;">데이터가 존재하지 않습니다.</td>
 			</tr>
 		</c:if>
 		<c:forEach var="i" varStatus="status" items="${popupList}">
 			<tr>
 				<td>${popup.listRowNum - status.index}</td>
+				<td width="200">
+					<div class="item">
+						<a href="${i.link_url}" target="_blank">
+							<c:if test="${i.org_file_name eq null}">
+							<img src="/resources/cms/img/noimg_135_42.gif" alt="이미지 미리보기 입니다.">
+							</c:if>
+							<c:if test="${i.org_file_name ne null}">
+							<img width="135" height="42" src="${getContextPath}/data/popup/${i.homepage_id}/${i.server_file_name}" alt="${i.server_file_name}">
+							</c:if>
+						</a>
+					</div>
+				</td>
 				<td class="left">${i.popup_name}</td>
 				<td>${i.link_target eq 'CURRENT' ? '현재창' : '새창'}</td>
 				<td width="50">${i.use_yn eq 'Y' ? '사용함' : '사용안함'}</td>

@@ -203,6 +203,7 @@ $(function(){
 		<thead>
 			<tr>
 				<th width="40">순번</th>
+				<th></th>
 				<th width="">팝업존명</th>
 				<th width="80">사용여부</th>
 				<th width="300">게시기간</th>
@@ -220,12 +221,24 @@ $(function(){
 		<c:forEach var="i" varStatus="status" items="${popupZoneList}">
 			<tr>
 				<td>${popupZone.listRowNum - status.index}</td>
+				<td width="200">
+					<div class="item">
+						<a href="${i.link_url}" target="_blank">
+							<c:if test="${i.org_file_name eq null}">
+							<img src="/resources/cms/img/noimg_135_42.gif" alt="이미지 미리보기 입니다.">
+							</c:if>
+							<c:if test="${i.org_file_name ne null}">
+							<img width="135" height="42" src="${getContextPath}/data/popupZone/${i.homepage_id}/${i.server_file_name}" alt="${i.server_file_name}">
+							</c:if>
+						</a>
+					</div>
+				</td>
 				<td class="left">${i.popup_zone_name}</td>
 				<td>${i.use_yn eq 'Y' ? '사용함' : '사용안함'}</td>
 				<td class="center">${i.start_date} ~ ${i.end_date}</td>
 				<td>
-					<a href="#" id="print_seq_up" data-idx="${i.popup_zone_idx}" data-name="${i.popup_zone_name}" data-startdate="${i.start_date}" data-enddate="${i.end_date}" data-url="${i.link_url}" data-printseq="${i.print_seq}">↑</a>
-					<a href="#" id="print_seq_down" data-idx="${i.popup_zone_idx}" data-name="${i.popup_zone_name}" data-startdate="${i.start_date}" data-enddate="${i.end_date}" data-url="${i.link_url}" data-printseq="${i.print_seq}">↓</a>
+					<a href="#" id="print_seq_up" class="btn" data-idx="${i.popup_zone_idx}" data-name="${i.popup_zone_name}" data-startdate="${i.start_date}" data-enddate="${i.end_date}" data-url="${i.link_url}" data-printseq="${i.print_seq}">↑</a>
+					<a href="#" id="print_seq_down" class="btn" data-idx="${i.popup_zone_idx}" data-name="${i.popup_zone_name}" data-startdate="${i.start_date}" data-enddate="${i.end_date}" data-url="${i.link_url}" data-printseq="${i.print_seq}">↓</a>
 					${i.print_seq}
 				</td>
 				<td><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></td>
