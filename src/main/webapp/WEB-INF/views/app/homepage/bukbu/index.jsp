@@ -90,7 +90,8 @@ do {
 				$('input#search_text_1').focus();
 				return false;
 			}
-				$('#mainSearchForm').submit();
+			$('input#search_text_1').attr('name', $('select#search_type').val());
+			$('#mainSearchForm').submit();
 		});
 
 });
@@ -126,17 +127,18 @@ do {
 
 					<div class="main1box1box1">
 						<div class="search-box">
-							<div class="box0">
-								<label for="search_type" class="search_type">
-									<select id="search_type" name="search_type" style="border:0;font-size:15px">
-										<option value="title">서명</option>
-										<option value="author">저자</option>
-										<option value="publer">발행자</option>
-										<option value="keyword">키워드</option>
-									</select>
-								</label>
-							</div>
 							<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
+								<div class="box0">
+									<label for="search_type" class="search_type">
+										<select id="search_type" name="search_type" style="border:0;font-size:15px">
+											<option value="title">서명</option>
+											<option value="author">저자</option>
+											<option value="publer">발행자</option>
+											<option value="keyword">키워드</option>
+										</select>
+									</label>
+								</div>
+							
 								<input type="hidden" name="menu_idx" value="13">
 								<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
 								<fieldset>
@@ -144,7 +146,7 @@ do {
 									<div class="main-box">
 										<div class="box1">
 											<label for="search_text_1" class="blind">통합자료검색</label>
-											<input name="title" id="search_text_1" type="text" class="text" placeholder="검색어를 입력하세요!" style="ime-mode:active;"/>
+											<input name="search_text" id="search_text_1" type="text" class="text" placeholder="검색어를 입력하세요!" style="ime-mode:active;"/>
 										</div>
 										<button id="main-search-btn">검색</button>
 										<div class="title-box"><img src="/resources/homepage/${homepage.context_path}/img/search-bg.png" alt=""></div>
