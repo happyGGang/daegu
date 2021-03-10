@@ -559,12 +559,12 @@ $(function() {
 // 		$('input#family_yn1').attr('disabled', 'true');
 // 	}
 
-// 	if ($("input:radio[name = teach_age_type]:checked").val() == 'child') {
+	if ($("input:radio[name = teach_age_type]:checked").val() == 'child') {
 // 		$("input:radio[name = 'family_yn'][value = 'Y']").prop('checked', 'true');
-// 		$("input:radio[name = 'agent_yn'][value = 'Y']").prop('checked','true');
+		$("input:radio[name = 'agent_yn'][value = 'Y']").prop('checked','true');
 // 		$('input#family_yn2').attr('disabled', 'true');
 // 		$('input#agent_yn2').attr('disabled', 'true');
-// 	}
+	}
 
 // 	$('input#teach_age_type1').on('click', function() {
 // 		$('input#family_yn2').removeAttr('disabled');
@@ -573,13 +573,13 @@ $(function() {
 // 		$('input#family_yn1').attr('disabled', 'true');
 // 	});
 
-// 	$('input#teach_age_type2').on('click', function() {
+	$('input#teach_age_type2').on('click', function() {
 // 		$('input#family_yn1').removeAttr('disabled');
 // 		$("input:radio[name = 'family_yn'][value = 'Y']").prop('checked', 'true');
-// 		$("input:radio[name = 'agent_yn'][value = 'Y']").prop('checked', 'true');
+		$("input:radio[name = 'agent_yn'][value = 'Y']").prop('checked', 'true');
 // 		$('input#family_yn2').attr('disabled', 'true');
 // 		$('input#agent_yn2').attr('disabled', 'true');
-// 	});
+	});
 });
 
 </script>
