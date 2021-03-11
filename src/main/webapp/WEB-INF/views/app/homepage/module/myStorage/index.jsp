@@ -193,7 +193,7 @@ $(document).ready(function() {
 </script>
 
 <%
-int leftSize = 275; //왼쪽 컨텐츠 사이즈
+int leftSize = 313; //왼쪽 컨텐츠 사이즈
 int leftSizeInput = leftSize-125; //왼쪽 컨텐츠 검색 input 사이즈
 %>
 
@@ -243,14 +243,14 @@ int leftSizeInput = leftSize-125; //왼쪽 컨텐츠 검색 input 사이즈
 				</form:form>
 			</div>
 		</div>
-		<div class="set-area" style="height:373px;">
+		<div class="set-area" style="width:calc(100% - 333px);height:373px;margin-left:20px;">
 			<div style="height:100%;" id="itemLayer">
 
 			</div>
 		</div>
 	</div>
 	<br/>
-	<div class="button" style="border-width:0px;">
+	<div class="button" style="border-width:0px;margin-top:20px;">
 		<a href="" class="btn btn5" id="storage_add"><i class="fa fa-plus"></i><span>보관함 신규등록</span></a>
 		<a href="" class="btn btn1" id="storage_modify"><i class="fa fa-pencil"></i><span>수정</span></a>
 		<a href="" class="btn" id="storage_delete"><i class="fa fa-minus"></i><span>삭제</span></a>

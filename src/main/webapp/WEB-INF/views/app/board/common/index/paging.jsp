@@ -36,7 +36,7 @@
 <div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 	<fieldset>
 		<label class="blind" for="search_type">검색조건</label>
-		<form:select path="search_type" cssClass="selectmenu" cssStyle="width:100px;">
+		<form:select path="search_type" cssClass="selectmenu new_select_box" cssStyle="width:110px;">
 			<c:choose>
 			<c:when test="${boardManage.manage_idx eq 158}">
 				<form:option value="title+content">작가+작품</form:option>
@@ -53,7 +53,7 @@
 			</c:otherwise>
 			</c:choose>
 		</form:select>
-		<form:input path="search_text" id="search_text_board" cssClass="text" accesskey="s" title="검색어" alt="검색어"  placeholder="검색어를 입력하세요" cssStyle="ime-mode:active;" />
+		<form:input path="search_text" id="search_text_board" cssClass="text new_text01" accesskey="s" title="검색어" alt="검색어"  placeholder="검색어를 입력하세요" cssStyle="ime-mode:active;" />
 		<label for="search_text_board" class="blind">검색어</label>
 		<a href="" class="btn btn1" id="board_btn_search"><i class="fa fa-search"></i><span>검색</span></a>
 	</fieldset>

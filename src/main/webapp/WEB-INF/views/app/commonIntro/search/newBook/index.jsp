@@ -377,9 +377,13 @@ $(function() {
 			<div class="smain">
 				<div class="box">
 					<div style="overflow:hidden">
-						<div class="bbs-result">* 검색결과 총 : <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/></b>건</div>
+						<div class="search-info" style="float:left;">
+							※ 검색결과 총 <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/></b>건이 검색되었습니다.
+						</div>
 
-						<div class="mode">
+						<!-- <div class="bbs-result"> 검색결과 : 총 <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/></b>건</div> -->
+
+						<div class="mode" style="float:right;">
 							<ul>
 								<li><a href="#;" class="btn-View imgView on">이미지형 표지형 설정</a></li>
 								<li><a href="#;" class="btn-View listView">목록형 표지형 설정</a></li>
@@ -388,7 +392,7 @@ $(function() {
 					</div>
 					<div id="search-results" class="search-results wide">
 						<!-- 이미지형 -->
-						<div class="imageType">
+						<div class="imageType" style="border-top:1px solid #ddd;margin-top:10px;">
 							<!-- 결과루프 -->
 							<c:choose>
 								<c:when test="${fn:length(newBookList) > 0}">
@@ -487,7 +491,7 @@ $(function() {
 
 
 						<!-- 텍스트형 -->
-						<div class="textType" style="display:none">
+						<div class="textType" style="display:none;border-top:1px solid #ddd;margin-top:10px;">
 							<!-- 결과루프 -->
 							<c:choose>
 								<c:when test="${fn:length(newBookList) > 0}">

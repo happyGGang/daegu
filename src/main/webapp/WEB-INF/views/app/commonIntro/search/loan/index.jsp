@@ -42,16 +42,35 @@ $(function() {
 	<form:hidden path="excel_type" value="LOAN"/>
 </form:form>
 
-<a href="#" id="excel-btn" class="btn btn2">EXCEL</a>
-
-<!-- contents-title-->
+<!-- contents-title
 <div id="contents-title">
 	<h2>대출중인도서<span style="font-weight:300">를 확인하세요.</span></h2>
 </div>
-<!-- /contents-title-->
+/contents-title-->
 
-<fieldset>
-	<select name="manageCode" class="selectmenu" id="select_manage">
+<div class="loan_box">
+	<ul>
+		<li>
+			<img src="/resources/common/img/loan_icon01.png">
+			<h5>대출 중 권수</h5>
+			<span>${fn:length(loanList)}</span>
+		</li>
+		<li>
+			<img src="/resources/common/img/loan_icon02.png">
+			<h5>대출 연체 권수</h5>
+			<span>${member.overdue_cnt}</span>
+		</li>
+		<li>
+			<img src="/resources/common/img/loan_icon03.png">
+			<h5>대출 정지 만기일</h5>
+			<span>${member.loan_stop_date eq 'null' ? '해당없음' : member.loan_stop_date}</span>
+		</li>
+	</ul>
+</div>
+
+<div class="new_select_box_wrap">
+	<fieldset>
+	<select name="manageCode" class="selectmenu new_select_box" id="select_manage">
 		<option value="">전체</option>
 		<c:forEach items="${homepageList}" var="mc">
 		<c:if test="${not empty mc.manage_code}">
@@ -59,49 +78,51 @@ $(function() {
 		</c:if>
 		</c:forEach>
 	</select>
-</fieldset>
-
-<div>
-대출중 권수 : ${fn:length(loanList)}<br/>
-대출연체 권수 : ${member.overdue_cnt}<br/>
-대출정지만기일 : ${member.loan_stop_date eq 'null' ? '해당없음' : member.loan_stop_date}
+	</fieldset>
 </div>
 
-<div class="book-list">
+<div class="excel_btn_box_wrap">
+	<a href="#" id="excel-btn" class="btn excel-btn">리스트 다운로드</a>
+</div>
 
-<c:if test="${fn:length(loanList) < 1 }"> <h3>현재 대출 중인 도서가 없습니다.</h3></c:if>
+<div class="book-list" style="padding-top:10px;">
 
-<table summary="신청정보">
-	<thead>
-		<th>순번</th>
-		<th>제목</th>
-		<th>저자 / 발행자</th>
-		<th>도서관명</th>
-		<th>대출일</th>
-		<th>반납예정일</th>
-		<th>상태</th>
-	</thead>
-	<tbody>
-		<c:forEach items="${loanList}" var="i">
-		<tr>
-			<td>${i.RNUM}</td>
-			<td>${i.TITLE_INFO}</td>
-			<td>${i.AUTHOR} / ${i.PUBLISHER}</td>
-			<td>${i.LIB_NAME}</td>
-			<td>${i.LOAN_DATE}</td>
-			<td>${i.RETURN_PLAN_DATE}</td>
-			<td>
-			<c:choose>
-				<c:when test="${i.STATUS eq '0'}">대출</c:when>
-				<c:when test="${i.STATUS eq '1'}">반납</c:when>
-				<c:when test="${i.STATUS eq '2'}">반납연기</c:when>
-				<c:when test="${i.STATUS eq '3'}">예약</c:when>
-				<c:when test="${i.STATUS eq '4'}">예약취소</c:when>
-				<c:otherwise></c:otherwise>
-			</c:choose>
-			</td>
-		</tr>
-		</c:forEach>
-	</tbody>
-</table>
+	<c:if test="${fn:length(loanList) < 1 }">
+		<h3>현재 대출 중인 도서가 없습니다.</h3>
+	</c:if>
+
+	<table summary="신청정보">
+		<thead>
+			<th>순번</th>
+			<th>제목</th>
+			<th>저자 / 발행자</th>
+			<th>도서관명</th>
+			<th>대출일</th>
+			<th>반납예정일</th>
+			<th>상태</th>
+		</thead>
+		<tbody>
+			<c:forEach items="${loanList}" var="i">
+			<tr>
+				<td>${i.RNUM}</td>
+				<td>${i.TITLE_INFO}</td>
+				<td>${i.AUTHOR} / ${i.PUBLISHER}</td>
+				<td>${i.LIB_NAME}</td>
+				<td>${i.LOAN_DATE}</td>
+				<td>${i.RETURN_PLAN_DATE}</td>
+				<td>
+				<c:choose>
+					<c:when test="${i.STATUS eq '0'}">대출</c:when>
+					<c:when test="${i.STATUS eq '1'}">반납</c:when>
+					<c:when test="${i.STATUS eq '2'}">반납연기</c:when>
+					<c:when test="${i.STATUS eq '3'}">예약</c:when>
+					<c:when test="${i.STATUS eq '4'}">예약취소</c:when>
+					<c:otherwise></c:otherwise>
+				</c:choose>
+				</td>
+			</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+
 </div>

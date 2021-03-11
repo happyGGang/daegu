@@ -525,7 +525,7 @@ CONTEXT_PATH : ${homepage.context_path}
 
 					<c:choose>
 						<c:when test="${detail.RESERVE_CODE eq 'OK'}">
-							<a href="#" id="resve-req" class="btn">예약신청</a>
+							<a href="#" id="resve-req" class="btn btn3" style="padding:8.5px 2%">예약신청</a>
 						</c:when>
 						<c:otherwise>
 							<a href="#" id="resve-req-not" class="btn btn5">예약불가</a>
@@ -535,7 +535,7 @@ CONTEXT_PATH : ${homepage.context_path}
 				</c:otherwise>
 			</c:choose>
 
-			<a href="#" id="addStorage" class="btn"><span>관심도서 추가</span></a>
+			<a href="#" id="addStorage" class="btn btn4"><span>관심도서 추가</span></a>
 
 			<a href="index.do?menu_idx=${param.menu_idx}" id="goBack" class="btn"><i class="fa fa-book"></i><span>목록으로</span></a>
 

@@ -30,6 +30,10 @@ $(function(){
 
 });
 </script>
+<style>
+	.Gnb .mask{margin-top:-10px;}
+	.tnb a:hover{color:#fff;}
+</style>
 
 <!-- 검색시작 -->
 <form:form modelAttribute="humanBook" action="list.do" method="GET">
@@ -39,13 +43,13 @@ $(function(){
 <form:hidden path="viewPage"/>
 <div id="top_box">
 	<p>
-		<div class="well well-sm hidden-xs">
-			<div class="form-inline">
+		<div class="well well-sm hidden-xs" style="padding:20px;">
+			<div class="form-inline" style="margin-bottom:5px;">
 
-				<span style="letter-spacing:9px;">주제</span>:
+				<span>주　제</span> :
 
 				<div class="form-group">
-					<form:select path="activity_category" class="form-control input-sm">
+					<form:select path="activity_category" class="form-control input-sm" style="width:150px;padding:5px;font-size:13px;">
 						<form:option value="">전체</form:option>
 						<form:options items="${activityCateList}" itemLabel="code_name" itemValue="code_id"/>
 					</form:select>
@@ -55,13 +59,13 @@ $(function(){
 
 			<div class="form-inline"> 검색어 :
 				<div class="form-group">
-					<form:select path="search_type" cssClass="form-control input-sm" style="width:150px;" title="검색분류선택">
+					<form:select path="search_type" cssClass="form-control input-sm" style="width:150px;padding:5px;" title="검색분류선택">
 						<form:option value="human_book_title">사람책 제목</form:option>
 						<form:option value="teacher_name">사람책 이름</form:option>
 					</form:select>
 
-					<form:input path="search_text" cssClass="form-control input-sm" placehold="검색어를 입력해주세요" style="width:300px;" title="검색어 입력"/>
-					<button id="search_btn" class="btn btn_mir_search btn-sm" >검색</button>
+					<form:input path="search_text" cssClass="form-control input-sm" placehold="검색어를 입력해주세요" style="width:400px;" title="검색어 입력"/>
+					<button id="search_btn" class="btn btn_mir_search btn-sm" style="background-color:#2c75cb;border-color:#1962ba;color:#fff;">검색</button>
 				</div>
 			</div>
 		</div>
@@ -71,7 +75,7 @@ $(function(){
 
 <div class="table_top_box">
 	<div class="text-info">
-		총 <span class="text_style">${paging.totalDataCount}</span>( ${paging.viewPage}/${paging.totalPageCount} 페이지 )건이 검색되었습니다.
+		총 <span class="text_style">${paging.totalDataCount} 건</span>(${paging.viewPage}/${paging.totalPageCount} 페이지)이 검색되었습니다.
 	</div>
 </div>
 

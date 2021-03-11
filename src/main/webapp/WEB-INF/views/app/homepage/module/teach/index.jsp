@@ -200,31 +200,37 @@ $(function(){
 	</c:otherwise>
 	</c:choose>
 
-	<div class="search">
+	<div class="search" style="padding:20px;margin-top:20px;">
 		<fieldset>
-			<form:select path="search_type" cssClass="selectmenu">
-				<form:option value="teach_name"><c:choose><c:when test="${param.searchCate1 eq '16'}">행사명</c:when><c:when test="${param.searchCate1 eq '17'}">강좌명</c:when><c:when test="${param.searchCate1 eq '18'}">강좌명</c:when><c:otherwise>강좌명</c:otherwise></c:choose></form:option>
+			<form:select path="search_type" cssClass="selectmenu new_select_box">
+				<form:option value="teach_name"><c:choose>
+				<c:when test="${param.searchCate1 eq '16'}">행사명</c:when>
+				<c:when test="${param.searchCate1 eq '17'}">강좌명</c:when>
+				<c:when test="${param.searchCate1 eq '18'}">강좌명</c:when>
+				<c:otherwise>강좌명</c:otherwise></c:choose>
+				</form:option>
 			</form:select>
-			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
-			
-			<span>중분류 :
-				<form:select path="group_idx">
-					<form:option class="all" value="0" label="전체" />
-					<form:options itemValue="group_idx" itemLabel="group_name" items="${categoryGroupList}"/>
-				</form:select>
-			</span>
-			<span>소분류 :
-				<form:select path="category_idx" >
-					<form:option class="all" value="0" label="전체" />
-					<c:forEach items="${categoryList}" var="i">
-						<form:option class="group_${i.group_idx}" value="${i.category_idx}">${i.category_name}</form:option>
-					</c:forEach>
-				</form:select>
-			</span>
-			<div>
+			<form:input path="search_text" cssClass="text new_text01" cssStyle="width:400px;"/>
+			<div style="padding-top:10px;">
+				<span>중분류 :
+					<form:select path="group_idx" cssClass="new_select_box">
+						<form:option class="all" value="0" label="전체" />
+						<form:options itemValue="group_idx" itemLabel="group_name" items="${categoryGroupList}"/>
+					</form:select>
+				</span>
+				<span>소분류 :
+					<form:select path="category_idx" cssClass="new_select_box">
+						<form:option class="all" value="0" label="전체" />
+						<c:forEach items="${categoryList}" var="i">
+							<form:option class="group_${i.group_idx}" value="${i.category_idx}">${i.category_name}</form:option>
+						</c:forEach>
+					</form:select>
+				</span>
+			</div>
+			<div style="padding:10px 0;">
 				<c:forEach var="i" begin="1" end="7">
 					<input type="checkbox" id="teach_day${i}" name="teach_day" value="${i}" ${fn:contains(teach.teach_day, i) ? 'checked="checked"' : ''} style="width: 13px;">
-					<label for="teach_day${i}">
+					<label for="teach_day${i}" style="background:none;padding-right:5px;">
 						<c:if test="${i eq 1}">일</c:if>
 						<c:if test="${i eq 2}">월</c:if>
 						<c:if test="${i eq 3}">화</c:if>

@@ -72,13 +72,15 @@ function compactTrim(str) {
 
 
 <form:form modelAttribute="librarySearch" action="allHistory.do" >
-<div class="bbs-notice" style="margin-top:10px;margin-bottom:20px;" >
-	조회 기간 :
-		<form:input path="search_start_date" cssClass="text ui-calendar"/><label for="search_start_date" style="display: none;">시작일</label> ~
-		<form:input path="search_end_date" cssClass="text ui-calendar"/><label for="search_end_date" style="display: none;">종료일</label>
+<div class="bbs-notice" style="margin-top:10px;margin-bottom:20px;padding:20px;text-align:center;" >
+	조회기간 :
+		<form:input path="search_start_date" cssClass="text ui-calendar new_text01"/><label for="search_start_date" style="display: none;">시작일</label> ~
+		<form:input path="search_end_date" cssClass="text ui-calendar new_text01"/><label for="search_end_date" style="display: none;">종료일</label>
 		<form:hidden path="menu_idx"/>
+	<span style="color:#ccc;padding:0 10px 0 15px;">│</span>
+	<p class="m_br_box"></p>
 	신청상태 :
-	<form:select path="furnish_status" cssClass="selectmenu">
+	<form:select path="furnish_status" cssClass="selectmenu new_select_box">
 		<form:option value="" label="전체"></form:option>
 		<form:option value="1" label="신청중"></form:option>
 		<form:option value="2" label="처리중"></form:option>
@@ -86,13 +88,13 @@ function compactTrim(str) {
 		<form:option value="4" label="취소"></form:option>
 	</form:select>
 	
-	<form:select path="search_type" cssClass="selectmenu" >
+	<form:select path="search_type" cssClass="selectmenu new_select_box" >
 		<form:option value="title" label="서명"></form:option>
 		<form:option value="author" label="저자"></form:option>
 		<form:option value="publisher" label="발행자"></form:option>
 		<form:option value="publish_year" label="발행년"></form:option>
 	</form:select>
-	<form:input path="search_text" cssClass="text" accesskey="s" title="검색어" alt="검색어"  placeholder="검색어를 입력하세요" />
+	<form:input path="search_text" cssClass="text new_text01" accesskey="s" title="검색어" alt="검색어"  placeholder="검색어를 입력하세요" style="height:33px !important;background:#fff;border:1px solid #ccc;"/>
 	<a href="#" id="search-btn" class="btn btn1">조회</a>
 </div>
 
@@ -392,7 +394,7 @@ function compactTrim(str) {
 	</c:otherwise>
 </c:choose>
 <form:hidden path="menu_idx"/>
-<div class="book-list">
+<div class="book-list" style="margin-top:30px;padding-top:15px;">
 	<c:if test="${fn:length(hopeList) < 1 }"> <h3>희망도서신청 내역이 없습니다.</h3></c:if>
 	<div class="box">
 		<div class="item">
@@ -419,15 +421,16 @@ function compactTrim(str) {
 					<tbody>
 						<c:forEach items="${hopeList}" var="i" varStatus="status">
 						<c:if test="${status.first}">
-						<h4>신청내역 수: 총 ${paging.totalDataCount} 건
-						<form:select path="rowCount">
-							<form:option value="10" label="10개씩 보기" />
-							<form:option value="20" label="20개씩 보기" />
-							<form:option value="30" label="30개씩 보기" />
-							<form:option value="50" label="50개씩 보기" />
-							<form:option value="100" label="100개씩 보기" />
-						</form:select>
-						</h4>
+						<h3>신청내역 수: 총 ${paging.totalDataCount} 건</h3>
+						<p style="text-align:right;margin-top:-45px;margin-bottom:15px;">
+							<form:select path="rowCount" cssClass="new_select_box">
+								<form:option value="10" label="10개씩 보기" />
+								<form:option value="20" label="20개씩 보기" />
+								<form:option value="30" label="30개씩 보기" />
+								<form:option value="50" label="50개씩 보기" />
+								<form:option value="100" label="100개씩 보기" />
+							</form:select>
+						</p>
 						</c:if>
 						<tr>
 							<th>${paging.listRowNum - status.index}</th>

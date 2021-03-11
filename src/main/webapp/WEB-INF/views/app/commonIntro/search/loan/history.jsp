@@ -53,26 +53,13 @@ $(function() {
 });
 </script>
 
-<!-- contents-title-->
+<!-- contents-title
 <div id="contents-title">
 	<h2>지난 대출도서<span style="font-weight:300">를 확인하세요.</span></h2>
 </div>
-<!-- /contents-title-->
+/contents-title-->
 
-<fieldset>
-	<select name="manageCode" class="selectmenu" id="select_manage">
-		<option value="" >전체</option>
-		<c:forEach items="${homepageList}" var="mc">
-		<c:if test="${not empty mc.manage_code}">
-		<option value="${mc.manage_code}" ${librarySearch.manageCode eq mc.manage_code ? 'selected' : ''}>${mc.homepage_name}</option>
-		</c:if>
-		</c:forEach>
-	</select>
-</fieldset>
 
-<div>
-대출 권수 : ${librarySearch.totalDataCount}<br/>
-</div>
 
 <form:form modelAttribute="librarySearch" method="get">
 	<form:hidden path="viewPage"/>
@@ -80,57 +67,85 @@ $(function() {
 	<form:hidden path="manageCode"/>
 	<form:hidden path="excel_type" value="HISTORY"/>
 
-	<div class="" style="padding:20px;text-align:center;border:1px solid #eaeaea;border-top:2px solid #000;margin-bottom:10px;">
-		<label for="search_start_date" style="display:none1;">시작일</label>
-		<form:input path="search_start_date" cssClass="text ui-calendar" cssStyle="border:1px solid #c9c9c9;border-radius:4px;height:30px"/> ~
-		<label for="search_end_date" style="display: none1;">종료일</label>
-		<form:input path="search_end_date" cssClass="text ui-calendar" csSstyle="border:1px solid #c9c9c9;border-radius:4px;height:30px"/>
-		<a id="do-search" class="btn">검색</a>
+	<div class="loan_box" style="padding:30px;">
+		<label for="search_start_date" style="display:none1;"><b>시작일</b></label>
+		<form:input path="search_start_date" cssClass="text ui-calendar new_text01" cssStyle="border:1px solid #c9c9c9;border-radius:4px;height:30px"/>
+		<span style="margin-right:10px;"></span>
+		<p class="m_br_box"></p>
+		<label for="search_end_date" style="display: none1;"><b>종료일</b></label>
+		<form:input path="search_end_date" cssClass="text ui-calendar new_text01" csSstyle="border:1px solid #c9c9c9;border-radius:4px;height:30px"/>
+		<a id="do-search" class="btn btn1">검색</a>
 	</div>
 
 </form:form>
 
-<a href="#" id="excel-btn" class="btn btn2">EXCEL</a>
+<!-- <div class='history-wrap'>
+	<div class='loan-status'>
+		<b>대출 권수 :</b> $ { librarySearch.totalDataCount}<br/>
+	</div>
+</div> -->
 
-<div class="book-list">
-<c:if test="${fn:length(loanList) < 1 }"> <h3>조회된 도서가 없습니다.</h3></c:if>
-<c:if test="${fn:length(loanList) > 0 }">
-<table summary="신청정보">
-	<colgroup>
-		<col width="5%"/>
-		<col width=""/>
-		<col width="15%"/>
-		<col width="15%"/>
-		<col width="10%"/>
-		<col width="10%"/>
-		<col width="7%"/>
-		<col width="15%"/>
-	</colgroup>
-	<thead>
-		<th>순번</th>
-		<th>제목</th>
-		<th>저자 / 발행자</th>
-		<th>도서관명</th>
-		<th>대출일</th>
-		<th>반납일</th>
-		<th>상태</th>
-		<th>독서노트</th>
-	</thead>
-	<tbody>
-	<c:forEach items="${loanList}" var="i" varStatus="status">
-		<tr>
-			<td>${i.RNUM}</td>
-			<td>${i.TITLE}</td>
-			<td>${i.AUTHOR} / ${i.PUBLISHER}</td>
-			<td>${i.LIB_NAME}</td>
-			<td>${i.LOAN_DATE}</td>
-			<td>${i.RETURN_DATE}</td>
-			<td><c:choose><c:when test="${i.STATUS eq '0'}">대출</c:when><c:when test="${i.STATUS eq '1'}">반납</c:when><c:when test="${i.STATUS eq '2'}">반납연기</c:when><c:when test="${i.STATUS eq '3'}">예약</c:when><c:when test="${i.STATUS eq '4'}">예약취소</c:when><c:otherwise></c:otherwise></c:choose></td>
-			<td><a href="#" class="btn btn1" id="readingNotes" data-title="${i.TITLE}" data-author="${i.AUTHOR}" data-publisher="${i.PUBLISHER}" data-isbn="${i.ISBN}">독서노트작성</a></td>
-		</tr>
-	</c:forEach>
-	</tbody>
-</table>
+<div class="new_select_box_wrap">
+	<select name="manageCode" class="selectmenu new_select_box" id="select_manage">
+		<option value="" >전체</option>
+		<c:forEach items="${homepageList}" var="mc">
+		<c:if test="${not empty mc.manage_code}">
+		<option value="${mc.manage_code}" ${librarySearch.manageCode eq mc.manage_code ? 'selected' : ''}>${mc.homepage_name}</option>
+		</c:if>
+		</c:forEach>
+	</select>
+</div>
+
+<div class="excel_btn_box_wrap">
+	<a href="#" id="excel-btn" class="btn excel-btn">리스트 다운로드</a>
+</div>
+
+<div class="book-list" style="padding-top:10px;">
+
+	<c:if test="${fn:length(loanList) < 1 }"> <h3 style="margin-top:0;">조회된 도서가 없습니다. <span>(대출 권수 : ${librarySearch.totalDataCount})</span></h3></c:if>
+	<c:if test="${fn:length(loanList) > 0 }">
+	<table summary="신청정보">
+		<colgroup>
+			<col width="5%"/>
+			<col width=""/>
+			<col width="15%"/>
+			<col width="15%"/>
+			<col width="10%"/>
+			<col width="10%"/>
+			<col width="7%"/>
+			<c:if test="${homepage.context_path eq 'beomeo' || homepage.context_path eq 'gosan' || homepage.context_path eq 'yonghak'}">
+			<col width="15%"/>
+			</c:if>
+		</colgroup>
+		<thead>
+			<th>순번</th>
+			<th>제목</th>
+			<th>저자 / 발행자</th>
+			<th>도서관명</th>
+			<th>대출일</th>
+			<th>반납일</th>
+			<th>상태</th>
+			<c:if test="${homepage.context_path eq 'beomeo' || homepage.context_path eq 'gosan' || homepage.context_path eq 'yonghak'}">
+			<th>독서노트</th>
+			</c:if>
+		</thead>
+		<tbody>
+		<c:forEach items="${loanList}" var="i" varStatus="status">
+			<tr>
+				<td>${i.RNUM}</td>
+				<td>${i.TITLE}</td>
+				<td>${i.AUTHOR} / ${i.PUBLISHER}</td>
+				<td>${i.LIB_NAME}</td>
+				<td>${i.LOAN_DATE}</td>
+				<td>${i.RETURN_DATE}</td>
+				<td><c:choose><c:when test="${i.STATUS eq '0'}">대출</c:when><c:when test="${i.STATUS eq '1'}">반납</c:when><c:when test="${i.STATUS eq '2'}">반납연기</c:when><c:when test="${i.STATUS eq '3'}">예약</c:when><c:when test="${i.STATUS eq '4'}">예약취소</c:when><c:otherwise></c:otherwise></c:choose></td>
+				<c:if test="${homepage.context_path eq 'beomeo' || homepage.context_path eq 'gosan' || homepage.context_path eq 'yonghak'}">
+				<td><a href="#" class="btn btn1" id="readingNotes" data-title="${i.TITLE}" data-author="${i.AUTHOR}" data-publisher="${i.PUBLISHER}" data-isbn="${i.ISBN}">독서노트작성</a></td>
+				</c:if>
+			</tr>
+		</c:forEach>
+		</tbody>
+	</table>
 	<div id="board_paging" class="dataTables_paginate">
 		<c:if test="${paging.firstPageNum > 0}">
 			<a href="" class="paginate_button previous" keyValue="${paging.firstPageNum}">처음</a>
@@ -158,5 +173,5 @@ $(function() {
 		</span>
 	</div>
 
-</c:if>
+	</c:if>
 </div>

@@ -253,6 +253,16 @@ $(function() {
 });
 </script>
 
+<style>
+	@media (max-width: 767px){
+		.ws-toolbar{height:auto;}
+	}
+
+	@media (max-width: 650px){
+		.search-form .detail_search .section dl dt{font-size:13px;}
+	}
+</style>
+
 <form:form modelAttribute="librarySearch" action="index.do" method="get">
 	<form:hidden path="menu_idx"/>
 	<form:hidden path="viewPage"/>
@@ -1259,16 +1269,16 @@ $(function() {
 			</div>
 
 			<div class="research-box">
-				<select id="subSearchType" class="text-area01">
+				<select id="subSearchType" class="text-area01 new_select_box">
 					<option value="title">서명</option>
 					<option value="author">저자</option>
 					<option value="publer">발행처</option>
 					<option value="keyword">키워드</option>
 				</select>
-				<input id="subSearchText" placeholder="결과 내 재검색" class="text-area01" />
+				<input id="subSearchText" placeholder="" class="text-area01" style="border-radius:3px;"/>
 				<a href="#" id="subSearch" class="btn">결과 내 재검색</a>
 				<div style="float: right;">
-				<a href="#" id="addStorage" class="btn">관심도서 추가</a>
+				<a href="#" id="addStorage" class="btn btn4">관심도서 추가</a>
 				</div>
 			</div>
 
@@ -1295,7 +1305,7 @@ $(function() {
 						</div>
 
 						<div class="control">
-							<form:select path="sortField" cssClass="text-area01">
+							<form:select path="sortField" cssClass="text-area01 new_select_box">
 								<form:option value="NONE">정렬없음</form:option>
 								<form:option value="TITLE">제목</form:option>
 								<form:option value="AUTHOR">저자</form:option>
@@ -1303,11 +1313,11 @@ $(function() {
 								<form:option value="PUB_YEAR">발행년도</form:option>
 								<form:option value="SHELF_DATE">배가일</form:option>
 							</form:select>
-							<form:select path="sortType" cssClass="text-area01">
+							<form:select path="sortType" cssClass="text-area01 new_select_box">
 								<form:option value="ASC">오름차순</form:option>
 								<form:option value="DESC">내림차순</form:option>
 							</form:select>
-							<form:select path="rowCount" cssClass="text-area01">
+							<form:select path="rowCount" cssClass="text-area01 new_select_box">
 								<form:option value="10" label="10건"></form:option>
 								<form:option value="20" label="20건"></form:option>
 								<form:option value="30" label="30건"></form:option>
@@ -1315,7 +1325,7 @@ $(function() {
 								<form:option value="50" label="50건"></form:option>
 								<form:option value="100" label="100건"></form:option>
 							</form:select>
-							<a href="#sort" id="sort-btn" class="btn">정렬</a>
+							<a href="#sort" id="sort-btn" class="btn" style="margin-top:-2px;">정렬</a>
 						</div>
 					</div>
 

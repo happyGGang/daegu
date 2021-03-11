@@ -57,7 +57,7 @@ label.hidden {display:none;}
 
 
 /********************검색박스_상세검색********************/
-#contents-title h2{font-size:30px;font-weight:bold;padding:10px 20px;}
+#contents-title h2{font-size:25px;font-weight:bold;padding:10px 20px 10px 0;}
 
 .search-form .detail_search {padding: 0 20px 20px;/*border-top:3px solid #000;*/box-sizing:border-box;}
 .search-form .detail_search .section {width:100%;display:inline-block;overflow:hidden;}
@@ -397,7 +397,9 @@ transition : all .3s ease}
 
 #search_detail {margin-top:0;position:relative;width:100%;}
 #search_detail .table_gray {border-collapse:collapse;border:0;font-size:1em;margin:5px 0 20px;width:100%;}
-#search_detail .table_gray .search_left{text-align:left;padding-left:10px;}
+#search_detail .table_gray .search_left{text-align:left;padding-left:10px;line-height:180%;}
+#search_detail .table_gray .search_left input{width:15px;height:15px;margin-right:5px;}
+#search_detail .table_gray .search_left li label{font-size:13.5px;}
 #search_detail .table_gray .yyyy{width:80px;height:18px;}
 #search_detail .table_gray thead th, #search_detail .table_gray tbody th {background:#f9f9f9;color:#000;font-weight:bold;text-align: center;vertical-align: middle;padding:1% 0}
 #search_detail .table_gray th, #search_detail .table_gray td {border-top:1px solid #000;line-height:140%;padding:5px 2px 3px;}
