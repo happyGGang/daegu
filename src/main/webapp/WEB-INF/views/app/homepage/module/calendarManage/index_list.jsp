@@ -204,13 +204,13 @@ $(function(){
 			</div>
 		</c:if>
 
-		<div class="ym_btns">
-			<a id="before-btn" href="#prev" class="btn prev"><i class="fa fa-angle-left"></i><span class="blind">이전달</span></a>
+		<div class="ym_btns" style="margin-top:35px;">
+			<a id="before-btn" href="#prev" class="btn prev new_btn01"><i class="fa fa-angle-left"></i><span class="blind">이전달</span></a>
 			<label for="plan_year"/>
-			<form:select path="plan_year" class="" style="width:80px;height:28px;"></form:select>
+			<form:select path="plan_year" class="new_select_box" style="width:80px;"></form:select>
 			<label for="plan_month"/>
-			<form:select path="plan_month" class="" style="width:65px;height:28px;"></form:select>
-			<a id="next-btn" href="#next" class="btn next"><i class="fa fa-angle-right"></i><span class="blind">다음달</span></a>
+			<form:select path="plan_month" class="new_select_box" style="width:65px;"></form:select>
+			<a id="next-btn" href="#next" class="btn next new_btn01"><i class="fa fa-angle-right"></i><span class="blind">다음달</span></a>
 			<a href="#" style="float: right;" class="btn btn2 left" id="changeView"><i style="font-size: 100%;" class="fa fa-calendar" aria-hidden="true"></i><span style="margin-left: 5px;">달력형 보기</span></a>
 		</div>
 		<div id="calendar" class="event-cal">

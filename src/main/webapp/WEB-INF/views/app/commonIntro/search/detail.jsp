@@ -211,7 +211,7 @@ $(function() {
 			</div>
 			<div class="info">
 				<ul>
-					<li style="line-height: 150%;"><b>${detail.TITLE_INFO}</b></li>
+					<li style="line-height: 150%;font-size:20px;"><b>${detail.TITLE_INFO}</b></li>
 					<li><strong>저자사항</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${detail.AUTHOR}</li>
 					<li><strong>발행사항</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${detail.PUBLISHER}, ${detail.PUB_YEAR},  ${detail.MEDIA_NAME}, \ ${detail.PRICE}</li>
 					<li><strong>형태사항</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${detail.PAGE} : ${detail.BOOK_SIZE}</li>
@@ -287,16 +287,22 @@ $(function() {
 			</tbody>
 			</table>
 		</div>
-		<div>
+		<div style="margin-top:20px;">
 			<c:set var="getIp" value="<%=request.getRemoteAddr()%>" />
 			<c:if test="${getIp eq '218.48.151.16'}">
-KBILL_LILL_YN : ${detail.KBILL_LILL_YN} <br/>
-SHELF_LOC_CODE : ${detail.SHELF_LOC_CODE} <br/>
-SEPARATE_SHELF_CODE : ${detail.SEPARATE_SHELF_CODE} <br/>
-REG_CODE : ${detail.REG_CODE}<br/>
-LOAN_CODE : ${detail.LOAN_CODE}<br/>
-RESERVE_CODE : ${detail.RESERVE_CODE}<br/>
-CONTEXT_PATH : ${homepage.context_path}
+			<ul class="con">
+				<li style="background:none;">
+					<ul>
+						<li>KBILL_LILL_YN : ${detail.KBILL_LILL_YN} </li>
+						<li>SHELF_LOC_CODE : ${detail.SHELF_LOC_CODE} </li>
+						<li>SEPARATE_SHELF_CODE : ${detail.SEPARATE_SHELF_CODE} </li>
+						<li>REG_CODE : ${detail.REG_CODE}</li>
+						<li>LOAN_CODE : ${detail.LOAN_CODE}</li>
+						<li>RESERVE_CODE : ${detail.RESERVE_CODE}</li>
+						<li>CONTEXT_PATH : ${homepage.context_path}</li>
+					</ul>
+				</li>
+			</ul>
 			</c:if>
 		</div>
           <p></p>
@@ -525,10 +531,10 @@ CONTEXT_PATH : ${homepage.context_path}
 
 					<c:choose>
 						<c:when test="${detail.RESERVE_CODE eq 'OK'}">
-							<a href="#" id="resve-req" class="btn btn3" style="padding:8.5px 2%">예약신청</a>
+							<a href="#" id="resve-req" class="btn btn1" style="padding:8.5px 2%">예약신청</a>
 						</c:when>
 						<c:otherwise>
-							<a href="#" id="resve-req-not" class="btn btn5">예약불가</a>
+							<a href="#" id="resve-req-not" class="btn btn5" style="padding:8.5px 2%">예약불가</a>
 						</c:otherwise>
 					</c:choose>
 

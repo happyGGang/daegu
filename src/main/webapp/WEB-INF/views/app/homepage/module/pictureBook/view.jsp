@@ -45,21 +45,38 @@ $(function() {
 </script>
 <style>
 .group-box {position: relative;padding: 10px;}
+
 .img-box {display:inline-block;width: 183px;height: 261px;border: 1px solid #ccc;padding: 0;}
-.content-box {position: absolute;display: inline-block;width: 75%;padding: 0 20px;}
-.content-box p {padding: 20px 0 40px;font-size: 25px;font-weight: bold;color: #222;}
-dl#author {overflow: hidden;width: 470px;font-size: 13px;}
+
+.content-box {position: absolute;display: inline-block;width: calc(100% - 223px);padding: 0 20px;}
+
+.content-box p {padding: 32px 0;font-size: 25px;font-weight: bold;color: #222;}
+
+/*dl#author {overflow: hidden;width: 470px;font-size: 13px;}
+
 dl#author dt {float: left;width: 65px;margin-bottom: 15px;background: url(/img/common/bar_author.gif) no-repeat right;font-weight: bold;color: #222;}
-dl#author dd {float: left;width: 140px;margin-bottom: 15px;padding: 0 15px;}
+
+dl#author dd {float: left;width: 140px;margin-bottom: 15px;padding: 0 15px;}*/
+
 .book-desc {margin: 20px 0 40px;}
+
 .calendar-box {margin-top: 50px;}
+
 .calendar-box #req-year {display:block;padding-left: 30px;background: url(/resources/common/img/calendar-icon.gif) no-repeat;font-size: 21px;font-weight: bold;color: #222;margin-bottom: 20px;}
-.calendar-box>div {display:inline-block;width: 130px;height: 140px;margin-right: 10px;vertical-align: top;padding-bottom: 25px;word-break: normal;}
-.calendar-box>div>span.req-month {width: 130px;margin-bottom: 10px;border-radius: 5px;background: #e8f2f7;text-align: center;font-weight: bold;line-height: 40px;color: #333;display: block;}
-.btn-box a{display: block;width: 128px;height: 34px;border-radius: 5px;font-size: 13px;font-weight: bold;line-height: 34px;letter-spacing: -0.05em;text-align: center;}
+
+.calendar-box>div {display:inline-block;width: 15%;height: 140px;margin-right: 10px;vertical-align: top;padding-bottom: 25px;word-break: normal;}
+
+.calendar-box>div>span.req-month {width: 100%;margin-bottom: 10px;border-radius: 5px;background: #e8f2f7;text-align: center;font-weight: bold;line-height: 40px;color: #333;display: block;}
+
+.btn-box a{display: block;width: 100%;height: 34px;border-radius: 5px;font-size: 13px;font-weight: bold;line-height: 34px;letter-spacing: -0.05em;text-align: center;}
+
 .btn-box a.apply-req {border: 1px solid #8dd3f6;color: #1ba8ed;}
+
 .btn-box a.apply-ok {border: 1px solid #7f7f7f;color: #000;pointer-events: none;}
+
 .btn-box a.apply-last {border: 1px solid #bebebe;color: #7d7d7d;pointer-events: none;}
+
+a.edit-btn{font-size:13px;}
 </style>
 
 <form:form modelAttribute="pictureBook" id="bookPackageDel" action="save.do" method="POST">
@@ -90,27 +107,62 @@ dl#author dd {float: left;width: 140px;margin-bottom: 15px;padding: 0 15px;}
 			</c:choose>
 		</div>
 		<div class="content-box">
-			<p>${pictureBook.picture_book_subject}</p>
-			<dl id="author">
+			<!-- <p>$ { pictureBook.picture_book_subject}</p> -->
+			<div class="auto-scroll">
+				<table class="tbl-type01">
+					<thead>
+						<th colspan="4"><p>${pictureBook.picture_book_subject}</p></th>
+					</thead>
+					<tbody>
+					<tr>
+						<th style="width:10%;">작가</th>
+						<td colspan="3">${pictureBook.author}</td>
+					</tr>
+					<tr>
+						<th style="width:10%;">출판사</th>
+						<td>${pictureBook.publisher}</td>
+						<th style="width:10%;">출판년도</th>
+						<td>${pictureBook.publish_year}</td>
+					</tr>
+					<tr>
+						<th style="width:10%;">가격</th>
+						<td>${pictureBook.picture_price}</td>
+						<th style="width:10%;">액자개수</th>
+						<td>${pictureBook.picture_count}</td>
+					</tr>
+					<tr>
+						<c:if test="${not empty pictureBook.isbn}">
+						<th style="width:10%;">ISBN</th>
+						<td>${pictureBook.isbn}</td>
+						</c:if>
+						<c:if test="${not empty pictureBook.keyword}">
+						<th style="width:10%;">주제</th>
+						<td>${pictureBook.keyword}</td>
+						</c:if>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- <dl id="author">
 				<dt>작가</dt>
-				<dd>${pictureBook.author}</dd>
+				<dd>$ { pictureBook.author}</dd>
 				<dt>출판사</dt>
-				<dd>${pictureBook.publisher}</dd>
+				<dd>$ { pictureBook.publisher}</dd>
 				<dt>출판년도</dt>
-				<dd>${pictureBook.publish_year}</dd>
-				<c:if test="${not empty pictureBook.isbn}">
+				<dd>$ { pictureBook.publish_year}</dd>
+				<c:if test="$ { not empty pictureBook.isbn}">
 				<dt>ISBN</dt>
-				<dd>${pictureBook.isbn}</dd>
+				<dd>$ { pictureBook.isbn}</dd>
 				</c:if>
 				<dt>가격</dt>
-				<dd>${pictureBook.picture_price}</dd>
+				<dd>$ { pictureBook.picture_price}</dd>
 				<dt>액자개수</dt>
-				<dd>${pictureBook.picture_count}</dd>
-				<c:if test="${not empty pictureBook.keyword}">
+				<dd>$ { pictureBook.picture_count}</dd>
+				<c:if test="$ { not empty pictureBook.keyword}">
 				<dt>주제</dt>
-				<dd>${pictureBook.keyword}</dd>
+				<dd>$ { pictureBook.keyword}</dd>
 				</c:if>
-			</dl>
+			</dl> -->
 		</div>
 		<c:if test="${pictureBook.pay_yn eq 'Y'}">
 		<div class="book-desc">${pictureBook.content}</div>
@@ -142,6 +194,6 @@ dl#author dd {float: left;width: 140px;margin-bottom: 15px;padding: 0 15px;}
 	</div>
 </div>
 </form:form>
-<div>
+<div style="width:100%;text-align:center;">
 	<a href="#" id="list-btn" class="btn btn3">목록으로</a>
 </div>

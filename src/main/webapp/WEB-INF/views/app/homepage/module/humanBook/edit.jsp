@@ -116,9 +116,6 @@ $(function() {
 
 });
 </script>
-<style>
-	.Gnb .mask{margin-top:-10px;}
-</style>
 
 <form:form modelAttribute="humanBook" action="save.do" method="post" enctype="multipart/form-data">
 <form:hidden path="editMode"/>

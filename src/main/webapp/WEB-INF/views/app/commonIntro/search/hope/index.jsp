@@ -39,6 +39,11 @@ $(function() {
 });
 
 </script>
+<style>
+	table td{text-align:center;font-size:14px;}
+	table td.left{text-align:left;}
+</style>
+
 <form id="cancelForm" action="save.do" method="post" onsubmit="return false;">
 	<input type="hidden" name="editMode" value="CANCEL"/>
 	<input type="hidden" id="select_no" name="select_no"/>
@@ -48,7 +53,7 @@ $(function() {
 <!-- contents-title-->
 <c:choose>
 <c:when test="${homepage.context_path eq 'dgportal'}">
-<p class="txt-box-adv" style="text-align:right;color:#ff0000;">* 희망도서는 개별 도서관 홈페이지에서 신청가능합니다.</p>
+<p class="txt-box-adv">희망도서는 개별 도서관 홈페이지에서 신청가능합니다.</p>
 </c:when>
 <c:otherwise>
 <!-- <div id="contents-title">
@@ -66,9 +71,9 @@ $(function() {
 <form:hidden path="viewPage"/>
 <form:hidden path="menu_idx"/>
 
-<c:if test="${fn:length(hopeList) < 1 }"> <h3 style="margin-top:0;">희망도서신청 내역이 없습니다.</h3></c:if>
+<c:if test="${fn:length(hopeList) < 1 }"><div class="book-list" style="border-top:none;"><h3 style="margin-top:0;">희망도서신청 내역이 없습니다.</h3></div></c:if>
 
-<div class="check-btn-box">
+<div class="check-btn-box" style="margin:10px 0;">
 	<ul>
 		<li>
 		<form:select path="furnish_status" class="selectmenu new_select_box">
@@ -91,7 +96,7 @@ $(function() {
 		<col width="15%">
 		<col width="12%">
 		<col width="12%">
-		<col width="8%">
+		<col width="7%">
 		<col width="13%">
 		<col width="5%">
 	</colgroup>
@@ -110,7 +115,7 @@ $(function() {
 	<c:forEach items="${hopeList}" var="i">
 		<tr>
 			<td>${i.RNUM}</td>
-			<td>${i.TITLE}</td>
+			<td class="left;">${i.TITLE}</td>
 			<td>${i.AUTHOR} / ${i.PUBLISHER} / ${i.PUBLISH_YEAR}</td>
 			<td>${i.LIB_NAME}</td>
 			<td>${i.APPLICANT_DATE}</td>

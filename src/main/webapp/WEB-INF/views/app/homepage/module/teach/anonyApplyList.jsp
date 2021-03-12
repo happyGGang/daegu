@@ -88,20 +88,22 @@ $(function(){
 	<form:hidden path="editMode"/>
 	<form:hidden path="menu_idx"/>
 
-<div id="libraryList" class="bbs-notice" style="margin-top:10px;margin-bottom:20px;" >
-조회 기간:<form:input path="searchDateFrom" cssClass="text ui-calendar"/><label for="searchDateFrom" class="blind">시작일</label> ~
-		<form:input path="searchDateTo" cssClass="text ui-calendar"/><label for="searchDateTo"  class="blind">종료일</label>
-		<a href="#" id="search-btn" class="btn btn1">조회</a>
-		<c:if test="${fn:length(teachList) > 0}">
-		<a class="btn btn2 excel-btn"><i class="fa fa-file-excel-o"></i>엑셀 저장</a>
-		</c:if>
-		<br/>
-<form:radiobutton path="searchStatus" value="Y" label="신청내역 : " cssStyle="vertical-align:middle"/>
-<form:select path="status" cssClass="selectmenu" cssStyle="width:60px;">
-			<form:option value="" label="전체"></form:option>
-			<form:options items="${statusCode}" itemLabel="code_name" itemValue="code_id"/>
-		</form:select>&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;
-<form:radiobutton path="searchStatus" value="N" label="수료내역" cssStyle="vertical-align:middle"/>
+<div id="libraryList" class="bbs-notice" style="margin-top:10px;margin-bottom:20px;text-align:center;padding:20px;" >
+	조회기간 :
+	<form:input path="searchDateFrom" cssClass="text ui-calendar new_text01"/><label for="searchDateFrom" class="blind">시작일</label> ~
+	<form:input path="searchDateTo" cssClass="text ui-calendar new_text01"/><label for="searchDateTo"  class="blind">종료일</label>
+	<a href="#" id="search-btn" class="btn btn1" style="padding:6px 13px;">조회</a>
+	<c:if test="${fn:length(teachList) > 0}">
+	<a class="btn btn2 excel-btn"><i class="fa fa-file-excel-o"></i>엑셀 저장</a>
+	</c:if>
+	<p style="height:10px;"></p>
+	<form:radiobutton path="searchStatus" value="Y" label="신청내역 : " cssStyle="vertical-align:middle"/>
+	<form:select path="status" cssClass="selectmenu new_select_box" cssStyle="width:60px;">
+		<form:option value="" label="전체"></form:option>
+		<form:options items="${statusCode}" itemLabel="code_name" itemValue="code_id"/>
+	</form:select>
+	<span style="color:#ccc;padding:0 15px;">│</span>
+	<form:radiobutton path="searchStatus" value="N" label="수료내역" cssStyle="vertical-align:middle"/>
 </div>
 <c:if test="${fn:length(teachList) <1 }">
 	<div class="nodata" style="text-align: center;">

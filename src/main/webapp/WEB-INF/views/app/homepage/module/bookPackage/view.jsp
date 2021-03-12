@@ -32,6 +32,7 @@ $(function() {
 });
 </script>
 <style type="text/css">
+table.type2 th, table.type2 td{padding:10px 15px;}
 table.type2 tbody tr td dl dt {display: inline-block;border-right: 1px solid silver;padding-right: 5px;margin-right: 5px;}
 table.type2 tbody tr td dl dd {display: inline-block;margin-right: 15px;}
 </style>
@@ -44,7 +45,7 @@ table.type2 tbody tr td dl dd {display: inline-block;margin-right: 15px;}
 	<table class="type2">
 		<thead>
 			<tr>
-				<th>${bookPackage.book_package_subject}</th>
+				<th style="font-size:18px;">${bookPackage.book_package_subject}</th>
 			</tr>
 		</thead>
 		<tbody>

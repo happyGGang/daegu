@@ -3,7 +3,7 @@
 /* 서브Body 기본 설정 */
 fieldset{border:none;}
 
-.doc { margin-right: 255px; padding: 0 0 60px; }
+.doc {padding: 0 0 60px; }
 .doc_ice { padding: 0; padding: 0 0 60px;}
 .subContainer { clear: both; height:100%; background: #fff; padding: 0 2% 0 2%;}
 .subContainer .quickTop { position: absolute; bottom: 0px; margin-left: 1100px; }
@@ -37,7 +37,7 @@ select {border:1px solid #c9c9c9}
 .doc-body h2 {background: url('/resources/common/img/h3arr.gif') no-repeat 0 0;font-size: 150%; line-height: 150%; font-weight: bold; color: #313131; padding: 9px 0; margin-top: 30px; letter-spacing: -1px }
 .doc-body h2.txt-center { background: none; margin-top: 10px }
 .doc-body h2 span.sdate2 { font-size: 80%; font-weight: normal; color: #666 }
-.doc-body h3 {background: url('/resources/common/img/blt01.png') no-repeat 0 11px;font-size:20px; line-height: 125%; color: #373737; padding: 6px 0 10px 25px; margin-top: 20px;  }
+.doc-body h3 {font-size:22px; line-height: 125%; color: #373737; padding: 6px 0 10px 25px;}
 .doc-body h2:nth-child(1),
 .doc-body h3:nth-child(1) { margin-top: 0; }
 .doc-body h4 { font-size: 17px; font-weight: 600; color: #06378e; padding: 10px 0 5px 0; }
@@ -176,7 +176,7 @@ ul.con2.pl5 > li { background: none !important; padding-left: 0 }
 .join-step li.step1 span{background:url('../img/step1-icon.gif') no-repeat center center}
 .join-step li.step2 span{background:url('../img/step2-icon.gif') no-repeat center center}
 .join-step li.step3 span{background:url('../img/step3-icon.gif') no-repeat center center}
-.join-wrap {padding-top:50px; width:1260px;margin:0 auto;}
+.join-wrap {padding-top:50px; width:100%;margin:0 auto;}
 .join-wrap>.box.step1>span{font-size:90%}
 .join-wrap>.box.ss{background:#f5f5f5}
 

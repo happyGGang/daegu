@@ -169,22 +169,22 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 </div>
 <div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 	<fieldset>
-		<form:select path="search_type" cssClass="selectmenu">
+		<form:select path="search_type" cssClass="selectmenu new_select_box">
 			<form:option value="book_package_subject">서명</form:option>
 			<form:option value="keyword">키워드</form:option>
 		</form:select>
-		<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
-		<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
+		<form:input path="search_text" cssClass="text new_text01" cssStyle="width:200px;"/>
+		<button id="search_btn" style="background-color:#2c75cb;border-color:#1962ba;background-image:none;padding:6px 10px;"><i class="fa fa-search"></i><span>검색</span></button>
 	</fieldset>
 </div>
 <div class="infodesk">
-	<form:select path="grade" cssClass="selectmenu">
+	<form:select path="grade" cssClass="selectmenu new_select_box">
 		<form:option value="">수준별보기</form:option>
 		<form:option value="3">초등</form:option>
 		<form:option value="4">중등</form:option>
 		<form:option value="5">고등</form:option>
 	</form:select>
-	<form:select path="lender_count" cssClass="selectmenu">
+	<form:select path="lender_count" cssClass="selectmenu new_select_box">
 		<form:option value="-1">상태전체</form:option>
 		<form:option value="1">대출중</form:option>
 		<form:option value="0">대출가능</form:option>

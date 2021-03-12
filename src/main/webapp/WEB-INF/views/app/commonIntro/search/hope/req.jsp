@@ -60,7 +60,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 			<td>
 				<c:choose>
 				<c:when test="${homepagePath eq 'bukgs'}">
-				<form:select path="manageCode">
+				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="BA">구수산도서관</form:option>
 					<form:option value="GP">노원동 작은도서관</form:option>
 					<form:option value="HD">노원행복도서관</form:option>
@@ -73,13 +73,13 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
 				<c:when test="${homepagePath eq 'bukdh'}">
-				<form:select path="manageCode">
+				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="BB">대현도서관</form:option>
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
 
 				<c:when test="${homepagePath eq 'buktj'}">
-				<form:select path="manageCode">
+				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="BC">태전도서관</form:option>
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
@@ -98,7 +98,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				</c:when>
 
 				<c:when test="${homepagePath eq 'beomeo' || homepagePath eq 'yonghak' || homepagePath eq 'gosan' || homepagePath eq 'bookforest' || homepagePath eq 'mulmangi' || homepagePath eq 'padong' || homepagePath eq 'muhaksup' || homepagePath eq 'sawol'}">
-				<form:select path="manageCode">
+				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="BD">범어도서관</form:option>
 					<form:option value="BE">용학도서관</form:option>
 					<form:option value="BF">고산도서관</form:option>
@@ -110,7 +110,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				</c:when>
 
 				<c:when test="${homepagePath eq 'junggu'}">
-				<form:select path="manageCode">
+				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="FF">남산4동작은도서관</form:option>
 					<form:option value="FQ">동인 느티나무 도서관</form:option>
 					<form:option value="FS">대구중구영어도서관</form:option>
@@ -122,7 +122,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				</c:when>
 				
 				<c:when test="${homepagePath eq 'seogulib'}">
-				<form:select path="manageCode">
+				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="BL">서구어린이도서관</form:option>
 					<form:option value="BQ">비산도서관</form:option>
 					<form:option value="BP">서구영어도서관</form:option>
@@ -157,7 +157,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
 				<c:when test="${homepagePath eq 'dalseonglib'}">
-				<form:select path="manageCode">
+				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="BR">달성군립도서관</form:option>
 				</form:select>
 				</c:when>
@@ -177,17 +177,17 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
 				<c:when test="${homepagePath eq 'namic'}">
-				<form:select path="manageCode">
+				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="BT">이천어울림도서관</form:option>
 				</form:select>
 				</c:when>
 				<c:when test="${homepagePath eq 'namdm'}">
-				<form:select path="manageCode">
+				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="BS">대명어울림도서관</form:option>
 				</form:select>
 				</c:when>
 				<c:when test="${homepagePath eq 'dalseolib'}">
-				<form:select path="manageCode">
+				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="BW">도원도서관</form:option>
 					<form:option value="BV">달서어린이</form:option>
 					<form:option value="BU">성서도서관</form:option>
@@ -246,52 +246,52 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				</select>
 				</c:when>
 				<c:when test="${homepagePath eq 'jungang'}">
-				<form:select path="manageCode">
+				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="AD">중앙도서관</form:option>
 				</form:select>
 				</c:when>
 				<c:when test="${homepagePath eq 'dongbu'}">
-				<form:select path="manageCode">
+				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="AH">동부도서관</form:option>
 				</form:select>
 				</c:when>
 				<c:when test="${homepagePath eq 'seobu'}">
-				<form:select path="manageCode">
+				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="AF">서부도서관</form:option>
 				</form:select>
 				</c:when>
 				<c:when test="${homepagePath eq 'nambu'}">
-				<form:select path="manageCode">
+				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="AG">남부도서관</form:option>
 				</form:select>
 				</c:when>
 				<c:when test="${homepagePath eq 'bukbu'}">
-				<form:select path="manageCode">
+				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="AC">북부도서관</form:option>
 				</form:select>
 				</c:when>
 				<c:when test="${homepagePath eq 'duryu'}">
-				<form:select path="manageCode">
+				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="AB">두류도서관</form:option>
 				</form:select>
 				</c:when>
 				<c:when test="${homepagePath eq '228'}">
-				<form:select path="manageCode">
+				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="AA">228기념학생도서관</form:option>
 				</form:select>
 				</c:when>
 				<c:when test="${homepagePath eq '228lib'}">
-				<form:select path="manageCode">
+				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="AL">228민주운동</form:option>
 				</form:select>
 				</c:when>
 				<c:when test="${homepagePath eq 'suseong'}">
-				<form:select path="manageCode">
+				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="AE">수성도서관</form:option>
 				</form:select>
 				</c:when>
 				<c:when test="${homepagePath eq 'dalseong'}">
-				<form:select path="manageCode">
+				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="AJ">달성도서관</form:option>
 				</form:select>
 				</c:when>
@@ -301,7 +301,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				</form:select>
 				</c:when>
 				<c:when test="${homepagePath eq 'dmsl'}">
-				<form:select path="manageCode">
+				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="FV">대구시청작은도서관</form:option>
 				</form:select>
 				</c:when>

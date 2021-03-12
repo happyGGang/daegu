@@ -201,7 +201,7 @@ ${boardManage.top_html}
 	<a href="#" id="monthSelect" class="btn btn1">이동</a>
 	<a id="next-btn" href="#next" class="btn next new_btn01"><i class="fa fa-angle-right"></i><span class="blind">다음달</span></a>
 </div>
-<div class="serial-wrap">
+<div class="serial-wrap" style="margin-top:20px;">
 	<div class="smain">
 		<div class="box">
 			<div class="search-results">

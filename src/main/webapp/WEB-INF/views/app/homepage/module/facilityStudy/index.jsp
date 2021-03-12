@@ -21,15 +21,16 @@ $(function(){
 });
 </script>
 <style>
-table.cal-tbl td { text-align: center; padding: 5px;}
+table.cal-tbl th { text-align: center; padding: 10px; font-size:15px;}
+table.cal-tbl td { text-align: center; padding: 8px 0 !important;}
 </style>
 <form:form modelAttribute="facilityStudy">
 <form:hidden id="menu_idx" path="menu_idx"/>
 <form:hidden id="homepage_id_1" path="homepage_id"/>
 
-	<div class="ym_btns">
-		<form:input path="plan_date" class="text ui-calendar"/>
-		<a href="#" class="btn" id="studyBtn">이동</a>
+	<div class="ym_btns" style="float:right;">
+		<form:input path="plan_date" class="text ui-calendar new_text01"/>
+		<a href="#" class="btn btn1" id="studyBtn">이동</a>
 	</div>
 
 	<div id="calendar">

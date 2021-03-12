@@ -37,6 +37,9 @@ $(function() {
 
 });
 </script>
+<style>
+	table tbody td{padding:10px 5px;}
+</style>
 <form:form modelAttribute="apply" id="applyEdit" action="/${homepage.context_path}/module/excursions/save.do" method="post">
 <form:hidden path="homepage_id"/>
 <form:hidden path="editMode"/>
@@ -60,11 +63,11 @@ $(function() {
 			<col width="*"/>
 			<col width="12%"/>
 			<col width="15%"/>
-			<col width="15%"/>
+			<col width="12%"/>
 			<col width="11%"/>
 			<col width="10%"/>
 			<col width="10%"/>
-			<col width="8%"/>
+			<col width="10%"/>
 		</colgroup>
 		<thead>
 			<tr>

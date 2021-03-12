@@ -33,9 +33,9 @@ $(function() {
 <form:hidden path="lecture_idx"/>
 	
 	<div class="infodesk">
-		검색 결과 : 총 ${paging.totalDataCount}건
+		총 <b style="color:#ff0000;">${paging.totalDataCount}</b>건
 		
-		<form:select path="rowCount" cssClass="selectmenu">
+		<form:select path="rowCount" cssClass="selectmenu new_select_box">
 			<form:option value="10">10개씩보기</form:option>
 			<form:option value="20">20개씩보기</form:option>
 			<form:option value="30">30개씩보기</form:option>
@@ -108,12 +108,12 @@ $(function() {
 		
 		<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 			<fieldset>
-				<form:select path="search_type" cssClass="selectmenu">
+				<form:select path="search_type" cssClass="selectmenu new_select_box">
 					<form:option value="event_name">행사명</form:option>
 					<form:option value="event_place">장소</form:option>
 				</form:select>
-				<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
-				<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
+				<form:input path="search_text" cssClass="text new_text01" cssStyle="width:200px;"/>
+				<button id="search_btn" style="background:none;background-color:#2c75cb;border-color:#1962ba;padding:5px 10px 6px;"><i class="fa fa-search"></i><span>검색</span></button>
 			</fieldset>
 		</div>
 		

@@ -71,12 +71,15 @@ $(function() {
 	$(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(this).val().replace(/[^0-9]/gi,"") );});
 });
 </script>
+<style>
+	.bbs-edit th, .bbs-edit td{font-size:14px;}
+</style>
 
 <form:form modelAttribute="readerContest" id="readerContestEdit" action="save.do" >
 <form:hidden path="menu_idx"/>
 <form:hidden path="reader_idx"/>
 	<div class="wrapper-bbs" style="padding-top:0;">
-		<p><b style="color: red;">(*)</b>표시항목은 필수입력항목입니다.</p>
+		<p style="margin-bottom:10px;"><b style="color: red;">(*)</b>표시항목은 필수입력항목입니다.</p>
 		<table class="bbs-edit" summary="다독자 공모 참가 신청">
 			<caption>다독자 공모 참가 신청</caption>
 			<colgroup>
@@ -87,51 +90,51 @@ $(function() {
 				<tr>
 					<th>참가분야<b style="color: red;">(*)</b></th>
 					<td>
-						<form:radiobutton path="participation_field" value="0" label="소년부(초등~중등)" />
-						<form:radiobutton path="participation_field" value="1" label="장년부(고등~일반)" />
+						<form:radiobutton path="participation_field" value="0" label="소년부(초등~중등)" class="new_input_btn01"/>
+						<form:radiobutton path="participation_field" value="1" label="장년부(고등~일반)" class="new_input_btn01"/>
 					</td>
 				</tr>
 				<tr>
 					<th>이름<b style="color: red;">(*)</b></th>
 					<td>
-						<form:input path="user_name" cssClass="text" />
+						<form:input path="user_name" cssClass="text new_text01" />
 					</td>
 				</tr>
 				<tr>
 					<th>생년월일<b style="color: red;">(*)</b></th>
 					<td>
-						<form:input path="user_date" cssClass="text" maxlength="8" />
-						<span>※ 입력 예)19900101</span>
+						<form:input path="user_date" cssClass="text new_text01" maxlength="8" />
+						<span>※ 입력예시 : 19900101</span>
 					</td>
 				</tr>
 				<tr>
 					<th>휴대폰(본인)<b style="color: red;">(*)</b></th>
 					<td>
-						<form:input path="user_phone" cssClass="text" />
-						<span>※ 입력 예)010-0000-0000</span>
+						<form:input path="user_phone" cssClass="text new_text01" />
+						<span>※ 입력예시 : 010-0000-0000</span>
 					</td>
 				</tr>
 				<tr>
 					<th>휴대폰(보호자)</th>
 					<td>
-						<form:input path="protector_phone" cssClass="text" />
-						<span>※ 입력 예)010-0000-0000</span>
+						<form:input path="protector_phone" cssClass="text new_text01" />
+						<span>※ 입력예시 : 010-0000-0000</span>
 					</td>
 				</tr>
 				<tr>
 					<th>이메일</th>
 					<td>
-						<form:input path="user_email" cssClass="text" />
+						<form:input path="user_email" cssClass="text new_text01" />
 					</td>
 				</tr>
 				<tr>
 					<th>주소<b style="color: red;">(*)</b></th>
 					<td>
-						<form:input path="postcode" cssClass="text" maxlength="5" />
-						<a href="#" id="searchAddress" class="btn">우편번호찾기</a><br/>
-						<form:input path="address_base" cssClass="text" cssStyle="width:90%; margin:5px 0;" /><br/>
-						<form:input path="address_detailed" cssClass="text" cssStyle="width:90%;" /><br/>
-						<span>※상세주소를 입력해주세요.</span>
+						<form:input path="postcode" cssClass="text new_text01" maxlength="5" />
+						<a href="#" id="searchAddress" class="btn" style="border:1px solid #ddd;background:#eee;font-size:12px;padding:1px 10px;height:26px;line-height:25px;">우편번호찾기</a><br/>
+						<form:input path="address_base" cssClass="text new_text01" cssStyle="width:90%; margin:5px 0;" /><br/>
+						<form:input path="address_detailed" cssClass="text new_text01" cssStyle="width:90%;" /><br/>
+						<span>※ 상세주소를 입력해주세요.</span>
 					</td>
 				</tr>
 			</tbody>

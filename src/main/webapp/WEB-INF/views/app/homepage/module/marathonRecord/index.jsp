@@ -104,7 +104,7 @@ $(function(){
 				<span class="bbs-result">
 					전체 <b>${paging.totalDataCount}</b>개
 				</span>
-				<form:select path="rowCount" class="selectmenu" style="width:110px;" title="보기 개수 선택">
+				<form:select path="rowCount" class="selectmenu new_select_box" title="보기 개수 선택">
 					<form:option value="10">10개씩 보기</form:option>
 					<form:option value="20">20개씩 보기</form:option>
 					<form:option value="30">30개씩 보기</form:option>
@@ -199,12 +199,12 @@ $(function(){
 	
 	<div class="search txt-center" style="margin-top:25px;">
 		<fieldset>
-			<form:select path="search_type" cssClass="selectmenu">
+			<form:select path="search_type" cssClass="selectmenu new_select_box">
 				<form:option value="book_name">도서명</form:option>
 				<form:option value="book_journals">감상문내용</form:option>
 			</form:select>
-			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
-			<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
+			<form:input path="search_text" cssClass="text new_text01" cssStyle="width:200px;"/>
+			<button id="search_btn" style="background-color:#2c75cb;border-color:#1962ba;background-image:none;padding:7px 10px;"><i class="fa fa-search"></i><span>검색</span></button>
 		</fieldset>
 	</div>
 	

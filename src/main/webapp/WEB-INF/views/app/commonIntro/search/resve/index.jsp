@@ -47,7 +47,7 @@ $(function() {
 	<form:hidden path="viewPage"/>
 </form:form>
 
-<div class="book-list" style="padding-top:10px;">
+<div class="book-list" style="border-top:none;">
 	<div class="excel_btn_box_wrap02">
 		<a href="#" id="excel-btn" class="btn excel-btn">리스트 다운로드</a>
 	</div>

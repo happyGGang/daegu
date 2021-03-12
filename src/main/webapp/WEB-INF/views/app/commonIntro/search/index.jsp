@@ -1277,8 +1277,8 @@ $(function() {
 				</select>
 				<input id="subSearchText" placeholder="" class="text-area01" style="border-radius:3px;"/>
 				<a href="#" id="subSearch" class="btn">결과 내 재검색</a>
-				<div style="float: right;">
-				<a href="#" id="addStorage" class="btn btn4">관심도서 추가</a>
+				<div class="fl_right_btn">
+					<a href="#" id="addStorage" class="btn btn4">관심도서 추가</a>
 				</div>
 			</div>
 
@@ -1325,7 +1325,7 @@ $(function() {
 								<form:option value="50" label="50건"></form:option>
 								<form:option value="100" label="100건"></form:option>
 							</form:select>
-							<a href="#sort" id="sort-btn" class="btn" style="margin-top:-2px;">정렬</a>
+							<a href="#sort" id="sort-btn" class="btn btn_mgt">정렬</a>
 						</div>
 					</div>
 

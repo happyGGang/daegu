@@ -143,11 +143,9 @@ ${boardManage.top_html}
 								<a href="" class="name" keyValue="${i.board_idx}" title="${i.title}" style="display: block;white-space: nowrap;">
 									${i.title}
 								</a>
-								<div>
-									<span>관리자</span>
-									<span style="position: absolute;right: 10px;">조회 ${i.view_count}</span>
-								</div>
 								<ul class="con2">
+									<li>작성 : 관리자</li>
+									<li>조회 : ${i.view_count}</li>
 									<c:if test="${i.imsi_v_1 ne null and i.imsi_v_1 ne '' and i.imsi_v_1 ne '0'}">
 									<li>전시기간 : ${i.imsi_v_1}</li>
 									</c:if>

@@ -138,30 +138,32 @@ $(document).ready(function() {
 
 });
 </script>
-<form:form id="addItemForm" modelAttribute="myItem" action="/${homepage.context_path}/module/myStorage/saveItem.do" method="post" onsubmit="return false;">
-	<form:hidden path="editMode" value="ADD"/>
-	<form:hidden path="storage_idx" />
-	<form:hidden path="item_name"/>
-	<form:hidden path="author"/>
-	<form:hidden path="publer"/>
-	<form:hidden path="loca"/>
-	<form:hidden path="ctrl_no"/>
-	<form:hidden path="call_no"/>
-	<form:hidden path="img_url"/>
-	<form:hidden path="item_type"/>
-	<form:hidden path="strList"/>
-</form:form>
-<div class="group-menu code-config">
-	<div class="tree-area" style="width:100%;">
-		<div class="tree-box" style="height:280px;">
-			<div class="tree-menu" id="tree1">
+<div style="padding:10px;">
+	<form:form id="addItemForm" modelAttribute="myItem" action="/${homepage.context_path}/module/myStorage/saveItem.do" method="post" onsubmit="return false;">
+		<form:hidden path="editMode" value="ADD"/>
+		<form:hidden path="storage_idx" />
+		<form:hidden path="item_name"/>
+		<form:hidden path="author"/>
+		<form:hidden path="publer"/>
+		<form:hidden path="loca"/>
+		<form:hidden path="ctrl_no"/>
+		<form:hidden path="call_no"/>
+		<form:hidden path="img_url"/>
+		<form:hidden path="item_type"/>
+		<form:hidden path="strList"/>
+	</form:form>
+	<div class="group-menu code-config">
+		<div class="tree-area" style="width:100%;">
+			<div class="tree-box" style="height:280px;border:1px solid #ddd;">
+				<div class="tree-menu" id="tree1">
+				</div>
 			</div>
+			* 담을 보관함을 선택 후 '담기' 버튼을 클릭하세요.
 		</div>
-		* 담을 보관함을 선택 후 '담기' 버튼을 클릭하세요.
 	</div>
-</div>
-<br/>
-<div class="center">
-	<a class="btn btn2 add">담기</a>
-	<a class="btn btn1 close">닫기</a>
+	<br/>
+	<div class="center">
+		<a class="btn btn1 add">담기</a>
+		<a class="btn btn6 close" style="font-weight:bold;font-size:14px;">창닫기</a>
+	</div>
 </div>

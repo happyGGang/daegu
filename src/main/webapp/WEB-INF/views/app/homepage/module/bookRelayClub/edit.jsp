@@ -106,13 +106,16 @@ $(function() {
 	$(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(this).val().replace(/[^0-9]/gi,"") );});
 });
 </script>
+<style>
+	.bbs-edit th, .bbs-edit td{font-size:14px;}
+</style>
 
 <form:form modelAttribute="bookRelayClub" id="bookRelayClubEdit" action="save.do" >
 <form:hidden path="menu_idx"/>
 <form:hidden path="club_idx"/>
 
 	<div class="wrapper-bbs" style="padding-top:0;">
-		<p><b style="color: red;">(*)</b>표시항목은 필수입력항목입니다.</p>
+		<p style="margin-bottom:10px;"><b style="color: red;">(*)</b>표시항목은 필수입력항목입니다.</p>
 		<table class="bbs-edit" summary="독서릴레리-독서동아리 신청">
 			<caption>독서릴레리-독서동아리 신청</caption>
 			<colgroup>
@@ -122,72 +125,72 @@ $(function() {
 			</colgroup>
 			<tbody id="board_tbody">
 				<tr>
-					<th rowspan="3">동아리</th>
+					<th rowspan="3" style="border-right:1px solid #e5e8eb;">동아리</th>
 					<th>동아리명<b style="color: red;">(*)</b></th>
 					<td>
-						<form:input path="club_name" cssClass="text" />
+						<form:input path="club_name" cssClass="text new_text01" />
 					</td>
 				</tr>
 				<tr>
 					<th>동아리 결성일</th>
 					<td>
-						<form:input path="club_date" cssClass="text"  />
+						<form:input path="club_date" cssClass="text new_text01"  />
 					</td>
 				</tr>
 				<tr>
 					<th>동아리 회원수</th>
 					<td>
-						<form:input path="club_members" cssClass="text" cssStyle="width:5%;" numberOnly="true" />명
+						<form:input path="club_members" cssClass="text new_text01" cssStyle="width:5%;" numberOnly="true" />명
 					</td>
 				</tr>
 				<tr>
-					<th rowspan="4">대표자</th>
+					<th rowspan="4" style="border-right:1px solid #e5e8eb;">대표자</th>
 					<th>대표자명<b style="color: red;">(*)</b></th>
 					<td>
-						<form:input path="leader_name" cssClass="text" />
+						<form:input path="leader_name" cssClass="text new_text01" />
 					</td>
 				</tr>
 				<tr>
 					<th>휴대폰<b style="color: red;">(*)</b></th>
 					<td>
-						<form:input path="user_phone" cssClass="text" />
-						<span>※ 입력 예)010-0000-0000</span>
+						<form:input path="user_phone" cssClass="text new_text01" />
+						<span>※ 입력예시 : 010-0000-0000</span>
 					</td>
 				</tr>
 				<tr>
 					<th>이메일</th>
 					<td>
-						<form:input path="user_email" cssClass="text" />
+						<form:input path="user_email" cssClass="text new_text01" />
 					</td>
 				</tr>
 				<tr>
 					<th>주소<b style="color: red;">(*)</b></th>
 					<td>
-						<form:input path="postcode" cssClass="text" maxlength="5" />
-						<a href="#" id="searchAddress" class="btn">우편번호찾기</a><br/>
-						<form:input path="address_base" cssClass="text" cssStyle="width:90%; margin:5px 0;" /><br/>
-						<form:input path="address_detailed" cssClass="text" cssStyle="width:90%;" /><br/>
-						<span>※상세주소를 입력해주세요.</span>
+						<form:input path="postcode" cssClass="text new_text01" maxlength="5" />
+						<a href="#" id="searchAddress" class="btn" style="border:1px solid #ddd;background:#eee;font-size:12px;padding:1px 10px;height:26px;line-height:25px;">우편번호찾기</a><br/>
+						<form:input path="address_base" cssClass="text new_text01" cssStyle="width:90%; margin:5px 0;" /><br/>
+						<form:input path="address_detailed" cssClass="text new_text01" cssStyle="width:90%;" /><br/>
+						<span>※ 상세주소를 입력해주세요.</span>
 					</td>
 				</tr>
 				<tr>
 					<th colspan="2">도서영역<b style="color: red;">(*)</b></th>
 					<td>
-						<form:radiobutton path="book_area" value="0" label="성인" />
-						<form:radiobutton path="book_area" value="1" label="청소년" />
-						<form:radiobutton path="book_area" value="2" label="어린이" />
+						<form:radiobutton path="book_area" value="0" label="성인" class="new_input_btn01"/>
+						<form:radiobutton path="book_area" value="1" label="청소년" class="new_input_btn01"/>
+						<form:radiobutton path="book_area" value="2" label="어린이" class="new_input_btn01"/>
 					</td>
 				</tr>
 				<tr>
 					<th colspan="2">독서노트 신청수량<b style="color: red;">(*)</b></th>
 					<td>
-						<form:input path="book_quantity" cssClass="text" cssStyle="width:5%;" numberOnly="true" />권
+						<form:input path="book_quantity" cssClass="text new_text01" cssStyle="width:5%;" numberOnly="true" />권
 					</td>
 				</tr>
 				<tr>
 					<th colspan="2">릴레이 계획<b style="color: red;">(*)</b></th>
 					<td>
-						<form:textarea path="relay_plan" cssClass="text" cssStyle="width:90%;" rows="3"  />
+						<form:textarea path="relay_plan" cssClass="text new_textarea01" cssStyle="width:90%;border:1px solid #ccd2dc;background:#fafafa;" rows="3"  />
 					</td>
 				</tr>
 			</tbody>
@@ -196,7 +199,7 @@ $(function() {
 		
 		<div class="wrapper-bbs">
 			<h4>릴레이 명단
-				<span style="font-weight: normal;">(*5인 이상 작성)
+				<span style="font-weight: normal;font-size:15px;">(*5인 이상 작성)
 					<select id="relay_num">
 						<option value="5">5인</option>
 						<option value="6">6인</option>
@@ -239,13 +242,13 @@ $(function() {
 						<tr>
 							<td>${status.count}</td>
 							<td>
-								<form:input path="relayList[${i}].relay_name" cssClass="text" />
+								<form:input path="relayList[${i}].relay_name" cssClass="text new_text01" />
 							</td>
 							<td>
-								<form:input path="relayList[${i}].relay_phone" cssClass="text" />
+								<form:input path="relayList[${i}].relay_phone" cssClass="text new_text01" />
 							</td>
 							<td>
-								<form:input path="relayList[${i}].relay_etc" cssClass="text" />
+								<form:input path="relayList[${i}].relay_etc" cssClass="text new_text01" />
 							</td>
 						</tr>
 					</c:forEach>
@@ -253,7 +256,7 @@ $(function() {
 			</table>
 		</div>
 		
-		<strong style="display: block; text-align: center;">※ 위와같이 <2020 수성人문학제> 독서릴레이를 신청합니다.</strong>
+		<strong style="display: block; text-align: center;font-size:18px;margin-bottom:20px;">※ 위와같이 <2020 수성人문학제> 독서릴레이를 신청합니다.</strong>
 		
 		<div class="button bbs-btn center">
 			<a href="#" id="save_btn" class="btn btn1">신청하기</a>

@@ -190,7 +190,7 @@ ul.mysurvey_list{list-style-type: decimal;}
 
 /* MySurvey > 사용자화면 */
 .brdTop_02 .survey_info_wrap {width:92%;margin:25px auto}
-.brdTop_02 .survey_info {width:100%;min-height:350px;text-align:center;filter:alpha(opacity=85);-webkit-box-shadow:inset 2px 3px 10px 0px rgba(187,187,187,1);-moz-box-shadow:inset 2px 3px 10px 0px rgba(187,187,187,1);box-shadow:inset 2px 3px 10px 0px rgba(187,187,187,1);background:rgba(255,255,255,0.85);Filter:shadow(color=black,direction=135)}
+.brdTop_02 .survey_info {width:100%;min-height:350px;text-align:center;filter:alpha(opacity=85);-webkit-box-shadow:inset 2px 3px 10px 0px rgba(187,187,187,1);-moz-box-shadow:inset 2px 3px 10px 0px rgba(187,187,187,1);box-shadow:inset 2px 3px 10px 0px rgba(187,187,187,1);background:rgba(255,255,255,0.92);Filter:shadow(color=black,direction=135)}
 .brdTop_02 .survey_info .description {min-height:230px;color:#454545;padding:15px;font-size:13px;line-height:20px;overflow:hidden;white-space:normal;word-break:break-all;margin-bottom:12px;text-align:justify;border-radius:10px;-webkit-border-radius:10px;-moz-border-radius:10px;-o-border-radius:10px}
 .brdTop_02 .contact {display:block;width:303px;height:36px;margin:0 auto;color:#fff;text-align:center;line-height:180%;background:url('/resources/cms/survey/img/bg_tell.png') left top no-repeat}
 .brdTop_02 .contact span {display:block;padding:3px 0 0 25px;letter-spacing:-0.05em}
@@ -200,11 +200,11 @@ ul.mysurvey_list{list-style-type: decimal;}
      .brdTop_02 .survey_info .contact {font-size:14px}
 }
 
-.surveyList {display:block;padding:20px;margin:20px auto;background:#f7f7f7 url('/resources/cms/survey/img/bg_poll_line.gif') left top repeat-y;background-size:100% auto}
+.surveyList {display:block;padding:20px;margin:20px auto;background:#f7f7f7 /*url('/resources/cms/survey/img/bg_poll_line.gif') left top repeat-y*/;background-size:100% auto}
 .surveyList .list {width:100%;overflow:hidden}
 .surveyList .list tbody td {padding-bottom:20px;word-break:break-all;white-space:normal}
 /* .surveyList .list tbody td.qustionNum {min-width:50px;height:50px;font-size:18px;font-weight:bold;background:url('/resources/cms/survey/img/bg_circle_question.png') no-repeat;color:#fff;padding:15px 0 15px; } */
-.surveyList .list tbody td.qustionNum {min-width:50px;font-size:18px;font-weight:bold;background:url('/resources/cms/survey/img/bg_circle_question.png') no-repeat;color:#fff;padding:15px 0 15px; }
+.surveyList .list tbody td.qustionNum {min-width:50px;font-size:18px;font-weight:bold;background:url('/resources/cms/survey/img/bg_circle_question.png') no-repeat;color:#fff;padding:10px 0 15px;}
 .surveyList .list tbody td.qustion {text-align:left;padding-left:10px;padding-bottom:0;color:#009ae1;font-weight:bold;font-size:14px;border-top:1px dashed #f0f0f0;line-height:120%}
 .surveyList .list tbody td.aL { text-align:left;padding-left:10px}
 .surveyList .list tbody td input[type="text"] {background:#e1f0fc;border:1px solid #c1d8eb;padding-left:7px;height:22px;}

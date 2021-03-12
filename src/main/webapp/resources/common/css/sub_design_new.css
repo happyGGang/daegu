@@ -895,7 +895,7 @@ dt,dd{;word-break:keep-all}
 .book_festival .bg01{position:relative;height:240px;border:1px solid #e5e5e5;/*border-bottom:none;*/background:url('/resources/common/img/book_festival_bg01.jpg')no-repeat right;}
 .book_festival .bg02{position:relative;height:240px;border:1px solid #e5e5e5;/*border-bottom:none;*/background:url('/resources/common/img/book_festival_bg02.jpg')no-repeat right;}
 .book_festival .bg03{position:relative;height:240px;border:1px solid #e5e5e5;/*border-bottom:none;*/background:url('/resources/common/img/book_festival_bg03.jpg')no-repeat right;}
-.book_festival h2{font-family:'S-CoreDream-6Bold';font-size:32px;color:#000;}
+.book_festival h2{font-family:'S-CoreDream-6Bold';font-size:32px;color:#000;background:none;padding:0;margin-top:0;letter-spacing:0;}
 .book_festival p{font-family:'S-CoreDream-4Regular';font-size:15px;color:#000;letter-spacing:-0.5px;line-height:22px;}
 .book_festival img{margin:20px 0;}
 

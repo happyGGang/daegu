@@ -37,7 +37,7 @@ $(function() {
 	.mara_check .number em {position: absolute;top: 5px;font-size: 17px;font-style: normal;font-family: 'sans-serif';font-weight: 500;color: #222;margin-left: -18px;letter-spacing: 0;}
 	.mara_check .mara_course .bar_bg span.pink_bar {position: absolute; top: 0;left: 0;height: 20px;background: #ee005e;}
 </style>
-<h2 style="margin-bottom:5%;background:0;">내 마라톤일지 확인</h2>
+<h3 style="margin-top:0;">내 마라톤일지 확인</h3>
 <c:choose>
 	<c:when test="${ing eq true}">
 		<form:form modelAttribute="marathonApplicant" method="post" action="index.do">
@@ -46,23 +46,21 @@ $(function() {
 		<form:hidden path="applicant_idx"/>
 			<table class="type2">
 				<colgroup>
-					<col width="160"/>
+					<col width="15%"/>
+					<col width="35%"/>
+					<col width="15%"/>
 					<col width="*"/>
 				</colgroup>
 				<tbody>
 					<tr>
-						<th>참가자명</th>
-						<td>${marathonApplicant.member_name}</td>
-					</tr>
-					<tr>
-						<th>참가종목</th>
+						<th style="border-top:1px solid #5e6062;">참가자명</th>
+						<td style="border-top:1px solid #5e6062;">${marathonApplicant.member_name}</td>
+						<th style="border-top:1px solid #5e6062;">참가종목</th>
 						<td>${marathonApplicant.contest_type} (${marathonApplicant.page_count})쪽
 					</tr>
 					<tr>
 						<th>개인누적현황</th>
 						<td><strong>${marathonApplicant.read_page_count_total}</strong>쪽</td>
-					</tr>
-					<tr>
 						<th>독서이력확인</th>
 						<td><a href="" class="con_btn pink" keyValue="${marathonApplicant.contest_idx}" keyValue2="${marathonApplicant.contest_type_idx}" keyValue3="${marathonApplicant.applicant_idx}">독서이력</a></td>
 					</tr>

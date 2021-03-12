@@ -197,6 +197,10 @@ int leftSize = 313; //왼쪽 컨텐츠 사이즈
 int leftSizeInput = leftSize-125; //왼쪽 컨텐츠 검색 input 사이즈
 %>
 
+<style>
+	.set-area table a{border:1px solid #ddd !important;}
+</style>
+
 <form:form id="parentMoveForm" modelAttribute="myStorage" action="save.do">
 	<form:hidden path="editMode" value="PARENTMOVE"/>
 	<form:hidden path="homepage_id"/>

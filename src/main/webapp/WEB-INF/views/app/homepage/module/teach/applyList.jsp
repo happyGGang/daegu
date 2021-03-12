@@ -101,31 +101,34 @@ $(function(){
 	<form:hidden path="editMode"/>
 	<form:hidden path="menu_idx"/>
 
-<div id="libraryList" class="bbs-notice" style="margin-top:10px;margin-bottom:20px;text-align:center;padding:20px;" >
+<div id="libraryList" class="bbs-notice new_apply_box">
 	<c:choose>
 		<c:when test="${fn:length(subHomepageList) > 0}">
+		<div style="width:100%;text-align:center;margin-bottom:10px;">
 			도서관 : <form:select path="homepage_id" items="${subHomepageList}" itemLabel="homepage_name" itemValue="homepage_id" cssClass="new_select_box"></form:select>
+		</div>
 		</c:when>
 		<c:otherwise>
 			<form:hidden path="homepage_id"/>
 		</c:otherwise>
 	</c:choose>
-	<span style="color:#ccc;padding:0 15px;">│</span>
-	조회기간 :
-	<form:input path="searchDateFrom" cssClass="text ui-calendar new_text01"/><label for="searchDateFrom" class="blind">시작일</label> ~ 
-	<form:input path="searchDateTo" cssClass="text ui-calendar new_text01"/><label for="searchDateTo"  class="blind">종료일</label>
-	<a href="#" id="search-btn" class="btn btn1" style="padding:6px 13px;">조회</a>
-	<c:if test="${fn:length(teachList) > 0}">
-	<a class="btn btn2 excel-btn"><i class="fa fa-file-excel-o"></i>엑셀 저장</a>
-	</c:if>
-	<p style="height:10px;"></p>
-	<form:radiobutton path="searchStatus" value="Y" label="신청내역 : " cssStyle="vertical-align:middle"  cssClass="new_input_btn01"/>
-	<form:select path="status" cssClass="selectmenu new_select_box" cssStyle="width:60px;">
-		<form:option value="" label="전체"></form:option>
-		<form:options items="${statusCode}" itemLabel="code_name" itemValue="code_id"/>
-	</form:select>
-	<span style="color:#ccc;padding:0 15px;">│</span>
-	<form:radiobutton path="searchStatus" value="N" label="수료내역" cssStyle="vertical-align:middle"  cssClass="new_input_btn01"/>
+	<div class="date">		
+		조회기간 :
+		<form:input path="searchDateFrom" cssClass="text ui-calendar new_text01"/><label for="searchDateFrom" class="blind">시작일</label> ~ 
+		<form:input path="searchDateTo" cssClass="text ui-calendar new_text01"/><label for="searchDateTo"  class="blind">종료일</label>
+		<c:if test="${fn:length(teachList) > 0}">
+		<a class="btn excel-btn">리스트 다운로드</a>
+		</c:if>
+	</div>
+	<div class="con">
+		<form:radiobutton path="searchStatus" value="Y" label="신청내역 : " cssStyle="vertical-align:middle"  cssClass="new_input_btn01"/>
+		<form:select path="status" cssClass="selectmenu new_select_box">
+			<form:option value="" label="전체"></form:option>
+			<form:options items="${statusCode}" itemLabel="code_name" itemValue="code_id"/>
+		</form:select>
+		<form:radiobutton path="searchStatus" value="N" label="수료내역" cssStyle="vertical-align:middle"  cssClass="new_input_btn01"/>
+		<a href="#" id="search-btn" class="btn btn1">조회</a>
+	</div>
 </div>
 <c:if test="${fn:length(teachList) <1 }">
 	<div class="nodata" style="text-align: center;">

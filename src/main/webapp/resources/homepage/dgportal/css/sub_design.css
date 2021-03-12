@@ -711,7 +711,7 @@ div[class^="dpt-list-type"] li[class^="ico"]:after {content:"";display:block;bac
 /* -------- 도서관서비스안내02 -------- */
 .dpt-intro-type02 .role-head {position:relative;margin-bottom: 30px;}
 .dpt-intro-type02 .role-head .role-head-tit {position:absolute;right:0;bottom: -15px;display:table;background:#014898 url('/resources/homepage/dgportal/img/pttr.png');width:300px;height: 220px;text-align:center;}
-.dpt-intro-type02 .role-head .role-head-tit:before {content:"";position:absolute;top: -70px;right: 5px;display:block;background: url('/resources/homepage/dgportal/img/ptn05.png') no-repeat 0 0;width: 133px;height: 1150px;}
+.dpt-intro-type02 .role-head .role-head-tit:before {content:"";position:absolute;top: -70px;right: 5px;display:block;background: url('/resources/homepage/dgportal/img/ptn05.png') no-repeat 0 0;width: 133px;height: 500px;}
 .dpt-intro-type02 .role-head-tit .txtBox {display:table-cell;padding:4px 15px 0;vertical-align:middle;}
 .dpt-intro-type02 .txtBox h3.ptit {margin-bottom:5px;padding-top:0;color:#fff;font-size:1.75em;font-weight:500;line-height:1.3;word-break:break-word;padding-left: 0;}
 .dpt-intro-type02 .txtBox .ptitEng {display:block;color:rgba(255, 255, 255, .6);font-size:.938em;font-weight:500;line-height:1.46;}
@@ -1381,3 +1381,25 @@ background:url(/nanum/site/builder/skin/library_skin01/img/common/icon_tit_bg.gi
 .gd-col2:after {display: block; width: 0; height: 0; content: ''; clear: both;}
 .gd-col2 >.left {float: left; width:50%;}
 .gd-col2 >.right {float: right; width:50%;}
+
+/*절차박스*/
+.step_box{width:100%;display:inline-block;margin-top:5px;}
+.step_box ol{margin-left:-25px;text-align:center;}
+.step_box ol li{float:left;background:url("/resources/common/img/bu_arrow.png") no-repeat 8px 45px;}
+.step_box ol li .con_box{margin-left:25px;padding:25px 0;border:1px solid #dfdfdf;color:#757575;box-sizing:border-box;font-size:13px;}
+.step_box ol li .con_box .num{margin-bottom:10px;letter-spacing:0;color:#222;font-weight:600;}
+.step_box ol li .con_box.style1{border:1px solid #222;color:#222;box-shadow: 3px 3px 0 0 rgba(0, 0, 0, .1);}
+.step_box ol.min li{height:130px;}
+.step_box ol.min li .con_box{height:100%;}
+
+.step_box ol.no3 li{width:33.3%;}
+.step_box ol.no4 li{width:25%;}
+.step_box ol.no5 li{width:20%;}
+.step_box ol.no6 li{width:16.6%;}
+.step_box ol.no6 li:first-child{width:17%;}
+.step_box ol li:first-child{background:none;}
+
+@media all and (max-width: 767px) {
+	.step_box ol li .con_box{font-size:12px;}
+	.step_box ol li{background:none;float:none;width:100% !important;margin-bottom:5px;}
+}

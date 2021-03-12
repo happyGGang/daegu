@@ -94,7 +94,7 @@ function compactTrim(str) {
 		<form:option value="publisher" label="발행자"></form:option>
 		<form:option value="publish_year" label="발행년"></form:option>
 	</form:select>
-	<form:input path="search_text" cssClass="text new_text01" accesskey="s" title="검색어" alt="검색어"  placeholder="검색어를 입력하세요" style="height:33px !important;background:#fff;border:1px solid #ccc;"/>
+	<form:input path="search_text" cssClass="text new_text01" accesskey="s" title="검색어" alt="검색어"  placeholder="검색어를 입력하세요" style="height:33px !important;background:#fff;border:1px solid #ccc;border-radius:3px !important;"/>
 	<a href="#" id="search-btn" class="btn btn1">조회</a>
 </div>
 
