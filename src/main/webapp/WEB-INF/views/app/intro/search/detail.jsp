@@ -319,7 +319,7 @@ CONTEXT_PATH : ${context_path}
 				</c:when>
 
 				<c:when test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib'}">
-
+					<c:if test="${detail.MANAGE_CODE ne 'FD'}">
 					<c:choose>
 						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
 							<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
@@ -327,7 +327,7 @@ CONTEXT_PATH : ${context_path}
 						<c:otherwise>
 						</c:otherwise>
 					</c:choose>
-
+					</c:if>
 				</c:when>
 
 				<c:when test="${context_path eq 'donggu' || context_path eq 'sincheon' || context_path eq 'donggusm'}">
@@ -430,7 +430,7 @@ AD20 종합자료실
 				<c:when test="${context_path eq '228'}">
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
 					<c:if test="${detail.RESERVATION_CNT eq '0'}">
-					<c:if test="${detail.SHELF_LOC_CODE eq 'AA04'}">
+					<c:if test="${detail.SHELF_LOC_CODE eq 'AA03' || detail.SHELF_LOC_CODE eq 'AA04' || detail.SHELF_LOC_CODE eq 'AA09' || detail.SHELF_LOC_CODE eq 'AA10' || detail.SHELF_LOC_CODE eq 'AA11' || detail.SHELF_LOC_CODE eq 'AA14' || detail.SHELF_LOC_CODE eq 'AA15' || detail.SHELF_LOC_CODE eq 'AA16' || detail.SHELF_LOC_CODE eq 'AA17' || detail.SHELF_LOC_CODE eq 'AA18' || detail.SHELF_LOC_CODE eq 'AA20' || detail.SHELF_LOC_CODE eq 'AA21' || detail.SHELF_LOC_CODE eq 'AA22' || detail.SHELF_LOC_CODE eq 'AA23'}">
 					<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
 					<!-- <a href="#night" id="night-req" class="btn">야간예약신청</a> -->
 					</c:if>

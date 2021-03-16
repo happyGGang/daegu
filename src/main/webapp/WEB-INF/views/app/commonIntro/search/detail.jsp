@@ -300,6 +300,7 @@ $(function() {
 						<li>LOAN_CODE : ${detail.LOAN_CODE}</li>
 						<li>RESERVE_CODE : ${detail.RESERVE_CODE}</li>
 						<li>CONTEXT_PATH : ${homepage.context_path}</li>
+						<li>MANAGE_CODE : ${detail.MANAGE_CODE}</li>
 					</ul>
 				</li>
 			</ul>
@@ -357,6 +358,7 @@ $(function() {
 
 				<c:when test="${homepage.context_path eq 'dalseolib'}">
 
+					<c:if test="${detail.MANAGE_CODE ne 'FD'}">
 					<c:choose>
 						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
 							<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
@@ -364,6 +366,7 @@ $(function() {
 						<c:otherwise>
 						</c:otherwise>
 					</c:choose>
+					</c:if>
 
 				</c:when>
 
@@ -465,7 +468,7 @@ $(function() {
 				<c:when test="${homepage.context_path eq '228'}">
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
 					<c:if test="${detail.RESERVATION_CNT eq '0'}">
-					<c:if test="${detail.SHELF_LOC_CODE eq 'AA04'}">
+					<c:if test="${detail.SHELF_LOC_CODE eq 'AA03' || detail.SHELF_LOC_CODE eq 'AA04' || detail.SHELF_LOC_CODE eq 'AA09' || detail.SHELF_LOC_CODE eq 'AA10' || detail.SHELF_LOC_CODE eq 'AA11' || detail.SHELF_LOC_CODE eq 'AA14' || detail.SHELF_LOC_CODE eq 'AA15' || detail.SHELF_LOC_CODE eq 'AA16' || detail.SHELF_LOC_CODE eq 'AA17' || detail.SHELF_LOC_CODE eq 'AA18' || detail.SHELF_LOC_CODE eq 'AA20' || detail.SHELF_LOC_CODE eq 'AA21' || detail.SHELF_LOC_CODE eq 'AA22' || detail.SHELF_LOC_CODE eq 'AA23'}">
 					
 						<c:choose>
 							<c:when test="${sessionScope.member.user_class_code eq '016' || sessionScope.member.user_class_code eq '017'}">
