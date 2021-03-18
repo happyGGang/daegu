@@ -153,8 +153,8 @@
 		<if test="add_id != null and add_id != ''">
 		AND	b.add_id = #{add_id}
 		</if>
-<!-- 		ORDER BY b.add_date DESC -->
-		ORDER BY a.picture_book_subject ASC, b.loan_start_date ASC
+		ORDER BY b.add_date DESC
+<!-- 		ORDER BY a.picture_book_subject ASC, b.loan_start_date ASC -->
 		${pagingBottom}
 	</select>
 	
