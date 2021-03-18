@@ -147,7 +147,7 @@ $(function() {
 				<tr>
 					<th>릴레이 계획</th>
 					<td>
-						<form:textarea path="relay_plan" cssClass="text new_textarea01" cssStyle="width:90%;border:1px solid #ccd2dc;background:#fafafa;" rows="3"/>
+						<form:textarea path="relay_plan" cssClass="text new_textarea01" cssStyle="width:90%;border:1px solid #ccd2dc;background:#fafafa;padding:0 5px;" rows="3"/>
 					</td>
 				</tr>
 				<tr>
@@ -159,7 +159,7 @@ $(function() {
 			</tbody>
 		</table>
 
-		<strong style="display: block; text-align: center;font-size:18px;margin-bottom:20px;">※ 위와같이 <2020 수성人문학제> 독서릴레이를 신청합니다.</strong>
+		<strong style="display: block; text-align: center;font-size:18px;margin-bottom:20px;">※ 위와같이 <2021 수성인문학제> 독서릴레이를 신청합니다.</strong>
 		
 		<div class="button bbs-btn center">
 			<a href="#" id="save_btn" class="btn btn1">신청하기</a>

@@ -88,7 +88,7 @@ $(function() {
 			</colgroup>
 			<tbody id="board_tbody">
 				<tr>
-					<th>기관명<b style="color: red;">(*)</b></th>
+					<th>단체명<b style="color: red;">(*)</b></th>
 					<td>
 						<form:input path="group_name" cssClass="text new_text01" />
 					</td>
@@ -100,7 +100,7 @@ $(function() {
 					</td>
 				</tr>
 				<tr>
-					<th>담당자명<b style="color: red;">(*)</b></th>
+					<th>대표자명<b style="color: red;">(*)</b></th>
 					<td>
 						<form:input path="manager_name" cssClass="text new_text01" />
 					</td>
@@ -149,7 +149,7 @@ $(function() {
 				<tr>
 					<th>릴레이 계획<b style="color: red;">(*)</b></th>
 					<td>
-						<form:textarea path="relay_plan" cssClass="text new_textarea01" cssStyle="width:90%;border:1px solid #ccd2dc;background:#fafafa;" rows="3" />
+						<form:textarea path="relay_plan" cssClass="text new_textarea01" cssStyle="width:90%;border:1px solid #ccd2dc;background:#fafafa;padding:0 5px;" rows="3" />
 					</td>
 				</tr>
 				<tr>
@@ -161,7 +161,7 @@ $(function() {
 			</tbody>
 		</table>
 
-		<strong style="display: block; text-align: center;font-size:18px;margin-bottom:20px;">※ 위와같이 <2020 수성人문학제> 독서릴레이를 신청합니다.</strong>
+		<strong style="display: block; text-align: center;font-size:18px;margin-bottom:20px;">※ 위와같이 <2021 수성인문학제> 독서릴레이를 신청합니다.</strong>
 		
 		<div class="button bbs-btn center">
 			<a href="#" id="save_btn" class="btn btn1">신청하기</a>

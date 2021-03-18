@@ -17,16 +17,15 @@ $(function() {
 <form:form modelAttribute="bookRelayGroup" id="bookRelayGroup" action="step2.do" >
 <form:hidden path="menu_idx"/>
 	<div class="roomicon">
-			<div class="inner icowrap"><span class="ico ico5"></span> <strong>기관 독서릴레이</strong>
-				<p>「2020 수성북」을 기관의 구성원들과 함께 읽고 싶은 단체의 참여 신청을 받습니다.</p>
+			<div class="inner icowrap"><span class="ico ico5"></span> <strong>독서릴레이</strong>
+				<p>「2021 수성북」을 읽고 싶은 단체(동아리, 기관)의 참여 신청을 받습니다.</p>
 			</div>
 		</div>
 
 		<ul class="con">
-			<li>대상 : 기관</li>
-			<li>운영기간 : 2020. 6. 2.(화) ~ 10.31.(토)</li>
-			<li>운영방법 : 도서관 홈페이지 신청 → 방문 수령(수성북, 독서노트) → 릴레이 진행 → 반납</li>
-			<li>독서노트 : 책자형(수성구립도서관 배부), SNS(인스타그램) 활용</li>
+			<li>대상 : 단체</li>
+			<li>운영기간 : 2021. 3. 24.(수) ~ 9. 30.(목)</li>
+			<li>운영방법 : 수성구립도서관 홈페이지 신청 → 방문수령(수성북, 독서노트) → 릴레이 진행 → 반납<br /><span style="margin-left:80px;font-size:15px;">※ 독서노트 : 책자형(수성구립도서관 배부), SNS(인스타그램) 활용</span><br /><span style="margin-left:80px;font-size:15px;">※ 인스타그램 활용시(@suseong_lib 게시물 확인)</span></li>
 			<li>문의 : 668-1600</li>
 		</ul>
 	<div class="link_btn02">
