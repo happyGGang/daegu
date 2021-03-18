@@ -1140,8 +1140,7 @@ $(function() {
 	         		<form:radiobutton path="agent_yn" class="Y" value="Y"/> <label for="agent_yn1" style="cursor:pointer;">사용</label>&nbsp;
 					<form:radiobutton path="agent_yn" class="N" value="N"/> <label for="agent_yn2" style="cursor:pointer;">미사용</label>
 					<div class="ui-state-highlight">
-						<em>* 사용 시 '수강생' 입력항목이 노출됩니다. 아닌경우 신청자 정보만으로 신청합니다.<br/>
-						* 어린이 강의일 경우 대리신청이 사용으로 고정됩니다.
+						<em>* 사용 시 '수강생' 입력항목이 노출됩니다. 아닌경우 신청자 정보만으로 신청합니다.
 						</em>
 					</div>
 				</td>
