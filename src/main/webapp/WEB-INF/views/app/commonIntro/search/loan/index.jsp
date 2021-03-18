@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
 <script type="text/javascript">
@@ -29,6 +30,7 @@ $(function() {
 
 });
 </script>
+<jsp:useBean id="now" class="java.util.Date"/>
 
 <form id="renewForm" action="save.do" method="post" onsubmit="return false;">
 	<input type="hidden" name="loan_key" id="loan_key">
@@ -91,7 +93,11 @@ $(function() {
 			<td>${i.LOAN_DATE}</td>
 			<td>${i.RETURN_PLAN_DATE}</td>
 			<td>
+			<fmt:parseDate value="${i.RETURN_PLAN_DATE}" pattern="yyyy/MM/dd" var="rpd"/>
+			<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="nowDate"/>
+			<fmt:formatDate value="${rpd}" pattern="yyyyMMdd" var="endDate"/>
 			<c:choose>
+				<c:when test="${(nowDate - endDate) > 0}">연체</c:when>
 				<c:when test="${i.STATUS eq '0'}">대출</c:when>
 				<c:when test="${i.STATUS eq '1'}">반납</c:when>
 				<c:when test="${i.STATUS eq '2'}">반납연기</c:when>
