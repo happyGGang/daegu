@@ -102,16 +102,16 @@ div.pay-ul ul {list-style: disc;padding-left: 20px;margin-bottom: 30px;font-weig
 <form:hidden path="picture_book_idx"/>
 <div class="search txt-center">
 	<fieldset>
-		<form:select path="search_type" cssClass="selectmenu">
+		<form:select path="search_type" cssClass="selectmenu new_select_box">
 			<form:option value="picture_book_subject">서명</form:option>
 			<form:option value="keyword">키워드</form:option>
 		</form:select>
-		<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
-		<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
+		<form:input path="search_text" cssClass="text new_text01" cssStyle="width:200px;"/>
+		<button id="search_btn" style="background-color:#2c75cb;border-color:#1962ba;background-image:none;padding:6px 10px;"><i class="fa fa-search"></i><span>검색</span></button>
 	</fieldset>
 </div>
 <div class="infodesk">
-	<form:select path="category" cssClass="selectmenu">
+	<form:select path="category" cssClass="selectmenu new_select_box">
 		<form:option value="">원화유형별보기</form:option>
 		<form:option value="18">글 있음</form:option>
 		<form:option value="17">글 없음</form:option>

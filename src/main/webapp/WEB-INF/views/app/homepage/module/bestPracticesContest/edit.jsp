@@ -124,6 +124,9 @@ $(function() {
 	
 });
 </script>
+<style>
+	.bbs-edit th, .bbs-edit td{font-size:14px;}
+</style>
 
 <form:form id="deleteFileForm" modelAttribute="bestPracticesContest">
 	<form:hidden path="homepage_id"/>
@@ -136,7 +139,7 @@ $(function() {
 <form:hidden path="best_practices_idx"/>
 
 	<div class="wrapper-bbs">
-		<p><b style="color: red;">(*)</b>표시항목은 필수입력항목입니다.</p>
+		<p style="margin-bottom:10px;"><b style="color: red;">(*)</b>표시항목은 필수입력항목입니다.</p>
 		<table class="bbs-edit" summary="독서릴레이 우수사례공모 신청">
 			<caption>독서릴레이 우수사례공모 신청</caption>
 			<colgroup>
@@ -177,7 +180,7 @@ $(function() {
 					<th>연락처<b style="color: red;">(*)</b></th>
 					<td>
 						<form:input path="user_phone" cssClass="text" />
-						<span>※ 입력 예)010-0000-0000</span>
+						<span>※ 입력예시 : 010-0000-0000</span>
 					</td>
 				</tr>
 				<tr>
@@ -202,7 +205,7 @@ $(function() {
 					<th>첨부파일</th>
 					<td class="file1">
 		         		<input type="file" id="org_file_name_temp" name="org_file_name_temp" class="text" title="파일 첨부" />
-	         			<span>※ 사진, 영상 등 첨부해 주세요.</span>
+	         			<span>※ 사진, 영상 등을 첨부해 주세요.</span>
 		         		<c:if test="${bestPracticesContest.editMode eq 'MODIFY'}">
 							<c:if test="${bestPracticesContest.server_file_name ne NULL}">
 								<div class="item">
@@ -216,7 +219,7 @@ $(function() {
 					<th>첨부파일2</th>
 					<td class="file2">
 		         		<input type="file" id="org_file_name_temp2" name="org_file_name_temp2" class="text" title="파일 첨부" />
-	         			<span>※ 사진, 영상 등 첨부해 주세요.</span>
+	         			<span>※ 사진, 영상 등을 첨부해 주세요.</span>
 		         		<c:if test="${bestPracticesContest.editMode eq 'MODIFY'}">
 							<c:if test="${bestPracticesContest.server_file_name2 ne NULL}">
 								<div class="item">
@@ -230,7 +233,7 @@ $(function() {
 					<th>첨부파일3</th>
 					<td class="file3">
 		         		<input type="file" id="org_file_name_temp3" name="org_file_name_temp3" class="text" title="파일 첨부" />
-	         			<span>※ 사진, 영상 등 첨부해 주세요.</span>
+	         			<span>※ 사진, 영상 등을 첨부해 주세요.</span>
 		         		<c:if test="${bestPracticesContest.editMode eq 'MODIFY'}">
 							<c:if test="${bestPracticesContest.server_file_name3 ne NULL}">
 								<div class="item">

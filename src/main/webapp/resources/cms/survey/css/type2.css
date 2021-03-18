@@ -20,7 +20,7 @@ body.survey{background:#b4d9f7}
 #contArea .brdTop_01{height:50px;background:url('/survey/resources/img/bg_tit.gif') repeat-x;margin-bottom:10px}
 #contArea .brdTop_01 h1{color:#fff;font-weight:bold;font-size:23px;padding:13px 0 13px 20px}
 #contArea .brdTop_02{width:100%;min-height:275px;background:url('/survey/resources/img/bg_top_02.jpg');background-color:#244d97;background-repeat:no-repeat;background-position:center top;background-size:100% 275px;margin-bottom:10px}
-#contArea .brdTop_02 h1{height:50px;color:#000;font-weight:bold;font-size:23px;padding:20px 0 0 30px;background:url('/survey/resources/img/bullet.gif') left 16px no-repeat}
+#contArea .brdTop_02 h1{height:50px;color:#fff;font-weight:bold;font-size:23px;padding:20px 0 0 30px;background:url('/survey/resources/img/bullet.gif') left 16px no-repeat}
 
 @media screen and (max-width:650px){
     #contArea .brdTop h1{color:#009bdf;font-weight:bold;font-size:18px;padding:20px 0}
@@ -165,7 +165,7 @@ ul.answer_list
 
 /* MySurvey > 사용자화면 */
 .brdTop_02 .survey_info_wrap{width:90%;margin:0 auto;padding-bottom:15px}
-.brdTop_02 .survey_info_wrap .description{min-height:130px;color:#454545;padding:15px;font-size:13px;line-height:20px;filter:alpha(opacity=80);;background:rgba(255,255,255,0.8);overflow:hidden;white-space:normal;word-break:break-all;margin-bottom:17px;text-align:justify;border-radius:10px;-webkit-border-radius:10px;-moz-border-radius:10px;-o-border-radius:10px}
+.brdTop_02 .survey_info_wrap .description{min-height:130px;color:#454545;padding:15px;font-size:13px;line-height:20px;filter:alpha(opacity=80);;background:rgba(255,255,255,0.8);overflow:hidden;white-space:normal;word-break:break-all;margin-bottom:17px;text-align:justify;}
 .brdTop_02 .survey_info_wrap .contact{text-align:center;color:#ffe345;padding:0;line-height:180%}
 .brdTop_02 .survey_info_wrap .contact span{color:#ffe345}
 .brdTop_02 .survey_info_wrap .contact img{vertical-align:middle;margin-bottom:3px}

@@ -116,6 +116,7 @@ $(function() {
 
 });
 </script>
+
 <form:form modelAttribute="humanBook" action="save.do" method="post" enctype="multipart/form-data">
 <form:hidden path="editMode"/>
 <form:hidden path="homepage_id"/>
@@ -154,8 +155,8 @@ $(function() {
 				<tr>
 					<th>성별(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td>
-						<form:radiobutton path="teacher_gender" value="Y" label="남" checked="true"/>&nbsp;
-						<form:radiobutton path="teacher_gender" value="N" label="여"/>
+						<form:radiobutton path="teacher_gender" value="Y" label="남" checked="true" class="new_input_btn01"/>&nbsp;
+						<form:radiobutton path="teacher_gender" value="N" label="여" class="new_input_btn01"/>
 					</td>
 				</tr>
 				<tr>
@@ -192,7 +193,7 @@ $(function() {
 				<tr>
 					<th>활동분야(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td>
-						<form:select path="activity_category">
+						<form:select path="activity_category" cssClass="new_select_box">
 							<form:options items="${activityCateList}" itemLabel="code_name" itemValue="code_id"/>
 						</form:select>
 					</td>
@@ -200,21 +201,21 @@ $(function() {
 				<tr>
 					<th>활동가능요일(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td>
-						<form:checkbox path="activity_day" label="일" value="1" checked="${fn:contains(humanBook.activity_day, '1') ? 'checked' : ''}" />
-						<form:checkbox path="activity_day" label="월" value="2" checked="${fn:contains(humanBook.activity_day, '2') ? 'checked' : ''}" />
-						<form:checkbox path="activity_day" label="화" value="3" checked="${fn:contains(humanBook.activity_day, '3') ? 'checked' : ''}" />
-						<form:checkbox path="activity_day" label="수" value="4" checked="${fn:contains(humanBook.activity_day, '4') ? 'checked' : ''}" />
-						<form:checkbox path="activity_day" label="목" value="5" checked="${fn:contains(humanBook.activity_day, '5') ? 'checked' : ''}" />
-						<form:checkbox path="activity_day" label="금" value="6" checked="${fn:contains(humanBook.activity_day, '6') ? 'checked' : ''}" />
-						<form:checkbox path="activity_day" label="토" value="7" checked="${fn:contains(humanBook.activity_day, '7') ? 'checked' : ''}" />
+						<form:checkbox path="activity_day" label="일" value="1" checked="${fn:contains(humanBook.activity_day, '1') ? 'checked' : ''}" class="new_input_btn01" />
+						<form:checkbox path="activity_day" label="월" value="2" checked="${fn:contains(humanBook.activity_day, '2') ? 'checked' : ''}" class="new_input_btn01" />
+						<form:checkbox path="activity_day" label="화" value="3" checked="${fn:contains(humanBook.activity_day, '3') ? 'checked' : ''}" class="new_input_btn01" />
+						<form:checkbox path="activity_day" label="수" value="4" checked="${fn:contains(humanBook.activity_day, '4') ? 'checked' : ''}" class="new_input_btn01" />
+						<form:checkbox path="activity_day" label="목" value="5" checked="${fn:contains(humanBook.activity_day, '5') ? 'checked' : ''}" class="new_input_btn01" />
+						<form:checkbox path="activity_day" label="금" value="6" checked="${fn:contains(humanBook.activity_day, '6') ? 'checked' : ''}" class="new_input_btn01" />
+						<form:checkbox path="activity_day" label="토" value="7" checked="${fn:contains(humanBook.activity_day, '7') ? 'checked' : ''}" class="new_input_btn01" />
 					</td>
 				</tr>
 				<tr>
 					<th>활동가능시간(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td>
-						<form:checkbox path="activity_time" label="오전(10:00~12:00)" value="1" checked="${fn:contains(humanBook.activity_time, '1') ? 'checked' : ''}" />
-						<form:checkbox path="activity_time" label="오후(13:00~17:00)" value="2" checked="${fn:contains(humanBook.activity_time, '2') ? 'checked' : ''}" />
-						<form:checkbox path="activity_time" label="상시" value="3" checked="${fn:contains(humanBook.activity_time, '3') ? 'checked' : ''}" />
+						<form:checkbox path="activity_time" label="오전(10:00~12:00)" value="1" checked="${fn:contains(humanBook.activity_time, '1') ? 'checked' : ''}" class="new_input_btn01" />
+						<form:checkbox path="activity_time" label="오후(13:00~17:00)" value="2" checked="${fn:contains(humanBook.activity_time, '2') ? 'checked' : ''}" class="new_input_btn01" />
+						<form:checkbox path="activity_time" label="상시" value="3" checked="${fn:contains(humanBook.activity_time, '3') ? 'checked' : ''}" class="new_input_btn01" />
 						<form:input path="activity_time_txt" cssClass="text" cssStyle="width: 130px;" />
 					</td>
 				</tr>
@@ -225,13 +226,13 @@ $(function() {
 				<tr>
 					<th>본인소개(주요경력 및 활동내역)(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td>
-						<form:textarea path="teacher_content" class="text" cssStyle="width: 100%;height:80px;" />
+						<form:textarea path="teacher_content" class="text" cssClass="new_textarea01" />
 					</td>
 				</tr>
 				<tr>
 					<th>휴먼북 내용</th>
 					<td>
-						<form:textarea path="human_book_content" class="text" cssStyle="width: 100%;height:80px;" />
+						<form:textarea path="human_book_content" class="text" cssClass="new_textarea01" />
 					</td>
 				</tr>
 				<tr>

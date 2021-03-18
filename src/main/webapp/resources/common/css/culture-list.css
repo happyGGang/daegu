@@ -31,6 +31,11 @@ span.ca.ty8{background-color:#f0bf58;color:#fff}
 .rwd-table th,
 .rwd-table td {}
 
+.search {text-align:center;}
+.search select {width:100px;padding:3px 10px 6px 2px;}
+.search div.culture-search-box {padding:0 0 5px 0;}
+.search .input-txt {width:300px;height:32px;}
+
 @media all and (max-width:1024px){
 
 }

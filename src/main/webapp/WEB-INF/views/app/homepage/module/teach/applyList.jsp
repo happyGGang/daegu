@@ -101,28 +101,34 @@ $(function(){
 	<form:hidden path="editMode"/>
 	<form:hidden path="menu_idx"/>
 
-<div id="libraryList" class="bbs-notice" style="margin-top:10px;margin-bottom:20px;" >
+<div id="libraryList" class="bbs-notice new_apply_box">
 	<c:choose>
 		<c:when test="${fn:length(subHomepageList) > 0}">
-			도서관 : <form:select path="homepage_id" items="${subHomepageList}" itemLabel="homepage_name" itemValue="homepage_id"></form:select>
+		<div style="width:100%;text-align:center;margin-bottom:10px;">
+			도서관 : <form:select path="homepage_id" items="${subHomepageList}" itemLabel="homepage_name" itemValue="homepage_id" cssClass="new_select_box"></form:select>
+		</div>
 		</c:when>
 		<c:otherwise>
 			<form:hidden path="homepage_id"/>
 		</c:otherwise>
 	</c:choose>
-조회 기간:<form:input path="searchDateFrom" cssClass="text ui-calendar"/><label for="searchDateFrom" class="blind">시작일</label> ~ 
-		<form:input path="searchDateTo" cssClass="text ui-calendar"/><label for="searchDateTo"  class="blind">종료일</label>
-		<a href="#" id="search-btn" class="btn btn1">조회</a>
+	<div class="date">		
+		조회기간 :
+		<form:input path="searchDateFrom" cssClass="text ui-calendar new_text01"/><label for="searchDateFrom" class="blind">시작일</label> ~ 
+		<form:input path="searchDateTo" cssClass="text ui-calendar new_text01"/><label for="searchDateTo"  class="blind">종료일</label>
 		<c:if test="${fn:length(teachList) > 0}">
-		<a class="btn btn2 excel-btn"><i class="fa fa-file-excel-o"></i>엑셀 저장</a>
+		<a class="btn excel-btn">리스트 다운로드</a>
 		</c:if>
-		<br/>
-<form:radiobutton path="searchStatus" value="Y" label="신청내역 : " cssStyle="vertical-align:middle"/>
-<form:select path="status" cssClass="selectmenu" cssStyle="width:60px;">
+	</div>
+	<div class="con">
+		<form:radiobutton path="searchStatus" value="Y" label="신청내역 : " cssStyle="vertical-align:middle"  cssClass="new_input_btn01"/>
+		<form:select path="status" cssClass="selectmenu new_select_box">
 			<form:option value="" label="전체"></form:option>
 			<form:options items="${statusCode}" itemLabel="code_name" itemValue="code_id"/>
-		</form:select>&nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;
-<form:radiobutton path="searchStatus" value="N" label="수료내역" cssStyle="vertical-align:middle"/>
+		</form:select>
+		<form:radiobutton path="searchStatus" value="N" label="수료내역" cssStyle="vertical-align:middle"  cssClass="new_input_btn01"/>
+		<a href="#" id="search-btn" class="btn btn1">조회</a>
+	</div>
 </div>
 <c:if test="${fn:length(teachList) <1 }">
 	<div class="nodata" style="text-align: center;">
@@ -208,9 +214,6 @@ $(function(){
 							<li>
 								<div>
 									<label>수강생</label> : ${i.student_name} ( ${i.student_sex eq 'M' ? '남' : '여'} )
-									<c:if test="${i.teach_status eq '2' and i.wait_num != 0}">
-									<span>${i.wait_num}번째 참여자로 신청되었습니다.</span>
-									</c:if>
 									<c:if test="${i.teach_status eq '3'and i.wait_num != 0}">
 									<span>현재 대기번호 ${i.wait_num}번 입니다.</span>
 									</c:if>

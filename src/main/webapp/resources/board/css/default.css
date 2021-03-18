@@ -537,7 +537,7 @@ table.bbs-edit .checkbox-original{padding:0 0 5px}
 	.bbs_gallery.list5 li{width:50%}
 }
 
-.selectmenu { padding: 3px 0px 6px 2px; }
+.selectmenu { padding: 3px 10px 6px 2px; }
 
 .bgGray {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(156,156,156, 0.5); z-index: 9;}
 a#closeSearch {color: #808080;font-size: 155%;float: right;margin: -19px -25px;}

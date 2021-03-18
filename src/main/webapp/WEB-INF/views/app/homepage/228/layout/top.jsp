@@ -17,6 +17,7 @@
 			 <a href="https://www.facebook.com/dblib01/" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/facebook-icon-btn.png" alt="페이스북" class="sitemap-img2"></a>
 			 <a href="https://www.instagram.com/228studentlibrary/" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/insta-icon-btn.png" alt="인스타그램" class="sitemap-img2"></a>
 			 <a href="https://twitter.com/daebonglib" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/twitter-icon-btn.png" alt="트위터" class="sitemap-img2"></a>
+			 <a href="https://www.youtube.com/channel/UCHJiipMqeDWHgehZTp6En3Q" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/youtube-icon-btn.png" alt="트위터" class="sitemap-img2"></a>
 					<c:if test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
 						<b style="font-weight:200;font-size:14px;">${sessionScope.member.member_name}님</b>
 						<span class="txt-bar"></span>

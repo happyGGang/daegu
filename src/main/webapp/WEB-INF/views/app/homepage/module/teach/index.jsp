@@ -112,6 +112,10 @@ $(function(){
 	});
 });
 </script>
+<style>
+	.list01 td .btn{width:100px;padding:5px 8px;}
+</style>
+
 <form:form modelAttribute="teach" action="/${homepage.context_path}/module/teach/student/save.do" method="POST" onsubmit="return false">
 <%-- 	<form:hidden path="group_idx"/> --%>
 	<form:hidden path="teach_idx"/>
@@ -200,31 +204,43 @@ $(function(){
 	</c:otherwise>
 	</c:choose>
 
-	<div class="search">
+	<div class="search new_search_box">
 		<fieldset>
-			<form:select path="search_type" cssClass="selectmenu">
-				<form:option value="teach_name"><c:choose><c:when test="${param.searchCate1 eq '16'}">행사명</c:when><c:when test="${param.searchCate1 eq '17'}">강좌명</c:when><c:when test="${param.searchCate1 eq '18'}">강좌명</c:when><c:otherwise>강좌명</c:otherwise></c:choose></form:option>
-			</form:select>
-			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
-			
-			<span>중분류 :
-				<form:select path="group_idx">
-					<form:option class="all" value="0" label="전체" />
-					<form:options itemValue="group_idx" itemLabel="group_name" items="${categoryGroupList}"/>
-				</form:select>
-			</span>
-			<span>소분류 :
-				<form:select path="category_idx" >
-					<form:option class="all" value="0" label="전체" />
-					<c:forEach items="${categoryList}" var="i">
-						<form:option class="group_${i.group_idx}" value="${i.category_idx}">${i.category_name}</form:option>
-					</c:forEach>
-				</form:select>
-			</span>
-			<div>
+			<div style="text-align:center;margin-bottom:10px;">
+				<div class="fl_left_box">
+					<form:select path="search_type" cssClass="selectmenu new_select_box">
+						<form:option value="teach_name"><c:choose>
+						<c:when test="${param.searchCate1 eq '16'}">행사명</c:when>
+						<c:when test="${param.searchCate1 eq '17'}">강좌명</c:when>
+						<c:when test="${param.searchCate1 eq '18'}">강좌명</c:when>
+						<c:otherwise>강좌명</c:otherwise></c:choose>
+						</form:option>
+					</form:select>
+					<form:input path="search_text" cssClass="text new_text01"/>
+				</div>
+				<div class="srch_category_box">
+					<p style="height:2px;"></p>
+					<span>중분류 :
+						<form:select path="group_idx" cssClass="new_select_box">
+							<form:option class="all" value="0" label="전체" />
+							<form:options itemValue="group_idx" itemLabel="group_name" items="${categoryGroupList}"/>
+						</form:select>
+					</span>
+					<span style="margin-left:10px;">소분류 :
+						<form:select path="category_idx" cssClass="new_select_box">
+							<form:option class="all" value="0" label="전체" />
+							<c:forEach items="${categoryList}" var="i">
+								<form:option class="group_${i.group_idx}" value="${i.category_idx}">${i.category_name}</form:option>
+							</c:forEach>
+						</form:select>
+					</span>
+					<a href="#" class="btn btn1" id="search_btn"><i class="fa fa-search"></i><span>검색</span></a>
+				</div>
+			</div>
+			<div class="srch_day_box">
 				<c:forEach var="i" begin="1" end="7">
 					<input type="checkbox" id="teach_day${i}" name="teach_day" value="${i}" ${fn:contains(teach.teach_day, i) ? 'checked="checked"' : ''} style="width: 13px;">
-					<label for="teach_day${i}">
+					<label for="teach_day${i}" style="background:none;padding-right:5px;">
 						<c:if test="${i eq 1}">일</c:if>
 						<c:if test="${i eq 2}">월</c:if>
 						<c:if test="${i eq 3}">화</c:if>
@@ -235,7 +251,6 @@ $(function(){
 					</label>
 				</c:forEach>
 			</div>
-			<a href="#" class="btn btn1" id="search_btn"><i class="fa fa-search"></i><span>검색</span></a>
 		</fieldset>
 	</div>
 
@@ -369,11 +384,11 @@ ${html.html}
 								<c:otherwise>
 									<c:choose>
 										<c:when test="${i.teach_status eq '0'}">
-											<a href="" class="btn btn1 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.large_category_idx}" apply_status="1">
+											<a href="" class="btn btn5 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.large_category_idx}" apply_status="1">
 											<i class="fa fa-pencil-square-o"></i><span>수강신청 </span></a>
 										</c:when>
 										<c:when test="${i.teach_status eq '1'}">
-											<a href="" class="btn btn1 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.large_category_idx}" apply_status="2">
+											<a href="" class="btn btn2 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.large_category_idx}" apply_status="2">
 											<i class="fa fa-pencil-square-o"></i><span>대기자신청</span></a>
 										</c:when>
 										<c:when test="${i.teach_status eq '2' or i.teach_status eq '10'}">
@@ -390,7 +405,7 @@ ${html.html}
 										</c:when>
 										<c:when test="${i.teach_status eq '4'}">
 											<a href="javascript:void(0);" class="btn" style="cursor: default;">
-											<span>접수마감</span></a>
+											<i class="fa fa-user"></i><span>접수마감</span></a>
 										</c:when>
 										<c:when test="${i.teach_status eq '5'}">
 											<a href="javascript:void(0);" class="btn" style="cursor: default;">

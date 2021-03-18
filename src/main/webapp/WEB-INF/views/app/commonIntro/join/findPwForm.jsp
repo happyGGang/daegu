@@ -60,10 +60,10 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 	</div>
 	<form:form modelAttribute="memberInfo" action="changePwForm.do" method="post">
 		<form:hidden path="menu_idx"/>
-		<div style="text-align: right;">
+		<div style="text-align: right;margin-bottom:10px;">
 			(<span style="color: red; font-weight: bold;">*</span>) 항목은 필수 입력값입니다.
 		</div>
-		<table id="memberForm">
+		<table id="memberForm" style="border-top:2px solid #ccc;border-bottom:1px solid #ddd;">
 			<tbody>
 				<tr>
 					<th>

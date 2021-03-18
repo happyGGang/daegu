@@ -57,7 +57,7 @@ label.hidden {display:none;}
 
 
 /********************검색박스_상세검색********************/
-#contents-title h2{font-size:30px;font-weight:bold;padding:10px 20px;}
+#contents-title h2{font-size:25px;font-weight:bold;padding:10px 20px 10px 0;}
 
 .search-form .detail_search {padding: 0 20px 20px;/*border-top:3px solid #000;*/box-sizing:border-box;}
 .search-form .detail_search .section {width:100%;display:inline-block;overflow:hidden;}
@@ -130,13 +130,13 @@ div.main-menu div.right {font-size:18px;font-weight:bold;color:#6C6C6C;vertical-
 #mapWrap a:hover {}
 
 /* 도서검색 선택 */
-#libraryList {border:1px solid #dadada;padding:30px 0 30px 49px;box-sizing:border-box;}
+#libraryList {border:1px solid #dadada;padding:30px 0 30px 25px;box-sizing:border-box;}
 #libraryList div.title {position:relative;margin-top:20px;box-sizing:border-box;}
 #libraryList h5 {background: url('/resources/common/img/blt_01.gif') no-repeat 0px 6px;display:block;padding:0 0 5px 25px;font-size:17px;font-weight:bold;}
 #libraryList .boxviewbtn {position:absolute;right:50px;top:0;padding-top:3px;padding-bottom:3px}
 #libraryList input{margin-right:5px;width:15px;height:15px;}
 #libraryList input,
-#libraryList label {color:#222;font-size:15px;vertical-align:middle;cursor:pointer;letter-spacing:-1.5px;}
+#libraryList label {color:#222;font-size:14px;vertical-align:middle;cursor:pointer;letter-spacing:-1.5px;}
 #libraryList li {display:inline-block;zoom:1;*display:inline;float:left;width:25%;padding:3px 0;box-sizing:border-box;letter-spacing:-1.5px;}
 
 @media all and (max-width:1000px){
@@ -397,7 +397,9 @@ transition : all .3s ease}
 
 #search_detail {margin-top:0;position:relative;width:100%;}
 #search_detail .table_gray {border-collapse:collapse;border:0;font-size:1em;margin:5px 0 20px;width:100%;}
-#search_detail .table_gray .search_left{text-align:left;padding-left:10px;}
+#search_detail .table_gray .search_left{text-align:left;padding-left:10px;line-height:180%;}
+#search_detail .table_gray .search_left input{width:15px;height:15px;margin-right:5px;}
+#search_detail .table_gray .search_left li label{font-size:13.5px;}
 #search_detail .table_gray .yyyy{width:80px;height:18px;}
 #search_detail .table_gray thead th, #search_detail .table_gray tbody th {background:#f9f9f9;color:#000;font-weight:bold;text-align: center;vertical-align: middle;padding:1% 0}
 #search_detail .table_gray th, #search_detail .table_gray td {border-top:1px solid #000;line-height:140%;padding:5px 2px 3px;}

@@ -31,8 +31,8 @@ $(function(){
 	<form:hidden path="selectedType"/>
 	<form:hidden path="editMode"/>
 	<form:hidden path="menu_idx"/>
-	<div id="cont_head">
-		<h3>참가신청 현황</h3>
+	<div id="cont_head" style="padding-bottom:0;">
+		<h3 style="font-weight:bold;">참가신청 현황</h3>
 	</div>
 			
 	<div class="infodesk">

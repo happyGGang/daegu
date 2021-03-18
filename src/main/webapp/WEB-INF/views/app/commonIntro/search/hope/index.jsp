@@ -39,6 +39,11 @@ $(function() {
 });
 
 </script>
+<style>
+	table td{text-align:center;font-size:14px;}
+	table td.left{text-align:left;}
+</style>
+
 <form id="cancelForm" action="save.do" method="post" onsubmit="return false;">
 	<input type="hidden" name="editMode" value="CANCEL"/>
 	<input type="hidden" id="select_no" name="select_no"/>
@@ -51,51 +56,66 @@ $(function() {
 <p class="txt-box-adv">희망도서는 개별 도서관 홈페이지에서 신청가능합니다.</p>
 </c:when>
 <c:otherwise>
-<div id="contents-title">
+<!-- <div id="contents-title">
 	<h2>희망도서신청<span style="font-weight:300">을 확인 하고 싶으세요?</span></h2>
-</div>
+</div> -->
 </c:otherwise>
 </c:choose>
 
 
 <!-- /contents-title-->
 
-<a href="#" id="excel-btn" class="btn btn2">EXCEL</a>
+
 
 <form:form modelAttribute="librarySearch" action="index.do" method="get" onsubmit="return false;">
-<fieldset>
-	<form:select path="furnish_status" class="selectmenu">
-		<form:option value="" label="전체"/>
-		<form:option value="1" label="신청중"/>
-		<form:option value="2" label="처리중"/>
-		<form:option value="3" label="소장중"/>
-		<form:option value="4" label="취소"/>
-	</form:select>
-</fieldset>
 <form:hidden path="viewPage"/>
 <form:hidden path="menu_idx"/>
-<div class="book-list">
-	<c:if test="${fn:length(hopeList) < 1 }"> <h3>희망도서신청 내역이 없습니다.</h3></c:if>
+
+<c:if test="${fn:length(hopeList) < 1 }"><div class="book-list" style="border-top:none;"><h3 style="margin-top:0;">희망도서신청 내역이 없습니다.</h3></div></c:if>
+
+<div class="check-btn-box" style="margin:10px 0;">
+	<ul>
+		<li>
+		<form:select path="furnish_status" class="selectmenu new_select_box">
+			<form:option value="" label="전체"/>
+			<form:option value="1" label="신청중"/>
+			<form:option value="2" label="처리중"/>
+			<form:option value="3" label="소장중"/>
+			<form:option value="4" label="취소"/>
+		</form:select>
+		</li>
+		<li><a href="#" id="excel-btn" class="btn excel-btn">리스트 다운로드</a></li>
+	</ul>
+</div>
 
 <table summary="신청정보">
+	<colgroup>
+		<col width="5%">
+		<col width="*">
+		<col width="15%">
+		<col width="15%">
+		<col width="12%">
+		<col width="12%">
+		<col width="7%">
+		<col width="13%">
+		<col width="5%">
+	</colgroup>
 	<thead>
-		<th style="width:6%">순번</th>
-		<th style="width:18%">제목</th>
-		<th style="width:15%">저자 / 발행자 / 출판년도</th>
-		<th style="width:17%">도서관명</th>
-		<th style="width:10%">신청일</th>
-		<th style="width:10%">처리일</th>
-		<th style="width:8%">상태</th>
-		<th style="width:8%">취소사유</th>
-		<th style="width:8%">취소</th>
+		<th style="text-align:center;padding:15px 0;">순번</th>
+		<th style="text-align:center;padding:15px 0;">제목</th>
+		<th style="text-align:center;padding:15px 0;">저자/발행자/<br />출판년도</th>
+		<th style="text-align:center;padding:15px 0;">도서관명</th>
+		<th style="text-align:center;padding:15px 0;">신청일</th>
+		<th style="text-align:center;padding:15px 0;">처리일</th>
+		<th style="text-align:center;padding:15px 0;">상태</th>
+		<th style="text-align:center;padding:15px 0;">취소사유</th>
+		<th style="text-align:center;padding:15px 0;">취소</th>
 	</thead>
 	<tbody>
-
-
 	<c:forEach items="${hopeList}" var="i">
 		<tr>
 			<td>${i.RNUM}</td>
-			<td>${i.TITLE}</td>
+			<td class="left;">${i.TITLE}</td>
 			<td>${i.AUTHOR} / ${i.PUBLISHER} / ${i.PUBLISH_YEAR}</td>
 			<td>${i.LIB_NAME}</td>
 			<td>${i.APPLICANT_DATE}</td>
@@ -143,6 +163,6 @@ $(function() {
 				</c:if>
 			</span>
 		</div>
-</div>
+
 </form:form>
 

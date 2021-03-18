@@ -113,7 +113,7 @@ ${quiz.top_html}
 			<h2>${quiz.quiz_name}<c:if test="${empty quiz.quiz_name}">등록된 독서퀴즈가 없습니다.</c:if>
 				<div class="quiz_month">
 					<a href="" class="before-month"><i class="fa fa-caret-left"></i><span class="blind">이전달</span></a>
-					<b><span>${quizReq.search_quiz_year}.</span><em>${quizReq.search_quiz_month}</em></b>
+					<b><span>${quizReq.search_quiz_year} . </span><em>${quizReq.search_quiz_month}</em></b>
 					<a href="" class="next-month"><i class="fa fa-caret-right"></i><span class="blind">다음달</span></a>
 				</div>
 			</h2>
@@ -123,23 +123,31 @@ ${quiz.top_html}
 					<div class="quiz_list">
 						<div class="pic">
 							<p>
-								<img src="${quiz.book_image}" height="154" width="140" alt="${quiz.book_name}" />
+								<img src="${quiz.book_image}" height="154" width="170" alt="${quiz.book_name}" />
 							</p>
 						</div>
 						<div class="data_info">
 							<h3>${quiz.book_name}</h3>
 							<ul>
 								<c:if test="${quiz.book_author ne ''}">
-									<li><span class="item"> 저자</span> <span class="value"><span>${quiz.book_author}</span></span></li>
+									<li>
+										<span class="item"> 저　　자</span><span class="value" style="margin-left:15px;width:calc(100% - 15px)"><span>${quiz.book_author}</span></span>
+									</li>
 								</c:if>
 								<c:if test="${quiz.book_publisher ne ''}">
-									<li><span class="item"> 출판사</span> <span class="value"><span>${quiz.book_publisher}</span></span></li>
+									<li>
+										<span class="item" style="letter-spacing:7px;"> 출판사</span><span class="value" style="margin-left:15px;width:calc(100% - 15px)"><span>${quiz.book_publisher}</span></span>
+									</li>
 								</c:if>
 								<c:if test="${quiz.call_no ne ''}">
-									<li><span class="item"> 청구기호</span> <span class="value"><span>${quiz.call_no}</span></span></li>
+									<li>
+										<span class="item"> 청구기호</span><span class="value" style="margin-left:15px;width:calc(100% - 15px)"><span>${quiz.call_no}</span></span>
+									</li>
 								</c:if>
 								<c:if test="${quiz.book_desc ne ''}">
-									<li><span class="item"> 줄거리</span> <span class="value"><span>${quiz.book_desc}</span></span></li>
+									<li>
+										<span class="item" style="letter-spacing:7px;"> 줄거리</span><span class="value" style="margin-left:15px;width:calc(100% - 15px)"><span>${quiz.book_desc}</span></span>
+									</li>
 								</c:if>
 							</ul>
 						</div>
@@ -157,7 +165,7 @@ ${quiz.top_html}
 	<br/>
 	<c:forEach items="${quizQuestionList}" var="oneQuestion" varStatus="questionStatus">
 		<div id="question_${questionStatus.index}" class="poll_item">
-			<div>${questionStatus.count}. ${oneQuestion.quiz_question_title}</div>
+			<div><b>${questionStatus.count}. ${oneQuestion.quiz_question_title}</b></div>
 			<c:choose>
 				<c:when test="${oneQuestion.quiz_question_type eq 'TEXT'}">
 					<div class="txt-box t1" keyValue="TEXT">
@@ -197,13 +205,13 @@ ${quiz.top_html}
 		<form:hidden path="search_quiz_month"/>
 		<c:if test="${not empty quiz.quiz_name}">
 
-		<table class="nohead quiz-info-table" summary="독서퀴즈" style="margin-bottom: 20px;">
+		<table class="quiz-info-table" summary="독서퀴즈" style="margin-bottom: 20px;margin-top:30px;border-top:none;">
 			<caption>독서퀴즈 응모 정보 입력</caption>
 			<tbody>
 				<c:if test="${quiz.school_yn eq 'Y'}">
 					<tr>
-						<th>학교</th>
-						<td>
+						<th style="border-top:2px solid #5e6062;">학교</th>
+						<td style="border-top:2px solid #5e6062;">
 							<label for="school"/>
 							<form:input path="school" class="text" title="학교 입력" maxlength="15"/></td>
 					</tr>

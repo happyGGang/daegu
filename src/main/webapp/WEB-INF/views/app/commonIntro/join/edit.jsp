@@ -140,7 +140,7 @@ $(function() {
 	});
 
 	$('th.th1').css('width', '20%');
-	$('th.th1').css('text-align', 'right');
+	$('th.th1').css('text-align', 'left');
 
 });
 $(document).on("keyup", "input:text[numberOnly]", function() {
@@ -212,12 +212,12 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 		<form:hidden path="before_url"/>
 		<form:hidden path="menu_idx"/>
 
-		<div style="text-align: right; ${param.ageType eq 'under' ? 'display:none;':''}">
+		<div style="text-align: right; ${param.ageType eq 'under' ? 'display:none;':''}; border-top:1px solid #ddd;padding:15px 0;">
 			(<span style="color: red; font-weight: bold;">*</span>) 항목은 필수 입력값입니다.
 		</div>
 
-		<div style="border-top:2px solid #ccc">
-		<table id="memberForm" style="${param.ageType eq 'under' ? 'display:none;':''}">
+		<div>
+		<table id="memberForm" style="${param.ageType eq 'under' ? 'display:none;':''};border-top:none;">
 			<caption>회원가입 정보입력. 아이디,비밀번호,성명,성별,생년월일,휴대폰 번호,주소,소속도서관,집전화번호,이메일 등을 입력</caption>
 			<tbody>
 				<tr>
@@ -359,7 +359,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 						<span style="color: red;">*</span> 아이디
 					</th>
 					<td>
-						<form:input path="member_id" class="text" title="아이디 입력" maxlength="20"/> <a href="#" id="check-btn" class="btn" title="중복확인">중복확인</a>
+						<form:input path="member_id" class="text new_text01" title="아이디 입력" maxlength="20"/> <a href="#" id="check-btn" class="btn btn2" title="중복확인">중복확인</a>
 						<div class="ui-state-highlight" style="margin-top:7px">
 							<span>* 아이디는 영문 또는 숫자만 가능하며 6자 이상 20자 이내만 가능합니다.</span>
 						</div>
@@ -370,7 +370,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 						<span style="color: red;">*</span> 비밀번호
 					</th>
 					<td>
-						<form:password path="member_pw" class="text" title="신규 비밀번호 입력" maxlength="20"/>
+						<form:password path="member_pw" class="text new_text01" title="신규 비밀번호 입력" maxlength="20"/>
 						<div class="ui-state-highlight" style="margin-top:7px">
 							<span id="pwdcheck">* 비밀번호는 영문(대소문자구분),숫자,특수문자(!@#$%^&*만 허용)를 혼용하여 9~20자이내</span>
 						</div>
@@ -382,7 +382,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 						<span style="color: red;">*</span> 비밀번호 확인
 					</th>
 					<td>
-						<input id="member_pw_confirm" type="password" class="text" title="신규 비밀번호 확인을 위한 입력" > <b id="pw_confirm_message"></b>
+						<input id="member_pw_confirm" type="password" class="text new_text01" title="신규 비밀번호 확인을 위한 입력" > <b id="pw_confirm_message"></b>
 					</td>
 				</tr>
 				<tr>
@@ -446,11 +446,11 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 					<td>
 						<div class="line2">
 							<p>
-								<form:input path="zipcode" class="text" title="우편번호" readonly="true" cssStyle="width: 80px;"/> <a href="#" id="findPostCode" class="btn" title="새창열림">우편번호 찾기</a>
+								<form:input path="zipcode" class="text new_text01" title="우편번호" readonly="true" cssStyle="width: 80px;"/> <a href="#" id="findPostCode" class="btn btn2" title="새창열림">우편번호 찾기</a>
 							</p>
 							<p>
-								<form:input path="address1" class="text" style="width:80%;" title="상세 주소 입력" />
-								<form:input path="address2" class="text" style="width:80%;" title="동이하 주소 입력"/>
+								<form:input path="address1" class="text new_text01" style="width:80%;margin-bottom:5px;" title="상세 주소 입력" />
+								<form:input path="address2" class="text new_text01" style="width:80%;" title="동이하 주소 입력"/>
 							</p>
 						</div>
 					</td>
@@ -470,9 +470,9 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 					</th>
 					<td>
 						<form:hidden path="phone"/>
-						<form:input path="phone1" class="text" cssStyle="width:60px;" maxlength="3" numberOnly="true" title="전화번호 지역번호 입력"/>
-					 	- <form:input path="phone2" class="text" cssStyle="width:60px;" maxlength="4" numberOnly="true" title="전화번호 중간번호 입력"/>
-					 	- <form:input path="phone3" class="text" cssStyle="width:60px;" maxlength="4" numberOnly="true" title="전화번호 끝 번호 입력"/>
+						<form:input path="phone1" class="text new_text01" cssStyle="width:60px;" maxlength="3" numberOnly="true" title="전화번호 지역번호 입력"/>
+					 	- <form:input path="phone2" class="text new_text01" cssStyle="width:60px;" maxlength="4" numberOnly="true" title="전화번호 중간번호 입력"/>
+					 	- <form:input path="phone3" class="text new_text01" cssStyle="width:60px;" maxlength="4" numberOnly="true" title="전화번호 끝 번호 입력"/>
 					</td>
 				</tr>
 				<tr>
@@ -481,24 +481,24 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 					</th>
 					<td>
 						<form:hidden path="email"/>
-						<form:input path="email1" class="text" title="이메일 아이디 입력" /> @
-						<form:input path="email2" class="text" title="이메일주소 입력" />
-						<select id="email2_temp" name="email2_temp" class="selectmenu" style="width:150px;border:1px solid #d0d1d6;border-radius:3px" title="이메일 주소 선택">
+						<form:input path="email1" class="text new_text01" title="이메일 아이디 입력" /> @
+						<form:input path="email2" class="text new_text01" title="이메일주소 입력" />
+						<select id="email2_temp" name="email2_temp" class="selectmenu new_select_box" title="이메일 주소 선택">
 							<option value="" >--직접입력--</option>
 							<option value="naver.com" >naver.com</option>
 							<option value="daum.net" >daum.net</option>
 							<option value="gmail.com" >gmail.com</option>
 							<option value="korea.kr" >korea.kr</option>
 						</select>
-						<br/>
-						<form:checkbox path="email_service_yn" value="Y" label="EMAIL 수신여부"/>
+						<p style="height:5px;"></p>
+						<form:checkbox path="email_service_yn" value="Y" label="EMAIL 수신여부" class="new_input_btn01"/>
 					</td>
 				</tr>
 			</tbody>
 		</table>
 		</div>
 
-		<p class="txt-box-adv">경산시, 칠곡군 소재지인 주민들은 비대면 인증이 되지 않습니다. 도서관에 직접 방문하여 주시기 바랍니다.</p>
+		<p class="txt-box-adv" style="margin-top:10px;">※ 경산시, 칠곡군 소재지인 주민들은 비대면 인증이 되지 않습니다. 도서관에 직접 방문하여 주시기 바랍니다.</p>
 
 		<div class="btn-wrap">
 			<c:if test="${newMember.editMode eq 'ADD' }">

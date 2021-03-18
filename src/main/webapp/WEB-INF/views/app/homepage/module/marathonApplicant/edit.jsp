@@ -413,6 +413,7 @@ $(function(){
 </script>
 <style>
 	table {border-bottom: 0px;}
+	table tbody th, table tbody td{font-size:14px;}
 	span.text2{font-style: normal;color: #888;font-size: 90%;margin: 0 5px;}
 	#cont_wrap{padding: 20px 0 60px;font-size: 15px;font-weight: normal;font-family: 'NotoKrR';line-height: 160%;letter-spacing: -0.02em;}
 	.bookrun {display: inline-block;width: 100%;border: 2px solid #ee005e;padding: 50px;box-sizing: border-box;margin-bottom: 35px;}
@@ -488,17 +489,15 @@ $(function(){
 		<form:hidden path="birthday_date" value="${marathonApplicant.birthday_date}"/>
 		<div class="rsv-info"></div>
 		<div class="auto-scroll">
+		<h3>신청정보입력</h3>
 		<table class="type2">
 			<colgroup>
 				<col width="20%"/>
 				<col width="*"/>
 			</colgroup>
-			<div style="text-align:right">
-				*표시가 된 곳은 필수 항목입니다.
-			</div>
 			<tbody>
 				<tr>
-					<th colspan="2" style="background:#fff;">신청정보 입력</th>
+					<th colspan="2" style="background:#fff;text-align:right;">*표시가 된 곳은 필수 항목입니다.</th>
 				</tr>
 				<tr>
 					<th>신청일</th>
@@ -536,52 +535,56 @@ $(function(){
 				<tr>
 					<th>학교*</th>
 					<td>
-						<form:input path="school_name" cssClass="text"/>
+						<form:input path="school_name" cssClass="text new_text01"/>
 						<span class="text2">*(예:00 초등학교)</span>
 					</td>
 				</tr>
 				<tr>
 					<th>학년*</th>
 					<td>
-						<form:input path="school_class_one" cssClass="text" size="4"/>학년
-						<form:input path="school_class_two" cssClass="text" size="4"/>반
+						<form:input path="school_class_one" cssClass="text new_text01" size="4"/>학년
+						<form:input path="school_class_two" cssClass="text new_text01" size="4"/>반
 						<span class="text2">*일반인의 경우 학교 학년 기입하지 않으셔도 됩니다.</span>
 					</td>
 				</tr>
 				<tr>
 					<th>주소*</th>
-					<td>
+					<td style="line-height:250%;">
 						<div style="margin-bottom:1%;">
-							<form:select path="address_dong" cssClass="selectmenu">
+							<form:select path="address_dong" cssClass="selectmenu  new_select_box">
 								<form:option value="">동 선택</form:option>
 								<form:options items="${dongList}" itemLabel="code_name" itemValue="code_id"/>
 								<form:option value="write">기타 직접 입력</form:option>
 							</form:select>
-							<input type="text" id="address_writeDong" class="text" size="6" readonly="true"/><span class="text2"> *동명을 입력해 주세요.    ※참가자격: 달서구민 및 달서구 소재 학교 재학생</span><br/>
+							<input type="text" id="address_writeDong" class="text new_text_01" size="6" readonly="true"/><span class="text2"> *동명을 입력해 주세요.    ※참가자격: 달서구민 및 달서구 소재 학교 재학생</span><br/>
 						</div>
-						<a href="" id="findPostCode" class="btn" style="background:#fff;font-size:14px;padding:5px 3px;">우편번호찾기</a><form:input path="zipcode" cssClass="text" readonly="true" cssStyle="width:80px;" maxLength="5"/><span class="text2"> *우편번호(숫자5자리)</span><br/>
-						<form:input path="address_one" size="40" cssClass="text" style="margin-top:0.5px;" readonly="true"/><span class="text2"> *시도 + 시군구 + 도로명(50자리 이내로 입력해 주세요.)</span><br/>
-						<form:input path="address_two" size="40" cssClass="text" style="margin-top:0.5px"/><span class="text2"> *건물번호 + 동·층·호 + (법정동,공동주택명)(50자리 이내로 입력해 주세요.)</span>
+						<a href="" id="findPostCode" class="btn btn2" style="font-size:13px;padding:6px 10px;">우편번호찾기</a>
+						<form:input path="zipcode" cssClass="text new_text01" readonly="true" cssStyle="width:80px;" maxLength="5"/>
+						<span class="text2"> *우편번호(숫자5자리)</span><br/>
+						<form:input path="address_one" size="40" cssClass="text new_text01" style="margin-top:0.5px;" readonly="true"/>
+						<span class="text2"> *시도 + 시군구 + 도로명(50자리 이내로 입력해 주세요.)</span><br/>
+						<form:input path="address_two" size="40" cssClass="text new_text01" style="margin-top:0.5px"/>
+						<span class="text2"> *건물번호 + 동·층·호 + (법정동,공동주택명)(50자리 이내로 입력해 주세요.)</span>
 					</td>
 				</tr>
 				<tr>
 					<th>전화번호*</th>
 					<td>
-						<form:input path="telephone_one" cssClass="text" size="4" maxlength="3"/>-<form:input path="telephone_two" cssClass="text" size="4" maxlength="4"/>-<form:input path="telephone_three" cssClass="text" size="4" maxlength="4"/>
+						<form:input path="telephone_one" cssClass="text new_text01" size="4" maxlength="3"/>-<form:input path="telephone_two" cssClass="text new_text01" size="4" maxlength="4"/>-<form:input path="telephone_three" cssClass="text new_text01" size="4" maxlength="4"/>
 						<span class="text2">*숫자만 입력해 주세요.</span>
 					</td>
 				</tr>
 				<tr>
 					<th>휴대전화번호*</th>
 					<td>
-						<form:input path="cellphone_one" cssClass="text" size="4" maxlength="3"/>-<form:input path="cellphone_two" cssClass="text" size="4" maxlength="4"/>-<form:input path="cellphone_three" cssClass="text" size="4" maxlength="4"/>
+						<form:input path="cellphone_one" cssClass="text new_text01" size="4" maxlength="3"/>-<form:input path="cellphone_two" cssClass="text new_text01" size="4" maxlength="4"/>-<form:input path="cellphone_three" cssClass="text new_text01" size="4" maxlength="4"/>
 						<span class="text2">*숫자만 입력해 주세요.</span>
 					</td>
 				</tr>
 				<tr>
 					<th>이메일</th>
 					<td>
-						<form:input path="email" cssClass="text" size="30"/>
+						<form:input path="email" cssClass="text new_text01" size="30"/>
 						<span class="text2">100자 이내로 @포함한 이메일주소를 입력해 주세요.</span>
 					</td>
 				</tr>
@@ -622,12 +625,12 @@ $(function(){
 				<tr>
 					<th>각오한마디</th>
 					<td>
-						<form:textarea path="determination_talk" cssClass="text" cols="50" rows="4" style="padding:10px;"/>
+						<form:textarea path="determination_talk" cssClass="text new_textarea01" cols="50" rows="4"/>
 					</td>
 				</tr>
 				<tr>
-					<th colspan="2" style="padding:10px 0 5px 10px;border-bottom: 1px solid #dfdfdf;background: none;text-align: left;">
-						<p style="vertical-align:middle;font-size:19px;padding-top:10px;">개인정보 수집 및 이용에 대한 안내</p>
+					<th colspan="2" style="padding:30px 0 0 0;border-bottom: 1px solid #dfdfdf;background: none;text-align: left;">
+						<h3>개인정보 수집 및 이용에 대한 안내</h3>
 					</th>
 				</tr>
 				<tr>
@@ -720,7 +723,7 @@ $(function(){
 		<br/>
 		<div class="button bbs-btn center">
 			<button id="save-btn" class="btn btn5" title="신청하기">신청하기</button>
-			<button id="back-btn" class="btn"><i class="fa fa-reorder" title="뒤로가기"></i><span>뒤로가기</span></button>
+			<button id="back-btn" class="btn"><span>뒤로가기</span></button>
 		</div>
 	</c:otherwise>
 </c:choose>

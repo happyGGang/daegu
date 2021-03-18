@@ -33,26 +33,14 @@ $(function() {
 });
 </script>
 
-<div class="join-wrap" style="padding: 0;">
+<div class="join-wrap" style="padding: 0;text-align:center;">
 	<form:form modelAttribute="member" action="modifyForm.do" method="post" onsubmit="return false;">
 	<form:password path="member_pw" cssStyle="display:none;"/>
 	<form:hidden path="menu_idx"/>
-		<table id="memberForm" >
-			<colgroup>
-				<col width="20%"/>
-				<col />
-			</colgroup>
-			<tbody>
-				<tr>
-					<th>
-						비밀번호 확인(<span style="color: red;">*</span>)
-					</th>
-					<td>
-						<input type="password" id="member_pw_tmp" maxlength="20" class="txt" value="" placeholder="비밀번호를 입력해주세요" />
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		<b class='title'>비밀번호 확인</b>
+		<div class="inputWrap">
+			<input type="password" id="member_pw_tmp" maxlength="20" class="txt" value="" placeholder="비밀번호를 입력해주세요" style="border:1px solid #ccc;padding:5px 10px;border-radius:3px"/>
+		</div>
 	</form:form>
 	<div class="btn-wrap">
 		<a href="#" id="save-btn" class="btn btn1">확인</a>

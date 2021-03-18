@@ -22,6 +22,9 @@ $(function() {
 
 });
 </script>
+<style>
+	.join-wrap{padding:0;}
+</style>
 <div class="join-wrap">
 
 	<form:form modelAttribute="newMember" id="memberAgreeForm" action="step3.do" method="post">

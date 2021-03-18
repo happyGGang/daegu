@@ -199,13 +199,13 @@ $(function(){
 		<div class="mg30t"></div>
 		</c:if>
 		<div class="ym_btns">
-			<a id="before-btn" href="#prev" class="btn prev"><i class="fa fa-angle-left"></i><span class="blind">이전달</span></a>
+			<a id="before-btn" href="#prev" class="btn prev new_btn01"><i class="fa fa-angle-left"></i><span class="blind">이전달</span></a>
 <!-- 			<label for="plan_year"/> -->
-			<form:select path="plan_year" class="" style="width:80px;height:28px;" title="년도"></form:select>
+			<form:select path="plan_year" class="new_select_box" style="width:80px;" title="년도"></form:select>
 <!-- 			<label for="plan_month"/> -->
-			<form:select path="plan_month" class="" style="width:65px;height:28px;" title="월"></form:select>
+			<form:select path="plan_month" class="new_select_box" style="width:65px;" title="월"></form:select>
 			<a href="#" id="monthSelect" class="btn btn1">이동</a>
-			<a id="next-btn" href="#next" class="btn next"><i class="fa fa-angle-right"></i><span class="blind">다음달</span></a>
+			<a id="next-btn" href="#next" class="btn next new_btn01"><i class="fa fa-angle-right"></i><span class="blind">다음달</span></a>
 			<a href="#" style="float: right;" class="btn btn2 left" id="changeView"><i style="font-size: 100%;" class="fa fa-list" aria-hidden="true"></i><span style="margin-left: 5px;">목록형 보기</span></a>
 		</div>
 		<div id="calendar" class="event-cal">

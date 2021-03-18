@@ -38,7 +38,7 @@
 						<li class="integration"><a href="/intro/${context_path}/join/integration.do">통합인증센터</a></li>
 						</c:otherwise>
 						</c:choose>
-						<c:choose>
+						<!-- <c:choose>
 						<c:when test="${context_path eq 'beomeo'}">
 						<li class="gohomepage"><a href="http://library.suseong.kr/beomeo/" target="_blank">홈페이지로이동</a></li>
 						</c:when>
@@ -50,7 +50,7 @@
 						</c:when>
 						<c:otherwise>
 						</c:otherwise>
-						</c:choose>
+						</c:choose> -->
 					</ul>
 				</div>
 			</div>

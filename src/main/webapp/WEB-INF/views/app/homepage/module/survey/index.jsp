@@ -38,7 +38,7 @@ $(document).ready(function() {
 		<span class="bbs-result">총 게시물 : <b>${paging.totalDataCount}</b>건</span>
 		<div class="button btn-group inline">
 			<label for="rowCount"/>
-			<form:select path="rowCount" cssClass="selectmenu" cssStyle="width:110px;">
+			<form:select path="rowCount" cssClass="selectmenu new_select_box" cssStyle="width:110px;">
 			<c:forEach var="i" begin="10" end="50" step="10">
 				<form:option value="${i}">${i}개씩 보기</form:option>
 			</c:forEach>
@@ -123,10 +123,10 @@ $(document).ready(function() {
 	<div class="search txt-center mmm2" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 		<fieldset>
 			<label for="search_type" class="blind">검색</label>
-			<form:select path="search_type" cssClass="selectmenu" cssStyle="width:100px;">
+			<form:select path="search_type" cssClass="selectmenu new_select_box" cssStyle="width:100px;">
 				<form:option value="survey_title">제목</form:option>
 			</form:select>
-			<form:input path="search_text" cssClass="text" accesskey="s" title="검색어" alt="검색어"  placeholder="검색어를 입력하세요" />
+			<form:input path="search_text" cssClass="text new_text01" accesskey="s" title="검색어" alt="검색어"  placeholder="검색어를 입력하세요" />
 			<a href="" class="btn btn1" id="board_btn_search"><i class="fa fa-search"></i><span>검색</span></a>
 		</fieldset>
 	</div>

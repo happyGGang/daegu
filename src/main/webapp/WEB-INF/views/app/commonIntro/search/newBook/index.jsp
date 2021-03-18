@@ -170,12 +170,12 @@ $(function() {
 							사월역작은도서관<form:hidden path="manageCode" value="FG" />
 						</c:when>
 						<c:when test="${homepagePath eq 'junggu'}">
-							<form:radiobutton path="manageCode" value='FS' label="대구중구영어도서관" />
-							<form:radiobutton path="manageCode" value='FF' label="남산4동작은도서관" />
-							<form:radiobutton path="manageCode" value='FQ' label="동인 느티나무 도서관" />
-							<form:radiobutton path="manageCode" value='FY' label="중구청교양정보실" />
-							<form:radiobutton path="manageCode" value='GG' label="대신동작은도서관" />
-							<form:radiobutton path="manageCode" value='HA' label="삼덕마루 작은도서관" />
+							<form:radiobutton path="manageCode" value='FS' label="대구중구영어도서관" /><br/>
+							<form:radiobutton path="manageCode" value='FF' label="남산4동작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='FQ' label="동인 느티나무 도서관" /><br/>
+							<form:radiobutton path="manageCode" value='FY' label="중구청교양정보실" /><br/>
+							<form:radiobutton path="manageCode" value='GG' label="대신동작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='HA' label="삼덕마루 작은도서관" /><br/>
 							<form:radiobutton path="manageCode" value='HF' label="대봉2동작은도서관" />
 						</c:when>
 
@@ -206,11 +206,11 @@ $(function() {
 							원고개도서관<form:hidden path="manageCode" value="BN" />
 						</c:when>
 						<c:when test="${homepagePath eq 'seogumini'}">
-							<form:radiobutton path="manageCode" value='FH' label="새마을문고대구서구지부작은도서관" />
-							<form:radiobutton path="manageCode" value='FT' label="서구청 작은도서관" />
-							<form:radiobutton path="manageCode" value='FU' label="내당4동어린이도서관" />
-							<form:radiobutton path="manageCode" value='FZ' label="비산7동 작은도서관" />
-							<form:radiobutton path="manageCode" value='GQ' label="내당2,3동 드림도서관" />
+							<form:radiobutton path="manageCode" value='FH' label="새마을문고대구서구지부작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='FT' label="서구청 작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='FU' label="내당4동어린이도서관" /><br/>
+							<form:radiobutton path="manageCode" value='FZ' label="비산7동 작은도서관" /><br/>
+							<form:radiobutton path="manageCode" value='GQ' label="내당2,3동 드림도서관" /><br/>
 							<form:radiobutton path="manageCode" value='HC' label="달성토성마을 다락방 작은도서관" />
 						</c:when>
 						<c:when test="${homepagePath eq 'dalseonglib'}">
@@ -355,10 +355,10 @@ $(function() {
 			<th><label for="option01">자료실</label></th>
 			<td class="search_left" >
 				<ul>
-					<li style="margin-bottom: 5px;"><form:radiobutton path="shelfCode" value="ALL" label="전체"/></li>
+					<li style="margin-bottom: 3px;"><form:radiobutton path="shelfCode" value="ALL" label="전체"/></li>
 					<c:forEach items="${shelfList}" var="i" varStatus="status">
 						<c:if test="${not empty i.CHECKED and i.CHECKED}">
-						<li style="width: 33%; float: left;"><form:radiobutton path="shelfCode" value="${i.CODE}" label="${i.DESCRIPTION}"/></li>
+						<li style="width: 100%; margin-bottom:3px;"><form:radiobutton path="shelfCode" value="${i.CODE}" label="${i.DESCRIPTION}"/></li>
 						</c:if>
 					</c:forEach>
 				</ul>
@@ -377,9 +377,13 @@ $(function() {
 			<div class="smain">
 				<div class="box">
 					<div style="overflow:hidden">
-						<div class="bbs-result">* 검색결과 총 : <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/></b>건</div>
+						<div class="search-info" style="float:left;">
+							※ 검색결과 총 <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/></b>건이 검색되었습니다.
+						</div>
 
-						<div class="mode">
+						<!-- <div class="bbs-result"> 검색결과 : 총 <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/></b>건</div> -->
+
+						<div class="mode" style="float:right;">
 							<ul>
 								<li><a href="#;" class="btn-View imgView on">이미지형 표지형 설정</a></li>
 								<li><a href="#;" class="btn-View listView">목록형 표지형 설정</a></li>
@@ -388,7 +392,7 @@ $(function() {
 					</div>
 					<div id="search-results" class="search-results wide">
 						<!-- 이미지형 -->
-						<div class="imageType">
+						<div class="imageType" style="border-top:1px solid #ddd;margin-top:10px;">
 							<!-- 결과루프 -->
 							<c:choose>
 								<c:when test="${fn:length(newBookList) > 0}">
@@ -487,7 +491,7 @@ $(function() {
 
 
 						<!-- 텍스트형 -->
-						<div class="textType" style="display:none">
+						<div class="textType" style="display:none;border-top:1px solid #ddd;margin-top:10px;">
 							<!-- 결과루프 -->
 							<c:choose>
 								<c:when test="${fn:length(newBookList) > 0}">

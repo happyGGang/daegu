@@ -8,8 +8,10 @@ a:focus{color:#2b74c0}
 /* header */
 .libSite {position:absolute;top:0;z-index:96;height:44px;line-height:44px;overflow:hidden;}
 .libSite ul li {display:inline-block;float:left;border-left:1px solid #ccc;padding:0;margin:0;}
-.libSite ul li:last-child {border-right:1px solid #ccc;}
+.libSite ul li.br {border-right:1px solid #ccc;margin-right:7px;}
+.libSite ul li.sns_icon{border:none;}
 .libSite ul li a {display:block;color:#000;text-align:center;line-height:44px;padding:0 15px;}
+.libSite ul li.sns_icon a {padding:7px 5px;}
 .libSite ul li.on a {background:#000;color:#fff;}
 
 .tnb {position:relative;margin:0 auto;overflow:hidden;box-sizing:border-box;z-index:999999;}

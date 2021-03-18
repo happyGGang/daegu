@@ -24,8 +24,8 @@ $(function() {
 </script>
 
 <div class="join-wrap" style="padding: 0">
-	<div class="info">
-   	 &nbsp; <b>I-PIN 신규발급 [<a href="http://www.vno.co.kr/ipin3/personal/personal01.asp" target="_blank">신규발급바로가기</a>]</b>
+	<div style="width:100%;text-align:right;margin-bottom:10px;">
+		<a href="http://www.vno.co.kr/ipin3/personal/personal01.asp" title="I-PIN 신규발급 바로가기">* I-PIN 신규발급 바로가기 <img src="/resources/common/img/link_icon.png"></a>
 	</div>
 	<form id="certForm" name="certForm" action="/intro/join/cert.do" method="post" target="certWindow">
 		<input type="hidden" name="certType">

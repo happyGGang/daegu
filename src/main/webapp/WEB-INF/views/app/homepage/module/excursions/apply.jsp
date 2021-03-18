@@ -37,6 +37,9 @@ $(function() {
 
 });
 </script>
+<style>
+	table tbody td{padding:10px 5px;}
+</style>
 <form:form modelAttribute="apply" id="applyEdit" action="/${homepage.context_path}/module/excursions/save.do" method="post">
 <form:hidden path="homepage_id"/>
 <form:hidden path="editMode"/>
@@ -57,24 +60,24 @@ $(function() {
 <div class="table-wrap">
 	<table class="type1 center">
 		<colgroup>
-			<col width="130"/>
-			<col width="90"/>
-			<col width="120"/>
-			<col width="120"/>
-			<col width="100"/>
-			<col width="70"/>
-			<col width="70"/>
-			<col width="80"/>
+			<col width="*"/>
+			<col width="12%"/>
+			<col width="15%"/>
+			<col width="12%"/>
+			<col width="11%"/>
+			<col width="10%"/>
+			<col width="10%"/>
+			<col width="10%"/>
 		</colgroup>
 		<thead>
 			<tr>
 				<th>기관명</th>
 				<th>신청자 성명</th>
 				<th>신청자 전화번호</th>
-				<th>방문일자</th>
+				<th>방문 일자</th>
 				<th>견학 시간</th>
-				<th>방문인원</th>
-				<th>승인여부</th>
+				<th>방문 인원</th>
+				<th>승인 여부</th>
 				<th>신청</th>
 			</tr>
 		</thead>

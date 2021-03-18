@@ -270,7 +270,7 @@ $(document).on("keyup change", "input:text[numberOnly]", function() {
 							- <form:input path="cell_phone2" class="text" cssStyle="width:60px;" title="휴대폰 번호  중간 자리 입력" maxlength="4" numberOnly="true" readonly="true"/>
 							- <form:input path="cell_phone3" class="text" cssStyle="width:60px;" title="휴대폰 번호  끝 자리 입력"  maxlength="4" numberOnly="true" readonly="true"/>
 							<form:checkbox path="sms_service_yn" value="Y" label=" SMS 수신 여부" cssStyle="vertical-align: middle;"/>
-							<a href="#" id="sms" class="btn certtype" title="새창열림">인증확인</a>
+							<a href="#" id="sms" class="btn certtype" title="새창열림" style="border:1px solid #ddd !important;background:#eee;font-size:12px;">인증확인</a>
 							<div class="highlight">
 								<label for="sms_service_yn1"> * 입력한 휴대폰 번호로 반납 및 연체문자가 수신됩니다.</label>
 							</div>
@@ -325,10 +325,10 @@ $(document).on("keyup change", "input:text[numberOnly]", function() {
 					<td>
 						<form:input path="email1" class="text"/> @
 						<form:input path="email2" class="text"/>
-						<select id="email2_temp" class="selectmenu" style="width:150px;">
+						<select id="email2_temp" class="selectmenu new_select_box" style="width:150px;height:30px;position:absolute;margin-left:10px;">
 							<option value="" >--직접입력--</option>
 							<c:forEach items="${email}" var="i" varStatus="status">
-	<%-- 						<option value="${i.code_name}" >${i.code_name}</option> --%>
+							<%--<option value="${i.code_name}" >${i.code_name}</option> --%>
 							</c:forEach>
 							<option value="naver.com" >naver.com</option>
 							<option value="daum.net" >daum.net</option>
@@ -339,8 +339,8 @@ $(document).on("keyup change", "input:text[numberOnly]", function() {
 							<option value="yahoo.com" >yahoo.com</option>
 							<option value="korea.kr" >korea.kr</option>
 						</select>
-						<br/>
-						<form:checkbox path="email_service_yn" value="Y" label="EMAIL 수신여부"/>
+						<p style="height:10px;"></p>
+						<form:checkbox path="email_service_yn" value="Y" label="EMAIL 수신여부" cssClass="new_input_btn01"/>
 					</td>
 				</tr>
 			</tbody>
