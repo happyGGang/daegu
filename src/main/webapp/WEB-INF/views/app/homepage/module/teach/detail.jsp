@@ -160,20 +160,25 @@
 					<td>${teach.start_time } ~ ${teach.end_time }</td>
 					<th class="center">강의요일</th>
 					<td>
+					<c:choose>
+						<c:when test="${teach.teach_day_yn eq 'Y'}">${teach.teach_day_txt}</c:when>
+						<c:otherwise>
 						<c:forEach var="i" varStatus="stats_j" items="${teach.teach_day_arr}">
-							<c:choose>
-								<c:when test="${i eq '1'}">일</c:when>
-								<c:when test="${i eq '2'}">월</c:when>
-								<c:when test="${i eq '3'}">화</c:when>
-								<c:when test="${i eq '4'}">수</c:when>
-								<c:when test="${i eq '5'}">목</c:when>
-								<c:when test="${i eq '6'}">금</c:when>
-								<c:when test="${i eq '7'}">토</c:when>
-							</c:choose>
-							<c:if test="${!stats_j.last}">
-								,
-							</c:if>
+						<c:choose>
+							<c:when test="${i eq '1'}">일</c:when>
+							<c:when test="${i eq '2'}">월</c:when>
+							<c:when test="${i eq '3'}">화</c:when>
+							<c:when test="${i eq '4'}">수</c:when>
+							<c:when test="${i eq '5'}">목</c:when>
+							<c:when test="${i eq '6'}">금</c:when>
+							<c:when test="${i eq '7'}">토</c:when>
+						</c:choose>
+						<c:if test="${!stats_j.last}">
+							,
+						</c:if>
 						</c:forEach>
+						</c:otherwise>
+					</c:choose>
 					</td>
 				</tr>
 

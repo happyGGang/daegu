@@ -358,20 +358,32 @@ ${html.html}
 								</span>
 								-->
 						</td>
-						<td data-th="<c:choose><c:when test="${param.searchCate1 eq '16'}">행사기간</c:when><c:when test="${param.searchCate1 eq '17'}">강좌기간</c:when><c:when test="${param.searchCate1 eq '18'}">강좌기간</c:when><c:otherwise>강좌기간</c:otherwise></c:choose>"><span>${i.start_date} <c:if test="${i.start_date ne i.end_date}">~ ${i.end_date}</c:if></span> <br class=''/><span>(
-															<c:forEach var="j" varStatus="status_j" items="${i.teach_day_arr}">
-																<c:choose>
-																	<c:when test="${j eq '1'}">일</c:when>
-																	<c:when test="${j eq '2'}">월</c:when>
-																	<c:when test="${j eq '3'}">화</c:when>
-																	<c:when test="${j eq '4'}">수</c:when>
-																	<c:when test="${j eq '5'}">목</c:when>
-																	<c:when test="${j eq '6'}">금</c:when>
-																	<c:when test="${j eq '7'}">토</c:when>
-																</c:choose>
-																<c:if test="${!status_j.last}">,</c:if>
-															</c:forEach>
-														)</span><br/><span class="">${i.start_time} ~ ${i.end_time}</span>
+						<td data-th="<c:choose><c:when test="${param.searchCate1 eq '16'}">행사기간</c:when><c:when test="${param.searchCate1 eq '17'}">강좌기간</c:when><c:when test="${param.searchCate1 eq '18'}">강좌기간</c:when><c:otherwise>강좌기간</c:otherwise></c:choose>">
+							<span>${i.start_date} <c:if test="${i.start_date ne i.end_date}">~ ${i.end_date}</c:if></span>
+							<br class=''/>
+							<span>
+							(
+							<c:choose>
+								<c:when test="${i.teach_day_yn eq 'Y'}">${i.teach_day_txt}</c:when>
+								<c:otherwise>
+								<c:forEach var="j" varStatus="status_j" items="${i.teach_day_arr}">
+								<c:choose>
+									<c:when test="${j eq '1'}">일</c:when>
+									<c:when test="${j eq '2'}">월</c:when>
+									<c:when test="${j eq '3'}">화</c:when>
+									<c:when test="${j eq '4'}">수</c:when>
+									<c:when test="${j eq '5'}">목</c:when>
+									<c:when test="${j eq '6'}">금</c:when>
+									<c:when test="${j eq '7'}">토</c:when>
+								</c:choose>
+								<c:if test="${!status_j.last}">,</c:if>
+								</c:forEach>
+								</c:otherwise>
+							</c:choose>
+							)
+							</span>
+							<br/>
+							<span class="">${i.start_time} ~ ${i.end_time}</span>
 						</td>
 						<td data-th="접수기간">
 							<span class="">${i.start_join_date}&nbsp;${i.start_join_time}&nbsp;&nbsp;~ <br/>${i.end_join_date}&nbsp;${i.end_join_time}</span>

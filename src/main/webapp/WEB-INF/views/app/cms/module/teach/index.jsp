@@ -317,21 +317,27 @@ $(function() {
 					<td>${i.teach_target}</td>
 					<td>
 						${i.start_date} ~ ${i.end_date}<br/>
-						( 매주&nbsp;
-						<c:forEach var="j" varStatus="status_j" items="${i.teach_day_arr}">
-							<c:choose>
-								<c:when test="${j eq '1'}">일</c:when>
-								<c:when test="${j eq '2'}">월</c:when>
-								<c:when test="${j eq '3'}">화</c:when>
-								<c:when test="${j eq '4'}">수</c:when>
-								<c:when test="${j eq '5'}">목</c:when>
-								<c:when test="${j eq '6'}">금</c:when>
-								<c:when test="${j eq '7'}">토</c:when>
-							</c:choose>
-							<c:if test="${!status_j.last}">
-								,
-							</c:if>
-						</c:forEach>
+						(
+						<c:choose>
+							<c:when test="${i.teach_day_yn eq 'Y'}">${i.teach_day_txt}</c:when>
+							<c:otherwise>
+							매주&nbsp;
+							<c:forEach var="j" varStatus="status_j" items="${i.teach_day_arr}">
+								<c:choose>
+									<c:when test="${j eq '1'}">일</c:when>
+									<c:when test="${j eq '2'}">월</c:when>
+									<c:when test="${j eq '3'}">화</c:when>
+									<c:when test="${j eq '4'}">수</c:when>
+									<c:when test="${j eq '5'}">목</c:when>
+									<c:when test="${j eq '6'}">금</c:when>
+									<c:when test="${j eq '7'}">토</c:when>
+								</c:choose>
+								<c:if test="${!status_j.last}">
+									,
+								</c:if>
+							</c:forEach>
+							</c:otherwise>
+						</c:choose>
 						)
 					</td>
 					<td>${i.start_time} ~ ${i.end_time}</td>

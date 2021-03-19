@@ -64,6 +64,8 @@ public class Teach extends PagingUtils {
 	private String cancle_guid; // 취소안내내용
 	private int sms_flag;	// sms전송상태
 	private String teach_day;  //강의요일
+	private String teach_day_txt; //강의요일텍스트
+	private String teach_day_yn = "N"; // 강의요일텍스트사용여부
 	private String start_date;  //강의시작일
 	private String start_time;  //강의시작시간
 	private String start_time1;  //강의시작시간
@@ -124,6 +126,7 @@ public class Teach extends PagingUtils {
 	private String teach_addr_limit; // 주소 제한 사용여부
 	private String teach_addr_limit_value; // 주소 제한 허용 값
 	private String age_info_yn = "N"; // 나이입력여부
+	private String disable_holi = "N"; // 휴관일 사용안함
 
 	private String delete_yn;
 
@@ -274,7 +277,7 @@ public class Teach extends PagingUtils {
 	public String getTeach_join_unit() {
 		return teach_join_unit;
 	}
-	public void setTeach_join_uint(String teach_join_unit) {
+	public void setTeach_join_unit(String teach_join_unit) {
 		this.teach_join_unit = teach_join_unit;
 	}
 	public int getTeach_backup_count() {
@@ -352,11 +355,20 @@ public class Teach extends PagingUtils {
 	public String getTeach_day() {
 		return teach_day;
 	}
-	public void setTeach_join_unit(String teach_join_unit) {
-		this.teach_join_unit = teach_join_unit;
-	}
 	public void setTeach_day(String teach_day) {
 		this.teach_day = teach_day;
+	}
+	public String getTeach_day_txt() {
+		return teach_day_txt;
+	}
+	public void setTeach_day_txt(String teach_day_txt) {
+		this.teach_day_txt = teach_day_txt;
+	}
+	public String getTeach_day_yn() {
+		return teach_day_yn;
+	}
+	public void setTeach_day_yn(String teach_day_yn) {
+		this.teach_day_yn = teach_day_yn;
 	}
 	public String getStart_date() {
 		return start_date;
@@ -1497,6 +1509,14 @@ public class Teach extends PagingUtils {
 
 	public void setAge_info_yn(String age_info_yn) {
 		this.age_info_yn = age_info_yn;
+	}
+	
+	public String getDisable_holi() {
+		return disable_holi;
+	}
+	
+	public void setDisable_holi(String disable_holi) {
+		this.disable_holi = disable_holi;
 	}
 
 	public String getTerms() {

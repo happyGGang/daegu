@@ -175,8 +175,10 @@ public class TeachService extends BaseService {
 		teach.setTeach_idx(dao.getNextTeachIdx(teach));
 		if (teach.getHolidays() != null && teach.getHolidays().size() > 0) {
 			for ( String str : teach.getHolidays() ) {
-				teach.setHoliday(str);
-				dao.addTeachHolidays(teach);
+				if(StringUtils.isNotEmpty(str)) {
+    				teach.setHoliday(str);
+    				dao.addTeachHolidays(teach);
+				}
 			}
 		}
 
@@ -242,8 +244,10 @@ public class TeachService extends BaseService {
 		if (teach.getHolidays() != null && teach.getHolidays().size() > 0) {
 			dao.deleteTeachHolidays(teach);
 			for ( String str : teach.getHolidays() ) {
-				teach.setHoliday(str);
-				dao.addTeachHolidays(teach);
+				if(StringUtils.isNotEmpty(str)) {
+					teach.setHoliday(str);
+					dao.addTeachHolidays(teach);
+				}
 			}
 		}
 

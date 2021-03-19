@@ -136,15 +136,17 @@ public class CalendarManageUserProgram extends BodyTagSupport {
     						if ( dayCode == Integer.parseInt(day) ) {
     							if (start_date.compareTo(plan_date) <= 0 && end_date.compareTo(plan_date) >= 0) {
     								String statusName = "[강좌]";
+    								boolean disableHoli = false;
     								
     								if (teach.getHolidays() != null && teach.getHolidays().size() > 0) {
     									for ( String holiday : teach.getHolidays() ) {
     										if (StringUtils.equals(plan_date, holiday)) {
     											statusName = "<span style=\"color:red;\">[휴강]</span>";
+    											disableHoli = teach.getDisable_holi().equals("Y") ? true : false;
     										}
     									}
     								}
-    								
+    								if(disableHoli) continue;
     								
     								sb.append("<li title=\""+teach.getTeach_name()+"\">");
     								sb.append("<a href=\"#\" class=\"modify\" type=\"teach\" keyValue=\""+teach.getCategory_idx()+"\" keyValue2=\""+teach.getTeach_idx()+"\" keyValue3=\""+teach.getGroup_idx()+"\"><span class=\"type-e\"><i></i><em>"+statusName+""+teach.getTeach_name()+"</em></span></a>");

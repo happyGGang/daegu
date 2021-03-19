@@ -948,6 +948,14 @@ $(function() {
 				</td>
 			</tr>
 			<tr>
+				<th>강의요일 직집지정</th>
+				<td>
+					<form:radiobutton path="teach_day_yn" value="Y" label="사용"/>
+					<form:radiobutton path="teach_day_yn" value="N" label="미사용"/>
+					<form:input path="teach_day_txt" cssClass="text" placeholder="ex) 격주 월, 수" cssStyle="width:50%"/>
+				</td>
+			</tr>
+			<tr>
 				<th>강의기간 (<span style="color: red; font-weight: bold;">*</span>)</th>
 				<td>
 					<%-- <c:choose> --%>
@@ -1289,21 +1297,27 @@ $(function() {
 	         	<th>휴강일설정</th>
 	         	<td>
 	         		<div style="float: left; margin-right: 10px;">
-	         		<input type="text" class="text ui-calendar" id="tempHoliDay" style="vertical-align: top">
-	         		<input type="text" class="text ui-calendar" id="tempHoliDayDummy" style="vertical-align: top; display: none;">
-	         		<br/>
-	         		<a href="#" id="addHoliday" class="btn btn5" style="vertical-align: top; width:95px;"><i class="fa fa-plus" aria-hidden="true"></i>휴강일 추가 </a>
-	         		<br/>
-	         		<a href="#" id="deleteHoliday" class="btn" style="vertical-align: top; width:95px;"><i class="fa fa-times" aria-hidden="true"></i>선택 삭제 </a>
-	         		<br/>
+		         		<input type="text" class="text ui-calendar" id="tempHoliDay" style="vertical-align: top">
+		         		<input type="text" class="text ui-calendar" id="tempHoliDayDummy" style="vertical-align: top; display: none;">
+		         		<br/>
+		         		<a href="#" id="addHoliday" class="btn btn5" style="vertical-align: top; width:95px;"><i class="fa fa-plus" aria-hidden="true"></i>휴강일 추가 </a>
+		         		<br/>
+		         		<a href="#" id="deleteHoliday" class="btn" style="vertical-align: top; width:95px;"><i class="fa fa-times" aria-hidden="true"></i>선택 삭제 </a>
+		         		<br/>
 	         		</div>
 	         		<div>
-	         		<form:select path="holidays" multiple="true" cssClass="selectmenu" cssStyle="width:40%;" size="5">
-	         			<c:forEach items="${teach.holidays}" var="i" varStatus="status">
-	         			<form:option value="${i}">${i}</form:option>
-	         			</c:forEach>
-	         		</form:select>
+		         		<form:select path="holidays" multiple="true" cssClass="selectmenu" cssStyle="width:40%;" size="5">
+		         			<c:forEach items="${teach.holidays}" var="i" varStatus="status">
+		         			<form:option value="${i}">${i}</form:option>
+		         			</c:forEach>
+		         		</form:select>
 	         		</div>
+					<div>
+						휴관일 표시안함여부
+						<form:radiobutton path="disable_holi" value="Y" label="사용"/>
+						<form:radiobutton path="disable_holi" value="N" label="미사용"/>
+					</div>
+					
 					<div class="ui-state-highlight" style="clear: both;">
 						<em>* '이달의 행사' 메뉴에서 '(휴강)강좌명' 으로 표시됩니다.<br/>* Ctrl+클릭 시 다중선택 가능합니다.</em>
 					</div>
