@@ -213,7 +213,10 @@ $(function(){
 							</c:if>
 							<li>
 								<div>
-									<label>수강생</label> : ${i.student_name} ( ${i.student_sex eq 'M' ? '남' : '여'} )
+									<label>수강생</label> : ${i.student_name} 
+									<c:if test="${not empty i.student_sex}">
+									( ${i.student_sex eq 'M' ? '남' : '여'} )
+									</c:if>
 									<c:if test="${i.teach_status eq '3'and i.wait_num != 0}">
 									<span>현재 대기번호 ${i.wait_num}번 입니다.</span>
 									</c:if>
