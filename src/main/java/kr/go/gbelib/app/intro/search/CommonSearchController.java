@@ -789,6 +789,9 @@ public class CommonSearchController extends BaseController {
 			librarySearch.setLibCode("");
 		}
 		
+		// 정보나루 인기도서 전체 50개 제한
+		librarySearch.setRowCount(50);
+		
 		Map<String, Object> result = LibSearchAPI.getPopularBookList(librarySearch);
 		Map<String, Object> resultMap = null;
 		List<Map<String, Object>> list = null;
@@ -803,18 +806,20 @@ public class CommonSearchController extends BaseController {
 			list = (ArrayList<Map<String, Object>>)resultMap.get("doc");
 		}
 		
-		
+		// 페이징을 위한 처리 
+		librarySearch.setRowCount(10);
 		service.setPaging(model, 50, librarySearch);
-		
-		List<Integer> countList = new ArrayList<Integer>();
+		List<Map<String, Object>> countList = new ArrayList<Map<String, Object>>();
 		if (list != null) {
-			for(int i = 0; i < list.size(); i++) {
-				countList.add(i + 1);
+			int startNum = ( librarySearch.getViewPage() - 1 ) * 10;
+			for(int i = startNum; i < (startNum + 10); i++) {
+				countList.add(list.get(i));
 			}
 
 		}
-		model.addAttribute("popularBookList", list);
-		model.addAttribute("countList", countList);
+		
+		model.addAttribute("popularBookList", countList);
+//		model.addAttribute("countList", countList);
 		model.addAttribute("librarySearch", librarySearch);
 		return String.format(basePath, homepage.getFolder()) + "publicPopularBook/index";
 	}
