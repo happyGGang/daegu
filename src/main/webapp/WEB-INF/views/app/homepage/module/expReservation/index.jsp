@@ -34,8 +34,8 @@ $(function(){
 
 		$('#plan_month').append('<option ' + selectedAttr + ' value="' + valueMonth + '">' + j + '월</option>');
 	}
-
-	$('#plan_year,#plan_month').on('change', function(e) {
+	
+	$('a#monthSelect').on('click', function(e) {
 		var planDate = $('#plan_year').val() + '-' + $('#plan_month').val();
 		$('#plan_date').val(planDate);
 		if($('#pageType').val() == 'ajax') {
@@ -210,6 +210,7 @@ $(function(){
 		<a id="before-btn" href="#prev" class="btn prev new_btn01"><i class="fa fa-angle-left"></i><span class="blind">이전달</span></a>
 		<form:select path="plan_year" class="new_select_box" style="width:80px;"></form:select>
 		<form:select path="plan_month" class="new_select_box" style="width:65px;"></form:select>
+		<a href="#" id="monthSelect" class="btn btn1">이동</a>
 		<a id="next-btn" href="#next" class="btn next new_btn01"><i class="fa fa-angle-right"></i><span class="blind">다음달</span></a>
 		<div style="text-align: right; margin-bottom: 10px; ">
 			<a href="anonyApplyCheck.do?homepage_id=${expReservation.homepage_id}&menu_idx=${expReservation.menu_idx}" class="btn btn1" style="font-size:14px;">비회원 신청확인</a>
