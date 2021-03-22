@@ -133,6 +133,8 @@ h1.mobile-logo {display:none;width:230px;height:45px;}
 .libView{padding:0 0 10px}
 .libView strong{display:block;color:#004c92}
 
+.sns-box{display:none;}
+
 @media (max-width:1000px){
 	.libView{text-align:center}
 }
@@ -160,6 +162,11 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 
 	h1.mobile-logo {display:block;width:200px;height:40px;margin-top:2px;padding:0 0 0 10px;}
 	h1.mobile-logo a {display:block;background:url('/resources/homepage/bukgs/img/bukgs_logo.png') no-repeat center center;background-size:100% !important;width:200px;height:40px;font-size:0;}
+
+	/* SNS 추가 */
+	.sns-box {position:absolute;display:block;left:220px;top:7px;}
+	.sns-box li {display:inline-block;margin-right:2px;}
+	.sns-box li a img {vertical-align:middle;}
 }
 
 @media all and (max-width:767px){
@@ -175,7 +182,6 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 }
 
 @media all and (max-width:425px){
-
 }
 
 @media all and (max-width:375px){

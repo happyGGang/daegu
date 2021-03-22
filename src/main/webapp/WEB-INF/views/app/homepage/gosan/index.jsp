@@ -358,7 +358,7 @@ do {
 						<div class="quickLink-box">
 							<ul>
 								<li><a href="html.do?menu_idx=98">과학문화@suseong</a></li>
-								<li><a href="">동네책방in고산도서관</a></li>
+								<li><a href="html.do?menu_idx=122">동네책방in고산도서관</a></li>
 								<li><a href="html.do?menu_idx=87">북큐레이션</a></li>
 								<li><a href="https://www.dbpia.co.kr/" target="_blank">원문제공서비스</a></li>
 								<li><a href="html.do?menu_idx=25">대구전자도서관</a></li>

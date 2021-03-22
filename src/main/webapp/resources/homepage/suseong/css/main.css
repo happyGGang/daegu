@@ -91,14 +91,14 @@
 .main.container .right-section .right-quick-section {}
 .main.container .right-section .right-quick-section  li {display:block;}
 .main.container .right-section .right-quick-section  li:last-child {border-bottom:0;}
-.main.container .right-section .right-quick-section  li a {position:relative;display:block;height:68px;line-height:82px;padding:27px 10px 25px 22px;box-sizing:border-box;}
+.main.container .right-section .right-quick-section  li a {position:relative;display:block;height:81.9px;line-height:82px;padding:30px 10px 25px 22px;box-sizing:border-box;}
 .main.container .right-section .right-quick-section  li a.quick-01 {background:#8790eb url("/resources/homepage/suseong/img/quick001-bg.png") no-repeat 10% center;}
 .main.container .right-section .right-quick-section  li a.quick-02 {background:#84b8e8 url("/resources/homepage/suseong/img/quick002-bg.png") no-repeat 10% center;}
 .main.container .right-section .right-quick-section  li a.quick-03 {background:#50ccca url("/resources/homepage/suseong/img/quick003-bg.png") no-repeat 10% center;}
 .main.container .right-section .right-quick-section  li a.quick-04 {background:#fc9284 url("/resources/homepage/suseong/img/quick004-bg.png") no-repeat 10% center;}
 .main.container .right-section .right-quick-section  li a.quick-05 {background:#416190 url("/resources/homepage/suseong/img/quick005-bg.png") no-repeat 10% center;}
 .main.container .right-section .right-quick-section  li a.quick-06 {background:#174090 url("/resources/homepage/suseong/img/quick006-bg.png") no-repeat 10% center;}
-.main.container .right-section .right-quick-section  li a span.txt {display:block;padding-left:65px;letter-spacing:-2px;color:#fff;}
+.main.container .right-section .right-quick-section  li a span.txt {display:block;padding-left:69px;letter-spacing:-2.5px;color:#fff;}
 
 .main.container .right-section .right-quick-section  li a span.txt p:first-child {font-size:20px;font-weight:bold;padding-top:0px;}
 .main.container .right-section .right-quick-section  li a img.go-bg {position:absolute;right:18px;top:31px;}
@@ -173,11 +173,14 @@
 .mobileBr {display:none;}
 
 #quick-slide {position:fixed;width:103px;height:auto;left:50%;top: 274px;margin-left:650px;z-index: 8;background: #fff;}
-#quick-slide ul {border:1px solid #dadada;border-top:0;box-sizing:border-box;text-align:center;padding:10px;margin-top:-20px;}
+#quick-slide ul {border:2px solid #174090;border-top:0;box-sizing:border-box;text-align:center;padding:10px;margin-top:-20px;}
 #quick-slide ul li {padding:18px 0;border-bottom:1px solid #dadada;}
 #quick-slide ul li a span {display:block;}
 #quick-slide ul li a span.txt {font-size:13px;line-height:120%;}
 #quick-slide ul li:last-child {border-bottom:0;}
+
+/* SNS 추가 */
+.sns-box {display:none;}
 
 @media all and (max-width:1279px){
 
@@ -278,7 +281,13 @@
 }
 
 @media all and (max-width:425px){
-
+	/* SNS 추가 */
+	.sns-box {display:block;width:100%;margin:25px 0 15px;}
+	.sns-box h2.title {text-align:center;}
+	.sns-box .sns-link{text-align:center;margin-top:20px;}
+	.sns-box .sns-link li {display:inline-block;width:45%;margin-bottom:20px;text-align:center;}
+	.sns-box .sns-link li a{font-size:13px;letter-spacing:1px;color:#666;}
+	.sns-box .sns-link li a img {vertical-align:middle;}
 }
 
 @media all and (max-width:380px){
@@ -296,3 +305,7 @@
 	.main.container .center-section .book .box .book_photo li {width:80px;margin:25px 5px;}
 	.main.container .center-section .book .box .book_photo li a img {height:120px;}
 }
+
+
+/*공공도서관 z-index*/
+#footer{z-index:5 !important;}

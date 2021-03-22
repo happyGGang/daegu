@@ -343,6 +343,34 @@ do {
 					</c:choose>
 				</div>
 
+				<div class="sns-box">
+					<h2 class="title"><img src="/resources/homepage/${homepage.context_path}/img/sns-title.png" alt="sns-title"></h2>
+					<div class="sns-link">
+						<ul>
+							<li>
+								<a href="https://www.facebook.com/suseonglibrary" target="_blank">
+									<img src="/resources/homepage/${homepage.context_path}/img/facebook-icon.png" alt="FACEBOOK"> <br class="br650"/>FACEBOOK
+								</a>
+							</li>
+							<li>
+								<a href="https://www.instagram.com/suseonglib/?hl=ko" target="_blank">
+									<img src="/resources/homepage/${homepage.context_path}/img/instargram-icon.png" alt="INSTAGRAM"> <br class="br650"/>INSTAGRAM
+								</a>
+							</li>
+							<li>
+								<a href="https://twitter.com/suseonglib2500" target="_blank">
+									<img src="/resources/homepage/${homepage.context_path}/img/twitter-icon.png" alt="TWITTER"> <br class="br650"/>TWITTER
+								</a>
+							</li>
+							<li>
+								<a href="https://www.youtube.com/channel/UCcsjxHtIVulortb8xu6bnCQ" target="_blank">
+									<img src="/resources/homepage/${homepage.context_path}/img/youtube-icon.png" alt="YOUTUBE"> <br class="br650"/>YOUTUBE
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
 				<div class="left-quick-section">
 					<ul>
 						<li><a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=16" class="quick-01"><span class="txt"><p>나의 도서관</p><p>대출 및 도서신청 정보</p></span><img src="/resources/homepage/${homepage.context_path}/img/go-bg.png" alt="나의 도서관" class='go-bg'></a></li>
