@@ -507,6 +507,7 @@ $(function() {
 	        <tr>
 	         	<th>주소(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
+	         		<form:hidden path="applicant_address"/>
 	         		<form:input path="student_address" class="text" style="width:100%;" maxlength="60"/><br/>
 	         	</td>
         	</tr>
