@@ -217,7 +217,8 @@ public class TeachController extends BaseController{
 		}
 		else {
 //			teach.setHomepage_id(homepage.getHomepage_id());
-			if ((homepage.getHomepage_id().equals("h37") || homepage.getHomepage_id().equals("h49") || homepage.getHomepage_id().equals("h45") || homepage.getHomepage_id().equals("h53"))) {
+			if ((homepage.getHomepage_id().equals("h37") || homepage.getHomepage_id().equals("h49") || homepage.getHomepage_id().equals("h45") || homepage.getHomepage_id().equals("h53"))
+					|| homepage.getHomepage_id().equals("h50")) {
 				Homepage h = new Homepage();
 				h.setHomepage_id(homepage.getHomepage_id());
 				h.setHomepage_group(homepage.getHomepage_id());
@@ -225,7 +226,11 @@ public class TeachController extends BaseController{
 				List<Homepage> subHomepageList = homepageService.getSubHomepageList(h);
 				if (StringUtils.isEmpty(teach.getHomepage_id())) {
 					if (subHomepageList != null && subHomepageList.size() > 0) {
-						teach.setHomepage_id(subHomepageList.get(0).getHomepage_id());
+						if(homepage.getHomepage_id().equals("h50")) {
+							teach.setHomepage_id(homepage.getHomepage_id());
+						} else {
+							teach.setHomepage_id(subHomepageList.get(0).getHomepage_id());
+						}
 					}
 				}
 				model.addAttribute("subHomepageList", subHomepageList);
