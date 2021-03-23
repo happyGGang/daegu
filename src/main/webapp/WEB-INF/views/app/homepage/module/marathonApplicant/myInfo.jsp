@@ -301,8 +301,8 @@ span.text2{font-style: normal;color: #888;font-size: 90%;margin: 0 5px;}
 					</form:select>
 					<input type="text" id="address_writeDong" class="text" size="6" readonly="true"/><span class="text2"> *동명을 입력해 주세요.    ※참가자격: 달서구민 및 달서구 소재 학교 재학생</span><br/>
 				</div>
-				<a href="" id="findPostCode" class="btn" style="background:#fff;font-size:14px;padding:5px 3px;">우편번호찾기</a><form:input path="zipcode" cssClass="text" readonly="true" cssStyle="width:80px;" maxLength="5"/><span class="text2"> *우편번호(숫자5자리)</span><br/>
-				<form:input path="address_one" size="40" cssClass="text" style="margin-top:0.5px;" readonly="true"/><span class="text2"> *시도 + 시군구 + 도로명(50자리 이내로 입력해 주세요.)</span><br/>
+				<a href="" id="findPostCode" class="btn" style="background:#fff;font-size:14px;padding:5px 3px;">우편번호찾기</a><form:input path="zipcode" cssClass="text" cssStyle="width:80px;" maxLength="5"/><span class="text2"> *우편번호(숫자5자리)</span><br/>
+				<form:input path="address_one" size="40" cssClass="text" style="margin-top:0.5px;"/><span class="text2"> *시도 + 시군구 + 도로명(50자리 이내로 입력해 주세요.)</span><br/>
 				<form:input path="address_two" size="40" cssClass="text" style="margin-top:0.5px"/><span class="text2"> *건물번호 + 동·층·호 + (법정동,공동주택명)(50자리 이내로 입력해 주세요.)</span>
 			</td>
 		</tr>
