@@ -282,7 +282,8 @@ public class StudentService extends BaseService {
 				}
 				else {
 					addResult[0] = false;
-					addResult[1] = String.format("신청 실패 했습니다.\n오프라인 모집 인원 : %s, 오프라인 참여 인원 : %s입니다.", offlineCount, curOfflineJoinCount);
+//					addResult[1] = String.format("신청 실패 했습니다.\n오프라인 모집 인원 : %s, 오프라인 참여 인원 : %s입니다.", offlineCount, curOfflineJoinCount);
+					addResult[1] = String.format("오프라인 후보자 등록이 불가능합니다.\n오프라인 모집 인원 : %s, 오프라인 참여 인원 : %s입니다.", offlineCount, curOfflineJoinCount);
 					return addResult;
 				}
 			}

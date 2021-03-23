@@ -261,7 +261,7 @@ table.bbs tr.notice{background:#f5f6f7}
 						<c:if test="${boardManage.manage_idx eq '614' || boardManage.manage_idx eq '628'}">
 						<c:set var="portal" value="/${homepage.context_path}/board/"></c:set>
 						</c:if>
-						<c:set var="viewUrl" value="${portal}view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}"></c:set>
+						<c:set var="viewUrl" value="${portal}view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}&category1=${board.category1}"></c:set>
 						<a href="${viewUrl}" keyValue="${i.board_idx}">
 						<c:if test="${i.group_depth > 0}">
 							<i class="fa fa-reply"></i>

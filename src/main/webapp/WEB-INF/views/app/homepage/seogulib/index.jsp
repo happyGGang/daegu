@@ -1959,9 +1959,9 @@ do {
                   <li class="bar">/</li>
                   <li><a href="#bisan" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=83&manage_idx=623&category1=0002">비산</a></li>
                   <li class="bar">/</li>
-                  <li><a href="#english" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=83&manage_idx=623&category1=0003">영어</a></li>
+                  <li><a href="#english" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=83&manage_idx=623&category1=0004">영어</a></li>
                   <li class="bar">/</li>
-                  <li><a href="#biwon" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=83&manage_idx=623&category1=0004">비원</a></li>
+                  <li><a href="#biwon" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=83&manage_idx=623&category1=0003">비원</a></li>
                   <li class="bar">/</li>
                   <li><a href="#wongogye" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=83&manage_idx=623&category1=0005">원고개</a></li>
                 </ul>

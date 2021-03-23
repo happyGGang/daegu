@@ -3,6 +3,7 @@
 <mapper namespace="kr.co.whalesoft.app.board.BoardDao">
 
 	<sql id="where">
+		<if test="manage_idx != 282">
 		AND	(
 			notice_yn != 'Y' OR notice_yn IS NULL
 			OR	(
@@ -11,6 +12,7 @@
 				OR	notice_start_date <![CDATA[>]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
 				)
 			)
+		</if>
 
 		<choose>
 			<when test="manage_idx == 563 and (category1 == null or category1 == '')">
