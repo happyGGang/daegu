@@ -2047,10 +2047,10 @@ do {
               </div>
               <div class="top3wrap" id="recombox3_english">
                 <div class="book_box">
-                  <c:if test="${fn:length(bookListh62) < 1}">
+                  <c:if test="${fn:length(bookListh63) < 1}">
                     <div class="book">등록된 데이터가 없습니다.</div>
                   </c:if>
-                  <c:forEach items="${bookListh62}" var="i" varStatus="status" begin="0" end="4">
+                  <c:forEach items="${bookListh63}" var="i" varStatus="status" begin="0" end="4">
                     <div class="book"> <a href="/${homepage.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
                       <div class="img_box">
                         <c:choose>
@@ -2073,10 +2073,10 @@ do {
               </div>
               <div class="top3wrap" id="recombox3_biwon">
                 <div class="book_box">
-                  <c:if test="${fn:length(bookListh63) < 1}">
+                  <c:if test="${fn:length(bookListh62) < 1}">
                     <div class="book">등록된 데이터가 없습니다.</div>
                   </c:if>
-                  <c:forEach items="${bookListh63}" var="i" varStatus="status" begin="0" end="4">
+                  <c:forEach items="${bookListh62}" var="i" varStatus="status" begin="0" end="4">
                     <div class="book"> <a href="/${homepage.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
                       <div class="img_box">
                         <c:choose>
