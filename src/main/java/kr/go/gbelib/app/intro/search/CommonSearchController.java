@@ -297,104 +297,104 @@ public class CommonSearchController extends BaseController {
 //			}
 
 			//도서관정보나루 도서별 이용분석
-//			Map<String, Object> srchDtlList = LibSearchAPI.getSrchDtlList(librarySearch.getIsbn());
-//			if (srchDtlList != null && !srchDtlList.isEmpty()) {
-//				@SuppressWarnings ("unchecked")
-//				Map<String, Object> data4Response = (Map<String, Object>) srchDtlList.get("response");
-//				try {
-////					log.debug("@@@@@@@@@@@@@@@@@ data4Response.get(\"dfsdf\"): " + data4Response.get("sdfsdf"));
-////					log.debug("@@@@@@@@@@@@@@@@@ data4Response.get(\"error\"): " + data4Response.get("error"));
-//					if(data4Response.get("error") == null) {
-//						//함께 대출된 도서 - recBooks
-//						@SuppressWarnings ("unchecked")
-//						Map<String, Object> data4loanInfo =  (Map<String, Object>) data4Response.get("loanInfo");
-//
-//						@SuppressWarnings ("unchecked")
-//						Map<String, Object> data4TotalInfo =  (Map<String, Object>) data4loanInfo.get("Total");
-//
-//						int data4LoanCnt =  Integer.parseInt(String.valueOf(data4TotalInfo.get("loanCnt")));
-//						model.addAttribute("data4LoanCnt", data4LoanCnt);
-//
-//
-//						@SuppressWarnings ("unchecked")
-//						Map<String, Object> data4ageResult =  (Map<String, Object>) data4loanInfo.get("ageResult");
-//						@SuppressWarnings ("unchecked")
-//						List<Map<String, Object>> data4ageList =  (List<Map<String, Object>>) data4ageResult.get("age");
-//						//연령별
-//						model.addAttribute("data4ageList", data4ageList);
-//					}
-//				}catch ( Exception e ) {
-////					log.error("@@@@@@@@@@@@@@@@ srchDtlList : " + srchDtlList);
-////					log.error(e.getMessage());
-//				}
-//
-//				model.addAttribute("srchDtlList", srchDtlList);
-//			}
+			Map<String, Object> srchDtlList = LibSearchAPI.getSrchDtlList(librarySearch.getIsbn());
+			if (srchDtlList != null && !srchDtlList.isEmpty()) {
+				@SuppressWarnings ("unchecked")
+				Map<String, Object> data4Response = (Map<String, Object>) srchDtlList.get("response");
+				try {
+//					log.debug("@@@@@@@@@@@@@@@@@ data4Response.get(\"dfsdf\"): " + data4Response.get("sdfsdf"));
+//					log.debug("@@@@@@@@@@@@@@@@@ data4Response.get(\"error\"): " + data4Response.get("error"));
+					if(data4Response.get("error") == null) {
+						//함께 대출된 도서 - recBooks
+						@SuppressWarnings ("unchecked")
+						Map<String, Object> data4loanInfo =  (Map<String, Object>) data4Response.get("loanInfo");
+
+						@SuppressWarnings ("unchecked")
+						Map<String, Object> data4TotalInfo =  (Map<String, Object>) data4loanInfo.get("Total");
+
+						int data4LoanCnt =  Integer.parseInt(String.valueOf(data4TotalInfo.get("loanCnt")));
+						model.addAttribute("data4LoanCnt", data4LoanCnt);
+
+
+						@SuppressWarnings ("unchecked")
+						Map<String, Object> data4ageResult =  (Map<String, Object>) data4loanInfo.get("ageResult");
+						@SuppressWarnings ("unchecked")
+						List<Map<String, Object>> data4ageList =  (List<Map<String, Object>>) data4ageResult.get("age");
+						//연령별
+						model.addAttribute("data4ageList", data4ageList);
+					}
+				}catch ( Exception e ) {
+//					log.error("@@@@@@@@@@@@@@@@ srchDtlList : " + srchDtlList);
+//					log.error(e.getMessage());
+				}
+
+				model.addAttribute("srchDtlList", srchDtlList);
+			}
 
 			//도서관정보나루 키워드
-//			Map<String, Object> keywordList = LibSearchAPI.getKeywordList(librarySearch.getIsbn());
-//			if (keywordList != null && !keywordList.isEmpty()) {
-//				@SuppressWarnings ("unchecked")
-//				Map<String, Object> data4Response = (Map<String, Object>) keywordList.get("response");
-//				try {
-////					log.debug("@@@@@@@@@@@@@@@@@ data4Response.get(\"error\"): " + data4Response.get("error"));
-//					if(data4Response.get("error") == null) {
-//						//키워드
-//						@SuppressWarnings ("unchecked")
-//						Map<String, Object> data4items =  (Map<String, Object>) data4Response.get("items");
-//						@SuppressWarnings ("unchecked")
-//						List<Map<String, Object>> data4ItemList =  (List<Map<String, Object>>) data4items.get("item");
-//						List<JSONObject> jsonList = new ArrayList<JSONObject>();
-//						for (Map<String, Object> map4 : data4ItemList) {
-//							JSONObject jo = new JSONObject();
-//							String text = String.valueOf(map4.get("word")).trim();
-//
-//							jo.put("text", text);
-//
-//							map4.put("text", "\""+text+"\"");
-//							map4.remove("word");
-//
-//							String weight = String.valueOf(map4.get("weight")).trim();
-//							map4.put("weight", weight);
-//
-//							jo.put("weight", Double.parseDouble(weight));
-//
-//							jsonList.add(jo);
-//						}
-//
-//						model.addAttribute("data4ItemList", data4ItemList);
-//						model.addAttribute("data4ItemList", jsonList);
-//					}
-//				}catch ( Exception e ) {
-////					log.error("@@@@@@@@@@@@@@@@ keywordList : " + keywordList);
-////					log.error(e.getMessage());
-//				}
-//
-//				model.addAttribute("keywordList", keywordList);
-//			}
+			Map<String, Object> keywordList = LibSearchAPI.getKeywordList(librarySearch.getIsbn());
+			if (keywordList != null && !keywordList.isEmpty()) {
+				@SuppressWarnings ("unchecked")
+				Map<String, Object> data4Response = (Map<String, Object>) keywordList.get("response");
+				try {
+//					log.debug("@@@@@@@@@@@@@@@@@ data4Response.get(\"error\"): " + data4Response.get("error"));
+					if(data4Response.get("error") == null) {
+						//키워드
+						@SuppressWarnings ("unchecked")
+						Map<String, Object> data4items =  (Map<String, Object>) data4Response.get("items");
+						@SuppressWarnings ("unchecked")
+						List<Map<String, Object>> data4ItemList =  (List<Map<String, Object>>) data4items.get("item");
+						List<JSONObject> jsonList = new ArrayList<JSONObject>();
+						for (Map<String, Object> map4 : data4ItemList) {
+							JSONObject jo = new JSONObject();
+							String text = String.valueOf(map4.get("word")).trim();
 
-//			//도서관정보나루 추천도서
-//			Map<String, Object> recommandList = LibSearchAPI.getRecommandList(librarySearch.getIsbn());
-//			if (recommandList != null && !recommandList.isEmpty()) {
-//				@SuppressWarnings ("unchecked")
-//				Map<String, Object> data4Response = (Map<String, Object>) recommandList.get("response");
-//				try {
-////					log.debug("@@@@@@@@@@@@@@@@@ data4Response.get(\"error\"): " + data4Response.get("error"));
-//					if(data4Response.get("error") == null) {
-//						@SuppressWarnings ("unchecked")
-//						Map<String, Object> docs =  (Map<String, Object>) data4Response.get("docs");
-//						@SuppressWarnings ("unchecked")
-//						List<Map<String, Object>> data4recommandList =  (List<Map<String, Object>>) docs.get("book");
-//						model.addAttribute("data4recommandList", data4recommandList);
-//					}
-//				}catch ( Exception e ) {
-////					e.printStackTrace();
-////					log.error("@@@@@@@@@@@@@@@@ recommandList : " + recommandList);
-////					log.error(e.getMessage());
-//				}
-//
-//				model.addAttribute("recommandList", recommandList);
-//			}
+							jo.put("text", text);
+
+							map4.put("text", "\""+text+"\"");
+							map4.remove("word");
+
+							String weight = String.valueOf(map4.get("weight")).trim();
+							map4.put("weight", weight);
+
+							jo.put("weight", Double.parseDouble(weight));
+
+							jsonList.add(jo);
+						}
+
+						model.addAttribute("data4ItemList", data4ItemList);
+						model.addAttribute("data4ItemList", jsonList);
+					}
+				}catch ( Exception e ) {
+//					log.error("@@@@@@@@@@@@@@@@ keywordList : " + keywordList);
+//					log.error(e.getMessage());
+				}
+
+				model.addAttribute("keywordList", keywordList);
+			}
+
+			//도서관정보나루 추천도서
+			Map<String, Object> recommandList = LibSearchAPI.getRecommandList(librarySearch.getIsbn());
+			if (recommandList != null && !recommandList.isEmpty()) {
+				@SuppressWarnings ("unchecked")
+				Map<String, Object> data4Response = (Map<String, Object>) recommandList.get("response");
+				try {
+//					log.debug("@@@@@@@@@@@@@@@@@ data4Response.get(\"error\"): " + data4Response.get("error"));
+					if(data4Response.get("error") == null) {
+						@SuppressWarnings ("unchecked")
+						Map<String, Object> docs =  (Map<String, Object>) data4Response.get("docs");
+						@SuppressWarnings ("unchecked")
+						List<Map<String, Object>> data4recommandList =  (List<Map<String, Object>>) docs.get("book");
+						model.addAttribute("data4recommandList", data4recommandList);
+					}
+				}catch ( Exception e ) {
+//					e.printStackTrace();
+//					log.error("@@@@@@@@@@@@@@@@ recommandList : " + recommandList);
+//					log.error(e.getMessage());
+				}
+
+				model.addAttribute("recommandList", recommandList);
+			}
 
 			//도서관정보나루 도서별 이용분석
 //			Map<String, Object> usageAnalysisList = LibSearchAPI.getRecommandList(librarySearch.getIsbn());
