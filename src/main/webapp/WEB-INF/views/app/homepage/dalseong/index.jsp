@@ -423,24 +423,24 @@ do {
 						<div class="library-infomation">
 							<div class="top">
 								<div class="topBox1">
-									<span><h4>종합자료실</h4></span>
+									<span><h4>일반자료실</h4></span>
 									<span>
 									<strong>평일 09:00~19:00<br/>
 									주말 09:00~17:00</strong>
 									</span>
 								</div>
 								<div class="topBox2">
-									<span><h4>디지털자료실</h4></span>
+									<span><h4>어린이자료실</h4></span>
 									<span>
 									<strong>평일 09:00~18:00<br/>
 									주말 09:00~17:00</strong>
 									</span>
 								</div>
 							</div>
-							<div class="bottom">
+							<!--<div class="bottom">
 								<span><h4>열람실</h4></span>
 								<span><strong>07:00~22:00</strong></span>
-							</div>
+							</div>-->
 						</div>
 
 						<!-- <div class="library-infomation">

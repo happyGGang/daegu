@@ -154,7 +154,7 @@
 #planList{overflow:hidden;padding-top:13px}
 #planList h3{font-size:15px;padding:0 10px 0 0;float:left;display:block;letter-spacing:-1px}
 #planList span{float:left;margin:5px 3px 0;width:25px;height:25px;font-weight:bold;line-height:25px;display:block;background-color:#ee882c;color:#fff;border-radius:100%;font-size:12px}
-.cal-func2 {text-align:center;padding:0 0 5px 0;}
+.cal-func2 {text-align:center;padding:0 0 15px 0;}
 .cal-func2 a.btn {padding:10px 10px 5px 10px;color:#fff;font-size:15px;}
 .cal-func2 a.btn:focus,
 .cal-func2 a.btn:hover{color:#222}
@@ -186,7 +186,7 @@
 #calendar2 .inBox0 .week-box li a {display:block;color:#fff;font-size:15px;height:25px;line-height:25px;border-radius:15px;}
 #calendar2 .inBox0 .week-box li a.today {background:#ffa200;;color:#fff;}
 
-#calendar2 .inBox0 .event-box {position:relative;width:90%;margin:0 auto;padding:5px 0;overflow:hidden;}
+#calendar2 .inBox0 .event-box {position:relative;width:90%;margin:0 auto;padding:15px 0;overflow:hidden;}
 #calendar2 .inBox0 .event-box span {display:inline-block;}
 #calendar2 .inBox0 .event-box span:first-child {position:absolute;width:45px;height:38px;}
 #calendar2 .inBox0 .event-box span:last-child  {padding-left:55px;}
@@ -300,7 +300,7 @@
 
 @media all and (max-width:767px){
 	.main1 .main1box1 .main1box1box2 .main1box1box2box1 {float:none;width:100%;}
-	.main1 .main1box1 .main1box1box2 .main1box1box2box2 {float:none;width:100%;}
+	.main1 .main1box1 .main1box1box2 .main1box1box2box2 {float:none;width:100%;display:none;}
 	.main1 .main1box2 .popZone li{width:100%;text-align:center;padding:0;margin:0;}
 	.main1 .main1box2 .popZone {width:100%;position:relative;padding:0;margin:0;}
 	.main1 .main1box2 .popZone li a {width:100%;display:inline-block;}

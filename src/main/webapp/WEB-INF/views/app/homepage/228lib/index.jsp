@@ -267,16 +267,16 @@ do {
 						<h4>유아·어린이자료실, 디지털자료실</h4>
 						<ul>
 							<li><span class="dot">-</span> <span class="txt">화~금</span> 09:00 ~ 18:00</li>
-							<li><span class="dot">-</span> <span class="txt">토~일</span> 09:00 ~ 17:00</li>
+							<li><span class="dot">-</span> <span class="txt">토요일</span> 09:00 ~ 17:00</li>
 						</ul>
 
 						<h4>일반자료실</h4>
 						<ul>
-							<li><span class="dot">-</span> <span class="txt">화~금</span> 09:00 ~ 21:00</li>
-							<li><span class="dot">-</span> <span class="txt">토~일</span> 09:00 ~ 17:00</li>
+							<li><span class="dot">-</span> <span class="txt">화~금</span> 09:00 ~ 18:00</li>
+							<li><span class="dot">-</span> <span class="txt">토요일</span> 09:00 ~ 17:00</li>
 						</ul>
 
-						<p style="font-size:13px;">※매주 월요일 및 법정공휴일은 휴관입니다</p>
+						<p style="font-size:13px;">※매주 일, 월요일 및 법정공휴일은 휴관입니다.</p>
 					</div>
 
 				</div>
