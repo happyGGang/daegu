@@ -608,14 +608,21 @@ $(function(){
 
 	$('body div#wrap li.2Depth > a').on('click', function(e) {
 		var listDepth3 = $(this).parent().find('li.3Depth');
+		var listDepth4 = listDepth3.eq(0).find('li.4Depth');
 
-		if ( listDepth3.length > 0 ) {
+		if(listDepth4.length > 0) {
 			e.stopPropagation();
 			e.preventDefault();
-			listDepth3.eq(0).find('span').click();
-		}
-		else {
-			return true;
+			listDepth4.eq(0).find('span').click();
+		} else {
+			if ( listDepth3.length > 0 ) {
+				e.stopPropagation();
+				e.preventDefault();
+				listDepth3.eq(0).find('span').click();
+			}
+			else {
+				return true;
+			}
 		}
 	});
 
