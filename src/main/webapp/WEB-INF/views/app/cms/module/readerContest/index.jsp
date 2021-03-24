@@ -118,6 +118,7 @@ $(function() {
 								<c:when test="${i.participation_field eq '0'}">소년부(초등~중등)</c:when>
 								<c:when test="${i.participation_field eq '1'}">장년부(고등~일반)</c:when>
 							</c:choose>
+							(${i.participation_type eq 'on' ? '온라인' : '오프라인'})
 						</td>
 						<td>
 							<a href="#" class="view_btn" data-key="${i.reader_idx}">${i.user_name}</a>

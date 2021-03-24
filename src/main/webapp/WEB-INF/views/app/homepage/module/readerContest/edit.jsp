@@ -92,6 +92,9 @@ $(function() {
 					<td>
 						<form:radiobutton path="participation_field" value="0" label="소년부(초등~중등)" class="new_input_btn01"/>
 						<form:radiobutton path="participation_field" value="1" label="장년부(고등~일반)" class="new_input_btn01"/>
+						<br>
+						<form:radiobutton path="participation_type" value="on" label="온라인" checked="true"/>
+						<form:radiobutton path="participation_type" value="off" label="오프라인"/>
 					</td>
 				</tr>
 				<tr>

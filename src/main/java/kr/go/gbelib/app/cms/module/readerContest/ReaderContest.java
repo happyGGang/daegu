@@ -9,6 +9,7 @@ public class ReaderContest extends PagingUtils {
 	private String homepage_id;	//홈페이지ID
 	private int reader_idx;	//다독자IDX
 	private String participation_field;	//참가분야
+	private String participation_type; // 참가타입
 	private String user_name;	//신청자 이름
 	private String user_date;	//신청자 생년월일
 	private String user_phone;	//신청자 휴대폰
@@ -47,6 +48,14 @@ public class ReaderContest extends PagingUtils {
 
 	public void setParticipation_field(String participation_field) {
 		this.participation_field = participation_field;
+	}
+	
+	public String getParticipation_type() {
+		return participation_type;
+	}
+	
+	public void setParticipation_type(String participation_type) {
+		this.participation_type = participation_type;
 	}
 
 	public String getUser_name() {

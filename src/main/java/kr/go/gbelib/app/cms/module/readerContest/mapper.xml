@@ -5,7 +5,7 @@
 	<select id="readerContestList" resultType="kr.go.gbelib.app.cms.module.readerContest.ReaderContest">
 		${pagingTop}
 		SELECT
-			homepage_id, reader_idx, participation_field, user_name, user_date,
+			homepage_id, reader_idx, participation_field, participation_type, user_name, user_date,
 			user_phone, protector_phone, user_email, postcode, address_base, 
 			address_detailed, approval_status, delete_yn, add_id, add_date
 		FROM
@@ -22,7 +22,7 @@
 	
 	<select id="getExcelList" resultType="kr.go.gbelib.app.cms.module.readerContest.ReaderContest">
 		SELECT
-			homepage_id, reader_idx, participation_field, user_name, user_date,
+			homepage_id, reader_idx, participation_field, participation_type, user_name, user_date,
 			user_phone, protector_phone, user_email, postcode, address_base, 
 			address_detailed, approval_status, delete_yn, add_id, add_date
 		FROM
@@ -47,7 +47,7 @@
 	
 	<select id="getReaderContest" resultType="kr.go.gbelib.app.cms.module.readerContest.ReaderContest">
 		SELECT
-			homepage_id, reader_idx, participation_field, user_name, user_date,
+			homepage_id, reader_idx, participation_field, participation_type, user_name, user_date,
 			user_phone, protector_phone, user_email, postcode, address_base, 
 			address_detailed, approval_status, delete_yn, add_id, add_date
 		FROM
@@ -61,13 +61,13 @@
 		INSERT INTO
 			READER_CONTEST
 		(
-			homepage_id, reader_idx, participation_field, user_name, user_date,
+			homepage_id, reader_idx, participation_field, participation_type, user_name, user_date,
 			user_phone, protector_phone, user_email, postcode, address_base, 
 			address_detailed, approval_status, delete_yn, add_id, add_date
 		)
 		VALUES
 		(
-			#{homepage_id}, (SELECT NVL(MAX(reader_idx), 0)+1 FROM READER_CONTEST), #{participation_field}, #{user_name}, #{user_date},
+			#{homepage_id}, (SELECT NVL(MAX(reader_idx), 0)+1 FROM READER_CONTEST), #{participation_field}, #{participation_type}, #{user_name}, #{user_date},
 			#{user_phone}, #{protector_phone}, #{user_email}, #{postcode}, #{address_base}, 
 			#{address_detailed}, #{approval_status}, #{delete_yn}, #{add_id}, SYSDATE
 		)
