@@ -330,6 +330,7 @@ CONTEXT_PATH : ${context_path}
 					</c:if>
 				</c:when>
 
+				
 				<c:when test="${context_path eq 'donggu' || context_path eq 'sincheon' || context_path eq 'donggusm'}">
 
 					<c:choose>
@@ -338,7 +339,7 @@ CONTEXT_PATH : ${context_path}
 						<c:otherwise>
 							<c:choose>
 								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
-									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
+									<!-- <a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a> -->
 								</c:when>
 								<c:otherwise>
 								</c:otherwise>
@@ -347,6 +348,7 @@ CONTEXT_PATH : ${context_path}
 					</c:choose>
 
 				</c:when>
+				
 
 				<c:otherwise>
 

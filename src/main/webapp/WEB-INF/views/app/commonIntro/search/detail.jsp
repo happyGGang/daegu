@@ -289,6 +289,7 @@ $(function() {
 		</div>
 		<div style="margin-top:20px;">
 			<c:set var="getIp" value="<%=request.getRemoteAddr()%>" />
+
 			<c:if test="${getIp eq '218.48.151.16'}">
 			<ul class="con">
 				<li style="background:none;">
@@ -306,7 +307,9 @@ $(function() {
 			</ul>
 			</c:if>
 		</div>
-          <p></p>
+
+		<p></p>
+
 		<div class="sbtn" style="text-align:center;">
 			<c:if test="${detail.SANGHO_REQ_YN eq 'Y'}">
 			<!-- <a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a> -->
@@ -378,7 +381,7 @@ $(function() {
 						<c:otherwise>
 							<c:choose>
 								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
-									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
+									<!-- <a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a> -->
 								</c:when>
 								<c:otherwise>
 								</c:otherwise>
@@ -497,21 +500,7 @@ $(function() {
 						<c:if test="${detail.MEDIA_CODE eq 'PR'}">
 							<c:choose>
 								<c:when test="${detail.LOAN_CODE eq 'OK'}">
-									<%
-									if(dayOfWeek == 1 || dayOfWeek == 7)
-									{
-									%>
-										<a href="#muin" onclick="alert('무인예약 신청가능 요일이 아닙니다.');" class="btn">무인예약신청</a>
-									<%
-									}
-									else
-									{
-									%>
-										<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
-									<%
-									}
-									%>
-									<!-- <a href="#muin" id="unmanned-req" class="btn">무인예약신청</a> -->
+									<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
 									<!-- <a href="#" class="btn btn1" onclick="alert('무인예약 이용자가 많아 신청이 불가합니다');">무인예약신청</a> -->
 								</c:when>
 								<c:otherwise>
