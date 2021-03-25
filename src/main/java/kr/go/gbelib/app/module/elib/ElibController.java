@@ -460,7 +460,7 @@ public class ElibController extends BaseController {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		lending.setHomepage_id(homepage.getHomepage_id());
 
-		lending.setBefore_url(String.format("/%s/module/elib/lending/index.do?menu_idx=%s", homepage.getContext_path(), lending.getMenu_idx()));
+		lending.setBefore_url(String.format("/%s/module/elib/lending/index.do?menu_idx=%s&menu=%s", homepage.getContext_path(), lending.getMenu_idx(), lending.getMenu()));
 		if(!checkLogin(request, response, lendingService, lending)) return null;
 
 		String menu = lending.getMenu();
