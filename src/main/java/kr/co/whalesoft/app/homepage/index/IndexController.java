@@ -657,6 +657,8 @@ public class IndexController extends BaseController {
 					t.setHomepage_id(homepage.getHomepage_id());
 				}
 
+				// 고산 문화행사만 조회
+				if(th.equals("h52")) t.setSearchCate1("16");
 
 				model.addAttribute("teachList", teachService.getTeachListForUser(t));
 			}
