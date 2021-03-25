@@ -251,6 +251,7 @@ public class IndexController extends BaseController {
 		Date currentDay = new Date ();
 		String currDate = sf2.format ( currentDay );
 
+		calendarManage.setHomepage_id(homepage.getHomepage_id());
 		board.setHomepage_id(homepage.getHomepage_id());
 		board.setImsi_v_1(calendarManage.getPlan_day().substring(0,7));
 		board.setImsi_v_2(calendarManage.getPlan_day().substring(8));
