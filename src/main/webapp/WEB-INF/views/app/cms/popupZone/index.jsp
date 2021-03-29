@@ -228,7 +228,7 @@ $(function(){
 							<img src="/resources/cms/img/noimg_135_42.gif" alt="이미지 미리보기 입니다.">
 							</c:if>
 							<c:if test="${i.org_file_name ne null}">
-							<img width="135" height="42" src="${getContextPath}/data/popupZone/${i.homepage_id}/${i.server_file_name}" alt="${i.server_file_name}">
+							<img width="45%" height="80px" src="${getContextPath}/data/popupZone/${i.homepage_id}/${i.server_file_name}" alt="${i.server_file_name}">
 							</c:if>
 						</a>
 					</div>
