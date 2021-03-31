@@ -26,7 +26,7 @@
 						<em>전화 ${fn:split(homepage.homepage_tell,',')[0]}</em>
 						<!-- <em>팩스 ${homepage.homepage_fax }</em> -->
 					</p>
-					<span>Copyright © Memorial Libray for 2.28 Students' Movement All rights reserved.</span>
+					<span>Copyright © Memorial Library for 2.28 Students' Movement All rights reserved.</span>
 				</address>
 				<div class="site_link">
 					<div>

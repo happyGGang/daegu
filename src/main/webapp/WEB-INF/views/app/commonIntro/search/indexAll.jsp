@@ -1078,8 +1078,7 @@
 											<c:choose>
 												<c:when test="${empty i.aladin or empty i.aladin.cover}">
 													<a href="${detailURL}" class="noImg">
-														<img src="/resources/common/img/noImg2.png" alt="${i.TITLE_INFO}"/>
-														<span>등록된 이미지가<br/>없습니다.</span>
+														<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="${i.TITLE_INFO}"/>
 													</a>
 												</c:when>
 												<c:otherwise>
@@ -1150,7 +1149,7 @@
 														<!-- 대출가능 여부 [ END ] -->
 													</p>
 													<!--
-                                                    JU : 아동, MS : 중학생, AD : 성인, PU : 일반, ES : 초등, HS : 고등, SP : 특수, 기타 :
+                                                    JU : 아동, MS : 중학생, AD : 성인, PU : 일반, ES : 초등, HS : 고등, SP : 특수, TE : 청소년, 기타 :
                                                     -->
 													<c:if test="${not empty i.APPENDIX_INFO}">
 														<p><font style="color:#5e5e5e">부록여부</font> : ${i.APPENDIX_INFO[0].DESCRIPTION} (${i.APPENDIX_INFO[0].APPENDIX_CNT}개)</p>
@@ -1178,6 +1177,9 @@
 															</c:when>
 															<c:when test="${i.USE_OBJECT_CODE eq 'SP'}">
 																<span style="">특수</span>
+															</c:when>
+															<c:when test="${i.USE_OBJECT_CODE eq 'TE'}">
+																<span style="">청소년</span>
 															</c:when>
 															<c:otherwise>
 																<span style="">기타</span>

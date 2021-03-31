@@ -23,9 +23,9 @@
 			<div class="wide-1686-sections">
 				<p>
 					<em>(${homepage.zipcode}) ${homepage.address1}</em><br class="mobileBr"/>
-					&nbsp;&nbsp;<em>전화 <b>${fn:split(homepage.homepage_tell,',')[0]}</b></em>
-					&nbsp;&nbsp;<em>팩스 <b>${homepage.homepage_fax }</b></em>
-					&nbsp;&nbsp;<a href="html.do?menu_idx=79&temp_yn=Y"> <em style="color:#fff">문의처확인</em></a>
+					<!-- &nbsp;&nbsp;<em>전화 <b>${fn:split(homepage.homepage_tell,',')[0]}</b></em>
+					&nbsp;&nbsp;<em>팩스 <b>${homepage.homepage_fax }</b></em> -->
+					&nbsp;&nbsp;<a href="/${homepage.context_path}/html.do?menu_idx=79&temp_yn=Y"> <em style="color:#fff">문의처확인</em></a>
 				</p>
 				<p class="copyright">Copyright ⓒ 대구통합도서관. All rights reserved.</p>
 
