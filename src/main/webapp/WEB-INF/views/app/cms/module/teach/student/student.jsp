@@ -418,27 +418,25 @@ $(function(){
 				<th>휴대전화번호<br/>(신청자)</th>
 				<th>상태</th>
 				<th>신청일</th>
-				<c:if test="${teachInfo.teach_status ne '1'}">
 				<th>취소자ID</th>
 				<th>취소일</th>
-				</c:if>
 				<th>기능</th>
 			</tr>
 		</thead>
 		<tbody>
 		<c:if test="${fn:length(studentList) < 1}">
-			<c:choose>
-				<c:when test="${teachInfo.teach_status ne '1'}">
+<%-- 			<c:choose> --%>
+<%-- 				<c:when test="${teachInfo.teach_status ne '1'}"> --%>
 					<tr style="height:100%">
 						<td colspan="11" style="background:#f8fafb;">데이터가 존재하지 않습니다.</td>
 					</tr>
-				</c:when>
-				<c:otherwise>
-					<tr style="height:100%">
-						<td colspan="9" style="background:#f8fafb;">데이터가 존재하지 않습니다.</td>
-					</tr>
-				</c:otherwise>
-			</c:choose>
+<%-- 				</c:when> --%>
+<%-- 				<c:otherwise> --%>
+<!-- 					<tr style="height:100%"> -->
+<!-- 						<td colspan="9" style="background:#f8fafb;">데이터가 존재하지 않습니다.</td> -->
+<!-- 					</tr> -->
+<%-- 				</c:otherwise> --%>
+<%-- 			</c:choose> --%>
 		</c:if>
 		<c:forEach var="i" varStatus="status" items="${studentList}">
 			<tr>
@@ -475,7 +473,7 @@ $(function(){
 				<td>
 					<c:choose>
 						<c:when test="${teachInfo.teach_status eq '1' }">
-							${i.student_status eq '1'? '수료' : '미수료'}
+							${i.student_status eq '1'? '수료' : i.apply_status eq '1' ? '미수료' : statusCode[i.apply_status].code_name}
 						</c:when>
 						<c:otherwise>
 							${(i.apply_type eq 'CMS') and (i.apply_status eq 1) ? '오프 참여' : statusCode[i.apply_status].code_name}
@@ -485,10 +483,8 @@ $(function(){
 				<td>
 					${i.add_date}
 				</td>
-				<c:if test="${teachInfo.teach_status ne '1'}">
-					<td>${i.cancel_id}</td>
-					<td><fmt:formatDate value="${i.cancel_date}" pattern="yyyy-MM-dd"/></td>
-				</c:if>
+				<td>${i.cancel_id}</td>
+				<td><fmt:formatDate value="${i.cancel_date}" pattern="yyyy-MM-dd"/></td>
 				<td>
 					<c:if test="${authU}">
 					<a href="" class="btn dialog-modify" keyValue1="${i.student_idx}">수정</a>

@@ -317,6 +317,7 @@ public class StudentController extends BaseController {
 				}
 			} else if (student.getEditMode().equals("CANCEL") || student.getEditMode().equals("CANCEL_ALL")) {
 				student.setMember_key(getSessionMemberId(request));
+				student.setCancel_id(getSessionMemberId(request));
 				service.cancelStudent(student);
 
 				res.setValid(true);
