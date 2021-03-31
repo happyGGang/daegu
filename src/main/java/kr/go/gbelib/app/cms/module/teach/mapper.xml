@@ -1775,19 +1775,21 @@
 			teach_idx = #{teach_idx}
 	</update>
 
-	<select id="getWaitingNumber" resultType="int">
-		SELECT wait_num FROM
+	<select id="getWaitingNumber" resultType="map">
+		SELECT wait_num, member_key, student_idx, student_name, apply_status FROM
 			(
-			SELECT ROWNUM AS wait_num, teach_idx, member_key, applicant_name, student_password FROM
+			SELECT
+				ROW_NUMBER() OVER(PARTITION BY apply_status ORDER BY apply_status ASC, student_idx ASC) AS wait_num,
+				member_key, teach_idx, student_idx, student_name, apply_status
+			FROM
 				(
 				SELECT
-					member_key, teach_idx, applicant_name, student_password
+					member_key, teach_idx, student_idx, student_name, apply_status
 				FROM
 					STUDENT
 				WHERE
 					homepage_id = #{homepage_id}
 				AND	teach_idx = #{teach_idx}
-				AND	apply_status = #{status}
 				AND	delete_yn = 'N'
 				ORDER BY apply_status ASC, student_idx ASC
 				)

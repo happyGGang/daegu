@@ -1,6 +1,7 @@
 package kr.go.gbelib.app.cms.module.teach;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage;
 import kr.go.gbelib.app.cms.module.teach.student.Student;
@@ -65,7 +66,7 @@ public interface TeachDao  {
 
 	public int modifySmsFlag(Teach teach);
 
-	public int getWaitingNumber(Teach result);
+	public Map<String, Object> getWaitingNumber(Teach result);
 
 	/**
 	 * @author whalesoft YONGJU 2020. 2. 28.

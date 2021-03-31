@@ -3,6 +3,7 @@ package kr.go.gbelib.app.cms.module.teach;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
@@ -437,22 +438,11 @@ public class TeachService extends BaseService {
 					result.setApply_password(teach.getApply_password());
 				}
 				
-				if(result.getTeach_status().equals("2")) {
-					try {
-						result.setMember_key(teach.getMember_key());
-						result.setStatus("1");
-						result.setWait_num(dao.getWaitingNumber(result));
-					} catch(BindingException be) {
-						result.setWait_num(0);
-					}
-				} else if(result.getTeach_status().equals("3")) {
-					try {
-						result.setMember_key(teach.getMember_key());
-						result.setStatus("2");
-						result.setWait_num(dao.getWaitingNumber(result));
-					} catch(BindingException be) {
-						result.setWait_num(0);
-					}
+				result.setMember_key(teach.getMember_key());
+				Map<String, Object> waitNumber = dao.getWaitingNumber(result);
+				if(waitNumber != null) {
+					result.setStatus(String.valueOf(waitNumber.get("APPLY_STATUS")));
+					result.setWait_num(Integer.parseInt(String.valueOf(waitNumber.get("WAIT_NUM"))));
 				}
 				
 				if(teach.getHomepage_id().equals("h32")) {
