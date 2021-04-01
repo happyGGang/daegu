@@ -70,11 +70,13 @@ $(function() {
 						alert('수강생 생년월일을 입력해 주세요.');
 						return false;
 					}
-					if ($form.find('input:radio[name = student_sex]:checked').length < 1){
-						$form.find('input:radio[name = student_sex]').focus();
+					<c:if test="${teach.sex_yn eq 'Y'}">
+					if ( $form.find ('input:radio[name = student_sex]:checked').length < 1){
+						$form.find ('input:radio[name = student_sex]').focus();
 						alert('수강생 성별을 입력해 주세요.');
 						return false;
 					}
+					</c:if>
 					
 					<c:if test="${teach.address_yn eq 'Y'}">
 						if($form.find('#student_address').val() == ''){
@@ -421,6 +423,7 @@ $(function() {
 	         	<th>생년월일(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="applicant_birth" class="text ui-calendar"/></td>
         	</tr>
+        	<c:if test="${teach.sex_yn eq 'Y'}">
         	<tr>
 	         	<th>성별(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
@@ -428,6 +431,7 @@ $(function() {
 	         		<form:radiobutton id="as2" path="applicant_sex" cssClass="F" value="F" label="여" cssStyle="vertical-align: middle;"/>
          		</td>
 	        </tr>
+	        </c:if>
 			<tr>
 				<th>휴대전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
 				<td>
@@ -488,6 +492,7 @@ $(function() {
 	         	<th>생년월일(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="student_birth" class="text ui-calendar" /></td>
         	</tr>
+        	<c:if test="${teach.sex_yn eq 'Y'}">
         	<tr>
 	         	<th>성별(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
@@ -495,6 +500,7 @@ $(function() {
 	         		<form:radiobutton id="ss2" path="student_sex" cssClass="F" value="F" label="여" cssStyle="vertical-align: middle;"/>
          		</td>
 	        </tr>
+	        </c:if>
         	<tr style="display: none">
 	         	<th >나이(<span style="font-weight: bold;">*</span>)</th>
 	         	<td><input id="student_old" name="student_old" class="text" style="width:30px" maxlength="3" /></td>
