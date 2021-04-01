@@ -14,11 +14,20 @@
 					<li><a href="/buktj/index.do">태전</a></li>
 					<li><a href="/bukgs/html.do?menu_idx=98" target="_blank">작은</a></li>
 					<li><a href="/bukdh/html.do?menu_idx=25">전자도서관</a></li>
-					<li><a href="https://www.hbcf.or.kr/front/" target="_blank">행복북구문화재단</a></li>
+					<li class="br"><a href="https://www.hbcf.or.kr/front/" target="_blank">행복북구문화재단</a></li>
+					<li class="sns_icon"><a href="http://instagram.com/daehyeon_library" target="_blank" title="인스타그램 바로가기" alt="카카오톡 바로가기" class="newWin"><img src="/resources/homepage/bukgs/img/sns_icon_instagram.png"><i class="fa fa-external-link"></i></a></li>
+					<li class="sns_icon"><a href="https://pf.kakao.com/_fxkQuT" target="_blank" title="카카오톡 바로가기" alt="카카오톡 바로가기" class="newWin"><img src="/resources/homepage/bukgs/img/sns_icon_kakaotalk.png"><i class="fa fa-external-link"></i></a></li>
 				</ul>
 			</div>
 
 			<h1 class="mobile-logo"><a href="/${homepage.context_path}/index.do">대현 도서관</a></h1>
+
+			<div class="sns-box">
+				<ul class="sns-link">
+					<li><a href="http://instagram.com/daehyeon_library" target="_blank" title="인스타그램 바로가기" alt="카카오톡 바로가기" class="newWin"><img src="/resources/homepage/bukgs/img/sns_icon_instagram.png"><i class="fa fa-external-link"></i></a></li>
+					<li><a href="https://pf.kakao.com/_fxkQuT" target="_blank" title="카카오톡 바로가기" alt="카카오톡 바로가기" class="newWin"><img src="/resources/homepage/bukgs/img/sns_icon_kakaotalk.png"><i class="fa fa-external-link"></i></a></li>
+				</ul>
+			</div>
 
 			<div class="mmode m-menu">
 				<a href="#menu"><i class="fa fa-navicon"></i><span class="blind">메뉴</span></a>

@@ -250,6 +250,18 @@ $(function() {
 	if ('${fn:escapeXml(param.booktype)}' == 'NONBOOK') {
 		$('input#title').attr('placeholder', '비도서 제목을 입력하세요');
 	}
+
+
+	<c:if test="${empty librarySearch.title}">
+	//$('#checkAll').click();context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' 
+		<c:choose>
+			<c:when test="${homepage.context_path eq 'donggu'}">
+			$('div#libraryList input:checkbox').prop('checked',false);
+			$('div#libraryList input:checkbox.lib_CA').prop('checked',true);
+			$('div#libraryList input:checkbox.lib_CB').prop('checked',true);
+			</c:when>
+		</c:choose>
+	</c:if>
 });
 </script>
 

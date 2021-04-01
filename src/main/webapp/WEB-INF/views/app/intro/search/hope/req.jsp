@@ -178,9 +178,9 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 					<form:option value="FF">남산4동작은도서관</form:option>
 					<form:option value="FQ">동인 느티나무 도서관</form:option>
 					<form:option value="FS">대구중구영어도서관</form:option>
-					<form:option value="FY">중구청교양정보실</form:option>
-					<form:option value="GG">대신동작은도서관</form:option>
-					<form:option value="HA">삼덕마루 작은도서관</form:option>
+					<!-- <form:option value="FY">중구청교양정보실</form:option> -->
+					<!-- <form:option value="GG">대신동작은도서관</form:option> -->
+					<!-- <form:option value="HA">삼덕마루 작은도서관</form:option> -->
 					<form:option value="HF">대봉2동작은도서관</form:option>
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>

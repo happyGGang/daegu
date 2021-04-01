@@ -273,6 +273,32 @@ Date.prototype.format = function(f) {
 				</c:forEach>
 			</div>
 		</div>
+
+		<div class="planViewLayer">
+			<div class="inbox" id="popup_layer" style="display:none;">
+					<c:forEach var="i" items="${calendarResult}" varStatus="status">
+						<div id="${i.key}" class="calAll" style="display: none;">
+							<dl>
+								<dt>${calendar.plan_date}-${fn:length(i.key) == 1 ? '0' : ''}${i.key}</dt>
+							</dl>
+							<c:forEach var="count" begin="0" end="${fn:length(i.value)}">
+								<c:choose>
+									<c:when test="${fn:length(i.value[count]) > 30}">
+										<c:out value="${fn:substring(i.value[count], 0, 30)}"/>...
+									</c:when>
+									<c:otherwise>
+										<c:out value="${i.value[count]}"/>
+									</c:otherwise>
+								</c:choose>
+								<c:if test="${count < fn:length(i.value)}">
+									</br>
+								</c:if>
+							</c:forEach>
+						</div>
+					</c:forEach>
+				<a href="#" class="close closePlanView"><i class="fa fa-close"></i></a>
+			</div>
+		</div>
 	</div>
 
 	<div class="calendar-info">
