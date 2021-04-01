@@ -113,7 +113,11 @@ $(function(){
 });
 </script>
 <style>
-	.list01 td .btn{width:100px;padding:5px 8px;}
+	.list01 td .btn{width:95px;padding:5px 8px;}
+
+	.btn.btn8.disabled:hover,
+	.btn.btn8{background-color:#666;border-color:#444;color:#fff}
+	.btn.btn8:hover{background-color:#555;border-color:#444}
 </style>
 
 <form:form modelAttribute="teach" action="/${homepage.context_path}/module/teach/student/save.do" method="POST" onsubmit="return false">
@@ -400,7 +404,7 @@ ${html.html}
 											<i class="fa fa-pencil-square-o"></i><span>수강신청 </span></a>
 										</c:when>
 										<c:when test="${i.teach_status eq '1'}">
-											<a href="" class="btn btn2 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.large_category_idx}" apply_status="2">
+											<a href="" class="btn btn1 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.large_category_idx}" apply_status="2">
 											<i class="fa fa-pencil-square-o"></i><span>대기자신청</span></a>
 										</c:when>
 										<c:when test="${i.teach_status eq '2' or i.teach_status eq '10'}">
@@ -412,15 +416,15 @@ ${html.html}
 											<i class="fa fa-circle-o"></i><span>대기자 신청완료</span></a>
 										</c:when>
 										<c:when test="${i.teach_status eq '9'}">
-											<a href="javascript:void(0);" class="btn" style="cursor: default;">
+											<a href="javascript:void(0);" class="btn btn6" style="cursor: default;">
 											<i class="fa fa-pencil"></i><span>수강종료</span></a>
 										</c:when>
 										<c:when test="${i.teach_status eq '4'}">
-											<a href="javascript:void(0);" class="btn" style="cursor: default;">
+											<a href="javascript:void(0);" class="btn btn8" style="cursor: default;">
 											<i class="fa fa-user"></i><span>접수마감</span></a>
 										</c:when>
 										<c:when test="${i.teach_status eq '5'}">
-											<a href="javascript:void(0);" class="btn" style="cursor: default;">
+											<a href="javascript:void(0);" class="btn btn8" style="cursor: default;">
 											<i class="fa fa-user"></i><span>정원마감</span></a>
 										</c:when>
 										<c:when test="${i.teach_status eq '6'}">

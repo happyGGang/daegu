@@ -39,9 +39,23 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 </script>
 
 <!-- contents-title-->
+<c:choose>
+<c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'buktj' || homepage.context_path eq 'bukdh'}">
+<div style='border:1px solid #ddd;box-sizing:border-box;border-radius:3px;padding:18px;margin-bottom:15px;'>
+	<ul>
+		<li>※ 이미 신청 중이거나 소장중인 자료가 아닌 지 먼저 검색하세요</li>
+		<li>※ (    )는 빼고 검색한 후, 희망도서를 신청하세요</li>
+		<li>※ 신청 후 처리 현황은 ‘나의도서관’ → ‘도서관련’ → ‘희망도서신청현황’에서 확인하세요</li>
+	</ul>
+</div>
+
+</c:when>
+<c:otherwise>
 <div id="contents-title">
 	<h2>희망도서신청<span style="font-weight:300">을 하고 싶으세요?</span></h2>
 </div>
+</c:otherwise>
+</c:choose>
 <!-- /contents-title-->
 
 <div id="searchBox">
@@ -114,9 +128,9 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 					<form:option value="FF">남산4동작은도서관</form:option>
 					<form:option value="FQ">동인 느티나무 도서관</form:option>
 					<form:option value="FS">대구중구영어도서관</form:option>
-					<form:option value="FY">중구청교양정보실</form:option>
-					<form:option value="GG">대신동작은도서관</form:option>
-					<form:option value="HA">삼덕마루 작은도서관</form:option>
+					<!-- <form:option value="FY">중구청교양정보실</form:option> -->
+					<!-- <form:option value="GG">대신동작은도서관</form:option> -->
+					<!-- <form:option value="HA">삼덕마루 작은도서관</form:option> -->
 					<form:option value="HF">대봉2동작은도서관</form:option>
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>

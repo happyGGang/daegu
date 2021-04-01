@@ -8,8 +8,10 @@ a:focus{color:#2b74c0}
 /* header */
 .libSite {position:absolute;top:0;z-index:96;height:44px;line-height:44px;overflow:hidden;}
 .libSite ul li {display:inline-block;float:left;border-left:1px solid #ccc;padding:0;margin:0;}
-.libSite ul li:last-child {border-right:1px solid #ccc;}
+.libSite ul li.sns_icon{border:none;}
+.libSite ul li.br {border-right:1px solid #ccc;margin-right: 7px;}
 .libSite ul li a {display:block;color:#000;text-align:center;line-height:44px;padding:0 15px;}
+.libSite ul li.sns_icon a {padding:7px 5px;}
 .libSite ul li.on a {background:#000;color:#fff;}
 
 .tnb {position:relative;margin:0 auto;overflow:hidden;box-sizing:border-box;z-index:999999;}
@@ -131,6 +133,8 @@ h1.mobile-logo {display:none;width:230px;height:45px;}
 .libView{padding:0 0 10px}
 .libView strong{display:block;color:#004c92}
 
+.sns-box{display:none;}
+
 @media (max-width:1000px){
 	.libView{text-align:center}
 }
@@ -158,6 +162,11 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 
 	h1.mobile-logo {display:block;width:200px;height:40px;margin-top:2px;padding:0 0 0 10px;}
 	h1.mobile-logo a {display:block;background:url('/resources/homepage/bukdh/img/bukdh_logo.png') no-repeat center center;background-size:100% !important;width:200px;height:40px;font-size:0;}
+
+	/* SNS 추가 */
+	.sns-box {position:absolute;display:block;left:220px;top:7px;}
+	.sns-box li {display:inline-block;margin-right:2px;}
+	.sns-box li a img {vertical-align:middle;}
 }
 
 @media all and (max-width:767px){

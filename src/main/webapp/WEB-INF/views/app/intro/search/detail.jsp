@@ -24,6 +24,12 @@ $(function() {
 		alert('허용 예약인원이 다 찼습니다. 이용에 불편함을 드려 죄송합니다.');
 	});
 
+	$('a#service-noreq').on('click', function(e) {
+		e.preventDefault();
+		alert('비대면인증 회원은 서비스 이용이 불가능 하며 전자도서관만 이용가능 합니다.');
+		return;
+	});
+
 	<%-- 무인대출예약 신청 --%>
 	$('a#unmanned-req').on('click', function(e) {
 		e.preventDefault();
@@ -339,7 +345,7 @@ CONTEXT_PATH : ${context_path}
 						<c:otherwise>
 							<c:choose>
 								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
-									<!-- <a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a> -->
+									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
 								</c:when>
 								<c:otherwise>
 								</c:otherwise>
@@ -422,8 +428,8 @@ AD20 종합자료실
 				<c:when test="${context_path eq 'jungang'}">
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
 					<c:if test="${detail.RESERVATION_CNT eq '0'}">
-					<c:if test="${detail.SHELF_LOC_CODE eq 'AD02' || detail.SHELF_LOC_CODE eq 'AD03' || detail.SHELF_LOC_CODE eq 'AD04' || detail.SHELF_LOC_CODE eq 'AD18' || detail.SHELF_LOC_CODE eq 'AD19' || detail.SHELF_LOC_CODE eq 'AD20'}">
-					<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
+					<c:if test="${detail.SHELF_LOC_CODE eq 'AD46' || detail.SHELF_LOC_CODE eq 'AD48' || detail.SHELF_LOC_CODE eq 'AD49'}">
+						<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
 					<!-- <a href="#night" id="night-req" class="btn">야간예약신청</a> -->
 					</c:if>
 					</c:if>
