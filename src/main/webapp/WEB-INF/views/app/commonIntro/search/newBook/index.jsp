@@ -439,10 +439,13 @@ $(function() {
 																<c:otherwise>
 																	<c:choose>
 																		<c:when test="${i.USE_LIMIT_CODE eq 'CD'}">
-																			대출불가(열람제한도서)
+																			<span style="color:#ff0000">대출불가(열람제한도서)</span>
 																		</c:when>
 																		<c:when test="${i.USE_LIMIT_CODE eq 'IZ'}">
-																			귀중자료(관내열람만가능)
+																			<span style="color:#ff0000">귀중자료(관내열람만가능)</span>
+																		</c:when>
+																		<c:when test="${i.USE_LIMIT_CODE eq 'CA'}">
+																			<span style="color:#ff0000">대출불가</span>
 																		</c:when>
 																		<c:otherwise>
 																			대출가능
@@ -514,7 +517,7 @@ $(function() {
 													<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
 													<font style="color:#5e5e5e">자료실</font> : ${i.SHELF_LOC_NAME}<br class="mobileBr"/>
 													<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
-													<!-- 대출가능 여부 [START] -->
+													<!-- 대출가능 여부 [START] FX-->
 													<c:choose>
 														<c:when test="${i.WORKING_STATUS == 'BOL112N'}">
 															<c:choose>
@@ -524,10 +527,13 @@ $(function() {
 																<c:otherwise>
 																	<c:choose>
 																		<c:when test="${i.USE_LIMIT_CODE eq 'CD'}">
-																			대출불가(열람제한도서)
+																			<span style="color:#ff0000">대출불가(열람제한도서)</span>
 																		</c:when>
 																		<c:when test="${i.USE_LIMIT_CODE eq 'IZ'}">
-																			귀중자료(관내열람만가능)
+																			<span style="color:#ff0000">귀중자료(관내열람만가능)</span>
+																		</c:when>
+																		<c:when test="${i.USE_LIMIT_CODE eq 'CA'}">
+																			<span style="color:#ff0000">대출불가</span>
 																		</c:when>
 																		<c:otherwise>
 																			대출가능
