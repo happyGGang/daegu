@@ -209,6 +209,14 @@ $(function() {
 					</form:select>
 				</td>
 			</tr>
+			<tr>
+				<th>수령도서관</th>
+				<td>
+					<form:radiobutton path="receive_lib" value="1" label="범어도서관"/>
+					<form:radiobutton path="receive_lib" value="2" label="용학도서관"/>
+					<form:radiobutton path="receive_lib" value="3" label="고산도서관"/>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 	

@@ -20,6 +20,7 @@ public class BookRelayIndividual extends PagingUtils {
 	private String reader_contest;	//다독자 공모
 	private String relay_plan;	//릴레이 계획
 	private int relay_personnel;	//릴레이 예상인원
+	private String receive_lib; // 수령도서관
 	private String approval_status = "0";	//승인상태
 	private String delete_yn = "N";	//삭제여부
 	private String add_id;	//등록ID
@@ -138,6 +139,14 @@ public class BookRelayIndividual extends PagingUtils {
 
 	public void setRelay_personnel(int relay_personnel) {
 		this.relay_personnel = relay_personnel;
+	}
+	
+	public String getReceive_lib() {
+		return receive_lib;
+	}
+	
+	public void setReceive_lib(String receive_lib) {
+		this.receive_lib = receive_lib;
 	}
 
 	public String getApproval_status() {

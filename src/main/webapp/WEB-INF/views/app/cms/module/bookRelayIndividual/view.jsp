@@ -93,6 +93,14 @@ $(function() {
 					</c:choose>
 				</td>
 			</tr>
+			<tr>
+				<th>수령도서관</th>
+				<td>
+					<c:if test="${getBookRelayIndividual.receive_lib eq '1'}">범어도서관</c:if>
+					<c:if test="${getBookRelayIndividual.receive_lib eq '2'}">용학도서관</c:if>
+					<c:if test="${getBookRelayIndividual.receive_lib eq '3'}">고산도서관</c:if>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 	

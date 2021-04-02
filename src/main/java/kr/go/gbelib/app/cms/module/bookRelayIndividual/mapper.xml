@@ -7,8 +7,8 @@
 		SELECT
 			homepage_id, individual_idx, user_name, user_phone, user_email, 
 			user_affiliation, postcode, address_base, address_detailed, book_area, 
-			book_quantity, reader_contest, relay_plan, relay_personnel, approval_status, 
-			delete_yn, add_id, add_date
+			book_quantity, reader_contest, relay_plan, relay_personnel, receive_lib,
+			approval_status, delete_yn, add_id, add_date
 		FROM
 			BOOK_RELAY_INDIVIDUAL
 		WHERE
@@ -25,8 +25,8 @@
 		SELECT
 			homepage_id, individual_idx, user_name, user_phone, user_email, 
 			user_affiliation, postcode, address_base, address_detailed, book_area, 
-			book_quantity, reader_contest, relay_plan, relay_personnel, approval_status, 
-			delete_yn, add_id, add_date
+			book_quantity, reader_contest, relay_plan, relay_personnel, receive_lib,
+			approval_status, delete_yn, add_id, add_date
 		FROM
 			BOOK_RELAY_INDIVIDUAL
 		WHERE
@@ -51,8 +51,8 @@
 		SELECT
 			homepage_id, individual_idx, user_name, user_phone, user_email, 
 			user_affiliation, postcode, address_base, address_detailed, book_area, 
-			book_quantity, reader_contest, relay_plan, relay_personnel, approval_status, 
-			delete_yn, add_id, add_date
+			book_quantity, reader_contest, relay_plan, relay_personnel, receive_lib,
+			approval_status, delete_yn, add_id, add_date
 		FROM
 			BOOK_RELAY_INDIVIDUAL
 		WHERE
@@ -64,17 +64,17 @@
 		INSERT INTO
 			BOOK_RELAY_INDIVIDUAL
 		(
-			homepage_id, individual_idx, user_name, user_phone, user_email, 
-			user_affiliation, postcode, address_base, address_detailed, book_area, 
-			book_quantity, reader_contest, relay_plan, relay_personnel, approval_status, 
-			delete_yn, add_id, add_date
+			homepage_id, individual_idx, user_name, user_phone, user_email,
+			user_affiliation, postcode, address_base, address_detailed, book_area,
+			book_quantity, reader_contest, relay_plan, relay_personnel, receive_lib,
+			approval_status, delete_yn, add_id, add_date
 		)
 		VALUES
 		(
-			#{homepage_id}, (SELECT NVL(MAX(individual_idx), 0)+1 FROM BOOK_RELAY_INDIVIDUAL), #{user_name}, #{user_phone}, #{user_email}, 
-			#{user_affiliation}, #{postcode}, #{address_base}, #{address_detailed}, #{book_area}, 
-			#{book_quantity}, #{reader_contest}, #{relay_plan}, #{relay_personnel}, #{approval_status}, 
-			#{delete_yn}, #{add_id}, SYSDATE
+			#{homepage_id}, (SELECT NVL(MAX(individual_idx), 0)+1 FROM BOOK_RELAY_INDIVIDUAL), #{user_name}, #{user_phone}, #{user_email},
+			#{user_affiliation}, #{postcode}, #{address_base}, #{address_detailed}, #{book_area},
+			#{book_quantity}, #{reader_contest}, #{relay_plan}, #{relay_personnel}, #{receive_lib},
+			#{approval_status}, #{delete_yn}, #{add_id}, SYSDATE
 		)
 	</insert>
 	
@@ -82,20 +82,21 @@
 		UPDATE 
 			BOOK_RELAY_INDIVIDUAL
 		SET
-			user_name = #{user_name}, 
-			user_phone = #{user_phone}, 
-			user_email = #{user_email}, 
-			user_affiliation = #{user_affiliation}, 
-			postcode = #{postcode}, 
-			address_base = #{address_base}, 
-			address_detailed = #{address_detailed}, 
-			book_area = #{book_area}, 
-			book_quantity = #{book_quantity}, 
-			reader_contest = #{reader_contest}, 
-			relay_plan = #{relay_plan}, 
-			relay_personnel = #{relay_personnel}, 
-			approval_status = #{approval_status}, 
-			modify_id = #{modify_id}, 
+			user_name = #{user_name},
+			user_phone = #{user_phone},
+			user_email = #{user_email},
+			user_affiliation = #{user_affiliation},
+			postcode = #{postcode},
+			address_base = #{address_base},
+			address_detailed = #{address_detailed},
+			book_area = #{book_area},
+			book_quantity = #{book_quantity},
+			reader_contest = #{reader_contest},
+			relay_plan = #{relay_plan},
+			relay_personnel = #{relay_personnel},
+			receive_lib = #{receive_lib},
+			approval_status = #{approval_status},
+			modify_id = #{modify_id},
 			modify_date = SYSDATE
 		WHERE
 			homepage_id = #{homepage_id}
