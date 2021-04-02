@@ -82,7 +82,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 					<form:option value="GL">산격1동 작은도서관</form:option>
 					<form:option value="HB">서변동작은도서관</form:option>
 					<form:option value="GN">침산1동 작은도서관</form:option>
-					<form:option value="GJ">태전1동 작은도서관</form:option>	
+					<!-- <form:option value="GJ">태전1동 작은도서관</form:option> -->	
 					<form:option value="HE">한강공원부키도서관</form:option>
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
@@ -106,7 +106,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 					<form:option value="GL">산격1동 작은도서관</form:option>
 					<form:option value="HB">서변동작은도서관</form:option>
 					<form:option value="GN">침산1동 작은도서관</form:option>
-					<form:option value="GJ">태전1동 작은도서관</form:option>	
+					<!-- <form:option value="GJ">태전1동 작은도서관</form:option>	 -->
 					<form:option value="HE">한강공원부키도서관</form:option>
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>

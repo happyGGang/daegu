@@ -169,6 +169,12 @@ justify-content: center;-webkit-box-align: center;-ms-flex-align: center;-webkit
 #calendar2 .planView .inbox .planList p.title em {font-style:normal;color:#009ae8;}
 #calendar2 .planView .inbox .planList li {margin:2px 0;font-size:14px;color:#666;letter-spacing:-0.25px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
 
+#calendar2 .planViewLayer {position:absolute;width:40%;left:50%;top:30%;background:#fff;margin-left:-40%;box-shadow:0px 1px 7px 0px rgba(0,0,0,0.5)}
+#calendar2 .planViewLayer .inbox{position:relative;border:1px solid #ccc;padding:10px}
+#calendar2 .planViewLayer .inbox dt{font-weight:bold;font-size:11px;font-family:verdana}
+#calendar2 .planViewLayer .inbox dd{padding:3px 0}
+#calendar2 .planViewLayer .inbox a.close{position:absolute;right:5px;top:0;font-size:120%}
+
 #calendar2 .inBox0 .week-box {position:relative;width:100%;padding:10px 0;text-align:center;background:#635950;border-radius:25px;}
 #calendar2 .inBox0 .week-box li {display:inline-block;width:10%;}
 #calendar2 .inBox0 .week-box li a {display:block;color:#fff;font-size:15px;height:25px;line-height:25px;border-radius:15px;}
