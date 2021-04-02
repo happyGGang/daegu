@@ -103,11 +103,12 @@ public class HumanBookController extends BaseController {
 		ValidationUtils.rejectIfEmpty(result, "teacher_address", "주소는 필수 입력입니다.");
 		ValidationUtils.rejectIfEmpty(result, "activity_day", "활동가능요일을 선택해주세요.");
 		ValidationUtils.rejectIfEmpty(result, "activity_time", "활동가능시간을 선택해주세요.");
-		if(StringUtils.contains(humanBook.getActivity_time(), "3")) {
-			ValidationUtils.rejectIfEmpty(result, "activity_time_txt", "활동가능시간 상시 내용을 입력하세요.");
-		}
-		ValidationUtils.rejectIfEmpty(result, "human_book_title", "휴먼북 제목은 필수 입력입니다.");
-		ValidationUtils.rejectIfEmpty(result, "teacher_content", "본인소개는 필수 입력입니다.");
+//		if(StringUtils.contains(humanBook.getActivity_time(), "3")) {
+//			ValidationUtils.rejectIfEmpty(result, "activity_time_txt", "활동가능시간 상시 내용을 입력하세요.");
+//		}
+//		ValidationUtils.rejectIfEmpty(result, "human_book_title", "휴먼북 제목은 필수 입력입니다.");
+		ValidationUtils.rejectIfEmpty(result, "teacher_content", "활동가능지역은 필수 입력입니다.");
+		ValidationUtils.rejectIfEmpty(result, "human_book_content", "우선순위는 필수 입력입니다.");
 		
 		if(StringUtils.isNotEmpty(humanBook.getTeacher_email())) {
 			ValidationUtils.rejectNotFullEmailType(result, "teacher_email", "이메일 형식이 아닙니다.");

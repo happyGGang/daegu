@@ -36,11 +36,21 @@ $(function(){
 			<c:forEach var="i" varStatus="status" items="${humanBookAll}">
 				<tr>
 					<td style="padding:10px;">
-						<c:forEach items="${activityCateList}" var="code">
-							<c:if test="${code.code_id eq i.activity_category}">
-							${code.code_name}
-							</c:if>
-						</c:forEach>
+<%-- 						<c:forEach items="${activityCateList}" var="code"> --%>
+<%-- 							<c:if test="${code.code_id eq i.activity_category}"> --%>
+<%-- 							${code.code_name} --%>
+<%-- 							</c:if> --%>
+<%-- 						</c:forEach> --%>
+						
+						<c:forTokens items="${i.activity_category}" delims="," var="ac">
+							<c:if test="${ac eq '1'}">기본형</c:if>
+							<c:if test="${ac eq '2'}">클래식</c:if>
+							<c:if test="${ac eq '3'}">뜨거운감자</c:if>
+							<c:if test="${ac eq '4'}">TED</c:if>
+							<c:if test="${ac eq '5'}">실속파</c:if>
+							<c:if test="${ac eq '6'}">행동파</c:if>
+							<c:if test="${ac eq '7'}">챌린지</c:if>
+						</c:forTokens>
 					</td>
 					<td style="padding:10px;">${i.human_book_title}</td>
 					<td style="padding:10px;">
@@ -57,7 +67,7 @@ $(function(){
 						<c:forTokens items="${i.activity_time}" delims="," var="time">
 							<c:if test="${time eq '1'}">오전(10:00~12:00)</c:if>
 							<c:if test="${time eq '2'}">오후(13:00~17:00)</c:if>
-							<c:if test="${time eq '3'}">${i.activity_time_txt}</c:if>
+							<c:if test="${time eq '3'}">저녁(19:00~22:00)</c:if>
 							<br>
 						</c:forTokens>
 					</td>

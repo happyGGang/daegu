@@ -60,6 +60,13 @@ $(function() {
 			}
 		}).open();
 	});
+	
+	$('input[name=activity_category]').on('click', function(e) {
+		if($('input[name=activity_category]:checked').length > 3) {
+			alert('최대 3개 선택할 수 있습니다.');
+			return false;
+		}
+	});
 
 	// 휴먼북 등록
 	$('a#board_save_btn').on('click', function(e) {
@@ -72,10 +79,10 @@ $(function() {
 		}
 
 		jQuery.ajaxSettings.traditional = true;
-		var file = $('input#mFile');
-		if(file.val() == '') {
-			$('input#mFile').remove();
-		}
+// 		var file = $('input#mFile');
+// 		if(file.val() == '') {
+// 			$('input#mFile').remove();
+// 		}
 
 		var teacher_phone = $('input#cell_phone1').val() + '-' + $('input#cell_phone2').val() + '-' + $('input#cell_phone3').val();
 		$('input#teacher_phone').val(teacher_phone);
@@ -88,7 +95,7 @@ $(function() {
 					alert(response.message);
 					doGetLoad(response.url, response.data);
 				} else {
-					$('td.realFile').append(file);
+// 					$('td.realFile').append(file);
 					if ( response.message != null ) {
 						alert(response.message);
 					} else {
@@ -101,7 +108,7 @@ $(function() {
 				}
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
-				$('td.realFile').append(file);
+// 				$('td.realFile').append(file);
 				alert('[' + textStatus + ']관리자에게 문의하세요. : ' + errorThrown);
 			}
 		}
@@ -139,8 +146,11 @@ $(function() {
 	</div>
 
 	<table class="edit" style="margin-top:23px;">
+		<colgroup>
+			<col width="15%">
+			<col>
+		</colgroup>
 		<tbody>
-
 			<tr>
 					<th>성명(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td>
@@ -193,9 +203,13 @@ $(function() {
 				<tr>
 					<th>활동분야(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td>
-						<form:select path="activity_category" cssClass="new_select_box">
-							<form:options items="${activityCateList}" itemLabel="code_name" itemValue="code_id"/>
-						</form:select>
+						<form:checkbox path="activity_category" cssClass="new_input_btn01" value="1" label="기본형 : 분야를 막론하고 회원들끼리 함께 선정한 주제 도서를 읽고 토론하는 모임"/><br>
+						<form:checkbox path="activity_category" cssClass="new_input_btn01" value="2" label="클래식 : 고전 문학, 미술, 음악 등 클래식 분야 주제 도서와 그림, 문학을 접목한 감상 토론 모임"/><br>
+						<form:checkbox path="activity_category" cssClass="new_input_btn01" value="3" label="뜨거운감자 : 최근 사회 이슈가 되고 있는 분야에 관한 책과 기사 등 관련 자료를 함께 공유하고 논의해보는 모임"/><br>
+						<form:checkbox path="activity_category" cssClass="new_input_btn01" value="4" label="TED : TED 강연 또는 도서를 읽고 함께 토론해보는 모임"/><br>
+						<form:checkbox path="activity_category" cssClass="new_input_btn01" value="5" label="실속파 : 재테크, IT기술, 주식 등 트렌드한 정보를 같이 배워보는 모임"/><br>
+						<form:checkbox path="activity_category" cssClass="new_input_btn01" value="6" label="행동파 : 내가 사는 동구! 더 살기 좋게 내가 만든다! 나는 물론 이웃들의 생활권 향상을 위한 고민과 실천파들의 모임"/><br>
+						<form:checkbox path="activity_category" cssClass="new_input_btn01" value="7" label="챌린지 : 필사하기, 강독하기 등 혼자서는 끝까지 할 수 없었던 미션을 함께 완수해보는 모임"/>
 					</td>
 				</tr>
 				<tr>
@@ -215,8 +229,7 @@ $(function() {
 					<td>
 						<form:checkbox path="activity_time" label="오전(10:00~12:00)" value="1" checked="${fn:contains(humanBook.activity_time, '1') ? 'checked' : ''}" class="new_input_btn01" />
 						<form:checkbox path="activity_time" label="오후(13:00~17:00)" value="2" checked="${fn:contains(humanBook.activity_time, '2') ? 'checked' : ''}" class="new_input_btn01" />
-						<form:checkbox path="activity_time" label="상시" value="3" checked="${fn:contains(humanBook.activity_time, '3') ? 'checked' : ''}" class="new_input_btn01" />
-						<form:input path="activity_time_txt" cssClass="text" cssStyle="width: 130px;" />
+						<form:checkbox path="activity_time" label="저녁(19:00~22:00)" value="3" checked="${fn:contains(humanBook.activity_time, '3') ? 'checked' : ''}" class="new_input_btn01" />
 					</td>
 				</tr>
 				<tr>
@@ -224,24 +237,33 @@ $(function() {
 					<td><form:input path="human_book_title" class="text" cssStyle="width: 100%;"/></td>
 				</tr>
 				<tr>
-					<th>본인소개(주요경력 및 활동내역)(<span style="color: red; font-weight: bold;">*</span>)</th>
+					<th>활동가능지역(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td>
-						<form:textarea path="teacher_content" class="text" cssClass="new_textarea01" />
+						<form:input path="teacher_content" cssClass="text"/>
+						<div>
+						
+						</div>
+						<div class="ui-state-highlight">
+							<em>
+								* 온라인, 신암동, 신천3동, 효목동, 도평동, 지저동, 동촌동, 방촌동, 해안동, 신서동 중 활동 가능한 지역을 적어주세요.
+							</em>
+						</div>
 					</td>
 				</tr>
 				<tr>
-					<th>휴먼북 내용</th>
+					<th>우선순위(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td>
 						<form:textarea path="human_book_content" class="text" cssClass="new_textarea01" />
+						<div class="ui-state-highlight">
+							<em>
+								독서회 활동시 가장 우선적으로 고려되어야 할 사항을 적어주세요<br>
+								예시)<br>
+								1. 수, 금요일 18시 이후로만 참석 가능합니다.<br>
+								2. 방촌동에 거주하고 있어 그 인근에서 모임 참석 가능합니다.
+							</em>
+						</div>
 					</td>
 				</tr>
-				<tr>
-					<th>사진등록</th>
-					<td class="realFile">
-						<input type="file" id="mFile" name="mFile" />
-					</td>
-				</tr>
-
 		</tbody>
 	</table>
 

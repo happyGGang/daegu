@@ -99,11 +99,20 @@ $(function(){
 					<dt class="title"><a href="#" class="view-btn" data-human_book_idx="${i.human_book_idx}">${i.human_book_title}</a></dt>
 					<dd><span class="label label-default name">사람책</span> ${i.teacher_name}</dd>
 					<dd><span class="label label-default category">주제</span>
-						<c:forEach items="${activityCateList}" var="code">
-							<c:if test="${code.code_id eq i.activity_category}">
-							${code.code_name}
-							</c:if>
-						</c:forEach>
+<%-- 						<c:forEach items="${activityCateList}" var="code"> --%>
+<%-- 							<c:if test="${code.code_id eq i.activity_category}"> --%>
+<%-- 							${code.code_name} --%>
+<%-- 							</c:if> --%>
+<%-- 						</c:forEach> --%>
+						<c:forTokens items="${i.activity_category}" delims="," var="ac">
+							<c:if test="${ac eq '1'}">기본형</c:if>
+							<c:if test="${ac eq '2'}">클래식</c:if>
+							<c:if test="${ac eq '3'}">뜨거운감자</c:if>
+							<c:if test="${ac eq '4'}">TED</c:if>
+							<c:if test="${ac eq '5'}">실속파</c:if>
+							<c:if test="${ac eq '6'}">행동파</c:if>
+							<c:if test="${ac eq '7'}">챌린지</c:if>
+						</c:forTokens>
 					</dd>
 					<dd><span class="label label-default day">가능요일</span>
 						<c:forTokens items="${i.activity_day}" delims="," var="day">

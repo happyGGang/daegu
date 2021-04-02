@@ -101,11 +101,15 @@ $(function() {
 				<tr>
 					<td>${humanBook.listRowNum - status.index}</td>
 					<td>
-						<c:forEach items="${activityCateList}" var="code">
-							<c:if test="${code.code_id eq i.activity_category}">
-							${code.code_name}
-							</c:if>
-						</c:forEach>
+					<c:forTokens items="${i.activity_category}" delims="," var="ac">
+						<c:if test="${ac eq '1'}">기본형</c:if>
+						<c:if test="${ac eq '2'}">클래식</c:if>
+						<c:if test="${ac eq '3'}">뜨거운감자</c:if>
+						<c:if test="${ac eq '4'}">TED</c:if>
+						<c:if test="${ac eq '5'}">실속파</c:if>
+						<c:if test="${ac eq '6'}">행동파</c:if>
+						<c:if test="${ac eq '7'}">챌린지</c:if>
+					</c:forTokens>
 					</td>
 					<td>${i.human_book_title}</td>
 					<td>
