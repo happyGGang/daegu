@@ -3,59 +3,72 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
-<script type="text/javascript">
-$(function() {
-	<c:if test="${context_path eq 'beomeo'}">
-		$("#manageCode").val("BD").prop("selected", true);
-	</c:if>
-	<c:if test="${context_path eq 'yonghak'}">
-		$("#manageCode").val("BE").prop("selected", true);
-	</c:if>
-	<c:if test="${context_path eq 'gosan'}">
-		$("#manageCode").val("BF").prop("selected", true);
-	</c:if>
-	<c:if test="${context_path eq 'bookforest'}">
-		$("#manageCode").val("BJ").prop("selected", true);
-	</c:if>
-	<c:if test="${context_path eq 'mulmangi'}">
-		$("#manageCode").val("BK").prop("selected", true);
-	</c:if>
-	<c:if test="${context_path eq 'padong'}">
-		$("#manageCode").val("BG").prop("selected", true);
-	</c:if>
-	<c:if test="${context_path eq 'muhaksup'}">
-		$("#manageCode").val("BH").prop("selected", true);
-	</c:if>
-
-	$('#save-btn').on('click', function(e) {
-
-		if ($('input#price').val() != '') {
-			var price = $('input#price').val();
-			if (!parseInt(price)) {
-				alert('가격은 숫자만 입력가능합니다.');
-				$('input#price').focus();
-				return false;
-			}
-			var isbn = $('input#isbn').val();
-			if (isbn != '' && !parseInt(isbn)) {
-				alert('ISBN은 숫자만 입력가능합니다.');
-				$('input#isbn').focus();
-				return false;
-			}
-		}
-
-		if ( doAjaxPost($('#reqHopeForm')) ) {
-			doGetLoad('index.do');
-		}
-		e.preventDefault();
+<c:choose>
+	<c:when test="${sessionScope.member.user_class_code eq '016' || sessionScope.member.user_class_code eq '017'}">
+	<script type="text/javascript">
+	$(function() {
+		alert('죄송합니다. 비대면인증 회원은 서비스 이용이 불가능 하며 전자도서관만 이용가능 합니다.');
+		location.href='/intro/${context_path}/index.do';
+		return;
 	});
+	</script>
+	</c:when>
+	<c:otherwise>
+	<script type="text/javascript">
+	$(function() {
+		<c:if test="${context_path eq 'beomeo'}">
+			$("#manageCode").val("BD").prop("selected", true);
+		</c:if>
+		<c:if test="${context_path eq 'yonghak'}">
+			$("#manageCode").val("BE").prop("selected", true);
+		</c:if>
+		<c:if test="${context_path eq 'gosan'}">
+			$("#manageCode").val("BF").prop("selected", true);
+		</c:if>
+		<c:if test="${context_path eq 'bookforest'}">
+			$("#manageCode").val("BJ").prop("selected", true);
+		</c:if>
+		<c:if test="${context_path eq 'mulmangi'}">
+			$("#manageCode").val("BK").prop("selected", true);
+		</c:if>
+		<c:if test="${context_path eq 'padong'}">
+			$("#manageCode").val("BG").prop("selected", true);
+		</c:if>
+		<c:if test="${context_path eq 'muhaksup'}">
+			$("#manageCode").val("BH").prop("selected", true);
+		</c:if>
 
-	doAjaxLoad('div#searchBox', 'search.do?manageCode=${context_path}');
-});
-$(document).on("keyup", "input:text[numberOnly]", function() {
-	$(this).val($(this).val().replace(/[^0-9]/gi, ""));
-});
-</script>
+		$('#save-btn').on('click', function(e) {
+
+			if ($('input#price').val() != '') {
+				var price = $('input#price').val();
+				if (!parseInt(price)) {
+					alert('가격은 숫자만 입력가능합니다.');
+					$('input#price').focus();
+					return false;
+				}
+				var isbn = $('input#isbn').val();
+				if (isbn != '' && !parseInt(isbn)) {
+					alert('ISBN은 숫자만 입력가능합니다.');
+					$('input#isbn').focus();
+					return false;
+				}
+			}
+
+			if ( doAjaxPost($('#reqHopeForm')) ) {
+				doGetLoad('index.do');
+			}
+			e.preventDefault();
+		});
+
+		doAjaxLoad('div#searchBox', 'search.do?manageCode=${context_path}');
+	});
+	$(document).on("keyup", "input:text[numberOnly]", function() {
+		$(this).val($(this).val().replace(/[^0-9]/gi, ""));
+	});
+	</script>
+	</c:otherwise>
+</c:choose>
 
 <!-- contents-title-->
 <div id="contents-title">

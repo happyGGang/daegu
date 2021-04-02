@@ -3,40 +3,53 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
-<script type="text/javascript">
-$(function() {
-	$('#save-btn').on('click', function(e) {
-		e.preventDefault();
-
-		if ($('input#price').val() != '') {
-			var price = $('input#price').val();
-			if (!parseInt(price)) {
-				alert('가격은 숫자만 입력가능합니다.');
-				$('input#price').focus();
-				return false;
-			}
-			var isbn = $('input#isbn').val();
-			if (isbn != '' && !parseInt(isbn)) {
-				alert('ISBN은 숫자만 입력가능합니다.');
-				$('input#isbn').focus();
-				return false;
-			}
-		}
-
-		if ($('select#manageCode option:selected').val() != '') {
-			$('input[name="homepage_id"]').val($('select#manageCode option:selected').data('hid'));
-		}
-
-
-		doAjaxPost($('#reqHopeForm'));
+<c:choose>
+	<c:when test="${sessionScope.member.user_class_code eq '016' || sessionScope.member.user_class_code eq '017'}">
+	<script type="text/javascript">
+	$(function() {
+		alert('비대면인증 회원은 서비스 이용이 불가능 하며 전자도서관만 이용가능 합니다.');
+		location.href='/${homepage.context_path}/index.do';
+		return;
 	});
+	</script>
+	</c:when>
+	<c:otherwise>
+	<script type="text/javascript">
+	$(function() {
+		$('#save-btn').on('click', function(e) {
+			e.preventDefault();
 
-	doAjaxLoad('div#searchBox', 'search.do');
-});
-$(document).on("keyup", "input:text[numberOnly]", function() {
-	$(this).val($(this).val().replace(/[^0-9]/gi, ""));
-});
-</script>
+			if ($('input#price').val() != '') {
+				var price = $('input#price').val();
+				if (!parseInt(price)) {
+					alert('가격은 숫자만 입력가능합니다.');
+					$('input#price').focus();
+					return false;
+				}
+				var isbn = $('input#isbn').val();
+				if (isbn != '' && !parseInt(isbn)) {
+					alert('ISBN은 숫자만 입력가능합니다.');
+					$('input#isbn').focus();
+					return false;
+				}
+			}
+
+			if ($('select#manageCode option:selected').val() != '') {
+				$('input[name="homepage_id"]').val($('select#manageCode option:selected').data('hid'));
+			}
+
+
+			doAjaxPost($('#reqHopeForm'));
+		});
+
+		doAjaxLoad('div#searchBox', 'search.do');
+	});
+	$(document).on("keyup", "input:text[numberOnly]", function() {
+		$(this).val($(this).val().replace(/[^0-9]/gi, ""));
+	});
+	</script>
+	</c:otherwise>
+</c:choose>
 
 <!-- contents-title-->
 <c:choose>
