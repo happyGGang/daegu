@@ -101,6 +101,7 @@ public class MarathonRecordController extends BaseController{
 					service.setPaging(model, service.getMarathonRecordCount(marathonRecord), marathonRecord);
 					model.addAttribute("marathonRecord", marathonRecord);
 					model.addAttribute("marathonRecordList", service.getMarathonRecordList(marathonRecord));
+					model.addAttribute("read_page_count_total", marathonApplicantService.getReadPageCountTotal(marathonApplicant));
 
 					return String.format(basePath, homepage.getFolder()) + "index";
 				}else {
