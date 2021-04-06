@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-
 <script>
 function copyToClipboard(s) {
     var $temp = jQuery("<input>");
@@ -67,7 +65,7 @@ $(document).ready(function() {
       </li>
     </ul>
   </div>
-  <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2021.2.28] (단위 : 권)</span></h3>
+  <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2021.3.31] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="파동도서관 장서현황을 안내해 드립니다.">
@@ -75,31 +73,128 @@ $(document).ready(function() {
       파동도서관의 장서현황
       </caption>
       <colgroup>
-      <col width="*" class="col1">
-      <col width="15%" class="col2">
-      <col width="15%" class="col3">
-      <col width="15%" class="col4">
-      <col width="15%" class="col5">
-      <col width="15%" class="col6">
+      <col width="*">
+      <col width="8.5%">
+      <col width="8.5%">
+      <col width="8.5%">
+      <col width="8.5%">
+      <col width="8.5%">
+      <col width="8.5%">
+      <col width="8.5%">
+      <col width="8.5%">
+      <col width="8.5%">
+      <col width="8.5%">
+      <col width="8.5%">
       </colgroup>
       <thead>
         <tr>
-          <th scope="col">구분</th>
-          <th scope="col">일반도서</th>
-          <th scope="col">어린이도서</th>
-          <th scope="col">유아도서</th>
-          <th scope="col">정기간행물</th>
-          <th scope="col">총계</th>
+          <th height="35" scope="col">구분</th>
+          <th scope="col">총류</th>
+          <th scope="col">철학</th>
+          <th scope="col">종교</th>
+          <th scope="col">사회<br>
+            과학</th>
+          <th scope="col">자연<br>
+            과학</th>
+          <th scope="col">기술<br>
+            과학</th>
+          <th scope="col">예술</th>
+          <th scope="col">언어</th>
+          <th scope="col">문학</th>
+          <th scope="col">역사</th>
+          <th scope="col">합계</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <th scope="row">권수</th>
-          <td>12,364</td>
-          <td>8,876</td>
-          <td>4,033</td>
-          <td>13(종)</td>
-          <td>25,273</td>
+          <th>어린이</th>
+          <td>672</td>
+          <td>326</td>
+          <td>137</td>
+          <td>823</td>
+          <td>1,185</td>
+          <td>354</td>
+          <td>311</td>
+          <td>252</td>
+          <td>3,649</td>
+          <td>1,180</td>
+          <td>8,889</td>
+        </tr>
+        <tr>
+          <th>유아</th>
+          <td>65</td>
+          <td>80</td>
+          <td>41</td>
+          <td>824</td>
+          <td>390</td>
+          <td>69</td>
+          <td>77</td>
+          <td>73</td>
+          <td>2,390</td>
+          <td>31</td>
+          <td>4,040</td>
+        </tr>
+        <tr>
+          <th>일반</th>
+          <td>487</td>
+          <td>891</td>
+          <td>283</td>
+          <td>2,072</td>
+          <td>609</td>
+          <td>1,120</td>
+          <td>560</td>
+          <td>306</td>
+          <td>5,062</td>
+          <td>1,004</td>
+          <td>12,394</td>
+        </tr>
+        <tr>
+          <th>합계</th>
+          <td>1,224</td>
+          <td>1,297</td>
+          <td>461</td>
+          <td>3,719</td>
+          <td>2,184</td>
+          <td>1,543</td>
+          <td>948</td>
+          <td>631</td>
+          <td>11,101</td>
+          <td>2,215</td>
+          <td>25,323</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <h3>정기간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">(단위 : 종)</span></h3>
+  <div class="rsv-info"></div>
+  <div class="auto-scroll">
+    <table class="tbl-type01" summary="파동도서관 정기간행물현황을 안내해 드립니다.">
+      <caption class="disnone">
+      파동도서관의 정기간행물현황
+      </caption>
+      <colgroup>
+      <col width="*">
+      <col width="20%">
+      <col width="20%">
+      <col width="20%">
+      <col width="20%">
+      </colgroup>
+      <thead>
+        <tr>
+          <th height="35" scope="col">구분</th>
+          <th scope="col">신문</th>
+          <th scope="col">주간지</th>
+          <th scope="col">월간지</th>
+          <th scope="col">총 계</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>파동도서관</th>
+          <td>3</td>
+          <td>1</td>
+          <td>12</td>
+          <td>16</td>
         </tr>
       </tbody>
     </table>

@@ -65,7 +65,7 @@ $(document).ready(function() {
       </li>
     </ul>
   </div>
-  <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2021.2.28] (단위 : 권)</span></h3>
+  <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2021.3.31] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="무학숲도서관 장서현황을 안내해 드립니다.">
@@ -73,28 +73,31 @@ $(document).ready(function() {
       무학숲도서관의 장서현황
       </caption>
       <colgroup>
-      <col width="*" class="col1">
-      <col width="8.5%" class="col2">
-      <col width="8.5%" class="col3">
-      <col width="8.5%" class="col4">
-      <col width="8.5%" class="col5">
-      <col width="8.5%" class="col6">
-      <col width="8.5%" class="col7">
-      <col width="8.5%" class="col8">
-      <col width="8.5%" class="col9">
-      <col width="8.5%" class="col10">
-      <col width="8.5%" class="col11">
-      <col width="8.5%" class="col12">
+      <col width="*">
+      <col width="8.5%">
+      <col width="8.5%">
+      <col width="8.5%">
+      <col width="8.5%">
+      <col width="8.5%">
+      <col width="8.5%">
+      <col width="8.5%">
+      <col width="8.5%">
+      <col width="8.5%">
+      <col width="8.5%">
+      <col width="8.5%">
       </colgroup>
       <thead>
         <tr>
-          <th scope="col">대상</th>
+          <th height="35" scope="col">구분</th>
           <th scope="col">총류</th>
           <th scope="col">철학</th>
           <th scope="col">종교</th>
-          <th scope="col">사회과학</th>
-          <th scope="col">자연과학</th>
-          <th scope="col">기술과학</th>
+          <th scope="col">사회<br>
+            과학</th>
+          <th scope="col">자연<br>
+            과학</th>
+          <th scope="col">기술<br>
+            과학</th>
           <th scope="col">예술</th>
           <th scope="col">언어</th>
           <th scope="col">문학</th>
@@ -105,59 +108,93 @@ $(document).ready(function() {
       <tbody>
         <tr>
           <th>어린이</th>
-          <td>224 </td>
-          <td>120 </td>
-          <td>81 </td>
-          <td>365 </td>
-          <td>971 </td>
-          <td>334 </td>
-          <td>114 </td>
-          <td>150 </td>
-          <td>1,927 </td>
-          <td>716 </td>
-          <td>5,002 </td>
+          <td>225</td>
+          <td>120</td>
+          <td>81</td>
+          <td>365</td>
+          <td>971</td>
+          <td>334</td>
+          <td>114</td>
+          <td>150</td>
+          <td>1,931</td>
+          <td>716</td>
+          <td>5,007</td>
         </tr>
         <tr>
           <th>유아</th>
-          <td>61 </td>
-          <td>114 </td>
-          <td>86 </td>
-          <td>420 </td>
-          <td>404 </td>
-          <td>81 </td>
-          <td>87 </td>
-          <td>73 </td>
-          <td>1,978 </td>
-          <td>82 </td>
-          <td>3,386 </td>
+          <td>60</td>
+          <td>114</td>
+          <td>86</td>
+          <td>420</td>
+          <td>404</td>
+          <td>81</td>
+          <td>87</td>
+          <td>73</td>
+          <td>1,983</td>
+          <td>82</td>
+          <td>3,390</td>
         </tr>
         <tr>
           <th>일반</th>
-          <td>230 </td>
-          <td>375 </td>
-          <td>135 </td>
-          <td>819 </td>
-          <td>458 </td>
-          <td>699 </td>
-          <td>249 </td>
-          <td>131 </td>
-          <td>1,954 </td>
-          <td>389 </td>
-          <td>5,439 </td>
+          <td>230</td>
+          <td>378</td>
+          <td>136</td>
+          <td>829</td>
+          <td>460</td>
+          <td>717</td>
+          <td>254</td>
+          <td>131</td>
+          <td>1,971</td>
+          <td>402</td>
+          <td>5,508</td>
         </tr>
         <tr>
           <th>합계</th>
-          <td>515 </td>
-          <td>609 </td>
-          <td>302 </td>
-          <td>1,604 </td>
-          <td>1,833 </td>
-          <td>1,114 </td>
-          <td>450 </td>
-          <td>354 </td>
-          <td>5,859 </td>
-          <td>1,187 </td>
-          <td>13,827 </td>
+          <td>515</td>
+          <td>612</td>
+          <td>303</td>
+          <td>1,614</td>
+          <td>1,835</td>
+          <td>1,132</td>
+          <td>455</td>
+          <td>354</td>
+          <td>5,885</td>
+          <td>1,200</td>
+          <td>13,905</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <h3>정기간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">(단위 : 종)</span></h3>
+  <div class="rsv-info"></div>
+  <div class="auto-scroll">
+    <table class="tbl-type01" summary="무학숲도서관의 정기간행물현황을 안내해 드립니다.">
+      <caption class="disnone">
+      무학숲도서관의 정기간행물현황
+      </caption>
+      <colgroup>
+      <col width="*">
+      <col width="20%">
+      <col width="20%">
+      <col width="20%">
+      <col width="20%">
+      </colgroup>
+      <thead>
+        <tr>
+          <th height="35" scope="col">구분</th>
+          <th scope="col">신문</th>
+          <th scope="col">주간지</th>
+          <th scope="col">월간지</th>
+          <th scope="col">총 계</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>무학숲도서관</th>
+          <td>5</td>
+          <td>1</td>
+          <td>16</td>
+          <td>22</td>
         </tr>
       </tbody>
     </table>

@@ -236,6 +236,15 @@ $(function(){
 		<div class="mg30t"></div>
 	</c:if>
 
+	<c:if test="${homepage.context_path eq 'dalseolib'}">
+		<div class="roomicon">
+		  <div class="inner icowrap"><span class="ico ico6"></span> <strong>도서관 견학신청</strong>
+			<p>어린이,청소년들이 도서관에 대한 이해와 흥미를 높이고, 보다 편리하게 도서관을 이용할 수 있도록 도움을 주기 위한 견학 프로그램 운영</p>
+			<p style="color:#ff0000;">코로나-19 확산 방지를 위해 별도 공지 시까지 단체 견학신청을 받지 않습니다.</p>
+		  </div>
+		</div>
+	</c:if>
+
 	<div class="ym_btns">
 		<a id="before-btn" href="#prev" class="btn prev new_btn01"><i class="fa fa-angle-left"></i><span class="blind">이전달</span></a>
 		<form:select path="plan_year" class="new_select_box" style="width:80px;"></form:select>

@@ -65,7 +65,7 @@ $(document).ready(function() {
       </li>
     </ul>
   </div>
-  <h3>자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2021.2.28. 기준] (단위 : 권)</span></h3>
+  <h3>자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2021.3.31. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="책숲길도서관 장서현황을 나타내는 표">
@@ -121,113 +121,113 @@ $(document).ready(function() {
       <tbody>
         <tr>
           <th>일반</th>
-          <td>441 </td>
-          <td>651 </td>
-          <td>209 </td>
-          <td>1,430 </td>
-          <td>280 </td>
-          <td>1,426 </td>
-          <td>445 </td>
-          <td>224 </td>
-          <td>4,494 </td>
-          <td>764 </td>
-          <td>10,364 </td>
-          <td>33.2 </td>
+          <td>443</td>
+          <td>656</td>
+          <td>210</td>
+          <td>1,442</td>
+          <td>282</td>
+          <td>1,435</td>
+          <td>445</td>
+          <td>224</td>
+          <td>4,525</td>
+          <td>768</td>
+          <td>10,430</td>
+          <td>33.3</td>
         </tr>
         <tr>
           <th>아동</th>
-          <td>709 </td>
-          <td>256 </td>
-          <td>103 </td>
-          <td>766 </td>
-          <td>1,142 </td>
-          <td>230 </td>
-          <td>241 </td>
-          <td>249 </td>
-          <td>3,588 </td>
-          <td>1,239 </td>
-          <td>8,523 </td>
-          <td>27.3 </td>
+          <td>711</td>
+          <td>255</td>
+          <td>103</td>
+          <td>766</td>
+          <td>1,142</td>
+          <td>230</td>
+          <td>241</td>
+          <td>251</td>
+          <td>3,599</td>
+          <td>1,239</td>
+          <td>8,537</td>
+          <td>27.3</td>
         </tr>
         <tr>
           <th>유아</th>
-          <td>67 </td>
-          <td>50 </td>
-          <td>19 </td>
-          <td>850 </td>
-          <td>605 </td>
-          <td>96 </td>
-          <td>63 </td>
-          <td>31 </td>
-          <td>2,723 </td>
-          <td>23 </td>
-          <td>4,527 </td>
-          <td>14.5 </td>
+          <td>67</td>
+          <td>50</td>
+          <td>19</td>
+          <td>851</td>
+          <td>605</td>
+          <td>96</td>
+          <td>63</td>
+          <td>31</td>
+          <td>2,735</td>
+          <td>23</td>
+          <td>4,540</td>
+          <td>14.5</td>
         </tr>
         <tr>
           <th>영어</th>
-          <td>1 </td>
-          <td>1 </td>
-          <td>3 </td>
-          <td>147 </td>
-          <td>160 </td>
-          <td>18 </td>
-          <td>39 </td>
-          <td>833 </td>
-          <td>1,111 </td>
-          <td>26 </td>
-          <td>2,339 </td>
-          <td>7.5 </td>
+          <td>1</td>
+          <td>1</td>
+          <td>3</td>
+          <td>147</td>
+          <td>160</td>
+          <td>18</td>
+          <td>39</td>
+          <td>833</td>
+          <td>1,111</td>
+          <td>26</td>
+          <td>2,339</td>
+          <td>7.5</td>
         </tr>
         <tr>
           <th>보존서고 </th>
-          <td>149 </td>
-          <td>125 </td>
-          <td>58 </td>
-          <td>970 </td>
-          <td>790 </td>
-          <td>239 </td>
-          <td>218 </td>
-          <td>348 </td>
-          <td>2,075 </td>
-          <td>497 </td>
-          <td>5,469 </td>
-          <td>17.5 </td>
+          <td>149</td>
+          <td>125</td>
+          <td>58</td>
+          <td>970</td>
+          <td>790</td>
+          <td>239</td>
+          <td>218</td>
+          <td>348</td>
+          <td>2,075</td>
+          <td>497</td>
+          <td>5,469</td>
+          <td>17.5</td>
         </tr>
         <tr>
           <th>총계(권)</th>
-          <td>1,367 </td>
-          <td>1,083 </td>
-          <td>392 </td>
-          <td>4,163 </td>
-          <td>2,977 </td>
-          <td>2,009 </td>
-          <td>1,006 </td>
-          <td>1,685 </td>
-          <td>13,991 </td>
-          <td>2,549 </td>
-          <td>31,222 </td>
-          <td>100 </td>
+          <td>1,367</td>
+          <td>1,083</td>
+          <td>392</td>
+          <td>4,163</td>
+          <td>2,977</td>
+          <td>2,009</td>
+          <td>1,006</td>
+          <td>1,685</td>
+          <td>13,991</td>
+          <td>2,549</td>
+          <td>31,315</td>
+          <td>100</td>
         </tr>
         <tr>
           <th>비율(%)</th>
-          <td>4.4 </td>
-          <td>3.5 </td>
-          <td>1.3 </td>
-          <td>13.3 </td>
-          <td>9.5 </td>
-          <td>6.4 </td>
-          <td>3.2 </td>
-          <td>5.4 </td>
-          <td>44.8 </td>
-          <td>8.2 </td>
-          <td>100 </td>
+          <td>4.4</td>
+          <td>3.5</td>
+          <td>1.3</td>
+          <td>13.3</td>
+          <td>9.5</td>
+          <td>6.4</td>
+          <td>3.2</td>
+          <td>5.4</td>
+          <td>44.7</td>
+          <td>8.1</td>
+          <td>100</td>
           <td>　</td>
         </tr>
       </tbody>
     </table>
   </div>
-  <h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2021.2.28. 기준] (단위 : 권)</span></h3>
+  <h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2021.3.31. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="책숲길도서관 간행물 현황을 나타내는 표">
