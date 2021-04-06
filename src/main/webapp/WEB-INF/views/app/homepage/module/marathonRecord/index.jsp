@@ -140,17 +140,10 @@ $(function(){
 							<td><fmt:formatDate value="${i.record_date}" pattern="yyyy.MM.dd"/></td>
 							<td>${i.book_type}</td>
 							<td><fmt:formatNumber value="${i.read_page_count}" pattern="#,###"/></td>
-							<c:choose>
-								<c:when test="${status.count eq 1}">
-									<c:set var="read_page_count_total_value" value="${read_page_count_total}"/>
-									<c:set var="read_page_count_total_pre" value="${i.read_page_count}"/>
-								</c:when>
-								<c:otherwise>
-									<c:set var="read_page_count_total_value" value="${read_page_count_total_value - read_page_count_total_pre}"/>
-									<c:set var="read_page_count_total_pre" value="${i.read_page_count}"/>
-								</c:otherwise>
-							</c:choose>
-							<td><fmt:formatNumber value="${read_page_count_total_value}" pattern="#,###"/></td>
+							<td>
+								<fmt:formatNumber value="${read_page_count_total}" pattern="#,###"/>
+								<c:set value="${read_page_count_total - i.read_page_count}" var="read_page_count_total" />
+							</td>
 							<td style="width:15%;">
 								<c:choose>
 									<c:when test="${i.book_resources == '100'}">
