@@ -51,24 +51,24 @@ public class HomepageAccessService extends BaseDao {
 	
 	@Transactional
 	public int addStatisticsCount(HomepageAccess homepageAccess) {
-		int result = homepageAccessDao.updateStatisticsCount(homepageAccess);
-		
-		if(result == 1) {
-			return result;
-		} else {
+//		int result = homepageAccessDao.updateStatisticsCount(homepageAccess);
+//		
+//		if(result >= 1) {
+//			return result;
+//		} else {
 			return homepageAccessDao.addStatisticsCount(homepageAccess);
-		}
+//		}
 	}
 	
 	@Transactional
 	public int addStatisticsCountMobile(HomepageAccess homepageAccess) {
-		int result = homepageAccessDao.updateStatisticsCountMobile(homepageAccess);
-		
-		if(result == 1) {
-			return result;
-		} else {
+//		int result = homepageAccessDao.updateStatisticsCountMobile(homepageAccess);
+//		
+//		if(result >= 1) {
+//			return result;
+//		} else {
 			return homepageAccessDao.addStatisticsCountMobile(homepageAccess);
-		}
+//		}
 	}
 	
 	@Transactional
