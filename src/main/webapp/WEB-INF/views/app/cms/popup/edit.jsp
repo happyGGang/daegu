@@ -152,7 +152,7 @@ $(function() {
 		if (this.files && this.files[0]) {
 			var reader = new FileReader();
 			reader.onload = function (e) {
-				$('div img').attr('src', e.target.result);
+				$('img#previewImg').attr('src', e.target.result);
 			};
 			reader.readAsDataURL(this.files[0]);
 		} else {
@@ -337,20 +337,20 @@ function pasteHTML(filepath){
 			<th scope="row">이미지 미리보기</th>
 			<td>
 				<div id="htmlFiles" class="item">
-					<img src="/resources/cms/img/noimg_135_42.gif" alt="이미지 미리보기 입니다.">
+					<img src="/resources/cms/img/noimg_135_42.gif" id="previewImg" alt="이미지 미리보기 입니다.">
 					<a></a>
 				</div>
 			</td>
 		</tr>
 		<tr class="imgPreview">
-			<th scope="row">이미지 미리보기</th>
+			<th scope="row">이미지 미리보기333</th>
 			<td>
 				<div id="fileReaderFiles" class="item">
 					<c:if test="${popup.org_file_name eq null}">
-						<img src="/resources/cms/img/noimg_135_42.gif" alt="이미지 미리보기 입니다.">
+						<img src="/resources/cms/img/noimg_135_42.gif" alt="이미지 미리보기 입니다." id="previewImg">
 					</c:if>
 					<c:if test="${popup.org_file_name ne null}">
-						<img src="${getContextPath}/data/popup/${popup.homepage_id}/${popup.server_file_name}" alt="${popup.server_file_name}">
+						<img src="${getContextPath}/data/popup/${popup.homepage_id}/${popup.server_file_name}" alt="${popup.server_file_name}" id="previewImg">
 					</c:if>
 					<a></a>
 				</div>
