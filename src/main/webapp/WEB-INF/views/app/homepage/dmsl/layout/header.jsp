@@ -47,6 +47,35 @@
 
 <script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/common.js"></script>
 <script type="text/javascript" src="/resources/common/js/kakao.min.js"></script>
+<script>
+$(function() {
+	$('div.mmode > a').on('click', function() {
+
+
+		$('nav#menu li.2Depth.menu_94.last.smenu12 a').on('click', function(e) {
+			e.preventDefault();
+
+			<c:choose>
+				<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
+					<c:choose>
+						<c:when test="${sessionScope.member.user_class_code eq '701'}">
+							location.href='/dmsl/html/dmslSearch.do?menu_idx=94';
+						</c:when>
+						<c:otherwise>
+							alert('직원 전용 메뉴입니다.');
+						</c:otherwise>
+					</c:choose>
+				</c:when>
+				<c:otherwise>
+					alert('직원 전용 메뉴입니다.');
+				</c:otherwise>
+			</c:choose>
+		});
+
+
+	});
+});
+</script>
 </head>
 <body>
 
