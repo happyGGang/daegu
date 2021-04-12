@@ -207,7 +207,7 @@ do {
 				<div class="notice-box tabS">
 					<ul class="tabMenuS">
 						<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=718" class='t-tabs'>공지사항</a></li>
-						<li><a href="#tab2" data-link="/${homepage.context_path}/module/teach/index.do?menu_idx=32" class='t-tabs'>프로그램접수</a></li>
+						<li><a href="#tab2" data-link="/${homepage.context_path}/module/teach/index.do?menu_idx=111&searchCate1=16" class='t-tabs'>프로그램접수</a></li>
 						<a href="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=718" class="btn-more2 more-more">더보기</a>
 					</ul>
 
@@ -238,7 +238,7 @@ do {
 										<c:set var="teachMenuIdx" value="32"></c:set>
 									</c:if>
 									<li>
-										<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=${teachMenuIdx}&searchCate1=${i.large_category_idx}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&homepage_id=${i.homepage_id}">
+										<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=111&homepage_id=h48&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=16">
 											<c:set var="teachDate" value="${fn:split(i.start_date, '-')}"></c:set>
 											<span class="time"><b>${teachDate[2]}</b><br/>${teachDate[0]}.${teachDate[1]}</span>
 											<em>${i.teach_name}</em>

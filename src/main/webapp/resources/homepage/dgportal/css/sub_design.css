@@ -655,7 +655,7 @@ div[class^="dpt-list-type"] li[class^="ico"]:after {content:"";display:block;bac
 .dpt-intro-type01 .imgBox {position:relative;z-index:1;/* background:#ededed; */min-height:200px;}
 .dpt-intro-type01 .imgBox img {display:block;width:100%;height:auto}
 .dpt-intro-type01 .txtBox {position:relative;z-index:2}
-.dpt-intro-type01 .txtBox .role-head {position:relative;background:#fff;margin: -95px 60px 0 50px;padding: 40px 0 1px 0;text-align:center;}
+.dpt-intro-type01 .txtBox .role-head {position:relative;background:#fff;margin: -95px 50px 0 50px;padding: 40px 0 1px 0;text-align:center;}
 .dpt-intro-type01 .txtBox .role-head:before {content:"";position:absolute;top: -110px;right: 165px;display:block;background: url('/resources/homepage/dgportal/img/ptn04.png') no-repeat 0 0;width: 177px;height: 158px;}
 .dpt-intro-type01 .txtBox .role-body {border-bottom:1px solid #dbdbdb;padding: 0 60px 40px 60px;}
 .dpt-intro-type01 .txtBox .ptit {padding:0 110px;;color:#222;font-size:1.75em;font-weight:500;line-height:1.3;}

@@ -503,7 +503,7 @@ do {
 		<ul>
 			<!--<li><a href="http://seat.daegu.go.kr/wb_booking/?LIB_CODE=1" target="_blank"><span class="txt">디지털 정보코너<Br/>좌석예약</span></a></li>
 			<li><a href="/${homepage.context_path}/html.do?menu_idx=26"><span class="txt">희망도서신청</span></a></li>-->
-			<li><a href="#"><span class="txt">도서예약</span></a></li>
+			<li><a href="/${homepage.context_path}/intro/search/resve/index.do?menu_idx=18"><span class="txt">도서예약</span></a></li>
 			<li><a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=157"><span class="txt">영화상영일정</span></a></li>
 			<li><a href="/${homepage.context_path}/module/teach/index.do?menu_idx=30"><span class="txt">수강신청</span></a></li>
 			<li><a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=16"><span class="txt">대출현황</span></a></li>
