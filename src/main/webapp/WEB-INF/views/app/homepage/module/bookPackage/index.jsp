@@ -180,9 +180,9 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 <div class="infodesk">
 	<form:select path="grade" cssClass="selectmenu new_select_box">
 		<form:option value="">수준별보기</form:option>
-		<form:option value="3">초등</form:option>
-		<form:option value="4">중등</form:option>
-		<form:option value="5">고등</form:option>
+		<form:option value="3">초</form:option>
+		<form:option value="4">중</form:option>
+		<form:option value="5">고</form:option>
 	</form:select>
 	<form:select path="lender_count" cssClass="selectmenu new_select_box">
 		<form:option value="-1">상태전체</form:option>

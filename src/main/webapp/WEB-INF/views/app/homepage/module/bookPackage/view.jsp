@@ -76,9 +76,9 @@ table.type2 tbody tr td dl dd {display: inline-block;margin-right: 15px;}
 						<dt>수준법</dt>
 						<dd>
 							<c:choose>
-								<c:when test="${bookPackage.grade eq '3'}">초등</c:when>
-								<c:when test="${bookPackage.grade eq '4'}">중등</c:when>
-								<c:when test="${bookPackage.grade eq '5'}">고등</c:when>
+								<c:when test="${bookPackage.grade eq '3'}">초</c:when>
+								<c:when test="${bookPackage.grade eq '4'}">중</c:when>
+								<c:when test="${bookPackage.grade eq '5'}">고</c:when>
 							</c:choose>
 						</dd>
 						<dt>주류법</dt>

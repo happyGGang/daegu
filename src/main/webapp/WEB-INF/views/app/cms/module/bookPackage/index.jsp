@@ -154,9 +154,9 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 <div class="infodesk">
 	<form:select path="grade" cssClass="selectmenu">
 		<form:option value="">수준별보기</form:option>
-		<form:option value="3">초등</form:option>
-		<form:option value="4">중등</form:option>
-		<form:option value="5">고등</form:option>
+		<form:option value="3">초</form:option>
+		<form:option value="4">중</form:option>
+		<form:option value="5">고</form:option>
 	</form:select>
 	<form:select path="lender_count" cssClass="selectmenu">
 		<form:option value="-1">상태전체</form:option>
@@ -198,9 +198,9 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 				<c:if test="${not empty i.grade}">
 				<span class="step1">
 				<c:choose>
-					<c:when test="${i.grade eq '3'}">초등</c:when>
-					<c:when test="${i.grade eq '4'}">중등</c:when>
-					<c:when test="${i.grade eq '5'}">고등</c:when>
+					<c:when test="${i.grade eq '3'}">초</c:when>
+					<c:when test="${i.grade eq '4'}">중</c:when>
+					<c:when test="${i.grade eq '5'}">고</c:when>
 				</c:choose>
 				</span>
 				</c:if>

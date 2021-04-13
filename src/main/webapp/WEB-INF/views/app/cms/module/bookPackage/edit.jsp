@@ -227,9 +227,9 @@ function getNaverData(arg) {
 	        	<td>
 	        		<form:select path="grade">
 	        			<form:option value="">수준별보기</form:option>
-	        			<form:option value="3">초등</form:option>
-	        			<form:option value="4">중등</form:option>
-	        			<form:option value="5">고등</form:option>
+	        			<form:option value="3">초</form:option>
+	        			<form:option value="4">중</form:option>
+	        			<form:option value="5">고</form:option>
 	        		</form:select>
 	        	</td>
 	        </tr>
