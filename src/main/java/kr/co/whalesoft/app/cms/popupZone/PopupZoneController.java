@@ -92,11 +92,6 @@ public class PopupZoneController extends BaseController {
 				service.deletePopupZone(popupZone);
 				res.setValid(true);
 				res.setMessage("삭제 되었습니다.");
-			} else if(popupZone.getEditMode().equals("MODIFYPRINTSEQ")) {
-				popupZone.setModify_id(getSessionMemberId(request));
-				service.modifyPopupZonePrintSeq(popupZone);
-				res.setValid(true);
-				res.setMessage("수정 되었습니다.");
 			}
 		} else {
 			res.setValid(false);
@@ -119,6 +114,26 @@ public class PopupZoneController extends BaseController {
 			res.setResult(result.getAllErrors());
 		}
 		
+		return res;
+	}
+	
+	@RequestMapping (value = {"/printSeq.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse printSeq(PopupZone popupZone, BindingResult result, HttpServletRequest request) {
+		/* 유효성 검증 >>>>> */
+		JsonResponse res = new JsonResponse(request);
+		/* <<<<< 유효성 검증 */
+
+		if (!result.hasErrors()) {
+			popupZone.setModify_id(getSessionMemberId(request));
+			service.modifyPopupZonePrintSeq(popupZone);
+			res.setValid(true);
+			res.setReload(true);
+			res.setMessage("수정되었습니다.");
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+
 		return res;
 	}
 }

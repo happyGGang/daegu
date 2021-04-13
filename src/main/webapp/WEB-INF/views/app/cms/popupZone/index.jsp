@@ -68,106 +68,17 @@ $(function(){
 		doGetLoad('index.do', serializeCustom($('#popup_zone_1')));
 	});
 	
-	$('a#print_seq_up').on('click', function(e) {
+	$('a.mod_print').on('click', function(e) {
 		e.preventDefault();
 		$('input#popup_zone_idx_print').val($(this).data('idx'));
-		$('input#popup_zone_name_print').val($(this).data('name'));
-		$('input#start_date_print').val($(this).data('startdate'));
-		$('input#end_date_print').val($(this).data('enddate'));
-		$('input#link_url_print').val($(this).data('url'));
-		var print_seq = $(this).data('printseq');
-		print_seq = Number(print_seq) + 1;
-		
-		$('input#print_seq_print').val(print_seq);
-
-		jQuery.ajaxSettings.traditional = true;
-
-		var option = {
-			url : 'save.do',
-			type : 'POST',
-			data : $('#popup_zone_print_seq').serialize(),
-			enctype : 'multipart/form-data',
-			success: function(response) {
-				 if(response.valid) {
-					alert(response.message);
-					location.reload();
-				} else {
-					if ( response.message != null ) {
-						alert(response.message);
-					}
-					else {
-						for(var i =0 ; i < response.result.length ; i++) {
-							alert(response.result[i].code);
-							$('#'+response.result[i].field).focus();
-							break;
-						}
-					}
-				}
-	         },
-	         error: function(jqXHR, textStatus, errorThrown) {
-	             alert('[' + textStatus + ']관리자에게 문의하세요. : ' + errorThrown);
-	         }
-		};
-		$('#popup_zone_print_seq').ajaxSubmit(option);
-	});
-	
-	$('a#print_seq_down').on('click', function(e) {
-		e.preventDefault();
-		$('input#popup_zone_idx_print').val($(this).data('idx'));
-		$('input#popup_zone_name_print').val($(this).data('name'));
-		$('input#start_date_print').val($(this).data('startdate'));
-		$('input#end_date_print').val($(this).data('enddate'));
-		$('input#link_url_print').val($(this).data('url'));
-		var print_seq = $(this).data('printseq');
-		print_seq = Number(print_seq);
-		if (print_seq < 1) {
-			print_seq = 0;
-		} else {
-			print_seq = print_seq - 1;
-		}
-		
-		$('input#print_seq_print').val(print_seq);
-
-		jQuery.ajaxSettings.traditional = true;
-
-		var option = {
-			url : 'save.do',
-			type : 'POST',
-			data : $('#popup_zone_print_seq').serialize(),
-			enctype : 'multipart/form-data',
-			success: function(response) {
-				 if(response.valid) {
-					alert(response.message);
-					location.reload();
-				} else {
-					if ( response.message != null ) {
-						alert(response.message);
-					}
-					else {
-						for(var i =0 ; i < response.result.length ; i++) {
-							alert(response.result[i].code);
-							$('#'+response.result[i].field).focus();
-							break;
-						}
-					}
-				}
-	         },
-	         error: function(jqXHR, textStatus, errorThrown) {
-	             alert('[' + textStatus + ']관리자에게 문의하세요. : ' + errorThrown);
-	         }
-		};
-		$('#popup_zone_print_seq').ajaxSubmit(option);
+		$('input#print_seq_print').val($(this).data('printseq'));
+		doAjaxPost($('form#popup_zone_print_seq'));
 	});
 });
 </script>
-<form:form id="popup_zone_print_seq" modelAttribute="popupZone" method="POST" action="save.do" encType="multipart/form-data">
+<form:form id="popup_zone_print_seq" modelAttribute="popupZone" method="POST" action="printSeq.do">
 <form:hidden path="homepage_id" id="homepage_id_print" value="${homepage.homepage_id}"/>
-<form:hidden path="editMode" id="editMode_print" value="MODIFYPRINTSEQ"/>
 <form:hidden path="popup_zone_idx" id="popup_zone_idx_print"/>
-<form:hidden path="popup_zone_name" id="popup_zone_name_print"/>
-<form:hidden path="start_date" id="start_date_print"/>
-<form:hidden path="end_date" id="end_date_print"/>
-<form:hidden path="link_url" id="link_url_print"/>
 <form:hidden path="print_seq" id="print_seq_print"/>
 </form:form>
 
@@ -237,8 +148,8 @@ $(function(){
 				<td>${i.use_yn eq 'Y' ? '사용함' : '사용안함'}</td>
 				<td class="center">${i.start_date} ~ ${i.end_date}</td>
 				<td>
-					<a href="#" id="print_seq_up" class="btn" data-idx="${i.popup_zone_idx}" data-name="${i.popup_zone_name}" data-startdate="${i.start_date}" data-enddate="${i.end_date}" data-url="${i.link_url}" data-printseq="${i.print_seq}">↑</a>
-					<a href="#" id="print_seq_down" class="btn" data-idx="${i.popup_zone_idx}" data-name="${i.popup_zone_name}" data-startdate="${i.start_date}" data-enddate="${i.end_date}" data-url="${i.link_url}" data-printseq="${i.print_seq}">↓</a>
+					<a href="#" class="btn mod_print" data-idx="${i.popup_zone_idx}" data-printseq="${i.print_seq + 1}">↑</a>
+					<a href="#" class="btn mod_print" data-idx="${i.popup_zone_idx}" data-printseq="${i.print_seq - 1}">↓</a>
 					${i.print_seq}
 				</td>
 				<td><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></td>
