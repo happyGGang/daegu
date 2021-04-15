@@ -363,6 +363,7 @@ public class MarathonRecordController extends BaseController{
 					read_page_count_total = read_page_count_total - marathonRecord.getRead_page_count_arr()[i];
 				}
 				marathonApplicant.setRead_page_count_total(read_page_count_total);
+				marathonApplicant.setMember_id(getSessionMemberId(request));
 				int deleteResult = service.deleteMarathonRecord(marathonRecord, marathonApplicant);
 				if(deleteResult > 0) {
 					res.setValid(true);

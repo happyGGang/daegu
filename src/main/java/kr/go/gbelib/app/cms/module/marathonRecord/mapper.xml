@@ -217,6 +217,7 @@
 		AND	contest_idx = #{contest_idx}
 		AND	contest_type_idx = #{contest_type_idx}
 		AND	applicant_idx = #{applicant_idx}
+		AND	member_id = #{member_id}
 		AND	record_idx IN
 		<foreach collection="record_idx_arr" item="record_idx_list" open="(" close=")" separator=",">
 		#{record_idx_list}
