@@ -134,15 +134,14 @@ $(function(){
 					<c:forEach items="${marathonRecordList}" var="i" varStatus="status">
 						<tr>
 							<td><form:checkbox path="record_idx_arr" value="${i.record_idx}"/></td>
-							<td>${status.count}</td>
+							<td>${paging.listRowNum - status.index}</td>
 							<td>${i.member_name}</td>
 							<td style="width:30%;"><a href="#" keyValue="${i.record_idx}" class="record">${i.book_name}</a></td>
 							<td><fmt:formatDate value="${i.record_date}" pattern="yyyy.MM.dd"/></td>
 							<td>${i.book_type}</td>
 							<td><fmt:formatNumber value="${i.read_page_count}" pattern="#,###"/></td>
 							<td>
-								<fmt:formatNumber value="${read_page_count_total}" pattern="#,###"/>
-								<c:set value="${read_page_count_total - i.read_page_count}" var="read_page_count_total" />
+								<fmt:formatNumber value="${i.read_page_count_acc}" pattern="#,###"/>
 							</td>
 							<td style="width:15%;">
 								<c:choose>

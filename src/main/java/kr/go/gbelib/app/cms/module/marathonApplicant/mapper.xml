@@ -50,7 +50,19 @@
 			B.email, B.gender, B.address_dong, B.address_one, B.address_two,
 			B.telephone, B.cellphone, B.birthday, B.contest_type, A.page_count,
 			B.finish_memorial, B.determination_talk, B.process_status, B.add_date, B.modify_date,
-			B.modify_id, C.contest_name, B.read_page_count_total, B.finish_date
+			B.modify_id, C.contest_name, B.finish_date,
+			(
+				SELECT
+					NVL(SUM(read_page_count), 0)
+				FROM
+					MARATHON_RECORD
+				WHERE
+					homepage_id = B.homepage_id
+				AND	contest_idx = B.contest_idx
+				AND	contest_type_idx = B.contest_type_idx
+				AND	applicant_idx = B.applicant_idx
+				AND	member_id = B.member_id
+			) AS read_page_count_total
 		FROM
 			MARATHON_CONTEST_TYPE A, MARATHON_APPLICANT B, MARATHON_CONTEST C
 		WHERE
@@ -83,7 +95,19 @@
 			B.email, B.gender, B.address_dong, B.address_one, B.address_two,
 			B.telephone, B.cellphone, B.birthday, B.contest_type, A.page_count,
 			B.finish_memorial, B.determination_talk, B.process_status, B.add_date, B.modify_date,
-			B.modify_id, C.contest_name, B.read_page_count_total, B.finish_date
+			B.modify_id, C.contest_name, B.finish_date,
+			(
+				SELECT
+					NVL(SUM(read_page_count), 0)
+				FROM
+					MARATHON_RECORD
+				WHERE
+					homepage_id = B.homepage_id
+				AND	contest_idx = B.contest_idx
+				AND	contest_type_idx = B.contest_type_idx
+				AND	applicant_idx = B.applicant_idx
+				AND	member_id = B.member_id
+			) AS read_page_count_total
 		FROM
 			MARATHON_CONTEST_TYPE A, MARATHON_APPLICANT B, MARATHON_CONTEST C
 		WHERE

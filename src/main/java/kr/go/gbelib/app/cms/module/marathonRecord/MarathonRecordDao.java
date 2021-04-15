@@ -27,4 +27,6 @@ public interface MarathonRecordDao {
 	int modifyMarathonRecordByApplicant(MarathonRecord marathonRecord);
 
 	int deleteMarathonRecordAll(MarathonRecord marathonRecord);
+
+	List<MarathonRecord> getMarathonRecordListAll(MarathonRecord marathonRecord);
 }

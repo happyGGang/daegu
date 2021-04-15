@@ -112,11 +112,11 @@ public class MarathonApplicantController extends BaseController{
 		MarathonRecord marathonRecord = new MarathonRecord(getAsideHomepageId(request), marathonApplicant.getContest_idx(), marathonApplicant.getContest_type_idx(), marathonApplicant.getApplicant_idx());
 		marathonRecord.setMember_id(service.getMarathonApplicantId(marathonApplicant));
 		int read_page_count_total = 0;
-		List<MarathonRecord> recordList = recordService.getMarathonRecordList(marathonRecord);
+		List<MarathonRecord> recordList = recordService.getMarathonRecordListAll(marathonRecord);
 		if(recordList.size() != 0) {
 			read_page_count_total = recordService.getTotalPageCount(marathonRecord);
 		}
-		model.addAttribute("marathonRecordList", recordService.getMarathonRecordList(marathonRecord));
+		model.addAttribute("marathonRecordList", recordList);
 		model.addAttribute("read_page_count_total", read_page_count_total);
 		return basePath + "viewRecord_ajax";
 	}
@@ -259,11 +259,11 @@ public class MarathonApplicantController extends BaseController{
 		MarathonRecord marathonRecord = new MarathonRecord(getAsideHomepageId(request), marathonApplicant.getContest_idx(), marathonApplicant.getContest_type_idx(), marathonApplicant.getApplicant_idx());
 		marathonRecord.setMember_id(service.getMarathonApplicantId(marathonApplicant));
 		int read_page_count_total = 0;
-		List<MarathonRecord> recordList = recordService.getMarathonRecordList(marathonRecord);
+		List<MarathonRecord> recordList = recordService.getMarathonRecordListAll(marathonRecord);
 		if(recordList.size() != 0) {
 			read_page_count_total = recordService.getTotalPageCount(marathonRecord);
 		}
-		model.addAttribute("marathonRecordList", recordService.getMarathonRecordList(marathonRecord));
+		model.addAttribute("marathonRecordList", recordList);
 		model.addAttribute("read_page_count_total", read_page_count_total);
 		model.addAttribute("marathonApplicant", marathonApplicant);
 		request.setAttribute("marathonApplicant", marathonApplicant);

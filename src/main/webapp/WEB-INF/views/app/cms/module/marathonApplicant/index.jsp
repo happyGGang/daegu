@@ -56,7 +56,7 @@ $(function() {
 		$('#viewPage').val(1);
 		doGetLoad('index.do', serializeCustom($('form#marathonApplicantForm')));
 	});
-	$('select#contest_type_idx').on('change', function(e) {
+	$('select#contest_type_idx, select#rowCount').on('change', function(e) {
 		e.preventDefault();
 		$('#viewPage').val(1);
 		doGetLoad('index.do', serializeCustom($('form#marathonApplicantForm')));
@@ -176,6 +176,15 @@ $(function() {
 		<form:select path="contest_type_idx" class="selectmenu">
 			<form:option value="0" label="전체"/>	
 			<form:options itemValue="contest_type_idx" itemLabel="contest_type" items="${marathonTypeList}"/>
+		</form:select>
+		<span style="padding-left: 1%;"></span>
+		<form:select path="rowCount" class="selectmenu" style="width:120px;">
+			<form:option value="10">10개씩 보기</form:option>
+			<form:option value="20">20개씩 보기</form:option>
+			<form:option value="50">50개씩 보기</form:option>
+			<form:option value="100">100개씩 보기</form:option>
+			<form:option value="200">200개씩 보기</form:option>
+			<form:option value="500">500개씩 보기</form:option>
 		</form:select>
 		<div class="button">
 			<a href="#" id="applicantExcelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i>

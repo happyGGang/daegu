@@ -21,11 +21,37 @@
 	</select>
 	
 	<select id="getMarathonRecordList" resultType="kr.go.gbelib.app.cms.module.marathonRecord.MarathonRecord">
+		${pagingTop}
 		SELECT
 			homepage_id, contest_idx, contest_type_idx, applicant_idx, record_idx,
 			member_id, member_name, book_name, read_page_count, book_resources,
 			book_get_date, book_type, book_author, publisher, book_journals,
-			record_date, modify_date, modify_id, call_no, reg_no, loan_choice
+			record_date, modify_date, modify_id, call_no, reg_no,
+			loan_choice, SUM(read_page_count) OVER(ORDER BY record_idx ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS read_page_count_acc
+		FROM
+			MARATHON_RECORD
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	contest_idx = #{contest_idx}
+		AND	contest_type_idx = #{contest_type_idx}
+		AND	applicant_idx = #{applicant_idx}
+		<if test="search_type != null and search_type == 'book_name' and search_text != null and search_text != ''">
+		AND	book_name LIKE '%${search_text}%'
+		</if>
+		<if test="search_type != null and search_type == 'book_journals' and search_text != null and search_text != ''">
+		AND	book_journals LIKE '%${search_text}%'
+		</if>
+		ORDER BY record_idx DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getMarathonRecordListAll" resultType="kr.go.gbelib.app.cms.module.marathonRecord.MarathonRecord">
+		SELECT
+			homepage_id, contest_idx, contest_type_idx, applicant_idx, record_idx,
+			member_id, member_name, book_name, read_page_count, book_resources,
+			book_get_date, book_type, book_author, publisher, book_journals,
+			record_date, modify_date, modify_id, call_no, reg_no,
+			loan_choice, SUM(read_page_count) OVER(ORDER BY record_idx ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS read_page_count_acc
 		FROM
 			MARATHON_RECORD
 		WHERE
@@ -120,7 +146,8 @@
 		<if test="contest_type_idx != null and contest_type_idx != 0">
 			AND	B.contest_type_idx = #{contest_type_idx}
 		</if>
-		AND	A.process_status = 1 
+		AND	A.process_status = 1
+		ORDER BY A.applicant_idx, B.record_idx DESC
 	</select>
 
 	<insert id="addMarathonRecord">
@@ -188,6 +215,7 @@
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	contest_idx = #{contest_idx}
+		AND	contest_type_idx = #{contest_type_idx}
 		AND	applicant_idx = #{applicant_idx}
 		AND	record_idx IN
 		<foreach collection="record_idx_arr" item="record_idx_list" open="(" close=")" separator=",">

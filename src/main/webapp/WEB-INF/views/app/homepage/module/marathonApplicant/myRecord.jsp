@@ -111,9 +111,9 @@ $(function() {
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach items="${marathonRecordList}" var="i">
+		<c:forEach items="${marathonRecordList}" var="i" varStatus="status">
 			<tr>
-				<td>${i.record_idx}</td>
+				<td>${fn:length(marathonRecordList) - status.index}</td>
 				<td>${i.member_name}</td>
 				<td>${i.book_name}</td>
 				<td>${i.book_author}</td>
@@ -121,8 +121,7 @@ $(function() {
 				<td><fmt:formatDate value="${i.record_date}" pattern="yyyy.MM.dd"/></td>
 				<td>${i.book_type}</td>
 				<td><fmt:formatNumber value="${i.read_page_count}" pattern="#,###"/></td>
-				<c:set var="read_page_count_total_thisPage" value="${read_page_count_total_thisPage + i.read_page_count}"/>
-				<td><fmt:formatNumber value="${read_page_count_total_thisPage}" pattern="#,###"/></td>
+				<td><fmt:formatNumber value="${i.read_page_count_acc}" pattern="#,###"/></td>
 				<td>
 					<c:choose>
 						<c:when test="${i.book_resources == '100'}">
@@ -167,7 +166,6 @@ $(function() {
 				<td colspan="10">등록된 내용이 없습니다.</td> 
 			</tr>
 		</c:if>
-		<c:remove var="read_page_count_total_thisPage"/>
 	</tbody>
 </table>
 

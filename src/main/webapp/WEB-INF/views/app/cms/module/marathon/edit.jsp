@@ -131,7 +131,7 @@ $(function() {
 		<tbody>
 			<tr>
 				<th>대회명</th>
-				<td><form:input path="contest_name" cssClass="text"/></td>
+				<td><form:input path="contest_name" cssClass="text" size="30"/></td>
 			</tr>
 			<tr>
 				<th>접수기간</th>

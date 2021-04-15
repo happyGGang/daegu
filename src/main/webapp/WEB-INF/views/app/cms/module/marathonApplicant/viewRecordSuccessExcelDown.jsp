@@ -28,6 +28,7 @@
 			</c:if>
 			<c:choose>
 				<c:when test="${status.first}">
+					<c:set var="one_read_page_count_total" value="${i.read_page_count_total}"/>
 					<tr>
 						<td colspan="2" style="width:350px;text-align:left;">번호</th>
 						<th style="width:250px;text-align:left;">아이디</th>
@@ -67,6 +68,7 @@
 				</c:when>
 				<c:otherwise>
 					<c:if test="${i.applicant_idx != before.applicant_idx}">
+						<c:set var="one_read_page_count_total" value="${i.read_page_count_total}"/>
 						<c:set var="count" value="${count + 1}"/>
 						<tr>
 							<td colspan="2" style="width:350px;text-align:left;">번호</th>
@@ -124,26 +126,8 @@
 				<td style="border:thin solid black;"><fmt:formatDate value="${i.record_date}" pattern="yyyy-MM-dd"/></td>
 				<td style="border:thin solid black;">${i.book_type}</td>
 				<td style="border:thin solid black;"><fmt:formatNumber value="${i.read_page_count}" pattern="#,###"/></td>
-				<c:choose>
-					<c:when test="${status.first}">
-						<c:set var="read_page_count_total_thisPage_first" value="${read_page_count_total_thisPage_first + i.read_page_count}"/>
-						<td style="border:thin solid black;"><fmt:formatNumber value="${read_page_count_total_thisPage_first}" pattern="#,###"/></td>
-					</c:when>
-					<c:otherwise>
-						<c:choose>
-							<c:when test="${i.applicant_idx == before.applicant_idx}">
-								<td style="border:thin solid black;"><fmt:formatNumber value="${read_page_count_total_thisPage_first + i.read_page_count}" pattern="#,###"/></td>
-								<c:set var="read_page_count_total_thisPage_first" value="${read_page_count_total_thisPage_first + i.read_page_count}"/>
-							</c:when>
-							<c:otherwise>
-								<c:remove var="read_page_count_total_thisPage_first"/>
-								<c:set var="read_page_count_total_thisPage_first" value="0"/>
-								<td style="border:thin solid black;"><fmt:formatNumber value="${read_page_count_total_thisPage_first + i.read_page_count}" pattern="#,###"/></td>
-								<c:set var="read_page_count_total_thisPage_first" value="${read_page_count_total_thisPage_first + i.read_page_count}"/>
-							</c:otherwise>
-						</c:choose>
-					</c:otherwise>
-				</c:choose>
+				<td style="border:thin solid black;"><fmt:formatNumber value="${one_read_page_count_total}" pattern="#,###"/></td>
+				<c:set var="one_read_page_count_total" value="${i.read_page_count_total - i.read_page_count}"/>
 				<td style="border:thin solid black;">${i.member_id}</td>
 				<td style="border:thin solid black;">
 					<c:choose>

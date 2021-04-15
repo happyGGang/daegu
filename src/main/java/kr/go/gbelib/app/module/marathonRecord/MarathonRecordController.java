@@ -164,7 +164,7 @@ public class MarathonRecordController extends BaseController{
 			marathonRecord.setMember_id(getSessionMemberId(request));
 
 			marathonApplicant = marathonApplicantService.getMarathonApplicantOne(marathonApplicant);
-			List<MarathonRecord> recordList = service.getMarathonRecordList(marathonRecord);
+			List<MarathonRecord> recordList = service.getMarathonRecordListAll(marathonRecord);
 			int page_count_total = 0;
 			if(recordList.size() != 0) {
 				page_count_total = service.getTotalPageCount(marathonRecord);

@@ -77,8 +77,7 @@
 			<td style="border:thin solid black;"><fmt:formatDate value="${i.record_date}" pattern="yyyy.MM.dd"/></td>
 			<td style="border:thin solid black;">${i.book_type}</td>
 			<td style="border:thin solid black;"><fmt:formatNumber value="${i.read_page_count}" pattern="#,###"/></td>
-			<c:set var="read_page_count_total_thisPage" value="${read_page_count_total_thisPage + i.read_page_count}"/>
-			<td><fmt:formatNumber value="${read_page_count_total_thisPage}" pattern="#,###"/></td>
+			<td><fmt:formatNumber value="${i.read_page_count_acc}" pattern="#,###"/></td>
 			<td style="border:thin solid black;">${i.member_id}</td>
 			<td style="border:thin solid black;">
 				<c:choose>
