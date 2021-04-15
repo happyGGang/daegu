@@ -131,7 +131,7 @@ $(function() {
 						<form:option value="127066">이곡2동공립작은도서관</form:option>
 						<form:option value="127006">용산1동작은도서관</form:option>
 						<form:option value="127007">장기동작은도서관</form:option>
-						<form:option value="127008">죽전동공립작은도서관</form:option>
+						<!-- <form:option value="127008">죽전동공립작은도서관</form:option> -->
 						<form:option value="327002">웃는얼굴아트센터 도서실</form:option>
 						<form:option value="327003">행정정보문고센터</form:option>
 						<form:option value="727036">학산작은도서관</form:option>
@@ -153,7 +153,7 @@ $(function() {
 <form:option value="727067">동촌역사 작은도서관</form:option>
 <form:option value="727069">해안동 작은도서관</form:option>
 <form:option value="127031">반야월역사 작은도서관</form:option>
-<form:option value="727070">동구청 작은도서관</form:option>
+<!-- <form:option value="727070">동구청 작은도서관</form:option> -->
 <form:option value="727073">늘푸른 도서관</form:option>
 <form:option value="727072">초록우산도서관</form:option>
 <form:option value="727074">행복도서관</form:option>

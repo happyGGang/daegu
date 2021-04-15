@@ -120,6 +120,26 @@ $(function() {
 				</c:otherwise>
 			</c:choose>
 		});
+
+		$('ul.SubMenu li#menu_94 a').on('click', function(e) {
+			e.preventDefault();
+
+			<c:choose>
+				<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
+					<c:choose>
+						<c:when test="${sessionScope.member.user_class_code eq '701'}">
+							location.href='/dmsl/html/dmslSearch.do?menu_idx=94';
+						</c:when>
+						<c:otherwise>
+							alert('직원 전용 메뉴입니다.');
+						</c:otherwise>
+					</c:choose>
+				</c:when>
+				<c:otherwise>
+					alert('직원 전용 메뉴입니다.');
+				</c:otherwise>
+			</c:choose>
+		});
 });
 </script>
 
