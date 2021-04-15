@@ -348,6 +348,8 @@ public class MarathonRecordController extends BaseController{
 			}else if(marathonRecord.getEditMode().equals("MODIFY")) {
 				read_page_count_total = read_page_count_total - marathonRecord.getRead_page_count_beforeChange() + marathonRecord.getRead_page_count();
 				marathonApplicant.setRead_page_count_total(read_page_count_total);
+				marathonApplicant.setMember_id(getSessionMemberId(request));
+				marathonRecord.setMember_id(getSessionMemberId(request));
 				int modifyRecordResult = service.modifyMarathonRecord(marathonRecord, marathonApplicant);
 				if(modifyRecordResult > 0) {
 					res.setValid(true);
@@ -364,6 +366,7 @@ public class MarathonRecordController extends BaseController{
 				}
 				marathonApplicant.setRead_page_count_total(read_page_count_total);
 				marathonApplicant.setMember_id(getSessionMemberId(request));
+				marathonRecord.setMember_id(getSessionMemberId(request));
 				int deleteResult = service.deleteMarathonRecord(marathonRecord, marathonApplicant);
 				if(deleteResult > 0) {
 					res.setValid(true);

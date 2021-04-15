@@ -127,7 +127,7 @@
 				<td style="border:thin solid black;">${i.book_type}</td>
 				<td style="border:thin solid black;"><fmt:formatNumber value="${i.read_page_count}" pattern="#,###"/></td>
 				<td style="border:thin solid black;"><fmt:formatNumber value="${one_read_page_count_total}" pattern="#,###"/></td>
-				<c:set var="one_read_page_count_total" value="${i.read_page_count_total - i.read_page_count}"/>
+				<c:set var="one_read_page_count_total" value="${one_read_page_count_total - i.read_page_count}"/>
 				<td style="border:thin solid black;">${i.member_id}</td>
 				<td style="border:thin solid black;">
 					<c:choose>

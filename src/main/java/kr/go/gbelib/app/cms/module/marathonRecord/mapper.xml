@@ -98,9 +98,21 @@
 	<select id="getMarathonApplicantRecordExcelList" resultType="kr.go.gbelib.app.cms.module.marathonRecord.marathonApplicantRecord.MarathonApplicantRecord">
 		SELECT
 			B.applicant_idx, B.member_id, B.member_name, A.school_name, A.school_class,
-			A.contest_type, C.page_count, B.read_page_count, A.read_page_count_total, A.finish_date,
+			A.contest_type, C.page_count, B.read_page_count, A.finish_date,
 			B.book_name, B.book_author, B.book_type, B.publisher, B.record_date,
-			B.book_resources, B.book_journals, B.loan_choice
+			B.book_resources, B.book_journals, B.loan_choice,
+			(
+				SELECT
+					NVL(SUM(read_page_count), 0)
+				FROM
+					MARATHON_RECORD
+				WHERE
+					homepage_id = B.homepage_id
+				AND	contest_idx = B.contest_idx
+				AND	contest_type_idx = B.contest_type_idx
+				AND	applicant_idx = B.applicant_idx
+				AND	member_id = B.member_id
+			) AS read_page_count_total
 		FROM
 			MARATHON_APPLICANT A, MARATHON_RECORD B, MARATHON_CONTEST_TYPE C
 		WHERE
@@ -194,6 +206,7 @@
 		AND	contest_type_idx = #{contest_type_idx}
 		AND	applicant_idx = #{applicant_idx}
 		AND	record_idx = #{record_idx}
+		AND	member_id = #{member_id}
 	</update>
 	
 	<update id="modifyMarathonRecordByApplicant">

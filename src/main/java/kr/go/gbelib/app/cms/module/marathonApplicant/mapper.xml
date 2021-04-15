@@ -277,9 +277,9 @@
 	
 	<select id="getReadPageCountTotal" resultType="integer">
 		SELECT
-			read_page_count_total
+			NVL(SUM(read_page_count), 0)
 		FROM
-			MARATHON_APPLICANT
+			MARATHON_RECORD
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	contest_idx = #{contest_idx}
@@ -391,6 +391,7 @@
 		AND	contest_idx = #{contest_idx}
 		AND	contest_type_idx = #{contest_type_idx}
 		AND	applicant_idx = #{applicant_idx}
+		AND	member_id = #{member_id}
 	</update>
 	
 	<update id="modifyReadPageCountTotal">
@@ -403,6 +404,7 @@
 		AND	contest_idx = #{contest_idx}
 		AND	contest_type_idx = #{contest_type_idx}
 		AND	applicant_idx = #{applicant_idx}
+		AND	member_id = #{member_id}
 	</update>
 	
 	<delete id="deleteMarathonApplicant">
