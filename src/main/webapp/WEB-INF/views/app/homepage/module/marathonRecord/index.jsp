@@ -188,8 +188,8 @@ $(function(){
 			</table>
 		</div>
 		<div class="button bbs-btn right">
-			<a href="#" class="btn checkAll" id="checkAll"><span>전체 선택/해제</span></a>
-			<a href="#" class="btn deleteSelected" id="deleteSelected"><i class="fa fa-trash-o"></i><span>선택 게시글 삭제</span></a>
+			<!-- <a href="#" class="btn checkAll" id="checkAll"><span>전체 선택/해제</span></a>
+			<a href="#" class="btn deleteSelected" id="deleteSelected"><i class="fa fa-trash-o"></i><span>선택 게시글 삭제</span></a> -->
 			<a href="#" class="btn btn1 write" id="write"><i class="fa fa-pencil"></i><span>글쓰기</span></a>
 		</div>
 	</div>
