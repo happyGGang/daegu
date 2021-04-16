@@ -5,7 +5,17 @@
 	<select id="getQuestDetail" resultType="kr.co.whalesoft.app.cms.module.survey.questDetail.QuestDetail">
 		SELECT
 			a.homepage_id, a.survey_idx, a.quest_idx, a.quest_detail_idx, a.quest_detail_order,
-			a.quest_detail_title, a.add_date, a.add_id, a.branch_idx, b.quest_content, b.quest_order
+			a.quest_detail_title, a.add_date, a.add_id, a.branch_idx, b.quest_content, b.quest_order,
+			(
+				SELECT
+					COUNT(*)
+				FROM
+					CMS_SURVEY_QUEST
+				WHERE
+					survey_idx = #{survey_idx}
+				AND	quest_order <![CDATA[<]]> b.quest_order
+				AND	quest_type = 'COMMENT'
+			) AS cnt
 		FROM
 			CMS_SURVEY_QUEST_DETAIL a, CMS_SURVEY_QUEST b
 		WHERE

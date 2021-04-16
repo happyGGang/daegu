@@ -89,7 +89,7 @@ caption {display: none;}
 							${status2.count}) <form:radiobutton id="questIdx_${questIdx}_${status2.count}" path="answer_list[${questIdx}].quest_idx_list" value="${status2.count}" branchIdx="${j.branch_idx}" disabled="${i.branch > 0 ? true : false}" />
 							<label for="questIdx_${questIdx}_${status2.count}">${j.quest_detail_title}</label>
 							<c:if test="${j.branch_idx > 0}">
-							(${j.branch_idx}번으로 이동)
+							(${j.quest_order - j.cnt}번으로 이동)
 							</c:if>
 						</li>
 					</c:forEach>

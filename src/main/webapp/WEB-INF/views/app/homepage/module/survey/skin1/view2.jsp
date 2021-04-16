@@ -55,13 +55,7 @@ window.close();
 						<li>
 							<label for="questIdx_${questIdx}_${status2.count}">${status2.count}) ${j.quest_detail_title}</label>
 							<c:if test="${j.branch_idx > 0}">
-								<c:set var="branch_idx" value="${j.branch_idx}"></c:set>
-								<c:forEach var="k" varStatus="kStatus" items="${questList}">
-									<c:if test="${j.branch_idx eq k.quest_idx}">
-										<c:set var="branch_idx" value="${kStatus.count}"></c:set>
-									</c:if>
-								</c:forEach>
-							(${j.branch_idx}번으로 이동)
+							(${j.quest_order - j.cnt}번으로 이동)
 							</c:if>
 						</li>
 					</c:forEach>
