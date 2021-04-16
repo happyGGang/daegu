@@ -36,58 +36,117 @@ $(function() {
 	
 	$('a#record_save_btn').on('click', function(e) {
 		e.preventDefault();
-		if($('input#book_name').val() == ''){
-			alert('도서명을 입력해 주세요.');
-			$('input#book_name').focus();
-			return false;
-		}
-		if($('input#read_page_count').val() == ''){
-			alert('읽은 쪽수를 입력해 주세요.');
-			$('input#read_page_count').focus();
-			return false;
-		}
-		var regexp = /^[0-9]/g;
-		if(!regexp.test($('input#read_page_count').val())){
-			alert('읽은 쪽수에는 숫자만 입력해 주세요.');
-			$('input#read_page_count').focus();
-			return false;
-		}
-		if($('select#book_resources').val() == 'write' && $('input#book_resources_1').val() != ''){
-			$('select#book_resources').append('<option value=' + $('input#book_resources_1').val() + ' selected="selected"></option>');
-			$('select#book_resources option[value = "write"]').remove();
+		if(confirm('등록하시겠습니까?')) { 
+		
+			if($('input#book_name').val() == ''){
+				alert('도서명을 입력해 주세요.');
+				$('input#book_name').focus();
+				return false;
+			}
+			if($('input#read_page_count').val() == ''){
+				alert('읽은 쪽수를 입력해 주세요.');
+				$('input#read_page_count').focus();
+				return false;
+			}
+			var regexp = /^[0-9]/g;
+			if(!regexp.test($('input#read_page_count').val())){
+				alert('읽은 쪽수에는 숫자만 입력해 주세요.');
+				$('input#read_page_count').focus();
+				return false;
+			}
+			if($('select#book_resources').val() == 'write' && $('input#book_resources_1').val() != ''){
+				$('select#book_resources').append('<option value=' + $('input#book_resources_1').val() + ' selected="selected"></option>');
+				$('select#book_resources option[value = "write"]').remove();
+				if($('input#book_get_date').val() == ''){
+					alert('대출/구입 날짜를 입력해 주세요.');
+					$('input#book_get_date').focus();
+					$('select#book_resources option[value=' + $('input#book_resources_1').val() +']').remove();
+					$('select#book_resources').append('<option value="write" selected="selected">기타 도서관</option>');
+					return false;
+				}
+				if($('input#book_type').val() == ''){
+					alert('분류번호를 입력해 주세요.');
+					$('input#book_type').focus();
+					$('select#book_resources option[value=' + $('input#book_resources_1').val() +']').remove();
+					$('select#book_resources').append('<option value="write" selected="selected">기타 도서관</option>');
+					return false;
+				}
+				if($('input#book_author').val() == ''){
+					alert('저자를 입력해 주세요.');
+					$('input#book_author').focus();
+					$('select#book_resources option[value=' + $('input#book_resources_1').val() +']').remove();
+					$('select#book_resources').append('<option value="write" selected="selected">기타 도서관</option>');
+					return false;
+				}
+				if($('input#publisher').val() == ''){
+					alert('출판사를 입력해 주세요.');
+					$('input#publisher').focus();
+					$('select#book_resources option[value=' + $('input#book_resources_1').val() +']').remove();
+					$('select#book_resources').append('<option value="write" selected="selected">기타 도서관</option>');
+					return false;
+				}
+				if($('textarea#book_journals').val() == ''){
+					alert('독서감상문을 입력해 주세요.');
+					$('textarea#book_journals').focus();
+					$('select#book_resources option[value=' + $('input#book_resources_1').val() +']').remove();
+					$('select#book_resources').append('<option value="write" selected="selected">기타 도서관</option>');
+					return false;
+				}
+				<c:choose>
+					<c:when test="${marathonApplicant.contest_type_idx eq 1}">
+						if($('textarea#book_journals').val().length < 30){
+							alert('독서감상문은 띄어쓰기 빈칸을 포함하여 30자 이상 기록하여야 합니다.');
+							$('textarea#book_journals').focus();
+							$('select#book_resources option[value=' + $('input#book_resources_1').val() +']').remove();
+							$('select#book_resources').append('<option value="write" selected="selected">기타 도서관</option>');
+							return false;
+						}
+					</c:when>
+					<c:otherwise>
+						if($('textarea#book_journals').val().length < 50){
+							alert('독서감상문은 띄어쓰기 빈칸을 포함하여 50자 이상 기록하여야 합니다.');
+							$('textarea#book_journals').focus();
+							$('select#book_resources option[value=' + $('input#book_resources_1').val() +']').remove();
+							$('select#book_resources').append('<option value="write" selected="selected">기타 도서관</option>');
+							return false;
+						}
+					</c:otherwise>
+				</c:choose>
+				
+			}
+			if($('select#book_resources').val() == ''){
+				alert('대출/구입처를 선택해 주세요.');
+				$('select#book_resources').focus();
+				return false;
+			}
+			if($('select#book_resources').val() == 'write' && $('input#book_resources_1').val() == ''){
+				alert('대출/구입처를 입력해 주세요.');
+				$('input#book_resources_1').focus();
+				return false;
+			}
 			if($('input#book_get_date').val() == ''){
 				alert('대출/구입 날짜를 입력해 주세요.');
 				$('input#book_get_date').focus();
-				$('select#book_resources option[value=' + $('input#book_resources_1').val() +']').remove();
-				$('select#book_resources').append('<option value="write" selected="selected">기타 도서관</option>');
 				return false;
 			}
 			if($('input#book_type').val() == ''){
 				alert('분류번호를 입력해 주세요.');
 				$('input#book_type').focus();
-				$('select#book_resources option[value=' + $('input#book_resources_1').val() +']').remove();
-				$('select#book_resources').append('<option value="write" selected="selected">기타 도서관</option>');
 				return false;
 			}
 			if($('input#book_author').val() == ''){
 				alert('저자를 입력해 주세요.');
 				$('input#book_author').focus();
-				$('select#book_resources option[value=' + $('input#book_resources_1').val() +']').remove();
-				$('select#book_resources').append('<option value="write" selected="selected">기타 도서관</option>');
 				return false;
 			}
 			if($('input#publisher').val() == ''){
 				alert('출판사를 입력해 주세요.');
 				$('input#publisher').focus();
-				$('select#book_resources option[value=' + $('input#book_resources_1').val() +']').remove();
-				$('select#book_resources').append('<option value="write" selected="selected">기타 도서관</option>');
 				return false;
 			}
 			if($('textarea#book_journals').val() == ''){
 				alert('독서감상문을 입력해 주세요.');
 				$('textarea#book_journals').focus();
-				$('select#book_resources option[value=' + $('input#book_resources_1').val() +']').remove();
-				$('select#book_resources').append('<option value="write" selected="selected">기타 도서관</option>');
 				return false;
 			}
 			<c:choose>
@@ -95,8 +154,6 @@ $(function() {
 					if($('textarea#book_journals').val().length < 30){
 						alert('독서감상문은 띄어쓰기 빈칸을 포함하여 30자 이상 기록하여야 합니다.');
 						$('textarea#book_journals').focus();
-						$('select#book_resources option[value=' + $('input#book_resources_1').val() +']').remove();
-						$('select#book_resources').append('<option value="write" selected="selected">기타 도서관</option>');
 						return false;
 					}
 				</c:when>
@@ -104,67 +161,14 @@ $(function() {
 					if($('textarea#book_journals').val().length < 50){
 						alert('독서감상문은 띄어쓰기 빈칸을 포함하여 50자 이상 기록하여야 합니다.');
 						$('textarea#book_journals').focus();
-						$('select#book_resources option[value=' + $('input#book_resources_1').val() +']').remove();
-						$('select#book_resources').append('<option value="write" selected="selected">기타 도서관</option>');
 						return false;
 					}
 				</c:otherwise>
 			</c:choose>
 			
-		}
-		if($('select#book_resources').val() == ''){
-			alert('대출/구입처를 선택해 주세요.');
-			$('select#book_resources').focus();
-			return false;
-		}
-		if($('select#book_resources').val() == 'write' && $('input#book_resources_1').val() == ''){
-			alert('대출/구입처를 입력해 주세요.');
-			$('input#book_resources_1').focus();
-			return false;
-		}
-		if($('input#book_get_date').val() == ''){
-			alert('대출/구입 날짜를 입력해 주세요.');
-			$('input#book_get_date').focus();
-			return false;
-		}
-		if($('input#book_type').val() == ''){
-			alert('분류번호를 입력해 주세요.');
-			$('input#book_type').focus();
-			return false;
-		}
-		if($('input#book_author').val() == ''){
-			alert('저자를 입력해 주세요.');
-			$('input#book_author').focus();
-			return false;
-		}
-		if($('input#publisher').val() == ''){
-			alert('출판사를 입력해 주세요.');
-			$('input#publisher').focus();
-			return false;
-		}
-		if($('textarea#book_journals').val() == ''){
-			alert('독서감상문을 입력해 주세요.');
-			$('textarea#book_journals').focus();
-			return false;
-		}
-		<c:choose>
-			<c:when test="${marathonApplicant.contest_type_idx eq 1}">
-				if($('textarea#book_journals').val().length < 30){
-					alert('독서감상문은 띄어쓰기 빈칸을 포함하여 30자 이상 기록하여야 합니다.');
-					$('textarea#book_journals').focus();
-					return false;
-				}
-			</c:when>
-			<c:otherwise>
-				if($('textarea#book_journals').val().length < 50){
-					alert('독서감상문은 띄어쓰기 빈칸을 포함하여 50자 이상 기록하여야 합니다.');
-					$('textarea#book_journals').focus();
-					return false;
-				}
-			</c:otherwise>
-		</c:choose>
+			doAjaxPost($('form#marathonRecord'));
 		
-		doAjaxPost($('form#marathonRecord'));
+		}
 	});
 	
 	$('textarea#book_journals').keyup(function() {
