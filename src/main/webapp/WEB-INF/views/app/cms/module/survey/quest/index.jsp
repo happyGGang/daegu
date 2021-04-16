@@ -134,7 +134,7 @@ $(function() {
 						<li>
 							<form:radiobutton id="questIdx_${questIdx}_${status2.count}" path="answer_list[${questIdx}].quest_idx_list" value="${status2.count}" />
 							<label for="questIdx_${questIdx}_${status2.count}">${j.quest_detail_title}
-								<c:if test="${j.quest_content ne null}"> (<tag:cutStr cutNum="40" inStr="${j.quest_order}" />번 문항으로 이동)</c:if>
+								<c:if test="${j.quest_content ne null}"> (<tag:cutStr cutNum="40" inStr="${j.quest_order - j.cnt}" />번 문항으로 이동)</c:if>
 							</label>
 						</li>
 					</c:forEach>
@@ -170,7 +170,7 @@ $(function() {
 						<li>
 							<form:checkbox id="questIdx_${questIdx}_${status2.count}" path="answer_list[${questIdx}].quest_idx_list" value="${status.count}" />
 							<label for="questIdx_${questIdx}_${status2.count}">${j.quest_detail_title}
-								<c:if test="${j.quest_content ne null}"> (<tag:cutStr cutNum="40" inStr="${j.quest_order}" />번 문항으로 이동)</c:if>
+								<c:if test="${j.quest_content ne null}"> (<tag:cutStr cutNum="40" inStr="${j.quest_order - j.cnt}" />번 문항으로 이동)</c:if>
 							</label>
 						</li>
 					</c:forEach>
