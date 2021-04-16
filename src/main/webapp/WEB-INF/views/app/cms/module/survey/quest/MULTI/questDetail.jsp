@@ -14,7 +14,7 @@
 		<select style="max-width: 200px;" name="quest_detail_list[${status.index}].branch_idx" >
 			<option value="0">없음</option>
 			<c:forEach var="j" varStatus="statusJ" items="${questList}">
-			<option value="${j.quest_idx}"<c:if test="${i.branch_idx eq j.quest_idx}"> selected="selected"</c:if>><tag:cutStr cutNum="38" inStr="${j.quest_order - i.cnt}. ${j.quest_content}" /></option>
+			<option value="${j.quest_idx}"<c:if test="${i.branch_idx eq j.quest_idx}"> selected="selected"</c:if>><tag:cutStr cutNum="38" inStr="${j.quest_order - j.branch}. ${j.quest_content}" /></option>
 			</c:forEach>
 		</select>
 	</span>

@@ -12,7 +12,7 @@ $(function() {
 	$('span#questDetail').load('/cms/survey/quest/questDetail.do?editMode=modify&quest_type=ONE&quest_idx=${quest.quest_idx}&survey_idx=${quest.survey_idx}&homepage_id=${param.homepage_id}');
 </c:if>
 
-	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
+	$('#dialog-4').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
 		resizable: false,
 		modal: true, 
@@ -21,6 +21,7 @@ $(function() {
 	    },
 	    close: function(){
 	        $('.ui-widget-overlay').removeClass('custom-overlay');
+	        $(this).dialog('destroy');
 	    },
 		buttons: [
 			{
