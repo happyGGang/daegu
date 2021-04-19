@@ -103,7 +103,9 @@
 					 	THEN 'N'
 						WHEN SYSDATE BETWEEN TO_DATE(survey_start_date, 'YYYY-MM-DD') AND TO_DATE(survey_end_date, 'YYYY-MM-DD')+1
 					 	THEN 'Y'
-						ELSE 'S'
+					 	WHEN SYSDATE &lt; TO_DATE(survey_start_date, 'YYYY-MM-DD')
+					 	THEN 'S'
+						ELSE 'N'
 					END survey_open_yn, survey_private_yn, annyms_yn,
 					limit_user_yn, limit_user_id, add_date, add_id,
 					(SELECT COUNT(*) FROM CMS_SURVEY_ANSWER_USER b WHERE a.survey_idx = b.survey_idx AND a.homepage_id = b.homepage_id) AS answer_count,
