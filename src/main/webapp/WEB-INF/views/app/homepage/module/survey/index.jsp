@@ -78,7 +78,17 @@ $(document).ready(function() {
 					<td>${i.answer_count}</td>
 					<td class="important mmm2">${i.survey_start_date}</td>
 					<td class="important mmm2">${i.survey_end_date}</td>
-					<td class="num mmm1"${i.survey_open_yn eq 'Y' ? '' : 'style="color:red;"'}>${i.survey_open_yn eq 'Y' ? '진행중' : '마감'}</td>
+					<td class="num mmm1">
+					<c:choose>
+						<c:when test="${i.survey_open_yn eq 'Y'}">진행중</c:when>
+						<c:when test="${i.survey_open_yn eq 'N'}">
+						<span style="color: red;">마감</span>
+						</c:when>
+						<c:otherwise>
+						<span style="color: blue;">대기</span>
+						</c:otherwise>
+					</c:choose>
+					</td>
 				</tr>
 			</c:forEach>
 			</tbody>
