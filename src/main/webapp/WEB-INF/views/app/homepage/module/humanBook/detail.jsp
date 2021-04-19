@@ -80,12 +80,14 @@ $(function(){
 	<div style="clear:both;padding-top:10px;"></div>
 
 	<!-- 사람책 자기소개 -->
+	<c:if test="${homepage.homepage_id ne 'h51'}">
 	<div class="introduce col-md-12">
-		<label for="Instructor" class="col-md-3 control-label"><b>자기소개</b></label>
+		<label for="Instructor" class="col-md-3 control-label"><b>활동가능지역</b></label>
 		<div class="col-md-9">
 			<p>${humanBook.teacher_content}</p>
 		</div>
 	</div>
+	</c:if>
 	<!-- 주요경력 -->
 	<div class="career col-md-12">
 		<!--<label for="scUserCareer" class="col-md-3 control-label"><b>주요경력</b></label>-->

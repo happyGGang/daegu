@@ -201,8 +201,10 @@ $(function() {
 					<td><form:input path="teacher_address" class="text" cssStyle="width: 100%;" /></td>
 				</tr>
 				<tr>
-					<th>활동분야(<span style="color: red; font-weight: bold;">*</span>)</th>
+					<th>활동분야<c:if test="${homepage.homepage_id ne 'h51'}">(<span style="color: red; font-weight: bold;">*</span>)</c:if></th>
 					<td>
+					<c:choose>
+						<c:when test="${homepage.homepage_id ne 'h51'}">
 						<form:checkbox path="activity_category" cssClass="new_input_btn01" value="1" label="기본형 : 분야를 막론하고 회원들끼리 함께 선정한 주제 도서를 읽고 토론하는 모임"/><br>
 						<form:checkbox path="activity_category" cssClass="new_input_btn01" value="2" label="클래식 : 고전 문학, 미술, 음악 등 클래식 분야 주제 도서와 그림, 문학을 접목한 감상 토론 모임"/><br>
 						<form:checkbox path="activity_category" cssClass="new_input_btn01" value="3" label="뜨거운감자 : 최근 사회 이슈가 되고 있는 분야에 관한 책과 기사 등 관련 자료를 함께 공유하고 논의해보는 모임"/><br>
@@ -210,10 +212,15 @@ $(function() {
 						<form:checkbox path="activity_category" cssClass="new_input_btn01" value="5" label="실속파 : 재테크, IT기술, 주식 등 트렌드한 정보를 같이 배워보는 모임"/><br>
 						<form:checkbox path="activity_category" cssClass="new_input_btn01" value="6" label="행동파 : 내가 사는 동구! 더 살기 좋게 내가 만든다! 나는 물론 이웃들의 생활권 향상을 위한 고민과 실천파들의 모임"/><br>
 						<form:checkbox path="activity_category" cssClass="new_input_btn01" value="7" label="챌린지 : 필사하기, 강독하기 등 혼자서는 끝까지 할 수 없었던 미션을 함께 완수해보는 모임"/>
+						</c:when>
+						<c:otherwise>
+						<form:input path="activity_category" cssClass="text"/>
+						</c:otherwise>
+					</c:choose>
 					</td>
 				</tr>
 				<tr>
-					<th>활동가능요일(<span style="color: red; font-weight: bold;">*</span>)</th>
+					<th>활동가능요일<c:if test="${homepage.homepage_id ne 'h51'}">(<span style="color: red; font-weight: bold;">*</span>)</c:if></th>
 					<td>
 						<form:checkbox path="activity_day" label="일" value="1" checked="${fn:contains(humanBook.activity_day, '1') ? 'checked' : ''}" class="new_input_btn01" />
 						<form:checkbox path="activity_day" label="월" value="2" checked="${fn:contains(humanBook.activity_day, '2') ? 'checked' : ''}" class="new_input_btn01" />
@@ -225,7 +232,7 @@ $(function() {
 					</td>
 				</tr>
 				<tr>
-					<th>활동가능시간(<span style="color: red; font-weight: bold;">*</span>)</th>
+					<th>활동가능시간<c:if test="${homepage.homepage_id ne 'h51'}">(<span style="color: red; font-weight: bold;">*</span>)</c:if></th>
 					<td>
 						<form:checkbox path="activity_time" label="오전(10:00~12:00)" value="1" checked="${fn:contains(humanBook.activity_time, '1') ? 'checked' : ''}" class="new_input_btn01" />
 						<form:checkbox path="activity_time" label="오후(13:00~17:00)" value="2" checked="${fn:contains(humanBook.activity_time, '2') ? 'checked' : ''}" class="new_input_btn01" />
@@ -236,13 +243,11 @@ $(function() {
 					<th>휴먼북 제목(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td><form:input path="human_book_title" class="text" cssStyle="width: 100%;"/></td>
 				</tr>
+				<c:if test="${homepage.homepage_id ne 'h51'}">
 				<tr>
 					<th>활동가능지역(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td>
 						<form:input path="teacher_content" cssClass="text"/>
-						<div>
-						
-						</div>
 						<div class="ui-state-highlight">
 							<em>
 								* 온라인, 신암동, 신천3동, 효목동, 도평동, 지저동, 동촌동, 방촌동, 해안동, 신서동 중 활동 가능한 지역을 적어주세요.
@@ -250,6 +255,7 @@ $(function() {
 						</div>
 					</td>
 				</tr>
+				</c:if>
 				<tr>
 					<th>우선순위(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td>
