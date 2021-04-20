@@ -182,7 +182,7 @@ $(function() {
 						<input id="cell_phone2" style="width:50px;" class="text" maxlength="4" numberonly="true" value="${phone_arr[1]}"/> -
 						<input id="cell_phone3" style="width:50px;" class="text" maxlength="4" numberonly="true" value="${phone_arr[2]}"/>
 						<div class="ui-state-highlight">
-							<em>* ex) 010-1234-5678</em>
+							<em>*ex) 010-1234-5678</em>
 						</div>
 					</td>
 				</tr>
@@ -256,6 +256,7 @@ $(function() {
 					</td>
 				</tr>
 				</c:if>
+				<c:if test="${homepage.homepage_id ne 'h51'}">
 				<tr>
 					<th>우선순위(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td>
@@ -270,6 +271,7 @@ $(function() {
 						</div>
 					</td>
 				</tr>
+				</c:if>
 		</tbody>
 	</table>
 
