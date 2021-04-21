@@ -64,6 +64,70 @@ public class CalendarManageProgram extends BodyTagSupport {
 					} 
 				
 			}
+			
+			//강좌
+			if(teachList != null) {
+				for(int i=0; i<teachList.size(); i++) {
+					Teach teach = teachList.get(i);
+					String start_date = teach.getStart_date();
+					String end_date = teach.getEnd_date();
+					/*String planMonth = plan_date.substring(0,7);
+				String startMonth = teach.getStart_date().substring(0,7);
+				String endMonth = teach.getEnd_date().substring(0,7);
+				int planDay = Integer.parseInt(plan_date.substring(plan_date.lastIndexOf("-")+1));
+				int startDay = Integer.parseInt(teach.getStart_date().substring(teach.getStart_date().lastIndexOf("-")+1));
+				int endDay = Integer.parseInt(teach.getEnd_date().substring(teach.getEnd_date().lastIndexOf("-")+1));*/
+					
+					for (String day : teach.getTeach_day_arr()) {
+						if ( dayCode == Integer.parseInt(day) ) {
+							if (start_date.compareTo(plan_date) <= 0 && end_date.compareTo(plan_date) >= 0) {
+								String statusName = "[강좌]";
+								boolean disableHoli = false;
+								
+								if (teach.getHolidays() != null && teach.getHolidays().size() > 0) {
+									for ( String holiday : teach.getHolidays() ) {
+										if (StringUtils.equals(plan_date, holiday)) {
+											statusName = "[휴강]";
+											disableHoli = teach.getDisable_holi().equals("Y") ? true : false;
+										}
+									}
+								}
+								if(disableHoli) continue;
+								
+								sb.append("<a href=\"#\" class=\"modify\" type=\"teach\" keyValue3=\"" + teach.getGroup_idx()+"\" keyValue=\""+teach.getCategory_idx()+"\" keyValue2=\""+teach.getTeach_idx()+"\"><span style=\"margin-left : 5px; font-size:13px;\">"+statusName+""+teach.getTeach_name()+"</span></a>");
+								sb.append("<ul class=\"schedule\">");
+								sb.append("</ul>");	
+							}
+							
+							/*if((planMonth.equals(startMonth) && !planMonth.equals(endMonth)) && (!planMonth.equals(startMonth) && planMonth.equals(endMonth))) {
+							if(planDay >= startDay && planDay <= 31) {
+								sb.append("<a href=\"#\" class=\"modify\"><span style=\"margin-left : 5px; font-size:13px;\">"+teach.getTeach_name()+"(강좌)</span></a>");
+								sb.append("<ul class=\"schedule\">");
+								sb.append("</ul>");	
+							}
+							else if (planDay >= startDay && planDay <= endDay) {
+								sb.append("<a href=\"#\" class=\"modify\"><span style=\"margin-left : 5px; font-size:13px;\">"+teach.getTeach_name()+"(강좌)</span></a>");
+								sb.append("<ul class=\"schedule\">");
+								sb.append("</ul>");
+							} 
+						} else if (!planMonth.equals(startMonth) && !planMonth.equals(endMonth)) {
+							if (planDay >= 1 && planDay <= 31) {
+								sb.append("<a href=\"#\" class=\"modify\"><span style=\"margin-left : 5px; font-size:13px;\">"+teach.getTeach_name()+"(강좌)</span></a>");
+								sb.append("<ul class=\"schedule\">");
+								sb.append("</ul>");
+							}
+						}
+						else {
+							if(planDay >= startDay && planDay <= endDay) {
+								sb.append("<a href=\"#\" class=\"modify\"><span style=\"margin-left : 5px; font-size:13px;\">"+teach.getTeach_name()+"(강좌)</span></a>");
+								sb.append("<ul class=\"schedule\">");
+								sb.append("</ul>");
+							}
+						}*/
+						}
+					}
+				}
+			}
 		
 			if (!isHolyDay) {
 				//도서관 견학
@@ -96,69 +160,6 @@ public class CalendarManageProgram extends BodyTagSupport {
     						sb.append("</ul>");
     					} 
     					
-    				}
-				}
-				//강좌
-				if(teachList != null) {
-    				for(int i=0; i<teachList.size(); i++) {
-    					Teach teach = teachList.get(i);
-    					String start_date = teach.getStart_date();
-    					String end_date = teach.getEnd_date();
-    					/*String planMonth = plan_date.substring(0,7);
-    				String startMonth = teach.getStart_date().substring(0,7);
-    				String endMonth = teach.getEnd_date().substring(0,7);
-    				int planDay = Integer.parseInt(plan_date.substring(plan_date.lastIndexOf("-")+1));
-    				int startDay = Integer.parseInt(teach.getStart_date().substring(teach.getStart_date().lastIndexOf("-")+1));
-    				int endDay = Integer.parseInt(teach.getEnd_date().substring(teach.getEnd_date().lastIndexOf("-")+1));*/
-    					
-    					for (String day : teach.getTeach_day_arr()) {
-    						if ( dayCode == Integer.parseInt(day) ) {
-    							if (start_date.compareTo(plan_date) <= 0 && end_date.compareTo(plan_date) >= 0) {
-    								String statusName = "[강좌]";
-    								boolean disableHoli = false;
-    								
-    								if (teach.getHolidays() != null && teach.getHolidays().size() > 0) {
-    									for ( String holiday : teach.getHolidays() ) {
-    										if (StringUtils.equals(plan_date, holiday)) {
-    											statusName = "[휴강]";
-    											disableHoli = teach.getDisable_holi().equals("Y") ? true : false;
-    										}
-    									}
-    								}
-    								if(disableHoli) continue;
-    								
-    								sb.append("<a href=\"#\" class=\"modify\" type=\"teach\" keyValue3=\"" + teach.getGroup_idx()+"\" keyValue=\""+teach.getCategory_idx()+"\" keyValue2=\""+teach.getTeach_idx()+"\"><span style=\"margin-left : 5px; font-size:13px;\">"+statusName+""+teach.getTeach_name()+"</span></a>");
-    								sb.append("<ul class=\"schedule\">");
-    								sb.append("</ul>");	
-    							}
-    							
-    							/*if((planMonth.equals(startMonth) && !planMonth.equals(endMonth)) && (!planMonth.equals(startMonth) && planMonth.equals(endMonth))) {
-    							if(planDay >= startDay && planDay <= 31) {
-    								sb.append("<a href=\"#\" class=\"modify\"><span style=\"margin-left : 5px; font-size:13px;\">"+teach.getTeach_name()+"(강좌)</span></a>");
-    								sb.append("<ul class=\"schedule\">");
-    								sb.append("</ul>");	
-    							}
-    							else if (planDay >= startDay && planDay <= endDay) {
-    								sb.append("<a href=\"#\" class=\"modify\"><span style=\"margin-left : 5px; font-size:13px;\">"+teach.getTeach_name()+"(강좌)</span></a>");
-    								sb.append("<ul class=\"schedule\">");
-    								sb.append("</ul>");
-    							} 
-    						} else if (!planMonth.equals(startMonth) && !planMonth.equals(endMonth)) {
-    							if (planDay >= 1 && planDay <= 31) {
-    								sb.append("<a href=\"#\" class=\"modify\"><span style=\"margin-left : 5px; font-size:13px;\">"+teach.getTeach_name()+"(강좌)</span></a>");
-    								sb.append("<ul class=\"schedule\">");
-    								sb.append("</ul>");
-    							}
-    						}
-    						else {
-    							if(planDay >= startDay && planDay <= endDay) {
-    								sb.append("<a href=\"#\" class=\"modify\"><span style=\"margin-left : 5px; font-size:13px;\">"+teach.getTeach_name()+"(강좌)</span></a>");
-    								sb.append("<ul class=\"schedule\">");
-    								sb.append("</ul>");
-    							}
-    						}*/
-    						}
-    					}
     				}
 				}
 				
