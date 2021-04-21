@@ -95,7 +95,14 @@
 		FROM
 			CMS_TERMS A, CMS_CODE B, WB_MODULE_MNGT C
 		WHERE
-			A.homepage_id = #{homepage_id}
+			A.homepage_id = (
+							SELECT
+								DECODE(homepage_group, 'ALL', homepage_id, homepage_group)
+							FROM
+								CMS_HOMEPAGE
+							WHERE
+								homepage_id = #{homepage_id}
+							)
 		AND	A.use_yn = 'Y'
 		AND	A.delete_yn = 'N'
 		AND	A.terms_type = b.code_id
