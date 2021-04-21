@@ -651,6 +651,7 @@ public class IndexController extends BaseController {
 					List<String> homepage_ids = new ArrayList<String>();
 					for (Homepage subHome : subHomepageList) {
 						homepage_ids.add(subHome.getHomepage_id());
+						homepage_ids.add(homepage.getHomepage_id());
 					}
 					t.setHomepage_ids(homepage_ids);
 				} else {
