@@ -114,7 +114,7 @@ ${boardManage.top_html}
 		var galleryThumbs = new Swiper('.gallery-thumbs', {
 			spaceBetween: 10,
 			slidesPerView: 10,
-			loop: true,
+			//loop: true,
 			freeMode: true,
 			loopedSlides: 5, //looped slides should be the same
 			watchSlidesVisibility: true,
