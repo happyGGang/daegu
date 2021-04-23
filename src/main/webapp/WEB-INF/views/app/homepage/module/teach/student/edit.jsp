@@ -16,6 +16,14 @@ $(function() {
 			$('#student_birth').val($('#applicant_birth').val());
 			$('#student_birth').prop('disabled', true);
 			$("#student_birth").datepicker('disable');
+
+			$('#student_cell_phone_1').val($('#applicant_cell_phone_1').val());
+			$('#student_cell_phone_2').val($('#applicant_cell_phone_2').val());
+			$('#student_cell_phone_3').val($('#applicant_cell_phone_3').val());
+			$('#student_cell_phone_1').prop('disabled', true);
+			$('#student_cell_phone_2').prop('disabled', true);
+			$('#student_cell_phone_3').prop('disabled', true);
+			
 			if($('#applicant_sex1').length == 0) { //로그인 했을 때
 				if ($('#applicant_sex').val() == 'M') {
 					$('input[name=student_sex].M').prop('checked', true);
@@ -46,13 +54,6 @@ $(function() {
  			//$('#student_address').prop('readonly', true);
 			//$('#student_address_detail').val($('#applicant_address_detail').val());
  			//$('#student_address_detail').prop('readonly', true);
-			try {
-				//var applicant_cell_phone = $('#applicant_cell_phone').val();
-				//var numbers = applicant_cell_phone.split('-');
-				//$('#student_cell_phone_1').val(numbers[0]);
-				//$('#student_cell_phone_2').val(numbers[1]);
-				//$('#student_cell_phone_3').val(numbers[2]);
-			} catch(e) { }
 		}
 		else {
 			$('#student_name').val('');
@@ -60,6 +61,12 @@ $(function() {
 			$('#student_birth').val('');
 			$('#student_birth').prop('disabled', false);
 			$("#student_birth").datepicker('enable');
+			$('#student_cell_phone_1').val('');
+			$('#student_cell_phone_2').val('');
+			$('#student_cell_phone_3').val('');
+			$('#student_cell_phone_1').prop('disabled', false);
+			$('#student_cell_phone_2').prop('disabled', false);
+			$('#student_cell_phone_3').prop('disabled', false);
 			$('input[name=student_sex]').prop('disabled', false);
 			$('input[name = student_sex].M').prop('checked', false);
 			$('input[name = student_sex].F').prop('checked', false);
@@ -202,6 +209,11 @@ $(function() {
 			$form.find('#student_name').focus();
 			alert('수강생 이름을 입력해 주세요.');
 			return false;
+		}
+		
+		// 수강생 연락처 처리
+		if($('#student_cell_phone_1').val() != '' && $('#student_cell_phone_3').val() != '' && $('#student_cell_phone_3').val() != '') {
+			$('#student_cell_phone').val($('#student_cell_phone_1').val() + '-' + $('#student_cell_phone_2').val() + '-' + $('#student_cell_phone_3').val());
 		}
 
 		<c:if test="${teach.birth_yn eq 'Y'}">
@@ -787,6 +799,15 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	         	<th>성명(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="student_name" cssClass="text" title="수강생 수"/></td>
         	</tr>
+			<tr>
+				<th>휴대전화번호</th>
+				<td>
+					<form:hidden path="student_cell_phone" cssClass="text"/>
+					<input id="student_cell_phone_1" style="width:40px;" class="text" maxlength="3" numberonly="true" title="연락처 앞자리"/> -
+					<input id="student_cell_phone_2" style="width:50px;" class="text" maxlength="4" numberonly="true" title="연락처 뒤자리"/> -
+					<input id="student_cell_phone_3" style="width:50px;" class="text" maxlength="4" numberonly="true" title="연락처 끝자리"/>
+				</td>
+			</tr>
         	<c:if test="${teach.birth_yn eq 'Y'}">
         	<tr>
 	         	<th>생년월일(<span style="color: red; font-weight: bold;">*</span>)</th>

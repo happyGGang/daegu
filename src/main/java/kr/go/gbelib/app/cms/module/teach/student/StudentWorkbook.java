@@ -69,6 +69,7 @@ public class StudentWorkbook {
 		workbook.getSheet(0).setColumnView(17, 20);
 		workbook.getSheet(0).setColumnView(18, 20);
 		workbook.getSheet(0).setColumnView(19, 20);
+		workbook.getSheet(0).setColumnView(20, 20);
 
 		workbook.getSheet(0).addCell(new Label(0, 0, String.format("강좌명 : %s", teach.getTeach_name()), format1));
 		workbook.getSheet(0).mergeCells(0, 0, 5, 0);
@@ -96,6 +97,7 @@ public class StudentWorkbook {
 		workbook.getSheet(0).addCell(new Label(column++, 1, "수강생-명", format));
 		workbook.getSheet(0).addCell(new Label(column++, 1, "수강생-생년월일", format));
 		workbook.getSheet(0).addCell(new Label(column++, 1, "수강생-성별", format));
+		workbook.getSheet(0).addCell(new Label(column++, 1, "수강생-휴대전화번호", format));
 		workbook.getSheet(0).addCell(new Label(column++, 1, "수강생-우편번호", format));
 		workbook.getSheet(0).addCell(new Label(column++, 1, "수강생-주소", format));
 		workbook.getSheet(0).addCell(new Label(column++, 1, "수강생-학교", format));
@@ -265,6 +267,7 @@ public class StudentWorkbook {
 			workbook.getSheet(0).addCell(new Label(column++, row, org.getStudent_name(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, org.getStudent_birth(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, student_sex, format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, org.getStudent_cell_phone(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, org.getStudent_zipcode(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, org.getStudent_address(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, org.getStudent_school(), format1));

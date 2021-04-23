@@ -34,6 +34,7 @@ public class Student extends PagingUtils {
 	private String self_parent_yn;  //보호자 동일 여부
 
 	private String student_name;  //수강생명
+	private String student_cell_phone; // 수강생 핸드폰 연락처
 	private String student_birth;  //수강생생년월일
 	private int student_old;  //수강생나이
 	private String student_sex;  //수강생성별
@@ -233,6 +234,12 @@ public class Student extends PagingUtils {
 	}
 	public void setStudent_name(String student_name) {
 		this.student_name = student_name;
+	}
+	public String getStudent_cell_phone() {
+		return student_cell_phone;
+	}
+	public void setStudent_cell_phone(String student_cell_phone) {
+		this.student_cell_phone = student_cell_phone;
 	}
 	public String getStudent_sex() {
 		return student_sex;
