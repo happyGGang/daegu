@@ -17,6 +17,8 @@
 			A.contest_idx = B.contest_idx
 		AND	A.homepage_id = #{homepage_id}
 		AND	B.homepage_id = #{homepage_id}
+		AND	A.del_yn = 'N'
+		AND	B.del_yn = 'N'
 		<if test="contest_idx != 0">
 		AND	B.contest_idx = #{contest_idx}
 		</if>
@@ -37,6 +39,8 @@
 			A.contest_idx = B.contest_idx
 		AND	A.homepage_id = #{homepage_id}
 		AND	B.homepage_id = #{homepage_id}
+		AND	A.del_yn = 'N'
+		AND	B.del_yn = 'N'
 		<if test="contest_idx != 0">
 		AND	B.contest_idx = #{contest_idx}
 		</if>
@@ -69,6 +73,7 @@
 			MARATHON_CONTEST
 		WHERE
 			homepage_id = #{homepage_id}
+		AND	del_yn = 'N'
 	</select>
 	
 	<insert id="addMarathonType">
@@ -105,11 +110,23 @@
 	</update>
 	
 	<update id="deleteMarathonType">
-		DELETE FROM
+		UPDATE
 			MARATHON_CONTEST_TYPE
+		SET
+			del_yn = 'Y'
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	contest_idx = #{contest_idx}
 		AND	contest_type_idx = #{contest_type_idx}
+	</update>
+	
+	<update id="deleteMarathonTypeByContestIdx">
+		UPDATE
+			MARATHON_CONTEST_TYPE
+		SET
+			del_yn = 'Y'
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	contest_idx = #{contest_idx}
 	</update>
 </mapper>

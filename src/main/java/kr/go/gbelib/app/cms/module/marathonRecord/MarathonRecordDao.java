@@ -29,4 +29,8 @@ public interface MarathonRecordDao {
 	int deleteMarathonRecordAll(MarathonRecord marathonRecord);
 
 	List<MarathonRecord> getMarathonRecordListAll(MarathonRecord marathonRecord);
+
+	int deleteMarathonRecordByContestType(MarathonRecord marathonRecord);
+
+	int deleteMarathonRecordByContestIdx(MarathonRecord marathonRecord);
 }

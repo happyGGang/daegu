@@ -188,8 +188,14 @@ $(function(){
 			</table>
 		</div>
 		<div class="button bbs-btn right">
-			<!-- <a href="#" class="btn checkAll" id="checkAll"><span>전체 선택/해제</span></a>
-			<a href="#" class="btn deleteSelected" id="deleteSelected"><i class="fa fa-trash-o"></i><span>선택 게시글 삭제</span></a> -->
+			<c:if test="${sessionScope.member.member_id eq 'malan0' or sessionScope.member.member_id eq 'yoocsk27' or sessionScope.member.member_id eq 'march10000'
+			or sessionScope.member.member_id eq 'polaris00' or sessionScope.member.member_id eq 'wannabanu' or sessionScope.member.member_id eq 'siempre116'
+			or sessionScope.member.member_id eq 'jeongkr98' or sessionScope.member.member_id eq '' or sessionScope.member.member_id eq 'siempre116'
+			or sessionScope.member.member_id eq 'ennesia' or sessionScope.member.member_id eq 'ekrl123' or sessionScope.member.member_id eq 'infoset'
+			or sessionScope.member.member_id eq 'odetsuo' or sessionScope.member.member_id eq 'dseok63' or sessionScope.member.member_id eq 'eun9310'}">
+				<a href="#" class="btn checkAll" id="checkAll"><span>전체 선택/해제</span></a>
+				<a href="#" class="btn deleteSelected" id="deleteSelected"><i class="fa fa-trash-o"></i><span>선택 게시글 삭제</span></a>
+			</c:if>
 			<a href="#" class="btn btn1 write" id="write"><i class="fa fa-pencil"></i><span>글쓰기</span></a>
 		</div>
 	</div>

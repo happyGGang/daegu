@@ -13,15 +13,15 @@
 	response.setHeader("Content-Disposition", AttachmentUtils.getContentDisposition(filename, request.getHeader("user-agent")));
 %> 
 	<style>
-		table {margin-top:3%; border:1px solid black; font-size:15px; width:1200px; border-collapse:collapse;} 
-		th {border:1px solid black; cellpadding:10px; border-collapse:collapse;}
-		td {border:1px solid black; cellpadding:10px; border-collapse:collapse;}
+		table {margin-top:3%; border:thin solid black; font-size:15px; width:1200px; border-collapse:collapse;} 
+		th {border:thin solid black; cellpadding:10px; border-collapse:collapse;}
+		td {border:thin solid black; cellpadding:10px; border-collapse:collapse;}
 	</style>
 	<div style="font-size:25px;font-weight:bold;">
 		참가자목록
 	</div>
 	<br/>
-	<table style="margin-top:3%;border:1px solid black;font-size:15px;padding:5px 5px">
+	<table style="margin-top:3%;border:thin solid black;font-size:15px;padding:5px 5px">
 		<tr>
 			<th style="width:60px;">순번</th>
 			<th style="width:100px;">아이디</th>

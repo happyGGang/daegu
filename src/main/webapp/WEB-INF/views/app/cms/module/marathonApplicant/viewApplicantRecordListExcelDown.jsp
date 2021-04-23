@@ -28,6 +28,7 @@
 			</c:if>
 			<c:choose>
 				<c:when test="${status.first}">
+					<c:set var="one_read_page_count_total" value="${i.read_page_count_total}"/>
 					<tr>
 						<td colspan="2" style="width:350px;text-align:left;">번호</th>
 						<th style="width:250px;text-align:left;">아이디</th>
@@ -53,20 +54,21 @@
 						<td>달성치 : <fmt:formatNumber value="${i.read_page_count_total}" pattern="#,###"/></td>
 					</tr>
 					<tr>
-						<th style="border:1px solid black;width:100px;">이름</th>
-						<th style="border:1px solid black;">도서제목</th>
-						<th style="border:1px solid black;">저자</th>
-						<th style="border:1px solid black;">출판사</th>
-						<th style="border:1px solid black;">날짜</th>
-						<th style="border:1px solid black;">분류번호</th>
-						<th style="border:1px solid black;">읽은쪽수</th>
-						<th style="border:1px solid black;">누적쪽수</th>
-						<th style="border:1px solid black;">아이디</th>
-						<th style="border:1px solid black;">대출도서관</th>
+						<th style="border:thin solid black;width:100px;">이름</th>
+						<th style="border:thin solid black;">도서제목</th>
+						<th style="border:thin solid black;">저자</th>
+						<th style="border:thin solid black;">출판사</th>
+						<th style="border:thin solid black;">날짜</th>
+						<th style="border:thin solid black;">분류번호</th>
+						<th style="border:thin solid black;">읽은쪽수</th>
+						<th style="border:thin solid black;">누적쪽수</th>
+						<th style="border:thin solid black;">아이디</th>
+						<th style="border:thin solid black;">대출도서관</th>
 					</tr>
 				</c:when>
 				<c:otherwise>
 					<c:if test="${i.applicant_idx != before.applicant_idx}">
+						<c:set var="one_read_page_count_total" value="${i.read_page_count_total}"/>
 						<c:set var="count" value="${count + 1}"/>
 						<tr>
 							<td colspan="2" style="width:350px;text-align:left;">번호</th>
@@ -93,23 +95,23 @@
 							<td>달성치 : <fmt:formatNumber value="${i.read_page_count_total}" pattern="#,###"/></td>
 						</tr>
 						<tr>
-							<th style="border:1px solid black;width:100px;">이름</th>
-							<th style="border:1px solid black;">도서제목</th>
-							<th style="border:1px solid black;">저자</th>
-							<th style="border:1px solid black;">출판사</th>
-							<th style="border:1px solid black;">날짜</th>
-							<th style="border:1px solid black;">분류번호</th>
-							<th style="border:1px solid black;">읽은쪽수</th>
-							<th style="border:1px solid black;">누적쪽수</th>
-							<th style="border:1px solid black;">아이디</th>
-							<th style="border:1px solid black;">대출도서관</th>
+							<th style="border:thin solid black;width:100px;">이름</th>
+							<th style="border:thin solid black;">도서제목</th>
+							<th style="border:thin solid black;">저자</th>
+							<th style="border:thin solid black;">출판사</th>
+							<th style="border:thin solid black;">날짜</th>
+							<th style="border:thin solid black;">분류번호</th>
+							<th style="border:thin solid black;">읽은쪽수</th>
+							<th style="border:thin solid black;">누적쪽수</th>
+							<th style="border:thin solid black;">아이디</th>
+							<th style="border:thin solid black;">대출도서관</th>
 						</tr>
 					</c:if>
 				</c:otherwise>
 			</c:choose>
 			<tr>
-				<td style="border:1px solid black;">${i.member_name}</td>
-				<td style="border:1px solid black;">
+				<td style="border:thin solid black;">${i.member_name}</td>
+				<td style="border:thin solid black;">
 					<c:choose>
 						<c:when test="${i.loan_choice eq 'N'}">
 							${i.book_name}
@@ -119,33 +121,15 @@
 						</c:otherwise>
 					</c:choose>
 				</td>
-				<td style="border:1px solid black;">${i.book_author}</td>
-				<td style="border:1px solid black;">${i.publisher}</td>
-				<td style="border:1px solid black;"><fmt:formatDate value="${i.record_date}" pattern="yyyy-MM-dd"/></td>
-				<td style="border:1px solid black;">${i.book_type}</td>
-				<td style="border:1px solid black;"><fmt:formatNumber value="${i.read_page_count}" pattern="#,###"/></td>
-				<c:choose>
-					<c:when test="${status.first}">
-						<c:set var="read_page_count_total_thisPage_first" value="${read_page_count_total_thisPage_first + i.read_page_count}"/>
-						<td style="border:1px solid black;"><fmt:formatNumber value="${read_page_count_total_thisPage_first}" pattern="#,###"/></td>
-					</c:when>
-					<c:otherwise>
-						<c:choose>
-							<c:when test="${i.applicant_idx == before.applicant_idx}">
-								<td style="border:1px solid black;"><fmt:formatNumber value="${read_page_count_total_thisPage_first + i.read_page_count}" pattern="#,###"/></td>
-								<c:set var="read_page_count_total_thisPage_first" value="${read_page_count_total_thisPage_first + i.read_page_count}"/>
-							</c:when>
-							<c:otherwise>
-								<c:remove var="read_page_count_total_thisPage_first"/>
-								<c:set var="read_page_count_total_thisPage_first" value="0"/>
-								<td style="border:1px solid black;"><fmt:formatNumber value="${read_page_count_total_thisPage_first + i.read_page_count}" pattern="#,###"/></td>
-								<c:set var="read_page_count_total_thisPage_first" value="${read_page_count_total_thisPage_first + i.read_page_count}"/>
-							</c:otherwise>
-						</c:choose>
-					</c:otherwise>
-				</c:choose>
-				<td style="border:1px solid black;">${i.member_id}</td>
-				<td style="border:1px solid black;">
+				<td style="border:thin solid black;">${i.book_author}</td>
+				<td style="border:thin solid black;">${i.publisher}</td>
+				<td style="border:thin solid black;"><fmt:formatDate value="${i.record_date}" pattern="yyyy-MM-dd"/></td>
+				<td style="border:thin solid black;">${i.book_type}</td>
+				<td style="border:thin solid black;"><fmt:formatNumber value="${i.read_page_count}" pattern="#,###"/></td>
+				<td style="border:thin solid black;"><fmt:formatNumber value="${one_read_page_count_total}" pattern="#,###"/></td>
+				<c:set var="one_read_page_count_total" value="${one_read_page_count_total - i.read_page_count}"/>
+				<td style="border:thin solid black;">${i.member_id}</td>
+				<td style="border:thin solid black;">
 					<c:choose>
 						<c:when test="${i.book_resources == '100'}">
 							달서가족문화도서관
@@ -181,12 +165,12 @@
 				</td>
 			</tr>
 			<tr>
-				<td style="border:1px solid black;">독서감상문</td>
-				<td colspan="5" style="border:1px solid black;white-space:pre;">
+				<td style="border:thin solid black;">독서감상문</td>
+				<td colspan="5" style="border:thin solid black;white-space:pre;">
 					${fn:replace(i.book_journals, crlf, '<br/>')}
 				</td>
-				<td style="border:1px solid black;"> </td>
-				<td colspan="3" style="border:1px solid black;"></td>
+				<td style="border:thin solid black;"> </td>
+				<td colspan="3" style="border:thin solid black;"></td>
 			</tr>
 		</c:forEach>
 		<c:if test="${fn:length(marathonApplicantRecordList) < 1}">

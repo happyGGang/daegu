@@ -18,6 +18,7 @@ public class Marathon extends PagingUtils{
 	private String add_id; //등록인
 	private Date modify_date; //수정일자
 	private Date modify_id; //수정인
+	private String del_yn = "N"; //삭제 여부
 
 	public Marathon() {}
 
@@ -96,5 +97,11 @@ public class Marathon extends PagingUtils{
 	}
 	public void setModify_id(Date modify_id) {
 		this.modify_id = modify_id;
+	}
+	public String getDel_yn() {
+		return del_yn;
+	}
+	public void setDel_yn(String del_yn) {
+		this.del_yn = del_yn;
 	}
 }

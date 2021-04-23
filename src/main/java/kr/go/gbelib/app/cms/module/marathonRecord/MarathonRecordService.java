@@ -120,4 +120,13 @@ public class MarathonRecordService extends BaseService {
 	public List<MarathonRecord> getMarathonRecordListAll(MarathonRecord marathonRecord) {
 		return dao.getMarathonRecordListAll(marathonRecord);
 	}
+
+	public int deleteMarathonRecordByContestType(MarathonRecord marathonRecord) {
+		return dao.deleteMarathonRecordByContestType(marathonRecord);
+	}
+
+	public int deleteMarathonRecordByContestIdx(MarathonRecord marathonRecord) {
+		return dao.deleteMarathonRecordByContestIdx(marathonRecord);
+	}
+
 }

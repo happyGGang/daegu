@@ -23,4 +23,6 @@ public interface MarathonTypeDao {
 
 	List<Marathon> getMarathonList(MarathonType marathonType);
 
+	int deleteMarathonTypeByContestIdx(MarathonType marathonType);
+
 }

@@ -59,4 +59,8 @@ public interface MarathonApplicantDao {
 
 	int modifyMarathonApplicantInMyInfo(MarathonApplicant marathonApplicant);
 
+	int deleteMarathonApplicantByContestType(MarathonApplicant marathonApplicant);
+
+	int deleteMarathonApplicantByContestIdx(MarathonApplicant marathonApplicant);
+
 }

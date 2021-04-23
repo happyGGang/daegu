@@ -21,10 +21,12 @@
 	<br/>
 	<table style="font-size:15px;padding:5px 5px">
 		<c:forEach items="${marathonRecordSuccessEditList}" var="i" varStatus="status">
-			<c:set var="next" value="${marathonRecordSuccessEditList[status.count]}"/>
+			<c:if test="${status.count > 1}">
+				<c:set var="before" value="${marathonRecordSuccessEditList[status.count - 2]}"/>
+			</c:if>
 			<tr>
-				<td style="border:1px solid black;width:70px;">${i.member_name}</td>
-				<td style="border:1px solid black;width:250px;">
+				<td style="border:thin solid black;width:70px;">${i.member_name}</td>
+				<td style="border:thin solid black;width:250px;">
 					<c:choose>
 						<c:when test="${i.loan_choice eq 'N'}">
 							${i.book_name}
@@ -34,32 +36,33 @@
 						</c:otherwise>
 					</c:choose>
 				</td>
-				<td style="border:1px solid black;width:250px;">${i.book_author}</td>
-				<td style="border:1px solid black;width:200px;">${i.publisher}</td>
-				<td style="border:1px solid black;width:90px;"><fmt:formatDate value="${i.record_date}" pattern="yyyy-MM-dd"/></td>
-				<td style="border:1px solid black;width:70px;">${i.book_type}</td>
-				<td style="border:1px solid black;width:70px;"><fmt:formatNumber value="${i.read_page_count}" pattern="#,###"/></td>
+				<td style="border:thin solid black;width:250px;">${i.book_author}</td>
+				<td style="border:thin solid black;width:200px;">${i.publisher}</td>
+				<td style="border:thin solid black;width:90px;"><fmt:formatDate value="${i.record_date}" pattern="yyyy-MM-dd"/></td>
+				<td style="border:thin solid black;width:70px;">${i.book_type}</td>
+				<td style="border:thin solid black;width:70px;"><fmt:formatNumber value="${i.read_page_count}" pattern="#,###"/></td>
 				<c:choose>
 					<c:when test="${status.first}">
-						<c:set var="read_page_count_total_thisPage_first" value="${read_page_count_total_thisPage_first + i.read_page_count}"/>
-						<td style="border:1px solid black;width:70px;"><fmt:formatNumber value="${read_page_count_total_thisPage_first}" pattern="#,###"/></td>
+						<c:set var="one_read_page_count_total" value="${i.read_page_count_total}"/>
+						<td style="border:thin solid black;width:70px;"><fmt:formatNumber value="${one_read_page_count_total}" pattern="#,###"/></td>
+						<c:set var="one_read_page_count_total" value="${one_read_page_count_total - i.read_page_count}"/>
 					</c:when>
 					<c:otherwise>
 						<c:choose>
-							<c:when test="${i.applicant_idx == next.applicant_idx}">
-								<td style="border:1px solid black;width:70px;"><fmt:formatNumber value="${read_page_count_total_thisPage_first + i.read_page_count}" pattern="#,###"/></td>
-								<c:set var="read_page_count_total_thisPage_first" value="${read_page_count_total_thisPage_first + i.read_page_count}"/>
+							<c:when test="${i.applicant_idx != before.applicant_idx}">
+								<c:set var="one_read_page_count_total" value="${i.read_page_count_total}"/>
+								<td style="border:thin solid black;width:70px;"><fmt:formatNumber value="${one_read_page_count_total}" pattern="#,###"/></td>
+								<c:set var="one_read_page_count_total" value="${one_read_page_count_total - i.read_page_count}"/>
 							</c:when>
 							<c:otherwise>
-								<td style="border:1px solid black;width:70px;"><fmt:formatNumber value="${read_page_count_total_thisPage_first + i.read_page_count}" pattern="#,###"/></td>
-								<c:remove var="read_page_count_total_thisPage_first"/>
-								<c:set var="read_page_count_total_thisPage_first" value="0"/>
+								<td style="border:thin solid black;width:70px;"><fmt:formatNumber value="${one_read_page_count_total}" pattern="#,###"/></td>
+								<c:set var="one_read_page_count_total" value="${one_read_page_count_total - i.read_page_count}"/>
 							</c:otherwise>
 						</c:choose>
 					</c:otherwise>
 				</c:choose>
-				<td style="border:1px solid black;width:100px;">${i.member_id}</td>
-				<td style="border:1px solid black;width:200px;">
+				<td style="border:thin solid black;width:100px;">${i.member_id}</td>
+				<td style="border:thin solid black;width:200px;">
 					<c:choose>
 						<c:when test="${i.book_resources == '100'}">
 							달서가족문화도서관

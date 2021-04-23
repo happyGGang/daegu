@@ -46,6 +46,7 @@ public class MarathonApplicant extends PagingUtils{
 	private Date finish_date; //완주일
 	private int read_page_count_total; //누적 쪽수
 	private int applicant_idx_modify; //신청자 번호 변경용
+	private String del_yn = "N"; //삭제 여부
 
 	private int page_count; //쪽수
 	private String contest_name; //대회명
@@ -370,5 +371,11 @@ public class MarathonApplicant extends PagingUtils{
 	}
 	public void setAgree2(char agree2) {
 		this.agree2 = agree2;
+	}
+	public String getDel_yn() {
+		return del_yn;
+	}
+	public void setDel_yn(String del_yn) {
+		this.del_yn = del_yn;
 	}
 }

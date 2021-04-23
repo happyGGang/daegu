@@ -6,12 +6,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.whalesoft.framework.base.BaseService;
+import kr.go.gbelib.app.cms.module.marathonApplicant.MarathonApplicant;
+import kr.go.gbelib.app.cms.module.marathonApplicant.MarathonApplicantService;
+import kr.go.gbelib.app.cms.module.marathonRecord.MarathonRecord;
+import kr.go.gbelib.app.cms.module.marathonRecord.MarathonRecordService;
+import kr.go.gbelib.app.cms.module.marathonType.MarathonType;
+import kr.go.gbelib.app.cms.module.marathonType.MarathonTypeService;
 
 @Service
 public class MarathonService extends BaseService{
 
 	@Autowired
 	private MarathonDao dao;
+	
+	@Autowired
+	private MarathonTypeService marathonTypeService;
+	
+	@Autowired
+	private MarathonApplicantService marathonApplicantService;
+	
+	@Autowired
+	private MarathonRecordService marathonRecordService;
 
 	public int getMarathonContestCount(Marathon marathon) {
 		return dao.getMarathonContestCount(marathon);
@@ -34,7 +49,24 @@ public class MarathonService extends BaseService{
 	}
 
 	public int deleteMarathonContest(Marathon marathon) {
-		return dao.deleteMarathonContest(marathon);
+		dao.deleteMarathonContest(marathon);
+		
+		MarathonType marathonType = new MarathonType();
+		marathonType.setHomepage_id(marathon.getHomepage_id());
+		marathonType.setContest_idx(marathon.getContest_idx());
+		marathonTypeService.deleteMarathonTypeByContestIdx(marathonType);
+		
+		MarathonApplicant marathonApplicant = new MarathonApplicant();
+		marathonApplicant.setHomepage_id(marathon.getHomepage_id());
+		marathonApplicant.setContest_idx(marathon.getContest_idx());
+		marathonApplicantService.deleteMarathonApplicantByContestIdx(marathonApplicant);
+		
+		MarathonRecord marathonRecord = new MarathonRecord();
+		marathonRecord.setHomepage_id(marathon.getHomepage_id());
+		marathonRecord.setContest_idx(marathon.getContest_idx());
+		marathonRecordService.deleteMarathonRecordByContestIdx(marathonRecord);
+		
+		return 1;
 	}
 
 	public int checkUsableContestCount(Marathon marathon) {

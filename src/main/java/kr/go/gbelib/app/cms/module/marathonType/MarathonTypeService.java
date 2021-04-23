@@ -10,6 +10,8 @@ import kr.co.whalesoft.framework.base.BaseService;
 import kr.go.gbelib.app.cms.module.marathon.Marathon;
 import kr.go.gbelib.app.cms.module.marathonApplicant.MarathonApplicant;
 import kr.go.gbelib.app.cms.module.marathonApplicant.MarathonApplicantService;
+import kr.go.gbelib.app.cms.module.marathonRecord.MarathonRecord;
+import kr.go.gbelib.app.cms.module.marathonRecord.MarathonRecordService;
 
 @Service
 public class MarathonTypeService extends BaseService{
@@ -19,6 +21,9 @@ public class MarathonTypeService extends BaseService{
 
 	@Autowired
 	private MarathonApplicantService applicantService;
+	
+	@Autowired
+	private MarathonRecordService recordService;
 
 	public int getMarathonTypeCount(MarathonType marathonType) {
 		return dao.getMarathonTypeCount(marathonType);
@@ -55,12 +60,31 @@ public class MarathonTypeService extends BaseService{
 		return 1;
 	}
 
+	@Transactional
 	public int deleteMarathonType(MarathonType marathonType) {
-		return dao.deleteMarathonType(marathonType);
+		dao.deleteMarathonType(marathonType);
+		
+		MarathonApplicant marathonApplicant = new MarathonApplicant();
+		marathonApplicant.setHomepage_id(marathonType.getHomepage_id());
+		marathonApplicant.setContest_idx(marathonType.getContest_idx());
+		marathonApplicant.setContest_type_idx(marathonType.getContest_type_idx());
+		applicantService.deleteMarathonApplicantByContestType(marathonApplicant);
+		
+		MarathonRecord marathonRecord = new MarathonRecord();
+		marathonRecord.setHomepage_id(marathonType.getHomepage_id());
+		marathonRecord.setContest_idx(marathonType.getContest_idx());
+		marathonRecord.setContest_type_idx(marathonType.getContest_type_idx());
+		recordService.deleteMarathonRecordByContestType(marathonRecord);
+		
+		return 1;
 	}
 
 	public List<Marathon> getMarathonList(MarathonType marathonType) {
 		return dao.getMarathonList(marathonType);
+	}
+
+	public int deleteMarathonTypeByContestIdx(MarathonType marathonType) {
+		return dao.deleteMarathonTypeByContestIdx(marathonType);
 	}
 
 }

@@ -21,6 +21,11 @@ $(function() {
 				text: "저장",
 				"class": 'btn btn1',
 				click: function(){
+					if($('form#marathonType select#contest_idx option:selected').val() == '0'){
+						alert('대회명을 선택해 주세요.');
+						$('form#marathonType select#contest_idx').focus();
+						return false;
+					}
 					if(doAjaxPost($('form#marathonType'))){
 						location.reload();
 					}
@@ -88,6 +93,7 @@ $(function() {
 						<th>대회명</th>
 						<td>
 							<form:select path="contest_idx" cssClass="text" readonly="true">
+								<form:option value="0">선택</form:option>
 								<c:forEach items="${marathonList}" var="i">
 									<form:option value="${i.contest_idx}">${i.contest_name}</form:option>
 								</c:forEach>

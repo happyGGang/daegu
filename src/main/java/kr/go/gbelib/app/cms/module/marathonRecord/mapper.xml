@@ -12,6 +12,7 @@
 		AND	contest_idx = #{contest_idx}
 		AND	contest_type_idx = #{contest_type_idx}
 		AND	applicant_idx = #{applicant_idx}
+		AND	del_yn = 'N'
 		<if test="search_type != null and search_type == 'book_name' and search_text != null and search_text != ''">
 		AND	book_name LIKE '%${search_text}%'
 		</if>
@@ -35,6 +36,7 @@
 		AND	contest_idx = #{contest_idx}
 		AND	contest_type_idx = #{contest_type_idx}
 		AND	applicant_idx = #{applicant_idx}
+		AND	del_yn = 'N'
 		<if test="search_type != null and search_type == 'book_name' and search_text != null and search_text != ''">
 		AND	book_name LIKE '%${search_text}%'
 		</if>
@@ -59,6 +61,7 @@
 		AND	contest_idx = #{contest_idx}
 		AND	contest_type_idx = #{contest_type_idx}
 		AND	applicant_idx = #{applicant_idx}
+		AND	del_yn = 'N'
 		<if test="search_type != null and search_type == 'book_name' and search_text != null and search_text != ''">
 		AND	book_name LIKE '%${search_text}%'
 		</if>
@@ -93,6 +96,7 @@
 			homepage_id = #{homepage_id}
 		AND	contest_idx = #{contest_idx}
 		AND	member_id = #{member_id}
+		AND	del_yn = 'N'
 	</select>
 	
 	<select id="getMarathonApplicantRecordExcelList" resultType="kr.go.gbelib.app.cms.module.marathonRecord.marathonApplicantRecord.MarathonApplicantRecord">
@@ -112,6 +116,7 @@
 				AND	contest_type_idx = B.contest_type_idx
 				AND	applicant_idx = B.applicant_idx
 				AND	member_id = B.member_id
+				AND	del_yn = 'N'
 			) AS read_page_count_total
 		FROM
 			MARATHON_APPLICANT A, MARATHON_RECORD B, MARATHON_CONTEST_TYPE C
@@ -124,6 +129,9 @@
 		AND	B.contest_type_idx = C.contest_type_idx
 		AND	A.applicant_idx = B.applicant_idx
 		AND B.homepage_id = #{homepage_id}
+		AND	C.del_yn = 'N'
+		AND	A.del_yn = 'N'
+		AND	B.del_yn = 'N'
 		<if test="contest_idx != null and contest_idx != 0">
 			AND	B.contest_idx = #{contest_idx}
 		</if>
@@ -133,14 +141,28 @@
 		<if test="applicant_idx != null and applicant_idx != 0">
 			AND	B.applicant_idx = #{applicant_idx}
 		</if>
+		ORDER BY A.applicant_idx, B.record_idx DESC
 	</select>
 	
 	<select id="getMarathonRecordSuccessExcelList" resultType="kr.go.gbelib.app.cms.module.marathonRecord.marathonApplicantRecord.MarathonApplicantRecord">
 		SELECT
 			B.applicant_idx, B.member_id, B.member_name, A.school_name, A.school_class,
-			A.contest_type, C.page_count, B.read_page_count, A.read_page_count_total, A.finish_date,
-			B.book_name, B.book_author, B.book_type, B.publisher, B.record_date,
-			B.book_resources, B.book_journals, B.loan_choice
+			A.contest_type, C.page_count, B.read_page_count, A.finish_date, B.book_name,
+			B.book_author, B.book_type, B.publisher, B.record_date, B.book_resources,
+			B.book_journals, B.loan_choice,
+			(
+				SELECT
+					NVL(SUM(read_page_count), 0)
+				FROM
+					MARATHON_RECORD
+				WHERE
+					homepage_id = B.homepage_id
+				AND	contest_idx = B.contest_idx
+				AND	contest_type_idx = B.contest_type_idx
+				AND	applicant_idx = B.applicant_idx
+				AND	member_id = B.member_id
+				AND	del_yn = 'N'
+			) AS read_page_count_total
 		FROM
 			MARATHON_APPLICANT A, MARATHON_RECORD B, MARATHON_CONTEST_TYPE C
 		WHERE
@@ -152,6 +174,9 @@
 		AND	B.contest_type_idx = C.contest_type_idx
 		AND	A.applicant_idx = B.applicant_idx
 		AND	B.homepage_id = #{homepage_id}
+		AND	C.del_yn = 'N'
+		AND	A.del_yn = 'N'
+		AND	B.del_yn = 'N'
 		<if test="contest_idx != null and contest_idx != 0">
 			AND	B.contest_idx = #{contest_idx}
 		</if>
@@ -222,9 +247,11 @@
 		AND	applicant_idx = #{applicant_idx}
 	</update>
 	
-	<delete id="deleteMarathonRecord">
-		DELETE FROM
+	<update id="deleteMarathonRecord">
+		UPDATE
 			MARATHON_RECORD
+		SET
+			del_yn = 'Y'
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	contest_idx = #{contest_idx}
@@ -235,14 +262,38 @@
 		<foreach collection="record_idx_arr" item="record_idx_list" open="(" close=")" separator=",">
 		#{record_idx_list}
 		</foreach>
-	</delete>
+	</update>
 	
-	<delete id="deleteMarathonRecordAll">
-		DELETE FROM
+	<update id="deleteMarathonRecordAll">
+		UPDATE
 			MARATHON_RECORD
+		SET
+			del_yn = 'Y'
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	contest_idx = #{contest_idx}
+		AND	contest_type_idx = #{contest_type_idx}
 		AND	applicant_idx = #{applicant_idx}
-	</delete>
+	</update>
+	
+	<update id="deleteMarathonRecordByContestType">
+		UPDATE
+			MARATHON_RECORD
+		SET
+			del_yn = 'Y'
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	contest_idx = #{contest_idx}
+		AND	contest_type_idx = #{contest_type_idx}
+	</update>
+	
+	<update id="deleteMarathonRecordByContestIdx">
+		UPDATE
+			MARATHON_RECORD
+		SET
+			del_yn = 'Y'
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	contest_idx = #{contest_idx}
+	</update>
 </mapper>

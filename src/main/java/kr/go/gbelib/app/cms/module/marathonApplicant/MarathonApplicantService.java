@@ -104,6 +104,7 @@ public class MarathonApplicantService extends BaseService{
 			MarathonRecord marathonRecord = new MarathonRecord();
 			marathonRecord.setHomepage_id(marathonApplicant.getHomepage_id());
 			marathonRecord.setContest_idx(contest_idx_arr[i]);
+			marathonRecord.setContest_type_idx(contest_type_idx_arr[i]);
 			marathonRecord.setApplicant_idx(applicant_idx_arr[i]);
 			recordService.deleteMarathonRecordAll(marathonRecord);
 		}
@@ -223,6 +224,14 @@ public class MarathonApplicantService extends BaseService{
 		marathonApplicant.setSchool_class(marathonApplicant.getSchool_class_one() + "," + marathonApplicant.getSchool_class_two());
 		
 		return dao.modifyMarathonApplicantInMyInfo(marathonApplicant);
+	}
+
+	public int deleteMarathonApplicantByContestType(MarathonApplicant marathonApplicant) {
+		return dao.deleteMarathonApplicantByContestType(marathonApplicant);
+	}
+
+	public int deleteMarathonApplicantByContestIdx(MarathonApplicant marathonApplicant) {
+		return dao.deleteMarathonApplicantByContestIdx(marathonApplicant);
 	}
 
 }

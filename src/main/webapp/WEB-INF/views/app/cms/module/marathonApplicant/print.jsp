@@ -122,8 +122,7 @@
 				<td><fmt:formatDate value="${i.record_date}" pattern="yyyy.MM.dd"/></td>
 				<td>${i.book_type}</td>
 				<td><fmt:formatNumber value="${i.read_page_count}" pattern="#,###"/></td>
-				<c:set var="read_page_count_total_thisPage" value="${read_page_count_total_thisPage + i.read_page_count}"/>
-				<td><fmt:formatNumber value="${read_page_count_total_thisPage}" pattern="#,###"/></td>
+				<td><fmt:formatNumber value="${i.read_page_count_acc}" pattern="#,###"/></td>
 				<td>
 					<c:choose>
 						<c:when test="${i.book_resources == '100'}">

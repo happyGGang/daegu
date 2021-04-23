@@ -18,6 +18,7 @@ public class MarathonType extends PagingUtils{
 	private String add_id; //등록인
 	private Date modify_date; //수정일자
 	private String modify_id; //수정인
+	private String del_yn = "N"; //삭제 여부
 	
 	private List<MarathonType> typeList;
 	
@@ -87,12 +88,16 @@ public class MarathonType extends PagingUtils{
 	public void setHomepage_id(String homepage_id) {
 		this.homepage_id = homepage_id;
 	}
-	
 	public List<MarathonType> getTypeList() {
 		return typeList;
 	}
-	
 	public void setTypeList(List<MarathonType> typeList) {
 		this.typeList = typeList;
+	}
+	public String getDel_yn() {
+		return del_yn;
+	}
+	public void setDel_yn(String del_yn) {
+		this.del_yn = del_yn;
 	}
 }
