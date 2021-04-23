@@ -112,9 +112,9 @@
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach items="${marathonRecordList}" var="i">
+		<c:forEach items="${marathonRecordList}" var="i" varStatus="status">
 			<tr>
-				<td>${i.record_idx}</td>
+				<td>${status.index + 1}</td>
 				<td>${i.member_name}</td>
 				<td>${i.book_name}</td>
 				<td>${i.book_author}</td>
