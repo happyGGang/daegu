@@ -5,7 +5,7 @@
 		SELECT
 			HOMEPAGE_ID, GROUP_IDX, CATEGORY_IDX, TEACH_IDX, STUDENT_IDX, MEMBER_ID, MEMBER_KEY, APPLICANT_NAME, APPLICANT_BIRTH
 			, APPLICANT_OLD, APPLICANT_SEX, APPLICANT_ZIPCODE, APPLICANT_ADDRESS, APPLICANT_ADDRESS_DETAIL, APPLICANT_PHONE, APPLICANT_CELL_PHONE, SELF_YN, SELF_PARENT_YN
-			, STUDENT_NAME, STUDENT_BIRTH, STUDENT_SEX, STUDENT_ZIPCODE, STUDENT_ADDRESS, STUDENT_ADDRESS_DETAIL, STUDENT_SCHOOL, STUDENT_HACK, STUDENT_OLD, PAY1_YN, PAY2_YN, PAY3_YN
+			, STUDENT_NAME, STUDENT_BIRTH, STUDENT_SEX, STUDENT_ZIPCODE, STUDENT_ADDRESS, STUDENT_ADDRESS_DETAIL, STUDENT_SCHOOL, STUDENT_HACK, STUDENT_OLD, student_cell_phone, PAY1_YN, PAY2_YN, PAY3_YN
 			, SELF_INFO_YN, APPLY_TYPE, APPLY_STATUS, TO_CHAR(ADD_DATE, 'yyyy-mm-dd hh24:mi:ss') AS ADD_DATE, CANCEL_ID, CANCEL_DATE, FAMILY_RELATION, FAMILY_NAME, FAMILY_CELL_PHONE, FAMILY_CONFIRM_YN, FAMILY_DESC,
 			student_ban, student_remark, student_family_count,
 			getCodeIdToCodeName('CMS', 'C0020', STUDENT_HACK) AS student_hack_str, web_id,
@@ -104,8 +104,8 @@
 		SELECT
 			HOMEPAGE_ID, GROUP_IDX, CATEGORY_IDX, TEACH_IDX, STUDENT_IDX, MEMBER_ID, MEMBER_KEY, APPLICANT_NAME, APPLICANT_BIRTH, web_id
 			, APPLICANT_OLD, APPLICANT_SEX, APPLICANT_ZIPCODE, APPLICANT_ADDRESS, APPLICANT_ADDRESS_DETAIL, APPLICANT_PHONE, APPLICANT_CELL_PHONE, SELF_YN, SELF_PARENT_YN
-			, STUDENT_NAME, STUDENT_BIRTH, STUDENT_SEX, STUDENT_ZIPCODE, STUDENT_ADDRESS, STUDENT_ADDRESS_DETAIL, STUDENT_SCHOOL, STUDENT_HACK, STUDENT_AGE, STUDENT_OLD, sms_service_yn, picture_use_yn
-			, SELF_INFO_YN, APPLY_TYPE, APPLY_STATUS, TO_CHAR(ADD_DATE, 'yyyy-mm-dd hh24:mi') AS ADD_DATE, cancel_id, cancel_date
+			, STUDENT_NAME, STUDENT_BIRTH, STUDENT_SEX, STUDENT_ZIPCODE, STUDENT_ADDRESS, STUDENT_ADDRESS_DETAIL, STUDENT_SCHOOL, STUDENT_HACK, STUDENT_AGE, STUDENT_OLD, student_cell_phone
+			,sms_service_yn, picture_use_yn , SELF_INFO_YN, APPLY_TYPE, APPLY_STATUS, TO_CHAR(ADD_DATE, 'yyyy-mm-dd hh24:mi') AS ADD_DATE, cancel_id, cancel_date
 			, FAMILY_RELATION, FAMILY_NAME, FAMILY_CELL_PHONE, FAMILY_CONFIRM_YN, FAMILY_DESC
 			, student_ban, student_remark, student_family_count,
 			student_location_code,
@@ -145,7 +145,7 @@
 		(
 			HOMEPAGE_ID, GROUP_IDX, CATEGORY_IDX, TEACH_IDX, STUDENT_IDX, MEMBER_ID, MEMBER_KEY, APPLICANT_NAME, APPLICANT_BIRTH, web_id
 			, APPLICANT_OLD, APPLICANT_SEX, APPLICANT_ZIPCODE, APPLICANT_ADDRESS, APPLICANT_ADDRESS_DETAIL, APPLICANT_PHONE, APPLICANT_CELL_PHONE, SELF_YN, SELF_PARENT_YN
-			, STUDENT_NAME, STUDENT_BIRTH, STUDENT_SEX, STUDENT_ZIPCODE, STUDENT_ADDRESS, STUDENT_ADDRESS_DETAIL, STUDENT_SCHOOL, STUDENT_HACK, STUDENT_AGE, STUDENT_OLD
+			, STUDENT_NAME, student_cell_phone, STUDENT_BIRTH, STUDENT_SEX, STUDENT_ZIPCODE, STUDENT_ADDRESS, STUDENT_ADDRESS_DETAIL, STUDENT_SCHOOL, STUDENT_HACK, STUDENT_AGE, STUDENT_OLD
 			, SELF_INFO_YN, APPLY_TYPE, APPLY_STATUS, ADD_DATE, ADD_ID, DELETE_YN, FAMILY_RELATION, FAMILY_NAME, FAMILY_CELL_PHONE, FAMILY_CONFIRM_YN, FAMILY_DESC
 			, student_ban, student_remark, student_family_count,
 			student_location_code,student_neis_cd,student_training_num,
@@ -155,7 +155,7 @@
 		(
 			#{homepage_id}, #{group_idx}, #{category_idx}, #{teach_idx}, #{student_idx}, #{member_id}, #{member_key}, #{applicant_name}, #{applicant_birth}, #{web_id}
 			, #{applicant_old}, #{applicant_sex}, #{applicant_zipcode}, #{applicant_address}, #{applicant_address_detail}, #{applicant_phone}, #{applicant_cell_phone}, #{self_yn}, #{self_parent_yn}
-			, #{student_name}, #{student_birth}, #{student_sex}, #{student_zipcode}, #{student_address}, #{student_address_detail}, #{student_school}, #{student_hack}, #{student_age}, #{student_old}
+			, #{student_name}, #{student_cell_phone}, #{student_birth}, #{student_sex}, #{student_zipcode}, #{student_address}, #{student_address_detail}, #{student_school}, #{student_hack}, #{student_age}, #{student_old}
 			, #{self_info_yn}, #{apply_type}, #{apply_status}, SYSDATE, #{add_id}, 'N', #{family_relation}, #{family_name}, #{family_cell_phone}, #{family_confirm_yn}, #{family_desc}
 			, #{student_ban}, #{student_remark}, #{student_family_count},
 			#{student_location_code}, #{student_neis_cd}, #{student_training_num},
@@ -189,6 +189,7 @@
 			STUDENT_ZIPCODE			= #{student_zipcode},
 			STUDENT_ADDRESS			= #{student_address},
 			STUDENT_ADDRESS_DETAIL	= #{student_address_detail},
+			student_cell_phone 		= #{student_cell_phone},
 			STUDENT_SCHOOL 			= #{student_school},
 			STUDENT_HACK 			= #{student_hack},
 			STUDENT_AGE				= #{student_age},

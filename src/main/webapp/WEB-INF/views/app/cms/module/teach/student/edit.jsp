@@ -205,6 +205,12 @@ $(function() {
 			$("#student_birth").datepicker('disable');
 			$('input[name="student_sex"].'+$('[name="applicant_sex"]:checked').val()).prop('checked', true);
 			$('input[name="student_sex"]').prop('disabled', true);
+			$('#student_cell_phone_1').val($('#applicant_cell_phone_1').val());
+			$('#student_cell_phone_2').val($('#applicant_cell_phone_2').val());
+			$('#student_cell_phone_3').val($('#applicant_cell_phone_3').val());
+			$('#student_cell_phone_1').prop('disabled', true);
+			$('#student_cell_phone_2').prop('disabled', true);
+			$('#student_cell_phone_3').prop('disabled', true);
 		}
 		else {
 			$('#student_name').prop('disabled', false);
@@ -213,6 +219,12 @@ $(function() {
 			$('#student_birth').val('');
 			$('input[name="student_sex"]').prop('disabled', false);
 			$('input[name="student_sex"]').prop('checked', false);
+			$('#student_cell_phone_1').prop('disabled', false);
+			$('#student_cell_phone_2').prop('disabled', false);
+			$('#student_cell_phone_3').prop('disabled', false);
+			$('#student_cell_phone_1').val('');
+			$('#student_cell_phone_2').val('');
+			$('#student_cell_phone_3').val('');
 		}
 	});
 	
@@ -243,6 +255,9 @@ $(function() {
 		$('#student_name').prop('disabled', true);
 		$("#student_birth").prop('disabled', true);
 		$('input[name="student_sex"]').prop('disabled', true);
+		$('#student_cell_phone_1').prop('disabled', true);
+		$('#student_cell_phone_2').prop('disabled', true);
+		$('#student_cell_phone_3').prop('disabled', true);
 	}
 
 	if($('#self_parent_yn1').is(':checked')){
@@ -367,6 +382,11 @@ $(function() {
 	$('input#applicant_cell_phone_1').val(applicant_cell_phone_temp[0]);
 	$('input#applicant_cell_phone_2').val(applicant_cell_phone_temp[1]);
 	$('input#applicant_cell_phone_3').val(applicant_cell_phone_temp[2]);
+	
+	var student_cell_phone_temp = '${student.student_cell_phone}'.split('-');
+	$('input#student_cell_phone_1').val(student_cell_phone_temp[0]);
+	$('input#student_cell_phone_2').val(student_cell_phone_temp[1]);
+	$('input#student_cell_phone_3').val(student_cell_phone_temp[2]);
 
 	var family_cell_phone_temp = '${student.family_cell_phone}'.split('-');
 	$('input#family_cell_phone_1').val(family_cell_phone_temp[0]);
@@ -501,6 +521,18 @@ $(function() {
          		</td>
 	        </tr>
 	        </c:if>
+	        <tr>
+				<th>휴대전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
+				<td>
+					<form:hidden path="student_cell_phone" cssClass="text"/>
+					<input id="student_cell_phone_1" style="width:40px;" class="text" maxlength="3" numberonly="true" /> -
+					<input id="student_cell_phone_2" style="width:50px;" class="text" maxlength="4" numberonly="true" /> -
+					<input id="student_cell_phone_3" style="width:50px;" class="text" maxlength="4" numberonly="true" />
+					<div class="ui-state-highlight">
+						<em>* ex) 010-1234-5678</em>
+					</div>
+				</td>
+			</tr>
         	<tr style="display: none">
 	         	<th >나이(<span style="font-weight: bold;">*</span>)</th>
 	         	<td><input id="student_old" name="student_old" class="text" style="width:30px" maxlength="3" /></td>
