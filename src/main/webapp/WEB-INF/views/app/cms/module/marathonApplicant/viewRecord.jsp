@@ -149,7 +149,7 @@ $(function() {
 							공공도서관(도원도서관)
 						</c:when>
 						<c:when test="${i.book_resources == '600'}">
-							공공도서관(분리도서관)
+							공공도서관(본리도서관)
 						</c:when>
 						<c:when test="${i.book_resources == '700'}">
 							공공도서관(성서도서관)
