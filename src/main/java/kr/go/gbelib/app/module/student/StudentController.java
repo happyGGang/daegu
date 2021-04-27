@@ -276,6 +276,7 @@ public class StudentController extends BaseController {
 				if (StringUtils.equals(teachOne.getMember_yn(), "Y") && !isLogin(request)) {
 					memberId = "ANONYMOUS";
 					student.setStudent_password(CalculateHashUtils.calculateHash(student.getStudent_password()));
+					student.setApplicant_name(student.getApplicant_name().trim());
 				}
 
 				if (StringUtils.isNotEmpty(memberId)) {
