@@ -172,6 +172,7 @@ public class StudentController extends BaseController {
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Model model, Student student, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
+		Teach teachOne = teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));
 
 		if ( !student.getEditMode().equals("DELETE") && !student.getEditMode().equals("CANCEL") && !student.getEditMode().equals("SAVELIST")
 				&& !student.getEditMode().equals("BATCH_DELETE") && !student.getEditMode().equals("BATCH_CANCEL") ) {
@@ -182,6 +183,10 @@ public class StudentController extends BaseController {
 
 			ValidationUtils.rejectIfEmpty(result, "applicant_name", "신청자명을 입력하세요.");
 			ValidationUtils.rejectNumbers(result, "applicant_name", "신청자명에는 숫자를 입력할 수 없습니다.");
+			
+			if (StringUtils.equals(teachOne.getBirth_yn(), "Y")) {
+				ValidationUtils.rejectIfEmpty(result, "applicant_birth", "신청자 생년월일을 입력하세요.");
+			}
 //			ValidationUtils.rejectIfEmpty(result, "applicant_birth", "신청자 생년월일을 입력하세요.");
 //			ValidationUtils.rejectIfEmpty(result, "applicant_sex", "신청자 성별을 선택하세요.");
 //			ValidationUtils.rejectIfEmpty(result, "applicant_zipcode", "신청자 우편번호를 입력하세요.");

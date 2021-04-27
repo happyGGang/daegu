@@ -36,9 +36,18 @@ $(function() {
 					var studendHack = $form.find('#student_hack').val() > 0 ? $form.find('#student_hack').val() : 0;
 					$form.find('#student_hack').val(studendHack);
 
-					var selectedYear = $form.find('#student_birth').val().split('-')[0];
-					var currentYear = new Date().getUTCFullYear();
-					$form.find('#student_old').val((currentYear - selectedYear) + 1);
+					$form.find('input#student_old').val('0');
+					<c:if test="${teach.birth_yn eq 'Y'}">
+					if ($("#student_birth").length > 0) {
+						var selectedYear = $form.find ("#student_birth").val().split('-')[0];
+						var currentYear = new Date().getUTCFullYear();
+						$form.find('input#student_old').val((currentYear - selectedYear) + 1);
+					} else {
+						var selectedYear = $form.find ("#applicant_birth").val().split('-')[0];
+						var currentYear = new Date().getUTCFullYear();
+						$form.find('input#student_old').val((currentYear - selectedYear) + 1);
+					}
+					</c:if>
 
 					var cellPhone1 = $form.find('#applicant_cell_phone_1').val();
 					if ( cellPhone1 == '' ) {
@@ -65,11 +74,13 @@ $(function() {
 						alert('수강생명을 입력해 주세요.');
 						return false;
 					}
-					if ($form.find('#student_birth').val() == ''){
+					<c:if test="${teach.birth_yn eq 'Y'}">
+					if ( $form.find ("#student_birth").val() == '' ) {
 						$form.find('#student_birth').focus();
 						alert('수강생 생년월일을 입력해 주세요.');
 						return false;
 					}
+					</c:if>
 					<c:if test="${teach.sex_yn eq 'Y'}">
 					if ( $form.find ('input:radio[name = student_sex]:checked').length < 1){
 						$form.find ('input:radio[name = student_sex]').focus();
@@ -439,10 +450,12 @@ $(function() {
 	         	<th>성명(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="applicant_name" class="text" /></td>
         	</tr>
+        	<c:if test="${teach.birth_yn eq 'Y'}">
         	<tr>
 	         	<th>생년월일(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="applicant_birth" class="text ui-calendar"/></td>
         	</tr>
+        	</c:if>
         	<c:if test="${teach.sex_yn eq 'Y'}">
         	<tr>
 	         	<th>성별(<span style="color: red; font-weight: bold;">*</span>)</th>
@@ -508,10 +521,12 @@ $(function() {
 	         	<th>성명(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="student_name" class="text" /></td>
         	</tr>
+        	<c:if test="${teach.birth_yn eq 'Y'}">
         	<tr>
 	         	<th>생년월일(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="student_birth" class="text ui-calendar" /></td>
         	</tr>
+        	</c:if>
         	<c:if test="${teach.sex_yn eq 'Y'}">
         	<tr>
 	         	<th>성별(<span style="color: red; font-weight: bold;">*</span>)</th>
