@@ -242,8 +242,8 @@ public class TeachService extends BaseService {
 		int beforeLimitCount 	= beforeTeach.getTeach_limit_count();
 		int afterLimitCount 	= teach.getTeach_limit_count();
 
+		dao.deleteTeachHolidays(teach);
 		if (teach.getHolidays() != null && teach.getHolidays().size() > 0) {
-			dao.deleteTeachHolidays(teach);
 			for ( String str : teach.getHolidays() ) {
 				if(StringUtils.isNotEmpty(str)) {
 					teach.setHoliday(str);
