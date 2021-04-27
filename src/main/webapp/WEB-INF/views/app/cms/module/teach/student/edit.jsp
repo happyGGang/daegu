@@ -522,7 +522,7 @@ $(function() {
 	        </tr>
 	        </c:if>
 	        <tr>
-				<th>휴대전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
+				<th>휴대전화번호</th>
 				<td>
 					<form:hidden path="student_cell_phone" cssClass="text"/>
 					<input id="student_cell_phone_1" style="width:40px;" class="text" maxlength="3" numberonly="true" /> -
