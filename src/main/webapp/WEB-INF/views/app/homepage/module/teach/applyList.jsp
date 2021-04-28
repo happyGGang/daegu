@@ -81,6 +81,18 @@ $(function(){
 });
 </script>
 
+<style>
+	.mobilebr{display:none;}
+	.pad_right30{padding-right:30px;}
+	.pad_left30{padding-left:30px;}
+
+	@media (max-width: 880px){
+		.mobilebr{display:block;height:10px;}
+		.pad_right30{padding-right:0;}
+		.pad_left30{padding-left:0;}
+	}
+</style>
+
 <c:if test="${fn:length(teachList) > 0}">
 	<div style="text-align: right">
 		<form:form id="excelDownForm" modelAttribute="teach" action="/${homepage.context_path}/module/teach/excelDownload.do" method="get">
@@ -104,7 +116,7 @@ $(function(){
 <div id="libraryList" class="bbs-notice new_apply_box">
 	<c:choose>
 		<c:when test="${fn:length(subHomepageList) > 0}">
-		<div style="width:100%;text-align:center;margin-bottom:10px;">
+		<div style="padding-bottom:10px;">
 			도서관 : <form:select path="homepage_id" items="${subHomepageList}" itemLabel="homepage_name" itemValue="homepage_id" cssClass="new_select_box"></form:select>
 		</div>
 		</c:when>
@@ -112,22 +124,25 @@ $(function(){
 			<form:hidden path="homepage_id"/>
 		</c:otherwise>
 	</c:choose>
-	<div class="date">		
-		조회기간 :
-		<form:input path="searchDateFrom" cssClass="text ui-calendar new_text01"/><label for="searchDateFrom" class="blind">시작일</label> ~ 
-		<form:input path="searchDateTo" cssClass="text ui-calendar new_text01"/><label for="searchDateTo"  class="blind">종료일</label>
-		<c:if test="${fn:length(teachList) > 0}">
-		<a class="btn excel-btn">리스트 다운로드</a>
-		</c:if>
-	</div>
-	<div class="con">
-		<form:radiobutton path="searchStatus" value="Y" label="신청내역 : " cssStyle="vertical-align:middle"  cssClass="new_input_btn01"/>
-		<form:select path="status" cssClass="selectmenu new_select_box">
-			<form:option value="" label="전체"></form:option>
-			<form:options items="${statusCode}" itemLabel="code_name" itemValue="code_id"/>
-		</form:select>
-		<form:radiobutton path="searchStatus" value="N" label="수료내역" cssStyle="vertical-align:middle"  cssClass="new_input_btn01"/>
-		<a href="#" id="search-btn" class="btn btn1">조회</a>
+	<div>
+		<span class="pad_right30" style="text-align:left;">
+			조회기간 :
+			<form:input path="searchDateFrom" cssClass="text ui-calendar new_text01"/><label for="searchDateFrom" class="blind">시작일</label> ~ 
+			<form:input path="searchDateTo" cssClass="text ui-calendar new_text01"/><label for="searchDateTo"  class="blind">종료일</label>
+			<c:if test="${fn:length(teachList) > 0}">
+			<a class="btn excel-btn">리스트 다운로드</a>
+			</c:if>
+		</span>
+		<div class="mobilebr"></div>
+		<span class="pad_left30" style="text-align:right;">
+			<form:radiobutton path="searchStatus" value="Y" label="신청내역 : " cssStyle="vertical-align:middle"  cssClass="new_input_btn01"/>
+			<form:select path="status" cssClass="selectmenu new_select_box">
+				<form:option value="" label="전체"></form:option>
+				<form:options items="${statusCode}" itemLabel="code_name" itemValue="code_id"/>
+			</form:select>
+			<form:radiobutton path="searchStatus" value="N" label="수료내역" cssStyle="vertical-align:middle"  cssClass="new_input_btn01"/>
+			<a href="#" id="search-btn" class="btn btn1">조회</a>
+		</span>
 	</div>
 </div>
 <c:if test="${fn:length(teachList) <1 }">
