@@ -20,11 +20,10 @@
 <link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome.min.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/select2.min.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.mmenu.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/common/css/default_new.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/default_new_fullpage.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/login.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/board/css/default.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/book/css/common.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/common/css/common_toppopzone.css"/>
 
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/default.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/main.css"/>
@@ -41,10 +40,8 @@
 <script type="text/javascript" src="/resources/common/js/jquery-ui-1.12.0-datepicker.min.js"></script>
 <script type="text/javascript" src="/resources/common/js/jquery.bxslider.min.js"></script>
 <script type="text/javascript" src="/resources/common/js/jquery.mmenu.min.js"></script>
-<script type="text/javascript" src="/resources/common/js/default-new.js"></script>
+<script type="text/javascript" src="/resources/common/js/default-new-fullpage.js"></script>
 <script type="text/javascript" src="/resources/common/js/common.js"></script>
-<script type="text/javascript" src="/resources/common/js/common_toppopzone.js"></script>
-
 <script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/common.js"></script>
 <script type="text/javascript" src="/resources/common/js/kakao.min.js"></script>
 </head>

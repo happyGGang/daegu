@@ -38,6 +38,15 @@ $(function() {
 		</c:otherwise>
 	</c:choose>
 
+	$('li#menu_147').css('display','none');
+	$('li.menu_147').css('display','none');
+	$('li#menu_148').css('display','none');
+	$('li.menu_148').css('display','none');
+	$('li#menu_149').css('display','none');
+	$('li.menu_149').css('display','none');
+	$('li#menu_150').css('display','none');
+	$('li.menu_150').css('display','none');
+
 	$('a.shareBtn').on('click', function(e) {
 
 		if($('div#share_layer').css('display') == 'none') {
@@ -61,8 +70,17 @@ $(function() {
 		}
 	});
 
+	$('h1.mobile-logo a').css('background',"url('/resources/homepage/donggu/img/donggu_logo.png')"); 
+	$('.m-menu a').css('color','#fff');
+
 });
 </script>
+
+<style>
+	@media (max-width: 1260px){
+		.sections{width:auto !important;}
+	}
+</style>
 
 <div id="wrap">
 	<tiles:insertAttribute name="top" />
@@ -78,7 +96,7 @@ $(function() {
 					<h3>${menuOne.menu_name}</h3>
 					</c:if>
 					<ol>
-						<li class="first"><img src="/resources/common/img/navi_home_icon.gif"></a></li>
+						<li class="first"><a href="/${homepage.context_path}/index.do"><img src="/resources/common/img/navi_home_icon.gif"></a></li>
 						<homepageTag:docInfo oneMenu="${menuOne}" menuList="${menuLeftList}"/>
 					</ol>
 
@@ -112,7 +130,7 @@ $(function() {
 
 		</div>
 
-		<div class="section">
+		<div class="sections">
 			<c:if test="${menuOne ne null}">
 			<div class="lnb">
 				<h2><b>${menuLeftList[0].menu_name}</b></h2>
@@ -121,17 +139,6 @@ $(function() {
 			</c:if>
 			<div class="content">
 				<div class="doc">
-					<!--
-					<div class="doc-head">
-						<div class="doc-title">
-							<c:if test="${menuOne.include_menu_name_yn eq 'Y'}">
-							<h3>${menuOne.menu_name}</h3>
-							</c:if>
-
-							<!-- <div class="v-img" <c:if test="${not empty menuOne.menu_img}">style="background: url('/data/menu/${menuOne.homepage_id}/${menuOne.menu_img}') no-repeat 100% 0"</c:if>></div> 
-						</div>
-					</div>
-					-->
 					<div class="doc-body con${menuOne.menu_idx}" id="contentArea">
 						<div class="body">
 							<tiles:insertAttribute name="body" />
@@ -152,7 +159,10 @@ $(function() {
 		<div class="end"></div>
 	</div>
 
-	<tiles:insertAttribute name="footer" />
+	<div id="foot_section">
+		<tiles:insertAttribute name="footer" />
+	</div>
+
 </div>
 
 

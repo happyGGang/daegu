@@ -52,37 +52,24 @@ Date.prototype.format = function(f) {
 		Number.prototype.zf = function(len) {
 			return this.toString().zf(len);
 		};
-/*
-	$('a#before-btn').on('click', function(e) {
-		var plan_date = new Date($(this).attr('keyValue'));
-		plan_date.setMonth(plan_date.getMonth() - 1);
-		$('div.lt1').load('calendar2.do', 'plan_date='+plan_date.format('yyyy-MM'));
-		e.preventDefault();
-	});
-	$('a#next-btn').on('click', function(e) {
-		var plan_date = new Date($(this).attr('keyValue'));
-		plan_date.setMonth(plan_date.getMonth() + 1);
-		$('div.lt1').load('calendar2.do', 'plan_date='+plan_date.format('yyyy-MM'));
-		e.preventDefault();
-	});
-*/
+
 		$('a#before-btn').on('click',function(e) {
 			var plan_date = new Date($(this).attr('keyValue'));
 			plan_date.setMonth(plan_date.getMonth() - 1);
 			//plan_date.format('yyyy-MM')
-			$('div#holiday-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM') + '&homepage_id=' + $('select#dongguCalendar option:selected').val());
+			$('div#calendar-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM') + '&homepage_id=' + $('select#dongguCalendar option:selected').val());
 			e.preventDefault();
 		});
 
 		$('a#next-btn').on('click',function(e) {
 			var plan_date = new Date($(this).attr('keyValue'));
 			plan_date.setMonth(plan_date.getMonth() + 1);
-			$('div#holiday-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM') + '&homepage_id=' + $('select#dongguCalendar option:selected').val());
+			$('div#calendar-box').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM') + '&homepage_id=' + $('select#dongguCalendar option:selected').val());
 			e.preventDefault();
 		});
 
 		$('select#dongguCalendar').on('change', function() {
-			$('div#holiday-box').load('calendar3.do','plan_date=${calendar.plan_date}&homepage_id=' + $(this).val());
+			$('div#calendar-box').load('calendar3.do','plan_date=${calendar.plan_date}&homepage_id=' + $(this).val());
 		});
 
 		$('a.showCal').on('click', function(e) {
@@ -103,46 +90,39 @@ Date.prototype.format = function(f) {
 </script>
 
 <div id="calendar2">
-<!--
-	<div class="cal-func2">
-		<a id="before-btn" href="#prev" class="btn prev" keyValue="${calendar.plan_date}"><img src="/resources/homepage/bukbu/img/prev-btn.png" alt=""><span class="blind">이전달</span></a>
-		<b class="date"><span>${fn:split(calendar.plan_date, '-')[0]}.</span><em>${fn:split(calendar.plan_date, '-')[1]}</em></b>
-		<a id="next-btn" href="#next" class="btn next" keyValue="${calendar.plan_date}"><img src="/resources/homepage/bukbu/img/next-btn.png" alt=""><span class="blind">다음달</span></a>
+	<div class="calendar_select_box_wrap">
+		<select name="" id="dongguCalendar" class="calendar_select_box">
+			<option value="h73" ${calendar.homepage_id eq 'h73' ? 'selected' : ''}>안심도서관</option>
+			<option value="h59" ${calendar.homepage_id eq 'h59' ? 'selected' : ''}>신천도서관</option>
+			<option value="h60" ${calendar.homepage_id eq 'h60' ? 'selected' : ''}>작은도서관</option>
+		</select>
+		<a href="module/calendarManage/index.do?menu_idx=142&homepage_id=${calendar.homepage_id}" class="btn-more more-more cal-more">
+			<img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt="더보기">
+		</a>
 	</div>
--->
-	<h3>휴관일 및 행사</h3>
-	<select name="" id="dongguCalendar" class="calendar_select_box">
-		<option value="h73" ${calendar.homepage_id eq 'h73' ? 'selected' : ''}>안심도서관</option>
-		<option value="h59" ${calendar.homepage_id eq 'h59' ? 'selected' : ''}>신천도서관</option>
-		<option value="h60" ${calendar.homepage_id eq 'h60' ? 'selected' : ''}>작은도서관</option>
-	</select>
-	<a href="module/calendarManage/index.do?menu_idx=142&homepage_id=${calendar.homepage_id}" class="btn-more more-more cal-more">더보기</a>
-	<div>
+	<div class="cal-box">
 		<div class="cal-today">
-			<a id="before-btn" href="#prev" class="btn cal-today-btn prev" keyValue="${calendar.plan_date}"><img src="/resources/homepage/${homepage.context_path}/img/prev-month.png" alt="이전달"><span class="blind">이전달</span></a>
-			<div class='calendar-bg-box'>
-				<p class="cal-n1">${fn:split(calendar.plan_date, '-')[0]}</p>
-				<span class="cal-date">${fn:split(calendar.plan_date, '-')[1]}</span>
-			</div>
-			<a id="next-btn" href="#next" class="btn cal-today-btn next" keyValue="${calendar.plan_date}"><img src="/resources/homepage/${homepage.context_path}/img/next-month.png" alt="다음달"><span class="blind">다음달</span></a>
-
-			<div class="calendar-info">
-				<span class="hu">휴관</span>
-				<span class="ev">행사</span>
-			</div>
+			<a id="before-btn" href="#prev" class="btn cal-today-btn prev" keyValue="${calendar.plan_date}">
+				<img src="/resources/homepage/${homepage.context_path}/img/cal_prev_btn.png" alt="이전달"><span class="blind">이전달</span>
+			</a>
+			<span class="cal-n1">${fn:split(calendar.plan_date, '-')[0]}.</span>
+			<span class="cal-date">${fn:split(calendar.plan_date, '-')[1]}</span>
+			<a id="next-btn" href="#next" class="btn cal-today-btn next" keyValue="${calendar.plan_date}">
+				<img src="/resources/homepage/${homepage.context_path}/img/cal_next_btn.png" alt="다음달"><span class="blind">다음달</span>
+			</a>
 		</div>
 
 		<div class="cal-cal">
 			<table class="cal-tbl">
 				<thead>
 					<tr>
-						<th class="sun"><span class="">일</span></th>
-						<th><span class="">월</span></th>
-						<th><span class="">화</span></th>
-						<th><span class="">수</span></th>
-						<th><span class="">목</span></th>
-						<th><span class="">금</span></th>
-						<th class="sat"><span class="">토</span></th>
+						<th class="sun"><span class="">SUN</span></th>
+						<th><span class="">MON</span></th>
+						<th><span class="">TUE</span></th>
+						<th><span class="">WED</span></th>
+						<th><span class="">THU</span></th>
+						<th><span class="">FRI</span></th>
+						<th class="sat"><span class="">SAT</span></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -280,32 +260,28 @@ Date.prototype.format = function(f) {
 			</table>
 		</div>
 		<div class="end"></div>
+
+		<div class="calendar-info">
+			<span class="hu">휴관</span>
+			<span class="ev">행사</span>
+		</div>
 	</div>
 
 	<div class="planView">
-	<div class="inbox" id="popup_layer" style="display:none;">
-			<c:forEach var="i" items="${calendarResult}" varStatus="status">
-				<div id="${i.key}" class="calAll" style="display: none;">
-					<dl>
-						<dt>${calendar.plan_date}-${fn:length(i.key) == 1 ? '0' : ''}${i.key}</dt>
-					</dl>
-					<c:forEach var="count" begin="0" end="${fn:length(i.value)}">
-						<c:choose>
-							<c:when test="${fn:length(i.value[count]) > 19}">
-								<c:out value="${fn:substring(i.value[count], 0, 19)}"/>...
-							</c:when>
-							<c:otherwise>
-								<c:out value="${i.value[count]}"/>
-							</c:otherwise>
-						</c:choose>
-						<c:if test="${count < fn:length(i.value)}">
-							</br>
-						</c:if>
-					</c:forEach>
-				</div>
+		<div class="inbox">
+			<c:forEach var="i" begin="1" end="31" varStatus="status">
+				<c:set var="key" value="${i < 10 ? '0':''}${i}"></c:set>
+				<c:set var="idx" value="${i < 10 ? '':''}${i}"></c:set>
+				<c:forEach var="j" items="${calendarResult[idx]}">
+					<c:set var="ty" value="${fn:split(j, ']')}"></c:set>
+					<div class="planList">
+						<p class="datetime">${calendar.plan_date}-${key}</p>
+
+						<p class="title"><em>${ty[0]}${fn:length(ty) > 1 ? ']' : (fn:startsWith(ty[0], '[') ? ']' : '')}</em> ${fn:length(ty) > 1 ? ty[1] : ''}</p>
+					</div>
+				</c:forEach>
 			</c:forEach>
-		<a href="#" class="close closePlanView"><i class="fa fa-close"></i></a>
-	</div>
+		</div>
 	</div>
 
 </div>

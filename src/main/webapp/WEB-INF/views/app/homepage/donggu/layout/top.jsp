@@ -6,15 +6,16 @@
 	<nav id="menu"></nav>
 
 	<div class="tnb">
-		<div class="section">
-			<h1><a href="/${homepage.context_path}/index.do" style="padding-left:0;"><img src="/resources/homepage/${homepage.context_path}/img/${homepage.context_path}_logo.png" alt="${homepage.homepage_name}"/></a></h1>
+		<div class="main-section">
+
+			<h1 class="mobile-logo"><a href="/${homepage.context_path}/index.do">대구동구도서관</a></h1>
 
 			<div class="mmode m-menu">
 				<a href="#menu"><i class="fa fa-navicon"></i><span class="blind">메뉴</span></a>
 			</div>
 
 			<div class="util">
-				<div style="margin-right:100px;">
+				<div style="margin-right:140px;">
 					<c:choose>
 						<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
 							<b>${sessionScope.member.member_name}님</b>
@@ -33,31 +34,21 @@
 							<span class="txt-bar"></span>
 							<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=73">통합회원인증</a>
 							<span class="txt-bar"></span>
-							<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=70" style="padding-right:0;">회원가입</a>
-							<!--
-							<span class="txt-bar"></span>
+							<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=70">회원가입</a>
+							<!-- <span class="txt-bar"></span>
 							<a href="/${homepage.context_path}/intro/join/findIdForm.do?menu_idx=6">아이디찾기</a>
 							<span class="txt-bar"></span>
 							<a href="/${homepage.context_path}/intro/join/findPwForm.do?menu_idx=7">비밀번호찾기</a>
 							<span class="txt-bar"></span>
-							<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=8">통합회원인증</a>
-							
-							<a href="https://twitter.com/tglnetlib" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/twitter.png" alt="트위터"></a>
-							<span></span>
-							<a href="https://www.facebook.com/tglnet/?ref=aymt_homepage_panel&eid=ARBF0x7CH2csV2V7L0aXEdhh4dIYs4K1IKdQSBAXVHW3pZ0IPcMg2ZCwYG5kNNr48Acmj11-YLdHKykL" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/facebook.png" alt="페이스북"></a>
-							<span></span>
-							<a href="https://www.instagram.com/tglnetlib/" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/instagram.png" alt="인스타그램"></a>
-							-->
+							<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=8">통합회원인증</a> -->
 						</c:otherwise>
 					</c:choose>
 				</div>
-				<div class="onbook_box">
-					<a href="http://donggu-lib-onbook.kr/ " target="_blank" class="onbook_btn">ON BOOK</a>
-				</div>
 			</div>
-			<div>
+			<div class="onbook_box">
+				<a href="http://donggu-lib-onbook.kr/ " target="_blank" class="onbook_btn">ON BOOK</a>
+			</div>
 
-			</div>
 		</div>
 	</div>
 
