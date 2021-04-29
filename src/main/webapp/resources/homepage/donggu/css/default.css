@@ -71,7 +71,8 @@ h1.mobile-logo {display:none;width:230px;height:45px;}
 
 .txt-bar{background:#55585f !important;}
 
-.onbook_box{background:#ffba00;margin-left:20px;position:absolute;top:0;right:0;padding:8px 0;}
+.onbook_box{display:block;background:#ffba00;margin-left:20px;position:absolute;top:0;right:0;padding:8px 0;}
+.onbook_box_m{display:none;}
 .onbook_btn{font-size:14px !important;color:#181200 !important;font-weight:bold;padding:0 25px;}
 
 
@@ -210,8 +211,13 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 }
 
 @media all and (max-width:425px){
-	.onbook_box{top:7px;padding:4px 0;}
+	.onbook_box{display:none;}
+	.onbook_box_m{display:block;background:#ffba00;padding:8px 0;border-radius:7px;width:50%;text-align:center;}
+	.onbook_box_m i{display:none !important;}
 	.onbook_btn{font-size:12px !important;padding:0 10px;}
+
+	.mm-panels .mmode{height:145px !important;}
+	.mm-panels>.mm-panel>.mm-listview:first-child, .mm-panels>.mm-panel>.mm-navbar+.mm-listview{margin-top:60px !important;}
 
 	.home-up{bottom:300px}
 }
