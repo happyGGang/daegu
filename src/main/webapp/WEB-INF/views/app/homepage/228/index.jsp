@@ -344,6 +344,7 @@
 				<li><a href="/${homepage.context_path}/html.do?menu_idx=50"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick003-bg.png" alt="사서에게 물어보세요"></span><span class="txt">사서에게<br/>물어보세요</span></a></li>
 				<li><a href="https://www.youth.go.kr/youth/" target="_blank"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick004-bg.png" alt="청소년자원봉사"></span><span class="txt">청소년<br/>자원봉사</span></a></li>
 				<li><a href="http://seat.daegu.go.kr/wb_booking/?LIB_CODE=4" target="_blank"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick005-bg.png" alt="청소년자원봉사"></span><span class="txt">좌석예약<br/>시스템</span></a></li>
+				<li><a href="http://www.dge.go.kr/press/main.do" target="_blank"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick007-bg.png" alt="대구교육기자단"></span><span class="txt">「대구교육」<br/>기자단</span></a></li>
 			</ul>
 		</div>
 

@@ -237,12 +237,40 @@ $(function(){
 	</c:if>
 
 	<c:if test="${homepage.context_path eq 'dalseolib'}">
-		<div class="roomicon">
-		  <div class="inner icowrap"><span class="ico ico6"></span> <strong>도서관 견학신청</strong>
-			<p>어린이,청소년들이 도서관에 대한 이해와 흥미를 높이고, 보다 편리하게 도서관을 이용할 수 있도록 도움을 주기 위한 견학 프로그램 운영</p>
-			<p style="color:#ff0000;">코로나-19 확산 방지를 위해 별도 공지 시까지 단체 견학신청을 받지 않습니다.</p>
-		  </div>
-		</div>
+		<c:choose>
+			<c:when test="${param.homepage_id eq 'h72' || param.homepage_id eq '' || param.homepage_id eq null}">
+			<!-- 내용추가 수정 -->
+			<div class="roomicon">
+			  <div class="inner icowrap"><span class="ico ico6"></span> <strong>도서관 견학신청</strong>
+				<p>어린이,청소년들이 도서관에 대한 이해와 흥미를 높이고, 보다 편리하게 도서관을 이용할 수 있도록 도움을 주기 위한 견학 프로그램 운영</p>
+				<p style="color:#ff0000;">코로나-19 확산 방지를 위해 별도 공지 시까지 단체 견학신청을 받지 않습니다.</p>
+			  </div>
+			</div>
+			<ul class="con">
+			  <li>몸 튼튼! 마음 튼튼! 교육 시에만 견학 신청이 가능합니다.</li>
+			  <li><b>일시: 매월 마지막 주 수요일 11:00-12:00</b></li>
+			  <li><b>장소: 도원도서관 1층 유아자료실</b></li>
+			  <li>문의: 667-4821</li>
+			  <li>
+				<span style="color:#ff0000;">※ 견학 신청 시 주의사항</span>
+			  	<ul class="con2">
+					<li><b>견학 인원을 15명 이내로 제한</b>하고 있으니 맞춰서 신청해주시기 바랍니다.</li>
+					<li><span style="color:#ff0000;">마스크 착용, 손소독은 필수 입니다.</span></li>
+					<li>유아 건강교육이 함께 진행되오니, 시간을 지켜주시기 바랍니다.</li>
+					<li>당일 취소 및 무단 불참 시, 다음 교육에서 제외됩니다. <span style="color:#ff0000;">(취소 시, 최소 3일 전 연락)</span></li>
+				</ul>
+			  </li>
+			</ul>
+			</c:when>
+			<c:otherwise>
+			<div class="roomicon">
+			  <div class="inner icowrap"><span class="ico ico6"></span> <strong>도서관 견학신청</strong>
+				<p>어린이,청소년들이 도서관에 대한 이해와 흥미를 높이고, 보다 편리하게 도서관을 이용할 수 있도록 도움을 주기 위한 견학 프로그램 운영</p>
+				<p style="color:#ff0000;">코로나-19 확산 방지를 위해 별도 공지 시까지 단체 견학신청을 받지 않습니다.</p>
+			  </div>
+			</div>
+			</c:otherwise>
+		</c:choose>
 	</c:if>
 
 	<div class="ym_btns">
