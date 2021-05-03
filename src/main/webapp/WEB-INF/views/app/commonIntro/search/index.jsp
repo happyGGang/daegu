@@ -1263,7 +1263,7 @@ $(function() {
 			</c:otherwise>
 		</c:choose>
 
-		<c:if test="${homepage.context_path eq 'yonghak'}">
+		<c:if test="${homepage.context_path eq 'yonghak' || homepage.context_path eq 'beomeo' || homepage.context_path eq 'gosan'}">
 			<p style="color:#ff0000;font-weight:bold;text-align:center;">
 				※ 용학도서관 서비스환경 개선공사로 인해 용학도서관 자료는 상호대차 신청이 불가합니다.<br />자세한 사항은 <a href="https://library.daegu.go.kr/yonghak/board/view.do?menu_idx=35&manage_idx=677&board_idx=446201&viewPage=1" style="text-decoration:underline;color:#ff0000;">공지사항</a>을 참고하시기 바랍니다.
 			</p>

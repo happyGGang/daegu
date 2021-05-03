@@ -338,8 +338,10 @@ $(function() {
 				</c:when>
 
 				<c:when test="${homepage.context_path eq 'beomeo' || homepage.context_path eq 'yonghak' || homepage.context_path eq 'gosan'}">
-
+	
 					<c:choose>
+					<c:when test="${detail.MANAGE_CODE eq 'BE'}">
+					</c:when>
 						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
 							<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
 						</c:when>
