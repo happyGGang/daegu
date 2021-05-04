@@ -238,7 +238,7 @@ public class AnswerController extends BaseController {
 			if (StringUtils.equals(survey.getAnnyms_yn(), "N")) {
 				if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
     				if (survey.getPopup_yn().equals("N")) {
-    					quest.setBefore_url(String.format("http://%s/%s/module/survey/index.do?menu_idx=%s", homepage.getDomain(), homepage.getContext_path(), quest.getMenu_idx()));
+    					quest.setBefore_url(String.format("%s/%s/module/survey/index.do?menu_idx=%s", homepage.getDomain(), homepage.getContext_path(), quest.getMenu_idx()));
     					service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), quest.getMenu_idx(), quest.getBefore_url()), request, response);
     					return null;
     				} else {
