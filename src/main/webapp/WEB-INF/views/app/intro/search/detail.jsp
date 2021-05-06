@@ -285,7 +285,7 @@ CONTEXT_PATH : ${context_path}
 			<c:choose>
 				<c:when test="${context_path eq 'bukgs' || context_path eq 'bukdh' || context_path eq 'buktj' || context_path eq 'buks'}">
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'GM'}">
+						<c:when test="${detail.MANAGE_CODE eq 'GM' || detail.MANAGE_CODE eq 'GJ'}">
 						<!-- 북구영어  제외 -->
 						</c:when>
 						<c:otherwise>

@@ -282,7 +282,9 @@ span.txt-bar{padding:1px 0;background:#ccc;vertical-align:middle}
 /*메인 footer*/
 #footer {padding:0;}
 #footer .address {padding:20px 0 25px;}
-#footer address{color:#fff;text-align:center;}
+#footer .address .info {width:100%;}
+#footer .address .info a {display:inline-block;float:left;width:25%;color:#fff;text-align:center;box-sizing:border-box;padding:18px 0;}
+#footer address {color:#fff;text-align:center;}
 #footer address em,
 #footer address span{font-size: 14px;letter-spacing: 0.03em;font-family: 's-core_dream3_light';}
 #footer address em{font-style:normal;/* margin-right:10px; */}
@@ -459,7 +461,7 @@ span.icon.w50n {background:url('../img/50d.jpg') no-repeat 0 0;}
 	.more-btn {width:15%;margin:0 auto;}
 	.more-btn img {width:100%;}
 
-	#footer .info {overflow-x:scroll }
+	#footer .info {overflow-x:scroll;display:none;}
 
 	#footer .info .section {width:800px;}
 	#footer .info .section li a {font-size:13px;}
@@ -467,6 +469,8 @@ span.icon.w50n {background:url('../img/50d.jpg') no-repeat 0 0;}
   	#footer .home-up img{width:45px}
 
    #footer .address {padding: 0px 0 30px;}
+
+   	
 }
 
 @media all and (max-width:560px){

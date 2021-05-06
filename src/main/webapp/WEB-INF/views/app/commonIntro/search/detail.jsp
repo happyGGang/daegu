@@ -320,7 +320,7 @@ $(function() {
 			<c:choose>
 				<c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj'}">
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'GM'}">
+						<c:when test="${detail.MANAGE_CODE eq 'GM'  || detail.MANAGE_CODE eq 'GJ'}">
 						<!-- 북구영어  제외 -->
 						</c:when>
 						<c:otherwise>

@@ -73,6 +73,8 @@ $(function() {
 	}
 
 	$('.Gnb .gnb-menu > li.menu7').remove();
+
+	$('#footer .address .info a').css('color','#3c3c3c')
 });
 </script>
 
