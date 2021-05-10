@@ -65,7 +65,7 @@ $(document).ready(function() {
       </li>
     </ul>
   </div>
-  <h3>자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2021.3.31. 기준] (단위 : 권)</span></h3>
+  <h3>자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2021.4.30. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="책숲길도서관 장서현황을 나타내는 표">
@@ -121,18 +121,18 @@ $(document).ready(function() {
       <tbody>
         <tr>
           <th>일반</th>
-          <td>443</td>
-          <td>656</td>
-          <td>210</td>
-          <td>1,442</td>
-          <td>282</td>
-          <td>1,435</td>
-          <td>445</td>
-          <td>224</td>
-          <td>4,525</td>
-          <td>768</td>
-          <td>10,430</td>
-          <td>33.3</td>
+          <td>451</td>
+          <td>666</td>
+          <td>214</td>
+          <td>1,458</td>
+          <td>287</td>
+          <td>1,465</td>
+          <td>451</td>
+          <td>229</td>
+          <td>4,557</td>
+          <td>777</td>
+          <td>10,555</td>
+          <td>33.6</td>
         </tr>
         <tr>
           <th>아동</th>
@@ -144,10 +144,10 @@ $(document).ready(function() {
           <td>230</td>
           <td>241</td>
           <td>251</td>
-          <td>3,599</td>
+          <td>3,606</td>
           <td>1,239</td>
-          <td>8,537</td>
-          <td>27.3</td>
+          <td>8,544</td>
+          <td>27.2</td>
         </tr>
         <tr>
           <th>유아</th>
@@ -159,9 +159,9 @@ $(document).ready(function() {
           <td>96</td>
           <td>63</td>
           <td>31</td>
-          <td>2,735</td>
+          <td>2,740</td>
           <td>23</td>
-          <td>4,540</td>
+          <td>4,545</td>
           <td>14.5</td>
         </tr>
         <tr>
@@ -177,7 +177,7 @@ $(document).ready(function() {
           <td>1,111</td>
           <td>26</td>
           <td>2,339</td>
-          <td>7.5</td>
+          <td>7.4</td>
         </tr>
         <tr>
           <th>보존서고 </th>
@@ -192,7 +192,7 @@ $(document).ready(function() {
           <td>2,075</td>
           <td>497</td>
           <td>5,469</td>
-          <td>17.5</td>
+          <td>17.4</td>
         </tr>
         <tr>
           <th>총계(권)</th>
@@ -206,28 +206,28 @@ $(document).ready(function() {
           <td>1,685</td>
           <td>13,991</td>
           <td>2,549</td>
-          <td>31,315</td>
+          <td>31,452</td>
           <td>100</td>
         </tr>
         <tr>
           <th>비율(%)</th>
-          <td>4.4</td>
-          <td>3.5</td>
-          <td>1.3</td>
-          <td>13.3</td>
+          <td>4.3</td>
+          <td>3.4</td>
+          <td>1.2</td>
+          <td>13.2</td>
           <td>9.5</td>
           <td>6.4</td>
           <td>3.2</td>
           <td>5.4</td>
-          <td>44.7</td>
+          <td>44.5</td>
           <td>8.1</td>
-          <td>100</td>
+          <td>99</td>
           <td>　</td>
         </tr>
       </tbody>
     </table>
   </div>
-  <h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2021.3.31. 기준] (단위 : 권)</span></h3>
+  <h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2021.4.30. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="책숲길도서관 간행물 현황을 나타내는 표">
