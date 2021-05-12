@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ch.qos.logback.classic.Logger;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.menu.Menu;
@@ -336,11 +337,20 @@ public class MarathonRecordController extends BaseController{
 				marathonRecord.setMember_id(getSessionMemberId(request));
 				marathonRecord.setMember_name(marathonApplicantService.getMarathonApplicantName(marathonApplicant));
 				int addResult = service.addMarathonRecord(marathonRecord, marathonApplicant);
+				
+				Date date = new Date();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				String to = sdf.format(date);
+				
 				if(addResult > 0) {
+					log.error("id : " + marathonRecord.getMember_id() + "\n" + "member_name : " + marathonRecord.getMember_name() +"\n" + "book_name : " + marathonRecord.getBook_name() + "\n" + "record_date : " + to);
+					log.debug("id : " + marathonRecord.getMember_id() + "\n" + "member_name : " + marathonRecord.getMember_name() +"\n" + "book_name : " + marathonRecord.getBook_name() + "\n" + "record_date : " + to);
 					res.setValid(true);
 					res.setMessage("등록되었습니다.");
 					res.setUrl("index.do?menu_idx=108");
 				}else {
+					log.error("fail!!" + "\n" + "id : " + marathonRecord.getMember_id() + "\n" + "member_name : " + marathonRecord.getMember_name() + "\n" + "book_name : " + marathonRecord.getBook_name() + "\n" + "record_date : " + to);
+					log.debug("fail!!" + "\n" + "id : " + marathonRecord.getMember_id() + "\n" + "member_name : " + marathonRecord.getMember_name() + "\n" + "book_name : " + marathonRecord.getBook_name() + "\n" + "record_date : " + to);
 					result.reject("등록에 실패하였습니다.");
 					res.setValid(false);
 					res.setResult(result.getAllErrors());
