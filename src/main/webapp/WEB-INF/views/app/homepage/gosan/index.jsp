@@ -212,6 +212,7 @@ do {
 						<ul class="tabMenuS">
 							<li class="on"><a href="#tab1" data-link="board/index.do?menu_idx=35&manage_idx=730" class='t-tabs'>공지사항</a></li>
 							<li><a href="#tab2" data-link="module/teach/index.do?menu_idx=90" class='t-tabs'>문화행사</a></li>
+							<li><a href="#tab3" data-link="module/teach/index.do?menu_idx=91&searchCate1=18" class='t-tabs'>특성화프로그램</a></li>
 						</ul>
 						<a href="board/index.do?menu_idx=35&manage_idx=730" class="btn-more2 more-more">더보기</a>
 
@@ -252,6 +253,27 @@ do {
 										</c:if>
 										<li>
 											<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=${teachMenuIdx}&searchCate1=${i.large_category_idx}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&homepage_id=${i.homepage_id}">
+												<span class="sulib004">수성</span>
+												<em>${i.teach_name}</em>
+												<span class="date">${i.start_date}</span>
+											</a>
+										</li>
+									</c:forEach>
+								</ul>
+							</div>
+						</div>
+						
+						<div class="news con" data-tab="tab3" style="display:none;">
+							<div class="box">
+								<ul>
+									<c:if test="${fn:length(charTeachList) < 1}">
+										<li>
+											등록된 행사가 없습니다.
+										</li>
+									</c:if>
+									<c:forEach items="${charTeachList}" var="i" varStatus="status" begin="0" end="4">
+										<li>
+											<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=91&searchCate1=${i.large_category_idx}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&homepage_id=${i.homepage_id}">
 												<span class="sulib004">수성</span>
 												<em>${i.teach_name}</em>
 												<span class="date">${i.start_date}</span>
