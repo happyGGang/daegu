@@ -279,7 +279,7 @@ do {
 								<c:forEach items="${noticeList}" var="i" varStatus="status">
 									<li>
 										<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=689&board_idx=${i.board_idx}">
-											<em class="${i.notice_yn eq 'Y' ? 'noti' : ''}">공지</em>${i.title}
+											<em class="${i.date_gap <= i.new_date_count ? 'noti' : ''}">공지</em>${i.title}
 											<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd" /></span>
 										</a>
 									</li>
