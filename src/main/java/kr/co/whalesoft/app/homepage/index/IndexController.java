@@ -641,7 +641,6 @@ public class IndexController extends BaseController {
 		for (String th: teachHomepage ) {
 			if (homepage.getHomepage_id().equals(th)) {
 				Teach t = new Teach();
-				Teach t2 = new Teach(); // 고산 특성화프로그램
 
 				Homepage h = new Homepage();
 				h.setHomepage_id(homepage.getHomepage_id());
@@ -657,7 +656,7 @@ public class IndexController extends BaseController {
 					t.setHomepage_ids(homepage_ids);
 				} else {
 					t.setHomepage_id(homepage.getHomepage_id());
-					t2.setHomepage_id(homepage.getHomepage_id());
+					
 				}
 
 				// 고산 문화행사만 조회
@@ -666,8 +665,12 @@ public class IndexController extends BaseController {
 				model.addAttribute("teachList", teachService.getTeachListForUser(t));
 				
 				// 고산 특성화프로그램
-				if(th.equals("h52")) t2.setSearchCate1("18");
-				model.addAttribute("charTeachList", teachService.getTeachListForUser(t2));
+				if(th.equals("h52")) {
+					Teach t2 = new Teach();
+					t2.setHomepage_id(homepage.getHomepage_id());
+					t2.setSearchCate1("18");
+					model.addAttribute("charTeachList", teachService.getTeachListForUser(t2));
+				}
 			}
 		}
 
