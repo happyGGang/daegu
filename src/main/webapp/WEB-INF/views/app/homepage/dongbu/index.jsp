@@ -214,7 +214,14 @@
 									<c:forEach var="i" varStatus="status" items="${boardList1}" >
 									<li>
 										<a href="/${homepage.context_path}/board/view.do?menu_idx=170&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-											<span class="tit"></span>
+											<c:choose>
+												<c:when test="${i.date_gap <= 2}">
+													<span class="new-tit">NEW</span>
+												</c:when>
+												<c:otherwise>
+													<span class="tit">이벤트</span>
+												</c:otherwise>
+											</c:choose>
 											<em>${i.title}</em>
 											<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
 										</a>
@@ -311,9 +318,22 @@
 
 				<div class="movie">
 					<div class="title">
-						<h3>영화상영</h3>
-						<a class="more-btn more-more" href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=121">더보기</a>
+						<h3>이달의 추천 영화</h3>
+						<a class="more-btn more-more" href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=927">더보기</a>
 					</div>
+					<!-- 영화 추천 출력 소스-->
+					<p style="font-size:14px;color:#ff0000;font-weight:bold;margin-bottom:5px;">※ 코로나 19로 인해 시청각실 영화상영은 중단</p>
+					<div>
+						<a href="/${homepage.context_path}/board/view.do?menu_idx=60&manage_idx=927&board_idx=447412&group_idx=0&viewPage=1&search_type=title%2Bcontent">
+							<img src="/data/menuResources/h5/60/1620693165539.jpg" style="width:130px;">
+						</a>
+						<a href="/${homepage.context_path}/board/view.do?menu_idx=60&manage_idx=927&board_idx=447411&group_idx=0&viewPage=1&search_type=title%2Bcontent">
+							<img src="/data/menuResources/h5/60/1620693149011.jpg" style="width:130px;">
+						</a>
+					</div>
+					<!--//영화 추천 출력 소스-->
+
+					<!-- 기존 영화 상영 출력 소스
 					<div class="movieContent">
 						<ul>
 							<c:forEach var="i" varStatus="status" items="${movieList}" >
@@ -332,7 +352,7 @@
 												</c:choose>
 											</c:when>
 											<c:otherwise>
-														<img src="/resources/common/img/noimg-gall.png" alt="${i.title}">
+												<img src="/resources/common/img/noimg-gall.png" alt="${i.title}">
 											</c:otherwise>
 										</c:choose>
 										</span>
@@ -385,6 +405,7 @@
 							</c:if>
 						</ul>
 					</div>
+					-->
 				</div>
 
 				<div class="quickLink">

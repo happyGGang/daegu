@@ -250,7 +250,8 @@ ul.book_photo li a span.cate02{position:absolute;top:0;left:20px;color:#fff;font
 #main2 .sns_title_box ul li a.sns_kakaostory{background:url('../img/sns-kakaostory-icon.png')no-repeat;}
 #main2 .sns_title_box ul li a.sns_youtube{background:url('../img/sns-youtube-icon.png')no-repeat;}
 #main2 .sns_title_box ul li a.sns_naverblog{background:url('../img/sns-naverblog-icon.png')no-repeat;}
-#main2 .sns_title_box ul li a.sns_instagram{background:url('../img/sns-instagram-icon.png')no-repeat;}
+#main2 .sns_title_box ul li a.sns_instagram_ansim{background:url('../img/sns-instagram-icon-ansim.png')no-repeat;}
+#main2 .sns_title_box ul li a.sns_instagram_sincheon{background:url('../img/sns-instagram-icon-sincheon.png')no-repeat;}
 
 .culture-box ul li a p.one-status-box {display:block;position:absolute;right:0;top:0;width:46px;height:46px;line-height:46px;text-align:center;border-radius:50%;font-size:14px;font-weight:bold;}
 .culture-box ul li a p.one-status-box.status001 {color:#2a569c;border:1px solid #2a569c;}
@@ -741,8 +742,8 @@ ul.book_photo li a span.cate02{position:absolute;top:0;left:20px;color:#fff;font
 	#main2 .book_title_box li a{font-size:13px;}
 
 	#main2 .sns_title_box h2{top:35px;}
-	#main2 .sns_title_box ul li{width:auto;height:auto;}
-	#main2 .sns_title_box ul li:first-child{margin-left:20px;}
+	#main2 .sns_title_box ul li{width:14%;height:auto;}
+	#main2 .sns_title_box ul li:first-child{margin-left:5px;}
 	#main2 .sns_title_box{margin-top:600px;}
 
 	#main3{height:auto;margin-bottom:30px;}

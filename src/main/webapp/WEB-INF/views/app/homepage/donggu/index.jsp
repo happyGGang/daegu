@@ -387,27 +387,32 @@ do {
 					<h2>SNS</h2>
 					<ul>
 						<li>
-							<a class="sns_facebook" href="">
+							<a class="sns_facebook" href="https://www.facebook.com/ansimlib" target="_blank">
 								<span>FACEBOOK</span>
 							</a>
 						</li>
 						<li>
-							<a class="sns_kakaostory" href="">
-								<span>KAKAOSTORY</span>
+							<a class="sns_kakaostory" href="http://pf.kakao.com/_Mxdlzj" target="_blank">
+								<span>KAKAOCHANNEL</span>
 							</a>
 						</li>
 						<li>
-							<a class="sns_youtube" href="">
+							<a class="sns_youtube" href="https://www.youtube.com/channel/UC9147s-XuHgcUnTwBTm--og" target="_blank">
 								<span>YOUTUBE</span>
 							</a>
 						</li>
 						<li>
-							<a class="sns_naverblog" href="">
+							<a class="sns_naverblog" href="https://blog.naver.com/ansimlib" target="_blank">
 								<span>NAVERBLOG</span>
 							</a>
 						</li>
 						<li>
-							<a class="sns_instagram" href="">
+							<a class="sns_instagram_ansim" href="https://www.instagram.com/ansim_lib/" target="_blank">
+								<span>INSTAGRAM</span>
+							</a>
+						</li>
+						<li>
+							<a class="sns_instagram_sincheon" href="https://www.instagram.com/sincheon_lib/" target="_blank">
 								<span>INSTAGRAM</span>
 							</a>
 						</li>

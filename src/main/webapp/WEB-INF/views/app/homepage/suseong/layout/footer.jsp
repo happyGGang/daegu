@@ -17,6 +17,7 @@
 				</div>
 
 				<div class="sns-link">
+					<a href="https://blog.naver.com/suseonglib" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/naverblog-icon-btn.png" alt="instagram"></a>
 					<a href="https://www.instagram.com/suseonglib/?hl=ko" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/insta-icon-btn.png" alt="instagram"></a>
 					<a href="https://story.kakao.com/suseonglib" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/kakao-icon-btn.png" alt="카카오톡"></a>
 					<a href="https://www.facebook.com/suseonglibrary" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/facebook-icon-btn.png" alt="페이스북"></a>
