@@ -389,6 +389,34 @@ function compactTrim(str) {
 	</div>
 	<div class="end" style="padding:7px 0;"></div>
 	</c:when>
+	<c:when test="${homepagePath eq 'donggu'}">
+	<div id="libraryList" class="libraryList">
+		<div>
+			<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
+		</div>
+		<div>
+			<ul>
+				<li><form:checkbox path="libraryCodes" value="CA" class="libCheck lib_CA" label="안심도서관"/></li>
+				<li><form:checkbox path="libraryCodes" value="CB" class="libCheck lib_CB" label="신천도서관"/></li>
+				<li><form:checkbox path="libraryCodes" value="GR" class="libCheck lib_GR" label="신암2동 작은도서관"/></li>
+				<li><form:checkbox path="libraryCodes" value="GS" class="libCheck lib_GS" label="신암3동 작은도서관"/></li>
+				<li><form:checkbox path="libraryCodes" value="GZ" class="libCheck lib_GZ" label="동구청 작은도서관"/></li>
+				<li><form:checkbox path="libraryCodes" value="GU" class="libCheck lib_GU" label="불로어울림 작은도서관"/></li>
+				<li><form:checkbox path="libraryCodes" value="GV" class="libCheck lib_GV" label="지저동 작은도서관"/></li>
+				<li><form:checkbox path="libraryCodes" value="FM" class="libCheck lib_FM" label="반야월역사 작은도서관"/></li>
+				<li><form:checkbox path="libraryCodes" value="FL" class="libCheck lib_FL" label="도평동 작은도서관"/></li>
+				<li><form:checkbox path="libraryCodes" value="GY" class="libCheck lib_GY" label="해안동 작은도서관"/></li>
+				<li><form:checkbox path="libraryCodes" value="GX" class="libCheck lib_GX" label="방촌동 작은도서관"/></li>
+				<li><form:checkbox path="libraryCodes" value="GW" class="libCheck lib_GW" label="동촌역사 작은도서관"/></li>
+				<li><form:checkbox path="libraryCodes" value="GT" class="libCheck lib_GT" label="효목1동 작은도서관"/></li>
+				<li><form:checkbox path="libraryCodes" value="FP" class="libCheck lib_FP" label="효목2동 작은도서관"/></li>
+				<li><form:checkbox path="libraryCodes" value="FK" class="libCheck lib_FK" label="신천3동 작은도서관"/></li>
+			</ul>
+		</div>
+		<div class="end"></div>
+	</div>
+	<div class="end" style="padding:7px 0;"></div>
+	</c:when>
 	<c:otherwise>
 
 	</c:otherwise>
