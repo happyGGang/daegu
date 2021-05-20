@@ -304,9 +304,6 @@ $(function() {
 									<form:checkbox path="libraryCodes" value="BC" class="libCheck lib_BC" label="태전도서관"/>
 								</li>
 								<li>
-									<form:checkbox path="libraryCodes" value="GJ" class="libCheck lib_GJ" label="태전1동 작은도서관"/>
-								</li>
-								<li>
 									<form:checkbox path="libraryCodes" value="GL" class="libCheck lib_GL" label="산격1동 작은도서관"/>
 								</li>
 								<li>
@@ -612,9 +609,6 @@ $(function() {
 								</li>
 
 								<li>
-									<form:checkbox path="libraryCodes" value="GZ" class="libCheck lib_GZ" label="동구청작은도서관"/>
-								</li>
-								<li>
 									<form:checkbox path="libraryCodes" value="HK" class="libCheck lib_HK" label="늘푸른작은도서관"/>
 								</li>
 								<li>
@@ -872,7 +866,14 @@ $(function() {
 																<span style="color:#ff0000">대출불가(타관대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
 															</c:when>
 															<c:otherwise>
-																<span style="color:#ff0000">대출불가</span>
+																<c:choose>
+																	<c:when test="${i.RESERVATION_CNT > 0}">
+																		<span style="color:#ff0000">대출불가(예약대출 대기중)</span>
+																	</c:when>
+																	<c:otherwise>
+																		<span style="color:#ff0000">대출불가</span>
+																	</c:otherwise>
+																</c:choose>
 															</c:otherwise>
 														</c:choose>
 													</c:otherwise>

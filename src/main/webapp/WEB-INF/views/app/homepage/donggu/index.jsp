@@ -150,6 +150,8 @@ do {
 					<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
 					<input type="hidden" name="menu_idx" value="9">
 					<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
+					<input type="hidden" name="libraryCodes" value="CA">
+					<input type="hidden" name="libraryCodes" value="CB">
 					<fieldset>
 						<legend class="blind">통합검색</legend>
 						<div class="main-box">

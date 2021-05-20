@@ -715,9 +715,6 @@ $(function() {
 													<form:checkbox path="libraryCodes" value="FM" class="libCheck lib_FM" label="반야월역사작은도서관"/>
 												</li>
 												<li>
-													<form:checkbox path="libraryCodes" value="GZ" class="libCheck lib_GZ" label="동구청작은도서관"/>
-												</li>
-												<li>
 													<form:checkbox path="libraryCodes" value="HK" class="libCheck lib_HK" label="늘푸른작은도서관"/>
 												</li>
 												<li>
@@ -1103,9 +1100,6 @@ $(function() {
 										<form:checkbox path="libraryCodes" value="BC" class="libCheck lib_BC" label="태전도서관"/>
 									</li>
 									<li>
-										<form:checkbox path="libraryCodes" value="GJ" class="libCheck lib_GJ" label="태전1동 작은도서관"/>
-									</li>
-									<li>
 										<form:checkbox path="libraryCodes" value="GL" class="libCheck lib_GL" label="산격1동 작은도서관"/>
 									</li>
 									<li>
@@ -1406,18 +1400,29 @@ $(function() {
 																<span style="color:#ff0000">대출불가(타관대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
 															</c:when>
 															<c:otherwise>
-																<span style="color:#ff0000">대출불가</span>
+																<c:choose>
+																	<c:when test="${i.RESERVATION_CNT > 0}">
+																		<span style="color:#ff0000">대출불가(예약대출 대기중)</span>
+																	</c:when>
+																	<c:otherwise>
+																		<span style="color:#ff0000">대출불가</span>
+																	</c:otherwise>
+																</c:choose>
 															</c:otherwise>
 														</c:choose>
 													</c:otherwise>
 												</c:choose>
 												<!-- 대출가능 여부 [ END ] -->
 											</p>
-<!--
+											<!--
 											JU : 아동, MS : 중학생, AD : 성인, PU : 일반, ES : 초등, HS : 고등, SP : 특수, TE : 청소년, 기타 :
 											-->
+<c:set var="getIp" value="<%=request.getRemoteAddr()%>" />
+<c:if test="${getIp eq '218.48.151.16'}">
+
+</c:if>
 											<c:if test="${not empty i.APPENDIX_INFO}">
-											<c:if test="${i.APPENDIX_LIST[0].LOAN_CODE eq 'OK'} ">
+											<c:if test="${i.APPENDIX_LIST[0].LOAN_CODE eq 'OK'}">
 											<p><font style="color:#5e5e5e">부록여부</font> : ${i.APPENDIX_INFO[0].DESCRIPTION} (${i.APPENDIX_INFO[0].APPENDIX_CNT}개)</p>
 											</c:if>
 											</c:if>
