@@ -368,35 +368,39 @@ function pasteHTML(contentId) {
 		return false;
 	}
 
-	if( selectObj.selectedIndex != -1 ) {
-		var fileId = selectObj.options[selectObj.selectedIndex].value;
-		var splitValue = fileId.split('//');
-		// 업로드가 완료되었을때만 프리뷰 사용가능
-		if( fileList[splitValue[4]].status == -4 ) {
-			file = fileList[splitValue[4]];
+	for(var i = 0; i < selectObj.selectedOptions.length; i++) {
+		
+		if( selectObj.selectedIndex != -1 ) {
+			var fileId = selectObj.options[selectObj.selectedOptions[i].index].value;
+			var splitValue = fileId.split('//');
+			// 업로드가 완료되었을때만 프리뷰 사용가능
+			if( fileList[splitValue[4]].status == -4 ) {
+				file = fileList[splitValue[4]];
+			}
 		}
-	}
-	if( file ) {
-		var previewPath = defaultPath+file.path+encodeURI(file.saveFileName);
-		// 이미지 파일 처리
-		if( file.ext.toLowerCase() == ".jpg" ||
-			file.ext.toLowerCase() == ".bmp" ||
-			file.ext.toLowerCase() == ".gif" ||
-			file.ext.toLowerCase() == ".png" ) {
-			sHTML = '<img src="'+previewPath+'" width="730px" />';
-		} else	if( file.type.toLowerCase() == ".mp3" || // 음악 파일 처리
-			file.ext.toLowerCase() == ".wma" ) {
-			alert('이미지 형태의 파일만 에디터에 넣을 수 있습니다.');
-			//sHTML = "<span style='color:#FF0000'>이미지 등도 이렇게 삽입하면 됩니다.</span>";
+		if( file ) {
+			var previewPath = defaultPath+file.path+encodeURI(file.saveFileName);
+			// 이미지 파일 처리
+			if( file.ext.toLowerCase() == ".jpg" ||
+				file.ext.toLowerCase() == ".bmp" ||
+				file.ext.toLowerCase() == ".gif" ||
+				file.ext.toLowerCase() == ".png" ) {
+				sHTML = '<img src="'+previewPath+'" width="730px" />';
+			} else	if( file.type.toLowerCase() == ".mp3" || // 음악 파일 처리
+				file.ext.toLowerCase() == ".wma" ) {
+				alert('이미지 형태의 파일만 에디터에 넣을 수 있습니다.');
+				//sHTML = "<span style='color:#FF0000'>이미지 등도 이렇게 삽입하면 됩니다.</span>";
+			} else {
+				alert('이미지 형태의 파일만 에디터에 넣을 수 있습니다.');
+				// 이미지나 음악에 속하지 않는 파일에 대한 처리
+				//previewObj.innerHTML  = defaultMessage;
+			}
+			oEditors.getById[contentId].exec("PASTE_HTML", [sHTML]);
 		} else {
-			alert('이미지 형태의 파일만 에디터에 넣을 수 있습니다.');
 			// 이미지나 음악에 속하지 않는 파일에 대한 처리
 			//previewObj.innerHTML  = defaultMessage;
 		}
-		oEditors.getById[contentId].exec("PASTE_HTML", [sHTML]);
-	} else {
-		// 이미지나 음악에 속하지 않는 파일에 대한 처리
-		//previewObj.innerHTML  = defaultMessage;
+	
 	}
 }
 
