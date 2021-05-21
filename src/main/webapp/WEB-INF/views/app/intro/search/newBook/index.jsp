@@ -286,7 +286,6 @@ $(function() {
 					<form:radiobutton path="manageCode" value="GV" label="지저동 작은도서관 "/><br/>
 					<form:radiobutton path="manageCode" value="GY" label="해안동 작은도서관 "/><br/>
 					<form:radiobutton path="manageCode" value="FM" label="반야월역사 작은도서관 "/><br/>
-					<form:radiobutton path="manageCode" value="GZ" label="동구청 작은도서관 "/><br/>
 					<form:radiobutton path="manageCode" value="HK" label="늘푸른 도서관 "/><br/>
 					<form:radiobutton path="manageCode" value="HL" label="초록우산도서관 "/><br/>
 					<form:radiobutton path="manageCode" value="HM" label="꿈날자 문고 "/><br/>

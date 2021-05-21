@@ -91,7 +91,7 @@
 					<form:option value="BA">구수산도서관</form:option>
 					<form:option value="GP">노원동 작은도서관</form:option>
 					<form:option value="HD">노원행복도서관</form:option>
-					<form:option value="GM">북구영어작은도서관</form:option>
+					<!-- <form:option value="GM">북구영어작은도서관</form:option> -->
 					<form:option value="GL">산격1동 작은도서관</form:option>
 					<form:option value="HB">서변동작은도서관</form:option>
 					<form:option value="GN">침산1동 작은도서관</form:option>
@@ -115,7 +115,7 @@
 				<form:select path="manageCode">
 					<form:option value="GP">노원동 작은도서관</form:option>
 					<form:option value="HD">노원행복도서관</form:option>
-					<form:option value="GM">북구영어작은도서관</form:option>
+					<!-- <form:option value="GM">북구영어작은도서관</form:option> -->
 					<form:option value="GL">산격1동 작은도서관</form:option>
 					<form:option value="HB">서변동작은도서관</form:option>
 					<form:option value="GN">침산1동 작은도서관</form:option>
