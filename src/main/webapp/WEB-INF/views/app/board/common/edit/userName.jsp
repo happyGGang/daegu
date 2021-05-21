@@ -17,7 +17,7 @@
 						</c:if>
 					</c:when>
 					<c:when test="${authMBA or sessionScope.member.admin}">
-						<form:input path="user_name" value="${member.member_name }" cssClass="text"/>
+						<form:input path="user_name" value="${not empty board.user_name ? board.user_name : member.member_name}" cssClass="text"/>
 					</c:when>
 					<c:otherwise>
 ${board.user_name}
