@@ -211,7 +211,7 @@ do {
 					<div class="notice-box tabS">
 						<ul class="tabMenuS">
 							<li class="on"><a href="#tab1" data-link="board/index.do?menu_idx=35&manage_idx=677" class='t-tabs'>공지사항</a></li>
-							<li><a href="#tab2" data-link="module/teach/index.do?menu_idx=32&searchCate1=17" class='t-tabs'>문화행사</a></li>
+							<li><a href="#tab2" data-link="module/teach/index.do?menu_idx=149&searchCate1=17" class='t-tabs'>문화행사</a></li>
 							<li><a href="#tab3" data-link="board/index.do?menu_idx=51&manage_idx=682" class='t-tabs'>언론보도</a></li>
 						</ul>
 						<a href="board/index.do?menu_idx=35&manage_idx=677" class="btn-more2 more-more">더보기</a>
@@ -243,10 +243,13 @@ do {
 									<c:forEach items="${teachList}" var="i" varStatus="status" begin="0" end="4">
 										<c:set var="teachMenuIdx" value="32"></c:set>
 										<c:if test="${i.large_category_idx eq 16}">
-											<c:set var="teachMenuIdx" value="141"></c:set>
+											<c:set var="teachMenuIdx" value="149"></c:set>
 										</c:if>
 										<c:if test="${i.large_category_idx eq 17}">
 											<c:set var="teachMenuIdx" value="32"></c:set>
+										</c:if>
+										<c:if test="${i.large_category_idx eq 30}">
+											<c:set var="teachMenuIdx" value="100"></c:set>
 										</c:if>
 										<li>
 											<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=${teachMenuIdx}&searchCate1=${i.large_category_idx}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&homepage_id=${i.homepage_id}">
