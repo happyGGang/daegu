@@ -46,6 +46,9 @@
 			CMS_EXCURSIONS_APPLY
 		WHERE
 			homepage_id = #{homepage_id}
+		<if test="member_key != null and member_key != ''">
+		AND	applicant_member_id	= #{member_key}
+		</if>
 	</select>
 
 	<select id="getApplyOne" resultType="kr.co.whalesoft.app.cms.module.excursions.apply.Apply">
