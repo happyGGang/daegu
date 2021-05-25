@@ -289,10 +289,10 @@ body, html {background:#30706e url('/resources/homepage/${homepage.context_path}
 			<div class="quickMenu">
 				<ul>
 					<li class="quick-1">
-						<a href="/${homepage.context_path}/module/elib/book/index.do?menu_idx=14&menu=NEW&type=EBK" title="E-BOOK 바로가기" class="quick01">
+						<a href="/${homepage.context_path}/module/elib/book/index.do?menu_idx=14&menu=NEW&type=EBK" title="소장형 전자책 바로가기" class="quick01">
 						<div>
-							<p>전자책</p>
-							<h4>E-BOOK</h4>
+							<p>E-Book</p>
+							<h4>소장형전자책</h4>
 						</div>
 					</a>
 					</li>
@@ -321,10 +321,10 @@ body, html {background:#30706e url('/resources/homepage/${homepage.context_path}
 					</a>
 					</li>
 					<li class="quick-5">
-					<a href="/${homepage.context_path}/board/index.do?menu_idx=72&manage_idx=284" title="공지사항 바로가기" class="quick05">
+					<a href="/${homepage.context_path}/html/kyobogudok.do?menu_idx=93" title="구독형 전자책 바로가기" class="quick05">
 						<div>
-							<p>알려드립니다</p>
-							<h4>공지사항</h4>
+							<p>E-Book</p>
+							<h4>구독형전자책</h4>
 						</div>
 					</a>
 					</li>

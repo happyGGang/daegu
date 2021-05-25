@@ -104,6 +104,19 @@ $(function() {
 	</c:forEach>
 	</ul>
 </div>
+
+<div class="" style="clear:both;padding:10px 0;">
+	<c:if test="${homepage.context_path eq 'dongbu'}">
+	<c:if test="${param.homepage_id eq 'h5'}">
+	<c:if test="${param.search_quiz_type eq '0004'}">
+	<c:if test="${param.search_quiz_year eq '2021' && param.search_quiz_month eq '6'}">
+	<img src='/resources/homepage/dongbu/img/6month_dongbu.jpg' alt='6월독서퀴즈 이미지' />
+	</c:if>
+	</c:if>
+	</c:if>
+	</c:if>
+</div>
+
 <c:if test="${fn:length(quiz.top_html) > 0 && quiz.book_name ne '' and quiz.book_name ne null}">
 ${quiz.top_html}
 </c:if>
@@ -123,7 +136,7 @@ ${quiz.top_html}
 					<div class="quiz_list">
 						<div class="pic">
 							<p>
-								<img src="${quiz.book_image}" height="154" width="170" alt="${quiz.book_name}" />
+								<img src="${quiz.book_image}" height="192" width="155" alt="${quiz.book_name}" />
 							</p>
 						</div>
 						<div class="data_info">
