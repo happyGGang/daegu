@@ -249,7 +249,14 @@ $(function() {
 									<span style="color:#ff0000">대출불가(타관대출중)</span>
 								</c:when>
 								<c:otherwise>
-									<span style="color:#ff0000">대출불가</span>
+									<c:choose>
+										<c:when test="${detail.RESERVATION_CNT > 0}">
+											<span style="color:#ff0000">대출불가(예약대출 대기중)</span>
+										</c:when>
+										<c:otherwise>
+											<span style="color:#ff0000">대출불가</span>
+										</c:otherwise>
+									</c:choose>
 								</c:otherwise>
 							</c:choose>
 						</c:otherwise>
@@ -303,11 +310,7 @@ CONTEXT_PATH : ${context_path}
 				</c:when>
 
 				<c:when test="${context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol'}">
-
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'BE'}">
-						<!-- 용학  제외 -->
-						</c:when>
 						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
 							<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
 						</c:when>

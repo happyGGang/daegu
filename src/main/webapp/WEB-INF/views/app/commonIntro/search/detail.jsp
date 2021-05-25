@@ -219,6 +219,11 @@ $(function() {
 					<li><strong>표준부호</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ISBN : ${detail.ISBN}</li>
 					</c:if>
 					<li><strong>분류기호</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;한국십진분류법 : ${detail.CLASS_NO}</li>
+					<c:if test="${not empty detail.APPENDIX_INFO}">
+					<c:if test="${detail.APPENDIX_LIST[0].LOAN_CODE eq 'OK'}">
+					<li><strong>부록여부</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${detail.APPENDIX_INFO[0].DESCRIPTION} (${detail.APPENDIX_INFO[0].APPENDIX_CNT}개)</li>
+					</c:if>
+					</c:if>
 					<c:if test="${homepage.context_path eq 'dalseolib'}">
 					<li><strong>521CODE</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${detail.marc}</li>
 					</c:if>
@@ -275,7 +280,14 @@ $(function() {
 									<span style="color:#ff0000">대출불가(타관대출중)</span>
 								</c:when>
 								<c:otherwise>
-									<span style="color:#ff0000">대출불가</span>
+									<c:choose>
+										<c:when test="${detail.RESERVATION_CNT > 0}">
+											<span style="color:#ff0000">대출불가(예약대출 대기중)</span>
+										</c:when>
+										<c:otherwise>
+											<span style="color:#ff0000">대출불가</span>
+										</c:otherwise>
+									</c:choose>
 								</c:otherwise>
 							</c:choose>
 						</c:otherwise>
@@ -340,8 +352,6 @@ $(function() {
 				<c:when test="${homepage.context_path eq 'beomeo' || homepage.context_path eq 'yonghak' || homepage.context_path eq 'gosan'}">
 	
 					<c:choose>
-					<c:when test="${detail.MANAGE_CODE eq 'BE'}">
-					</c:when>
 						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
 							<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
 						</c:when>
