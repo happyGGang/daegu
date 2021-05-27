@@ -5,22 +5,23 @@
 
 <div class="dpt-intro-type02">
   <div class="role-head">
-    <div class="ImgBox"> <img src="/resources/homepage/dgportal/img/sv_top_img06.jpg" alt="" org_width="620" org_height="280" isinit="true" class="vis-img"> </div>
+    <div class="ImgBox">
+		<img src="/resources/homepage/dgportal/img/sv_top_img06.jpg" alt="" org_width="620" org_height="280" isinit="true" class="vis-img">
+	</div>
     <div class="role-head-tit">
       <div class="txtBox">
         <h3 class="ptit">대구전자도서관</h3>
-        <span class="ptitEng">대구시민의 스마트한<br>
-        독서생활이 시작되는 곳</span>
+        <span class="ptitEng">대구시민의 스마트한<br>독서생활이 시작되는 곳</span>
 		    <p class="center">
 			<c:choose>
-			<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
-			<a href="http://library.daegu.go.kr/elib/index.do" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank">
-			</c:when>
-			<c:otherwise>
-			<!--a href="javascript:void(0);" onclick="alert('로그인후 이용바랍니다.'); location.href='/${homepage.context_path}/intro/login/index.do?menu_idx=4';" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank"-->
-            <!-- <a href="javascript:void(0);" onclick="alert('대구전자도서관 이관 작업으로 서비스가 일시중지됩니다. 2020.3.16. 00:00 ~ 2020.3.17. 24:00'); return false;" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank"> -->
-			<a href="http://library.daegu.go.kr/elib/index.do" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank">
-			</c:otherwise>
+				<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
+					<a href="http://library.daegu.go.kr/elib/index.do" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank">
+				</c:when>
+				<c:otherwise>
+					<!--a href="javascript:void(0);" onclick="alert('로그인후 이용바랍니다.'); location.href='/${homepage.context_path}/intro/login/index.do?menu_idx=4';" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank"-->
+					<!-- <a href="javascript:void(0);" onclick="alert('대구전자도서관 이관 작업으로 서비스가 일시중지됩니다. 2020.3.16. 00:00 ~ 2020.3.17. 24:00'); return false;" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank"> -->
+					<a href="http://library.daegu.go.kr/elib/index.do" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank">
+				</c:otherwise>
 			</c:choose>
 			<span>대구전자도서관 바로가기</span><span class="ico ico_link"></span><i class="fa fa-external-link"></i></a></p>
 		</div>
@@ -29,7 +30,6 @@
   <div class="role-body center">
     <p class="tit">대구지역 공공도서관 회원이면 누구나 이용할 수 있는 대구전자도서관입니다.</p>
     <p>현재 이용가능 콘텐츠는 전자책, 오디오북, 이러닝, 국내학회지 원문DB, 음악라이브러리입니다.</p>
-
   </div>
   <h3 class="contTit_line">회원가입 및 절차</h3>
   <ul class="con">
@@ -49,7 +49,11 @@
       </ul>
     </li>
   </ul>
-  <div class="next_list1 item4">
+</div>
+
+<!--두류 제외한 시립 전체-->
+<c:if test="${homepage.context_path eq 'dgportal' || homepage.context_path eq '228' || homepage.context_path eq '228lib' || homepage.context_path eq 'nambu' || homepage.context_path eq 'dalseong' || homepage.context_path eq 'dongbu' || homepage.context_path eq 'bukbu' || homepage.context_path eq 'seobu' || homepage.context_path eq 'suseong' || homepage.context_path eq 'jungang'}">
+	<div class="next_list1 item4">
     <ul>
       <li>
         <div class="top_img"> <img alt="" src="/resources/homepage/dgportal/img/elib_list01.png"> </div>
@@ -101,8 +105,56 @@
     </li-->
     <li>모바일회원증으로 도서 대출 (도서회원증 없이도 대출 가능)</li>
   </ul>
-</div>
-</div>
+</c:if>
+
+<!--두류-->
+<c:if test="${homepage.context_path eq 'duryu'}">
+  <h3 class="contTit_line">구독형 전자자료 </h3>
+  <ul class="con">
+  	<li>서비스대상 : 전자책, 오디오북</li>
+    <li>서비스종수 : 62천종
+      <ul>
+        <li style="background:none;">※ 예약 대기 없이 언제든 대출가능, 매달 신간 업데이트</li>
+      </ul>
+    </li>
+    <li>대출권수 및 기간 : 1인 7권 / 15일
+      <ul>
+        <li style="background:none;">※ 수동 반납 불가, 대출기간 만료 시 자동 반납</li>
+      </ul>
+    </li>
+    <li>이용방법 
+      <ul>
+        <li style="font-size:14px;"><b style="color:#00a459">웹 :</b> 대구전자도서관(<a href="https://library.daegu.go.kr/elib" target="_blank" style="font-size:13px;color:#0097cf;">https://library.daegu.go.kr/elib</a>) 접속 / 로그인 / 구독형 전자책(구독형 전자도서관 웹으로 연결·자동로그인) / 도서 검색·대출 후 읽기</li>
+        <li style="font-size:14px;"><b style="color:#ff9600">앱 :</b> 교보문고 전자도서관 앱 다운로드 / 도서관 선택(대구전자도서관) / 로그인(대구전자도서관 웹과 아이디, 비밀번호 동일) / 도서 검색·대출 후 읽기</li>
+		<li style="background:none;">※ 대구공공도서관 통합회원이면 대구전자도서관 이용 가능</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3 class="contTit_line">소장형 전자자료</h3>
+  <ul class="con">
+  	<li>서비스대상 : 전자책, 오디오북, 이러닝 강좌 등</li>
+    <li>서비스종수 : 전자책 21천종, 오디오북 8백종, 이러닝 235강좌 
+      <ul>
+        <li>전자책 보유 점수 내에서 대출(모든 도서 대출 시 예약 대기), 매분기 신간 구입 </li>
+      </ul>
+    </li>
+    <li>대출권수 및 기간 
+      <ul>
+        <li>전자책 : 1인 3권 8일 <br />※ 대출기간 만료시 자동 반납, 언제든 수동 반납 가능</li>
+		<li>오디오북 : 제한없음</li>
+      </ul>
+    </li>
+    <li>이용방법
+      <ul>
+        <li style="font-size:14px;"><b style="color:#00a459">웹 :</b> 대구전자도서관(<a href="https://library.daegu.go.kr/elib" target="_blank" style="font-size:13px;color:#0097cf;">https://library.daegu.go.kr/elib</a>) 접속 / ID, 비밀번호로 로그인 / 도서 검색·대출 후 읽기
+        <li style="font-size:14px;"><b style="color:#ff9600">앱 :</b> 대구전자도서관 앱 다운로드 / 설정 / E-BOOK 계정인증(가입도서관, 이름, 아이디) / 도서 검색·대출 후 책읽기</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h4 class="contSTit_line">문의 : 대구시립중앙도서관 도서관정책과(☎231-2037, 2039)</h4>
+</c:if>
 
 <c:choose>
 	<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
@@ -111,43 +163,41 @@
 			</c:when>
 			<c:otherwise>
 				<c:set var="libCode" value="${sessionScope.member.user_no}"/>
-
-				<form id="goEbookTest" action="https://real.e-lib.tglnet.or.kr/elib_sso.asp" method="post" accept-charset="utf-8"> 
-		
-<c:if test="${homepage.context_path eq 'jungang' or homepage.context_path eq 'dgportal'}">
-				<input type="hidden"  name="lib_code" value="122004" />
-</c:if>
-<c:if test="${homepage.context_path eq 'dongbu'}">
-				<input type="hidden"  name="lib_code" value="122010" />
-</c:if>
-<c:if test="${homepage.context_path eq 'seobu'}">
-				<input type="hidden"  name="lib_code" value="122008" />
-</c:if>
-<c:if test="${homepage.context_path eq 'nambu'}">
-				<input type="hidden"  name="lib_code" value="122009" />
-</c:if>
-<c:if test="${homepage.context_path eq 'bukbu'}">
-				<input type="hidden"  name="lib_code" value="122003" />
-</c:if>
-<c:if test="${homepage.context_path eq 'duryu'}">
-				<input type="hidden"  name="lib_code" value="122002" />
-</c:if>
-<c:if test="${homepage.context_path eq 'suseong'}">
-				<input type="hidden"  name="lib_code" value="122007" />
-</c:if>
-<c:if test="${homepage.context_path eq 'dalseong'}">
-				<input type="hidden"  name="lib_code" value="122011" />
-</c:if>
-<c:if test="${homepage.context_path eq '228'}">
-				<input type="hidden"  name="lib_code" value="122001" />
-</c:if>
-<c:if test="${homepage.context_path eq '228lib'}">
-				<input type="hidden"  name="lib_code" value="127058" />
-</c:if>
-				
-				<input type="hidden"  name="user_id" value="${sessionScope.member.member_id}" />
-				<input type="hidden"  name="name" value="${sessionScope.member.member_name}" />
-				<input type="hidden"  name="next" value="default" />
+				<form id="goEbookTest" action="https://real.e-lib.tglnet.or.kr/elib_sso.asp" method="post" accept-charset="utf-8">
+					<c:if test="${homepage.context_path eq 'jungang' or homepage.context_path eq 'dgportal'}">
+						<input type="hidden"  name="lib_code" value="122004" />
+					</c:if>
+					<c:if test="${homepage.context_path eq 'dongbu'}">
+						<input type="hidden"  name="lib_code" value="122010" />
+					</c:if>
+					<c:if test="${homepage.context_path eq 'seobu'}">
+						<input type="hidden"  name="lib_code" value="122008" />
+					</c:if>
+					<c:if test="${homepage.context_path eq 'nambu'}">
+						<input type="hidden"  name="lib_code" value="122009" />
+					</c:if>
+					<c:if test="${homepage.context_path eq 'bukbu'}">
+						<input type="hidden"  name="lib_code" value="122003" />
+					</c:if>
+					<c:if test="${homepage.context_path eq 'duryu'}">
+						<input type="hidden"  name="lib_code" value="122002" />
+					</c:if>
+					<c:if test="${homepage.context_path eq 'suseong'}">
+						<input type="hidden"  name="lib_code" value="122007" />
+					</c:if>
+					<c:if test="${homepage.context_path eq 'dalseong'}">
+						<input type="hidden"  name="lib_code" value="122011" />
+					</c:if>
+					<c:if test="${homepage.context_path eq '228'}">
+						<input type="hidden"  name="lib_code" value="122001" />
+					</c:if>
+					<c:if test="${homepage.context_path eq '228lib'}">
+						<input type="hidden"  name="lib_code" value="127058" />
+					</c:if>
+					
+					<input type="hidden"  name="user_id" value="${sessionScope.member.member_id}" />
+					<input type="hidden"  name="name" value="${sessionScope.member.member_name}" />
+					<input type="hidden"  name="next" value="default" />
 				</form>
 			</c:otherwise>
 		</c:choose>
