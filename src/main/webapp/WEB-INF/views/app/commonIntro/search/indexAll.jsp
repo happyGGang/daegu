@@ -689,9 +689,6 @@
 							</li>
 
 							<li>
-								<form:checkbox path="libraryCodes" class="libCheck lib_GZ" value="GZ" label="동구청작은도서관" />
-							</li>
-							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_HK" value="HK" label="늘푸른작은도서관" />
 							</li>
 							<li>
