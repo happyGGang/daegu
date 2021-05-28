@@ -368,10 +368,14 @@ function pasteHTML(contentId) {
 		return false;
 	}
 
-	for(var i = 0; i < selectObj.selectedOptions.length; i++) {
+	for(var i = 0; i < selectObj.options.length; i++) {
+		
+		if(!selectObj.options[i].selected) {
+			continue;
+		}
 		
 		if( selectObj.selectedIndex != -1 ) {
-			var fileId = selectObj.options[selectObj.selectedOptions[i].index].value;
+			var fileId = selectObj.options[selectObj.options[i].index].value;
 			var splitValue = fileId.split('//');
 			// 업로드가 완료되었을때만 프리뷰 사용가능
 			if( fileList[splitValue[4]].status == -4 ) {
