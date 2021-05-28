@@ -237,6 +237,113 @@ public class CommonLoginController extends BaseController {
 		}
 	}
 
+	@RequestMapping (value = {"/indexCi.*"})
+	public String loginCI(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable ("homepagePath") String homepagePath, RedirectAttributes redirectAttributes) throws Exception {
+		Homepage homepage = getSessionHomepage(request);
+		request.getSession().removeAttribute("loginSupport");
+
+		String returnUrl = String.format("%s/%s/index.do", homepage.getDomain(), homepagePath);
+
+		String ipin_hash = request.getParameter("ipin_hash");
+		member.setCi_value(ipin_hash);
+		member.setManage_code(homepage.getManage_code());
+		member.setLoginType("HOMEPAGE");
+		Object result = LoginAPI.login(member);
+		if (result instanceof Member) {
+
+			// 비번 틀려서 계정이 잠김
+			if ("Y".equals(accountLockService.isLocked(new AccountLock(member, request.getRemoteAddr())))) {
+				codeService.alertMessage("로그인 5회 중 5회 이상 실패\\n입력하신 아이디에 대해서 10분간 접속을 차단합니다.", request, response);
+				return null;
+			}
+
+			accountLockService.loginSucceeded(new AccountLock(member, request.getRemoteAddr()));
+			loginLogService.addLoginLog(new LoginLog(member, request, homepage));
+
+			try {
+
+				member = (Member) result;
+				member.setLogin(true);
+
+				member.setLast_login_ip(homepageAccessService.getLastHomepageAccess(member));
+				memberService.addMemberLastLogin(member, request);
+
+				// 관리자확인
+				Member adminMember = memberService.getMemberOne(member);
+				if (adminMember != null) {
+					member.setAdmin(adminMember.isAdmin());
+					member.setAuthorityHomepageList(adminMember.getAuthorityHomepageList());
+				}
+
+				if ((member.getAuthMap() == null || member.getAuthMap().isEmpty()) && !member.isAdmin()) {
+
+					if (member.getAuthGroupIdxList() == null || member.getAuthGroupIdxList().size() < 1) {
+						member.setAuthGroupIdxList(new ArrayList<Integer>());
+
+//						관리자 링크회원이면 기존 그룹에 추가
+						if(adminMember != null) {
+							member.setAuthGroupIdxList(memberGroupSubordService.getAuthGroupIdxList(adminMember));
+						}
+						//통합회원그룹에 속하게 한다. 도서관은 하드코딩한다...
+						if (!member.getAuthGroupIdxList().contains(3)) {
+							member.getAuthGroupIdxList().add(3);
+						}
+
+						MemberGroup memberGroup = new MemberGroup();
+						memberGroup.setSite_id(homepage.getHomepage_id());
+
+						//내 소속도서관의 사용자 그룹에만 지정한다.
+//						member.getAuthGroupIdxList().add(memberGroupService.getSiteUserGroupOne(memberGroup).getMember_group_idx());
+
+						//그룹-멤버 관계 테이블에 넣는다.
+						memberGroupSubordService.addAuthGroupMember(member);
+						//권한맵을 새로 불러온다.
+						member.setAuthMap(memberService.getMemberAuth(member));
+
+					} else {
+						//그룹-회원 관계테이블에 넣는다.
+						memberGroupSubordService.addAuthGroupMember(member);
+//					//권한정보를 다시 가져온다.
+						member.setAuthMap(memberService.getMemberAuth(member));
+
+					}
+
+				}
+			} catch (Exception e) {
+				System.out.println("@@@@@@@@@@@@@@@@ loginProcFailed : " + e.getMessage());
+			}
+
+			request.getSession().removeAttribute("loginSupport");
+			request.getSession().removeAttribute("loginPortal");
+			service.setSessionMember(member, request);
+
+			Device device = DeviceUtils.getCurrentDevice(request);
+			model.addAttribute("isMobile", device.isMobile() || device.isTablet());
+			boolean isMobile = device.isMobile() || device.isTablet();
+			if (!isMobile) {
+				request.getSession().setAttribute("showUserInfo", true);
+			}
+			request.getSession().removeAttribute("certMember");
+
+
+			if(StringUtils.equals(member.getAgreement_yn(), "N") || StringUtils.equals(member.getAgree_yn(), "N")) {
+				int url_menu_idx = menuService.getMenuIdxByLinkUrl(new Menu(homepage.getHomepage_id(), "/intro/join/reAgree.do"));
+				service.alertMessageAndUrl("재동의 인증을 하셔야 합니다. 인증 페이지로 이동합니다.", "/" + homepage.getContext_path() + "/intro/join/reAgree.do?menu_idx="+url_menu_idx, request, response);
+				return null;
+			}
+
+			return "redirect:" + returnUrl;
+
+		} else {
+			member.setHomepage_id(homepage.getHomepage_id());
+			member.setLoginType("HOMEPAGE");
+			ApiResponse errorResult = (ApiResponse) result;
+
+			codeService.alertMessage(errorResult.getMessage(), request, response);
+			return null;
+		}
+	}
+
 	/**
 	 * 로그아웃 처리
 	 *

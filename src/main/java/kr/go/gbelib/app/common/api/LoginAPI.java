@@ -1,5 +1,6 @@
 package kr.go.gbelib.app.common.api;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
@@ -27,11 +28,27 @@ public class LoginAPI {
 	public static Object login(Member member) throws Exception {
 		Map<String, Object> param = new HashMap<String, Object>();
 
-		if (StringUtils.isNotEmpty(member.getManage_code()) && member.getManage_code().length() == 2) {
-			param.put("manage_code", member.getManage_code());
+		if (StringUtils.isEmpty(member.getMember_id()) && StringUtils.isNotEmpty(member.getCi_value())) {
+			param.put("option", 5);
+			try {
+				param.put("ipin_hash", URLEncoder.encode(member.getCi_value(), "UTF-8"));
+			} catch (UnsupportedEncodingException e) {
+			}//CI
+			param.put("api_key", "79724C6D73152DC1035B16B6198665D34A640D5D11E8ACD60083FA80FE417E58");
+			member.setMember_pw("test");
+		} else {
+			if (StringUtils.isNotEmpty(member.getManage_code()) && member.getManage_code().length() == 2) {
+				param.put("manage_code", member.getManage_code());
+			}
+			param.put("password", CalculateHashUtils.calculateHashSHA256(member.getMember_pw()));// PW는 sha256
+			param.put("id", URLEncoder.encode(member.getMember_id(), "UTF-8"));
 		}
-		param.put("password", CalculateHashUtils.calculateHashSHA256(member.getMember_pw()));// PW는 sha256
-		param.put("id", URLEncoder.encode(member.getMember_id(), "UTF-8"));
+
+
+		//local
+//		param.put("option", 3);
+//		param.put("user_no", member.getMember_id());
+//		param.put("api_key", "79724C6D73152DC1035B16B6198665D34A640D5D11E8ACD60083FA80FE417E58");
 
 		Map<String, Object> loginMap = CommonAPI.sendKCMS("userlogin", param);
 
@@ -77,12 +94,28 @@ public class LoginAPI {
 				}
 
 
-				Map<String, Object> userInfo = MemberAPI.getUserInfo(member.getMember_id(), member.getMember_pw());
+				Map<String, Object> userInfo = new HashMap<String, Object>();
+				String userInfoResult = "";
+				if (StringUtils.equals(member.getMember_pw(), "test")) {
+					List<Map<String, Object>> maps = MemberAPI.checkDupUser("1", member);
+					if (maps != null) {
+						userInfo = maps.get(0);
+						userInfoResult = "SUCCESS";
+					}
+				} else {
+					userInfo = MemberAPI.getUserInfo(member.getMember_id(), member.getMember_pw());
+					userInfoResult = String.valueOf(userInfo.get("RESULT_INFO"));
+				}
+
 				Map<String, Object> memberInfo = null;
-				String userInfoResult = String.valueOf(userInfo.get("RESULT_INFO"));
 
 				if (StringUtils.equals(userInfoResult, "SUCCESS")) {
-					memberInfo = LibSearchAPI.getListData(userInfo, "USER_DATA").get(0);
+					if (StringUtils.equals(member.getMember_pw(), "test")) {
+						memberInfo = userInfo;
+					} else {
+						memberInfo = LibSearchAPI.getListData(userInfo, "USER_DATA").get(0);
+					}
+
 
 					String zipcode = String.valueOf(memberInfo.get("H_ZIPCODE"));
 					if (StringUtils.isNotEmpty(zipcode) && !StringUtils.equals(zipcode, "null")) {

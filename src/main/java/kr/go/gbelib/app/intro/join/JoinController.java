@@ -527,7 +527,12 @@ public class JoinController extends BaseController {
 		}
 
 		Member sessionMemberInfo = getSessionMemberInfo(request);
-		if (!member.getMember_pw().equals(sessionMemberInfo.getMember_pw())) {
+
+		Map<String, Object> userInfo = MemberAPI.getUserInfo(sessionMemberInfo.getMember_id(), member.getMember_pw());
+
+		String resultInfo = String.valueOf(userInfo.get("RESULT_INFO"));
+
+		if (!"SUCCESS".equals(resultInfo)) {
 			joinService.alertMessage("비밀번호가 일치하지 않습니다.", request, response);
 			return null;
 		}

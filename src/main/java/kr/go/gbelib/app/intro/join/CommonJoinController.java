@@ -231,10 +231,20 @@ public class CommonJoinController extends BaseController {
 
 		//비밀번호 확인
 		Member sessionMemberInfo = getSessionMemberInfo(request);
-		if (!member.getMember_pw().equals(sessionMemberInfo.getMember_pw())) {
+
+		Map<String, Object> userInfo = MemberAPI.getUserInfo(sessionMemberInfo.getMember_id(), member.getMember_pw());
+
+		String resultInfo = String.valueOf(userInfo.get("RESULT_INFO"));
+
+		if (!"SUCCESS".equals(resultInfo)) {
 			joinService.alertMessage("비밀번호가 일치하지 않습니다.", request, response);
 			return null;
 		}
+
+//		if (!member.getMember_pw().equals(sessionMemberInfo.getMember_pw())) {
+//			joinService.alertMessage("비밀번호가 일치하지 않습니다.", request, response);
+//			return null;
+//		}
 
 		sessionMemberInfo.setMenu_idx(member.getMenu_idx());
 		sessionMemberInfo.setEditMode("MODIFY");
