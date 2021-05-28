@@ -20,7 +20,6 @@
 
 <form name="frm_kyobo_ebook" id="frm_kyobo_ebook" method="post" action="https://daegu.dkyobobook.co.kr/frontapi/mmbrLnkg.ink" accept-charset="UTF-8" target="_blank">
 	<input id="user_id" name="user_id" type="hidden" value="${sessionScope.member.member_id}"/>
-	<input name="user_name" type="hidden" value ="${sessionScope.member.member_name}">
 	<input type="hidden" name="user_type" value ="T1">
 	<input type="hidden" name="user_type_name" value ="회원">
 	<input id="libraryCode" name="libraryCode" type="hidden" value="24709" />
