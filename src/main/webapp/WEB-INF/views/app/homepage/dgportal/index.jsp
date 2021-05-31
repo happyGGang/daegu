@@ -472,7 +472,7 @@ do {
 											<ul>
 
 												<li>
-													<a href="http://www.icuration.co.kr/curation/w/63" target="_blank">
+													<a href="http://www.icuration.co.kr:81/curation/w/72" target="_blank">
 														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu01.png" alt="대구동네책방"></div>
 														<p class="book-title">대구 동네책방</p>
 														<p class="book-desc">책과 공간을 나누는 대구 동네책방 발견의 기쁨</p>
@@ -481,7 +481,7 @@ do {
 												</li>
 
 												<li>
-													<a href="http://www.icuration.co.kr/curation/w/67" target="_blank">
+													<a href="http://www.icuration.co.kr:81/curation/w/75" target="_blank">
 														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu02.png" alt="국채보상운동"></div>
 														<p class="book-title">국채보상운동</p>
 														<p class="book-desc">역사가 살아있는 대구, 국채보상운동 발자취를 따라서~</p>
@@ -490,7 +490,7 @@ do {
 												</li>
 
 												<li>
-													<a href="http://www.icuration.co.kr/curation/w/66" target="_blank">
+													<a href="http://www.icuration.co.kr:81/curation/w/74" target="_blank">
 														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu03.png" alt="대구 북카페"></div>
 														<p class="book-title">대구 북카페</p>
 														<p class="book-desc">이제, 독서도 우아하게</p>
@@ -499,7 +499,7 @@ do {
 												</li>
 
 												<li>
-													<a href="http://www.icuration.co.kr/curation/w/65" target="_blank">
+													<a href="http://www.icuration.co.kr:81/curation/w/73" target="_blank">
 														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu04.png" alt="대구 명소"></div>
 														<p class="book-title">대구 명소</p>
 														<p class="book-desc">즐기는 대구! 대구 속 명소 찾기</p>
@@ -509,7 +509,7 @@ do {
 
 
 												<li>
-													<a href="http://www.icuration.co.kr/curation/w/61" target="_blank">
+													<a href="http://www.icuration.co.kr:81/curation/w/71" target="_blank">
 														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu05.png" alt="대구지역출판사"></div>
 														<p class="book-title">대구 지역출판사</p>
 														<p class="book-desc">대구 지역의 출판사를 소개합니다!</p>
@@ -1983,36 +1983,36 @@ do {
 					<ul>
 
 						<li>
-							<a href="http://www.icuration.co.kr/curation/w/63" target="_blank">
-								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu01.png" alt="대구 동네책방"></div>
-								<h3 class="book-title">대구 동네책방</h3>
-								<p class="book-desc">책과 공간을 나누는 대구 동네책방, 발견의 기쁨!</p>
+							<a href="http://www.icuration.co.kr:81/curation/w/72" target="_blank">
+								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu01.png" alt="대구동네책방"></div>
+								<p class="book-title">대구 동네책방</p>
+								<p class="book-desc">책과 공간을 나누는 대구 동네책방 발견의 기쁨</p>
 								<p class="reg-date">2020-12-10</p>
 							</a>
 						</li>
 
 						<li>
-							<a href="http://www.icuration.co.kr/curation/w/67" target="_blank">
+							<a href="http://www.icuration.co.kr:81/curation/w/75" target="_blank">
 								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu02.png" alt="국채보상운동"></div>
-								<h3 class="book-title">국채보상운동</h3>
-								<p class="book-desc">대구 국채보상운동! 어디까지 알고 있으세요?</p>
+								<p class="book-title">국채보상운동</p>
+								<p class="book-desc">역사가 살아있는 대구, 국채보상운동 발자취를 따라서~</p>
 								<p class="reg-date">2020-12-09</p>
 							</a>
 						</li>
 
 						<li>
-							<a href="http://www.icuration.co.kr/curation/w/66" target="_blank">
+							<a href="http://www.icuration.co.kr:81/curation/w/74" target="_blank">
 								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu03.png" alt="대구 북카페"></div>
-								<h3 class="book-title">대구 북카페</h3>
+								<p class="book-title">대구 북카페</p>
 								<p class="book-desc">이제, 독서도 우아하게</p>
 								<p class="reg-date">2020-12-08</p>
 							</a>
 						</li>
 
 						<li>
-							<a href="http://www.icuration.co.kr/curation/w/65" target="_blank">
+							<a href="http://www.icuration.co.kr:81/curation/w/73" target="_blank">
 								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu04.png" alt="대구 명소"></div>
-								<h3 class="book-title">대구 명소</h3>
+								<p class="book-title">대구 명소</p>
 								<p class="book-desc">즐기는 대구! 대구 속 명소 찾기</p>
 								<p class="reg-date">2020-12-03</p>
 							</a>
@@ -2020,9 +2020,9 @@ do {
 
 
 						<li>
-							<a href="http://www.icuration.co.kr/curation/w/61" target="_blank">
+							<a href="http://www.icuration.co.kr:81/curation/w/71" target="_blank">
 								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu05.png" alt="대구지역출판사"></div>
-								<h3 class="book-title">대구 지역출판사</h3>
+								<p class="book-title">대구 지역출판사</p>
 								<p class="book-desc">대구 지역의 출판사를 소개합니다!</p>
 								<p class="reg-date">2020-12-02</p>
 							</a>
