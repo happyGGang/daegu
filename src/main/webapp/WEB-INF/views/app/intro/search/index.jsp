@@ -920,8 +920,8 @@ $(function() {
 														</c:choose>
 											</p>
 											<p><font style="color:#5e5e5e">매체구분</font> : <span style="">${i.MEDIA_NAME}</span></p>
-											<c:if test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib'}">
-											<p><font style="color:#5e5e5e">521CODE</font> : <span style="">${i.marc}</span></p>
+											<c:if test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib' || context_path eq 'bukgs' || context_path eq 'bukdh' || context_path eq 'buktj' || context_path eq 'buks'}">
+											<p><font style="color:#5e5e5e">영어독서 레벨</font> : <span style="">${i.marc}</span></p>
 											</c:if>
 											<!-- <p><font style="color:#5e5e5e">소장위치</font> : <span style="font-weight:800;">${i.SHELF_LOC_NAME}</span></p> -->
 											<div class="stat">
