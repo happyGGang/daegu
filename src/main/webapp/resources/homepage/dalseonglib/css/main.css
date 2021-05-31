@@ -44,8 +44,8 @@
 .book .cont .bx-prev { position:absolute;width:50px;height:50px;font-size:0;background-image:url("../img/popupzone-arrow-v2.png");background-repeat: no-repeat; background-position:0 0;background-size:initial;left:0;top:22%; }
 .book .cont .bx-next { position:absolute;width:50px;height:50px;font-size:0;background-image:url("../img/popupzone-arrow-v2.png");background-repeat: no-repeat; background-position:0 0;background-size:initial;right:0;top:22%;background-position:-50px 0; }
 
-.search-box {position:relative;width:100%;box-sizing:border-box;padding:35px 25px 0 25px;height:230px;border-top:1px solid #eaeaea;}
-.search-box .dalseong-slogan {position:absolute;right:33px;top:30px;}
+.search-box {position:relative;width:100%;box-sizing:border-box;padding:40px 25px 0 25px;height:230px;border-top:1px solid #eaeaea;}
+.search-box .dalseong-slogan {position:absolute;right:33px;top:15px;}
 .search-box fieldset{position:relative;overflow:hidden;}
 .search-box legend {font-size:22px;font-weight:bold;color:#000;}
 .search-box .box1 {position:relative;width:100%;margin:0 auto;box-sizing:border-box;display:inline-block;border-style:solid;border-image:linear-gradient(to bottom, #b359c1 0%, #7544bb 100%);border-image-slice:1;background:#fff;border-image-width:20px;padding:7px;}
@@ -53,11 +53,12 @@
 .search-box input:focus{outline:none}
 .search-box button {height:67px;line-height:67px;}
 .search-box button {position:absolute;width:77px;right:0;top:0;text-align:center;background:url('/resources/homepage/dalseonglib/img/search-btnbtnbtn.png') no-repeat center center;font-size:0;border-top-right-radius:35px;border-bottom-right-radius:35px;}
-.search-box .main-box {position:relative;width:100%;margin:25px auto 0;border:0;overflow:hidden;box-shadow:4px 4px 11px 0 rgba(0,0,0,0.2);}
-.search-box .bestKeyword {position:relative;padding:10px 0 0 15px;font-size:14px;}
+.search-box .main-box {position:relative;width:100%;margin:10px auto 0;border:0;overflow:hidden;box-shadow:4px 4px 11px 0 rgba(0,0,0,0.2);}
+.search-box .bestKeyword {position:relative;padding:10px 0 0 5px;font-size:14px;}
 .search-box .bestKeyword b {position:relative;color:#7644bb;letter-spacing:-1.5px;}
-.search-box .bestKeyword b:after {position:absolute;content:"";top:5px;width:1px;right:-20px;height:10px;background:#7644bb;}
-.search-box .bestKeyword .key-word {display:inline-block;padding-left:30px;}
+.search-box .bestKeyword b:after {position:absolute;content:"";top:5px;width:1px;right:-20px;height:10px;background:#7644bb;display:none;}
+.search-box .bestKeyword .key-word {display:inline;margin-left:5px;}
+.search-box .bestKeyword .key-word a{font-size:13px;}
 .notice-box {position:relative;background:#fff;box-sizing:border-box;padding:15px 25px;height:310px;border-top:1px solid #eaeaea;}
 .calendar-box {}
 
