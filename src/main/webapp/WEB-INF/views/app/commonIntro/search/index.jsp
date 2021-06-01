@@ -252,7 +252,7 @@ $(function() {
 	}
 
 
-	<c:if test="${empty librarySearch.title}">
+	<c:if test="${empty librarySearch.title and empty librarySearch.libraryCodes}">
 	//$('#checkAll').click();context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' 
 		<c:choose>
 			<c:when test="${homepage.context_path eq 'donggu'}">
