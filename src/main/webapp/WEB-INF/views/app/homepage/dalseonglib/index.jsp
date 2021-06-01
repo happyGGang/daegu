@@ -265,7 +265,7 @@ do {
 						<div class="bestKeyword">
 							<b>자주 찾는 검색어</b> <span class="key-word">
 							<c:forEach items="${hotTrendList}" varStatus="status" var="i">
-								<a href="/${homepage.context_path}/intro/search/index.do?menu_idx=9&booktype=BOOKANDNONBOOKtitle=${fn:escapeXml(i.SEARCH_WORD)}">${fn:trim(i.SEARCH_WORD)}</a>
+								<a href="/${homepage.context_path}/intro/search/index.do?menu_idx=9&booktype=BOOKANDNONBOOK&title=${fn:escapeXml(i.SEARCH_WORD)}">${fn:trim(i.SEARCH_WORD)}</a>
 							</c:forEach>
 							</span>
 						</div>
