@@ -110,6 +110,22 @@ $(function(){
 		$('#teach #viewPage').val(1);
 		doGetLoad('index.do', serializeCustom($('form#teach')));
 	});
+	
+	$('select#select_status').on('change', function() {
+		var v = $(this).val();
+		
+		if(v == '') {
+			$('tbody#teach_list tr').show();
+			return false;
+		}
+		
+		v = v.split(',');
+		$('tbody#teach_list tr').hide();
+		
+		for(var i = 0; i < v.length; i++) {
+			$('tr.status_' + v[i]).show();
+		}
+	});
 });
 </script>
 <style>
@@ -125,7 +141,6 @@ $(function(){
 	<form:hidden path="teach_idx"/>
 	<form:hidden path="menu_idx"/>
 <%-- 	<form:hidden path="category_idx"/> --%>
-	<form:hidden path="large_category_idx"/>
 	<form:hidden path="searchCate1"/>
 	<form:hidden id="homepage_id_1" path="homepage_id"/>
 
@@ -255,6 +270,21 @@ $(function(){
 					</label>
 				</c:forEach>
 			</div>
+			<!-- 
+			<div>
+				<select id="select_status" class="new_select_box">
+					<option class="all" label="선택" />
+					<option value="0" label="수강신청" />
+					<option value="1" label="대기자신청" />
+					<option value="2,10" label="신청완료" />
+					<option value="3" label="대기자신청완료" />
+					<option value="4" label="접수마감" />
+					<option value="5" label="정원마감" />
+					<option value="6" label="신청대기" />
+					<option value="9" label="수강종료" />
+				</select>
+			</div>
+			 -->
 		</fieldset>
 	</div>
 
@@ -299,10 +329,10 @@ ${html.html}
 			</c:when>
 
 			<c:otherwise>
-			<tbody>
+			<tbody id="teach_list">
 					
 					<c:forEach items="${teachList}" var="i">
-					<tr>
+					<tr class="status_${i.teach_status}">
 						<td data-th="제목" class="title left" style="padding-left:5px;">
 							<dl>
 								<dd><span class="ca ty2">${i.group_name}</span></dd>
