@@ -129,11 +129,39 @@ $(function(){
 });
 </script>
 <style>
+	.new_search_box{position:relative;}
+
 	.list01 td .btn{width:95px;padding:5px 8px;}
 
 	.btn.btn8.disabled:hover,
 	.btn.btn8{background-color:#666;border-color:#444;color:#fff}
 	.btn.btn8:hover{background-color:#555;border-color:#444}
+
+	.srch_category_box{margin-top:10px;}
+
+	.srch_name_box .new_text01{width:600px;}
+
+	.search select{width:150px;}
+
+	.m_br{display:none;}
+
+	.ml10{margin-left:10px;}
+
+	@media all and (max-width:1100px){
+		.search{text-align:left;}
+		.new_search_box{padding:30px !important;}
+		.srch_category_box{margin-top:3px;}
+		.srch_name_box .new_text01{width:100%;}
+		.m_br{height:4px;display:block;}
+		.ml10{margin-left:0;}
+		#search_btn{position:absolute;bottom:30px;}
+		.srch_day_box{text-align:left;margin-bottom:50px;}
+	}
+
+	@media all and (max-width:425px){
+		.srch_category_box select{width:150px !important;margin-bottom:0;}
+		.srch_day_box{width:100%;}
+	}
 </style>
 
 <form:form modelAttribute="teach" action="/${homepage.context_path}/module/teach/student/save.do" method="POST" onsubmit="return false">
@@ -225,8 +253,8 @@ $(function(){
 
 	<div class="search new_search_box">
 		<fieldset>
-			<div style="text-align:center;margin-bottom:10px;">
-				<div class="fl_left_box">
+			<div style="margin-bottom:10px;">
+				<div class="srch_name_box">
 					<form:select path="search_type" cssClass="selectmenu new_select_box">
 						<form:option value="teach_name"><c:choose>
 						<c:when test="${param.searchCate1 eq '16'}">행사명</c:when>
@@ -235,17 +263,32 @@ $(function(){
 						<c:otherwise>강좌명</c:otherwise></c:choose>
 						</form:option>
 					</form:select>
+					<p class="m_br"></p>
 					<form:input path="search_text" cssClass="text new_text01"/>
 				</div>
 				<div class="srch_category_box">
 					<p style="height:2px;"></p>
+					<span>접수상태 :</span>
+					<select id="select_status" class="new_select_box">
+						<option class="all" label="선택" />
+						<option value="0" label="수강신청" />
+						<option value="1" label="대기자신청" />
+						<option value="2,10" label="신청완료" />
+						<option value="3" label="대기자신청완료" />
+						<option value="4" label="접수마감" />
+						<option value="5" label="정원마감" />
+						<option value="6" label="신청대기" />
+						<option value="9" label="수강종료" />
+					</select>
+					<p class="m_br"></p>
 					<span>중분류 :
 						<form:select path="group_idx" cssClass="new_select_box">
 							<form:option class="all" value="0" label="전체" />
 							<form:options itemValue="group_idx" itemLabel="group_name" items="${categoryGroupList}"/>
 						</form:select>
 					</span>
-					<span style="margin-left:10px;">소분류 :
+					<p class="m_br"></p>
+					<span class="ml10">소분류 :
 						<form:select path="category_idx" cssClass="new_select_box">
 							<form:option class="all" value="0" label="전체" />
 							<c:forEach items="${categoryList}" var="i">
@@ -253,6 +296,7 @@ $(function(){
 							</c:forEach>
 						</form:select>
 					</span>
+					<p class="m_br"></p>
 					<a href="#" class="btn btn1" id="search_btn"><i class="fa fa-search"></i><span>검색</span></a>
 				</div>
 			</div>
@@ -270,21 +314,6 @@ $(function(){
 					</label>
 				</c:forEach>
 			</div>
-			<!-- 
-			<div>
-				<select id="select_status" class="new_select_box">
-					<option class="all" label="선택" />
-					<option value="0" label="수강신청" />
-					<option value="1" label="대기자신청" />
-					<option value="2,10" label="신청완료" />
-					<option value="3" label="대기자신청완료" />
-					<option value="4" label="접수마감" />
-					<option value="5" label="정원마감" />
-					<option value="6" label="신청대기" />
-					<option value="9" label="수강종료" />
-				</select>
-			</div>
-			 -->
 		</fieldset>
 	</div>
 
