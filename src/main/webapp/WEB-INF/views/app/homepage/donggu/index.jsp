@@ -515,7 +515,7 @@ do {
 						<area shape="circle" coords="187,338,9.5" href="#lib-selector" alt="(공립)방촌동 작은도서관" class="maps" data-value="13"/>
 						<area shape="circle" coords="229,333,9.5" href="#lib-selector" alt="(공립)해안동 작은도서관" class="maps" data-value="14"/>
 						<area shape="circle" coords="353,385,9.5" href="#lib-selector" alt="(공립)반야월역사 작은도서관" class="maps" data-value="15"/>
-						<area shape="circle" coords="106,338,9.5" href="#lib-selector" alt="(공립)동구청 작은도서관" class="maps" data-value="16"/>
+						<!-- <area shape="circle" coords="106,338,9.5" href="#lib-selector" alt="(공립)동구청 작은도서관" class="maps" data-value="16"/> -->
 						<area shape="circle" coords="95,349,7" href="#lib-selector" alt="(사립)신암5동 작은도서관" class="maps" data-value="17"/>
 						<area shape="circle" coords="186,364,7" href="#lib-selector" alt="(사립)방촌어린이도서관" class="maps" data-value="18"/>
 						<area shape="circle" coords="256,409,7" href="#lib-selector" alt="(사립)율하5주민도서관" class="maps" data-value="19"/>
@@ -548,7 +548,7 @@ do {
 									<option value="13">(공립)방촌동 작은도서관</option>
 									<option value="14">(공립)해안동 작은도서관</option>
 									<option value="15">(공립)반야월역사 작은도서관</option>
-									<option value="16">(공립)동구청 작은도서관</option>
+									<!-- <option value="16">(공립)동구청 작은도서관</option> -->
 									<option value="17">(사립)신암5동 작은도서관</option>
 									<option value="18">(사립)방촌어린이도서관</option> 
 									<option value="19">(사립)율하5주민도서관</option>
@@ -604,9 +604,9 @@ do {
 								<div class="divbInfomationConts" id="divbInfo15">
 									대구광역시 동구 신서로 50<br/>(대구선2공원 내 철도역사 1동)<br/>053-662-4110
 								</div>
-								<div class="divbInfomationConts" id="divbInfo16">
+								<!-- <div class="divbInfomationConts" id="divbInfo16">
 									대구광역시 동구 아양로 207<br/>(동구청1층)<br/>053-662-2489
-								</div>
+								</div> -->
 								<div class="divbInfomationConts" id="divbInfo17">
 									대구광역시 동구 아양로37길 92<br/>(신암5동주민센터 2층)<br/>053-662-3485
 								</div>
@@ -669,6 +669,7 @@ do {
 								<li>
 									<dt>이용시간</dt>
 									<dd>평일 09:00~18:00</dd>
+									<dd>점심시간 12:00~13:00</dd>
 								</li>
 								<li>
 									<dt>휴관일</dt>
@@ -682,6 +683,7 @@ do {
 								<li>
 									<dt>이용시간</dt>
 									<dd>09:00 ~ 18:00</dd>
+									<dd>점심시간 12:00~13:00</dd>
 								</li>
 								<li>
 									<dt>휴관일</dt>
@@ -695,6 +697,7 @@ do {
 								<li>
 									<dt>이용시간</dt>
 									<dd>평일 09:00~18:00</dd>
+									<dd>점심시간 12:00~13:00</dd>
 								</li>
 								<li>
 									<dt>휴관일</dt>
@@ -708,6 +711,7 @@ do {
 								<li>
 									<dt>이용시간</dt>
 									<dd>평일 09:00~18:00</dd>
+									<dd>점심시간 12:00~13:00</dd>
 								</li>
 								<li>
 									<dt>휴관일</dt>
@@ -721,6 +725,7 @@ do {
 								<li>
 									<dt>이용시간</dt>
 									<dd>평일 09:00~18:00</dd>
+									<dd>점심시간 12:00~13:00</dd>
 								</li>
 								<li>
 									<dt>휴관일</dt>
@@ -734,6 +739,7 @@ do {
 								<li>
 									<dt>이용시간</dt>
 									<dd>평일 09:00~18:00</dd>
+									<dd>점심시간 12:00~13:00</dd>
 								</li>
 								<li>
 									<dt>휴관일</dt>
@@ -747,6 +753,7 @@ do {
 								<li>
 									<dt>이용시간</dt>
 									<dd>평일 09:00~18:00</dd>
+									<dd>점심시간 12:00~13:00</dd>
 								</li>
 								<li>
 									<dt>휴관일</dt>
@@ -760,6 +767,7 @@ do {
 								<li>
 									<dt>이용시간</dt>
 									<dd>평일 09:00~18:00</dd>
+									<dd>점심시간 13:00~14:00</dd>
 								</li>
 								<li>
 									<dt>휴관일</dt>
@@ -773,6 +781,7 @@ do {
 								<li>
 									<dt>이용시간</dt>
 									<dd>평일 09:00~18:00</dd>
+									<dd>점심시간 12:00~13:00</dd>
 								</li>
 								<li>
 									<dt>휴관일</dt>
@@ -786,6 +795,7 @@ do {
 								<li>
 									<dt>이용시간</dt>
 									<dd>평일 09:00~18:00</dd>
+									<dd>점심시간 11:30~12:30</dd>
 								</li>
 								<li>
 									<dt>휴관일</dt>
@@ -799,6 +809,7 @@ do {
 								<li>
 									<dt>이용시간</dt>
 									<dd>평일 09:00~18:00</dd>
+									<dd>점심시간 13:00~14:00</dd>
 								</li>
 								<li>
 									<dt>휴관일</dt>
@@ -812,6 +823,7 @@ do {
 								<li>
 									<dt>이용시간</dt>
 									<dd>평일 09:00~18:00</dd>
+									<dd>점심시간 12:00~13:00</dd>
 								</li>
 								<li>
 									<dt>휴관일</dt>
@@ -825,6 +837,7 @@ do {
 								<li>
 									<dt>이용시간</dt>
 									<dd>평일 09:00~18:00</dd>
+									<dd>점심시간 13:00~14:00</dd>
 								</li>
 								<li>
 									<dt>휴관일</dt>
