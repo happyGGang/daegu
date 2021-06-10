@@ -325,6 +325,19 @@ ${html.html}
 	<a href="anonyApplyCheck.do?homepage_id=${fn:escapeXml(teach.homepage_id)}&menu_idx=${fn:escapeXml(param.menu_idx)}" class="btn btn1" style="font-size:14px;">비회원 신청확인</a>
 </div>
 
+<c:if test="${homepage.context_path eq 'junggu'}">
+	<c:if test="${param.menu_idx eq '32'}">
+		<c:if test="${param.homepage_id eq 'h74' || param.homepage_id eq '' || param.homepage_id eq null }">
+			<c:if test="${param.searchCate1 eq '17'}">
+				<p style="color:#ff0000;font-weight:bold;text-align:left;margin-left:50px;margin-bottom:30px;font-size:18px;">
+					※ “직전분기 수강이력 없는 신청자 우선 수강” 기준이 적용됩니다.<br />
+					<span style="color:#000;">따라서 수강신청 시 확인되는 순위는 접수 순서이며,<br />신청기간이 종료된 후 7일 이내 최종 확정 여부를 개별 문자로 안내드릴 예정이오니 양해 부탁드립니다.</span>
+				</p>
+			</c:if>
+		</c:if>
+	</c:if>
+</c:if>
+
 <div class="op_wrap">
 	<div class="smain">
 		<table class="list01 rwd-table" summary="문화행사신청 게시물. 본 데이터표는 8컬럼, 10로우로 구성되어 있습니다. 각 로우는 번호, 분류,  제목,   등록자, 등록일, 조회로 구성되어 있습니다." cellspacing="0" cellpadding="0" border="0">
