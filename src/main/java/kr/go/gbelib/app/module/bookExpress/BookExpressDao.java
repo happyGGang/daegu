@@ -13,6 +13,8 @@ public interface BookExpressDao {
 	
 	public int addInterestBook(BookExpress bookExpress);
 	
+	public int expressDuplCheck(BookExpress bookExpress);
+	
 	public int modifyBookExpress(BookExpress bookExpress);
 	
 	public int deleteCheckBookExpress(BookExpress bookExpress);

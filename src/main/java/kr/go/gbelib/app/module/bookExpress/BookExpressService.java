@@ -32,6 +32,10 @@ public class BookExpressService extends BaseService {
 		return dao.addInterestBook(bookExpress);
 	}
 	
+	public int expressDuplCheck(BookExpress bookExpress) {
+		return dao.expressDuplCheck(bookExpress);
+	}
+	
 	public int modifyBookExpress(BookExpress bookExpress) {
 		return dao.modifyBookExpress(bookExpress);
 	}

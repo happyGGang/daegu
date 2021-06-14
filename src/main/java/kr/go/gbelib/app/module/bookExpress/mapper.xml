@@ -61,6 +61,22 @@
 			#{book_name}, #{thumb_image}, 0, SYSDATE, #{add_id}
 		)
 	</insert>
+	
+	<select id="expressDuplCheck"  resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			BOOK_EXPRESS a, BOOK_EXPRESS b
+		WHERE
+			a.library_code = b.library_code
+		AND	a.book_reg_no = b.book_reg_no
+		AND	a.book_call_no = b.book_call_no
+		AND	a.book_express_idx IN
+			<foreach collection="book_express_arr" item="i" open="(" close=")" separator=","> 
+			#{i}
+			</foreach>
+		AND	b.request_status NOT IN ('0', '3', '5', '6')
+	</select>
 
 	<update id="modifyBookExpress">
 		UPDATE

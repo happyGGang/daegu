@@ -108,6 +108,11 @@ public class BookExpressController extends BaseController {
 				res.setValid(true);
 				res.setMessage("");
 			} else if (bookExpress.getEditMode().equals("MODIFY")) {
+				if(service.expressDuplCheck(bookExpress) > 0) {
+					res.setValid(false);
+					res.setMessage("택배 요청된 도서입니다.");
+					return res;
+				}
 				bookExpress.setModify_id(loginPortal.getAgency_id());
 				bookExpress.setRequest_status("1");
 				service.modifyBookExpress(bookExpress);
