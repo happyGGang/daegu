@@ -69,4 +69,8 @@ public interface HomepageAccessDao {
 	 */
 	public List<HomepageAccess> getChartViewDivData(HomepageAccess homepageAccess);
 
+	HomepageAccess getStatisticsCountLog(HomepageAccess homepageAccess);
+
+	HomepageAccess getStatisticsCountLogMobile(HomepageAccess homepageAccess);
+
 }

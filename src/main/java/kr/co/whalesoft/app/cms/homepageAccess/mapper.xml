@@ -155,6 +155,17 @@
 			STAT_COUNT_LOG_SEQ.NEXTVAL, #{homepage_id}, #{start_date}, #{session_id}, #{access_ip}, #{referer_url}, #{user_agent}, 1
 		)
     </insert>
+
+	<select id="getStatisticsCountLog" resultType="kr.co.whalesoft.app.cms.homepageAccess.HomepageAccess">
+		SELECT
+			access_idx, homepage_id, access_date, session_id, access_ip, referer_url, user_agent, access_cnt
+		FROM
+			STATISTICS_COUNT_LOG
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	access_date = #{start_date}
+		AND	session_id = #{session_id}
+	</select>
     
     <insert id="addStatisticsCountLogMobile">
 		INSERT INTO STATISTICS_COUNT_LOG_MOBILE (
@@ -163,6 +174,17 @@
 			STAT_COUNT_LOG_MOBILE_SEQ.NEXTVAL, #{homepage_id}, #{start_date}, #{session_id}, #{access_ip}, #{referer_url}, #{user_agent}, 1
 		)
     </insert>
+
+	<select id="getStatisticsCountLogMobile" resultType="kr.co.whalesoft.app.cms.homepageAccess.HomepageAccess">
+		SELECT
+			access_idx, homepage_id, access_date as start_date, session_id, access_ip, referer_url, user_agent, access_cnt
+		FROM
+			STATISTICS_COUNT_LOG_MOBILE
+		WHERE
+			homepage_id = #{homepage_id}
+		  AND	access_date = #{start_date}
+		  AND	session_id = #{session_id}
+	</select>
     
     <update id="updateStatisticsCount">
     	UPDATE STATISTICS_COUNT SET
@@ -185,6 +207,7 @@
     		access_cnt = access_cnt+1
     	WHERE
     		homepage_id = #{homepage_id}
+    	AND access_idx = #{access_idx}
     	AND access_date = #{start_date}
     	AND session_id = #{session_id}
     </update>
@@ -194,6 +217,7 @@
     		access_cnt = access_cnt+1
     	WHERE
     		homepage_id = #{homepage_id}
+		AND access_idx = #{access_idx}
     	AND access_date = #{start_date}
     	AND session_id = #{session_id}
     </update>

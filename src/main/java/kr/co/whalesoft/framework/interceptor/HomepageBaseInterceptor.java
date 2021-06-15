@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.go.gbelib.app.cms.module.elib.category.ElibCategoryService;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -54,6 +55,13 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 
 	@Autowired
 	private RecommendSiteService recommendSiteService;
+
+
+	@Autowired
+	private ElibCategoryService elibCategoryService;
+
+	@Autowired
+	private ElibCodeService elibCodeService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -140,8 +148,18 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 						elibCode.setApproved_yn("Y");
 					}
 
+					// TODO 전자도서관 변경 시 dgElibAPIService 사용하는 부분을 제거하고 아래 주석을 풀어야 함.
+					/*List<ElibCategory> categoryList = elibCategoryService.getCategoryWithCntList(elibCategory);
+					request.setAttribute("categoryMenuList", categoryList);
+
+					List<ElibCode> compList = elibCodeService.getCompWithCntList(elibCode);
+					request.setAttribute("compMenuList", compList);*/
+
 					List<ElibCategory> categoryList = dgElibAPIService.getLeftCategory();
 					request.setAttribute("categoryMenuList", categoryList);
+
+					//					List<Book> deviceList = bookService.getBookCountByDevice(book);
+					//					request.setAttribute("deviceMenuList", deviceList);
 				}
 			} else {
 //				return false;
@@ -257,26 +275,34 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 			// String os = StringUtils.defaultString(r.get("os"));
 			// String os_version = StringUtils.defaultString(r.get("os_version"));
 
+			HttpSession session = request.getSession();
+			if (session.getAttribute("accessIdx") != null) {
+				homepageAccess.setAccess_idx((Long) session.getAttribute("accessIdx"));
+			}
+			long accessIdx = 0;
 			// 접속 로그
 			if ("pc".equals(category)) {
 				// PC
-				homepageAccessService.addStatisticsCountLog(homepageAccess);
+				accessIdx = homepageAccessService.addStatisticsCountLog(homepageAccess);
 			} else if ("smartphone".equals(category)) {
 				// 모바일
-				homepageAccessService.addStatisticsCountLogMobile(homepageAccess);
+				accessIdx = homepageAccessService.addStatisticsCountLogMobile(homepageAccess);
 			} else if ("crawler".equals(category)) {
 				// 검색 엔진
 
 			} else if ("mobilephone".equals(category) || "appliance".equals(category)) {
 				// 모바일
-				homepageAccessService.addStatisticsCountLogMobile(homepageAccess);
+				accessIdx = homepageAccessService.addStatisticsCountLogMobile(homepageAccess);
 			} else {
 				// 기타
-				homepageAccessService.addStatisticsCountLog(homepageAccess);
+				accessIdx = homepageAccessService.addStatisticsCountLog(homepageAccess);
+			}
+			if (accessIdx > 1) {
+				session.setAttribute("accessIdx", accessIdx);
 			}
 
 			// 접속 통계
-			HttpSession session = request.getSession();
+
 			String sessionFlag = homepage_id + "_addStatisticsCount";
 			if (session.getAttribute(sessionFlag) == null) {
 				session.setAttribute(sessionFlag, true);

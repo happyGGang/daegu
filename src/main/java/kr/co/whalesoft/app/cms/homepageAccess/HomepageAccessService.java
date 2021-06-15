@@ -72,7 +72,7 @@ public class HomepageAccessService extends BaseDao {
 	}
 	
 	@Transactional
-	public int addStatisticsCountLog(HomepageAccess homepageAccess) {
+	public long addStatisticsCountLog(HomepageAccess homepageAccess) {
 		homepageAccess.setUser_agent(StringUtils.substring(homepageAccess.getUser_agent(), 0, 1000));
 		homepageAccess.setReferer_url(StringUtils.substring(homepageAccess.getReferer_url(), 0, 1000));
 		
@@ -81,12 +81,14 @@ public class HomepageAccessService extends BaseDao {
 		if(result == 1) {
 			return result;
 		} else {
-			return homepageAccessDao.addStatisticsCountLog(homepageAccess);
+			homepageAccessDao.addStatisticsCountLog(homepageAccess);
+			HomepageAccess statisticsCountLog = homepageAccessDao.getStatisticsCountLog(homepageAccess);
+			return statisticsCountLog.getAccess_idx();
 		}
 	}
 	
 	@Transactional
-	public int addStatisticsCountLogMobile(HomepageAccess homepageAccess) {
+	public long addStatisticsCountLogMobile(HomepageAccess homepageAccess) {
 		homepageAccess.setUser_agent(StringUtils.substring(homepageAccess.getUser_agent(), 0, 1000));
 		homepageAccess.setReferer_url(StringUtils.substring(homepageAccess.getReferer_url(), 0, 1000));
 		
@@ -95,7 +97,9 @@ public class HomepageAccessService extends BaseDao {
 		if(result == 1) {
 			return result;
 		} else {
-			return homepageAccessDao.addStatisticsCountLogMobile(homepageAccess);
+			homepageAccessDao.addStatisticsCountLogMobile(homepageAccess);
+			HomepageAccess statisticsCountLog = homepageAccessDao.getStatisticsCountLogMobile(homepageAccess);
+			return statisticsCountLog.getAccess_idx();
 		}
 	}
 	
