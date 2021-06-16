@@ -332,7 +332,7 @@ public class TeachController extends BaseController{
 
 		String homepageId = homepage.getHomepage_id();
 
-		if ((homepageId.equals("h37") || homepageId.equals("h49") || homepageId.equals("h45") || homepageId.equals("h53") || homepageId.equals("h50"))) {
+		if ((homepageId.equals("h37") || homepageId.equals("h49") || homepageId.equals("h45") || homepageId.equals("h53") || homepageId.equals("h50") || homepageId.equals("h51"))) {
 			Homepage h = new Homepage();
 			h.setHomepage_id(homepageId);
 			h.setHomepage_group(homepageId);
@@ -341,6 +341,8 @@ public class TeachController extends BaseController{
 			if (StringUtils.isEmpty(teach.getHomepage_id())) {
 				if(homepageId.equals("h50")) {
 					teach.setHomepage_id("h50");
+				} else if(homepageId.equals("h51")) {
+					teach.setHomepage_id("h51");
 				} else {
 					teach.setHomepage_id(subHomepageList.get(0).getHomepage_id());
 				}

@@ -122,6 +122,9 @@ $(function(){
 			<c:if test="${homepage.context_path eq 'beomeo'}">
 			<form:option value="h50" label="수성구립 범어도서관" />
 			</c:if>
+			<c:if test="${homepage.context_path eq 'yonghak'}">
+			<form:option value="h51" label="수성구립 용학도서관" />
+			</c:if>
 			<form:options items="${subHomepageList}" itemLabel="homepage_name" itemValue="homepage_id"/>
 			</form:select>
 		</div>
