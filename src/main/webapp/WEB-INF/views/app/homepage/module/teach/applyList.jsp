@@ -117,7 +117,13 @@ $(function(){
 	<c:choose>
 		<c:when test="${fn:length(subHomepageList) > 0}">
 		<div style="padding-bottom:10px;">
-			도서관 : <form:select path="homepage_id" items="${subHomepageList}" itemLabel="homepage_name" itemValue="homepage_id" cssClass="new_select_box"></form:select>
+			도서관 :
+			<form:select path="homepage_id" cssClass="new_select_box">
+			<c:if test="${homepage.context_path eq 'beomeo'}">
+			<form:option value="h50" label="수성구립 범어도서관" />
+			</c:if>
+			<form:options items="${subHomepageList}" itemLabel="homepage_name" itemValue="homepage_id"/>
+			</form:select>
 		</div>
 		</c:when>
 		<c:otherwise>
