@@ -100,10 +100,14 @@ public class StudentController extends BaseController {
 			student.setMember_key(getSessionMemberId(request));
 		}
 
-		//대표, 달서구, 동구, 서구, 중구는 제외
-		if ( !homepage.getHomepage_id().equals("h32") && !homepage.getHomepage_id().equals("h37") && !homepage.getHomepage_id().equals("h49") && !homepage.getHomepage_id().equals("h45") && !homepage.getHomepage_id().equals("h53") ) {
+		//대표, 달서구, 동구, 서구, 중구, 수성구(범어,용학,고산)는 제외
+		if ( !homepage.getHomepage_id().equals("h32") && !homepage.getHomepage_id().equals("h37") && !homepage.getHomepage_id().equals("h49") && !homepage.getHomepage_id().equals("h45") && !homepage.getHomepage_id().equals("h53")
+				&& !homepage.getHomepage_id().equals("h50") && !homepage.getHomepage_id().equals("h51") && !homepage.getHomepage_id().equals("h52") ) {
 			student.setHomepage_id(homepage.getHomepage_id());
 		}
+
+		System.out.println("@@@@@@@@@@@@@@@ homepage.getHomepage_id() = " + homepage.getHomepage_id());
+		System.out.println("@@@@@@@@@@@@@@@ student.getHomepage_id() = " + student.getHomepage_id());
 
 		// 그룹당 강의 제한 개수 . ->
 		String checkResult = service.checkStudent(student);
