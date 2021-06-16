@@ -79,10 +79,10 @@ $(function() {
 
 <form:form modelAttribute="homepage" id="homepage" action="save.do" method="post" onsubmit="return false;">
 <form:hidden path="editMode"/>
-<form:hidden path="homepage_id"/>
+	<input type="hidden" name="homepage_id" value="${param.homepage_id}"/>
 <form:hidden path="homepage_group"/>
-<input type="text" name="domain" value="${homepage.homepage_group}"/>
-<input type="text" name="folder" value="${homepage.homepage_group}"/>
+<input type="hidden" name="domain" value="${homepage.homepage_group}"/>
+<input type="hidden" name="folder" value="${homepage.homepage_group}"/>
 
 <c:if test="${homepage.editMode eq 'ADD'}">
 	<form:hidden path="homepage_type" value="0"/>
