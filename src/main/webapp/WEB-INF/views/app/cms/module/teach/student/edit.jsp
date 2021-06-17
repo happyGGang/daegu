@@ -404,6 +404,11 @@ $(function() {
 	$('input#family_cell_phone_2').val(family_cell_phone_temp[1]);
 	$('input#family_cell_phone_3').val(family_cell_phone_temp[2]);
 
+	var organization_tel_arr = '${student.student_organization_tel}'.split('-');
+	$('input#student_organization_tel1').val(organization_tel_arr[0]);
+	$('input#student_organization_tel2').val(organization_tel_arr[1]);
+	$('input#student_organization_tel3').val(organization_tel_arr[2]);
+	
 	} catch (e) {
 
 	}
@@ -642,6 +647,15 @@ $(function() {
 				<tr>
 					<th>기관</th>
 					<td><form:input path="student_organization" cssClass="text" style="width:100%" maxlength="40"/></td>
+				</tr>
+				<tr>
+					<th>기관 연락처</th>
+					<td>
+						<form:hidden path="student_organization_tel" />
+						<input type="text" id="student_organization_tel1" style="width:40px;" class="text" maxlength="3" numberonly="true"/> -
+						<input type="text" id="student_organization_tel2" style="width:50px;" class="text" maxlength="4" numberonly="true"/> -
+						<input type="text" id="student_organization_tel3" style="width:50px;" class="text" maxlength="4" numberonly="true"/>
+					</td>
 				</tr>
 			</c:if>
         	<c:if test="${teach.rank_yn eq 'Y'}">

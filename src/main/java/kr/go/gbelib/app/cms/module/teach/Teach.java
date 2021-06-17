@@ -120,6 +120,7 @@ public class Teach extends PagingUtils {
 	private String rank_yn = "N";//직급 입력여부
 	private String course_taken_yn = "N";//연수수강여부 입력여부
 	private String address_yn = "N";//주소입력여부
+	private String detail_address_yn;
 	private String remark_comment;
 	private String birth_yn = "Y";//생년월일 입력여부
 	private String sex_yn = "Y";//성별입력여부
@@ -1312,11 +1313,17 @@ public class Teach extends PagingUtils {
 		return address_yn;
 	}
 
-
 	public void setAddress_yn(String address_yn) {
 		this.address_yn = address_yn;
 	}
 
+	public String getDetail_address_yn() {
+		return detail_address_yn;
+	}
+
+	public void setDetail_address_yn(String detail_address_yn) {
+		this.detail_address_yn = detail_address_yn;
+	}
 
 	public String getRemark_comment() {
 		return remark_comment;

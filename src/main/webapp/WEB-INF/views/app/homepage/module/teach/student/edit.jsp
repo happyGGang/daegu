@@ -333,6 +333,11 @@ $(function() {
 			}
 		}
 		</c:if>
+		
+		// 기관 연락처 처리
+		if($('#student_organization_tel1').val() != '' && $('#student_organization_tel2').val() != '' && $('#student_organization_tel3').val() != '') {
+			$('#student_organization_tel').val($('#student_organization_tel1').val() + '-' + $('#student_organization_tel2').val() + '-' + $('#student_organization_tel3').val());
+		}
 
 		var agree_codes = [];
 		$('input.agree_check:checked').each(function() {
@@ -527,6 +532,16 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	<form:hidden path="apply_status"/>
 	<form:hidden path="member_key" />
 	<form:hidden path="agree_codes"/>
+	
+	<c:choose>
+		<c:when test="${teach.detail_address_yn eq 'Y'}">
+		<c:set var="placeholder" value="* 상세주소까지 입력하시기 바랍니다." />
+		</c:when>
+		<c:otherwise>
+		<c:set var="placeholder" value="* 개인정보보호를 위해 시/군/구(또는 읍/면/동)까지 입력하시기 바랍니다." />
+		</c:otherwise>
+	</c:choose>
+	
 	<input type="hidden" name="self_info_yn" value="Y"/>
 	<h3>신청자정보</h3>
 	<div style="text-align: right; ${param.ageType eq 'under' ? 'display:none;':''}">
@@ -600,7 +615,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	         	<td>
 	         		<c:choose>
 						<c:when test="${empty memberInfo.zipcode}">
-							<form:input path="applicant_address"  cssClass="text" style="width:95%;" maxlength="100" placeholder="* 개인정보보호를 위해 시/군/구(또는 읍/면/동)까지 입력하시기 바랍니다."/><br/>
+							<form:input path="applicant_address"  cssClass="text" style="width:95%;" maxlength="100" placeholder="${placeholder}"/><br/>
 							<form:hidden path="applicant_zipcode" cssClass="text" cssStyle="width: 8%;" readonly="true"/>
 			         		<button class="btn btn2 findPostCode" keyValue1="#applicant_zipcode" keyValue2="#applicant_address" keyValue3="#applicant_address">주소 찾기</button>	
 						</c:when>
@@ -738,6 +753,15 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 					<th>기관(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td><form:input path="student_organization" cssClass="text" style="width:100%" maxlength="40" title="기관"/></td>
 				</tr>
+				<tr>
+					<th>기관 연락처</th>
+					<td>
+						<form:hidden path="student_organization_tel" />
+						<input type="text" id="student_organization_tel1" style="width:40px;" class="text" maxlength="3" numberonly="true"/> -
+						<input type="text" id="student_organization_tel2" style="width:50px;" class="text" maxlength="4" numberonly="true"/> -
+						<input type="text" id="student_organization_tel3" style="width:50px;" class="text" maxlength="4" numberonly="true"/>
+					</td>
+				</tr>
 			</c:if>
         	<c:if test="${teach.rank_yn eq 'Y'}">
 				<tr>
@@ -827,7 +851,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	        <tr>
 	         	<th>주소(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
-	         		<form:input path="student_address" cssClass="text" style="width:95%;" maxlength="60" title="주소입력" placeholder="* 개인정보보호를 위해 시/군/구(또는 읍/면/동)까지 입력하시기 바랍니다."/>
+	         		<form:input path="student_address" cssClass="text" style="width:95%;" maxlength="60" title="주소입력" placeholder="${placeholder}"/>
 	         		<form:hidden path="student_zipcode" cssClass="text" cssStyle="width: 8%;" title="우편번호"/><button class="btn btn2 findPostCode" keyValue1="#student_zipcode" keyValue2="#student_address" keyValue3="#student_address" >주소 찾기</button>
 	         		<form:hidden path="applicant_zipcode" cssClass="text" cssStyle="width: 8%;" readonly="true"/>
 	         		<form:hidden path="applicant_address" cssClass="text" cssStyle="width: 8%;" readonly="true"/>
@@ -923,6 +947,15 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 				<tr>
 					<th>기관(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td><form:input path="student_organization" cssClass="text" style="width:100%" maxlength="40" title="기관"/></td>
+				</tr>
+				<tr>
+					<th>기관 연락처</th>
+					<td>
+						<form:hidden path="student_organization_tel" />
+						<input type="text" id="student_organization_tel1" style="width:40px;" class="text" maxlength="3" numberonly="true"/> -
+						<input type="text" id="student_organization_tel2" style="width:50px;" class="text" maxlength="4" numberonly="true"/> -
+						<input type="text" id="student_organization_tel3" style="width:50px;" class="text" maxlength="4" numberonly="true"/>
+					</td>
 				</tr>
 			</c:if>
         	<c:if test="${teach.rank_yn eq 'Y'}">

@@ -53,6 +53,7 @@ public class Student extends PagingUtils {
 	private String student_neis_cd;//neis 개인번호 (R로 시작하는 10자리) - 나이스시스템 관리자 연수용
 	private String student_training_num;//연수지명번호 (텍스트30자리) - 나이스시스템 관리자 연수용
 	private String student_organization;//기관 (한글40자리)
+	private String student_organization_tel; //기관 연락처
 	private String student_rank;//직급 (한글20자리)
 	private String student_course_taken_yn;//연수수강여부
 	private String student_password;//비회원 패스워드
@@ -730,6 +731,14 @@ public class Student extends PagingUtils {
 
 	public void setStudent_organization(String student_organization) {
 		this.student_organization = student_organization;
+	}
+
+	public String getStudent_organization_tel() {
+		return student_organization_tel;
+	}
+	
+	public void setStudent_organization_tel(String student_organization_tel) {
+		this.student_organization_tel = student_organization_tel;
 	}
 
 	public String getStudent_rank() {

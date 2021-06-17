@@ -1127,6 +1127,9 @@ $(function() {
 	         	<td>
 	         		<form:radiobutton path="address_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
 					<form:radiobutton path="address_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/>
+					
+					<form:checkbox path="detail_address_yn" label="상세주소 여부" value="Y" />
+					
 					<div class="ui-state-highlight">
 						<em>* 사용 시 '주소' 입력항목이 노출됩니다.</em>
 					</div>
