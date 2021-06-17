@@ -93,7 +93,7 @@
 					</li>
 
 					<c:choose>
-						<c:when test="${context_path eq 'dssmalllib' || context_path eq 'dalseonglib' || context_path eq 'dalseongsmall'}">
+						<c:when test="${context_path eq 'dssmalllib'}">
 					<li>
 						<a href="#" onclick="alert('2020년 도서구입 예산소진으로 희망도서신청을 중단합니다. \n\r그 동안 이용해 주셔서 감사합니다.')">
 							<em><img src="/resources/common/img/nav4.png" alt="희망도서신청내역"/></em>
@@ -152,7 +152,7 @@
 						</li>
 
 						<c:choose>
-							<c:when test="${context_path eq 'dssmalllib' || context_path eq 'dalseonglib' || context_path eq 'dalseongsmall'}">
+							<c:when test="${context_path eq 'dssmalllib'}">
 						<li>
 							<a href="#" onclick="alert('예산소진으로 희망도서신청을 중단합니다.')">
 								<em><img src="/resources/common/img/nav4.png" alt="희망도서신청내역"/></em>
