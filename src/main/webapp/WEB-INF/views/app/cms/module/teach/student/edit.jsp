@@ -374,16 +374,16 @@ $(function() {
 	$('input#applicant_birth').datepicker({
 		yearRange: 'c-70:c',
 		maxDate:0,
-		onClose: function(selectedDate){
-			$('input#applicant_zipcode').focus();
+		onSelect : function() {
+			$(this).parent().focus();
 		}
 	});
 
 	$('input#student_birth').datepicker({
 		yearRange: 'c-70:c',
 		maxDate:0,
-		onClose: function(selectedDate){
-			$('input#student_zipcode').focus();
+		onSelect : function() {
+			$(this).parent().focus();
 		}
 	});
 
