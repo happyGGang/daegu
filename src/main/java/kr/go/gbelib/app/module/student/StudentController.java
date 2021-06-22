@@ -1,6 +1,8 @@
 package kr.go.gbelib.app.module.student;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -249,6 +251,17 @@ public class StudentController extends BaseController {
 				res.setValid(false);
 				res.setMessage("개인정보 미동의 시 참여 하실수 없습니다.");
 				return res;
+			}
+			
+			Date date = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			String now = sdf.format(date);
+			
+			String req_start_date = teachOne.getStart_join_date() + " " + teachOne.getStart_join_time();
+			String req_end_date = teachOne.getEnd_join_date() + " " + teachOne.getEnd_join_time();
+			
+			if ( req_start_date.compareTo(now) > 0 || req_end_date.compareTo(now) < 0) {
+				result.reject("해당 강좌 접수기간이 아닙니다.");
 			}
 
 		}
