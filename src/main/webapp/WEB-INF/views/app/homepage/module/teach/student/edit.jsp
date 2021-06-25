@@ -638,6 +638,12 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 							<input type="text" id="applicant_cell_phone_2" name="applicant_cell_phone_2" style="width:50px;" class="text" maxlength="4" numberonly="true"/> -
 							<input type="text" id="applicant_cell_phone_3" name="applicant_cell_phone_3" style="width:50px;" class="text" maxlength="4" numberonly="true"/>
 						</c:when>
+						<c:when test="${teach.teach_age_type eq 'child' and teach.agent_yn eq 'N'}">
+							<form:hidden path="applicant_cell_phone" />
+							<input type="text" id="applicant_cell_phone_1" style="width:40px;" class="text" maxlength="3" numberonly="true" value="${member.cell_phone1}"/>
+							<input type="text" id="applicant_cell_phone_2" style="width:50px;" class="text" maxlength="4" numberonly="true" value="${member.cell_phone2}"/>
+							<input type="text" id="applicant_cell_phone_3" style="width:50px;" class="text" maxlength="4" numberonly="true" value="${member.cell_phone3}"/>
+						</c:when>
 						<c:otherwise>
 							${member.cell_phone1}-${member.cell_phone2}-${member.cell_phone3}
 							<form:hidden path="applicant_cell_phone" />
