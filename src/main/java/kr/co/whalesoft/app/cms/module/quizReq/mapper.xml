@@ -124,6 +124,8 @@
 		UPDATE QUIZ_REQ SET
 			add_id = NULL,
 			name = NULL,
+			school = NULL,
+			hak = 0,
 			ban = 0,
 			phone = NULL
 		WHERE
