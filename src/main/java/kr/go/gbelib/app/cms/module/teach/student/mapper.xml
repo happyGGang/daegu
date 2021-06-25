@@ -495,7 +495,7 @@
 		AND	member_key = #{userNo}
 		AND	add_date >= TO_DATE(#{fromDateStr}, 'YYYYMMDD')
 		AND	add_date <![CDATA[<=]]> TO_DATE(#{toDateStr}, 'YYYYMMDD')
-		AND	apply_status = '1'
+		AND	apply_status IN ('1', '2')
 	</select>
 
 	<select id="checkStudentSetting3" resultType="int">
