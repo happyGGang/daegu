@@ -322,10 +322,7 @@ $(function() {
 
 		<p></p>
 		
-		<c:if test="${detail.MANAGE_CODE eq 'BZ'}">
-			* 달서영어도서관 장서점검으로 인한 상호대차 및 무인예약 신청 중지(6/16~6/25)를 안내드리오니, 많은 양해 부탁드립니다.
-		</c:if>
-
+		
 		<div class="sbtn" style="text-align:center;">
 			<c:if test="${detail.SANGHO_REQ_YN eq 'Y'}">
 			<!-- <a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a> -->
@@ -378,7 +375,7 @@ $(function() {
 				<c:when test="${homepage.context_path eq 'dalseolib'}">
 
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'FD' || detail.MANAGE_CODE eq 'BZ'}">
+						<c:when test="${detail.MANAGE_CODE eq 'FD'}">
 						</c:when>
 						<c:otherwise>
 							<c:choose>
@@ -515,7 +512,7 @@ $(function() {
 					</c:if>
 				</c:when>
 				<c:when test="${homepage.context_path eq 'dalseolib'}">
-					<c:if test="${detail.MANAGE_CODE eq 'BU' || detail.MANAGE_CODE eq 'BV' || detail.MANAGE_CODE eq 'BW' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BY'}">
+					<c:if test="${detail.MANAGE_CODE eq 'BU' || detail.MANAGE_CODE eq 'BV' || detail.MANAGE_CODE eq 'BW' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'BZ'}">
 						<c:if test="${detail.MEDIA_CODE eq 'PR'}">
 							<c:choose>
 								<c:when test="${detail.LOAN_CODE eq 'OK'}">

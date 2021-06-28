@@ -241,7 +241,7 @@ $.ajax({
 	type: "GET",
 	async: "false",
 	success: function(data) {
-		$('.weather span.temp').html((data.main.temp- 273.15)+'˚');
+		$('.weather span.temp').html(Math.floor((data.main.temp- 273.15)*10)/10+'˚');
 		$('.weather span.icon img').attr('src',"/resources/homepage/${homepage.context_path}/img/"+data.weather[0].icon+".png");
 		//$('.weather span.icon').addClass('w'+data.weather[0].icon);
 	}

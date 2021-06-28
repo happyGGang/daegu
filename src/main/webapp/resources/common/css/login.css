@@ -97,7 +97,7 @@ div.loginBox1 .loginImg { float: left;}
 	.login-body .login fieldset{padding: 20px 0 20px 0;}
 }
 @media all and (max-width:660px){
-	.login-body fieldset button#save-btn span{display:none;}
+	.login-body fieldset button#save-btn i{display:none;}
 
 }
 

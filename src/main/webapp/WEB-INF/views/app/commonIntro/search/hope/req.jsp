@@ -76,6 +76,12 @@
 </div>
 <img id="refImg" src="/resources/common/img/noimg-gall.png" alt="refImg" style="display: none;">
 
+<c:if test="${homepage.context_path eq 'yonghak'}">
+	<p style="font-weight:bold;margin-bottom:10px;">
+		* 무학숲도서관은 생태·환경 관련 도서 위주로 신청받고 있으며, 기타 도서는 취소될 수 있으니 타도서관으로 신청 부탁드립니다.
+	</p>
+</c:if>
+
 <form:form id="reqHopeForm" modelAttribute="librarySearch" action="save.do" method="post">
 	<form:hidden path="editMode" value="ADD"/>
 	<input type="hidden" name="homepage_id" value="${homepage.homepage_id}"/>
