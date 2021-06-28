@@ -1188,6 +1188,11 @@ $(function() {
 							</dl>
 
 							<c:if test="${fn:length(shelfCodeList) > 0}">
+							<c:choose>
+								<c:when test="${homepage.context_path eq '228' && param.menu_idx eq '130'}">
+								<form:hidden path="shelfCode"/>
+								</c:when>
+								<c:otherwise>
 								<dl>
 									<dt><label for="keyword" class="title">자료실구분</label></dt>
 									<dd>
@@ -1223,6 +1228,8 @@ $(function() {
 										</form:select>
 									</dd>
 								</dl>
+								</c:otherwise>
+							</c:choose>
 							</c:if>
 
 							<c:if test="${fn:length(mediaCodeList) > 0}">
