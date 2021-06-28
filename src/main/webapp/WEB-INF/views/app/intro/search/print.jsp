@@ -97,12 +97,12 @@ function doOutFocus() {
 					<td style="font-size: 14px; text-align: justify; font-weight: bold;font-family: 돋움" class="first td1">자&nbsp;&nbsp;료&nbsp;&nbsp;실 : </td>
 				    <td style="font-size: 14px; font-weight: bold;font-family: 돋움 " class="last td2">${detail.SHELF_LOC_NAME}</td>
 				</tr>
-				<c:if test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib' || context_path eq 'bukgs' || context_path eq 'bukdh' || context_path eq 'buktj' || context_path eq 'buks'}">
+				<%-- <c:if test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib' || context_path eq 'bukgs' || context_path eq 'bukdh' || context_path eq 'buktj' || context_path eq 'buks'}">
 				<tr>
 					<td style="font-size: 14px; text-align: justify; font-weight: bold;font-family: 돋움" class="first td1">영어독서 레벨 : </td>
 					<td style="font-size: 14px; font-weight: bold;font-family: 돋움 " class="last td2">${detail.marc}</td>
 				</tr>
-				</c:if>
+				</c:if> --%>
 				<tr>
 				   <td colspan="2" class="first last td1">-------------------------------------------</td>
 				</tr>
