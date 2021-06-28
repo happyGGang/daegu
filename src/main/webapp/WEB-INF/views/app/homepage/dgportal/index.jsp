@@ -18,15 +18,12 @@ do {
 } while (listNum1 == listNum3 || listNum2 == listNum3);
 
 Random rndNum = new Random();
-int cuNum1 = rnd.nextInt(5);
+int cuNum1 = rnd.nextInt(9);
 int cuNum2 = 0;
-int cuNum3 = 0;
+
 do {
-	cuNum2 = rnd.nextInt(5);
+	cuNum2 = rnd.nextInt(9);
 } while (cuNum1 == cuNum2);
-do {
-	cuNum3 = rnd.nextInt(5);
-} while (cuNum1 == cuNum3 || cuNum2 == cuNum3);
 %>
 <c:set var="listNum1" value="<%=listNum1%>"></c:set>
 <c:set var="listNum2" value="<%=listNum2%>"></c:set>
@@ -34,16 +31,20 @@ do {
 
 <c:set var="cuNum1" value="<%=cuNum1%>"></c:set>
 <c:set var="cuNum2" value="<%=cuNum2%>"></c:set>
-<c:set var="cuNum3" value="<%=cuNum3%>"></c:set>
 
 <tiles:insertAttribute name="header" />
 <link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.fullpage.dgportal.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.mCustomScrollbar.css"/>
 <style>
-.content-05-box .box .cont ul li:nth-of-type(${cuNum1 + 1}) {display:none;}
-.content-05-box .box .cont ul li:nth-of-type(${cuNum2 + 1}) {display:none;}
-.content-05-box .box .cont ul li:nth-of-type(${cuNum3 + 1}) {display:none;}
+.content-05-box .box .cont ul li {display:none;}
+.content-05-box .box .cont ul li:nth-of-type(${cuNum1 + 1}) {display:inline-block;}
+.content-05-box .box .cont ul li:nth-of-type(${cuNum2 + 1}) {display:inline-block;}
 </style>
+
+<c:set var="getIp" value="<%=request.getRemoteAddr()%>" />
+<c:if test="${getIp eq '218.48.151.16'}">
+</c:if>
+
 
 <script type="text/javascript" src="/resources/common/js/jquery.fullpage.js"></script>
 <script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/main-visual.js"></script>
@@ -469,8 +470,42 @@ do {
 											<span class="">큐레이션</span>
 										</div>
 										<div class="cont">
-											<ul>
 
+												<ul>
+												<li>
+													<a href="http://www.icuration.co.kr:81/curation/w/79" target="_blank">
+														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu06.png" alt="3호선여행"></div>
+														<p class="book-title">3호선여행</p>
+														<p class="book-desc">3호선 타고 떠나는 대구여행</p>
+														<p class="reg-date">2021-06-25</p>
+													</a>
+												</li>
+
+												<li>
+													<a href="http://www.icuration.co.kr:81/curation/w/77" target="_blank">
+														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu07.png" alt="대구근대문학"></div>
+														<p class="book-title">대구근대문학</p>
+														<p class="book-desc">대구 근대 문학의 발자취를 찾아서</p>
+														<p class="reg-date">2021-06-25</p>
+													</a>
+												</li>
+
+												<li>
+													<a href="http://www.icuration.co.kr:81/curation/w/80" target="_blank">
+														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu08.png" alt="대구 숲,공원"></div>
+														<p class="book-title">대구 숲,공원</p>
+														<p class="book-desc">대구 힐링 명소</p>
+														<p class="reg-date">2021-06-25</p>
+													</a>
+												</li>
+												<li>
+													<a href="http://www.icuration.co.kr:81/curation/w/81" target="_blank">
+														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu09.png" alt="대구벽화마을"></div>
+														<p class="book-title">대구벽화마을</p>
+														<p class="book-desc">벽화를 통한 골목의 재발견</p>
+														<p class="reg-date">2021-06-25</p>
+													</a>
+												</li>
 												<li>
 													<a href="http://www.icuration.co.kr:81/curation/w/72" target="_blank">
 														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu01.png" alt="대구동네책방"></div>
@@ -517,16 +552,15 @@ do {
 													</a>
 												</li>
 
-											</ul>
+												</ul>
 										</div>
-										<div class="end"></div>
-
 									</div>
 								</div>
 
 								<div class="center top-cont-more">
 									<a href="#sixthPage"><img src="/resources/homepage/${homepage.context_path}/img/top_down.png" alt=""></a>
 								</div>
+
 							</div>
 						</a>
 					</div>
@@ -1981,11 +2015,43 @@ do {
 			<div class='wide-1686-sections'>
 				<div class="cont curationList">
 					<ul>
+                        <li>
+							<a href="http://www.icuration.co.kr:81/curation/w/79" target="_blank">
+								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu06.png" alt="3호선여행"></div>
+								<h3 class="book-title">3호선여행</h3>
+								<p class="book-desc">3호선 타고 떠나는 대구여행</p>
+								<p class="reg-date">2021-06-25</p>
+							</a>
+						</li>
+						<li>
+							<a href="http://www.icuration.co.kr:81/curation/w/77" target="_blank">
+								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu07.png" alt="대구근대문학"></div>
+								<h3 class="book-title">대구근대문학</h3>
+								<p class="book-desc">대구 근대 문학의 발자취를 찾아서</p>
+								<p class="reg-date">2021-06-25</p>
+							</a>
+						</li>
+						<li>
+							<a href="http://www.icuration.co.kr:81/curation/w/80" target="_blank">
+								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu08.png" alt="대구 숲,공원"></div>
+								<h3 class="book-title">대구 숲,공원</h3>
+								<p class="book-desc">대구 힐링 명소</p>
+								<p class="reg-date">2021-06-25</p>
+							</a>
+						</li>
+						<li>
+							<a href="http://www.icuration.co.kr:81/curation/w/81" target="_blank">
+								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu09.png" alt="대구벽화마을"></div>
+								<h3 class="book-title">대구벽화마을</h3>
+								<p class="book-desc">벽화를 통한 골목의 재발견</p>
+								<p class="reg-date">2021-06-25</p>
+							</a>
+						</li>
 
 						<li>
 							<a href="http://www.icuration.co.kr:81/curation/w/72" target="_blank">
 								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu01.png" alt="대구동네책방"></div>
-								<p class="book-title">대구 동네책방</p>
+								<h3 class="book-title">대구 동네책방</h3>
 								<p class="book-desc">책과 공간을 나누는 대구 동네책방 발견의 기쁨</p>
 								<p class="reg-date">2020-12-10</p>
 							</a>
@@ -1994,7 +2060,7 @@ do {
 						<li>
 							<a href="http://www.icuration.co.kr:81/curation/w/75" target="_blank">
 								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu02.png" alt="국채보상운동"></div>
-								<p class="book-title">국채보상운동</p>
+								<h3 class="book-title">국채보상운동</h3>
 								<p class="book-desc">역사가 살아있는 대구, 국채보상운동 발자취를 따라서~</p>
 								<p class="reg-date">2020-12-09</p>
 							</a>
@@ -2003,7 +2069,7 @@ do {
 						<li>
 							<a href="http://www.icuration.co.kr:81/curation/w/74" target="_blank">
 								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu03.png" alt="대구 북카페"></div>
-								<p class="book-title">대구 북카페</p>
+								<h3 class="book-title">대구 북카페</h3>
 								<p class="book-desc">이제, 독서도 우아하게</p>
 								<p class="reg-date">2020-12-08</p>
 							</a>
@@ -2012,17 +2078,16 @@ do {
 						<li>
 							<a href="http://www.icuration.co.kr:81/curation/w/73" target="_blank">
 								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu04.png" alt="대구 명소"></div>
-								<p class="book-title">대구 명소</p>
+								<h3 class="book-title">대구 명소</h3>
 								<p class="book-desc">즐기는 대구! 대구 속 명소 찾기</p>
 								<p class="reg-date">2020-12-03</p>
 							</a>
 						</li>
 
-
 						<li>
 							<a href="http://www.icuration.co.kr:81/curation/w/71" target="_blank">
 								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu05.png" alt="대구지역출판사"></div>
-								<p class="book-title">대구 지역출판사</p>
+								<h3 class="book-title">대구 지역출판사</h3>
 								<p class="book-desc">대구 지역의 출판사를 소개합니다!</p>
 								<p class="reg-date">2020-12-02</p>
 							</a>
