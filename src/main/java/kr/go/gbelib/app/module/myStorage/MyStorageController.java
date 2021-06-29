@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -96,8 +97,33 @@ public class MyStorageController extends BaseController {
 	}
 
 	@RequestMapping(value = {"/viewStorage.*"})
-	public String viewStorage(Model model, MyItem myItem, HttpServletRequest request) {
+	public String viewStorage(Model model, MyItem myItem, HttpServletRequest request, HttpServletResponse response) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		
+		// img_url 변조 확인
+		String[] allow_urls = {"localhost/%s/board/view.do", "library.daegu.go.kr/%s/board/view.do"};
+		
+		boolean param_err_flg = false;
+		String redirectURL = request.isSecure() ? "https://" : "http://";
+		for (String url_tmp : allow_urls) {
+			url_tmp = redirectURL + String.format(url_tmp, homepage.getContext_path());
+			int paramIdx = myItem.getImg_url().indexOf('?');
+			if(paramIdx > -1 && StringUtils.equals(url_tmp, myItem.getImg_url().substring(0, paramIdx))) {
+				param_err_flg = true;
+				break;
+			}
+		}
+		
+		if(!param_err_flg) {
+			try {
+				service.alertMessage("보관함에 담을 수 없습니다.", request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+		// img_url 변조 확인 END
+		
 		myItem.setHomepage_id(homepage.getHomepage_id());
 		model.addAttribute("member", getSessionMemberInfo(request));
 		model.addAttribute("myItem", myItem);
