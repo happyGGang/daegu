@@ -1189,7 +1189,7 @@ $(function() {
 
 							<c:if test="${fn:length(shelfCodeList) > 0}">
 							<c:choose>
-								<c:when test="${homepage.context_path eq '228' && param.menu_idx eq '130'}">
+								<c:when test="${(homepage.context_path eq '228' && param.menu_idx eq '130') or (homepage.context_path eq '228' && param.menu_idx eq '131')}">
 								<form:hidden path="shelfCode"/>
 								</c:when>
 								<c:otherwise>
