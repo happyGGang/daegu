@@ -656,7 +656,7 @@ public class CommonSearchController extends BaseController {
 		if ( StringUtils.isEmpty(librarySearch.getSearch_start_date()) ) {
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 
-			int beforeDays = -30;
+			int beforeDays = -60;
 			if (librarySearch.getSearch_type().equals("1")) {
 				//1주전
 				beforeDays = -7;
@@ -666,7 +666,10 @@ public class CommonSearchController extends BaseController {
 			} else if (librarySearch.getSearch_type().equals("3")) {
 				//1달전
 				beforeDays = -30;
-			}
+			} else if (librarySearch.getSearch_type().equals("4")) {
+				//2달전
+				beforeDays = -60;
+			} 
 			librarySearch.setSearch_start_date(sf.format(DateUtils.addDays(new Date(), beforeDays)));
 			librarySearch.setSearch_end_date(sf.format(new Date()));
 		}
