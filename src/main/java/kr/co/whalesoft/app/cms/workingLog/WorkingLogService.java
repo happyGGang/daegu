@@ -61,7 +61,7 @@ public class WorkingLogService extends BaseService {
 	 *
 	 */
 	public List<WorkingLog> getWorkingLogExcelList(WorkingLog workingLog) {
-		return dao.getWorkingLogList(workingLog);
+		return dao.getWorkingLogExcelList(workingLog);
 	}
 
 	/**
