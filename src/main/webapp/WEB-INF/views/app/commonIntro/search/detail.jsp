@@ -320,6 +320,12 @@ $(function() {
 			</c:if>
 		</div>
 
+		<c:if test="${homepage.context_path eq 'dalseolib'}">
+			<p style="color:#ff0000;font-weight:bold;text-align:center;">
+				* 본리도서관 장서점검으로 인한 상호대차 및 무인예약 신청 중지(7/6~7/16)를 안내드리오니, 많은 양해 부탁드립니다.
+			</p>
+		</c:if>
+
 		<p></p>
 		
 		

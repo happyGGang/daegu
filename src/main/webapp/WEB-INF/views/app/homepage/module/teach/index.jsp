@@ -485,7 +485,7 @@ ${html.html}
 										</c:when>
 										<c:when test="${i.teach_status eq '3'}">
 											<a href="/${homepage.context_path}/module/teach/applyList.do?menu_idx=${myTeachListMenuIdx}" class="btn btn2">
-											<i class="fa fa-circle-o"></i><span>대기자 신청완료</span></a>
+											<i class="fa fa-circle-o"></i><span>대기자<br />신청완료</span></a>
 										</c:when>
 										<c:when test="${i.teach_status eq '9'}">
 											<a href="javascript:void(0);" class="btn btn6" style="cursor: default;">
