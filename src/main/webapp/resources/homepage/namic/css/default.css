@@ -140,8 +140,8 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 
 #header .search-box .main-box {width:100%;border:3px solid #1a3a83;background:#fff;overflow:hidden;box-sizing:border-box;border-radius:50px;}
 #header .search-box .main-box .title-box {position:absolute;left:0;background:#1a3a83;color:#fff;font-size:15px;padding:14px 0;width:125px;text-align:center;border-radius:50px;top:2px;}
-#header .search-box .box1{float:left;width:100%;margin-left:130px;box-sizing:border-box;}
-#header .search-box .box2{margin-right:80px}
+#header .search-box .box1{float:left;width:100%;padding-left:130px;box-sizing:border-box;}
+#header .search-box .box2{margin-right:50px}
 
 
 @media all and (max-width:1024px){
@@ -167,11 +167,21 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 	#footer .info .bar{margin:0 10px;}
 }
 
+@media all and (max-width:700px){
+
+	
+
+}
+
 @media all and (max-width:650px){
+
+	
 
 }
 
 @media all and (max-width:500px){
+
+	
 
 }
 
@@ -184,6 +194,8 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 	.banner-wrap .banner-t3 .control a{width:30px;height:30px;margin-top:7px;}
 
 	.banner-wrap .banner-box3 .banner-roll a img{margin-top:9px;}
+
+	
 }
 
 @media all and (max-width:375px){

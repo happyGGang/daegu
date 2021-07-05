@@ -65,7 +65,7 @@ $(document).ready(function() {
       </li>
     </ul>
   </div>
-  <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2021.5.31.] (단위 : 권)</span></h3>
+  <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2021.6.30.] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="파동도서관 장서현황을 안내해 드립니다.">
@@ -116,9 +116,9 @@ $(document).ready(function() {
           <td>360</td>
           <td>312</td>
           <td>255</td>
-          <td>3,677</td>
+          <td>3,681</td>
           <td>1,184</td>
-          <td>8,969</td>
+          <td>8,973</td>
         </tr>
         <tr>
           <th>유아</th>
@@ -137,30 +137,30 @@ $(document).ready(function() {
         <tr>
           <th>일반</th>
           <td>492</td>
-          <td>902</td>
-          <td>288</td>
-          <td>2,091</td>
+          <td>903</td>
+          <td>292</td>
+          <td>2,096</td>
           <td>619</td>
-          <td>1,145</td>
-          <td>569</td>
+          <td>1,147</td>
+          <td>570</td>
           <td>312</td>
-          <td>5,105</td>
-          <td>1,020</td>
-          <td>12,543</td>
+          <td>5,121</td>
+          <td>1,023</td>
+          <td>12,575</td>
         </tr>
         <tr>
           <th>합계</th>
           <td>1,230</td>
-          <td>1,308</td>
-          <td>467</td>
-          <td>3,741</td>
+          <td>1,309</td>
+          <td>471</td>
+          <td>3,746</td>
           <td>2,228</td>
-          <td>1,574</td>
-          <td>958</td>
+          <td>1,576</td>
+          <td>959</td>
           <td>640</td>
-          <td>11,229</td>
-          <td>2,235</td>
-          <td>25,610</td>
+          <td>11,249</td>
+          <td>2,238</td>
+          <td>25,646</td>
         </tr>
       </tbody>
     </table>
