@@ -65,6 +65,7 @@ public class StudentService extends BaseService {
 	@Autowired
 	private CodeService codeService;
 
+	@WorkingLogger(comment="강좌 수강생 관리 내역 다운로드", type="P")
 	public List<Student> getStudentListAll(Student student) {
 		List<Student> studentList = dao.getStudentListAll(student);
 		for(int i = 0; i < studentList.size(); i++) {
