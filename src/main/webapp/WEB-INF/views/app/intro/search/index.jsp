@@ -715,51 +715,6 @@ $(function() {
 							</div>
 						</dd>
 					</dl>
-					
-					<c:if test="${fn:length(shelfCodeList) > 0}">
-							<c:choose>
-								<c:when test="${(homepage.context_path eq '228' && param.menu_idx eq '130') or (homepage.context_path eq '228' && param.menu_idx eq '131')}">
-								<form:hidden path="shelfCode"/>
-								</c:when>
-								<c:otherwise>
-								<dl>
-									<dt><label for="keyword" class="title">자료실구분</label></dt>
-									<dd>
-										<form:select path="shelfCode">
-											<form:option value="">전체</form:option>
-											<c:forEach items="${shelfCodeList}" var="i" varStatus="status">
-												<c:choose>
-													<c:when test="${homepage.context_path eq 'suseong'}">
-														<c:if test="${i.CODE eq 'AE01' or
-																		i.CODE eq 'AE01' or
-																		i.CODE eq 'AE03' or
-																		i.CODE eq 'AE04' or
-																		i.CODE eq 'AE05' or
-																		i.CODE eq 'AE11' or
-																		i.CODE eq 'AE12' or
-																		i.CODE eq 'AE14' or
-																		i.CODE eq 'AE18' or
-																		i.CODE eq 'AE19' or
-																		i.CODE eq 'AE20' or
-																		i.CODE eq 'AE22' or
-																		i.CODE eq 'AE23'
-																		}">
-														<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
-														</c:if>
-													</c:when>
-													<c:otherwise>
-														<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
-													</c:otherwise>
-												</c:choose>
-
-											</c:forEach>
-
-										</form:select>
-									</dd>
-								</dl>
-								</c:otherwise>
-							</c:choose>
-							</c:if>
 
 					<div class="end"></div>
 				</div>

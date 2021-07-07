@@ -134,11 +134,6 @@ public class LibrarySearchController extends BaseController {
 			model.addAttribute("bookSearch", list);
 			model.addAttribute("facetGroup", LibSearchAPI.getFacetGroup(result));
 		}
-		
-		Map<String, Object> shelfInfo = LibSearchAPI.getSubLocaInfo("19", homepage.getManage_code());
-		List<Map<String, Object>> shelfInfoList = LibSearchAPI.getListData(shelfInfo);
-		
-		model.addAttribute("shelfCodeList", shelfInfoList);
 
 		model.addAttribute("homepageList", normalHomepage);
 		model.addAttribute("librarySearch", librarySearch);
