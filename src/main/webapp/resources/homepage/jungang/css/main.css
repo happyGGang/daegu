@@ -82,7 +82,7 @@
 .main1 #holiday-box .inBox1 .bt-controls {float:left;width:175px;text-align:center;position:relative;}
 .main1 #holiday-box .inBox1 .bt-controls b {font-size:20px;font-family:'Verdana';font-weight:bold;line-height:150%;padding:0;}
 .main1 #holiday-box .inBox1 .info dd {float:left;position:relative;font-size:19px;font-weight:bold;text-align:center;padding-left:18px;}
-.main1 #holiday-box .inBox1 .info dd span{display:inline-block;background:#f43c40;font-weight:bold;color:#fff;font-size:15px;text-align:center;width:30px;height:30px;line-height:30px;margin-right:3px;}
+.main1 #holiday-box .inBox1 .info dd span{display:inline-block;background:#f43c40;font-weight:bold;color:#fff;font-size:15px;text-align:center;line-height:30px;margin-right:3px;padding: 1px 7px;}
 
 .main1 #holiday-box .inBox1 .bt-controls .bt-next{top:1px;right:0;font-size:0;line-height:0;width:32px;height:32px;z-index:500;position:absolute}
 .main1 #holiday-box .inBox1 .bt-controls .bt-prev{top:1px;left:0;font-size:0;line-height:0;width:32px;height:32px;z-index:500;position:absolute}
@@ -199,11 +199,11 @@
 .main6_bg{position:relative;width:100%;background:#dce7ee}
 .main6 a {display:block;color:#fff;text-align:center;padding:15px 0;}
 .main6 .lt1{background:url('../img/quick02_bg01.jpg') no-repeat;background-size:cover}
-.main6 .lt2{background:url('../img/quick02_bg02.jpg') no-repeat;background-size:cover}
-.main6 .lt3{background:url('../img/quick02_bg03.jpg') no-repeat;background-size:cover}
-.main6 .lt4{background:url('../img/quick02_bg04.jpg') no-repeat;background-size:cover}
-.main6 .lt5{background:url('../img/quick02_bg05.jpg') no-repeat;background-size:cover}
-.main6 .lt6{background:url('../img/quick02_bg06.jpg') no-repeat;background-size:cover}
+.main6 .lt2{background:url('../img/quick02_bg02.jpg') repeat-y;background-size:cover}
+.main6 .lt3{background:url('../img/quick02_bg03.jpg') repeat-y;background-size:cover}
+.main6 .lt4{background:url('../img/quick02_bg04.jpg') repeat-y;background-size:cover}
+.main6 .lt5{background:url('../img/quick02_bg05.jpg') repeat-y;background-size:cover}
+.main6 .lt6{background:url('../img/quick02_bg06.jpg') repeat-y;background-size:cover}
 
 
 .main7_banner{padding:15px 0}
@@ -216,7 +216,7 @@
 .main6 .lt3,
 .main6 .lt4,
 .main6 .lt5,
-.main6 .lt6 {width:16.6666666666666%;}
+.main6 .lt6 {width:20%;}
 .main6 .lt1 a,
 .main6 .lt2 a,
 .main6 .lt3 a,
@@ -237,12 +237,14 @@
 @media all and (max-width:1279px){
 	.main6_bg .section {width:100%;}
 	.main_line .section {width:100%;}
-	.main6 .lt1,
+	/*.main6 .lt1,
 	.main6 .lt2,
 	.main6 .lt3,
 	.main6 .lt4,
 	.main6 .lt5,
-	.main6 .lt6 {width:33.3333333333%;}
+	.main6 .lt6 {width:33.3333333333%;}*/
+
+	.main6 .lt2 a span{font-size:17px;}
 
 	.main3 .tabMenuS {padding-left:10px}
 	.main3 ul.tabMenuS > li a {font-size:16px;padding:20px 5px;}
@@ -271,7 +273,7 @@
 	.tnb .util,
 	.Gnb,
 	.main7_banner{display:none}
-	.mmode{display:block}
+	.mmode{display:block;}
 	
 	.main .qmenu li{width:25%}
 	.main .qmenu .bx-wrapper{margin:0 40px!important}
@@ -315,6 +317,8 @@
 
 	.main1 .section .txt {width:100%;text-align:center;padding-top:25px;}
 	.main1 .section .txt img {width:84%;}
+
+	.main6 .lt2 a span{font-size:19px;}
 
 	.main1 .search-box {width:96%;margin:15px auto 0;}
 
