@@ -107,7 +107,7 @@ div.img-box span.num {position: absolute;top: 30px;right: 22px;width: 18px;heigh
   <h4>장서점검기 2가지 모델이 있으니 이용에 참고바랍니다</h4>
   <ul class="con">
     <li>DT-970 모델 : 1, 2, 3, 8, 9번 장서점검기</li>
-    <li>북체커 모델 : 4, 5, 6, 7번 장서점검기</li>
+    <li>북체커 모델 : 4, 5, 6, 7, 10번 장서점검기</li>
   </ul>
 </div><br>
 <form:form modelAttribute="libraryCheck" action="index.do" method="GET">
