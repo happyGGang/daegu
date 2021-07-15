@@ -53,7 +53,7 @@ public final class RequestWrapper extends HttpServletRequestWrapper {
 		//You'll need to remove the spaces from the html entities below
 		value = value.replaceAll("<script>", "");
 		value = value.replaceAll("</script>", "");
-		value = value.replaceAll("<iframe", "");
+//		value = value.replaceAll("<iframe", "");
 		// 채움 요청으로 ( )는 통과하도록 변경 20190612
 //		value = value.replaceAll("\\(", "&#40;").replaceAll("\\)", "&#41;");
 		value = value.replaceAll("'", "&#39;");
