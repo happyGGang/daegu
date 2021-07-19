@@ -65,7 +65,7 @@
 .content-01-box .box .cont li .contTop span.link.librarydgportal {background-color: #000;}
 
 .content-01-box .box .cont li .contMiddle span.tit {display:block;font-size:25px;font-weight:bold;padding-top: 20px;line-height:130%;margin-bottom:20px;}
-.content-01-box .box .cont li .contBottom span.con {font-size:17px;}
+.content-01-box .box .cont li .contBottom span.con {font-size:17px;word-break:break-all;}
 
 .content-02-box {position:relative;}
 .content-02-box h3 {position:absolute;left:0;top:0;font-size:27px;}
@@ -289,6 +289,7 @@
 .libraryMap li.dglib06 {top:150px;left:270px;} /*중구*/
 .libraryMap li.dglib07 {top:186px;left:199px;} /*달서구*/
 .libraryMap li.dglib08 {top:277px;left:172px;} /*달성군*/
+.libraryMap li.dglib09 {top:140px;left:115px;} /*달성군*/
 .libraryMap li a {display:block;}
 .libraryMap li p {display:none;z-index:4;}
 .libraryMap li:hover p {display:block;position:relative;top:-30px;left:7px;width:24px;height:30px;line-height:1.2em;color:#fff;background:url('../img/marker.png') no-repeat 0 0;z-index:4;padding-top:8px;font-size:0;animation:tranY 0.6s ease;}
