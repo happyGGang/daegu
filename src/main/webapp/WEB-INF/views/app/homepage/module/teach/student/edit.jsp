@@ -1059,6 +1059,11 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	</table>
 	</c:if>
 </form:form>
+<c:if test="${homepage.context_path eq 'namdm' || homepage.context_path eq 'namic'}">
+	<p style="color:#ff0000;font-weight:bold;text-align:center;font-size:17px;padding-bottom:10px;">
+		※ 무단 결석 시에는 추후 프로그램 신청이 제한될 수 있습니다.
+	</p>
+</c:if>
 <br/>
 <div class="button bbs-btn center">
 	<button id="save-btn" class="btn btn5" title="신청하기">신청하기</button>
