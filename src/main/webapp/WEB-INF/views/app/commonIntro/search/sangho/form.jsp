@@ -158,6 +158,7 @@ $(function() {
 <form:option value="727072">초록우산도서관</form:option>
 <form:option value="727074">행복도서관</form:option>
 <form:option value="727068">방촌동 작은도서관</form:option>
+<form:option value="727076">율하5주민도서관</form:option>
 					</form:select>
 					</c:when>
 					<c:otherwise>
@@ -194,6 +195,9 @@ $(function() {
 								</c:if>
 							</c:forEach>
 							<form:checkbox path="appendixregnolist" label="${media_desc }" value="${i.REG_NO}"/>
+						</c:if>
+						<c:if test="${i.KBILL_APPENDIX_LILL_YN ne 'O'}">
+						부록대출불가
 						</c:if>
 					</c:forEach>
 			 	</td>
