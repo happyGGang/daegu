@@ -48,6 +48,9 @@
 
 <script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/common.js"></script>
 <script type="text/javascript" src="/resources/common/js/kakao.min.js"></script>
+
+<c:choose>
+<c:when test="${param.menu_idx eq '177' || param.menu_idx eq '155' || param.menu_idx eq '162' || param.menu_idx eq '172'}">
 <script>
 
 $(document).ready(function(){
@@ -75,6 +78,12 @@ $(document).mousedown(function(e) {
 </script>
 </head>
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
+</c:when>
+<c:otherwise>
+</head>
+<body>
+</c:otherwise>
+</c:choose>
 
 <a href="#container" class="skip-to">본문 바로가기</a>
 <a href="#navi" class="skip-to">메뉴 바로가기</a>
