@@ -271,7 +271,7 @@ do {
 						</a>
 					</li>
 					<li>
-						<a href="https://www.instagram.com/bukbulib/" target="_blank">
+						<a href="https://www.instagram.com/libbukbu/" target="_blank">
 							<img src="/resources/homepage/${homepage.context_path}/img/instargram-icon.png" alt="INSTAGRAM"> <br class="br650"/>INSTAGRAM
 						</a>
 					</li>

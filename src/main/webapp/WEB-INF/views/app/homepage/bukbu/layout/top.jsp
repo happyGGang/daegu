@@ -35,6 +35,8 @@
 						<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=4">통합허브시스템 로그인</a>
 						<span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=5">회원가입</a>
+						<span class="txt-bar"></span>
+						<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=8" style="color:#ff0000;">통합회원인증</a>
 					</c:otherwise>
 				</c:choose>
 						<span class="txt-bar"></span>
@@ -44,7 +46,7 @@
 							<img src="/resources/homepage/${homepage.context_path}/img/twitter-btn.png" alt="트위터" />
 						</a><a href="https://www.facebook.com/bukbulib" target="_blank" class="sitemap-img2">
 							<img src="/resources/homepage/${homepage.context_path}/img/facebook-btn.png" alt="페이스북" />
-						</a><a href="https://www.instagram.com/bukbulib/" target="_blank" class="sitemap-img2">
+						</a><a href="https://www.instagram.com/libbukbu/" target="_blank" class="sitemap-img2">
 						<img src="/resources/homepage/${homepage.context_path}/img/instagram-btn.png" alt="인스타그램" /></a><a href="https://www.youtube.com/channel/UCQYHZF_a03fl3AIstSLd_Rw" target="_blank" class="sitemap-img2">
 						<img src="/resources/homepage/${homepage.context_path}/img/youtube-btn.png" alt="유튜브" /></a>
 			</div>
