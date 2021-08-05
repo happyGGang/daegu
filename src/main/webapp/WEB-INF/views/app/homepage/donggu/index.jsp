@@ -195,8 +195,8 @@ do {
 									</a>
 								</li>
 								<li class="qm4">
-									<a href="/${homepage.context_path}/html.do?menu_idx=137">
-										<span>체험형<br class="mobileBr">동화구연</span>
+									<a href="/${homepage.context_path}/html.do?menu_idx=19">
+										<span>책나래</span>
 									</a>
 								</li>
 								<li class="qm5">

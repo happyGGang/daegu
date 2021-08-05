@@ -26,6 +26,12 @@ $(document).ready(function() {
 });
 </script>
 
+<style>
+	@media (max-width:430px) and (min-width:0px){
+		table.bbs th.mm100{width:100%;}
+	}
+</style>
+
 <form:form modelAttribute="survey" action="index.do" method="get" onsubmit="return false;">
 <form:hidden path="survey_idx"/>
 <form:hidden path="homepage_id"/>
@@ -59,7 +65,7 @@ $(document).ready(function() {
 			<thead>
 				<tr>
 					<th>번호</th>
-					<th class="important">설문명</th>
+					<th class="important mm100">설문명</th>
 					<th>응모자수</th>
 					<th class="important mmm2">시작일</th>
 					<th class="important mmm2">종료일</th>
