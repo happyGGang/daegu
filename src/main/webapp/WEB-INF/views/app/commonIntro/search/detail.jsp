@@ -545,10 +545,10 @@ $(function() {
 
 					<c:choose>
 						<c:when test="${detail.RESERVE_CODE eq 'OK'}">
-							<a href="#" id="resve-req" class="btn btn1" style="padding:8.5px 2%">예약신청</a>
+							<a href="#" id="resve-req" class="btn btn1" style="padding:8.5px 2%">예약신청(${detail.RESERVATION_CNT} / ${detail.RESERVATION_NUMBER})</a>
 						</c:when>
 						<c:otherwise>
-							<a href="#" id="resve-req-not" class="btn btn5" style="padding:8.5px 2%">예약불가</a>
+							<a href="#" id="resve-req-not" class="btn btn5" style="padding:8.5px 2%">예약불가(${detail.RESERVATION_CNT} / ${detail.RESERVATION_NUMBER})</a>
 						</c:otherwise>
 					</c:choose>
 
