@@ -940,11 +940,11 @@ public class IndexController extends BaseController {
 		if( closedDay != null) {
 			String[] closedDayList = closedDay.getDd().split(",");
 			for ( String oneClose : closedDayList ) {
+				List<String> closedList = null;
 				String key = oneClose.trim();
 				if ( key.startsWith("0") ) {
 					key = key.replace("0", "");
 				}
-				List<String> closedList = null;
 				if ( planRepo.containsKey(key) ) {
 					closedList = planRepo.get(key);
 				}
@@ -956,7 +956,7 @@ public class IndexController extends BaseController {
 				planRepo.put(key, closedList);
 			}
 		}
-
+		
 		for (CalendarManage event : eventDay) {
 			List<String> eventList = null;
 
@@ -1078,90 +1078,91 @@ public class IndexController extends BaseController {
 		    	planRepo.put(endKey, excursionsList);
 		    }
 		}
-
-		for (Teach teach : teachDay) {
-			List<String> teachList = null;
-			String[] teachDays 	= teach.getTeach_day().split(",");
-			String startDateStr = teach.getStart_date();
-			String endDateStr 	= teach.getEnd_date();
-			String startKey 	= teach.getStart_date().substring(8,10);
-			String endKey 		= teach.getEnd_date().substring(8,10);
-			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-
-			Date startDate 	= DateUtils.parseDate(startDateStr, pattern);
-			Date endDate 	= DateUtils.parseDate(endDateStr, pattern);
-
-			while( !DateUtils.isSameDay(startDate, endDate) ) {
-				if ( startDate.after(endDate) ) {
-					break;
+		
+			for (Teach teach : teachDay) {
+				List<String> teachList = null;
+				String[] teachDays 	= teach.getTeach_day().split(",");
+				String startDateStr = teach.getStart_date();
+				String endDateStr 	= teach.getEnd_date();
+				String startKey 	= teach.getStart_date().substring(8,10);
+				String endKey 		= teach.getEnd_date().substring(8,10);
+				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+	
+				Date startDate 	= DateUtils.parseDate(startDateStr, pattern);
+				Date endDate 	= DateUtils.parseDate(endDateStr, pattern);
+	
+				while( !DateUtils.isSameDay(startDate, endDate) ) {
+					if ( startDate.after(endDate) ) {
+						break;
+					}
+					
+					if ( sf.format(startDate).startsWith(planDate) ) {
+				    	 Calendar cal = Calendar.getInstance() ;
+					     cal.setTime(startDate);
+					     int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
+					     for ( String one : teachDays ) {
+					    	  if ( dayNum == Integer.parseInt(one) ) {
+					    		  startKey = sf.format(startDate).substring(8, 10);
+					    		  if ( startKey.startsWith("0") ) {
+					    			  startKey = startKey.replace("0", "");
+						  		  }
+					    		  if ( planRepo.containsKey(startKey) ) {
+					    			  teachList = planRepo.get(startKey);
+					    		  }
+					    		  else {
+					    			  teachList = new ArrayList<String>();
+					    		  }
+						    		  if (closedDay == null) {
+						    			  String teachStatus = "[강좌]";
+						    			  
+						    			  if (teach.getHolidays() != null && teach.getHolidays().size() > 0) {
+						    				  for ( String string : teach.getHolidays() ) {
+						    					  if (StringUtils.equals(string, planDate +"-"+ startKey)) {
+						    						  teachStatus = "[휴강]";
+						    					  }
+						    				  }
+						    			  }
+						    			  teachList.add(teachStatus + teach.getTeach_name());
+								    	  planRepo.put(startKey, teachList);
+								      } 
+					    	  }
+					     }
+				     }
+	
+				     startDate = DateUtils.addDays(startDate, 1);
 				}
-
 				if ( sf.format(startDate).startsWith(planDate) ) {
-			    	 Calendar cal = Calendar.getInstance() ;
-				     cal.setTime(startDate);
-				     int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
-				     for ( String one : teachDays ) {
-				    	  if ( dayNum == Integer.parseInt(one) ) {
-				    		  startKey = sf.format(startDate).substring(8, 10);
-				    		  if ( startKey.startsWith("0") ) {
-				    			  startKey = startKey.replace("0", "");
-					  		  }
-				    		  if ( planRepo.containsKey(startKey) ) {
-				    			  teachList = planRepo.get(startKey);
-				    		  }
-				    		  else {
-				    			  teachList = new ArrayList<String>();
-				    		  }
-				    		  if (!teachList.contains("[휴관일]")) {
-				    			  String teachStatus = "[강좌]";
+					Calendar cal = Calendar.getInstance() ;
+				    cal.setTime(endDate);
+				    int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
+				    for ( String one : teachDays ) {
+				    	if ( dayNum == Integer.parseInt(one) ) {
+				    		if ( endKey.startsWith("0") ) {
+				    			endKey = endKey.replace("0", "");
+					  		}
+				    		if ( planRepo.containsKey(endKey) ) {
+								teachList = planRepo.get(endKey);
+							}
+							else {
+								teachList = new ArrayList<String>();
+							}
+				    		if (!teachList.contains("[휴관일]")) {
+				    			String teachStatus = "[강좌]";
 				    			  if (teach.getHolidays() != null && teach.getHolidays().size() > 0) {
 				    				  for ( String string : teach.getHolidays() ) {
-				    					  if (StringUtils.equals(string, planDate +"-"+ startKey)) {
+				    					  if (StringUtils.equals(string, planDate +"-"+ endKey)) {
 				    						  teachStatus = "[휴강]";
 				    					  }
 				    				  }
 				    			  }
-				    			  teachList.add(teachStatus + teach.getTeach_name());
-						    	  planRepo.put(startKey, teachList);
-						      }
-				    	  }
-				     }
-			     }
-
-			     startDate = DateUtils.addDays(startDate, 1);
-			}
-			if ( sf.format(startDate).startsWith(planDate) ) {
-				Calendar cal = Calendar.getInstance() ;
-			    cal.setTime(endDate);
-			    int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
-			    for ( String one : teachDays ) {
-			    	if ( dayNum == Integer.parseInt(one) ) {
-			    		if ( endKey.startsWith("0") ) {
-			    			endKey = endKey.replace("0", "");
-				  		}
-			    		if ( planRepo.containsKey(endKey) ) {
-							teachList = planRepo.get(endKey);
-						}
-						else {
-							teachList = new ArrayList<String>();
-						}
-			    		if (!teachList.contains("[휴관일]")) {
-			    			String teachStatus = "[강좌]";
-			    			  if (teach.getHolidays() != null && teach.getHolidays().size() > 0) {
-			    				  for ( String string : teach.getHolidays() ) {
-			    					  if (StringUtils.equals(string, planDate +"-"+ endKey)) {
-			    						  teachStatus = "[휴강]";
-			    					  }
-			    				  }
-			    			  }
-			    			teachList.add(teachStatus + teach.getTeach_name());
-					    	planRepo.put(endKey, teachList);
-					    }
-			    	}
+				    			teachList.add(teachStatus + teach.getTeach_name());
+						    	planRepo.put(endKey, teachList);
+						    }
+				    	}
+				    }
 			    }
-		    }
-
-		}
+	
+			}
 
 		for (FacilityReq facility : facilityDayList) {
 			List<String> facilityList = null;
