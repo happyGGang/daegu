@@ -389,7 +389,8 @@ function pasteHTML(contentId) {
 				file.ext.toLowerCase() == ".bmp" ||
 				file.ext.toLowerCase() == ".gif" ||
 				file.ext.toLowerCase() == ".png" ) {
-				sHTML = '<img src="'+previewPath+'" width="730px" style="display : block;"/>';
+				//sHTML = '<img src="'+previewPath+'" width="730px"/>';
+				sHTML = oEditors.getById[contentId].getIR() + '<img src="'+previewPath+'" width="730px"/>';
 			} else	if( file.type.toLowerCase() == ".mp3" || // 음악 파일 처리
 				file.ext.toLowerCase() == ".wma" ) {
 				alert('이미지 형태의 파일만 에디터에 넣을 수 있습니다.');
@@ -399,7 +400,9 @@ function pasteHTML(contentId) {
 				// 이미지나 음악에 속하지 않는 파일에 대한 처리
 				//previewObj.innerHTML  = defaultMessage;
 			}
-			oEditors.getById[contentId].exec("PASTE_HTML", [sHTML]);
+			
+			//oEditors.getById[contentId].exec("PASTE_HTML", [sHTML]);
+			oEditors.getById[contentId].exec("SET_IR", [sHTML]);
 		} else {
 			// 이미지나 음악에 속하지 않는 파일에 대한 처리
 			//previewObj.innerHTML  = defaultMessage;
