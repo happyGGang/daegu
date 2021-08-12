@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import kr.co.whalesoft.app.cms.code.Code;
 import kr.co.whalesoft.app.cms.code.CodeService;
+import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
@@ -31,6 +33,9 @@ public class BlackListController extends BaseController{
 
 	@Autowired
 	private BlackListService service;
+	
+	@Autowired
+	private HomepageService homepageService;
 
 	@Autowired
 	private CodeService codeService;
@@ -38,10 +43,25 @@ public class BlackListController extends BaseController{
 	@RequestMapping(value = { "/index.*" })
 	public String index(Model model, BlackList blackList, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
-		blackList.setHomepage_id(getAsideHomepageId(request));
 		Map<String, String> codeMap = new HashMap<String, String>();
 		for ( Code one : codeService.getCode("CMS", "C0017") ) {
 			codeMap.put(one.getCode_id(), one.getCode_name());
+		}
+		Homepage sessionHomepageInfo = getSessionHomepageInfo(request);
+		if ((getAsideHomepageId(request).equals("h37") || getAsideHomepageId(request).equals("h49") || getAsideHomepageId(request).equals("h45") || getAsideHomepageId(request).equals("h53"))) {
+			sessionHomepageInfo.setHomepage_group(getAsideHomepageId(request));
+			sessionHomepageInfo.setTemp_use_yn("Y");
+			List<Homepage> subHomepageList = homepageService.getSubHomepageList(sessionHomepageInfo);
+			if (StringUtils.isEmpty(blackList.getHomepage_id())) {
+				blackList.setHomepage_id(subHomepageList.get(0).getHomepage_id());
+			}
+			model.addAttribute("subHomepageList", subHomepageList);
+		} else {
+			if (StringUtils.isEmpty(blackList.getHomepage_id())) {
+				blackList.setHomepage_id(getAsideHomepageId(request));
+				blackList.setHomepage_name(sessionHomepageInfo.getHomepage_name());
+			}
+
 		}
 
 		service.setPaging(model, service.getBlackListCount(blackList), blackList);

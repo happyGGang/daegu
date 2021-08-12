@@ -95,13 +95,47 @@ $(function() {
 	
 	<c:if test="${member.admin}">
 		<div class="search">
-			<fieldset>
-				<label class="blind">검색</label>				
-				<form:select class="selectmenu-search" style="width:250px" path="homepage_id">
-					<form:option value="" label="홈페이지를 선택하세요." />
-					<form:options itemValue="homepage_id" itemLabel="homepage_name" items="${homepageList}"/>
-				</form:select> 
-			</fieldset>
+			<c:choose>
+			<c:when test="${fn:length(subHomepageList) > 0 and asideHomepageId ne 'h50' and asideHomepageId ne 'h51' and asideHomepageId ne 'h37'}">
+				도서관 : <form:select id="homepage_id" path="homepage_id" items="${subHomepageList}" itemLabel="homepage_name" itemValue="homepage_id"></form:select>
+			</c:when>
+
+			<c:when test="${asideHomepageId eq 'h50'}">
+				도서관 :
+				<form:select id="homepage_id" path="homepage_id">
+					<form:option value="h50">범어</form:option>
+					<form:option value="h54">책숲길</form:option>
+					<form:option value="h55">물망이</form:option>
+				</form:select>
+			</c:when>
+
+			<c:when test="${asideHomepageId eq 'h51'}">
+				도서관 :
+				<form:select id="homepage_id" path="homepage_id">
+					<form:option value="h51">용학</form:option>
+					<form:option value="h56">파동</form:option>
+					<form:option value="h57">무학숲</form:option>
+				</form:select>
+			</c:when>
+
+			<c:when test="${asideHomepageId eq 'h37'}">
+				도서관 :
+				<form:select id="homepage_id" path="homepage_id">
+					<form:option value="h72">도원</form:option>
+					<form:option value="h67">성서</form:option>
+					<form:option value="h68">본리</form:option>
+					<form:option value="h69">달서가족문화</form:option>
+					<form:option value="h66">달서어린이</form:option>
+					<form:option value="h70">달서영어</form:option>
+					<form:option value="h41">독서문화진흥</form:option>
+				</form:select>
+			</c:when>
+
+			<c:otherwise>
+				<form:hidden id="homepage_id" path="homepage_id"/>
+				<span class="library_title">${blackList.homepage_name}</span>
+			</c:otherwise>
+		</c:choose>
 		</div>
 	</c:if>
 	<div class="infodesk">
