@@ -81,7 +81,7 @@ $(function() {
 					<c:when test="${context_path eq 'bukgs' || context_path eq 'bukdh' || context_path eq 'buktj' || context_path eq 'buks'}">
 			 		<form:select path="uselibcode">
 			 			<form:option value="" label="-- 선택 --" />
-						<form:option value="127009">구수산도서관</form:option>
+						<!--<form:option value="127009">구수산도서관</form:option>-->
 						<form:option value="127084">대현도서관</form:option>
 						<form:option value="127088">태전도서관</form:option>
 						<!-- <form:option value="727033">태전1동 작은도서관</form:option> -->
