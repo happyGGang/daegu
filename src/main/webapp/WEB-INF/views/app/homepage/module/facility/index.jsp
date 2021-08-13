@@ -164,6 +164,67 @@ $(function(){
 <form:hidden id="menu_idx" path="menu_idx"/>
 <form:hidden id="homepage_id_1" path="homepage_id"/>
 
+	<c:if test="${homepage.context_path eq 'yonghak'}">
+		<h3 style="margin-top:0;">이용방법</h3>
+		<ul class="con">
+			<li>신청서 작성 후 도서관 승인을 받고 해당시간 이용가능</li>
+			<li>사전신청을 해야 하며, 신청일로부터 한 달간 예약 가능</li>
+		</ul>
+
+		<h3>신청인원</h3>
+		<ul class="con">
+			<li>3명 이상 신청가능<br />(※ 코로나19로 인해 최대이용가능 인원 : 4명)</li>
+		</ul>
+
+		<h3>이용시간</h3>
+		<div class="rsv-info"></div>
+		<div class="auto-scroll">
+			<table class="tbl-type01" summary="용학도서관 독서토론실 이용시간을 안내해 드립니다.">
+			  <caption class="disnone">
+			  독서토론실 이용시간
+			  </caption>
+			  <colgroup>
+			  <col width="*" class="col1">
+			  <col width="25%" class="col2">
+			  <col width="25%" class="col3">
+			  <col width="25%" class="col4">
+			  </colgroup>
+			  <thead>
+				<tr class="first">
+				  <th scope="col" class="first th1">요일</th>
+				  <th scope="col" class="th2" colspan="3">시간대</th>
+				</tr>
+			  </thead>
+			  <tbody>
+				<tr class="first">
+				  <th scope="row" class="first th1">화~금요일</th>
+				  <td class="td1">09:00~12:00</td>
+				  <td class="td2">13:00~16:00</td>
+				  <td class="last td3">17:00~20:00</td>
+				</tr>
+				<tr class="first">
+				  <th scope="row" class="first th1">토·일요일</th>
+				  <td class="td1">09:00~12:00</td>
+				  <td colspan="2" class="last td2">13:00~16:00</td>
+				</tr>
+			  </tbody>
+			</table>
+		  </div>
+
+		<h3>유의사항</h3>
+		<ul class="con">
+			<li>독서토론과 관련 없는 활동은 사용불가 (종교, 보험, 사익 목적 등)</li>
+			<li>두 차례 예약시간을 지키지 않을 경우, 두 달간 이용 제한</li>
+			<li>시설 및 설비를 변경할 수 없으며, 특별한 경우 사전승인 요청</li>
+			<li>마스크 착용 필수, 음식물 섭취 금지</li>
+		</ul>
+
+		<h3>신청</h3>
+		<ul class="con">
+			<li>전화 (053-668-1728) 및 방문 신청</li>
+		</ul>
+	</c:if>
+
 	<div class="ym_btns">
 		<a id="before-btn" href="#prev" class="btn prev new_btn01"><i class="fa fa-angle-left"></i><span class="blind">이전달</span></a>
 		<form:select path="plan_year" class="new_select_box" style="width:80px;"></form:select>
