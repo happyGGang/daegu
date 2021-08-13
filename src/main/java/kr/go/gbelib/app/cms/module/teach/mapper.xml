@@ -4,12 +4,12 @@
 
 	<select id="getTeachListForCalendar" resultType="kr.go.gbelib.app.cms.module.teach.Teach">
 		SELECT
-			homepage_id, group_idx, category_idx, teach_idx, start_date, end_date,
-			teach_name, teach_day, disable_holi
+			a.homepage_id, a.group_idx, a.category_idx, a.teach_idx, a.start_date, a.end_date,
+			a.teach_name, a.teach_day, a.disable_holi, b.group_name
 		FROM
-			TEACH
+			TEACH a, TEACH_CATEGORY_GROUP b
 		WHERE
-			homepage_id = #{homepage_id}
+			a.homepage_id = #{homepage_id}
 			<!-- AND	(start_date LIKE #{plan_date}||'%' or end_date LIKE #{plan_date}||'%') -->
 			<if test="plan_date != null and plan_date != ''">
 			AND	SUBSTR(start_date, 1, 7) <![CDATA[ <= ]]> #{plan_date}
@@ -19,10 +19,12 @@
 			AND	start_date <![CDATA[ <= ]]> #{plan_day}
 			AND	end_date >= #{plan_day}
 			</if>
-			AND	delete_yn = 'N'
-			AND	calendar_view_yn = 'Y'
+			AND	a.delete_yn = 'N'
+			AND	a.calendar_view_yn = 'Y'
+			AND	a.group_idx = b.group_idx(+)
+			AND b.homepage_id = #{homepage_id}
 		ORDER BY
-			start_date, end_date
+			a.start_date, a.end_date
 	</select>
 
 	<select id="getTeachListAll" resultType="kr.go.gbelib.app.cms.module.teach.Teach">

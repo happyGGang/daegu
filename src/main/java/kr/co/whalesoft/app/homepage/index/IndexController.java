@@ -1113,7 +1113,12 @@ public class IndexController extends BaseController {
 					    			  teachList = new ArrayList<String>();
 					    		  }
 						    		  if (closedDay == null) {
-						    			  String teachStatus = "[강좌]";
+						    			  String teachStatus;
+						    			  if(!teach.getGroup_name().isEmpty()) {
+						    				  teachStatus="[" + teach.getGroup_name() + "]";
+						    			  }else {
+						    				  teachStatus= "[강좌]";
+						    			  }
 						    			  
 						    			  if (teach.getHolidays() != null && teach.getHolidays().size() > 0) {
 						    				  for ( String string : teach.getHolidays() ) {
@@ -1147,7 +1152,12 @@ public class IndexController extends BaseController {
 								teachList = new ArrayList<String>();
 							}
 				    		if (!teachList.contains("[휴관일]")) {
-				    			String teachStatus = "[강좌]";
+				    			 String teachStatus;
+				    			  if(!teach.getGroup_name().isEmpty()) {
+				    				  teachStatus="[" + teach.getGroup_name() + "]";
+				    			  }else {
+				    				  teachStatus= "[강좌]";
+				    			  }
 				    			  if (teach.getHolidays() != null && teach.getHolidays().size() > 0) {
 				    				  for ( String string : teach.getHolidays() ) {
 				    					  if (StringUtils.equals(string, planDate +"-"+ endKey)) {
