@@ -182,11 +182,9 @@ $(function() {
 	</c:if>
 
 	<c:if test="${empty librarySearch.title}">
-	//$('#checkAll').click();
 	</c:if>
 
 	<c:if test="${empty librarySearch.title}">
-	//$('#checkAll').click();context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' 
 		<c:choose>
 			<c:when test="${context_path eq 'bolli'}">
 			$('div#libraryList input:checkbox').prop('checked',false);
@@ -245,6 +243,10 @@ $(function() {
 			<c:when test="${context_path eq 'sincheon'}">
 			$('div#libraryList input:checkbox').prop('checked',false);
 			$('div#libraryList input:checkbox.lib_CB').prop('checked',true);
+			</c:when>
+			<c:when test="${context_path eq 'muhaksup'}">
+			$('div#libraryList input:checkbox').prop('checked',false);
+			$('div#libraryList input:checkbox.lib_BH').prop('checked',true);
 			</c:when>
 		</c:choose>
 	</c:if>
