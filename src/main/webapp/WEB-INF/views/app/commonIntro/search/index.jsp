@@ -703,7 +703,7 @@ $(function() {
 													<form:checkbox path="libraryCodes" value="GV" class="libCheck lib_FN" label="지저동작은도서관"/>
 												</li>
 												<li>
-													<form:checkbox path="libraryCodes" value="GW" class="libCheck lib_HG" label="동천역사작은도서관"/>
+													<form:checkbox path="libraryCodes" value="GW" class="libCheck lib_HG" label="동촌역사작은도서관"/>
 												</li>
 												<li>
 													<form:checkbox path="libraryCodes" value="GX" class="libCheck lib_GX" label="방촌동작은도서관"/>

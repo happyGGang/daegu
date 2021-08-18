@@ -676,7 +676,7 @@
 								<form:checkbox path="libraryCodes" class="libCheck lib_GV" value="GV" label="지저동작은도서관" />
 							</li>
 							<li>
-								<form:checkbox path="libraryCodes" class="libCheck lib_GW" value="GW" label="동천역사작은도서관" />
+								<form:checkbox path="libraryCodes" class="libCheck lib_GW" value="GW" label="동촌역사작은도서관" />
 							</li>
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_GX" value="GX" label="방촌동작은도서관" />
