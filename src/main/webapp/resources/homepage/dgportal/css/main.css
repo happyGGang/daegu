@@ -23,7 +23,7 @@
 .content-01-box .box .title {text-align:center;font-size:32px;font-weight:800;color:#333333;}
 .content-01-box .box .title span {display:block;width:40%;margin:0 auto;border-bottom:1px solid #a1a1a1;padding:10px 0;}
 .content-01-box .box .cont {width:97%;margin:80px auto 0;}
-.content-01-box .box .cont li {display:inline-block;width:40%;vertical-align:top;margin-left:5%;}
+.content-01-box .box .cont li {display:inline-block;width:43%;vertical-align:top;margin-left:5%;}
 .content-01-box .box .cont li:first-child {margin-left:20px;border:1px solid #000;}
 .content-01-box .box .cont li:last-child {width: 41%;float:right;margin-left: 40px;}
 .content-01-box .box .cont li .contTop span {font-size:18px;padding-top: 0;}
@@ -512,7 +512,7 @@
 	.content-01-box .box .title {text-align:center;font-size:28px;font-weight:800;color:#333333;}
 	.content-01-box .box .title span {display:block;width:40%;margin:0 auto;border-bottom:1px solid #a1a1a1;padding:10px 0;}
 	.content-01-box .box .cont {width:90%;margin:40px auto 0;}
-	.content-01-box .box .cont li {display:inline-block;width:48%;vertical-align:top;}
+	.content-01-box .box .cont li {display:inline-block;width:43%;vertical-align:top;}
 	.content-01-box .box .cont li:first-child {}
 	.content-01-box .box .cont li:last-child {margin-left:3%;}
 	.content-01-box .box .cont li .contTop span {font-size:17px;}
@@ -634,7 +634,7 @@
 
 	.content-01-box .box .title {text-align:center;font-size:23px;font-weight:800;color:#333333;}
 	.content-01-box .box .cont {width:90%;margin:20px auto 0;}
-	.content-01-box .box .cont li {display:inline-block;width:48%;vertical-align:top;}
+	.content-01-box .box .cont li {display:inline-block;width:43%;vertical-align:top;}
 	.content-01-box .box .cont li:first-child {}
 	.content-01-box .box .cont li:last-child {margin-left:3%;}
 	.content-01-box .box .cont li .contTop span {font-size:15px;}
@@ -739,7 +739,7 @@
 
 	.content-01-box .box .title {text-align:center;font-size:21px;font-weight:800;color:#333333;}
 	.content-01-box .box .cont {width:90%;margin:20px auto 0;}
-	.content-01-box .box .cont li {display:inline-block;width:48%;vertical-align:top;box-sizing:border-box;}
+	.content-01-box .box .cont li {display:inline-block;width:43%;vertical-align:top;box-sizing:border-box;}
 	.content-01-box .box .cont li:first-child {}
 	.content-01-box .box .cont li:last-child {margin-left:2%;}
 	.content-01-box .box .cont li .contTop span {font-size:13px;}
