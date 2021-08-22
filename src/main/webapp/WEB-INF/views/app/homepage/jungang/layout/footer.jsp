@@ -31,8 +31,8 @@
 				<address>
 					<p>
 						<em>(${homepage.zipcode}) <br class="mobileBr"/>${homepage.address1}</em><br class="mobileBr"/>
-						<em>전화
-							<b>${fn:split(homepage.homepage_tell,',')[0]}</b></em>
+						<em>전화 <b>${fn:split(homepage.homepage_tell,',')[0]}</b></em><br/>
+						<em>(${homepage.zipcode}) <br class="mobileBr"/>${homepage.eng_address}</em><br class="mobileBr"/>
 						<!--<em>/</em>
 						<em>팩스 <b>${homepage.homepage_fax }</b></em> -->
 					</p>
