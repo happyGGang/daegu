@@ -12,10 +12,33 @@
 			LIBRARY_CHECK a
 		<if test="loan_status != null and loan_status != ''">
 		WHERE
-			(SELECT COUNT(*) FROM LIBRARY_CHECK_LOAN WHERE library_check_idx = a.library_check_idx)
 			<choose>
-				<when test="loan_status == 0"><![CDATA[=]]></when>
-				<when test="loan_status == 1"><![CDATA[>]]></when>
+				<when test="loan_status == 0">
+				(
+					SELECT
+						COUNT(*)
+					FROM 
+						LIBRARY_CHECK_LOAN 
+					WHERE 
+						library_check_idx = a.library_check_idx 
+						AND TO_DATE(SYSDATE, 'yyyy/MM/dd') <![CDATA[>=]]> TO_DATE(loan_start_date, 'yyyy/MM/dd') 
+						AND TO_date(SYSDATE, 'yyyy/MM/dd')  <![CDATA[<=]]> TO_date(loan_end_date, 'yyyy/MM/dd')
+				)
+					<![CDATA[=]]>
+				</when>
+				<when test="loan_status == 1">
+				(
+					SELECT 
+						COUNT(*) 
+					FROM 
+						LIBRARY_CHECK_LOAN 
+					WHERE 
+						library_check_idx = a.library_check_idx 
+						AND TO_DATE(SYSDATE, 'yyyy/MM/dd') <![CDATA[>=]]> TO_DATE(loan_start_date, 'yyyy/MM/dd') 
+						AND TO_DATE(SYSDATE, 'yyyy/MM/dd')  <![CDATA[<=]]> TO_date(loan_end_date, 'yyyy/MM/dd')
+				)
+					<![CDATA[>]]>
+				</when>
 			</choose>
 			0
 		</if>
