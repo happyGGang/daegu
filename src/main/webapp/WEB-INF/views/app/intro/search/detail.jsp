@@ -239,6 +239,9 @@ $(function() {
 								<c:when test="${detail.WORKING_STATUS == 'BOL211O'}">
 									<span style="color:#ff0000">대출불가(관외대출중)</span>
 								</c:when>
+								<c:when test="${detail.WORKING_STATUS == 'BOL213O'}">
+									<span style="color:#ff0000">대출불가(관외대출중)</span>
+								</c:when>
 								<c:when test="${detail.WORKING_STATUS == 'BOL212O'}">
 									<span style="color:#ff0000">대출불가(관내대출중)</span>
 								</c:when>
