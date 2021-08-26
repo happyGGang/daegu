@@ -118,7 +118,7 @@ div.img-box span.num {position: absolute;top: 30px;right: 22px;width: 18px;heigh
     <form:option value="1">대출중</form:option>
     <form:option value="0">대출가능</form:option>
   </form:select>
-  <a href="https://library.daegu.go.kr/228/board/view.do?menu_idx=154&manage_idx=224&board_idx=452880" target="_blank" class="btn" id="manual-btn">사용방법</a>
+  <a href="https://library.daegu.go.kr/228/board/view.do?menu_idx=154&manage_idx=224&board_idx=452880" target="_blank" class="btn" id="manual-btn" style="background:#0b3fb6;color:#fff;border:none;">사용방법</a>
   <div>
     <c:forEach items="${libraryCheckList}" var="i">
       <div class="group-box">
