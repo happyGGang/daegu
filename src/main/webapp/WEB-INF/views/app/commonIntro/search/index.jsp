@@ -106,12 +106,22 @@ $(function() {
 		e.preventDefault();
 		var len = $('input.checkBook:checked').length;
 		if (len < 1) {
-			alert('선택된 책이 없습니다.');
+			alert('선택된 도서가 없습니다.');
 			return false;
 		}
-		//TODO
-		alert('준비중입니다');
+
+		var checkList = $('#librarySearch input[name="print_param"]:checked').clone();
+
+		$(checkList).each(function() {
+			$(this).val($(this).val().replace(/,/gi,';;;;;'));
+		});
+
+		$('#storageReqBatchForm').append(checkList);
+		$('#storageReqBatchForm input[type=checkbox]').attr('name', 'strList');
+		window.open("", "myStoragePopup", "width=400, height=400");
+		$('#storageReqBatchForm').submit();
 		//내 보관함 이동.
+		
 	});
 
 	//인기검색어
@@ -222,18 +232,21 @@ $(function() {
 
 	$('a#addStorage').on('click', function(e) {
 		e.preventDefault();
-		/* if ( doAjaxPost($('storageReqForm')) ) {
-
-		} */
-		var strList = '';
-		$('input[name=print_param]:visible:checked').each(function() {
-			if (strList != '') {
-				strList += '&';
-			}
-			strList += 'strList='+$(this).val();
+		var len = $('input.checkBook:checked').length;
+		if (len < 1) {
+			alert('선택된 도서가 없습니다.');
+			return false;
+		}
+		var checkList = $('#librarySearch input[name="print_param"]:checked').clone();
+		(checkList).each(function() {
+			$(this).val($(this).val().replace(/,/gi,';;;;;'));
 		});
+		$('#storageReqForm').append(checkList);
+		$('#storageReqForm input[type=checkbox]').attr('name', 'strList');
+		window.open("", "myStoragePopup", "width=400, height=400");
+		$('form#storageReqForm').submit();
 
-		window.open("/${homepage.context_path}/module/myStorage/viewStorage.do?"+strList, "", "width=450, height=400");
+		//내 보관함 이동.
 	});
 
 	$('input[name=booktype]').on('click', function() {
@@ -274,6 +287,17 @@ $(function() {
 		.search-form .detail_search .section dl dt{font-size:13px;}
 	}
 </style>
+
+<form id="storageReqForm" action="/${homepage.context_path}/module/myStorage/viewStorage.do" method="post" target="myStoragePopup" style="display: none;">
+<input type="hidden" name="_csrf" value="${_csrf.token}">
+<input type="hidden" id="editMode" name="editMode" value="ADD">
+<input type="hidden" id="item_name" name="item_name" value="${detail.TITLE_INFO}">
+<input type="hidden" id="author" name="author" value="${detail.AUTHOR}">
+<input type="hidden" id="publer" name="publer" value="${detail.PUBLISHER}">
+<input type="hidden" id="loca" name="loca" value="${detail.MANAGE_CODE}">
+<input type="hidden" id="ctrl_no" name="ctrl_no" value="${detail.ST_CODE}">
+<input type="hidden" id="img_url" name="img_url" value="${detail.IMAGE}">
+</form>
 
 <form:form modelAttribute="librarySearch" action="index.do" method="get">
 	<form:hidden path="menu_idx"/>
@@ -1349,7 +1373,7 @@ $(function() {
 							<c:set var="detailURL" value="detail.do?menu_idx=${fn:escapeXml(param.menu_idx)}&isbn=${fn:escapeXml(i.ST_CODE)}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}"></c:set>
 							<div class="row">
 								<p class="admin">
-									<input name="print_param" type="checkbox" class="checkBook" value="${fn:replace(i.TITLE_INFO, ',', ';;;')}^^^${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}^^^${fn:escapeXml(i.MANAGE_CODE)}^^^${fn:escapeXml(i.REG_NO)}^^^${fn:escapeXml(i.CALL_NO)}^^^${fn:escapeXml(param.menu_idx)}"/>
+									<input name="print_param" type="checkbox" class="checkBook" id="print_param${status.index}" value="${fn:replace(i.TITLE_INFO, ',', ';;;')}///${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}///${fn:escapeXml(i.MANAGE_CODE)}///${fn:escapeXml(i.REG_NO)}///${fn:escapeXml(i.CALL_NO)}///${fn:escapeXml(param.menu_idx)}" title="책 선택"/>
 								</p>
 								<div class="thumb">
 									<c:choose>
@@ -1565,7 +1589,7 @@ $(function() {
 								<div class="box">
 									<div class="item">
 										<div class="bif">
-										<input name="print_param" type="checkbox" class="checkBook" value="${fn:replace(i.TITLE_INFO, ',', ';;;')}^^^${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}^^^${fn:escapeXml(i.MANAGE_CODE)}^^^${fn:escapeXml(i.REG_NO)}^^^${fn:escapeXml(param.menu_idx)}"/>
+										<input name="print_param" type="checkbox" class="checkBook" value="${i.TITLE_INFO}///${i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK'}///${i.MANAGE_CODE}///${i.REG_NO}///${param.menu_idx}"/>
 											<a href="${detailURL}" class="name">
 												<c:if test="${i.MEDIA_CODE eq 'PR'}">[도서]</c:if>
 												<c:if test="${i.MEDIA_CODE ne 'PR'}">[비도서]</c:if>

@@ -194,7 +194,7 @@ public class MyStorageController extends BaseController {
 				} else {
 					for (String str : myItem.getStrList()) {
 
-						String[] lib_rec_tid = str.split("\\^\\^\\^");
+						String[] lib_rec_tid = str.split("///");
 
 						MyItem item = new MyItem(myItem.getHomepage_id(), myItem.getMember_key());
 						item.setStorage_idx(myItem.getStorage_idx());
