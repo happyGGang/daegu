@@ -266,8 +266,7 @@ Date.prototype.format = function(f) {
 						<c:set var="ty" value="${fn:split(j, ']')}"></c:set>
 						<div class="planList">
 							<p class="datetime">${calendar.plan_date}-${key}</p>
-
-							<p class="title"><em>${ty[0]}${fn:length(ty) > 1 ? ']' : (fn:startsWith(ty[0], '[') ? ']' : '')}</em> ${fn:length(ty) > 1 ? ty[1] : ''}</p>
+							<p class="title"><em>${ty[0]}${fn:length(ty) > 1 ? ']' : (fn:startsWith(ty[0], '[') ? ']' : '')}</em>${ty[1]}${fn:length(ty) > 1 ? (fn:startsWith(ty[1], '[') ? ']' : '') : ''}${ty[2]}${fn:length(ty) > 1 ? (fn:startsWith(ty[2], '[') ? ']' : '') : ''}</p>
 						</div>
 					</c:forEach>
 				</c:forEach>
