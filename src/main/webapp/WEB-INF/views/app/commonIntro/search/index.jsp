@@ -245,6 +245,7 @@ $(function() {
 		$('#storageReqForm input[type=checkbox]').attr('name', 'strList');
 		window.open("", "myStoragePopup", "width=400, height=400");
 		$('form#storageReqForm').submit();
+		checkList.remove();
 
 		//내 보관함 이동.
 	});
