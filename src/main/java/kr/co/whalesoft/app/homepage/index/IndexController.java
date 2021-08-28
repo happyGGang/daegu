@@ -753,6 +753,16 @@ public class IndexController extends BaseController {
 		if (homepage.getHomepage_id().equals("h53")) {
 			model.addAttribute("bookList1", boardService.getBoardBookJungu());
 		}
+		
+		//달성군립
+		if (homepage.getHomepage_id().equals("h44")) {
+			Calendar cal = Calendar.getInstance();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+			Board b = new Board();
+			b.setHomepage_id(homepage.getHomepage_id());
+			b.setImsi_v_1(sdf.format(cal.getTime()));
+			model.addAttribute("movieList", boardService.getBoardMovie(b));
+		}
 
 		//서구도서관
 		if (homepage.getHomepage_id().equals("h49")) {
