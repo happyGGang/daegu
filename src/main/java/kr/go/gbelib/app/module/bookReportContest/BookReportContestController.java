@@ -17,6 +17,7 @@ import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
+import kr.go.gbelib.app.cms.module.bestPracticesContest.BestPracticesContest;
 import kr.go.gbelib.app.cms.module.bookReportContest.BookReportContest;
 import kr.go.gbelib.app.cms.module.bookReportContest.BookReportContestService;
 
@@ -32,7 +33,9 @@ public class BookReportContestController extends BaseController {
 	@RequestMapping (value = {"/index.*"})
 	public String index(Model model, BookReportContest bookReportContest, HttpServletRequest request) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		
+		bookReportContest.setHomepage_id(homepage.getHomepage_id());
+		service.setPaging(model, service.bookReportContestCount(bookReportContest), bookReportContest);
+		model.addAttribute("bookReportContestList", service.bookReportContestList(bookReportContest));
 		model.addAttribute("bookReportContest", bookReportContest);
 
 		return String.format(basePath, homepage.getFolder()) + "index";
@@ -40,13 +43,25 @@ public class BookReportContestController extends BaseController {
 	
 	@RequestMapping (value = {"/edit.*"})
 	public String edit(Model model, BookReportContest bookReportContest, HttpServletRequest request) throws Exception {
-		checkAuth("C", model, request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		
 		bookReportContest.setAdd_id(getSessionMemberId(request));
 		model.addAttribute("bookReportContest", bookReportContest);
 		
 		return String.format(basePath, homepage.getFolder()) + "edit";
+	}
+	
+	@RequestMapping (value = {"/view.*"})
+	public String view(Model model, BookReportContest bookReportContest, HttpServletRequest request) throws Exception {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		bookReportContest.setHomepage_id(homepage.getHomepage_id());
+		
+		service.setPaging(model, service.bookReportContestCount(bookReportContest), bookReportContest);
+		
+		model.addAttribute("bookReportContest", bookReportContest);
+		model.addAttribute("getBookReportContest", service.getBookReportContest(bookReportContest));
+		
+		return String.format(basePath, homepage.getFolder()) + "view";
 	}
 
 	@RequestMapping (value = {"/save.*"}, method = RequestMethod.POST)
