@@ -109,7 +109,7 @@ $(function() {
 					<p class="before_click">
 						<label for="matrix_count" style="margin:0">세부질문 수를 입력하세요</label>
 						<form:select path="matrix_count">
-						<c:forEach var="i" varStatus="status" begin="1" end="10" >
+						<c:forEach var="i" varStatus="status" begin="1" end="20" >
 						<form:option value="${i}">${i}개</form:option>
 						</c:forEach>
 						</form:select>
