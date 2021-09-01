@@ -122,6 +122,7 @@ $(function() {
 <form:form modelAttribute="bookReportContest" id="bookReportContestEdit" action="save.do" method="POST" enctype="multipart/form-data">
 <form:hidden path="menu_idx"/>
 <form:hidden path="book_report_idx"/>
+<form:hidden path="participation_field"/>
 	<div class="wrapper-bbs" style="padding-top:0;">
 		<p><b style="color: red;">(*)</b>표시항목은 필수입력항목입니다.</p>
 		<table class="bbs-edit" summary="독후감 공모 참가 신청">
@@ -131,13 +132,6 @@ $(function() {
 				<col width="">
 			</colgroup>
 			<tbody id="board_tbody">
-				<tr>
-					<th>참가분야<b style="color: red;">(*)</b></th>
-					<td>
-						<form:radiobutton path="participation_field" value="0" label="소년부(초등~중등)" />
-						<form:radiobutton path="participation_field" value="1" label="장년부(고등~일반)" />
-					</td>
-				</tr>
 				<tr>
 					<th>이름<b style="color: red;">(*)</b></th>
 					<td>
