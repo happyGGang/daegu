@@ -49,6 +49,8 @@ public class BookReportContestService extends BaseService {
 	@Transactional
 	public int addBookReportContest(BookReportContest bookReportContest, MultipartHttpServletRequest mpRequest) {
 		multipartFile(bookReportContest, mpRequest);
+		// 2021-08-31 YUNHAESU 강제 소년부 데이터값 배당
+		bookReportContest.setParticipation_field("0");
 		return dao.addBookReportContest(bookReportContest);
 	}
 	

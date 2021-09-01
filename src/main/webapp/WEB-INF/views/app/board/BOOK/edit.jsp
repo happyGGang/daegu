@@ -256,6 +256,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 					<form:input path="imsi_v_5" cssClass="text" maxlength="100"/>
 				</td>
 			</tr>
+			<c:if test="${param.manage_idx ne '944'}">
 			<tr>
 				<th>청구기호</th>
 				<td>
@@ -266,8 +267,10 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 					<a href="#" class="btn btn2" id="getIlus"><i class="fa fa-plus"></i><span>도서검색</span></a>
 					<br/>
 					*도서검색을 통해 등록할 경우 <br/>책 이미지 등록하지 않으셔도 됩니다.
+
 				</td>
 			</tr>
+			</c:if>
 			<tr>
 				<td colspan="4" class="editor">
 					<div class="bbs-textarea">
