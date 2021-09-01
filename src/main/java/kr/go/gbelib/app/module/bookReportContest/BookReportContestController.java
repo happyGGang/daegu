@@ -41,6 +41,15 @@ public class BookReportContestController extends BaseController {
 		return String.format(basePath, homepage.getFolder()) + "index";
 	}
 	
+	@RequestMapping (value = {"/step2.*"})
+	public String step2(Model model, BookReportContest bookReportContest, HttpServletRequest request) throws Exception {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		
+		model.addAttribute("bookReportContest", bookReportContest);
+		
+		return String.format(basePath, homepage.getFolder()) + "step2";
+	}
+	
 	@RequestMapping (value = {"/edit.*"})
 	public String edit(Model model, BookReportContest bookReportContest, HttpServletRequest request) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
@@ -69,7 +78,8 @@ public class BookReportContestController extends BaseController {
 		JsonResponse res = new JsonResponse(request);
 		
 		if(bookReportContest.getEditMode().equals("ADD")) {
-			ValidationUtils.rejectIfEmpty(result, "participation_field", "참가분야를 선택하세요.");
+			//2021-08-31 YUNHAESU 참가분야 삭제
+//			ValidationUtils.rejectIfEmpty(result, "participation_field", "참가분야를 선택하세요.");
 			ValidationUtils.rejectIfEmpty(result, "user_name", "성명을 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "user_phone", "휴대폰(본인) 번호를 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "postcode", "우편번호를 입력하세요.");

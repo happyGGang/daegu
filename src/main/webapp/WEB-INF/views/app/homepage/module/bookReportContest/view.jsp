@@ -17,6 +17,7 @@ $(function() {
 
 <form:form modelAttribute="bookReportContest" id="bookReportContestView" >
 <form:hidden path="homepage_id"/>
+<form:hidden path="menu_idx"/>
 <form:hidden path="book_report_idx"/>
 <form:hidden path="editMode"/>
 
@@ -26,15 +27,16 @@ $(function() {
 			<col width="">
 		</colgroup>
 		<tbody>
-			<tr>
-				<th>참가분야</th>
-				<td>
-					<c:choose>
-						<c:when test="${getBookReportContest.participation_field eq '0'}">소년부(초등~중등)</c:when>
-						<c:when test="${getBookReportContest.participation_field eq '1'}">장년부(고등~일반)</c:when>
-					</c:choose>
-				</td>
-			</tr>
+				<!-- 2021-08-31 -->
+<!-- 			<tr> -->
+<!-- 				<th>참가분야</th> -->
+<!-- 				<td> -->
+<%-- 					<c:choose> --%>
+<%-- 						<c:when test="${getBookReportContest.participation_field eq '0'}">소년부(초등~중등)</c:when> --%>
+<%-- 						<c:when test="${getBookReportContest.participation_field eq '1'}">장년부(고등~일반)</c:when> --%>
+<%-- 					</c:choose> --%>
+<!-- 				</td> -->
+<!-- 			</tr> -->
 			<tr>
 				<th>성명</th>
 				<td>${getBookReportContest.user_name}</td>
