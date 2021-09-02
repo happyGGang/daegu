@@ -118,7 +118,8 @@ $(function() {
   <form:hidden path="homepage_id"/>
   <form:hidden path="book_report_idx"/>
     <div class="link_btn02"> <a href="#" id="apply_btn">참여신청</a> </div>
-  <div class="infodesk"> 총 <b style="color:#ff0000;">${paging.totalDataCount}</b>건
+   <!-- 20210902 YUNHAESU 게시판 주석처리 -->
+  <%-- <div class="infodesk"> 총 <b style="color:#ff0000;">${paging.totalDataCount}</b>건
     <form:select path="rowCount" cssClass="selectmenu new_select_box">
       <form:option value="10">10개씩보기</form:option>
       <form:option value="20">20개씩보기</form:option>
@@ -187,5 +188,5 @@ $(function() {
         <button id="search_btn" style="background:none;background-color:#2c75cb;border-color:#1962ba;padding:5px 10px 6px;"><i class="fa fa-search"></i><span>검색</span></button>
       </fieldset>
     </div>
-  </div>
+  </div> --%>
 </form:form>
