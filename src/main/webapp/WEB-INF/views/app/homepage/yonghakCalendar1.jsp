@@ -65,7 +65,7 @@ $(document).ready(function() {
       </li>
     </ul>
   </div>
-  <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2021.7.31.] (단위 : 권)</span></h3>
+  <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2021.8.31.] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="파동도서관 장서현황을 안내해 드립니다.">
@@ -112,13 +112,13 @@ $(document).ready(function() {
           <td>331</td>
           <td>139</td>
           <td>838</td>
-          <td>1,224</td>
+          <td>1224</td>
           <td>366</td>
           <td>314</td>
           <td>257</td>
-          <td>3,711</td>
+          <td>3,733</td>
           <td>1,189</td>
-          <td>9,047</td>
+          <td>9,069</td>
         </tr>
         <tr>
           <th>유아</th>
@@ -129,38 +129,38 @@ $(document).ready(function() {
           <td>397</td>
           <td>69</td>
           <td>77</td>
-          <td>73</td>
-          <td>2,498</td>
+          <td>74</td>
+          <td>2,505</td>
           <td>32</td>
-          <td>4,164</td>
+          <td>4,172</td>
         </tr>
         <tr>
           <th>일반</th>
-          <td>496</td>
-          <td>915</td>
-          <td>295</td>
-          <td>2,113</td>
-          <td>629</td>
-          <td>1,158</td>
-          <td>579</td>
+          <td>497</td>
+          <td>920</td>
+          <td>298</td>
+          <td>2,114</td>
+          <td>630</td>
+          <td>1,160</td>
+          <td>580</td>
           <td>317</td>
-          <td>5,165</td>
-          <td>1,037</td>
-          <td>12,704</td>
+          <td>5,233</td>
+          <td>1,040</td>
+          <td>12,789</td>
         </tr>
         <tr>
           <th>합계</th>
-          <td>1,239</td>
-          <td>1,326</td>
-          <td>476</td>
-          <td>3,782</td>
-          <td>2,250</td>
-          <td>1,593</td>
-          <td>970</td>
-          <td>647</td>
-          <td> 11,374</td>
-          <td>2,258</td>
-          <td>25,915</td>
+          <td>1,240</td>
+          <td>1,331</td>
+          <td>479</td>
+          <td>3,783</td>
+          <td>2,251</td>
+          <td>1,595</td>
+          <td>971</td>
+          <td>648</td>
+          <td>11,471</td>
+          <td>2,261</td>
+          <td>26,030</td>
         </tr>
       </tbody>
     </table>
