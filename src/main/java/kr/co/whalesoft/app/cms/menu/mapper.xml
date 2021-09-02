@@ -93,6 +93,33 @@
 				CMS_MENU a
 			WHERE
 				homepage_id = #{homepage_id}
+			AND	view_yn = 'Y'
+			AND	use_yn = 'Y'
+			AND	group_idx = #{group_idx}
+		) A
+        CONNECT BY PRIOR menu_idx = parent_menu_idx
+        START WITH parent_menu_idx = 0
+        ORDER SIBLINGS BY print_seq ASC
+	</select>
+	
+	<select id="getMenuLeftTreeMobileListCache" resultType="kr.co.whalesoft.app.cms.menu.Menu" parameterType="map">
+		SELECT LEVEL AS menu_level, A.* FROM
+		(
+			SELECT
+				homepage_id, menu_idx, parent_menu_idx,
+				CASE menu_type
+					WHEN 'PROGRAM'
+					THEN (SELECT link_url FROM wb_module_mngt WHERE module_idx = manage_idx)
+					ELSE menu_type
+				END AS menu_url,
+				menu_url_param, menu_name, print_seq, menu_type, manage_idx,
+				link_url, view_yn, menu_left_icon, board_category1,
+				(SELECT menu_img FROM CMS_MENU WHERE homepage_id = #{homepage_id} AND menu_idx = a.group_idx) AS menu_img
+			FROM
+				CMS_MENU a
+			WHERE
+				homepage_id = #{homepage_id}
+			AND mobile_view_yn = 'Y'
 			AND	use_yn = 'Y'
 			AND	group_idx = #{group_idx}
 		) A

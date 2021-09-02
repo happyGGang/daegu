@@ -45,6 +45,16 @@ public class MenuService extends BaseService {
 	public List<Menu> getMenuLeftTreeListCache(String homepage_id, int group_idx) {
 		return dao.getMenuLeftTreeListCache(homepage_id, group_idx);
 	}
+	
+	/**
+	 * 왼쪽 메뉴 treeList (캐쉬 사용함)
+	 * @param menu_idx
+	 * @return
+	 */
+	@Cacheable(cacheName="getMenuLeftTreeListCache")
+	public List<Menu> getMenuLeftTreeMobileListCache(String homepage_id, int group_idx) {
+		return dao.getMenuLeftTreeMobileListCache(homepage_id, group_idx);
+	}
 
 	/**
 	 * 전자도서관 왼쪽 메뉴 treeList (캐쉬 사용함)
