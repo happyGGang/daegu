@@ -124,7 +124,7 @@ $(function() {
 <form:hidden path="book_report_idx"/>
 <form:hidden path="participation_field"/>
 	<div class="wrapper-bbs" style="padding-top:0;">
-		<p><b style="color: red;">(*)</b>표시항목은 필수입력항목입니다.</p>
+		<p><b style="color: red;">(*)</b>표시항목은 필수입력항목입니다. / 팀 대표자 기입바랍니다.</p>
 		<table class="bbs-edit" summary="독후감 공모 참가 신청">
 			<caption>독후감 공모 참가 신청</caption>
 			<colgroup>
@@ -184,6 +184,7 @@ $(function() {
 					<th>첨부파일1</th>
 					<td class="file1">
 		         		<input type="file" id="org_file_name_temp" name="org_file_name_temp" class="text" title="파일 첨부" /><form:hidden path="org_file_name"/>
+						<span>※ 신청서, 토론개요서 등 작성파일 첨부해주세요</span>
 	         		</td>
 				</tr>
 				<tr>
