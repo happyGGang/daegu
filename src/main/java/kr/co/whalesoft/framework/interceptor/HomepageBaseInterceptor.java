@@ -15,6 +15,8 @@ import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mobile.device.Device;
+import org.springframework.mobile.device.DeviceUtils;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -119,7 +121,13 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 				int modifyFormMenuIdx = menuService.getMenuIdxByLinkUrl(new Menu(homepage.getHomepage_id(), "/intro/join/modifyForm.do"));
 
 				if(menuOne != null) {
-					menuLeftList = menuService.getMenuLeftTreeListCache(menuOne.getHomepage_id(), menuOne.getGroup_idx());
+					//20210902 YUNHAESU 사이드메뉴 view_yn 오류 수정
+					Device device = DeviceUtils.getCurrentDevice(request);
+					if(device.isMobile() || device.isTablet()) {
+						menuLeftList = menuService.getMenuLeftTreeMobileListCache(menuOne.getHomepage_id(), menuOne.getGroup_idx());
+					}else {
+						menuLeftList = menuService.getMenuLeftTreeListCache(menuOne.getHomepage_id(), menuOne.getGroup_idx());
+					}
 				}
 
 				request.setAttribute("modifyFormMenuIdx", modifyFormMenuIdx);

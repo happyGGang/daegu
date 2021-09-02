@@ -123,6 +123,9 @@ $(function() {
 	});
 	$('.Gnb .gnb-menu > li.menu7').remove();
 
+
+	$('#more-view-btn').hide();
+
 	$('#more-view-btn').on('click', function(e) {
 		e.preventDefault();
 		$('.quickMenu').addClass('on');
@@ -192,14 +195,9 @@ if ( $(window).width() < 1025 ) {
 	$('.notice-box').removeClass('on');
 	$('#more-view-btn').hide();
 } else {
-	if($('.notice-box').hasClass('on') === true)
-	{
+		$('.quickMenu').addClass('on');
+		$('.notice-box').addClass('on');
 		$('#more-view-btn').hide();
-	}
-	else
-	{
-		$('#more-view-btn').show();
-	}
 };
 
 // 리사이즈 될때 모바일 화면에서 fullpage 미사용
@@ -209,14 +207,9 @@ $( window ).resize( function(e) {
 		$('.notice-box').removeClass('on');
 		$('#more-view-btn').hide();
 	} else {
-		if($('.notice-box').hasClass('on') === true)
-		{
-			$('#more-view-btn').hide();
-		}
-		else
-		{
-			$('#more-view-btn').show();
-		}
+		$('.quickMenu').addClass('on');
+		$('.notice-box').addClass('on');
+		$('#more-view-btn').hide();
 	};
 });
 
@@ -286,7 +279,7 @@ body, html {background:#30706e url('/resources/homepage/${homepage.context_path}
 		</div>
 
 		<div class="sectionxs">
-			<div class="quickMenu">
+			<div class="quickMenu on">
 				<ul>
 					<li class="quick-1">
 						<a href="/${homepage.context_path}/module/elib/book/index.do?menu_idx=14&menu=NEW&type=EBK" title="소장형 전자책 바로가기" class="quick01">
@@ -355,7 +348,8 @@ body, html {background:#30706e url('/resources/homepage/${homepage.context_path}
 				</ul>
 			</div>
 
-			<div id="notice-box" class="notice-box">
+
+			<div id="notice-box" class="notice-box on">
 				<a href="#close" class="more-close-btn" id="more-close-btn"><img src="/resources/homepage/${homepage.context_path}/img/btn-close.png" alt="닫기"></a>
 				<c:set var="now" value="<%=new java.util.Date()%>" />
 				<fmt:formatDate value="${now}" pattern="HH:mm" var="time" />
@@ -394,6 +388,148 @@ body, html {background:#30706e url('/resources/homepage/${homepage.context_path}
 					</div>
 
 					<div class="contents-section">
+						<div class="curation-box">
+							<div class="relative">
+								<h4 class="title">BOOK’ 큐레이션</h4>
+							</div>
+							<div class="relative curation-box-content">
+								<div class="curation-box-left">
+									<div class="curation-box-left-background">
+										<c:if test="${fn:length(bookList) != 0}">
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=94&plan_date=${bookList[0].imsi_v_1}&manage_idx=${bookList[0].manage_idx}&board_idx=${bookList[0].board_idx}" alt="${bookList[0].title}" title="${bookList[0].title}"/>
+										<span class="img">
+											<c:choose>
+												<c:when test="${bookList[0].preview_img ne null}">
+													<c:choose>
+														<c:when test="${fn:contains(bookList[0].preview_img, 'http')}">
+														<img src="${bookList[0].preview_img}" alt="${bookList[0].title}" title="${bookList[0].title}"/>
+														</c:when>
+														<c:otherwise>
+														<img src="/data/board/${bookList[0].manage_idx}/${bookList[0].board_idx}/${bookList[0].preview_img}" alt="${bookList[0].title}" title="${bookList[0].title}"/>
+														</c:otherwise>
+													</c:choose>
+												</c:when>
+												<c:otherwise>
+													<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}">
+												</c:otherwise>
+											</c:choose>
+										</span>
+										<span class="txt">
+											<p class="title_info">${bookList[0].title}</p>
+										</span>
+										<p><a href="/board/view.do?board_idx=${bookList[0].board_idx}&plan_date=${bookList[0].imsi_v_1}&menu_idx=94&manage_idx=${bookList[0].manage_idx}&board_idx=${bookList[0].board_idx}" alt="${bookList[0].title}" title="${bookList[0].title}"><img src="/resources/homepage/elib/img/cu-more-btn.png" alt="더보기"></a></p>
+										</c:if>
+									</div>
+								</div>
+								<div class="curation-box-right">
+									<ul>
+										<c:forEach items="${bookList}" var="i" varStatus="status">
+										<c:choose>
+										<c:when test="${fn:length(bookList) < 2}">
+										
+										</c:when>
+										<c:otherwise>
+											<c:if test="${!status.first}">
+												<li>
+													<a href="/${homepage.context_path}/board/view.do?menu_idx=94&plan_date=${i.imsi_v_1}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}" alt="${i.title}" title="${i.title}"/>
+													<span class="img">
+														<c:choose>
+															<c:when test="${i.preview_img ne null}">
+																<c:choose>
+																	<c:when test="${fn:contains(i.preview_img, 'http')}">
+																	<img src="${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+																	</c:when>
+																	<c:otherwise>
+																	<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+																	</c:otherwise>
+																</c:choose>
+															</c:when>
+															<c:otherwise>
+																<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}">
+															</c:otherwise>
+														</c:choose>
+													</span>
+													<span class="txt">
+														<p class="title_info">${i.title}</p>
+													</span>
+												</li>
+											</c:if>
+										</c:otherwise>
+										</c:choose>
+										</c:forEach>
+										<!-- <li>
+											<a href="https://library.daegu.go.kr/elib/module/elib/book/view.do?menu_idx=80&book_idx=112708&viewPage=1&search_text=%EB%82%98%EC%9D%98+%EC%B2%AB+%EC%B0%A8%EB%B0%95&search_type=&type=EBK&author_name=&book_pubname=&book_year=&rowCount=10&from_search=Y">
+												<span class="img">
+													<img src="/resources/homepage/elib/img/0000002.jpg" alt="나의 첫 차박캠핑 이야기" onerror="this.src='/resources/common/img/noImg2.png'">
+												</span>
+												<span class="txt">
+													<p class="title_info">나의 첫 차박캠핑 이야기</p>
+												</span>
+											</a>
+										</li>
+
+										<li>
+											<a href="https://library.daegu.go.kr/elib/module/elib/book/view.do?menu_idx=80&book_idx=113272&viewPage=1&search_text=%EC%BA%A0%ED%95%91%ED%95%98%EB%A3%A8&search_type=&type=EBK&author_name=&book_pubname=&book_year=&rowCount=10&from_search=Y">
+												<span class="img">
+													<img src="/resources/homepage/elib/img/0000003.jpg" alt="캠핑하루" onerror="this.src='/resources/common/img/noImg2.png'">
+												</span>
+												<span class="txt">
+													<p class="title_info">캠핑하루</p>
+												</span>
+											</a>
+										</li>
+
+										<li>
+											<a href="https://library.daegu.go.kr/elib/module/elib/book/view.do?menu_idx=80&book_idx=111060&viewPage=1&search_text=%EC%95%84%EB%AC%B4%ED%8A%BC%2C%EC%97%AC%EB%A6%84&search_type=&type=EBK&author_name=&book_pubname=&book_year=&rowCount=10&from_search=Y">
+												<span class="img">
+													<img src="/resources/homepage/elib/img/0000004.jpg" alt="아무튼, 여름" onerror="this.src='/resources/common/img/noImg2.png'">
+												</span>
+												<span class="txt">
+													<p class="title_info">아무튼, 여름</p>
+												</span>
+											</a>
+										</li>
+
+										<li>
+											<a href="https://library.daegu.go.kr/elib/module/elib/book/view.do?menu_idx=80&book_idx=105798&viewPage=1&search_text=%EB%B9%88%EA%B3%A4%ED%96%88%EB%8D%98+%EC%97%AC%EB%A6%84%EC%9D%B4+%EC%A7%80%EB%82%98%EA%B3%A0&search_type=&type=EBK&author_name=&book_pubname=&book_year=&rowCount=10&from_search=Y">
+												<span class="img">
+													<img src="/resources/homepage/elib/img/0000005.jpg" alt="빈곤했던 여름이 지나고" onerror="this.src='/resources/common/img/noImg2.png'">
+												</span>
+												<span class="txt">
+													<p class="title_info">빈곤했던 여름이 지나고</p>
+												</span>
+											</a>
+										</li>
+
+										<li>
+											<a href="https://library.daegu.go.kr/elib/module/elib/book/view.do?menu_idx=80&book_idx=66527&viewPage=1&search_text=%EC%9E%90%EC%97%B0%EC%9D%84+%EB%A8%B9%EC%96%B4%EC%9A%94&search_type=&type=EBK&author_name=&book_pubname=&book_year=&rowCount=10&from_search=Y">
+												<span class="img">
+													<img src="/resources/homepage/elib/img/0000006.jpg" alt="자연을 먹어요! 여름" onerror="this.src='/resources/common/img/noImg2.png'">
+												</span>
+												<span class="txt">
+													<p class="title_info">자연을 먹어요! 여름</p>
+												</span>
+											</a>
+										</li>
+
+										<li>
+											<a href="https://library.daegu.go.kr/elib/module/elib/book/view.do?menu_idx=80&book_idx=110939&viewPage=1&search_text=%EC%97%90%EC%96%B4%ED%94%84%EB%9D%BC%EC%9D%B4%EC%96%B4+119+%EB%A0%88%EC%8B%9C%ED%94%BC&search_type=&type=EBK&author_name=&book_pubname=&book_year=&rowCount=10&from_search=Y">
+												<span class="img">
+													<img src="/resources/homepage/elib/img/0000007.jpg" alt="에어프라이어 119 레시피" onerror="this.src='/resources/common/img/noImg2.png'">
+												</span>
+												<span class="txt">
+													<p class="title_info">에어프라이어 119 레시피</p>
+												</span>
+											</a>
+										</li> -->
+
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+<!--
+					<div class="contents-section">
 						<div class="ebook-box">
 							<div class="relative">
 								<h4 class="title">지금 E-BOOK</h4>
@@ -401,7 +537,17 @@ body, html {background:#30706e url('/resources/homepage/${homepage.context_path}
 							</div>
 							<div>
 							<ul id="bestBookList">
-								<li style="color:#fff;">불러오는 중...</li>
+								<c:forEach items="${bestBookList1}" var="i" varStatus="status">
+									<li>
+										<a href="/elib/module/elib/book/view.do?menu_idx=15&menu=BEST&type=EBK&sortField=BOOK_LEND&sortType=DESC&book_idx=${i.book_idx}">
+											<span class="img"><img src="${i.book_image}" alt="${i.book_name}" onerror="this.src='/resources/common/img/noImg2.png'"></span>
+											<span class="txt">
+										<p class="title_info">${i.book_name}</p>
+										<p class="author">${i.author_name}</p>
+										</span>
+										</a>
+									</li>
+								</c:forEach>
 							</ul>
 							</div>
 						</div>
@@ -409,7 +555,14 @@ body, html {background:#30706e url('/resources/homepage/${homepage.context_path}
 							<h4 class="title">신간 E-BOOK</h4>
 							<div class="ebookContent">
 								<ul id="newBookList">
-									<li style="color:#fff;">불러오는 중...</li>
+									<c:forEach items="${newBookList1}" var="i" varStatus="status">
+									<li>
+										<a href="/elib/module/elib/book/view.do?menu_idx=14&menu=NEW&type=EBK&sortField=BOOK_PUBDT&sortType=DESC&book_idx=${i.book_idx}">
+										<span class="movieImg"><img src="${i.book_image}" alt="${i.book_name}" onerror="this.src='/resources/common/img/noImg2.png'"></span>
+										<span class="movieEx">${i.book_name}</span>
+										</a>
+									</li>
+									</c:forEach>
 								</ul>
 							</div>
 						</div>
@@ -427,6 +580,7 @@ body, html {background:#30706e url('/resources/homepage/${homepage.context_path}
 							</ul>
 
 					</div>
+-->
 				</div>
 			</div>
 		</div>

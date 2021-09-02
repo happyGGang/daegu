@@ -14,6 +14,8 @@ public interface MenuDao {
 	public List<Menu> getMenuTreeListCache(String homepage_id);
 
 	public List<Menu> getMenuLeftTreeListCache(@Param ("homepage_id") String homepage_id, @Param ("group_idx") int group_idx);
+	
+	public List<Menu> getMenuLeftTreeMobileListCache(@Param ("homepage_id") String homepage_id, @Param ("group_idx") int group_idx);
 
 	public List<Menu> getElibMenuLeftTreeListCache(Menu menu);
 

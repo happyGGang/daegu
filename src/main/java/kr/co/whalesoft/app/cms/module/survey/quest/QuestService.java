@@ -194,6 +194,7 @@ public class QuestService extends BaseService {
 		
 		questDetailService.deleteQuestDetail(quest);
 		Quest tempQuest = getQuestOne(quest);
+		questMatrixService.deleteQuestMatrix(quest); // 20210902 감병학 수정 CMS_SURVEY_QUEST_MATRIX 튜플 삭제
 		dao.deleteQuest(quest);
 		dao.reOrderQuest(tempQuest);
 		

@@ -65,7 +65,7 @@ $(document).ready(function() {
       </li>
     </ul>
   </div>
-  <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2021.7.31.] (단위 : 권)</span></h3>
+  <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2021.8.31.] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="무학숲도서관 장서현황을 안내해 드립니다.">
@@ -111,14 +111,14 @@ $(document).ready(function() {
           <td>237</td>
           <td>124</td>
           <td>81</td>
-          <td>373</td>
-          <td>1,003</td>
-          <td>361</td>
+          <td>374</td>
+          <td>1,004</td>
+          <td>362</td>
           <td>121</td>
           <td>153</td>
-          <td>1,979</td>
+          <td>1,994</td>
           <td>722</td>
-          <td>5,154</td>
+          <td>5,172</td>
         </tr>
         <tr>
           <th>유아</th>
@@ -130,37 +130,37 @@ $(document).ready(function() {
           <td>83</td>
           <td>90</td>
           <td>73</td>
-          <td>2,050</td>
+          <td>2,060</td>
           <td>82</td>
-          <td>3,495</td>
+          <td>3,505</td>
         </tr>
         <tr>
           <th>일반</th>
           <td>235</td>
           <td>388</td>
           <td>141</td>
-          <td>873</td>
+          <td>875</td>
           <td>485</td>
           <td>758</td>
           <td>269</td>
           <td>140</td>
-          <td>2,019</td>
-          <td>411</td>
-          <td>5,719</td>
+          <td>2,024</td>
+          <td>412</td>
+          <td>5,727</td>
         </tr>
         <tr>
           <th>합계</th>
           <td>532</td>
           <td>628</td>
           <td>308</td>
-          <td>1,681</td>
-          <td>1,908</td>
-          <td>1,202</td>
+          <td>1,684</td>
+          <td>1,909</td>
+          <td>1,203</td>
           <td>480</td>
           <td>366</td>
-          <td>6,048</td>
-          <td>1,215</td>
-          <td>14,368</td>
+          <td>6,078</td>
+          <td>1,216</td>
+          <td>14,404</td>
         </tr>
       </tbody>
     </table>
