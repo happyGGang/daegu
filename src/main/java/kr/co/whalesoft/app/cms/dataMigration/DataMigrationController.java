@@ -1019,7 +1019,7 @@ public class DataMigrationController extends BaseController {
 
 	private void setDalseoguFiles(Map<String, String> tableConfig, Map<String, Object> map1, List<Map<String, Object>> orgFileMap, String filePath, String bbs_file1) {
 		if (StringUtils.isNotEmpty(bbs_file1)) {
-			map1 = new HashMap<>();
+			map1 = new HashMap<String, Object>();
 			String fileName = bbs_file1;
 			map1.put("ORG_FILE_NAME", fileName);
 			map1.put("FILE_EXT", fileName.substring(fileName.lastIndexOf(".")+1));
@@ -1070,7 +1070,7 @@ public class DataMigrationController extends BaseController {
 				Map<Integer, Integer> idxMap = new HashMap<Integer, Integer>();
 
 
-				List<DataMigration> dataMap = new ArrayList<>();
+				List<DataMigration> dataMap = new ArrayList<DataMigration>();
 				if (manager_seq == 48) {//book
 					dataMap = service.getListGosanBook(manager_seq);
 				} else if (manager_seq == 18) {//movie
@@ -1293,7 +1293,7 @@ public class DataMigrationController extends BaseController {
 				Map<Integer, Integer> idxMap = new HashMap<Integer, Integer>();
 
 
-				List<DataMigration> dataMap = new ArrayList<>();
+				List<DataMigration> dataMap = new ArrayList<DataMigration>();
 				if (manager_seq == 44) {//book
 					dataMap = service.getListYonghakBook(manager_seq);
 				} else if (manager_seq == 18) {//movie
@@ -1513,7 +1513,7 @@ public class DataMigrationController extends BaseController {
 				Map<Integer, Integer> idxMap = new HashMap<Integer, Integer>();
 
 
-				List<DataMigration> dataMap = new ArrayList<>();
+				List<DataMigration> dataMap = new ArrayList<DataMigration>();
 				if (manager_seq == 48) {//book
 					dataMap = service.getListBeomeoBook(manager_seq);
 				} else if (manager_seq == 18) {//movie
@@ -2721,18 +2721,18 @@ public class DataMigrationController extends BaseController {
 
 					if (StringUtils.containsIgnoreCase(tableConfig.get("A_LEVEL"), "recommend_book")) {
 						String c1 = one.getCategory1();
-						switch (c1) {
-							case "104": case "106": case "115": case "119": case "123": case "103": case "105": case "114": case "118": case "122":
-								manage_idx = 623; one.setManage_idx(623);break;
-
-							case "107": case "116": case "120": case "124" :
-								manage_idx = 624; one.setManage_idx(624);break;
-
-							case "108": case "117": case "121": case "125": case "127": case "102":
-								manage_idx = 625; one.setManage_idx(625);break;
-
-							default : manage_idx = 625; break;
-						}
+//						switch (c1) {
+//							case "104": case "106": case "115": case "119": case "123": case "103": case "105": case "114": case "118": case "122":
+//								manage_idx = 623; one.setManage_idx(623);break;
+//
+//							case "107": case "116": case "120": case "124" :
+//								manage_idx = 624; one.setManage_idx(624);break;
+//
+//							case "108": case "117": case "121": case "125": case "127": case "102":
+//								manage_idx = 625; one.setManage_idx(625);break;
+//
+//							default : manage_idx = 625; break;
+//						}
 						switch (manager_seq) {
 							case 95533164 : one.setCategory1("0001");break;
 							case 18644879 : one.setCategory1("0002");break;
