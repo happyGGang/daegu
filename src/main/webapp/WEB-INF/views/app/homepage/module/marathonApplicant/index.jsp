@@ -21,7 +21,15 @@ $(function(){
 		$('input#editMode').val('view');
 		$('input#contest_idx').val($(this).attr('keyValue'));
 		doGetLoad('edit.do', serializeCustom($('form#marathonApplicant')));
-	})
+	});
+	
+	$('a#printCompleteDocument').on('click', function(e) {
+		$('#dialog-2').load('certificate.do?homepage_id='+$(this).attr('keyValue')+'&contest_idx='+$(this).attr('keyValue2')+'&contest_type_idx='+$(this).attr('keyValue3')+'&applicant_idx='+$(this).attr('keyValue4'), function( response, status, xhr ) {
+			$('#dialog-2').dialog('open');
+		});
+
+		e.preventDefault();
+	});
 });
 </script>
 <form:form modelAttribute="marathonApplicant" action="index.do" method="GET" >
@@ -57,6 +65,9 @@ $(function(){
 						<td>
 							<fmt:formatNumber value="${i.read_page_count_total}" pattern="#,###"/> / <fmt:formatNumber value="${i.page_count}" pattern="#,###"/>
 							(<fmt:formatNumber value="${(i.read_page_count_total / i.page_count)*100.0}" pattern="##.##"/>%)
+							<c:if test="${i.process_status eq 1}">
+								<a href="#" class="btn btn1" id="printCompleteDocument" keyValue="${i.homepage_id}" keyValue2="${i.contest_idx}" keyValue3="${i.contest_type_idx}" keyValue4="${i.applicant_idx}">완주증서 출력</a>
+							</c:if>
 						</td>
 						<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>
 						<td><a href="#" id="view" class="btn btn1" keyValue="${i.contest_idx}">보기</a></td>
@@ -75,3 +86,6 @@ $(function(){
 		<jsp:param name="formId" value="#marathonApplicant"/>
 	</jsp:include>
 </form:form>
+
+<div id="dialog-2" class="dialog-common" title="완주증서">
+</div>
