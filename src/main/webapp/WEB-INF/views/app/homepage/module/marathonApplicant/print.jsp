@@ -50,7 +50,16 @@
 		<tr>
 			<th>목표페이지 / 누적페이지</th>
 			<td style="text-align:left;"><fmt:formatNumber value="${read_page_count_total}" pattern="#,###"/> / <fmt:formatNumber value="${marathonApplicant.page_count}" pattern="#,###"/>
-			 (남은 페이지 : <fmt:formatNumber value="${marathonApplicant.page_count - read_page_count_total}" pattern="#,###"/>)</td>
+			 (남은 페이지 :
+			 <c:choose>
+			 	<c:when test="${marathonApplicant.page_count - read_page_count_total <= 0}">
+			 		<fmt:formatNumber value="0"/>)
+			 	</c:when>
+			 	<c:otherwise>
+			 		<fmt:formatNumber value="${marathonApplicant.page_count - read_page_count_total}" pattern="#,###"/>)
+			 	</c:otherwise>
+			 </c:choose>
+			 </td>
 		</tr>
 		<tr>
 			<th>달성율</th>
