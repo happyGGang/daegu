@@ -179,6 +179,7 @@
 		AND	a.facility_idx = b.facility_idx
 		AND	a.homepage_id = #{homepage_id}
 		AND	b.apply_id = #{apply_id}
+		AND a.facility_idx = #{facility_idx}
 		AND	a.delete_yn = 'N'
 		AND	b.delete_yn = 'N'
 	</select>

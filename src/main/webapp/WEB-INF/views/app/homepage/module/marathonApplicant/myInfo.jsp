@@ -41,7 +41,7 @@
 			
 			$('#dialog-2').load('certificate.do?homepage_id=${marathonApplicant.homepage_id}&contest_idx=${marathonApplicant.contest_idx}&contest_type_idx=${marathonApplicant.contest_type_idx}&applicant_idx=${marathonApplicant.applicant_idx}', function( response, status, xhr ) {
 				$('#dialog-2').dialog('open');
-			})
+			});
 
 			e.preventDefault();
 		});

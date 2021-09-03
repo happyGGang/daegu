@@ -87,45 +87,45 @@ public class AccessIpController extends BaseController {
 	public boolean isUserCMSAccessIp(HttpServletRequest request) {
 		String userIp = request.getRemoteAddr();
 
-//		if (userIp.equals("127.0.0.1")) {
-//			return true;
-//		} else if (userIp.equals("0:0:0:0:0:0:0:1")) {
-//			return true;
-//		} else if (userIp.equals("121.182.43.205")) {
-//			return true;
-//		}
+		if (userIp.equals("127.0.0.1")) {
+			return true;
+		} else if (userIp.equals("0:0:0:0:0:0:0:1")) {
+			return true;
+		} else if (userIp.equals("121.182.43.205")) {
+			return true;
+		} else {
+			List<AccessIp> accessIpList = service.getAllowIpList();
 
-		List<AccessIp> accessIpList = service.getAllowIpList();
+			for (AccessIp allowed_ip : accessIpList) {
 
-		for (AccessIp allowed_ip : accessIpList) {
+				String allowedIp = allowed_ip.getAccess_ip();
 
-			String allowedIp = allowed_ip.getAccess_ip();
+				/*
+				 * 허용 IP에 '*'이 있으면 허용IP, 접속IP 각각 split(".");
+				 */
+				if (allowed_ip.getAccess_ip().contains("*")) {
 
-			/*
-			 * 허용 IP에 '*'이 있으면 허용IP, 접속IP 각각 split(".");
-			 */
-			if (allowed_ip.getAccess_ip().contains("*")) {
+					// 허용 IP
+					String[] allowed_ip_temp = allowed_ip.getAccess_ip().split("\\.");
 
-				// 허용 IP
-				String[] allowed_ip_temp = allowed_ip.getAccess_ip().split("\\.");
+					// 접속 IP
+					String[] ip_temp = userIp.split("\\.");
 
-				// 접속 IP
-				String[] ip_temp = userIp.split("\\.");
-
-				for (int i = 0; i < allowed_ip_temp.length; i++) {
-					// 허용 IP에 '*'이 있으면 해당 위치에 접속IP 값을 삽입.
-					if (allowed_ip_temp[i].equals("*")) {
-						allowed_ip_temp[i] = ip_temp[i];
+					for (int i = 0; i < allowed_ip_temp.length; i++) {
+						// 허용 IP에 '*'이 있으면 해당 위치에 접속IP 값을 삽입.
+						if (allowed_ip_temp[i].equals("*")) {
+							allowed_ip_temp[i] = ip_temp[i];
+						}
 					}
+
+					allowedIp = allowed_ip_temp[0] + "." + allowed_ip_temp[1] + "." + allowed_ip_temp[2] + "." + allowed_ip_temp[3];
 				}
 
-				allowedIp = allowed_ip_temp[0] + "." + allowed_ip_temp[1] + "." + allowed_ip_temp[2] + "." + allowed_ip_temp[3];
-			}
+				if (allowedIp.equals(userIp)) {
+					return true;
+				}
 
-			if (allowedIp.equals(userIp)) {
-				return true;
 			}
-
 		}
 
 		log.debug("@@@@@@@@@@@@@@@@ access ip : " + userIp);

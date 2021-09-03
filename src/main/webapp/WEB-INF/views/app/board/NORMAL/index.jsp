@@ -13,12 +13,8 @@ table.bbs tr.notice{background:#f5f6f7}
 	table.bbs col.col2 {
 	    width : 1%
 	}
-	td.title{width: 100%;float:left;border-bottom: none;margin-bottom: -5px;}
-	td.username{float:left;display: table-cell !important;border-top: none;font-size: 12px !important;}
-	td.adddate{float:left;display: table-cell !important;border-top: none;font-size: 12px !important;}
-	td.viewCount{float:left;display: table-cell !important;border-top: none;font-size: 12px !important;}
-	table.bbs tbody tr:hover {background:#f8f8f8}
-	td.txtBar{display: inline-block;width: 1px;height: 10px;font-size: 0px;line-height: 0;text-indent: -9999px;vertical-align: top;margin: 3px 5px;background: rgb(217, 217, 217);}
+	td.title{width: 100%;border-bottom: none;margin-bottom: -5px;border:none;}
+	td.adddate{font-size: 12px !important;border:none;}
 }
 </style>
 <c:set var="categoryMovae" value="${not empty authMBA and authMBA and boardManage.category_use_yn eq 'Y'}"></c:set>

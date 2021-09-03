@@ -33,7 +33,7 @@ $(function() {
 <div class="doc-body">
   <div class="roomicon">
     <div class="inner icowrap"><span class="ico ico5"></span> <strong>독서디베이트 대회</strong>
-      <p>&nbsp</p>
+      <p>「2021 수성인문학제」 독서디베이트 참여 사례를 작성하여 제출해주세요.</p>
     </div>
   </div>
   <h3>참여방법</h3>
@@ -56,10 +56,10 @@ $(function() {
     </ul>
   </div>
 </div>
-<h3>예선</h3>
+<h3>1차 예선</h3>
 <ul class="con">
   <li> 방 법 : 온라인 신청서 및 토론개요소 평가 후 본선 진출자 4팀 선정</li>
-  <li>결 과 : 2021. 9. 30.(목) ※ 홈페이지 결과 발표 및 유선연락 <br>
+  <li>결 과 : 021. 9. 30.(목) ※ 홈페이지 결과 발표 및 유선연락 <br>
     ※ 본선 진출 4팀 사전교육(토론역량강화 및 K-CEDA 디베이트 기법) 2021. 10. 2.(토) 예정 </li>
 </ul>
 <h3>본선 </h3>
@@ -111,13 +111,13 @@ $(function() {
   <li class="bg_none" style="padding:10px 0 2px;">※ 상품금액에 의한 제세공과금 본인부담</li>
   <li class="bg_none" style="padding-left:0;">※ 훈격과 시상인원은 참여인원 및 심사결과에 따라 조정 가능</li>
 </ul>
- <p class="btn_wd_p p_btn_ml10"><a href="/board/boardFile/download/761/453742/258240.do" class="ct-btn" title="제출서류양식 다운로드"><span class="down">제출서류양식 다운로드</span></a></p> 
-
 <form:form modelAttribute="bookReportContest" id="bookReportContest" action="edit.do" >
   <form:hidden path="menu_idx"/>
   <form:hidden path="homepage_id"/>
   <form:hidden path="book_report_idx"/>
     <div class="link_btn02"> <a href="#" id="apply_btn">참여신청</a> </div>
+    <!-- 20210902 게시판 주석처리 YUNHAESU -->
+  <%-- 
   <div class="infodesk"> 총 <b style="color:#ff0000;">${paging.totalDataCount}</b>건
     <form:select path="rowCount" cssClass="selectmenu new_select_box">
       <form:option value="10">10개씩보기</form:option>
@@ -128,6 +128,7 @@ $(function() {
       <form:option value="${paging.totalDataCount}">전체 보기</form:option>
     </form:select>
   </div>
+  
   <div class="wrapper-bbs">
     <div class="table-wrap">
       <table class="bbs center" summary="독서릴레이 우수사례공모">
@@ -187,5 +188,5 @@ $(function() {
         <button id="search_btn" style="background:none;background-color:#2c75cb;border-color:#1962ba;padding:5px 10px 6px;"><i class="fa fa-search"></i><span>검색</span></button>
       </fieldset>
     </div>
-  </div>
+  </div> --%>
 </form:form>
