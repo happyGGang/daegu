@@ -570,6 +570,8 @@ $(function(){
 									</c:when>
 									<c:otherwise>
 										<c:forEach items="${facilityRepo[plan_date]}" var="one">
+										<!-- 20210903 YUNHAESU forEach break문 생성 -->
+											<c:set var="loop_flag" value="false" />
 											<li>[${one.facility_name}]<br/>${one.start_time}~${one.end_time}<br/>
 												<c:choose>
 													<c:when test="${one.apply_count >= one.limit_count}"><span class="type-e"><i></i><em>정원마감</em></span><br></c:when>
@@ -581,18 +583,21 @@ $(function(){
 													</c:when>
 												</c:choose>
 												<c:forEach items="${applyList}" var="apply">
-													<c:if test="${plan_date eq apply.use_date}">
-													<c:choose>
-														<c:when test="${apply.apply_status eq '신청'}">
-														<span class="type-h"><i></i><em>${apply.apply_status}</em></span><br>
-														</c:when>
-														<c:when test="${apply.apply_status eq '승인'}">
-														<span class="type-r"><i></i><em>${apply.apply_status}</em></span><br>
-														</c:when>
-														<c:when test="${apply.apply_status eq '취소'}">
-														<span class="type-e"><i></i><em>${apply.apply_status}</em></span><br>
-														</c:when>
-													</c:choose>
+													<c:if test="${not loop_flag}">
+														<c:if test="${plan_date eq apply.use_date}">
+														<c:choose>
+															<c:when test="${apply.apply_status eq '신청'}">
+															<span class="type-h"><i></i><em>${applyList[0].apply_status}</em></span><br>
+															</c:when>
+															<c:when test="${applyList[0].apply_status eq '승인'}">
+															<span class="type-r"><i></i><em>${applyList[0].apply_status}</em></span><br>
+															</c:when>
+															<c:when test="${applyList[0].apply_status eq '취소'}">
+															<span class="type-e"><i></i><em>${applyList[0].apply_status}</em></span><br>
+															</c:when>
+														</c:choose>
+														<c:set var="loop_flag" value="true" />
+														</c:if>
 													</c:if>
 												</c:forEach>
 											</li>
