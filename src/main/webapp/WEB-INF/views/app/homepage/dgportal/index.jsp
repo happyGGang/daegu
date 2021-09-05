@@ -263,19 +263,19 @@ do {
 												<li>
 													<a href="/${i.imsi_v_19}/board/view.do?manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&menu_idx=${i.imsi_n_2}" target="_blank">
 														<div class="contTop">
-															<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy"/><b><fmt:formatDate value="${i.add_date}" pattern="MM.dd"/></b></span>
+															<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy"/> <b><fmt:formatDate value="${i.add_date}" pattern="MM.dd"/></b></span>
 															<span class="link library${i.imsi_v_19}">${i.imsi_v_20}</span>
 														</div>
 														<div class="contMiddle">
 															<span class="tit">${fn:substring(i.title, 0, 39)}<c:if test="${fn:length(i.title) > 39}">...</c:if></span>
 														</div>
+
 														<div class="contBottom">
 															<c:if test="${i.content_summary eq '' || i.content_summary eq null || i.content_summary eq 'null'}">
-																<span class="con">등록된 내용이 없습니다.</span>
+															<span class="con">등록된 내용이 없습니다.</span>
 															</c:if>
-															<span class="con">${fn:substring(i.content_summary, 0, 141)}<c:if test="${fn:length(i.content_summary) > 141}">...</c:if></span>
+															<span class="con">${fn:substring(i.content_summary, 0, 100)}<c:if test="${fn:length(i.content_summary) > 100}">...</c:if></span>
 														</div>
-													</a>
 												</li>
 												</c:forEach>
 												<c:if test="${fn:length(noticeBoardList) < 1}">
@@ -1560,6 +1560,16 @@ do {
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/junggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/junggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes610" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FV"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes610">시청작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/dmsl/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dmsl/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
 											</span>
 										</li>
 									</ul>

@@ -782,6 +782,10 @@
 							</li>
 
 
+							<li>
+								<form:checkbox path="libraryCodes" class="libCheck lib_FV" value="FV" label="시청작은도서관" />
+							</li>
+
 
 
 							<li>

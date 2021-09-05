@@ -111,6 +111,7 @@ $(function() {
   <li class="bg_none" style="padding:10px 0 2px;">※ 상품금액에 의한 제세공과금 본인부담</li>
   <li class="bg_none" style="padding-left:0;">※ 훈격과 시상인원은 참여인원 및 심사결과에 따라 조정 가능</li>
 </ul>
+<a href="https://library.daegu.go.kr/board/boardFile/download/761/453990/258556.do" target="_blank" class="newWin" title="새창으로 열립니다." style="border:1px solid #ddd;padding:7px 15px;font-size:14px;"> 신청서 다운로드&nbsp;&nbsp;<img src="/resources/common/img/download_icon.png"></a>
 <form:form modelAttribute="bookReportContest" id="bookReportContest" action="edit.do" >
   <form:hidden path="menu_idx"/>
   <form:hidden path="homepage_id"/>
