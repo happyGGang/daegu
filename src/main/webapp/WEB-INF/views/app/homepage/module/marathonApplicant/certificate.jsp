@@ -77,11 +77,11 @@ $(function() {
     </c:choose>
       <tbody>
       	<tr>
-      		<td><img src="/resources/homepage/dalseolib/img/noname01.png" alt="달서구 심볼" class="dalseo_symbol" height="41px;" width="109px;"/></td>
+      		<td><img src="/resources/homepage/dalseolib/img/symbol.png" alt="달서구 심볼" class="dalseo_symbol" height="41px;" width="109px;"/></td>
       		<td></td>
       		<td></td>
       		<td></td>
-      		<td style="padding-left:10%;"><img src="/resources/homepage/dalseolib/img/noname02.png" alt="달서구 슬로건" class="dalseo_slogan" height="24px;" width="211px;"/></td>
+      		<td style="padding-left:10%;"><img src="/resources/homepage/dalseolib/img/slogan.png" alt="달서구 슬로건" class="dalseo_slogan" height="24px;" width="211px;"/></td>
       	</tr>
         <tr>
           <td colspan="5" height="18%"><h1 style="font-family:'HY견명조';font-size:70px;">완 주 증 서</h1></td>
@@ -254,7 +254,7 @@ $(function() {
            	</td>
         </tr>
         <tr>
-          <td colspan="5" style="text-align:center;"><div style="width:85%;line-height:50px;margin:0 auto;">
+          <td colspan="5" style="text-align:center;"><div style="width:90%;line-height:50px;margin:0 auto;">
               <h1 style="font-family:'HY견명조';display:inline-block;line-height:150%;font-size:26px;text-align:left;font-weight:bold;letter-spacing:-3px;">
                          위의 학생(분)은 제13회 달서독서마라톤 대회<br/>
               <span style="word-spacing:10px;">상기종목에 참가하여 성실한 독서활동으로</span><br/>
