@@ -105,7 +105,7 @@
 			B.email, B.gender, B.address_dong, B.address_one, B.address_two,
 			B.telephone, B.cellphone, B.birthday, B.contest_type, A.page_count,
 			B.finish_memorial, B.determination_talk, B.process_status, B.add_date, B.modify_date,
-			B.modify_id, C.contest_name, B.finish_date,
+			B.modify_id, C.contest_name, B.finish_date, C.finish_day,
 			(
 				SELECT
 					NVL(SUM(read_page_count), 0)

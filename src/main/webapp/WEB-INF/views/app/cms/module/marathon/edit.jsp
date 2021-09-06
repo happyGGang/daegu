@@ -117,6 +117,13 @@ $(function() {
 			$('input#contest_start_day').datepicker('option', 'maxDate', selectedDate);
 		}
 	});
+	
+	$('input#finish_day').datepicker({
+		minDate : $('input#contest_end_day').val(),
+		onClose : function(selectedDate){
+			$('input#finish_day').datepicker();
+		}
+	});
 });
 </script>
 <form:form modelAttribute="marathon" method="POST" action="save.do" onsubmit="return false;">
@@ -141,7 +148,11 @@ $(function() {
 			<tr>
 				<th>대회기간</th>
 				<td><form:input path="contest_start_day" cssClass="text" size="10" maxlength="10"/>
-				~ <form:input path="contest_end_day" cssClass="text" size="10" maxlength="10"/>
+				~ <form:input path="contest_end_day" cssClass="text" size="10" maxlength="10"/></td>
+			</tr>
+			<tr>
+				<th>완주확정일</th>
+				<td><form:input path="finish_day" cssClass="text" size="10" maxlength="10"/></td>
 			</tr>
 			<tr>
 				<th>사용여부</th>

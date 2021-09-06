@@ -88,7 +88,7 @@ $(function() {
         </tr>
         <tr>
         	<td colspan="5" style="font-family:'HY울릉도M';font-size:21px;height:40px;">
-        		<div style="width:70%;margin:0 auto;border-bottom:1px solid gray;font-size:21px;text-align:left;padding-bottom:5px;">
+        		<div style="width:80%;max-width:600px;margin:0 auto;border-bottom:1px solid gray;font-size:21px;text-align:left;padding-bottom:5px;">
                    	<span style="padding-left:30px;"></span>
                    	성<span style="padding-left:60px;"></span>명
                    	<span style="padding-left:50px;"></span>
@@ -100,7 +100,7 @@ $(function() {
 	        <c:when test="${certificateInfo.age_type ne 'adult'}">
 	        <tr>
 	        	<td colspan="5" style="font-family:'HY울릉도M';font-size:21px;height:40px;">
-	        		<div style="width:70%;margin:0 auto;border-bottom:1px solid gray;font-size:21px;text-align:left;padding-bottom:5px;">
+	        		<div style="width:80%;max-width:600px;margin:0 auto;border-bottom:1px solid gray;font-size:21px;text-align:left;padding-bottom:5px;">
 	            		<span style="padding-left:30px;"></span>
 	            		학교(학년)
 	            		<span style="padding-left:50px;"></span>
@@ -114,7 +114,7 @@ $(function() {
 	        <c:otherwise>
 	        	<tr>
 		            <td colspan="5" style="font-family:'HY울릉도M';font-size:21px;height:40px;">
-		            	<div style="width:70%;margin:0 auto;border-bottom:1px solid gray;font-size:21px;text-align:left;padding-bottom:5px;">         
+		            	<div style="width:80%;max-width:600px;margin:0 auto;border-bottom:1px solid gray;font-size:21px;text-align:left;padding-bottom:5px;">         
 		                <span style="padding-left:30px;"></span>            
 		                            소<span style="padding-left:60px;"></span>속
 		                <span style="padding-left:50px;"></span>
@@ -229,13 +229,13 @@ $(function() {
 			            	</c:otherwise>
 			            </c:choose>
 			        	</div>
-		            </td>	
+		            </td>
 	        	</tr>
 	        </c:otherwise>
         </c:choose>
         <tr>
         	<td colspan="5" style="font-family:'HY울릉도M';font-size:21px;height:40px;">
-	           	<div style="width:70%;margin:0 auto;border-bottom:1px solid gray;font-size:21px;text-align:left;padding-bottom:5px;">
+	           	<div style="width:80%;max-width:600px;margin:0 auto;border-bottom:1px solid gray;font-size:21px;text-align:left;padding-bottom:5px;">
 		            <span style="padding-left:30px;"></span>
 		                     부<span style="padding-left:60px;"></span>문
 		            <span style="padding-left:50px;"></span>
@@ -245,7 +245,7 @@ $(function() {
         </tr>
         <tr>
         	<td colspan="5" style="font-family:'HY울릉도M';font-size:21px;height:40px;">
-	           	<div style="width:70%;margin:0 auto;border-bottom:1px solid gray;font-size:21px;text-align:left;padding-bottom:5px;">
+	           	<div style="width:80%;max-width:600px;margin:0 auto;border-bottom:1px solid gray;font-size:21px;text-align:left;padding-bottom:5px;">
            			<span style="padding-left:30px;"></span>
            			기<span style="padding-left:60px;"></span>록
            			<span style="padding-left:50px;"></span>
@@ -255,7 +255,7 @@ $(function() {
         </tr>
         <tr>
           <td colspan="5" style="text-align:center;"><div style="width:85%;line-height:50px;margin:0 auto;">
-              <h1 style="font-family:'HY견명조';font-size:28px;text-align:left;font-weight:bold;letter-spacing:-3px;">
+              <h1 style="font-family:'HY견명조';display:inline-block;line-height:150%;font-size:26px;text-align:left;font-weight:bold;letter-spacing:-3px;">
                          위의 학생(분)은 제13회 달서독서마라톤 대회<br/>
               <span style="word-spacing:10px;">상기종목에 참가하여 성실한 독서활동으로</span><br/>
                          완주하였기에 이 증서를 드립니다.

@@ -79,6 +79,7 @@
 				<th>대회명</th>
 				<th>접수기간</th>
 				<th>대회기간</th>
+				<th>완주확정일</th>
 				<th>사용여부</th>
 				<th>등록일</th>
 				<th>기능</th>
@@ -91,6 +92,7 @@
 					<td>${i.contest_name}</td>
 					<td>${i.application_start_day} ~ ${i.application_end_day}</td>
 					<td>${i.contest_start_day} ~ ${i.contest_end_day}</td>
+					<td>${i.finish_day}</td>
 					<td>${fn:contains(i.use_yn, 'Y') ? '예':'아니오'}</td>
 					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>
 					<td>

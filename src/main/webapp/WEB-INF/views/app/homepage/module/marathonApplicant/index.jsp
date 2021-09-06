@@ -55,6 +55,8 @@ $(function(){
 				</tr>
 			</thead>
 			<tbody>
+				<c:set var="now" value="<%=new java.util.Date()%>" />
+				<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm" var="today"/>
 				<c:forEach items="${marathonApplicantList}" varStatus="status" var="i">
 					<tr>
 						<td>
@@ -65,7 +67,7 @@ $(function(){
 						<td>
 							<fmt:formatNumber value="${i.read_page_count_total}" pattern="#,###"/> / <fmt:formatNumber value="${i.page_count}" pattern="#,###"/>
 							(<fmt:formatNumber value="${(i.read_page_count_total / i.page_count)*100.0}" pattern="##.##"/>%)
-							<c:if test="${i.process_status eq 1}">
+							<c:if test="${i.process_status eq 1 && today > i.finish_day }">
 								<a href="#" class="btn btn1" id="printCompleteDocument" keyValue="${i.homepage_id}" keyValue2="${i.contest_idx}" keyValue3="${i.contest_type_idx}" keyValue4="${i.applicant_idx}">완주증서 출력</a>
 							</c:if>
 						</td>
