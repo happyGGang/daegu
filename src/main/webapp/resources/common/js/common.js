@@ -46,6 +46,22 @@ function serializeParameter(inputNames) {
 
 }
 
+//다이알로그 호출 함수
+function modal_layer_add(div_id) {
+	if(div_id=="") {//지정한 레이어가 없을때
+		var modal_defaults_pop = "<div id='modal_defaults_pop'></div>";
+		if($("#modal_defaults_pop").length < 1) {//modal_defaults_pop 레이어가 없을때에는 BODY에 넣어준다
+			$("body").prepend(modal_defaults_pop);
+		}
+	} else {//지정한 레이어가 있을때
+		var modal_pop = "<div id='"+div_id+"'></div>";
+		if($("#"+div_id).length < 1) {//해당하는 레이어가 없을때 BODY에 넣어준다
+			$("body").prepend(modal_pop);
+		}
+	}
+}
+
+
 function doAjaxPost(form, ajaxBody) {
 	jQuery.ajaxSettings.traditional = true;
 	var formData = serializeObject(form);

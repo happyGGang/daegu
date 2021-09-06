@@ -104,7 +104,7 @@ public class AccessIpController extends BaseController {
 				 * 허용 IP에 '*'이 있으면 허용IP, 접속IP 각각 split(".");
 				 */
 				if (allowed_ip.getAccess_ip().contains("*")) {
-
+  
 					// 허용 IP
 					String[] allowed_ip_temp = allowed_ip.getAccess_ip().split("\\.");
 
