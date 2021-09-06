@@ -440,23 +440,28 @@ public class MarathonApplicantController extends BaseController {
 	
 	@RequestMapping(value = {"/certificate.*"})
 	public String certificate(Model model, MarathonApplicant marathonApplicant, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		if(StringUtils.isNotEmpty(marathonApplicant.getFinish_day())) {
+		
+		Marathon marathon = new Marathon();
+		marathon.setHomepage_id(marathonApplicant.getHomepage_id());
+		marathon.setContest_idx(marathonApplicant.getContest_idx());
+		marathon = marathonService.getMarathonContestOne(marathon);
+		
+		if(StringUtils.isNotEmpty(marathon.getFinish_day())) {
+			Date now = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			
-			if(marathonApplicant.getFinish_day() != null) {
-				Date now = new Date();
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			try {
+				Date finish_day = sdf.parse(marathon.getFinish_day() + " " +"00:00");
 				
-				try {
-					Date finish_day = sdf.parse(marathonApplicant.getFinish_day());
-					
-					if(finish_day.compareTo(now) > 0) {
-						service.alertMessage("완주확정일보다 이전에 출력할 수 없습니다.", request, response);
-					}
-				} catch (ParseException e) {
-					e.printStackTrace();
+				if(finish_day.compareTo(now) > 0) {
+					service.alertMessageAndReload("완주확정일보다 이전에 출력할 수 없습니다.", request, response);
+					return null;
 				}
+			} catch (ParseException e) {
+				e.printStackTrace();
 			}
 		}
+		
 		marathonApplicant = service.getMarathonApplicantOne(marathonApplicant);
 		
 		model.addAttribute("certificateInfo", marathonApplicant);
