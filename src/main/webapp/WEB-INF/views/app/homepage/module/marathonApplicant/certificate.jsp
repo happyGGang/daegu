@@ -72,7 +72,7 @@ $(function() {
     <table id="printTable" class="center" style="text-align:center;width:90%;height:90%;border:2px solid black;margin-top:5%;margin-left:5%;border-collapse:collapse;">
     </c:when>
     <c:when test="${fn:contains(userAgentInfo, 'Trident')}">
-    <table id="printTable" class="center" style="text-align:center;width:90%;height:90%;border:2px solid black;margin-top:5%;margin-left:5%;border-collapse:collapse;">
+    <table id="printTable" class="center" style="text-align:center;width:90%;height:85%;border:2px solid black;margin-top:5%;margin-left:5%;border-collapse:collapse;">
     </c:when>
     </c:choose>
       <tbody>
