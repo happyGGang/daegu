@@ -147,6 +147,12 @@ $(function(){
 
 	.ml10{margin-left:10px;}
 
+	.td1{width:auto;}
+	.td2{width:15%;}
+	.td3{width:25%;}
+	.td4{width:20%;}
+	.td5{width:10%;}
+
 	@media all and (max-width:1100px){
 		.search{text-align:left;}
 		.new_search_box{padding:30px !important;}
@@ -157,6 +163,9 @@ $(function(){
 		#search_btn{position:absolute;bottom:30px;}
 		.srch_day_box{text-align:left;margin-bottom:50px;}
 	}
+
+	@media all and (max-width:768px){
+		.td1, .td2, .td3, .td4, .td5{width:100%;}
 
 	@media all and (max-width:425px){
 		.srch_category_box select{width:150px !important;margin-bottom:0;}
@@ -348,13 +357,13 @@ ${html.html}
 	<div class="smain">
 		<table class="list01 rwd-table" summary="문화행사신청 게시물. 본 데이터표는 8컬럼, 10로우로 구성되어 있습니다. 각 로우는 번호, 분류,  제목,   등록자, 등록일, 조회로 구성되어 있습니다." cellspacing="0" cellpadding="0" border="0">
 			<caption>문화행사신청 목록 페이지</caption>
-			<colgroup>
+			<!-- <colgroup>
 			<col />
 			<col width="15%" />
 			<col width="25%"/>
 			<col width="20%" />
 			<col width="10%" />
-			</colgroup>
+			</colgroup> -->
 			<thead>
 				<tr>
 					<th scope="col" class="center"><c:choose><c:when test="${param.searchCate1 eq '16'}">행사명</c:when><c:when test="${param.searchCate1 eq '17'}">강좌명</c:when><c:when test="${param.searchCate1 eq '18'}">강좌명</c:when><c:otherwise>강좌명</c:otherwise></c:choose></th>

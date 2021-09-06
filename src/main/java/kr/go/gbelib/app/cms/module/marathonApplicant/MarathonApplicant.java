@@ -47,6 +47,7 @@ public class MarathonApplicant extends PagingUtils{
 	private int read_page_count_total; //누적 쪽수
 	private int applicant_idx_modify; //신청자 번호 변경용
 	private String del_yn = "N"; //삭제 여부
+	private String finish_day; //완주확정일
 
 	private int page_count; //쪽수
 	private String contest_name; //대회명
@@ -378,4 +379,11 @@ public class MarathonApplicant extends PagingUtils{
 	public void setDel_yn(String del_yn) {
 		this.del_yn = del_yn;
 	}
+	public String getFinish_day() {
+		return finish_day;
+	}
+	public void setFinish_day(String finish_day) {
+		this.finish_day = finish_day;
+	}
+	
 }

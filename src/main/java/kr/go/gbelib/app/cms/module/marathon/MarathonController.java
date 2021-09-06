@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -97,6 +98,13 @@ public class MarathonController extends BaseController{
 					result.reject("접수 기간 종료 일자는 대회 기간 종료 일자보다 이후일 수 없습니다.");
 				}
 				
+				if(StringUtils.isNotEmpty(marathon.getFinish_day())) {
+					if(checkDate(marathon.getFinish_day()) == false) {
+						result.reject("완주확정일을 날짜 형식대로 입력해 주세요.");
+					}
+				}
+				
+				
 				int checkUsableContestCount = service.checkUsableContestCount(marathon);
 				if(marathon.getUse_yn() == 'Y') {
 					if(checkUsableContestCount > 0) {
@@ -128,4 +136,15 @@ public class MarathonController extends BaseController{
 
 		return res;
 	}
+	
+	public boolean checkDate(String checkDate) {
+        try {
+            SimpleDateFormat dateFormatParser = new SimpleDateFormat("yyyy-MM-dd"); //검증할 날짜 포맷 설정
+            dateFormatParser.setLenient(false); //false일경우 처리시 입력한 값이 잘못된 형식일 시 오류가 발생
+            dateFormatParser.parse(checkDate); //대상 값 포맷에 적용되는지 확인
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

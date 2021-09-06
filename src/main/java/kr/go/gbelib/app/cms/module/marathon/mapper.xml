@@ -24,7 +24,7 @@
 		SELECT
 			homepage_id, contest_idx, contest_name, application_start_day, application_end_day,
 			contest_start_day, contest_end_day, use_yn, add_date, add_id,
-			modify_date, modify_id
+			modify_date, modify_id, finish_day
 		FROM
 			MARATHON_CONTEST
 		WHERE
@@ -39,7 +39,7 @@
 		SELECT
 			homepage_id, contest_idx, contest_name, application_start_day, application_end_day,
 			contest_start_day, contest_end_day, use_yn, add_date, add_id,
-			modify_date, modify_id
+			modify_date, modify_id, finish_day
 		FROM
 			MARATHON_CONTEST
 		WHERE
@@ -81,13 +81,13 @@
 		(
 			homepage_id, contest_idx, contest_name, application_start_day, application_end_day,
 			contest_start_day, contest_end_day, use_yn, add_date, add_id,
-			modify_date, modify_id
+			modify_date, modify_id, finish_day
 		)
 			VALUES
 		(
 			#{homepage_id}, #{contest_idx}, #{contest_name}, #{application_start_day}, #{application_end_day},
 			#{contest_start_day}, #{contest_end_day}, #{use_yn}, SYSDATE, #{add_id},
-			#{modify_date}, #{modify_id}
+			#{modify_date}, #{modify_id}, #{finish_day}
 		)
 	</insert>
 	
@@ -100,7 +100,8 @@
 			application_end_day = #{application_end_day},
 			contest_start_day = #{contest_start_day},
 			contest_end_day = #{contest_end_day},
-			use_yn = #{use_yn}
+			use_yn = #{use_yn},
+			finish_day = #{finish_day}
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	contest_idx = #{contest_idx}

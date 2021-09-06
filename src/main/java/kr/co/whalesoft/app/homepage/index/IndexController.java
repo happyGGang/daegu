@@ -1137,7 +1137,7 @@ public class IndexController extends BaseController {
 					    		  else {
 					    			  teachList = new ArrayList<String>();
 					    		  }
-						    		  if (closedDay == null) {
+						    		  if (!teachList.contains("[휴관일]")) {
 						    			  String teachStatus;
 						    			  if(!teach.getGroup_name().isEmpty()) {
 						    				  teachStatus="[" + teach.getGroup_name() + "]";

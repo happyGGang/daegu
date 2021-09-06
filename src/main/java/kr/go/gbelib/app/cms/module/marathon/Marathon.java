@@ -13,6 +13,7 @@ public class Marathon extends PagingUtils{
 	private String application_end_day; //접수종료일자
 	private String contest_start_day; //대회시작일자
 	private String contest_end_day; //대회종료일자
+	private String finish_day; //완주확정일
 	private char use_yn; //사용여부
 	private Date add_date; //등록일자
 	private String add_id; //등록인
@@ -67,6 +68,12 @@ public class Marathon extends PagingUtils{
 	}
 	public void setContest_end_day(String contest_end_day) {
 		this.contest_end_day = contest_end_day;
+	}
+	public String getFinish_day() {
+		return finish_day;
+	}
+	public void setFinish_day(String finish_day) {
+		this.finish_day = finish_day;
 	}
 	public char getUse_yn() {
 		return use_yn;

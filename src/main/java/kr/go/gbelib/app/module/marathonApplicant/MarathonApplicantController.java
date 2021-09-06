@@ -1,5 +1,6 @@
 package kr.go.gbelib.app.module.marathonApplicant;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.co.whalesoft.framework.utils.ValidationUtils;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -436,10 +439,26 @@ public class MarathonApplicantController extends BaseController {
 	}
 	
 	@RequestMapping(value = {"/certificate.*"})
-	public String certificate(Model model, MarathonApplicant marathonApplicant, HttpServletRequest request) {
+	public String certificate(Model model, MarathonApplicant marathonApplicant, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		if(StringUtils.isNotEmpty(marathonApplicant.getFinish_day())) {
+			
+			if(marathonApplicant.getFinish_day() != null) {
+				Date now = new Date();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+				
+				try {
+					Date finish_day = sdf.parse(marathonApplicant.getFinish_day());
+					
+					if(finish_day.compareTo(now) > 0) {
+						service.alertMessage("완주확정일보다 이전에 출력할 수 없습니다.", request, response);
+					}
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 		marathonApplicant = service.getMarathonApplicantOne(marathonApplicant);
 		
-//		model.addAttribute("certificateInfo", service.getCertificateInfo(student));
 		model.addAttribute("certificateInfo", marathonApplicant);
 		return basePath + "certificate_ajax";
 	}

@@ -158,8 +158,8 @@
 								</li>
 							</ul>
 						</div>
-						<a href="/${homepage.context_path}/html.do?menu_idx=135">
-							<div class="main1box2box1box2">
+						<div class="main1box2box1box2">
+							<a href="/${homepage.context_path}/html.do?menu_idx=135">
 								<div class="big-btn-box">
 									<h2>
 										<span>학교도서관지원서비스</span>
@@ -167,8 +167,19 @@
 										<span class="third-line"><b>집중지원센터</b></span>
 									</h2>
 								</div>
+							</a>
+							<div class="big-btn-box box2">
+								<h2>
+									<span>디지털지식나눔터</span>
+									<span class="second-line">대구학생</span>
+									<span class="third-line"><b>전자도서관</b></span>
+								</h2>
+								<div class="link_box">
+									<a href="https://dgelib.dkyobobook.co.kr" target="_blank" class="link01">바로가기 &gt;</a>
+									<a href="https://dgelib.dkyobobook.co.kr/board/boardList.ink?blbrSrmb=5" target="_blank" class="link02">이용안내 &gt;</a>
+								</div>
 							</div>
-						</a>
+						</div>
 					</div>
 
 					<div class="main1box2box2">

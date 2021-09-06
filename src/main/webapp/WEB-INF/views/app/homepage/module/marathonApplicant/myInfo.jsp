@@ -41,7 +41,7 @@
 			
 			$('#dialog-2').load('certificate.do?homepage_id=${marathonApplicant.homepage_id}&contest_idx=${marathonApplicant.contest_idx}&contest_type_idx=${marathonApplicant.contest_type_idx}&applicant_idx=${marathonApplicant.applicant_idx}', function( response, status, xhr ) {
 				$('#dialog-2').dialog('open');
-			})
+			});
 
 			e.preventDefault();
 		});
@@ -262,9 +262,6 @@ span.text2{font-style: normal;color: #888;font-size: 90%;margin: 0 5px;}
 			<th>달성율</th>
 			<td style="text-align:left;">
 				<fmt:formatNumber value="${(marathonApplicant.read_page_count_total / marathonApplicant.page_count) * 100}" pattern="##.##"/>%
-				<c:if test="${marathonApplicant.process_status eq 1}">
-					<a href="#" class="btn btn1" id="printCompleteDocument">완주증서 출력</a>
-				</c:if>
 			</td>
 		</tr>
 		<tr>

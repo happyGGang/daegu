@@ -231,7 +231,7 @@
 				</c:when>
 				<c:when test="${homepagePath eq 'dalseolib'}">
 				<form:select path="manageCode" cssClass="new_select_box">
-					<form:option value="BW">도원도서관</form:option>
+					<!--<form:option value="BW">도원도서관</form:option>-->
 					<form:option value="BV">달서어린이</form:option>
 					<form:option value="BU">성서도서관</form:option>
 					<form:option value="BX">본리도서관</form:option>
