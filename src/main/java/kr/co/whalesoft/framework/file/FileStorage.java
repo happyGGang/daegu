@@ -1,17 +1,22 @@
 package kr.co.whalesoft.framework.file;
 
-import kr.co.whalesoft.framework.utils.StrUtil;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.annotation.PostConstruct;
+import javax.servlet.ServletContext;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.annotation.PostConstruct;
-import javax.servlet.ServletContext;
-import java.io.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 
 /**
@@ -191,15 +196,6 @@ public class FileStorage implements ServletContextAware {
 		}
 	}
 
-	public String getServerFileName(String originalFileName) {
-		long time = System.nanoTime();
-		SimpleDateFormat dayTime = new SimpleDateFormat("yyyyMMddhhmmss");
-		String fileStr = dayTime.format(new Date(time));
-
-		String fileName = fileStr + StrUtil.createRandamId(4, "1") + originalFileName.substring(originalFileName.lastIndexOf("."));
-
-		return fileName;
-	}
 
 	public File getStorage() {
 		return storage;
