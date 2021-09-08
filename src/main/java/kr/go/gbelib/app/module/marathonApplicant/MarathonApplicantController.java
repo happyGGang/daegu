@@ -464,6 +464,7 @@ public class MarathonApplicantController extends BaseController {
 		
 		marathonApplicant = service.getMarathonApplicantOne(marathonApplicant);
 		
+		model.addAttribute("marathonInfo", marathon);
 		model.addAttribute("certificateInfo", marathonApplicant);
 		return basePath + "certificate_ajax";
 	}
