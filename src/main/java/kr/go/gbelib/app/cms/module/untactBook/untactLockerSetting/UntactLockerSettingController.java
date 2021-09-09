@@ -32,7 +32,7 @@ public class UntactLockerSettingController extends BaseController {
 			untactLockerSetting.setHomepage_id(getAsideHomepageId(request));
 		}
 		
-		model.addAttribute("untactBookSetting", untactLockerSetting);
+		model.addAttribute("untactLockerSetting", untactLockerSetting);
 		model.addAttribute("untactLockerSettingList", service.getUntactLockerSettingList(getAsideHomepageId(request)));
 		
 		return basepath + "index";

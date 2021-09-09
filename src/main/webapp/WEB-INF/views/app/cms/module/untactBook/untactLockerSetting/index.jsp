@@ -29,16 +29,10 @@ function changeStatus($this) {
 }
 
 function allChange() {
-	var ajaxData = {
-		'locker_number_arr' : '1,2,3,4',
-		'locker_type':$('#locker_all_change').val(), 
-		'editMode':'MODIFY_ALL'
-	};
-
 	$.ajax({
 		type: "POST",
 		url: 'save.do',
-		data: ajaxData,
+		data: $('input[name=locker_number_arr], #locker_all_change').serialize(),
 		success: function(response) {
 			if(response.valid) {
 				alert('수정 되었습니다.');
@@ -50,7 +44,6 @@ function allChange() {
 	});
 }
 </script>
-
 <form:form id="untactLockerSetting_1" modelAttribute="untactLockerSetting" method="POST" action="save.do" onsubmit="return false;">
 <form:hidden id="editMode_1" path="editMode"/>
 <form:hidden id="homepage_id" path="homepage_id"/>
@@ -99,7 +92,7 @@ function allChange() {
 <div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 	<fieldset>
 		-- 변경할 xxx 
-		<select id="locker_all_change">
+		<select id="locker_all_change" name="locker_type">
 			<option>선택하세요.</option>
 			<option value="일반사물함">일반사물함</option> 
 			<option value="도서대출">도서대출</option>
