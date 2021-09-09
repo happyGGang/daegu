@@ -354,7 +354,7 @@ CONTEXT_PATH : ${context_path}
 				<c:when test="${context_path eq 'donggu' || context_path eq 'sincheon' || context_path eq 'donggusm'}">
 
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HQ'}">
+						<c:when test="${detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HQ'|| detail.MANAGE_CODE eq 'FP'}">
 						</c:when>
 						<c:otherwise>
 							<c:choose>
@@ -509,16 +509,21 @@ AD20 종합자료실
 
 				</c:when>
 				<c:otherwise>
-
 					<c:choose>
-						<c:when test="${detail.RESERVE_CODE eq 'OK'}">
-							<a href="#" id="resve-req" class="btn">예약신청</a>
-						</c:when>
-						<c:otherwise>
-							<a href="#" id="resve-req-not" class="btn btn5">예약불가</a>
-						</c:otherwise>
-					</c:choose>
+					<c:when test="${detail.MANAGE_CODE eq 'FP'}">
 
+					</c:when>
+					<c:otherwise>
+						<c:choose>
+							<c:when test="${detail.RESERVE_CODE eq 'OK'}">
+								<a href="#" id="resve-req" class="btn">예약신청</a>
+							</c:when>
+							<c:otherwise>
+								<a href="#" id="resve-req-not" class="btn btn5">예약불가</a>
+							</c:otherwise>
+						</c:choose>
+					</c:otherwise>
+					</c:choose>
 				</c:otherwise>
 			</c:choose>
 

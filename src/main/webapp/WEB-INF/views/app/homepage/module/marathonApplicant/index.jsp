@@ -68,7 +68,7 @@ $(function(){
 							<fmt:formatNumber value="${i.read_page_count_total}" pattern="#,###"/> / <fmt:formatNumber value="${i.page_count}" pattern="#,###"/>
 							(<fmt:formatNumber value="${(i.read_page_count_total / i.page_count)*100.0}" pattern="##.##"/>%)
 							<c:if test="${i.process_status eq 1 && today > i.finish_day }">
-								<a href="#" class="btn btn1" id="printCompleteDocument" keyValue="${i.homepage_id}" keyValue2="${i.contest_idx}" keyValue3="${i.contest_type_idx}" keyValue4="${i.applicant_idx}">완주증서 출력</a>
+								<a href="#" class="btn btn1" id="printCompleteDocument" keyValue="${i.homepage_id}" keyValue2="${i.contest_idx}" keyValue3="${i.contest_type_idx}" keyValue4="${i.applicant_idx}">인쇄</a>
 							</c:if>
 						</td>
 						<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>

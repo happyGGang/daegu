@@ -264,7 +264,7 @@
 					<option value="GX">방촌동 작은도서관</option>
 					<option value="GW">동촌역사 작은도서관</option>
 					<option value="GT">효목1동 작은도서관</option>
-					<option value="FP">효목2동 작은도서관</option>
+					<!-- <option value="FP">효목2동 작은도서관</option> -->
 					<option value="FK">신천3동 작은도서관</option>
 				</select>
 				</c:when>
@@ -283,7 +283,7 @@
 					<option value="GX">방촌동 작은도서관</option>
 					<option value="GW">동촌역사 작은도서관</option>
 					<option value="GT">효목1동 작은도서관</option>
-					<option value="FP">효목2동 작은도서관</option>
+					<!-- <option value="FP">효목2동 작은도서관</option> -->
 					<option value="FK">신천3동 작은도서관</option>
 				</select>
 				</c:when>
