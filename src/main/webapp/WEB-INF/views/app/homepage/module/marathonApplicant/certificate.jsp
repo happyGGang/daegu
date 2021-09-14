@@ -65,7 +65,6 @@ $(function() {
 
 });
 </script>
-	<fmt:formatDate value="${certificateInfo.finish_date}" pattern="yyyy-MM-dd" var="finish_date"/>
 	<c:set var="userAgentInfo" value="${header['User-Agent']}"/>
 	<c:choose>
 	<c:when test="${fn:contains(userAgentInfo, 'Chrome')}">
@@ -264,9 +263,27 @@ $(function() {
         </tr>
         <tr>
           <td colspan="5" style="text-align:center;font-family:'HY견명조';font-size:25px;">
-          	<strong>${fn:split(finish_date, '-')[0]}</strong>년
-          	<strong><span style="padding-left:30px;"></span> ${fn:split(finish_date, '-')[1]}</strong>월
-          	<strong><span style="padding-left:30px;"></span> ${fn:split(finish_date, '-')[2]}</strong>일
+          	<strong>${fn:split(marathonInfo.finish_day, '-')[0]}</strong>년
+          	<strong><span style="padding-left:30px;"></span>
+	          	<c:choose>
+	          		<c:when test="${fn:substring(fn:split(marathonInfo.finish_day, '-')[1], 0, 1) == '0'}">
+	          			${fn:substring(fn:split(marathonInfo.finish_day, '-')[1], 1, 2)}
+	          		</c:when>
+	          		<c:otherwise>
+	          			${fn:split(marathonInfo.finish_day, '-')[1]}
+	          		</c:otherwise>	
+	          	</c:choose>
+          	</strong>월
+          	<strong><span style="padding-left:30px;"></span>
+          		<c:choose>
+          			<c:when test="${fn:substring(fn:split(marathonInfo.finish_day, '-')[2], 0, 1) == '0'}">
+          				${fn:substring(fn:split(marathonInfo.finish_day, '-')[2], 1, 2)}
+          			</c:when>
+          			<c:otherwise>
+          				${fn:split(marathonInfo.finish_day, '-')[2]}
+          			</c:otherwise>
+          		</c:choose>
+          	</strong>일
           </td>
         </tr>
         <tr>

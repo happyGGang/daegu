@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSettingDao">
+	
+	<select id="getUntactLockerSettingList" resultType="kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSetting">
+		SELECT
+			homepage_id, locker_number, locker_type
+		FROM
+			UNTACT_BOOK_LOCKER_SETTING
+		WHERE
+			homepage_id = #{homepage_id}
+		ORDER BY
+			locker_number
+	</select>
+	
+	<update id="modifyUntactLockerSetting">
+		UPDATE
+			UNTACT_BOOK_LOCKER_SETTING
+		SET
+			locker_type = #{locker_type}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND locker_number = #{locker_number}
+	</update>
+	
+	<update id="modifyUntactLockerSettingALL">
+		UPDATE
+			UNTACT_BOOK_LOCKER_SETTING
+		SET
+			locker_type = #{locker_type}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND locker_number IN
+		<foreach collection="locker_number_arr" item="i" open="(" close=")" separator=",">
+		${i}
+		</foreach>
+	</update>
+</mapper>
