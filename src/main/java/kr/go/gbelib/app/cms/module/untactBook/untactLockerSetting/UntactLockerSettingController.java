@@ -1,7 +1,9 @@
 package kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting;
 
-import javax.servlet.http.HttpServletRequest;
-
+import kr.co.whalesoft.framework.base.BaseController;
+import kr.co.whalesoft.framework.exception.AuthException;
+import kr.co.whalesoft.framework.utils.JsonResponse;
+import kr.co.whalesoft.framework.utils.ValidationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.whalesoft.framework.base.BaseController;
-import kr.co.whalesoft.framework.exception.AuthException;
-import kr.co.whalesoft.framework.utils.JsonResponse;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping(value="/cms/module/untactBook/untactLockerSetting")
@@ -56,8 +56,8 @@ public class UntactLockerSettingController extends BaseController {
 		
 	}
 	
-	@RequestMapping (value = {"/modAll.*"}, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse modeAll(UntactLockerSetting untactLockerSetting, BindingResult result, HttpServletRequest request) {
+	@RequestMapping (value = {"/modifyAll.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse modifyAll(UntactLockerSetting untactLockerSetting, BindingResult result, HttpServletRequest request) {
 		untactLockerSetting.setHomepage_id(getAsideHomepageId(request));
 		
 		JsonResponse res = new JsonResponse(request);
@@ -70,8 +70,43 @@ public class UntactLockerSettingController extends BaseController {
 			res.setResult(result.getAllErrors());
 		}
 		return res;
-		
 	}
-	
+
+
+	@RequestMapping(value = { "/bookSettingEdit.*" })
+	public String bookSettingEdit(Model model, UntactBookSetting untactBookSetting, HttpServletRequest request) throws AuthException {
+		untactBookSetting = service.getUntactBookSettingOne(getAsideHomepageId(request));
+
+		if(untactBookSetting == null) {
+			untactBookSetting = new UntactBookSetting();
+			untactBookSetting.setHomepage_id(getAsideHomepageId(request));
+		}
+
+		model.addAttribute("untactBookSetting", untactBookSetting);
+
+		return basepath + "bookSettingEdit_ajax";
+	}
+
+	@RequestMapping (value = {"/bookSettingSave.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse bookSettingSave(UntactBookSetting untactBookSetting, BindingResult result, HttpServletRequest request) {
+		untactBookSetting.setHomepage_id(getAsideHomepageId(request));
+
+		JsonResponse res = new JsonResponse(request);
+
+		ValidationUtils.rejectIfEmpty(result, "locker_use_yn", "사물함 사용여부를 선택하세요.");
+		ValidationUtils.rejectIfEmpty(result, "row_count", "사물함 한줄당 갯수를 입력하세요.");
+		ValidationUtils.rejectIfEmpty(result, "total_count", "총 사물함 갯수를 입력하세요.");
+
+		if (!result.hasErrors()) {
+			service.mergeUntactBookSetting(untactBookSetting);
+			res.setValid(true);
+			res.setMessage("수정 되었습니다.");
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+		return res;
+
+	}
 	
 }

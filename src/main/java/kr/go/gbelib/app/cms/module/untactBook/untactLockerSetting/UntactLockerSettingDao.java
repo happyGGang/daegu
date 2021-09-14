@@ -6,8 +6,18 @@ public interface UntactLockerSettingDao {
 
 	public List<UntactLockerSetting> getUntactLockerSettingList(String homepage_id);
 
+	public int getMaxUntactLocker();
+
+	public int deleteUntactLocker(int locker_number);
+
+	public int insertUntactLocker(UntactLockerSetting untactLockerSetting);
+
 	public int modifyUntactLockerSetting(UntactLockerSetting untactLockerSetting);
 
 	public int modifyUntactLockerSettingALL(UntactLockerSetting untactLockerSetting);
+
+	public UntactBookSetting getUntactBookSettingOne(String homepage_id);
+
+	public int mergeUntactBookSetting(UntactBookSetting untactBookSetting);
 
 }

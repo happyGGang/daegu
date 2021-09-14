@@ -12,6 +12,26 @@
 		ORDER BY
 			locker_number
 	</select>
+
+	<select id="getMaxUntactLocker" resultType="int">
+		SELECT MAX(NVL(locker_number, 0)) FROM UNTACT_BOOK_LOCKER_SETTING;
+	</select>
+
+	<delete id="deleteUntactLocker">
+		DELETE FROM UNTACT_BOOK_LOCKER_SETTING
+		WHERE
+			locker_number > #{locker_number}
+	</delete>
+
+	<insert id="insertUntactLocker">
+		INSERT INTO UNTACT_BOOK_LOCKER_SETTING
+		(
+		 	homepage_id, locker_number, locker_type
+		) VALUES
+		(
+			#{homepage_id}, #{locker_number}, #{locker_type}
+		)
+	</insert>
 	
 	<update id="modifyUntactLockerSetting">
 		UPDATE
@@ -35,4 +55,35 @@
 		${i}
 		</foreach>
 	</update>
+
+	<select id="getUntactBookSettingOne" resultType="kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactBookSetting">
+		SELECT
+			homepage_id, locker_use_yn, row_count, total_count
+		FROM
+			UNTACT_BOOK_SETTING
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+
+	<update id="mergeUntactBookSetting">
+		MERGE INTO
+			UNTACT_BOOK_SETTING a
+			USING dual
+			ON
+				(a.homepage_id = #{homepage_id})
+			WHEN MATCHED THEN
+				UPDATE SET
+				    a.locker_use_yn = #{locker_use_yn},
+					a.row_count = #{row_count},
+					a.total_count = #{total_count}
+			WHEN NOT MATCHED THEN
+				INSERT (
+					homepage_id, locker_use_yn, row_count, total_count
+				) VALUES (
+					#{homepage_id}, #{locker_use_yn}, #{row_count}, #{total_count}
+				)
+
+	</update>
+
+
 </mapper>
