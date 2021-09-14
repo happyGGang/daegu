@@ -5,43 +5,54 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script>
+//체크박스 전체선택
 function checkAll($this) { 
 	$('input:checkbox[name=locker_number_arr]').prop('checked', $this.is(':checked'));
 }
 
+//사물함 용도변경
 function changeStatus($this) {
 	var number = $this.data('number');
 	var type = $this.val();
-	var editMode = '';
 	$.ajax({
 		type: "POST",
 		url: 'save.do',
-		data: {'locker_number':number, 'locker_type':type, 'editMode':editMode},
+		data: {'locker_number':number, 'locker_type':type},
 		success: function(response) {
 			if (response.valid) {
 				alert('수정되었습니다.');
 			}
 		},
 		error : function() {
-			alert('수정에 실패했습니다. 관리자에게 문의해 주세요.')
+			alert('수정에 실패했습니다.\n\n관리자에게 문의해 주세요.')
 		}
 	});
 }
 
+//체크박스 사물함 용도변경
 function allChange() {
-	$.ajax({
-		type: "POST",
-		url: 'save.do',
-		data: $('input[name=locker_number_arr], #locker_all_change').serialize(),
-		success: function(response) {
-			if(response.valid) {
-				alert('수정 되었습니다.');
-			}
-		},
-		error : function() {
-			alert('수정에 실패했습니다.\n\n관리자에게 문의해 주세요.');
-		}
-	});
+	if($('input:checkbox[name=locker_number_arr]:checked').length < 1) {
+		alert('수정할 사물함을 선택해 주세요.');
+	} else if($('#locker_all_change').val() == '') {
+		alert('사물함 용도를 선택해 주세요.');
+	} else {
+		if(confirm('선택된 사물함들을 수정하시겠습니까?')) {
+			$.ajax({
+				type: "POST",
+				url: 'modAll.do',
+				data: $('input[name=locker_number_arr], #locker_all_change').serialize(),
+				success: function(response) {
+					if(response.valid) {
+						alert('전체수정 되었습니다.');
+					}
+					location.reload();
+				},
+				error : function() {
+					alert('전체수정에 실패했습니다.\n\n관리자에게 문의해 주세요.');
+				}
+			});
+		} 
+	}
 }
 </script>
 <form:form id="untactLockerSetting_1" modelAttribute="untactLockerSetting" method="POST" action="save.do" onsubmit="return false;">
@@ -49,15 +60,6 @@ function allChange() {
 <form:hidden id="homepage_id" path="homepage_id"/>
 <form:hidden path="locker_number"/>
 <div id="editDisable" class="disableBox">
-	<div class="infodesk">
-		<div class="button">
-			<c:if test="${authD}">
-				<a href="" class="btn btn1 right" id="dialog-change" data-key="일반사물함"><span>일반사물함</span></a>
-				<!-- <a href="" class="btn btn2 right" id="dialog-change"><span>도서대출</span></a>
-				<a href="" class="btn btn5 right" id="dialog-change"><span>사용안함</span></a> -->
-			</c:if>
-		</div>
-	</div>
 	<table class="type1 center">
 		<thead>
 			<tr>
@@ -89,11 +91,15 @@ function allChange() {
 	</table>
 </div>
 
-<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
+<br>
+<div class="ui-state-highlight">
+	<em>* 체크박스를 체크하신뒤 변경할 용도를 선택하시고 수정하기 버튼을 누르시면 됩니다.</em>
+</div>
+
+<div class="search txt-left" style="margin-top:25px;">
 	<fieldset>
-		-- 변경할 xxx 
 		<select id="locker_all_change" name="locker_type">
-			<option>선택하세요.</option>
+			<option value="">선택하세요</option>
 			<option value="일반사물함">일반사물함</option> 
 			<option value="도서대출">도서대출</option>
 			<option value="사용안함">사용안함</option>

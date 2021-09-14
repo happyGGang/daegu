@@ -43,16 +43,28 @@ public class UntactLockerSettingController extends BaseController {
 		untactLockerSetting.setHomepage_id(getAsideHomepageId(request));
 		
 		JsonResponse res = new JsonResponse(request);
-		//TODO 예외처리를 제대로 하였는가?
 		
 		if (!result.hasErrors()) {
 			service.modifyUntactLockerSetting(untactLockerSetting);
 			res.setValid(true);
 			res.setMessage("수정 되었습니다.");
-		} else if (untactLockerSetting.getEditMode().equals("MODIFY_ALL")) {
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+		return res;
+		
+	}
+	
+	@RequestMapping (value = {"/modAll.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse modeAll(UntactLockerSetting untactLockerSetting, BindingResult result, HttpServletRequest request) {
+		untactLockerSetting.setHomepage_id(getAsideHomepageId(request));
+		
+		JsonResponse res = new JsonResponse(request);
+
+		if (!result.hasErrors()) {
 			service.modifyUntactLockerSettingALL(untactLockerSetting);
 			res.setValid(true);
-			res.setMessage("일괄수정 되었습니다.");
 		} else {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
