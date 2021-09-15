@@ -7,12 +7,12 @@
 <script src="/resources/cms/js/malsup.jquery.form.min.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-function save(){
+/* function save(){
 	if( doAjaxPost($('#untactBookPenaltySetting')) ){
 		location.reload();
 	}
-}
-/* $(function(){
+} */
+$(function(){
 	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
 		resizable: true,
@@ -87,7 +87,7 @@ function save(){
 		onClose: function(selectedDate){
 			$('input#start_date').datepicker('option', 'maxDate', selectedDate);
 		}
-	}); */
+	});
 
 });
 

@@ -50,7 +50,6 @@
 	
 } */
 	
-	
 $(function(){
 	//모달창 링크 버튼
 	$('a#dialog-add').on('click', function(e) {
