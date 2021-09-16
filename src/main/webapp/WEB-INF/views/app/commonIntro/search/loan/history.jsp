@@ -90,7 +90,14 @@ $(function() {
 		<option value="" >전체</option>
 		<c:forEach items="${homepageList}" var="mc">
 		<c:if test="${not empty mc.manage_code}">
-		<option value="${mc.manage_code}" ${librarySearch.manageCode eq mc.manage_code ? 'selected' : ''}>${mc.homepage_name}</option>
+		<c:choose>
+			<c:when test="${mc.manage_code eq 'BW'}">
+			<option value="${mc.manage_code},BU,BV,BX,BY,BZ,FA,FB,FC,FD,FW,FX,GK" ${librarySearch.manageCode eq 'BW,BU,BV,BX,BY,BZ,FA,FB,FC,FD,FW,FX,GK' ? 'selected' : ''}>${mc.homepage_name}</option>
+			</c:when>
+			<c:otherwise>
+				<option value="${mc.manage_code}" ${librarySearch.manageCode eq mc.manage_code ? 'selected' : ''}>${mc.homepage_name}</option>
+			</c:otherwise>
+		</c:choose>
 		</c:if>
 		</c:forEach>
 	</select>
