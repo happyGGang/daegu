@@ -6,9 +6,9 @@ public interface UntactLockerSettingDao {
 
 	public List<UntactLockerSetting> getUntactLockerSettingList(String homepage_id);
 
-	public int getMaxUntactLocker();
+	public int getMaxUntactLocker(String homepage_id);
 
-	public int deleteUntactLocker(int locker_number);
+	public int deleteUntactLocker(UntactLockerSetting untactLockerSetting);
 
 	public int insertUntactLocker(UntactLockerSetting untactLockerSetting);
 

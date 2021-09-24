@@ -36,7 +36,7 @@ public class UntactLockerSettingService extends BaseService {
 	@Transactional
 	public int mergeUntactBookSetting(UntactBookSetting untactBookSetting) {
 		if(dao.mergeUntactBookSetting(untactBookSetting) > 0) {
-			int maxLocker = dao.getMaxUntactLocker();
+			int maxLocker = dao.getMaxUntactLocker(untactBookSetting.getHomepage_id());
 
 			if(untactBookSetting.getTotal_count() > maxLocker) {
 				for (int i=maxLocker + 1; i<=untactBookSetting.getTotal_count(); i++) {
@@ -48,7 +48,11 @@ public class UntactLockerSettingService extends BaseService {
 					dao.insertUntactLocker(untactLockerSetting);
 				}
 			} else if(untactBookSetting.getTotal_count() < maxLocker) {
-				dao.deleteUntactLocker(untactBookSetting.getTotal_count());
+				UntactLockerSetting untactLockerSetting = new UntactLockerSetting();
+				untactLockerSetting.setHomepage_id(untactBookSetting.getHomepage_id());
+				untactLockerSetting.setLocker_number(untactBookSetting.getTotal_count());
+
+				dao.deleteUntactLocker(untactLockerSetting);
 			}
 		}
 
