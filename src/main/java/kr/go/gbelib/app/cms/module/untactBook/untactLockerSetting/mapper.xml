@@ -35,4 +35,15 @@
 		${i}
 		</foreach>
 	</update>
+	
+	<select id="getUntactLockerSettingCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			UNTACT_BOOK_LOCKER_SETTING
+		WHERE
+			homepage_id = #{homepage_id}
+		AND locker_type = '도서대출'
+	</select>
+	
 </mapper>

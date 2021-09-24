@@ -27,5 +27,9 @@ public class UntactLockerSettingService extends BaseService {
 	public int modifyUntactLockerSettingALL(UntactLockerSetting untactLockerSetting) {
 		return dao.modifyUntactLockerSettingALL(untactLockerSetting);
 	}
+	
+	public int getUntactLockerSettingCount(String homepage_id) {
+		return dao.getUntactLockerSettingCount(homepage_id);
+	}
 
 }

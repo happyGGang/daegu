@@ -10,4 +10,6 @@ public interface UntactLockerSettingDao {
 
 	public int modifyUntactLockerSettingALL(UntactLockerSetting untactLockerSetting);
 
+	public int getUntactLockerSettingCount(String homepage_id);
+
 }
