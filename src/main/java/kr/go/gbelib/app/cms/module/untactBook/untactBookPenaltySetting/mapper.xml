@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.untactBook.untactBookPenaltySetting.UntactBookPenaltySettingDao">
+
+	<select id="getUntactBookPenaltySettingCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			UNTACT_BOOK_PENALTY_SETTING
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+	
+	<select id="getUntactBookPenaltySettingList" resultType="kr.go.gbelib.app.cms.module.untactBook.untactBookPenaltySetting.UntactBookPenaltySetting">
+		${pagingTop}
+			SELECT
+				penalty_idx, homepage_id, TO_CHAR(start_date, 'yyyy-MM-dd') AS start_date, TO_CHAR(end_date, 'yyyy-MM-dd') AS end_date, penalty_count, penalty_day, 
+				use_yn, TO_CHAR(SYSDATE, 'yyyy-MM-dd') AS save_date
+			FROM
+				UNTACT_BOOK_PENALTY_SETTING
+			WHERE
+				homepage_id = #{homepage_id}
+			
+			ORDER BY
+				start_date DESC, 
+				end_date DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getUntactBookPenaltySettingOne" resultType="kr.go.gbelib.app.cms.module.untactBook.untactBookPenaltySetting.UntactBookPenaltySetting">
+		SELECT
+			penalty_idx, homepage_id, TO_CHAR(start_date, 'yyyy-MM-dd') AS start_date, TO_CHAR(end_date, 'yyyy-MM-dd') AS end_date, penalty_count, penalty_day, 
+			use_yn, TO_CHAR(SYSDATE, 'yyyy-MM-dd') AS save_date
+		FROM
+			UNTACT_BOOK_PENALTY_SETTING
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	penalty_idx = #{penalty_idx}
+	</select>
+
+	<insert id="addUntactBookPenaltySetting">
+		<selectKey keyProperty="penalty_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(penalty_idx),0)+1 FROM UNTACT_BOOK_PENALTY_SETTING WHERE homepage_id = #{homepage_id}
+		</selectKey>
+		INSERT INTO
+			UNTACT_BOOK_PENALTY_SETTING
+		(
+			penalty_idx, homepage_id, start_date, end_date, penalty_count, penalty_day, 
+			use_yn, save_date
+		)
+			VALUES
+		(
+			#{penalty_idx}, #{homepage_id}, #{start_date}, #{end_date}, #{penalty_count}, #{penalty_day},
+			#{use_yn}, SYSDATE
+		)
+
+	</insert>
+
+	<update id="modifyUntactBookPenaltySetting">
+		UPDATE
+			UNTACT_BOOK_PENALTY_SETTING
+		SET
+			start_date = #{start_date},
+			end_date = #{end_date},
+			penalty_count = #{penalty_count},
+			penalty_day = #{penalty_day},
+			use_yn = #{use_yn},
+			save_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	penalty_idx = #{penalty_idx}
+	</update>
+
+	<delete id="deleteUntactBookPenaltySetting">
+		DELETE FROM
+			UNTACT_BOOK_PENALTY_SETTING
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	penalty_idx = #{penalty_idx}
+
+	</delete>
+
+</mapper>

@@ -39,7 +39,7 @@ function allChange() {
 		if(confirm('선택된 사물함들을 수정하시겠습니까?')) {
 			$.ajax({
 				type: "POST",
-				url: 'modAll.do',
+				url: 'modifyAll.do',
 				data: $('input[name=locker_number_arr], #locker_all_change').serialize(),
 				success: function(response) {
 					if(response.valid) {
@@ -54,7 +54,59 @@ function allChange() {
 		} 
 	}
 }
+
+function bookSettingEdit() {
+	modal_layer_add('dialog_layer');
+
+	$.ajax({
+		url: 'bookSettingEdit.do',
+		method: 'GET',
+		success: function(html){
+			$('#dialog_layer').html(html);
+		},error: function(html){
+		}
+	});
+
+	$('#dialog_layer').dialog({ //모달창 기본 스크립트 선언
+		resizable: false,
+		modal: true,
+		title: '비대면 대출 기본설정',
+		open: function(){
+			$('.ui-widget-overlay').addClass('custom-overlay');
+		},
+		close: function(){
+		},
+		buttons: [
+			{
+				text : '저장하기',
+				'class' : 'btn btn1',
+				click : function() {
+					bookSettingSave();
+				}
+			},
+			{
+				text: "닫기",
+				"class": 'btn btn_round btn_gray',
+				click: function() {
+					$(this).dialog('close');
+				}
+			}
+		]
+	});
+
+	$("#dialog_layer").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
+		width: 600,
+		height: 500
+	});
+}
 </script>
+
+<div class="infodesk">
+	<div class="button">
+		<a href="javascript:void(0);" class="btn btn5 left" onclick="bookSettingEdit();"><i class="fa fa-plus"></i><span>기본설정</span></a>
+	</div>
+</div>
+
 <form:form id="untactLockerSetting_1" modelAttribute="untactLockerSetting" method="POST" action="save.do" onsubmit="return false;">
 <form:hidden id="editMode_1" path="editMode"/>
 <form:hidden id="homepage_id" path="homepage_id"/>
@@ -71,7 +123,7 @@ function allChange() {
 		<tbody>
 		<c:if test="${fn:length(untactLockerSettingList) < 1}">
 			<tr style="height:100%">
-				<td colspan="10" style="background:#f8fafb;">비대면 사물함 도서관리 -> 사물함 기본설정에서 사물함 갯수를 설정해주세요.</td>
+				<td colspan="10" style="background:#f8fafb;">기본설정에서 총 사물함 갯수를 설정해주세요.</td>
 			</tr>
 		</c:if>
 		<c:forEach var="i" varStatus="status" items="${untactLockerSettingList}">

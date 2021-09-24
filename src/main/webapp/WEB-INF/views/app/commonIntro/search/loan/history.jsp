@@ -67,7 +67,7 @@ $(function() {
 	<form:hidden path="manageCode"/>
 	<form:hidden path="excel_type" value="HISTORY"/>
 
-	<div class="loan_box" style="padding:30px;">
+	<div class="loan_box02" style="padding:30px;">
 		<label for="search_start_date" style="display:none1;"><b>시작일</b></label>
 		<form:input path="search_start_date" cssClass="text ui-calendar new_text01" cssStyle="border:1px solid #c9c9c9;border-radius:4px;height:30px"/>
 		<span style="margin-right:10px;"></span>
@@ -90,7 +90,14 @@ $(function() {
 		<option value="" >전체</option>
 		<c:forEach items="${homepageList}" var="mc">
 		<c:if test="${not empty mc.manage_code}">
-		<option value="${mc.manage_code}" ${librarySearch.manageCode eq mc.manage_code ? 'selected' : ''}>${mc.homepage_name}</option>
+		<c:choose>
+			<c:when test="${mc.manage_code eq 'BW'}">
+			<option value="${mc.manage_code},BU,BV,BX,BY,BZ,FA,FB,FC,FD,FW,FX,GK" ${librarySearch.manageCode eq 'BW,BU,BV,BX,BY,BZ,FA,FB,FC,FD,FW,FX,GK' ? 'selected' : ''}>${mc.homepage_name}</option>
+			</c:when>
+			<c:otherwise>
+				<option value="${mc.manage_code}" ${librarySearch.manageCode eq mc.manage_code ? 'selected' : ''}>${mc.homepage_name}</option>
+			</c:otherwise>
+		</c:choose>
 		</c:if>
 		</c:forEach>
 	</select>

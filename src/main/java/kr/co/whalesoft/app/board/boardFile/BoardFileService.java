@@ -243,6 +243,11 @@ public class BoardFileService extends BaseService {
 			String fileName = boardFile.getServer_file_name();
 			String filePath = request.getParameter("manage_idx") + "/" + boardFile.getBoard_idx() + "/";
 			boardStorage.deleteFile(fileName, filePath);
+			
+			int board_idx = boardFile.getBoard_idx();
+			dao.deleteBoardFile(board_idx);
+			
+			boardTempStorage.deleteFolder(filePath);
 		}
 	}
 

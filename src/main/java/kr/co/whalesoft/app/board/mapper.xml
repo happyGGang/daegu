@@ -1569,6 +1569,7 @@
 			WHERE
 				imsi_v_1 IS NOT NULL
 			AND imsi_v_1 = #{imsi_v_1}
+			AND imsi_v_2 <![CDATA[>=]]> TO_CHAR(SYSDATE,'DD')
 			<if test="imsi_v_2 != null and imsi_v_2 != ''">
 			AND imsi_v_2 = #{imsi_v_2}
 			</if>
@@ -1584,6 +1585,7 @@
 				AND category1 = #{category1}
 			</if>
 			) a
+			ORDER BY imsi_v_2;
 	</select>
 
 	<select id="checkPassword" resultType="int">

@@ -112,7 +112,7 @@ public class BoardFileController extends BaseController {
 		/* <<<<< 유효성 검증 */
 		if (!result.hasErrors()) {
 			service.deleteFile(boardFile, request);
-
+			
 			res.setValid(true);
 			res.setData(boardFile.getFile_list_seq());
 		} else {

@@ -37,6 +37,8 @@ import kr.go.gbelib.app.cms.module.lasReqConfig.LasReqConfig;
 import kr.go.gbelib.app.cms.module.lasReqConfig.LasReqConfigService;
 import kr.go.gbelib.app.cms.module.smsReception.SmsReception;
 import kr.go.gbelib.app.cms.module.smsReception.SmsReceptionService;
+import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservation;
+import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservationService;
 import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 
@@ -60,6 +62,9 @@ public class LibrarySearchController extends BaseController {
 
 	@Autowired
 	private SmsReceptionService smsReceptionService;
+	
+	@Autowired
+	private UntactBookReservationService untactBookReservationService;
 
 	/**
 	 * 검색
@@ -1244,7 +1249,91 @@ public class LibrarySearchController extends BaseController {
 
 		return res;
 	}
+	
+	/**
+	 * 비대면 도서대출 신청 폼
+	 * @author whalesoft SUNGHWAN 2021. 09. 10.
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Throwable
+	 */
+	@RequestMapping (value = { "/untactBook/form.*" }, method = RequestMethod.POST)
+	public String untackBookForm(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+		Homepage homepage = getSessionHomepage(request);
 
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
+			return null;
+		}
+
+		if (librarySearch.getBooktype() == null) {
+			librarySearch.setBooktype("BO");
+		}
+
+		Map<String, Object> result = LibSearchAPI.getBookInfo(librarySearch);
+		List<Map<String, Object>> list = null;
+
+		int count = LibSearchAPI.getSearchCount(result);
+		librarySearch.setTotalDataCount(count);
+		service.setPaging(model, count, librarySearch);
+
+		if (count > 0) {
+			list = LibSearchAPI.getListData(result);
+			model.addAttribute("detail", list.get(0));
+		}
+
+		model.addAttribute("librarySearch", librarySearch);
+
+		return basePath + "untackBook/form";
+	}
+
+	/**
+	 * 비대면 도서대출
+	 * @author whalesoft SUNGHWAN 2021. 09. 10.
+	 * @param context_path
+	 * @param model
+	 * @param librarySearch
+	 * @param result
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = {"/untackBook/save.*"}, method=RequestMethod.POST)
+	public @ResponseBody JsonResponse saveUntackBook(@PathVariable String context_path, Model model, LibrarySearch librarySearch, UntactBookReservation untactBookReservation, BindingResult result, HttpServletRequest request) {
+		JsonResponse res = new JsonResponse(request);
+
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			res.setValid(false);
+			res.setMessage("로그인 후 이용가능합니다.");
+			return res;
+		}
+
+		if (!result.hasErrors()) {
+			Member member = getSessionMemberInfo(request);
+			
+			if (!StringUtils.equals(member.getMember_class(), "0")) {// 정회원만 가능
+				res.setValid(false);
+				res.setMessage("예약 신청 가능한 회원이 아닙니다.");
+				return res;
+			}
+
+			untactBookReservation.setHomepage_id(getAsideHomepageId(request));
+			untactBookReservation.setReg_no(member.getRec_key());
+			untactBookReservation.setMember_id(member.getMember_id());
+			untactBookReservation.setMember_name(member.getMember_name());
+			
+			untactBookReservationService.addUntactBookReservation(untactBookReservation);
+			res.setValid(true);
+			res.setMessage("예약 되었습니다.");
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+
+		return res;
+	}
 
 	/**
 	 * 무인예약 신청 폼
