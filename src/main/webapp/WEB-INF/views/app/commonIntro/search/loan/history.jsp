@@ -67,7 +67,7 @@ $(function() {
 	<form:hidden path="manageCode"/>
 	<form:hidden path="excel_type" value="HISTORY"/>
 
-	<div class="loan_box" style="padding:30px;">
+	<div class="loan_box02" style="padding:30px;">
 		<label for="search_start_date" style="display:none1;"><b>시작일</b></label>
 		<form:input path="search_start_date" cssClass="text ui-calendar new_text01" cssStyle="border:1px solid #c9c9c9;border-radius:4px;height:30px"/>
 		<span style="margin-right:10px;"></span>
