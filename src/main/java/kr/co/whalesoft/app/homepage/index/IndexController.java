@@ -217,7 +217,7 @@ public class IndexController extends BaseController {
 		calendarManage.setDate_type("2");
 		List<CalendarManage> eventDay = calendarManageService.getCalendarManageDetail(calendarManage);
 		calendarManage.setDate_type(null);
-		List<Board> movieDay = boardService.getBoardMovie(board);
+		List<Board> movieDay = boardService.getCalendarBoardMovie(board);
 		List<Apply> applyDay = applyService.getOkApply(calendarManage);
 		List<Teach> teachDay = teachService.getTeachListForCalendar(calendarManage);
 		List<FacilityReq> facilityDay = facilityReqService.getFacilityReqCalendar(calendarManage);
