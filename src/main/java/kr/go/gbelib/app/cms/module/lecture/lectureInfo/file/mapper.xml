@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.lecture.lectureInfo.file.LectureInfoFileDao">
+
+	<insert id="addLectureInfoFile">
+		INSERT INTO
+		LECTURE_INFO_FILE
+		(
+			lecture_id, file_original_name, file_server_name, add_date, homepage_id
+		)
+		VALUES
+		(
+			#{lecture_id}, #{file_original_name}, #{file_server_name}, SYSDATE, #{homepage_id}
+		)
+	</insert>
+
+	<select id="getLectureInfoFile" resultType="kr.go.gbelib.app.cms.module.lecture.lectureInfo.file.LectureInfoFile">
+		SELECT
+			lecture_id, file_original_name, file_server_name, add_date, homepage_id
+		FROM
+			LECTURE_INFO_FILE
+		WHERE
+			lecture_id = #{lecture_id};
+	</select>
+
+	<select id="getLectureInfoFileByServerName" resultType="kr.go.gbelib.app.cms.module.lecture.lectureInfo.file.LectureInfoFile">
+		SELECT
+			lecture_id, file_original_name, file_server_name, add_date, homepage_id
+		FROM
+			LECTURE_INFO_FILE
+		WHERE
+			file_server_name = #{file_server_name};
+	</select>
+
+	<delete id="deleteFile">
+		DELETE
+			LECTURE_INFO_FILE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND lecture_id = #{lecture_id}
+	</delete>
+
+	<!--<select id="bookReportContestList" resultType="kr.go.gbelib.app.cms.module.bookReportContest.BookReportContest">
+		${pagingTop}
+		SELECT
+			homepage_id, book_report_idx, participation_field, user_name, 
+			school_name, school_year, user_phone, protector_phone, user_email, 
+			postcode, address_base, address_detailed, approval_status, delete_yn, 
+			org_file_name, server_file_name, file_extension, file_size, 
+			org_file_name2, server_file_name2, file_extension2, file_size2, 
+			add_id, add_date 
+		FROM
+			BOOK_REPORT_CONTEST
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		ORDER BY book_report_idx DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getExcelList" resultType="kr.go.gbelib.app.cms.module.bookReportContest.BookReportContest">
+		SELECT
+			homepage_id, book_report_idx, participation_field, user_name, 
+			school_name, school_year, user_phone, protector_phone, user_email, 
+			postcode, address_base, address_detailed, approval_status, delete_yn, 
+			org_file_name, server_file_name, file_extension, file_size, 
+			org_file_name2, server_file_name2, file_extension2, file_size2, 
+			add_id, add_date 
+		FROM
+			BOOK_REPORT_CONTEST
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+	</select>
+	
+	<select id="bookReportContestCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			BOOK_REPORT_CONTEST
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+	</select>
+	
+	<select id="getBookReportContest" resultType="kr.go.gbelib.app.cms.module.bookReportContest.BookReportContest">
+		SELECT
+			homepage_id, book_report_idx, participation_field, user_name, 
+			school_name, school_year, user_phone, protector_phone, user_email, 
+			postcode, address_base, address_detailed, approval_status, delete_yn, 
+			org_file_name, server_file_name, file_extension, file_size, 
+			org_file_name2, server_file_name2, file_extension2, file_size2, 
+			add_id, add_date 
+		FROM
+			BOOK_REPORT_CONTEST
+		WHERE
+			homepage_id = #{homepage_id}
+		AND book_report_idx = #{book_report_idx}	
+	</select>
+	
+	<insert id="addBookReportContest">
+		INSERT INTO
+			BOOK_REPORT_CONTEST
+		(
+			homepage_id, book_report_idx, participation_field, user_name, 
+			school_name, school_year, user_phone, protector_phone, user_email, 
+			postcode, address_base, address_detailed, approval_status, delete_yn, 
+			<if test="server_file_name != null and server_file_name != ''">
+			org_file_name, server_file_name, file_extension, file_size, 
+			</if>
+			<if test="server_file_name2 != null and server_file_name2 != ''">
+			org_file_name2, server_file_name2, file_extension2, file_size2,
+			</if>
+			add_id, add_date
+		)
+		VALUES
+		(
+			#{homepage_id}, (SELECT NVL(MAX(book_report_idx), 0)+1 FROM BOOK_REPORT_CONTEST), #{participation_field}, #{user_name}, 
+			#{school_name}, #{school_year}, #{user_phone}, #{protector_phone}, #{user_email}, 
+			#{postcode}, #{address_base}, #{address_detailed}, #{approval_status}, #{delete_yn},
+			<if test="server_file_name != null and server_file_name != ''">
+			#{org_file_name}, #{server_file_name}, #{file_extension}, #{file_size},
+			</if> 
+			<if test="server_file_name2 != null and server_file_name2 != ''">
+			#{org_file_name2}, #{server_file_name2}, #{file_extension2}, #{file_size2},
+			</if> 
+			#{add_id}, SYSDATE
+		)
+	</insert>
+	
+	<update id="deleteBookReportContest">
+		UPDATE 
+			BOOK_REPORT_CONTEST
+		SET
+			delete_yn = 'Y',
+			delete_id = #{delete_id}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND book_report_idx = #{book_report_idx}
+	</update>
+	
+	<update id="statusChangeBookReportContest">
+		UPDATE
+			BOOK_REPORT_CONTEST
+		SET
+			approval_status = #{approval_status}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND book_report_idx = #{book_report_idx}
+	</update>-->
+	
+</mapper>

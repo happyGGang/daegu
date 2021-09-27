@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.lecture.lectureInfo.LectureInfoDao">
+
+	<select id="getLectureInfoList" resultType="kr.go.gbelib.app.cms.module.lecture.lectureInfo.LectureInfo">
+		${pagingTop}
+		SELECT
+			ROW_NUMBER() OVER (ORDER BY lecture_id) AS reverse_rownum, homepage_id, course_id,lecture_id,lecture_title,edu_start_date,edu_end_date,edu_start_time,edu_end_time,request_start_date,
+			request_end_date,edu_school,online_person_count,offline_person_count,wait_person_count,request_type,teacher_name,
+			teacher_tel,supporter_name,supporter_tel,edu_school_map,lecture_content,add_date,add_ip,add_id,edu_address_1,
+			edu_address_2,teacher_id,day_week,edu_second_school
+		FROM
+			LECTURE_INFO
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+
+		<if test="searching_course_id != null and searching_course_id != ''">
+			AND	course_id = #{searching_course_id}
+		</if>
+
+
+		<if test="searching_reservation != null and searching_reservation != '' and searching_reservation == 1">
+			AND	request_start_date <![CDATA[>]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+		</if>
+		<if test="searching_reservation != null and searching_reservation != '' and searching_reservation == 2">
+			AND	request_start_date <![CDATA[<=]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+		  	AND request_end_date <![CDATA[>=]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+		</if>
+		<if test="searching_reservation != null and searching_reservation != '' and searching_reservation == 3">
+			AND	request_end_date <![CDATA[<]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+		</if>
+
+
+		<if test="searching_edu_status != null and searching_edu_status != '' and searching_edu_status == 1">
+			AND	edu_start_date <![CDATA[>]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+		</if>
+		<if test="searching_edu_status != null and searching_edu_status != '' and searching_edu_status == 2">
+			AND	edu_start_date <![CDATA[<=]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+			AND edu_end_date <![CDATA[>=]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+		</if>
+		<if test="searching_edu_status != null and searching_edu_status != '' and searching_edu_status == 3">
+			AND	edu_end_date <![CDATA[<]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+		</if>
+
+
+		<if test="searching_request_type != null and searching_request_type != ''">
+			AND	request_type = #{searching_request_type}
+		</if>
+
+		<if test="(start_period != null and start_period != '')">
+			AND	request_end_date <![CDATA[>=]]> #{start_period}
+		</if>
+		<if test="(end_period != null and end_period != '')">
+			AND	request_start_date <![CDATA[<=]]> #{end_period}
+		</if>
+
+		ORDER BY lecture_id DESC
+		${pagingBottom}
+	</select>
+
+	<select id="getLectureInfoCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			LECTURE_INFO
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+
+		<if test="searching_course_id != null and searching_course_id != ''">
+			AND	course_id = #{searching_course_id}
+		</if>
+
+
+		<if test="searching_reservation != null and searching_reservation != '' and searching_reservation == 1">
+			AND	request_start_date <![CDATA[>]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+		</if>
+		<if test="searching_reservation != null and searching_reservation != '' and searching_reservation == 2">
+			AND	request_start_date <![CDATA[<=]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+			AND request_end_date <![CDATA[>=]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+		</if>
+		<if test="searching_reservation != null and searching_reservation != '' and searching_reservation == 3">
+			AND	request_end_date <![CDATA[<]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+		</if>
+
+
+		<if test="searching_edu_status != null and searching_edu_status != '' and searching_edu_status == 1">
+			AND	edu_start_date <![CDATA[>]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+		</if>
+		<if test="searching_edu_status != null and searching_edu_status != '' and searching_edu_status == 2">
+			AND	edu_start_date <![CDATA[<=]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+			AND edu_end_date <![CDATA[>=]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+		</if>
+		<if test="searching_edu_status != null and searching_edu_status != '' and searching_edu_status == 3">
+			AND	edu_end_date <![CDATA[<]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+		</if>
+
+
+		<if test="searching_request_type != null and searching_request_type != ''">
+			AND	request_type = #{searching_request_type}
+		</if>
+
+		<if test="(start_period != null and start_period != '')">
+			AND	request_end_date <![CDATA[>=]]> #{start_period}
+		</if>
+		<if test="(end_period != null and end_period != '')">
+			AND	request_start_date <![CDATA[<=]]> #{end_period}
+		</if>
+	</select>
+
+	<select id="getLectureInfoCountByHomepageIdAndCourseId" resultType="int">
+		SELECT
+		COUNT(*)
+		FROM
+		LECTURE_INFO
+		WHERE
+			homepage_id = #{param1}
+		AND course_id = #{param2}
+	</select>
+
+	<insert id="addLectureInfo">
+		<selectKey keyProperty="lecture_id" resultType="string" order="BEFORE">
+			SELECT 'LECTURE_' || (TO_NUMBER(NVL(MAX(REPLACE(lecture_id, 'LECTURE_', '')), TO_CHAR(SYSDATE, 'yyyyMMdd') || LPAD(0, 4, '0'))) + 1)
+			FROM LECTURE_INFO
+			WHERE lecture_id LIKE '%' || TO_CHAR(SYSDATE, 'yyyyMMdd') || '%'
+		</selectKey>
+		INSERT INTO
+		LECTURE_INFO
+		(
+		homepage_id, course_id,lecture_id,lecture_title,edu_start_date,edu_end_date,edu_start_time,edu_end_time,request_start_date,
+		request_end_date,edu_school,online_person_count,offline_person_count,wait_person_count,request_type,teacher_name,
+		teacher_tel,supporter_name,supporter_tel,edu_school_map,lecture_content,add_date,add_ip,add_id,edu_address_1,
+		edu_address_2,teacher_id,day_week,edu_second_school
+		)
+		VALUES
+		(
+		#{homepage_id},#{course_id},#{lecture_id},#{lecture_title},#{edu_start_date},#{edu_end_date},#{edu_start_time},#{edu_end_time},
+		#{request_start_date},#{request_end_date},#{edu_school},#{online_person_count},#{offline_person_count},#{wait_person_count},
+		#{request_type},#{teacher_name},#{teacher_tel},#{supporter_name},#{supporter_tel},#{edu_school_map},#{lecture_content},
+		SYSDATE,#{add_ip},#{add_id},#{edu_address_1},#{edu_address_2},#{teacher_id},#{day_week},#{edu_second_school}
+		)
+	</insert>
+
+	<select id="getLectureInfoOne" resultType="kr.go.gbelib.app.cms.module.lecture.lectureInfo.LectureInfo">
+		SELECT *
+		FROM LECTURE_INFO
+		WHERE lecture_id = #{lecture_id}
+	</select>
+
+	<update id="updateLectureInfo">
+		UPDATE
+			LECTURE_INFO
+		SET
+			course_id = #{course_id},
+			lecture_title = #{lecture_title},
+			edu_start_date = #{edu_start_date},
+			edu_end_date = #{edu_end_date},
+			edu_start_time = #{edu_start_time},
+			edu_end_time = #{edu_end_time},
+			request_start_date = #{request_start_date},
+			request_end_date = #{request_end_date},
+			edu_school = #{edu_school},
+			online_person_count = #{online_person_count},
+			offline_person_count = #{offline_person_count},
+			wait_person_count = #{wait_person_count},
+			request_type = #{request_type},
+			teacher_name = #{teacher_name},
+			teacher_tel = #{teacher_tel},
+			supporter_name = #{supporter_name},
+			supporter_tel = #{supporter_tel},
+			edu_school_map = #{edu_school_map},
+			lecture_content = #{lecture_content},
+			edu_address_1 = #{edu_address_1},
+			edu_address_2 = #{edu_address_2},
+			day_week = #{day_week},
+			teacher_id = #{teacher_id},
+			edu_second_school = #{edu_second_school}
+		WHERE
+			homepage_id = #{homepage_id}
+		  AND lecture_id = #{lecture_id}
+	</update>
+
+	<delete id="deleteLectureInfo">
+		DELETE
+			LECTURE_INFO
+		WHERE
+			homepage_id = #{homepage_id}
+		  AND lecture_id = #{lecture_id}
+	</delete>
+	<!--<select id="bookReportContestList" resultType="kr.go.gbelib.app.cms.module.bookReportContest.BookReportContest">
+		${pagingTop}
+		SELECT
+			homepage_id, book_report_idx, participation_field, user_name, 
+			school_name, school_year, user_phone, protector_phone, user_email, 
+			postcode, address_base, address_detailed, approval_status, delete_yn, 
+			org_file_name, server_file_name, file_extension, file_size, 
+			org_file_name2, server_file_name2, file_extension2, file_size2, 
+			add_id, add_date 
+		FROM
+			BOOK_REPORT_CONTEST
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		ORDER BY book_report_idx DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getExcelList" resultType="kr.go.gbelib.app.cms.module.bookReportContest.BookReportContest">
+		SELECT
+			homepage_id, book_report_idx, participation_field, user_name, 
+			school_name, school_year, user_phone, protector_phone, user_email, 
+			postcode, address_base, address_detailed, approval_status, delete_yn, 
+			org_file_name, server_file_name, file_extension, file_size, 
+			org_file_name2, server_file_name2, file_extension2, file_size2, 
+			add_id, add_date 
+		FROM
+			BOOK_REPORT_CONTEST
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+	</select>
+	
+	<select id="bookReportContestCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			BOOK_REPORT_CONTEST
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+	</select>
+	
+	<select id="getBookReportContest" resultType="kr.go.gbelib.app.cms.module.bookReportContest.BookReportContest">
+		SELECT
+			homepage_id, book_report_idx, participation_field, user_name, 
+			school_name, school_year, user_phone, protector_phone, user_email, 
+			postcode, address_base, address_detailed, approval_status, delete_yn, 
+			org_file_name, server_file_name, file_extension, file_size, 
+			org_file_name2, server_file_name2, file_extension2, file_size2, 
+			add_id, add_date 
+		FROM
+			BOOK_REPORT_CONTEST
+		WHERE
+			homepage_id = #{homepage_id}
+		AND book_report_idx = #{book_report_idx}	
+	</select>
+	
+	<insert id="addBookReportContest">
+		INSERT INTO
+			BOOK_REPORT_CONTEST
+		(
+			homepage_id, book_report_idx, participation_field, user_name, 
+			school_name, school_year, user_phone, protector_phone, user_email, 
+			postcode, address_base, address_detailed, approval_status, delete_yn, 
+			<if test="server_file_name != null and server_file_name != ''">
+			org_file_name, server_file_name, file_extension, file_size, 
+			</if>
+			<if test="server_file_name2 != null and server_file_name2 != ''">
+			org_file_name2, server_file_name2, file_extension2, file_size2,
+			</if>
+			add_id, add_date
+		)
+		VALUES
+		(
+			#{homepage_id}, (SELECT NVL(MAX(book_report_idx), 0)+1 FROM BOOK_REPORT_CONTEST), #{participation_field}, #{user_name}, 
+			#{school_name}, #{school_year}, #{user_phone}, #{protector_phone}, #{user_email}, 
+			#{postcode}, #{address_base}, #{address_detailed}, #{approval_status}, #{delete_yn},
+			<if test="server_file_name != null and server_file_name != ''">
+			#{org_file_name}, #{server_file_name}, #{file_extension}, #{file_size},
+			</if> 
+			<if test="server_file_name2 != null and server_file_name2 != ''">
+			#{org_file_name2}, #{server_file_name2}, #{file_extension2}, #{file_size2},
+			</if> 
+			#{add_id}, SYSDATE
+		)
+	</insert>
+	
+	<update id="deleteBookReportContest">
+		UPDATE 
+			BOOK_REPORT_CONTEST
+		SET
+			delete_yn = 'Y',
+			delete_id = #{delete_id}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND book_report_idx = #{book_report_idx}
+	</update>
+	
+	<update id="statusChangeBookReportContest">
+		UPDATE
+			BOOK_REPORT_CONTEST
+		SET
+			approval_status = #{approval_status}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND book_report_idx = #{book_report_idx}
+	</update>-->
+	
+</mapper>
