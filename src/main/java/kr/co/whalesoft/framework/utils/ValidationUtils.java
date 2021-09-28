@@ -103,6 +103,16 @@ public class ValidationUtils extends org.springframework.validation.ValidationUt
 	public static void rejectOnlyEngNum(Errors errors, String field, String errorCode) {
 		rejectIfRegex(errors, field, errorCode, null, null, "^[a-zA-Z0-9]+$");
 	}
+
+	/**
+	 * 영어와 소문자와 숫자만가능
+	 * @param errors
+	 * @param field
+	 * @param errorCode
+	 */
+	public static void rejectOnlySmallEngNum(Errors errors, String field, String errorCode) {
+		rejectIfRegex(errors, field, errorCode, null, null, "^[a-z0-9]+$");
+	}
 	
 	/**
 	 * 영어와 숫자만가능
@@ -154,7 +164,17 @@ public class ValidationUtils extends org.springframework.validation.ValidationUt
 		rejectIfRegex(errors, field, errorCode, null, null, "^(19[0-9][0-9]|20\\d{2})-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$");
 	}
 
-	
+	/**
+	 * 'Y','N' 만 가능
+	 * @param errors
+	 * @param field
+	 * @param errorCode
+	 */
+	public static void rejectYN(Errors errors, String field, String errorCode) {
+		rejectIfRegex(errors, field, errorCode, null, null, "^[YN]$");
+	}
+
+
 	/**
 	 * 주민번호 체크 SSN
 	 * @param ssn
