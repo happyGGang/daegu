@@ -17,12 +17,24 @@ public class UntactBookReservationService extends BaseService {
 		return dao.addUntactBookReservation(untactBookReservation);
 	}
 	
-	public List<UntactBookReservation> getUntactBookReservationList(String homepage_id) {
-		return dao.getUntactBookReservationList(homepage_id);
+	public List<UntactBookReservation> getUntactBookReservationList(UntactBookReservation untactBookReservation) {
+		return dao.getUntactBookReservationList(untactBookReservation);
 	}
 	
 	public int getUntactBookReservationCount(String homepage_id) {
 		return dao.getUntactBookReservationCount(homepage_id);
 	}
+
+	public int getUntactBookReservationListCount(UntactBookReservation untactBookReservation) {
+		return dao.getUntactBookReservationListCount(untactBookReservation);
+	}
 	
+	public int getUntactBookReservationLockerNumber(String homepage_id) {
+		return dao.getUntactBookReservationLockerNumber(homepage_id);
+	}
+	
+	public UntactBookReservation getUntactBookReservationOne(UntactBookReservation untactBookReservation) {
+		return dao.getUntactBookReservationOne(untactBookReservation);
+	}
+
 }

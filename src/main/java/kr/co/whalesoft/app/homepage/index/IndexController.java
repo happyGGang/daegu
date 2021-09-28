@@ -761,7 +761,7 @@ public class IndexController extends BaseController {
 			Board b = new Board();
 			b.setHomepage_id(homepage.getHomepage_id());
 			b.setImsi_v_1(sdf.format(cal.getTime()));
-			model.addAttribute("movieList", boardService.getBoardMovie(b));
+			model.addAttribute("movieList", boardService.getCalendarBoardMovie(b));
 		}
 
 		//서구도서관

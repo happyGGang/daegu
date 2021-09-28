@@ -17,8 +17,14 @@ public class UntactBookReservation extends PagingUtils {
 	private String book_isbn;  //ISBN
 	private String book_name;  //도서명
 	private String loan_date;  //대출일
-	private String reservation_yn;  //대출취소여부
+	private String cancel_yn;  //대출취소여부
 	private String cancel_reason;  //대출취소사유
+	private String sms_send_yn;  //SMS발송여부
+	private String sms_send_date;  //SMS발송일시
+	private int[] request_number_arr;  //신청번호_arr
+	
+	private String start_date;
+	private String end_date;
 	
 	public UntactBookReservation() {}
 	
@@ -100,17 +106,57 @@ public class UntactBookReservation extends PagingUtils {
 	public void setLoan_date(String loan_date) {
 		this.loan_date = loan_date;
 	}
-	public String getReservation_yn() {
-		return reservation_yn;
+	public String getCancel_yn() {
+		return cancel_yn;
 	}
-	public void setReservation_yn(String reservation_yn) {
-		this.reservation_yn = reservation_yn;
+	public void setCancel_yn(String cancel_yn) {
+		this.cancel_yn = cancel_yn;
 	}
 	public String getCancel_reason() {
 		return cancel_reason;
 	}
 	public void setCancel_reason(String cancel_reason) {
 		this.cancel_reason = cancel_reason;
+	}
+
+	public int[] getRequest_number_arr() {
+		return request_number_arr;
+	}
+
+	public void setRequest_number_arr(int[] request_number_arr) {
+		this.request_number_arr = request_number_arr;
+	}
+
+	public String getSms_send_yn() {
+		return sms_send_yn;
+	}
+
+	public void setSms_send_yn(String sms_send_yn) {
+		this.sms_send_yn = sms_send_yn;
+	}
+
+	public String getSms_send_date() {
+		return sms_send_date;
+	}
+
+	public void setSms_send_date(String sms_send_date) {
+		this.sms_send_date = sms_send_date;
+	}
+
+	public String getStart_date() {
+		return start_date;
+	}
+
+	public void setStart_date(String start_date) {
+		this.start_date = start_date;
+	}
+
+	public String getEnd_date() {
+		return end_date;
+	}
+
+	public void setEnd_date(String end_date) {
+		this.end_date = end_date;
 	}
 	
 	

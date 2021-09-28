@@ -629,6 +629,15 @@ public class BoardService extends BaseService {
 	public List<Board> getBoardMovie(Board board) {
 		return dao.getBoardMovie(board);
 	}
+	
+	/**
+	 *
+	 * @param board - homepage_id, imsi_v_1 (YYYY-MM)
+	 * @return
+	 */
+	public List<Board> getCalendarBoardMovie(Board board) {
+		return dao.getCalendarBoardMovie(board);
+	}
 
 	public int checkPassword(Board board) {
 		board.setUser_password(CalculateHashUtils.calculateHash(board.getUser_password()));

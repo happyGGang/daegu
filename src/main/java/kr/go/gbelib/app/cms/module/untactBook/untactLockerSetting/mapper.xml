@@ -14,15 +14,19 @@
 	</select>
 
 	<select id="getMaxUntactLocker" resultType="int">
-		SELECT MAX(NVL(locker_number, 0)) FROM UNTACT_BOOK_LOCKER_SETTING
-		WHERE homepage_id = #{homepage_id}
+		SELECT
+			NVL(MAX(locker_number), 0)
+		FROM
+			UNTACT_BOOK_LOCKER_SETTING
+		WHERE
+			homepage_id = #{homepage_id}
 	</select>
 
 	<delete id="deleteUntactLocker">
 		DELETE FROM UNTACT_BOOK_LOCKER_SETTING
 		WHERE
-		    homepage_id = #{homepage_id} AND
-			locker_number > #{locker_number}
+		    homepage_id = #{homepage_id}
+		AND locker_number > #{locker_number}
 	</delete>
 
 	<insert id="insertUntactLocker">

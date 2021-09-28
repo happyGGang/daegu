@@ -99,6 +99,8 @@ public interface BoardDao {
 	public int modifyContraryCount(int board_idx);
 
 	public List<Board> getBoardMovie(Board board);//calander
+	
+	public List<Board> getCalendarBoardMovie(Board board);//calander
 
 	public int checkPassword(Board board);
 

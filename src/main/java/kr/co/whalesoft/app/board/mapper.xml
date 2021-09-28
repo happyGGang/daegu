@@ -1569,7 +1569,40 @@
 			WHERE
 				imsi_v_1 IS NOT NULL
 			AND imsi_v_1 = #{imsi_v_1}
+			AND delete_yn = 'N'
+			<if test="imsi_v_2 != null and imsi_v_2 != ''">
+			AND imsi_v_2 = #{imsi_v_2}
+			</if>
+			AND manage_idx = (
+								SELECT manage_idx FROM CMS_BOARD_MANAGE
+								WHERE board_type = 'MOVIE'
+								AND homepage_id = #{homepage_id}
+								)
+			<if test="category5 != null and category5 != ''">
+			AND category5 = #{category5}
+			</if>
+			<if test="category1 != null and category1 != ''">
+				AND category1 = #{category1}
+			</if>
+			) a
+			ORDER BY imsi_v_2;
+	</select>
+	
+	<select id="getCalendarBoardMovie" resultType="kr.co.whalesoft.app.board.Board">
+		SELECT
+			(select menu_idx from cms_menu
+			where manage_idx = a.manage_idx
+			and menu_type = 'BOARD') as menu_idx, a.*
+		FROM (
+			SELECT
+				*
+			FROM
+				CMS_BOARD
+			WHERE
+				imsi_v_1 IS NOT NULL
+			AND imsi_v_1 = #{imsi_v_1}
 			AND imsi_v_2 <![CDATA[>=]]> TO_CHAR(SYSDATE,'DD')
+			AND delete_yn = 'N'
 			<if test="imsi_v_2 != null and imsi_v_2 != ''">
 			AND imsi_v_2 = #{imsi_v_2}
 			</if>

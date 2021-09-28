@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.untactBook.untactBookPenalty.UntactBookPenaltyDao">
+	
+	<insert id="mergePenaltySetting">
+		INSERT INTO UNTACT_BOOK_BLACKLIST
+		(
+		 	homepage_id, member_id, member_name, penalty_reason, penalty_day,
+		 	penalty_register_ip, penalty_register_id
+		) VALUES
+		(
+			#{homepage_id}, #{member_id}, #{member_name}, #{penalty_reason}, #{penalty_day},
+			#{penalty_register_ip}, #{penalty_register_id}
+		)
+	</insert>
+	
+	<select id="penaltyCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			UNTACT_BOOK_BLACKLIST
+		WHERE
+			homepage_id = #{homepage_id}
+		AND member_id = #{member_id}
+		AND TO_CHAR(penalty_day, 'YY/MM/DD') = TO_CHAR(SYSDATE, 'YY/MM/DD')
+	</select>
+
+</mapper>
