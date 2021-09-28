@@ -28,7 +28,13 @@ $(function() {
 		</c:choose>
 
 	});
-
+	
+	<%-- 비대면 도서대출 신청 --%>
+	$('a#untactBook-req').on('click', function(e) {
+		e.preventDefault();
+		$('form#untactBookReqForm').submit();
+	});
+	
 	<%-- 무인대출예약 신청 --%>
 	$('a#unmanned-req').on('click', function(e) {
 		e.preventDefault();
@@ -142,6 +148,14 @@ $(function() {
 	<input type="hidden" id="reserveMode" name="editMode" value="ADD">
 	<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
 	<input type="hidden" name="booktype" value="${fn:startsWith(detail.WORKING_STATUS, 'BO') ? 'BO' : 'SE'}">
+</form>
+
+<form id="untactBookReqForm" action="untactBook/form.do" method="post">
+	<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
+	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
+	<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
+	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
+	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
 </form>
 
 <form id="unmannedReqForm" action="unmanned/form.do" method="post">
@@ -472,7 +486,9 @@ $(function() {
 				int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
 				int hour = now.getHourOfDay();
 			%>
-
+			
+			<a href="#untact" id="untactBook-req" class="btn btn2"><span>비대면 도서대출</span></a>
+			
 			<c:choose>
 				<c:when test="${homepage.context_path eq 'jungang'}">
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
