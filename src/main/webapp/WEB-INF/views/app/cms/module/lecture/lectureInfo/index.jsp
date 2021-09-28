@@ -174,7 +174,7 @@ $(function() {
 
 		<h2 style="display: inline">${course_title}</h2>
 		검색 결과 : 총 ${lectureInfoCount}건
-		
+
 		<form:select path="rowCount" cssClass="selectmenu">
 			<form:option value="10">10개씩보기</form:option>
 			<form:option value="20">20개씩보기</form:option>
@@ -183,7 +183,7 @@ $(function() {
 			<form:option value="100">100개씩보기</form:option>
 			<form:option value="${paging.totalDataCount}">전체 보기</form:option>
 		</form:select>
-		
+
 		<div class="button">
 			<a href="#" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
 		</div>

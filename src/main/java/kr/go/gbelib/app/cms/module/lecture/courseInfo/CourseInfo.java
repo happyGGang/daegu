@@ -10,7 +10,7 @@ public class CourseInfo extends PagingUtils {
     private String course_title;  // 과정명
     private String view_start_date;  // 과정노출시작기간
     private String view_end_date;  // 과정노출종료기간
-    private char use_yn;  // 사용 여부(Y,N)
+    private String use_yn;  // 사용 여부(Y,N)
     private Date add_date;  // 등록일
     private String add_id;  // 등록 ID
     private String add_ip;  // 등록 IP
@@ -48,11 +48,11 @@ public class CourseInfo extends PagingUtils {
         this.view_end_date = view_end_date;
     }
 
-    public char getUse_yn() {
+    public String getUse_yn() {
         return use_yn;
     }
 
-    public void setUse_yn(char use_yn) {
+    public void setUse_yn(String use_yn) {
         this.use_yn = use_yn;
     }
 
