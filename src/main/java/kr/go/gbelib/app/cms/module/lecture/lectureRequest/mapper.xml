@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.lecture.lectureRequest.LectureRequestDao">
+
+    <select id="getLectureRequestList" resultType="kr.go.gbelib.app.cms.module.lecture.lectureRequest.LectureRequest">
+        ${pagingTop}
+        SELECT
+            ROW_NUMBER() OVER (ORDER BY request_id) AS reverse_rownum, r.lecture_id, r.request_id,
+            r.request_name, r.birthday, r.gender, r.phone_number,
+            r.email, r.zip_code, r.address1, r.address2, r.request_status, r.request_type,
+            r.complete_yn, r.cancel_yn, r.add_date, r.add_ip, r.add_id, r.cancel_date,
+            r.cancel_ip, r.cancel_id, i.lecture_title
+        FROM
+            LECTURE_REQUEST as r
+        INNER JOIN
+            LECTURE_INFO as i
+        ON
+            r.lecture_id = i.lecture_id
+        WHERE
+            r.homepage_id = #{homepage_id}
+        <if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+            AND	r.${search_type} LIKE '%'||#{search_text}||'%'
+        </if>
+
+        <if test="search_course_id != null and search_course_id != ''">
+            AND i.course_id = #{search_course_id}
+        </if>
+        <if test="search_lecture_id != null and search_lecture_id != ''">
+            AND i.lecture_id = #{search_lecture_id}
+        </if>
+        <if test="search_request_type != null and search_request_type != ''">
+            AND r.request_type = #{search_request_type}
+        </if>
+        <if test="search_cancel_yn != null and search_cancel_yn != ''">
+            AND r.cancel_yn = #{search_cancel_yn}
+        </if>
+        ORDER BY request_id DESC
+        ${pagingBottom}
+    </select>
+
+    <select id="getLectureRequestCount" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            LECTURE_REQUEST as r
+        INNER JOIN
+            LECTURE_INFO as i
+        ON
+            r.lecture_id = i.lecture_id
+        WHERE
+            r.homepage_id = #{homepage_id}
+        <if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+            AND	r.${search_type} LIKE '%'||#{search_text}||'%'
+        </if>
+
+        <if test="search_course_id != null and search_course_id != ''">
+            AND i.course_id = #{search_course_id}
+        </if>
+        <if test="search_lecture_id != null and search_lecture_id != ''">
+            AND i.lecture_id = #{search_lecture_id}
+        </if>
+        <if test="search_request_type != null and search_request_type != ''">
+            AND r.request_type = #{search_request_type}
+        </if>
+        <if test="search_cancel_yn != null and search_cancel_yn != ''">
+            AND r.cancel_yn = #{search_cancel_yn}
+        </if>
+    </select>
+
+    <select id="getLectureRequestOne" resultType="kr.go.gbelib.app.cms.module.lecture.lectureRequest.LectureRequest">
+        SELECT
+            ROW_NUMBER() OVER (ORDER BY request_id) AS reverse_rownum, r.lecture_id, r.request_id,
+            r.request_name, r.birthday, r.gender, r.phone_number,
+            r.email, r.zip_code, r.address1, r.address2, r.request_status, r.request_type,
+            r.complete_yn, r.cancel_yn, r.add_date, r.add_ip, r.add_id, r.cancel_date,
+            r.cancel_ip, r.cancel_id, i.lecture_title, i.course_id
+        FROM
+            LECTURE_REQUEST as r
+        INNER JOIN
+            LECTURE_INFO as i
+        ON
+            r.lecture_id = i.lecture_id
+        WHERE
+            r.request_id = #{request_id}
+    </select>
+
+    <insert id="addLectureRequest">
+        <selectKey keyProperty="request_id" resultType="string" order="BEFORE">
+            SELECT 'REQUEST_' || (TO_NUMBER(NVL(MAX(REPLACE(request_id, 'REQUEST_', '')), TO_CHAR(SYSDATE, 'yyyyMMdd') || LPAD(0, 4, '0'))) + 1)
+            FROM LECTURE_REQUEST
+            WHERE request_id LIKE '%' || TO_CHAR(SYSDATE, 'yyyyMMdd') || '%'
+        </selectKey>
+        INSERT INTO
+            LECTURE_REQUEST
+            (
+                lecture_id,request_id,request_name,birthday,gender,phone_number,email,zip_code,address1,address2,
+                request_status,request_type,complete_yn,cancel_yn,add_date,add_ip,add_id,homepage_id
+            )
+        VALUES (
+                    #{lecture_id},#{request_id},#{request_name},#{birthday},#{gender},#{phone_number},#{email},#{zip_code},
+                    #{address1},#{address2},#{request_status},#{request_type},#{complete_yn},
+                    #{cancel_yn},SYSDATE,#{add_ip},#{add_id},#{homepage_id}
+               )
+    </insert>
+
+    <update id="updateLectureRequest">
+        UPDATE
+            LECTURE_REQUEST
+        SET
+            lecture_id = #{lecture_id},
+            request_name = #{request_name},
+            birthday = #{birthday},
+            gender = #{gender},
+            phone_number = #{phone_number},
+            email = #{email},
+            zip_code = #{zip_code},
+            address1 = #{address1},
+            address2 = #{address2},
+            request_status = #{request_status},
+            request_type = #{request_type},
+            complete_yn = #{complete_yn},
+            cancel_yn = #{complete_yn},
+            cancel_id = #{cancel_id},
+            cancel_ip = #{cancel_ip},
+            cancel_date = #{cancel_date}
+        WHERE
+            homepage_id = #{homepage_id}
+        AND
+            request_id = #{request_id}
+    </update>
+
+    <update id="cancelLectureRequest">
+        UPDATE
+            LECTURE_REQUEST
+        SET
+            cancel_yn = #{cancel_yn},
+            cancel_date = SYSDATE,
+            cancel_id = #{cancel_id},
+            cancel_ip = #{cancel_ip}
+        WHERE
+            homepage_id = #{homepage_id}
+        AND
+            request_id = #{request_id}
+    </update>
+
+</mapper>

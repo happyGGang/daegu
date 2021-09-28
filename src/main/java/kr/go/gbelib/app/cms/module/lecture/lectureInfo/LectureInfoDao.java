@@ -16,4 +16,6 @@ public interface LectureInfoDao {
     void deleteLectureInfo(LectureInfo lectureInfo);
 
     int getLectureInfoCountByHomepageIdAndCourseId(String homepage_id, String course_id);
+
+    List<LectureInfo> getLectureInfoListByHomepageIdAndCourseId(String homepage_id, String course_id);
 }

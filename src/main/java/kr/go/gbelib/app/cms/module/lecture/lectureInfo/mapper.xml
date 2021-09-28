@@ -61,6 +61,21 @@
 		${pagingBottom}
 	</select>
 
+	<select id="getLectureInfoListByHomepageIdAndCourseId" resultType="kr.go.gbelib.app.cms.module.lecture.lectureInfo.LectureInfo">
+		SELECT
+		ROW_NUMBER() OVER (ORDER BY lecture_id) AS reverse_rownum, homepage_id, course_id,lecture_id,lecture_title,edu_start_date,edu_end_date,edu_start_time,edu_end_time,request_start_date,
+		request_end_date,edu_school,online_person_count,offline_person_count,wait_person_count,request_type,teacher_name,
+		teacher_tel,supporter_name,supporter_tel,edu_school_map,lecture_content,add_date,add_ip,add_id,edu_address_1,
+		edu_address_2,teacher_id,day_week,edu_second_school
+		FROM
+		LECTURE_INFO
+		WHERE
+			homepage_id = #{param1}
+		AND
+			course_id = #{param2}
+		ORDER BY lecture_id DESC
+	</select>
+
 	<select id="getLectureInfoCount" resultType="int">
 		SELECT
 			COUNT(*)
