@@ -102,14 +102,13 @@ $(function() {
 	<div>
 		<table class="type1 center">
 			<colgroup>
-				<col width="12%" />  <%--과정고유번호--%>
-				<col width=24%" /> <%--과정명--%>
+				<col width="15%" />  <%--과정고유번호--%>
+				<col width=25%" /> <%--과정명--%>
 				<col width="10%" /> <%--과정노출시작기간--%>
 				<col width="10%" /> <%--과정노출종료기간--%>
-				<col width="6%" /> <%--사용여부--%>
+				<col width="10%" /> <%--사용여부--%>
 				<col width="10%" /> <%--등록일--%>
 				<col width="10%" /> <%--등록ID--%>
-				<col width="10%" /> <%--등록IP--%>
 				<col width="" /> <%--기능--%>
 			</colgroup>
 			<thead>
@@ -121,7 +120,6 @@ $(function() {
 					<th>사용여부</th>
 					<th>등록일</th>
 					<th>등록ID</th>
-					<th>등록IP</th>
 					<th>기능</th>
 				</tr>
 			</thead>
@@ -146,10 +144,6 @@ $(function() {
 						<%--등록ID--%>
 						<td>
 							${i.add_id}
-						</td>
-						<%--등록IP--%>
-						<td>
-							${i.add_ip}
 						</td>
 						<%--기능--%>
 						<td>
