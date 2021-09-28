@@ -1821,6 +1821,10 @@ public class CommonSearchController extends BaseController {
 			untactBookReservation.setMember_id(member.getMember_id());
 			untactBookReservation.setMember_name(member.getMember_name());
 			
+			//TODO 조건문 넣어주기
+			int locker_number = untactBookReservationService.getUntactBookReservationLockerNumber(homepage.getHomepage_id());
+			untactBookReservation.setLocker_number(locker_number);
+			
 			untactBookReservationService.addUntactBookReservation(untactBookReservation);
 			res.setValid(true);
 			res.setMessage("예약 되었습니다.");

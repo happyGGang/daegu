@@ -4,10 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-
-
-
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -31,6 +27,99 @@
 <script type="text/javascript" src="https://www.gbelib.kr/resources/common/js/jquery-ui-1.12.0-datepicker.min.js"></script>
 <script type="text/javascript" src="https://www.gbelib.kr/resources/common/js/common.js"></script>
 <script type="text/javascript" src="https://www.gbelib.kr/resources/cms/js/design.js"></script>
+
+<script type="text/javascript">
+//체크박스 전체선택
+$(function() {
+	$('#all-check').on('click', function(e) {
+		e.preventDefault();
+		if($(this).attr('keyValue') == 'N') {
+			$(this).attr('keyValue', 'Y');
+			$('.locker_idx').prop('checked', true);
+		} else {
+			$(this).attr('keyValue', 'N');
+			$('.locker_idx').prop('checked', false);
+		}
+	});
+});
+
+function allChange() {
+	if($('input:checkbox[name=request_number_arr]:checked').length < 1) {
+		alert('수정할 사물함을 선택해 주세요.');
+	} else if($('#locker_all_change').val() == '') {
+		alert('사물함 용도를 선택해 주세요.');
+	} else {
+		if(confirm('선택된 사물함들을 수정하시겠습니까?')) {
+			$.ajax({
+				type: "POST",
+				url: 'modifyAll.do',
+				data: $('input[name=request_number_arr], #locker_all_change').serialize(),
+				success: function(response) {
+					if(response.valid) {
+						alert('전체수정 되었습니다.');
+					}
+					location.reload();
+				},
+				error : function() {
+					alert('전체수정에 실패했습니다.\n\n관리자에게 문의해 주세요.');
+				}
+			});
+		} 
+	}
+}
+
+function penaltySettingEdit(member_id, member_name) {
+	modal_layer_add('dialog_layer');
+	
+	var ajaxData = {
+		'member_id' : member_id,
+		'member_name' : member_name
+	};
+	
+	$.ajax({
+		url: 'penaltySettingEdit.do',
+		method: 'GET',
+		data : ajaxData,
+		success: function(html){
+			$('#dialog_layer').html(html);
+		},error: function(html){
+		}
+	});
+
+	$('#dialog_layer').dialog({ //모달창 기본 스크립트 선언
+		resizable: false,
+		modal: true,
+		title: '패널티 부여',
+		open: function(){
+			$('.ui-widget-overlay').addClass('custom-overlay');
+		},
+		close: function(){
+		},
+		buttons: [
+			{
+				text : '패널티부여',
+				'class' : 'btn btn1',
+				click : function() {
+					penaltySettingSave();
+				}
+			},
+			{
+				text: "취소",
+				"class": 'btn btn_round btn_gray',
+				click: function() {
+					$(this).dialog('close');
+				}
+			}
+		]
+	});
+
+	$("#dialog_layer").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
+		width: 600,
+		height: 500
+	});
+}
+
+</script>
 
 <!--[if IE 7]>
 <link rel="stylesheet" type="text/css" href="/resources/cms/css/fontawesome-ie7.min.css"/>
@@ -99,6 +188,8 @@
 				<strong>비대면 신청관리(사물함사용시)</strong>
 			</div>
 		</div>
+		
+		<form:form id="untactBookReservation" modelAttribute="untactBookReservation" method="POST" action="save.do" onsubmit="return false;">
 		<div class="wrapper wrapper-white">
 
 			<div class="cont-box">
@@ -136,352 +227,59 @@
 								</tr>
 							</thead>
 							<tbody>
-								
+							<c:if test="${fn:length(untactBookReservationList) < 1}">
+								<tr style="height:100%">
+									<td colspan="10" style="background:#f8fafb;">비대면 사물함 신청내역이 없습니다.</td>
+								</tr>
+							</c:if>
+							<c:forEach var="i" varStatus="status" items="${untactBookReservationList}">
 								<tr>
-									<td><input type="checkbox" name="" id="" value="" /></td>
-									<td>1</td>
-									<td>user_id</td>
-									<td>12312312312312</td>
-									<td>설현</td>
-									<td>세상을 읽는 새로운 언어 빅데이터</td>
-									<td>1</td>
-									<td>12**</td>
+									<td><form:checkbox path="request_number_arr" cssClass="locker_idx" value="${i.request_number}"/></td>
+									<td>${i.request_number}</td>
+									<td>${i.member_id}</td>
+									<td>${i.reg_no}</td>
+									<td>${i.member_name}</td>
+									<td>${i.book_name}</td>
+									<td>${i.locker_number}</td>
+									<td>${i.locker_password}</td>
 									<td>
+									<div class="button">
 										<a href="#" id="setBook" class="btn btn1 btnuntact">비치</a>
 										<a href="#" id="loanBook" class="btn btn2 btnuntact">대출</a>
 										<a href="#" class="btn btnuntact">취소</a>
-										<a href="#" class="btn btn5 btnuntact">패널티부여</a>
+										<a href="javascript:void(0);" class="btn btn5 btnuntact" onclick="penaltySettingEdit('${i.member_id}' ,'${i.member_name}');">패널티부여</a>
+									</div>
 									</td>
 								</tr>
-								<tr>
-									<td><input type="checkbox" name="" id="" value="" /></td>
-									<td>2</td>
-									<td>user_id</td>
-									<td>12312312312312</td>
-									<td>설현</td>
-									<td>세상을 읽는 새로운 언어 빅데이터</td>
-									<td>2</td>
-									<td>12**</td>
-									<td>
-										<a href="#" id="setBook" class="btn btn1 btnuntact">비치</a>
-										<a href="#" id="loanBook" class="btn btn2 btnuntact">대출</a>
-										<a href="#" class="btn btnuntact">취소</a>
-										<a href="#" class="btn btn5 btnuntact">패널티부여</a>
-									</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="" id="" value="" /></td>
-									<td>3</td>
-									<td>user_id</td>
-									<td>12312312312312</td>
-									<td>설현</td>
-									<td>세상을 읽는 새로운 언어 빅데이터</td>
-									<td>3</td>
-									<td>12**</td>
-									<td>
-										<a href="#" id="setBook" class="btn btn1 btnuntact">비치</a>
-										<a href="#" id="loanBook" class="btn btn2 btnuntact">대출</a>
-										<a href="#" class="btn btnuntact">취소</a>
-										<a href="#" class="btn btn5 btnuntact">패널티부여</a>
-									</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="" id="" value="" /></td>
-									<td>4</td>
-									<td>user_id</td>
-									<td>12312312312312</td>
-									<td>설현</td>
-									<td>세상을 읽는 새로운 언어 빅데이터</td>
-									<td>4</td>
-									<td>12**</td>
-									<td>
-										<a href="#" id="setBook" class="btn btn1 btnuntact">비치</a>
-										<a href="#" id="loanBook" class="btn btn2 btnuntact">대출</a>
-										<a href="#" class="btn btnuntact">취소</a>
-										<a href="#" class="btn btn5 btnuntact">패널티부여</a>
-									</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="" id="" value="" /></td>
-									<td>5</td>
-									<td>user_id</td>
-									<td>12312312312312</td>
-									<td>설현</td>
-									<td>세상을 읽는 새로운 언어 빅데이터</td>
-									<td>5</td>
-									<td>12**</td>
-									<td>
-										<a href="#" id="setBook" class="btn btn1 btnuntact">비치</a>
-										<a href="#" id="loanBook" class="btn btn2 btnuntact">대출</a>
-										<a href="#" class="btn btnuntact">취소</a>
-										<a href="#" class="btn btn5 btnuntact">패널티부여</a>
-									</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="" id="" value="" /></td>
-									<td>6</td>
-									<td>user_id</td>
-									<td>12312312312312</td>
-									<td>설현</td>
-									<td>세상을 읽는 새로운 언어 빅데이터</td>
-									<td>6</td>
-									<td>12**</td>
-									<td>
-										<a href="#" id="setBook" class="btn btn1 btnuntact">비치</a>
-										<a href="#" id="loanBook" class="btn btn2 btnuntact">대출</a>
-										<a href="#" class="btn btnuntact">취소</a>
-										<a href="#" class="btn btn5 btnuntact">패널티부여</a>
-									</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="" id="" value="" /></td>
-									<td>7</td>
-									<td>user_id</td>
-									<td>12312312312312</td>
-									<td>설현</td>
-									<td>세상을 읽는 새로운 언어 빅데이터</td>
-									<td>7</td>
-									<td>12**</td>
-									<td>
-										<a href="#" id="setBook" class="btn btn1 btnuntact">비치</a>
-										<a href="#" id="loanBook" class="btn btn2 btnuntact">대출</a>
-										<a href="#" class="btn btnuntact">취소</a>
-										<a href="#" class="btn btn5 btnuntact">패널티부여</a>
-									</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="" id="" value="" /></td>
-									<td>8</td>
-									<td>user_id</td>
-									<td>12312312312312</td>
-									<td>설현</td>
-									<td>세상을 읽는 새로운 언어 빅데이터</td>
-									<td>8</td>
-									<td>12**</td>
-									<td>
-										<a href="#" id="setBook" class="btn btn1 btnuntact">비치</a>
-										<a href="#" id="loanBook" class="btn btn2 btnuntact">대출</a>
-										<a href="#" class="btn btnuntact">취소</a>
-										<a href="#" class="btn btn5 btnuntact">패널티부여</a>
-									</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="" id="" value="" /></td>
-									<td>9</td>
-									<td>user_id</td>
-									<td>12312312312312</td>
-									<td>설현</td>
-									<td>세상을 읽는 새로운 언어 빅데이터</td>
-									<td>9</td>
-									<td>12**</td>
-									<td>
-										<a href="#" id="setBook" class="btn btn1 btnuntact">비치</a>
-										<a href="#" id="loanBook" class="btn btn2 btnuntact">대출</a>
-										<a href="#" class="btn btnuntact">취소</a>
-										<a href="#" class="btn btn5 btnuntact">패널티부여</a>
-									</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="" id="" value="" /></td>
-									<td>10</td>
-									<td>user_id</td>
-									<td>12312312312312</td>
-									<td>설현</td>
-									<td>세상을 읽는 새로운 언어 빅데이터</td>
-									<td>10</td>
-									<td>12**</td>
-									<td>
-										<a href="#" id="setBook" class="btn btn1 btnuntact">비치</a>
-										<a href="#" id="loanBook" class="btn btn2 btnuntact">대출</a>
-										<a href="#" class="btn btnuntact">취소</a>
-										<a href="#" class="btn btn5 btnuntact">패널티부여</a>
-									</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="" id="" value="" /></td>
-									<td>11</td>
-									<td>user_id</td>
-									<td>12312312312312</td>
-									<td>설현</td>
-									<td>세상을 읽는 새로운 언어 빅데이터</td>
-									<td>1</td>
-									<td>12**</td>
-									<td>
-										<a href="#" id="setBook" class="btn btn1 btnuntact">비치</a>
-										<a href="#" id="loanBook" class="btn btn2 btnuntact">대출</a>
-										<a href="#" class="btn btnuntact">취소</a>
-										<a href="#" class="btn btn5 btnuntact">패널티부여</a>
-									</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="" id="" value="" /></td>
-									<td>12</td>
-									<td>user_id</td>
-									<td>12312312312312</td>
-									<td>설현</td>
-									<td>세상을 읽는 새로운 언어 빅데이터</td>
-									<td>2</td>
-									<td>12**</td>
-									<td>
-										<a href="#" id="setBook" class="btn btn1 btnuntact">비치</a>
-										<a href="#" id="loanBook" class="btn btn2 btnuntact">대출</a>
-										<a href="#" class="btn btnuntact">취소</a>
-										<a href="#" class="btn btn5 btnuntact">패널티부여</a>
-									</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="" id="" value="" /></td>
-									<td>13</td>
-									<td>user_id</td>
-									<td>12312312312312</td>
-									<td>설현</td>
-									<td>세상을 읽는 새로운 언어 빅데이터</td>
-									<td>3</td>
-									<td>12**</td>
-									<td>
-										<a href="#" id="setBook" class="btn btn1 btnuntact">비치</a>
-										<a href="#" id="loanBook" class="btn btn2 btnuntact">대출</a>
-										<a href="#" class="btn btnuntact">취소</a>
-										<a href="#" class="btn btn5 btnuntact">패널티부여</a>
-									</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="" id="" value="" /></td>
-									<td>14</td>
-									<td>user_id</td>
-									<td>12312312312312</td>
-									<td>설현</td>
-									<td>세상을 읽는 새로운 언어 빅데이터</td>
-									<td>4</td>
-									<td>12**</td>
-									<td>
-										<a href="#" id="setBook" class="btn btn1 btnuntact">비치</a>
-										<a href="#" id="loanBook" class="btn btn2 btnuntact">대출</a>
-										<a href="#" class="btn btnuntact">취소</a>
-										<a href="#" class="btn btn5 btnuntact">패널티부여</a>
-									</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="" id="" value="" /></td>
-									<td>15</td>
-									<td>user_id</td>
-									<td>12312312312312</td>
-									<td>설현</td>
-									<td>세상을 읽는 새로운 언어 빅데이터</td>
-									<td>5</td>
-									<td>12**</td>
-									<td>
-										<a href="#" id="setBook" class="btn btn1 btnuntact">비치</a>
-										<a href="#" id="loanBook" class="btn btn2 btnuntact">대출</a>
-										<a href="#" class="btn btnuntact">취소</a>
-										<a href="#" class="btn btn5 btnuntact">패널티부여</a>
-									</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="" id="" value="" /></td>
-									<td>16</td>
-									<td>user_id</td>
-									<td>12312312312312</td>
-									<td>설현</td>
-									<td>세상을 읽는 새로운 언어 빅데이터</td>
-									<td>6</td>
-									<td>12**</td>
-									<td>
-										<a href="#" id="setBook" class="btn btn1 btnuntact">비치</a>
-										<a href="#" id="loanBook" class="btn btn2 btnuntact">대출</a>
-										<a href="#" class="btn btnuntact">취소</a>
-										<a href="#" class="btn btn5 btnuntact">패널티부여</a>
-									</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="" id="" value="" /></td>
-									<td>17</td>
-									<td>user_id</td>
-									<td>12312312312312</td>
-									<td>설현</td>
-									<td>세상을 읽는 새로운 언어 빅데이터</td>
-									<td>7</td>
-									<td>12**</td>
-									<td>
-										<a href="#" id="setBook" class="btn btn1 btnuntact">비치</a>
-										<a href="#" id="loanBook" class="btn btn2 btnuntact">대출</a>
-										<a href="#" class="btn btnuntact">취소</a>
-										<a href="#" class="btn btn5 btnuntact">패널티부여</a>
-									</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="" id="" value="" /></td>
-									<td>18</td>
-									<td>user_id</td>
-									<td>12312312312312</td>
-									<td>설현</td>
-									<td>세상을 읽는 새로운 언어 빅데이터</td>
-									<td>8</td>
-									<td>12**</td>
-									<td>
-										<a href="#" id="setBook" class="btn btn1 btnuntact">비치</a>
-										<a href="#" id="loanBook" class="btn btn2 btnuntact">대출</a>
-										<a href="#" class="btn btnuntact">취소</a>
-										<a href="#" class="btn btn5 btnuntact">패널티부여</a>
-									</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="" id="" value="" /></td>
-									<td>19</td>
-									<td>user_id</td>
-									<td>12312312312312</td>
-									<td>설현</td>
-									<td>세상을 읽는 새로운 언어 빅데이터</td>
-									<td>9</td>
-									<td>12**</td>
-									<td>
-										<a href="#" id="setBook" class="btn btn1 btnuntact">비치</a>
-										<a href="#" id="loanBook" class="btn btn2 btnuntact">대출</a>
-										<a href="#" class="btn btnuntact">취소</a>
-										<a href="#" class="btn btn5 btnuntact">패널티부여</a>
-									</td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" name="" id="" value="" /></td>
-									<td>20</td>
-									<td>user_id</td>
-									<td>12312312312312</td>
-									<td>설현</td>
-									<td>세상을 읽는 새로운 언어 빅데이터</td>
-									<td>10</td>
-									<td>12**</td>
-									<td>
-										<a href="#" id="setBook" class="btn btn1 btnuntact">비치</a>
-										<a href="#" id="loanBook" class="btn btn2 btnuntact">대출</a>
-										<a href="#" class="btn btnuntact">취소</a>
-										<a href="#" class="btn btn5 btnuntact">패널티부여</a>
-									</td>
-								</tr>
-
+							</c:forEach>
 							</tbody>
 						</table>
 					</div>
 					<div style="padding-top:10px;">
-						<a href="#" class="btn btn3 btnuntact">전체선택</a> <a href="#" class="btn btn4 btnuntact">전체삭제</a> <a href="#" id="excelDownload" class="btn btn2 btnuntact">엑셀저장</a>
+						<a href="#" class="btn btn3 btnuntact" id="all-check" keyValue="N">전체선택</a>
+						<a href="#" id="search_btn" class="btn btn4 btnuntact" onclick="allChange();">전체삭제</a>
+						<a href="#" id="excelDownload" class="btn btn2 btnuntact">엑셀저장</a>
 					</div>
 
-					<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
+					<div class="search txt-center" style="margin-top:25px;">
 						<fieldset>
-							<select id="search_type" name="search_type" class="selectmenu"><option value="member_id">사용자ID</option><option value="member_name">사용자명</option><option value="reason">사유</option><option value="add_id">신청자ID</option></select><input id="search_text" name="search_text" class="text" style="width:200px;" type="text" value=""/><button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
+							<form:select path="search_type" cssClass="selectmenu">
+								<form:option value="member_id">신청자아이디</form:option>
+								<form:option value="reg_no">대출번호</form:option>
+								<form:option value="member_name">신청자명</form:option>
+								<form:option value="book_name">도서명</form:option>
+							</form:select>
+							<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
+							<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
 						</fieldset>
 					</div>
 				</div>
 
 				<div style='clear:both;'></div>
 			</div>
-
+			</form:form>
 		</div>
-
-		<div id="dialog-1" class="dialog-common" title="시설물 정보"></div>
-		<div id="dialog-2" class="dialog-common" title="시설물 신청 정보"></div>
-		<div id="dialog-3" class="dialog-common" title="시설물 신청 현황"></div>
 	</div>
-
 
 	<div class="copyright">
 		<div class="pull-left">
@@ -493,6 +291,5 @@
 	</div>
 
 </div>
-
 </body>
 </html>	
