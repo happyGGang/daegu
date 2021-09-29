@@ -14,4 +14,12 @@ public interface LectureRequestDao {
     void updateLectureRequest(LectureRequest lectureRequest);
 
     void cancelLectureRequest(LectureRequest lectureRequest);
+
+    int getLectureRequestOnlinePersonCount(LectureRequest lectureRequest);
+
+    int getLectureRequestOfflinePersonCount(LectureRequest lectureRequest);
+
+    int getLectureRequestWaitPersonCount(LectureRequest lectureRequest);
+
+    int getMyLectureRequestCount(LectureRequest lectureRequest);
 }

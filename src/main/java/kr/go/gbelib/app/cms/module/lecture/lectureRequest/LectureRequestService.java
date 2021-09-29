@@ -113,11 +113,10 @@ public class LectureRequestService extends BaseService {
      * */
     @WorkingLogger(comment="수강신청 페이지에서 과정 조회", type="P")
     public void addLectureRequest(LectureRequest lectureRequest, String sessionMemberId, String remoteAddr) {
-        lectureRequest.setAdd_id(sessionMemberId);
-        lectureRequest.setAdd_ip(remoteAddr);
-        if(lectureRequest.getRequest_type() == null || lectureRequest.getRequest_type().equals("")){
-            lectureRequest.setRequest_type("오프라인");
+        if(lectureRequest.getRequest_type().equals("오프라인")){
+            lectureRequest.setAdd_id("");
         }
+
         lectureRequestDao.addLectureRequest(lectureRequest);
     }
 
@@ -127,10 +126,6 @@ public class LectureRequestService extends BaseService {
     @WorkingLogger(comment="수강신청 수정", type="P")
     @Transactional
     public void updateLectureRequest(LectureRequest lectureRequest, String sessionMemberId, String remoteAddr) {
-        if(lectureRequest.getRequest_type() == null || lectureRequest.getRequest_type().equals("")){
-            lectureRequest.setRequest_type("오프라인");
-        }
-
         LectureRequest lectureRequestEntity = lectureRequestDao.getLectureRequestOne(lectureRequest.getRequest_id());
         if(lectureRequest.getCancel_yn() != null && lectureRequest.getCancel_yn().equals("Y")
                 && !lectureRequest.getCancel_yn().equals(lectureRequestEntity.getCancel_yn()) ){
@@ -154,5 +149,26 @@ public class LectureRequestService extends BaseService {
         lectureRequest.setCancel_id(add_id);
         lectureRequest.setCancel_ip(add_ip);
         lectureRequestDao.cancelLectureRequest(lectureRequest);
+    }
+
+    /**
+     *
+     * */
+
+    public int getMyLectureRequestCount(LectureRequest lectureRequest) {
+        return lectureRequestDao.getMyLectureRequestCount(lectureRequest);
+    }
+
+    public int getLectureRequestOnlinePersonCount(LectureRequest lectureRequest) {
+        return lectureRequestDao.getLectureRequestOnlinePersonCount(lectureRequest);
+    }
+
+    public int getLectureRequestOfflinePersonCount(LectureRequest lectureRequest) {
+        int count = lectureRequestDao.getLectureRequestOfflinePersonCount(lectureRequest);
+        return count;
+    }
+
+    public int getLectureRequestWaitPersonCount(LectureRequest lectureRequest) {
+        return lectureRequestDao.getLectureRequestWaitPersonCount(lectureRequest);
     }
 }

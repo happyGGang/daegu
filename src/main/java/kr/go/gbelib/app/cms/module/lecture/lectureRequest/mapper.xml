@@ -117,7 +117,6 @@
             address1 = #{address1},
             address2 = #{address2},
             request_status = #{request_status},
-            request_type = #{request_type},
             complete_yn = #{complete_yn},
             cancel_yn = #{complete_yn},
             cancel_id = #{cancel_id},
@@ -142,5 +141,43 @@
         AND
             request_id = #{request_id}
     </update>
+
+    <select id="getLectureRequestOnlinePersonCount" resultType="int">
+        SELECT
+                NVL(online_person_count, 0) -
+                (SELECT COUNT(*) FROM LECTURE_REQUEST WHERE lecture_id = i.lecture_id AND request_type = '온라인' AND request_status IN ('예약완료'))
+                AS person_count
+        FROM LECTURE_INFO AS i
+        WHERE lecture_id = #{lecture_id}
+    </select>
+
+    <select id="getLectureRequestOfflinePersonCount" resultType="int">
+        SELECT
+                NVL(offline_person_count, 0) -
+                (SELECT COUNT(*) FROM LECTURE_REQUEST WHERE lecture_id = i.lecture_id AND request_type = '오프라인')
+                AS person_count
+        FROM LECTURE_INFO AS i
+        WHERE lecture_id = #{lecture_id}
+    </select>
+
+    <select id="getLectureRequestWaitPersonCount" resultType="int">
+        SELECT
+                NVL(wait_person_count, 0) -
+                (SELECT COUNT(*) FROM LECTURE_REQUEST WHERE lecture_id = i.lecture_id AND request_status IN ('예약대기', '추첨대기'))
+                AS person_count
+        FROM LECTURE_INFO AS i
+        WHERE lecture_id = #{lecture_id}
+    </select>
+
+    <select id="getMyLectureRequestCount" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            LECTURE_REQUEST
+        WHERE
+            lecture_id = #{lecture_id} AND
+            add_id = #{add_id} AND
+            request_status NOT IN ('예약취소')
+    </select>
 
 </mapper>

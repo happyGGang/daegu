@@ -5,6 +5,7 @@ import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.cms.module.lecture.lectureInfo.LectureInfo;
+import kr.go.gbelib.app.cms.module.lecture.lectureInfo.LectureInfoService;
 import kr.go.gbelib.app.cms.module.lecture.lectureRequest.dto.CourseId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,9 @@ public class LectureRequestController extends BaseController {
 
     @Autowired
     public LectureRequestService lectureRequestService;
+
+    @Autowired
+    public LectureInfoService lectureInfoService;
 
     /**
      * cms 수강신청 목록 페이지
@@ -129,37 +133,35 @@ public class LectureRequestController extends BaseController {
     JsonResponse save(LectureRequest lectureRequest, BindingResult result, HttpServletRequest request) {
         JsonResponse res = new JsonResponse(request);
 
-        lectureRequest.setHomepage_id(getAsideHomepageId(request));
+        lectureRequest.setHomepage_id(getAsideHomepageId(request));     // 홈페이지 아이디 set
 
-        if(lectureRequest.getEditMode().equals("ADD")) { // 강좌 정보 추가
-            validationChk(result, lectureRequest); // 유효성 체크
+        validationChk(result, lectureRequest);                          // 유효성 체크
+        if(hasValidErrors(res, result)) return res;                     // 유효성 에러가 있으면 return
 
-            if (!result.hasErrors()) {
-                lectureRequest.setAdd_id(getSessionMemberId(request));
-                lectureRequestService.addLectureRequest(lectureRequest, getSessionMemberId(request), request.getRemoteAddr());
-                res.setValid(true);
-                res.setMessage("저장되었습니다.");
-                res.setUrl("index.do");
-            } else {
-                res.setValid(false);
-                res.setResult(result.getAllErrors());
-            }
+        if(lectureRequest.getEditMode().equals("ADD")) {                // 강좌 정보 추가
 
-        } else if(lectureRequest.getEditMode().equals("UPDATE")) { // 강좌 정보 수정
-            validationChk(result, lectureRequest); // 유효성 체크
+            lectureRequest.setAdd_id(getSessionMemberId(request));      // add_id set
+            lectureRequest.setAdd_ip(request.getRemoteAddr());          // add_ip set
 
-            if (!result.hasErrors()) {
-                lectureRequest.setAdd_id(getSessionMemberId(request));
-                lectureRequestService.updateLectureRequest(lectureRequest, getSessionMemberId(request), request.getRemoteAddr());
-                res.setValid(true);
-                res.setMessage("수정되었습니다.");
-                res.setUrl("index.do");
-            } else {
-                res.setValid(false);
-                res.setResult(result.getAllErrors());
-            }
+            if(!setStatus(lectureRequest, res)) return res;              // 신청 불가 상태면 return
+
+            lectureRequestService.addLectureRequest(lectureRequest, getSessionMemberId(request), request.getRemoteAddr());    // 수강신청 추가
+
+            res.setValid(true);
+            res.setMessage("수강신청 되었습니다.");
+            res.setUrl("index.do");
+
+        } else if(lectureRequest.getEditMode().equals("UPDATE")) {      // 강좌 정보 수정
+
+            lectureRequest.setAdd_id(getSessionMemberId(request));
+            lectureRequestService.updateLectureRequest(lectureRequest, getSessionMemberId(request), request.getRemoteAddr());
+            res.setValid(true);
+            res.setMessage("수정되었습니다.");
+            res.setUrl("index.do");
+
         } else {
-            // 오류 날림
+            res.setValid(false);
+            res.setResult("잘못된 접근입니다.");
         }
 
         return res;
@@ -220,6 +222,106 @@ public class LectureRequestController extends BaseController {
         if(lectureRequest.getRequest_status() != null) {
             ValidationUtils.rejectIfStringLength(result, "request_status", 20, "강좌명");
         }
+    }
+
+    /**
+     * 예약 상태 저장
+     * */
+    private boolean setStatus(LectureRequest lectureRequest, JsonResponse res) {
+        LectureInfo lectureInfoOne = lectureInfoService.lectureInfoOne(lectureRequest.getLecture_id()); //  강좌 정보 조회
+
+        if(!lectureInfoOne.getLecture_status1().equals("모집중")) {
+            res.setValid(false);
+            res.setMessage("모집중인 수강신청이 아닙니다.");
+
+            return false;
+        } else if(lectureRequest.getRequest_type().equals("온라인") && lectureRequestService.getMyLectureRequestCount(lectureRequest) > 0 ) {
+
+            res.setValid(false);
+            res.setMessage("이미 수강신청된 강좌입니다.");
+
+            return false;
+        }/* else if(lectureRequestService.getDuplicateRequestCount(lectureInfoOne) > 0) {
+            res.setValid(false);
+            res.setMessage("해당 기간 내 1개 강좌만 수강신청 가능합니다.");
+
+            return res;
+        }*/
+        else {
+            if(lectureInfoOne.getRequest_type().equals("선착순")) {
+                if(lectureRequest.getRequest_type().equals("오프라인")){
+                    if(lectureRequestService.getLectureRequestOfflinePersonCount(lectureRequest) <= 0) {  // 오프라인 정원 확인
+                        if(lectureRequestService.getLectureRequestWaitPersonCount(lectureRequest) <= 0) { // 대기 정원 확인
+                            res.setValid(false);
+                            res.setMessage("오프라인 신청 정원이 마감된 강좌입니다.");
+
+                            return false;
+                        } else {
+                            lectureRequest.setRequest_status("예약대기");
+                        }
+                    } else {
+                        lectureRequest.setRequest_status("예약완료");
+                    }
+                } else {
+                    if(lectureRequestService.getLectureRequestOnlinePersonCount(lectureRequest) <= 0) { // 온라인 정원 확인
+                        if(lectureRequestService.getLectureRequestWaitPersonCount(lectureRequest) <= 0) { // 대기 정원 확인
+                            res.setValid(false);
+                            res.setMessage("온라인 신청 정원이 마감된 강좌입니다.");
+
+                            return false;
+                        } else {
+                            lectureRequest.setRequest_status("예약대기");
+                        }
+                    } else {
+                        lectureRequest.setRequest_status("예약완료");
+                    }
+                }
+
+            } else if(lectureInfoOne.getRequest_type().equals("추첨제")) {
+                if(lectureRequest.getRequest_type().equals("오프라인")){
+                    if(lectureRequestService.getLectureRequestOfflinePersonCount(lectureRequest) <= 0) {    // 오프라인 정원 확인
+                        if(lectureRequestService.getLectureRequestWaitPersonCount(lectureRequest) <= 0) {   // 대기 정원 확인
+                            res.setValid(false);
+                            res.setMessage("오프라인 신청 정원이 마감된 강좌입니다.");
+
+                            return false;
+                        } else {
+                            lectureRequest.setRequest_status("추첨대기");
+                        }
+                    } else {
+                        lectureRequest.setRequest_status("예약완료");
+                    }
+                } else {
+                    if(lectureRequestService.getLectureRequestOnlinePersonCount(lectureRequest) <= 0) {     // 온라인 정원 확인
+                        if(lectureRequestService.getLectureRequestWaitPersonCount(lectureRequest) <= 0) {   // 대기 정원 확인
+                            res.setValid(false);
+                            res.setMessage("온라인 신청 정원이 마감된 강좌입니다.");
+
+                            return false;
+                        } else {
+                            lectureRequest.setRequest_status("추첨대기");
+                        }
+                    } else {
+                        lectureRequest.setRequest_status("예약완료");
+                    }
+                }
+
+            }
+
+            return true;
+        }
+    }
+
+    /**
+     * 유효성 에러 있는지 검사
+     * */
+    private Boolean hasValidErrors(JsonResponse res, BindingResult result) {
+        if(result.hasErrors()) {
+            res.setValid(false);
+            res.setResult(result.getAllErrors());
+            return true;
+        }
+        return false;
     }
 
 }

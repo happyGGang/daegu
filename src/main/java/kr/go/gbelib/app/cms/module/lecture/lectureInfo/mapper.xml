@@ -2,61 +2,85 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.go.gbelib.app.cms.module.lecture.lectureInfo.LectureInfoDao">
 
+	<sql id="column">
+        <![CDATA[
+		CASE
+			WHEN (SELECT COUNT(*) FROM LECTURE_REQUEST C WHERE (C.request_type = '온라인') AND C.lecture_id = LECTURE_INFO.lecture_id AND C.request_status NOT IN('예약취소')) >= (online_person_count + wait_person_count) THEN '모집마감'
+			WHEN (SELECT COUNT(*) FROM LECTURE_REQUEST C WHERE (C.request_type = '온라인' AND C.request_status = '추첨대기') AND C.lecture_id = LECTURE_INFO.lecture_id) >= (wait_person_count) AND request_type = '추첨제' THEN '모집마감'
+			WHEN TO_DATE(request_start_date, 'yyyy-mm-dd') > TO_DATE(SYSDATE, 'yyyy-mm-dd') THEN '모집예정'
+			WHEN TO_DATE(request_start_date, 'yyyy-mm-dd') <= TO_DATE(SYSDATE, 'yyyy-mm-dd') AND TO_DATE(request_end_date, 'yyyy-mm-dd') >= TO_DATE(SYSDATE, 'yyyy-mm-dd') THEN '모집중'
+			WHEN TO_DATE(request_end_date, 'yyyy-mm-dd') < TO_DATE(SYSDATE, 'yyyy-mm-dd') THEN '모집마감'
+		END AS lecture_status1,
+			CASE
+				WHEN TO_DATE(edu_start_date, 'yyyy-mm-dd') > TO_DATE(SYSDATE, 'yyyy-mm-dd') THEN '교육대기'
+				WHEN TO_DATE(edu_start_date, 'yyyy-mm-dd') <= TO_DATE(SYSDATE, 'yyyy-mm-dd') AND TO_DATE(edu_end_date, 'yyyy-mm-dd') >= TO_DATE(SYSDATE, 'yyyy-mm-dd') THEN '교육중'
+				WHEN TO_DATE(edu_end_date, 'yyyy-mm-dd') < TO_DATE(SYSDATE, 'yyyy-mm-dd') THEN '교육마감'
+		END AS lecture_status2,
+			(SELECT COUNT(*) FROM LECTURE_REQUEST C WHERE C.request_type = '온라인' AND C.request_status = '예약완료' AND C.lecture_id = LECTURE_INFO.lecture_id) AS online_request_count,
+			(SELECT COUNT(*) FROM LECTURE_REQUEST C WHERE C.request_type = '오프라인' AND C.request_status = '예약완료' AND C.lecture_id = LECTURE_INFO.lecture_id) AS offline_request_count,
+			(SELECT COUNT(*) FROM LECTURE_REQUEST C WHERE C.request_status IN ('예약대기', '추첨대기') AND C.lecture_id = LECTURE_INFO.lecture_id) AS wait_request_count,
+			ROW_NUMBER() OVER (ORDER BY lecture_id) AS reverse_rownum, homepage_id, course_id,lecture_id,lecture_title,
+		    edu_start_date,edu_end_date,edu_start_time,edu_end_time,request_start_date,request_end_date,edu_school,
+		    online_person_count,offline_person_count,wait_person_count,request_type,teacher_name,teacher_tel,supporter_name,
+		    supporter_tel,edu_school_map,lecture_content,add_date,add_ip,add_id,edu_address_1,edu_address_2,teacher_id,
+		    day_week,edu_second_school
+		]]>
+	</sql>
+
+	<sql id="where">
+		<where>
+			homepage_id = #{homepage_id}
+			<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+				AND	${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+			<if test="searching_course_id != null and searching_course_id != ''">
+				AND	course_id = #{searching_course_id}
+			</if>
+
+
+			<if test="searching_reservation != null and searching_reservation != '' and searching_reservation == 1">
+				AND	request_start_date <![CDATA[>]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+			</if>
+			<if test="searching_reservation != null and searching_reservation != '' and searching_reservation == 2">
+				AND	request_start_date <![CDATA[<=]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+				AND request_end_date <![CDATA[>=]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+			</if>
+			<if test="searching_reservation != null and searching_reservation != '' and searching_reservation == 3">
+				AND	request_end_date <![CDATA[<]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+			</if>
+
+
+			<if test="searching_edu_status != null and searching_edu_status != '' and searching_edu_status == 1">
+				AND	edu_start_date <![CDATA[>]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+			</if>
+			<if test="searching_edu_status != null and searching_edu_status != '' and searching_edu_status == 2">
+				AND	edu_start_date <![CDATA[<=]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+				AND edu_end_date <![CDATA[>=]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+			</if>
+			<if test="searching_edu_status != null and searching_edu_status != '' and searching_edu_status == 3">
+				AND	edu_end_date <![CDATA[<]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+			</if>
+
+
+			<if test="searching_request_type != null and searching_request_type != ''">
+				AND	request_type = #{searching_request_type}
+			</if>
+			<if test="(start_period != null and start_period != '')">
+				AND	request_end_date <![CDATA[>=]]> #{start_period}
+			</if>
+			<if test="(end_period != null and end_period != '')">
+				AND	request_start_date <![CDATA[<=]]> #{end_period}
+			</if>
+		</where>
+	</sql>
+
 	<select id="getLectureInfoList" resultType="kr.go.gbelib.app.cms.module.lecture.lectureInfo.LectureInfo">
 		${pagingTop}
 		SELECT
-			ROW_NUMBER() OVER (ORDER BY lecture_id) AS reverse_rownum, homepage_id, course_id,lecture_id,lecture_title,edu_start_date,edu_end_date,edu_start_time,edu_end_time,request_start_date,
-			request_end_date,edu_school,online_person_count,offline_person_count,wait_person_count,request_type,teacher_name,
-			teacher_tel,supporter_name,supporter_tel,edu_school_map,lecture_content,add_date,add_ip,add_id,edu_address_1,
-			edu_address_2,teacher_id,day_week,edu_second_school
+			<include refid="column" />
 		FROM
 			LECTURE_INFO
-		WHERE
-			homepage_id = #{homepage_id}
-		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
-			AND	${search_type} LIKE '%'||#{search_text}||'%'
-		</if>
-
-		<if test="searching_course_id != null and searching_course_id != ''">
-			AND	course_id = #{searching_course_id}
-		</if>
-
-
-		<if test="searching_reservation != null and searching_reservation != '' and searching_reservation == 1">
-			AND	request_start_date <![CDATA[>]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
-		</if>
-		<if test="searching_reservation != null and searching_reservation != '' and searching_reservation == 2">
-			AND	request_start_date <![CDATA[<=]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
-		  	AND request_end_date <![CDATA[>=]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
-		</if>
-		<if test="searching_reservation != null and searching_reservation != '' and searching_reservation == 3">
-			AND	request_end_date <![CDATA[<]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
-		</if>
-
-
-		<if test="searching_edu_status != null and searching_edu_status != '' and searching_edu_status == 1">
-			AND	edu_start_date <![CDATA[>]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
-		</if>
-		<if test="searching_edu_status != null and searching_edu_status != '' and searching_edu_status == 2">
-			AND	edu_start_date <![CDATA[<=]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
-			AND edu_end_date <![CDATA[>=]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
-		</if>
-		<if test="searching_edu_status != null and searching_edu_status != '' and searching_edu_status == 3">
-			AND	edu_end_date <![CDATA[<]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
-		</if>
-
-
-		<if test="searching_request_type != null and searching_request_type != ''">
-			AND	request_type = #{searching_request_type}
-		</if>
-
-		<if test="(start_period != null and start_period != '')">
-			AND	request_end_date <![CDATA[>=]]> #{start_period}
-		</if>
-		<if test="(end_period != null and end_period != '')">
-			AND	request_start_date <![CDATA[<=]]> #{end_period}
-		</if>
-
+		<include refid="where" />
 		ORDER BY lecture_id DESC
 		${pagingBottom}
 	</select>
@@ -81,51 +105,7 @@
 			COUNT(*)
 		FROM
 			LECTURE_INFO
-		WHERE
-			homepage_id = #{homepage_id}
-		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
-			AND	${search_type} LIKE '%'||#{search_text}||'%'
-		</if>
-
-		<if test="searching_course_id != null and searching_course_id != ''">
-			AND	course_id = #{searching_course_id}
-		</if>
-
-
-		<if test="searching_reservation != null and searching_reservation != '' and searching_reservation == 1">
-			AND	request_start_date <![CDATA[>]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
-		</if>
-		<if test="searching_reservation != null and searching_reservation != '' and searching_reservation == 2">
-			AND	request_start_date <![CDATA[<=]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
-			AND request_end_date <![CDATA[>=]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
-		</if>
-		<if test="searching_reservation != null and searching_reservation != '' and searching_reservation == 3">
-			AND	request_end_date <![CDATA[<]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
-		</if>
-
-
-		<if test="searching_edu_status != null and searching_edu_status != '' and searching_edu_status == 1">
-			AND	edu_start_date <![CDATA[>]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
-		</if>
-		<if test="searching_edu_status != null and searching_edu_status != '' and searching_edu_status == 2">
-			AND	edu_start_date <![CDATA[<=]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
-			AND edu_end_date <![CDATA[>=]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
-		</if>
-		<if test="searching_edu_status != null and searching_edu_status != '' and searching_edu_status == 3">
-			AND	edu_end_date <![CDATA[<]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd')
-		</if>
-
-
-		<if test="searching_request_type != null and searching_request_type != ''">
-			AND	request_type = #{searching_request_type}
-		</if>
-
-		<if test="(start_period != null and start_period != '')">
-			AND	request_end_date <![CDATA[>=]]> #{start_period}
-		</if>
-		<if test="(end_period != null and end_period != '')">
-			AND	request_start_date <![CDATA[<=]]> #{end_period}
-		</if>
+		<include refid="where" />
 	</select>
 
 	<select id="getLectureInfoCountByHomepageIdAndCourseId" resultType="int">
@@ -162,7 +142,8 @@
 	</insert>
 
 	<select id="getLectureInfoOne" resultType="kr.go.gbelib.app.cms.module.lecture.lectureInfo.LectureInfo">
-		SELECT *
+		SELECT
+			<include refid="column"/>
 		FROM LECTURE_INFO
 		WHERE lecture_id = #{lecture_id}
 	</select>

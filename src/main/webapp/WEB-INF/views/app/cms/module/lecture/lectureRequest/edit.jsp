@@ -170,6 +170,7 @@ function selectItem(lecture_id, lecture_title) {
 <form:hidden path="homepage_id"/>
 <form:hidden path="editMode"/>
 <form:hidden path="request_id"/>
+<form:hidden path="request_type" value="오프라인"/>
 
 	<p>(<span style="color: red;font-weight: bold;">*</span>)</b>표시항목은 필수입력항목입니다.</p>
 	<table class="type2">
@@ -248,12 +249,6 @@ function selectItem(lecture_id, lecture_title) {
 			<th>접수방법</th>
 			<td>
 				${lectureRequest.request_type eq null ? '오프라인' : lectureRequest.request_type}
-			</td>
-		</tr>
-		<tr>
-			<th>예약상태</th>
-			<td>
-				<form:input path="request_status" cssClass="text"/>
 			</td>
 		</tr>
 		<tr>

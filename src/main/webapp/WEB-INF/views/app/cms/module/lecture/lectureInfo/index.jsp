@@ -229,9 +229,9 @@ $(function() {
 						<br>
 						${i.edu_start_date} ~ ${i.edu_end_date}
 					</td>
-					<td>0 / ${i.online_person_count}</td>
-					<td>0 / ${i.offline_person_count}</td>
-					<td>0 / ${i.wait_person_count}</td>
+					<td>${i.online_request_count} / ${i.online_person_count}</td>
+					<td>${i.offline_request_count} / ${i.offline_person_count}</td>
+					<td>${i.wait_request_count} / ${i.wait_person_count}</td>
 					<td>${i.edu_school}</td>
 					<td>${i.teacher_name}</td>
 					<fmt:formatDate var="formatRegDate" value="${i.add_date}" pattern="yyyy-MM-dd"/>

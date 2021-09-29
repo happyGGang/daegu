@@ -197,14 +197,14 @@ function selectItem(lecture_id, lecture_title) {
 		<table class="type1 center">
 			<colgroup>
 				<col width="5%" />  <%--순번--%>
-				<col width="18%" /> <%--신청강좌--%>
-				<col width="8%" /> <%--신청자명--%>
+				<col width="15%" /> <%--신청강좌--%>
+				<col width="10%" /> <%--신청자 id--%>
+				<col width="10%" /> <%--신청자이름--%>
 				<col width="10%" /> <%--생년월일--%>
-				<col width="5%" /> <%--성별--%>
-				<col width="10%" /> <%--휴대전화--%>
-				<col width="13%" /> <%--이메일--%>
+				<col width="15%" /> <%--휴대전화 / 이메일--%>
+				<col width=7%" /> <%--예약상태--%>
 				<col width="7%" /> <%--접수방법--%>
-				<col width="10%" /> <%--등록일--%>
+				<col width="8%" /> <%--등록일--%>
 				<col width="5%" /> <%--취소여부--%>
 				<col width="" /> <%--관리--%>
 			</colgroup>
@@ -212,11 +212,11 @@ function selectItem(lecture_id, lecture_title) {
 				<tr>
 					<th>순번</th>
 					<th>신청강좌</th>
-					<th>신청자명</th>
-					<th>생년월일</th>
-					<th>성별</th>
-					<th>휴대전화</th>
-					<th>이메일</th>
+					<th>신청자ID</th>
+					<th>신청자이름</th>
+					<th>생년월일(성별)</th>
+					<th>휴대전화 /<br> 이메일</th>
+					<th>예약상태</th>
 					<th>접수방법</th>
 					<th>등록일</th>
 					<th>취소여부</th>
@@ -228,11 +228,11 @@ function selectItem(lecture_id, lecture_title) {
 				<tr>
 					<td>${i.reverse_rownum}</td>
 					<td>${i.lecture_title}</td>
+					<td><a href="#" class="view_btn" data-key="${i.request_id}">${i.add_id}</a></td>
 					<td><a href="#" class="view_btn" data-key="${i.request_id}">${i.request_name}</a></td>
-					<td>${i.birthday}</td>
-					<td>${i.gender eq '0' ? '남' : '여'}</td>
-					<td>${i.phone_number}</td>
-					<td>${i.email}</td>
+					<td>${i.birthday}(${i.gender eq '0' ? '남' : '여'})</td>
+					<td>${i.phone_number}<br>${i.email}</td>
+					<td>${i.request_status}</td>
 					<td>${i.request_type}</td>
 					<fmt:formatDate var="formatRegDate" value="${i.add_date}" pattern="yyyy-MM-dd"/>
 					<td>${formatRegDate}</td>

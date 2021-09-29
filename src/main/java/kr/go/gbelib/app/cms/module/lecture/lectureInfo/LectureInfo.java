@@ -35,7 +35,15 @@ public class LectureInfo extends PagingUtils {
     private String day_week;            // 교육요일
     private String edu_second_school;   // 교육장_부속
 
-    private String reverse_rownum;
+    /**
+     * DB 에서 만들어지는 값
+     * */
+    private String reverse_rownum;      // 순번
+    private String lecture_status1;     // 모집 상태
+    private String lecture_status2;     // 교육 상태
+    private int online_request_count;   // 온라인 신청자 수
+    private int offline_request_count;  // 오프라인 신청자 수
+    private int wait_request_count;     // 대기 신청자 수
 
     /**
      * DB에 없는 값
@@ -346,5 +354,45 @@ public class LectureInfo extends PagingUtils {
 
     public void setEdu_second_school(String edu_second_school) {
         this.edu_second_school = edu_second_school;
+    }
+
+    public String getLecture_status1() {
+        return lecture_status1;
+    }
+
+    public void setLecture_status1(String lecture_status1) {
+        this.lecture_status1 = lecture_status1;
+    }
+
+    public String getLecture_status2() {
+        return lecture_status2;
+    }
+
+    public void setLecture_status2(String lecture_status2) {
+        this.lecture_status2 = lecture_status2;
+    }
+
+    public int getOnline_request_count() {
+        return online_request_count;
+    }
+
+    public void setOnline_request_count(int online_request_count) {
+        this.online_request_count = online_request_count;
+    }
+
+    public int getOffline_request_count() {
+        return offline_request_count;
+    }
+
+    public void setOffline_request_count(int offline_request_count) {
+        this.offline_request_count = offline_request_count;
+    }
+
+    public int getWait_request_count() {
+        return wait_request_count;
+    }
+
+    public void setWait_request_count(int wait_request_count) {
+        this.wait_request_count = wait_request_count;
     }
 }
