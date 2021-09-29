@@ -5,7 +5,7 @@
 	<select id="getCourseInfoList" resultType="kr.go.gbelib.app.cms.module.lecture.courseInfo.CourseInfo">
 		${pagingTop}
 		SELECT
-		homepage_id, course_id, course_title, view_start_date, view_end_date, use_yn, add_date, add_id, add_ip
+		ROW_NUMBER() OVER (ORDER BY course_id) AS reverse_rownum, homepage_id, course_id, course_title, view_start_date, view_end_date, use_yn, add_date, add_id, add_ip
 		FROM
 		COURSE_INFO
 		WHERE

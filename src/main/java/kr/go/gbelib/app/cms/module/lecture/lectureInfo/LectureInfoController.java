@@ -250,14 +250,6 @@ public class LectureInfoController extends BaseController {
             ValidationUtils.rejectPhone2(result, "teacher_tel", "강사연락처 형식이 올바르지 않습니다.");
         }
 
-        ValidationUtils.rejectIfStringLength(result, "lecture_title", 20, "강좌명");
-        ValidationUtils.rejectIfStringLength(result, "edu_school", 200, "교육장");
-        ValidationUtils.rejectIfStringLength(result, "edu_address_1", 50, "교육장주소");
-        ValidationUtils.rejectIfStringLength(result, "edu_address_2", 50, "교육장상세주소");
-        ValidationUtils.rejectIfStringLength(result, "edu_school_map", 200, "교육장지도링크");
-        ValidationUtils.rejectIfStringLength(result, "request_type", 9, "접수방법");
-        ValidationUtils.rejectIfStringLength(result, "teacher_name", 50, "강사이름");
-        ValidationUtils.rejectIfStringLength(result, "supporter_name", 50, "담당자이름");
         ValidationUtils.rejectExceptNumber(result, "online_person_count", 1,4, "온라인모집 최대인원을 초과 했습니다.");
         ValidationUtils.rejectExceptNumber(result, "offline_person_count", 1,4, "오프라인모집인원 최대인원을 초과 했습니다.");
         ValidationUtils.rejectExceptNumber(result, "wait_person_count", 1,4, "대기자모집인원 최대인원을 초과 했습니다.");

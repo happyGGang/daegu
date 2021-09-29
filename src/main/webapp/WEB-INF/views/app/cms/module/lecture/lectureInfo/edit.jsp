@@ -207,7 +207,7 @@ $(function() {
 			<tr>
 				<th>강좌명(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
-					<form:input path="lecture_title" cssStyle="width: 70%;"/>
+					<form:input path="lecture_title" cssStyle="width: 70%;" maxlength="20"/>
 				</td>
 			</tr>
 			<tr>
@@ -280,7 +280,7 @@ $(function() {
 			<tr>
 				<th>담당자(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
-					<form:input path="supporter_name" cssClass="text"/>
+					<form:input path="supporter_name" cssClass="text" maxlength="20"/>
 				</td>
 			</tr>
 			<tr>
@@ -293,7 +293,7 @@ $(function() {
 			<tr>
 				<th>강사명(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
-					<form:input path="teacher_name" cssClass="text"/>
+					<form:input path="teacher_name" cssClass="text" maxlength="20"/>
 				</td>
 			</tr>
 			<tr>
@@ -306,7 +306,7 @@ $(function() {
 			<tr>
 				<th>교육장(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
-					<form:input path="edu_school" cssClass="text"/>
+					<form:input path="edu_school" cssClass="text" maxlength="100"/>
 				</td>
 			</tr>
 			<tr>
@@ -318,13 +318,13 @@ $(function() {
 			</tr><tr>
 				<th>교육장 상세주소</th>
 				<td>
-					<form:input path="edu_address_2" cssClass="text" cssStyle="width:60%;" /><br/>
+					<form:input path="edu_address_2" cssClass="text" cssStyle="width:60%;" maxlength="40"/><br/>
 				</td>
 			</tr>
 			<tr>
 				<th>교육장 지도링크</th>
 				<td>
-					<form:input path="edu_school_map" cssClass="text" cssStyle="width:60%;"/>
+					<form:input path="edu_school_map" cssClass="text" cssStyle="width:60%;" maxlength="190"/>
 				</td>
 			</tr>
 			<tr>

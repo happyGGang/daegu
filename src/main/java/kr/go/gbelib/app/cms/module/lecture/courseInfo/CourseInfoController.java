@@ -150,8 +150,6 @@ public class CourseInfoController extends BaseController {
         ValidationUtils.rejectIfNotDate(result, "view_start_date", "시작시간 날짜 형식이 올바르지 않습니다.");
         ValidationUtils.rejectIfNotDate(result, "view_end_date", "종료시간 날짜 형식이 올바르지 않습니다.");
         ValidationUtils.rejectYN(result, "use_yn", "사용여부형식이 올바르지 않습니다.");
-
-        ValidationUtils.rejectIfStringLength(result, "course_title", 20, "과정명");
     }
 
 }

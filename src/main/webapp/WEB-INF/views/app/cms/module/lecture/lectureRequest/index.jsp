@@ -12,7 +12,8 @@ $(function() {
 	// 등록 버튼
 	$('a#dialog-add').on('click', function(e){
 		e.preventDefault();
-		$('#dialog-1').load('edit.do?editMode=ADD', function( response, status, xhr ) {
+		let search_course_id = $('#search_course_id').val();
+		$('#dialog-1').load('edit.do?editMode=ADD&search_course_id='+search_course_id, function( response, status, xhr ) {
 			$('#dialog-1').dialog('open');
 		});
 	});
@@ -41,6 +42,12 @@ $(function() {
 
 	// 과정 select 변경
 	$('select#search_course_id').on('change', function() {
+		$('#viewPage').val(1);
+		doGetLoad('index.do', $('form#lectureRequest').serialize());
+	});
+
+	// 과정 select 변경
+	/*$('select#search_course_id').on('change', function() {
 		let course_id = $(this).val();
 		$.ajax({
 			type:"post",
@@ -61,7 +68,7 @@ $(function() {
 		}).fail(error=>{
 			alert(error);
 		})
-	});
+	});*/
 
 	// 삭제 버튼
 	$('a.delete_btn').on('click', function(e) {

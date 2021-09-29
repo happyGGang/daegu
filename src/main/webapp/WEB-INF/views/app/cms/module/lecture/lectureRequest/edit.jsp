@@ -132,7 +132,7 @@ $(function() {
 	// 생일 datepicker 초기화
 	$('input#birthday').datepicker({});
 
-	// 과정 select 변경
+	/*// 과정 select 변경
 	$('select#course_id').on('change', function() {
 		let course_id = $(this).val();
 		$.ajax({
@@ -152,7 +152,7 @@ $(function() {
 		}).fail(error=>{
 			alert(error);
 		})
-	});
+	});*/
 
 });
 
@@ -180,13 +180,11 @@ function selectItem(lecture_id, lecture_title) {
 		</colgroup>
 		<tbody id="board_tbody">
 		<tr>
-			<th>과정선택(<span style="color: red;font-weight: bold;">*</span>)</th>
+			<th>과정이름(<span style="color: red;font-weight: bold;">*</span>)</th>
 			<td>
-				<form:select path="course_id" cssClass="selectmenu" cssStyle="width: 80%">
-					<c:forEach var="i" varStatus="status" items="${courseInfoList}">
-						<form:option value="${i.course_id}">${i.course_title} ${i.use_yn eq "N" ? '(미사용)' : ''}</form:option>
-					</c:forEach>
-				</form:select>
+				<c:forEach var="i" varStatus="status" items="${courseInfoList}">
+					${lectureRequest.course_id eq i.course_id ? i.course_title : ''}
+				</c:forEach>
 			</td>
 		</tr>
 		<tr>
@@ -202,7 +200,7 @@ function selectItem(lecture_id, lecture_title) {
 		<tr>
 			<th>신청자 이름(<span style="color: red;font-weight: bold;">*</span>)</th>
 			<td>
-				<form:input path="request_name" cssStyle="width: 70%;"/>
+				<form:input path="request_name" cssStyle="width: 70%;" maxlength="20"/>
 			</td>
 		</tr>
 		<tr>
@@ -240,8 +238,8 @@ function selectItem(lecture_id, lecture_title) {
 			<td>
 				<form:input path="zip_code" cssClass="text" maxlength="5" readonly="true"/>
 				<a href="#" id="searchAddress" class="btn">우편번호찾기</a><br/>
-				<form:input path="address1" cssClass="text" cssStyle="width:90%; margin:5px 0;" /><br/>
-				<form:input path="address2" cssClass="text" cssStyle="width:90%;" /><br/>
+				<form:input path="address1" cssClass="text" cssStyle="width:90%; margin:5px 0;" readonly="true"/><br/>
+				<form:input path="address2" cssClass="text" cssStyle="width:90%;" maxlength="200"/><br/>
 				<span>※상세주소를 입력해주세요.</span>
 			</td>
 		</tr>

@@ -15,6 +15,11 @@ public class CourseInfo extends PagingUtils {
     private String add_id;  // 등록 ID
     private String add_ip;  // 등록 IP
 
+    /**
+     * DB에서 만들어져 오는 값
+     * */
+    private int reverse_rownum; // 순번
+
 
     public String getCourse_id() {
         return course_id;
@@ -78,5 +83,13 @@ public class CourseInfo extends PagingUtils {
 
     public void setAdd_ip(String add_ip) {
         this.add_ip = add_ip;
+    }
+
+    public int getReverse_rownum() {
+        return reverse_rownum;
+    }
+
+    public void setReverse_rownum(int reverse_rownum) {
+        this.reverse_rownum = reverse_rownum;
     }
 }

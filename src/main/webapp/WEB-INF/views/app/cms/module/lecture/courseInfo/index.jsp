@@ -102,8 +102,9 @@ $(function() {
 	<div>
 		<table class="type1 center">
 			<colgroup>
+				<col width="5%" />  <%--순번--%>
 				<col width="15%" />  <%--과정고유번호--%>
-				<col width=25%" /> <%--과정명--%>
+				<col width=20%" /> <%--과정명--%>
 				<col width="10%" /> <%--과정노출시작기간--%>
 				<col width="10%" /> <%--과정노출종료기간--%>
 				<col width="10%" /> <%--사용여부--%>
@@ -113,6 +114,7 @@ $(function() {
 			</colgroup>
 			<thead>
 				<tr>
+					<th>순번</th>
 					<th>과정고유번호</th>
 					<th>과정명</th>
 					<th>과정노출시작기간</th>
@@ -126,6 +128,8 @@ $(function() {
 			<tbody>
 				<c:forEach var="i" varStatus="status" items="${courseInfoList}">
 					<tr>
+						<%--순번--%>
+						<td>${i.reverse_rownum}</td>
 						<%--과정 고유 번호--%>
 						<td>${i.course_id}</td>
 						<%--과정명--%>

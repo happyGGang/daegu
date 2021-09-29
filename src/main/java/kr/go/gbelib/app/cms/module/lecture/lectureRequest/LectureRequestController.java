@@ -64,9 +64,10 @@ public class LectureRequestController extends BaseController {
         if(request.getParameter("editMode").equals("ADD")) { // 추가 모드
             checkAuth("C", model, request);
 
-            lectureRequestService.setDefaultCourse(lectureRequest);
-            model.addAttribute("lectureRequest", lectureRequest);
+            String course_id = request.getParameter("search_course_id");
+            lectureRequest.setCourse_id(course_id);
 
+            model.addAttribute("lectureRequest", lectureRequest);
             model.addAttribute("courseInfoList", lectureRequestService.courseInfoIdList(lectureRequest.getHomepage_id()));
             model.addAttribute("lectureInfoList", lectureRequestService.lectureInfoList(lectureRequest));
 
@@ -209,18 +210,6 @@ public class LectureRequestController extends BaseController {
         ValidationUtils.rejectPhone(result, "phone_number", "휴대폰번호 형식이 올바르지 않습니다.");
         if( lectureRequest.getEmail() != null) {
             ValidationUtils.rejectNotFullEmailType(result, "email", "이메일 형식이 올바르지 않습니다.");
-        }
-
-        // 길이 체크
-        ValidationUtils.rejectIfStringLength(result, "request_name", 20, "강좌명");
-        if(lectureRequest.getAddress1() != null) {
-            ValidationUtils.rejectIfStringLength(result, "address1", 400, "강좌명");
-        }
-        if(lectureRequest.getAddress2() != null) {
-            ValidationUtils.rejectIfStringLength(result, "address2", 400, "강좌명");
-        }
-        if(lectureRequest.getRequest_status() != null) {
-            ValidationUtils.rejectIfStringLength(result, "request_status", 20, "강좌명");
         }
     }
 
