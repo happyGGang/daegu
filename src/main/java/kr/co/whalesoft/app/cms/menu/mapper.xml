@@ -93,7 +93,6 @@
 				CMS_MENU a
 			WHERE
 				homepage_id = #{homepage_id}
-			AND	view_yn = 'Y'
 			AND	use_yn = 'Y'
 			AND	group_idx = #{group_idx}
 		) A
