@@ -124,7 +124,7 @@
 								<li class="bg-lorange">
 									<a href="/${homepage.context_path}/html.do?menu_idx=26">
 									<span class="wt">희망도서신청</span>
-									<span class="wc">원하시는 도서를<Br/>신청하세요</span>
+									<span class="wc">원하시는 도서를<Br/>신청하세요.</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick02-bg.png" class="mi">
 									</a>
 								</li>
@@ -138,14 +138,14 @@
 								<li class="bg-orange">
 									<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=30">
 									<span class="wt">온라인강좌신청</span>
-									<span class="wc">운영중인 프로그램을<br/>신청해보세요</span>
+									<span class="wc">운영중인 프로그램을<br/>신청해보세요.</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick04-bg.png" class="mi">
 									</a>
 								</li>
 								<li class="bg-lgray">
-									<a href="http://library.daegu.go.kr/228/intro/search/index.do?menu_idx=203&&shelfCode=AA55&booktype=BOOKANDNONBOOK#search_result">
-									<span class="wt" style="letter-spacing:-2px;font-size:120%;">나라를 지킨 인물</span>
-									<span class="wc">나라를 지킨 인물을<br/> 만나보세요</span>
+									<a href="https://library.daegu.go.kr/228/html.do?menu_idx=114">
+									<span class="wt" style="letter-spacing:-2px;font-size:120%;">스마트도서관</span>
+									<span class="wc">도서관을 스마트하게<br/>이용해보세요.</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick05-bg.png" class="mi">
 									</a>
 								</li>
