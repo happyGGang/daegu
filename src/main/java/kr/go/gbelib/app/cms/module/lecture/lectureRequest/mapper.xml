@@ -180,4 +180,19 @@
             request_status NOT IN ('예약취소')
     </select>
 
+    <update id="changeLatestWait">
+        update
+            lecture_request set request_status = '예약완료'
+        where
+                request_id = (
+                select min(request_id)
+                from lecture_request
+                where
+                    lecture_id = #{lecture_id}
+                  and request_type = #{request_type}
+                  and cancel_yn = 'N'
+                  and request_status LIKE '%대기%'
+            )
+    </update>
+
 </mapper>

@@ -22,4 +22,6 @@ public interface LectureRequestDao {
     int getLectureRequestWaitPersonCount(LectureRequest lectureRequest);
 
     int getMyLectureRequestCount(LectureRequest lectureRequest);
+
+    void changeLatestWait(LectureRequest lectureRequest);
 }

@@ -127,12 +127,13 @@ public class LectureRequestService extends BaseService {
     @Transactional
     public void updateLectureRequest(LectureRequest lectureRequest, String sessionMemberId, String remoteAddr) {
         LectureRequest lectureRequestEntity = lectureRequestDao.getLectureRequestOne(lectureRequest.getRequest_id());
-        if(lectureRequest.getCancel_yn() != null && lectureRequest.getCancel_yn().equals("Y")
+        if(lectureRequest.getCancel_yn() != null && lectureRequest.getCancel_yn().equals("Y")       // 수강신청 취소
                 && !lectureRequest.getCancel_yn().equals(lectureRequestEntity.getCancel_yn()) ){
             lectureRequest.setCancel_id(sessionMemberId);
             lectureRequest.setCancel_ip(remoteAddr);
             lectureRequest.setCancel_date(Calendar.getInstance().getTime());
-        }else {
+            lectureRequest.setRequest_status("예약취소");
+        }else {                                                                                      // 수강 재신청
             lectureRequest.setCancel_id("");
             lectureRequest.setCancel_ip("");
             lectureRequest.setCancel_date(null);
@@ -144,11 +145,14 @@ public class LectureRequestService extends BaseService {
      * 수강신청 취소
      * */
     @WorkingLogger(comment="수강신청 취소", type="P")
-    public void cancelLectureRequest(LectureRequest lectureRequest, String add_id, String add_ip) {
+    @Transactional
+    public void cancelLectureRequest(LectureRequest lectureRequest, String member_id, String session_ip) {
         lectureRequest.setCancel_yn("Y");
-        lectureRequest.setCancel_id(add_id);
-        lectureRequest.setCancel_ip(add_ip);
+        lectureRequest.setRequest_status("예약취소");
+        lectureRequest.setCancel_id(member_id);
+        lectureRequest.setCancel_ip(session_ip);
         lectureRequestDao.cancelLectureRequest(lectureRequest);
+        lectureRequestDao.changeLatestWait(lectureRequest);
     }
 
     /**

@@ -129,9 +129,6 @@ $(function() {
 		}
 	});
 
-	// 생일 datepicker 초기화
-	$('input#birthday').datepicker({});
-
 	/*// 과정 select 변경
 	$('select#course_id').on('change', function() {
 		let course_id = $(this).val();
@@ -192,7 +189,7 @@ function selectItem(lecture_id, lecture_title) {
 			<td>
 				<form:select path="lecture_id" cssClass="selectmenu" cssStyle="width: 80%">
 					<c:forEach var="i" varStatus="status" items="${lectureInfoList}">
-						<form:option value="${i.lecture_id}">${i.lecture_title}</form:option>
+						<form:option value="${i.lecture_id}">(${i.lecture_status1}) ${i.lecture_title}</form:option>
 					</c:forEach>
 				</form:select>
 			</td>
@@ -206,7 +203,7 @@ function selectItem(lecture_id, lecture_title) {
 		<tr>
 			<th>생년월일(<span style="color: red;font-weight: bold;">*</span>)</th>
 			<td>
-				<form:input path="birthday" cssClass="text ui-calendar" readonly="true"/>
+				<form:input path="birthday" cssClass="text" maxlength="10"/>
 				<span>※ 입력 예) 1990-08-15</span>
 			</td>
 		</tr>

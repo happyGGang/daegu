@@ -7,6 +7,7 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="/resources/cms/js/malsup.jquery.form.min.js" type="text/javascript"></script>
 <script type="text/javascript">
+
 $(function() {
 	
 	$('a#searchAddress').on('click', function(e) {
@@ -71,7 +72,18 @@ $(function() {
 				text: "저장",
 				"class": 'btn btn1',
 				click: function() {
+					if(!isCountValid(onlineRequestCount, "online_person_count", "온라인 신청인원에 공백이 존재할 수 없습니다.", "이미 신청된 인원보다 낮게 설정할 수 없습니다.")){
+						return;
+					};
+					if(!isCountValid(offlineRequestCount, "offline_person_count", "오프라인 신청인원에 공백이 존재할 수 없습니다.", "이미 신청된 인원보다 낮게 설정할 수 없습니다.")) {
+						return;
+					};
+					if(!isCountValid(waitRequestCount, "wait_person_count", "대기 신청인원에 공백이 존재할 수 없습니다.", "이미 신청된 인원보다 낮게 설정할 수 없습니다.")) {
+						return;
+					};
+
 					jQuery.ajaxSettings.traditional = true;
+
 					var option = {
 						url : 'save.do',
 						type : 'POST',
@@ -172,6 +184,41 @@ $(function() {
 		}
 	});
 });
+	let reg = /\s/g;
+	let onlineRequestCount = ${lectureInfo.online_request_count};
+	let offlineRequestCount = ${lectureInfo.offline_request_count};
+	let waitRequestCount = ${lectureInfo.wait_request_count};
+
+	// 공백 체크
+	function isSpace(id, errorMessage) {
+		if(reg.test($('#'+id).val()) || $('#'+id).val() == "") {
+			alert(errorMessage);
+			$('#'+id).focus();
+			return true;
+		}
+		return false;
+	}
+
+	// count 체크
+	function isOverCount(serverCount, id, errorMessage) {
+		if(serverCount > $('#'+id).val()) {
+			alert(errorMessage);
+			$('#'+id).focus();
+			return true;
+		}
+		return false;
+	}
+
+	// 유효성 검사
+	function isCountValid(serverCount, id, message1, message2) {
+		if(isSpace(id, message1)) {
+			return false;
+		}
+		if(isOverCount(serverCount, id, message2)) {
+			return false;
+		}
+		return true;
+	}
 </script>
 
 <style>

@@ -54,6 +54,26 @@ public class LectureInfoController extends BaseController {
     }
 
     /**
+     * 유저 강좌 리스트
+     * */
+    @RequestMapping(value = {"/user/index.*"})
+    private String userIndex(Model model, LectureInfo lectureInfo, HttpServletRequest request) throws Exception {
+        checkAuth("R", model, request);
+
+        lectureInfo.setHomepage_id(getAsideHomepageId(request));
+        lectureInfo.setSearch_type("lecture_title");
+
+        service.setPaging(model, service.lectureInfoCount(lectureInfo), lectureInfo);
+
+        List<LectureInfo> lectureInfos = service.lectureInfoList(lectureInfo);
+
+        model.addAttribute("lectureInfo", lectureInfo);
+        model.addAttribute("lectureInfoList", lectureInfos);
+
+        return basePath + "userIndex";
+    }
+
+    /**
      * 강좌 정보 추가, 수정 페이지
      * */
     @RequestMapping(value = {"/edit.*"})
@@ -93,6 +113,21 @@ public class LectureInfoController extends BaseController {
         model.addAttribute("lectureInfo", service.lectureInfoOne(lectureInfo.getLecture_id()));
         model.addAttribute("file", service.lectureInfoFile(lectureInfo));
         return basePath + "view";
+    }
+
+    /**
+     * 유저 강좌 view
+     * */
+    @RequestMapping(value = {"/user/view.*"})
+    private String userView(Model model, LectureInfo lectureInfo, HttpServletRequest request) throws Exception {
+        checkAuth("R", model, request);
+
+        lectureInfo.setHomepage_id(getAsideHomepageId(request));
+
+        model.addAttribute("lectureInfo", service.lectureInfoOne(lectureInfo.getLecture_id()));
+        model.addAttribute("file", service.lectureInfoFile(lectureInfo));
+
+        return basePath + "userView";
     }
 
     /**

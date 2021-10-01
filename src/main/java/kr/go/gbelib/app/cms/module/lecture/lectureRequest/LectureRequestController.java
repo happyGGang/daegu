@@ -1,8 +1,10 @@
 package kr.go.gbelib.app.cms.module.lecture.lectureRequest;
 
 import com.google.gson.Gson;
+import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
+import kr.co.whalesoft.framework.utils.StaticVariables;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.cms.module.lecture.lectureInfo.LectureInfo;
 import kr.go.gbelib.app.cms.module.lecture.lectureInfo.LectureInfoService;
@@ -136,6 +138,8 @@ public class LectureRequestController extends BaseController {
 
         lectureRequest.setHomepage_id(getAsideHomepageId(request));     // 홈페이지 아이디 set
 
+        setMemberData(lectureRequest, request);                         // 온라인 신청이면 회원 정보 저장
+
         validationChk(result, lectureRequest);                          // 유효성 체크
         if(hasValidErrors(res, result)) return res;                     // 유효성 에러가 있으면 return
 
@@ -224,7 +228,7 @@ public class LectureRequestController extends BaseController {
             res.setMessage("모집중인 수강신청이 아닙니다.");
 
             return false;
-        } else if(lectureRequest.getRequest_type().equals("온라인") && lectureRequestService.getMyLectureRequestCount(lectureRequest) > 0 ) {
+        } else if(lectureRequest.getRequest_type().equals("온라인") && lectureRequestService.getMyLectureRequestCount(lectureRequest) > 0 ) { // 수강신청 중복검사
 
             res.setValid(false);
             res.setMessage("이미 수강신청된 강좌입니다.");
@@ -237,64 +241,17 @@ public class LectureRequestController extends BaseController {
             return res;
         }*/
         else {
-            if(lectureInfoOne.getRequest_type().equals("선착순")) {
-                if(lectureRequest.getRequest_type().equals("오프라인")){
-                    if(lectureRequestService.getLectureRequestOfflinePersonCount(lectureRequest) <= 0) {  // 오프라인 정원 확인
-                        if(lectureRequestService.getLectureRequestWaitPersonCount(lectureRequest) <= 0) { // 대기 정원 확인
-                            res.setValid(false);
-                            res.setMessage("오프라인 신청 정원이 마감된 강좌입니다.");
+            if(leftRequestCount(lectureRequest) <= 0) {  // 남은 신청 정원 확인
+                if(lectureRequestService.getLectureRequestWaitPersonCount(lectureRequest) <= 0) { // 대기 정원 확인
+                    res.setValid(false);
+                    res.setMessage(lectureRequest.getRequest_type()+" 신청 정원이 마감된 강좌입니다.");
 
-                            return false;
-                        } else {
-                            lectureRequest.setRequest_status("예약대기");
-                        }
-                    } else {
-                        lectureRequest.setRequest_status("예약완료");
-                    }
+                    return false;
                 } else {
-                    if(lectureRequestService.getLectureRequestOnlinePersonCount(lectureRequest) <= 0) { // 온라인 정원 확인
-                        if(lectureRequestService.getLectureRequestWaitPersonCount(lectureRequest) <= 0) { // 대기 정원 확인
-                            res.setValid(false);
-                            res.setMessage("온라인 신청 정원이 마감된 강좌입니다.");
-
-                            return false;
-                        } else {
-                            lectureRequest.setRequest_status("예약대기");
-                        }
-                    } else {
-                        lectureRequest.setRequest_status("예약완료");
-                    }
+                    lectureRequest.setRequest_status(successWait(lectureInfoOne));
                 }
-
-            } else if(lectureInfoOne.getRequest_type().equals("추첨제")) {
-                if(lectureRequest.getRequest_type().equals("오프라인")){
-                    if(lectureRequestService.getLectureRequestOfflinePersonCount(lectureRequest) <= 0) {    // 오프라인 정원 확인
-                        if(lectureRequestService.getLectureRequestWaitPersonCount(lectureRequest) <= 0) {   // 대기 정원 확인
-                            res.setValid(false);
-                            res.setMessage("오프라인 신청 정원이 마감된 강좌입니다.");
-
-                            return false;
-                        } else {
-                            lectureRequest.setRequest_status("추첨대기");
-                        }
-                    } else {
-                        lectureRequest.setRequest_status("예약완료");
-                    }
-                } else {
-                    if(lectureRequestService.getLectureRequestOnlinePersonCount(lectureRequest) <= 0) {     // 온라인 정원 확인
-                        if(lectureRequestService.getLectureRequestWaitPersonCount(lectureRequest) <= 0) {   // 대기 정원 확인
-                            res.setValid(false);
-                            res.setMessage("온라인 신청 정원이 마감된 강좌입니다.");
-
-                            return false;
-                        } else {
-                            lectureRequest.setRequest_status("추첨대기");
-                        }
-                    } else {
-                        lectureRequest.setRequest_status("예약완료");
-                    }
-                }
-
+            } else {
+                lectureRequest.setRequest_status("예약완료");
             }
 
             return true;
@@ -313,4 +270,105 @@ public class LectureRequestController extends BaseController {
         return false;
     }
 
+    /**
+     * 온라인 신청일때 맴버 데이터 가져오기
+     * */
+    private void setMemberData(LectureRequest lectureRequest, HttpServletRequest request) {
+        if(lectureRequest.getRequest_type() != null && lectureRequest.getRequest_type().equals("온라인")) {
+            Member member = (Member)request.getSession().getAttribute(StaticVariables.MEMBER);
+            lectureRequest.setRequest_name(member.getMember_name());
+            lectureRequest.setEmail(member.getEmail());
+            lectureRequest.setPhone_number("010-1234-1234");
+            lectureRequest.setBirthday("1990-08-15");
+            lectureRequest.setGender('0');
+            lectureRequest.setComplete_yn("N");
+            lectureRequest.setCancel_yn("N");
+            /*lectureRequest.setPhone_number(member.getMobile_phone_number());
+            lectureRequest.setBirthday(member.getBirth());
+            lectureRequest.setGender(member.getMember_sex());*/
+        }
+    }
+
+    /**
+     * 대기 성공 메세지 리턴
+     * */
+    private String successWait(LectureInfo lectureInfoOne) {
+        if(lectureInfoOne.getRequest_type().equals("선착순")) {
+            return "예약대기";
+        }
+        return "추첨대기";
+    }
+
+    /**
+     * 남은 신청 정원 리턴
+     * */
+    private int leftRequestCount(LectureRequest lectureRequest) {
+        if(lectureRequest.getRequest_type().equals("오프라인")){                    // 오프라인 신청
+            return lectureRequestService.getLectureRequestOfflinePersonCount(lectureRequest);
+        }
+        return lectureRequestService.getLectureRequestOnlinePersonCount(lectureRequest); // 온라인 신청
+    }
 }
+
+
+// 신청상태 set 코드 개선 전
+
+/*if(lectureInfoOne.getRequest_type().equals("선착순")) {
+    if(lectureRequest.getRequest_type().equals("오프라인")){
+        if(lectureRequestService.getLectureRequestOfflinePersonCount(lectureRequest) <= 0) {  // 오프라인 정원 확인
+            if(lectureRequestService.getLectureRequestWaitPersonCount(lectureRequest) <= 0) { // 대기 정원 확인
+                res.setValid(false);
+                res.setMessage("오프라인 신청 정원이 마감된 강좌입니다.");
+
+                return false;
+            } else {
+                lectureRequest.setRequest_status("예약대기");
+            }
+        } else {
+            lectureRequest.setRequest_status("예약완료");
+        }
+    } else {
+        if(lectureRequestService.getLectureRequestOnlinePersonCount(lectureRequest) <= 0) { // 온라인 정원 확인
+            if(lectureRequestService.getLectureRequestWaitPersonCount(lectureRequest) <= 0) { // 대기 정원 확인
+                res.setValid(false);
+                res.setMessage("온라인 신청 정원이 마감된 강좌입니다.");
+
+                return false;
+            } else {
+                lectureRequest.setRequest_status("예약대기");
+            }
+        } else {
+            lectureRequest.setRequest_status("예약완료");
+        }
+    }
+
+} else if(lectureInfoOne.getRequest_type().equals("추첨제")) {
+    if(lectureRequest.getRequest_type().equals("오프라인")){
+        if(lectureRequestService.getLectureRequestOfflinePersonCount(lectureRequest) <= 0) {    // 오프라인 정원 확인
+            if(lectureRequestService.getLectureRequestWaitPersonCount(lectureRequest) <= 0) {   // 대기 정원 확인
+                res.setValid(false);
+                res.setMessage("오프라인 신청 정원이 마감된 강좌입니다.");
+
+                return false;
+            } else {
+                lectureRequest.setRequest_status("추첨대기");
+            }
+        } else {
+            lectureRequest.setRequest_status("예약완료");
+        }
+    } else {
+        if(lectureRequestService.getLectureRequestOnlinePersonCount(lectureRequest) <= 0) {     // 온라인 정원 확인
+            if(lectureRequestService.getLectureRequestWaitPersonCount(lectureRequest) <= 0) {   // 대기 정원 확인
+                res.setValid(false);
+                res.setMessage("온라인 신청 정원이 마감된 강좌입니다.");
+
+                return false;
+            } else {
+                lectureRequest.setRequest_status("추첨대기");
+            }
+        } else {
+            lectureRequest.setRequest_status("예약완료");
+        }
+    }
+
+}*/
