@@ -1378,14 +1378,19 @@ $(function() {
 								</p>
 								<div class="thumb">
 									<c:choose>
-										<c:when test="${empty i.aladin or empty i.aladin.cover}">
+										<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
 											<a href="${detailURL}" class="noImg">
 												<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="${i.TITLE_INFO}"/>
 											</a>
 										</c:when>
-										<c:otherwise>
+										<c:when test="${not empty i.aladin or not empty i.aladin.cover}">
 											<a href="${detailURL}">
 												<img src="${i.aladin.cover}" alt="${i.TITLE_INFO}"/>
+											</a>
+										</c:when>
+										<c:otherwise>
+											<a href="${detailURL}">
+												<img src="${i.imageUrl}" alt="${i.TITLE_INFO}"/>
 											</a>
 										</c:otherwise>
 									</c:choose>
