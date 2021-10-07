@@ -192,6 +192,8 @@ public class Teach extends PagingUtils {
 
 	private String terms; // 약관여부 선택
 	private String apply_file_yn = "N"; // 신청첨부파일 여부
+	//2021-10-06 YUNHAESU 백신 여부 체크 
+	private String vaccines_yn = "N";	// 백신 여부
 
 	private List<String> homepage_ids;
 	public Teach() {}
@@ -1574,6 +1576,14 @@ public class Teach extends PagingUtils {
 			this.searchStatusArr = new ArrayList<String>();
 			this.searchStatusArr.addAll(searchStatusArr);
 		}
+	}
+
+	public String getVaccines_yn() {
+		return vaccines_yn;
+	}
+
+	public void setVaccines_yn(String vaccines_yn) {
+		this.vaccines_yn = vaccines_yn;
 	}
 
 }

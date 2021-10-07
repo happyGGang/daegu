@@ -401,6 +401,9 @@ $(function(){
 			<col width="8%" />
 			<col width="13%" />
 			<col width="7%" />
+			<c:if test="${teachInfo.vaccines_yn eq 'Y'}">
+				<col width="7%" />
+			</c:if>
 			<col width="9%" />
 			<c:if test="${teachInfo.teach_status ne '1'}">
 				<col width="8%" />
@@ -417,6 +420,9 @@ $(function(){
 				<th>성별<br/>(수강생)</th>
 				<th>휴대전화번호<br/>(신청자)</th>
 				<th>상태</th>
+				<c:if test="${teachInfo.vaccines_yn eq 'Y'}">
+					<th>접종상태</th>
+				</c:if>
 				<th>신청일</th>
 				<th>취소자ID</th>
 				<th>취소일</th>
@@ -479,6 +485,21 @@ $(function(){
 							${(i.apply_type eq 'CMS') and (i.apply_status eq 1) ? '오프 참여' : statusCode[i.apply_status].code_name}
 						</c:otherwise>
 					</c:choose>
+				</td>
+				<td>
+					<c:if test="${teachInfo.vaccines_yn eq 'Y'}">
+						<c:choose>
+							<c:when test="${i.vaccines_counter eq '1' }">
+								1회접종자
+							</c:when>
+							<c:when test="${i.vaccines_counter eq '2' }">
+								2회접종자
+							</c:when>
+							<c:otherwise>
+								미접종자
+							</c:otherwise>
+						</c:choose>
+					</c:if>
 				</td>
 				<td>
 					${i.add_date}

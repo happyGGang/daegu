@@ -14,7 +14,7 @@
 			student_neis_cd,
 			student_training_num,
 			student_organization, student_organization_tel, student_rank, student_course_taken_yn, agree_codes,
-			sms_service_yn, picture_use_yn, student_age
+			sms_service_yn, picture_use_yn, student_age, vaccines_counter
 		FROM
 			STUDENT
 		WHERE DELETE_YN 		= 'N' AND
@@ -52,7 +52,7 @@
 					, (SELECT NVL(SUM(DECODE(status, '1', 1, '2', 1, 0)) - TRUNC(SUM(DECODE(status, '2', 1, 0))/3), 0) FROM TEACH_BOOK
 						WHERE HOMEPAGE_ID = a.HOMEPAGE_ID AND GROUP_IDX = a.GROUP_IDX AND CATEGORY_IDX = a.CATEGORY_IDX AND TEACH_IDX = a.TEACH_IDX AND STUDENT_IDX = a.STUDENT_IDX) as ATTEND_CNT
 					, student_ban, student_remark, student_family_count,
-					student_location_code,
+					student_location_code, a.vaccines_counter,
 					getCodeIdToCodeName('CMS', 'C0022', student_location_code) AS student_location_code_str,
 					student_neis_cd,
 					student_training_num,
@@ -89,7 +89,7 @@
 					, (SELECT TEACH_COUNT FROM TEACH WHERE HOMEPAGE_ID = a.HOMEPAGE_ID AND GROUP_IDX = a.GROUP_IDX AND CATEGORY_IDX = a.CATEGORY_IDX AND TEACH_IDX = a.TEACH_IDX) AS CNT
 					, (SELECT NVL(SUM(DECODE(status, '1', 1, '2', 1, 0)) - TRUNC(SUM(DECODE(status, '2', 1, 0))/3), 0) FROM TEACH_BOOK
 						WHERE HOMEPAGE_ID = a.HOMEPAGE_ID AND GROUP_IDX = a.GROUP_IDX AND CATEGORY_IDX = a.CATEGORY_IDX AND TEACH_IDX = a.TEACH_IDX AND STUDENT_IDX = a.STUDENT_IDX) as ATTEND_CNT
-					, student_ban, student_remark, student_family_count
+					, student_ban, student_remark, student_family_count, a.vaccines_counter
 				FROM
 					STUDENT a
 				WHERE
@@ -113,7 +113,7 @@
 			student_neis_cd,
 			student_training_num,
 			student_organization, student_organization_tel, student_rank, student_course_taken_yn, student_password, agree_codes,
-			sms_service_yn, picture_use_yn, student_old
+			sms_service_yn, picture_use_yn, student_old, vaccines_counter
 		FROM
 			STUDENT
 		WHERE DELETE_YN = 'N'
@@ -150,7 +150,7 @@
 			, student_ban, student_remark, student_family_count,
 			student_location_code,student_neis_cd,student_training_num,
 			student_organization, student_organization_tel, student_rank, student_course_taken_yn, student_password, agree_codes,
-			sms_service_yn, picture_use_yn
+			sms_service_yn, picture_use_yn, vaccines_counter
 		) VALUES
 		(
 			#{homepage_id}, #{group_idx}, #{category_idx}, #{teach_idx}, #{student_idx}, #{member_id}, #{member_key}, #{applicant_name}, #{applicant_birth}, #{web_id}
@@ -160,7 +160,7 @@
 			, #{student_ban}, #{student_remark}, #{student_family_count},
 			#{student_location_code}, #{student_neis_cd}, #{student_training_num},
 			#{student_organization}, #{student_organization_tel}, #{student_rank}, #{student_course_taken_yn}, #{student_password}, #{agree_codes},
-			#{sms_service_yn}, #{picture_use_yn}
+			#{sms_service_yn}, #{picture_use_yn}, #{vaccines_counter}
 		)
 	</insert>
 	
@@ -197,6 +197,7 @@
 			SELF_INFO_YN 			= #{self_info_yn},
 			sms_service_yn          = #{sms_service_yn},
 			picture_use_yn          = #{picture_use_yn},
+			vaccines_counter		= #{vaccines_counter},
 			student_ban = #{student_ban},
 			student_remark = #{student_remark},
 			student_family_count = #{student_family_count},

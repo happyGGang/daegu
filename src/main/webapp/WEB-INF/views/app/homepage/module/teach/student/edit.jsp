@@ -784,6 +784,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 					</td>
 				</tr>
 			</c:if>
+			
 			</c:if>
         	<c:if test="${teach.member_yn eq 'Y' && !sessionScope.member.login}">
 				<tr>
@@ -793,6 +794,16 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 						<div class="ui-state-highlight">
 							* 비회원으로 수강신청 시 [수강신청]화면-'비회원 신청 확인'에서 수강신청 내역 확인가능
 						</div>
+					</td>
+				</tr>
+			</c:if>
+			<c:if test="${teach.vaccines_yn eq 'Y'}">
+				<tr>
+					<th>백신여부(<span style="color: red; font-weight: bold;">*</span>)</th>
+					<td>
+						<form:radiobutton path="vaccines_counter" value="0" label="미접종" cssStyle="vertical-align: middle;" title="미접종"/>
+	         			<form:radiobutton path="vaccines_counter" value="1" label="1회접종" cssStyle="vertical-align: middle;" title="1회접종"/>
+	         			<form:radiobutton path="vaccines_counter" value="2" label="2회접종" cssStyle="vertical-align: middle;" title="2회접종"/>
 					</td>
 				</tr>
 			</c:if>
@@ -976,6 +987,16 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 					<td>
 						<form:radiobutton path="student_course_taken_yn" value="Y" label="이수" cssStyle="vertical-align: middle;" title="연수수강여부 이수"/>
 	         			<form:radiobutton path="student_course_taken_yn" value="N" label="미이수" cssStyle="vertical-align: middle;" title="연수수강여부 미이수"/>
+					</td>
+				</tr>
+			</c:if>
+        	<c:if test="${teach.vaccines_yn eq 'Y'}">
+				<tr>
+					<th>백신여부(<span style="color: red; font-weight: bold;">*</span>)</th>
+					<td>
+						<form:radiobutton path="vaccines_counter" value="0" label="미접종" cssStyle="vertical-align: middle;" title="미접종"/>
+	         			<form:radiobutton path="vaccines_counter" value="1" label="1회접종" cssStyle="vertical-align: middle;" title="1회접종"/>
+	         			<form:radiobutton path="vaccines_counter" value="2" label="2회접종" cssStyle="vertical-align: middle;" title="2회접종"/>
 					</td>
 				</tr>
 			</c:if>

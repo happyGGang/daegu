@@ -723,6 +723,16 @@ $(function() {
 					</td>
 				</tr>
 				</c:if>
+				<c:if test="${teach.vaccines_yn eq 'Y'}">
+				<tr>
+					<th>백신여부(<span style="color: red; font-weight: bold;">*</span>)</th>
+					<td>
+						<form:radiobutton path="vaccines_counter" value="0" label="미접종" cssStyle="vertical-align: middle;" title="미접종"/>
+	         			<form:radiobutton path="vaccines_counter" value="1" label="1회접종" cssStyle="vertical-align: middle;" title="1회접종"/>
+	         			<form:radiobutton path="vaccines_counter" value="2" label="2회접종" cssStyle="vertical-align: middle;" title="2회접종"/>
+					</td>
+				</tr>
+				</c:if>
 				<tr>
 					<th>14세 미만 어린이/아동보호자(법정대리인)동의여부(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td>
