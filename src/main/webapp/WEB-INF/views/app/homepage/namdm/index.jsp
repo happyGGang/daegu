@@ -213,11 +213,11 @@ do {
 								<span>대출현황</span>
 							</a>
 						</li>
-						<li class="qm3">
+						<!-- <li class="qm3">
 							<a href="/${homepage.context_path}/html.do?menu_idx=15">
 								<span>희망도서</span>
 							</a>
-						</li>
+						</li> -->
 						<li class="qm4">
 							<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=36">
 								<span>이달의행사</span>

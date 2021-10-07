@@ -201,33 +201,33 @@ do {
 			<div class="section">
 				<div class="qmenu">
 					<ul>
-
-						<li class="qm1">
+						<!--211006 도효지  추후 희망도서 복구 시 width:19% 삭제하면 됨-->
+						<li class="qm1" style="width:19%;">
 							<a href="/${homepage.context_path}/html.do?menu_idx=17">
 								<span>이용안내</span>
 							</a>
 						</li>
-						<li class="qm2">
+						<li class="qm2" style="width:19%;">
 							<a href="/${homepage.context_path}/intro/search/loan/history.do?menu_idx=53">
 								<span>대출현황</span>
 							</a>
 						</li>
-						<li class="qm3">
+						<!-- <li class="qm3">
 							<a href="/${homepage.context_path}/html.do?menu_idx=15">
 								<span>희망도서</span>
 							</a>
-						</li>
-						<li class="qm4">
+						</li> -->
+						<li class="qm4" style="width:19%;">
 							<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=36">
 								<span>이달의행사</span>
 							</a>
 						</li>
-						<li class="qm5">
+						<li class="qm5" style="width:19%;">
 							<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=32">
 								<span>문화프로그램</span>
 							</a>
 						</li>
-						<li class="qm6">
+						<li class="qm6" style="width:19%;">
 							<a href="/${homepage.context_path}/html.do?menu_idx=25">
 								<span>대구전자도서관</span>
 							</a>
