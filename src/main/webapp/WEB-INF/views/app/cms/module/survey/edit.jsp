@@ -161,7 +161,7 @@ table tbody th{text-align: center; font-weight: bold !important;}
 				<tr>
 					<th>조사명</th>
 					<td>
-						<form:input path="survey_title" cssStyle="width:500px;" cssClass="text" maxlength="25"/>
+						<form:input path="survey_title" cssStyle="width:500px;" cssClass="text"/>
 					</td>
 				</tr>
 				<tr style="display: none;">
