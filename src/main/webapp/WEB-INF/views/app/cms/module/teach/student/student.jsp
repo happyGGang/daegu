@@ -486,8 +486,8 @@ $(function(){
 						</c:otherwise>
 					</c:choose>
 				</td>
-				<td>
-					<c:if test="${teachInfo.vaccines_yn eq 'Y'}">
+				<c:if test="${teachInfo.vaccines_yn eq 'Y'}">
+					<td>
 						<c:choose>
 							<c:when test="${i.vaccines_counter eq '1' }">
 								1회접종자
@@ -499,8 +499,8 @@ $(function(){
 								미접종자
 							</c:otherwise>
 						</c:choose>
-					</c:if>
-				</td>
+					</td>
+				</c:if>
 				<td>
 					${i.add_date}
 				</td>
