@@ -41,6 +41,8 @@ import kr.go.gbelib.app.cms.module.newBookConfig.NewBookConfig;
 import kr.go.gbelib.app.cms.module.newBookConfig.NewBookConfigService;
 import kr.go.gbelib.app.cms.module.smsReception.SmsReception;
 import kr.go.gbelib.app.cms.module.smsReception.SmsReceptionService;
+import kr.go.gbelib.app.cms.module.untactBook.untactBookBlackList.UntactBookBlackList;
+import kr.go.gbelib.app.cms.module.untactBook.untactBookBlackList.UntactBookBlackListService;
 import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservation;
 import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservationService;
 import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSettingService;
@@ -80,6 +82,9 @@ public class CommonSearchController extends BaseController {
 	
 	@Autowired
 	private UntactLockerSettingService untactLockerSettingService;
+	
+	@Autowired
+	private UntactBookBlackListService untactBookBlackListService;
 
 	/**
 	 * 자료검색
@@ -1740,9 +1745,10 @@ public class CommonSearchController extends BaseController {
 	 * @throws Throwable
 	 */
 	@RequestMapping (value = { "/untactBook/form.*" }, method = RequestMethod.POST)
-	public String untactBookForm(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+	public String untactBookForm(Model model, LibrarySearch librarySearch, UntactBookBlackList untactBookBlackList, HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		Homepage homepage = getSessionHomepage(request);
-
+		Member member = getSessionMemberInfo(request);
+		untactBookBlackList.setMember_id(member.getMember_id());	
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
 			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
@@ -1757,6 +1763,12 @@ public class CommonSearchController extends BaseController {
 			service.alertMessage("비대면도서대출이 불가능 합니다.", request, response);
 			return null;
 		}
+		
+		/*
+		 * if (untactBookBlackListService.getPenaltyCount(untactBookBlackList) > 0) {
+		 * service.alertMessage("패널티 초과로 인해 대출이 불가능 합니다.", request, response); return
+		 * null; }
+		 */
 		
 		if (untactLockerSettingService.getUntactLockerSettingCount(homepage.getHomepage_id()) <= untactBookReservationService.getUntactBookReservationCount(homepage.getHomepage_id())) {
 			service.alertMessage("금일 비대면 도서대출예약은 마감되었습니다.", request, response);
