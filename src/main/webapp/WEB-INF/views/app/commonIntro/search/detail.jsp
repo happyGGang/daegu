@@ -211,14 +211,17 @@ $(function() {
 		<div class="sinfo">
 			<div class="thumb">
 				<c:choose>
-					<c:when test="${empty detail.aladin or empty detail.aladin.cover}">
+					<c:when test="${(empty detail.aladin or empty detail.aladin.cover) and empty detail.imageUrl}">
 				<p class="noImg">
 					<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="noImage"/>
 				</p>
 					</c:when>
+					<c:when test="${not empty detail.aladin or not empty detail.aladin.cover}">
+						<img src="${detail.aladin.cover}" alt="${detail.TITLE_INFO}">
+					</c:when>
 					<c:otherwise>
 				<p>
-					<img src="${detail.aladin.cover}" alt="${detail.TITLE_INFO}">
+					<img src="${detail.imageUrl}" alt="${detail.TITLE_INFO}">
 				</p>
 					</c:otherwise>
 				</c:choose>

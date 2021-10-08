@@ -29,10 +29,10 @@ public class UntactBookReservationController extends BaseController {
 		
 		if(untactBookReservation == null) {  
 			untactBookReservation = new UntactBookReservation();
-			untactBookReservation.setHomepage_id(getAsideHomepageId(request));
+			untactBookReservation.setHomepage_id(getAsideHomepageId(request));  
 		}
 		
-		if ( StringUtils.isEmpty(untactBookReservation.getEnd_date()) ) {
+		if (StringUtils.isEmpty(untactBookReservation.getEnd_date())) {
 			SimpleDateFormat startDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			Date now = new Date();
@@ -44,7 +44,7 @@ public class UntactBookReservationController extends BaseController {
 		
 		int count = reservationService.getUntactBookReservationListCount(untactBookReservation);
 		reservationService.setPaging(model, count, untactBookReservation);
-		untactBookReservation.setTotalPageCount(count);
+		untactBookReservation.setTotalDataCount(count);
 		
 		model.addAttribute("untactBookReservation", untactBookReservation);
 		model.addAttribute("untactBookReservationListCount", count);

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.untactBook.untactBookCancelHistory.UntactBookCancelHistoryDao">
+	
+	<sql id="where">
+		<if test="cancel_start_date != null and cancel_start_date != '' and cancel_end_date != null and cancel_end_date != ''">
+			AND TO_DATE(cancel_date,'yyyy-MM-dd') BETWEEN #{cancel_start_date} AND #{cancel_end_date}
+		</if>
+    	<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND ${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+    </sql>
+	
+	<select id="getUntactBookCancelHistoryCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			UNTACT_BOOK_RESERVATION
+		WHERE
+			homepage_id = #{homepage_id}
+		AND cancel_yn = 'Y'
+		<include refid="where"/>
+	</select>
+	
+	<select id="getUntactBookCancelHistoryList" resultType="kr.go.gbelib.app.cms.module.untactBook.untactBookCancelHistory.UntactBookCancelHistory">
+		${pagingTop}
+			SELECT
+				homepage_id, locker_number, request_number, member_id, member_name,
+				cancel_yn, cancel_reason, cancel_id, cancel_ip, TO_CHAR(cancel_date,'yyyy-MM-dd HH24:MI:SS') AS cancel_date
+			FROM
+				UNTACT_BOOK_RESERVATION
+			WHERE
+				homepage_id = #{homepage_id}
+			AND cancel_yn = 'Y'
+			<include refid="where"/>
+			ORDER BY request_number DESC
+		${pagingBottom}	
+	</select>
+	
+	<update id="cc">
+		UPDATE
+			UNTACT_BOOK_RESERVATION
+		SET
+			cancel_yn = 'Y',
+			cancel_reason = #{cancel_reason},
+			cancel_id = #{cancel_id},
+			cancel_ip = #{cancel_ip},
+			cancel_date = TO_DATE(SYSDATE,'yyyy-MM-dd HH24:MI:SS')
+		WHERE
+			homepage_id = #{homepage_id}
+		AND member_id = #{member_id}
+		AND cancel_yn = 'N'
+		AND request_number = #{request_number}
+	</update>
+	
+	<select id="cl" resultType="kr.go.gbelib.app.cms.module.untactBook.untactBookCancelHistory.UntactBookCancelHistoryDao">
+		SELECT
+			cancel_reason, cancel_id, cancel_ip, cancel_date
+		FROM
+			UNTACT_BOOK_RESERVATION
+		WHERE
+			homepage_id = #{homepage_id}
+		AND cancel_yn = 'Y'
+		<include refid="where"/>
+	</select>
+	
+</mapper>

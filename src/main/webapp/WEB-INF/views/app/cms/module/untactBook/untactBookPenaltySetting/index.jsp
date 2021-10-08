@@ -127,8 +127,10 @@ $(function(){
 			</c:if>
 		</div>
 	</div>
-	<div class="ui-state-highlight">비대면 사물함 도서 대출 패널티</div>
-
+	<div class="ui-state-highlight">
+		<em>* 패널티 기간은 중복 설정이 불가능합니다.</em>
+	</div>
+	<br>
 	<table class="type1 center">
 		<thead>
 			<tr>

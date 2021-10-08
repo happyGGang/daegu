@@ -78,6 +78,8 @@ public class AsideMenuTag extends BodyTagSupport {
 					}
 					if (StringUtils.equals(adminMenu.getMenu_type(), "changePage")) {
 						liTag_lvl2.setContent("<a href='#' onclick='javascript:parent.location.href=\""+url+"\"; return false;'>" + adminMenu.getMenu_name() + "</a>");
+					} else if(StringUtils.equals(adminMenu.getMenu_type(), "_blank")) {
+						liTag_lvl2.setContent("<a href='" + url + "' target='_blank'>" + adminMenu.getMenu_name() + "</a>");
 					} else {
 						liTag_lvl2.setContent("<a href='" + url + "' target='container'>" + adminMenu.getMenu_name() + "</a>");
 					}
@@ -95,6 +97,8 @@ public class AsideMenuTag extends BodyTagSupport {
 					}
 					if (StringUtils.equals(adminMenu.getMenu_type(), "changePage")) {
 						liTag_lvl3.setContent("<a href='#' onclick='javascript:parent.location.href='"+url+"'; return false;'>" + adminMenu.getMenu_name() + "</a>");
+					} else if(StringUtils.equals(adminMenu.getMenu_type(), "_blank")) {
+						liTag_lvl3.setContent("<a href='" + url + "' target='_blank'>" + adminMenu.getMenu_name() + "</a>");
 					} else {
 						liTag_lvl3.setContent("<a href='" + url + "' target='container'>" + adminMenu.getMenu_name() + "</a>");
 					}

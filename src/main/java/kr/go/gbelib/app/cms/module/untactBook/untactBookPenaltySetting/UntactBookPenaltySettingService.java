@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.whalesoft.framework.base.BaseService;
-import kr.go.gbelib.app.cms.module.bookOfYear.BookOfYear;
 
 @Service
 public class UntactBookPenaltySettingService extends BaseService{
@@ -68,6 +67,15 @@ public class UntactBookPenaltySettingService extends BaseService{
 	 */
 	public int deleteUntactBookPenaltySetting(UntactBookPenaltySetting penalty) {
 		return dao.deleteUntactBookPenaltySetting(penalty);
+	}
+	
+	/**
+	 * @author whalesoft BYENGHAK 2021. 09. 09.
+	 * @param penalty
+	 * @return
+	 */
+	public int duplicateCheck(UntactBookPenaltySetting penalty) {
+		return dao.duplicateCheck(penalty);
 	}
 
 }

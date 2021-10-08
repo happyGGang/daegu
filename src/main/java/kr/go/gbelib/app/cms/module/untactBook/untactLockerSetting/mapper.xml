@@ -99,7 +99,6 @@
 				) VALUES (
 					#{homepage_id}, #{locker_use_yn}, #{row_count}, #{total_count}
 				)
-
 	</update>
 
 </mapper>

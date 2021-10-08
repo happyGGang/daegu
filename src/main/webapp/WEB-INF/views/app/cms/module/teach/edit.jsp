@@ -1306,10 +1306,23 @@ $(function() {
 				</td>
 	        </tr>
 	        <tr>
+	         	<th>백신여부 입력여부</th>
+	         	<td>
+	         		<form:radiobutton path="vaccines_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
+					<form:radiobutton path="vaccines_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/>
+					<div class="ui-state-highlight">
+						<em>* 사용 시 '백신여부' 입력항목이 노출됩니다.</em>
+					</div>
+				</td>
+	        </tr>
+	        <tr>
 	        	<th>신청첨부파일 여부</th>
 	        	<td>
 	        		<form:radiobutton path="apply_file_yn" value="Y" label="사용"/>
 	        		<form:radiobutton path="apply_file_yn" value="N" label="미사용"/>
+	        		<div class="ui-state-highlight">
+						<em>* 사용 시 '신청첨부파일여부' 입력항목이 노출됩니다.</em>
+					</div>
 	        	</td>
 	        </tr>
 	        <tr>

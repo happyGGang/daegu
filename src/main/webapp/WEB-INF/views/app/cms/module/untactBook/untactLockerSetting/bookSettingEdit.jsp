@@ -49,6 +49,12 @@ function bookSettingSave() {
 					<form:input path="total_count"/>
 				</td>
 			</tr>
+			<tr>
+				<th>하루최대 대출가능 권수(<span style="color: red;font-weight: bold;">*</span>)</th>
+				<td>
+					<form:input path="total_count"/>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 	

@@ -121,6 +121,16 @@ public abstract class BaseService {
 		}
 		return null;
 	}
+	
+	public boolean alertMessageOnly(String message, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		setResponseHeader(response);
+		response.setContentType("text/html; charset=" + request.getCharacterEncoding());
+		PrintWriter writer = response.getWriter();
+		writer.print(message);
+		writer.flush();
+
+		return false;
+	}
 
 	public boolean alertMessage(String message, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		setResponseHeader(response);

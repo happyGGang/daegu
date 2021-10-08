@@ -1,6 +1,8 @@
-package kr.go.gbelib.app.cms.module.untactBook.untactBookPenalty;
+package kr.go.gbelib.app.cms.module.untactBook.untactBookBlackList;
 
-public class UntactBookPenalty {
+import kr.co.whalesoft.framework.utils.PagingUtils;
+
+public class UntactBookBlackList extends PagingUtils {
 
 	private String homepage_id;  //홈페이지ID
 	private String member_id;  //사용자ID
@@ -9,6 +11,11 @@ public class UntactBookPenalty {
 	private String penalty_day;  //등록일
 	private String penalty_register_ip;  //등록IP
 	private String penalty_register_id;  //등록ID
+	
+	private String start_date;
+	private String end_date;
+	
+	private String[] member_id_arr; //사용자ID_arr
 	
 	public String getHomepage_id() {
 		return homepage_id;
@@ -52,6 +59,23 @@ public class UntactBookPenalty {
 	public void setPenalty_register_id(String penalty_register_id) {
 		this.penalty_register_id = penalty_register_id;
 	}
-	
+	public String getStart_date() {
+		return start_date;
+	}
+	public void setStart_date(String start_date) {
+		this.start_date = start_date;
+	}
+	public String getEnd_date() {
+		return end_date;
+	}
+	public void setEnd_date(String end_date) {
+		this.end_date = end_date;
+	}
+	public String[] getMember_id_arr() {
+		return member_id_arr;
+	}
+	public void setMember_id_arr(String[] member_id_arr) {
+		this.member_id_arr = member_id_arr;
+	}
 	
 }

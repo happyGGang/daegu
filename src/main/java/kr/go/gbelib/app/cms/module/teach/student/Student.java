@@ -90,7 +90,7 @@ public class Student extends PagingUtils {
 	private String end_date;
 	private String end_time;
 
-
+	private String vaccines_counter = "0";
 
 	private String teach_status;
 	private String student_status;
@@ -871,5 +871,14 @@ public class Student extends PagingUtils {
 	public void setAgree_codes(String agree_codes) {
 		this.agree_codes = agree_codes;
 	}
+
+	public String getVaccines_counter() {
+		return vaccines_counter;
+	}
+
+	public void setVaccines_counter(String vaccines_counter) {
+		this.vaccines_counter = vaccines_counter;
+	}
+	
 
 }

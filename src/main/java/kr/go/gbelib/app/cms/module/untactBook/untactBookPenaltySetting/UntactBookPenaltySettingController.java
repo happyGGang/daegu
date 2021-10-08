@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.whalesoft.app.cms.popup.Popup;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
@@ -67,20 +66,24 @@ public class UntactBookPenaltySettingController extends BaseController {
 		/* 유효성 검증 >>>>> */
 		JsonResponse res = new JsonResponse(request);
 		
-		if(penalty.getEditMode().equals("ADD")) {
+		if(penalty.getEditMode().equals("ADD") || penalty.getEditMode().equals("MODIFY")) {
 			ValidationUtils.rejectIfEmpty(result, "start_date", "시작일을 지정하세요.");
 			ValidationUtils.rejectIfEmpty(result, "end_date", "종료일을 지정하세요.");
 			
 			if(penalty.getPenalty_count() == null) {
-				result.rejectValue("penalty_count", "숫자만 입력가능합니다.");
+				result.rejectValue("penalty_count", "패널티 횟수를 입력해주세요.");
 			} else {
 				ValidationUtils.rejectExceptNumber(result, "penalty_count", "숫자만 입력가능합니다.");
 			}
 			
-			if(penalty.getPenalty_count() == null) {
-				result.rejectValue("penalty_day", "숫자만 입력가능합니다.");
+			if(penalty.getPenalty_day() == null) {
+				result.rejectValue("penalty_day", "패널티 일수를 입력해주세요.");
 			} else {
 				ValidationUtils.rejectExceptNumber(result, "penalty_day", "숫자만 입력가능합니다.");
+			}
+			
+			if (service.duplicateCheck(penalty) > 0) {
+				result.rejectValue("start_date", "패널티 기간이 중복되었습니다.");
 			}
 		}
 		
