@@ -29,94 +29,234 @@
 <script type="text/javascript" src="https://www.gbelib.kr/resources/cms/js/design.js"></script>
 
 <script type="text/javascript">
-//체크박스 전체선택
 $(function() {
+	//체크박스 전체선택
 	$('#all-check').on('click', function(e) {
 		e.preventDefault();
 		if($(this).attr('keyValue') == 'N') {
 			$(this).attr('keyValue', 'Y');
-			$('.locker_idx').prop('checked', true);
+			$('.request_idx').prop('checked', true);
 		} else {
 			$(this).attr('keyValue', 'N');
-			$('.locker_idx').prop('checked', false);
+			$('.request_idx').prop('checked', false);
 		}
+	});
+	
+	//검색버튼
+	$('button#search_btn').on('click', function(e) {
+		e.preventDefault();
+		$('#viewPage').val(1);
+		doGetLoad('index.do', $('form#untactBookReservation').serialize());
+	});
+	
+	//엑셀저장
+	$('a#excelDownload').on('click', function(e) {
+		$('#untactBookReservation').attr('action', 'excelDownload.do').submit();
+		$('#untactBookReservation').attr('action', 'index.do');
+		e.preventDefault();
 	});
 });
 
+//진행상황 변경 버튼
+function reservationStepChange(member_id, member_name, reservation_step, request_number, $this) {
+	
+	var ajaxData = {
+		'member_id' : member_id,
+		'member_name' : member_name,
+		'reservation_step' : reservation_step,
+		'request_number' : request_number
+	};
+	
+	if(confirm(reservation_step + ' 하시겠습니까?')) {
+		$.ajax({
+			type: "POST",
+			url: 'modifyReservationStep.do',
+			data: ajaxData,
+			success: function(response) {
+				if(response.valid) {
+					alert(reservation_step + ' 되었습니다.'); 
+					if(reservation_step == '비치') {
+						$this.hide();
+						$this.parent().children('a#loanBook').show();
+						$this.parent().parent().next().children('#reservationStep').text('비치');
+					} else if(reservation_step == '대출') {
+						$this.hide();
+						$this.parent().children('a#cancelBook').show();
+						$this.parent().parent().next().children('#reservationStep').text('대출');
+					}
+				} else {
+					alert('사물함 비밀번호가 등록되어있지 않습니다. \n\n비밀번호 랜덤생성 버튼을 눌러주세요.');
+				}
+			},
+			error : function() {
+				alert(reservation_step + ' 에 실패했습니다.\n\n관리자에게 문의해 주세요.');
+			}
+		});
+	}
+}
+
+//취소버튼
+function cancelSettingEdit(member_id, member_name, request_number) {
+	if(confirm(member_name + '(' + member_id + ')님의 신청을 취소하시겠습니까?')) {
+
+		var ajaxData = {
+			'member_id' : member_id,
+			'member_name' : member_name,
+			'request_number' : request_number
+		};
+	
+		$.ajax({
+			url: 'cancelSettingEdit.do',
+			method: 'GET',
+			data : ajaxData,
+			success: function(html) { 
+					modal_layer_add('dialog_layer');
+					$('#dialog_layer').html(html);
+					
+					$('#dialog_layer').dialog({ //모달창 기본 스크립트 선언
+						resizable: false,
+						modal: true,
+						title: '신청 취소',
+						open: function(){
+							$('.ui-widget-overlay').addClass('custom-overlay');
+						},
+						close: function(){
+						},
+						buttons: [
+							{
+								text : '저장',
+								'class' : 'btn btn1',
+								click : function() {
+									cancelSettingSave();
+								}
+							},
+							{
+								text: "취소",
+								"class": 'btn btn_round btn_gray',
+								click: function() {
+									$(this).dialog('close');
+								}
+							}
+						]
+					});
+
+					$("#dialog_layer").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
+						width: 600,
+						height: 300
+					});
+			},error: function(html) {
+			}
+		});
+	}
+}
+
+//체크박스 전체삭제
 function allChange() {
 	if($('input:checkbox[name=request_number_arr]:checked').length < 1) {
-		alert('수정할 사물함을 선택해 주세요.');
-	} else if($('#locker_all_change').val() == '') {
-		alert('사물함 용도를 선택해 주세요.');
+		alert('삭제할 아이디를 선택해 주세요.');
 	} else {
-		if(confirm('선택된 사물함들을 수정하시겠습니까?')) {
+		if(confirm('전체 삭제 하시겠습니까?')) {
 			$.ajax({
 				type: "POST",
-				url: 'modifyAll.do',
-				data: $('input[name=request_number_arr], #locker_all_change').serialize(),
+				url: 'deleteAll.do',
+				data: $('input[name=request_number_arr]').serialize(),
 				success: function(response) {
 					if(response.valid) {
-						alert('전체수정 되었습니다.');
+						alert('전체삭제 되었습니다.');
 					}
 					location.reload();
 				},
 				error : function() {
-					alert('전체수정에 실패했습니다.\n\n관리자에게 문의해 주세요.');
+					alert('전체 삭제에 실패했습니다.\n\n관리자에게 문의해 주세요.');
 				}
 			});
 		} 
 	}
 }
 
-function penaltySettingEdit(member_id, member_name) {
-	modal_layer_add('dialog_layer');
-	
-	var ajaxData = {
-		'member_id' : member_id,
-		'member_name' : member_name
-	};
-	
-	$.ajax({
-		url: 'penaltySettingEdit.do',
-		method: 'GET',
-		data : ajaxData,
-		success: function(html){
-			$('#dialog_layer').html(html);
-		},error: function(html){
-		}
-	});
+//패널티버튼
+function blackListSettingEdit(member_id, member_name, request_number) {
+	if(confirm(member_name + '(' + member_id + ')님에 패널티를 부여하시겠습니까?')) {
 
-	$('#dialog_layer').dialog({ //모달창 기본 스크립트 선언
-		resizable: false,
-		modal: true,
-		title: '패널티 부여',
-		open: function(){
-			$('.ui-widget-overlay').addClass('custom-overlay');
-		},
-		close: function(){
-		},
-		buttons: [
-			{
-				text : '패널티부여',
-				'class' : 'btn btn1',
-				click : function() {
-					penaltySettingSave();
+		var ajaxData = {
+			'member_id' : member_id,
+			'member_name' : member_name,
+			'request_number' : request_number
+		};
+	
+		$.ajax({
+			url: 'blackListSettingEdit.do',
+			method: 'GET',
+			data : ajaxData,
+			success: function(html) { 
+				if(html == 'penaltyFalse') {
+					alert(member_name + '(' + member_id + ')님은 이미 페널티가 부여되었습니다.\n\n패널티 부여는 한 아이디당 하루에 한번만 가능합니다.');
+				} else {
+					modal_layer_add('dialog_layer');
+					$('#dialog_layer').html(html);
+					
+					$('#dialog_layer').dialog({ //모달창 기본 스크립트 선언
+						resizable: false,
+						modal: true,
+						title: '패널티 부여',
+						open: function(){
+							$('.ui-widget-overlay').addClass('custom-overlay');
+						},
+						close: function(){
+						},
+						buttons: [
+							{
+								text : '패널티부여',
+								'class' : 'btn btn1',
+								click : function() {
+									blackListSettingSave();
+								}
+							},
+							{
+								text: "취소",
+								"class": 'btn btn_round btn_gray',
+								click: function() {
+									$(this).dialog('close');
+								}
+							}
+						]
+					});
+
+					$("#dialog_layer").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
+						width: 600,
+						height: 250
+					});
 				}
-			},
-			{
-				text: "취소",
-				"class": 'btn btn_round btn_gray',
-				click: function() {
-					$(this).dialog('close');
-				}
+			},error: function(html) {
 			}
-		]
-	});
+		});
+		
+	}
+	
+}
 
-	$("#dialog_layer").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
-		width: 600,
-		height: 500
-	});
+//비밀번호 랜덤생성 버튼
+function randomPassword(passwordCount, nonPasswordCount) {
+	if(confirm('비밀번호를 생성하시겠습니까?')) {
+		var ajaxData = {
+				'passwordCount' : passwordCount,
+				'nonPasswordCount' : nonPasswordCount
+		};
+		
+		$.ajax({
+			type: "POST",
+			url: 'randomPassword.do',
+			success: function(html) {
+				if(html == 'passwordCheck') {
+					alert(passwordCount + '개 모두 이미 비밀번호가 생성되었습니다.');
+				} else {
+				alert('전체 ' + passwordCount + '개 중 \n\n 비밀번호 생성이 안된' + nonPasswordCount + '개 비밀번호가 생성되었습니다.');
+				location.reload();
+				}
+			},error: function(html) {
+			}
+		});
+	}
 }
 
 </script>
@@ -176,20 +316,9 @@ function penaltySettingEdit(member_id, member_name) {
 	}
 	</style>
 <div id="wrap">
-
 	<div id="container">
-		<div class="page-subtitle">
-			<h3>
-				비대면 신청관리(사물함사용시)
-			</h3>
-			<div class="location">
-				홈페이지모듈관리</span>
-				<em>&gt;</em>
-				<strong>비대면 신청관리(사물함사용시)</strong>
-			</div>
-		</div>
-		
-		<form:form id="untactBookReservation" modelAttribute="untactBookReservation" method="POST" action="save.do" onsubmit="return false;">
+		<form:form id="untactBookReservation" modelAttribute="untactBookReservation" method="POST" action="index.do">
+		<form:hidden id="homepage_id" path="homepage_id"/>
 		<div class="wrapper wrapper-white">
 
 			<div class="cont-box">
@@ -208,22 +337,24 @@ function penaltySettingEdit(member_id, member_name) {
 				</div>
 				
 				<div class="untact-box">
+					<div class="ui-state-highlight">
+						<em>* 패널티 부여는 비대면 블랙리스트관리에서 확인 하실수 있습니다.</em>
+					</div>
 					<div style="text-align:right;padding-top:10px;padding-bottom:10px;">
-						<a href="#" class="btn btn1 btnuntact">비밀번호랜덤생성</a>
+						<a href="javascript:void(0);" class="btn btn1 btnuntact" onclick="randomPassword('${passwordCount}', '${nonPasswordCount}');">비밀번호랜덤생성</a>
 					</div>
 					<div class="table-wrap">
 						<table class="type1 center">
 							<thead>
 								<tr>
 									<th scope="col">선택</th>
-									<th scope="col">번호</th>
 									<th scope="col">신청자아이디</th>
-									<th scope="col">대출번호</th>
 									<th scope="col">신청자명</th>
 									<th scope="col">도서명</th>
 									<th scope="col">사물함번호</th>
 									<th scope="col">비밀번호</th>
 									<th scope="col">관리</th>
+									<th scope="col">상태</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -234,30 +365,41 @@ function penaltySettingEdit(member_id, member_name) {
 							</c:if>
 							<c:forEach var="i" varStatus="status" items="${untactBookReservationList}">
 								<tr>
-									<td><form:checkbox path="request_number_arr" cssClass="locker_idx" value="${i.request_number}"/></td>
-									<td>${i.request_number}</td>
+									<td><form:checkbox path="request_number_arr" cssClass="request_idx" value="${i.request_number}"/></td>
 									<td>${i.member_id}</td>
-									<td>${i.reg_no}</td>
 									<td>${i.member_name}</td>
 									<td>${i.book_name}</td>
 									<td>${i.locker_number}</td>
-									<td>${i.locker_password}</td>
+									<td>
+										<c:choose>
+											<c:when test="${i.locker_password eq 0}">
+											등록된 비밀번호가 없습니다.
+											</c:when>
+											<c:otherwise>
+											${i.locker_password}	
+											</c:otherwise>
+										</c:choose>
+									</td>
 									<td>
 									<div class="button">
-										<a href="#" id="setBook" class="btn btn1 btnuntact">비치</a>
-										<a href="#" id="loanBook" class="btn btn2 btnuntact">대출</a>
-										<a href="#" class="btn btnuntact">취소</a>
-										<a href="javascript:void(0);" class="btn btn5 btnuntact" onclick="penaltySettingEdit('${i.member_id}' ,'${i.member_name}');">패널티부여</a>
+										<a href="javascript:void(0);" id="setBook" class="btn btn1 btnuntact" onclick="reservationStepChange('${i.member_id}', '${i.member_name}', '비치', '${i.request_number}', $(this));" ${i.reservation_step eq '접수'?'':' style="display:none;"'}>비치</a>
+										<a href="javascript:void(0);" id="loanBook" class="btn btn2 btnuntact" onclick="reservationStepChange('${i.member_id}', '${i.member_name}', '대출', '${i.request_number}', $(this));" ${i.reservation_step eq '비치'?'':' style="display:none;"'}>대출</a>
+										<a href="javascript:void(0);" id="cancelBook" class="btn btnuntact" onclick="cancelSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');" ${i.reservation_step eq '대출'?'':' style="display:none;"'}>취소</a>
+										<a href="javascript:void(0);" id="penaltyBook" class="btn btn5 btnuntact" onclick="blackListSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');">패널티부여</a>
 									</div>
+									</td>
+									<td>
+										<span id="reservationStep">${i.reservation_step}</span>
 									</td>
 								</tr>
 							</c:forEach>
 							</tbody>
 						</table>
 					</div>
+					
 					<div style="padding-top:10px;">
 						<a href="#" class="btn btn3 btnuntact" id="all-check" keyValue="N">전체선택</a>
-						<a href="#" id="search_btn" class="btn btn4 btnuntact" onclick="allChange();">전체삭제</a>
+						<a href="#" id="deleteAll" class="btn btn4 btnuntact" onclick="allChange();">전체삭제</a>
 						<a href="#" id="excelDownload" class="btn btn2 btnuntact">엑셀저장</a>
 					</div>
 
@@ -273,23 +415,11 @@ function penaltySettingEdit(member_id, member_name) {
 							<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
 						</fieldset>
 					</div>
+					
 				</div>
-
-				<div style='clear:both;'></div>
 			</div>
-			</form:form>
-		</div>
+		</form:form>
 	</div>
-
-	<div class="copyright">
-		<div class="pull-left">
-			&copy; 2016 <strong>WBuilder</strong>. All rights reserved.
-		</div>
-		<div class="pull-right">
-			<a href="/index.do" target="_blank">대표홈페이지 바로가기</a>
-		</div>
-	</div>
-
 </div>
 </body>
 </html>	

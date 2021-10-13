@@ -18,10 +18,8 @@ public class UntactBookReservationSearchView  extends AbstractJExcelView {
 
 		@SuppressWarnings("unchecked")
 		List<UntactBookReservation> list = (List<UntactBookReservation>) model.get("untactBookReservationList");
-		UntactBookReservation UntactBookReservations = (UntactBookReservation) model.get("untactBookReservation");
 
-		String searchTime = UntactBookReservations.getStart_date()+"~"+UntactBookReservations.getEnd_date();
-		String fileName = "(" + searchTime + ") 비대면전체신청내역.xls";
+		String fileName = "비대면전체신청내역.xls";
 
 		response.setHeader("Content-Disposition", AttachmentUtils.getContentDisposition(fileName, request.getHeader("user-agent")));
 		response.setHeader("Content-Transfer-Encoding", "binary");

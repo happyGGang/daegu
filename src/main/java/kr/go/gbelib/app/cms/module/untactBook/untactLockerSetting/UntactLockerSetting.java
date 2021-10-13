@@ -4,10 +4,10 @@ import kr.co.whalesoft.framework.utils.PagingUtils;
 
 public class UntactLockerSetting extends PagingUtils {
 	
-	private String homepage_id;  //홈페이지ID
-	private int locker_number;  //사물함번호
-	private int[] locker_number_arr;  //사물함번호_arr
-	private String locker_type;  //사물함용도
+	private String homepage_id; 		 //홈페이지ID
+	private int locker_number;  		//사물함번호
+	private int[] locker_number_arr; 	//사물함번호_arr
+	private String locker_type;  		//사물함용도
 	
 	public String getHomepage_id() {
 		return homepage_id;

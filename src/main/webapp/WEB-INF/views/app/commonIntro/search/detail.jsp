@@ -211,14 +211,17 @@ $(function() {
 		<div class="sinfo">
 			<div class="thumb">
 				<c:choose>
-					<c:when test="${empty detail.aladin or empty detail.aladin.cover}">
+					<c:when test="${(empty detail.aladin or empty detail.aladin.cover) and empty detail.imageUrl}">
 				<p class="noImg">
 					<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="noImage"/>
 				</p>
 					</c:when>
+					<c:when test="${not empty detail.aladin or not empty detail.aladin.cover}">
+						<img src="${detail.aladin.cover}" alt="${detail.TITLE_INFO}">
+					</c:when>
 					<c:otherwise>
 				<p>
-					<img src="${detail.aladin.cover}" alt="${detail.TITLE_INFO}">
+					<img src="${detail.imageUrl}" alt="${detail.TITLE_INFO}">
 				</p>
 					</c:otherwise>
 				</c:choose>
@@ -480,7 +483,7 @@ $(function() {
 
 				</c:otherwise>
 			</c:choose>
-
+<!-- 
 			<%
 				org.joda.time.DateTime now = new org.joda.time.DateTime();
 				int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
@@ -488,7 +491,7 @@ $(function() {
 			%>
 			
 			<a href="#untact" id="untactBook-req" class="btn btn2"><span>비대면 도서대출</span></a>
-			
+			 -->
 			<c:choose>
 				<c:when test="${homepage.context_path eq 'jungang'}">
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">

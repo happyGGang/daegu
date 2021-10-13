@@ -248,7 +248,7 @@ $(function() {
 					<form:select path="menu_type" cssClass="selectmenu">
 						<form:option value="container">내부링크</form:option>
 						<form:option value="module">모듈</form:option>
-<%-- 						<form:option value="_blank">외부링크</form:option> --%>
+ 						<form:option value="_blank">외부링크</form:option>
 					</form:select>
 					<p class="info">외부 링크의 경우 새창으로 연결됩니다.</p>
 				</td>

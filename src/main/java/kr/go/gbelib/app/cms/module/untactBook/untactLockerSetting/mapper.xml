@@ -75,7 +75,11 @@
 
 	<select id="getUntactBookSettingOne" resultType="kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactBookSetting">
 		SELECT
-			homepage_id, locker_use_yn, row_count, total_count
+			homepage_id, locker_use_yn, row_count, total_count, reservation_max_count, 
+			SUBSTR(loan_time,0,2) AS start_hour,
+			SUBSTR(loan_time,4,2) AS start_minute,
+			SUBSTR(loan_time,7,2) AS end_hour, 
+			SUBSTR(loan_time,10,2) AS end_minute
 		FROM
 			UNTACT_BOOK_SETTING
 		WHERE
@@ -92,14 +96,43 @@
 				UPDATE SET
 				    a.locker_use_yn = #{locker_use_yn},
 					a.row_count = #{row_count},
-					a.total_count = #{total_count}
+					a.total_count = #{total_count},
+					a.reservation_max_count = #{reservation_max_count},
+					a.loan_time = #{start_hour}||':'||#{start_minute}||'~'||#{end_hour}||':'||#{end_minute}
 			WHEN NOT MATCHED THEN
 				INSERT (
-					homepage_id, locker_use_yn, row_count, total_count
+					homepage_id, locker_use_yn, row_count, total_count, reservation_max_count, loan_time
 				) VALUES (
-					#{homepage_id}, #{locker_use_yn}, #{row_count}, #{total_count}
+					#{homepage_id}, #{locker_use_yn}, #{row_count}, #{total_count}, #{reservation_max_count}, #{start_hour}||':'||#{start_minute}||'~'||#{end_hour}||':'||#{end_minute}
 				)
-
 	</update>
-
+	
+	<select id="reservationTimeCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			UNTACT_BOOK_SETTING
+		WHERE
+			homepage_id = #{homepage_id}
+		AND TO_CHAR(SYSDATE, 'HH24:MI') <![CDATA[<]]> TO_CHAR(SUBSTR(loan_time,0,2)||':'||SUBSTR(loan_time,4,2))
+		OR TO_CHAR(SYSDATE, 'HH24:MI') > TO_CHAR(SUBSTR(loan_time,7,2)||':'||SUBSTR(loan_time,10,2))
+	</select>
+	
+	<select id="reservationMaxCount" resultType="int">
+		SELECT
+			reservation_max_count
+		FROM
+			UNTACT_BOOK_SETTING
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+	
+	<select id="getLoanTime" resultType="String">
+		SELECT
+			loan_time
+		FROM
+			UNTACT_BOOK_SETTING
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
 </mapper>

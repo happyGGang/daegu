@@ -4,7 +4,7 @@
 	
 	<sql id="where">
 		<if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
-		AND TO_DATE(request_date,'yyyy-MM-dd') BETWEEN #{start_date} AND #{end_date}
+			AND TO_DATE(request_date,'yyyy-MM-dd') BETWEEN #{start_date} AND #{end_date}
 		</if>
     	<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
 			AND ${search_type} LIKE '%'||#{search_text}||'%'
@@ -27,31 +27,67 @@
 			SELECT
 				homepage_id, locker_number, request_number, member_id, member_name,
 				TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date, locker_password, reservation_step, reg_no, book_regno,
-				book_isbn, book_name, loan_date, cancel_yn, cancel_reason
+				book_isbn, book_name, loan_date, cancel_yn, cancel_reason,
+				cancel_id, cancel_ip, sms_send_yn, sms_send_date
 			FROM
 				UNTACT_BOOK_RESERVATION
 			WHERE
 				homepage_id = #{homepage_id}
 			AND cancel_yn = 'N'
 			<include refid="where"/>
-			ORDER BY
-				request_number DESC
+			ORDER BY request_number DESC
+		${pagingBottom}	
+	</select>
+	
+	<select id="getUntactBookReservationExcelList" resultType="kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservation">
+		SELECT
+			homepage_id, locker_number, request_number, member_id, member_name,
+			TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date, locker_password, reservation_step, reg_no, book_regno,
+			book_isbn, book_name, loan_date, cancel_yn, cancel_reason,
+			cancel_id, cancel_ip, sms_send_yn, sms_send_date
+		FROM
+			UNTACT_BOOK_RESERVATION
+		WHERE
+			homepage_id = #{homepage_id}
+		AND cancel_yn = 'N'
+		AND TO_CHAR(request_date,'YY/MM/DD') = TO_CHAR(SYSDATE,'YY/MM/DD')
+		<include refid="where"/>
+		ORDER BY request_number DESC
+	</select>
+	
+	<select id="getUntactBookReservationListNow" resultType="kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservation">
+		${pagingTop}
+			SELECT
+				homepage_id, locker_number, request_number, member_id, member_name,
+				TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date, locker_password, reservation_step, reg_no, book_regno,
+				book_isbn, book_name, loan_date, cancel_yn, cancel_reason,
+				cancel_id, cancel_ip, sms_send_yn, sms_send_date
+			FROM
+				UNTACT_BOOK_RESERVATION
+			WHERE
+				homepage_id = #{homepage_id}
+			AND cancel_yn = 'N'
+			AND TO_CHAR(request_date,'YY/MM/DD') = TO_CHAR(SYSDATE,'YY/MM/DD')
+			<include refid="where"/>
+			ORDER BY request_number DESC
 		${pagingBottom}	
 	</select>
 	
 	<insert id="addUntactBookReservation">
 		<selectKey keyProperty="request_number" resultType="int" order="BEFORE">
-		    SELECT NVL(MAX(request_number),0)+1 FROM UNTACT_BOOK_RESERVATION WHERE homepage_id = #{homepage_id} AND TO_CHAR(request_date, 'yyyy-MM-dd') = TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+		    SELECT NVL(MAX(request_number),0)+1 FROM UNTACT_BOOK_RESERVATION WHERE homepage_id = #{homepage_id}
 		</selectKey>
 		INSERT INTO UNTACT_BOOK_RESERVATION
 		(
 			homepage_id, locker_number, request_number, member_id, member_name,
 			request_date, locker_password, reservation_step, reg_no, book_regno,
-			book_isbn, book_name, loan_date, cancel_yn, cancel_reason
+			book_isbn, book_name, loan_date, cancel_yn, cancel_reason,
+			cancel_id, cancel_ip, sms_send_yn, sms_send_date
 		) VALUES (
 			#{homepage_id}, #{locker_number}, #{request_number}, #{member_id}, #{member_name},
 			TO_DATE(#{request_date},'yyyy-MM-dd HH24:MI:SS'), #{locker_password}, '접수', #{reg_no}, #{book_regno},
-			#{book_isbn}, #{book_name}, #{loan_date}, 'N', #{cancel_reason}
+			#{book_isbn}, #{book_name}, #{loan_date}, 'N', #{cancel_reason},
+			#{cancel_id}, #{cancel_ip}, #{sms_send_yn}, #{sms_send_date}
 		)
 	</insert>
 	
@@ -97,7 +133,8 @@
 		SELECT
 			homepage_id, locker_number, request_number, member_id, member_name,
 			TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date, locker_password, reservation_step, reg_no, book_regno,
-			book_isbn, book_name, loan_date, cancel_yn, cancel_reason
+			book_isbn, book_name, loan_date, cancel_yn, cancel_reason,
+			cancel_id, cancel_ip, sms_send_yn, sms_send_date
 		FROM
 			UNTACT_BOOK_RESERVATION
 		WHERE
@@ -105,6 +142,173 @@
 		AND cancel_yn = 'N'
 		AND member_id = #{member_id}
 		AND member_name = #{member_name}
+		AND request_number = #{request_number}
 	</select>
 	
+	<update id="changeReservationStep">
+		UPDATE
+			UNTACT_BOOK_RESERVATION
+		SET
+			locker_type = #{locker_type}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND member_id = #{member_id}
+		AND reservation_step = #{reservation_step}
+		AND TO_CHAR(request_date, 'yyyy-MM-dd') = TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+	</update>
+	
+	<update id="deleteAllReservation">
+		UPDATE
+			UNTACT_BOOK_RESERVATION
+		SET
+			cancel_yn = 'Y'
+		WHERE
+			homepage_id = #{homepage_id}
+		AND cancel_yn = 'N'
+		AND request_number IN
+		<foreach collection="request_number_arr" item="i" open="(" close=")" separator=",">
+		${i}
+		</foreach>
+	</update>
+	
+	<select id="getNonPasswordList" resultType="kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservation">
+		SELECT
+			homepage_id, request_number
+		FROM
+			UNTACT_BOOK_RESERVATION
+		WHERE
+			homepage_id = #{homepage_id}
+		AND locker_password = 0
+		AND cancel_yn = 'N'
+		AND TO_CHAR(request_date, 'yyyy-MM-dd') = TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+	</select>
+	
+	<update id="insertPassword">
+		UPDATE
+			UNTACT_BOOK_RESERVATION
+		SET
+			locker_password = #{locker_password}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND request_number = #{request_number}
+		AND cancel_yn = 'N'
+		AND TO_CHAR(request_date, 'yyyy-MM-dd') = TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+	</update>
+	
+	<update id="modifyReservationStep">
+		UPDATE
+			UNTACT_BOOK_RESERVATION
+		SET
+			reservation_step = #{reservation_step}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND member_id = #{member_id}
+		AND request_number = #{request_number}
+		AND TO_CHAR(request_date, 'yyyy-MM-dd') = TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+	</update>
+	
+	<update id="cancelReservationStep">
+		UPDATE
+			UNTACT_BOOK_RESERVATION
+		SET
+			cancel_yn = 'Y',
+			cancel_reason = #{cancel_reason},
+			cancel_id = #{cancel_id},
+			cancel_ip = #{cancel_ip},
+			cancel_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND member_id = #{member_id}
+		AND cancel_yn = 'N'
+		AND request_number = #{request_number}
+	</update>
+	
+	<select id="getCancelReservationList" resultType="kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservation">
+		SELECT
+			cancel_reason, cancel_id, cancel_ip, cancel_date
+		FROM
+			UNTACT_BOOK_RESERVATION
+		WHERE
+			homepage_id = #{homepage_id}
+		AND cancel_yn = 'Y'
+		<include refid="where"/>
+	</select>
+	
+	<select id="checkPassword" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			UNTACT_BOOK_RESERVATION
+		WHERE
+			homepage_id = #{homepage_id}
+		AND member_id = #{member_id}
+		AND TO_CHAR(request_date, 'yyyy-MM-dd') = TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+		AND locker_password = 0
+	</select>
+	
+	<select id="checkPasswordCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			UNTACT_BOOK_RESERVATION
+		WHERE
+			homepage_id = #{homepage_id}
+		AND TO_CHAR(request_date, 'yyyy-MM-dd') = TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+		AND cancel_yn = 'N'
+	</select>
+	
+	<select id="checkNonPasswordCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			UNTACT_BOOK_RESERVATION
+		WHERE
+			homepage_id = #{homepage_id}
+		AND TO_CHAR(request_date, 'yyyy-MM-dd') = TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+		AND cancel_yn = 'N'
+		AND locker_password = 0
+	</select>
+	
+	<select id="reservationCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			UNTACT_BOOK_RESERVATION
+		WHERE
+			homepage_id = #{homepage_id}
+		AND TO_CHAR(request_date, 'yyyy-MM-dd') = TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+		AND cancel_yn = 'N'
+		AND member_id = #{member_id}
+	</select>
+	
+	<select id="getUntactBookReservationInfo" resultType="kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservation">
+		SELECT
+			homepage_id, locker_number, request_number, member_id, member_name,
+			TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date, locker_password, reservation_step, reg_no, book_regno,
+			book_isbn, book_name, loan_date, cancel_yn, cancel_reason,
+			cancel_id, cancel_ip, sms_send_yn, sms_send_date
+		FROM
+			UNTACT_BOOK_RESERVATION
+		WHERE
+			homepage_id = #{homepage_id}
+		AND cancel_yn = 'N'
+		AND member_id = #{member_id}
+		AND TO_CHAR(request_date, 'yyyy-MM-dd') = TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+	</select>
+	
+	<update id="cancelReserve">
+		UPDATE
+			UNTACT_BOOK_RESERVATION
+		SET
+			cancel_yn = 'Y',
+			cancel_reason = '사용자본인',
+			cancel_id = #{member_id},
+			cancel_ip = #{cancel_ip},
+			cancel_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND member_id = #{member_id}
+		AND cancel_yn = 'N'
+		AND request_number = #{request_number}
+	</update>
 </mapper>

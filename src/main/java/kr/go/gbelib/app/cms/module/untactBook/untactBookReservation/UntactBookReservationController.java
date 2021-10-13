@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
@@ -29,10 +30,10 @@ public class UntactBookReservationController extends BaseController {
 		
 		if(untactBookReservation == null) {  
 			untactBookReservation = new UntactBookReservation();
-			untactBookReservation.setHomepage_id(getAsideHomepageId(request));
+			untactBookReservation.setHomepage_id(getAsideHomepageId(request));  
 		}
 		
-		if ( StringUtils.isEmpty(untactBookReservation.getEnd_date()) ) {
+		if (StringUtils.isEmpty(untactBookReservation.getEnd_date())) {
 			SimpleDateFormat startDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			Date now = new Date();
@@ -44,7 +45,7 @@ public class UntactBookReservationController extends BaseController {
 		
 		int count = reservationService.getUntactBookReservationListCount(untactBookReservation);
 		reservationService.setPaging(model, count, untactBookReservation);
-		untactBookReservation.setTotalPageCount(count);
+		untactBookReservation.setTotalDataCount(count);
 		
 		model.addAttribute("untactBookReservation", untactBookReservation);
 		model.addAttribute("untactBookReservationListCount", count);
@@ -53,10 +54,10 @@ public class UntactBookReservationController extends BaseController {
 		return basepath + "index";
 	}
 	
-	@RequestMapping(value = {"/excelDownload.*"})
+	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
 	public UntactBookReservationSearchView excelDownload(Model model, UntactBookReservation untactBookReservation, HttpServletRequest request){
 		model.addAttribute("untactBookReservation", untactBookReservation);
-		model.addAttribute("untactBookReservationList", reservationService.getUntactBookReservationList(untactBookReservation));
+		model.addAttribute("untactBookReservationList", reservationService.getUntactBookReservationExcelList(untactBookReservation));
 		
 		return new UntactBookReservationSearchView();
 	}

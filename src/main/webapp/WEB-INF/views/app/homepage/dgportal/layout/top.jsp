@@ -33,7 +33,7 @@
 					</c:when>
 					<c:otherwise>
 						<li>
-							<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=43" title="로그인"><img src="/resources/homepage/${homepage.context_path}/img/login_icon.png" alt="로그인" class="tnb-login"/></a>
+							<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=41" title="로그인"><img src="/resources/homepage/${homepage.context_path}/img/login_icon.png" alt="로그인" class="tnb-login"/></a>
 						</li>
 						<li>
 							<a href="http://library.daegu.go.kr/dgportal/intro/join/index.do?menu_idx=42" title="대구통합도서관 회원가입 바로가기(새창열림)" target="_blank" ><img src="/resources/homepage/${homepage.context_path}/img/join_icon.png" alt="회원가입" class="tnb-join"></a>
@@ -41,7 +41,7 @@
 					</c:otherwise>
 					</c:choose>
 						<li>
-							<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=47"><img src="/resources/homepage/${homepage.context_path}/img/sitemap_icon.png" alt="사이트맵" class="tnb-sitemap"></a>
+							<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=53"><img src="/resources/homepage/${homepage.context_path}/img/sitemap_icon.png" alt="사이트맵" class="tnb-sitemap"></a>
 						</li>
 				</ul>
 			</div>

@@ -5,17 +5,17 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <script type="text/javascript">
-function penaltySettingSave() {
-	if ( doAjaxPost($('#untactBookReservation')) ) {
+function blackListSettingSave() {
+	if ( doAjaxPost($('#untactBookBlackList')) ) {
 		location.reload();
 	}
 }
 </script>
 
-<form:form modelAttribute="untactBookPenalty" action="penaltySettingSave.do" >
-<form:hidden path="homepage_id" value="${untactBookPenalty.homepage_id}"/>
-<form:hidden path="member_id" value="${untactBookPenalty.member_id}"/>
-<form:hidden path="member_name" value="${untactBookPenalty.member_name}"/>
+<form:form modelAttribute="untactBookBlackList" action="blackListSettingSave.do" >
+<form:hidden path="homepage_id" value="${untactBookBlackList.homepage_id}"/>
+<form:hidden path="member_id" value="${untactBookBlackList.member_id}"/>
+<form:hidden path="member_name" value="${untactBookBlackList.member_name}"/>
 	<table class="type2">
 		<colgroup>
 			<col width="25%">
@@ -31,9 +31,9 @@ function penaltySettingSave() {
 				<th>패널티사유</th>
 			</tr>
 			<tr>
-				<td>${untactBookPenalty.homepage_id}</td>
-				<td>${untactBookPenalty.member_id}</td>
-				<td>${untactBookPenalty.member_name}</td>
+				<td>${untactBookBlackList.homepage_id}</td>
+				<td>${untactBookBlackList.member_id}</td>
+				<td>${untactBookBlackList.member_name}</td>
 				<td>
 					<form:select path="penalty_reason">
 						<form:option value="도서미수령" label="도서 미수령"/>

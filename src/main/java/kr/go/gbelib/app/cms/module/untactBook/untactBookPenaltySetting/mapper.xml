@@ -77,7 +77,38 @@
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	penalty_idx = #{penalty_idx}
-
 	</delete>
-
+	
+	<select id="duplicateCheck" resultType="int">
+		SELECT
+			COUNT(1)
+		FROM
+			UNTACT_BOOK_PENALTY_SETTING
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	penalty_idx != #{penalty_idx}		
+		AND ((start_date <![CDATA[<=]]> #{start_date} AND end_date >= #{start_date})
+		OR (start_date <![CDATA[<=]]> #{end_date} AND end_date >= #{end_date}))
+	</select>
+	
+	<select id="getPenaltyCount" resultType="int">
+		SELECT
+			penalty_count
+		FROM
+			UNTACT_BOOK_PENALTY_SETTING
+		WHERE
+			homepage_id = #{homepage_id}
+		AND SYSDATE BETWEEN start_date AND end_date 
+	</select>
+	
+	<select id="getEndDate" resultType="String">
+		SELECT
+			TO_CHAR(end_date, 'yyyy-MM-dd') AS end_date
+		FROM
+			UNTACT_BOOK_PENALTY_SETTING
+		WHERE
+			homepage_id = #{homepage_id}
+		AND SYSDATE BETWEEN start_date AND end_date 
+	</select>
+	
 </mapper>
