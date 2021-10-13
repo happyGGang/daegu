@@ -490,8 +490,8 @@ $(function() {
 				int hour = now.getHourOfDay();
 			%>
 			
-			<a href="#untact" id="untactBook-req" class="btn btn2"><span>비대면 도서대출</span></a>
 			 -->
+			<a href="#untact" id="untactBook-req" class="btn btn2"><span>비대면 도서대출</span></a>
 			<c:choose>
 				<c:when test="${homepage.context_path eq 'jungang'}">
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
