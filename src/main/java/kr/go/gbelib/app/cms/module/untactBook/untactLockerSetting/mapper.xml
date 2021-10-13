@@ -114,8 +114,8 @@
 			UNTACT_BOOK_SETTING
 		WHERE
 			homepage_id = #{homepage_id}
-		AND TO_CHAR(SYSDATE, 'HH24:MI') <![CDATA[<]]> TO_CHAR(SUBSTR(loan_time,0,2)||':'||SUBSTR(loan_time,4,2))
-		OR TO_CHAR(SYSDATE, 'HH24:MI') > TO_CHAR(SUBSTR(loan_time,7,2)||':'||SUBSTR(loan_time,10,2))
+		AND (TO_CHAR(SYSDATE, 'HH24:MI') <![CDATA[<]]> TO_CHAR(SUBSTR(loan_time,0,2)||':'||SUBSTR(loan_time,4,2))
+		OR TO_CHAR(SYSDATE, 'HH24:MI') > TO_CHAR(SUBSTR(loan_time,7,2)||':'||SUBSTR(loan_time,10,2)))
 	</select>
 	
 	<select id="reservationMaxCount" resultType="int">

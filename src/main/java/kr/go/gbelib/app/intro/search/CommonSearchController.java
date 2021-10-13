@@ -1764,7 +1764,12 @@ public class CommonSearchController extends BaseController {
 		untactBookReservation.setHomepage_id(homepage.getHomepage_id());
 		untactBookReservation.setMember_id(member.getMember_id());
 		
+		int count = untactBookReservationService.getUntactBookReservationInfoCount(untactBookReservation);
+		untactBookReservationService.setPaging(model, count, untactBookReservation);
+		untactBookReservation.setTotalDataCount(count);
+		
 		model.addAttribute("untactBookReservation", untactBookReservation);
+		model.addAttribute("untactBookReservationListCount", count);
 		model.addAttribute("untactBookReservationList", untactBookReservationService.getUntactBookReservationInfo(untactBookReservation));
 		
 		return String.format(basePath, homepage.getFolder()) + "untactBook/index";
