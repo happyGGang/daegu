@@ -18,6 +18,14 @@ $(function() {
 <form:form modelAttribute="lectureInfo" id="lectureInfoView" >
 <form:hidden path="homepage_id"/>
 <form:hidden path="editMode"/>
+<form:hidden path="viewPage"/>
+<form:hidden path="searching_course_id"/>
+<form:hidden path="searching_reservation"/>
+<form:hidden path="searching_edu_status"/>
+<form:hidden path="searching_request_type"/>
+<form:hidden path="start_period"/>
+<form:hidden path="end_period"/>
+<form:hidden path="search_text"/>
 
 	<table class="type1">
 		<colgroup>
@@ -48,50 +56,13 @@ $(function() {
 			<tr>
 				<th>교육요일</th>
 				<td>
-					<c:forEach var="i" varStatus="iStatus" items="${lectureInfo.day_week_arr}">
-						<c:if test="${i eq '2'}">
-							월
-							<c:if test="${!iStatus.last}">
-								,&nbsp;
-							</c:if>
-						</c:if>
-						<c:if test="${i eq '3'}">
-							화
-							<c:if test="${!iStatus.last}">
-								,&nbsp;
-							</c:if>
-						</c:if>
-						<c:if test="${i eq '4'}">
-							수
-							<c:if test="${!iStatus.last}">
-								,&nbsp;
-							</c:if>
-						</c:if>
-						<c:if test="${i eq '5'}">
-							목
-							<c:if test="${!iStatus.last}">
-								,&nbsp;
-							</c:if>
-						</c:if>
-						<c:if test="${i eq '6'}">
-							금
-							<c:if test="${!iStatus.last}">
-								,&nbsp;
-							</c:if>
-						</c:if>
-						<c:if test="${i eq '7'}">
-							토
-							<c:if test="${!iStatus.last}">
-								,&nbsp;
-							</c:if>
-						</c:if>
-						<c:if test="${i eq '1'}">
-							일
-							<c:if test="${!iStatus.last}">
-								,&nbsp;
-							</c:if>
-						</c:if>
-					</c:forEach>
+					${fn:contains(lectureInfo.day_week, '1')?'월':''}
+					${fn:contains(lectureInfo.day_week, '2')?'화':''}
+					${fn:contains(lectureInfo.day_week, '3')?'수':''}
+					${fn:contains(lectureInfo.day_week, '4')?'목':''}
+					${fn:contains(lectureInfo.day_week, '5')?'금':''}
+					${fn:contains(lectureInfo.day_week, '6')?'토':''}
+					${fn:contains(lectureInfo.day_week, '7')?'일':''}
 				</td>
 			</tr>
 			<tr>
@@ -103,12 +74,12 @@ $(function() {
 				<td>${lectureInfo.online_person_count} 명</td>
 			</tr>
 			<tr>
-				<th>오프라인 모집인원</th>
-				<td>${lectureInfo.offline_person_count} 명</td>
-			</tr>
-			<tr>
 				<th>대기 모집인원</th>
 				<td>${lectureInfo.wait_person_count} 명</td>
+			</tr>
+			<tr>
+				<th>오프라인 모집인원</th>
+				<td>${lectureInfo.offline_person_count} 명</td>
 			</tr>
 			<tr>
 				<th>접수방법</th>
@@ -148,7 +119,8 @@ $(function() {
 			</tr>
 			<tr>
 				<th>등록일</th>
-				<td>${lectureInfo.add_date}</td>
+				<fmt:formatDate var="formatRegDate" value="${lectureInfo.add_date}" pattern="yyyy-MM-dd hh:mm:ss"/>
+				<td>${formatRegDate}</td>
 			</tr>
 			<tr>
 				<th>등록ID</th>

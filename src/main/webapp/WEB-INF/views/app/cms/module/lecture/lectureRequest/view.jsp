@@ -30,6 +30,10 @@ $(function() {
 				<td>${lectureRequest.lecture_id}</td>
 			</tr>
 			<tr>
+				<th>신청고유번호</th>
+				<td>${lectureRequest.request_id}</td>
+			</tr>
+			<tr>
 				<th>강좌 제목</th>
 				<td>${lectureRequest.lecture_title}</td>
 			</tr>
@@ -71,7 +75,7 @@ $(function() {
 			</tr>
 			<tr>
 				<th>등록일</th>
-				<fmt:formatDate var="formatRegDate" value="${lectureRequest.add_date}" pattern="yyyy-MM-dd"/>
+				<fmt:formatDate var="formatRegDate" value="${lectureRequest.add_date}" pattern="yyyy-MM-dd hh:mm:ss"/>
 				<td>${formatRegDate}</td>
 			</tr>
 			<tr>
@@ -88,7 +92,7 @@ $(function() {
 			</tr>
 			<tr>
 				<th>취소일</th>
-				<fmt:formatDate var="formatCancelDate" value="${lectureRequest.cancel_date}" pattern="yyyy-MM-dd"/>
+				<fmt:formatDate var="formatCancelDate" value="${lectureRequest.cancel_date}" pattern="yyyy-MM-dd hh:mm:ss"/>
 				<td>${formatCancelDate}</td>
 			</tr>
 			<tr>

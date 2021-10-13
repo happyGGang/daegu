@@ -23,7 +23,7 @@ public class LectureInfo extends PagingUtils {
     private String teacher_name;        // 강사명
     private String teacher_tel;         // 강사_연락처
     private String supporter_name;      // 담당자
-    private String supporter_tel;       // 담장자_연락처
+    private String supporter_tel;       // 담당자_연락처
     private String edu_school_map;      // 교육장_지도링크
     private String lecture_content;     // 교육소개
     private Date add_date;              // 등록일
@@ -44,6 +44,10 @@ public class LectureInfo extends PagingUtils {
     private int online_request_count;   // 온라인 신청자 수
     private int offline_request_count;  // 오프라인 신청자 수
     private int wait_request_count;     // 대기 신청자 수
+    private Date request_add_date;      // 수강신청 날짜
+    private String request_add_id; // 수강신청 id
+    private String request_status; // 수강신청 예약 상태
+    private String request_id; // 수강신청 고유번호
 
     /**
      * DB에 없는 값
@@ -55,6 +59,7 @@ public class LectureInfo extends PagingUtils {
     private String searching_request_type; // 접수방법 검색
     private String start_period; // 접수기간 시작
     private String end_period; // 접수기간 종료
+    private String connect_type; // 접속 타입
 
     private String[] day_week_arr; // 요일 배열
 
@@ -67,6 +72,30 @@ public class LectureInfo extends PagingUtils {
             }
         }
         return ret;
+    }
+
+    public String getRequest_id() {
+        return request_id;
+    }
+
+    public void setRequest_id(String request_id) {
+        this.request_id = request_id;
+    }
+
+    public String getRequest_status() {
+        return request_status;
+    }
+
+    public void setRequest_status(String request_status) {
+        this.request_status = request_status;
+    }
+
+    public String getRequest_add_id() {
+        return request_add_id;
+    }
+
+    public void setRequest_add_id(String request_add_id) {
+        this.request_add_id = request_add_id;
     }
 
     public String getReverse_rownum() {
@@ -394,5 +423,21 @@ public class LectureInfo extends PagingUtils {
 
     public void setWait_request_count(int wait_request_count) {
         this.wait_request_count = wait_request_count;
+    }
+
+    public String getConnect_type() {
+        return connect_type;
+    }
+
+    public void setConnect_type(String connect_type) {
+        this.connect_type = connect_type;
+    }
+
+    public Date getRequest_add_date() {
+        return request_add_date;
+    }
+
+    public void setRequest_add_date(Date request_add_date) {
+        this.request_add_date = request_add_date;
     }
 }

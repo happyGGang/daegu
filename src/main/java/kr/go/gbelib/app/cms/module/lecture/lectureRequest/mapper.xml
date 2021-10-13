@@ -117,11 +117,7 @@
             address1 = #{address1},
             address2 = #{address2},
             request_status = #{request_status},
-            complete_yn = #{complete_yn},
-            cancel_yn = #{complete_yn},
-            cancel_id = #{cancel_id},
-            cancel_ip = #{cancel_ip},
-            cancel_date = #{cancel_date}
+            complete_yn = #{complete_yn}
         WHERE
             homepage_id = #{homepage_id}
         AND
@@ -135,7 +131,8 @@
             cancel_yn = #{cancel_yn},
             cancel_date = SYSDATE,
             cancel_id = #{cancel_id},
-            cancel_ip = #{cancel_ip}
+            cancel_ip = #{cancel_ip},
+            request_status = #{request_status}
         WHERE
             homepage_id = #{homepage_id}
         AND
@@ -154,10 +151,11 @@
     <select id="getLectureRequestOfflinePersonCount" resultType="int">
         SELECT
                 NVL(offline_person_count, 0) -
-                (SELECT COUNT(*) FROM LECTURE_REQUEST WHERE lecture_id = i.lecture_id AND request_type = '오프라인')
+                (SELECT COUNT(*) FROM LECTURE_REQUEST WHERE lecture_id = i.lecture_id AND request_type = '오프라인' AND request_status IN ('예약완료'))
                 AS person_count
         FROM LECTURE_INFO AS i
-        WHERE lecture_id = #{lecture_id}
+        WHERE
+                lecture_id = #{lecture_id}
     </select>
 
     <select id="getLectureRequestWaitPersonCount" resultType="int">
@@ -180,19 +178,110 @@
             request_status NOT IN ('예약취소')
     </select>
 
+    <select id="getLectureRequestOneLectureIdAndAddId"
+            resultType="kr.go.gbelib.app.cms.module.lecture.lectureRequest.LectureRequest">
+        SELECT
+            *
+        FROM
+            LECTURE_REQUEST
+        WHERE
+            lecture_id = #{param1}
+        AND
+            add_id = #{param2}
+    </select>
     <update id="changeLatestWait">
-        update
+        UPDATE
             lecture_request set request_status = '예약완료'
-        where
-                request_id = (
-                select min(request_id)
-                from lecture_request
-                where
+        WHERE
+            request_id = (
+            SELECT min(request_id)
+            FROM lecture_request
+            WHERE
                     lecture_id = #{lecture_id}
-                  and request_type = #{request_type}
-                  and cancel_yn = 'N'
-                  and request_status LIKE '%대기%'
+                AND request_type = #{request_type}
+                AND cancel_yn = 'N'
+                AND request_status LIKE '%대기%'
             )
     </update>
 
+    <select id="getRequestCountByLectureId" resultType="int">
+        SELECT
+            count(*)
+        FROM
+            LECTURE_REQUEST
+        WHERE
+            lecture_id = #{param1}
+    </select>
+
+    <update id="reapplyLectureRequest">
+        UPDATE
+            LECTURE_REQUEST
+        SET
+            request_id = (SELECT 'REQUEST_' || (TO_NUMBER(NVL(MAX(REPLACE(request_id, 'REQUEST_', '')), TO_CHAR(SYSDATE, 'yyyyMMdd') || LPAD(0, 4, '0'))) + 1)
+                          FROM LECTURE_REQUEST
+                          WHERE request_id LIKE '%' || TO_CHAR(SYSDATE, 'yyyyMMdd') || '%'),
+            request_status = #{request_status},
+            cancel_yn = #{cancel_yn},
+            cancel_id = null,
+            cancel_ip = null,
+            cancel_date = null
+        WHERE
+            request_id = #{request_id}
+    </update>
+
+    <select id="getLectureRequestRaffleListByLectureId" resultType="kr.go.gbelib.app.cms.module.lecture.lectureRequest.LectureRequest">
+        SELECT *
+        FROM LECTURE_REQUEST
+        WHERE
+            lecture_id = #{param1}
+            AND request_type NOT IN ('오프라인')
+            AND request_status NOT IN ('예약취소')
+    </select>
+
+    <update id="updateRequestStatus">
+        UPDATE
+            LECTURE_REQUEST
+        SET
+            request_status = #{request_status}
+        WHERE
+                homepage_id = #{homepage_id}
+            AND request_id = #{request_id}
+    </update>
+
+    <update id="resetRequestStatus">
+        UPDATE
+            LECTURE_REQUEST
+        SET
+            request_status = #{request_status}
+        WHERE
+                homepage_id = #{homepage_id}
+            AND lecture_id = #{lecture_id}
+            AND request_type = '온라인'
+            AND request_status NOT IN ('예약취소')
+    </update>
+
+    <select id="getLectureRequestListByLectureIdAndStatus" resultType="kr.go.gbelib.app.cms.module.lecture.lectureRequest.LectureRequest">
+        SELECT
+            r.*, i.request_type AS info_request_type
+        FROM
+            LECTURE_REQUEST r INNER JOIN LECTURE_INFO i
+        ON
+            r.lecture_id = i.lecture_id
+        WHERE
+                r.homepage_id = #{param1}
+            AND r.lecture_id = #{param2}
+            AND r.request_status like '%'||#{param3}||'%'
+            AND r.request_type IN (#{param4})
+        ORDER BY r.request_name
+    </select>
+
+    <update id="changeLectureRequestStatus">
+        UPDATE
+            LECTURE_REQUEST
+        SET
+            request_status = #{request_status}
+        WHERE
+                homepage_id = #{homepage_id}
+            AND request_id = #{request_id}
+    </update>
 </mapper>

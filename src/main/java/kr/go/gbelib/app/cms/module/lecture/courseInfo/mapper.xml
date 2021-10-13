@@ -91,6 +91,29 @@
 			)
 		WHERE ROWNUM = 1
 	</select>
+
+	<select id="getReservedCourseDates" resultType="kr.go.gbelib.app.cms.module.lecture.courseInfo.CourseInfo">
+		SELECT ( TO_DATE( VIEW_END_DATE, 'YYYY-MM-DD' ) - TO_DATE( VIEW_START_DATE, 'YYYY-MM-DD' ) +1) as day_count, VIEW_START_DATE, VIEW_END_DATE
+		FROM COURSE_INFO
+		WHERE homepage_id = #{homepage_id}
+		<if test="course_id != null and course_id != ''">
+			AND course_id != #{course_id}
+		</if>
+	</select>
+
+	<select id="getOverlapCourseInfoCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			COURSE_INFO
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test="course_id != null and course_id != ''">
+			AND course_id != #{course_id}
+		</if>
+		AND ((view_start_date <![CDATA[<=]]> #{view_start_date} AND view_end_date >= #{view_start_date})
+		OR (view_start_date <![CDATA[<=]]> #{view_end_date} AND view_end_date >= #{view_end_date}))
+	</select>
 	<!--<select id="bookReportContestList" resultType="kr.go.gbelib.app.cms.module.bookReportContest.BookReportContest">
 		${pagingTop}
 		SELECT

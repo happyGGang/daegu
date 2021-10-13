@@ -27,7 +27,7 @@ public class CourseInfoController extends BaseController {
     private LectureInfoService lectureInfoService;
 
     /**
-     * 강과 과정 메인 페이지
+     * 강좌 과정 메인 페이지
     * */
     @RequestMapping (value = {"/index.*"})
     public String index(Model model, CourseInfo courseInfo, HttpServletRequest request) throws Exception {
@@ -44,7 +44,7 @@ public class CourseInfoController extends BaseController {
     }
 
     /**
-     * 강과 과정 등록, 수정 페이지
+     * 강좌 과정 등록, 수정 페이지
      * */
     @RequestMapping (value = {"/edit.*"})
     public String edit(Model model, CourseInfo courseInfo, HttpServletRequest request) throws Exception {
@@ -56,7 +56,7 @@ public class CourseInfoController extends BaseController {
         String course_id = request.getParameter("course_id");
 
         // 수정 모드일 때 courseInfo 가져오기
-        if(editMode != null && editMode.equals("UPDATE")) {
+        if(editMode != null && editMode.equals("UPDATE") && course_id != null && !course_id.equals("")) {
             courseInfo = courseInfoService.setCourseInfo(course_id);
             courseInfo.setEditMode("UPDATE");
         }
@@ -67,7 +67,7 @@ public class CourseInfoController extends BaseController {
     }
 
     /**
-     * 강과 과정 등록 api
+     * 강좌 과정 등록 api
      * */
     @RequestMapping (value = {"/save.*"}, method = RequestMethod.POST)
     public @ResponseBody
@@ -76,42 +76,47 @@ public class CourseInfoController extends BaseController {
 
         courseInfo.setHomepage_id(getAsideHomepageId(request));
 
-        if(courseInfo.getEditMode().equals("ADD")) {
-            validationChk(result); // 유효성 체크
+        validationChk(result); // 유효성 체크
 
-            if (!result.hasErrors()) {
-                courseInfo.setAdd_id(getSessionMemberId(request));
-                courseInfoService.addCourseInfo(courseInfo, getSessionMemberId(request), request.getRemoteAddr());
-                res.setValid(true);
-                res.setMessage("저장되었습니다.");
-                res.setUrl("index.do");
-            } else {
-                res.setValid(false);
-                res.setResult(result.getAllErrors());
-            }
+        if(result.hasErrors()) {  // 문제가 있으면 return
+            res.setValid(false);
+            res.setResult(result.getAllErrors());
+            return res;
+        }
+
+        if(courseInfoService.getOverlapCourseInfoCount(courseInfo) > 0) {
+            res.setValid(false);
+            res.setMessage("선택한 기간에 중복된 과정이 있습니다.");
+            return res;
+        }
+
+
+        if(courseInfo.getEditMode().equals("ADD")) {
+
+            courseInfo.setAdd_id(getSessionMemberId(request));
+            courseInfoService.addCourseInfo(courseInfo, getSessionMemberId(request), request.getRemoteAddr());
+            res.setValid(true);
+            res.setMessage("저장되었습니다.");
+            res.setUrl("index.do");
 
         } else if(courseInfo.getEditMode().equals("UPDATE")) {
-            validationChk(result); // 유효성 체크
 
-            if (!result.hasErrors()) {
-                courseInfo.setAdd_id(getSessionMemberId(request));
-                courseInfoService.updateCourse(courseInfo);
-                res.setValid(true);
-                res.setMessage("수정되었습니다.");
-                res.setUrl("index.do");
-            } else {
-                res.setValid(false);
-                res.setResult(result.getAllErrors());
-            }
+            courseInfo.setAdd_id(getSessionMemberId(request));
+            courseInfoService.updateCourse(courseInfo);
+            res.setValid(true);
+            res.setMessage("수정되었습니다.");
+            res.setUrl("index.do");
+
         } else {
-            // 오류 날림
+            res.setValid(false);
+            res.setMessage("잘못된 접근입니다.\n관리자에게 문의하세요.");
         }
 
         return res;
     }
 
     /**
-     * 강과 과정 삭제 api
+     * 강좌 과정 삭제 api
      * */
     @RequestMapping (value = {"/delete.*"}, method = RequestMethod.POST)
     public @ResponseBody JsonResponse delete(CourseInfo courseInfo, BindingResult result, HttpServletRequest request) {
@@ -123,16 +128,20 @@ public class CourseInfoController extends BaseController {
             result.reject("과정에 등록된 강좌가 존재하기 때문에 삭제가 불가능 합니다.");
         }
 
-        if (!result.hasErrors()) {
-            if (courseInfo.getEditMode().equals("DELETE")) {
-                courseInfoService.deleteCourseInfo(courseInfo);
-                res.setValid(true);
-                res.setMessage("삭제되었습니다.");
-                res.setUrl("index.do");
-            }
-        } else {
+        if (result.hasErrors()) {  // 문제가 있으면 return
             res.setValid(false);
             res.setResult(result.getAllErrors());
+            return res;
+        }
+
+        if (courseInfo.getEditMode().equals("DELETE")) {
+            courseInfoService.deleteCourseInfo(courseInfo);
+            res.setValid(true);
+            res.setMessage("삭제되었습니다.");
+            res.setUrl("index.do");
+        } else {
+            res.setValid(false);
+            res.setResult("잘못된 접근입니다.\n관리자에게 문의하세요.");
         }
 
         return res;

@@ -5,11 +5,11 @@
 	<sql id="column">
         <![CDATA[
 		CASE
-			WHEN (SELECT COUNT(*) FROM LECTURE_REQUEST C WHERE (C.request_type = '온라인') AND C.lecture_id = LECTURE_INFO.lecture_id AND C.request_status NOT IN('예약취소')) >= (online_person_count + wait_person_count) THEN '모집마감'
-			WHEN (SELECT COUNT(*) FROM LECTURE_REQUEST C WHERE (C.request_type = '온라인' AND C.request_status = '추첨대기') AND C.lecture_id = LECTURE_INFO.lecture_id) >= (wait_person_count) AND request_type = '추첨제' THEN '모집마감'
 			WHEN TO_DATE(request_start_date, 'yyyy-mm-dd') > TO_DATE(SYSDATE, 'yyyy-mm-dd') THEN '모집예정'
-			WHEN TO_DATE(request_start_date, 'yyyy-mm-dd') <= TO_DATE(SYSDATE, 'yyyy-mm-dd') AND TO_DATE(request_end_date, 'yyyy-mm-dd') >= TO_DATE(SYSDATE, 'yyyy-mm-dd') THEN '모집중'
 			WHEN TO_DATE(request_end_date, 'yyyy-mm-dd') < TO_DATE(SYSDATE, 'yyyy-mm-dd') THEN '모집마감'
+			WHEN (SELECT COUNT(*) FROM LECTURE_REQUEST C WHERE (C.request_type = '온라인') AND C.lecture_id = LECTURE_INFO.lecture_id AND C.request_status NOT IN('예약취소')) >= (online_person_count + wait_person_count) THEN '정원마감'
+			WHEN (SELECT COUNT(*) FROM LECTURE_REQUEST C WHERE C.request_status = '추첨대기' AND C.lecture_id = LECTURE_INFO.lecture_id) >= (wait_person_count) AND request_type = '추첨제' THEN '정원마감'
+			WHEN TO_DATE(request_start_date, 'yyyy-mm-dd') <= TO_DATE(SYSDATE, 'yyyy-mm-dd') AND TO_DATE(request_end_date, 'yyyy-mm-dd') >= TO_DATE(SYSDATE, 'yyyy-mm-dd') THEN '모집중'
 		END AS lecture_status1,
 			CASE
 				WHEN TO_DATE(edu_start_date, 'yyyy-mm-dd') > TO_DATE(SYSDATE, 'yyyy-mm-dd') THEN '교육대기'
@@ -85,6 +85,38 @@
 		${pagingBottom}
 	</select>
 
+	<select id="getOngoingCourseLectureInfoList" resultType="kr.go.gbelib.app.cms.module.lecture.lectureInfo.LectureInfo">
+		${pagingTop}
+		SELECT
+		<include refid="column" />
+		FROM
+		LECTURE_INFO
+		<include refid="where" />
+			AND course_id = (<![CDATA[
+					SELECT course_id
+					FROM (SELECT rownum, course_id
+						  FROM course_info
+						  WHERE VIEW_START_DATE <= SYSDATE AND VIEW_END_DATE >= SYSDATE  AND use_yn = 'Y' AND rownum = 1)
+				]]>)
+		ORDER BY lecture_id DESC
+		${pagingBottom}
+	</select>
+
+	<select id="getOngoingCourseLectureInfoCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+		LECTURE_INFO
+		<include refid="where" />
+		AND course_id = (<![CDATA[
+					SELECT course_id
+					FROM (SELECT rownum, course_id
+						  FROM course_info
+						  WHERE VIEW_START_DATE <= SYSDATE AND VIEW_END_DATE >= SYSDATE AND use_yn = 'Y' AND rownum = 1)
+				]]>)
+		ORDER BY lecture_id DESC
+	</select>
+
 	<select id="getLectureInfoListByHomepageIdAndCourseId" resultType="kr.go.gbelib.app.cms.module.lecture.lectureInfo.LectureInfo">
 		SELECT
 			<include refid="column" />
@@ -115,6 +147,57 @@
 		AND course_id = #{param2}
 	</select>
 
+	<select id="getLectureInfoListByRequestAddId" resultType="kr.go.gbelib.app.cms.module.lecture.lectureInfo.LectureInfo">
+		${pagingTop}
+		SELECT
+			<![CDATA[
+				CASE
+					WHEN (SELECT COUNT(*) FROM LECTURE_REQUEST C WHERE (C.request_type = '온라인') AND C.lecture_id = i.lecture_id AND C.request_status NOT IN('예약취소')) >= (online_person_count + wait_person_count) THEN '정원마감'
+					WHEN (SELECT COUNT(*) FROM LECTURE_REQUEST C WHERE C.request_status = '추첨대기' AND C.lecture_id = i.lecture_id) >= (wait_person_count) AND i.request_type = '추첨제' THEN '모집마감'
+					WHEN TO_DATE(request_start_date, 'yyyy-mm-dd') > TO_DATE(SYSDATE, 'yyyy-mm-dd') THEN '모집예정'
+					WHEN TO_DATE(request_start_date, 'yyyy-mm-dd') <= TO_DATE(SYSDATE, 'yyyy-mm-dd') AND TO_DATE(request_end_date, 'yyyy-mm-dd') >= TO_DATE(SYSDATE, 'yyyy-mm-dd') THEN '모집중'
+					WHEN TO_DATE(request_end_date, 'yyyy-mm-dd') < TO_DATE(SYSDATE, 'yyyy-mm-dd') THEN '모집마감'
+					END AS lecture_status1,
+				CASE
+					WHEN TO_DATE(edu_start_date, 'yyyy-mm-dd') > TO_DATE(SYSDATE, 'yyyy-mm-dd') THEN '교육대기'
+					WHEN TO_DATE(edu_start_date, 'yyyy-mm-dd') <= TO_DATE(SYSDATE, 'yyyy-mm-dd') AND TO_DATE(edu_end_date, 'yyyy-mm-dd') >= TO_DATE(SYSDATE, 'yyyy-mm-dd') THEN '교육중'
+					WHEN TO_DATE(edu_end_date, 'yyyy-mm-dd') < TO_DATE(SYSDATE, 'yyyy-mm-dd') THEN '교육마감'
+					END AS lecture_status2,
+				(SELECT COUNT(*) FROM LECTURE_REQUEST C WHERE C.request_type = '온라인' AND C.request_status = '예약완료' AND C.lecture_id = i.lecture_id) AS online_request_count,
+				(SELECT COUNT(*) FROM LECTURE_REQUEST C WHERE C.request_type = '오프라인' AND C.request_status = '예약완료' AND C.lecture_id = i.lecture_id) AS offline_request_count,
+				(SELECT COUNT(*) FROM LECTURE_REQUEST C WHERE C.request_status IN ('예약대기', '추첨대기') AND C.lecture_id = i.lecture_id) AS wait_request_count,
+				ROW_NUMBER() OVER (ORDER BY i.lecture_id) AS reverse_rownum, i.homepage_id, course_id,i.lecture_id,lecture_title,
+				edu_start_date,edu_end_date,edu_start_time,edu_end_time,request_start_date,request_end_date,edu_school,
+				online_person_count,offline_person_count,wait_person_count,i.request_type,teacher_name,teacher_tel,supporter_name,
+				supporter_tel,edu_school_map,lecture_content,i.add_date,i.add_ip,i.add_id,edu_address_1,edu_address_2,teacher_id,
+				day_week,edu_second_school,r.request_status,r.add_date AS request_add_date,r.request_id
+			]]>
+		FROM
+		LECTURE_INFO AS i INNER JOIN LECTURE_REQUEST AS r
+		ON
+		i.LECTURE_ID = r.LECTURE_ID
+		WHERE
+				i.homepage_id = #{homepage_id}
+			AND r.add_id = #{request_add_id}
+			AND	r.request_status NOT IN('예약취소')
+		ORDER BY r.REQUEST_ID DESC
+		${pagingBottom}
+	</select>
+
+	<select id="getLectureInfoCountByRequestAddId" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			LECTURE_INFO AS i INNER JOIN LECTURE_REQUEST AS r
+	 	ON
+		 	i.LECTURE_ID = r.LECTURE_ID
+		WHERE
+				i.homepage_id = #{homepage_id}
+			AND	r.add_id = #{request_add_id}
+	  		AND r.request_status NOT IN('예약취소')
+		ORDER BY r.REQUEST_ID DESC
+	</select>
+
 	<insert id="addLectureInfo">
 		<selectKey keyProperty="lecture_id" resultType="string" order="BEFORE">
 			SELECT 'LECTURE_' || (TO_NUMBER(NVL(MAX(REPLACE(lecture_id, 'LECTURE_', '')), TO_CHAR(SYSDATE, 'yyyyMMdd') || LPAD(0, 4, '0'))) + 1)
@@ -140,9 +223,9 @@
 
 	<select id="getLectureInfoOne" resultType="kr.go.gbelib.app.cms.module.lecture.lectureInfo.LectureInfo">
 		SELECT
-			<include refid="column"/>
+			<include refid="column" />
 		FROM LECTURE_INFO
-		WHERE lecture_id = #{lecture_id}
+		WHERE lecture_id = #{param1}
 	</select>
 
 	<update id="updateLectureInfo">
@@ -185,119 +268,5 @@
 			homepage_id = #{homepage_id}
 		  AND lecture_id = #{lecture_id}
 	</delete>
-	<!--<select id="bookReportContestList" resultType="kr.go.gbelib.app.cms.module.bookReportContest.BookReportContest">
-		${pagingTop}
-		SELECT
-			homepage_id, book_report_idx, participation_field, user_name, 
-			school_name, school_year, user_phone, protector_phone, user_email, 
-			postcode, address_base, address_detailed, approval_status, delete_yn, 
-			org_file_name, server_file_name, file_extension, file_size, 
-			org_file_name2, server_file_name2, file_extension2, file_size2, 
-			add_id, add_date 
-		FROM
-			BOOK_REPORT_CONTEST
-		WHERE
-			homepage_id = #{homepage_id}
-		AND	delete_yn = 'N'
-		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
-		AND	${search_type} LIKE '%'||#{search_text}||'%'
-		</if>
-		ORDER BY book_report_idx DESC
-		${pagingBottom}
-	</select>
-	
-	<select id="getExcelList" resultType="kr.go.gbelib.app.cms.module.bookReportContest.BookReportContest">
-		SELECT
-			homepage_id, book_report_idx, participation_field, user_name, 
-			school_name, school_year, user_phone, protector_phone, user_email, 
-			postcode, address_base, address_detailed, approval_status, delete_yn, 
-			org_file_name, server_file_name, file_extension, file_size, 
-			org_file_name2, server_file_name2, file_extension2, file_size2, 
-			add_id, add_date 
-		FROM
-			BOOK_REPORT_CONTEST
-		WHERE
-			homepage_id = #{homepage_id}
-		AND	delete_yn = 'N'
-	</select>
-	
-	<select id="bookReportContestCount" resultType="int">
-		SELECT
-			COUNT(*)
-		FROM
-			BOOK_REPORT_CONTEST
-		WHERE
-			homepage_id = #{homepage_id}
-		AND	delete_yn = 'N'
-		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
-		AND	${search_type} LIKE '%'||#{search_text}||'%'
-		</if>
-	</select>
-	
-	<select id="getBookReportContest" resultType="kr.go.gbelib.app.cms.module.bookReportContest.BookReportContest">
-		SELECT
-			homepage_id, book_report_idx, participation_field, user_name, 
-			school_name, school_year, user_phone, protector_phone, user_email, 
-			postcode, address_base, address_detailed, approval_status, delete_yn, 
-			org_file_name, server_file_name, file_extension, file_size, 
-			org_file_name2, server_file_name2, file_extension2, file_size2, 
-			add_id, add_date 
-		FROM
-			BOOK_REPORT_CONTEST
-		WHERE
-			homepage_id = #{homepage_id}
-		AND book_report_idx = #{book_report_idx}	
-	</select>
-	
-	<insert id="addBookReportContest">
-		INSERT INTO
-			BOOK_REPORT_CONTEST
-		(
-			homepage_id, book_report_idx, participation_field, user_name, 
-			school_name, school_year, user_phone, protector_phone, user_email, 
-			postcode, address_base, address_detailed, approval_status, delete_yn, 
-			<if test="server_file_name != null and server_file_name != ''">
-			org_file_name, server_file_name, file_extension, file_size, 
-			</if>
-			<if test="server_file_name2 != null and server_file_name2 != ''">
-			org_file_name2, server_file_name2, file_extension2, file_size2,
-			</if>
-			add_id, add_date
-		)
-		VALUES
-		(
-			#{homepage_id}, (SELECT NVL(MAX(book_report_idx), 0)+1 FROM BOOK_REPORT_CONTEST), #{participation_field}, #{user_name}, 
-			#{school_name}, #{school_year}, #{user_phone}, #{protector_phone}, #{user_email}, 
-			#{postcode}, #{address_base}, #{address_detailed}, #{approval_status}, #{delete_yn},
-			<if test="server_file_name != null and server_file_name != ''">
-			#{org_file_name}, #{server_file_name}, #{file_extension}, #{file_size},
-			</if> 
-			<if test="server_file_name2 != null and server_file_name2 != ''">
-			#{org_file_name2}, #{server_file_name2}, #{file_extension2}, #{file_size2},
-			</if> 
-			#{add_id}, SYSDATE
-		)
-	</insert>
-	
-	<update id="deleteBookReportContest">
-		UPDATE 
-			BOOK_REPORT_CONTEST
-		SET
-			delete_yn = 'Y',
-			delete_id = #{delete_id}
-		WHERE
-			homepage_id = #{homepage_id}
-		AND book_report_idx = #{book_report_idx}
-	</update>
-	
-	<update id="statusChangeBookReportContest">
-		UPDATE
-			BOOK_REPORT_CONTEST
-		SET
-			approval_status = #{approval_status}
-		WHERE
-			homepage_id = #{homepage_id}
-		AND book_report_idx = #{book_report_idx}
-	</update>-->
-	
+
 </mapper>

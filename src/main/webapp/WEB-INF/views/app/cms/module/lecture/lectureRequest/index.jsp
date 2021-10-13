@@ -7,97 +7,127 @@
 <script src="/resources/cms/js/malsup.jquery.form.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 
-$(function() {
+	$(function() {
 
-	// 등록 버튼
-	$('a#dialog-add').on('click', function(e){
-		e.preventDefault();
-		let search_course_id = $('#search_course_id').val();
-		$('#dialog-1').load('edit.do?editMode=ADD&search_course_id='+search_course_id, function( response, status, xhr ) {
-			$('#dialog-1').dialog('open');
+		// 등록 버튼
+		$('a#dialog-add').on('click', function(e){
+			e.preventDefault();
+			let search_course_id = $('#search_course_id').val();
+			$('#dialog-1').load('edit.do?editMode=ADD&search_course_id='+search_course_id, function( response, status, xhr ) {
+				$('#dialog-1').dialog('open');
+			});
 		});
-	});
 
-	// 수정 버튼
-	$('a.modify_btn').on('click', function(e){
-		e.preventDefault();
-		let request_id = $(this).data('key');
-		$('#dialog-2').load('edit.do?editMode=UPDATE&request_id='+request_id, function( response, status, xhr ) {
-			$('#dialog-2').dialog('open');
+		// 수정 버튼
+		$('a.modify_btn').on('click', function(e){
+			e.preventDefault();
+			let request_id = $(this).data('key');
+			$('#dialog-2').load('edit.do?editMode=UPDATE&request_id='+request_id, function( response, status, xhr ) {
+				$('#dialog-2').dialog('open');
+			});
 		});
-	});
 
-	// 검색 버튼
-	$('button.search_btn').on('click', function(e){
-		e.preventDefault();
-		$('#viewPage').val(1);
-		doGetLoad('index.do', serializeCustom($('form#lectureRequest')));
-	});
+		// 검색 버튼
+		$('button.search_btn').on('click', function(e){
+			e.preventDefault();
+			$('#viewPage').val(1);
+			doGetLoad('index.do', serializeCustom($('form#lectureRequest')));
+		});
 
-	// 보이는 개수 변경
-	$('select#rowCount').on('change', function() {
-		$('#viewPage').val(1);
-		doGetLoad('index.do', $('form#lectureRequest').serialize());
-	});
+		// 보이는 개수 변경
+		$('select#rowCount').on('change', function() {
+			$('#viewPage').val(1);
+			doGetLoad('index.do', $('form#lectureRequest').serialize());
+		});
 
-	// 과정 select 변경
-	$('select#search_course_id').on('change', function() {
-		$('#viewPage').val(1);
-		doGetLoad('index.do', $('form#lectureRequest').serialize());
-	});
+		// 과정선택 select 변경
+		$('select#search_course_id').on('change', function() {
+			$('#viewPage').val(1);
+			doGetLoad('index.do', $('form#lectureRequest').serialize());
+		});
 
-	// 과정 select 변경
-	/*$('select#search_course_id').on('change', function() {
-		let course_id = $(this).val();
-		$.ajax({
-			type:"post",
-			url:`/cms/module/lecture/lectureRequest/lectureInfoList.do`,
-			data: JSON.stringify({"course_id":course_id}),
-			contentType:"application/json; charset=utf-8",
-			dataType:"json",
-		}).done(res=>{
-			let lectureInfos = res.data;
-			let lectureInfoList = JSON.parse(lectureInfos);
-			$('#search_lecture_id').empty();
-			$('#select2-search_lecture_id-container').val("");
-			$('#select2-search_lecture_id-container').text("전체");
-			$('#search_lecture_id').append(selectItem('', '전체'));
-			lectureInfoList.forEach(lectureInfo => {
-				$('#search_lecture_id').append(selectItem(lectureInfo.lecture_id, lectureInfo.lecture_title));
+		// 강좌선택 select 변경
+		$('select#search_lecture_id').on('change', function() {
+			$('#viewPage').val(1);
+			doGetLoad('index.do', $('form#lectureRequest').serialize());
+		});
+
+		// 접수방법 select 변경
+		$('select#search_request_type').on('change', function() {
+			$('#viewPage').val(1);
+			doGetLoad('index.do', $('form#lectureRequest').serialize());
+		});
+
+		// 취소여부 select 변경
+		$('select#search_cancel_yn').on('change', function() {
+			$('#viewPage').val(1);
+			doGetLoad('index.do', $('form#lectureRequest').serialize());
+		});
+
+		// 과정 select 변경
+		/*$('select#search_course_id').on('change', function() {
+			let course_id = $(this).val();
+			$.ajax({
+				type:"post",
+				url:`/cms/module/lecture/lectureRequest/lectureInfoList.do`,
+				data: JSON.stringify({"course_id":course_id}),
+				contentType:"application/json; charset=utf-8",
+				dataType:"json",
+			}).done(res=>{
+				let lectureInfos = res.data;
+				let lectureInfoList = JSON.parse(lectureInfos);
+				$('#search_lecture_id').empty();
+				$('#select2-search_lecture_id-container').val("");
+				$('#select2-search_lecture_id-container').text("전체");
+				$('#search_lecture_id').append(selectItem('', '전체'));
+				lectureInfoList.forEach(lectureInfo => {
+					$('#search_lecture_id').append(selectItem(lectureInfo.lecture_id, lectureInfo.lecture_title));
+				})
+			}).fail(error=>{
+				alert(error);
 			})
-		}).fail(error=>{
-			alert(error);
-		})
-	});*/
+		});*/
 
-	// 삭제 버튼
-	$('a.delete_btn').on('click', function(e) {
-		e.preventDefault();
-		if (confirm('정말로 취소하시겠습니까?')) {
-			$('form#lectureRequest').attr('action', 'delete.do');
+		// 삭제 버튼
+		$('a.delete_btn').on('click', function(e) {
+			e.preventDefault();
+			if (confirm('정말로 취소하시겠습니까?')) {
+				$('form#lectureRequest').attr('action', 'delete.do');
+				$('#request_id').val($(this).data('key'));
+				$('#editMode').val('DELETE');
+				doAjaxPost($('form#lectureRequest'));
+				location.reload();
+			}
+		});
+
+		// 신청자명 클릭
+		$('a.view_btn').on('click', function(e){
+			e.preventDefault();
 			$('#request_id').val($(this).data('key'));
-			$('#editMode').val('DELETE');
-			doAjaxPost($('form#lectureRequest'));
-			location.reload();
-		}
+			doGetLoad('view.do', serializeCustom($('form#lectureRequest')));
+		});
+
 	});
 
-	// 신청자명 클릭
-	$('a.view_btn').on('click', function(e){
-		e.preventDefault();
-		$('#request_id').val($(this).data('key'));
-		doGetLoad('view.do', serializeCustom($('form#lectureRequest')));
-	});
+	/**
+	 * select option item
+	 * */
+	function selectItem(lecture_id, lecture_title) {
+		let item = `<option value="`+lecture_id+`">`+lecture_title+`</option>`
+		return item;
+	}
 
-});
-
-/**
- * select obtion item
- * */
-function selectItem(lecture_id, lecture_title) {
-	let item = `<option value="`+lecture_id+`">`+lecture_title+`</option>`
-	return item;
-}
+	// 검색 초기화
+	function searchReset() {
+		$('#viewPage').val(1);
+		$('#search_course_id').val("");
+		$('#search_lecture_id').val("");
+		$('#search_request_type').val("");
+		$('#search_cancel_yn').val("N");
+		$('#search_type').val("request_name");
+		$('#search_text').val("");
+		doGetLoad('index.do', serializeCustom($('form#lectureRequest')));
+	}
 </script>
 
 <style>
@@ -131,6 +161,8 @@ function selectItem(lecture_id, lecture_title) {
 <form:hidden path="homepage_id"/>
 <form:hidden path="request_id"/>
 <form:hidden path="editMode"/>
+<form:hidden path="lecture_id"/>
+<form:hidden path="request_type"/>
 
 	<div class="infodesk">
 
@@ -141,7 +173,7 @@ function selectItem(lecture_id, lecture_title) {
 					<div class="search-item">
 						<form:select path="search_course_id" cssClass="selectmenu" cssStyle="width: 80%">
 							<c:forEach var="i" varStatus="status" items="${courseInfoList}">
-								<form:option value="${i.course_id}">${i.course_title} ${i.use_yn eq "N" ? '(미사용)' : ''}</form:option>
+								<form:option value="${i.course_id}">${i.use_yn eq "N" ? '(미사용) ' : ''}${i.course_title}</form:option>
 							</c:forEach>
 						</form:select>
 					</div>
@@ -180,12 +212,13 @@ function selectItem(lecture_id, lecture_title) {
 						</form:select>
 						<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
 						<button class="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
+						<button type="button" id="reset_btn" onclick="searchReset()"><i class="fa fa-search"></i><span>초기화</span></button>
 					</div>
 				</div>
 			</fieldset>
 		</div>
 
-		검색 결과 : 총 ${lectureRequestCount}건
+		검색 결과 : 총 ${paging.totalDataCount}건
 
 		<form:select path="rowCount" cssClass="selectmenu">
 			<form:option value="10">10개씩보기</form:option>
@@ -238,28 +271,30 @@ function selectItem(lecture_id, lecture_title) {
 					<td><a href="#" class="view_btn" data-key="${i.request_id}">${i.add_id}</a></td>
 					<td><a href="#" class="view_btn" data-key="${i.request_id}">${i.request_name}</a></td>
 					<td>${i.birthday}(${i.gender eq '0' ? '남' : '여'})</td>
-					<td>${i.phone_number}<br>${i.email}</td>
+					<td>${i.phone_number} /<br>${!empty i.email ? i.email : '등록된이메일없음'}</td>
 					<td>${i.request_status}</td>
 					<td>${i.request_type}</td>
 					<fmt:formatDate var="formatRegDate" value="${i.add_date}" pattern="yyyy-MM-dd"/>
 					<td>${formatRegDate}</td>
 					<td>${i.cancel_yn}</td>
 					<td>
-						<a href="#" class="btn modify_btn" data-key="${i.request_id}">신청수정</a>
-						<a href="#" class="btn delete_btn" data-key="${i.request_id}">신청취소</a>
+						<c:if test="${i.request_status ne '예약취소'}">
+							<a href="#" class="btn modify_btn" data-key="${i.request_id}">신청수정</a>
+							<a href="#" class="btn delete_btn" data-key="${i.request_id}">신청취소</a>
+						</c:if>
 					</td>
 				</tr>
 				</c:forEach>
 				<c:if test="${fn:length(lectureRequestList) < 1}">
 					<tr>
-						<td colspan="11">등록된 신청정보가 없습니다.</td>
+						<td colspan="11">등록된 신청이 없습니다.</td>
 					</tr>
 				</c:if>
 			</tbody>
 		</table>
 
 		<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
-			<jsp:param name="formId" value="#lectureInfo"/>
+			<jsp:param name="formId" value="#lectureRequest"/>
 		</jsp:include>
 	</div>
 

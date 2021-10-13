@@ -1,5 +1,6 @@
 package kr.go.gbelib.app.cms.module.lecture.courseInfo;
 
+import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +11,13 @@ import org.springframework.ui.Model;
 import java.util.List;
 
 @Service
-public class CourseInfoService {
+public class CourseInfoService extends BaseService {
 
     @Autowired
     private CourseInfoDao courseInfoDao;
 
     /**
-     * 강좌 과정 리스트 조회
+     * 강좌 좌정 리스트 조회
      * */
     @Transactional(readOnly = true)
     @WorkingLogger(comment="강좌 과정 리스트 조회", type="P")
@@ -55,7 +56,7 @@ public class CourseInfoService {
     }
 
     /**
-     * 강과 과정 하나 가져오기
+     * 강좌 과정 하나 가져오기
      * */
     @WorkingLogger(comment="강좌 과정 조회", type="P")
     @Transactional(readOnly = true)
@@ -64,7 +65,7 @@ public class CourseInfoService {
     }
 
     /**
-     * 강과 과정 수정
+     * 강좌 과정 수정
      * */
     @WorkingLogger(comment="강좌 과정 수정", type="P")
     @Transactional
@@ -73,11 +74,47 @@ public class CourseInfoService {
     }
 
     /**
-     * 강과 과정 삭제
+     * 강좌 과정 삭제
      * */
     @WorkingLogger(comment="강좌 과정 삭제", type="P")
     @Transactional
     public void deleteCourseInfo(CourseInfo courseInfo) {
         courseInfoDao.deleteCourseInfo(courseInfo);
     }
+
+
+    /**
+     * 과정 기간 중복되는 과정 수
+     * */
+    @WorkingLogger(comment="과정 기간 중복되는 과정 수 조회", type="P")
+    @Transactional
+    public int getOverlapCourseInfoCount(CourseInfo courseInfo) {
+        return courseInfoDao.getOverlapCourseInfoCount(courseInfo);
+    }
+
+
+    /**
+     * 강좌 과정 등록 사용 불가 날짜 리턴
+     * */
+    /*public List<String> getDisabledDays(CourseInfo courseInfo) throws ParseException {
+        List<CourseInfo> courseInfoList = courseInfoDao.getReservedCourseDates(courseInfo);
+        List<String> disableDates = new ArrayList<String>();
+        SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar cal = Calendar.getInstance();
+
+        for (CourseInfo entity : courseInfoList ) {
+            Date view_start_date = transFormat.parse(entity.getView_start_date());
+            cal.setTime(view_start_date);
+
+            int day_count = entity.getDay_count();
+            cal.add(Calendar.DATE, -1);
+
+            for(int i = 0; i < day_count; i++) {
+                cal.add(Calendar.DATE, 1);
+                disableDates.add(transFormat.format(cal.getTime()));
+            }
+        }
+
+        return disableDates;
+    }*/
 }

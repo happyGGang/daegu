@@ -6,6 +6,7 @@
 
 <script src="/resources/cms/js/malsup.jquery.form.min.js" type="text/javascript"></script>
 <script type="text/javascript">
+
 $(function() {
 
 	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
@@ -32,6 +33,8 @@ $(function() {
 							 if(response.valid) {
 								alert(response.message);
 								$('#dialog-1').dialog('destroy');
+								$('#dialog-2').dialog('destroy');
+								$('#dialog-3').dialog('destroy');
 								//열려있는 다이얼로그를 삭제한다.(중복방지)
 				    			$('.dialog-common').remove();
 								location.reload();
@@ -65,11 +68,11 @@ $(function() {
 	});
 
 	$('#dialog-1').dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
-		width: 650
+		width: 800
 	});
 
 	$('#dialog-2').dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
-		width: 650
+		width: 800
 	});
 	
 	// 숫자만 입력 가능
@@ -90,8 +93,8 @@ $(function() {
 			$('input#view_start_date').datepicker('option', 'maxDate', selectedDate);
 		}
 	});
-	
 });
+
 </script>
 
 <form:form modelAttribute="courseInfo" id="courseInfoEdit" action="save.do">
@@ -109,20 +112,24 @@ $(function() {
 			<tr>
 				<th>과정명(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
-					<form:input path="course_title" cssClass="text" maxlength="20"/>
-					<span>※ 20자리까지 입력 가능</span>
+					<form:input path="course_title" cssClass="text" maxlength="20"  cssStyle="width: 90%"/>
+					<div class="ui-state-highlight">
+						<em>※ 20자리까지 입력 가능</em>
+					</div>
 				</td>
-			</tr>	
+			</tr>
 			<tr>
 				<th>과정노출시작기간(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
 					<form:input path="view_start_date" cssClass="text ui-calendar" readonly="true"/>
+					<span> ※ 다른 과정과 중복될 수 없습니다.</span>
 				</td>
 			</tr>
 			<tr>
 				<th>과정노출종료기간(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
 					<form:input path="view_end_date" cssClass="text ui-calendar" readonly="true"/>
+					<span> ※ 다른 과정과 중복될 수 없습니다.</span>
 				</td>
 			</tr>
 			<tr>

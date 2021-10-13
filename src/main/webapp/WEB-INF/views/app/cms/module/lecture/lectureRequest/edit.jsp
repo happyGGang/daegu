@@ -167,7 +167,9 @@ function selectItem(lecture_id, lecture_title) {
 <form:hidden path="homepage_id"/>
 <form:hidden path="editMode"/>
 <form:hidden path="request_id"/>
-<form:hidden path="request_type" value="오프라인"/>
+<form:hidden path="request_status"/>
+<form:hidden path="add_id"/>
+<form:hidden path="request_type" value="${lectureRequest.request_type eq null ? '오프라인' : lectureRequest.request_type}"/>
 
 	<p>(<span style="color: red;font-weight: bold;">*</span>)</b>표시항목은 필수입력항목입니다.</p>
 	<table class="type2">
@@ -187,11 +189,21 @@ function selectItem(lecture_id, lecture_title) {
 		<tr>
 			<th>강좌선택(<span style="color: red;font-weight: bold;">*</span>)</th>
 			<td>
-				<form:select path="lecture_id" cssClass="selectmenu" cssStyle="width: 80%">
+				<c:if test="${lectureRequest.editMode ne 'UPDATE'}">
+					<form:select path="lecture_id" cssClass="selectmenu" cssStyle="width: 80%;">
+						<c:forEach var="i" varStatus="status" items="${lectureInfoList}">
+							<form:option value="${i.lecture_id}">(${i.lecture_status1}) ${i.lecture_title}</form:option>
+						</c:forEach>
+					</form:select>
+				</c:if>
+				<c:if test="${lectureRequest.editMode eq 'UPDATE'}">
 					<c:forEach var="i" varStatus="status" items="${lectureInfoList}">
-						<form:option value="${i.lecture_id}">(${i.lecture_status1}) ${i.lecture_title}</form:option>
+						<c:if test="${i.lecture_id eq lectureRequest.lecture_id}">
+							<form:hidden path="lecture_id"/>
+							${i.lecture_title}
+						</c:if>
 					</c:forEach>
-				</form:select>
+				</c:if>
 			</td>
 		</tr>
 		<tr>
@@ -246,7 +258,7 @@ function selectItem(lecture_id, lecture_title) {
 				${lectureRequest.request_type eq null ? '오프라인' : lectureRequest.request_type}
 			</td>
 		</tr>
-		<tr>
+		<%--<tr>
 			<th>취소여부</th>
 			<td>
 				<form:select path="cancel_yn" cssClass="selectmenu">
@@ -254,7 +266,7 @@ function selectItem(lecture_id, lecture_title) {
 					<form:option value="Y">Y</form:option>
 				</form:select>
 			</td>
-		</tr>
+		</tr>--%>
 		<tr>
 			<th>수료여부</th>
 			<td>

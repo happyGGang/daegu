@@ -3,6 +3,8 @@ package kr.go.gbelib.app.cms.module.lecture.lectureRequest;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 public class LectureRequest extends PagingUtils {
 
@@ -33,6 +35,8 @@ public class LectureRequest extends PagingUtils {
     private int reverse_rownum; // 순번
     private String lecture_title; // 강좌명
     private String course_id; // 강좌명
+    private String after_raffle_list;
+    private String info_request_type; // 강좌 접수방법
 
     /**
      * 검색을 위한 필드
@@ -256,5 +260,21 @@ public class LectureRequest extends PagingUtils {
 
     public void setCancel_id(String cancel_id) {
         this.cancel_id = cancel_id;
+    }
+
+    public String getAfter_raffle_list() {
+        return after_raffle_list;
+    }
+
+    public void setAfter_raffle_list(String after_raffle_list) {
+        this.after_raffle_list = after_raffle_list;
+    }
+
+    public String getInfo_request_type() {
+        return info_request_type;
+    }
+
+    public void setInfo_request_type(String info_request_type) {
+        this.info_request_type = info_request_type;
     }
 }

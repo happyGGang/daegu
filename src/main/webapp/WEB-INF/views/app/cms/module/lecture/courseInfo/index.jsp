@@ -78,6 +78,10 @@ $(function() {
 });
 </script>
 
+<div>
+
+</div>
+
 <form:form modelAttribute="courseInfo">
 <form:hidden path="editMode"/>
 <form:hidden path="course_id"/>
@@ -99,6 +103,9 @@ $(function() {
 			<a href="#" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
 		</div>
 	</div>
+	<div class="ui-state-highlight">
+		<em>※ 과정노출기간은 중복될 수 없습니다.</em>
+	</div>
 	<div>
 		<table class="type1 center">
 			<colgroup>
@@ -117,8 +124,8 @@ $(function() {
 					<th>순번</th>
 					<th>과정고유번호</th>
 					<th>과정명</th>
-					<th>과정노출시작기간</th>
-					<th>과정노출종료기간</th>
+					<th>과정노출<br>시작기간</th>
+					<th>과정노출<br>종료기간</th>
 					<th>사용여부</th>
 					<th>등록일</th>
 					<th>등록ID</th>
@@ -176,8 +183,8 @@ $(function() {
 				</form:select>
 				<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
 				<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
-				<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>
-				<a href="#" id="csvDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>CSV저장</span></a>
+				<%--<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>
+				<a href="#" id="csvDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>CSV저장</span></a>--%>
 			</fieldset>
 		</div>
 		

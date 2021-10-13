@@ -18,4 +18,8 @@ public interface CourseInfoDao {
     List<CourseInfo> getCourseInfoListNoPaging(String homepage_id);
 
     CourseInfo getLatestCourseInfo(String homepage_id);
+
+    List<CourseInfo> getReservedCourseDates(CourseInfo courseInfo);
+
+    int getOverlapCourseInfoCount(CourseInfo courseInfo);
 }

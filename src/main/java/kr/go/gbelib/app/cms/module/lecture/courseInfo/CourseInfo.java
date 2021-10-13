@@ -3,6 +3,7 @@ package kr.go.gbelib.app.cms.module.lecture.courseInfo;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
 import java.util.Date;
+import java.util.List;
 
 public class CourseInfo extends PagingUtils {
 
@@ -19,7 +20,12 @@ public class CourseInfo extends PagingUtils {
      * DB에서 만들어져 오는 값
      * */
     private int reverse_rownum; // 순번
+    private int day_count;
 
+    /**
+     * DB에 없는 값
+     * */
+    private List<String> disabledDays;  // 사용할 수 없는 날짜
 
     public String getCourse_id() {
         return course_id;
@@ -91,5 +97,21 @@ public class CourseInfo extends PagingUtils {
 
     public void setReverse_rownum(int reverse_rownum) {
         this.reverse_rownum = reverse_rownum;
+    }
+
+    public int getDay_count() {
+        return day_count;
+    }
+
+    public void setDay_count(int day_count) {
+        this.day_count = day_count;
+    }
+
+    public List<String> getDisabledDays() {
+        return disabledDays;
+    }
+
+    public void setDisabledDays(List<String> disabledDays) {
+        this.disabledDays = disabledDays;
     }
 }

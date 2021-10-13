@@ -7,6 +7,7 @@ import kr.go.gbelib.app.cms.module.lecture.courseInfo.CourseInfo;
 import kr.go.gbelib.app.cms.module.lecture.courseInfo.CourseInfoDao;
 import kr.go.gbelib.app.cms.module.lecture.lectureInfo.file.LectureInfoFile;
 import kr.go.gbelib.app.cms.module.lecture.lectureInfo.file.LectureInfoFileDao;
+import kr.go.gbelib.app.cms.module.lecture.lectureRequest.LectureRequestDao;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,6 +30,9 @@ public class LectureInfoService extends BaseService {
 
     @Autowired
     private LectureInfoFileDao lectureInfoFileDao;
+
+    @Autowired
+    LectureRequestDao lectureRequestDao;
 
     @Autowired
     @Qualifier("lectureInfoStorage")
@@ -101,13 +105,8 @@ public class LectureInfoService extends BaseService {
      * */
     @Transactional(readOnly = true)
     @WorkingLogger(comment="강좌 정보 하나 가져오기", type="P")
-    public LectureInfo lectureInfoOne(String lecture_id) {
-        LectureInfo lectureInfoEntity = lectureInfoDao.getLectureInfoOne(lecture_id);
-
-        if(lectureInfoEntity != null)
-            lectureInfoEntity.setDay_week_arr(lectureInfoEntity.getDay_week().split("\\,")); // 강의요일 배열로 변환,저장
-
-        return lectureInfoEntity;
+    public LectureInfo lectureInfoOne(String lecture_id, String connect_type) {
+        return lectureInfoDao.getLectureInfoOne(lecture_id, connect_type);
     }
 
     /**
@@ -193,7 +192,7 @@ public class LectureInfoService extends BaseService {
     }
 
     /**
-     * 첨부파일 삭제
+     *
      * */
     @Transactional
     @WorkingLogger(comment="강좌 첨부파일 삭제", type="P")
@@ -205,5 +204,49 @@ public class LectureInfoService extends BaseService {
             lectureInfoStorage.deleteFile(fileName, filePath);
             lectureInfoFileDao.deleteFile(lectureInfoFile);
         }
+    }
+
+    /**
+     * 강좌에 연결된 인원이 있는지
+     * */
+    @WorkingLogger(comment="강좌에 등록된 유저 수 조회", type="P")
+    public boolean isRequestInLecture(LectureInfo lectureInfo) {
+        if(lectureRequestDao.getRequestCountByLectureId(lectureInfo.getLecture_id()) > 0)
+            return true;
+        return false;
+    }
+
+    /**
+     * 유저의 수강신청 강좌 목록 가져오기
+     * */
+    @WorkingLogger(comment="유저의 수강신청 강좌 목록 조회", type="P")
+    public List<LectureInfo> getMyLectureInfoList(LectureInfo lectureInfo) {
+        return lectureInfoDao.getLectureInfoListByRequestAddId(lectureInfo);
+    }
+
+    /**
+     * 유저의 수강신청 강좌 목록 수
+     * */
+    @WorkingLogger(comment="유저의 수강신청 목록 수 조회", type="P")
+    public int getMyLectureInfoCount(LectureInfo lectureInfo) {
+        return lectureInfoDao.getLectureInfoCountByRequestAddId(lectureInfo);
+    }
+
+    /**
+     * 진행중인 과정의 강좌 리스트
+     * */
+    @WorkingLogger(comment="진행중인 과정 강좌 리스트 조회", type="P")
+    @Transactional
+    public List<LectureInfo> getOngoingCourseLectureInfoList(LectureInfo lectureInfo) {
+        return lectureInfoDao.getOngoingCourseLectureInfoList(lectureInfo);
+    }
+
+    /**
+     * 진행중인 과정의 강좌 수
+     * */
+    @WorkingLogger(comment="진행중인 과정 강좌 수 조회", type="P")
+    @Transactional
+    public int getOngoingCourseLectureInfoCount(LectureInfo lectureInfo) {
+        return lectureInfoDao.getOngoingCourseLectureInfoCount(lectureInfo);
     }
 }

@@ -24,4 +24,20 @@ public interface LectureRequestDao {
     int getMyLectureRequestCount(LectureRequest lectureRequest);
 
     void changeLatestWait(LectureRequest lectureRequest);
+
+    int getRequestCountByLectureId(String lecture_id);
+
+    void reapplyLectureRequest(LectureRequest lectureRequest);
+
+    LectureRequest getLectureRequestOneLectureIdAndAddId(String lecture_id, String add_id);
+
+    List<LectureRequest> getLectureRequestRaffleListByLectureId(String lecture_id);
+
+    void updateRequestStatus(LectureRequest request);
+
+    void resetRequestStatus(LectureRequest lectureRequest);
+
+    List<LectureRequest> getLectureRequestListByLectureIdAndStatus(String homepage_id, String lecture_id, String request_status, String request_type);
+
+    void changeLectureRequestStatus(LectureRequest lectureRequest);
 }

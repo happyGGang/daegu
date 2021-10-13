@@ -9,7 +9,8 @@
 <script type="text/javascript">
 
 $(function() {
-	
+
+	// 주소 찾기 클릭
 	$('a#searchAddress').on('click', function(e) {
 		e.preventDefault();
         new daum.Postcode({
@@ -92,6 +93,9 @@ $(function() {
 							 if(response.valid) {
 								alert(response.message);
 								$('#dialog-1').dialog('destroy');
+								$('#dialog-2').dialog('destroy');
+								$('#dialog-3').dialog('destroy');
+								$('#dialog-4').dialog('destroy');
 								//열려있는 다이얼로그를 삭제한다.(중복방지)
 				    			$('.dialog-common').remove();
 								location.reload();
@@ -135,8 +139,13 @@ $(function() {
 	// 숫자만 입력 가능
 	$(document).on("keyup", "input:text[numberOnly]", function() {
 		$(this).val( $(this).val().replace(/[^0-9]/gi,"") );
+		// 0으로 시작할 수 없음
 		if($(this).val() > 0){
 			$(this).val( $(this).val().replace(/(^0+)/,"") );
+		}
+		// 0으로 시작할 수 없음
+		if($(this).val().length > 1) {
+			$(this).val( $(this).val().replace(/(^0+)/,"0") );
 		}
 	});
 
@@ -246,7 +255,7 @@ $(function() {
 				<td>
 					<select name="course_id" class="selectmenu">
 						<c:forEach var="i" varStatus="status" items="${courseInfoList}">
-							<option value="${i.course_id}" ${i.course_id eq lectureInfo.course_id ? 'selected' : ''}>${i.course_title} ${i.use_yn eq "N" ? '(미사용)' : ''}</option>
+							<option value="${i.course_id}" ${i.course_id eq lectureInfo.course_id ? 'selected' : ''}>${i.use_yn eq "N" ? '(미사용) ' : ''}${i.course_title}</option>
 						</c:forEach>
 					</select>
 				</td>
@@ -255,6 +264,9 @@ $(function() {
 				<th>강좌명(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
 					<form:input path="lecture_title" cssStyle="width: 70%;" maxlength="20"/>
+					<div class="ui-state-highlight">
+						<em>※ 강좌명은 20자 까지 입력 가능합니다.</em>
+					</div>
 				</td>
 			</tr>
 			<tr>
@@ -282,17 +294,17 @@ $(function() {
 				</td>
 			</tr>
 			<tr>
-				<th>오프라인 모집인원(<span style="color: red;font-weight: bold;">*</span>)</th>
-				<td>
-					<form:input path="offline_person_count" numberOnly="true"/>
-					<span>※ 정수의 숫자만 입력</span>
-				</td>
-			</tr>
-			<tr>
 				<th>대기자모집인원(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
 					<form:input path="wait_person_count" numberOnly="true"/>
 					<span>※ 정수의 숫자만 입력(추첨제에서는 추첨대기인원으로 설정됨.)</span>
+				</td>
+			</tr>
+			<tr>
+				<th>오프라인 모집인원(<span style="color: red;font-weight: bold;">*</span>)</th>
+				<td>
+					<form:input path="offline_person_count" numberOnly="true"/>
+					<span>※ 정수의 숫자만 입력</span>
 				</td>
 			</tr>
 			<tr>
@@ -314,13 +326,13 @@ $(function() {
 			<tr>
 				<th>학습요일</th>
 				<td>
-					<form:checkbox path="day_week" label="일" value="1" checked="${fn:contains(lectureInfo.day_week, '1')?'checked':''}"/>
-					<form:checkbox path="day_week" label="월" value="2" checked="${fn:contains(lectureInfo.day_week, '2')?'checked':''}"/>
-					<form:checkbox path="day_week" label="화" value="3" checked="${fn:contains(lectureInfo.day_week, '3')?'checked':''}"/>
-					<form:checkbox path="day_week" label="수" value="4" checked="${fn:contains(lectureInfo.day_week, '4')?'checked':''}"/>
-					<form:checkbox path="day_week" label="목" value="5" checked="${fn:contains(lectureInfo.day_week, '5')?'checked':''}"/>
-					<form:checkbox path="day_week" label="금" value="6" checked="${fn:contains(lectureInfo.day_week, '6')?'checked':''}"/>
-					<form:checkbox path="day_week" label="토" value="7" checked="${fn:contains(lectureInfo.day_week, '7')?'checked':''}"/>
+					<form:checkbox path="day_week" label="월" value="1" checked="${fn:contains(lectureInfo.day_week, '1')?'checked':''}"/>
+					<form:checkbox path="day_week" label="화" value="2" checked="${fn:contains(lectureInfo.day_week, '2')?'checked':''}"/>
+					<form:checkbox path="day_week" label="수" value="3" checked="${fn:contains(lectureInfo.day_week, '3')?'checked':''}"/>
+					<form:checkbox path="day_week" label="목" value="4" checked="${fn:contains(lectureInfo.day_week, '4')?'checked':''}"/>
+					<form:checkbox path="day_week" label="금" value="5" checked="${fn:contains(lectureInfo.day_week, '5')?'checked':''}"/>
+					<form:checkbox path="day_week" label="토" value="6" checked="${fn:contains(lectureInfo.day_week, '6')?'checked':''}"/>
+					<form:checkbox path="day_week" label="일" value="7" checked="${fn:contains(lectureInfo.day_week, '7')?'checked':''}"/>
 					<span>&nbsp;&nbsp;&nbsp;&nbsp; ※ 중복체크가능</span>
 				</td>
 			</tr>
@@ -393,6 +405,9 @@ $(function() {
 							</div>
 						</c:if>
 					</c:if>
+					<div class="ui-state-highlight">
+						<em>※ 새로운 파일을 추가하시면 기존에 있던 파일은 삭제를 하지않아도 사라집니다.</em>
+					</div>
          		</td>
 			</tr>
 		</tbody>
