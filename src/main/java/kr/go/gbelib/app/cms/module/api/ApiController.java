@@ -17,6 +17,8 @@ import kr.co.whalesoft.app.board.Board;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.go.gbelib.app.cms.module.elib.book.Book;
 import kr.go.gbelib.app.cms.module.elib.lending.Lending;
+import kr.go.gbelib.app.cms.module.teach.Teach;
+import kr.go.gbelib.app.cms.module.teach.student.Student;
 
 @Controller
 @RequestMapping(value = {"/api/"})
@@ -35,6 +37,9 @@ public class ApiController extends BaseController {
 	private ElibApiService2 elibApiService2;
 	
 	@Autowired
+	private TeachApiService teachApiService;
+	
+	@Autowired
 	private ElibLoginApiService elibLoginApiService;
 	
 	private static final String LOGIN_PAGE = "/elib/intro/login/index.do?menu_idx=43";
@@ -47,6 +52,16 @@ public class ApiController extends BaseController {
 	@RequestMapping(value = {"/elib.*"})
 	public @ResponseBody Map<String, Object> index(Book book, HttpServletRequest request, HttpServletResponse response) {
 		return elibApiService.getData(book, request, response);
+	}
+	
+	@RequestMapping(value = {"/teach.*"})
+	public @ResponseBody Map<String, Object> index(Teach teach,HttpServletRequest request, HttpServletResponse response) {
+		return teachApiService.getData(teach, request, response);
+	}
+	
+	@RequestMapping(value = {"/student.*"})
+	public @ResponseBody Map<String, Object> student(Student student,HttpServletRequest request, HttpServletResponse response) {
+		return teachApiService.getData2(student, request, response);
 	}
 	
 	/**

@@ -78,4 +78,8 @@ public interface TeachDao  {
 	public int getTeachListForAllHomepageGugunCount(Teach teach);
 
 	public List<Teach> getTeachListForAllHomepageGugun(Teach teach);
+	
+	// Teach API 쿼리
+	public List<Teach> getTeachApiList(Teach teach);
+	
 }

@@ -57,4 +57,6 @@ public interface StudentDao  {
 
 	public Student getStudentFileOne(Student student);
 	
+	// Teach Student
+	public List<Student> getTeachStudentApiList(Student student);
 }

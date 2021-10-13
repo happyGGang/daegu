@@ -535,5 +535,10 @@ public class TeachService extends BaseService {
 		}
 
 	}
+	
+	// Teach API 쿼리
+	public List<Teach> getTeachApiList(Teach teach) {
+		return dao.getTeachApiList(teach);
+	}
 
 }

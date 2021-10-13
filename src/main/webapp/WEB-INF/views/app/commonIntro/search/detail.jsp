@@ -483,7 +483,7 @@ $(function() {
 
 				</c:otherwise>
 			</c:choose>
-
+<!-- 
 			<%
 				org.joda.time.DateTime now = new org.joda.time.DateTime();
 				int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
@@ -491,7 +491,7 @@ $(function() {
 			%>
 			
 			<a href="#untact" id="untactBook-req" class="btn btn2"><span>비대면 도서대출</span></a>
-			
+			 -->
 			<c:choose>
 				<c:when test="${homepage.context_path eq 'jungang'}">
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
