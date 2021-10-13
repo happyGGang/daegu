@@ -30,7 +30,7 @@ function cancelReserve(request_number, member_id, member_name) {
 </script>
 
 <form:form modelAttribute="untactBookReservation" method="POST">
-
+<form:hidden path="menu_idx"/>
 <div class="book-list" style="border-top:none;">
 
 	<c:if test="${fn:length(untactBookReservationList) < 1 }"> <h3 style="margin-top:0;">비대면도서대출 내역이 없습니다.</h3></c:if>
@@ -68,6 +68,10 @@ function cancelReserve(request_number, member_id, member_name) {
 		</c:forEach>
 		</tbody>
 	</table>
+	
+	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
+		<jsp:param name="formId" value="#untactBookReservation"/>
+	</jsp:include>
 </div>
 
 </form:form>

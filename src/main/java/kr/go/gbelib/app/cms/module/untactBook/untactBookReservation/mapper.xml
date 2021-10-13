@@ -290,7 +290,6 @@
 			homepage_id = #{homepage_id}
 		AND cancel_yn = 'N'
 		AND member_id = #{member_id}
-		AND TO_CHAR(request_date, 'yyyy-MM-dd') = TO_CHAR(SYSDATE, 'yyyy-MM-dd')
 	</select>
 	
 	<select id="getUntactBookReservationInfo" resultType="kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservation">
@@ -306,7 +305,6 @@
 				homepage_id = #{homepage_id}
 			AND cancel_yn = 'N'
 			AND member_id = #{member_id}
-			AND TO_CHAR(request_date, 'yyyy-MM-dd') = TO_CHAR(SYSDATE, 'yyyy-MM-dd')
 			ORDER BY request_number DESC
 		${pagingBottom}
 	</select>
