@@ -200,7 +200,7 @@
                     lecture_id = #{lecture_id}
                 AND request_type = #{request_type}
                 AND cancel_yn = 'N'
-                AND request_status LIKE '%대기%'
+                AND request_status LIKE '예약대기'
             )
     </update>
 
@@ -235,7 +235,8 @@
         WHERE
             lecture_id = #{param1}
             AND request_type NOT IN ('오프라인')
-            AND request_status NOT IN ('예약취소')
+            AND request_status NOT IN ('예약취소','예약완료')
+            AND cancel_yn NOT IN ('Y')
     </select>
 
     <update id="updateRequestStatus">

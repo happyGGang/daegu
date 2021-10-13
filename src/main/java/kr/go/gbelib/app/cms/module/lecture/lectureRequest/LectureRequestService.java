@@ -149,7 +149,6 @@ public class LectureRequestService extends BaseService {
             LectureRequest lectureRequestEntity = lectureRequestDao.getLectureRequestOne(lectureRequest.getRequest_id());
             lectureRequestDao.changeLatestWait(lectureRequestEntity);
         }
-
     }
 
     /**
@@ -218,7 +217,7 @@ public class LectureRequestService extends BaseService {
         for (LectureRequest request : raffleList) {
             request.setRequest_status("예약완료");
             lectureRequestDao.updateRequestStatus(request);
-            remainCount -= 1;
+            remainCount--;
             if(remainCount <= 0) break;
         }
 

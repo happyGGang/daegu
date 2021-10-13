@@ -166,13 +166,16 @@ $(function() {
 		let dataArr = $(obj).data('key').split(",");
 		let lecture_id = dataArr[0];
 		let request_count = parseInt(dataArr[1]);
+		let person_count = parseInt(dataArr[2]);
 
-		if(request_count > 0) {
-			alert("이미 추첨을 진행했던 강좌이기때문에 더 이상 추첨을 할 수 없습니다.");
+		if(request_count >= person_count) {
+			alert("온라인 모집인원이 마감되어 추첨할 수 없습니다.");
 			return;
 		}
-
-		if(!confirm("추첨을 진행합니다.\n추첨은 단 한번만 할 수 있고 되돌릴 수 없습니다.\n정말 계속 진행하시겠습니까?")) return;
+		else if(request_count < person_count) {
+			if(!confirm("부족한 온라인 모집인원 만큼 추첨을 진행합니다.\n추첨을 진행하면 되돌릴 수 없습니다.\n정말 계속 진행하시겠습니까?")) return;
+		}
+		else if(!confirm("추첨을 진행합니다.\n추첨은 단 한번만 할 수 있고 되돌릴 수 없습니다.\n정말 계속 진행하시겠습니까?")) return;
 
 		let jsonData = {
 			'lecture_id' : lecture_id,
@@ -351,7 +354,7 @@ $(function() {
 					<td>
 						${i.request_type}
 						<c:if test="${i.request_type eq '추첨제' and i.lecture_status1 eq '모집마감'}">
-							<a href="#" class="btn dialog-raffle" onclick="btnRaffle(this)" data-key="${i.lecture_id},${i.online_request_count}">추첨</a>
+							<a href="#" class="btn dialog-raffle" onclick="btnRaffle(this)" data-key="${i.lecture_id},${i.online_request_count},${i.online_person_count}">추첨</a>
 						</c:if>
 					</td>
 					<td>
