@@ -38,14 +38,14 @@ $(function(){
 	});
 	
 	$('a#excelDownload').on('click', function(e) {
-			$('#search').attr('action', 'excelDownload.do').submit();
-			$('#search').attr('action', 'index.do')
+			$('#untactBookCancelHistory').attr('action', 'excelDownload.do').submit();
+			$('#untactBookCancelHistory').attr('action', 'save.do')
 		e.preventDefault();
 	});
 	
 });
 </script>
-<form:form id="untactBookCancelHistory" modelAttribute="untactBookCancelHistory" method="POST" action="save.do" onsubmit="return false;">
+<form:form id="untactBookCancelHistory" modelAttribute="untactBookCancelHistory" method="POST" action="save.do">
 <form:hidden id="homepage_id" path="homepage_id"/>
 
 <div class="search">

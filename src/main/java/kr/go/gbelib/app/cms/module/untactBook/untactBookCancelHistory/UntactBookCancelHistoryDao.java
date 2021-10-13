@@ -8,4 +8,6 @@ public interface UntactBookCancelHistoryDao {
 
 	public List<UntactBookCancelHistory> getUntactBookCancelHistoryList(UntactBookCancelHistory untactBookCancelHistory);
 
+	public List<UntactBookCancelHistory> getUntactBookCancelHistoryExcelList(UntactBookCancelHistory untactBookCancelHistory);
+
 }

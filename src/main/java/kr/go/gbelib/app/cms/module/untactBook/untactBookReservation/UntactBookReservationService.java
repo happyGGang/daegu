@@ -88,4 +88,20 @@ public class UntactBookReservationService extends BaseService {
 		return dao.checkNonPasswordCount(untactBookReservation);
 	}
 
+	public int reservationCount(UntactBookReservation untactBookReservation) {
+		return dao.reservationCount(untactBookReservation);
+	}
+
+	public List<UntactBookReservation> getUntactBookReservationInfo(UntactBookReservation untactBookReservation) {
+		return dao.getUntactBookReservationInfo(untactBookReservation);
+	}
+
+	public int cancelReserve(UntactBookReservation untactBookReservation) {
+		return dao.cancelReserve(untactBookReservation);
+	}
+
+	public List<UntactBookReservation> getUntactBookReservationExcelList(UntactBookReservation untactBookReservation) {
+		return dao.getUntactBookReservationExcelList(untactBookReservation);
+	}
+
 }

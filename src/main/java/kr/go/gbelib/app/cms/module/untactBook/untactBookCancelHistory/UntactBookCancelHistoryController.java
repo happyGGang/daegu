@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
@@ -34,6 +35,14 @@ public class UntactBookCancelHistoryController extends BaseController {
 		model.addAttribute("untactBookCancelHistoryList", service.getUntactBookCancelHistoryList(untactBookCancelHistory));
 		
 		return basepath + "index";
+	}
+	
+	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
+	public UntactBookCancelHistorySearchView excelDownload(Model model, UntactBookCancelHistory untactBookCancelHistory, HttpServletRequest request){
+		model.addAttribute("untactBookCancelHistory", untactBookCancelHistory);
+		model.addAttribute("untactBookCancelHistoryList", service.getUntactBookCancelHistoryExcelList(untactBookCancelHistory));
+		
+		return new UntactBookCancelHistorySearchView();
 	}
 	
 }

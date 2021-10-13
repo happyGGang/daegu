@@ -22,4 +22,10 @@ public interface UntactLockerSettingDao {
 
 	public int mergeUntactBookSetting(UntactBookSetting untactBookSetting);
 
+	public int reservationTimeCount(String homepage_id);
+
+	public int reservationMaxCount(String homepage_id);
+
+	public String getLoanTime(String homepage_id);
+
 }

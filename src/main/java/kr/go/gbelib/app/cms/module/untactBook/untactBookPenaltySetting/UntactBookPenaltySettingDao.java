@@ -56,4 +56,8 @@ public interface UntactBookPenaltySettingDao {
 	 * @return
 	 */
 	public int duplicateCheck(UntactBookPenaltySetting penalty);
+
+	public int getPenaltyCount(String homepage_id);
+
+	public String getEndDate(String homepage_id);
 }

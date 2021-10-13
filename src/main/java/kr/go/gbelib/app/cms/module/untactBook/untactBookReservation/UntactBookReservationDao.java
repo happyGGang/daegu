@@ -40,4 +40,12 @@ public interface UntactBookReservationDao {
 
 	public int checkNonPasswordCount(UntactBookReservation untactBookReservation);
 
+	public int reservationCount(UntactBookReservation untactBookReservation);
+
+	public List<UntactBookReservation> getUntactBookReservationInfo(UntactBookReservation untactBookReservation);
+
+	public int cancelReserve(UntactBookReservation untactBookReservation);
+
+	public List<UntactBookReservation> getUntactBookReservationExcelList(UntactBookReservation untactBookReservation);
+
 }

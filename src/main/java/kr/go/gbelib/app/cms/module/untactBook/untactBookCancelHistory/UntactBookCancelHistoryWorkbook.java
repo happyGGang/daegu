@@ -1,4 +1,4 @@
-package kr.go.gbelib.app.cms.module.untactBook.untactBookReservation;
+package kr.go.gbelib.app.cms.module.untactBook.untactBookCancelHistory;
 
 import java.util.List;
 
@@ -13,10 +13,10 @@ import jxl.write.Label;
 import jxl.write.WritableCellFormat;
 import jxl.write.WritableWorkbook;
 
-public class UntactBookReservationWorkbook {
+public class UntactBookCancelHistoryWorkbook {
 	
-	protected WritableWorkbook workbookForm(WritableWorkbook workbook, List<UntactBookReservation> untactBookReservationList, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String sheetName = "비대면 전체 신청내역";	//시트이름
+	protected WritableWorkbook workbookForm(WritableWorkbook workbook, List<UntactBookCancelHistory> untactBookCancelHistoryList, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String sheetName = "비대면 전체 취소내역";	//시트이름
 		workbook.createSheet(sheetName, 0);	//시트설정
 		
 		// 헤더 스타일
@@ -54,32 +54,24 @@ public class UntactBookReservationWorkbook {
 		int column = 0;
 		// 헤더 컬럼 지정
 //		workbook.getSheet(0).addCell( new Label(column++, 1, "번호", format ) );
-		workbook.getSheet(0).addCell( new Label(column++, 0, "신청자아이디", format ) );
-		workbook.getSheet(0).addCell( new Label(column++, 0, "대출번호", format ) );
-		workbook.getSheet(0).addCell( new Label(column++, 0, "신청자명", format ) );
-		workbook.getSheet(0).addCell( new Label(column++, 0, "신청일", format ) );
-		workbook.getSheet(0).addCell( new Label(column++, 0, "대출일", format ) );
-		workbook.getSheet(0).addCell( new Label(column++, 0, "도서명", format ) );
-		workbook.getSheet(0).addCell( new Label(column++, 0, "사물함번호", format ) );
-		workbook.getSheet(0).addCell( new Label(column++, 0, "비밀번호", format ) );
-		workbook.getSheet(0).addCell( new Label(column++, 0, "대출단계", format ) );
+		workbook.getSheet(0).addCell( new Label(column++, 0, "회원아이디", format ) );
+		workbook.getSheet(0).addCell( new Label(column++, 0, "회원이름", format ) );
+		workbook.getSheet(0).addCell( new Label(column++, 0, "취소사유", format ) );
+		workbook.getSheet(0).addCell( new Label(column++, 0, "등록일", format ) );
+		workbook.getSheet(0).addCell( new Label(column++, 0, "등록ID", format ) );
 		
 		int row = 1;
 		
-		for ( UntactBookReservation one : untactBookReservationList ) {
+		for ( UntactBookCancelHistory one : untactBookCancelHistoryList ) {
 			
 			column = 0;	
 			
 //			workbook.getSheet(0).addCell(new Label(column++, row, String.valueOf((row)), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getMember_id(), format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, one.getReg_no(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getMember_name(), format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, one.getRequest_date(), format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, one.getLoan_date(), format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, one.getBook_name(), format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, Integer.toString(one.getLocker_number()), format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, Integer.toString(one.getLocker_password()), format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, one.getReservation_step(), format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, one.getCancel_reason(), format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, one.getCancel_date(), format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, one.getCancel_id(), format1));
 			
 			row++;
 		}

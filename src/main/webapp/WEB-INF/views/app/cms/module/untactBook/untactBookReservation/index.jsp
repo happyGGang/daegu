@@ -38,14 +38,14 @@ $(function(){
 	});
 	
 	$('a#excelDownload').on('click', function(e) {
-			$('#search').attr('action', 'excelDownload.do').submit();
-			$('#search').attr('action', 'index.do')
+		$('#untactBookReservation').attr('action', 'excelDownload.do').submit();
+		$('#untactBookReservation').attr('action', 'save.do');
 		e.preventDefault();
 	});
 	
 });
 </script>
-<form:form id="untactBookReservation" modelAttribute="untactBookReservation" method="POST" action="save.do" onsubmit="return false;">
+<form:form id="untactBookReservation" modelAttribute="untactBookReservation" method="POST" action="save.do">
 <form:hidden id="homepage_id" path="homepage_id"/>
 
 <div class="search">
@@ -98,7 +98,7 @@ $(function(){
 			<td width="50">${i.locker_number}</td>
 			<c:choose>
 				<c:when test="${i.locker_password eq 0}">
-					<td width="50">비밀번호가 설정이 안되었습니다.</td>
+					<td width="50">미등록</td>
 				</c:when>
 				<c:otherwise>
 					<td width="50">${i.locker_password}</td>

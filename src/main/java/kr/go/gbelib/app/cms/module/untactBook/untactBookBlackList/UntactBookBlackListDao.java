@@ -18,5 +18,7 @@ public interface UntactBookBlackListDao {
 
 	public int getPenaltyCount(UntactBookBlackList untactBookBlackList);
 
+	public List<UntactBookBlackList> getUntactBookBlackListExcelList(UntactBookBlackList untactBookBlackList);
+
 
 }

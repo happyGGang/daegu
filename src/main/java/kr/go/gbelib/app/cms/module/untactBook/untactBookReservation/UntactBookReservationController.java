@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
@@ -53,10 +54,10 @@ public class UntactBookReservationController extends BaseController {
 		return basepath + "index";
 	}
 	
-	@RequestMapping(value = {"/excelDownload.*"})
+	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
 	public UntactBookReservationSearchView excelDownload(Model model, UntactBookReservation untactBookReservation, HttpServletRequest request){
 		model.addAttribute("untactBookReservation", untactBookReservation);
-		model.addAttribute("untactBookReservationList", reservationService.getUntactBookReservationList(untactBookReservation));
+		model.addAttribute("untactBookReservationList", reservationService.getUntactBookReservationExcelList(untactBookReservation));
 		
 		return new UntactBookReservationSearchView();
 	}

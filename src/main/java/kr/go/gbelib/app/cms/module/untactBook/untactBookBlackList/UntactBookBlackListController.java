@@ -76,4 +76,13 @@ public class UntactBookBlackListController extends BaseController {
 
 	}
 	
+	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
+	public UntactBookBlackListSearchView excelDownload(Model model, UntactBookBlackList untactBookBlackList, HttpServletRequest request){
+		model.addAttribute("untactBookBlackList", untactBookBlackList);
+		model.addAttribute("untactBookBlackListList", service.getUntactBookBlackListExcelList(untactBookBlackList));
+		
+		return new UntactBookBlackListSearchView();
+	}
+	
+	
 }

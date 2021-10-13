@@ -48,16 +48,24 @@ $(function() {
 		$('#viewPage').val(1);
 		doGetLoad('index.do', $('form#untactBookReservation').serialize());
 	});
+	
+	//엑셀저장
+	$('a#excelDownload').on('click', function(e) {
+		$('#untactBookReservation').attr('action', 'excelDownload.do').submit();
+		$('#untactBookReservation').attr('action', 'index.do');
+		e.preventDefault();
+	});
 });
 
 //진행상황 변경 버튼
-function reservationStepChange(member_id, member_name, reservation_step) {
+function reservationStepChange(member_id, member_name, reservation_step, request_number, $this) {
 	
 	var ajaxData = {
-			'member_id' : member_id,
-			'member_name' : member_name,
-			'reservation_step' : reservation_step
-		};
+		'member_id' : member_id,
+		'member_name' : member_name,
+		'reservation_step' : reservation_step,
+		'request_number' : request_number
+	};
 	
 	if(confirm(reservation_step + ' 하시겠습니까?')) {
 		$.ajax({
@@ -66,17 +74,25 @@ function reservationStepChange(member_id, member_name, reservation_step) {
 			data: ajaxData,
 			success: function(response) {
 				if(response.valid) {
-					alert(reservation_step + ' 되었습니다.');
+					alert(reservation_step + ' 되었습니다.'); 
+					if(reservation_step == '비치') {
+						$this.hide();
+						$this.parent().children('a#loanBook').show();
+						$this.parent().parent().next().children('#reservationStep').text('비치');
+					} else if(reservation_step == '대출') {
+						$this.hide();
+						$this.parent().children('a#cancelBook').show();
+						$this.parent().parent().next().children('#reservationStep').text('대출');
+					}
 				} else {
 					alert('사물함 비밀번호가 등록되어있지 않습니다. \n\n비밀번호 랜덤생성 버튼을 눌러주세요.');
 				}
-				location.reload();
 			},
 			error : function() {
 				alert(reservation_step + ' 에 실패했습니다.\n\n관리자에게 문의해 주세요.');
 			}
 		});
-	} 
+	}
 }
 
 //취소버튼
@@ -301,7 +317,8 @@ function randomPassword(passwordCount, nonPasswordCount) {
 	</style>
 <div id="wrap">
 	<div id="container">
-		<form:form id="untactBookReservation" modelAttribute="untactBookReservation" method="POST" action="index.do" onsubmit="return false;">
+		<form:form id="untactBookReservation" modelAttribute="untactBookReservation" method="POST" action="index.do">
+		<form:hidden id="homepage_id" path="homepage_id"/>
 		<div class="wrapper wrapper-white">
 
 			<div class="cont-box">
@@ -365,19 +382,15 @@ function randomPassword(passwordCount, nonPasswordCount) {
 									</td>
 									<td>
 									<div class="button">
-									<c:if test="${i.reservation_step eq '접수'}">
-										<a href="javascript:void(0);" id="setBook" class="btn btn1 btnuntact" onclick="reservationStepChange('${i.member_id}', '${i.member_name}', '비치');">비치</a>
-									</c:if>
-									<c:if test="${i.reservation_step eq '비치'}">
-										<a href="javascript:void(0);" id="loanBook" class="btn btn2 btnuntact" onclick="reservationStepChange('${i.member_id}', '${i.member_name}', '대출');">대출</a>
-									</c:if>
-									<c:if test="${i.reservation_step eq '대출'}">
-										<a href="javascript:void(0);" id="cancelBook" class="btn btnuntact" onclick="cancelSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');">취소</a>
-									</c:if>	
+										<a href="javascript:void(0);" id="setBook" class="btn btn1 btnuntact" onclick="reservationStepChange('${i.member_id}', '${i.member_name}', '비치', '${i.request_number}', $(this));" ${i.reservation_step eq '접수'?'':' style="display:none;"'}>비치</a>
+										<a href="javascript:void(0);" id="loanBook" class="btn btn2 btnuntact" onclick="reservationStepChange('${i.member_id}', '${i.member_name}', '대출', '${i.request_number}', $(this));" ${i.reservation_step eq '비치'?'':' style="display:none;"'}>대출</a>
+										<a href="javascript:void(0);" id="cancelBook" class="btn btnuntact" onclick="cancelSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');" ${i.reservation_step eq '대출'?'':' style="display:none;"'}>취소</a>
 										<a href="javascript:void(0);" id="penaltyBook" class="btn btn5 btnuntact" onclick="blackListSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');">패널티부여</a>
 									</div>
 									</td>
-									<td>${i.reservation_step}</td>
+									<td>
+										<span id="reservationStep">${i.reservation_step}</span>
+									</td>
 								</tr>
 							</c:forEach>
 							</tbody>

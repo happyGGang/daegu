@@ -6,6 +6,7 @@ import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.go.gbelib.app.cms.module.untactBook.untactBookBlackList.UntactBookBlackList;
 import kr.go.gbelib.app.cms.module.untactBook.untactBookBlackList.UntactBookBlackListService;
 import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservation;
+import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservationSearchView;
 import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservationService;
 import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactBookSetting;
 import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSettingService;
@@ -213,6 +214,16 @@ public class AdminModeController extends BaseController {
 		}
 		return res;
 
+	}
+	
+	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
+	public UntactBookReservationSearchView excelDownload(Model model, UntactBookReservation untactBookReservation, HttpServletRequest request){
+		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
+		
+		model.addAttribute("untactBookReservation", untactBookReservation);
+		model.addAttribute("untactBookReservationList", reservationService.getUntactBookReservationExcelList(untactBookReservation));
+		
+		return new UntactBookReservationSearchView();
 	}
 	
 }

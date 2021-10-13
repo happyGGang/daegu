@@ -41,4 +41,8 @@ public class UntactBookBlackListService extends BaseService {
 		return dao.getPenaltyCount(untactBookBlackList);
 	}
 
+	public List<UntactBookBlackList> getUntactBookBlackListExcelList(UntactBookBlackList untactBookBlackList) {
+		return dao.getUntactBookBlackListExcelList(untactBookBlackList);
+	}
+
 }

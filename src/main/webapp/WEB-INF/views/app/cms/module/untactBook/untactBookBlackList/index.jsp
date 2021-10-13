@@ -54,8 +54,8 @@ $(function(){
 	});
 	
 	$('a#excelDownload').on('click', function(e) {
-			$('#search').attr('action', 'excelDownload.do').submit();
-			$('#search').attr('action', 'index.do')
+			$('#untactBookBlackList').attr('action', 'excelDownload.do').submit();
+			$('#untactBookBlackList').attr('action', 'save.do')
 		e.preventDefault();
 	});
 	
@@ -107,7 +107,7 @@ function deletePenalty(member_id, member_name) {
 	
 }
 </script>
-<form:form id="untactBookBlackList" modelAttribute="untactBookBlackList" method="POST" action="save.do" onsubmit="return false;">
+<form:form id="untactBookBlackList" modelAttribute="untactBookBlackList" method="POST" action="save.do">
 <form:hidden id="homepage_id" path="homepage_id"/>
 
 <div class="search">

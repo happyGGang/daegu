@@ -52,7 +52,38 @@ function bookSettingSave() {
 			<tr>
 				<th>하루최대 대출가능 권수(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
-					<form:input path="total_count"/>
+					<form:input path="reservation_max_count"/>
+				</td>
+			</tr>
+			<tr>
+				<th>대출가능 시간 설정(<span style="color: red;font-weight: bold;">*</span>)</th>
+				<td>
+					<form:select path="start_hour">
+						<c:forEach var="hour" begin="0" end="23">
+							<option value="<c:if test='${hour < 10}'>0</c:if>${hour}" ${untactBookSetting.start_hour eq hour ? 'selected' : ''}><c:if test='${hour < 10}'>0</c:if>${hour}</option>
+						</c:forEach>
+					</form:select>:
+					<form:select path="start_minute">
+						<form:option value="00">00</form:option>
+						<form:option value="10">10</form:option>
+						<form:option value="20">20</form:option>
+						<form:option value="30">30</form:option>
+						<form:option value="40">40</form:option>
+						<form:option value="50">50</form:option>
+					</form:select>~
+					<form:select path="end_hour">
+						<c:forEach var="hour" begin="0" end="23">
+							<option value="<c:if test="${hour < 10}">0</c:if>${hour}" ${untactBookSetting.end_hour eq hour ? 'selected' : ''} ><c:if test="${hour < 10}">0</c:if>${hour}
+						</c:forEach>
+					</form:select>:
+					<form:select path="end_minute">
+						<form:option value="00">00</form:option>
+						<form:option value="10">10</form:option>
+						<form:option value="20">20</form:option>
+						<form:option value="30">30</form:option>
+						<form:option value="40">40</form:option>
+						<form:option value="50">50</form:option>
+					</form:select>
 				</td>
 			</tr>
 		</tbody>

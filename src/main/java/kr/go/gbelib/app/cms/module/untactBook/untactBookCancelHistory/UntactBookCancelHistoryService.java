@@ -20,8 +20,8 @@ public class UntactBookCancelHistoryService extends BaseService {
 		return dao.getUntactBookCancelHistoryList(untactBookCancelHistory);
 	}
 
-	
-	 
-	
+	public List<UntactBookCancelHistory> getUntactBookCancelHistoryExcelList(UntactBookCancelHistory untactBookCancelHistory) {
+		return dao.getUntactBookCancelHistoryExcelList(untactBookCancelHistory);
+	}
 	
 }
