@@ -584,5 +584,22 @@
 		AND TEACH_IDX = #{teach_idx}
 		AND student_idx = #{student_idx}
 	</select>
+	
+	<select id="getTeachStudentApiList" resultType="kr.go.gbelib.app.cms.module.teach.student.Student">
+		SELECT 
+			APPLICANT_NAME,
+			MEMBER_ID,
+			APPLICANT_BIRTH,
+			APPLICANT_CELL_PHONE,
+			TO_CHAR(ADD_DATE, 'YYYY-MM-DD')	AS add_date
+		FROM 
+			STUDENT 
+		WHERE 
+			delete_yn = 'N'
+		AND homepage_id = #{homepage_id}  
+		AND	group_idx = #{group_idx}  
+		AND	teach_idx = #{teach_idx} 
+		AND	APPLY_STATUS='1'
+	</select>
 
 </mapper>

@@ -196,6 +196,8 @@ public class Teach extends PagingUtils {
 	private String vaccines_yn = "N";	// 백신 여부
 
 	private List<String> homepage_ids;
+	
+	private String date; // api 날짜값
 	public Teach() {}
 
 	public Teach(String homepage_id, int mainViewCount) {
@@ -1585,5 +1587,14 @@ public class Teach extends PagingUtils {
 	public void setVaccines_yn(String vaccines_yn) {
 		this.vaccines_yn = vaccines_yn;
 	}
+	
+	public String getDate() {
+		return date;
+	}
 
+	
+	public void setDate(String date) {
+		this.date = date;
+	}
+	
 }

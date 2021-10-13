@@ -1125,5 +1125,10 @@ public class StudentService extends BaseService {
 	public Student getStudentFileOne(Student student) {
 		return dao.getStudentFileOne(student);
 	}
+	
+	// Teach Student
+	public List<Student> getTeachStudentApiList(Student student) {
+		return dao.getTeachStudentApiList(student);
+	}
 
 }

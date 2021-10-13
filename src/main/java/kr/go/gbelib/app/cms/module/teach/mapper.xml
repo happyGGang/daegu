@@ -1824,4 +1824,64 @@
 		WHERE
 			teach_idx = #{teach_idx}
 	</select>
+	
+	<select id="getTeachApiList" resultType="kr.go.gbelib.app.cms.module.teach.Teach">
+		SELECT
+			a.teach_name, a.teach_target,
+			NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='1' AND	APPLY_TYPE != 'CMS' GROUP BY teach_idx), 0) AS TEACH_JOIN_COUNT,
+			NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='2' GROUP BY teach_idx), 0) AS TEACH_BACKUP_JOIN_COUNT,
+			NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='1' AND	APPLY_TYPE = 'CMS' GROUP BY teach_idx), 0) AS TEACH_OFF_JOIN_COUNT,
+			a.start_date, a.end_date, a.start_time, a.end_time, a.teach_desc, b.teacher_name, a.teach_idx, a.group_idx, 
+			(SELECT homepage_name FROM CMS_HOMEPAGE WHERE homepage_id = a.HOMEPAGE_ID) AS homepage_name,
+			(
+				SELECT WM_CONCAT(CASE 
+									WHEN pivot_col = '1' 
+									THEN '일'
+									WHEN pivot_col = '2'
+									THEN '월'
+									WHEN pivot_col = '3'
+									THEN '화'
+									WHEN pivot_col = '4'
+									THEN '수'
+									WHEN pivot_col = '5'
+									THEN '목'
+									WHEN pivot_col = '6'
+									THEN '금'
+									WHEN pivot_col = '7'
+									THEN '토'
+								END)
+				FROM (
+						SELECT
+					 		REGEXP_SUBSTR ('1,2,3,4,5,6,7', '[^,]+', 1, LEVEL) PIVOT_COL  
+						FROM
+					 		DUAL 
+						CONNECT BY REGEXP_SUBSTR ('1,2,3,4,5,6,7','[^,]+', 1, LEVEL) IS NOT NULL
+					)
+				WHERE 
+					INSTR(a.teach_day, pivot_col) > 0
+			) AS teach_day_txt 
+		FROM
+			TEACH a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d
+		WHERE a.homepage_id = b.homepage_id(+)
+			AND	a.teacher_idx = b.teacher_idx(+)
+			AND	a.homepage_id = c.homepage_id(+)
+			AND	a.group_idx = c.group_idx(+)
+			AND	a.category_idx = c.category_idx(+)
+			AND	a.homepage_id = d.homepage_id(+)
+			AND	a.group_idx = d.group_idx(+)
+			AND a.use_yn = 'Y'
+			AND a.delete_yn = 'N'
+			AND a.homepage_id != 'h32'
+			--AND	SYSDATE <![CDATA[ < ]]> TO_DATE(a.end_join_date||' '||a.end_join_time, 'YYYY-MM-DD HH24:MI')
+			AND SYSDATE BETWEEN TO_DATE(start_date, 'YYYY-MM-DD') AND TO_DATE(end_date, 'YYYY-MM-DD')
+			<if test="date != null and date != ''">
+				AND TO_DATE(#{date},'YYYY-MM-DD') BETWEEN TO_DATE(start_date, 'YYYY-MM-DD') AND TO_DATE(end_date, 'YYYY-MM-DD')
+			</if>
+			<if test="homepage_id != null and homepage_id != ''">
+				AND a.homepage_id = #{homepage_id}
+			</if>
+		ORDER BY
+			ABS(SYSDATE - (TO_DATE(a.start_join_date ||' '|| a.start_join_time, 'YYYY-MM-DD HH24:MI'))) ASC,
+			ABS(SYSDATE - (TO_DATE(a.end_join_date ||' '|| a.end_join_time, 'YYYY-MM-DD HH24:MI'))) ASC
+	</select>
 </mapper>
