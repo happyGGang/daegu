@@ -48,4 +48,6 @@ public interface UntactBookReservationDao {
 
 	public List<UntactBookReservation> getUntactBookReservationExcelList(UntactBookReservation untactBookReservation);
 
+	public int getUntactBookReservationInfoCount(UntactBookReservation untactBookReservation);
+
 }

@@ -32,9 +32,6 @@ function cancelReserve(request_number, member_id, member_name) {
 <form:form modelAttribute="untactBookReservation" method="POST">
 
 <div class="book-list" style="border-top:none;">
-	<div class="excel_btn_box_wrap02">
-		<a href="#" id="excel-btn" class="btn excel-btn">리스트 다운로드</a>
-	</div><br>
 
 	<c:if test="${fn:length(untactBookReservationList) < 1 }"> <h3 style="margin-top:0;">비대면도서대출 내역이 없습니다.</h3></c:if>
 	
@@ -51,7 +48,7 @@ function cancelReserve(request_number, member_id, member_name) {
 		<tbody>
 		<c:forEach var="i" varStatus="status" items="${untactBookReservationList}">
 			<tr>
-				<td>${untactBookReservation.listRowNum - status.index}</td>
+				<td>${paging.listRowNum - status.index}</td>
 				<td>${i.request_date}</td>
 				<td>${i.locker_number}</td>
 				<td>
