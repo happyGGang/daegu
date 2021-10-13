@@ -373,7 +373,7 @@ function randomPassword(passwordCount, nonPasswordCount) {
 									<td>
 										<c:choose>
 											<c:when test="${i.locker_password eq 0}">
-											등록된 비밀번호가 없습니다.
+											미등록
 											</c:when>
 											<c:otherwise>
 											${i.locker_password}	
