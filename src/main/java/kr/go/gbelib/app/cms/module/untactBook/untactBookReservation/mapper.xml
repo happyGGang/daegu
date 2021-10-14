@@ -161,7 +161,11 @@
 		UPDATE
 			UNTACT_BOOK_RESERVATION
 		SET
-			cancel_yn = 'Y'
+			cancel_yn = 'Y',
+			cancel_reason = '관리자취소',
+			cancel_id = #{cancel_id},
+			cancel_ip = #{cancel_ip},
+			cancel_date = SYSDATE
 		WHERE
 			homepage_id = #{homepage_id}
 		AND cancel_yn = 'N'

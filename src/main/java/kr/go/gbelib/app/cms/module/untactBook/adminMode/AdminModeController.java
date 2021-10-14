@@ -160,6 +160,9 @@ public class AdminModeController extends BaseController {
 	public @ResponseBody JsonResponse deleteAllReservation(UntactBookBlackList untactBookBlackList, UntactBookReservation untactBookReservation, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
 		
+		untactBookReservation.setCancel_id(getSessionMemberId(request));
+		untactBookReservation.setCancel_ip(request.getRemoteAddr());
+		
 		JsonResponse res = new JsonResponse(request);
 		
 		if (!result.hasErrors()) {
