@@ -84,7 +84,7 @@
 		FROM
 			UNTACT_BOOK_BLACKLIST a, UNTACT_BOOK_PENALTY_SETTING b
 		WHERE
-			a.homepage_id = 'h1'
+			a.homepage_id = #{homepage_id}
 		AND a.homepage_id = b.homepage_id
 		AND a.member_id = #{member_id}
 		AND a.penalty_day BETWEEN b.start_date and b.end_date

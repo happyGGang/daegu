@@ -28,4 +28,12 @@ public interface UntactLockerSettingDao {
 
 	public String getLoanTime(String homepage_id);
 
+	public List<UntactLockerSetting> showLockerState(String homepage_id);
+
+	public String getLockerUseType(String homepage_id);
+
+	public int getLockerMaxCount(String homepage_id);
+
+	public String getLockerUseYN(String homepage_id);
+
 }

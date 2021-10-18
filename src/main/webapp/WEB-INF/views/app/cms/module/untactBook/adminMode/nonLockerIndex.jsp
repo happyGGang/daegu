@@ -231,30 +231,6 @@ function blackListSettingEdit(member_id, member_name, request_number) {
 	
 }
 
-//비밀번호 랜덤생성 버튼
-function randomPassword(passwordCount, nonPasswordCount) {
-	if(confirm('비밀번호를 생성하시겠습니까?')) {
-		var ajaxData = {
-				'passwordCount' : passwordCount,
-				'nonPasswordCount' : nonPasswordCount
-		};
-		
-		$.ajax({
-			type: "POST",
-			url: 'randomPassword.do',
-			success: function(html) {
-				if(html == 'passwordCheck') {
-					alert(passwordCount + '개 모두 이미 비밀번호가 생성되었습니다.');
-				} else {
-				alert('전체 ' + passwordCount + '개 중 \n\n 비밀번호 생성이 안된' + nonPasswordCount + '개 비밀번호가 생성되었습니다.');
-				location.reload();
-				}
-			},error: function(html) {
-			}
-		});
-	}
-}
-
 </script>
 
 <!--[if IE 7]>
@@ -266,89 +242,33 @@ function randomPassword(passwordCount, nonPasswordCount) {
 </head>
 <body>
 	<!--해당 화면만 대구 및 경북에 사용을 위해 스타일을 별도로 빼지 않음-->
-	<style>
+<style>
 	/*비대변관련 스타일*/
 	.wrapper {overflow:hidden;}
 	.wrapper.wrapper-white {padding:0;margin:0;}
-	.locker-box {width:45%;float:left;box-sizing:border-box;max-height:920px;overflow-y:auto;}
-	.untact-box {width:55%;float:left;box-sizing:border-box;max-height:920px;overflow-y:auto;}
-	.locker-box ul {font-size:0;overflow:hidden;}
-	.locker-box li {float:left;display:inline-block;background:url('/resources/cms/img/locker-bg.png') no-repeat center center;background-size:100% 100%;height:230px;line-height:230px;padding:0;margin:0;border:1px solid #fff;box-sizing:border-box;text-align:center;}
-	.locker-box li p {display:block;box-sizing:border-box;padding:15% 0;margin:0;height:50%;font-size:18px;font-weight:800;color:#000;}
-	.locker-box li p:first-child {font-size:25px;}
-	.locker-box li.divide2 {width:50%;}
-	.locker-box li.divide3 {width:33.33333333333%;}
-	.locker-box li.divide4 {width:25%;}
-	.locker-box li.divide5 {width:20%;}
 	.untact-box tbody td {height:45px;line-height:45px;}
 	a.btnuntact {border-radius:0;padding:7px 10px;}
-
-	@media all and (max-width:1280px){
-		.locker-box, .untact-box {max-height:720px;}
-		.locker-box li {height:180px;line-height:180px;}
-	}
-
-	@media all and (max-width:1024px){
-		.locker-box, .untact-box {max-height:600px;}
-		.locker-box li {height:150px;line-height:150px;}
-	}
-
-	@media all and (max-width:768px){
-		.locker-box, .untact-box {width:100%;float:none;}
-	}
-
-	@media all and (max-width:600px){
-		.locker-box, .untact-box {max-height:520px;}
-		.locker-box li {height:130px;line-height:130px;}
-	}
-
-	@media all and (max-width:425px){
-		.locker-box, .untact-box {max-height:480px;}
-		.locker-box li {height:120px;line-height:120px;}
-	}
-
-	@media all and (max-width:330px){
-
-	}
-	</style>
+</style>
 <div id="wrap">
 	<div id="container">
 		<form:form id="untactBookReservation" modelAttribute="untactBookReservation" method="POST" action="index.do">
 		<form:hidden id="homepage_id" path="homepage_id"/>
 		<div class="wrapper wrapper-white">
-
-			<div class="cont-box">
-				<div class="locker-box">
-					<ul>
-						<!-- 3 x n 으로 혹은 4 x n으로 갈떄 CLASS를 divide3 혹은 divide4 등으로 주면 됩니다. 즉 3xn하면 divide3, 4xn하면 divide4 -->
-						<c:forEach var="i" varStatus="status" items="${untactLockerSettingList}">
-						<li class='divide${untactBookSetting.row_count}'>
-							<p class="locknumber">${i.locker_number}</p>
-							<p class="name">
-								${i.locker_type}
-							</p>
-						</li>
-						</c:forEach>
-					</ul>
-				</div>
-				
 				<div class="untact-box">
 					<div class="ui-state-highlight">
 						<em>* 패널티 부여는 비대면 블랙리스트관리에서 확인 하실수 있습니다.</em>
-					</div>
-					<div style="text-align:right;padding-top:10px;padding-bottom:10px;">
-						<a href="javascript:void(0);" class="btn btn1 btnuntact" onclick="randomPassword('${passwordCount}', '${nonPasswordCount}');">비밀번호랜덤생성</a>
 					</div>
 					<div class="table-wrap">
 						<table class="type1 center">
 							<thead>
 								<tr>
 									<th scope="col">선택</th>
+									<th scope="col">번호</th>
 									<th scope="col">신청자아이디</th>
+									<th scope="col">대출번호</th>
 									<th scope="col">신청자명</th>
+									<th scope="col">신청일</th>
 									<th scope="col">도서명</th>
-									<th scope="col">사물함번호</th>
-									<th scope="col">비밀번호</th>
 									<th scope="col">관리</th>
 									<th scope="col">상태</th>
 								</tr>
@@ -362,20 +282,12 @@ function randomPassword(passwordCount, nonPasswordCount) {
 							<c:forEach var="i" varStatus="status" items="${untactBookReservationList}">
 								<tr>
 									<td><form:checkbox path="request_number_arr" cssClass="request_idx" value="${i.request_number}"/></td>
+									<td>${paging.listRowNum - status.index}</td>
 									<td>${i.member_id}</td>
+									<td>${i.reg_no}</td>
 									<td>${i.member_name}</td>
+									<td>${i.request_date}</td>
 									<td>${i.book_name}</td>
-									<td>${i.locker_number}</td>
-									<td>
-										<c:choose>
-											<c:when test="${i.locker_password eq 0}">
-											미등록
-											</c:when>
-											<c:otherwise>
-											${i.locker_password}	
-											</c:otherwise>
-										</c:choose>
-									</td>
 									<td>
 									<div class="button">
 										<a href="javascript:void(0);" id="setBook" class="btn btn1 btnuntact" onclick="reservationStepChange('${i.member_id}', '${i.member_name}', '비치', '${i.request_number}', $(this));" ${i.reservation_step eq '접수'?'':' style="display:none;"'}>비치</a>

@@ -9,6 +9,7 @@ import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookRe
 import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservationSearchView;
 import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservationService;
 import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactBookSetting;
+import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSetting;
 import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSettingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,23 +41,30 @@ public class AdminModeController extends BaseController {
 	private UntactBookBlackListService blackListService;
 	
 	@RequestMapping(value = { "/index.*" })
-	public String index(Model model, UntactBookSetting untactBookSetting, UntactBookReservation untactBookReservation, HttpServletRequest request) throws AuthException {
+	public String index(Model model, UntactBookSetting untactBookSetting, UntactLockerSetting untactLockerSetting, UntactBookReservation untactBookReservation, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 		
 		untactBookSetting = settingService.getUntactBookSettingOne(getAsideHomepageId(request));
 		
+		untactLockerSetting.setHomepage_id(getAsideHomepageId(request));
 		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
 		
 		int count = reservationService.getUntactBookReservationListCount(untactBookReservation);
 		reservationService.setPaging(model, count, untactBookReservation);
 		
 		model.addAttribute("untactBookSetting", untactBookSetting);
+		model.addAttribute("untactLockerSetting", untactLockerSetting);
+		model.addAttribute("untactLockerSettingList", settingService.showLockerState(getAsideHomepageId(request)));
 		model.addAttribute("untactBookReservationListCount", count);
 		model.addAttribute("untactBookReservationList", reservationService.getUntactBookReservationListNow(untactBookReservation));
 		model.addAttribute("passwordCount", reservationService.checkPasswordCount(untactBookReservation));
 		model.addAttribute("nonPasswordCount", reservationService.checkNonPasswordCount(untactBookReservation));
 		
-		return basePath + "index";
+		if(!(settingService.getLockerUseType(getAsideHomepageId(request)).equals("사물함없음"))) {
+			return basePath + "index";
+		}
+		
+		return basePath + "nonLockerIndex";
 	}
 	
 	@RequestMapping(value = { "/cancelSettingEdit.*" })
@@ -224,7 +232,7 @@ public class AdminModeController extends BaseController {
 		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
 		
 		model.addAttribute("untactBookReservation", untactBookReservation);
-		model.addAttribute("untactBookReservationList", reservationService.getUntactBookReservationExcelList(untactBookReservation));
+		model.addAttribute("untactBookReservationList", reservationService.getUntactBookReservationExcelListNow(untactBookReservation));
 		
 		return new UntactBookReservationSearchView();
 	}

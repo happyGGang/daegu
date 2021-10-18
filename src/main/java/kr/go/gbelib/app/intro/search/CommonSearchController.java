@@ -1,5 +1,13 @@
 package kr.go.gbelib.app.intro.search;
 
+import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -8,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,12 +34,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.framework.base.BaseController;
+import kr.co.whalesoft.framework.utils.AttachmentUtils;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfig;
@@ -1772,7 +1787,30 @@ public class CommonSearchController extends BaseController {
 		model.addAttribute("untactBookReservationListCount", count);
 		model.addAttribute("untactBookReservationList", untactBookReservationService.getUntactBookReservationInfo(untactBookReservation));
 		
+		if(untactLockerSettingService.getLockerUseType(homepage.getHomepage_id()).equals("QR코드")) {
+			return String.format(basePath, homepage.getFolder()) + "untactBook/qrIndex";
+		} else if (untactLockerSettingService.getLockerUseType(homepage.getHomepage_id()).equals("비밀번호")) {
+			return String.format(basePath, homepage.getFolder()) + "untactBook/passwordIndex";
+		}
+		
 		return String.format(basePath, homepage.getFolder()) + "untactBook/index";
+	}
+	
+	/**
+	 * 비대면 도서대출 비밀번호 QR코드
+	 * @author whalesoft SUNGHWAN 2021. 10. 18.
+	 * @param homepagePath
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = { "/untactBook/untactBookQrCode.*" })
+	public String qrCode(@PathVariable("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, UntactBookReservation untactBookReservation, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = getSessionHomepage(request);
+		return String.format(basePath, homepage.getFolder()) + "untactBook/untactBookQrCode_ajax";
 	}
 	
 	/**
@@ -1837,25 +1875,52 @@ public class CommonSearchController extends BaseController {
 			librarySearch.setBooktype("BO");
 		}
 		
+		//사물함 사용 여부 확인
+		if(!(untactLockerSettingService.getLockerUseType(homepage.getHomepage_id()).equals("사물함없음"))) {
+			if(untactLockerSettingService.getLockerUseYN(homepage.getHomepage_id()).equals("N")) {
+				service.alertMessage("금일 비대면 도서대출예약은 마감되었습니다.", request, response);
+				return null;
+			}
+		}
+		
+		//비대면 도서대출 예약 가능한 사물함 count
 		if (untactLockerSettingService.getUntactLockerSettingCount(homepage.getHomepage_id()) == 0) {
-			service.alertMessage("비대면도서대출이 불가능 합니다.", request, response);
+			service.alertMessage("금일 비대면 도서대출예약은 마감되었습니다.", request, response);
+			return null;
+		}
+
+		
+		//비대면 도서대출 설정유무 확인
+		if (untactLockerSettingService.getLockerMaxCount(homepage.getHomepage_id()) == 0) {
+			service.alertMessage("비대면 도서대출예약이 불가능한 도서관입니다.", request, response);
+			return null;
+		}
+		
+		//비대면 도서대출 예약 가능한 사물함 count
+		if (untactLockerSettingService.getUntactLockerSettingCount(homepage.getHomepage_id()) == 0) {
+			service.alertMessage("금일 비대면 도서대출예약은 마감되었습니다.", request, response);
 			return null;
 		}
 		
 		String penaltyEndDate = untactBookPenaltySettingService.getEndDate(homepage.getHomepage_id());
 		
-		if (untactBookBlackListService.getPenaltyCount(untactBookBlackList) >= untactBookPenaltySettingService.getPenaltyCount(homepage.getHomepage_id())) {
-		  service.alertMessage("현재 이용자님 께서는 관리자에 의해\\n\\n" + penaltyEndDate + "일 까지 비대면 도서대출 이용이 제한되어 있습니다.", request, response);
-		  return null; 
+		//페널티 초과 회원 예약 불가
+		if(untactBookBlackListService.getPenaltyCount(untactBookBlackList) > 0 && untactBookPenaltySettingService.getPenaltyCount(homepage.getHomepage_id()) > 0) {
+			if (untactBookBlackListService.getPenaltyCount(untactBookBlackList) >= untactBookPenaltySettingService.getPenaltyCount(homepage.getHomepage_id())) {
+				service.alertMessage("현재 이용자님 께서는 관리자에 의해\\n\\n" + penaltyEndDate + "일 까지 비대면 도서대출 이용이 제한되어 있습니다.", request, response);
+				return null; 
+			}
 		}
 		
 		String loanTime = untactLockerSettingService.getLoanTime(homepage.getHomepage_id());
 		
+		//비대면 도서대출 시간 확인
 		if (untactLockerSettingService.reservationTimeCount(homepage.getHomepage_id()) > 0) {
-			  service.alertMessage("현재 비대면 도서대출 가능시간이 아닙니다.\\n\\n" + loanTime + " 사이에만 비대면 도서대출이 가능합니다.", request, response);
-			  return null; 
+			service.alertMessage("현재 비대면 도서대출 가능시간이 아닙니다.\\n\\n" + loanTime + " 사이에만 비대면 도서대출이 가능합니다.", request, response);
+			return null; 
 		}
 		
+		//비대면 도서대출 예약가능 사물함갯수와 예약횟수 비교
 		if (untactLockerSettingService.getUntactLockerSettingCount(homepage.getHomepage_id()) <= untactBookReservationService.getUntactBookReservationCount(homepage.getHomepage_id())) {
 			service.alertMessage("금일 비대면 도서대출예약은 마감되었습니다.", request, response);
 			return null; 
@@ -1864,6 +1929,7 @@ public class CommonSearchController extends BaseController {
 		int reservationCount = untactBookReservationService.reservationCount(untactBookReservation);
 		int reservarionMaxCount = untactLockerSettingService.reservationMaxCount(homepage.getHomepage_id());
 		
+		//비대면 도서대출 최대 권수 비교
 		if (reservationCount >= reservarionMaxCount) {
 			service.alertMessage("비대면 도서 대출은 하루에 "+reservarionMaxCount+"권 까지만 가능합니다.\\n\\n비대면 도서대출 현황은 나의도서관 > 비대면 도서대출 현황에서 확인가능합니다.", request, response);
 			return null; 
@@ -1896,8 +1962,13 @@ public class CommonSearchController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = {"/untactBook/save.*"}, method=RequestMethod.POST)
-	public @ResponseBody JsonResponse saveUntactBook(Model model, LibrarySearch librarySearch, UntactBookReservation untactBookReservation, BindingResult result, HttpServletRequest request) {
+	public @ResponseBody JsonResponse saveUntactBook(Model model, LibrarySearch librarySearch, UntactBookBlackList untactBookBlackList, UntactBookReservation untactBookReservation, BindingResult result, HttpServletRequest request) {
 		Homepage homepage = getSessionHomepage(request);
+		Member member = getSessionMemberInfo(request);
+		untactBookBlackList.setMember_id(member.getMember_id());
+		
+		untactBookReservation.setHomepage_id(homepage.getHomepage_id());
+		untactBookReservation.setMember_id(member.getMember_id());
 		
 		JsonResponse res = new JsonResponse(request);
 
@@ -1907,6 +1978,10 @@ public class CommonSearchController extends BaseController {
 			return res;
 		}
 		
+		if (untactLockerSettingService.getLockerMaxCount(homepage.getHomepage_id()) == 0) {
+			result.reject("비대면 도서대출예약이 불가능한 도서관입니다.");
+		}
+
 		if (untactLockerSettingService.reservationTimeCount(homepage.getHomepage_id()) > 0) {
 			result.reject("비대면 도서대출예약시간이 아닙니다.");
 		}
@@ -1915,9 +1990,23 @@ public class CommonSearchController extends BaseController {
 		if (untactLockerSettingService.getUntactLockerSettingCount(homepage.getHomepage_id()) <= untactBookReservationService.getUntactBookReservationCount(homepage.getHomepage_id())) {
 			result.reject("금일 비대면 사물함 대출은 마감되었습니다.");
 		}
-		//TODO 똑같이 검사
+		
+		int reservationCount = untactBookReservationService.reservationCount(untactBookReservation);
+		int reservarionMaxCount = untactLockerSettingService.reservationMaxCount(homepage.getHomepage_id());
+		
+		if (reservationCount >= reservarionMaxCount) {
+			result.reject("비대면 도서 대출은 하루에 "+reservarionMaxCount+"권 까지만 가능합니다.\\n\\n비대면 도서대출 현황은 나의도서관 > 비대면 도서대출 현황에서 확인가능합니다.");
+		}
+		
+		String penaltyEndDate = untactBookPenaltySettingService.getEndDate(homepage.getHomepage_id());
+		
+		if(untactBookBlackListService.getPenaltyCount(untactBookBlackList) > 0 && untactBookPenaltySettingService.getPenaltyCount(homepage.getHomepage_id()) > 0) {
+			if (untactBookBlackListService.getPenaltyCount(untactBookBlackList) >= untactBookPenaltySettingService.getPenaltyCount(homepage.getHomepage_id())) {
+				result.reject("현재 이용자님 께서는 관리자에 의해\\n\\n" + penaltyEndDate + "일 까지 비대면 도서대출 이용이 제한되어 있습니다.");
+			}
+		}
+		
 		if (!result.hasErrors()) {
-			Member member = getSessionMemberInfo(request);
 			if (!StringUtils.equals(member.getMember_class(), "0")) {// 정회원만 가능
 				res.setValid(false);
 				res.setMessage("예약 신청 가능한 회원이 아닙니다.");
@@ -1929,7 +2018,6 @@ public class CommonSearchController extends BaseController {
 			untactBookReservation.setMember_id(member.getMember_id());
 			untactBookReservation.setMember_name(member.getMember_name());
 			
-			//TODO 조건문 넣어주기
 			int locker_number = untactBookReservationService.getUntactBookReservationLockerNumber(homepage.getHomepage_id());
 			untactBookReservation.setLocker_number(locker_number);
 			
