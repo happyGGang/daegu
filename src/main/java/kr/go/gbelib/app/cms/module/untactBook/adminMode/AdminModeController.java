@@ -11,6 +11,8 @@ import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookRe
 import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactBookSetting;
 import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSetting;
 import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSettingService;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,9 +62,12 @@ public class AdminModeController extends BaseController {
 		model.addAttribute("passwordCount", reservationService.checkPasswordCount(untactBookReservation));
 		model.addAttribute("nonPasswordCount", reservationService.checkNonPasswordCount(untactBookReservation));
 		
-		if(!(settingService.getLockerUseType(getAsideHomepageId(request)).equals("사물함없음"))) {
-			return basePath + "index";
+		if (StringUtils.isNotEmpty(settingService.getLockerUseType(getAsideHomepageId(request)))) {
+			if(!(settingService.getLockerUseType(getAsideHomepageId(request)).equals("사물함없음"))) {
+				return basePath + "index";
+			}
 		}
+		
 		
 		return basePath + "nonLockerIndex";
 	}
@@ -190,6 +195,11 @@ public class AdminModeController extends BaseController {
 		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
 		
 		JsonResponse res = new JsonResponse(request);
+		
+		if(reservationService.checkPasswordCount(untactBookReservation) == 0) {
+			reservationService.alertMessageOnly("nonPasswordCheck", request, response);
+			return null;
+		}
 		
 		if (reservationService.checkNonPasswordCount(untactBookReservation) == 0) {
 			reservationService.alertMessageOnly("passwordCheck", request, response);
