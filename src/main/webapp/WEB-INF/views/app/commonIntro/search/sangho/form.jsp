@@ -134,7 +134,7 @@ $(function() {
 						<!-- <form:option value="127008">죽전동공립작은도서관</form:option> -->
 						<form:option value="327002">웃는얼굴아트센터 도서실</form:option>
 						<form:option value="327003">행정정보문고센터</form:option>
-						<form:option value="727036">학산작은도서관</form:option>
+						<!--<form:option value="727036">학산작은도서관</form:option>-->
 					</form:select>
 					</c:when>
 					<c:when test="${homepage.context_path eq 'donggu'}">
