@@ -139,6 +139,7 @@ $(function() {
 							<form:radiobutton path="manageCode" value='BP' label="서구영어도서관" /><br/>
 							<form:radiobutton path="manageCode" value='BM' label="비원도서관" /><br/>
 							<form:radiobutton path="manageCode" value='BN' label="원고개도서관" /><br/>
+
 							<form:radiobutton path="manageCode" value='FH' label="새마을문고대구서구지부작은도서관" /><br/>
 							<form:radiobutton path="manageCode" value='FT' label="서구청 작은도서관" /><br/>
 							<form:radiobutton path="manageCode" value='FU' label="내당4동어린이도서관" /><br/>
@@ -239,7 +240,6 @@ $(function() {
 							<form:radiobutton path="manageCode" value="FL" label="도평동 작은도서관 "/><br/>
 							<form:radiobutton path="manageCode" value="GU" label="불로어울림 작은도서관 "/><br/>
 							<form:radiobutton path="manageCode" value="GV" label="지저동 작은도서관 "/><br/>
-							<form:radiobutton path="manageCode" value="GW" label="동촌역사 작은도서관 "/><br/>
 							<form:radiobutton path="manageCode" value="GY" label="해안동 작은도서관 "/><br/>
 							<form:radiobutton path="manageCode" value="FM" label="반야월역사 작은도서관 "/><br/>
 							<form:radiobutton path="manageCode" value="GZ" label="동구청 작은도서관 "/><br/>
@@ -312,7 +312,18 @@ $(function() {
 			</td>
 
 			</tr>
-
+			<th><label for="option01">자료실</label></th>
+			<td class="search_left" >
+				<ul>
+					<li style="margin-bottom: 3px;"><form:radiobutton path="shelfCode" value="ALL" label="전체"/></li>
+					<c:forEach items="${shelfList}" var="i" varStatus="status">
+						<c:if test="${not empty i.CHECKED and i.CHECKED}">
+						<li style="width: 100%; margin-bottom:3px;"><form:radiobutton path="shelfCode" value="${i.CODE}" label="${i.DESCRIPTION}"/></li>
+						</c:if>
+					</c:forEach>
+				</ul>
+			</td>
+			</tr>
 			</tbody>
 			</table>
 
