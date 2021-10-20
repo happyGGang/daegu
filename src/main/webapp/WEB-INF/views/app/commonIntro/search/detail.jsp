@@ -401,7 +401,7 @@ $(function() {
 				<c:when test="${homepage.context_path eq 'dalseolib'}">
 
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'FD' || detail.MANAGE_CODE eq 'GK'}">
+						<c:when test="${detail.MANAGE_CODE eq 'FD' || detail.MANAGE_CODE eq 'GK' || detail.MANAGE_CODE eq 'FX'}">
 						</c:when>
 						<c:otherwise>
 							<c:choose>
