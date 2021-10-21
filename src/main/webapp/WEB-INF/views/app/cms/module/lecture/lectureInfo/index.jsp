@@ -12,7 +12,8 @@ $(function() {
 	// 등록 버튼
 	$('a#dialog-add').on('click', function(e){
 		e.preventDefault();
-		$('#dialog-1').load('edit.do?editMode=ADD', function( response, status, xhr ) {
+		let course_id = $('#searching_course_id').val();
+		$('#dialog-1').load('edit.do?editMode=ADD&course_id='+course_id, function( response, status, xhr ) {
 			$('#dialog-1').dialog('open');
 		});
 	});
@@ -145,6 +146,26 @@ $(function() {
 		doGetLoad('index.do', $('form#lectureInfo').serialize());
 	});
 
+	// csv 다운로드
+	$('a#csvDownload').on('click', function(e) {
+		e.preventDefault();
+		if(!confirm("현재 보여지고 있는 목록만 CSV로 저장됩니다.\n" +
+				"전체 결과를 저장하고싶으시면 검색결과를 '전체 보기'로 변경 후 다시 시도하십시오.\n\n" +
+				"계속 진행하시겠습니까?")) return;
+
+		$('#lectureInfo').attr('action', 'csvDownload.do').submit();
+	});
+
+	// 엑셀 다운로드
+	$('a#excelDownload').on('click', function(e) {
+		e.preventDefault();
+		if(!confirm("현재 보여지고 있는 목록만 엑셀로 저장됩니다.\n" +
+				"전체 결과를 저장하고싶으시면 검색결과를 '전체 보기'로 변경 후 다시 시도하십시오.\n\n" +
+				"계속 진행하시겠습니까?")) return;
+
+		$('#lectureInfo').attr('action', 'excelDownload.do').submit();
+	});
+
 });
 
 	// 검색 초기화
@@ -163,10 +184,9 @@ $(function() {
 	// 추첨 버튼
 	function btnRaffle(obj) {
 
-		let dataArr = $(obj).data('key').split(",");
-		let lecture_id = dataArr[0];
-		let request_count = parseInt(dataArr[1]);
-		let person_count = parseInt(dataArr[2]);
+		let lecture_id = $(obj).data('key');
+		let request_count = parseInt($('#online_request_count_'+lecture_id).text());
+		let person_count = parseInt($('#online_person_count_'+lecture_id).text());
 
 		if(request_count >= person_count) {
 			alert("온라인 모집인원이 마감되어 추첨할 수 없습니다.");
@@ -313,6 +333,8 @@ $(function() {
 		</form:select>
 
 		<div class="button">
+			<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>
+			<a href="#" id="csvDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>CSV저장</span></a>
 			<a href="#" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
 		</div>
 	</div>
@@ -354,7 +376,7 @@ $(function() {
 					<td>
 						${i.request_type}
 						<c:if test="${i.request_type eq '추첨제' and i.lecture_status1 eq '모집마감'}">
-							<a href="#" class="btn dialog-raffle" onclick="btnRaffle(this)" data-key="${i.lecture_id},${i.online_request_count},${i.online_person_count}">추첨</a>
+							<a href="#" class="btn dialog-raffle" onclick="btnRaffle(this)" data-key="${i.lecture_id}">추첨</a>
 						</c:if>
 					</td>
 					<td>
@@ -363,15 +385,15 @@ $(function() {
 						${i.edu_start_date} ~ ${i.edu_end_date}
 					</td>
 					<td>
-						${i.online_request_count} / ${i.online_person_count}<br>
+						<span id="online_request_count_${i.lecture_id}">${i.online_request_count}</span> / <span id="online_person_count_${i.lecture_id}">${i.online_person_count}</span><br>
 						<a href="#" class="btn dialog_applicant" data-key="${i.lecture_id},온라인">신청자</a>
 					</td>
 					<td>
-						${i.wait_request_count} / ${i.wait_person_count}<br>
+						<span id="wait_request_count_${i.lecture_id}">${i.wait_request_count}</span> / <span id="wait_person_count_${i.lecture_id}">${i.wait_person_count}</span><br>
 						<a href="#" class="btn dialog_applicant" data-key="${i.lecture_id},대기">신청자</a>
 					</td>
 					<td>
-						${i.offline_request_count} / ${i.offline_person_count}<br>
+						<span id="offline_request_count_${i.lecture_id}">${i.offline_request_count}</span> / <span id="offline_person_count_${i.lecture_id}">${i.offline_person_count}</span><br>
 						<a href="#" class="btn dialog_applicant" data-key="${i.lecture_id},오프라인">신청자</a>
 					</td>
 					<td>${i.edu_school}</td>

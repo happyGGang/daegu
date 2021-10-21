@@ -15,6 +15,7 @@ public class CourseInfo extends PagingUtils {
     private Date add_date;  // 등록일
     private String add_id;  // 등록 ID
     private String add_ip;  // 등록 IP
+    private int limit_count; // 1인 최대 수강신청 강좌수
 
     /**
      * DB에서 만들어져 오는 값
@@ -113,5 +114,13 @@ public class CourseInfo extends PagingUtils {
 
     public void setDisabledDays(List<String> disabledDays) {
         this.disabledDays = disabledDays;
+    }
+
+    public int getLimit_count() {
+        return limit_count;
+    }
+
+    public void setLimit_count(int limit_count) {
+        this.limit_count = limit_count;
     }
 }

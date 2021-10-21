@@ -31,7 +31,7 @@ public class LectureInfo extends PagingUtils {
     private String add_id;              // 등록_ID
     private String edu_address_1;       // 교육장소1
     private String edu_address_2;       // 교육장소2
-    private int teacher_id;             // 강사_ID
+    private String teacher_id;             // 강사_ID
     private String day_week;            // 교육요일
     private String edu_second_school;   // 교육장_부속
 
@@ -361,11 +361,11 @@ public class LectureInfo extends PagingUtils {
         this.wait_person_count = wait_person_count;
     }
 
-    public int getTeacher_id() {
+    public String getTeacher_id() {
         return teacher_id;
     }
 
-    public void setTeacher_id(int teacher_id) {
+    public void setTeacher_id(String teacher_id) {
         this.teacher_id = teacher_id;
     }
 

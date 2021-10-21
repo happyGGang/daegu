@@ -107,6 +107,24 @@
 			doGetLoad('view.do', serializeCustom($('form#lectureRequest')));
 		});
 
+		// csv 다운로드
+		$('a#csvDownload').on('click', function(e) {
+			e.preventDefault();
+			if(!confirm("현재 보여지고 있는 목록만 CSV로 저장됩니다.\n" +
+					"전체 결과를 저장하고싶으시면 검색결과를 '전체 보기'로 변경 후 다시 시도하십시오.\n\n" +
+					"계속 진행하시겠습니까?")) return;
+			$('#lectureRequest').attr('action', 'csvDownload.do').submit();
+		});
+
+		// 엑셀 다운로드
+		$('a#excelDownload').on('click', function(e) {
+			e.preventDefault();
+			if(!confirm("현재 보여지고 있는 목록만 엑셀로 저장됩니다.\n" +
+					"전체 결과를 저장하고싶으시면 검색결과를 '전체 보기'로 변경 후 다시 시도하십시오.\n\n" +
+					"계속 진행하시겠습니까?")) return;
+			$('#lectureRequest').attr('action', 'excelDownload.do').submit();
+		});
+
 	});
 
 	/**
@@ -158,11 +176,12 @@
 </style>
 
 <form:form modelAttribute="lectureRequest">
-<form:hidden path="homepage_id"/>
-<form:hidden path="request_id"/>
-<form:hidden path="editMode"/>
-<form:hidden path="lecture_id"/>
-<form:hidden path="request_type"/>
+	<form:hidden path="homepage_id"/>
+	<form:hidden path="request_id"/>
+	<form:hidden path="editMode"/>
+	<form:hidden path="lecture_id"/>
+	<form:hidden path="request_type"/>
+
 
 	<div class="infodesk">
 
@@ -230,6 +249,8 @@
 		</form:select>
 
 		<div class="button">
+			<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>
+			<a href="#" id="csvDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>CSV저장</span></a>
 			<a href="#" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>오프라인 등록</span></a>
 		</div>
 	</div>

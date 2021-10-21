@@ -11,37 +11,9 @@
      * 수강신청 버튼 클릭
      * */
     function lectureRequest(lecture_id) {
-        var ajaxData = {
-            'lecture_id' : lecture_id,
-            'request_type' : '온라인'
-        };
-
-        if(confirm('수강신청 하시겠습니까?')) {
-            $.ajax({
-                url: 'save.do',
-                data : ajaxData,
-                method: 'POST',
-                success: function(response) {
-                    if(response.valid) {
-                        alert(response.message);
-                        location.reload();
-                    } else {
-                        if ( response.message != null ) {
-                            alert(response.message);
-                        }
-                        else {
-                            for(var i =0 ; i < response.result.length ; i++) {
-                                alert(response.result[i].code);
-                                $('#'+response.result[i].field).focus();
-                                break;
-                            }
-                        }
-                    }
-                },error: function(response) {
-                    alert(response.message);
-                }
-            });
-        }
+        $('#dialog-1').load('edit.do?editMode=ADD&lecture_id='+lecture_id+'&request_type=온라인', function( response, status, xhr ) {
+            $('#dialog-1').dialog('open');
+        });
     }
 
     function goIndex() {
@@ -49,19 +21,17 @@
         $('#lectureInfo').submit();
     }
 
-    // 재신청 버튼 클릭
-    function reapply(object) {
-        if (confirm('다시 신청하시겠습니까?')) {
-            $('form#lectureRequest').attr('action', '../../lectureRequest/reapply.do');
-            let arr = $(object).data('key').split(',');
-            $('#request_id').val(arr[0]);
-            $('#request_lecture_id').val(arr[1]);
-            $('#request_request_type').val(arr[2]);
-            $('#editMode').val('UPDATE');
-            doAjaxPost($('form#lectureRequest'));
-            location.reload();
-        }
-    }
+    $(function() {
+        // 수강신청 버튼 클릭
+        $('.btn_apply_lecture').on('click', function(e) {
+            e.preventDefault();
+            let lecture_id = $(this).data('key');
+
+            $('#dialog-1').load('edit.do?editMode=ADD&lecture_id='+lecture_id+'&request_type=온라인', function( response, status, xhr ) {
+                $('#dialog-1').dialog('open');
+            });
+        });
+    });
 
 </script>
 
@@ -239,7 +209,7 @@
                 <c:if test="${empty lectureRequest}">
                     <div class="search btn-inline" style="display: inline-block; margin: 0; padding: 0;">
                         <fieldset style="display: inline-block; margin: 0; padding: 0;">
-                            <button class="app_btn app_color3 check btn-inline" type="button" onclick="lectureRequest('${lectureInfo.lecture_id}');" style="margin:0;">수강신청</button>
+                            <button class="app_btn app_color3 check btn-inline btn_apply_lecture" type="button" data-key="${lectureInfo.lecture_id}" style="margin:0;">수강신청</button>
                         </fieldset>
                     </div>
                 </c:if>
@@ -283,3 +253,5 @@
     </div>
 
 </div><!-- apply End -->
+
+<div id="dialog-1" class="dialog-common" title="수강신청"></div>

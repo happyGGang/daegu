@@ -22,4 +22,6 @@ public interface CourseInfoDao {
     List<CourseInfo> getReservedCourseDates(CourseInfo courseInfo);
 
     int getOverlapCourseInfoCount(CourseInfo courseInfo);
+
+    CourseInfo getOngoingCourseInfoOne(String homepage_id);
 }

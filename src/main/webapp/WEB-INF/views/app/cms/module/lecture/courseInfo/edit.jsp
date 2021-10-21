@@ -112,9 +112,9 @@ $(function() {
 			<tr>
 				<th>과정명(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
-					<form:input path="course_title" cssClass="text" maxlength="20"  cssStyle="width: 90%"/>
+					<form:input path="course_title" cssClass="text" maxlength="100"  cssStyle="width: 90%"/>
 					<div class="ui-state-highlight">
-						<em>※ 20자리까지 입력 가능</em>
+						<em>※ 100자리까지 입력 가능</em>
 					</div>
 				</td>
 			</tr>
@@ -130,6 +130,28 @@ $(function() {
 				<td>
 					<form:input path="view_end_date" cssClass="text ui-calendar" readonly="true"/>
 					<span> ※ 다른 과정과 중복될 수 없습니다.</span>
+				</td>
+			</tr>
+			<tr>
+				<th>1인 최대 수강신청 강좌수(<span style="color: red;font-weight: bold;">*</span>)</th>
+				<td>
+					<form:select path="limit_count" cssClass="selectmenu">
+						<form:option value="9999">무제한</form:option>
+						<form:option value="1">1</form:option>
+						<form:option value="2">2</form:option>
+						<form:option value="3">3</form:option>
+						<form:option value="4">4</form:option>
+						<form:option value="5">5</form:option>
+						<form:option value="6">6</form:option>
+						<form:option value="7">7</form:option>
+						<form:option value="8">8</form:option>
+						<form:option value="9">9</form:option>
+						<form:option value="10">10</form:option>
+					</form:select>
+					<br>
+					<div class="ui-state-highlight">
+						<em>※ 같은 과정내 동일인물의 최대 수강신청 가능 강좌 수 입니다.</em>
+					</div>
 				</td>
 			</tr>
 			<tr>

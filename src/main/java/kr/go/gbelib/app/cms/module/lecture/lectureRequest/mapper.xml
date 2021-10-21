@@ -167,7 +167,7 @@
         WHERE lecture_id = #{lecture_id}
     </select>
 
-    <select id="getMyLectureRequestCount" resultType="int">
+    <select id="getMyLectureRequestCountOfLectureInfo" resultType="int">
         SELECT
             COUNT(*)
         FROM
@@ -200,7 +200,8 @@
                     lecture_id = #{lecture_id}
                 AND request_type = #{request_type}
                 AND cancel_yn = 'N'
-                AND request_status LIKE '예약대기'
+                AND request_type = '온라인'
+                AND request_status IN ('예약대기')
             )
     </update>
 
@@ -233,7 +234,7 @@
         SELECT *
         FROM LECTURE_REQUEST
         WHERE
-            lecture_id = #{param1}
+                lecture_id = #{param1}
             AND request_type NOT IN ('오프라인')
             AND request_status NOT IN ('예약취소','예약완료')
             AND cancel_yn NOT IN ('Y')
@@ -285,4 +286,16 @@
                 homepage_id = #{homepage_id}
             AND request_id = #{request_id}
     </update>
+
+    <select id="getMyLeftLectureRequestCount" resultType="int">
+        SELECT NVL(LIMIT_COUNT, 0) -
+               (
+                    SELECT COUNT(*)
+                    FROM LECTURE_INFO AS i INNER JOIN LECTURE_REQUEST AS r
+                    ON i.LECTURE_ID = r.LECTURE_ID
+                    WHERE i.course_id = c.course_id AND r.add_id = #{add_id} AND r.REQUEST_STATUS NOT IN ('예약취소')
+               ) AS count
+        FROM COURSE_INFO AS c
+        WHERE course_id = (select course_id from lecture_info where lecture_id = #{lecture_id} AND homepage_id = #{homepage_id})
+    </select>
 </mapper>

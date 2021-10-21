@@ -13,7 +13,7 @@ public interface LectureRequestDao {
 
     void updateLectureRequest(LectureRequest lectureRequest);
 
-    void cancelLectureRequest(LectureRequest lectureRequest);
+    int cancelLectureRequest(LectureRequest lectureRequest);
 
     int getLectureRequestOnlinePersonCount(LectureRequest lectureRequest);
 
@@ -21,7 +21,7 @@ public interface LectureRequestDao {
 
     int getLectureRequestWaitPersonCount(LectureRequest lectureRequest);
 
-    int getMyLectureRequestCount(LectureRequest lectureRequest);
+    int getMyLectureRequestCountOfLectureInfo(LectureRequest lectureRequest);
 
     void changeLatestWait(LectureRequest lectureRequest);
 
@@ -40,4 +40,6 @@ public interface LectureRequestDao {
     List<LectureRequest> getLectureRequestListByLectureIdAndStatus(String homepage_id, String lecture_id, String request_status, String request_type);
 
     void changeLectureRequestStatus(LectureRequest lectureRequest);
+
+    int getMyLeftLectureRequestCount(LectureRequest lectureRequest);
 }

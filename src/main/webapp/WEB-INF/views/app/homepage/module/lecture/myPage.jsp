@@ -58,31 +58,34 @@
 	}
 
 </script>
-
-
-<h1 style="font-size: 30px;">마이페이지 신청 강좌 목록</h1>
+<div>
+	<h1 style="font-size: 30px;">마이페이지 신청 강좌 목록</h1><br>
+	<p>등록하신 강좌는 모집기간 중에만 취소할 수 있습니다.<br>특이사항이 있다면 담당자에게 문의 바랍니다.</p>
+</div>
 <br>
 <h3>현재 로그인 아이디 : ${sessionId}</h3>
 <br>
+<a href="#" onclick="clkGoIndex()">강좌목록으로</a>
 <form:form modelAttribute="lectureInfo" method="GET" action="index.do">
 <form:hidden path="lecture_id"/>
 
-	<a href="#" onclick="clkGoIndex()">강좌목록으로</a>
 
 	<div>
 		<table class="type1 center">
 			<colgroup>
 				<col width="10%" />  <%--순번--%>
 				<col width="40%" /> <%--강좌명--%>
-				<col width="20%" /> <%--강좌명--%>
-				<col width="15%" /> <%--교육상태--%>
-				<col width="15%" /> <%--예약상태--%>
+				<col width="15%" /> <%--신청기간--%>
+				<col width="15%" /> <%--등록일--%>
+				<col width="10%" /> <%--교육상태--%>
+				<col width="10%" /> <%--예약상태--%>
 			</colgroup>
 			<thead>
 			<tr>
 				<th>순번</th>
 				<th>강좌명</th>
-				<th>신청일</th>
+				<th>모집기간</th>
+				<th>등록일</th>
 				<th>교육상태</th>
 				<th>예약상태</th>
 			</tr>
@@ -92,6 +95,9 @@
 				<tr>
 					<td>${i.reverse_rownum}</td>
 					<td><a href="#" id="${i.lecture_id}" onclick="clkTitle(this.id)">${i.lecture_title}</a></td>
+					<td>
+						${i.request_start_date}~<br>${i.request_end_date}
+					</td>
 					<fmt:formatDate var="formatRegDate" value="${i.request_add_date}" pattern="yyyy-MM-dd hh:mm"/>
 					<td>${formatRegDate}</td>
 					<td>${i.lecture_status2}</td>
@@ -105,7 +111,7 @@
 			</c:forEach>
 			<c:if test="${fn:length(lectureInfoList) < 1}">
 				<tr>
-					<td colspan="3">신청된 강좌가 없습니다.</td>
+					<td colspan="6">신청된 강좌가 없습니다.</td>
 				</tr>
 			</c:if>
 			</tbody>
@@ -116,4 +122,4 @@
 		</jsp:include>
 	</div>
 
-</form:forgit
+</form:form>

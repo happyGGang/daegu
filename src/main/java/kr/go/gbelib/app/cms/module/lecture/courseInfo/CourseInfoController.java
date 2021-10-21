@@ -1,5 +1,7 @@
 package kr.go.gbelib.app.cms.module.lecture.courseInfo;
 
+import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = {"/cms/module/lecture/courseInfo"})
@@ -25,6 +29,9 @@ public class CourseInfoController extends BaseController {
 
     @Autowired
     private LectureInfoService lectureInfoService;
+
+    @Autowired
+    private HomepageService homepageService;
 
     /**
      * 강좌 과정 메인 페이지
@@ -89,7 +96,6 @@ public class CourseInfoController extends BaseController {
             res.setMessage("선택한 기간에 중복된 과정이 있습니다.");
             return res;
         }
-
 
         if(courseInfo.getEditMode().equals("ADD")) {
 
@@ -159,6 +165,35 @@ public class CourseInfoController extends BaseController {
         ValidationUtils.rejectIfNotDate(result, "view_start_date", "시작시간 날짜 형식이 올바르지 않습니다.");
         ValidationUtils.rejectIfNotDate(result, "view_end_date", "종료시간 날짜 형식이 올바르지 않습니다.");
         ValidationUtils.rejectYN(result, "use_yn", "사용여부형식이 올바르지 않습니다.");
+    }
+
+    // 엑셀 다운로드
+    @RequestMapping(value = { "/excelDownload.*" }, method = RequestMethod.POST)
+    public CourseInfoSearchView excel(Model model, CourseInfo courseInfo, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        courseInfo.setHomepage_id(getAsideHomepageId(request));
+
+        courseInfoService.setPaging(model, courseInfoService.courseInfoCount(courseInfo), courseInfo);
+
+        model.addAttribute("homepage", homepageService.getHomepageOne(new Homepage(courseInfo.getHomepage_id())));
+        model.addAttribute("courseInfo", courseInfo);
+        model.addAttribute("courseInfoList", courseInfoService.courseInfoList(courseInfo));
+        return new CourseInfoSearchView();
+    }
+
+    // csv 다운로드
+    @RequestMapping(value = {"/csvDownload.*"}, method = RequestMethod.POST)
+    public void csv(Model model, CourseInfo courseInfo, HttpServletRequest request, HttpServletResponse response) {
+        courseInfo.setHomepage_id(getAsideHomepageId(request));
+
+        courseInfoService.setPaging(model, courseInfoService.courseInfoCount(courseInfo), courseInfo);
+
+        List<CourseInfo> courseInfoList = courseInfoService.courseInfoList(courseInfo);
+        Homepage homepage = homepageService.getHomepageOne(new Homepage(courseInfo.getHomepage_id()));
+
+        model.addAttribute("courseInfo", courseInfo);
+        model.addAttribute("courseInfoList", courseInfoList);
+
+        new CourseInfoXlsToCsv(courseInfoList, "CourseInfo.csv", homepage, request, response);
     }
 
 }

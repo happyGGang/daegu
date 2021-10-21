@@ -12,40 +12,6 @@
         doGetLoad('index.do', serializeCustom($('form#lectureInfo')));
     }
 
-    function lectureRequest(lecture_id) {
-        var ajaxData = {
-            'lecture_id' : lecture_id,
-            'request_type' : '온라인'
-        };
-
-        if(confirm('수강신청 하시겠습니까?')) {
-            $.ajax({
-                url: 'save.do',
-                data : ajaxData,
-                method: 'POST',
-                success: function(response) {
-                    if(response.valid) {
-                        alert(response.message);
-                        location.reload();
-                    } else {
-                        if ( response.message != null ) {
-                            alert(response.message);
-                        }
-                        else {
-                            for(var i =0 ; i < response.result.length ; i++) {
-                                alert(response.result[i].code);
-                                $('#'+response.result[i].field).focus();
-                                break;
-                            }
-                        }
-                    }
-                },error: function(response) {
-                    alert(response.message);
-                }
-            });
-        }
-    }
-
     // 강좌 정보로 이동
     function view(lecture_id) {
         $('#lecture_id').val(lecture_id);
@@ -58,6 +24,16 @@
     }
 
     $(function() {
+
+        // 수강신청 버튼 클릭
+        $('.btn_apply_lecture').on('click', function(e) {
+            e.preventDefault();
+            let lecture_id = $(this).data('key');
+
+            $('#dialog-1').load('edit.do?editMode=ADD&lecture_id='+lecture_id+'&request_type=온라인', function( response, status, xhr ) {
+                $('#dialog-1').dialog('open');
+            });
+        });
 
         // 검색 접수기간 시작일
         $('input#start_period').datepicker({
@@ -243,7 +219,7 @@
                                         <c:choose>
                                             <c:when test="${i.lecture_status1 eq '모집중'}">
                                                 <div class="search" style="margin: 0; padding: 0;">
-                                                    <button type="button" onclick="lectureRequest('${i.lecture_id}')"><i class="fa fa-add"></i><span>수강신청</span></button>
+                                                    <button type="button" class="btn_apply_lecture" data-key="${i.lecture_id}"><i class="fa fa-add"></i><span>수강신청</span></button>
                                                 </div>
                                             </c:when>
                                             <c:otherwise>
@@ -275,3 +251,5 @@
     </div>
 
 </form:form>
+
+<div id="dialog-1" class="dialog-common" title="수강신청"></div>

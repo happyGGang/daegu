@@ -87,9 +87,18 @@ public class CourseInfoService extends BaseService {
      * 과정 기간 중복되는 과정 수
      * */
     @WorkingLogger(comment="과정 기간 중복되는 과정 수 조회", type="P")
-    @Transactional
+    @Transactional(readOnly = true)
     public int getOverlapCourseInfoCount(CourseInfo courseInfo) {
         return courseInfoDao.getOverlapCourseInfoCount(courseInfo);
+    }
+
+    /**
+     * 현재 노출기간에 포함된 사용중인 과정 리턴
+     * */
+    @WorkingLogger(comment="현재 노출 기간에 포함된 사용중인 과정 조회", type="P")
+    @Transactional(readOnly = true)
+    public CourseInfo getOngoingCourseInfoOne(String homepage_id) {
+        return courseInfoDao.getOngoingCourseInfoOne(homepage_id);
     }
 
 

@@ -5,6 +5,7 @@ import kr.co.whalesoft.framework.file.FileStorage;
 import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 import kr.go.gbelib.app.cms.module.lecture.courseInfo.CourseInfo;
 import kr.go.gbelib.app.cms.module.lecture.courseInfo.CourseInfoDao;
+import kr.go.gbelib.app.cms.module.lecture.courseInfo.CourseInfoService;
 import kr.go.gbelib.app.cms.module.lecture.lectureInfo.file.LectureInfoFile;
 import kr.go.gbelib.app.cms.module.lecture.lectureInfo.file.LectureInfoFileDao;
 import kr.go.gbelib.app.cms.module.lecture.lectureRequest.LectureRequestDao;
@@ -32,7 +33,10 @@ public class LectureInfoService extends BaseService {
     private LectureInfoFileDao lectureInfoFileDao;
 
     @Autowired
-    LectureRequestDao lectureRequestDao;
+    private LectureRequestDao lectureRequestDao;
+
+    @Autowired
+    private CourseInfoService courseInfoService;
 
     @Autowired
     @Qualifier("lectureInfoStorage")
@@ -105,8 +109,8 @@ public class LectureInfoService extends BaseService {
      * */
     @Transactional(readOnly = true)
     @WorkingLogger(comment="강좌 정보 하나 가져오기", type="P")
-    public LectureInfo lectureInfoOne(String lecture_id, String connect_type) {
-        return lectureInfoDao.getLectureInfoOne(lecture_id, connect_type);
+    public LectureInfo lectureInfoOne(String lecture_id) {
+        return lectureInfoDao.getLectureInfoOne(lecture_id);
     }
 
     /**
@@ -114,14 +118,20 @@ public class LectureInfoService extends BaseService {
      * */
     public void setSearchingData(LectureInfo lectureInfo) {
         // 과정을 선택하지 않았다면
+        lectureInfo.setSearch_type("lecture_title");
+
         if(lectureInfo.getSearching_course_id() == null || lectureInfo.getSearching_course_id().equals("")){
+            CourseInfo courseInfoOngoing = courseInfoService.getOngoingCourseInfoOne(lectureInfo.getHomepage_id());
+            if(courseInfoOngoing != null) {
+                lectureInfo.setSearching_course_id(courseInfoOngoing.getCourse_id());
+                return;
+            }
+
             CourseInfo courseInfo = courseInfoDao.getLatestCourseInfo(lectureInfo.getHomepage_id());
             if(courseInfo != null) {
                 lectureInfo.setSearching_course_id(courseInfo.getCourse_id());
             }
-
         }
-        lectureInfo.setSearch_type("lecture_title");
     }
 
     /**
@@ -192,7 +202,7 @@ public class LectureInfoService extends BaseService {
     }
 
     /**
-     *
+     * 첨부파일 삭제하는 서비스
      * */
     @Transactional
     @WorkingLogger(comment="강좌 첨부파일 삭제", type="P")

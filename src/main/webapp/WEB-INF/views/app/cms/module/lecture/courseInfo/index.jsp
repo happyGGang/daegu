@@ -62,17 +62,24 @@ $(function() {
 		doGetLoad('index.do', serializeCustom($('form#courseInfo')));
 	});
 
-	// 액셀 버튼 클릭
-	$('a#excelDownload').on('click', function(e) {
-		$('#courseInfo').attr('action', 'excelDownload.do').submit();
-		$('#courseInfo').attr('action', 'save.do');
-		e.preventDefault();
-	});
-
-	// csv 버튼 클릭
+	// csv 다운로드
 	$('a#csvDownload').on('click', function(e) {
 		e.preventDefault();
+		if(!confirm("현재 보여지고 있는 목록만 CSV로 저장됩니다.\n" +
+				"전체 결과를 저장하고싶으시면 검색결과를 '전체 보기'로 변경 후 다시 시도하십시오.\n\n" +
+				"계속 진행하시겠습니까?")) return;
+
 		$('#courseInfo').attr('action', 'csvDownload.do').submit();
+	});
+
+	// 엑셀 다운로드
+	$('a#excelDownload').on('click', function(e) {
+		e.preventDefault();
+		if(!confirm("현재 보여지고 있는 목록만 엑셀로 저장됩니다.\n" +
+				"전체 결과를 저장하고싶으시면 검색결과를 '전체 보기'로 변경 후 다시 시도하십시오.\n\n" +
+				"계속 진행하시겠습니까?")) return;
+
+		$('#courseInfo').attr('action', 'excelDownload.do').submit();
 	});
 	
 });
@@ -86,7 +93,12 @@ $(function() {
 <form:hidden path="editMode"/>
 <form:hidden path="course_id"/>
 <form:hidden path="homepage_id"/>
-
+	<div class="ui-state-highlight">
+		<em>※ 참고</em><br>
+		<em>&nbsp;1. 과정노출기간은 중복될 수 없습니다.</em><br>
+		<em>&nbsp;2. 현재 노출기간에 포함된 과정의 강좌만 사용자에게 보여집니다.</em><br>
+		<em>&nbsp;3. 사용여부가 Y인 과정의 강좌만 사용자에게 보여집니다.</em>
+	</div><br>
 	<div class="infodesk">
 		검색 결과 : 총 ${paging.totalDataCount}건
 		
@@ -103,18 +115,15 @@ $(function() {
 			<a href="#" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
 		</div>
 	</div>
-	<div class="ui-state-highlight">
-		<em>※ 과정노출기간은 중복될 수 없습니다.</em>
-	</div>
 	<div>
 		<table class="type1 center">
 			<colgroup>
 				<col width="5%" />  <%--순번--%>
 				<col width="15%" />  <%--과정고유번호--%>
 				<col width=20%" /> <%--과정명--%>
-				<col width="10%" /> <%--과정노출시작기간--%>
-				<col width="10%" /> <%--과정노출종료기간--%>
-				<col width="10%" /> <%--사용여부--%>
+				<col width="15%" /> <%--과정노출시작,종료기간--%>
+				<col width="10%" /> <%--1인 최대 수강신청--%>
+				<col width="8%" /> <%--사용여부--%>
 				<col width="10%" /> <%--등록일--%>
 				<col width="10%" /> <%--등록ID--%>
 				<col width="" /> <%--기능--%>
@@ -124,8 +133,8 @@ $(function() {
 					<th>순번</th>
 					<th>과정고유번호</th>
 					<th>과정명</th>
-					<th>과정노출<br>시작기간</th>
-					<th>과정노출<br>종료기간</th>
+					<th>과정노출 시작기간<br>과정노출 종료기간</th>
+					<th>1인 최대<br>수강신청</th>
 					<th>사용여부</th>
 					<th>등록일</th>
 					<th>등록ID</th>
@@ -141,12 +150,12 @@ $(function() {
 						<td>${i.course_id}</td>
 						<%--과정명--%>
 						<td>${i.course_title}</td>
-						<%--과정노출시작기간--%>
+						<%--과정노출시작,종료기간--%>
 						<td>
-							${i.view_start_date}
+							${i.view_start_date}<br>${i.view_end_date}
 						</td>
-						<%--과정노출종료기간--%>
-						<td>${i.view_end_date}</td>
+						<%--1인 최대 수강신청--%>
+						<td>${i.limit_count >= 9999 ? '무제한' : i.limit_count}</td>
 						<%--사용여부--%>
 						<td>${i.use_yn}</td>
 						<%--등록일--%>
@@ -183,8 +192,8 @@ $(function() {
 				</form:select>
 				<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
 				<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
-				<%--<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>
-				<a href="#" id="csvDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>CSV저장</span></a>--%>
+				<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>
+				<a href="#" id="csvDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>CSV저장</span></a>
 			</fieldset>
 		</div>
 		

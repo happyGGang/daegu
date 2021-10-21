@@ -96,7 +96,7 @@
 					SELECT course_id
 					FROM (SELECT rownum, course_id
 						  FROM course_info
-						  WHERE VIEW_START_DATE <= SYSDATE AND VIEW_END_DATE >= SYSDATE  AND use_yn = 'Y' AND rownum = 1)
+						  WHERE homepage_id IN ('${homepage_id}') AND VIEW_START_DATE <= SYSDATE AND VIEW_END_DATE >= SYSDATE  AND use_yn = 'Y' AND rownum = 1)
 				]]>)
 		ORDER BY lecture_id DESC
 		${pagingBottom}

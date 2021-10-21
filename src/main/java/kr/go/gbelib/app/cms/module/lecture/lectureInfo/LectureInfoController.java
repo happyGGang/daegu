@@ -1,6 +1,8 @@
 package kr.go.gbelib.app.cms.module.lecture.lectureInfo;
 
 import com.google.gson.Gson;
+import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.AttachmentUtils;
 import kr.co.whalesoft.framework.utils.JsonResponse;
@@ -33,10 +35,13 @@ public class LectureInfoController extends BaseController {
     private final String basePath = "/cms/module/lecture/lectureInfo/";
 
     @Autowired
-    private LectureInfoService service;
+    private LectureInfoService lectureInfoService;
 
     @Autowired
     private LectureRequestService lectureRequestService;
+
+    @Autowired
+    private HomepageService homepageService;
 
     /**
      * 강좌 정보 메인 페이지
@@ -46,14 +51,14 @@ public class LectureInfoController extends BaseController {
         checkAuth("R", model, request);
 
         lectureInfo.setHomepage_id(getAsideHomepageId(request));
+        lectureInfoService.setSearchingData(lectureInfo);
+        lectureInfoService.setPaging(model, lectureInfoService.lectureInfoCount(lectureInfo), lectureInfo);
 
-        service.setSearchingData(lectureInfo);
-        service.setPaging(model, service.lectureInfoCount(lectureInfo), lectureInfo);
-        List<LectureInfo> lectureInfos = service.lectureInfoList(lectureInfo);
+        List<LectureInfo> lectureInfos = lectureInfoService.lectureInfoList(lectureInfo);
 
         model.addAttribute("lectureInfo", lectureInfo);
         model.addAttribute("lectureInfoList", lectureInfos);
-        model.addAttribute("courseInfoList", service.courseInfoIdList(lectureInfo.getHomepage_id()));
+        model.addAttribute("courseInfoList", lectureInfoService.courseInfoIdList(lectureInfo.getHomepage_id()));
 
         return basePath + "index";
     }
@@ -64,27 +69,30 @@ public class LectureInfoController extends BaseController {
     @RequestMapping(value = {"/edit.*"})
     private String edit(Model model, LectureInfo lectureInfo, HttpServletRequest request) throws Exception {
 
-            lectureInfo.setHomepage_id(getAsideHomepageId(request));
+        lectureInfo.setHomepage_id(getAsideHomepageId(request));
 
         if(request.getParameter("editMode").equals("ADD")) { // 추가 모드
             checkAuth("C", model, request);
+
+            lectureInfo.setCourse_id(request.getParameter("course_id"));
 
             model.addAttribute("lectureInfo", lectureInfo);
 
         } else if(request.getParameter("editMode").equals("UPDATE")) { // 수정 모드
             checkAuth("U", model, request);
 
-            LectureInfo lectureInfoEntity = service.lectureInfoOne(request.getParameter("lecture_id"), null);
+            LectureInfo lectureInfoEntity = lectureInfoService.lectureInfoOne(request.getParameter("lecture_id"));
 
             if(lectureInfoEntity != null){
                 lectureInfoEntity.setEditMode("UPDATE");
                 lectureInfoEntity.setHomepage_id(getAsideHomepageId(request));
             }
+
             model.addAttribute("lectureInfo", lectureInfoEntity);
-            model.addAttribute("file", service.lectureInfoFile(lectureInfo));
+            model.addAttribute("file", lectureInfoService.lectureInfoFile(lectureInfo));
         }
 
-        model.addAttribute("courseInfoList", service.courseInfoIdList(lectureInfo.getHomepage_id()));
+        model.addAttribute("courseInfoList", lectureInfoService.courseInfoIdList(lectureInfo.getHomepage_id()));
 
         return basePath + "edit_ajax";
     }
@@ -92,7 +100,7 @@ public class LectureInfoController extends BaseController {
     /**
      * 신청자 추첨 페이지
      * */
-    @RequestMapping(value = {"/raffle.*"})
+    /*@RequestMapping(value = {"/raffle.*"})
     private String raffle(Model model, LectureInfo lectureInfo, HttpServletRequest request) throws Exception {
         Gson gson = new Gson();
         checkAuth("R", model, request);
@@ -104,11 +112,11 @@ public class LectureInfoController extends BaseController {
 
         String jsonArrayString = gson.toJson(lectureRequestService.getRaffleLectureRequestList(lecture_id));
 
-        model.addAttribute("lectureInfo", service.lectureInfoOne(lectureInfo.getLecture_id(), "오프라인"));
+        model.addAttribute("lectureInfo", lectureInfoService.lectureInfoOne(lectureInfo.getLecture_id()));
         model.addAttribute("raffleLectureRequestList", jsonArrayString);
 
         return basePath + "raffle_ajax";
-    }
+    }*/
 
     /**
      * 강좌 정보 페이지
@@ -119,7 +127,7 @@ public class LectureInfoController extends BaseController {
 
         lectureInfo.setHomepage_id(getAsideHomepageId(request));
 
-        LectureInfo lectureInfoEntity = service.lectureInfoOne(lectureInfo.getLecture_id(), null);
+        LectureInfo lectureInfoEntity = lectureInfoService.lectureInfoOne(lectureInfo.getLecture_id());
         lectureInfoEntity.setViewPage(lectureInfo.getViewPage());
         lectureInfoEntity.setSearching_course_id(lectureInfo.getSearching_course_id());
         lectureInfoEntity.setSearching_reservation(lectureInfo.getSearching_reservation());
@@ -128,9 +136,10 @@ public class LectureInfoController extends BaseController {
         lectureInfoEntity.setStart_period(lectureInfo.getStart_period());
         lectureInfoEntity.setEnd_period(lectureInfo.getEnd_period());
         lectureInfoEntity.setSearch_text(lectureInfo.getSearch_text());
+        lectureInfoEntity.setRowCount(lectureInfo.getRowCount());
 
         model.addAttribute("lectureInfo", lectureInfoEntity);
-        model.addAttribute("file", service.lectureInfoFile(lectureInfo));
+        model.addAttribute("file", lectureInfoService.lectureInfoFile(lectureInfo));
         return basePath + "view";
     }
 
@@ -150,13 +159,15 @@ public class LectureInfoController extends BaseController {
 
         List<LectureRequest> lectureRequestList = lectureRequestService.getLectureRequestListForApplicant(lectureRequest.getHomepage_id(), lecture_id, applicant_type);
 
+        model.addAttribute("lectureInfo", lectureInfoService.lectureInfoOne(lecture_id));
+        model.addAttribute("applicant_type", applicant_type);
         model.addAttribute("lectureRequestList", gson.toJson(lectureRequestList));
 
         return basePath + "applicant_ajax";
     }
 
     /**
-     * 강과 정보 등록, 수정 api
+     * 강좌 정보 등록, 수정 api
      * */
     @RequestMapping (value = {"/save.*"}, method = RequestMethod.POST)
     public @ResponseBody
@@ -165,35 +176,46 @@ public class LectureInfoController extends BaseController {
 
         lectureInfo.setHomepage_id(getAsideHomepageId(request));
 
-        if(lectureInfo.getEditMode().equals("ADD")) { // 강좌 정보 추가
-            validationChk(result, lectureInfo); // 유효성 체크
+        validationChk(result, lectureInfo); // 유효성 체크
 
-            if (!result.hasErrors()) {
-                lectureInfo.setAdd_id(getSessionMemberId(request));
-                service.addLectureInfo(lectureInfo, getSessionMemberId(request), request.getRemoteAddr(), mpRequest);
-                res.setValid(true);
-                res.setMessage("저장되었습니다.");
-                res.setUrl("index.do");
-            } else {
-                res.setValid(false);
-                res.setResult(result.getAllErrors());
-            }
+        if(result.hasErrors()) {  // 오류가 있으면 return
+            res.setValid(false);
+            res.setResult(result.getAllErrors());
+            return res;
+        }
+
+        if(lectureInfo.getEditMode().equals("ADD")) { // 강좌 정보 추가
+
+            lectureInfo.setAdd_id(getSessionMemberId(request));
+            lectureInfoService.addLectureInfo(lectureInfo, getSessionMemberId(request), request.getRemoteAddr(), mpRequest);
+            res.setValid(true);
+            res.setMessage("저장되었습니다.");
+            res.setUrl("index.do");
 
         } else if(lectureInfo.getEditMode().equals("UPDATE")) { // 강좌 정보 수정
-            validationChk(result, lectureInfo); // 유효성 체크
 
-            if (!result.hasErrors()) {
-                lectureInfo.setAdd_id(getSessionMemberId(request));
-                service.updateLectureInfo(lectureInfo, mpRequest);
-                res.setValid(true);
-                res.setMessage("수정되었습니다.");
-                res.setUrl("index.do");
-            } else {
+            LectureInfo lectureInfoOne = lectureInfoService.lectureInfoOne(lectureInfo.getLecture_id());
+
+            // 현재모집되어 있는 인원보다 작은 수의 모집인원을 설정했을 때 수정 불가능
+            if (lectureInfoOne.getOnline_request_count() > lectureInfo.getOnline_person_count()
+                    || lectureInfoOne.getWait_request_count() > lectureInfo.getWait_person_count()
+                    || lectureInfoOne.getOffline_request_count() > lectureInfo.getOffline_person_count()) {
+
                 res.setValid(false);
-                res.setResult(result.getAllErrors());
+                res.setMessage("모집인원을 현재 신청된 인원보다 작게 설정할 수 없습니다.\n" +
+                        "새로고침하여 신청자 수를 확인해주세요.");
+                return res;
             }
+
+            lectureInfo.setAdd_id(getSessionMemberId(request));
+            lectureInfoService.updateLectureInfo(lectureInfo, mpRequest);
+            res.setValid(true);
+            res.setMessage("수정되었습니다.");
+            res.setUrl("index.do");
+
         } else {
-            // 오류 날림
+            res.setValid(false);
+            res.setMessage("잘못된 접근입니다.");
         }
 
         return res;
@@ -211,13 +233,13 @@ public class LectureInfoController extends BaseController {
         if (!result.hasErrors()) {
             if (lectureInfo.getEditMode().equals("DELETE")) {
 
-                if(service.isRequestInLecture(lectureInfo)) { // 강좌에 신청된 인원이 있으면
+                if(lectureInfoService.isRequestInLecture(lectureInfo)) { // 강좌에 신청된 인원이 있으면
                     res.setValid(false);
                     res.setMessage("해당 강좌에 연결된 인원이 있어 삭제가 불가능 합니다.");
                     return res;
                 }
 
-                service.deleteLectureInfo(lectureInfo);
+                lectureInfoService.deleteLectureInfo(lectureInfo);
                 res.setValid(true);
                 res.setMessage("취소되었습니다.");
                 res.setUrl("index.do");
@@ -236,15 +258,15 @@ public class LectureInfoController extends BaseController {
     @RequestMapping(value = "/download/{homepage_id}/{server_file_name}.*", method = RequestMethod.GET)
     @ResponseBody
     public byte[] getFile(@PathVariable("homepage_id") String homepage_id, @PathVariable("server_file_name") String server_file_name, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        LectureInfoFile lectureInfoFile = service.lectureInfoFile(server_file_name);
+        LectureInfoFile lectureInfoFile = lectureInfoService.lectureInfoFile(server_file_name);
 
         if(lectureInfoFile == null) {
             response.setHeader("Content-type", "text/html");
-            service.alertMessage("파일이 DB에 존재하지 않습니다.", request, response);
+            lectureInfoService.alertMessage("파일이 DB에 존재하지 않습니다.", request, response);
             return null;
         }
 
-        String filePath = service.getRootPath()+ "/" + homepage_id + "/" + lectureInfoFile.getFile_server_name();
+        String filePath = lectureInfoService.getRootPath()+ "/" + homepage_id + "/" + lectureInfoFile.getFile_server_name();
         File file = new File(filePath);
         System.out.println(filePath);
         byte[] bytes = null;
@@ -253,7 +275,7 @@ public class LectureInfoController extends BaseController {
             bytes = FileCopyUtils.copyToByteArray(file);
         } else {
             response.setHeader("Content-type", "text/html");
-            service.alertMessage("파일이 존재하지 않습니다.", request, response);
+            lectureInfoService.alertMessage("파일이 존재하지 않습니다.", request, response);
             return null;
         }
 
@@ -274,7 +296,7 @@ public class LectureInfoController extends BaseController {
     public @ResponseBody JsonResponse deleteFile(Model model, LectureInfo lectureInfo, BindingResult result, HttpServletRequest request) throws ParseException {
         JsonResponse res = new JsonResponse(request);
 
-        service.deleteFile(lectureInfo);
+        lectureInfoService.deleteFile(lectureInfo);
         res.setValid(true);
         res.setMessage("파일을 삭제 했습니다.");
 
@@ -286,6 +308,7 @@ public class LectureInfoController extends BaseController {
      * */
     private void validationChk(BindingResult result, LectureInfo lectureInfo) {
         // 공백 불가
+        ValidationUtils.rejectIfEmpty(result, "course_id", "과정을 선택하세요.");
         ValidationUtils.rejectIfEmpty(result, "lecture_title", "강좌명을 입력하세요.");
         ValidationUtils.rejectIfEmpty(result, "request_start_date", "접수기간 시작일을 입력하세요.");
         ValidationUtils.rejectIfEmpty(result, "request_end_date", "접수기간 종료일을 입력하세요.");
@@ -321,61 +344,32 @@ public class LectureInfoController extends BaseController {
         ValidationUtils.rejectExceptNumber(result, "wait_person_count", 1,4, "대기자모집인원 최대인원을 초과 했습니다.");
     }
 
-
-    /**
-     * 유저 강좌 view
-     * */
-    /*@RequestMapping(value = {"/user/view.*"})
-    private String userView(Model model, LectureInfo lectureInfo, LectureRequest lectureRequest, HttpServletRequest request) throws Exception {
-        checkAuth("R", model, request);
-
+    // 엑셀 다운로드
+    @RequestMapping(value = { "/excelDownload.*" }, method = RequestMethod.POST)
+    public LectureInfoSearchView excel(Model model, LectureInfo lectureInfo, HttpServletRequest request, HttpServletResponse response) throws Exception {
         lectureInfo.setHomepage_id(getAsideHomepageId(request));
+        lectureInfoService.setSearchingData(lectureInfo);
+        lectureInfoService.setPaging(model, lectureInfoService.lectureInfoCount(lectureInfo), lectureInfo);
 
-        model.addAttribute("lectureInfo", service.lectureInfoOne(lectureInfo.getLecture_id(), "온라인"));
-        model.addAttribute("lectureRequest", lectureRequestService.lectureRequestOneByLectureIdAndAddId(lectureInfo.getLecture_id(), getSessionMemberId(request)));
-        model.addAttribute("file", service.lectureInfoFile(lectureInfo));
+        model.addAttribute("homepage", homepageService.getHomepageOne(new Homepage(lectureInfo.getHomepage_id())));
+        model.addAttribute("lectureInfo", lectureInfo);
+        model.addAttribute("lectureInfoList", lectureInfoService.lectureInfoList(lectureInfo));
+        return new LectureInfoSearchView();
+    }
 
-        return basePath + "userView";
-    }*/
-
-    /**
-     * 유저 강좌 리스트
-     * */
-    /*@RequestMapping(value = {"/user/index.*"})
-    private String userIndex(Model model, LectureInfo lectureInfo, HttpServletRequest request) throws Exception {
-        checkAuth("R", model, request);
-
+    // csv 다운로드
+    @RequestMapping(value = {"/csvDownload.*"}, method = RequestMethod.POST)
+    public void csv(Model model, LectureInfo lectureInfo, HttpServletRequest request, HttpServletResponse response) {
         lectureInfo.setHomepage_id(getAsideHomepageId(request));
-        lectureInfo.setSearch_type("lecture_title");
+        lectureInfoService.setSearchingData(lectureInfo);
+        lectureInfoService.setPaging(model, lectureInfoService.lectureInfoCount(lectureInfo), lectureInfo);
 
-        lectureInfo.setConnect_type("온라인");
-        service.setPaging(model, service.lectureInfoCount(lectureInfo), lectureInfo);
-
-        List<LectureInfo> lectureInfos = service.lectureInfoList(lectureInfo);
+        List<LectureInfo> lectureInfoList = lectureInfoService.lectureInfoList(lectureInfo);
+        Homepage homepage = homepageService.getHomepageOne(new Homepage(lectureInfo.getHomepage_id()));
 
         model.addAttribute("lectureInfo", lectureInfo);
-        model.addAttribute("lectureInfoList", lectureInfos);
+        model.addAttribute("lectureInfoList", lectureInfoList);
 
-        return basePath + "userIndex";
-    }*/
-
-    /**
-     * 유저 마이페이지
-     * */
-    /*@RequestMapping(value = {"/user/myPage.*"})
-    private String userMyPage(Model model, LectureInfo lectureInfo, LectureRequest lectureRequest, HttpServletRequest request) throws Exception {
-        checkAuth("R", model, request);
-
-        lectureInfo.setHomepage_id(getAsideHomepageId(request));
-        lectureInfo.setRequest_add_id(getSessionMemberId(request));
-
-        service.setPaging(model, service.getMyLectureInfoCount(lectureInfo), lectureInfo);
-
-        model.addAttribute("lectureInfo", lectureInfo);
-        model.addAttribute("lectureRequest", lectureRequest);
-        model.addAttribute("lectureInfoList", service.getMyLectureInfoList(lectureInfo));
-        model.addAttribute("sessionId", getSessionMemberId(request));
-
-        return basePath + "userMypage";
-    }*/
+        new LectureInfoXlsToCsv(lectureInfoList, "LectureInfo.csv", homepage, request, response);
+    }
 }

@@ -192,7 +192,7 @@ function selectItem(lecture_id, lecture_title) {
 				<c:if test="${lectureRequest.editMode ne 'UPDATE'}">
 					<form:select path="lecture_id" cssClass="selectmenu" cssStyle="width: 80%;">
 						<c:forEach var="i" varStatus="status" items="${lectureInfoList}">
-							<form:option value="${i.lecture_id}">(${i.lecture_status1}) ${i.lecture_title}</form:option>
+							<form:option value="${i.lecture_id}">${i.lecture_title}</form:option>
 						</c:forEach>
 					</form:select>
 				</c:if>

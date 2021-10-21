@@ -5,7 +5,7 @@
 	<select id="getCourseInfoList" resultType="kr.go.gbelib.app.cms.module.lecture.courseInfo.CourseInfo">
 		${pagingTop}
 		SELECT
-		ROW_NUMBER() OVER (ORDER BY course_id) AS reverse_rownum, homepage_id, course_id, course_title, view_start_date, view_end_date, use_yn, add_date, add_id, add_ip
+		ROW_NUMBER() OVER (ORDER BY course_id) AS reverse_rownum, homepage_id, course_id, course_title, view_start_date, view_end_date, use_yn, add_date, add_id, add_ip, limit_count
 		FROM
 		COURSE_INFO
 		WHERE
@@ -38,11 +38,11 @@
 		INSERT INTO
 		COURSE_INFO
 		(
-		homepage_id, course_id, course_title, view_start_date, view_end_date, use_yn, add_date, add_id, add_ip
+		homepage_id, course_id, course_title, view_start_date, view_end_date, use_yn, add_date, add_id, add_ip, limit_count
 		)
 		VALUES
 		(
-		#{homepage_id}, #{course_id}, #{course_title}, #{view_start_date}, #{view_end_date}, #{use_yn}, SYSDATE, #{add_id}, #{add_ip}
+		#{homepage_id}, #{course_id}, #{course_title}, #{view_start_date}, #{view_end_date}, #{use_yn}, SYSDATE, #{add_id}, #{add_ip}, ${limit_count}
 		)
 	</insert>
 
@@ -66,7 +66,8 @@
 			course_title = #{course_title},
 			view_start_date = #{view_start_date},
 			view_end_date = #{view_end_date},
-		    use_yn = #{use_yn}
+		    use_yn = #{use_yn},
+			limit_count = #{limit_count}
 		WHERE
 			homepage_id = #{homepage_id}
 		  AND course_id = #{course_id}
@@ -113,6 +114,20 @@
 		</if>
 		AND ((view_start_date <![CDATA[<=]]> #{view_start_date} AND view_end_date >= #{view_start_date})
 		OR (view_start_date <![CDATA[<=]]> #{view_end_date} AND view_end_date >= #{view_end_date}))
+	</select>
+
+	<select id="getOngoingCourseInfoOne" resultType="kr.go.gbelib.app.cms.module.lecture.courseInfo.CourseInfo">
+		SELECT
+		    *
+		FROM
+			COURSE_INFO
+		WHERE
+			course_id = (
+					SELECT course_id
+					FROM (SELECT rownum, course_id
+						  FROM course_info
+						  WHERE homepage_id IN (#{homepage_id}) AND VIEW_START_DATE <![CDATA[<=]]> SYSDATE AND VIEW_END_DATE <![CDATA[>=]]> SYSDATE AND use_yn IN ('Y') AND rownum = 1)
+				)
 	</select>
 	<!--<select id="bookReportContestList" resultType="kr.go.gbelib.app.cms.module.bookReportContest.BookReportContest">
 		${pagingTop}

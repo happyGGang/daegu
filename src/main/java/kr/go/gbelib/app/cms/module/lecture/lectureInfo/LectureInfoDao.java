@@ -9,7 +9,7 @@ public interface LectureInfoDao {
 
     void addLectureInfo(LectureInfo lectureInfo);
 
-    LectureInfo getLectureInfoOne(String lecture_id, String request_type);
+    LectureInfo getLectureInfoOne(String lecture_id);
 
     void updateLectureInfo(LectureInfo lectureInfo);
 
@@ -17,7 +17,7 @@ public interface LectureInfoDao {
 
     int getLectureInfoCountByHomepageIdAndCourseId(String homepage_id, String course_id);
 
-    List<LectureInfo> getLectureInfoListByHomepageIdAndCourseId(String homepage_id, String course_id, String connect_type);
+    List<LectureInfo> getLectureInfoListByHomepageIdAndCourseId(String homepage_id, String course_id);
 
     List<LectureInfo> getLectureInfoListByRequestAddId(LectureInfo lectureInfo);
 

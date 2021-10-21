@@ -16,8 +16,16 @@ $(function() {
 </script>
 
 <form:form modelAttribute="lectureRequest" id="lectureRequestView" >
-<form:hidden path="homepage_id"/>
-<form:hidden path="editMode"/>
+	<form:hidden path="homepage_id"/>
+	<form:hidden path="editMode"/>
+	<form:hidden path="search_course_id"/>
+	<form:hidden path="search_lecture_id"/>
+	<form:hidden path="search_request_type"/>
+	<form:hidden path="search_cancel_yn"/>
+	<form:hidden path="search_type"/>
+	<form:hidden path="search_text"/>
+	<form:hidden path="viewPage"/>
+	<form:hidden path="rowCount"/>
 
 	<table class="type1">
 		<colgroup>
@@ -25,6 +33,10 @@ $(function() {
 			<col width="">
 		</colgroup>
 		<tbody>
+			<tr>
+				<th>강좌고유번호</th>
+				<td>${lectureRequest.search_course_id}</td>
+			</tr>
 			<tr>
 				<th>강좌고유번호</th>
 				<td>${lectureRequest.lecture_id}</td>

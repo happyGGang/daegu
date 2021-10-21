@@ -26,6 +26,7 @@ $(function() {
 <form:hidden path="start_period"/>
 <form:hidden path="end_period"/>
 <form:hidden path="search_text"/>
+<form:hidden path="rowCount"/>
 
 	<table class="type1">
 		<colgroup>
@@ -102,6 +103,10 @@ $(function() {
 				<td>${lectureInfo.teacher_tel}</td>
 			</tr>
 			<tr>
+				<th>강사ID</th>
+				<td>${lectureInfo.teacher_id}</td>
+			</tr>
+			<tr>
 				<th>교육장</th>
 				<td>${lectureInfo.edu_school}</td>
 			</tr>
@@ -112,6 +117,10 @@ $(function() {
 			<tr>
 				<th>교육장 상세주소</th>
 				<td>${lectureInfo.edu_address_2}</td>
+			</tr>
+			<tr>
+				<th>교육장 부속</th>
+				<td>${lectureInfo.edu_second_school}</td>
 			</tr>
 			<tr>
 				<th>교육소개</th>
@@ -129,14 +138,6 @@ $(function() {
 			<tr>
 				<th>등록IP</th>
 				<td>${lectureInfo.add_ip}</td>
-			</tr>
-			<tr>
-				<th>강사ID</th>
-				<td>${lectureInfo.teacher_id}</td>
-			</tr>
-			<tr>
-				<th>교육장 부속</th>
-				<td>${lectureInfo.edu_second_school}</td>
 			</tr>
 			<tr>
 				<th>첨부파일</th>

@@ -7,9 +7,10 @@
 <script src="/resources/cms/js/malsup.jquery.form.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 
+    // 신청자 리스트
     let applicants = ${lectureRequestList};
 
-    //
+    // 신청자 리스트 초기화
     function initAppliItems() {
         $('#tbody').empty();
 
@@ -29,7 +30,7 @@
 
     $(function() {
 
-        initAppliItems();
+        initAppliItems(); // 시작될 때 초기화
 
         $('.dialog-common').dialog({ //모달창 기본 스크립트 선언
             autoOpen: false,
@@ -80,7 +81,7 @@
 
     // 예약 취소 버튼
     function btnCancel(object) {
-        if(!confirm("정말 예약을 취소하시겠습니까?")) return;
+        if(!confirm("정말 예약을 취소하시겠습니까?\n예약을 취소하시면 다시 되돌릴 수 없습니다.")) return;
 
         let request_id = $(object).data('key');
 
@@ -95,16 +96,25 @@
             data : ajaxData,
             success: function(response) {
                 if(response.valid) {
+                    let data = response.data;
+
                     alert(response.message);
-                    $('#dialog-4').dialog('destroy');
-                    //열려있는 다이얼로그를 삭제한다.(중복방지)
-                    $('.dialog-common').remove();
-                    location.reload();
+
+                    minusRequestCount(data.lecture_id, $('#request_status_'+data.request_id).text(), data.request_type);
+
+                    $('#dialog-4').load('../lectureInfo/applicant.do?lecture_id='+data.lecture_id+'&applicant_type=${applicant_type}', function( response, status, xhr ) {
+                        $('#dialog-4').dialog('open');
+                    });
+
                 } else {
                     if ( response.message != null ) {
                         alert(response.message);
-                    } else{
-                        alert("관리자에게 문의하세요");
+                    } else {
+                        for(var i =0 ; i < response.result.length ; i++) {
+                            alert(response.result[i].code);
+                            $('#'+response.result[i].field).focus();
+                            break;
+                        }
                     }
                 }
             },
@@ -114,9 +124,27 @@
         });
     }
 
-    // 예약 완료 버튼
+    // 숫자 변화
+    function minusRequestCount(lecture_id, request_status, request_type) {
+        if(request_type == "오프라인") {
+            let requestCount = parseInt($('#offline_request_count_'+lecture_id).text());
+            requestCount--;
+            $('#offline_request_count_'+lecture_id).text(requestCount);
+        }
+        else if(request_status == "예약완료") {
+            let requestCount = parseInt($('#online_request_count_'+lecture_id).text());
+            requestCount--;
+            $('#online_request_count_'+lecture_id).text(requestCount);
+        } else {
+            let requestCount = parseInt($('#wait_request_count_'+lecture_id).text());
+            requestCount--;
+            $('#wait_request_count_'+lecture_id).text(requestCount);
+        }
+    }
+
+    // 예약완료 버튼
     function btnCompletion(object) {
-        if(!confirm("정말 예약완료 상태로 변경하시겠습니까?")) return;
+        if(!confirm("변경 후 다시 예약대기 상태로 돌아올 수 없습니다.\n정말 예약완료 상태로 변경하시겠습니까?")) return;
 
         let dataArr = $(object).data('key').split(",");
         let request_id = dataArr[0];
@@ -129,29 +157,6 @@
             'request_status' : '예약완료'
         };
 
-        changeStatus(ajaxData);
-    }
-
-    // 예약 대기 버튼
-    function btnWait(object) {
-        if(!confirm("정말 예약대기 상태로 변경하시겠습니까?\n(추첨제는 추첨대기 상태로 변경)")) return;
-
-        let dataArr = $(object).data('key').split(",");
-        let request_id = dataArr[0];
-        let lecture_id = dataArr[1];
-
-        var ajaxData = {
-            'lecture_id' : lecture_id,
-            'request_id' : request_id,
-            'editMode' : 'UPDATE',
-            'request_status' : '예약대기'
-        };
-
-        changeStatus(ajaxData);
-    }
-
-    // 상태 변화 ajax 전송
-    function changeStatus(ajaxData) {
         $.ajax({
             url : '../lectureRequest/changeStatus.do',
             type : 'POST',
@@ -159,15 +164,25 @@
             success: function(response) {
                 if(response.valid) {
                     alert(response.message);
-                    $('#dialog-4').dialog('destroy');
-                    //열려있는 다이얼로그를 삭제한다.(중복방지)
-                    $('.dialog-common').remove();
-                    location.reload();
+
+                    let waitCount = parseInt($('#wait_request_count_'+lecture_id).text());
+                    $('#wait_request_count_'+lecture_id).text(waitCount-1);
+
+                    let onlineCount = parseInt($('#online_request_count_'+lecture_id).text());
+                    $('#online_request_count_'+lecture_id).text(onlineCount+1);
+
+                    $('#dialog-4').load('../lectureInfo/applicant.do?lecture_id='+lecture_id+'&applicant_type=${applicant_type}', function( response, status, xhr ) {
+                        $('#dialog-4').dialog('open');
+                    });
                 } else {
                     if ( response.message != null ) {
                         alert(response.message);
                     } else{
-                        alert("관리자에게 문의하세요");
+                        for(var i =0 ; i < response.result.length ; i++) {
+                            alert(response.result[i].code);
+                            $('#'+response.result[i].field).focus();
+                            break;
+                        }
                     }
                 }
             },
@@ -187,10 +202,11 @@
                 <td>`+obj.birthday+`(`+genderKr(obj.gender)+`)</td>
                 <td>`+obj.phone_number+`<br>`+emailText(obj.email)+`</td>
                 <td>`+addDateFormat(obj.add_date)+`</td>
-                <td>`+obj.request_status+`</td>
-                <td>`+btnItem(obj.request_status, obj.request_type, obj.request_id, obj.lecture_id, obj.info_request_type)+
-                   `<a href="#" class="btn cancel_btn" onclick="btnCancel(this)" data-key="`+obj.request_id+`">예약취소</a>
-                </td>
+                <td><span id="request_status_`+obj.request_id+`">`+obj.request_status+`</span></td>
+                <td>`
+                    +btnItem(obj.request_status, obj.request_type, obj.request_id, obj.lecture_id, obj.info_request_type)
+                    +btnCancelItem(obj.request_status, obj.request_id)+
+                `</td>
             </tr>`
 
         return row;
@@ -200,11 +216,17 @@
     function btnItem(request_status, request_type, request_id, lecture_id, info_request_type) {
         if(request_status == '예약대기' && request_type == '온라인' && info_request_type == '선착순') {
             return `<a href="#" class="btn completion_btn" onclick="btnCompletion(this)" data-key="`+request_id+`,`+lecture_id+`">예약완료</a>`;
-        } else if (request_status == '예약완료' && request_type == '온라인' && info_request_type == '선착순') {
-            return `<a href="#" class="btn wait_btn" onclick="btnWait(this)" data-key="`+request_id+`,`+lecture_id+`">예약대기</a>`
         } else {
             return ``;
         }
+    }
+
+    // 예약취소 버튼 템플릿
+    function btnCancelItem(request_status, request_id) {
+        if (request_status == "예약취소") {
+            return '';
+        }
+        return `<a href="#" id="btn_request_cancel_`+request_id+`" class="btn cancel_btn" onclick="btnCancel(this)" data-key="`+request_id+`">예약취소</a>`;
     }
 
     // 성별 한글로 출력
@@ -244,7 +266,7 @@
     // 아이디 변경
     function addId(add_id) {
         if(add_id == null || add_id == '') {
-            return '(오프라인신청)';
+            return '(비회원)';
         }
         return add_id;
     }
@@ -259,11 +281,18 @@
 </style>
 
 <div id="edit-modal">
-    <span>정렬기준 : </span>
-    <select id="sortSelect" name="sortSelect">
-        <option value="0">이름</option>
-        <option value="1">등록일</option>
-    </select>
+    <div style="display: inline-block; float: left;">
+        <span>강좌명 : <b>${lectureInfo.lecture_title}</b> </span>
+        <span>(${applicant_type} </span>
+        <span>모집인원)</span>
+    </div>
+    <div style="display: inline-block; float: right;">
+        <span>정렬기준 : </span>
+        <select id="sortSelect" name="sortSelect">
+            <option value="0">이름</option>
+            <option value="1">등록일</option>
+        </select>
+    </div>
     <table class="type1 center">
         <colgroup>
             <col width="15%" /> <%--신청자 id--%>
@@ -289,4 +318,3 @@
         </tbody>
     </table>
 </div>
-

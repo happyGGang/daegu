@@ -1,5 +1,7 @@
 package kr.go.gbelib.app.cms.module.lecture.lectureRequest;
 
+import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = {"/cms/module/lecture/lectureRequest"})
@@ -27,6 +31,9 @@ public class LectureRequestController extends BaseController {
     @Autowired
     public LectureInfoService lectureInfoService;
 
+    @Autowired
+    public HomepageService homepageService;
+
     /**
      * cms 수강신청 목록 페이지
      * */
@@ -37,13 +44,12 @@ public class LectureRequestController extends BaseController {
         lectureRequest.setHomepage_id(getAsideHomepageId(request));
         lectureRequestService.setSearchingData(lectureRequest);
 
-        int lectureRequestCount = lectureRequestService.getLectureRequestCount(lectureRequest);
-        lectureRequestService.setPaging(model, lectureRequestCount, lectureRequest);
+        lectureRequestService.setPaging(model, lectureRequestService.getLectureRequestCount(lectureRequest), lectureRequest);
 
         model.addAttribute("lectureRequest", lectureRequest);
         model.addAttribute("lectureRequestList", lectureRequestService.lectureRequestList(lectureRequest));
         model.addAttribute("courseInfoList", lectureRequestService.courseInfoIdList(lectureRequest.getHomepage_id()));
-        model.addAttribute("lectureInfoList", lectureRequestService.lectureInfoList(lectureRequest, "오프라인"));
+        model.addAttribute("lectureInfoList", lectureRequestService.lectureInfoList(lectureRequest));
 
         return basePath + "index";
     }
@@ -64,7 +70,7 @@ public class LectureRequestController extends BaseController {
 
             model.addAttribute("lectureRequest", lectureRequest);
             model.addAttribute("courseInfoList", lectureRequestService.courseInfoIdList(lectureRequest.getHomepage_id()));
-            model.addAttribute("lectureInfoList", lectureRequestService.lectureInfoList(lectureRequest, "오프라인"));
+            model.addAttribute("lectureInfoList", lectureRequestService.lectureInfoList(lectureRequest));
 
         } else if(request.getParameter("editMode").equals("UPDATE")) { // 수정 모드
             checkAuth("U", model, request);
@@ -76,7 +82,7 @@ public class LectureRequestController extends BaseController {
 
             model.addAttribute("lectureRequest", lectureRequestEntity);
             model.addAttribute("courseInfoList", lectureRequestService.courseInfoIdList(lectureRequestEntity.getHomepage_id()));
-            model.addAttribute("lectureInfoList", lectureRequestService.lectureInfoList(lectureRequestEntity, "오프라인"));
+            model.addAttribute("lectureInfoList", lectureRequestService.lectureInfoList(lectureRequestEntity));
         }
 
         return basePath + "edit_ajax";
@@ -89,9 +95,19 @@ public class LectureRequestController extends BaseController {
     private String view(Model model, LectureRequest lectureRequest, HttpServletRequest request) throws Exception {
         checkAuth("R", model, request);
 
-        lectureRequest.setHomepage_id(getAsideHomepageId(request));
+        LectureRequest lectureRequestOne = lectureRequestService.lectureRequestOne(lectureRequest.getRequest_id());
 
-        model.addAttribute("lectureRequest", lectureRequestService.lectureRequestOne(lectureRequest.getRequest_id()));
+        lectureRequestOne.setHomepage_id(getAsideHomepageId(request));
+        lectureRequestOne.setViewPage(lectureRequest.getViewPage());
+        lectureRequestOne.setRowCount(lectureRequest.getRowCount());
+        lectureRequestOne.setSearch_course_id(lectureRequest.getSearch_course_id());
+        lectureRequestOne.setSearch_lecture_id(lectureRequest.getSearch_lecture_id());
+        lectureRequestOne.setSearch_request_type(lectureRequest.getSearch_request_type());
+        lectureRequestOne.setSearch_cancel_yn(lectureRequest.getSearch_cancel_yn());
+        lectureRequestOne.setSearch_type(lectureRequest.getSearch_type());
+        lectureRequestOne.setSearch_text(lectureRequest.getSearch_text());
+
+        model.addAttribute("lectureRequest", lectureRequestOne);
 
         return basePath + "view";
     }
@@ -145,6 +161,7 @@ public class LectureRequestController extends BaseController {
     @RequestMapping (value = {"/delete.*"}, method = RequestMethod.POST)
     public @ResponseBody JsonResponse cancel(LectureRequest lectureRequest, BindingResult result, HttpServletRequest request) {
         JsonResponse res = new JsonResponse(request);
+        LectureRequest canceledRequest = null;
 
         lectureRequest.setHomepage_id(getAsideHomepageId(request));
 
@@ -155,14 +172,23 @@ public class LectureRequestController extends BaseController {
         }
 
         if (lectureRequest.getEditMode().equals("DELETE")) {
-            lectureRequestService.cancelLectureRequest(lectureRequest, getSessionMemberId(request), request.getRemoteAddr());
-            res.setValid(true);
-            res.setMessage("취소되었습니다.");
-            res.setUrl("index.do");
+            canceledRequest = lectureRequestService.cancelLectureRequest(lectureRequest, getSessionMemberId(request), request.getRemoteAddr());
         } else {
             res.setValid(false);
-            res.setResult("잘못된 접근입니다.");
+            res.setMessage("잘못된 접근입니다.");
+            return res;
         }
+
+        if(canceledRequest == null) {
+            res.setValid(false);
+            res.setMessage("취소 진행중 문제가 생겼습니다.\n관리자에게 문의하세요.");
+            return res;
+        }
+
+        res.setData(canceledRequest);
+        res.setValid(true);
+        res.setMessage("취소되었습니다.");
+        res.setUrl("index.do");
 
         return res;
     }
@@ -196,8 +222,8 @@ public class LectureRequestController extends BaseController {
                 return res;
             }
 
-        } else {    // 예약대기로 변경
-            LectureInfo lectureInfoOne = lectureInfoService.lectureInfoOne(lectureRequest.getLecture_id(), "온라인"); //  강좌 정보 조회
+        }/* else {    // 예약대기로 변경
+            LectureInfo lectureInfoOne = lectureInfoService.lectureInfoOne(lectureRequest.getLecture_id()); //  강좌 정보 조회
 
             if(lectureRequestService.getLectureRequestWaitPersonCount(lectureRequest) <= 0) {
                 res.setValid(false);
@@ -207,7 +233,7 @@ public class LectureRequestController extends BaseController {
 
             if(lectureInfoOne.getRequest_type().equals("추첨제"))
                 lectureRequest.setRequest_type("추첨대기");
-        }
+        }*/
 
         lectureRequestService.changeStatus(lectureRequest); // 상태 변경
 
@@ -223,6 +249,7 @@ public class LectureRequestController extends BaseController {
      * */
     private void validationChk(BindingResult result, LectureRequest lectureRequest) {
         // 공백 불가
+        ValidationUtils.rejectIfEmpty(result, "lecture_id", "강좌를 선택하세요.");
         ValidationUtils.rejectIfEmpty(result, "request_name", "신청자 이름을 입력하세요.");
         ValidationUtils.rejectIfEmpty(result, "birthday", "생일을 입력하세요.");
         ValidationUtils.rejectIfEmpty(result, "gender", "성별을 입력하세요.");
@@ -241,7 +268,7 @@ public class LectureRequestController extends BaseController {
      * 신청 상태 저장
      * */
     private boolean setStatus(LectureRequest lectureRequest, JsonResponse res) {
-        LectureInfo lectureInfoOne = lectureInfoService.lectureInfoOne(lectureRequest.getLecture_id(), "오프라인"); //  강좌 정보 조회
+        LectureInfo lectureInfoOne = lectureInfoService.lectureInfoOne(lectureRequest.getLecture_id()); //  강좌 정보 조회
         if (lectureRequestService.getLectureRequestOfflinePersonCount(lectureRequest) <= 0) {
             res.setValid(false);
             res.setMessage("오프라인 신청 정원이 마감되었습니다.");
@@ -293,186 +320,34 @@ public class LectureRequestController extends BaseController {
         return res;
     }
 
-    /**
-     * 등록, 수정 페이지 강좌 목록 변경
-     * */
-    /*@RequestMapping (value = {"/lectureInfoList.*"}, method = RequestMethod.POST)
-    public @ResponseBody JsonResponse lectureInfoList(LectureRequest lectureRequest, BindingResult result,
-                                                      @RequestBody String course_id, HttpServletRequest request) {
-        JsonResponse res = new JsonResponse(request);
-        Gson gson = new Gson();
-
-        CourseId courseId = gson.fromJson(course_id, CourseId.class);
-
+    // 엑셀 다운로드
+    @RequestMapping(value = { "/excelDownload.*" }, method = RequestMethod.POST)
+    public LectureRequestSearchView excel(Model model, LectureRequest lectureRequest, HttpServletRequest request, HttpServletResponse response) throws Exception {
         lectureRequest.setHomepage_id(getAsideHomepageId(request));
+        lectureRequestService.setSearchingData(lectureRequest);
 
-        List<LectureInfo> lectureInfoList = lectureRequestService.lectureInfoList(lectureRequest.getHomepage_id(), courseId.getCourse_id(), null);
+        lectureRequestService.setPaging(model, lectureRequestService.getLectureRequestCount(lectureRequest), lectureRequest);
 
-        String json = gson.toJson(lectureInfoList);
+        model.addAttribute("homepage", homepageService.getHomepageOne(new Homepage(lectureRequest.getHomepage_id())));
+        model.addAttribute("lectureRequest", lectureRequest);
+        model.addAttribute("lectureRequestList", lectureRequestService.lectureRequestList(lectureRequest));
+        return new LectureRequestSearchView();
+    }
 
-        res.setValid(true);
-        res.setData(json);
-
-        return res;
-    }*/
-
-    /**
-     * 수강신청 등록,수정 api
-     * */
-    /*@RequestMapping (value = {"/save.*"}, method = RequestMethod.POST)
-    public @ResponseBody
-    JsonResponse save(LectureRequest lectureRequest, BindingResult result, HttpServletRequest request) {
-        JsonResponse res = new JsonResponse(request);
-
-        lectureRequest.setHomepage_id(getAsideHomepageId(request));     // 홈페이지 아이디 set
-
-        setMemberData(lectureRequest, request);                         // 온라인 신청이면 회원 정보 저장
-
-        validationChk(result, lectureRequest);                          // 유효성 체크
-        if(hasValidErrors(res, result)) return res;                     // 유효성 에러가 있으면 return
-
-        if(lectureRequest.getEditMode().equals("ADD")) {                // 강좌 정보 추가
-
-            lectureRequest.setCancel_yn("N");                           // 취소여부 set
-            lectureRequest.setAdd_id(getSessionMemberId(request));      // add_id set
-            lectureRequest.setAdd_ip(request.getRemoteAddr());          // add_ip set
-
-            if(!setStatus(lectureRequest, res)) return res;              // 신청 불가 상태면 return
-
-            lectureRequestService.addLectureRequest(lectureRequest, getSessionMemberId(request), request.getRemoteAddr());    // 수강신청 추가
-
-            res.setValid(true);
-            res.setMessage("수강신청 되었습니다.");
-            res.setUrl("index.do");
-
-        } else if(lectureRequest.getEditMode().equals("UPDATE")) {      // 강좌 정보 수정
-
-            lectureRequestService.updateLectureRequest(lectureRequest);
-            res.setValid(true);
-            res.setMessage("수정되었습니다.");
-            res.setUrl("index.do");
-
-        } else {
-            res.setValid(false);
-            res.setResult("잘못된 접근입니다.");
-        }
-
-        return res;
-    }*/
-
-
-    /**
-     * 강좌 재신청 api
-     * */
-    /*@RequestMapping (value = {"/reapply.*"}, method = RequestMethod.POST)
-    public @ResponseBody JsonResponse reapply(LectureRequest lectureRequest, BindingResult result, HttpServletRequest request) {
-        JsonResponse res = new JsonResponse(request);
-
+    // csv 다운로드
+    @RequestMapping(value = {"/csvDownload.*"}, method = RequestMethod.POST)
+    public void csv(Model model, LectureRequest lectureRequest, HttpServletRequest request, HttpServletResponse response) {
         lectureRequest.setHomepage_id(getAsideHomepageId(request));
+        lectureRequestService.setSearchingData(lectureRequest);
 
-        if (!result.hasErrors()) {
-            if (lectureRequest.getEditMode().equals("UPDATE")) {
+        lectureRequestService.setPaging(model, lectureRequestService.getLectureRequestCount(lectureRequest), lectureRequest);
 
-                if(!setStatus(lectureRequest, res)) return res;
-                lectureRequest.setCancel_yn("N");
+        List<LectureRequest> lectureRequestList = lectureRequestService.lectureRequestList(lectureRequest);
+        Homepage homepage = homepageService.getHomepageOne(new Homepage(lectureRequest.getHomepage_id()));
 
-                lectureRequestService.reapplyRequest(lectureRequest);
+        model.addAttribute("lectureRequest", lectureRequest);
+        model.addAttribute("lectureRequestList", lectureRequestList);
 
-                res.setValid(true);
-                res.setMessage("재신청되었습니다.");
-                res.setUrl("index.do");
-            } else {
-                res.setValid(false);
-                res.setResult("잘못된 접근입니다.");
-            }
-        } else {
-            res.setValid(false);
-            res.setResult(result.getAllErrors());
-        }
-
-        return res;
-    }*/
-
-    /**
-     * 예약 상태 저장
-     * */
-    /*private boolean setStatus(LectureRequest lectureRequest, JsonResponse res) {
-        LectureInfo lectureInfoOne = lectureInfoService.lectureInfoOne(lectureRequest.getLecture_id(), lectureRequest.getRequest_type()); //  강좌 정보 조회
-
-        if(!lectureInfoOne.getLecture_status1().equals("모집중")) {
-            res.setValid(false);
-            res.setMessage("모집중인 수강신청이 아닙니다.");
-
-            return false;
-        } else if(lectureRequest.getRequest_type().equals("온라인") && lectureRequestService.getMyLectureRequestCount(lectureRequest) > 0 ) { // 수강신청 중복검사
-
-            res.setValid(false);
-            res.setMessage("이미 수강신청된 강좌입니다.");
-
-            return false;
-        } else {
-            if(leftRequestCount(lectureRequest) <= 0) {  // 남은 신청 정원 확인
-                if(lectureRequestService.getLectureRequestWaitPersonCount(lectureRequest) <= 0) { // 대기 정원 확인
-                    res.setValid(false);
-                    res.setMessage(lectureRequest.getRequest_type()+" 신청 정원이 마감된 강좌입니다.");
-
-                    return false;
-                } else {
-                    lectureRequest.setRequest_status(successWait(lectureInfoOne));
-                }
-            } else {
-                lectureRequest.setRequest_status("예약완료");
-            }
-
-            return true;
-        }
-    }*/
-
-    /**
-     * 유효성 에러 있는지 검사
-     * */
-    /*private Boolean hasValidErrors(JsonResponse res, BindingResult result) {
-        if(result.hasErrors()) {
-            res.setValid(false);
-            res.setResult(result.getAllErrors());
-            return true;
-        }
-        return false;
-    }*/
-
-    /**
-     * 온라인 신청일때 맴버 데이터 가져오기
-     * */
-    /*private void setMemberData(LectureRequest lectureRequest, HttpServletRequest request) {
-        if(lectureRequest.getRequest_type() != null && lectureRequest.getRequest_type().equals("온라인")) {
-            Member member = (Member)request.getSession().getAttribute(StaticVariables.MEMBER);
-            lectureRequest.setRequest_name(member.getMember_name());
-            lectureRequest.setEmail(member.getEmail());
-            lectureRequest.setPhone_number("010-1234-1234");
-            lectureRequest.setBirthday("1990-08-15");
-            lectureRequest.setGender('0');
-            lectureRequest.setComplete_yn("N");
-            lectureRequest.setCancel_yn("N");
-        }
-    }*/
-
-    /**
-     * 대기 성공 메세지 리턴
-     * */
-    /*private String successWait(LectureInfo lectureInfoOne) {
-        if(lectureInfoOne.getRequest_type().equals("선착순")) {
-            return "예약대기";
-        }
-        return "추첨대기";
-    }*/
-
-    /**
-     * 남은 신청 정원 리턴
-     * */
-    /*private int leftRequestCount(LectureRequest lectureRequest) {
-        if(lectureRequest.getRequest_type().equals("오프라인")){                    // 오프라인 신청
-            return lectureRequestService.getLectureRequestOfflinePersonCount(lectureRequest);
-        }
-        return lectureRequestService.getLectureRequestOnlinePersonCount(lectureRequest); // 온라인 신청
-    }*/
+        new LectureRequestXlsToCsv(lectureRequestList, "LectureRequest.csv", homepage, request, response);
+    }
 }

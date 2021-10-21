@@ -3,8 +3,6 @@ package kr.go.gbelib.app.cms.module.lecture.lectureRequest;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 public class LectureRequest extends PagingUtils {
 

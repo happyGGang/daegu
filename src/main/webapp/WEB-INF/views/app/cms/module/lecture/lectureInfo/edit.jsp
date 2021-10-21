@@ -228,6 +228,11 @@ $(function() {
 		}
 		return true;
 	}
+
+	// 기존 파일 변경 이벤트
+	function onFileChange() {
+		$('#existed_file_div').remove();
+	}
 </script>
 
 <style>
@@ -263,9 +268,9 @@ $(function() {
 			<tr>
 				<th>강좌명(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
-					<form:input path="lecture_title" cssStyle="width: 70%;" maxlength="20"/>
+					<form:input path="lecture_title" cssStyle="width: 70%;" maxlength="100"/>
 					<div class="ui-state-highlight">
-						<em>※ 강좌명은 20자 까지 입력 가능합니다.</em>
+						<em>※ 강좌명은 100자 까지 입력 가능합니다.</em>
 					</div>
 				</td>
 			</tr>
@@ -363,6 +368,12 @@ $(function() {
 				</td>
 			</tr>
 			<tr>
+				<th>강사ID</th>
+				<td>
+					<form:input path="teacher_id" cssClass="text" maxlength="20"/>
+				</td>
+			</tr>
+			<tr>
 				<th>교육장(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
 					<form:input path="edu_school" cssClass="text" maxlength="100"/>
@@ -387,6 +398,12 @@ $(function() {
 				</td>
 			</tr>
 			<tr>
+				<th>교육장부속</th>
+				<td>
+					<form:input path="edu_second_school" cssClass="text" maxlength="50"/>
+				</td>
+			</tr>
+			<tr>
 				<th>과정소개</th>
 				<td>
 					<form:textarea path="lecture_content" cssClass="textArea" cssStyle="width:100%;" rows="5"/>
@@ -397,10 +414,10 @@ $(function() {
 			<tr>
 				<th>첨부파일</th>
 				<td class="file1">
-	         		<input type="file" id="org_file_name_temp" name="org_file_name_temp" class="text" title="파일 첨부" style="width:50%;"/>
+	         		<input type="file" onchange="onFileChange()" id="org_file_name_temp" name="org_file_name_temp" class="text" title="파일 첨부" style="width:50%;"/>
 					<c:if test="${lectureInfo.editMode eq 'UPDATE'}">
 						<c:if test="${file.file_server_name ne NULL}">
-							<div class="item">
+							<div class="item" id="existed_file_div">
 								<a href="/cms/module/lecture/lectureInfo/download/${file.homepage_id}/${file.file_server_name}.do"><i class="fa fa-floppy-o"></i>${file.file_original_name}</a><a class="btn btn1 delete-file-btn">삭제</a>
 							</div>
 						</c:if>
