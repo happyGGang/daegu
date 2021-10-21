@@ -38,10 +38,13 @@ public class TeachApiService extends BaseService{
 		
 		int teachCount = teachList.size();
 		
-		if (teachCount == 0) {
+		if (StringUtils.isEmpty(teach.getHomepage_id())) {
+			code = 1;
+			msg = "잘못된 homepage_id 파라미터";	
+		} else if (teachCount == 0) {
 			code = 1;
 			msg = "조회된 데이터가 없습니다.";	
-		}
+		} 
 		
 		map.put("code", code);
 		map.put("msg", msg);
@@ -73,7 +76,7 @@ public class TeachApiService extends BaseService{
 			msg = "잘못된 homepage_id,group_idx,teach_idx 파라미터";	
 		} else if (StringUtils.isEmpty(student.getHomepage_id())) {
 			code = 1;
-			msg = "잘못된  homepage_id 파라미터";	
+			msg = "잘못된 homepage_id 파라미터";	
 		} else if (student.getGroup_idx() == 0) {
 			code = 1;
 			msg = "잘못된 group_idx 파라미터";	
@@ -101,12 +104,14 @@ public class TeachApiService extends BaseService{
 	
 	public Map<String, Object> toMap(Teach teach) {
 		Map<String, Object> map = new LinkedHashMap<String, Object>();
-		
 		map.put("TITLE", defaultString(teach.getTeach_name()));												// 강좌명
 		map.put("TARGET", defaultString(teach.getTeach_target()));											// 강좌대상
-		map.put("ONTARGETCNT", teach.getTeach_join_count());												// 온라인 접수인원
-		map.put("OFFTARGETCNT", teach.getTeach_off_join_count());											// 오프라인 접수인원
-		map.put("TARGETHUBOCNT", teach.getTeach_backup_join_count());										// 후보자인원
+		map.put("ONTARGETCNT", teach.getTeach_join_count());												// 온라인 현재접수인원
+		map.put("ONLIMITCNT", teach.getTeach_limit_count());												// 온라인접수가능인원
+		map.put("OFFTARGETCNT", teach.getTeach_off_join_count());											// 오프라인 현재접수인원
+		map.put("OFFLIMITCNT", teach.getTeach_offline_count());												// 오프라인접수가능인원
+		map.put("TARGETHUBOCNT", teach.getTeach_backup_join_count());										// 현재 후보자인원
+		map.put("HUBOLIMITCNT", teach.getTeach_backup_count());												// 후보자 접수가능인원
 		map.put("LECTUREDATE", defaultString(teach.getStart_date() + " ~ " + teach.getEnd_date()));			// 강의기간
 		map.put("LECTURETIME", defaultString(teach.getStart_time() + " ~ " + teach.getEnd_time()));			// 강의시작시간
 		map.put("LIB_NAME", defaultString(teach.getHomepage_name()));										// 도서관명
