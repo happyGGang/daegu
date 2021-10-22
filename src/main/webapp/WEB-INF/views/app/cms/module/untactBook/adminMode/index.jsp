@@ -289,6 +289,7 @@ function randomPassword(passwordCount, nonPasswordCount) {
 	.locker-box li.divide3 {width:calc(33.33333333333% - 6px);}
 	.locker-box li.divide4 {width:calc(25% - 6px);}
 	.locker-box li.divide5 {width:calc(20% - 6px);}
+	.locker-box li.notuse {background:#2e2e2e url('/resources/common/img/locker-no-bg.png') no-repeat center center;}
 
 	a.btnuntact {border-radius:0;padding:7px 10px;}
 
@@ -335,10 +336,13 @@ function randomPassword(passwordCount, nonPasswordCount) {
 							<ul>
 								<!-- 3 x n 으로 혹은 4 x n으로 갈떄 CLASS를 divide3 혹은 divide4 등으로 주면 됩니다. 즉 3xn하면 divide3, 4xn하면 divide4 -->
 								<c:forEach var="i" varStatus="status" items="${untactLockerSettingList}">
-								<li class='divide${untactBookSetting.row_count}'>
+								<li class="divide${untactBookSetting.row_count} <c:if test="${i.locker_type eq '사용안함'}">notuse</c:if>">
 									<p class="locknumber">${i.locker_number}</p>
 									<p class="name">
-										${i.locker_type}
+										<c:choose>
+										<c:when test="${i.locker_type eq '사용안함'}">&nbsp;</c:when>
+										<c:otherwise>${i.locker_type}</c:otherwise>
+										</c:choose>
 									</p>
 								</li>
 								</c:forEach>
