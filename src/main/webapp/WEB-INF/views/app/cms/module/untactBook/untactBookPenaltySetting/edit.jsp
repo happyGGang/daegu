@@ -72,7 +72,7 @@ $(function(){
 
 	$("#dialog-1").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
 	width: 500,
-	height: 290,
+	height: 360,
 	});
 	
 	$('input#start_date').datepicker({
@@ -111,13 +111,19 @@ $(function(){
 			<tr>
 				<th>패널티횟수 (<span style="color: red; font-weight: bold;">*</span>)</th>
 				<td>
-					<form:input path="penalty_count" class="text" cssStyle="width:30px" maxlength="3" />
+					<form:input path="penalty_count" class="text" cssStyle="width:30px" maxlength="3" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>회
+					<div class="ui-state-highlight">
+						<em>숫자만 입력가능합니다.</em>
+					</div>
 				</td>
 			</tr>
 			<tr>
 				<th>패널티일수 (<span style="color: red; font-weight: bold;">*</span>)</th>
 				<td>
-					<form:input path="penalty_day" class="text" cssStyle="width:30px" maxlength="3" />
+					<form:input path="penalty_day" class="text" cssStyle="width:30px" maxlength="3" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>일
+					<div class="ui-state-highlight">
+						<em>숫자만 입력가능합니다.</em>
+					</div>
 				</td>
 			</tr>
 			<tr>

@@ -93,7 +93,7 @@
 	
 	<select id="getPenaltyCount" resultType="int">
 		SELECT
-			penalty_count
+			NVL(MAX(penalty_count),0)
 		FROM
 			UNTACT_BOOK_PENALTY_SETTING
 		WHERE

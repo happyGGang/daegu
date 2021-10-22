@@ -1,7 +1,6 @@
 package kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting;
 
 import kr.co.whalesoft.framework.base.BaseService;
-import kr.go.gbelib.app.cms.module.untactBook.untactBookBlackList.UntactBookBlackList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,6 +70,22 @@ public class UntactLockerSettingService extends BaseService {
 
 	public String getLoanTime(String homepage_id) {
 		return dao.getLoanTime(homepage_id);
+	}
+	
+	public List<UntactLockerSetting> showLockerState(String homepage_id) {
+		return dao.showLockerState(homepage_id);
+	}
+
+	public String getLockerUseType(String homepage_id) {
+		return dao.getLockerUseType(homepage_id);
+	}
+
+	public int getLockerMaxCount(String homepage_id) {
+		return dao.getLockerMaxCount(homepage_id);
+	}
+
+	public String getLockerUseYN(String homepage_id) {
+		return dao.getLockerUseYN(homepage_id);
 	}
 
 }

@@ -60,7 +60,6 @@ $(function(){
 	</form:select>
 	
 	신청일 : <form:input path="start_date" class="text ui-calendar"/> ~ <form:input path="end_date" class="text ui-calendar"/>
-	대출일 : <form:input path="loan_date" cssClass="text ui-calendar"/><label for="loan_date" style="display: none;">대출일</label>
 	<button id="searchBtn"><i class="fa fa-search"></i><span>검색</span></button>
 	<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>
 </div>
@@ -73,7 +72,7 @@ $(function(){
 			<th width="50">대출번호</th>
 			<th width="50">신청자명</th>
 			<th width="50">신청일</th>
-			<th width="50">대출일</th>
+			<th width="50">비치일</th>
 			<th width="50">도서명</th>
 			<th width="50">사물함번호</th>
 			<th width="50">비밀번호</th>

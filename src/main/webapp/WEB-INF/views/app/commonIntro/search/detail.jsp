@@ -401,7 +401,7 @@ $(function() {
 				<c:when test="${homepage.context_path eq 'dalseolib'}">
 
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'FD'}">
+						<c:when test="${detail.MANAGE_CODE eq 'FD' || detail.MANAGE_CODE eq 'GK' || detail.MANAGE_CODE eq 'FX'}">
 						</c:when>
 						<c:otherwise>
 							<c:choose>
@@ -489,9 +489,12 @@ $(function() {
 				int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
 				int hour = now.getHourOfDay();
 			%>
-			
 			 -->
-			<a href="#untact" id="untactBook-req" class="btn btn2"><span>비대면 도서대출</span></a>
+			<!--비대면도서대출 버튼-->
+			<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865'}">
+				<a href="#untact" id="untactBook-req" class="btn btn2"><span>비대면 도서대출</span></a>
+			</c:if>
+			
 			<c:choose>
 				<c:when test="${homepage.context_path eq 'jungang'}">
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">

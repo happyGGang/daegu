@@ -85,8 +85,11 @@ function qrCode(locker_password) {
 		<thead>
 			<th style="width:6%">순번</th>
 			<th style="width:12%">신청일</th>
+			<th style="width:6%">사물함번호</th>
 			<th style="width:8%">예약상태</th>
 			<th style="width:16%">책이름</th>
+			<th style="width:5%">QR코드</th>
+			<th style="width:8%">사물함비밀번호</th>
 			<th style="width:6%">예약취소</th>
 		</thead>
 		<tbody>
@@ -94,8 +97,24 @@ function qrCode(locker_password) {
 			<tr>
 				<td>${paging.listRowNum - status.index}</td>
 				<td>${i.request_date}</td>
+				<td>${i.locker_number}</td>
 				<td>${i.reservation_step}</td>
 				<td>${i.book_name}</td>
+				<td>
+					<div class="button">
+						<a href="javascript:void(0);" class="btn btn1" onclick="qrCode('${i.locker_password}');">클릭</a>
+					</div>
+				</td>
+				<td>
+					<c:choose>
+						<c:when test="${i.locker_password eq 0}">
+						미등록
+						</c:when>
+						<c:otherwise>
+						${i.locker_password}	
+						</c:otherwise>
+					</c:choose>
+				</td>
 				<td><a href="#" class="btn reserveCancel" onclick="cancelReserve('${i.request_number}','${i.member_id}','${i.member_name}')">예약취소</a></td>
 			</tr>
 		</c:forEach>

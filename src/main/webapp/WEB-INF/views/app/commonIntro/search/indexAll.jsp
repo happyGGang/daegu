@@ -1132,7 +1132,7 @@
 																<c:otherwise>
 																	<c:choose>
 																		<c:when test="${i.RESERVATION_CNT > 0}">
-																			<span style="color:#ff0000">대출불가(예약대출 대기중)</span>
+																			<span style="color:#ff0000">대출불가(예약대출 대기중)(예약 : ${i.RESERVATION_CNT}명)</span>
 																		</c:when>
 																		<c:otherwise>
 																			<span style="color:#ff0000">대출불가</span>
