@@ -41,7 +41,8 @@ public class EcoAPIService extends BaseService {
 //	ConfigService configService;
 	
 	private String getServerUrl(Book book) {
-		return "http://e-lib.tglnet.or.kr:8099";
+		//return "http://e-lib.tglnet.or.kr:8099";
+		return "http://elib.daegu.go.kr:8099";  //또는 8100포트
 	}
 	
 	private Map<String, String> parse(String xml, String encoding) {
