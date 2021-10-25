@@ -274,8 +274,8 @@
 				</c:when>
 				<c:when test="${context_path eq 'seongseo'}">
 				<form:select path="manageCode">
-					<form:option value="BU">성서도서관</form:option>
-				</form:select>
+					<!--<form:option value="BU">성서도서관</form:option>-->
+				</form:select><span style="color:#ff0000"> * 2021년 희망도서 예산소진으로 인해서 희망도서 신청을 마감합니다. </span>
 				</c:when>
 				<c:when test="${context_path eq 'bolli'}">
 				<form:select path="manageCode">
