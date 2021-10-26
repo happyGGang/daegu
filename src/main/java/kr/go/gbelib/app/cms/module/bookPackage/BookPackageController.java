@@ -180,7 +180,7 @@ public class BookPackageController extends BaseController {
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Calendar cal = Calendar.getInstance();
-			cal.add(Calendar.DATE, 3);
+			cal.add(Calendar.DATE, 5);
 			
 			bookPackage = (BookPackage)service.copyObjectPaging(bookPackage, service.getBookPackageOne(bookPackage));
 			bookPackage.setLoan_start_date(sdf.format(cal.getTime()));
