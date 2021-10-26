@@ -38,10 +38,7 @@ public class TeachApiService extends BaseService{
 		
 		int teachCount = teachList.size();
 		
-		if (StringUtils.isEmpty(teach.getHomepage_id())) {
-			code = 1;
-			msg = "잘못된 homepage_id 파라미터";	
-		} else if (teachCount == 0) {
+		if (teachCount == 0) {
 			code = 1;
 			msg = "조회된 데이터가 없습니다.";	
 		} 
@@ -55,7 +52,6 @@ public class TeachApiService extends BaseService{
 		}
 		
 		map.put("data", teachMapList);
-		
 		
 		return map;
 	}

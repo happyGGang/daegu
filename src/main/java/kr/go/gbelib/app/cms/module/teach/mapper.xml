@@ -1878,9 +1878,9 @@
 			<if test="date != null and date != ''">
 				AND TO_DATE(#{date},'YYYY-MM-DD') BETWEEN TO_DATE(start_date, 'YYYY-MM-DD') AND TO_DATE(end_date, 'YYYY-MM-DD')
 			</if>
-<!-- 			<if test="homepage_id != null and homepage_id != ''"> -->
+			<if test="homepage_id != null and homepage_id != ''">
 				AND a.homepage_id = #{homepage_id}
-<!-- 			</if> -->
+			</if>
 		ORDER BY
 			ABS(SYSDATE - (TO_DATE(a.start_join_date ||' '|| a.start_join_time, 'YYYY-MM-DD HH24:MI'))) ASC,
 			ABS(SYSDATE - (TO_DATE(a.end_join_date ||' '|| a.end_join_time, 'YYYY-MM-DD HH24:MI'))) ASC
