@@ -281,7 +281,7 @@ public class BookPackageController extends BaseController {
 
 				//신청, 예약, 대출중 데이터의 대출 종료일에서 3일을 추가한다.
 				cal.setTime(sdf.parse(bookPackageLoanDateList.get(bookPackageLoanDateList.size()-1)));
-				cal.add(Calendar.DATE, 3);
+				cal.add(Calendar.DATE, 5);
 				bookPackage.setLoan_start_date(sdf.format(cal.getTime()));
 				bookPackage.setLoan_end_date(null);
 			}
