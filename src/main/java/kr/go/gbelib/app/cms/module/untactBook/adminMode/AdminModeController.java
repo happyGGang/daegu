@@ -9,7 +9,10 @@ import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookRe
 import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservationSearchView;
 import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservationService;
 import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactBookSetting;
+import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSetting;
 import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSettingService;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,23 +43,33 @@ public class AdminModeController extends BaseController {
 	private UntactBookBlackListService blackListService;
 	
 	@RequestMapping(value = { "/index.*" })
-	public String index(Model model, UntactBookSetting untactBookSetting, UntactBookReservation untactBookReservation, HttpServletRequest request) throws AuthException {
+	public String index(Model model, UntactBookSetting untactBookSetting, UntactLockerSetting untactLockerSetting, UntactBookReservation untactBookReservation, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 		
 		untactBookSetting = settingService.getUntactBookSettingOne(getAsideHomepageId(request));
 		
+		untactLockerSetting.setHomepage_id(getAsideHomepageId(request));
 		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
 		
 		int count = reservationService.getUntactBookReservationListCount(untactBookReservation);
 		reservationService.setPaging(model, count, untactBookReservation);
 		
 		model.addAttribute("untactBookSetting", untactBookSetting);
+		model.addAttribute("untactLockerSetting", untactLockerSetting);
+		model.addAttribute("untactLockerSettingList", settingService.showLockerState(getAsideHomepageId(request)));
 		model.addAttribute("untactBookReservationListCount", count);
 		model.addAttribute("untactBookReservationList", reservationService.getUntactBookReservationListNow(untactBookReservation));
 		model.addAttribute("passwordCount", reservationService.checkPasswordCount(untactBookReservation));
 		model.addAttribute("nonPasswordCount", reservationService.checkNonPasswordCount(untactBookReservation));
 		
-		return basePath + "index";
+		if (StringUtils.isNotEmpty(settingService.getLockerUseType(getAsideHomepageId(request)))) {
+			if(!(settingService.getLockerUseType(getAsideHomepageId(request)).equals("사물함없음"))) {
+				return basePath + "index";
+			}
+		}
+		
+		
+		return basePath + "nonLockerIndex";
 	}
 	
 	@RequestMapping(value = { "/cancelSettingEdit.*" })
@@ -160,6 +173,9 @@ public class AdminModeController extends BaseController {
 	public @ResponseBody JsonResponse deleteAllReservation(UntactBookBlackList untactBookBlackList, UntactBookReservation untactBookReservation, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
 		
+		untactBookReservation.setCancel_id(getSessionMemberId(request));
+		untactBookReservation.setCancel_ip(request.getRemoteAddr());
+		
 		JsonResponse res = new JsonResponse(request);
 		
 		if (!result.hasErrors()) {
@@ -179,6 +195,11 @@ public class AdminModeController extends BaseController {
 		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
 		
 		JsonResponse res = new JsonResponse(request);
+		
+		if(reservationService.checkPasswordCount(untactBookReservation) == 0) {
+			reservationService.alertMessageOnly("nonPasswordCheck", request, response);
+			return null;
+		}
 		
 		if (reservationService.checkNonPasswordCount(untactBookReservation) == 0) {
 			reservationService.alertMessageOnly("passwordCheck", request, response);
@@ -221,7 +242,7 @@ public class AdminModeController extends BaseController {
 		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
 		
 		model.addAttribute("untactBookReservation", untactBookReservation);
-		model.addAttribute("untactBookReservationList", reservationService.getUntactBookReservationExcelList(untactBookReservation));
+		model.addAttribute("untactBookReservationList", reservationService.getUntactBookReservationExcelListNow(untactBookReservation));
 		
 		return new UntactBookReservationSearchView();
 	}

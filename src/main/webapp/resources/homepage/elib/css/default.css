@@ -319,7 +319,7 @@ span.txt-bar{padding:1px 0;background:#ccc;vertical-align:middle}
 #footer address em{font-style:normal;/* margin-right:10px; */}
 #footer address span{font-size:13px}
 #footer .copyright {color: #a0a0a0;text-align:center;padding:7px 0 0 0;font-size: 14px;}
-#footer .site_address {padding:20px 0 0 0;}
+#footer .site_address {padding:20px 0 0 0;float:left;width:100%;margin:-20px 0 10px;}
 
 
 span.icon.w01d {background:url('../img/01d.jpg') no-repeat 0 0;}

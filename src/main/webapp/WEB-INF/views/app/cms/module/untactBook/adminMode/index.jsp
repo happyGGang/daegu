@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -16,17 +16,17 @@
 <![endif]-->
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10"/>
 <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
-<link rel="stylesheet" type="text/css" href="https://www.gbelib.kr/resources/common/css/default.css"/>
-<link rel="stylesheet" type="text/css" href="https://www.gbelib.kr/resources/common/css/fontawesome.min.css"/>
-<link rel="stylesheet" type="text/css" href="https://www.gbelib.kr/resources/common/css/jquery-ui-1.12.0.min.css"/>
-<link rel="stylesheet" type="text/css" href="https://www.gbelib.kr/resources/common/css/select2.min.css"/>
-<link rel="stylesheet" type="text/css" href="https://www.gbelib.kr/resources/cms/survey/css/container.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/default.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/jquery-ui-1.12.0.min.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/select2.min.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/cms/survey/css/container.css"/>
 
-<script type="text/javascript" src="https://www.gbelib.kr/resources/common/js/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="https://www.gbelib.kr/resources/common/js/jquery-ui-1.12.0.min.js"></script>
-<script type="text/javascript" src="https://www.gbelib.kr/resources/common/js/jquery-ui-1.12.0-datepicker.min.js"></script>
-<script type="text/javascript" src="https://www.gbelib.kr/resources/common/js/common.js"></script>
-<script type="text/javascript" src="https://www.gbelib.kr/resources/cms/js/design.js"></script>
+<script type="text/javascript" src="/resources/common/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="/resources/common/js/jquery-ui-1.12.0.min.js"></script>
+<script type="text/javascript" src="/resources/common/js/jquery-ui-1.12.0-datepicker.min.js"></script>
+<script type="text/javascript" src="/resources/common/js/common.js"></script>
+<script type="text/javascript" src="/resources/cms/js/design.js"></script>
 
 <script type="text/javascript">
 $(function() {
@@ -77,13 +77,9 @@ function reservationStepChange(member_id, member_name, reservation_step, request
 					alert(reservation_step + ' 되었습니다.'); 
 					if(reservation_step == '비치') {
 						$this.hide();
-						$this.parent().children('a#loanBook').show();
-						$this.parent().parent().next().children('#reservationStep').text('비치');
-					} else if(reservation_step == '대출') {
-						$this.hide();
 						$this.parent().children('a#cancelBook').show();
-						$this.parent().parent().next().children('#reservationStep').text('대출');
-					}
+						$this.parent().parent().next().children('#reservationStep').text('비치');
+					} 
 				} else {
 					alert('사물함 비밀번호가 등록되어있지 않습니다. \n\n비밀번호 랜덤생성 버튼을 눌러주세요.');
 				}
@@ -247,7 +243,9 @@ function randomPassword(passwordCount, nonPasswordCount) {
 			type: "POST",
 			url: 'randomPassword.do',
 			success: function(html) {
-				if(html == 'passwordCheck') {
+				if(html == 'nonPasswordCheck') {
+					alert('비밀번호를 생성할수 없습니다. \n\n사물함 신청내역이 있을 시에 비밀번호 생성이 가능합니다.');
+				}else if(html == 'passwordCheck') {
 					alert(passwordCount + '개 모두 이미 비밀번호가 생성되었습니다.');
 				} else {
 				alert('전체 ' + passwordCount + '개 중 \n\n 비밀번호 생성이 안된' + nonPasswordCount + '개 비밀번호가 생성되었습니다.');
@@ -271,20 +269,28 @@ function randomPassword(passwordCount, nonPasswordCount) {
 <body>
 	<!--해당 화면만 대구 및 경북에 사용을 위해 스타일을 별도로 빼지 않음-->
 	<style>
-	/*비대변관련 스타일*/
+	/*비대면관련 스타일*/
 	.wrapper {overflow:hidden;}
 	.wrapper.wrapper-white {padding:0;margin:0;}
-	.locker-box {width:45%;float:left;box-sizing:border-box;max-height:920px;overflow-y:auto;}
-	.untact-box {width:55%;float:left;box-sizing:border-box;max-height:920px;overflow-y:auto;}
-	.locker-box ul {font-size:0;overflow:hidden;}
-	.locker-box li {float:left;display:inline-block;background:url('/resources/cms/img/locker-bg.png') no-repeat center center;background-size:100% 100%;height:230px;line-height:230px;padding:0;margin:0;border:1px solid #fff;box-sizing:border-box;text-align:center;}
-	.locker-box li p {display:block;box-sizing:border-box;padding:15% 0;margin:0;height:50%;font-size:18px;font-weight:800;color:#000;}
-	.locker-box li p:first-child {font-size:25px;}
-	.locker-box li.divide2 {width:50%;}
-	.locker-box li.divide3 {width:33.33333333333%;}
-	.locker-box li.divide4 {width:25%;}
-	.locker-box li.divide5 {width:20%;}
+
+	.untact-box {width:calc(55% - 20px);margin-left:20px;float:left;box-sizing:border-box;max-height:920px;overflow-y:auto;}
 	.untact-box tbody td {height:45px;line-height:45px;}
+
+	.locker-box-wrap{position:relative;float:left;width:calc(45% - 56px);background:#eee;padding:13px 7px 7px 13px;margin-left:30px;}
+
+	.locker-box {box-sizing:border-box;max-height:920px;overflow-y:auto;}
+	.locker-box ul {font-size:0;overflow:hidden;}
+	.locker-box li {position:relative;margin-right:6px !important;margin-bottom:6px !important;display:inline-block;background:#fff;height:145px;padding:0;margin:0;border:1px solid #ccc;box-sizing:border-box;border-radius:5px;}
+	.locker-box li p {display:block;box-sizing:border-box;text-align:center;}
+	.locker-box li p.locknumber {position:absolute;top:10px;left:10px;font-size:12px;color:#fff;font-weight:bold;background:#223c63;border-radius:50%;width:27px;height:27px;line-height:27px;}
+	.locker-box li p.name {font-size:15px;color:#333;text-align:center;margin-top:70px;}
+
+	.locker-box li.divide2 {width:calc(50% - 6px);}
+	.locker-box li.divide3 {width:calc(33.33333333333% - 6px);}
+	.locker-box li.divide4 {width:calc(25% - 6px);}
+	.locker-box li.divide5 {width:calc(20% - 6px);}
+	.locker-box li.notuse {background:#2e2e2e url('/resources/common/img/locker-no-bg.png') no-repeat center center;}
+
 	a.btnuntact {border-radius:0;padding:7px 10px;}
 
 	@media all and (max-width:1280px){
@@ -298,7 +304,9 @@ function randomPassword(passwordCount, nonPasswordCount) {
 	}
 
 	@media all and (max-width:768px){
-		.locker-box, .untact-box {width:100%;float:none;}
+		.locker-box{width:100%;float:none;}
+		.untact-box {width:95%;}
+		.locker-box-wrap{float:unset;width:calc(100% - 56px);margin-left:0;margin:0 auto;}
 	}
 
 	@media all and (max-width:600px){
@@ -315,111 +323,119 @@ function randomPassword(passwordCount, nonPasswordCount) {
 
 	}
 	</style>
-<div id="wrap">
-	<div id="container">
-		<form:form id="untactBookReservation" modelAttribute="untactBookReservation" method="POST" action="index.do">
-		<form:hidden id="homepage_id" path="homepage_id"/>
-		<div class="wrapper wrapper-white">
 
-			<div class="cont-box">
-				<div class="locker-box">
-					<ul>
-						<!-- 3 x n 으로 혹은 4 x n으로 갈떄 CLASS를 divide3 혹은 divide4 등으로 주면 됩니다. 즉 3xn하면 divide3, 4xn하면 divide4 -->
-						<c:forEach var="i" varStatus="status" begin="1" end="${untactBookSetting.total_count}">
-						<li class='divide${untactBookSetting.row_count}'>
-							<p class="locknumber">${status.index}</p>
-							<p class="name">
-								설현
-							</p>
-						</li>
-						</c:forEach>
-					</ul>
-				</div>
-				
-				<div class="untact-box">
-					<div class="ui-state-highlight">
-						<em>* 패널티 부여는 비대면 블랙리스트관리에서 확인 하실수 있습니다.</em>
-					</div>
-					<div style="text-align:right;padding-top:10px;padding-bottom:10px;">
-						<a href="javascript:void(0);" class="btn btn1 btnuntact" onclick="randomPassword('${passwordCount}', '${nonPasswordCount}');">비밀번호랜덤생성</a>
-					</div>
-					<div class="table-wrap">
-						<table class="type1 center">
-							<thead>
-								<tr>
-									<th scope="col">선택</th>
-									<th scope="col">신청자아이디</th>
-									<th scope="col">신청자명</th>
-									<th scope="col">도서명</th>
-									<th scope="col">사물함번호</th>
-									<th scope="col">비밀번호</th>
-									<th scope="col">관리</th>
-									<th scope="col">상태</th>
-								</tr>
-							</thead>
-							<tbody>
-							<c:if test="${fn:length(untactBookReservationList) < 1}">
-								<tr style="height:100%">
-									<td colspan="10" style="background:#f8fafb;">비대면 사물함 신청내역이 없습니다.</td>
-								</tr>
-							</c:if>
-							<c:forEach var="i" varStatus="status" items="${untactBookReservationList}">
-								<tr>
-									<td><form:checkbox path="request_number_arr" cssClass="request_idx" value="${i.request_number}"/></td>
-									<td>${i.member_id}</td>
-									<td>${i.member_name}</td>
-									<td>${i.book_name}</td>
-									<td>${i.locker_number}</td>
-									<td>
+	<div id="wrap">
+		<div id="container">
+			<form:form id="untactBookReservation" modelAttribute="untactBookReservation" method="POST" action="index.do">
+			<form:hidden id="homepage_id" path="homepage_id"/>
+			<div class="wrapper wrapper-white">
+
+				<div class="cont-box">
+					<div class="locker-box-wrap">
+						<div class="locker-box">
+							<ul>
+								<!-- 3 x n 으로 혹은 4 x n으로 갈떄 CLASS를 divide3 혹은 divide4 등으로 주면 됩니다. 즉 3xn하면 divide3, 4xn하면 divide4 -->
+								<c:forEach var="i" varStatus="status" items="${untactLockerSettingList}">
+								<li class="divide${untactBookSetting.row_count} <c:if test="${i.locker_type eq '사용안함'}">notuse</c:if>">
+									<p class="locknumber">${i.locker_number}</p>
+									<p class="name">
 										<c:choose>
-											<c:when test="${i.locker_password eq 0}">
-											미등록
-											</c:when>
-											<c:otherwise>
-											${i.locker_password}	
-											</c:otherwise>
+										<c:when test="${i.locker_type eq '사용안함'}">&nbsp;</c:when>
+										<c:otherwise>${i.locker_type}</c:otherwise>
 										</c:choose>
-									</td>
-									<td>
-									<div class="button">
-										<a href="javascript:void(0);" id="setBook" class="btn btn1 btnuntact" onclick="reservationStepChange('${i.member_id}', '${i.member_name}', '비치', '${i.request_number}', $(this));" ${i.reservation_step eq '접수'?'':' style="display:none;"'}>비치</a>
-										<a href="javascript:void(0);" id="loanBook" class="btn btn2 btnuntact" onclick="reservationStepChange('${i.member_id}', '${i.member_name}', '대출', '${i.request_number}', $(this));" ${i.reservation_step eq '비치'?'':' style="display:none;"'}>대출</a>
-										<a href="javascript:void(0);" id="cancelBook" class="btn btnuntact" onclick="cancelSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');" ${i.reservation_step eq '대출'?'':' style="display:none;"'}>취소</a>
-										<a href="javascript:void(0);" id="penaltyBook" class="btn btn5 btnuntact" onclick="blackListSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');">패널티부여</a>
-									</div>
-									</td>
-									<td>
-										<span id="reservationStep">${i.reservation_step}</span>
-									</td>
-								</tr>
-							</c:forEach>
-							</tbody>
-						</table>
+									</p>
+								</li>
+								</c:forEach>
+							</ul>
+						</div>
 					</div>
 					
-					<div style="padding-top:10px;">
-						<a href="#" class="btn btn3 btnuntact" id="all-check" keyValue="N">전체선택</a>
-						<a href="#" id="deleteAll" class="btn btn4 btnuntact" onclick="allChange();">전체삭제</a>
-						<a href="#" id="excelDownload" class="btn btn2 btnuntact">엑셀저장</a>
-					</div>
+					<!--좌측-->
+					<div class="untact-box">
+						<div style="text-align:right;padding-top:10px;padding-bottom:10px;">
+							<a href="javascript:void(0);" class="btn btn1 btnuntact" onclick="randomPassword('${passwordCount}', '${nonPasswordCount}');">비밀번호랜덤생성</a>
+						</div>
+						<div class="table-wrap">
+							<table class="type1 center">
+								<thead>
+									<tr>
+										<th scope="col">선택</th>
+										<th scope="col">신청자아이디</th>
+										<th scope="col">신청자명</th>
+										<th scope="col">도서명</th>
+										<th scope="col">사물함번호</th>
+										<th scope="col">비밀번호</th>
+										<th scope="col">관리</th>
+										<th scope="col">상태</th>
+									</tr>
+								</thead>
+								<tbody>
+								<c:if test="${fn:length(untactBookReservationList) < 1}">
+									<tr style="height:100%">
+										<td colspan="10" style="background:#f8fafb;">비대면 사물함 신청내역이 없습니다.</td>
+									</tr>
+								</c:if>
+								<c:forEach var="i" varStatus="status" items="${untactBookReservationList}">
+									<tr>
+										<td><form:checkbox path="request_number_arr" cssClass="request_idx" value="${i.request_number}"/></td>
+										<td>${i.member_id}</td>
+										<td>${i.member_name}</td>
+										<td>${i.book_name}</td>
+										<td>${i.locker_number}</td>
+										<td>
+											<c:choose>
+												<c:when test="${i.locker_password eq 0}">
+												미등록
+												</c:when>
+												<c:otherwise>
+												${i.locker_password}	
+												</c:otherwise>
+											</c:choose>
+										</td>
+										<td>
+										<div class="button">
+											<a href="javascript:void(0);" id="setBook" class="btn btn1 btnuntact" onclick="reservationStepChange('${i.member_id}', '${i.member_name}', '비치', '${i.request_number}', $(this));" ${i.reservation_step eq '접수'?'':' style="display:none;"'}>비치</a>
+											<a href="javascript:void(0);" id="cancelBook" class="btn btnuntact" onclick="cancelSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');" ${i.reservation_step eq '비치'?'':' style="display:none;"'}>취소</a>
+											<a href="javascript:void(0);" id="penaltyBook" class="btn btn5 btnuntact" onclick="blackListSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');">패널티부여</a>
+										</div>
+										</td>
+										<td>
+											<span id="reservationStep">${i.reservation_step}</span>
+										</td>
+									</tr>
+								</c:forEach>
+								</tbody>
+							</table>
+						</div>
+						
+						<div style="padding-top:10px;">
+							<a href="#" class="btn btn3 btnuntact" id="all-check" keyValue="N">전체선택</a>
+							<a href="#" id="deleteAll" class="btn btn4 btnuntact" onclick="allChange();">전체삭제</a>
+							<a href="#" id="excelDownload" class="btn btn2 btnuntact">엑셀저장</a>
+						</div>
 
-					<div class="search txt-center" style="margin-top:25px;">
-						<fieldset>
-							<form:select path="search_type" cssClass="selectmenu">
-								<form:option value="member_id">신청자아이디</form:option>
-								<form:option value="reg_no">대출번호</form:option>
-								<form:option value="member_name">신청자명</form:option>
-								<form:option value="book_name">도서명</form:option>
-							</form:select>
-							<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
-							<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
-						</fieldset>
+						<div class="search txt-center" style="margin-top:25px;">
+							<fieldset>
+								<form:select path="search_type" cssClass="selectmenu">
+									<form:option value="member_id">신청자아이디</form:option>
+									<form:option value="reg_no">대출번호</form:option>
+									<form:option value="member_name">신청자명</form:option>
+									<form:option value="book_name">도서명</form:option>
+								</form:select>
+								<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
+								<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
+							</fieldset>
+						</div>
+						
+						<div class="ui-state-highlight">
+							<em>* 패널티 부여는 비대면 블랙리스트관리에서 확인 하실수 있습니다.</em>
+						</div>
+						
 					</div>
-					
+					<!--좌측-->
 				</div>
-			</div>
-		</form:form>
+			</form:form>
+		</div>
 	</div>
-</div>
 </body>
 </html>	

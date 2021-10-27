@@ -1110,39 +1110,46 @@
 													<p><font style="color:#5e5e5e">소장도서관</font> : <span style="color:#ff0000;font-weight:bold">${i.LIB_NAME}</span> / <font style="color:#5e5e5e">소장위치</font> : <span style="font-weight:800;">${i.SHELF_LOC_NAME}</span></p>
 													<p><font style="color:#5e5e5e">청구기호</font> : ${i.CALL_NO}</p>
 													<p><font style="color:#5e5e5e">대출가능여부</font> :
-														<!-- 대출가능 여부 [START] -->
+													<!-- 대출가능 여부 [START] -->
 													<c:choose>
-														<c:when test="${i.LOAN_CODE eq 'OK'}">
-															대출가능
+														<c:when test="${i.manage_code eq 'HM' || i.manage_code eq 'HQ'}">
+															<span style="color:#ff0000">대출불가(임시휴관)</span>
 														</c:when>
 														<c:otherwise>
 															<c:choose>
-																<c:when test="${i.WORKING_STATUS == 'BOL211O'}">
-																	<span style="color:#ff0000">대출불가(관외대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
-																</c:when>
-																<c:when test="${i.WORKING_STATUS == 'BOL212O'}">
-																	<span style="color:#ff0000">대출불가(관내대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
-																</c:when>
-																<c:when test="${i.WORKING_STATUS == 'BOL511O'}">
-																	<span style="color:#ff0000">대출불가(타관반납중)(예약 : ${i.RESERVATION_CNT}명)</span>
-																</c:when>
-																<c:when test="${i.WORKING_STATUS == 'BOL611O'}">
-																	<span style="color:#ff0000">대출불가(타관대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
+																<c:when test="${i.LOAN_CODE eq 'OK'}">
+																	대출가능
 																</c:when>
 																<c:otherwise>
 																	<c:choose>
-																		<c:when test="${i.RESERVATION_CNT > 0}">
-																			<span style="color:#ff0000">대출불가(예약대출 대기중)</span>
+																		<c:when test="${i.WORKING_STATUS == 'BOL211O'}">
+																			<span style="color:#ff0000">대출불가(관외대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
+																		</c:when>
+																		<c:when test="${i.WORKING_STATUS == 'BOL212O'}">
+																			<span style="color:#ff0000">대출불가(관내대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
+																		</c:when>
+																		<c:when test="${i.WORKING_STATUS == 'BOL511O'}">
+																			<span style="color:#ff0000">대출불가(타관반납중)(예약 : ${i.RESERVATION_CNT}명)</span>
+																		</c:when>
+																		<c:when test="${i.WORKING_STATUS == 'BOL611O'}">
+																			<span style="color:#ff0000">대출불가(타관대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
 																		</c:when>
 																		<c:otherwise>
-																			<span style="color:#ff0000">대출불가</span>
+																			<c:choose>
+																				<c:when test="${i.RESERVATION_CNT > 0}">
+																					<span style="color:#ff0000">대출불가(예약대출 대기중)(예약 : ${i.RESERVATION_CNT}명)</span>
+																				</c:when>
+																				<c:otherwise>
+																					<span style="color:#ff0000">대출불가</span>
+																				</c:otherwise>
+																			</c:choose>
 																		</c:otherwise>
 																	</c:choose>
 																</c:otherwise>
 															</c:choose>
 														</c:otherwise>
 													</c:choose>
-														<!-- 대출가능 여부 [ END ] -->
+													<!-- 대출가능 여부 [ END ] -->
 													</p>
 													<!--
                                                     JU : 아동, MS : 중학생, AD : 성인, PU : 일반, ES : 초등, HS : 고등, SP : 특수, TE : 청소년, 기타 :
@@ -1216,42 +1223,49 @@
 													<td>
 														<!-- 대출가능 여부 [START] -->
 														<c:choose>
-															<c:when test="${i.WORKING_STATUS == 'BOL112N'}">
-																<c:choose>
-																	<c:when test="${i.RESERVATION_CNT > '0'}">
-																		<span style="color:#ff0000">대출불가(예약도서)</span>
-																	</c:when>
-																	<c:otherwise>
-																		<c:choose>
-																			<c:when test="${i.USE_LIMIT_CODE eq 'CD'}">
-																				대출불가(열람제한도서)
-																			</c:when>
-																			<c:when test="${i.USE_LIMIT_CODE eq 'IZ'}">
-																				귀중자료(관내열람만가능)
-																			</c:when>
-																			<c:otherwise>
-																				대출가능
-																			</c:otherwise>
-																		</c:choose>
-																	</c:otherwise>
-																</c:choose>
+															<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ'}">
+																<span style="color:#ff0000">대출불가(임시휴관)</span>
 															</c:when>
 															<c:otherwise>
 																<c:choose>
-																	<c:when test="${i.WORKING_STATUS == 'BOL211O'}">
-																		<span style="color:#ff0000">대출불가(관외대출중)</span><br/>(예약 : ${i.RESERVATION_CNT}명)
-																	</c:when>
-																	<c:when test="${i.WORKING_STATUS == 'BOL212O'}">
-																		<span style="color:#ff0000">대출불가(관내대출중)</span><br/>(예약 : ${i.RESERVATION_CNT}명)
-																	</c:when>
-																	<c:when test="${i.WORKING_STATUS == 'BOL511O'}">
-																		<span style="color:#ff0000">대출불가(타관반납중)</span><br/>(예약 : ${i.RESERVATION_CNT}명)
-																	</c:when>
-																	<c:when test="${i.WORKING_STATUS == 'BOL611O'}">
-																		<span style="color:#ff0000">대출불가(타관대출중)</span><br/>(예약 : ${i.RESERVATION_CNT}명)
+																	<c:when test="${i.WORKING_STATUS == 'BOL112N'}">
+																		<c:choose>
+																			<c:when test="${i.RESERVATION_CNT > '0'}">
+																				<span style="color:#ff0000">대출불가(예약도서)</span>
+																			</c:when>
+																			<c:otherwise>
+																				<c:choose>
+																					<c:when test="${i.USE_LIMIT_CODE eq 'CD'}">
+																						대출불가(열람제한도서)
+																					</c:when>
+																					<c:when test="${i.USE_LIMIT_CODE eq 'IZ'}">
+																						귀중자료(관내열람만가능)
+																					</c:when>
+																					<c:otherwise>
+																						대출가능
+																					</c:otherwise>
+																				</c:choose>
+																			</c:otherwise>
+																		</c:choose>
 																	</c:when>
 																	<c:otherwise>
-																		<span style="color:#ff0000">대출불가</span><br/>(예약 : ${i.RESERVATION_CNT}명)
+																		<c:choose>
+																			<c:when test="${i.WORKING_STATUS == 'BOL211O'}">
+																				<span style="color:#ff0000">대출불가(관외대출중)</span><br/>(예약 : ${i.RESERVATION_CNT}명)
+																			</c:when>
+																			<c:when test="${i.WORKING_STATUS == 'BOL212O'}">
+																				<span style="color:#ff0000">대출불가(관내대출중)</span><br/>(예약 : ${i.RESERVATION_CNT}명)
+																			</c:when>
+																			<c:when test="${i.WORKING_STATUS == 'BOL511O'}">
+																				<span style="color:#ff0000">대출불가(타관반납중)</span><br/>(예약 : ${i.RESERVATION_CNT}명)
+																			</c:when>
+																			<c:when test="${i.WORKING_STATUS == 'BOL611O'}">
+																				<span style="color:#ff0000">대출불가(타관대출중)</span><br/>(예약 : ${i.RESERVATION_CNT}명)
+																			</c:when>
+																			<c:otherwise>
+																				<span style="color:#ff0000">대출불가</span><br/>(예약 : ${i.RESERVATION_CNT}명)
+																			</c:otherwise>
+																		</c:choose>
 																	</c:otherwise>
 																</c:choose>
 															</c:otherwise>

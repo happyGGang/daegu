@@ -38,7 +38,7 @@ function blackListSettingSave() {
 					<form:select path="penalty_reason">
 						<form:option value="도서미수령" label="도서 미수령"/>
 						<form:option value="신청중지" label="신청중지"/>
-						<form:option value="분실및파손"label="분실 및 파손"/>
+						<form:option value="분실및파손" label="분실 및 파손"/>
 						<form:option value="기타1" label="기타1"/>
 						<form:option value="기타2" label="기타2"/>
 						<form:option value="기타3" label="기타3"/>

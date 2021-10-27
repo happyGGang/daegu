@@ -52,10 +52,6 @@ $(function() {
 				<th>신청일</th>
 				<td class="left"><form:hidden path="request_date" value="${now_date}"/>${now_date}</td>
 			</tr>
-<!-- 			<tr> -->
-<!-- 				<th>대출일</th> -->
-<!-- 				<td class="left"></td> -->
-<!-- 			</tr> -->
 			 <tr>
 				<th>도서명</th>
 				<td class="left"><form:hidden path="book_name" value="${detail.TITLE_INFO}"/>${detail.TITLE_INFO}</td>

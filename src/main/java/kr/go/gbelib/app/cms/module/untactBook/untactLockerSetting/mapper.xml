@@ -12,6 +12,15 @@
 		ORDER BY
 			locker_number
 	</select>
+	
+	<select id="showLockerState" resultType="kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSetting">
+		SELECT
+			locker_number, locker_type
+		FROM
+			UNTACT_BOOK_LOCKER_SETTING
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
 
 	<select id="getMaxUntactLocker" resultType="int">
 		SELECT
@@ -79,7 +88,8 @@
 			SUBSTR(loan_time,0,2) AS start_hour,
 			SUBSTR(loan_time,4,2) AS start_minute,
 			SUBSTR(loan_time,7,2) AS end_hour, 
-			SUBSTR(loan_time,10,2) AS end_minute
+			SUBSTR(loan_time,10,2) AS end_minute,
+			locker_use_type
 		FROM
 			UNTACT_BOOK_SETTING
 		WHERE
@@ -98,12 +108,13 @@
 					a.row_count = #{row_count},
 					a.total_count = #{total_count},
 					a.reservation_max_count = #{reservation_max_count},
-					a.loan_time = #{start_hour}||':'||#{start_minute}||'~'||#{end_hour}||':'||#{end_minute}
+					a.loan_time = #{start_hour}||':'||#{start_minute}||'~'||#{end_hour}||':'||#{end_minute},
+					a.locker_use_type = #{locker_use_type}
 			WHEN NOT MATCHED THEN
 				INSERT (
-					homepage_id, locker_use_yn, row_count, total_count, reservation_max_count, loan_time
+					homepage_id, locker_use_yn, row_count, total_count, reservation_max_count, loan_time, locker_use_type
 				) VALUES (
-					#{homepage_id}, #{locker_use_yn}, #{row_count}, #{total_count}, #{reservation_max_count}, #{start_hour}||':'||#{start_minute}||'~'||#{end_hour}||':'||#{end_minute}
+					#{homepage_id}, #{locker_use_yn}, #{row_count}, #{total_count}, #{reservation_max_count}, #{start_hour}||':'||#{start_minute}||'~'||#{end_hour}||':'||#{end_minute}, #{locker_use_type}
 				)
 	</update>
 	
@@ -130,6 +141,33 @@
 	<select id="getLoanTime" resultType="String">
 		SELECT
 			loan_time
+		FROM
+			UNTACT_BOOK_SETTING
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+	
+	<select id="getLockerUseType" resultType="String">
+		SELECT
+			locker_use_type
+		FROM
+			UNTACT_BOOK_SETTING
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+	
+	<select id="getLockerMaxCount" resultType="int">
+		SELECT
+			NVL(MAX(total_count),0)
+		FROM
+			UNTACT_BOOK_SETTING
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+	
+	<select id="getLockerUseYN" resultType="String">
+		SELECT
+			locker_use_yn
 		FROM
 			UNTACT_BOOK_SETTING
 		WHERE

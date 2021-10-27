@@ -108,4 +108,8 @@ public class UntactBookReservationService extends BaseService {
 		return dao.getUntactBookReservationInfoCount(untactBookReservation);
 	}
 
+	public List<UntactBookReservation> getUntactBookReservationExcelListNow(UntactBookReservation untactBookReservation) {
+		return dao.getUntactBookReservationExcelListNow(untactBookReservation);
+	}
+
 }

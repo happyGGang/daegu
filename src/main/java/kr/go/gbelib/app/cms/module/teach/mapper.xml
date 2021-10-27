@@ -1831,7 +1831,8 @@
 			NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='1' AND	APPLY_TYPE != 'CMS' GROUP BY teach_idx), 0) AS TEACH_JOIN_COUNT,
 			NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='2' GROUP BY teach_idx), 0) AS TEACH_BACKUP_JOIN_COUNT,
 			NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='1' AND	APPLY_TYPE = 'CMS' GROUP BY teach_idx), 0) AS TEACH_OFF_JOIN_COUNT,
-			a.start_date, a.end_date, a.start_time, a.end_time, a.teach_desc, b.teacher_name, a.teach_idx, a.group_idx, 
+			a.start_date, a.end_date, a.start_time, a.end_time, a.teach_desc, b.teacher_name, a.teach_idx, a.group_idx,
+			teach_limit_count, teach_offline_count, teach_backup_count, 
 			(SELECT homepage_name FROM CMS_HOMEPAGE WHERE homepage_id = a.HOMEPAGE_ID) AS homepage_name,
 			(
 				SELECT WM_CONCAT(CASE 

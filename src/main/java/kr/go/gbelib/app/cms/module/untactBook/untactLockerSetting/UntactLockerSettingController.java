@@ -95,7 +95,9 @@ public class UntactLockerSettingController extends BaseController {
 
 		ValidationUtils.rejectIfEmpty(result, "locker_use_yn", "사물함 사용여부를 선택하세요.");
 		ValidationUtils.rejectIfEmpty(result, "row_count", "사물함 한줄당 갯수를 입력하세요.");
-		ValidationUtils.rejectIfEmpty(result, "total_count", "총 사물함 갯수를 입력하세요.");
+		ValidationUtils.rejectIfZero(result, "total_count", "총 사물함 갯수를 입력하세요.");
+		ValidationUtils.rejectIfZero(result, "reservation_max_count", "하루최대 대출가능 권수를 입력하세요.");
+		ValidationUtils.rejectIfEmpty(result, "locker_use_type", "사물함 타입을 설정해주세요.");
 
 		if (!result.hasErrors()) {
 			service.mergeUntactBookSetting(untactBookSetting);
